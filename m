@@ -1,56 +1,56 @@
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A1404E77EF
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:14:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E2F9493632
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:14:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790187288; cv=none; b=qL+5RmcvICYUKzhPO3G0qXc3++QW2ZU+pWgGrm+nRlmJ3w6RLw3QvKV5U4TO8v5svJeNp4vDaDM78urvyz9XNvrVOxP7QbnCEmRwJsoGaieH1EeogaFsOZNtxipBMzsplAja/UdXZb7Hnkv9AhUs0mXulEfs6+G24Wc1gGA9Gb8=
+	t=1790187295; cv=none; b=qpy3TQw3IPIbkEmQUAal91zAaV7i7BFQJu5V+jxyxy129Wk/JLYDO07KekDgAP5KTB2HAMT4CrwsUTd5n2XkBQaPixU3sc/LLc4tDskKunNZT8UlNN0MYG/cAOvwuDx9TWPp6XVQG/OJy5Lz+Ypp8c6VKYwB5E5YkSIphpXGPAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790187288; c=relaxed/simple;
-	bh=8XIaRrxZy/o7eJC6ehfY2haOlAh2xXoszY8sZR5v/zY=;
+	s=arc-20240116; t=1790187295; c=relaxed/simple;
+	bh=6KiRwxeldBg3pN97dOQ/p45zjZBaPMvSr6fDst2/LYc=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=lAPTkgrqfNTTuWz17sL/+CPsXKZbRibtj+JytcACSGvdClugK+I9zJNgA/GWd5FAGAZhExDeQbhcnla/5qy1eDjNIpMCy1zD/C+papbccNQ2cLF72zTjkNjQX/creppj63C2ZOeQ1nckLmn4hSbYmuQSV5L/yzBkIoxVI6ryhjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=psRmKrGk; arc=none smtp.client-ip=74.125.82.71
+	 To:Cc:Content-Type; b=pDXXp4caUNsXOp3oOCdF1yHor3HOB5KYxKSyFi1WVd5JM+2OQWquZXFjieI6Eq/W7X8z81j+39AZd+B4q8/NMkeAB9LS8JKGEjx8sUeX9ENVHm336xdo4R915YBQAzwWMe4OLhkUEY5Oq+e7jAxg2XJCMMWy+/8friSX1Mk2MsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DDb/jzIp; arc=none smtp.client-ip=74.125.82.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="psRmKrGk"
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-14383177746so2651368c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:14:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DDb/jzIp"
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-334f782d1abso4281550eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:14:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790187277; x=1790792077; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790187285; x=1790792085; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1ERAE4xDHfx1Qx4kvlPl8ZVdiATuUJKf6O+/6VV1f7E=;
-        b=psRmKrGkyQwa0MfrTqPMWgW2UD0WJVXbDFi2IWuQV/eg6vC0d09EF0rRxd1bbA4UHs
-         5FEj5CMIhEOuNqe347e+lshNs4mANKUueRJ5D+/ggg8dyCzsHTdwO3+pM3SnEdBaSTN5
-         I38S98YZzk1PraV9rKP0WseprV45s7H/LSHLk5GhvXw7CF35fWgAza15u/YeNpJASjN3
-         UtVcD63Tuh9CgE8CjKxHzlhhuLvfwNDyCpyXSrTrNU3s6yqimtTiUbwhnWQ3hLxXlFN1
-         sdsrFkPkcGBdggbicLmVWwj8t/QqTtkLA7E81gJ8m2+tpPUgSRr/CcSX2jstSS8PrHrZ
-         ABBQ==
+        bh=f0csr5Xud+K9k0NYDdUyNp05Yie4ZzPHrle8hGdf2ks=;
+        b=DDb/jzIpwdofDepdIzY8GLvypJUK6jKCvz48xvN2zsXp/zlpNpHCqE714IzvOzSKRy
+         USqXnXMXnkF7wephJqQyhb+2ZX1BlV7D+iqEshKutvFGD4+XYNPPcsrQWR2TTZkejBXB
+         vuu878qmoVuBfXWtcFIOR7qFiM+qpaq79YxwmzaUCqs+C6cEqw7qZM1N74Zf9islyrEw
+         JKiB9s4RvfcyEk8V+dDVA9GUNoa3KxTl6ldMkYh2dykvTQT8sld8qctSRY6zzVBiBERX
+         pKSIZ9tYh0yFO96rf3JsjspZncUSqQQq/dfqHTzz2k+IZHhKxme/3eVgPE4qp0ro/lRr
+         t1Qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790187277; x=1790792077;
+        d=1e100.net; s=20260707; t=1790187285; x=1790792085;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1ERAE4xDHfx1Qx4kvlPl8ZVdiATuUJKf6O+/6VV1f7E=;
-        b=rOh0Cm6ppqInvRHE42iiHDWq8+h0tq1SYpoM0YtS2NsRu/zty+QtOSX7410Nntftt1
-         Ww8yMttzs4JyitQKGTdNYFJb8XiwbykEK0t9m9SkqzNg/AdY7pSqULh7neRF7wL/vTvn
-         ffqd2XNQx/qh6Lw+h8rZ2PDa7jA40aihWvYWkf4uDxsXSVuIK9rPt5lCoNbYwCscTACn
-         3OXw1svdYuLHN0FOTlmZAB3qqL+xgjB9wfZlLHWadZqagXHqn/bqd7MPycO7Y/OlgKwC
-         dOr+iQLteN3VUxlR2WJl5zii1Q9eNR7GvON5PqpqQJgcx07NZq0piZEUJ2VihUbGULSJ
-         i83A==
-X-Forwarded-Encrypted: i=1; AKwUvBzRx/sBVbAWGQWggsGBVHIfhFQWRsOJYtIpqEmy6KvHFSNj1F8OZVms7Mfk2kZQ341UbHfKSmG55aWhlIM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nD//9syy/3dMiGTs0f9DfuPVUvl15p7FpfiHE3qtfW3GytriHV
-	L48VK0gT+T9kz/VuJ1Q6T7/5EztxIsWS6EZKHJDr0hOvFlBoJi2ucqUDjsnJxXp5yt0CQIu2DIW
-	4+zxme6Hbug==
-X-Received: from dlec1-n1.prod.google.com ([2002:a05:701b:4281:10b0:143:83fd:ad8a])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4244:10b0:144:c112:5f24
- with SMTP id a92af1059eb24-144f91794e8mr3544226c88.25.1790187276718; Wed, 23
- Sep 2026 11:14:36 -0700 (PDT)
-Date: Wed, 23 Sep 2026 11:11:56 -0700
+        bh=f0csr5Xud+K9k0NYDdUyNp05Yie4ZzPHrle8hGdf2ks=;
+        b=K7eQ41mzErpGgx7SeBlnHLjfUdvCGtPWF9LserqzVs5Bx7mic0aHU8gDgujAFMSZXC
+         jsMlxG1sDhGRenE3O9McphA5VFaK+KxPIfFkI16tMyqXh/boIH0b2B7+hiUBsj+IDPiv
+         yRSkOXMxqYRrOvRaw5EykAIyfqSz9ngNDqm5NH5q3ywdPAEJ2rAG9Ld8pR92DKiYs+Mx
+         K68TI7ZBCxgN97iaeLe7j2qZiNDz4L2R70ANKU9lxyjjx6E283Pw4F82vTVVz9zIJVcl
+         kX8VmVNNTfJp2rbBaXu+NPEWkMFEy52FTLio5RnVgpzZxm221LnKmlFE2kRNpYl6ka2x
+         P9LA==
+X-Forwarded-Encrypted: i=1; AKwUvBzyIUP7+XkTXCSeXYLQr+7poVF/eB8LEcCvJtW0C5ZhIJE3Z94kl/LnsH2wDuwb0FbtvlRv7NJcnpwYaKE=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+wBsbci5qVzJYr6W+cZ9Nag8r4YMVsrL5AfmFjRz2OzD5WzmT
+	q7vGrLXGelUzdOz1oSqkGtLOhuEFmQP4dzeCaruw+kJ3x7dQlSxeU7ocFlTpRXzoE9+fOtG/n2R
+	TdkbHr65R1w==
+X-Received: from dlbqq10.prod.google.com ([2002:a05:7022:ed0a:b0:143:7c9b:184f])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:7e02:b0:143:6080:668f
+ with SMTP id a92af1059eb24-144f909d165mr3804337c88.7.1790187284738; Wed, 23
+ Sep 2026 11:14:44 -0700 (PDT)
+Date: Wed, 23 Sep 2026 11:11:58 -0700
 In-Reply-To: <20260923181213.3032038-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <cover.1789966896.git.irogers@google.com> <20260923181213.3032038-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
-Message-ID: <20260923181213.3032038-34-irogers@google.com>
-Subject: [PATCH v3 33/49] perf python: Port wakeup-latency from Perl to perf module
+Message-ID: <20260923181213.3032038-36-irogers@google.com>
+Subject: [PATCH v3 35/49] perf python: Port net_dropmonitor to perf module
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, alice.mei.rogers@gmail.com, 
 	namhyung@kernel.org
@@ -71,151 +71,217 @@ Cc: adrian.hunter@intel.com, dapeng1.mi@linux.intel.com,
 	tmricht@linux.ibm.com
 Content-Type: text/plain; charset="UTF-8"
 
-Replace the legacy Perl script wakeup-latency.pl with a standalone
-Python script in tools/perf/python/wakeup-latency.py using the perf
-Python module.
+Port net_dropmonitor.py from tools/perf/scripts/python/ to a standalone
+script in tools/perf/python/:
+- Refactor the script into a DropMonitor class with full type
+  annotations to encapsulate state.
+- Use perf.session for skb:kfree_skb event processing and add argparse
+  CLI support (-i/--input and -k/--kallsyms).
+- Resolve kernel drop addresses via perf.session symbols/callchains and
+  binary search over /proc/kallsyms, ignoring zeroed kptr_restrict
+  addresses with graceful fallback when kallsyms is unavailable.
+- Remove Python 2 compatibility code.
 
-Improvements compared to the legacy Perl script:
-- Remove the dependency on libperl and Perf::Trace::Util.
-- Track wakeup timestamps per-task (keyed by the wakee PID on
-  sched:sched_wakeup and matched against next_pid on sched:sched_switch)
-  rather than per-CPU, avoiding mixed latencies when multiple wakeups
-  occur on a CPU before a context switch.
-- Guard print_totals() when total_wakeups == 0 (printing 'N/A' instead
-  of dividing by zero when a trace contains no matched wakeup/switch
-  pairs).
-- Add argparse CLI options (-i/--input) and full type annotations.
-
-Add a shell test
-(test_wakeup_latency_python.sh) to verify the standalone script.
+Add a shell test (test_net_dropmonitor_python.sh) to verify the
+standalone script.
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/python/wakeup-latency.py           | 103 ++++++++++++++++++
- .../tests/shell/test_wakeup_latency_python.sh |  82 ++++++++++++++
- 2 files changed, 185 insertions(+)
- create mode 100755 tools/perf/python/wakeup-latency.py
- create mode 100755 tools/perf/tests/shell/test_wakeup_latency_python.sh
+ tools/perf/python/net_dropmonitor.py          | 173 ++++++++++++++++++
+ .../shell/test_net_dropmonitor_python.sh      | 102 +++++++++++
+ 2 files changed, 275 insertions(+)
+ create mode 100755 tools/perf/python/net_dropmonitor.py
+ create mode 100755 tools/perf/tests/shell/test_net_dropmonitor_python.sh
 
-diff --git a/tools/perf/python/wakeup-latency.py b/tools/perf/python/wakeup-latency.py
+diff --git a/tools/perf/python/net_dropmonitor.py b/tools/perf/python/net_dropmonitor.py
 new file mode 100755
-index 000000000000..f77045d02734
+index 000000000000..fff637b5c7e9
 --- /dev/null
-+++ b/tools/perf/python/wakeup-latency.py
-@@ -0,0 +1,103 @@
++++ b/tools/perf/python/net_dropmonitor.py
+@@ -0,0 +1,173 @@
 +#!/usr/bin/env python3
-+# SPDX-License-Identifier: GPL-2.0-only
-+"""Display avg/min/max wakeup latency."""
++# SPDX-License-Identifier: GPL-2.0
++"""
++Monitor the system for dropped packets and produce a report of drop locations and counts.
++Ported from tools/perf/scripts/python/net_dropmonitor.py
++"""
 +from __future__ import annotations
 +
 +import argparse
 +from collections import defaultdict
++import os
 +import sys
-+from typing import Optional, Dict
++from typing import Tuple
 +import perf
 +
-+class WakeupLatency:
-+    """Tracks and displays wakeup latency statistics."""
-+    def __init__(self) -> None:
-+        self.last_wakeup: Dict[int, int] = defaultdict(int)
-+        self.max_wakeup_latency: int = 0
-+        self.min_wakeup_latency: Optional[int] = None
-+        self.total_wakeup_latency = 0
-+        self.total_wakeups = 0
-+        self.unhandled: Dict[str, int] = defaultdict(int)
-+        self.session: Optional[perf.session] = None
++
++class DropMonitor:
++    """Monitors dropped packets and aggregates counts by location."""
++
++    def __init__(self, kallsyms_path: str | None = None) -> None:
++        self.drop_log: dict[int, int] = defaultdict(int)
++        self.kallsyms: list[Tuple[int, str]] = []
++        self.kallsyms_parsed = False
++        self.resolved_syms: dict[int, Tuple[str, int]] = {}
++        self.callchain_syms: dict[int, str] = {}
++        self.kallsyms_path = (
++            kallsyms_path
++            or os.environ.get("PERF_SYMBOL_KALLSYMS")
++            or "/proc/kallsyms"
++        )
++
++    def _parse_kallsyms(self) -> None:
++        """Parse the kallsyms file and map kernel addresses to function symbols."""
++        self.kallsyms.clear()
++        self.kallsyms_parsed = True
++        try:
++            with open(self.kallsyms_path, "r", encoding="utf-8") as f:
++                for line in f:
++                    parts = line.split()
++                    if len(parts) >= 3 and parts[1] in ('t', 'T', 'w', 'W'):
++                        addr = int(parts[0], 16)
++                        if addr > 0:
++                            self.kallsyms.append((addr, parts[2]))
++            self.kallsyms.sort(key=lambda x: x[0])
++        except (FileNotFoundError, PermissionError):
++            print(f"Failed to read {self.kallsyms_path}. Symbols will not be resolved.")
++
++    def _get_sym(self, loc: int) -> Tuple[str, int]:
++        """Resolve a memory location using session symbols or the kallsyms map."""
++        # Priority order:
++        # 1. Exact symbols with offsets resolved directly from the perf.data session
++        #    (resolved_syms).
++        # 2. Symbols captured from the sample's callchain in the trace file
++        #    (callchain_syms) before falling back to self.kallsyms, so offline
++        #    trace symbols are not overwritten by the live host's /proc/kallsyms.
++        # 3. Binary search in self.kallsyms (from --kallsyms or /proc/kallsyms).
++        if loc in self.resolved_syms:
++            return self.resolved_syms[loc]
++        if loc in self.callchain_syms:
++            res = (self.callchain_syms[loc], 0)
++            self.resolved_syms[loc] = res
++            return res
++        if not self.kallsyms:
++            return f"{loc:#x}", 0
++
++        start = 0
++        end = len(self.kallsyms) - 1
++        while start < end:
++            mid = (start + end) // 2
++            if self.kallsyms[mid][0] <= loc < self.kallsyms[mid+1][0]:
++                start = mid
++                break
++            if loc < self.kallsyms[mid][0]:
++                end = mid - 1
++            else:
++                start = mid + 1
++
++        sym_addr, sym_name = self.kallsyms[start]
++        if loc >= sym_addr:
++            res = (sym_name, loc - sym_addr)
++            self.resolved_syms[loc] = res
++            return res
++        return f"{loc:#x}", 0
++
++    def print_drop_table(self) -> None:
++        """Print aggregated results."""
++        if not self.drop_log:
++            print(f"{'LOCATION':>25} {'OFFSET':>25} {'COUNT':>25}")
++            return
++
++        if (not self.kallsyms_parsed
++                and any(loc not in self.resolved_syms and loc not in self.callchain_syms
++                        for loc in self.drop_log)):
++            print("Gathering kallsyms data")
++            self._parse_kallsyms()
++
++        print(f"{'LOCATION':>25} {'OFFSET':>25} {'COUNT':>25}")
++        sorted_keys = sorted(self.drop_log.keys())
++        for sloc in sorted_keys:
++            sym, off = self._get_sym(sloc)
++            print(f"{sym:>25} {off:>25d} {self.drop_log[sloc]:>25d}")
 +
 +    def process_event(self, sample: perf.sample_event) -> None:
-+        """Process events."""
-+        event_name = str(sample.evsel)
-+        if event_name.startswith("evsel(") and event_name.endswith(")"):
-+            event_name = event_name[6:-1]
-+        sample_time = sample.sample_time
++        """Process a single sample event."""
++        if "skb:kfree_skb" not in str(sample.evsel):
++            return
 +
-+        if "sched:sched_wakeup" in event_name:
-+            try:
-+                pid = sample.pid
-+                self.last_wakeup[pid] = sample_time
-+            except AttributeError:
-+                self.unhandled[event_name] += 1
-+        elif "sched:sched_switch" in event_name:
-+            try:
-+                next_pid = sample.next_pid
-+                wakeup_ts = self.last_wakeup.get(next_pid, 0)
-+                if wakeup_ts:
-+                    latency = sample_time - wakeup_ts
-+                    self.max_wakeup_latency = max(self.max_wakeup_latency, latency)
-+                    if self.min_wakeup_latency is None:
-+                        self.min_wakeup_latency = latency
-+                    else:
-+                        self.min_wakeup_latency = min(self.min_wakeup_latency, latency)
-+                    self.total_wakeup_latency += latency
-+                    self.total_wakeups += 1
-+                    del self.last_wakeup[next_pid]
-+            except AttributeError:
-+                self.unhandled[event_name] += 1
-+        else:
-+            self.unhandled[event_name] += 1
++        location = getattr(sample, "location", None)
++        if location is not None:
++            self.drop_log[location] += 1
++            if location not in self.resolved_syms:
++                sym = getattr(sample, "symbol", None)
++                if getattr(sample, "sample_ip", 0) == location and sym and sym != "[unknown]":
++                    self.resolved_syms[location] = (
++                        sym,
++                        getattr(sample, "sym_offset", 0) or 0,
++                    )
++                    self.callchain_syms.pop(location, None)
++                else:
++                    for entry in getattr(sample, "callchain", []) or []:
++                        if isinstance(entry, dict):
++                            entry_ip = entry.get("ip")
++                            sym_info = entry.get("sym")
++                            sym_name = sym_info.get("name") if isinstance(sym_info, dict) else None
++                            sym_start = sym_info.get("start") if isinstance(sym_info, dict) else None
++                            sym_off = (max(0, location - sym_start)
++                                       if sym_start is not None else None)
++                        else:
++                            entry_ip = getattr(entry, "ip", None)
++                            entry_sym = getattr(entry, "sym", None)
++                            sym_name = (
++                                getattr(entry_sym, "name", None)
++                                or getattr(entry, "symbol", None)
++                            )
++                            sym_off = getattr(entry, "sym_offset", None)
++                            if sym_off is None:
++                                sym_start = getattr(entry_sym, "start", None)
++                                if sym_start is not None:
++                                    sym_off = max(0, location - sym_start)
++                        if entry_ip == location and sym_name and sym_name != "[unknown]":
++                            if sym_off is not None:
++                                self.resolved_syms[location] = (sym_name, sym_off)
++                                self.callchain_syms.pop(location, None)
++                            else:
++                                self.callchain_syms[location] = sym_name
++                            break
 +
-+    def print_totals(self) -> None:
-+        """Print summary statistics."""
-+        print("wakeup_latency stats:\n")
-+        print(f"total_wakeups: {self.total_wakeups}")
-+        if self.total_wakeups:
-+            avg = self.total_wakeup_latency // self.total_wakeups
-+            print(f"avg_wakeup_latency (ns): {avg}")
-+            print(f"min_wakeup_latency (ns): {self.min_wakeup_latency}")
-+            print(f"max_wakeup_latency (ns): {self.max_wakeup_latency}")
-+        else:
-+            print("avg_wakeup_latency (ns): N/A")
-+            print("min_wakeup_latency (ns): N/A")
-+            print("max_wakeup_latency (ns): N/A")
-+
-+        if self.unhandled:
-+            print("\nunhandled events:\n")
-+            print(f"{'event':<40s}  {'count':>10s}")
-+            print(f"{'-'*40}  {'-'*10}")
-+            for event_name, count in self.unhandled.items():
-+                print(f"{event_name:<40s}  {count:10d}")
-+
-+    def run(self, input_file: str) -> None:
-+        """Run the session."""
-+        self.session = perf.session(perf.data(input_file), sample=self.process_event)
-+        try:
-+            self.session.process_events()
-+        except KeyboardInterrupt:
-+            pass
-+        finally:
-+            # Break the reference cycle between self.session and the bound
-+            # self.process_event callback so the C perf.session object is freed.
-+            self.session = None
-+        self.print_totals()
-+
-+def main() -> None:
-+    """Main function."""
-+    parser = argparse.ArgumentParser(description="Trace wakeup latency")
-+    parser.add_argument("-i", "--input", default="perf.data", help="Input file")
-+    args = parser.parse_args()
-+
-+    analyzer = WakeupLatency()
-+    try:
-+        analyzer.run(args.input)
-+    except IOError as e:
-+        print(e, file=sys.stderr)
-+        sys.exit(1)
 +
 +if __name__ == "__main__":
-+    main()
-diff --git a/tools/perf/tests/shell/test_wakeup_latency_python.sh b/tools/perf/tests/shell/test_wakeup_latency_python.sh
++    ap = argparse.ArgumentParser(
++        description="Monitor the system for dropped packets and produce a "
++                    "report of drop locations and counts.")
++    ap.add_argument("-i", "--input", default="perf.data", help="Input file name")
++    ap.add_argument("-k", "--kallsyms", default=None,
++                    help="Path to kallsyms file for offline symbol resolution")
++    args = ap.parse_args()
++
++    monitor = DropMonitor(kallsyms_path=args.kallsyms)
++    session = None
++
++    try:
++        session = perf.session(perf.data(args.input), sample=monitor.process_event,
++                               kallsyms=args.kallsyms)
++        session.process_events()
++    except KeyboardInterrupt:
++        print("\nStopping trace...")
++    except (OSError, ValueError, KeyError, RuntimeError, TypeError, AttributeError) as e:
++        print(f"Error processing events: {e}")
++        sys.exit(1)
++    finally:
++        session = None
++
++    monitor.print_drop_table()
+diff --git a/tools/perf/tests/shell/test_net_dropmonitor_python.sh b/tools/perf/tests/shell/test_net_dropmonitor_python.sh
 new file mode 100755
-index 000000000000..fc39ac117609
+index 000000000000..d00be255d259
 --- /dev/null
-+++ b/tools/perf/tests/shell/test_wakeup_latency_python.sh
-@@ -0,0 +1,82 @@
++++ b/tools/perf/tests/shell/test_net_dropmonitor_python.sh
+@@ -0,0 +1,102 @@
 +#!/bin/bash
 +# SPDX-License-Identifier: GPL-2.0
-+# wakeup-latency python test
++# net_dropmonitor python test
 +
 +set -e
 +
@@ -228,16 +294,16 @@ index 000000000000..fc39ac117609
 +	exit 2
 +fi
 +
-+if ! perf check feature -q libtraceevent; then
++script_dir="$(dirname "$0")/../../python"
++script_path="${script_dir}/net_dropmonitor.py"
++
++if ! perf check feature -q libtraceevent > /dev/null 2>&1; then
 +	echo "Skipping test, libtraceevent is disabled"
 +	exit 2
 +fi
 +
-+script_dir="$(dirname "$0")/../../python"
-+script_path="${script_dir}/wakeup-latency.py"
-+
 +if [ ! -f "$script_path" ]; then
-+	echo "Skipping test, wakeup-latency.py not found at $script_path"
++	echo "Skipping test, net_dropmonitor.py not found at $script_path"
 +	exit 2
 +fi
 +
@@ -248,22 +314,24 @@ index 000000000000..fc39ac117609
 +cleanup() {
 +	rm -f "${temp_data}" "${temp_out}"
 +}
-+trap 'cleanup' EXIT TERM INT
++trap 'cleanup' EXIT
++trap 'cleanup; exit 1' TERM INT
 +
 +temp_data=$(mktemp /tmp/perf.data.XXXXXX)
 +temp_out=$(mktemp /tmp/perf.out.XXXXXX)
 +
-+echo "Testing wakeup-latency.py..."
++echo "Testing net_dropmonitor.py..."
 +
-+# Create a perf.data file. Try to get tracepoint data.
-+if perf list | grep -q "sched:sched_wakeup"; then
-+	ev="sched:sched_wakeup,sched:sched_wakeup_new,sched:sched_switch"
-+	perf record -e "$ev" -a -o "${temp_data}" \
-+		-- sleep 0.1 >/dev/null 2>&1 || \
-+		{ echo "Skipping test, perf record failed"; exit 2; }
-+else
-+	echo "Skipping test, no sched:sched_wakeup event"
-+	exit 2
++# Create a perf.data file. Force dropping a packet if tracepoint is available!
++if ! perf record -e skb:kfree_skb -o "${temp_data}" -a \
++	-- ping -c 1 255.255.255.255 >/dev/null 2>&1; then
++	if ! perf record -e skb:kfree_skb -o "${temp_data}" \
++		-- sleep 0.1 >/dev/null 2>&1; then
++		if ! perf record -o "${temp_data}" -- uname >/dev/null 2>&1; then
++			echo "Skipping test, cannot record perf events"
++			exit 2
++		fi
++	fi
 +fi
 +
 +if [ ! -s "${temp_data}" ]; then
@@ -271,25 +339,43 @@ index 000000000000..fc39ac117609
 +	exit 2
 +fi
 +
-+# Check that the script executes
++# Check that the script executes and outputs table header
 +if ! "$PYTHON" "$script_path" -i "${temp_data}" > "${temp_out}"; then
-+	echo "wakeup-latency.py test failed"
++	echo "net_dropmonitor.py test failed"
 +	err=1
 +else
-+	if ! grep -E -q "avg_wakeup_latency.*[0-9]+" "${temp_out}"; then
-+		echo "Failed to find metric data rows"
++	if ! grep -q "LOCATION.*OFFSET.*COUNT" "${temp_out}"; then
++		echo "Failed to find the metrics table header"
 +		err=1
-+	else
-+		echo "wakeup-latency test passed."
 +	fi
 +fi
 +
-+# Also test zero-wakeups / unhandled events path to verify division-by-zero protection
-+if perf record -e cycles -o "${temp_data}" -- perf test -w noploop >/dev/null 2>&1; then
-+	if ! "$PYTHON" "$script_path" -i "${temp_data}" > "${temp_out}" || \
-+	   ! grep -q "avg_wakeup_latency (ns): N/A" "${temp_out}"; then
-+		echo "wakeup-latency zero-wakeups guard test failed"
++# Verify DropMonitor event processing and symbol resolution
++if [ $err -eq 0 ]; then
++	if ! "$PYTHON" -c "
++import sys
++sys.path.insert(0, sys.argv[1])
++import net_dropmonitor
++
++class DummySample:
++    evsel = 'skb:kfree_skb'
++    location = 0xffffffff81001010
++    sample_ip = 0xffffffff81001010
++    symbol = 'ip_rcv_finish'
++    sym_offset = 16
++    callchain = []
++
++dm = net_dropmonitor.DropMonitor()
++dm.process_event(DummySample())
++dm.print_drop_table()
++" "${script_dir}" > "${temp_out}"; then
++		echo "net_dropmonitor.py unit test failed"
 +		err=1
++	elif ! grep -q "ip_rcv_finish.*16.*1" "${temp_out}"; then
++		echo "Failed to find expected symbol resolution in net_dropmonitor.py"
++		err=1
++	else
++		echo "net_dropmonitor test passed."
 +	fi
 +fi
 +rm -f "${temp_out}"
