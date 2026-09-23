@@ -1,257 +1,95 @@
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3FDA542812
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:56:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.99
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790175414; cv=pass; b=urj4q7n5GELPT6Vd7ZswN1+/3KuluhH+PuTdku0zM1H/Wa8fUg0rEj9SBHMT6HEMabFSEA7jhcE/mXCltcmsWqr2wzHc3tX7/9LsI9PTh5agp1+57pTyVsV0d3U/Ke1nYTXZkgC0dToxAQdMJRjEMVkMCSxkKk+8Q5F8wnJ+5+E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790175414; c=relaxed/simple;
-	bh=UyMSLBvW9tmyx5OoI5WsB7xjvglDq4V9P7yAbnK27AA=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502B35275BB
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:57:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790175430; cv=none; b=lHiwcn3P+QmsbzxuUxIgPWpDQli8vTdE8AFlstOS0GFJ4lKQXhaKxWB40VHQ4wkW3bHdRohQVU+I0zkbwVyAgU8kGS+shqJGhCoPczX5PSTg6iO+lAj2LD8s9riBqxUStGS4nkvFOct29XxvY2oJ31lg139MLC2xaWUdu+mCDck=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790175430; c=relaxed/simple;
+	bh=os/qN9BUZ4QVqN4bK5cJrrbTTGEtih9hSlzZqIq8h90=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=swZMzAeVXl59d3s0Wbdw9R72DitE/61phgx+DYzHInQS6U9afLrlWGAUi0wJD3G88a9laQ12AARZvGnBl8nxvIWXCrKQafrcm8nDt9vfMnyHE38Djs4rYa81NirNOkw2D3htfZe0l+2SKkUxxF7eckh3SSt+UBSfWAlyhvzvmUA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=s2MjLjcA; arc=pass smtp.client-ip=74.125.228.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 To:Cc:Content-Type; b=KYFnQniuyczgpVtCFMmQieQhJ9actDR57m52kVMXJ7Pxt0kKKw2UIuCn5Sw6Dz0EB/Sv8/W0gtg1RxJGHAdLbV4kqD7Kx4vAtXJ8NTTGGZEN780L8k2HJH9ZG2Gv5IeTOQEeX2L2BG4tYPw3f0aQJ7EeDA6stmrP5A/AdYQwXSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j1VGCx4K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="s2MjLjcA"
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aaad1544b7so1668471a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:56:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790175410; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EwImfXOYPhdUkwmcLe1IxlTVXoo1a4yMxx+UAg8C3m1IV67C1mZ2FfvkWXGrKZPj2w
-         SjYPLyTXHjnPiglTpN9dMmx9yWS1A+YjVjDYZEfB4C6oEZGqUEauS0oQpghWZwztekXU
-         ERDWRuw7yDoVHebEBcFHuY81SWg54Otw/whQsCLW/4H64FISwtKOP5pjlumxS+ukl2RB
-         dytUlyuipQOzY0rnOgXMIVjQ2zARhZuUhQOrnUZwViZVKFNaVzyCK48rHkwMBH5wXkad
-         D4jhCFKQMf6vgvF0PdUUqQXg5aF0JxIHlQSXMhJgzpAEvlzT2DDXGW2oCjmC464b+cue
-         pOzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=80Q/UmLn++8SJbn/lU8/3FTYgpvMd1cRbPxOu7j8FDU=;
-        fh=TJRLz+ubKPV+3CDwVRx53VJLNsbVL/ZcLhQnALP14qI=;
-        b=T1446tIbgLv33UWlw06OkWHqfACO8mJznIzcenfdc2v10y6TrI6+MQf4YkZizPsuDE
-         5dx0jZroOLKXxPTCtQG/fvEAC8+5V9dYGBhWR/KaIEWhi3IwuuaR0x7gC8kBdZmJxcAC
-         D8ienD8jcrvMlH/1V3O60ICDvgrBCRPhU8ABYSEFPL7DyA/Ymj/feP1bQJMe5oz9H4yq
-         BQFdap3xhJkzOu41vOJ682QYmlLrVlGA191RKNh2i/FuTsUbCu/CDEn7kPK09V/XfBcp
-         jEZnFbNJ+6Ia8Q+IqLj31b3KW9+aS5h3sRRTrglVC1ymTWWFJzKqS9T7iUlr896F0QhE
-         ESlg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790175410; x=1790780210; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=80Q/UmLn++8SJbn/lU8/3FTYgpvMd1cRbPxOu7j8FDU=;
-        b=s2MjLjcA0AyFc3tudZzDSVIPZNG8WBN3K04612i2meXScdWB5e1QBUPbP12oXgjFqM
-         laDKeAQiAhUeTGKziVP/M5QBOaGNFWVZMZrENueMVwMu9CMuq7P2F4+VsKRadF7ih7H6
-         hDIwGMWsDP2c4pbSiTHynclCQfWmlo04XWR99zgAFtUHpyAXFgorbbsa4iCr9c8JKOAB
-         10X8OS4S6NDkDk2tapaIgoH9njFFq68xO9oKaubR5Cxh1IhH4YEHGYQMTZZqagVkZIgO
-         xWDDvGoyeVL8E0GRvBPjrj31JmiwqZJ00PeeWZ59lLDAcaN/GFZmzOe+JcAChHGiFufs
-         OYnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790175410; x=1790780210;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=80Q/UmLn++8SJbn/lU8/3FTYgpvMd1cRbPxOu7j8FDU=;
-        b=HWQlmI7OK6Wf9gEXGYel1ODF805A33xgVAv+hbwGoZIHMzRJB1o6zweCH1b7n/C4Bb
-         Z7fn2PrBJ/qITdRLtRyNTVHolUZ+YMf5NwxzaEXbSqw7nbZlhIaQXp+BLIsZuX82JQQJ
-         TYbf7YZEinGh2ctVE09ABGZCNCdQ/leW2zm9xOeR+f0bpP+JOp9nhDQabvws0b3hcqIQ
-         1MOtuBbLMCnckgABA/dIf8J/3IzmLdgfXdUWMpabNLDIYDmbJj+HXE5VLpRs/k9wtEe5
-         u818B2yqbYjr8qPTHqdBDfuZ41Yw7QvW0a7uoZfjwodw3ym1PCcsaG3gx52VMEVAoBVR
-         +uXg==
-X-Forwarded-Encrypted: i=1; AKwUvByytozHm8BoIChXdA9NnT8QAGMJWVIJSy7h4UIM2h3uBuQSod3aH77yYcAEP+Z1X4EUj2amIPg95m8H9S0=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+/mDAK3YKBSUQeGDdWhAGe8fO80zjdcQctLgBYkAhkl9sgAdo
-	RMBSERW88wz1yN1z2LrqVdMhKo842WFlh9l1+NrAuJh+3JZMB05V5T0y4C+teIw3BBB5Vi6wJ5u
-	L461xNgqidM+YF0ucSGgVTRJpTiB8aNxbsesmKrobQg==
-X-Gm-Gg: AYBFou2wRCWTagcWBFSm2AtXaD6ZWz8MlVXxjRR+ryLs+zMwY4smsqktUEBRvXft3SK
-	28IaSgUKvSdJKgW3osp4bj4+i3cQFATQaFsiAYgh9li77sk9yixQ9VukcenxwEsmR5Qg4zz5Jqf
-	nkfhiWLYEzwEah4TDFstXcuC3Ph+nwF7zYsjhYVvSJIvtcn24x/hIiAIFxyO7oFdTCPeZeLC6rr
-	GgfBnRipgqEUNHaMFupEmD0FhXUSkzG0WZ+LH/MBw3qquz86aPRVxfOsPK0OB2p2ogT3IIlb7d4
-	zQn2bM8pGBQyqLbibh3HeDcP+XImG8lZZ4geeefPzsgiiBy1miCJcnr2E16wufRo51IBNKtHZGw
-	2NgWTmdGXOtU=
-X-Received: by 2002:a05:6402:5514:b0:6aa:129a:1f70 with SMTP id
- 4fb4d7f45d1cf-6aab3b647e8mr2420276a12.43.1790175409790; Wed, 23 Sep 2026
- 07:56:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j1VGCx4K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F368A1F000FF
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:57:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790175429;
+	bh=k+k4gHg4jDXaVj8Qgc9B7QiB1Jx+hfHTeBdjxkQSEvQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=j1VGCx4KnFfFocpD8GiMIu2ji2Bx+cORoHOFyzy3JyUQM4TOSkSejTywe78koD1R8
+	 Uc6UMfZq8+g3LAM0uUd4GUyYBzICpbUmOW4jFZGB0VVtS2Lb3ORPooXJwdR/WWmXCL
+	 GLJtt3wPb6NZCMHSZxs0RrpQ5MMw9BQuAu19ykkdQD7wY4h2o3/nJUz5aKOMd4lttN
+	 rCkjyj7R1mRp6Xe5E+3GCJz3CkFWE+JKHyXQB5wocozucKn97Pq7/q2Bih/1rqeWXK
+	 1KKbGS3mIUSgwVGKs3T1k+22tg3vSwPYlbpLn97Ap4b7jUkJRJJe89pjzc/hSljbZi
+	 PvuO3ewEIicKw==
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3a49a40209dso13256291fa.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:57:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwg/EbBTienoEKrsSL3H7bQbK/5TdtWjlv0fNaw1MDjyept94XoTy2nZPDUuIw5DuTl66jXCiK7iKF1yeA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kWi4WlrT9YmdRRw6gJrw97w4wFZli5MapQtOwQfc/Bdo9j3efP
+	RaN6XlcfyBXjtXye5zhiUP5STJdMCp5Yw1iwQhrrqRsNWlRwpo7RfQQFmKaukWlx6OQG1fx8gO0
+	qsxAQvMI+z92Pga5MAGUYur8MMQgCKrs=
+X-Received: by 2002:a2e:b8d6:0:b0:3a3:61ec:43c7 with SMTP id
+ 38308e7fff4ca-3a624dd9052mr14893691fa.24.1790175427369; Wed, 23 Sep 2026
+ 07:57:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
- <20260916-remoteproc_virtio_map-v1-8-dac8c5eb4aa9@valla.it>
- <arKhbxi3Snbt1_Mn@p14s> <arLZj2DxBazf3wMd@bywater>
-In-Reply-To: <arLZj2DxBazf3wMd@bywater>
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Wed, 23 Sep 2026 08:56:38 -0600
-X-Gm-Features: AclHuK883D6T5DYJIUEwz22c4TjWkQLK7CcGTqdjz7jqNMirfKCdfrjOT14z4v4
-Message-ID: <CANLsYkzC5DU8j_QJLkuUcV2tYb=G86L_G4yiBZTePKSqiRdd6w@mail.gmail.com>
-Subject: Re: [PATCH RFC 08/12] dt-bindings: remoteproc: add remoteproc-virtio
-To: Francesco Valla <francesco@valla.it>
-Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Robin Murphy <robin.murphy@arm.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, virtualization@lists.linux.dev, 
-	imx@lists.linux.dev, iommu@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org
+References: <20260921081411.4819-1-lalitshankarch@gmail.com>
+ <CAJZ5v0gvYn3ga6vL3BYt+5GFRheg_sjF8AX_HBXfHaLv+tPGKA@mail.gmail.com> <50986455-fb18-4c92-9c3b-74d625f3f6fa@gmx.de>
+In-Reply-To: <50986455-fb18-4c92-9c3b-74d625f3f6fa@gmx.de>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 23 Sep 2026 16:55:32 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0jUovbnwqkobdnn2xtPvNHZkjJr_wsUNGyBX4X=2-U-_A@mail.gmail.com>
+X-Gm-Features: AclHuK-5Qf023LX0aSxq1cXU_7s3AcrkOpncZluGdAhuJqgz8MSBZiyMjuFieYs
+Message-ID: <CAJZ5v0jUovbnwqkobdnn2xtPvNHZkjJr_wsUNGyBX4X=2-U-_A@mail.gmail.com>
+Subject: Re: [PATCH] ACPI: use IS_ENABLED() to simplify built-in or module checks
+To: Armin Wolf <W_Armin@gmx.de>, Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+Cc: "open list:ACPI" <linux-acpi@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 22 Sept 2026 at 13:44, Francesco Valla <francesco@valla.it> wrote:
+On Tue, Sep 22, 2026 at 9:40=E2=80=AFPM Armin Wolf <W_Armin@gmx.de> wrote:
 >
-> On Tue, Sep 22, 2026 at 09:40:31AM -0600, Mathieu Poirier wrote:
-> > On Wed, Sep 16, 2026 at 11:10:53PM +0200, Francesco Valla wrote:
-> > > Add a new binding to describe remoteproc-provided virtio devices; while
-> > > these are discovered through a resource table parsed by the remoteproc
-> > > infrastructure at runtime, their description can be needed to probe
-> > > non-discoverable buses (such as I2C) or to link consumers and suppliers.
-> > >
-> > > Each vdev is described by a dedicated "group" node, which then includes
-> > > a virtio-device node, which binding is already existent and used by
-> > > virtio-mmio. Each vdev shall be stattically linked to a "group" node
-> > > using its index inside the resource table as the reg property of the
-> > > node; this permits to have multiple instances of the same type of
-> > > device.
-> > >
-> > > The binding is intended to be generic and adopted by any remoteproc
-> > > provider.
-> > >
-> > > Signed-off-by: Francesco Valla <francesco@valla.it>
-> > > ---
-> > >  .../bindings/remoteproc/remoteproc-virtio.yaml     | 89 ++++++++++++++++++++++
-> > >  1 file changed, 89 insertions(+)
-> > >
-> > > diff --git a/Documentation/devicetree/bindings/remoteproc/remoteproc-virtio.yaml b/Documentation/devicetree/bindings/remoteproc/remoteproc-virtio.yaml
-> > > new file mode 100644
-> > > index 000000000000..c4a0d84b1460
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/remoteproc/remoteproc-virtio.yaml
-> > > @@ -0,0 +1,89 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/remoteproc/remoteproc-virtio.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: Virtio devices over remoteproc
-> > > +
-> > > +description: |
-> > > +  Virtio devices ("vdevs") can be exposed using the remoteproc infrastructure
-> > > +  and its resource table. For some of them, a device tree node might be needed
-> > > +  to describe remote undiscoverable hardware and/or connect consumers and
-> > > +  providers.
-> > > +
-> > > +maintainers:
-> > > +  - Francesco Valla <francesco@valla.it>
-> > > +
-> > > +properties:
-> > > +  virtio:
-> > > +    description: Contains a group of Virtio devices exposed by the remoteproc.
-> > > +
-> > > +    properties:
-> > > +      '#address-cells':
-> > > +        const: 1
-> > > +
-> > > +      '#size-cells':
-> > > +        const: 0
-> > > +
-> > > +    patternProperties:
-> > > +      "^vdev@[0-9a-f]+$":
-> > > +        type: object
-> > > +
-> > > +        properties:
-> > > +          reg:
-> > > +            description: Virtio device index inside the resource table.
-> > > +            maxItems: 1
-> > > +
-> > > +        additionalProperties:
-> > > +          type: object
-> > > +          $ref: /schemas/virtio/virtio-device.yaml
-> > > +          maxItems: 1
-> > > +
-> > > +        required:
-> > > +          - reg
-> > > +
-> > > +    additionalProperties: false
-> > > +
-> > > +    required:
-> > > +      - '#address-cells'
-> > > +      - '#size-cells'
-> > > +
-> > > +additionalProperties: true
-> > > +
-> > > +examples:
-> > > +  - |
-> > > +    remoteproc-cm33 {
-> > > +      virtio {
-> > > +          #address-cells = <1>;
-> > > +          #size-cells = <0>;
-> > > +
-> > > +          vdev@0 {
-> > > +              reg = <0>;
-> > > +
+> Am 22.09.26 um 18:43 schrieb Rafael J. Wysocki (Intel):
+>
+> > +Armin
 > >
-> > Do we need the 'reg' since we already have vdev@X?  I'll let the DT people
-> > provide their input on this.
-> >
+> > On Mon, Sep 21, 2026 at 10:14=E2=80=AFAM Lalit Shankar Chowdhury
+> > <lalitshankarch@gmail.com> wrote:
+> >> Replace the remaining built-in/module check for CONFIG_ACPI_WMI
+> >> with IS_ENABLED() macro.
 >
-> AFAIK yes, because the rproc_get_vdev_fwnode() helpers search for indexed
-> child nodes using the 'reg' property, not the node name. This I believe
-> is the preferred way of doing things.
->
-> > > +              gpio {
-> > > +                  compatible = "virtio,device29";
-> > > +
-> > > +                  gpio-controller;
-> > > +                  #gpio-cells = <2>;
-> > > +              };
-> > > +          };
-> > > +
-> > > +          vdev@1 {
-> > > +              reg = <1>;
-> > > +
-> > > +              i2c {
-> > > +                  compatible = "virtio,device22";
-> > > +
-> > > +                  #address-cells = <1>;
-> > > +                  #size-cells = <0>;
-> > > +
-> > > +                  eeprom@50 {
-> > > +                      compatible = "atmel,24c1025";
-> > > +                      reg = <0x50>;
-> > > +                  };
-> >
-> > The previous patch introduced bindings for virtio SPI while the above two are
-> > for GPIO and I2c, which is very confusing.  I suggest you pick one and apply
-> > everywhere.
-> >
->
-> This is because both GPIO and I2C bindings are already defined - even if
-> not used in the devicetree files part of the kernel tree.
->
-> Moving forward, I plan to submit at least the spi-virtio bindings as a
-> separate patch set, as they can be used independently of this one.
+> Reviewed-by: Armin Wolf <W_Armin@gmx.de>
 
-I suggest you leave spi-virtio out of this patchset.  That way we can
-concentrate on doing only one thing.
+Applied as 7.4 material, thanks!
 
->
-> > > +              };
-> > > +          };
-> > > +      };
-> > > +    };
-> > > +...
-> > >
-> > > --
-> > > 2.55.0
-> > >
->
-> Regards,
-> Francesco
->
+> >> Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+> >> ---
+> >>   include/linux/acpi.h | 2 +-
+> >>   1 file changed, 1 insertion(+), 1 deletion(-)
+> >>
+> >> diff --git a/include/linux/acpi.h b/include/linux/acpi.h
+> >> index ddacac812094..b590f520dc57 100644
+> >> --- a/include/linux/acpi.h
+> >> +++ b/include/linux/acpi.h
+> >> @@ -434,7 +434,7 @@ extern acpi_handle ec_get_handle(void);
+> >>
+> >>   extern bool acpi_is_pnp_device(struct acpi_device *);
+> >>
+> >> -#if defined(CONFIG_ACPI_WMI) || defined(CONFIG_ACPI_WMI_MODULE)
+> >> +#if IS_ENABLED(CONFIG_ACPI_WMI)
+> >>
+> >>   typedef void (*wmi_notify_handler) (union acpi_object *data, void *c=
+ontext);
+> >>
+> >> --
+> >> 2.53.0
+> >>
+> >>
