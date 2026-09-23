@@ -1,33 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E36D6329E55
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:04:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790168655; cv=none; b=EXW+qrUPZSFgQEicSutyy2ZzNs56bgG9JbivZnDaH8XOyaqYKI/ecEWeSN9hL7l7TKM3WgTG0KGp4PywHvTc6RevruQV0ILhmYkAED8eRCZQVxRBKX1tKAMeF+qkyY8htg1x2xgCSjrp7s96TTVPB/KCPk77b+64MVbkRvVtk/s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790168655; c=relaxed/simple;
-	bh=O46kHBvt+vdEfFGMixDuy6d6+2zdgth4bhRVp450Twc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Plh/70DTbFOInZ2JBuBTElhVqRcsVuyFzhuIxEji2xeop291iJh48y2PjmVpcaJNwJibsFZj5GsaFuNxvVeaCtd5VqPo4M0EVSN3ErqUSfkuhdHZER0vyAJxIa13POzjwe5U74WrMcBdlfgByaskMI7JYC2s8synoWUqAq7JgYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C4cyk92U; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1CA5329E55
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:04:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790168660; cv=fail; b=okFqPBD7koqWkBTzxEtktfXXLcnWlCKgRAW9sYT2uOHAG1/ieYwjehhZI00zdvilaZDz+ljqNjyL1Ga4sOKB7+2ULqO1BHuUhNTt8tgjElS8LJuh64IFh0BDOHEIyzMl0Ky9/JrlZZ8UlZdleFbn5lpCti4rBTTaH5zbtO/SIoA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790168660; c=relaxed/simple;
+	bh=Y0N/dm13r/eCjRpS2YrJPXAX8baEvlvZGexCf0hmwT0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=m6134MZNYxh+S7I55v/nFkzFP9f0Z8ajXe0M7yTSEMQPZKI6FQuDDGOiNtrncHbLAZXzROxQOYrCt1fP82voHmHIj689iaKVQAbIF3XjSYPbB7Idb1sRDmpDiz4FKZ/W6I/q0wa22i4Eb9RvZtLgJL8b34CU3ZyDAYcME6mJA0E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=SvVu6SZJ; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=a52slzO0; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C4cyk92U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E41721F00893;
-	Wed, 23 Sep 2026 13:04:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790168653;
-	bh=0LDdXZe7aP54MEtVISWDMWsj8byXvFIS3gsAEgZkebg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=C4cyk92UpE9FeGyijLqzL/lEcDqL5aFokFTsQdVwQuimh5FbmdvC2wNvc4wk9cqlZ
-	 K5wvIlIOB2+/5UQ5B6qf4Dcvevkg6VvountM9T/eZe9cPNB5sG+lZE5cUS14ERHCl0
-	 pNKgwJ+mSWDydWBPcYL8/mBW3fC+YjjRY3KDByw8PzgoEn4YCDg3EtmHzXrVlSpcFO
-	 t1q4YgwJdkSFRq6y8mbcf1aAqyby+g2dz/f2mVjZVfxncIibl0LxUmbnggDQ3EUjW2
-	 A8/BJhxO8IRFBVtG+YDAKj2Fl2UMKSkTw0XiIsv+V+GMIW0BS+FQbEvAWXnaeqJL2P
-	 AUFo9WXcOtjPw==
-Message-ID: <ebf8972a-0c92-41c4-9f42-22ffb820d07a@kernel.org>
-Date: Wed, 23 Sep 2026 15:04:05 +0200
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="SvVu6SZJ";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="a52slzO0"
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68N8NKCf1611932;
+	Wed, 23 Sep 2026 08:04:12 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=f0qmYubF5OdLr7LCf9Vlw2hfhLZFldczMSa1lkoUI
+	3g=; b=SvVu6SZJ5tBJfx57QB20eHlPOuBd15GzOKsvDg0I0Cy/55pasqfblndyc
+	46yJrV5n4dnx41mD6K8p1Vx/EGNAXuUGaFzJLg3lJ6PMZp413wNlN5ez3TpDxMjL
+	6ymOWF9IRidf22Ej9FB6Wsorv4M3c/JRkJRd1BZp6zbQwRCbnax0w0xR0psZnYWW
+	33KAtwt8BVU5HtTCYyRRo8hLRNvVKm5slmG74utaz3xThBcKAZ/3SWIcKXifSYB/
+	+d40Frzc1QFaxVew6LlP0h7tkTqu6m3DiiqZbjy9shhGajUoOUail/eFuMp6gCsz
+	w8BYa+gfCXesVEW8Dmyla5ffh47+A==
+Received: from ch1pr05cu001.outbound.protection.outlook.com (mail-northcentralusazon11010005.outbound.protection.outlook.com [52.101.193.5])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4gvb77sftb-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 23 Sep 2026 08:04:12 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BYGTl0YD9gj3HKljm5k5zSPCOhzGcMaj2At2cDptnGyAdsOtM7DOx5KmtUUGo9aECCYABRIcs9bdMdMVbQyESQPVX72spgDrIkbrN1P7+60w0oMv4djQNj7QP0cuKjO4Ewx25al+9UdUaB5W/LPyN6INju3/nmsCARUJJlPKvi+IN+A/164c0IqmeWatNKn3ObUc/dcP9RjNuiBwwT5uCBhRhBnPvzkyyQY4f5dJeyYVH0kdMHyWhQq25UvDAApZQxkSWx4jOTc9uvK3LgSp8NYyliTE7mLhkexxXWBpJbk0ExWKt4SH/eKiJ+B7+eBbXWvlbhv+RDnwRJlYzupgwA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=f0qmYubF5OdLr7LCf9Vlw2hfhLZFldczMSa1lkoUI3g=;
+ b=B7trpsuMshg5IJLspddHNLb6RnSfhMAIHlK8ZWZwuL4EGeWaQFm9Rl1Otr9Diagi1vgMKNJYP2bZZWA/JFSVbTqYzJKAvGJzJzeIGrIbBwl/ExPY10XlzPaZf8CVmLOi8l3ydzjtNYo0DzjyTRv6f3T2QE5GV4npA8NmqD96hC//sMvsTGTI9ep/+W6yDlgpz06jdImZU1pP/aqVtTOMQCv3KfXKkJZcJkKR3qtd0dVGlWhHBfcIb0DP2gi5bbUGpkgJZa9dmfFp9vxFROmPCErmBcpZSRk4sUEDXtmsk9cqPHOql8Qdw603p23F1/DYHWKvXZRYU2Fv7zac4Ec5Ng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=f0qmYubF5OdLr7LCf9Vlw2hfhLZFldczMSa1lkoUI3g=;
+ b=a52slzO0wFN6K0N+e812fJnpV4jDNyTXlOX9xWMiwRw/UP9UB8Gt5G4HSyCPwio50a8QUZc15+pRSTG5rdjIlAsXvnDz0Gldu6j0r4LEUrR+oC9i7JBrpdXL2a8ZrpQoZMCfLURvD1kL+ttSPDYFdgSMscFNvzNtMi6yI2Hzhjs=
+Received: from MN2PR20CA0054.namprd20.prod.outlook.com (2603:10b6:208:235::23)
+ by IA0PR10MB6819.namprd10.prod.outlook.com (2603:10b6:208:438::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.5; Wed, 23 Sep
+ 2026 13:04:09 +0000
+Received: from BN7PEPF000000A6.namprd05.prod.outlook.com
+ (2603:10b6:208:235:cafe::28) by MN2PR20CA0054.outlook.office365.com
+ (2603:10b6:208:235::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Wed,
+ 23 Sep 2026 13:04:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ BN7PEPF000000A6.mail.protection.outlook.com (10.167.245.230) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 13:04:06 +0000
+Received: from DFLE212.ent.ti.com (10.64.6.70) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 23 Sep
+ 2026 08:03:19 -0500
+Received: from DFLE204.ent.ti.com (10.64.6.62) by DFLE212.ent.ti.com
+ (10.64.6.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 23 Sep
+ 2026 08:03:19 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE204.ent.ti.com
+ (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Wed, 23 Sep 2026 08:03:19 -0500
+Received: from [10.249.135.178] ([10.249.135.178])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68ND3F5i2961458;
+	Wed, 23 Sep 2026 08:03:16 -0500
+Message-ID: <40b6706d-fa68-43d3-8abd-bd8b70e4cb89@ti.com>
+Date: Wed, 23 Sep 2026 18:33:15 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,209 +93,122 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 08/12] mm/collapse: separate scanning a PTE table from
- collapsing it
-To: Kiryl Shutsemau <kirill@shutemov.name>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kernel-team@meta.com,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>
-References: <20260916093145.4022188-1-kirill@shutemov.name>
- <20260916093145.4022188-9-kirill@shutemov.name>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH v2 2/2] soc: ti: k3-ringacc: Fix DMA ring initialization
+ kernel-doc
+To: Karl Mehltretter <kmehltretter@gmail.com>, Nishanth Menon <nm@ti.com>,
+        Santosh Shilimkar <ssantosh@kernel.org>
+CC: Grygorii Strashko <grygorii.strashko@ti.com>,
+        Peter Ujfalusi
+	<peter.ujfalusi@ti.com>,
+        <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+        <u-kumar1@ti.com>
+References: <20260923061658.20140-1-kmehltretter@gmail.com>
+ <20260923061658.20140-2-kmehltretter@gmail.com>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <20260916093145.4022188-9-kirill@shutemov.name>
-Content-Type: text/plain; charset=UTF-8
+From: "Kumar, Udit" <u-kumar1@ti.com>
+In-Reply-To: <20260923061658.20140-2-kmehltretter@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PEPF000000A6:EE_|IA0PR10MB6819:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8591745d-3727-42e8-09f9-08df1973264b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|10067099003|56012099006|6133799003|18002099003|22082099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	wEVhTAYrElFLghn+QSDjim+QHtpcWzxGZn3k1jXGkLwkaZPRRrxzeJJ67DdNZMr29b/npyOkDCRx8Uo6bIJPoQiZaiIsfO7sIcD63fd1A7Pvo/W+qq9bIdTCyl9YnMnE9boYiunGcqm3Afi0h98PTsuDzwBO2b4OZxCdBnJT+1ayy6KoSz20F7w0dSrpRDniO09xJj1D7Cfp27aMmEhYDlbPK25B5Kvwe7w4J8v0jSl/UA1M1odDHR7PU9T01Y6BPnjsiBpv7TwFLu62UxSxyZlNL1SwZ3iNsez5ypX6aNJnDnLxHQJoV48ub6JEictty07UkCs1vo9nm0jX+Li0vS4aJPszoQu6I+JR60vUK7qDp4BIwCxvj8YyLg6HkHWwKJzRHgn8lGUyOfhpavO/NBTKUi7BzPYCrmKEtkDoZRmFQsEHcodFm8A0edWI/U7ebk6FmCagbk98WtspCx26gd36n9gse9KpT0ONyACFnI/hHDoyylDxYj+fJnrPkq7uyaxhgsgs6lLnnyGiuIogmD4kaPQlVlpeyhbXIhrD4noWtY44ODoh+EwvIKp9Ek3Qz+AzY5A5HpM3KeNuFs9ZUUzjBgIKvN1Xgecz/jop0iDgywisrtYJyvoJZcavSkL6cqaU5H8tvSPOST4KT1MEo0Za5LB+05z/SAjmp7/wSXg=
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(10067099003)(56012099006)(6133799003)(18002099003)(22082099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	H22Qh/Qiv2eCRobCalmrNZPFjRtr/hv6PaevMOMdFCS1WrAP08+Xys3fqBFD43/Wusqj/ehXeR3/Ekwd2OYRno6Ffwq/jKj4LxSznH6tdViHcLHOs6fGy/tIzlLjchrbJeni452mf32jnayWFztmUDwhwQukX9hPwJqfLybTSITPCxyGkOeqU7ITk/gt+bnNnLzqpcMpyqRE429kUET6bS4gJQt6mz19YVlJLMMM4Fp+O/j05SHz1Vq3TsCtaQwnhXFsHXdwJbvXMG66IH8oCFjaQ78H5uFlvipwzsTDul/QemfIbuE7E3uE5HRcELCHjCwAUJr0MVxxVs/HuSA4AWLSTmQSdLG1XmCvROAcZ8dNcIc9sFDhYvL1LO3l9/MvqeaXejqs28Hr+SMbeie+JMffLnD/jJ3NzRxZBpl1pD2kcMWlEc1CtJI9WVJelCyU
+X-Exchange-RoutingPolicyChecked:
+	JQ6AWiH3E+NYqSF6elIvEIQt3VyCRxtuCFVWjvHOJuSF5yXZsqRYvWe7g9DwQhdrJZZ3wzkfpbFKJpBc0/aU9BRD+jHRe3UCYykD2fsIsbkUZKcjIRZFn3MmiiQU8PjuGknxB6PdZGFPrOC0AjnTWiOCxBD6hHLYqZ8jvPv0VlA4Nqx/lYSGJusg33/zyW1m0WWZXNq92EAdKFhXCPfZJ/AAYp6vgCxcYAcIdalhlX+J9S4p25YEHX7RusHoL1yJHYUSPy4k3DyQvCcW+hrRz1glw4w8sbOyEP5Csmki2+GLNAdZ+B9NhWVWbegzlv/VtX2gE8e39N144I3ive+duA==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 13:04:06.3046
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8591745d-3727-42e8-09f9-08df1973264b
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN7PEPF000000A6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR10MB6819
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA1MSBTYWx0ZWRfX1/Y+it1FkQgk
+ Z5zv38+9CdbARJyhphJ6RzLjDtZiHLvx5qGR48C15CgufW6s3IeU0UyBJuVi31ZqW93Rdtx9boU
+ jpMCvN8vZd6cXOeMq6PfBfzAwTmNQPfB/bAIDHM5KbepStBORrShv2A92gQ3vrou2ezCdk+ISDh
+ p+bEgtI437GB1Qx8No1FlJEq9+TeIm7Y8YBlI32+qSVQ94hNb9PwEDXS2vtTHFkWUAEmefvV2nL
+ DtMdfgCdm7/q5b1VVelt7N4UdcrzSxPxDhalFMN56+3fMu2QRIRbnYWQyfVWFCrtkdqq9DLX0Zq
+ Omgh46HvZoXPJsvld4EMv2YmDRK72a2eKTDWyGewzhBTcfSIdf2TX9o5Ll74eTfISqiQk5S+/hk
+ foJ7EfzerW+r736iuKL69/Z0h4wased8rKkuXudQyu7+9J5drJVqg51nQIlcODYOLkg7V/9pjrU
+ 8X/iltGyq+r4n0U9Tyw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA1MSBTYWx0ZWRfX1bNCy0+AG9AW
+ hOKox8etmbeI5ZsY/hEL6Yg3K/ixDyRfSThHbRViVv4Tnpy3ftso07DVES8QAbpjeKrSI7ySmU1
+ HemLGDcCEgU33uB4tlloN3len9CFj0Y=
+X-Proofpoint-GUID: 6bq6vaeGijii3OD7EzTf9XHaO7V67Tex
+X-Proofpoint-ORIG-GUID: 6bq6vaeGijii3OD7EzTf9XHaO7V67Tex
+X-Authority-Analysis: v=2.4 cv=cPt1IVeN c=1 sm=1 tr=0 ts=6ab3ce4c cx=c_pps
+ a=v0elvT+g34jhj2ItdigShQ==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=taLDd7a_hP9WKsMzeGRc:22 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=sozttTNsAAAA:8
+ a=zHeEaGkxK0QNAutOGoIA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0 priorityscore=1501
+ impostorscore=0 phishscore=0 suspectscore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230051
 
-On 9/16/26 11:31, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+
+
+On 9/23/2026 11:46 AM, Karl Mehltretter wrote:
+> The heading for k3_ringacc_init_data repeats struct, so kernel-doc
+> cannot match it to the declaration. Its three fields are also missing
+> descriptions.
 > 
-> A collapse is two jobs.  One reads a PTE table under mmap_lock and decides
-> whether the range is worth collapsing.  The other allocates, isolates,
-> copies and flushes, and wants the lock given up first.
+> Use the structure name and describe the firmware handle, device ID,
+> and total number of available rings used during DMA ring initialization.
 > 
-> collapse_single_pmd() did both, so the boundary between them was somewhere
-> in the middle of a function.
-> 
-> Give each half its own function:
-> 
->   - collapse_scan_pmd() scans one table and only reads.  The anonymous
->     scan that used to carry that name keeps its body as
->     collapse_scan_anon_pmd(), and collapse_scan_pmd() is now the entry
->     that picks the anonymous or the file side.
-> 
->   - collapse_run_pmd() does the collapse the scan asked for, and is
->     handed what the scan returned.  SCAN_SUCCEED means there is
->     something to collapse.  SCAN_PTE_MAPPED_HUGEPAGE means the page
->     cache already holds the PMD folio and only the PTE table is left to
->     retract.  Both are work for the run; anything else is why there is
->     nothing to do.
-
-Makes sense.
-
-The naming is a bit suboptimal and inconsistent.
-
-collapse_single_pmd
--> collapse_scan_pmd()
--> collapse_run_pmd()
-
-Maybe it would be clearer:
-
-collapse_pmd() ["single" is rather useless]
--> collapse_scan_pmd()
--> collapse_scanned_pmd()
-
-> 
-> collapse_single_pmd() is now the two of them with the mmap_lock drop in
-> between, so its callers see what they saw before.
-
-Ack
-
-> 
-> What the scan found and the run needs travels in collapse_control.  For
-> an anonymous table that is the orders and the referenced and swapped-out
-> counts, which mthp_collapse() and collapse_huge_page() now read from
-> there instead of taking as arguments.  For a file it is the file itself
-> and the offset in it.
-> 
-> The file side moves with the anonymous one.  collapse_scan_file() used to
-> run with mmap_lock already given up, and called collapse_file() itself
-> when the page cache looked worth it.  It now runs under the lock like the
-> anonymous scan and only reads; the run does the collapse.
-
-So we add more locking to the file path to merge both paths cleanly? Or did I
-misunderstand that paragraph?
-
-What do you mean with "and only reads"?
-
->  A file
-> collapse works on the page cache and never sees a VMA, so the scan takes
-> the file reference while it still has one and the run gives it back.
-> 
-> That changes what a refused file table costs khugepaged.  Every file
-> table it scanned used to end its pass over that mm, because the lock had
-> been dropped to scan it; now only a table it goes on to collapse does.
-
-The last sentence makes no sense. At least to me :)
-
-> 
-> Two things on the file side stop being rescanned.  When the page cache
-> already holds the PMD folio, the scan says so and the run goes straight
-> to retracting the PTE table.  A run that refuses dirty pages and may
-> write them back retries collapse_file() alone.  The checks the scan makes
-> ahead of it are ones collapse_file() repeats under the page cache lock.
-
-Is there any way we could move these changes into separate patches? These
-changes are bit squeezed into the last part of this description. And having to
-much happening at once makes this rather hard to grasp.
-
-> 
-> Tracing changes with it.  mm_khugepaged_scan_pmd and
-> mm_khugepaged_scan_file used to fire after the collapse, so for an
-> accepted table their status field carried what the collapse made of it.
-> They now fire before it and read SCAN_SUCCEED for an accepted table.  What
-> the collapse then made of it is for mm_collapse_huge_page and
-> mm_khugepaged_collapse_file to report.
-> 
+> Fixes: d782298c6f6b ("soc: ti: k3-ringacc: add AM64 DMA rings support.")
 > Assisted-by: LLM
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 > ---
->  mm/collapse.h   |  14 ++++
->  mm/khugepaged.c | 166 +++++++++++++++++++++++++++++++++---------------
->  2 files changed, 130 insertions(+), 50 deletions(-)
+> 
+> Notes (ti-ringacc-v2):
+>     Changes in v2:
+>     - Describe num_rings as the total number of available rings in the
+>       comment and commit message, as pointed out by Udit Kumar.
+>     
+>     Patch 1 is unchanged.
+>     
+>     v1: https://lore.kernel.org/r/20260919163721.89044-1-kmehltretter@gmail.com/
+> 
+>  include/linux/soc/ti/k3-ringacc.h | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/include/linux/soc/ti/k3-ringacc.h b/include/linux/soc/ti/k3-ringacc.h
+> index 2de6031b9424..7b7fc237c08f 100644
+> --- a/include/linux/soc/ti/k3-ringacc.h
+> +++ b/include/linux/soc/ti/k3-ringacc.h
+> @@ -254,7 +254,10 @@ u32 k3_ringacc_get_tisci_dev_id(struct k3_ring *ring);
+>  struct ti_sci_handle;
+>  
+>  /**
+> - * struct struct k3_ringacc_init_data - Initialization data for DMA rings
+> + * struct k3_ringacc_init_data - Initialization data for DMA rings
+> + * @tisci: TI SCI firmware handle
+> + * @tisci_dev_id: TI SCI device ID of the DMA controller
+> + * @num_rings: Total number of available rings
+>   */
 
-[...]
+Reviewed-by: Udit Kumar <u-kumar1@ti.com>
 
-> -/*
-> - * Try to collapse a single PMD starting at a PMD aligned addr, and return
-> - * the results.
-> - */
-> -static enum scan_result collapse_single_pmd(unsigned long addr,
-> -		struct vm_area_struct *vma, bool *lock_dropped,
-> -		struct collapse_control *cc)
-> +static void collapse_control_init(struct collapse_control *cc)
-> +{
-> +	cc->progress = 0;
-> +	cc->scan_file = NULL;
-> +}
-> +
-> +/* A scan that took a file reference should have been run */
-> +static void collapse_put_scan_file(struct collapse_control *cc)
-> +{
-> +	if (WARN_ON_ONCE(cc->scan_file)) {
-> +		fput(cc->scan_file);
-> +		cc->scan_file = NULL;
-> +	}
+>  struct k3_ringacc_init_data {
+>  	const struct ti_sci_handle *tisci;
 
-See below regarding _release: having _put functions that are not supposed to put
-anything except with BUG is akward.
-
-> +}
-> +
-> +static void collapse_control_release(struct collapse_control *cc)
-> +{
-> +	collapse_put_scan_file(cc);
-> +}
-
-Do we really have to introduce collapse_control_release() just to perform some
-safety checks for BUGs? I'd rather keep the collapse interface minimal and not
-introduce _release semantics when there is actually nothing to be released?
-
-Or will you add more into _release in later patches in this series?
-
-
--- 
-Cheers,
-
-David
