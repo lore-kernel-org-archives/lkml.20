@@ -1,139 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f10.google.com (mail-dl2-f10.google.com [74.125.229.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6DA8361DCB
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:20:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18EA6396D1C
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:20:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790148032; cv=none; b=bMv6Ln95IWz6BckQle7v42ykJQeizi5Dp8FJ6T8QyMrGzWi1hSK/a5ZGR6+PHcT6Z+7XAg8UXdZBFcBh+hnvmbMPOBkb9YvVsWhFtuvLFlFe7aXBLKf3ANsD9ky3xiij6tfKFlPs96nbZjxn7ZCKFKxtyWiKmY3hJRwZ8Wk+MF4=
+	t=1790148059; cv=none; b=ej6unZXktSDoW3wWPdRapktaJQCpeosSatcS1uowdDi54kiwVfFiUfXtBR5KByJ5uFuEOose/f/XvtIwie30HpmHT7+WvHnnOSR+IaX4EUv6H6QHWMKaUo7O5Q/UvIiXk0lpYu/wRcjHCV3Enk1ety+gFvd94Emq0OEvigt4bS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790148032; c=relaxed/simple;
-	bh=nLS1n8qV6eC9W4rvdxBSwAmsHoTxZonjQLzxFgw28Wo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NbkGZdukWkMwKqylkxTXFULfO/FMRF05qdfnBLJhZI+/qId1V1KNebNoSqhEX/JVt3Mt3X+lHj8kan+yL6otblztAVIgTXlb9uR/KLlVOUQ7hz6MUPi0P1jE9gCuauapufF0YqxiwOoh+ko84tI6LU2L8qEHiy9jtkl42cdNdhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UguBxu4m; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790148059; c=relaxed/simple;
+	bh=0hxanbK4yIWzoGvQWd6GLvT1DhcDi5OPHr4is5h1MOU=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=L1NEc8sCjDYHpy/VIhxgNPi4UrKMP0V4gPcuITVCw027A1wPMM9oIfyp5tBV51rq7u3SiR9orre3oHGk8ADqpOb6hTnUnvWAy1YIctXlKMT/2+CDjzj8JwYXcfouuFmcAg2ZliQatd+pP4R/kB/NozD00O1WYqBv6GOZl/xhMvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eq/v6biv; arc=none smtp.client-ip=74.125.229.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UguBxu4m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 645481F00923
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:20:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790148030;
-	bh=nLS1n8qV6eC9W4rvdxBSwAmsHoTxZonjQLzxFgw28Wo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=UguBxu4mwJWYSrWKx4bzSAfl6n/EYHutzXXLv6onceqt9w1Km/iiVb/srT0FUSS3N
-	 ZlBe8al3MoCZHCXXUmLZRGHqOkWcH4YF986CCdhw7DHmWj+AVGuu0Bm8MTO4I8W+Xs
-	 LVaglygw6aT21BY7iqKZ3TB+Blqn5Tf9HXWiYeKHcDjvXA7hfU5PuPfIX2/IraV4Kg
-	 a8eesWwn9H+7T7iIsfawE9eRlxnNpiDIHo8uiQcgHMW7CYGtgkZGHVwMkAoVPZlpTr
-	 Y1Gm8i8UJwngCs0OXbxok+thnuNz7iI3uoRywcP+T4XXWwH1lmTbRws5mX9yfdUDiM
-	 9v134bJUlxv0g==
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4ab22370so496983d50.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:20:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzOdjGj947XrjCL9tVjTOe1Wza/sVSxc2nMgZNAoQPIk13Ky+T/uJfudP+TxJ1U4lDFqsuSWsL4No4gGGI=@vger.kernel.org
-X-Gm-Message-State: AFuF++n1BC24ydDVRaJDR8cof017pgLlRi4EBJf1qHD4b7oUPvbnTpI3
-	t4CQKqWtnkj92pXSf5kJd7gK/yBHRyvXDGv0OMJ74Pe5dD3IJfv7iMEcGXxUi7ucex4g5jJgTT2
-	HKXnHyny54mwSWq2qZzLFpvTl6s+W8p/tJo+RXkWDpg==
-X-Received: by 2002:a05:690e:bc8:b0:672:9f72:7c04 with SMTP id
- 956f58d0204a3-672d5a1405bmr755720d50.102.1790148029577; Wed, 23 Sep 2026
- 00:20:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eq/v6biv"
+Received: by mail-dl2-f10.google.com with SMTP id a92af1059eb24-143601f9f98so40933c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:20:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790148057; x=1790752857; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=geEmw+R/kfrbLwVLDAsBiL4pN21rLxye59h2geFDiOU=;
+        b=eq/v6bivGRdeAlSE+Vu7p+q5LH3tSYjUQMFy+5DLCaylTB5aYT8jesIX3Pgft8KQt3
+         Ck14kB2q8rXXeY19cxoaGSofhDdU2Tw3Riwo9hZTIRWEwFW0mVsEUzbZFYFMOUDrdlJN
+         N6YmxBKdPJCihc2sHDTn2RRWJ/ul7rwSNolhwRyHvvR2R+q0t3O7RQmU97DDkECdGax3
+         eu8LEZI0YFlQXZQqGO3d7RiijyIwAnjsXjITDf7YXBxuKE675/XVRYOVnusEiDvgsAh9
+         OPWRGz3/+riou49PIPW9WupVOW5rB5lNvCOkbSXRzkRZv2XYhSiJ+9Y5vHG6SCFwfiFU
+         LzNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790148057; x=1790752857;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=geEmw+R/kfrbLwVLDAsBiL4pN21rLxye59h2geFDiOU=;
+        b=Ufb1eEx1VirJWo8cGinh+tO3RoaHCDneUf+vJzeCc5B2juFCPQK5u88jzwFK5xhSA0
+         l+iqO7Qc/H9/+kFGI6gdfIkk9zkTVsZeDtvxq2bsL0neHMNBNCjZouB5obZMMJJiDMKx
+         W/6Ru3pVw+y7IX4svZuN2YacopQalR6zxMPCQOjassiNeT1Ygn3wrn8p4jQ3hjrGaONH
+         wkzSKIiEt5MlvRJR3fuqgys3ldA6x4GR5j79GVZhX/F2NGyDXeU4EgFimgFbjp+nYV+D
+         q6L8/8+uD8HHSEHreKH3lxQfsam/5dlnuwa4d93oDrZiAxCBgnKcl3jDC8KX8JSuj1Gp
+         RRNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx2S9+sxVKRBK4xy15jRngNAEpqM6pBxN6cWlqkROxP7z1m+iXUekQjRO45KA5uv3CDiVRAZodbuG7MWu8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lCtpSF4hKS/fbFYDRYXymjXuARQ2O8jhdFukL65SSnjJc26DIQ
+	qGOQWd5Fz1MvLqBJYWUXld05q+NkBp1OY7JftnwU7/mXx/T8LB1p/o0R
+X-Gm-Gg: AYBFou2rHLbrKVWwDgwMZrlrbdNeBTZVlIne6fZ0w3km+rwbZEAV9lcKmH4fZCuxLhX
+	lFuDYIZq3zwvNTy1yODPrxtI0g6pb0Pb0eWIvs9jxbxtpOI301gKC7EAXo2ooPcwdj0/Cldh3HS
+	srRgPGaiHX/dZ9jVcMnmnYDXftw6C6mymmthSxX4/iwg/MyTLylDCrpakoQgrD2kqQCVJHvAOpa
+	zNMZxWc03q+cBqoAZuD3wjQqSKZsDImBsOkmQEpAwCV9ApQPU7cZq9QPIeX7p9YSjAJL25mKkE3
+	0jPJApTTy5+EPAAqtljS6npW4vMaEBsGppgMrC0L6/eaJdx2I1fCGA/WB8iXZcxCtcjEqb9z2NU
+	orlNYQMVWcqyZXj/QXdH+ZaR+lvAy/j7LI2SocyGYwyF2F9W5553QyuUcG9IadT1DuxE0nLtkwI
+	Cs9Q1BnEM0JOGfApYmi8hfAlhMSTwwybyq3rJMa8a52dkaiogXnj1zUfLIRMwvHy0N4LMjJfcu4
+	vnjDcCzn2FaC147/LqM8dCn/hKcEy3eoXRd2e0sDnT7l3NDRFNH
+X-Received: by 2002:a05:7022:7e81:b0:144:ddf7:256e with SMTP id a92af1059eb24-144f9179543mr2414871c88.29.1790148056999;
+        Wed, 23 Sep 2026 00:20:56 -0700 (PDT)
+Received: from Raccoon ([113.30.177.23])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f949e51asm4162367c88.1.2026.09.23.00.20.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 00:20:56 -0700 (PDT)
+From: Rohinthan P <rokinthanp03@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+f26bc23e42eeb548dee1@syzkaller.appspotmail.com
+Subject: [PATCH] media: em28xx: use video_unregister_device for radio_dev
+Date: Wed, 23 Sep 2026 12:50:50 +0530
+Message-ID: <20260923072050.24427-1-rokinthanp03@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <aqJXx2vtbKaRLt3x@fedora> <aqLi6cIjD2wJwk0B@cmpxchg.org> <CACePvbUG1ApMzMdEzf-63rpjgGVNsRk21pT72OQGJpM=OtRUew@mail.gmail.com>
- <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F> <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
- <aq8dja2-timYBwyB@gourry-fedora-PF4VCD3F> <CACePvbXudjxQ5vrrY4D1nOXKaFNQUn-tL+p3O0zfxtHXK99ojQ@mail.gmail.com>
- <arEVDBlfsUYKK004@gourry-fedora-PF4VCD3F> <CACePvbXG5kjZmRsdd0a4HfbnNa6w5s9b_1OCySbwvY+HuCqOVg@mail.gmail.com>
- <ad1c4de51f1fbbfc7345036af8f39fb450c1f3c7.camel@surriel.com> <CAKEwX=NKC=N-YaiwZK7HPM4MfX-7JG_KeHukS0+vjHqMZTV4dA@mail.gmail.com>
-In-Reply-To: <CAKEwX=NKC=N-YaiwZK7HPM4MfX-7JG_KeHukS0+vjHqMZTV4dA@mail.gmail.com>
-From: Chris Li <chrisl@kernel.org>
-Date: Tue, 22 Sep 2026 21:20:16 -1000
-X-Gmail-Original-Message-ID: <CACePvbUijn+9poYGFL0kiA+ADAxLULcmuVpfx3=9UbbRemyjRw@mail.gmail.com>
-X-Gm-Features: AcwNN1XNF8jCOBxQkoAP5mypVrfmU5thuNYjjY3TJ8Y1KZCkSFtYtgfK_yupyfs
-Message-ID: <CACePvbUijn+9poYGFL0kiA+ADAxLULcmuVpfx3=9UbbRemyjRw@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Nhat Pham <nphamcs@gmail.com>
-Cc: Rik van Riel <riel@surriel.com>, Gregory Price <gourry@gourry.net>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Baoquan He <baoquan.he@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
-	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 7:21=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrote=
-:
->
-> On Tue, Sep 22, 2026 at 10:15=E2=80=AFAM Rik van Riel <riel@surriel.com> =
-wrote:
-> >
-> > On Mon, 2026-09-21 at 06:11 -1000, Chris Li wrote:
-> > > On Mon, Sep 21, 2026 at 2:53=E2=80=AFAM Gregory Price <gourry@gourry.=
-net>
-> > > wrote:
-> > >
-> > > >
-> > > > You can't know the compressibility of memory until after you
-> > > > compress
-> > > > it, and requiring a user to predict the future by forcing them to
-> > > > limit
-> > > > the total amount of workload compressibility does not scale with
-> > > > the
-> > > > number of workloads of variable compressibility of data.
-> > >
-> > > You likely just need to pull a SQL query on your fleet to get that
-> > > number.
-> >
-> > This feature is not being developed for just one
-> > user. It has to work for everybody.
-> >
-> > >
-> > > > That should tell you that your model of reasoning about this issue
-> > > > is
-> > > > ill-suited to address the problem.
-> > >
-> > > That is what I'm suspecting. Nobody in a sane mind would want to
-> > > zswap
-> > > 100% of the RAM and maintain reasonable SLO.
-> > >
-> > It could make a lot of sense to have some default
-> > limit upstream, that says the zswap pool is not
-> > allowed to take more than half of memory, because
-> > at that point the compressed content will be
-> > crowding other things out of memory.
->
-> I actually am skeptical of gating zswap usage (both pre- and
+Commit 7c8bf63b7937 ("media: em28xx: use vb2_video_unregister_device")
+converted device unregistrations in em28xx to use
+vb2_video_unregister_device() instead of video_unregister_device().
 
-Isn't there a zswap limit some thing like that? In our deployment we
-have limits for memory + swap as well as page fault latency to detect
-SLO issues. There is a feedback loop.
+However, radio devices do not have an associated videobuf2 queue
+(v4l2->radio_dev.queue is NULL). Calling vb2_video_unregister_device()
+on a radio device triggers a WARNING in vb2_video_unregister_device():
 
-> post-compression), but I would like to note that for post-compression
-> size, we already have that knob for zswap, default to 20% of physical
-> RAM.
+    !vdev->queue
+    WARNING: drivers/media/common/videobuf2/videobuf2-v4l2.c:1264 at vb2_video_unregister_device+0x1f8/0x200
+    Call Trace:
+     em28xx_v4l2_init+0x1c39/0x3150 drivers/media/usb/em28xx/em28xx-video.c:3085
 
-I think swapping too much to zswap does not make sense. e.g. 100% of
-system RAM. That is my point. It is not a value you cannot determine.
-We can find an universal answer with a safe margin if we want. That is
-my point: it's not a value you can't determine. We can find the answer
-with a safe margin if we choose to. If you don't want to, then that is
-a different story.
+As documented in vb2_video_unregister_device(), video_unregister_device()
+should be used instead when vdev->queue is NULL.
 
-Chris
+Revert to calling video_unregister_device() for v4l2->radio_dev in both
+em28xx_v4l2_fini() and the em28xx_v4l2_init() error unwind path.
+
+Fixes: 7c8bf63b7937 ("media: em28xx: use vb2_video_unregister_device")
+Reported-by: syzbot+f26bc23e42eeb548dee1@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=f26bc23e42eeb548dee1
+Signed-off-by: Rohinthan P <rokinthanp03@gmail.com>
+---
+ drivers/media/usb/em28xx/em28xx-video.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
+index c418add..79af154 100644
+--- a/drivers/media/usb/em28xx/em28xx-video.c
++++ b/drivers/media/usb/em28xx/em28xx-video.c
+@@ -2416,7 +2416,7 @@ static int em28xx_v4l2_fini(struct em28xx *dev)
+ 	if (video_is_registered(&v4l2->radio_dev)) {
+ 		dev_info(&dev->intf->dev, "V4L2 device %s deregistered\n",
+ 			 video_device_node_name(&v4l2->radio_dev));
+-		vb2_video_unregister_device(&v4l2->radio_dev);
++		video_unregister_device(&v4l2->radio_dev);
+ 	}
+ 	if (video_is_registered(&v4l2->vbi_dev)) {
+ 		dev_info(&dev->intf->dev, "V4L2 device %s deregistered\n",
+@@ -3082,7 +3082,7 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+ 		dev_info(&dev->intf->dev,
+ 			 "V4L2 device %s deregistered\n",
+ 			 video_device_node_name(&v4l2->radio_dev));
+-		vb2_video_unregister_device(&v4l2->radio_dev);
++		video_unregister_device(&v4l2->radio_dev);
+ 	}
+ 	if (video_is_registered(&v4l2->vbi_dev)) {
+ 		dev_info(&dev->intf->dev,
+-- 
+2.53.0
+
