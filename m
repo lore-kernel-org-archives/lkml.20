@@ -1,109 +1,260 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0780246EF8D
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:30:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4DBE82E975E
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:30:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790152204; cv=none; b=o6198t8aL9ONa7ZA/Zd3Kk8pr8lm5r3DAgNgOY1QwKHu4s46aiMkeaLuba+MR2SyFkz7cwD1sJzqD0rKef5EeUGuYBTbA1QVkX02oOfckHy4vZxdB1XhfS8lG7UzxOcZbYwwD48rl0uIbUHlC0a89sqHbDmv9nM9HQ37JDA6U9A=
+	t=1790152232; cv=none; b=jZbw3RJVTJF3QssxZ2//GxT/4IQed42DeuGVkOWYCD3ygqTVeZKbO2bPGw+0X/7uQazce7bYOuYw5V6dpNFOrNEdqCorCNZl5l8kqpRzpvf89EA2v5aztDPJTeLEClvHx19hEdWDe/RgLtas7iHFd5PTQm8aX5FZahW7TNhTDtw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790152204; c=relaxed/simple;
-	bh=KWVFcR8axhKHBUEznO09Np4NmCs9jEUEVgGXBR1vWJM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hr0fPwvb+4rclt4KwS4+4SFFcPrBCLD14+RLbvucf/6rxO5qPHV3VxxsH+wqRoTtZb+MU9aJC5l+fv+SwB7ixJJ15JF/cz8wsP6CvrSML+tFqyEkOJExzDNoyWacb/FlrXmuH/tUx+KT6A2R7TqJuce9M8xQv3K7iF1cNt6OKPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HJthJzRp; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790152232; c=relaxed/simple;
+	bh=v2WXtyBLSB3YhyBRLWAjDMJC2CGbUi5Cb+4KfZ8nbrI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Qf29hpF1/LeTFR+V48ABbIQ97zjU6XSkacEE9d3Y1myDcEiHYxY0xZO+4ggmYYVULl/aGwr6WLXFOXR3NQl4PDhxqQ8eBNF07jlnQciKP9Xk9Lcvtj+5TwhmFs7tg11mtqvbonZixe+sHzFHCYKCpR8RGEnZwrjhf/WZ0bd0s1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=nF7al3z+; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HJthJzRp"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24afso391688a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:30:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790152199; x=1790756999; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KWVFcR8axhKHBUEznO09Np4NmCs9jEUEVgGXBR1vWJM=;
-        b=HJthJzRpgb8kctdVoMy42oxRTnEvxrHzUkm1mzLloMN5TjM5B6Oy7Ttjnv+xB242uA
-         aW3iNk/7kmsKAaQeOxxoBC8EDuRrNKhWoqXdWkHqz4IAzoDpBXFiPYU2rrGNhQv6eRNi
-         2zAWZmAs4zRYI0AAf8lvdKdifeSdvHNzvMuBIyO3UBN0zED/Pc9i4MusXev0Cfga0g+w
-         ADUJLMpj+5NlIrofzXAQj2Zr8UT3mhECJA0wNHEC/ihmR9w3g379HIiI+6oMvgYPINt9
-         Zcg8hFph2h51zBT80rpUtoln23FO43fmkuGq/ddJjw68goGyyiCSXF8LV3M3Fqdz4YPI
-         zUFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790152199; x=1790756999;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KWVFcR8axhKHBUEznO09Np4NmCs9jEUEVgGXBR1vWJM=;
-        b=GkA+TgWtvMw3BnRgP9ueB3IEskOb3JBtCcuRHVTsSOMqXaXaOxcvnbAQ/mm72Xeuec
-         SO4I/pqtJ/KsdCMbWv9/p7r4vrB7ZOTZEKpWlcmmC0cPVxxffyTFbuYrT+krZyLdHteK
-         XD37/U10NzyrGHATaiOsxjKiRhfqhS4E5WTwv8Xgk1fvzdwgUnu5ji1JKyadhgnqhykj
-         Z+u5FzvvhD92yVq1nx7ukOnamokcT534idXi0oWk62esJ/FipuvFI4fqUq3NeHY+Docw
-         ikdOnrsy9O2k0Ex0sTQA9wcp85vBS0cIEnlTUq7yIX4mRETzb8v2sJZoEKxi0avlmN0f
-         p3zA==
-X-Forwarded-Encrypted: i=1; AKwUvByhye5WAeLv68M4E3nBVBh7cfitAocZiEgBBUk1NvgIOub5goU6puN2JQ52ahvDkTF+X6iFk3Z4BXvDN8k=@vger.kernel.org
-X-Gm-Message-State: AFuF++kH6yvTXo1uFSC2gXIjfVj5Vw5eXnqEUxj2GdZgNO0e+S3icbHj
-	9GeG6u2O/0u/d66aK8ZdUSd7/DDcRAaAOGLKXv7TJExMGYLag8is396p
-X-Gm-Gg: AYBFou3I2hWCEobSNPwW/CEHWl4kQhlOZsJWScyuB9VPzH+6bBUxEllN1YUrkDVPBxp
-	nCaWzDYFSvHioyKUrmuFFcBhfE+7xdQPW7ZhltVBJT8BA416wm0k5QrjVCQmrZFbUmPNUoUMBzA
-	uamEvPJcoE/JDkDNxkFdEroEuQ6KNw94AKjSTf3rTxUApyYtv6jnazFMQ87o635MHkBmqqLGvyv
-	3T7sG4oh/OUcMOCVsyGkB9RPUQ93YXtdVSFvF+NM32gvdfZzgH7OZ0l35LmzHa5QvTBQVVtTfhU
-	kas/554fesIaJz2B9K5eP8+PC0t/Pj4vL0ACzvL0ouxBYLmkMC47L9IYsQfdCvwEqG+nDL+fV4P
-	ghyLPN4Tfn3sk26CIwVSGLV5FqnSZPFUbE8xQENir+kT7wpr5pgZV5AoCkGf8B6i4MYR8etYFKp
-	WSxDhsoqaXE7J8ETSFIbThIujsndT8No8znBtJz3xlKB6WuSTEezPG1MNt4dGVSWjsU37Qpe9UZ
-	E02px6ZVzPsM2TobS+76Vt29SGFX/ZF/XQ=
-X-Received: by 2002:a17:90a:fc4b:b0:39e:6a81:c91f with SMTP id 98e67ed59e1d1-3a07e640fc0mr1490714a91.18.1790152199191;
-        Wed, 23 Sep 2026 01:29:59 -0700 (PDT)
-Received: from localhost.. (59-124-112-186.hinet-ip.hinet.net. [59.124.112.186])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dc01df8sm3706355a91.10.2026.09.23.01.29.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 01:29:58 -0700 (PDT)
-From: chipang_kao <prozac2734@gmail.com>
-X-Google-Original-From: chipang_kao <chipang_kao@asus.com>
-To: W_Armin@gmx.de,
-	hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com
-Cc: corentin.chary@gmail.com,
-	luke@ljones.dev,
-	denis.benato@linux.dev,
-	scardracs@disroot.org,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] platform/wmi: Move ASUS platform drivers from x86 to wmi/asus
-Date: Wed, 23 Sep 2026 16:29:23 +0800
-Message-ID: <20260923082923.154732-1-chipang_kao@asus.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <202609221954.123456@gmx.de>
-References: <202609221954.123456@gmx.de>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="nF7al3z+"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B79AA1570;
+	Wed, 23 Sep 2026 01:30:25 -0700 (PDT)
+Received: from [10.0.138.135] (XHFQ2J9959-5.cambridge.arm.com [10.0.138.135])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7E3A93FA32;
+	Wed, 23 Sep 2026 01:30:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790152229; bh=v2WXtyBLSB3YhyBRLWAjDMJC2CGbUi5Cb+4KfZ8nbrI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=nF7al3z+DZBg+8dub1pTw8FtztOSgeR7ezbMdaeQ5LFQzTP/C37w01jTHe1I43jHD
+	 vNLmEuv2MdLvnuEzA7jG3n2GM2rMZ4v6LRUA4Ml8zBGUdRio/9nN0TS0jYrMzZ0iP7
+	 1t17BjusAYyUNC/TSoZrGmORAsTqHX9uScNIy1hk=
+Message-ID: <ae280191-4d9b-4971-b724-60233895fdce@arm.com>
+Date: Wed, 23 Sep 2026 09:30:26 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V2 3/4] arm64/mm: Use p4dp_get() for P4D accesses
+To: Anshuman Khandual <anshuman.khandual@arm.com>,
+ linux-arm-kernel@lists.infradead.org
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Linu Cherian <linu.cherian@arm.com>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, kasan-dev@googlegroups.com
+References: <20260922061638.3967467-1-anshuman.khandual@arm.com>
+ <20260922061638.3967467-4-anshuman.khandual@arm.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260922061638.3967467-4-anshuman.khandual@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Armin, Hans, and all,
+On 22/09/2026 07:16, Anshuman Khandual wrote:
+> Replace READ_ONCE() with p4dp_get() for P4D accesses in preparation for
+> supporting both D64 and D128 translation table formats.
+> 
+> READ_ONCE() cannot currently be used for 128-bit page table entries on
+> arm64 because it does not provide the required 128-bit single-copy
+> atomicity, causing builds to fail for accesses wider than 64 bits.
+> 
+> Although LDP/STP provide the required atomicity when FEAT_LSE is
+> available (as required by FEAT_D128), extending READ_ONCE() to support
+> 128-bit accesses is undesirable. READ_ONCE() is a general-purpose API,
+> so doing so could encourage other 128-bit users that would either fail
+> to build in configurations without D128 support or, if D128 becomes a
+> runtime option, silently permit tearing on systems without the required
+> hardware support.
+> 
+> Instead, standardize P4D accesses on the existing page-table helpers.
+> These can be overridden on arm64 to provide 128-bit single-copy
+> atomicity when required. No functional change intended.
 
-Thank you for the feedback, Armin!
+I notice you still have uncoverted READ_ONCE(*p4dp) in:
 
-I completely agree that separating WMI core infrastructure from WMI client
-drivers makes logical sense. The reason v3 relocated the drivers to
-drivers/platform/wmi/asus/ was based on Hans's earlier suggestion to use the
-WMI subsystem hierarchy. However, Armin's point about keeping client drivers in
-a brand-specific directory like drivers/platform/asus/ also provides a very
-clean, cross-architecture solution for all ASUS platform drivers.
+ - pud_offset_phys()
+ - pud_offset()
 
-Regarding the background: yes, the RTX Spark is indeed our target platform.
-ASUS plans to provide user-space applications on Ubuntu to control platform
-features via the WMI interface. During our bring-up on ARM64, we found that no
-ASUS WMI modules were currently available for this architecture due to the
-existing x86 Kconfig restriction. This patch series aims to enable
-cross-architecture WMI support to address this gap.
+Is that intentional? If so, perhaps we need a comment explain why it's not using
+the helper?
 
-I am happy to go with either path (wmi/asus/ vs. platform/asus/). Hans, Armin,
-what would be the preferred target directory before I prepare [PATCH v4]?
+Thanks,
+Ryan
 
-Best regards,
-Chipang Kao
+
+> 
+> Cc: Catalin Marinas <catalin.marinas@arm.com>
+> Cc: Will Deacon <will@kernel.org>
+> Cc: Ryan Roberts <ryan.roberts@arm.com>
+> Cc: Mark Rutland <mark.rutland@arm.com>
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: kasan-dev@googlegroups.com
+> Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
+> ---
+>  arch/arm64/mm/fault.c       |  2 +-
+>  arch/arm64/mm/fixmap.c      |  2 +-
+>  arch/arm64/mm/hugetlbpage.c |  2 +-
+>  arch/arm64/mm/kasan_init.c  |  4 ++--
+>  arch/arm64/mm/mmu.c         | 12 ++++++------
+>  arch/arm64/mm/pageattr.c    |  2 +-
+>  arch/arm64/mm/trans_pgd.c   |  4 ++--
+>  7 files changed, 14 insertions(+), 14 deletions(-)
+> 
+> diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
+> index 435e2e14c070..a6afd8929a10 100644
+> --- a/arch/arm64/mm/fault.c
+> +++ b/arch/arm64/mm/fault.c
+> @@ -174,7 +174,7 @@ static void show_pte(unsigned long addr)
+>  			break;
+>  
+>  		p4dp = p4d_offset_lockless(pgdp, pgd, addr);
+> -		p4d = READ_ONCE(*p4dp);
+> +		p4d = p4dp_get(p4dp);
+>  		ptval_to_str(pxd_str, p4d_val(p4d));
+>  		pr_cont(", p4d=%s", pxd_str);
+>  		if (p4d_none(p4d) || p4d_bad(p4d))
+> diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
+> index d9a870836faf..2a0fe0b0f771 100644
+> --- a/arch/arm64/mm/fixmap.c
+> +++ b/arch/arm64/mm/fixmap.c
+> @@ -74,7 +74,7 @@ static void __init early_fixmap_init_pmd(pud_t *pudp, unsigned long addr,
+>  static void __init early_fixmap_init_pud(p4d_t *p4dp, unsigned long addr,
+>  					 unsigned long end)
+>  {
+> -	p4d_t p4d = READ_ONCE(*p4dp);
+> +	p4d_t p4d = p4dp_get(p4dp);
+>  	pud_t *pudp;
+>  
+>  	if (CONFIG_PGTABLE_LEVELS > 3 && !p4d_none(p4d) &&
+> diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
+> index c9ad5e75b073..5771bf49e1fe 100644
+> --- a/arch/arm64/mm/hugetlbpage.c
+> +++ b/arch/arm64/mm/hugetlbpage.c
+> @@ -288,7 +288,7 @@ pte_t *huge_pte_offset(struct mm_struct *mm,
+>  		return NULL;
+>  
+>  	p4dp = p4d_offset(pgdp, addr);
+> -	if (!p4d_present(READ_ONCE(*p4dp)))
+> +	if (!p4d_present(p4dp_get(p4dp)))
+>  		return NULL;
+>  
+>  	pudp = pud_offset(p4dp, addr);
+> diff --git a/arch/arm64/mm/kasan_init.c b/arch/arm64/mm/kasan_init.c
+> index aad29bcc7622..4dd8c1186471 100644
+> --- a/arch/arm64/mm/kasan_init.c
+> +++ b/arch/arm64/mm/kasan_init.c
+> @@ -89,7 +89,7 @@ static pmd_t *__init kasan_pmd_offset(pud_t *pudp, unsigned long addr, int node,
+>  static pud_t *__init kasan_pud_offset(p4d_t *p4dp, unsigned long addr, int node,
+>  				      bool early)
+>  {
+> -	if (p4d_none(READ_ONCE(*p4dp))) {
+> +	if (p4d_none(p4dp_get(p4dp))) {
+>  		phys_addr_t pud_phys = early ?
+>  				__pa_symbol(kasan_early_shadow_pud)
+>  					: kasan_alloc_zeroed_page(node);
+> @@ -162,7 +162,7 @@ static void __init kasan_p4d_populate(pgd_t *pgdp, unsigned long addr,
+>  	do {
+>  		next = p4d_addr_end(addr, end);
+>  		kasan_pud_populate(p4dp, addr, next, node, early);
+> -	} while (p4dp++, addr = next, addr != end && p4d_none(READ_ONCE(*p4dp)));
+> +	} while (p4dp++, addr = next, addr != end && p4d_none(p4dp_get(p4dp)));
+>  }
+>  
+>  static void __init kasan_pgd_populate(unsigned long addr, unsigned long end,
+> diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
+> index 22efaee79293..83709d987e7c 100644
+> --- a/arch/arm64/mm/mmu.c
+> +++ b/arch/arm64/mm/mmu.c
+> @@ -367,7 +367,7 @@ static int alloc_init_pud(p4d_t *p4dp, unsigned long addr, unsigned long end,
+>  {
+>  	int ret = 0;
+>  	unsigned long next;
+> -	p4d_t p4d = READ_ONCE(*p4dp);
+> +	p4d_t p4d = p4dp_get(p4dp);
+>  	pud_t *pudp;
+>  
+>  	if (p4d_none(p4d)) {
+> @@ -457,7 +457,7 @@ static int alloc_init_p4d(pgd_t *pgdp, unsigned long addr, unsigned long end,
+>  	}
+>  
+>  	do {
+> -		p4d_t old_p4d = READ_ONCE(*p4dp);
+> +		p4d_t old_p4d = p4dp_get(p4dp);
+>  
+>  		next = p4d_addr_end(addr, end);
+>  
+> @@ -467,7 +467,7 @@ static int alloc_init_p4d(pgd_t *pgdp, unsigned long addr, unsigned long end,
+>  			goto out;
+>  
+>  		VM_WARN_ON_ONCE(p4d_val(old_p4d) != 0 &&
+> -				p4d_val(old_p4d) != READ_ONCE(p4d_val(*p4dp)));
+> +				p4d_val(old_p4d) != (p4d_val(p4dp_get(p4dp))));
+>  
+>  		phys += next - addr;
+>  	} while (p4dp++, addr = next, addr != end);
+> @@ -1622,7 +1622,7 @@ static void unmap_hotplug_p4d_range(pgd_t *pgdp, unsigned long addr,
+>  	do {
+>  		next = p4d_addr_end(addr, end);
+>  		p4dp = p4d_offset(pgdp, addr);
+> -		p4d = READ_ONCE(*p4dp);
+> +		p4d = p4dp_get(p4dp);
+>  		if (p4d_none(p4d))
+>  			continue;
+>  
+> @@ -1788,7 +1788,7 @@ static void free_empty_p4d_table(pgd_t *pgdp, unsigned long addr,
+>  	do {
+>  		next = p4d_addr_end(addr, end);
+>  		p4dp = p4d_offset(pgdp, addr);
+> -		p4d = READ_ONCE(*p4dp);
+> +		p4d = p4dp_get(p4dp);
+>  		if (p4d_none(p4d))
+>  			continue;
+>  
+> @@ -1809,7 +1809,7 @@ static void free_empty_p4d_table(pgd_t *pgdp, unsigned long addr,
+>  	 */
+>  	p4dp = p4d_offset(pgdp, 0UL);
+>  	for (i = 0; i < PTRS_PER_P4D; i++) {
+> -		if (!p4d_none(READ_ONCE(p4dp[i])))
+> +		if (!p4d_none(p4dp_get(p4dp + i)))
+>  			return;
+>  	}
+>  
+> diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
+> index 07b2fa4de57f..826856ef64a8 100644
+> --- a/arch/arm64/mm/pageattr.c
+> +++ b/arch/arm64/mm/pageattr.c
+> @@ -403,7 +403,7 @@ bool kernel_page_present(struct page *page)
+>  		return false;
+>  
+>  	p4dp = p4d_offset(pgdp, addr);
+> -	if (p4d_none(READ_ONCE(*p4dp)))
+> +	if (p4d_none(p4dp_get(p4dp)))
+>  		return false;
+>  
+>  	pudp = pud_offset(p4dp, addr);
+> diff --git a/arch/arm64/mm/trans_pgd.c b/arch/arm64/mm/trans_pgd.c
+> index d119119455f1..7afe2beca4ba 100644
+> --- a/arch/arm64/mm/trans_pgd.c
+> +++ b/arch/arm64/mm/trans_pgd.c
+> @@ -99,7 +99,7 @@ static int copy_pud(struct trans_pgd_info *info, p4d_t *dst_p4dp,
+>  	unsigned long next;
+>  	unsigned long addr = start;
+>  
+> -	if (p4d_none(READ_ONCE(*dst_p4dp))) {
+> +	if (p4d_none(p4dp_get(dst_p4dp))) {
+>  		dst_pudp = trans_alloc(info);
+>  		if (!dst_pudp)
+>  			return -ENOMEM;
+> @@ -145,7 +145,7 @@ static int copy_p4d(struct trans_pgd_info *info, pgd_t *dst_pgdp,
+>  	src_p4dp = p4d_offset(src_pgdp, start);
+>  	do {
+>  		next = p4d_addr_end(addr, end);
+> -		if (p4d_none(READ_ONCE(*src_p4dp)))
+> +		if (p4d_none(p4dp_get(src_p4dp)))
+>  			continue;
+>  		if (copy_pud(info, dst_p4dp, src_p4dp, addr, next))
+>  			return -ENOMEM;
+
