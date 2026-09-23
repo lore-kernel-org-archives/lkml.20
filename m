@@ -1,93 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A373E63B0;
-	Wed, 23 Sep 2026 17:44:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E35EB41DEE5;
+	Wed, 23 Sep 2026 17:45:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790185488; cv=none; b=VY1T4c1gIidyR3ARza2Tj1X0AnjHJN1BU/qnqj9g4oimPRu9RWFjNVU3Ep7eq/kCmsxGr7gSksI+zI6qoVe/TFlbX+u5D8A1tFywri3BC5ZGsrHxbSFRCL8EBPUhLHnNELBQ+1tpjT5PRSR8jgbzRQRCyIBGRyikot+t2GgpRgs=
+	t=1790185548; cv=none; b=qEF1ldfCF8ZoMvrITrMRvFOD76mWXPuqwS8Mc3P/D/g5jZh79MUfOlvy/zWVS8VbwGoFswRjVHxmicCS36hvCMn6zKFJtO4RaC9dbdqSVi8XlWuTKhBdKroMN6Myj+pEI+EVpYlZaU9i6Uvk/d9KHsXwbjgo3ICkvFyMKdWmvcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790185488; c=relaxed/simple;
-	bh=Jf8J2LoHC1NWfXfw+1GbvJyiZDPbgtqBHpqpN0+aNE8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QTR27oviCb7XdRHsefPOjytbsSLc1XN7JyJoY9vOgWNvcQY3Q56Q4lXni3ylwaE+6CPNWe0mBrm/6M+rzsntj+3fhtseOGNjsQvsGqi/kWFANSQNSowaJzvyj4TrpA9FBAhXuxNZH/nU4ECgl2KwEj1V2gznGwlOcviunPRXX5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cCbge/am; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790185548; c=relaxed/simple;
+	bh=B/5OxH4zopJDHw6XR/oNfqdty/0ftHeGKu0ofzE6qRQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=KqwnzKFo0IAifBhv949/zvGXtInksmdhiV8rENDFtDxC04N6HPrw+psS9PkCibka39ZfpFbR9HGdUomJA+osco8BZERLtpEw/3eQHfDueamSJJhYXPJiko+5/GknDeema9hS7DT1J++JGNHP0p+gy0Mr/54CBKrNiH59igi6Y24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SZvW1r2i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cCbge/am"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34AE41F000FF;
-	Wed, 23 Sep 2026 17:44:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SZvW1r2i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 326261F000FF;
+	Wed, 23 Sep 2026 17:45:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790185486;
-	bh=Jf8J2LoHC1NWfXfw+1GbvJyiZDPbgtqBHpqpN0+aNE8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cCbge/am5sVz/tGOgcSblRgqLhKxsq7FsyfcuQnw5VTXcfZMBcxapo8lpQGre3MGa
-	 nYTJcqyPaS8/+/dYyYfmVnKO5IECrmIzSL0SwSNJRiA6h9GgSoy2hR80ALGFdnz3dZ
-	 xIpmqLi+sV1LrH9D/KFi7ZAJ/0z67kB16X4p02YWX5Rdx31WjRIbyjhCM1hSDdg78c
-	 jyien2Tmb/6jGS8ixwJPsq3OqkP8L7Fq8jEkL6VmLSuRmLITTop5AaDrAtinv+8+5j
-	 V7ZiPO+ZE7NKmDL5reOHi4XbUxasdX7w6+t2/c0dZuQAnTpt9yjxwTE1ZDmUZg6ZKw
-	 M3BFDdO9dOPcA==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id E17F71AC573C; Wed, 23 Sep 2026 18:44:42 +0100 (BST)
-Date: Wed, 23 Sep 2026 19:44:42 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Bhargav Joshi <j.bhargav.u@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@avionic-design.de>,
-	Lee Jones <lee@kernel.org>,
-	Shree Ramamoorthy <s-ramamoorthy@ti.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Dmitry Osipenko <digetx@gmail.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com,
-	simona.toaca@nxp.com, mfd@lists.linux.dev,
-	Thierry Reding <treding@nvidia.com>, linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v3 2/4] regulator: dt-bindings:
- nvidia,tegra-regulators-coupling: Convert to DT schema
-Message-ID: <arQQCovjYH9Y1QIS@sirena.co.uk>
-References: <20260919-ti-tps6586x-v3-0-63dd240f4684@gmail.com>
- <20260919-ti-tps6586x-v3-2-63dd240f4684@gmail.com>
+	s=k20260515; t=1790185546;
+	bh=gBATB8uu2oRqNmBGt1NsSq+MtGX6Gp4XwS/NcICfVSc=;
+	h=From:Date:Subject:To:Cc;
+	b=SZvW1r2ik+DDhg7vkKvvs618HlAFXyxsfvGQfSM6EI8MT2IkGKP0UiZKgozWz5V+u
+	 83lw3cVk/Wjvxf/Pf6FmG/RwmUfKCGxjbWlbAxGOcTwidoJNgpJiqqqhJIxD34frPk
+	 WReIvz64KF8bnDkJ5odUtPC8qZ8DGOkHLoVfMIhwHAwAJ1OsBRh5Gt81JCW5L8OSTP
+	 q0QNwCNtey+lO7Ci8+X3P4ncdaONp4EHQM2JSNJiRQrddzywYtZymwFhn/kY2/Wq76
+	 +rkzv6JnXGn0rN3RTDwPRd91Azi6Yr1YFSW+K+iexFgPbUjPOG/wTP6h4PmeH3dDcH
+	 IUFXBCmHIlZ+A==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Wed, 23 Sep 2026 18:45:41 +0100
+Subject: [PATCH] mm/vma: predicate setting mmap_prepare VMA fields on new
+ vma alloc
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="CEFCVUg3l04Mhh2b"
-Content-Disposition: inline
-In-Reply-To: <20260919-ti-tps6586x-v3-2-63dd240f4684@gmail.com>
-X-Cookie: I've been there.
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260923-fix-mmap-prepare-overwrite-v1-1-3b3f1bfcdf5e@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MMQqAMAxA0atIZgNtlYpeRRyKRs2gllRUKN7d4
+ Pjh8TMkEqYEXZFB6OLEx65hywLGNewLIU/a4IzzpnUVzvzgtoWIUSgGITwuklv4JPSVqSdrXaj
+ HBnSgQvU/74f3/QD6PtX7bAAAAA==
+X-Change-ID: 20260923-fix-mmap-prepare-overwrite-6304d112a4c7
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>
+Cc: Suren Baghdasaryan <surenb@google.com>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2429; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=B/5OxH4zopJDHw6XR/oNfqdty/0ftHeGKu0ofzE6qRQ=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLK2CLjXS2s2qf181v8xJGaF9Zx97Ct5WeMDZp9LDNnha
+ Cf9kTOzo5SFQYyLQVZMkeX5F/H9QSJh8zov+LvBzGFlAhnCwMUpABPRlWX473ije1/kep09ew53
+ 7DjrYLvx7xxG020Pbl/o+q8vmeqdNIPhf/xxAZefS87LfVGUVGmVf6Trybg6Zb6axoY5b86dyJf
+ 0YwcA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
+It only makes sense to manipulate VMA fields if a new VMA was allocated,
+rather than merged.
 
---CEFCVUg3l04Mhh2b
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+VMA merging does not compare vm_ops or vm_private_data, so a merged VMA
+keeps its own, which is also what the legacy f_op->mmap path does since it
+never touches an existing VMA.
 
-On Sat, Sep 19, 2026 at 02:31:23AM +0530, Bhargav Joshi wrote:
-> Convert NVIDIA Tegra Regulators Coupling from legacy text to DT schema.
-> Set additionalProperties true as this is shared schema.
+Currently, these fields will get overwritten by whatever state is
+established in the mmap_prepare hook, and if the VMA was merged,
+vm_ops->mapped will not have been called, so this could destructively clear
+existing state without replacing it with anything valid.
 
-This and patch 3 don't apply against current code, please check and
-resend.
+There is an implicit requirement that vm_private_data and vm_ops are
+fungible across VMAs which means that losing the 'new' state is
+fine.
 
---CEFCVUg3l04Mhh2b
-Content-Type: application/pgp-signature; name="signature.asc"
+However in this case the 'old' state is being overwritten by potentially
+invalid 'new' state, so this must be rectified.
 
------BEGIN PGP SIGNATURE-----
+Additionally constify have_mmap_prepare while here.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq0EAoACgkQJNaLcl1U
-h9BexQgAhWK8GVQrDthcMcEUnKph4BAuolarj5+hqLRX5o9hZ00HcfZnJquV/GtW
-lnZnnDcfDuzoy17TRMlNzgTxIxh/c4l4VkczQS0DaQKApHOwGD1ZXFPPKP249Hie
-b0K+cbwjUjYFCS/8wqY1JTiJLpcCEkXR5iQj2RcgpDA0PJ0S/ZvqzsMDdzk81Ig0
-VRWippWxEi0a0aMSpzjaJG338Ls+wZshv78yxWv5QVxficl0gXZxu3huLrcy0gBI
-ESiDadTZ7bFfOprf0I/0CnEYvn8ImBr4KO2EidtXXwKcq43SCm6mz4yCdzX+viLs
-HhgwgtqE2rZaXSbv2ELfTEDUk71QgQ==
-=JbS0
------END PGP SIGNATURE-----
+All existing in-tree users either derive state for the tree or are
+unmergeable due to VMA flags, so this has no direct impact.
 
---CEFCVUg3l04Mhh2b--
+Fixes: c84bf6dd2b83 ("mm: introduce new .mmap_prepare() file callback")
+Cc: stable@vger.kernel.org
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+Note that this is cc: stable to account for any possible back-ports that could
+break it (unlikely) or out-of-tree modules which might be affected.
+---
+ mm/vma.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/mm/vma.c b/mm/vma.c
+index 9f0a0acf694a..6cde67883fb0 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -2849,7 +2849,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
+ {
+ 	struct mm_struct *mm = current->mm;
+ 	struct vm_area_struct *vma = NULL;
+-	bool have_mmap_prepare = file && file->f_op->mmap_prepare;
++	const bool have_mmap_prepare = file && file->f_op->mmap_prepare;
+ 	VMA_ITERATOR(vmi, mm, addr);
+ 	const pgoff_t anon_pgoff = addr >> PAGE_SHIFT;
+ 	MMAP_STATE(map, mm, &vmi, addr, len, pgoff, anon_pgoff, vma_flags, file);
+@@ -2892,7 +2892,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
+ 		allocated_new = true;
+ 	}
+ 
+-	if (have_mmap_prepare)
++	if (have_mmap_prepare && allocated_new)
+ 		set_vma_user_defined_fields(vma, &map);
+ 
+ 	__mmap_complete(&map, vma);
+
+---
+base-commit: fe2ec83746e501645709761605c2464a44fd2929
+change-id: 20260923-fix-mmap-prepare-overwrite-6304d112a4c7
+
+Best regards,
+-- 
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
