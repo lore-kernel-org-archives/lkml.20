@@ -1,313 +1,172 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012001.outbound.protection.outlook.com [40.107.209.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 942F321ABC9
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:50:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790124604; cv=none; b=Vv5/3LsATnHvi1NzTmWFe7NWTgboPGoqYO4aChwU+xuFbdn21jlLnkZ+i68Zj+9LKFDd3bcwuJWWOYF38AlxnyUY6lJKiRU4KVHVZlRWVQ6OzVGVMSaS1M/E+zy1vfJvm1jJCBZlnG9VZlOQG6YOor3tN41kmRAJejQD8TiPRBQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790124604; c=relaxed/simple;
-	bh=thJ37qylr06shd7T2+W80KXbcpi1TXUkey6PE9Y8nwI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BY54piy4sIQ+DVMQn5JOEZvY3xUbLgLU7bKtKlOOog49oTiLezw4T+VzHzJa+Vy4hnJD11zsu55aL5AMw+EXcrggHZK42hHK7TV+++KLGdCBelhFDBC4j2ag+FhOyqhtQ83nAFdyAp6XBN2PbHFa+WGPoybEmjS5iPqBN1/T7xw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai; spf=pass smtp.mailfrom=crusoe.ai; dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b=O8Sd6YjC; arc=none smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBE8E2D8DDF;
+	Wed, 23 Sep 2026 00:51:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.1
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790124676; cv=fail; b=XwtJE5cfFYHgsCitO9ngKOe7SfNYGE+lOQD0bP2cL3MEOckBBm9ls0BaE/UB2yyW+G/tSdPK2coaUjchuQb/Q7aWz76C4yXEZLqB6QS+0KlY/Uq9uH3wtDE+Qly2G46hRJwKk1CjPrnid5ToNA/4l8eKlQnDpDkftXfRSapQCyo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790124676; c=relaxed/simple;
+	bh=XpJei10QDPZqtDaJ7YqXR2/ZP2SfpzQSwoGSAH29gsM=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=rdkU/bGBjsvoied3nWbMNAQHdkxTwEiR8H/7Vr0+mqLbcoH4BJA6YaJeAE+53ZDVtZdMfB+7k43EQfjm4R2+R9OciZqenpaxMjq+Lpz0FoMPKHT2ZVqmwmmv84r8JjLNoVI96gUBMUv902lZPuEAHGNzPCLmOj1Evhj17c8d30E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=rrbSKMl2; arc=fail smtp.client-ip=40.107.209.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b="O8Sd6YjC"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e46a156f4so215104eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:50:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=crusoe.ai; s=google; t=1790124602; x=1790729402; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R5jpAPIMZLFGTrbvDXQwJHP1pOAi8XkuInl/G/CkKXE=;
-        b=O8Sd6YjCTL/qoV3+3cdKSpmoBacx+HPMksO/0JZjlmuwIoic6+/I9bMxo1QEyK7f45
-         NlbvoOgCxIHdLH4bWXv0HcqJfnmjp5pXJxPMQy4ipFGN+/ggObitp0raJy/84NZXxqMD
-         nHmsyBeyQ8bR5dOEZIYc5SGNLIxKwlsGUp0m4AfJtGATlnp4OYgtrmlYf+l7quSL4E/p
-         mNDKHTYH/wHLUORH3Xm392DHX4TcJfepgeBxx3tXkwOEmbykrvdOPvn7Ygx2vEvurvZf
-         xJLMehnAcqBfP1rghEHxuetoyMR/NEe1QIhIsa7sJADO/F1xBikaaDaAojxLiCZ9EuK2
-         TcDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790124602; x=1790729402;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R5jpAPIMZLFGTrbvDXQwJHP1pOAi8XkuInl/G/CkKXE=;
-        b=OzCNxVY21tDg17caY0Orzi7QUAkJ9HG+88G5a++vIu70e/nbrMmpQYMYKJZLGhTLlN
-         kTXEjPYaaozrfichFkd3YRGOQnQU0X+mvMbxF0sLa0TWIGrmfExbN6eqkyVnz4E10ZNr
-         5SEVfOMqTfb1pjj5t4PB85fE9/8DFQvCMQv8Mi27l9PDMcIj8wbTpTRTCPsu/LBzSZHw
-         IhVjF9yO3A9s9DymU4z81psmyxusx7ZvXwVRZ6gLlXBRguVREbj+AhqyUFz1h1+oG8/z
-         nTlHtprXUUX0eN+mCj9EMGSsrwseCQrjcu0JP3TM7IYsa6uCqVN0L2jYk51suUH5ybwc
-         5vwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzcl2PS2SlYD6X7WejYSfngCiKPlkWdCUVZzMYcbnNjmCd4AikCpudbQ/QNdm4TfsZq4Vzn0dsVlKh6+XM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lvujAc94LfEiBL0GE+mIuIEaZifzQbvZS4WTcYU7KzkPj5uZ+P
-	4zvPMJe/OiVLtlbHNN7b6xgHA8iHYllhlUW0ZXOdf20NMM50eof7T+pqsijRfHi7sy+wN8kGHKA
-	p+bTjK94=
-X-Gm-Gg: AYBFou3YKhFj/1P0+6ddYb2iOBewu6wty9KXwbnrKA46yw2XC/rfPLlO3S8b2FJi/NJ
-	psenhLaQyjba0Xh+gYpzwpM4pqhYDrJxyU1EbwbZKNJ1bPYgGNaKMkJA7hYTQmcyqPO0R0wm9c0
-	znFwzku2B6y0a1iLZGkV2ITsFn+FEC4JTqEWuBbo2uG8Pz/cCQFtj8LfxBaWdAFGbVOoDzRZ5nC
-	pyjYRAmvl1pQrgKyjB91eC+cVJFaAao4dkFbXdlFAqxDRfK5dhGULStulSurGdaXgDG7PCR31JI
-	xEy1rpSvFXCBL8Ttv7Pv/VegjkCcWHqcwmk7RoowvNAYRih9btqVddX6Crj/7SwOPOL5BSrcl20
-	VayzxXqDmkOteGz//SpMxjGnv0DwHiJam/7bJXJ5TZr7Lr3B2FpHQ9a7GiQARhm2lU5znTME6/G
-	uCG4c8XTsBzMYlRx9ZOdgk9nrUaZpNH+4mgt2+v63u80/bOgWy0nc/FvBioMEgJOal9eecRDMpf
-	ZLpT1VXO7qqXTW+ofttp5IB8cu9oASfkw==
-X-Received: by 2002:a05:693c:638c:20b0:33e:3f5b:3ff6 with SMTP id 5a478bee46e88-33e8ca260d7mr1084183eec.18.1790124601462;
-        Tue, 22 Sep 2026 17:50:01 -0700 (PDT)
-Received: from MBP-Krishna-Iyer.civet-hops.ts.net ([4.7.95.218])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96e498f0sm1693098eec.27.2026.09.22.17.50.00
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 22 Sep 2026 17:50:01 -0700 (PDT)
-From: Krishna Iyer <kiyer@crusoe.ai>
-To: kbusch@kernel.org,
-	axboe@kernel.dk,
-	hch@lst.de,
-	sagi@grimberg.me
-Cc: linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	nilay@linux.ibm.com,
-	sjpark@crusoe.ai,
-	saravanand@crusoe.ai,
-	Krishna Iyer <kiyer@crusoe.ai>
-Subject: [PATCH v3] nvme-multipath: add fail_if_no_path sysfs attribute
-Date: Tue, 22 Sep 2026 17:49:59 -0700
-Message-ID: <20260923004959.88440-1-kiyer@crusoe.ai>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="rrbSKMl2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jddQvNeTtG6GC30gC+goKuQ0lhKBV35bSwW4OjKuCM8PnCjxXVSRLknQoAN76CVvAxBVuT0wa9UfXG4uDgzCUMrmZV1f8ugxdj1+o/EveC+NVyjWOeiy6gBDuDeNh1pKp0qCGePzv0mXhh1pzt4Ku770vxqq869htvtNcHlJO2PEroae9wpH/eyJ04H6BF/MbdISrP7jIVXX+donkAG0+ruOb/DOSSXYZqeajpjV3EpGOa0OID2Nk2n0MvFGMP4k08wl6pULETnaLS+P5IFyvdAmSMlXgyJbyCTYL5RDX29sWZiPc4J2+Ntv9y7vSjR7BKm6BNT/XCSCsUBpSV1V/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1UEcRN04xEKGeR3L8658EToKCL1oDoLPNg++77spFj8=;
+ b=l9lMCRI7XMzozEKs3GAexVW+aEKZ6zAOKuR83+TwusyPVHXP8AmQmDFPDLQgiKQMKoww9PNrXYznIDLK26yAeC6Yu0kKazQiR6RfbWTCeTHfPN18Q2WUT52IFFbhONCc5gqlNBGFK4l6BzNTZholko4riero2JFZKT2GjReEr80isZtkMQ2Aso2GPhHTQNfUfST+w2NwBh+aOmewwB5rBE94OsCGymLRXgsZ10OwskGU8ekDm5moH83LZwztKw8I8e67MVGOk/0saxWuATgQa99S34eBkBkj/WEYyC9cFf2U7rskmztfWyI6/olc7K8ueT1gMlEQLB0QjO9bZeIbaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1UEcRN04xEKGeR3L8658EToKCL1oDoLPNg++77spFj8=;
+ b=rrbSKMl2qxouZ6CHlJVv4+HVA+X30ED5jHlcfkhLQIrj2P8fwj6/o0ZP9lC9ZQJY8f8Bn6ckh4ZroyHPfJRalLEBkTpQXYLWGn7zx4cIFUHZ20I0Xoo/CCx6xnODMcYHqn9zQp/uV6QFMkAApdPuPyQGmm2eqfXftLLH85EzYrJlcY4WXlSor+tDWJ/y6TnUCrs9pu08nObOURHU1ndoEdu2V8YN+ohBIvvY5mt2a9q/OKI4bHqLMyltQYYyqiieFuz3dkGFn3svSLKLQx9AixO50KfaTv72EszH9FLIeplT/S5BQg95Xq2u2Pi69/84R2tE7SfGWytQhyidcHu3rQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LY0PR12MB727857.namprd12.prod.outlook.com
+ (2603:10b6:408:3ba::5) by SJ0PR12MB7008.namprd12.prod.outlook.com
+ (2603:10b6:a03:486::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Wed, 23 Sep
+ 2026 00:51:07 +0000
+Received: from LY0PR12MB727857.namprd12.prod.outlook.com
+ ([fe80::843e:82cd:41ca:f522]) by LY0PR12MB727857.namprd12.prod.outlook.com
+ ([fe80::843e:82cd:41ca:f522%5]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 00:51:07 +0000
+Message-ID: <d9f2efb9-83e4-420f-9d87-452c1e8b490c@nvidia.com>
+Date: Tue, 22 Sep 2026 17:51:04 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 06/12] cxl: Add CXL Device Reset helper
+To: "Lucero Palau, Alejandro" <alejandro.lucero-palau@amd.com>,
+ Jonathan Cameron <jic23@kernel.org>
+Cc: Alison Schofield <alison.schofield@intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>,
+ Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
+ alwilliamson@nvidia.com,
+ Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
+ Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
+ Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-tegra@vger.kernel.org
+References: <20260910070808.1444264-1-smadhavan@nvidia.com>
+ <20260910070808.1444264-7-smadhavan@nvidia.com>
+ <20260912022617.47860862@jic23-hlaptop>
+ <cb9f8b99-93ba-4b76-9537-8075eb697fb0@amd.com>
+Content-Language: en-US
+From: Srirangan Madhavan <smadhavan@nvidia.com>
+In-Reply-To: <cb9f8b99-93ba-4b76-9537-8075eb697fb0@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH7P220CA0135.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:327::35) To LY0PR12MB727857.namprd12.prod.outlook.com
+ (2603:10b6:408:3ba::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LY0PR12MB727857:EE_|SJ0PR12MB7008:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2d7f8a2b-d0ec-477b-6c10-08df190cc0bf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|7416014|23010399003|376014|11063799006|56012099006|4143699003|10067099003|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	qQ1Gz7DNL/EMjJPQzpQJ/BomVQbmQ7EPQPLdBOIZfWv6CiW9RZIQTAZPX6/BoVObk/9xTv0mkd3/h7avEbeA2uozRcP8H+UEBw7h6k/sQyezy3zEUV2C0VX/ECh8WaV8Q9yfM9YaxgACMXkUMPLdHE6MsIhIJUy8XdlS5SlB5yurlx2LQy/ZHxi4xQfpgrhwEf89A4EQ4GFnveBzuavaIXoOaPk8+D1ZYSBmNHn+IuASl14tz5iB5vMeS13ptaI3fdizj44nbPNaU0kXTjnl1zOeSP8Quio6oUKyeBb3sFhJQlq0BW5UvI4h4xyf53llab72li4pnigLMjKoz/zO+uhlNHPyP/ZzlWSfPP6+qHHlxJU15thwx/78HGNhzB5W2ot4J3ygM097YIt2910IIVXHvjyCzyzsFCdFE6evx1Z4ry0Tye2QsP+PYGIY/REHGDBMOcFcM4aocfHdubSULOAwx4Iha/TVjWwA8jwItcvP0VchDooJ6Xrp9EACw4mykQSdLK7sKpzbEuPJz87gkwQXoeQiqd6jDDAStlqH7hHHiGhFmWSkSwM12tI4WeyNYOoiXiAxRQQTUp6b4Zwz4P810NZlWEf4pF56o2Y5rEQlEfuzmzSm1UoCV/J2CBSprnhrpzGE3VkIzG101pahpXuwy5anAZSf2d7gZMJSmN8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LY0PR12MB727857.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(23010399003)(376014)(11063799006)(56012099006)(4143699003)(10067099003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZDZwS1BQekZzOVRVTU5JUFBmZFBMWWNla1hiam1NTTRkUlY2ZmlPaXd0TllO?=
+ =?utf-8?B?dW9NL2VRYmNxZ3hlN3ovcGI1MUN2OXA4alpIQ1JVR0doNE0yWWNDSnFFZ3Nr?=
+ =?utf-8?B?VGRFTlNDMzJRRlNPeHVWUnBkNHRCWWJIUnppVEEwdVlsL1JNRTUxSmtFcVZl?=
+ =?utf-8?B?b0toQ1VsTFpwWDFGcStvcU9OenRMUkVnYlAvdTJkRXRDeTR5WFB6S3MxVGNM?=
+ =?utf-8?B?Mi9SZnp2VFhMQ2lDa0hwaHdqUktVNzFVOS9ud2tLS2w5M1JESVZJZjBWNTdP?=
+ =?utf-8?B?VnE5VmtXTDdQR2Q0bEdwcDBNWCsrZEpIaEtXRHd0c3VXaVF4ZWxlVWZhOERK?=
+ =?utf-8?B?YzlXSHplY1NhK2gxOG5XS0FxOUE5Q1pnM0IwUGtvZWY0UG5xQnVDUllHNmZ0?=
+ =?utf-8?B?OW82a2c1ZnpjazFydVV3NDFBdG5lR2psdVFhWmRISTc4TGZNcVZKdEp5MENM?=
+ =?utf-8?B?TVM0VE1yeFRVUkxrdFoxR25WaU81RE9xNmN1QkpSRWFES2pITW4relJTenVQ?=
+ =?utf-8?B?VC9uWThsa1FRK09BQisvN0NQcVZ0cWRvcUtiTEc2VkV5cDI5akkrUjFzT20y?=
+ =?utf-8?B?bzBBVVZuVUJuZkdEeHJJeE1keXdvUis0UERnVndBQ0gwbWhDU29KaVNUM1pi?=
+ =?utf-8?B?QTRFeVA5Z2lLc3dvMDF1WHJaZHBYV0ZtQUhPM1dFVEZWVExHWEF2a2xtcDNJ?=
+ =?utf-8?B?S0pNRG45U0dLQWt1emJvL1pldm5pMWRUVUFMODY2Y1NveWJ1bG8zaEw1bHJH?=
+ =?utf-8?B?dzNRdmFXY0xudU55dXh2TVo5ZzVWY3NTM3dYV0xqTFV1OFJmSnJqaDJmc3N0?=
+ =?utf-8?B?Y2MwZ0R0MnFqZDZUcXg0cWNrVHBDWXRDQXRHSlMvelVuOFAwZnZwbDNoSWsv?=
+ =?utf-8?B?ZFhyTGxGa2Q1SERxb2orZDduTjNLWTBsSjU1SDQ0ZjNodGU1cGRLMW9DVmNZ?=
+ =?utf-8?B?N1dGZmVuTGYrd2ErVFpzZ2RWQUZ4ZjVaKzFsK3FLT3RyM25zdTJxdGZYbkl5?=
+ =?utf-8?B?dzdrMkJGQVcreTlNcnEyeUcwWXFpTVpKK3l5aENDdWUvOUJEUGVFTFNyeDdU?=
+ =?utf-8?B?bmROcCt4UVZGMDNBbkVCL01qWGtMNEVETStIdVE3anJEMitJY29TdW13T3hk?=
+ =?utf-8?B?TW9tWm4rU3pPeGl5VGtRY3RKdlVYNzNNQTUxRFAxTDZSdFExbFdKc1JWS205?=
+ =?utf-8?B?UERRWGlrZDYwRStlbERwL1YvKzhhdXQxeHcxUmtmQ3k4VlhyejNsUVBkQ0RW?=
+ =?utf-8?B?cU00R05RMjY4dFNndU1Dbll2M2lNWTN3OU1INlUwd0dNVEI2aXA5TUtuQjNm?=
+ =?utf-8?B?MjJhYmpjeXRXNlVPdlphN0x2ZTZIbm1TQTRHMVJ4di8xNkFpVUMrNzExdVdV?=
+ =?utf-8?B?ZXJnQm1yaTc5S0tqakRmanI0NW82eUtvVDdvZFkzM2lpTWpIZ1dqNzB2dWIx?=
+ =?utf-8?B?WGpIeEEvMEtIWmQwY0F6aXFnamU1blNMeFZWcjBCUC9WU2pQYWNuMkxVOW5y?=
+ =?utf-8?B?dzVVUE9iQUl0cFNDT3RyOEVuSjlVYmVRWWRlZXh2QnI3Wmw5THhBdnRxN1hO?=
+ =?utf-8?B?THJyT2QycWFNRzRPUjVVaDkwNVVibjhyVjd4R0NGaDU4MkhHMjN1dC8wVzlW?=
+ =?utf-8?B?MjY4VVdRNURXcWtqTjVXQmlFRTZSNExsVDNjZGJYNEN3NjhHdHgxQTJtWjhJ?=
+ =?utf-8?B?VkU2UjJxZjd2WDBpVW5qZk5mTURSREVybEVzUTloQlgwTndVclJCbXdwT0JE?=
+ =?utf-8?B?SnpXWEtCd0pydUZtS29GQW9MS25PTGJHbGRMQVRzTkxsb3F1U21jOEtQcDF3?=
+ =?utf-8?B?Q2pEMWc0NzBiQkdMMHorUXk0ZjVDN3hwZnFPTzVNWXFqblpuRWM1MUEwMm1x?=
+ =?utf-8?B?d3RKM0dJUkVCc2ZWeE5waUN2L0NNYTJUcGdKK3VLeTdCaE5jNmRIWElBaTVS?=
+ =?utf-8?B?UmY4bytUNTROTGk3UmhmNElCTXliS1VzbG80WWlHVVRSUXZ5WG9kMEJoUUdq?=
+ =?utf-8?B?NkdZSTFLTzVqb2I4cDNMRTRoUWVobXpxQTVZajBZNDFGanl6WU1HVHdQS0Ja?=
+ =?utf-8?B?VG5xaUJKLzd0Rksrd2gvK3A5blFXNE05TUlnY0w1TjJqWElkSzlHbG1mQlpz?=
+ =?utf-8?B?QzFJT3dsUE5JYXJNTVJaU1BrQVZjSDdOdUM4eXBtZFBzL01LOGFpV3l1NnVM?=
+ =?utf-8?B?SFRRWTFlU3VVQVVWaVNFWU9GZ1FkeGw1R2FqdlRPNUNlYjZVVStQeTgyZGVG?=
+ =?utf-8?B?dVZ1bzhwbkkvdmFFTVo5L0JTb0pJdThKZTBIL1pXdXN0L0xMU1NuNC92eCtm?=
+ =?utf-8?B?OExqRUlhNDdpc3FrYXllQXl5YmxocGxxTk1XaERDSTVoWXB3WE1HUT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d7f8a2b-d0ec-477b-6c10-08df190cc0bf
+X-MS-Exchange-CrossTenant-AuthSource: LY0PR12MB727857.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 00:51:07.5095
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: V2/ZelLyVsU9V5rPjN5ZzR7dZQJ2XABxYQ8kvHs4DFAkaTDhrP0thpa2wFSfIf7xvqV7RFvBFJvYrO4TKExYrw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7008
 
-When no usable path exists, I/O on a multipath namespace is queued
-until a path returns. With ctrl_loss_tmo=-1 that can be forever:
-during a long fabric outage any process waiting on the I/O is stuck in
-D state. We hit this on virtualization hosts, where a SIGKILLed VM
-process cannot exit while draining I/O to an unreachable NVMe/TCP
-target.
+On 9/15/26 6:56 AM, Lucero Palau, Alejandro wrote:
+>>> +    rc = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_CTRL, &ctrl);
+>>> +    if (rc)
+>>> +            return pcibios_err_to_errno(rc);
+>>> +
+>>> +    if (!(ctrl & PCI_DVSEC_CXL_CACHE_ENABLE) ||
+>>> +        !(ctrl & PCI_DVSEC_CXL_MEM_ENABLE))
+>>> +            return -ENOTTY;
+> 
+> 
+> Type2 cache support is coming and it could be CXL.cache forced to
+> disable if IOMMU enabled and the device not supporting ATS nor belonging
+> to IOMMU identity mapping (Benjamin Cheatham will send this support
+> soon). In that case, I can not see a reason for not allowing a reset
+> assuming CXL.mem would be still usable independently of CXL.cache
+> functionality.
 
-Nothing can fail this I/O without tearing something down: controller
-deletion takes every namespace on the controller with it.
+Alejandro,
+I forgot to fold this into my earlier reply to Jonathan.
+Ack, on the requirement.
+But before changing the eligibility check, I would like to confirm 
+whether the existing reset policy around cache invalidation & memory 
+handling otherwise applies unchanged to this configuration.
 
-Add a fail_if_no_path attribute on the ns-head disk: a persistent
-per-namespace policy to fail parked and newly arriving I/O instead of
-queueing it when no usable path exists. It is enforced where a path is
-known to be unusable: CONNECTING controllers and LIVE controllers with
-the path ANA inaccessible or persistent-loss stop counting as
-available, RESETTING and ANA change keep queueing, and with no
-controllers left the policy overrides the delayed_removal_secs
-queueing window. Controller state is untouched and reconnects
-continue. Like dm's fail_if_no_path, the policy is transport agnostic.
+I left the v13 checks unchanged for now, I'll update based on the pointers.
 
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Krishna Iyer <kiyer@crusoe.ai>
----
-Changes since v2 [1]:
-- use the nvme_state_is_live() helper for the ANA state check, keeping
-  the explicit NVME_ANA_CHANGE carve-out so transient ANA transitions
-  still queue (Nilay)
-- return early when the stored value matches the current setting,
-  skipping synchronize_srcu() and the requeue kick (Nilay)
-
-Validated on hardware with a 6.17 backport of this v3: parked I/O on a
-SIGKILLed VM process failed within a second of enabling the policy and
-the process was reaped, new I/O failed fast during the outage, the
-policy persisted across path recovery, and disabling it restored
-queueing.
-
-[1] https://lore.kernel.org/linux-nvme/20260917231647.79956-1-kiyer@crusoe.ai/
- Documentation/ABI/stable/sysfs-nvme | 13 +++++
- drivers/nvme/host/multipath.c       | 76 ++++++++++++++++++++++++++---
- drivers/nvme/host/nvme.h            |  2 +
- drivers/nvme/host/sysfs.c           |  4 +-
- 4 files changed, 88 insertions(+), 7 deletions(-)
-
-diff --git a/Documentation/ABI/stable/sysfs-nvme b/Documentation/ABI/stable/sysfs-nvme
-index a2f5d0710db4..57a827235995 100644
---- a/Documentation/ABI/stable/sysfs-nvme
-+++ b/Documentation/ABI/stable/sysfs-nvme
-@@ -337,6 +337,19 @@ Description:
- 		is deferred. Only visible on multipath head devices.
- 		Requires CONFIG_NVME_MULTIPATH.
- 
-+What:		/sys/block/nvmeXnY/fail_if_no_path
-+Date:		September 2026
-+KernelVersion:	7.3
-+Contact:	Krishna Iyer <kiyer@crusoe.ai>
-+Description:
-+		Shows or sets the fail-if-no-path policy of the multipath
-+		head device ("on" or "off", default "off"). When on, I/O
-+		queued or arriving while no usable path exists is failed
-+		immediately instead of being queued, including during the
-+		delayed_removal_secs window. Reconnect attempts are not
-+		affected. Only visible on multipath head devices.
-+		Requires CONFIG_NVME_MULTIPATH.
-+
- What:		/sys/block/nvmeXnY/csi
- What:		/sys/block/nvmeXnY/metadata_bytes
- What:		/sys/block/nvmeXnY/nuse
-diff --git a/drivers/nvme/host/multipath.c b/drivers/nvme/host/multipath.c
-index 99ecc73393e5..3736ba709b6c 100644
---- a/drivers/nvme/host/multipath.c
-+++ b/drivers/nvme/host/multipath.c
-@@ -496,9 +496,16 @@ inline struct nvme_ns *nvme_find_path(struct nvme_ns_head *head)
- 	}
- }
- 
-+static inline bool nvme_state_is_live(enum nvme_ana_state state)
-+{
-+	return state == NVME_ANA_OPTIMIZED || state == NVME_ANA_NONOPTIMIZED;
-+}
-+
- static bool nvme_available_path(struct nvme_ns_head *head)
- 	__must_hold_shared(&head->srcu)
- {
-+	bool fail_if_no_path = test_bit(NVME_NSHEAD_FAIL_IF_NO_PATH,
-+					&head->flags);
- 	struct nvme_ns *ns;
- 
- 	if (!test_bit(NVME_NSHEAD_DISK_LIVE, &head->flags))
-@@ -510,14 +517,29 @@ static bool nvme_available_path(struct nvme_ns_head *head)
- 			continue;
- 		switch (nvme_ctrl_state(ns->ctrl)) {
- 		case NVME_CTRL_LIVE:
-+			/*
-+			 * ANA change is transient and bounded by ANATT, so
-+			 * keep queueing while it resolves.
-+			 */
-+			if (fail_if_no_path &&
-+			    !nvme_state_is_live(ns->ana_state) &&
-+			    ns->ana_state != NVME_ANA_CHANGE)
-+				continue;
-+			return true;
- 		case NVME_CTRL_RESETTING:
--		case NVME_CTRL_CONNECTING:
- 			return true;
-+		case NVME_CTRL_CONNECTING:
-+			if (!fail_if_no_path)
-+				return true;
-+			continue;
- 		default:
- 			break;
- 		}
- 	}
- 
-+	if (fail_if_no_path)
-+		return false;
-+
- 	/*
- 	 * If "head->delayed_removal_secs" is configured (i.e., non-zero), do
- 	 * not immediately fail I/O. Instead, requeue the I/O for the configured
-@@ -871,11 +893,6 @@ static int nvme_parse_ana_log(struct nvme_ctrl *ctrl, void *data,
- 	return 0;
- }
- 
--static inline bool nvme_state_is_live(enum nvme_ana_state state)
--{
--	return state == NVME_ANA_OPTIMIZED || state == NVME_ANA_NONOPTIMIZED;
--}
--
- static void nvme_update_ns_ana_state(struct nvme_ana_group_desc *desc,
- 		struct nvme_ns *ns)
- {
-@@ -1180,6 +1197,53 @@ static ssize_t delayed_removal_secs_store(struct device *dev,
- 
- DEVICE_ATTR_RW(delayed_removal_secs);
- 
-+static ssize_t fail_if_no_path_show(struct device *dev,
-+		struct device_attribute *attr, char *buf)
-+{
-+	struct gendisk *disk = dev_to_disk(dev);
-+	struct nvme_ns_head *head = disk->private_data;
-+
-+	return sysfs_emit(buf, test_bit(NVME_NSHEAD_FAIL_IF_NO_PATH,
-+			&head->flags) ? "on\n" : "off\n");
-+}
-+
-+static ssize_t fail_if_no_path_store(struct device *dev,
-+		struct device_attribute *attr, const char *buf, size_t count)
-+{
-+	struct gendisk *disk = dev_to_disk(dev);
-+	struct nvme_ns_head *head = disk->private_data;
-+	bool enable;
-+	int ret;
-+
-+	ret = kstrtobool(buf, &enable);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* No-op if the stored value matches the current setting. */
-+	if (enable) {
-+		if (test_and_set_bit(NVME_NSHEAD_FAIL_IF_NO_PATH, &head->flags))
-+			return count;
-+	} else {
-+		if (!test_and_clear_bit(NVME_NSHEAD_FAIL_IF_NO_PATH,
-+					&head->flags))
-+			return count;
-+	}
-+
-+	/*
-+	 * Ensure that update to NVME_NSHEAD_FAIL_IF_NO_PATH is seen
-+	 * by its reader.
-+	 */
-+	synchronize_srcu(&head->srcu);
-+
-+	/* Make already-queued I/O re-evaluate path availability. */
-+	if (enable)
-+		kblockd_schedule_work(&head->requeue_work);
-+
-+	return count;
-+}
-+
-+DEVICE_ATTR_RW(fail_if_no_path);
-+
- static ssize_t multipath_failover_count_show(struct device *dev,
- 		struct device_attribute *attr, char *buf)
- {
-diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
-index a643c4723a69..9773538101ca 100644
---- a/drivers/nvme/host/nvme.h
-+++ b/drivers/nvme/host/nvme.h
-@@ -590,6 +590,7 @@ struct nvme_ns_head {
- #define NVME_NSHEAD_DISK_LIVE		0
- #define NVME_NSHEAD_QUEUE_IF_NO_PATH	1
- #define NVME_NSHEAD_CDEV_LIVE		2
-+#define NVME_NSHEAD_FAIL_IF_NO_PATH	3
- 	struct nvme_ns __rcu_guarded	*current_path[];
- #endif
- };
-@@ -1097,6 +1098,7 @@ extern struct device_attribute dev_attr_ana_state;
- extern struct device_attribute dev_attr_queue_depth;
- extern struct device_attribute dev_attr_numa_nodes;
- extern struct device_attribute dev_attr_delayed_removal_secs;
-+extern struct device_attribute dev_attr_fail_if_no_path;
- extern struct device_attribute dev_attr_multipath_failover_count;
- extern struct device_attribute dev_attr_io_requeue_no_usable_path_count;
- extern struct device_attribute dev_attr_io_fail_no_available_path_count;
-diff --git a/drivers/nvme/host/sysfs.c b/drivers/nvme/host/sysfs.c
-index e1e3dcfd084b..56e0ce1c9d8a 100644
---- a/drivers/nvme/host/sysfs.c
-+++ b/drivers/nvme/host/sysfs.c
-@@ -264,6 +264,7 @@ static struct attribute *nvme_ns_attrs[] = {
- 	&dev_attr_queue_depth.attr,
- 	&dev_attr_numa_nodes.attr,
- 	&dev_attr_delayed_removal_secs.attr,
-+	&dev_attr_fail_if_no_path.attr,
- #endif
- 	&dev_attr_io_passthru_err_log_enabled.attr,
- 	NULL,
-@@ -300,7 +301,8 @@ static umode_t nvme_ns_attrs_are_visible(struct kobject *kobj,
- 		if (nvme_disk_is_ns_head(dev_to_disk(dev)))
- 			return 0;
- 	}
--	if (a == &dev_attr_delayed_removal_secs.attr) {
-+	if (a == &dev_attr_delayed_removal_secs.attr ||
-+	    a == &dev_attr_fail_if_no_path.attr) {
- 		struct gendisk *disk = dev_to_disk(dev);
- 
- 		if (!nvme_disk_is_ns_head(disk))
 -- 
-2.54.0
-
+Regards,
+Srirangan
