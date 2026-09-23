@@ -1,78 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FB7D413782
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:22:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 405303E1204;
+	Wed, 23 Sep 2026 07:23:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790148174; cv=none; b=EAFh4VUH509IuFywxXLF27VSgHTbvU7LR8RmqfV5EiCSTg99+r/vh5TUK/cTsz5eTBIS1BTvOaurESwc48ZmMjIpLb3HtToxAgd+q/gMgqbYYY4LPhzBsOp+undlWONtrkwljXT0lrFuAHfGAH6ceBsvjaYQiHcr2wXmNkbOkxw=
+	t=1790148186; cv=none; b=jtmxgU7XN/ZfiZT0DvJRpYqDLvbhFIUNRQdbabH84j+7RdWgsV/sG1rKNmehFfUWxMYeDFylsczXR3atRRXz8gjRfB3zv2J57hkFIBg4bvrRXpthsFJz2N2ydHt7fSLtLLR5aci+iT4XRPqMxt/Lc+veWUZdKF1j7CPLnzCH3HQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790148174; c=relaxed/simple;
-	bh=mmR9DUspbsTUnp3RqcIlue/4NJROcEYrbOZvTy8cSd8=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=BOWX1+7diObIH3HUJbVwqxfZDb5gxiqyf5Ihcb8l4dpM0zaRASyO2Pf5N7Ibzqn/wwdyt6JUNdzitU0bUngJ8jpalT2rTHvC2EcTtG64IsjhJDvNXOJbvtff8DY3Pi8O9t59vPpFBmw0eBMLAmCyaqPCIMQCPxB4qL3wV85fqQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jPn7D38z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790148186; c=relaxed/simple;
+	bh=oCN1KbF54mPhtRZ1+Re4+FxfSHl0cJYsKsBOTSfQ/PQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=a9abBnopsjM89ZBJomvkIsVWcewtpcudo4ZP+//cQZzaQd6atuacQkDYM3d0rYcdMyg6MZp3HMJTP/i6ITbVX12axv3SXsTKoDRv0OX2u1+3/lDa0v7SsHsliG3t882hyCL9yWAmJEfPL9E8cc91cP4YNG4KjRQg6EwY9upwwTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lhl+A7Wz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jPn7D38z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1B121F000FF;
-	Wed, 23 Sep 2026 07:22:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lhl+A7Wz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 422821F000FF;
+	Wed, 23 Sep 2026 07:23:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790148173;
-	bh=P98aXVbnTVCIn2RLl8j/V+gbDx0DMTPfumfUioCK0H4=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=jPn7D38zZATIIjH4keWV7URVeLakgdYo79VDeRv7ysp+33dKlrXd+G4O0JmKD1YGo
-	 o37sZ4iQRGowecUIXgnxxTVa4BMc3OF6o2jpul1w17SKa8uxu7WklftTB4HSt3b133
-	 WEgvke3wUmJf6qbZ57ZiRrNm/pBpgPbWZocuzSzYx5EzNGfYGSVrlvMHOGg4Td/7og
-	 djx2+yTOVU+5zsMxBsMv5dr+SwfJPqhiCIP/SS0MZdGBz9WRDJFHm7hZvB7Y8aqEIt
-	 DKpdHYB3wrsk/0/aAtMd7clJKKe3Xo2YbdRZui9QKJjM7q3JxnS1jLCvDsTujSvMlK
-	 vhmJWX3eIdShQ==
-Message-ID: <5f954f1e-c4b8-4565-a2f2-04d4067293d2@kernel.org>
-Date: Wed, 23 Sep 2026 15:22:49 +0800
+	s=k20260515; t=1790148181;
+	bh=iWP0JfqpS7KoO6l/InDB/IDX8Qgt3W/nlO+IzCSYcfc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lhl+A7WzgpOerXuR8PJ0U6DFAGu088foHRA3S0KQbC3UlTBrHWw47qGkRAbRmNNy/
+	 OuJ6kGvpVJgNgIUepXmuL4wPrF/6+wCAq2uNzvwCFrAmndd4nKuM1qYWhsUTpdanNp
+	 OQdOK9W1OaemiylkeVO1brYr4Kpio3A5OPlhdthspIR3K6AlteFKDkHtOZTf0O3bSJ
+	 l7leDdm6ArB8cM8b/hOK+v1w+VJF6D1mIvj0/T/KfPOwCnYi73+FoRsgE1WeFsDpMq
+	 xUbyk91sQeSdthV5bZzKs6GiKTH+hr8BR9gocFUaBAc8P+D150TtQAlb3OAwC2U/a4
+	 UX3aioxlAQaOQ==
+Date: Wed, 23 Sep 2026 00:23:01 -0700
+From: Kees Cook <kees@kernel.org>
+To: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Cc: Bill Wendling <morbo@google.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	Long Li <longli@microsoft.com>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Justin Stitt <justinstitt@google.com>, linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+	llvm@lists.linux.dev, codemender-patching+linux@google.com
+Subject: Re: [PATCH] Drivers: hv: vmbus: annotate struct vmbus_gpadl with
+ __counted_by_ptr
+Message-ID: <202609230021.7F6F2140@keescook>
+References: <20260923055320.2602534-1-morbo@google.com>
+ <a51283e0-7d55-4d06-bf7d-3cd7b7a21faa@embeddedor.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- Jaegeuk Kim <jaegeuk@kernel.org>, Daeho Jeong <daeho43@gmail.com>,
- Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>,
- Dev Jain <Dev.Jain@arm.com>, linux-kernel@vger.kernel.org,
- David Hildenbrand <David.Hildenbrand@arm.com>,
- Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
- Nanzhe Zhao <nzzhao@126.com>, Pengfei Li <lipengfei28@xiaomi.com>,
- Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: Re: [f2fs-dev] [PATCH v2 04/14] f2fs: support atomic file large
- folios buffered write
-To: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-References: <51c3f1f9-7e91-4f9a-9f22-d1ba8df357c6@kernel.org>
- <20260923032131.2227703-1-zhaonanzhe@xiaomi.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20260923032131.2227703-1-zhaonanzhe@xiaomi.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a51283e0-7d55-4d06-bf7d-3cd7b7a21faa@embeddedor.com>
 
-On 9/23/26 11:21, Nanzhe Zhao wrote:
-> I think I can extract the duplicate logic in a helper and the full change
-> may be like this?
-Alright, is there a way to relocate below code block before f2fs_balance_fs()?
+On Wed, Sep 23, 2026 at 03:10:08PM +0900, Gustavo A. R. Silva wrote:
+> 
+> 
+> On 9/23/26 14:53, Bill Wendling wrote:
+> > Add the "__counted_by_ptr" attribute to the buffer field of "struct
+> > vmbus_gpadl". This allows compilers (GCC and Clang) to perform
+> > compile-time and runtime bounds-checking when KASAN is enabled, preventing
+> > potential out-of-bounds accesses to the GPADL buffer.
+> > 
+> > The fields "buffer" and "size" of "struct vmbus_gpadl" are assigned
+> > exactly once, during GPADL establishment inside
+> > "__vmbus_establish_gpadl()" in "drivers/hv/channel.c".
+> > 
+> > To ensure that the count field ("size") is initialized before the
+> > pointer field ("buffer") is assigned, we reorder the assignments in
+> > "__vmbus_establish_gpadl()" so that "gpadl->size" is written before
+> > "gpadl->buffer".
+> > 
+> > Cc: codemender-patching+linux@google.com
+> > Assisted-by: LLM
+> > Signed-off-by: Bill Wendling <morbo@google.com>
+> > ---
+> >   drivers/hv/channel.c   | 2 +-
+> >   include/linux/hyperv.h | 2 +-
+> >   2 files changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/hv/channel.c b/drivers/hv/channel.c
+> > index 7e4cc6f55237..7042de2dd481 100644
+> > --- a/drivers/hv/channel.c
+> > +++ b/drivers/hv/channel.c
+> > @@ -548,8 +548,8 @@ static int __vmbus_establish_gpadl(struct vmbus_channel *channel,
+> >   	/* At this point, we received the gpadl created msg */
+> >   	gpadl->gpadl_handle = gpadlmsg->gpadl;
+> > -	gpadl->buffer = kbuffer;
+> >   	gpadl->size = size;
+> > +	gpadl->buffer = kbuffer;
+> 
+> I think in some cases these subtle changes are worth a short but
+> informative comment saying that the _counter_ must be initialized
+> before the first reference to the pointer.
 
-	if (folio_test_large(folio)) {
-		if (f2fs_is_atomic_file(inode))
-			err = prepare_large_folio_atomic_write_begin(inode,
-					mapping, folio, pos, len);
-		else
-			err = prepare_large_folio_write_begin(inode,
-					folio, pos, len);
-		if (!err)
-			return 0;
-		if (err == -EAGAIN) {
-			f2fs_folio_put(folio, true);
-			goto repeat;
-		}
-		goto put_folio;
-	}
+But that's only for dereferencing it... there's no ordering requirement
+here at all (and I think swapping order is needless churn). Neither
+order is correct: only having them both set before dereferencing
+"buffer" is required.
 
-Thanks,
+
+-- 
+Kees Cook
