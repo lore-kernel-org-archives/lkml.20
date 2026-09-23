@@ -1,80 +1,80 @@
 Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672143815FD
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:23:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56ABD34DCE0
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:23:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790184217; cv=none; b=ITXYxzGfjvrtp6lHsic17+6qjfoeaiz+X+r5yWtM1cx2NdlFucKdEoyNL4QJKdSlYhJqbi6/grSNrsizz3vM5uLmiWpM0GnwyDzvp4K5LPlOmutlGnlTLA4h0t9j8A+CUKVUon58iISM0GaIjkKRgkIShqYGGfo7kl4IqcMSDFE=
+	t=1790184219; cv=none; b=JxTV6VW36h3tk+46YARYDPs549WC9/W0w3rn+sNezsbXpiIkADGDbHaj2N07fkwBkz2BHR5CqZoM2qx9h83LbHUcPN1cbSX3Rdm6eoyRNWLclinL5aolKG0d/1e0BPmgAMwIlGqlouyMDBOlTtIj9oyFQXFF2Oqlcv6H/MbMKKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790184217; c=relaxed/simple;
-	bh=1safN3GRZqc6aPrQj4LJpCTgwlsNWsgMoAcYEcFfNd8=;
+	s=arc-20240116; t=1790184219; c=relaxed/simple;
+	bh=YBpE9eDgNjo1ZUp99xeflRmiOi/EXzcRa9GGfxn8R+c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l0zTntlIy7dlACbGTU/xAwzGvTVycK3YBxM6A6i9zKOH5VWBab4u1RSj9UjdQkNWQIRLU1Dfe3Jd/XE12MjPnsXr/PFFKYqADXFF/nvC+YF7JRBexxT2tBA/9TQUi69205l3bmBKfBRB2MdcOnMw5Bgfbnw+cdigAQ/q4JwTyao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=haw2UZOi; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=wTXGVO6y; arc=none smtp.client-ip=103.168.172.159
+	 MIME-Version; b=jDdbDbwLW6kDTgTKUg0g6ld55PJhiSNVtgEk4I0r0yaoC8Ur5wbzX82BjSpIdHYPCSt7Io0U4etecKuqah0ubafrQHslNz+FFoGAlJsCpp9rXPs6DgO/3MC+IXtyO930HLt9IiGYqXjSBCeFHomOqvGpRUr4N6zzE1NBgfoHvJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=cgBAZokp; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=JQzaqzty; arc=none smtp.client-ip=103.168.172.159
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="haw2UZOi";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="wTXGVO6y"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 873791400140;
-	Wed, 23 Sep 2026 13:23:34 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="cgBAZokp";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="JQzaqzty"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 1BFF614000B5;
+	Wed, 23 Sep 2026 13:23:36 -0400 (EDT)
 Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Wed, 23 Sep 2026 13:23:34 -0400
+  by phl-compute-03.internal (MEProxy); Wed, 23 Sep 2026 13:23:36 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
 	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1790184214; x=
-	1790270614; bh=HBY4HPF+vQfyFxx3H/SDvF3xkXyFwgp1v5OH/yHITpY=; b=h
-	aw2UZOiAjUyghnG2kiClVlEWdBb+S4md9GdK2yOzdO/n2YPJDC4M6YD9Tv/YrZr7
-	DUOkHq2XKX57ZxbZSGfT7ZcCrdIAZ/BIbGr6vMcF0w+UH9ztiV2uCq3HAhiX5rjs
-	gpF7hsO+Kr34cXXPtvcHZUp0wnuoHy1sZlOhTh0yNKKyxsX/wc26wRpWK2DIPoIK
-	WcJJ5IarM77KlLrQ+AgrQEA9HaqW/VOCqrWheo27agIxVKy4pSQ1rOvqPLa1d4zY
-	Gw8HA838ixQe71u4wMU8P+oSoEiz8RR6J54mj9LMi7P1hjysFGD9dq5UPgJkN0+u
-	0ytJOAMTdxVLUEaJzQnfQ==
+	:reply-to:subject:subject:to:to; s=fm1; t=1790184216; x=
+	1790270616; bh=MqKw34xDYLFZxTEiktBR5Fr1l3oX40GkW3GzSCBHQGc=; b=c
+	gBAZokpFptwc5KwScZ3RlYaVQyiV66dyTp9dtk0sybc4m1UYriZY81dsazlgVVRD
+	EGKL2R8reYkGx17rCj0jobbUKjNJyimfvpjbsOMl84bKwiB3dAoJA4p40nP/nHxN
+	ldJ9zWPE7ypWzJTYkwjM9EzDUkYCsW97qA8qYumQGJIRgLNWx1QGDutp5CYLOEoI
+	y9lQX/isXiRhlL2PtDtz1JuTcywjAbcuEIMGpH+58ivdrmsDB3EUvsWR40ZEzK0I
+	pnJ+gklBu+bpCsvQoIzAV9fZyU8th87GF8autHSKGdWBaYG3Nec+HCyRE/OrQ3RU
+	GxhjD3/c9HhDnL/DCgFhQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm1; t=1790184214; x=1790270614; bh=H
-	BY4HPF+vQfyFxx3H/SDvF3xkXyFwgp1v5OH/yHITpY=; b=wTXGVO6yU6B8WFQTE
-	rXNsD/K9nGUu4jXA+c+lZOB5VL5GABIsCvHH29S0xhP1e/liSQLsJ1GsjJ3Lmnpl
-	CV7nJxWPLjnqfYTChcy1Wg4BcUkILEzXp2WOaruqxQ+b7Sq9aCHM5Zyc5/66TUoa
-	MXvZlMTeKGB2rLQhgrjAomsD162iNH+c309GGo6qdcMduKe3FyOZ8P1zhfOoFcYk
-	y1ma75ut9cjtUMLbWkmv/rHuHlAbBgxivyo/pWCO5QM+6x3blr8GVpllazOGLf+B
-	pUnPxCAmexFSdU74KnduNPYHlsI1WARGd5h157KcF9/Dkn9DfqkncziQpFDhJj1A
-	qP7Cw==
-X-ME-Sender: <xms:Fgu0ar1zfbXVjszQLg_0uVqyW9rLMAe_GVGvCFkg6r4AR2ABNF3Dqw>
-    <xme:Fgu0ah2ZbH04B8iIMXdg1s4h5Q_IRxX2VIadEUdekz3OESHoKcHTaFVMRBmp-pPQU
-    8iaoTSMwX2jnk0rv9iXKnrqk9x7FYbACvJk42-S8SGIowEDc3AIRxI>
-X-ME-Received: <xmr:Fgu0au-66q9rpdsJeyd7obSPP77caUmyyVOrUroCyXjI7OwXdApyH09-04O_Q5kz3T31DhH3fWLvbi_Z4ggvNuQ2iXlIWfgTNCcKkLK0Bp4C>
-X-ME-Proxy-Cause: dmFkZTFOSPiV9S4Tym9ufogoWa+BoZ59lx2mKns53WukYdMm/vQLVUZ2Udve0Uu55Bdgrm
-    4B0QZM7RJLORxjeR58nDPzDGrIQs6R+n18otjxXbNmmTgY/+cm4nBRdd5XH5nR9WiBSWfr
-    8Z1OBAS8prrW1R8mkcUlKW0Lz/MQNKuR1vQnHzNaTfVAJZem0E9nuWUdIC6VwUQbfStAYp
-    juMLekbBnyAtw2UWTAkTZmBLmE2Cj3C9muNuCFzO50IlVCqOn/ZEa795gmuyLb6wb/1bMQ
-    NyfP9QiEblhLIv/CUCQ4MKmt5enqeDzJ3uWRCLWsjBeB0m/e67o1V/OPBuYFexTzI1jIMy
-    CJkwmE8xYtQ4D/k47Q25gsJ3JevwUG3FvfPlUUDRhEyV8Cw0WnWpLIfEcGu6sBkRYTnqzo
-    JX5XR76p2P0sYKHXD535JuSwGcjAYywKKjRzS+dp2Hv53Af35ih5hPLFUU0fFUqfqROoIL
-    jbJyMGjr4tZjzDLe2Lly6Sp1rdAOrr1Z4I4/MRi0ACU3/YbSfqlGtO56cJgLRlZxr77Ha1
-    wUI5X4EsS2VdSWA4wsumq9/iSMOhb7/79OJkARO7g9Kikw+5ysR3Rh9mgsJq60sqQKsyN+
-    ualWwbPnJJSuwDZvWgyNxDHJ0mjv2nCly0MYYHOqMHc7XiKh8vhfOE24UZCw
-X-ME-Proxy: <xmx:Fgu0au3SyWtzpsM4a5T6Ao5eEmWKOr1NGgsGDFyo-Qj2ozjNXLZ60Q>
-    <xmx:Fgu0ar_Gvp7z_usmJmDfo5Ni-STzk5Xl1fgFG1Cc-HoeyTIXqH6Qdw>
-    <xmx:Fgu0auv5DDsedKCVDDCVFpVaVjkBO7CPS34SCcgvU0aoIGryNKs2Ng>
-    <xmx:Fgu0auCYnWmRhmQBCXKeDW1h-KNdO9EOy89Ii_8DoxpkggrW5ZpPuQ>
-    <xmx:Fgu0alCzG--eb1zlvsj1W5Sytzen2S6hx6UYxt8wu4_Lu4HkWS0ScM1T>
+	:x-me-sender:x-sasl-enc; s=fm1; t=1790184216; x=1790270616; bh=M
+	qKw34xDYLFZxTEiktBR5Fr1l3oX40GkW3GzSCBHQGc=; b=JQzaqztyosMcRQuvF
+	HQfSEHWpOfFNkIkva8omrDFi8c8ZMF00dwUeqQX9T4wT1U4g5HByBsxXGo3GnVSV
+	jcfc6cp0G2R7tKxRWwlpu2PVYmU+ZRTdKhbl0dSxlG9z6QXblmu94WU1jpnFYzFO
+	DUQceZI5RY6y8vcbAfBjyLASs8Aj7QpztWSVqyIGkehFxTU1qnnZYqcd+l+9HFHa
+	w7l+/QWXDS4UGrEBHeRRawIF1+EyJa57rHPIJ2YGSJcbpZogPMWg52c55kX8unCZ
+	fDimTe78uY/Lhlzddl683wzt/1Vt96oZWrcrcWHIrUt4o41zJ1ewKgX8NDcJlNhV
+	/xQAg==
+X-ME-Sender: <xms:Fwu0ar9dLEUtfxzAvkZmGVGmoSh2Jn4GjNp3R__wNlhQGRYT7cBrmQ>
+    <xme:Fwu0avcH_EazywjgDN0Cjl_Tef3WoLugnH4BYMjNZi4kQGpwm8Nj_dbCsuDMWFeQg
+    eVmEwCG4zN4eVIgPmdqBhfZ0wdWqPsMjrEjNXe69zzJsfFf6e3Uwn8E>
+X-ME-Received: <xmr:Fwu0asHJjJxVoPFpkq382GVhzJ8Jr5MMJpbHiHH1n5qcOgYMeVOYEeePDjroeSe07egaTXiA9HqHfAm4EcYfcE6vj-wkZP5366NTUcdM3uTB>
+X-ME-Proxy-Cause: dmFkZTG1rixzTnjDSt9qmTYefNr9zvGtygiX4l/5FrcFQVdmDG93rz0+fg5J/N2k3M6sF+
+    HyOXn4aYI9wxixzozOdolGq1z1eze2yqXJeNucOj+abiW9wHvAidtRap90rrCjd/Kuej/G
+    +lNSGVMc4fqHuW1xqejl7gRxerEXvTePwpHx3F+5g+5sXmHlUBwznze/uWfxU29urcaHDx
+    gCnGgyOuziss2RjgXsYqFXdLCTBR2sHWYqbDjzokiEy6hyWIwcnt62GeA7xgx0jeSLU40t
+    PZ7698m0LTVEObgI4daLe74wPvcva1XxbuewEFx3GVYQ9QsM7ZA7FG7H35w/Jw6fIa+IF0
+    aXe75Y6JH63/p/8n/HlxMenf3k6KoleKZ6wEbrbeuM9CoV9VvtHtP6lLi70tOd+yk0nRYH
+    R6sogjHNqnoSwyjeERWaOyMYE1e9CnaEDDtVJ0Ve/87AJYoCGMy66F8X4FNag3Lm9p3qX9
+    MvcwB74hVyRqtpjGdhNw80x8DtGy6gASyTxHPc/FiW+CE0t9vZq2tKgohJ+cBAnCNkLRjl
+    XKFR7ow6za9v+h/mhDo47UoMvyvrz+7VezI159VtIldYqJO0MEJ7S7674aq+bOG1u7nn2Z
+    7zS0OkC3HhZyZdvyPCQyN//gJBoUs/xwYPCNmXfmAuZ/6VjM0S2cvAVLc47g
+X-ME-Proxy: <xmx:Fwu0alfOsou6_Dg2tXlfN4_SJl9GrMqojH1LrSlgAOH8HdOwhJBgvg>
+    <xmx:Fwu0auEOizir3cFgitvd-ozvCfljxhWHwd4N-obf6UYud_k2npYPBw>
+    <xmx:Fwu0amU8Ljta6vg3ahEsuM3LY3PzCOvycESDqoftnfLqKSgfdJssRw>
+    <xmx:Fwu0atKC-G226hYYOugg91EhUBfW05J-pCo_R_4L7jSIKHAw3DtzhA>
+    <xmx:GAu0avqr_L4sMj1-8GFIWNXQ94sf5QQ9jWCCl40YmGKlDmxidEQbEFch>
 Feedback-ID: ie8e14432:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 23 Sep 2026 13:23:33 -0400 (EDT)
+ 23 Sep 2026 13:23:34 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: linux1394-devel@lists.sourceforge.net
 Cc: dingiso.kernel@gmail.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] firewire: cdev: hold client reference for fw_iso_resource_auto lifetime
-Date: Thu, 24 Sep 2026 02:23:27 +0900
-Message-ID: <20260923172328.277232-2-o-takashi@sakamocchi.jp>
+Subject: [PATCH 2/2] firewire: cdev: fix client refcount leak in iso_resource_auto_work()
+Date: Thu, 24 Sep 2026 02:23:28 +0900
+Message-ID: <20260923172328.277232-3-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260923172328.277232-1-o-takashi@sakamocchi.jp>
 References: <20260923172328.277232-1-o-takashi@sakamocchi.jp>
@@ -86,50 +86,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The fw_iso_resource_auto object can outlive the operation that created
-it since hte main operation for it is done in a work item. This work and
-release paths access members of the client structure, therefore the
-client structure must remain valid for the lifetime of an
-fw_iso_resource_auto object.
+The client reference leaks when the pending work is cancelled because an
+additional reference was taken when scheduling the work.
 
-Hold a reference to the client structure for the lifetime of the
-fw_iso_resource_auto object.
+The reference held by the fw_iso_resource_auto object already ensures
+that the client structure remains valid for the lifetime of the object.
+Therefore, the additional reference taken when scheduling the work is
+unnecessary.
 
+Remove the additional reference.
+
+Reported-by: Dingisoul <dingiso.kernel@gmail.com>
+Link: https://sourceforge.net/p/linux1394/mailman/message/59317811/
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- drivers/firewire/core-cdev.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/firewire/core-cdev.c | 14 +++++---------
+ 1 file changed, 5 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/firewire/core-cdev.c b/drivers/firewire/core-cdev.c
-index 50419f10b04f..9964c66f2989 100644
+index 9964c66f2989..a626468b4b0f 100644
 --- a/drivers/firewire/core-cdev.c
 +++ b/drivers/firewire/core-cdev.c
-@@ -1406,6 +1406,7 @@ static void iso_resource_auto_work(struct work_struct *work)
- 			// xarray and prepare for deletion, unless the client is shutting down.
- 			scoped_guard(spinlock_irq,  &client->lock) {
- 				if (!client->in_shutdown && xa_erase(&client->resource_xa, index)) {
-+					// For the incrementation by add_client_resource().
- 					client_put(client);
- 					free = true;
- 				}
-@@ -1445,6 +1446,9 @@ static void iso_resource_auto_work(struct work_struct *work)
- 		kfree(r->e_alloc);
- 		kfree(r->e_dealloc);
- 		kfree(r);
-+
-+		// For the incrementation by ioctl_allocate_iso_resource().
-+		client_put(client);
- 	}
-  out:
- 	client_put(client);
-@@ -1491,6 +1495,7 @@ static int ioctl_allocate_iso_resource(struct client *client, union ioctl_arg *a
- 	if (err < 0)
- 		return err;
- 	request->handle = r->resource.handle;
-+	client_get(client);
+@@ -196,9 +196,7 @@ static int is_outbound_transaction_resource(const struct client_resource *resour
  
- 	retain_and_null_ptr(e1);
- 	retain_and_null_ptr(e2);
+ static void schedule_iso_resource_auto(struct iso_resource_auto *r, unsigned long delay)
+ {
+-	client_get(r->client);
+-	if (!queue_delayed_work(fw_workqueue, &r->work, delay))
+-		client_put(r->client);
++	queue_delayed_work(fw_workqueue, &r->work, delay);
+ }
+ 
+ /*
+@@ -1369,13 +1367,13 @@ static void iso_resource_auto_work(struct work_struct *work)
+ 		// Allow 1000ms grace period for other reallocations.
+ 		if (time_is_after_jiffies64(reset_jiffies + secs_to_jiffies(1))) {
+ 			schedule_iso_resource_auto(r, msecs_to_jiffies(333));
+-			goto out;
++			return;
+ 		}
+ 		break;
+ 	case ISO_RES_AUTO_REALLOC:
+ 		// We could be called twice within the same generation.
+ 		if (resource_generation == current_generation)
+-			goto out;
++			return;
+ 		break;
+ 	case ISO_RES_AUTO_DEALLOC:
+ 	default:
+@@ -1397,7 +1395,7 @@ static void iso_resource_auto_work(struct work_struct *work)
+ 		// Is this generation outdated already?  As long as this resource sticks in the
+ 		// xarray, it will be scheduled again for a newer generation or at shutdown.
+ 		if (channel == -EAGAIN)
+-			goto out;
++			return;
+ 
+ 		bool success = channel >= 0 || bandwidth > 0;
+ 
+@@ -1415,7 +1413,7 @@ static void iso_resource_auto_work(struct work_struct *work)
+ 
+ 		if (todo == ISO_RES_AUTO_REALLOC) {
+ 			if (success)
+-				goto out;
++				return;
+ 
+ 			// Notify the userspace client of the failure through a deallocation event.
+ 			e = r->e_dealloc;
+@@ -1450,8 +1448,6 @@ static void iso_resource_auto_work(struct work_struct *work)
+ 		// For the incrementation by ioctl_allocate_iso_resource().
+ 		client_put(client);
+ 	}
+- out:
+-	client_put(client);
+ }
+ 
+ static void release_iso_resource_auto(struct client *client, struct client_resource *resource)
 -- 
 2.53.0
 
