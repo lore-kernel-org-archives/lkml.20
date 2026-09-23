@@ -1,185 +1,171 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94BD47ECFD
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:38:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57CA657EDAA;
+	Wed, 23 Sep 2026 22:39:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790203113; cv=none; b=qeqRUN8kR1jdkb5sqE3hMj9BDxsjc2N9LUSPlc2cGQI63252S8Eme9aNRe9ycT3NqnvTFGVXs9t7n5kCMqXEwOJDwG7LhpQG5TobuxP6NxsywGWtgbdlHLbbxI+SvMPcco22yVf/1Sy7k2O3wOKIdoUGZf8MiuwgGPfdjUhSePI=
+	t=1790203162; cv=none; b=s4BCw9l+2JKxxjy7VrvUgl8o4uyHF885Xx+b7mmdlPe4mDi26MAqX1EjlcKWkqLH81lwkmHCFNrPOhtTIfnU8SACD8tqL1t74Fbe4ySYQwG3aXNTF+us5Ax/Hd2jugcRtz8oDRe6cpfhLCi0B4ylmX+Ehz9YwlOddcqOoINSr70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790203113; c=relaxed/simple;
-	bh=mE077adzSO60826bSPH8AmWIYay5TSVj9G861oBtwr8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VEt2xCq7wiwWg6JVucbIglM1culI9Ce2RxhZuJ/zjFsQcwZ5rmYgJhrkjSnbXnsXJtL5e/P3GyJVtUbFPn4DxXdgkdB46QClY9eXnOp2dHHl7GKskH6W32M6m0xLAbKGql1HqY6YABFVcqXc8Y2Gmyp2fsdm84DoFfBPf7MKMlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BVh6I7Lg; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790203162; c=relaxed/simple;
+	bh=bxtnwjZMrhZyHyjA2jGmjJ7S2fz3fzLfpmSxLclY1jM=;
+	h=Date:From:To:Cc:Message-ID:Subject; b=Dz5zOucv2Uj1iWxHMt5MU/oxLU/9RQdVyYyY+oZTZqdzFvFHhak0pEIhbG11s8NdXCh4oO8/bpnlw34wDLgelqFoLM/MTCCx7viDAh/WoXx0CLmQ9qAUtyjzWmiQ5b68J1NugMCGV70iqfR1X74KMiV1R8jxHFNPIE1cMfKh3tY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SAfc4aUU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BVh6I7Lg"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso8150585e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:38:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790203110; x=1790807910; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tQXtWNjNigWNQlYLBO5wxwxCg1hTWjPpuHjvfkhkF8E=;
-        b=BVh6I7LgJiQpSqUQ8UjSkxOMl7PebDqlC8l36VtPGUP8V9Fo+PAlO0Kr3pIGhRDhSC
-         IbXnYW2iOWbKkSZDrW0dU61p+0lelXCCi717NX4inSl2cft//811AvYD5YsyyggFohSy
-         nopjBkxXWTKOQG4xBSHZFbrihl+ZFP5AvIzynZJwqyzXlz9TQ0LJ9vz0ccVuAwS92Cv1
-         IQb7+3UGRy01Pv3TOrGICBZ2Rg6sOZusXA+tJJ7db0EpWqggRnSMkvs1RyXs7Qw7wHoz
-         k5MzH/5XO3eK+o/KZ3GMrVHIZGAunBa8InMqbaaXk8vwWDtlsTndTOdxmH7WH6JH2i5S
-         /wyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790203110; x=1790807910;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tQXtWNjNigWNQlYLBO5wxwxCg1hTWjPpuHjvfkhkF8E=;
-        b=y7VXum8OqekOrxensIKoOT17iI7gHY1VVoJvrghtg4IqyzW+JNJ69SzCAq/Bh6a7mO
-         1UTEMe+kbDp+zFeb9e5KZG8ljv8SN2vMhlt1rovUELDzPjGM5eVuKTjzPZY13pN+dEmQ
-         KKE5pLYSZTwNqS5PMRWSUEOuUa8WNvFxNQgBPoaVXJDYYqFO6SH6cWnenA8DgvI7AlNV
-         aoN6P7qi5lXiHz5P7HZTWyLgkyFEnrfLZHzGLTqG+d/1fa2YHWqz1H5gxMur9E8V9UQG
-         gUCEqou7me0yd3Pu/pZkuiPDCc9t5dfmwatZgWVJmPJLeZFxc8BRUTT6MarqdFdr5eet
-         58lg==
-X-Forwarded-Encrypted: i=1; AKwUvBytwFjay+NWxO7Ewumr95uUHRUr5AkWcq/QEVjjSBebpl5LVclAvU8T3aAGEMAK4iOeK5H5eylXuNUpBXo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nd73VqffHMHh1I4wTP5kSuorKNQ1h6ihsxCoHpKbHoT7nb6LYc
-	HyaTV5AdZPpd6DtnoTtlhARvssjl5lOGdqWFt+sMzWb2kZ9wz9C/KnBiYHIBuQGD
-X-Gm-Gg: AYBFou2rhjtMejJGBorq7jW7/KpNWfbAXk16rcxQvNr4xY2F5VGKWMcjn7lfJ8GYIVd
-	modeEr/JHRILUTqNUmVOQmHVMr3Qo+f3cVofeFd9N5b6t3Oz8MXMDpuJSdYEBuaKi1Zu1MIV7Ie
-	kzYCEH51LOP6dXVCGBmMeObv3QVi+zKEBy8Q2ripZCm492dW2zgJOQyyy6CO01tnB8orOFT1S4H
-	FE+kkBWihuaXRj+zB8SW0+5Z/miFReYLlDO3wonkfUbWe47onb0oj96FiCcWfwwhnI9vpXN9NLY
-	Tog5Sgz/DNjwfJpQw0el3FWY6//3jrd62Y1Nd6xNYFSzFXrNhoVp9rY4HHOZmw0UxBMFg6hkt8z
-	r8KXECsuhNk/cdcdg1n0UH7YwcSXNDCgnKRRBeBSwoVwUdxrRPMEtXgbegGF7Ow9xB0tjDjlVL+
-	CGM1qX35OLSs9Um7HHflNElUTSxi6pWDHsHBK7tAlw8zgdOhOPDSlRANVkquVfLtuPVeHtUdA6A
-	6jA8QePyrykVTlAm+UE8OYGtD50u0Ie9Q==
-X-Received: by 2002:a05:600c:c492:b0:49d:1f32:c911 with SMTP id 5b1f17b1804b1-49fe66c867fmr8606205e9.3.1790203110240;
-        Wed, 23 Sep 2026 15:38:30 -0700 (PDT)
-Received: from x230 (gw1.ms-free.net. [185.243.124.10])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5b47da1sm20046625e9.0.2026.09.23.15.38.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 15:38:28 -0700 (PDT)
-From: Petr Vorel <petr.vorel@gmail.com>
-To: petr.vorel@gmail.com
-Cc: abelvesa@kernel.org,
-	airlied@gmail.com,
-	andersson@kernel.org,
-	conor+dt@kernel.org,
-	david@ixit.cz,
-	devicetree@vger.kernel.org,
-	devnull+david.ixit.cz@kernel.org,
-	dri-devel@lists.freedesktop.org,
-	dsankouski@gmail.com,
-	jesszhan0024@gmail.com,
-	konradybcio@kernel.org,
-	krzk+dt@kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	neil.armstrong@linaro.org,
-	phone-devel@vger.kernel.org,
-	robh@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de
-Subject: Re: [PATCH 10/11] arm64: dts: qcom: sdm845-google: Move panel pins
-Date: Thu, 24 Sep 2026 00:38:23 +0200
-Message-ID: <20260923223823.190313-1-petr.vorel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260923222521.188197-1-petr.vorel@gmail.com>
-References: <20260923222521.188197-1-petr.vorel@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SAfc4aUU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E90DB1F000FF;
+	Wed, 23 Sep 2026 22:39:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790203161;
+	bh=pdZB0az0opfNfqPRr8PP5HLdxMxCwT3z+qHPPT2GSO4=;
+	h=Date:From:To:Cc:Subject;
+	b=SAfc4aUULAwJpvNJjjqNgQgVIzTfFi7yJeo7xGfx/TNNOVYGygb1M26t9w1OVib16
+	 DK7hjwUq/N5bxjIiNKa5B0pDgI+RSEFqeI0EtGpZRp0icD/qLLLHdSJS6rlxiP+0Ai
+	 U9uR3QPam8BUR0k+sXcYVJ9Bd606lMzvDt1Jf391IPDHrH3v7Az/Ne3MbzNMq7f0rZ
+	 C2EU/y1ML0Tw4SZWJ6t1cg90M7ZxT8yDiG3Zs/OHRNPqorGlTWOKCRHfIM0KhcoX73
+	 1znnpQnhwhD+l+3xWp3/lUyzOZvTUzRb1Aky6Bf4cc73cqG4/e2pMAFk17FoMTbdRY
+	 EmJZwir+Qtxjw==
+Date: Wed, 23 Sep 2026 12:39:20 -1000
+From: Tejun Heo <tj@kernel.org>
+To: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>
+Cc: Emil Tsalapatis <emil@etsalapatis.com>, David Dai <david.dai@linux.dev>,
+	Alap Mohan <mohaalap@meta.com>, Joonwoo Park <joonwoo@meta.com>,
+	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Message-ID: <20260923223825.734003-1-tj@kernel.org>
+Subject: [PATCH sched_ext/for-7.3-fixes] sched_ext: Fix CPU hotplug hang when
+ a dying CPU's tasks sit in the BPF scheduler
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-> Both devices share the pinctrl configuration.
+A CPU going down has to empty its own rq. Its hotplug thread waits in
+sched_cpu_wait_empty() until nothing else is left, and the only thing that
+wakes it is balance_push(), which runs from __schedule() on the dying CPU
+and pushes off the migratable tasks the CPU picks.
 
-LGTM.
-Reviewed-by: Petr Vorel <petr.vorel@gmail.com>
+sched_ext breaks this. A task sitting on a user DSQ or held by the BPF
+scheduler is still counted on its rq, but an inactive CPU no longer calls
+ops.dispatch() and can't pull the task back. The dying CPU goes idle with
+the task still counted, and one of two things happens:
 
-Kind regards,
-Petr
+- Another CPU consumes the task. The rq empties without a __schedule() on
+  the dying CPU, so the hotplug thread is never woken and cpu_down() hangs
+  holding cpu_hotplug_lock.
+- The task is affine only to the dying CPU. Nothing can move it, and the
+  offline stalls until the watchdog ejects the BPF scheduler.
 
-> 
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->  arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts | 18 ------------------
->  arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi  | 16 ++++++++++++++++
->  2 files changed, 16 insertions(+), 18 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-> index fa89be500fb85..a000c75494f1c 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-> +++ b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-> @@ -61,29 +61,11 @@ &mdss_dsi0_out {
->  };
->  
->  &mdss_dsi0_phy {
->  	vdds-supply = <&vdda_mipi_dsi0_pll>;
->  
->  	status = "okay";
->  };
->  
-> -&tlmm {
-> -	panel_default: panel-default-state {
-> -		reset-pins {
-> -			pins = "gpio6";
-> -			function = "gpio";
-> -			drive-strength = <8>;
-> -			bias-disable;
-> -		};
-> -
-> -		te-pins {
-> -			pins = "gpio12";
-> -			function = "mdp_vsync";
-> -			drive-strength = <2>;
-> -			bias-pull-down;
-> -		};
-> -	};
-> -};
-> -
->  &wifi {
->  	qcom,calibration-variant = "Google_blueline";
->  };
-> diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-> index f1379857e2742..d54cb47cdf95b 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-> @@ -473,16 +473,32 @@ &qup_uart9_tx {
->  	drive-strength = <2>;
->  	bias-disable;
->  };
->  
->  &tlmm {
->  	gpio-reserved-ranges = < 0 4>, /* SPI (Intel MNH Pixel Visual Core) */
->  			       <81 4>; /* SPI (most likely Fingerprint Cards FPC1075) */
->  
-> +	panel_default: panel-default-state {
-> +		reset-pins {
-> +			pins = "gpio6";
-> +			function = "gpio";
-> +			drive-strength = <8>;
-> +			bias-disable;
-> +		};
-> +
-> +		te-pins {
-> +			pins = "gpio12";
-> +			function = "mdp_vsync";
-> +			drive-strength = <2>;
-> +			bias-pull-down;
-> +		};
-> +	};
-> +
->  	nfc_default: nfc-default-state {
->  		enable-pins {
->  			pins = "gpio25";
->  			function = "gpio";
->  			drive-strength = <2>;
->  			bias-pull-down;
->  		};
->  
-> 
+When the rq goes offline, re-enqueue every task on it that isn't already on
+the local DSQ. An enqueue on an offline rq lands on the local DSQ, so the
+dying CPU itself picks the tasks and balance_push() pushes them off, the
+same as for the other sched classes. From then on no sched_ext path on
+another CPU can pull a task off the rq.
+
+ops.dispatch() currently stops as soon as the CPU goes inactive, and CPU
+hotplug then waits for an RCU grace period before taking the rq offline. A
+BPF-held task affine only to the dying CPU and preempted inside an RCU
+read-side critical section would block that grace period, and the rq would
+never go offline. Test SCX_RQ_ONLINE directly so that ops.dispatch() keeps
+running until the rq goes offline. Only the dying CPU's own hotplug thread
+clears the flag during teardown, and task_can_run_on_remote_rq() still keeps
+other rqs' tasks off the CPU.
+
+Fixes: f0e1a0643a59 ("sched_ext: Implement BPF extensible scheduler class")
+Fixes: 991ef53a4832 ("sched_ext: Make scx_rq_online() also test cpu_active() in addition to SCX_RQ_ONLINE")
+Cc: stable@vger.kernel.org # v6.12+
+Reported-by: Alap Mohan <mohaalap@meta.com>
+Reported-by: Joonwoo Park <joonwoo@meta.com>
+Signed-off-by: Tejun Heo <tj@kernel.org>
+---
+ kernel/sched/ext/ext.c     |   22 ++++++++++++++++++++--
+ kernel/sched/ext/inlines.h |    8 +++++++-
+ kernel/sched/ext/sub.c     |    4 ----
+ kernel/sched/sched.h       |    5 +++--
+ 4 files changed, 30 insertions(+), 9 deletions(-)
+
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -2123,8 +2123,8 @@ static void set_task_runnable(struct rq
+ 	}
+ 
+ 	/*
+-	 * list_add_tail() must be used. scx_bypass() depends on tasks being
+-	 * appended to the runnable_list.
++	 * list_add_tail() must be used. scx_bypass() and rq_offline_scx()
++	 * depend on tasks being appended to the runnable_list.
+ 	 */
+ 	list_add_tail(&p->scx.runnable_node, &rq->scx.runnable_list);
+ 
+@@ -3731,8 +3731,26 @@ static void rq_online_scx(struct rq *rq)
+ 
+ static void rq_offline_scx(struct rq *rq)
+ {
++	struct task_struct *p, *n;
++
+ 	rq->scx.flags &= ~SCX_RQ_ONLINE;
++
++	/* sched domain rebuilds call rq_offline with the CPU staying alive */
++	if (cpu_active(cpu_of(rq)))
++		return;
++
+ 	scx_rescue_flush(rq);
++
++	/*
++	 * An offline CPU no longer calls ops.dispatch(). Re-enqueue its tasks
++	 * onto the local DSQ so that they run here and balance_push() moves
++	 * them off.
++	 */
++	list_for_each_entry_safe_reverse(p, n, &rq->scx.runnable_list, scx.runnable_node) {
++		if (p->scx.dsq == &rq->scx.local_dsq)
++			continue;
++		guard(sched_change)(p, DEQUEUE_SAVE | DEQUEUE_MOVE | DEQUEUE_NOCLOCK);
++	}
+ }
+ 
+ static bool check_rq_for_timeouts(struct rq *rq)
+--- a/kernel/sched/ext/inlines.h
++++ b/kernel/sched/ext/inlines.h
+@@ -70,7 +70,13 @@ scx_dispatch_sched(struct scx_sched *sch
+ #endif	/* CONFIG_EXT_SUB_SCHED */
+ 	}
+ 
+-	if (unlikely(!SCX_HAS_OP(sch, dispatch)) || !scx_rq_online(rq))
++	/*
++	 * scx_rq_online() can't be used. Its cpu_active() test goes false
++	 * before CPU hotplug waits for an RCU grace period, and
++	 * rq_offline_scx() moves this CPU's tasks to the local DSQ only after
++	 * the wait. The grace period can depend on those tasks running.
++	 */
++	if (unlikely(!SCX_HAS_OP(sch, dispatch)) || !(rq->scx.flags & SCX_RQ_ONLINE))
+ 		return SCX_DSP_NONE;
+ 
+ 	dspc->rq = rq;
+--- a/kernel/sched/ext/sub.c
++++ b/kernel/sched/ext/sub.c
+@@ -585,10 +585,6 @@ void scx_rescue_flush(struct rq *rq)
+ 
+ 	lockdep_assert_rq_held(rq);
+ 
+-	/* sched domain rebuilds call rq_offline with the CPU staying alive */
+-	if (cpu_active(cpu_of(rq)))
+-		return;
+-
+ 	/* end the current rescue */
+ 	if (rq->scx.rescue.curr)
+ 		scx_task_slice_ended(rq, rq->scx.rescue.curr);
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -4205,8 +4205,9 @@ extern void balance_callbacks(struct rq
+  * after which it is enqueued again.
+  *
+  * Typically this must be called while holding task_rq_lock, since most/all
+- * properties are serialized under those locks. There is currently one
+- * exception to this rule in sched/ext which only holds rq->lock.
++ * properties are serialized under those locks. There are currently two
++ * exceptions to this rule in sched/ext which only hold rq->lock: scx_bypass()
++ * and rq_offline_scx().
+  */
+ 
+ /*
