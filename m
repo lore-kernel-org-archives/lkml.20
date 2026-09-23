@@ -1,51 +1,38 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0785E3A4F58;
-	Wed, 23 Sep 2026 11:13:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA5D4495030;
+	Wed, 23 Sep 2026 11:15:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790162008; cv=none; b=jmFonlyirtzbK9eyHtbRvQmyIJgH0TC5fRc9Pa7/hzvz0MzoMh6rzN8RDI0Ut2aORvtjGSbQx0L9n3HnVnyz46c5yt9IOII+HgzE0bS3yIHUdL613reUY/KKciU9okeSU94VSQAEOUBVXjMIOQSUDOrb1FB98KpVLc4JVBDsEh0=
+	t=1790162145; cv=none; b=gH3RkXkr+mBm3hUPuajR3cTkWFiPbrgBNyr5GsHeA8qHd276+3fmGhOiI7bxQ9PHoU/u0F0+oZx/sCIZULuM23+rq7QJsaE6qjHCF7SmTPb3E912B/9mYP1oxjyR+YR+KTKXtGCaeM+YatWRoJiK7qqhiLL/NONHUEJgUkzQY6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790162008; c=relaxed/simple;
-	bh=y4mAh4QRCnmU31ygKAPUR/tNyPpFdvNtOoRLdlbia/o=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Olu1MQljZpTkS7dDAWQdZCcl4OVFOI5wQDFXIfBsRt89Ehe6BsHDwK+7tMqhLsRT3AJDVDa7xfiMoI4lFCrslu44ptPV8qV7lRqN0Bh2ilG0kNfn9zMYox0vsF42pGgIs1c2Fc2PXYrvcVE0r04AgoKG2r7n7UKfoc1PApF2mJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f255DHjP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790162145; c=relaxed/simple;
+	bh=bqP8YA42hWQqWkIXy1FVgmJ12q2wrxR9OYJQppEs/Uk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=LxSipJzUJrNbkUtQWPJRsACn36hjjXzqxrf5Krv3d2++cH+53upfa86wXmzVPZH7vNysVTSPev18r2wRSYmOvRkVV4GVv16odiqxobfltHSbUTJBbWp99vIAJADyq2F+RSTf78MvDJzUeGWCHPTm8rgVmvtC4MCIk+gXBWZkwrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dJjC2anh; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f255DHjP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65E821F000FF;
-	Wed, 23 Sep 2026 11:13:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790162006;
-	bh=6OWssQdGeKsyE+yPPzL9NID088rXE6n1NT7d9aLNuLU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=f255DHjPL7qcmuNQwMipvzvnDX+7hQ2EPoy15lFc3RlpueYEfKHfvnoUqEYqM1sNb
-	 NWBIafoReygqiJurrwkepfMrWtm4dmdciZcGPHZj/UXcGVhT/gUEj9o7ycAyOsvv1H
-	 VqqSVjZjXHtHcvciU24arw2rlEWeASuZ4V6Pee7xW62cur2hfF2P1a2knuHbqR+q42
-	 gMBblt0TMmXcHqNunum5Arm0/pdXZWQDgCJyQiuCPlGnyePwTCIA4Udngv9vfkhOae
-	 NuuKuLY3Qe+HkhbVscCeNe2wrBS53RY93ZrUlKLi0/K3QG2Yu63tslB35MvSjcWKk7
-	 qFkKtFqTPodkg==
-From: Lee Jones <lee@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Beniamino Galvani <b.galvani@gmail.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, Ronald Claveau <linux-kernel-dev@aliel.fr>
-Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org, 
- mfd@lists.linux.dev
-In-Reply-To: <20260917-add-mcu-fan-khadas-vim4-v12-0-497cd543a148@aliel.fr>
-References: <20260917-add-mcu-fan-khadas-vim4-v12-0-497cd543a148@aliel.fr>
-Subject: Re: (subset) [PATCH v12 0/6] Add VIM4 MCU/FAN support
-Message-Id: <179016200216.3991538.9729498500468458301.b4-ty@b4>
-Date: Wed, 23 Sep 2026 12:13:22 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dJjC2anh"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 66A14C2BCFB;
+	Wed, 23 Sep 2026 11:15:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790162145;
+	bh=bqP8YA42hWQqWkIXy1FVgmJ12q2wrxR9OYJQppEs/Uk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=dJjC2anhcVyMwIC1G4OLRCia4y+JfJhGhEtcwMWg+VOrv4Phdfk2NFjfoQrNbW4kZ
+	 Hk4sg1nIdD6TjrD9OxxY9thkHw1qQDSP01beLgcok52CPSlFszMfNEabZnPTOrwgI8
+	 Nibz+zN6sh7w9zoaldqeH87br0btn4o1yrEReajjoaUiPdChSHuFJSqBzcn+ZDTkAR
+	 jPk/4mwYZQNoG7zp4T39TfnNxDiktvfesjEIGJU6/0YstgtGVCsHS0lbG4QM4d7GDU
+	 lakTau7LiR37ejZHDtYWoRRtArl6OaJL7tnOnFZ+lvgH6uPk8/XMTZL+KBmiFQIH3E
+	 TOLbewP/AdtyA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 46279C982FA;
+	Wed, 23 Sep 2026 11:15:45 +0000 (UTC)
+From: Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>
+Date: Wed, 23 Sep 2026 19:14:48 +0800
+Subject: [PATCH RFC 2/3] dt-bindings: clock: amlogic: Add T7 pre-divider
+ clock IDs
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,32 +40,90 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260923-meson_refactor_n-v1-2-3a8ce27121a2@amlogic.com>
+References: <20260923-meson_refactor_n-v1-0-3a8ce27121a2@amlogic.com>
+In-Reply-To: <20260923-meson_refactor_n-v1-0-3a8ce27121a2@amlogic.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jerome Brunet <jbrunet@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Jian Hu <jian.hu@amlogic.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790162143; l=1524;
+ i=jian.hu@amlogic.com; s=20260415; h=from:subject:message-id;
+ bh=y0MWbUJ0faMiTivhM85sj5J18sYEBszLSGsO+sIOCFA=;
+ b=9o8QfE60g+bIqq/2wkTFt/FkpyfPD2otY1SnuQcmVu8S+UxF0kzuuLZ0zwDw0KR6rsycd0FFI
+ 4FTSu5UE/c3DSAXtZcRUDeqdhFYcaQMTLiR0/hR+AiwKWXztK20mW2G
+X-Developer-Key: i=jian.hu@amlogic.com; a=ed25519;
+ pk=zHUE+rNtH9z+Sb8au1/elWknjFQmy5QDVkBoxleuOIA=
+X-Endpoint-Received: by B4 Relay for jian.hu@amlogic.com/20260415 with
+ auth_id=735
+X-Original-From: Jian Hu <jian.hu@amlogic.com>
+Reply-To: jian.hu@amlogic.com
 
-On Thu, 17 Sep 2026 09:58:59 +0200, Ronald Claveau wrote:
-> The Khadas VIM4 board features a different MCU variant compared to
-> previous VIM boards.
-> While it shares the same I2C-based communication model,
-> it differs in some ways:
-> 
->   - A distinct register map with its own volatile/writeable register set
->   - A fan control with 0–100 levels instead of the 0–3 levels previously
->   - A fan power supply gated through a regulator
-> 
-> [...]
+From: Jian Hu <jian.hu@amlogic.com>
 
-Applied, thanks!
+Add clock IDs for the T7 PLL pre-divider clocks. These IDs are
+required for the subsequent conversion of the PLL pre-divider
+into a standalone divider clock following the PLL framework refactoring.
 
-[1/6] mfd: khadas-mcu: Add per-variant configuration infrastructure and VIM4 support
-      commit: 6277c3cd74f54c26bf4d5e88182a378ee7190d90
-[2/6] mfd: khadas-mcu: Use MFD_CELL_* macros for cell declarations
-      commit: f9f61c21b942ac387acd7fb3ef1f950cba59755f
-[3/6] mfd: khadas-mcu: Add support for VIM4 MCU variant
-      commit: c94c97f8c97e684d44ef5483d7f2ad6b3dfa55ac
-[4/6] thermal: khadas-mcu-fan: Add fan config from platform data Add regulator support
-      commit: dad6f7897a93b4e1614664dbbcae0f61e57d1ac0
+Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+---
+ include/dt-bindings/clock/amlogic,t7-pll-clkc.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
---
-Lee Jones [李琼斯]
+diff --git a/include/dt-bindings/clock/amlogic,t7-pll-clkc.h b/include/dt-bindings/clock/amlogic,t7-pll-clkc.h
+index e2481f2f1163..69c90bc0be0a 100644
+--- a/include/dt-bindings/clock/amlogic,t7-pll-clkc.h
++++ b/include/dt-bindings/clock/amlogic,t7-pll-clkc.h
+@@ -9,20 +9,24 @@
+ /* GP0 */
+ #define CLKID_GP0_PLL_DCO	0
+ #define CLKID_GP0_PLL		1
++#define CLKID_GP0_PREDIV	2
+ 
+ /* GP1 */
+ #define CLKID_GP1_PLL_DCO	0
+ #define CLKID_GP1_PLL		1
++#define CLKID_GP1_PREDIV	2
+ 
+ /* HIFI */
+ #define CLKID_HIFI_PLL_DCO	0
+ #define CLKID_HIFI_PLL		1
++#define CLKID_HIFI_PREDIV	2
+ 
+ /* PCIE */
+ #define CLKID_PCIE_PLL_DCO	0
+ #define CLKID_PCIE_PLL_DCO_DIV2	1
+ #define CLKID_PCIE_PLL_OD	2
+ #define CLKID_PCIE_PLL		3
++#define CLKID_PCIE_PREDIV	4
+ 
+ /* MPLL */
+ #define CLKID_MPLL_PREDIV	0
+@@ -39,6 +43,7 @@
+ #define CLKID_HDMI_PLL_DCO	0
+ #define CLKID_HDMI_PLL_OD	1
+ #define CLKID_HDMI_PLL		2
++#define CLKID_HDMI_PREDIV	3
+ 
+ /* MCLK */
+ #define CLKID_MCLK_PLL_DCO	0
+@@ -52,5 +57,6 @@
+ #define CLKID_MCLK_1_DIV2	8
+ #define CLKID_MCLK_1_PRE	9
+ #define CLKID_MCLK_1		10
++#define CLKID_MCLK_PREDIV	11
+ 
+ #endif /* __T7_PLL_CLKC_H */
+
+-- 
+2.47.1
+
 
