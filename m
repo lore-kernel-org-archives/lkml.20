@@ -1,47 +1,38 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C7351EDF7;
-	Wed, 23 Sep 2026 12:50:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DE60440637;
+	Wed, 23 Sep 2026 12:50:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790167857; cv=none; b=V1Yn5r5XoAdB55fV7mdpw3k0rb2UDIIH/rHxBjT2CI4XuEozqkDE+fSF4T3RuhasYhS4+laqR9IOMwaCqZi2hUfmDftlJg+dwh40WwK8fGxwJeoEINYEvOyTumQW4ffzrt3KD1RUpaaXq4hN79KaE9nCWuEwc0jbBWdnjHoAHYM=
+	t=1790167862; cv=none; b=RSHb6L99YqK1QnnH3lNhZFCg72SH3Uukjj44YtGISvq+ELSlk+9sLVvrgRFPZElzThzBmdAD8QOeebWU+MlAAF/F0SgNXIFJglAo3tAHn88HRoLZleglTSHpDL4fYD0NkEIx8MF1DeSK7v9I805d7Cvd/Eefpe2PJyAtNKJzC6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790167857; c=relaxed/simple;
-	bh=j1lTbxY9DY9zBeybvKWKFOvt5NnOUI+YBT9gMIa0CZM=;
+	s=arc-20240116; t=1790167862; c=relaxed/simple;
+	bh=DO5hTkddNwS2gIW+V2FuLt+gIWOAWsNIZ2xrf3GAicU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VKsf/v1QJ+e8C2VElWSpSnSaLguXFyCAcDE1AqQoK60SETvRIixVc0MRv5z29yKiV+lxIBGq/OcjwHBySfXI18CtdXK7JfpbvbmRAt//SXy8wiJgOW7GewYu35mJkpowi945WhL/F00JnJRjB4A0MjJCPoVa6NZRPBNQniCJ06k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=xoCiV1Yd; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mz/LTpWzcc7in0kY3DDDeFtK3XmyKMzu2w52EcZq/NIYPQ8otKo6lDqPGmXIRtS6QuYeg+FE2y4msX9uPRVpTjTfIdwtU4MAV7G5x+l/EynHlkj3/cVIy2L3JajFLI2Qx6jksHkRUSInw0BFESevTs2FpYajJakCI/jei7W64fU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=W+ixNW/q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="xoCiV1Yd"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=15dX0WlwKL5bcJMOivsSURnwdcljPC6/Eyv5kiJGgNQ=; b=xoCiV1Yd8jTY6caTFeswdyRugj
-	h+2ypVn+EzOauLmoSBxXPaiBS0ngaPMZjo8tp0P+rFdnqKX/6zWzCBeKth+pAfQ3s+lHBlHTrfR5K
-	vkI4ueuiM24bdfOFVh4CDL71kurS1Ibp9kRakgvIlRVn/1TkpPWgD8Tu7oxhpxwyEOZc=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x9MQq-006nyx-7X; Wed, 23 Sep 2026 14:50:40 +0200
-Date: Wed, 23 Sep 2026 14:50:40 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
-Cc: shengchao.guo@oss.qualcomm.com, bartosz.golaszewski@oss.qualcomm.com,
-	mohd.anwar@oss.qualcomm.com, maxime.chevallier@bootlin.com,
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com, hkallweit1@gmail.com,
-	linux@armlinux.org.uk, netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] Nord ethernet followup
-Message-ID: <aa9f1765-ca8c-445e-96bb-4c768ad55623@lunn.ch>
-References: <20260923-qcom_xpcs_nord_emac-v1-0-4b1c682af70f@oss.qualcomm.com>
- <20260923084921.3942100-1-zhangfei.gao@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="W+ixNW/q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1DCF1F000FF;
+	Wed, 23 Sep 2026 12:50:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790167855;
+	bh=Ym7iJHsLfovAqm5JB7vlYkIDDJDIFXsY9myHFucj2q4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=W+ixNW/q+Y798Pj026dxgUEnn+/H3LV7SqpPqXXdnMANEgc6/IK7mmszvcG9uEVGT
+	 lt+l0QigttnSvV/bdYtqdxt5MM8U3UBedYQwXlR1Ewlh8JvbtrqUhqF9qUrEXK2F4b
+	 QsXXqKdMFBjIvCG8aa6hCBswwLilVhWHScGXG4tc=
+Date: Wed, 23 Sep 2026 14:50:52 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: jaidevshastri@vt.edu
+Cc: Jiri Slaby <jirislaby@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org
+Subject: Re: [PATCH 1/3] vt: order the fg_console switch against
+ vt_console_print()
+Message-ID: <2026092324-unlocked-step-9443@gregkh>
+References: <20260921-mb-vt-v1-0-71b7990c26c1@vt.edu>
+ <20260921-mb-vt-v1-1-71b7990c26c1@vt.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,30 +41,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260923084921.3942100-1-zhangfei.gao@oss.qualcomm.com>
+In-Reply-To: <20260921-mb-vt-v1-1-71b7990c26c1@vt.edu>
 
-On Wed, Sep 23, 2026 at 04:49:18PM +0800, Zhangfei Gao wrote:
-> This series verifies Mohd Ayaan Anwar's patch set:
+On Mon, Sep 21, 2026 at 09:27:14PM -0400, Jaidev Shastri via B4 Relay wrote:
+> From: Jaidev Shastri <jaidevshastri@vt.edu>
 > 
->   net: introduce Qualcomm XPCS support and add Nord Ethernet plumbing [1]
+> redraw_screen() switches fg_console with a plain store once the new
+> console's state is set up. vt_console_print(), the printk console
+> callback, indexes vc_cons[] with fg_console before it takes
+> printing_lock.
 > 
-> Tested on both IQ10 RRD and Ride
+> Store the new index with smp_store_release() and read it with
+> smp_load_acquire(), so that the printk path cannot reach the slot before
+> the console it denotes is complete.
 > 
-> The full test branch is available at:
+> Found with MBCheck, a static herd7-based memory consistency checker.
 > 
->   https://github.com/zhangfei-gao/kernel-topics/tree/next-9.23
+> Signed-off-by: Jaidev Shastri <jaidevshastri@vt.edu>
+> ---
+>  drivers/tty/vt/vt.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
 > 
-> 
-> [1] https://lore.kernel.org/linux-arm-msm/?q=qcom_xpcs_nord_emac
+> diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
+> index 57edf3749..3abbd6cf9 100644
+> --- a/drivers/tty/vt/vt.c
+> +++ b/drivers/tty/vt/vt.c
+> @@ -973,7 +973,8 @@ void redraw_screen(struct vc_data *vc, int is_switch)
+>  		if (!con_is_visible(vc))
+>  			redraw = 1;
+>  		*vc->vc_display_fg = vc;
+> -		fg_console = vc->vc_num;
+> +		/* Pairs with the smp_load_acquire() in vt_console_print(). */
+> +		smp_store_release(&fg_console, vc->vc_num);
 
-Please don't submit two overlapping patches for the same driver. Wait
-for the first patchset to get merged, and then submit a follow up
-series.
+Using these functions are almost always wrong.  Fix things properly, do
+not pepper these types of calls all over the kernel, that way lies
+madness.
 
-Qualcomm has a number of Mainline Linux mentors. Please talk with
-them, because these two patch series are not great.
-
-    Andrew
-
----
-pw-bot: cr
+greg k-h
