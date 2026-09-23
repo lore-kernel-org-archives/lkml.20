@@ -1,62 +1,64 @@
 Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B9C657ED83
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:59:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6D047F3D8
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:59:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790197142; cv=none; b=GQQ0BJQNe0YzHKeyIqDSvFIeqe3zfqawCEbq1eiluuwHOSpy/uYq5LKR9Qj+lV/vJOQWvlnTA+H7BjTglBvXMOF6ucvhoei74J69hfDdAZS1POY+x1XwE8k1b/gGSwyeZ7KhDsHVjOh1TQPCYYL2hhyCAu8mVESXEPIqwUmF4vg=
+	t=1790197147; cv=none; b=l3ZeMXZitTyO79n3/+GdQzEOwqP7RtIJmbv+nixTbmoBgB9yHw1ofX6rRZ7+y+DAM2sU3gjZwvXyq5fdr+QQ3lZE+YtTSOFbQud/FrvrnXQCz5aMWbyuIuYZ+rQuvDgr4Ne4/WCF95RWb5MBVpGO32xhtbWxn0YceFBTGL3nGXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790197142; c=relaxed/simple;
-	bh=gjNgjwY8I5O0y8agYmSnDrcD/S4hWPeAuTwuDDRiAnE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PEQ0N90c4ve8vi/bubSr49gGdkryq7Esh1MRN5pNLkaUOJ1W46Lcu20185qqTsRsMo7h3nSUf1gQsVuNoYyJpg64xNT/8etGA1j8bdV6dCFaEChSN93pD2ftnqaXeUXOMA1C1KTVuLn5z42Fzs17bwv/w4kZJ8X3wUTNTmZimXM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kZPlmDOI; arc=none smtp.client-ip=74.125.224.141
+	s=arc-20240116; t=1790197147; c=relaxed/simple;
+	bh=8JREQkLVGNW/V6YBNEl1nDP06ooU4XDJt9RQvxEZqSk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HrKneI43AfhfOwWGHELgPkn3xnt8sxIQvqgO+FYAlYKLUaihDeCjR7bp2/tVSbcihWO09SRPjmBjBWo5111d42dEu20Fn2E8OMiUCo1QNdcUgPjEUz7a5RGK89ivcJCDkV2VAm3X9XxFV9xwjC9JdbnTYyNkmqQ1/rBm4RotXdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WpsuOl3Z; arc=none smtp.client-ip=74.125.224.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kZPlmDOI"
-Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d43ac608dso19242337b3.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:59:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WpsuOl3Z"
+Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d46e4cdcdso17293357b3.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:59:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790197139; x=1790801939; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LFuywSZ0HejhAW2U3ki+Jb3nu+U7WqN5bFOUzp+xE1s=;
-        b=kZPlmDOIJyu+F89a+bWHiPAvWadIDX7ZcZIF767+iIijArk4RrsvSKpMKH/hlbxlok
-         8MMXclIfVuYjI+HxBB1GFBaflQHkG7q4/BpsoeKotAnRjuaiLb3SW5eDsRaSjfUcacUM
-         ao66QSKfPRKv+by8OwpQKA8LkDoiPLxFd7bvqPqcX+zDPhOlJA/3hy091xEF5U3wUMWI
-         a7JRcsrXcN976LGg2SQvnMtweVuATIIxm2R+ija/AzuPIH99cE5rBX+yLtmwaHW7qJxE
-         jSmig+CfY0B2gaGk5Oy1jTJP0uB2nmqg6FxXPi0ORY9m/Wvtn3uVGtOL2vVfr5A6k9Yk
-         HrwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790197139; x=1790801939;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790197143; x=1790801943; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LFuywSZ0HejhAW2U3ki+Jb3nu+U7WqN5bFOUzp+xE1s=;
-        b=1jIJda4T21ofoOzfrbNKWP4+Bc+Jp9bSWiUeHUjrlcuBLlXi5bHGFKJjqiHcq5rq74
-         PDR+zqbUmtD4DscgvaEH1HJaQocRZvoUM9CleAejLF41HrPdBCBPU+GXaHChwmIY5N18
-         T5ggGEQXW9m6LCF8y7DCsKQ60zqpZlv/XDBVzFOI0gHfZ8Oyko395VbAlx69WJzdmAR5
-         Ox15l+vBfjt3ZstSqNYJ0h0fXNU9BszWED5qBf8DrVvIHd6hASx53tPpRLwuClZOv+e0
-         gPzdd+SoiO+SqWijhkpYDwksSn9PDebB3hhXA9D8cAGzZikGZBlzHnRIglv9XZKfmJ8X
-         ixOA==
-X-Forwarded-Encrypted: i=1; AKwUvBzcutDRgxEYViHiv079azNQT4q5OT4h6kvkpJFp+74I22+KFRGg/EfXbSuZ24nTlSmO0FVdLZqVUw39A+I=@vger.kernel.org
-X-Gm-Message-State: AFuF++luul9PLsdWqkoMJzMYNOrWKHcKNsxgHH349tPiMWWy+wzmkewf
-	3Q4dSz0QSsDv3wVVcC79rCwKZwV7Pz+60Jn9Vi370GGYxwZDOdSosLVT
-X-Gm-Gg: AYBFou1m4DhM+r/w1GXB1eTtelKm9iqs73PAUKY4XqRLFSjFGzV9JjX0HG6jDZs4czm
-	bG18boJO6fu4WPXQaSKE94WiUQDqs0/M++NYfzALr184E0e9kuCyYNrLlMO8m9TL+MHU13t9ldU
-	XujdTpRhmSHYxa+QiEu2HuCiBF6CrjajBAeb+wdRCkuUbndBMCze1e6U9OVzs72mu4g7W1cb+Ah
-	9ayVz4lcteW9ETo2djDu4LI9F6jt/cmStNykksoZA+XXITyRSVd+Cdx7a5PpwKVO2bmyDbo8RPl
-	hSb5vL6YKwGr8PaqT8OAwjGf9SnlNMDs9TMy9drrZ8jZ1/hYBgMOkltzs3yYGI1a1P8HK4cS9b4
-	s1BUMHYg2AdEa0tI/0IsZtVYL7+IQ2aqbqE2OxwUaFmCMKGn3vzbF/2XkIr5vCHE1v50+fyAfof
-	CrhI3ZAwNLOpomOXq4mzM0FK7WZaFu+nylicvIt1i4RVMQTmFlWBtRyZpTVa6C+3RRoJqbmO7PB
-	G//0y5CNQ==
-X-Received: by 2002:a05:690c:ec5:b0:884:b55c:312 with SMTP id 00721157ae682-8a648ec512fmr3446857b3.16.1790197139130;
-        Wed, 23 Sep 2026 13:58:59 -0700 (PDT)
+        bh=OI+RXS7AWef0aTId53Kef6aofXdoW+lQEP5J9ptA3JM=;
+        b=WpsuOl3ZPBEudrXlgXRD+dDN8CmSjRTajGPhccyNQ358WJj5Yx7zvZkc241hfH7ms7
+         w9JUadW8rfNtb/ONo+HTJbhQwPsf7f/12ptqsNYK0ZnW7i21V0ZpTyYiV6mMUjRVblEp
+         FWP/og3ikk4HdVCVtfBQFFHC+iK3gNQvAH+NMRlX3whFaCFgfYuB/OOW6h0+qkrzvek7
+         fjhS95GSt0eXS0V/uZK+dJiVg+nJMTYP48an2XYTuid9cu0+NWMZfHIjf9fMvWcLu9QJ
+         BN8tY/VD9WuZ1NszytJAzr9Zc/LGWVvqsfkpPtjoRCVcaoUxS+hw9xUQE0y6RMOejQrP
+         684g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790197143; x=1790801943;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OI+RXS7AWef0aTId53Kef6aofXdoW+lQEP5J9ptA3JM=;
+        b=WCdtAxVb0bvRDK4uqA3yJ4rmyXDxmAEL32bQTHK7GCigidYjq+mN4BDtrn1tq26/sm
+         lgjQgAgwQil0R3fTYQRfIrpopWleqKoQYCy3KwLxRgdV5aKGkuJeN0b9EoIL6wutvqsm
+         z87fYwGMjITk3fykc1WT7Mh6NlC4lXpxKUuWeQbQtOtqblNerEW017ML7TsrgzS80wbl
+         R06p5oZGfar/W/Wrt0PrQp6C3uGJi2UY4my7pO2o54s0mtH61FiFUbgwsBGLKsNUQ7h0
+         /neH5z9bWCYeBR69sVt8gkSn2Y/kqs9R/JVGymBVkTGrhvsPFNLrTxTb/hgOrebg0WEp
+         GQeA==
+X-Forwarded-Encrypted: i=1; AKwUvBwCVmCWVZ82X7FDo9Fjob+sr9mDIo0Ka4mOa1gjwFBPW4d0sVGJDHINRTXYP7iDGSo9Wu7qu3ta/weg+tI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mqsV722tjSXetsda5kLJSA66Dor7Urgv94tgiisuRJB8P5P/On
+	WkVYiMWr22LhcK1CUGYP0zxNbrb6Zoqd3DvLJpK6asqENwoTyBAO9rXr
+X-Gm-Gg: AYBFou0BpZaYx+yCMy9A7d4V6RFUJG9Q9yQexzY8gww8r+boCchT/68W2Mb1KJEkZv8
+	kumltPFPCrdZZGnMZnQrTY3ZAUC7Qz9nf4PfVpQU6PqQPFd60Ski7a3oPgIxST6EqEcvtoReSdB
+	CQqbiw5/eB29UzNWpxGQt+qPY9aMofoz/AD6KF5HBOFObyGTVjM4jTJEmFwLfy4MrN5531euoVO
+	saE68Y2o7uAATgq1HL6Qrz4IcSNqywiTpLqN6peG8nKQ5XE6MyiivXCUT19YY/dB1iMwRjlBuaL
+	9Ks7EKu71vMsJ+Ulylst79hDzAHRQK83h1XvJfNmpkLGrAjTm+BgxvVHDUQMvxdvH2lmvslFFQu
+	HTQiENrqqE/AglouqsnlmGT67CE760keyHR7KiLru3ti5ra29NJbykDZmJy7Q0lqRszFcebUSE8
+	Dxh+tJDGf6KITx1U0FDK8B6PdaXTTmhtcFbia82pkD5QifwNB7INxFDuhJVt9wofO+exliIEm5Q
+	XyeHCMNaQ==
+X-Received: by 2002:a05:690c:39b:b0:882:b4b2:c49 with SMTP id 00721157ae682-8a646e8848bmr3505747b3.18.1790197142862;
+        Wed, 23 Sep 2026 13:59:02 -0700 (PDT)
 Received: from DESKTOP-TLFH1MG ([76.255.203.42])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a65270b1e2sm1073467b3.41.2026.09.23.13.58.58
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a65270b1e2sm1073467b3.41.2026.09.23.13.59.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 13:58:58 -0700 (PDT)
+        Wed, 23 Sep 2026 13:59:02 -0700 (PDT)
 From: Jonathan Frazin <frazinjonathan@gmail.com>
 To: dri-devel@lists.freedesktop.org
 Cc: maarten.lankhorst@linux.intel.com,
@@ -68,11 +70,14 @@ Cc: maarten.lankhorst@linux.intel.com,
 	lanzano.alex@gmail.com,
 	phil@raspberrypi.com,
 	linux-kernel@vger.kernel.org,
-	Jonathan Frazin <frazinjonathan@gmail.com>
-Subject: [PATCH v3 0/2] drm/mipi-dbi: display a cropped region of an oversized framebuffer
-Date: Wed, 23 Sep 2026 15:58:32 -0500
-Message-ID: <20260923205835.3505-1-frazinjonathan@gmail.com>
+	Jonathan Frazin <frazinjonathan@gmail.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>
+Subject: [PATCH v3 1/2] drm/mipi-dbi: honour the plane source offset when flushing
+Date: Wed, 23 Sep 2026 15:58:33 -0500
+Message-ID: <20260923205835.3505-2-frazinjonathan@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260923205835.3505-1-frazinjonathan@gmail.com>
+References: <20260923205835.3505-1-frazinjonathan@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,65 +86,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A drm/tiny MIPI DBI panel can currently only scan out a framebuffer that is exactly panel-sized, always from the origin. This series lets a client allocate a larger framebuffer and choose the displayed region via the plane source rectangle - a crop / pan with no scaling.
+mipi_dbi_fb_dirty() takes the damage rectangle from
+drm_atomic_helper_damage_merged(), which is expressed in framebuffer
+coordinates and already clipped to the plane's source rectangle.  It
+then passed that rectangle straight to mipi_dbi_set_window_address(),
+which is correct only while the source rectangle starts at (0,0) - i.e.
+while the framebuffer is exactly panel-sized.
 
-Motivation: feeding hardware-decoded video to a small SPI panel. The video decoder emits a fixed frame size; being able to point the panel at a panel-sized window of that buffer avoids a full-frame CPU copy on every flush and lets userspace pan/centre the image.
+If a driver allows a framebuffer larger than the panel and the plane
+selects a sub-region with a non-zero src_x/src_y, the controller was
+still addressed in framebuffer coordinates, so the wrong part of the
+panel was written and an out-of-range window could be programmed.
 
-Patch 1 is the actual fix - mipi_dbi_fb_dirty() addressed the controller in framebuffer coordinates, which is only correct while src_x/src_y are zero. It now subtracts the plane source origin.
+Pass the integer plane source origin down to mipi_dbi_fb_dirty() and
+subtract it when programming the column/page address.  The copy into the
+transfer buffer still uses the framebuffer-coordinate rectangle, so it
+keeps reading the correct pixels from an oversized source.  With a
+panel-sized framebuffer src_x/src_y are zero and behaviour is unchanged.
 
-Patch 2 raises mode_config.max_width/height (pinned to the panel size) on the six drm/tiny drivers that flush through the shared drm_mipi_dbi_plane_helper_atomic_update(). ili9225 is excluded - it has its own flush path that does not carry the source offset.
+The rectangle from drm_atomic_helper_damage_merged() is clipped against
+the src rectangle's exact 16.16 fixed-point bounds, while src_x/src_y
+above are that same origin truncated to whole pixels. When the origin
+has a fractional part, the truncation can leave the rectangle's far
+edge up to a pixel past where a whole-pixel origin would place the
+panel's own width/height - and tx_buf is sized for exactly the panel,
+with no slack for that overshoot. Clamp the rectangle to the panel's
+fixed mode before using it for the window address or the transfer
+length.
 
-Open question for patch 2: the six drivers each set the limits identically in their probe. This could instead be a shared helper (or folded into drm_mipi_dbi_dev_init / the DRM_MIPI_DBI_MODE_CONFIG_* macros) so future drivers get it for free. Happy to respin that way if preferred - the per-driver form is what is shown here because it is the smaller diff and easier to review a first pass.
+A damage clip can also lie entirely within that one-pixel sliver past
+the panel edge - the damage iterator clips only against the exact
+fixed-point bound, not the whole-pixel one used here - collapsing the
+clamped rectangle to zero width or height. Skip the flush in that case
+rather than program an inverted (start past end) address window, which
+is undefined behaviour per the MIPI DCS spec.
 
-The min_width/min_height, the fixed mode, the connector and the mode-sized transfer buffer are all unchanged, and drm_mipi_dbi_plane_helper_atomic_check() still enforces DRM_PLANE_NO_SCALING and no repositioning, so the flushed rectangle stays bounded by the panel regardless of the framebuffer dimensions.
-
-Tested on hardware: ILI9341 and ST7789V (through panel-mipi-dbi), both 240x320 - an oversized framebuffer is accepted and a non-zero-offset panel-sized window scans out correctly; a panel-sized framebuffer is unchanged. HX8357D was tested during the downstream review by Dave Stevenson (Cc'd). ili9486, mi0283qt, ili9163 and st7735r are build-tested only.
-
-Both patches have been carried in the Raspberry Pi kernel (rpi-7.2.y) and in use there: https://github.com/raspberrypi/linux/pull/7589. The v1/v2 heap-overflow fix (see below) has also been folded back into that downstream kernel: https://github.com/raspberrypi/linux/pull/7643.
-
-Applies to current mainline / drm-misc-next; the touched files are identical there.
-
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Signed-off-by: Jonathan Frazin <frazinjonathan@gmail.com>
+---
 Changes since v2:
-- Patch 1: a damage clip that lies entirely within the one-pixel sliver
-  the v2 clamp cuts off collapses the clamped rectangle to zero width or
-  height. That was still being passed to mipi_dbi_set_window_address(),
-  producing an inverted (start past end) address window ahead of a
-  zero-length write - undefined behaviour per the MIPI DCS spec. Skip
-  the flush when the clamped rectangle is empty.
-- Patch 2: st7735r also flushes through the shared
-  drm_mipi_dbi_plane_helper_atomic_update() but was missed from the
-  original list - it lives under drivers/gpu/drm/sitronix/ rather than
-  drivers/gpu/drm/tiny/. Added it, and confirmed by grepping the whole
-  tree for DRM_MIPI_DBI_PLANE_HELPER_FUNCS that no other driver shares
-  this path. Thanks again to the automated review for catching both of
-  these on v2.
+- A damage clip lying entirely within the one-pixel sliver the v2 clamp
+  cuts off collapses the clamped rectangle to zero width or height,
+  which was still reaching mipi_dbi_set_window_address() as an inverted
+  (start past end) address window ahead of a zero-length write - skip
+  the flush when the clamped rectangle is empty. Thanks again to the
+  automated review for catching this on v2.
 
 Changes since v1:
-- Patch 1: clamp the damage rectangle to the panel's fixed mode before
-  using it, instead of trusting it to already be panel-sized. src_x/src_y
-  are the plane source origin truncated to whole pixels, but the
-  rectangle from drm_atomic_helper_damage_merged() is clipped against
-  that origin's exact 16.16 fixed-point value - when the origin has a
-  fractional part, the rectangle's far edge could land up to a pixel past
-  where the truncated origin would place the panel's own width/height,
-  overflowing the panel-sized tx_buf. Thanks to the automated review for
-  catching this.
-- Patch 2: unchanged.
+- Clamp the damage rectangle to the panel's fixed mode before using it,
+  as described above. Thanks to the automated review for catching this.
 
-Jonathan Frazin (2):
-  drm/mipi-dbi: honour the plane source offset when flushing
-  drm/tiny: allow a framebuffer larger than the panel on MIPI DBI
-    drivers
+ drivers/gpu/drm/drm_mipi_dbi.c | 43 ++++++++++++++++++++++++++++++----
+ 1 file changed, 38 insertions(+), 5 deletions(-)
 
- drivers/gpu/drm/drm_mipi_dbi.c        | 43 +++++++++++++++++++++++----
- drivers/gpu/drm/sitronix/st7735r.c    |  8 +++--
- drivers/gpu/drm/tiny/hx8357d.c        |  8 +++--
- drivers/gpu/drm/tiny/ili9163.c        |  8 +++--
- drivers/gpu/drm/tiny/ili9341.c        |  8 +++--
- drivers/gpu/drm/tiny/ili9486.c        |  8 +++--
- drivers/gpu/drm/tiny/mi0283qt.c       |  8 +++--
- drivers/gpu/drm/tiny/panel-mipi-dbi.c |  8 +++--
- 8 files changed, 80 insertions(+), 19 deletions(-)
-
---
+diff --git a/drivers/gpu/drm/drm_mipi_dbi.c b/drivers/gpu/drm/drm_mipi_dbi.c
+index 25cf04d02..bb557fab1 100644
+--- a/drivers/gpu/drm/drm_mipi_dbi.c
++++ b/drivers/gpu/drm/drm_mipi_dbi.c
+@@ -271,19 +271,45 @@ static void mipi_dbi_set_window_address(struct mipi_dbi_dev *dbidev,
+ }
+ 
+ static void mipi_dbi_fb_dirty(struct iosys_map *src, struct drm_framebuffer *fb,
+-			      struct drm_rect *rect, struct drm_format_conv_state *fmtcnv_state)
++			      struct drm_rect *rect, unsigned int src_x, unsigned int src_y,
++			      struct drm_format_conv_state *fmtcnv_state)
+ {
+ 	struct mipi_dbi_dev *dbidev = drm_to_mipi_dbi_dev(fb->dev);
+-	unsigned int height = rect->y2 - rect->y1;
+-	unsigned int width = rect->x2 - rect->x1;
+ 	const struct drm_format_info *dst_format;
+ 	struct mipi_dbi *dbi = &dbidev->dbi;
+ 	bool swap = dbi->swap_bytes;
++	unsigned int height, width;
+ 	int ret = 0;
+ 	size_t len;
+ 	bool full;
+ 	void *tr;
+ 
++	/*
++	 * @rect is in framebuffer coordinates, clipped to the plane's src
++	 * rectangle by the damage iterator against that rectangle's exact
++	 * 16.16 fixed-point bounds. @src_x/@src_y are that same origin
++	 * truncated to whole pixels. When the origin has a fractional part,
++	 * that truncation can leave @rect's far edge up to a pixel past
++	 * where a whole-pixel @src_x/@src_y would place the panel's own
++	 * width/height -- and tx_buf is sized for exactly the panel, with no
++	 * slack for that overshoot. Clamp before using @rect for anything.
++	 *
++	 * A damage clip can lie entirely in that one-pixel sliver past the
++	 * panel edge -- the iterator above clips only against the exact
++	 * fixed-point bound, not the whole-pixel one used here -- in which
++	 * case the clamp collapses @rect to zero width or height. Nothing in
++	 * it was ever visible on the panel, so skip the flush rather than
++	 * program an inverted (start past end) address window.
++	 */
++	rect->x2 = min_t(int, rect->x2, src_x + dbidev->mode.hdisplay);
++	rect->y2 = min_t(int, rect->y2, src_y + dbidev->mode.vdisplay);
++
++	if (rect->x2 <= rect->x1 || rect->y2 <= rect->y1)
++		return;
++
++	height = rect->y2 - rect->y1;
++	width = rect->x2 - rect->x1;
++
+ 	full = width == fb->width && height == fb->height;
+ 
+ 	DRM_DEBUG_KMS("Flushing [FB:%d] " DRM_RECT_FMT "\n", fb->base.id, DRM_RECT_ARG(rect));
+@@ -298,8 +324,13 @@ static void mipi_dbi_fb_dirty(struct iosys_map *src, struct drm_framebuffer *fb,
+ 		tr = src->vaddr; /* TODO: Use mapping abstraction properly */
+ 	}
+ 
+-	mipi_dbi_set_window_address(dbidev, rect->x1, rect->x2 - 1, rect->y1,
+-				    rect->y2 - 1);
++	/*
++	 * @rect is in framebuffer coordinates and has been clipped to the plane
++	 * src rectangle by the damage iterator. The panel is addressed relative
++	 * to the src origin, so subtract it here.
++	 */
++	mipi_dbi_set_window_address(dbidev, rect->x1 - src_x, rect->x2 - 1 - src_x,
++				    rect->y1 - src_y, rect->y2 - 1 - src_y);
+ 
+ 	if (fb->format->format == DRM_FORMAT_XRGB8888)
+ 		dst_format = drm_format_info(dbidev->pixel_format);
+@@ -390,6 +421,8 @@ void drm_mipi_dbi_plane_helper_atomic_update(struct drm_plane *plane,
+ 	if (drm_dev_enter(plane->dev, &idx)) {
+ 		if (drm_atomic_helper_damage_merged(old_plane_state, plane_state, &rect))
+ 			mipi_dbi_fb_dirty(&shadow_plane_state->data[0], fb, &rect,
++					  plane_state->src_x >> 16,
++					  plane_state->src_y >> 16,
+ 					  &shadow_plane_state->fmtcnv_state);
+ 		drm_dev_exit(idx);
+ 	}
+-- 
 2.53.0
+
