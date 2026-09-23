@@ -1,164 +1,101 @@
-Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 557793BB13C
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:10:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 449343EDAB3
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:10:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790143816; cv=none; b=aHkSgpZu6K1nDFadvza2LU/zvyNpWvGDWdvrmwYVbIgyOUPWiMV/Howt8j6TEPOnqU4OiVEXcaQG/MU8YsET+Q1AsDvFVySwITHxAdAUNJT99pPDONqXgF193ph4ASCPTotk57+gpmh3BqBs/LzsrF9sO0UOUTrlvjNJca+6EB0=
+	t=1790143831; cv=none; b=VA2VY51m5RswzwuYzRkIV6At0nNBOpGVU0XLwFgHYScG9hhOl9iKcL08NwTRQ5+K+BXxLrVdGR4Jf8GXW7/sRsR5tvimSYzVoYXQJttt1obP5ATBPct3f0IaLbRATI5VqskzXeyHwF/hgHWCalIXrGNgam8deYOLOV5gXdk550c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790143816; c=relaxed/simple;
-	bh=dy2CeYpd+lXAnmlW07mW4QKCWyh5ASqU6aif4ORmxO0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SWV9sr1+ulbyJkBpKX4xAlXfmVnDUlrZ5MtlrsTf2qertufHQNiZwINPbsDrfTsX37ChJY463mrAdgC98pIXNdvWOaMZcZi5QZpdFvUjwZ+QrQf1OF2VyZ21+8yXEDCx1QPhwU8hUqXFhlTjpodirVn2EhxBn14PtKbNh/E5q0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com; spf=pass smtp.mailfrom=embeddedor.com; dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b=qzxqJIpN; arc=none smtp.client-ip=35.89.44.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedor.com
+	s=arc-20240116; t=1790143831; c=relaxed/simple;
+	bh=Up3ZIHSEDaIBrMIFPLazLYKJZ8oSLCIb4EWYTIp3x6A=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=X+8hfzbA0KIWLy2a0FTcmK6fjjf1JALmY6WyMNQKQ2phLXp96WvuW+uvx0FoWy9HHNxeJ9IKQhLXL71W1LaPR7HcaqW7fB8Xnlgh8BP3kAmM9g9WfE2HhZMZyvHV6gTaVUzheL+EqzPeQVbGoBVXBdu3nMKXUd/9gYHdmtwMAKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dTSTk06+; arc=none smtp.client-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b="qzxqJIpN"
-Received: from eig-obgw-6001b.ext.cloudfilter.net ([10.0.30.143])
-	by cmsmtp with ESMTPS
-	id 9G50xYbQhaC0U9GBKx8uc0; Wed, 23 Sep 2026 06:10:14 +0000
-Received: from gator4166.hostgator.com ([108.167.190.91])
-	by cmsmtp with ESMTPS
-	id 9GBKx6ihQUy7g9GBKxMnFU; Wed, 23 Sep 2026 06:10:14 +0000
-X-Authority-Analysis: v=2.4 cv=CvO/cm4D c=1 sm=1 tr=0 ts=6ab36d46
- a=vY9Mjuda9oMEc2E4Cx1x2A==:117 a=vY9Mjuda9oMEc2E4Cx1x2A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7T7KSl7uo7wA:10 a=1XWaLZrsAAAA:8
- a=VwQbUJbxAAAA:8 a=vmMgSTcIRG_wnqpSMZkA:9 a=QEXdDO2ut3YA:10
- a=2aFnImwKRvkU0tJ3nQRT:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=0+Ti3ClvEeyB0mxjZ6Y5EozLt9wFOSnnKiPH9XINcK8=; b=qzxqJIpNrJXl
-	3zJRZ6IK7MgKuMmJuyFiMJ3YHCWMzzbhJ0Al6OcwtbFRyunv+E39aorQU6e1yGW6heNp/swhwkp4M
-	LxReoQFGHv0kdBmkKM5Ip/itJIaZzl9H10IxE0HVyyLskyhGAEpFB/aBQHO3o0cVX1ik7aKZwiQFR
-	cgi8Gas1OrtSZsaSPuTkVXxLhyCzOF3fNEWJalsyUIQS+AqCdha6Vbzp2I7xS5GpAwHVkpAa+63KX
-	YDIPER3OUvxPiqcog+cEc8LFN9OjeygVafALX88uRADuWhb/YjyVzTg3N3r5/VmZRoOV/uGpY42ch
-	BD3PN/5igNRDKI1yJ3MAjg==;
-Received: from flh4-125-195-69-90.tky.mesh.ad.jp ([125.195.69.90]:35276 helo=[10.203.100.34])
-	by gator4166.hostgator.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100)
-	(envelope-from <gustavo@embeddedor.com>)
-	id 1x9GBJ-00000002LmZ-1RVU;
-	Wed, 23 Sep 2026 01:10:13 -0500
-Message-ID: <a51283e0-7d55-4d06-bf7d-3cd7b7a21faa@embeddedor.com>
-Date: Wed, 23 Sep 2026 15:10:08 +0900
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dTSTk06+"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2dc7337e2a7so5844145ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:10:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790143830; x=1790748630; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2NJLY26Tlw5C/ujVQMbXtmFKIsHXJJUk04BO2IFW5X4=;
+        b=dTSTk06+Mc0arFDngd+N35IEatXimNhfOtZjpoEevvALR5oe+39VylCbruIVNuKEi2
+         QKruI4UTu3zvufhlN3IKn8ox81/X0dpl3YgjsLbumz20qFLcb/XaZeXAMdpibpfPaOwQ
+         5lflbw1rIrE0WJyGDuZxtBHNDWt44dD0gajme+DRGjibNemqwfp3dtR7K/L6DFPK7srV
+         Hv0Mq8QLpZ/K5/DDxrzOitLXN8DCY5LZTdgv1kRnxi60E84aoWorN00QCsgL05oOlQym
+         wD63guUpzTVwSueE6WWGjxqM81sS1VN+X1NH4/YV9P8qVfToQutENEiMXd4nPuxsWh7Z
+         C33A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790143830; x=1790748630;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2NJLY26Tlw5C/ujVQMbXtmFKIsHXJJUk04BO2IFW5X4=;
+        b=poouV6ru3NpTE/HJvVRxmhgKxIXWMPhWQJbSamMKZj4j9HFX/zTm1dgLm2VQgfEzgs
+         VgPsyzMTDSM57LMrUN2uB0mCIAhT97JZWxF8LrHq5Ku7TZJwh8qyMYLREZU8s/0wBe4b
+         FZXLkSxGwDkmwviKnUMr3HFmjNT1OnqzpZYQ0u6XaCT7zjzNVWySL9CLyxY18BDDdAbS
+         WNuXaOEgj2p59mp3NPq4LjqQWm5UCnjV+RTOq05Qi71kkRSgV+2ZC0hfUwxcvymLzann
+         1w7YO9+7vcOTYfcsFZVH5WwidD+TqrC3Jej3QYZs7T5BNnR8ccZJIzWBb/tjLVztpCs2
+         rD7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz/4F5dTIhyz74tbSlsYzejeOh1Gpjg2H9O5JnMHPMXwcGu//FXyRkn8IXU+1JumEdgWlR+w/bBJMzPyUg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mHUPeEQXTCtMkqR/jB/F1f98dCTK7e4pCgZxuXGIs8EFDi8gVP
+	YNxPcm9Ql8W2SROv/RWejjLKX8TroN2ixz7p62JAfOC1+YVIjIS4LtEEI+/fjPoA3dACQAUT8Xp
+	N
+X-Received: from plad20.prod.google.com ([2002:a17:902:e154:b0:2db:7978:1b17])
+ (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ec84:b0:2df:434f:5f50
+ with SMTP id d9443c01a7336-2df69de2662mr13543765ad.36.1790143829058; Tue, 22
+ Sep 2026 23:10:29 -0700 (PDT)
+Date: Wed, 23 Sep 2026 06:10:27 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Drivers: hv: vmbus: annotate struct vmbus_gpadl with
- __counted_by_ptr
-To: Bill Wendling <morbo@google.com>, "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>
-Cc: Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva"
- <gustavoars@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>,
- Justin Stitt <justinstitt@google.com>, linux-hyperv@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
- llvm@lists.linux.dev, codemender-patching+linux@google.com
-References: <20260923055320.2602534-1-morbo@google.com>
-Content-Language: en-US
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-In-Reply-To: <20260923055320.2602534-1-morbo@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - embeddedor.com
-X-BWhitelist: no
-X-Source-IP: 125.195.69.90
-X-Source-L: No
-X-Exim-ID: 1x9GBJ-00000002LmZ-1RVU
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: flh4-125-195-69-90.tky.mesh.ad.jp ([10.203.100.34]) [125.195.69.90]:35276
-X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 4
-X-Org: HG=hgshared;ORG=hostgator;
-X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfP7+So3zhj2UP7mMxPy7PyLxqwEQkqI0kzkTUaVgTgXCfWOD+PtxQT5CR//DxufFvuCFwZdmLynoUlFwj3Bq4rgI9kJEt0Ah1J9bV3FsfPs+GSf95S6o
- coQzH0Yu/ASvdcBLQMbI4g96Z44MEIqFmRtPh1gKVWpZXmlpUyVPUlixDbzrk2QQI2NR78g6vT1ecw0HrEWHnJZhB0KDxYGhEMxlB9SMEyr0AMFqB1xjRtag
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260923061027.2650324-1-morbo@google.com>
+Subject: [PATCH] crypto: hisilicon/qm - add __counted_by_ptr to dfx_diff_registers
+From: Bill Wendling <morbo@google.com>
+To: Weili Qian <qianweili@huawei.com>, Zhou Wang <wangzhou1@hisilicon.com>
+Cc: Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-crypto@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com
+Content-Type: text/plain; charset="UTF-8"
 
+Annotate the pointer field 'regs' in 'struct dfx_diff_registers' with
+the '__counted_by_ptr' attribute, referencing the 'reg_len' member
+which holds the element count of the allocated memory.
 
+In 'drivers/crypto/hisilicon/debugfs.c', the 'dfx_regs_init' function
+allocates the 'diff_regs' array and initializes each element's 'regs'
+pointer after setting its 'reg_len'.
 
-On 9/23/26 14:53, Bill Wendling wrote:
-> Add the "__counted_by_ptr" attribute to the buffer field of "struct
-> vmbus_gpadl". This allows compilers (GCC and Clang) to perform
-> compile-time and runtime bounds-checking when KASAN is enabled, preventing
-> potential out-of-bounds accesses to the GPADL buffer.
-> 
-> The fields "buffer" and "size" of "struct vmbus_gpadl" are assigned
-> exactly once, during GPADL establishment inside
-> "__vmbus_establish_gpadl()" in "drivers/hv/channel.c".
-> 
-> To ensure that the count field ("size") is initialized before the
-> pointer field ("buffer") is assigned, we reorder the assignments in
-> "__vmbus_establish_gpadl()" so that "gpadl->size" is written before
-> "gpadl->buffer".
-> 
-> Cc: codemender-patching+linux@google.com
-> Assisted-by: LLM
-> Signed-off-by: Bill Wendling <morbo@google.com>
-> ---
->   drivers/hv/channel.c   | 2 +-
->   include/linux/hyperv.h | 2 +-
->   2 files changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/hv/channel.c b/drivers/hv/channel.c
-> index 7e4cc6f55237..7042de2dd481 100644
-> --- a/drivers/hv/channel.c
-> +++ b/drivers/hv/channel.c
-> @@ -548,8 +548,8 @@ static int __vmbus_establish_gpadl(struct vmbus_channel *channel,
->   
->   	/* At this point, we received the gpadl created msg */
->   	gpadl->gpadl_handle = gpadlmsg->gpadl;
-> -	gpadl->buffer = kbuffer;
->   	gpadl->size = size;
-> +	gpadl->buffer = kbuffer;
+Since 'reg_len' is set before 'regs' is assigned, the compiler's bounds
+sanitizer can correctly associate the pointer with its allocated size.
 
-I think in some cases these subtle changes are worth a short but
-informative comment saying that the _counter_ must be initialized
-before the first reference to the pointer.
+Cc: codemender-patching+linux@google.com
+Assisted-by: LLM
+Signed-off-by: Bill Wendling <morbo@google.com>
+---
+ include/linux/hisi_acc_qm.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-We can see this as part of the learning curve people have to go
-through before the counted_by annotations and their requirements
-are more widely known and understood. But I guess this can be
-handled on a case-by-case basis.
-
-Regardless:
-
-Reviewed-by: Gustavo A. R. Silva <gustavoars@kernel.org>
-
-Thanks
--Gustavo
-
->   
->   
->   cleanup:
-> diff --git a/include/linux/hyperv.h b/include/linux/hyperv.h
-> index 9e109d91aa14..408748a05440 100644
-> --- a/include/linux/hyperv.h
-> +++ b/include/linux/hyperv.h
-> @@ -780,7 +780,7 @@ struct vmbus_device {
->   struct vmbus_gpadl {
->   	u32 gpadl_handle;
->   	u32 size;
-> -	void *buffer;
-> +	void *buffer __counted_by_ptr(size);
->   	bool decrypted;
->   };
->   
+diff --git a/include/linux/hisi_acc_qm.h b/include/linux/hisi_acc_qm.h
+index 8dc49fa2123b..f2885d60b468 100644
+--- a/include/linux/hisi_acc_qm.h
++++ b/include/linux/hisi_acc_qm.h
+@@ -196,7 +196,7 @@ struct qm_dev_dfx {
+ };
+ 
+ struct dfx_diff_registers {
+-	u32 *regs;
++	u32 *regs __counted_by_ptr(reg_len);
+ 	u32 reg_offset;
+ 	u32 reg_len;
+ };
+-- 
+2.55.0.1082.g2b9226bbc0-goog
 
