@@ -1,84 +1,142 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 216DD5187E0;
-	Wed, 23 Sep 2026 12:16:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53738517BB8;
+	Wed, 23 Sep 2026 12:17:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790165831; cv=none; b=EaWfi7c4vtb3PKPgTOZRXjP5RPKpiXpQ0ocGGqNu6eRIRrGa5ta9xZTH0m+AuwfnhnyBMY6rG0WZTma4BOymPjx7UrK8Bb1F/2YFTWh3ibKO9OQLIGZqU1GEIQ3rNvkRHaa8tQuV5ATGDCRj1cleAVe3ZwCeC0ABjuau3uxyZxI=
+	t=1790165849; cv=none; b=pxm3dpeUGbpOJP+y6yfEbNrwi4mWMr2Zu17xxLV29/O2ArvIViqLSLZqTiKh1Fw3x4BWyMz9MyBfMZJLnDGS8H4ph3ItSBVYklf8fUcma2/o2CBoniJioGhjZlKjnxb8Ij5JOvLD0NUR4nAskptBzSGXk0JVB7o3h6AXfqhkGAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790165831; c=relaxed/simple;
-	bh=ovsAtgEi6L1M2RO1lkZMwC93Fl5nrIiLA+OFFMvsVfw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VAbsr/Qkz4U5zQTDKF7+K2Yfa4don136cP0VSGcEzLNCJ1iOru+Kx4loFEszhmcG8XauINkGk60TuLPnGSPl3nYfZs9UFY9a4k3VHKslAzZG7pY4pc0sWpHXa+KDis1WG6LDiIFBlh50RTenDc7yXzm/OgM1+A9cpMJM4C1dvBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=BbCi5bol; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1790165849; c=relaxed/simple;
+	bh=F53p8FKHEPS9OasKbcD3/FVtuvDQj0qYdE0oshV7agY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZiF8UXn0EKDi+aDzr36Dm/2kxlBHDgClewSTGtnbdxEoGXscGt+BABKA3Lq+4DPR89PWl/ZBjo94X/WINZ8ihuBpmWP0r+0jRBPQ+INwCqlXzyHBdAi/IDTGZUMdML7FRi00qpi2avLaK5FFBYIxbYI4h4G5lQwgTmM/jymHcMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=AXXSIdbx; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="BbCi5bol"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3C804A4AA6;
-	Wed, 23 Sep 2026 14:16:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1790165814; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=GzLk9AHxyejvus2S9q+Bu2XrtqNIw34QVfpPbaQXNKk=;
-	b=BbCi5bolnm1vv0bWnb5PcVrM7s6BCRFbAyuGz1B7f82rR1/k43IqmT/K4DBA6H6ts93zHH
-	eRGO9LE6g3f4Cvz8GFh+0zvEk6qnkERAz9OYUaXewxZoNTo0yECV5soD2SH36ysfE2tsaN
-	9cFAOLLgXoesfXlZbthi+eRzaajmU/p9EoxxpkKkhkaZRN5kXiU8tLIRnGPwiUMeevJiqG
-	vh2fBX5AfAfpnOKum+sHb54uNGRUJ3XeDsQ/kM5N2AGY2g670l2nkCyElh2KAVeIC3uh5B
-	4DCLKxS7Gh0+TIFK3F5Fu2BUSKWY71Ugz3ko8dl0CVp1L6yXb/z7Pq4uGrzCZg==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Kory Maincent <kory.maincent@bootlin.com>
-Cc: vadim.fedorenko@linux.dev,
-	Nicolai Buchwitz <nb@tipi-net.de>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2 1/2] net: ethtool: don't match a hwtstamp provider on a device without a PHC
-Date: Wed, 23 Sep 2026 14:16:42 +0200
-Message-ID: <20260923121644.2194183-2-nb@tipi-net.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260923121644.2194183-1-nb@tipi-net.de>
-References: <20260923121644.2194183-1-nb@tipi-net.de>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="AXXSIdbx"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 3EE095340957;
+	Wed, 23 Sep 2026 14:17:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1790165829;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Cocbgk0yRPtfvE2Id/wgu61HEDljde+Nw92Y3PkSaOk=;
+	b=AXXSIdbx2Dy2w2E1vy9CXSWooMwvcrEhSU3jns/jv75U3JKOsmy0c7kfUWFtSwAeak+901
+	Xrc7hNOG2t53AQvKaqCbGE2MjoTF9GtAgLGM2sSdSJDyM5+h3nEHA0DxoFii9o81dwJ8lq
+	8mMRaC+HxVggYpJxaN/yIFWGCU98PUk=
+Message-ID: <ee8a106a-4700-4a5d-84f8-bb8ba4b084bd@ixit.cz>
+Date: Wed, 23 Sep 2026 14:17:08 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: sdm845-oneplus-common: Configure MBHC
+ thresholds
+To: =?UTF-8?Q?C=C3=A9dric_Bellegarde?= <cedric.bellegarde@adishatz.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260922-mbhc-v1-1-bd123e7fb899@adishatz.org>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260922-mbhc-v1-1-bd123e7fb899@adishatz.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-A device without a PHC reports phc_index -1. A request for index
-0xFFFFFFFF is stored in an int and becomes -1 too, so the two match and
-a netdev provider is selected on a device that has none.
+On 22/09/2026 21:48, Cédric Bellegarde wrote:
+> Configure the Multi-Button Headset Control (MBHC) thresholds for the
+> WCD9340 audio codec to match the vendor downstream calibration.
+> 
+> Signed-off-by: Cédric Bellegarde <cedric.bellegarde@adishatz.org>
+> ---
+>   arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 4 ++++
+>   1 file changed, 4 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+> index 439779f308e3..8a99c3f55bf6 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 
-Fix this and only match a real PHC index.
+Hello Cédric,
 
-Fixes: b9e3f7dc9ed9 ("net: ethtool: tsinfo: Enhance tsinfo to support several hwtstamp by net topology")
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
----
- net/ethtool/common.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+only enchilada has the 3.5 jack, I assume no use for fajita
+... but it doesn't matter much here as it just changes existing default.
 
-diff --git a/net/ethtool/common.c b/net/ethtool/common.c
-index 23db40618fed..23e8282563cc 100644
---- a/net/ethtool/common.c
-+++ b/net/ethtool/common.c
-@@ -980,7 +980,7 @@ int ethtool_net_get_ts_info_by_phc(struct net_device *dev,
- 	if (err)
- 		return err;
- 
--	if (info->phc_index == hwprov_desc->index &&
-+	if (info->phc_index >= 0 && info->phc_index == hwprov_desc->index &&
- 	    net_support_hwtstamp_qualifier(dev, hwprov_desc->qualifier))
- 		return 0;
- 
--- 
-2.53.0
+Reviewed-by: David Heidelberg <david@ixit.cz>
+
+David
+
+> @@ -1099,6 +1099,10 @@ &wcd9340 {
+>   	vdd-tx-supply = <&vreg_s4a_1p8>;
+>   	vdd-rx-supply = <&vreg_s4a_1p8>;
+>   	vdd-io-supply = <&vreg_s4a_1p8>;
+> +	qcom,mbhc-buttons-vthreshold-microvolt = <75000 150000 237000 500000
+> +						  500000 500000 500000 500000>;
+> +	qcom,mbhc-headset-vthreshold-microvolt = <1700000>;
+> +	qcom,mbhc-headphone-vthreshold-microvolt = <50000>;
+>   };
+>   
+>   &wifi {
+> 
+> ---
+> base-commit: fe2ec83746e501645709761605c2464a44fd2929
+> change-id: 20260922-mbhc-342148b3fd5b
+> 
+> Best regards,
 
