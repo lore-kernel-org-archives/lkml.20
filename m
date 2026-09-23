@@ -1,131 +1,99 @@
-Received: from mail-lr2-f11.google.com (mail-lr2-f11.google.com [74.125.230.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from arkamax.eu (128-116-240-228.dyn.eolo.it [128.116.240.228])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0E0B429038
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:39:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F9FC36B90A
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:40:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.116.240.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790149174; cv=none; b=PBc+9vd0ZfLUSSY1n7m2G+xULZhynBY+ff2vW0iYbQT/TICbaCnlpwRIjzBIcVx89GDsdDXVu3kHmBq3uzLAxI0RbKC+Atn+1hbxt6tEn5FYf3lalLHC5DxE0UpJ7fvmFjTt6ZoI1cI3J9/+m2kxwoiml2O8gvfkmLQSSzOvSR4=
+	t=1790149212; cv=none; b=TQsW2waRhLqhdWvVeA12pNspgomMOTQGKNDItfd/u8ByHdOnSjRkMHYEi9SD36taLEsAUyuZOWZmY2dz1BBXQKre7dHreqU94mtlcMk/2+PjCICuuu80Ae/e/njZ39WHT70h26iWpfTPd5pZkcHPX1d6N+GzXYsekW/YKvFxF20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790149174; c=relaxed/simple;
-	bh=Lmqd+koWddn+ibQQDLmnYPRN5lrKZdaYwps4HHvieTY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nHivwbcaHAKsJ33aCYFbNZ4JsKshwKKi98ZMMQ6cxJ+Uh5CiWUH45tDb4dDuZSJfH8tK5yLvWYdlO5Kxy6Sh7Ssv+Cbp0LEbSE2ITRNZqgdujt5Shwm5CYWnBeM2jHzem6Bpoe3ZoxL8WZUTf8w5inCSgpAEYgcjDOeUHqITeok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lVpcvsgj; arc=none smtp.client-ip=74.125.230.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790149212; c=relaxed/simple;
+	bh=Li/7CtQT9ekhb/rzTQeU0eAMCKM+r3+9eXDiZG06pV0=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=adOD9BlGZKe0aPQQFZlZHUGZBtA1mBZVVc/F+r0UdtRJU8mwIy4HWlZkZG7iEaTH7yyeoS158FV1/z99sqhCxpJZO0AO7N2z2QdLkCExSRu5o9hdRLyJNxPfaf2hvOfxe3L7Q19uwExXfmDLI44aYZ8nLL2lN/kVNtEnOSy+O9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arkamax.eu; spf=pass smtp.mailfrom=arkamax.eu; dkim=pass (2048-bit key) header.d=arkamax.eu header.i=@arkamax.eu header.b=e+Zed52s; arc=none smtp.client-ip=128.116.240.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arkamax.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arkamax.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lVpcvsgj"
-Received: by mail-lr2-f11.google.com with SMTP id 38308e7fff4ca-3a49e7d0b4eso3452981fa.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:39:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790149170; x=1790753970; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IzZ+cNf2z4J5z3qvFn6/NJ8ACjL3I/i0NM3vzaSh4n4=;
-        b=lVpcvsgjfGwqQDvCugOFWspvi+f/yzUhaaqli6iYdMAI9ZIqzexzt0XhOp2KX77kWR
-         4WDd5FQpiiTXMwc67L5MBJ5Fe3f0Qni15rad9pSap6zSBRlYMn8h/OKA474fkD7eEuWs
-         zYbznFqPZvEocfrxJMGW/4wyqvnkUoSQ6c3LVemanheDOc6d4Nv/Gb3Y7mWroDez87Oz
-         T6oIehHzCcr47wSzArZdI9xenDLxb6ENV0VRmHNGcE+nLN5sOLdDWEoWjjb0D+dDUQ6Q
-         3bdBWhqFA27u8j8/U7h2iJerDel/w668V1ukn0IJ9IhB5QEa3z1Ppvzc+DTCuYb0p4Bm
-         0tow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790149170; x=1790753970;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IzZ+cNf2z4J5z3qvFn6/NJ8ACjL3I/i0NM3vzaSh4n4=;
-        b=tHoKgzgXDVnGn3d+KwvCpjkWzQaZ8nxdxode2D1ykw9Lx9cHsjQYByXucD5i79UJAS
-         kXBtUEV7I5+PtCrnGA1QMRbvl3qYnnTafXJ/H8Bsu/Se3E9veLESaeOeh8QRgjBAtESq
-         7Eof3aQ30IuA3MM7JSqFx6E46WsXCNlZHjmV9bSXa1guVuXKnkqBw54jizzSJ5h2Ft56
-         5LLgnPjFuuxJWQ24/UfuRn3/I/7v5qsxOpC2C4BW2+7ySuH6tUFKzXKNMi+PZ/aIHmfu
-         JZoGejr68yaxp1G04QzF+iLyDqieOgCs3YISYiTLL2StBV59Y81fN9H+HLMy80im4VrA
-         /V8g==
-X-Forwarded-Encrypted: i=1; AKwUvBwnJQx7JPJSaw06HZEOz+aN+UdwELmqo70sq5zOIWgq20CEPrx81nPAraqNx6jesLmdGGNjvoYVEK1/OoI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mj4urvrQ5lqofIXhgtrKBRZ+IlsxtU+yPEPxzTmYA+xmoxsHVN
-	JFQpTsrHvv7ZLnRknn31h98qirAKxSS9+O8Lb2GP381Izt8NUvjmYPFc
-X-Gm-Gg: AYBFou0pk+7kd0ew1xoJsP8NUQ5npyohf3gAAzC+uS6F2+qzMK5GPlrCvYRWqj2Uno4
-	gYI6XXbQKjpiJntQK/FTk4hsBSPzUT8OaIzTYs6i4Jj+HKCLPs4fs5mBnjIIitebz8KllQwQ25O
-	cArEhiR46yuyVka2wYznWosX85T5ooKtCe5fku7N2j66rJM1qF/MWp6EnyokGrmPLkO6j785MfA
-	R6R1RixqdjFHrpVr+G6SuwaG7Vokc8XsO1pp44Sw8OcX26hS3yB1qXcPe2cvB+4p3OTnrw6mFFx
-	ATB4Rejg7VATwROTRP7hfbyKkv0w2eBuxD8sOGcVVYvmZQnJ9mwbXqVcN5ojZdDw5Fs2+FwouPD
-	V/NsI1dluofFqaaW57NanwrkuVRw5cAlxifoQ3zU7nELfuhqPV5vWjImtZ94jZxY/V4KwyVprlb
-	iCGhUDx9cxPbEClbymWuEcaTN1qQXw9sMTVeatRlZ5xUtpucoWKwS+QzQlFT3T4p7xebso1w2vx
-	HjlXZGFqjF/AT1U
-X-Received: by 2002:a05:6512:3996:b0:5b6:1a7c:59e8 with SMTP id 2adb3069b0e04-5b8d8ac9b9fmr472193e87.66.1790149170031;
-        Wed, 23 Sep 2026 00:39:30 -0700 (PDT)
-Received: from localhost.localdomain ([78.40.184.2])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d8580568sm395754e87.34.2026.09.23.00.39.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 00:39:29 -0700 (PDT)
-From: Roman Demidov <roman.demidov.nn@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	"Pan, Xinhui" <Xinhui.Pan@amd.com>,
-	David Airlie <airlied@linux.ie>,
-	Daniel Vetter <daniel@ffwll.ch>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Guangshuo Li <lgs201920130244@gmail.com>
-Subject: [PATCH 5.10/5.15/6.1/6.6] drm/amdgpu/atom: Check kcalloc() for WS buffer in amdgpu_atom_execute_table_locked()
-Date: Wed, 23 Sep 2026 10:39:12 +0300
-Message-ID: <20260923073913.39211-1-roman.demidov.nn@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=arkamax.eu header.i=@arkamax.eu header.b="e+Zed52s"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; s=mail1; bh=Li/7CtQT9ekhb/
+	rzTQeU0eAMCKM+r3+9eXDiZG06pV0=; h=in-reply-to:references:to:from:
+	subject:cc:date; d=arkamax.eu; b=e+Zed52sFs1MQhswBlULyyhS2wxFpwwD6DmHL
+	Kdx5wffvjxDThp6IUMki2uLx/J3ZQ3InYVtukhdxOpdu7pq9TnRPT7GXZbmfUIwD9ECBGV
+	e5YaCjF5OaXZFdL+c7P62gi53t27r885zhjQvg1rwGWx7WOfyQ78dTKGlcY140+LyUz46T
+	21bKs2RPW/cj2rnFwJyoRD/TQu/tUwUzGv20GYtjfAdTuwmvrYNHxi1wCzaPwz+RXveGkk
+	LSBFn1xao3GYrqB8ZMlObyVOFMZzUyDffrA0/DjbpyICphiQataFCtbUR4f99qCJPbqiPB
+	ZoLLnWpPrmwoHpy334RjbtwZg==
+Received: from localhost (128-116-240-228.dyn.eolo.it [128.116.240.228])
+	by arkamax.eu (OpenSMTPD) with ESMTPSA id 58c282aa (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
+	Wed, 23 Sep 2026 09:40:00 +0200 (CEST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 23 Sep 2026 09:39:59 +0200
+Message-Id: <DLMIXHATYR90.4RUG08AMWH8U@arkamax.eu>
+Cc: <linux-nvme@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <mlombard@arkamax.eu>
+Subject: Re: [PATCH v2] nvmet-tcp: fix stale comment on NVMET_TCP_MAXH2CDATA
+From: "Maurizio Lombardi" <mlombard@arkamax.eu>
+To: "Ing. Alfonso Kuen Arroyo" <gerencia@idkmanager.com>, <hch@lst.de>,
+ <sagi@grimberg.me>, <kch@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <179013720383.9364.11263428288753603011@idkmanager.com>
+In-Reply-To: <179013720383.9364.11263428288753603011@idkmanager.com>
 
-From: Guangshuo Li <lgs201920130244@gmail.com>
+On Wed Sep 23, 2026 at 6:20 AM CEST, Ing. Alfonso Kuen Arroyo wrote:
+> The constant is 0x400000, 4 MiB, but the comment next to it said 16M.
+> Use SZ_4M instead of a value and a comment that can drift out of sync
+> with each other, as suggested by Christoph Hellwig.
+>
+> Noticed by Maurizio Lombardi while reviewing "nvmet-tcp: report a
+> bounded MDTS instead of "no limit"".
+>
+> v2: use SZ_4M instead of the raw hex value + comment (Christoph
+>     Hellwig). The file did not pull in linux/sizes.h yet and had no
+>     other SZ_ user, so the include is added.
 
-commit cc9a8e238e42c1f43b98c097995137d644b69245 upstream.
+version differences should be put after the '---' separator, they are
+not part of the commit message
 
-kcalloc() may fail. When WS is non-zero and allocation fails, ectx.ws
-remains NULL while ectx.ws_size is set, leading to a potential NULL
-pointer dereference in atom_get_src_int() when accessing WS entries.
+>
+> Signed-off-by: Alfonso Kuen
 
-Return -ENOMEM on allocation failure to avoid the NULL dereference.
+The mail is missing, this should be:
+Signed-off-by: Alfonso Kuen <gerencia@idkmanager.com>
 
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-[ Roman: added parentheses to the 'if' statement, matching the upstream
-commit. ]
-Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
----
-Backport fix for CVE-2025-68190
+> ---
+>  drivers/nvme/target/tcp.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
+> index e598101..000000 100644
+> --- a/drivers/nvme/target/tcp.c
+> +++ b/drivers/nvme/target/tcp.c
+> @@ -18,12 +18,13 @@
+>  #include <net/handshake.h>
+>  #include <linux/inet.h>
+>  #include <linux/llist.h>
+> +#include <linux/sizes.h>
+>  #include <trace/events/sock.h>
+>
+>  #include "nvmet.h"
+>
+>  #define NVMET_TCP_DEF_INLINE_DATA_SIZE	(4 * PAGE_SIZE)
+> -#define NVMET_TCP_MAXH2CDATA		0x400000 /* 16M arbitrary limit */
+> +#define NVMET_TCP_MAXH2CDATA		SZ_4M
+>  #define NVMET_TCP_BACKLOG 128
+>
+>  static int param_store_val(const char *str, int *val, int min, int max)
+> --
+> 2.53.0
 
- drivers/gpu/drm/amd/amdgpu/atom.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
-index cb6eb47aab65..0a7666be1dea 100644
---- a/drivers/gpu/drm/amd/amdgpu/atom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-@@ -1228,10 +1228,15 @@ static int amdgpu_atom_execute_table_locked(struct atom_context *ctx, int index,
- 	ectx.ps = params;
- 	ectx.abort = false;
- 	ectx.last_jump = 0;
--	if (ws)
-+	if (ws) {
- 		ectx.ws = kcalloc(4, ws, GFP_KERNEL);
--	else
-+		if (!ectx.ws) {
-+			ret = -ENOMEM;
-+			goto free;
-+		}
-+	} else {
- 		ectx.ws = NULL;
-+	}
- 
- 	debug_depth++;
- 	while (1) {
--- 
-2.53.0
+The change looks ok to me
+Reviewed-by: Maurizio Lombardi <mlombard@redhat.com>
 
