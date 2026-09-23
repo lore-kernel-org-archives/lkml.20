@@ -1,108 +1,159 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 341A64F646A
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:31:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83018560AB3
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:31:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790191886; cv=none; b=jF6ncrSbVPrHiZnwIwemSZwtp7147sKFb9BaHcMxFzMBWAf/s2QMPeA0ml02AEhD/MXvTDA6i5qxlrBejfYFonQflenOtiAI2XhySq51RPI8bLKls6k3bfReuvlY46wdbNr0u5TbGkCJ/ic9bPZg7gfuxrfCq88aI7K99HOpc4I=
+	t=1790191901; cv=none; b=tZXBfFyjRfT+VvqF5Yw+n+tQm/4ipo2wUsfqGPeEQruKpyeom9/GPLHha/zyrTneNInzERGHr2fnk4xRVVBHUE4FqRrrXxuMtSJ1O5huY2d+gjVPMcKLzZo2uIsEVLps+NJf5OEzwAWHONE2A79uSbiu74Vkb9fXgAdmMGwsg0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790191886; c=relaxed/simple;
-	bh=0bAYyi3GCLdFiwrtiO9nW4HRWiGG3z+wSQsq4pbpR1E=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=Xa292iqdh0uobVIbIUsoZnG0JU6tQ6VRBCALrjCuBbEHtXZgEuYQB2vhqXDS+eCenhEtZaTUXvunYMLSQGSu0HRWDl4TNGBwyLFu8g9BgTeL+P8JSizFaA1hhrOE3FfgOAqv7Udji1vfSwRAvPV7nCHipKTfLl7P/gwc2Xp5HJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=U15TE6Ty; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790191901; c=relaxed/simple;
+	bh=6iupfhzSHmFB3n5I6wsdrPypYlAtg1EjTEHMjDviSIA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZGPMegxRSOnTEOvhLCHGkuMcCxJxmgG43IOW7ivQazQf7dRm27Mp79R91Tn/XNyy8bAsCcqk40lS+Ij0pVPPKyCttilCztSM7PP5SYRUo3yWPF/UVsNBBlFWW8QPPbFmeMA+Aqqu8nBKif7LucxSfxv8c9gMMnTHOojVp2PpWgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Is7mSpCF; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=dRp9jP0V; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="U15TE6Ty"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso7554905e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:31:23 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Is7mSpCF";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="dRp9jP0V"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790191898;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ovivw96bNcYL69Xo4W26bbtJi3QOHW7T3qBHC1K/UZc=;
+	b=Is7mSpCFEi3PjNGLWfPoI+vW2SdyN3ZQvj4kb20womUBMOvoWVXMt7nfjvSojkx8rtk5TR
+	XewifqYwuvreF7IG8CRjxVtOz3lWBomWniiEK08lbNQNBeClUZPJVL++gd//4xaIZbrt5g
+	c0qViOIuePEN5j4ruZZTNR6cEkzBH90=
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-491-q4Vb4NIvOnGKaQotMkfB8g-1; Wed, 23 Sep 2026 15:31:37 -0400
+X-MC-Unique: q4Vb4NIvOnGKaQotMkfB8g-1
+X-Mimecast-MFC-AGG-ID: q4Vb4NIvOnGKaQotMkfB8g_1790191897
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-90e7f98bcb9so22935766d6.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:31:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790191882; x=1790796682; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=0bAYyi3GCLdFiwrtiO9nW4HRWiGG3z+wSQsq4pbpR1E=;
-        b=U15TE6Tye4M5WDsw35fFP/Oh0EEjWzmo8Bk+GlPMfFg9Z8xiMQ0F6gAWp1AZyVpxxX
-         C++x70T0ka8JR9j9/NiHGp18izRt/Ko/M4xBPlD5jAfmNG7Fw6V2zIZNPGvKBlQjAfKs
-         c419SoCCExy/qT2RovQBNodJdoJ3uptq8NFTVlpprSFajPal3YLiJphbKZYQ7pObiXLW
-         WnhhEaz8lX5z0VU5oa8w1EE7tfXV8+VR1lB0NK0PJduXxmvpy9TxBFFChPp5S+sKZZge
-         6l3JSEm1p9Tr1gZOBxzCk8ar748lZeHXROF0FH5u6aL0Z+Ek0Pqv1ICZ/uQEZBqFQgUN
-         i/ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790191882; x=1790796682;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=redhat.com; s=google; t=1790191896; x=1790796696; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-transfer-encoding
+         :content-disposition:content-type:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0bAYyi3GCLdFiwrtiO9nW4HRWiGG3z+wSQsq4pbpR1E=;
-        b=G/gINHZ/+uzIuBNqdTZnmJWR7454vDdlba/CVulfyyUahVDNRKSaHEW8T00/47qM+0
-         45g1RqgrNmChqSSAYity26JWIwissny2rWR88oxdze7qkNbcjXShoUFPkFVhN4ZXes4l
-         Ds5AwE6QqbfnB5Xps6TuOdPV+tgNrRpTpRHdHyJdTBAXxJsbwSPgF/aa5jdwIKZDzKh1
-         AbpCXQy+hC1SIdycxiHNftWCe0+MaON6sr/wbGKRZcC8G+mK60L/dpzWlSPe7sLdHGMX
-         478pTxyVczrkzAXIXDsP1e7YCUVUHEVLX9+hozRvxmk3M1ni4otMZ7Ml977XOCf82gK3
-         JrgQ==
-X-Forwarded-Encrypted: i=1; AKwUvByAlcjahhbsgs5ZxLGKk/BxSbk9x5HsNCtbSaB2ci60th6NViaBAHGxIiVENFM2pKClQTXCkaSaVyKn5LE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lXau7C+CDkHsKQIoGs23CqY+D91B9X4Ru7iaWFtD9I8L9asTto
-	xe3n0NC1vSN116HeKIk2l+fqXqLCmuGE+Fgi88KwVMGvZhCijlGoXrjz+d92aC0BftQ=
-X-Gm-Gg: AYBFou1cvYfe4wotPruYUgJgP1lmSX2n9suC/nKwx2wzkycWpkX4WldP004jWAdxgK0
-	xLpS3unZ4PD+Uxj/N09eVsH0saAp0Gds+zFVtogQrM39m4N60S8cv7QB5H2LcanbjbOXUWDoKqj
-	T72Xvf4EdwvU6QXirczT5Lr/vrK6ghzaULwuaIle1XlMsQc8ab0OOj9t94Ukpr47yZGknsamdBl
-	8Y2br2v+or97zmFQPp3D+YrywF0LjGs479sivHMwHWMf+ul82TbOMBfmvI45I4Goh0/+Ynlzah4
-	U0oas4GtbEl+DEnZITFGXNeHeO1aefYqeO9dlItYxz4nO3EArBWZb7/RQ8EdPIqtAkWwlrErUAR
-	jws0yIH22RWVXs8/lt4UcjztdmTPaoKF+KAJRjFvdxD5wHYYEBNZfBeUgCffwR9dLWDYht0802e
-	/142gDgP8vFiNQaD5SKDoDUwwBZXEJPupMy/9IogVq7F9m0zusxxy2yEPPPVFLXZyaKyBPtLQlx
-	NMWclyscJkdfZ9bx767P8y2yGjznvRSZb5gLCGXyImH+67EsAt8Cc1q31UnohWyXPdDDg==
-X-Received: by 2002:a05:600c:3514:b0:49c:fa21:e749 with SMTP id 5b1f17b1804b1-49fe67043a0mr3428765e9.31.1790191882395;
-        Wed, 23 Sep 2026 12:31:22 -0700 (PDT)
-Received: from localhost ([94.4.85.166])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd42f2sm8534355e9.15.2026.09.23.12.31.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 12:31:21 -0700 (PDT)
+        bh=Ovivw96bNcYL69Xo4W26bbtJi3QOHW7T3qBHC1K/UZc=;
+        b=dRp9jP0VZB4lw1/HxJBfjLhHBlDy9tDQ1yh2s8H61FNfp14Nd2qW0WZzBixyq3eR/D
+         //hfPXFZKMXPT2zibaH5TYECnYVnxZUFH+T+hgJpzvqM4LTaEvD7lPM8qfErNGKTmD13
+         qny/6CaDVDIM8R72SpsGrR9oLgUbJ4lJ6jbe8Nll1u05tjiVbtNWlK9SINYi7bw+8T2v
+         JdrVWhWhUblN1e9DOKawuUbTR7d0F1SWDqW2sTBTiPSYYSHvj38DQRY+6a9fFhiTOoyR
+         n/0GI2nBQK09RzzeAZfxalMnQCGlSpU3QNG4BM89bWOPZPlDa1sPpn74ykmriYXI6dmU
+         TUAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790191896; x=1790796696;
+        h=user-agent:in-reply-to:content-transfer-encoding
+         :content-disposition:content-type:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Ovivw96bNcYL69Xo4W26bbtJi3QOHW7T3qBHC1K/UZc=;
+        b=fMk1A9O05nrHJjHHu7e//No6JKzriSeya7gpK6vyMTA1JZs/W0ZYotY4DQuMd6DNq3
+         +MyQDOFxi3CrDYGsS2nUFVc8X956VdUE4nacn1+C7WepxjTw/cnw7Rm0PLnADveGTQJj
+         mkCYzs6W2uaq5iCABeBIeq/ZyX4aNOjopMZW+Ak08SGf086XWwwUPqW82j6VgCF/9W3y
+         YT6CLemu6G6eB+O9vOWxvgkJJYTwK9/T/k2d9BXNDRz3THn43GaIRpJB8FMqO4QbrzSE
+         u1Z/ZlbWRWNyjCLy5crbjOIcHNToLTZZVgS0jaJ/sLq2JBt7Q9FDXuZCMYGDpFLG/d7Y
+         G3Ig==
+X-Forwarded-Encrypted: i=1; AKwUvBxub8Gm6z2muM9jv+fYG5ECZoxw7Dmx3Rc/iGtkxvl1Kcbiv8weCIgnO4kgyvh7JcBbkp40u7EvQD2XmbI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKFqLgpx8rWZqH7XDVg9czcy3hwolX4l/yF3HKHXIy2Wi0WJ0n
+	DTY+Ug0lTJuniuwvknJFBV7+SK/sAu9lUX8TKbgkt7OHekDQq6Ch2EDB4DxeavDQO0ORD6kCD4p
+	HddRIdJp6aNVMZvGKoofweXb4bvzM0RIw+djOP0GXBDCNiiG/BL18XgEQIWFY/DZSwA==
+X-Gm-Gg: AYBFou09/tUJT/LLUnl8z8gd43mbkmarYbvTTTHWPTWwzQwTDa2SncjHY+H92Uk0sh7
+	+CBwJIZbZNH5horv8Fzd0BaHbXCr+Z0/7TnaUBIEHRchDjTfmdvBtfDRzpE6t9XLXal3DVL2hEH
+	wI2EAHgj2PqqHK+NnMANyzTzQP2saMvK5NvSbgBTTPfB2bR2o3ZrR81K3U7GkRDFs7HZlpxTaMp
+	3NxrOa28AKwU5+ruX1ETuRr2rNrxsNy20XTDjiiOIFziDjhZBBzzLarbxlHWyFke5qmtxRNr4Vw
+	5ZvXGzH/TPpwaWpENGPeuSbQzt+JF39BClPHRTBYz8hDsS+C1T0Lr2X26Hv3LR/K8vzAhKYwy42
+	/6THTgJfn
+X-Received: by 2002:a05:620a:890e:b0:93c:18ff:a0b with SMTP id af79cd13be357-93c3470da05mr22943385a.29.1790191896482;
+        Wed, 23 Sep 2026 12:31:36 -0700 (PDT)
+X-Received: by 2002:a05:620a:890e:b0:93c:18ff:a0b with SMTP id af79cd13be357-93c3470da05mr22940985a.29.1790191896030;
+        Wed, 23 Sep 2026 12:31:36 -0700 (PDT)
+Received: from redhat.com ([2600:382:8529:2779:5d36:56ab:46b2:2e62])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c248bd54esm297435985a.38.2026.09.23.12.31.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 12:31:35 -0700 (PDT)
+Date: Wed, 23 Sep 2026 15:31:31 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Alice Ryhl <aliceryhl@google.com>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Georgios Androutsopoulos <georgeandrout13@gmail.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	linux-clk@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] rust: clk: document overflow panics in `Hertz`
+ constructors
+Message-ID: <arQpEx3LI5D5_EVf@redhat.com>
+References: <20260908225615.1732105-1-georgeandrout13@gmail.com>
+ <DLHSL43HJVOM.2LMYD808W8FPN@nvidia.com>
+ <arFPKcA1RCecTfMD@redhat.com>
+ <CAH5fLggOMBVi3DjQSmLtstnntgJQzDsQjEt15nRkiNi7EuLB8w@mail.gmail.com>
+ <CANiq72koa5rBohoBg4zaawBUPuhBatGouBzqTWi8djxMaaLacQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 23 Sep 2026 20:31:20 +0100
-Message-Id: <DLMY24LXCIJ4.15ZGPGC6UR28R@linaro.org>
-From: "Alexey Klimov" <alexey.klimov@linaro.org>
-To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>,
- <lee@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
- <conor+dt@kernel.org>, <andersson@kernel.org>, <konradybcio@kernel.org>,
- <sboyd@kernel.org>
-Cc: <dmitry.baryshkov@oss.qualcomm.com>, <alexey.klimov@linaro.org>,
- <r.mereu@arduino.cc>, <srini@kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 4/5] arm64: dts: arduino-imola: add support for sound
-X-Mailer: aerc 0.21.0
-References: <cover.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
- <ca8cfb43cdc08851db1283df2108e77b22fedc6e.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
-In-Reply-To: <ca8cfb43cdc08851db1283df2108e77b22fedc6e.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CANiq72koa5rBohoBg4zaawBUPuhBatGouBzqTWi8djxMaaLacQ@mail.gmail.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-On Tue Sep 22, 2026 at 11:11 PM BST, Srinivas Kandagatla wrote:
-> Add support for sound on Arduino UNO Q board, which includes
-> - Headset playback and record.
-> - Lineout
+On Mon, Sep 21, 2026 at 06:08:46PM +0200, Miguel Ojeda wrote:
+> On Mon, Sep 21, 2026 at 5:51 PM Alice Ryhl <aliceryhl@google.com> wrote:
+> >
+> > My understanding is that the "default" way patches land is that the
+> > subsystem also takes Rust patches related to the subsystem, and that
+> > the rust tree is a fallback tree.
+> 
+> Indeed, the idea on how we suggest setting up the `MAINTAINERS`
+> entries is that, by default, maintainers keep control of both sides
+> (they are the experts, after all) and that, hopefully, they get more
+> involved on the Rust side etc.
+> 
+> It makes sense for reworking the subsystem, too, since it may happen
+> that a rework on the C side may need adjustments on the Rust side etc.
+> 
+> The file is already under "COMMON CLK FRAMEWORK", so in this instance
+> it seems fine.
+> 
+> Brian: in case you want it (but it wouldn't be needed!):
+> 
+> Acked-by: Miguel Ojeda <ojeda@kernel.org>
+> 
+> As Alexandre said, we may want to rework how these work (instead of
+> panicking), but documenting helps for now (and whether this counts as
+> a Fix or not is, I guess, up to what you usually do in your
+> subsystem).
+> 
+> I hope that helps!
 
-And "Ear Out Playback" as well?
+Sounds good, I'll pick this up.
 
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Learning Rust is something that I want to start to do this coming
+Winter. I have an existing userspace project that I'm going to convert
+from python to rust.
 
-It would be nice to see some Tested-by tags.
-I can't it test because I think I don't have this board and no time if
-some fancy connectors are required from scratch.
+Brian
 
-Anyhow, by just looking at this I don't see any issues, tx-port-mapping
-also seems to be correct correct, so:
-
-Reviewed-by: Alexey Klimov <alexey.klimov@linaro.org>
-
-[..]
-
-Best regards,
-Alexey
