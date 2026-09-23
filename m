@@ -1,172 +1,137 @@
-Received: from mail-oi2-f9.google.com (mail-oi2-f9.google.com [74.125.231.201])
+Received: from mail-lr2-f35.google.com (mail-lr2-f35.google.com [74.125.230.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7F2568520
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:17:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790191055; cv=none; b=M01h2MgWDwu1GR/LE9Vk74Cug4l0AAQnOi+NOn0mktmJwFPOF2wcXh8cghNtODOUbb2gzNDfSAUqXAa1xIi9yjfARfVpyVIRoHbGokATDl+sC5kYcwFqzNLcFw+cB3IDuvjEtOtW8NjlkZXlRc+u2YDCh2HfwbdAOounC0ObBWc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790191055; c=relaxed/simple;
-	bh=KNeZYqv1qqBmNXGjtRN/RTiEqIORcMewUNE2mQ6sVsA=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=g5axLxcBJ3Fz6CmjaelU4yRrdkH9Yn7JIni4ZmHZXVIBAdPcR0EYp5MYzHc10n0/JvPIzPLxYsqcQ/J8g854eaO3tqRjEVOlj/yZFF2OpqOtek0xmJj/hzjUwYs73vVlLn/rM9+GEYrQsQzJOFT7af4N1DxGiK8l1sTOVDteY3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f9.google.com with SMTP id 46e09a7af769-7f66624aa21so304132a34.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:17:33 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6292C55D893
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:19:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.99
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790191155; cv=pass; b=fir1SNKSz+PBl5+MKjE7zNqePdZUqtT1LAhQrx71ZpMejcKYcRRQorDPJux9LjUudczGWStSfhBM2rESBRLABiTrkT00iPa4lVtTawWsLWMOXAqcTjiD+0ks6Kakccwb9H/IF4+fCvjYY6NaZZyruvm2GLeNCdrB9v+r/vUIdNM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790191155; c=relaxed/simple;
+	bh=REliDhaH9+1Oq7CbV+dKfmJpG98JSKZR8x6JKNYcStU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LlOrL0ZCeDaCa40XPnrpPfbr6v5d/zJthTn3EcPe9KDIHOmQUc14KqeTY8hmvpP0wk67MCCkJdXxn6XfvRye8uQSXBLvqI4VM1bIfVdp/14BO2Bk3D03F/pf4J5Rnm9fGt2K9ZLMF/4CghwO3RuyfuwIYayBcostXcOmU6xzADg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YZ+Zg5nm; arc=pass smtp.client-ip=74.125.230.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YZ+Zg5nm"
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a6287d59b2so10330631fa.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:19:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790191151; cv=none;
+        d=google.com; s=arc-20260327;
+        b=m22Adp83/2mUY4vH2GTBQlQ2lq1NC+VCIo6jbVFdyDAJviX7Bld9B70lIXPBzrgW0d
+         UrKZn18BHPT3kE+dYh53RbMa6W5FTi/H91sXJjiNibnXH5++krMByuF2+8OUAufO4LVr
+         Cpwwgxx1r+H1FFf7yY191Xydcfp9GHvlVzYK4fglUTIfLMTMTjtM8J53iLNPAY/S8b+W
+         u5PUR5FM2VryRC7NnPzZkxDeT+RTDh+H5vUCiH+UYHbtAhIOJ3ZH666UtD9uZZFRpfni
+         T7qE0cx0/nbl7Modd9k5A0+ISLsZiCDOFYtQ2kACoqykurgCYOKmXScg3ILiA3BJsM2L
+         jW6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=73WOzeiX39morD6/5z/QgMfS5LWgdgnhu2L7icH2rx4=;
+        fh=rKysLjc66uYqurLSsoKG/tK3umFOKTsFsgrE1AaZKGA=;
+        b=qwISgYs62K++GY0wj96pBPlvE/SdNmi4UHahFwzwoquUUTF0x2GVkFLXTQ5XzrH9Kj
+         CU57Lo+6jPKJ5RmMbozGpBg3uDN5kXVxr6pstDZ3bVB4/vElPZYj5JLGZQ22IfH/egdP
+         UZLjWdancewcS7KkuAxKv2Dfvhdjzf4kfJrQOep+eqr0CclG+NEKnv7se48nLCW+TMxM
+         rkK/LRILKD8P0m3f+42gdFoQ3wtqJhBcq69rK362ewIGIw0IyaQfvaFiBSeA8cAkoFHp
+         RDPLT0z1nYZEa/DTgxpLKFMKTb0dzAX3AKVyYdwqMYiuzVVFVeupIzum6ZiVn/L/8eGI
+         YnyA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790191151; x=1790795951; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=73WOzeiX39morD6/5z/QgMfS5LWgdgnhu2L7icH2rx4=;
+        b=YZ+Zg5nmsvS1gx6r/JZHOUDYNeh1uJ141Um/09khgJiACqXA+sVxvybc+OCKrvjcGe
+         0389+Nmt4eyn9JhgMiKxGgQ/fLFRI+3/iSZ9wcD4YRIbtKPjbGAtyYWThYdcKuTICyV+
+         gYgnTtnN7XMcMa30HLz3Ogo0aNnaYeBIppKZN3J/OxoA2z4nxu/bURhtx1ld3a3vvnsx
+         BbsxPw+mmla1KZOMKqMvEHsmq+WA/MjqyYr/y1rYDkg6GGLAKenjiKVFFrIAwmZ+0PfE
+         b6mGCmtMrECwVlAJ3gmYFjIUcQ7yWBk/olKnIXA9aSN+/Pn8hDeCbOV3EDaAnpqn+zes
+         rRqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790191052; x=1790795852;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20260707; t=1790191151; x=1790795951;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OblOzNeCp6MZCxaIVDhBcy5pXcmm1x7ohpRP9JKByGM=;
-        b=ghbdKUxOnrl5QPPD6yAbG40wSDBQT+P8KxBSBcPk6gxQrM//UavCpyHOV6uAoB8/Tn
-         ZFKMMBF32yFJQVK8JT1g+M/NuOtGxU2OUGKuYJWi+jDMf62ytvwLsjPAo/94rlPjyI34
-         CKzPUxwW0uCq/2ELK50XNbCk/CUJ/y73evQ8M6Gv8KMx5uer8A4z7gYtyi70i3GyXBL5
-         H0OLbHRhqacTJItrJ9Lkb+uELVvGoY/to6OZa9fqBVCutEVxPPcnxMYUXaXrpiBdE6W+
-         4H4VW1O/pa83IxNukcfeMVtcFrLFYPw10423wum+c0h9rXhnCso7lzYncf1V0QHxVEvY
-         2gIg==
-X-Forwarded-Encrypted: i=1; AKwUvByiK87f3KnxfLPwTLeatYoYoA0mYfuYJgXwp0HcWS5t/18ZXHeu7guCW8QrQ62ge26JY6hJESQ/1IuHlUw=@vger.kernel.org
-X-Gm-Message-State: AFuF++neN0ewF6bdPY1lERwxuTpTQWKFeFA/7+F2BxBHqDnCuuetLTHS
-	VIExg8XZMNihuAynXBu2fsaXthn/Ix1fCx8c8UrcI1B4FuM1ZPPC8RUvI3WVyLkgIMTCIFyC1zg
-	Mkw8+mEnQoRJ1WVO5VPjLBG2Q+egeNbO6NJpsfTRe32fMMY+9WrZ6VUlroR8=
+        bh=73WOzeiX39morD6/5z/QgMfS5LWgdgnhu2L7icH2rx4=;
+        b=aREV2MgS9NPujT2AESWNqh6/MtfKczkg5DKZ1hA9Tm1RKV+8WaI6NHHyFwDh9Rq0pK
+         wNZsMy6+P5Z3792u43K0dfFf0kc5C7sn9G0rTLwIhN6GvIgXhiTgy2jLDtN1sqjZykCE
+         tvm4siESL7JHRqXpup2xrmJH6hWne//HxjrRxax4xB4EGet8+sKPKi1YXCcsnSgdEevW
+         YSjAmgpEtJMyLKbYdUnObDdOshdHuJHOE3tjh5krwjLD8Exw823Zm2WGjfm0YzEevNyQ
+         KKKI/OJEHXBNf3+bqdxgzlDXp+p9J+/Wc5z0EL6I80fz5t8VpM63sTI0yLDzVLLX4Fqa
+         445Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxasVn11qGVqeT0I8+TAvlQa/MfEejDQprmGEYtDhnsJ+uObbERZ9ndEJACfY/LGNcD57DxdCi2RPsxTLQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kJ3Fg41XWBsflkpE2StW7aBTPJeEEvnd1DhPZUcqv/X+5Fzc/P
+	zS3/2mXnGQPorygsWnFmuIhyVXWlGFFUhMgla8GmLhcvVYl8fsvSjOeakO08bMDPKYfVD8Q4yce
+	Z09EgN7eOpBPySu6JZBBUZ905LzJudYM=
+X-Gm-Gg: AYBFou2Emns9XVkTVa2mIh2Dg92Sm7p5V3uNOphQP7qC4rYRiIsXUPaQ5nKqsjtg0Hy
+	9mWN7QAHn4zZskaC/iSKnRU5dBO6hjY2eXYhgrjl4p0LqciRt6bJpThXexXuKnmmat4JIGI6ESt
+	VkqzNwMrYNPv1aZZ9lM0HxzKHv5Z7P/P8oODkvwvvqjPTUvSXfhBXN6XQeCqXfPcnWPEERcziFS
+	rSVTDO14nabwRiJf9LqezHGHW97GK/Ef22TVfM7APqVJ2wPQKJpMqq7Bno/Z3LaACtEoIQrp3F5
+	EmYIVP10rwGaUdDVb3gntEph3qVDrW62KyU6g11p0Mx2/EVCKXVfLqc+JsSr3dxB3n1/VDw3zoC
+	B
+X-Received: by 2002:a05:651c:15c5:10b0:3a6:32a5:efb0 with SMTP id
+ 38308e7fff4ca-3a63c427924mr207641fa.28.1790191150200; Wed, 23 Sep 2026
+ 12:19:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:81cf:b0:6be:4eb3:e1c0 with SMTP id
- 006d021491bc7-6d4411d1ecemr218095eaf.45.1790191052103; Wed, 23 Sep 2026
- 12:17:32 -0700 (PDT)
-Date: Wed, 23 Sep 2026 12:17:32 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab425cc.7428d045.30104c.0003.GAE@google.com>
-Subject: [syzbot] [input?] general protection fault in wacom_intuos_irq
-From: syzbot <syzbot+b5a7cd83622c747977de@syzkaller.appspotmail.com>
-To: bentiss@kernel.org, jason.gerecke@wacom.com, jikos@kernel.org, 
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	ping.cheng@wacom.com, syzkaller-bugs@googlegroups.com
+References: <20260922193653.16086-1-vladan.kalaba@gmail.com> <f6fc1427-f771-4709-8153-f9814254a50d@sezginduran.net>
+In-Reply-To: <f6fc1427-f771-4709-8153-f9814254a50d@sezginduran.net>
+From: Vladan Kalaba <vladan.kalaba@gmail.com>
+Date: Wed, 23 Sep 2026 22:18:58 +0300
+X-Gm-Features: AclHuK8cg8iU0N6lQ8j6fa9jUz41AkITQWJyDQNLWNfRC_PbGhUmbmDrR6aOYiU
+Message-ID: <CAMfJq187r9dLgwnncT1zmCmwYYFiY0kNg102=L4wmfzuw=12gg@mail.gmail.com>
+Subject: Re: [PATCH] staging: sm750fb: fix const pointer declaration in sm750.c
+To: Ahmet Sezgin Duran <ahmet@sezginduran.net>
+Cc: gregkh@linuxfoundation.org, sudipm.mukherjee@gmail.com, 
+	teddy.wang@siliconmotion.com, linux-fbdev@vger.kernel.org, 
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Wed, Sep 23, 2026 at 10:28=E2=80=AFAM Ahmet Sezgin Duran
+<ahmet@sezginduran.net> wrote:
+>
+> On 9/22/26 10:36 PM, Vladan Kalaba wrote:
+> > Fix static const char * declaration for g_fbmode[] to static const
+> > char * const as reported by checkpatch to cohere to Linux kernel
+> > coding standards.
+> >
+> > Signed-off-by: Vladan Kalaba <vladan.kalaba@gmail.com>
+> > ---
+> >   drivers/staging/sm750fb/sm750.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/=
+sm750.c
+> > index 1ea3dd8b8f28..79d0221cdeae 100644
+> > --- a/drivers/staging/sm750fb/sm750.c
+> > +++ b/drivers/staging/sm750fb/sm750.c
+> > @@ -12,7 +12,7 @@
+> >   static int g_hwcursor =3D 1;
+> >   static int g_noaccel __ro_after_init;
+> >   static int g_nomtrr __ro_after_init;
+> > -static const char *g_fbmode[] =3D {NULL, NULL};
+> > +static const char * const g_fbmode[] =3D {NULL, NULL};
+> >   static const char * const g_def_fbmode =3D "1024x768-32@60";
+> >   static char *g_settings;
+> >   static int g_dualview __ro_after_init;
+>
+> Did you compile this patch? While SM750 module is enabled?
+>
+> Regards,
+> Ahmet Sezgin Duran
+Hi Ahmet,
+My make defconfig didn't compile in SM750, my bad sorry.
+Will double check that in the future.
 
-syzbot found the following issue on:
-
-HEAD commit:    50d05c7c76c9 Merge tag 'landlock-7.3-rc3' of git://git.ker..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=11a02405580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
-dashboard link: https://syzkaller.appspot.com/bug?extid=b5a7cd83622c747977de
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=13a02405580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13f57805580000
-
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-50d05c7c.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/303a0ade8f9e/vmlinux-50d05c7c.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/70b8ca71442b/bzImage-50d05c7c.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+b5a7cd83622c747977de@syzkaller.appspotmail.com
-
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000065: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000328-0x000000000000032f]
-CPU: 0 UID: 0 PID: 6729 Comm: syz-executor606 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:wacom_intuos_irq+0x62b/0x3430 drivers/hid/wacom_wac.c:1036
-Code: c3 cc cc cc cc e8 25 81 f3 f8 48 8b 04 24 44 0f b6 c5 48 8d b8 28 03 00 00 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 d4 27 00 00 48 8b 04 24 48 c7 c7 78 ea 3e 91 48
-RSP: 0018:ffffc90006fcf9e0 EFLAGS: 00010206
-RAX: dffffc0000000000 RBX: ffff8880574900ae RCX: 0000000000000000
-RDX: 0000000000000065 RSI: ffffffff8917e0ab RDI: 0000000000000328
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000011
-R10: 0000000000000000 R11: 0000000000000000 R12: 000000000000000a
-R13: ffff88804f755048 R14: 0000000000000000 R15: 0000000000000021
-FS:  0000000000000000(0000) GS:ffff888096960000(0063) knlGS:0000000057c2a3c0
-CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
-CR2: 0000000000000000 CR3: 000000004c95e000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- wacom_bpt_irq drivers/hid/wacom_wac.c:3290 [inline]
- wacom_wac_irq+0x196b/0xab80 drivers/hid/wacom_wac.c:3560
- wacom_raw_event+0x6db/0xbf0 drivers/hid/wacom_sys.c:182
- __hid_input_report.constprop.0+0x319/0x470 drivers/hid/hid-core.c:2175
- uhid_dev_input2 drivers/hid/uhid.c:609 [inline]
- uhid_char_write+0x9dc/0xfe0 drivers/hid/uhid.c:767
- vfs_write+0x2aa/0x1050 fs/read_write.c:685
- ksys_write+0x1f8/0x250 fs/read_write.c:739
- do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
- __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
- do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
- entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-RIP: 0023:0xf7e60fec
-Code: Unable to access opcode bytes at 0xf7e60fc2.
-RSP: 002b:00000000ff8b597c EFLAGS: 00000213 ORIG_RAX: 0000000000000004
-RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 0000000080000300
-RDX: 0000000000000010 RSI: 00000000000000a2 RDI: 0000000000000000
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000282 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:wacom_intuos_irq+0x62b/0x3430 drivers/hid/wacom_wac.c:1036
-Code: c3 cc cc cc cc e8 25 81 f3 f8 48 8b 04 24 44 0f b6 c5 48 8d b8 28 03 00 00 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 d4 27 00 00 48 8b 04 24 48 c7 c7 78 ea 3e 91 48
-RSP: 0018:ffffc90006fcf9e0 EFLAGS: 00010206
-RAX: dffffc0000000000 RBX: ffff8880574900ae RCX: 0000000000000000
-RDX: 0000000000000065 RSI: ffffffff8917e0ab RDI: 0000000000000328
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000011
-R10: 0000000000000000 R11: 0000000000000000 R12: 000000000000000a
-R13: ffff88804f755048 R14: 0000000000000000 R15: 0000000000000021
-FS:  0000000000000000(0000) GS:ffff888096960000(0063) knlGS:0000000057c2a3c0
-CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
-CR2: 00000000f7e61000 CR3: 000000004c95e000 CR4: 0000000000352ef0
-----------------
-Code disassembly (best guess):
-   0:	c3                   	ret
-   1:	cc                   	int3
-   2:	cc                   	int3
-   3:	cc                   	int3
-   4:	cc                   	int3
-   5:	e8 25 81 f3 f8       	call   0xf8f3812f
-   a:	48 8b 04 24          	mov    (%rsp),%rax
-   e:	44 0f b6 c5          	movzbl %bpl,%r8d
-  12:	48 8d b8 28 03 00 00 	lea    0x328(%rax),%rdi
-  19:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
-  20:	fc ff df
-  23:	48 89 fa             	mov    %rdi,%rdx
-  26:	48 c1 ea 03          	shr    $0x3,%rdx
-* 2a:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1) <-- trapping instruction
-  2e:	0f 85 d4 27 00 00    	jne    0x2808
-  34:	48 8b 04 24          	mov    (%rsp),%rax
-  38:	48 c7 c7 78 ea 3e 91 	mov    $0xffffffff913eea78,%rdi
-  3f:	48                   	rex.W
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Sincerely,
+Vladan
