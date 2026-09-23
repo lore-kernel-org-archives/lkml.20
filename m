@@ -1,263 +1,239 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 145D5541461;
-	Wed, 23 Sep 2026 17:13:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9A5445304C9
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:13:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790183605; cv=none; b=DHC0SeKRho5dsHLqjzoQ/MLpbaQQ4+berbR/dyw7R4GGZAVQ8RoAWKNfzzN5OpcasxcyO7LM8VtzornbsHWCNNeLzAJlhEZ1oRfZbyTMqtNpfn6EQmTygfwPszDBBWCD35Li8gRQWEHIv6YGfs30sXIJqpEO5ClV0HEugGHZPo0=
+	t=1790183617; cv=none; b=WvcSUCXj7/Xw1VoxzCeQAQ1kyWmSwKFgrcRgywI/bbAemyToLdJM6AdzrgmhGpEufcJEYkLnRwDZZ9HgOpUl7GWfm6aLOHYgWkrtwM02G5qMTjv83BL51DoetahHSRGfSjx6jD0Z11rj5Y+Qu/PsaEtqJaYeWuRjsHrgx7qEUD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790183605; c=relaxed/simple;
-	bh=mvhUJ75LTiByzPbNX6IULbuU1BxqXI/ab6Nvrk2Q80U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iLqA+v3hquc3A5gfI9FC9V61zWLZVVBLEUeZTEZfLvx83PLVIBKUeH1MlJEwH0h1GcNGSteexsstSmV44yke0LqgLP67ZBD4OtS8X0vcd+cypyzsjqhGyllZjfWog7l7kdEOqnIrGaORCeb9gH73npjhszXqwJ2iK90O7X7Jdi4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=pHosKTx2; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=RKGLZk9G; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=kOBlp2a8; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=9pkDmbIv; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1790183617; c=relaxed/simple;
+	bh=kKcD10YfKOjOhO9AKT3lVc0OW49OXp0A436pFWlkGLI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OrnzZrDFj68Ywp3P26yxOqLXk10EDtrbocCua+rT+QIIjr1x7ue+rcdiaC7ke0nnuMhFEX8s1nFzpussPpSXZeX6e7w707EgSPYzIMKcAqzsRHUsJ9cXY1cWem9himQaJERO14DlsQxV+snd0/yD9+u5BWPDxE3c94MBaSyKnHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=BiP5lkrw; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="pHosKTx2";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="RKGLZk9G";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="kOBlp2a8";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="9pkDmbIv"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 29D891FF9F;
-	Wed, 23 Sep 2026 17:13:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790183596; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fPsu1ud6F2/bWzN0SnFG7bCnihV3IFAHtI7VCr/YN3o=;
-	b=pHosKTx2WyQ1qbwNH+tBPxomtNs0pUKLdrvDeP+HCRs6blxEHBML5L8PsJZJrM0gNT9/w1
-	KmHucdxnfBuJvulIsm6SgW9t9iX7TqtssYml5DkSblFUopN1djtrbT0hZ8QP0Pvcc4QsGm
-	MKDiYSjP77nqE1u0sFoR/XLe0TOs5V0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790183596;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fPsu1ud6F2/bWzN0SnFG7bCnihV3IFAHtI7VCr/YN3o=;
-	b=RKGLZk9Gc84gDU49tb+Xe7RN5K6yrgSbozMN6bWFQijTFrBcKz1mW1heZoIvgxFRoIMqdW
-	9bxSttdncH3b9zBg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790183592; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fPsu1ud6F2/bWzN0SnFG7bCnihV3IFAHtI7VCr/YN3o=;
-	b=kOBlp2a8CgrzuXghH6zsePFuwsxOkmMydGB5TzbwX7FxkBSmtA0C6hjEai8yanCCl2+zeK
-	s+BCiEcZp2QYiSNwyvdkMbt6W3wMEwzAmrsj4JKtSA/Fs0w25OwQILhG5+pi4qtqpLoh2P
-	MKIv8a1r5+V05p3QZe7DYnS0/8GsTyY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790183592;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fPsu1ud6F2/bWzN0SnFG7bCnihV3IFAHtI7VCr/YN3o=;
-	b=9pkDmbIvZFq/Oi3cas+NuUdWr62L7BI3wEBS0DBe/nZ3uRiN82wGAczENT6lcsFeoEmIDW
-	FFqBTKe3ru6WeDCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F14DA134E8;
-	Wed, 23 Sep 2026 17:13:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 5b/1MacItGrwHAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 23 Sep 2026 17:13:11 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 706FEA13D4; Wed, 23 Sep 2026 19:13:03 +0200 (CEST)
-Date: Wed, 23 Sep 2026 19:13:03 +0200
-From: Jan Kara <jack@suse.cz>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: Jan Kara <jack@suse.cz>, Christian Brauner <brauner@kernel.org>, 
-	chenyichong@uniontech.com, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] isofs: validate directory records in
- isofs_read_level3_size()
-Message-ID: <volfx2r3ystjmi6d2qaeyu37pjodjrp3sef6y3vmte3ia6aqoy@acwbpwhk5heq>
-References: <20260923153220.777907-1-matthias.goergens@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="BiP5lkrw"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5F8A81516;
+	Wed, 23 Sep 2026 10:13:31 -0700 (PDT)
+Received: from [10.2.212.14] (eglon.cambridge.arm.com [10.2.212.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EA8BD3F86F;
+	Wed, 23 Sep 2026 10:13:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790183614; bh=kKcD10YfKOjOhO9AKT3lVc0OW49OXp0A436pFWlkGLI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=BiP5lkrwxmpdxyCbk6P86k78M9Kgakg9p+nsaf8PZq4oMzj2ad2rt5NQahRnjGXXZ
+	 V3xG7GTOgW1/4Er2gN9+bcdck3szQz//EpUmB8jwKqEGSmYSPq4JAyR3XIIe3Inxtw
+	 6lfn/OBUESxDFn5SNVMOtLj+aP3Ld8710wcNABjE=
+Message-ID: <8557363f-c051-4267-9fbc-f4cbb13ac35e@arm.com>
+Date: Wed, 23 Sep 2026 18:13:27 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923153220.777907-1-matthias.goergens@gmail.com>
-X-Spam-Score: -2.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Flag: NO
+User-Agent: Mozilla Thunderbird
+Subject: Re: Resctrl and I/O
+To: "Luck, Tony" <tony.luck@intel.com>, alex@ghiti.fr, aou@eecs.berkeley.edu,
+ babu.moger@amd.com, baolin.wang@linux.alibaba.com, ben.horgan@arm.com,
+ corbet@lwn.net, cuiyunhui@bytedance.com, Dave.Martin@arm.com,
+ fustini@kernel.org, jgg@ziepe.ca, joro@8bytes.org, kevin.tian@intel.com,
+ palmer@dabbelt.com, pjw@kernel.org, reinette.chatre@intel.com,
+ robin.murphy@arm.com, shuah@kernel.org, tomasz.jeznach@linux.dev,
+ wangzhou1@hisilicon.com, will@kernel.org, xiaqinxin@huawei.com,
+ yuanzhu@bytedance.com, zengheng4@huawei.com,
+ zhangzhanpeng.jasper@bytedance.com
+Cc: x86@kernel.org, iommu@lists.linux.dev, linuxarm@huawei.com,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
+References: <arKx__kOPe4B5gDW@agluck-desk3>
+Content-Language: en-GB
+From: James Morse <james.morse@arm.com>
+In-Reply-To: <arKx__kOPe4B5gDW@agluck-desk3>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed 23-09-26 23:32:20, Matthias Goergens wrote:
-> isofs_read_level3_size() walks the multi-extent directory records of a
-> file and dereferences de->size and de->flags for each one without ever
-> checking the record's length byte.  A record with a short length placed
-> near the end of a block makes those fixed-field reads run past the
-> record, and for a record at the end of the last block of a page, past
-> the buffer.
-> 
-> readdir, lookup and the NFS get_parent path have validated every record
-> with isofs_dir_record_valid() since commit e2ee4078ec58 ("isofs:
-> validate directory records consistently").  Do the same here, after
-> moving on to the next block when the previous record ended exactly at
-> the end of the block or the rest of the block is zero padding, as
-> commit 3c01d9263683 ("isofs: Fix handling of directories with tight
-> blocks") does for the other two walkers.
-> 
-> The check rejects a record that would run past its block, so the code
-> that reassembled such a record from two blocks can no longer run.
-> ECMA-119 does not allow directory records to straddle sector
-> boundaries, which is what commit b2eb2e288604 ("isofs: Drop support of
-> directory entries straddling blocks") relied on when it removed the
-> same code from readdir and lookup.  Remove it here too, along with its
-> temporary record buffer.
-> 
-> Found by fuzzing fs/isofs in a userspace harness with ASan
-> (heap-buffer-overflow reads in isonum_733(de->size)).
-> 
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+Hi Tony,
 
-Thanks! I've added the patch to my tree.
+On 22/09/2026 17:51, Luck, Tony wrote:
+> Patches for ARM[1] and RISC-V[2] are both at RFC status.
+> 
+> They appear to be based on similar h/w capabilities where architecture
+> specific tags can be added to transactions from I/O devices by the IOMMU
+> servicing the device. Device enumeration is handled outside of the resctrl
+> file system.
+> 
+> ARM docs say "the device name is the one listed under /sys/kernel/iommu_groups/<id>/devices/"
 
-								Honza
+I think using existing stuff in sysfs is a good idea.
+(Creating new things in sysfs fills me with dread!)
 
-> ---
-> v2: squash the two patches into one, so the record is checked only
-> after the move to the next block, as Jan suggested.  In v1, 1/2 relied
-> on the straddle code that 2/2 then removed to handle a record ending
-> exactly at the end of a block.  The resulting code is the same as after
-> v1's 2/2.  Based on jack/linux-fs for_next, and cites the tight-block
-> fix as 3c01d9263683.
+ARM/MPAM also has platform devices that can add the CLOSID/RMID metadata.
+e.g. the GIC ITS [4] - a kind of translator for MSIs.
+
+For these we considered just using the device name as found in /sys/bus/platform/devices/,
+in the hope that can be tied back to a struct device - and we could add a callback for
+resctrl to configure the device with a CLOSID/RMID.
+(but - I've not seen a use-case for this yet - those devices generate very little traffic)
+
+
+Robin M set me straight on the iommu_group:
+Strictly that is the wrong abstraction as devices are in the same group if the
+driver can't stop them communicating, e.g. PCIe peer2peer. This doesn't mean it
+can't tell the traffic apart for CLOSID/RMID labelling.
+I picked this because its the device granularity VFIO works with.
+
+Equally, a device may create multiple streams of traffic, where only the driver
+will know what each one corresponds to.
+
+
+Using iommu_group like this may need a bit more thinking....
+If we can fall back to using a device as seen by sysfs, then the arch differences
+here could be invisible to user-space.
+
+
+> RISC-V says architecture specific device tokens are "devices or device groups"
 > 
-> isofs_read_inode() still reassembles a first record that straddles a
-> block.  Only an NFS file handle can point it at one now, and the level
-> 3 walk then returns -EIO.  I can send a follow-up that makes it reject
-> such records too.
+> In both cases assignments are made with:
 > 
-> v1: https://lore.kernel.org/all/20260922140137.1768064-1-matthias.goergens@gmail.com/
+> 	# echo {device} > {group}/devices
 > 
->  fs/isofs/inode.c | 44 +++++++++++++-------------------------------
->  1 file changed, 13 insertions(+), 31 deletions(-)
+> So now I'm looking at the capabilities of Intel RDT hardware. I'm ignoring
+> the implementation on the Granite Rapids CPU, and looking at what is described
+> in the RDT Architecture Specification[3]. Here are the highlights:
+
+
+> 1) Enumeration is split between two ACPI tables. IRDT enumerates device groups
+> and provides MMIO addresses to assign CLOSID/RMID to each group.
+
+For ARM/MPAM - this would always be driver specific. The fields may be share a register
+with other things the driver needs to consider.
+The IOMMU abstracts this for its devices, but this is still something the IOMMU driver
+needs to know about.
+
+A driver hook, with a drivers/acpi fallback would be ideal.
+
+
+Do you have arbitrary grouping of devices? e.g. a USB controller and the UART.
+Or would the grouping make some sense to the OS. e.g. all the USB devices behind
+this port.
+
+Having the UART show up when you add a USB controller to a control group is a bit odd.
+
+
+> ERDT provides
+> MMIO addresses to read event counts for RMIDs and to configure cache allocation
+> bit masks and memory bandwidth limits.
+
+Arm's IOMMU does have controls/monitors that match the spec the MPAM driver needs,
+but we currently have no way to expose them through resctrl.
+The caches on the IOMMU are also relatively small - I've not yet seen anyone show that
+setting the controls there makes a big difference.
+
+
+> 2) All I/O monitoring and control is with respect to I/O caches, not to the L3
+> caches that legacy RDT features operate on.
+
+Do you have I/O traffic that can turn up in the CPU L3 cache? I think PCIe calls
+this 'cache stashing'.
+
+Arm's IOMMU is the same - but the traffic may also show up in the L3 depending on how
+the system is put together.
+
+
+> 3) The number of RMIDs supported for I/O is lower (maybe considearbly lower)
+> than the number supported for CPU monitoring.
+
+MPAM can have this happen - and today it will sanitise the values to the lowest
+common value. Considerably lower becomes considerably upsetting!
+
+I'd be interested if we have an approach for this - the IOMMU designers would argue
+they only need one RMID per device - but the system wide sanitised value means they
+have to match the rest of the system.
+
+
+For MPAM systems this shape is a big headache because on the platforms we've seen,
+the monitoring is done at the memory-controllers - so any RMID spaces get joined
+up eventually.
+
+
+> 4) Monitoring events are I/O cache occupancy, total i/o bandwidth, and i/o miss
+> bandwidth.
 > 
-> diff --git a/fs/isofs/inode.c b/fs/isofs/inode.c
-> index b766b5c9c593b..184350d2e6ad5 100644
-> --- a/fs/isofs/inode.c
-> +++ b/fs/isofs/inode.c
-> @@ -1176,7 +1176,6 @@ static int isofs_read_level3_size(struct inode *inode)
->  	unsigned long block, offset, block_saved, offset_saved;
->  	int i = 0;
->  	int more_entries = 0;
-> -	struct iso_directory_record *tmpde = NULL;
->  	struct iso_inode_info *ei = ISOFS_I(inode);
->  
->  	inode->i_size = 0;
-> @@ -1200,9 +1199,12 @@ static int isofs_read_level3_size(struct inode *inode)
->  				goto out_noread;
->  		}
->  		de = (struct iso_directory_record *) (bh->b_data + offset);
-> -		de_len = *(unsigned char *) de;
->  
-> -		if (de_len == 0) {
-> +		/*
-> +		 * If we are at the end of a block (or at its zero-padded
-> +		 * tail), move on to the next block.
-> +		 */
-> +		if (offset >= bufsize || de->length[0] == 0) {
->  			brelse(bh);
->  			bh = NULL;
->  			++block;
-> @@ -1210,32 +1212,18 @@ static int isofs_read_level3_size(struct inode *inode)
->  			continue;
->  		}
->  
-> +		if (!isofs_dir_record_valid(de, offset, bufsize)) {
-> +			printk(KERN_NOTICE "iso9660: Corrupted directory entry in block %lu of inode %llu\n",
-> +			       block, inode->i_ino);
-> +			brelse(bh);
-> +			return -EIO;
-> +		}
-> +
-> +		de_len = de->length[0];
->  		block_saved = block;
->  		offset_saved = offset;
->  		offset += de_len;
->  
-> -		/* Make sure we have a full directory entry */
-> -		if (offset >= bufsize) {
-> -			int slop = bufsize - offset + de_len;
-> -			if (!tmpde) {
-> -				tmpde = kmalloc(256, GFP_KERNEL);
-> -				if (!tmpde)
-> -					goto out_nomem;
-> -			}
-> -			memcpy(tmpde, de, slop);
-> -			offset &= bufsize - 1;
-> -			block++;
-> -			brelse(bh);
-> -			bh = NULL;
-> -			if (offset) {
-> -				bh = sb_bread(inode->i_sb, block);
-> -				if (!bh)
-> -					goto out_noread;
-> -				memcpy((void *)tmpde+slop, bh->b_data, offset);
-> -			}
-> -			de = tmpde;
-> -		}
-> -
->  		inode->i_size += isonum_733(de->size);
->  		if (i == 1) {
->  			ei->i_next_section_block = block_saved;
-> @@ -1249,17 +1237,11 @@ static int isofs_read_level3_size(struct inode *inode)
->  			goto out_toomany;
->  	} while (more_entries);
->  out:
-> -	kfree(tmpde);
->  	brelse(bh);
->  	return 0;
->  
-> -out_nomem:
-> -	brelse(bh);
-> -	return -ENOMEM;
-> -
->  out_noread:
->  	printk(KERN_INFO "ISOFS: unable to read i-node block %lu\n", block);
-> -	kfree(tmpde);
->  	return -EIO;
->  
->  out_toomany:
+> 5) Current revision (1.4) of the specification doesn't include details of
+> I/O memory bandwidth control (The "IBAD" subtable of ERDT is reserved for this).
 > 
-> base-commit: c8437ca3d4386af1ae1f2869643e82fdb9c1f0f5
-> -- 
-> 2.55.0
 > 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+> Fitting this into resctrl
+> -------------------------
+> 
+> RISC-V description of "architecture specific device tokens" sounds great.
+> I'll have to find some ares of /sys to provide the mapping of tokens to
+> "device groups".
+> There's no association with IOMMUs, so this will be some
+> other path in /sys. Perhaps under /sys/firmware/acpi since the data comes
+> from ACPI IRDT table.
+
+What about using the device behind the IOMMU instead? Presumably the kernel
+could allocate ids that don't clash with those in the IRDT, and use those
+for the IOMMU.
+
+
+> Need an info file to tell users the format and source for device tokens.
+
+I'd prefer we have one consistent way of doing this across architectures.
+Especially if we're going to add something new to sysfs.
+
+
+The sysfs path probably covers all bases - but I wouldn't want to parse that
+in the kernel.
+
+
+> I'd like to avoid limiting resctrl monitoring of CPU activity due to the small
+> number of I/O RMIDs. Perhaps don't include a "devices" file or mon_data/{i/o
+> events} files in resctrl group directories when rdtgroup::mon::rmid >=
+> num_io_rmids? But that feels clumsy.
+
+I had a half baked idea on how to do this. (which Ben has poked some holes in)
+
+Assigning a device to a ctrl/mon group needs to be able to fail. We can use this
+to re-allocate the RMID into the range the new device can use. The CPU tasks can
+be repainted to use the new value - but the obvious problem is the old data in
+the caches that uses the old RMID.
+As no new traffic will be generated for that RMID, it might be possible to keep
+it associated with the ctrl/mon group (which would now have two RMID) to keep the
+user-space view of the counters correct until the old RMID falls below the
+reallocation threshold, and it can be free'd.
+
+It's worse if we ever needed/wanted to do this with CLOSID. Two CAT bitmaps
+can be configured the same - but MBA doesn't alias in the same way. Tasks would
+be able to burst higher than the configured limit - but the size is limited by
+the size of the caches. And if no new traffic can be generated with the old
+CLOSID/RMID, then the effect can't be made to last forever.
+
+
+For a totally wild suggestion (that I don't think works here) - I had
+mooted having a second mount of resctrl for islands of the SoC where the
+properties are different. I don't think it works in this case as the IO-RMID
+presumably gets seen by some other monitors later.
+
+
+> Domains are based on I/O L3 cache instances. So a new rdt_resource with
+> new line in the schemata file for IOL3 cache masks per domain. In the
+> future when there are I/O MBA controls, new line(s) for those too.
+
+
+Thanks,
+
+James
+
+
+[4] https://support.arm.com/documentation/ihi0069/hb/?lang=en search for "MPAM" in the pdf.
+
+> 
+> [1] https://lore.kernel.org/linux-iommu/20260901140802.1215508-1-xiaqinxin@huawei.com/
+> [2] https://lore.kernel.org/lkml/20260714130657.46963-1-zhangzhanpeng.jasper@bytedance.com/
+> [3] Linked from the bottom of https://www.intel.com/sdm under "Related Specifications", or
+> direct link: https://cdrdv2.intel.com/v1/dl/getContent/789566?erpm_id=1158389_ts1790091453223
+
