@@ -1,147 +1,203 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013027.outbound.protection.outlook.com [52.101.72.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AA7834D3B0;
-	Wed, 23 Sep 2026 07:29:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20DC94483AC
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:29:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790148547; cv=fail; b=CB+P1hsXqdk7oDg2742x6aL3xdpGgylHxT3Q24kNJ+/iGOSeL0P+kx4VgFihhePFH9XgARacequVUSuRhvR0FNaO3KiLbh0GOmSOTnl4W5QNU96DbO0v1nmVb15O7qdam8oSKiLA13tII3vSKihKyxMlyEl+KUEegWSCX1Qp8bg=
+	t=1790148587; cv=pass; b=t8GsxlmQX6Q4yhCe/MJfoUirHnE0ZWHUEeOA+nEMeY4GhwbnAhrfzJUODNpdrlKh9o3/b+ZLC5da7Eys2CcoL9CgAfnqwzVQ+cvgUEEHNjR22fLonO125zhLW1y6x+WMFU6+SxW8HWd+jkcmh3yzXKlbpYKTiq7CEMJAKOb6iE4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790148547; c=relaxed/simple;
-	bh=vdbG7NS2UUbrSfU7IzJGME+yOM9w0zAihcXyOin1D3k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jrajrMeHrb5S9cjeFgWKF7MOaQ4x2ZQ6y4bIAzSj772w5H8idkpZisUoQa3Ue1aL15Y3Jv7+gnOUBx+biTHWZO78Pqm0Y2pGQaE9Odj6X6QJyNpuKme/mTOMhxCtDROLANOamIGXR9Ogb9uhhcg4nG4iaGLOGPBgNOWUfm5HOQM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Fj2Vidr3; arc=fail smtp.client-ip=52.101.72.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1790148587; c=relaxed/simple;
+	bh=w81K7uDp3GuPBiEppWUi8J0HYpDyiKUpNPxoR0sXK6Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=N/GUgiFJwB8/TKgkXe5fQOlEO4HD6DUb8CvX5g80htnYp81oD+c2gcMbfdWLCtoI6F/KSnxDJCvgYC4UVKsiO/AJjW6E861DDENfzZ6JFh2lMtWvdX6pcVE2BpaRe+0aOtl6zziolSY4PZtUh+jXtVtc1RZBS0Ioyt8MPwqashQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ltj2pUDw; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Fj2Vidr3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gwPDEkoDLGq3iAWtMdUQdEZfbAqXIZxyqwCbq7JeMbBau2hoJA+S6nTg4WjiZ+hhCy9WqoDgizjm8t/g/lTTRI5JMRaorEYNPdN+3XYsjZiH0mRgyqGH3FdfIJ42RRSEQVC+kRkM3odNLs5+YvcgRRDXaRPuC9ZyFcg8kKPUZ/tFSPMVvx/+eSq/0C0dTJJltUlqoL8kgIw/0S96CLTovhDKYhu03I3D3jWOzjbLPLxxodNlthrFtHjfMAYanawTV8OZiZO3niRdZY9M/yY4UTPB+WEoNdq+NE4uVqBvDM4Dedod2JJDSW1to0ZP2OV+0lACR7i5Bh+ZHCI08Bu/bw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vdbG7NS2UUbrSfU7IzJGME+yOM9w0zAihcXyOin1D3k=;
- b=Py/gXELZZPujb8WvyOSojJi/IfEUcIQYK4UDNihNr9uT8WnuBG5wOCjAHmoDIsEdfx6JLShMq8wR98XiIdrR8SJC3XxutEr3FcCmPjbWDD95V0tYvGcxyCo5vjx2wv1TjeHM0upPcKlRBR3fRUIcokPWoY1p3aQh0WE7eq7U6eqN4Qk/JfCReUWULlDRBpezriSnbE+IOT/XHqmqQNhPo8q2oNaFK5r5bEr3dLnsM3iwWu8eECkj6ruS0BheQmOoG01aHJ/bcGFbPY7BW5nU7gQZEtkXK1Yjwi5nCpOVjbSRdJ0Nh9MHeom1jZqt9w1r5m83XtEmBPwwJzLPaMizRw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vdbG7NS2UUbrSfU7IzJGME+yOM9w0zAihcXyOin1D3k=;
- b=Fj2Vidr3Y74FUDXfvhcERSBJ+q8bf5CeWmeq/4xhK1NsZORa3uWisQkRMDuwz/0AwJ+tepkvZV0MyHtsprFYOepWdhTespgrSQO9nuJfmJF/h+cf4vTXIrjUEf2LbSX+n+wyTFUM6UvTdzpGVxFZDV5pt0Lsr8E6n+pv+4CiHan7+zIL+kYok4cU/53mAyRjB+D3i98/FKVH7BSB3RdjzS71zh+KNITj1cpH0svl2SccnOkTZbdyKv/UIu5HIJqc7SerRZN7nwD7INg3qa/To2y7H3zi0Wg5JrOCowWXoSqS5BoQvcT/h9axjhhii+X9UW6P2CMEQ3LUBh/uxjGqiA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
- (2603:10a6:150:112::20) by AMDPR04MB11297.eurprd04.prod.outlook.com
- (2603:10a6:20b:6cb::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Wed, 23 Sep
- 2026 07:29:02 +0000
-Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
- ([fe80::d247:853:3e16:1994]) by GVXPR04MB10021.eurprd04.prod.outlook.com
- ([fe80::d247:853:3e16:1994%5]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 07:29:01 +0000
-From: Chancel Liu <chancel.liu@oss.nxp.com>
-To: shengjiu.wang@oss.nxp.com
-Cc: shengjiu.wang@gmail.com,
-	Xiubo.Lee@gmail.com,
-	festevam@gmail.com,
-	nicoleotsuka@gmail.com,
-	lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: fsl_asrc: use regmap_write_bits to update clock source registers
-Date: Wed, 23 Sep 2026 16:28:54 +0900
-Message-ID: <20260923072854.4096310-1-chancel.liu@oss.nxp.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260916094043.1496709-1-shengjiu.wang@oss.nxp.com>
-References: <20260916094043.1496709-1-shengjiu.wang@oss.nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SL2P216CA0155.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:35::15) To GVXPR04MB10021.eurprd04.prod.outlook.com
- (2603:10a6:150:112::20)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ltj2pUDw"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66d20e86cffso90558d50.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:29:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790148585; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rJ1IX7wedv2RiR4JCyQvCrp5Cjr1aBGLjMz8dEPllwirlwp0dSwpM/FDnkmDUHEdR0
+         BOoiFbPsLRj6SaeySd4wXyKuC03UIj+3bf1zU3s9hrRfVslzfDfSpfvYZ6ds6ff35253
+         6tCaxVdp9CaFGSI2FFU/I6art9LVFYOX50sQJUhgu2UokHy1Sy4WSiQBVifk5poAbxuK
+         bRc4TmNOz7x6ULO0y14rr1pvBikWE6GK5GBhPbQVX6Cv13wSQtP4IFhcyLdUsMYu0QKF
+         Vfty/sW7mPyrTKADnVYIe7n7H3rZ2vBE5oVywj2F6DYcQgKVQBtyjr4WUApyNVnzQWX5
+         8jpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=LLXhmmwiXGVMSYLL9EVJ5vh7HjECRCSGD3Fcr7GaA/4=;
+        fh=0oBO9tpxNk5hHBLpe6op97S8kAjHAbJ+xE7Z9QGa78I=;
+        b=nRXRrqlF44D4tiYpFIBAJQ06rT9QMv+/kOcl5I/kmI3EjoXfWKJ8qSz534QTj9gqNI
+         ID63Qc5RSq+gHDnmOoiHQ137PQxNU60f9zZ5PxpriKrwigv+E1uQxiOt/NZP/vae3J4E
+         1hoNV07e1O4QxRY3fU415End3yNAffxsPTujfFzM8x6l0f1oadJ2yxbJbU2wk7bipuZs
+         St+gu48aIiJtpg8rLKubBk2uwFOlkTFOdrU/xeOCjsxVAkaNZE/x787zzHMMH8qMRHH9
+         AjvwXfTXTTqGaBtdh5mzRC5kEFn9hDGhjNN+6ooEZRqvMIokA5/4YqLTltt33ioTuLpA
+         dq3A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790148585; x=1790753385; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LLXhmmwiXGVMSYLL9EVJ5vh7HjECRCSGD3Fcr7GaA/4=;
+        b=ltj2pUDw/3KHLAMBGZRa/aKbxJqn0FQ3Fm3BXlAZuwyh1lvZWJvwuN+/Pn9INX40wK
+         F+AmUpoui3Cvh8HWVRFEFCgYw2AaIXPHn3IojoDSiTK8iW2GWnbwui9WMTVKbMz9n0Vf
+         tODEQi6HuxlnOl92ai9GEeEyyaRBQ2lyLcg+4FQ2YxUp4QiNIDDhUZoRf5/EEXXBIN/u
+         nhf5XY83pskHhnOFLc8Ov+KFk6LIGKD1IWd/CCw2VYLGlE48xv9Op/i7sCecuVrVaTyo
+         gvLhzRHggENFQLNSj6ik0f91T+wi0iaHH2QFToVS2+hDJP2ectQzpoqppwPHw8Z9v32E
+         bSSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790148585; x=1790753385;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LLXhmmwiXGVMSYLL9EVJ5vh7HjECRCSGD3Fcr7GaA/4=;
+        b=LzjH46DJj0UDGR1h2lx+SZV184gNmK4R1sRYW4Tp5LB1RBBmhiTRW2Ruyy4+2dE2sJ
+         GgNKO5bpWoBin7wY6weeVePIiM3/GgCdH63Et5ooVcUfrpI8mYs/W1/NrBYncsCin/7u
+         YWTJk1PulzrIY6e2EpvtMVvnEtpdQBO0z6VMntYWgt56wxAcN/X5xfhPExuNNPU0usQ8
+         0gj201OJuxkiJOEfiwTam6Udh+TEjCvOktGFjx8rSfM4XAOKe2W96/2af0u6jjs3nKNn
+         xt8W3qbsSYBpxSpbKj0/Jb3ENa5vOnFWVdZlJK0XD6o0nbvw2UD/+h1kVr8RH3rHr09i
+         mvSw==
+X-Forwarded-Encrypted: i=1; AKwUvBxx/rTzBsDEzYj4aEoyZ1jyij3r9ULhD1hn0eqBrwClKdXKxj/uW4e/fvL12KNf8oWtyXQCmv0rquhb8so=@vger.kernel.org
+X-Gm-Message-State: AFuF++npcXuRKXNfHzTpdUzM4lo80XznHqmfAaAmNaZaL+lPOYofjNVd
+	eiKBGGon6lr+wmkqpl9zHGTecWXFASr4GoQjOa4QOC5WTmw0hkiwl32KhlhLCT3HnVk86Kwkzau
+	l3kapaWwUOZ/AngooNjSbEL3/Mdgb56Y=
+X-Gm-Gg: AYBFou2Gj5Io4sOyOf210nAACVvgnVA6rEhDld1oia62oTe1UHMsH1PYeBSbK9yEmSN
+	mb8SHz+PT//CY8mjWjashVUWwr60SVf/gCxWGV0QQLs6oL+wKlKineYDCLD1LJPQpR8ynLpYbVT
+	3oTeyguAaRQgPaxrrLYdhUHQSI4IrjpCScMVwzqVeljQ9wzERaPFf1EaDi9atXpFBcxEaFgMv27
+	2+mT0Ani0BKTH2c7JQeOz8oXs26Hpi7mYeEmjYVdLPEnlf4fuW81ae5Lg8RQI5b5A+ZXvUNAqGd
+	WTzFE+d6jCbL3qO8pWNU7rqaxWfR0WPNR1HYVcSM7z8Kj1PrBbIai9gu
+X-Received: by 2002:a05:690c:6709:b0:85e:3071:f103 with SMTP id
+ 00721157ae682-8a4574a521emr18830827b3.1.1790148584934; Wed, 23 Sep 2026
+ 00:29:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GVXPR04MB10021:EE_|AMDPR04MB11297:EE_
-X-MS-Office365-Filtering-Correlation-Id: 86b12cab-9b24-4c69-e7f2-08df1944569e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|19092799006|366016|1800799024|56012099006|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	I59VNcIYA9Smn/nYo2rx3jEOpxpqrdBXZVWMy8R/rHH3Cfb2/r3DjlVirqkMpmcczXxxAvrfCTzxHxp9l3McklJoiR7yeAx9sCBt2MrWs4kotO60E6syGmP0UjqvqSV8eN0rlyLWZIt7aboA4FWLPsMv1DubNeHNLflYbclo86QCNkZG+i4DWFOGYPHV8CGN6FAiltLOqCXkcSxyffMavI6uDpdLZY9/08Sug3GplEsW1lAJRTk63iQK6pD4kvEX7zovsGylLNJhpe65XsjdzbwRTTVVDTFpl9MjCFW7iuQw+mfNgLBF+7mnzOOXuyBIL1HluLNPo+3IkFx3QDkMaMmju2NDJvP0BiT6wCvtYP7Ixm+MKaWC20azNG2liswCHkBb1EgKOabCzpTAdnxVXDKuOzW3WblCsfQHfB5ySZWzHuW+aB8xYqaXXn/FJQ0diNyq1hXBii02+3zyvDV9NzNg/8Djh4hPxVfi5ZD7Yf5nMfgZUFm2dKZw8HIoWLN5psPaXxwi4iTlHAjmR+1ubl3IDW/HuFijojQ97EPPN4eiE3xSqHmOK+uRThFruwdKfY/lu1LNq4JHQFmGavG1uT9CMpd9SD/BpbpwJcet7Z0yDVfrnOpZKQ22d4pZDrNNJjxy7PeYYEks9OquXP8LPdvqozCUUGnrGM5eRor4sxw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB10021.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(19092799006)(366016)(1800799024)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?OHBn/Y205wKLBHb0pm8v8Ty5vUNesL+drqyrLob63A/SmsVqGJ6UJBNvb27n?=
- =?us-ascii?Q?PyfETArzYBkjMUbCn8Iz1Q7PinYJUIAUpn8msPN0Z2IgdhL2pawVdg8wI/e8?=
- =?us-ascii?Q?stccFjQ11OUdniFfHT9iMe6CcD7GlELrfJ0JEMdWwuFjQuy2WCSBC6bYkcf6?=
- =?us-ascii?Q?km2kkyDRohU7QxuDBir9wgVQ6+lc+BC551kf5hw8dZ28EiTCHjJERhrCN1x3?=
- =?us-ascii?Q?VxN5HPgnZ6LY2SXkqQ/PKf+N9oPCdn+KCEX7uRSDR304dpzpMrUJ8O9euTai?=
- =?us-ascii?Q?1ra1H8YqjiSpaRov/AZkedQ5XhRmFYpwaeWxUuqwIHjVC2GxwDHLo4Pp8J0P?=
- =?us-ascii?Q?JorqIMa4Gyw8atpk9D44YlP+tbanr/nwCGxmTgisfLv0W0F3WJ+irLwFHn6B?=
- =?us-ascii?Q?3z0ZpDwTpen/9L3X6FzySM5voP2RCK0ISAp1st80zJQo5lrWI/J3jXyXocXL?=
- =?us-ascii?Q?rMkYBWG/sBT6LTfKlJFNgrl/TQyolmwZx0LuEB72Ou10neA/7WQEHYB586IF?=
- =?us-ascii?Q?Ok9ayEJlBeQ8J3j/X/U682cZpOF7tpTB46PUXADq1uQiixIQ1sdRNQTVxeB2?=
- =?us-ascii?Q?ZgJkSe7Q+fC+KpMYqgwA3S6/QIMDDIvWnpPANhQ+AQgn2bSdOcnu6DxVUVEQ?=
- =?us-ascii?Q?1HIRr5Vkh2u+LiIQlPYuurLJhV0nCBe+NFto04i3qTIxygMfnoXVWfI7TMSf?=
- =?us-ascii?Q?L1qEDoOC1hRSOlSEISvOQhZd9yU4z/Mi2O5M1twmD66r2+SJHYgcLAITDvZ3?=
- =?us-ascii?Q?CGs8Qo3HsNofh7avhI+ruMQwMLu9JUhFe+FOeNbBzp9T1EkNYCrn8AKcrLvt?=
- =?us-ascii?Q?0MNquty7ie9LE3jOEw61K7yys/ux0GuJau/y7DXiVG2kUwJGUXP6cu722Sqf?=
- =?us-ascii?Q?Fxe8Q/S+mhIJCO52zVFan3IjhyUZXJAPRUB1Gn8iUwSGJKg+SL0nbq6EXaPg?=
- =?us-ascii?Q?R4Dddahu/5Y9y60pawy9rZDvHJSpsOrc3D0fz/XYkkgqYHhbUILFbYD9m5zA?=
- =?us-ascii?Q?C4Gbc62y3T5N/0q2HMGaoO4gBrQ+vx5nUuu7JzY0Ifs8mZlYPqYPweYbNkja?=
- =?us-ascii?Q?T6QCpQKeBviJ3kFfQw8G6Zet6/PGkdpxxY8QXiOMp0cpKeGpB7zcLqLDV45q?=
- =?us-ascii?Q?U9Kch0OW2+yWd6uxwqdH81cMQe3nGWtq4Qp64lyy359I/fSuqwzf6AnpNGx8?=
- =?us-ascii?Q?T6ApNZVFLDysGfI+BkLSOwEkDyZ9byNwKuvNHEnqSmNUU4PfPw07KpFM0NlY?=
- =?us-ascii?Q?/B/0fulCnYJVCh+K3Q1qhW/mcGGH+vjyJ0V2q3tQTNJoCJGSbIYz/2r0dgaf?=
- =?us-ascii?Q?71a8pxPez999+kkhPjHu7hHnD+lSqndQdi0nw5PC8kkNK9Tw0M7lGUiSqH6f?=
- =?us-ascii?Q?Ok9cn31ylGlkfgZS8xlSSGHdyUH5K1daUYXnNrz0htNoBIOXE1J3uHZEZ3t9?=
- =?us-ascii?Q?Zfv5WSINj9+TorpNNL9swiSdFfUATXwQ03fX1tpLMNrftbFXEOuY84qpSYBb?=
- =?us-ascii?Q?709IaB60dhsO+YpoPe3O2BYmwgEp9kNeZUSvUbw2OaHkRdx5oBPYXg8vzamY?=
- =?us-ascii?Q?WhfzZZ3g0WVgokDiaWOV7GLUxQb7rEY/izkI+uHzorLSX/2XWUs0RvKK4Jq1?=
- =?us-ascii?Q?JngWi2HOIREhdhHzeVVN2OL9v+ixtZIADqZVAAOLIv6notoo4qzQvNaWbayW?=
- =?us-ascii?Q?5nYgkVdyac1qgqwDEXJ+Y8YWjllQBoPdxftNAyAjze+NyR8rvzWfKmcjn0M5?=
- =?us-ascii?Q?+ORNNp9T6asrb0RUF3E6wpMY6yc1vtZ7oPFqg5i81y9j+wdBdSiW?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 86b12cab-9b24-4c69-e7f2-08df1944569e
-X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB10021.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 07:29:01.5467
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mtefip+5A5O9toE+IUrcFLfiZxB7Du5yRylWgAPPFkxOcJU8uq3lr1nrIN2VfmcFdAcBfFErfDgQQevTzsWnWQqjqcExXX7cETQhd9QcJaVfbOOY/rzZ3nD6AE5SvT9H
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMDPR04MB11297
+References: <20260922120330.127262-1-itai.handler@gmail.com>
+ <07e750dc-570b-4f69-9ec3-68de51416a06@gmail.com> <20260922134945.667305-1-itai.handler@gmail.com>
+ <20260922213457.GA3536981@google.com>
+In-Reply-To: <20260922213457.GA3536981@google.com>
+From: Itai Handler <itai.handler@gmail.com>
+Date: Wed, 23 Sep 2026 10:29:34 +0300
+X-Gm-Features: AclHuK8toaulBOT-3YOE_3phn9wcYRLjApTWuJJjZ2V6oTfFGkdD_31cj0caEbI
+Message-ID: <CAFpOueSjekxhjEosQGiZ9BiDh5tFOqBPX5w_2PVsrcN6pO+dHw@mail.gmail.com>
+Subject: Re: [PATCH v2 0/1] dm-crypt: allow encryption sector size up to PAGE_SIZE
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: Milan Broz <gmazyland@gmail.com>, Alasdair Kergon <agk@redhat.com>, 
+	Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>, 
+	Benjamin Marzinski <bmarzins@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	dm-devel@lists.linux.dev, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Chancel Liu <chancel.liu@nxp.com>
+On Wed, Sep 23, 2026 at 12:34=E2=80=AFAM Eric Biggers <ebiggers@kernel.org>=
+ wrote:
+>
+> On Tue, Sep 22, 2026 at 04:49:45PM +0300, Itai Handler wrote:
+> > Storage is not the use case - crypto offload is.
+> >
+> > Where the cipher is a hardware engine driven over DMA, the per-request
+> > cost is a descriptor setup and a round trip, and that cost dominates.
+> > Making the request sixteen times larger amortises it. With the in-tree
+> > qce driver on an arm64 64k-page board, plain dm-crypt over a ramdisk,
+> > MB/s:
+>
+> That isn't a real use case, though.  Using the QCE driver is *much*
+> slower than just using the encryption on the CPU, even on long messages.
+> That's been established in many previous discussions and is now even
+> admitted by the maintainers of the QCE driver.  The QCE driver even
+> (incredibly) uses more CPU time than just doing the crypto on the CPU,
+> due to all its driver, scheduling, and IRQ overhead.  The pending
+> patches to add BAM locking will make it even slower.
+>
+> The fix is to not use QCE.  (And also ensure that
+> CONFIG_CRYPTO_AES_ARM64_CE_BLK=3Dy is set, to get the ARMv8 CE accelerate=
+d
+> code.  But even on legacy CPUs without ARMv8 CE, QCE is still slower.)
+>
+> Unsurprisingly, the numbers in this patch's cover letter show this as
+> well, with much higher throughput reported for the CPU-based encryption.
+>
+> (Also note that QCE is currently marked as BROKEN upstream.)
+>
+> I really do not think dm-crypt should accept changes to further
+> accommodate obsolete and problematic external crypto engines like this.
 
-After a warm reboot the REG_ASRCSR register may not be in its hardware
-reset state. regmap caches the register value as 0 (the assumed default),
-so when the desired clock source index is also 0, regmap_update_bits()
-skips the actual hardware write because it believes the register already
-holds the correct value. This leaves a stale clock source in the hardware.
+Thanks for the detailed feedback.
 
-Replace regmap_update_bits() with regmap_write_bits() so that the masked
-fields are always written to hardware regardless of the cached value.
+I agree that QCE is not a good example to use as the main motivation for
+this change if its driver overhead makes it slower, and even more so if
+the driver consumes more CPU time than the software implementation. I
+will therefore not argue that QCE itself justifies changing dm-crypt.
 
-Fixes: 3117bb3109dc ("ASoC: fsl_asrc: Add ASRC ASoC CPU DAI and platform drivers")
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+However, I don't think this necessarily establishes that the generic
+dm-crypt change is unnecessary.
 
-Reviewed-by: Chancel Liu <chancel.liu@nxp.com>
+One point regarding the suggested ARMv8 Crypto Extensions implementation:
+PAGE_SIZE and the presence of ARMv8 Crypto Extensions are independent
+properties. In particular, an ARM64 system can use 64 KiB pages without
+having ARMv8 Crypto Extensions. Therefore, the fact that AES-CE is faster
+than QCE on CPUs which support it does not apply to all systems where the
+proposed change would be possible.
 
-Regards,
-Chancel Liu
+There is also a more general reason why hardware crypto offload can be
+useful even when its raw throughput is lower than CPU-based encryption.
+Offloading encryption can leave CPU cycles available for the application,
+filesystem, networking, or other work. Of course, this only makes sense
+when the accelerator and its driver have reasonable overhead; I agree that
+QCE is a poor example if its driver overhead outweighs this benefit.
+
+My main question with the patch is therefore independent of QCE:
+
+Is there a reason for dm-crypt itself to impose a fixed 4096-byte
+encryption-unit limit, rather than allowing an encryption unit up to the
+size that its existing I/O conversion path can safely handle?
+
+The patch does not make larger sectors the default, and it does not
+remove the kernel-side validation. The default remains 512 bytes, and a
+larger sector must be explicitly requested. The proposed upper bound is
+the smaller of PAGE_SIZE and BLK_MAX_BLOCK_SIZE, so configurations that
+cannot represent such an I/O unit are still rejected.
+
+The motivation for using PAGE_SIZE as the upper bound is also not tied
+to any particular crypto accelerator. The current dm-crypt conversion
+path processes the encryption unit through the bio/scatterlist
+representation, and the relevant bio vector cannot represent more than
+PAGE_SIZE in a single entry. Consequently, PAGE_SIZE is already a
+natural upper bound for the current implementation.
+
+The performance measurements with QCE were intended to demonstrate the
+kind of workload where reducing the number of crypto submissions can
+matter, rather than to claim that QCE is itself a desirable accelerator.
+I agree that I should find a better hardware-accelerator example before
+using those measurements as evidence for the patch.
+
+I also don't intend this change to imply that larger encryption sectors
+are appropriate for LUKS or other portable on-disk formats. That is a
+separate userspace/on-disk-format consideration. The kernel would still
+enforce the limits of the dm-crypt implementation itself.
+
+So I would frame the patch more narrowly: this is an attempt to remove
+an apparently arbitrary 4096-byte limitation from dm-crypt and allow
+larger encryption units on systems where PAGE_SIZE and the block-layer
+limits permit them, without changing the default behavior.
+
+If there is a specific correctness, security, or architectural reason
+why dm-crypt should retain 4096 bytes as an absolute limit even on
+systems with larger PAGE_SIZE, I would be very interested to understand
+it. Otherwise, I think the question is better evaluated independently
+of whether QCE is a suitable accelerator.
+
+Thanks,
+Itai
