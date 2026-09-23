@@ -1,97 +1,163 @@
-Received: from smtp68.ord1d.emailsrvr.com (smtp68.ord1d.emailsrvr.com [184.106.54.68])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5735B3E0C4A
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:56:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=184.106.54.68
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790171808; cv=none; b=Fws/YdW3fmu3/XjrHVkS2yaNyIfVRuvzO+CoB1CxelzFQ7Z9zlqWSWh03ffYyM0rhGP7Nd+fqYH6L7zfyNTnGE1YpaxbR6lD/s97958bKqrWRRVZJNiMYDE4iv5iVcetboUKVM2aN9YKmXY+GD1JHCoNDiRmg0J38Ritzg1GVuQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790171808; c=relaxed/simple;
-	bh=rJbi9HnWJ6hsy9VsgD0sXvgSN820WQPgudLb959hP70=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YSA2hwCrVxs1rI5AOQZavLEdwLNqpuQrl6SKve9R0Z0rZ8tovUvPZCnPjT89pDrwcBfCyH6WsNMcku9u7pN63aGkayLJovrURwzkLYYyxMgi/vMuN35WG7lf02DPlgkRyiSGYX8ty7cz7azeN1OAjZyiujUi9vH6m6WeSGvtfMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mev.co.uk; spf=pass smtp.mailfrom=mev.co.uk; dkim=pass (1024-bit key) header.d=mev.co.uk header.i=@mev.co.uk header.b=H55e12z9; arc=none smtp.client-ip=184.106.54.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mev.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mev.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE229331200;
+	Wed, 23 Sep 2026 13:57:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790171846; cv=pass; b=S+31bqwanydZISqZqbJ3cnvBKn2X04OJ4qSMjLkL9GsLPH/TbURHHmr09eItVeWc/hqvtCN92zKatNKrlcoVsx8Pb1t6hh2KBjauGqTFCtMceby9dI7NVmY8X3u88cBhyu9fc8pISP5NF3of62QWNKFTCL3KYNCt/Jb7/QNy7yY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790171846; c=relaxed/simple;
+	bh=7ctvCYwI5EOgkWDfemV0LbfUzIJ7h92g+QbkkR76WMU=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=jHFaQQNW+vcZZvCTB+E2uomUMboFL7YhgRqRhEXHWzLmCvCDji0uWrDJzVHTtoJ3Xh2XqYAnCoKay5T+g9qMvZ+t/uF4QlE69iwPj0oIX26zdGuplCw1+vt1S+cp3aKT/PP/waSB4Dubj/Nc0EQBjNggfXROIMBrrjbcmW6yPGo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=kJC+rtPm; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mev.co.uk header.i=@mev.co.uk header.b="H55e12z9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
-	s=20221208-6x11dpa4; t=1790154693;
-	bh=rJbi9HnWJ6hsy9VsgD0sXvgSN820WQPgudLb959hP70=;
-	h=Date:Subject:To:From:From;
-	b=H55e12z9yWI3m1ng6GDUFTi2euQkrSF4UTZSHY94n4EbjEAXaS4OWxsl1hnmNBLsK
-	 lwCiTBUUXO28NNjMrsj0TcvJ5MX5PiJQfuCelThtJReX2DIjBUdxyyVky6NQfBw6qE
-	 wFrpZlLWZ5hSJiGtg+8fx4K9qDLrqxf6m1co9f40=
-X-Auth-ID: abbotti@mev.co.uk
-Received: by smtp1.relay.ord1d.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id 44A0040215;
-	Wed, 23 Sep 2026 05:11:32 -0400 (EDT)
-Message-ID: <21bad709-afa0-4864-b1ce-c0b4427b91f0@mev.co.uk>
-Date: Wed, 23 Sep 2026 10:11:30 +0100
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="kJC+rtPm"
+ARC-Seal: i=1; a=rsa-sha256; t=1790171822; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=new2IeUfms7ocQDP7VRlh52saNi/+RdS4IdwsafB7RzjRIaTVXvOmJQQEgW341XfGQ3sDDgtgIDCCwCmJUU2b4/MydEkv2pvydwcxHbijR2WpBtMFSRu7l4a6tjH+nnYkoV9n77HgjH5XMoaxak+wPjydpjpoj7e+hROQxkMEBA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790171822; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=ZCZBtkL2O2YQdBpYXU7IxaL83zFU6P8vJ4uvyW4n0Og=; 
+	b=NLh8h1ZLqukbUxV6RHpif+1FXb7TOMVsLhSJE7ezYJVGw5QM9l0Ysw+xGYdUZxOBkC3tL2L5YreDsaE9F4FWnoiinRT9mmSWkIwnnuQSN/UGlGcF/YydOqYl65u0m1hVzGzhsRbep4bTNCQre4ecYWxFEW6H1XanDJ51//2zX3E=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790171822;
+	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+	bh=ZCZBtkL2O2YQdBpYXU7IxaL83zFU6P8vJ4uvyW4n0Og=;
+	b=kJC+rtPmc87WweOf8gsqwcs2gMhNZWMznZKSTUZJR9/f5M3pNL512pLrfcvjRwSk
+	pQpRwApc4x4mBCTUzqpQisxFx09MB2rv5RRVSxZGI1DVjKjC79mWF022y/Lzp36L648
+	fYHbbhemjIimdgTMhcvQNrh1/GNz06fa1pPQpG9o=
+Received: by smtp.zohomail.com with SMTPS id 1790171822100855.2696120518375;
+	Wed, 23 Sep 2026 06:57:02 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] comedi: dt2811: fix shift-out-of-bounds in IRQ check
-To: Pei Xiao <xiaopei01@kylinos.cn>, hsweeten@visionengravers.com,
- linux-kernel@vger.kernel.org,
- syzbot+a4cedab706d0a8a3f988@syzkaller.appspotmail.com
-Cc: syzkaller-bugs@googlegroups.com, gregkh@linuxfoundation.org
-References: <6ab21240.e548f532.1ca396.0018.GAE@google.com>
- <02c46315293a26169d2a3862a2047959a1651ef4.1790061387.git.xiaopei01@kylinos.cn>
-Content-Language: en-US
-From: Ian Abbott <abbotti@mev.co.uk>
-Organization: MEV Ltd.
-In-Reply-To: <02c46315293a26169d2a3862a2047959a1651ef4.1790061387.git.xiaopei01@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Classification-ID: 7ba2016a-fe11-449d-9d2d-ccca2bcaafb3-1-1
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: Re: [PATCH v7 0/3] drm/tyr: GPU reset infrastructure
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260912-tyr-reset-impl-v7-0-077ce72084eb@onurozkan.dev>
+Date: Wed, 23 Sep 2026 10:56:48 -0300
+Cc: linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ dakr@kernel.org,
+ aliceryhl@google.com,
+ airlied@gmail.com,
+ simona@ffwll.ch,
+ ojeda@kernel.org,
+ boqun@kernel.org,
+ gary@garyguo.net,
+ bjorn3_gh@protonmail.com,
+ lossin@kernel.org,
+ a.hindborg@kernel.org,
+ tmgross@umich.edu
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <70AFEE33-C637-4D49-88F1-9DF3A9BBF097@collabora.com>
+References: <20260912-tyr-reset-impl-v7-0-077ce72084eb@onurozkan.dev>
+To: =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
+X-ZohoMailClient: External
 
-On 2026-09-22 10:19, Pei Xiao wrote:
-> The IRQ number passed via comedi_devconfig->options[1] is a signed int
-> that comes from userspace.  The check `it->options[1] <= 7` does not
-> reject negative values, so a negative IRQ number reaches
-> `BIT(it->options[1])`, which is undefined behavior and triggers a UBSAN
-> shift-out-of-bounds warning:
-> 
->    UBSAN: shift-out-of-bounds in drivers/comedi/drivers/dt2811.c:570:31
->    shift exponent -251 is negative
-> 
-> Add an explicit lower bound check (`it->options[1] >= 0`) so that only
-> valid IRQ numbers 0..7 are accepted before the shift.
-> 
-> Fixes: f2975a9b2ab9 ("staging: comedi: dt2811: add async command support for AI subdevice")
-> Reported-by: syzbot+a4cedab706d0a8a3f988@syzkaller.appspotmail.com
-> Closes: https://lore.kernel.org/all/6ab21240.e548f532.1ca396.0018.GAE@google.com/#R
-> Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
+
+
+> On 12 Sep 2026, at 07:39, Onur =C3=96zkan <work@onurozkan.dev> wrote:
+>=20
+> Add support for scheduling GPU resets on a dedicated workqueue. Track
+> the reset state to avoid queueing another reset while one is already
+> pending or in progress.
+>=20
+> Use an SRCU based gate with mutex-protected reader admission to block
+> hardware accesses while reset work runs and wait for current users
+> before resetting.
+>=20
+> Stop new reset requests during teardown and drain any queued or =
+running
+> reset work before releasing the device resources.
+>=20
+> This is the initial reset infrastructure only. It is not wired to a =
+reset
+> source yet as those will follow in separate work.
+>=20
+> Based on 'commit 53441a9cae3c ("drm/tyr: program CSF global =
+interface")'
+> from tyr-for-upstream with the following patch series on the ML:
+>  - rust: add SRCU abstraction [1]
+>  - rust: workqueue: add cancel_sync support [2]
+>=20
+> TODOs:
+>  - On reset failure, we don't do anything for now. We should unplug
+>    the GPU.
+>  - In schedule(), similar to panthor_device_schedule_reset(), we =
+should
+>    have a PM check but similar to the note above, we don't have the
+>    infrastructure for that yet.
+>=20
+> Changes since v6:
+>  - Acquire the hardware gate once per address-space operation and pass
+>    the guarded iomem reference to helpers to avoid deadlocks.
+>  - Clone the gate Arc before acquiring a guard so mutating =
+address-space
+>    helpers can retain their &mut self receivers as suggested by =
+Daniel.
+>=20
+> Link: =
+https://lore.kernel.org/all/20260613065348.96750-1-work@onurozkan.dev =
+[1]
+> Link: =
+https://lore.kernel.org/all/20260807165252.3849875-1-dakr@kernel.org [2]
+> Link: =
+https://lore.kernel.org/all/20260708114358.957305-1-work@onurozkan.dev
+> Link: https://gitlab.freedesktop.org/panfrost/linux/-/issues/28
+> Signed-off-by: Onur =C3=96zkan <work@onurozkan.dev>
 > ---
->   drivers/comedi/drivers/dt2811.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/comedi/drivers/dt2811.c b/drivers/comedi/drivers/dt2811.c
-> index 0438b8c90e44..53cb17993ae7 100644
-> --- a/drivers/comedi/drivers/dt2811.c
-> +++ b/drivers/comedi/drivers/dt2811.c
-> @@ -567,7 +567,7 @@ static int dt2811_attach(struct comedi_device *dev, struct comedi_devconfig *it)
->   	dt2811_reset(dev);
->   
->   	/* IRQ's 2,3,5,7 are valid for async command support */
-> -	if (it->options[1] <= 7  && (BIT(it->options[1]) & 0xac)) {
-> +	if (it->options[1] >= 0 && it->options[1] <= 7 && (BIT(it->options[1]) & 0xac)) {
->   		ret = request_irq(it->options[1], dt2811_interrupt, 0,
->   				  dev->board_name, dev);
->   		if (ret == 0)
+> Onur =C3=96zkan (3):
+>      drm/tyr: clear stale IRQ state before soft reset
+>      drm/tyr: add GPU reset infrastructure
+>      drm/tyr: put iomem behind the hardware gate
+>=20
+> drivers/gpu/drm/tyr/driver.rs            |  65 ++++-----
+> drivers/gpu/drm/tyr/fw.rs                |  16 +-
+> drivers/gpu/drm/tyr/mmu.rs               |   9 +-
+> drivers/gpu/drm/tyr/mmu/address_space.rs |  90 +++++++-----
+> drivers/gpu/drm/tyr/reset.rs             | 242 =
++++++++++++++++++++++++++++++++
+> drivers/gpu/drm/tyr/reset/hw_gate.rs     | 106 ++++++++++++++
+> drivers/gpu/drm/tyr/tyr.rs               |   1 +
+> 7 files changed, 436 insertions(+), 93 deletions(-)
+> ---
+> base-commit: 53441a9cae3c4be552fa8aefa6e61b0f1bceb8a5
+> change-id: 20260813-tyr-reset-impl-93e951f996b4
+> prerequisite-message-id: <20260807165252.3849875-1-dakr@kernel.org>
+> prerequisite-patch-id: 4275f7d6e3cf96d61221d47f2398ebfb896db0c7
+> prerequisite-patch-id: f5e24f7b3717f2ab0445b5395c7f12b554861d78
+> prerequisite-patch-id: 0bf6ae4abcef7090d0e48921d6ec627a59dc6a7a
+> prerequisite-patch-id: 8dc24064e858240a6bb5411a261a987a7eae3fad
+> prerequisite-patch-id: eefbd4a72ed6da0083e20811882738cc3b05604f
+> prerequisite-patch-id: 7502236d334b13c547a8b47f0be9bf7171b5ca6b
+> prerequisite-message-id: <20260613065348.96750-1-work@onurozkan.dev>
+> prerequisite-patch-id: 9e1efee190d212ba1b01cd0acb5a4357e0b4da42
+> prerequisite-patch-id: 26aba035f4d1e212fa6ea7078095febefff5c5ba
+> prerequisite-patch-id: ffa25d5aadec4c04589af2bdd59a9c022f0fc9b0
+> prerequisite-patch-id: c2e05a4ac9d665d331952b291a622df6be673e41
+> prerequisite-patch-id: c14a4bd8a68b045356d61f7fa94690bd037ad08b
+>=20
+> -- =20
+>=20
 
-Looks good, thanks!
 
-Reviewed-by: Ian Abbott <abbotti@mev.co.uk>
+Alice, if you are ok with this series, feel free to merge. At least from =
+my side it looks ok.
 
--- 
--=( Ian Abbott <abbotti@mev.co.uk> || MEV Ltd. is a company  )=-
--=( registered in England & Wales.  Regd. number: 02862268.  )=-
--=( Regd. addr.: S11 & 12 Building 67, Europa Business Park, )=-
--=( Bird Hall Lane, STOCKPORT, SK3 0XA, UK. || www.mev.co.uk )=-
+=E2=80=94 Daniel
 
