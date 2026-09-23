@@ -1,123 +1,250 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 506B65349AB
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:03:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CDE7535FA7;
+	Wed, 23 Sep 2026 14:04:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790172235; cv=none; b=A4BY0aKoqGN1nnQi8S40Glt7uyIf4kqjkjzFeZD+FQ7gfR9JPfGzjH1w0D0FT7y/gr5LYt9irEnvihdnWo6Y5fbmGvdZUmpAM8zkY3EtAJSnKqDJNY9YtxJEYymXph/JLIgvK0Lwet98GmQmLiARrYtRrejJmB6NV6tbKWxORrM=
+	t=1790172261; cv=none; b=LX7htAX14dy19v6XVFmeS+rHRm9NKfw/pQb641+NvpP4TET59CkvDnzsxAclK+aNrk+o7d0ClTeZLCk4fggDX1/CbMu7swoRwVDlschYHrG+n9nguaFylz01MeBMPbr8WszREVoHxTYUWnMYELDtGpKzgc03q7o3QApFO6DILfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790172235; c=relaxed/simple;
-	bh=9q391VKyrgHT6qszCFMUgGDC47v5hjd4HT9m5JS3rPo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fBeK3MT6y41ecUOrovBvToLr4C5RUx+uPDZn3LTzdEE2wtLRYlyAQl10EPJaUBN8s4gMPPUnu11IpzlkMQYSbn0YsM1SjacnZIFYKrSvfcSypW16NR4rRGwFOj36242M9MV8Fs7A28GT4kEC6XVXQ/JXOzxUE4bcyu7feAR1iYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=smgCyaGI; arc=none smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1790172261; c=relaxed/simple;
+	bh=12uLwamnps9OLew3JhxZzPu4Oi4VZc9jYM1CuHwIJ88=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JUBpRS6dQkFt10w6u5K5DjDSFJDwTDCAT9KcnByx6FunI6jtf7sVSyDCryhSvQQBMTbow5mUKHj57R2If+2QbMPg57dUDxWa6wf143aewqnL8ruFIcMiL+7wkRNDignL1kois7wz403IznTeNTUuOcrE9H5bMV7/4EGtulPaqxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hz1RDLsi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="smgCyaGI"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4ab201ecso907766d50.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:03:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1790172233; x=1790777033; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=O8GDqeaFB8Q+FfdtS26+rNDrl8uoHCxOndehazUS46g=;
-        b=smgCyaGIdhX4OEbYwYAJxVyog57VjX7c67tiE8kNWEwxgXRV7bA958tmCX0wufbaHv
-         zPncSL/E0YloNfTAMN/Y96wRvz+EkCPtwuoXlu7Djti6ds/H4FlY1EfmLjtqkiJg9bUb
-         nS/8vFIF4GtlZUbF+El1WDh55LbFk4fMjqZ0AYKVwx3opRBkKkljb3EBRkkxClbuOR+M
-         beDFIlkWIxMI25bjwuJxYba4ioppe2CWZOgOpKCkgc7h8nU7g/P5OhUPwowMb3zqjiLb
-         1K24ROXFW+f2ySFMmsrw9Y3mT3DdMKsF946EizNDn2fO7ov8LagCwDUe+Cfwk8mk+oR0
-         Ckzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790172233; x=1790777033;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=O8GDqeaFB8Q+FfdtS26+rNDrl8uoHCxOndehazUS46g=;
-        b=x9YQru6c/VDaZ8FOsa+ze983c9Ml5d+ndhZuFfm3lRmcArrWl1EX3R/gNL71ZIVwOL
-         xim4HdbC5UlM08tb3ARLNiBpI4Vas1sjGQpFWhEH4NkrJ35EYaBIsY7Xg3ADUaWi0rkp
-         //+nCcd6kcWnR+kgSTmZ/9pr+otOJdsSwQLeeWSD4LG+zSh5MLe4Nyrq5Y1Z9mw4PeD+
-         6Z1Ojd3j6Omiln6u4W3MgW88ZmZynWsK3uoJ5PBwCem2IKEThnrG/a62OrfT293FbU92
-         8WxSxVQmJY2iQranOsC7w8fZF2/rJr7uSDHo0iX3envEQT2jEsZ6hzKjIlGMD3thMFFb
-         T2NQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzor3EwqBu+L3DbisvyzdeYSMXRtswGmnFIgaWdA+NcQnQiNepKnVC9MK0OVdY0ylP3hluib5CbrZZmr/w=@vger.kernel.org
-X-Gm-Message-State: AFuF++lbzShD4D/zepyzxqRVZH8ySdvoObmXTzYWDiL80zPUeJfd5ish
-	QVC6u6ogHpPxYFike/fc6K2eH0flC6UPHllFi9mnNrRORNjh02CyP1dMCGwIA8+/6nCbQwEL5x+
-	wJ5NGpw==
-X-Gm-Gg: AYBFou2RU5Wo5gxfpBArW+FPl/z9qbOkG6u2+shgWKfBPhmbc/XFu+uM6pGygl6mwrU
-	Cp/H9ifKJZlozks/Cg87CWf65EYbbz62yPYlTmHKUvyaKk8bzt/nVTzKn+C7OTf4gm34edVjJTA
-	VdL1GWCHm0vBGgleW7Ond3yVoe9CBUDN8h+zjYcxivmNP85b1mgZBtXYsiAb9j04bmiiDwvucGw
-	R5j9oNDEEaKKksshO6VGyz67tyRMDdi2r6ZQe4h9oTU23wJnts/I4aigOtgT+3yrWVBsnTquRi9
-	UB/cuCRnp7faa0bG/scgNefNjN64O+czOyTVlDlwMjfJpglWAAAlkR3RLYx50BtL2w51XK14D+Y
-	4YdQpjW35S6/vVb3Jrly1fFU59l6IlJfp9OIucwsinxRHSHWrfANzl2NtLY3TocloxCfbzlGVDB
-	fAKnoXOWxXoE2TNYPgje53OCWl7G1jQvdtidMjHbsHyzNFQMNhwDAzRtw/rD2Vg4YlYN/Jij8hT
-	ZN0TfSfx9JNAsKOD7+0rpE2vmA=
-X-Received: by 2002:a05:690e:454a:10b0:672:d1ab:ff7f with SMTP id 956f58d0204a3-672d58eaf8amr850998d50.103.1790172232955;
-        Wed, 23 Sep 2026 07:03:52 -0700 (PDT)
-Received: from rowland.harvard.edu ([140.247.181.15])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9140c448ec5sm20737976d6.33.2026.09.23.07.03.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 07:03:52 -0700 (PDT)
-Date: Wed, 23 Sep 2026 10:03:50 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Ginger Li <ginger.jzllee@gmail.com>
-Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hz1RDLsi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 133CF1F000FF;
+	Wed, 23 Sep 2026 14:04:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790172259;
+	bh=t+qWydripu7ZbldctMsFQ3i/o2xxPtdloQw+yrLdtfg=;
+	h=From:To:Cc:Subject:Date;
+	b=hz1RDLsiIHbGIWAaUUUJPpBfF36IEzzQVcQ7jA4VrdIJtdbxietUwu7HOTo0t14KP
+	 eKejVW7hmlKcJjbfIv6dbVKGpogbh+JhaJt8xuiyQwpttUYDCcsceiqk/uS3W8i1mS
+	 nFpbPIk+2KdexBUxw9I29KmZX0IT5IpElIg7FNcnyHytkGAp3+7GpSH/U2LvYO8atm
+	 3ZE3NsMo6YQNfzmwwrgAtRlXv8HAHvCKX7T8X0DnYs8Odvzps+SI5z1eZ4HL8ECv99
+	 NzlbCnaY0ojPl3SGi8obwkLGudzE7EINKJh+PY6SkGKM47qJ9NuQ/0VpWlU+hK/6Vq
+	 Em0KxYdEoFxOA==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: linux-coco@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] USB: core: Fix unlocked hcd->status_urb access in
- usb_hcd_poll_rh_status()
-Message-ID: <56dbfcfe-1945-4335-b46c-bb2388e4dbb1@rowland.harvard.edu>
-References: <20260923083828.64925-1-ginger.jzllee@gmail.com>
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Jeremy Linton <jeremy.linton@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sudeep Holla <sudeep.holla@arm.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Olivia Mackall <olivia@selenic.com>,
+	Russell King <linux@armlinux.org.uk>
+Subject: [PATCH v13 0/8] Switch Arm SMCCC firmware services to an SMCCC bus
+Date: Wed, 23 Sep 2026 19:33:57 +0530
+Message-ID: <20260923140405.1111554-1-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923083828.64925-1-ginger.jzllee@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 23, 2026 at 04:38:28PM +0800, Ginger Li wrote:
-> usb_hcd_poll_rh_status() tests hcd->status_urb without holding
-> hcd_root_hub_lock, while rh_queue_status() and the completion path inside
-> usb_hcd_poll_rh_status() itself update that field under the lock.
-> 
-> Take hcd_root_hub_lock around the early bail-out check so that the read is
-> serialized with the writers.
+As discussed here:
+https://lore.kernel.org/all/20250728135216.48084-12-aneesh.kumar@kernel.org
 
-Why does the read need to be serialized with the writers?  What problems 
-does lack of serialization cause?
+The earlier CCA guest support used an arm-cca-dev platform device as a pure
+software anchor for the TSM class device. That platform device did not
+correspond to a DT/ACPI described device, MMIO range, interrupt, or other
+platform resource; it existed only to make the CCA guest driver bind and to
+place the resulting TSM device in the driver model. The same pattern also
+exists for smccc_trng. Creating separate platform devices for such
+SMCCC-discovered features is misleading, because those features are not
+independent platform devices.
 
-Alan Stern
+This series adds an Arm SMCCC bus for services discovered through the SMCCC
+firmware interface. The bus provides SMCCC device and driver registration
+helpers, SMCCC function id based matching, uevent modalias generation, and
+a sysfs modalias attribute. SMCCC service drivers can use
+MODULE_DEVICE_TABLE(arm_smccc, ...) to emit arm_smccc:f<functionid>
+aliases, allowing userspace to autoload service drivers when the SMCCC core
+registers matching firmware-service devices.
 
-> Fixes: d5926ae7a827 ("[PATCH] usbcore support for root-hub IRQ instead of polling")
-> Signed-off-by: Ginger Li <ginger.jzllee@gmail.com>
-> ---
->  drivers/usb/core/hcd.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/usb/core/hcd.c b/drivers/usb/core/hcd.c
-> --- a/drivers/usb/core/hcd.c
-> +++ b/drivers/usb/core/hcd.c
-> @@ -727,8 +727,13 @@ void usb_hcd_poll_rh_status(struct usb_hcd *hcd)
->  
->  	if (unlikely(!hcd->rh_pollable))
->  		return;
-> -	if (!hcd->uses_new_polling && !hcd->status_urb)
-> +
-> +	spin_lock_irqsave(&hcd_root_hub_lock, flags);
-> +	if (!hcd->uses_new_polling && !hcd->status_urb) {
-> +		spin_unlock_irqrestore(&hcd_root_hub_lock, flags);
->  		return;
-> +	}
-> +	spin_unlock_irqrestore(&hcd_root_hub_lock, flags);
->  
->  	length = hcd->driver->hub_status_data(hcd, buffer);
->  	if (length > 0) {
-> -- 
-> 2.43.0
-> 
-> 
+The series then moves SMCCC TRNG and the Arm CCA guest RSI service off the
+platform bus. When the SMCCC core discovers the corresponding firmware
+service, it registers an arm-smccc device for that service. The hwrng
+arm_smccc_trng driver and the Arm CCA guest TSM provider are converted to
+SMCCC drivers that bind to those discovered devices.
+
+The old arm-cca-dev platform device has also been used by userspace as a Realm
+guest indicator. Removing it without a replacement would leave userspace
+depending on an internal driver-binding device. This series therefore adds
+/sys/firmware/cca/realm_guest as a stable, architecture-provided ABI for
+detecting whether the kernel is running as an Arm CCA Realm guest, and then
+removes the dummy arm-cca-dev platform-device registration.
+
+Changes from v12:
+https://lore.kernel.org/all/20260921053807.354802-1-aneesh.kumar@kernel.org
+* Split patch 7 into two patches:
+   "coco: guest: arm64: Remove dummy CCA platform device"
+   "coco: guest: arm64: Add sysfs ABI for CCA Realm guests"
+* Add the hw_random and kbuild maintainers to the Cc list.
+* Add all newly added files to MAINTAINERS.
+* Make cca_kobj a local variable.
+* Update to_arm_smccc_device to container_of_const 
+
+Changes from v11:
+https://lore.kernel.org/all/20260914060511.277948-1-aneesh.kumar@kernel.org
+* Collect Reviewed-by tags.
+* Update commit messages based on feedback.
+* Update the sysfs file documentation.
+* Use put_device() consistently for cleanup on error.
+
+Changes from v10:
+https://lore.kernel.org/all/20260904095000.1184861-1-aneesh.kumar@kernel.org
+* Collect Reviewed-by tags.
+* Add the missing linux/types.h include.
+* Update the arm_smccc_1_1_invoke() call to pass 0 as the input value for x1-x7.
+
+Changes from v9:
+https://lore.kernel.org/all/20260805063255.1638614-1-aneesh.kumar@kernel.org
+* Rename CONFIG_ARM_RMM to CONFIG_ARM_RMM_RSI to make the Kconfig option RSI-specific.
+* Update the modalias to use the SMCCC function ID.
+* Don't issue SMC64 SMCCC calls on arm32.
+* Drop the IDA usage.
+
+Changes from v8:
+https://lore.kernel.org/all/20260707081351.1680209-1-aneesh.kumar@kernel.org
+* Rebase onto the arm64 for-next/core branch.
+* Move the RSI code from arch/arm64 to drivers/firmware/arm_rmm in patch 3.
+* Add a new patch to move the Realm memory-encryption operations to the RSI code.
+* Drop the Reviewed-by tag from patch 3.
+
+Changes from v7:
+https://lore.kernel.org/all/20260611130429.295516-1-aneesh.kumar@kernel.org
+* Rebase to latest kernel
+* Add id_table check in arm_smccc_driver_register
+* Add smccc device name check in arm_smccc_device_register
+* Drop driver_data from struct arm_smccc_device_id
+
+Changes from v6:
+https://lore.kernel.org/all/20260527100233.428018-1-aneesh.kumar@kernel.org
+* Move SMCCC bus-related code to bus.c.
+* Remove CONFIG_ARM64 #ifdefs and switch device creation to use the generic function-ID support framework.
+* Move version-specific checks and other conditionals to the device driver probe routines.
+* Move RSI definitions to include/linux/arm-smccc-rsi.h.
+* Split the file and variable renames into a separate patch.
+
+Changes from v5:
+https://lore.kernel.org/all/20260514094030.42495-1-aneesh.kumar@kernel.org
+* Replace the arm-smccc platform-device plus auxiliary-child model with a
+  dedicated Arm SMCCC bus.
+* Add SMCCC module alias support so SMCCC service drivers can use
+  MODULE_DEVICE_TABLE(arm_smccc, ...) and autoload through arm_smccc:<name>
+  aliases.
+* Convert smccc_trng from a platform driver to an SMCCC driver.
+* Convert the Arm CCA guest TSM provider from the arm-cca-dev platform device
+  to an SMCCC driver bound to the discovered RSI service.
+* Add /sys/firmware/cca/realm_guest before removing the old arm-cca-dev dummy
+  platform device.
+
+Changes from v4:
+https://lore.kernel.org/all/20260427061615.905018-1-aneesh.kumar@kernel.org
+* Add /sys/firmware/cca/realm_guest for detecting realm guest
+* Convert smccc_trng to auxiliary device from platform device
+
+Changes from v3:
+https://lore.kernel.org/all/20260309100507.2303361-1-aneesh.kumar@kernel.org
+* Rebased onto the latest kernel
+* Drop pr_fmt() from drivers/firmware/smccc/rmm.c
+
+Cc: Jason Gunthorpe <jgg@nvidia.com> 
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Greg KH <gregkh@linuxfoundation.org>
+Cc: Jeremy Linton <jeremy.linton@arm.com>
+Cc: Jonathan Cameron <jic23@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: Sudeep Holla <sudeep.holla@arm.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>
+Cc: Will Deacon <will@kernel.org>
+Cc: Steven Price <steven.price@arm.com>
+Cc: Suzuki K Poulose <Suzuki.Poulose@arm.com>
+Cc: Andre Przywara <andre.przywara@arm.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Nathan Chancellor <nathan@kernel.org>
+Cc: Nicolas Schier <nsc@kernel.org>
+Cc: Olivia Mackall <olivia@selenic.com>
+Cc: Russell King <linux@armlinux.org.uk>
+
+Aneesh Kumar K.V (Arm) (8):
+  firmware: smccc: Add an Arm SMCCC bus
+  firmware: hwrng: arm_smccc_trng: Register as an SMCCC device
+  firmware: arm_rmm: Move RSI support out of arch/arm64
+  arm64: realm: Move Realm memory encryption ops to RSI code
+  virt: coco: arm-cca-guest: Rename TSM report source file
+  firmware: smccc: arm-cca-guest: Bind the TSM provider to an SMCCC
+    device
+  coco: guest: arm64: Add sysfs ABI for CCA Realm guests
+  coco: guest: arm64: Remove dummy CCA platform device
+
+ Documentation/ABI/testing/sysfs-firmware-cca  |   7 +
+ MAINTAINERS                                   |   6 +
+ arch/arm/include/asm/archrandom.h             |   2 +-
+ arch/arm64/Kconfig                            |   1 +
+ arch/arm64/include/asm/archrandom.h           |   2 +-
+ arch/arm64/include/asm/io.h                   |   2 +-
+ arch/arm64/include/asm/mem_encrypt.h          |   5 +-
+ arch/arm64/include/asm/pgtable-prot.h         |   2 +-
+ arch/arm64/include/asm/rsi.h                  |  70 --------
+ arch/arm64/kernel/Makefile                    |   2 +-
+ arch/arm64/kernel/setup.c                     |   2 +-
+ arch/arm64/mm/init.c                          |   3 +-
+ arch/arm64/mm/pageattr.c                      |  38 +----
+ drivers/char/hw_random/arm_smccc_trng.c       |  32 ++--
+ drivers/firmware/Kconfig                      |   1 +
+ drivers/firmware/Makefile                     |   1 +
+ drivers/firmware/arm_rmm/Kconfig              |  17 ++
+ drivers/firmware/arm_rmm/Makefile             |   2 +
+ .../kernel => drivers/firmware/arm_rmm}/rsi.c |  77 +++++++--
+ drivers/firmware/smccc/Makefile               |   2 +-
+ drivers/firmware/smccc/bus.c                  | 158 ++++++++++++++++++
+ drivers/firmware/smccc/smccc.c                |  68 +++++++-
+ drivers/virt/coco/arm-cca-guest/Kconfig       |   3 +-
+ drivers/virt/coco/arm-cca-guest/Makefile      |   2 +
+ .../arm-cca-guest/{arm-cca-guest.c => main.c} |  52 +++---
+ .../linux/arm-rsi-cmds.h                      |  76 ++++++++-
+ include/linux/arm-smccc-bus.h                 |  48 ++++++
+ .../linux/arm-smccc-rsi.h                     |   6 +-
+ include/linux/device-id/arm_smccc.h           |  19 +++
+ include/linux/mod_devicetable.h               |   1 +
+ scripts/mod/devicetable-offsets.c             |   3 +
+ scripts/mod/file2alias.c                      |   8 +
+ 32 files changed, 529 insertions(+), 189 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-firmware-cca
+ delete mode 100644 arch/arm64/include/asm/rsi.h
+ create mode 100644 drivers/firmware/arm_rmm/Kconfig
+ create mode 100644 drivers/firmware/arm_rmm/Makefile
+ rename {arch/arm64/kernel => drivers/firmware/arm_rmm}/rsi.c (71%)
+ create mode 100644 drivers/firmware/smccc/bus.c
+ rename drivers/virt/coco/arm-cca-guest/{arm-cca-guest.c => main.c} (82%)
+ rename arch/arm64/include/asm/rsi_cmds.h => include/linux/arm-rsi-cmds.h (69%)
+ create mode 100644 include/linux/arm-smccc-bus.h
+ rename arch/arm64/include/asm/rsi_smc.h => include/linux/arm-smccc-rsi.h (98%)
+ create mode 100644 include/linux/device-id/arm_smccc.h
+
+
+base-commit: 704340f1cd0dcef829eb62f5b48ae95a2ce17bdf
+-- 
+2.43.0
+
