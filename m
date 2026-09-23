@@ -1,411 +1,156 @@
-Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020143.outbound.protection.outlook.com [52.101.196.143])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A3151D516;
-	Wed, 23 Sep 2026 13:46:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.143
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790171170; cv=fail; b=GTmVZ3FuY9kLbpjBtb9NKdNzcVs3lVVIzMmiilryUVjcPf16bJml1eiQve6GOeQc6/J6eNrbU20GhqbbgsiUvvBIN49k29tMjkotvMMRXZZeB3Pczz8ioa1MH768httf2JG0K643lfhSZRA9UHVuZE1g341zNf1zW9I88NZga2U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790171170; c=relaxed/simple;
-	bh=/bMOef3T9Oc2pAmSiQtlIxN/wcytN8CpRXBChs4GzxY=;
-	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
-	 In-Reply-To:MIME-Version; b=qruGsfIaAWPGS20cP94JOe1stwO93gtqHM4Jub75ziQDmL6t03Rc3wM8URVXj4m+S246muXZI294hzsguGvC0jM84V+ibB69vo/HXEK674JfrSxQma3plYvt6iL2PTnIxcmgL6+CsDhBl4c12bBneeoB6rpUkSzrWTjSOjtav5s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=sIlUzyrl; arc=fail smtp.client-ip=52.101.196.143
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852B551DB11
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:47:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790171225; cv=none; b=vB0kux7PE5tOFeAnNJICITyoIflgiRWrH9zuApbV8VF6eHAB2xJGmhPDm8yfzz/axtuCua71lROVVJeMbc8y0icQAiQPg9zMnCHnbClzQAq0DB/u0nWlatI2QByh0d16wiI8Tiisdi/kUTMHwo12RPF4HLkbryi1qHVwxLordE0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790171225; c=relaxed/simple;
+	bh=r9wwZRXRDoUzEDe2iV2KAxJurfwIq0DoD0JkxEj7dxM=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=an7StqoebzxyfNwnW9EMg4m8iAJBG0Qlkeab1VNy7skV0rrTB4mtlnDJYhxW3d6yZkvRZJT/ITHxfZMbSd9BroSTPrFrBxRekyX4Zyg53YvItj+c/FeqCB5LsoWzKuo1orZNOTGdwHKLit1o89/ZoeDtC3fBVT68yQjPGAhvI2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hC1fnalI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NftXghvT; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="sIlUzyrl"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=roTChYKXLhfvrJ1WJgwqw1CUuhJf/NSNak9kKu6AwBKu44AB2zp5kkCQSDJfK/+mxCh+Fx+FECOfBK64eSgDzuYq0ITWpxrW+o30FhwkL1drrSo04SCm+LRfdh9JvH4DtqRMxwqbdwV8xF3PL+Mg4qvBltH+YQEsKJqRSKIpF+KLHcAHAgg1trdZRUQVN9xAfwR0xM35yIDk1DEw9fViuuGRSHrJo6QKTIgdNFGYl/UoAoceoUUOG6RfyIWLfNJNbyvNhIqNZJmw0qDTmVQhVwnyS0knfwStHSRmQ5xeCPZuysxOJRSTTbuKjUKrqMWRZjQUa1YaXiHebOy9/O8d1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9cbHxkRN7Kj7bx8Pw1O1h1gJUwL+dGfcKJdqg/bxzVc=;
- b=ILH/1Iqbx1/jbc+J3F8tAcdFwiia16sbPmnpLkUymUvOJ2o/tQzfMc8V7vEMZXPrlAazr6AEEFUPgUsbnd0H+6jxFhVWNMbYN0e7ulPY+wzharH+JQ6Bdk8SPUDTmy7wHFa2wZ1+0G5jaeXBMWVo5o+Bp7asoJ1Pp7aXVjKhj0ZpZUjz+faes8+2lNYwkPCohje8vITrTjScxa+h06yuhpZCcJqgAmT/fYSvNhfCJdlQAaJblbUqNqcmHOD0yxyN5Pkafj65wHUf5H35P/YaeulmI+WMPAiyHlEo7aU41q3n6LRN88YDulOi5j7+gvDbGC1JllQYLOn1AqefoPnTig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9cbHxkRN7Kj7bx8Pw1O1h1gJUwL+dGfcKJdqg/bxzVc=;
- b=sIlUzyrlH3jimWkGiXj1m/GmPzYiDHa9vM5y7CHtqKu4AReUZwhvZMRn0g1i66YefLksq8T9HiHZEvwQGgs9A2KHetPhsZh+OtNqzcmrVHZlZ334eJx9kJrO0lTX7YwQvSI37aSQCjPnA9FSt7beUEehEoXTa1qo5w3pvbpx0zo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO4P265MB6043.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:29e::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
- 2026 13:46:03 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 13:46:03 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 23 Sep 2026 14:46:02 +0100
-Message-Id: <DLMQPQRYTSNW.2Z6C0408NMCYK@garyguo.net>
-From: "Gary Guo" <gary@garyguo.net>
-To: "Andrea della Porta" <andrea.porta@suse.com>, "Gary Guo"
- <gary@garyguo.net>
-Cc: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- <linux-pwm@vger.kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Florian Fainelli" <florian.fainelli@broadcom.com>, "Broadcom internal
- kernel review list" <bcm-kernel-feedback-list@broadcom.com>,
- <devicetree@vger.kernel.org>, <linux-rpi-kernel@lists.infradead.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- "Naushir Patuck" <naush@raspberrypi.com>, "Stanimir Varbanov"
- <svarbanov@suse.de>, <mbrugger@suse.com>, "Sean Young" <sean@mess.org>,
- "Julian Braha" <julianbraha@gmail.com>, "Christophe JAILLET"
- <christophe.jaillet@wanadoo.fr>
-Subject: Re: [PATCH v9 2/3] pwm: rp1: Add RP1 PWM controller driver
-X-Mailer: aerc 0.22.0
-References: <cover.1789724999.git.andrea.porta@suse.com>
- <22f454003902173a7230d0aee5fbd7261fcc163e.1789724999.git.andrea.porta@suse.com> <DLM3VDAEVVEO.1STV7HI3M3YXK@garyguo.net> <arPLa_g4mAg1t2rq@apocalypse>
-In-Reply-To: <arPLa_g4mAg1t2rq@apocalypse>
-X-ClientProxiedBy: LO4P265CA0047.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2ac::14) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hC1fnalI";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NftXghvT"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NDKg7s322188
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:47:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	geGcssYpsGZNMSCzxFuphi8z+WGP8Ft2ZgUpm885Dng=; b=hC1fnalIMy1vVG3p
+	oOUAFoNdlRl4ndu9uMbs0/6DUW3ySALDqKDq3OeWRAKhu5I99YbK59fn288mdRTp
+	f8gAZrc71pqO6vh2UQH2OYCOA8rC2PizmOykX1pVULnKbwP0WTkjV2mJJeRYNOua
+	uqSiS5OqFY+jR+kEdbq2L0av7uJE+QBKMy6FkoLVOA0kzoN9rrTG3ipCW6wsXfFJ
+	/dwTmCYm48PDj21QJLXDpM2JG6mve+zLffiIqKORAUWYuVEFoY79/acZc8+ILkP/
+	Z2cToeL0cObFC3gX5zHxaClehl0Sv2qxnJY/PkbN5EzzbYBktS+IgDVghCsH4EZ4
+	5xvR2A==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvfjsg398-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:47:03 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-78d25a8ff32so345433137.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:47:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790171222; x=1790776022; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=geGcssYpsGZNMSCzxFuphi8z+WGP8Ft2ZgUpm885Dng=;
+        b=NftXghvTNG/0HlWnIeB35NZ7mGX/WVs2ohbSGSfwm41f5tMfGUKuKBxTlJrY/QnXwy
+         KJCmgnDX7qQvw9HKOjFTHgcbi0UspFGQAXB0E1PC7mFQHykwXXC1PbYeJBsstUvHhGBC
+         bLK1ZZ1DBCtUvlUhR+/8pJ9Ca8qn622WO8olWMx4dYFTfbVDtsZin0Hw0BuDOzTBZoTs
+         Lt7FdJTbBXcJ6Dn+fdbs8zF008lhcv/kJbiSJVEbnpuER2ACDBbNu7QipgCZtN9keKkE
+         L94oBu6eY2Axi+M1AWstI5kUtMb9+M5DTs7DibPbwj1liX2biaC8gieJq7wcXiHnPiIz
+         +kLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790171222; x=1790776022;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=geGcssYpsGZNMSCzxFuphi8z+WGP8Ft2ZgUpm885Dng=;
+        b=0K6DZljRp+bbU9w2Y/6cNud5n27JPw2bfjLu+3qTPQXp7QkFEoHeOBqIabvOYhxgdV
+         2+shpsJdvkDWEGHy7UW5wERTineD5ffN/4/75NYOET2hYDf+L7t2fC70b15PNgp5V3zs
+         TdZ/6n8owAc1em8vlmAyGkayyUss9B2B60Z0G9Uh25bso9rSyFiorrRCCrXJwfWmAXpb
+         dO0ZnzeP/CGqXJ+Tqy32n1TZjAesE+KtJCOdJFomNDBCDOvacG33JQd/FK++l7R1r2rI
+         3AmkQkgfy+qdSMg4qOrnHdRWyLdrfkCgOq+IkVily2PwjxpegRNTWGwkUTdDwwu9m7Cc
+         7TKw==
+X-Forwarded-Encrypted: i=1; AKwUvBxpSH+JElCZEs/HA0Qw+A6iYmmAWrwppLKMFz1sialAm74K2usEDVS8F5nh42cuHTFACOiDfRWfO3KialM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmcLigsv35W4jrtlcEW0oO3k4MqXr16liYc2EoGv/zhqhu/Zrc
+	1iJYstjEkXNimSdcxK3POkxd4xGpqUX9LmwQIyPm2AXOiQNu2AOVzJwFNztJMz728V5ahzPWtwv
+	qVVp2kf2KxMZ8XEiz+zURn1HTE/jU/DqVG+sjxZSRHl6aPEefMXl2rRxlQdlAxYvB7LHrlvHeHj
+	I=
+X-Gm-Gg: AYBFou0J8VM47gFgiECBxH9SXLiAcGQoG1PtnqMvKboOfuCbUUARfHWTxs311sYYBF8
+	27gRqiAJ6DE6kAto1vau+AzGZIaF+GRisapkHZqx6XScOSv4wFHnK56mQ0k3X9qloMwWh1HeK+e
+	GltAUUVYZmFVThsYn47K5pMT2ml5I7AttbJNNsRhDd8oFWtqWbqJr3y+s0xZI7Dsa68vfDiPKok
+	b5st9PXmI+hw7VBFdQaH4o1I6UlHW9IkxrIYQYJ9GyCKO7vFj8wQUp9dSzoXh3ho1pb6EZKW0mr
+	ZwVw0mo7JOG/4/+PAZtZzvJ2FC8mE4FfrMN6FH7UujuFcvLJnY6If/uZl7i0MbB9rYFwPTSLoMa
+	DNLwqlQw/zdIhNbCA1vlIfJGH8EsmY73Cj8IgScngUxM3mrDi3QutSJW8/4Aa9QhyO0LaSdP/
+X-Received: by 2002:a05:6102:578d:b0:7a1:f980:e938 with SMTP id ada2fe7eead31-7ac1cca4150mr2099965137.20.1790171222525;
+        Wed, 23 Sep 2026 06:47:02 -0700 (PDT)
+X-Received: by 2002:a05:6102:578d:b0:7a1:f980:e938 with SMTP id ada2fe7eead31-7ac1cca4150mr2099948137.20.1790171222130;
+        Wed, 23 Sep 2026 06:47:02 -0700 (PDT)
+Received: from ?IPV6:2a05:6e02:1041:c10:a913:ba43:96d7:743c? ([2a05:6e02:1041:c10:a913:ba43:96d7:743c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe0c5c41asm48190155e9.4.2026.09.23.06.47.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 06:47:01 -0700 (PDT)
+Message-ID: <f1019e70-f3f7-429d-90e5-c74234dc5cde@oss.qualcomm.com>
+Date: Wed, 23 Sep 2026 15:47:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO4P265MB6043:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1a3d0a1a-4146-4d1d-6d11-08df197902a3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|366016|7416014|376014|23010399003|1800799024|3023799007|10067099003|56012099006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	4rEpAgV5NzOC+uHoyOhwyHJZvAx7rx/YTVqK4mwnJZUpRrftc4Ee8b8KZlmcrHxX//m0qqqz1wgSz2wch6V94Dw1rHF3ypaZrDZ/hs4g8hUJOYUAWvdXkNa0m5qMKMCclUW9C2PLxPPsLMqwc+nSA5xHaPHe6CJkw+wRXPfQICbIjyZIAUtL5tTe81exS8g9wgahqpaGAeAY4t0oP91D1/md/z1Kdy+XAcFkLVva3DuDN4MrTrTUKSERSQNbwpaCSufWsc/sRP1HDwFmvRd7RvF3oc3yUqXaSimNH3mLrXyu7fl1PwTSf7jZV7RdrNVRk7ZB98CSlN5OgBs6YBxKT0e3r56HZgEitlZhDxjzN8sFvTAWkMElnegq21Xp9WDeNjszQevRuOUynzNK+Qlfd7Koh893GWi7qvzrB06g7+hfNitjuVvjBlh9Zbwd/esC1rdJu6iHH+R0Eb6pMxG2MRkdLtjp8dWllfAC294fuWHrGMdJNOZ9ge1ykjLkehWElsSd4rJVUN7baUn1mKZTlGWUOK/mzn77O1BkHw1TH0lekgcRSmqdpN/JvkbfZ6zXqzJWkS0kUJp7HFBun5yRHmPKS2Nug06TZB2Iu6eXu/dV5Z2nOcr8+0NnixLVLzIWCz6r+fvKkMrKxBm09VCC0lYHf07bQo/3gY0sMNv8/C4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(7416014)(376014)(23010399003)(1800799024)(3023799007)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?azR2NS9nUG1qdmc0MkpFUEJLZU0wZmZMQzNOVGYrS0RyZFF2R0JnTnlrb0o5?=
- =?utf-8?B?eVYyTzdMS2g1TWRzbjZ5S3hpK0tSR0RnbFBFVWJxb3U5SEdrWUd4MTFvbElo?=
- =?utf-8?B?dnlRQTNrS0VOR0tEMURZUisydDVWZUV4RCtvV045ajNPN3hMcy9FY3RpTWhM?=
- =?utf-8?B?U3o5YjU3Nnk0djdseEJMdms5TjdmZUJWS2lzQk9KSVNvbk9zVXo3bVlaY2N4?=
- =?utf-8?B?R0dqTkt6cVJ4SlFUUUl0d05iK0NyUU8yUFZlbjVTTk9naVNiZTgrRFdMcndp?=
- =?utf-8?B?RlNMb3ZoN0s0QXEzQTZ3dFhSdWoxVlpjcFNTcmJwdUZad3Vmb1VkY00zYTBV?=
- =?utf-8?B?SW1KMHRPRU1ZVEl3UEpkRGVoUk9OL1RiV0JsTGgvYVJXcjIyR2NxM2thcjVl?=
- =?utf-8?B?ZmlnbE1JL0pUSVpMeVM5MmR3MDluZlJxMlJpbXM2WUE3MjRpWjBZY0xSV1Zh?=
- =?utf-8?B?RmkrWUJUUjUxdU94aFpFUjZjOGVOeEhnSGV1VEVPeUlseFpDTTI2L0VEV2ZQ?=
- =?utf-8?B?b08yaUsrMld2NUk4bWg0djY1aTdKVzVFWWJTNnVYTkJaeURCcHFhMnZMTnV5?=
- =?utf-8?B?RmpBYTVQbysxTXZoZUttcHZUY1RJRnVvL0pQVUtPY1owejY1NmFxL29mKzRQ?=
- =?utf-8?B?UjB6WlVHZmJyM2pMT25JYndJZlpIRU9UL1A4NXhBeUpLc3l0b0ErYmVIVjlN?=
- =?utf-8?B?bDFSb1gydWVqamt5M3ZWSDltczFEcTRNVHdnK2NZUno3cjZzVEtyN1IxRzNG?=
- =?utf-8?B?WHlNYUdaS2I1cTV3Y1BXeGY3NHVVME13NExlOVFTMmpQbnY5L1kyVWNFWUVG?=
- =?utf-8?B?UEFTckFtVk9MejBSeHNiclF5ZENxNzBTelFMM05xQjJ3OCtjMDJiV2d1cFMz?=
- =?utf-8?B?L1BnSlZldjAzazhRYW9kcFlRR21BSzJqaGtyT3lHR2g5WXdMY2htYWtQL1BX?=
- =?utf-8?B?ZXVJSnRXWHVkZWkzSFdleWpPYXVCVVAvallMUldBOWJZd0s2NUhHMWVpalN6?=
- =?utf-8?B?dmdqOC9KR0N1dWpZa2xFOEJqU1RzRFJGQUprd05hVXFlZnQ2b095Z1R5K09X?=
- =?utf-8?B?L0dENEw5Z25nUGhDOVFBNnpra3U2ekdjdWlZQVdmMk5leldxMEdQUGtWVjRZ?=
- =?utf-8?B?KzgzcHFUMHhBL0xoT0pCL2VVdWgwc0lwTzlaQVQxMjBCdExHekZGQ1dFSnl3?=
- =?utf-8?B?WlUzZTEvbVA3dFdTVy9OVlBoSm1ldU1aT3I2R1dRTmpvRzhJbHdrMnRHdzla?=
- =?utf-8?B?Vy9KZWVYU3NaY3FPa1kxR2ROcTQ5aVkycmdUQ1lmeVRRUEhsa3dhSTFLZlJK?=
- =?utf-8?B?VzRQdUlRUmJXdmxyMnlCNGIvd2JrelhQa0Y3WGFzZjZGcjVtL0VnVWdtWUN1?=
- =?utf-8?B?a0dSNE1EeFlxS3pEN1o1Q1B5amt6ZVZ6UHdIM0czQTluRkJsVTRLNHdxWGhP?=
- =?utf-8?B?MVBWZ3J4UUhNdjFTd0JBZjFwY3pnRDVVZmxJeHZEcEROajBqNUR4S2pNWTdH?=
- =?utf-8?B?Z21CUUZPTFdsZ21PWXpkSU1RbHNkTFB0TDEyTFZwY05MZDFSTGp1ZXI1dUFE?=
- =?utf-8?B?U0pRdCtLYWNQamNpRTcxa0xnRjZLYkh3Q0hRRVhIR0NvdTZteFRMbDFKSW1q?=
- =?utf-8?B?SFBlWmsvdkxXSkpPR1dEMnZ3citXVGI5SzYwL1hOenppOHE2bE9Qd2V1V1Uy?=
- =?utf-8?B?eGt3TjFjVlA1ek4xTStZa2M5bHZpay8rRjlvYlZ0TTU2WlZsRTk0Ykp6OGx5?=
- =?utf-8?B?dURNU2t2NnRzMy9WK3hSL3dvM1R0Y1AyOVB1c1hPSzd6Qm0zU1VCU2lFN095?=
- =?utf-8?B?M21BZXpadDdTRXhwZ2dLMjl3RU1hRUFxeDA5ZDhhTGE1Z01uTXpJQmVGMjRL?=
- =?utf-8?B?MXFLbFBqVnNVS1JWeDNoYURMeDhubnBkNXhrS3J0bU5ZalRyK3h4ZVI0RmZj?=
- =?utf-8?B?elQ3MDBnQTEvSDNBdkZhQi9kMHBPZCtXZ016ei82Zmxsd0QwQytvY0JMY0xT?=
- =?utf-8?B?eWJENFN3UDFBK0g1RXd3REk4NkpjTkhKQ0kxcy9QS2w4Nnl4aXV4WG42eW9s?=
- =?utf-8?B?akFKS2dQUnNNWTFLYml3V1hINGhoanhaYXVnWlF0S05nSSsvUjVOZnc3U1hw?=
- =?utf-8?B?R0RSYXNnUUlVTjV3RnhRc2pmbFJIelR5bG54cnVHUU4wL3JMNDR4TmlkWlFo?=
- =?utf-8?B?RHN4dnVqQnZHcngxSmcxNVdHZTlVZ21PbzB1ZWREYURMeVBCRWhBeDNpT1E1?=
- =?utf-8?B?NmRPM2lTKy9URWZuandHclJ2MXFZUTBndmdsd0h3MlUvQnh2aXk3MDZpRGlq?=
- =?utf-8?B?QzI3ZWZzSDlUU29CVnNDcDY2UkdjUmlpbCtOTTBXSlRUOGdGZE9DUT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a3d0a1a-4146-4d1d-6d11-08df197902a3
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 13:46:03.7135
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QmvF7Yo1H7ZnN25/Y2kUAXeN7wivWlDyBDpAEUJcYvN4n1s19/AzefqtFyjvI85ixjz+Yj56GYueNPYpOuYqfA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB6043
-
-On Wed Sep 23, 2026 at 1:51 PM BST, Andrea della Porta wrote:
-> Hi Gary,
-> thanks for your feedback!
->
-> On 20:51 Tue 22 Sep     , Gary Guo wrote:
->> On Fri Sep 18, 2026 at 10:59 AM BST, Andrea della Porta wrote:
->> > From: Naushir Patuck <naush@raspberrypi.com>
->> >
->> > The Raspberry Pi RP1 southbridge features an embedded PWM
->> > controller with 4 output channels, alongside an RPM interface
->> > to read the fan speed on the Raspberry Pi 5.
->> >
->> > Add the supporting driver.
->> >
->> > Signed-off-by: Naushir Patuck <naush@raspberrypi.com>
->> > Co-developed-by: Stanimir Varbanov <svarbanov@suse.de>
->> > Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
->> > Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
->>=20
->> Put yourself a Co-developed-by perhaps? You made significant changes.
->
-> Ack.
->
->>=20
->> I've tested the device on my Pi 5, and the fan is indeed spinning now :)
->
-> Nice! Thanks for testing it :)
->
->>=20
->> > ---
->> >  drivers/pwm/Kconfig                       |   8 +
->> >  drivers/pwm/Makefile                      |   1 +
->> >  drivers/pwm/pwm-rp1.c                     | 499 +++++++++++++++++++++=
-+
->> >  include/soc/bcm2835/raspberrypi-pwm-rp1.h |  10 +
->> >  4 files changed, 518 insertions(+)
->> >  create mode 100644 drivers/pwm/pwm-rp1.c
->> >  create mode 100644 include/soc/bcm2835/raspberrypi-pwm-rp1.h
->> >
->> > diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
->> > index 7297760868790..e1baec8d294d1 100644
->> > --- a/drivers/pwm/Kconfig
->> > +++ b/drivers/pwm/Kconfig
->> > @@ -637,6 +637,14 @@ config PWM_ROCKCHIP
->> >  	  Generic PWM framework driver for the PWM controller found on
->> >  	  Rockchip SoCs.
->> > =20
->> > +config PWM_RASPBERRYPI_RP1
->> > +	tristate "RP1 PWM support"
->> > +	depends on MISC_RP1 || COMPILE_TEST
->> > +	depends on HAS_IOMEM
->> > +	select REGMAP_MMIO
->> > +	help
->> > +	  PWM framework driver for Raspberry Pi RP1 controller.
->> > +
->> >  config PWM_SAMSUNG
->> >  	tristate "Samsung PWM support"
->> >  	depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS || COMPILE_TE=
-ST
->> > diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
->> > index 5630a521a7cff..c07fd24f69f39 100644
->> > --- a/drivers/pwm/Makefile
->> > +++ b/drivers/pwm/Makefile
->> > @@ -57,6 +57,7 @@ obj-$(CONFIG_PWM_RENESAS_RZG2L_GPT)	+=3D pwm-rzg2l-g=
-pt.o
->> >  obj-$(CONFIG_PWM_RENESAS_RZ_MTU3)	+=3D pwm-rz-mtu3.o
->> >  obj-$(CONFIG_PWM_RENESAS_TPU)	+=3D pwm-renesas-tpu.o
->> >  obj-$(CONFIG_PWM_ROCKCHIP)	+=3D pwm-rockchip.o
->> > +obj-$(CONFIG_PWM_RASPBERRYPI_RP1)	+=3D pwm-rp1.o
->> >  obj-$(CONFIG_PWM_SAMSUNG)	+=3D pwm-samsung.o
->> >  obj-$(CONFIG_PWM_SIFIVE)	+=3D pwm-sifive.o
->> >  obj-$(CONFIG_PWM_SL28CPLD)	+=3D pwm-sl28cpld.o
->> > diff --git a/drivers/pwm/pwm-rp1.c b/drivers/pwm/pwm-rp1.c
->> > new file mode 100644
->> > index 0000000000000..cfd38e46cc589
->> > --- /dev/null
->> > +++ b/drivers/pwm/pwm-rp1.c
->> > +
->> > +int rp1_pwm_read_tachometer(struct device *dev)
->> > +{
->> > +	struct pwm_chip *chip;
->> > +	struct rp1_pwm *rp1;
->> > +	u32 tach_val;
->> > +	int ret;
->> > +
->> > +	if (!dev)
->> > +		return -EINVAL;
->> > +
->> > +	device_lock(dev);
->>=20
->> You should use the device link mechanism for synchronizing unbind / runt=
-ime PM.
->> That can be done in your RP1 fan driver, and it doesn't need locking on =
-this
->> driver.
->
-> This does not enforce the locking though.
-
-What locking do you think is needed?
-
-Driver core takes care of ordering so you will never see a depended device
-going away while a dependant device is still bound. Your RP1 fan driver jus=
-t
-need to make sure that it never calls this API after it's itself unbound --
-which it needs to guarantee anyway.
-
-> Is it enough to just rely on
-> caller to create the device link in advance? IOW, just add a documentatio=
-n
-> comment to the exported function prologue stating that the consumer is
-> responsible to sync via a device link is acceptable?
-
-If you use pwm_get API then a device link is automatically created for you
-already (however, this automatic link does not pass runtime PM flags, so if=
- you
-need that you still need to add link explicitly).
-
-How this is supposed to be synchronized or documented is very hard to get r=
-ight
-without seeing the user side driver -- if you already have a working versio=
-n of
-the RP1 fan driver it might benefit to have it attached as a RFC patch in t=
-he
-series; or an option to to drop the tachometer API and add it as part of th=
-e fan
-driver series.
-
-> Otherwise the only way I see to protect it in any scenario is via the mut=
-ex
-> I've already implemented and a second flag for the removing path (device_=
-lock
-> will be dropped, of course).
->
->>=20
->> So Sashiko is kinda reporting a false positive here.
->>=20
->> > +
->> > +	chip =3D dev_get_drvdata(dev);
->> > +	if (!chip) {
->> > +		ret =3D -ENODEV;
->> > +		goto err_dev_unlock;
->> > +	}
->> > +
->> > +	rp1 =3D pwmchip_get_drvdata(chip);
->> > +	if (!rp1) {
->> > +		ret =3D -ENODEV;
->> > +		goto err_dev_unlock;
->> > +	}
->> > +
->> > +	mutex_lock(&rp1->lock);
->> > +	if (!rp1->clk_enabled) {
->> > +		ret =3D -EBUSY;
->> > +		goto err_clk_unlock;
->> > +	}
->> > +
->> > +	ret =3D regmap_read(rp1->regmap, RP1_PWM_PHASE(2), &tach_val);
->> > +	if (ret)
->> > +		goto err_clk_unlock;
->> > +
->> > +	ret =3D (int)tach_val;
->> > +
->> > +err_clk_unlock:
->> > +	mutex_unlock(&rp1->lock);
->> > +err_dev_unlock:
->> > +	device_unlock(dev);
->> > +
->> > +	return ret;
->> > +}
->> > +EXPORT_SYMBOL_NS_GPL(rp1_pwm_read_tachometer, "RP1_PWM_FAN");
->> > +
->> > +static int rp1_pwm_probe(struct platform_device *pdev)
->> > +{
->> > +	struct device *dev =3D &pdev->dev;
->> > +	unsigned long clk_rate;
->> > +	struct pwm_chip *chip;
->> > +	void __iomem	*base;
->> > +	struct rp1_pwm *rp1;
->> > +	int ret;
->> > +
->> > +	chip =3D devm_pwmchip_alloc(dev, RP1_PWM_NUM_PWMS, sizeof(*rp1));
->> > +	if (IS_ERR(chip))
->> > +		return PTR_ERR(chip);
->> > +
->> > +	rp1 =3D pwmchip_get_drvdata(chip);
->> > +	ret =3D devm_mutex_init(dev, &rp1->lock);
->> > +	if (ret)
->> > +		return ret;
->> > +
->> > +	base =3D devm_platform_ioremap_resource(pdev, 0);
->> > +	if (IS_ERR(base))
->> > +		return PTR_ERR(base);
->> > +
->> > +	rp1->regmap =3D devm_regmap_init_mmio(dev, base, &rp1_pwm_regmap_con=
-fig);
->> > +	if (IS_ERR(rp1->regmap))
->> > +		return dev_err_probe(dev, PTR_ERR(rp1->regmap), "Cannot initialize =
-regmap\n");
->>=20
->> You mentioned "rework regmap error paths" in cover letter.
->>=20
->> But the issue is that regmap doesn't need be used here at all. RP1 is on=
- PCIe
->> so there is no need for bus abstraction, direct use of MMIO is sufficien=
-t.
->> MMIO accessors have no error paths, so you're saying yourself from havin=
-g to
->> handle that, and also reduce the overhead by not having to go through an
->> abstraction w/ indirect funicton calls.
->>
->> I suppose regmap was used when syscon was there; but it's not needed any=
-more.
->
-> True, and I don't have any issue in converting back to MMIO call and drop=
- the conditional for
-> error checking, but please consider the following, since the driver may b=
-e extended in the
-> future to support more features:
->
-> - regmap gives you free debugfs view on the registers, which may be usefu=
-l to test
->   the new features.
-
-Do you have any register that we want to access that is not part of the PWM
-facility, other than tachometer?
-
-> - regmap_write/read may still return an error in case the passed register=
- is not in range.
->   This will be trapped at runtime only, but could still be useful during =
-development
-
-I think this is rather a anti-feature. Having additional error paths for so=
-me
-thing that never happens is not a good idea, especially that you basically =
-get 0
-coverage for these paths.
-
-You already know the shape of the register region, so the bounds checking
-provided by regmap would be better served by an ahead-of-time check:
-
-    #define RP1_PWM_REG_MAX (RP1_PWM_DUTY(RP1_PWM_NUM_PWMS) + 4)
-
-    struct resource *res;
-    base =3D devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-    if (IS_ERR(base))
-        return PTR_ERR(base);
-
-    if (resource_size(res) < RP1_PWM_REG_MAX) ...
-
-Shameless plug: Rust abstractions for I/O access is actually pretty good in=
- this
-regard in the sense that we try to prove statically that access canot fail.=
- It
-also has PWM and platform abstractions. If you're interested in learning Ru=
-st
-this driver might be a good candidate :) If you're going to LPC we can chat
-about this there.
-
-Best,
-Gary
-
-> - I expect the PWM driver to be a access with very low frequency, so I gu=
-ess the overhead=20
->   imposed by regmap is negligible.
->
-> Since we already have it, I'd prefer to leave regmap if possible for the =
-aforementioned reasons,
-> but I'm obviously open to drop it in favor of direct MMIO calls in case y=
-ou or anyone else are
-> not seeing those as real benefits.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] powercap: Introduce generic hierarchy helpers and
+ selftests
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+To: rafael@kernel.org
+Cc: linux-pm@vger.kernel.org, shuah@kernel.org, linux-kernel@vger.kernel.org,
+        linux-kselftest@vger.kernel.org, manaf.pallikunhi@oss.qualcomm.com,
+        Lukasz Luba <lukasz.luba@arm.com>
+References: <20260806110159.69690-1-daniel.lezcano@oss.qualcomm.com>
+ <ef124b64-e7d2-4c9c-9890-00685e34f314@oss.qualcomm.com>
+ <350caba2-4a95-4945-91dd-0be89b2d3e22@arm.com>
+ <71932f61-5721-4363-b163-427432fedab4@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <71932f61-5721-4363-b163-427432fedab4@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA1NCBTYWx0ZWRfX7pzpAQrHxuJw
+ +XQGZlh7mX8JNzeuIkxtAemExTnI7jsWnn0ivUodQAThWpAdYX521iekdGtaSWAOhm5u11+QcwZ
+ Gh91D+cXmcFI1LPXi/pImqUEZrsIjgZ3SBZlfxkBkqzU93a+dJFfqTq/DPuwXT2k7CFTYjDj6Be
+ Vh0+NfxJ96JXFXlVCIEx6NZvhwN4xAbrBMBseozz7b+apDNVlEZowDs+1faX/l5cvN+/hvoC+C1
+ Qyxc1GhJ43FR4VfX3+Hn9WIutAdJ2FptEJlQJZ/8DS6RoXwQqPP9jWFJ1GIIotjMtPxyL3qfwSg
+ EAfVoIeVDUz9lKLAUMwi/aZW+QYEOrUhxoWk2NTMjnr6AcdxK3ETRmqm2Tu5yVKKN+zCkGtGaC5
+ EydGlyGf93h0McIZHxMyItU3x2Ovx0fxOZ0mOw0jkyKu2XwQU7UuqF5aHyZsLLV1u9Z+ArkTH+x
+ ldSjpGVd4gK0fSe3GQg==
+X-Proofpoint-GUID: DyB502Zu5_J5VRDJm1J9xrBn8q049Qtn
+X-Proofpoint-ORIG-GUID: DyB502Zu5_J5VRDJm1J9xrBn8q049Qtn
+X-Authority-Analysis: v=2.4 cv=K4+3jCWI c=1 sm=1 tr=0 ts=6ab3d857 cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=-dodW9W5Qp4Lww_EinkA:9
+ a=QEXdDO2ut3YA:10 a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA1NCBTYWx0ZWRfX8HXN8M5kN70I
+ ReIIBB063UrbS2ocldODM6v0fGrqsvIjulQvHl6ON9LIWpFI2qnp+9ZeXiKp9UoAxMBSewlGh29
+ W9QxmsAU6QSoqcsEQPY1Kc4dLb1Pphc=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 suspectscore=0 priorityscore=1501 spamscore=0
+ lowpriorityscore=0 malwarescore=0 adultscore=0 bulkscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230054
 
 
+Hi,
+
+On 9/15/26 12:54, Daniel Lezcano wrote:
+
+[ ... ]
+
+>> I can see some potential improvements there.
+> This patch is a blocker for more changes: DTPM, powercap cooling device 
+> and SPEL drivers from Manaf.
+> 
+> It has been tested and there is a selftest with. Is it possible to 
+> consider these two patches for merging.
+> 
+> Given it is not a fast path, improvements can be proposed later.
+
+
+Given that there has been no feedback so far, would it be possible to 
+consider merging these two patches? They are currently blocking further 
+work.
+
+There is also a selftest covering this functionality, so future changes 
+can be made with regression testing in place.
