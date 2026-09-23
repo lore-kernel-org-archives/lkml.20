@@ -1,174 +1,180 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [58.251.27.85])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4922151A15A
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:02:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 930E531E83D;
+	Wed, 23 Sep 2026 13:02:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=58.251.27.85
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790168522; cv=none; b=lOzkNC+0lX55tVpz+h5C76n8i4BjHkktgKemRuYpMxLFLh1IghuDivmXX0JItElPu4PRvzzuy9rjBXdDhnVDy6dMS/jWXIIro0ZhVmyt8875MKvyFMctKYtjTGld7pGC29sqwokue9sdQYC7CW2Yv8VZoheFavBhWT7V33l7QDQ=
+	t=1790168544; cv=none; b=X/U6lcfvLyncn4QZ0c+yXCTRCLjFtNtpszNY/bVw5gpXWVI/UZ9aXd5p2K7VGTfCbyG7c3WZFUzZ7Hkvsn+Uj0xQH6sSlP9x9NpXb3SOUQ2+6BUq/jIX5m/glh3X30n07nGmX+axafQdprFw0uFiul7RpKx4/wbb/lPWeKBLvVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790168522; c=relaxed/simple;
-	bh=ryP4MM2q3ZaOLSb8YBJYkfHCciUpLA5qQC+kQ9G1bT4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kOjLef34VlaYInmLcxGgGBW+BVTRMY8L8oknH12EiX87+qMnxCRT/BpRsiJkNYV17/8sSHD+ogkpA9lB0VgwWoaU8ltczWp8gf2EDBno3euR+0Wk0RnSFbYJeOi52CFfM+jrb1pqnfa/oxIf2Qw7+T3Lu8SBPp0UyZ8FDHgR3EA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Umt/qPyu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ICmDucxi; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Umt/qPyu";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ICmDucxi"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NBbTn33413816
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:02:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	09OEgRVsFzhh/5OAzejmGXnyO2HglXDVHYpTFACy2dA=; b=Umt/qPyuSfLVqleb
-	NrCB8j3fD7DjWXJq1nvQl1e90I9VlC2QZ+UHPV8bpU7U3bv9hNLIevapbe+D84Lk
-	2cXm/KtXrRoy49Qe4Zabwv/nusTV/MIW+R+ml3yj9f0LFEo6YrIEyf3Lt0Zka8kE
-	Zpdwz96gF7/S5nN09Bk5UVhG2wqaqsuU9AIhSOHHZA2mlI0LsD8KLqFcMFh+R14s
-	YgS4b8FPRBIOUrSfX/U/RX+xb8txaLPhoGOnTUo4GInQPceFL0R5Ngm1Sar0oXDs
-	S8f3sBX8qL/pxreQYV1q6Y1Kz48crlQ3njzGFA0TfSbzvBcdao8fvzs/8LbAU6YI
-	04NvRQ==
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gv78n22yn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:01:59 +0000 (GMT)
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4bb82497a04so98793b6e.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:01:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790168519; x=1790773319; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=09OEgRVsFzhh/5OAzejmGXnyO2HglXDVHYpTFACy2dA=;
-        b=ICmDucxiZZKz5OHCritjkjofzNpiWLDf+zbBAUyRLrpVcBVOrOyh3Mp/BvXznd1x0/
-         daOcBunLYCBUN+W8g4NSrDyjoIz49mtM1RU3UfRx53Yz1L4tSkO9IGrT8YBy4iSv/uNo
-         IbZ/+woIRwx5SielthFcsHQ/S4k8j95Hzgv8AH2O/cCvu7vOnKOdfF+5QlcFR9UbnEiO
-         zpafbE2yMe0UoX35qfz8nWtY8MBEtWUtQfXIQKkxyVKB1X88i+5pkg3/eV1ywEw7mwAT
-         U+begRRVP5P/Xf7icu0p4FIgDF66lfKSNiYF1sG+Ih9J3quuTPsMTXow8H89dlSfiY66
-         xtvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790168519; x=1790773319;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=09OEgRVsFzhh/5OAzejmGXnyO2HglXDVHYpTFACy2dA=;
-        b=Y4IfCCAdsqNyEOmWdId3a4XXzjs/yAT+yA4kAQuWiPWsIiW1rvQQ9s/Bq7qwPGUE1m
-         GpS4jAefgxQ2JwkFY2OH/JjuTS5A6VfI3SBh31ReoWDDIieBXhn7FyrTGokwUr3Lz2RO
-         Fn2IHUZCANBi0cdkTSxhnphvdtCehsOUxXMAc/gHXILQL6d8f26BLj6Bvgd2AnLvOk1+
-         16F/IRZFLeuE30YYDrmYFLL50FpUIeeahu8j75orRLhZvjFpbvxrh5Wf2holQiIIUDda
-         xppyAfRnF9aAxUldQHSe9ZA2mXLLAZWfFZINvrGQlMUxuhvnHUD9W7EJ/UwKJ1fIFpsu
-         6B4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw2m2k2T+cMQbTzyt7aq5+BZmGBLRj8bWA/JYrpduca94U1Pqx6y3JU1qE2jWU5qS5ljC8btwtWS5zZfZ8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mXeMjymBG+YCiN5TJym2Dhvyb6ilIFooF0+eC7f7fZX+UDlqD2
-	3VBPR/rAkWhwlyzKSVyfMGvwhBqX5x+dr8CAcDBENxENxyv3vpmXVDUjlDkEpNcwT3Q/B8Eo+oa
-	ZPC+JomSPp+oI4sGDnsMQ4HCVbcmGXWUu89+gR77P8QigQ6IocdC5+c9PxK2LUomSByU=
-X-Gm-Gg: AYBFou3QtVyjT+NJqwJ0nP4OAXOSmLCMnXzOy3YUEn9gz/UMi75MU4uJripp8mEFPjO
-	BkqrhaQO7T2IE7NrDlzZByISBFwi4wfUrquK2LBpVw0RtdLhr9kYCUMS3j9Axbss3KkfuW+5+5y
-	+4NbjEE8wAg5S1dfiKas3g90eNAcgarltQVV/lXK55LuxASDPiW1yyCPpxsQkOvyNbEroKPfa3N
-	zscF9qfW6XWbKu2AdxoU/vTwiqsaOP10QqjIgR4vT/RPlTWRcF4/Q9scbGA4wkBVu8shfZoBS5x
-	G3l5UTwghczOnUKar07Eq2mTvFlOwOCPlTW/2nFWtAZs97kxeM/Z2Py2tw8n5DD2qF/ffux22fx
-	c5B9GfBRSk6bDobwo0OaNKw==
-X-Received: by 2002:a05:6808:2214:b0:4a3:f036:f3bf with SMTP id 5614622812f47-4d5b6397023mr2926979b6e.1.1790168519080;
-        Wed, 23 Sep 2026 06:01:59 -0700 (PDT)
-X-Received: by 2002:a05:6808:2214:b0:4a3:f036:f3bf with SMTP id 5614622812f47-4d5b6397023mr2926926b6e.1.1790168518613;
-        Wed, 23 Sep 2026 06:01:58 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae33d7e0sm115494966b.2.2026.09.23.06.01.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 06:01:57 -0700 (PDT)
-Message-ID: <77e0b643-1e7c-4dba-bdd1-8cb945205b5d@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 15:01:50 +0200
+	s=arc-20240116; t=1790168544; c=relaxed/simple;
+	bh=XEOfB1kL8PtYnt4jlP2JmakvYfU32mkSz0b6D53nEoo=;
+	h=Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type; b=NlJOhHrcC5663VusdGy8RniCls0NSGS0TimbWAL8LFNavJzMnbmi+j2uR+wKPTYHEuh3hDD+Ij7GYbmSuaBKtONaybThRkdzE7IlKdR4492KRrYNJtbk2KAr3Nc/8Dd9xo+h1z0xscvXG2WRdqbVbEOUJkiIjJ9pc2BSLBX3k8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=58.251.27.85
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mxde.zte.com.cn (unknown [10.35.20.165])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4hqcYv3zLMz57fK;
+	Wed, 23 Sep 2026 21:02:11 +0800 (CST)
+Received: from mxhk.zte.com.cn (unknown [192.168.250.138])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxde.zte.com.cn (FangMail) with ESMTPS id 4hqcYk0dNzz54BgW;
+	Wed, 23 Sep 2026 21:02:02 +0800 (CST)
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hqcYX4fxhz5BNS0;
+	Wed, 23 Sep 2026 21:01:52 +0800 (CST)
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl1.zte.com.cn with SMTP id 68ND1jlZ041096;
+	Wed, 23 Sep 2026 21:01:45 +0800 (+08)
+	(envelope-from wang.yaxin@zte.com.cn)
+Received: from mapi (xaxapp04[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Wed, 23 Sep 2026 21:01:49 +0800 (CST)
+X-Zmail-TransId: 2afb6ab3cdbd8b2-e27c1
+X-Mailer: Zmail v1.0
+Message-ID: <20260923210149015t-X8AvGrXfHE4PDn9gZOM@zte.com.cn>
+Date: Wed, 23 Sep 2026 21:01:49 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH PRELIMINARY 5/5] arm64: dts: qcom: shikra-iqs-evk: enable
- both Ethernet ports
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
-        Anurag Pateriya <apateriy@qti.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Richard Cochran <richardcochran@gmail.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-References: <20260908-shikra_ethernet_dts-v1-0-69c0c5c7c124@oss.qualcomm.com>
- <20260908-shikra_ethernet_dts-v1-5-69c0c5c7c124@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260908-shikra_ethernet_dts-v1-5-69c0c5c7c124@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA1MSBTYWx0ZWRfXyLn3IK1lsE34
- C+8sFqyf+vM4J6gCBnts6DwuULG4ukbetmX4uMs16oergmO6COV8HTY3eTTJ2i33X1248llIdMr
- 84VJ/xf+LH94+/XP4/67b95iWVuvlCI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA1MSBTYWx0ZWRfX9ClRJLpuYBf6
- 5bjkD4Bi7J4gimVPjhxQ1YAd8BSfHhVJqpqHI81ETnVzPEnMxEwriOk8zGSueo+TIS8GzgfBugk
- 4iG20amGhP27qKIWsHf7jMUeuFsf/vW7C+v2LRSn4ZjpHAEtoS+sByBtBHFqs8g5V31EFFoctpm
- GT2GMnXzoY8Lwpiyrcl8Q/nMcW1nOQNGumPukLS7n3YMqQ3QohIVmwb3713IUz0/7VQmHdmcEyi
- gp9cPBNBoxPi08n1Ivx165FuT8iViezvigX7xnWCJE+35sPHSN3HmvUPeBlxKkj6lzCvYZY2DL4
- TIr+x7CMKFJc3P/nUk29/rPgpqLf6ZFEg6eLLPSc2cULFYaIcVYSnuF7zbRjGP1YKxCshKAvI7i
- iuhrqTgHSVyTuGZmpDUEfAwCHbS+dRm+ZX8h2i9u5XkJe5vxg/V+3MQjvU9ljxEjZB07Ab3uZHr
- sq7izlf2ASqvBXPgZAQ==
-X-Proofpoint-ORIG-GUID: iCiXMhl-5af6vuCwlbLEUx2A3Xqu11S4
-X-Authority-Analysis: v=2.4 cv=aNFlOr9m c=1 sm=1 tr=0 ts=6ab3cdc7 cx=c_pps
- a=yymyAM/LQ7lj/HqAiIiKTw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=U_cLpEdEjkfHclHzYWgA:9 a=QEXdDO2ut3YA:10
- a=efpaJB4zofY2dbm2aIRb:22
-X-Proofpoint-GUID: iCiXMhl-5af6vuCwlbLEUx2A3Xqu11S4
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- priorityscore=1501 adultscore=0 phishscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230051
+Mime-Version: 1.0
+From: <wang.yaxin@zte.com.cn>
+To: <akpm@linux-foundation.org>, <fan.yu9@zte.com.cn>,
+        <yang.yang29@zte.com.cn>, <thomas.weissschuh@linutronix.de>
+Cc: <corbet@lwn.net>, <linux-kernel@vger.kernel.org>,
+        <linux-doc@vger.kernel.org>, <xu.xin16@zte.com.cn>,
+        <wang.yaxin@zte.com.cn>
+Subject: =?UTF-8?B?W1BBVENIIDAvMyB2NV0gZGVsYXl0b3A6IGFkZCBkZWxheSBtYXgsIHRpbWVzdGFtcCBhbmQgc29ydGluZyBmb3IgdG9wIGxhdGVuY3kgYW5hbHlzaXM=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 68ND1jlZ041096
+X-TLS: YES
+X-ENVELOPE-SENDER: wang.yaxin@zte.com.cn
+X-SOURCE-IP: 10.35.20.165 unknown Wed, 23 Sep 2026 21:02:11 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AB3CDD2.000/4hqcYv3zLMz57fK
 
-On 9/8/26 8:23 AM, Mohd Ayaan Anwar wrote:
-> Enable ethernet0 and ethernet1 on the IQS EVK with their respective
-> TI DP83867 RGMII PHYs. Both PHYs are powered by GPIO-controlled 2.5V
-> regulators.
-> 
-> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-> ---
+From: Wang Yaxin <wang.yaxin@zte.com.cn>
 
-[...]
+Add delay max, timestamp of delay max and max-delay sorting to delaytop,
+which can help quickly detect potential abnormal delays from a global
+perspective and locate the top-N processes with the highest latency
+spikes.
 
-> +&tlmm {
-> +	rgmii_phy0_pwr_default: rgmii-phy0-pwr-default-state {
-> +		pins = "gpio66";
-> +		function = "gpio";
-> +		drive-strength = <2>;
-> +		bias-disable;
-> +		output-low;
-> +	};
-> +
-> +	rgmii_phy1_pwr_default: rgmii-phy1-pwr-default-state {
-> +		pins = "gpio53";
-> +		function = "gpio";
-> +		drive-strength = <2>;
-> +		bias-disable;
-> +		output-low;
-> +	};
+Problem
+=======
+Delay accounting can track the average delay of processes to show
+system workload.  delaytop provides a global view of average delays
+across all tasks, which differs from getdelays's single-task
+perspective.  However, when a process experiences a significant delay,
+maybe a delay spike, which adversely affects performance, delaytop can
+only display the average delay over a period of time.  Yet, average
+delay is unhelpful for diagnosing delay peak.  A brief but severe
+latency spike is averaged out and hidden by the average-only metric,
+and the top-N list sorted by average cannot identify the processes that
+actually contributed most to the delay peak, nor provide any time
+context to correlate the spike with other system events.
 
-and in both places here
+Solution
+========
+Extend delaytop with the delay max, timestamp and sorting ability:
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+1. delay_max fields track the maximum delay value for each delay type
+   (cpu, blkio, irq, swapin, freepages, thrashing, compact, wpcopy)
+   per task, recording every delay peak since task start.
 
-Konrad
+2. Record the timestamp when each maximum delay occurred, which is the
+   same capability as getdelays but provided from a global perspective.
+
+3. The -t/--type option displays only the specified delay type with
+   avg/max/timestamp side by side, and sorts tasks by the maximum delay
+   in descending order.  This highlights the top-N processes with the
+   highest delay spikes, so abnormal delays can be located from a
+   global perspective and root causes pinpointed by correlating the
+   timestamps with logs, traces or other metrics.
+
+Use case
+========
+bash# ./delaytop -t cpu
+System Pressure Information: (avg10/avg60/avg300/total)
+CPU some:       0.4%/   0.2%/   0.1%/     220(ms)
+CPU full:       0.0%/   0.0%/   0.0%/       0(ms)
+Memory full:    0.0%/   0.0%/   0.0%/       0(ms)
+Memory some:    0.0%/   0.0%/   0.0%/       0(ms)
+IO full:        0.0%/   0.0%/   0.0%/      12(ms)
+IO some:        0.0%/   0.0%/   0.0%/      13(ms)
+IRQ full:       0.0%/   0.0%/   0.0%/       0(ms)
+[q]quit
+Top 20 processes (sorted by cpu MAX delay, largest first):
+PID      TGID  COMMAND          AVG(ms)  MAX(ms)   MAX_TIMESTAMP
+ ----------------------------------------------------------------
+9         9   kworker/0:0-eve   0.59   16.87  2026-05-27T13:32:39
+30        30  kworker/2:0H-kb   2.87   11.36  2026-05-27T13:32:36
+27        27  migration/2       1.05    9.51  2026-05-27T13:32:37
+50        50  kworker/2:1-eve   0.50    9.13  2026-05-27T13:32:37
+15        15  rcu_preempt       0.11    8.98  2026-05-27T13:32:37
+1         1   init              0.17    7.12  2026-05-27T13:32:38
+
+
+Signed-off-by: Wang Yaxin <wang.yaxin@zte.com.cn>
+
+v4->v5:
+https://sashiko.dev/#/patchset/20260908225056266qjyBORsOReFvHLEQ3NKtR@zte.com.cn
+[patch 0/3]
+1. update cover letter to state problem, solution and use cases for
+delay max, timestamp and sorting series
+
+[patch 1/3]
+2. fix -t/--type output column alignment by matching the row AVG/MAX
+columns to the header spacing.
+
+[patch 2/3]
+3. fix Y2038 timestamp truncation check on 32-bit to handle pre-1970
+timestamps by comparing the max time_t value in the signed domain.
+
+[patch 3/3]
+4. fix delaytop ReST literal block indentation in delay-accounting.rst
+to keep all example lines consistently tab-indented.
+
+v3->v4:
+[patch 3/3]
+1. Fix ReST syntax errors (indentation, list formatting) that triggered
+warnings when running 'make htmldocs'. No content changes are made.
+
+v2->v3:
+[patch 1/3]
+1. fix get_field_by_name() MODE_TYPE filter breaking --sort for non-type fields
+2. zero-init stats struct and cap memcpy size in netlink response parsing
+3. fix compare_tasks() count field read as unsigned long long for 32-bit safety
+
+[patch 2/3]
+1. fix 32-bit time_t overflow check to use max representable value instead of (time_t)-1
+2. fix gmtime() pointer aliasing by assigning timespec64 tv_sec to local time_t
+
+[patch 3/3]
+1. fixed Y2038 overflow false negative in format_kernel_timespec()
+2. switched to localtime_r() with stack `struct tm` for thread safety.
+
+Wang Yaxin (3):
+  delaytop: add delay max for delaytop
+  delaytop: add timestamp of delay max
+  delaytop: sort by max delay to highlight top latency processes
+
+ Documentation/accounting/delay-accounting.rst |  87 ++++--
+ tools/accounting/delaytop.c                   | 289 +++++++++++++++---
+ tools/accounting/getdelays.c                  |   8 +
+ 3 files changed, 324 insertions(+), 60 deletions(-)
+
+-- 
+2.25.1
