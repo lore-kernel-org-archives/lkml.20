@@ -1,129 +1,225 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5159C57EDA5
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:09:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5853F475357
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:12:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790201396; cv=none; b=RXwqIZmHghaD3/6wBMNlZU2w2KiMwNhewL6GQz62RPQdicXq71C8OOVHk2Cm8eorYJC/W+mXa7r9y2ZvizzzmrLwZqS8IlfnspyG+mve3CsfV6tJyF1jmGOrG07dMUZxOt6KW0yI74+op9TLSvPro5aX47W2N1sAOL+C4lV2T8A=
+	t=1790201531; cv=none; b=PpvnoYZoj56rhljl/Of2cholPLVmEPT9avN3iDCkTdcUCW4w8szjfyyRsrqmDZ4ygawSeY0y99iGxoiim6dIhMXMY+OLBza8QDZmC8jdIZFJr4N3H2abymlvAJCw4OUYHWd1GhG/d0OVmmf3bZxGQWV1yhWSk4hjhvpsInMNN14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790201396; c=relaxed/simple;
-	bh=EtOIa+oAShthuIiT1TwrJdQuJPXnDiaoPiPmXnJJfG4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=acNvKLL4uwpvZ5VG6uds8fE4B6leVCk8bEzc87ka4hFph0lZtxUy1gZKhpbg3Szdt/yVx+wnFJc+qZpd2BHbGzg1o/Oe6Gh4uF0jCU4l47C8Drankb+YChBeXeP7BECyTgMRCzNdlLjMWz0T01wKC1BrZflQ1DpnWimfw0Omprs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JabHTBNb; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1790201531; c=relaxed/simple;
+	bh=0J3P6qvjQVxdDdI1pZ1afZKyws9kpPkqptmywna2umw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PoN3Eu6Hijyg1U1d0BGRYP/PGoNGWQLrbZTMlc70QXrF6NWOrbyiyVgrAcXWah6x77q6BdDTI3xBle6hed669wp8SBGWr4Al7DcA1q+2X7LFBl5sJDjdFujkiwNECjCzfrco8PdAa8rxoPZlC5uS11jqAbEt8R3DQRiYSHMdxtA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hC2PMmzV; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JabHTBNb"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccead2aecso6537775e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:09:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hC2PMmzV"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e66390995so9020605e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:12:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790201393; x=1790806193; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=l5dTpfk72zH6uImNLJc12NQcXIxnabFbxH2ktwvSTbg=;
-        b=JabHTBNb7ls2uP8xSKvzKXLBupNHM/NFoQnf3Z4Vgscxq88QF8Z8D0p+YbF2B1wwV7
-         lCwYSxeuVkvo+PeBdnTSVLKpJKviVNTxtSx+1T78rVQ0BFLmV2LjVeGh1qX8CrOL1epp
-         h2rVggzDp/Wl4xPa+nT2S7yHnRu7OT1GebGn7qJR+I0/Zwu7TlE46AOyeleem/qhP5nK
-         IUoe7wfrk2Ld1GfUGpeT+r6hIbhEB9TlYbP23ncRr6Ep+/8mXquQv1YopI1kztvbJC7f
-         HLTz0LVwkNTMfOPCuROJ2o0vCImMUFEcaOMWNWftvfagKZbNs1frgsZ32UhkYSjfQxyH
-         FxiA==
+        d=gmail.com; s=20251104; t=1790201528; x=1790806328; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=14msH1DLW+vh/dJJ1llExxyOzbLsmiOUyZtaLlxkEYY=;
+        b=hC2PMmzVV7ffnGjOcW0yVItO81T+lHUIvr4HoCKh+/sOIKgQqnC5Qr5vNsYgtS/P4W
+         FhyhLsa9EveAN9zFKGYKpGMx6AcFNSNQ+KtzdJjIeYflpmAlVTgq7NNNy6AltT9GQhPN
+         /2L7xHLY28TFr+eDlCbdoHTpySWJVsg4IgXvBJrphD90JdcRJ1TMFJRx3uBCzLDQozzL
+         gHEIa3J1gOUbREgChQ8VujgXgIXmrEZ4R7NF7Zr3Qi1Onxy2Bx+S7h/BVMzlMXL8es2Y
+         /GS8IWvw6awJGHk+5C54rzAFDewIwsYi2OrMUVhpyR5WWkUgF8YcNZ5FflvtefkDvMPV
+         fa0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790201393; x=1790806193;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l5dTpfk72zH6uImNLJc12NQcXIxnabFbxH2ktwvSTbg=;
-        b=QOHiPo0Sa1Sygs0Y5BqxojJ8jkTiknKUFVieUzY7zIHtUwv9CxcDqg6gAjvwUtDiuW
-         GT2RwvFoKNAXnAPFhMZVbSGaDStkQxYmRdtLh+5P1XWjUsyCSTM1Zpc+GRCxrHWD+Ato
-         t/eog2CVNKViEEBDrOqUnSOgc1izSMB99w3bUPUPLPKTU7TvpSJRTLAbZ1orfIP8mPWC
-         CsTUYYzZmNkXlTRFmvA8IVhfcAllijkkbpzeRW4bOTXmJBworM9nzdrmo7r9L3e8RGj7
-         f9LLrQRsM1CFG4xgBwfxMHYm3wzT5chway2HiarfpRAwf16RYcQQw8vxUDbH0jU2qz3x
-         ARuQ==
-X-Gm-Message-State: AFuF++lFsh359vswGULP2rS7A3hTGRTHpDe/QBCErV1ZRyKIGjzi6+r/
-	7g7HaQSnYiTDhq2XxSYlH5gezU7XnRyPeZ+5e4SSZZP78L4VpHxdjsB6
-X-Gm-Gg: AYBFou2CtgGWc61HzjszAnn5MLi3jdijqdgRTGNLOjNiwtyW0VVuh2LtA+HgNbGG7xd
-	lgmo7mWgYnLp/Pd7U85842XSsX81iBtR5iDq1kxlUVmn1w0G/uZNy1cPFwvoc5OWZVejOh3dm0k
-	+D5JvR26kUNWYWmXP/Bl41TxgKptEnH5IL3o41ryQZqCf/+OugAlLnyz86zGgvRTxl5upblSjs2
-	ceQ//AzUkbdKyPR2UlESByDRx6mPq25INXwokHCasMPTX3biXPpLMUH0/AYOTwjeMFeEcLrvxl+
-	I6CPQPOiqMr4nEj+ePzlPu+TpLqPbobU2l0u7bOeLT3iYrs2umvcGm1Ssj/TqC4f0j9/8y6wPeD
-	ag/acbAwC4POSiQ9NaGtbGV8tyDPfm00mdoTTJToxER4ldrPlgBrXqxS+bdb0t3ZbN8rhgZAHTk
-	wpXnwQGZkCt4vqTKELf0VvlI4Vs6mNKmwN09I51QUhP9IsLqUeRZju48L5Rvq+w8ReAdLfzF7OR
-	3QazGsS0ic4pkZ1m8fQFtIlp9w79vS2PyY=
-X-Received: by 2002:a05:600c:3514:b0:49c:fc6c:be09 with SMTP id 5b1f17b1804b1-49fe67078afmr8562615e9.32.1790201392960;
-        Wed, 23 Sep 2026 15:09:52 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd42f2sm17189365e9.15.2026.09.23.15.09.52
+        d=1e100.net; s=20260707; t=1790201528; x=1790806328;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=14msH1DLW+vh/dJJ1llExxyOzbLsmiOUyZtaLlxkEYY=;
+        b=ZbteiOS1VuK5poahe2wExi19tvlpVz04BstxgJdlt/UlYU7Nrq0Ulg4TuU/SmTzZMT
+         yz9J8/tZ7LoSK2hLg59YdFSg0XOUSHupnaSdMK6xYwkM7VfzIdQn19/7nItnzPYiEHxu
+         5rfWdWpN2NtZ4g3eOL/xzX3wvdO5b4EC0B7S3o3zwTwur3CrIUWfmq5EPE6NAoSXwmHd
+         3qAuiwfLG1DFPTdXns+r4jgVf8YygAWE4odi4ah8C0K6RvuROoQQsySq8Xl3iz2/+RZK
+         b7R9wpJdFRKC0PicXKuZ85kF4udFQtS6YODHwmR+Kkeix4FxHJANygcBD5CsZhXIRmhP
+         eY4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxgZPmZWgg7cQuMr1Ax2Uo1NS1yIaPcMnGGVdfPfayiu7+cAiIMIiCIp9PgWSv1GsfHMx8XPVEWj8OTMXs=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+H6sCvFwMQBuZ3IRWssIGld8cAkXGCd0g9RQTfui4dutbiy2M
+	Ezs/d8qbYBm2d9+tC1cI7vaan7pNdM3D/yYQ5P7xyKY9b/4e9ZGQk+EC
+X-Gm-Gg: AYBFou3D8FI41O0ufKIzUwX+E1KXL18Q9fEp7qDAQ68IRqpyF8HyYemocn1lSGwCbBx
+	/6r7nXsshuTaS6eASIkE3MfRcsVbIqxU0qu6DqbfC0W5HjyxSjCCxbelSyqeU6xKEm3BtwsKa3g
+	FGTGT2LoWczsY0UDvznaYjHNrewnLaBm/rlwN+sG9Njt5hgrT/O+uGTXC6KfYX+VTSwlOFoxep/
+	3tsAcojMmf2bIAnrzUlu/yUQJJ9p/RJ5gxUseCzUEIFUoCMDuEckrQ1iFJkLpo/ejQEYcpAEuTn
+	Nh85yNGpC+TGvNVyTVkJHzgFL1Cb2gmfvPUHi1uwp7i/Bcv5pCoA361QPcHvhWBTuqswPONY1jH
+	e6WtbqvXXINHKmVNsWJw2RgfCnIBFJ45Zw8QDglk9+smrnH2t0c45tWDTWJGnisQESpEzdD19bb
+	cQm3hcGWYNJN3opbZpfucs8b9bDE6WwiUUbbOABvnjTGEW9xPq3qxaigbmGWN+TO5owXLMZsECn
+	3Rzrb2uEeWJKzC2jDsm04ofazsDNXu0ewvVMfEpCOOT7bIuiL8ubUjt/OnbVkll4R2wPk/RiJii
+	2c8aH6bK7JpFhNn1Aholk5e7TEgyb275TysfqJ8iAQcXgjg=
+X-Received: by 2002:a05:600c:a00d:b0:49f:ce73:7ab with SMTP id 5b1f17b1804b1-49fe6708b23mr9674415e9.34.1790201528357;
+        Wed, 23 Sep 2026 15:12:08 -0700 (PDT)
+Received: from tulkas.localdomain (95f12971.skybroadband.com. [149.241.41.113])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5dff204sm24977495e9.14.2026.09.23.15.12.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 15:09:52 -0700 (PDT)
-Date: Wed, 23 Sep 2026 23:09:51 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Brian Cain <brian.cain@oss.qualcomm.com>
-Cc: linux-kernel@vger.kernel.org, pierrick.bouvier@oss.qualcomm.com,
- paulmck@kernel.org, sid.manning@oss.qualcomm.com, peterz@infradead.org,
- linux-hexagon@vger.kernel.org, Ingo Molnar <mingo@kernel.org>, Frederic
- Weisbecker <frederic@kernel.org>, Philippe =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?=
- <philmd@oss.qualcomm.com>
-Subject: Re: [PATCH v2] smp: align struct __call_single_node to 8 bytes
-Message-ID: <20260923230951.29231158@pumpkin>
-In-Reply-To: <20260923154307.3625611-1-brian.cain@oss.qualcomm.com>
-References: <20260923154307.3625611-1-brian.cain@oss.qualcomm.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        Wed, 23 Sep 2026 15:12:07 -0700 (PDT)
+From: Conor Svensson <conor10@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Conor Svensson <conor10@gmail.com>,
+	intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	jani.nikula@linux.intel.com,
+	rodrigo.vivi@intel.com,
+	joonas.lahtinen@linux.intel.com,
+	tursulin@ursulin.net,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH] drm/i915/dp: Ignore inconsistent TMDS limits on an Anker DP branch
+Date: Wed, 23 Sep 2026 23:07:50 +0100
+Message-ID: <20260923221018.42133-1-conor10@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, 23 Sep 2026 08:43:07 -0700
-Brian Cain <brian.cain@oss.qualcomm.com> wrote:
+Reconnecting an Anker 565 A8388 USB-C hub with a DisplayPort monitor
+attached can leave the branch reporting a DVI downstream descriptor
+with 25-165 MHz TMDS limits. On a ThinkPad L14 Gen 4 Intel with a Dell
+S3422DWG, this removes the native 3440x1440 mode from the connector's
+mode list even though the EDID still contains it. An explicit native
+modeline works with the same hardware state.
 
-> Consumers walking call_single_queue cast each node to call_single_data_t
-> and, given that type's declared over-alignment, the compiler may load
-> llist.next and u_flags as one naturally aligned double word.  Fields using
-> this type, such as task_struct::wake_entry only guarantee pointer alignme=
-nt,
-> which faults on strict-alignment 32-bit architectures like hexagon.
+Ignore the derived TMDS limits only for the captured branch identity,
+firmware and downstream descriptor when EDID 1.4 identifies a digital
+DisplayPort input. Retain the raw descriptor and other mode checks.
+Do not restrict the match to a particular monitor or laptop model.
 
-I think the same could happen on arm64.
-The compiler is being told the alignment is 4*sizeof(long)), but I doubt it
-can ever matter that it is more than 2*sizeof(long).
+With otherwise matching upstream Linux 7.2.5 control/patched builds,
+the control loses native modes after USB-C reconnect, while the patched
+kernel selects 3440x1440 at 59.973 Hz automatically. Repeated reconnects,
+both USB-C ports, suspend/resume, undocking while asleep and docked boot
+pass. HDMI also works and does not activate the workaround. Periodic
+picture cycling observed on the control stops with the patch.
 
-The other option is to only ever use call_single_data_t to get an aligned
-version of the structure and use the struct everywhere else.
-The compiler won't be able to use the 'load two register' instruction, but
-I doubt that will be measurable.
+The branch identity is not proven unique to this retail adapter. This
+is an experimental workaround for review, not an explanation of why the
+branch reports inconsistent capabilities. Other adapters and monitors
+have not been tested.
 
-David
+Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17180
+Assisted-by: LLM
+Signed-off-by: Conor Svensson <conor10@gmail.com>
+---
+RFC: is this best handled as a branch quirk here, or in the common DP
+helpers? The captured identity and descriptor match is deliberately narrow;
+there is no monitor/laptop model restriction. The informational log marker
+is retained to show exactly when this experimental workaround executes.
+The commit introducing the underlying problem has not been identified, so
+there is no speculative Fixes tag.
 
->=20
-> Cc: Peter Zijlstra <peterz@infradead.org>
-> Cc: Ingo Molnar <mingo@kernel.org>
-> Cc: Paul E. McKenney <paulmck@kernel.org>
-> Cc: Frederic Weisbecker <frederic@kernel.org>
-> Cc: linux-hexagon@vger.kernel.org
-> Reviewed-by: Philippe Mathieu-Daud=C3=A9 <philmd@oss.qualcomm.com>
-> Signed-off-by: Brian Cain <brian.cain@oss.qualcomm.com>
-> ---
->  include/linux/smp_types.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/include/linux/smp_types.h b/include/linux/smp_types.h
-> index 2e8461af8df6..5773e1fb2660 100644
-> --- a/include/linux/smp_types.h
-> +++ b/include/linux/smp_types.h
-> @@ -64,6 +64,6 @@ struct __call_single_node {
->  #ifdef CONFIG_64BIT
->  	u16 src, dst;
->  #endif
-> -};
-> +} __aligned(8);
-> =20
->  #endif /* __LINUX_SMP_TYPES_H */
+Hardware A/B testing used upstream Linux 7.2.5 with otherwise identical
+configurations. This RFC applies the same 48 added lines to drm-tip at the
+base commit below. This drm-tip revision has not been boot-tested. The affected intel_dp.o
+compiles successfully here with no compiler warnings; strict checkpatch
+passes (human sign-off pending), and 426 predicate boundary cases pass
+with ASan/UBSan. These predicate tests are not DRM integration tests.
+
+Results: three USB-C reconnects, alternate USB-C port, docked s2idle
+resume plus reconnect, undock while asleep/wake/reconnect, and docked
+DisplayPort reboot all passed. HDMI also passed without activating the
+workaround. The control lost native modes and showed periodic picture
+cycling; that cycling stopped on the patched kernel. No custom modeline
+was used in either test kernel. Other hardware and higher refresh rates
+remain untested.
+
+AI assistance: Codex (GPT-6) helped investigate the reported hotplug
+failure, wrote the match/limit-clearing change, prepared the predicate
+tests, collected diagnostics and drafted this message. The human reporter
+performed the physical reconnect, suspend and reboot tests and confirmed
+the visible results. The assistance arose from an extended troubleshooting
+session, rather than a single code-generation prompt.
+
+Evidence and detailed test results:
+https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17180#note_3677750
+
+This is my first kernel patch submission. I'd appreciate feedback on
+whether this belongs here or in the common DP helpers, and whether the
+matching criteria are appropriate.
+
+Thanks,
+Conor
+
+ drivers/gpu/drm/i915/display/intel_dp.c | 48 +++++++++++++++++++++++++
+ 1 file changed, 48 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index ffddf4b33..6d6767ca7 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -6153,6 +6153,39 @@ intel_dp_get_edid(struct intel_dp *intel_dp)
+ 	return drm_edid_read_ddc(&connector->base, &intel_dp->aux.ddc);
+ }
+ 
++static bool
++intel_dp_has_anker_tmds_mismatch(struct intel_dp *intel_dp,
++				 const struct drm_edid *drm_edid)
++{
++	static const struct drm_dp_dpcd_ident branch = {
++		.oui = { 0x90, 0xcc, 0x24 },
++		.device_id = { 'S', 'Y', 'N', 'A', 'b', 0x10 },
++		.hw_rev = 0x10,
++		.sw_major_rev = 0x06,
++		.sw_minor_rev = 0x05,
++	};
++	static const u8 downstream_ports[] = {
++		0x0a, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	};
++	const struct edid *edid = drm_edid_raw(drm_edid);
++
++	if (intel_dp_is_edp(intel_dp) || intel_dp->is_mst ||
++	    !drm_dp_is_branch(intel_dp->dpcd) || !edid)
++		return false;
++
++	/* HDMI and DVI inputs must retain their downstream limits. */
++	if (edid->version != 1 || edid->revision < 4 ||
++	    !(edid->input & DRM_EDID_INPUT_DIGITAL) ||
++	    (edid->input & DRM_EDID_DIGITAL_TYPE_MASK) != DRM_EDID_DIGITAL_TYPE_DP)
++		return false;
++
++	return !memcmp(&intel_dp->desc.ident, &branch, sizeof(branch)) &&
++		!memcmp(intel_dp->downstream_ports, downstream_ports,
++			sizeof(downstream_ports)) &&
++		intel_dp->dfp.min_tmds_clock == 25000 &&
++		intel_dp->dfp.max_tmds_clock == 165000;
++}
++
+ static void
+ intel_dp_update_dfp(struct intel_dp *intel_dp,
+ 		    const struct drm_edid *drm_edid)
+@@ -6181,6 +6214,21 @@ intel_dp_update_dfp(struct intel_dp *intel_dp,
+ 		drm_dp_get_pcon_max_frl_bw(intel_dp->dpcd,
+ 					   intel_dp->downstream_ports);
+ 
++	/*
++	 * Experimental workaround for the branch observed in an Anker A8388.
++	 * USB-C hotplug can expose a DVI descriptor for the DP output. The
++	 * monitor's native timing works when requested explicitly, despite
++	 * the reported 165 MHz limit. Keep the captured identity and failure
++	 * signature checks narrow until the underlying cause is understood.
++	 */
++	if (intel_dp_has_anker_tmds_mismatch(intel_dp, drm_edid)) {
++		intel_dp->dfp.min_tmds_clock = 0;
++		intel_dp->dfp.max_tmds_clock = 0;
++		drm_info(display->drm,
++			 "[CONNECTOR:%d:%s] experimental Anker DP TMDS limit workaround\n",
++			 connector->base.base.id, connector->base.name);
++	}
++
+ 	drm_dbg_kms(display->drm,
+ 		    "[CONNECTOR:%d:%s] DFP max bpc %d, max dotclock %d, TMDS clock %d-%d, PCON Max FRL BW %dGbps\n",
+ 		    connector->base.base.id, connector->base.name,
+
+base-commit: 703cd271db3a35088460ab3fec0a96bd48e7fe04
+-- 
+2.55.0
 
