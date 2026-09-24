@@ -1,89 +1,177 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCB3A3C3F5C
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:32:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37024356747;
+	Thu, 24 Sep 2026 04:33:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790224322; cv=none; b=HxUqszuV9urb86SwkbdoPpOel0u5TEnV7iE9d9HueKoduFVG2fV4PmJ0MpZTee3jIKqadAJcmujBjL49l3ie1i2phuLneaEGpGaQ6V/5rhoOIrl7gEwsu6THtIRNwt8DfO1vBdLXcn+R/24UpHrckMgRnptO5sj1rTeOAZe8tOc=
+	t=1790224393; cv=none; b=nIbJS/8PEWj2mXxdyXTSHhbnBHEDTugzll00cxeHSTOLe/4WlZ8hL5V7dXGFkQiobiDofFy9bDocSe7+ZDjpG+R5ArGxnDZiv4dOCX+fJaTboyJ1EVafcGs5QcRKZIp+SrGkNMh/BGyE8j/JmOhELuv7jeFfDZyo5V+3f4sFImA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790224322; c=relaxed/simple;
-	bh=3JAG6Ij9c36PXq4bgsIh1K7CQfbf0z/ay7gB5qrwte4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NXkRg4nLCEzuuLIbonPqfi78zkeMJjqYix0C7se+jH/MvIa8Y3GlfYSHVGFxAzDly3DFmor0ylnM0DHPe6T8AsB/tbTXbNkuwdx0ueS8M/enFHO0TnUw7e3EVkaJ6WwDWpibHbgkxOiRqzgkE5bHgm+kYrkjzGWZgacpGksfbuI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qn9nur6F; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790224393; c=relaxed/simple;
+	bh=uX1rQEz/DQPqwnMt1TgfUGScOkJ+rvzCpJD+kcswAUw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nc7/s4FuR4TZu+b1XnKTHiECwXqDscDRr7rQ/9f9iJE7IjVDAYxxmCgatqdVaRPWLY7Dpq2llTk0C5vK81eTG7wfnCMO+8J7b/rbuwiNY0Xcj0RNlzyeNj6oyyxtu7Fo37AUvDBLTvmZG5JLtTQEbdLOCDV9ehYbnik1O1iQaeg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CsUtjgoj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qn9nur6F"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccdaea75so689059a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:32:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790224320; x=1790829120; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3JAG6Ij9c36PXq4bgsIh1K7CQfbf0z/ay7gB5qrwte4=;
-        b=Qn9nur6F8AFN2P6ahcZ/4fYYZtVG77XTje1XnUUKFFtj5e3DzByEgv3B5GptoLuQYI
-         4GPvf3Wq9LPdNcO2k7l/aeJ2egnX0zbfHvRtjXEd2Y9v48vEyhI4+vljychf6VOTMoMX
-         /g9CGDmARwzCMN/2eaMdYaORMN/9N/ddcSlL1QamxGsuwGQRD4WfNHPMz+IIZGl5yRE2
-         HM8Rtc23z+QJ8ztjCbo2GooCA5lNwLOixfSP8RzppHaSWFLJ45qAIRJDRupn/g+9h3HI
-         GX3PqacrdgpkvUFO0LWIx3GwvxhFlbkfLVn6j5VL8aFUGZUaH6en/XeF1UGl/hLIKCsy
-         954Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790224320; x=1790829120;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3JAG6Ij9c36PXq4bgsIh1K7CQfbf0z/ay7gB5qrwte4=;
-        b=G2khlcuRtpEZASdaLk1LsWSk7m0Asbuqki1gsBbLhdq5+mopCo80O+tUHh/boaf9tg
-         MKD4n/g8pwzMa+53uNvHdUW4zOUTAa6JKce6zk+BuHyLWWk6lzFxH1GA6kfxoyrCl7BB
-         ehY7fVuJR94+2dN1V/32Y+l6OnB0nMESeXJqLDAOemjvY8/szvwWfLjGK/a6dpMflJcK
-         gtMRU/5gzjY7pDLJ0g5svbYLm4cTTolPUwcIRT8r9NI7yBnOw1++LX6vmJ1h8EiHbx3A
-         I60vo9+Mz0SBj4+HE3dwur5fSUYGoO80HpH2IsoEzJbBPnLH+fGLSzKvPzyHWUunvR8M
-         aMGg==
-X-Forwarded-Encrypted: i=1; AKwUvBwMLq8U9FwLs3gmTCjbxtokWdQbI/Ni5lTyJ87ScxdWZhYwwjkejQsqX9BlPN//X1vu34rxUuh75PMIOeA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kX/jhaCyx469r02mO5Z8DJU5HYmxkWFQYTKFUQrOyM15VcWUDD
-	q5VNMgpwmE66Fqucj+KgY+0AAJ8G85zkx5rXaqdBAIMQ7Ew7ogIuyOr/
-X-Gm-Gg: AYBFou0bXdsOByuinwCMsNvHEFBkjGyRyEwS9mJNAsTYtVEwkcgaUk4bGGwsXV2Q0FU
-	W3rVkal7dU8BqycP7dtkr+yBfBovfjzoL3TyKE1zUNyF5RIzuHZPT0lg/wBLFpWLuddxiDrslqU
-	I4uayxh6fDGLgPR8PIU/KzrQ8pd5UOkSrnaD/MtrqS3MwlYuqzlYp9+xDDynLWRSjS3ClNP05Zi
-	X9Jnxpu3cJ+dVjk0ZjQGDVMp6SwpTLU4qR5fjUFsb5oheIiNDrKBsOxkwcuntePMjtOIy7+6q0o
-	7yZdcX6yy7phTOYHYb7L5PIAdkrxB2Z9sN3UnW0MCfNEjcHnTvmF7yTCN1HGV8iDcUQjdZbAKrB
-	ssp17tXM3JrgaAT0Zgm5855mW2qGDsBqcpfGxofqSyC4kzfNg9hiYac/BiCtJvCSIY4TtfDpSO3
-	WtV/5ArWN+bgFjq/gM5uowX9UJ9AQ4Cj+VICYPGXJs5exfnjikZPV9gDqH0lPDcqnE2On3aThd5
-	1fsqpoi1wBpDONAWad8b7Uq8f9jCeO2gJxIVsuzKuUhUixMpEN1+uo+0TRFPaNz1L3/HO3kn3bp
-	7rcesMXVPLFAaYukJrvc0gGV5VV5m7SlKaOBvONfgU4CaT0S7VUk7w4w2vA=
-X-Received: by 2002:a17:90a:f94f:b0:3a0:2614:2077 with SMTP id 98e67ed59e1d1-3a098b93d4bmr850160a91.41.1790224319843;
-        Wed, 23 Sep 2026 21:31:59 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a092d9797bsm1496938a91.1.2026.09.23.21.31.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 21:31:59 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Hui Peng <benquike@gmail.com>
-Cc: Damien Le Moal <dlemoal@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jeff Layton <jlayton@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 6/6] qnx6: validate sb_blocksize before dividing in qnx6_mmi_fill_super()
-Date: Thu, 24 Sep 2026 12:31:55 +0800
-Message-ID: <20260924043155.3898135-1-matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260921042511.1473629-6-benquike@gmail.com>
-References: <20260919222556.3792829-1-benquike@gmail.com> <f68323da-e90f-46a4-b3ce-70d26de115e6@kernel.org> <20260921042511.1473629-1-benquike@gmail.com> <20260921042511.1473629-6-benquike@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CsUtjgoj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EE441F000FF;
+	Thu, 24 Sep 2026 04:33:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790224391;
+	bh=CcNwL7xRwOV9aWxBCz320PcsLt2UGmXCGMzZht9hwDc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CsUtjgojaBrtU9hln5KGYU0lX2Fizlvya9euFa9GR5Ik6Y6KqsbQmYRFNAOtId5n/
+	 mGtGf3lYj23X9Wg2W+T0WCwVrEw5A+eywzQZx8wc3uCFbxbCmBJgJbnPX4lZMCFKUv
+	 7jvCtN6D7McOmqOYGW1h/A0eB1s2LMpYk/9hAAbDzU23X5LL6qCg5a1x01RIGpm2Ei
+	 4l8O4CcNgBKccOs3/1FuoaAuJkV2DMlhyjcNAIa475JQHuLKta6xFY1ewUmtqjOsX+
+	 FTBvj1fDLGg3WHEX0BTe1E4N8tHukTQShqVOoTV4PxPxNEb0TSgeqV4mi+ad7O7dBt
+	 xKr/Gsgs9Cqaw==
+Date: Thu, 24 Sep 2026 06:33:05 +0200
+From: Gao Xiang <xiang@kernel.org>
+To: Artem Dinaburg <artem@trailofbits.com>
+Cc: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>, Gao Xiang <xiang@kernel.org>,
+	Chao Yu <chao@kernel.org>, Yue Hu <huyue2@coolpad.com>,
+	Jeffle Xu <jefflexu@linux.alibaba.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Sandeep Dhavale <dhavale@google.com>,
+	Will Shiu <will.shiu@mediatek.com>,
+	Gao Xiang <hsiangkao@linux.alibaba.com>,
+	Alexandre Mergnat <amergnat@baylibre.com>
+Subject: Re: [PATCH 6.1.y] erofs: Fix detection of atomic context
+Message-ID: <arSoAUX4jDzgY-rG@MacBookPro.fritz.box>
+Mail-Followup-To: Artem Dinaburg <artem@trailofbits.com>,
+	stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>, Gao Xiang <xiang@kernel.org>,
+	Chao Yu <chao@kernel.org>, Yue Hu <huyue2@coolpad.com>,
+	Jeffle Xu <jefflexu@linux.alibaba.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Sandeep Dhavale <dhavale@google.com>,
+	Will Shiu <will.shiu@mediatek.com>,
+	Gao Xiang <hsiangkao@linux.alibaba.com>,
+	Alexandre Mergnat <amergnat@baylibre.com>
+References: <20260922200448.27724-1-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260922200448.27724-1-artem@trailofbits.com>
 
-Tested as described in my reply to 1/6.
+Hi Artem,
 
-Tested-by: Matthias Goergens <matthias.goergens@gmail.com>
-Reviewed-by: Matthias Goergens <matthias.goergens@gmail.com>
+On Tue, Sep 22, 2026 at 04:04:36PM -0400, Artem Dinaburg wrote:
+> From: Sandeep Dhavale <dhavale@google.com>
+> 
+> [ Upstream commit 12d0a24afd9ea58e581ea64d64e066f2027b28d9 ]
+> 
+> Current check for atomic context is not sufficient as
+> z_erofs_decompressqueue_endio can be called under rcu lock
+> from blk_mq_flush_plug_list(). See the stacktrace [1]
+> 
+> In such case we should hand off the decompression work for async
+> processing rather than trying to do sync decompression in current
+> context. Patch fixes the detection by checking for
+> rcu_read_lock_any_held() and while at it use more appropriate
+> !in_task() check than in_atomic().
+> 
+> Background: Historically erofs would always schedule a kworker for
+> decompression which would incur the scheduling cost regardless of
+> the context. But z_erofs_decompressqueue_endio() may not always
+> be in atomic context and we could actually benefit from doing the
+> decompression in z_erofs_decompressqueue_endio() if we are in
+> thread context, for example when running with dm-verity.
+> This optimization was later added in patch [2] which has shown
+> improvement in performance benchmarks.
+> 
+> ==============================================
+> [1] Problem stacktrace
+> [name:core&]BUG: sleeping function called from invalid context at kernel/locking/mutex.c:291
+> [name:core&]in_atomic(): 0, irqs_disabled(): 0, non_block: 0, pid: 1615, name: CpuMonitorServi
+> [name:core&]preempt_count: 0, expected: 0
+> [name:core&]RCU nest depth: 1, expected: 0
+> CPU: 7 PID: 1615 Comm: CpuMonitorServi Tainted: G S      W  OE      6.1.25-android14-5-maybe-dirty-mainline #1
+> Hardware name: MT6897 (DT)
+> Call trace:
+>  dump_backtrace+0x108/0x15c
+>  show_stack+0x20/0x30
+>  dump_stack_lvl+0x6c/0x8c
+>  dump_stack+0x20/0x48
+>  __might_resched+0x1fc/0x308
+>  __might_sleep+0x50/0x88
+>  mutex_lock+0x2c/0x110
+>  z_erofs_decompress_queue+0x11c/0xc10
+>  z_erofs_decompress_kickoff+0x110/0x1a4
+>  z_erofs_decompressqueue_endio+0x154/0x180
+>  bio_endio+0x1b0/0x1d8
+>  __dm_io_complete+0x22c/0x280
+>  clone_endio+0xe4/0x280
+>  bio_endio+0x1b0/0x1d8
+>  blk_update_request+0x138/0x3a4
+>  blk_mq_plug_issue_direct+0xd4/0x19c
+>  blk_mq_flush_plug_list+0x2b0/0x354
+>  __blk_flush_plug+0x110/0x160
+>  blk_finish_plug+0x30/0x4c
+>  read_pages+0x2fc/0x370
+>  page_cache_ra_unbounded+0xa4/0x23c
+>  page_cache_ra_order+0x290/0x320
+>  do_sync_mmap_readahead+0x108/0x2c0
+>  filemap_fault+0x19c/0x52c
+>  __do_fault+0xc4/0x114
+>  handle_mm_fault+0x5b4/0x1168
+>  do_page_fault+0x338/0x4b4
+>  do_translation_fault+0x40/0x60
+>  do_mem_abort+0x60/0xc8
+>  el0_da+0x4c/0xe0
+>  el0t_64_sync_handler+0xd4/0xfc
+>  el0t_64_sync+0x1a0/0x1a4
+> 
+> [2] Link: https://lore.kernel.org/all/20210317035448.13921-1-huangjianan@oppo.com/
+> 
+> Reported-by: Will Shiu <Will.Shiu@mediatek.com>
+> Suggested-by: Gao Xiang <xiang@kernel.org>
+> Signed-off-by: Sandeep Dhavale <dhavale@google.com>
+> Reviewed-by: Gao Xiang <hsiangkao@linux.alibaba.com>
+> Reviewed-by: Alexandre Mergnat <amergnat@baylibre.com>
+> Link: https://lore.kernel.org/r/20230621220848.3379029-1-dhavale@google.com
+> Signed-off-by: Gao Xiang <hsiangkao@linux.alibaba.com>
+> 
+> [ Backport to 6.1.y: the source change is unchanged; only its location
+>   in z_erofs_decompress_kickoff() differs. ]
+> Assisted-by: LLM
+> Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+> ---
+> Hi Greg, Sasha, and EROFS maintainers,
+> 
+> I am continuing backporting CVE fixes still missing from 6.1.y.
+> This fix is inherited by v6.6 and every later mainline release, but 6.1.y
+> still has the affected code. The target-specific adjustment is described
+> in the bracketed note above.
+> 
+> Could you please queue it for 6.1.y?
+
+Sorry for late reply.
+
+Thanks for your effort, this commit has a follow-up commit
+commit c99fab6e80b76422741d34aafc2f930a482afbdd
+
+erofs: fix atomic context detection when !CONFIG_DEBUG_LOCK_ALLOC
+
+could you please consider backport those to stable kernels as well?
+
+Thanks,
+Gao Xiang
+
+> 
+> Thanks,
+> Artem Dinaburg
