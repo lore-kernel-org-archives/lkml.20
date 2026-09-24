@@ -1,145 +1,119 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBCAE459AC7
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:00:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BAE0459AC7;
+	Thu, 24 Sep 2026 13:00:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790254825; cv=none; b=N84o5aEgqC6T0Srlhg+L6Afk1shrF3pPIJyHvrHQw8tjEgyv0kVOz6EvBpK05lwUzrrSEaGCZMjKFmZtSTMRJ4W48Xkw/pXImfUQChPoD8Iyc4T8Sndm8KZ7pPs5TUJT04mc7RXSc61WCQf9U80U4luqttfZXIjK1XSC8GFM5lU=
+	t=1790254846; cv=none; b=acMJwNgEK6h8vtE78D2N0UsDx7fkbSI51WQNyIhybFGYI9tn8etsCAQ3OSoPduZUriFcFF8v2JmZ717Ux8Ie6NlIfEWzQ+eqUFGBTsVOqNp+fYSnSrcFAKtVJgAumnEu5OrIZZff0b9zCgebeuu4gsFGxbhgQhojqWOjukr4gAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790254825; c=relaxed/simple;
-	bh=U1jq7mqCQyHs6vQpqHJXpW79DmjSSLoLTMuyETHeyIo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TRo4BPBS2ZjTlzWheyG/uXXWF+lQW1FfeKfYki8Z0NVA6BdPlDvzJnnyUrvb8PMoqnFVLphjtCbx+XZ9M3tkKHz/DqDSlr7r1J1pfejO5WKCC3MEkGHZDTS+71xQ+QAt4RJ607ET62OcHH2TqAPZne6gwEnnMgDGM/lsAmb50l4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org; spf=none smtp.mailfrom=thinkoid.org; dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b=Awp0pORd; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
+	s=arc-20240116; t=1790254846; c=relaxed/simple;
+	bh=lQ9iv3yD0ptTA54gnXaolzRlm7/dGGbiYR5tFbAgAcM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pnw6+ERmTJ7L4551Tvw2pkizxFnSjB8JJNplAFoSraBb4vtcMymsjkkb7AwwIOLVAHJFuKXl/KY2jr4wcxDhMV2iowr+UPdwSUA5pcfsuDzX0C162P37/L1+tUq3H0nCXXm4NxiLFG5AC1cgBz61txKTxsPaMVa9OvMqzIgi8Fo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eZENFdU2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b="Awp0pORd"
-Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-939109fafddso136690385a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:00:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1790254823; x=1790859623; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7ocwU8cQk2ldFSEuc+V+JE9BeEEvSRHBC5G3LMkq6bI=;
-        b=Awp0pORdEf0GMafvqz5hvj8jw4WWGo8AJ2gUrXsoRSbE94gIrPNbgfm1Bv0MuA9cdN
-         dauA9lKTWI/0MhS1MD+L2SitarySJpBqC8kbi1ihmmYwurNBjikPPEiYk3dYN1024yNk
-         U8v+bsaUaNYAKN0TMoLjQcRC2ZmlccukOajW8d3SfWiH4GL8Dm8KaCNMLlF6b8ZiN8gG
-         AnApko7BhEcyNHdpdXm/A2mjgJURpEWDpof3WEisbD2uCRGJjp6ttET6fX4nM6Gg3jq+
-         ospOw1cAJP80/3A78VJEofbQcwYFSauHTLYf5fr5e91h/D8xoMnWj76bHmVw6RXEJV2m
-         MAyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790254823; x=1790859623;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7ocwU8cQk2ldFSEuc+V+JE9BeEEvSRHBC5G3LMkq6bI=;
-        b=bmch+UNvFSGaFefVTpal3R9qFW7IpbqHgOTbDYT98ImOjgdDj+X0mIQjb0cXs89aye
-         a34XkbvJRd8zj1VBftGIDsbVv49p2C7cbGd96zbvCFE7cUFrCXQ9kYBrBKp6Wa/HZXpz
-         gyQauQk5X+hRSiUqxMvQVjpO6rPHbVB43rIGMgQHMgFukifwXHsRpK5CkAO0t7KtQ1pJ
-         fwD3RsDOSVXjhkZEOwTCqAvJuOsYxl9/SDczQyyYt3+om5kAU6rzyUO3gJIp7gdH7meg
-         ARgZH3z2o8FbJlBE4ilwHncWqizoVwV6LrRvapHzvdHD3ilUHDpcSh8BCpucL1Qj39e6
-         owTg==
-X-Forwarded-Encrypted: i=1; AKwUvBzTO/yLf+ACRjRZfRdLpH3EIFquLF+47WR3fk63sFdpIDsoIYUVXZ1QIzlGQH6nzIxw32tdWa7lBAyzPBs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kK2x6M3ymnSFLRoaRW08tT7a2tcHH+esnFugAmAFsgj0Q3LRY6
-	LShs3Z2cXTI36kQoT57hEb8l7mQw/eHhvFhtp5g9IroGSvU392O0CDHtpS4jt5G+4Pg=
-X-Gm-Gg: AYBFou2Wu3XHqf0gmD5vx0tsPh6nYmpV8aMqfW0UmhR25iqiBuRctPWyuiBJO55zxTv
-	XXiAh9EZWcnHsxeTe0uM7NJcchYE9r2TALaaNq2joqHvLx3jv96fHuS4B43/If2YoCQo+sYHmKa
-	Djdt72V7CL0Aq4FSUKeTaNOQjS7lLiy7dOvCE2szj2jotu6LYKFXvg79y83m3mTYUgEMEDAjbLQ
-	4oJ80BbvX0skb+qUQbINCEkRwrib1ZnNS8AJvP4kwgU+Nd2CMA9/YXdU3NnGUZeFmE1T/zW7TVr
-	1C6swlxa5NMaLpmYQvslF8YgW4H4TdKUBpNXJDOfH3JqbCh4qABBEnBUXKcLlWZoi5SMqfe46Mz
-	8dw0DkZqr7k1YUtq5kH0nk/I2EY1tTDHJeFpUwCmP+MJPaGV9lTFP8Z37SOgLJV+slFt7BYoRxX
-	Vg6+42AV5L9lDnZ8Uomw7MdJQv8bYEZ8zlYGNWfpsE2V+bURz2
-X-Received: by 2002:a05:620a:700f:b0:939:a9d4:50b7 with SMTP id af79cd13be357-93c362d1a82mr302707785a.26.1790254822482;
-        Thu, 24 Sep 2026 06:00:22 -0700 (PDT)
-Received: from armok ([2605:a601:a61d:7a00::2])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c2f3c6fdfsm285000185a.45.2026.09.24.06.00.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 06:00:22 -0700 (PDT)
-From: Liviu Nicoara <lnicoara@thinkoid.org>
-To: Srinivas Kandagatla <srini@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Jonathan Marek <jonathan@marek.ca>,
-	Johan Hovold <johan@kernel.org>,
-	linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Liviu Nicoara <lnicoara@thinkoid.org>
-Subject: [PATCH] ASoC: codecs: lpass-wsa-macro: rewrite the interpolator volume after enabling clocks
-Date: Thu, 24 Sep 2026 08:59:40 -0400
-Message-ID: <20260924125940.22665-1-lnicoara@thinkoid.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eZENFdU2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B35BA1F000FF;
+	Thu, 24 Sep 2026 13:00:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790254845;
+	bh=wgAsGxjOI4SZCAEuxYRxPYQum9DEyKkKsyTbJWwoLNg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eZENFdU2E/XV9I//8XRof0Mq2OyiVVh/IlQYRFrXsBhkHGKKPhe5wUEUVv6HNtiIm
+	 mWvLeogoTBMmpwV8w2W9zVk9Ty52RU1vRPH0eegRfZBbAD7HKKfLf4jL8+ps8Un8BG
+	 C4YS3wdM+pettGiXmC1s6w8gu7RlIvZJBIoLtmzRiD0lJvWZ5hMtmrkWLfx4iVcgPL
+	 tN0QOtsa/0JK1E7lPPn/hdF/6o7hodvclldHr8c6jLr4hicJ5SAIVUHkAsTPkf4hLX
+	 2wQTlHmzlzQlUTxSidJ1F2/4AvRwUa0iutemQnEWGljyDfSbgZfQqoHwn66fS1rBsk
+	 ziOjnLv15akpQ==
+Date: Thu, 24 Sep 2026 14:00:38 +0100
+From: Lee Jones <lee@kernel.org>
+To: Matti Vaittinen <mazziesaccount@gmail.com>
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+	Matti Vaittinen <matti.vaittinen@linux.dev>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-rtc@vger.kernel.org, Sverdlin@mva-rohm,
+	Alexander <alexander.sverdlin@siemens.com>
+Subject: [GIT PULL] Immutable branch between MFD, Clk, GPIO, Regulator and
+ RTC due for the v7.4 merge window
+Message-ID: <20260924130038.GB453446@google.com>
+References: <cover.1789538455.git.mazziesaccount@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1789538455.git.mazziesaccount@gmail.com>
 
-Commit 902f497a1ff5 ("ASoC: codecs: lpass-wsa-macro: remove useless
-gain read/write sequence") removed the read and write of the digital
-volume register in wsa_macro_enable_interpolator(), on the grounds that
-writing back the value just read does nothing. The comment above it,
-"apply gain after int clk is enabled", was left in place.
+Enjoy!
 
-On the Dell XPS 13 9345 (X1E80100, four WSA8845 amplifiers on two WSA
-macros) the write does something: a volume change made while the path
-is idle does not take effect when playback starts. Lowering the digital
-volume from 81 to 63 with nothing playing, then playing a test tone,
-gave about the same level as before the change. With the rewrite
-restored, lowering it from 81 to 69 while idle played audibly quieter,
-and restoring 81 while idle brought the level back. Changes made during
-playback take effect with or without the rewrite.
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
-This is the behaviour described in commit 46188db080bd ("ASoC: codecs:
-lpass-wsa-macro: fix compander volume hack"): "the volume registers
-still need to be written after enabling clocks in order for any prior
-updates to take effect." The value read comes from the register cache,
-so the write pushes the last requested volume to the hardware once its
-clock runs.
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-Restore the rewrite in the interpolator's POST_PMU event only. The mix
-path event removed later in the same series is not brought back.
+are available in the Git repository at:
 
-Fixes: 902f497a1ff5 ("ASoC: codecs: lpass-wsa-macro: remove useless gain read/write sequence")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Liviu Nicoara <lnicoara@thinkoid.org>
----
+  git://git.kernel.org/pub/scm/linux/kernel/git/lee/mfd.git ib-mfd-clk-gpio-regulator-rtc-v7.4
 
-Notes:
-    Tested on v7.2.6 on the machine above, by listening. This function is
-    unchanged between v7.2 and for-next; the driver's clocks moved to the
-    PM clock framework in cd054a6e272c after v7.2, which was not tested
-    here. Build-tested on broonie/for-next (arm64 defconfig).
+for you to fetch changes up to e8e8d60fe8cc35340f6110ff70ef7959de1c3c0b:
 
- sound/soc/codecs/lpass-wsa-macro.c | 3 +++
- 1 file changed, 3 insertions(+)
+  MAINTAINERS: Add ROHM BD73800 PMIC files (2026-09-23 11:32:19 +0100)
 
-diff --git a/sound/soc/codecs/lpass-wsa-macro.c b/sound/soc/codecs/lpass-wsa-macro.c
-index 4242366601a5..899c8bee4645 100644
---- a/sound/soc/codecs/lpass-wsa-macro.c
-+++ b/sound/soc/codecs/lpass-wsa-macro.c
-@@ -1849,6 +1849,7 @@ static int wsa_macro_enable_interpolator(struct snd_soc_dapm_widget *w,
- 					 int event)
- {
- 	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
-+	unsigned int gain;
- 	u16 gain_reg;
- 	u16 reg;
- 	struct wsa_macro *wsa = snd_soc_component_get_drvdata(component);
-@@ -1890,6 +1891,8 @@ static int wsa_macro_enable_interpolator(struct snd_soc_dapm_widget *w,
- 					CDC_WSA_RX_PGA_HALF_DB_MASK,
- 					CDC_WSA_RX_PGA_HALF_DB_ENABLE);
- 		}
-+		gain = snd_soc_component_read(component, gain_reg);
-+		snd_soc_component_write(component, gain_reg, gain);
- 		wsa_macro_config_ear_spkr_gain(component, wsa,
- 						event, gain_reg);
- 		break;
+----------------------------------------------------------------
+Immutable branch between MFD, Clk, GPIO, Regulator and RTC due for the v7.4 merge window
+
+----------------------------------------------------------------
+Matti Vaittinen (10):
+      dt-bindings: mfd: Common ROHM PMIC properties
+      dt-bindings: rohm,bd*: Ref common ROHM bindings
+      dt-bindings: regulator: ROHM BD73800 regulators
+      dt-bindings: mfd: ROHM BD73800 PMIC
+      mfd: Support for ROHM BD73800 PMIC core
+      rtc: bd70528: Support RTC on ROHM BD73800
+      regulator: bd71828: Support ROHM BD73800
+      clk: bd718x7: Support ROHM BD73800
+      gpio: bd73800: Support ROHM BD73800 PMIC GPIOs
+      MAINTAINERS: Add ROHM BD73800 PMIC files
+
+ .../devicetree/bindings/mfd/rohm,bd71815-pmic.yaml |   9 +-
+ .../devicetree/bindings/mfd/rohm,bd71828-pmic.yaml |   9 +-
+ .../devicetree/bindings/mfd/rohm,bd72720-pmic.yaml |  29 +-
+ .../devicetree/bindings/mfd/rohm,bd73800-pmic.yaml | 218 ++++++++
+ .../devicetree/bindings/mfd/rohm,pmic-pins.yaml    |  72 +++
+ .../bindings/regulator/rohm,bd73800-regulator.yaml |  99 ++++
+ MAINTAINERS                                        |   2 +
+ drivers/clk/clk-bd718x7.c                          |   8 +
+ drivers/gpio/Kconfig                               |  12 +
+ drivers/gpio/Makefile                              |   1 +
+ drivers/gpio/gpio-bd73800.c                        | 209 ++++++++
+ drivers/mfd/Kconfig                                |  15 +-
+ drivers/mfd/rohm-bd71828.c                         | 147 +++++-
+ drivers/regulator/Kconfig                          |   4 +-
+ drivers/regulator/bd71828-regulator.c              | 558 ++++++++++++++++++++-
+ drivers/rtc/rtc-bd70528.c                          |   8 +
+ include/linux/mfd/rohm-bd73800.h                   | 306 +++++++++++
+ include/linux/mfd/rohm-generic.h                   |   1 +
+ 18 files changed, 1661 insertions(+), 46 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/mfd/rohm,bd73800-pmic.yaml
+ create mode 100644 Documentation/devicetree/bindings/mfd/rohm,pmic-pins.yaml
+ create mode 100644 Documentation/devicetree/bindings/regulator/rohm,bd73800-regulator.yaml
+ create mode 100644 drivers/gpio/gpio-bd73800.c
+ create mode 100644 include/linux/mfd/rohm-bd73800.h
+
 -- 
-2.55.0
-
+Lee Jones
