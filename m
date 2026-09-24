@@ -1,63 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EAB63D967F;
-	Thu, 24 Sep 2026 18:00:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C4AB3D967F;
+	Thu, 24 Sep 2026 18:01:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790272839; cv=none; b=PA6Fxpw5L1Qq9yPdhq+Sl/itbVciZte/2tvIIcP0M93SZmYd8psO5QtDzd6klMACVLDvy9QIcJ+jAwdeyJ6uXIUs1KaM1CZfwbQAtgFn/dSoe67WZeG9hUD8e9rBw0EEpmqhxfZOR4CR5mwXNFwcfjZVcAz98tpIq4yPlYz0GZs=
+	t=1790272881; cv=none; b=LYC0PFGe6QMAN+brMK7v/kK+lTKLCn1sJdssu0d6/JP2dAZHI9laM1HwlDqPrFT1FmcAuGAh17qLCWEQblGyKe1eHGXxPOOK7pmQaNKd9qmzW7Cty11fXkOF82CNdYp9+mo+F0FqhkkfdhbjGNkPSOA3oUpgMOJVTiFbSbK4HOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790272839; c=relaxed/simple;
-	bh=+EI+E1Jl6p8/QUuACLoOZOWPw5xeV2Q6eqKka0y7pTY=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=bKHtf8NxwBAowqFiVxhjvR4sQorIz3znA09gU8hOKy2VBFkzD4J2w9V2nC11vnJWWKk0g1z8K4a1UU/nnuHvGJ2S1o/wnK7dallgzytecFrRc3I7BXOfsqmfP8LMFrUfpMOdaCOTh5E4MnrpOH+cHHZ8uFgeISdR06g6sDBCWQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qlc9eeA2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790272881; c=relaxed/simple;
+	bh=lCW/CUfnoAFpPK4UKkZ3XhUHYchYHM3g9z5O6oeUFAk=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=pRYq8JHGiulwxR97aWVqeyVIoTMHIip/TcrH1vyAW/8z/F2g99TTRJjPVte4LOYCR0Jdu0rXQEUusyKz6eyCyxPskxyHbzfF1gHAOhGaoakJOY1gQCwsgmhHPTUZajrunzFtCHBOtERNKmCJ9PiBlwBC4hfJVQncOKuQQRLmZ10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iJsasJCe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qlc9eeA2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31BED1F000FF;
-	Thu, 24 Sep 2026 18:00:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iJsasJCe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 329B61F00893;
+	Thu, 24 Sep 2026 18:01:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790272838;
-	bh=aIU+HVYRKLmnYi2cgV8qoBqk5RD0i+23KmORQ4HeAZs=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=Qlc9eeA2/IWywJoFBameeaItI5t7Dt3JgLTNBA+xePClz4XFYFSPJ3tKu27MmErOm
-	 2WjLVI35GndZahhi/sZ2DCCSkbakI9ndx67PbuIqVwFSxK+XRVw/am65UVRDUcqRtz
-	 k4UBMDCVyRoyIplISbXVuaOWzmH9j+W7WJ6TIqc/yeAYkvvCvTf1iL82yozFScz2jp
-	 iLDIDc384GP3eqjzM5lKKn6q9npDu0qT5pBdKm5nuulc8DPWMfVIAZLHqpKrwHiTtZ
-	 Se2GKJbs0TM6jbkLzpKRpLZ+t6lpFjPa5J1FBASVKlOChG9jAv+SxXXAInFv/1aztf
-	 6UhgaKBKSMe2Q==
+	s=k20260515; t=1790272880;
+	bh=3b7s0TZCouRV+fANKyon2fgb5XJsJs6Z3Co+PZgaJH0=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=iJsasJCeYcma1r+urKfOz0k8MclnTql/D1yVdZRNt6KeUQFwBy4IYdzChbWGVpUgC
+	 +m1YjISlr9tTMgCG899hV+yLjNlALOFMET9kxqPlyp8wXKbEboH0D0hLqJGnosXYbD
+	 n+jvB7849l/+p3ecltU8JlbFJrJAvCEsTznzdkIrYkVmFSFW3+zX8X6NjvWAdiGHQw
+	 lwwaapzE1FapwSoJ2H2a9rQqqetku6tCKb7DziCdCP5/0fgoIePhdZOZyuQ67IggFt
+	 Ed0+3r13bhWufGoDv2dm9/Hcj8vh2KnFyrzesy4OL3D1dQNX7tEOCMK2qZXdhzhrL/
+	 6bxE/sx8eTlKQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56BEF3A566DD;
-	Thu, 24 Sep 2026 17:59:28 +0000 (UTC)
-Subject: Re: [GIT PULL] Landlock fix for v7.3-rc5
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20260924161952.1104402-1-mic@digikod.net>
-References: <20260924161952.1104402-1-mic@digikod.net>
-X-PR-Tracked-List-Id: <linux-trace-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20260924161952.1104402-1-mic@digikod.net>
-X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/mic/linux.git tags/landlock-7.3-rc5
-X-PR-Tracked-Commit-Id: e7e0a54300a896e731dffd3e2e8dae5631d6243d
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 415f2044228cc8b948dc04e079aaa86a4d1aa1d3
-Message-Id: <179027276696.1684924.16367946820439152098.pr-tracker-bot@kernel.org>
-Date: Thu, 24 Sep 2026 17:59:26 +0000
-To: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>, Arnd Bergmann <arnd@arndb.de>, =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>, Tingmao Wang <m@maowtm.org>, linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 568C43A566DD;
+	Thu, 24 Sep 2026 18:00:10 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2] net: ethernet: stmmac: dwmac-rk: fix bulk clock
+ leak
+ when the PHY clock fails
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179027280889.1685480.8117520252597627875.git-patchwork-notify@kernel.org>
+Date: Thu, 24 Sep 2026 18:00:08 +0000
+References: <20260923123713.3137146-1-coiaprant@gmail.com>
+In-Reply-To: <20260923123713.3137146-1-coiaprant@gmail.com>
+To: Coia Prant <coiaprant@gmail.com>
+Cc: heiko@sntech.de, maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ sebastian.reichel@collabora.com, netdev@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, lorenzo.bianconi@oss.qualcomm.com
 
-The pull request you sent on Thu, 24 Sep 2026 18:19:52 +0200:
+Hello:
 
-> https://git.kernel.org/pub/scm/linux/kernel/git/mic/linux.git tags/landlock-7.3-rc5
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/415f2044228cc8b948dc04e079aaa86a4d1aa1d3
+On Wed, 23 Sep 2026 20:37:13 +0800 you wrote:
+> gmac_clk_enable() enables the bulk clocks first and then the optional
+> PHY clock. If clk_prepare_enable() on the PHY clock fails, the function
+> returns without rolling back the bulk clocks, and bsp_priv->clk_enabled
+> stays false, so the later gmac_clk_enable(bsp_priv, false) becomes a
+> no-op and the bulk clock references are leaked.
+> 
+> Add the missing clk_bulk_disable_unprepare() on that failure path.
+> 
+> [...]
 
-Thank you!
+Here is the summary with links:
+  - [net,v2] net: ethernet: stmmac: dwmac-rk: fix bulk clock leak when the PHY clock fails
+    https://git.kernel.org/netdev/net/c/8db67bb6a1ff
 
+You are awesome, thank you!
 -- 
 Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
