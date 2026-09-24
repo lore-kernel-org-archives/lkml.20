@@ -1,105 +1,182 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012051.outbound.protection.outlook.com [52.101.48.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A12AD3B38A2;
-	Thu, 24 Sep 2026 14:23:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790259793; cv=none; b=ZDYs2mrhKY3kBL4PNQhMDfWgSzSVYUbgJY5aOBeUjlQo6Uod6reXb3BJpBi0hDYdM1OxmNXnthq7H8qGItqzDN5gX4/UxaVtRyd7YTNGrd5nJzLtmIUhxMeg0gqD+/ZAtaoBN7RhoYl93GS7eI+tivVho9D24bLdFekPUUd7vcI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790259793; c=relaxed/simple;
-	bh=xah4ZcXmrsRfaouOuM6ZH2DS9ISNzEEqfSLi/nVnWgU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YWQ7Ws2u1QHxWy4O49hLpoCBd+H6AlIVx9R3kI8Vwc+h0Of2Kj9yRrLMA7+loODLF4jri//fbl/nKikXPK/IFCIQ/nIIDsVw4XQu/C0XqQc29kvRa9PLiAC6oUcnpu8EBm6mTdNZVpGbM2UwoOq0LfCVxXrePjZajuhKKG/eTvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=Dhyr7+gS; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E573B19C4
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:23:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790259791; cv=fail; b=sRrgiF559zQYrRWu/h+7mAGYvsIveJqkYh391UMxIB67YvbDfmdKCpPxqo42iXB6wGPSfGaJVRnez8M77fl9d5poClxEY1RVC/3bguoqiInRry5QPH9RynL32NlIUowsaVs39MKbopFH1ezKCFX6w45I0UDwc1f6U63JqfvgN6k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790259791; c=relaxed/simple;
+	bh=R0fb69MbrKuMpX+lPTUDfVE9cGNQY1m4AlUv787rsvA=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Dys2DdU8ruct76phgJsvQSa+Es8sJcTcu6tetvfE7PeZivDUwzatC0gwurNwoQrxCK8mDavvKVNiA0r5z4Hu49Wr4rDN48ReERYli4nS/gdn13kcWl653a/fsysXTd3ghNq1nt4Giq5QaescqTvuzV9EnSbbaW0piFVuNF1Ot1k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=DNTAcsDm; arc=fail smtp.client-ip=52.101.48.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="Dhyr7+gS"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=YRxCDaMEMjeNgmx5T/EVuTSh67LGdojGLOrhCwhCev0=; b=Dh
-	yr7+gSHaRcEawD7cbrPt+q4UONwcYADUgJw5JgqaWvylNf7fjebTq0uJd6Xd1kOR8rR4fr5fHTz/h
-	guuO87WuXQ4NjRbeV/YfXysiOAVl499MxPqbJlKGfWhJUGIxu2mFFt5LbUu3EMwTHsjckS6ETztzH
-	HgxnZPvLRiN484Q=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x9kLf-0070ej-GP; Thu, 24 Sep 2026 16:22:55 +0200
-Date: Thu, 24 Sep 2026 16:22:55 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
-Cc: shengchao.guo@oss.qualcomm.com, bartosz.golaszewski@oss.qualcomm.com,
-	mohd.anwar@oss.qualcomm.com, maxime.chevallier@bootlin.com,
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com, hkallweit1@gmail.com,
-	linux@armlinux.org.uk, netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] net: stmmac: support low-speed USXGMII validation
-Message-ID: <66dbb6d5-5e2d-49fb-a882-acd67eb6fcea@lunn.ch>
-References: <20260923-qcom_xpcs_nord_emac-v1-0-4b1c682af70f@oss.qualcomm.com>
- <20260923084921.3942100-1-zhangfei.gao@oss.qualcomm.com>
- <20260923084921.3942100-2-zhangfei.gao@oss.qualcomm.com>
- <828e6cff-79d2-4349-805f-cca927f7b908@lunn.ch>
- <CAFkd8htx-MTOMFO1S3uZt_8wyL+qoOhb577O2MMYr6oJ9jc=vg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="DNTAcsDm"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jIy4BZM+ngyU1k8LAqYs1Kqf/M0TgSmsK4yf0w2rUTVJwVHrhvl/ZAwf9nRenPuyBbnVlxyCYqhYI6Jm/XAAON2bEs0MmUe8JhzlbNNBYrBJpqIYNJcOuec0+Gdb1Sc/3iN3imYd5RnQFJBBUdTr97ApYCHF9fC2GE3sHd9r4ZsaUhThsSHnFh5NGE5KjE4FZzNFJlYxGGpv+2WEYUl6pkvKIHLIAv+uNNMXGhNOu7mGWcVuLd+bwBhGLghL3De+rfrkhemHGOOersnplJ4yUDtNBY9cM1I6dXlyTadJFMhpvYcX+2dH481c5ADVQvQrqZxphaQraqYLn3BaXePJCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uHigaZcoTQAlZdsLbau/IFWFIFgOiK6sNVWHc2zvf1c=;
+ b=JEZXrkwmxOG630EJYA9IayTKDXGf4XIJuxycuNHaxVZlvtPGLQPdPqzj/LBhLIe9XrhJDoYqhOIQSZHji57tgfgVSxrW2vAPOSXbsi3ow851DdAvKdaUAP7PREoI7f26zyUNvwJaVVRasQxVkT+2oBkPBNJXE0pS2k1TmECtQRNy7Y41CnXL1SZ9PewfJXUk51MjyBuCKuwR0tP54PiFKbVMsrQsNv+n3nlgiPp1SDJvy0WhvC5jcMDh9P5mmslh0lC+s2oqs8zFiSXztYL4nSNAlNYgH/9ziCwVa9GIoN4AM24hj2ZQGNTz7B4HegbgQyHqqk+op7Y2O8OGkdJQCQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uHigaZcoTQAlZdsLbau/IFWFIFgOiK6sNVWHc2zvf1c=;
+ b=DNTAcsDmL9wrets6NgannombxLM55omvzQRAX9HkFzz67e9ZX4ife3C2bZU22M/ZxN8Pgy98K35FP6++Pkcd9bLNxh34pfeNSvhrt93CdM6YMa+5H2sih7xOl9uxtlCqEibMIb80nImPOVoqo2kxjcSvcJs3fkbpQta2aMtK+WI=
+Received: from SJ0PR13CA0218.namprd13.prod.outlook.com (2603:10b6:a03:2c1::13)
+ by SA3PR12MB8801.namprd12.prod.outlook.com (2603:10b6:806:312::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Thu, 24 Sep
+ 2026 14:22:56 +0000
+Received: from SJ1PEPF0000231D.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c1:cafe::34) by SJ0PR13CA0218.outlook.office365.com
+ (2603:10b6:a03:2c1::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.16 via Frontend Transport; Thu,
+ 24 Sep 2026 14:22:56 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF0000231D.mail.protection.outlook.com (10.167.242.234) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 14:22:55 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
+ 2026 09:22:54 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
+ 2026 09:22:54 -0500
+Received: from localhost.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Thu, 24 Sep 2026 09:22:51 -0500
+From: Baorui.Liu <baorliu@amd.com>
+To: <dri-devel@lists.freedesktop.org>
+CC: <virtualization@lists.linux.dev>, <airlied@redhat.com>,
+	<kraxel@redhat.com>, <dmitry.osipenko@collabora.com>,
+	<gurchetansingh@chromium.org>, <olvaffe@gmail.com>, <lili.gong@amd.com>,
+	"Baorui . Liu" <baorliu@amd.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH] drm/virtio: add overlay plane format support
+Date: Thu, 24 Sep 2026 22:22:42 +0800
+Message-ID: <20260924142242.676-1-baorliu@amd.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAFkd8htx-MTOMFO1S3uZt_8wyL+qoOhb577O2MMYr6oJ9jc=vg@mail.gmail.com>
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231D:EE_|SA3PR12MB8801:EE_
+X-MS-Office365-Filtering-Correlation-Id: c42fda3a-ff31-4f8f-48de-08df1a47539f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|36860700016|82310400026|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	7quCEq5+C5ThnuqK5yTl9LbDVLbb51hgMWRadYbIUvxtUF31ri2ycwHQXM46ZyzpOOXiJsYaNWFHeSo6SD5q0C0Hsfcb/wGPMYTWVm6i5H5ZjsL9yEBKFAjpt7YyQ9xkPpWR9875UYsFTEDm9ZGW9EBn3/UhM6sfl8cIXJPyBxcbwcX9VduuCZRZGJMc6sILcxUlP6w7WTRroWYpf1fP3qMgNeD8XzamC+Y1gOaDS+OXxwWO3tvP3D5NFr7w7vYmz1riXlrWQPR0pQfSJQiZkjZ/vHezWeLYyLNhUhSPVueO1mGdMxPGcZMEc6TFDHjOQMGo9uF3qgDSxsppPVH0uBuL75erjp5j2Zzhj9z7e6ff7g+zOm1oGU0ffdPoZ02udbvmIdlyCp/OtR49IeSsR08ORxFPEmRu6fB+LT+fLgz+yZFUY9j86S0Y3GHl6KNBVWJIIITm4yhxduIGxmks/xW5AD2RmiK1OctEDAUuBuCOmP3LwSv//F5jcatOzzRLCeO77XF7Du+kYkEHHrYS6LogoueIPe730sDG5FBsU/SbtqtcnsieFnZDYb+9UwePuR4WhjE0knu+gvdAsSVWPwRPezxPIg7FWR19I9u2XfHyNSE4+iCBKZyx5V2cVPaQxHFZziEJfh/4o/oM4ENIrhLb/Vi9xsYrFcaivYRcj7E72kiKcoM9wS6N1NaL95krMACyEOtOSQruBhDpM1SZVQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(36860700016)(82310400026)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	1lxHslYmO0SaoNAoXTl/sf6ssahtJ9MSt4KC8SZ1L97//iROynaQGUV3IwTkbLFCiLAxKM0noD3a8Ba6RT3XuFWDRDFCmTNHCFtm5GqdwMQBg+uhd8UD5RUekaVPP3lRqhWaZuQu15htCOtNyfsE6f/3PvchbzF0JZO0Z7ol33S91p/h1QHWdn2EuocXXwb8vufn+0o1hzhClERcAr7tp5OoUTANgiIhtTnEPdihTmFLruHFc4haX2g3lR0sDxyCymQtGR1dDpItSXXzuj1QeeZdSanECNFYTjbo9GmlKUvmivyicmKzAxqJInBcInNEuJbkcxAdLzzOQf0x+ydxMkJ1jOpLOX+BikKWVEFxvM7cZr435rhBKsXUG590es2NG+3VNaDPmPpnIvAHP1oa6NODqPRX/SYDKv+un6fYSw59nkbsjVnRQ2KEJe6fu8wF
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 14:22:55.6567
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c42fda3a-ff31-4f8f-48de-08df1a47539f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF0000231D.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8801
 
-On Thu, Sep 24, 2026 at 06:39:47PM +0800, Zhangfei Gao wrote:
-> Hi, Andrew
-> 
-> On Wed, Sep 23, 2026 at 8:58 PM Andrew Lunn <andrew@lunn.ch> wrote:
-> >
-> > > diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
-> > > index 091c9b57388fa..58ca296fc4420 100644
-> > > --- a/drivers/net/pcs/pcs-xpcs.c
-> > > +++ b/drivers/net/pcs/pcs-xpcs.c
-> > > @@ -23,6 +23,12 @@ static const int xpcs_usxgmii_features[] = {
-> > >       ETHTOOL_LINK_MODE_Pause_BIT,
-> > >       ETHTOOL_LINK_MODE_Asym_Pause_BIT,
-> > >       ETHTOOL_LINK_MODE_Autoneg_BIT,
-> > > +     ETHTOOL_LINK_MODE_10baseT_Full_BIT,
-> > > +     ETHTOOL_LINK_MODE_100baseT_Full_BIT,
-> > > +     ETHTOOL_LINK_MODE_1000baseT_Full_BIT,
-> > > +     ETHTOOL_LINK_MODE_2500baseT_Full_BIT,
-> > > +     ETHTOOL_LINK_MODE_5000baseT_Full_BIT,
-> > > +     ETHTOOL_LINK_MODE_10000baseT_Full_BIT,
-> >
-> > What does T in 10000baseT mean?
-> >
-> > >       ETHTOOL_LINK_MODE_1000baseKX_Full_BIT,
-> > >       ETHTOOL_LINK_MODE_10000baseKX4_Full_BIT,
-> > >       ETHTOOL_LINK_MODE_10000baseKR_Full_BIT,
-> >
-> > Compare and contract with KX.
-> 
->  T denotes twisted-pair copper media, whereas KX/KR denote backplane
->   Ethernet modes. USXGMII is the host-side interface between the MAC/PCS
->   and the external PHY; it is not itself a media type.
-> 
->   The BASE-T modes are needed here because the attached PHY reports its
->   line-side capabilities as BASE-T modes, which must pass XPCS
->   validation.
+From: Sophia Gong <lili.gong@amd.com>
 
-Now think about why i asked. It probably means something is wrong.
-But i will admit, there is a possibility i'm wrong, but you need to
-first exclude all other possibilities and give a clear explanation why
-i'm wrong.
+Advertise additional pixel formats for virtio-gpu overlay planes so a
+userspace compositor can use KMS overlay composition instead of
+falling back to GPU composition.
 
-The question should point you in the correct direction. You should not
-do the minimum hack to make it work, you need to spend the time to
-understand the architecture and find the correct way to do this.
+Handle DRM_PLANE_TYPE_OVERLAY in virtio_gpu_plane_init() with a
+dedicated format list, and reuse the primary plane update path for
+overlay scanout.
 
-	   Andrew
+Signed-off-by: Sophia Gong <lili.gong@amd.com>
+Signed-off-by: Baorui.Liu <baorliu@amd.com>
+---
+ drivers/gpu/drm/virtio/virtgpu_plane.c | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
+
+diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
+index 29e4b458ae57..23ca880692f1 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_plane.c
++++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
+@@ -41,6 +41,21 @@ static const uint32_t virtio_gpu_cursor_formats[] = {
+ 	DRM_FORMAT_HOST_ARGB8888,
+ };
+ 
++static const uint32_t virtio_gpu_overlay_formats[] = {
++	DRM_FORMAT_XRGB8888,
++	DRM_FORMAT_ARGB8888,
++	DRM_FORMAT_BGRX8888,
++	DRM_FORMAT_BGRA8888,
++	DRM_FORMAT_RGBX8888,
++	DRM_FORMAT_RGBA8888,
++	DRM_FORMAT_XBGR8888,
++	DRM_FORMAT_ABGR8888,
++	DRM_FORMAT_XRGB2101010,
++	DRM_FORMAT_BGRX1010102,
++	DRM_FORMAT_NV12,
++	DRM_FORMAT_P010,
++};
++
+ uint32_t virtio_gpu_translate_format(uint32_t drm_fourcc)
+ {
+ 	uint32_t format;
+@@ -572,6 +587,13 @@ static const struct drm_plane_helper_funcs virtio_gpu_cursor_helper_funcs = {
+ 	.atomic_update		= virtio_gpu_cursor_plane_update,
+ };
+ 
++static const struct drm_plane_helper_funcs virtio_gpu_overlay_helper_funcs = {
++	.prepare_fb		= virtio_gpu_plane_prepare_fb,
++	.cleanup_fb		= virtio_gpu_plane_cleanup_fb,
++	.atomic_check		= virtio_gpu_plane_atomic_check,
++	.atomic_update		= virtio_gpu_primary_plane_update,
++};
++
+ struct drm_plane *virtio_gpu_plane_init(struct virtio_gpu_device *vgdev,
+ 					enum drm_plane_type type,
+ 					int index)
+@@ -586,6 +608,10 @@ struct drm_plane *virtio_gpu_plane_init(struct virtio_gpu_device *vgdev,
+ 		formats = virtio_gpu_cursor_formats;
+ 		nformats = ARRAY_SIZE(virtio_gpu_cursor_formats);
+ 		funcs = &virtio_gpu_cursor_helper_funcs;
++	} else if (type == DRM_PLANE_TYPE_OVERLAY) {
++		formats = virtio_gpu_overlay_formats;
++		nformats = ARRAY_SIZE(virtio_gpu_overlay_formats);
++		funcs = &virtio_gpu_overlay_helper_funcs;
+ 	} else {
+ 		formats = virtio_gpu_formats;
+ 		nformats = ARRAY_SIZE(virtio_gpu_formats);
+-- 
+2.25.1
+
