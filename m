@@ -1,121 +1,82 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5251F3164BB
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:04:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6B4523BF9F;
+	Thu, 24 Sep 2026 01:06:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790211864; cv=none; b=AXmEo0yaFbND9Czes6fijOnCtoqwW1ElrlDsHeJfknLpju2SU/E6dtIVnK522stA5pXFVA956A6Cs/CyqqUCG90KjMQM1SoVX+6qPYoDFCpxOMoQJkn9ryn8euHe4r6gI+i78+QbrgtweMHsEdBa8PcK+mElzPQbParc+7k8U2E=
+	t=1790211978; cv=none; b=pKFgLRkvzsJnJ0gMw8l70h9vkCTRdjGXSPQo0Ky++mINBqQtBnUpKAUuRfNQnBaRcipqrj1wa4jfaIomFx681SPdEQ8QXvlok9OsDSD5YLWW/5P5pTBs54WaihRIxzOqvXv5s4d9Cu05jwAqJrBDLaLjzJzayLnRGw3clWxj6AQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790211864; c=relaxed/simple;
-	bh=JfjOTmn23C52eZ50zQilW55eYmOVRRAElDsqXwSu/Ys=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fZMwxHSigXu/2avHl1lLWJReFEcgDLZydMB7oC4yUjbMeJrPd0LPcDGPniQz+242lutlbHKfaMxGTm8+YYMzwT/qrc405qFLzHAKT7u1xeZ1qdGdHz17+itR5o0Ef/sr0bYx+2QLo12/AqC4Xgq9zqD7MQFIsNYosv0vaLCq8Tk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XHDH3SwU; arc=none smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790211978; c=relaxed/simple;
+	bh=/k3tVlQnGE+geNISdha5vBg+1/hv4SzXyw2/g3XVYd0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=r5nZqG7PGpvXHtAC5FIbQc7DxT/5R6QmdVrtE+pJ7Ra4MAzDBCZlBdXr9xVs26pWAY3GWu9YtmR8Hqh65VrDyAG/H7LvcARmitn7pyWr8hygbOiE+t+fwUxDumTH12G47EfjFXV+nrP5N7o/HzOKoGjER312QDld85VQbovaQwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hQGjoWVa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XHDH3SwU"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-91059280d58so10438756d6.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:04:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790211862; x=1790816662; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=czd/s34OcW98EL8w2Vq/LmrqDyHhrcgOAIgDbU3R4Z0=;
-        b=XHDH3SwUGa4Ioe8PNEqE3KfbMp1yTiJ24g5X5MyESGkoVmniIccVKN4BWoyKuRuHMX
-         Dat6SqiY3NudxFDfIvzL5efKRcPpjm+HsuKzaCWIPcL4ZagJcf81HpViFtTk84wTLBhw
-         +sqPl58fX4bNABjHHmM0+B1j/qNcff4pffJp6Q5t6QMtrkmXi/Wr7KhqmwbDpB8GsbyX
-         enRXNTjdfeD2JVyOrWKUIZfzGc4wainScB4/GzAdwZs0y7v1W7Xa132yOIwl+nOQmv2w
-         nSEOMjJ3KEM7hSK3/LTgvNM8UbOTiQcBOCIGDeuH8oPgGE44wFyZFhVIK2hLuCbMv8PC
-         G1RQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790211862; x=1790816662;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=czd/s34OcW98EL8w2Vq/LmrqDyHhrcgOAIgDbU3R4Z0=;
-        b=ORPKc0w7WvuxsteadQv62BbzUBwe8A1huQWa1MnxRmy72na2OMsJV/sB8lhpql+wyD
-         5sZFZFwXs3B3WB12gVD46fGhOLBXnjrJjTi/YyFFZ+r9Vut8BNi1hXNTXzy8oVW9rYAa
-         im+PRIISzzC/9LeZJzxZnhA+O7aM9UEV4CE98ZqAg77KKkzQZfHHLHF+sejzdKvUsYRY
-         dT9pwIoCdqp+eLwt28mNgzqQuzqizdi8i79EWdQv+01jY5CWoaZCxtKlDJZO/A2se45D
-         tyyGyXG2cukFCacbJbVugu5Ei6AZZFE+rKMjHXzY9cxhqlmh7m4qCIU8Lrr7RdRlHzBu
-         OKEg==
-X-Forwarded-Encrypted: i=1; AKwUvBxoJ6nSh4Lj1QK24jq4QIoia59yH1Dz/NVlQ3i8w1OPFp3KMIcgrZrutivN+ab+Spisak5qMknF+OsHLw8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mbEbLehvNp3e2yRWkBFEZ11cYPi8KUMsbkXU81D5hruQB4Ow/z
-	OfwHU+hbFbvnKKjmODrNT6/MdhcrKYlzSWzaIvXaSV2CXfjG33Y0FhMF
-X-Gm-Gg: AYBFou3Mp4edYP3sR1KaehzkZkMR689hOCnaQgLisUeYYEgb9KIhIWBrQVAEGgtbPPU
-	jfHV1bQk2alEfurAYNtx4U5FGoOFWuWoNOTgABcpj/fopHQadkGLUZOWNNp/fbqwh/IZgv6ypEI
-	1NO92YFTlxT754COgUVFvvAUoy89m8pNPCNTtJrcqHamaZ41AJSUN/OrWXLxXWRJ6aUMmYDIJ9p
-	d3fpLiFa6m1H/Jbk3H/CHiaRVxcFhr5aO8wxoyDsN1fnc3Hpaa2dyjiNIsUaBZou6yM/M2FIp72
-	XJEKhRhGkYNyFIRbH4WUpy8yxIY0NPAXZDfAV89lqTCiFUXJEDx1dsECWzC5/bWZ2Q2yZt8rjPp
-	yZ1IhRlIHEK1il2WyMolq5jtov8uQ2r84nWlsKW1Pjf2wFduA1cO8sqTzXPz5YCtbSWhK4xTMkh
-	9uW10u4jt0kIgCwHsjVRNEfNxzAhTGRCdpJ/Qf2AzfofI3x0xbXV3Vs5xhbSwAZpYDJb4q6tASP
-	KdKY498qrfThlJzfTRjGg==
-X-Received: by 2002:a05:620a:4413:b0:939:9f51:29a0 with SMTP id af79cd13be357-93c363d6c97mr68153185a.50.1790211862043;
-        Wed, 23 Sep 2026 18:04:22 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c2485883asm349018185a.20.2026.09.23.18.04.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 18:04:21 -0700 (PDT)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Rob Herring <robh@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hQGjoWVa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E1411F000FF;
+	Thu, 24 Sep 2026 01:06:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790211977;
+	bh=6QFsvoCrCSU5MkigZo67dmwg191bAYwJmXW+iL+Q+Uw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hQGjoWVahH3ZOXgCZzunfvL7XLenMeYHPMSS45wafKuyAh94C//Euekhu/uhX17T/
+	 xklD0E91tEJLgOSyCm/bCXXect47giarmRUOoX73er4GxjiShQvD6iw7ZxOcmVWrDB
+	 D1g4+Xa11a7yYtz91HIFg3ePCfyG1WJ7+k6Tk83qvrPROd39ADXbHjKCPkNgsTmFX8
+	 CUwk8wKWGd/unVj5E6Kbc2uwmBPItcgbNbBBMub/fQaAk5bkwyUkh5w/3N5gkieCCG
+	 2Ujjdfebw7oSOf3wg0I4x389r/Q5ZOVV3V7VR59YOC54ui9pzMePrloMbi86UVV3BH
+	 RxASPVTFkhkzA==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
 	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	linux-pci@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>
-Subject: [PATCH v2] PCI: rcar: Release temporary device tree node reference
-Date: Wed, 23 Sep 2026 21:04:11 -0400
-Message-ID: <20260924010418.726980-1-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	linux-arm-msm@vger.kernel.org
+Subject: Re: (subset) [PATCH 0/4] arm64: dts: qcom: Introduce Qualcomm Hawi platform device tree
+Date: Wed, 23 Sep 2026 20:06:12 -0500
+Message-ID: <179021133106.298587.429702810423504010.b4-ty@b4>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260923-hawi-dt-post-v1-0-e41473b6298b@oss.qualcomm.com>
+References: <20260923-hawi-dt-post-v1-0-e41473b6298b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-of_find_matching_node() returns a referenced node even when it is used
-only as a boolean test. Drop the reference right after the match check.
 
-Fixes: a115b1bd3af0 ("PCI: rcar: Add L1 link state fix into data abort hook")
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
----
-Changes in v2:
-- Use an explicit of_node_put() instead of __free(device_node) (Marek Vasut)
-- Switch to my oss.patchbox address
+On Wed, 23 Sep 2026 01:48:34 +0530, Mukesh Ojha wrote:
+> Introduce the Device Tree for the recently announced[1] Snapdragon SoC
+> from Qualcomm: Hawi
+> 
+> [1]
+> https://www.qualcomm.com/smartphones/products/8-series/snapdragon-8-elite-extreme-gen-6-mobile-platform
+> 
+> Series contains patches covering Oryon new CPU variants binding, IPCC header
+> and base Device Tree for the Hawi SoC, MTP (Mobile Test Platform).
+> 
+> [...]
 
-v1: https://lore.kernel.org/all/20260801233841.469826-1-dbgh9129@gmail.com/
+Applied, thanks!
 
- drivers/pci/controller/pcie-rcar-host.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+[1/4] dt-bindings: arm: cpus: Add Oryon PartNum 3 CPU compatibles
+      commit: 9b963b8288f7e10b696e887a35f1bea6eefc847b
+[2/4] arm64: dts: qcom: hawi: Add header file for IPCC physical client IDs
+      commit: 0dd1df954a04b5cbd3aa7029f2dfdafe15a176cf
+[3/4] arm64: dts: qcom: Introduce Hawi SoC
+      commit: 704e191149d37d721e9d062f3d2a710ca7b4b1ce
+[4/4] arm64: dts: qcom: hawi: Add base MTP board
+      commit: a22f9a319f29e222571b9b968e059b8eba06fd60
 
-diff --git a/drivers/pci/controller/pcie-rcar-host.c b/drivers/pci/controller/pcie-rcar-host.c
-index cd9171eebc289..1f5e33c802b5b 100644
---- a/drivers/pci/controller/pcie-rcar-host.c
-+++ b/drivers/pci/controller/pcie-rcar-host.c
-@@ -1122,7 +1122,11 @@ static const struct of_device_id rcar_pcie_abort_handler_of_match[] __initconst
- 
- static int __init rcar_pcie_init(void)
- {
--	if (of_find_matching_node(NULL, rcar_pcie_abort_handler_of_match)) {
-+	struct device_node *np;
-+
-+	np = of_find_matching_node(NULL, rcar_pcie_abort_handler_of_match);
-+	if (np) {
-+		of_node_put(np);
- #ifdef CONFIG_ARM_LPAE
- 		hook_fault_code(17, rcar_pcie_aarch32_abort_handler, SIGBUS, 0,
- 				"asynchronous external abort");
-
-base-commit: f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
+Best regards,
 -- 
-2.43.0
-
+Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
