@@ -1,42 +1,39 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C10A742EEB7
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:01:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB7EF423160
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:02:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790240516; cv=none; b=iewxg8T/Rv3pmbto2lal2+CB4EcXyeoLjyCobAPbf3ZyY2BLy772n+FG8iFNbWfiZnsEuTiPuHPXnxJzV6AZxd56cZ4ms6qP0Kok5+CBVFO7n6ndG9qDJ6aaymbD7gFaNyq4XfgULuVs8etGslhmgmMFX8Y71YQZMgBWpdI4x/M=
+	t=1790240529; cv=none; b=sBZvPYmWhJVv9OHMOBe3n/0o3EGxq/6509NrsK82HtwV0Pi872jutE7xWC/5A/AYrLcHqOb0rvP6sCrN72s8/nnMc3RQccRAj+cQ1aKBx7YS0jWgdjkUdssbJBUzmkCmEr4Sr+gHCK6EMAqamsKxGBVKi+ngn9svs5GiWDL6tkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790240516; c=relaxed/simple;
-	bh=nlEcWPrX1SR8a4NjnBkTRcdgsv/PhhC7lVxaC6KPQsk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xis3qa7BrmTbSVpfc2D6wS0abjlLBUB5pg9PFNG7qahwWLJN37Y8KGcNBOTd5SkBJMj+89JwHaXZN7y4qmieCVcoReWIQ2zyWrxLMAL55nTkxky0bB16X6YYt0pk9v8QyT7rX3LEn3dve5u5dOI1hiZIxf5b6cR1UXIkJehKLl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=mMkr35rG; arc=none smtp.client-ip=220.197.31.5
+	s=arc-20240116; t=1790240529; c=relaxed/simple;
+	bh=8r8QnCPi7wPbio1pJSzVOPTHNFQWQFwwt/NZui/s1UA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U1wELEx7IBJQ8U3sKNEPRnfc+VtAa7DrE1KGj8SjtDnrYkHx5iJ543c7FmWTGbymrksXMhv2T9Ha/hnvxBUo6NL2lPZeSX1AXmT8VD7TtDnkEAb360u/Td+DMiIcVI7c2wiv/9VpeJ+x3fslB1oJDOMeSFWtTu6rZJKSwekZqKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=KNK/tz1x; arc=none smtp.client-ip=117.135.210.3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="mMkr35rG"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="KNK/tz1x"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Rh
-	XZkhWFBAftr/JZYjGl3TJHEvx++2EVZdgYgNiY64o=; b=mMkr35rGrpyQwPb3uS
-	LSh02gkcXnNN9ofWSPdCIVT7c+mdO2zpHBhEmdJ8ZgsnAYBzIyR66SGs0pRSpAUl
-	aG5XQrgsIXGd7zYE9KXEv7p8VORgyQYFc1Fh0/qno6MTBYVCp4cBdXMB4tu6ueXF
-	AvRHcaGLXzufcSebAZGuOGEbU=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=DB
+	j2idKGFoxfEqAjneLrEerB+jOLeusoUhDalVbL2n8=; b=KNK/tz1xigpSBLrt5k
+	6SXDr+/P5J6BTEtqgF/QCULwu2wAmmuOSTHWhysywjx8TSTiXDDrNt5dshvI2d76
+	3GVy8bNSMuWxSPDu/5KzAO+AiLQZ3XW9ZopSnmre0nwebBF0p8dxr74ScjXxhL45
+	f5ZiGXF+WK2ZNue31/P0NiOEI=
 Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3H73Q5rRqL6EhAg--.34883S5;
-	Thu, 24 Sep 2026 17:01:13 +0800 (CST)
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3H73Q5rRqL6EhAg--.34883S2;
+	Thu, 24 Sep 2026 17:01:07 +0800 (CST)
 From: Baolin Liu <liubaolin12138@163.com>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
 Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v3 3/6] ntfs: report inode metadata errors to fsnotify
-Date: Thu, 24 Sep 2026 17:00:59 +0800
-Message-ID: <20260924090102.2865942-4-liubaolin12138@163.com>
+Subject: [PATCH v3 0/6] ntfs: report filesystem errors through fsnotify
+Date: Thu, 24 Sep 2026 17:00:56 +0800
+Message-ID: <20260924090102.2865942-1-liubaolin12138@163.com>
 X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260924090102.2865942-1-liubaolin12138@163.com>
-References: <20260924090102.2865942-1-liubaolin12138@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,94 +41,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3H73Q5rRqL6EhAg--.34883S5
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGFWrGF1DurW8JrykJFy3XFb_yoW5Ar1xpF
-	93G3s3t34DtFy2gwn2vrWYv34akF1xG3y7uryrG3W7X3Z8tr1vqF40yF1I9FyFkr95K3yY
-	qw1jkrWUur4UArDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jWJPiUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6hm3gmq05tkM5wAA3M
+X-CM-TRANSID:_____wD3H73Q5rRqL6EhAg--.34883S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAF43Wr47XFy5tw17GF1fXrb_yoW5ZF1rpF
+	Z3C3s3K393try2qr9xZ3yUt3WFgrZ3JayUJw13W34Ikrn8Kr1jqFWxt3W09FW5CryfXw4U
+	Xw4UG39xCFyDArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jnfHUUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6hO1gGq05tMMAwAA3o
 
 From: Baolin Liu <liubaolin@kylinos.cn>
 
-Inode initialization, writeback and LogFile failures currently mark the
-volume as having errors without notifying filesystem health monitors.
+Report NTFS metadata and shutdown errors through the generic filesystem
+error notification infrastructure. Use file-level events for errors
+associated with an affected inode, and volume-level events for volume
+metadata and shutdown errors. Preserve the volume error flags and report
+failed recovery independently of the error that triggered it.
 
-Report these failures against the affected VFS inode, using the base
-inode for attribute and index inodes. Preserve the existing treatment of
-allocation failures, unsupported formats and interrupted operations.
-Do not propagate reporting state between inode and attribute operations;
-fanotify can merge queued error events.
+Report errors where they are detected and leave queued event merging to
+fanotify. No error_reported state is carried through search contexts,
+mapping-pairs updates or MFT mappings, so releasing a context cannot lose
+that state or suppress a later rollback or restore failure.
 
-Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
----
- fs/ntfs/inode.c   | 12 ++++++++----
- fs/ntfs/logfile.c |  2 +-
- 2 files changed, 9 insertions(+), 5 deletions(-)
+Changes since v2:
+- Follow Hyunchul Lee's suggestion to remove error_reported tracking and
+  the reporting-aware mapping APIs throughout the series.
+- Report independent cluster, mapping-pairs, ATTRIBUTE_LIST and MFT
+  bitmap recovery failures while preserving the original operation errno.
+- Base the series on ntfs-next at 401898d748fc ("ntfs: validate
+  attribute-list sizes before allocation"). Retain its MFT parent BIO
+  and folio writeback implementation. Report synchronous and asynchronous
+  device errors in the existing completion callback; fserror itself
+  defers notification work and holds the inode reference. No additional
+  NTFS completion workqueue or pending-I/O counter is introduced.
+- Cover stale extent references, failed extent-record cleanup, mirror
+  failures and MFT preparation errors. Resolve attribute-inode reports
+  to their base inode and keep cluster-free counts in 64-bit variables.
+- Split MFT reporting into two patches: metadata validation, allocation
+  and recovery in patch 4; write preparation, mirror and BIO completion
+  errors in patch 5. This keeps the two review topics separate.
+  Shutdown reporting is now patch 6.
 
-diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
-index 9583b2c6c7a2..591aab2850be 100644
---- a/fs/ntfs/inode.c
-+++ b/fs/ntfs/inode.c
-@@ -1257,7 +1257,7 @@ static int ntfs_read_locked_inode(struct inode *vi)
- 		ntfs_error(vol->sb,
- 			"Failed with error code %i.  Marking corrupt inode 0x%llx as bad.  Run chkdsk.",
- 			err, ni->mft_no);
--		NVolSetErrors(vol);
-+		ntfs_report_file_metadata_error(vi, err);
- 	}
- 	return err;
- }
-@@ -1486,7 +1486,7 @@ static int ntfs_read_locked_attr_inode(struct inode *base_vi, struct inode *vi)
- 			base_ni->mft_no);
- 	if (err != -ENOENT && err != -ENOMEM &&
- 	    err != -EINTR && err != -ERESTARTSYS)
--		NVolSetErrors(vol);
-+		ntfs_report_file_metadata_error(base_vi, err);
- 	return err;
- }
- 
-@@ -1741,7 +1741,7 @@ static int ntfs_read_locked_index_inode(struct inode *base_vi, struct inode *vi)
- 			err, ni->mft_no, ni->name_len);
- 	if (err != -EOPNOTSUPP && err != -ENOMEM &&
- 	    err != -EINTR && err != -ERESTARTSYS)
--		NVolSetErrors(vol);
-+		ntfs_report_file_metadata_error(base_vi, err);
- 	return err;
- }
- 
-@@ -2898,7 +2898,10 @@ int __ntfs_write_inode(struct inode *vi, int sync)
- 		mark_inode_dirty(vi);
- 	else {
- 		ntfs_error(vi->i_sb, "Failed (error %i):  Run chkdsk.", -err);
--		NVolSetErrors(ni->vol);
-+		if (err != -EINTR && err != -ERESTARTSYS)
-+			ntfs_report_file_metadata_error(vi, err);
-+		else
-+			NVolSetErrors(ni->vol);
- 	}
- 	if (need_iput)
- 		iput(vi);
-@@ -2967,6 +2970,7 @@ static struct ntfs_inode *ntfs_extent_inode_open(struct ntfs_inode *base_ni,
- 			    seq_no != le16_to_cpu(ni_mrec->sequence_number)) {
- 				ntfs_error(sb, "Found stale extent mft reference mft=%llu",
- 						ni->mft_no);
-+				ntfs_report_file_metadata_error(VFS_I(base_ni), -EIO);
- 				unmap_mft_record(ni);
- 				return ERR_PTR(-EIO);
- 			}
-diff --git a/fs/ntfs/logfile.c b/fs/ntfs/logfile.c
-index 1404664dacc0..6897faf849c1 100644
---- a/fs/ntfs/logfile.c
-+++ b/fs/ntfs/logfile.c
-@@ -768,7 +768,7 @@ bool ntfs_empty_logfile(struct inode *log_vi)
- rl_err:
- 	ntfs_error(sb, "Runlist is corrupt.  Unmount and run chkdsk.");
- dirty_err:
--	NVolSetErrors(vol);
-+	ntfs_report_file_metadata_error(log_vi, -EIO);
- 	err = -EIO;
- err:
- 	kvfree(empty_buf);
+Testing on this base:
+- QEMU passed mount/read/write/fsync/truncate/xattr/rename/unlink, MFT
+  growth and unmount without FAN_FS_ERROR events during normal operation.
+- Verified EIO with a valid FID for file MFT corruption, EUCLEAN without
+  a valid FID for an MFT bitmap mismatch, and ESHUTDOWN for forced
+  shutdown.
+- Fault injection of an initial mapping-pairs error followed by an
+  independent restore failure produced a merged FAN_FS_ERROR event with
+  error_count=2. Synchronous and asynchronous MFT completion failures
+  also generated notifications. The injection code is test-only and is
+  excluded from the series.
+
+Baolin Liu (6):
+  ntfs: report allocation metadata errors to fsnotify
+  ntfs: report attribute errors to fsnotify
+  ntfs: report inode metadata errors to fsnotify
+  ntfs: report MFT metadata and recovery errors to fsnotify
+  ntfs: report MFT writeback errors to fsnotify
+  ntfs: report shutdown errors to fsnotify
+
+ fs/ntfs/attrib.c   |  84 ++++++++++++++------
+ fs/ntfs/attrlist.c |  17 ++--
+ fs/ntfs/bitmap.c   |   2 +-
+ fs/ntfs/inode.c    |  12 ++-
+ fs/ntfs/lcnalloc.c |   4 +-
+ fs/ntfs/logfile.c  |   2 +-
+ fs/ntfs/mft.c      | 192 ++++++++++++++++++++++++++++-----------------
+ fs/ntfs/super.c    |  32 +++++++-
+ fs/ntfs/volume.h   |   4 +
+ 9 files changed, 235 insertions(+), 114 deletions(-)
+
 -- 
 2.51.0
 
