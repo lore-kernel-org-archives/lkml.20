@@ -1,56 +1,61 @@
-Received: from mta0.migadu.com (out-240.mta0.migadu.com [91.218.175.240])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D568E3A7F66
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:19:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.240
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B065414A15;
+	Thu, 24 Sep 2026 21:19:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790284750; cv=none; b=lop83NfaTOfSxsxqrcnjBeh8b8FfNIrpdQPAjdRx1UN56bJBgssCweHOgQyB3mGRbVebQmOJ/Z5/3hWV4nLc57DTnof/6oTWZjeJrI7YITJMZ4GYWS1pL0NHqYoejODE3OcANSRpeB4btsFnFt7ODg7U2rJkpnyasoGl7LYj83Y=
+	t=1790284758; cv=none; b=pzySkS5ANMV6BJkE8q39S3P10ncdBtFtWaGGSkh+qt+a+VXN8h1wtcxVZnnnMpYd37R+iR1sV4bXyELOaSAnV0BUqw8UfH22k+SyvxuMIhEEcBAegLBoPSyDoh/beA2Vwf8f5QtU9dIZyrE452Q9bJjM9IrcOlLJXHyzehcMjug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790284750; c=relaxed/simple;
-	bh=mU5oJrgH1sYUjWonRB98Yad1omw/P5Tdsx9/iTNI1j0=;
+	s=arc-20240116; t=1790284758; c=relaxed/simple;
+	bh=jwufRdatKnQK/OvIT3XCWmAShCOpMRWmlGh9j/iTB38=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QYtCPF7Om9Y8Ls7eTNGBmKgV+tXjn/SI2MHwz4N2h7bjJ/PxZXwlQdwgkJpbbxYgMK5NIe7KkR/86RzpVFkVGYDEuCJs1exT+N6tukabtIu+kErB7LJgdtIZrFLZQjRBIdxMJiJZ/T5/PRYeuCwcKCJauEwXfI7C9C+ywzET2w0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=u4brnE0F; arc=none smtp.client-ip=91.218.175.240
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=HXKyfWoc/2ZibisYyjP7c/IyAA/uQ9LGP0vlbZQ5ofYAnejuNRGg5OrToqcwWkr67TQF6vLhoXtj7oCwfywxVBk0sTk7zkwqudFro1aPrdfjedOzSsUMjHMKe6IKe/zdyvCAr6OCtxo9r8Ek+i6+bc9A188DQN0TOy45iZN0IA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Aw2qwZJD; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="u4brnE0F"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=mU5oJrgH1sYUjWonRB98Yad1omw/P5Tdsx9/iTNI1j0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790284746; v=1; x=1790889546;
- b=u4brnE0F1411IWpvTlPuKrmb+pPcXKQAcZcbVyFNSaPhlH7xA6yjcjVwGCK9iTlyyLrmu5OM
- GeMZ7BW5QY2OYrigXc1iTUf0IP4j9GWGb4sEcvhcARFhE3qMbI/YKf6SbM9fVrv8z9zfkBynsPZ
- bcJswsyvHNLV3jNCSgLDV9OM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 840ded800c29f88f;
-	Thu, 24 Sep 2026 21:19:06 +0000
-X-Mizu-Trace-ID: 840ded800c29f88f
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 24 Sep 2026 14:19:04 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: JP Kobryn <jp.kobryn@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, Tejun Heo <tj@kernel.org>, Michal Koutny <mkoutny@suse.com>, 
-	Amery Hung <ameryhung@gmail.com>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
-	Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, John Fastabend <john.fastabend@gmail.com>, 
-	Jiayuan Chen <jiayuan.chen@linux.dev>, hui.zhu@linux.dev, Donet Tom <donettom@linux.ibm.com>, 
-	Greg Thelen <gthelen@google.com>, Meta kernel team <kernel-team@meta.com>, linux-mm@kvack.org, 
-	bpf@vger.kernel.org, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 3/4] memcg_ext: allow BPF to defer memory.high
- enforcement
-Message-ID: <arWTPMEm5C9tFeGc@linux.dev>
-References: <20260921192559.2619635-1-shakeel.butt@linux.dev>
- <20260921192559.2619635-4-shakeel.butt@linux.dev>
- <c8b8504c-8e54-479f-a372-3d2755edaf88@linux.dev>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Aw2qwZJD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790284756; x=1821820756;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=jwufRdatKnQK/OvIT3XCWmAShCOpMRWmlGh9j/iTB38=;
+  b=Aw2qwZJDXwBY6aKOHI07IRlHZ5sGWk6EinGl7BNrFK3K3Zn0AdMRw0V4
+   +ZIbPuOnwzFyMXLmTcdXqgTCU1xzQFWrslZbQANhCf4b/TEr6rCzFyyb8
+   gW/jyx/Aae3xQJnfx4YwYNa9G8SC+5mj0PX8Hhjl6kNJFWrseXMu/7EyC
+   dRIYxK2tWdc4iZpNHmFPum7H3wjBAVKTCVL9RE7MyShbcM4Xh07uGVFSy
+   5IUu43zpRo822ho14gi1CURvyLFqE1bw6nuuuwmWZ0BHUtYuS+icfEX2L
+   OlgXzvBPXhklLMaPZ+eEM05IapeddowgIb6Bjelo/CYr5KA1Lp3H4nu/6
+   g==;
+X-CSE-ConnectionGUID: 0nLZyKlCRCuKCFTVMinlyw==
+X-CSE-MsgGUID: F1fIapLISUWHnWi+No9FXw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="91176707"
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="91176707"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 14:19:15 -0700
+X-CSE-ConnectionGUID: tErHgJX3QK6DNtktH0IE0Q==
+X-CSE-MsgGUID: pxxr8hO3TKG5LaMYavvn8g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="273706508"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.199])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 14:19:14 -0700
+Date: Fri, 25 Sep 2026 00:19:11 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	David E Box <david.e.box@linux.intel.com>,
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 19/19] platform/x86/intel/tpmi: Describe the device
+ creation policy on the function
+Message-ID: <arWTz4LQu_7xEZpv@ashevche-desk.local>
+References: <20260924182342.212709-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+ <20260924182342.212709-20-sathyanarayanan.kuppuswamy@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -59,75 +64,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <c8b8504c-8e54-479f-a372-3d2755edaf88@linux.dev>
+In-Reply-To: <20260924182342.212709-20-sathyanarayanan.kuppuswamy@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Sep 24, 2026 at 01:14:59PM -0700, JP Kobryn wrote:
-[...]
-> > +static void bpf_memcg_ctx_init(struct bpf_memcg_ctx *ctx,
-> > +			       struct mem_cgroup *memcg,
-> > +			       struct mem_cgroup *over_limit, gfp_t gfp_mask)
-> > +{
-> > +	ctx->memcg = memcg;
-> > +	ctx->memcg_over_limit = over_limit;
-> > +	ctx->task = current;
-> > +	ctx->cgroup_id = cgroup_id(memcg->css.cgroup);
-> > +	ctx->over_limit_cgroup_id = over_limit ?
-> > +		cgroup_id(over_limit->css.cgroup) : 0;
-> > +	ctx->nr_pages_over_high = current->memcg_nr_pages_over_high;
-> > +	ctx->gfp_flags = (__force u32)gfp_mask;
-> > +}
-> > +
-> > +u32 bpf_memcg_high_policy(struct mem_cgroup *memcg,
-> > +			  struct mem_cgroup *over_limit, gfp_t gfp_mask)
-> > +{
-> > +	const struct bpf_prog_array_item *item;
-> > +	const struct bpf_memcg_ops *ops;
-> > +	struct bpf_memcg_ctx ctx;
-> > +	u32 acc = BPF_MEMCG_HIGH_NO_OPINION;
-> > +	struct cgroup *cgrp;
-> > +
-> > +	if (!cgroup_bpf_enabled(CGROUP_MEMCG_OPS))
-> > +		return acc;
-> > +
-> > +	/*
-> > +	 * Only the default hierarchy has a cgroup_bpf, and the static key is
-> > +	 * global, so one policy anywhere turns this on for v1 memcgs too.  A
-> > +	 * v1 memcg still cannot get here, because memory.high and swap.high
-> > +	 * are both v2-only and so it never builds the debt that leads to this
-> > +	 * call.  A hook on a path v1 can reach needs its own cgroup_on_dfl()
-> > +	 * test: a v1 cgroup has no effective array and an uninitialised
-> > +	 * cgrp->bpf.refcnt.
-> > +	 */
-> > +	cgrp = memcg->css.cgroup;
-> > +
-> > +	/*
-> > +	 * A program can allocate and re-enter the charge path.  Skip the
-> > +	 * nested call.  This guards the callbacks only.
-> > +	 */
-> > +	if (current->in_bpf_memcg)
-> > +		return acc;
-> > +	current->in_bpf_memcg = 1;
-> > +
-> > +	rcu_read_lock_dont_migrate();
-> > +
-> > +	/*
-> > +	 * A memcg outlives its cgroup while it has charges, and
-> > +	 * cgroup_bpf_release() frees the arrays when the cgroup goes.
-> > +	 */
-> > +	if (!cgroup_bpf_tryget_live(cgrp))
-> > +		goto out;
-> > +
-> > +	bpf_memcg_ctx_init(&ctx, memcg, over_limit, gfp_mask);
-> > +
-> > +	bpf_cgroup_struct_ops_foreach(ops, item, cgrp, CGROUP_MEMCG_OPS) {
-> > +		if (ops->high_policy)
-> > +			acc |= ops->high_policy(&ctx) &
-> > +			       BPF_MEMCG_HIGH_VALID_MASK;
-> > +	}
+On Thu, Sep 24, 2026 at 11:23:41AM -0700, Kuppuswamy Sathyanarayanan wrote:
+> The comment explaining the error policy of tpmi_create_devices() sits
+> inside the loop, between the call and the check it describes. Move it
+> above the function, where it describes the policy as a whole.
 > 
-> If I'm reading correctly, the gfp_mask at this point doesn't account for
-> task restrictions, so the BPF program may see __GFP_FS, __GFP_IO, etc
-> which may later be cleared when setting up the scan_control instance.
+> Also split the check into its two cases, skipping unsupported features
+> and failing on any other error, so that each reads on its own.
+> 
+> No functional change intended.
 
-I am passing the same gfp_mask which has been passed to try_charge_memcg(), so
-it should be same as what reclaim_high (reclaim internal) sees.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
