@@ -1,129 +1,68 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10E3F1AAE17;
-	Thu, 24 Sep 2026 01:03:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97280224AFA;
+	Thu, 24 Sep 2026 01:04:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790211823; cv=none; b=hB1KZ07Irsp1HzoKdtLi2+kmGKGXOh0LEXbd9dqeAt7ciBhygBvWXjUCFOG1nA4vOofyRbm0kkroNYvGy2Cd/GymsQQ9cdJI2W3Kw00/M7XSld6l8iptheskiDUcLvGgo51BAdRFkSWKoZUU1aVsNLSf+qHguRk2BmVb+9K5KE4=
+	t=1790211854; cv=none; b=B12S9oVrP3QWeacWzQIjesfKTXjXdgG1QUTONw2rN1EJyP8kAn9IOeoeswsqgonl6sE5zqIcPrsT4aKwR+C1j51PZXoC+bVt2BiK4awGy7gT1durJEz5UyrlUTwoM6j1daB7l+/EWkUBQjtEikYh8oXmnQL1kL8YoQh22rVsOUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790211823; c=relaxed/simple;
-	bh=Pnc2eG5KpssQK71R6RJZ0Z1lN5ASTvc+bbXex7x/P0o=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=AyJIawEA9pGDnN3Acbb3RU9BkioQXMv4iaXmQoJ6u9Yidh37XOTsckLCUzGe3/2RVPYhS1UjOnamJMXgvbY4h9kKU65n97rJWLu+Hb79L2meZkQqHjZfi+ngcsF++Am0Mj+6q2QtCTCqpsP4dsAL26SK81hWfDV/q2EyJSDWbPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iZe3yRnT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790211854; c=relaxed/simple;
+	bh=6Dywqe4lirytEgFC7BPsYjMKLPVrAWcRfi6jZER7unM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=V2Cgf8T0Q43NTnyrFAnRfNfbEa37GbHB2Pgy3DMXHvD1WhkgkwZU6HCA/DwbLdSeRf0GpJkYhYIkNw9fR1l/GO1Jqc2k0xC4MWCP8fpE/rOVR3KFZwCDMyFS+dj0JvlsP8OmJnXW0ToA0gNJb10M1aKLw9M3d9CchjA9JHKRp24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aJQUjYIo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iZe3yRnT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB8B71F000FF;
-	Thu, 24 Sep 2026 01:03:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aJQUjYIo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6AA61F000FF;
+	Thu, 24 Sep 2026 01:04:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790211821;
-	bh=471CiwhaDOmAQt1rc5Q/KApp2ZszpOYdGXO9pnQREjw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=iZe3yRnTS/wlCZfYNfZwHHnK8yERscMeX2N0nv1rd1r2iwJy5a1M0ZiKER6JEuccO
-	 tCfbRsWcHVudipaGvqaV8/vZ+FUjphX1cI6MYhPgTMn2SW3qtiCgpOVH9xNc/TIVmi
-	 24c8YcKi5MEsSge3aYREqfT0cuVviO/5uxE2A4xp0onOqnMLC+X2uvzn/HO3FAY7CA
-	 lUnH/q1u4uBkD4cH0jww1GghIVG9CX4P4fhSw2Gc9Cy4ib4lHPHnxYq+jayH9Xj1TN
-	 yniiMl2sr3FEB6fGnH4Sx4/gWxAehLsjyC1C859VZKCLgR7DHpozkkdr5DaPRWUKnN
-	 89YBOowa8nu7A==
-Date: Thu, 24 Sep 2026 10:03:37 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, Linux Trace Kernel
- <linux-trace-kernel@vger.kernel.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Vincent Donnefort <vdonnefort@google.com>, Mathieu
- Desnoyers <mathieu.desnoyers@efficios.com>, Linus Torvalds
- <torvalds@linux-foundation.org>
-Subject: Re: [PATCH] ring-buffer: Add a MAINTAINERS category specific for
- the tracing ring-buffer
-Message-Id: <20260924100337.a138c4f2c4e87d6ddbfe0d07@kernel.org>
-In-Reply-To: <20260910155058.1ac4c991@gandalf.local.home>
-References: <20260908094035.0b180833@gandalf.local.home>
-	<20260910155058.1ac4c991@gandalf.local.home>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=k20260515; t=1790211852;
+	bh=OMhD+wASsF0orVauhr2ealvb0SZsxOd7O8Ty83pXR+E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=aJQUjYIoUD0hh65AZhs0YuVV+bBu6c5wBW+qyXwe3vVSU99is2P1jHWCn28V1Bjau
+	 UgWNrmTYLtEX2D0bnDpf4GMQ/IjM5YIVQONj6B6dibz5UxZYug2Nsrgf2Arfd4S2lr
+	 LEIsU3Ru2zH13vGkQqzS2yaz1GHw4RZb4WoZUU2CM6ehcb86pIJhKhxT42BmGGr/j4
+	 N6KDijYWeJYPcf91pa8wzofG3/5iMF8DcQFcZW7S6LTNJxC0o5ZeeiPM7OJxZpIwAj
+	 3pDjDMEYpj7p4SizZWlcVXV3NgI30GxSL5rq89LM3MucpDh4Gp8ho6OmytfiX8KjNk
+	 iZAv1+FvX7NuA==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wesley Cheng <quic_wcheng@quicinc.com>,
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ronak Raheja <ronak.raheja@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v5] dt-bindings: usb: qcom,snps-dwc3: Add Hawi compatible
+Date: Wed, 23 Sep 2026 20:04:06 -0500
+Message-ID: <179021133117.298587.11694998328909569860.b4-ty@b4>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260811160835.2968717-1-mojha@qti.qualcomm.com>
+References: <20260811160835.2968717-1-mojha@qti.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-
-On Thu, 10 Sep 2026 15:50:58 -0400
-Steven Rostedt <rostedt@goodmis.org> wrote:
-
-> 
-> Masami,
-> 
-> Can I get an official Acked-by on this?
-> 
-> Vincent, you can also give an Acked-by too.
-
-This looks good to me.
-
-Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-
-Thanks!
-
-> 
-> -- Steve
-> 
-> 
-> On Tue, 8 Sep 2026 09:40:35 -0400
-> Steven Rostedt <rostedt@goodmis.org> wrote:
-> 
-> > From: Steven Rostedt <rostedt@goodmis.org>
-> > 
-> > The ring buffer code in the tracing directory has always been decoupled
-> > from the tracing code. It had a clean abstracted API to allow it to be
-> > used by systems outside of tracing. The API even allowed the ring buffer
-> > code to be drastically changed without affecting the tracing sub-system.
-> > 
-> > Recently, Vincent Donnefort has been contributing a lot of work to enhance
-> > the ring buffer. He implemented the user space mappings and recently
-> > created a version to allow pKVM hypervisors to use the code to trace
-> > the hypervisor and expose the events to the user.
-> > 
-> > Create a separate category for maintaining the ring buffer code so that
-> > Vincent can become an official maintainer of it. His work has little to do
-> > with the tracing code itself. In the future, he may even be the main
-> > maintainer of the ring buffer.
-> > 
-> > Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-> > ---
-> >  MAINTAINERS | 16 ++++++++++++++++
-> >  1 file changed, 16 insertions(+)
-> > 
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index 3a19da74d00c..71bd2f57055d 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -27778,6 +27778,22 @@ F:	kernel/trace/trace_irqsoff.c
-> >  F:	kernel/trace/trace_osnoise.c
-> >  F:	kernel/trace/trace_sched_wakeup.c
-> >  
-> > +TRACING RING BUFFER
-> > +M:	Steven Rostedt <rostedt@goodmis.org>
-> > +M:	Vincent Donnefort <vdonnefort@google.com>
-> > +M:	Masami Hiramatsu <mhiramat@kernel.org>
-> > +L:	linux-kernel@vger.kernel.org
-> > +L:	linux-trace-kernel@vger.kernel.org
-> > +S:	Maintained
-> > +Q:	https://patchwork.kernel.org/project/linux-trace-kernel/list/
-> > +T:	git git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
-> > +F:	Documentation/trace/ring-buffer*
-> > +F:	Documentation/trace/remotes.rst
-> > +F:	include/linux/ring-buffer*.h
-> > +F:	kernel/trace/*ring_buffer*.c
-> > +F:	kernel/trace/remote*.c
-> > +F:	tools/testing/selftests/ring-buffer/
-> > +
-> >  TRADITIONAL CHINESE DOCUMENTATION
-> >  M:	Chen-Yu Yeh <chenyou910331@gmail.com>
-> >  M:	Weijie Yuan <wy@wyuan.org>
-> 
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
 
+On Tue, 11 Aug 2026 21:38:35 +0530, Mukesh Ojha wrote:
+> Document the Synopsys DWC3 USB controller found on the Hawi platform.
+
+Applied, thanks!
+
+[1/1] dt-bindings: usb: qcom,snps-dwc3: Add Hawi compatible
+      commit: 681ad0a8fac47460f6d278645f335ea39d06d99d
+
+Best regards,
 -- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
