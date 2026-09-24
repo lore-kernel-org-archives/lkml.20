@@ -1,75 +1,377 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 749E127A47F;
-	Thu, 24 Sep 2026 02:30:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790217032; cv=none; b=WEvxWQVJfM7MpZw70VRlGpl4bzWWMyTvwH0hgOopj5fPSJUyn6t2iklFcu6pecjj5fUbm0IlpJkmaJOUkSHz3BJZOI1qYGtFV3DWninI/hUfYBxbbSX7dy2VOsPsURTJ2RRcDmPG/mtW/RdlsQ4zboELc5W/0jtVQbFluUJ5pFk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790217032; c=relaxed/simple;
-	bh=2DQDjxQ5ev+J/kUOuV42oxRMrokhMtc858unmBFKrCI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KVVzRatoO7FLU4FMKqLfggfLv3APM0AODKTONO6YRzMNAXawNnHmi7Q38LZn2SQl0MAo8l+7AFmdKTdLHTiP5orugB143UO44QipspPYaiJlh9BsK3RyPqVnTfGw9qIxmUSAfAcTl5iqjkGxecua0HBnj2ORTc5rx9j54Dkccao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=1lYY5/UU; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E908827A47F
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:31:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790217067; cv=pass; b=Xob5NmcaY6D+F27suCWwt/3EhJwrJGmW0j/U5L6JMpvJsGY/C81z06tXMmtv+2Ry3usp29olimJRq0a/nWSgukOP233z83NwEFDY/zBXwsH4SqT6r7zveBF3n9apw7czUxuwdkdHR977wgTp/Qq5ehuYuHUBFOZ/efwdOyeyI+s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790217067; c=relaxed/simple;
+	bh=EsT5CPPb1bNgisa9Sf6hnMEjzfva7I39ro1rTJ6d3y0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=edlrpqQzheAV/yuhw6DxoumowNJGEyH+k/49TpCecV3NpV2Nojj8k+o/Nbp3dp7eQQtHaOsH3LyqJA5SJ37JqXVcG9Ij6YSbnwM+0/V6h3x7gY7sGTa45/Ns9A5lI6K4UaldprhLTb+y3z+6YOw9PeNGlX9ayQJafQzFQTzfnEI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=kjfzoEPS; arc=pass smtp.client-ip=74.125.231.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="1lYY5/UU"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=7EdbTttLfDKO/MgJ9AUmiN61aK/OlwCKLM1pw1cgtYI=; b=1lYY5/UU6MztBj10FYdL24tBcs
-	n4E04ypGvqaiNC7ImtP6OttUlXWc05wDHAxb5tt7VkM/vtoJhM47jtGO+PnJVF5DdKFSgSt48zMF3
-	jyR4qfQNdwaMIBv+jZbh48+61WM35MTzDZxOezbFdML3W3WjEi0g/jW3Iypzq6yOcZZg=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x9ZE2-006uhw-K5; Thu, 24 Sep 2026 04:30:18 +0200
-Date: Thu, 24 Sep 2026 04:30:18 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	Andre Przywara <andre.przywara@arm.com>
-Subject: Re: [PATCH net-next v3 3/5] net: stmmac: sun55i: Make the delay step
- configurable
-Message-ID: <26334006-a2af-49d3-8f26-18cd44118c6b@lunn.ch>
-References: <20260923-allwinner-a733-gmac-support-v3-0-15735155a789@baylibre.com>
- <20260923-allwinner-a733-gmac-support-v3-3-15735155a789@baylibre.com>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="kjfzoEPS"
+Received: by mail-oo2-f43.google.com with SMTP id 006d021491bc7-6b1ae6b200fso1038355eaf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:31:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790217065; cv=none;
+        d=google.com; s=arc-20260327;
+        b=D5o3HKTMQnAwhp0ATBXweMSoLRq56NCfauRY5m8olunx3kFfFv7nA0oGUZLU+JApZk
+         gSIeQGTN+ZbfLQKlcJTIo3HJkHYJU6QzQTZc5MFlQA0GBgcZGafyNjDKqFr27ArorR7l
+         0PbY6KvNM2q2Oc+6/Q0dfcg2pbDG6I+opdqCQ7L6KnO/FyY2FbKHgxpTTzBO6WhcJ10y
+         2kMEfz+bb762ZJgn+y8GLz8jrrt5YTLt2yglu0jSdQX8xg5MzltYa/dwWauX9ku/OxtB
+         gBnC2VWnrvzE3+AWTQX6IY57iIRzXrlQuWbnOzgdFTqtyZzskBRWXxPiqagYWt7fdK/C
+         Bq5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tXkUAxHG2rDjGik19A3u7hnIdWNHsf8MjMKouetg/DU=;
+        fh=7AV6yq8d+R1h11eQ/kKbjUGvx9QRfcfOxPU+l3JsJwU=;
+        b=dH9DsW84pOP93GbbYk4Vn9z7KmQkl6HxdSQGIq1zQDfOf6eXC440FDw50c7ozHHnTx
+         Hmgr/dQPbGqbxmfP0S2NHLXKkCLjv9q9iyuVsT+nA5T3I4o9KNCq5pXfGYJiQApOqHPu
+         ZnknAvjqeHV2rXw6LS495ZsH69be2bmJMjjFpZXGW0Pvq0g/WZ7leurYRThR/x6vGRfj
+         agx7TZAmjC5z0jmtpb5UTXroHi2KAP5X5jIi7dQzsgKA7+SNnmfc75MR3Es+DdehmUrQ
+         u7041s4Gj3lajUi+1TLcethJGEY8uWJGMl/VUnUdoh/yNCiSocf5GNHGUeqTEJa9z67F
+         OQpw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1790217065; x=1790821865; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tXkUAxHG2rDjGik19A3u7hnIdWNHsf8MjMKouetg/DU=;
+        b=kjfzoEPSx7siEg2QSOYoHfUOhWhygSZkXDyuKFk74WfzfI8o6NmfoJUvk91IxiHTKR
+         GRjBhWSKZHjuOhfBKd6gKp8T6bYDhxNmFKG1d4I2pdc41XktzWLVdFAalznkAzhC15jZ
+         EY2Atgj2EQgl8BvAuq4pacJTzdqJJWgdmB+NcIWqdzDBHs0Mn6zgpBLYkz8xeLygu88q
+         etUASv9nsfuPxv6n8BldiLPDl2cGI+OjLFFlJ2F9JB6wyFEcb3OKQeN3vXgdaVOhNoAT
+         TNBu9erim5Z5jLuT76LMaj3BKDWJXJrIktwuSHpPBahhC22zHao8j18QI1snjLPzRI+I
+         lPlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790217065; x=1790821865;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tXkUAxHG2rDjGik19A3u7hnIdWNHsf8MjMKouetg/DU=;
+        b=X3Zx//GceL6WJl61d1SmXPcRvFrm3ny34GPYbwp/TRCJfy4i5LiHmgMpla1BR5fLnp
+         oOwMySPf8t6PK4kt3f3X98O8r9qXuMApX4lqCeZh8N9kdkP932t0gzHnKH+uLBsIBIRl
+         MWFXiwlMfa0egBxmM0e69kp5gNLsLZWRdAdITMfn3dcHVvqb7KEhkB25Io+zYXnmJRXH
+         Oqsmu7c7R4XMZMq/0l5u/8zhUNVJSyv9BCKc8UXt5c29g0ADgSkGxljunFUOSE8M6f61
+         LOpJUoBrixGIWfsTYeqmAivgnlfnbvaBfCg7tF3lUquxez2VSzTcvx/BVIbKQ6TRglfY
+         moqA==
+X-Forwarded-Encrypted: i=1; AKwUvBwu1yGReSUcCovl0LYS/YNdA1YilYs/BARLyq19+Ym2g4xbXALWO/hrUryLeo8xSecvZmPHP/tePPUxgF0=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5yyYRwWX1nfiytKiLorguyaP5iZf8EG2HmFNyMEZLNUTi8r6x
+	U/ABR4nX60//OS2w61mAgvmIhsQEqNp84Lp/L3HdVKFKjTAZDNiUjCTih+pA/jn2moV0FhnjnOu
+	50siV0aYMLFgFJSH5nEHNuOIbjkuqHqCvpMR0fx4t+A==
+X-Gm-Gg: AYBFou0vc7xYl3IP2lxucoXjusralg1qA0/kTKHNFGobHBLUGQdOLxr/TdqAHBmxPOi
+	fbmVefTb6U8e/CRKeoNIi6sBTVKA434V0qV+ybXl9KQsaj9jOQycr3CtzLL+YIHi1IXEAHgJeR3
+	az31vHF76swsOmknXMZ38gqh9QdIzXisbF7Fu/2WfQXo9N+Txe2s6YTO0tgAO709uwyZCEEJSI4
+	UHOFgoZBD3r/uZxEeY96QYT0IfHbKoc5UJcNHvGyKc3tA8dSCV4S6UkcyPL88jaiBM2fc79zkCS
+	Qi5UPdHQQ3L3lK1X0pXwcG8pnsnMEVfmG7kDxYepHB41ybRR6zOjYEZLmTyT
+X-Received: by 2002:a05:6820:8108:b0:6b7:46fa:1696 with SMTP id
+ 006d021491bc7-6d43ff6967amr1221223eaf.43.1790217064435; Wed, 23 Sep 2026
+ 19:31:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923-allwinner-a733-gmac-support-v3-3-15735155a789@baylibre.com>
+References: <arKx__kOPe4B5gDW@agluck-desk3> <8557363f-c051-4267-9fbc-f4cbb13ac35e@arm.com>
+In-Reply-To: <8557363f-c051-4267-9fbc-f4cbb13ac35e@arm.com>
+From: yunhui cui <cuiyunhui@bytedance.com>
+Date: Thu, 24 Sep 2026 10:30:51 +0800
+X-Gm-Features: AclHuK-vMCZ2qFyl77CbgGPIcIoNJvukIV1ifNLkMIWFcIgVYuepWIgdw3SPQcI
+Message-ID: <CAEEQ3wkp1d13oDxO_kOVYGpgByPZENs8cNFnobi294SUbq7k6A@mail.gmail.com>
+Subject: Re: [External] Re: Resctrl and I/O
+To: James Morse <james.morse@arm.com>
+Cc: "Luck, Tony" <tony.luck@intel.com>, alex@ghiti.fr, aou@eecs.berkeley.edu, 
+	babu.moger@amd.com, baolin.wang@linux.alibaba.com, ben.horgan@arm.com, 
+	corbet@lwn.net, Dave.Martin@arm.com, fustini@kernel.org, jgg@ziepe.ca, 
+	joro@8bytes.org, kevin.tian@intel.com, palmer@dabbelt.com, pjw@kernel.org, 
+	reinette.chatre@intel.com, robin.murphy@arm.com, shuah@kernel.org, 
+	tomasz.jeznach@linux.dev, wangzhou1@hisilicon.com, will@kernel.org, 
+	xiaqinxin@huawei.com, yuanzhu@bytedance.com, zengheng4@huawei.com, 
+	zhangzhanpeng.jasper@bytedance.com, x86@kernel.org, iommu@lists.linux.dev, 
+	linuxarm@huawei.com, linux-kernel@vger.kernel.org, 
+	linux-riscv@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> +	 * Correcting them would break the DT ABI of the published DTs.
-> +	 */
-> +	.txdly_step_ps = 100,
-> +	.rxdly_step_ps = 100,
+Hi James,
 
-Could you be a bit more specific about what published means?
+On Thu, Sep 24, 2026 at 1:13=E2=80=AFAM James Morse <james.morse@arm.com> w=
+rote:
+>
+> Hi Tony,
+>
+> On 22/09/2026 17:51, Luck, Tony wrote:
+> > Patches for ARM[1] and RISC-V[2] are both at RFC status.
+> >
+> > They appear to be based on similar h/w capabilities where architecture
+> > specific tags can be added to transactions from I/O devices by the IOMM=
+U
+> > servicing the device. Device enumeration is handled outside of the resc=
+trl
+> > file system.
+> >
+> > ARM docs say "the device name is the one listed under /sys/kernel/iommu=
+_groups/<id>/devices/"
+>
+> I think using existing stuff in sysfs is a good idea.
+> (Creating new things in sysfs fills me with dread!)
+>
+> ARM/MPAM also has platform devices that can add the CLOSID/RMID metadata.
+> e.g. the GIC ITS [4] - a kind of translator for MSIs.
+>
+> For these we considered just using the device name as found in /sys/bus/p=
+latform/devices/,
+> in the hope that can be tied back to a struct device - and we could add a=
+ callback for
+> resctrl to configure the device with a CLOSID/RMID.
+> (but - I've not seen a use-case for this yet - those devices generate ver=
+y little traffic)
+>
+>
+> Robin M set me straight on the iommu_group:
+> Strictly that is the wrong abstraction as devices are in the same group i=
+f the
+> driver can't stop them communicating, e.g. PCIe peer2peer. This doesn't m=
+ean it
+> can't tell the traffic apart for CLOSID/RMID labelling.
+> I picked this because its the device granularity VFIO works with.
+>
+> Equally, a device may create multiple streams of traffic, where only the =
+driver
+> will know what each one corresponds to.
+>
+>
+> Using iommu_group like this may need a bit more thinking....
+> If we can fall back to using a device as seen by sysfs, then the arch dif=
+ferences
+> here could be invisible to user-space.
+>
+>
+> > RISC-V says architecture specific device tokens are "devices or device =
+groups"
+> >
+> > In both cases assignments are made with:
+> >
+> >       # echo {device} > {group}/devices
+> >
+> > So now I'm looking at the capabilities of Intel RDT hardware. I'm ignor=
+ing
+> > the implementation on the Granite Rapids CPU, and looking at what is de=
+scribed
+> > in the RDT Architecture Specification[3]. Here are the highlights:
+>
+>
+> > 1) Enumeration is split between two ACPI tables. IRDT enumerates device=
+ groups
+> > and provides MMIO addresses to assign CLOSID/RMID to each group.
+>
+> For ARM/MPAM - this would always be driver specific. The fields may be sh=
+are a register
+> with other things the driver needs to consider.
+> The IOMMU abstracts this for its devices, but this is still something the=
+ IOMMU driver
+> needs to know about.
+>
+> A driver hook, with a drivers/acpi fallback would be ideal.
+>
+>
+> Do you have arbitrary grouping of devices? e.g. a USB controller and the =
+UART.
+> Or would the grouping make some sense to the OS. e.g. all the USB devices=
+ behind
+> this port.
+>
+> Having the UART show up when you add a USB controller to a control group =
+is a bit odd.
+>
+>
+> > ERDT provides
+> > MMIO addresses to read event counts for RMIDs and to configure cache al=
+location
+> > bit masks and memory bandwidth limits.
+>
+> Arm's IOMMU does have controls/monitors that match the spec the MPAM driv=
+er needs,
+> but we currently have no way to expose them through resctrl.
+> The caches on the IOMMU are also relatively small - I've not yet seen any=
+one show that
+> setting the controls there makes a big difference.
+>
+>
+> > 2) All I/O monitoring and control is with respect to I/O caches, not to=
+ the L3
+> > caches that legacy RDT features operate on.
+>
+> Do you have I/O traffic that can turn up in the CPU L3 cache? I think PCI=
+e calls
+> this 'cache stashing'.
+>
+> Arm's IOMMU is the same - but the traffic may also show up in the L3 depe=
+nding on how
+> the system is put together.
+>
+>
+> > 3) The number of RMIDs supported for I/O is lower (maybe considearbly l=
+ower)
+> > than the number supported for CPU monitoring.
+>
+> MPAM can have this happen - and today it will sanitise the values to the =
+lowest
+> common value. Considerably lower becomes considerably upsetting!
+>
+> I'd be interested if we have an approach for this - the IOMMU designers w=
+ould argue
+> they only need one RMID per device - but the system wide sanitised value =
+means they
+> have to match the rest of the system.
+>
 
-      Andrew
+  This lowest-common-denominator issue suggests that resctrl may need a
+  logical CLOSID/RMID namespace that is independent of the ID space
+  implemented by each hardware controller.
+
+  A resctrl group would retain a system-wide logical CLOSID/RMID, while
+  each resource or architecture backend maps those logical IDs to its
+  controller-local allocation entries and monitoring counters. This would
+  avoid unconditionally limiting the number of resctrl groups to the
+  minimum ID count across all enabled resources.
+
+  The current resctrl allocation model uses that minimum as the
+  system-wide CLOSID limit, which is safe for direct indexing but leaves
+  additional entries in larger controllers unused.
+
+  On the RISC-V CBQRI side, we are discussing a hardware mechanism that
+  could provide such per-controller mapping while requests continue to
+  carry the logical RCIDs/MCIDs:
+
+  https://lists.riscv.org/g/sig-datacenter/message/286
+
+
+Thanks=EF=BC=8C
+Yunhui
+
+>
+> For MPAM systems this shape is a big headache because on the platforms we=
+'ve seen,
+> the monitoring is done at the memory-controllers - so any RMID spaces get=
+ joined
+> up eventually.
+>
+>
+> > 4) Monitoring events are I/O cache occupancy, total i/o bandwidth, and =
+i/o miss
+> > bandwidth.
+> >
+> > 5) Current revision (1.4) of the specification doesn't include details =
+of
+> > I/O memory bandwidth control (The "IBAD" subtable of ERDT is reserved f=
+or this).
+> >
+> >
+> > Fitting this into resctrl
+> > -------------------------
+> >
+> > RISC-V description of "architecture specific device tokens" sounds grea=
+t.
+> > I'll have to find some ares of /sys to provide the mapping of tokens to
+> > "device groups".
+> > There's no association with IOMMUs, so this will be some
+> > other path in /sys. Perhaps under /sys/firmware/acpi since the data com=
+es
+> > from ACPI IRDT table.
+>
+> What about using the device behind the IOMMU instead? Presumably the kern=
+el
+> could allocate ids that don't clash with those in the IRDT, and use those
+> for the IOMMU.
+>
+>
+> > Need an info file to tell users the format and source for device tokens=
+.
+>
+> I'd prefer we have one consistent way of doing this across architectures.
+> Especially if we're going to add something new to sysfs.
+>
+>
+> The sysfs path probably covers all bases - but I wouldn't want to parse t=
+hat
+> in the kernel.
+>
+>
+> > I'd like to avoid limiting resctrl monitoring of CPU activity due to th=
+e small
+> > number of I/O RMIDs. Perhaps don't include a "devices" file or mon_data=
+/{i/o
+> > events} files in resctrl group directories when rdtgroup::mon::rmid >=
+=3D
+> > num_io_rmids? But that feels clumsy.
+>
+> I had a half baked idea on how to do this. (which Ben has poked some hole=
+s in)
+>
+> Assigning a device to a ctrl/mon group needs to be able to fail. We can u=
+se this
+> to re-allocate the RMID into the range the new device can use. The CPU ta=
+sks can
+> be repainted to use the new value - but the obvious problem is the old da=
+ta in
+> the caches that uses the old RMID.
+> As no new traffic will be generated for that RMID, it might be possible t=
+o keep
+> it associated with the ctrl/mon group (which would now have two RMID) to =
+keep the
+> user-space view of the counters correct until the old RMID falls below th=
+e
+> reallocation threshold, and it can be free'd.
+>
+> It's worse if we ever needed/wanted to do this with CLOSID. Two CAT bitma=
+ps
+> can be configured the same - but MBA doesn't alias in the same way. Tasks=
+ would
+> be able to burst higher than the configured limit - but the size is limit=
+ed by
+> the size of the caches. And if no new traffic can be generated with the o=
+ld
+> CLOSID/RMID, then the effect can't be made to last forever.
+>
+>
+> For a totally wild suggestion (that I don't think works here) - I had
+> mooted having a second mount of resctrl for islands of the SoC where the
+> properties are different. I don't think it works in this case as the IO-R=
+MID
+> presumably gets seen by some other monitors later.
+>
+>
+> > Domains are based on I/O L3 cache instances. So a new rdt_resource with
+> > new line in the schemata file for IOL3 cache masks per domain. In the
+> > future when there are I/O MBA controls, new line(s) for those too.
+>
+>
+> Thanks,
+>
+> James
+>
+>
+> [4] https://support.arm.com/documentation/ihi0069/hb/?lang=3Den search fo=
+r "MPAM" in the pdf.
+>
+> >
+> > [1] https://lore.kernel.org/linux-iommu/20260901140802.1215508-1-xiaqin=
+xin@huawei.com/
+> > [2] https://lore.kernel.org/lkml/20260714130657.46963-1-zhangzhanpeng.j=
+asper@bytedance.com/
+> > [3] Linked from the bottom of https://www.intel.com/sdm under "Related =
+Specifications", or
+> > direct link: https://cdrdv2.intel.com/v1/dl/getContent/789566?erpm_id=
+=3D1158389_ts1790091453223
+>
