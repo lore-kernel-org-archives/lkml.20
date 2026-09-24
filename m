@@ -1,89 +1,91 @@
-Received: from avas.easytechitalia.it (avas.easytechitalia.it [213.217.29.81])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B3DF2E7384
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:54:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.217.29.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 544AE212FAD;
+	Thu, 24 Sep 2026 13:54:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790258048; cv=none; b=c8LgTnqbWOw/L7a676hPEiO+jRMhT9FmeiyLKZqSRllDmWrcBTgq3gGCT4ULEfDWHXAz+JJXvFAXOy4anjggBTXAisNa8zrwZWW8UlnIuJpFz+PI3gM/R0/XC9GmzTkP/FPVquX7mEGhHcpnENojpGPnvmrM0d8n7S4ugBDwZJs=
+	t=1790258098; cv=none; b=OS++lMcSO7aMYzaAFrHG+e+Vmx1p0uuCKs92Y4h5sEF+PzkMEtCTylYSkmC/Cp34+u//IGt1AaYRPNuLmRWv0jGdMAjQTsF+ueYAwozQUEOh2dQbKniDZcY2itsGwwSADOEkiUdUwtl8CRwnR+MyazbX1NBi/Y8c0sMXucURQkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790258048; c=relaxed/simple;
-	bh=w59vAarjQED26OtWYRcJPUeriJuNUEo1SNn3fTDv4sU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ad1NxT1hDTaFeX8wYK+9yVac5KuxaiV3bl4RVbqCALUuse9b8UxKgZHHkGtnZEMRs6YbX7zIvHYk4nNa8AnqSYto8fuO90KTKS/qc/Gz2PAHPLFAT1NortLom/C0cqyV2BgtywPLOuvEyGT7xchN3rPTovbqVKDrpodTx4hTpTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mtsistemi.it; spf=pass smtp.mailfrom=mtsistemi.it; dkim=fail (0-bit key) header.d=mtsistemi.it header.i=@mtsistemi.it header.b=XHluIrHn reason="key not found in DNS"; arc=none smtp.client-ip=213.217.29.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mtsistemi.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mtsistemi.it
+	s=arc-20240116; t=1790258098; c=relaxed/simple;
+	bh=bpXMpextMi8EnYTm4SLOO6rGSbacgekZYCskfpV7iKI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LQDqBARDMv0gshbXk6iTcaz8hKvtV8SQLivrtAvQXlDcZZ3tzS51XrgyRc1ieWk/AUppBbi5N8y6HPB4ox1QYmjAD+NoeEbEgigj1oslTSiqd66bdJLuXt/2fADV710klGBvJ3vtZfSyfXAgLBMzZf9QnalKVPVJXVkrknJ0mr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=bTUnl3ie; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=mtsistemi.it header.i=@mtsistemi.it header.b="XHluIrHn"
-X-Envelope-From: <info@mtsistemi.it>
-Received: from ngmx.easytechitalia.it (unknown [185.76.140.216])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by avas.easytechitalia.it (Postfix) with ESMTPS id 4hrFg26cXBzGnv7;
-	Thu, 24 Sep 2026 15:53:50 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
-	by ngmx.easytechitalia.it (Postfix) with ESMTP id 6E93517C481;
-	Thu, 24 Sep 2026 15:52:04 +0200 (CEST)
-Received: from ngmx.easytechitalia.it ([127.0.0.1])
- by localhost (ngmx.easytechitalia.it [127.0.0.1]) (amavis, port 10032)
- with ESMTP id FHEFsjg1oR3b; Thu, 24 Sep 2026 15:52:03 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
-	by ngmx.easytechitalia.it (Postfix) with ESMTP id 177CC17DC3B;
-	Thu, 24 Sep 2026 15:52:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.10.3 ngmx.easytechitalia.it 177CC17DC3B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mtsistemi.it;
-	s=AD82E3E6-03E3-11EF-83D2-AF8217D6D3C6; t=1790257923;
-	bh=w59vAarjQED26OtWYRcJPUeriJuNUEo1SNn3fTDv4sU=;
-	h=From:To:Date:Message-ID:MIME-Version;
-	b=XHluIrHnAQJjPoWHr+LStiD30Lc8FD5rm7DaGoJztA//c5ZxQMLd19dSevvCE3wTt
-	 2/QVrdbEQUC9y7VS6jg93tiDpF+Z2ZexHPuc53DzwxsvfeRYEIkGvH08zzCF65f4FU
-	 wvMZumHugfP4fpiRblqbRpqaTE/YQJ+CM4XJdRppjhD9nlphwQRv1qmQch1uDDwh7L
-	 IMxELcDSDEO5BxbpkniS+TfbmQY+SBAVmzW6EaADgJLaeFlB8pR3xw/vAHTde5NGz3
-	 XtgFb9C3KafRS6hRxLZTGunUFKtf4E7WpIowa7dV8ybxwErr6CD0M+cV0t9v71gNod
-	 s2kHHSFoJtB+w==
-X-Virus-Scanned: amavis at ngmx.easytechitalia.it
-Received: from ngmx.easytechitalia.it ([127.0.0.1])
- by localhost (ngmx.easytechitalia.it [127.0.0.1]) (amavis, port 10026)
- with ESMTP id TsJJSNHAAwj2; Thu, 24 Sep 2026 15:52:03 +0200 (CEST)
-Received: from [192.168.56.1] (93-38-124-109.ip70.fastwebnet.it [93.38.124.109])
-	by ngmx.easytechitalia.it (Postfix) with ESMTPSA id B20CD17C481;
-	Thu, 24 Sep 2026 15:52:02 +0200 (CEST)
-From: Mattia Tadini <info@mtsistemi.it>
-To: Tom Lendacky <thomas.lendacky@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] crypto: ccp - two PSP init fixes, and the AMD BC-250
-Date: Thu, 24 Sep 2026 15:53:48 +0200
-Message-ID: <17902580289.11296.7403498173307596661@mtsistemi.it>
-In-Reply-To: <0902307a-52d2-41c9-9552-289d05c05153@amd.com>
-References: <178984289056.12336.17662860552012704364@mtsistemi.it>
- <10469a97-1e55-438b-a9cc-7a7cf650c104@amd.com>
- <179007151736.36856.17325391038801459309@mtsistemi.it>
- <99667c45-b44b-4378-9d92-7fd9eb64ff16@amd.com>
- <0902307a-52d2-41c9-9552-289d05c05153@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="bTUnl3ie"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=NR2x74T2d0daILuAIZ7PUDHm2Hyr5Iyuia+BWapNE2s=; b=bTUnl3ievtFmo6TPRk5PLgpbLx
+	PBdR9xJoV4S/6l3LO8f5j3ESUC9Rq0/+idHl3CBdm+4IeSnSX6+k+Bq/1jObpAklGRY5pmVouLld6
+	RkU5sqU60pZNhbFZ7LGtKBfWkxeA0lX7Fh14yQ/T8UPY9MYRGTg1Geh272ing09mo1fA=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x9juG-0070Ks-TY; Thu, 24 Sep 2026 15:54:36 +0200
+Date: Thu, 24 Sep 2026 15:54:36 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>, davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	thomas.petazzoni@bootlin.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH net-next 1/3] selftests: drv-net: Introduce a selftest
+ for ethtool flow control
+Message-ID: <fb18618d-6402-4f7d-b318-1872570ceb27@lunn.ch>
+References: <20260920164732.349744-1-maxime.chevallier@bootlin.com>
+ <20260920164732.349744-2-maxime.chevallier@bootlin.com>
+ <20260922194251.06e00e2e@kernel.org>
+ <72bdfa09-34ea-43ab-88ad-b3c64c7e1f70@bootlin.com>
+ <20260923201051.66e9bf14@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Easytech-Libra-ESVA-Information: Please contact Easytech S.r.l. for more information
-X-Easytech-Libra-ESVA-ID: 4hrFg26cXBzGnv7
-X-Easytech-Libra-ESVA: No virus found
-X-Easytech-Libra-ESVA-From: info@mtsistemi.it
-X-Easytech-Libra-ESVA-Watermark: 1790862832.75239@MmQpJ95n2/K83gQad8cFKg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923201051.66e9bf14@kernel.org>
 
-On 9/22/26 09:42, Tom Lendacky wrote:
-> My take is to just drop it.
+On Wed, Sep 23, 2026 at 08:10:51PM -0700, Jakub Kicinski wrote:
+> On Wed, 23 Sep 2026 07:41:13 +0200 Maxime Chevallier wrote:
+> > On 9/23/26 04:42, Jakub Kicinski wrote:
+> > > On Sun, 20 Sep 2026 18:47:27 +0200 Maxime Chevallier (Netdev
+> > > Foundation) wrote:  
+> > >> Future ethtool selftests are expected to use the same, these helpers
+> > >> are put in the net selftest lib.  
+> > > 
+> > > Please resist the urge to create libraries.
+> > > 
+> > > If you're doing this I suspect you didn't even read the README and 
+> > > you expect people to search around for libraries?  
+> > 
+> > I did read the README and fought the urge, that was something Andrew
+> > was asking for in the previous round :( I'm ok with either TBH.
+> 
+> I guess it was Andrew that didn't read the docs then :)
 
-Understood, I'm dropping the series.
+Yes.
 
-Thanks to both of you for the time and for the careful review.
+I apply software engineering principles to tests as i would to any
+other code. It has to be maintained, bug fixed etc. For my $DAY_JOB, i
+spend as much time maintaining test code as feature code. So i don't
+really want lots of copy/paste version of the same code.
 
-Mattia
+So, for flow control, lets follow the README. When EEE is implemented,
+we can see how bad the copy/paste is, and then consider a library.
+
+   Andrew
