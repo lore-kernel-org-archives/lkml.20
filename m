@@ -1,502 +1,401 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB7FE4825B2;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD1F84825AE;
 	Thu, 24 Sep 2026 13:00:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790254850; cv=none; b=f585hiFPGA87mWofPbtbzfc09NLkSUpro+P+QUUEtRG/5t1tkawlIB2JZMQ0B7sl7nhJbSLT93l5J9ehmgYDAnbk5rpWo9Fo6UU8toJJhvlnk3LmyA/GUQI5B38bs8iXDe8VK0NIjfv5VR76NPpi3HR+NMY12/rxs+O6hy5cZf8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790254850; c=relaxed/simple;
-	bh=W7ku94C0L9H7926tC+FcQoetrTVE9QSRIy7tGlf1dj0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pjv1uvh11Ey050ooLM6LBo/WW4qSzEc0cMMpSDeiQbAnERtG0xIazuXHUnoR6TScTXIxGD2tWpsKGFmBWYDAA4J3G1IIU8ggN0gsJp727IXWSO+WUmIg67kWf4OPkytQoySiCkt8yeWiQvYZNsdmzXVo1YZP4Bx+NoexJ8MfpLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CLe0DHw5; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790254852; cv=fail; b=iZ4RX8kmd58prZyX0WXUopZ20zVD69X6pySABTCYsBr9cq6nS/MpjDI5bX9gBzEluI7+4A9lY4Bo/6XVoEHrtIy8E/aY2l7P8oF2b6OH9bcnY3dIOYmkE24r1t6ZjQO/2Es6u2EHJedybg4TPSPMJlnh7ynGxVD1m0Udi6oZsZ8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790254852; c=relaxed/simple;
+	bh=R2wsCzTYITTdXZW2yVDZCokU0UVJIl15ii0OP63ZV/A=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=KjRGa0PtdtaHmgWEKa+RUTCtJ9YzW8WI952tDKVAMlt7NCJNAnqjJWfLIXh8iIi/Qtnmmmtuiyqd5ZkaXMoQ6pOBqN0wKvL4Mhvs16boGlLg5iwxHoN54y63xX2Fui+ai4nHf9vGjfb5Ohi3kEEW8BhyDLlFECJcW1+dsKQ5gKw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iQvy76Tl; arc=fail smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CLe0DHw5"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 83D29C2BCFB;
-	Thu, 24 Sep 2026 13:00:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790254850;
-	bh=W7ku94C0L9H7926tC+FcQoetrTVE9QSRIy7tGlf1dj0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=CLe0DHw5h0Hv7Ab+IRTo1TEb44NAePlISvJ+M+Wv55v0YfbLWxO/sXK4SIo8AeONX
-	 ElDpgn1p7almT7obTJirhHGZ6RxrUX5ceEuhqRSDoTiM+Cknf45hhs5FRsBES1Iym+
-	 wt+TOotQTz8XlmPuHyMXle5cVul0Wdl9k/fIRFX7SkqSJc1iQrdlM/TWYn9YCFEAi1
-	 Py+ReBXuyrCou6UF62Vc4PV+6RcGSn4DVRH+at3PnuYeFbv2AvynRssIUXpbELYx+l
-	 jvo3fOldcrip4bYcWnLOF/h4Em8gNPoNUr0emG6cs/YUHtv6Hs0AyL0XhYIeAaxicq
-	 EGt/XEuqFhL2w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 65907C9830E;
-	Thu, 24 Sep 2026 13:00:50 +0000 (UTC)
-From: Alireza Asgari via B4 Relay <devnull+alireza.asgari.net@kernel.org>
-Date: Thu, 24 Sep 2026 13:00:25 +0000
-Subject: [PATCH net 2/2] selftests: net: cover UDP splice checksum fragment
- alignment
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iQvy76Tl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790254851; x=1821790851;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=R2wsCzTYITTdXZW2yVDZCokU0UVJIl15ii0OP63ZV/A=;
+  b=iQvy76TljRrYyc6U5E56ifXJdysH6butel431Aw25alZdNoZPMH8Uho1
+   JvwZV/hbfD0sGptiuRIo0xMecqj9iQ03IYOcW6ycGrBCJ+fnP/JLFUlGM
+   JIE0geqPVLUhse3R87oxY4oefz/Xujleqg25Gc9V9qGzAU18sOveuz4dj
+   xTySUdKubPhbDehqRWp18uGl1DzXwbPmIPl9zBI1LpLW7KCCBVJRhfZt7
+   x+/O2hoY9ikdoROcoMnIQ238xsWoMBJXA9dKWPQGiUySsg7VgvGPG8GJS
+   mICtqngB+xhzOGbVT2lNwJNWglp6BDajn3Subj6qnnHph0RpQfpj/o5pw
+   g==;
+X-CSE-ConnectionGUID: gwFjz1IcSKyC4EEc/GlaaQ==
+X-CSE-MsgGUID: 7y79oyQMQ8+XQgWH4ToqBg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="101554511"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="101554511"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 06:00:50 -0700
+X-CSE-ConnectionGUID: QWYoo6e1RbOMAr0Hkz+fWw==
+X-CSE-MsgGUID: dxbJcGl0Qk6pzeT+g6tWXQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="272607524"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 06:00:49 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 24 Sep 2026 06:00:49 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 24 Sep 2026 06:00:49 -0700
+Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.41) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 24 Sep 2026 06:00:48 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JwGIQSKKMBsl0okmW1xCVlSfXUKhLcKSJIT4rX+ZXqSyqgJDtWhq00aWfmTR/ufIy5u8yJI2Q68nEab/eZqm0h0RKhrrUtdL8XkAnp3bnw749cOGsH5l9Qag1BTFG+/vVqgh+c3v5krRv5uP2wcQ+PRe5andypzU5lsaHtZKylWcMVBsZ2wDIvJqFMnWkLPu2Z4OeSWkTTkUuq6eVNGxZnZTYv9Eb7RoRjGpNcDRRMjduqKjalY39X13zMG5NnxT2qRHNvVjE3GYAjs6K+rM8hpBd2Cmv6PcZfgU1ub4jJZg/Fj5/uSofXEq+RX49xYC4Yz1+z/ZXqtV7a/jE5dWCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Xy6plm/pFB0arnMc4X9zldXpdYPvSal8eCyDTydq9JE=;
+ b=zKgMgivY42ymjnzTyEc+3YnwQR+M8E2+RGmaC53W/TtLBNranezTEu5/uCdiS1pRrDnDVCs61fbh4zkw1LwqeQNGBXtwGgREqA7+ylFmAMsPETB+/mjvKaZIiCGdnAM2MZP9//3ytw7zJyltn0IFQMx72XwPEADob7l5F5ms/63bSb5I355yvGYhKZVU/P+juqrSeP8UiDHvTkebGFDFBluQwZQ5+pgZuGyuhSefZ8E6KFi3Gv210QqzHEFO9jjshCGuCDa3TfO4bOKN4cCngYje5dhsyphj61TbuDcAHISXYoNz0Edg9C3Xo6g6JqSgHVZaUxCqHPt/jP9GqDqXWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA1PR11MB7198.namprd11.prod.outlook.com (2603:10b6:208:419::15)
+ by CH8PR11MB407363.namprd11.prod.outlook.com (2603:10b6:610:32d::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 13:00:46 +0000
+Received: from IA1PR11MB7198.namprd11.prod.outlook.com
+ ([fe80::2c4e:e92a:4fa:a456]) by IA1PR11MB7198.namprd11.prod.outlook.com
+ ([fe80::2c4e:e92a:4fa:a456%3]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 13:00:45 +0000
+Message-ID: <7f046a93-1739-49b0-abe9-c742866e9df3@intel.com>
+Date: Thu, 24 Sep 2026 16:00:39 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/14] perf sample: Allow decoders to supply branch
+ return addresses
+To: Leo Yan <leo.yan@arm.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, Ian Rogers
+	<irogers@google.com>, James Clark <james.clark@linaro.org>, Mike Leach
+	<mike.leach@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, Suyash Mahar
+	<smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
+CC: Arnaldo Carvalho de Melo <acme@redhat.com>, <coresight@lists.linaro.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-perf-users@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20260923-perf_cs_etm_fix_non_taken-v2-0-6ab8c07a5455@arm.com>
+ <20260923-perf_cs_etm_fix_non_taken-v2-1-6ab8c07a5455@arm.com>
+Content-Language: en-US
+From: Adrian Hunter <adrian.hunter@intel.com>
+Organization: Intel Finland Oy, Registered Address: c/o Alberga Business Park,
+ 6 krs, Bertel Jungin Aukio 5, 02600 Espoo, Business Identity Code: 0357606 -
+ 4, Domiciled in Helsinki
+In-Reply-To: <20260923-perf_cs_etm_fix_non_taken-v2-1-6ab8c07a5455@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DUZPR01CA0011.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:3c3::19) To IA1PR11MB7198.namprd11.prod.outlook.com
+ (2603:10b6:208:419::15)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-fix-udp-splice-checksum-v1-2-fe61d65447a8@asgari.net>
-References: <20260924-fix-udp-splice-checksum-v1-0-fe61d65447a8@asgari.net>
-In-Reply-To: <20260924-fix-udp-splice-checksum-v1-0-fe61d65447a8@asgari.net>
-To: "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- David Howells <dhowells@redhat.com>, Shuah Khan <shuah@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, Alireza Asgari <alireza@asgari.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790254849; l=12806;
- i=alireza@asgari.net; s=alireza-kernel; h=from:subject:message-id;
- bh=3WgZtjdGhpyGxXoJGzwfMeILWbCWZIJDIha+kdwRhbE=;
- b=eDUmMk6UCV4/tnQd/Og/OPP2nF/rl22EyU60LP0jIrTIJ6OC9+8tstvkRGhUZC5uSrU/308TU
- XCz5mvZGheaD8WgDq8MNqkhvfUSSYuO2QlNAQ3/aHKH2m2UqVodI0rp
-X-Developer-Key: i=alireza@asgari.net; a=ed25519;
- pk=wuQ0/M69FqoVnrCMUJ13EQCwrCwVjCrtz75k15vW8tw=
-X-Endpoint-Received: by B4 Relay for alireza@asgari.net/alireza-kernel with
- auth_id=1055
-X-Original-From: Alireza Asgari <alireza@asgari.net>
-Reply-To: alireza@asgari.net
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR11MB7198:EE_|CH8PR11MB407363:EE_
+X-MS-Office365-Filtering-Correlation-Id: b6335a2d-7e71-40bf-a0fb-08df1a3bd8ee
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|10067099003|56012099006|6133799003|3023799007|18002099003|22082099003|4143699003|11063799006|921020;
+X-Microsoft-Antispam-Message-Info: dbCP5e18AUBGIDc4hdvVJpLI36xJhDiWWOAZpqCDlMxhgxKkw1Z42sZiX7wWl1gM/AjrYrGopGYAb7rHLKtYrPTQY+B25W2DR8P7UJGCjZqSurB+MMubDiKhATBJbwkLiNxp13xDFJy/MVOraa8Q6If46V8Z2xZTCalw+SBw7I7KqccQEKJ4VssbhDRHghOK0BrbGXK/OrIFp9cHJnfcyIntUL1TG3QZdndpxZkybWguLYMJlMcZbxAEztqSIjNIJ/RxeCfCNcCtjHjAiImCHCMyo0cGLQvjfDfqPvJsqUCBf/MrQC2jqp282UO2pZ8X3VOBn5/U4JafXTmOQswRvkp3iMzKJEDUGMGqY0xWfMM7MY+TU4ReTvutVZ5lyrhr8TZuXUeHHfU14Z6Q6yUvhtr5AY85BB4OBoi+GVv8XHk5oi2A4zKv5ojZ0Gyp6htw2vzffhDRzSYyQaA+UmXAFEJYaFUYZOokwZ9U1D+D+bWbDvcXhdrcTN3DKtpsacbit2VL+WtmBa58Ij+4WsjOvqf0ntgfCyfTAn7HrZnxNr1Ke3akdfRJpbmx1G9yX4o/mxHSEEYD8wkSAewDFECCr/UwXQyZq2bdpQ5hqKFyoE2kOL0FRJkV+sWS0OswSziuV/H9epId6mcEZnIU2XXQzLZ8XOX58Q6eoINrNLGF9ViTPMw4BWbq08ZehXndfcMCdQF6H8nJynFwD2TepUCX/A==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR11MB7198.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(10067099003)(56012099006)(6133799003)(3023799007)(18002099003)(22082099003)(4143699003)(11063799006)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aXpQUllGbHlnK1F4SkZIV0tHbEpkRG0veS9NZkpJUU5ha2dMTGZ5ZHJXY1BX?=
+ =?utf-8?B?RThZZDVjWmp0YTgwc2l4QXNmNVlZbytNRVVMZUVtTStqWEF0K25VYmtQRTVQ?=
+ =?utf-8?B?dlJUZ2R0MXFlNkQ4WlZRYU5qUlFqVUxUOVR2clRiZ2o1cDQyWTNoMTBGOWp4?=
+ =?utf-8?B?UFV1TkpVWnV4T0wvTktrMkQ5ZW9iOWlPZyttNHdQTmx6b3FyRzFxN2VEcjlT?=
+ =?utf-8?B?SXBtNzJmOG9DenpySmFMMk1vZ3UzRmVQZVQxbTBrWFpkSTk2WEI4OUJuekxC?=
+ =?utf-8?B?dVA0Vk1CeldNc1lHbktnNktpOVFLa2pwR1EwTC9yZjk0d2psU2tEd1FFRGJP?=
+ =?utf-8?B?cjhZQjVYWHE5Q0VRdzhibUVnNjJnNEMyZ0Y4MWxia0RMam1OYnM4cnJuZXd5?=
+ =?utf-8?B?bjdRY2VhYkV2Z1BkSm4vWUdwOCtLSVppYkl6bDVPcStSVWdRaG40WE1HRnox?=
+ =?utf-8?B?cDY5QjN6ZExEeFVjTW1Db0RpY0NRTGdaRTlDbnh4amRoUXdwbUJYek5lQTY1?=
+ =?utf-8?B?Z0lLdCt0TUtTa3ArbEp6V3VSNUZrZEc0U2MweS8yWEJFdWVYckdNK2xvNm5C?=
+ =?utf-8?B?Y3pEcXhmczVHelh0WW5zSk1zeDl5UThheHhwQVM5UFpHbFZHQ0lzUTVJY2M2?=
+ =?utf-8?B?Vk5lY3pEL3RjazYvcy9lVHhacXJDcEx2NGVQNTZMNFZrbXZmRFc0RnlJVjZ6?=
+ =?utf-8?B?R3ZlTmVob1R4LzM3QVA2dkRlZ2pOMVdZTTRuSlFEbEFTOS9GWCt2d1NvVTVy?=
+ =?utf-8?B?dktUMFpycUNEZnpLZTlQWEI5cGdnNjRXTlFpU256aDF3Rk41cXA2czlJaFY3?=
+ =?utf-8?B?dGc0d3Y2ODJhcjM5RjR0cHlIaVZ3bVYwNzdCTHFRL0EwL29FbmlDVnRVL05r?=
+ =?utf-8?B?dnI3OVlsa2ppemp2T25BQ2R4VDllVFlWcnMrQ3VLWmRJUG85TjgzTjhKRzZB?=
+ =?utf-8?B?ZUxrSjdBZjdMUTNCQ1d1SWQ5clZLMWVjZ2pxZFMzT3p6c3dKbU1IMUZJNDZK?=
+ =?utf-8?B?eGJLRHdNaHNraU8ybHEyU2hraTdEZ05tS1Z5aktWU2dDbEZnWFZEek1rNXhu?=
+ =?utf-8?B?aVltTUdFNEZrTENhUjBuOFJnYkpMVFk0UGQ1dVZ3VHA5WExCQjdQdS9oZVBo?=
+ =?utf-8?B?Q1ZxNVk1NmhaSGFoTzZTLzV2alRFbzE1UTFQK01lUzI0S1ZHZWRQWXdiRWpC?=
+ =?utf-8?B?cEFILy9HaTlpQnY3NStvYzlhaDY3bDRsZGg0MXFhVjhNRVJlQks4TTVvQjFJ?=
+ =?utf-8?B?Ym4zMjE1V3grNmZIeGFwRDhmSlRRRnZpQUdrdy9NZFRYWWRtMUYvd0pMZ0Fx?=
+ =?utf-8?B?WmVWMlJNY2NOaUJ5cnN4ZWh1dnNmTGEyTkRaL0NvYVFiNm5HZHNYQ0RFcTlz?=
+ =?utf-8?B?d1NwZ0FScnBnOEV4UFl1L2hqYWZGVnEwYUJoV1Zuck5aZjRQTldJeUZHNlFy?=
+ =?utf-8?B?S3NxOHVFL2NHeEhlbUhBMzROVGFGQVRSQkNxZXUxL2dMdXBLbkwyTFBwNi9X?=
+ =?utf-8?B?aThuZVB1SnI5ZlZXRDZ5cGltT0tjU2ZudG5EZld0aWd5RHdLckkwcDJrWkp5?=
+ =?utf-8?B?RFdxZk93UjRYMEF4S05vUmw5RTAveFZpRktPTlNGWElEZW1takxlYVBaenMx?=
+ =?utf-8?B?R2dMTDRGcVZoUzZlTmpUM1NzWFJZTmJTNFNGMXJidEFiNkl0d2E5M1k3L3ZI?=
+ =?utf-8?B?akYwaGxESERkQ3FwYTNDdmVjT0ZONDFzSWVVeG9xRWZkYXppaEJETVg0YXZP?=
+ =?utf-8?B?NFY1SmVmVkJMOFVucndmN3kzNWZNdFVWVHg3VTUvOTJRVXFiM1k3dStNS2RE?=
+ =?utf-8?B?Vmc3cmxaZW4xZU9PR2lETlByaDljZmF6VGI2UENBaTYyUTJ3WldTSDVSMnBl?=
+ =?utf-8?B?SVZSdnRxNFNRd2w3cWh4U0piYTJaNVhxL3UxckdmL2Z6SFptS1R2bU1hSmxv?=
+ =?utf-8?B?Q3R4QWFoa0ZpZm9FbEdLSnBYT1dmUjJDYlBJbVdHQTJwWVRoa1B2MW8zRHNl?=
+ =?utf-8?B?WnArMDdldzdsU1BQSHRGakRxU3ZvNUdKd3VUUXV4VFBKZnVKWExkQ09OaGZL?=
+ =?utf-8?B?TG5jYnd3RSs3bGpxMlR4WENJWEp4L0ZyT2V3c1d5VlY2cC9iQ1RXa1N6VXVM?=
+ =?utf-8?B?aUJsTHhVWWNocUtNSDBRRUVJdjVFaHhiK25RMEZvUTNGck9pWk1EOWROMHE1?=
+ =?utf-8?B?MWNBRE55dW9XOEJ6WHM5WVkzbG1XVk9QY3h4YjRxenNSUEJKWWhGTUFlN1lR?=
+ =?utf-8?B?WmpsK0lGdHNtUU5Hc0c5cytSNjhBU2NEaGpXOEJmRjcwcmlocjdDN2VqdHkr?=
+ =?utf-8?B?cFkrM0ozclRhUmY1NDhmYkZoTm4yemxBbjJSSmpZL0FFaS81RERNV3BUT2pS?=
+ =?utf-8?Q?ct+ycISBFdEgWXbA=3D?=
+X-Exchange-RoutingPolicyChecked: xxjM9n7SjGchGETUpTJDpSHWdIbNe9/qw+G934hQWnTGoh/Dlr8br095J9189icnEVco8EQDsEZcsf5wCdIvWAaB6d3Dt8n1m5sieKtsWnNBOJixd9Io66Z/Vmv4a4mWEtihSdGrI27fmqLJBK5Lookt3oUkUKh43Wzjp4FgTMyll1q4pjOxok0Zkbn5zianbjYtl1KXCplbEvyt+Bayh9j174bSupvNhoBy9Ow/7320j6oQne8PMa1Jeb2GL0rVGpaA6yHjLrdD9E13sHRGoJtKxL9+dN9WLjQlvCVlTmfIoeXziVIeY5p8GK/cmDi0D35CWYz5n6DrpKb79ge0JQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6335a2d-7e71-40bf-a0fb-08df1a3bd8ee
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB7198.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 13:00:45.7939
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uQ7D9iCQvwZP7V2cEie+C6JK7hQdlk2n2bReHmBNk0GTDPh6JjXZ0mEJ7YoY3EuIzj5QglrJ/BZh+YypfnDkuw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR11MB407363
+X-OriginatorOrg: intel.com
 
-From: Alireza Asgari <alireza@asgari.net>
+On 23/09/2026 18:21, Leo Yan wrote:
+> The thread stack derives return addresses from IP + insn_len. For an
+> interrupt or fault, the return address can instead be the sample IP even
+> when instruction bytes at that address are available.
+> 
+> Add ret_addr to perf_sample and prefer it in thread_stack__trace_end()
+> and thread_stack__process() when supplied. Initialize it to zero so other
+> samples retain the IP + insn_len calculation.
+> 
+> Add a regression test for explicit exception return addresses and the
+> ordinary call fallback when the return address is zero.
+> 
+> Assisted-by: Codex:gpt-6
+> Signed-off-by: Leo Yan <leo.yan@arm.com>
 
-Exercise software UDP checksums when splice() transfers multiple pipe
-fragments into a corked datagram. Use separate source pipes so short writes
-cannot merge, and use odd fragment lengths to expose checksum-position
-errors between fragments.
+Reviewed-by: Adrian Hunter <adrian.hunter@intel.com>
 
-Cover IPv4, IPv6 and IPv4-mapped destinations, connected and unconnected
-sockets, resident prefixes, even and odd fragment lengths, and a fragment
-starting near a page boundary. Ordinary sends provide a control. Check the
-complete payload and reject extra datagrams after a successful send.
-
-Keep receive waits bounded and skip unavailable address families or pipe
-capacities. The test uses only loopback sockets with ephemeral ports and
-has no dependency on the application that exposed the regression.
-
-Assisted-by: LLM
-Signed-off-by: Alireza Asgari <alireza@asgari.net>
----
- tools/testing/selftests/net/.gitignore            |   1 +
- tools/testing/selftests/net/Makefile              |   1 +
- tools/testing/selftests/net/udp_splice_checksum.c | 378 ++++++++++++++++++++++
- 3 files changed, 380 insertions(+)
-
-diff --git a/tools/testing/selftests/net/.gitignore b/tools/testing/selftests/net/.gitignore
-index c9f46031ac..dacd36ed84 100644
---- a/tools/testing/selftests/net/.gitignore
-+++ b/tools/testing/selftests/net/.gitignore
-@@ -55,6 +55,7 @@ tools
- tun
- txring_overwrite
- txtimestamp
-+udp_splice_checksum
- udpgso
- udpgso_bench_rx
- udpgso_bench_tx
-diff --git a/tools/testing/selftests/net/Makefile b/tools/testing/selftests/net/Makefile
-index 3ee3378f8b..590b33e16d 100644
---- a/tools/testing/selftests/net/Makefile
-+++ b/tools/testing/selftests/net/Makefile
-@@ -199,6 +199,7 @@ TEST_GEN_PROGS := \
- 	tap \
- 	tcp_port_share \
- 	tls \
-+	udp_splice_checksum \
- # end of TEST_GEN_PROGS
- 
- TEST_FILES := \
-diff --git a/tools/testing/selftests/net/udp_splice_checksum.c b/tools/testing/selftests/net/udp_splice_checksum.c
-new file mode 100644
-index 0000000000..dc61444e64
---- /dev/null
-+++ b/tools/testing/selftests/net/udp_splice_checksum.c
-@@ -0,0 +1,378 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Exercise UDP software checksums over multiple spliced pipe fragments.
-+ * All traffic stays on loopback; no privileges or external services are needed.
-+ * Exit status: 0 = pass, 1 = failure, 4 = all cases skipped.
-+ */
-+#define _GNU_SOURCE
-+
-+#include <arpa/inet.h>
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <poll.h>
-+#include <stdbool.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/socket.h>
-+#include <time.h>
-+#include <unistd.h>
-+
-+#include "kselftest.h"
-+
-+#define TIMEOUT_MS 200
-+
-+struct test_case {
-+	const char *name;
-+	const char *body;
-+	const char *prefix;
-+	size_t fragments[3];
-+	bool ordinary;
-+	bool page_tail;
-+};
-+
-+static const struct test_case cases[] = {
-+	{ "ordinary-control", "abcDEFGH", "", { 3, 5 }, true, false },
-+	{ "uniform-odd-fragments", "BBBBBBBB", "", { 3, 5 }, false, false },
-+	{ "even-fragments", "abcdEFGH", "", { 4, 4 }, false, false },
-+	{ "odd-fragments", "abcDEFGH", "", { 3, 5 }, false, false },
-+	{ "odd-prefix-odd-fragments", "abcDEFGH", "P", { 3, 5 }, false, false },
-+	{ "even-prefix-odd-fragments", "abcDEFGH", "PQ", { 3, 5 }, false, false },
-+	{ "page-tail-odd-fragments", "abcDEFGH", "", { 3, 5 }, false, true },
-+	{ "three-fragments", "abcDEFGhijkl", "", { 3, 4, 5 }, false, false },
-+	{ "odd-prefix-three-fragments",
-+	  "abcDEFGhijkl",
-+	  "P",
-+	  { 3, 4, 5 },
-+	  false,
-+	  false },
-+};
-+
-+static const char *const families[] = { "IPv4", "IPv6", "IPv4-mapped" };
-+
-+static int error(const char *what)
-+{
-+	ksft_perror(what);
-+	return 1;
-+}
-+
-+static bool unavailable(void)
-+{
-+	return errno == EAFNOSUPPORT || errno == EPROTONOSUPPORT ||
-+	       errno == EADDRNOTAVAIL;
-+}
-+
-+static long long now_ms(void)
-+{
-+	struct timespec ts;
-+
-+	if (clock_gettime(CLOCK_MONOTONIC, &ts))
-+		ksft_exit_fail_perror("clock_gettime");
-+	return (long long)ts.tv_sec * 1000 + ts.tv_nsec / 1000000;
-+}
-+
-+static int receive_one(int fd, const char *expected, size_t length)
-+{
-+	struct pollfd pfd = { .fd = fd, .events = POLLIN };
-+	long long deadline = now_ms() + TIMEOUT_MS;
-+	int remaining, ret;
-+	char received[64];
-+	ssize_t count;
-+
-+	for (;;) {
-+		remaining = deadline - now_ms();
-+		if (remaining < 0)
-+			remaining = 0;
-+		ret = poll(&pfd, 1, remaining);
-+		if (ret < 0) {
-+			if (errno == EINTR)
-+				continue;
-+			return error("poll");
-+		}
-+		if (!ret) {
-+			ksft_print_msg("no datagram within %d ms after send\n",
-+				       TIMEOUT_MS);
-+			return 1;
-+		}
-+		count = recv(fd, received, sizeof(received),
-+			     MSG_DONTWAIT | MSG_TRUNC);
-+		if (count < 0) {
-+			if (errno == EINTR || errno == EAGAIN)
-+				continue;
-+			return error("recv");
-+		}
-+		break;
-+	}
-+	if (count != (ssize_t)length || memcmp(received, expected, length)) {
-+		ksft_print_msg("received %zd bytes; expected %zu matching\n",
-+			       count, length);
-+		return 1;
-+	}
-+	count = recv(fd, received, sizeof(received), MSG_DONTWAIT | MSG_TRUNC);
-+	if (count >= 0) {
-+		ksft_print_msg("unexpected extra datagram (%zd bytes)\n",
-+			       count);
-+		return 1;
-+	}
-+	if (errno != EAGAIN)
-+		return error("extra-datagram check");
-+	return 0;
-+}
-+
-+/* Separate source pipes prevent adjacent small writes merging into one buffer. */
-+static int append_fragment(int dest, const char *data, size_t length)
-+{
-+	int source[2], ret = 1;
-+
-+	if (pipe2(source, O_NONBLOCK | O_CLOEXEC))
-+		return error("source pipe");
-+	if (write(source[1], data, length) != (ssize_t)length) {
-+		error("source write");
-+		goto out;
-+	}
-+	if (splice(source[0], NULL, dest, NULL, length, SPLICE_F_NONBLOCK) !=
-+	    (ssize_t)length) {
-+		error("pipe-to-pipe splice");
-+		goto out;
-+	}
-+	ret = 0;
-+out:
-+	close(source[0]);
-+	close(source[1]);
-+	return ret;
-+}
-+
-+static int pipe_capacity(int fd, unsigned int slots, const char **skip_reason)
-+{
-+	long required = slots * sysconf(_SC_PAGESIZE);
-+	int capacity = fcntl(fd, F_GETPIPE_SZ);
-+
-+	if (capacity < 0)
-+		return error("query pipe capacity");
-+	if (capacity >= required ||
-+	    fcntl(fd, F_SETPIPE_SZ, required) >= required)
-+		return 0;
-+	ksft_print_msg("cannot reserve %u pipe slots: %s\n", slots,
-+		       strerror(errno));
-+	*skip_reason = "required pipe capacity unavailable";
-+	return KSFT_SKIP;
-+}
-+
-+/* Leave three bytes at a page's end, followed by five bytes on the next page. */
-+static int append_page_tail(int dest, const char *body,
-+			    const char **skip_reason)
-+{
-+	long page = sysconf(_SC_PAGESIZE);
-+	int source[2], ret = 1;
-+	char *data;
-+
-+	if (page < 8) {
-+		ksft_print_msg("invalid page size %ld\n", page);
-+		return 1;
-+	}
-+	data = malloc(page + 5);
-+	if (!data)
-+		return error("malloc");
-+	memset(data, 'x', page - 3);
-+	memcpy(data + page - 3, body, 8);
-+	if (pipe2(source, O_NONBLOCK | O_CLOEXEC)) {
-+		error("page-tail source pipe");
-+		goto free_data;
-+	}
-+	ret = pipe_capacity(source[1], 2, skip_reason);
-+	if (ret)
-+		goto out;
-+	ret = 1;
-+	if (write(source[1], data, page + 5) != page + 5) {
-+		error("page-tail write");
-+		goto out;
-+	}
-+	if (read(source[0], data, page - 3) != page - 3) {
-+		error("page-tail discard");
-+		goto out;
-+	}
-+	if (splice(source[0], NULL, dest, NULL, 8, SPLICE_F_NONBLOCK) != 8) {
-+		error("page-tail pipe-to-pipe splice");
-+		goto out;
-+	}
-+	ret = 0;
-+out:
-+	close(source[0]);
-+	close(source[1]);
-+free_data:
-+	free(data);
-+	return ret;
-+}
-+
-+static int run_case(unsigned int family, bool connected,
-+		    const struct test_case *test, const char **skip_reason)
-+{
-+	size_t body_length = strlen(test->body), offset = 0;
-+	int tx_family = family == 0 ? AF_INET : AF_INET6;
-+	int rx_family = family == 1 ? AF_INET6 : AF_INET;
-+	int rx = -1, tx = -1, pipefd[2] = { -1, -1 };
-+	size_t prefix_length = strlen(test->prefix);
-+	struct sockaddr_storage address = { 0 };
-+	socklen_t address_length;
-+	struct sockaddr_in6 *v6;
-+	struct sockaddr_in *v4;
-+	int ret = 1, zero = 0;
-+	char expected[64];
-+	unsigned int i;
-+	ssize_t count;
-+
-+	v4 = (struct sockaddr_in *)&address;
-+	v6 = (struct sockaddr_in6 *)&address;
-+	*skip_reason = "address family unavailable";
-+	memcpy(expected, test->prefix, prefix_length);
-+	memcpy(expected + prefix_length, test->body, body_length);
-+	rx = socket(rx_family, SOCK_DGRAM | SOCK_CLOEXEC, 0);
-+	if (rx < 0) {
-+		ret = unavailable() ? KSFT_SKIP : error("receive socket");
-+		goto out;
-+	}
-+	if (rx_family == AF_INET) {
-+		v4->sin_family = AF_INET;
-+		v4->sin_addr.s_addr = htonl(INADDR_LOOPBACK);
-+		address_length = sizeof(*v4);
-+	} else {
-+		v6->sin6_family = AF_INET6;
-+		v6->sin6_addr = in6addr_loopback;
-+		address_length = sizeof(*v6);
-+	}
-+	if (bind(rx, (struct sockaddr *)&address, address_length)) {
-+		ret = unavailable() ? KSFT_SKIP : error("bind loopback");
-+		goto out;
-+	}
-+	if (getsockname(rx, (struct sockaddr *)&address, &address_length)) {
-+		error("getsockname");
-+		goto out;
-+	}
-+	if (family == 2) {
-+		unsigned short port = v4->sin_port;
-+
-+		memset(&address, 0, sizeof(address));
-+		v6->sin6_family = AF_INET6;
-+		v6->sin6_port = port;
-+		inet_pton(AF_INET6, "::ffff:127.0.0.1", &v6->sin6_addr);
-+		address_length = sizeof(*v6);
-+	}
-+	tx = socket(tx_family, SOCK_DGRAM | SOCK_CLOEXEC, 0);
-+	if (tx < 0) {
-+		ret = unavailable() ? KSFT_SKIP : error("send socket");
-+		goto out;
-+	}
-+	if (family == 2 &&
-+	    setsockopt(tx, IPPROTO_IPV6, IPV6_V6ONLY, &zero, sizeof(zero))) {
-+		error("disable IPV6_V6ONLY");
-+		goto out;
-+	}
-+	if (connected &&
-+	    connect(tx, (struct sockaddr *)&address, address_length)) {
-+		error("connect");
-+		goto out;
-+	}
-+	if (test->ordinary) {
-+		count = sendto(tx, expected, prefix_length + body_length, 0,
-+			       (struct sockaddr *)&address, address_length);
-+		if (count != (ssize_t)(prefix_length + body_length)) {
-+			error("ordinary sendto");
-+			goto out;
-+		}
-+	} else {
-+		if (pipe2(pipefd, O_NONBLOCK | O_CLOEXEC)) {
-+			error("assembled pipe");
-+			goto out;
-+		}
-+		ret = pipe_capacity(pipefd[1], test->fragments[2] ? 3 : 2,
-+				    skip_reason);
-+		if (ret)
-+			goto out;
-+		ret = 1;
-+		if (test->page_tail) {
-+			ret = append_page_tail(pipefd[1], test->body,
-+					       skip_reason);
-+			if (ret)
-+				goto out;
-+			ret = 1;
-+		} else {
-+			for (i = 0; i < ARRAY_SIZE(test->fragments); i++) {
-+				if (!test->fragments[i])
-+					break;
-+				if (append_fragment(pipefd[1],
-+						    test->body + offset,
-+						    test->fragments[i]))
-+					goto out;
-+				offset += test->fragments[i];
-+			}
-+		}
-+		/* Even an empty prefix establishes the destination and UDP cork. */
-+		count = sendto(tx, test->prefix, prefix_length, MSG_MORE,
-+			       (struct sockaddr *)&address, address_length);
-+		if (count != (ssize_t)prefix_length) {
-+			error("prime sendto(MSG_MORE)");
-+			goto out;
-+		}
-+		count = splice(pipefd[0], NULL, tx, NULL, body_length,
-+			       SPLICE_F_NONBLOCK | SPLICE_F_MORE);
-+		if (count != (ssize_t)body_length) {
-+			ksft_print_msg("socket splice: %zd, expected %zu: %s\n",
-+				       count, body_length,
-+				       count < 0 ? strerror(errno) :
-+						   "short transfer");
-+			goto out;
-+		}
-+		if (sendto(tx, "", 0, 0, (struct sockaddr *)&address,
-+			   address_length)) {
-+			error("commit sendto");
-+			goto out;
-+		}
-+	}
-+	ret = receive_one(rx, expected, prefix_length + body_length);
-+out:
-+	if (pipefd[0] >= 0) {
-+		close(pipefd[0]);
-+		close(pipefd[1]);
-+	}
-+	if (tx >= 0)
-+		close(tx);
-+	if (rx >= 0)
-+		close(rx);
-+	return ret;
-+}
-+
-+int main(void)
-+{
-+	unsigned int family, connected, i;
-+	const char *connection, *skip;
-+	int ret;
-+
-+	ksft_print_header();
-+	ksft_set_plan(ARRAY_SIZE(families) * 2 * ARRAY_SIZE(cases));
-+	for (family = 0; family < ARRAY_SIZE(families); family++) {
-+		for (connected = 0; connected < 2; connected++) {
-+			connection = connected ? "connected" : "unconnected";
-+			for (i = 0; i < ARRAY_SIZE(cases); i++) {
-+				ret = run_case(family, connected, &cases[i],
-+					       &skip);
-+				if (ret == KSFT_SKIP)
-+					ksft_test_result_skip("%s %s %s: %s\n",
-+							      families[family],
-+							      connection,
-+							      cases[i].name,
-+							      skip);
-+				else
-+					ksft_test_result(!ret, "%s %s %s\n",
-+							 families[family],
-+							 connection,
-+							 cases[i].name);
-+			}
-+		}
-+	}
-+	if (!ksft_get_pass_cnt() && !ksft_get_fail_cnt()) {
-+		/* ksft_exit_skip() would add a result beyond the plan. */
-+		ksft_print_cnts();
-+		return KSFT_SKIP;
-+	}
-+	ksft_finished();
-+}
-
--- 
-2.34.1
-
+> ---
+>  tools/perf/tests/Build          |   1 +
+>  tools/perf/tests/builtin-test.c |   1 +
+>  tools/perf/tests/tests.h        |   1 +
+>  tools/perf/tests/thread-stack.c | 106 ++++++++++++++++++++++++++++++++++++++++
+>  tools/perf/util/sample.c        |   1 +
+>  tools/perf/util/sample.h        |   5 ++
+>  tools/perf/util/thread-stack.c  |   5 +-
+>  7 files changed, 118 insertions(+), 2 deletions(-)
+> 
+> diff --git a/tools/perf/tests/Build b/tools/perf/tests/Build
+> index 81c311b131b72715f11b6501511a18dce2af07df..d03ae938dd0ad92f78f8de6900ce7161f39fc3bc 100644
+> --- a/tools/perf/tests/Build
+> +++ b/tools/perf/tests/Build
+> @@ -29,6 +29,7 @@ perf-test-y += task-exit.o
+>  perf-test-y += sw-clock.o
+>  perf-test-y += mmap-thread-lookup.o
+>  perf-test-y += thread-maps-share.o
+> +perf-test-y += thread-stack.o
+>  perf-test-$(CONFIG_LIBTRACEEVENT) += switch-tracking.o
+>  perf-test-y += keep-tracking.o
+>  perf-test-y += code-reading.o
+> diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
+> index d2f594921e25bda9fc662e7ba82464bfef1b752b..6259ed805c5f75799d52ac742b77cf278f98bd9d 100644
+> --- a/tools/perf/tests/builtin-test.c
+> +++ b/tools/perf/tests/builtin-test.c
+> @@ -112,6 +112,7 @@ static struct test_suite *generic_tests[] = {
+>  	&suite__hists_filter,
+>  	&suite__mmap_thread_lookup,
+>  	&suite__thread_maps_share,
+> +	&suite__thread_stack,
+>  	&suite__hists_output,
+>  	&suite__hists_cumulate,
+>  #ifdef HAVE_LIBTRACEEVENT
+> diff --git a/tools/perf/tests/tests.h b/tools/perf/tests/tests.h
+> index 9c96f33483d1435644da6068c3802f7a914a9de0..b2520a564417b61718f1dcb23da1f8cc0f601906 100644
+> --- a/tools/perf/tests/tests.h
+> +++ b/tools/perf/tests/tests.h
+> @@ -138,6 +138,7 @@ DECLARE_SUITE(expr);
+>  DECLARE_SUITE(hists_filter);
+>  DECLARE_SUITE(mmap_thread_lookup);
+>  DECLARE_SUITE(thread_maps_share);
+> +DECLARE_SUITE(thread_stack);
+>  DECLARE_SUITE(hists_output);
+>  DECLARE_SUITE(hists_cumulate);
+>  DECLARE_SUITE(switch_tracking);
+> diff --git a/tools/perf/tests/thread-stack.c b/tools/perf/tests/thread-stack.c
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..0239e3bee34faf8fd4ddc7b723cf479609760064
+> --- /dev/null
+> +++ b/tools/perf/tests/thread-stack.c
+> @@ -0,0 +1,106 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +#include <linux/kernel.h>
+> +#include <unistd.h>
+> +#include "tests.h"
+> +#include "util/addr_location.h"
+> +#include "util/event.h"
+> +#include "util/sample.h"
+> +#include "util/thread.h"
+> +#include "util/thread-stack.h"
+> +
+> +#define CALL_REF		1234UL
+> +#define RET_REF			5678UL
+> +
+> +struct return_check {
+> +	unsigned int matched;
+> +	unsigned int unmatched;
+> +};
+> +
+> +static int check_call_return(struct call_return *cr,
+> +			     u64 *parent_db_id __maybe_unused, void *data)
+> +{
+> +	struct return_check *check = data;
+> +
+> +	if (cr->call_ref == CALL_REF && cr->return_ref == RET_REF && !cr->flags)
+> +		check->matched++;
+> +	else
+> +		check->unmatched++;
+> +
+> +	return 0;
+> +}
+> +
+> +/* A zero expected_ret_addr asks the stack to use ip + insn_len. */
+> +static int check_return_address(u64 expected_ret_addr, u64 actual_ret_addr,
+> +				u32 flags)
+> +{
+> +	struct call_return_processor *crp;
+> +	struct return_check check = { };
+> +	struct thread *thread;
+> +	struct addr_location from = { }, to = { };
+> +	struct perf_sample sample = { };
+> +	int ret = TEST_FAIL;
+> +
+> +	thread = thread__new(getpid(), getpid());
+> +	if (!thread)
+> +		return TEST_FAIL;
+> +
+> +	crp = call_return_processor__new(check_call_return, &check);
+> +	if (!crp)
+> +		goto out;
+> +
+> +	sample.ip = 0x1000;		/* Call or exception source addr */
+> +	sample.addr = 0x2000;		/* Callee or exception handler addr */
+> +	sample.ret_addr = expected_ret_addr;
+> +	sample.flags = PERF_IP_FLAG_BRANCH | PERF_IP_FLAG_CALL | flags;
+> +	sample.time = 1;
+> +	/* Model the opcode length after an instruction fetch. */
+> +	sample.insn_len = 4;
+> +	if (thread_stack__process(thread, thread__comm(thread), &sample,
+> +				  &from, &to, CALL_REF, crp))
+> +		goto out;
+> +
+> +	sample.ip = 0x2000;		/* Return instruction addr */
+> +	sample.addr = actual_ret_addr;	/* Return branch target addr */
+> +	sample.ret_addr = 0;
+> +	sample.flags = PERF_IP_FLAG_BRANCH | PERF_IP_FLAG_RETURN |
+> +		       (flags & (PERF_IP_FLAG_INTERRUPT | PERF_IP_FLAG_SYSCALLRET));
+> +	sample.time = 2;
+> +	if (thread_stack__process(thread, thread__comm(thread), &sample,
+> +				  &to, &from, RET_REF, crp))
+> +		goto out;
+> +
+> +	if (check.matched == 1 && !check.unmatched)
+> +		ret = TEST_OK;
+> +
+> +out:
+> +	thread__put(thread);
+> +	call_return_processor__free(crp);
+> +	return ret;
+> +}
+> +
+> +static int test__thread_stack(struct test_suite *test __maybe_unused,
+> +			      int subtest __maybe_unused)
+> +{
+> +	static const struct {
+> +		const char *name;
+> +		u64 expected_ret_addr;
+> +		u64 actual_ret_addr;
+> +		u32 flags;
+> +	} cases[] = {
+> +		{ "ordinary call", 0, 0x1004, 0 },
+> +		{ "interrupt", 0x1000, 0x1000, PERF_IP_FLAG_ASYNC | PERF_IP_FLAG_INTERRUPT },
+> +		{ "fault or trap", 0x1000, 0x1000, PERF_IP_FLAG_INTERRUPT },
+> +		{ "SVC", 0x1004, 0x1004, PERF_IP_FLAG_SYSCALLRET },
+> +	};
+> +
+> +	for (size_t i = 0; i < ARRAY_SIZE(cases); i++) {
+> +		if (check_return_address(cases[i].expected_ret_addr,
+> +					 cases[i].actual_ret_addr, cases[i].flags)) {
+> +			pr_debug("Incorrect return address for %s\n", cases[i].name);
+> +			return TEST_FAIL;
+> +		}
+> +	}
+> +	return TEST_OK;
+> +}
+> +
+> +DEFINE_SUITE("Thread stack return addresses after instruction fetching", thread_stack);
+> diff --git a/tools/perf/util/sample.c b/tools/perf/util/sample.c
+> index bccc19e2aaf25118a8ecde88473aa6cb16fa561a..4abb689132bc27d0f2318eeafca20f7e57621837 100644
+> --- a/tools/perf/util/sample.c
+> +++ b/tools/perf/util/sample.c
+> @@ -29,6 +29,7 @@ void perf_sample__init(struct perf_sample *sample, bool all)
+>  		sample->intr_regs = NULL;
+>  		sample->merged_callchain = false;
+>  		sample->callchain = NULL;
+> +		sample->ret_addr = 0;
+>  	}
+>  }
+>  
+> diff --git a/tools/perf/util/sample.h b/tools/perf/util/sample.h
+> index cb4b16654876e9a5c3bfd66be3e0235ac15795e0..865ed18200f1339f5949ef3f185ed57a34aace72 100644
+> --- a/tools/perf/util/sample.h
+> +++ b/tools/perf/util/sample.h
+> @@ -131,6 +131,11 @@ struct perf_sample {
+>  	u64 time;
+>  	/** @addr: The sample event PERF_SAMPLE_ADDR value. */
+>  	u64 addr;
+> +	/**
+> +	 * @ret_addr: Return address supplied by the decoder for a branch sample.
+> +	 *            Zero means use ip + insn_len.
+> +	 */
+> +	u64 ret_addr;
+>  	/** @id: The sample event PERF_SAMPLE_ID or PERF_SAMPLE_IDENTIFIER value. */
+>  	u64 id;
+>  	/** @stream_id: The sample event PERF_SAMPLE_STREAM_ID value. */
+> diff --git a/tools/perf/util/thread-stack.c b/tools/perf/util/thread-stack.c
+> index 1360f44421ef8bb80fe5cfdba59be7e6029b0240..d452d1a7eabb16f040ca3dada23e6fdec8fb1088 100644
+> --- a/tools/perf/util/thread-stack.c
+> +++ b/tools/perf/util/thread-stack.c
+> @@ -1030,7 +1030,7 @@ static int thread_stack__trace_end(struct thread_stack *ts,
+>  	cp = call_path__findnew(cpr, ts->stack[ts->cnt - 1].cp, NULL, 0,
+>  				ts->kernel_start);
+>  
+> -	ret_addr = sample->ip + sample->insn_len;
+> +	ret_addr = sample->ret_addr ? sample->ret_addr : sample->ip + sample->insn_len;
+>  
+>  	return thread_stack__push_cp(ts, ret_addr, sample->time, ref, cp,
+>  				     false, true);
+> @@ -1154,7 +1154,8 @@ int thread_stack__process(struct thread *thread, struct comm *comm,
+>  		if (!sample->ip || !sample->addr)
+>  			return 0;
+>  
+> -		ret_addr = sample->ip + sample->insn_len;
+> +		/* Opcode fetching must not change a decoder-supplied return address. */
+> +		ret_addr = sample->ret_addr ? sample->ret_addr : sample->ip + sample->insn_len;
+>  		if (ret_addr == sample->addr)
+>  			return 0; /* Zero-length calls are excluded */
+>  
+> 
 
