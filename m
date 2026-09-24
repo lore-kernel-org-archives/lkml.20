@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAA644B1CF4;
-	Thu, 24 Sep 2026 18:51:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BAFF4B3374;
+	Thu, 24 Sep 2026 18:52:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790275899; cv=none; b=Vzve02k8sZr9NIqn1jN6BiWBvYr595Y5QNrpPAoWsScPZy/Yh35M4Nl0LJThBvw1IHGl/ftx2Pmi2WcoVFvSRsNLOtpWbH1RUiXs2yxNSkv3X+AHhcwDZJoAdF5jddPVfCl3Ztt1fQXl72KnixDQU/ZpB9sJfD64GHChT8Lsqi4=
+	t=1790275930; cv=none; b=ZHXoXxWlEbozc57MSLb6X6w5Emcm7ZG3xYT3GMaVQgmKLTtZeVfiaSlcQA+kzcVClzZCNvg53VVZ3YbU1TPtMo309ZWgNmRb/NRV49YnrRdjySbgQ4rRMpgLdZFVtIIQkp9qEln2hRNb7gXdxNaCCCDT/aR587G1BqpOsgotI0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790275899; c=relaxed/simple;
-	bh=bobb1yGPI9T6ulgAD2sFP7Wn3VWWoj/3bquKkPJqRf0=;
+	s=arc-20240116; t=1790275930; c=relaxed/simple;
+	bh=KGfmmVISjnqynRFnA5Mg2/9tsz9MufvMZIoW6E8g71k=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bX5VHCRZqjRWTfqQyD6G4FBfLSgoBIoD0lxMoJt2COmD5ypW/y2cGelNRXx0vRS5oDhlB4aRlXCUS6NuYiwdcb/kOnehYxB24WdApQI0LX2c7wo+En5Ni2wtq9xRHzwvcJqBxHssta/18/P06vYVKefuIrlSxw3wrf1235NwO1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B9TaPuWg; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=uJ3FEOrjIZdNMfkeX99v3iAzIRtmuU+utLLYiGPU33juIaeZnRZOppggcj1XlKYKQq2VA4qVVGT9Qr8Xuk/vSyrJJDoDG5Z0ysHzSp0udg0oPOh1Y95Bpp2oDqk3GLMgMrT8jF8CXQXDoXltqRXw1IhhuMm6szOiXzDdI8/Cxo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gWev+vg3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B9TaPuWg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA4B71F000FF;
-	Thu, 24 Sep 2026 18:51:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gWev+vg3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23D9F1F000FF;
+	Thu, 24 Sep 2026 18:51:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790275888;
-	bh=19lgN71Gpsx5vFX/9xhZyr5Tn9Zwnud+YgNQwdRHAz0=;
+	s=k20260515; t=1790275917;
+	bh=POlX+wONx1gCTE6Vq8TjSNhvRxCbSmUHbAHjJxxduJA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=B9TaPuWgeX2V6EXNOynhKmYXxpgBuhF0GO9GvEleV73ppMJ+4jg0gfKTK508nINu0
-	 y5E68P/eS0N1Nf2rY9y/C35ESNH3DuJHHqCrktyZKsEz142m40zL+RvZubdy2Bbj6N
-	 B0gGhz7zq8YO1mV19YDxCBqcO/vi5mSTd8odzb0MeZcOcB11UVJJtzGXMG2x4uJaSx
-	 J6Es0Ej/BiLSmH0sepF5PDeoQzTg3lpupc7vbO24JxIqjpYE92LknGL0hQWuXIc+2N
-	 lQWjUiD9QO4+Z4unk5ZVWj6SNX/rkJMzJgTrpEerfy+R/pvx/8bE5MjCg6M/22H1aH
-	 pbA958pAZJ98w==
-Message-ID: <c01aa1e3-f2cd-4b28-8e6a-8e8a1c36c641@kernel.org>
-Date: Thu, 24 Sep 2026 20:49:13 +0200
+	b=gWev+vg3aOUbjtwtT3U2+C2VyN7eOtcfSBJs3s8YonBNI/+ZZ7xc1mf6k3ukzx0PH
+	 Nb814Zy6qTVPFJpgHeTrhLWHbWJXlGYju1D2NrpmJPctR+FCbAJDal4gVTwnWwW2xI
+	 /MFTvB3yrPrnMGBOFMN4O88mm0HjIb4cEaoDuj+UNT4EqcaMrg/MKzFJ8w/H78bLVm
+	 fw9oOITb653B8XboMh1yPGGCS3ctD7pEsjXS9288YTGJolEMdjEWCUs65za7t3JhlA
+	 tImKWiPpv8xP/PxYxxQlkz6Rpt893lRL4IjOhyugIHB+gp0xVjpO+tnRCf3dnynPqs
+	 aEjtLEJvNH9Nw==
+Message-ID: <16d3f4da-cc35-4d1a-99c2-270fad68728e@kernel.org>
+Date: Thu, 24 Sep 2026 20:47:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,21 +35,22 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] hibernation, KFENCE: explicitly map/unmap KFENCE
- pages
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Dmitry Vyukov <dvyukov@google.com>,
- Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>,
- kasan-dev@googlegroups.com, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, linux-pm@vger.kernel.org
-References: <20260917-hibernation-v1-0-7f7dfae3dbe0@kernel.org>
- <20260917-hibernation-v1-4-7f7dfae3dbe0@kernel.org>
- <fec1931b-1173-4e14-b74a-7b3987a9b7bc@kernel.org>
- <arP0-maAEi5yeNnl@kernel.org>
- <d568a29b-5745-4214-96d3-1b635cd46c15@kernel.org>
- <arVJm8CiLG6vpy9-@kernel.org>
+Subject: Re: [PATCH v2] mm: don't schedule deferred kernel page table freeing
+ while booting
+To: Dave Hansen <dave.hansen@intel.com>,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Vishal Moola <vishal.moola@gmail.com>,
+ Ingo Molnar <mingo@kernel.org>, Lu Baolu <baolu.lu@linux.intel.com>,
+ Jason Gunthorpe <jgg@nvidia.com>, Steven Rostedt <rostedt@goodmis.org>,
+ x86@kernel.org, linux-mm@kvack.org, regressions@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260924092307.22813-1-mikhail.v.gavrilov@gmail.com>
+ <6a0c2fd9-b2e1-40d2-b7a1-ba93cb3c53a3@intel.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -96,46 +97,37 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <arVJm8CiLG6vpy9-@kernel.org>
+In-Reply-To: <6a0c2fd9-b2e1-40d2-b7a1-ba93cb3c53a3@intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/24/26 18:02, Mike Rapoport wrote:
-> On Thu, Sep 24, 2026 at 10:19:33AM +0200, David Hildenbrand (Arm) wrote:
->> On 9/23/26 17:49, Mike Rapoport wrote:
->>>
->>> Naming is hard :-D
->>>
->>> I feel that _copy_page() is to vague and adding hibernation there is to
->>> mouthful :(
->>
->> Yeah, I wouldn't mention hibernation.
->>
->>
->>
->>>
->>> And these could be used outside of safe_copy_page() someday.
->>>
->>> How about 
->>>
->>> kfence_set_page_present()
->>> kfence_set_page_default()
->>
->>
->> Maybe spell out "direct_map" ?
->>
->> kfence_set_direct_map_present()
->>
->> kfence_set_direct_map_default()
+On 9/24/26 19:57, Dave Hansen wrote:
+> On 9/24/26 02:23, Mikhail Gavrilov wrote:
+>> Keep putting the table on the list, but don't schedule the work while
+>> the system is still booting.  The next kernel page table freed after
+>> boot schedules it, and the work then frees the early table too, after
+>> the same IOMMU flush as any other.  If no kernel page table is freed
+>> after boot, the ones freed during boot stay on the list.
 > 
-> They are not necessarily in direct map :)
-> loongarch does not have direct map, but still supports kfence
+> There seems to be an awful lot of chit chat about how and when the
+> boot-time tables might get freed. Like:
+> 
+>> So on this box the early tables wait until the first module is
+>> loaded, and no separate drain is needed.
+> Wouldn't a "separate drain" be all of 5 lines of code?
+> 
+> /* Take care of deferred freeing from boot: */
+> static __init int free_boot_kernel_pgtables(void)
+> {
+> 	schedule_work(&kernel_pgtable_work.work);
+> }
+> late_initcall(free_boot_kernel_pgtables);
+> 
+> Then we don't have to reason about it at all.
 
-Ugh :D
+Jup, that's what I hinted at in v1 and what Lorenzo replied to v2 as well.
 
-But where are the pages mapped/unmapped then?
-
-(I know, I should read your doc patch)
+(late_initcall vs. core_initcall)
 
 -- 
 Cheers,
