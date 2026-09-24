@@ -1,183 +1,211 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D87C73148DA
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:10:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E933DDDB0;
+	Thu, 24 Sep 2026 06:10:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790230219; cv=none; b=BRI2cstijGgYdR1luQa986tJcrwN5bOSOswdGyJ7nbfSsMhOjIrErQHWO9NSQjwOsXM0vVdWjNUm77JjL+QTyfAJBm2GMVLhBFvHwdOA1pJTsbjvpXqP2/IrAnSsKcADoLRMbo6Udo5e+DDw89k/1yA+t6NPgs3BR0/trYT09Kg=
+	t=1790230220; cv=none; b=Hcc6roS3F4IUPCu5VdflbTcG6n4RAdAe8PbidjkaHZKFNmq8JIsBEbFxrcEfrQKATurLjrx6yznbEb8Vj5prF+jYYYt8I70qy01fOQjyyzIBQNh+ljJbb2GX65Cv/H5b62kxIlXq36UR00jhN7epgQi4gfyUoMqqxPilAiYCsrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790230219; c=relaxed/simple;
-	bh=PqysGL9lT6ReuVULaftKFdrXfVhFqZ1wPgSG2ApYH/Y=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=dTH0je2vzWxONfAxKdUe7aF5d4T/xZmkS3gdyFiUNruL9Zz7uXrMonoxRL9E1ofPFXFoAyoywYAT9wQDFiQt9ZwOAWQfM5TDBO4qGxXJw8lvBrrxsWHHR7rn/SN5JpyhfACBj+svuT+44iNA2U5sbF3Y9oQr/dLv+hIsjTN2z2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NONLHqm1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IL5LMZ9V; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790230220; c=relaxed/simple;
+	bh=p1uZ6m2QAos8fgm5OVJVppqz17Rk2IQHv1YVhSpdB4A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XbF0n0y0VCCKPmdBobsJck57jz/cjbVQARTfGND8TSiZ7c++Nq09LKmRic4iCLKfzXJo1fREJGLuhjf2mmwnPFE7TRB3ZGxd+iMAAdZ80/sw0kh3PSYjECjQ4CJSiCkQfBSckNZ+/AuqITuJlWeySkpHHqdYC9xvwCCELXjacyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lfjpmzYr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NONLHqm1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IL5LMZ9V"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5eBG7772439
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:10:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=e55LAaZRA3Zv3Hfwt2jNE+
-	aprg9/OGrCXbdEqfdyl9Q=; b=NONLHqm1oIkq1wy9SwavJiPAu55HhdhQ3mK8Um
-	PPbwsJMVbmTdJ6EYbctyz4gv5RezHON2OlS0kM7s+Mgd08KbdHeXjzguQNubLuhl
-	Rux11PTwQEa8nBN8ZFS/70aqYTTEVm7PzcQ89auYpPq9+SRhur9C/cFdP8Fv+VR6
-	Zh8PfNo1/Lrd8kdpUih4Ly5Uw0h+VMzXKZnTkv3Tx3pEorZdspALMlD8mKyicEEG
-	8bQuAjUNNvekj9mmNo+5OjSVxbx7/yNgdb/qQa/wYDLFCsYk0n2qRYRYsLx4ENOe
-	mS7g73A5DpdsOu78sAaznZD7TZLyQVbUOBWYM+LVCEuL/HRQ==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvr9098h4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:10:16 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso2878120eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:10:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790230216; x=1790835016; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=e55LAaZRA3Zv3Hfwt2jNE+aprg9/OGrCXbdEqfdyl9Q=;
-        b=IL5LMZ9VKkj9dSPy6hTbTd3IptoGsdr4tYIcqVQJoLqTFQzfqvKav5iM2tYdvZVWGG
-         Hy+SB4rdTOW+CO+uBdJqANF08townybH3c6BQDyZV2IQSEbLSalPzIl0XkWxan3GkemX
-         vyM3w0gGWnjxtYZMf/LO8ThGCSuFGrEw6KSUHdVFXEJgfoubhpofmpCiuZzq3HAS43M+
-         mFlLJRgmV7FREYIeX8BMmZ2UYE/3zA7tg8wTptIm0lSazfBOL6IschFMMUZ7S27DANMq
-         2irXtM+EVNlKlF30SPrnVewUKXl6RgH0mqrIO7gIq6/AzEeWkqHUu1+v6t960/3W4r3y
-         oh+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790230216; x=1790835016;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=e55LAaZRA3Zv3Hfwt2jNE+aprg9/OGrCXbdEqfdyl9Q=;
-        b=lZziiP90FlOB0+sP0+LvrmeQME76A7cpt9M4pEoOnbHeLe97cLRUNJqs43iLZLq43h
-         esxJ3UEoAiAwPm4my0q1sJeWGuAKAYsBdqtc4mn6hWw6Qq8G4oIDwakNJa+HZuDx+QGE
-         HHifesEDQJpuIWUYeS2ZXXiVef4wqx8kSRRiBseBBmtkmSM/6e1RNmV/K5CztoRW92q9
-         8I+UD+HbwioFQ3eIHgAq6pv4Rg+4sbvl6JSdfuVT1l7YlQf4nUdDlP0e8qisZjfvAU3m
-         Hb0sflR9rflN34pIQLvjtm4T4URKesUq1JFiixaHGU1kmai9GboeLmUSF4QVgYXA9OFT
-         v22g==
-X-Forwarded-Encrypted: i=1; AKwUvBzQEYfyLnb9y3rJjlQQmxY4L5CNY8xxZzXia7fBFZGPoXsOvJlmM9cjaA6BnRwpy+g3SbgwZWBeGiNdqhI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mETWQd8lGYm1jWtrZ8IbHzbMIW+tOthBDQZc1qJrtVeq6aHOAS
-	2BfZxRdj1hzjKCY0gs2P4gQUACe1WndAXBpN/JHS+qfJobOs2Nn0rb8GzwyynlMAl/1DwCZYpik
-	x9s14EyAQN0TnRsNeiWVDR/DK5OT+kP1xEgGLlDSHEBjBgvh9Z7MXAE8VBzM3vKo0YFA=
-X-Gm-Gg: AYBFou1QTuQeS0InF9gb/7csAR8X8vG5iZ9k60Hq2J9Tze3VQC3VJ2ApYYcMVIGE1Nw
-	QEldAZpa0VCboBwEobhLwCxkExDBqO7p2vKmaCm4ZUUjtz931KaTmDNAb0970XqPSPif3Whv2A6
-	VlAALRbiNiUYfE4CZfiW6imGB4HD7M/GSuEaOoAg00hqkBw2LRk2qKWhptNR1lCbheLXMgfsMBt
-	Uqdr+4fnx2g5Shlohzd4ScNw65f0rVwPyHpmqefKmE61oE9ecDHVhkIuCwQDO/nFCESEEiUla7/
-	PdHYLNctLH8mtSOriBG4Fta+4MYdoY1cmtctgN6ndyKDyt4DPG6+6MHYOrPQfnfW7O2ycl4CFLh
-	cUciSFQXGmp+mDafdDf4+WmGQAnIreiHbE5BJQMWAUOhmozVFAyJw13+O0FYGwiat43ofmO/dUu
-	WdzVZWMI+/M39gBAJdK8LujIUOG6qs
-X-Received: by 2002:a05:701b:418a:10b0:143:26ed:2dd5 with SMTP id a92af1059eb24-145040b8b30mr1040763c88.31.1790230216190;
-        Wed, 23 Sep 2026 23:10:16 -0700 (PDT)
-X-Received: by 2002:a05:701b:418a:10b0:143:26ed:2dd5 with SMTP id a92af1059eb24-145040b8b30mr1040749c88.31.1790230215660;
-        Wed, 23 Sep 2026 23:10:15 -0700 (PDT)
-Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f9895c1asm10197680c88.12.2026.09.23.23.10.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 23:10:15 -0700 (PDT)
-From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Subject: [PATCH v3 0/5] Add support for USB phys in IPQ9650
-Date: Thu, 24 Sep 2026 11:40:01 +0530
-Message-Id: <20260924-phy-v3-0-088e7be0cfaa@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lfjpmzYr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F4561F000FF;
+	Thu, 24 Sep 2026 06:10:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790230218;
+	bh=rNm+mOo8Qc346ouhd+MVcZZHr4pMSublo9/m/bzvlkE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lfjpmzYr2RJ/hwCqh4+Xa84oi7xdypaLrJm6fg+U3mWTgBN0yRfH3aGn1EEj3dGNt
+	 Kp8IckeRp2L30fKxhmpkmXWq7OXQzrIMlRFV5cq4/gsT1SVlUaePfDRHSSG0nQhPtr
+	 qZ9Swk606Qo4mAVLWNXtqH5LINBI8/SaVe5/E9BC7xGXnX64SBaDOWGIogT7WKp00G
+	 CTji3JPJk7iQKZo6TX6213hpDPapehVq3bDQPvXlV7MKjRai9u30EpJnhDlmr1I004
+	 MY2ZKadu9+0hUOxFLnaMmc/JR0oU9ocYeXs6lWmKcVWqBN16sO/IkzkeR9Q51iM251
+	 gkQnHaMRcshWw==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Mostafa Saleh <smostafa@google.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	linux-arm-kernel@lists.infradead.org,
+	loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org,
+	linux-s390@vger.kernel.org,
+	x86@kernel.org
+Subject: [PATCH v6 7/8] dma: swiotlb: Add an overridable architecture pool opt-out
+Date: Thu, 24 Sep 2026 11:37:55 +0530
+Message-ID: <20260924060756.1325156-8-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260924060756.1325156-1-aneesh.kumar@kernel.org>
+References: <20260924060756.1325156-1-aneesh.kumar@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIALm+tGoC/22Oyw6DIBBFf8WwLgYGteqq/9F0AThWktYHqNEY/
- 72ITbrpZpI7mXPubMShNehIGW3E4myc6VofxCUiupHtE6mpfCbAIGM5MNo3K82yBKsUNYMCiL/
- sLdZmCZb748wWh8nLxnNJlHRIdfd+m7GMWlxGGoQFCHIAjXFjZ9fwxcwD8S1MQuHMKaOQXqssl
- wI4U7fOuXiY5Otwxn4EzQw/tGD8RMGjWheiglooruo/6L7vH9Y6sz4JAQAA
-X-Change-ID: 20260820-phy-664ed5ec0292
-To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>,
-        Manu Gautam <mgautam@codeaurora.org>, Stephen Boyd <sboyd@kernel.org>,
-        Philipp Zabel <pza@pengutronix.de>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAyNiBTYWx0ZWRfXxjU2SbBSRqgX
- yUmWHY3ecb0J+vO/vArgA7u6LLYRX7EhctcX7tnwfOFT/eTs/4UHL0f/tyHb14qqEVMz4YgdUsg
- Sn3O8d0SxfFK6Uh5XCy50wWj7xsb/o4=
-X-Proofpoint-GUID: 77i5sk7NYJJkJkkS9AQ_ZaOV54n1JOdx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAyNiBTYWx0ZWRfXzIq6S4QVwjGJ
- v01g6SYQovSTkS9U38pXCTnurbaGkqXCdA/a6DEme1gfF8P8Y+NPK6n+4fjvBFJMwNd9aEZgZWw
- 7VgLMH52v7u9Q8SVYYguW9az2oMqroAqUJ/A8Cyqq4onldWDRUMDW7IjK4+65LdRQRi+l19X4Fk
- Wnt8GZgSukxrFoMHwKFYeI4PoAdVHA9Xi4+fyT6ruDVvOQ7KoELefh/dlTAZrkOIZuw61PPnajW
- 9MhjcNj6kXU+dJsaQDLYw+tEDyRlN7/aeq6BHrgkcrKgsi+OgAxhsxvCQaUHtMIHMhw4dAakfcI
- NfaTTsXWhxs1q/EXASGfYbVpV1OZK2SSqZcgmhgTo3US1CsZMomKK5C2AwdqMGk67vg/+W3YTSI
- Se30LnEDXdlc9g87JDctAxvzzRATQBSJesbTvBFjNRgryxmXZTzKkEz4KAA9w5U9kZEJpZDOw8t
- VhtNwXyGgPcsS/NbI6A==
-X-Proofpoint-ORIG-GUID: 77i5sk7NYJJkJkkS9AQ_ZaOV54n1JOdx
-X-Authority-Analysis: v=2.4 cv=fMusTpae c=1 sm=1 tr=0 ts=6ab4bec8 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=QVgSJ0PFQKcnxtkCEG0A:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 adultscore=0 lowpriorityscore=0 spamscore=0
- clxscore=1015 impostorscore=0 malwarescore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240026
+Content-Transfer-Encoding: 8bit
 
-This series
- - Adds dt-bindings and driver changes for the high speed and super speed
-   phys in IPQ9650.
- - IPQ9650 specific init tables to QMP super speed phy driver.
- - The Femto high speed phy driver is refactored to accomodate differences
-   in the init sequences between SoCs first and then support for IPQ9650 is
-   included.
+On x86, iommu=off historically prevented SWIOTLB initialization by not
+setting SWIOTLB_INIT_ADDRESSING_LIMIT. This overloads that flag: it
+controls both whether a pool is selected and where the pool is
+allocated. If another requirement, swiotlb=force selects a pool
+independently, omitting SWIOTLB_INIT_ADDRESSING_LIMIT may place it above
+the addressable range of devices which need bounce buffering.
 
-Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Add SWIOTLB_INIT_DEFAULT_OFF to let an architecture opt out of normal
+pool initialization without discarding the pool placement constraints.
+
+Unlike swiotlb_force_disable, which is set by swiotlb=noforce and
+unconditionally prevents pool initialization, the new flag is an
+architecture default. Explicit requirements such as memory encryption,
+architecture remapping, or swiotlb=force take precedence over it.
+
+iommu=soft retains SWIOTLB_INIT_ADDRESSING_LIMIT because it requests
+software bounce buffering for devices whose DMA masks cannot address all
+system memory. Such devices must be able to reach the bounce pool.
+
+Clear both flags for Xen because Xen explicitly requires a remapped
+swiotlb pool and may allocate it anywhere in directly mapped memory.
+
+With no override, iommu=off disables both hardware IOMMU translation and
+swiotlb bouncing. Direct DMA remains available; mappings outside a
+device's addressable range fail instead of being bounced.
+
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Thomas Gleixner <tglx@kernel.org>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: x86@kernel.org
+Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Robin Murphy <robin.murphy@arm.com>
+Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
 ---
-Changes in v3:
-- No code changes
-- Rebase to top of tree
-- Pick two R-b tags
-- Link to v2: https://lore.kernel.org/r/20260901-phy-v2-0-cc93d2f3b1bf@oss.qualcomm.com
+ arch/x86/kernel/pci-dma.c | 11 ++++++++---
+ include/linux/swiotlb.h   |  2 ++
+ kernel/dma/swiotlb.c      | 10 ++++++++--
+ 3 files changed, 18 insertions(+), 5 deletions(-)
 
-Changes in v2:
-- Pick one R-b from Krzysztof
-- Use qcom,ipq9650-usb-hs-phy directly instead of adding a 6nm compatible
-  and falling back to it
-- Change pre/post to pre_tuning/post_tuning
-- Use array count instead of terminating entries
-- Fix value/mask mixup in 2 places
-- Link to v1: https://lore.kernel.org/r/20260824-phy-v1-0-257d68a3210b@oss.qualcomm.com
-
----
-Varadarajan Narayanan (5):
-      dt-bindings: phy: qcom,qmp-usb: Add IPQ9650 USB3 PHY
-      dt-bindings: phy: qcom,usb-snps-femto-v2: Add IPQ9650 compatible
-      phy: qcom: qmp-usb: Add IPQ9650 USB3 PHY configuration
-      phy: qcom: snps-femto-v2: Move PHY init registers to config tables
-      phy: qcom: snps-femto-v2: Add IPQ9650 support
-
- .../phy/qcom,sc8280xp-qmp-usb3-uni-phy.yaml        |   2 +
- .../bindings/phy/qcom,usb-snps-femto-v2.yaml       |   2 +
- drivers/phy/qualcomm/phy-qcom-qmp-usb.c            | 118 +++++++++++++
- drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c      | 188 +++++++++++++++------
- 4 files changed, 263 insertions(+), 47 deletions(-)
----
-base-commit: 4d7e75152b01862a4ec598435d79a81c4b254dd6
-change-id: 20260820-phy-664ed5ec0292
-
-Best regards,
+diff --git a/arch/x86/kernel/pci-dma.c b/arch/x86/kernel/pci-dma.c
+index 0cff255827ba..ce257b20ea9c 100644
+--- a/arch/x86/kernel/pci-dma.c
++++ b/arch/x86/kernel/pci-dma.c
+@@ -44,9 +44,13 @@ static unsigned int x86_swiotlb_flags;
+ static void __init pci_swiotlb_detect(void)
+ {
+ 	/* don't initialize swiotlb if iommu=off (no_iommu=1) */
+-	if (!no_iommu && max_possible_pfn > MAX_DMA32_PFN) {
+-		x86_swiotlb_enable = true;
++	if (no_iommu)
++		x86_swiotlb_flags |= SWIOTLB_INIT_DEFAULT_OFF;
++
++	if (max_possible_pfn > MAX_DMA32_PFN) {
+ 		x86_swiotlb_flags |= SWIOTLB_INIT_ADDRESSING_LIMIT;
++		if (!no_iommu)
++			x86_swiotlb_enable = true;
+ 	}
+ 
+ 	/*
+@@ -84,7 +88,8 @@ static void __init pci_xen_swiotlb_init(void)
+ 		return;
+ 	x86_swiotlb_enable = true;
+ 	/* Xen can use a SWIOTLB pool anywhere in directly mapped memory. */
+-	x86_swiotlb_flags &= ~SWIOTLB_INIT_ADDRESSING_LIMIT;
++	x86_swiotlb_flags &= ~(SWIOTLB_INIT_ADDRESSING_LIMIT |
++			       SWIOTLB_INIT_DEFAULT_OFF);
+ 	x86_swiotlb_flags |= SWIOTLB_INIT_REMAP | SWIOTLB_ANY;
+ 	swiotlb_init_remap(x86_swiotlb_flags, xen_swiotlb_fixup);
+ 	dma_ops = &xen_swiotlb_dma_ops;
+diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
+index 6386536a5ec6..f5ce45f2994b 100644
+--- a/include/linux/swiotlb.h
++++ b/include/linux/swiotlb.h
+@@ -20,6 +20,8 @@ struct scatterlist;
+ #define SWIOTLB_INIT_ADDRESSING_LIMIT	(1 << 2)
+ /* Initialize a default-sized pool that requires architecture remapping. */
+ #define SWIOTLB_INIT_REMAP		(1 << 3)
++/* Do not initialize a pool unless SWIOTLB is explicitly required. */
++#define SWIOTLB_INIT_DEFAULT_OFF		(1 << 4)
+ 
+ /*
+  * Maximum allowable number of contiguous slabs to map,
+diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+index e626cca63ad1..130a13eb85b0 100644
+--- a/kernel/dma/swiotlb.c
++++ b/kernel/dma/swiotlb.c
+@@ -526,10 +526,16 @@ swiotlb_select_pool_policy(unsigned int flags)
+ 	if (flags & SWIOTLB_INIT_REMAP)
+ 		return SWIOTLB_POOL_DEFAULT;
+ 
+-	if (flags & SWIOTLB_INIT_ADDRESSING_LIMIT)
++	if (swiotlb_force_bounce)
+ 		return SWIOTLB_POOL_DEFAULT;
+ 
+-	if (swiotlb_force_bounce)
++	/*
++	 * Explicit requirements above override an architecture's default opt-out.
++	 */
++	if (flags & SWIOTLB_INIT_DEFAULT_OFF)
++		return SWIOTLB_POOL_NONE;
++
++	if (flags & SWIOTLB_INIT_ADDRESSING_LIMIT)
+ 		return SWIOTLB_POOL_DEFAULT;
+ 
+ 	if (swiotlb_kmalloc_needs_bounce())
 -- 
-Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+2.43.0
 
