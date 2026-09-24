@@ -1,125 +1,148 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E831B4519AF
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:46:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 434543BE63F
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:46:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790243169; cv=none; b=uqZsD1yHtv05qRb10rCFcxeoEEVjXL7+DtYzqO5ZlpymqPTwviqG6Qx95awqmtppMPiUWpgeVmoA2+I0gJrAn4PyUM9//9sEOSnjhAqCi9/GZu3B+9toV1j0UGouoczhsfJ21r8q4Ype42OfRCmnmaEQl+PFzvrYn1a8KMG5PRc=
+	t=1790243199; cv=none; b=n3ieMNpW7UruRclVVl2DbPNnw+RoTS0+0pen98gwFtzMKBzvS7WcBOw1ksWMBLdluu01AtcxT8Bok51EWVcTQC7cGQ/MNjjKRVMfNAbTqo6ZedCjFg36eh6FWnFdHz+wBqdHDmJ7DgNP5WkDQB5qAgiXqrpAJALv3Ub5M7HzNdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790243169; c=relaxed/simple;
-	bh=Lgdov1EQlo0fPsheuchJYvzfLXqpNsd19w5kuF3sCGk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l3TqMwtoAN274Yp46jjea00u45Zq3msAVREV4YpKe7qEiUe080l/b4J4lSf+IBeBFsX5jaD9LZy5ggk9tt40sosFAtvb24ySVQFvQjClrYUO3FVOdijimgGn0CrZ8Kg5ccghSH+AIwhQ+mxmJj6JLXvqohw5+zlBgRw3QQyoE2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KjCHOzk7; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790243199; c=relaxed/simple;
+	bh=BKUDHptu/pTStIcuP/3NukT0Zd0pTYKYIbdx/fx4C1Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lgSrKlSEoIjf1KxCdUNAqmcgwVRwlp8GPjVXu1utLwhU2TvDQgoJB9bk3QGygqbHfYX7TFNdprN0vK/xiYmtA7NdUoZ6oRGA27JFjnbYVRwuvRfkLjyia547xKm7+BskPdRIZe1s+XALIM9UC4qyU8GfDQAU3C32yWBSnzMkfF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Y46bAqj0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JWpzU8ZO; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KjCHOzk7"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so10254385e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:46:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y46bAqj0";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JWpzU8ZO"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O9PMK32919251
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:46:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=6m4Yo8FaInz+j4YxvNfbbwU2
+	rN4O/h4O+OLLY3MVmc8=; b=Y46bAqj0B55P90xFi5jZ4tm3jCQgLYZwUIoqKhup
+	/xr7OFr3LGS//QA6l6kITgOFHeAlRRHyA1+CkbCUYlH8JMMBGy21h/AWDEdF7qBx
+	47QSwgZIMrq3x8TgJB/P4zNn4BioRhAEvjbIwBqdhwS8dejXAnAVXPrO2QtjUoe/
+	PAaacbJdJ98DMXorL5+5HZR7Wxtzt9MD78PR5lJSsZRYVXnkYu7JZeVnugbX8zoV
+	N3j7K+a3UYum28t/4yRoneoUMt/Efe7vQdNPS2C2WtOxt0UibAREbkXeq2ID0QRm
+	tnRRCqgAH4jew62HUJV+8le2RjjmvKiOr14Lrb7XpbSEBw==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvstuhttf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:46:24 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-32861f5448cso1734830eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:46:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790243159; x=1790847959; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fQw0LiOPF1WW9oddWAzXJ82cJDcoK6v63Klwt0PVxSU=;
-        b=KjCHOzk7puFfCZeijXVGM4aYpHLyWB41ldo15TXu6Rmzam08nOhFM60pxNhrqG6X+n
-         UdLY+xu94h0rEdjww1Hj4lKiHXddLnb3c3MY3JWAYPu2HxYq2/sJEtfbD90DRzUc26B+
-         FDO7Bvvp19tX3oKiEr8yvzQU65a0U8P7IDMTV6u98yukAxkIk/8JErzGAmNyZ6Oh54TA
-         AmLdDLntiz6qdE9KNZQ+04jaq+cxuK94TOCHSHnAVSn1m9e1kuzIBFDFKp3fIMIWY/wN
-         C0ZaqTLr2iag7WmXeP0sieJjiFHRgUdbToB+A7XGGyr4TREyidc5MUdRyYrTK6Ps+twH
-         h3Ug==
+        d=oss.qualcomm.com; s=google; t=1790243183; x=1790847983; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6m4Yo8FaInz+j4YxvNfbbwU2rN4O/h4O+OLLY3MVmc8=;
+        b=JWpzU8ZOs5N3UomK188yAIrtU8gBkTYfVcuE04KaowI2XnWGgCrW925sk9Lda8zT33
+         oT8Od3UP6BNs9LkXM4RhIv9+p2+0As4ddhnh/VUKmkCE9/BVeO5LYobU+EhVpE19+3K+
+         L0ethqQjDF2SBz5nH/WRJXB6hSB/76vv6i3qK07EnPfE3cg0KucbHoHSgX/jqNfWl/Zg
+         qdhvDnbNYLtxjq6zoOYBZtgktYDS7rMZ2wcvlI1yzgGvBDYGGckXgu0iZNdRabOfWhqv
+         DsVjYQBkE9w8xq9dgGpOvEaKPwxgF0z2RP8mZoiysCOIJk8B/GJIKnJQxaepZYeWxVFf
+         o+8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790243159; x=1790847959;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fQw0LiOPF1WW9oddWAzXJ82cJDcoK6v63Klwt0PVxSU=;
-        b=kHkEriJk3oNww/KAmawjfUCij2/zZ/q7ubBhstoHFWk+FL6DdlHH3xDyXW8YWYHsUF
-         NzvBj3guNuTlNpXAXjx4eqV1FOxuISePJQuukq/MBqqtLVNGu47qiUG0e0MfvDbwLO9B
-         RwS2N/HAD1cKQschWP8T6hIT/XvrqkodkuxE04L8gI4MLETMFu5HYQJSAjtTtKuJuHdM
-         Gdy6DObHzTyEaMdG5yma4LHOlGAFTqOkUpWamCmUpXUGty0FXfcpaj6eQmHMCgnE+iH7
-         DEJ4khLhcEXb+nBIJ6kxmAv7Z08MxuyWiK2dDKDqJKr+/6RwbW3u1CeM21dlwpznMuZ3
-         usYQ==
-X-Forwarded-Encrypted: i=1; AKwUvByAD9q38YvF/gROWDNlKEeu16TPFNTWA7D6s4vP5rcawvC0LBueH8K3MgrK1j/4D15tMfuLmiffMXl0QLQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mAqsm9EJRVMOSfZENFwWsqfTYhy6J1H9QIx0JP2Xt10YglqQsn
-	DJQVkzFDMGfSoykJ33WEXG9UvObK/65Lc3IrRu0i0Sxdi5W8fe2pjf8l
-X-Gm-Gg: AYBFou2UnjAV9tcBS0aC0CxrnbkME5QGuO+kABo6Kc9v2984BJqkfRVlYR6IoZsJDca
-	YPtWq/RBbgZqjUNxcwYZxoUyK1Br0pGZQCyai6zOITVChdcanIfWzlH7xKFwBVMyoSpC/nrLt2t
-	PqIFQcuXwxUuQX/y4TpkuqSwIhX4jdl11OSYvWjJflxVd5dx588v8IIBf65mKv/BBowINOZ0KRA
-	poM+BAieP34siNzwJdY0w8sPtmrkdMhh5zSTGVvHNNlZXOF7kQVgkofHR+27MHoVtGcW/oa+2wm
-	2MRJs6UL03kQ9Fb/YOoEQ+09kOEqlnmZmwwAgZBruKomsZvEU5bm5sFQI1rBYWZIZ/HysOD9Q2a
-	zkkxXkeRaUU80TArcno06pgVH6oUFVjGtbDeO0uCPQq4h/e0YIW585C+0R4OV4Eue0ne1E4gcDz
-	8UxuZcEyFXq9xakPHWCvjbKQb68w0NHwVDpZApykiWGSumjar/1haz7DcOm1fHd50kSiFWuIYK
-X-Received: by 2002:a05:600c:3b01:b0:49f:ce78:3570 with SMTP id 5b1f17b1804b1-49fe670bb82mr28973465e9.33.1790243159120;
-        Thu, 24 Sep 2026 02:45:59 -0700 (PDT)
-Received: from fedora ([213.55.237.122])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886876c500sm13947104f8f.19.2026.09.24.02.45.58
+        d=1e100.net; s=20260707; t=1790243183; x=1790847983;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6m4Yo8FaInz+j4YxvNfbbwU2rN4O/h4O+OLLY3MVmc8=;
+        b=xBs44YBZ1hYXoXn1XfTNxuEpfhNJEj/Cm+V3ec9MPOPESkRaip1FqnqIXURHjQZTrg
+         YrMK1gIvDjxeDaL4wsoBrqvp/RDWftIzMOXDpdMrfOidooasFKHcE9hdPfRCz8KnGJnk
+         kC+yjIrx+Cc6+OugRJGsjOV8BDHyfPZj1egF+bN+c0ADvT/z9quS8V21XvRTQDSGo2X6
+         f2toh2P64KQ7J+E3qEyeLBB64YmB1JkybYtxw60lUCJxTTvTBvZt+DHjqroygkbL7pZa
+         hRTILaGDw3gFEYs5J8XOC/qNMmLsZ00kPLYud+LWzxNaQCBpLnzssVZ9rCv0TLzuppzg
+         NCVw==
+X-Forwarded-Encrypted: i=1; AKwUvBzCkFj4YhH05k13VEzOh6WwAzktCcwtydnNDhulZ80cEN+mRoXT5tcwy/X+APXyjoU6S2H7a6YJF6SovD0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mZgw2RQ7aNXMnhqSpKlFKtbsmJKsKyoZ9tQ2ivsAA+9uOothex
+	648BpBeJR2CtYksY7nPabxxyKlsB+VWZEllXDuBQJlx0Rc2WRcgHcbJPoq4gKrl0kJjH4G7IpKe
+	dKK0VZrZp+vLHrC6bzCXvbrE134DXOqS8K1sVA+3F8GhRvZgKr6FOIyviDCdhabD5+zE=
+X-Gm-Gg: AYBFou2A7+kx37KLYET6LbEBnL7OumwC/X63pclt2oAQudGU91MDZcJODNFSO5mZQcd
+	wUd6EZOkyitW5wpgFsaqj/+Q0bbnMRB/uQP8fNjwjkfU/RzGQdpQUfTRU13LYWv+gvajdHdIR4f
+	3ROoO7rkOdDpsjSfeb6IXM47SXeCW8iz4mqQZOcYRl63Tih8tryD2NkqA8rYqGZmG3iDwukEuqx
+	JUDkvx6WIeut7ayvcWzugYp2u5XGEjZmOTAhGFqeXqVPfWaIh3JwvkwhayEUNXZh/XLZK2Jky2l
+	uOmcUJF7eV16jnOOl8On1GOTxlEtYfIxD0hV/H6/aqVznvkXsbI+RnpUnGjaBLkL+yrMHOrvLqB
+	MYGq9eGoOWSkUG6LAsLWcJBw3BgdvWbQIKpmtIW6b/Q==
+X-Received: by 2002:a05:693c:66cf:10b0:33c:e9d:6d4b with SMTP id 5a478bee46e88-34003cac91emr1522062eec.41.1790243183426;
+        Thu, 24 Sep 2026 02:46:23 -0700 (PDT)
+X-Received: by 2002:a05:693c:66cf:10b0:33c:e9d:6d4b with SMTP id 5a478bee46e88-34003cac91emr1522039eec.41.1790243182838;
+        Thu, 24 Sep 2026 02:46:22 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e9bea11b8sm13829938eec.7.2026.09.24.02.46.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 02:45:58 -0700 (PDT)
-From: Michal Szpakowski <michi.szpakowski@gmail.com>
-To: Lukas Wunner <lukas@wunner.de>,
-	Jordan Brough <jordan@brough.org>
-Cc: linux-hwmon@vger.kernel.org,
-	Guenter Roeck <linux@roeck-us.net>,
-	Jean Delvare <jdelvare@suse.com>,
-	Henrik Rydberg <rydberg@bitmath.org>,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] hwmon: (applesmc) Expose the SMC battery charge limit
-Date: Thu, 24 Sep 2026 11:45:44 +0200
-Message-ID: <20260924094544.324119-1-michi.szpakowski@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <arTYEAnYYyDFsmc4@wunner.de>
-References: <arTYEAnYYyDFsmc4@wunner.de>
+        Thu, 24 Sep 2026 02:46:22 -0700 (PDT)
+Date: Thu, 24 Sep 2026 17:46:16 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] clk: qcom: gcc: Fix GPLL enable register offset for Nord
+ SoC
+Message-ID: <arTxaIIDkomvxfWp@QCOM-aGQu4IUr3Y>
+References: <20260924-nord_gcc_offset_fix-v1-1-230ffad2dae9@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924-nord_gcc_offset_fix-v1-1-230ffad2dae9@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA0MCBTYWx0ZWRfX6+Glhv0Dh7LS
+ ThueSnvMcsuaVdJxiD1tCydtuCROGUR9nAISaQbMhtg0w1PxUguJituKgG0vksDrlxCXPSMasEm
+ 8YfQrARkfF28jzMH2NpXyrdW+3IaZu0=
+X-Proofpoint-ORIG-GUID: rDnimYiAD5GjXgj8ZMgQFuVV4tNd-aeB
+X-Proofpoint-GUID: rDnimYiAD5GjXgj8ZMgQFuVV4tNd-aeB
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA0MCBTYWx0ZWRfX5/VISGI/eElq
+ QFtGR9LHZSfMHWUdOYZiHOWocVkM2oOi+3zFH3b2Ke/umMa8VHV6N/H6bHFUmbYctInrusVEr0r
+ jOizKi9ueOfspkd6E9CrO29DyXMTcy5Fwo5HGX+51lLR1h8mn7k4c40pNQem3vLws4LrynYwHwg
+ JSGWNyERWjUq027P4MDNO69b4Fol3IykzgPzto2kUQ9v/g0sUdO8sgboV7+M+QPllBdBFNbtxhb
+ u25FNcFhDV5zE7VVxFNjW5jMsST5iNLUGoZKEhPRQpyrMfMgVeOzZKuT/3p/XGsXLZFFMYpT+HN
+ VptgyJooaUMguCC3A3CYso3xJO25dDceV08FGsX587hJChUEzU1xRPglGclRE0buxrUjV9LckXC
+ TN1l2FoLHQAsDOtzW9HroaSdisahI4ATT0jrQSJ2RZuws6ngXLS+05AqACQSi7zMFwG7/A5fnRV
+ LT3KAFBAtBz0FI3uWkg==
+X-Authority-Analysis: v=2.4 cv=cKp1IVeN c=1 sm=1 tr=0 ts=6ab4f170 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=7o7Fz_jXMTEYJjNRgMcA:9 a=CjuIK1q_8ugA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 malwarescore=0 impostorscore=0 suspectscore=0 adultscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240040
 
-On Thu, Sep 24, 2026 at 09:58:10AM +0200, Lukas Wunner wrote:
-> Jordan Brough is working on similar patches, perhaps you two can
-> work together to make sure there's no breakage on either of your
-> laptops an no conflict between your patches:
->
-> https://lore.kernel.org/r/20260918175052.85461-1-jordan@brough.org
+On Thu, Sep 24, 2026 at 03:09:56PM +0530, Taniya Das wrote:
+> The GPLLs in the North-East, North-West and South-East global clock
+> controllers on the Qualcomm Nord SoC were registered with a placeholder
+> enable register offset of 0x0. As a result the shared PLL voting register
+> was never programmed, leaving the PLLs' enable state uncontrolled.
+> 
+> Point each GPLL at its actual GPLL_ENABLE register (0x57010 for the
+> North-East and South-East controllers, 0x76008 for the North-West
+> controller). Each PLL continues to select its own vote bit through
+> enable_mask.
+> 
+> Fixes: a4f780cd5c7a ("clk: qcom: gcc: Add multiple global clock controller driver for Nord SoC")
+> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
 
-Thanks, I had missed that series. Jordan's approach is the better one:
-extending the battery hooks to SBS batteries is the proper fix for the
-problem I worked around by walking the supplies, and the BFCL/LED
-handling covers hardware I do not have. Please consider my patch
-withdrawn in favour of his; I am happy to test v3 and add a Tested-by.
-
-Two things from a MacBookPro13,1 (2016, 13", USB-C, no MagSafe) that
-may be useful for it, Jordan:
-
-1. This SMC has no BFCL key at all. A dump of all 798 keys has BCLM
-   but no BFCL (the BF* keys here are BFCT, BFLO and BFWC), and asking
-   the driver directly, through a debug attribute that calls
-   applesmc_get_entry_by_key():
-
-     BFCL (no such key)
-     BCLM type=ui8  len=1 flags=0xd0 R W
-
-   With v2's set_property, the unconditional applesmc_write_key(BFCL)
-   after the BCLM write therefore fails with -EINVAL, so userspace gets
-   an error although the limit was in fact applied. Gating the LED
-   write on applesmc_has_key(BFCL) at init, like the BCLM check, would
-   fix that.
-
-2. The SMC silently drops writes it does not like: applesmc_write_key()
-   returns 0 and the key keeps its old value (seen on this machine with
-   the CLWK key; BCLM accepted everything I tried between 50 and 100).
-   Reading BCLM back after the write and returning -EINVAL on a
-   mismatch costs one read and makes the failure visible.
-
-For what it is worth, BCLM=80 on this machine stops charging at 79% of
-charge_full with status "Full", the value survives reboots, and UPower
-1.91 picks the property up as charge-end-threshold once it re-reads the
-battery.
-
-Michal
+Reviewed-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
