@@ -1,115 +1,61 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 637C049E5C3
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:09:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2A0747ACD6;
+	Thu, 24 Sep 2026 15:10:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790262555; cv=none; b=cc0plKUCLbKPIgtKCJBnbgVY6FzeV9fXAVfvZGeendX55el6144Ek8diGnkjYOausJ28H6i7EVgQ38ZbS0P/jq52o8938GkWPiUYv6tFsYwr9WaHaqo7TKEZ6a2zoF+Z+KdJtXwsI9eoHpsJGxTDX2ZxtpDAQ1ejclhQLgJF9OA=
+	t=1790262630; cv=none; b=Wx2EFj2uJUJ8N11dnQXo5J1uXVx9w4KlNmxdVN0ldEM9RnbT3vBahRqtNT3tJVEDoWPxibVdSwrNQDOJow7riLp/e9TORQAgrXjOlh9+Z+G8UgPdoS/fFKmk6AKYDAcbFnRV0My5QZlLj6C/0XOOrHMTd08I7MOGj3cZhFPePNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790262555; c=relaxed/simple;
-	bh=FjBfKTAQXtZdKGl8qSMdU1ZjZaMiTDi7UGD9fJdDDwM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oQNkFHBeoEcgyrEcxMs6Elw+HnTy71IFCfL75kVZlj2khCAqYbOiEv3/tyspX3RfAAuq5GipLTwimdskgqaAPHgE0dV8oR7UD4kpG1HgTl2AhOqk/A0ZR6gznH6+b7Yc5sgk/ov5LE8sJxfKE1VS5wlC9I1egkl8jVYi/QkHdIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ouxl2a3v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790262630; c=relaxed/simple;
+	bh=kmECzyA9SwcKafrelKws3j36NEpt5Rd0Eh17TaupPNg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Zdl7i26HxAbgmvWKbvQKb+B5ei8vs//4bx+v4hX34iNJpJEZ455NPdbj0QxmGzyon+WAJgSBhnmBelva67y3Q84eE3j56o96Rd/DCEQzu3hJ0ybCYv4awhAyKyPeWMlqmJnjhwPTUrmjrbod4/uW/OBGTiRYc9Y5zTKjRC+B6bY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j2BQXmHa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ouxl2a3v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 734291F000FF;
-	Thu, 24 Sep 2026 15:09:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790262547;
-	bh=f1SJ5qwFSMkgbZE6m/nDwefDqrv5UvLqOn5y2QRCfZA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ouxl2a3vHSSaOQKJ1SJKuM0VXh3++g0batEkZ2MV+2otwiAv4JZruOqJbxveGpveY
-	 Bk5f95+RBlfRrTFQDK/ecu3Gak+Kb/5IDAtr61y35JFhy1O2zDJRTMPhHpOalqLzoX
-	 mvoigUmfYBLxZPvdGuyLquPJhlIJQYjyDK+r0+hs=
-Date: Thu, 24 Sep 2026 17:08:49 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Arnd Bergmann <arnd@arndb.de>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	Lance Yang <lance.yang@linux.dev>,
-	syzbot+c181d3198e98f8aef8b9@syzkaller.appspotmail.com
-Subject: Re: [PATCH] drivers/char/mem: mmap readonly MAP_SHARED-/dev/zero
- correctly
-Message-ID: <2026092406-irritably-maggot-9512@gregkh>
-References: <20260924-fix-dev-zero-readonly-shared-v1-1-153c2111e323@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j2BQXmHa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23B1D1F000FF;
+	Thu, 24 Sep 2026 15:10:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790262628;
+	bh=D6OG3n4N0mKuX99K9C3N8BtDO4m4BTi3PpA2GBpxPpo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=j2BQXmHaEwaJcw67eADj2vKL+NHteC9J5/gXDYVyCwm5fZWWcvEhMneMSw3HrbvjQ
+	 mKUp0R+rHfq5mJWXNZOT6iHZ5jbxXS8M4/NKFHPgLdNA70jThXutW2NKUgDeUaOPPb
+	 QjQis2nwv44GlIFt/OPZZORpFpqFi96+0zrN0BStEjr9hk5CdEKh9mq+7LwIpr7tCY
+	 Dhl74fkJzMnn2w8ncc/zw7/5/m0S/FykEakwLd+9Lq62H+mbvYb9woM8lbc2JmcQ+l
+	 YsiAYepAjjGHiXRvEIwKO7UKhLZ5VYux+VXjaMPh9vMxl3VKmB0knb7Ht8dXCXSsuV
+	 l4uLO4fQ/LoBA==
+Date: Thu, 24 Sep 2026 08:10:27 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Quanye Yang via B4 Relay <devnull+quanyeyang.proton.me@kernel.org>
+Cc: quanyeyang@proton.me, Eric Dumazet <edumazet@google.com>, Neal Cardwell
+ <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, "David S.
+ Miller" <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>, Simon
+ Horman <horms@kernel.org>, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+ Geliang Tang <geliang@kernel.org>, Mat Martineau <martineau@kernel.org>,
+ Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v4 1/2] tcp: annotate lockless access to
+ sk->sk_err
+Message-ID: <20260924081027.28b39617@kernel.org>
+In-Reply-To: <20260917-mptcp-sk-err-net-v4-1-1f04f52f2561@proton.me>
+References: <20260917-mptcp-sk-err-net-v4-0-1f04f52f2561@proton.me>
+	<20260917-mptcp-sk-err-net-v4-1-1f04f52f2561@proton.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924-fix-dev-zero-readonly-shared-v1-1-153c2111e323@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 24, 2026 at 03:48:24PM +0100, Lorenzo Stoakes (ARM) wrote:
-> Rather surprisingly, opening /dev/zero read-only then mmap()'ing it
-> MAP_SHARED gets you true anonymous memory (albeit in a VMA with
-> non-NULL vma->vm_file).
-> 
-> This is a by-product of MAP_PRIVATE-/dev/zero being how anonymous memory
-> was mapped in Linux's distant past.
-> 
-> It happens because mmap_zero_prepare() gates on VMA_SHARED_BIT and when
-> mapping a read-only file MAP_SHARED, do_mmap() clears VMA_SHARED_BIT and
-> VMA_MAYWRITE_BIT.
-> 
-> The gating is incorrect - the (poorly named) VMA_MAYSHARE_BIT flag exists
-> explicitly to tell you if something was originally mapped MAP_SHARED.
-> 
-> So the fix is simple - gate on this instead.
-> 
-> This isn't exactly a common use case, but it's unexpected behaviour which
-> now causes an assert if CONFIG_DEBUG_VM is set.
-> 
-> While this bug has existed since the dawn of time for linux (or at least
-> since 2.6.12), it hasn't caused issues in the past, so while it's incorrect
-> behaviour, it doesn't seem necessary to backport that far.
-> 
-> The mapping is now accounted at mmap time and can fail with -ENOMEM under
-> strict overcommit, and read faults allocate folios. However this is normal
-> behaviour for a read-only shmem mapping.
-> 
-> Commit 93c0c8dc87f6 ("mm/rmap: use anon pgoff to track MAP_PRIVATE
-> file-backed anon folios") is the first patch at which the debug assert
-> fires, so target that instead.
-> 
-> Fixes: 93c0c8dc87f6 ("mm/rmap: use anon pgoff to track MAP_PRIVATE file-backed anon folios")
-> Reported-by: syzbot+c181d3198e98f8aef8b9@syzkaller.appspotmail.com
-> Closes: https://lore.kernel.org/linux-mm/6ab4ae75.80e1c6cc.1e8e5f.000d.GAE@google.com/
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->  drivers/char/mem.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/char/mem.c b/drivers/char/mem.c
-> index 63253d1de5d7..5b93c92c2cf1 100644
-> --- a/drivers/char/mem.c
-> +++ b/drivers/char/mem.c
-> @@ -503,7 +503,7 @@ static int mmap_zero_prepare(struct vm_area_desc *desc)
->  #ifndef CONFIG_MMU
->  	return -ENOSYS;
->  #endif
-> -	if (vma_desc_test(desc, VMA_SHARED_BIT))
-> +	if (vma_desc_test(desc, VMA_MAYSHARE_BIT))
->  		return shmem_zero_setup_desc(desc);
+On Thu, 17 Sep 2026 06:41:22 -0700 Quanye Yang via B4 Relay wrote:
+> -			if (sk->sk_err) {
+> +			if (READ_ONCE(sk->sk_err)) {
+>  				ret = sock_error(sk);
 
-What's the odds that something "big" actually relies on this?
-
-I'm all for the change, but be prepared in about 5 years for people to
-start complaining :)
-
-Want me to take it through my tree?
-
-thanks,
-
-greg k-h
+This sort of construct needs to be de-sillified in both patches.
+-- 
+pw-bot: cr
