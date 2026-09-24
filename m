@@ -1,399 +1,204 @@
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C24B32EEE7C
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:25:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790209564; cv=none; b=N4u86ITBWdlPs8GF6K1TjvHwQxV53F7w3NHzKF9FcdGeHwxn5IAiEoJPofrJz/HoITBX+7WjkGSQeM8qXSfyPCO1J0oWYklqlhQLPK3mc68WhSNuoRgbJwJ00NXjeZVV5FFvwAYazWpb5LeIK8gpDcSsNfLZ9pQnKO3UUGLnZKY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790209564; c=relaxed/simple;
-	bh=W40w6Xz5WizzC2CsbKNXLo3vVFw6UxWPXABB0XtWee4=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Sfk6YHxpZWOueN1Hrypdk4Xs2s+e8EyEldWLl1EhIEdxrbXWFmRIA4+7A2CI2XmBbnxXP1NTnEQbf+Zpf4RDk2QTxSE1G24/RSj1SoeT0lCuHFj9/q3d3D+4yFQmdHRuDGbCYj3QiSqMEntURtrfN0L0F7Od6KT7CJ/2foIlHRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jmattson.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ASWHXTBK; arc=none smtp.client-ip=209.85.215.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82DE622A80D
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:27:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790209630; cv=pass; b=Ztn2CC/ey/sHkaanDcjdkus098d5qwlhH7QAYT8+oUeRsXD0xkVNbDeWnqf/2dNm2TOEbN8A753G4Ns/+am+bvF0r2P7Gh6RrX26BQs9hLaA9RQZvnIavEE0VRbrcHRAncIZlEj/oS1aEoRVMY9Q3V9NZADkN9wIaEeh7lNqz6Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790209630; c=relaxed/simple;
+	bh=qCgyLB7my1vWRWw/muT+Op3J5Znv5fE9KgUG5d0QKl8=;
+	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pZl4wryOC8NAk9tFYQ1wASbr27BW9L7eUbI3c/LOiVIbtIXI2EJmvxJQ8YLifNHt1FgNIBZCER53jASESOfLDysvMiJJnFFW9zX7JGBOWWp7OBmIpGWBsuh/gRzIWvmDPPV1ZCE/zIHBdsSsH7sEHgsUBB7oT7bLDtGiNb9GQ0k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pyLu8JvZ; arc=pass smtp.client-ip=74.125.230.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jmattson.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ASWHXTBK"
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc21bc2923fso938704a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:25:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pyLu8JvZ"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-910531ea7feso12610406d6.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:27:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790209627; cv=none;
+        d=google.com; s=arc-20260327;
+        b=V/dlfCthMAQYr/aFVLS2yJtP+AMqrsJhEhIkns6F4n0Dy+zqq1P7mcWvuILkdddd2g
+         PmwrkY1k/Q7VObucLILyIcVBUm7nhhQ97lmqFXpQHLc6D3I6gElulSz3i8yZCQ6ytMPz
+         pYhAMzUWFiZfSbYYj7kXNZ9s6UkS6xdHGCBuIzfEaKLeEgy3KBC2tXr3BTHEUWb6BjB9
+         Ghe/O5S1XDC7mpWZMReA0i/h9Px961yH0JiLXxWrLy+Wfs+zKmRxhtH+gIioM816mhbF
+         BeskYZa9anDqvwiu8TiwGXkvGZTuqXKJlX+A/UKtZBegs+aTAKZhRhFuxKkfnNqHmSDK
+         U1rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=r6WrRa8X4LwIKolmxRxI8EL2z5U2C2576pcH4SsNYg8=;
+        fh=x5xne94ydUxx5MuuqLnVmhvr1ezpEtFxW0dmYlqFgYI=;
+        b=gC+bH+O+DZfKeUs+DOMYreqjJNcqzAnMOZ5skOVROmODHcrW4O9UvyJZCcDmILMgtY
+         QrjCm63nSnmshnrQ4QCDf0/nXuD3Qciz7d4M1419PL5Wd9aEoZ55s4FshUzBum2oe/+8
+         R2CWp53d/CFeCkWJY7+1dfCJk/SRCZ0Wh3qfzL0fOwfYBkp1TgpHt4tRlZRcq8mxWSkM
+         F4+Y4QjBeeY+FcKfzautbJZGO9h1jCvs6FLIynviSSEvEJbSvCuNnizJw3FhssiEW3Of
+         8TIq8JCPUJBuQe01eFJa8b+Dv/CaHlsX831JZH3Nhed8X7do5/pqouDnWhtzCFVa05ZF
+         COrQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790209558; x=1790814358; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1790209627; x=1790814427; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pso3DvjmD9/LlPFbVvpLmkrNSJZEBDMBWUOU1ztjzQc=;
-        b=ASWHXTBKQJsEEc/Q0Rs2Z8oaRByBxo87L8Z564wkcGQltzfZyU67YiBlKSVBNp5C+h
-         S26ktirIMM4P+L6j35/Dw7wfHPWn2gG2f9gx6AjLoIcaCLNl8l1BylXQ6BfpDtYgkII0
-         LVIcW6X8C9tPs8r8lMIri5plzU9NOiE6hRKR4Ku89Gqg5bn4EVGvLwOWS1BWSQAqbyz5
-         19arxFQY6nAxEtvxRCVDUGYjXtZkAdSTpLmAd4Boxbrqrmpq7WzSqG0xX5vwx1A1sKm7
-         p372VyQx6i4JVW4kTE0vXEa23vDopn/1TquMgFXTPooWFnW6TzHcuzCH93lo/p6LduFw
-         umOQ==
+        bh=r6WrRa8X4LwIKolmxRxI8EL2z5U2C2576pcH4SsNYg8=;
+        b=pyLu8JvZJ9jhhMbt6scQm2X6o58uSSsDGt9P3yNHoQ2jBjctwQyzHuRzHXm5IEBkcu
+         vZYc7WBJ/lFJpQBYy86h1oBS1CGnbjhJrXUgiJWj1JwFPO0I5CsnwspooCXzq6FlRcaO
+         PTxhVm490rdedLgJzTUeRwbUS242lAuHZEjWyWI+EH89abnHgU1z9AiUfKR7gyeuUHmx
+         Bjrkfg7LkQALX9DlRlcXijhnh8qg9rO/wplp7jy6wSDH950MsBF09uHtHcg3Wm4XSZNP
+         kxozQDrh1oAPhLApIQv1AIZZEj9PUc1gOxFeaU7vAw/lJj0VqAEWTneS1acRafGwCQTF
+         eXUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790209558; x=1790814358;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790209627; x=1790814427;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pso3DvjmD9/LlPFbVvpLmkrNSJZEBDMBWUOU1ztjzQc=;
-        b=it4CIf0Lo22TX6CgLjB3zhs/UxV3CSTV+swU2jngZizxNPgIAREasG+f5vENkB40fB
-         X0qXBe0fj71y/QCIzBv1MqLbg+Oah3MyBF7/fcQXZp96CJG+L4C0poW2NJfL6mGx6eNG
-         pcVnyN3UsB/rn62XKZakb6TbAdZZ0bcQQfthSHdmIkuo7y5Hceoy8vid8fERdPdTVwRR
-         mFEdksQOnr8XlZkQ4x2hCB7N4+VOp+AwvWAxJGieGtRHpwFki71cAX2Rn/lqQoOaLvaQ
-         sR/NQMyiyXkF6R4un9X7HZ9jqWLkEUgsT3Mp5EBT5G/OsfnHVHaB1kBQFIZt54Kmcad9
-         AiQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwO5HFNLKRD5+OIqppUNiIwvf3KVAbfH9+Bzn223jHx6IO6OwESBUDa5deDEOjO4JI1+Bg3p0a6c70obPM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKIO/Vb7SdlmSER8zpDdG34XhIOyZh1ZXASL7GushJ8dn8xm29
-	EvuzY9K40mvF3LjHugYlfOMdVxbC/vgpd4pBm6xHkpsDJ511qt7FajQ/QOSzCze/Q6aCYDTka9l
-	JV/S4icv7Awrm7A==
-X-Received: from pgbfq8.prod.google.com ([2002:a05:6a02:2988:b0:c96:47b4:65c8])
- (user=jmattson job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a20:2d07:b0:3dd:a195:dd5b with SMTP id adf61e73a8af0-3de0e93ffabmr703354637.61.1790209557724;
- Wed, 23 Sep 2026 17:25:57 -0700 (PDT)
-Date: Wed, 23 Sep 2026 17:25:45 -0700
-In-Reply-To: <cover.1790208413.git.jmattson@google.com>
+        bh=r6WrRa8X4LwIKolmxRxI8EL2z5U2C2576pcH4SsNYg8=;
+        b=1T2DolD4VR9RcBTPXCuyJudRy/Bef0gnKlLdE8s0SfMM+zsiLcD2ZtKHJcs6d6YOXN
+         cMKzMX85JGteC5PzM6Ho5KOJS3I8TfeenYEwodH2JyeoFIE45ujU9iMqNEPLV/olkH6d
+         27/Q//5Y/OJMFkmXHEuXxc1L5j6Ufkyu/Ga60NWsIJkjCFBz1V3WOKBjHMd6Bgui/+7x
+         a91GEVX6zLCiBoOhRPlCH7gtoLVHOxnY2op3IDaDp4FmknNnbsgPpdup4+4sGjy5pzuL
+         J7Y+yBvoOm/vOsl6MRQH716t9M6jdE26GYlpidUwqF6ebNMMB0pG9nqCYfwZn+eZFBCr
+         euAg==
+X-Forwarded-Encrypted: i=1; AKwUvBy7PHRXAa1qxFvoDW95rQLUNjgnV8Z19mmifMQyCRJtUf4oBKMo1Pq0zPq8+jZNEqtaKK2ukmThoSI3BOU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kHRlueqyD97xQ27kw/Ebi+iybpwFx7Jiq/M7ehmeP9OWA0ZYhr
+	mKJqt+oGbR9C5DatkJZpAdJNHWNW59NjHwlmhrs++UHbnlTvu5zVlj3QiDMReS0zD49GhqevoaD
+	25fU+kx9VpRSweCVpVqSox64IAAjeexA6MNfpiMrn
+X-Gm-Gg: AYBFou2tzN8imMR2HP6yljx4UU2Y1XaZV3hM/Rc1xlAE8A1SDUr2fGn/C1hV1F1mT3L
+	7akMmfQ9jdNTRape3QqJ5nMvJE2SwmCUK/uEsPX/b5APi3D0d7hN5uWbXEqo839HCmmWhGN54/D
+	GVR5fjXWZLOSNOWY3M3bQQRPy2EgbhY2My1r2sbhG56O+omCUqzuiJWpGICIMtkvdmAOEkIJn9L
+	YLuhQ3cat8Lq/egx6SGNGgYq3mxEw1T3XEyc/5PZ1l2vW3bXKdJx0838Uau/Mbb0DM57+zSUYwC
+	xpJgavHAQ0C6lxFAGOCLU1RavIkOFSA5L2WT8FdZZQpMPg57JGtOvaK6Fi3FyL6i5GejpTExr8G
+	QnBHCdPcSxpp5j0+rt3J9BYgrM7qhnJWen2PsaMjQZ96jm+xRT8b4
+X-Received: by 2002:a05:6214:4908:b0:912:5a5c:780d with SMTP id
+ 6a1803df08f44-91421c7b50bmr1075226d6.5.1790209626640; Wed, 23 Sep 2026
+ 17:27:06 -0700 (PDT)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 23 Sep 2026 17:27:05 -0700
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 23 Sep 2026 17:27:05 -0700
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <20260923220912.46905-1-kmehltretter@gmail.com>
+References: <20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com>
+ <20260916201307.5618114cbac4af52d98aecfa@linux-foundation.org> <20260923220912.46905-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <cover.1790208413.git.jmattson@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <f0ce99261caf71e88cd0d51a4053abb77454e8bf.1790208413.git.jmattson@google.com>
-Subject: [PATCH v2 4/4] KVM: selftests: Add coverage for the EFER_LMSLE_MBZ defeature
-From: Jim Mattson <jmattson@google.com>
-To: seanjc@google.com, pbonzini@redhat.com
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, nikunj@amd.com, 
-	yosry@kernel.org, Jim Mattson <jmattson@google.com>
+MIME-Version: 1.0
+Date: Wed, 23 Sep 2026 17:27:05 -0700
+X-Gm-Features: AclHuK9WI-ITD8-bQR_EogJlGkU1PbBu_FVIl6mxYc8DTRj175UHw6OErcti6u4
+Message-ID: <CAEvNRgHZTYUuFBXS3sGyyjiveQOeLHuPxvud8o+R3NCCwM6Ukw@mail.gmail.com>
+Subject: Re: [PATCH v3 0/4] Fix HugeTLB subpool used_hpages tracking
+To: Karl Mehltretter <kmehltretter@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
+Cc: Zhao Li <enderaoelyther@gmail.com>, Jinmeng Zhou <zhoujinmeng@bytedance.com>, 
+	Alex Shi <alexs@kernel.org>, David Hildenbrand <david@kernel.org>, Dongliang Mu <dzm91@hust.edu.cn>, 
+	Hongxiang Lou <louhongxiang@huawei.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+	Michal Hocko <mhocko@kernel.org>, Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Nhat Pham <nphamcs@gmail.com>, Oscar Salvador <osalvador@suse.de>, Peter Xu <peterx@redhat.com>, 
+	Randy Dunlap <rdunlap@infradead.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Usama Arif <usama.arif@linux.dev>, 
+	Vlastimil Babka <vbabka@kernel.org>, Wupeng Ma <mawupeng1@huawei.com>, 
+	Yanteng Si <si.yanteng@linux.dev>, Naoya Horiguchi <nao.horiguchi@gmail.com>, fvdl@google.com, 
+	jthoughton@google.com, rientjes@google.com, vannapurve@google.com, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Add coverage for KVM's virtualization of EFER_LMSLE_MBZ,
-CPUID.80000008H:EBX[bit 20], which is set when the CPU does *not* support long
-mode segment limits.  Verify that KVM's enumeration of the defeature matches
-the expectation derived from hardware plus kvm_amd's "nested" module param, so
-that the assertion doesn't compare KVM's enumeration against itself, and that
-WRMSR(EFER), nested VMRUN, and KVM_SET_SREGS reject EFER.LMSLE=1 if and only
-if guest CPUID enumerates the defeature.  Also verify that host-initiated
-KVM_SET_MSRS is exempt from the check, as host-initiated writes skip guest
-CPUID checks so that userspace can set MSRs before it sets guest CPUID.
+Karl Mehltretter <kmehltretter@gmail.com> writes:
 
-Extend svm_nested_efer_test rather than add yet another test binary for a
-single CPUID bit; the test already has the L1/L2 harness needed to exercise
-EFER.LMSLE.  Note, only a CPU that supports LMSLE, i.e. Rome and earlier,
-exercises the emulation path; elsewhere KVM enumerates the defeature straight
-from hardware.
+> On Wed, 16 Sep 2026 20:13:07 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
+>> So if downstream people (-stable maintainers, others) follow our
+>> recommendations, some kernels will get two of these patches, other
+>> kernel versions will get three and some lucky kernels might get all
+>> four.  Are you confident that the patches can be split apart in this
+>> fashion and still produce a good result?
+>
+> Two things I noticed while testing this series on v7.3-rc3 (x86_64
+> QEMU, one CPU):
+>
 
-Opportunistically drop the unnecessary #include of vmx.h.
+Thank you so much for testing!
 
-Assisted-by: LLM
-Signed-off-by: Jim Mattson <jmattson@google.com>
----
- .../selftests/kvm/include/x86/processor.h     |   1 +
- .../selftests/kvm/x86/svm_nested_efer_test.c  | 249 +++++++++++++++++-
- 2 files changed, 237 insertions(+), 13 deletions(-)
+> 1. It overlaps with two fixes already queued in mm.git, so I've added
+>    their authors to Cc:
+>
+>    - 3/4 rewrites the same out_subpool_put: block as Zhao Li's
+>      "mm/hugetlb: fix max-only subpool accounting on
+>      alloc_hugetlb_folio failure" (mm-hotfixes-unstable), and has the
+>      same Fixes: tag.
 
-diff --git a/tools/testing/selftests/kvm/include/x86/processor.h b/tools/testing/selftests/kvm/include/x86/processor.h
-index 6e6f70035508..ba5d8b37edc1 100644
---- a/tools/testing/selftests/kvm/include/x86/processor.h
-+++ b/tools/testing/selftests/kvm/include/x86/processor.h
-@@ -216,6 +216,7 @@ struct kvm_x86_cpu_feature {
- #define	X86_FEATURE_INVTSC		KVM_X86_CPU_FEATURE(0x80000007, 0, EDX, 8)
- #define	X86_FEATURE_RDPRU		KVM_X86_CPU_FEATURE(0x80000008, 0, EBX, 4)
- #define	X86_FEATURE_AMD_IBPB		KVM_X86_CPU_FEATURE(0x80000008, 0, EBX, 12)
-+#define	X86_FEATURE_EFER_LMSLE_MBZ	KVM_X86_CPU_FEATURE(0x80000008, 0, EBX, 20)
- #define	X86_FEATURE_NPT			KVM_X86_CPU_FEATURE(0x8000000A, 0, EDX, 0)
- #define	X86_FEATURE_LBRV		KVM_X86_CPU_FEATURE(0x8000000A, 0, EDX, 1)
- #define	X86_FEATURE_NRIPS		KVM_X86_CPU_FEATURE(0x8000000A, 0, EDX, 3)
-diff --git a/tools/testing/selftests/kvm/x86/svm_nested_efer_test.c b/tools/testing/selftests/kvm/x86/svm_nested_efer_test.c
-index 6bc301207cbc..765476c79c96 100644
---- a/tools/testing/selftests/kvm/x86/svm_nested_efer_test.c
-+++ b/tools/testing/selftests/kvm/x86/svm_nested_efer_test.c
-@@ -1,16 +1,20 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-+ * Tests for KVM's handling of EFER bits whose behavior is tied to nested SVM.
-+ *
-  * Copyright (C) 2026, Google LLC.
-  */
-+#include "test_util.h"
- #include "kvm_util.h"
--#include "vmx.h"
-+#include "processor.h"
- #include "svm_util.h"
- #include "kselftest.h"
- 
-+static bool l2_ran;
- 
--static void l2_guest_code(void)
-+static void l2_clear_efer_svme(void)
- {
--	unsigned long efer = rdmsr(MSR_EFER);
-+	u64 efer = rdmsr(MSR_EFER);
- 
- 	/* generic_svm_setup() initializes EFER_SVME set for L2 */
- 	GUEST_ASSERT(efer & EFER_SVME);
-@@ -20,31 +24,250 @@ static void l2_guest_code(void)
- 	GUEST_ASSERT(0);
- }
- 
--static void l1_guest_code(struct svm_test_data *svm)
-+static void l1_clear_efer_svme(struct svm_test_data *svm)
- {
--	generic_svm_setup(svm, l2_guest_code);
-+	generic_svm_setup(svm, l2_clear_efer_svme);
- 	run_guest(svm->vmcb, svm->vmcb_gpa);
- 
- 	/* Unreachable, L1 should be shutdown */
- 	GUEST_ASSERT(0);
- }
- 
--int main(int argc, char *argv[])
-+static void l2_lmsle(void)
-+{
-+	GUEST_ASSERT(rdmsr(MSR_EFER) & EFER_LMSLE);
-+	l2_ran = true;
-+	vmmcall();
-+}
-+
-+static void l1_lmsle(struct svm_test_data *svm)
-+{
-+	bool lmsle_mbz = this_cpu_has(X86_FEATURE_EFER_LMSLE_MBZ);
-+	struct vmcb *vmcb = svm->vmcb;
-+	u64 efer = rdmsr(MSR_EFER);
-+
-+	/*
-+	 * Selftests' vCPUs are created with EFER.LMSLE clear; the sub-tests
-+	 * below need to start from a clean slate.
-+	 */
-+	GUEST_ASSERT(!(efer & EFER_LMSLE));
-+	GUEST_ASSERT(!l2_ran);
-+
-+	/*
-+	 * Per AMD APM vol. 2, if CPUID.80000008H:EBX[bit 20] is set, "64-bit
-+	 * mode segment limit checking is not supported and attempting to set
-+	 * EFER.LMSLE = 1 causes a #GP exception".
-+	 */
-+	if (lmsle_mbz) {
-+		GUEST_ASSERT_EQ(wrmsr_safe(MSR_EFER, efer | EFER_LMSLE), GP_VECTOR);
-+		GUEST_ASSERT(!(rdmsr(MSR_EFER) & EFER_LMSLE));
-+	} else {
-+		GUEST_ASSERT_EQ(wrmsr_safe(MSR_EFER, efer | EFER_LMSLE), 0);
-+		GUEST_ASSERT(rdmsr(MSR_EFER) & EFER_LMSLE);
-+
-+		/*
-+		 * Restore EFER so that generic_svm_setup() doesn't propagate
-+		 * EFER.LMSLE into vmcb12 on its own, i.e. so that the VMRUN
-+		 * sub-test actually tests what it thinks it's testing.
-+		 */
-+		wrmsr(MSR_EFER, efer);
-+	}
-+
-+	/*
-+	 * VMRUN's consistency checks reject "any MBZ bit of EFER", i.e. a
-+	 * vmcb12 with EFER.LMSLE set must generate VMEXIT_INVALID when the
-+	 * defeature is enumerated.
-+	 */
-+	generic_svm_setup(svm, l2_lmsle);
-+	vmcb->save.efer |= EFER_LMSLE;
-+	run_guest(vmcb, svm->vmcb_gpa);
-+
-+	if (lmsle_mbz) {
-+		GUEST_ASSERT_EQ(vmcb->control.exit_code, SVM_EXIT_ERR);
-+		GUEST_ASSERT(!l2_ran);
-+	} else {
-+		GUEST_ASSERT_EQ(vmcb->control.exit_code, SVM_EXIT_VMMCALL);
-+		GUEST_ASSERT(l2_ran);
-+		GUEST_ASSERT(vmcb->save.efer & EFER_LMSLE);
-+	}
-+
-+	GUEST_DONE();
-+}
-+
-+static struct kvm_vcpu *create_l1_vcpu(struct kvm_vm **vm, void *l1_guest_code)
- {
- 	struct kvm_vcpu *vcpu;
--	struct kvm_vm *vm;
--	gva_t nested_gva = 0;
-+	gva_t svm_gva;
- 
--	TEST_REQUIRE(kvm_cpu_has(X86_FEATURE_SVM));
-+	*vm = vm_create_with_one_vcpu(&vcpu, l1_guest_code);
- 
--	vm = vm_create_with_one_vcpu(&vcpu, l1_guest_code);
-+	vcpu_alloc_svm(*vm, &svm_gva);
-+	vcpu_args_set(vcpu, 1, svm_gva);
-+
-+	return vcpu;
-+}
-+
-+static void test_enumeration(void)
-+{
-+	bool lmsle_mbz;
- 
--	vcpu_alloc_svm(vm, &nested_gva);
--	vcpu_args_set(vcpu, 1, nested_gva);
-+	/*
-+	 * EFER_LMSLE_MBZ, CPUID.80000008H:EBX[bit 20], is a "defeature" bit,
-+	 * i.e. is set when the CPU does *not* support long mode segment
-+	 * limits.  KVM enumerates the defeature if and only if KVM refuses to
-+	 * set EFER.LMSLE, i.e. if the CPU doesn't support LMSLE, or if KVM
-+	 * doesn't support nested SVM.  Derive the expectation from raw CPUID
-+	 * and kvm_amd's "nested" module param rather than from
-+	 * kvm_cpu_has(X86_FEATURE_SVM), so that the assertion doesn't simply
-+	 * compare KVM's enumeration to itself.
-+	 *
-+	 * Note, kvm_amd's "nested" is an "int" module param, i.e. reads back
-+	 * as '1'/'0' and not as 'Y'/'N'.  Query the param if and only if the
-+	 * CPU supports SVM, i.e. if and only if kvm_amd is the module in
-+	 * play.  Checking the vendor string wouldn't suffice, e.g. Zhaoxin
-+	 * and Centaur CPUs are "GenuineIntel"-adjacent at best, but run VMX
-+	 * and thus load kvm_intel.
-+	 */
-+	lmsle_mbz = this_cpu_has(X86_FEATURE_EFER_LMSLE_MBZ) ||
-+		    !this_cpu_has(X86_FEATURE_SVM) ||
-+		    !get_kvm_amd_param_integer("nested");
-+
-+	TEST_ASSERT_EQ(kvm_cpu_has(X86_FEATURE_EFER_LMSLE_MBZ), lmsle_mbz);
-+
-+	ksft_test_result_pass("KVM enumerates EFER_LMSLE_MBZ=%d\n", lmsle_mbz);
-+}
-+
-+static void test_clear_efer_svme(void)
-+{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+
-+	vcpu = create_l1_vcpu(&vm, l1_clear_efer_svme);
- 
- 	vcpu_run(vcpu);
- 	TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_SHUTDOWN);
- 
- 	kvm_vm_free(vm);
--	return 0;
-+	ksft_test_result_pass("L2 clearing EFER.SVME shuts down L1\n");
-+}
-+
-+static void test_lmsle(bool lmsle_mbz)
-+{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	struct ucall uc;
-+
-+	vcpu = create_l1_vcpu(&vm, l1_lmsle);
-+
-+	vcpu_set_or_clear_cpuid_feature(vcpu, X86_FEATURE_EFER_LMSLE_MBZ,
-+					lmsle_mbz);
-+
-+	vcpu_run(vcpu);
-+	TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
-+
-+	switch (get_ucall(vcpu, &uc)) {
-+	case UCALL_ABORT:
-+		REPORT_GUEST_ASSERT(uc);
-+	case UCALL_DONE:
-+		break;
-+	default:
-+		TEST_FAIL("Unexpected ucall: %lu", uc.cmd);
-+	}
-+
-+	kvm_vm_free(vm);
-+	ksft_test_result_pass("Guest EFER_LMSLE_MBZ=%d\n", lmsle_mbz);
-+}
-+
-+static void test_host_initiated_lmsle(void)
-+{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	u64 efer;
-+
-+	vm = vm_create_with_one_vcpu(&vcpu, NULL);
-+	vcpu_set_cpuid_feature(vcpu, X86_FEATURE_EFER_LMSLE_MBZ);
-+
-+	/*
-+	 * EFER_LMSLE_MBZ is a guest CPUID consistency check, not a host
-+	 * capability, i.e. must not be enforced against host-initiated writes,
-+	 * so that userspace can set MSRs before it sets guest CPUID.
-+	 */
-+	efer = vcpu_get_msr(vcpu, MSR_EFER);
-+	TEST_ASSERT(!(efer & EFER_LMSLE), "EFER.LMSLE unexpectedly set");
-+
-+	vcpu_set_msr(vcpu, MSR_EFER, efer | EFER_LMSLE);
-+	TEST_ASSERT_EQ(vcpu_get_msr(vcpu, MSR_EFER), efer | EFER_LMSLE);
-+
-+	kvm_vm_free(vm);
-+	ksft_test_result_pass("Host-initiated EFER.LMSLE=1 is allowed\n");
-+}
-+
-+static void test_sregs_lmsle(void)
-+{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_sregs sregs;
-+	struct kvm_vm *vm;
-+	int rc;
-+
-+	vm = vm_create_with_one_vcpu(&vcpu, NULL);
-+	vcpu_set_cpuid_feature(vcpu, X86_FEATURE_EFER_LMSLE_MBZ);
-+
-+	/*
-+	 * Unlike KVM_SET_MSRS, KVM_SET_SREGS runs the full set of guest CPUID
-+	 * checks, i.e. rejects EFER.LMSLE even though it's host-initiated.
-+	 */
-+	vcpu_sregs_get(vcpu, &sregs);
-+	TEST_ASSERT(!(sregs.efer & EFER_LMSLE), "EFER.LMSLE unexpectedly set");
-+
-+	sregs.efer |= EFER_LMSLE;
-+	rc = _vcpu_sregs_set(vcpu, &sregs);
-+	TEST_ASSERT(rc, "KVM allowed EFER.LMSLE with EFER_LMSLE_MBZ set");
-+
-+	kvm_vm_free(vm);
-+	ksft_test_result_pass("KVM_SET_SREGS rejects EFER.LMSLE=1\n");
-+}
-+
-+int main(int argc, char *argv[])
-+{
-+	bool has_nested_svm, has_lmsle;
-+
-+	ksft_print_header();
-+	ksft_set_plan(6);
-+
-+	test_enumeration();
-+
-+	/*
-+	 * The sub-tests below need to actually run a nested guest, and the
-+	 * EFER.LMSLE sub-tests additionally need KVM to allow EFER.LMSLE.
-+	 * It's KVM's view of the world, not raw CPUID, that dictates whether
-+	 * EFER.LMSLE is allowed, i.e. whether the defeature is emulated.
-+	 */
-+	has_nested_svm = kvm_cpu_has(X86_FEATURE_SVM);
-+	has_lmsle = has_nested_svm &&
-+		    !kvm_cpu_has(X86_FEATURE_EFER_LMSLE_MBZ);
-+
-+	if (!has_nested_svm)
-+		ksft_print_msg("Nested SVM unsupported\n");
-+	else if (!has_lmsle)
-+		ksft_print_msg("KVM doesn't support EFER.LMSLE\n");
-+
-+	if (has_nested_svm) {
-+		test_clear_efer_svme();
-+		test_lmsle(true);
-+	} else {
-+		ksft_test_result_skip("L2 clearing EFER.SVME shuts down L1\n");
-+		ksft_test_result_skip("Guest EFER_LMSLE_MBZ=1\n");
-+	}
-+
-+	if (has_lmsle) {
-+		test_lmsle(false);
-+		test_host_initiated_lmsle();
-+		test_sregs_lmsle();
-+	} else {
-+		ksft_test_result_skip("Guest EFER_LMSLE_MBZ=0\n");
-+		ksft_test_result_skip("Host-initiated EFER.LMSLE=1 is allowed\n");
-+		ksft_test_result_skip("KVM_SET_SREGS rejects EFER.LMSLE=1\n");
-+	}
-+
-+	ksft_finished();
- }
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+Andrew also brought this up on v2 of this series [3].
 
+>    - 2/4 rewrites the same out_put_pages: block as Jinmeng Zhou's
+>      "mm/hugetlb: fix subpool minimum reservation rollback"
+>      (mm-unstable).
+>
+
+Just took a quick look, this fix doesn't address the case where there
+might be another CPU that updates subpool state. In that race, the
+global state will be messed up.
+
+>    3/4 doesn't apply to mm-hotfixes-unstable, and 2/4-4/4 don't apply
+>    to mm-unstable. If I read them right, the queued fixes only handle
+>    mounts with size=, while 2/4 and 3/4 also cover min_size mounts, so
+>    they would probably replace them.
+>
+
+Yes, this set of fixes should be a superset of what's fixed in the other
+patches. My vote is to switch over to this set. Would it be okay to drop
+the other fixes from mm-*unstable?
+
+> 2. On splitting: 1/4 applies cleanly on top of both queued fixes, but
+>    in my tests it made min_size-only mounts worse on its own. As far
+>    as I can tell, that's because it starts tracking used_hpages on
+>    those mounts, while the two error paths only release it after 2/4
+>    and 3/4.
+>
+>    HugePages_Rsvd, expected value in parentheses. Q = the two queued
+>    fixes, wrap = 18446744073709551615:
+>
+>                                    rc3   +Q  +1/4  +Q+1/4  +1/4..4/4
+>    min_size=4M only:
+>      SIGBUS faults [1], no files (2)  2    2     0      0      2
+>    min_size=8M only:
+>      failed mmap [2], umounted (0)    0    0     3      3      0
+>    size=8M,min_size=4M:
+>      SIGBUS faults [1], no files (2)  0    0     0      0      2
+>    size=10M,min_size=8M:
+>      failed mmap [2], umounted (0)  wrap   0  wrap      0      0
+>
+>    With 1/4 alone, the min_size-only mount loses its reservation, and
+>    in the failed-mmap case three huge pages stay reserved after umount,
+>    presumably because the subpool is never freed.
+>
+> So it looks to me like 1/4 shouldn't go anywhere without 2/4 and 3/4.
+
+Thanks for testing this! IIUC from your table, 1/4 introduces
+regressions.
+
+How do we handle this, should I squash patches 1/2/3 together, or is
+there some way to use the Fixes: tags to require those 3 to go together?
+
+> I haven't tested older stable trees. With all four patches applied,
+> all the cases above give the expected values, and so does the
+> partial-truncate case from the 1/4 changelog (Rsvd drops to 0 after
+> the truncate instead of staying at 1).
+>
+> I'm happy to rerun these tests on a rebased v4.
+>
+> [1] https://lore.kernel.org/r/20260923065714.20781-1-kmehltretter@gmail.com/
+> [2] the scenario from Jinmeng's changelog:
+>     https://lore.kernel.org/20260907132055.26696-1-zhoujinmeng@bytedance.com
+>
+> Thanks,
+> Karl
+
+[3] https://lore.kernel.org/all/CAEvNRgHbzY30n1hz2vv7BiBMMhci+NEv_ubP1LjQNmBuu6Kjgw@mail.gmail.com/
