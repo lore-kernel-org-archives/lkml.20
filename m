@@ -1,338 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AA3D4CE66A
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:28:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93AFB4CE67A;
+	Thu, 24 Sep 2026 20:28:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790281704; cv=none; b=nbMcsLHjKOF7uP6rIQBL1Er5Mi0IZxCFd6MboBatu+OpzF/XkYSTYpomwV5muJ/PycrWAGuygSRaaVnDqBR4caVTSTKXw5kDnjKxRA0HfLGuqNlegozzfPJr9MPVf2O6uDQVQu6RiL8HngcnU3LY/2gCzdhxPCs557Ple8+BJMg=
+	t=1790281707; cv=none; b=HKUtTPC4FbHKj3Oaecs22UvfuGt2vHkIf+uaWytG3u6PT2bGdWPrhJg0X0dcnDO5GerAdr628egd+Gv5yiQTerv7cI0YhJpBAJrekD1ewbE4PCsXNtE7viyfPSdS54brSTSzOwTG5gtVX3s1tFKMNrURjaQ5fncX7iXn5RB2Khk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790281704; c=relaxed/simple;
-	bh=lRJwUh7KMech+ZSPEicbNm0j9fhVZJD3m4G7Hr2ukHs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TjYQSy9mrPqR9+rqHaBtWrZu1+46keis6me8VfbvxphBSsDVwOjgbBi4yiwpjonveVA7SNlJ6a08h2pdYkOhDn3yPlM0LRcxn4zrAPO5NVeAs5xdr4R39zTFMBV26J6SrfleDP5eYxlx09kPoEe79a7SGW7siBVMWbzEhTI9/1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eQzzjoSt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790281707; c=relaxed/simple;
+	bh=/24pHmW0tMHYsRs5q5YjvnJhsHslqlSjqq669/OBrRM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EMB98LrnEXo8KYpL2PVrQKO3GFmVFGK0SlFlR6XiqWEVZs8K0eMRfQGQbSbqTjQbnmQpH4oQuq7CPefWb3q8nux7/O2vHv88xK0v8BgRXx8jykpbl4hsIcA8Qjr7TM+WQEBXznu1CZbrue2c+/UnkGRKktaOdP7oJc/cNWNA+Q4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FTvJKGgH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eQzzjoSt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B9591F00893;
-	Thu, 24 Sep 2026 20:28:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FTvJKGgH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C4841F00898;
+	Thu, 24 Sep 2026 20:28:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790281700;
-	bh=qfcIZKwA8q7CQROBoedXLhEH4e3CxPJmdbEI4YWW4Fw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=eQzzjoStR1tqW8Ni5DRYwUkCCm+VnI3jwVczkbjBct5Ko9n4GZPp+qlv2az8a89Ir
-	 pqAVKmqkwC1WoyLp3sU606u4GJ/0S2qRqNvXlNzxOrKiJ3T1Odi5HKrNa8EBBz8bRa
-	 vLpr/BNXnk2Iu4Kd4LLIcS+biICtGEbvMgnVwoMbaF78zNMbssELPcJv6Vi6MMy1zC
-	 6Sob7d9/5q6L38ekw9AB/R5uvuK9YbCz9DtsT7gZNTV66B3XAHj3xASPlGLIxTjtaM
-	 VpmUjf6u69cNI4wpqhp+rFrkSZdnyHkk62nRWQzgnVkZdiLU3iAvAaXkTTEBso0Qw0
-	 f7Aus2KH6oAkA==
-Message-ID: <69c54254-9657-4b95-a1cb-a6c0429c1c8c@kernel.org>
-Date: Thu, 24 Sep 2026 22:28:10 +0200
+	bh=mj2nxfp8a8MvY9/fQ8w1l7StlrKAQ0MmfyffH1beKyk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FTvJKGgHpKc1cDVZOCu7HiuN7ehKD8WNhkzt8tnu/L15py9t1NimtU2IUKVpWxWH1
+	 LzU3X1/JzLxFW87j5BBHIJwb4XhDYCmKE4k7PUr0F0y0uh97ykaIZCONUXqe1bg2hg
+	 VY0inWbya2Vfy8DZlgGpv+jS5NrVB9HTEp9WqVqJUpvoYQokgmJw0HXCBj5R0W+FQn
+	 nslMY7VBsod/ptJLG77UDy0RsEQqoosyrcttmsPyofn35T6firEinQukSARKZF9DWD
+	 69QCnCEyxL0MWV8weT28VlB+FNjCvCTPoHzl0OWq1mjtAseSP60Op6SLJwxaXjwZjT
+	 PEG2DH/I0JFmQ==
+Date: Thu, 24 Sep 2026 22:28:15 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Yuho Choi <oss.patchbox@gmail.com>, 
+	Viresh Kumar <viresh.kumar@linaro.org>, "Chen, Jian Jun" <jian.jun.chen@intel.com>, 
+	Vincent Whitchurch <vincent.whitchurch@axis.com>, linux-i2c@vger.kernel.org, virtualization@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v1] Revert "i2c: virtio: Avoid hang by using
+ interruptible completion wait"
+Message-ID: <arWHzKEfy6HKMZr1@zenone.zhora.eu>
+References: <20260922050251.403857-1-oss.patchbox@gmail.com>
+ <20260922011619-mutt-send-email-mst@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND v7 12/29] mm: handle PMD swap entries in fork path
-To: Usama Arif <usama.arif@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, chrisl@kernel.org,
- kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org
-Cc: ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>,
- willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
- riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org,
- baohua@kernel.org, dev.jain@arm.com, baolin.wang@linux.alibaba.com,
- Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
- ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>,
- lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com,
- shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
- luizcap@redhat.com, kernel-team@meta.com
-References: <20260914122950.3283997-1-usama.arif@linux.dev>
- <20260914122950.3283997-13-usama.arif@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260914122950.3283997-13-usama.arif@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922011619-mutt-send-email-mst@kernel.org>
 
-On 9/14/26 14:28, Usama Arif wrote:
-> copy_huge_pmd() only knows about migration and device-private PMDs, so a
-> PMD swap entry would fall through to the present-PMD path and fork() would
-> duplicate it without taking a reference on the slots it points at.
+Viresh, can I have a comment from you here, please?
+
+Thanks,
+Andi
+
+On Tue, Sep 22, 2026 at 01:17:06AM -0400, Michael S. Tsirkin wrote:
+> On Tue, Sep 22, 2026 at 01:02:51AM -0400, Yuho Choi wrote:
+> > This reverts commit a663b3c47ab10f66130818cf94eb59c971541c3f.
+> > 
+> > When a transfer is interrupted by a signal, virtio_i2c_complete_reqs()
+> > stops waiting for the remaining requests and virtio_i2c_xfer() frees the
+> > reqs array while the virtqueue descriptors are still in flight on the
+> > device.  The backend can then write into freed memory, and
+> > virtio_i2c_msg_done() calls complete() on already-freed requests.
+> > 
+> > Commit 84e1d0bf1d71 ("i2c: virtio: disable timeout handling") removed the
+> > exact same failure mode caused by timeouts, concluding there was no simple
+> > fix because the buffers must be held until the device returns them.  A hang
+> > due to an unresponsive backend is preferable to guest memory corruption.
+> > Restore the unconditional wait until request lifetime can be decoupled
+> > safely.
+> > 
+> > Fixes: a663b3c47ab1 ("i2c: virtio: Avoid hang by using interruptible completion wait")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
 > 
-> Copy it the way copy_nonpresent_pte() copies a PTE swap entry: duplicate
-> the swap references, clear the exclusive marker on the source, put the
-> destination mm on mmlist, and account the child's slots to MM_SWAPENTS.
+> Acked-by: Michael S. Tsirkin <mst@redhat.com>
 > 
-> Duplicating HPAGE_PMD_NR slots one at a time would be wasteful, so give
-> swap_dup_entry_direct() an nr argument and rename it accordingly. Unlike
-> the put side it hands nr straight to the per-cluster helper, so the range
-> has to sit inside one cluster - which it does, since SWAPFILE_CLUSTER ==
-> HPAGE_PMD_NR under CONFIG_THP_SWAP and a PMD-order folio's slots are only
-> ever allocated at a cluster head. Reject a crossing range with -EINVAL so a
-> future caller cannot walk off the end of the swap table.
-
-You have a lot of patches, put you could (should? :) ) consider moving the
-swapfile.c stuff into a separate patch, such that we can more reliably catch
-swap maintainers attention (and shrink this patch here).
-
+> > ---
+> > A proper interruptible wait requires refcounting requests and bounce
+> > buffering to hold memory until the backend returns descriptors (similar
+> > to virtio_rtc/virtio_pmem). Since that is a larger rework unsuitable for
+> > stable, revert to uninterruptible wait first.
 > 
-> The GFP_ATOMIC extend-table allocation inside the dup can fail;
-> copy_huge_pmd() then drops both PMD locks and retries once with
-> GFP_KERNEL. Bound it to one retry, because swap_retry_table_alloc() also
-> returns 0 when it decides the table is not needed. Normalise any remaining
-> failure to -ENOMEM: copy_pmd_range() treats every other error as "not a
-> huge PMD" and would then reach pmd_none_or_clear_bad(), clearing the source
-> PMD and leaking its swap slots.
+> another way is ring or device reset, if that is acceptable.
 > 
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
-
-[...]
-
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 0e347a545588c..6dfe8ef6dd371 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -1894,7 +1894,7 @@ bool touch_pmd(struct vm_area_struct *vma, unsigned long addr,
->  	return false;
->  }
->  
-> -static void copy_huge_non_present_pmd(
-> +static int copy_huge_non_present_pmd(
->  		struct mm_struct *dst_mm, struct mm_struct *src_mm,
->  		pmd_t *dst_pmd, pmd_t *src_pmd, unsigned long addr,
->  		struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
-> @@ -1940,14 +1940,40 @@ static void copy_huge_non_present_pmd(
->  		 */
->  		folio_try_dup_anon_rmap_pmd(src_folio, &src_folio->page,
->  					    dst_vma, src_vma);
-> +	} else if (softleaf_is_swap(entry)) {
-> +		int err;
-> +
-> +		/*
-> +		 * PMD swap entry: duplicate swap references and clear
-> +		 * exclusive on source, matching copy_nonpresent_pte().
-> +		 *
-
-I'd drop that, rather obvious.
-
-> +		 * A PMD swap entry only exists under CONFIG_THP_SWAP, where
-> +		 * SWAPFILE_CLUSTER == HPAGE_PMD_NR, and it is cluster aligned,
-> +		 * so these HPAGE_PMD_NR slots are exactly one cluster - which
-> +		 * is what swap_dup_entries_direct() requires.
-
-This is the more relevant information.
-
-> +		 */
-> +		err = swap_dup_entries_direct(entry, HPAGE_PMD_NR);
-> +		if (err < 0)
-> +			return err;
-> +
-> +		mm_prepare_for_swap_entries(dst_mm);
-> +
-> +		if (pmd_swp_exclusive(pmd)) {
-> +			pmd = pmd_swp_clear_exclusive(pmd);
-> +			set_pmd_at(src_mm, addr, src_pmd, pmd);
-> +		}
->  	}
->  
-> -	add_mm_counter(dst_mm, MM_ANONPAGES, HPAGE_PMD_NR);
-> +	if (softleaf_is_swap(entry))
-> +		add_mm_counter(dst_mm, MM_SWAPENTS, HPAGE_PMD_NR);
-> +	else
-> +		add_mm_counter(dst_mm, MM_ANONPAGES, HPAGE_PMD_NR);
-
-Can we instead just do it like the PTE variant and move these into the
-respective cases?
-
-BTW, I'm surprised that we don't have to handle file THP migration and always
-assume MM_ANONPAGES. Maybe we always zap them instead of using migration entries
-... maybe :)
-
->  int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
-> @@ -1957,6 +1983,7 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
->  	spinlock_t *dst_ptl, *src_ptl;
->  	struct page *src_page;
->  	struct folio *src_folio;
-> +	bool retried = false;
-
-Do we really need this retried logic? I cannot easily spot something similar in
-copy_pte_range(). I'd assume once swap_retry_table_alloc() succeeds we should be
-mostly good.
-
-
->  	pmd_t pmd;
->  	pgtable_t pgtable = NULL;
->  	int ret = -ENOMEM;
-> @@ -1988,6 +2015,7 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
->  	if (unlikely(!pgtable))
->  		goto out;
->  
-> +retry:
->  	dst_ptl = pmd_lock(dst_mm, dst_pmd);
->  	src_ptl = pmd_lockptr(src_mm, src_pmd);
->  	spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
-> @@ -1995,11 +2023,34 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
->  	ret = -EAGAIN;
->  	pmd = *src_pmd;
->  
-> -	if (unlikely(thp_migration_supported() &&
-> -		     pmd_is_valid_softleaf(pmd))) {
-
-That thp_migration_supported() thingy is one ugly function.
-
-> -		copy_huge_non_present_pmd(dst_mm, src_mm, dst_pmd, src_pmd, addr,
-> -					  dst_vma, src_vma, pmd, pgtable);
-> -		ret = 0;
-> +	if (unlikely(pmd_is_valid_softleaf(pmd))) {
-> +		ret = copy_huge_non_present_pmd(dst_mm, src_mm, dst_pmd, src_pmd,
-> +						addr, dst_vma, src_vma, pmd,
-> +						pgtable);
-> +		if (ret) {
-> +			spin_unlock(src_ptl);
-> +			spin_unlock(dst_ptl);
-> +			/*
-> +			 * For PMD swap entries -ENOMEM means the per-cluster
-> +			 * swap-extend table couldn't be GFP_ATOMIC-allocated.
-> +			 * Try the GFP_KERNEL fallback once before giving up.
-> +			 * swap_retry_table_alloc() also returns 0 when it
-> +			 * decides the table is not needed after all, so bound
-> +			 * this to a single retry rather than looping on it.
-> +			 */
-> +			if (ret == -ENOMEM && !retried) {
-> +				softleaf_t entry = softleaf_from_pmd(pmd);
-> +
-> +				retried = true;
-> +				if (softleaf_is_swap(entry) &&
-
-How can we suddenly not have a PMD
-
-> +				    !swap_retry_table_alloc(entry, HPAGE_PMD_NR,
-> +							    GFP_KERNEL))
-> +					goto retry;
-> +			}
-> +			pte_free(dst_mm, pgtable);
-> +			ret = -ENOMEM;
-> +			goto out;
-> +		}
-
-
-That's .... messy :)
-
-
-I was wondering whether we could handle it slightly like the PTE case: return
--EIO and let the caller do that for us. We only have to return the "softleaf_t
-entry"
-
-Would avoid the retry label, the manual unlocking etc.
-
-Nit sure, just a thought. The code as is is definitely too messy :)
-
->  		goto out_unlock;
->  	}
->  
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 477d7e359b447..84e1e1c22bffa 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -979,7 +979,7 @@ copy_nonpresent_pte(struct mm_struct *dst_mm, struct mm_struct *src_mm,
->  	struct page *page;
->  
->  	if (likely(softleaf_is_swap(entry))) {
-> -		if (swap_dup_entry_direct(entry) < 0)
-> +		if (swap_dup_entries_direct(entry, 1) < 0)
->  			return -EIO;
->  
->  		mm_prepare_for_swap_entries(dst_mm);
-> @@ -1394,7 +1394,7 @@ copy_pte_range(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
->  
->  	if (ret == -EIO) {
->  		VM_WARN_ON_ONCE(!entry.val);
-> -		if (swap_retry_table_alloc(entry, GFP_KERNEL) < 0) {
-> +		if (swap_retry_table_alloc(entry, 1, GFP_KERNEL) < 0) {
->  			ret = -ENOMEM;
->  			goto out;
-
-
-For both, I'd provide a simple inline helper that maintains the existing
-interface. Less chrun in unrelated code.
-
-[...]
-
->  
->  /*
-> - * swap_dup_entry_direct() - Increase reference count of a swap entry by one.
-> + * swap_dup_entries_direct() - Increase reference count of swap entries by one.
->   * @entry: first swap entry from which we want to increase the refcount.
-> + * @nr: number of contiguous swap entries to duplicate.
->   *
->   * Returns 0 for success, or -ENOMEM if the extend table is required
->   * but could not be atomically allocated.  Returns -EINVAL if the swap
-> @@ -3978,8 +3997,16 @@ void si_swapinfo(struct sysinfo *val)
->   * owner. e.g., locking the PTL of a PTE containing the entry being increased.
->   * Also the swap entry must have a count >= 1. Otherwise folio_dup_swap should
->   * be used.
-> + *
-> + * Unlike swap_put_entries_direct(), the whole range [entry, entry + nr) must
-> + * lie within one swap cluster; a range that crosses a cluster boundary is
-> + * rejected with -EINVAL. The only caller passing nr > 1 is the PMD swap entry
-> + * fork path: a PMD swap entry can only exist with CONFIG_THP_SWAP, where
-> + * SWAPFILE_CLUSTER == HPAGE_PMD_NR, and a PMD-order folio's slots are only ever
-> + * allocated at a cluster head (see alloc_swap_scan_cluster()), so such a range
-> + * is exactly one cluster.
-
-I would reduce this drastically. This will bitrot easily and the details are
-only relevant if this actually ever starts failing.
-
-Just keep the first sentence and add the details to the patch description (which
-you effectively already have)
-
--- 
-Cheers,
-
-David
+> >  drivers/i2c/busses/i2c-virtio.c | 15 +++++++--------
+> >  1 file changed, 7 insertions(+), 8 deletions(-)
+> > 
+> > diff --git a/drivers/i2c/busses/i2c-virtio.c b/drivers/i2c/busses/i2c-virtio.c
+> > index 5da6fef92bec3..581e55b5c65ba 100644
+> > --- a/drivers/i2c/busses/i2c-virtio.c
+> > +++ b/drivers/i2c/busses/i2c-virtio.c
+> > @@ -116,16 +116,15 @@ static int virtio_i2c_complete_reqs(struct virtqueue *vq,
+> >  	for (i = 0; i < num; i++) {
+> >  		struct virtio_i2c_req *req = &reqs[i];
+> >  
+> > -		if (!failed) {
+> > -			if (wait_for_completion_interruptible(&req->completion))
+> > -				failed = true;
+> > -			else if (req->in_hdr.status != VIRTIO_I2C_MSG_OK)
+> > -				failed = true;
+> > -			else
+> > -				j++;
+> > -		}
+> > +		wait_for_completion(&req->completion);
+> > +
+> > +		if (!failed && req->in_hdr.status != VIRTIO_I2C_MSG_OK)
+> > +			failed = true;
+> >  
+> >  		i2c_put_dma_safe_msg_buf(reqs[i].buf, &msgs[i], !failed);
+> > +
+> > +		if (!failed)
+> > +			j++;
+> >  	}
+> >  
+> >  	return j;
+> > 
+> > base-commit: f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
+> > -- 
+> > 2.43.0
+> 
