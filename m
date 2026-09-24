@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A5445D5C2;
-	Thu, 24 Sep 2026 12:46:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D8147C101;
+	Thu, 24 Sep 2026 12:46:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790254011; cv=none; b=Np3l2/CvsMt6xjilXwRXszTTo1r6LrMbMyGoD06vKgKHWcXzHB4/qmjSreIeX5GDc6XtjHKjbkWRjOM1SFTdypbo+yi4Lj2Otn6EbALluM7shllspwd1jjGte4Y+XLZ7LqAceaWloFqlaRJG/MhGyPnwIlLclo39zdZ2XdCwhyc=
+	t=1790254011; cv=none; b=nBtQgO4qBswOa69AAFD7id9nb6VMJBJ3QZe+n/DO9Pq1+w5JiypXQ9b2ediIiCA+ENEu0bTuD1zzan5KRMQ943sKKZ3O/0QUAW+qI08Vyo0AajawyGIyE18FtUFEY9EMp25edk5Dgf5UOO9R4wROfpHZonlIhBq6NvaCyeLFMX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790254011; c=relaxed/simple;
-	bh=D46BWG2qTVt1t0AiaUNt4R05+bK4fA19/1UAlFczTXU=;
+	bh=R5AK2QICtOTN1KE3jNy1ekwQ51VmTvUU6GrRIZTbMC8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=e0AJlW8bSmRJvbzydc29dfmJ4obhIFQSmSsr+EhdCcN3N+GOzeUygy3pn7Mv6IJL2aytX4jZZrF7aTteSgZ2nhqwnj+/gGYvntxIhBeZUZZzgIkQC1XKvtoCSOEMCB35REdMVvXymav5FjwQaxID1Fm8asMRZeeN0B4pZ7XKaEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XKGTb37f; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=ZnrEYbmghCu0IcrxrprxMHLt3bYKpaKLkoa5xcg+u4MQEwMUox3kFvnU7zTL4qjfnOzqF7X7FPOiSbELcaTl2M+P4rRyo7ZqCdNXC4cidGYWa5a3mqzBwxs+h66IOGAvoistnBFvXkQ8PlxgcYvqWAeY42aAMI5JJsMzxSQAqH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gOwyfC0l; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XKGTb37f"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9F96FC2BCF7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gOwyfC0l"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D9F81C2BCFF;
 	Thu, 24 Sep 2026 12:46:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790254010;
-	bh=D46BWG2qTVt1t0AiaUNt4R05+bK4fA19/1UAlFczTXU=;
+	bh=R5AK2QICtOTN1KE3jNy1ekwQ51VmTvUU6GrRIZTbMC8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=XKGTb37fhd1RpNLlsZcmyF+KSsdDqSZKSSWlE6+oMsxHVPjjdIO8h9jUjEW1cxZAe
-	 PE9uzvg0jUExRStSmkQ9i5I2t2GVwfNcaeidgfjP2wKZZg21Qv8Ls7rN1iSe+XZNJ+
-	 Lo9y/9e3dVmev6P/ynwhWvl82WF2LRpgGTweMuRHV662uCqWwDzjPMvZRWEiIi5f+o
-	 BxvceeGzfa2MapqAy8iWChDIYb+ujjSWZbDYkd3TWOyKs415qWo34qByLgYPxK0E/y
-	 y8IFXz9Duu1/KJMYOwntx3ppUQqb5ZFsVptWUpAaqAo7A6PWqWaWpAs3MdvEu57owa
-	 hkk+NGdtLh8+w==
+	b=gOwyfC0lsjupo91voAI5VtD1WM8wGCzGa2ztXVSk9cY4sPRbOI20lCGBOfNxHXh9h
+	 KGxUfvN9cduY6gu+fqxRIcYChoXedmtnbKKgp3+ZfswDb/tNL5NaIeg0HXRQI7uvIn
+	 HiN9GhOw93jFlW/cRIwPiCwnvGv3g7A4N2YhNZG8qdfvuHb2UQEQXAcAn2YAPrFkfR
+	 5tbj489m8k5Plh5sV76jqS92nwylLs69uaDvhUIL9WsjXsn/1E+LvbrfUB20ZZWBHg
+	 TnYcAXkpSjEQzQ0t3XBf9sV63MJxRS5IG8NdS5S1MV8DYyPY0ql8CtazrAXgp2aaMP
+	 vsSxwxLFMxVnA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7E394C98317;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C32D4C98320;
 	Thu, 24 Sep 2026 12:46:50 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Thu, 24 Sep 2026 14:46:45 +0200
-Subject: [PATCH v3 1/8] ASoC: qcom: sdm845: Demystify TDM masks a bit
+Date: Thu, 24 Sep 2026 14:46:49 +0200
+Subject: [PATCH v3 5/8] ASoC: cs35l36: Implement set_tdm_slot to program RX
+ and TX slots
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-pixel3-audio-v3-1-5d06460fc8a9@ixit.cz>
+Message-Id: <20260924-pixel3-audio-v3-5-5d06460fc8a9@ixit.cz>
 References: <20260924-pixel3-audio-v3-0-5d06460fc8a9@ixit.cz>
 In-Reply-To: <20260924-pixel3-audio-v3-0-5d06460fc8a9@ixit.cz>
 To: Srinivas Kandagatla <srini@kernel.org>, 
@@ -56,23 +57,24 @@ To: Srinivas Kandagatla <srini@kernel.org>,
 Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org, patches@opensource.cirrus.com, 
  devicetree@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
+ David Heidelberg <david@ixit.cz>, 
+ Charles Keepax <ckeepax@opensource.cirrus.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2687; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3051; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=cPwrEY4ZNqiKfvbC0ASAoVk96Jl21/NzxFU+I7j9SBQ=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtRu4Iel1MP6lYrgnnakRY7gcsWr9ncDCNbDg3
- ts5wSQY+0KJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarUbuAAKCRBgAj/E00kg
- ck3aD/9VIwTCSVSNqfKG4saJ1RYNffPZ1YhmDah6L799/So1orLi8zF2DLxHtXSBOSD333veZz0
- 5UuiaEJ7LH7rutU9e49bYd/lxa8UNJapbuHscfylIrUBhzjEAD5PZ/A5oPPu+4C/PqyJPa6e4NE
- lXEGqZrC3uhWAj476/BXYz4gVV9Quou/9nNXl3s0va4sB5gfaVqnPiccmyHyx5nFA1QBzVSMWeQ
- faZyNgTuhJaUHR8cJC0zeo/QEr+OvLQrPwwrvAL4azInMhNlHprqqZh9pZ8zKkwr0UgxVk6mj3j
- hGaYV15rNBrYsPUrBIlTm+P42/BF7KhWNCDUIdBzUdqzOxmxaV2RcY2wUvClGFo9/QCanPgO510
- PjR5PUYe0Rjjusj6sJK7nf1u3DDNIOMF1XmvkcH3zCMa2D53LAqDw22d/K4PEdUgbpFzOutLmuq
- 7uE+w+Q66H3r4u1r7btOcKfQPMraAS6rk5oJ0KLjWh8/v3I0FE5Wf8QKGTvRv6k+xmITANaleLR
- agmXul5kYeDVyx7O78CkoZgMZNRlncBG+vj1FZFkJCDgVqPHV4jWdjX+IEy0OvY3cC2M3yk0a/W
- 9BwAYhF8QKcelscDGFDvfneG3V2fl8RRkzpp/JNBC9/xldgvOpFenqZAeok2zENCdk9mqKqLEfN
- SxEqN4vt15BCVpw==
+ bh=4aMW5UlnmrycKDIcE7Iq0+kPJ4NO4a3bzJ1FVay6EJk=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtRu42tV1rep3s6ImG2fVirxZ3Gx4OI7aRFbR3
+ 8U3JUCRs6aJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarUbuAAKCRBgAj/E00kg
+ coiOEACdetkw25DOualfXLziwt9fCaRs8bnMHwq3GAOHCqcFmcVqFirvqrEhT+u34nN6SoBrS5h
+ Cp05OWXNgsnS3SBbUxWH4Bj01u3my6GLcOU7H/lMGVfxs1I4K41KBdJucBoBjk/huvzaVqKBnOS
+ fpiRvWTugzUHu9D2M3WSXHjmH18iRpfmtvZj0KTfH36MU6fdbySMlXX1Fwr958UVf699wkub9Gu
+ 8O2c7cx6t8MREFnC/gEvr7GrNQsNgaqDUbKSYy8vlC3ghw9Ijb3weQgev92VMwbUWeaVOtOFUh7
+ X21SZzgYGSSfZtK4ge5GUndDUUk0ZJEz0oK4NMPu7Oo/3OAPMIIWs6PodbRVhLK+Jkgl8R0C4IF
+ e9ZjZ+i0Z07V5sIdeA6k5J7pxXLAQ3g4HjyKDun+Jdim/aUzWE1GW1FNXquq9ZpRVRGMOEiCARI
+ 06PpLXPg5QoDY+dQvx4UTUMZS56A69jZY0+RTYZPYEmwsoEh7vNP1AS1Um2bbpGf6WG7T5y6NrI
+ c1/yS2Cqo5pEmjYc1dgNmdjD1+3RTMuxg5SIak1+t+KuO91VFYG7oZcJTKl0dV0yTEo9qvpSKem
+ xB8Ct6783afbMNqHMbgZXFvNmtfjsXHeT/3Jv6MTWnBy72hapU1MVkbT2habTEGSqmjFgvpZs4M
+ JuK9rvXtglGPGxg==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -81,86 +83,95 @@ Reply-To: david@ixit.cz
 
 From: David Heidelberg <david@ixit.cz>
 
-Describe the mask with the bits used for each RX/TX.
+Program the ASP RX and TX slot registers from the TDM masks passed by
+the machine driver. Each set bit in a mask names a slot; codec channels
+are assigned to those slots in order, ASPRX1 taking the first RX slot
+and ASPTX1..TX8 the first eight TX slots, with a warning if the mask
+names more slots than the device has channels.
 
+Passing slots == 0 or an empty mask restores the hardware defaults,
+ASPRX1 in slot 0 and ASPTX1..TX8 in slots 0..7.
+
+This lets a machine driver with several amplifiers on one bus, such as
+sdm845 with two CS35L36, put each amplifier on its own RX slot and keep
+their TX slots from colliding.
+
+Assisted-by: Claude:claude-4.6-opus
+Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- sound/soc/qcom/sdm845.c | 21 ++++++++++++++-------
- 1 file changed, 14 insertions(+), 7 deletions(-)
+ sound/soc/codecs/cs35l36.c | 44 ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 44 insertions(+)
 
-diff --git a/sound/soc/qcom/sdm845.c b/sound/soc/qcom/sdm845.c
-index 6843ab8ba017e..0ce8265ab1c1f 100644
---- a/sound/soc/qcom/sdm845.c
-+++ b/sound/soc/qcom/sdm845.c
-@@ -18,19 +18,24 @@
- #include "sdw.h"
- #include "../codecs/rt5663.h"
- 
- #define DRIVER_NAME	"sdm845"
- #define DEFAULT_SAMPLE_RATE_48K		48000
- #define DEFAULT_MCLK_RATE		24576000
- #define TDM_BCLK_RATE		6144000
- #define MI2S_BCLK_RATE		1536000
--#define LEFT_SPK_TDM_TX_MASK    0x30
--#define RIGHT_SPK_TDM_TX_MASK   0xC0
--#define SPK_TDM_RX_MASK         0x03
-+#define LEFT_SPK_TDM_RX_MASK	BIT(0)
-+#define RIGHT_SPK_TDM_RX_MASK	BIT(1)
-+#define SPK_TDM_RX_MASK		(LEFT_SPK_TDM_RX_MASK | RIGHT_SPK_TDM_RX_MASK)
-+#define MIC1_TDM_RX_MASK	BIT(2)
-+#define MIC2_TDM_RX_MASK	BIT(3)
-+#define MIC_TDM_RX_MASK		(MIC1_TDM_RX_MASK | MIC2_TDM_RX_MASK)
-+#define LEFT_SPK_TDM_TX_MASK	(BIT(4) | BIT(5))
-+#define RIGHT_SPK_TDM_TX_MASK	(BIT(6) | BIT(7))
- #define NUM_TDM_SLOTS           8
- #define SLIM_MAX_TX_PORTS 16
- #define SLIM_MAX_RX_PORTS 13
- #define WCD934X_DEFAULT_MCLK_RATE	9600000
- 
- struct sdm845_snd_data {
- 	struct snd_soc_jack jack;
- 	bool jack_setup;
-@@ -107,34 +112,36 @@ static int sdm845_tdm_snd_hw_params(struct snd_pcm_substream *substream,
- 	default:
- 		dev_err(rtd->dev, "%s: invalid param format 0x%x\n",
- 				__func__, params_format(params));
- 		return -EINVAL;
+diff --git a/sound/soc/codecs/cs35l36.c b/sound/soc/codecs/cs35l36.c
+index 89645327945f1..4d35ca6291548 100644
+--- a/sound/soc/codecs/cs35l36.c
++++ b/sound/soc/codecs/cs35l36.c
+@@ -942,20 +942,64 @@ static const struct cs35l36_pll_config *cs35l36_get_clk_config(
+ 	for (i = 0; i < ARRAY_SIZE(cs35l36_pll_sysclk); i++) {
+ 		if (cs35l36_pll_sysclk[i].freq == freq)
+ 			return &cs35l36_pll_sysclk[i];
  	}
  
- 	channels = params_channels(params);
- 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
--		ret = snd_soc_dai_set_tdm_slot(cpu_dai, 0, 0x3,
--				8, slot_width);
-+		ret = snd_soc_dai_set_tdm_slot(cpu_dai, 0, SPK_TDM_RX_MASK,
-+					       NUM_TDM_SLOTS, slot_width);
- 		if (ret < 0) {
- 			dev_err(rtd->dev, "%s: failed to set tdm slot, err:%d\n",
- 					__func__, ret);
- 			goto end;
- 		}
+ 	return NULL;
+ }
  
- 		ret = snd_soc_dai_set_channel_map(cpu_dai, 0, NULL,
- 				channels, tdm_slot_offset);
- 		if (ret < 0) {
- 			dev_err(rtd->dev, "%s: failed to set channel map, err:%d\n",
- 					__func__, ret);
- 			goto end;
- 		}
- 	} else {
--		ret = snd_soc_dai_set_tdm_slot(cpu_dai, 0xf, 0,
--				8, slot_width);
-+		ret = snd_soc_dai_set_tdm_slot(cpu_dai,
-+					       SPK_TDM_RX_MASK |
-+					       MIC_TDM_RX_MASK, 0,
-+					       NUM_TDM_SLOTS, slot_width);
- 		if (ret < 0) {
- 			dev_err(rtd->dev, "%s: failed to set tdm slot, err:%d\n",
- 					__func__, ret);
- 			goto end;
- 		}
++static void cs35l36_mask_to_slots(struct cs35l36_private *cs35l36,
++				  unsigned long mask, unsigned int base_reg,
++				  unsigned int nchan)
++{
++	unsigned int chan = 0, shift;
++	int slot;
++
++	/* Two 6-bit slot fields per register, at bits 0 and 16 */
++	for_each_set_bit(slot, &mask, BITS_PER_TYPE(mask)) {
++		if (chan == nchan) {
++			dev_warn(cs35l36->dev,
++				 "Too many slots in TDM mask: %lx\n", mask);
++			return;
++		}
++
++		shift = (chan % 2) * CS35L36_ASP_TX2_SLOT_SHIFT;
++		regmap_update_bits(cs35l36->regmap, base_reg + (chan / 2) * 4,
++				   CS35L36_ASP_RX1_SLOT_MASK << shift,
++				   slot << shift);
++		chan++;
++	}
++}
++
++static int cs35l36_set_tdm_slot(struct snd_soc_dai *dai,
++				unsigned int tx_mask, unsigned int rx_mask,
++				int slots, int slot_width)
++{
++	struct cs35l36_private *cs35l36 =
++			snd_soc_component_get_drvdata(dai->component);
++
++	/* Note: rx/tx is from point of view of the CPU end */
++	if (!slots || !rx_mask)
++		rx_mask = BIT(0);		/* ASPRX1 in slot 0 */
++
++	if (!slots || !tx_mask)
++		tx_mask = GENMASK(7, 0);	/* ASPTX1..8 in slots 0..7 */
++
++	cs35l36_mask_to_slots(cs35l36, rx_mask, CS35L36_ASP_RX1_SLOT, 1);
++	cs35l36_mask_to_slots(cs35l36, tx_mask, CS35L36_ASP_TX1_TX2_SLOT, 8);
++
++	return 0;
++}
++
+ static const struct snd_soc_dai_ops cs35l36_ops = {
+ 	.set_fmt = cs35l36_set_dai_fmt,
+ 	.hw_params = cs35l36_pcm_hw_params,
+ 	.set_sysclk = cs35l36_dai_set_sysclk,
++	.set_tdm_slot = cs35l36_set_tdm_slot,
+ };
  
- 		ret = snd_soc_dai_set_channel_map(cpu_dai, channels,
- 				tdm_slot_offset, 0, NULL);
+ #define CS35L36_RATES (		    \
+ 	SNDRV_PCM_RATE_8000_48000 | \
+ 	SNDRV_PCM_RATE_12000 |	    \
+ 	SNDRV_PCM_RATE_24000 |	    \
+ 	SNDRV_PCM_RATE_88200 |	    \
+ 	SNDRV_PCM_RATE_96000 |	    \
 
 -- 
 2.55.0
