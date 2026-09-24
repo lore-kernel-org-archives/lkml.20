@@ -1,275 +1,110 @@
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD278429023
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:53:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F20524C14E5;
+	Thu, 24 Sep 2026 18:53:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790276014; cv=none; b=Ahx2nClzwKGTACFYInMueC5i/yGwnvHPHu+6JVSwzy8aetQnM/kGIGneb153Lece6+5QrDIfnOndcaWbPSaiLj1kaaUPsxVrHuX5Tl+3/iql3dUmqbypjdbKSscLbmzqe7FLer0A3QL0i9TQr45R4njZc2uSB8DbqKlZiYbV5Ww=
+	t=1790276022; cv=none; b=TU0pQfvn6fcJ1Og69mFIGv8Dea8IBUOWqrjQHfwBVLjoou2iMLYMCwnDs1ST2kwmngZ87+SYP1YywK4u7DU4Te77QFiZ+eKDl/CGLBoxw+E4cATT6jzfI74uwvp+3QoG013wLVC417aRDeJd2sNyTd3gHFTrfKPK8Ba5iv1sWgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790276014; c=relaxed/simple;
-	bh=kAcpY4KD54QmBP7GL2UFi2y5LKkvrlh+OdEF+NBOXoE=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=afk95MZmAONHHk1GxNlnEoW5J1Spg+nIaRQ6JtJrP48YDqpSeaEhhND6HbFaCeN3FiyFE7qKU7hhdg6ZJ9P1bA9KIhKf7TfZTBOAhkl2/Jt/FpWp+zgHk7oM/oCd9Bl6XA8cgOOtJK4j7pnJdarvDT9KfNr9M2nYdUZvKj925tQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YRkCsyw6; arc=none smtp.client-ip=209.85.216.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com
+	s=arc-20240116; t=1790276022; c=relaxed/simple;
+	bh=cJIVJg7y/ThiaIW9IOSkYWuYatWcKBglheJ5PvvdUd4=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=Fu7IMCJflmYZ/eh8eFwpbnPSOdVjf/ZLjeos3o6WYNtsWA9Ni9rjS2XICsslOn2xAEz/bbFnXZvUl5sVc6qMfeP9j/qC9sskLFXQ2UM4dvw3/CLt11n1zoY1Tgwlbce5xcv87BZv2Fi5pMfmAZq5DvEZyLlOoG/GfHDWYvunewo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XbYqLVVF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YRkCsyw6"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39d8646b10eso151705a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:53:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790276004; x=1790880804; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SEXhKf0YHEVXlTj7OJFhNik/oKMJPJKlM09suwVREiU=;
-        b=YRkCsyw6LtSH7GaAcPxCvr/7KIPJghvYsgK7bCHS1u8ZYMwBqjBjdHvhszu1L4cQgp
-         3u8pbHH2v0giK47spsLk3mSRmIOqdJzKOC0GcXMJfPxBTG1Rvbld8YQTMqdCzFVsD7RS
-         SFx44reXZLluQZEQTGZ1PGf8ieXidT54qb+bz8+I38PxaR3UG318POu70oq5Y7cv20/g
-         nIphi2r4Wtk0lg1ntrPRyl/Anx9mSjGGGOO3SSHpCE8YypNj1EZW6kh01fUKXcL7a50P
-         Rzh78V+vhF1w8taczxdz4RIw+0ZltDFkmvYqOuWmt1ar3mOv95sdtdCWlbdAeVDa0RNR
-         TIPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790276004; x=1790880804;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SEXhKf0YHEVXlTj7OJFhNik/oKMJPJKlM09suwVREiU=;
-        b=jX4dwESDI8ehmXjDJ7e3xA3FbSTyzoqeCjiUMzgo48kFcigVzf4Hdr9J3mRYmvP29b
-         T/RBHrpK4n8KWW6jxUay8OUNTM0J0nWC8On2EUolg5AvZsm/jbd7RdxTvtpM1MHy7Aqc
-         MbzbkWdyNE7QUOVLzl80fESPL9Uu84cv5Lp1c7425CwkvRusxFLo7QOb5TclrG7CKwC7
-         lt93Glmsj+f9OPsLDH4bAj2zXUtDYR54MToBvv4YQDvjI14Ci+WcVAUL0bo72iWvc6ot
-         gsStxSje/bfcpIFGOw8UZd1T3hN6jAkhZ/9tzVRQKBBiQ6TzTw/nIEFrh1heWCV8PyHB
-         Ukwg==
-X-Forwarded-Encrypted: i=1; AKwUvBx4UvcW8kXGdvvGhSzEjYhuXNIi0J7RiiEk41XgnhQvMH34UM0GpbBem5K5cL+0Ykb/aRmRcBcFKebCMMM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYwQkiR3bDnwJt+ULmaeJwyF79fcvhwU6rf7OmhC9oi6XreD6S
-	8XYdsQBtVnr5/PJtzWWBRrKu9nE1Wx+TGfhSRUg7w/zRJrEHpiVkm2LSktddgnJ8Im9Elz3HmXD
-	pEMgLSeiBFYvc9JK1p19gEbWXEw==
-X-Received: from pjbsq12.prod.google.com ([2002:a17:90b:530c:b0:3a0:8124:2580])
- (user=hramamurthy job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:4e8f:b0:39e:6c68:1551 with SMTP id 98e67ed59e1d1-3a09896c4demr2911658a91.25.1790276004353;
- Thu, 24 Sep 2026 11:53:24 -0700 (PDT)
-Date: Thu, 24 Sep 2026 18:53:11 +0000
-In-Reply-To: <20260924185316.2831077-1-hramamurthy@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XbYqLVVF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A508C1F00893;
+	Thu, 24 Sep 2026 18:53:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790276013;
+	bh=EAJc/MvMahTOErXSBCuF4+z1u6X4KuNVS10aPK8Idvk=;
+	h=Date:From:To:Cc:Subject;
+	b=XbYqLVVFU9DayVMde45BtxTRVLCmDkKDb7bLtX5ozDAyOiq5b9dyhqh2VeGRWkrtD
+	 dxI/7TnwbYKx6w6aRnG09cDviIKYTIOxzP5BamN68sC2UVRTW/5vOf7WOcUG7YJTIz
+	 xMV5IoHneGEg2iWADXbzfX/LEVR9dv/+C681RiFhfMqXcTc5ZVuptfwHFLihEg0Ftn
+	 TpilJJAPquLEdgx5TDAdspachlmxoqM2dzn/LaVxwpO7V3fu/YZA0NFZMgvoEvMFsz
+	 zw1ybepgemLbboyoyEoJTqyhDTpgi+H+pzZT9FXC3mMr2bvISKtLAVC8vJlPAfLoUD
+	 gi+5ToYCcKIkw==
+Date: Thu, 24 Sep 2026 19:53:29 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Mike Rapoport <rppt@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Meijing Zhao <zhaomeijing@lixiang.com>,
+	Wandun Chen <chenwandun@lixiang.com>
+Subject: linux-next: manual merge of the liveupdate tree with the mm tree
+Message-ID: <arVxqTLflDLv8XbZ@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260924185316.2831077-1-hramamurthy@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260924185316.2831077-8-hramamurthy@google.com>
-Subject: [PATCH net-next v8 07/12] gve: add gve_ctrl_ops for gve
- initialization/teardown sequences
-From: Harshitha Ramamurthy <hramamurthy@google.com>
-To: netdev@vger.kernel.org
-Cc: joshwash@google.com, hramamurthy@google.com, andrew+netdev@lunn.ch, 
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org, 
-	john.fastabend@gmail.com, sdf@fomichev.me, jordanrhee@google.com, 
-	willemb@google.com, nktgrg@google.com, maolson@google.com, thostet@google.com, 
-	jacob.e.keller@intel.com, debarghyak@google.com, kees@kernel.org, 
-	bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	przemyslaw.kitszel@intel.com
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="CjJNE/DrbCfKbldi"
+Content-Disposition: inline
 
-From: Joshua Washington <joshwash@google.com>
 
-Driver initialization and teardown involve a number of control plane
-operations that need to be defined for gve_probe to operate in both
-mailbox and adminq modes. This list includes:
+--CjJNE/DrbCfKbldi
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-- get_ptype_map: a mapping of packet types (L3+L4) held in RX completion
-  descriptors
-- configure_rss: set up default RSS configuration if the device is not
-  queryable
-- setup_stats_report: set up DMA region for stats report (AQ-only)
-- reset_flow_rules: needed in teardown; flushes all flow rules from
-  device
+Hi all,
 
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Reviewed-by: Jordan Rhee <jordanrhee@google.com>
-Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
-Signed-off-by: Joshua Washington <joshwash@google.com>
-Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
----
- drivers/net/ethernet/google/gve/gve.h        | 12 ++++++++++++
- drivers/net/ethernet/google/gve/gve_adminq.c |  7 +++----
- drivers/net/ethernet/google/gve/gve_adminq.h |  3 +--
- drivers/net/ethernet/google/gve/gve_main.c   | 24 ++++++++++++++++++------
- 4 files changed, 34 insertions(+), 12 deletions(-)
+Today's linux-next merge of the liveupdate tree got a conflict in:
 
-diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
-index 026d685ecaee..e0583e8cd2cd 100644
---- a/drivers/net/ethernet/google/gve/gve.h
-+++ b/drivers/net/ethernet/google/gve/gve.h
-@@ -833,12 +833,24 @@ struct gve_device_info {
-  *                  structures stored in @priv to be used during initialization.
-  * @set_num_ntfy_blks: Sets no. of vectors into @priv to be used during
-  *                     initialization.
-+ * @get_ptype_map: Learn packet type map from device and store it in @priv
-+ * @configure_rss: Set up default RSS configuration
-+ * @setup_stats_report: Set up DMA region for stats report (AdminQ only)
-+ * @reset_flow_rules: Flush all flow rules from device
-  */
- struct gve_ctrl_ops {
- 	int (*map_db_bar)(struct gve_priv *priv);
- 	void (*unmap_db_bar)(struct gve_priv *priv);
- 	void (*set_num_queues)(struct gve_priv *priv);
- 	int (*set_num_ntfy_blks)(struct gve_priv *priv);
-+	int (*get_ptype_map)(struct gve_priv *priv);
-+	int (*configure_rss)(struct gve_priv *priv,
-+			     struct ethtool_rxfh_param *param);
-+	int (*setup_stats_report)(struct gve_priv *priv,
-+				  u64 stats_report_len,
-+				  dma_addr_t stats_report_addr,
-+				  u64 interval_ms); /* AQ-specific */
-+	int (*reset_flow_rules)(struct gve_priv *priv);
- };
- 
- struct gve_priv {
-diff --git a/drivers/net/ethernet/google/gve/gve_adminq.c b/drivers/net/ethernet/google/gve/gve_adminq.c
-index 901673d2e264..1176e13fafc0 100644
---- a/drivers/net/ethernet/google/gve/gve_adminq.c
-+++ b/drivers/net/ethernet/google/gve/gve_adminq.c
-@@ -1329,8 +1329,7 @@ int gve_adminq_report_nic_ts(struct gve_priv *priv,
- 	return gve_adminq_execute_cmd(priv, &cmd);
- }
- 
--int gve_adminq_get_ptype_map_dqo(struct gve_priv *priv,
--				 struct gve_ptype_lut *ptype_lut)
-+int gve_adminq_get_ptype_map_dqo(struct gve_priv *priv)
- {
- 	struct gve_ptype_map *ptype_map;
- 	union gve_adminq_command cmd;
-@@ -1356,9 +1355,9 @@ int gve_adminq_get_ptype_map_dqo(struct gve_priv *priv,
- 
- 	/* Populate ptype_lut. */
- 	for (i = 0; i < GVE_NUM_PTYPES; i++) {
--		ptype_lut->ptypes[i].l3_type =
-+		priv->ptype_lut_dqo->ptypes[i].l3_type =
- 			ptype_map->ptypes[i].l3_type;
--		ptype_lut->ptypes[i].l4_type =
-+		priv->ptype_lut_dqo->ptypes[i].l4_type =
- 			ptype_map->ptypes[i].l4_type;
- 	}
- err:
-diff --git a/drivers/net/ethernet/google/gve/gve_adminq.h b/drivers/net/ethernet/google/gve/gve_adminq.h
-index fe1e8868cdfe..5e51c060e237 100644
---- a/drivers/net/ethernet/google/gve/gve_adminq.h
-+++ b/drivers/net/ethernet/google/gve/gve_adminq.h
-@@ -652,8 +652,7 @@ int gve_adminq_report_nic_ts(struct gve_priv *priv,
- 			     dma_addr_t nic_ts_report_addr);
- 
- struct gve_ptype_lut;
--int gve_adminq_get_ptype_map_dqo(struct gve_priv *priv,
--				 struct gve_ptype_lut *ptype_lut);
-+int gve_adminq_get_ptype_map_dqo(struct gve_priv *priv);
- int gve_adminq_set_num_ntfy_blks(struct gve_priv *priv);
- void gve_adminq_set_num_queues(struct gve_priv *priv);
- int gve_adminq_map_db_bar(struct gve_priv *priv);
-diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
-index 07135c52a707..45451eac3e0a 100644
---- a/drivers/net/ethernet/google/gve/gve_main.c
-+++ b/drivers/net/ethernet/google/gve/gve_main.c
-@@ -706,7 +706,8 @@ abort:
- 
- static int gve_setup_control_plane_resources(struct gve_priv *priv)
- {
--	int err = 0;
-+	const struct gve_ctrl_ops *ops = priv->ctrl_ops;
-+	int err;
- 
- 	err = gve_adminq_configure_device_resources(priv,
- 						    priv->counter_array_bus,
-@@ -721,7 +722,7 @@ static int gve_setup_control_plane_resources(struct gve_priv *priv)
- 	}
- 
- 	if (!gve_is_gqi(priv)) {
--		err = gve_adminq_get_ptype_map_dqo(priv, priv->ptype_lut_dqo);
-+		err = ops->get_ptype_map(priv);
- 		if (err) {
- 			dev_err(&priv->pdev->dev,
- 				"Failed to get ptype map: err=%d\n", err);
-@@ -743,12 +744,13 @@ static int gve_setup_control_plane_resources(struct gve_priv *priv)
- 		goto teardown_clock;
- 	}
- 
--	err = gve_adminq_report_stats(priv, priv->stats_report_len,
-+	err = ops->setup_stats_report(priv, priv->stats_report_len,
- 				      priv->stats_report_bus,
- 				      GVE_STATS_REPORT_TIMER_PERIOD);
- 	if (err)
- 		dev_err(&priv->pdev->dev,
- 			"Failed to report stats: err=%d\n", err);
-+
- 	gve_set_device_resources_ok(priv);
- 	return 0;
- 
-@@ -772,6 +774,7 @@ deconfigure_device:
-  */
- static void gve_teardown_control_plane_resources(struct gve_priv *priv)
- {
-+	const struct gve_ctrl_ops *ops = priv->ctrl_ops;
- 	int err;
- 
- 	/* Tell device its resources are being freed */
-@@ -781,11 +784,13 @@ static void gve_teardown_control_plane_resources(struct gve_priv *priv)
- 			dev_err(&priv->pdev->dev,
- 				"Failed to reset flow rules: err=%d\n", err);
- 		/* detach the stats report */
--		err = gve_adminq_report_stats(priv, 0, 0x0, GVE_STATS_REPORT_TIMER_PERIOD);
-+		err = ops->setup_stats_report(priv, 0, 0x0,
-+					      GVE_STATS_REPORT_TIMER_PERIOD);
- 		if (err)
- 			dev_err(&priv->pdev->dev,
- 				"Failed to detach stats report: err=%d\n", err);
- 		gve_teardown_clock(priv);
-+
- 		err = gve_adminq_deconfigure_device_resources(priv);
- 		if (err)
- 			dev_err(&priv->pdev->dev,
-@@ -1819,6 +1824,7 @@ static int gve_xdp(struct net_device *dev, struct netdev_bpf *xdp)
- 
- int gve_init_rss_config(struct gve_priv *priv, u16 num_queues)
- {
-+	const struct gve_ctrl_ops *ops = priv->ctrl_ops;
- 	struct gve_rss_config *rss_config = &priv->rss_config;
- 	struct ethtool_rxfh_param rxfh = {0};
- 	u16 i;
-@@ -1834,15 +1840,17 @@ int gve_init_rss_config(struct gve_priv *priv, u16 num_queues)
- 
- 	rxfh.hfunc = ETH_RSS_HASH_TOP;
- 
--	return gve_adminq_configure_rss(priv, &rxfh);
-+	return ops->configure_rss(priv, &rxfh);
- }
- 
- int gve_flow_rules_reset(struct gve_priv *priv)
- {
-+	const struct gve_ctrl_ops *ops = priv->ctrl_ops;
-+
- 	if (!priv->max_flow_rules)
- 		return 0;
- 
--	return gve_adminq_reset_flow_rules(priv);
-+	return ops->reset_flow_rules(priv);
- }
- 
- int gve_adjust_config(struct gve_priv *priv,
-@@ -2483,6 +2491,10 @@ static const struct gve_ctrl_ops gve_adminq_ops = {
- 	.unmap_db_bar		= gve_adminq_unmap_db_bar,
- 	.set_num_queues		= gve_adminq_set_num_queues,
- 	.set_num_ntfy_blks	= gve_adminq_set_num_ntfy_blks,
-+	.get_ptype_map		= gve_adminq_get_ptype_map_dqo,
-+	.reset_flow_rules	= gve_adminq_reset_flow_rules,
-+	.setup_stats_report	= gve_adminq_report_stats,
-+	.configure_rss		= gve_adminq_configure_rss,
- };
- 
- static int gve_init_priv(struct gve_priv *priv)
--- 
-2.56.0.rc1.310.g51773c2048-goog
+  mm/memblock.c
 
+between commit:
+
+  ba13f1f32d96d ("mm: memblock: add missing HugeTLB flag name")
+
+=66rom the mm tree and commit:
+
+  05a84ceadf702 ("memblock: rename KHO_SCRATCH to KHO_NOPRSRV")
+
+=66rom the liveupdate tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc mm/memblock.c
+index ea0de4b5f3568,f5aaa38cfa313..0000000000000
+--- a/mm/memblock.c
++++ b/mm/memblock.c
+@@@ -2878,8 -2885,7 +2878,8 @@@ static const char * const flagname[] =3D=20
+  	[ilog2(MEMBLOCK_DRIVER_MANAGED)] =3D "DRV_MNG",
+  	[ilog2(MEMBLOCK_RSRV_NOINIT)] =3D "RSV_NIT",
+  	[ilog2(MEMBLOCK_RSRV_KERN)] =3D "RSV_KERN",
+- 	[ilog2(MEMBLOCK_KHO_SCRATCH)] =3D "KHO_SCRATCH",
++ 	[ilog2(MEMBLOCK_KHO_NOPRSRV)] =3D "KHO_NOPRSRV",
+ +	[ilog2(MEMBLOCK_RSRV_HUGETLB)] =3D "RSV_HUGETLB",
+  };
+ =20
+  static int memblock_debug_show(struct seq_file *m, void *private)
+
+--CjJNE/DrbCfKbldi
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq1cagACgkQJNaLcl1U
+h9D9ngf8DcpAMCr6Bpk5rKW4E1cnqGhn5z/Q6CNfwd/0mNiPePWELC4aqZg7frxA
++DTY6UYNW+AUEZvv0m6qbhFH89haxC1PamNh4QBD+n6lhwnkrAf73U6gV/g29Zoz
+nIXLNTXhAgPlavclfPlrLvDYETL2sCCVXg2XUhabajgA4DLdSBScOw0RYFs6ryT3
+lPJXILSu1Hk8sdKD/gpFcuBnLxvUtCVTTzBTg+ncP0khL5HS/6urRxQLiLtfQHo8
+f6mKI+fNgqTmw03ieeC34mq67tlrv+CiqmeNBPlG8IL1UWWlymXwBpG8QxOMBqGH
+nudSld7ob0fij4s6b0eeUzVXXE4PBg==
+=f+e8
+-----END PGP SIGNATURE-----
+
+--CjJNE/DrbCfKbldi--
