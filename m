@@ -1,166 +1,138 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from mail.sysgo.com (mail.sysgo.com [159.69.174.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E823E4C96;
-	Thu, 24 Sep 2026 07:01:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 582353D411A
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:02:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.174.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790233319; cv=none; b=ChRpajS33GzWfPU+92eQims104ibRpEKCw1TMowL2OzOq9Bo+nCmgD6NXiaH//ucXWPdZJ44cfhCgY/PjfgcB0RKdiMhwGq7pbguLkCMXH0qC5CtUrO1ZIm/QYN8iQh9YqV+d50zO0yfR2RCHbms6nhMVAhqayhvMvHPm5dSNfo=
+	t=1790233363; cv=none; b=VqsJGsY5YTI+NaFNhIgMO6htmSi9JptMZA3cswQ+qJuGtdB9lroZxgEPuucE8EY/lf6UsYViecDWZ4IdvWeeE/THA3a+diCAcdxFrS6pW4yizvXH79EVjlTpYiYY94S23Qu4xIPG5dI8PIodDZBIps09H95YBIBk426w5pDouPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790233319; c=relaxed/simple;
-	bh=21vHPs+cccmI0GIDrI9wBRtngdr4EBlpl0EvM5Z31P0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
-	 References:In-Reply-To; b=fizDNc3pNoHXrAPDf0Kzv/ke+PFF16UeAjwB+6VZwWlGf7efM7kPL+WROqRzXc31wnwanfybbH4osmEPu5gxJg2MW18ez6Ex1ia1cnGjtXgbUE18PFMd/HwZIN4PAPQu+k4kNPkgzYxo9jKv0neeYYSPR1hSSAsM2vEkd2oRjb0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=VfDv7S7f; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790233363; c=relaxed/simple;
+	bh=L8L1Nte1emHABjpKiCnGcxwmQXzmI4oe3zLBqcU6DbA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FjZ03QglpaAZq5hDFb9uzdTxAwnYtDxoH/rFd7uBSAxibhlhldWhrq8+l3rbqjufEbG+Z0k3ktgC8OOHxXyjEswLUDq+UlD1zsllIHxeYdMb3US/Ya3Tmb6W06upNSJzFX5FLgSgffjdW0oJfJZrhLGejeAb2PyrGAIPZ2dnySI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sysgo.com; spf=pass smtp.mailfrom=sysgo.com; dkim=pass (2048-bit key) header.d=sysgo.com header.i=@sysgo.com header.b=Qf/rVUWv; arc=none smtp.client-ip=159.69.174.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sysgo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sysgo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="VfDv7S7f"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 58E1FC211CF;
-	Thu, 24 Sep 2026 07:02:31 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id EA2AA5FB45;
-	Thu, 24 Sep 2026 07:01:43 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B2EEF103294A6;
-	Thu, 24 Sep 2026 09:01:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790233298; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=3oGwBuyJVzkAjrauN/FxJTxwMCY3sLnXn9ixXjUrD2A=;
-	b=VfDv7S7faDApBOx+DPqMCyWHBKUPlODcB1xuNfsFjM3RNlzyRMcdJhIP0bigttbKx1o5jy
-	+B3mEF8B/s9ysd2wfnmGpCg4NZheR3VGvS94Ic0SKnLPviSK0O4PMC4viKTqfmdCj+9vMX
-	uaR7ncMHlkENvjrtg1sfppR2+2rB1w3yNHl15P3vTuCFyK7Bv7Ut1MV2dfvSol7696XXmK
-	vqgt//ttjMMGzJqmyWKqUW/+naiLm3TqTzPFnvGHAOfowEfbjOv664AYGg+P4m03YFGXZS
-	W/ZrKJoYs3u+wZqS+nmUIHWaVMRI8biPPQkNoSk2GzQUV+7Bbe8V7J315PgOJg==
+	dkim=pass (2048-bit key) header.d=sysgo.com header.i=@sysgo.com header.b="Qf/rVUWv"
+Received: from mailgw.sysgo.com (localhost.localdomain [127.0.0.1])
+	by mail.sysgo.com (Proxmox) with ESMTP id 6DDA48133B;
+	Thu, 24 Sep 2026 09:02:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sysgo.com; h=cc
+	:cc:content-transfer-encoding:date:from:from:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to; s=k1; bh=IenFTvG+9K1mRg6NRR/wgMdOiZyVrEsqFHMEWV+/kxo=; b=Qf
+	/rVUWvNcIBiT8cZVqpUyPF9yIekH4wx7/6fjxK8krDqSr94B6TmmjtfrfBHE919K
+	lP+8yC0Z5kWZbFcQ274JDpifN71Ga3PRdTlHGF5Hac/s/xOKqOkoHjb59ngNQ5FT
+	dZQuaduLwV7kRjenV1219I+dngmWUSjkbb886rKCwLoDhkYu1WwH4lMB+YeIDSsG
+	CCGIMVAOZ2B446FVOzed5IzpU09a1LgIS/QS5ytkoYIDKMzwCE5q+uvviVFRx8ZD
+	axAWn+3+/QW08Ll9FmYFCjZsejPGphUZF1y7NC64N2KOpOHp6/fm5Wd3rryZTDN1
+	Dipynm2TxdPWyP+YO6UQ==
+From: David Engraf <david.engraf@sysgo.com>
+To: tony.lindgren@linux.intel.com,
+	pmladek@suse.com,
+	rostedt@goodmis.org,
+	john.ogness@linutronix.de,
+	senozhatsky@chromium.org
+Cc: linux-kernel@vger.kernel.org,
+	David Engraf <david.engraf@sysgo.com>
+Subject: [PATCH v3] printk: Remove console options before decoding the name
+Date: Thu, 24 Sep 2026 10:00:57 +0300
+Message-ID: <20260924070153.250783-2-david.engraf@sysgo.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <582e545e-52b3-4adf-9c93-446ad0fecc93@sysgo.com>
+References: <582e545e-52b3-4adf-9c93-446ad0fecc93@sysgo.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 24 Sep 2026 09:01:18 +0200
-Message-Id: <DLNCQEG62F5N.O98WAO4U2FJO@bootlin.com>
-Cc: "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas Zimmermann"
- <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Jessica Zhang" <jesszhan0024@gmail.com>, "Laurentiu
- Palcu" <laurentiu.palcu@oss.nxp.com>, "Lucas Stach"
- <l.stach@pengutronix.de>, "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer"
- <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
- <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Paul
- Cercueil" <paul@crapouillou.net>, "Paul Kocialkowski" <paulk@sys-base.io>,
- "Linus Walleij" <linusw@kernel.org>, "Inki Dae" <inki.dae@samsung.com>,
- "Jagan Teki" <jagan@amarulasolutions.com>, "Marek Szyprowski"
- <m.szyprowski@samsung.com>, "Sean Paul" <sean@poorly.run>, "Jonathan
- Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Randy
- Dunlap" <rdunlap@infradead.org>, "Albert Esteve" <aesteve@redhat.com>,
- "Anusha Srivatsa" <asrivats@redhat.com>, "Dmitry Baryshkov"
- <dmitry.baryshkov@oss.qualcomm.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>,
- "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <imx@lists.linux.dev>,
- <linux-arm-kernel@lists.infradead.org>, <linux-mips@vger.kernel.org>,
- <linux-rockchip@lists.infradead.org>,
- <linux-stm32@st-md-mailman.stormreply.com>, <asahi@lists.linux.dev>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <linux-tegra@vger.kernel.org>, <linux-doc@vger.kernel.org>,
- <linux-samsung-soc@vger.kernel.org>
-To: "Maxime Ripard" <mripard@kernel.org>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v3 12/19] drm/mcde: dsi: don't create a panel_bridge
-X-Mailer: aerc 0.22.0
-References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
- <20260916-drm-bridge-every-panel-v3-12-83afb4f1a707@bootlin.com>
- <arInho2bsfJiCgjV@houat>
-In-Reply-To: <arInho2bsfJiCgjV@houat>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Linus, Maxime,
+This fixes a regression when a console option includes ':'. Commit
+7640f1a44eba ("printk: Add match_devname_and_update_preferred_console()")
+introduced console=DEVNAME:0.0 hardware style addressing by looking for a
+colon. If the colon is part of an option the name is handled as devname
+instead of ttyname.
 
-On Tue Sep 22, 2026 at 9:09 AM CEST, Maxime Ripard wrote:
-> On Wed, Sep 16, 2026 at 03:45:36PM +0200, Luca Ceresoli wrote:
->> Now a panel_bridge is automatically created for every drm_panel and the
->> panel-bridge API is just a deprecated wrapper to access it.
->>
->> Update and simplify the code by just getting a reference to the
->> already-existing bridge using of_drm_find_and_get_bridge().
->>
->> Also keep the "connected to non-panel bridge (unsupported)\n" error logi=
-c
->> by using the drm_bridge_is_panel() function.
->>
->> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Fix by handling the options first which will add a NULL terminator to the
+string and refactor idx handling to clean up the code (thanks to Petr
+Mladek).
 
-[...]
+Signed-off-by: David Engraf <david.engraf@sysgo.com>
+---
+ kernel/printk/printk.c | 36 +++++++++++++++++++-----------------
+ 1 file changed, 19 insertions(+), 17 deletions(-)
 
->> @@ -1102,40 +1100,21 @@ static int mcde_dsi_bind(struct device *dev, str=
-uct device *master,
->>
->>  	/* Look for a panel as a child to this node */
->>  	for_each_available_child_of_node_scoped(dev->of_node, child) {
->> -		panel =3D of_drm_find_panel(child);
->> -		if (IS_ERR(panel)) {
->> -			dev_err(dev, "failed to find panel try bridge (%ld)\n",
->> -				PTR_ERR(panel));
->> -			panel =3D NULL;
->> -
->> -			bridge =3D of_drm_find_and_get_bridge(child);
->> -			if (!bridge) {
->> -				dev_err(dev, "failed to find bridge\n");
->> -				return -EINVAL;
->> -			}
->> +		bridge =3D of_drm_find_and_get_bridge(child);
->> +		if (!bridge) {
->> +			dev_err(dev, "failed to find bridge\n");
->> +			return -EINVAL;
->>  		}
->>
->> -		if (panel || bridge)
->> -			break;
->> +		break;
->>  	}
->> -	if (panel) {
->> -		bridge =3D drm_panel_bridge_add_typed(panel,
->> -						    DRM_MODE_CONNECTOR_DSI);
->> -		drm_panel_put(panel);
->> -		if (IS_ERR(bridge)) {
->> -			dev_err(dev, "error adding panel bridge\n");
->> -			return PTR_ERR(bridge);
->> -		}
->> -		drm_bridge_get(bridge);
->> -		dev_info(dev, "connected to panel\n");
->> -		d->panel =3D panel;
->> -	} else if (bridge) {
->> +	if (!bridge) {
->> +		dev_err(dev, "no bridge\n");
->> +		return -ENODEV;
->> +	} else if (!drm_bridge_is_panel(bridge)) {
->>  		/* TODO: AV8100 HDMI encoder goes here for example */
->>  		dev_info(dev, "connected to non-panel bridge (unsupported)\n");
->>  		return -ENODEV;
->
-> I wonder if we still need that branch. Every panel is a bridge now, and
-> it looks like we don't have any specific panel handling in this driver,
-> so I guess it supports bridges already?
->
-> Linus, do you know why this condition was here in the first place?
+diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
+index 6d3d18a50da74..2cbb84effb619 100644
+--- a/kernel/printk/printk.c
++++ b/kernel/printk/printk.c
+@@ -2646,24 +2646,25 @@ static int __init console_setup(char *str)
+ 	if (_braille_console_setup(&str, &brl_options))
+ 		return 1;
+ 
++	/*
++	 * Decode str into name, index and options. Start with options, since
++	 * it might also contain a ':' used for DEVNAME.
++	 */
++	options = strchr(str, ',');
++	if (options)
++		*(options++) = 0;
++
+ 	/* For a DEVNAME:0.0 style console the character device is unknown early */
+ 	if (strchr(str, ':'))
+ 		devname = buf;
+ 	else
+ 		ttyname = buf;
+ 
+-	/*
+-	 * Decode str into name, index, options.
+-	 */
+ 	if (ttyname && isdigit(str[0]))
+ 		scnprintf(buf, sizeof(buf), "ttyS%s", str);
+ 	else
+ 		strscpy(buf, str);
+ 
+-	options = strchr(str, ',');
+-	if (options)
+-		*(options++) = 0;
+-
+ #ifdef __sparc__
+ 	if (!strcmp(str, "ttya"))
+ 		strscpy(buf, "ttyS0");
+@@ -2671,17 +2672,18 @@ static int __init console_setup(char *str)
+ 		strscpy(buf, "ttyS1");
+ #endif
+ 
+-	for (s = buf; *s; s++)
+-		if ((ttyname && isdigit(*s)) || *s == ',')
+-			break;
+-
+-	/* @idx will get defined when devname matches. */
+-	if (devname)
+-		idx = -1;
+-	else
++	if (ttyname) {
++		/* Detect @idx in ttyname and remove it. */
++		for (s = ttyname; *s; s++) {
++			if (isdigit(*s))
++				break;
++		}
+ 		idx = simple_strtoul(s, NULL, 10);
+-
+-	*s = 0;
++		*s = 0;
++	} else {
++		/* @idx will get defined when devname matches. */
++		idx = -1;
++	}
+ 
+ 	__add_preferred_console(ttyname, idx, devname, options, brl_options, true);
+ 	return 1;
+-- 
+2.53.0
 
-I had the same thought while writing the patch, but I chose to be
-conservative.
 
-Linus, unless you have more info I'm going to apply the patch as
-is. Removing this special case would be welcome as a later patch.
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
