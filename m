@@ -1,97 +1,140 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f98.google.com (mail-wm1-f98.google.com [209.85.128.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 026614D0A05;
-	Thu, 24 Sep 2026 20:45:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC7D4DAF90
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:45:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790282728; cv=none; b=SujVNZYfT/m6gCsU4phSZgKun9EnWmi2bk+GHl+EZHrA54U4f1JzTV8T+/8PXfFWvPG/Jd6WuMYrl6rhaMZDmvXzkxBNeOKxmxusFtRRKxgSLyqJxKqHNPyMZOnxH0lgEr6kycxPoVymPwrPy/6nS+BSyioXgpntIBxn6v7mv2A=
+	t=1790282732; cv=none; b=LHxIvaeOkSiUnGwoR8PBlhpa1xQj3hXnmXjGkQmKRYj2HMoO9pP5PGVMpuyCKicR3ng+aK0A+Xat0MKBho/SIs8VVovZfMpC8BZQpPvDReS9fAIeC+p1BCiZw80GLGYDmUGEDNTFF/xEbbJZt7Z1S+/lWWwe1U9Le14U/NPnlCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790282728; c=relaxed/simple;
-	bh=38fYqY6dAGRKIr9/5pdl5Yw6DqLgAW+T6nJMcP1jCKk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=V3fqcot3RS1fs2Op/1JHnJNg08zhk57PINgrxHuPnmIkRKOwY3E6507zZmtkMm7qRMq8OgyiDnXyVu3+4XVewwmJeXbwQbtnNhtUM404v9zRSL7EAmW+60k3EbRekT/krhycw/Bkf/kmXu0xJ6XOXkes014RC3KXoo2F+lQt2lY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=2pwNg6DB; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1790282732; c=relaxed/simple;
+	bh=x8mpSZAEm3eQOopUPKpcZwReGof0vwEsvZSbWVvBWHc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=CZ5Goovq7BgWDSLzamRZHiTXVf32MYbGzCFUdSDjA/SkhTtkLJPFTnGImzLwHfDwsxUBtUMZPvv34jJzvuiFumYd8bfCAU3tYScyEwxSzXi57s8mV4iANiSZUDRwSBDbTBLa5WHcz+1FxzmoYf3ik6balinbDmIp/QS8gJzl5MY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com; spf=pass smtp.mailfrom=everpuredata.com; dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b=0Mpxlnct; arc=none smtp.client-ip=209.85.128.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everpuredata.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="2pwNg6DB"
-Received: from omf05.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay09.hostedemail.com (Postfix) with ESMTP id 0FEBD80417;
-	Thu, 24 Sep 2026 20:45:18 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf05.hostedemail.com (Postfix) with ESMTPA id EC9D220010;
-	Thu, 24 Sep 2026 20:45:14 +0000 (UTC)
-Date: Thu, 24 Sep 2026 16:45:12 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Vineet Gupta <vineet.gupta@linux.dev>
-Cc: mhiramat@kernel.org, mark.rutland@arm.com,
- mathieu.desnoyers@efficios.com, andrii@kernel.org, peterz@infradead.org,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH 0/2] tracing: fgraph: cut the cost of the shadow stack
- retry loop
-Message-ID: <20260924164512.451a5d97@fedora>
-In-Reply-To: <20260922225526.1554758-1-vineet.gupta@linux.dev>
-References: <20260922225526.1554758-1-vineet.gupta@linux.dev>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b="0Mpxlnct"
+Received: by mail-wm1-f98.google.com with SMTP id 5b1f17b1804b1-49e6b280cadso1357645e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:45:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=everpuredata.com; s=google; t=1790282727; x=1790887527; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YnoZqdKp0UmU2IbT5SSKBJURWBPbYOiKApgDq7nANGM=;
+        b=0MpxlnctDdkia3inaCSKTXt9k6rq4gt6Y92iIW0EoXzEDPX4YWeeobaQBL1p7jWI9s
+         giws98nsSbskKp1IJ75VymEwDx6TpWaVANoOaD9x4VDdUuJLENNZfPT3aFL5ZjAh/poa
+         I8+aRtqtv6pkUF/fk04cZOvkzksPDzQIoaVUD/EFxHk2X+b9kTjaze7d1hxjrKJ/BHT5
+         CGN4GM8Xp4ah9zzVOPwxgKN8jlML0nUFFzRfeaXc+SWj5Bm/6EIsMDWPR9q0QbELwRwI
+         U9M2LjUWQPxpfBp2xN+vOMggpKldrmDADJZQSRE3OEe+Aaa/j6T7Y/oaMs6QrOgXtBEM
+         usQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790282727; x=1790887527;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YnoZqdKp0UmU2IbT5SSKBJURWBPbYOiKApgDq7nANGM=;
+        b=2nJdYJcMkAlLvWPT6+fPYI3FkjCJvbzbeMkTxfA9d/TnKY/Ki4DK6JT2OdQfb8vkCn
+         EyBDpXDrj9doWAtzZj0MpZhvP/DB18bZU6UmXjO/1tXEsqN0NbHlgigdeYOvkq/I/T7K
+         QOPpCaJOzVPipqSVVTFV6MkMKO3WjRaRWwm0cnl5v/X1QU7C04Jqkbs9wiO+TdbyWlPn
+         81PDdB+7VF52avPjkj6LdZZHllb4fauv4HPpXGQ2JpUATvEvQ17n4Rv2cTWbOHDT42o5
+         PeA/7VE4Hhbu2VI8JGhTai/57m5WUMpO04RSNaj0IH+wYWWD8iIHNmEpfANORJND6Rvg
+         xbQg==
+X-Forwarded-Encrypted: i=1; AKwUvBy8RoFwCPcJhe1SUyVzYTiqm9j1tAkmOW7gkDAQGhLpGTDZiynhFMVWuOBCGVRuwpXsgJOjzt1Yu4E++VQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mL7gdUXeTQk1Fk25QQIitkIssuFeNRhBLX8mgHfXhI0EiZU1yr
+	dOFrB7o7QyYFhSGTaAeLsKWOxvhaYjcWUR2UR++sOs2lNriUUcja5PRsILU5NSzo+yCJuw7vqlM
+	zwNaZJfxooBlypdZ9eMFKXA072t0uxJTeihUm
+X-Gm-Gg: AYBFou3GHRQboMX2A340AQ4dPaRIcd2hoPqI4ZOCSHaDDnbKb3jNnK29Hyq2zarnHbH
+	Ws/8MFp1Re+WM6oNAgg71RlRBprkNBs2Pz6d8xCItf0n8iLNjF7MTeExE5aTrzb+BXl9g9esbYY
+	5WTC4q+BmPadMcMyVtVmzkIdfAB4Wkci0sPvDd73tiw1nETBjAP8Vf8uQuML2wDEPrxe/Qbj3Dr
+	UjQtk2DJFzQRU54p4fMGjA2EaSx2H/bddF0fu8DOVUC974ztXfq+Jkvc4Bv/vylXbJDPdlrkZND
+	iS9tvUFycufj9kGvsVoZae53szOApxLyICMiBOxSqU+hl9wrxPS4GKBiwDQpyKovRnNazsf3q+x
+	w+H3hEFAR99BC2uGPq66fsMwWhQ6G2U2anHVwXAU=
+X-Received: by 2002:a05:600c:4745:b0:49d:10d6:fd55 with SMTP id 5b1f17b1804b1-49fe66abd7fmr67822475e9.1.1790282727199;
+        Thu, 24 Sep 2026 13:45:27 -0700 (PDT)
+Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.128])
+        by smtp-relay.gmail.com with ESMTPS id 5b1f17b1804b1-49fef399dc7sm1175115e9.4.2026.09.24.13.45.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 13:45:27 -0700 (PDT)
+X-Relaying-Domain: everpuredata.com
+Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
+	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id AE78A34107D;
+	Thu, 24 Sep 2026 13:45:25 -0700 (PDT)
+From: Tim Menninger <tmenninger@everpuredata.com>
+To: Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>
+Cc: Chuck Lever <cel@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	Shiva Lingappa <slingappa@everpuredata.com>,
+	Eric Badger <ebadger@everpuredata.com>,
+	Jon Curley <jcurley@everpuredata.com>
+Subject: [PATCH 2/2] NFSv4/flexfiles: limit transport disconnects when cancelling I/O
+Date: Thu, 24 Sep 2026 20:45:25 +0000
+Message-Id: <20260924204525.3381590-3-tmenninger@everpuredata.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260924204525.3381590-1-tmenninger@everpuredata.com>
+References: <20260924204525.3381590-1-tmenninger@everpuredata.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: EC9D220010
-X-Stat-Signature: z3dpyr39jfertp6jo1cu5i5gn4i8w35g
-X-Rspamd-Server: rspamout03
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19OzpODMiPSvn327AaP8E0RNzT+Ikvn4OY=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=2Be5KpNzTZXgWlIVsbFsXMkY5/cT+uszS93jLVbttxw=; b=2pwNg6DBAIJuFWO+o9oz4nmzunEkt9Q71HxtoxIr5tmRdatq4N1t8Pp83g8njtQVAZy/xNk6ONIE7w/5N5ay3b9MwJvrSxqX9ZDlJxTS5JXUwlLIxiIwjWJJkNn5S3ulMwsZpZLjdUCpyAWS8W7Fzz2S52z9YWpOcZ5+eYDt2R0=
-X-HE-Tag: 1790282714-384105
-X-HE-Meta: U2FsdGVkX19lZMdW2su9jmPvONBBEJ9KImB270qGajn37ZOKgDzrRGX0Z2G9VfofM5EvanKoDIie9FK3rkJ8RFEpEjpbMCoq41Gl+ryQoKPyt+S7Us4zsRsD/b3kVyWohfkzoFzzJrdPP0o5M6J+Dqhzbpzonk3nnlOQX4msSxRbaMQ7KpODrV+jU7i75iMKGfEXsMLDcK3pjvSOcT9tlyicuNs5AZBj3G9GlNSfc6O3LQV5eleSF2vSfbjB1rrvmHqpN+5rWrMjTxLdUW4TNvJRdzAF52EWkRdxs2zQNxE10YWmM29O3vv3fewTLy+3Z5UHjg0nraPt4Zp/TLremwspSrliXGJN
+Content-Transfer-Encoding: 8bit
 
+ff_layout_cancel_io() cancels RPC tasks associated with a recalled or
+revoked layout segment. If any matching tasks are found, it then calls
+rpc_clnt_disconnect().
 
-Just an FYI. My wife flew into Europe today and I'll be touring Europe
-with her until Oct 3rd. I may get time to look at patches, but it will
-be very limited. And then LPC starts and who knows when I'll get a
-chance.
+rpc_clnt_disconnect() disconnects every transport attached to the RPC
+client. A data server client can have multiple transports, while the
+cancelled requests may have used only a subset of them. Cancelling I/O
+for one layout segment can therefore disrupt unrelated I/O using other
+transports belonging to the same data server client.
 
-Thus I may not be very responsive for the next couple of weeks.
+This is particularly disruptive with RPC/RDMA during data server
+recovery, where unnecessary transport disconnects can result in repeated
+reconnect activity on otherwise unaffected connections.
 
--- Steve
+Use rpc_cancel_tasks_and_disconnect() instead. Matching tasks are still
+cancelled, but only matching requests belonging to that client that
+remain on the transport transmit or receive queues are marked for
+disconnect. When such a request is released, SUNRPC conditionally
+disconnects the connection generation on which that request was sent.
 
+This preserves cancellation and draining of I/O associated with the
+layout segment without disconnecting unrelated transports attached to
+the same RPC client.
 
-On Tue, 22 Sep 2026 15:55:24 -0700
-Vineet Gupta <vineet.gupta@linux.dev> wrote:
+Fixes: b739a5bd9d9f ("NFSv4/flexfiles: Cancel I/O if the layout is recalled or revoked")
+Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
+---
+ fs/nfs/flexfilelayout/flexfilelayout.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-> Turning on function-graph tracing, or attaching a kprobe_multi return
-> probe, hands every thread a shadow stack. alloc_retstack_tasklist()
-> does that 32 tasks at a time, and since for_each_process_thread() has
-> no cursor, every sweep restarts from init_task and re-walks the tasks
-> already served. Total work is quadratic O(N^2) on thread count.
-> 
-> On a 60-core Sapphire Rapids machine with 400000 idle threads the 0 -> 1
-> transition takes 227 s, inside a single bpf() syscall for the kprobe_multi
-> case. On Meta fleet this showed up as RCU stalls and softlockup panics.
-> 
-> Patch 1 raises the batch to 1024, dividing the sweeps by 32:
-> 227 s -> 7.2 s at 400000 threads. It helps on every preemption model.
-> 
-> Patch 2 adds a cond_resched() between sweeps. It is supplementary and
-> separable: a no-op on current x86 and arm64, but on !CONFIG_PREEMPTION
-> builds it takes soft lockups from 3-of-3 runs to 0-of-3. Dropping it
-> leaves patch 1 intact.
-> 
-> Neither changes the O(N^2) shape; a cursor-based walk would, but
-> task_struct lifetime makes that considerably more involved.
-> 
-> Vineet Gupta (2):
->   tracing: fgraph: Raise FTRACE_RETSTACK_ALLOC_SIZE to 1024
->   tracing: fgraph: Add a cond_resched() to the shadow stack retry loop
-> 
->  include/linux/ftrace.h | 7 ++++++-
->  kernel/trace/fgraph.c  | 8 ++++++++
->  2 files changed, 14 insertions(+), 1 deletion(-)
-> 
+diff --git a/fs/nfs/flexfilelayout/flexfilelayout.c b/fs/nfs/flexfilelayout/flexfilelayout.c
+index 7fe8b91fa47c..4f7401680de1 100644
+--- a/fs/nfs/flexfilelayout/flexfilelayout.c
++++ b/fs/nfs/flexfilelayout/flexfilelayout.c
+@@ -2484,10 +2484,9 @@ static void ff_layout_cancel_io(struct pnfs_layout_segment *lseg)
+ 			clnt = ds_clp->cl_rpcclient;
+ 			if (!clnt)
+ 				continue;
+-			if (!rpc_cancel_tasks(clnt, -ECANCELED,
+-					      ff_layout_match_io, lseg))
+-				continue;
+-			rpc_clnt_disconnect(clnt);
++			rpc_cancel_tasks_and_disconnect(clnt, -ECANCELED,
++							ff_layout_match_io,
++							lseg);
+ 		}
+ 	}
+ }
+-- 
+2.34.1
 
