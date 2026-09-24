@@ -1,98 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5571042BE93;
-	Thu, 24 Sep 2026 20:10:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F422B4AA01A
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:12:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790280658; cv=none; b=mnCRS5b0tUITh1DhUmkrWySEnBVv5Z9HoH1z8rskiD7RkBzd6WYW28bcjy/BpB6ZbljsZDKWFLlfdfa9eTSQ/jK8/ptFXe0A2V+88MkQSZxDAP8GeXD2dlNF9T3NuJNcJ93FsJnI58Cxj/uhGULJay+XaP/kiB0X85WCwpJ1jZ0=
+	t=1790280767; cv=none; b=l0nUlfDELJz9aTQ/F3n+Fdpys2hr8wDbOdxVW7z8iowWAnbtmXqvSx6+TSXCnozVDfRU1u3bo5QazvwugpfIciw2jVsrVXOsbF/xm8+nLDtFe0GIskF/QL6jxOKZi2R0gIK4hryz0NC5iyOLAAlGdySWFBH1jOBEVq37D9dgQc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790280658; c=relaxed/simple;
-	bh=mz3vTn43yIalUlGbgIc2xvmEh6A36D5coSlbxFJJ6j8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=D+9D9TPVT1TzFZocBkCmv4ZPPdO8sXYagfLF09+J+JVaZ5uppnYTFy2Qg4JffybbP0hNixSdOuk961GxQ50V0f2wsgvDcAPhLsyA5mA0h48AfgJzs+fkBOIlVlzfHgpFquXUvpTiUvkdrehOu9KQRQ9qrrqR/Yni+23FTPbGnBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vr8Fraxz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790280767; c=relaxed/simple;
+	bh=ZBDkKPIIYOofedavAgyTBQfxZIRZXkLBBBL2Ypspx+s=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jw03ojwisySHgb2PzdEMsXjq4Abi1uXQdZlu81aw+r+ePHXU5qzjCvIjvyn09K1CCKpfw4dinw8AqgYiTSP+Z9hqYbifC0l1ioW7dUo5jrCLS+qkseDrcS6qrYRAQP7XKaQP5Q/dsqT9lfNvdtZoXG1WCD3w1hzTZeAIxrnRtLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dfGGI8k/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vr8Fraxz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E5051F000FF;
-	Thu, 24 Sep 2026 20:10:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dfGGI8k/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D11CC1F000FF;
+	Thu, 24 Sep 2026 20:12:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790280655;
-	bh=mrGCecuZc3/HhFipi7r/vR1auDxKeYAI9d88y4Ykcik=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Vr8Fraxzz0rgp6rLkyCccIFR/H7st5ouBo574SfYJa+ltnuzyLEk04aOFc0tJjeJS
-	 xWua5XpMsItdAvQ2HI/ND6G+5OdA9q+3D04q4jXV5RFn5FYOJ75Z9lOYMVPy5PX0Lz
-	 JnSGdisrsVklZe8q9+uW3M8RDsGbFUoLtyIoOa2vb/MdAsR4r3s4WqcMlAoXDmnj74
-	 QRNwLXe7iYVL73Jju6vt2rNtg+fBptZEIy0G7YNSZO8Mj08QVfwX2FWYJ4+zYDWISw
-	 2PVfoYFrgtW051ErGqmycLLlMHrJXAXEQgRCMd/+OldJD0vsdhndzLEESsGpp+kA4R
-	 WDzfyaByfHD9A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/8] mtd: rawnand: qcom: make config_nand_page_read()
- more generic
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Richard Weinberger" <richard@nod.at>, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Gabor
- Juhos" <j4g8y7@gmail.com>, "Manivannan Sadhasivam" <mani@kernel.org>, "Vignesh
- Raghavendra" <vigneshr@ti.com>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, "Md Sadre
- Alam" <md.alam@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org
-In-Reply-To: <20260924-qcom_nandc-share-more-code-v1-2-f3012199b161@gmail.com>
-References: <20260924-qcom_nandc-share-more-code-v1-0-f3012199b161@gmail.com>
- <20260924-qcom_nandc-share-more-code-v1-2-f3012199b161@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 20:10:54 +0000
-Message-Id: <20260924201055.1E5051F000FF@smtp.kernel.org>
+	s=k20260515; t=1790280759;
+	bh=1l+fgLLAyjMgURCtvH8zvJd7xRcHgmJBh+kC4m+jdwg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=dfGGI8k/bZFsyZMVeEHNjSDZwV0FD00DT+Y3Hd40cLANmjHqnhmM8tqkjla84nik2
+	 BUeVc/nx4cAilX6vPa5Rdh+OauhtiItTjn13gKj4FGnMMv3z8Xi/gLalkNBYFOdlOb
+	 jnBog84X4IalE5OCUQctwTOzbvRhUZfMjSrMU6mFlcyr/ZSHe64dhwGi7aGUJ+bMlX
+	 ME0YVa7RfOn4nQl+MZkw00bdnuT88GcRLZ3t8Yl13x2YiocpA7j5uPQGMzoe3vgN83
+	 jadi50BIAdcVv9gTaBqJ2j02aej9HbcwvtecXOpJFuepq5k4Ue5M64RMFWME8zX2wa
+	 lw22Kk2XlLSfw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x9po5-0000000DCkz-21I3;
+	Thu, 24 Sep 2026 20:12:37 +0000
+Date: Thu, 24 Sep 2026 21:12:36 +0100
+Message-ID: <86jyoa4de3.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Yuho Choi <oss.patchbox@gmail.com>, Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Cc: 	Thomas Gleixner <tglx@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] irqchip/gic-v3-its: Drop ITS node reference on its_of_probe() errors
+In-Reply-To: <20260923101026.000034ea@oss.qualcomm.com>
+References: <20260923165447.619477-1-oss.patchbox@gmail.com>
+	<20260923101026.000034ea@oss.qualcomm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: oss.patchbox@gmail.com, jonathan.cameron@oss.qualcomm.com, tglx@kernel.org, lpieralisi@kernel.org, radu@rendec.net, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] mtd: code and commit message mismatch in config_nand_page_read()=
- changes
---
+On Wed, 23 Sep 2026 18:10:26 +0100,
+Jonathan Cameron <jonathan.cameron@oss.qualcomm.com> wrote:
+> 
+> On Wed, 23 Sep 2026 12:54:40 -0400
+> Yuho Choi <oss.patchbox@gmail.com> wrote:
+> 
+> > its_of_probe() walks the ITS nodes with of_find_matching_node(), which
+> > drops the reference on the previous node and returns the next one with
+> > its reference count raised.  The loops are balanced when they run to the
+> > end, but the three error returns (a failed its_reset_one(), a failed
+> > its_node_init() and a failed its_probe_one()) leave with the current
+> > node still referenced.
+> > 
+> > Drop it before returning.
+> > 
+> > Fixes: c733ebb7cb67 ("irqchip/gic-v3-its: Reset each ITS's BASERn register before probe")
+> > Fixes: 9585a495ac93 ("irqchip/gic-v3-its: Split allocation from initialisation of its_node")
+> > Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+> 
+> I only took a very quick look but why can't this use for_each_matching_node()
+> 
+> That doesn't solve your problem but it would be easy to add a for_each_matching_node_scoped()
+> in similar spirit to for_each_child_of_node_scoped() I think and that would give you a cleaner fix here.
 
-commit 83713aed92ebeefb24101c6bd3b2c47c7e4e9dfd
-Author: Gabor Juhos <j4g8y7@gmail.com>
++1. It'd be much better to have an infrastructure for this sort of
+things.
 
-mtd: rawnand: qcom: make config_nand_page_read() more generic
+Otherwise, the obvious way to do this locally would be as below,
+instead of the proposed sprinkling of direct of_node_put(). Completely
+untested, as usual.
 
-This commit modifies config_nand_page_read() to take a controller pointer
-directly instead of a nand_chip pointer. It updates the callers accordingly
-and renames the function to prepare for future reuse.
+	M.
 
-> In order to make the function more generic, change the declaration
-> to get a 'qcom_nandc_controller' pointer directly, and update the
-> callers accordingly. While at it, also change the function name to
-> use a 'qpic_nandc' prefix.
+diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
+index e9807af235373..91e08b5229b1c 100644
+--- a/drivers/irqchip/irq-gic-v3-its.c
++++ b/drivers/irqchip/irq-gic-v3-its.c
+@@ -5561,7 +5561,6 @@ static void its_node_destroy(struct its_node *its)
+ 
+ static int __init its_of_probe(struct device_node *node)
+ {
+-	struct device_node *np;
+ 	struct resource res;
+ 	int err;
+ 
+@@ -5571,7 +5570,7 @@ static int __init its_of_probe(struct device_node *node)
+ 	 * reset, don't even try to go any further, as this could
+ 	 * result in something even worse.
+ 	 */
+-	for (np = of_find_matching_node(node, its_device_id); np;
++	for (struct device_node *np __free(device_node) = of_find_matching_node(node, its_device_id); np;
+ 	     np = of_find_matching_node(np, its_device_id)) {
+ 		if (!of_device_is_available(np) ||
+ 		    !of_property_read_bool(np, "msi-controller") ||
+@@ -5583,7 +5582,7 @@ static int __init its_of_probe(struct device_node *node)
+ 			return err;
+ 	}
+ 
+-	for (np = of_find_matching_node(node, its_device_id); np;
++	for (struct device_node *np __free(device_node) = of_find_matching_node(node, its_device_id); np;
+ 	     np = of_find_matching_node(np, its_device_id)) {
+ 		struct its_node *its;
+ 
 
-[Severity: Medium]
-Does the commit message accurately reflect the changes made in the patch?
 
-The commit message mentions changing the parameter to a 'qcom_nandc_control=
-ler'
-pointer and using a 'qpic_nandc' prefix for the function name. However, the
-code uses a 'struct qcom_nand_controller *' pointer and names the function
-qcom_nandc_config_page_read():
-
-> diff --git a/drivers/mtd/nand/raw/qcom_nandc.c b/drivers/mtd/nand/raw/qco=
-m_nandc.c
-> index 12bfb14cd9a37..c65a8416c3f5d 100644
-> --- a/drivers/mtd/nand/raw/qcom_nandc.c
-> +++ b/drivers/mtd/nand/raw/qcom_nandc.c
-[ ... ]
-> @@ -305,10 +305,8 @@ static void update_rw_regs(struct qcom_nand_host *ho=
-st, int num_cw, bool read, i
->   * Helper to prepare DMA descriptors for configuring registers
->   * before reading a NAND page.
->   */
-> -static void config_nand_page_read(struct nand_chip *chip)
-> +static void qcom_nandc_config_page_read(struct qcom_nand_controller *nan=
-dc)
->  {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-qcom_nandc=
--share-more-code-v1-0-f3012199b161@gmail.com?part=3D2
+-- 
+Without deviation from the norm, progress is not possible.
