@@ -1,264 +1,279 @@
-Received: from mta1.migadu.com (out-160.mta1.migadu.com [95.215.58.160])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-of-o54.zoho.com (sender6-of-o54.zoho.com [165.173.180.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5B523368AC
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:51:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.160
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790257888; cv=none; b=t67BfBsUjhYmoYEVg2fNc8KolHjcrKnRQyEZyo11tOmLURP14+XS+oIh0YfBfJlcidJYeDB1U6cVCrRYEb4z0iANEzrFAWijCrnv/hhrgL9Hkq+9BQ2WUvGemjWwReeOLDvDrDJRInDhScYNUPhsGjfCSeH2l33+rG8vZnR0SiM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790257888; c=relaxed/simple;
-	bh=sSph9Jsw8F14AbnX84MTaIdC6tQYWQmd5qT/kg2mMDo=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=kWiKFw420RXgNo2RhwAijtg7xCZAUy+7Fe/+vaoTOCyCrK4Ua/hVP9ve6AL/yNPvnwZIMxxqDaXvor82v9CxO1pFoVxC+TLa82I+3lkV3c50rSokoBWYJyfpVUgyB1QDfL0+02LF/QgKOxhn1+9s9KrqZtOSzaGPjwLMNhT/Oo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=A+kS+nYw; arc=none smtp.client-ip=95.215.58.160
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FEB9363C60;
+	Thu, 24 Sep 2026 13:51:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790257897; cv=pass; b=Ib+milg/CTV1SD26vOLe1dx9bKFzjMBmoJR7fsJbGuPQ0aRzBM+qu3laQ8P0fIg4FxZBBnnIgfHoQDuczFx6SKDs6mu8I0vXZUGo1aQOWGD3wdZWi/2U0f+cWdtoVbeu9XTDuxMMeT6pvMDhXzmvfjymEdW5HLiSLbQFVfVEZwA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790257897; c=relaxed/simple;
+	bh=9jAAzu7L0V4Hl0qdlVZ+whEkE+bLweLZhkFpmH6ZgdA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cWV7A4sop/faC2qIm8OriTy5cwiHjmSMmhvPblwPJoKWNt8sn3lpuUijiEOXIjs1mZd3JdTC3rYup7rV3xXzivDYJBGN5Kngo3M2NjcZ7aEL33jtR2GFt2A3VIuomLZ1gTaGh02jWuaLChQae05YoeWP9+0mD8nWc1P7g6HnKXo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=anirudhrb.com; spf=pass smtp.mailfrom=anirudhrb.com; dkim=pass (1024-bit key) header.d=anirudhrb.com header.i=anirudh@anirudhrb.com header.b=eASH3Dyc; arc=pass smtp.client-ip=165.173.180.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=anirudhrb.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=anirudhrb.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="A+kS+nYw"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=sSph9Jsw8F14AbnX84MTaIdC6tQYWQmd5qT/kg2mMDo=;
- c=simple/simple; d=cknow-tech.com;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790257881; v=1; x=1790862681;
- b=A+kS+nYwX94TxKs3bBgpA7GTCH3rob7GlGN6wTJq0/ad/eIxHcjzS+UysYgPqHE/1wzVXX/V
- p5w3giM/Pob9eoLU+4H+vX9JJB6ejVttV8RXlw1jM4sPoaI4pvHHl5gIdKwYM3LS1VuLH3PlhCJ
- 0WkLhWS4eVUx5/uBPhN25doTKDkWGKQL5n9vyRF/7+FPAHSTEIKo0kPqQiDqoiDqLLA4KqYzuVj
- T1aqgMHsjrMdz3sxrOwmgXV2acQuus30m4FuOv6R8xiB6CnGXlNbo5RormAGuYXjw8CBx3h240V
- 3dO2bdg93RlKdZ1UVVGO18Njfdl5rzvG1wRTifX98/mGw==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c2b77ebc62d259c3;
-	Thu, 24 Sep 2026 13:51:21 +0000
-X-Mizu-Trace-ID: c2b77ebc62d259c3
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (1024-bit key) header.d=anirudhrb.com header.i=anirudh@anirudhrb.com header.b="eASH3Dyc"
+ARC-Seal: i=1; a=rsa-sha256; t=1790257880; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=RFKin86g6YNcdDjG5B8xDXfnwI9u5RxfnOGduSugOsUM2fcREBR/IWN2Kd0XHu870QVWcCekeZEIM9LDRchHFgVFxn6GcF5ixdum9PGzlfM0HECo1Wu4CCGuoIBenPVXFfaZvwrhpOE/9zbu7DaqJphAtGgc2ccgSGsZ2K59w08=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790257880; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=7AgugibO/MEoHQ8Kikz2u61NnM8OGtvR9wPH8In7gDU=; 
+	b=DE9gLtJmKU8qQY6+4BqiOWEM5UDb0mgoko/iDW5Vrt0keEcJqVxD6Ps725Sgv2w0ILsAdORysUwv+fHdfA+Wp2jWOlPGa4LRKFn7cvo6ol8DuHARuKBFPJlsCPYN2c0HoWlyKKnuAdDtEi4uPGeQRU1O0JYLsTRj2xqXG3+2Ax4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=anirudhrb.com;
+	spf=pass  smtp.mailfrom=anirudh@anirudhrb.com;
+	dmarc=pass header.from=<anirudh@anirudhrb.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790257880;
+	s=zoho; d=anirudhrb.com; i=anirudh@anirudhrb.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=7AgugibO/MEoHQ8Kikz2u61NnM8OGtvR9wPH8In7gDU=;
+	b=eASH3DycQVpf7S4eUIcpJ2wkCZUAZL0W8yws7/JEHRGeY0pU5+CL5bGK+LRp+Xv0
+	6dbp88Uay3W5vrCXXA3lFEQJLLiQMTxV/KVgdvHPorp+AzCkqUtAhbMhYL67y9LJgY4
+	AsM05uZlAdq7JLP+0/7SlbTnBCsjtC3focg/rjgE=
+Received: by smtp.zohomail.com with SMTPS id 1790257876818699.7771668051361;
+	Thu, 24 Sep 2026 06:51:16 -0700 (PDT)
+Date: Thu, 24 Sep 2026 13:51:10 +0000
+From: Anirudh Rayabharam <anirudh@anirudhrb.com>
+To: Magnus Kulke <magnuskulke@linux.microsoft.com>
+Cc: linux-hyperv@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
+	Souradeep Chakrabarti <schakrabarti@microsoft.com>,
+	Wei Liu <liuwe@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Dexuan Cui <decui@microsoft.com>,
+	Magnus Kulke <magnuskulke@microsoft.com>,
+	Long Li <longli@microsoft.com>, linux-arch@vger.kernel.org,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Anirudh Rayabharam <Anirudh.Rayabharam@microsoft.com>,
+	Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
+	Wei Liu <wei.liu@kernel.org>
+Subject: Re: [PATCH v3] drivers/hv: remove deposited pages from direct map
+Message-ID: <20260924-outrageous-nebulous-spaniel-7bf6f7@anirudhrb>
+References: <20260917201052.2123701-1-magnuskulke@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 24 Sep 2026 15:51:13 +0200
-Message-Id: <DLNLG9AJ5GB2.36BYH3TC0FF45@cknow-tech.com>
-Cc: <kernel@collabora.com>, <linux-kernel@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <linux-rockchip@lists.infradead.org>,
- <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH 0/4] media: Track v4l2 buffers through an allocator
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-To: "Detlev Casanova" <detlev.casanova@collabora.com>, "Tomasz Figa"
- <tfiga@chromium.org>, "Marek Szyprowski" <m.szyprowski@samsung.com>, "Mauro
- Carvalho Chehab" <mchehab@kernel.org>, "Nicolas Dufresne"
- <nicolas.dufresne@collabora.com>, "Benjamin Gaignard"
- <benjamin.gaignard@collabora.com>, "Philipp Zabel"
- <p.zabel@pengutronix.de>, "Heiko Stuebner" <heiko@sntech.de>, "Ezequiel
- Garcia" <ezequiel@vanguardiasur.com.ar>, "Diederik de Haas"
- <diederik@cknow-tech.com>
-X-Mailer: aerc 0.22.0-24-g39041fd9f179
-References: <20260916-v4l2-add-mem-tracker-v1-0-900fa45e3e6a@collabora.com>
- <DLK6XGIB22XG.58WF7VP9L3NH@cknow-tech.com>
- <jmuzPUMQRGeSHxc4mzcUjg@collabora.com>
-In-Reply-To: <jmuzPUMQRGeSHxc4mzcUjg@collabora.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917201052.2123701-1-magnuskulke@linux.microsoft.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.230.26
+X-ZohoMailClient: External
 
-Hi,
+On Thu, Sep 17, 2026 at 10:10:52PM +0200, Magnus Kulke wrote:
+> hv_call_deposit_pages() donates pages (deposit) to hypervisor for L2
+> guest on L1VH systems via HVCALL_DEPOSIT_MEMORY. The hypervisor takes
+> ownership of those pages and per contract revokes root partition
+> access to them, raising a #GP on access from the L1VH root partition.
+> 
+> However, the pages remain mapped in the kernel direct map, so kernel
+> code may still access them even though the hypervisor has revoked
+> access.
+> 
+> Helpers such as "load_unaligned_zeropad()" deliberately read past the
+> end of a buffer and across page boundaries. A read into an unmapped
+> page is tolerated and triggers a #PF, for which the kernel executed
+> a fixup in the exception table.
+> 
+> If such a call steps into a page that has been deposited, the access
+> raises a #GP by the hypervisor from which the above handler cannot
+> recover and the kernel panics:
+> 
+>   Oops: general protection fault, maybe for address 0xff1100941a3dfffc
+>   RIP: 0010:csum_partial+0xe5/0x110
+> 
+> This condition will appear on L1VH system that have created L2
+> partitions (and hence deposited pages) and exercise networking code
+> paths such as csum_partial() can trigger this condition when a buffer
+> ends close to a page boundary (e.g fffc in the above example).
+> 
+> The fix is to remove the deposited pages from the direct map before
+> they are passed to the hypervisor, and restore them when the hypervisor
+> returns them again.
+> 
+> We want to avoid flushing the TLB in the loop, so we use the _noflush()
+> variant of set_direct_map_valid() when marking a deposited page invalid
+> and flush the affected page ranges in one go ourselves. In the opposite
+> direction this is not required:
+> 
+>   > If a paging-structure entry is modified to change the P flag from
+>   > 0 to 1, no invalidation is necessary. This is because no TLB entry
+>   > or paging-structure cache entry is created with information from a
+>   > paging-structure entry in which the P flag is 0.
+> 
+> (Intel SDM Vol. 3, 4.10.4.3)
+> 
+> Signed-off-by: Magnus Kulke <magnuskulke@linux.microsoft.com>
+> ---
+> Changes since v2:
+> - Checkpatch format fix
+> 
+> Changes since RFC:
+> - Handle direct-map restoration failures without returning unmapped
+>   pages to the allocator.
+> - Move freeing of withdrawn pages into the restoration helper.
+> ---
+>  drivers/hv/hv_proc.c           | 77 +++++++++++++++++++++++++++++++++-
+>  drivers/hv/mshv_root_hv_call.c |  4 +-
+>  include/asm-generic/mshyperv.h |  4 ++
+>  3 files changed, 81 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/hv/hv_proc.c b/drivers/hv/hv_proc.c
+> index 57b2c64197cb..2a392b45205d 100644
+> --- a/drivers/hv/hv_proc.c
+> +++ b/drivers/hv/hv_proc.c
+> @@ -7,7 +7,9 @@
+>  #include <linux/cpuhotplug.h>
+>  #include <linux/minmax.h>
+>  #include <linux/export.h>
+> +#include <linux/set_memory.h>
+>  #include <asm/mshyperv.h>
+> +#include <asm/tlbflush.h>
+>  
+>  /*
+>   * See struct hv_deposit_memory. The first u64 is partition ID, the rest
+> @@ -15,6 +17,35 @@
+>   */
+>  #define HV_DEPOSIT_MAX (HV_HYP_PAGE_SIZE / sizeof(u64) - 1)
+>  
+> +/*
+> + * Add or remove a set of physically contiguous page runs from the kernel
+> + * direct map. Once a page has been deposited the hypervisor owns it and
+> + * revokes root partition access to it.
+> + */
+> +static int hv_deposit_update_direct_map(struct page **pages, int *counts,
+> +					int num_allocations, bool valid)
+> +{
+> +	int i, err, ret = 0;
+> +
+> +	for (i = 0; i < num_allocations; ++i) {
+> +		err = set_direct_map_valid_noflush(pages[i], counts[i], valid);
 
-On Thu Sep 24, 2026 at 2:36 PM CEST, Detlev Casanova wrote:
-> On Sunday, September 20, 2026 9:50:24=E2=80=AFa.m. Eastern Daylight Time =
-Diederik de=20
-> Haas wrote:
->> On Wed Sep 16, 2026 at 4:25 PM CEST, Detlev Casanova wrote:
->> > Currently, the only way to track buffers allocated by v4l2 from usespa=
-ce
->> > is to use the subsystem available debug information (e.g.:
->> > /sys/kernel/debug/dma_buf/bufinfo).
->> > But that information is generic and cannot be matched to a v4l2 driver=
- or
->> > to a userspace application: It is merely information about the allocat=
-ion.
->> >=20
->> > ...
->> >=20
->> > Note that this depends on the ftrace support patch series[1] that
->> > provides fd/pid info in the v4l2_fh struct.
->> > That series is a bit old, so this is based on an older linux version, =
-but
->> > that only changes things for the last 2 commits.
->> >=20
->> > A v4l2top utility[2] has been made, to be used in parallel with the
->> > fdinfo patch series[3], to show the list of active streams with their =
-HW
->> > and memory usage.
->> >=20
->> > With this, debugfs looks like this when decoding a HEVC 1080p stream w=
-ith
->> >=20
->> > rkvdec on rk3588:
->> >   root # cat /sys/kernel/debug/v4l2/fdc38100.video-codec/mem
->> >   created-by                      fd              pid             size=
-   =20
->> >          label
->> >   --------------------------------------------------------------------=
----
->> >   ...
->>=20
->> I build a kernel with your 3 patch series and I also build the v4l2top
->> utility. Cool tool :-D
->> Especially after I found out I should build the 'upstream' branch ;-)
->>=20
->> There were a couple of things I noticed:
->> 1) With 'plain' kernel 7.3-rc3 but also with all my patches included, bu=
-t
->>    excluding the patches from this series, I see this:
->> ...
->>=20
->> Checking v4l2 debug dir again results in this:
->> ```
->> root@nanopc-t6-plus:~# ls -lh /sys/kernel/debug/v4l2/
->> total 0
->> drwxr-xr-x 2 root root 0 Sep 20 15:13 fdb60000.rga
->> drwxr-xr-x 2 root root 0 Sep 20 15:13 fdb80000.rga
->> drwxr-xr-x 2 root root 0 Sep 20 15:13 fdc38000.video-codec
->> drwxr-xr-x 2 root root 0 Sep 20 15:13 fdee0000.hdmi_receiver
->> ```
->>=20
->> I noticed my video-codec address was slightly different from yours.
->
-> Yes, mine is on rk3588. A different SoC will have a different device regi=
-ster=20
-> address.
+On arm64 can_set_direct_map() can return false making the
+set_direct_map_valid_noflush() call a no-op.
 
-That's why I noticed/mentioned it as mine is rk3588 too. Maybe this commit?
-b481c11cd20a ("arm64: dts: rockchip: Update vdec register blocks order on R=
-K3588")
+	bool can_set_direct_map(void)
+	{
+		/*
+		 * rodata_full, DEBUG_PAGEALLOC and a Realm guest all require linear
+		 * map to be mapped at page granularity, so that it is possible to
+		 * protect/unprotect single pages.
+		 *
+		 * KFENCE pool requires page-granular mapping if initialized late.
+		 *
+		 * Realms need to make pages shared/protected at page granularity.
+		 */
+		return rodata_full || debug_pagealloc_enabled() ||
+			arm64_kfence_can_set_direct_map() || is_realm_world();
+	}
 
->> Playing a 1080p BBB x264 video with a patched ffmpeg+mpv, results in thi=
-s:
->> ...
->>=20
->> And looking at the v4l2top utility, I noticed the following:
->> 1. I see differing indications of the load while it's playing :-D
->
-> \o/
+So, there could be some scenarios where this patch doesn't solve the
+problem. It is definitely an improvement over what's currently in the
+tree though.
 
-Just did another quick test (for 3.) and noticed sometimes green 'lines' an=
-d
-sometimes red 'lines'. Any significance to the color?
-There also seems to be some kind of 'delay' when stopping a video and playi=
-ng
-another one (can be the same video). It looks like it's 'flatlining' until =
-the
-line of the previous video is scrolled off ...  and then it seems to 'repai=
-nt'
-itself as the 'flatline' comes back alive :-P
+> +		if (err && !ret)
+> +			ret = err;
+> +	}
+> +
+> +	if (valid)
+> +		return ret;
+> +
+> +	for (i = 0; i < num_allocations; ++i) {
+> +		unsigned long addr = (unsigned long)page_address(pages[i]);
+> +		unsigned long size = (unsigned long)counts[i] << PAGE_SHIFT;
+> +
+> +		flush_tlb_kernel_range(addr, addr + size);
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+>  /* Deposits exact number of pages. Must be called with interrupts enabled.  */
+>  int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+>  {
+> @@ -72,6 +103,10 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+>  	}
+>  	num_allocations = i;
+>  
+> +	ret = hv_deposit_update_direct_map(pages, counts, num_allocations, false);
+> +	if (ret)
+> +		goto err_restore_direct_map;
+> +
+>  	local_irq_save(flags);
+>  
+>  	input_page = *this_cpu_ptr(hyperv_pcpu_input_arg);
+> @@ -90,12 +125,23 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+>  	if (!hv_result_success(status)) {
+>  		hv_status_err(status, "\n");
+>  		ret = hv_result_to_errno(status);
+> -		goto err_free_allocations;
+> +		goto err_restore_direct_map;
+>  	}
+>  
+>  	ret = 0;
+>  	goto free_buf;
+>  
+> +err_restore_direct_map:
+> +	/*
+> +	 * We don't want to return pages to the allocator if weren't able to
+> +	 * mark them valid in the direct map.
+> +	 */
+> +	if (hv_deposit_update_direct_map(pages, counts, num_allocations, true)) {
+> +		WARN(1, "leaking %d page block(s) that could not be set to valid\n",
+> +		     num_allocations);
+> +		goto free_buf;
+> +	}
+> +
+>  err_free_allocations:
+>  	for (i = 0; i < num_allocations; ++i) {
+>  		base_pfn = page_to_pfn(pages[i]);
+> @@ -110,6 +156,35 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+>  }
+>  EXPORT_SYMBOL_GPL(hv_call_deposit_pages);
+>  
+> +/*
+> + * Put withdrawn pages back in the direct map. Counterpart to the direct map
+> + * removal done by hv_call_deposit_pages().
+> + */
+> +void hv_restore_withdrawn_pages(const u64 *pfns, int count)
+> +{
+> +	int i, ret = 0;
+> +	struct page *page;
+> +
+> +	for (i = 0; i < count; ++i) {
+> +		page = pfn_to_page(pfns[i]);
+> +		ret = set_direct_map_valid_noflush(page, 1, true);
 
-But this is REALLY minor and not bothersome at all.
+Should we batch this? (i.e. collect a batch of contiguous PFNs and restore them
+at once)
 
->> 2. The ``Clock rate`` is always 750.0MHz (or 786431991Hz) (expected I
->> think?)
->
-> Yes, the clock won't change, for now at least. Some decoders could adapt =
-their=20
-> clocks depending on the work. The frequency value will also be used to=20
-> determine exact core usage for those that expose a used cycle count after=
- each=20
-> job (I did not implement that yet in v4l2top)
->
->> 3. The ``Total Memory`` is always 0B and the ``Memory usage
->> details`` column is always empty. That's also the case when I press one =
-of
->> the arrow keys which seems to select the entry. Am I missing sth or doin=
-g
->> sth wrong?
->
-> My guess would be that you didn't run it as root (this is usually needed =
-to=20
-> access the debugfs*). But if you did, we will have to dig a little.
+> +		/*
+> +		 * HV_DEPOSIT_MAX is capped at 511, so a deposit range cannot cover
+> +		 * a 2MiB page, so deposited pages are of 4k granularity and cannot
+> +		 * be collapses into a 2MiB page, which would require an allocation
 
-I did indeed not run it as root the first time around. But just did another
-test and with root the memory data is displayed :-)
+511 is the limit for one deposit call. But after multiple deposit calls,
+a deposited range can cover a 2 MiB page.
 
-Cheers,
-  Diederik
+> +		 * and can potentially fail.
 
-> *: Note that later, we'd like to report global memory usage through fdinf=
-o, so=20
-> that the metric is accessible as a user, with buffer details still from t=
-he=20
-> debugfs (so that'd need root access)
->
-> Detlev.
->
->>=20
->> > [1]:
->> > https://lore.kernel.org/all/20260610-v4l2-add-ftrace-v2-0-9756edf72ac1=
-@co
->> > llabora.com/ [2]: https://github.com/cazou/v4l2top/tree/upstream
->> > [3]:
->> > https://lore.kernel.org/all/20260706-v4l2-add-fdinfo-v3-0-d556568cf38e=
-@co
->> > llabora.com/
->> >=20
->> > Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
->> > ---
->> >=20
->> > Detlev Casanova (4):
->> >       media: Add a v4l2 memory allocations tracker
->> >       media: Store v4l2_fh in the vb_queue
->> >       media: verisilicon: Switch to tracked dma allocations
->> >       media: rkvdec: Switch to tracked dma allocations
->> > =20
->> >  drivers/media/common/videobuf2/Makefile            |   1 +
->> >  drivers/media/common/videobuf2/v4l2-allocator.c    | 186
->> >  +++++++++++++++++++++ .../media/common/videobuf2/videobuf2-dma-contig=
-.c=20
->> >  |  27 ++-
->> >  .../media/platform/rockchip/rkvdec/rkvdec-h264.c   |  14 +-
->> >  .../media/platform/rockchip/rkvdec/rkvdec-hevc.c   |  14 +-
->> >  .../media/platform/rockchip/rkvdec/rkvdec-rcb.c    |  21 ++-
->> >  .../platform/rockchip/rkvdec/rkvdec-vdpu381-h264.c |  14 +-
->> >  .../platform/rockchip/rkvdec/rkvdec-vdpu381-hevc.c |  14 +-
->> >  .../platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c |  14 +-
->> >  .../platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c |  14 +-
->> >  .../media/platform/rockchip/rkvdec/rkvdec-vp9.c    |  33 ++--
->> >  drivers/media/platform/rockchip/rkvdec/rkvdec.c    |   4 +
->> >  drivers/media/platform/verisilicon/hantro.h        |   1 +
->> >  drivers/media/platform/verisilicon/hantro_drv.c    |   4 +
->> >  drivers/media/platform/verisilicon/hantro_h264.c   |   7 +-
->> >  drivers/media/platform/verisilicon/hantro_hevc.c   | 100 ++++++-----
->> >  drivers/media/platform/verisilicon/hantro_mpeg2.c  |  16 +-
->> >  .../media/platform/verisilicon/hantro_postproc.c   |  14 +-
->> >  drivers/media/platform/verisilicon/hantro_vp8.c    |  25 +--
->> >  drivers/media/platform/verisilicon/hantro_vp9.c    |  34 +++-
->> >  .../verisilicon/rockchip_vpu981_hw_av1_dec.c       | 160
->> >  +++++++++++-------
->> >  drivers/media/v4l2-core/v4l2-device.c              |   4 +-
->> >  include/media/v4l2-allocator.h                     |  26 +++
->> >  include/media/v4l2-device.h                        |   2 +
->> >  include/media/videobuf2-core.h                     |   3 +
->> >  25 files changed, 555 insertions(+), 197 deletions(-)
->> >=20
->> > ---
->> > base-commit: 66affa37cfac0aec061cc4bcf4a065b0c52f7e19
->> > change-id: 20260612-v4l2-add-mem-tracker-da0088c74a64
->> > prerequisite-change-id: 20260608-v4l2-add-ftrace-aec6e7f60a6c:v2
->> > prerequisite-patch-id: bd45b4df66799a7f9f22b49973a78d1bd3590a4a
->> > prerequisite-patch-id: 6a5ed5615f08257cf854d441785066b5ff4d5d47
->> > prerequisite-patch-id: 02594c869498b9e91e416d70242afbaa6b3a8d6a
->> > prerequisite-patch-id: 9f25ec78f3b99ac1c5d42eb732f5bd9eae73fadd
->> > prerequisite-patch-id: 4ed2c2e8c3abfa7f6328d0ea4f488ca5a3eec8fb
->> > prerequisite-patch-id: 8787d50eb80e1a63a57a123268cade23c9e64618
->> > prerequisite-patch-id: bfe85822378fa771f9bbc3e1e8c8ff6bce0eb7fd
->> > prerequisite-patch-id: 784d0801da320f7b41194f4632ee422c32f1b5b8
->> > prerequisite-patch-id: 362c8366e2efbfb5e6f1a3f71cfddbd46e8d1506
->> >=20
->> > Best regards,
->> > --
->> > Detlev Casanova <detlev.casanova@collabora.com>
->> >=20
->> >=20
->> > _______________________________________________
->> > Linux-rockchip mailing list
->> > Linux-rockchip@lists.infradead.org
->> > http://lists.infradead.org/mailman/listinfo/linux-rockchip
+It is unclear to me what requires an allocation and can potentially
+fail. Could you please clarify?
 
+> +		 *
+> +		 * Should it fail anyway we leak the page, if we would hand it
+> +		 * back to the allocator we would introduce faults into random other
+> +		 * parts.
+
+I agree this is what we should do. I just don't understand what the
+first part of this comment block is talking about.
+
+Thanks,
+Anirudh.
 
