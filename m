@@ -1,203 +1,305 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7F4472783
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:12:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E9CA47532E
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:12:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790248382; cv=pass; b=Q+1dBH40NzltoQm0LxqSVec2NPLTCCEjPJRpIsZkkSIPxc7XJf7oSyXTMptV5b86KpN7uanJXSADL6PQ9zf3E8SoGT7CTxYW1Ed25gBqqRCbBWdrGUGXGgCcHEU+IufcfquU1teCHYK2LJG2MZt+tAIRIgIW6g2Sv+XiqGRkW64=
+	t=1790248382; cv=pass; b=bwzPQQS6T/R0Wzv88C0uYqepRVOmykf76Xw2+cNNLdsFoJmfiY5hPup30h9018/Zoou8kPbIDCOzv4IDi0e7ZEnKPjLvS30kKwV0nPSHf4oGVwZNuRvld3JE3ogGrtbW+5WbFCqPA/fWhcSQiVQ8SPnBpECyWdgsd6GBhyFjNY4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790248382; c=relaxed/simple;
-	bh=U7K/8GIisOHzCRms+OKCv5d2y4oxaKVysMdgc5MbHqY=;
+	bh=eJYqN4wEoL/OX9Q03eUTbGvGTyg+Jo8gjHizQ3XF3AE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XsRBL40TManXIv4XXrp1KtkehEBmCYqR28y99xB0q5x/MBZMTLu2atnr8g5ZY1SzllkHAYY4Hwlmtaf0QjnC+HJMq9dhxzBwRX0wDFXuDXVxMGXwA3lpTB1H/5TAXuF0En07wcOg40PsF5ru6xG3uZeW5b2WlRytxUbRZJr0Fbo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FJt9BdBB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PqnlimnE; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 To:Cc:Content-Type; b=s4w8hcI79BWnTCccHabEY5juHReOJRs6p3CCwVV8RcmxAVgR3tJ/0oT9mUcvSoGKT1Rv6k8J1ln87MImJkkDM1yvzrL5buVI+32Uay+GHV2DkKlZgaGpgZSUWlJzsk/zxps48XKwUMApQw3/hEjbXT9jxuPd8wJ1fWtKzZ+ZuPE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UO5XdKUV; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FJt9BdBB";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PqnlimnE"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O9PEkW2025649
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:12:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	k1V1OZLd8PuPRGQwN97+EBOj831I6h3gVcxIujOMO+c=; b=FJt9BdBBPANqD09t
-	Arva/bOhhI8YKPNoC3dT8lyPPLQWPFtCkEMrTT9P5TbeT9Bd5OfaXtdFdMUNxteW
-	OBNxC41ZioyCWD1j+IXkrJIa/ZAWEgqnTqOVpALi32BWAmlMQsEsGsP5W1+iLKZB
-	fCiIWq+aIGAqQr64amrtXf7rKBGSkNzVEpgVxNZhobTHWRS85XFFZ3e7o1tQJF91
-	HQZuk1CG8tO+YGTx5q78IxkF0TrPzlp2cefhTU7Dlt+Ch5FUGR2choeOKiCqOZGi
-	9FkOSKWDC1DgMSM2aJKj4H6PZaehuIs/Aj19TyCnypn+LKDycYNp+WbDMYotaOnD
-	V6WyYg==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvsfgt6ac-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:12:57 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38ecc48b3c2so3619094a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:12:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790248377; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UO5XdKUV"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a67fa7a64eso3224812a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:12:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790248376; cv=none;
         d=google.com; s=arc-20260327;
-        b=GHRx2IclFGmW4EU/V1rXV0U5+WfscbG4u9iQ9ToI+jU54vJ+VDVxng9VtMZeunSoIU
-         3TvcWqwmUnT+Rt9OofCzmamsSmHuW1BCmoqdvOjU8yI1lEovWaX7xN3N5u6bdXIE3tqV
-         4YRtGuAwuIQCPTw9jDX/rBNcH5EVdxt2T4ta/42ONdQyvbbyKxyvzE4cjvJuWy054e0f
-         i78w9itieqxQWfHuKcdBXSm1+a0qGdbEVBvfNm7bP20PPG36D07O9Er4Q2WtpmM73tjA
-         wnqh2YyjIMRxa+ums4qFebbaOplWzmmgG4KK1OzL5kmsMJk35bqk/tbSClpAiC7yjc9h
-         JCdw==
+        b=QlXBEcAz67R0PH1XI8Lfx901jnHmhR3X3mu4x7zB5Q6rGu5V1FidWbek5pyNko3oLn
+         xWzWTQIBOrvexBZ3WJt5lIeY3m7x24b+NLR+PEZ7kEhFTt94d8lNaJkuoauLCmw+m1Sg
+         H4ZBKbzZnqf9s/LJ5VVnf4EUiKsoJunZcK/IVFUim/3B88DmTU2b5uFoxtRoNoQPZ3pb
+         lbHWRffInEmooeWYe3VSA2OrlREK+0GQoQmpXbaFpdGFiaZe934fB7csbGyccxy1P6HY
+         RA2EpEmY6+HL4vyPECI6AcoYsLON9WlW6Jc7AGxZ9Shyzgl2FI01+JgU4a6Lc0F0+Yag
+         x4IA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=k1V1OZLd8PuPRGQwN97+EBOj831I6h3gVcxIujOMO+c=;
-        fh=FrBZsDKY2k1suwgw2rAFa/XPnPpNP89hMmLZhm5eD0Y=;
-        b=AJCa5LcWgvnBw/K7XFzl+uyAXouREKsQHluXeTXWvW2KoQa2bDWdETm2vhHmut186S
-         pZNqQOWeliOAI8AgHGKpyEoOKTeDCYW3wOBjIOB99w/nM9Xzr/6J4JmXvgVmsQJrJkf5
-         b7GS+V7s4Y7ydmoMEDkTojmIfItofa+0V23FF7tUbbQss4uy9ZpTsEthUKQsv1Z4M4XY
-         ncb1AfizZXZOSb0QpzXsm/0cI78hKd3iO3EBgBI2kb1Np+jRVnSWRMSLjT/RgByOHtB9
-         dpeHQiEP+XGzveYS1Aw1GdAFI2LWuyydyH4Nwzxt7ftYgDGFHftqijFgVbNNQ0m5n5lm
-         rlDQ==;
+        bh=BIF+DNqqKyKNEhEgpncpLAUjcdtzT9Ko8rcMz3NbVVk=;
+        fh=18JoE41tiE1xujjsIRRUp+eUYB0lCoXJi+VJ9jANPwo=;
+        b=NgHtTfANqCD2PIDpzOUoq5t2sMIGlduF0CKKEWp5qzlLzldTM94hYKcACLwoUmuIh1
+         nqmnHZ0PWPxXT22RRQY5UqpzOTSx5CfMySrD9dOEn2iFhomO7Xi5Ooi9l6N0HxyKU30e
+         baruLp0ZrJhLc66m/evEpEy+3qtAT407WCODosD+QmcDPK+fPQG9WaRCs5BhAIisCqPB
+         CNXLSIc1ECqjYG0MtiCBr8zWSDGYOiVfEtdZJqTtE29qgHW4fOcZ/iy8wwrUguCmpsIB
+         5JH21XxBkwnNgudZCNlwLo/BpB+8/pr+CCZT1fs4ZE0sIcFXMpDQyoQez1nvOlR1qOc0
+         TgDg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790248377; x=1790853177; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790248376; x=1790853176; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=k1V1OZLd8PuPRGQwN97+EBOj831I6h3gVcxIujOMO+c=;
-        b=PqnlimnEuHIHXjGxBdIDkWGXKkQ/4yHX+0g8osvt+RF/dYd8frI0kHUtqX9m0erW5c
-         wupyULw3mmR4qq6NT/02D6358gEJyQmrWjqamng31wANWN8v2wMXYV76FPCGLQOos7nq
-         3Au8NJvkL+s9A2mB0DGJk+Zy4p+lRlu+4ne5cqpIC3RZNSA+cBT06fFJMEyU662Mya4E
-         VK1dTXVR79emSKxzku3cibRCJvLwF3CWWk2CGEbSFihMb5Bnb5t7XI1q2gSFzzJuaONQ
-         I2jw2+ME+D6nG/GLqdj5WP1wyL4e5O6GFXKBqtDw6VImh5UUV/2+OO6LMRodjw9Fr5kk
-         9ARA==
+        bh=BIF+DNqqKyKNEhEgpncpLAUjcdtzT9Ko8rcMz3NbVVk=;
+        b=UO5XdKUVr0Tnk1hLWi6U3CPXLr93cZu/hKzPqXOfEb9XlRA0iR/adpDePOfLdoKpvd
+         5FjwlmLvQrvCHJHg4or9JvxUYzyPNL/Sb8ina3N19bebDtjEHcwJ9zjGwVAo7aKkRYeg
+         5LjvvdEApWh+gyHuf9RPlsIA0p9I4kErydeF8UZief7e6N/lRrhKU05VI8G/DZxVQLjO
+         7dMo/uOT+lVUArZxkGK+U+g2aqzCdtgO+FJravKU2rX05b5uYT6H0/8dxVEGWexA3sYf
+         giEgTf65NfSGtsvwzw3VsVMbuPP3Enl/KJAZea0xDbpy6OQbqaD+47wmAUhOpUZCqNZR
+         EP2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790248377; x=1790853177;
+        d=1e100.net; s=20260707; t=1790248376; x=1790853176;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=k1V1OZLd8PuPRGQwN97+EBOj831I6h3gVcxIujOMO+c=;
-        b=rz9IV+rOaeuvB1H1fEV2RqEqkAy4sqqjssoFSbGfsUbH81kT6aQYz1o8UNUjZcn5gj
-         qzUKv4DAJZol/4KSAPYvCj+tFIkX+ETJ3YThPWbalc/k5sERaVkIYwtguz1QvSDZbaiF
-         pESCpL3LJsi96I83+doYdI0ecDyK2aAkdRCY9fbxKAF/15eqRonCQTH1MP8cflJR6HOX
-         cQfnLQk7AIkXDsYWLl9eSJIba10dWPa3RCAiKXu3OJbJw7l0ii9c0TQGWbw7TtKpfK9E
-         3vI/L5eCV/xY74OPen23STegv9wdNev4oerjl187S5VprhefiVFUgA5MmjNEbApaduHM
-         FZMA==
-X-Forwarded-Encrypted: i=1; AKwUvBwKIu1BcuZyU7vl0wafu14HfeW/up9YLsAzniLfBgUdiachEgziudlFiSKtqadO5eCAMhVyow3h8OhF08E=@vger.kernel.org
-X-Gm-Message-State: AFuF++kIaBKTzf0E1hcrmogIP/0g4aJqLZ2+Nlko/L+d33l/jDl3JvE+
-	74ubvmPvdhUxp0g/nEjtVLpIlGw4sWeUT7ByHgEoqEF/4Sb3LpV5jEBPXWq6h9Eq9K1mL5+rNwC
-	2t9Hh6iGsSJ2umTWBXjAXfdLl7oE/CU3CYsr5NFODMAFsxaMuuS3hr5V7v1IMTsMQGYSa18rPFZ
-	tVTPP3Hjh/Fg5rWd4AYcZQaBmtKmy+bkO4iqZsCDAAgw==
-X-Gm-Gg: AYBFou3iElFHWVbnpglweKS6jR++eGRQQ8IywUgS/dW9LCKM+BzGJNdJCttNQr/f0ky
-	L038xcwhIfnNr/9oLIVDcBypcU4mNi63Izkj3AgVZG4nXPBGt27B+8CQrGw8z781aOzd/aAaMqi
-	W0J3jHSeQehXZ9SVDEu+mr+he+t/7lJr3GAwYi2nGgRgEMvP0u4+pg/wMbxQ==
-X-Received: by 2002:a17:90b:4a08:b0:39e:6c6a:6572 with SMTP id 98e67ed59e1d1-3a09896f00dmr1967118a91.53.1790248371993;
-        Thu, 24 Sep 2026 04:12:51 -0700 (PDT)
-X-Received: by 2002:a17:90b:4a08:b0:39e:6c6a:6572 with SMTP id
- 98e67ed59e1d1-3a09896f00dmr1967095a91.53.1790248371549; Thu, 24 Sep 2026
- 04:12:51 -0700 (PDT)
+        bh=BIF+DNqqKyKNEhEgpncpLAUjcdtzT9Ko8rcMz3NbVVk=;
+        b=k2wKbQJ86hra9yvpxDhpgFTITTcm0s9eEovPNDxwOZP2GWQDvCaY8n93sd2F56MQ/X
+         rm0WC5aFnc6F95aKrLQsPKci5TPJM0Mz2rDnrlSQv5+eG8E2VpifXPsTsjFSuMGX3nXx
+         Qa7Ii3HImcPb3sL4njisGlfNlrX1CJ+EVN+tM3rh6S+R3hErWs/BPbnH5CyJJNPpv8qG
+         yLcVY9PNdy7D4mUpPvbW++h3HsN2iXkFeDThMaAhSD62+b7U/HfPp/kR9B9K+D8tgfHG
+         qjLN6wZOZgQ3dXGVJd6+IG18jbl4HZxFPsr7c2cn2sVk13ZlYKEDgnPNbmo2lS7vpfIm
+         vdBg==
+X-Forwarded-Encrypted: i=1; AKwUvBxofF89CIR8OsZ/dLFr0gCGoVL2xxAmTOlVrL8CHB4PxptAClar9X3rR1RBmYrW4aiPCL/wu2/B6CkKbXo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mw2thffNF2ZOZBIGlyvaeWO4JYBlV4iE8sCzAs/2+8ZY6e2vaC
+	b0wdl/leqUf8L/Pr1Bm1rM2aWLilbBhLCjOPtWzpXBvRf6P/lgFNpbk4NhuYksoPixX9Smh7ZXH
+	4131cZEbbDk7vXjqij7v6ERppRNlzHP4=
+X-Gm-Gg: AYBFou38EEsGfRcGPJZz/OP9qsRsgjryDcia1YlibgNpx/NK63J3SS23y+LGh24BRYS
+	zn3r1lrdkJxaQJ073HzHyFUnPLkzxeiS5GYeMYvtkaag9r1vUKHq00UeIZZ0P1tr5Hvgwt+bzcS
+	sSGqHUQ1KOz/7ngAUBlJttcN0r+MJiZ9LepUMaalC8wkAqJ0r1eFJBAc4NlCXagnxoLl8vtXFDq
+	O7QORuhITuauiN1j4va8hwDxwXIIziscrRlQ4J8Qezs3a5uqOwd8DWP1xd2QYYDFovydtV15HzN
+	KO+CMNvVnhi82dhOlllEcekZoO7auQk11M4W3UMoj5x3Qu4cT2nhXeY/
+X-Received: by 2002:a05:6402:278f:b0:6aa:665:830 with SMTP id
+ 4fb4d7f45d1cf-6aac8f4be3bmr1951363a12.15.1790248376170; Thu, 24 Sep 2026
+ 04:12:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923-qcom_xpcs_nord_emac-v1-0-4b1c682af70f@oss.qualcomm.com>
- <20260923084921.3942100-1-zhangfei.gao@oss.qualcomm.com> <20260923084921.3942100-2-zhangfei.gao@oss.qualcomm.com>
- <e05baad3-49ec-4db0-ac70-ffd8e0f52b10@lunn.ch>
-In-Reply-To: <e05baad3-49ec-4db0-ac70-ffd8e0f52b10@lunn.ch>
-From: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
-Date: Thu, 24 Sep 2026 19:12:40 +0800
-X-Gm-Features: AclHuK8TGQHMGqvYSLBah1tI2wfOeuTGvUtjSV6O-ttPpvUSi2Ylv2WtiPcL46s
-Message-ID: <CAFkd8htkQnq-KVKMc-qTOFvbgi9BRdnewzmyu4c5B2hULDKPdQ@mail.gmail.com>
-Subject: Re: [PATCH 1/3] net: stmmac: support low-speed USXGMII validation
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: shengchao.guo@oss.qualcomm.com, bartosz.golaszewski@oss.qualcomm.com,
-        mohd.anwar@oss.qualcomm.com, maxime.chevallier@bootlin.com,
-        andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-        kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
-        alexandre.torgue@foss.st.com, hkallweit1@gmail.com,
-        linux@armlinux.org.uk, netdev@vger.kernel.org,
-        linux-stm32@st-md-mailman.stormreply.com,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260924104831.1081137-1-caixinchen1@huawei.com> <20260924104831.1081137-4-caixinchen1@huawei.com>
+In-Reply-To: <20260924104831.1081137-4-caixinchen1@huawei.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Thu, 24 Sep 2026 13:12:44 +0200
+X-Gm-Features: AclHuK814JZB8XXMibt7ISdY9GmULY6F59LGn_JEl7Ybs7QawxIOFdTv7Ii5ZE4
+Message-ID: <CAOQ4uxhMhcxq5+crz84f8xj+Wi1bHhNqa_TecP-RvipheBR+ug@mail.gmail.com>
+Subject: Re: [PATCH RFC -next 03/12] fs: pass struct path to xattr helpers
+To: Cai Xinchen <caixinchen1@huawei.com>
+Cc: mic@digikod.net, gnoack@google.com, paul@paul-moore.com, jmorris@namei.org, 
+	serge@hallyn.com, corbet@lwn.net, skhan@linuxfoundation.org, 
+	rdunlap@infradead.org, gregkh@linuxfoundation.org, rafael@kernel.org, 
+	dakr@kernel.org, dlemoal@kernel.org, hch@lst.de, axboe@kernel.dk, 
+	viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz, 
+	dhowells@redhat.com, code@tyhicks.com, linkinjeon@kernel.org, 
+	sj1557.seo@samsung.com, yuezhang.mo@sony.com, hirofumi@mail.parknet.co.jp, 
+	cel@kernel.org, jlayton@kernel.org, neil@brown.name, okorniev@redhat.com, 
+	Dai.Ngo@oracle.com, tom@talpey.com, miklos@szeredi.hu, 
+	senozhatsky@chromium.org, chenxiaosong@chenxiaosong.com, zohar@linux.ibm.com, 
+	roberto.sassu@huawei.com, dmitry.kasatkin@gmail.com, eric.snowberg@oracle.com, 
+	stephen.smalley.work@gmail.com, omosnacek@gmail.com, casey@schaufler-ca.com, 
+	nanx95726@gmail.com, djwong@kernel.org, daniel@iogearbox.net, 
+	linux-security-module@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	netfs@lists.linux.dev, ecryptfs@vger.kernel.org, exfat@lists.linux.dev, 
+	linux-nfs@vger.kernel.org, linux-unionfs@vger.kernel.org, 
+	linux-cifs@vger.kernel.org, linux-integrity@vger.kernel.org, 
+	selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	xiujianfeng@huawei.com, lujialin4@huawei.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=YfoodARf c=1 sm=1 tr=0 ts=6ab505b9 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=gowsoOTTUOVcmtlkKump:22 a=oAscVk_Hh32IO0NGH0cA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-ORIG-GUID: 0Yytb3oBIFEcZISkD4xBFpkfFHEa7aHy
-X-Proofpoint-GUID: 0Yytb3oBIFEcZISkD4xBFpkfFHEa7aHy
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA0NiBTYWx0ZWRfX8YeGOZ6gCE7S
- h6MPiC986ugRuznI5Gl35tTq3q2CFWtFRwxDToaB22nt1EvBxe6G6GNjWBybniV3tcPsu6ex7dp
- WrYCooatHUcHEtF35qMHnr9SmNU9U5w=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA0NiBTYWx0ZWRfXwjgiXNNyOwx9
- HEovKnjaghWtplutTUYNqfQLebZo1udjaJROGQ1GSwM4NT2SBfWc4smJA2ZAUzrugLCai5XhJUD
- I1xm3ntPYz/nwao7jK2duPqFtn4StwhLc1B5W+3URQIwb4OLF5GLuoAcybuol+YtizPrLE+qwkN
- C0Q4N15//ndB/88IGia27wPCrYiPXU628wujqHAVg9eOxZVeNq8UseYjNTrERcHUZwFW+5plgFV
- eYUKDrNaRPTm82k4pZnEAIJGWNV8+o5gFh6RDgEwBm/chx3EBTJadEWVb7+jRhP+vYzcoEnC9jx
- azPZeo+6X3aGOGs/M5SuN3AAdu5Plylwn6hiGcYlO8T+IAQK5TVtGfaCAbcE9BnYW6CNi134Ao7
- ai5vODxv2AHn7r45KqU9hPdLT8De+1DG6Q1Y04ie2oNjslrODiYbwTK24PxXSyfN90e4Res6IGM
- 479w4WVc6JsShwx07oA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 lowpriorityscore=0 spamscore=0
- priorityscore=1501 phishscore=0 adultscore=0 malwarescore=0 bulkscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609240046
 
-On Wed, Sep 23, 2026 at 9:09=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wrote:
+On Thu, Sep 24, 2026 at 12:22=E2=80=AFPM Cai Xinchen <caixinchen1@huawei.co=
+m> wrote:
 >
-> > The XPCS also consumes the PHY-generated Clause 37 in-band link and
-> > speed status, so USXGMII must use in-band signalling.
+> vfs_setxattr(), vfs_getxattr(), vfs_listxattr() and vfs_removexattr()
+> along with their __vfs_setxattr_locked()/__vfs_removexattr_locked()
+> counterparts and the do_setxattr()/do_getxattr()/listxattr()/
+> removexattr() syscall helpers take a struct mnt_idmap and a struct
+> dentry even though callers either already hold a struct path (or a
+> struct file) or have to pass &nop_mnt_idmap because no idmapped
+> mount is involved.  Switch them all to take a struct path instead
+> and derive the idmap and dentry from it where needed.
 >
-> Is this a qualcomm specific feature, or defined in the databook of the
-> licensed IP.
-
-This is defined by the Synopsys DWC XPCS databook, rather than being
-  Qualcomm-specific. The Clause 37 USXGMII implementation added by this
-  series uses PHY-generated in-band status containing link, speed and
-  duplex information.
-
+> __vfs_setxattr_noperm(), __vfs_getxattr(), __vfs_setxattr(),
+> __vfs_removexattr() and vfs_getxattr_alloc() keep taking the idmap
+> and dentry as they are only called from contexts that operate on
+> bare dentries such as LSM internals.  The SELinux and Smack
+> inode_setsecctx implementations now pass the path they got from the
+> previous patch straight through.
 >
-> >       case DW_AN_C37_USXGMII:
-> > -             return LINK_INBAND_DISABLE;
-> > +             /* The PCS consumes the PHY's CL37 in-band link and speed=
- status. */
-> > +             return LINK_INBAND_ENABLE;
+> The security_inode_*xattr() hooks invoked from fs/xattr.c keep
+> taking the idmap and dentry for now; they will be converted together
+> with the LSM hooks themselves in separate patches.
 >
-> I ask, because when i look at this, i immediately think is this a
-> behaviour change? Is it going to break existing systems? Or was the
-> old code broken?
-
- DW_AN_C37_USXGMII is newly introduced by this series. This change adds
-  a separate case for that new mode and leaves the existing DW_10GBASER
-  and DW_2500BASEX cases returning LINK_INBAND_DISABLE. Therefore, it
-  does not change the behaviour of any existing XPCS mode or system. It
-  also matches the implementation added by this series, which enables
-  Clause 37 AN and reads the received USXGMII status in
-  xpcs_get_state_c37_usxgmii().
-
-        case DW_10GBASER:
-        case DW_2500BASEX:
-                return LINK_INBAND_DISABLE;
-
-+       case DW_AN_C37_USXGMII:
-+               /* The PCS consumes the PHY's CL37 in-band link and
-speed status. */
-+               return LINK_INBAND_ENABLE;
-+
-
+> evm_calc_hmac_or_hash() contains a redundant xattr size sanity check
+> which calls vfs_getxattr() only to emit a debug message when the
+> kernel-side and user-space-side xattr sizes differ, without ever
+> influencing the result.  Because that function only has a dentry, the
+> call cannot be migrated to the new path-based signature; drop the
+> check and the now unused user_space_size variable instead.
 >
-> The commit message is where you try to guess what reviewers are going
-> to ask, and answer the question before they ask. Seeing such answers
-> in the commit message gives me a good idea you have done your due
-> diligence, and the patch is probably O.K. Without such comments, i
-> have to assume this is poor quality code and really exam it in detail.
+> Assisted-by: opencode: glm-5.3
+> Signed-off-by: Cai Xinchen <caixinchen1@huawei.com>
+> ---
+>  drivers/block/zloop.c               |   4 +-
+>  fs/cachefiles/xattr.c               |  32 ++++----
+>  fs/ecryptfs/inode.c                 |   8 +-
+>  fs/nfsd/nfs4ctl.h                   |   4 +-
+>  fs/nfsd/vfs.c                       |  57 +++++++-------
+>  fs/overlayfs/copy_up.c              |   4 +-
+>  fs/overlayfs/overlayfs.h            |  18 +++--
+>  fs/overlayfs/xattrs.c               |  13 +++-
+>  fs/smb/server/smb2pdu.c             |  75 +++++++------------
+>  fs/smb/server/smb_common.c          |   2 -
+>  fs/smb/server/smbacl.c              |  19 +++--
+>  fs/smb/server/tests/smbacl_kunit.c  |   6 +-
+>  fs/smb/server/vfs.c                 | 112 ++++++++++++----------------
+>  fs/smb/server/vfs.h                 |  39 ++++------
+>  fs/smb/server/vfs_cache.c           |   3 +-
+>  fs/xattr.c                          |  92 ++++++++++++-----------
+>  include/linux/xattr.h               |  22 +++---
+>  security/integrity/evm/evm_crypto.c |   8 +-
+>  security/selinux/hooks.c            |   4 +-
+>  security/smack/smack_lsm.c          |   4 +-
+>  20 files changed, 243 insertions(+), 283 deletions(-)
+>
 
-Thanks for the guidance.
+[...]
 
-Thanks
+> diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
+> index e963701b4c87..6dc241f195a6 100644
+> --- a/fs/overlayfs/copy_up.c
+> +++ b/fs/overlayfs/copy_up.c
+> @@ -83,7 +83,7 @@ int ovl_copy_xattr(struct super_block *sb, const struct=
+ path *oldpath, struct de
+>         if (!old->d_inode->i_op->listxattr || !new->d_inode->i_op->listxa=
+ttr)
+>                 return 0;
+>
+> -       list_size =3D vfs_listxattr(old, NULL, 0);
+> +       list_size =3D vfs_listxattr(oldpath, NULL, 0);
+>         if (list_size <=3D 0) {
+>                 if (list_size =3D=3D -EOPNOTSUPP)
+>                         return 0;
+> @@ -94,7 +94,7 @@ int ovl_copy_xattr(struct super_block *sb, const struct=
+ path *oldpath, struct de
+>         if (!buf)
+>                 return -ENOMEM;
+>
+> -       list_size =3D vfs_listxattr(old, buf, list_size);
+> +       list_size =3D vfs_listxattr(oldpath, buf, list_size);
+>         if (list_size <=3D 0) {
+>                 error =3D list_size;
+>                 goto out;
+> diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
+> index d915b87c0b06..c13f6b2c915c 100644
+> --- a/fs/overlayfs/overlayfs.h
+> +++ b/fs/overlayfs/overlayfs.h
+> @@ -291,8 +291,7 @@ static inline ssize_t ovl_do_getxattr(const struct pa=
+th *path, const char *name,
+>
+>         WARN_ON(path->dentry->d_sb !=3D path->mnt->mnt_sb);
+>
+> -       err =3D vfs_getxattr(mnt_idmap(path->mnt), path->dentry,
+> -                              name, value, size);
+> +       err =3D vfs_getxattr(path, name, value, size);
+>         len =3D (value && err > 0) ? err : 0;
+>
+>         pr_debug("getxattr(%pd2, \"%s\", \"%*pE\", %zu, 0) =3D %i\n",
+> @@ -325,9 +324,13 @@ static inline int ovl_do_setxattr(struct ovl_fs *ofs=
+, struct dentry *dentry,
+>                                   const char *name, const void *value,
+>                                   size_t size, int flags)
+>  {
+> +       struct path path =3D {
+> +               .mnt =3D ovl_upper_mnt(ofs),
+> +               .dentry =3D dentry,
+> +       };
+> +
+>         /* Use vfs_setxattr(), not __vfs_setxattr(): it idmaps the securi=
+ty.capability rootid. */
+> -       int err =3D vfs_setxattr(ovl_upper_mnt_idmap(ofs), dentry, name,
+> -                              value, size, flags);
+> +       int err =3D vfs_setxattr(&path, name, value, size, flags);
+>
+>         pr_debug("setxattr(%pd2, \"%s\", \"%*pE\", %zu, %d) =3D %i\n",
+>                  dentry, name, min((int)size, 48), value, size, flags, er=
+r);
+> @@ -344,7 +347,12 @@ static inline int ovl_setxattr(struct ovl_fs *ofs, s=
+truct dentry *dentry,
+>  static inline int ovl_do_removexattr(struct ovl_fs *ofs, struct dentry *=
+dentry,
+>                                      const char *name)
+>  {
+> -       int err =3D vfs_removexattr(ovl_upper_mnt_idmap(ofs), dentry, nam=
+e);
+> +       struct path path =3D {
+> +               .mnt =3D ovl_upper_mnt(ofs),
+> +               .dentry =3D dentry,
+> +       };
+> +
+> +       int err =3D vfs_removexattr(&path, name);
+>         pr_debug("removexattr(%pd2, \"%s\") =3D %i\n", dentry, name, err)=
+;
+>         return err;
+>  }
+> diff --git a/fs/overlayfs/xattrs.c b/fs/overlayfs/xattrs.c
+> index 5ae44b9c8790..b4658324b9f3 100644
+> --- a/fs/overlayfs/xattrs.c
+> +++ b/fs/overlayfs/xattrs.c
+> @@ -45,7 +45,7 @@ static int ovl_xattr_set(struct dentry *dentry, struct =
+inode *inode, const char
+>         if (!value && !upperdentry) {
+>                 ovl_path_lower(dentry, &realpath);
+>                 with_ovl_creds(dentry->d_sb)
+> -                       err =3D vfs_getxattr(mnt_idmap(realpath.mnt), rea=
+ldentry, name, NULL, 0);
+> +                       err =3D vfs_getxattr(&realpath, name, NULL, 0);
+>                 if (err < 0)
+>                         goto out;
+>         }
+> @@ -86,7 +86,7 @@ static int ovl_xattr_get(struct dentry *dentry, struct =
+inode *inode, const char
+>         ovl_i_path_real(inode, &realpath);
+>         /* Use vfs_getxattr(), not __vfs_getxattr(): it idmaps the securi=
+ty.capability rootid. */
+>         with_ovl_creds(dentry->d_sb)
+> -               return vfs_getxattr(mnt_idmap(realpath.mnt), realpath.den=
+try, name, value, size);
+> +               return vfs_getxattr(&realpath, name, value, size);
+>  }
+>
+>  static bool ovl_can_list(struct super_block *sb, const char *s)
+> @@ -105,15 +105,20 @@ static bool ovl_can_list(struct super_block *sb, co=
+nst char *s)
+>
+>  ssize_t ovl_listxattr(struct dentry *dentry, char *list, size_t size)
+>  {
+> -       struct dentry *realdentry =3D ovl_dentry_real(dentry);
+> +       struct path realpath;
+>         struct ovl_fs *ofs =3D OVL_FS(dentry->d_sb);
+>         ssize_t res;
+>         size_t len;
+>         char *s;
+>         size_t prefix_len, name_len;
+>
+> +       if (ovl_dentry_upper(dentry))
+> +               ovl_path_upper(dentry, &realpath);
+> +       else
+> +               ovl_path_lower(dentry, &realpath);
+> +
+
+that's ovl_path_real()
+
+I have no technical issue with the ovl patch bits in this series.
+Anyway, I guess landlock is not going to enforce anything on the
+private mnt with ovl_creds anyway?
+
+Thanks,
+Amir.
