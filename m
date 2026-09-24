@@ -1,193 +1,125 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A77C73F104E
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:45:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E831B4519AF
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:46:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790243164; cv=none; b=AUVO/uuFvJmvEeYra4bLy0L9j1YEZ8vwFTmPaZfNrJ/t2EEsNJE/qNVF5GEwDodA+KRtsULCpw5kERT9kqUG0wmzPv57Y/QQ5Rfgxgflq+expPHQ9ELq/vPuvsrrlogXLTgFrLJoEj+wnFgDztnv1Sxg0JASUW2vMhRC2ZQxQss=
+	t=1790243169; cv=none; b=uqZsD1yHtv05qRb10rCFcxeoEEVjXL7+DtYzqO5ZlpymqPTwviqG6Qx95awqmtppMPiUWpgeVmoA2+I0gJrAn4PyUM9//9sEOSnjhAqCi9/GZu3B+9toV1j0UGouoczhsfJ21r8q4Ype42OfRCmnmaEQl+PFzvrYn1a8KMG5PRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790243164; c=relaxed/simple;
-	bh=VcmQrORzDPYON7a1kpg7FxVSiQsluwV+TAnKBk9x9PM=;
+	s=arc-20240116; t=1790243169; c=relaxed/simple;
+	bh=Lgdov1EQlo0fPsheuchJYvzfLXqpNsd19w5kuF3sCGk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CictV1sRleIJJTlUFrvemrEJ2ZzAfTMc0gwNVfFtRIIXFYXnkrOpE1DFazuQv8MOC5zs6b9D/cwBKx8i1oxw0GdRUfv8U8+TLDdvT95wijrBYRYHiAk15KtPh0lzdRcjOaOwaFVIvWf5fonvIPeJ+6V4E0P1m9S193hLBDoGoYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nj3U8BVw; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 MIME-Version; b=l3TqMwtoAN274Yp46jjea00u45Zq3msAVREV4YpKe7qEiUe080l/b4J4lSf+IBeBFsX5jaD9LZy5ggk9tt40sosFAtvb24ySVQFvQjClrYUO3FVOdijimgGn0CrZ8Kg5ccghSH+AIwhQ+mxmJj6JLXvqohw5+zlBgRw3QQyoE2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KjCHOzk7; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nj3U8BVw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790243150; x=1821779150;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=VcmQrORzDPYON7a1kpg7FxVSiQsluwV+TAnKBk9x9PM=;
-  b=nj3U8BVwFTXD1qdnVi7mih/4+hTENVCnUd5R/wwcSUOI7TNUiw87/j8s
-   YZTzS83vO2UcDfe4whmNR1MvwNopNrfBxhwcBrscYIwVbu4OyVXeBjbfn
-   Le7ANa4iDxypp2Gp/9I7eg6WPKbAdeL6PgKCNctOs0BnbIlKEJsA9Hoo8
-   eukE1GdOaq997zF6Y6UEY6G4uzk+odUe8Ph5uqj+JuZonsoK4A7zkl2ip
-   75XqQ/gGYWlRiGBwF08N83XWDTpJwVh++6OEuM3MONPoVk4z+epUCzA4v
-   v02j9UquxHBRzDXWrDpCNvFuzW+70klg2YkxS/k7W0w+Z0oGG7HanoBZl
-   g==;
-X-CSE-ConnectionGUID: I97oKCIARv+HgrOTLCDddg==
-X-CSE-MsgGUID: vhq8Z1FOShmycLmjqt6Zbg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="90048144"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="90048144"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 02:45:44 -0700
-X-CSE-ConnectionGUID: mWOojnUKQHuJQz/BmCzgkQ==
-X-CSE-MsgGUID: Q2BMOCjwQGiugNhLkVa5bg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="311879545"
-Received: from xiaolu.sh.intel.com ([10.239.146.103])
-  by orviesa001.jf.intel.com with ESMTP; 24 Sep 2026 02:45:41 -0700
-From: Xiao Lu <xiaolu.xie@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	jani.nikula@linux.intel.com,
-	rodrigo.vivi@intel.com,
-	joonas.lahtinen@linux.intel.com,
-	tursulin@ursulin.net,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	Xiao Lu <xiaolu.xie@intel.com>
-Subject: [PATCH v3 1/2] drm/i915/dp: fix PBN in ALLOCATE_PAYLOAD request to use actual video bandwidth
-Date: Thu, 24 Sep 2026 17:43:15 +0800
-Message-ID: <20260924094316.822211-2-xiaolu.xie@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260924094316.822211-1-xiaolu.xie@intel.com>
-References: <20260922092647.2263962-1-xiaolu.xie@intel.com>
- <20260924094316.822211-1-xiaolu.xie@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KjCHOzk7"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so10254385e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:46:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790243159; x=1790847959; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fQw0LiOPF1WW9oddWAzXJ82cJDcoK6v63Klwt0PVxSU=;
+        b=KjCHOzk7puFfCZeijXVGM4aYpHLyWB41ldo15TXu6Rmzam08nOhFM60pxNhrqG6X+n
+         UdLY+xu94h0rEdjww1Hj4lKiHXddLnb3c3MY3JWAYPu2HxYq2/sJEtfbD90DRzUc26B+
+         FDO7Bvvp19tX3oKiEr8yvzQU65a0U8P7IDMTV6u98yukAxkIk/8JErzGAmNyZ6Oh54TA
+         AmLdDLntiz6qdE9KNZQ+04jaq+cxuK94TOCHSHnAVSn1m9e1kuzIBFDFKp3fIMIWY/wN
+         C0ZaqTLr2iag7WmXeP0sieJjiFHRgUdbToB+A7XGGyr4TREyidc5MUdRyYrTK6Ps+twH
+         h3Ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790243159; x=1790847959;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fQw0LiOPF1WW9oddWAzXJ82cJDcoK6v63Klwt0PVxSU=;
+        b=kHkEriJk3oNww/KAmawjfUCij2/zZ/q7ubBhstoHFWk+FL6DdlHH3xDyXW8YWYHsUF
+         NzvBj3guNuTlNpXAXjx4eqV1FOxuISePJQuukq/MBqqtLVNGu47qiUG0e0MfvDbwLO9B
+         RwS2N/HAD1cKQschWP8T6hIT/XvrqkodkuxE04L8gI4MLETMFu5HYQJSAjtTtKuJuHdM
+         Gdy6DObHzTyEaMdG5yma4LHOlGAFTqOkUpWamCmUpXUGty0FXfcpaj6eQmHMCgnE+iH7
+         DEJ4khLhcEXb+nBIJ6kxmAv7Z08MxuyWiK2dDKDqJKr+/6RwbW3u1CeM21dlwpznMuZ3
+         usYQ==
+X-Forwarded-Encrypted: i=1; AKwUvByAD9q38YvF/gROWDNlKEeu16TPFNTWA7D6s4vP5rcawvC0LBueH8K3MgrK1j/4D15tMfuLmiffMXl0QLQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAqsm9EJRVMOSfZENFwWsqfTYhy6J1H9QIx0JP2Xt10YglqQsn
+	DJQVkzFDMGfSoykJ33WEXG9UvObK/65Lc3IrRu0i0Sxdi5W8fe2pjf8l
+X-Gm-Gg: AYBFou2UnjAV9tcBS0aC0CxrnbkME5QGuO+kABo6Kc9v2984BJqkfRVlYR6IoZsJDca
+	YPtWq/RBbgZqjUNxcwYZxoUyK1Br0pGZQCyai6zOITVChdcanIfWzlH7xKFwBVMyoSpC/nrLt2t
+	PqIFQcuXwxUuQX/y4TpkuqSwIhX4jdl11OSYvWjJflxVd5dx588v8IIBf65mKv/BBowINOZ0KRA
+	poM+BAieP34siNzwJdY0w8sPtmrkdMhh5zSTGVvHNNlZXOF7kQVgkofHR+27MHoVtGcW/oa+2wm
+	2MRJs6UL03kQ9Fb/YOoEQ+09kOEqlnmZmwwAgZBruKomsZvEU5bm5sFQI1rBYWZIZ/HysOD9Q2a
+	zkkxXkeRaUU80TArcno06pgVH6oUFVjGtbDeO0uCPQq4h/e0YIW585C+0R4OV4Eue0ne1E4gcDz
+	8UxuZcEyFXq9xakPHWCvjbKQb68w0NHwVDpZApykiWGSumjar/1haz7DcOm1fHd50kSiFWuIYK
+X-Received: by 2002:a05:600c:3b01:b0:49f:ce78:3570 with SMTP id 5b1f17b1804b1-49fe670bb82mr28973465e9.33.1790243159120;
+        Thu, 24 Sep 2026 02:45:59 -0700 (PDT)
+Received: from fedora ([213.55.237.122])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886876c500sm13947104f8f.19.2026.09.24.02.45.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 02:45:58 -0700 (PDT)
+From: Michal Szpakowski <michi.szpakowski@gmail.com>
+To: Lukas Wunner <lukas@wunner.de>,
+	Jordan Brough <jordan@brough.org>
+Cc: linux-hwmon@vger.kernel.org,
+	Guenter Roeck <linux@roeck-us.net>,
+	Jean Delvare <jdelvare@suse.com>,
+	Henrik Rydberg <rydberg@bitmath.org>,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (applesmc) Expose the SMC battery charge limit
+Date: Thu, 24 Sep 2026 11:45:44 +0200
+Message-ID: <20260924094544.324119-1-michi.szpakowski@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <arTYEAnYYyDFsmc4@wunner.de>
+References: <arTYEAnYYyDFsmc4@wunner.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-When computing the number of time slots for an MST stream,
-intel_dp_mtp_tu_compute_config() was passing the TU-aligned PBN value
-to drm_dp_atomic_find_time_slots() instead of the actual video
-bandwidth PBN.
+On Thu, Sep 24, 2026 at 09:58:10AM +0200, Lukas Wunner wrote:
+> Jordan Brough is working on similar patches, perhaps you two can
+> work together to make sure there's no breakage on either of your
+> laptops an no conflict between your patches:
+>
+> https://lore.kernel.org/r/20260918175052.85461-1-jordan@brough.org
 
-The aligned PBN is computed by rounding up the raw video bandwidth to
-the nearest TU boundary and aligning to the hardware TU granularity
-(4 / lane_count). This inflated PBN is then used as the requested PBN
-in the ALLOCATE_PAYLOAD sideband message, causing the MST core's
-bandwidth check in drm_dp_mst_atomic_check_port_bw_limit() to
-incorrectly reject configurations that should fit within the available
-link bandwidth.
+Thanks, I had missed that series. Jordan's approach is the better one:
+extending the battery hooks to SBS batteries is the proper fix for the
+problem I worked around by walking the supplies, and the BFCL/LED
+handling covers hardware I do not have. Please consider my patch
+withdrawn in favour of his; I am happy to test v3 and add a Tested-by.
 
-Per DP v2.1b Section 2.6.4.1, the PBN in an ALLOCATE_PAYLOAD request
-represents the video stream bandwidth and is independent of the source
-TX link rate. The same video stream should result in the same PBN value
-regardless of the link rate used on the source side. Passing the
-TU-aligned PBN violates this requirement, as it incorporates link-rate-
-specific TU granularity into the payload bandwidth value.
+Two things from a MacBookPro13,1 (2016, 13", USB-C, no MagSafe) that
+may be useful for it, Jordan:
 
-This was observed in a 3-display MST daisy-chain topology (PS8650 MST
-hub → ViewSonic VP2468 × 2 → Lenovo Pro 27UD-10) where switching
-Lenovo to 4K@60Hz failed with -ENOSPC despite the actual video
-bandwidth fitting within the DFP link capacity. The inflated PBN of
-the VP2468 streams (537 instead of the correct 532 for 1920x1080@60Hz)
-consumed excess slots, leaving insufficient room for the 4K@60Hz stream.
+1. This SMC has no BFCL key at all. A dump of all 798 keys has BCLM
+   but no BFCL (the BF* keys here are BFCT, BFLO and BFWC), and asking
+   the driver directly, through a debug attribute that calls
+   applesmc_get_entry_by_key():
 
-Fix this by separating raw_pbn (the actual video bandwidth used for
-payload allocation and ALLOCATE_PAYLOAD) from the aligned pbn (used
-only for TU hardware programming). Pass raw_pbn to
-drm_dp_atomic_find_time_slots() so that bandwidth accounting in the
-MST core reflects the true stream requirements.
+     BFCL (no such key)
+     BCLM type=ui8  len=1 flags=0xd0 R W
 
-Depends-on: <20260908132844.2309047-1-xiaolu.xie@intel.com>
-  ("drm/dp/mst: track allocated_pbn from ALLOCATE_PAYLOAD reply")
+   With v2's set_property, the unconditional applesmc_write_key(BFCL)
+   after the BCLM write therefore fails with -EINVAL, so userspace gets
+   an error although the limit was in fact applied. Gating the LED
+   write on applesmc_has_key(BFCL) at init, like the BCLM check, would
+   fix that.
 
-The companion patch above tracks the allocated_pbn returned in the
-ALLOCATE_PAYLOAD reply from the branch device. Together with this fix,
-the correct raw_pbn is used as the requested PBN in the
-ALLOCATE_PAYLOAD request, and the allocated_pbn from the reply is used
-for bandwidth limit checks. This pairing ensures that both the request
-and the check accurately reflect the actual video stream bandwidth
-and any per-hop capacity constraints along the MST path.
+2. The SMC silently drops writes it does not like: applesmc_write_key()
+   returns 0 and the key keeps its old value (seen on this machine with
+   the CLWK key; BCLM accepted everything I tried between 50 and 100).
+   Reading BCLM back after the write and returning -EINVAL on a
+   mismatch costs one read and makes the failure visible.
 
-Signed-off-by: Xiao Lu <xiaolu.xie@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 33 +++++++++++++++------
- 1 file changed, 24 insertions(+), 9 deletions(-)
+For what it is worth, BCLM=80 on this machine stops charging at 79% of
+charge_full with status "Full", the value survives reboots, and UPower
+1.91 picks the property up as charge-end-threshold once it re-reads the
+battery.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 0c362784a..31e846aad 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -350,6 +350,7 @@ int intel_dp_mtp_tu_compute_config(struct intel_dp *intel_dp,
- 		if (is_mst) {
- 			int remote_bw_overhead;
- 			int remote_tu;
-+			int raw_pbn;
- 			fixed20_12 pbn;
- 
- 			remote_bw_overhead = intel_dp_mst_bw_overhead(crtc_state,
-@@ -369,9 +370,10 @@ int intel_dp_mtp_tu_compute_config(struct intel_dp *intel_dp,
- 			 * crtc_state->dp_m_n.tu), provided that the driver doesn't
- 			 * enable SSC on the corresponding link.
- 			 */
--			pbn.full = dfixed_const(intel_dp_mst_calc_pbn(adjusted_mode->crtc_clock,
--								      link_bpp_x16,
--								      remote_bw_overhead));
-+			raw_pbn = intel_dp_mst_calc_pbn(adjusted_mode->crtc_clock,
-+							 link_bpp_x16,
-+							 remote_bw_overhead);
-+			pbn.full = dfixed_const(raw_pbn);
- 			remote_tu = DIV_ROUND_UP(pbn.full, mst_state->pbn_div.full);
- 
- 			/*
-@@ -384,11 +386,10 @@ int intel_dp_mtp_tu_compute_config(struct intel_dp *intel_dp,
- 			remote_tu = ALIGN(remote_tu, 4 / crtc_state->lane_count);
- 
- 			/*
--			 * Also align PBNs accordingly, since MST core will derive its
--			 * own copy of TU from the PBN in drm_dp_atomic_find_time_slots().
--			 * The above comment about the difference between the PBN
--			 * allocated for the whole path and the TUs allocated for the
--			 * first branch device's link also applies here.
-+			 * Keep the PBN corresponding to the aligned hardware TU separate
-+			 * from raw_pbn. The aligned value describes the TU granularity of
-+			 * the first downstream branch link; raw_pbn is the video bandwidth
-+			 * value passed to the MST payload allocator and ALLOCATE_PAYLOAD.
- 			 */
- 			pbn.full = remote_tu * mst_state->pbn_div.full;
- 
-@@ -397,7 +398,21 @@ int intel_dp_mtp_tu_compute_config(struct intel_dp *intel_dp,
- 
- 			slots = drm_dp_atomic_find_time_slots(state, &intel_dp->mst.mgr,
- 							      connector->mst.port,
--							      dfixed_trunc(pbn));
-+							      raw_pbn);
-+
-+			drm_dbg_kms(display->drm,
-+				    "MST TU %s pipe %c: clock=%d lanes=%d bpp=%d link_bpp=%d fec=%d\n",
-+				    connector->base.name,
-+				    pipe_name(to_intel_crtc(crtc_state->uapi.crtc)->pipe),
-+				    crtc_state->port_clock, crtc_state->lane_count,
-+				    fxp_q4_to_int(bpp_x16), fxp_q4_to_int(link_bpp_x16),
-+				    crtc_state->fec_enable);
-+			drm_dbg_kms(display->drm,
-+				    "MST TU %s: overhead=%d raw_pbn=%d pbn=%d pbn_div=%d tu=%d slots=%d full_pbn=%d\n",
-+				    connector->base.name,
-+				    remote_bw_overhead, raw_pbn,
-+				    dfixed_trunc(pbn), dfixed_trunc(mst_state->pbn_div),
-+				    remote_tu, slots, connector->mst.port->full_pbn);
- 
- 			/* TODO: Check this already in drm_dp_atomic_find_time_slots(). */
- 			if (slots > mst_state->total_avail_slots)
--- 
-2.43.0
-
+Michal
