@@ -1,170 +1,169 @@
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010034.outbound.protection.outlook.com [52.101.46.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85537411FA4
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:03:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44B03377AB2;
+	Thu, 24 Sep 2026 19:04:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.34
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790276596; cv=pass; b=b+UyqXokQlxsQ1oag2p90g7zBa4GAGqwYBsjZeTE3/GfGhle5YVSCumSd/SijeDbbKtCYPWnfbN2yjCRoa/P53Tj7vOsNkaZuGOMSlgkHoFnWYyHsvw2J5OOpFLYzIrKV0sT9s/Komn9mzTujvMdY7y2n4kw5r5zTJxFHcY2Gg0=
+	t=1790276653; cv=fail; b=nrcPmPtgViQQ8l5t4FCGAzqmeAEtJbRIwI1XKEUVx1nmk/ak0NcpHFeMQjBnp9gLUo0H2IHFNas1nS4MV/H7HjPmQA5Wb4iMvKjFG4r53q9hGx8u367W0B1CA9LtEyIKjG4Hj8zBqd+Kf8IcOF0N6aluAjegsMX+rlRCHa3ziXo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790276596; c=relaxed/simple;
-	bh=FyJSk2EQr9jIUBsLW3d+Qp2TNqU0yBEdip2Oe35nzRA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jvI/mIMGABZMyVnKf2XCs8W7V6Ntr8KmV4kDb5eRVUZc0CBw9ou9DUMrp+ykjbRRhrt7lLavF/j0tgMpT802GV7b8F7V3h3WQU49xrvh7MqhStoIOyS5IEZpCB5uiTt0HFQgPemVgEbJ4VJlMUSFACdoRH5ppuFIeRoxG1dPkZw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wermuth.pl; spf=fail smtp.mailfrom=wermuth.pl; dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b=eMnhG4ZU; arc=pass smtp.client-ip=74.125.230.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wermuth.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=wermuth.pl
+	s=arc-20240116; t=1790276653; c=relaxed/simple;
+	bh=A4H9CiuhQPTw0EtbVbcoz6Iw0eB21V/9tLjZlVrT6qk=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=KHr9qJBOXZmtha85snUKSsIxNzc9YMol/NCyv16n/D6SDjWKEQ7dFwjqwHaqpdz2oiFxiHRXK3mqEjafeaGJnLW8Re+xcZ2rrZ07ootJhi7CS08hKoXWvuFjQ7R9Mk2rZZ5fR8Dsy1qlkYFBcV68cykkhZ5BUSo+TWQSNFUIouU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=QWudlwjn; arc=fail smtp.client-ip=52.101.46.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b="eMnhG4ZU"
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a30521ef15so748461fa.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:03:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790276592; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pCsoiUYtdS0zJZa1CyzNZlp7htQCynYa+SaVy/oIcHdkkBDDdMGOdsq7sM2SqLIh3Y
-         87ZirA3gLGzrZLfUYM+GmhCRUi24ieRi0pnz85MJMLfdLEGdGkhWKlYamg7ntZw6Z828
-         /EvtaBHW0jaPuv9dVVkVW8l291y5x0wfLmG2F1bxDdvN8lSQFHcDeWf+9SIIREgTVcbG
-         oArlaDqCBkQQ8oQ3QiEOlTSaz37PlVU126T+5E/998D6mI/LZ25cF3CLzREbI1KAWGve
-         J7KgxI1J7jESBW4Dcf7ZCNe4CbPCz1AhX8T21SfkXsjU6PIdrpXWilT/CAmX9BPZ7et4
-         wU2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=EJ1c4rHsHJGZ/tEYJFAlykm9/fk5FPrkQdOE5F+Bc3A=;
-        fh=F3G4i+FnFQ3rgHtImpKVWQ3iHyM/Hnacez8C4zKzhO0=;
-        b=oKwOxon39gLD0QatZzmfvxTDlyUBANPf5W6gvnaRfboEnuhyy0ug1C5ifheVl8mi/3
-         8B78X5Q2AzySAtFgiSYfP/uUq7no8nRamuzV6BgscQeIPERJozF3M/rI6uz0+wuAEtuz
-         VdTmAgZy6Njd+jcy4uBuNYLVRUPN3SuPtDUKP4/paXwkVOAfwpeO4SlrRW2n0L9g01Hi
-         hc7AFvnmXml/BtRMilDFjLIecfhbrxooLrjiMB0AY0xWdcs5cPf70QJp65Ekx75OQSmv
-         t8KfHTZcyLmHgpmsSkKCrSxxc6zDtdOCTjBn3owiKN/p5Co/7htC0WiTZv+dOVaJp2A9
-         T18Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=wermuth-pl.20251104.gappssmtp.com; s=20251104; t=1790276592; x=1790881392; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EJ1c4rHsHJGZ/tEYJFAlykm9/fk5FPrkQdOE5F+Bc3A=;
-        b=eMnhG4ZUQHGNTYLIKbnqZzGH4cdC77mLfcHTUQA4EJNrM1CDjG8CjxszKYNbgWIKEh
-         Vi1XPEgB670mxJthc5ZjqV8zmM/qm0dnQkLlnZR0omm9X3SK3kgH9ryLM8dift7v8qUE
-         XbnYDqNS58eKkVP41iF7iionX7XRNolHh8GilYrpTuEqYL1nrb4dxqfkgM41e+41cI8x
-         oI6Oq4SVS/IfJ9wZ9mBhuPnuQDLJIH7Kg6JrUsalQ8CMUUAc51+YOBYGC1J82XWQIC+E
-         G6ahkEmThDTPHToUXCAyaDUl3XOLs7EM/xwHOhcpakY1vjgYlaz+gM46/5zrgPG7jWLc
-         anIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790276592; x=1790881392;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EJ1c4rHsHJGZ/tEYJFAlykm9/fk5FPrkQdOE5F+Bc3A=;
-        b=JzMaZJn1Y8cXS/Tr5LTKf+OY6sUxgZNUGG84/qyvCy8o+yN69Penl6Ytf1nYlwJXof
-         GJ0tzqKucXubOflKHlCbC0EuDSgxhlOqVu+IVY9xPRsYFjefWoNguh/TB30uy0XVq+i+
-         y4zG8Fzze8t4Sj8pToc78zYJTxoh4Ed+yg24GSde9WqPjtSsJ8RfRlIcdbAjbPzBe/SP
-         YUlnHs5qKA2LyUdND1jEPTW/e+H6TyPfMhoI/XVdZ1XnBC06mCm6hqBlMZcTutxWJbte
-         D/Ay5XTnjcug3aMntkg0DCrY8FcrCqpqvpsQ3UFQ/1ccnLbeR1Ydpos4PCJ/F6AHkUTT
-         MnJw==
-X-Forwarded-Encrypted: i=1; AKwUvBwJv2JPXUIxTvOhss/ddrw0IT07KFQhY8GY3qUZGMj/t8QcI8ud7uzvv64Vvnx4kkeIm1Fu7+FaAtv0XG8=@vger.kernel.org
-X-Gm-Message-State: AFuF++m8xNYXgN2X+vaulcSpzrwgZ7FvvJwcs9azwCfKxv0R70APVHnF
-	tg8mbD0IDw8yv34bBHBth1tqIDb/2SadgDaw5VfkUiFWOp+IQLjNfheOpccgEaK3gfQ0hiUvyGv
-	ElrjodG8KZ2TsXExTuM68nZhsd6QGdlAafCHIaK+OtTP1DtSHnK7VvgU=
-X-Gm-Gg: AYBFou2kOfVI5lp6/R1hAb+thwFrO4Vlg1RwgT3WTAhpzBrra/7Iz8+xaIIk0Iw2yvl
-	8IKwDBgczjaCbZktQ3hU3RV99cIrPHvb9S2/JlMk4BTfQcuQwOaeeesxVMEKzwVIDQL0mUV+ZJe
-	hmcweWGPWv3SX6/GGjtjSbUZGOndZs8Wn/RNm5t1/5VqJmjPm6T5cWYiRj6lSSvQ6N7H5ngabjr
-	3L8OtLsT6Al/iP6UokC8uZKh5sNyni0k6R0aGkIg2CeTUSFyzloEJsCNVBp3j1ScP9v/eH/lJ8f
-	ZsTEmzO+pq6l7VrbsBO81dx/Z0cjdNjwjPFxE53bO8sGwB0Ahck3eGAxj5O2T9lBYl8=
-X-Received: by 2002:a2e:bea8:0:b0:3a5:b507:dfb with SMTP id
- 38308e7fff4ca-3a63c408eb4mr9542881fa.29.1790276591671; Thu, 24 Sep 2026
- 12:03:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="QWudlwjn"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Cmc9DKmuVbl5LeDae4yX4n7L/HbRBiWrhokHiulyHU6VtfQ3En2M9BqH4FIQROKQDbeh5iisg1MDJp+gyouvJqNFJVHxb7btMrkLo7wx0BTeiih2nLzbvZbc5wmcGFnGgZZXR/gkiy7TJIeekFjoqsRTneUJ3kR0BqozxRlRmV8HWcjNc+15C5ynfxHjlQfnYisgEqM7jAzqeFkG1xI2s/j2zCw2MT5lBzCkQlsAPOYaSqkDfq/d1HFjSXZXU5+usDK8gRqtHfePkcIqZdbt13B1wdTk39ZS0PaWJZkpwngHU4eDaSeoH8reqo3mD76i+PSS1g77tEEQrmXwmpgfMg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ShDmf1jHZoyQ/UH4L8M/3VDcFpjBYgJfnkSaMpj4gEs=;
+ b=iTfyrfvd+eWhO8sBcikVCxCLnZgmX+Mzwk1jv5fXG7jQbtW+bxrJfRvVgKiqGThZltjkSOa+QHBKcapX4GR0geShjduk3kUGnGT/5jr1JKeAKIrKB2/VB/hvDisH8gOuacmJTymudP7TcSiZgzfmsM59bzGJm6nsPzX592E54UMIiGWfOERuyNQIrlCH35aSSYDlbnUPvoB6CEM8MQPcIRWFlkMTxJAk8skimP2i4m3GR6Jcj0TcQLv2OZqxTdA8bf1LxMq5KD1ZbxAlJzxfyFLM5m63CU8SXfZjJJJh34fdixrgh1XFUkhdIyu6/Si+kutmWP0azo0L+49VpebEiQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ShDmf1jHZoyQ/UH4L8M/3VDcFpjBYgJfnkSaMpj4gEs=;
+ b=QWudlwjnvCi1mWRcHeapbJxcJkV/oaoTNPqXLz9wnHlnOYj0mmDgOom/6sRp2vDTHloFUvPuGsXKe6DYgqO2CTub8kKbhuhhLLPJSeF+oc1UpiFIZxtGl7PsVg/nIKI16jemzYMU6HtSroXyZvAz2XX6fyQYtC3e27to61dwGDkFudP+tPvfbHCydYfcJ5iRWQcuY+XmNiu6VdifTkj9cL/AmkT4gjxnyWDXV4ON2CZDYjO2PWMtwcrtFh5wytjoaZ5jJhZDk6RxJA4Ad8NIHs7vetDKFwtBS/l4gZ/qjRXIHjcVAjL0xBIoGzrNcpIyi8Zm/zjZ2iUZZ4d+PcVK+w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ BL1PR12MB5777.namprd12.prod.outlook.com (2603:10b6:208:390::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 19:04:00 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 19:03:59 +0000
+Message-ID: <caceec40-4ae4-46ed-8ff8-594fd4046ab2@nvidia.com>
+Date: Thu, 24 Sep 2026 12:03:56 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/5] rust: pci: make Vendor::from_raw() public
+To: Alice Ryhl <aliceryhl@google.com>, Maurice Hieronymus <mhi@mailbox.org>
+Cc: Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-pci@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
+References: <20260812-b4-rust-pci-edu-driver-v3-0-5d0b5594e52b@mailbox.org>
+ <20260812-b4-rust-pci-edu-driver-v3-3-5d0b5594e52b@mailbox.org>
+ <ao2Lef62ZvkP9eWI@google.com>
+Content-Language: en-US
+From: John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <ao2Lef62ZvkP9eWI@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SN7PR04CA0102.namprd04.prod.outlook.com
+ (2603:10b6:806:122::17) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924071445.441822-1-adam@wermuth.pl> <20260924071445.441822-2-adam@wermuth.pl>
- <e03db2e9-085b-49ff-8d4a-bc112bc4ddd7@kwiboo.se>
-In-Reply-To: <e03db2e9-085b-49ff-8d4a-bc112bc4ddd7@kwiboo.se>
-From: Adam Wermuth <adam@wermuth.pl>
-Date: Thu, 24 Sep 2026 21:03:00 +0200
-X-Gm-Features: AclHuK9IKF3aAn5suDmSsCEFKxWsKS6ErHA9CID8WYyLrPR40kN4mqnvEj86JPs
-Message-ID: <CABkrwJ6uvjS8bez6j0MZbp2Y+O9RhyU09YOLrUzHaeUEVC=Qkg@mail.gmail.com>
-Subject: Re: [PATCH 1/3] arm64: dts: rockchip: Enable USB 2.0 host1 on Radxa
- ROCK 3B
-To: Jonas Karlman <jonas@kwiboo.se>
-Cc: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|BL1PR12MB5777:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb37c020-0ddf-47ff-93f3-08df1a6e9727
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|10070799003|23010399003|10067099003|22082099003|18002099003|11063799006|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	nv5xEmsN9/oSo2Be+kdYcC3weUfooc33dBl4uijrZDC7QO+mVvvqwvx/JnaqA6mVFEMV+DOsS3mE2JgTSEzih1N8B60eA6pqSbpYB65IDGMiNVGCOkvPmw9U/wS4Bom3yHLJd5wQbjn5AUC/83IH1RqbE7ExKucQkwdRa5/lZM05T0OKNd6+dQOCXuTpD9eJ895QcX3au6pluDZIBrW7e7IlTV8jXOSMhnROY3S76Xxx6C2ubjvfqHjYAUhfxmsYa7m6s7lVQidXZIRTgwMfpzfz1x4oAayaYaiCwZvqpWrcSoIFwaq4mmvFyWQGc7bxCv32wyKhPTasgidpb9lKvXs0yhgPcVGXQmMUy0Bsy+Qu1g1n1LRDi3PcFYAoAXA7NgRA+FgqK5HAFau91rWiUqKaZvwwdVCnzKce6zzVJtV4Mt9XSmubentirIfn94E8ljDzZ7qBGQmIdYAKIQdhocoY4qKUlABBli00Sx6O79NFmiWEdrz/bL2l8nUnAxKwvN9TVQAOc99gpBfMQqHmUhV+C3d2j2iIF1UlE8b+wU44VADksZkj4+VqIlC1SSV36njXDSFJTXx6p0VX2cG8jKhe6yzifIUCOejX4AZyd/NVUhcksoyb+htCAbeUxC3Nvcf2hlDIFraTLWAO1x8NStCTycglVqhN6OB/CbX3EE4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(10070799003)(23010399003)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bEFOaDlkZEtTVjVIU2JjVTRyYnhKRWNseXhmRlM5Q1dxVHA5aEZacmtiMzh4?=
+ =?utf-8?B?emEwL3lQL25reVdVMDd2bGFDcTFDbFl0ZFpSZnh6RjVrVVNNdE51QXIvMmhE?=
+ =?utf-8?B?ZzNrdXgxazIzOXVFTER6MVlXVVZXcWlqNlBhYmlrZUVvUmtoWEJOTENkQ0d3?=
+ =?utf-8?B?ZTJCSGV6MWxaaGxZd1J4d3VJRm5TRlk4SzliVmJwaktCVll1WXJsbldGcWlO?=
+ =?utf-8?B?cER5SjBycDFYT2hXTStsVVQ3ZVhFMXk1NUx1ak9DZFp3NE9KenFiVzA5R2Iy?=
+ =?utf-8?B?S3dLR2o4NUIwRUxVaWZFQmJlNUwwdGhCelEydVpRUDlSemVRRTI0YllLb2x5?=
+ =?utf-8?B?Z0dKVWNzWHNsMVJNNHk0Z1M2U1VRUFBEU05TVWZqano0WDN5c0grS2RYRkhF?=
+ =?utf-8?B?TG91bTUrZStqenFMa29PdjJNLzZ0UEZuUnRBMUZremhvUmg5UU5GTG95dmdz?=
+ =?utf-8?B?eitndzloQ0U1QWgrYmxUU2owUTRJR056THJncXFGRk14b0crS09VL3NDRkZo?=
+ =?utf-8?B?RjJZZG9udW5TMldtVG1Ud0pmU0V1a1h1bE1aQlExbnRvdzlvT1ZlbzVLTVcw?=
+ =?utf-8?B?REdpVlIvVml3WmtoWXlLVCtzc0NLQTlRTWFrN3I0UzlKLzRIZERnZkFZajBJ?=
+ =?utf-8?B?VFdNWDNJY0VBTE82dzRRMk5YWEU1T1VlUzZlZTFPOXI2QXRkaTZZQkUxa3pE?=
+ =?utf-8?B?c0g5NFIyQWI1cmdIVW1QeHNWVTU2VjB3eU84QVV3S0toK2pSMkJaN2JkTGU2?=
+ =?utf-8?B?ME0zS3lDcHBSMlFiam9yeFhHTEp2RnJsYkRndEJrcUpvcjNXWTVsVVh6QjFE?=
+ =?utf-8?B?RWtBNUFrY0NSY3ZPWVZzTzJuUEhxTFdIWFBQbDJaamZER0l4c3YweEc3T3Rx?=
+ =?utf-8?B?YlJyVFUxTURWQnBuZFJla1RTNnV5Tnh0UFNXYStSYUFxM2pXaDcxeTN2eWI5?=
+ =?utf-8?B?WkNVa1MxVThBWkdIeEtwbnM3VE5zZ0kxdVdGd2ZSRWN5STZsVW4xSHR0djBZ?=
+ =?utf-8?B?eXl2bzlkRzlhZFliUjFISVdXS21iVDJiZzhQVEk1UXFpazl5cVNMYW9yRVdl?=
+ =?utf-8?B?WUF6bWZxYnFuY0pvNGp6N2NJSEU3c2I3VzQxWGUyNSs1bmhYT1Rrb2c4MnNX?=
+ =?utf-8?B?SDB5NlNYTnY1dThXSFNhN3lmZnl0TlpOMXhMV0dWUGorbzhMNTQrWGJDNEN6?=
+ =?utf-8?B?aE5EMWlnNUJtWHl2R1dJRVhsay92bTlJN3pVWFFCclY4ZXRJQjNyNVMyV1dm?=
+ =?utf-8?B?Z0JjTnRhV3VmemFJMlBnTXpTeWpQcVdCZHpGVWt2cEgwQVl4eW5SS1dDb3JW?=
+ =?utf-8?B?NjNzZkoySGlQWUdVLzRUT2pMRDdKc1pIVWNiZExwblZzZnNxZHVBUkFGYjRx?=
+ =?utf-8?B?SjNHbStwbVFmVmNITjdkNVYzUmVkSUdQWVlveFJOaStMcDAxR3lUc0xyZGtF?=
+ =?utf-8?B?Uk90RVFuUS9MeXcxSzdpR2JBa3lwQUw2U1JieHpDbm0yb2U0VnIzcjdUNnJP?=
+ =?utf-8?B?akVpa0twMmtzY2xwV0FZZVBWQktySHA4ekJKYzZaNm9GblFJNzJ3bkN1UTFD?=
+ =?utf-8?B?Rk1JTHNRL2dDMzJ0YTR4NzVzODBxdHlsc3RsZWYzdjJRUkRWOW5nczdlL1JM?=
+ =?utf-8?B?MTNRRlVBVTQ3R3VmTGhnMUp3R0RHM2RsYjY2ODd2VkZwc0ZIVTcwcllITG1T?=
+ =?utf-8?B?ZmtSQmpnNEl5TWlCcnJGMjgvMElnczF0Q2xFYnRqaHhOMCsweC9DU05SbitP?=
+ =?utf-8?B?NGQ4UC9WWERWU0pVWDlNQTM1ektyQi9wZGJVL2pWOGhFSk1UbXZMVmg2TkFz?=
+ =?utf-8?B?Qm9ybWw1M2U0YTF2YjV1bTVVY0xRT1NSYXl2NFRtVXd2ZkczMEV4dHJPd1ZI?=
+ =?utf-8?B?S0ZBOTRqMEUvUk1Ta29YME01UVkyeXpDQ1p2UmM3MitRSlg3NXZYdG5PRnZy?=
+ =?utf-8?B?ZStDaHdXMzNBd0RHYW9kc3JESVU4a2dQV1NHRVF0d1JycnRCWXM2YndUb3lQ?=
+ =?utf-8?B?U2hxbmNHdURyUWx6dnYzcW1IWHhOTS9hYzJvT0tVN2JzcmltWE9halBVUld4?=
+ =?utf-8?B?NDVvdXJua0FpSEVqOXlPbmhQcjlocFl0SVZpTFE4SmY4aXBNZGx0VHpLd0ZP?=
+ =?utf-8?B?NnVjbGxIakNFMWczM0FyQjRtWDAyNFF0YUFHZTRzTlJYaGZDSXZVMGtTTUpp?=
+ =?utf-8?B?cUxTVm10VHNUbnBUVklWOEhRM1AxOEp3S05TWnV3MUxidUFnWS8waW9Bcmcx?=
+ =?utf-8?B?NXlGUVJEZ1B1SFVEZExnVkpHVStRNTRzOWpDc21sY1Y1cW4zN1E3SzJRZnhD?=
+ =?utf-8?B?SUpTdXM4R01XcWhyK2dFYjg2TFo2K1FUQ0I5cjVFZGVwUFJhWWtEZ0lPWVkz?=
+ =?utf-8?Q?vra9V0oQPqMdWZ5A=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb37c020-0ddf-47ff-93f3-08df1a6e9727
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 19:03:59.6798
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Mqlxl6C2MZU4KJJkz71WNnAjFGuxuIVtBnGR6AbmL4KphP34hiMuxz2a2O97YoLxAoNzxEbn3KfIU9t8uahzfQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5777
 
-Hi Jonas,
+On 8/25/26 5:32 AM, Alice Ryhl wrote:
+> On Wed, Aug 12, 2026 at 09:52:37PM +0200, Maurice Hieronymus wrote:
+>> `Vendor::from_raw()` is currently `pub(super)`, so a Vendor can only be
+>> obtained through the named constants generated from the
+>> `PCI_VENDOR_ID_*` defines in `<linux/pci_ids.h>`. A driver therefore
+>> cannot match a device whose vendor ID has no symbolic name.
+>>
+>> Such devices exist. QEMU's "edu" educational device and the legacy
+>> qemu/Bochs stdvga both use vendor ID 0x1234, which is not registered in
+>> `pci_ids.h`. Per the policy stated at the top of that header, IDs are
+>> only added there when shared between multiple drivers; a single-driver
+>> ID is expected to be open-coded in the driver instead. C drivers already
+>> do this -- see `drivers/gpu/drm/tiny/bochs.c`, which matches with a bare
+>> ".vendor = 0x1234".
+> 
+> IMO we should just add Qemu to the list. No reason to hard-code it per
+> driver for this case.
+> 
+I strongly agree. There is no need to break the nice type system here,
+just to avoid adding an "edu 0x1234" entry.
 
-On Thu, 24 Sep 2026 6:12 PM, Jonas Karlman wrote:
-> This and next patch is likely best suited as an dt-overlay.
+thanks,
+-- 
+John Hubbard
 
-Thanks for the review. That makes sense, as the B-key slot is not
-always populated.
-
-For v2 I will move the host1 enablement and the WWAN power, RESET#
-and W_DISABLE1# handling into a new rk3568-rock-3b-wwan.dtso overlay,
-and keep only the fan patch in the base DT.
-
-Adam
-
-
-czw., 24 wrz 2026 o 18:12 Jonas Karlman <jonas@kwiboo.se> napisa=C5=82(a):
->
-> Hi Adam,
->
-> On 9/24/2026 9:14 AM, Adam Wermuth wrote:
-> > The USB 2.0 data lines of the M.2 B-key slot are routed to USB2_HOST3,
-> > which is served by usb_host1_ehci/ohci through the host port of
-> > usb2phy1. Enable the controllers and the PHY port so that modules in
-> > the B-key slot, such as LTE modems, can enumerate.
->
-> This and next patch is likely best suited as an dt-overlay.
->
-> Regards,
-> Jonas
->
-> >
-> > Signed-off-by: Adam Wermuth <adam@wermuth.pl>
-> > ---
-> >  arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts | 13 +++++++++++++
-> >  1 file changed, 13 insertions(+)
-> >
-> > diff --git a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts b/arch/arm=
-64/boot/dts/rockchip/rk3568-rock-3b.dts
-> > index 149a5306bb03..ad9a91c0d0d0 100644
-> > --- a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
-> > +++ b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
-> > @@ -758,6 +758,14 @@ &usb_host0_xhci {
-> >       status =3D "okay";
-> >  };
-> >
-> > +&usb_host1_ehci {
-> > +     status =3D "okay";
-> > +};
-> > +
-> > +&usb_host1_ohci {
-> > +     status =3D "okay";
-> > +};
-> > +
-> >  &usb_host1_xhci {
-> >       status =3D "okay";
-> >  };
-> > @@ -780,6 +788,11 @@ &usb2phy1 {
-> >       status =3D "okay";
-> >  };
-> >
-> > +&usb2phy1_host {
-> > +     phy-supply =3D <&vcc5v0_usb_host>;
-> > +     status =3D "okay";
-> > +};
-> > +
-> >  &usb2phy1_otg {
-> >       phy-supply =3D <&vcc5v0_usb_host>;
-> >       status =3D "okay";
->
