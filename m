@@ -1,107 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C143B7B84;
-	Thu, 24 Sep 2026 09:48:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 170654071E2
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:49:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790243327; cv=none; b=rg7wHR1yvXCPi8+HJOEgtTVyNMIPVXh8tdwgFEYov9RAqpaH3cMQoKnFGpTIonu2irqVdki4KRvEIG+gZdPW4XrFcA2JD1g2OECdPWJIbh+wTyo2umkEY5Fp8fVaQFixXlBd33lI8+LkRlRdBMIrDXK/9+AAc5InA2yKnTNvO7U=
+	t=1790243382; cv=none; b=h283lFvxMXKu0cCbP1AY5amifz6qQz6HrSOORDtVW2AdjKml4cokrwts1WsqbwN5ZPD5JpNcSUIL1Ya7QGyn75NtNEOdbT47aA3iOculDXQ00qnbKHm1FmD8t6SoKLuyKYEilucyRc4uwGpNbghsMwKgWdmCcvYzJamqvEUVBVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790243327; c=relaxed/simple;
-	bh=aVRK7Q2OuO4ofzcgPceLJuQLOlQq5yMUcrwIVOmwebM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CgysauzKXS/s4DOUocQSKym5AkwFzyZ6D1s5zzeTAy3/8p86ac5eLz6JZKEn+KSecjimFFjUMxykZ9gv/H0l82x8mO5iJ2Yrij1Y1K/deQrP/9XF7gS9ezrVPy2nkNGgwUWLtEo8r1DjGMEGeJ5rw1a4t9mWsCzq+bx1w8Teyek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hbAlI9mf; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hbAlI9mf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160FC1F000FF;
-	Thu, 24 Sep 2026 09:48:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790243320;
-	bh=OH4SNWg4WxSZv561l9vVZkZSASMw2QsrKpQxbItU284=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hbAlI9mfnuuRp6LUUI6ldVQ2MDxhRSTnKumanSZx1azAPkE+7SYVbJ+gOf9jsyRv7
-	 DNptUQabV/jGs7mAQLKybEm6DPkrJYryZqGBibJQDC6p3unAgbGAydbVL09FWvNtIH
-	 YBbcsHCRERkQh3DzHyPxADNpJ5PpzcWlLpsJOm7IgztDgDDjeWVkkbqeLKOlEXVqxw
-	 r0FEq05XGfoBfGIc819sKhhVDNdp4RLCNxKnPxMLoJl4paHAFeYpePfQ6j+bDCz6OX
-	 PqkHaCSS4kkEYHw5Y5nX5qazMSaWAnOdp8V6yMybD8sz59e/3UJkvCvWh/oVQl61lN
-	 gnMGqWGkxl9zQ==
-Date: Thu, 24 Sep 2026 10:48:35 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Ben Horgan <ben.horgan@arm.com>
-Cc: Andre Przywara <andre.przywara@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>, James Morse <james.morse@arm.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Fenghua Yu <fenghuay@nvidia.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
-	Ganapatrao Kulkarni <ganapatrao.kulkarni@oss.qualcomm.com>,
-	Trilok Soni <tsoni@quicinc.com>,
-	Srinivas Ramana <sramana@qti.qualcomm.com>,
-	Niyas Sait <niyas.sait@arm.com>, Lee Trager <lee@trager.us>,
-	Ritwick Sharma <ritwick.sharma@arm.com>,
-	Gavin Shan <gshan@redhat.com>, linux-acpi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v10 12/14] arm_mpam: detect and enable MPAM-Fb PCC support
-Message-ID: <20260924-snobbish-brainy-velociraptor-06bdd4@sudeepholla>
-References: <20260911112835.714162-1-andre.przywara@arm.com>
- <20260911112835.714162-13-andre.przywara@arm.com>
- <3e7bdafd-d6ea-422c-82ff-e278a17280ff@arm.com>
- <a314ee8f-4152-4b29-8348-6cd750eced40@arm.com>
- <d96cbb8f-631c-433f-a553-6a6e20531f68@arm.com>
+	s=arc-20240116; t=1790243382; c=relaxed/simple;
+	bh=6AxHVVl+gZTn8j7aNuoJz+d9M/a0mR4Yz8N6BMkLiwM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CaJm5mGZfRxhr0LIZUwXvy94g8VfzQA5pvacbzZJZUqY5gxov0GO1qdLxyzUlGZ8uxicyTlxt95MMY7MBUi6fNr7uJESEa1JEyFJGp2Bm4zLQ0U7e7fLr81uJ7I4cWxeuAlF8ZLULw0AU0FJWPBUXLoSbVGSLdwsTAa3sctDoLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f89so1298516f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:49:21 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790243358; x=1790848158;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wBClDNoiMcfukXqTKxUO0O44/6vZOeXszispr41Gs0A=;
+        b=S0YWTRSsik5sr93NuyJ8HXUhKZpGSFe53ZUuFzNPXrOUXt9RYensVL1HeIeDtaVFnJ
+         6qGiWrLjGs0uF+yCf12s5ur22c+q1uq2/TjN+3rP8VEMbXGyCjjikv/jLdtuDDRPJJhb
+         hci1BXCSVumDw94WO5kCs2y8EbgH3n3qda8eRfgeceiu2oOcew/DoAoip67h9ech1zw3
+         Ofyupph+f4zLh0uyVGlgwsjo1ASKpZBmnWgp5a4jJR/yxN4qXacKiuWuN5ZaXdLNvdhm
+         KiJQ8nr/xW0l/1smtEncIoAxCq45nFuwW4N88dFwvkRN0lBXukJ/FYvYskUApdkAHuDC
+         qrgg==
+X-Gm-Message-State: AFuF++muQel+Q7TAk+EU9LMtKl6C9YQvYODB99cpsoItv4ks76PPNXsp
+	v/mdhvBMOTB4TFC2Yq6LWLrdQQlrljrOVid/O3jpJXFU3vM4eN7UH2fa
+X-Gm-Gg: AYBFou3YMddm0bkhXsaqIBCE1uTbhYSlFgTIRFJUfqOwg2LCyyVxP4dRQbRFlR2u8e+
+	v2ZtLgMdsoQ5iIfPVs0Gm8yCXtZZVjzJBBMvwj0IurnSccBC++SAYh7/BMt5yhsqDGp4MhmT9Uy
+	X0UYpygEciY9uR1STQjVEhf/3O5lkQ/yQ3V2TfFzlZgn/Io8hIkQK45bKmAQAL84wRZrAxW8oxg
+	WOmxI9yl9kt/Zz4pi4d+drHozNKw+J1aroCnRRgdNRED8on8XMqIEL1pihqB5pm+fdiLqgjzRYQ
+	xdzf20Nx8Y4Gq76OOz0C1DT22fvGEnyd+wIvfk6+NwMRFmPyD53OkMNvVbsnsWYuj4ySBxGz3fU
+	3QqeegYIP0V6eLJK/lOXoSVtzx2D3blekL5ZzqyZjx+Aq8fRWDxLgbGo5KFkmkF5QUfZiesRU1X
+	oTnC5l9zO1DhPtrI72S0izJCgwOZXxwsry7LW02bqrWqbUD0EG/AYrUEWEO7Y=
+X-Received: by 2002:a05:6000:2584:b0:487:8ec:1fc with SMTP id ffacd0b85a97d-4887170d3f8mr3448462f8f.12.1790243358351;
+        Thu, 24 Sep 2026 02:49:18 -0700 (PDT)
+Received: from white ([5.194.185.161])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4886876c027sm14791908f8f.17.2026.09.24.02.49.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 02:49:17 -0700 (PDT)
+From: "Denis Efremov (Oracle)" <efremov@linux.com>
+To: linux-block@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	"Denis Efremov (Oracle)" <efremov@linux.com>,
+	stable@vger.kernel.org,
+	syzbot+874c2707f97fac24b090@syzkaller.appspotmail.com
+Subject: [PATCH] floppy: don't store a stack buffer in timeout_message
+Date: Thu, 24 Sep 2026 13:48:39 +0400
+Message-ID: <20260924094839.3239569-1-efremov@linux.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <d96cbb8f-631c-433f-a553-6a6e20531f68@arm.com>
 
-On Mon, Sep 21, 2026 at 05:28:27PM +0100, Ben Horgan wrote:
-> Hi Andre,
-> 
-> On 21/09/2026 17:09, Andre Przywara wrote:
->> Hi Ben,
->> 
->> On 9/11/26 17:09, Ben Horgan wrote:
->>> Hi Andre,
->>>
+request_done() formats "request done %d" into a buffer on its stack and
+passes it to reschedule_timeout(), which keeps the pointer in
+timeout_message. show_floppy() prints timeout_message long after
+request_done() has returned, e.g. from result() in the interrupt
+handler, and reads a dead stack frame:
 
-[...]
+  BUG: KASAN: stack-out-of-bounds in string+0x39c/0x3d0 lib/vsprintf.c:720
+  Read of size 1 at addr ffffc900003cfc70 by task swapper/3/0
+  Call Trace:
+   <IRQ>
+   ...
+   show_floppy+0xb1/0x45f drivers/block/floppy.c:1838
+   result.cold+0x2b/0x30 drivers/block/floppy.c:1183
+   floppy_interrupt+0x191/0x340 drivers/block/floppy.c:1755
+   floppy_hardint+0x1a7/0x200 arch/x86/include/asm/floppy.h:66
 
->>>
->>> This looks like the change earlier in the series to
->>> drivers/acpi/arm64/mpam.c makes no functional effect unless the proposed
->>> spec changes are accepted; the default is msc->id. I'd just move the
->> 
->> Yes, but it reduces churn, and more importantly, is more true to the
->> MPAM-Fb spec, which says:"The MSC identifiers are sequential and start from
->> 0 for each agent which uses this protocol." So this requires that we have
->> per-channel IDs for the MSCs, that's why I think it's justified to
->> introduce this already now, even when it's somewhat redundant as the code
->> stands now, as we always assign the system-wide ID to it.
->> 
->> I can of course move that out (and have that already on top of v9,
->> internally), but wanted to check this with you.
-> 
-> I don't really mind. If Lorenzo/Sudeep are happy with doing the preparation
-> work in drivers/acpi/arm64/mpam.c then I'm ok with it. It's currently a
-> non-functional change but does make the expected path forward slightly
-> clearer.
-> 
+uptodate is either 0 or 1, so pass one of two string literals instead.
 
-Sure, I am okay to have it added here if we plan to use it in the future.
-We can always rip it off if the spec changes its direction or gets deemed
-as broken 😉.
+Cc: stable@vger.kernel.org
+Fixes: 73507e6cd8dc ("drivers/block/floppy.c: remove unnecessary argument from [__]reschedule_timeout")
+Reported-by: syzbot+874c2707f97fac24b090@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=874c2707f97fac24b090
+Signed-off-by: Denis Efremov (Oracle) <efremov@linux.com>
+---
+ drivers/block/floppy.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/block/floppy.c b/drivers/block/floppy.c
+index f04397b8e381..02a34de69102 100644
+--- a/drivers/block/floppy.c
++++ b/drivers/block/floppy.c
+@@ -2276,11 +2276,10 @@ static void request_done(int uptodate)
+ {
+ 	struct request *req = current_req;
+ 	int block;
+-	char msg[sizeof("request done ") + sizeof(int) * 3];
+ 
+ 	probing = 0;
+-	snprintf(msg, sizeof(msg), "request done %d", uptodate);
+-	reschedule_timeout(MAXTIMEOUT, msg);
++	reschedule_timeout(MAXTIMEOUT,
++			   uptodate ? "request done 1" : "request done 0");
+ 
+ 	if (!req) {
+ 		pr_info("floppy.c: no request in request_done\n");
+
+base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
 -- 
-Regards,
-Sudeep
+2.55.0
+
