@@ -1,575 +1,158 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8AE0B36997A;
-	Thu, 24 Sep 2026 13:52:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790257966; cv=none; b=Dh3mPP7smEBScQ/uy5XQgAZyY5wUFQZJ2RLXxzsHf/+6gSyMDOQFGoRDeOUcjsY+Pz4UO03phhhKNL7E8WOqO72ioyWVX3osJSKiSjR8p0gZ/COhH3/E5rdF8refU6IwY61HolG9N5xwgYCQTTlpkOOlJowzZa90jAvx/Vobfy0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790257966; c=relaxed/simple;
-	bh=EHgsuJzyCnnuzzC592J30h86GPpl+wuJ6rcZ66EicdA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lvGOVIDnz7MyBJZokxSVgH7wJYls9ZMBexW38ZYJsdqOj4PDQz5Fi+ggklKTPNR2k8+6qXFzYSqUDmjO2WWK5QinX79THMF8rT+DBqwkvXSbV2Hn1/hkDiC2Is+IodmwQngNfFpj4WViUYmmfncmBgmaSz9InVUPKAkvF2nHKPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=BxCAva8R; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A1F83515ED
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:52:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790257979; cv=pass; b=dgz1LAIWQo9XDjwR3M8sJRRtpOcjqwvKrnoNscUvx8qYh01CIDgJD/ESH5sPmxeqR5IyfgPnM6/ebDrNZR2+Ark3WhPl1Abw4lKueuNKEH8aCJc9hnuAQTxAKOOg10J+jBt2vs/cuaQXPnWbBAIf0uzrTtTAE9fPMlnTnFyk+2Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790257979; c=relaxed/simple;
+	bh=QoUAEYmTjcom/GYw9KMesKKHysm5dGsVufGYG8k4VHI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=h7uD7ygHlLbPul7KspqaQKpFZ+ct0SgLMTFUufC/dlQi5mNX2HLDW19qyLcoJ7YQWbEC6BVW8VzhOZrEkws2gtTb/CLiPUFDrj0+8k2pVowLI+/vy4dQ2yZ/fP8akxOeRJpsNzk254xf7BI/R5Rf3qXE60ZJtThhK8LG1oHHLcs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=okzYmvPA; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="BxCAva8R"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 815A21756;
-	Thu, 24 Sep 2026 06:52:40 -0700 (PDT)
-Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id A7B363F86F;
-	Thu, 24 Sep 2026 06:52:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790257964; bh=EHgsuJzyCnnuzzC592J30h86GPpl+wuJ6rcZ66EicdA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=BxCAva8RvlKjtk7AvOamk2vvA7wPUppxiaqT4+HBigGqILmiA0A0to2148E2ivJkF
-	 vfJIcxJbPvsexit2tK9LS5Dowhz7AcSpR6a5AE6KK/TgxtXcLTNBSUhyq8iFbSzoU0
-	 6RIBUWYo7a42kjdsVvVpWEUTuGR5fp8dSIuYJxqQ=
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-To: kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev
-Cc: maz@kernel.org,
-	will@kernel.org,
-	catalin.marinas@arm.com,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	steven.price@arm.com,
-	aneesh.kumar@kernel.org,
-	oupton@kernel.org,
-	gshan@redhat.com,
-	joey.gouly@arm.com,
-	tabba@google.com,
-	yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev,
-	gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com,
-	alpergun@google.com,
-	fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com,
-	lpieralisi@kernel.org,
-	enju.kohei@fujitsu.com,
-	sudeep.holla@arm.com,
-	jonathan.cameron@oss.qualcomm.com,
-	Suzuki K Poulose <suzuki.poulose@arm.com>
-Subject: [PATCH v19 7/7] firmware: arm_rmm: Add wrappers for Realm related RMI commands
-Date: Thu, 24 Sep 2026 14:52:01 +0100
-Message-ID: <20260924135201.850038-8-suzuki.poulose@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260924135201.850038-1-suzuki.poulose@arm.com>
-References: <20260924135201.850038-1-suzuki.poulose@arm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="okzYmvPA"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66fb93aee5eso2173916d50.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:52:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790257977; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YL9grr37SLxEc7IV84vn6ZcQn93C04zaPxDgnYcmQnhadQ01AHCbPgTCe0JKgNMiC/
+         /XfPuDruEV61ycvXeXV0LNz0hOVHaSYweAYsMjhrA08+n/SM5TVLPdypvc4BvcaqM8pL
+         P90ubK91/6XUaInALXUgTo2pXzwRlkfhdp0sGXgvHH8QeeuTPMBVXyYNqowK89ENBinj
+         NBDyczikxPaLPWMoAtgHN2NYu4yToXJ5fFGm7MkXI7KVKbkDat0AsPMp8psQjz5SUE+r
+         UWxeR5QdcWT3qvdpdy9N2CXD7hfr/Lhcq55KeNFMqkWg2XrAm6TWBL9ysIZ4LxgM4Fez
+         HPUA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=nWToiZ/0mvm/+JbzSK7npOR4gXzr5F7+OnypdaZRifc=;
+        fh=VddJ9xdbUSgjfdrsXbgJH5ESU0z5nYHmh7Yx8gQNJDM=;
+        b=Vwt+Ucfua2DZRHdf2vMaePi+g4UI3cyOc7u1hup5ie2xYRGFGHyK29x2+gymWvZwrD
+         lZrBe3kCl8KmLKFOJB3kMiVDcpy4Ji3OfWOamfW0c7EJuJDCveb7TbLnmsmYTxPYiByb
+         HHt+Qq3HGvrpD6j07VHxouAT8vpXxaJ8UIB6bJIZxlt75e0c3mMto9CYdwtXfKJkGWni
+         4fjwRJ/kS7d76S8HMQYTBDtwe9HnBRiK5Y8xGbJ1o4w9zLseEpFFo3wK7i546cp+cezJ
+         idDh+eQoH230qAWyRFkVLNLCi3V+x5w0yuaRNmArqpRAa9JidLIP+baOFb0lMskgqozH
+         z02Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790257977; x=1790862777; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nWToiZ/0mvm/+JbzSK7npOR4gXzr5F7+OnypdaZRifc=;
+        b=okzYmvPAdFwte5RiXCjZPKI3wRK7XZ1K/axg1eTutifrX6fBR3oMBUqDvU8Die3E2C
+         uc/dZv9pYWcz4Qcw1kDs1koxSQHhU5YCCMailImMaciVKjn1vGYh1ebbEcuFfrUfwEt+
+         GLDwsOnMQWugbQqOk5B/o6wcRNflh4xaSlC86VzLycBdUEcixERGE4NW0+u4zODoebsg
+         s/wAsoDSzLXvbbI/B48tsKZAnXFuhu4QLu1ubcAImBHL2XaS+ElbcyGPLaHsoTj8sENh
+         bRjrF+ymlIIhACBSUBAUoaX7OHqy7ud03MGTrOQkJpy/g+lAqMT1+7VpgV3j0i+gDwZI
+         dbZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790257977; x=1790862777;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=nWToiZ/0mvm/+JbzSK7npOR4gXzr5F7+OnypdaZRifc=;
+        b=ztZ6hR2TkXY7Ncw9EHjtl3LT+cSPcSKO08zldSSsfrAQiUkTpXDsDUxDdwsYBvY3d3
+         f9WJOnKcPGyj8qWScw86pEfEtHgPD6QLUhYxA4fx+REE8fKTCEhBzztrbqPEJ+BTsY3L
+         hya9hthAlbSQnAo9BlBuwfINd/jwfLI/GLBh4mPCnyfZxAzNVizauPEU48kbzacqmiME
+         FdaRDvsAtjrCxUd102BhWa0JGzeI+B+yHSlBKWXIPc0BeiE87JMEUoiuB66yfqmHVm1A
+         HR1yJMM398bXHHxblsY78WUE2d9XXrn2Run0erLzdoMC4/Q2+W/OIHJx18/LYEMttMaE
+         j4iw==
+X-Forwarded-Encrypted: i=1; AKwUvBzCILNJVxhqmY4K63lWO/CN8zvxTECFYLmM6Dae43cqdrOpDAPLbUwX29F12Qf8TsMbxvAQOg1BAO0URM0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mkm7zIEMIddyxQl4+iqtjwnawQpZa+0PiX6ptLxGHZ9u+u5gey
+	pjUJzRJgd4CRUD7JDF3L/TXXq6b2XX6BWGkaNj2F2mr6cKXNgTfzjuVe/Gjz4Shy/1mBmnmcTM1
+	+ExNLx7eLvX3KlTfxH3RXfN+wo/XWIa0=
+X-Gm-Gg: AYBFou2h0cXmOhjeUtQ8fd6bWn1Lma0I691d+zCUaBn2/h9MoVs6AQ/sNOHm+LzGaic
+	DoNQoQBG1lOy+HgX+k6Cg+FgjvRZMxipOvhJHpPdcr0AUx4y/hAuxO2fF1PLnUI5d34bLjso06Y
+	lUDGz2xfmFPP0oASNcCbGyYvM3MN0LyrQOiTCbQca+dz8rcBayhM/46Twq715S1Hn1qN1ztIGQU
+	N5X0+nGF2Zq74hljbqg2c/n57gFIQHlbA/xMUkE6PJUE2CXue2Z+XyXUbDEOlGKJJSNA8/zjn7a
+	heBf3lck4OWF8LX/2tifVrwjf/XeajOF38uXB4/Oio0/CQETv2qZ+NYbvHZ1f/p82HgV
+X-Received: by 2002:a05:690e:1186:b0:672:9f72:7c04 with SMTP id
+ 956f58d0204a3-672ed4db57cmr1036006d50.102.1790257977028; Thu, 24 Sep 2026
+ 06:52:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260921081542.210151-1-lgs201920130244@gmail.com> <c03262f2-419d-45c8-9b29-f3bfe6680744@kernel.org>
+In-Reply-To: <c03262f2-419d-45c8-9b29-f3bfe6680744@kernel.org>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Thu, 24 Sep 2026 21:52:47 +0800
+X-Gm-Features: AclHuK_HbB37PieMjxtn1FtalUB9H4Cp6DfldwgllWBkEcccv9StBhgni5Up5C4
+Message-ID: <CANUHTR8xJ9DGMyadCuhGo1Hw30+VSn0Ko4O3uyR=ofC4OfW2+g@mail.gmail.com>
+Subject: Re: [PATCH] media: rtl28xxu: fix SDR platform device leak
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Antti Palosaari <crope@iki.fi>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Steven Price <steven.price@arm.com>
+Hi Hans,
 
-Introduce wrappers for the RMI functions needed for creating and
-managing realm guests. This will be used by the KVM to manage the
-Realms
+On Wed, 23 Sept 2026 at 16:49, Hans Verkuil <hverkuil+cisco@kernel.org> wrote:
+>
+> On 21/09/2026 10:15, Guangshuo Li wrote:
+> > rtl2832u_tuner_attach() registers an rtl2832_sdr platform device, but
+> > if registration succeeds without a bound driver, it breaks out without
+> > unregistering the device.
+> >
+> > dev->platform_device_sdr is assigned only after a driver is bound, so
+> > rtl28xxu_tuner_detach() cannot unregister the unbound device later.
+> > This leaves the registered platform device and its associated resources
+> > allocated.
+> >
+> > Split the registration failure and driver binding checks. Unregister
+> > the successfully registered platform device when no driver is bound
+> > before leaving the switch.
+> >
+> > The issue was identified by a static analysis tool I developed and
+> > confirmed by manual review.
+> >
+> > Fixes: a2f7f220df5e ("[media] rtl28xxu: switch SDR module to platform driver")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> > ---
+> >  drivers/media/usb/dvb-usb-v2/rtl28xxu.c | 6 +++++-
+> >  1 file changed, 5 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/media/usb/dvb-usb-v2/rtl28xxu.c b/drivers/media/usb/dvb-usb-v2/rtl28xxu.c
+> > index 487c6ab784ab..3603d0cf638b 100644
+> > --- a/drivers/media/usb/dvb-usb-v2/rtl28xxu.c
+> > +++ b/drivers/media/usb/dvb-usb-v2/rtl28xxu.c
+> > @@ -1391,8 +1391,12 @@ static int rtl2832u_tuner_attach(struct dvb_usb_adapter *adap)
+> >                                                    "rtl2832_sdr",
+> >                                                    PLATFORM_DEVID_AUTO,
+> >                                                    &pdata, sizeof(pdata));
+> > -             if (IS_ERR(pdev) || pdev->dev.driver == NULL)
+> > +             if (IS_ERR(pdev))
+> >                       break;
+> > +             if (!pdev->dev.driver) {
+> > +                     platform_device_unregister(pdev);
+> > +                     break;
+> > +             }
+>
+> Looking at other drivers, I think this is incomplete.
+>
+> drivers/media/usb/dvb-usb-v2/zd1301.c, line 142, does it correct. Note the
+> try_module_get() call that is missing in rtl28xxu.c.
+>
+> Regards,
+>
+>         Hans
+>
+> >               dev->platform_device_sdr = pdev;
+> >               break;
+> >       default:
+>
 
-Reviewed-by: Gavin Shan <gshan@redhat.com>
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Signed-off-by: Steven Price <steven.price@arm.com>
-Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
----
-Changes since v18:
-  * Convert the last man standing nesting if - Gavin
-  * Pass out_top for RMI_ERROR_RTT for rmi_rtt_destroy()
-Changes since v17:
-  * Avoid nesting if conditions for output populating RMI calls
-  * Clean up comments
-  * Always use arm_smccc_1_2_invoke() for RMI calls.
-Changes since v16:
-  * Split into a separate patch and move away from arch/arm64 to
-    include/linux/.
-  * Also moved into the firmware_rmm series from the KVM CCA support.
-    This is done in a hope to reduce the merge conflicts and make
-    the KVM CCA upstreaming in independent parallel chunks
----
- include/linux/arm-rmi-cmds.h | 467 +++++++++++++++++++++++++++++++++++
- 1 file changed, 467 insertions(+)
+Thanks for pointing that out. I'll follow the zd1301.c pattern, add the
+missing try_module_get()/module_put() pair, and include it in v2.
 
-diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
-index 5b177bb176326..e03dd8316695d 100644
---- a/include/linux/arm-rmi-cmds.h
-+++ b/include/linux/arm-rmi-cmds.h
-@@ -88,4 +88,471 @@ long rmi_sro_execute(struct arm_smccc_1_2_regs *regs);
- 	__ret;								\
- })
- 
-+/**
-+ * rmi_rtt_data_map_init() - Create a mapping at protected IPA, copying contents
-+ *			     from a given non-secure source granule.
-+ * @rd: PA of the RD
-+ * @data: PA of the target granule mapped in the guest
-+ * @ipa: IPA at which the granule @data will be mapped in the guest
-+ * @src: PA of the source granule with contents
-+ * @flags: RMI_MEASURE_CONTENT if the contents should be measured
-+ *
-+ * Create a mapping from Protected IPA space to conventional memory, copying
-+ * contents from a Non-secure Granule provided by the caller.
-+ *
-+ * Return: 0 on success, positive RMI result code or negative Linux error code
-+ */
-+static inline long rmi_rtt_data_map_init(unsigned long rd, unsigned long data,
-+					 unsigned long ipa, unsigned long src,
-+					 unsigned long flags)
-+{
-+	struct arm_smccc_1_2_regs regs = {
-+		SMC_RMI_RTT_DATA_MAP_INIT, rd, data, ipa, src, flags
-+	};
-+
-+	return rmi_sro_execute(&regs);
-+}
-+
-+/**
-+ * rmi_rtt_data_map() - Create mappings in protected IPA range with unknown contents
-+ * @rd: PA of the RD
-+ * @base: Base of the target IPA range
-+ * @top: Top of the target IPA range
-+ * @flags: Flags
-+ * @oaddr: Output address set descriptor
-+ * @out_top: Top address of range which was processed.
-+ *
-+ * Return: 0 on success, positive RMI result code or negative Linux error code
-+ */
-+static inline long rmi_rtt_data_map(unsigned long rd,
-+				    unsigned long base,
-+				    unsigned long top,
-+				    unsigned long flags,
-+				    unsigned long oaddr,
-+				    unsigned long *out_top)
-+{
-+	struct arm_smccc_1_2_regs regs = {
-+		SMC_RMI_RTT_DATA_MAP, rd, base, top, flags, oaddr
-+	};
-+	long ret;
-+
-+	ret = rmi_sro_execute(&regs);
-+
-+	if (ret == RMI_SUCCESS && out_top)
-+		*out_top = regs.a1;
-+
-+	return ret;
-+}
-+
-+/**
-+ * rmi_rtt_data_unmap() - Remove mappings to conventional memory at a protected
-+ *			  IPA range
-+ * @rd: PA of the RD
-+ * @base: Base of the target IPA range
-+ * @top: Top of the target IPA range
-+ * @flags: Flags
-+ * @oaddr: Output address set descriptor
-+ * @out_top: Returns top IPA of range which has been unmapped
-+ * @out_range: Output address range
-+ * @out_count: Number of entries in output address list
-+ *
-+ * Removes mappings to convention memory with a target Protected IPA range.
-+ *
-+ * Return: 0 on success, positive RMI result code or negative Linux error code
-+ */
-+static inline long rmi_rtt_data_unmap(unsigned long rd,
-+				      unsigned long base,
-+				      unsigned long top,
-+				      unsigned long flags,
-+				      unsigned long oaddr,
-+				      unsigned long *out_top,
-+				      unsigned long *out_range,
-+				      unsigned long *out_count)
-+{
-+	struct arm_smccc_1_2_regs regs = {
-+		SMC_RMI_RTT_DATA_UNMAP, rd, base, top, flags, oaddr
-+	};
-+	long ret;
-+
-+	ret = rmi_sro_execute(&regs);
-+
-+	if (ret != RMI_SUCCESS)
-+		return ret;
-+
-+	if (out_top)
-+		*out_top = regs.a1;
-+	if (out_range)
-+		*out_range = regs.a2;
-+	if (out_count)
-+		*out_count = regs.a3;
-+
-+	return RMI_SUCCESS;
-+}
-+
-+/**
-+ * rmi_psci_complete() - Complete pending PSCI command
-+ * @calling_rec: PA of the calling REC
-+ * @status: Status of the PSCI request
-+ *
-+ * Completes a pending PSCI command.
-+ *
-+ * Return: RMI return code
-+ */
-+static inline long rmi_psci_complete(unsigned long calling_rec,
-+				     unsigned long status)
-+{
-+	struct arm_smccc_1_2_regs regs = {
-+		SMC_RMI_PSCI_COMPLETE, calling_rec, status,
-+	};
-+
-+	rmi_smccc_invoke(&regs);
-+	return regs.a0;
-+}
-+
-+/**
-+ * rmi_realm_activate() - Activate a realm
-+ * @rd: PA of the RD
-+ *
-+ * Mark a realm as Active, signalling that creation is completed, allowing
-+ * execution of the realm.
-+ *
-+ * Return: RMI return code
-+ */
-+static inline long rmi_realm_activate(unsigned long rd)
-+{
-+	struct arm_smccc_1_2_regs regs = {
-+		SMC_RMI_REALM_ACTIVATE, rd,
-+	};
-+
-+	rmi_smccc_invoke(&regs);
-+	return regs.a0;
-+}
-+
-+/**
-+ * rmi_realm_create() - Create a realm
-+ * @rd: PA of the RD
-+ * @params: PA of realm parameters
-+ * @sro: Preallocated SRO context
-+ *
-+ * Create a new realm using the given parameters.
-+ *
-+ * Return: 0 on success, positive RMI result code or negative Linux error code
-+ */
-+static inline long rmi_realm_create(unsigned long rd, unsigned long params,
-+				    struct rmi_sro_state *sro)
-+{
-+	return rmi_sro_memxfer_cmd(sro, GFP_KERNEL,
-+				   SMC_RMI_REALM_CREATE, rd, params);
-+}
-+
-+/**
-+ * rmi_realm_terminate() - Terminate a realm
-+ * @rd: PA of the RD
-+ * @sro: Preallocated SRO context
-+ *
-+ * Terminates a realm, moving it into a ZOMBIE state
-+ *
-+ * Return: 0 on success, positive RMI result code or negative Linux error code
-+ */
-+static inline long rmi_realm_terminate(unsigned long rd,
-+				       struct rmi_sro_state *sro)
-+{
-+	return rmi_sro_memxfer_cmd(sro, GFP_KERNEL,
-+				   SMC_RMI_REALM_TERMINATE, rd);
-+}
-+
-+/**
-+ * rmi_realm_destroy() - Destroy a realm
-+ * @rd: PA of the RD
-+ * @sro: Preallocated SRO context
-+ *
-+ * Destroys a realm, all objects belonging to the realm must be destroyed first.
-+ *
-+ * Return: 0 on success, positive RMI result code or negative Linux error code
-+ */
-+static inline long rmi_realm_destroy(unsigned long rd,
-+				     struct rmi_sro_state *sro)
-+{
-+	return rmi_sro_memxfer_cmd(sro, GFP_KERNEL,
-+				   SMC_RMI_REALM_DESTROY, rd);
-+}
-+
-+/**
-+ * rmi_rec_create() - Create a REC
-+ * @rd: PA of the RD
-+ * @rec: PA of the target REC
-+ * @params: PA of REC parameters
-+ * @sro: Allocated SRO context to be used
-+ *
-+ * Create a REC using the parameters specified in the struct rec_params pointed
-+ * to by @params.
-+ *
-+ * Return: 0 on success, positive RMI result code or negative Linux error code
-+ */
-+static inline long rmi_rec_create(unsigned long rd,
-+				  unsigned long rec,
-+				  unsigned long params,
-+				  struct rmi_sro_state *sro)
-+{
-+	long ret;
-+
-+	sro->addr_count = 0;
-+	sro->regs = (struct arm_smccc_1_2_regs) {
-+		SMC_RMI_REC_CREATE, rd, rec, params
-+	};
-+	ret = rmi_sro_memxfer_execute(sro, GFP_KERNEL);
-+	rmi_sro_free(sro);
-+
-+	return ret;
-+}
-+
-+/**
-+ * rmi_rec_destroy() - Destroy a REC
-+ * @rec: PA of the target REC
-+ * @sro: Allocated SRO context to be used
-+ *
-+ * Destroys a REC. The REC must not be running.
-+ *
-+ * Return: 0 on success, positive RMI result code or negative Linux error code
-+ */
-+static inline long rmi_rec_destroy(unsigned long rec,
-+				   struct rmi_sro_state *sro)
-+{
-+	return rmi_sro_memxfer_cmd(sro, GFP_KERNEL, SMC_RMI_REC_DESTROY, rec);
-+}
-+
-+/**
-+ * rmi_rec_enter() - Enter a REC
-+ * @rec: PA of the target REC
-+ * @run_ptr: PA of RecRun structure
-+ *
-+ * Starts (or continues) execution within a REC.
-+ *
-+ * Return: RMI return code
-+ */
-+static inline long rmi_rec_enter(unsigned long rec, unsigned long run_ptr)
-+{
-+	struct arm_smccc_1_2_regs regs = {
-+		SMC_RMI_REC_ENTER, rec, run_ptr,
-+	};
-+
-+	rmi_smccc_invoke(&regs);
-+	return regs.a0;
-+}
-+
-+/**
-+ * rmi_rtt_create() - Creates an RTT
-+ * @rd: PA of the RD
-+ * @rtt: PA of the target RTT
-+ * @ipa: Base of the IPA range described by the RTT
-+ * @level: Depth of the RTT within the tree
-+ *
-+ * Creates an RTT (Realm Translation Table) at the specified level for the
-+ * translation of the specified address within the realm.
-+ *
-+ * Return: 0 on success, positive RMI result code or negative Linux error code
-+ */
-+static inline long rmi_rtt_create(unsigned long rd, unsigned long rtt,
-+				  unsigned long ipa, long level)
-+{
-+	struct arm_smccc_1_2_regs regs = {
-+		SMC_RMI_RTT_CREATE, rd, rtt, ipa, level
-+	};
-+
-+	return rmi_sro_execute(&regs);
-+}
-+
-+/**
-+ * rmi_rtt_destroy() - Destroy an RTT
-+ * @rd: PA of the RD
-+ * @ipa: Base of the IPA range described by the RTT
-+ * @level: RTT level
-+ * @out_rtt: Pointer to write the PA of the RTT which was destroyed
-+ * @out_top: Pointer to write the top IPA of non-live RTT entries, from entry
-+ * at which the RTT walk terminated.
-+ *
-+ * Destroys an RTT. The RTT must be non-live, i.e. none of the entries in the
-+ * table are in ASSIGNED or TABLE state.
-+ *
-+ * Return: 0 on success, positive RMI result code or negative Linux error code.
-+ */
-+static inline long rmi_rtt_destroy(unsigned long rd,
-+				   unsigned long ipa,
-+				   long level,
-+				   unsigned long *out_rtt,
-+				   unsigned long *out_top)
-+{
-+	struct arm_smccc_1_2_regs regs = {
-+		SMC_RMI_RTT_DESTROY, rd, ipa, level
-+	};
-+	long ret = rmi_sro_execute(&regs);
-+
-+	switch (RMI_RESULT_STATUS(ret)) {
-+	case RMI_SUCCESS:
-+		if (out_rtt)
-+			*out_rtt = regs.a1;
-+		fallthrough;
-+	case RMI_ERROR_RTT:
-+		if (out_top)
-+			*out_top = regs.a2;
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+/**
-+ * rmi_rtt_fold() - Fold an RTT
-+ * @rd: PA of the RD
-+ * @ipa: Base of the IPA range described by the RTT
-+ * @level: Depth of the RTT within the tree
-+ * @out_rtt: Pointer to write the PA of the RTT which was destroyed
-+ *
-+ * Folds an RTT. If all entries with the RTT are 'homogeneous' the RTT can be
-+ * folded into the parent and the RTT destroyed.
-+ *
-+ * Return: 0 on success, positive RMI result code or negative Linux error code
-+ */
-+static inline long rmi_rtt_fold(unsigned long rd, unsigned long ipa,
-+				long level, unsigned long *out_rtt)
-+{
-+	struct arm_smccc_1_2_regs regs = {
-+		SMC_RMI_RTT_FOLD, rd, ipa, level
-+	};
-+	long ret = rmi_sro_execute(&regs);
-+
-+	if (ret == RMI_SUCCESS && out_rtt)
-+		*out_rtt = regs.a1;
-+
-+	return ret;
-+}
-+
-+/**
-+ * rmi_rtt_init_ripas() - Set RIPAS for new realm
-+ * @rd: PA of the RD
-+ * @base: Base of target IPA region
-+ * @top: Top of target IPA region
-+ * @out_top: Top IPA of range whose RIPAS was modified
-+ *
-+ * Sets the RIPAS of a target IPA range to RAM, for a realm in the NEW state.
-+ *
-+ * Return: 0 on success, positive RMI result code or negative Linux error code
-+ */
-+static inline long rmi_rtt_init_ripas(unsigned long rd, unsigned long base,
-+				      unsigned long top, unsigned long *out_top)
-+{
-+	struct arm_smccc_1_2_regs regs = {
-+		SMC_RMI_RTT_INIT_RIPAS, rd, base, top
-+	};
-+	long ret = rmi_sro_execute(&regs);
-+
-+	if (ret == RMI_SUCCESS && out_top)
-+		*out_top = regs.a1;
-+
-+	return ret;
-+}
-+
-+/**
-+ * rmi_rtt_unprot_map() - Map unprotected granules into a realm
-+ * @rd: PA of the RD
-+ * @base: Base IPA of the mapping
-+ * @top: Top of the target IPA range
-+ * @flags: Flags
-+ * @oaddr: Output address set descriptor
-+ * @out_top: Top IPA of range which has been mapped
-+ *
-+ * Create mappings to memory within a target unprotected IPA range.
-+ *
-+ * Return: 0 on success, positive RMI result code or negative Linux error code
-+ */
-+static inline long rmi_rtt_unprot_map(unsigned long rd,
-+				      unsigned long base,
-+				      unsigned long top,
-+				      unsigned long flags,
-+				      unsigned long oaddr,
-+				      unsigned long *out_top)
-+{
-+	struct arm_smccc_1_2_regs regs = {
-+		SMC_RMI_RTT_UNPROT_MAP, rd, base, top, flags, oaddr
-+	};
-+	long ret = rmi_sro_execute(&regs);
-+
-+	if (ret == RMI_SUCCESS && out_top)
-+		*out_top = regs.a1;
-+
-+	return ret;
-+}
-+
-+/**
-+ * rmi_rtt_set_ripas() - Set RIPAS for an running realm
-+ * @rd: PA of the RD
-+ * @rec: PA of the REC making the request
-+ * @base: Base of target IPA region
-+ * @top: Top of target IPA region
-+ * @out_top: Pointer to write top IPA of range whose RIPAS was modified
-+ *
-+ * Completes a request made by the realm to change the RIPAS of a target IPA
-+ * range.
-+ *
-+ * Return: 0 on success, positive RMI result code or negative Linux error code
-+ */
-+static inline long rmi_rtt_set_ripas(unsigned long rd, unsigned long rec,
-+				     unsigned long base, unsigned long top,
-+				     unsigned long *out_top)
-+{
-+	struct arm_smccc_1_2_regs regs = {
-+		SMC_RMI_RTT_SET_RIPAS, rd, rec, base, top
-+	};
-+	long ret = rmi_sro_execute(&regs);
-+
-+	if (ret == RMI_SUCCESS && out_top)
-+		*out_top = regs.a1;
-+
-+	return ret;
-+}
-+
-+/**
-+ * rmi_rtt_unprot_unmap() - Remove mappings within an unprotected IPA range
-+ * @rd: PA of the RD
-+ * @base: Base IPA of the mapping
-+ * @top: Top of the target IPA range
-+ * @flags: Flags
-+ * @oaddr: Output address set descriptor
-+ * @out_top: Top IPA which has been unmapped
-+ * @out_range: Output address range
-+ * @out_count: Number of entries in output address list
-+ *
-+ * Removes mappings to memory within a target unprotected IPA range.
-+ *
-+ * Return: 0 on success, positive RMI result code or negative Linux error code
-+ */
-+static inline long rmi_rtt_unprot_unmap(unsigned long rd,
-+					unsigned long base,
-+					unsigned long top,
-+					unsigned long flags,
-+					unsigned long oaddr,
-+					unsigned long *out_top,
-+					unsigned long *out_range,
-+					unsigned long *out_count)
-+{
-+	struct arm_smccc_1_2_regs regs = {
-+		SMC_RMI_RTT_UNPROT_UNMAP, rd, base, top, flags, oaddr
-+	};
-+	long ret = rmi_sro_execute(&regs);
-+
-+	if (ret != RMI_SUCCESS)
-+		return ret;
-+
-+	if (out_top)
-+		*out_top = regs.a1;
-+	if (out_range)
-+		*out_range = regs.a2;
-+	if (out_count)
-+		*out_count = regs.a3;
-+
-+	return RMI_SUCCESS;
-+}
-+
- #endif
--- 
-2.43.0
-
+Thanks,
+Guangshuo
