@@ -1,191 +1,260 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 152F343E069;
-	Thu, 24 Sep 2026 07:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38044364EBF
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:00:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790236777; cv=none; b=k0qDXdgN5C0HWd5IJ8lbjb4DKJ1fTlVHIL4AonwifWfxK7GJSlEqOFC1KwptUJNSbyV1uk8BkcoaxZGKvrcfDOTf2g915YOKAzhfwS+EehKPYdvsbSLvvSrtUKZ0MJ1nqF3amT3S6msvfO4+OmRVNolcEDF0EGph/YkE2FJ8Rs0=
+	t=1790236820; cv=none; b=j3X1Hrf4uC0iOSmNfAqT09V1cKjOo+JmiPBOWP96eX6ym8gddcSPyj27bRTSgX9J0tehkbh96KGeSezKTXW8qTgzkdGgUNdxnCM2NrRCElcAqGUFtv6MENp+ruNXbBkp68oHkDv56/Xy85TTzHZxz8aC7mskj1uMjanGmgql4lY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790236777; c=relaxed/simple;
-	bh=jxC8F7qLnoV0gDyWlqUxIXfYSuGaTM1jGGGSbqjvo64=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Tb5KZuDx6T3Yp6zEbnV3PawR+apQSvUPO+kvP2zwuEdjgUojrUxNHphzKH+BRUIqLt9baqTA/QKMolZUqOsqIEcUbvVMN1C3hj1U0CKEG8jSdG0upoZqsrYtKlfs+vizMAVcsVmoFLbmWt8jWX3dlC61Q9u+kCpNw/KZbAaQkoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=rRMOOliD; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="rRMOOliD"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=i+/etC7M1IjFvTKUh4gdm/5zLybkbwVOhuiX8fNtSbg=; b=rRMOOliDkugK3lcsosGiOaFRcY
-	J2E9C/eydIELhlps+8nqVMwBWPNkLd9MdoIZjsh+Tgv+n/hX1mpXlem2VcQH4i2f6z6PpcRF4zRR/
-	YCHk9wfUPbSlupkjkJO936kjHq9IZ9NbXdkVectR68GeYM1YksI4kFVZ9YsnoWsSe8GUciJ/mWNLv
-	FQ6o7zn2sv3wW0ZNZ8l+KYMMh1t+9HxRTeNGZL/No2JKnctDFSxpiP+RiOxIhbqJz0l4YYPCmbBmp
-	Nu4LbzKhR23ToJ71vy5LszlCO8Ef5lNuiAReM+ifN12SVdE7AJyHUChgDAqS95Ye7pTx5h2mltG4l
-	09Akckmw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x9eMY-0000000Fh03-0l2Q;
-	Thu, 24 Sep 2026 07:59:26 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 31B79300756; Thu, 24 Sep 2026 09:59:25 +0200 (CEST)
-Date: Thu, 24 Sep 2026 09:59:25 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	David Dai <david.dai@linux.dev>, Koba Ko <kobak@nvidia.com>,
-	Aiqun Yu <aiqun.yu@oss.qualcomm.com>, Shuah Khan <shuah@kernel.org>,
-	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCHSET v14 sched_ext/for-7.4] sched: Make proxy execution
- compatible with sched_ext
-Message-ID: <20260924075925.GE4121620@noisy.programming.kicks-ass.net>
-References: <20260922165445.943315-1-arighi@nvidia.com>
- <20260924075237.GH2009045@noisy.programming.kicks-ass.net>
+	s=arc-20240116; t=1790236820; c=relaxed/simple;
+	bh=cj8jNDW6sCKBYqoOjdi/M4eK7RTDbwEiuauS9+YIQzk=;
+	h=From:Subject:To:Cc:Date:Message-ID:References:MIME-Version:
+	 Content-Type; b=NIswSxSfZIc+4jTBx2J4AGnOXhwK6EpM736d37UwBULEQryglaLWioTXune3ZYmyJ8m2YSxCPqO1sYDkvJDXc0tFQwZAYcG8IKt5e/ySTigLNXFKI3Z/wjZcokgJQ+S1kFGMSp81ad/9xCgREXy5DNLduL3yNQ6/YHpGowsOGnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: f6c77a4cb7ed11f19a56ed5b684f684d-20260924
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:263d3f8f-f38d-4c9a-af1f-cf9971375c01,IP:0,U
+	RL:0,TC:-9,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:-34
+X-CID-META: VersionHash:7db8b62,CLOUDID:353be95c489eca8413b1f11e61bdb852,BulkI
+	D:nil,BulkQuantity:0,SF:81|83|102|136|865|898,TC:1,Content:0|14|51|99,EDM:
+	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
+	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: 0AEAA2BD4F8602982EF29DB45222CB5A
+X-UUID: f6c77a4cb7ed11f19a56ed5b684f684d-20260924
+Received: from node4 [(10.44.17.112)] by mailgw.kylinos.cn
+	(envelope-from <lianyangyang@kylinos.cn>)
+	(Generic MTA)
+	with ESMTP id 421829054; Thu, 24 Sep 2026 16:00:10 +0800
+Received: from node4 (localhost [127.0.0.1])
+	by node4 (NSMail) with SMTP id CDBE71200BD99;
+	Thu, 24 Sep 2026 16:00:09 +0800 (CST)
+Received: by node4 (NSMail, from userid 10001)
+	id B56281200BD92; Thu, 24 Sep 2026 16:00:07 +0800 (CST)
+From: =?UTF-8?B?5buJ5rSL5rSL?= <lianyangyang@kylinos.cn>
+Subject: =?UTF-8?B?5Zue5aSNOiBSZTogW1BBVENIXSBMb29uZ0FyY2g6IGtkdW1wOiBhZGQgYXJjaF9jcmFzaF9zYXZlX3ZtY29yZWluZm8oKSBzdXBwb3J0?=
+To: =?UTF-8?B?QW5kcmV3IE1vcnRvbg==?= <akpm@linux-foundation.org>,
+	=?UTF-8?B?QmFvcXVhbiBIZQ==?= <baoquan.he@linux.dev>,
+	=?UTF-8?B?TWlrZSBSYXBvcG9ydA==?= <rppt@kernel.org>,
+	=?UTF-8?B?UGFzaGEgVGF0YXNoaW4=?= <pasha.tatashin@soleen.com>,
+	=?UTF-8?B?UHJhdHl1c2ggWWFkYXY=?= <pratyush@kernel.org>,
+	=?UTF-8?B?SHVhY2FpIENoZW4=?= <chenhuacai@kernel.org>,
+	=?UTF-8?B?VGFvIEN1aQ==?= <cui.tao@linux.dev>
+Cc: =?UTF-8?B?Y3VpLnRhbw==?= <cui.tao@linux.dev>,
+	=?UTF-8?B?RGF2ZSBZb3VuZw==?= <ruirui.yang@linux.dev>,
+	=?UTF-8?B?V0FORyBYdWVydWk=?= <kernel@xen0n.name>,
+	=?UTF-8?B?a2V4ZWM=?= <kexec@lists.infradead.org>,
+	=?UTF-8?B?bG9vbmdhcmNo?= <loongarch@lists.linux.dev>,
+	=?UTF-8?B?bGludXgta2VybmVs?= <linux-kernel@vger.kernel.org>,
+	=?UTF-8?B?5aec5rWp54S2?= <jianghaoran@kylinos.cn>,
+	=?UTF-8?B?6YOt5Lic5aSq?= <guodongtai@kylinos.cn>
+Date: Thu, 24 Sep 2026 16:00:07 +0800
+X-Mailer: NSMAIL 8.2
+Message-ID: <3jn5oe42staf-3jnazt0nifd4@nsmail8.2--kylin--1>
+References: 5151137f-da51-4428-83a5-0ea355e511ca@linux.dev
+X-Israising: 0
+X-Seclevel-1: 0
+X-Seclevel: 0
+X-Delaysendtime: Thu, 24 Sep 2026 16:00:07 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924075237.GH2009045@noisy.programming.kicks-ass.net>
+Content-Type: multipart/mixed; boundary=nsmail-3nh33kh2yhxm-3nh7cp754l6z
+X-ns-mid: webmail-6ab4d887-3m1wk88n
+X-ope-from: <lianyangyang@kylinos.cn>
+X-receipt: 0
 
-On Thu, Sep 24, 2026 at 09:52:38AM +0200, Peter Zijlstra wrote:
-> On Tue, Sep 22, 2026 at 06:51:39PM +0200, Andrea Righi wrote:
-> 
-> > Andrea Righi (16):
-> >       sched/core: Drop mutex locks before proxy rescheduling
-> >       sched/core: Dequeue waking proxy donors before reset
-> >       sched/core: Mark wakeups completed through ttwu_runnable()
-> >       sched: Add helper to block retained proxy donors
-> >       sched: Add sched_ext hooks for proxy execution
-> 
-> Right, so these add:
-> 
-> WF_TTWU_RQ:
-> 
->   Used like ENQUEUE_DELAYED; could be fixed by generalizing that to cover all
->   of p->is_blocked.
-> 
-> scx_allow_proxy_exec():
-> 
->   Hook to kill proxy exec for scx
-> 
-> scx_proxy_reenqueue_retry():
-> 
->   Like put_prev_task(), but for current. Ensures current gets put back on a DSQ
->   once its done running.
-> 
-> scx_proxy_donor_start():
-> 
->   Delayed set_next_task(), confirms donor will be used.
-> 
-> sched_proxy_block_task():
-> 
->   Almost like switching_to_scx(), except it needs to change ctx->queued in case
->   of p->is_blocked. Hence a new callback ran before sched_change_begin().
+This message is in MIME format.
 
-And I wonder, would something like so work?
+--nsmail-3nh33kh2yhxm-3nh7cp754l6z
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
----
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index adcc9264c0c6..3e7691d24930 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -11215,8 +11215,13 @@ void sched_change_end(struct sched_change_ctx *ctx)
- 	 */
- 	WARN_ON_ONCE(p->sched_class != ctx->class && !(ctx->flags & ENQUEUE_CLASS));
- 
--	if ((ctx->flags & ENQUEUE_CLASS) && p->sched_class->switching_to)
--		p->sched_class->switching_to(rq, p);
-+	if ((ctx->flags & ENQUEUE_CLASS) && p->sched_class->switching_to) {
-+		bool block = p->sched_class->switching_to(rq, p);
-+		if (block && p->is_blocked) {
-+			block_task(rq, p, READ_ONCE(p->__state));
-+			ctx->queued = false;
-+		}
-+	}
- 
- 	if (ctx->queued)
- 		enqueue_task(rq, p, ctx->flags);
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 9c1f10cf3c24..e706fb899834 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -4288,12 +4288,12 @@ static void prio_changed_scx(struct rq *rq, struct task_struct *p, u64 oldprio)
- {
- }
- 
--static void switching_to_scx(struct rq *rq, struct task_struct *p)
-+static bool switching_to_scx(struct rq *rq, struct task_struct *p)
- {
- 	struct scx_sched *sch = scx_task_sched(p);
- 
- 	if (task_dead_and_done(p))
--		return;
-+		return false;
- 
- 	scx_enable_task(sch, p);
- 
-@@ -4303,6 +4303,8 @@ static void switching_to_scx(struct rq *rq, struct task_struct *p)
- 	 */
- 	if (SCX_HAS_OP(sch, set_cpumask))
- 		scx_call_op_set_cpumask(sch, rq, p, (struct cpumask *)p->cpus_ptr);
-+
-+	return !scx_allow_proxy_exec(p);
- }
- 
- static void switched_from_scx(struct rq *rq, struct task_struct *p)
-diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
-index 76f3c84ca684..23217b91db03 100644
---- a/kernel/sched/idle.c
-+++ b/kernel/sched/idle.c
-@@ -543,7 +543,7 @@ static void task_tick_idle(struct rq *rq, struct task_struct *curr, int queued)
- 	update_curr_idle(rq);
- }
- 
--static void switching_to_idle(struct rq *rq, struct task_struct *p)
-+static bool switching_to_idle(struct rq *rq, struct task_struct *p)
- {
- 	BUG();
- }
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index e06b34984e48..ba4c55d0a601 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -2759,7 +2759,7 @@ struct sched_class {
- 	 */
- 	void (*switching_from)(struct rq *this_rq, struct task_struct *task);
- 	void (*switched_from) (struct rq *this_rq, struct task_struct *task);
--	void (*switching_to)  (struct rq *this_rq, struct task_struct *task);
-+	bool (*switching_to)  (struct rq *this_rq, struct task_struct *task);
- 	void (*switched_to)   (struct rq *this_rq, struct task_struct *task);
- 	u64  (*get_prio)     (struct rq *this_rq, struct task_struct *task);
- 	void (*prio_changed) (struct rq *this_rq, struct task_struct *task,
-diff --git a/kernel/sched/stop_task.c b/kernel/sched/stop_task.c
-index 1e0109ec36b3..b7541bb7b593 100644
---- a/kernel/sched/stop_task.c
-+++ b/kernel/sched/stop_task.c
-@@ -78,7 +78,7 @@ static void task_tick_stop(struct rq *rq, struct task_struct *curr, int queued)
- {
- }
- 
--static void switching_to_stop(struct rq *rq, struct task_struct *p)
-+static bool switching_to_stop(struct rq *rq, struct task_struct *p)
- {
- 	BUG(); /* its impossible to change to this class */
- }
+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6TWljcm9zb2Z0IFlhSGVpO2ZvbnQt
+c2l6ZToxNHB4O2NvbG9yOiMwMDAwMDA7IiBjbGFzcz0ibF9ub2RlX2hhc19j
+b2xvciI+PHByZT5IaSBUYW8sCgpUaGFua3MgZm9yIHRlc3RpbmcgdGhlIHBh
+dGNoIG9uIHRoZSBMb29uZ3Nvbi0zQTYwMDAgYW5kIGZvciB0aGUKVGVzdGVk
+LWJ5LiBZb3UgYXJlIHJpZ2h0IGFib3V0IFZNRU1NQVBfRU5EOiBpdCBpcyBh
+biBpbmNsdXNpdmUgYm91bmQKb24gTG9vbmdBcmNoLCB3aGlsZSB0aGUgZG9j
+IGFuZCB0b29scyBleHBlY3QgYW4gZXhjbHVzaXZlIGJvdW5kLiBJCmhhdmUg
+c2VudCBhIHYyIHRoYXQgZXhwb3J0cyBWTUVNTUFQX0VORCArIDEgdG8ga2Vl
+cCB0aGUgc2VtYW50aWNzCmNvbnNpc3RlbnQgd2l0aCBhcm02NCBhbmQgcmlz
+Y3Y2NCwgYW5kIGFkZGVkIHlvdXIgVGVzdGVkLWJ5IHRhZy4KClRoYW5rcywK
+WWFuZ3lhbmcgTGlhbjwvcHJlPgo8cD4mbmJzcDs8L3A+CjxkaXYgaWQ9InNp
+Z25hdHVyZVRvcCI+PC9kaXY+CjxkaXYgaWQ9ImNzMmNfcmUiIHN0eWxlPSJt
+YXJnaW4tbGVmdDogMC41ZW07IHBhZGRpbmctbGVmdDogMC41ZW07IGJvcmRl
+ci1sZWZ0OiAxcHggc29saWQgI2NhY2FjYTsgLXdlYmtpdC11c2VyLW1vZGlm
+eTogcmVhZC1vbmx5OyAtbW96LXVzZXItbW9kaWZ5OiByZWFkLW9ubHk7IC1t
+cy11c2VyLW1vZGlmeTogcmVhZC1vbmx5OyAtby11c2VyLW1vZGlmeTogcmVh
+ZC1vbmx5OyI+PGJyPjxicj48YnI+CjxkaXYgc3R5bGU9ImJhY2tncm91bmQt
+Y29sb3I6ICNmOGY4Zjg7IHBhZGRpbmc6IDhweCAxMHB4OyBmb250LWZhbWls
+eTogTWljcm9zb2Z0IFlhSGVpOyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiAj
+MDAwOyI+PHN0cm9uZz7kuLsmbmJzcDsmbmJzcDsmbmJzcDvpopjvvJo8L3N0
+cm9uZz48c3BhbiBpZD0iY3MyY19zdWJqZWN0Ij5SZTogW1BBVENIXSBMb29u
+Z0FyY2g6IGtkdW1wOiBhZGQgYXJjaF9jcmFzaF9zYXZlX3ZtY29yZWluZm8o
+KSBzdXBwb3J0PC9zcGFuPiA8YnI+PHN0cm9uZz7ml6UmbmJzcDsmbmJzcDsm
+bmJzcDvmnJ/vvJo8L3N0cm9uZz48c3BhbiBpZD0iY3MyY19kYXRlIj4yMDI2
+5bm0MDnmnIgyNOaXpTEwOjIzPC9zcGFuPiA8YnI+PHN0cm9uZz7lj5Hku7bk
+urrvvJo8L3N0cm9uZz48c3BhbiBpZD0iY3MyY19mcm9tIj5UYW8gQ3VpPC9z
+cGFuPiA8YnI+PHN0cm9uZz7mlLbku7bkurrvvJo8L3N0cm9uZz48c3BhbiBp
+ZD0iY3MyY190byIgc3R5bGU9IndvcmQtYnJlYWs6IGJyZWFrLWFsbDsiPkFu
+ZHJldyBNb3J0b24sQmFvcXVhbiBIZSxNaWtlIFJhcG9wb3J0LFBhc2hhIFRh
+dGFzaGluLFByYXR5dXNoIFlhZGF2LEh1YWNhaSBDaGVuLFRhbyBDdWk8L3Nw
+YW4+IDxicj48c3Ryb25nPuaKhOmAgeS6uu+8mjwvc3Ryb25nPjxzcGFuIGlk
+PSJjczJjX3RvIiBzdHlsZT0id29yZC1icmVhazogYnJlYWstYWxsOyI+Y3Vp
+LnRhbyxEYXZlIFlvdW5nLFdBTkcgWHVlcnVpLGtleGVjLGxvb25nYXJjaCxs
+aW51eC1rZXJuZWws5aec5rWp54S2LOmDreS4nOWkqjwvc3Bhbj48L2Rpdj4K
+PGJyPgo8ZGl2IGlkPSJjczJjX2NvbnRlbnQiPkhpIFlhbmd5YW5nLCDlnKgg
+MjAyNi85LzIzIDE0OjAzLCBZYW5neWFuZyBMaWFuIOWGmemBkzogJmd0OyBT
+aW5jZSBjb21taXQgMjNjODUwOTRmZTE4ICgicHJvYy9rY29yZTogYWRkIHZt
+Y29yZWluZm8gbm90ZSB0byAmZ3Q7IC9wcm9jL2tjb3JlIikgdGhlIGtlcm5l
+bCBoYXMgZXhwb3J0ZWQgdGhlIHZtY29yZWluZm8gUFRfTk9URSBvbiAmZ3Q7
+IC9wcm9jL2tjb3JlIGFzIHdlbGxhcyAvcHJvYy92bWNvcmUuICZndDsgJmd0
+OyBMb29uZ0FyY2ggZG9lcyBub3QgcHJvdmlkZSBhcmNoX2NyYXNoX3NhdmVf
+dm1jb3JlaW5mbygpLCBzbyB0aGUgJmd0OyBhcmNoLXNwZWNpZmljIHZhbHVl
+cyBhcmUgbWlzc2luZyBmcm9tIHRoZSB2bWNvcmVpbmZvIFBUX05PVEUuIFRo
+ZSAmZ3Q7IGdlbmVyaWMgZXhwb3J0ZXIgaW4ga2VybmVsL3ZtY29yZV9pbmZv
+LmMgYWxyZWFkeSBwcm92aWRlcyAmZ3Q7IE5VTUJFUihWTUFMTE9DX1NUQVJU
+KSwgYnV0IHRvb2xzIGxpa2UgY3Jhc2ggY2Fubm90IGRlcml2ZSB0aGUgbW9k
+dWxlICZndDsgYW5kIHZtZW1tYXAgcmFuZ2VzLCBWQV9CSVRTLCBvciB0aGUg
+S0FTTFIgb2Zmc2V0IG9mIGEgTG9vbmdBcmNoIGR1bXAuICZndDsgJmd0OyBT
+aW5jZSBjb21taXQgMTgyMTBhMTA0YmI5ICgiTG9vbmdBcmNoOiBFeHBhbmQg
+bW9kdWxlIHZpcnR1YWwgYWRkcmVzcyAmZ3Q7IHNwYWNlIHRvIDJHQiIpIHRo
+ZSB2bWFsbG9jIGFuZCBtb2R1bGUgYm91bmRhcmllcyBhcmUgbm8gbG9uZ2Vy
+IHN0YWJsZSAmZ3Q7IGFjcm9zcyBrZXJuZWwgdmVyc2lvbnMgZWl0aGVyLCBz
+byB2bWNvcmVpbmZvIGlzIHRoZSBvbmx5IHJlbGlhYmxlICZndDsgc291cmNl
+IGZvciB0aGVtLiAmZ3Q7IEkgZ2F2ZSB0aGlzIHBhdGNoIGEgcnVuIG9uIGEg
+TG9vbmdzb24tM0E2MDAwIGJveDogYnVpbHQgbmV4dC0yMDI2MDkyMiB3aXRo
+IGl0IGFwcGxpZWQgYW5kIGJvb3RlZCB0aGUga2VybmVsIGFzIGEgS1ZNIGd1
+ZXN0LiBXaXRob3V0IHRoZSBwYXRjaCAvcHJvYy9rY29yZSBvbmx5IGhhcyB0
+aGUgZ2VuZXJpYyBmaWVsZHMgKE9TUkVMRUFTRSwgUEFHRVNJWkUsIE5VTUJF
+UihWTUFMTE9DX1NUQVJUKSBhbmQgdGhlIHVzdWFsIHN5bWJvbHMvb2Zmc2V0
+cykuIFdpdGggaXQsIHRoZSBub3RlIG5vdyBsb29rcyBsaWtlOiBPU1JFTEVB
+U0U9Ny4zLjAtcmM0LW5leHQtMjAyNjA5MjItZWFnZXJzcGxpdCsgUEFHRVNJ
+WkU9MTYzODQgTlVNQkVSKFZNQUxMT0NfU1RBUlQpPTB4ZmZmZjgwMDA4MjAw
+ODAwMCBOVU1CRVIoVkFfQklUUyk9NDcgTlVNQkVSKFZNQUxMT0NfRU5EKT0w
+eGZmZmZmZWJmZmQ3ZjgwMDAgTlVNQkVSKE1PRFVMRVNfVkFERFIpPTB4ZmZm
+ZjgwMDAwMjAwODAwMCBOVU1CRVIoTU9EVUxFU19FTkQpPTB4ZmZmZjgwMDA4
+MjAwODAwMCBOVU1CRVIoVk1FTU1BUF9TVEFSVCk9MHhmZmZmZmViZmZlMDAw
+MDAwIE5VTUJFUihWTUVNTUFQX0VORCk9MHhmZmZmZmZmZmZkZmZmZmZmIE5V
+TUJFUihQSFlTX09GRlNFVCk9MHgwIEtFUk5FTE9GRlNFVD0wIChLQVNMUiBp
+cyBvZmYgaW4gbXkgZ3Vlc3QgY21kbGluZSwgaGVuY2UgS0VSTkVMT0ZGU0VU
+PTAuKSBPbmUgdGhpbmcgd29ydGggYSBsb29rOiBhcyBhbHNvIHBvaW50ZWQg
+b3V0IGluIHRoZSBzYXNoaWtvIHJldmlldywgVk1FTU1BUF9FTkQgb24gTG9v
+bmdBcmNoIGlzIGFuIGluY2x1c2l2ZSBib3VuZCAobm90ZSB0aGUgLi4uZmRm
+ZmZmZmYgYWJvdmUpLCB3aGlsZSB0aGUgZG9jIGFkZGVkIGluIHRoaXMgcGF0
+Y2ggc2F5cyBWTUVNTUFQX1NUQVJUIH4gVk1FTU1BUF9FTkQtMSwgYW5kIHRv
+b2xzIGxpa2UgbWFrZWR1bXBmaWxlIGNvbXB1dGUgdGhlIHNpemUgYXMgVk1F
+TU1BUF9FTkQgLSBWTUVNTUFQX1NUQVJULiBTbyBleHBvcnRpbmcgVk1FTU1B
+UF9FTkQgKyAxIHdvdWxkIHByb2JhYmx5IG1hdGNoIHdoYXQgY29uc3VtZXJz
+IGV4cGVjdC4gV29ya3MgZmluZSBvdGhlcndpc2UuIFRlc3RlZC1ieTogVGFv
+IEN1aSAmbHQ7Y3VpdGFvQGt5bGlub3MuY24mZ3Q7ICZndDsgUHJvdmlkZSB0
+aGlzIGZ1bmN0aW9uIGluIGEgc2VwYXJhdGUgZmlsZSB0aGF0IGlzIGJ1aWx0
+IGF0IHRoZSBzYW1lIHRpbWUgJmd0OyBhcyBpdHMgY2FsbGVyIGluIGtlcm5l
+bC92bWNvcmVfaW5mby5jLCBhbmQgYWRkIGEgTE9PTkdBUkNINjQgc2VjdGlv
+biB0byAmZ3Q7IERvY3VtZW50YXRpb24vYWRtaW4tZ3VpZGUva2R1bXAvdm1j
+b3JlaW5mby5yc3QuICZndDsgJmd0OyBSZXBvcnRlZC1ieTogSGFvcmFuIEpp
+YW5nICZsdDtqaWFuZ2hhb3JhbkBreWxpbm9zLmNuJmd0OyAmZ3Q7IFN1Z2dl
+c3RlZC1ieTogSGFvcmFuIEppYW5nICZsdDtqaWFuZ2hhb3JhbkBreWxpbm9z
+LmNuJmd0OyAmZ3Q7IENvLWRldmVsb3BlZC1ieTogR2VvcmdlIEd1byAmbHQ7
+Z3VvZG9uZ3RhaUBreWxpbm9zLmNuJmd0OyAmZ3Q7IFNpZ25lZC1vZmYtYnk6
+IEdlb3JnZSBHdW8gJmx0O2d1b2Rvbmd0YWlAa3lsaW5vcy5jbiZndDsgJmd0
+OyBTaWduZWQtb2ZmLWJ5OiBZYW5neWFuZyBMaWFuICZsdDtsaWFueWFuZ3lh
+bmdAa3lsaW5vcy5jbiZndDsgJmd0OyAtLS0gJmd0OyAuLi4vYWRtaW4tZ3Vp
+ZGUva2R1bXAvdm1jb3JlaW5mby5yc3QgfCAyOSArKysrKysrKysrKysrKysr
+KysrICZndDsgYXJjaC9sb29uZ2FyY2gva2VybmVsL01ha2VmaWxlIHwgMSAr
+ICZndDsgYXJjaC9sb29uZ2FyY2gva2VybmVsL3ZtY29yZV9pbmZvLmMgfCAy
+MSArKysrKysrKysrKysrKyAmZ3Q7IDMgZmlsZXMgY2hhbmdlZCwgNTEgaW5z
+ZXJ0aW9ucygrKSAmZ3Q7IGNyZWF0ZSBtb2RlIDEwMDY0NCBhcmNoL2xvb25n
+YXJjaC9rZXJuZWwvdm1jb3JlX2luZm8uYyAmZ3Q7ICZndDsgZGlmZiAtLWdp
+dCBhL0RvY3VtZW50YXRpb24vYWRtaW4tZ3VpZGUva2R1bXAvdm1jb3JlaW5m
+by5yc3QgYi9Eb2N1bWVudGF0aW9uL2FkbWluLWd1aWRlL2tkdW1wL3ZtY29y
+ZWluZm8ucnN0ICZndDsgaW5kZXggNzY2M2M2MTBmZTkwLi4yZmY5MjEyMzI2
+MTYgMTAwNjQ0ICZndDsgLS0tIGEvRG9jdW1lbnRhdGlvbi9hZG1pbi1ndWlk
+ZS9rZHVtcC92bWNvcmVpbmZvLnJzdCAmZ3Q7ICsrKyBiL0RvY3VtZW50YXRp
+b24vYWRtaW4tZ3VpZGUva2R1bXAvdm1jb3JlaW5mby5yc3QgJmd0OyBAQCAt
+NTk0LDMgKzU5NCwzMiBAQCB2YV9rZXJuZWxfcGFfb2Zmc2V0ICZndDsgJmd0
+OyBJbmRpY2F0ZXMgdGhlIG9mZnNldCBiZXR3ZWVuIHRoZSBrZXJuZWwgdmly
+dHVhbCBhbmQgcGh5c2ljYWwgbWFwcGluZ3MuICZndDsgVXNlZCB0byB0cmFu
+c2xhdGUgdmlydHVhbCB0byBwaHlzaWNhbCBhZGRyZXNzZXMuICZndDsgKyAm
+Z3Q7ICtMT09OR0FSQ0g2NCAmZ3Q7ICs9PT09PT09PT09PSAmZ3Q7ICsgJmd0
+OyArVkFfQklUUyAmZ3Q7ICstLS0tLS0tICZndDsgKyAmZ3Q7ICtUaGUgbWF4
+aW11bSBudW1iZXIgb2YgYml0cyBmb3IgdmlydHVhbCBhZGRyZXNzZXMuIFVz
+ZWQgdG8gY29tcHV0ZSB0aGUgJmd0OyArdmlydHVhbCBtZW1vcnkgcmFuZ2Vz
+LiAmZ3Q7ICsgJmd0OyArUEhZU19PRkZTRVQgJmd0OyArLS0tLS0tLS0tLS0g
+Jmd0OyArICZndDsgK0luZGljYXRlcyB0aGUgcGh5c2ljYWwgYWRkcmVzcyBv
+ZiB0aGUgc3RhcnQgb2YgbWVtb3J5LiBVc2VkIHRvIHRyYW5zbGF0ZSAmZ3Q7
+ICt2aXJ0dWFsIHRvIHBoeXNpY2FsIGFkZHJlc3Nlcy4gJmd0OyArICZndDsg
+K0tFUk5FTE9GRlNFVCAmZ3Q7ICstLS0tLS0tLS0tLS0gJmd0OyArICZndDsg
+K1RoZSBrZXJuZWwgcmFuZG9taXphdGlvbiBvZmZzZXQuIFVzZWQgdG8gbG9j
+YXRlIHRoZSBrZXJuZWwgdGV4dCBpbiAmZ3Q7ICt2aXJ0dWFsIG1lbW9yeS4g
+SWYgS0FTTFIgaXMgZGlzYWJsZWQsIHRoaXMgdmFsdWUgaXMgemVyby4gJmd0
+OyArICZndDsgK01PRFVMRVNfVkFERFJ8TU9EVUxFU19FTkR8Vk1BTExPQ19T
+VEFSVHxWTUFMTE9DX0VORHxWTUVNTUFQX1NUQVJUfFZNRU1NQVBfRU5EICZn
+dDsgKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tICZndDsgKyAm
+Z3Q7ICtVc2VkIHRvIGdldCB0aGUgY29ycmVjdCByYW5nZXM6ICZndDsgKyBN
+T0RVTEVTX1ZBRERSIH4gTU9EVUxFU19FTkQtMSA6IEtlcm5lbCBtb2R1bGUg
+c3BhY2UuICZndDsgKyBWTUFMTE9DX1NUQVJUIH4gVk1BTExPQ19FTkQtMSA6
+IHZtYWxsb2MoKSAvIGlvcmVtYXAoKSBzcGFjZS4gJmd0OyArIFZNRU1NQVBf
+U1RBUlQgfiBWTUVNTUFQX0VORC0xIDogdm1lbW1hcCByZWdpb24sIHVzZWQg
+Zm9yIHN0cnVjdCBwYWdlIGFycmF5LiAmZ3Q7IGRpZmYgLS1naXQgYS9hcmNo
+L2xvb25nYXJjaC9rZXJuZWwvTWFrZWZpbGUgYi9hcmNoL2xvb25nYXJjaC9r
+ZXJuZWwvTWFrZWZpbGUgJmd0OyBpbmRleCAwMDE5MjQ4Nzc3NzIuLjYyNjBj
+MTVhZGFiYSAxMDA2NDQgJmd0OyAtLS0gYS9hcmNoL2xvb25nYXJjaC9rZXJu
+ZWwvTWFrZWZpbGUgJmd0OyArKysgYi9hcmNoL2xvb25nYXJjaC9rZXJuZWwv
+TWFrZWZpbGUgJmd0OyBAQCAtNjQsNiArNjQsNyBAQCBvYmotJChDT05GSUdf
+UkVMT0NBVEFCTEUpICs9IHJlbG9jYXRlLm8gJmd0OyBvYmotJChDT05GSUdf
+S0VYRUNfQ09SRSkgKz0gbWFjaGluZV9rZXhlYy5vIHJlbG9jYXRlX2tlcm5l
+bC5vICZndDsgb2JqLSQoQ09ORklHX0tFWEVDX0ZJTEUpICs9IG1hY2hpbmVf
+a2V4ZWNfZmlsZS5vIGtleGVjX2VmaS5vIGtleGVjX2VsZi5vICZndDsgb2Jq
+LSQoQ09ORklHX0NSQVNIX0RVTVApICs9IGNyYXNoX2R1bXAubyAmZ3Q7ICtv
+YmotJChDT05GSUdfVk1DT1JFX0lORk8pICs9IHZtY29yZV9pbmZvLm8gJmd0
+OyAmZ3Q7IG9iai0kKENPTkZJR19VTldJTkRFUl9HVUVTUykgKz0gdW53aW5k
+X2d1ZXNzLm8gJmd0OyBvYmotJChDT05GSUdfVU5XSU5ERVJfUFJPTE9HVUUp
+ICs9IHVud2luZF9wcm9sb2d1ZS5vICZndDsgZGlmZiAtLWdpdCBhL2FyY2gv
+bG9vbmdhcmNoL2tlcm5lbC92bWNvcmVfaW5mby5jIGIvYXJjaC9sb29uZ2Fy
+Y2gva2VybmVsL3ZtY29yZV9pbmZvLmMgJmd0OyBuZXcgZmlsZSBtb2RlIDEw
+MDY0NCAmZ3Q7IGluZGV4IDAwMDAwMDAwMDAwMC4uMTEyOGY2Y2RmZTBkICZn
+dDsgLS0tIC9kZXYvbnVsbCAmZ3Q7ICsrKyBiL2FyY2gvbG9vbmdhcmNoL2tl
+cm5lbC92bWNvcmVfaW5mby5jICZndDsgQEAgLTAsMCArMSwyMSBAQCAmZ3Q7
+ICsvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMCAmZ3Q7ICsg
+Jmd0OyArI2luY2x1ZGUgJmd0OyArI2luY2x1ZGUgJmd0OyArI2luY2x1ZGUg
+Jmd0OyArI2luY2x1ZGUgJmd0OyArICZndDsgK3ZvaWQgYXJjaF9jcmFzaF9z
+YXZlX3ZtY29yZWluZm8odm9pZCkgJmd0OyAreyAmZ3Q7ICsgVk1DT1JFSU5G
+T19OVU1CRVIoVkFfQklUUyk7ICZndDsgKyAvKiBOVU1CRVIoVk1BTExPQ19T
+VEFSVCkgaXMgZXhwb3J0ZWQgYnkgdGhlIGdlbmVyaWMgY29kZSAqLyAmZ3Q7
+ICsgdm1jb3JlaW5mb19hcHBlbmRfc3RyKCJOVU1CRVIoVk1BTExPQ19FTkQp
+PTB4JWx4XG4iLCBWTUFMTE9DX0VORCk7ICZndDsgKyNpZmRlZiBDT05GSUdf
+NjRCSVQgJmd0OyArIHZtY29yZWluZm9fYXBwZW5kX3N0cigiTlVNQkVSKE1P
+RFVMRVNfVkFERFIpPTB4JWx4XG4iLCBNT0RVTEVTX1ZBRERSKTsgJmd0OyAr
+IHZtY29yZWluZm9fYXBwZW5kX3N0cigiTlVNQkVSKE1PRFVMRVNfRU5EKT0w
+eCVseFxuIiwgTU9EVUxFU19FTkQpOyAmZ3Q7ICsgdm1jb3JlaW5mb19hcHBl
+bmRfc3RyKCJOVU1CRVIoVk1FTU1BUF9TVEFSVCk9MHglbHhcbiIsICh1bnNp
+Z25lZCBsb25nKXZtZW1tYXApOyAmZ3Q7ICsgdm1jb3JlaW5mb19hcHBlbmRf
+c3RyKCJOVU1CRVIoVk1FTU1BUF9FTkQpPTB4JWx4XG4iLCBWTUVNTUFQX0VO
+RCk7ICZndDsgKyNlbmRpZiAmZ3Q7ICsgdm1jb3JlaW5mb19hcHBlbmRfc3Ry
+KCJOVU1CRVIoUEhZU19PRkZTRVQpPTB4JWx4XG4iLCBQSFlTX09GRlNFVCk7
+ICZndDsgKyB2bWNvcmVpbmZvX2FwcGVuZF9zdHIoIktFUk5FTE9GRlNFVD0l
+bHhcbiIsIGthc2xyX29mZnNldCgpKTsgJmd0OyArfSAmbHQ7L2xpYW55YW5n
+eWFuZ0BreWxpbm9zLmNuJmd0OyZsdDsvZ3VvZG9uZ3RhaUBreWxpbm9zLmNu
+Jmd0OyZsdDsvZ3VvZG9uZ3RhaUBreWxpbm9zLmNuJmd0OyZsdDsvamlhbmdo
+YW9yYW5Aa3lsaW5vcy5jbiZndDsmbHQ7L2ppYW5naGFvcmFuQGt5bGlub3Mu
+Y24mZ3Q7Jmx0Oy9jdWl0YW9Aa3lsaW5vcy5jbiZndDs8L2Rpdj4KPC9kaXY+
+CjxwPiZuYnNwOzwvcD4KPHA+Jm5ic3A7PC9wPgo8ZGl2IGlkPSJzaWduYXR1
+cmVCb20iPgo8ZGl2Pgo8cD4mbmJzcDs8L3A+Cjxicj4KPHAgc3R5bGU9ImNv
+bG9yOiAjMDAwOyBmb250LXNpemU6IDE2cHg7Ij4tLS08L3A+CjxkaXYgaWQ9
+ImNzMmNfbWFpbF9zaWdhdHVyZSIgc3R5bGU9ImNvbG9yOiAjMDAwOyBmb250
+LXNpemU6IDE2cHg7IGZvbnQtZmFtaWx5OiBNaWNyb3NvZnQgWWFIZWk7Ij48
+L2Rpdj4KPHA+Jm5ic3A7PC9wPgo8L2Rpdj4KPC9kaXY+PC9kaXY+
+
+--nsmail-3nh33kh2yhxm-3nh7cp754l6z--
