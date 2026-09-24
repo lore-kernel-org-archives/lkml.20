@@ -1,87 +1,109 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 148D547ECED
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:23:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A52D947F2C8;
+	Thu, 24 Sep 2026 10:23:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790245384; cv=none; b=ficZ2msZkF7E20tRkVxYPqmfTbxRTRR1OsIDyHxBGHT3WHAQ9nrG7jua4zAIP+F7RlqaQ3UMKL23ictCvpb67TXycC9+D6VF9s4jStYynZ0O4OJW1aXBAyKqdz4PLG8sOVn/vQ7KTxZeRjagPKY8zSTHnFgG1ChzeN6kG5jTZT4=
+	t=1790245387; cv=none; b=QoRYSgY4kxJEZ14mmVKlNBYslLTEVHTl3yg+SlbZj8gX0fFLivznz/55+HmUTwlnOowQQWyP9WrGAvZyRg9f0f6jvLl/B1hu3cwwi4Gw92jm+OoSs0RWG8/FRnvUYIK/dSUiSz1Lo279tiCbr+fJ+2BQvfkYH+LOVaBr5t1+GvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790245384; c=relaxed/simple;
-	bh=8CqWs2BAk8rGu5p7Vtkh3GDcNWKUwwombm9axyV6GDM=;
+	s=arc-20240116; t=1790245387; c=relaxed/simple;
+	bh=6nrbAOpL/l5ENVLYA13z9MssiGfcpOfgVt6kAYH6ehM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cWFfTB+ZXQoZUQ87ixYri1Qvay4LuesufVll6e6iKDgV2IJuw2IV6z6Nhhv31b4g4pgEIiQRciIRC/miBr0b36jCNigDPDZhkHKUCcezbADh22AaKVzmY5IADpwnzFKIM9LgwTdFptOtUgjXpRyvrPNYSjgNyxi94uPVkSUPwak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cOv01eN9; arc=none smtp.client-ip=74.125.227.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=LgZoRNQqpxWXDNkjMMXwxha3xPLqtXgNAim5OjTZ12SvWIorxy3FxzT/TlW8xX1Hd167VG0RTiGLC1fbfisGpy4aoQm2tyCy4Uhs9KY3/4WwhDiu1tAlkAmAK04ZhCxvJxYMgUf9N/Oeo2AFThgkJ6qxEvlT1yQdF5nki5jlGPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=KktBEdoU; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=I8xdiyIs; arc=none smtp.client-ip=202.12.124.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cOv01eN9"
-Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-39b5b07ec78so1035211a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:23:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790245382; x=1790850182; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8CqWs2BAk8rGu5p7Vtkh3GDcNWKUwwombm9axyV6GDM=;
-        b=cOv01eN9czQ88wp4pzx1qezwNGWSR8P15PxxzgnDFW4ltpWKI+IY2GUHmrFszU9Xvc
-         UeDkqS6qRoMkdDS714t+NWX/r64njyk2X5qMd05yVi+SNNbfyHHgS5/ZFLSN//UL8WYp
-         cnYmgDmSEUN0VplB8+1NVnFkZJam+VjG+ysr2W3NyjphRN1YlI7Z2gCKpspe20S6H6QV
-         kL1gdMKnZgYdkU8109Irq2YWtqC9pTvSn48FI31T4SWrmLdhlnydGo1xxrVPagj4kV/Y
-         MAVPn02tXI4cNfTIMk1VHTTKrYLZuurHPhEingAiYM68XscSKRQ3v6aMMbIXpYFdCyV9
-         EpRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790245382; x=1790850182;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8CqWs2BAk8rGu5p7Vtkh3GDcNWKUwwombm9axyV6GDM=;
-        b=TYtnKFPLDB34/rhPHi5yXuwkU5ZsN01tW6qQoafQkH6o6soX9sa79nDtqXrq17vNnv
-         X3YxTYiqp+YhA/f9dSMrYqsWeVoJtMcv3Hesu5mZWOsfbBMrHcz/lz4oIGYw9kn6XbCp
-         7zC5HCshLba4OJfK1u46sLJPQ4XuHTeZXpCBz7t8aibN9kIsBJrn4dqkB5vGq9IO3VRR
-         4+ldF6XBIY9bNzloDnZHUdoaJwmsLEPgQDP0nkOWrucYMpCpC0LTqLIvITgB3uaD9PKU
-         ZB6CpwbBJQc4CkkqP+4XRMrf6gz/lrzqyynAiG1TCHpZ9Uk+o6w2a4PYtriwL9fuhdkU
-         qbBg==
-X-Forwarded-Encrypted: i=1; AKwUvBwjV8qFuzSxshciuc9su5xZPcAuYCopKjoUOsieeZQmTOIOz7RgmUAAyTRX1DbK1UwOk1NMqXCLo3dYN3s=@vger.kernel.org
-X-Gm-Message-State: AFuF++lVmrUK0w8G/kHciqPgX77/qREZa7tfeCbwF+sM/C1+YI3wgyPe
-	RaS5vQf3xCaT9qwGAvTcug74pXWAjKDO0MK6VIQsruTlzwmPJV4O8VE=
-X-Gm-Gg: AYBFou2tYyLE5ClgfR4DAhosBPdC+ASwi6osmF4YZo1ScCl3bXsG6xxhEsNGm/ecLQl
-	5cfCRsAsj9wuIfmBIUWsVWMNUNgEMXm9hmoLrM+hZ+R0HQDgjRq+Wwtbi/Ijr8nZlneUyO9KUhK
-	B3XUCMmCYSv7kVrVDp3mhaCOUa11P/CajPWOxzEbXj0KgBnWYOG5HM/y/9cD1mNr2Vh6EcgAD9k
-	fjbgrhAfZN88uURGkI1B5H3dx7OZzY9njOe2D0I0Fcw7iVeatoDYJ5YTMpvve5RU+a4YnbWgW8s
-	61L3o7a5qy1ARTyVIDulru5XlirPssdMIx40kg5xdmcCa/gzbcHB/dvBqwsJFAIVsumPBsLqJ8b
-	Yek3aiLjAfWhbqdOXRaEpAstSU7luSI9SM/0RXMKtFqc5pWbsFdLuauLRwI8E+q1/4lOJ18mo8S
-	QJ6b1kPO8MVotAb07Tjk/PQWfYUm/axFP6TL9oqLyfyN2gEoAPvcfJlMwek+kD8iL+7V7hj1off
-	gq1Jn4kPEfQCJGM8uWwBtoDdQ==
-X-Received: by 2002:a17:90a:1149:b0:3a0:9c9d:eb0b with SMTP id 98e67ed59e1d1-3a09c9df050mr891571a91.58.1790245381935;
-        Thu, 24 Sep 2026 03:23:01 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([211.230.25.193])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0972b15f1sm4035343a91.2.2026.09.24.03.22.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 03:23:01 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: Leon Hwang <leon.hwang@linux.dev>,
-	bpf@vger.kernel.org
-Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH bpf v2 1/2] bpf: Zero-fill other CPUs when BPF_F_CPU creates a per-cpu hash element
-Date: Thu, 24 Sep 2026 19:22:54 +0900
-Message-ID: <20260924102254.2120344-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <0a30f489-6771-4798-ab59-b658ef4c24f0@linux.dev>
-References: <20260923000801.1764758-1-donggeunyoo.kernel@gmail.com> <20260923000801.1764758-2-donggeunyoo.kernel@gmail.com> <0a30f489-6771-4798-ab59-b658ef4c24f0@linux.dev>
+	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="KktBEdoU";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="I8xdiyIs"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 382717A00A3;
+	Thu, 24 Sep 2026 06:23:04 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Thu, 24 Sep 2026 06:23:04 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1790245384; x=
+	1790331784; bh=0DpoiKQK/pAK6+VRgnar1lFxM3UetYvMfvKdfg6sGSU=; b=K
+	ktBEdoU5gsFnD9KybH5juVltRRIhaJKOM4BE7uUIdllRfXZ9DZUK6DqlhY79sF1U
+	5F0dhr2Stbm5/l6bHj2kKL7Nz0OHDOakqphB+MLts5Lu2cEKhFEP+PqUQlBtAaKL
+	ugjmNhlfe7riT3FOBHhAL+6fyhEhImgqCmLMJqK8uH+icQnM8pYzck02uXMyIBZD
+	yU6If62/RLT9nNpzySsfyeBGDUTjVuZDbdn3/pYsFVh19+wUa74q7L7uMFLBhgEs
+	gJw8wFwEN4ag/Nf+8ZVWnzSJ/bA2THdqE8EMeEl35xPYBLFDGaZnVBdrmlU4N0R4
+	zQf37PAka75wJ9xfgRBOQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm1; t=1790245384; x=1790331784; bh=0
+	DpoiKQK/pAK6+VRgnar1lFxM3UetYvMfvKdfg6sGSU=; b=I8xdiyIsE026WTQN4
+	pEfp2huSywhP/VeSkH4+5ookcPh9hOSIzvT22dS7j1HbSgFHmGnL+DxxZ92BDDQ8
+	eF4CENe62HBunk0w1lhXj23b/ozeNRLO1AValH+OkflaiTEgp8cf+flUDbW4e+Bc
+	g7pUTN4oEgg8LHMgetOnmpd2iySkzV0VFUeOgdbwHr0FztLbGxeKqA3W+G44i0y4
+	/2C3TNj3VwUsFB4Za+2AhKjtinOr2Bk7FFFcb2DlLEm67oXM8F9k6q+XoRbZ1M3D
+	XsGs4I/4dYDbdRMi6NmIQYPi18MzqGSgwVLgCD3NKJw33iM85GQSMZiSmREL+umf
+	xSixw==
+X-ME-Sender: <xms:B_q0alprBRrZruDSS7U-ZBIIVr62GWQe34_lsauIxJJ35FHQO2PTUw>
+    <xme:B_q0aoaaLDdtqZb89gYY4Z-kh6wNoHLs7a9VHcWcfDs8DH46kr5VotWM3JWyNMwDv
+    UYlcpIgYoHDPuxESzSBJohozGa3vFMF7QcWDP9T9vfljp5Sk2zTwAA>
+X-ME-Received: <xmr:B_q0arFeH2Y-0NAsERy9kMTcx5Bi0wnWo-a5RVOt9ksZ0PvjxwMm6MrTN0UOoiJ0cQFx_p5j1Q>
+X-ME-Proxy-Cause: dmFkZTFedTl3F1DIrTHCICe4Fo+6yuH2iIryXb4vaD1hJk5uz+D3fdxBaPEGleMmtjQ9jj
+    /AH1EkwAh8wKmQiLT/9bSvDiQhW+TZmRyikvMLrEzAS6A5ogRqUhM4yxUxSgAmF4L6zbNq
+    JU1CrDOUHEJdjtSdpDsxEskFn/aWSY8EhEM69IoGnovQNyACerECRpwt+2pE+OuDo6j5C2
+    BOOC64LiXafVGJCK8SqFHoQAP2FF+TvLHYjrI91po4XURVMn1pQeIKHxydNlGe/KKK+FAO
+    2AUxd7OWs8ZDGv/h0aNNMjxPVGQhrAw5D/31vFjHI5S7swl3HoagxPlYCWUyU9dgrzlHFV
+    9ued//M7bvfNrjaALGaNXU06mxZi2UVe0kaRvozT0as1aZOpp9EU8g9PKO6raYXt8sp0g+
+    T0b8yZtwROIYhaU2kCcRXrEGtPCrg9SK6NH0hjcZxU7n3SzsPlubWw+UZlSoaU40myTd3R
+    HPzUd2zt/Q7bohcpmKKOhNGyGQP0pw3tVyDtlx7y0zKyeMqenYPrJyXkvKK2LFlAxI0K5W
+    DJK6B7aQwBizD50zHV1Z8RHuIVdIb4YO4EOUBIt/HlpC7PDhl1jbkEyr5hTe1pbZlGPBGp
+    N5c4Ktr0hrHSIRL4fkh710iSkOvTtY2cpi5nssX6Mhx00NE5u+avreaEBc5w
+X-ME-Proxy: <xmx:B_q0aoztOLntchIIP8UiIyxd7L2dMcl72afwZNX17XfJ1iT9PQAXxw>
+    <xmx:B_q0akAvi0IM_Os0cEc3oyuhgI3xA8tLvaQzmYOE80mDou6V_xVieA>
+    <xmx:B_q0avUNyscvgScdMZ18LuhRFgl_kP3vgyOwEWUXdC-HKgO7fHlAQw>
+    <xmx:B_q0aujJQu-tACx60G-UT8PgvUxmK7geTtqY3e-WR2bbTVi0UiCzww>
+    <xmx:CPq0as4uoDYYSWw7WsmYlIo5edFF2Gw3vCrhc3EVY4InOp35k6c8eCbG>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 24 Sep 2026 06:22:54 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net,
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	ulfh@kernel.org,
+	p.zabel@pengutronix.de,
+	ogabbay@kernel.org,
+	zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com,
+	abel.vesa@oss.qualcomm.com,
+	sebastian.reichel@collabora.com,
+	sidong.yang@furiosa.ai,
+	u.kleine-koenig@baylibre.com,
+	chaoyi.chen@rock-chips.com,
+	diederik@cknow-tech.com,
+	alchark@flipper.net,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	iommu@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jiaxing Hu <gahing@gahingwoo.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v14 06/15] dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+Date: Thu, 24 Sep 2026 22:21:26 +1200
+Message-ID: <20260924102135.92217-7-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260924102135.92217-1-gahing@gahingwoo.com>
+References: <20260924102135.92217-1-gahing@gahingwoo.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,19 +112,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Wed, 23 Sep 2026 10:09:40 +0800, Leon Hwang wrote:
-> 'onallcpus ? map_flags >> 32' does not look reasonable.
->
-> Based on the 'if' above, either of these looks straightforward to me.
->
-> int init_cpu = !onallcpus ? raw_smp_processor_id() : map_flags >> 32;
->
-> or
->
-> int init_cpu = (map_flags & BPF_F_CPU) ? map_flags >> 32 :
-> raw_smp_processor_id();
+The RK3576 NPU has two cores of the RKNN block this binding describes, with
+two extra CBUF clocks, two power domains per core, one reset instead of
+two, and no SRAM supply. Widen the properties and pin each SoC to its own
+shape in allOf; sram-supply stays required for RK3588.
 
-Agreed, v3 takes the second.
+Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ .../npu/rockchip,rk3588-rknn-core.yaml        | 47 +++++++++++++++++--
+ 1 file changed, 44 insertions(+), 3 deletions(-)
 
-Thanks,
-Donggeun
+diff --git a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
+index caca2a490..3b611b64c 100644
+--- a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
++++ b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
+@@ -21,6 +21,7 @@ properties:
+ 
+   compatible:
+     enum:
++      - rockchip,rk3576-rknn-core
+       - rockchip,rk3588-rknn-core
+ 
+   reg:
+@@ -33,14 +34,18 @@ properties:
+       - const: core # Main NPU core processing unit registers
+ 
+   clocks:
+-    maxItems: 4
++    minItems: 4
++    maxItems: 6
+ 
+   clock-names:
++    minItems: 4
+     items:
+       - const: aclk
+       - const: hclk
+       - const: npu
+       - const: pclk
++      - const: aclk_cbuf
++      - const: hclk_cbuf
+ 
+   interrupts:
+     maxItems: 1
+@@ -51,12 +56,15 @@ properties:
+   npu-supply: true
+ 
+   power-domains:
+-    maxItems: 1
++    minItems: 1
++    maxItems: 2
+ 
+   resets:
++    minItems: 1
+     maxItems: 2
+ 
+   reset-names:
++    minItems: 1
+     items:
+       - const: srst_a
+       - const: srst_h
+@@ -75,7 +83,40 @@ required:
+   - resets
+   - reset-names
+   - npu-supply
+-  - sram-supply
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: rockchip,rk3588-rknn-core
++    then:
++      properties:
++        clocks:
++          maxItems: 4
++        clock-names:
++          maxItems: 4
++        power-domains:
++          maxItems: 1
++        resets:
++          minItems: 2
++        reset-names:
++          minItems: 2
++      required:
++        - sram-supply
++    else:
++      properties:
++        clocks:
++          minItems: 6
++        clock-names:
++          minItems: 6
++        power-domains:
++          minItems: 2
++        resets:
++          maxItems: 1
++        reset-names:
++          maxItems: 1
++        sram-supply: false
+ 
+ additionalProperties: false
+ 
+-- 
+2.43.0
+
