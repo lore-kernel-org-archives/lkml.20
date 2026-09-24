@@ -1,58 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63768453A50;
-	Thu, 24 Sep 2026 16:00:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548F945D92B
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:00:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790265647; cv=none; b=d2oYv08vUZqYK4RWXitvUM0GV1ZHPsz/D2QicHhM8ceVAmSNYmYwWBFyXSwtAMg7oy2BQdmUFsJGzGPVuxVZZuB5V5Q5/OHcFuXcaiuLxDtR0k9c973/6ZA9gWuoLdDu7WIn7tQswn1ncHqC2rVl5VPpg0qTGqvKzQbpAQ+hOyY=
+	t=1790265660; cv=none; b=Nazk4Qw7i5otSWoaB3nruOB4MAAGml8rup/7BFa6thxcjPLQb6SvPRGSWJvA0khPwARgXkbgNi98aXDESux9W6aGnfuIWPzoGXUKz7MpFoM5AS2gm3TZ28cvkTRAlsDkUKmc9Q/5Voq52UVKLUijPNgT0Q5h7klcvpYokVb62S4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790265647; c=relaxed/simple;
-	bh=o8Rc4nVq0uzStp8d5sRR8LoGhALtDQw4qdjWJe4FYIk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Gh1EQ2vLzjS/2hKymJWjxV1yKY9S+Qf4UckLS3w2/o+Xl0053RJzxJFLAWfpdPYo3K54TTimujXSRIQWqxLiSTU80APbUxfs9gD73/pE25UD84NBzAguG59+qWp+hk/PO/+su640KP577QiZjfwdBwLpIPyuY2WHIIbC2KG2ttY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bqodDLbU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790265660; c=relaxed/simple;
+	bh=9u/ll/zHy5qD5t7Tw1PhsKMfqspn3/oOobU2WmocDjc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ANyajfkjrJDadrVrbf6pVeZ2jxq7x5K/OvNO33Q7IitCQive2jgDFLmbNDLiwzJuKN3JCQcGxvukyd/6A890RjcfNo0OKFYoB+xL8eZUMh6OoMIHTfU8WyuRXO6mGZvzJp5ueIjsn62KIlgcSsrO1P87GlSn1UibDVioTD09ihw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NZzyiOhV; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bqodDLbU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93E431F000FF;
-	Thu, 24 Sep 2026 16:00:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790265646;
-	bh=o8Rc4nVq0uzStp8d5sRR8LoGhALtDQw4qdjWJe4FYIk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=bqodDLbU37tNOo0D0O5JncpPcTrujXdXbHHXQksBMxSyONCK/CMotYI2OmTPZX0Iy
-	 ZGkH33EZV4JOsrRJ79UXYUhDi6wZ7H/NMl7mTFpOOrBOsYd50h35G7begyMj2NSf5s
-	 BkKh2GxNaAWAYuQvoyQXafyDNHp4Oa/lqVv1LLFVYnF6kzL/TGefbFhXdJtaRIUg/b
-	 eG+xs/TPddWTTaBqUdApJOTWd2uLnhFiMQ2YvSxdRQAPcunEUi2ANUSJW119preKLH
-	 Bq6rtnXpucY+m/PvSfqi9nNoLQ4Ki6K11TBmaZ6et1JT1cDx6Pa8tIkH+QPP2a5t0b
-	 3fZBEN6z53vJw==
-Date: Thu, 24 Sep 2026 09:00:45 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Simon Horman <horms@kernel.org>
-Cc: han.junyang@zte.com.cn, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, pabeni@redhat.com, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, ran.ming@zte.com.cn, han.chengfei@zte.com.cn,
- zhang.yanze@zte.com.cn
-Subject: Re: [PATCH net-next v3 2/3] dinghai: add MSI-X interrupt pools
-Message-ID: <20260924090045.39200ced@kernel.org>
-In-Reply-To: <20260922100913.GA13925@horms.kernel.org>
-References: <202609211451400236_aZ55Ox3y7NW8MQnYImM@zte.com.cn>
-	<202609211459460680vBvKdpuZZ9yR4QVn3ONR@zte.com.cn>
-	<20260922100913.GA13925@horms.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NZzyiOhV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790265660; x=1821801660;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=9u/ll/zHy5qD5t7Tw1PhsKMfqspn3/oOobU2WmocDjc=;
+  b=NZzyiOhVxJFhpGdEEAzd84gPb0FYUH3ikx2KLoOLCN37tK16G9dl/Fql
+   qHmHJlal2bJ4aTHgfr0BoOEPCZe7SVV4qQtZ+MVCPqDV3EbQvgDus3MAT
+   A0g4/gtMuhqtqFGWMpYDa7dIBgETtVtuGKtGbxttSAOLAFw/NxoVBhpEx
+   RuhUxBromHSNSgTTlWdFrGT/e9mqCVzz+E0nL6Jm4QRr2ZbGoDZHZaPkE
+   b/X9x00RRMEZ560byDLAPkzQTqkwnpY/Q1eM9jwrv2sQ7RROn0nl01JDD
+   tvi1sPbawIryqpeNTaaZSu+S69TvzxhsV9UkixwqPJo6mo+UEOpOeK1ER
+   w==;
+X-CSE-ConnectionGUID: +AzFJU1fQreWvqTWQbVkMw==
+X-CSE-MsgGUID: 6oD8htOwS22uVlPtXMMp1g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="93540029"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="93540029"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 09:00:59 -0700
+X-CSE-ConnectionGUID: Lz5QqlYjTh6M08o4Iqjmug==
+X-CSE-MsgGUID: mA/zBoFMRCmnMfgVJtdRBQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="274251620"
+Received: from dwoodwor-mobl2.amr.corp.intel.com (HELO [10.125.110.186]) ([10.125.110.186])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 09:00:57 -0700
+Message-ID: <471868ae-a77a-44ea-84ab-faed73a13b12@intel.com>
+Date: Thu, 24 Sep 2026 09:00:56 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 13/14] NTB: ntb_transport: Abort link setup on QP MW
+ allocation failure
+To: Koichiro Den <den@valinux.co.jp>, Jon Mason <jdmason@kudzu.us>,
+ Allen Hubbe <allenbh@gmail.com>
+Cc: Frank Li <Frank.Li@kernel.org>, Logan Gunthorpe <logang@deltatee.com>,
+ fuyuanli <fuyuanli0722@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nicholas Bellinger <nab@linux-iscsi.org>,
+ Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260910040836.3792333-1-den@valinux.co.jp>
+ <20260910040836.3792333-14-den@valinux.co.jp>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <20260910040836.3792333-14-den@valinux.co.jp>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Tue, 22 Sep 2026 11:09:13 +0100 Simon Horman wrote:
-> W=1 builds complain about this. E.g. GCC 16.2.0 on x86_64 says:
 
-Hi Simon!
 
-Thanks for the work! Would you mind sprinkling pw-bot tags more
-liberally? Saves me a couple of clicks in (permanently slow)
-patchwork UI.
+On 9/9/26 9:08 PM, Koichiro Den wrote:
+> ntb_transport_setup_qp_mw() can fail while growing a QP's RX entry pool,
+> but the link worker ignores that error. The worker can consequently
+> publish a QP whose memory-window state is only partly initialized.
+> 
+> Abort on the first QP setup error and release the MWs through the
+> existing error path instead of publishing the transport link.
+> 
+> Fixes: a754a8fcaf38 ("NTB: allocate number transport entries depending on size of ring size")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+
+> ---
+> Changes in v2:
+>   - No changes.
+> 
+> Originally submitted as part of the direct TX/RX series v1:
+> https://lore.kernel.org/r/20260810165136.2292436-2-den@valinux.co.jp/
+> 
+>  drivers/ntb/ntb_transport.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
+> index 096be87e5ede..c1e3a077c45e 100644
+> --- a/drivers/ntb/ntb_transport.c
+> +++ b/drivers/ntb/ntb_transport.c
+> @@ -1152,7 +1152,9 @@ static void ntb_transport_link_work(struct work_struct *work)
+>  	}
+>  
+>  	for (i = 0; i < nt->qp_count; i++) {
+> -		ntb_transport_setup_qp_mw(nt, i);
+> +		rc = ntb_transport_setup_qp_mw(nt, i);
+> +		if (rc)
+> +			goto out1;
+>  		ntb_transport_setup_qp_peer_msi(nt, i);
+>  	}
+>  
+
