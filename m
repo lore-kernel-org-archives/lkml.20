@@ -1,194 +1,377 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011040.outbound.protection.outlook.com [52.101.70.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6F641F357
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:37:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790246247; cv=none; b=X9F2nE6G+LVWOTgjzFz48ivRRgAOERtZx4sDLqLH4tsD6nZJvMfxdZeKcmRyNVUJRebJIkhmfNVUroKr4wZaLfcnuw8XP5aZBq7nhlEx+/a0frIvK7/BIBoUucaxA8eJgbk4QhOjkvYq589MW7aw26TZlR/AZnDiajbOQ+O4gsE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790246247; c=relaxed/simple;
-	bh=KItYYmTb1hqzPFBT7AHYXiYDuHHx1H/geRCugysntMg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NNrdqVdUMRO3An9SsUkz8vVbqOxrF+FMiQ8WG3e3+mFOOn3Nx/nMzQdh0vm+PyYboRo8r5KR4LLozArSUAvl5OzVx22tU0YOJsEbomTv15JUJSZYalw6Q575+bgzV/GbI4xVFaAgVHDw22fjxSjRBVZtoZEx5K/8mKTUkTdDs8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=N3RXK5qj; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5BFD457E53
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:37:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.40
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790246276; cv=fail; b=OFGA62mXnL65O/RA53S19JBC9ccR4TGJ1nv4e+OfZIO82ClYd3AhVzr+ZAUbOPGULnxmELM0v9xuHlaxb6pj1VEwFGDb0ejKj/XtvwMkFNguT875L3zTlH2s9oLG0eDnd+BWKzu+TGVM7XfWlH7sabWBr3I1x1DpHi8BCYttCyo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790246276; c=relaxed/simple;
+	bh=Czc+oHtTgbXp+OlpkAi+BcBZZwgjBGSy7Q5WTyqEhZQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=AXv4frn0fDqM5rliZHlF064HduDiP3CitcDRBHOMQYv2S0btfzAc+yjJigbJQqFEHwr+m54e58naDgTGhqrqnRco+MlBRqa+r9FVzskdFolCMDzLfyuczjThk9psOYG695DXGE4D4sjHqmf7l+0w6Ljf/qzGF5P94NhJIAXWMvs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=TnqZuVcA; arc=fail smtp.client-ip=52.101.70.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="N3RXK5qj"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2507a0a24bso20513566b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:37:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790246244; x=1790851044; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=34DvOH57h16Ry/MZtJV7+YneUNCdGFkltPA28JgRicA=;
-        b=N3RXK5qjutitWSsooPHFtev3a8Onl942NrUpKdXchDpWFJ+UCalNzFMVwYKFQZaSG2
-         VG9jYl7tJwZ0T9XYtfPSazJeW0YjCims8UAzSo8taYV4lpK6nh3TIrNqWJxfJr8JDSAR
-         HNtbe0QoTkJxK4o9gxg1XMDPT7V55XBaz0ukEzE3CM/LpqaDT0jue4cRZMS7/c72JdbE
-         gt0ObQxDvvfpPPkG3fYhUlmFKGdLXdfOxLLzAR58oAZfKcXI7oCSxCXh4QLPfhqIo9sr
-         Uagr5Hs7L2HIL8DYrT741z08uVC1Y9aJqhZq1mS0aZVEE8KAAJWebD21uXPlMHwKrEOe
-         ODxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790246244; x=1790851044;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=34DvOH57h16Ry/MZtJV7+YneUNCdGFkltPA28JgRicA=;
-        b=Q59J9FvFJpaCGmbw9zWm3kjf2eOgel6A/kLpbFwXSUy/Vy7v1Q9gFihUCPGQO7/C02
-         AThaD3UtAPwYmeE2k/8844A01AHbvPn3K1G67Ya6lniEVdXo7k/xoYyJRiqIF9WDc6J4
-         Q7Px6yEVzLdOwtyDSaChf2U1GUpmMLDt/pgGorhB/Q6W+YoVFJLRo8ZiOQ+1dPA3pywy
-         LnuN/3tz0MfvIuhq1Lk9eK3S6BVzulgiE1lUfZVO0DkOH/Vv5U4GhauEKbXARZvoT6q9
-         8G4DAAmNlltFrB2HLmoOIFGLRLBDlH2O1y6/OFSa7f6i/D2GqOkjEzV5u2jpX4dx1SUi
-         lFiA==
-X-Forwarded-Encrypted: i=1; AKwUvBzOoOwCt+GmWGIzYfjl57vTTTApzxtPJzvSZoHNjEFaxpF295m+hE9WL2OnvpI/iuu5pXmtFgH8TUwqsXw=@vger.kernel.org
-X-Gm-Message-State: AFuF++leaZ9cKbOz9akz/4pWTVM5Aa4cMSrMPOqcc3A9yDI4jHyaRh7M
-	rLnAjwivSHAtQ4yhZNIu+WGed7kkPcCTRRZ5rypzmmLCVUUoe+EWSsdyxGcYPRPI7hM=
-X-Gm-Gg: AYBFou2g13Jp3MnQeg1//2THs8MDLpbMYwJTtc6alMPDFXSLssHww/AdlWBy2zvI08l
-	HMiwTTgHkqo2w23Sk1U67wkhrpsh/dQkJ/wPQ05aLHDhzjG3879b6ASp07dTjBVdSLFk9DWqYFQ
-	UtjXCXyIJtcwSn3p8J4fARZ+g64n6kJ+Z5KpNl+CLOOSZeec59WOlCh5W4U7bC+5fj3zHOhxtfG
-	UbzWFB6F6scSxta0vaHsVE75s4N4dy507z19QaiSltjbMp92N7/xerw1u9nWM7BsxDjkmVf0ZLq
-	dcUUUheASrL77Djg01qVh97OmvWvNluUhCLC0PKn6tGTVh2zKfCMGlCzO6kqyTczfJkg+6Rl4OL
-	GenEBb7uecxheKCniJhkcxNHk+mLPDZ56WDNS9fWFjceNTYkpz+KGOvTndpKrAJWdNK54xEmKCS
-	ZL7xKb5PBQ4mWatXqBSPFOwlV1j53VLhk3T3PguKTyzkLNM5pshNo3QlEYy7XEmc499oEpGjyrX
-	0k3eH4=
-X-Received: by 2002:a17:907:6d13:b0:c24:908b:4e2e with SMTP id a640c23a62f3a-c2ac25a5a03mr172545566b.4.1790246244095;
-        Thu, 24 Sep 2026 03:37:24 -0700 (PDT)
-Received: from localhost ([202.127.77.110])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f3f4173sm2449097a12.20.2026.09.24.03.37.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 03:37:23 -0700 (PDT)
-Date: Thu, 24 Sep 2026 18:37:19 +0800
-From: Heming Zhao <heming.zhao@suse.com>
-To: Deepanshu Kartikey <kartikey406@gmail.com>, 
-	joseph.qi@linux.alibaba.com
-Cc: mark@fasheh.com, jlbec@evilplan.org, akpm@linux-foundation.org, 
-	brauner@kernel.org, jack@suse.cz, zzzccc427@gmail.com, ericterminal@gmail.com, 
-	ocfs2-devel@lists.linux.dev, christophe.jaillet@wanadoo.fr, linux-kernel@vger.kernel.org, 
-	syzbot+3025e3e8fc0b928af8f5@syzkaller.appspotmail.com
-Subject: Re: [PATCH] ocfs2: fix use-after-free in o2hb_region_dev_store
-Message-ID: <arT8GTxhKeGu6cAW@p15>
-References: <20260904235710.16317-1-kartikey406@gmail.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="TnqZuVcA"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UGXZvtyXb8z4LnUa4i3kCczSUyAjNGdKKsxSca0GtZnZq3tyO7Bv4xQWhw0LC7L5zifqj+C4wWFj60QV8lIewYCmjSICeJ9zs6XouacXqiNhXBTQzSfnAlmszWooIkvXz/jS+bQdoPGy/B26JAXLiohvCCH/jVT0Z4qVU7VUGoYyf56T1tynh1WahLSBOpd+nO+tKL4gXCM0cZwGCj1hUMWG771TFQnLhaza02NyeHCIutIg/8Me8bZW4prAfm4X4y5+oWexaGe4rdqYtq6Su4gz/mWKdorWUM99aSrbYeXWJO0XRGeyE/EwqFwMnUeEOFQTCLUsmjM4m57AoNw2aA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZWCo/GWnUpg3/yHkjPmqxiuY/O+02GuGbVM30JWL/Ow=;
+ b=xDCGJ3i+9Cvkqr6ZZldXEWBWD9ETTb+ejlPROrMmsf9AdmqGvgy5XmaelZOX6h8XIH93+/kdMpah1cgMj7Z/fje1fnG717ZhTT4loSdRLm0Wag+tUJnDZiK8Ln2K5eEEIxawpEx+lwzSaSQ5PexKEzs1R2Q/VgRhAjJnUBksrABgy9dI92VTqjv6hIFMF6kfVe5sutFWGdiEIP6IzSz53cIvGks0neWb0CXuAY1vifFNkHzSBft6qoBgNCY7rzKHxsuEkcObSxufV1ltBVypFkBmBRqVUFTSxfcCRLXGtIAA2+EQWo5Am/DXBsxkZQc9aPAB1QVBMEhLoTAAEmvUqQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZWCo/GWnUpg3/yHkjPmqxiuY/O+02GuGbVM30JWL/Ow=;
+ b=TnqZuVcASiM9iaVq5CZKVad7ixhUvbJ/fOgn7Wye+lIgZKUA9gJLUM8M3fSCYsspyo6FFrLGkxLIDtPK2bCdoenpPFPMHX1tXduQJdxtupAKQIelUVdeiGgmKBmLSleCxY5+SRMDnOjNeckXS/MiGhGdyJlY7ffNo16AqLN8xZGkum+I61MuweOG8dh0gLZBwyVoMG0DVtfg8PZrkW1nnedp7EAAQZ3BfwVbsz9nRm18gdbtwL4QAAXEveGC/TmRdfOZYR8geXRkRi4VoEGCVyCc3sUka3ezcDmhwwjz2cUTpj/f3/N+fkEm8VwO/xBlHWFc+OlOEqkicv+0sk3XUA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from PA3PR04MB11203.eurprd04.prod.outlook.com
+ (2603:10a6:102:4ab::13) by DB9PR04MB8188.eurprd04.prod.outlook.com
+ (2603:10a6:10:25e::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 10:37:51 +0000
+Received: from PA3PR04MB11203.eurprd04.prod.outlook.com
+ ([fe80::80e9:ab1c:dbc4:6930]) by PA3PR04MB11203.eurprd04.prod.outlook.com
+ ([fe80::80e9:ab1c:dbc4:6930%3]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 10:37:51 +0000
+From: marouene.boubakri@oss.nxp.com
+To: jenswi@kernel.org
+Cc: sumit.garg@kernel.org,
+	op-tee@lists.trustedfirmware.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	amirreza.zarrabi@oss.qualcomm.com,
+	peter.lin@sifive.com,
+	Marouene Boubakri <marouene.boubakri@oss.nxp.com>
+Subject: [PATCH v4] tee: optee: build the Arm-specific code only on Arm
+Date: Thu, 24 Sep 2026 12:51:45 +0200
+Message-Id: <20260924105145.532787-1-marouene.boubakri@oss.nxp.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: CY5PR15CA0238.namprd15.prod.outlook.com
+ (2603:10b6:930:66::9) To PA3PR04MB11203.eurprd04.prod.outlook.com
+ (2603:10a6:102:4ab::13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904235710.16317-1-kartikey406@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA3PR04MB11203:EE_|DB9PR04MB8188:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7e8539ce-744e-45f9-92ec-08df1a27e25d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|19092799006|10067099003|56012099006|5023799004|11063799006|3023799007|6133799003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	7/mo3NuiyH5ef1PQYm7kgw4Jv+BUENrP4y0BmPDXMSEowamBPO9m9Wl26E1Pu8xuaHGtvzb3bxAWmHHKH5LqO/w6p1QMMrbUU6gTWRlKPEP4tKbbW1+yfe7RurIUTSJtbFmYrp7dmO7cSdG5kSIROhAAECO+msrEYHJuaajeWBFimcTG4rOFZzVbVSbEk33gw3BBlV6tSky6Inyy2ki5hvcEFkciHHNuIKfGXtvBZgcm8aXQUNyMduePILqQtFTTUH1QQ4+AvAhdm9UynfzhVa+okE1+0gc0PwUkgTc7d/ZT0ck3qS5bvjqyLMSXLZYcSPiJSLI5FypLtY3nFhSXjLsW2Ag+Bn7MhK2RBhCMGjPkTz/ZsyV5wSGvfqGz5YZWsZJ/OGtNnWWU6AAx0OxwZQgUwchkNARovyAHcL4k8SuAf4boew+xTBpZOYsYb+NfeNaH7XuFRNToej361hCIivoROLSFYc+QxX0bQaS+UFyVjmuClrAc0jQ357/z2e/mQhrDbwkHqZmF3HEOdyW9AqvqayXf2h0aWBtg8W+DXnTeJhdBUOnxl4yB63i1fln68QH+oZffeXJB/gQiOwBqI+Nk6D5LC44JGeNKiN4Z6GQR6Dgi3ahq+Ckwe0aUJrrOipFqb4fCGmHZj7GddpnycEpvfMYW4RRyatLKND9DYyQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA3PR04MB11203.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(19092799006)(10067099003)(56012099006)(5023799004)(11063799006)(3023799007)(6133799003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?DmfAxIIundQf9ddxxQIkMb8kc4FWqlg14XlSUTTKTaQhkgNnnrcUof9GU3K7?=
+ =?us-ascii?Q?5l2gz1VQB8ifTXh+yw3YpLbZj5SDs9x3FmUJt3WGexrWf1mbaXbnDNZeE+9s?=
+ =?us-ascii?Q?uTpRvSSiqz95aGAoWKDctWYzwAC+ogwjH9shIBr9c2EodA8Ftac1nTF526k3?=
+ =?us-ascii?Q?FJV/69TM26rxp2OzDPMqpCmSv9DmfUTHE6wpwiUN/I9wG3lM6ocqhLLaFUNI?=
+ =?us-ascii?Q?U7bCTjZknlHnjY2Dskjmnf0kMCy4Gv2O1tvIoS9R2esOnXGPYpVFtbTtmIw6?=
+ =?us-ascii?Q?kJ0ViZUWl0keo+qxU6Mmz6r3BX1x0psLMYFWaPbyb3iypFv9nd4R14UDtzn5?=
+ =?us-ascii?Q?mvHwEKw2NBo7vWDCPu72IHNSGttdzU3aFVMoaPBjlwi2ny70nUdg+MLLGgl3?=
+ =?us-ascii?Q?GZL4/jofg0z8iDybeA374XTB5BzF7Q8p9sB/+b4K52OazEj9FZFPS7w5iyL2?=
+ =?us-ascii?Q?DwcHdgIDQs61Y9jVfminrEk74oLpgD7X7i4SmJknhuWX5nm2GZdQj/qIVXgX?=
+ =?us-ascii?Q?oAytF2/7srjDKCHaPPR+6rzoizywsu4gKvto98eH6gO5gJCcaN7yUYtm96v9?=
+ =?us-ascii?Q?vzeNPmBMNP8LSIEOu+2mA4RsuIRHDwueT7AIOof8CDfpExITdByROzBGVr4Q?=
+ =?us-ascii?Q?+V6qVyuvIuHQrezkI0QD6uF75EdIqOc2LHWBBszwVTFDnKcO4lM9aJKxYbSf?=
+ =?us-ascii?Q?Yc1/ZGE/Wis+4lvAQvlT356ZSSZ/3W14oDYYutU8qaf+bSf7sx0M5jEmZCiz?=
+ =?us-ascii?Q?/HMiGZt+bVtkzSrA9IpEtFrRGJTYGleuBTKTHVrKFvfUHegSt8ufl6m5LzUe?=
+ =?us-ascii?Q?cRL07jc1GsTyhA2obyVIqE97WQxPt3TZMBoWUc7skCE61L6CrDVCNTj6+hUz?=
+ =?us-ascii?Q?xkzjWLmwAbLQkStPsTg1ykJaz4PUQD95KrR6sCgOHtNDu9C+SC3YyEjnykfo?=
+ =?us-ascii?Q?7d1HUmNa2imxuHwuOa2AdBmFAVdKDN3B1Lh+rZ0sE2mxG7LuMrX0mjXeK8MR?=
+ =?us-ascii?Q?OBT7mmZFbBSio9YtXGLwC5bGGW1qslTl8IxkHFcAxGUlpQpRQI+BA3NA2uow?=
+ =?us-ascii?Q?iBolFjFg4/fB07UnHDy0ZOgLqYMnThnoRWMbHs36HvIfQmxQuqzkJ26ja1et?=
+ =?us-ascii?Q?03sFaL4S9IMBxXBXtAwIP5Ny4USpaZhZMlOaRpKXnif1VGo5dcxE98uLiTrE?=
+ =?us-ascii?Q?6lKCnPqfJaSvdHTkvTN8aPpjpQpLtsM8xZfow8X0vAjqKSnFJ1s9rfp68CKm?=
+ =?us-ascii?Q?34Jh+ZoEwrZuVv+yyUfQN+h2oyK3PDb3PGmZcQ8xcqy3P7A+wDMlfQKKymAE?=
+ =?us-ascii?Q?dBYa9Gmjh2qPYkyAtzzeMRmpFn2LX2BQ0rWFcZh62Z06nfEwh2bxz5qs953O?=
+ =?us-ascii?Q?WcFtsWQqMu07Dd7x11ng4lMLo6F/yj7ng+ucdhzInQVPmemjsisCpj3jLT62?=
+ =?us-ascii?Q?K3xjT9wZRMzbP+GD4NPzepuHiXjUurV3rknCZ1PtToqQ9vprrCRoc5DmKXnY?=
+ =?us-ascii?Q?PwLlRTsg88O+lBjaqc71yDYF7ISVRbCjYK2zwHiH/6xZVPhwb2R1vp66F3G/?=
+ =?us-ascii?Q?NTMgoAMIaIz++AVzVE4II8Sj7o7LdgiSQu3MsUyjLI+dU1Icxow6MvO8DNww?=
+ =?us-ascii?Q?18nPG029voS2HJIO9gI8wDqxXxJsVVzL3lfaA1JrLLVhokIP4xu26ryw7wqM?=
+ =?us-ascii?Q?IWynKNdWoRIGxvyzI7uJLId51AmWUX/CDYk8ulHgRsl7N/BRa1VbCg7R6Eus?=
+ =?us-ascii?Q?vt9TxZphZdm64MIMeUf/A+uFzBPQrk7oETAAOpl0RyBMQhKgsoRK72SNCOjR?=
+X-MS-Exchange-AntiSpam-MessageData-1: nv5ibMRj52q7dw==
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7e8539ce-744e-45f9-92ec-08df1a27e25d
+X-MS-Exchange-CrossTenant-AuthSource: PA3PR04MB11203.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 10:37:51.6368
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JrfsN8u1iN5Lt9giIarSNpJmZSIT9yO72818wfptREZ/ucSYveDltRgEdntRU0HehXzFZeW6gBgQTSS0zbZ/UpT9+Evnz/dNYa2WXeN0TjxeTmd229NAfmfa9/Z/YwjFdekMD90Bz1pidQOpKj6eiA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8188
 
-On Sat, Sep 05, 2026 at 05:27:10AM +0530, Deepanshu Kartikey wrote:
-> Concurrent writes to a region's "dev" attribute can race, letting two
-> tasks both allocate/free reg->hr_slot_data for the same region and
-> causing a use-after-free. Add a per-region mutex to serialize
-> o2hb_region_dev_store() against itself and against
-> o2hb_region_release().
+From: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
 
-Hi,
+The OP-TEE driver reaches OP-TEE through the SMC ABI or the FF-A ABI,
+both specific to Arm, yet builds both unconditionally together with the
+SMC Calling Convention definitions they rely on: ffa_abi.c is always
+compiled and only its registration is conditioned on
+IS_REACHABLE(CONFIG_ARM_FFA_TRANSPORT), and optee_private.h includes
+<linux/arm-smccc.h> and defines the SMC and FF-A specific types for
+every file of the driver. This is fine as long as the driver depends on
+HAVE_ARM_SMCCC, but it keeps the driver from being built for an
+architecture without SMCCC, such as RISC-V.
 
-Did AI generate this patch? The commit log says "reg->hr_slot_data" should be
-protected, but the code protects ->hr_bdev_file in o2hb_region_dev_store(), not
-o2hb_map_slot_data().
+Build smc_abi.c only when HAVE_ARM_SMCCC is set and ffa_abi.c only when
+the FF-A transport is enabled, and provide stubs for their registration
+otherwise, so that it fails with -EOPNOTSUPP as the FF-A ABI already
+does when the FF-A transport is not reachable. Keep the SMCCC header,
+the SMC invoke function type, the SMC and FF-A specific structures and
+the SMC RPC register parameters in optee_private.h under the same
+conditions, and drop the unused <linux/arm-smccc.h> include from
+notif.c.
 
-Just code logic, I prefer changing struct mutex hr_dev_write_mutex to hr_mutex.
+Make OPTEE depend on ARM_FFA_TRANSPORT || !ARM_FFA_TRANSPORT, as it
+already does for RPMB, so that the driver is limited to a module when
+the FF-A transport is one, rather than built in without FF-A support.
+ffa_abi.c is thus built exactly when the FF-A transport is reachable
+from the driver, and the IS_REACHABLE() checks in
+optee_ffa_abi_register() and optee_ffa_abi_unregister() are always
+true, so drop them.
 
-@Joseph,
+OPTEE still depends on HAVE_ARM_SMCCC, so smc_abi.c is still always
+built. The only visible change is that OPTEE=y can no longer be
+combined with ARM_FFA_TRANSPORT=m: such a configuration now resolves to
+OPTEE=m, with the FF-A ABI available.
 
-I'm not very familiar with the heartbeat, based on the syzbot report, it seems
-hr_slot_data needs protection. Does it make sense to fix this in cluster world?
+Signed-off-by: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
+---
+Changes in v4:
+- Make OPTEE depend on ARM_FFA_TRANSPORT || !ARM_FFA_TRANSPORT so that
+  the driver is limited to =m when the FF-A transport is =m (Jens).
+- Update the commit message accordingly.
+v3: https://lore.kernel.org/all/20260922131735.524635-1-marouene.boubakri@oss.nxp.com/
 
-Thanks,
-Heming
-> 
-> Fixes: 1d3aa0b97c55 ("ocfs2: port block device access to file")
-> Reported-by: syzbot+3025e3e8fc0b928af8f5@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3025e3e8fc0b928af8f5
-> Tested-by: syzbot+3025e3e8fc0b928af8f5@syzkaller.appspotmail.com
-> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-> ---
->  fs/ocfs2/cluster/heartbeat.c | 23 +++++++++++++++++++----
->  1 file changed, 19 insertions(+), 4 deletions(-)
-> 
-> diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
-> index 1c3def99bb07..6f03de1b6d4a 100644
-> --- a/fs/ocfs2/cluster/heartbeat.c
-> +++ b/fs/ocfs2/cluster/heartbeat.c
-> @@ -273,6 +273,9 @@ struct o2hb_region {
->  
->  	/* last hb status, 0 for success, other value for error. */
->  	int			hr_last_hb_status;
-> +	/* Serializes dev_store() against itself and region_release() */
-> +	struct mutex            hr_dev_write_mutex;
-> +
->  };
->  
->  static inline struct block_device *reg_bdev(struct o2hb_region *reg)
-> @@ -1616,7 +1619,10 @@ static void o2hb_region_release(struct config_item *item)
->  
->  	o2hb_quiesce_timeout(reg);
->  	o2net_unregister_and_flush_handler_list(&reg->hr_handler_list);
-> +
-> +	mutex_lock(&reg->hr_dev_write_mutex);
->  	o2hb_unmap_slot_data(reg);
-> +	mutex_unlock(&reg->hr_dev_write_mutex);
->  
->  	if (reg->hr_bdev_file)
->  		fput(reg->hr_bdev_file);
-> @@ -1879,9 +1885,6 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
->  	ssize_t ret = -EINVAL;
->  	int live_threshold;
->  
-> -	if (reg->hr_bdev_file)
-> -		return -EINVAL;
-> -
->  	/* We can't heartbeat without having had our node number
->  	 * configured yet. */
->  	reg->hr_node_num = o2nm_this_node();
-> @@ -1906,12 +1909,20 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
->  	if (!S_ISBLK(fd_file(f)->f_mapping->host->i_mode))
->  		return -EINVAL;
->  
-> +	if (mutex_lock_interruptible(&reg->hr_dev_write_mutex))
-> +		return -ERESTARTSYS;
-> +
-> +	if (reg->hr_bdev_file) {
-> +		ret = -EINVAL;
-> +		goto out_unlock;
-> +	}
-> +
->  	reg->hr_bdev_file = bdev_file_open_by_dev(fd_file(f)->f_mapping->host->i_rdev,
->  			BLK_OPEN_WRITE | BLK_OPEN_READ, NULL, NULL);
->  	if (IS_ERR(reg->hr_bdev_file)) {
->  		ret = PTR_ERR(reg->hr_bdev_file);
->  		reg->hr_bdev_file = NULL;
-> -		return ret;
-> +		goto out_unlock;
->  	}
->  
->  	sectsize = bdev_logical_block_size(reg_bdev(reg));
-> @@ -2029,6 +2040,8 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
->  		fput(reg->hr_bdev_file);
->  		reg->hr_bdev_file = NULL;
->  	}
-> +out_unlock:
-> +	mutex_unlock(&reg->hr_dev_write_mutex);
->  	return ret;
->  }
->  
-> @@ -2149,6 +2162,8 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
->  
->  	config_item_init_type_name(&reg->hr_item, name, &o2hb_region_type);
->  
-> +	mutex_init(&reg->hr_dev_write_mutex);
-> +
->  	/* this is the same way to generate msg key as dlm, for local heartbeat,
->  	 * name is also the same, so make initial crc value different to avoid
->  	 * message key conflict.
-> -- 
-> 2.34.1
-> 
-> 
+Changes in v3:
+- Dropped the RPMI ABI placeholder and the RISC-V enablement patches,
+  this is now a single patch (Jens).
+- Key the FF-A parts of optee_private.h on IS_REACHABLE() instead of
+  IS_ENABLED(): with OPTEE=y and ARM_FFA_TRANSPORT=m kbuild drops
+  ffa_abi.o from the built-in optee.o while optee_ffa_abi_register()
+  was still declared, which does not link.
+- Drop the now always true IS_REACHABLE() checks in
+  optee_ffa_abi_register() and optee_ffa_abi_unregister().
+- Describe the current FF-A conditional compilation accurately in the
+  commit message.
+- Posted as a new thread with a proper subject prefix.
+v2: https://lore.kernel.org/op-tee/20260915020235.507302-2-marouene.boubakri@oss.nxp.com/
+
+Changes in v2:
+- No code change, the testing section of the cover letter was completed.
+v1: https://lore.kernel.org/op-tee/20260914175435.118303-2-marouene.boubakri@oss.nxp.com/
+ drivers/tee/optee/Kconfig         |  1 +
+ drivers/tee/optee/Makefile        |  4 ++--
+ drivers/tee/optee/ffa_abi.c       |  8 ++-----
+ drivers/tee/optee/notif.c         |  1 -
+ drivers/tee/optee/optee_private.h | 39 ++++++++++++++++++++++++++++++-
+ 5 files changed, 43 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/tee/optee/Kconfig b/drivers/tee/optee/Kconfig
+index 50d2051..891dac6 100644
+--- a/drivers/tee/optee/Kconfig
++++ b/drivers/tee/optee/Kconfig
+@@ -5,6 +5,7 @@ config OPTEE
+ 	depends on HAVE_ARM_SMCCC
+ 	depends on MMU
+ 	depends on RPMB || !RPMB
++	depends on ARM_FFA_TRANSPORT || !ARM_FFA_TRANSPORT
+ 	help
+ 	  This implements the OP-TEE Trusted Execution Environment (TEE)
+ 	  driver.
+diff --git a/drivers/tee/optee/Makefile b/drivers/tee/optee/Makefile
+index ad7049c..183cdde 100644
+--- a/drivers/tee/optee/Makefile
++++ b/drivers/tee/optee/Makefile
+@@ -7,8 +7,8 @@ optee-objs += rpc.o
+ optee-objs += protmem.o
+ optee-objs += supp.o
+ optee-objs += device.o
+-optee-objs += smc_abi.o
+-optee-objs += ffa_abi.o
++optee-$(CONFIG_HAVE_ARM_SMCCC) += smc_abi.o
++optee-$(CONFIG_ARM_FFA_TRANSPORT) += ffa_abi.o
+ 
+ # for tracing framework to find optee_trace.h
+ CFLAGS_smc_abi.o := -I$(src)
+diff --git a/drivers/tee/optee/ffa_abi.c b/drivers/tee/optee/ffa_abi.c
+index 633715b..08236d8 100644
+--- a/drivers/tee/optee/ffa_abi.c
++++ b/drivers/tee/optee/ffa_abi.c
+@@ -1212,14 +1212,10 @@ static struct ffa_driver optee_ffa_driver = {
+ 
+ int optee_ffa_abi_register(void)
+ {
+-	if (IS_REACHABLE(CONFIG_ARM_FFA_TRANSPORT))
+-		return ffa_register(&optee_ffa_driver);
+-	else
+-		return -EOPNOTSUPP;
++	return ffa_register(&optee_ffa_driver);
+ }
+ 
+ void optee_ffa_abi_unregister(void)
+ {
+-	if (IS_REACHABLE(CONFIG_ARM_FFA_TRANSPORT))
+-		ffa_unregister(&optee_ffa_driver);
++	ffa_unregister(&optee_ffa_driver);
+ }
+diff --git a/drivers/tee/optee/notif.c b/drivers/tee/optee/notif.c
+index 6e85f2f..6801422 100644
+--- a/drivers/tee/optee/notif.c
++++ b/drivers/tee/optee/notif.c
+@@ -5,7 +5,6 @@
+ 
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ 
+-#include <linux/arm-smccc.h>
+ #include <linux/errno.h>
+ #include <linux/slab.h>
+ #include <linux/spinlock.h>
+diff --git a/drivers/tee/optee/optee_private.h b/drivers/tee/optee/optee_private.h
+index aefe1e6..02d6f79 100644
+--- a/drivers/tee/optee/optee_private.h
++++ b/drivers/tee/optee/optee_private.h
+@@ -6,7 +6,6 @@
+ #ifndef OPTEE_PRIVATE_H
+ #define OPTEE_PRIVATE_H
+ 
+-#include <linux/arm-smccc.h>
+ #include <linux/notifier.h>
+ #include <linux/rhashtable.h>
+ #include <linux/rpmb.h>
+@@ -15,6 +14,10 @@
+ #include <linux/types.h>
+ #include "optee_msg.h"
+ 
++#ifdef CONFIG_HAVE_ARM_SMCCC
++#include <linux/arm-smccc.h>
++#endif
++
+ #define DRIVER_NAME "optee"
+ 
+ #define OPTEE_MAX_ARG_SIZE	1024
+@@ -42,10 +45,12 @@
+  */
+ #define OPTEE_DEFAULT_MAX_NOTIF_VALUE	255
+ 
++#ifdef CONFIG_HAVE_ARM_SMCCC
+ typedef void (optee_invoke_fn)(unsigned long, unsigned long, unsigned long,
+ 				unsigned long, unsigned long, unsigned long,
+ 				unsigned long, unsigned long,
+ 				struct arm_smccc_res *);
++#endif
+ 
+ /**
+  * struct optee_call_waiter - TEE entry may need to wait for a free TEE thread
+@@ -119,6 +124,7 @@ struct optee_supp {
+ 	struct completion reqs_c;
+ };
+ 
++#ifdef CONFIG_HAVE_ARM_SMCCC
+ /**
+  * struct optee_pcpu - per cpu notif private struct passed to work functions
+  * @optee:	optee device reference
+@@ -149,7 +155,9 @@ struct optee_smc {
+ 	struct work_struct notif_pcpu_work;
+ 	unsigned int notif_cpuhp_state;
+ };
++#endif
+ 
++#if IS_REACHABLE(CONFIG_ARM_FFA_TRANSPORT)
+ /**
+  * struct optee_ffa -  FFA communication struct
+  * @ffa_dev:		FFA device, contains the destination id, the id of
+@@ -170,6 +178,7 @@ struct optee_ffa {
+ 	struct workqueue_struct *notif_wq;
+ 	struct work_struct notif_work;
+ };
++#endif
+ 
+ struct optee;
+ 
+@@ -257,8 +266,12 @@ struct optee {
+ 	const struct optee_ops *ops;
+ 	struct tee_context *ctx;
+ 	union {
++#ifdef CONFIG_HAVE_ARM_SMCCC
+ 		struct optee_smc smc;
++#endif
++#if IS_REACHABLE(CONFIG_ARM_FFA_TRANSPORT)
+ 		struct optee_ffa ffa;
++#endif
+ 	};
+ 	struct optee_shm_arg_cache shm_arg_cache;
+ 	struct optee_call_queue call_queue;
+@@ -290,6 +303,7 @@ struct optee_context_data {
+ 	struct list_head sess_list;
+ };
+ 
++#ifdef CONFIG_HAVE_ARM_SMCCC
+ struct optee_rpc_param {
+ 	u32	a0;
+ 	u32	a1;
+@@ -300,6 +314,7 @@ struct optee_rpc_param {
+ 	u32	a6;
+ 	u32	a7;
+ };
++#endif
+ 
+ /* Holds context that is preserved during one STD call */
+ struct optee_call_ctx {
+@@ -422,9 +437,31 @@ static inline void reg_pair_from_64(u32 *reg0, u32 *reg1, u64 val)
+ }
+ 
+ /* Registration of the ABIs */
++#ifdef CONFIG_HAVE_ARM_SMCCC
+ int optee_smc_abi_register(void);
+ void optee_smc_abi_unregister(void);
++#else
++static inline int optee_smc_abi_register(void)
++{
++	return -EOPNOTSUPP;
++}
++
++static inline void optee_smc_abi_unregister(void)
++{
++}
++#endif
++#if IS_REACHABLE(CONFIG_ARM_FFA_TRANSPORT)
+ int optee_ffa_abi_register(void);
+ void optee_ffa_abi_unregister(void);
++#else
++static inline int optee_ffa_abi_register(void)
++{
++	return -EOPNOTSUPP;
++}
++
++static inline void optee_ffa_abi_unregister(void)
++{
++}
++#endif
+ 
+ #endif /*OPTEE_PRIVATE_H*/
+
+base-commit: 827751b699b79a6e569983359c02dce67f81b94c
+-- 
+2.43.0
+
