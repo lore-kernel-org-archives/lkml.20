@@ -1,175 +1,127 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 097234B2057;
-	Thu, 24 Sep 2026 17:51:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D9BA4A2E00
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:52:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790272281; cv=none; b=PKLlF+6LkdBNH8FtkthKTp1CuRL7W77xEw/Mlf7sRca1oJ8J+GHq1c+kpQwHrI0RCSACRqbx/Kim2hut+mW3e4WDWqQaK6ZOHxZZIbupu4tvZg/6yPQHA8wp0/BSQtNFLsVylIWj6JmK1W/gCyjgN/MWfXQIeRKthRmNRhioGgc=
+	t=1790272325; cv=none; b=I48sFUYXn93lC63mJlvUWUWl8JRBHNNo4uQm7hX1rkvgq0ozJF5ZTUWjZlcTTnGUJH5J6LwQdZK/br15zY/zENtVZnEUNyU14XGUDLZJWCUBhr/bxYzNqNOFYabXBA4NUX+uQPypBJTSjROi9xpsI8OMpPxafRzDV187+lbl9Vk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790272281; c=relaxed/simple;
-	bh=E5sOGZv4PsnQ9lebGLSxJFxuo51klyzvMHE8CDz7Q9Y=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=j2dZwIdI3M58T4gu37EJM7/wGMPYQpkPDZGVxVyAOfPIHi0mjEWekzhAW48MzXu3R7SplpZrsstcTDfOVIidoZsF0wJs/z7R7AjmSHOBMB+QKwUHQfZrstKFd0cqSU+XYUh0zuP2LlHW2LD37L20ctkev8q3a9buXC+eXq7Ypio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=kE0AuB1U; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1790272325; c=relaxed/simple;
+	bh=lqKZKprNseAnNL68Qm48AJ7YdmaWNYaS2rikkdTye3w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fqj4SNg43vnrtuNdsMrbCWu/d/3ZOo+MB4Uxgnf5khIhmd2365Ima98YOkB4PPLfpOdKX9sMTIKGC6csU4JNJonQOaQWwDluculjtHvuOzyRc9vZCinX2pStt8Ulvjw2zdeQr+WEiWKB2PklrJgw76BsyaYsAvXFicp+NG0dvAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com; spf=pass smtp.mailfrom=tenstorrent.com; dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b=W3UYRyOC; arc=none smtp.client-ip=74.125.224.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="kE0AuB1U"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790272277;
-	bh=E5sOGZv4PsnQ9lebGLSxJFxuo51klyzvMHE8CDz7Q9Y=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=kE0AuB1UulmjZhIOgwAwnOV/ZisIZPnLZDoiyztMOMVPai48Y0BDuo/TRzky24oKV
-	 BlU9BEI4mZqG1Zlw1mVvQIYMrua6m3+ZB4SMpqjomLxLwKxRnKZD1aJegtjVBwx6+z
-	 CbIEHai48Yp7bNY3Wlw8r8I7ChBrePh90mWCOnUqe1hGHc0NEZpFj2u4M8Xuv35hKu
-	 nV4vHYIOyCRKaJw/bW5OtsrBhJZSmMtHVTM+IQYaLzYHuLYpQNSOD16EHKVWFW4+fe
-	 2Jm8pc6q3POOIqco4Mrd2T6Z8VABOLfb10GpZzShkUCYPUDWri0vL3v/ckrSFN85F8
-	 XqipsgWgav70A==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2567017E0082;
-	Thu, 24 Sep 2026 19:51:15 +0200 (CEST)
-Message-ID: <518ec010db104f6f0e7c85607a97af408da44eed.camel@collabora.com>
-Subject: Re: [PATCH v3 2/3] media: dt-bindings: media: nxp, imx8mq-vpu:
- Remove nxp,imx8mq-vpu
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Conor Dooley <conor@kernel.org>, Benjamin Gaignard
-	 <benjamin.gaignard@collabora.com>
-Cc: p.zabel@pengutronix.de, mchehab@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com,
- s.hauer@pengutronix.de, 	kernel@pengutronix.de, festevam@gmail.com,
- linux-media@vger.kernel.org, 	linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, 	imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org,
- kernel@collabora.com
-Date: Thu, 24 Sep 2026 13:51:13 -0400
-In-Reply-To: <20260924-compare-useable-3e2863b66924@spud>
-References: <20260924130453.196299-1-benjamin.gaignard@collabora.com>
-	 <20260924130453.196299-3-benjamin.gaignard@collabora.com>
-	 <20260924-compare-useable-3e2863b66924@spud>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-ufgeUgCb5bgTB+Z5csz7"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b="W3UYRyOC"
+Received: by mail-yx2-f42.google.com with SMTP id 00721157ae682-895fd505832so810167b3.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:52:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tenstorrent.com; s=google; t=1790272322; x=1790877122; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=l5iUQbHVoGs8+CjCsGk4c/TY+BmqzXWWcR0ocJIehM8=;
+        b=W3UYRyOCCUlfR0V5biCtyvIzeSt5vDf1cLOJTqVxGVFnoVgrKUzh/iTPbVYY2E4iH+
+         c1LBhX5O3jOWkQOlEV5j5QP8UVBsmxWRkNtS9FEyzRD2XoCHUoGD3ivl7qlXxll0sunT
+         TIo9VkdQAIysfSjAy3fS2M2VoSjjIPO4lnc+x208YFjFIM4hqA5NekPSSLvmguQKflih
+         hwb+1R1HhyaljVZMoxX6YheUdVBGODPCpBJKxyaw9yD2pe1qRaCbT3x37MY6Z32+7w7R
+         I4N8gNPnWdlYNDqbJ03bC391I/zY5+CS5HKdRx4wr3pR0BhARyfU596xwnWVbhDLlEFF
+         cW8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790272322; x=1790877122;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=l5iUQbHVoGs8+CjCsGk4c/TY+BmqzXWWcR0ocJIehM8=;
+        b=bd1WczpGe03W/7ZdInVPRFAPSIEKFS1JQDX0pzPQ2J6EHTaUK1MpGuvkDcu+EvwVrP
+         eFTrHBiqadISHCo85LfR6E82GQ8xTAjrm6h2QzEde1cD84vd2b9oMNHpjYmqIc6V0lO8
+         6SCBZT2aW92XUCkgrN+GJib+8JX0wGnO6VR2rPI190YzWLbAGa+Z9XrPQ1MVuqSLbNKM
+         bb1+oYxrrNA53gy+bIBOq7W2BzFpd5Pf70TSGtLOyQr+Tpo9YV7B8j1Zwbi/mLuDq1AB
+         +ewNLzkWpyDtFDeEizjitc/pKnaYRYCwghwW9PUQjq97yNY+b/UeP0nImXfYkd91Z8qy
+         ySjw==
+X-Forwarded-Encrypted: i=1; AKwUvBxq0iDBCxE/ol/hdlKgZIV9+Z0BdXLHF+Ya3NyAJC1bPszzgCKc3izZghNZWK+UBWf0iDE9ANVPENbF+KE=@vger.kernel.org
+X-Gm-Message-State: AFuF++meRFgaOlqZKeFHE+fa6ROaR0d6QWOuRvK/0j1gCxU141z1gVsd
+	nUO/XiHaAU9kvMBqaDZSuKrjW70nXmlLMTyYrIDF18NNR1elFo7bnlwY9i2j1f2goSs=
+X-Gm-Gg: AYBFou3cwJOmolmk/nS+4tfOf/DEDm/h2f981rLQPSaSitxzdd5jOIOxZMl6oiTK8aW
+	3bnK/KyS8gOun15WF7hsCTbCocKEHfX85WkidYQEdJhztNVpxyzV6K83x6ixYk4VkAtxuC3kSmI
+	GWqvkE5GTm1fd6PmWeEJWROuv/Fl0IKbd738N57YHGdjU9vBp7EPR5aWsCMtZOZp+xVsLbFrmer
+	w/3AZusovuSMmliXHLj7gyg0gNcSNm1uXVjJKkLsxd3odn0tUsBpQ4/kSqx0mPSUZ0PjQgxOM13
+	kiORVtn2KRm/nn7puV8tMX0dtG51SZVl8E5f7/ynrfKBZCbphHuEzbts5qniJv+Kex6Wn1NAx7H
+	hGpR1FCpXuL8sBQf2B0LZCBupRtuL/7mrMmHGY5riRobGSWBlTg/Bh51qChrP9kR7THeaXqTSoI
+	UplUWhQqonKvt9VlBMRRPUQ9fHzIIYsZiZD/1tdarVaI/vzeBsvt0N1G/LIXfDCC73+3wjbyEtI
+	OphDgb0v4tLpvLPojq0npSXVoehfXdeVTuRsl/qSE4ek6N7
+X-Received: by 2002:a05:690c:312:b0:882:27d8:8ca6 with SMTP id 00721157ae682-8a64d9f08b4mr26331337b3.53.1790272321920;
+        Thu, 24 Sep 2026 10:52:01 -0700 (PDT)
+Received: from toolbox ([12.55.13.134])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a86106b298sm165627b3.46.2026.09.24.10.52.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 10:52:01 -0700 (PDT)
+Date: Thu, 24 Sep 2026 12:51:42 -0500
+From: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Drew Fustini <dfustini@oss.tenstorrent.com>, 
+	Joel Stanley <jms@oss.tenstorrent.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>, linux-riscv@lists.infradead.org, 
+	linux-clk@vger.kernel.org
+Subject: Re: [PATCH] clk: tenstorrent: use regmap_assign_bits() for
+ conditional set/clear
+Message-ID: <lv37wl3d5oonioc562vl25hs5yfytqpi3qlmxk6c27tmjbvqrb@msrlsxkbisji>
+References: <20260924083439.461769-1-peng.fan@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924083439.461769-1-peng.fan@oss.nxp.com>
 
+Hi,
 
---=-ufgeUgCb5bgTB+Z5csz7
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Thu, Sep 24, 2026 at 04:34:38PM +0800, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
+> 
+> Replace if/else blocks using regmap_set_bits()/regmap_clear_bits() with
+> the simpler regmap_assign_bits() call.
+> 
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
+>  drivers/clk/tenstorrent/atlantis-prcm.c | 11 +++--------
+>  1 file changed, 3 insertions(+), 8 deletions(-)
 
-Hi Conor,
+Thanks for the fix.
 
-Le jeudi 24 septembre 2026 =C3=A0 17:55 +0100, Conor Dooley a =C3=A9crit=C2=
-=A0:
-> On Thu, Sep 24, 2026 at 03:04:52PM +0200, Benjamin Gaignard wrote:
-> > nxp,imx8mq-vpu has been tagged has deprecated since a while.
-> > After driver clean up it is time to remove it.
->=20
-> No users in linux doesn't mean no users, but I am guessing that there's
-> genuinely no users elsewhere and anyone using out of tree devicetrees
-> should have updated due to the warning at runtime?
+Reviewed-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
 
-I've checked the vendor DT before they moved to the mainline driver, and th=
-ey
-never used this binding (actually they never made bindings).=20
-Here's what the DT was:
-
-		vpu: vpu@38300000 {
-			compatible =3D "nxp,imx8mq-hantro";
-			reg =3D <0x38300000 0x200000>;
-			reg-names =3D "regs_hantro";
-			interrupts =3D <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 8 IRQ_TYPE_LEVE=
-L_HIGH>;
-			interrupt-names =3D "irq_hantro_g1", "irq_hantro_g2";
-			clocks =3D <&clk IMX8MQ_CLK_VPU_G1_ROOT>, <&clk IMX8MQ_CLK_VPU_G2_ROOT>,=
- <&clk IMX8MQ_CLK_VPU_DEC_ROOT>;
-			clock-names =3D "clk_hantro_g1", "clk_hantro_g2", "clk_hantro_bus";
-			assigned-clocks =3D <&clk IMX8MQ_CLK_VPU_G1>, <&clk IMX8MQ_CLK_VPU_G2>, =
-<&clk IMX8MQ_CLK_VPU_BUS>;
-			assigned-clock-parents =3D <&clk IMX8MQ_VPU_PLL_OUT>, <&clk IMX8MQ_VPU_P=
-LL_OUT>, <&clk IMX8MQ_SYS1_PLL_800M>;
-			assigned-clock-rates =3D <600000000>, <600000000>, <800000000>;
-			power-domains =3D <&pgc_vpu>;
-			status =3D "disabled";
-		};
-
-I've not aware of any other OS or booloader that offers media capabilities =
-using
-Linux mainline DT. The now deprecated nxp,imx8mq-vpu compatible had a short=
- live
-in the Linux tree if my memory is correct. Hope this is enough justificatio=
-n.
-
-regards,
-Nicolas
-
->=20
-> >=20
-> > Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-> > ---
-> >  .../devicetree/bindings/media/nxp,imx8mq-vpu.yaml      | 10 ++++------
-> >  1 file changed, 4 insertions(+), 6 deletions(-)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yam=
-l b/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
-> > index 19528262810a..69619d2c86fa 100644
-> > --- a/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
-> > +++ b/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
-> > @@ -14,12 +14,10 @@ description:
-> > =20
-> >  properties:
-> >    compatible:
-> > -    oneOf:
-> > -      - const: nxp,imx8mq-vpu
-> > -        deprecated: true
-> > -      - const: nxp,imx8mq-vpu-g1
-> > -      - const: nxp,imx8mq-vpu-g2
-> > -      - const: nxp,imx8mm-vpu-g1
-> > +    enum:
-> > +      - nxp,imx8mq-vpu-g1
-> > +      - nxp,imx8mq-vpu-g2
-> > +      - nxp,imx8mm-vpu-g1
-> > =20
-> >    reg:
-> >      maxItems: 1
-> > --=20
-> > 2.53.0
-> >=20
-
---=-ufgeUgCb5bgTB+Z5csz7
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarVjEQAKCRDZQZRRKWBy
-9C4tAQD1qA+Ux1mXqgQgjzQg11/HgxYGtNNRdQM1ljOMoDXTQgD+IP4kVkw14aJT
-a6/hPh+9+Z/YwRaFTKestaGBrvZAkgI=
-=UaxT
------END PGP SIGNATURE-----
-
---=-ufgeUgCb5bgTB+Z5csz7--
+> 
+> diff --git a/drivers/clk/tenstorrent/atlantis-prcm.c b/drivers/clk/tenstorrent/atlantis-prcm.c
+> index 6d4386eeb7dae..854b9c48816f2 100644
+> --- a/drivers/clk/tenstorrent/atlantis-prcm.c
+> +++ b/drivers/clk/tenstorrent/atlantis-prcm.c
+> @@ -205,14 +205,9 @@ static int atlantis_clk_gate_endisable(struct clk_hw *hw, int enable)
+>  {
+>  	struct atlantis_clk_gate *gate = hw_to_atlantis_clk_gate(hw);
+>  
+> -	if (enable)
+> -		return regmap_set_bits(gate->common.regmap,
+> -				       gate->config.reg_offset,
+> -				       gate->config.enable);
+> -	else
+> -		return regmap_clear_bits(gate->common.regmap,
+> -					 gate->config.reg_offset,
+> -					 gate->config.enable);
+> +	return regmap_assign_bits(gate->common.regmap,
+> +				  gate->config.reg_offset,
+> +				  gate->config.enable, enable);
+>  }
+>  
+>  static int atlantis_clk_gate_enable(struct clk_hw *hw)
+> -- 
+> 2.50.1
+> 
