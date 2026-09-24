@@ -1,64 +1,64 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6949445ACF
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:06:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD0DA45040A
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:06:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790240810; cv=none; b=eG8MX8ZRVGm8lRHFQy4C6U3lZHd7OjlS9VGBDiX18K4IuSWujOsiHrComEDz6mvqtwAMjHUYzdy5FBJz1uSpLSVef8zKzh4H88BP/Rlsr8r7JEnhjqSTXDdHPbtzZqu0OIAkhE0B/9oifVqTqQ9Q/XLntlkZjDdebICwHldlvg0=
+	t=1790240812; cv=none; b=iBYmx9WSFXYBV84rLmMF7NUptUnUjglcehaR9x9+Il1ZF4yuRPgQFTQF8/rvasgQuODMFX/rUGZM4bfUaP7KfOybhSqN4iNRCZIK7y1GxrxYVL95xVj/jOTGB9qez6JU9jn/yRWWYkFW86XEywiRLAvNTFml1ADt1GOInkohBs8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790240810; c=relaxed/simple;
-	bh=wHxFYx3mvxdbbx6m35zMlL0fF8roDcjXviwsUf6LpAk=;
+	s=arc-20240116; t=1790240812; c=relaxed/simple;
+	bh=anNYkSzOL/ldKa7FYtAbK0md9biYRMvmXTAW6OSylmc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SLcmtpg+Gy1zTwBi1aXYPTxgvPiaO8AOQ6hnhV3h7eldqDFBsPsRxtEG9vruvwxfipfAQxTXOBQdvaAiVlX19LxMGBZiUbWYf8YIi0nGpTxXxgDoR8RcuEl3eTCx8rPuLpZOD79rTMFTc2iA/85nKOxYLjnY2X5PcUyDkk1fDYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KiURavtV; arc=none smtp.client-ip=74.125.225.76
+	 MIME-Version; b=NtzXD8NP1rtC5r89rUX/RhYWr+4DE4ue1LwfGrNttU4aOnZkSkI69h6zjJQBntYVsjECc07qU5hkTmZJtp3gz7f7J2HnaLpY50HGMyRLZRXmW1/E5uxXXltSb36BN6ezrSJO/h9CNR8MiAsc8BTq4tOz6WNZ4r5owi4/kwcQpfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pe0Otnge; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KiURavtV"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6351831so1137315f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:06:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pe0Otnge"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so16429785e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:06:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790240807; x=1790845607; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790240809; x=1790845609; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pb/qIibv3qYKIWDbEUPNel9PVjN1RHSn4ca2JUKNgIk=;
-        b=KiURavtVn2DFmp0ldOPf/axQ1sh6xjW86vWn1FSBx01LIwph7HA+WvERql+h9p3rR7
-         K0V6NRqpFTXPV68LPGo+RBKsoNqP5o/osYobQ2n+58RrPXMGmNY4CTMz6lJri0XFBoh2
-         tgvqVikiaf7wG4hbrP8jfIkBiozqFoaW0BIhxXvFP/I8/vGNaawhI+lM7+q6kEsWNpSo
-         /C1YJwIf2jqXX19DyBXiZMzg94jjPyWBFzJVG1ZDn/YDMj3kKu6jKkAlrHBySjETp8sQ
-         +YyRO+652QT08AfO/cr9OX9QvHTzgO77EvX+T5GEVgSFXDkYuBzbuS9r+95gBio/TUQx
-         LFHg==
+        bh=dcE3ANusGEqiHn+2EcPPA/pUBlIRQYFz5utyR/BkeE4=;
+        b=pe0Otngek76lSgQ0kxTQtqz/dDr526HPZ3RRXuCKr7IiLKQ/qGmTDB59LGsu60O90f
+         hIhx3G7hsPcFthKLcatb0AtbARFokdJTUAThL8DnE9o9Jg1sXcHH7diUBqGoHeqWDkSs
+         iSXQKDRrqy6EVVXpFsYjlhrE/gmM6VsX3xjBuj15EA6wtC4j0caLFUsbmMUnbwyJ+ln8
+         IPJGhCQvcNjTiEpjHyXf/cdBqKR/yTu4TM3yWxrmuTB/GbSkCC3iKdKjWhxopY2Huw5g
+         KFFQdg7/uWZ+t7FrLfZIHKmmlnFUiwl4YHob/Cw2TNmocARnyHMV+8OdCeWutfISWhUh
+         caKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790240807; x=1790845607;
+        d=1e100.net; s=20260707; t=1790240809; x=1790845609;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pb/qIibv3qYKIWDbEUPNel9PVjN1RHSn4ca2JUKNgIk=;
-        b=NXmt8Wokf8LiXOllvS980rzvWwab247mvXsaIOPTetJvBLM/htik2wCKRA/tRbayNN
-         YWWMSZrvNU6wbPxX95S779fHNKuwmaI3zmN2Cgxtp5gLGX867ZtPeqHGizvEu4JP7CYY
-         qhuOaLAsB9sAXzaYL4ZbQM8R/LTxKLfyHFM4+lUJZNVP4qaZTD5oYCnfkloKWKmIwnrg
-         BISrw5TAGZ0wZjHRrREBFZkyRQTc4n1pwjydjzURPwGfDvPsYjYm6wwc1IpTUN27Rh3w
-         jrRCqoMwGozBJck/+95JhttZTpMoPB0HNPV+Bu1I0zViSdQpYAGyLShgZUWM3TANTuPX
-         24WQ==
-X-Forwarded-Encrypted: i=1; AKwUvByldkIqPAcJWtojWYEM4ypIAsEamB50aF7oxCJx4Bu2bxTrAwlERZs6S/l0ZnQ/ib1smU+Q+LriEcSae4k=@vger.kernel.org
-X-Gm-Message-State: AFuF++ntP7XOb/EJpU0Zing9q5FceJf0WjejpgD0K4DKVNtVoqNonhje
-	3Rc8yVNkNX1no5tG+rSE56a+wyxg57VNAa1Y1v3kV56GnJbcOZfPoalN
-X-Gm-Gg: AYBFou3qiO/Z04HQAJj7eL6X89i6+V00h/rATp/Hz16FtObJJaSZiD8usraxl4PThP3
-	cCbHYcKCjw+skp0KnBjUevVYweR5JXNrGLHp/b2ptz4aNXLBccnxn0OHjYEHqhb9XwTM8ykZ7tj
-	8tHRvgR9bV+74wVUfIhfWlsUEH1OyNxiVvX85Xg621W7sel8WVvdVelngovP2tLSd0KYQYmuQ/Q
-	q+PfWkcdvhejvyS3KF9ZsqaaLBkMylOXl0SdDaIZZLOh14CTzBJzmGr/3nPzojiCV/hwSrif9dK
-	bfdyhgTlmYCmjbdpF8/1a/G/sCZtzGofn6d8zbXVaNRC8BFmjcUP+0GnLQVfo8CeDaYH5NELjf5
-	SpzMuHHCzTom02XsSWfnCqDMi1XB2eeyY10vcfqc0C2qRy1McLToVD4is68V1gr2mWSDSK26Cut
-	kevEdYldRko5bvkCfLJtPgNjMod/kDrLIaf5iJPh0fs9cXm+u6XrSUYUI8aRaqwag5RFoyJ0ZFu
-	+vmsamk7pMa8Vmd3I/b3Sq1h/f4Kg==
-X-Received: by 2002:a05:600c:34d4:b0:495:6e68:5df2 with SMTP id 5b1f17b1804b1-49fe66d07c9mr28228545e9.12.1790240805477;
-        Thu, 24 Sep 2026 02:06:45 -0700 (PDT)
+        bh=dcE3ANusGEqiHn+2EcPPA/pUBlIRQYFz5utyR/BkeE4=;
+        b=IIId097G2I8SzyZbZNK+z3XkbsrU9bdbwQQIa8ewdXHq+jtCLak7rWr8b077XeEdvz
+         HJrxmuvShQqb0nwATC8ByY9lgGzb2xJHgUTwPaJm0hTeGXJHgjd0Ip27Q57vfwaJxIQE
+         2+HKWA36PONFd8omE+OCSx8tnmpnDgMKSKC3ShqU/aLd/fy+RVnnPZ3oXj3s1pWKDZbi
+         HLyi2K362/ZKCEKbKIUVUXBteddJwBRYxQkpdpc7kmUW8NlQFtLSqnydCoUleO+4sWaJ
+         gbCd8XYYvXno58oQrwJT0QN8B0VkhrzrpgEPBUzr/cuSrn0pv0Pl9vsuNfm090pYlm9o
+         duSg==
+X-Forwarded-Encrypted: i=1; AKwUvBzkWSvo8aZ1kNIBVHe0nMOX8m6p6v24dI0xcbGeqy2o7WnwTEtCpK8+44QxkRSaWcPsiwQEndX32W3ziac=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBEPu2m5TVp8t4VVEyslNe6lMKNdNKsfqG9kpISe36qJzr3A8v
+	xZ5y0qdGPZ/iCoN4X5W83afbl3Df368B3E9y0Ql05m846Ek2B8r3anSL
+X-Gm-Gg: AYBFou0qKwO9F5b88Oi1wZR00B317bESA0+o87aXlab5sMBV39K0qpscl/zEM2qe2Rn
+	PJAlTvozZLroJF4o118aaEvNNiPzrZAIR7b7YouaKeH2sQVj+QxHUmtgAX0860lQj1c9J7ZtMTT
+	qWUsjoiCRJ5iUG/SOQwUgBojJb6ngn/C/Py9rx4UfiL0kfxn2ML5xwktYWe5XEd+8+zW7MEignx
+	lXrywdTo34s89Y8Y7K40JJq9EWw2msLt93/j0yZmFva9X0p7v2Ty5og4FzZkZw3BpfbNaPx2XeD
+	zwdgg23owukzQwCL3WwoS/PHZ8Cv+cHkOuz1ntrFLMzVnSQo0NK9Kh3qqCIAIj5386k040ZgsXq
+	l4A1kGGR55pV5Dn/mHGcDpzpSyBaowztvd8wRQVBdKPrHR1DJnZYSzFBqy0h7Mv0zqUaGJ2I9X8
+	2OFfrN0eSvMc9i9lM1kG5MSX8MiHWjXGC5VVhhq+mWrRSbNDEH2f5mjfW+LIb8OzWizLNEcfm3z
+	ZYTVoXOwo/H5iz/Eho=
+X-Received: by 2002:a05:600c:34d4:b0:499:79b9:e220 with SMTP id 5b1f17b1804b1-49fe66d1279mr28347365e9.10.1790240806879;
+        Thu, 24 Sep 2026 02:06:46 -0700 (PDT)
 Received: from xeon ([188.163.112.76])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886877c379sm12875561f8f.29.2026.09.24.02.06.44
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886877c379sm12875561f8f.29.2026.09.24.02.06.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 02:06:44 -0700 (PDT)
+        Thu, 24 Sep 2026 02:06:46 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -70,9 +70,9 @@ To: Rob Herring <robh@kernel.org>,
 Cc: devicetree@vger.kernel.org,
 	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 6/7] ARM: tegra: lg-x3: Add haptic engine node
-Date: Thu, 24 Sep 2026 12:06:07 +0300
-Message-ID: <20260924090608.28734-7-clamor95@gmail.com>
+Subject: [PATCH v1 7/7] ARM: tegra: lg-x3: Add backlight LED controller node
+Date: Thu, 24 Sep 2026 12:06:08 +0300
+Message-ID: <20260924090608.28734-8-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260924090608.28734-1-clamor95@gmail.com>
 References: <20260924090608.28734-1-clamor95@gmail.com>
@@ -84,48 +84,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add node for Imagis ISA1200 haptic motor driver used in this device.
+Add node for TI LM3533 LED controller used in this device for panel
+backlight.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi | 24 +++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts |  2 ++
+ arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts |  2 ++
+ arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi  | 24 ++++++++++++++++++++
+ 3 files changed, 28 insertions(+)
 
+diff --git a/arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts b/arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts
+index d76f9f465ddc6..4560d93ef438a 100644
+--- a/arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts
++++ b/arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts
+@@ -179,6 +179,8 @@ panel@1 {
+ 				vdd-supply = <&vcc_3v0_lcd>;
+ 				vddio-supply = <&iovcc_1v8_lcd>;
+ 
++				backlight = <&backlight>;
++
+ 				port {
+ 					panel_input: endpoint {
+ 						remote-endpoint = <&bridge_output>;
+diff --git a/arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts b/arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts
+index 4ee84f4bd1878..2ace0201a9311 100644
+--- a/arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts
++++ b/arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts
+@@ -185,6 +185,8 @@ panel@1 {
+ 				vcc-supply = <&vcc_3v0_lcd>;
+ 				iovcc-supply = <&iovcc_1v8_lcd>;
+ 
++				backlight = <&backlight>;
++
+ 				port {
+ 					panel_input: endpoint {
+ 						remote-endpoint = <&bridge_output>;
 diff --git a/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi b/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
-index a59539f36a316..bd82a3f7951a4 100644
+index bd82a3f7951a4..c86bc4b897675 100644
 --- a/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
 +++ b/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
-@@ -1614,6 +1614,30 @@ power-sensor@40 {
- 			vs-supply = <&vdd_3v0_sen>;
+@@ -1206,6 +1206,30 @@ rmi4-f11@11 {
+ 			};
  		};
  
-+		haptic-engine@49 {
-+			compatible = "imagis,isa1200";
-+			reg = <0x49>;
++		led-controller@36 {
++			compatible = "ti,lm3533";
++			reg = <0x36>;
 +
-+			control-gpios = <&gpio TEGRA_GPIO(H, 1) GPIO_ACTIVE_HIGH>;
++			enable-gpios = <&gpio TEGRA_GPIO(N, 6) GPIO_ACTIVE_HIGH>;
++			vin-supply = <&vdd_3v3_vbat>;
 +
-+			pwms = <&pwm 3 53000>;
++			ti,boost-ovp-microvolt = <24000000>;
++			ti,boost-freq-hz = <500000>;
 +
-+			vdd-supply = <&vdd_3v3_vbat>;
-+			vddp-supply = <&vdd_1v8_vio>;
++			#address-cells = <1>;
++			#size-cells = <0>;
 +
-+			imagis,clk-div = <128>;
-+			imagis,pll-div = <1>;
++			backlight: backlight@0 {
++				compatible = "ti,lm3533-backlight";
++				reg = <0>;
 +
-+			imagis,mode = <0>; /* LRA_MODE */
-+			imagis,duty-cycle-ns = <1250>;
++				led-max-microamp = <23400>;
++				led-sources = <0 1>;
 +
-+			ldo {
-+				regulator-name = "vdd_vib";
-+				regulator-min-microvolt = <2300000>;
-+				regulator-max-microvolt = <2300000>;
++				ti,linear-mapping-mode;
 +			};
 +		};
 +
- 		nct72: temperature-sensor@4c {
- 			compatible = "onnn,nct1008";
- 			reg = <0x4c>;
+ 		max14526: muic@44 {
+ 			compatible = "maxim,max14526";
+ 			reg = <0x44>;
 -- 
 2.53.0
 
