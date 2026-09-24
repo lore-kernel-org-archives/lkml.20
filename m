@@ -1,344 +1,459 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856894BD7BC
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:30:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D5C5222597;
+	Thu, 24 Sep 2026 17:30:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790271006; cv=none; b=cUBO5BjfV1sJBYGskuHsjT6wNZ5csEdYujV8fUijrkEfgHySMfZMUTcmYwVTSu+KotbjH3seUrmLz7CBRQmL2joZQa3Qwr0OXF+3bngBhEornn3ex+/QtldynkH8hD+6XJuA8sWS32dh9Q7E2bAdqDTTRpEL1L9gjnXvm9sOoGk=
+	t=1790271006; cv=none; b=CRjmHm4t3LW56Cy/cqqYo4mtQGJPWgcnrP32uVhf4MEkCKK8mmffeJ9mHE8iCKa5Rdtiq6nxN/cWZQVpJfBTU4lNz29+4RF/fM2ajIY5vixAk1iHgC4yrMPO7OVbKP/bTijm079cEbw0uqmCD7o7VYFoawF4bFyNdNRN9TfgVe4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790271006; c=relaxed/simple;
-	bh=tcpNPjXd3qvmrUI3J2vBphxoC0YKj3qhbDd754LNGdc=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=PtbJswJ2Ir5MtQnGoG/t/IHFK+DxnErU/yJKWueLUTA/dXMaipTI+pfim57ojsfj5x8+bUbuHnZl5o/KSNUtx7em5IjuD3X92W34P+e5q9LomBRHfLHs705SNd3AzFrdfxKstlxBNizYiPO6hGuxFBHkcBw8mBnUmmI9jsulf0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RtQd4aoa; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com
+	bh=ZxZGIHjlsvhNIUzQAV3ucm/WoDTqSXn6ZcolRPHVXhY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KDXboAW4i4O/r6MuT4rLWpexIsQ4nC2ValZm3KdFLzmNKT5nOhThAC19NLGfbcU65Xa968vWixqeRKPx6tdNmDA8xjp7xabJOjX13743WPCkRuKM549Gok91f6bkJEObFeSA/Fs8VzgVwNPYZZbGHE9KwY1i40CVBG+p3zQZQkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OQGXHQdd; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RtQd4aoa"
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4a41f46d629so215654b6e.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:30:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790271001; x=1790875801; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QpMA8Bt3nlKlM2NP5rgCGn6shCTfzUIqi6x5MzUvxRQ=;
-        b=RtQd4aoaKLPD4sM1tnkc30FILwb7A928YCHprxnxDQoBd2c54a3Am6GuynnCK7paL/
-         Kcaoqa+z5yvOR44BJywvpdwyk7iLNNj/VNKUWloGtYBdUL6K/d5Je8QU1RJxhMoegIP7
-         jX5t7f/YhZwH7+BmyQgx3Ur8uk36GeHXBSp4VdTkLq0QIhlwoCpuS5BdW6cWU7c37UsL
-         toP69f6cfYhtXMxc5SxwRr17cAa/TUayZld8IJjwMszco05SSW+GpIkVpVIRVKnARMvk
-         Uq4eh573f1x3ZJujIEp00HPDs7kxvN0CeKuGo58PnmLXnr5SX1unYkOlj0PMuvJGT/Dc
-         WKUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790271001; x=1790875801;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QpMA8Bt3nlKlM2NP5rgCGn6shCTfzUIqi6x5MzUvxRQ=;
-        b=VNdbiyQW2aklYRwZqPvTwgyomzwweHBvpvQfNFfC+l/urMJmlz10qr2Mwn4p/rSQ9h
-         eEUxHM0UdhuU1BeHhCHJzgcs3gAI7V9UDQi7Z27dmFZ9rdAQRTGbMQQ7GlBmBztGgkzx
-         Qu9VI3u+CkEc0BF9YBKYyWwZY7jfvAJtilrT3pEJU+EFUSnZjVZwXDGwB1cxTfrWbpHz
-         u36AWviDn98YU++eLT5fO7Zd91uRqcBvtRTTbMENFXuW97RS0+VZwnwpcaM5+ZMbo5qC
-         NuaMTSv8mtrTrLM1TjdwArLsdxXdOu2ZKb0DJJqIKWo2rfS2uAKWMgkqbaAz03zg6y3H
-         bgrA==
-X-Forwarded-Encrypted: i=1; AKwUvBwvPPzr6ITzjn+7w+oKuhWhVr9LE/FKV/G7RwpcAffJfseJfBuAr7WleI+CbNDJeH5GZKEcOhoC0w7EVXc=@vger.kernel.org
-X-Gm-Message-State: AFuF++l8E4ebx0D6DfNBuF3RUUgoyEz+e4vCEvFm9TEgt9ylvz+gZYE9
-	Mb2dHO51gbdvfA+1XbrAnAWaVrZOADWH19s2Eux71ZB7VDGeaoPclXEqAIjYFmqxjg3RHvJovhX
-	wclMDzs1IuocdrQTOp8o576m5Jw==
-X-Received: from ilbem2-n1.prod.google.com ([2002:a05:6e02:2802:10b0:50d:83de:1b53])
- (user=coltonlewis job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:4f0f:b0:4d6:9153:2966 with SMTP id 5614622812f47-4d72b733d4amr3963904b6e.55.1790271000469;
- Thu, 24 Sep 2026 10:30:00 -0700 (PDT)
-Date: Thu, 24 Sep 2026 17:29:26 +0000
-In-Reply-To: <20260924172928.2110956-1-coltonlewis@google.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OQGXHQdd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790271002; x=1821807002;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=ZxZGIHjlsvhNIUzQAV3ucm/WoDTqSXn6ZcolRPHVXhY=;
+  b=OQGXHQdd8MFvv49niFIsk4WTyZusOii/WaWCC6XMvWuEa5+t27hSHsSQ
+   80N33d3OkmrXu0+PRqvJ4uvJlDSukY+MQs2cG0TWc7ZXh65Pppoa+9o44
+   RCGPhSiw21YF49xvx8SJKcvcxIVj/Sj9axCb2M3OLbLZ4BBQ8N4z2UJsD
+   N8l1pBqiCSg5NB1CF/QCm8HWTtuuirX1lA9q4rg6BmbwuFWqJa3c9hCNg
+   ZnzUOUnfLgzxPxMfuKYnie/zHt2jzEHdmhu/BKyEGUNcM2KxfCApWNSaX
+   86sysBbJyyxwKpp8OAv6FPzEWDiCkc2r+U4l6XPRqexsXFVdFGSUmcJ/d
+   g==;
+X-CSE-ConnectionGUID: jL9m3tJGR+K70LxZqPk4SQ==
+X-CSE-MsgGUID: Zd9J2LOpSAaFF8q77H8rJQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="91158909"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="91158909"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 10:29:57 -0700
+X-CSE-ConnectionGUID: /jowJPBqTueLeHUdHxc+jw==
+X-CSE-MsgGUID: 5f1awjp4TAG8qlEr1vfzDQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="282177515"
+Received: from dwoodwor-mobl2.amr.corp.intel.com (HELO [10.125.110.186]) ([10.125.110.186])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 10:29:55 -0700
+Message-ID: <f914d10e-adca-42e8-a00d-fc77d1b44309@intel.com>
+Date: Thu, 24 Sep 2026 10:29:54 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260924172928.2110956-1-coltonlewis@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260924172928.2110956-21-coltonlewis@google.com>
-Subject: [PATCH v9 20/22] KVM: arm64: Add vCPU device attr to partition the PMU
-From: Colton Lewis <coltonlewis@google.com>
-To: kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Oliver Upton <oliver.upton@linux.dev>, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Fuad Tabba <fuad.tabba@linux.dev>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	James Clark <james.clark@linaro.org>, Robin Murphy <robin.murphy@arm.com>, 
-	Zide Chen <zide.chen@intel.com>, Alexandru Elisei <alexandru.elisei@arm.com>, 
-	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>, Mingwei Zhang <mizhang@google.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Russell King <linux@armlinux.org.uk>, Shuah Khan <shuah@kernel.org>, 
-	linux-perf-users@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Colton Lewis <coltonlewis@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 10/15] cxl: Add CXL Device Reset sequencing
+To: "Cheatham, Benjamin" <benjamin.cheatham@amd.com>,
+ Srirangan Madhavan <smadhavan@nvidia.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Davidlohr Bueso <dave@stgolabs.net>,
+ Ira Weiny <ira.weiny@intel.com>, Jonathan Cameron <jic23@kernel.org>,
+ Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
+ alwilliamson@nvidia.com,
+ Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
+ Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
+ Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-tegra@vger.kernel.org
+References: <20260922083924.2451158-1-smadhavan@nvidia.com>
+ <20260922083924.2451158-11-smadhavan@nvidia.com>
+ <cd752641-4563-40d0-a53c-b7a85d396097@amd.com>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <cd752641-4563-40d0-a53c-b7a85d396097@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add the KVM_ARM_VCPU_PMU_V3_ENABLE_PARTITION vCPU device attribute to
-enable a Partitioned PMU for a VM where PMUv3 and VHE are supported.
 
-When partitioning is enabled (tracked via
-KVM_ARCH_FLAG_PARTITION_PMU_ENABLED), userspace must explicitly
-configure the number of guest event counters via
-KVM_ARM_VCPU_PMU_V3_SET_NR_COUNTERS with a value strictly less than the
-maximum number of general-purpose counters implemented by the PMU (or
-0 only when FEAT_HPMN0 is supported), leaving at least one
-general-purpose counter reserved for host profiling prior to calling
-KVM_ARM_VCPU_PMU_V3_INIT.
 
-Signed-off-by: Colton Lewis <coltonlewis@google.com>
----
- Documentation/virt/kvm/devices/vcpu.rst | 42 ++++++++++++++-
- arch/arm64/include/asm/kvm_host.h       |  1 +
- arch/arm64/include/uapi/asm/kvm.h       |  2 +
- arch/arm64/kvm/pmu.c                    | 71 ++++++++++++++++++++++++-
- arch/arm64/kvm/sys_regs.c               |  5 +-
- 5 files changed, 118 insertions(+), 3 deletions(-)
+On 9/23/26 2:40 PM, Cheatham, Benjamin wrote:
+> On 9/22/2026 3:39 AM, Srirangan Madhavan wrote:
+>> Implement CXL Device Reset for eligible Type 2 devices: disable CXL.cache,
+>> perform supported writeback, drain transactions, prepare the IOMMU,
+>> initiate reset with Memory Clear enabled, and wait for completion.
+>>
+>> Observe the 100 ms post-reset quiet period before polling Status2, and
+>> treat an all-ones read as not ready. Treat Control2 command bits as
+>> transient state, restore cache policy on exit, preserve the primary error,
+>> and abort when IOMMU preparation fails.
+>>
+>> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
+>> ---
+>>  drivers/cxl/core/resource.c   | 229 ++++++++++++++++++++++++++++++++++
+>>  include/cxl/cxl.h             |   7 ++
+>>  include/uapi/linux/pci_regs.h |  14 +++
+>>  3 files changed, 250 insertions(+)
+>>
+>> diff --git a/drivers/cxl/core/resource.c b/drivers/cxl/core/resource.c
+>> index b5f8c28e613f..57eec77cbb21 100644
+>> --- a/drivers/cxl/core/resource.c
+>> +++ b/drivers/cxl/core/resource.c
+>> @@ -8,6 +8,8 @@
+>>  #include <linux/export.h>
+>>  #include <linux/io.h>
+>>  #include <linux/ioport.h>
+>> +#include <linux/iommu.h>
+>> +#include <linux/jiffies.h>
+>>  #include <linux/kernel.h>
+>>  #include <linux/pci.h>
+>>  #include <linux/slab.h>
+>> @@ -419,3 +421,230 @@ void pci_cxl_hdm_cache_release(struct pci_dev *pdev)
+>>  	pdev->hdm = NULL;
+>>  	kfree(info);
+>>  }
+>> +
+>> +/*
+>> + * CXL r4.0 sec 9.7.2 defines the reset completion timeout encodings.
+>> + * Sec 9.7.3 leaves config-space access behavior undefined for 100 ms after
+>> + * initiating CXL Reset, then limits software to CXL Status2 access until
+>> + * reset completion, timeout, or error.
+>> + */
+>> +#define CXL_RESET_RRS_WAIT_MS 100
+>> +#define CXL_RESET_STATUS_POLL_MS 20
+>> +static const u32 cxl_reset_timeout_ms[] = {
+>> +	10, 100, 1000, 10000, 100000,
+>> +};
+>> +
+>> +#define CXL_CACHE_WBI_TIMEOUT_US 100000
+>> +#define CXL_CACHE_WBI_POLL_US 100
+>> +
+>> +#define CXL_RESET_CTRL2_CMD_MASK \
+>> +	(PCI_DVSEC_CXL_INIT_CACHE_WBI | PCI_DVSEC_CXL_INIT_CXL_RST)
+>> +
+>> +static int cxl_reset_update_ctrl2_no_replay(struct pci_dev *pdev, int dvsec,
+>> +					    u16 set, u16 clear)
+>> +{
+>> +	u16 ctrl2;
+>> +	int rc;
+>> +
+>> +	rc = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_CTRL2, &ctrl2);
+>> +	if (rc)
+>> +		return pcibios_err_to_errno(rc);
+>> +	if (PCI_POSSIBLE_ERROR(ctrl2))
+>> +		return -ENODEV;
+>> +
+>> +	/*
+>> +	 * INIT_CACHE_WBI and INIT_CXL_RST are commands. Do not replay a command
+>> +	 * that remains set in the value read back while updating persistent
+>> +	 * Control2 state.
+>> +	 */
+>> +	ctrl2 &= ~CXL_RESET_CTRL2_CMD_MASK;
+>> +	ctrl2 &= ~clear;
+>> +	ctrl2 |= set;
+>> +
+>> +	rc = pci_write_config_word(pdev, dvsec + PCI_DVSEC_CXL_CTRL2, ctrl2);
+>> +	if (rc)
+>> +		return pcibios_err_to_errno(rc);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static int cxl_reset_wait_cache_wbi(struct pci_dev *pdev, int dvsec)
+>> +{
+>> +	unsigned long deadline;
+>> +	u16 status2;
+>> +	int rc;
+>> +
+>> +	rc = cxl_reset_update_ctrl2_no_replay(pdev, dvsec,
+>> +					      PCI_DVSEC_CXL_INIT_CACHE_WBI, 0);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	deadline = jiffies + usecs_to_jiffies(CXL_CACHE_WBI_TIMEOUT_US);
+>> +	while (time_before(jiffies, deadline)) {
+>> +		usleep_range(CXL_CACHE_WBI_POLL_US,
+>> +			     CXL_CACHE_WBI_POLL_US * 2);
+>> +
+>> +		rc = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_STATUS2,
+>> +					  &status2);
+>> +		if (rc)
+>> +			return pcibios_err_to_errno(rc);
+>> +		if (PCI_POSSIBLE_ERROR(status2))
+>> +			return -ENODEV;
+>> +		if (status2 & PCI_DVSEC_CXL_CACHE_INV)
+>> +			return 0;
+>> +	}
+>> +
+>> +	/* Do not miss completion concurrent with the polling deadline. */
+>> +	rc = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_STATUS2,
+>> +				  &status2);
+>> +	if (rc)
+>> +		return pcibios_err_to_errno(rc);
+>> +	if (PCI_POSSIBLE_ERROR(status2))
+>> +		return -ENODEV;
+>> +	if (status2 & PCI_DVSEC_CXL_CACHE_INV)
+>> +		return 0;
+>> +
+>> +	return -ETIMEDOUT;
+>> +}
+>> +
+>> +static int cxl_reset_disable_cache(struct pci_dev *pdev, int dvsec, u16 cap)
+>> +{
+>> +	int rc;
+>> +
+>> +	rc = cxl_reset_update_ctrl2_no_replay(pdev, dvsec,
+>> +					      PCI_DVSEC_CXL_DISABLE_CACHING, 0);
+>> +	if (rc || !(cap & PCI_DVSEC_CXL_CACHE_WBI_CAPABLE))
+>> +		return rc;
+>> +
+>> +	return cxl_reset_wait_cache_wbi(pdev, dvsec);
+>> +}
+>> +
+>> +static int cxl_reset_wait_done(struct pci_dev *pdev, int dvsec, u16 cap)
+>> +{
+>> +	unsigned long deadline;
+>> +	u32 timeout_ms;
+>> +	u16 status2;
+>> +	int idx, rc;
+>> +
+>> +	idx = FIELD_GET(PCI_DVSEC_CXL_RST_TIMEOUT, cap);
+>> +	if (idx >= ARRAY_SIZE(cxl_reset_timeout_ms)) {
+>> +		int last = ARRAY_SIZE(cxl_reset_timeout_ms) - 1;
+>> +
+>> +		pci_warn(pdev,
+>> +			 "unknown CXL reset timeout encoding %d; using %u ms\n",
+>> +			 idx, cxl_reset_timeout_ms[last]);
+>> +		idx = last;
+>> +	}
+>> +
+>> +	timeout_ms = max_t(u32, cxl_reset_timeout_ms[idx],
+>> +			   CXL_RESET_RRS_WAIT_MS);
+>> +	msleep(CXL_RESET_RRS_WAIT_MS);
+>> +	deadline = jiffies + msecs_to_jiffies(timeout_ms -
+>> +					      CXL_RESET_RRS_WAIT_MS);
+>> +
+>> +	for (;;) {
+>> +		rc = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_STATUS2,
+>> +					  &status2);
+>> +		if (rc || status2 == U16_MAX)
+>> +			goto not_ready;
+>> +		if (status2 & PCI_DVSEC_CXL_RST_ERR)
+>> +			return -EIO;
+>> +		if (status2 & PCI_DVSEC_CXL_RST_DONE)
+>> +			return 0;
+>> +
+>> +not_ready:
+>> +		if (time_after_eq(jiffies, deadline))
+>> +			return -ETIMEDOUT;
+>> +
+>> +		msleep(CXL_RESET_STATUS_POLL_MS);
+> 
+> The goto here isn't necessary, I think this is functionally equivalent:
+> 
+> 		if ((rc || status2 == U16_MAX) && time_after_eq(jiffies, deadline))
+> 			return -ETIMEDOUT;
+> 		else if (status2 & PCI_DVSEC_CXL_RST_ERR)
+> 			return -EIO;
+> 		else if (status2 & PCI_DVSEC_CXL_RST_DONE)
+> 			return 0;
+> 
+> 		msleep(CXL_RESET_STATUS_POLL_MS);
+> 
+> Sashiko also brought it up, but the timeout is probably too long. I'd pick something like 20s
+> instead. That's probably still too conservative, but I don't know enough to suggest a more practical
+> value.
+>> +	}
+>> +}
+>> +
+>> +static int cxl_reset_execute(struct pci_dev *pdev, int dvsec, u16 cap)
+>> +{
+>> +	int rc, rc2;
+>> +
+>> +	rc = cxl_reset_disable_cache(pdev, dvsec, cap);
+>> +	if (rc)
+>> +		goto out_enable_cache;
+>> +
+>> +	if (!pci_wait_for_pending_transaction(pdev)) {
+>> +		pci_err(pdev, "timed out waiting for pending transactions\n");
+>> +		rc = -ETIMEDOUT;
+>> +		goto out_enable_cache;
+>> +	}
+>> +
+>> +	rc = pci_dev_reset_iommu_prepare(pdev);
+>> +	if (rc) {
+>> +		pci_err(pdev, "failed to stop IOMMU for CXL reset: %d\n", rc);
+>> +		goto out_enable_cache;
+>> +	}
+>> +
+>> +	/* Clear Memory Clear again even if this command write reports failure. */
+>> +	rc = cxl_reset_update_ctrl2_no_replay(pdev, dvsec,
+>> +					      PCI_DVSEC_CXL_INIT_CXL_RST |
+>> +					      PCI_DVSEC_CXL_RST_MEM_CLR_EN, 0);
+>> +	if (rc)
+>> +		goto out_clear_memory;
+>> +
+>> +	rc = cxl_reset_wait_done(pdev, dvsec, cap);
+>> +
+>> +out_clear_memory:
+>> +	rc2 = cxl_reset_update_ctrl2_no_replay(
+>> +		pdev, dvsec, 0, PCI_DVSEC_CXL_RST_MEM_CLR_EN);
+>> +	if (rc2)
+>> +		pci_err(pdev, "failed to clear CXL Reset Memory Clear: %d\n",
+>> +			rc2);
+>> +	rc = rc ?: rc2;
+>> +
+>> +	pci_dev_reset_iommu_done(pdev);
+>> +
+>> +out_enable_cache:
+>> +	/*
+>> +	 * DISABLE_CACHING was the first preparation step. Restore the original
+>> +	 * cache policy last, after reset exclusion has ended.
+>> +	 */
+>> +	rc2 = cxl_reset_update_ctrl2_no_replay(
+>> +		pdev, dvsec, 0, PCI_DVSEC_CXL_DISABLE_CACHING);
+>> +	if (rc2)
+>> +		pci_err(pdev, "failed to re-enable CXL caching: %d\n", rc2);
+>> +	rc = rc ?: rc2;
+>> +
+>> +	return rc;
+>> +}
+> 
+> This is pretty messy, I think it would be cleaner if you split this into several functions:
 
-diff --git a/Documentation/virt/kvm/devices/vcpu.rst b/Documentation/virt/kvm/devices/vcpu.rst
-index deb5c51bc00c8..fb5921ed9dea2 100644
---- a/Documentation/virt/kvm/devices/vcpu.rst
-+++ b/Documentation/virt/kvm/devices/vcpu.rst
-@@ -57,6 +57,9 @@ Returns:
-                   hardware PMU, or interrupt number not set (non-GICv5
-                   guests, only)
- 	 -EBUSY   PMUv3 already initialized
-+	 -EINVAL  Partitioning enabled without explicitly configuring
-+		  fewer than max_counters via
-+		  KVM_ARM_VCPU_PMU_V3_SET_NR_COUNTERS
- 	 =======  ======================================================
- 
- Request the initialization of the PMUv3.  If using the PMUv3 with an in-kernel
-@@ -162,7 +165,8 @@ the cpu field to the processor id.
- 	 -EFAULT  Error accessing the value pointed to by addr
- 	 -ENODEV  PMUv3 not supported or GIC not initialized
- 	 -EINVAL  No PMUv3 explicitly selected, or value of N out of
--	 	  range
-+	 	  range (or N >= max_counters when partitioning is
-+		  enabled)
- 	 =======  ====================================================
- 
- Set the number of implemented event counters in the virtual PMU. This
-@@ -172,6 +176,42 @@ explicitly selected, or the number of counters is out of range for the
- selected PMU. Selecting a new PMU cancels the effect of setting this
- attribute.
- 
-+1.6 ATTRIBUTE: KVM_ARM_VCPU_PMU_V3_ENABLE_PARTITION
-+---------------------------------------------------
-+
-+:Parameters: in kvm_device_attr.addr the address to an unsigned int (u32)
-+	     boolean value (non-zero to enable PMU partitioning, 0 to disable)
-+
-+:Returns:
-+
-+	 =======  ========================================================
-+	 -EBUSY   PMUv3 already initialized or a VCPU has already run
-+	 -EFAULT  Error accessing the value pointed to by addr
-+	 -ENODEV  KVM_ARM_VCPU_PMU_V3 feature missing from VCPU
-+	 -EPERM   Host hardware or kernel configuration does not support
-+		  PMU partitioning (requires ARM64 VHE mode and PMUv3)
-+	 -EINVAL  No PMUv3 associated with the VM, or
-+		  KVM_ARM_VCPU_PMU_V3_SET_NR_COUNTERS was already set to
-+		  >= max_counters
-+	 -ENXIO   Returned by KVM_HAS_DEVICE_ATTR when PMU partitioning is
-+		  unsupported on host hardware
-+	 =======  ========================================================
-+
-+Enable or disable hardware PMU partitioning for the VM. When enabled, physical
-+PMUv3 hardware counters are partitioned between the guest and host using
-+MDCR_EL2.HPMN (and FEAT_FGT fine-grained traps when supported by hardware).
-+This grants the guest direct, untrapped EL0/EL1 hardware access to event
-+counters 0..HPMN-1 and the cycle counter (PMCCNTR_EL0).
-+
-+When PMU partitioning is enabled, userspace must explicitly configure the
-+number of guest event counters via KVM_ARM_VCPU_PMU_V3_SET_NR_COUNTERS with a
-+value strictly less than the maximum number of general-purpose counters
-+implemented by the PMU (leaving at least one general-purpose counter reserved
-+for host profiling) prior to calling KVM_ARM_VCPU_PMU_V3_INIT. Note that
-+KVM_ARM_VCPU_PMU_V3_SET_NR_COUNTERS configures general-purpose event counters
-+(PMCR_EL0.N / MDCR_EL2.HPMN); the dedicated cycle counter (PMCCNTR_EL0) is
-+unconditionally assigned to the guest partition when partitioning is enabled.
-+
- 2. GROUP: KVM_ARM_VCPU_TIMER_CTRL
- =================================
- 
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index 8dff576667d10..6180b977d8965 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -388,6 +388,7 @@ struct kvm_arch {
- 
- 	/* Maximum number of counters for the guest */
- 	u8 nr_pmu_counters;
-+	bool pmu_nr_counters_specified;
- 
- 	/* PMMIR_EL1.SLOTS value exposed to the guest. */
- 	u8 pmmir_slots;
-diff --git a/arch/arm64/include/uapi/asm/kvm.h b/arch/arm64/include/uapi/asm/kvm.h
-index 019e5e3d892e6..9d38090eb5e71 100644
---- a/arch/arm64/include/uapi/asm/kvm.h
-+++ b/arch/arm64/include/uapi/asm/kvm.h
-@@ -438,6 +438,8 @@ enum {
- #define   KVM_ARM_VCPU_PMU_V3_FILTER		2
- #define   KVM_ARM_VCPU_PMU_V3_SET_PMU		3
- #define   KVM_ARM_VCPU_PMU_V3_SET_NR_COUNTERS	4
-+#define   KVM_ARM_VCPU_PMU_V3_ENABLE_PARTITION	5
-+
- #define KVM_ARM_VCPU_TIMER_CTRL		1
- #define   KVM_ARM_VCPU_TIMER_IRQ_VTIMER		0
- #define   KVM_ARM_VCPU_TIMER_IRQ_PTIMER		1
-diff --git a/arch/arm64/kvm/pmu.c b/arch/arm64/kvm/pmu.c
-index 4a3c6600b2678..31e46a5e937c7 100644
---- a/arch/arm64/kvm/pmu.c
-+++ b/arch/arm64/kvm/pmu.c
-@@ -505,6 +505,14 @@ static int kvm_arm_pmu_v3_init(struct kvm_vcpu *vcpu)
- 			return ret;
- 	}
- 
-+	if (kvm_pmu_is_partitioned(vcpu->kvm)) {
-+		unsigned int max_counters = kvm_arm_pmu_get_max_counters(vcpu->kvm);
-+
-+		if (!vcpu->kvm->arch.pmu_nr_counters_specified ||
-+		    vcpu->kvm->arch.nr_pmu_counters >= max_counters)
-+			return -EINVAL;
-+	}
-+
- 	init_irq_work(&vcpu->arch.pmu.overflow_work,
- 		      kvm_pmu_perf_overflow_notify_vcpu);
- 
-@@ -591,11 +599,25 @@ static void kvm_arm_set_nr_counters(struct kvm *kvm, unsigned int nr)
- 	}
- }
- 
-+static bool kvm_arm_pmu_any_vcpu_created(struct kvm *kvm)
-+{
-+	struct kvm_vcpu *vcpu;
-+	unsigned long i;
-+
-+	kvm_for_each_vcpu(i, vcpu, kvm) {
-+		if (vcpu->arch.pmu.created)
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
- static void kvm_arm_set_pmu(struct kvm *kvm, struct arm_pmu *arm_pmu)
- {
- 	lockdep_assert_held(&kvm->arch.config_lock);
- 
- 	kvm->arch.arm_pmu = arm_pmu;
-+	kvm->arch.pmu_nr_counters_specified = false;
- 	kvm_arm_set_nr_counters(kvm, kvm_arm_pmu_get_max_counters(kvm));
- }
- 
-@@ -642,6 +664,11 @@ static int kvm_arm_pmu_v3_set_pmu(struct kvm_vcpu *vcpu, int pmu_id)
- 				break;
- 			}
- 
-+			if (kvm_arm_pmu_any_vcpu_created(kvm)) {
-+				ret = (kvm->arch.arm_pmu == arm_pmu) ? 0 : -EBUSY;
-+				break;
-+			}
-+
- 			kvm_arm_set_pmu(kvm, arm_pmu);
- 			cpumask_copy(kvm->arch.supported_cpus, &arm_pmu->supported_cpus);
- 
-@@ -667,14 +694,26 @@ static int kvm_arm_pmu_v3_set_pmu(struct kvm_vcpu *vcpu, int pmu_id)
- static int kvm_arm_pmu_v3_set_nr_counters(struct kvm_vcpu *vcpu, unsigned int n)
- {
- 	struct kvm *kvm = vcpu->kvm;
-+	unsigned int max_counters;
-+
-+	if (kvm_vm_has_ran_once(kvm) ||
-+	    (kvm_arm_pmu_any_vcpu_created(kvm) &&
-+	     (!kvm->arch.pmu_nr_counters_specified ||
-+	      kvm->arch.nr_pmu_counters != n)))
-+		return -EBUSY;
- 
- 	if (!kvm->arch.arm_pmu)
- 		return -EINVAL;
- 
--	if (n > kvm_arm_pmu_get_max_counters(kvm))
-+	max_counters = kvm_arm_pmu_get_max_counters(kvm);
-+	if (n > max_counters)
-+		return -EINVAL;
-+
-+	if (kvm_pmu_is_partitioned(kvm) && n >= max_counters)
- 		return -EINVAL;
- 
- 	kvm_arm_set_nr_counters(kvm, n);
-+	kvm->arch.pmu_nr_counters_specified = true;
- 	return 0;
- }
- 
-@@ -786,6 +825,31 @@ int kvm_arm_pmu_v3_set_attr(struct kvm_vcpu *vcpu, struct kvm_device_attr *attr)
- 
- 		return kvm_arm_pmu_v3_set_nr_counters(vcpu, n);
- 	}
-+	case KVM_ARM_VCPU_PMU_V3_ENABLE_PARTITION: {
-+		unsigned int __user *uaddr = (unsigned int __user *)(long)attr->addr;
-+		u32 val;
-+
-+		if (get_user(val, uaddr))
-+			return -EFAULT;
-+
-+		if (!has_kvm_pmu_partition_support())
-+			return -EPERM;
-+
-+		if (kvm_vm_has_ran_once(kvm) ||
-+		    (kvm_arm_pmu_any_vcpu_created(kvm) &&
-+		     kvm_pmu_is_partitioned(kvm) != !!val))
-+			return -EBUSY;
-+
-+		if (!kvm->arch.arm_pmu)
-+			return -EINVAL;
-+
-+		if (val && kvm->arch.pmu_nr_counters_specified &&
-+		    kvm->arch.nr_pmu_counters >= kvm_arm_pmu_get_max_counters(kvm))
-+			return -EINVAL;
-+
-+		kvm_pmu_partition_enable(kvm, val);
-+		return 0;
-+	}
- 	case KVM_ARM_VCPU_PMU_V3_INIT:
- 		return kvm_arm_pmu_v3_init(vcpu);
- 	}
-@@ -827,6 +891,11 @@ int kvm_arm_pmu_v3_has_attr(struct kvm_vcpu *vcpu, struct kvm_device_attr *attr)
- 	case KVM_ARM_VCPU_PMU_V3_SET_NR_COUNTERS:
- 		if (kvm_vcpu_has_pmu(vcpu))
- 			return 0;
-+		break;
-+	case KVM_ARM_VCPU_PMU_V3_ENABLE_PARTITION:
-+		if (kvm_vcpu_has_pmu(vcpu) && has_kvm_pmu_partition_support())
-+			return 0;
-+		break;
- 	}
- 
- 	return -ENXIO;
-diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
-index 20c46ef705d30..a4779593c4f8d 100644
---- a/arch/arm64/kvm/sys_regs.c
-+++ b/arch/arm64/kvm/sys_regs.c
-@@ -1756,7 +1756,10 @@ static int set_pmcr(struct kvm_vcpu *vcpu, const struct sys_reg_desc *r,
- 	if (!kvm_vm_has_ran_once(kvm) &&
- 	    !vcpu_has_nv(vcpu)	      &&
- 	    !kvm_vcpu_has_pmuv3_strict(vcpu) &&
--	    new_n <= kvm_arm_pmu_get_max_counters(kvm))
-+	    !kvm->arch.pmu_nr_counters_specified &&
-+	    new_n <= kvm_arm_pmu_get_max_counters(kvm) &&
-+	    (!kvm_pmu_is_partitioned(kvm) ||
-+	     new_n < kvm_arm_pmu_get_max_counters(kvm)))
- 		kvm->arch.nr_pmu_counters = new_n;
- 
- 	mutex_unlock(&kvm->arch.config_lock);
--- 
-2.56.0.rc1.310.g51773c2048-goog
+If we can avoid using gotos for normal function flows that would be great. It gets really messy to follow otherwise.
+
+DJ
+
+> 
+> static int __cxl_reset_execute(...)
+> {
+> 	int rc;
+> 
+> 	rc = cxl_reset_disable_cache(...);
+> 	if (rc)
+> 		return rc;
+> 
+> 	rc = cxl_clear_memory(...); // could be open coded, made a function for brevity
+> 	if (!rc)
+> 		rc = cxl_reset_wait_done(...);
+> 
+> 	rc = rc ?: cxl_clear_memory(...); // This one doesn't have the INIT_CXL_RST flag
+> 
+> 	pci_dev_reset_iommu_done(pdev);
+> 	
+> 	return rc;
+> }
+> 
+> static int cxl_reset_execute(...)
+> {
+> 	int rc;
+> 
+> 	rc = __cxl_reset_execute(..);
+> 	if (rc)
+> 		// log error
+> 
+> 	return rc ?: cxl_enable_cache(...);
+> }
+> 
+> Hopefully what goes where makes sense just based on the names. I'm also not convinced you
+> need to preserve the original error code throughout the function since it's essentially
+> the same error conditions for all these functions AFAICT.
+> 
+>> +
+>> +int cxl_reset_function(struct pci_dev *pdev, bool probe)
+>> +{
+>> +	int dvsec, rc;
+>> +	u16 cap, ctrl;
+>> +
+>> +	dvsec = pci_find_dvsec_capability(pdev, PCI_VENDOR_ID_CXL,
+>> +					  PCI_DVSEC_CXL_DEVICE);
+>> +	if (!dvsec)
+>> +		return -ENOTTY;
+>> +
+>> +	rc = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_CAP, &cap);
+>> +	if (rc)
+>> +		return pcibios_err_to_errno(rc);
+>> +	if (PCI_POSSIBLE_ERROR(cap))
+>> +		return -ENODEV;
+>> +	if (!(cap & PCI_DVSEC_CXL_CACHE_CAPABLE) ||
+>> +	    !(cap & PCI_DVSEC_CXL_MEM_CAPABLE) ||
+>> +	    !(cap & PCI_DVSEC_CXL_RST_CAPABLE) ||
+>> +	    !(cap & PCI_DVSEC_CXL_RST_MEM_CLR_CAPABLE))
+>> +		return -ENOTTY;
+>> +
+>> +	rc = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_CTRL, &ctrl);
+>> +	if (rc)
+>> +		return pcibios_err_to_errno(rc);
+>> +	if (PCI_POSSIBLE_ERROR(ctrl))
+>> +		return -ENODEV;
+>> +	if (!(ctrl & PCI_DVSEC_CXL_CACHE_ENABLE) ||
+>> +	    !(ctrl & PCI_DVSEC_CXL_MEM_ENABLE))
+>> +		return -ENOTTY;
+>> +
+>> +	if (probe)
+>> +		return 0;
+>> +
+>> +	return cxl_reset_execute(pdev, dvsec, cap);
+>> +}
+>> diff --git a/include/cxl/cxl.h b/include/cxl/cxl.h
+>> index 4bad41e74f74..a07dbf7463c0 100644
+>> --- a/include/cxl/cxl.h
+>> +++ b/include/cxl/cxl.h
+>> @@ -6,6 +6,7 @@
+>>  #define __CXL_CXL_H__
+>>  
+>>  #include <linux/device.h>
+>> +#include <linux/errno.h>
+>>  #include <linux/node.h>
+>>  #include <linux/ioport.h>
+>>  #include <linux/range.h>
+>> @@ -201,6 +202,7 @@ struct cxl_register_map {
+>>  #ifdef CONFIG_CXL_RESET
+>>  void pci_cxl_hdm_cache_init(struct pci_dev *pdev);
+>>  void pci_cxl_hdm_cache_release(struct pci_dev *pdev);
+>> +int cxl_reset_function(struct pci_dev *pdev, bool probe);
+>>  #else
+>>  static inline void pci_cxl_hdm_cache_init(struct pci_dev *pdev)
+>>  {
+>> @@ -209,6 +211,11 @@ static inline void pci_cxl_hdm_cache_init(struct pci_dev *pdev)
+>>  static inline void pci_cxl_hdm_cache_release(struct pci_dev *pdev)
+>>  {
+>>  }
+>> +
+>> +static inline int cxl_reset_function(struct pci_dev *pdev, bool probe)
+>> +{
+>> +	return -ENOTTY;
+>> +}
+>>  #endif
+>>  
+>>  /**
+>> diff --git a/include/uapi/linux/pci_regs.h b/include/uapi/linux/pci_regs.h
+>> index facaa324bd86..7224857c7b30 100644
+>> --- a/include/uapi/linux/pci_regs.h
+>> +++ b/include/uapi/linux/pci_regs.h
+>> @@ -1352,8 +1352,22 @@
+>>  #define   PCI_DVSEC_CXL_CACHE_CAPABLE			_BITUL(0)
+>>  #define   PCI_DVSEC_CXL_MEM_CAPABLE			_BITUL(2)
+>>  #define   PCI_DVSEC_CXL_HDM_COUNT			__GENMASK(5, 4)
+>> +#define   PCI_DVSEC_CXL_CACHE_WBI_CAPABLE		_BITUL(6)
+>> +#define   PCI_DVSEC_CXL_RST_CAPABLE			_BITUL(7)
+>> +#define   PCI_DVSEC_CXL_RST_TIMEOUT			__GENMASK(10, 8)
+>> +#define   PCI_DVSEC_CXL_RST_MEM_CLR_CAPABLE		_BITUL(11)
+>>  #define  PCI_DVSEC_CXL_CTRL				0xC
+>> +#define   PCI_DVSEC_CXL_CACHE_ENABLE			_BITUL(0)
+>>  #define   PCI_DVSEC_CXL_MEM_ENABLE			_BITUL(2)
+>> +#define  PCI_DVSEC_CXL_CTRL2				0x10
+>> +#define   PCI_DVSEC_CXL_DISABLE_CACHING			_BITUL(0)
+>> +#define   PCI_DVSEC_CXL_INIT_CACHE_WBI			_BITUL(1)
+>> +#define   PCI_DVSEC_CXL_INIT_CXL_RST			_BITUL(2)
+>> +#define   PCI_DVSEC_CXL_RST_MEM_CLR_EN			_BITUL(3)
+>> +#define  PCI_DVSEC_CXL_STATUS2				0x12
+>> +#define   PCI_DVSEC_CXL_CACHE_INV			_BITUL(0)
+>> +#define   PCI_DVSEC_CXL_RST_DONE			_BITUL(1)
+>> +#define   PCI_DVSEC_CXL_RST_ERR				_BITUL(2)
+>>  #define  PCI_DVSEC_CXL_RANGE_SIZE_HIGH(i)		(0x18 + (i * 0x10))
+>>  #define  PCI_DVSEC_CXL_RANGE_SIZE_LOW(i)		(0x1C + (i * 0x10))
+>>  #define   PCI_DVSEC_CXL_MEM_INFO_VALID			_BITUL(0)
+> 
 
