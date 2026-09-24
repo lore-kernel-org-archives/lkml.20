@@ -1,189 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC2A42640A;
-	Thu, 24 Sep 2026 10:59:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B455D3D812A
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:00:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790247553; cv=none; b=lpvQ3QrsysekH4jkOY0Rqg32fhXX1MNmDH7tEh7abGNDV0lQ+XUs5/nXLlDB13ubGMrtR80WOV9M8XJsfGUi4IWJ9jZLuLSzlNmBysWnIQXpHdd2WD/Fk+THeyqOwcULX4gLQkfbR15SHyiT6Jz1yl9jAExr3Mk7p+eRos5Qztk=
+	t=1790247606; cv=none; b=K5nvB5fh11KkAd4dPrw6scg9LizK1EYtax2O25HFYY9xMcO6tAvIl1IGZ7t6IUmjORdSojLBXXJJwhSrexAG3FhlhoV12zPMgGM1D29SLLpZMqtvjw7y5SR5ed6uKuzUdEFvA64Z4x6SzS69W76JGb8QcownBiNRCFeGWkXHe44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790247553; c=relaxed/simple;
-	bh=uzm079J1Hlf4UO/zTSYNr5H1vLdGstH03V+hBqncpFQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ua8Ow11GCbrTu6aWHgTxstmqhloXkTcRDQdjpEH+kwXxtZA2IvK4AUVCMcbpJ5wttrzCNB2Syc5O+ngLCR0sjiINC1xZurotpzllWtQM2DCktHy1jZh9DnQpteA55eidRdu3E7Z2iQeeeX3ZiPzjupbd74mH3qCGaGy4djfwDcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DBTT30Dk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790247606; c=relaxed/simple;
+	bh=R8/zNeA1183GjFYCkqBaYfGjkmgQSMkOqPFph5HP22o=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YIAhOnMsj5tookOovmPBHtJcFS1DL7Lo9R/nQE636GrR71dh4GM7jSuLrS6NZ0vIkeGm6/54OoCP+iaJ9GYesFyfKKlqkPvbSsHD9pzgLcoTqFar4ygeMQG3dlQX/IkuIgfermcrkjzH+ppkAVd24ivV7Y0pTfXPrZdWEdqn5yc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ECQ//m1F; arc=none smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DBTT30Dk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6243F1F000FF;
-	Thu, 24 Sep 2026 10:59:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790247551;
-	bh=D5/vhkqdn05EZKdDTNjLphM0V4tU0Hengbn8xFQ8pxo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DBTT30DkBr3++nyuGqz4WdPnHRNpHOZYe/t8dSkdxLWykopuqMMvkqKPLdiWoIlGQ
-	 P+p21Uiarm0LmC6hiqtLU7tKkEcRUGJRTp5EBlNMSIZ0WyBEj6p1SNgDgmXUq2g59X
-	 GJBUZv6J88+3mEMjvnaknkZM3jAhDJbqrHrTpGshP1ON7aEXKU8rVonp4IOsCeBBXT
-	 oppOCQ+lzIM6YSzKDgXRu24LIctlSIlhLjTjX94nyb+WRos0aLxgxnvAPeMCFOUxmy
-	 NjkjrdKsn44SdPMH4mtkxmbhpLgARi0rq8Tz0QGUHYOPiqy1cdvhaR09BvnkTarkGZ
-	 n9aV/yYWDKQ3A==
-Message-ID: <bec2bee4-dd38-4846-91d7-006fe38fc9da@kernel.org>
-Date: Thu, 24 Sep 2026 12:58:59 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ECQ//m1F"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2a8b9acbc6so313265166b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:00:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790247603; x=1790852403; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=v+pOxxYYEV4wxah+lHWFr1aWlk7fFLFIYKT2k0YkxRM=;
+        b=ECQ//m1FLpWiBa/g1V7iCqvqjkQf5jJvcdwib1YBABTSuXr1I4qu2imKgw1xoWmpCr
+         aZuPPwxdxlEy9p8oqnpiPW11+R4cYXmLTLOg6ehts6nGvSe5HhNttsRERjHwQB5GhD1X
+         NpPBjxsie1y53HlNf0ruyESJwBrHR3qC/rmps4ujuCrcTDtm6BbvGwTPeIEUG0ZV5aU3
+         eSZa+SFyzxED2w/279DsnV0uqx6iDV71bAnnuAo8GMjdACQvhKQUHFqwYbacv+EyXdtG
+         S7YQx8kopmMiix0jn4Y2XPTaOGeHWFPYiG2HbNoPl3u94EtTu7eZsNTmkIDUpkdE310a
+         FD2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790247603; x=1790852403;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=v+pOxxYYEV4wxah+lHWFr1aWlk7fFLFIYKT2k0YkxRM=;
+        b=shOSaFyjiGvRr9XAS7DWqjJHc9CSeETaKYgqeA0EgFzu/aaetnOSyMB7e6GejzdkUd
+         CcpBOwbmQSRA0NSIkTHHoQI67HNXYkAv+IRd2UTjzhnK3V5bkBRZoo7se7hfTeTlaiCL
+         8laoh0qkgfbV6+G0JbcSZp8sD/hTyT7SiVM/mnMLuZQb07mER873IS8ZadsycNQjTmEX
+         rBtVdTxAIz4c+VJVCg8xFaceWmeIHoNwjG46n5TX+DmbdG3wToytxWNsMQRvHO3q7Wjg
+         KAkw6+T3PrhfQywpyl8BXE9vkucEPH4tMHqYNbgSekhTnjmECT8SI5l2xeSein14U+jU
+         NW9w==
+X-Forwarded-Encrypted: i=1; AKwUvBy93i0VTDlNEg8YhIXt8m6CbZH/H0yKlr5ru9Av8GybeKesyMFYpdqoVgxdedpEM734DSRAV48s9hUpPkk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kitRaY+rOFoXMh8M/NuzNjvY08JHkctQTKETn8dnnqWXDXHtCr
+	VX+Blba7lxojR81s6YaAssyeGBu2PYxoy0VHpbxdxbiGBLXcGL7ueTTZijQISw==
+X-Gm-Gg: AYBFou0XNS2Z4N/iZ8KFA+ebTPorYENAPokgCgTHDxOxuc+C6BS7OrOp29PWGUNSUMg
+	Wq+t/CvYD6YFtX8AqrZA5+c6mZrAgLp7FCBYfG5taB29psKDprEOXFYfzsG0chW55FnE6rtkFQP
+	5rgzRZ6QEaQOqnlgBEix8NDzJZuBrhbj/x5EnreeE9gNPTW96F1WiRzRYOxTdy2NODLS6OOWyYo
+	93RACoji3G7tbAQnVVHqpJefTF/U0HUHG/8DyUvkiODE7D2KGNnM3TJlVIR1tzozHt4AofjE0rR
+	A4xCexi0v/rVRbifa8gwsVYCr09kF++jjfa+bo343UhdRJBQMJ+EeADKUmQ9ray/CAyMfGA68Rg
+	y38+1uNIrae3c6c7Msm3SOkH97RKp42yn7RwlPYJs5W/Ed5PbQACZNTWqjgrEA3QGELztyXaalh
+	b5c8ghYnW/GitlUkKrN1REPwdFTcfxMv8aE3aMhN6GRqfEBKsXOpJr0gUcPQrujuLBnj0Z0+txc
+	k+2BvaV2Yoigof/
+X-Received: by 2002:a17:907:6ea3:b0:c25:c67d:53cc with SMTP id a640c23a62f3a-c2ac22da292mr180150366b.8.1790247602745;
+        Thu, 24 Sep 2026 04:00:02 -0700 (PDT)
+Received: from [127.0.1.1] ([2001:4bb8:105:5e97:3d03:7131:95ba:ec76])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae6b8b32sm281806966b.49.2026.09.24.04.00.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 04:00:02 -0700 (PDT)
+From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Date: Thu, 24 Sep 2026 12:59:57 +0200
+Subject: [PATCH] iio: light: veml6031x00: Enable internal calibration
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/11] dt-bindings: clock: qcom: ipq5332-gcc: Describe
- clock inputs per compatible
-To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Georgi Djakov <djakov@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Varadarajan Narayanan <quic_varada@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>,
- Sricharan Ramabadhran <quic_srichara@quicinc.com>,
- Kathiravan T <quic_kathirav@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-pm@vger.kernel.org
-References: <20260921-ipq_clk_changes-v1-0-d242e3d49648@oss.qualcomm.com>
- <20260921-ipq_clk_changes-v1-5-d242e3d49648@oss.qualcomm.com>
- <62a5fabc-3a06-42fa-9c6b-6504650e712b@kernel.org>
- <7bcffc7c-5dda-4ead-a053-7eb4980e43a4@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <7bcffc7c-5dda-4ead-a053-7eb4980e43a4@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260924-veml6031x00_als_cal-v1-1-c046a5e4e998@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAKwCtWoC/x3MTQqAIBBA4avErBNmFCK7SkSYTTVgPyiEEN09a
+ fkt3nsgcRRO0FUPRL4lyXkUUF2B39yxspK5GDTqBq0mdfMeGjSUEUcX0uhdUNYYspPHiVuCUl6
+ RF8n/tR/e9wOALRfRZQAAAA==
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790247601; l=2218;
+ i=javier.carrasco.cruz@gmail.com; s=20260111; h=from:subject:message-id;
+ bh=R8/zNeA1183GjFYCkqBaYfGjkmgQSMkOqPFph5HP22o=;
+ b=jnW4blAfSvX+pvDYqU4nXCF8vGPFLZxfzzoR3jlVuSjMme0nZpXKCk5q2SxbvlqjPEBqXJ+EX
+ J3ExtTL9NaHB6J2N3l+qWWY47RCFg/9JLfWoEAWW6HBnrbDf1FLP4/X
+X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
+ pk=Lge8w8xidNSf/INy7JAIbAW+Hezkp3nsBh2OjKL7lLU=
 
-On 24/09/2026 11:15, Kathiravan Thirumoorthy wrote:
-> 
-> On 9/23/2026 2:17 PM, Krzysztof Kozlowski wrote:
->> On 21/09/2026 08:19, Kathiravan Thirumoorthy wrote:
->>> The IPQ5332 and IPQ5424 GCC blocks use different clock input orderings.
->>> Document the clock inputs in compatible-specific schema constraints instead
->>> of using a common clock description.
->>>
->>> Also add the 375 MHz PPE clock generated by the CMN PLL to the IPQ5424
->>> clock input list.
->>>
->>> This keeps the binding aligned with the clock ordering used by the
->>> existing DTS and GCC driver implementations.
->>>
->>> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
->>> ---
->>>   .../bindings/clock/qcom,ipq5332-gcc.yaml           | 26 +++++++++++++---------
->>>   1 file changed, 16 insertions(+), 10 deletions(-)
->>>
->>> diff --git a/Documentation/devicetree/bindings/clock/qcom,ipq5332-gcc.yaml b/Documentation/devicetree/bindings/clock/qcom,ipq5332-gcc.yaml
->>> index 1230183fc0a9..fb39dffca988 100644
->>> --- a/Documentation/devicetree/bindings/clock/qcom,ipq5332-gcc.yaml
->>> +++ b/Documentation/devicetree/bindings/clock/qcom,ipq5332-gcc.yaml
->>> @@ -25,14 +25,7 @@ properties:
->>>   
->>>     clocks:
->>>       minItems: 5
->>> -    items:
->>> -      - description: Board XO clock source
->>> -      - description: Sleep clock source
->>> -      - description: PCIE 2lane PHY pipe clock source
->>> -      - description: PCIE 2lane x1 PHY pipe clock source (For second lane)
->>> -      - description: USB PCIE wrapper pipe clock source
->>> -      - description: PCIE 2-lane PHY2 pipe clock source
->>> -      - description: PCIE 2-lane PHY3 pipe clock source
->>
->> You are changing the order which is ABI break. Describe the actual
->> problem to justify such change. Are you saying this was broken since
->> beginning or what exactly is not working here? The driver was added by
->> Qualcomm in 2024, so how did it even work? It's not some 10 yo legacy
->> where we did some mistakes in binding while converting from TXT.
->>
->> Also, I do not get why the list cannot be shared.
-> 
-> When the bindings was posted, list is combined for both IPQ5332 and 
-> IPQ5424. But the driver wasn't updated and it was following the below 
-> order, so was DTS, which is not compatible the DT binding description.
-> 
-> enum {
->          DT_XO,
->          DT_SLEEP_CLK,
->          DT_PCIE30_PHY0_PIPE_CLK,
->          DT_PCIE30_PHY1_PIPE_CLK,
->          DT_PCIE30_PHY2_PIPE_CLK,
->          DT_PCIE30_PHY3_PIPE_CLK,
->          DT_USB_PCIE_WRAPPER_PIPE_CLK,
->          DT_CMN_PLL_NSS_375M_CLK,
-> };
-> 
-> So I'm splitting the description between IPQ5332 and IPQ5424 to matching 
-> with the DTS and the driver description.
+Enable the device's factory internal calibration before entering normal
+operation to improve ambient light measurements.
 
-So we asked back in 2024 to have the common part of the list. I even did
-the effort to dig it:
+Set ALS_CAL during hardware initialization.
 
-https://lore.kernel.org/all/ruti7hmkxkayzmqfbme6rw6j2vbhlx4ul4ptcckwamcpd4cyfx@owufhxwpvlcj/
+Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+---
+This feature is not documented beyond the bit to set in the CONF1 device
+register, but after direct communication with the manufacturer and some
+tests I carried out, it should improve the ALS measurements.
 
-Authors implemented it partially, broken drivers. Now you basically
-revert what we asked, which is BTW logical option. It's logical and
-reasonable, but leaves bitter feeling.
+I could not tell much of a difference with the first device I tested,
+but some other samples have slightly improved its measurements compared
+to a reliable reference. The manufacturer could not tell me why this had
+to be configurable at all, considering that you can't calibrate the
+device on your own, and especially why it is disabled by default. But
+fortunately, this feature only needs to be enabled after powering up the
+device, and software on/off switches do not affect it.
+---
+ drivers/iio/light/veml6031x00.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-I have feeling there is no accountability and no responsibility of the
-IPQ at all.
+diff --git a/drivers/iio/light/veml6031x00.c b/drivers/iio/light/veml6031x00.c
+index 085a6e2ff717..f6308498e422 100644
+--- a/drivers/iio/light/veml6031x00.c
++++ b/drivers/iio/light/veml6031x00.c
+@@ -52,6 +52,7 @@
+ #define VEML6031X00_CONF0_SD        BIT(0)
+ #define VEML6031X00_CONF0_AF_TRIG   BIT(2)
+ #define VEML6031X00_CONF0_AF        BIT(3)
++#define VEML6031X00_CONF1_ALS_CAL   BIT(0)
+ #define VEML6031X00_CONF1_IR_SD     BIT(7)
+ #define VEML6031X00_INT_TH_H        BIT(1)
+ #define VEML6031X00_INT_TH_L        BIT(2)
+@@ -1121,6 +1122,11 @@ static int veml6031x00_hw_init(struct veml6031x00_data *data)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to disable trigger\n");
+ 
++	ret = regmap_set_bits(data->regmap, VEML6031X00_REG_CONF1,
++			      VEML6031X00_CONF1_ALS_CAL);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to enable internal calibration\n");
++
+ 	regval = 0;
+ 	ret = regmap_bulk_write(map, VEML6031X00_REG_WL_L, &regval, sizeof(regval));
+ 	if (ret)
 
-No, that's not going to work. You cannot come 1.5 year later and revert
-what reviewer asked you, even if issue was just by mistake in the first
-place. And you should not even try to do that.
-
-NAK
+---
+base-commit: dceba8e581e3e8f475da0efbd7a73f3d9524ddd2
+change-id: 20260921-veml6031x00_als_cal-93319bc0be81
 
 Best regards,
-Krzysztof
+-- 
+Javier Carrasco <javier.carrasco.cruz@gmail.com>
+
