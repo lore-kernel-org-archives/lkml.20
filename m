@@ -1,110 +1,131 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD76746D090
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:04:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE8C0470139
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:04:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790247847; cv=none; b=Mhnn8rybBDc44uo+oHTvUDDQZbcWI8uCFHgg/QAcw0YecAOQb70/TA9z53x+8VUlOgvHcN4lLvXEj9p4FPIq/Uai4ZiusRfCKOsXKAoj+12DmauHn7pWmKX35Uu8DRFlx5AxEAq0v7hqhcpdY/0a0oLZUfn1Fkj2YaPxAnokjAM=
+	t=1790247864; cv=none; b=O8mPotD3nwF9Ww6dxpOhbjXvT8zVupdAPiLuRA+wxr56iEyc7XXJ8PgyPS/5saxInUlR28EgaM42Hqem41Jd96u/PJwlZhZvzYYh7f1t2AXgzJOyzb/BM9W+fXVrYaX1mQ606CLIx4EiuzgibC6btqro9NRp8IU7LBlpWaQJjSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790247847; c=relaxed/simple;
-	bh=7f7KgU8ghEm+ZsQ4Wsyw6XqLTiDahmNcP4zN/LWSayk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Pecrgkx9sg6QFe6DL/alym9WvsNJfyZjJ5EYoyBi+RPb8SdLKmFjkou2IAzKlVrAOjaUsq9HFTAOUwtvj1ovQPeFQ0xzvP50/40xbDKZl0AAzcgemrUH0sg2Q+ncoky5ONwQ36PD7lejOchp5p3Z3tjczHfS3btDT03XkIJ6gsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aH/OkfUe; arc=none smtp.client-ip=74.125.228.43
+	s=arc-20240116; t=1790247864; c=relaxed/simple;
+	bh=xhb2qZA6d5HWl2ZPK+MdmLz1q3Y5g53VJ1H10PxwQD4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cByzdfiHLtqkTFcHpwXQK+qZexaj6YRt5ZO9VJ1jE7D1NuYDSxInAmXz+U6Ev44MIhyQvKmTwpkNT/eOsC/4mmv8mWLjKXXBfUkovT0MYnHzxujhfFaiRwoQ+alnJHvNIM8NZ+Rhq7yaVbBQNDQiRIKIG/6RIxkm3xEPYJQ6ndk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=khEgc5t5; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aH/OkfUe"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85f0fc1fd8eso943852b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:04:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="khEgc5t5"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so10780455e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:04:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790247846; x=1790852646; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MSWrvTJhaw4ng9HaxkyKXVaI1YO7DDOsINRc0X8/7pc=;
-        b=aH/OkfUeiSP/AqySZOOuIUh4wCOPS0dsci2J4Lnz3PCb4qjFOfWc6m4ADaW8g2Izy4
-         kDlzmDv6mHwtSKhPa+6NNDtxf4dsMQaSAiRVAE1A4NlxVOdsYyxMw5X0rO3omD8A6Tmn
-         F928VCUbniDnAoZ6/v9ZUogp2hYJKJskEDE8PZlN5llcng4koh0gqrLEJSqsTWRDmxYE
-         T97k9jC33zhak/vedKxyUR3Lm6r33kpDYE2vvyDqpy4t3Kx3rSoh9uQPjhYm06fySScG
-         GHJS81qY/AH7yfKMKniMzu/ndWcjtXZMumxncudwGRc88C1Prhu7zyxOvh7CEVi2mVCq
-         E39A==
+        d=gmail.com; s=20251104; t=1790247861; x=1790852661; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2LlYVhm8nVxnFsEgE+UqX+E/pgyRLxWazVBd1Zi8rus=;
+        b=khEgc5t50EK43EZuM+DsdFSGx0TbTJqOhAqx+K2C3dksGruQ3pChjSU/CgZ6+c1PiQ
+         1b6Af6YBEsMSemOJtCGEzK3AK6KKN9InzcwWkGNKWNn1EgdX1lBchite+luDagGxz6dt
+         4IIGAwL02w7TXLsG64nExIkN7EPH/kDpdo73+ot8zrx9ayQh/cSSy4QtPZgMqvGo2Qog
+         mHNn0fxy1BmT/RW7UGw28S6tL0hY2o2+XqERIkWGD3+WJL7PN9ZCc9hdzIc/EnqSCRhH
+         WH8/xz3g4/IcnpxissQ8mwfoqj11JzGcf78hSVMDsp/Js/s3bPSxWWvHvdt5ot9s+py3
+         2jEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790247846; x=1790852646;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MSWrvTJhaw4ng9HaxkyKXVaI1YO7DDOsINRc0X8/7pc=;
-        b=zyy84AttmGfux7FgkxaAldwZ/moWYZxXktJFTJO2dXVe4ZqJfw1JWpagQVi28LAzcl
-         xOzrqKsMeIUXrWFxMOSeig7R1/VaRHwe3UAzCyyy39ay0tOrxQ1FvW49zL/NB1gRaRjM
-         vp02nMRPC795VkBrlHbL9gHdnaHbQCieMKDOJUy5vn85pEySyyupt6fEvM+48LQBF3bB
-         9KFZ6CUk1XAnRtG42s0HWa/fcdHl3L83Imwv1NHRZohUGz+ug/ArdGVbshUbFRzsc3S0
-         A18eNsAe61MUfObV4MbNmvUWGRJfY2RSLD5E1GGvK21QvYE5V/8M9moeN/Zc3nEanGOU
-         A/Jg==
-X-Forwarded-Encrypted: i=1; AKwUvBxcMrq8My7ATGlBXN6UcUmvc8SFTZSh8J2r4oAZpOEMtlFLXchupXc5m9KUD7aIna0MT96oUT3GHiOTuUY=@vger.kernel.org
-X-Gm-Message-State: AFuF++l25It1MiwnJI9itm383zj/3sE1jxFWNX4elwboJ9TQc241BoN8
-	5zpAbcheaWPwXur/VoLGDJLstfwIOtXv7uXXW0XLBkM55fU8eUVuhaVl9HxMlGQI0zWu5Q==
-X-Gm-Gg: AYBFou3S01oYF1kwRFEIkUtB5cdZA3JvITN56PKMqMNXtgq18RTFz3e4C+4+Z0sTjoe
-	riXOVb6qsA0pL41kprukGxAKmMNEGnVxkHU3D6GU1hWZMof4Q/MIIAEihAbRl5Dk0wN5vNAaElZ
-	td1qFt9j/LKgwmH5pTS6zu9+iyfYdavkfd4/vlOGne7YUr3qDhYglPFRzwgruHxAH6S0CkNmrtJ
-	Kv3Z/XTtocStIJNg2Ia0lpFOFXm1sImLh+wwiKCewmT65RZ9qCaZO4wBlTwBbK9UEnG64NQB12i
-	GxuoEBQiP8casrAIKgtQwQeXkO8gMNhLKF3bsY9ftKChZRiedtYl9kSIe+kK5lx9LA2AAt8o6LZ
-	/fPslZJa++6jwKEejaR3G7HdRzTy8ktZ2HZTsMgMT2JYEtDw2TV3msUSeJcbi5qh4D5CrqWgQT5
-	wVKZaz/4KIZifscQ79V/cTut2GEluDdGyh/VXWNouEiNmjGFa6c+mldg==
-X-Received: by 2002:a05:6a00:a244:b0:874:708d:b61e with SMTP id d2e1a72fcca58-87e9b6a1475mr1819911b3a.28.1790247845878;
-        Thu, 24 Sep 2026 04:04:05 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1e0f4fbbsm2751981b3a.52.2026.09.24.04.04.03
+        d=1e100.net; s=20260707; t=1790247861; x=1790852661;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2LlYVhm8nVxnFsEgE+UqX+E/pgyRLxWazVBd1Zi8rus=;
+        b=RyXEH0TELTW8MY7sMpH/zNjL/N42PJeAlOp4lAKeq+q/8A4XuBHHWk80q+aQm0/o09
+         tjghwAe88AnFISX94siODmEmImEj92VdQQZTtngwtpT2neiHfWjeVIgYIQEVoC5iApHX
+         AlSilm2Ln8SQVkRtFqSu2FjILOq/7QA3BV9oqBen1u10JRUiw+ULQxEr3VFA2VdOTSai
+         aCNaabw17mAjxWudIRwoZh/RyXMlvlTvjh7jQWs8IU39XUStfzoyym/ysjDRkmKXqrzM
+         +x3CPAHCew99uX2GR86dzQEaWl1n+HXo99Zy84d34vOpN66mw19T9ZFZFsRDQUKj8U1P
+         DB9g==
+X-Forwarded-Encrypted: i=1; AKwUvBwPtxhzbwUlNZY3O11G9mrCe5haJlD5VcdiGTCa+OrWFZbzJ9/PS7lJdiegW4dLnxmp/C3hNvzdcloEkzE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mpVW5fgVO3nX5ePjMCupZSMgd/IHtcZr5R+u1p1iESeF3T18vc
+	1GmvWpuoLCdlAw0ecIUiLTN6n6TY2GRlpTl8V1r2tqM6mz0P+6t8Vk45
+X-Gm-Gg: AYBFou31w9p6HoI5z2pZQQnd2dBFRfH/EoBoAUZDAhotER/O2FcBwsTIuuQI/7vZCLS
+	fphX+r5vflSaBU4nLmb6eyaMmL+y8FjykQHfV7WPpzfk22kLxB7iG/dqArGE0FGHhG7x7/PlElr
+	/IH5Oq4j1U9K5NTZfXj399g3DhIAbBnEuFNM0FAiCHy/wiKT9PBm6Hs1zcw4YlLATnZ5FPu2nei
+	AxyH5GBUCbKtE8fGEt2oHkzxV7hBeRFFSTezFmhFraJxDgAnToMxgzR96Pys09FfQa6ULr2+jE0
+	Dq8agtd3AyvE3wpM6Gqk5E72sE1jkL6b5VeaGfGklK5o6l5d5OfKxI+6T9mlcdZY2TD4fe9v8nB
+	14jWTnBvIRbHXTGl3/9iP3Nrc1oOLvPHMFgKXN0iD6cSfUuV2ZONmsGl69X3CT5z/KAAzVbFVkE
+	3P4L7/aQxUwR47m0OHVhFdlcjfCJsrXu5vmzEVbpecfrKjRarq1FpLhFh98axu4ev43AiY7vCBt
+	wl2DZlz7lCR9QMZWolMeQDcGDJ0bVKVQiLeA7tG06GF4w==
+X-Received: by 2002:a05:600c:a00b:b0:49c:cee2:a508 with SMTP id 5b1f17b1804b1-49fe66eaff3mr30308125e9.16.1790247860870;
+        Thu, 24 Sep 2026 04:04:20 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd4c8dsm77122275e9.3.2026.09.24.04.04.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 04:04:05 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: ychuang3@nuvoton.com,
-	schung@nuvoton.com,
-	gregkh@linuxfoundation.org,
-	jirislaby@kernel.org
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	lgs201920130244@gmail.com
-Subject: [PATCH] serial: ma35d1: unmap MMIO on remove
-Date: Thu, 24 Sep 2026 19:04:00 +0800
-Message-ID: <20260924110400.1556396-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Thu, 24 Sep 2026 04:04:20 -0700 (PDT)
+Date: Thu, 24 Sep 2026 12:04:19 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Brian Cain <brian.cain@oss.qualcomm.com>, linux-kernel@vger.kernel.org,
+ pierrick.bouvier@oss.qualcomm.com, paulmck@kernel.org,
+ sid.manning@oss.qualcomm.com, linux-hexagon@vger.kernel.org, Ingo Molnar
+ <mingo@kernel.org>, Frederic Weisbecker <frederic@kernel.org>, Philippe
+ =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?= <philmd@oss.qualcomm.com>
+Subject: Re: [PATCH v2] smp: align struct __call_single_node to 8 bytes
+Message-ID: <20260924120419.6cefb60d@pumpkin>
+In-Reply-To: <20260924093450.GN2009045@noisy.programming.kicks-ass.net>
+References: <20260923154307.3625611-1-brian.cain@oss.qualcomm.com>
+	<20260924093450.GN2009045@noisy.programming.kicks-ass.net>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-ma35d1serial_probe() maps up->port.membase with ioremap(), but
-ma35d1serial_remove() does not perform the matching iounmap(). The probe
-error path already releases this mapping after disabling the clock.
+On Thu, 24 Sep 2026 11:34:50 +0200
+Peter Zijlstra <peterz@infradead.org> wrote:
 
-Add iounmap() to the remove path after clk_disable_unprepare() to match
-the resource cleanup order used by ma35d1serial_probe().
+> On Wed, Sep 23, 2026 at 08:43:07AM -0700, Brian Cain wrote:
+> > Consumers walking call_single_queue cast each node to call_single_data_t
+> > and, given that type's declared over-alignment, the compiler may load
+> > llist.next and u_flags as one naturally aligned double word.  Fields using
+> > this type, such as task_struct::wake_entry only guarantee pointer alignment,
+> > which faults on strict-alignment 32-bit architectures like hexagon.  
+> 
+> Where exactly does this happen? I'm failing with grep.
+> 
 
-Fixes: 930cbf92db01 ("tty: serial: Add Nuvoton ma35d1 serial driver support")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/tty/serial/ma35d1_serial.c | 1 +
- 1 file changed, 1 insertion(+)
+Here for one:
 
-diff --git a/drivers/tty/serial/ma35d1_serial.c b/drivers/tty/serial/ma35d1_serial.c
-index 920fe7ff5083..e5eaaf154911 100644
---- a/drivers/tty/serial/ma35d1_serial.c
-+++ b/drivers/tty/serial/ma35d1_serial.c
-@@ -770,6 +770,7 @@ static void ma35d1serial_remove(struct platform_device *dev)
- 
- 	uart_remove_one_port(&ma35d1serial_reg, port);
- 	clk_disable_unprepare(up->clk);
-+	iounmap(up->port.membase);
- }
- 
- static int ma35d1serial_suspend(struct platform_device *dev, pm_message_t state)
+void __smp_call_single_queue(int cpu, struct llist_node *node)
+{
+	/*
+	 * We have to check the type of the CSD before queueing it, because
+	 * once queued it can have its flags cleared by
+	 *   flush_smp_call_function_queue()
+	 * even if we haven't sent the smp_call IPI yet (e.g. the stopper
+	 * executes migration_cpu_stop() on the remote CPU).
+	 */
+	if (trace_csd_queue_cpu_enabled()) {
+		call_single_data_t *csd;
+		smp_call_func_t func;
 
-base-commit: f03c39de3a1307371a4032757cd1732e91087c7d
--- 
-2.43.0
+		csd = container_of(node, call_single_data_t, node.llist);
+		func = CSD_TYPE(csd) == CSD_TYPE_TTWU ?
+			sched_ttwu_pending : csd->func;
 
+		trace_call__csd_queue_cpu(cpu, _RET_IP_, func, csd);
+	}
+
+since the data item itself was probably created with:
+
+#define CSD_INIT(_func, _info) \
+	(struct __call_single_data){ .func = (_func), .info = (_info), }
+
+I've not looked hard enough to see what the extra alignment was trying
+to achieve.
+But the above function needs to use the 'less aligned' struct __call_single_data
+even if some places use call_single_data_t to get a 'more aligned' structure.
+
+David
