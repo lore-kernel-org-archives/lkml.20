@@ -1,132 +1,241 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6082B4AE12F
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:49:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C676546AED1
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:49:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790272183; cv=none; b=pNpj0gvbHDvIhf3G+gUiLoJkbo/gdoCSunY3/i0aIaWndYQOWu9XtWt82FeNoDEGraDIulm3X886uJSy4cAkk+oU0F3BM2IPDS5EETjfh8x2D19HUGIK/BzEhzIFBGL2K2sdk5Adr1Jba2evVyOxAHDKSw1twu7/ofeCAPqx2wM=
+	t=1790272199; cv=none; b=P9mw5BmVvguIfWgRRmJmmgH41gczsxkVzTzXj/FmaqFUqIUdzTKThNfxkCZRDpZVoHLhcetxhCL6KoeEsIVG2Dh+890nol3MMBWDBPS9YkQYenMpvlH33/Ep8RPj4rzu8kxctpI4ql2QI8DWnKmmXJWB7cKpeGir2ctbIF1uoXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790272183; c=relaxed/simple;
-	bh=TDcsYHIaw35uYfkUp8SSuaUhuxl/3WHswj8+KRQh5cI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g85RuH0F2g/tCJTWqT5BUAZ+idww5cVszVNAMvlmbVcOrwgDhYVFIsfSlFSEnbi0zjEr3FJn15m1ryse8OMXtWbxNYjTB2CSDAbyOPqIXAMwYQqMLjVvBp8pfS2QXVesdxOHahW3f/xvS3Lu6CZ5OVnUjvxImTwbejn6uxunqvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Zlf8mI0R; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790272199; c=relaxed/simple;
+	bh=RXy7Ou1QOWH8eM/PoNMBdCMAjt0T9ASDa5ZCQDCjObU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=QUQA3u0Sw4VPYppBi0ETfEwgBZdO/Wef/JLwluiZWZBqsBgSXI+hMUes7/YirdmXR8biXDAcV6dcJquSIje/g8pvYcopaxV5PBDHaIJ4A1SEQ7drgtaRdOJbTiNUZfwSONu2WRcOP/DZXkbZGgThc3kf31GzBQhTcPMhoitZrbE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H/MvyOmn; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Zlf8mI0R"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d8facae850so6875ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:49:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H/MvyOmn"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc93e00so953556d6.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:49:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790272180; x=1790876980; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dby+5gVayzal4X1RiSbAFD0yfNnYiqO5W3Aena5N53g=;
-        b=Zlf8mI0RVEWhjCRNSxqD7FftQtAWlqF/rYHEybvC6e9OX+6+PZ2zeImHZUEkOmLXRT
-         3M0qOUGPMrk2s2NnzrLf4APZC8XLsAzCCWDmIMmP+n4oB8vW0kqhqOuFWiC4C0h7K9oh
-         tmFUsrr1/9v2EolGORuPJtznxUkVSsH4Mf2vuQSot6206TT4lh7qvt9jLTvs0yx6cMYu
-         BE8HhE42H3VGBlFXlkYy7LisW0R6mjO6L6fZjK3Z3HP9d5gw2h/ISwVr7jI6ngHq8rGD
-         /zL2puPiHlCKGn0zrLAjv7f2O73RZrQRNiN4FeqmQE2/bUZ5xHAnluFRaFEtctgs1eLK
-         cPxg==
+        d=gmail.com; s=20251104; t=1790272197; x=1790876997; darn=vger.kernel.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jhMxAV05it6pd2NHiFs1D8r78fRLUTSgrzLPRna3ABY=;
+        b=H/MvyOmnhBqDd3ZuLmLt2IlqlsCyMPrD1m8XtT3RzIwzGR9vaA63gnC4neJoutU5JK
+         umFWsBVlnBqF3pKt0R7B+Pl+NY8R+RtUEmTpblmZoti6qihutF3ObWJHwHzVegEj2OtY
+         olShFTZcn7VtriSbMBf5rnDkFNFKdPENQRroydjQFBcRttyJT3G0upAZgJc4nvqvCj4a
+         RqEqo7bYWI0T3Bw9bkbiS0+Mso0ZrVfi6jVjRhq/nJqrNCrM/9joZcmIIBsI1I7y9inD
+         hp3ptlDoVGpGN0k8/hfXfejNhdJOLnJYzm2fP7sY2hZFtl+zOY6PJJJJV04qm+fVpbV0
+         LoTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790272180; x=1790876980;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790272197; x=1790876997;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dby+5gVayzal4X1RiSbAFD0yfNnYiqO5W3Aena5N53g=;
-        b=tMeUTI67PinZuPgYFDd4aB33oDgafgP/LzDYHAtKR0efChmGakwcU9ZCvMCO9+PruN
-         CaD+gvywZR9STVeMXj3rrTVVsN+mIXHOHWc+7cwhhMj+wP6Cbc95bCuZGhigO78aQkfE
-         uLQY6e2GPVoK3UJjQ0sa/LPqLCa5AYGhO3BUmw8TH8VNX1AMUHaARmNZ9rRIg+UF1lSx
-         Rtqz/2P34nBUVRKaV/aZRQz4RMF9l8nvJCOEdd4zcLgQiSr1Eldky02fgPo1PTAeHqp+
-         XVPUsddcEvYDzVYAcMvGrn5gjFM6lag8ij4EL9PZKKQEm4+BcyyGecrUFP6vjwkXk+Y4
-         8jbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzpWxeeUPTMgbhSHV27AXUEcMA2c5XH8dQ8kaWGbkchJha1M2PUzby8SMth9yZR7k4hAbw0E1WGhQt+woM=@vger.kernel.org
-X-Gm-Message-State: AFuF++miOwGG+3dqInfC3LEVzncGQwEwxwyjQtLi4y1NtotqNPjF/ygE
-	2ItMgidjoeCPWcgu49fNxmCzndPynhG2UbZv2wPxHB7Zkwq0T/CTPt2TrGvnTBqT7A==
-X-Gm-Gg: AYBFou2UvdcJjc74T6YhB9HogjHEtqmW9BFFGyvu4czR74pBs9niyI1a+odQp04dh+0
-	kX8huNfXkpbwJ1gBTXxzilok7YLM2+gqsExUMJ7+qwaLNHxkssfymcoEQHfRlfd0r/vzG1jAuDl
-	hQ5LoxPIvibsFm8myvPoJKkeYuO3OzFls8Wc1l6yVekBLEohUAiwDvxEARZ9UbwIdwR5mLB5hpT
-	2UJllO4Cf2J4ms49cIUWHZnd054JgZodNHVMA/4i1xabYSxB94+lmLABG9M7PTi8ZeBL5KYYrfS
-	UbPz+1YqEsRig63dvwBKCpLbgNmBnZiy75qfq9E0iij1fEJYMxTn5en4siJMIOq4YnmuaCufSgd
-	D2klTYvDpFOXojHdcPg9D5xm5vRn5pACQ291uTDBGD53NYe+1Tj6VjUxrb129YXtI0x/Ulkne9A
-	S8U0hVtA6Kl5jIvaJym3IvdRsQTyDKouE+2OLUfku4HYkeh03WfhSNTgV4vDJV923f6nxaaJNKA
-	0FEeOCmjvvEfVx7SEGVN3mS+QrMnFiAvfTcyRHMtC2sZVcWJ+LT1nqt9B0zpHHHqc3dQg==
-X-Received: by 2002:a17:903:1aee:b0:2dd:3a08:d47b with SMTP id d9443c01a7336-2df90f4fcbfmr274255ad.13.1790272179931;
-        Thu, 24 Sep 2026 10:49:39 -0700 (PDT)
-Received: from google.com (210.87.127.34.bc.googleusercontent.com. [34.127.87.210])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b2235811sm595000a91.7.2026.09.24.10.49.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 10:49:39 -0700 (PDT)
-Date: Thu, 24 Sep 2026 17:49:35 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: John Starks <dev@jstarks.net>
-Cc: David Woodhouse <dwmw2@infradead.org>, 
-	Lu Baolu <baolu.lu@linux.intel.com>, Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, YiFei Zhu <zhuyifei@google.com>, 
-	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Pranjal Shrivastava <praan@google.com>, 
-	Vipin Sharma <vipinsh@google.com>, John Starks <jostarks@microsoft.com>
-Subject: Re: [PATCH v5 15/18] iommufd: Persist iommu hardware pagetables for
- live update
-Message-ID: <arVYa_90j0oN1hnu@google.com>
-References: <20260921004834.2601285-1-skhawaja@google.com>
- <20260921004834.2601285-16-skhawaja@google.com>
- <goxdwq6ny332pnrojvp4nuz2mliofd3yxd73fpjnbesq3e34fe@jq4d7v7rbwx3>
+        bh=jhMxAV05it6pd2NHiFs1D8r78fRLUTSgrzLPRna3ABY=;
+        b=JcOBoJTLqpkQpoLHTvXED5K3lNHUCiGBJ9znQKx6e9npcZ4zB09GCOJ1lSeB3iUcEG
+         fPZODc99mcy9tos39Hdysk4pBSb9ANmjGrxyG0Zj+Z9x1Yp+hJRQXWyVvK14cdHrJt3z
+         f4/Kv6mPC7XxBCZKjrzyOEUerbXnh8Y7pxKdmhcGiL8i++c8DFWczQZwtsFhzfbKBynE
+         Z3WCQFmwW4Kr/ofLXoXG4gLsl8GyM+PuK1vmuS0BL0ETKytfC+9wVjUgC/G9KGOJP8XD
+         pZgI6xF4ftOPMsDz00K/bxJq2x8nGpmvyNw8npaKSTKV7j+11horyOYqKHWSP2phbs/Q
+         b1+w==
+X-Forwarded-Encrypted: i=1; AKwUvByfIbp6/96KsK4Q9wYTRWEIphBvwpPtfh2v57XdB+7pxPgntJkLgBQY0T9dtzWjtL60O1F4kSPjHmVX/7Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++mbHzbj8KD9wggXdCYUYgkoOdqVI/V4mzylnNef/8PJUYpb1Vm/
+	Xv9FYd/T8k/j5lJZB8DEFCDSqWUs1smrIalbAJOBNcSnQntjVh+CYpxF
+X-Gm-Gg: AYBFou2/LBd1ra7pc13pkJ2FId8lkebfzI20GEuzaewRlEOKfto2XDw7+RAPOO8WOhz
+	RaH4nJ2GveM2RCbEJawZVFgdMzz8SDxmVzMLGtBc0qfoYVjWQhu/HGGYWxWpIZqelPsi6xYdB9L
+	f0gCYVs/Wx8pqtfSyfDDhYd7lUs6vDwOwxTX3emlGxAEd4kLrHuP9G6AgfB9VkIEu3MLet3xo1D
+	5nNf32jm/552i52IM1IbR71e52uIHZ8bbF0oX6INujZ6vPFhQVNClHoZoucGcCm7tRfobvslL8e
+	I3xzPggyow9EWDCKPlJmL2PWaDQvGIApYf4tCJjXL+m5k3Ak72myFzr0P6T6WzQek303q2QZDSR
+	vEKfY+sHBAYRE+xsbPiuHXT9yC3OXiyi2rdjQtMLXWIa5Qk4VYWuZAwPhzcWNeX0RvGnhXVbWTf
+	bcoGjHtPW3aZzpwxYF3Cw0i38EHWkbJqxSVMNBmEyQDriuHyQIizhq84L8le+VMG8XK4gGiSbRu
+	u8S/guIR+gvSg==
+X-Received: by 2002:a05:6214:4a05:b0:912:517b:7be0 with SMTP id 6a1803df08f44-91421f1b16dmr42393266d6.43.1790272196522;
+        Thu, 24 Sep 2026 10:49:56 -0700 (PDT)
+Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-914271c4aa4sm10042626d6.44.2026.09.24.10.49.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 10:49:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <goxdwq6ny332pnrojvp4nuz2mliofd3yxd73fpjnbesq3e34fe@jq4d7v7rbwx3>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 24 Sep 2026 13:49:55 -0400
+Message-Id: <DLNQJ0HDQBGV.2CDQAQ64FV1NR@gmail.com>
+To: <netdev-bot+sashiko@kernel.org>, <daniel.zahka@gmail.com>
+Cc: <alexanderduyck@fb.com>, <kuba@kernel.org>, <kernel-team@meta.com>,
+ <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+ <pabeni@redhat.com>, <ast@kernel.org>, <daniel@iogearbox.net>,
+ <hawk@kernel.org>, <john.fastabend@gmail.com>, <sdf@fomichev.me>,
+ <dimitri.daskalakis1@gmail.com>, <mohsin.bashr@gmail.com>,
+ <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+ <bpf@vger.kernel.org>
+Subject: Re: [PATCH net-next 5/8] eth: mpnic: start and stop the Tx HW
+ queues
+From: "Daniel Zahka" <daniel.zahka@gmail.com>
+X-Mailer: aerc 0.21.0-threadmapfix
+References: <20260922-linux-mpnic-v1-5-236844f53072@gmail.com>
+ <179021553598.2160803.16775147198934716952@kernel.org>
+In-Reply-To: <179021553598.2160803.16775147198934716952@kernel.org>
 
-On Wed, Sep 23, 2026 at 04:59:30PM -0700, John Starks wrote:
->On Mon, Sep 21, 2026 at 12:48:31AM +0000, Samiullah Khawaja wrote:
->> From: YiFei Zhu <zhuyifei@google.com>
->> +
->> +		/*
->> +		 * When this memory file was mapped it should be sealed and seal
->> +		 * should be sealed. This means that since mapping was done the
->> +		 * memory file was not grown or shrink and the pages being used
->> +		 * until now remain pinned and preserved.
->> +		 */
->> +		if ((pages->seals & req_seals) != req_seals) {
->> +			ret = -EINVAL;
->> +			break;
->> +		}
->> +
+On Wed Sep 23, 2026 at 10:05 PM EDT, netdev-bot+sashiko wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
 >
->Is this sealing business sufficient? Even with the specified
->seals, user mode can still punch a hole in the memfd after it
->has been mapped. This will disassociate those pages from the memfd
->but leave them referenced by the HWPT.
-
-Nice catch. Since punch hole doesn't change size, the shrink/grow seals
-will not stop that from happening.
-
-Once the memfd is preserved it is frozen, so punch hole is not allowed
-after that. To catch the punch hole between map and iommufd preserve, we
-need a truncate count on the memfd that can be checked here. Or we can
-iterate through the iopt pages and verify that they are still associated
-with the preserved memfd, similar to how memfd preserve already loops
-through all the pages. I am inclined towards the iterative solution as
-it handles all the future cases.
-
-I will fix this in the next revision.
-
-Thanks,
-Sami
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 2 =C2=B7 Low: 0
 >
->Then, when the memfd gets preserved, the hole will be filled
->by a new set of pages, and only those pages that will be
->preserved across the kexec. The original set, unless I'm missing
->something, will be dangling in the HWPT, allowing attached
->devices to DMA to the wrong memory.
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [Medium] mpnic_wait_all_queues_idle()
+>   (drivers/net/ethernet/meta/mpnic/mpnic_txrx.c:599) returns void.
+> - [Medium] mpnic_non_idle_queues() (mpnic_txrx.c:569-570) counts a block
+>   as idle when every idle register reads ~0ULL.
+>
+> --
+>
+> eth: mpnic: start and stop the Tx HW queues
+>
+> This commit programs the Tx work and completion queue base addresses and
+> sizes into the hardware, and adds helpers to enable and disable the Tx
+> queues. It also adds mpnic_wait_all_queues_idle(), which polls the idle
+> bitmaps of the TWQ, TQS, TDE and TCQ blocks so that teardown can wait for
+> the DMA engines before the rings are freed.
+>
+>> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c b/drivers/net/=
+ethernet/meta/mpnic/mpnic_txrx.c
+>> index fe360a26a27be..cb4d1427434c9 100644
+>> --- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
+>> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
+>
+> [ ... ]
+>
+>> +static u32 mpnic_non_idle_queues(struct mpnic_dev *mpd,
+>> +				 const struct mpnic_idle_regs *regs,
+>> +				 unsigned int nregs)
+>> +{
+>> +	u32 non_idle_bitmap =3D 0;
+>> +	unsigned int i, j;
+>> +
+>> +	for (i =3D 0; i < nregs; i++) {
+>> +		for (j =3D 0; j < regs[i].reg_cnt; j++) {
+>> +			if (mpnic_rd64(mpd, regs[i].reg_base + 2 * j) !=3D
+>> +			    ~0ULL) {
+>> +				non_idle_bitmap |=3D BIT(i);
+>> +				break;
+>> +			}
+>
+> [Severity: Medium]
+> Could this report a device that can't be reached as idle? The idle test
+> here is ~0ULL, and mpnic_rd64() returns that same value once CSR access
+> has been disabled:
+>
+> drivers/net/ethernet/meta/mpnic/mpnic_pci.c:mpnic_rd64() {
+> 	u32 __iomem *csr =3D READ_ONCE(mpd->uc_addr0);
+> 	...
+> 	if (!csr)
+> 		return ~0ULL;
+> 	...
+> 	mpnic_mmio_err(mpd, reg);
+>
+> 	return ~0ULL;
+> }
+>
+> mpnic_wr64() also drops writes silently in that state:
+>
+> 	if (csr)
+> 		writeq(val, csr + reg);
+>
+> After mpnic_mmio_err() clears uc_addr0, the writes in mpnic_disable()
+> that clear MPNIC_TWQ_CTL_ENABLE and MPNIC_TCQ_CTL never reach the device.
+> On the first poll, mpnic_wait_all_queues_idle() then sees all four blocks
+> as idle and returns without a timeout. The caller can't tell a confirmed
+> idle state apart from an unreadable device, so it goes on to free the
+> rings.
+>
+> mpnic_mmio_err() logs "awaiting reset", which suggests the device may be
+> recoverable rather than gone. Suppose the device can still bus-master
+> after two all-ones reads in a row, for example after a transient MMIO
+> failure. Could its still-enabled queues then DMA into ring memory that
+> has already been freed?
+>
+
+Won't fix. Our assumption is that losing the device is not a transient
+failure mode, and will require a PCI reset (not implemented yet), or re
+probing the device.
+
+>
+>> +void mpnic_wait_all_queues_idle(struct mpnic_dev *mpd)
+>> +{
+>> +	static const struct mpnic_idle_regs queues[] =3D {
+>> +		{ MPNIC_TWQ_IDLE(0), MPNIC_TWQ_IDLE_CNT, "TWQ" },
+>> +		{ MPNIC_TQS_IDLE(0), MPNIC_TQS_IDLE_CNT, "TQS" },
+>> +		{ MPNIC_TDE_IDLE(0), MPNIC_TDE_IDLE_CNT, "TDE" },
+>> +		{ MPNIC_TCQ_IDLE(0), MPNIC_TCQ_IDLE_CNT, "TCQ" },
+>> +	};
+>> +	u32 non_idle_bitmap;
+>> +	int err;
+>> +
+>> +	err =3D read_poll_timeout(mpnic_non_idle_queues, non_idle_bitmap,
+>> +				!non_idle_bitmap, 20, 500000, false, mpd,
+>> +				queues, ARRAY_SIZE(queues));
+>> +	if (err)
+>> +		mpnic_idle_dump(mpd, queues, ARRAY_SIZE(queues),
+>> +				non_idle_bitmap, err);
+>> +}
+>
+> [Severity: Medium]
+> What happens to the rings when this poll times out? The -ETIMEDOUT in
+> err is only passed to mpnic_idle_dump() for logging and then dropped.
+> Because the function returns void, no caller can act on the timeout.
+>
+> The commit message says:
+>
+>   every one of the four blocks a packet passes through on its way out
+>   has to report idle before the descriptors are safe to free.
+>
+> Later in the series, though, mpnic_stop() runs the teardown with no
+> condition between the steps:
+>
+> 	mpnic_disable(mpn);
+> 	mpnic_wait_all_queues_idle(mpn->mpd);
+> 	mpnic_flush(mpn);
+>
+> 	mpnic_reset_netif_queues(mpn);
+> 	mpnic_free_resources(mpn);
+>
+> After a timeout, mpnic_flush() calls mpnic_clean_twq0() with
+> qt->sub0.tail. That unmaps every pending TWD and frees the in-flight
+> skbs. mpnic_free_ring_resources() then calls dma_free_coherent() on the
+> TWQ and TCQ descriptor rings, whose addresses mpnic_enable_twq() and
+> mpnic_enable_tcq() handed to the hardware.
+>
+> If a block is still busy after 500 ms, can the device still read the
+> freed skb data and descriptors? Can it write completions into the freed
+> TCQ memory?
+>
+> The final version of the series (the "eth: mpnic: add basic Rx handling"
+> commit) still returns void and still frees unconditionally. It also adds
+> the Rx HPQ/PPQ/RCQ blocks to this wait, which would expose the Rx rings
+> and page pool pages the same way.
+>
+> Should mpnic_wait_all_queues_idle() return the error? Teardown could then
+> avoid freeing memory the device may still be using.
+
+Won't fix. If the device is not reporting idle, I think something like
+this could be possible with respect to stray DMAs, but I'm not sure what
+we can do other than leaking the memory. Also, the device would be in
+somewhat of an unknown state, so all bets are off anyway.
