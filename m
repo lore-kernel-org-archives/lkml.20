@@ -1,207 +1,134 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net [217.70.183.193])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7969A420897;
-	Thu, 24 Sep 2026 07:13:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D78242589C;
+	Thu, 24 Sep 2026 07:14:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790233986; cv=none; b=TP8+w+fn4PlHov1Id3nsO3DdmZCwD7+QmGvTyXY32mFrZp1kPO+jJ5/LLO3ovpvBQFHEKouX0WU1yoG+lygc5tQK/xrqqkINgyRGTQ8JnloUAs/f5lY7nJLFmuHzdgKXKX5rcYscHv5kLJoX5LI/EsKOFNOfT5Qu2jeMPq1ahfQ=
+	t=1790234066; cv=none; b=gg0rvLaUtNNNsV36024ll5RudwO0oXv01b4dpsJ5SUlzUlwxcG5S6VgZJafkwm2/5qiWljtvnsdTpyGgswMNIZxksTCbZCOnsxckR4DdOM+fdcf18TR+ofJ1sbpFGMvpkFL5/o7thFb6hEDwIA66Z2eh+T/25OcREhwBGFfe/Ws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790233986; c=relaxed/simple;
-	bh=W+VIXknoRE2coJYyz3jrlRoKiT3F8++B/RUgJ6Cw9F4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OL9w6Gy5IbTzOSPWSBX65kGxaN4aQmHVIDxKy6GPU9gy5qx/2MfAqm2Vun6F7ycyPQ+tH72u0b8pVjJXwbtYQNtyPDPDAVLEASnXw4MSGRodVnfJcrl9/dXMtEvKKD2/Bv4SAqvF1tSooJBkVVTg7M1SwULTs37s9AMJMY2xdZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=b4s6UBsX; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=9OcVumtZ; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=mvF1UAlH; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=bnCSjTZe; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790234066; c=relaxed/simple;
+	bh=f8sCwf+Is/R9HbBxAaH8/zW1TrvDfyMSRoaBAAoaBhw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fnNKrQEX8J4nJHvy5eeU3PMfzcdrS/EKnJp5Tr/1V2QAPJGEPI6Zgk6VwbSrHpnGcuCeQUP8odvNOE19ri8xc81Z8Q/bykLIZIj0QcDTY1LQ0MqXso6X98RC6dceq1P1MeB8adNbgBj90TZgWBicUTFta2YnWME5VlgPXHZSBno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=Sfs3zKSa; arc=none smtp.client-ip=217.70.183.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="b4s6UBsX";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9OcVumtZ";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mvF1UAlH";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="bnCSjTZe"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 709B81FFF5;
-	Thu, 24 Sep 2026 07:12:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790233971; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="Sfs3zKSa"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id B63103F0AB;
+	Thu, 24 Sep 2026 07:14:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
+	s=gm1; t=1790234056; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=IFmCbw1AXLcVDygfc6RLKARsvcPzfF5hCK7aTly65Nk=;
-	b=b4s6UBsXSdjD7v/VYQFK9VJlMmtgZkB+IyLwPFzHp5mVa4G28LM1fECv8c9azltiFRXdid
-	a8MslDZvDszwwgmBjKMtP9zCpPhAjRXFmIiEREuMNc4SIQqfUlg0/ixA1ixbZQmxeoNNMa
-	LFlK5OzDrd6oQ3Ut4iNYiUHBVk6xgHI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790233971;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=IFmCbw1AXLcVDygfc6RLKARsvcPzfF5hCK7aTly65Nk=;
-	b=9OcVumtZsdPFzzGrOxU1aDK6S/IPWfBV37qrJUkfmThviqsDLAREiqhqP9hg3U3lPSvCJY
-	6Tqn9Fe0AVLhqTDA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790233967; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=IFmCbw1AXLcVDygfc6RLKARsvcPzfF5hCK7aTly65Nk=;
-	b=mvF1UAlHmOYDSEMf65/U5ILhWnk61wqonV9bJbvGtT0SqO1PdSHzcah02N/C07MmylFQlb
-	RqwFHA5pFXmwgjZwpwZSraFemRovmEihY5nWEct8jAUB+P61ONSXFyr8f2A4W/tjcC1vlO
-	H+9piOz3uWC6XZl8qonRpRaEPgU7Bi0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790233967;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=IFmCbw1AXLcVDygfc6RLKARsvcPzfF5hCK7aTly65Nk=;
-	b=bnCSjTZevcb8hfB4gg/muzq4Av+BrQRVQDOv+okdaEDGMJOshqq+UP5t9YPsP5shSpKlvp
-	A/2thrHwTkvE4xAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1176713354;
-	Thu, 24 Sep 2026 07:12:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id AHPELW7NtGoPCAAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Thu, 24 Sep 2026 07:12:46 +0000
-Message-ID: <11236038-2c96-4d9e-bfe0-6ebd59d4823c@suse.de>
-Date: Thu, 24 Sep 2026 09:12:46 +0200
+	 in-reply-to:in-reply-to:references:references;
+	bh=9fJ3LmMTgl5ooa3A8qiDWthkRa7eakjePx2Q6mdnXeY=;
+	b=Sfs3zKSaZZj0K0kTpYrRVDmeeW0W9WEZw87qKKuK4PdadQ7xoiwQ0Jsc5EtjeeaRGMSFj0
+	I+K6ymCA1dJy4q58ybHPzg+WmMPzvXUL8GD3CP1vYlil5/S6QG5Yir+Nd6c15WzsG8AX3K
+	4FYwWEVan+cn7ensc/c3h0ktXyHAhixleBTNJpeKmueBt/MrguJm93+dC9Ue4BDk+tRh0V
+	xq++KWwE8yOaSgMplXF7MvoWboAacrQdxxWaIHhTFB8Nt0oERl3BkqrBRNeySEnqshF39D
+	b3jh8HkXzpxrTGxi8quaMqCR6/iWRYlEd5oWhFl9zs/jZc3OpDaJ2sRqCawkNA==
+Date: Thu, 24 Sep 2026 09:14:11 +0200
+From: Arthur Crepin Leblond <arthur@marmottus.net>
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, arnd@arndb.de,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v10 2/3] dt-bindings: net: wiznet,w5100: add
+ link status interrupt
+Message-ID: <20260924071411.GA21468@marmottus.net>
+Reply-To: arthur@marmottus.net
+References: <20260921-wiznet-link-gpio-v10-2-5874a7a147a2@marmottus.net>
+ <179021495463.2160803.46310334870833128@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] drm/udl: clean up USB resources if
- drm_dev_register() fails
-To: Hui Peng <benquike@gmail.com>, jani.nikula@linux.intel.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260919223511.3889061-1-benquike@gmail.com>
- <20260924064434.2541959-1-benquike@gmail.com>
- <20260924064434.2541959-3-benquike@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260924064434.2541959-3-benquike@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Spam-Score: -4.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	MIME_TRACE(0.00)[0:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:email,suse.com:url]
-X-Spam-Flag: NO
+In-Reply-To: <179021495463.2160803.46310334870833128@kernel.org>
+X-GND-Sasl: arthur@marmottus.net
+X-GND-State: clean
+X-GND-Score: 0
+X-GND-Cause: dmFkZTEb2Erd0INHoVhtF+GeJfrW4H/dz0p2A5Z0hMw06lXj2jf+KUqKvxDdzCx24kigi802336LLAtDXTskONTmzc4eX+qeDTwobmEPlEiAd7MRU82fbfz+aN0UQY2c8cc1hh4Y9Bq+eqEQcsPdP0Jd2ZmxkZke7+D//KNpCR1JZg0hULhJaC8DUD25ty6Wz9Hn+awmyYb+Yvb3MQ6kffChwGHX3dxmb5yibLBrukK5kwDpj0XdCad13BQA3Gd5lQNNQPm3CfmRUr+6ZLdm3nIkiQqeLW5xKYoFoPA0kcIY/sg51/GV1Knm+PJ2EwPsMcCTDHpMmK+l/n7+X6CrBpEfjE37Jdx+JZq4zXb5577PjulqzwGEXGlYX3qscrN6bBuLbgfDtpOoduDhNba3ZwKaPibra2euuh3Gu4iBfvZ/7rG1B44jik1/PrrxvqIFpaz1fcySHykr0T1AW+6s6cx5ij8VnhGyHrbndpAntSVvbr93cYQ/m4ZEFXS8jmkiYBM/lB5TM7MLPTdH4Dj1wd2KKdxH9RvXIaksjcCcx6t2XjqErfqgK6S4tdOs1CeMA7SmEm5uyybH9KEiwtr1E8iEuYCetMvynwyt1LPysNTCmtOnt+yIAw346yGUYT4OB3Ht6UFMPnlwmBnDsYGls6RQ2C+KY96c5ZdIjL4FGCxgki5iXg
 
-
-
-Am 24.09.26 um 08:44 schrieb Hui Peng:
-> In udl_usb_probe(), udl_driver_create() calls udl_init(udl), which
-> allocates USB URBs and DMA buffers via udl_alloc_urb_list() that are
-> normally freed by udl_drop_usb() in udl_usb_disconnect(). If
-> drm_dev_register() fails in udl_usb_probe(), udl_usb_probe() returns
-> without calling udl_drop_usb(udl), leaking the allocated URB list and DMA
-> buffers because udl_usb_disconnect() is not called when probe fails.
+On Thu, Sep 24, 2026 at 01:55:54AM +0000, netdev-bot+sashiko@kernel.org wrote:
+>Thank you for your contribution! Sashiko AI review found more severe
+>issue(s) in other patches of this series. This mail is only an FYI, in case
+>you want to address the nit picks below when you respin.
 >
-> Call udl_drop_usb(udl) when drm_dev_register() fails in udl_usb_probe().
+>Low priority / nit picks for your consideration:
 >
-> Tested in QEMU against Linux 7.3.0-rc3 using dummy_hcd by simulating
-> a registration error in drm_dev_register(): on the unfixed kernel,
-> udl_usb_probe() returned an error without calling udl_drop_usb(udl),
-> leaking 8 allocated URBs and DMA buffers; whereas with this fix applied,
-> udl_drop_usb(udl) is called on error, freeing all URB and DMA
-> allocations.
+>- [Low] Concern (INVALIDATED by later patch in this series): the binding
+>  documents an optional second, LINKLED interrupt for wiznet,w5500 and…
 >
-> Fixes: 5320918b9a87 ("drm/udl: initial UDL driver (v4)")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-> ---
-> Changes in v2:
-> - Split out as patch 2/2 as requested by Jani Nikula.
-> - Added testing details in QEMU on drm_dev_register() failure cleanup.
+>--
 >
->   drivers/gpu/drm/udl/udl_drv.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
+>dt-bindings: net: wiznet,w5100: add link status interrupt
 >
-> diff --git a/drivers/gpu/drm/udl/udl_drv.c b/drivers/gpu/drm/udl/udl_drv.c
-> index 1922988625eb..239a6983f49f 100644
-> --- a/drivers/gpu/drm/udl/udl_drv.c
-> +++ b/drivers/gpu/drm/udl/udl_drv.c
-> @@ -97,8 +97,10 @@ static int udl_usb_probe(struct usb_interface *interface,
->   		return PTR_ERR(udl);
->   
->   	r = drm_dev_register(&udl->drm, 0);
-> -	if (r)
-> +	if (r) {
-> +		udl_drop_usb(udl);
->   		return r;
-> +	}
->   
->   	DRM_INFO("Initialized udl on minor %d\n", udl->drm.primary->index);
->   
+>This adds an optional second interrupt to the wiznet,w5100 binding for the
+>LINKLED pin, described as being supported only on wiznet,w5500.  The
+>interrupts property is moved to a two-item list with an allOf conditional
+>restricting non-w5500 compatibles to a single interrupt, and the example is
+>updated to list both interrupts.
+>
+>> diff --git a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+>> index 25098308eb6e5..ac2ee725af5d5 100644
+>> --- a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+>> +++ b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+>
+>[ ... ]
+>
+>> @@ -24,8 +20,16 @@ properties:
+>>        - wiznet,w5500
+>>
+>>    interrupts:
+>> -    maxItems: 1
+>> -    description: Main interrupt (INT pin on the device).
+>> +    minItems: 1
+>> +    description:
+>> +      The main interrupt (INT pin) is mandatory on all devices. The w5500
+>> +      additionally supports an optional second interrupt for link status changes
+>> +      (LINKLED pin). If it is not specified, link state changes will not be
+>> +      reported.
+>> +    items:
+>> +      - description: Main interrupt (INT pin on the device).
+>> +      - description:
+>> +          Optional interrupt for link status changes (LINKLED pin on w5500).
+>
+>[Severity: Low]
+>At this point in the series, is there anything that consumes the second
+>interrupt?  The description promises that link state changes are reported
+>when the LINKLED interrupt is present, but w5100_probe() in
+>drivers/net/ethernet/wiznet/w5100.c only uses spi->irq (interrupt index 0)
+>and there is no netif_carrier_on() call in the driver yet.
+>
+>For the record, this resolves later in the same series: the final patch
+>("w5100: detect carrier state using link status bit and optional
+>interrupt") adds
+>
+>	priv->link_irq = -EINVAL;
+>	if (ops->chip_id == W5500) {
+>		priv->link_irq = fwnode_irq_get(dev_fwnode(dev), 1);
+>
+>and w5500_report_carrier_state() which calls
+>netif_carrier_on()/netif_carrier_off().  So the documentation and the
+>implementation only disagree between this patch and that one, which is
+>nothing more than a transient bisect-window mismatch.
+>
+>[ ... ]
+>
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+https://elixir.bootlin.com/linux/v7.2/source/Documentation/devicetree/bindings/submitting-patches.rst#L54
 
+   The Documentation/ portion of the patch should come in the series before
+   the code implementing the binding.
 
+Arthur
