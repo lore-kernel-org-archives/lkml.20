@@ -1,269 +1,162 @@
-Received: from mout.web.de (mout.web.de [212.227.17.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A53533C198;
-	Thu, 24 Sep 2026 07:19:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649CB411665
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:20:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790234396; cv=none; b=HnRenb3UaoY01pekhG/GW1WH9xBh3a2IBEB4UL/d7E2E4xoQPWS8ZjaGCLCJufJA5rSDJW5f97IwW95tc8oMTZnOCTkEgJhbygMM6Jv4zuvS+lzHoEBy4axdJYlR9Jh3bd/kdz6GSm7cBK+aPv/ztDkB8WOTEjxkvBoa28+NiB4=
+	t=1790234412; cv=none; b=SdWX9Emp0zTUww8Zj5x1HYqYLPBBaUnQt/0Gb2YvLJZSeXLYavzXHaHYVesA8jaMDjocKinFCqbBNPvb4oiJ+j5lAAG1fmk4rDOcHO2QQdOgPU5+toi1REG4NAPKml3QNf106j9dbo9XXmFn+io4qKFuBUqJiGOR2HLsBzVrRAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790234396; c=relaxed/simple;
-	bh=P3mLKOXfCKL0ocyDgeDS20m1NH38zUMx8w/9z6D9cS4=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Qa1lJeaPpkD7odji5YA4N/1QYLZGzNmdjXEaP7UOiLmiPxvDGVrRp5Om/eW0Nmqg4tSvwyH+WbZ4lf5WTHjpHvoF37oDsto697bfTmt3bTXbHc4kUh2e15HIflwc/rOLaPLSg0ihSkUnw0A3ZVSQWjxjuV/WtWnMhTZF7uu5wHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=f7SYQF6L; arc=none smtp.client-ip=212.227.17.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	s=arc-20240116; t=1790234412; c=relaxed/simple;
+	bh=GHHMs0wM9MmiRMNcNEelwZhzqNS10q95ZUYc+svftEk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cQ4/1MDcVul3v8kalJnthQ5RExaif4prPOtKvR9Fl7jdckpvTQ9fsp627YoNU+ar/tENS4i57RpONjdPibHCODbcwqIFhqqtn+hSYpCYFcVYyJ2RAzJbNQ1YsAJ6bxZOJ3WSO/nTVPCrczfzBRTuIpMXygEHZ8UpW0mJClNHipY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ous+ukrS; arc=none smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="f7SYQF6L"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1790234364; x=1790839164; i=markus.elfring@web.de;
-	bh=0XUgHBKl+8aNjpnuXAg3u8yjXgijKHdoDznpTqDalNM=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:From:To:
-	 Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 cc:content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=f7SYQF6Lo8dA1BKUG4ZeB//SXZeERtICUdzQLL2S436Fz9/Ucr95g/qxjW2UORd9
-	 5B3yX7XAYEUH5tEByalbCbR//bgBn9zW5D60/j9wV+1v5JAgRuKQTGsuRqvdXY4BW
-	 gW0qKHWB28c9c4M1rlqllu2OB/VPvLYAzTYYKKXs29NL7ZkWhrD9rqNQ2qfEpuunK
-	 2pRA9uTtCa0CU91g9vBu0Yu9jaFlIqQEJo1Npto6JzGGP49cXMVpFvKOUXKpm3npj
-	 YFVi+5ViWee+69fGAKRIUazTExvIZ4+DkSvo44pKlc0RFywF6sMO2Xpw5f1K46xR3
-	 jSiZS7yuJkkdNdfmOQ==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MlsOP-1wSMYh3Qgd-00naCI; Thu, 24
- Sep 2026 09:19:24 +0200
-Message-ID: <1c14d2a2-895e-4acd-9469-e518d2dda1ad@web.de>
-Date: Thu, 24 Sep 2026 09:19:21 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ous+ukrS"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8d6489419so1500658e87.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:20:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790234408; x=1790839208; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4viioSB1Cdhru9S874ZQwRNPODne/nPyQTptgVZoI4k=;
+        b=Ous+ukrSKYKNVCz+tHieApuBuIfSbYX9L9MUv1X1E+g1UuwdYfuBcx+/+/4q+iO8KK
+         ExgpZwbIg11R8P9igE7ToqQfMi3uYKB8jTgf36LCG9Fg24D0eGUVdNeU9fbbuWQ8SJG5
+         U4g5VtB3pBeLJ/LEeQUofStcLfY6lYhcw+RIKRS1QnUqSDlFe1/xB4w0DrNInTkRaaq2
+         VxdHi8w2tG1uD+Vo8V7p8xIm4luVJUkNUERKPdtSwu1VgOYt+zg0ped4YsIy2Js1espo
+         2Xj330Lf2gO60zKWmInLxLS2i4oT5/yuTmBXoeFmve3inADcyV4HvKIwFrgh6G6NE3Qs
+         sILQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790234408; x=1790839208;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4viioSB1Cdhru9S874ZQwRNPODne/nPyQTptgVZoI4k=;
+        b=PW5Si/YibpZVXhn0VvuSJ9/8Yq3oWgt2dh0WzIOgJYjAPe2LWcXkc3gxpK612oB30s
+         lQW5FDjDuitmDtKTEXX5m0Bfm6JQg98K0kUJQ2wymNSL/85VuIuC8dG7rzXHsnVOOiRb
+         yUq6jCINnpFMMKuTy4zxGVOFaYI+lFmvDV56EV2efQIE3YIIGJKSnns9hDfOJflbCZpW
+         fAcQ4V9/pZrM4ug1FbC7OZQgzNAglzn51RMPKy2n3srZ5EmvIzkJj79FjDG9xrfg7224
+         Y1sHqtb8N5eoNqjt8vIvHy+7tCuQDYh9fNDSf3KXbdIAuG0A/06TCKF/QKo2vIEduCE/
+         bCxg==
+X-Forwarded-Encrypted: i=1; AKwUvBy9zR8HkZXgTH1RXsrKI+Pi7w8I0Hv2t2+z47F7he5qZITd0fHVe1Eh1zFTDY4gqO+U5WvzOUhf4vLxGCw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lev7pI/xNhRNh8KTxJSCiLQeQmql13ju6+d3h3R6VKyk6OTejR
+	k2tKI3Vu/kO+czvwjiGQPsxF//fdq1EssZVu5sfrvaI/zl8A6bebYBD9
+X-Gm-Gg: AYBFou3DQb4tCca+DaKJpeZB9WcJMssX2GHfL+tphrsT9nS3+bPTxRpHaTbhBMQCtAW
+	8FJovK2gkR/oD2Jh9bpzUSDayF7QaMUZK8udZXS+uordIEpm8EohtVxP/CnF9U8PvxWIs1QGpGj
+	MPovC37sRNre9nIQdmfJ1FEKhJwMt/hiIV3GOQLCwOxoSmp3dd+cKgEtEaed/dGeopYMry9kBZQ
+	3qwPZIF5lR2ZYiGQtUAO/hOjzV28nO3jnaYEyhGLUrhxnQtdoWsr0QcFG7pEvmg8w9xB7wFuwEM
+	LbVWemnDITxzo82EbxVXd6jnrcoTrJsK5ampE0ybjo0zeEI6jg9gE81NlH9IrVHfz/UFSawgvG8
+	zxy5VicAMJ4UmPeSmEgjSWJ2g6Fl7lDrafRAZE7U7ijb/BlXoBIMEL/gXESBbVHQH91DYfaQxYi
+	qKtHYB0O27EwwGUlyKKy0LUgRnL5+gM9zN7NYk0nntXzvefbFMyCQn4+CmLKx+78FGn9j2PyJ04
+	QzIYy7chpHTcSXEf1iDocCxaGH1
+X-Received: by 2002:a05:6512:234f:b0:5b5:e2e2:5f2e with SMTP id 2adb3069b0e04-5b8df05906bmr513502e87.18.1790234407919;
+        Thu, 24 Sep 2026 00:20:07 -0700 (PDT)
+Received: from localhost (sol-eduroam-pathost130.ki.se. [130.237.96.130])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d857f7edsm1229650e87.31.2026.09.24.00.20.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 00:20:07 -0700 (PDT)
+Date: Thu, 24 Sep 2026 09:20:06 +0200
+From: Klara Modin <klarasmodin@gmail.com>
+To: Baoquan He <baoquan.he@linux.dev>
+Cc: Chris Li <chrisl@kernel.org>, Rik van Riel <riel@surriel.com>, 
+	Gregory Price <gourry@gourry.net>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Nhat Pham <nphamcs@gmail.com>, Kairui Song <kasong@tencent.com>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
+	David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
+	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Tejun Heo <tj@kernel.org>, Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+Message-ID: <arTNdz2P4ZZZfruh@parmesan.int.kasm.eu>
+References: <785353ef79844e81a8cd97e87b00ef1f785b15e5.camel@surriel.com>
+ <CACePvbXZ4i-DsmbQdNtBQb79y59uwZC9J8qHD2wTWpcYaet3LQ@mail.gmail.com>
+ <83539be885f15bb567b30264f5f62e718f4a9fd0.camel@surriel.com>
+ <CACePvbXZQERwLF_f2FYTHsv--kq_-Aw2vVVFF+z+ovdnsHy1bA@mail.gmail.com>
+ <arKbXe1Qe-FDCTMM@gourry-fedora-PF4VCD3F>
+ <CACePvbWW4avTV2WB6iRU+LN5zqkMTg3UhBrq41R0iw91-7Ni0g@mail.gmail.com>
+ <5a7ad159b2fabf377b7e1fc4248c433287ac11fb.camel@surriel.com>
+ <CACePvbUtEdQLmmudON_qC2aKuLYCNktBuAecFKiSvDC6eTfXeQ@mail.gmail.com>
+ <arO0RCCE3Woh_I_z@parmesan.int.kasm.eu>
+ <arS6dvzAI5XLHuG-@MiWiFi-R3L-srv>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH v4 2/2] soc: fsl: dpio: Use scope-based resource management in
- dpaa2_io_create()
-From: Markus Elfring <Markus.Elfring@web.de>
-To: linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- Christophe Leroy <chleroy@kernel.org>, Dan Carpenter <error27@gmail.com>,
- Ioana Ciornei <ioana.ciornei@nxp.com>, Roy Pledge <Roy.Pledge@nxp.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org,
- Peter Zijlstra <peterz@infradead.org>
-References: <6c08552a-49e9-4ee0-b1ba-b27e17ade9c5@web.de>
-Content-Language: en-GB, de-DE
-In-Reply-To: <6c08552a-49e9-4ee0-b1ba-b27e17ade9c5@web.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:XaTPsWKm/lHJ41HrppNk3GbFDvoBtakRL2oGWScPPXpcbHwuA3w
- +Px3i5pSDiNpoaS9GgUElzEixmMCJC9nCQ7gi1+63mwewmowpEArngId4K1ohmvLBMGV7Um
- CGp0CT+y/lsOUaSSeUg92NDhv5R0wfo26occutN8RIl0psDLTONeol86JR1/qy2wHS/q6Wp
- zNgRbALL1RyeGyUj42F9g==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:ETiO0FwLrHE=;q5/FzNVVDjL/nOFSr9NehwmAQjq
- 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
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arS6dvzAI5XLHuG-@MiWiFi-R3L-srv>
 
-From: Markus Elfring <elfring@users.sourceforge.net>
-Date: Thu, 24 Sep 2026 08:42:19 +0200
+On 2026-09-24 13:51:50 +0800, Baoquan He wrote:
+> On 09/23/26 at 02:52pm, Klara Modin wrote:
+> > Hi,
+> > 
+...
+> > 
+> > Chiming in as more of a user perspective.
+> > 
+> > On my 4 GiB BPI-F3, I can reach more than 10:1 compression ratio on
+> > zswap during some parts when building GCC 17 snapshots. E.g:
+> > 
+> > MemTotal:        3966864 kB
+> > SwapCached:        31872 kB
+> > SwapTotal:      16777212 kB
+> > SwapFree:       16638128 kB
+> > Zswap:            280140 kB
+> > Zswapped:        2859840 kB
+> > AnonPages:       2927376 kB
+> > AnonHugePages:   1409024 kB
+> > 
+> > While this is 72 % rather than the 100 % you asked for, I think this
+> > shows that what size a potential limit on the uncompressed size of zswap
+> > is suitable heavily depends on the workload.
+> > 
+> > I have been using vswap consistently on all my machines since about
+> > August, and I have also tried one or two versions of xswap (but the
+> > current lack of writeback makes it inconvenient for me). I really
+> 
+> Thanks for testing xswap and reporting issue on xswap rfc v3.
+> 
+> xswap has writeback now. I only built foundation for xswap, while
+> writeback part was left to other people for collaboration. Finally
+> I added it.
+> 
+> [RFC PATCH 00/17] mm, swap: xswap writeback to a physical backend
+> https://lore.kernel.org/all/20260920072043.430390-1-hebaoquan@kylinos.cn/T/#u
+> 
 
-Scope-based resource management became supported for some
-programming interfaces by contributions of Peter Zijlstra on 2023-05-26.
-See also the commit 54da6a0924311c7cf5015533991e44fb8eb12773 ("locking:
-Introduce __cleanup() based infrastructure").
+Thanks, I'll give it another try when I have time.
 
-* Move some source code from the implementation of the function
-  =E2=80=9Cdpaa2_io_create=E2=80=9D to a new function.
-
-* Use the attribute =E2=80=9C__free(kfree)=E2=80=9D for the local variable=
- =E2=80=9Cobj=E2=80=9D.
-
-* Omit two kfree() calls accordingly.
-
-* Replace a return statement by the macro call =E2=80=9Creturn_ptr(obj)=E2=
-=80=9D.
-
-Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
-=2D--
- drivers/soc/fsl/dpio/dpio-service.c | 48 +++++++++++++++--------------
- 1 file changed, 25 insertions(+), 23 deletions(-)
-
-diff --git a/drivers/soc/fsl/dpio/dpio-service.c b/drivers/soc/fsl/dpio/dp=
-io-service.c
-index cb870aae30b4..8085c42c74ce 100644
-=2D-- a/drivers/soc/fsl/dpio/dpio-service.c
-+++ b/drivers/soc/fsl/dpio/dpio-service.c
-@@ -121,31 +121,15 @@ static void dpaa2_io_dim_work(struct work_struct *w)
- 	dim->state =3D DIM_START_MEASURE;
- }
-=20
--/**
-- * dpaa2_io_create() - create a dpaa2_io object.
-- * @desc: the dpaa2_io descriptor
-- * @dev: the actual DPIO device
-- *
-- * Activates a "struct dpaa2_io" corresponding to the given config of an =
-actual
-- * DPIO object.
-- *
-- * Return a valid dpaa2_io object for success, or NULL for failure.
-- */
--struct dpaa2_io *dpaa2_io_create(const struct dpaa2_io_desc *desc,
--				 struct device *dev)
-+static inline
-+struct dpaa2_io *dpaa2_io_create_impl(const struct dpaa2_io_desc *desc, s=
-truct device *dev)
- {
--	struct dpaa2_io *obj =3D kmalloc_obj(*obj);
- 	u32 qman_256_cycles_per_ns;
-+	struct dpaa2_io *obj __free(kfree) =3D kmalloc_obj(*obj);
-=20
- 	if (!obj)
- 		return NULL;
-=20
--	/* check if CPU is out of range (-1 means any cpu) */
--	if (desc->cpu !=3D DPAA2_IO_ANY_CPU && desc->cpu >=3D num_possible_cpus(=
-)) {
--		kfree(obj);
--		return NULL;
--	}
--
- 	obj->dpio_desc =3D *desc;
- 	obj->swp_desc.cena_bar =3D obj->dpio_desc.regs_cena;
- 	obj->swp_desc.cinh_bar =3D obj->dpio_desc.regs_cinh;
-@@ -160,10 +144,8 @@ struct dpaa2_io *dpaa2_io_create(const struct dpaa2_i=
-o_desc *desc,
- 	obj->swp_desc.qman_256_cycles_per_ns =3D qman_256_cycles_per_ns;
- 	obj->swp =3D qbman_swp_init(&obj->swp_desc);
-=20
--	if (!obj->swp) {
--		kfree(obj);
-+	if (!obj->swp)
- 		return NULL;
--	}
-=20
- 	INIT_LIST_HEAD(&obj->node);
- 	spin_lock_init(&obj->lock_mgmt_cmd);
-@@ -192,7 +174,27 @@ struct dpaa2_io *dpaa2_io_create(const struct dpaa2_i=
-o_desc *desc,
- 	obj->bytes =3D 0;
- 	obj->frames =3D 0;
-=20
--	return obj;
-+	return_ptr(obj);
-+}
-+
-+/**
-+ * dpaa2_io_create() - create a dpaa2_io object.
-+ * @desc: the dpaa2_io descriptor
-+ * @dev: the actual DPIO device
-+ *
-+ * Activates a "struct dpaa2_io" corresponding to the given config of an =
-actual
-+ * DPIO object.
-+ *
-+ * Return a valid dpaa2_io object for success, or NULL for failure.
-+ */
-+struct dpaa2_io *dpaa2_io_create(const struct dpaa2_io_desc *desc,
-+				 struct device *dev)
-+{
-+	/* check if CPU is out of range (-1 means any cpu) */
-+	if (desc->cpu !=3D DPAA2_IO_ANY_CPU && desc->cpu >=3D num_possible_cpus(=
-))
-+		return NULL;
-+
-+	return dpaa2_io_create_impl(desc, dev);
- }
-=20
- /**
-=2D-=20
-2.55.0
-
+> 
+> > appreciate the work being put in to decouple zswap from needing a
+> > physical swap device to work.
+> > 
+...
+> > 
+> > My personal preference would be for a default uncapped (or very high,
+> > and I don't think 100 % of RAM is high) limit on the uncompressed data
+> > which is backed by zswap, since that would mean one less knob to tune.
+> > 
+> > > 
+> > > Chris
+> > 
+> > Regards,
+> > Klara Modin
