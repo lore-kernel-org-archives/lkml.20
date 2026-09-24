@@ -1,151 +1,228 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A88A940BCC2
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:55:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790254520; cv=pass; b=HXdrlugIbIqbJ7WuwAZcZbc8gW6i3wMlWjaS9Mjb1J2BbujLYOHZmK/R4ec4RYta9Rc1SWPDKlXwzZjjWEFeeRA8bxFkPZOTtaawsHzpawp27UrTpoJpMifwTKwjQkNTwb7nEYDDrk47pGV/pTMulx/4wKf3QNK40V6T4PmGdjE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790254520; c=relaxed/simple;
-	bh=9hDFgSWl3UJHIjVr0Mg2vl869gj62O/SKIIKks4VA9w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=e7AvABVlmf3btGIyVihGuc/BgBRJHWTlwUPfJM9JVWbkB/0H/CGdPrnXVYayAyWsniQomhNfdxgRTGUjxsFipgxMsZsck8CtttaT/c6SfJ+ccrDgtdgWNBU3aYoRlQUt/JekpcbPTpzeKIn0GXiS/bCElj4U+WHtQKAXsGcR284=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EsgTpyND; arc=pass smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4E8175A6B;
+	Thu, 24 Sep 2026 12:56:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790254564; cv=none; b=NN1dS6UmMy3bl0gPY01reSPVnLQesgRV2gTzQe2cOW436OIkEkB6rtN8AWbSY9ckc7PMhWYBcIdO2f/1mF9t24DllVeWYnRSDpcntaywAQCPKGauQSY7E1ethySnlPCZteSQ9FLQ+hETpMRWUzZDahQRVZTBXVleX7rpBhMm3HU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790254564; c=relaxed/simple;
+	bh=87bhEHeWGKWPBP62oXsPYEyQTEnRyhvNdRjqb56DU2w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kVb/YhQDtmbe8RiMbN+2+jV2lfZJ/TdmnU+6IpFaHUvACTvWQHUvL1lsGZilY1JZCmNL5lk9QnBWg3EM26CPw4jOFGB7BT+50HxyGJjmF9mjmYQTrgAxLwThvj5pEuEFYPIiExgZGiPJosdxxDeGWVpUK8fN+es0koXtWoiiCnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n8ME2WW1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EsgTpyND"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33c14c9c8ccso160027eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:55:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790254518; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FJiAUe/mu1SIwJH0Dfgm1szKspjwBpdVBvDbbN1EJwGtMhwMkhwNyq1Y8unq+t9Bfp
-         I+ENqAROUNIRlJSWtQCruJgx2NHV2uYox4vnrVIO6U2pI6gdy+cKNs30S8NaWDf/Hq1p
-         20YJWtZ6/evUdxKDtuxAm9ZkPW9guOP2ARc/haATHjQcpaabFaxv3KoIKCyvXMO2XHql
-         hxps9zmxbpLnNX5RoCGA1qwfy5rwczLbINx+dKSHX9jafovGJI7ykOfqyg1qbs6riAZa
-         VIHxdxTas1iHgzSxOAYAPYEbqgBau1UCditnn96khiIQSo6BYQDjG3dtUiAG3IbUvq2M
-         52bA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6rCToHssiWETE8fAeMLU9/8ZLT7uDkl37EA8Ng9jTuk=;
-        fh=I1mQtP3ud5IGmP2bpcJuv+4AnLJZOzajKnwdvk+LvPo=;
-        b=GVg/Vng6714C5pRsRz3MnZX8vENn8nsmamjBaRNgXd3YhlwgOz8Y1TQGPtbxYwq8Cs
-         oP8/JJWHpn0o7gBp1KhM0kgRq97TjhjAOpYpXAFVKjlEChjXObTt7kKocyn6EyeQPe5P
-         znyTgoxVGaHvbQBHtsxu5yiUEfjXPmCh/R2S4FVGoFdSB7s0ME2D6rYmVbNrAGK9Yd7c
-         nKg7zQE+gC8Fk/LMpJkD0VV1SJXPxNkubLQc6ThZthTLwB34XSlyBsndSdbWBR84ZZL9
-         QU83HIMrh7nz/OXQeeBeWjuQ8t6tBvYp6Py9AsH1bQQOqGyQNMNbXsldtlCS4KMwTKex
-         /7Yw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790254518; x=1790859318; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6rCToHssiWETE8fAeMLU9/8ZLT7uDkl37EA8Ng9jTuk=;
-        b=EsgTpyNDI79g8HQwufGl19JKWAbah+aAvEEyIn7jCRqqCid/Bl4KUdRQfVAkDiqXaa
-         RFOI5KbZ1GCSebuoUt62bE6WOcZHazcuXJ4ekHhSPs5lZZTAX290RWnHkaOfVbabu5YK
-         hnNFaCwmQhN4q0eFdcdFNfNwG9rQSnOGUnnftFdeIRp7kgPA3u0UgqOmSTO6E2LR1d+E
-         b3hGbCPXC4QmN6sEb2deJ6bPfaP0Os/0AP3bErhxOSwPhtsVC/VH+0dGZv/oi7GtcYlu
-         Z6kfHCCjWWpiYQA/m45r11kUwEHldjJAniv6674hFc8QaF5gMQwj4IDCsxPglBLajfH3
-         xqOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790254518; x=1790859318;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6rCToHssiWETE8fAeMLU9/8ZLT7uDkl37EA8Ng9jTuk=;
-        b=sEJQ0GdP8HIEGSl6MdBzz3b2q8K7OdvouFqZ9YolH/O5zNBwM3SFQlODOoC49UytVs
-         HHYHeSINXBBU2qxVyarxGBgMVNYnEqlo5qdfgwdrB9Z1jSPyQINwuOzM2fCoTblJN+68
-         X1+Cnm03NAxDjTXkXeniTQ7XKF/6/NE1NXYjYP3on+qVKx9xGed2AMTx8szfYCTlCeOo
-         VAoILrlpPZvI45EWQlHM1vMf5oOi6Li03XhWiytImN/3acdfopj5anuQLgjQMAOB8yqO
-         2ZT90u4vAHKP7xWuh8RB4s8/eamD7TaDyD2VpKE1EazeNRIgvzrB7krLhU+pg3ketG+w
-         ZFcw==
-X-Forwarded-Encrypted: i=1; AKwUvByEEy0AzXNfbuori7HDcvSgG2pG5e76PDHg1jkfYOvEF+sCdT/WA+NruUT+sFJOnD1rjT1rCc8bD7/anuw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lRU0h4diCGXlxcU84Z0JIjKYgbw3hOqFmqxmlWhaDgisNlwZM2
-	j0Ch9WT+GLRX2OStEIC3mMpWe74oRH+/aF7HOgatidQIVSFGmMMYAFi4e2sbJSOEYMS2ArV84BO
-	ZIgxTvsFMLNOVMkYcApzOaHJru/ZHIlc=
-X-Gm-Gg: AYBFou0jFI3wmkqw7R1g/Ui32d8AhxoJrjN8+ad3T2dQDLjkejxD7XkTH5qrPTBDAet
-	ch7fppHsxixK9sKMm0FwQe5es9QF66fOSVcVVGZAhh4B8Cqg7BMtJ8LVXLbqMjJ8MBcBXHCYbft
-	41oZqy++uk3/myKGvaFVUjJ6GtqSiJHFR+OWvXdu7aAqzslDW/oqZ1s6AYM//jWh09OX1jhHRde
-	tiqXpp7sgD8TK7iE+uvVfYN5wRIFo10sr1AiVoTlC9DD2217gzy3TA/OWLEKKeaU8/boyQN3Tve
-	gDZgPVo9q0x9nNtQyCLB6bpH5lX27+gQC21u//xS/WU1n//2Oax1nt4vOFc0cVfYDLti9bF/9zd
-	ucMGSnYyw0niXe96qKBDXXw39fPepEazW77PAY/a6FQ==
-X-Received: by 2002:a05:701b:450c:20b0:144:ff51:2d73 with SMTP id
- a92af1059eb24-14503f1814fmr2776445c88.2.1790254517596; Thu, 24 Sep 2026
- 05:55:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n8ME2WW1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 631041F000FF;
+	Thu, 24 Sep 2026 12:55:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790254562;
+	bh=hReg+YrKi6p88LgT45UuedITnL9D2a8DFEpWy5aKpeY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=n8ME2WW1zA4ClZSOdimLs6EYQOSgZwEzRkaX0FzZpd5/HTBczwP4XebXykdZjtjpd
+	 R9VcB3hqGRcDo3af4xflbtjiegQE8H3z0thD8yPsJkat4rfyPCymFrGrqhe0Co/ay6
+	 nT1bbebP7cete3pbfmR+8Kf2m5CAoeQLtmeufa3FF0mjJ4/JBCa2kNYGU3cBZHtgFA
+	 llxdfAFJdq7Tt+kHP1+/V9V8pl9gRtbQJXKkFuMjONZ5zHI8UAmsZDNxrS1YB4d+vT
+	 osgzjqgtD8FHYFWZblBrEntTbC5DlZP4PhZJSFKgz2VAVEzs4dpjW57BuIKsWKsUhR
+	 Pfswdo+YZtyAQ==
+Message-ID: <c91d9441-27ce-4fdd-b3c7-10b972f867af@kernel.org>
+Date: Thu, 24 Sep 2026 14:55:55 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924124319.1895-1-pierre-eric.pelloux-prayer@amd.com>
-In-Reply-To: <20260924124319.1895-1-pierre-eric.pelloux-prayer@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 24 Sep 2026 08:55:06 -0400
-X-Gm-Features: AclHuK8rawtFh8RIfYGUl6NWaHxeKlnzIhQDBr80jpvjqrvakm50HhNAyVvXVcE
-Message-ID: <CADnq5_MFzY4EQBeDQcR+Ca9y5GXXseKbuKyLgvu_wcmpHLaPaw@mail.gmail.com>
-Subject: Re: [PATCH v1] drm/amdgpu: implement workaround for sdma dcc corruption
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V6] powerpc/bug: Add ARCH_WARN_ASM and refactor
+ _EMIT_BUG_ENTRY for Rust support
+To: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
+ maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+ ritesh.list@gmail.com, sshegde@linux.ibm.com, ojeda@kernel.org,
+ boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
+ lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
+ tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com,
+ tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev,
+ linkmauve@linkmauve.fr, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+Cc: FUJITA Tomonori <tomo@flapping.org>
+References: <20260922054311.906816-1-mkchauras@gmail.com>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <20260922054311.906816-1-mkchauras@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 8:44=E2=80=AFAM Pierre-Eric Pelloux-Prayer
-<pierre-eric.pelloux-prayer@amd.com> wrote:
->
-> For unknown reasons, on gfx12 using multiple entities can causes
-> random corruption of BOs with DCC.
-> This workaround seems to prevent the issue until the root cause
-> is understood and fixed.
->
-> Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5663
-> Fixes: 3a6f6eeb3db5 ("drm/amdgpu: give ttm entities access to all the sdm=
-a scheds")
-> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd=
-.com>
+
+
+Le 22/09/2026 à 07:43, Mukesh Kumar Chaurasiya (IBM) a écrit :
+> The Rust kernel infrastructure generates inline asm for WARN() via
+> ARCH_WARN_ASM(file, line, flags, size), expanding it through a C
+> preprocessor pass (generated_arch_warn_asm.rs.S) to produce an
+> arch-specific asm template string for use in Rust's core::arch macros.
+> 
+> powerpc currently lacks ARCH_WARN_ASM and ARCH_WARN_REACHABLE, causing
+> Rust builds to fail on powerpc with
+
+I'm a bit puzzled by the macro name. The name ARCH_WARN_ASM suggests 
+that it is used for warnings like WARN() and/or WARN_ON(). Which means 
+it should include flags BUGFLAG_WARNING and BUGFLAG_TAINT(TAINT_WARN).
+
+Also I have the feeling that it only handles WARN().
+WARN_ON() seems to have been forgotten.
+
+Christophe
+
+> ```
+> error: no rules expected `ARCH_WARN_ASM`
+>     --> /home/linkmauve/dev/linux/wii/rust/kernel/generated_arch_warn_asm.rs:1:28
+>      |
+>    1 | ::kernel::concat_literals!(ARCH_WARN_ASM("{file}", "{line}", "{flags}", "{size}"))
+>      |                            ^^^^^^^^^^^^^ no rules expected this token in macro call
+>      |
+>     ::: ../rust/kernel/lib.rs:279:1
+>      |
+> 279 | macro_rules! concat_literals {
+>      | ---------------------------- when calling this macro
+>      |
+>      = note: while trying to match sequence start
+> 
+> error: no rules expected `ARCH_WARN_REACHABLE`
+>     --> /home/linkmauve/dev/linux/wii/rust/kernel/generated_arch_reachable_asm.rs:1:28
+>      |
+>    1 | ::kernel::concat_literals!(ARCH_WARN_REACHABLE)
+>      |                            ^^^^^^^^^^^^^^^^^^^ no rules expected this token in macro call
+>      |
+>     ::: ../rust/kernel/lib.rs:279:1
+>      |
+> 279 | macro_rules! concat_literals {
+>      | ---------------------------- when calling this macro
+>      |
+>      = note: while trying to match sequence start
+> 
+> error: aborting due to 2 previous errors
+> ```
+> 
+> To add ARCH_WARN_ASM, _EMIT_BUG_ENTRY first needs to be refactored.
+> The old definition was a bare macro with no parameters, relying on
+> positional asm operand references (%0-%3), hardcoding the backward
+> reference to local label 1b, and including .org/.previous directives
+> inline. That made it impossible to compose as a plain string outside of
+> an asm operand context, and left an invisible contract that callers must
+> always emit their trap at label 1:.
+> 
+> Refactor _EMIT_BUG_ENTRY to take explicit (bug_entry, trap, file, line, flags)
+> string arguments via string concatenation. This removes the dependency
+> on asm operand numbering and makes the labels an explicit argument,
+> so the caller's intent is visible at the call site and a future caller
+> using a different label cannot silently produce a wrong bug table entry.
+> 
+> Move the .org and .previous directives out of _EMIT_BUG_ENTRY and into
+> each call site, so BUG_ENTRY() can still pass sizeof(struct bug_entry)
+> as an asm operand while ARCH_WARN_ASM can supply its own size string
+> independently.
+> 
+> Add ARCH_WARN_REACHABLE as an empty define, matching the arm64
+> convention, indicating that no additional reachability annotation is
+> needed after a WARN on powerpc.
+> 
+> Reported-by: FUJITA Tomonori <tomo@flapping.org>
+> Closes: https://lore.kernel.org/all/anG67Q6Y59kDqh-c@desktop
+> Fixes: 73b741adb264 ("rust: Add PowerPC support")
+> Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ttm.c
-> index 3d620ec2937f..a826e091ea58 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -2392,6 +2392,11 @@ void amdgpu_ttm_enable_buffer_funcs(struct amdgpu_=
-device *adev)
->
->         num_clear_entities =3D MIN(adev->mman.num_buffer_funcs_scheds, TT=
-M_NUM_MOVE_FENCES);
->         num_move_entities =3D MIN(adev->mman.num_buffer_funcs_scheds, TTM=
-_NUM_MOVE_FENCES);
-> +        /* TODO: workaround for DCC corruption when moving BOs from mult=
-iple queues at
-> +         * the same time: use a single queue until the root cause is ide=
-ntified and fixed.
-> +         */
-> +       if (IP_VERSION_MAJ(amdgpu_ip_version(adev, SDMA0_HWIP, 0)) =3D=3D=
- 7)
+> Changelog:
+> V5 -> V6:
+>   - Dropped KUit tests from this series. It will be sent separately.
+> V5: https://lore.kernel.org/all/20260915090453.1227034-1-mkchauras@gmail.com/
+> 
+> V4 -> V5:
+>   - Fixed a build error with DEBUG_BUGVERBOSE=n
+>   - Added a label for bug entry
+> V4: https://lore.kernel.org/all/20260912065902.24017-1-mkchauras@gmail.com/
+> 
+> V3 -> V4:
+>   - Fix Label with appending b at end
+>   - Add KUnit test patch
+>   - Tested on ppc64le pseries: pass:5 fail:0 skip:0
+>   - Tested on ppc32 QEMU mac99 G4: pass:5 fail:0 skip:0
+>   - Tested on ppc64le QEMU pseries: pass:5 fail:0 skip:0
+> V3: https://lore.kernel.org/all/20260910100801.2159785-2-mkchauras@gmail.com
+> 
+> V2 -> V3:
+>   - Add label argument in _EMIT_BUG_ENTRY
+> V2: https://lore.kernel.org/all/20260910071252.1950488-2-mkchauras@gmail.com
+> 
+> V1 -> V2:
+>   - commit message now has error, fixes tag and closes tag
+> V1: https://lore.kernel.org/all/20260819084825.969116-1-mkchauras@gmail.com
+> 
+>   arch/powerpc/include/asm/bug.h | 46 ++++++++++++++++++----------------
+>   1 file changed, 25 insertions(+), 21 deletions(-)
+> 
+> diff --git a/arch/powerpc/include/asm/bug.h b/arch/powerpc/include/asm/bug.h
+> index 0db48977c70c..bf31ee1e902a 100644
+> --- a/arch/powerpc/include/asm/bug.h
+> +++ b/arch/powerpc/include/asm/bug.h
+> @@ -32,34 +32,38 @@
+>   #endif /* verbose */
+>   
+>   #else /* !__ASSEMBLER__ */
+> -/* _EMIT_BUG_ENTRY expects args %0,%1,%2,%3 to be FILE, LINE, flags and
+> -   sizeof(struct bug_entry), respectively */
+>   #ifdef CONFIG_DEBUG_BUGVERBOSE
+> -#define _EMIT_BUG_ENTRY				\
+> -	".section __bug_table,\"aw\"\n"		\
+> -	"2:	.4byte 1b - .\n"		\
+> -	"	.4byte %0 - .\n"		\
+> -	"	.short %1, %2\n"		\
+> -	".org 2b+%3\n"				\
+> -	".previous\n"
+> +#define _EMIT_BUG_ENTRY(bug_entry, trap, file, line, flags)	\
+> +	".section __bug_table,\"aw\"\n"				\
+> +	#bug_entry ":	.4byte " #trap " - .\n"			\
+> +	"		.4byte " file " - .\n"			\
+> +	"		.short " line ", " flags "\n"
+>   #else
+> -#define _EMIT_BUG_ENTRY				\
+> -	".section __bug_table,\"aw\"\n"		\
+> -	"2:	.4byte 1b - .\n"		\
+> -	"	.short %2\n"			\
+> -	".org 2b+%3\n"				\
+> -	".previous\n"
+> +#define _EMIT_BUG_ENTRY(bug_entry, trap, file, line, flags)	\
+> +	".section __bug_table,\"aw\"\n"				\
+> +	#bug_entry ":	.4byte " #trap " - .\n"			\
+> +	"		.short " flags "\n"
+>   #endif
+>   
+> -#define BUG_ENTRY(cond_str, insn, flags, ...)		\
+> -	__asm__ __volatile__(				\
+> -		"1:	" insn "\n"			\
+> -		_EMIT_BUG_ENTRY				\
+> +#define BUG_ENTRY(cond_str, insn, flags, ...)			\
+> +	__asm__ __volatile__(					\
+> +		"1:	" insn "\n"				\
+> +		_EMIT_BUG_ENTRY(2, 1b, "%0", "%1", "%2")	\
+> +		".org 2b+%3\n"					\
+> +		".previous\n"					\
+>   		: : "i" (WARN_CONDITION_STR(cond_str) __FILE__), "i" (__LINE__),	\
+> -		  "i" (flags),				\
+> -		  "i" (sizeof(struct bug_entry)),	\
+> +		  "i" (flags),					\
+> +		  "i" (sizeof(struct bug_entry)),		\
+>   		  ##__VA_ARGS__)
+>   
+> +#define ARCH_WARN_ASM(file, line, flags, size)			\
+> +		"1:	twi 31, 0, 0\n"				\
+> +		_EMIT_BUG_ENTRY(2, 1b, file, line, flags)	\
+> +		".org 2b+" size "\n"				\
+> +		".previous\n"
+> +
+> +#define ARCH_WARN_REACHABLE
+> +
+>   /*
+>    * BUG_ON() and WARN_ON() do their best to cooperate with compile-time
+>    * optimisations. However depending on the complexity of the condition
 
-Probably just limit this to 7.0.0 and 7.0.1.  sdma 7.1 doesn't have
-DCC.  WIth that fixed:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-Alex
-
-> +               num_move_entities =3D 1;
->
->         adev->mman.clear_entities =3D kcalloc(num_clear_entities,
->                                                 sizeof(struct amdgpu_ttm_=
-buffer_entity),
-> --
-> 2.43.0
->
