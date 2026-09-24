@@ -1,73 +1,70 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A487A49D5BA;
-	Thu, 24 Sep 2026 14:54:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8CBE53939C1
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:55:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790261698; cv=none; b=JAdCPd3yyWLE90126h4/AjOM0iE7Q54y7XHkvVIIjWrnlO0TMmSwBvDOE6HqArHhSLFvwW99CUPGW8ECufBfTMVZf9RPADkKsG5U2uGa1Ewqens2/EJLf8G8wHgCKRW+75w8omTeEd0KnND/Ak0GBftS7DhOvatN8ZhvTlnyRbQ=
+	t=1790261743; cv=none; b=abpMZbFKSgCMrg/zkb43piHETO5Iboy1omyl67afQ0zo5C0exQWF4PrlK+HUH2k51sY0S55kNL8pwixI2fpknTZ9o0ceOXnuW8Y7SMLwYehzVqh0o7iuBBsAk0Jv1wg96kZgJfByVbWLMZZhD4CtLl4/UFnWXmtjB2oQMuZ9aNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790261698; c=relaxed/simple;
-	bh=w7KRENjylDpHRXF+0mAtcXOZs1Kt5xjoiZU1rCb6qf0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=N5A+n6Fihu+sy2DTUYtx0a3GHgwx1eHlz7+/+EYk2TeqUSWeLl2yv/6Ce4Ed5VYyKoOdc8hZM5QVh3BEO2nlfRWqsR3yZODxe80XUXV+bZ/nn6RNorBy+AqoBHZSGYGcwcNhKf97+gUeG+INXCiHvOSdyEgqlmy1pVz1ea6uFTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=qDaVCpLq; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1790261743; c=relaxed/simple;
+	bh=dGigSJ9bfvrCJTJezA64ql8bioG3tCAfNENgeTrxU1Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=efP1/QiOSCdRJab7vZ5Bhc3udB7npnB0fiIEPUM6GxtwFcKJXqfqnooyDHl3j2ejENLdYkMzZ+BUIWQqB7pt0Fo+UJgnou9Ro6u6HJjNEnt+cURwPUckRPCOvRpbB6+f68FOhkiTGzMqV9OW8yjxxPxefrAZ06CU+Ei3qIsJAWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=E8wY485n; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="qDaVCpLq"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=N1WNg5JHUPqQIIGQ25bIiCEbs9M7MmOQ1D2fjs9reqk=;
-	t=1790261690; x=1791471290; b=qDaVCpLqbo9RbgCNT4HwHRidPzn1CjnxW/zCCo4kpHijTlw
-	x4J6zyG++HW5F1viHMUJjaJRQLjfUUQ8TEpcEEPk1dLuIMxNtyZMVJjImyZ8cZb2zUQQSR6HFU4/5
-	vLYf4+hOqxy1OYcdJsTFM9QWIuFBg3RffSXaXjHbeABjwWFVV8yxQke2nj0CEn9pkl83/91BndToO
-	/IY8naUxVXJhBSCiSqnOmMxtCxX68oDiJQKkSy1THC3gm0m/qnLtx34TqC+sMXF76nhjiCwoY+T6R
-	fwcs7LZyYGJ1W3KeANY6Kd19i4BxzTpg/kaq/65R4D8R54tEgUkPstuEkVORPzmw==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1x9kqH-000000096mJ-2ehS;
-	Thu, 24 Sep 2026 16:54:33 +0200
-Message-ID: <e801211b4c71ddd919fa5d7b9c859b86addf3fb7.camel@sipsolutions.net>
-Subject: Re: [PATCH] x86: uapi: ptrace: guard register offset macros with
- __ASSEMBLER__ or __FRAME_OFFSETS
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Nick Desaulniers <ndesaulniers@google.com>, Thomas Gleixner	
- <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
- <bp@alien8.de>,  Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Richard Weinberger <richard@nod.at>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>, Oleg Nesterov	
- <oleg@redhat.com>, Nathan Chancellor <nathan@kernel.org>, Bill Wendling	
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>
-Cc: linux-kernel@vger.kernel.org, linux-um@lists.infradead.org, 
-	llvm@lists.linux.dev
-Date: Thu, 24 Sep 2026 16:54:32 +0200
-In-Reply-To: <20260821-ptrace_uapi-v1-1-3de8638a29f2@google.com>
-References: <20260821-ptrace_uapi-v1-1-3de8638a29f2@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="E8wY485n"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5A645143D;
+	Thu, 24 Sep 2026 07:55:36 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 901AE3F86C;
+	Thu, 24 Sep 2026 07:55:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790261739; bh=dGigSJ9bfvrCJTJezA64ql8bioG3tCAfNENgeTrxU1Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=E8wY485nFSqGU6S68M3V7c2yBFx/I6meN/gefaMYakGsj8ECSU4oXwejSsWS8ZLOM
+	 5/tTS/L8YHroe8ZcG3B/Gtd5eGBLKQQYt6H8oyPmZpXEp7RK5DcIaNo3mhhL9SBYqM
+	 EDD/mT6Qjdv6uCpo4PxSSlWvXQYf89EJsF7zglcQ=
+Date: Thu, 24 Sep 2026 15:55:32 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Beata Michalska <beata.michalska@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, will@kernel.org,
+	suzuki.poulose@arm.com, James.Morse@arm.com, xuewen.yan94@gmail.com,
+	seanwang1@lenovo.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: errata: Add Cortex-A725 erratum 3821522 workaround
+Message-ID: <arU55PEnc7Gjy830@arm.com>
+References: <20260908104800.3744507-1-beata.michalska@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908104800.3744507-1-beata.michalska@arm.com>
 
-On Fri, 2026-08-21 at 15:45 -0700, Nick Desaulniers wrote:
->=20
->  arch/x86/um/asm/ptrace.h               | 4 +---
->  arch/x86/um/ptrace_32.c                | 1 +
+Hi Beata,
 
-This seems like a simple adjustment for what you need to do in x86, so
-that's OK, but I don't think we'll take this through the UML tree.
+On Tue, Sep 08, 2026 at 12:47:08PM +0200, Beata Michalska wrote:
+> diff --git a/arch/arm64/include/asm/topology.h b/arch/arm64/include/asm/topology.h
+> index b9eaf4ad70850..93f33ee078638 100644
+> --- a/arch/arm64/include/asm/topology.h
+> +++ b/arch/arm64/include/asm/topology.h
+> @@ -17,6 +17,12 @@ int pcibus_to_node(struct pci_bus *bus);
+>  
+>  #include <linux/arch_topology.h>
+>  
+> +static inline bool this_cpu_has_broken_amu_constcnt(void)
+> +{
+> +	return this_cpu_has_cap(ARM64_WORKAROUND_2457168) ||
+> +	       this_cpu_has_cap(ARM64_WORKAROUND_3821522);
+> +}
 
-But for UML you can have my
+Instead of this, please add ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT and set
+it in the .capability field of a multi-cap entry. We do the same with
+ARM64_WORKAROUND_REPEAT_TLBI_SYNC.
 
-Acked-by: Johannes Berg <johannes@sipsolutions.net>
-
-johannes
+-- 
+Catalin
