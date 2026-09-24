@@ -1,87 +1,128 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-60.ptr.blmpb.com (va-2-60.ptr.blmpb.com [209.127.231.60])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2667342E414
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:42:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB30F311946
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:42:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.60
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790235748; cv=none; b=sQmMYbKokzbnRWjZwc4Wgr5K5jFrJMm/j1jaaxoEmvuLmBmAxR8EHMVT+vhaSnjHpcBJeAJ8YUH9Y06IPrPwnn16jD8mG6AtNSSoFp075ANJiWnfFnF2DhSNSDHDB9yMubu7xOB4QzyNtxDNvaJ6i/XeEesXsP/YIAqy90ClhN4=
+	t=1790235771; cv=none; b=ph37MZ+6YZx5B0ueOgnrE/8kadqJcy5ABpN4tL4RlIh9+XKFL+RA7T7byihHLvpLYPb/DWryrp/gMuGaig2XViPD9bo6j24a5XQBchiOI3jSldl14W1t1QHrobK+aXEXygXwD76Kj4iWawClKaS+TDSxg3G1JgJLnUHqksq/hdY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790235748; c=relaxed/simple;
-	bh=q6ZjB7k23vKZB0rhd1Mo/4yWSK1OW+n2Z0uzPd1vkog=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sqEbcjkPVYy13GVfVJ6iUZt5N705bbHPzjxrGvUe+ZEMNnhmn4JIeQR822BhkvBlwjgjdDMfcHM1H9K5AwCp1vMdtT6OqGO9TmTBVRKvX6+BPP92jWk0qQeo3gknM25e5PzlZxko5wQiDymuuDfw0nyInuIwqnIfpzzvvLP4G+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cLg6rw72; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790235771; c=relaxed/simple;
+	bh=T5YePKTHICCtYtzF62kJRfr2cPAKceA18nP4ZYno6IA=;
+	h=Subject:Mime-Version:Content-Type:Message-Id:To:Cc:From:Date; b=CoUGUkwXOpd2jqZ8iTCYXVu4+QvYh57463JslZhbyk6fXTGfeTqg1qsYlxaEf18HLqD24zKXlYfOZWAixwnBrsFX66AxF8AcRviPRlu1Uw/gUAZVJIUeeiROuVykK6iIt7IykvWg0bzcojroQzogWZOHcK/Edl8oG5tRxR4dzAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com; spf=none smtp.mailfrom=bedmex.com; dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b=A5uMgTfl; arc=none smtp.client-ip=209.127.231.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bedmex.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cLg6rw72"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790235747; x=1821771747;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=q6ZjB7k23vKZB0rhd1Mo/4yWSK1OW+n2Z0uzPd1vkog=;
-  b=cLg6rw72JtZVXUf+CbTIERj50GOCqkYiDJaVpV9d+RpQ6zVKsuHNo9Hc
-   FyJWvIiutBnse++50pf5dXPhbshYQbWLgxJHiDnXQ4NVaJwJWMQTYyIZu
-   T4VpLwPSjOvjRDx/3U2f1Ro4T91XSElAIyUfhQWTMc7seay1azW/Y/xxd
-   9Ygax7HTB+raM8tbTI1fpydfmTU6wdS9oIo6qQq0P0zSeMt13XW3eXozM
-   xiuezrNm4enWJxDflU3m8kvcQDYHWrPyrYtwFVibrYeekrHvk0F2MHEC0
-   vvfTuZGgWt9KktiRTvTBbF6zoyOl1HedEZRxNTV548GEoAqrnVQqodOrP
-   g==;
-X-CSE-ConnectionGUID: SJcdkpm3TUSCy27FzNI44Q==
-X-CSE-MsgGUID: YzegjhfjQceOSMohO8yUjA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="91015393"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="91015393"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 00:42:26 -0700
-X-CSE-ConnectionGUID: H5s+/T7wSdq1ncR9d4RMLQ==
-X-CSE-MsgGUID: RubZmy2jSoG0Tp2D4vwD1w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="277325836"
-Received: from jkrzyszt-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.246.13])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 00:42:23 -0700
-Date: Thu, 24 Sep 2026 10:42:20 +0300
-From: Tony Lindgren <tony.lindgren@linux.intel.com>
-To: David Engraf <david.engraf@sysgo.com>
-Cc: pmladek@suse.com, rostedt@goodmis.org, john.ogness@linutronix.de,
-	senozhatsky@chromium.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] printk: Remove console options before decoding the
- name
-Message-ID: <arTUXC9zpqZhrPTP@tlindgre-MOBL1>
-References: <582e545e-52b3-4adf-9c93-446ad0fecc93@sysgo.com>
- <20260924070153.250783-2-david.engraf@sysgo.com>
+	dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b="A5uMgTfl"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=bedmex-com.20200927.dkim.feishu.cn; t=1790235759;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=xYBw+ciwzN5UAFisFtBzHtVV9HDzfuM1sLzacSqdMQM=;
+ b=A5uMgTfl70Tv/9dI4/GKHRRvzAOsfbZ6JIc+rVL0eJMzZmpSzYcRpKA3r89LlK67sUxZw2
+ rDIjzFX7K/bt/snXTKJ5BBXFT7DSHgGM/gzJFq1DkFsBgz/6jhcwEpEdgHMljvTUVjLDU4
+ 7ixk8w+KjwhbVzlBYZZLlPYEAmmRgPvM/rXpMJ9iLywwmJ3ad9sTgcHEZXG7J+D8XzjIts
+ 153yJ1Rz1Vpq4t2ffWTHYjIPavlSTtjFYwwxsH8zTSxbH2i1CMuZX10GCGzwCZmWp03dyT
+ 038bCCrUKApznYkKjeDxFdpK5WzS5p6HbkA1GXxpBiJiDRncKjIScATZYUBdAQ==
+Content-Transfer-Encoding: 7bit
+Subject: [PATCH bluetooth-next v5 0/3] Bluetooth: Add AIC8800D80 SDIO firmware loader and UART HCI
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924070153.250783-2-david.engraf@sysgo.com>
+Mime-Version: 1.0
+X-Original-From: Yanli Yang <yanli.yang@bedmex.com>
+Content-Type: text/plain; charset=UTF-8
+Message-Id: <cover.1790235697.git.yanli.yang@bedmex.com>
+Received: from [127.0.1.1] ([36.141.79.164]) by smtp.feishu.cn with ESMTPS; Thu, 24 Sep 2026 15:42:36 +0800
+X-Lms-Return-Path: <lba+26ab4d46d+538206+vger.kernel.org+yanli.yang@bedmex.com>
+To: <linux-bluetooth@vger.kernel.org>
+Cc: <marcel@holtmann.org>, <devicetree@vger.kernel.org>, <robh@kernel.org>, 
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <zhirunliu@aicsemi.com>, 
+	<dijiaxu@aicsemi.com>, <chunqiuliu@aicsemi.com>, <liheng.wei@bedmex.com>, 
+	<yanli.yang@bedmex.com>
+From: "Yanli Yang" <yanli.yang@bedmex.com>
+Date: Thu, 24 Sep 2026 15:41:37 +0800
 
-On Thu, Sep 24, 2026 at 10:00:57AM +0300, David Engraf wrote:
-> This fixes a regression when a console option includes ':'. Commit
-> 7640f1a44eba ("printk: Add match_devname_and_update_preferred_console()")
-> introduced console=DEVNAME:0.0 hardware style addressing by looking for a
-> colon. If the colon is part of an option the name is handled as devname
-> instead of ttyname.
-> 
-> Fix by handling the options first which will add a NULL terminator to the
-> string and refactor idx handling to clean up the code (thanks to Petr
-> Mladek).
+Hi,
 
-Maybe clarify the above a bit to make it clear that the refactoring is
-needed for the fix. Something like:
+This series adds Bluetooth support for the AIC8800D80. SDIO function 1
+loads firmware; a serdev UART carries H4 HCI traffic at 1500000 baud with
+hardware flow control. The three patches add the AIC vendor prefix, the
+Device Tree binding, and the driver with build and maintainer integration.
 
-Fix by handling the options first which will add a NULL terminator to the 
-string. Note that parsing the options first means that also idx parsing
-needs changing. Handle the idx parsing by refactoring the code (thanks to
-Petr Mladek).
+Changes since v4:
+- Use kzalloc_obj(*boot) for the boot state allocation, as requested
+  by checkpatch.
+- Mark the SDIO system sleep callbacks __maybe_unused for builds
+  without CONFIG_PM_SLEEP.
 
-Other than that:
+Thanks for the report. kzalloc_obj() is defined in include/linux/slab.h
+in the target bluetooth-next tree, and btaic_core.c includes that header.
+Therefore, kzalloc_obj(*boot) will not cause an undefined-macro build
+failure. It uses GFP_KERNEL by default and also follows checkpatch's
+recommendation for this allocation.
 
-Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
+Review of the other reported findings:
+- The TX/RX IPC layouts are intentionally asymmetric, as in the AIC BSP.
+  TX has a 4-byte dummy word before the message ID; RX has a 4-byte pattern
+  after param_len. The BSP RX path casts the buffer at offset 4 to
+  struct ipc_e2a_msg. Accordingly, the RX response ID is at frame offset 4
+  and param_len at offset 10. The reported firmware-loading layout mismatch
+  is a false positive.
+- In this target tree h4_recv_buf() takes struct hci_uart * and forwards
+  hu->hdev to h4_recv_skb(). The driver sets uart->hu.hdev before
+  hci_register_dev(), so passing &uart->hu is type-correct. Commit
+  b489556a856d ("Bluetooth: fix corruption in h4_recv_buf() after cleanup")
+  changed this API; the reported type mismatch refers to the older API.
+- If skb_cow_head() fails, aic_bt_send_frame() returns the error without
+  consuming the skb. hci_send_frame() frees the skb when ->send() returns
+  an error; freeing it in the driver would cause a double free. The
+  reported skb leak is a false positive.
+- sdio_bus_probe() releases the MMC host before the driver probe, and
+  aic_bt_sdio_hw_init() releases it before firmware loading. No
+  request_firmware() call holds the MMC host or AIC command locks. The
+  command path also releases the host before waiting for IRQ completion.
+  Synchronous firmware loading may delay probe, but the reported SDIO
+  deadlock does not apply.
+
+The bluez.test.bot mgmt-tester and mesh-tester failures also reproduce
+with unrelated patches and appear to be CI test failures. The GitLint
+failure is caused by the automatically generated "create mode" line for
+the DT binding path.
+
+Validation: The vendor has confirmed SDIO firmware loading. UART HCI
+communication, controller initialization, scanning, pairing, connections,
+data transfer, suspend/resume, and Wi-Fi/Bluetooth coexistence have not
+been validated on hardware. The external firmware files are not included
+in this series.
+
+Thanks,
+Yanli
+
+Yanli Yang (3):
+  dt-bindings: vendor-prefixes: Add AIC Semiconductor
+  dt-bindings: net: bluetooth: Add AIC8800D80
+  Bluetooth: btaic: Add AIC8800D80 SDIO loader and UART transport
+
+ .../net/bluetooth/aic,aic8800d80-bt.yaml      |  84 ++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ MAINTAINERS                                   |  11 +
+ drivers/bluetooth/Kconfig                     |  16 +
+ drivers/bluetooth/Makefile                    |   3 +
+ drivers/bluetooth/btaic.h                     |  26 +
+ drivers/bluetooth/btaic_core.c                | 180 ++++
+ drivers/bluetooth/btaic_sdio.c                | 901 ++++++++++++++++++
+ drivers/bluetooth/btaic_uart.c                | 337 +++++++
+ 9 files changed, 1560 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80-bt.yaml
+ create mode 100644 drivers/bluetooth/btaic.h
+ create mode 100644 drivers/bluetooth/btaic_core.c
+ create mode 100644 drivers/bluetooth/btaic_sdio.c
+ create mode 100644 drivers/bluetooth/btaic_uart.c
+
+-- 
+2.34.1
