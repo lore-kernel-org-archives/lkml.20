@@ -1,271 +1,118 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 237BA283142;
-	Thu, 24 Sep 2026 15:36:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790264212; cv=pass; b=X47JFeW8yA0SZSGRqsRkLoq1Q9+qNM+sBeV5Ru2c3dIlm4Fl/xcL7/mtUlGqVDORxvzE2joH3TpltbOhJwz7mdZDpiwrWyALYRk4hlyChZQ8EFMQ0y0RYuu6+dwT5uTMVovUuTel+iQHnIPkgXisz+gF36weFcR1EG+5GMxQfPg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790264212; c=relaxed/simple;
-	bh=5JNjVQv7bSkrx8P3DCGguOs0UiYqksyxP7OGxYOPImw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Psk5WqoJcgEIRCXWCqlvO7fPzzNtgpou0RHuU5bngbAzpbPGwP/7KS0Ejwg4Ju64ZA8WvcnFGe8+ZMwH4LGpf+SdgwUp07EJGPK/I2JYU39lmDeIPnbNg33905Ze+43nKeLdj0BIsk6CMNa+5kK+//TDK5Fl2l0E5GtbftzojuQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=LeGGMk8w; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 855F449CF20;
+	Thu, 24 Sep 2026 15:37:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.157.23.187
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790264233; cv=none; b=NEp4rJTJ8lm42Hu7izaWg3HVUktCiznMazrR0J55GQ8lJfvbQfpNtySRiEcXwjLQxf1h8qVHdSX/yGcDhFFY9ITv/LvoizM/yAp7ZVTR/DGWyC6SWgo5garKAy2NYZ2xqWLZpCVIpXmwQeCJCT34dKCz0uQwYDXq/BSKpcWCTp0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790264233; c=relaxed/simple;
+	bh=LtlID1Tut84vhZMMIt6dhqBV++ovLnqLdWrDbAfps5s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=U33CG0uWKxTbPR6Tgn4GF40MD7HXH4IyZ+F46yVdH5WRW/XCJayAOKnCQjh2ZsHopfl/gzi1lv66WTn40eX9HFmpLAAKgpfLKkcHs4Y/GEBJBe8eDGkVoqZY1fsXAh5xUxZCRGVI61Vy0yMuhQ9rOSb1S+lONeaG5KkWQQbnM8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com; spf=pass smtp.mailfrom=paragon-software.com; dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b=Y5Fhi7Rz; arc=none smtp.client-ip=35.157.23.187
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="LeGGMk8w"
-ARC-Seal: i=1; a=rsa-sha256; t=1790264193; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=avEIboCA7whGHLn5oj39qSTIrGRfMJV8ZiqxKNhqRMdlnAl9laOyKXZRMmDZGxAtqsOnI3KNvBup4aRqDeDGqAGSTxMBP3YIpLoFYceDvCnpHw6KRBZCd5Pi55cmpyk7ytvnBrur4jWrt7Gkrw9pDA7zTbKIKA26vOyisPURA8A=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790264193; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=xpHCM0iE2esEzIC122AELBh0E5yUB3wABaM/lIaa61Q=; 
-	b=IGLIylyyEAOON9rdg0yA4hqUjiuq6Jqrl1jUNsPi/mNalOeB2EAYnEMZck+mj4p3YvS2lLKf1QUKxyyz8iE2fudVRUpg0YzJfd72WOB1ombH24l3MvMc6CIuoy6PRSPAbZmGBT0mhrYy9CoyX0YJhYc7E3qBx+PV2G4C1kFgBec=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790264193;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=xpHCM0iE2esEzIC122AELBh0E5yUB3wABaM/lIaa61Q=;
-	b=LeGGMk8wl/AL71GOyYLhJRlUUDzBlpFLWqtDay16AcCmgywF2N0TZJvNyycTamoh
-	e/LbcaLUo5dg0Z+buiTWVA5YujHT7M6thspb81LXzpJjAHSC5yZ7O/WOTV5aXtF+X3W
-	ZRjh6q31BvSv5IY0K9S718XkXmfZRTBhOzbFjsfA=
-Received: by smtp.zohomail.com with SMTPS id 179026419157669.64049589350486;
-	Thu, 24 Sep 2026 08:36:31 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id C4383180EDC; Thu, 24 Sep 2026 17:36:26 +0200 (CEST)
-Date: Thu, 24 Sep 2026 17:36:26 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, linux-kernel@vger.kernel.org, 
-	linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-phy@lists.infradead.org, kernel@collabora.com, 
-	Igor Paunovic <royalnet026@gmail.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>
-Subject: Re: [PATCH 2/5] usb: dwc3: rockchip: introduce glue driver
-Message-ID: <arVB7k5QRcwYfZEO@venus>
-References: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-0-763bb546824e@collabora.com>
- <20260915-b4-rockchip-dwc3-rockchip-glue-v1-2-763bb546824e@collabora.com>
- <6eacce65-5636-413f-8213-10910f3a7ee8@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b="Y5Fhi7Rz"
+Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
+	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id B00861D78;
+	Thu, 24 Sep 2026 15:38:03 +0000 (UTC)
+Authentication-Results: relayaws-01.paragon-software.com;
+	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=Y5Fhi7Rz;
+	dkim-atps=neutral
+Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
+	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id 6963B1D70;
+	Thu, 24 Sep 2026 15:37:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=paragon-software.com; s=mail; t=1790264228;
+	bh=aNerNzZMBL5stsqR6RVjnN5baso0dUCYrXQWA/vpOz8=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To;
+	b=Y5Fhi7Rz7gPWXAUGjpEniAwnYXR0X1dNav8qVg8haRcfBkFXxouofzaV+isXpl47U
+	 quVA4b7OhboEx5t6kWRJjPAwgOCcfM+MKwRHeUNwMlT/XT0F8IN5gKin+zf9BFYbzd
+	 RhTn9OJbsnCqRnUPnHln36PAUwRJ3P3SdaBRbKBI=
+Received: from [192.168.95.128] (172.30.20.214) by
+ vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.7; Thu, 24 Sep 2026 18:37:07 +0300
+Message-ID: <63dedf61-1e76-421f-9b7f-c4e463f21aa8@paragon-software.com>
+Date: Thu, 24 Sep 2026 17:37:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vu4syrqui7xkgy6d"
-Content-Disposition: inline
-In-Reply-To: <6eacce65-5636-413f-8213-10910f3a7ee8@oss.qualcomm.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.230.26
-X-ZohoMailClient: External
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Fix OOB write if err == buflen in ntfs_readlink_hlp()
+To: =?UTF-8?Q?Alexandro_Cal=C3=B2?= <alexandro.calo@nozominetworks.com>
+CC: "ntfs3@lists.linux.dev" <ntfs3@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+References: <029C54CF-FC6C-4BFA-854C-847F8E656626@nozominetworks.com>
+Content-Language: en-US
+From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+In-Reply-To: <029C54CF-FC6C-4BFA-854C-847F8E656626@nozominetworks.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: vdlg-exch-02.paragon-software.com (172.30.1.105) To
+ vdlg-exch-02.paragon-software.com (172.30.1.105)
 
+On 7/8/26 13:30, Alexandro Calò wrote:
 
---vu4syrqui7xkgy6d
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 2/5] usb: dwc3: rockchip: introduce glue driver
-MIME-Version: 1.0
+> [You don't often get email from alexandro.calo@nozominetworks.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+>  From 64361f8e12081dc8828480588bc48c2c931ffc91 Mon Sep 17 00:00:00 2001
+> From: Alexandro Calo <alexandro.calo@nozominetworks.com>
+> Date: Wed, 8 Jul 2026 12:04:37 +0200
+> Subject: [PATCH] Fix OOB write if err == buflen in ntfs_readlink_hlp()
+>
+> ntfs_utf16_to_nls() may return buflen. The caller later uses the returned
+> length as the index for writing the trailing NUL byte,
+> so err == buflen writes one byte past the end of buffer.
+>
+> Fix this by limiting err to the last valid buffer index before writing
+> NUL.
+>
+> ntfs_utf16_to_nls() returning a negative value is already handled by
+> if (err < 0) goto out;
+> As long as buflen is guaranteed to be nonzero the patch is fine.
+> As a defensive fix if(buflen==0) could be added.
+>
+> This heap out-of-bounds write requires a crafted filesystem image,
+> which is not in the kernel threat model, but fixing memory errors would
+> be nice to keep things secure.
+>
+> Signed-off-by: Alexandro Calo <alexandro.calo@nozominetworks.com>
+> ---
+>   fs/ntfs3/inode.c | 3 +++
+>   1 file changed, 3 insertions(+)
+>
+> diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
+> index 0c9bd669117d..d4803e1625fe 100644
+> --- a/fs/ntfs3/inode.c
+> +++ b/fs/ntfs3/inode.c
+> @@ -2029,6 +2029,9 @@ static noinline int ntfs_readlink_hlp(const struct dentry *link_de,
+>          if (err < 0)
+>                  goto out;
+>
+> +       if (err >= buflen)
+> +               err = buflen - 1;
+> +
+>          /* Translate Windows '\' into Linux '/'. */
+>          for (i = 0; i < err; i++) {
+>                  if (buffer[i] == '\\')
+>
+> base-commit: 0e35b9b6ec0ffcc5e23cbdec09f5c622ad532b53
+> --
+> 2.47.3
 
-Hi Krishna,
+Hello,
 
-On Wed, Sep 23, 2026 at 11:23:01AM +0530, Krishna Kurapati wrote:
->=20
->=20
-> On 9/15/2026 8:47 PM, Sebastian Reichel wrote:
-> > Introduce Rockchip specific glue code for the Synopsys DWC3 USB driver.
-> > For now this handles things identical to the default glue.
-> >=20
->=20
-> [...]
->=20
-> > @@ -2448,11 +2448,26 @@ int dwc3_core_probe(const struct dwc3_probe_dat=
-a *data)
-> >   }
-> >   EXPORT_SYMBOL_GPL(dwc3_core_probe);
-> > +/*
-> > + * List of compatibles, which have "synopsys,dwc3" as a fallback
-> > + * compatible, but have a vendor specific glue driver that should
-> > + * be used instead of this one.
-> > + */
-> > +static const char *const dwc3_compatible_blocklist[] =3D {
-> > +	"rockchip,rk3588-dwc3",
-> > +	"rockchip,rk3576-dwc3",
-> > +};
-> > +
-> >   static int dwc3_probe(struct platform_device *pdev)
-> >   {
-> >   	struct dwc3_probe_data probe_data =3D {};
-> >   	struct resource *res;
-> >   	struct dwc3 *dwc;
-> > +	int i;
-> > +
-> > +	for (i =3D 0; i < ARRAY_SIZE(dwc3_compatible_blocklist); i++)
-> > +		if (device_is_compatible(&pdev->dev, dwc3_compatible_blocklist[i]))
-> > +			return -ENODEV;
->=20
-> Would it be better to split this patch into two ? I see core changes are
-> independent of addition of the new driver.
+Sorry for the delay.
+The patch is applied, thanks.
 
-That's true from a pure compile time perspective, but the new glue
-driver is effectively dead code as it will never probe without that
-change.
+Regards,
+Konstantin
 
-Greetings,
-
--- Sebastian
-
->=20
-> Regards,
-> Krishna,
->=20
-> >   	res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> >   	if (!res) {
-> > diff --git a/drivers/usb/dwc3/dwc3-rockchip.c b/drivers/usb/dwc3/dwc3-r=
-ockchip.c
-> > new file mode 100644
-> > index 000000000000..62f2a03b08a2
-> > --- /dev/null
-> > +++ b/drivers/usb/dwc3/dwc3-rockchip.c
-> > @@ -0,0 +1,106 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +/* Copyright (c) 2026, Collabora Ltd. */
-> > +#include <linux/module.h>
-> > +#include <linux/platform_device.h>
-> > +#include <linux/pm_runtime.h>
-> > +#include "glue.h"
-> > +
-> > +struct dwc3_rockchip {
-> > +	struct dwc3		dwc;
-> > +};
-> > +
-> > +static int dwc3_rockchip_probe(struct platform_device *pdev)
-> > +{
-> > +	struct dwc3_probe_data probe_data =3D {};
-> > +	struct resource *res;
-> > +	struct dwc3_rockchip *dwc_rk;
-> > +
-> > +	res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> > +	if (!res) {
-> > +		dev_err(&pdev->dev, "missing memory resource\n");
-> > +		return -ENODEV;
-> > +	}
-> > +
-> > +	dwc_rk =3D devm_kzalloc(&pdev->dev, sizeof(*dwc_rk), GFP_KERNEL);
-> > +	if (!dwc_rk)
-> > +		return -ENOMEM;
-> > +
-> > +	dwc_rk->dwc.dev =3D &pdev->dev;
-> > +	dwc_rk->dwc.glue_ops =3D NULL;
-> > +
-> > +	probe_data.dwc =3D &dwc_rk->dwc;
-> > +	probe_data.res =3D res;
-> > +	probe_data.properties =3D DWC3_DEFAULT_PROPERTIES;
-> > +
-> > +	return dwc3_core_probe(&probe_data);
-> > +}
-> > +
-> > +static void dwc3_rockchip_remove(struct platform_device *pdev)
-> > +{
-> > +	dwc3_core_remove(platform_get_drvdata(pdev));
-> > +}
-> > +
-> > +static int __maybe_unused dwc3_rockchip_runtime_suspend(struct device =
-*dev)
-> > +{
-> > +	return dwc3_runtime_suspend(dev_get_drvdata(dev));
-> > +}
-> > +
-> > +static int __maybe_unused dwc3_rockchip_runtime_resume(struct device *=
-dev)
-> > +{
-> > +	return dwc3_runtime_resume(dev_get_drvdata(dev));
-> > +}
-> > +
-> > +static int __maybe_unused dwc3_rockchip_runtime_idle(struct device *de=
-v)
-> > +{
-> > +	return dwc3_runtime_idle(dev_get_drvdata(dev));
-> > +}
-> > +
-> > +static int __maybe_unused dwc3_rockchip_suspend(struct device *dev)
-> > +{
-> > +	return dwc3_pm_suspend(dev_get_drvdata(dev));
-> > +}
-> > +
-> > +static int __maybe_unused dwc3_rockchip_resume(struct device *dev)
-> > +{
-> > +	return dwc3_pm_resume(dev_get_drvdata(dev));
-> > +}
-> > +
-> > +static void __maybe_unused dwc3_rockchip_complete(struct device *dev)
-> > +{
-> > +	dwc3_pm_complete(dev_get_drvdata(dev));
-> > +}
-> > +
-> > +static int __maybe_unused dwc3_rockchip_prepare(struct device *dev)
-> > +{
-> > +	return dwc3_pm_prepare(dev_get_drvdata(dev));
-> > +}
-> > +
-> > +static const struct dev_pm_ops dwc3_rockchip_dev_pm_ops =3D {
-> > +	SET_SYSTEM_SLEEP_PM_OPS(dwc3_rockchip_suspend, dwc3_rockchip_resume)
-> > +	SET_RUNTIME_PM_OPS(dwc3_rockchip_runtime_suspend, dwc3_rockchip_runti=
-me_resume,
-> > +			   dwc3_rockchip_runtime_idle)
-> > +	.complete =3D pm_sleep_ptr(dwc3_rockchip_complete),
-> > +	.prepare =3D pm_sleep_ptr(dwc3_rockchip_prepare),
-> > +};
-> > +
-> > +static const struct of_device_id dwc3_rockchip_of_match[] =3D {
-> > +	{ .compatible =3D "rockchip,rk3588-dwc3" },
-> > +	{ .compatible =3D "rockchip,rk3576-dwc3" },
-> > +	{ }
-> > +};
-> > +MODULE_DEVICE_TABLE(of, dwc3_rockchip_of_match);
-> > +
-> > +static struct platform_driver dwc3_rockchip_driver =3D {
-> > +	.probe		=3D dwc3_rockchip_probe,
-> > +	.remove		=3D dwc3_rockchip_remove,
-> > +	.driver		=3D {
-> > +		.name	=3D "dwc3-rockchip",
-> > +		.pm	=3D pm_ptr(&dwc3_rockchip_dev_pm_ops),
-> > +		.of_match_table	=3D dwc3_rockchip_of_match,
-> > +	},
-> > +};
-> > +
-> > +module_platform_driver(dwc3_rockchip_driver);
-> > +
-> > +MODULE_LICENSE("GPL");
-> > +MODULE_DESCRIPTION("DesignWare DWC3 Rockchip Glue Driver");
-> >=20
->=20
-
---vu4syrqui7xkgy6d
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmq1Q3oACgkQ2O7X88g7
-+pqNww/9EHGMcp537E32jHoRUriW7+ZRqiKtCJUEczh/NpGV7a9xXNuE+bkz7LVq
-8UvGrp0IAOp4D25D87IBZIwDPnw67hIbvheZ0jI1RSFoEfccO2RDqEJuwgr7TqdC
-g0d427lgmozamZMyUVzI09/4Utnl3DSa8uWwYIq9/qRf6b5iqraovAoySq+KmKOY
-5hss824MlBk2PKv5Zo8O0dd9CwcSyZuwxDgRoBToCZxQbHJdnAoHtJJN2VmLzZVx
-N5IeQwKnqfLMS2lfiX5xSoRNotkrA7Ui5iKFvsKsLU/gARuQ6LHhChy9SE8aBww+
-chxvuSCF2s+FGF71RIHfUpVyq4+jMUdlL3ptA0mLVQrrUQsfinFAIuDtzQdTflBb
-ap3t6hwgj5zfBq/BueWKWUDfh8WurhILCEk45ALEKePEDKa7D5Dh1KEdwYBtTMy/
-G7FflOWk8J5oA9DiPHVGD5Bnu92PmD/yCxIEIDCWz03nK1cDJTl2+ahxrKrVKQa8
-1PmUSIabWXinh1fiptThR0Egj/dzscArNESi2IvoxtGBLyAVZ0aesZgGdURhV7w1
-lUxmBBlwcpDZr9TDgDakKW70TgPsuccXeCsgxLkMNm5ydtqU7l/gH5kDun4FrbWz
-0xZWpKVyrZvU0zEoz56h56Rbd+Hcas6pXZIFgJH1+tnZMCVfD7U=
-=yBxX
------END PGP SIGNATURE-----
-
---vu4syrqui7xkgy6d--
