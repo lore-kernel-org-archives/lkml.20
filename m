@@ -1,236 +1,194 @@
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F36BF37EFE2
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:21:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60B2031A807;
+	Thu, 24 Sep 2026 17:21:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790270475; cv=none; b=EErVC40Ar5pzC0YSEHIIAZnoE0HeupjQXSa+QitICoHdgiT/SowEnuN8CdBhync5NmVydKALIc9kj1c0XH/rqBZvU8hEfOHjkc9/04/LQqf1efnvzyKtMR5YFmfNF2qYZCz/rVoTapBdpDYVMSsYcv8dosrZ2OGCla2U6QG2iwE=
+	t=1790270515; cv=none; b=MbGz9Q54N4auO8Ivqm8uSmQ0bvkW1V4m2w+RcCUKr77QNE7pOFCx1eke7EtrbHvVW8h54borAxC0edP2c/rb83Q65rgCz4eNwqXarCm9YmfboVDTLnaogdo29vJ5xRT9ys5uWqOiNOkXBQ224tdQdpgm2tv6PiWEga3oj94NdQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790270475; c=relaxed/simple;
-	bh=9hbD4jdGFmGOeRA7tQwWLcXjUa/gKCEjFcT5qzOvuaU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G5GoF7NvETdaEQ9YpglGPZTbyN+CbTeuRHdHR91VFYnVnce6hwU+Jrvef4wFElKX2pfgU+SNOYk+HHhLDyd/sJlEDMO+gkS1LbfyRC4XhwW8Wb2mLzcePsxO+rWOZr1pUNa41O1HzlKAygCG/vad47wXDbHsuaNYxoRwUL1B4Qk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MPfqDsq0; arc=none smtp.client-ip=209.85.167.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790270515; c=relaxed/simple;
+	bh=sCchGc7fFyWlPVq7Afzzg4iXQGGA1KxJ3D2l2itwLoM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=m1LY+IV8BaTlQbu+VBparNNVizFShW+bMwPjleEQQRh0VTV44fl0f+bA3H9/GfWhH9ilv1ttPFPVy5nh4/nWJfzPdvTmSKXWmK2NoIK3Cd2OQbcfVxB/XfZiHmQmIgpM8e0SuHuTCMTPd72Vdo/PNPMy4SUdqoi9h/Kb1yA/ln4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gfLXy7gD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MPfqDsq0"
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b76694fb7aso94230e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:21:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790270472; x=1790875272; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lqsAA1Z/+A0DL+6b0jsQ5hEaK/NGO6yJObFrFwTQ76E=;
-        b=MPfqDsq0n04ySMNTV6CfKYlqAprDwK/9z9OXq0hVkJ2na+1vFt8Lp+AsxXTPgwTRQX
-         7qbt9XkOfgEka/nQdE05ndV0+jgSUUwq5C/JpLcj0kobp3mAYO+YvkNrt0rXjjaDfgQ3
-         +7WokfBKdb7DNjEcHQwSrSYJiw6p88ZsG4uB17DMUOHovAh8FircdkWxdvYgFP6yDKQU
-         H86H1Ikcu6uQMJ7kOJlhHnphPR2x3kP1uTGv6wyZhLM4hQJhOvoAeIwV0AQRDaP5uK3g
-         0eGb2KpEVbW6Zb7xzxSuA/+EzqtTd1qVyKxB7I6rPNhe6ayFAQ4Phc6ZBsShpifC1dOl
-         4VjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790270472; x=1790875272;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lqsAA1Z/+A0DL+6b0jsQ5hEaK/NGO6yJObFrFwTQ76E=;
-        b=L5wpY4EPvRvhavOxq59MwPWPpNe/Rh5LzCI/4U6mNz768GIO9UBesUW+mNGO5mnq9Y
-         ARFI/ZXB5xcLrbaZZGvgv2Tssmn6voTY1H4wkglegTX9uqVUA1WVjNlj998ceZmMcbYx
-         fbme3DaBYHhZZ63I5v0SC72VNXXnuod2dB/ZQ+4s8j8HN4uvI/isKTSwvpqVSeSO66B8
-         6HX/Q8UoIH5+pig1OmxXp007jJoKtKuI5Z1S1VXpmqvUJb7X5ALdiI8837G2brUNmM5v
-         ZrzPK01q2LMgfruxxqtap0hiSzz0+cfxFE8vllrvkIfSS91M4UIylDSvDMfjr/mzRRvB
-         05jQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw/gaecfyzmfUeiuree7hb+QRUaWuaENEcNB5UDzmXkqnq1B3A8SAnew3/YP3bPDyrIrCM6jhvnqEqwMEo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kNiWnC82240niz0TSMS1O9Fnp/hRkQ3d4bOm06x4tg9oV2J1fd
-	b7Lw6heR/zNtMTp/wU6ryxwOAiLrvXFKhI9iaogHouMHcZ4J0aWjkkmeQgY2qgG6kqBxBAy+8Tc
-	=
-X-Gm-Gg: AYBFou0w5HMQlTRFn9AKWhoRRfN6xt9XoAI6ZxKVJwWxZfSlUDoZkCnL/UZ0fUEOOsc
-	4l7o17FwqQLPJvFg80e5Hvi0qeLxZQ3o5eJGE5WCPO8xuMIs8xsmhpSEKOslbJXDua5TE4B4bdN
-	XxX8+PNlabKgsl/mfRVrItDXVsSVpL3JX/sQE+5h76s6nRaXO/kQzZ1hocXk8w6Lo+vo3onFVii
-	H56xT/rKL4fYbRC1CX1MwOttyVIWUi5FuoPvf3jvqvgI1oFNriDFOhnHBZaj2K+BNgF/c7/AakT
-	8WO65hOoBowtl5kbhdNaCkHMiIuhti+BfBttO/V13sXlrl9V2Mhypmwi2H805nKOuPE1Jghc3WM
-	/+CUVPg8ab5U63tuK4OqZuyDyhX1R4/CttTXvP4I5r2AH/ua27Tm7ZyQWdOoEL+CKpaaTWcZiWP
-	qSuhHTGReFLe21RaK5WJ7Ok2l7G37OYjp03wqf+1xGUESFl9utIiEPd2h4Vs2X5cMitrl6RF3qu
-	ES6r4NHj4usTEI=
-X-Received: by 2002:a05:6512:104b:b0:5b0:6343:a298 with SMTP id 2adb3069b0e04-5b8df0c3615mr1164514e87.7.1790270471737;
-        Thu, 24 Sep 2026 10:21:11 -0700 (PDT)
-Received: from quietus.tail91f8a6.ts.net ([104.194.144.188])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d859505csm1611065e87.74.2026.09.24.10.21.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 10:21:11 -0700 (PDT)
-From: Ruslan Koreev <koreev.r@gmail.com>
-To: lee@kernel.org,
-	pavel@kernel.org,
-	rillian.grant@gmail.com
-Cc: linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ruslan Koreev <koreev.r@gmail.com>
-Subject: [PATCH 2/2] leds: flash: lm3643: Describe the LED of ACPI boards without LED nodes
-Date: Thu, 24 Sep 2026 20:20:40 +0300
-Message-ID: <20260924172040.1185688-3-koreev.r@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260924172040.1185688-1-koreev.r@gmail.com>
-References: <20260821083620.68324-1-rillian.grant@gmail.com>
- <20260924172040.1185688-1-koreev.r@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gfLXy7gD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 694AB1F00893;
+	Thu, 24 Sep 2026 17:21:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790270514;
+	bh=+tdgUn4LCmpZMy1NvZZmFJ3S3QlMO+Bl0qktKJCidag=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gfLXy7gDws5V13oaRpXzFbpiwcTyxOwsZHw/BzOTUIb8sNMyscqhTtX6QZS3Ig9Hv
+	 M/qjdCxFSMTZTXdSEwGGpAaUoWZvtpFNuD020pkaIusrxX7KhYRbmM5klkuDu1kMGj
+	 Mc2KX0hk0WENTCPZgIQ6gz87qWFKSwGTaW+lxk1hFxvZf/Ab946PiE/P18FNJZKFmk
+	 iPFiFc73GzOwjp+/awPO7jdeDVMT/VaxeEw8aD6fr8mEARgAUtXmIa13zxIqU/yJFI
+	 qMCFjWfZiu2dgflIBMPfPiqgkx2/M5wdNmVRzZNf18MlAI1vCVo2I0keO4eO89eXV2
+	 O4sUv/huJZNRg==
+Date: Thu, 24 Sep 2026 18:21:48 +0100
+From: Conor Dooley <conor@kernel.org>
+To: xianwei.zhao@amlogic.com
+Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] dt-bindings: net: meson-dwmac: add T7 support
+Message-ID: <20260924-stinger-stoplight-7c327c3225fa@spud>
+References: <20260924-t7-node-new-v2-0-319d3c19b4b2@amlogic.com>
+ <20260924-t7-node-new-v2-2-319d3c19b4b2@amlogic.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="lQQ+GaL+1qrjKfL/"
+Content-Disposition: inline
+In-Reply-To: <20260924-t7-node-new-v2-2-319d3c19b4b2@amlogic.com>
 
-Lenovo ThinkPads enumerate the LM3643 through ACPI (HID TXNW3643)
-without a _DSD, so the device has no LED child nodes and the driver
-refuses to probe. On these laptops the chip drives the Windows Hello IR
-flood illuminator, with both current sources feeding a single LED, and
-Lenovo's Windows driver applies a fixed configuration to any LM3643 it
-finds.
+--lQQ+GaL+1qrjKfL/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Add a DMI table that provides that description as a software node when
-the firmware offers none: one IR flash LED on both outputs, with torch
-and flash limits well below the chip's maximums. Start with the ThinkPad
-X1 Carbon Gen 14.
+On Thu, Sep 24, 2026 at 05:51:09AM +0000, Xianwei Zhao via B4 Relay wrote:
+> From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+>=20
+> Add the T7 compatible to the Meson DWMAC binding.
+>=20
+> The T7 DWMAC controller requires the following compatible combination:
+>=20
+> amlogic,t7-dwmac
+> amlogic,meson-axg-dwmac
+> snps,dwmac-4.00
+>=20
+> Add a conditional schema check to enforce this compatible combination
+> when amlogic,t7-dwmac is used.
+>=20
+> Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+> ---
+>  .../devicetree/bindings/net/amlogic,meson-dwmac.yaml    | 17 +++++++++++=
+++++++
+>  1 file changed, 17 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.ya=
+ml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> index 5c91716d1f21..b529ca5577a9 100644
+> --- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> @@ -23,11 +23,24 @@ select:
+>            - amlogic,meson-gxbb-dwmac
+>            - amlogic,meson-axg-dwmac
+>            - amlogic,meson-g12a-dwmac
+> +          - amlogic,t7-dwmac
+>    required:
+>      - compatible
+> =20
+>  allOf:
+>    - $ref: snps,dwmac.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: amlogic,t7-dwmac
+> +    then:
+> +      properties:
+> +        compatible:
+> +          items:
+> +            - const: amlogic,t7-dwmac
+> +            - const: amlogic,meson-axg-dwmac
+> +            - const: snps,dwmac-4.00
 
-The description is keyed by DMI instead of being applied to every
-TXNW3643 because the wiring is a board property: which output feeds
-which LED and how much current the LED tolerates cannot be read from the
-chip, and a wrong guess overdrives an LED. The firmware cannot be fixed
-from the driver side, and a per-board table is what x86-android-tablets
-does for devices whose ACPI tables describe nothing either. Boards with
-a _DSD are not affected, the fallback only runs when the device has no
-child nodes. The limits are conservative because the LED part is not
-documented; the illuminator is bright enough for face authentication at
-a fraction of them.
+This is not how fallback compatibles are described.
 
-Tested on that laptop: torch through /sys/class/leds/ir:flash lights the
-ST VD55G1 IR camera's field of view, and the resulting frames are good
-enough for face authentication.
+Instead of doing this, which affects all other compatibles in the file
+by allowing dwmac-4.00 for all devices, please do this the normal way.
+dwmac isn't special, it's just this binding that's weird!
+Can whats currently in the binding (before this patch) be largely
+replaced by just doing:
+  compatible:
+    oneOf:
+      - items:
+          - enum:
+              - amlogic,meson8b-dwmac
+              - amlogic,meson-gxbb-dwmac
+              - amlogic,meson-axg-dwmac
+              - amlogic,meson-g12a-dwmac
+          - const: snps,dwmac-3.70a
+          - const: snps,dwmac
+      - items:
+          - enum:
+              - amlogic,meson6-dwmac
+              - amlogic,meson8m2-dwmac
+          - const: snps,dwmac
 
-Signed-off-by: Ruslan Koreev <koreev.r@gmail.com>
----
- drivers/leds/flash/leds-lm3643.c | 92 ++++++++++++++++++++++++++++++++
- 1 file changed, 92 insertions(+)
+You'll have to check this yourself against the amlogic devicetrees and
+see if this is correct, but with this you should be able to add your new
+device without doing anything special.
 
-diff --git a/drivers/leds/flash/leds-lm3643.c b/drivers/leds/flash/leds-lm3643.c
-index bbe9358c9..fa0ecead5 100644
---- a/drivers/leds/flash/leds-lm3643.c
-+++ b/drivers/leds/flash/leds-lm3643.c
-@@ -9,6 +9,7 @@
- #include <linux/bitfield.h>
- #include <linux/bits.h>
- #include <linux/cleanup.h>
-+#include <linux/dmi.h>
- #include <linux/i2c.h>
- #include <linux/led-class-flash.h>
- #include <linux/leds.h>
-@@ -690,6 +691,91 @@ static int lm3643_register_led(struct device *dev, struct lm3643 *chip,
- 	return lm3643_register_v4l2(dev, led, fwnode);
- }
- 
-+/*
-+ * Lenovo ThinkPads enumerate the chip through ACPI (HID TXNW3643) without a
-+ * _DSD, so the LED is not described by firmware. On the boards below it drives
-+ * the Windows Hello IR flood illuminator, with both current sources feeding a
-+ * single LED. Describe that with a software node, with torch and flash limits
-+ * (100 mA and 300 mA per output) well below the chip's maximums.
-+ */
-+static const u32 lm3643_ir_flood_sources[] = { 0, 1 };
-+
-+static const struct property_entry lm3643_ir_flood_props[] = {
-+	PROPERTY_ENTRY_U32_ARRAY("led-sources", lm3643_ir_flood_sources),
-+	PROPERTY_ENTRY_STRING("function", LED_FUNCTION_FLASH),
-+	PROPERTY_ENTRY_U32("color", LED_COLOR_ID_IR),
-+	PROPERTY_ENTRY_U32("led-max-microamp", 200000),
-+	PROPERTY_ENTRY_U32("flash-max-microamp", 600000),
-+	PROPERTY_ENTRY_U32("flash-max-timeout-us", 100000),
-+	{ }
-+};
-+
-+static const struct software_node lm3643_ir_flood_root = {
-+	.name = "lm3643",
-+};
-+
-+static const struct software_node lm3643_ir_flood_led = {
-+	.name = "led-0",
-+	.parent = &lm3643_ir_flood_root,
-+	.properties = lm3643_ir_flood_props,
-+};
-+
-+static const struct software_node *lm3643_ir_flood_nodes[] = {
-+	&lm3643_ir_flood_root,
-+	&lm3643_ir_flood_led,
-+	NULL
-+};
-+
-+static const struct dmi_system_id lm3643_dmi_leds[] = {
-+	{
-+		/* Lenovo ThinkPad X1 Carbon Gen 14 */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_VERSION, "ThinkPad X1 Carbon Gen 14"),
-+		},
-+		.driver_data = (void *)lm3643_ir_flood_nodes,
-+	},
-+	{ }
-+};
-+
-+static void lm3643_remove_dmi_leds(void *data)
-+{
-+	struct device *dev = data;
-+	const struct dmi_system_id *id = dmi_first_match(lm3643_dmi_leds);
-+
-+	set_secondary_fwnode(dev, NULL);
-+	if (id)
-+		software_node_unregister_node_group(id->driver_data);
-+}
-+
-+static int lm3643_add_dmi_leds(struct device *dev)
-+{
-+	const struct dmi_system_id *id;
-+	const struct software_node **nodes;
-+	int ret;
-+
-+	if (!has_acpi_companion(dev))
-+		return 0;
-+
-+	id = dmi_first_match(lm3643_dmi_leds);
-+	if (!id)
-+		return 0;
-+
-+	nodes = id->driver_data;
-+	/* The nodes are static: a second chip on the same board cannot reuse them */
-+	if (software_node_fwnode(nodes[0]))
-+		return dev_err_probe(dev, -EBUSY, "LED description already in use\n");
-+
-+	ret = software_node_register_node_group(nodes);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to register the LED description\n");
-+
-+	set_secondary_fwnode(dev, software_node_fwnode(nodes[0]));
-+	dev_info(dev, "no LED nodes in firmware, using the DMI description\n");
-+
-+	return devm_add_action_or_reset(dev, lm3643_remove_dmi_leds, dev);
-+}
-+
- static int lm3643_probe(struct i2c_client *client)
- {
- 	struct device *dev = &client->dev;
-@@ -699,6 +785,12 @@ static int lm3643_probe(struct i2c_client *client)
- 	int ret;
- 
- 	count = device_get_child_node_count(dev);
-+	if (!count) {
-+		ret = lm3643_add_dmi_leds(dev);
-+		if (ret)
-+			return ret;
-+		count = device_get_child_node_count(dev);
-+	}
- 	if (!count || count > LM3643_NUM_CHANNELS)
- 		return dev_err_probe(dev, -EINVAL, "%u LED nodes found, expected 1 to %d\n",
- 					 count, LM3643_NUM_CHANNELS);
--- 
-2.55.0
+pw-bot: changes-requested
 
+Thanks,
+Conor.
+
+>    - if:
+>        properties:
+>          compatible:
+> @@ -38,6 +51,7 @@ allOf:
+>                - amlogic,meson-gxbb-dwmac
+>                - amlogic,meson-axg-dwmac
+>                - amlogic,meson-g12a-dwmac
+> +              - amlogic,t7-dwmac
+> =20
+>      then:
+>        properties:
+> @@ -93,6 +107,7 @@ allOf:
+>                - amlogic,meson8m2-dwmac
+>                - amlogic,meson-gxbb-dwmac
+>                - amlogic,meson-axg-dwmac
+> +              - amlogic,t7-dwmac
+>      then:
+>        properties:
+>          rx-internal-delay-ps:
+> @@ -139,8 +154,10 @@ properties:
+>            - amlogic,meson-gxbb-dwmac
+>            - amlogic,meson-axg-dwmac
+>            - amlogic,meson-g12a-dwmac
+> +          - amlogic,t7-dwmac
+>      contains:
+>        enum:
+> +        - snps,dwmac-4.00
+>          - snps,dwmac-3.70a
+>          - snps,dwmac
+> =20
+>=20
+> --=20
+> 2.52.0
+>=20
+>=20
+
+--lQQ+GaL+1qrjKfL/
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarVcLAAKCRB4tDGHoIJi
+0uGLAP9vG/nnFjmSd9oHG4dx6aOQ6l08pSiuAib8S4dTKMhDiwD/RyvtCdjF7f8+
+h9rqmIr5nqu+zvpDF0FqjtuCMmJ+fA4=
+=Nzj1
+-----END PGP SIGNATURE-----
+
+--lQQ+GaL+1qrjKfL/--
