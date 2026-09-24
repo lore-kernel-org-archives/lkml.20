@@ -1,199 +1,376 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011005.outbound.protection.outlook.com [40.107.208.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC373CF032;
-	Thu, 24 Sep 2026 07:05:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.5
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790233539; cv=fail; b=NL344KM751E8U2WiFRDuus+F8AuO2vSG8lMN16kjYqDbcMhSywfQN7FulWT93GYWMetQ5rLn5D9nS0BgpqEOWcB47m8jvy+eqOSXLz+aZPusqLRBNKTwIetfazc0fu0/dG/Ft8EUk2ppOGPQSNeq2xtwnH3vMTHv6W9SkgIa4zE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790233539; c=relaxed/simple;
-	bh=hDjbenmg+oCjsBJHn7Lcef85AOBAC6Sz2muO4Dg/XF4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=L9hvK0Y9yYh0ymQVHZ1NJiql6FMXLBWRVrNykm+GmHIYVZYNpMQtge0ihkADu6Js/ILTSJn63NQoMCY4Hx6R1PiB1jzhjw1sKvOIvmEsCiPD8tV1ylTaGIw4hZmhlZw7aaJPkDGJUPaTPahPH7SPxdiqUnvCY+ghlQsdOtXuabE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Ti1mdKsX; arc=fail smtp.client-ip=40.107.208.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 951DD41DDF0;
+	Thu, 24 Sep 2026 07:05:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790233551; cv=none; b=uzd0PKoPoZ74bAEYcfVlBrHSIeDpzM38fY7/yRqp1LGeM7XNeS9x4gzuG3N4uNq/S9lQto4jcKrcNLlcdemnMI+IUtoJcCa16IVLzRvYs7VQKHFDSGiCnB6RVTeWFL4EU9brJK/RinHfZx0ZjPavkuZJ7a8GD7ZiI0LR6GUBEwM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790233551; c=relaxed/simple;
+	bh=ny7yRoqTZu3txm6Y15JB2f35IJQJiFGrkwW1JcDEPW4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TQaazCvgL85zT+NoS4UaMFPEDUerPwHMq1lMrmvepqkYzxx59CNhvxhjmpk93Fq8NwrEAGO4iFJqZLVtngiGEMb25YgrIv25fkooW+kj22ap0a5/Ov1GwRtTrd9wC8MGC1LEdWNgU7WqtZvIu5nqc4u9IA4Wrmcozzq/+4b+G6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NumiNqXN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Ti1mdKsX"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TixWmMCRB6TskAoo7rAsH18tpyYpOje72B4eWXQiSHdPCLRaCv+0RJSY7667wx7+7yBKVVQYTClVqqPx8EGjxMpBlgp11/1QtKw50etL3xlny5JmRmbCo8LWw/o3y7+K9qDLiT+0K29aHG6mznV4gDAyTqeHVxV1H9nWuvZDdFtgYcpEcyq1GS4NVt6OyQGIMQBPCE0lMEyBi1RFp0vKxUnHToUBbiJ6u4YFSC0uj/C2L5FHalDJPZWdMHfiZT6UKc/5/NYmcXuEc4tycPQL79qLlVZXv2f+c1F3hXWAnwvFwbfKdtMBdMaVMPmzqYBZNzArRYiEaLJG+ImqlzUHnw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BvMEg7D9/3hCH3UG8U800lSvDw3XcWh/Ekf1wwu+TcA=;
- b=AqTcPqvvMo881q5ksWDRMmJlJ4Ym3ucro3UehVykNpKb8FHPDkaoPphw0ug+3Rgq5cNJTtagDjAQhmMu3uQlf4b0vDnZxJnJ0u/7GL6EquxtUVYFHal4j06TJC3s9Mc0BP14fa0zItlbLwtcuZQJBU3N05Y38ZPRfJyEJxCBx6IfjE+Ru72Q6FZU2mPOVe7OyFtgJUO64Gwq80VexcwHjV/1s+io09YA+mIYY52vmKvpvsJdb60bXettrY4Pr98qxaPr4ohCBFWtKQ54oh0FNYg7CykvjtdiRA8PvxKekFG9XhQZoM09ccblB+TW8hT+FRpUQDU7rYk611ClhzZzVA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BvMEg7D9/3hCH3UG8U800lSvDw3XcWh/Ekf1wwu+TcA=;
- b=Ti1mdKsXaowOP6pxD7BRHyg36YgNRTh2nByjrVv9Q5CRPkNtYFpeba//LWSSaCSI41fwdTIWzaUb7pknR8iFiB2T2wbLJ0KEX9BcKG0aWhLqTzInylrx0bUModZ1/4/IdD+LHQ3vejgzRKjqfJMiOl9J71rLhL37nU6Nm8RigcY=
-Received: from BN9PR03CA0139.namprd03.prod.outlook.com (2603:10b6:408:fe::24)
- by DS8PR12MB333896.namprd12.prod.outlook.com (2603:10b6:8:447::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
- 2026 07:05:27 +0000
-Received: from BN3PEPF00022BC3.namprd05.prod.outlook.com
- (2603:10b6:408:fe:cafe::67) by BN9PR03CA0139.outlook.office365.com
- (2603:10b6:408:fe::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.17 via Frontend Transport; Thu,
- 24 Sep 2026 07:05:27 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF00022BC3.mail.protection.outlook.com (10.167.248.215) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 07:05:27 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
- 2026 02:05:27 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
- 2026 02:05:26 -0500
-Received: from [10.136.33.35] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Thu, 24 Sep 2026 02:05:20 -0500
-Message-ID: <587a9b32-bc54-46b9-b81e-c46a19f47e17@amd.com>
-Date: Thu, 24 Sep 2026 12:35:19 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NumiNqXN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B6321F000FF;
+	Thu, 24 Sep 2026 07:05:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790233544;
+	bh=unO7c5AKFQ6l/ODCAfxidUIx3Us4+HGQywYjc6yeobQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NumiNqXNLkED+EGsexP3G9yFmRjrfSxODCOS2IeJxDN2I2LnDWrIoXBi4lFA8nJZ+
+	 GShxpuSTxD/6uQVzm0vxTY/1f/i3Y0dLByDRwxftO/c2rru40oIlh4wnjnssSnR3fU
+	 vD0HcihjnRtg7NrNfolsIuz0pvPUYRV2RJbuevFT0v1W84l277nJ9onSqLpBhJVWBQ
+	 qYn/s6wEorlhxU7eeO78sBICaLJ6qazkDWOqNNaTuTUJlmFw/fJ3kbkFwYR3rlfD0i
+	 be36LxxhNKQnTpjG8t21CvMSqSyTaL7+S7VUbii/iOlUf/ZeExIZoUnKmZxrLW8W7n
+	 EmE3N7PGnJVCw==
+Date: Thu, 24 Sep 2026 00:05:42 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: acme@kernel.org, howardchu95@gmail.com, adrian.hunter@intel.com,
+	james.clark@linaro.org, jolsa@kernel.org,
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+	mingo@redhat.com, peterz@infradead.org
+Subject: Re: [PATCH v5 00/23] perf trace: Fix BPF filtering and make tracing
+ tests non-exclusive
+Message-ID: <arTLxu9SXPVf1V7S@z2>
+References: <20260918211932.2966061-1-irogers@google.com>
+ <cover.1790145937.git.irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] [PATCH v3 7/7] sched/eevdf: Move to a single
- runqueue
-To: Chen Yu <yu.c.chen@intel.com>, Aishwarya Rambhadran
-	<aishwarya.rambhadran@arm.com>
-CC: Peter Zijlstra <peterz@infradead.org>, <mingo@kernel.org>,
-	<longman@redhat.com>, <chenridong@huaweicloud.com>, <juri.lelli@redhat.com>,
-	<vincent.guittot@linaro.org>, <dietmar.eggemann@arm.com>,
-	<rostedt@goodmis.org>, <bsegall@google.com>, <mgorman@suse.de>,
-	<vschneid@redhat.com>, <tj@kernel.org>, <hannes@cmpxchg.org>,
-	<mkoutny@suse.com>, <cgroups@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <jstultz@google.com>, <qyousef@layalina.io>,
-	Ryan Roberts <ryan.roberts@arm.com>, <chen.yu@linux.dev>
-References: <20260605105513.354837583@infradead.org>
- <20260605124052.227463677@infradead.org>
- <bd81bbec-ee59-401a-bec6-116196ad3a34@arm.com> <arQCykkkCnADu5ek@chenyu-dev>
-Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <arQCykkkCnADu5ek@chenyu-dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC3:EE_|DS8PR12MB333896:EE_
-X-MS-Office365-Filtering-Correlation-Id: d2076868-e3a8-4b5d-15f8-08df1a0a3683
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|82310400026|1800799024|36860700016|13003099007|6133799003|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	6UwxFnG/jo19u4wciIzCGHH2EyOBc2B3uMzHTVqRc1ciX4M86HEE4kZQxA6oUWQX4Ro7LeKFx+DPKCRYWXvIvEBAJQ5ii899EXEyWH37h3S0dT0egl/3uUtTAY2hE0MJFhFa5pwwE0qBWysnIZ/sj4JOz2GupGSwWWF49DDTT3K4enPHT/8UOkJQB2eUvCJuMExBmRatjoM6Tqi4BveOX/g7ce1tmUmW38vkv1Rg2zci2NL3GD0KLtuWjD5bOvgknY3FmhyL0x7Kf+ql5ohUpWB7gXT5+on3zxCaQXg8gkAn+FGbm/CPRA32732y77FH7NZXtCbk6qZWmnRDnbWxC8iKI+FqKIB4E1ps2tyJNxidDAQuMt/E3MsvT0q2j1VRUXAydaSF62h04LEhq+BOOcnER2goE+Xbrxi82q+RPxZhZxzyISzhfe3c0w40ItfbNI6INcp2Simymbggk1vPXfW+KoKBFzUHuWGTajDsXsVpF1rh8gp8d2EWKUrCmeIDElSbZZYHVQtBXBq++9sZsPX02SPG7L2VhVZB9sKs5Vofy6XBmbu6et4Er+xGbYIoSJxTM2Rw5uT9lJrmwH9eq3G5Tegdwle5glOVA0wAm9pqUxgJ0Q1f08FbO9drXNbGx3VdheQwjDORYzXzBaUJ4w==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(82310400026)(1800799024)(36860700016)(13003099007)(6133799003)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	+aUHELLA8nP49KSJEUWbdieXqNZkzbBXBVLATmXRbAxNrD0XHZSId1eA+fahloJkDREvnJ89gUEHOkGFw1WmYf8l9BBNF1rR9Ddvyrj+nUYKdjuLzFDX/wg5AkdyUD7SfyJyRSFG3OGODyKGJozgoRX069n2U40TBVBiTRv4fz8TFriunXLGvqPCQBUfK9l3BMK7qxC08d4B+zx5lrjEBnp14ysXJ83kYGLRwOLG5G/+MTtYR5txYa6CJ1yf+jL8DrVfL6p1fsr7qV+iqdX+e4i4j/sEBOh6P7Fk18OVuW6G30kmko9nEZ0o7ClgKSigfbUK5sYgu6NnVBAAteGGvkfK/as1pBic/6sH3fwOkt766pOX7P4R9GLCEO94x2juSq3vtSiHxvQqrmappgSMUFjg4FOa0ff6hjiTnYJe/ErTwA5ERe9uqON+9cHvwnZ+
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 07:05:27.6053
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d2076868-e3a8-4b5d-15f8-08df1a0a3683
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BC3.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS8PR12MB333896
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <cover.1790145937.git.irogers@google.com>
 
-On 9/23/2026 10:18 PM, Chen Yu wrote:
-> On Wed, Sep 23, 2026 at 07:51:35PM +0530, Aishwarya Rambhadran wrote:
->> Hi Peter,
->>
->> We have observed some schbench p99 request latency regressions while
->> comparing v7.2 against v7.3 cycle on an AWS Graviton3 (m7g.metal)
->> using Fastpath (Linux kernel performance benchmarking tool).
->>
->> The schbench suite as a whole does not show a significant regression,
->> and the results appear to be a mix of improvements and regressions
->> depending on the thread configuration. However, a few configurations
->> show fairly large p99 request latency regressions. For example,
->> comparing v7.2 against v7.3-rc4:
->>
->> message-thread:16, worker-thread:16
->> v7.2 = 662869 us
->> v7.3-rc4 = 969557 us
->> change% = -31.63%
->>
->> message-thread:64, worker-thread:4
->> v7.2 = 730453 us
->> v7.3-rc4 = 942251 us
->> change% = -22.48%
->>
->> message-thread:32, worker-thread:4
->> v7.2 = 74251 us
->> v7.3-rc4 = 56725 us
->> change% = +30.90%
->>
->>
->> So this does not appear to be a general latency degradation; some
->> configs improve while others regress.
->>
->> I also ran a Fastpath automated git bisection for the m 16, t 16 p99
->> request latency regression between v7.2 and v7.3-rc1, which identified
->> this commit as the first bad commit. The original regression was ~30.9%,
->> & the bisection reproducibility check showed ~27.8% regression with 20
->> repeats across 2 boot sessions.
->>
->> This commit looks relevant since it changes EEVDF runqueue organization
->> and is intended, in part, to address latency issues with hierarchical fair/
->> cgroup scheduling. I also noticed that there have been fixes on top of this
->> change, including 68e37487810a ("sched/fair: Fix flat hierarchy"), which
->> fixes vruntime handling and has a Fixes: 85570f10a4c6 tag.
->>
->> Given that the overall schbench result is mostly neutral while some p99
->> configurations move considerably in both directions, I wanted to check
->> whether this could be an expected trade-off from the single-runqueue
->> change, or whether the p99 regressions are worth investigating further.
->>
->> I can run additional tests or provide the full results/bisection data if
->> useful.
->>
->>
+On Wed, Sep 23, 2026 at 12:13:40AM -0700, Ian Rogers wrote:
+> perf trace's BPF augmentation attaches to raw_syscalls:sys_enter and
+> raw_syscalls:sys_exit system wide, and used the program return value to
+> decide whether a syscall was interesting. Returning 0 from a
+> BPF_PROG_TYPE_TRACEPOINT program makes perf_trace_run_bpf_submit() drop
+> the event for every listener on that tracepoint, not just for the perf
+> trace that installed the program. Any concurrent perf trace, perf record
+> or ftrace session watching raw_syscalls therefore lost events, which is
+> one of the reasons so many of the perf trace and perf probe shell tests
+> had to be marked (exclusive) and run on their own.
 > 
-> Would disabling WA_WEIGHT help? I happened to find that this workaround works
-> for me to restore netperf performance (though it is a throughput score rather
-> than a latency one), it seems that task_h_load() becomes much
-> larger(also on sched/task_h_load):
-> echo NO_WA_WEIGHT > /sys/kernel/debug/sched/features
-> https://lore.kernel.org/lkml/aoxah90s0bQ4tcUW@three-body/ 
+> Patches 1 to 6 are independent fixes to the code the rest of the series
+> goes on to rework or to rely on.
+> 
+> Patches 7 to 10 fix how an augmented argument is read back. They skip
+> the __data_loc internal tracepoint fields that syscalls:sys_enter_*
+> gained in 6.19 for syscalls only, bounds check every read of an
+> augmented payload, and stop the ring buffer padding at the end of a
+> sample being offered to the beautifiers as one. Patch 8 fixes the
+> SIGSEGV Arnaldo hit testing v4.
+> 
+> Patches 11 to 15 fix perf trace's filtering. They stop the return value
+> being used as a filter and do the filtering in BPF maps instead, stop
+> the sys_exit program array tail calling a sys_enter augmenter, and
+> replace the userspace PERF_RECORD_FORK/PERF_RECORD_EXIT bookkeeping with
+> BTF-typed raw tracepoint programs on sched_process_{fork,exit,exec}. A
+> task is then registered before its first syscall and evicted in
+> do_exit(), rather than whenever userspace next drains the ring buffer.
+> 
+> Patches 16 to 23 deal with the tests. Several collided with each other
+> through global state rather than through perf trace: fixed probe names,
+> clear_all_probes() disabling every tracepoint on the system, and perf
+> trace's hardcoded "probe:vfs_getname*" wildcard pinning probes belonging
+> to other tests. With those scoped to a pid they can drop (exclusive) and
+> run in parallel again.
+> 
+> Patches 1 and 2 fix pre-existing bugs that stand on their own and can be
+> applied ahead of the rest. Only patch 9 depends on them.
+> 
+> Tested on x86_64. The trace and probe tests pass under 'perf test -r3',
+> which runs the repeats concurrently. Every patch builds individually,
+> and the series also builds with BUILD_BPF_SKEL=0.
 
-In addition to Chenyu's suggestion, I would also suggest trying out
-different cgroup modes via "/sys/kernel/debug/sched/cgroup_mode" if
-NO_WA_WEIGHT doesn't resolve your issue.
-(P.S. Peter has a branch with some fixes for the task_h_load() at
-https://git.kernel.org/pub/scm/linux/kernel/git/peterz/queue.git/log/?h=sched/task_h_load
-in case you can try a custom kernel build on your setup)
+Thanks for working on this.
 
-In my testing, I did see some regression in schbench with the default
-"concur" mode for RPS metric but the "smp" mode which used the older
-formula for weight calculation seemed to be running on par with the
-hierarchical pick.
-https://lore.kernel.org/lkml/65980119-a26a-40d6-bec8-dd597833a6e8@amd.com/
+But as I said to Arnaldo too, can you please guide your coding agent to
+produce more concise texts?  Sometimes it takes me too long to read the
+whole messages and comments and I feel like they are too verbose and
+often duplicate.
 
--- 
-Thanks and Regards,
-Prateek
+Thanks,
+Namhyung
 
+> 
+> Changes since v4:
+> - New patch 1 fills in the size in the augmented argument header in the
+>   four augmenters that left it unset: sendto, perf_event_open,
+>   nanosleep and clock_nanosleep. They all build a payload for a fixed
+>   size type, and the beautifiers cast it directly rather than reading
+>   the length, so nothing has needed it so far. Patch 9 starts checking
+>   it. While there, report a failed bpf_probe_read_user() rather than
+>   claiming success for it: the payload length is set to zero and the
+>   error recorded in the header, so userspace falls back to printing the
+>   raw pointer instead of whatever the per-CPU scratch buffer last held.
+> - New patch 2 includes the augmented argument header in nanosleep's
+>   payload length. It used sizeof(augmented_args->args) where its three
+>   siblings use sizeof(u64) + sizeof(augmented_args->args), so the
+>   record was eight bytes short of the struct timespec it carries and
+>   tv_nsec was printed half from the ring buffer.
+> - Patch 7 only skips the internal tracepoint fields when it is setting
+>   up a syscall. syscall_arg_fmt__init_array() is also called for an
+>   ordinary tracepoint by evsel__init_tp_arg_scnprintf(), and
+>   trace__fprintf_tp_fields() walks that array in lockstep with the
+>   field list, so packing the entries shifted every formatter along by
+>   one from the field it belongs to. 'perf trace -e
+>   sched:sched_process_exec' printed its filename with the pid
+>   beautifier. The syscall path indexes the array packed and is
+>   unaffected, so the two callers now ask for what each of them needs.
+> - New patch 8 bounds checks an augmented argument before reading it.
+>   This is the SIGSEGV Arnaldo reported on v4. The check
+>   btf_struct_scnprintf() already had is lifted into a shared
+>   syscall_arg__augmented_args_valid() in beauty.h and used at every
+>   site that reads an augmented payload, in particular
+>   syscall_arg__scnprintf_buf(), which looped to a length taken from the
+>   payload with nothing bounding it and walked off the end of the 8K
+>   argbuf in bss.
+> - New patch 9 bounds the beautifiers that read a fixed size type out of
+>   a payload that may be shorter than it. perf_event_attr__fprintf()
+>   always reads a whole struct perf_event_attr, so the payload is copied
+>   into a zero padded local rather than read in place, and the AF_LOCAL
+>   socket address is printed with a length from the payload rather than
+>   as a string it need not be. Split out from patch 8 so the crash fix
+>   stays minimal.
+> - New patch 10 recognises the padding at the end of a sample for what
+>   it is. perf_sample_save_raw_data() rounds the raw size up to eight
+>   bytes and __output_skip() advances over the padding rather than
+>   zeroing it, so a 64 byte struct syscall_enter_args comes back as 68
+>   bytes and userspace took the four stale bytes for an augmented
+>   argument. A trailing run shorter than a struct augmented_arg cannot
+>   be one.
+> - Patch 13 notes that a descendant added to pids_filtered by
+>   sched_process_fork() can still have a sys_exit printed without a
+>   matching enter. The raw_syscalls:sys_exit evsel is still in the
+>   evlist and its tracepoint filter is set once, so it never learns of
+>   the descendants, and a tracepoint program can only suppress an event
+>   by vetoing it, which is what this series removes. It needs
+>   --filter-pids naming a process that then forks. Routing sys_exit
+>   through __augmented_syscalls__ the way sys_enter now is would close
+>   it.
+> - Patch 14 notes that a thread the target creates during the attach
+>   window is still missed by 'perf trace -t'. The re-enumeration reads
+>   /proc/<tid>/task/<tid>/children, which lists forked processes, and
+>   copy_process() makes a CLONE_THREAD child a sibling of its creator
+>   rather than a child of it. /proc does not record which task in a
+>   group created which, so such a sibling cannot be told apart from one
+>   -t was deliberately pointed away from.
+> 
+> Changes since v3:
+> - New patch 3 returns -ENOMEM rather than -1 from evsel__set_filter(),
+>   evsel__append_filter(), evlist__set_tp_filter() and
+>   evlist__append_tp_filter(). An allocation is the only thing that can
+>   fail in any of them, and patch 7 goes on to print what they return,
+>   where -1 negated is EPERM and a failure to allocate would have been
+>   reported as "Operation not permitted".
+> - Patch 5 sets sc->args only once the arg_fmt array that is indexed
+>   alongside it has been allocated. Publishing the field first left a
+>   syscall with args set and arg_fmt NULL, and since sc->name is already
+>   set by then a later syscall__read_info() returns success without
+>   retrying the allocation, leaving syscall_arg_fmt__mask_val() to
+>   dereference NULL.
+> - Patch 7 adds the raw_syscalls tracepoints in trace__run() only if
+>   they are not in the evlist already, and stops ignoring the result of
+>   trace__add_syscall_newtp(). cmd_trace() adds them before it creates
+>   the bpf-output event, and on the paths where that creation fails they
+>   were added a second time, giving the session two enter and two exit
+>   evsels for the same pair of tracepoints.
+> - Patch 7 no longer abandons the session when a target does not fit in
+>   the pid map. bpf_map__update_elem() answers -E2BIG once max_entries
+>   keys are present, so a target with more threads than the map has room
+>   for took perf trace down with it, on exactly the large workloads
+>   where there is least else to reach for. The tasks that fit are added
+>   and a warning says how many did not.
+> - Patch 9 includes <sys/types.h> for the pid_t it uses rather than
+>   relying on the include chain to drag it in.
+> - Patch 9 no longer ends the session when the target has already
+>   exited. thread_map__new_by_pid() fails with ENOENT once
+>   /proc/<pid>/task is gone, which is the ordinary outcome of
+>   'perf trace -p' on a short lived process, so only ENOMEM is now
+>   propagated and everything else is logged and stepped over.
+> - Patch 9 reads /proc once per thread group instead of once per thread.
+>   'perf trace -p' names every thread of the target in the thread map
+>   and /proc/<tid>/task lists the whole group whichever thread it is
+>   asked through, so the enumeration was quadratic in the number of
+>   threads. On a 64 thread target it went from 65 directory reads and
+>   4097 entries to 2 and 65, for the same set of pids.
+> - New patch 10 removes from the BPF maps the tasks that died before
+>   userspace got round to writing them there. sched_process_exit() can
+>   only delete a pid that is already in the map, so a target that exits
+>   during startup leaves an entry behind for the rest of the session,
+>   and since pids are reused an unrelated task then gets traced, or
+>   silently filtered out, in its place. The map is walked with the
+>   cursor left on a task found alive, which is one the walk has decided
+>   to keep, so its own deletions can never leave the cursor on a key
+>   that htab_map_get_next_key() will answer by starting the walk over.
+> 
+> Changes since v2:
+> - Rebased onto the current perf-tools-next.
+> - Patch 1 also includes <assert.h>, for the assert() in
+>   augmented_syscalls__create_bpf_output().
+> - New patch 2 makes evsel__put_and_free_priv() free the whole
+>   evsel_trace. It only zfree()d the struct, leaking the syscall_arg_fmt
+>   array hanging off it. No caller can reach that today, but patch 6
+>   adds one that discards a fully set up evsel.
+> - Patch 6 identifies the evsel to drop from the evlist by comparing
+>   against trace.syscalls.events.sys_enter instead of a strstr() for
+>   "syscalls:sys_enter". That substring also matches the per syscall
+>   syscalls:sys_enter_SYSCALL tracepoints, so a user asking for one of
+>   those by name would have had it removed from the evlist, and
+>   __augmented_syscalls__ described with its tracefs format rather than
+>   the raw tracepoint's.
+> - Patch 6 reports a failure to program the pid filters with the error
+>   that caused it. trace__run() sent everything trace__set_filter_pids()
+>   returned to out_error_mem, which prints "Not enough memory to run!".
+>   That was already a guess, and a wrong one now the function writes BPF
+>   maps too.
+> - Patch 7 moves the pid across in sched_process_exec() by deleting the
+>   old key before inserting the new one. The move is only a rename, but
+>   holding both keys at once needs a spare slot, and on a full map the
+>   insert failed with -E2BIG while the delete still succeeded, losing
+>   the task instead of moving it.
+> - Patch 7 no longer claims that a task forked during the attach window
+>   is still traced unaugmented. That was wrong: cmd_trace() removes the
+>   sys_enter evsel once the bpf-output event exists, so
+>   __augmented_syscalls__ is the only source of enter events and such a
+>   task is not reported at all. Describe what is really lost, why the
+>   tgid fallback is not kept as a safety net for it, note that only
+>   'perf trace -p' is exposed, and that closing it needs the target's
+>   descendants re-enumerated from /proc after the attach.
+> - Patch 7 drops the parent tgid test from sched_process_fork(), so a
+>   child inherits from the pid of the thread that called clone() and
+>   from nothing else. The lookups only ever match a task's own pid, and
+>   every thread of a -p target is enumerated from /proc/<pid>/task and
+>   inserted in its own right, so the tgid added no reach. What it did
+>   add was a child inheriting from a thread that is not traced itself,
+>   such as a sibling of the thread 'perf trace -t' selected.
+> - Patch 7 ends the session with the error that caused it when the BPF
+>   programs cannot be attached, rather than printing a bare errno left
+>   over from unwinding the attach. There is nothing to fall back to at
+>   that point, cmd_trace() has already built the evlist around
+>   __augmented_syscalls__ and dropped the sys_enter evsel, and the code
+>   being replaced did not fall back either: it ignored the result of
+>   augmented_raw_syscalls_bpf__attach() altogether.
+> - New patch 8 reads the target out of /proc again once the BPF programs
+>   are attached, so a task the target created while perf trace was
+>   starting up is traced rather than missed for the whole session. This
+>   is the gap patch 7 describes and left for later. It covers the
+>   target's new threads and, through task->children, anything it or they
+>   forked, to any depth. What is left is a task that made syscalls
+>   between sys_enter going live and being added to the map, which is
+>   momentary rather than lasting for the session.
+> - Patch 9 bails out if mktemp fails rather than carrying on with an
+>   empty $tmpdir. cd rejects the null directory, and the rmdir that was
+>   meant to undo the mktemp then failed to remove '' instead. Its
+>   cleanup() also no longer exits when it cannot cd out of the temporary
+>   directory, which would have skipped removing it. The removal takes an
+>   absolute path and does not need the cd to have succeeded.
+> - Patch 10 now narrows the disable in clear_all_probes() to the probes
+>   themselves rather than dropping it. Clearing kprobe_events or
+>   uprobe_events is all or nothing: dyn_events_release_all() returns
+>   -EBUSY without removing anything if it finds a probe that is still
+>   enabled, so simply removing the write could leave stale probes behind
+>   to collide with the next run. The set to disable is read from the
+>   kprobe_events and uprobe_events listings rather than assumed to be
+>   the groups perf uses, since a probe left enabled in another group,
+>   such as the default kprobes group used when kprobe_events is written
+>   directly, would abort the clear just the same.
+> - Patch 11 deletes the probes from an exit trap as well as on the way
+>   out. A pid scoped name is never seen again, so a run interrupted
+>   before cleanup_probe_vfs_getname() left its probes behind for good,
+>   a set per run, where the fixed name was at least found and reused by
+>   the next run.
+> - Patch 12 retries deleting the uprobe. Deletion writes uprobe_events
+>   just as addition does and can lose the same race with a concurrent
+>   test, and because the event name is now pid scoped a probe left
+>   behind is never overwritten by a later run. It also bails out if
+>   mktemp fails and quotes the path in the emptiness check, which
+>   unquoted would have tested the string "-s" and reported success.
+> - Patch 13 prints the tail of the output rather than the head. The
+>   pattern it matches only appears in the summary, which is printed
+>   after any trace output, so the head of the file is not the part that
+>   failed to match.
+> 
+> Changes since v1:
+> - New patch 1 includes <sys/types.h> and <string.h> for the pid_t and
+>   strcmp() uses that were relying on the include chain happening to
+>   drag them in, which does not hold on libcs such as musl.
+> - Patch 6 no longer returns success when the event qualifier filter
+>   string fails to allocate. err now defaults to 0 because either
+>   tracepoint may legitimately be absent, so the ENOMEM path has to set
+>   the error itself rather than rely on that default. It also includes
+>   <stdbool.h> for the bool parameters it adds to trace_augment.h.
+> - Patch 9 removes the temporary directory if the cd into it fails.
+>   That happens before the cleanup trap is installed, so the directory
+>   would otherwise be left behind in /tmp.
+> 
+> Ian Rogers (23):
+>   perf trace: Set the augmented arg header in the augmenters that omit
+>     it
+>   perf trace: Include the augmented arg header in nanosleep's payload
+>     length
+>   perf trace: Include the headers declaring pid_t, strcmp and assert
+>   perf trace: Free the whole evsel_trace in evsel__put_and_free_priv
+>   perf evsel: Report an allocation failure as ENOMEM when setting
+>     filters
+>   perf trace: Start BPF summary before starting workload
+>   perf trace: Skip internal tracepoint fields in formatting and beauty
+>     map
+>   perf trace: Bounds check augmented arguments before reading them
+>   perf trace: Bound the fixed size augmented argument beautifiers
+>   perf trace: Do not read sample padding as an augmented argument
+>   perf trace: Do not set unaugmented BPF program on sys_exit map
+>   perf trace: Filter events in BPF and avoid tracepoint vetoes
+>   perf trace: Handle fork and exit directly in BPF filter maps
+>   perf trace: Enumerate the target again once BPF is attached
+>   perf trace: Drop targets that died before they were filtered
+>   perf test test_task_analyzer: Isolate in temporary directory and make
+>     non-exclusive
+>   perf test common: Only disable probes in clear_all_probes
+>   perf test probe_vfs_getname: Scope probe name to PID and make
+>     non-exclusive
+>   perf test record+probe_libc_inet_pton: Scope event to PID, add
+>     retries, and make non-exclusive
+>   perf test trace_summary: Improve error diagnostics
+>   perf test trace_btf_general: Drop --max-events=1 and make
+>     non-exclusive
+>   perf test trace_summary: Make non-exclusive
+>   perf test uprobe_from_different_cu: Scope probe name to PID
+> 
+>  tools/perf/Documentation/perf-trace.txt       |   5 +
+>  tools/perf/builtin-trace.c                    | 863 +++++++++++++++---
+>  tools/perf/tests/shell/common/init.sh         |  33 +-
+>  .../perf/tests/shell/lib/probe_vfs_getname.sh |  51 +-
+>  tools/perf/tests/shell/probe_vfs_getname.sh   |   3 +-
+>  .../shell/record+probe_libc_inet_pton.sh      | 107 ++-
+>  .../shell/record+script_probe_vfs_getname.sh  |  18 +-
+>  tools/perf/tests/shell/test_task_analyzer.sh  |  20 +-
+>  .../shell/test_uprobe_from_different_cu.sh    |  11 +-
+>  .../tests/shell/trace+probe_vfs_getname.sh    |   9 +
+>  tools/perf/tests/shell/trace_btf_general.sh   |   8 +-
+>  tools/perf/tests/shell/trace_summary.sh       |  16 +-
+>  tools/perf/trace/beauty/beauty.h              |  43 +
+>  tools/perf/trace/beauty/perf_event_open.c     |  38 +-
+>  tools/perf/trace/beauty/sockaddr.c            |  55 +-
+>  tools/perf/trace/beauty/timespec.c            |   2 +-
+>  .../bpf_skel/augmented_raw_syscalls.bpf.c     | 407 ++++++++-
+>  tools/perf/util/bpf_trace_augment.c           | 288 +++++-
+>  tools/perf/util/evlist.c                      |  12 +-
+>  tools/perf/util/evsel.c                       |   4 +-
+>  tools/perf/util/trace_augment.h               |  33 +-
+>  21 files changed, 1801 insertions(+), 225 deletions(-)
+> 
+> 
+> base-commit: 9db4e9d6cc7c7d318fb6d6bb73abe3fed27385a8
+> -- 
+> 2.56.0.rc1.315.gc6ed9934b7-goog
+> 
