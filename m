@@ -1,133 +1,115 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 50A1C8635D
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:39:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D68B33D6CB6;
+	Thu, 24 Sep 2026 02:39:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790217590; cv=none; b=D0yZc5ugUl6IFSiSjlu4uQ2DlRiBtlHWbsnFlwDrnRtSLVmaoPeSVoN40SL33BODAE3iVK+ev2O0QfGhFTcpEV9JosctWMYjkSJE71CNW2tJcwGyA8ANUGSytBU2KSZKDoodJjIEU7Oq1/1/fpAVKiPD8DaqK5pUvpaOWu2t+PU=
+	t=1790217595; cv=none; b=nc0JaTpwPvBY65QgmSjia6hQQ3DzHqbCv5q9BWmlqPS++GQjZJnI4iNPAuCkpGuo1d02kBFffmmXSh4AtIWnBq7WhCKu7YxPoUYegKDN3Vd9kjID/dY6Hb14ADTfxFJ1NwuW+aUvBBaTE1Nq6lhjOAgFL8yhK+qZnLzgG/pCBVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790217590; c=relaxed/simple;
-	bh=3UySuy0edx/w4nroYpQEQ/Z+8cXRxme0G3UIaaNXRho=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RkM5c7fAn5FfWz4bQ4X4ecj5UBCveqwKLZFq1/xVlNSPk39hhmLJg3aBZjJs9tO2/AMcloxgHbU/YgiePUCOco4gvhqSRhHsj32SsFJlfHXwEWHFADUKMdP45OmPdTMaDpVa9Q55qi62hchma+DvLcdICI1fA+TJS2DY+jcnNS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=W9dvdB6P; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790217595; c=relaxed/simple;
+	bh=kzpHYxlSC/Rh8HYGr3GyeEu+QlLEvOP1LNHGRcsKLCk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=C6X4x1+kQvbJqgr2HECd3Qp/hM2vv2Vcidv8dUtnZmFssUqJHbnT7b/1Go1x6DDoL/lrd0PggJpOxcPo7K1P3O8o6iLU0GSKZmETANJ3TjsoBgU0M4G7rVfNFPmtcy+k9QsqpQPJoSkN2An/g+qvrp8rbH5sSzpGG8UDUW4zsDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=hwr9KpMV; arc=none smtp.client-ip=115.124.30.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="W9dvdB6P"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DEBC2152B;
-	Wed, 23 Sep 2026 19:39:43 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A45A03F632;
-	Wed, 23 Sep 2026 19:39:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790217587; bh=3UySuy0edx/w4nroYpQEQ/Z+8cXRxme0G3UIaaNXRho=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=W9dvdB6PABoqEIc2TG5SXEtkYgDlLcfCsAH2A8xTJ28MzEOSL4kQT4Tb/RV9o82mx
-	 aNNlThhvY2jILwuUGc3V91j6OsfekK3GSDWmL8XPWS5k8Lq0sYDWsjq4m+wApM8zDa
-	 NWD2ARF5LdcFQMCBAUWEEEdhzl8+cvE02LDRQwCU=
-Date: Thu, 24 Sep 2026 08:09:43 +0530
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: Ryan Roberts <ryan.roberts@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Linu Cherian <linu.cherian@arm.com>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, Mark Rtland <mark.rtland@arm.com>, 
-	linx-arm-kernel@lists.infradead.org, linx-kernel@vger.kernel.org, kasan-dev@googlegrops.com
-Subject: Re: [PATCH V2 1/4] arm64/mm: Use pmdp_get() for PMD accesses
-Message-ID: <tqe22ttrsw7wy5m7wk3u6gv4e2kdj5jrqnvoay5omugin52lbt@2pybz3ov237b>
-References: <20260922061638.3967467-1-anshuman.khandual@arm.com>
- <20260922061638.3967467-2-anshuman.khandual@arm.com>
- <212067fe-1b16-4b87-87a7-4ce50847eb24@arm.com>
- <m72rpspdg5cv7xptent4tglgd25zehx462nfmcx5uyjwi2ag7p@bc6hvhosgtfb>
- <bce043cc-0f69-4297-8f31-92dcfbc0061d@arm.com>
- <7dn5t2m2fzuwxj2anuycz245hnctqc5mgaj5vdx7ybfql7arwv@6ac363txw3ff>
- <e852a2db-c15a-4e9f-b92e-ffd5740498cc@arm.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="hwr9KpMV"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1790217589; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	bh=ntFrnbFKVOPPVdZ3Ykel3pjZPpOGPr9Y+tWrYXhQKOE=;
+	b=hwr9KpMVO3P71T2+8xisG4dxtKPjm0uPh/F0xIqsoEzqGbk6lirK63YHu+qHVPFQlYNMpka+kISjJiKQU67fJ2YQ8NUx67NU5tYdGTjmUYKy0P3Wg69HIMW84SV4EAJiyJiPNakSuf9oCIxCd3GYqyMDMGD0lA2RaOGxY4TKCVQ=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R501e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=cp0613@linux.alibaba.com;NM=1;PH=DS;RN=21;SR=0;TI=SMTPD_---0XBYFZuB_1790217578;
+Received: from DESKTOP-S9E58SO.localdomain(mailfrom:cp0613@linux.alibaba.com fp:SMTPD_---0XBYFZuB_1790217578 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 24 Sep 2026 10:39:48 +0800
+From: Chen Pei <cp0613@linux.alibaba.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	memxor@gmail.com,
+	bjorn@kernel.org,
+	puranjay@kernel.org
+Cc: ihor.solodrai@linux.dev,
+	eddyz87@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	pulehui@huawei.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	shuah@kernel.org,
+	guoren@kernel.org,
+	bpf@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH bpf-next 0/2] bpf, riscv: Add support for indirect jumps
+Date: Thu, 24 Sep 2026 10:39:36 +0800
+Message-ID: <20260924102938-gotox-v2-style-question-cp0613@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260923130856.1157-1-cp0613@linux.alibaba.com>
+References: <20260923130856.1157-1-cp0613@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e852a2db-c15a-4e9f-b92e-ffd5740498cc@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 23, 2026 at 01:50:34PM +0100, Ryan Roberts wrote:
-> On 23/09/2026 13:22, Anshuman Khandual wrote:
-> > On Wed, Sep 23, 2026 at 12:31:42PM +0100, Ryan Roberts wrote:
-> >> On 23/09/2026 12:01, Anshuman Khandual wrote:
-> >>> On Wed, Sep 23, 2026 at 09:32:17AM +0100, Ryan Roberts wrote:
-> >>>> On 22/09/2026 07:16, Anshuman Khandual wrote:
-> >>>>> Replace READ_ONCE() with pmdp_get() for PMD accesses in preparation for
-> >>>>> supporting both D64 and D128 translation table formats.
-> >>>>>
-> >>>>> READ_ONCE() cannot currently be used for 128-bit page table entries on
-> >>>>> arm64 because it does not provide the required 128-bit single-copy
-> >>>>> atomicity, causing builds to fail for accesses wider than 64 bits.
-> >>>>>
-> >>>>> Although LDP/STP provide the required atomicity when FEAT_LSE is
-> >>>>> available (as required by FEAT_D128), extending READ_ONCE() to support
-> >>>>> 128-bit accesses is undesirable. READ_ONCE() is a general-purpose API,
-> >>>>> so doing so could encourage other 128-bit users that would either fail
-> >>>>> to build in configurations without D128 support or, if D128 becomes a
-> >>>>> runtime option, silently permit tearing on systems without the required
-> >>>>> hardware support.
-> >>>>>
-> >>>>> Instead, standardize PMD accesses on the existing page-table helpers.
-> >>>>> These can be overridden on arm64 to provide 128-bit single-copy
-> >>>>> atomicity when required. No functional change intended.
-> >>>>
-> >>>> I notice you have an unconverted READ_ONCE(*pmdp) in
-> >>>> pmdp_test_and_clear_young(). Is that intentional?
-> >>>
-> >>> Converting the above READ_ONCE() instances as pmdp_get() cuases a build
-> >>> failure as pmpd_get() which is defined in generic pgtable header is not
-> >>> visible inside platform specific pgtable header, even with a forward
-> >>> declaration.
-> 
-> I was wondering why the forward declaration doesn't work, but looks like some c
-> files include asm/pgtable.h directly, which explains it. Let's assume there are
-> good reasons and unpicking it so that only linux/pgtable.h includes
-> asm/pgtable.h is not practical.
+Hi all,
 
-Agreed.
+Thanks for the reviews. Patch 1 is a plain wording fix and will go into
+v2. For patch 2 I need your input on one thing before I respin: which
+form of the #endif comment you would prefer.
 
-> 
-> >>>
-> >>> In D128 V2 series these conversions were performed later in the series,
-> >>> when platform specific pxdp_get() overrides were added via ptval_get(). 
-> >>>
-> >>> But to avoid this, we could just move pmdp_test_and_clear_young() inside
-> >>> arch/arm64/mm/mmu.c file instead. Folding in the following change builds.
-> >>
-> >> I'm not sure if/how this might affect performance? Probably not significant
-> >> since they are for higher levels, so not called as frequently as pte helpers.
-> > 
-> > Right, should not have much performance impact.
-> > 
-> >>
-> >> Another option would be to implement arm64-specific pxdp_get() helpers in
-> >> asm/pgtable.h to override the generic versions?
-> > 
-> > For now those will still be based on READ_ONCE() just like the default ones.
-> > Although trying to drop similar redundancies from other platforms :)
-> > 
-> > https://lore.kernel.org/linux-mm/20260923043226.331880-1-anshuman.khandual@arm.com/
-> > 
-> > But given D128 is going to define pxdp_get() anyway it might make sense to
-> > define them now and withdraw the above series :) Seems like s390 platform
-> > also has similar situation.
-> 
-> Given the desired end state is that arm64 defines it's own pxdp_get() helpers, I
-> think the best approach is just to define them now (as READ_ONCE()).
+Patch 1, on the comment above bpf_prog_update_insn_ptrs():
 
-Sure, will do that.
+> This isn't a bug, but could the comment say "shift ctx->offset[] by one"
+> rather than "shift the linfo array by one"? The jited_linfo was already
+> filled in by the bpf_prog_fill_jited_linfo() call above, and it is the
+> JIT's own offset table that is being rewritten here.
 
-> 
-> Thanks,
-> Ryan
-> 
-> 
+Agreed. Fixed in v2.
+
+Patch 2, on the #endif marker in verifier_gotox.c:
+
+> [Severity: Low]
+> This isn't a bug, but does this newly introduced multi-line comment
+> follow the BPF subsystem style guide? The subsystem guidelines
+> explicitly require that multi-line comments have the opening '/*' on
+> its own line, rather than beginning text on the same line as the
+> opening marker.
+
+I would rather collapse it to a single line, but there is more than one
+way to spell it:
+
+  a) 89 columns, clean under scripts/checkpatch.pl --strict:
+
+#endif /* __TARGET_ARCH_x86 || __TARGET_ARCH_arm64 || __TARGET_ARCH_powerpc || riscv64 */
+
+  b) 101 columns, keeps every macro name verbatim, but checkpatch then
+     reports "WARNING: line length of 101 exceeds 100 columns":
+
+#endif /* __TARGET_ARCH_x86 || __TARGET_ARCH_arm64 || __TARGET_ARCH_powerpc || __TARGET_ARCH_riscv */
+
+  c) or a short marker that does not repeat the condition at all:
+
+#endif /* gotox-capable arch */
+
+I lean towards (a): tools/testing/selftests/bpf/progs/ otherwise only
+uses single-line #endif markers, and "riscv64" matches the guard, which
+is __TARGET_ARCH_riscv && __riscv_xlen == 64.
+
+I will send v2 with the patch 1 fix and whichever form you pick, together
+with any other feedback, so please let me know if you would like anything
+else changed. If nobody has a preference, I will go with (a) in a few
+days.
+
+Thanks,
+Pei
