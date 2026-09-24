@@ -1,30 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73C5246AED1;
-	Thu, 24 Sep 2026 16:01:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 395D54503E4;
+	Thu, 24 Sep 2026 16:01:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790265662; cv=none; b=ilh81zp5KjlvJoqvcxeknu/ek6JxsPyNGOS0BMw2DgcYVRiFZgshcioLUQrOGbNZDlYNr+nOAHtTSkjI5aBWB5UYhSWJhSPJrDpE3eCegXnLAtqQjyWHZ8Pmkh/W+DtJCuSy1WN2GDHBF5YqF1xhMQQLDUqSiKokAi0NP57x/hc=
+	t=1790265664; cv=none; b=APrMPEcPAgqTAuaMlyUbna/aPkNIYeL8wvW9RupqS4LxSNQNaYTq3rKWK4HiMdREYGUShEt6LCrTnKaRrKAqoCSLvCENw6Ed3BbTrLMdPGR8ekgpbKe/wD/N/QOFK73hDVsyFYYyZE3gGoI/tFddT9e8IyVNXlZrUaNOWO/+Hsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790265662; c=relaxed/simple;
-	bh=4qPzDh1F2Va15e9/M6Je9n9C3eTGe9bPm/R2Bvn0C78=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D1mwLvDjlqAWPZoi3TLTdeYzdzpWlpUt//u4qt/3XeuS66McxxyI9hRjoopzHP0Ibu/gYgAKhMzyJPcRzYa8hVHZmrj/8a9SuW3+jRRP+SeKATC1YiOrFmvkpDKCGveFVPL9z5F719gyoZKOwIdDVVVeQIt5Zdb13r8Q9UOIOps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ReTJ91yC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790265664; c=relaxed/simple;
+	bh=1plywIJLDji44OSYLVz0L2MqZabW2EVBru1OGAZ49Qs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ny2duUNA6eX/h1BWUkQ3ZCTEzhJJy9q/LQcAQFQFtmm1kWTLTg7AAwsvnYxuaaFGd1sOMAs3VkwdBFHXzHg39yPtFPIIFRC45kM/6iJI9IL1wGmwy6Xb10T5sQVMjX9zVtHopNWHboL7GJ3ri3XGGhuhwQA4FsYRvYQRHiijRVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DJSlrWs6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ReTJ91yC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CB441F00893;
-	Thu, 24 Sep 2026 16:01:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DJSlrWs6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D3CF1F00898;
+	Thu, 24 Sep 2026 16:01:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790265661;
-	bh=dMci1PF1yjz/GaalbGrWU9zgaGHlbXIv13aWUyGv7CI=;
-	h=From:To:Cc:Subject:Date;
-	b=ReTJ91yCvaPlKkfwm0cFZXqDi4a5rPuJBuG4Mk2ZtHtehaQLkyWQdnV30IfMpzLzp
-	 eh1BE5eJOKMRv0PyP6cCF8cyeh+hrq0UFMiYPdSy2F51EN1YrlaIZnyfWHgwQ/xflC
-	 80N+gmFKWhouFRhYvVc6dBMDjhJLipgI1K83OAERHqvfsQ7MHRr7FBtsG3ve4wm0If
-	 wa1ZO0EIl9Nx3IWGj90GpnJoW5a5emICALQfWfDjsKzp+ybBpOkRf131p72kwQhVrG
-	 1dt8/rhCqCl6+JhEzYD7kuWGZeB4J9OzG1MeFihEXnzZ1eWu9ohV5EyrxoWnWI20O9
-	 cqVZO0/GoAeQQ==
+	s=k20260515; t=1790265662;
+	bh=x6VZ4NYHxdF5KHVkhld7yVnQ4i6s62tsYc74Rk2w+0A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DJSlrWs6efigY9tkR+ER9NoPCBGUCZMMfuPDy/j0zcy7h005qrruEZsUjhCmYUOVf
+	 twXRWKac026gsyzvTE/5R7qVdt173tvbc6Um68TGwYLsXF9F1AyrbD+xU26EA78zjL
+	 bfREOKEGLETNzOxDVhF//4MNKMi46G9cUgaxz4X2usLl5wAX9PJPCtpXVvvgLsk33d
+	 rHKpKOC38hcG2AV9Q3akPqYyDgf1vdY6x5wIrH9B68xYpSPYbd/h7JlwNDiWHd8c/p
+	 cdRKhJ9WmhJibWLECBTsStlRwuQjjLpjhoxNjZZgum+JE848Avzc541fEHmJzrru7q
+	 QjM+Ymavxo0HQ==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
 To: =?UTF-8?q?Rafael=20J=20=2E=20Wysocki=20=E2=8F=8E?= <rafael@kernel.org>
 Cc: linux-acpi@vger.kernel.org,
@@ -32,11 +33,13 @@ Cc: linux-acpi@vger.kernel.org,
 	linux-pm@vger.kernel.org,
 	K Prateek Nayak <kprateek.nayak@amd.com>,
 	x86@kernel.org,
-	Mario Limonciello <superm1@kernel.org>
-Subject: [PATCH v3 0/3] Zen6 client CPPC
-Date: Thu, 24 Sep 2026 11:00:49 -0500
-Message-ID: <20260924160052.2858456-1-superm1@kernel.org>
+	Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH v3 2/3] cpufreq/acpi-cpufreq: Use amd_get_boost_ratio()
+Date: Thu, 24 Sep 2026 11:00:51 -0500
+Message-ID: <20260924160052.2858456-3-superm1@kernel.org>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260924160052.2858456-1-superm1@kernel.org>
+References: <20260924160052.2858456-1-superm1@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,34 +48,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mario Limonciello <superm1@kernel.org>
+From: Mario Limonciello <mario.limonciello@amd.com>
 
-Zen6 client platforms use CPPC differently than previous platforms
-and knowing maximum frequency for a core type is needed for capacity
-calculations.
+Update get_max_boost_ratio() to use the new amd_get_boost_ratio()
+helper function instead of calling amd_get_effective_highest_perf()
+directly.
 
-Newer versions of the ACPI will introduce a proper interface
-for getting this information, but for now hardcode values so that
-these systems perform as intended and to unblock future scheduler
-work while we continue to wait.
+This ensures the boost ratio is calculated correctly on systems where
+frequency values should be used instead of performance values.
 
-v3:
- * rebase on linux-pm/bleeding-edge to pick up
-   "ACPI: CPPC: Fix register access and lifetime bugs"
-v2:
- Link: https://lore.kernel.org/linux-pm/20260901215913.3042182-1-mario.limonciello@amd.com/
+Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/cpufreq/acpi-cpufreq.c | 20 +++++++++-----------
+ 1 file changed, 9 insertions(+), 11 deletions(-)
 
-Mario Limonciello (3):
-  ACPI: CPPC: Refactor boost ratio handling
-  cpufreq/acpi-cpufreq: Use amd_get_boost_ratio()
-  cpufreq/amd-pstate: Get Highest Freq for a CPU
-
- arch/x86/kernel/acpi/cppc.c    | 166 ++++++++++++++++++++++-----------
- drivers/cpufreq/acpi-cpufreq.c |  17 ++--
- drivers/cpufreq/amd-pstate.c   |  20 ++--
- include/acpi/cppc_acpi.h       |  14 ++-
- 4 files changed, 143 insertions(+), 74 deletions(-)
-
+diff --git a/drivers/cpufreq/acpi-cpufreq.c b/drivers/cpufreq/acpi-cpufreq.c
+index 523ee1a06ef8a..2e74a000cdc74 100644
+--- a/drivers/cpufreq/acpi-cpufreq.c
++++ b/drivers/cpufreq/acpi-cpufreq.c
+@@ -626,7 +626,7 @@ static int acpi_cpufreq_blacklist(struct cpuinfo_x86 *c)
+ static u64 get_max_boost_ratio(unsigned int cpu, u64 *nominal_freq)
+ {
+ 	struct cppc_perf_caps perf_caps;
+-	u64 highest_perf, nominal_perf;
++	u64 numerator, denominator;
+ 	int ret;
+ 
+ 	if (acpi_pstate_strict)
+@@ -640,33 +640,31 @@ static u64 get_max_boost_ratio(unsigned int cpu, u64 *nominal_freq)
+ 	}
+ 
+ 	if (boot_cpu_data.x86_vendor == X86_VENDOR_AMD) {
+-		ret = amd_get_effective_highest_perf(cpu);
+-		if (ret < 0) {
+-			pr_debug("CPU%d: Unable to get boost ratio numerator (%d)\n",
++		ret = amd_get_boost_ratio(cpu, &numerator, &denominator);
++		if (ret) {
++			pr_debug("CPU%d: Unable to get boost ratio (%d)\n",
+ 				 cpu, ret);
+ 			return 0;
+ 		}
+-		highest_perf = ret;
+ 	} else {
+-		highest_perf = perf_caps.highest_perf;
++		numerator = perf_caps.highest_perf;
++		denominator = perf_caps.nominal_perf;
+ 	}
+ 
+-	nominal_perf = perf_caps.nominal_perf;
+-
+ 	if (nominal_freq)
+ 		*nominal_freq = perf_caps.nominal_freq * 1000;
+ 
+-	if (!highest_perf || !nominal_perf) {
++	if (!numerator || !denominator) {
+ 		pr_debug("CPU%d: highest or nominal performance missing\n", cpu);
+ 		return 0;
+ 	}
+ 
+-	if (highest_perf < nominal_perf) {
++	if (numerator < denominator) {
+ 		pr_debug("CPU%d: nominal performance above highest\n", cpu);
+ 		return 0;
+ 	}
+ 
+-	return div_u64(highest_perf << SCHED_CAPACITY_SHIFT, nominal_perf);
++	return div_u64(numerator << SCHED_CAPACITY_SHIFT, denominator);
+ }
+ 
+ #else
 -- 
 2.53.0
 
