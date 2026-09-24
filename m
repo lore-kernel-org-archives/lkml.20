@@ -1,76 +1,65 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71D130C14A
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:56:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C32C47CA80;
+	Thu, 24 Sep 2026 11:57:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790250986; cv=none; b=UTyHXqSOlVZMfcTSTxBNO7hLeRh+GVdlWjKMy8nn4h2Z7RLntc/lJY1/Qozkv9gm/6q2aTqSqbCNDvB21kpUQHMs6KvqLvqpN2htJyhnc3IvxaJ71XbvxU46u0sE+JFxt1PdIxdTsNWbhxW4ZwRwB+5AIn03UOLgKIXGzeXJpCA=
+	t=1790251054; cv=none; b=YJqe152YZX4IrvmxWZvnQje6LhXKLQtF7l1dj4r4d32rrmwiT9c9aRNU/POL1mHkMeiSHUS7D2Q0jMZXvQ+aBYOULeqwdJxqrw+Sl7d18s3wsvvr5rstLKUyPQswOdPthdiCVCAL/PlOmYdx4XoDyQZrkH2h4H6+itprNHA5uvc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790250986; c=relaxed/simple;
-	bh=+Z8ZTpGEfHWM4q/zUbV7kqxbu5dhULZPNJ7diN0yJeM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NPcIhqtzvW3QAg610tEpti7CntUzMzXGGqxfc+k6ArBW0J9TD7VwoogSIsCmqmHOTqyLCbdqchckqYNva1U5O1Jw8Lkc5JqytEfpxPrGC2Uvu8a64liW1FkJICs1ZmpuOakqJbeQsS9A+fU+t6XEoXmmuMXwTxXwsVQGPRvuZB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h5ZLCRs6; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790251054; c=relaxed/simple;
+	bh=8elAthJn3tOqUiHulP+c4KrLbQvQzHSE/FuM1ejuB8w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C3uQ0CpzEZM87cGhaMTPncFGSy7e9RfVPuP/PnElx3QUcmf6TVZ/o5R76Be6TPwyOUHGlsKzb17baFiWO9LM/SX0ajB1gzmh+3CQPXl3f7gmdnu4+z2n47mcNJx/x+aCUutnjKJg2OyMVQFyD3I8ueGzymdHRrGMD07IRQjmSAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=iVoGOtEl; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h5ZLCRs6"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so1107123a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:56:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790250984; x=1790855784; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6rBh57CQ8oC/XCjJGNJlSdgV/jpJp4/g95+Pgh7fgMA=;
-        b=h5ZLCRs6jcFxfdHs0UkadGQfBABZyDwEnK4TozYKXLU6/zW8U4asodHIcDM93ayRmh
-         fOk+5W4D3u/hx0OSE7LRQso0yJbV1c2/lFGLAc4h8DlBmSOHNuAsei8P1Utx77azJApm
-         0YsArrhXipVvZwFaSzBoMFjq0LqkKIXyMiPJg69tEzvYZGGmAqGLhISvpDPOzimYWVLY
-         66lwsgjpJBXEGSBxjTfFWFKEwk61yMLJuCD/oOhSW3sULIGb5WJAdQW39Ym5aIje8UYN
-         6bR4ubLQftFgfrVvkvf2hNklDctaWJHD7T3HFwt7L3Tt8EcV3ArPytWPXTChIeIHL1ea
-         wBrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790250984; x=1790855784;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6rBh57CQ8oC/XCjJGNJlSdgV/jpJp4/g95+Pgh7fgMA=;
-        b=qk1Lu3PMV/rapCiY+zQfBblrxytoidltXu9bRyqWRbcJsNQHv5ns5UZiZb9H/R4VB+
-         XTRNy7wJfshg5lHyQI1KIc4GMonmJC9C7azDh0fi8gOJerEt56oqjR9gJ0M1yw2ZFw6v
-         6zvA4eu+ENGJSfb3F6g+cLpeJ6nL/CK3lWUrRw59/gXPYavsftIQgpKAY/jgAhgPXPKR
-         i5AkRenOsN+NcojM1evK9uL6jdhCXokF2t+aqzjnd2quRT91ELhmHHsBtNedI8Yz2SW2
-         cpCpjcE5Ms+rQeXHZtcWiGuOoFLG1XWRSQqG1jpo9bMfOlLBremDlQqZYM+Br9jdPJfd
-         7FWw==
-X-Forwarded-Encrypted: i=1; AKwUvByIw1WTjplXDGNg1IzDQDjmstgVSUjJR04FIRFLBjU6iIOFvZXCus+HG0wya1OPD+AtAYZxT+sxV6fppH4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKsJPZcX2qXWDuC5t6efw8oIlBQBX3HFasO8AfrGVe1lzuLsJD
-	3Y3UfHd8nmhKAqPj2UG4sEnmFxVKUYBOxDjR6A//ZFgHqwpoW8XVblIr
-X-Gm-Gg: AYBFou2343j9lkk1HpljoU7x1bfC/jNpmcQAg+qpr9lK4KRkQVQg9OfDc4Jom1VTpBt
-	aj6BZjAtw5czCTt9CsjqRpKJvZsziBOVBzrwZb/NWMPOnbuEVnhbCkdwRF3Pd+Mfvm3zd8RKwCK
-	AefEqHHQsXZGCNx/MdjIhrHMJw4GMab9tgW1zCbzqni52iPpmtE6fc+daUJm+NdILl6iGwqZa5S
-	rv96AyHLBKLBZ5aEeQti/ggFv5li4aImAUnTCcLKW5fmj2u+anvVc3YuLF3/f0TndXT7xmwDdeh
-	nuS1fD95Vx8YtMiuD//sbVp7380EHXZs7OKUX/ZC4KKDSb9AF1A4bMmW2RL/OlpaByLLHpjXR2O
-	+Y+tblfpekCc+MzMeWZKfJrrf0HGe5b0EFytGxIyQtlaTgAhsjLlWf0Y0ekqRJN9BqcWiCIlRh4
-	AUoi3i92Zmk1s+1Mq9CTqTNhOqUbfMzdioiE/eJtwwyh5kJCWPY04M8g==
-X-Received: by 2002:a17:90b:5807:b0:3a0:8050:2ec5 with SMTP id 98e67ed59e1d1-3a0985be2fcmr1751949a91.12.1790250984098;
-        Thu, 24 Sep 2026 04:56:24 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a097663fd0sm4598745a91.9.2026.09.24.04.56.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 04:56:23 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Bao Cheng Su <baocheng.su@siemens.com>,
-	Benedikt Niedermayr <benedikt.niedermayr@siemens.com>,
-	Tobias Schaffner <tobias.schaffner@siemens.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Henning Schild <henning.schild@siemens.com>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] platform/x86: simatic-ipc: fix platform device leak on registration failure
-Date: Thu, 24 Sep 2026 19:56:17 +0800
-Message-ID: <20260924115617.1578309-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="iVoGOtEl"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5bTXP3657747;
+	Thu, 24 Sep 2026 11:57:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=CXe88aj87pdLSpWQbtsXGqhOJKkqIX8TDwYa3IZzN
+	AY=; b=iVoGOtEl9q9Sc4b5o6MIZ/Mt6TfW5dywqK1fvTqhXmJSq+O30tSLYxEaq
+	zvZG8dDN4FTqIrvbMjeIznq77c+GmVld4VQiD78G2hH0pkGawpGALKfWfDwu4Nf/
+	0rQpE2nT1tQj2oGtHF0R//3C4yMJ6AXgaIGzztlWeM1wtcHjBa2MvK7BA24VK4Zg
+	hyOOJAlwjGYvr5gqr+oAA+HMzUmjQBuNbFviAWoAbY0kZi908s4DoRlQdZffrWfY
+	EBsIwMMCLBxh/R+WsPT01Pmu4kGmUqxHiTnLGUN9MHaM7cMJNsfvCz23gR6I66rj
+	nTA7zRyE5wT5fGWFS+QI0T0PNDgNg==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske20sf1-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 11:57:30 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68OAEtGF1539512;
+	Thu, 24 Sep 2026 11:57:29 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbe1whkw-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 11:57:29 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68OBvP4138994356
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 24 Sep 2026 11:57:25 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 550DB2004D;
+	Thu, 24 Sep 2026 11:57:25 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 270BE20043;
+	Thu, 24 Sep 2026 11:57:25 +0000 (GMT)
+Received: from tuxmaker.lnxne.boe (unknown [9.87.85.9])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 24 Sep 2026 11:57:25 +0000 (GMT)
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: [PATCH] s390/kprobes: Prevent kprobes on instructions with exception table entry
+Date: Thu, 24 Sep 2026 13:57:24 +0200
+Message-ID: <20260924115725.1108581-1-hca@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,85 +67,64 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: mhwT4rIvLa3p8yTzCbZSzTBodmqLzv4u
+X-Authority-Analysis: v=2.4 cv=EOCTQFZC c=1 sm=1 tr=0 ts=6ab5102a cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=3K4JMSNACPa9h271a24A:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA0OCBTYWx0ZWRfX24cmoQ3Xos/i
+ XoMFM3zWtyxSFlztTNWDX2JyIszBwrWhrkKz5UqVFtPLrf+RwncMjpkcs/D7Mp0qOU55sjWMcJa
+ q/HmV/8Jz/b9eyYJPnlmELRvXOS+Ax0=
+X-Proofpoint-GUID: mhwT4rIvLa3p8yTzCbZSzTBodmqLzv4u
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA0OCBTYWx0ZWRfX97l3lTA1DvXx
+ OSj1PDAmUl7g/ZcPWIZMtL9nX1JpEW/u8UJNWQkxHYaYmKGeAl++shq9s8Gnzae9y3NtM6Wa4md
+ 5pkAiPv/TrhD5XpWXde0ueXGVk06uQNjLgsPhiYnFaQZs5xbmdJRk6KxFt8x4ZC5+PVbOHJNapU
+ P09Mk+pq/UWHCYVnh5wF6Of3RFgtIKll930YNP+MnZVveeWbpOWXmAV/D28c4cajW7NnpW4UED+
+ 9iec7QAZLc385TMZHfHfxwyMn7VXopMnQXjK/RwcBM1BN/kkhzU16TwctGZFEd68bEy5GsLzc/D
+ Nxdd9TJ9AEh9AlCzdYo+RodmDvhEzbUyPwJ8Nwz4w2f3afs3AGyzy9LU3FvrQCdHhfykbl3j7ac
+ QzgRTUAIKXjjru8JH6FYNewj2Uw4PaJo3QxEkdfNzzxbp8Q73C3kP6XIEq+cZ3PQT8k3zf5OQUq
+ WRarfG22fbYyYWDS4ng==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 priorityscore=1501 clxscore=1015 spamscore=0
+ adultscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240048
 
-register_platform_devices() registers the battery, LED, and watchdog
-platform devices in sequence. If LED registration fails, the battery
-device remains registered. If watchdog registration fails, the LED and
-battery devices remain registered.
+The mvcos exception handler ex_handler_ua_mvcos() decodes the faulting
+instruction, assuming it is an mvcos instruction. In case the instruction
+is kprobed the decoded instruction is a breakpoint instruction instead,
+which leads to incorrect instruction decoding and potential register
+corruption.
 
-These failure paths leave successful platform_device_register_data()
-calls without the matching platform_device_unregister() calls.
+Fix this by simply preventing to set a kprobe on such instructions,
+similar like arm64 is doing it.
 
-Add an unwind ladder to unregister previously registered platform
-devices in reverse order before returning the registration error.
-
-The issue was identified by a static analysis tool I developed and
-confirmed by manual review.
-
-Fixes: dd123e62bded ("platform/x86: simatic-ipc: add main driver for Siemens devices")
+Fixes: c488f5187a24 ("s390/uaccess: Shorten raw_copy_from_user() / raw_copy_to_user() inline assemblies")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
 ---
-v2:
-  - Use an unwind ladder to unregister previously registered platform
-    devices in reverse order, as suggested by Dan Carpenter.
+ arch/s390/kernel/kprobes.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
- drivers/platform/x86/siemens/simatic-ipc.c | 21 +++++++++++++++++----
- 1 file changed, 17 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/platform/x86/siemens/simatic-ipc.c b/drivers/platform/x86/siemens/simatic-ipc.c
-index 7039874d8f11..4a4509fc9263 100644
---- a/drivers/platform/x86/siemens/simatic-ipc.c
-+++ b/drivers/platform/x86/siemens/simatic-ipc.c
-@@ -92,6 +92,7 @@ static int register_platform_devices(u32 station_id)
- 	u8 wdtmode = SIMATIC_IPC_DEVICE_NONE;
- 	u8 battmode = SIMATIC_IPC_DEVICE_NONE;
- 	char *pdevname;
-+	int ret;
- 	int i;
+diff --git a/arch/s390/kernel/kprobes.c b/arch/s390/kernel/kprobes.c
+index c450120b4474..e806b124e4ba 100644
+--- a/arch/s390/kernel/kprobes.c
++++ b/arch/s390/kernel/kprobes.c
+@@ -85,6 +85,9 @@ static bool can_probe(unsigned long paddr)
+ 	if (!kallsyms_lookup_size_offset(paddr, NULL, &offset))
+ 		return false;
  
- 	for (i = 0; i < ARRAY_SIZE(device_modes); i++) {
-@@ -139,8 +140,10 @@ static int register_platform_devices(u32 station_id)
- 				pdevname, PLATFORM_DEVID_NONE,
- 				&platform_data,
- 				sizeof(struct simatic_ipc_platform));
--		if (IS_ERR(ipc_led_platform_device))
--			return PTR_ERR(ipc_led_platform_device);
-+		if (IS_ERR(ipc_led_platform_device)) {
-+			ret = PTR_ERR(ipc_led_platform_device);
-+			goto err_unregister_batt;
-+		}
- 
- 		pr_debug("device=%s created\n",
- 			 ipc_led_platform_device->name);
-@@ -153,8 +156,10 @@ static int register_platform_devices(u32 station_id)
- 				KBUILD_MODNAME "_wdt", PLATFORM_DEVID_NONE,
- 				&platform_data,
- 				sizeof(struct simatic_ipc_platform));
--		if (IS_ERR(ipc_wdt_platform_device))
--			return PTR_ERR(ipc_wdt_platform_device);
-+		if (IS_ERR(ipc_wdt_platform_device)) {
-+			ret = PTR_ERR(ipc_wdt_platform_device);
-+			goto err_unregister_led;
-+		}
- 
- 		pr_debug("device=%s created\n",
- 			 ipc_wdt_platform_device->name);
-@@ -169,6 +174,14 @@ static int register_platform_devices(u32 station_id)
- 	}
- 
- 	return 0;
++	if (s390_search_extables(paddr))
++		return false;
 +
-+err_unregister_led:
-+	if (ledmode != SIMATIC_IPC_DEVICE_NONE)
-+		platform_device_unregister(ipc_led_platform_device);
-+err_unregister_batt:
-+	if (battmode != SIMATIC_IPC_DEVICE_NONE)
-+		platform_device_unregister(ipc_batt_platform_device);
-+	return ret;
- }
- 
- static void request_additional_modules(u32 station_id)
+ 	/* Decode instructions */
+ 	addr = paddr - offset;
+ 	while (addr < paddr) {
 -- 
-2.43.0
+2.53.0
 
