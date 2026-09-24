@@ -1,193 +1,293 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CEDAD3B5820
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:28:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3A563C3789;
+	Thu, 24 Sep 2026 14:29:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790260132; cv=none; b=F9Aoyf8fG673j0A23AQSraubtB8yC2tZsphDX3SLTUDjPqhPHtBdP1HK3t6pWdY94z5Wcqil9IneeElkKrvDeli/OSintnnKquKCU0GCcgHmasLQS00/PR92m2xRSdWPESq6M9bIvAXMk3CoDtJODFLL0cGKtEjdeBPlBLc3uiA=
+	t=1790260168; cv=none; b=pHgYMtk2rLMxRj5JgfOmXmWZ2QW/d6rF8YQ4oT5FwyAafHoDNkra8D4vxT+1+k2WxjwNUY8ybMboUmPEgN31F6KcU4V2zVbqc0izg8/eyXvEYh3qEgQmL4OHJPJrpjtVWuPuS5m2+WZbq7CHpgT2SybWgeSlCTMoW1Snc3CXMsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790260132; c=relaxed/simple;
-	bh=gP1hbo0fXBOIR/xuHFNmPZCAZbNpdADMI1YaB4qZt5I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KOe1E/VYA52WyMqcziwP5DKxV19E5kH/EDccqGyGHDoxay2RabmZ+guTiZoaKDtJuNzCMH/u5ejd+M/DZpSrsPPid5sewJfJS1u7wUBiny2anAMh9w51V0SlewxtIIoNLPtupZevtNuhmuHtbu7kDnEcb7XyV52NlaHYtkO6NBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [123.138.236.242])
-	by gateway (Coremail) with SMTP id _____8AxYdFAM7Vq5nAPAA--.45641S3;
-	Thu, 24 Sep 2026 22:27:12 +0800 (CST)
-Received: from linux.localdomain (unknown [123.138.236.242])
-	by front1 (Coremail) with SMTP id qMiowJDxBc09M7Vqha8kAA--.50018S6;
-	Thu, 24 Sep 2026 22:27:12 +0800 (CST)
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: loongarch@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 4/6] LoongArch: Only send SIGTRAP signal if necessary in do_watch()
-Date: Thu, 24 Sep 2026 22:27:06 +0800
-Message-ID: <20260924142708.2459-5-yangtiezhu@loongson.cn>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20260924142708.2459-1-yangtiezhu@loongson.cn>
-References: <20260924142708.2459-1-yangtiezhu@loongson.cn>
+	s=arc-20240116; t=1790260168; c=relaxed/simple;
+	bh=0NvXIV5gFngEObPgrQFtWuTgtfKLekPJNm+/deMv0Ao=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=P4cC4fGkg6XJFEYEk8mtWLMoi8BgPSXWmkWc/RSFRXCOZO2PNv3/DqSMHKcCmcuvVNC2nC5ln/bxhFLH1q7CyVJ1zth835Uf5i4UZG+XRqz9y0vftSwCV96fHHCROs+RGtEhIdo5ZrzXu2hje1la0Z0c7D4TFce1dw/TzEjOBfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hiYu3iP3; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hiYu3iP3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D2551F00893;
+	Thu, 24 Sep 2026 14:29:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790260164;
+	bh=KZovxsvRE68Ry60qHGKUoGu4YUryyE2jjoF+16sSt6A=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=hiYu3iP3gsuCSpBfD0UX1AqisO6uELDc76gG0HE13Ge9hE7HNGv4QJMA9iazGqwj1
+	 nvJiIv844UpjkrIl5won6apVZkp1FC7guyAXSGUqoWOWvnJftpZosgRNZMCG+tF2il
+	 1HoGAJ4GBdpG+yiD4HKIcR0J/nuqVs93cbhcx89qhpek1SDbB6oeC7FO4yXNuGZn7/
+	 gQdOaMIR58LdbBaRnMv+zJNIgNqIqeC1OYEIXOEy7qHMFmXahmZ/5S4gy2PJW3nGzr
+	 M5ellIqFR81OZxrmSrRFGS7K1wkQszoe3GGF+WYuaT8hVqg11opL/MDD/CumXbR347
+	 uKGnMXwvozDUA==
+Subject: Re: [PATCH net-next 1/9] ptp: ocp: move the CPLD identification read
+ off the sync worker
+From: netdev-bot+sashiko@kernel.org
+To: maimon.sagi@gmail.com
+Cc: richardcochran@gmail.com, vadim.fedorenko@linux.dev, kuba@kernel.org,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ andrew+netdev@lunn.ch, horms@kernel.org, jiri@resnulli.us,
+ arkadiusz.kubalewski@intel.com, corbet@lwn.net, rdunlap@infradead.org,
+ skhan@linuxfoundation.org, netdev@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Thu, 24 Sep 2026 14:29:22 +0000
+Message-ID: <179026016273.2160803.4703423361109999929@kernel.org>
+In-Reply-To: <20260922142829.57740-2-maimon.sagi@gmail.com>
+References: <20260922142829.57740-2-maimon.sagi@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxBc09M7Vqha8kAA--.50018S6
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxXw45AF4xKry3uFyfJr4DJrc_yoWrtw48pF
-	ZruFn3KrWDGr1ku3W3Gw4Dur43Grs5uw47u34Sy34F9rs0grWrJrn2yFnFqFW5W3s8Xa40
-	qF1Yq3WS9a1UXwbCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUk2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
-	xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
-	1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv
-	67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l42xK82IYc2
-	Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s02
-	6x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1Y6r17MIIYrxkI7VAKI48JMIIF0x
-	vE2Ix0cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE
-	42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6x
-	kF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUcHUqUUUUU
 
-In do_watch(), the kernel unconditionally forces a SIGTRAP signal at the
-end of the handler via force_sig(SIGTRAP). This is essential for ptrace
-operations, but it severely disrupts standard perf_event usage.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-Under normal perf usage, it is not necessary to force a SIGTRAP signal
-on every hit. Forcing it unnecessarily aborts the target process if no
-user-space signal handler is registered, which violates performance
-monitoring behaviors and injects context switch overheads.
+Critical: 0 · High: 1 · Medium: 1 · Low: 2
 
-However, a conditional check using only 'current->ptrace' would block
-legitimate user-requested signals when a perf_event is configured with
-'attr.sigtrap = 1' for asynchronous user-space tracking.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fix this by refactoring breakpoint_handler() and watchpoint_handler()
-to return a boolean status indicating whether any triggered breakpoint
-explicitly requires a signal notification. Update do_watch() to enforce
-the SIGTRAP signal only when the process is actively being debugged via
-ptrace, or when the underlying perf_event infrastructure specifically
-demands it via 'attr.sigtrap'.
+- [High] Moving the CPLD identification read into a self-terminating
+  delayed work (ptp_ocp_cpld_work()) removes the only mechanism that re-…
+- [Medium] The commit message names unbind/reboot blocking as part of the
+  problem being fixed ("because ptp_ocp_remove() - which is also the…
+- [Low] Comments describing the per-tick re-resolution of the CPLD i2c
+  adapter are no longer accurate.
+- [Low] Stale comment: `#define CPLD_ID_MAX_ATTEMPTS 10 /* one per
+  sync_work tick */` (drivers/ptp/ptp_ocp.c:4386) still attributes the…
 
-Fixes: 424421a7f34c ("LoongArch: ptrace: Add hardware single step support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
----
- arch/loongarch/include/asm/hw_breakpoint.h |  4 ++--
- arch/loongarch/kernel/hw_breakpoint.c      | 18 ++++++++++++++++--
- arch/loongarch/kernel/traps.c              |  8 +++++---
- 3 files changed, 23 insertions(+), 7 deletions(-)
+--
 
-diff --git a/arch/loongarch/include/asm/hw_breakpoint.h b/arch/loongarch/include/asm/hw_breakpoint.h
-index 5faa97a87a9e..d202052df8a1 100644
---- a/arch/loongarch/include/asm/hw_breakpoint.h
-+++ b/arch/loongarch/include/asm/hw_breakpoint.h
-@@ -116,8 +116,8 @@ extern void arch_uninstall_hw_breakpoint(struct perf_event *bp);
- extern int hw_breakpoint_slots(int type);
- extern void hw_breakpoint_pmu_read(struct perf_event *bp);
- 
--void breakpoint_handler(struct pt_regs *regs);
--void watchpoint_handler(struct pt_regs *regs);
-+bool breakpoint_handler(struct pt_regs *regs);
-+bool watchpoint_handler(struct pt_regs *regs);
- 
- #ifdef CONFIG_HAVE_HW_BREAKPOINT
- extern void ptrace_hw_copy_thread(struct task_struct *task);
-diff --git a/arch/loongarch/kernel/hw_breakpoint.c b/arch/loongarch/kernel/hw_breakpoint.c
-index 7f69cf361a5e..3683a52b2368 100644
---- a/arch/loongarch/kernel/hw_breakpoint.c
-+++ b/arch/loongarch/kernel/hw_breakpoint.c
-@@ -482,10 +482,11 @@ NOKPROBE_SYMBOL(update_bp_registers);
- /*
-  * Debug exception handlers.
-  */
--void breakpoint_handler(struct pt_regs *regs)
-+bool breakpoint_handler(struct pt_regs *regs)
- {
- 	int i;
- 	struct perf_event *bp, **slots;
-+	bool need_sigtrap = false;
- 
- 	slots = this_cpu_ptr(bp_on_reg);
- 
-@@ -494,18 +495,25 @@ void breakpoint_handler(struct pt_regs *regs)
- 			bp = slots[i];
- 			if (bp == NULL)
- 				continue;
-+
- 			perf_bp_event(bp, regs);
-+			if (bp->attr.sigtrap)
-+				need_sigtrap = true;
-+
- 			csr_write32(0x1 << i, LOONGARCH_CSR_FWPS);
- 			update_bp_registers(regs, 0, 0);
- 		}
- 	}
-+
-+	return need_sigtrap;
- }
- NOKPROBE_SYMBOL(breakpoint_handler);
- 
--void watchpoint_handler(struct pt_regs *regs)
-+bool watchpoint_handler(struct pt_regs *regs)
- {
- 	int i;
- 	struct perf_event *wp, **slots;
-+	bool need_sigtrap = false;
- 
- 	slots = this_cpu_ptr(wp_on_reg);
- 
-@@ -514,11 +522,17 @@ void watchpoint_handler(struct pt_regs *regs)
- 			wp = slots[i];
- 			if (wp == NULL)
- 				continue;
-+
- 			perf_bp_event(wp, regs);
-+			if (wp->attr.sigtrap)
-+				need_sigtrap = true;
-+
- 			csr_write32(0x1 << i, LOONGARCH_CSR_MWPS);
- 			update_bp_registers(regs, 0, 1);
- 		}
- 	}
-+
-+	return need_sigtrap;
- }
- NOKPROBE_SYMBOL(watchpoint_handler);
- 
-diff --git a/arch/loongarch/kernel/traps.c b/arch/loongarch/kernel/traps.c
-index c4d7e55fb3ea..4cbf84b148cd 100644
---- a/arch/loongarch/kernel/traps.c
-+++ b/arch/loongarch/kernel/traps.c
-@@ -811,6 +811,7 @@ asmlinkage void noinstr do_bp(struct pt_regs *regs)
- asmlinkage void noinstr do_watch(struct pt_regs *regs)
- {
- 	irqentry_state_t state = irqentry_enter(regs);
-+	bool need_sigtrap = !!current->ptrace;
- 
- #ifndef CONFIG_HAVE_HW_BREAKPOINT
- 	pr_warn("Hardware watch point handler not implemented!\n");
-@@ -851,11 +852,12 @@ asmlinkage void noinstr do_watch(struct pt_regs *regs)
- 			}
- 		}
- 	} else {
--		breakpoint_handler(regs);
--		watchpoint_handler(regs);
-+		need_sigtrap |= breakpoint_handler(regs);
-+		need_sigtrap |= watchpoint_handler(regs);
- 	}
- 
--	force_sig(SIGTRAP);
-+	if (need_sigtrap)
-+		force_sig(SIGTRAP);
- out:
- #endif
- 	irqentry_exit(regs, state);
+ptp: ocp: move the CPLD identification read off the sync worker
+
+The one-shot TAP CPLD identification read is moved out of
+ptp_ocp_sync_work() into a new delayed work, ptp_ocp_cpld_work(), which is
+queued from probe only on boards that carry the part.  The new work
+re-arms itself once a second only while bp->cpld_id_tried is clear, and
+ptp_ocp_remove() gains a cancel_delayed_work_sync() for it.
+
+A few questions below.
+
+> diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
+> index 2802989e84947..4a58bcc146487 100644
+> --- a/drivers/ptp/ptp_ocp.c
+> +++ b/drivers/ptp/ptp_ocp.c
+
+[ ... ]
+
+> @@ -5935,18 +5937,32 @@ ptp_ocp_sync_work(struct work_struct *work)
+>  
+>  	bp->sync = sync;
+>  
+> -	/* Resolve the adapter here rather than once in probe, where it can
+> -	 * race the adapter's own registration, and read the ID as soon as it
+> -	 * turns up.  A claim can fail transiently - the firmware may not
+> -	 * grant the segment straight after power-up - so adva_x1_cpld_read_id()
+> -	 * retries a bounded number of times before giving up.
+> -	 */
+> +	queue_delayed_work(system_power_efficient_wq, &bp->sync_work, HZ);
+> +}
+> +
+> +/*
+> + * Resolve the i2c adapter and read the CPLD identification.
+> + *
+> + * Kept off ptp_ocp_sync_work(): a claim can block for seconds - the
+> + * MicroBlaze handshake polls for up to MBLAZE_RETRIES * MBLAZE_RETRY_US and
+> + * the hand-back does the same - which would delay the in-sync sampling and
+> + * the dpll change notification, and stall the cancel_delayed_work_sync() on
+> + * the unbind and shutdown paths for as long.
+> + *
+> + * Reschedules only while there is something left to do, so a board without
+> + * the part, or one whose identification is settled, costs nothing.
+> + */
+> +static void ptp_ocp_cpld_work(struct work_struct *work)
+> +{
+> +	struct ptp_ocp *bp = container_of(work, struct ptp_ocp, cpld_work.work);
+> +
+>  	adva_x1_cache_i2c_adap(bp);
+
+[Severity: Low]
+
+This isn't a bug, but with adva_x1_cache_i2c_adap() now called only from
+ptp_ocp_cpld_work(), are its comments about per-tick retries still
+accurate?  Its header says:
+
+ * Called from the worker rather than once from probe: device_add() notifies
+ * before it links the device to its parent, so with asynchronous probing
+ * both the notifier and a single lookup here can miss the same adapter.
+ * Retrying costs a short klist walk per tick until one of them succeeds.
+
+and its body says an adapter cached in the removal window is rejected by
+adva_x1_bus_claim() "and the next tick looks again", while
+adva_x1_bus_claim() says forgetting a recycled number "lets the worker look
+the adapter up again".
+
+Once bp->cpld_id_tried is set the new worker stops re-arming, so there is
+no next tick and only ptp_ocp_i2c_notifier_call() can repopulate the
+number - which the same header comment says can miss the adapter.
+
+> -	if (bp->has_cpld && !READ_ONCE(bp->cpld_id_tried) &&
+> -	    READ_ONCE(bp->cpld_i2c_adap_nr) >= 0)
+> +	if (READ_ONCE(bp->cpld_i2c_adap_nr) >= 0)
+>  		adva_x1_cpld_read_id(bp);
+
+[Severity: Low]
+
+This isn't a bug, but the attempt budget consumed here is still documented
+against the old worker:
+
+#define CPLD_ID_MAX_ATTEMPTS  10     /* one per sync_work tick */
+
+The attempts are now one per cpld_work tick.
+
+>  
+> -	queue_delayed_work(system_power_efficient_wq, &bp->sync_work, HZ);
+> +	if (!READ_ONCE(bp->cpld_id_tried))
+> +		queue_delayed_work(system_power_efficient_wq, &bp->cpld_work,
+> +				   HZ);
+>  }
+
+[Severity: High]
+
+Does this leave the post-flash re-read of the CPLD identity without a
+worker to perform it?
+
+adva_x1_cpld_read_id() sets the flag on the first success, or after the
+attempt budget runs out:
+
+	if (!ret || ++bp->cpld_id_attempts >= CPLD_ID_MAX_ATTEMPTS)
+		bp->cpld_id_tried = true;
+
+so after the probe-time read settles the tail above stops re-arming
+cpld_work, and ptp_ocp_probe() is the only other queue site.
+
+adva_x1_cpld_flash() still clears the bookkeeping and leaves the re-read to
+a periodic worker:
+
+	/* The old image is gone from here on, so stop reporting its
+	 * identity even if the rest of the sequence fails.  Written under
+	 * cpld_lock, which adva_x1_cpld_read_id() also holds across its own
+	 * bookkeeping, so the worker cannot resurrect any of it.
+	 */
+	WRITE_ONCE(bp->cpld_id, 0);
+	WRITE_ONCE(bp->cpld_usercode_ok, false);
+	bp->cpld_id_tried = false;
+	bp->cpld_id_attempts = 0;
+
+but it queues nothing and does not re-read the ID or USERCODE itself.
+
+Before this patch ptp_ocp_sync_work() requeued itself every HZ for the life
+of the binding, so the next tick saw the cleared flag and read the new
+image's IDCODE and USERCODE.  With the split, does bp->cpld_id stay 0 and
+bp->cpld_usercode_ok stay false until unbind and rebind, so
+ptp_ocp_devlink_info_get() permanently skips cpld.id and reports fw.cpld as
+"unknown"?
+
+	id = READ_ONCE(bp->cpld_id);
+	if (id) {
+		sprintf(buf, "0x%08x", id);
+	...
+	if (smp_load_acquire(&bp->cpld_usercode_ok))
+		sprintf(buf, "0x%08x", READ_ONCE(bp->cpld_usercode));
+	else
+		strscpy(buf, "unknown", sizeof(buf));
+
+Documentation/networking/devlink/ptp_ocp.rst states:
+
+       worker and reports the cached value here; the version is omitted
+       until that read has succeeded.  The read is made once per binding
+       and again after a successful CPLD update.
+
+Would queueing bp->cpld_work from adva_x1_cpld_flash() after that reset
+(queueing an already pending delayed work is a no-op) match the documented
+behaviour again, or should the worker keep re-arming while bp->has_cpld?
+
+The same concern applies to the later reset of cpld_id_tried added in
+adva_x1_cache_i2c_adap() by "ptp: ocp: forget a CPLD i2c adapter number
+that no longer resolves" in this series; at the end of the series the queue
+sites for cpld_work are still probe plus the worker's own conditional tail.
+
+[ ... ]
+
+> @@ -6046,6 +6063,9 @@ ptp_ocp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+>  		}
+>  	}
+>  	queue_delayed_work(system_power_efficient_wq, &bp->sync_work, HZ);
+> +	if (bp->has_cpld)
+> +		queue_delayed_work(system_power_efficient_wq, &bp->cpld_work,
+> +				   HZ);
+>  
+>  	return 0;
+>  out_dpll:
+
+[ ... ]
+
+> @@ -6080,6 +6100,7 @@ ptp_ocp_remove(struct pci_dev *pdev)
+>  	int i;
+>  
+>  	cancel_delayed_work_sync(&bp->sync_work);
+> +	cancel_delayed_work_sync(&bp->cpld_work);
+
+[Severity: Medium]
+
+Is the unbind and shutdown part of the changelog still true with this
+cancel in place?  The changelog says:
+
+    While that runs the in-sync sampling and the dpll notification are delayed
+    by the same amount, and because ptp_ocp_remove() - which is also the
+    .shutdown handler - begins with cancel_delayed_work_sync(&bp->sync_work),
+    unbind and reboot block for it too.
+
+and the new function comment repeats it:
+
+ * the dpll change notification, and stall the cancel_delayed_work_sync() on
+ * the unbind and shutdown paths for as long.
+
+cancel_delayed_work_sync() waits for an already running callback to return
+rather than interrupting it, so if ptp_ocp_cpld_work() is mid-claim the
+executing path is:
+
+ptp_ocp_cpld_work()
+  adva_x1_cpld_read_id()
+    adva_x1_bus_claim()
+      adva_x1_mblaze_acquire()
+
+	iowrite32(MBLAZE_REQUEST, &bp->pps_select->i2c_bus_ctrl);
+	for (i = 0; i < MBLAZE_RETRIES; i++) {
+		usleep_range(MBLAZE_RETRY_US, MBLAZE_RETRY_US + 1000);
+		val = ioread32(&bp->pps_select->i2c_bus_ctrl);
+		if (val == MBLAZE_GRANTED)
+			return 0;
+	}
+
+That is 200 iterations of a 10 ms sleep, and on timeout
+adva_x1_mblaze_release() polls the same amount again, with no teardown
+escape check in either loop.  The window in which the blocking read can be
+in flight is the same before and after the split, since the read is
+attempted once a second until cpld_id_tried is set.
+
+Should the changelog and the comment be narrowed to the 1 Hz in-sync
+sampling and dpll notification latency, or would a teardown flag checked
+before taking cpld_lock and between MicroBlaze retries let the still
+required synchronous cancel return promptly?
+
+>  	for (i = 0; i < OCP_SMA_NUM; i++) {
+>  		if (bp->sma[i].dpll_pin) {
+>  			dpll_pin_unregister(bp->dpll, bp->sma[i].dpll_pin, &dpll_pins_ops, &bp->sma[i]);
+
 -- 
-2.42.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922142829.57740-1-maimon.sagi%40gmail.com
