@@ -1,102 +1,132 @@
-Received: from mail-dy2-f37.google.com (mail-dy2-f37.google.com [74.125.229.37])
+Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A78A34ACC6A
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:45:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E62324DC551
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:47:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790286308; cv=none; b=J99gbVl4L79v/pypLN4mbIG8goJUAcropJ4kgMtX9GYvw6NCaFPibmOl0NrZxRY7RIPNppxHcnLajQBYUaGGTqwkLiGRzycei99bS1p8KKklaDB8Fx9V5z79l5l/hIiZpuEs6eVwSSTHy5yPh9is6MDy5u+ow3y4Sps8Z87aSIU=
+	t=1790286426; cv=none; b=pHDnXVhjbh6oYtJa2ANnbeAhCsOdGAHlVaqdvta56lLtqoKg+86CO3aSHC5Sr/Sj+y0A/US3uN4nlb7gCnVeOkLUvpuQLgDb1Pg9vcwd26oNjp/1ZvSaRFs05MrBb6n3oOfYsIWmR83z8TsxEI3CSP8LnbOsYodTDce0TGtZ9nk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790286308; c=relaxed/simple;
-	bh=sR/3LZABr9dEE/A3u+cDtehoGgAdOlE37mBarHxqdb4=;
+	s=arc-20240116; t=1790286426; c=relaxed/simple;
+	bh=sJB8a2Uid+eUS/2yZz14rm+h24VJn2Vq54W8G0uPAe4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Iih5x8PliBAmfJB8xP7UICgbe5jsVmgO3VQju4CV/jD7t4Wlt/fPOW/8A6h2MplpsxQP1zf6psFrxIW1HTvBRzmrBWN0be9VvXkWV2D36XkPBiBhLuViFZI7U8ZMHd+dXKYxhpIk5otLIcf7h0hrk5e6A2zHOS2iQiqkXQ7Y6Ac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai; spf=pass smtp.mailfrom=crusoe.ai; dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b=cuDsKJAk; arc=none smtp.client-ip=74.125.229.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
+	 MIME-Version:Content-Type; b=LRwXfbFuoy2E5lnxbX3bJY3bemy961yHJZGH0v9o+Vi8I+b/kvs+KInwyI7CfuYttCF9T+1Is5B8UhVcaWLCqe6R8zS7tX9AZTc21wwfL5MYxIYt/8g/Gt5stP1uNkGUN4KYkMrVMDo41agVFVHnSwqbakeX8Ayl1Q8Ayf0Drz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qh2UR+x5; arc=none smtp.client-ip=74.125.229.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b="cuDsKJAk"
-Received: by mail-dy2-f37.google.com with SMTP id 5a478bee46e88-328664b752eso126009eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:45:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qh2UR+x5"
+Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-1450541ab50so140280c88.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:47:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=crusoe.ai; s=google; t=1790286306; x=1790891106; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sR/3LZABr9dEE/A3u+cDtehoGgAdOlE37mBarHxqdb4=;
-        b=cuDsKJAkfb4nsTPi+BsJGJ4DnuIO+8dAjCAaX8VXNt/bxM4xQ7ydXtp6oLmUSta/pL
-         r4BDeyQyvIs9PTuPSBKLllDbIFyp3M0+Tg4iXcGj+BdqbY9fniZA/VETvtQ6Bf9kOk8R
-         +/BqpPCqw+R4kgPS4tEavfn/9gUxoUzSqLCs+UT87mUdiXpiWTofYh9X76C2OaaimN8I
-         oA4ILdfk+oN+x9KYyfkFFn5ueK6590apRAIYm1kcDkulPqNyoSgcQ8rnLlsYKq8Yrym9
-         WzlTscOx1C8eZ6dySzqsOKinK+qeXYaXT2EEK7sP7zxVary8r2/Sm0FdTUDw+8/Bzh3B
-         WkXg==
+        d=gmail.com; s=20251104; t=1790286424; x=1790891224; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vmbHwdbLykki4BBoXNNKdYpZGlaAV7d37IywwLOJY5w=;
+        b=Qh2UR+x5m/X4zSjGTGkjLEAzXh7blP+yv5NC8iaE59/fOuLmKYAj50+YCa5mWeghAW
+         Y9lQV3xNhbJk0iW5A6clsA7/ePLmPnepinKo8Z9vWJ+2vq7QRMPlmwsRYGIdqPxD4SQj
+         Fnn25jwqDCN/vn8I91wUeMYr6JMhxIRlnVPzQ0plLWjzg7Kp9dKSj4MHY9+4TYCfDeQg
+         o8Y7kD1/CP3+kaNPljiZflKCF1JBDGpHaIxFZgkDwVjg8dlOYq3IsLJ25XGPo+GHZUqf
+         SupBVE+aq1/+BJte3J65BDBcEA3lhwXvOd+nXevBvvajhla55/RruF3U/tOVv0X0jHuN
+         g6Og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790286306; x=1790891106;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sR/3LZABr9dEE/A3u+cDtehoGgAdOlE37mBarHxqdb4=;
-        b=bqqC0x+iK9eKUoM8xJEPbAlGVbaZA8lXnS+lRVtwe9WVWsvJt5jBvV4qlO4Ctcy2P6
-         9vS2gSkTSOvNtr/tq+PeZ0BXEG3UDImsCdWFmoKNPtsh3OFOiO0abRH/fbFdVCl0AMaZ
-         xtgS1eyUCXFkAsisT09rmPpyRX9XP2RLM0i3wUkpwgXT2de/YHT0TsSfOJtJNqKxx3Qm
-         z2D/FghFvPkYfu9U9KJ9enACpyLpz+FgEG13OcNtamUoRvFjUgyx3alH4uPZV+TYN1KX
-         BSI8B7CHLlboJoCMhs55FVHNWSAhFYLtHPuGIXUNoBdETrbb0mu2GB6YW2b1D5+UylMg
-         tgGA==
-X-Forwarded-Encrypted: i=1; AKwUvBxI0+V7pts9NiZ6rPhkWmhwQw7a9xoJJMB7/9EzNNDlmDO/hk1Kn9Vy0EKyKHglg5Yk79gQq+xg0vMfmOo=@vger.kernel.org
-X-Gm-Message-State: AFuF++ljORcj9uKATRM/7b93cQN99BCAgDYp/ntJYygZ6khNWrUZEcfA
-	RtbNOVUIjJhQk4VQkfrlesGKgxujgjvBTm3k+nLuf56yM9BYiGzKwfvYL5XypWWGyso=
-X-Gm-Gg: AYBFou2ME/KyWMVXuMsWzlVoRdtqnC+E+Bu5M/zOzL4weGjZymXXR7lC4t7TRSpeBqF
-	Mj48phX8tzKzTZlnvTDv9ZRlTYQTe2pt5gJ/IoUa1bCPiemIcY9HbXPkcQovp+YOjvxW/HnfQvf
-	Uc+bGkTxYkeCcRNMpTvkHPMWR5cwhlAftks1nmwYJDko8KUAAEPqGkhuhkyzfxzy8nQc+H2adEW
-	52AJqIra3ltDl7G+Use95/PuHgNiJ0CGDXnqhj8LbN652N1uX6rp4dsVV9p2/6WxoF1Izpl9Xh/
-	vVrf17sSI/n7O1fblnPC5KkdM4cU2e4qiObq0ZaTkm6OxWkM5Jitk+AT6U6AaS1DrfauCFznaK/
-	DI/VW4nV8Bb9Z2wCs/S9+smyc20rtQpQnCEf1IvcaB7prxdkS03fNHE5vzDUWfTeqY/zsSmwvxw
-	5bLtg5KOUW1+zOnhd4Rt3jHCtH48dd/Y4E1siNb4svQPvEuHzC8+URO5Yfz287yq+5TrlB6JEr0
-	v83DEezQjs2VVBgvH9IXz9UJJLQ0e6lbA==
-X-Received: by 2002:a05:7301:4307:b0:328:3542:b73e with SMTP id 5a478bee46e88-341978b5979mr27940eec.15.1790286305564;
-        Thu, 24 Sep 2026 14:45:05 -0700 (PDT)
-Received: from MBP-Krishna-Iyer.civet-hops.ts.net ([4.7.95.218])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3416e4c2f50sm863013eec.27.2026.09.24.14.45.04
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 24 Sep 2026 14:45:05 -0700 (PDT)
-From: Krishna Iyer <kiyer@crusoe.ai>
-To: kbusch@kernel.org
-Cc: hare@suse.de,
-	axboe@kernel.dk,
-	hch@lst.de,
-	sagi@grimberg.me,
-	linux-nvme@lists.infradead.org,
+        d=1e100.net; s=20260707; t=1790286424; x=1790891224;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vmbHwdbLykki4BBoXNNKdYpZGlaAV7d37IywwLOJY5w=;
+        b=Cya0NgSDVC5W7Ubb79fGhsvvqm1GwOQpV26CMqZUvwbBhw16XpJUlQIHrJtBVeCBwc
+         IWE2fIGjuGTBuMN1e2T07+uBPG8Yq1WWEyQ/Yhsi8Hk4NsuMF4Wxv0zpTIcT2qJ6BnKf
+         o0TKv3oeTJG/ZGN35sjkNys7lsg4PS8kXqa1LINM/d6FifNBNmKme9kF1DR55eGdbHSZ
+         ERqPEZ+8BN22e/VdsvBK9J9eVOfBzLqMdR7OgE5usied2vp1RKY29Q1wkhJQZkXm1+Hw
+         np6e/78cpibWOBXauIDhiaMtDtNzsXPQB8ngWMFYl+DffBVodIaWWtnPJ3PY9qLBtGWr
+         2crw==
+X-Forwarded-Encrypted: i=1; AKwUvBwBKSj6PN7z4SN0rY8OHx4iaXDabhyAd9Cm+Om9x4nefTVRYtIBSynl3QiRhAwC79up8dMlH9zr+h+rupE=@vger.kernel.org
+X-Gm-Message-State: AFuF++k1GtdlSyz37DxkifQc41juXjZU481OW+EKrV97R1fKL9rDQ3ya
+	Oriy5CYYZdv5M0qr13q0zo9NFrGetuXkTPmmG+mZqDaFWjzisTrTu7I=
+X-Gm-Gg: AYBFou3G07LNDEj5KTW1bxXVHQ83Rx3MxZM5SjZ0fB7cLtlhqcvKvM8j6AE7sIj3mB7
+	KBfdQ1n2ee6eYD32akgUw7ABps00yBrVoZOWB79JrZ+jXI+jvnUHghePIq3syCK98U0ZsSjjVjT
+	8V+WLFiUM5wJNbGxDqAnQDkuHzalkb1j0Z+5M4hik9WL/hVxgdD7F53lglSLjDacavrKu3NBgIK
+	ZtkiaU6D5FtydblYCn3CgpMsqOzg7tnBrwH4pG2YtGDpqPfACjq0If1THtuG59ztA9TndI03VmU
+	T/RfqMBd4PtyvOgwwp9R1WtDEVZnBgqCqkR6cUsZGK8wFBS2/SYjrdJzHyxsLyPSpzgQzI2hhdG
+	V4SKi0TpI7uzRLSXatkZhgqYc79KWx+5T6OWby4RvE01lb72IpQlg/hUxTlqOa1wVR3h8c3JS5R
+	IE4FIP35246JeZH6+j10OVFJriI51lKKOYKzKNYciWhGfQzZEdZo6xZ7lFe5U/dnTAVAbUJ8jeU
+	a48cC15Ob1EkOyCVRtLmqa+jhtS5DgSLKEULOFMRY7vEqjy0g==
+X-Received: by 2002:a05:7022:3b0c:b0:143:761a:863e with SMTP id a92af1059eb24-145040d406amr4150298c88.44.1790286423822;
+        Thu, 24 Sep 2026 14:47:03 -0700 (PDT)
+Received: from localhost.localdomain ([186.158.238.108])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145acc45f03sm1171577c88.7.2026.09.24.14.47.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 14:47:03 -0700 (PDT)
+From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
+To: nico.antinori.7@gmail.com,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: christophe.jaillet@wanadoo.fr,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	jkoolstra@xs4all.nl,
+	linux-kernel-mentees@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	nilay@linux.ibm.com,
-	sjpark@crusoe.ai,
-	saravanand@crusoe.ai
-Subject: Re: [PATCH v3] nvme-multipath: add fail_if_no_path sysfs attribute
-Date: Thu, 24 Sep 2026 14:45:03 -0700
-Message-ID: <20260924214503.82963-1-kiyer@crusoe.ai>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <arVFPIKeT-HoYF2K@kbusch-mbp>
-References: <20260923004959.88440-1-kiyer@crusoe.ai> <arRJLL4ki-sVQnHf@kbusch-mbp> <20260923225753.49224-1-kiyer@crusoe.ai> <arR3zlpx3Xm2mRt-@kbusch-mbp> <arVFPIKeT-HoYF2K@kbusch-mbp>
+	me@brighamcampbell.com,
+	skhan@linuxfoundation.org
+Subject: [PATCH] fixup: remove uninitialized variable bl
+Date: Thu, 24 Sep 2026 18:45:57 -0300
+Message-ID: <20260924214640.6149-1-nico.antinori.7@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <29b7f9786f08989c8f941ab85a76c62d1f5ee43b.1790200427.git.nico.antinori.7@gmail.com>
+References: <29b7f9786f08989c8f941ab85a76c62d1f5ee43b.1790200427.git.nico.antinori.7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 9/24/26 8:43 AM, Keith Busch wrote:
-> Okay, I see. Pehaps instead of having one controller export all the
-> namespaces, why not configure your target to have multiple subsystems
-> the client makes independent connections to for each namespace?
+Remove the uninitialized variable bl and fix the IS_ERR check.
 
-That would contain the failure to one volume, but two constraints
-rule it out for us. With nvme/tcp a subsystem per volume gives every
-volume its own controllers, so TCP connections, keep alives, and
-reconnect work all grow with the number of attached volumes instead
-of staying fixed per portal, on the host and on the array. And the
-subsystem layout is the array vendor's design. As a fleet operator we
-attach to what the array exports and have no say in how it is
-configured.
+Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
+---
+Small follow-up patch that fixes usage of unintialized variable.
 
-Thanks,
-Krishna
+Apologies for this oversight!
+
+ drivers/gpu/drm/tiny/ch1115-i2c.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/tiny/ch1115-i2c.c b/drivers/gpu/drm/tiny/ch1115-i2c.c
+index cb6198a8e55b..631dd25e7dcc 100644
+--- a/drivers/gpu/drm/tiny/ch1115-i2c.c
++++ b/drivers/gpu/drm/tiny/ch1115-i2c.c
+@@ -751,7 +751,6 @@ static int ch1115_probe(struct i2c_client *client)
+ {
+ 	struct ch1115_device *ch1115;
+ 	struct device *dev;
+-	struct backlight_device *bl;
+ 	int ret;
+
+ 	dev = &client->dev;
+@@ -802,8 +801,8 @@ static int ch1115_probe(struct i2c_client *client)
+
+ 	ch1115->bl_dev = devm_backlight_device_register(dev, dev_name(dev), dev, ch1115,
+ 							&ch1115_bl_ops, &bl_props);
+-	if (IS_ERR(bl))
+-		return dev_err_probe(dev, PTR_ERR(bl),
++	if (IS_ERR(ch1115->bl_dev))
++		return dev_err_probe(dev, PTR_ERR(ch1115->bl_dev),
+ 				     "Unable to register backlight device\n");
+
+ 	// DRM
+--
+2.47.3
+
