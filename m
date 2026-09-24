@@ -1,105 +1,87 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB454D8DBE
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:14:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C99D4E13FD;
+	Thu, 24 Sep 2026 21:14:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790284467; cv=none; b=P3haOThNAialKT8AOlX2ifz9hGXg/0CcenSf+p46eyC52oLbzDRmpMkZM21JF6kBJZHdh8HOLv9hxTFg+zKQfWRcWSRACe5RB99aumSNkqLIyIjO0IqSkG11ZooTQEwEM3P+e5ROuSxSWGTUHtiMi1XyHIznQ9Rzwcnn46uYPSo=
+	t=1790284474; cv=none; b=I0BKdsoFWp2RLeC2Zcb7eROhgHdKitdKvrJsxCeRoC9GUcCXtMOdxhtEj+KaJVuCpMsa7VrIAxNs+MsqhpWRZVVxCe6J2mzr5Vu52v5k7q8wqpFos/NalDIEVC8chqMcceqKhnxSjkErwgpGYxWrzg/WYI/n8hdx5OJTzm7ttsc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790284467; c=relaxed/simple;
-	bh=9xC8YBZ9vXaoecdIXZFYpIJ8iIev82LQ7BfdnEJqSH4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nY8Xkl4H+18HFVJVVHI/SPVwos3MmK/WNcUYaJKe5j8B15ghLPv8+P4fr6N+DDD7g8ZwOd1mwrTQtRP2dxWQF5WUy8A7Ey3hZPt93QiSOR7k/EBg7ONf1AuDRRTi0wYU7tM+IgK0s1iqVKze1vwkCaIaTPUJ6A9MTlC3iiG284w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=OQ2/IJoG; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1790284474; c=relaxed/simple;
+	bh=p5F2ufXiXxSq8JXJebLRRQpnP9zI07UTZOpl2WgvkU4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D8PkvO97LXUzKFaQellBWnX9CGNVVTqfi9E4zQtupoGesmA7nlx9jp93WtIE128TcG2+mCqth7hnKvM5ZZsbfcSvBUIArk9gqGQWoUthqyy0xE3jqCke+sqOn1DcRoZj07f/Djo+TNTi6xayRzuIwk0xcEsvHutlXC51dzcGLn4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fzTJ2ohD; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="OQ2/IJoG"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
-	Cc:To:From:From:Reply-To; bh=M84mPs65aJFN8Y8PkL2D6LYbGgiqN1ylfaTstFz/I04=; b=
-	OQ2/IJoGgJhy0hFHV3CK9NVJlWwF+keBlvah7BsNr/qRqho8PVPd8pGbbikqJigt1Lc2+j6IqUdtq
-	bYHOmMw5eJOxiyuAEmzuIaZ7UOkQJSb2b1u9PwBDlmAHmFBcdgXF0IxyZT46rZl0iBf+Rq2akKxPJ
-	Pj/KwF/FFOFyUZ2W6WqcbiPDtDupWReaMdwYXJ0e3XM+6zL3G6AL+y8GC5oZesdDHaB/FjcrSeDd9
-	XKNAluBAQ3KAu463CPDtz6mZ/EIsNGQ/LdVnNU2WiPyDwJYd3hBeK6m19wGA9pKwiaIy1q/CpVyQb
-	ua6i9dpS7YZ23qL1RtnBWrTXxW56gJdhRg==;
-Received: from 113.red-79-144-92.dynamicip.rima-tde.net ([79.144.92.113] helo=killbill)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1x9qlk-006qf4-Nu; Thu, 24 Sep 2026 23:14:16 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: airlied@gmail.com,
-	alexander.deucher@amd.com,
-	aurabindo.pillai@amd.com,
-	Aurabindo.Pillai@amd.com,
-	christian.koenig@amd.com,
-	David.Francis@amd.com,
-	harry.wentland@amd.com,
-	simona@ffwll.ch,
-	siqueira@igalia.com,
-	sunpeng.li@amd.com
-Cc: amd-gfx@lists.freedesktop.org,
-	Harry.Wentland@amd.com,
-	kernel-dev@igalia.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 8/8] drm/amd/display: copy function name into dcn_optc_lock_unlock_state trace event
-Date: Thu, 24 Sep 2026 23:10:11 +0200
-Message-ID: <20260924211410.867686-9-mwen@igalia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260924211410.867686-1-mwen@igalia.com>
-References: <20260924211410.867686-1-mwen@igalia.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fzTJ2ohD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790284471; x=1821820471;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=p5F2ufXiXxSq8JXJebLRRQpnP9zI07UTZOpl2WgvkU4=;
+  b=fzTJ2ohDOopUoNHCROt6PRJ5zP3rwZoscqlveSKWIGclc8Y7si7PosDa
+   nsGUY+VLmcO29JiMSmAVUn86jeoJO6zyyyFfSxeynZZ4tkeMHEut1PKxQ
+   Hf92/F0Y1UGycMKTn2x4tunh/KXdWMRW9ZExNl227B9eF4Tfp1lsOt1W2
+   BZMGGKddWes7LuQL7ubK6llmKeJYFZF28+z0NmFpe1aXCIFdXOcKKXT6e
+   wg+II4ZakgSIxoySZMZh5sPspbgWsLwHzGsvjPe7Jz1PR6xl5wv5mQZXE
+   nLRn6tUHruWcBI5+bXFAPyh4zMBibGcpY4OEd6L5XEeH+lAVA3n+H/CU0
+   g==;
+X-CSE-ConnectionGUID: vE72Yj/3R3GyJ6CmfFy8lQ==
+X-CSE-MsgGUID: 9ckEcgfOR5iIwIpn1T46sA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="90937663"
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="90937663"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 14:14:28 -0700
+X-CSE-ConnectionGUID: xQ42FdkCTBqrrVgUoiPjtA==
+X-CSE-MsgGUID: VrvdUoNyQ/WO2RTBHy/5RQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="278863085"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.199])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 14:14:26 -0700
+Date: Fri, 25 Sep 2026 00:14:24 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	David E Box <david.e.box@linux.intel.com>,
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 16/19] platform/x86/intel/tpmi: Use
+ DEFINE_SHOW_STORE_ATTRIBUTE() for mem_write
+Message-ID: <arWSsClUs_6fOo9s@ashevche-desk.local>
+References: <20260924182342.212709-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+ <20260924182342.212709-17-sathyanarayanan.kuppuswamy@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924182342.212709-17-sathyanarayanan.kuppuswamy@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Userspace trace tools that use libtraceevent to read binary buffer only
-see a kernel address when printing const char *. Use string macros in
-dcn_optc_lock_unlock_state to copy the function name into the trace
-event.
+On Thu, Sep 24, 2026 at 11:23:38AM -0700, Kuppuswamy Sathyanarayanan wrote:
+> The mem_write debugfs file open handler and file_operations are written
+> out by hand, which is what DEFINE_SHOW_STORE_ATTRIBUTE() exists for. Use
+> it, and rename the write callback to mem_write_write() to match the name
+> the macro derives.
+> 
+> The other two files in this driver already come from
+> DEFINE_SHOW_ATTRIBUTE(), so this also gives mem_write the
+> .owner = THIS_MODULE that the open coded file_operations was missing.
 
-Fixes: f1943a51f0f9 ("drm/amd/display: Add events log to trace OPTC lock and unlock")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-index b2f38654e489..7f05f73e5b33 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-@@ -660,7 +660,7 @@ TRACE_EVENT(dcn_optc_lock_unlock_state,
- 	    TP_ARGS(optc_state, instance, lock, function, line),
- 
- 	    TP_STRUCT__entry(
--			     __field(const char *, function)
-+			     __string(function, function)
- 			     __field(int, instance)
- 			     __field(bool, lock)
- 			     __field(int, line)
-@@ -678,7 +678,7 @@ TRACE_EVENT(dcn_optc_lock_unlock_state,
- 			     __field(int, vready_offset)
- 	    ),
- 	    TP_fast_assign(
--			   __entry->function = function;
-+			   __assign_str(function);
- 			   __entry->instance = instance;
- 			   __entry->lock = lock;
- 			   __entry->line = line;
-@@ -700,7 +700,7 @@ TRACE_EVENT(dcn_optc_lock_unlock_state,
- 		      "min_v_blank_interlace=%d vstartup_start=%d vupdate_offset=%d vupdate_width=%d "
- 		      "vready_offset=%d",
- 		      __entry->lock ? "Lock" : "Unlock",
--		      __entry->function,
-+		      __get_str(function),
- 		      __entry->line,
- 		      __entry->instance,
- 		      __entry->opp_count,
 -- 
-2.53.0
+With Best Regards,
+Andy Shevchenko
+
 
