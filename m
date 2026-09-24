@@ -1,159 +1,258 @@
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
+Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A3E4E7818
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:59:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 521FE4DD6F5
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:59:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790287157; cv=none; b=V6xg4jIpofgWAZBSCfbl8AU6JMPI31vntakVYXypu+Bq3pfyutWMRJgnkqEBYv3oDinezdiU54n73l9MyLzuQquvLmyMFPDfv5CrX0RVuguy1IOWdNDrrGwiyaS8uS4nNWRvKWXDI31l2S4BlqmlqJZyrzIzcQQ5kd2+LbL9Q+Q=
+	t=1790287162; cv=none; b=Xp0AbT/W+gGYYpC37g3yzk8+qF9rgfSSUfKdtA9IfaoiU9Ra2HGLri0lhXyqwL8yiFc1JvCTYoCOdQ5m1tgKHCVs2aMPkrAzSipOMMBQFc8K+jdmelIfX+Uw/CtS6cqc40datzxqwTQsTo/7psW20HckI3ToXoYHHqTEjbYP+78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790287157; c=relaxed/simple;
-	bh=jdOnvM7WMqeUpU7l2mytGEp4oxIHLj8qtVUlj6NmVsE=;
+	s=arc-20240116; t=1790287162; c=relaxed/simple;
+	bh=yFG6D90H677q2YQUtt7wc5bBOiHCM6mtxCcUmxQqY78=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g0XQHieqlySGW3ewV1p7l4SLwhq4eSkXShm0airvAP70eJzRSf2JPHxnJYXtvYQ0UYHIVxbPOOV5eO+7KbK1Fi8erM1rN7yM6ikL7EeZxze0wzK1iklfjXytzwrbwdiERCeaQaVsZAMKxglppMLMA2yANNj35zp4JRnzJqJfKQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=vPEiD9ry; arc=none smtp.client-ip=74.125.227.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	 Content-Type:Content-Disposition:In-Reply-To; b=i4aSeSCcyD5x+ilWW2eOTVGfQcMj2P/gYyoV43Wa1Zl8/DDVijHko5HInqX4RfQO+eS8xCOIV7PrVrNxwzhr2dFrMgYit+6+LJ/HtOh2woYsj3vxg58SNNWE6QFU79buuIk1/8uS2QTyfloGR30sUDU3xytmR4U6Ww+Ov617bxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lGeQDvIx; arc=none smtp.client-ip=74.125.228.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="vPEiD9ry"
-Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a0bcdf41a3so12571a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:59:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lGeQDvIx"
+Received: by mail-pz2-f40.google.com with SMTP id d2e1a72fcca58-87fd84c0bfeso188221b3a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:59:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1790287154; x=1790891954; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bbmWMvcZGPaQES2g8FHXYoBiPxQtaNORw16tr7nwuuw=;
-        b=vPEiD9ryapYVAbcs8kdk/aarwnWZDJyTINZAS9v17BANQiOuYq1oHVyJBCxjEAkD7W
-         OctHq3duc79f++pDhRki9fmBx8iaZqo7WTEO3/KRGGQo6+bxo/NBJz7x9mDaDx9yeSkm
-         H+ok/Eqr1G1IAHpAGCOJjW0tBbSC6GZQ4faR6VgM1LIofN1MXaQ2GrHLhpxb84L3erPF
-         MKZKqlLcvnbE9KVPFO5CWFiC3ortqSZHI1Hj3EY76mwz0EQDeYKZlJcdkfMa+9Tj7hHN
-         d8re22ksBgofM9DHjvonMZM1H/MckT642VKR5gjzZ82kbtpL4sunMCl1BfUBlHuqr/JA
-         83ng==
+        d=google.com; s=20251104; t=1790287159; x=1790891959; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NevIoRhVPx1e2+eEuK5IsXEei6EeRuHGTwV+ThnOoJ8=;
+        b=lGeQDvIx8cgz+5i9HG9uTDpkA9toaQenc/lDfxxDqcvqemTMO/nlhgOFEf4iSOJwdP
+         ArFv0Iz/BVnvNGXcHlNk8Ipic+REhMOjHhg12ZRoUPeNM9swJly5YByD1Ng9nmefhqpc
+         PSa4+rV3Q6CD4Dul5bRQ75ZAhRDsrRv0+45O4eZ2TeVTcaObjMbUVD9iWAQsX34X0xdl
+         h6sNTG1t/6V+mMS3+jQ98UT3yAiioR7lU/9LRE3hrDWAdVgIafhzw0UC/0nRiZCE1rsU
+         MaphVuKfZI7Qx4usiW7b3Y9Nn39jx83nKQXRJR3oLrMGlUp3Z24t07WsBHOUQU1RgIk5
+         5pzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790287154; x=1790891954;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20260707; t=1790287159; x=1790891959;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=bbmWMvcZGPaQES2g8FHXYoBiPxQtaNORw16tr7nwuuw=;
-        b=QCDYfmxVP52tMrdlVng2cUAeyS3p6C+aqFKnwUnKTpgxG8dUJ5eUK7VE0jcXet0D6K
-         7nqQMnBum99BG5VTHUsxgRc6vPVgl/3C3t1Rv8KbfDuOZGiK1UNYfk17/1dWFlOshGIv
-         fpG5EqfqpHxfbl7xtFz+2AfLt0Wkg71HVt7xuTqRqzF/kw0YEHdWsfWDlDN9WaHFJsik
-         rfpiCdZRlkuivOLi+pZa5cUP7tgkzBDtRkfmutY0DILxlhNPsoHN9t5GWJbKNouhMPoE
-         7tIto3GfSjvN62kcOTn1i2LxGbn3GnUZDTJjptAkPqXE6ZTazinG9/LuyzKUTH4gUvZX
-         p4SA==
-X-Forwarded-Encrypted: i=1; AKwUvBy4nmhE1GlneGNhrc22TNZKaihN0CTccuowq6lS5dIzW7iFMx+V6khA0XH+On8qpE10awP+ZWIDmVCsgOM=@vger.kernel.org
-X-Gm-Message-State: AFuF++ljW4UnXMwiEhiD7z3+0wSvha45f+FIDcxvN8HhlY8JsN2t1stc
-	yZJKSbnnXa2FKrWq8qdCchj+BptyQO355oURoZaFsFxkxWeKEt5cLALUzSD0A0qJOVQ=
-X-Gm-Gg: AYBFou1NN9DFPy9TzBzpsa77Nkq0PjNl38Ofbh8ISecCisYWWZ4Zr+sthUNSwpYB58U
-	VMNzbJyohZbVYYfiETobsXWFq3KT4owrzwMjJMQSNsnMSKGV5dsT06s9qYclwR1MG1SNKQub+w9
-	LSboebtK561GFi8avDg7ZX+vveo12i1mx1LMDUUol4jnJLuXpYRP/Wi6qawArlT52+Ut2lKQCbO
-	zZPxjqAjL7d7TP9gPn5VAbGIQ69xvYk69zvk+a6ehkRBLYg/3V2/tnG9ZqVHoRtRNNxhapv2imS
-	iqYn2UXfTyNmXKnQ+BgSXAknWWw7Axagn+GIujgp6b4WdUZkeyf8eA8dP2gYWQ17dryw5KZSzBm
-	vABRuJpkc7pYlm9LtSEg4ckDDl6ZDnFq5lfaEOAiDWeo7Qb3ntlt59fPnWiWIy9IQCdu6aySdfm
-	PF1SblFgAfIbyz7Mg06Q23r3BHJCY4PRebD5OkyZyxulktcd+DsHpOf6udGsiW+DqhDAeYSZwG8
-	zmcgoinPTUAjO+5UcAky7A=
-X-Received: by 2002:a17:90b:35c3:b0:3a0:bcc8:1546 with SMTP id 98e67ed59e1d1-3a0bcc815f2mr76894a91.64.1790287153608;
-        Thu, 24 Sep 2026 14:59:13 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:59::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9481e17sm582065a91.8.2026.09.24.14.59.12
+        bh=NevIoRhVPx1e2+eEuK5IsXEei6EeRuHGTwV+ThnOoJ8=;
+        b=TZDYZenBNrfFRI6Nzdo+p2RzgiEamc4X9CEaGjNWYnQcItfvaFN69MS83KmvcfrSB4
+         Va+6Ak6xjJoVFRcW5GjC3yFzR11cbsgHLnAh8n6lvKfOu8+XzlQORc6SPmyevX/58Kz2
+         70eB4Zy+y94kjrkLPGImr6Ec7S5RJoERtw+du3y5cEm7q8bC3f/DJiv+DUvHPhrn+iAv
+         /7amCFFr0VKdqdh+cjqGChhhhDnM7yuiXdUpN3tD6dZU6URtphgHwpaZkjb6qQpHQr0r
+         I0pDoJQaStzIP6UC4Z+n/TJ5J86VLRUzFL8tRJjJARz5QiGC7yafno4cTAcE4PbspdDQ
+         VApQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzqseU+49Dp2dHCyPHR7JPyr8jYjT5DQNXmcJu6KYlCj6qKGxy3dTa2sFDmUnYPf/BS7vO7r1pnqpVMp/8=@vger.kernel.org
+X-Gm-Message-State: AFuF++l7IGQHYiXO28cL3DGrZNkAZGHzEYoHmRxmdj0Yi6jSyqCLd5qc
+	gtS0f8UqORpRubdpVKg2gShMSKwrb5nwUwujFpQ1BjCFwojs/Qn6/RZCjV3SJddTMg==
+X-Gm-Gg: AYBFou13IWx+Qf38lTg9PfEN5jfluJXWIsFv1S292yFwjO+7CjRJBo9Y0oEIZ1Rx1na
+	zz5prvAu8oam8u2rlltIVD7A+SQRTAEK69nnddcl6OLb1NKdtzNUdIv/CBfL2PW+ei/jNWCQ1U4
+	AVePza/7fEh755Nwf4/UDdm8CnxJnnTfG04SsVU94B5MgtNsv2ANN4uHTs9XBwacJwJ7NeC30Q/
+	sUzckrxWPJyrCAzIVeqwS4R56o+UP+3RVfZw+/SPMQ/rmuRZyo+MV/jhfKKmjjHoz39TNhoTsPQ
+	S1e5jmT3tQKsSx7Ldgv1MLY3N/Jhu6/+Frkho/ls2elM/sSDdvxicL2rIxrWeDj+6QJKTQRmO/4
+	aJNZW1/LhTiz9IhDM1fiJcKFICDMS12++/h427MVP6VByNQZe6llYsNimnCqfS4Ix2IHAVckjrr
+	9MQ/AHEMn9KRRXqzdybGf1EeRYRfmtn/968bFY22s9szUNj6jL1zDKOV+egyQMB2plGmBjR6OIP
+	YPkxWrW0c9BIABvAmUOUhcXHiWdycL4vUpuUWLC
+X-Received: by 2002:a05:6a20:548d:b0:3dd:a008:dc3e with SMTP id adf61e73a8af0-3de0e89e58bmr4338025637.44.1790287158837;
+        Thu, 24 Sep 2026 14:59:18 -0700 (PDT)
+Received: from google.com (192.150.203.35.bc.googleusercontent.com. [35.203.150.192])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc78791e4b3sm309308a12.17.2026.09.24.14.59.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 14:59:13 -0700 (PDT)
-Date: Thu, 24 Sep 2026 14:59:12 -0700
-From: Joe Damato <joe@dama.to>
-To: hengyul@cs.unc.edu
-Cc: brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz,
-	jirislaby@kernel.org, sdf@fomichev.me, edumazet@google.com,
-	kuba@kernel.org, davem@davemloft.net, pabeni@redhat.com,
-	horms@kernel.org, shuah@kernel.org, linux-fsdevel@vger.kernel.org,
-	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] eventpoll: return -ENOIOCTLCMD for unknown ioctl commands
-Message-ID: <arWdMDek0iv0obDy@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>, hengyul@cs.unc.edu,
-	brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz,
-	jirislaby@kernel.org, sdf@fomichev.me, edumazet@google.com,
-	kuba@kernel.org, davem@davemloft.net, pabeni@redhat.com,
-	horms@kernel.org, shuah@kernel.org, linux-fsdevel@vger.kernel.org,
-	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-References: <20260924185747.2166326-1-hengyul@cs.unc.edu>
+        Thu, 24 Sep 2026 14:59:17 -0700 (PDT)
+Date: Thu, 24 Sep 2026 21:59:11 +0000
+From: David Matlack <dmatlack@google.com>
+To: Zhu Yanjun <yanjun.zhu@linux.dev>
+Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-pci@vger.kernel.org,
+	Adithya Jayachandran <ajayachandra@nvidia.com>,
+	Alexander Graf <graf@amazon.com>,
+	Alex Williamson <alex@shazbot.org>,
+	Bjorn Helgaas <bhelgaas@google.com>, Chris Li <chrisl@kernel.org>,
+	David Rientjes <rientjes@google.com>,
+	Jacob Pan <jacob.pan@linux.microsoft.com>,
+	Jason Gunthorpe <jgg@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Josh Hilke <jrhilke@google.com>,
+	Leon Romanovsky <leonro@nvidia.com>, Lukas Wunner <lukas@wunner.de>,
+	Mike Rapoport <rppt@kernel.org>, Parav Pandit <parav@nvidia.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Saeed Mahameed <saeedm@nvidia.com>,
+	Samiullah Khawaja <skhawaja@google.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Vipin Sharma <vipinsh@google.com>, William Tu <witu@nvidia.com>,
+	Yi Liu <yi.l.liu@intel.com>
+Subject: Re: [PATCH v9 00/13] PCI: liveupdate: PCI core support for Live
+ Update
+Message-ID: <arWdLyuHJwcU5tVn@google.com>
+References: <20260918200640.887030-1-dmatlack@google.com>
+ <2e88b92a-d3f2-41f7-bdbe-11fd71690606@linux.dev>
+ <CALzav=eJU+fnPr-QN4s7gY_Lj8Pc3T6KXfC9kiQQ=g4rPEDMuA@mail.gmail.com>
+ <d4547411-eeae-46c5-a30b-12d8cdde9329@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260924185747.2166326-1-hengyul@cs.unc.edu>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d4547411-eeae-46c5-a30b-12d8cdde9329@linux.dev>
 
-On Thu, Sep 24, 2026 at 02:57:47PM -0400, hengyul@cs.unc.edu wrote:
-> From: Hengyu Liang <hengyul@cs.unc.edu>
+On 2026-09-23 04:27 PM, Zhu Yanjun wrote:
+> 在 2026/9/22 11:53, David Matlack 写道:
+> > On Tue, Sep 22, 2026 at 11:36 AM Zhu Yanjun<yanjun.zhu@linux.dev> wrote:
+> > > 在 2026/9/18 13:06, David Matlack 写道:
+> > > > Future Work
+> > > > -----------
+> > > > 
+> > > > Following this series, we expect to make further improvements to the PCI
+> > > > core support for Live Update:
+> > > > 
+> > > >     - Allow P2P across Live Update by avoiding resizing or moving
+> > > >       preserved device BARs and preserving all upstream bridge windows.
+> > > > 
+> > > >     - Support preserving Virtual Functions by preserving SR-IOV
+> > > >       configuration on PFs and enumerating VFs after Live Update.
+> > > Preserving the PCIe topology, bus numbers, ACS, and Bus Mastering across
+> > > kexec is a foundational step for minimizing downtime.
+> > > 
+> > > As we look toward complete end-to-end support for DMA preservation
+> > > across Live Update—especially for VFIO device passthrough and dma-buf
+> > > sharing scenarios—IOMMU table/domain preservation becomes crucial to
+> > > prevent IOMMU page faults when devices continue performing DMA during kexec.
+> > > 
+> > > I would like to ask about the current status and roadmap regarding IOMMU
+> > > Live Update / KHO (Kexec Handover) support:
+> > > 
+> > > Is there an ongoing effort or RFC series for IOMMU handover / page-table
+> > > preservation currently in development or under discussion?
+> > > 
+> > > How is the coordination between the PCI core Live Update mechanisms and
+> > > the IOMMU subsystem being envisioned for preserving IOVA mappings (e.g.,
+> > > restoring domains or handing over root tables)?
+> > > 
+> > > Any pointers to active discussion threads, RFCs, or future plans
+> > > regarding IOMMU participation in Live Update would be greatly appreciated.
+> > The first IOMMU series to support Live update, can be found here:
+> > 
+> >    https://lore.kernel.org/linux-iommu/20260921004834.2601285-1-skhawaja@google.com/
 > 
-> Before commit 18e2bf0edf4d ("eventpoll: Add epoll ioctl for
-> epoll_params"), epoll files had no ioctl handler, so ioctl() on an epoll
-> file descriptor failed with ENOTTY. That commit introduced the
-> EPIOCSPARAMS and EPIOCGPARAMS commands, but ep_eventpoll_ioctl() returns
-> -EINVAL for any other command, so since v6.9 every other ioctl() on an
-> epoll file descriptor fails with EINVAL instead of ENOTTY.
+> Thanks.
 > 
-> Documentation/driver-api/ioctl.rst says that an ioctl handler must
-> return -ENOTTY or -ENOIOCTLCMD for an unknown command, and that
-> returning -EINVAL there is wrong. Returning -ENOIOCTLCMD was also the
-> intent of the original series, whose changelog since v3 [1] says "when
-> an unknown ioctl is received, -ENOIOCTLCMD is returned instead of
-> -EINVAL as the ioctl documentation requires", and ep_eventpoll_bp_ioctl()
-> does return -ENOIOCTLCMD for unknown commands. However,
-> ep_eventpoll_ioctl() only passes EPIOCSPARAMS and EPIOCGPARAMS to it and
-> handles all other commands in its own default case, which returns
-> -EINVAL, so that path is never reached.
+> I have a question regarding the restoration sequencing when module
+> dependencies are involved during a Live Update reboot.
 > 
-> This is visible to userspace. For example, isatty(), ttyname() and
-> tcgetattr() on an epoll file descriptor set errno to EINVAL, while they
-> set ENOTTY for any other file descriptor that does not refer to a
-> terminal, as they also did for epoll file descriptors before v6.9.
+> For the standard hardware/driver stack, the sequence seems to naturally
+> follow the kernel's early initcalls and device probing (e.g., IOMMU early
+> hardware handover -> PCI bus topology/BME preservation -> IOMMU domain
+> attach & DMA ownership claim -> VFIO/iommufd cdev binding).
 > 
-> Return -ENOIOCTLCMD from the default case, which the VFS turns into
-> -ENOTTY, and update the epoll_busy_poll selftest, which expected EINVAL
-> for an unknown command.
+> However, if there is a custom kernel module or subsystem (let's call it
+> Module A) that is not part of the standard PCI/IOMMU device probe callback
+> chain, but strictly depends on the fully restored state of PCI, IOMMU, and
+> VFIO/iommufd:
 > 
-> [1] https://lore.kernel.org/r/20240125225704.12781-1-jdamato@fastly.com
+> 1.
 > 
-> Fixes: 18e2bf0edf4d ("eventpoll: Add epoll ioctl for epoll_params")
-> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
-> ---
->  fs/eventpoll.c                                | 2 +-
->  tools/testing/selftests/net/epoll_busy_poll.c | 4 ++--
->  2 files changed, 3 insertions(+), 3 deletions(-)
+>    What is the recommended or standardized way in the Live Update
+>    architecture to guarantee that Module A's restoration happens
+>    *after* all its underlying dependencies (PCI / IOMMU / VFIO) have
+>    completely finished their restore processes?
 > 
-> diff --git a/fs/eventpoll.c b/fs/eventpoll.c
-> index e0c4bf88a838..adf30b720b13 100644
-> --- a/fs/eventpoll.c
-> +++ b/fs/eventpoll.c
-> @@ -1264,7 +1264,7 @@ static long ep_eventpoll_ioctl(struct file *file, unsigned int cmd,
->  		ret = ep_eventpoll_bp_ioctl(file, cmd, arg);
->  		break;
->  	default:
-> -		ret = -EINVAL;
-> +		ret = -ENOIOCTLCMD;
->  		break;
->  	}
+> 2.
+> 
+>    Is the expectation to rely on LUO (Live Update Orchestrator) phase
+>    notification callbacks (e.g., late restore notifiers), Driver Core
+>    mechanisms like |-EPROBE_DEFER| / |device_link|, or something else?
+> 
+> Any guidance on how cross-subsystem restoration order and async probe
+> dependencies should be handled in the Live Update framework would be greatly
+> appreciated.
 
-I think based on the documentation this is probably right, but I am now
-wondering why both ep_eventpoll_ioctl and ep_eventpoll_bp_ioctl need to
-exist.
+Note: Some of what I write below is not yet merged into the Live Update
+tree so may change. Samiullah Khawaja will be giving a talk about file
+dependencies at LPC where some of these topics will be discussed.
 
-Maybe when I first implemented this I thought it made sense to factor
-out the busy poll ioctls into their own function, but in retrospect maybe it's
-cleaner to just collapse the ioctl function into a single one instead of
-having two layers?
+LUO does not have a global "restore phase" or late-restore notifier.
+Restoration is on-demand and driven by dependencies, and userspace does
+the orchestration.
 
-In other words, maybe:
-  - delete ep_eventpoll_ioctl
-  - add the is_file_epoll check to ep_eventpoll_bp_ioctl
-  - rename ep_eventpoll_bp_ioctl to ep_eventpoll_ioctl
-  - fix the test (as you did in this version of the patch)
+There are two types of objects that LUO manages:
 
-Would result in a cleaner fewer helpers / cleaner code ?
+1. FLB (File-Lifecycle-Bound) data, for shared/global state.
+
+   An FLB is retrieved lazily the first time someone calls
+   liveupdate_flb_get_incoming(). The PCI core does that from
+   pci_setup_device() during enumeration, and the IOMMU driver does it
+   when it initializes. So the order in which this global state is
+   restored is simply the normal boot/initcall/probe order of the
+   subsystems that use it. LUO does not impose any extra order.
+
+2. Files in sessions, for per-object state (vfio cdevs, iommufds,
+   memfds, ...).
+
+   Files are retrieved either by userspace (LIVEUPDATE_SESSION_RETRIEVE_FD)
+   or by kernel code (liveupdate_get_file_incoming()). Retrieval can
+   happen in any order and is idempotent. When one file depends on
+   another, the dependency is expressed between the two files, not
+   through a global phase.
+
+VFIO -> iommufd is an example to follow (see Samiullah's IOMMU series
+[1] on top of Vipin's VFIO series [2]):
+
+ - Outgoing: when a vfio cdev is preserved, iommufd_device_preserve()
+   calls liveupdate_get_token_outgoing() on the iommufd file the device
+   is attached to. That fails unless userspace has already preserved
+   the iommufd in the same session, so the dependency is enforced at
+   preserve time. The iommufd token is then recorded in the preserved
+   device state.
+
+ - Incoming: the recorded token is what connects the device back to its
+   iommufd after kexec. Retrieving and re-attaching to the restored
+   iommufd is the next phase of the IOMMU work, so that part is not in
+   [1] yet. The building blocks are there, though:
+   liveupdate_get_file_incoming() lets one file handler pull in a file
+   it depends on by token (it is idempotent, so the order userspace
+   retrieves in doesn't matter), and ->can_finish() lets a handler
+   block LIVEUPDATE_SESSION_FINISH until everything it depends on is in
+   a consistent state.
+
+ - Device binding: vfio-pci's ->retrieve() simply fails (-ENODEV) if the
+   preserved device is not bound to vfio-pci yet. There is no probe
+   deferral inside LUO. Userspace is expected to make sure the device
+   is bound (e.g. wait for udev) before retrieving the file. In the
+   meantime the device is protected: the PCI core keeps bus mastering
+   and BDFs stable, and the IOMMU core reattaches the preserved domain
+   and claims DMA ownership, so no other driver can bind to it.
+
+If you can share more about what Module A is and what state it needs to
+carry across the update, I can try to go into more detail. But
+generically I would recommend:
+
+ - If Module A has state that must survive the Live Update, model it as
+   a LUO file handler. If it depends on specific VFIO/iommufd files,
+   record their tokens with liveupdate_get_token_outgoing() in your
+   ->preserve(). Then in your ->retrieve(), get them back with
+   liveupdate_get_file_incoming(). If something isn't ready yet (e.g.
+   the device hasn't probed), fail ->retrieve() and let userspace retry,
+   and use ->can_finish() to keep the session from finishing too early.
+
+ - If Module A is a driver that binds to a device, the normal driver
+   core mechanisms (-EPROBE_DEFER, device links) still apply for
+   probe-time dependencies. Live Update doesn't replace them. But
+   restoring the preserved state itself should probably go through LUO
+   as above.
+
+ - If Module A doesn't need to preserve anything itself but just
+   consumes the restored VFIO/iommufd objects, the simplest option is to
+   let userspace sequence it. Userspace already knows when the devices
+   are bound and the FDs have been retrieved, so it can hand them to
+   Module A at that point.
+
+[1] https://lore.kernel.org/linux-iommu/20260921004834.2601285-1-skhawaja@google.com/
+[2] https://lore.kernel.org/kvm/20260714151505.3466855-1-vipinsh@google.com/
