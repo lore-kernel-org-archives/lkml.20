@@ -1,156 +1,109 @@
-Received: from out28-197.mail.aliyun.com (out28-197.mail.aliyun.com [115.124.28.197])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43EF643B3D8;
-	Thu, 24 Sep 2026 07:51:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685D741E6C5;
+	Thu, 24 Sep 2026 07:51:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790236267; cv=none; b=ufKR40Sqvr9ioBalw73EBy6cHoih1tOTEMHiR15eiqANl5jXV4Twa2FRTrsw6+jUjl6EtKVgjseb0LKRMWiXtozQyhcXLTIKlt+xCVJk0HS2anss4L7d8Q3AXZCrKMwD5fqaCrJdlmZkE3H6o+lTsdcfD5nUXaLgevfyEiCaHwc=
+	t=1790236270; cv=none; b=Q5uvIBKtjEn2qDfea9nbJqbJPSrPH153nCwScDYbKWm7bKNeuBWLonK2vrhGBEEbV2cd+P3kHLWAeK5rqKdpxVxc929Baw+KDpT5+M8+HQdR6259P8Wyu6ijk2H/fhHm5qPcUZTRPsjv1uP0PC0JoSHVEbZgcUB36JLOOqJU8L4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790236267; c=relaxed/simple;
-	bh=QLjEfsr7PR7u6X/5MtL/X4oP6WsRpLPR1KfJyXZB7Bo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=YYNDieqDS0yGUtjxg5gwmgmxZ4o8OwFOzq6eswGHAT9YB0P4scan2Qwz6j6yTgl9SuG/PdyTe6ZffWcwZi9YniFKmS/i0v5D2BdIGLOq7WD1pLiwfHvJFaeVLdOgEgCaJ/SWPu6bud/kc/L7HhHzwGmNt8TvVvsugL3I2gzCeq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07249854|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.04611-0.00409288-0.949797;FP=16348516055955080369|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037032089;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=19;RT=19;SR=0;TI=SMTPD_---.jM7IE1._1790236254;
-Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jM7IE1._1790236254 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 24 Sep 2026 15:50:54 +0800
-From: Kyle Switch <kyle.switch@motor-comm.com>
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	Frank.Sae@motor-comm.com,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com,
-	jianmin.wang@motor-comm.com,
-	jie.han@motor-comm.com
-Subject: [PATCH net-next v21 1/3] dt-bindings: net: Document Motorcomm YT8824 PHY package
-Date: Thu, 24 Sep 2026 15:50:46 +0800
-Message-Id: <20260924075048.4060414-2-kyle.switch@motor-comm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260924075048.4060414-1-kyle.switch@motor-comm.com>
-References: <20260924075048.4060414-1-kyle.switch@motor-comm.com>
+	s=arc-20240116; t=1790236270; c=relaxed/simple;
+	bh=xOflsnTP9oXX63YSzxRG9zbwXO9s7/53poA3oyhgsSA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZxVwnSUMj96DopGKyrHa2/65nCKAqginBoJx6ulSglmm2irM3nrMOKy8c4OgrKlnAMxgz1O9kNM6PhA6BgxqnQzFl/KW3I6su2Pn4/WpAOeE2vV/9xqGVUHEWdxIFiEUBbLmK/7QWaERSNWwDfYlIU0YiCqOkTHFSfo9mw4JzXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I4sNg7hH; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I4sNg7hH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FE6C1F00893;
+	Thu, 24 Sep 2026 07:51:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790236269;
+	bh=jaU2SuTdve7HurWt/zE7LYkK/yT5zTTO9cCnvlsmnx0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=I4sNg7hH29HSG8crs7HXg5IRX3hqgOh7S/rC/CNxFOZ/eWuXIIl/LTIh1eRn84nr5
+	 il9LaMDfa1ZCOReXo8YG3HWP1oGcx3S6jaQY1LeqU2uCxiiSz87KFwQRV9TWlTOHfu
+	 EgjcTPTporKh/qURrB7LMsOx+3zw1uaHh7y6V8GxENeH8bV6e1+ygQZbHOOvH8I06S
+	 muF7qEJ3sYkTmEyvsNPB1bajyJiyDsz7si2XarwLs8yarwOibRZn8yyYnhIizGTXEB
+	 5GoTCfIMbYNP+/iEhE6ilG9eXX1C8zcoMY9Xxhby9CfL6CQls9/ozcmYWN4SuHgVUS
+	 sYGFuHcE64XzQ==
+Message-ID: <270a77b9-30fe-4b5c-8971-33c1f64f3772@kernel.org>
+Date: Thu, 24 Sep 2026 09:51:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bluetooth-next v5 1/3] dt-bindings: vendor-prefixes: Add
+ AIC Semiconductor
+To: Yanli Yang <yanli.yang@bedmex.com>, linux-bluetooth@vger.kernel.org
+Cc: marcel@holtmann.org, devicetree@vger.kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
+ zhirunliu@aicsemi.com, dijiaxu@aicsemi.com, chunqiuliu@aicsemi.com,
+ liheng.wei@bedmex.com
+References: <cover.1790235697.git.yanli.yang@bedmex.com>
+ <a9adff17461c1e66d645d2d0edb35a05a536e1a7.1790235697.git.yanli.yang@bedmex.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <a9adff17461c1e66d645d2d0edb35a05a536e1a7.1790235697.git.yanli.yang@bedmex.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Motorcomm YT8824 Ethernet PHY is PHY package of 4 PHY-s.
+On 24/09/2026 05:34, Yanli Yang wrote:
+> Add the vendor prefix for AIC Semiconductor (Shanghai) Co., Ltd.,
+> used by the AIC8800D80 Bluetooth bindings.
+> 
+> Signed-off-by: Zhirun Liu <zhirunliu@aicsemi.com>
+> Signed-off-by: Dijia Xu <dijiaxu@aicsemi.com>
+> Signed-off-by: Chunqiu Liu <chunqiuliu@aicsemi.com>
+> Signed-off-by: Liheng Wei <liheng.wei@bedmex.com>
+> Signed-off-by: Yanli Yang <yanli.yang@bedmex.com>
 
-Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
----
- .../bindings/net/motorcomm,yt8824.yaml        | 69 +++++++++++++++++++
- MAINTAINERS                                   |  2 +
- 2 files changed, 71 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+5 people worked on this one liner?
 
-diff --git a/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
-new file mode 100644
-index 000000000000..fd62b309e7ff
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
-@@ -0,0 +1,69 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/motorcomm,yt8824.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: MotorComm YT8824 Ethernet PHY
-+
-+maintainers:
-+  - Kyle Switch <kyle.switch@motor-comm.com>
-+
-+description:
-+  Motorcomm YT8824 Ethernet PHY is a PHY package of 4 PHYs.
-+
-+$ref: ethernet-phy-package.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - motorcomm,yt8824-package
-+  phy-mode:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    enum: [ internal, 10g-qxgmii ]
-+  reg:
-+    description:
-+      The absolute MDIO address of the YT8824 shared top extend
-+      register block.
-+      For internal mode, this is fixed at 9;
-+      For external mode it is (base MDIO address of the four
-+      member PHYs) + 4.
-+      Note that this is NOT the base ID of the first member PHY.
-+required:
-+  - compatible
-+  - phy-mode
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    mdio {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        ethernet-phy-package@9 {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+            compatible = "motorcomm,yt8824-package";
-+            reg = <9>;
-+
-+            phy-mode = "internal";
-+
-+            ethernet-phy@4 {
-+                reg = <4>;
-+            };
-+
-+            ethernet-phy@5 {
-+                reg = <5>;
-+            };
-+
-+            ethernet-phy@6 {
-+                reg = <6>;
-+            };
-+
-+            ethernet-phy@7 {
-+                reg = <7>;
-+            };
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e3ce77c839b0..ed7af1bd9521 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -18409,8 +18409,10 @@ F:	drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c
- 
- MOTORCOMM PHY DRIVER
- M:	Frank <Frank.Sae@motor-comm.com>
-+M:	Kyle Switch <kyle.switch@motor-comm.com>
- L:	netdev@vger.kernel.org
- S:	Maintained
-+F:	Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
- F:	Documentation/devicetree/bindings/net/motorcomm,yt8xxx.yaml
- F:	drivers/net/phy/motorcomm.c
- 
--- 
-2.25.1
-
+Best regards,
+Krzysztof
