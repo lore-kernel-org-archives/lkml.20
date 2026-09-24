@@ -1,157 +1,166 @@
-Received: from mout.web.de (mout.web.de [217.72.192.78])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 250FC486656
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:55:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.72.192.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D315C471CF2;
+	Thu, 24 Sep 2026 16:55:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790268940; cv=none; b=fiQY52C//3CFB1491BN8ZSif+QAvQZCy6t7S25QvTrlExFtGOTPmXXkNyjmO28a8TLca/AyR09EBIoAh4tfhxW3QJATBaZbyvpdDHasZGizXZnEcWNs1pYGOGtG+J05gje2s9nAO/FNWBhSVbCDsgItyRfM+Aw7X0k4Gmw2Pxjo=
+	t=1790268953; cv=none; b=k1ULBR988AHKvdWJiWEHx2Y+P6Thumk8mNlrLNkPk7JWov6Lnr/SRils7M6opIjsMIgemTUBtWriYtDSrxr82iiZ8Dweux3EznKHwWMwk0ocrYb3kpU5QZCXmfwh6nv+cHfrDEMhOOSqENUN+5f7dSCSoGJ7jEeQWuW8lVZUqsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790268940; c=relaxed/simple;
-	bh=JRf6hCUq7MvOiDiRTdHcgk2b1ouJtmj2fjxF4fbIcKU=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
-	 In-Reply-To:Content-Type; b=NDKxi7ttdCVNEU7xVufBNqfjyQEI3GLOrGpdM60UuDGCq8zrDoyblgKv0Xb5/hHkYPE+upj9r9ghfO2p5G9LD2m+QoMSoW02eDxnQeZs1twAKbhuE/bW4ob1bWL5qQpeSE3oEKqbMgkL3bvj39ocu3iOx6eMeykP7388KsIQ8rc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=vo9mCMCw; arc=none smtp.client-ip=217.72.192.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	s=arc-20240116; t=1790268953; c=relaxed/simple;
+	bh=kecBkykJubcMkJE5TewGMoRQqghUS3OdRRAfUilScvU=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=eQ0xUjvKpu9bQAH56M6xpiY4F0NQHRKyhjVJIrg3li6gsKMDr10tD6mKslq5fG5f3la3tM2PXdSDBr6ziWQuDd0KZ8Rch9xP/79lud/bNzKeig7WgS9tR0sxoB2tgdOOiAfz5ayn3yz4IvCXt4+c4Bdv8HTiny49dUjw3dEn9DY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XWnveK6v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="vo9mCMCw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1790268925; x=1790873725; i=markus.elfring@web.de;
-	bh=JRf6hCUq7MvOiDiRTdHcgk2b1ouJtmj2fjxF4fbIcKU=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
-	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 cc:content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=vo9mCMCw71N7IQaIBpeh6OTjOixKdCdMDMsTDhjVw3xPXnTjPCvynwRlohYzx6aJ
-	 W9UOHBH9XkE/tOrLCpfnKGVu5fmKwttSr7iKtoibHudQPbUW4zl9VJX2jkwGhYRMZ
-	 92DHQAM0CmHmgyj+HHtg1/UB2DmyFcLttPwStl1P+lHDBnnC7zsZVe/lTSe2LFb3B
-	 XlmQG0bmxYlkRs9HGrOe+MR53eQ7I+s+4aUw1/G5v28WWVyHt4o1nDkz/AnxEfavb
-	 tPXQpq/Ii91IwcSKefoOGHryhv1i+1TesIA4Va4FbKyt1EQHhVOskGjU24XSKSTz0
-	 NQE8hRMCeJCbLZqGBA==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MBjMM-1x27kH2scm-00G9uk; Thu, 24
- Sep 2026 18:55:25 +0200
-Message-ID: <97f59588-8236-4566-bd8c-7be1a735cc1e@web.de>
-Date: Thu, 24 Sep 2026 18:55:23 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XWnveK6v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FE3E1F000FF;
+	Thu, 24 Sep 2026 16:55:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790268951;
+	bh=joNSgZEXLB69O2UAxqlDk0/+b+L362VWJ9CU4JUJCEg=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=XWnveK6vGWb/VHoJ/GZcGgQJn17JCIpUZTJ7hJd4Ok2EnmUAJaZbPQaKxn+5nyLk+
+	 jlOzExW2LaT9pz1WCF2L5kSE5mVhq9j+VzOgoH/wz3Ltvgv8L9fywTH7sPRKsQg+ao
+	 +umqkRNnhlMVYc9T0ffJMEX2NBvI6beRTUsBGifquie/HLLVVTKRadiDEdK7/k1e9E
+	 Mn1hVwvKVPI8brom3dJ25CU1+6lXHH4VSh3ZwwwX1bczVe7/Pl4JDCCyOb/Mq1Dzgh
+	 UkQ58ISys0g5cNn9L7WSrwvhHoz4luYmuzHBLog8CeBTftgD6oUCGSXXXB/+QVhimd
+	 +JNhG9JCt4rrg==
+Content-Type: multipart/mixed; boundary="===============5293050500466644801=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Ginger Li <ginger.jzllee@gmail.com>, ocfs2-devel@lists.linux.dev,
- Joel Becker <jlbec@evilplan.org>, Joseph Qi <joseph.qi@linux.alibaba.com>,
- Mark Fasheh <mark@fasheh.com>
-Cc: LKML <linux-kernel@vger.kernel.org>
-References: <20260922060048.13158-1-ginger.jzllee@gmail.com>
-Subject: Re: [PATCH] ocfs2: Protect local_alloc_state updates in load/shutdown
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20260922060048.13158-1-ginger.jzllee@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:kLRKcpZHgzUqItKLl/FbPQ1infHm/iGUiV3q4n8qAphQFUZgD8s
- x/S2QRa50TlOqeduY+Df9LT2GQTRZ+rNEV9EarkXLIdts4lnVdU8r9Fd3Zlq0pd6q96D5nu
- WaxIzxsDdWmwL4TT82ez79s237f09njzG8GUzwR69UR+Nh8W12UNj0zqsE4NqkK+O0etnpC
- 8KPe5mqobbFla+hNV6kRg==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:91IPC0UFnsI=;tHD5jIQV4NowKWxW0igOTX+CS/+
- 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
+Message-Id: <aaa76b3ec5eb32105dfcc066b46c985e71d70839d58fbf5d8a258c9fa317fdb1@mail.kernel.org>
+In-Reply-To: <20260924160354.531101-3-puranjay@kernel.org>
+References: <20260924160354.531101-3-puranjay@kernel.org>
+Subject: Re: [PATCH bpf-next v2 2/3] selftests/bpf: Test fetching AND/OR/XOR atomics in arena
+From: bot+bpf-ci@kernel.org
+To: puranjay@kernel.org,bpf@vger.kernel.org
+Cc: puranjay@kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,martin.lau@linux.dev,eddyz87@gmail.com,memxor@gmail.com,song@kernel.org,yonghong.song@linux.dev,tj@kernel.org,void@manifault.com,arighi@nvidia.com,changwoo@igalia.com,sched-ext@lists.linux.dev,linux-kernel@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Thu, 24 Sep 2026 16:55:49 +0000 (UTC)
 
-=E2=80=A6
-> Take osb->osb_lock when updating both fields.
+--===============5293050500466644801==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-May lock guards be applied in affected function implementations?
+> diff --git a/tools/testing/selftests/bpf/prog_tests/arena_atomics.c b/tools/testing/selftests/bpf/prog_tests/arena_atomics.c
+> index 1ad5d03d07ad..42061e70e1a3 100644
+> --- a/tools/testing/selftests/bpf/prog_tests/arena_atomics.c
+> +++ b/tools/testing/selftests/bpf/prog_tests/arena_atomics.c
 
-Regards,
-Markus
+[ ... ]
+
+> diff --git a/tools/testing/selftests/bpf/progs/arena_atomics.c b/tools/testing/selftests/bpf/progs/arena_atomics.c
+> index 73bc2b835f3f..9a3eee526cc9 100644
+> --- a/tools/testing/selftests/bpf/progs/arena_atomics.c
+> +++ b/tools/testing/selftests/bpf/progs/arena_atomics.c
+
+[ ... ]
+
+> @@ -213,6 +198,64 @@ int xchg(const void *ctx)
+>  	return 0;
+>  }
+>
+> +__u64 __arena_global fetch_src_r0_value = 0x110;
+> +__u64 __arena_global fetch_src_r0_result = 0;
+> +__u64 __arena_global fetch_dst_r0_value = 0x110;
+> +__u64 __arena_global fetch_dst_r0_result = 0;
+> +__u64 __arena_global fetch_dst_r0_readback = 0;
+> +
+> +/*
+> + * A fetching OR with the operand in r0, and one with the arena pointer in r0.
+> + * The x86 JIT needs RAX for its CMPXCHG loop and substitutes BPF_REG_AX for
+> + * whichever of the two is r0, so both have to keep working. Hand-written
+> + * because clang picks its own registers and will not reliably emit either.
+> + */
+> +SEC("raw_tp/sys_enter")
+> +int fetch_r0(const void *ctx)
+> +{
+> +	if (pid != (bpf_get_current_pid_tgid() >> 32))
+> +		return 0;
+> +#if defined(ENABLE_ATOMICS_TESTS) && defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+> +	asm volatile (
+> +	"r1 = %[fetch_src_r0_value] ll;"
+> +	"r1 = addr_space_cast(r1, 0x0, 0x1);"
+
+[ ... ]
+
+> @@ -221,15 +264,20 @@ int uaf(const void *ctx)
+>  {
+>  	if (pid != (bpf_get_current_pid_tgid() >> 32))
+>  		return 0;
+> -#if defined(ENABLE_ATOMICS_TESTS) && !defined(__TARGET_ARCH_arm64) && \
+> -    !defined(__TARGET_ARCH_x86)
+> +/*
+> + * arm64 stays excluded as it has been since this test was added: its JIT only
+> + * accepts arena RMW atomics when LSE is present, which is a run-time property.
+> + * The rest of the file shares that dependency without a guard, so on a non-LSE
+> + * arm64 the whole skeleton already fails to load.
+> + */
+> +#if defined(ENABLE_ATOMICS_TESTS) && !defined(__TARGET_ARCH_arm64)
+>  	__u32 __arena *page32;
+>  	__u64 __arena *page64;
+>  	void __arena *page;
+>
+>  	page = bpf_arena_alloc_pages(&arena, NULL, 1, NUMA_NO_NODE, 0);
+>  	bpf_arena_free_pages(&arena, page, 1);
+> -	uaf_recovery_fails = 24;
+> +	uaf_recovery_fails = 26;
+
+[ ... ]
+
+> +
+> +	/*
+> +	 * The x86 JIT needs RAX for the CMPXCHG loop it lowers a fetching
+> +	 * AND/OR/XOR into, and substitutes BPF_REG_AX for r0 when r0 is either
+> +	 * operand. Only then does the fault fixup have to name that register,
+> +	 * so spell both forms out: clang picks its own and never produces them.
+> +	 */
+> +	asm volatile (
+> +	"r0 = %[page];"
+> +	"r0 = addr_space_cast(r0, 0x0, 0x1);"
+> +	"r1 = 1;"
+> +	".8byte %[fetch_dst_r0];"
+> +	: : [page]"r"(page64),
+> +	    __imm_insn(fetch_dst_r0,
+> +		       BPF_ATOMIC_OP(BPF_DW, BPF_OR | BPF_FETCH, BPF_REG_0, BPF_REG_1, 0))
+> +	: "r0", "r1", "memory");
+> +	uaf_recovery_fails -= 1;
+> +
+> +	asm volatile (
+> +	"r1 = %[page];"
+> +	"r1 = addr_space_cast(r1, 0x0, 0x1);"
+> +	"r0 = 1;"
+> +	".8byte %[fetch_src_r0];"
+> +	: : [page]"r"(page64),
+> +	    __imm_insn(fetch_src_r0,
+> +		       BPF_ATOMIC_OP(BPF_DW, BPF_OR | BPF_FETCH, BPF_REG_1, BPF_REG_0, 0))
+> +	: "r0", "r1", "memory");
+> +	uaf_recovery_fails -= 1;
+>  #endif
+
+Would this build with clang 18 or earlier?  Both new asm blocks in uaf()
+use the textual addr_space_cast syntax, but uaf() is only guarded by
+ENABLE_ATOMICS_TESTS and !__TARGET_ARCH_arm64.  It does not check for
+__BPF_FEATURE_ADDR_SPACE_CAST.
+
+Every other use of textual addr_space_cast in this file is under that
+guard: fetch_r0() above at the new code, and load_acquire/store_release
+elsewhere.  The addr_space_cast asm syntax and __BPF_FEATURE_ADDR_SPACE_CAST
+both arrived in LLVM 19, so with clang 18 the integrated assembler would
+reject the unknown mnemonic and arena_atomics.bpf.o would fail to build.
+
+Before this patch uaf() was plain C and was compiled out on x86, so the
+asm never reached older clang there.
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36026297900
+--===============5293050500466644801==--
