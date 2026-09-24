@@ -1,191 +1,417 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B27848C408
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:43:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790282605; cv=fail; b=OOC+BIjbkyZPEqbO4r2e1YBY1RNQfzz6zaFQS3XwlmnjUygIyE/1rj9cGRSLHwogpIi+R66FN1TbB9PPjZNV2LVkKwnzNhkkDe909db+aJGXT0Fo6XDn0iwgcqI1ry/IagT/IE4Uh64pcC/VzfxHcoh5LrSvsbviwnyfNq5crtI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790282605; c=relaxed/simple;
-	bh=RkiL40eXb5S0vWUCxNXQCl5YZsi75vk22KWBu/pN1cY=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=d/5fXU2jHZWPgUUPC9uAz0HXCADbdL5PNgsdIWvPVi+IHjPGmOxh9u2uuOKxbL5isAPoQb3iXzHOOO7FiksLzWDg+8Ru+rkaGNsCjUBLLF0Enp5d2DUFL0oPXgANz0DEO4sz28oJY9bfYx+5yEuYAM/hHhNL8WjCLOdcKHY3OlI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lvg7mpaS; arc=fail smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 828164D8DA0
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:45:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790282719; cv=none; b=ZuOfAXIp2vmDfpWeFZLseBUZbxR6IHe337jVNO+0jTpMOZs2Ay6gfo+2pDNmBd8QXqxs9x85cUooB9dW+dOnPnxA6Qpi/WQghpjG6WmXjgAxGFJEyH9YNyMmnE2z/7LkswKawwSV09dKvFuCgZ6WFJbweH+Tn5hPWEVlQa8Gr88=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790282719; c=relaxed/simple;
+	bh=ozjA8KSsMcbFMDharvuoZPgEB9CYnB/D7P0+ThoVcVg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Mv99ctw1xFAZe9OKqXdJ9VbMfveFYYSePXP8ZHXwo9OQioDHhOGUvo/JdW33R+idDkNV84Bxo7/q9SaweOT2Svs3iegrej/I8vKKtWj0W22DcI4/C2DD/wedE1D7Jx4zPJpXA2jF5xoeS0L/0ZojwV7CC03/UzScGuDPiycOFac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jNXzFI/9; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lvg7mpaS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790282604; x=1821818604;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=RkiL40eXb5S0vWUCxNXQCl5YZsi75vk22KWBu/pN1cY=;
-  b=lvg7mpaSRynp6hDSXTgFibOzs+Oxi38TL+KRd5YhZp3n3Y1hNT/L9W7g
-   odZ7t0biUjppZF9szqLpYKSD1ZRRVBF7LXGk1SKQZUBTcmLely/ZsfT34
-   uzPwtmLQgolRgzDQw/XQgbSqlSG2lUjGmzx/b52p87Y1IFANod5Z+nYse
-   u7c5FZ5TK4Hbborbf0ceJ7EkjwJUSi4IN9xmxdXqEO0ZzXyK5XhMyO+Y4
-   bbFXynKMvMzh3tj/c2qMDHmVwcu5Cp10QWhHJN5V5BTKb4LTUSW+kIYKm
-   4FEnnmdSUhFI9hE0XvoGMSca2bHFPJXOzHQZ2vvpr3V5H+DDK8ofDhYpN
-   A==;
-X-CSE-ConnectionGUID: uLWw9DMlRbGnlKrajDUhAw==
-X-CSE-MsgGUID: zA/OubTgSHazs8vmeUAl8g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="108559587"
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="108559587"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 13:43:23 -0700
-X-CSE-ConnectionGUID: HJhhPoC5QtK9aC3cRA+v2Q==
-X-CSE-MsgGUID: dbjHX+KXRdGQsVl9Q3GPRw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="303663896"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 13:43:22 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 24 Sep 2026 13:43:21 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Thu, 24 Sep 2026 13:43:21 -0700
-Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.66) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 24 Sep 2026 13:43:21 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IFptQpaZtLwiR09bJ3qlEANsyqjYvNKcVcV4oK+2FMh64zmuFo9bOlVclR/ygvv4amWSSpxw/lbupa6fklIaSxJWpL7ezwUrzHSVjGmCfiHWanvpV8MiUr3dU5MYAttbkafktmCYtQTEBLf/InqnRlwnhyO2p9BDi5E7xO/YLX0Le8mdcJbfU4A8LjuZ76idMsASCUVavq4b6c7LQwrpOVyeDfsR93bcpbk0w6Kn4sdLns+aHaIVLfDSbQgyu2u6AmNDMlhTtN0wqdyyhqn/FZcICrFwO79aT9hwon2yUHyTwINqwgDCHFH67Hh7G3ixrbEqUqfVugejbLGnE8LRvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mtA0DaOVflqxW3PeL+R4nzc8usD9SkYkR8Dr390ZFA4=;
- b=UOci+1Ih/ZzLz+6eFi85aHck2SKS6Pwd3evr9N+Nr/ASG9MpIQrSPD0TJycv7mOjLZ31i1RjbB4nu1n7GUxkfxH6X/Sr2QsctP6a9o0mZaaKtJ4MzSPyY6LAFSJiFy2Swv5sgUoBT80tTM/gMxqh/7IuI+EkBttwzkczQwdEVmz7hkbiQybbhvXNYum8ioeQ+kGfdk1aOeuHYUT+ak2UV9aCJBpSYOByzo6gvOSI7yi1724IKKwzk/UlTHnnKMuZaggAJ6RGj6PaYnB3km5Dynp1yQifmo+dd/OjG7AxtVRSzNBzCnePUrEqeYMfkXIflQcKAfP/PFyVvfCq+aGy2g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
- by SA3PR11MB9509.namprd11.prod.outlook.com (2603:10b6:806:47e::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
- 2026 20:43:20 +0000
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc%5]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
- 20:43:19 +0000
-Message-ID: <bee6fe64-6562-406a-b8b9-b544a0de96de@intel.com>
-Date: Thu, 24 Sep 2026 13:43:18 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 16/25] x86/resctrl: Add PMT registration API for AET
- enumeration callbacks
-To: Tony Luck <tony.luck@intel.com>, Fenghua Yu <fenghuay@nvidia.com>, "Maciej
- Wieczor-Retman" <maciej.wieczor-retman@intel.com>, Peter Newman
-	<peternewman@google.com>, James Morse <james.morse@arm.com>, Babu Moger
-	<babu.moger@amd.com>, Drew Fustini <dfustini@baylibre.com>, Dave Martin
-	<Dave.Martin@arm.com>, Chen Yu <yu.c.chen@intel.com>, David E Box
-	<david.e.box@intel.com>, <x86@kernel.org>
-CC: Christoph Hellwig <hch@infradead.org>, <linux-kernel@vger.kernel.org>,
-	<patches@lists.linux.dev>
-References: <20260916231320.14502-1-tony.luck@intel.com>
- <20260916231320.14502-17-tony.luck@intel.com>
-Content-Language: en-US
-From: Reinette Chatre <reinette.chatre@intel.com>
-In-Reply-To: <20260916231320.14502-17-tony.luck@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BY5PR03CA0021.namprd03.prod.outlook.com
- (2603:10b6:a03:1e0::31) To SJ2PR11MB8370.namprd11.prod.outlook.com
- (2603:10b6:a03:540::20)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jNXzFI/9"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f6c7a56so27976166b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:45:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790282716; x=1790887516; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dFRNBiIrmrhTYxtp/TvLSKPmD2BYNjT7uhVI7i3Srpo=;
+        b=jNXzFI/9e4XvB2RizJFi95focR6oF4IngccahLbh5PpNa3erizJpB1vNJP0JBiGtjH
+         U5At+CL9ScDbyFBGTyYn+pMpFXqNMhdOdiQQwjDs/9DGhooMYpmSfxYYgzAdYB/wBub7
+         SzYC9LQUhJOrg/ZH1/saasHCXg6ehZWbOhjjdnjiWJS8mkzAasucaahSrvmwIYTd6KGN
+         idY8AN9/5FZbJEh9o6H5CGmblSr65QPxwEgJUzMzeFDit5aWHJhXL7LoVQA0Eq7DB4Ws
+         sx+kXAChvrI5nLFdSKniOAukZi6g8L63yYgqg/NNAikJUzQfGJhiFBCEg4jPYON9tWxc
+         E3dA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790282716; x=1790887516;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dFRNBiIrmrhTYxtp/TvLSKPmD2BYNjT7uhVI7i3Srpo=;
+        b=I5GN7bVY59OPYpKyydASXDL7IF5DRX7V8dpnfcwyuEzwCo1RD4i7QdSCxCR/OhubOq
+         5jxgAjMjR2HNn6u26flYJr7sEw2fjFIKTMLzYOd52kHipVikFlNEtah3bt5W1qx+ePXY
+         hrh/yPJ8e38gx4Ry38xnaYGX/jpCYTS0iWVxqZI44nTzbyDrf3g4B/yau091HR4lxPX7
+         QDEfuQOjKl+aGW8X83bMZ7f/3zHTfwiUTOmsFYrpPTFcJlSg2LhGQ1EtXCTkM15yVeFW
+         yxbqHO4wmmSft28JPh7k0S57vjvm+PMKG0Q/b+WZviJDeb4z2rS/w/heWi5QuWcGaCIT
+         K+HQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx3T8y2gh/UH6A3+LBrdHJSbvT1jxFmFOzXFeClr4bAvU8g1r/tBvWpus7AUM65dc1x+yU5fyVtS2VgmGE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kVx1RRAg1FStoQx8cFgDPkjir03zFylqk0rkMXdl42ICYSdZLN
+	jpxmpEYjZZ70As3u3mtACyq64Focqz+CCEpm/b+KVscHffDCFDfHrvpS
+X-Gm-Gg: AYBFou0L/Pl2FTgwK32nWiBMJjMM7ULFbjuoG2+1hDSFt7Gcj463mZmlXHWPNkY/QK3
+	YJfRx/elKbX60lKIPqLMAKQUbPFuY1xgYzgr5FZ7gwQZWp2GOS+zbOBzG3hNykt/cOa2v4WnorF
+	d3wac57jIZJKqHTzx8KtdRQLirS+Bp6tRrTSOaDL/S2aMvEE21FZgeEu8yF3t/37uMLWo5f7KFi
+	hfmattK7a7Y9JJgg8yLNpJMpjgeBCY00Y/Ck04HuBZ24RKEYv1ZitXeLGKk1S75xs6v93I5f2Of
+	gogp/Ck+vO7xlOT1YExD8JzUp9gYBy6wUDNodBHfwtgFnpb1YGwbQ0008pvUEd26b6KJPbkbsK0
+	fZQ3TjjHQNamqueTLy6Qrqw6cys8VpNqiaKwM5Qp0Er64HGcBBKsB79YUcU1Ap/RVHAJ5QvFCLq
+	G1XqK9J7fJc5iLeRVCODzS/4OTrpZTaRwlX2KcU5eNVWafL47rOa1JvGJmwvf3Oyp6OVr5AjcBE
+	3PGwc1+UIRn/y+sZU4/CnP7hTuxT6sVkmApnglVGSjFv1U7Mcg=
+X-Received: by 2002:a17:907:7b8a:b0:c29:3d59:706b with SMTP id a640c23a62f3a-c2ac5510506mr293618566b.44.1790282715500;
+        Thu, 24 Sep 2026 13:45:15 -0700 (PDT)
+Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae77ff064sm12193666b.48.2026.09.24.13.45.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 13:45:15 -0700 (PDT)
+From: Magnus Lindholm <linmag7@gmail.com>
+To: davem@davemloft.net,
+	andreas@gaisler.com
+Cc: sam@ravnborg.org,
+	sparclinux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linmag7@gmail.com
+Subject: [PATCH] sparc32: capture SuperSPARC data store error state
+Date: Thu, 24 Sep 2026 22:44:38 +0200
+Message-ID: <20260924204503.870873-1-linmag7@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|SA3PR11MB9509:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9f8e4509-3931-4f2a-4810-08df1a7c7791
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|10067099003|18002099003|56012099006|6133799003|22082099003|4143699003|11063799006|921020;
-X-Microsoft-Antispam-Message-Info: EOqsgAIwMrxqmlWg3gvchkEmQwuBMuyWMti04LEVA1Jhzf2A3z9E983CiSUz8PfLLiEZQTXcDSUAE0j1aU/wzYXLzwlAPmzvAuZbzCaNLWW5d+oDyROrxohm7qgnNkBu4a6Ebq5rshqy4WG11RuYLWnA9ucnni9NabIk7m4/OIsm+5KzlCIxgSNBl2GoG3rCwj5AUqRoCx/IafRg0QSZl+NyMjEDiGXbOzr1uyfmZiqe87hU6FbjX6N7YgFESLdypHATAVVQ/r8ecGRPY9te1NrZmYDnju6zSdw/6SH48kPi1nS9usPY4K+aKS+KOsnl2EXHdfkpov7Hl80ysVJxdZLIyFIkuR9chgVfcElbU4cmkQaUMPFnzBT9TD7YjPw53J6F08yofCRA7DM81JsSuxMTSSWSJKLtVkbpRRvWjOMujCHlFPIWf6PU63SgxxG7M/wTwPjEVCKQ87GIKKQO8n26VPbq9pQ9tKemxshBdOv6tqRCxfwF/xTXeTmD2hK08jGLD3/zU3qlY++w2DZNJDjRHj1EhdK9wMggh8aoMVkrGoTvljdrwU5zfQcKZmnhlDKObERm7U2ZSUxV5kAff/sJoQgI1BIUhwtTfk0f03x1LsxaLacNGZTSVxPhqHuC0YHK8H4nQQwRlxozCT/pF7LgGuCTxCeICt4fgZx5dWfsly36bmGQQY+HhL3UdlbWd4DoFK02fW8lBFUhX7fx0w==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(10067099003)(18002099003)(56012099006)(6133799003)(22082099003)(4143699003)(11063799006)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eWV2dlZ3NGNTZFBDalk5b1gzM3hJYmo5L2lLdW0xUldhdnF2Z3psanpuVUFn?=
- =?utf-8?B?eUxHeEt3WXF2TElJcS9hMkpwdlFqTG95NGJ1cFMrQ0F5dzdrMEllT25jcUVC?=
- =?utf-8?B?QWxUY1plaUt4REp4bFJ0V3BERUlpYWRrengrdEtrMmxybjludWZ1eXFURHpt?=
- =?utf-8?B?RXZCT3FnNnFOT0NtSk40eGEzenBqY2JRK1E4WktGVjBTeENyL2hnT2VEa21W?=
- =?utf-8?B?SzRWTDhTVTdqQVJqTnNacmtFdlprYUdTUVV5Y2dDbzJRb1U0ZlN4MEprakdj?=
- =?utf-8?B?Ym12QjhBcnNpT2dkK2l6RnFYTkd1YkNKc2NFMW9hZUhyK0RTbjZSSHB0SXNz?=
- =?utf-8?B?eUV2UldpVXUwWEV5dzRaaEtkc1F4ZnlKY21QdmNBTmkySDNacUdERUF4bGha?=
- =?utf-8?B?bkNoRDhJKzl2Q294WTFWY3J1ZzlncU1YdU50UnY5THRoeUhGOHdidFh3ZDcr?=
- =?utf-8?B?Nzk3azh4ZE1YYy9OOFd4K3ZaYWh4ckd2MVFPUExwdzhJYnpCUDlkalUzNTZS?=
- =?utf-8?B?dnRweEtNeGdZODhNY0pndDhUR2theHphM3FsOXBFK2s1ZUFGSmMzUmtIaVhY?=
- =?utf-8?B?VnFSOHFBeHZLSkpRNkFGRzUxd01UT0lMSE5rSWxCcXhCVEN3Qis4a3dYbXZ5?=
- =?utf-8?B?VC9wN25DRkM4ZGY0YjNyMDkrRlZNUWlEUkViRDdDWFd6SS9XMU5vcENHbzVJ?=
- =?utf-8?B?ZitUT1BaTm1USC8xTDBwZTNiNzZwYTZVM2NQRmZKdkpkRE5qckpxeWtEcDU0?=
- =?utf-8?B?S052TkZ5Z2NHNHR0U2FsZzl6Q3B5NFEvNkdzdkRWbUMyNzJkMU1FcEtYQkRW?=
- =?utf-8?B?ak4rY3pySVRXMVpQL3Qzdjc5UXkrTlh0T1oxaWxVa0dtek91OVovdG82UDRi?=
- =?utf-8?B?b254R1NqR2s4cEdITVZ4T1gzeUxiSXRDWlMzTzBXamVCYWtjN3VvaWYyVXYy?=
- =?utf-8?B?eFRmNTlZdmUvUENraVNqdDg1ZmR3dzVHNVlBZUIxOGtqOGFZajdIMktnNWlX?=
- =?utf-8?B?YkNjaDNIWnQ0V21yZnk4dFZuaUZqeStYV2k3cmE3dHZtNlZyYnZQS0c2RUJJ?=
- =?utf-8?B?RkNmNVU3K3oyN2JxTi8vcml6anFpT285aU84QVFZdXVjd3NVKzFibUNYaTFy?=
- =?utf-8?B?Q3lkUktNNFlvanZ3YUVPakNrMjRQSW9jSG1hSFEzNm9RSE13OUdSNXREU1Ix?=
- =?utf-8?B?Z3VYMEc5MDFORkRudTA1VG0rVTlKeWZDNzRZcXdXcElKRW4rWElJTWpraWtG?=
- =?utf-8?B?cjdEbkxUL1V0UlFyeEdCS0NjVGk1QkticllWcU9tMFBjUWVzeldZK3Z0bkkw?=
- =?utf-8?B?MW51R25iVjNHODl3WUNlZ0lHZ1Z5UVZqVFhqNlpRR0JPenRITTlMUGllYTR4?=
- =?utf-8?B?dExpSWltWldISm1FbWUrbjlRYmVKVERQWG9UMUxtUHppYm41VFMzUU8zcFEy?=
- =?utf-8?B?WGNtSjE5UDE4eTBQYThCcHQyWkVneUJNQ3B1NWJKVlpyK1JmeWtaWHVwRnN2?=
- =?utf-8?B?MVlBRFJnNTlHRmhPb1ZkZE12TmNVL1gxY1hNK2xIbkRUTk52WUw2NU5JVGlh?=
- =?utf-8?B?QVVKZmYxdlpBY1k0Q2tSKzhpYkpHRTlNa0Vzdzd4UU9EVVI0SklaaGdKMEtZ?=
- =?utf-8?B?NmxPMTluNzR4ZXVMQ2M3VlVDNEJJeTlHNnRreWZyckg1MC9ueU9pa2JjUnpi?=
- =?utf-8?B?eWJuaTBwM3pWTGN6Ri80SkxORDhxd3N1MnYzY09VVVJUMjNkZzF5S1Awa2ZG?=
- =?utf-8?B?ZWRyaWhzMERMd01IZlFra09XVmN1SmlJdk42NkFQY1lRNGljWVRHZWpidnVo?=
- =?utf-8?B?aDQ0QktGZTNUWTJqOFNucjRyeVkySzlZejEwditBQlF2SjR0LytPcmoyaDk1?=
- =?utf-8?B?ZGJmSUlBY1JiZ1hqdXlPT2RpbHVVZGlGWVlvZmErUFg0MzAyQU9jbTVRamVK?=
- =?utf-8?B?WDVSS0lHckV0RUhTbW0rY3FWUDNCUE1LbFlycmVYUUtKWXFMMnFjQ002SDZ6?=
- =?utf-8?B?Um5GalRiQk1Feit0Y0s0NUlZNmhXSWcvTUNaaThoeTZ1QWMreWo5b1hteFdD?=
- =?utf-8?B?eE1JdHZKd3pobnRkNGpoK0Rwd2JPYk04Q2dobGVtZVRYcjMvV050TlVwd0xL?=
- =?utf-8?B?T3kxd3YxSkk5N0gzUmZINERNVnJsbjIwTTZvUmhpM1lRdURpOW5zTUpWaDlj?=
- =?utf-8?B?UmF6dEJLWUpLN1RLb2dUaDZyMzJyWHM1MER2Z1F3eWRDTGNUNkU5QXdEUGVj?=
- =?utf-8?B?bGJNbjE0WWRJcWp1QTFpaVFwNU81RzBGd3dIMWtIeHlkWnRNN0RtQUU3WUti?=
- =?utf-8?B?Y2RZbys4N0FnbGFoaG8vdTlVeXc3UHRidWg5eUJwa3c2cCtyOUVzM1lyVzNT?=
- =?utf-8?Q?xCpHqf1wb4yLHYQM=3D?=
-X-Exchange-RoutingPolicyChecked: aN2mVUBSGky9czsOARNpJHQiEn3EHbaVhMBiPo+Aj/dCy2HhCYVePAdsc1JNtIfHuiJXu8D3CXbNrw4IqeytP+QwM1D6vGFfefO4b86GN/OoSTx4DBjrCDAUsTaxcn7xTuf8cD6gbjon3dms+n01EFCbGxzhq2xuWuAgZ3MO1INKJeFLclySR/6/WbLgLrkeKkYQuCHzhx9v7NsgoqvlkzgbkaIpXGzMmMOJUigRgNs80QCzbdOd0avhCad1CRGvPVqKyl5KjmBebU30v1oCYZzx+zwn983utAD+tYdQsL8ZD9B8a9xCM5pxSpBDuToCL13JHSPCKbpHUglAJl0RlA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f8e4509-3931-4f2a-4810-08df1a7c7791
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 20:43:19.5437
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nVvI9My4X+PnvW2XZZWN3+h+KOUFSIp0qATAbBaFBXtMU4pRWbE4a56pvCVPQ1yN0a5edT/zFGJJEQEXHjkxozTS0VJmHcGwp0c6wNuYlU8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB9509
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-Hi Tony,
+SuperSPARC reports a failed buffered write with trap 0x2b. The store
+has retired by then, while the processor disables the store buffer and
+retains its entries for inspection.
 
-On 9/16/26 4:13 PM, Tony Luck wrote:
-> resctrl is always built-in; INTEL_PMT_TELEMETRY may be a module. 
+MFSR is cleared when read. SAVE_ALL may spill a user window and read
+MFSR while checking that spill, so capture MFAR and MFSR first. Keep
+them in the trap window's output registers, which SAVE_ALL preserves.
 
-This is not accurate context because at this point pmt_telemetry is still
-required to be built in when AET is in use. The inaccurate context makes
-this seem like a bugfix.
+Build pt_regs and set PSR.ET before entering C. The reporter can then
+inspect the frozen store buffer and, when present, the MXCC registers
+without running C or printk with traps disabled. Use the saved trap PSR
+for CPU identification, then continue through the existing bad-trap path.
 
-> Add, and
-> export, register/unregister functions so the PMT module can supply/clear
+This is diagnostic support, not error recovery: the handler neither
+retries the failed store nor re-enables the store buffer.
 
-nit: To keep things simple please always use the same term when referring
-to the same thing. For example, so far the series used pmt_telemetry module
-and now it switches to PMT module. 
+This follows SuperSPARC Family User's Manual sections 9.12.3.6, MFSR
+Timing and Operation, 10.6.5, Data Store Errors, 10.7, Store Buffer
+Diagnostic and Control Interfaces, 12.8.2, Data Store Error Trap,
+16.5.4, MXCC Status Register, 16.5.6, MXCC MBus Port Register, and
+16.8.4, MXCC Error Register.
 
-> enumeration callback functions when loaded/unloaded.
-> 
-> Suggested-by: Christoph Hellwig <hch@infradead.org>
-> Signed-off-by: Tony Luck <tony.luck@intel.com>
-> ---
-Reinette
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+---
+Applies and builds standalone on v7.3-rc1; cross-built with the SPARCstation
+20 configuration, no new warnings.
+
+sparc32 does not boot on current mainline without the prerequisite series
+below, so this cannot be exercised on real hardware without them:
+
+  sparc32: relocatable kernel / phys_base + Viking fixes
+    https://lore.kernel.org/sparclinux/20260816075141.3489194-1-linmag7@gmail.com/T/#t
+  sparc32: replace sp_banks with memblock (v3)
+    https://lore.kernel.org/sparclinux/20260901214611.60560-1-linmag7@gmail.com/
+  sparc32: SuperSPARC SMP synchronization fixes (v2)
+    https://lore.kernel.org/sparclinux/20260917075842.784996-1-linmag7@gmail.com/
+
+This and "sparc32: emulate UDIV/SDIV on illegal_instruction" both insert
+code immediately after do_hw_interrupt() in arch/sparc/kernel/traps_32.c.
+They are independent, adjacent insertions, no shared functionality, but
+whichever is applied second needs a trivial context rebase.
+
+ arch/sparc/include/asm/mxcc.h   | 36 +++++++++++++++++++
+ arch/sparc/include/asm/viking.h | 41 ++++++++++++++++++++++
+ arch/sparc/kernel/entry.S       | 28 +++++++++++++++
+ arch/sparc/kernel/entry.h       |  2 ++
+ arch/sparc/kernel/traps_32.c    | 61 +++++++++++++++++++++++++++++++++
+ arch/sparc/kernel/ttable_32.S   |  8 ++---
+ 6 files changed, 172 insertions(+), 4 deletions(-)
+
+diff --git a/arch/sparc/include/asm/mxcc.h b/arch/sparc/include/asm/mxcc.h
+index bd6339dcf693..bbfeab004e3e 100644
+--- a/arch/sparc/include/asm/mxcc.h
++++ b/arch/sparc/include/asm/mxcc.h
+@@ -126,6 +126,42 @@ static inline unsigned long mxcc_get_creg(void)
+ 	return mxcc_control;
+ }
+ 
++static inline void mxcc_get_64bit_reg(unsigned long reg,
++				      unsigned long *high,
++				      unsigned long *low)
++{
++	unsigned long reg_high, reg_low;
++
++	__asm__ __volatile__("ldda [%2] %3, %%g2\n\t"
++			     "or %%g0, %%g2, %0\n\t"
++			     "or %%g0, %%g3, %1\n\t"
++			     : "=&r" (reg_high), "=&r" (reg_low)
++			     : "r" (reg), "i" (ASI_M_MXCC)
++			     : "g2", "g3");
++	*high = reg_high;
++	*low = reg_low;
++}
++
++static inline void mxcc_get_sreg(unsigned long *high, unsigned long *low)
++{
++	mxcc_get_64bit_reg(MXCC_SREG, high, low);
++}
++
++static inline void mxcc_get_ereg(unsigned long *high, unsigned long *low)
++{
++	mxcc_get_64bit_reg(MXCC_EREG, high, low);
++}
++
++static inline unsigned long mxcc_get_preg(void)
++{
++	unsigned long mxcc_port;
++
++	__asm__ __volatile__("lda [%1] %2, %0\n\t"
++			     : "=r" (mxcc_port)
++			     : "r" (MXCC_PREG), "i" (ASI_M_MXCC));
++	return mxcc_port;
++}
++
+ static inline void mxcc_set_creg(unsigned long mxcc_control)
+ {
+ 	__asm__ __volatile__("sta %0, [%1] %2\n\t" : :
+diff --git a/arch/sparc/include/asm/viking.h b/arch/sparc/include/asm/viking.h
+index bbb714de43c4..c6ee82fa1c82 100644
+--- a/arch/sparc/include/asm/viking.h
++++ b/arch/sparc/include/asm/viking.h
+@@ -98,6 +98,11 @@
+ #define VIKING_TCENABLE     0x00010000   /* Enable table-walks to be cached */
+ #define VIKING_DPENABLE     0x00040000   /* Enable the data prefetcher */
+ 
++#define ASI_M_VIKING_STOREBUF_TAG	0x30
++#define ASI_M_VIKING_STOREBUF_DATA	0x31
++#define ASI_M_VIKING_STOREBUF_CTRL	0x32
++#define VIKING_STOREBUF_ENTRIES		8
++
+ /*
+  * GNU/Viking Breakpoint Action Register fields.
+  */
+@@ -162,6 +167,42 @@ static inline unsigned long viking_get_bpreg(void)
+ 	return regval;
+ }
+ 
++static inline unsigned long viking_get_storebuf_control(void)
++{
++	unsigned long control;
++
++	__asm__ __volatile__("lda [%%g0] %1, %0\n\t"
++			     : "=r" (control)
++			     : "i" (ASI_M_VIKING_STOREBUF_CTRL));
++	return control;
++}
++
++static inline void
++viking_get_storebuf_entry(unsigned int entry, unsigned long *tag_high,
++			  unsigned long *tag_low, unsigned long *data_high,
++			  unsigned long *data_low)
++{
++	unsigned long address = (entry & 7) << 3;
++	unsigned long th, tl, dh, dl;
++
++	__asm__ __volatile__("ldda [%4] %5, %%g2\n\t"
++			     "or %%g0, %%g2, %0\n\t"
++			     "or %%g0, %%g3, %1\n\t"
++			     "ldda [%4] %6, %%g2\n\t"
++			     "or %%g0, %%g2, %2\n\t"
++			     "or %%g0, %%g3, %3\n\t"
++			     : "=&r" (th), "=&r" (tl), "=&r" (dh),
++			       "=&r" (dl)
++			     : "r" (address),
++			       "i" (ASI_M_VIKING_STOREBUF_TAG),
++			       "i" (ASI_M_VIKING_STOREBUF_DATA)
++			     : "g2", "g3");
++	*tag_high = th;
++	*tag_low = tl;
++	*data_high = dh;
++	*data_low = dl;
++}
++
+ static inline void viking_get_dcache_ptag(int set, int block,
+ 					      unsigned long *data)
+ {
+diff --git a/arch/sparc/kernel/entry.S b/arch/sparc/kernel/entry.S
+index ea51ef52c952..0f07ec9082e7 100644
+--- a/arch/sparc/kernel/entry.S
++++ b/arch/sparc/kernel/entry.S
+@@ -22,6 +22,7 @@
+ #include <asm/psr.h>
+ #include <asm/vaddrs.h>
+ #include <asm/page.h>
++#include <asm/pgtsrmmu.h>
+ #include <asm/winmacro.h>
+ #include <asm/signal.h>
+ #include <asm/obio.h>
+@@ -205,6 +206,33 @@ bad_trap_handler:
+ 	 mov	%l7, %o1		! trap number
+ 
+ 	RESTORE_ALL
++
++	.align	4
++	.globl	data_store_error
++data_store_error:
++	/* SAVE_ALL preserves the trap window's output registers. */
++	mov	SRMMU_FAULT_ADDR, %l5
++	LEON_PI(lda	[%l5] ASI_LEON_MMUREGS, %o1)	! read MFAR first
++	SUN_PI_(lda	[%l5] ASI_M_MMUREGS, %o1)	! read MFAR first
++
++	mov	SRMMU_FAULT_STATUS, %l5
++	LEON_PI(lda	[%l5] ASI_LEON_MMUREGS, %o2)	! read MFSR last
++	SUN_PI_(lda	[%l5] ASI_M_MMUREGS, %o2)	! read MFSR last
++
++	SAVE_ALL
++
++	wr	%l0, PSR_ET, %psr
++	WRITE_PAUSE
++
++	add	%sp, STACKFRAME_SZ, %o0	! pt_regs
++	call	do_data_store_error
++	 nop
++
++	add	%sp, STACKFRAME_SZ, %o0	! pt_regs
++	call	do_hw_interrupt
++	 mov	0x2b, %o1
++
++	RESTORE_ALL
+ 	
+ /* For now all IRQ's not registered get sent here. handler_irq() will
+  * see if a routine is registered to handle this interrupt and if not
+diff --git a/arch/sparc/kernel/entry.h b/arch/sparc/kernel/entry.h
+index c746c0fd5d6b..b421705ab418 100644
+--- a/arch/sparc/kernel/entry.h
++++ b/arch/sparc/kernel/entry.h
+@@ -12,6 +12,8 @@ void handler_irq(int irq, struct pt_regs *regs);
+ #ifdef CONFIG_SPARC32
+ /* traps */
+ void do_hw_interrupt(struct pt_regs *regs, unsigned long type);
++void do_data_store_error(struct pt_regs *regs, unsigned long mfar,
++			 unsigned long mfsr);
+ void do_illegal_instruction(struct pt_regs *regs, unsigned long pc,
+                             unsigned long npc, unsigned long psr);
+ 
+diff --git a/arch/sparc/kernel/traps_32.c b/arch/sparc/kernel/traps_32.c
+index bb149f6cc34b..b0aa4974d9cc 100644
+--- a/arch/sparc/kernel/traps_32.c
++++ b/arch/sparc/kernel/traps_32.c
+@@ -25,6 +25,9 @@
+ #include <asm/ptrace.h>
+ #include <asm/oplib.h>
+ #include <asm/page.h>
++#include <asm/mbus.h>
++#include <asm/mxcc.h>
++#include <asm/viking.h>
+ #include <asm/unistd.h>
+ #include <asm/traps.h>
+ 
+@@ -105,6 +108,64 @@ void do_hw_interrupt(struct pt_regs *regs, unsigned long type)
+ 			       (void __user *)regs->pc, type - 0x80);
+ }
+ 
++static bool cpu_is_viking(unsigned long psr, unsigned long mcr)
++{
++	unsigned int psr_impl = (psr >> 28) & 0xf;
++	unsigned int psr_vers = (psr >> 24) & 0xf;
++	unsigned int mcr_impl = (mcr >> 28) & 0xf;
++	unsigned int mcr_vers = (mcr >> 24) & 0xf;
++
++	return psr_impl == MBUS_VIKING &&
++	       (psr_vers == 0 ||
++		(psr_vers == 1 && mcr_impl == 0 && mcr_vers == 0));
++}
++
++void do_data_store_error(struct pt_regs *regs, unsigned long mfar,
++			 unsigned long mfsr)
++{
++	unsigned long tag_high[VIKING_STOREBUF_ENTRIES];
++	unsigned long tag_low[VIKING_STOREBUF_ENTRIES];
++	unsigned long data_high[VIKING_STOREBUF_ENTRIES];
++	unsigned long data_low[VIKING_STOREBUF_ENTRIES];
++	unsigned long mxcc_status_high = 0, mxcc_status_low = 0;
++	unsigned long mxcc_error_high = 0, mxcc_error_low = 0;
++	unsigned long mxcc_port = 0, storebuf_control;
++	unsigned long mcr = srmmu_get_mmureg();
++	unsigned long psr = regs->psr;
++	bool has_mxcc;
++	int i;
++
++	if (!cpu_is_viking(psr, mcr)) {
++		pr_emerg("Data Store Error: CPU%d PSR=%08lx MCR=%08lx MFAR=%08lx MFSR=%08lx\n",
++			 raw_smp_processor_id(), psr, mcr, mfar, mfsr);
++		return;
++	}
++
++	storebuf_control = viking_get_storebuf_control();
++	for (i = 0; i < VIKING_STOREBUF_ENTRIES; i++)
++		viking_get_storebuf_entry(i, &tag_high[i], &tag_low[i],
++					  &data_high[i], &data_low[i]);
++
++	has_mxcc = !(mcr & VIKING_MMODE);
++	if (has_mxcc) {
++		mxcc_get_sreg(&mxcc_status_high, &mxcc_status_low);
++		mxcc_get_ereg(&mxcc_error_high, &mxcc_error_low);
++		mxcc_port = mxcc_get_preg();
++	}
++
++	pr_emerg("Viking Data Store Error: CPU%d PSR=%08lx MCR=%08lx MFAR=%08lx MFSR=%08lx SBCTRL=%08lx\n",
++		 raw_smp_processor_id(), psr, mcr, mfar, mfsr,
++		 storebuf_control);
++	if (has_mxcc)
++		pr_emerg("MXCC: CCSR=%08lx:%08lx CCER=%08lx:%08lx PREG=%08lx\n",
++			 mxcc_status_high, mxcc_status_low,
++			 mxcc_error_high, mxcc_error_low, mxcc_port);
++
++	for (i = 0; i < VIKING_STOREBUF_ENTRIES; i++)
++		pr_emerg("Viking SB%d: TAG=%08lx:%08lx DATA=%08lx:%08lx\n",
++			 i, tag_high[i], tag_low[i], data_high[i], data_low[i]);
++}
++
+ void do_illegal_instruction(struct pt_regs *regs, unsigned long pc, unsigned long npc,
+ 			    unsigned long psr)
+ {
+diff --git a/arch/sparc/kernel/ttable_32.S b/arch/sparc/kernel/ttable_32.S
+index e79fd786fbbb..ec6c885ddd33 100644
+--- a/arch/sparc/kernel/ttable_32.S
++++ b/arch/sparc/kernel/ttable_32.S
+@@ -56,7 +56,7 @@ t_bad26:BAD_TRAP(0x26) BAD_TRAP(0x27)
+ t_cpexc:TRAP_ENTRY(0x28, do_cp_exception)   /* Co-Processor Exception        */
+ t_dacce:SRMMU_DFAULT                        /* Data Access Error             */
+ t_hwdz:	TRAP_ENTRY(0x2a, do_hw_divzero)     /* Division by zero, you lose... */
+-t_dserr:BAD_TRAP(0x2b)                      /* Data Store Error              */
++t_dserr:TRAP_ENTRY(0x2b, data_store_error)  /* Data Store Error              */
+ t_daccm:BAD_TRAP(0x2c)                      /* Data Access MMU-Miss          */
+ t_bad2d:BAD_TRAP(0x2d) BAD_TRAP(0x2e) BAD_TRAP(0x2f) BAD_TRAP(0x30) BAD_TRAP(0x31)
+ t_bad32:BAD_TRAP(0x32) BAD_TRAP(0x33) BAD_TRAP(0x34) BAD_TRAP(0x35) BAD_TRAP(0x36)
+@@ -158,7 +158,7 @@ trapbase_cpu1:
+ 	TRAP_ENTRY(0x28, do_cp_exception)
+ 	SRMMU_DFAULT
+ 	TRAP_ENTRY(0x2a, do_hw_divzero)
+-	BAD_TRAP(0x2b)
++	TRAP_ENTRY(0x2b, data_store_error)
+ 	BAD_TRAP(0x2c)
+ 	BAD_TRAP(0x2d) BAD_TRAP(0x2e) BAD_TRAP(0x2f) BAD_TRAP(0x30) BAD_TRAP(0x31)
+ 	BAD_TRAP(0x32) BAD_TRAP(0x33) BAD_TRAP(0x34) BAD_TRAP(0x35) BAD_TRAP(0x36)
+@@ -257,7 +257,7 @@ trapbase_cpu2:
+ 	TRAP_ENTRY(0x28, do_cp_exception)
+ 	SRMMU_DFAULT
+ 	TRAP_ENTRY(0x2a, do_hw_divzero)
+-	BAD_TRAP(0x2b)
++	TRAP_ENTRY(0x2b, data_store_error)
+ 	BAD_TRAP(0x2c)
+ 	BAD_TRAP(0x2d) BAD_TRAP(0x2e) BAD_TRAP(0x2f) BAD_TRAP(0x30) BAD_TRAP(0x31)
+ 	BAD_TRAP(0x32) BAD_TRAP(0x33) BAD_TRAP(0x34) BAD_TRAP(0x35) BAD_TRAP(0x36)
+@@ -357,7 +357,7 @@ trapbase_cpu3:
+ 	TRAP_ENTRY(0x28, do_cp_exception)
+ 	SRMMU_DFAULT
+ 	TRAP_ENTRY(0x2a, do_hw_divzero)
+-	BAD_TRAP(0x2b) BAD_TRAP(0x2c)
++	TRAP_ENTRY(0x2b, data_store_error) BAD_TRAP(0x2c)
+ 	BAD_TRAP(0x2d) BAD_TRAP(0x2e) BAD_TRAP(0x2f) BAD_TRAP(0x30) BAD_TRAP(0x31)
+ 	BAD_TRAP(0x32) BAD_TRAP(0x33) BAD_TRAP(0x34) BAD_TRAP(0x35) BAD_TRAP(0x36)
+ 	BAD_TRAP(0x37) BAD_TRAP(0x38) BAD_TRAP(0x39) BAD_TRAP(0x3a) BAD_TRAP(0x3b)
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.43.0
+
