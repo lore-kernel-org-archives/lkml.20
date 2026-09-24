@@ -1,63 +1,63 @@
 Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09AFE4E8DEF
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:00:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40CE64E325E
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:00:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790287205; cv=none; b=b1ukIK2krdMrpuSzhsaQboyQjmXSzxTe+JGUqS/8jNHuPK+XBJxdhL/a7tspMSn2h52vdZ2rMeWr0XvoraC1ZCgsZrsk06BhF1T9lMj6TbSbOS+gt8Ut6kffpem75bzKEIt8qsq1Xdyj7NsAWPSjRv+7Vz6KTIDrzT7k6bSwZfE=
+	t=1790287208; cv=none; b=oDssFCGIpd9fVUKeDZQki40pEAxaShYKWcWqXvwuFzB4tSFjFjVZCygSO0GezvxEGlr98lLJMI6XJECf183Dn+ayVHU+90954yUV4d4/E9j5ovJymHJLG9xaQJjkbtisSk2Iw97lQYEKubKZc661FszxorgX+D0QR8S5uu+Aa0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790287205; c=relaxed/simple;
-	bh=/ePXXN5MQW9Z3zBHwxTeKmLmS0QpVCVYJ2Ax0Aq9r/I=;
+	s=arc-20240116; t=1790287208; c=relaxed/simple;
+	bh=rMlaqyJ0BKTklaQ7CPtT1mddZTFINn1YnH/uUEiXntk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZoXEGh0X4LnGUzY7b5kHctAATF5k+l2hz3cuZx3LZQQNtpiLIgTHOkmI6YnZ2258a6tTjSZ284llpfgvixc83TYFvBTiPAQXo9PleIovPIlsHioFOrD0jegarciAoakkJjHn7qKN4SJ3b0KSs53OLfIlFEU0EZlmIDWir5C6zmg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=cSGwoJLu; arc=none smtp.client-ip=74.125.225.76
+	 MIME-Version; b=RLtL2sH2FPrDN/dxLirWajz9oYh2giAeAjjZhV47JSH2SO+eSOzqxcA0zSuGEs+w67hj49ZQi4YLsvMX3lhm0FEEz54wXBCvdQVgBctd8LJ5BAh7TkXW8xWup2ZnysVOofgZvYTf4f0QTC8MQms+iKKHVKsqqkCN8kk8c6NC5ec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=c771XH3y; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="cSGwoJLu"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f91so140453f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:00:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="c771XH3y"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48449f62b93so81122f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:00:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1790287199; x=1790891999; darn=vger.kernel.org;
+        d=lex.la; s=google; t=1790287202; x=1790892002; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QWbtZH5BbM/fWleDkcM4oWj+mYV1VwVR9KA+u/4iSts=;
-        b=cSGwoJLuHVzdieG/xtj0a//7mjN/6HYiI5OMbubUnU+brMRVgX+ryMfcNxUMr/7PYo
-         F2svD7Mv1M0H/BAnyheA7eAJHhNCCnzM5OiUf0T1SKEb9cOnAM8xDVI6JaPZsxYXyipU
-         u3C58smgfKKE7hJsdi1N0WYqgCl8XaqVvPyMlUAsdR5MPc7ozQ6cDyo0CFsolL8iX6rx
-         mtP/PGqc+TJbCjVG6Q53nZYWkQ//T93J6nwX5elFWth3kOqHiCvWTS8/NloGRmO/G5fs
-         0RlXUYDuw5h9XqOh2riPS7fS00/6IrebYWN5wRKf89VeZOp0ALWZzCfUSFB+D5oW+VpG
-         ooWg==
+        bh=JdRXKlC9KVRoVA8k1AReADQeQ8eRD9lHDMQOjHS44oo=;
+        b=c771XH3yBUSFT0uOYAH2znWsco/Y+qvc3N6wGkjlZw9WTFfEaMpoK+VK7e7KO9SlQU
+         cXKZCztfKC5VBrtoNT6NkEVqoX08pCVfcOyURDaTTOvT+720GEB2aidM2mbZHBtOuazU
+         6KGDkjvmT+R4O6jAEXGfleYzCfQGJIgt+IAeGK26Yd9MR/GeL6JianPCkxO4nmTQhbu2
+         HWngFQy/XdSDvOEBLk+7ja9Or9CVmUlJDE0U19IqqQLcsmax6xn0Km90ExZCkKo4+isC
+         0neg2SBunYZ7WtPmOkSG1saycRxUu+76AkqnjwS3Fvk64GgAQIxes9uSL7WXgjhdHB78
+         wTIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790287199; x=1790891999;
+        d=1e100.net; s=20260707; t=1790287202; x=1790892002;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QWbtZH5BbM/fWleDkcM4oWj+mYV1VwVR9KA+u/4iSts=;
-        b=x4mOwUoFOWzyLyC+3fOPNIiVzuOL1HCQajwKS7PX6ziIYYls4B0hlxfo6sXBf2vNKv
-         V/KcFcHYJZtyR5qOpkc1AcZhXlIddgKgPfcLXIHZaXveAMPZLxlCACbkN/2TnSZ4XDxj
-         825hahmw8W5ZNHIBlybb5MxpLeWcco3FXVGN4W60LjpTwDyjdEOMhhbsivz4aepzhA+D
-         +CCRk8IY77aLWcCjIUyclVDtkNKJPsOYh0KNSfgnGA2K+A6eA8Guqmr8NZ3tAtZDKT2Z
-         p4b5BStdd3Ya9Kg3HnB6xtMinSm9/s+iUNxyZbhpDKqojzsjLHm69Gfnw2FD9Iu8cpDf
-         QS8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy8tA0o7LoQ0mVzT8GkHecmN7CsK+n+WZSKZZ0q9IvXo5cd/+ZGGAo0DzOJplbV4L0QV+Mq4iVG/76kI5I=@vger.kernel.org
-X-Gm-Message-State: AFuF++kdXURqgKdoxoO3t0kDKeRxZlnFx/V7dvZYyp0DIFg0ax/xIGuc
-	5OL7vfFmQJ4RZJkfCzY/SdePMcR9+APX4dM94jUHTc3mCfKEKlfg3zl4Ye2cI4epovc=
-X-Gm-Gg: AYBFou0T/Ifv1dGdkbSZ/aBoccpD8L/kJJ3DhP7Kf3b5H/+poaJlZy6tWpdHxLgZO7e
-	cCDiuJf9Mf8UU/WSSa8a0IJHRhaoCqOopH2p3pj4RHg12PYHHrP/9BZA06AhI9OWsz4JRXrOZQ4
-	pSB46YjVU/TIdwTboq8fJSQlwK+HknCGDxl4v5JWSeeTpOY3A3aHXIPVd0CPSv0bw5TR3RpMB0U
-	wBq6Z/PtAgA7HqPkqOPIjqrmqV/QpO4vvTCSatJyaasg7d1NJNpSVWsG9nz86qkqqPItuLmSCoj
-	JV203ng6DcDoLgNWZBmqkpYUdYLRQoJZy8z0o5/oNv1vvcQ6GVe3eFjEA7Dffmi+rKtRp2mebNn
-	k74VWsFAtDRDDWkXZ1+V1kFpjvUDsZl0ELQRCJkt9VPRa6Qsqwud5tgqmH/ovNJRtEGsvb0cobu
-	sap4PsvmgDatsYNRIAyTNRnpNLtQJm8M1gU91H5h0nNBQV0sR9BF8Mm6YvO28P
-X-Received: by 2002:a5d:5e8d:0:b0:487:40d:af33 with SMTP id ffacd0b85a97d-4887da06e1dmr334977f8f.13.1790287199022;
-        Thu, 24 Sep 2026 14:59:59 -0700 (PDT)
+        bh=JdRXKlC9KVRoVA8k1AReADQeQ8eRD9lHDMQOjHS44oo=;
+        b=Wvb0nRgNr1fAqJc2QE7XNVQTBkPS6KssW3Cyz9pksH6IaO2aZiR2w2rcN+wsLibNCa
+         Ggiy+ClbRfxdN7DOegLSv6LrbAYtbeF0qp96LoBiefBt0qI+dHeLUXYI2FHBeFS66Wlw
+         Y9IwAiFey/ziW0cZu+RlSxI6pJqj/+Qq+z6uU58WF2wyUE9jo3Gr+k6ObPjBTj/tDSFx
+         zFOuDR4Pz+wCcxSb+nym94JcHApw12+kIjuoYDUshNNjyhUeF/PBE83N6QEAiQxDSWVx
+         sdKhDuoInkpmz9NYSqJ5p1kQnr6QLKqtH4CFX/66lgfMpc5WTd2u7T0vvfJ9mry69tZU
+         fhwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzZlDDkgRetVsEIXP7DEtqEIIMPY1XNwJCXT1ZoeLuq9BM79CwUDCfv9h7UpmAYhdmijoPjVQ4b5+vYtmU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kEKnK+slDVhd2GjjnmBdkEvwSi11WxrxX1eIC9BleOYLgUliJ1
+	Fjd5HmuXr2Q+tDkgvJdOGYCRM0UN4nCcmsBPAhmEASjF33XyaQY2lJ24PILxV+631UE=
+X-Gm-Gg: AYBFou1CscOAhnVwPA0wt8UI9dhLesNkvuzLuAVmLFZWis1CxRJ5wJ5N6V2VavIe6K+
+	gz5XStV1UhPCZ5hiILjSW/tiTgtYwv1UYnVXbJZOm2bhzlPFL1s0z5i4SUGWlHZsXhCC5QEF7/h
+	8ROCffURw8vCkIpjvIAKG2EHY0Tig/F0XFg6Vojy7xGBDYEOJe2XO5k/W9RxDH2TeH7+5GMl/+a
+	3njkgAaS8aAGCm+ilyifYdbBmQ/cUXieqBbJ1u5NLNce9aYnhYWHCK9g+zqHJcsr5xuVHkmEllb
+	++I5TXYintQQKQiRylA98Tcp3CxNSYxYoHhxU05RBax89N8GMSCHiKirJgt14U8TJG/MQOFamsL
+	hmVhzCva8gmbw5SMRXaoGvUSuesTkP5R1WRooenphYe5HHHf+Pey6kBJCw20I/88HWY7olIcZLQ
+	GSntAUtWOMW+LVvuoBgmTjHr3l4FAiWb8FOTzS1Hq7OdrVWQNNCrhR/JidEgKS
+X-Received: by 2002:a05:6000:4a16:b0:487:13a9:80d with SMTP id ffacd0b85a97d-488716a19bamr7800648f8f.10.1790287201820;
+        Thu, 24 Sep 2026 15:00:01 -0700 (PDT)
 Received: from remote-01 ([84.17.55.134])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a34a638sm1922324f8f.9.2026.09.24.14.59.57
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a34a638sm1922324f8f.9.2026.09.24.15.00.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 14:59:58 -0700 (PDT)
+        Thu, 24 Sep 2026 15:00:01 -0700 (PDT)
 From: Aleksei Sviridkin <f@lex.la>
 To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>,
@@ -73,9 +73,9 @@ Cc: "David S. Miller" <davem@davemloft.net>,
 	Woojung Huh <woojung.huh@microchip.com>,
 	Vladimir Oltean <vladimir.oltean@nxp.com>,
 	Maxime Chevallier <maxime.chevallier@bootlin.com>
-Subject: [PATCH net v3 2/4] net: phy: put the driver module the attach took
-Date: Fri, 25 Sep 2026 00:59:48 +0300
-Message-ID: <20260924215951.2127682-3-f@lex.la>
+Subject: [PATCH net v3 4/4] net: phy: make an unbind wait for the attached consumer to detach
+Date: Fri, 25 Sep 2026 00:59:50 +0300
+Message-ID: <20260924215951.2127682-5-f@lex.la>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260924215951.2127682-1-f@lex.la>
 References: <20260924215951.2127682-1-f@lex.la>
@@ -87,85 +87,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-phy_attach_direct() pins the PHY driver module through d->driver, and
-phy_detach() releases it by reading d->driver again. Unbinding the PHY
-driver while the PHY is attached clears that pointer, so a detach that
-runs while the driver is still unbound skips the put and the module can
-no longer be unloaded; if a different driver binds in between, the put
-lands on a module that was never pinned. The NULL test added by
-commit c2b727df7caa ("net: phy: Avoid NPD upon phy_detach() when driver
-is unbound") avoids the oops but skips the put.
+With attach serialised against unbind, the unbind that loses the race
+waits for the attach and then removes the driver from a PHY that is now
+attached. phylink uses phydev->drv right after the attach returns, and
+phylib uses it again in later phy_start(), phy_stop() and state machine
+runs.
 
-Found by reading phy_detach() while chasing a PHY driver unbind race on
-a Keenetic KN-1012 (MT7981, air_en8811h built as a module). The leak
-itself was not observed there: unbinding air_en8811h under the attached
-lan4 DSA port and then unbinding the switch faults earlier on that
-board, in phy_free_interrupt() or under phy_stop(), before
-phy_detach() gets to the put.
+Found on the same KN-1012 by repeating the wan race on a kernel with
+the previous patch. The attach completed, the unbind then removed the
+driver, and phylink faulted one frame up:
 
-Remember which module was pinned and release that one.
+  Unable to handle kernel access to user memory outside uaccess
+  routines at virtual address 00000000000000a0
+  Comm: ip
+  Call trace:
+   phylink_bringup_phy+0x680/0x784 (P)
+   phylink_fwnode_phy_connect+0x1b8/0x27c
+   phylink_of_phy_connect+0x18/0x20
+   mtk_open+0x38/0xb70
 
-Fixes: cafe8df8b9bc ("net: phy: Fix lack of reference count on PHY driver")
+A DSA port gets there without any race, and did on the same board
+before this series: unbinding the lan4 PHY driver returns at once, and
+with lan4 up, tearing the switch down later faults in
+_phy_state_machine(), called by phy_stop() from dsa_user_close().
+
+The driver core gives a driver no way to refuse an unbind, so make
+phy_remove() wait until phy_detach() has run. An unbind of a PHY in use
+now blocks until the consumer lets go: ifdown for a MAC that connects
+in ndo_open, the switch teardown for DSA, which connects at probe.
+
+Deleting the PHY device through phy_device_remove(), as
+mdiobus_unregister() does, keeps today's behaviour and does not wait,
+and it releases an unbind that is already waiting. Some MAC drivers
+unregister their MDIO bus with the PHY still attached and never detach
+it (greth), so waiting there would hang their removal for good.
+
+Fixes: 00db8189d984 ("This patch adds a PHY Abstraction Layer to the Linux Kernel, enabling ethernet drivers to remain as ignorant as is reasonable of the connected PHY's design and operation details.")
 Assisted-by: LLM
 Signed-off-by: Aleksei Sviridkin <f@lex.la>
 ---
- drivers/net/phy/phy_device.c | 8 +++++---
- include/linux/phy.h          | 2 ++
- 2 files changed, 7 insertions(+), 3 deletions(-)
+ drivers/net/phy/phy_device.c | 21 +++++++++++++++++++++
+ include/linux/phy.h          |  4 ++++
+ 2 files changed, 25 insertions(+)
 
 diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-index 7046976c5b6a..29d65f6cfd59 100644
+index 1355ea78c86f..5608e65f5a92 100644
 --- a/drivers/net/phy/phy_device.c
 +++ b/drivers/net/phy/phy_device.c
-@@ -1793,6 +1793,7 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
- 		err = -EIO;
- 		goto error_put_device;
- 	}
-+	phydev->drv_owner = d->driver->owner;
+@@ -1155,6 +1155,13 @@ void phy_device_remove(struct phy_device *phydev)
+ 	unregister_mii_timestamper(phydev->mii_ts);
+ 	pse_control_put(phydev->psec);
  
- 	if (phydev->is_genphy_driven) {
- 		err = d->driver->probe(d);
-@@ -1894,7 +1895,8 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
- 	return err;
++	mutex_lock(&phydev->bind_lock);
++	phydev->removing = true;
++	mutex_unlock(&phydev->bind_lock);
++	/* Order the store before waking an unbind waiting in phy_remove() */
++	smp_mb();
++	wake_up_var(&phydev->attached);
++
+ 	device_del(&phydev->mdio.dev);
  
- error_module_put:
--	module_put(d->driver->owner);
-+	module_put(phydev->drv_owner);
-+	phydev->drv_owner = NULL;
- 	phydev->is_genphy_driven = 0;
- 	d->driver = NULL;
- error_put_device:
-@@ -1955,8 +1957,8 @@ void phy_detach(struct phy_device *phydev)
- 	phydev->phy_link_change = NULL;
- 	phydev->phylink = NULL;
+ 	/* Assert the reset signal */
+@@ -1893,6 +1900,7 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
  
--	if (phydev->mdio.dev.driver)
--		module_put(phydev->mdio.dev.driver->owner);
-+	module_put(phydev->drv_owner);
-+	phydev->drv_owner = NULL;
+ 	phy_resume(phydev);
  
++	phydev->attached = true;
+ 	mutex_unlock(&phydev->bind_lock);
+ 
+ 	/**
+@@ -1983,6 +1991,8 @@ void phy_detach(struct phy_device *phydev)
+ 	module_put(phydev->drv_owner);
+ 	phydev->drv_owner = NULL;
+ 
++	store_release_wake_up(&phydev->attached, false);
++
  	/* If the device had no specific driver before (i.e. - it
  	 * was using the generic driver), we unbind the device
+ 	 * from the generic driver so that there's a chance a
+@@ -3869,11 +3879,22 @@ static int phy_probe(struct device *dev)
+ static int phy_remove(struct device *dev)
+ {
+ 	struct phy_device *phydev = to_phy_device(dev);
++	bool attached;
+ 
+ 	mutex_lock(&phydev->bind_lock);
+ 	phydev->bound = false;
++	attached = phydev->attached && !phydev->removing;
+ 	mutex_unlock(&phydev->bind_lock);
+ 
++	/* The driver core cannot refuse an unbind, and the consumer keeps
++	 * using phydev->drv until it detaches.
++	 */
++	if (attached) {
++		phydev_warn(phydev, "unbind waits for the PHY to be detached\n");
++		wait_var_event(&phydev->attached, !READ_ONCE(phydev->attached) ||
++			       READ_ONCE(phydev->removing));
++	}
++
+ 	cancel_delayed_work_sync(&phydev->state_queue);
+ 
+ 	if (IS_ENABLED(CONFIG_PHYLIB_LEDS) && !phy_driver_is_genphy(phydev))
 diff --git a/include/linux/phy.h b/include/linux/phy.h
-index 5f8d65868e0f..33a207ac5c30 100644
+index 8903123d25c8..3e005e6a3b65 100644
 --- a/include/linux/phy.h
 +++ b/include/linux/phy.h
-@@ -560,6 +560,7 @@ struct phy_oatc14_sqi_capability {
-  *
-  * @mdio: MDIO bus this PHY is on
-  * @drv: Pointer to the driver for this PHY instance
-+ * @drv_owner: Driver module phy_attach_direct() took a reference on
-  * @devlink: Create a link between phy dev and mac dev, if the external phy
-  *           used by current mac interface is managed by another mac interface.
-  * @phyindex: Unique id across the phy's parent tree of phys to address the PHY
-@@ -671,6 +672,7 @@ struct phy_device {
- 	/* Information about the PHY type */
- 	/* And management functions */
- 	const struct phy_driver *drv;
-+	struct module *drv_owner;
+@@ -655,6 +655,8 @@ struct phy_oatc14_sqi_capability {
+  * @lock:  Mutex for serialization access to PHY
+  * @bind_lock: Serialises attach and detach with driver bind and unbind
+  * @bound: A driver has finished probing and is not being removed
++ * @attached: phy_attach_direct() succeeded and phy_detach() has not run
++ * @removing: phy_device_remove() is deleting the device
+  * @state_queue: Work queue for state machine
+  * @link_down_events: Number of times link was lost
+  * @shared: Pointer to private data shared by phys in one package
+@@ -789,6 +791,8 @@ struct phy_device {
+ 	/* Serialises attach and detach with bind and unbind */
+ 	struct mutex bind_lock;
+ 	bool bound;
++	bool attached;
++	bool removing;
  
- 	struct device_link *devlink;
- 
+ 	/* This may be modified under the rtnl lock */
+ 	bool sfp_bus_attached;
 -- 
 2.53.0
 
