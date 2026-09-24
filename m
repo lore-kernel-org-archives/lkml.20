@@ -1,121 +1,99 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 531F2426429
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:22:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA7343A7E3;
+	Thu, 24 Sep 2026 08:23:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790238166; cv=none; b=ELBn+3NCJSgRUIbXpiz/PqfAGstpzdLu3JilmVFmu7k+0IODB5x3D4zvAIwIc5YX/+jSFrBdy6lsncZkvWh7Pmk01zP4tkYfl4XXNCNGK7QeFnDgaAfRVJRsgcUH2xHfKKNF5F05ReuxSUI8PTPcZ6FstjzubOm9kO7kjnB0uuI=
+	t=1790238185; cv=none; b=ff0IEd6RHX694svwlpKTQV8e6IEhxC8ff9q73Ohdvelbi6flCIiJ10vCVSV01eSvt/RO4dd314f9NOE7bjzDZmGRTTBB4UXORtTIL65Agn8NkyefnC6iNpQHsakbAiyncFWaU17+aghV5aG2PO4gpjWqz1d/+DNPNMgp1cuDZo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790238166; c=relaxed/simple;
-	bh=Dq4IZXrtgGbdE5mjpprcJEBrzgXkFHM02HzALU+oizA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=M9roVF+xgY+E1gkDAlYsJmQILgdnJwlhgrQhe2LeZZEK36FCmTr9E3k41cFhcGmXcU/IS0WPuyNZj1FnO6hPdcaYa8Ts/X9mybfisDHa3+uYHZvLn4SZDFDdS0Aaj/iuSpK9Gir9c2jvnR9bLTRXMDNhF2/OJAe1oD3s7wqkwbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cdgGnTVC; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790238185; c=relaxed/simple;
+	bh=Kw+7uJwadmA3/+0VnGX3uBWEfazwrylhCy0o5tuUHNo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i7K94Ey4dp1pBJQE4fdWl8TUEHw2v3OM/NUO7cSK3NRJcCbD1wsAGw58JxWtNuKHgsMHO56Qz45Gy+IgfvUGEW2ZSM783VgzN1WZQsf93koTX+gmFzonFnIvmbEm08zahKoRWpVMnNtiapMgF2+u+ZT8IxFWHq7HKZpGW1lk2EI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LKRk7Yef; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cdgGnTVC"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7d2bb404so6093095e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:22:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790238163; x=1790842963; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4HHnn+wFyq/rjLJHO0qvSlndCsSVnEJyRlM3aqBNu7s=;
-        b=cdgGnTVCkH8u54JJcFBoVxF05d9D34iwtqjDzH4TbhzttNjQMDfY9TTpWGdbCrUfgM
-         ZJB26cJwEPikMGB1QMER94FoFzKN/NyZiKgxKX3lXaHH3ry4VE2xGHOFoNJAjXxOHDID
-         P5Uv+ZB2qTd+vLTDDpRliEnlBG+8zMJOVWqV6e8eKTtHtYlq+vaQZdf4jsbu9z6wAwXF
-         gB2ahuaP//ZLZJarh1SnwIyGT/PWO9GkIwq/2Pq4pdhZqxySPR+JB0gp7t8mpJ5VNETQ
-         KY0f3M99hLI2x9zW0ytThfL0DtZge8cmC2FMe5Gz17/b6c5JHIVnVzy0HPTOgCwMiL57
-         bFpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790238163; x=1790842963;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4HHnn+wFyq/rjLJHO0qvSlndCsSVnEJyRlM3aqBNu7s=;
-        b=SV+xL+f5vMYbfM/X+AbEff0HjbloUUDS+LGECSqtFWJKyFIdK5f61q384dn4jqQRjz
-         JRpChvcPDvkPabQB9utVVt6XtPpJh9kJxoXG2VQ1nPlYQjFpJWMLs0Mlw2qhOn739l/g
-         qagFPhRTbp6JyeJ9JmlbIy8PZw9+N4wrIL7IUWU4b0z1+iO0X1PmUZDVm02YhyDvlCIy
-         aF2eMApR3cnN8tSZQo46/qrGNqfhBGSuDgiVXUKQJT0zUutliDCj7LpU3vihIr31Cg4W
-         +wQdmMsO8+otq4qx2Wn/JbpN/f7EmxGzh7vwS5v8m0nyF+7kMLJ/5j9MUPXeqbzvCDC0
-         Fqyw==
-X-Forwarded-Encrypted: i=1; AKwUvBy5gboN7yqQ3c2mpEUc5xi08pxKn1ZYEim9M+rCv+W48EPRjlg6IEXTO2sxMpGAE08AfsukX4DEmrkkkWI=@vger.kernel.org
-X-Gm-Message-State: AFuF++leXDY5x/JbB6mOwSIEMw30aVqkvPWxDF4TmfQlWQ8lY7Foq+Tp
-	LyAA7pY2gVdTNi72E+TUqUyx7nKRgYhCzucQNKkyweYy0h4xAA+zGdEk0mwU7Izq
-X-Gm-Gg: AYBFou069nrlumlEQRVORKURPudHET9TtCVyZkcZoPBlmro1YdV+VOf6tJP+iT3ARHp
-	pprOJCZ7W5WWTe5i9E/fuVVhBAwxSowYw+7GehLh7rKv1+OQLeg36AsGWN2/p4GPDv0jWD6Z0rE
-	3Kgl50KjM0KPgRoImYTqJl+z+AcDI/X2WwYAIy/ifbpip3dlVD26nxbNrAdLYzDIxSHoqgWymYY
-	Y0AkKhqCT+SxmS53dxNgZzvLfJOdDLjlHAKeexiVbg18hk78E1joa/qRNFE3BagaBxCXdWsPvog
-	6bGLePgdkJM7/PJxPSM+yztO1mIy/bYoVKe2+a7Wh/Ec8gfNqebgBncjnqbC1dClCRSU8tA3OR6
-	eJFHPWQ73IvfF/j5cLnrozFjNxpsQXFuq2bolAz+HRN7rf1pF/y7lYOGlbeUqMzvv0Z4/WtfSR3
-	0gMNnj9DtDqTrmBR3ZaqLXllWfki0Uatvz4NDSIOHcfFNNf5xoes6cMiAoaOHqAzps8sNtbwVBY
-	3ATTCJfQonnbxWHxnT7dpSeD6hUd3hDwn0=
-X-Received: by 2002:a05:600c:8b5b:b0:49c:f13e:e4d with SMTP id 5b1f17b1804b1-49fe66f17damr26591975e9.10.1790238161498;
-        Thu, 24 Sep 2026 01:22:41 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdf157cdfsm56052875e9.0.2026.09.24.01.22.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 01:22:40 -0700 (PDT)
-Date: Thu, 24 Sep 2026 09:22:39 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Johan Almbladh <johan.almbladh@anyfinetworks.com>
-Cc: tsbogend@alpha.franken.de, ast@kernel.org, daniel@iogearbox.net,
- andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
- paulburton@kernel.org, main.kalliope@gmail.com, martin.lau@linux.dev,
- song@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org,
- emil@etsalapatis.com, ihor.solodrai@linux.dev, linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, philmd@oss.qualcomm.com
-Subject: Re: [PATCH bpf 1/2] bpf, mips: Fix immediate JMP JEQ/JNE on MIPS32
-Message-ID: <20260924092239.0743b082@pumpkin>
-In-Reply-To: <20260923105158.3514342-1-johan.almbladh@anyfinetworks.com>
-References: <20260923105158.3514342-1-johan.almbladh@anyfinetworks.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LKRk7Yef"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09CC31F000FF;
+	Thu, 24 Sep 2026 08:22:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790238179;
+	bh=S/8lUKp9mIX5d6BKwHywb1J2XqYuMwPVrIBYkOuLxkI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LKRk7Yef7xIRXywmYt9T9p8ZQrbVXd7n+swMMEKmBp2zOWJ7YgL2ycv5JC3WOiQE8
+	 r75OCp43XzZPdNxIfpBLHg8Hyxi3VbuxfkXtmHo/dsPoPHl8sDvZWu5skYpaz/3h6B
+	 I8leYeJmIZKqLPggRWdGz6bna2VuECRUlAG++6RMWW3kP9Ou/obf8jtu4nbr1c6rOu
+	 p3GbpdB08d3+J+pskLku3PjKjTCWIia2EGwx7LWnwDYmTt+kSnV9PQR3jRSJV1zKOd
+	 xCU7kf9CeR9HBun9nMQR9UiRg5w6NUmieCFF/EbxzD2C2y9Km6mTqbnlX54j3TFiCv
+	 KozGf/TKQzglA==
+Date: Thu, 24 Sep 2026 09:22:47 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Mark Rutland <mark.rutland@arm.com>, Randy Dunlap <rdunlap@infradead.org>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
+	David Hildenbrand <david@kernel.org>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Sven Schnelle <svens@linux.ibm.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, 
+	kvm@vger.kernel.org, linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	Jack Thomson <jackabt@amazon.com>, Jack Thomson <jackabt.amazon@gmail.com>, 
+	Alexandru Elisei <alexandru.elisei@arm.com>, Vincent Donnefort <vdonnefort@google.com>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Sean Christopherson <seanjc@google.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, Leo Soares Passos <Leo.Bras@arm.com>, 
+	Wei-Lin Chang <weilin.chang@arm.com>, linux-s390@vger.kernel.org
+Subject: Re: [PATCH v4 01/14] KVM: Allow architectures to disallow pre-fault
+Message-ID: <arTdxHgk_3gGySOO@gremlin>
+References: <20260923-kvm-arm-prefault-v4-0-d4b0b4dfa8c3@kernel.org>
+ <20260923-kvm-arm-prefault-v4-1-d4b0b4dfa8c3@kernel.org>
+ <CA+EHjTzDYSuBVEc+SMdDa41sq-ET=m_oWW0gL9dYf+AumPYPUg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+EHjTzDYSuBVEc+SMdDa41sq-ET=m_oWW0gL9dYf+AumPYPUg@mail.gmail.com>
 
-On Wed, 23 Sep 2026 12:51:57 +0200
-Johan Almbladh <johan.almbladh@anyfinetworks.com> wrote:
+On Wed, Sep 23, 2026 at 07:52:27PM +0100, Fuad Tabba wrote:
+> Hi Lorenzo,
+>
+> On Wed, 23 Sep 2026 16:15:44 +0100, "Lorenzo Stoakes (ARM)"
+> <ljs@kernel.org> wrote:
+> [...]
+> > diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+> [...]
+> > +int kvm_arch_pre_fault_allowed(struct kvm_vcpu *vcpu)
+> > +{
+> > +        if (!vcpu->kvm->arch.pre_fault_allowed)
+> > +                return -EOPNOTSUPP;
+> > +
+> > +        return 0;
+> > +}
+>
+> nit: the comment above the smp_rmb() in tdx_sept_map_leaf_spte() still
+> says pre_fault_allowed is read by kvm_arch_vcpu_pre_fault_memory(),
+> but after this patch it's read here.
 
-> An addu instruction was emitted instead of addiu, causing the immediate
-> value 1 to be interpreted as register $at. This made the comparison
-> result invalid when the immediate operand was negative. Note that $at
-> is mapped to BPF_REG_AX, which is used for constant blinding.
-                                                      ^^ building??
+Ack can fix up I need to respin!
 
-David
+>
+> Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-> 
-> Fix the instruction to use the immediate form.
-> 
-> Found with test_bpf on MIPS32r1 emulated by QEMU.
-> 
-> Fixes: eb63cfcd2ee8 ("mips, bpf: Add eBPF JIT for 32-bit MIPS")
-> Signed-off-by: Johan Almbladh <johan.almbladh@anyfinetworks.com>
-> ---
->  arch/mips/net/bpf_jit_comp32.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/mips/net/bpf_jit_comp32.c b/arch/mips/net/bpf_jit_comp32.c
-> index 40a878b672f5..15a2a153dc87 100644
-> --- a/arch/mips/net/bpf_jit_comp32.c
-> +++ b/arch/mips/net/bpf_jit_comp32.c
-> @@ -1111,7 +1111,7 @@ static void emit_jmp_i64(struct jit_context *ctx,
->  			emit(ctx, xor, tmp, lo(dst), tmp);
->  		}
->  		if (imm < 0) { /* Compare sign extension */
-> -			emit(ctx, addu, MIPS_R_T9, hi(dst), 1);
-> +			emit(ctx, addiu, MIPS_R_T9, hi(dst), 1);
->  			emit(ctx, or, tmp, tmp, MIPS_R_T9);
->  		} else {       /* Compare zero extension */
->  			emit(ctx, or, tmp, tmp, hi(dst));
+Thanks! :)
 
+>
+> Cheers,
+> /fuad
+
+--
+Cheers, Lorenzo
