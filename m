@@ -1,96 +1,113 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 998793AA9D8;
-	Thu, 24 Sep 2026 01:45:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFF8C39B49A
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:45:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790214353; cv=none; b=KSRDQj3MU5TpZCP5E4FJXCsGiObi2J8Nt46bJ6S5/u07blGji467KfIj79QqYb+qkr1kUJP96RmoA8eFl0xysoQqvy9cixaoaAWhzhkdsuPD4TIin+jbg9Z3OkL1yqKnpHcTO9jzS7RKSY9dkLJXyo99ujFX7WeKG0OhRAJwfsE=
+	t=1790214361; cv=none; b=REKlhB2Qrck2GNny+sS8va9PlS6dhC63knaJgAGKo2du7VeW/QRd+1GRz1PyDNG9BNOoLQ0pjqea/7TXBxOYxlgtu/w7iZ4MsTabvQtgtUQbj6Zmrfr4SeqKfvdd90V1gcy+cMVG6Dh4qMhpWXCEeorCUySe7X8SJGwmGr6K2CE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790214353; c=relaxed/simple;
-	bh=aRRi6RHOjTOyCJ/5HtsiLAqhCPs9CduVQPKUndFydks=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M1wRhJEEUQ2RoEEYTdoFGSVyrcFpL5OMTICGI9rpj6l4teCQ+rXQUN3tiG0OZstwMpcFLH6a66lyMybth+AEFg0lKDP9jPFgI0KNvIqA6Su9/5+nOb/aoG8rtE5uOSElblmlPFp2efR1HA8MRwhz1TjcNlGYflmG9j+91CafcAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=fail (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=dLh1rHhN reason="signature verification failed"; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="dLh1rHhN"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 06C9340E015D;
-	Thu, 24 Sep 2026 01:45:48 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
-	reason="fail (body has been altered)" header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id TvbiNa2KeqAs; Thu, 24 Sep 2026 01:45:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1790214337; bh=K4Rjc0zg3eS2N5HthlBowVt5KP/fUl4gPGDlXBupBBw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dLh1rHhN3tOa99B2mh2ge76ptxzketW9gjSmLr8l4gv4G7u3hfzhmwMEK/7qkYe+D
-	 yu3rUcu0HlmHG77mGrKWBMkhL6weYHntcHxtDbubnh7tGy/dKxh5qHeSzcCQo84Whh
-	 Woj8NuO+PEQCztKPWVtV6gjy5Dy0nOK0KNEmCdkDQpqDvCcOTXJVPg+/hr/8C5CKRR
-	 hcstMLw9/3BbWys5JTg55jVQnd2BcNhMgThsKXInjGprHCOTxBzLIOMJ8aFJ1LgRp3
-	 REQZ6FCSo8hqKy6ZbJF7xnUKp2vprPm23KCE8uo915nI4GNhCMXk7Liy1W6Hloni/D
-	 kSLWxEcTP6zyKg9KzbM9Ra/8dv/dmUsDKB+z4eowVONp8ATdVuP4vsMkjDlwDGmieW
-	 XkYc//1wAKjfMfdr42s+rRCme6T8/qI56Knz/+iy2s7y5B212R52IPYjviEjVK+LeO
-	 Hjru5IfRfhPXrx0VMTT06X0kIXNqAamSCKyhyZzWb+YZ8KMmJltuQf+d84rIM1MUwq
-	 ARqkW6uXnxiYyl9EWpIyfSy2qMxkbaB0dHFpVswcZlCRKiZKAcuJEOYuqoLda7NBfI
-	 wucrymXTfFqXfvE2clGg5agfBWVeTRre8xW9f5YQF+KhlSJLBhk1MyVfGyX2ZEfJCr
-	 QCwzwfsHbb5e6dOG3OHtvnoM=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::48])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 3BB7540E00B8;
-	Thu, 24 Sep 2026 01:45:21 +0000 (UTC)
-Date: Wed, 23 Sep 2026 18:45:17 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Kim Phillips <kim.phillips@amd.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
-	linux-coco@lists.linux.dev, kvm@vger.kernel.org,
-	Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Nikunj A Dadhania <nikunj@amd.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Michael Roth <michael.roth@amd.com>,
-	Naveen Rao <naveen.rao@amd.com>,
-	David Kaplan <david.kaplan@amd.com>,
-	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Nathan Fontenot <nathan.fontenot@amd.com>
-Subject: Re: [PATCH v5 1/8] x86/bugs: Allow forcing Automatic IBRS with SNP
- active using spectre_v2=eibrs
-Message-ID: <20260924014517.GEarSArVM12m_ZshhA@fat_crate.local>
-References: <20260826223510.3669875-1-kim.phillips@amd.com>
- <20260826223510.3669875-2-kim.phillips@amd.com>
- <20260903040330.GNapjxkgMd2Ey38egR@fat_crate.local>
- <01b57e61-df45-44a6-848b-c19eae226ad0@amd.com>
+	s=arc-20240116; t=1790214361; c=relaxed/simple;
+	bh=qAZ4/9+Tox0YpY0TsXe4o3Fh2mO+2N43EJOmI3rPFmI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=cxGIw1fi40L0V7+TkYWb9obytrBlGjdE1n1H7IeB5Mu7X/B72vahWqCrWBDPJtyPhYFlKwu/jW8ofA/KYJ3Fb3kwTDlmPudxxfuSHqF+w/wX8XAas8E8ktXkej+umEAg79EjsptoY65fuLID0q7kLKXRpgss3qq99kRZDj4E744=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: ad5b29b4b7b911f19a56ed5b684f684d-20260924
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
+	HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, SA_TRUSTED, SA_EXISTED
+	SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_BAD
+	CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU
+	AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:9cdb7bbf-42a3-4331-8af3-0d5407e45726,IP:20,
+	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:20
+X-CID-INFO: VERSION:1.3.19,REQID:9cdb7bbf-42a3-4331-8af3-0d5407e45726,IP:20,UR
+	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+	elease,TS:20
+X-CID-META: VersionHash:7db8b62,CLOUDID:a08f7343481c5f8f54eb5fae658f5ca5,BulkI
+	D:260924094557KZ3KSU5J,BulkQuantity:0,SF:17|19|38|66|78|81|82|102|127|850|
+	865|898,TC:nil,Content:0|15|50|99,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:
+	nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,B
+	RE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: ad5b29b4b7b911f19a56ed5b684f684d-20260924
+X-User: wangxuewen@kylinos.cn
+Received: from localhost.localdomain [(223.70.159.239)] by mailgw.kylinos.cn
+	(envelope-from <wangxuewen@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 927248115; Thu, 24 Sep 2026 09:45:53 +0800
+From: Xuewen Wang <wangxuewen@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Xuewen Wang <wangxuewen@kylinos.cn>,
+	Baolin Liu <liubaolin@kylinos.cn>
+Subject: [PATCH v1 2/4] ntfs: fix rollback after MFT bitmap run coalescing
+Date: Thu, 24 Sep 2026 09:45:12 +0800
+Message-Id: <20260924014514.1678828-3-wangxuewen@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260924014514.1678828-1-wangxuewen@kylinos.cn>
+References: <20260924014514.1678828-1-wangxuewen@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <01b57e61-df45-44a6-848b-c19eae226ad0@amd.com>
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 18, 2026 at 06:00:21PM -0500, Kim Phillips wrote:
-> That fallback cannot be overridden.=C2=A0 An admin running an SNP host =
-whose
-> workload is dominated by guest activity rather than host userspace may
-> well prefer AutoIBRS
+After the direct allocation attempt drops lcnbmp_lock, a concurrent free
+can let ntfs_cluster_alloc() return the adjacent cluster. The merged
+runlist then extends the existing last run, but rollback assumes a new
+run was added. A later metadata failure removes the old mapping and
+frees its first cluster.
 
-Why would she/he prefer to do that? Any persuasive arguments to make her/=
-him
-do that?
+Record whether the allocated cluster is adjacent before merging the
+runlists. On rollback, shorten a coalesced run by one cluster and free
+only that cluster; remove the new run for a non-adjacent allocation.
 
---=20
-Regards/Gruss,
-    Boris.
+Suggested-by: Baolin Liu <liubaolin@kylinos.cn>
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
+---
+ fs/ntfs/mft.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-https://people.kernel.org/tglx/notes-about-netiquette
+diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
+index 88bac85d22bc..12666668a80e 100644
+--- a/fs/ntfs/mft.c
++++ b/fs/ntfs/mft.c
+@@ -1428,6 +1428,8 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
+ 					"Failed to allocate a cluster for the mft bitmap.");
+ 			return PTR_ERR(rl2);
+ 		}
++		/* The adjacent cluster may have become available while unlocked. */
++		status.added_cluster = rl2->lcn == lcn;
+ 		rl = ntfs_runlists_merge(&mftbmp_ni->runlist, rl2, 0, &new_rl_count);
+ 		if (IS_ERR(rl)) {
+ 			up_write(&mftbmp_ni->runlist.lock);
+@@ -1442,8 +1444,8 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
+ 		}
+ 		mftbmp_ni->runlist.rl = rl;
+ 		mftbmp_ni->runlist.count = new_rl_count;
+-		status.added_run = 1;
+-		ntfs_debug("Adding one run to mft bitmap.");
++		status.added_run = !status.added_cluster;
++		ntfs_debug("Allocated one cluster for mft bitmap.");
+ 		/* Find the last run in the new runlist. */
+ 		for (; rl[1].length; rl++)
+ 			;
+-- 
+2.25.1
+
