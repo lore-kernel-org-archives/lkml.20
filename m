@@ -1,249 +1,458 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB40419303
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:36:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC7594AA57C
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:38:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790275021; cv=none; b=iv+y22ZCj+x+zLyeDib0GucfuQrlc4QdjswCUzC4nMjY+v9/qNTBTl1CkhNv8Lb3YgsJaO2rdVxyBaaOMEhqTcLDgoR8Q/rQW9GKoja8CrLp8Oxlohz5fO3nfeTCqVKf2mzgj2tFhpRcPo/fj6OyKWl5C+VO+klGlhRq03z/F3Y=
+	t=1790275090; cv=none; b=GMzOpqacybPtXRSIF4WVsA/689YtJiPA3F3rFK1pJ5YDhnwD4qKl037tbcd9nkm768dXaInEliXqOIxW9lkLnsMHU1MHfvqZl61hSfo/VtcrTd7jHJqyv2xvrBjQzaLOJ4p7nXaA4rEiT42p0A72APW2KTY6JoPiciVmcaU2rIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790275021; c=relaxed/simple;
-	bh=Zm5ldxmbcNQhcHRY+0U+0ysqbQPxSjq+VFK68TfEGF0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k+p/XpXPsHrm6KKxcjGBWUI5QT9EXqvRrPva3N0egOXFbwUFTx5oL7zi9aIss7Nf4MdliThygjy4+HQXqu6YKHKpdnVF39YP/+tnQbnwZUeXuNqiTmT1QE0+IX2iNnuNcC+NmANxwcqle4V46zqBEiVL4Ia/6GrgaG+Xj6dWzyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=d/SnV1iu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PP0BP5aa; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790275090; c=relaxed/simple;
+	bh=jDMyY25SD1agu2yAoZSbI5/zI0MpNNINxARme0aA7Oo=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=Z9YSnTEtRk9xLH1t4XfJX6DXXxRYo0mwrR5Vc27JG/02gubUQIygoMapQtp1kPJX+NUu3ZMhsHhdLkJG/EtT5Ak19uoivYJrHgjjsRv32EXeheq0mo6bduFUoikzRjHlbtUIayVERpVPfMIPirtJJStDSxR30AD2jI/XljDIw3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lSDMKa1k; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="d/SnV1iu";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PP0BP5aa"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OFfMBg1279164
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:36:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	41LukkMXTeVAHv1EIq6Q6zMQywct8NJOviLbwN/UtRg=; b=d/SnV1iuTx+hgTty
-	eAP4qOmbq3d4b0L0y60wdiGxF00t4kjPES5bO5MiikdGvmjUG9NIqjZ0+PYiBA89
-	fa8IgVNZaSJN2EPTwMRslEte3J/HUVfMvXrehg01FSHqGy8RV9UPIF9b8zGy6Ams
-	KIMXPuexfnkc/erkcQPouA79+sm9X5vy00OJh1Vti+5JtdCCfagxKrb1Z4I3Qrqu
-	Gd/Co3mbSsVobRhNolbE+VmacIRQUKV0Lz8SSBW9O1FcUAA0vEKWqEoH7/EtG6iX
-	FEquWtM5AZZXr3APziGivXU2m7fpCufG/W4tqK0FLuKZiYJEXIS8YEci+LVAeDw6
-	ItnVkQ==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw1sca8qk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:36:58 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-33baaba6371so169017eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:36:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lSDMKa1k"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910cadea0so8553985a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:38:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790275018; x=1790879818; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=41LukkMXTeVAHv1EIq6Q6zMQywct8NJOviLbwN/UtRg=;
-        b=PP0BP5aapjA/OFtkgA4qeiBtEPEOx6tlSgtDXKe6QCVfRH+CiQtf7FWgfWrPIe8gXU
-         xGreYRt0E05KMZXX60gcLZDt1MrUBbO3JM/hEBrHS7rl2ZsxGS4AtvfQvAjZI8rINEzz
-         f0XR4K8WIuwursiM5fy323zv9KUa6qxyWfhUlAhiG8ZD6HiAx51WFnP5XgTcnFBVoFrN
-         d/MVWqfdhhdGgI/YcC7UzNIFi5VWdYy3vVn3MglEp78uS/zQXN46V3CP7Tkc1Ha1xVQO
-         X/YtDV9zo+Mpa14j1rY5CLv7xEALcn/lDrSjt+acfoVG2HfCIEqhVq50lX6BYcJwSfmJ
-         e7EQ==
+        d=gmail.com; s=20251104; t=1790275087; x=1790879887; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=GnbJYTVPTH+t9CBzvhTBcaoylRbGcUGhspi/wCC4yTE=;
+        b=lSDMKa1ktkgWsHhG22rAk35Adcd9GfDZ1Ga5IqZffXhvj7zbKLKHWrIRACrcxEUfjF
+         6BCa7ageQpHNMdQZzAnIfYgcPHxQ8wCwIcMOl2/1adAdMj8iTbD/C/4YaU+RZThrJZcL
+         NxbvwwqpSxNCaUpkC7bsUfYdd8lNUtNw898xkmqyu6rmkT12BV1wIJhslwGjvcAqb9mT
+         +Ca57rWRu9NnzYyq1C+LpCR3Q9hgHqq17zI/wytlC8Ku5HvzbXtoMAd2HVmh8zQEEJlw
+         /68ssrMXfX+bK4Hj6pPYgwMDF9nDMMS38XUTLyfAhkNZ92OSoiyqCQ5WfHRoK1iOsqxZ
+         zLuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790275018; x=1790879818;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=41LukkMXTeVAHv1EIq6Q6zMQywct8NJOviLbwN/UtRg=;
-        b=le98+eDk5YNyIG6cTllJ4GdKlRW12orC7D1M7W2a3wf89oQFSvAuyidkgiDB81vD85
-         R6g07s2XNclu4p5u7zxBLnAZp6LvIItiAr3hCLWNqf4Kqs7zZ6SOi/2GirqHKZX0g2OH
-         woni62H2ak1Oxn6qGQHQNworJNJC4C8046Q/2oxY4VTeuHZ1EtNOAKY0ax0WLzs3d0rG
-         8PJFclnitrts72aO6YtmaVPqM6WmAHTxC+2ULZZcLk9g4HQZ6TZQARGesC5gdYO7RvOH
-         l4Ipq0sOqlnsRgRz/ZYIPbsnbA1ysF73Ca2s2KTM+MEbC6MdnHqBhnh7vLrRUaPKAarW
-         w83Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxCbQMk1+9jlXb035Z+/nP1dy1AU2YJflCZVF0CbFreomCmmEjDhD3px2N/5ymfvgpaAzDzVXqZchyQWSA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lx+5I/BoD4cVD9vpEIqmkk+IwR4AIt/ODUMwOYDBrFKT1+AbID
-	+Gem9VxaMqRKmTmG0dR5jF1EP4PEXp+MRBQ9t6ijqwR/KpfbaYjV2gdp2U2ESq+SZR2z2oKrRgp
-	TRPNVSvwZscp0rbRhrcTSel459DUygxJMCQFzfOWjCGlbFi76gMba5k3F9x+egnfagXs=
-X-Gm-Gg: AYBFou1YdiSLPb33Nb7m2vLUqIlp5V2FUVxS847j3l5Hvusr95nf3o75yyOW4Y0w6at
-	Y1qFzInGkmpnvMbtAUKkO8XDZRD3h+ssDsyAtft86P4hG7UCgFYfZxcofG//ExUV5dIuMM9q2Jl
-	gQeGRzqKWHQpPv1nD9QDcA4sq3HyChievCw5nhQ025Uy6tgXSNghxzdk/9hxSOIiF8JASjYu4eI
-	09TzkzUPSGJep8PWSJzOiqsWfitHnP571wrACJhcifCN01Xnt0+dbau96ZyEzU0pnk5em8E8Efy
-	MusHchWze3WS8INAKoJK7NvauqkyDUEWF5zGIil1nibFRGZmaOB1wb01LgICgNi4ZTimrEdiXPD
-	8ga3BhEq3IL3epAy9QH+16OTRctvShQ==
-X-Received: by 2002:a05:7301:438d:b0:33d:29c6:3445 with SMTP id 5a478bee46e88-340035bcf1dmr2498233eec.31.1790275017978;
-        Thu, 24 Sep 2026 11:36:57 -0700 (PDT)
-X-Received: by 2002:a05:7301:438d:b0:33d:29c6:3445 with SMTP id 5a478bee46e88-340035bcf1dmr2498170eec.31.1790275016317;
-        Thu, 24 Sep 2026 11:36:56 -0700 (PDT)
-Received: from [192.168.1.12] ([122.177.242.157])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144757747sm432684eec.13.2026.09.24.11.36.51
+        d=1e100.net; s=20260707; t=1790275087; x=1790879887;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GnbJYTVPTH+t9CBzvhTBcaoylRbGcUGhspi/wCC4yTE=;
+        b=0roVeOOsDzujoJwPDOJcHINV4W6mmya/r6H6+6jc9Umu9R3cGw98bihPSYSO/g/pbw
+         lZCQBblaaH3MCJGBWrIAu3eKb8t9upYoASB9bAuPKBr8w7oyM7g5MOhhugTekY1iBKlI
+         E5AhgmhAf2o9f7Lm+5NhmJOnloSMr2J9oTzbmNykny8Aj6nDSlJT7wD6OQZAww/48Awj
+         fWJxAQsSx3ieHKzcUcV/Dl9ZxOaEpolFsJJbN4Pv50cqu+uz4D88J/Mf4NglYH+I7GH8
+         LJ5PYkrYxHya1+Q6V5dxuamKbumpv+0WUEP2DkvLH/MUzvEsMtcjgAAnsxQGaBGwpdnQ
+         Lk6w==
+X-Forwarded-Encrypted: i=1; AKwUvBzfo6MRkaOtIrCFDEN0fX+yZiV9x5+j8dJEaZeDBgdAomieQnk5hafSHJIZy5UhQXYz00jsrj7g+tJXJR0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKgNJCU8qq8APk+vJP4Rnjb+jdZMxgDn2lj6yr2m9xr5TlulSy
+	usIQHTX+fYZhROeCjyDgeZzR4dez804IB5ecdwx7vssmYUGgmoA3cwPx
+X-Gm-Gg: AYBFou0GiHdk3eT+ZPdfFdBNwLFuLg8s2mi/GEZ/xv7Iqs138qYfs3bLIv0k2SodnaE
+	MJ/lGq1cDYfXzlKkFeNUoaKXQb4GKZL/2pSZvc2YXL6FS1blFYWVR4YwsaUR+XESz2Uj7SgdyRE
+	xY9bAxRQTlbZadqlAvEjTbWrzNe1ZJGI/dcTGKQvTIb/LRIeozrPry6OGL4xL5NeYXpcyjPcU+L
+	xF6YJkQNo4dTqKFFyjWLmvtWh7zJUEA4LVO4j0e7Y1FK9rpMkFnPLUQXMJk4z/qrGQenTD25KPp
+	0SRBqzdxxjkU7Wkdic0Dw5KZ7wU/DmUMzMiCn9C3JNcR2nfnab0RnAIGUQd9NzJ4/NMcNw9HrmL
+	Qi6LO/7TfP04h1jaHj9SgEGfk1AKksDomBjkloHjRibnegGuTmwosd2S3Glp/g2vjLIcDAzoEi+
+	rDNre3b9r0owiL5F1AsRoF/dE6o8415qM73HnT40Nm1vKIMsV1xGofzkwT2H5mXWyuJEDtQJ6wz
+	C8=
+X-Received: by 2002:a05:620a:29c6:b0:93b:d7a2:dd2a with SMTP id af79cd13be357-93c43d2d07bmr24945185a.58.1790275087360;
+        Thu, 24 Sep 2026 11:38:07 -0700 (PDT)
+Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c43d197a9sm8862685a.12.2026.09.24.11.38.06
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 11:36:55 -0700 (PDT)
-Message-ID: <c5f178f0-a0d1-4e38-b663-6f37ad26b999@oss.qualcomm.com>
-Date: Fri, 25 Sep 2026 00:06:48 +0530
+        Thu, 24 Sep 2026 11:38:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/4] arm64: dts: qcom: shikra-cqm-evk: Enable display
- and add ili7807s panel
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Nabige Aala <nabige.aala@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260916-shikra-dt-changes-v4-0-d5d5c3ffe070@oss.qualcomm.com>
- <20260916-shikra-dt-changes-v4-3-d5d5c3ffe070@oss.qualcomm.com>
- <5som4lcux7m6fyawwhjyrdxxiys6dh5ix33mtkxsseuv6uyxez@jb4m62r7x7i2>
- <7ef413c5-a9fd-4e75-bb02-b3d7f74c67ab@oss.qualcomm.com>
- <e4uqn4dybttmo45gucxdxcgimfskuzlqvtdo7u43ixlyd3yn5v@aifg7nchvc6g>
-Content-Language: en-US
-From: Arpit Saini <arpit.saini@oss.qualcomm.com>
-In-Reply-To: <e4uqn4dybttmo45gucxdxcgimfskuzlqvtdo7u43ixlyd3yn5v@aifg7nchvc6g>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 26blFwjD6NXS5c3i6YLwv2oMpxh0Z9Dk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA3NiBTYWx0ZWRfX7AGLmsaRgXCP
- 8nI25nfN87t7KkAuIfxdBVmxDKl5Rfq87nrrhSEbUmYz0a5lL2I/F07glcYHIzcHY5naz6QQGfA
- ruoAawzmfprIrQp+OT/+nsX3uruycuefoRjkPTxq2yBv3oZOSfXQasxqWpF+knjatNDxL3YJsU7
- 4TyRDh7TErCNaiO8KOU0+jlaYeDfNGoS1HQ5SYP4Dc0vFZ8iJlJY1N+9Vz1exLYC672+TeNXd7c
- VMXD/Ipwn31ctoqhgwGRp92jvytlgqzTksuzBBonb+0Wkmx0G6vkv/o2eQ6ZZXW55ifwKBYB7Sw
- mtMy6BXCWvPk+iZ6ApBEJlkyuTq6MntbwnUhVsg5S99viQn//8ZPr5j1JRn45LtAqBw9NLcE9o8
- UxzgX1M+KgUoWaIzLdwijhJ+XJQyqHqrkeHtErWUxjCfHuJwZFlSfl1GArJAaqbQFnf/IQZOzdg
- NrjYRNpfnMih3cqwPzw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA3NiBTYWx0ZWRfXzUA+N7ylQo/n
- /d6lBed1vdjM/X/hJ/jWlk7UJmywfq1zAoju4KyHdB6d6n2f8fGKrK7fyezSHUYUNvRuhtdnLzq
- YUqRVP+ZQBvrbRnd7Pji42IhccU+9cI=
-X-Proofpoint-ORIG-GUID: 26blFwjD6NXS5c3i6YLwv2oMpxh0Z9Dk
-X-Authority-Analysis: v=2.4 cv=GI+dgeNK c=1 sm=1 tr=0 ts=6ab56dca cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=9WqIVI+dqUtONkXyCURkzg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=5Aoo9DEluPtx4pQJSMQA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0
- malwarescore=0 impostorscore=0 suspectscore=0 spamscore=0 adultscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609240076
+Date: Thu, 24 Sep 2026 14:38:05 -0400
+Message-Id: <DLNRJWK0BDHR.FFTQ30OYFSVG@gmail.com>
+Cc: <alexanderduyck@fb.com>, <kuba@kernel.org>, <kernel-team@meta.com>,
+ <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+ <pabeni@redhat.com>, <ast@kernel.org>, <daniel@iogearbox.net>,
+ <hawk@kernel.org>, <john.fastabend@gmail.com>, <sdf@fomichev.me>,
+ <dimitri.daskalakis1@gmail.com>, <mohsin.bashr@gmail.com>,
+ <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+ <bpf@vger.kernel.org>
+Subject: Re: [PATCH net-next 8/8] eth: mpnic: add basic Rx handling
+From: "Daniel Zahka" <daniel.zahka@gmail.com>
+To: <netdev-bot+sashiko@kernel.org>, <daniel.zahka@gmail.com>
+X-Mailer: aerc 0.21.0-threadmapfix
+References: <20260922-linux-mpnic-v1-8-236844f53072@gmail.com>
+ <179021554059.2160803.14215479693472875817@kernel.org>
+In-Reply-To: <179021554059.2160803.14215479693472875817@kernel.org>
 
+On Wed Sep 23, 2026 at 10:05 PM EDT, netdev-bot+sashiko wrote:
+> Thank you for your contribution! Sashiko AI review found 6 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 5 =C2=B7 Low: 0
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [High] net: mpnic: missing descriptor sequence validation causes NULL
+>   pointer dereference
+> - [Medium] mpnic_poll() calls mpnic_clean_rcq() even when budget is 0.
+> - [Medium] When page_pool_dev_alloc_pages() returns NULL,
+>   __mpnic_fill_bdq() stops refilling and returns the partial tail.
+> - [Medium] mpnic_pkt_prepare() re-initialises state->pkt with
+>   xdp_init_buff()/xdp_prepare_buff() without checking whether a frame is=
+=E2=80=A6
+> - [Medium] mpnic_page_pool_get() indexes ring->rx_buf[idx] with idx =3D
+>   FIELD_GET(MPNIC_RCD_AL_BUFF_ID, rcd), an 18-bit device-written field=E2=
+=80=A6
+> - [Medium] The device-supplied completion fields BUFF_OFF (16 bits) and
+>   BUFF_LEN (14 bits) are never checked against page_size(page),=E2=80=A6
+>
+> --
+>
+> eth: mpnic: add basic Rx handling
+>
+> This adds Rx completion processing to mpnic. A frame is assembled into an
+> xdp_buff from a header descriptor, one descriptor per payload page and a
+> closing metadata descriptor, and then handed to the stack. Page reference=
+s
+> are taken in batches per page instead of once per frame.
+>
+>> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c b/drivers/net/=
+ethernet/meta/mpnic/mpnic_txrx.c
+>> index 6d2123bee97b4..9878ea5a2f8e1 100644
+>> --- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
+>> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
+>> @@ -402,6 +402,34 @@ static void mpnic_fill_qt_bdqs(struct mpnic_q_triad=
+ *qt)
+>>  	__mpnic_bdq_commit_tail(&qt->sub1, ppq_i);
+>>  }
+>> =20
+>> +/* Take one of the references batched on the page at @idx. If the devic=
+e
+>> + * has moved on to a new page, first drop the unused references left on
+>> + * the previous one.
+>> + */
+>> +static struct page *
+>> +mpnic_page_pool_get(struct mpnic_pg_ctxt *pg_ctxt, struct mpnic_ring *r=
+ing,
+>> +		    u32 idx)
+>> +{
+>> +	struct page *page =3D pg_ctxt->page;
+>> +
+>> +	if (unlikely(pg_ctxt->idx !=3D idx)) {
+>> +		if (pg_ctxt->pagecnt_bias &&
+>> +		    !page_pool_unref_page(page, pg_ctxt->pagecnt_bias))
+>> +			page_pool_put_unrefed_page(page->pp, page, -1, true);
+>> +
+>> +		page =3D ring->rx_buf[idx];
+>> +		page_pool_fragment_page(page, MPNIC_PAGECNT_BIAS_MAX);
+>
+> [Severity: Medium]
+> Can idx index past the end of ring->rx_buf[] here?
+>
 
+Like I mentioned about the head field in the tx completion descriptor,
+we don't harden against device produced completion fields like this.
 
-On 9/23/2026 5:38 PM, Dmitry Baryshkov wrote:
-> On Wed, Sep 23, 2026 at 04:16:21PM +0530, Arpit Saini wrote:
->> Hi Dmitry,
->>
->> On 9/22/2026 9:33 PM, Dmitry Baryshkov wrote:
->>> On Wed, Sep 16, 2026 at 02:41:20PM +0530, Nabige Aala wrote:
->>>> From: Arpit Saini <arpit.saini@oss.qualcomm.com>
->>>>
->>>> Enable the Shikra MDSS display subsystem on the Qualcomm
->>>> Shikra CQM EVK board and add the DLC0697 MIPI DSI display
->>>> panel node. Pin pm4125_l5 to 1.232V with regulator-allow-set-load
->>>> for DSI PHY PLL stability.
->>>>
->>>> Signed-off-by: Arpit Saini <arpit.saini@oss.qualcomm.com>
->>>> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
->>>> ---
->>>>  arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts | 118 ++++++++++++++++++++++++++++
->>>>  1 file changed, 118 insertions(+)
->>>>
->>>> +
->>>> +&mdss_dsi0 {
->>>> +	vdda-supply = <&pm4125_l5>;
->>>> +
->>>> +	status = "okay";
->>>> +
->>>> +	panel@0 {
->>>> +		compatible = "dlc,dlc0697", "ilitek,ili7807s";
->>>> +		reg = <0>;
->>>> +
->>>> +		reset-gpios = <&tlmm 3 GPIO_ACTIVE_LOW>;
->>>> +
->>>> +		vddi-supply = <&pm4125_l15>;
->>>> +		avdd-supply = <&vreg_disp_p>;
->>>> +		avee-supply = <&vreg_disp_n>;
->>>> +
->>>> +		pinctrl-0 = <&panel_rst_n &panel_te_pin &panel_bl_en>;
->>>
->>> As far as I remember, your panel_bl_en enables an external regulator.
->>> Why is it not described in this way?
->>>
->>
->> panel_bl_en is a Qcom's daughter card specific platform signal , it does not feed into the panel.
->>
->> It is a board-level GPIO on the CQM EVK daughter card used purely for
->> platform power sequencing.
->>
->> Adding panel_bl_en as an external regulator would be misleading and incorrect from a hardware perspective,
->> as it is not directly going into the panel.
-> 
-> Well... Aren't VREG_WLED and WLED_SIN1 / SIN2 directly going to the
-> panel?
-> 
->>
->> for the CQM EVK, the backlight is MIPI DCS driven and panel_bl_en is a
->> platform-specific sequencing pin, making pinctrl states the
->> appropriate binding here.
->>
->> Could you please take a look at earlier discussion we had and let us know your thoughts ?
->>
->> https://lore.kernel.org/all/29ca6303-4368-4aeb-b82f-039aa252780a@oss.qualcomm.com/
-> 
-> Exactly. The diagram there shows that GPIO 91 (panel_bl_en) is an enable
-> signal for the WLED regulator, whose output is then fed to the panel.
-> 
+> idx comes straight from the completion descriptor:
+>
+>     unsigned int pg_idx =3D FIELD_GET(MPNIC_RCD_AL_BUFF_ID, rcd);
+>
+> MPNIC_RCD_AL_BUFF_ID is an 18-bit field (DESC_GENMASK(33, 16)). rx_buf[]
+> is sized by hpq_size/ppq_size, which is 256 entries by default.
+>
+> Both callers mask the value only when they update head:
+>
+>     qt->sub0.head =3D (pg_idx + 1) & qt->sub0.size_mask;
+>
+> If the device reports a BUFF_ID at or above the ring size, the pointer
+> read from past the end of rx_buf[] is written through by
+> page_pool_fragment_page(). It is then passed to page_address(), used for
+> the DMA sync and attached to the skb.
+>
+> A conforming device only echoes IDs the driver posted, so hitting this
+> needs buggy firmware or an untrusted device. Would it make sense to mask
+> idx with ring->size_mask before the lookup?
+>
+> [ ... ]
+>
+>> @@ -414,9 +442,90 @@ static void mpnic_flush_pg_ctxt(struct mpnic_pg_ctx=
+t *ctxt, bool napi)
+>>  	}
+>>  }
+>> =20
+>> -static void mpnic_put_pkt_buff(struct mpnic_pkt_ctxt *ctxt, bool napi)
+>> +static unsigned int mpnic_hdr_pg_start(unsigned int pg_off)
+>> +{
+>> +	/* The headroom of the first header may be larger than
+>> +	 * MPNIC_RX_HROOM due to alignment. So account for that by just
+>> +	 * making the page offset 0 if we are starting at the first header.
+>> +	 */
+>> +	if (ALIGN(MPNIC_RX_HROOM, 128) > MPNIC_RX_HROOM &&
+>> +	    pg_off =3D=3D ALIGN(MPNIC_RX_HROOM, 128))
+>> +		return 0;
+>> +
+>> +	return pg_off - MPNIC_RX_HROOM;
+>> +}
+>
+> [ ... ]
+>
+>> +static void
+>> +mpnic_pkt_prepare(struct mpnic_napi_vector *nv, u64 rcd,
+>> +		  struct mpnic_rcq_state *state, struct mpnic_q_triad *qt)
+>> +{
+>> +	unsigned int pg_off =3D FIELD_GET(MPNIC_RCD_AL_BUFF_OFF, rcd);
+>> +	unsigned int pg_idx =3D FIELD_GET(MPNIC_RCD_AL_BUFF_ID, rcd);
+>> +	unsigned int len =3D FIELD_GET(MPNIC_RCD_AL_BUFF_LEN, rcd);
+>> +	bool fin =3D FIELD_GET(MPNIC_RCD_AL_PAGE_FIN, rcd);
+>> +	unsigned int frame_sz, pg_start, pg_end;
+>> +	struct xdp_buff *buff =3D &state->pkt;
+>> +	struct page *page;
+>> +
+>> +	pg_start =3D mpnic_hdr_pg_start(pg_off);
+>> +
+>> +	page =3D mpnic_page_pool_get(&state->hdr, &qt->sub0, pg_idx);
+>> +	qt->sub0.head =3D (pg_idx + 1) & qt->sub0.size_mask;
+>> +
+>> +	/* Short-cut the end calculation if the page is fully consumed */
+>> +	pg_end =3D fin ? page_size(page) : mpnic_hdr_pg_end(pg_off, len);
+>> +	frame_sz =3D pg_end - pg_start;
+>
+> [Severity: High]
+> What happens if a PAY_AL or META descriptor reaches this switch without
+> a header descriptor opening the frame first?
+>
+> In that case state->pkt.data_hard_start is NULL. Either the previous
+> META cleared it, or no header has been seen since the queue was
+> enabled. Nothing on the PAY_AL or META paths checks for this.
+>
+> For PAY_AL, mpnic_add_rx_frag() first takes a reference through
+> mpnic_page_pool_get(). It then calls xdp_buff_add_frag(), which finds
+> skb_shared_info through xdp_get_shared_info_from_buff(), computed from
+> data_hard_start + frame_sz. With data_hard_start NULL, and frame_sz and
+> flags left over from the previous frame, the frag is written through a
+> wild pointer near address zero.
+>
+> For META, the build path runs unless the error bit or add_frag_failed
+> is set. add_frag_failed may also be stale from the previous frame.
+> xdp_build_skb_from_buff() then calls napi_build_skb() with a NULL
+> data_hard_start. On a queue that has never seen a header, xdp->rxq may
+> also be unset when rxq->mem.type is read. mpnic_put_pkt_buff() already
+> copes with a NULL data_hard_start, but it only runs after the build
+> path has failed.
+>
+> As with the other descriptor trust issues above, a conforming device
+> should always open a frame with a header descriptor, so reaching this
+> needs buggy or untrusted firmware. The result is a host crash rather
+> than a dropped frame, though.
+>
+> Would it make sense to check state->pkt.data_hard_start in the PAY_AL
+> and META cases and drop the descriptor when no frame is being
+> assembled? On the PAY_AL path that would also mean returning the
+> reference taken by mpnic_page_pool_get(), the same way the
+> xdp_buff_add_frag() failure path does.
+>
 
-Hi Dmitry
+We trust the descriptor stream to be sequenced correctly.
 
-Based on your feedback, I understand that the daughter-card WLED circuit
-should be modelled as a regulator-controlled device.
+> [Severity: Medium]
+> Should BUFF_OFF and BUFF_LEN from the completion be range checked before
+> they are used here?
+>
 
-I am planning the following implementation:
+Won't fix.
 
-vreg_wled: regulator-wled {
-	compatible = "regulator-fixed";
-	regulator-name = "vreg_wled";
-	gpio = <&tlmm 91 GPIO_ACTIVE_HIGH>;
-	enable-active-high;
-};
+> Neither value is checked against page_size(page), MPNIC_RX_HROOM or
+> MPNIC_RX_TROOM:
+>
+> - mpnic_hdr_pg_start() returns pg_off - MPNIC_RX_HROOM as an unsigned
+>   value, so it wraps if pg_off is below the headroom.
+>
+> - mpnic_hdr_pg_end() can return an end past the page, and
+>   frame_sz =3D pg_end - pg_start can wrap. After that,
+>   xdp_build_skb_from_buff()->napi_build_skb(data_hard_start, frame_sz)
+>   would place and zero skb_shared_info outside the page.
+>
+> - In mpnic_add_rx_frag(), truesz underflows when fin is set and pg_off is
+>   larger than the page:
+>
+>     truesz =3D (fin ? page_size(page) : ALIGN(pg_off + len, 128)) - pg_of=
+f;
+>
+>   The frag [pg_off, pg_off + len) is also attached with no check that it
+>   stays inside the page, which would expose adjacent memory through the
+>   skb.
+>
+> The dma_sync_single_range_for_cpu() calls use the same unchecked ranges.
+>
+> A conforming device honours the headroom and tailroom programmed in
+> mpnic_set_rde_cfg() and stays within the page size, so hitting this needs
+> buggy or untrusted hardware.
+>
+>> +
+>> +	dma_sync_single_range_for_cpu(nv->dev, page_pool_get_dma_addr(page),
+>> +				      pg_start, frame_sz, DMA_FROM_DEVICE);
+>> +
+>> +	xdp_init_buff(buff, frame_sz, &qt->xdp_rxq);
+>> +	xdp_prepare_buff(buff, page_address(page) + pg_start,
+>> +			 pg_off - pg_start, len, true);
+>
+> [Severity: Medium]
+> What happens here to a frame that is still being assembled when a new
+> header descriptor arrives?
+>
+> mpnic_clean_rcq() calls mpnic_pkt_prepare() for every header descriptor.
+> It does not check whether state->pkt.data_hard_start is still set by an
+> earlier frame that never got its META descriptor:
+>
+>     case MPNIC_RCD_TYPE_HDR_AL:
+>         if (FIELD_GET(MPNIC_RCD_HDR_SUBTYPE, rcd) =3D=3D
+>             MPNIC_RCD_HDR_SUBTYPE_HDR)
+>             mpnic_pkt_prepare(nv, rcd, state, qt);
+>
+> In that case xdp_init_buff() clears buff->flags and xdp_prepare_buff()
+> replaces data_hard_start. The old frame's header page reference from
+> mpnic_page_pool_get() and its frag references from xdp_buff_add_frag()
+> can no longer be reached.
+>
+> The META path and mpnic_flush() cannot release them either, because
+> mpnic_flush() only calls mpnic_put_pkt_buff() on the current state->pkt.
+> Could the page pool pages leak here, leaving page_pool_destroy() waiting
+> forever on inflight pages?
+>
+> The code does not show whether the hardware can produce HDR, [PAY_AL ...]=
+,
+> HDR without a META in between. fbnic has a
 
-The panel node will reference it as:
+We trust that the hw cannot produce this sequence.
 
-wled-supply = <&vreg_wled>;
+> WARN_ON_ONCE(pkt->buff.data_hard_start) for this case. Would a similar
+> check here, plus releasing the old frame, make sense?
+>
+> [ ... ]
+>
+>> @@ -439,23 +548,97 @@ static void mpnic_put_pkt_buff(struct mpnic_pkt_ct=
+xt *ctxt, bool napi)
+>>  	page_pool_put_full_page(page->pp, page, napi);
+>>  }
+>> =20
+>> +static int mpnic_clean_rcq(struct mpnic_napi_vector *nv,
+>> +			   struct mpnic_q_triad *qt, int budget)
+>> +{
+>
+> [ ... ]
+>
+>> +	while (packets < budget) {
+>
+> [ ... ]
+>
+>> +	rcq->head =3D head;
+>> +
+>> +	/* Allocate buffers, force dma_wmb(), and then start writing tails */
+>> +	mpnic_fill_qt_bdqs(qt);
+>> +
+>> +	return packets;
+>> +}
+>> +
+>>  static int mpnic_poll(struct napi_struct *napi, int budget)
+>>  {
+>>  	struct mpnic_napi_vector *nv =3D container_of(napi,
+>>  						    struct mpnic_napi_vector,
+>>  						    napi);
+>> -	int i;
+>> +	int i, j, work_done =3D 0;
+>> =20
+>>  	for (i =3D 0; i < nv->txt_count; i++)
+>>  		mpnic_clean_tcq(nv, &nv->qt[i], budget);
+>> =20
+>> +	for (j =3D 0; j < nv->rxt_count; j++, i++)
+>> +		work_done +=3D mpnic_clean_rcq(nv, &nv->qt[i], budget);
+>
+> [Severity: Medium]
+> Is it safe to do the Rx side of the poll when budget is 0?
+>
 
-In the panel driver, I will add wled to the existing bulk supply list:
+Will address in v2.
 
-static const struct regulator_bulk_data ili7807s_supplies[] = {
-	{ .supply = "vddi" },
-	{ .supply = "avdd" },
-	{ .supply = "avee" },
-	{ .supply = "wled" },
-};
-The existing regulator_bulk_enable() and regulator_bulk_disable() calls in prepare() and unprepare()
-will then control GPIO 91 through the fixed regulator.
+> netpoll calls napi->poll(napi, 0) via
+> netpoll_poll_dev()->poll_napi()->poll_one_napi(), and netconsole can reac=
+h
+> that path from any context. With budget 0 the descriptor loop in
+> mpnic_clean_rcq() is skipped, but the refill still runs:
+>
+> mpnic_clean_rcq()
+>   mpnic_fill_qt_bdqs()
+>     __mpnic_fill_bdq()
+>       page_pool_dev_alloc_pages()
+>
+> The allocation happens whenever mpnic_bdq_desc_unused() is non-zero, for
+> example after an earlier allocation failure.
+>
+> Documentation/networking/napi.rst says "Rx specific APIs like page pool o=
+r
+> XDP cannot be used at all when budget is 0".
+>
+> The page_pool allocation fast path, __page_pool_get_cached(), and
+> page_pool_refill_alloc_cache() access pool->alloc.cache and the ptr_ring
+> consumer side without taking a lock.
+>
+> The pool was created with .napi =3D &nv->napi. That means
+> page_pool_napi_local() allows direct recycling into alloc.cache from
+> softirq on the NAPI's list_owner CPU, and netpoll's poll_owner does not
+> exclude that.
+>
+> Could this corrupt alloc.cache or the ring and hand out the same page
+> twice? Skipping Rx cleaning and refill when budget is 0 would avoid it.
+>
+>> +
+>>  	for (i =3D 0; i < nv->txt_count; i++)
+>>  		mpnic_commit_cq_head(&nv->qt[i].cmpl);
+>> =20
+>> -	if (likely(napi_complete_done(napi, 0)))
+>> +	if (work_done >=3D budget)
+>> +		return budget;
+>> +
+>> +	if (likely(napi_complete_done(napi, work_done)))
+>>  		mpnic_nv_irq_rearm(nv);
+>
+> [Severity: Medium]
+> Can Rx stop for good after a run of allocation failures?
+>
+> When page_pool_dev_alloc_pages() returns NULL, __mpnic_fill_bdq() just
+> stops:
+>
+>     page =3D page_pool_dev_alloc_pages(bdq->page_pool);
+>     if (!page)
+>         break;
+>
+> mpnic_clean_rcq() returns only the packet count. So whenever
+> work_done < budget, mpnic_poll() completes NAPI and rearms the IRQ, even
+> if the refill did not succeed.
+>
+> If allocations keep failing, successive polls can drain HPQ/PPQ until no
+> buffers are posted. The device then has nothing to DMA into and raises no
+> Rx interrupts. The only napi_schedule() in the driver is in
+> mpnic_msix_clean_rings().
+>
+> Rx would then stay stopped after memory is available again, until a Tx
+> completion on the same vector triggers a poll or the interface is taken
+> down and up. Should the poll stay scheduled, or set up a retry, when the
+> BDQs could not be refilled?
+>
 
-Brightness will continue to be controlled through the panel's DCS backlight implementation:
+This will be addressed in v2. napi depletion check was improperly left
+out of this posting.
 
-wled-supply controls the WLED driver's enable signal.
-
-The DCS backlight controls brightness through the panel CABC/PWM output.
-panel_bl_en and panel_bl_suspend pinctrl states will be removed.
-
-Could you please confirm whether this modelling and driver sequence match your expectations?
-
-Thanks,
-Arpit
+>> =20
+>> -	return 0;
+>> +	return work_done;
+>>  }
+>
+> [ ... ]
 
