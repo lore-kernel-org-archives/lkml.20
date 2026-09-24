@@ -1,204 +1,190 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B222E30AAD8;
-	Thu, 24 Sep 2026 07:54:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790236466; cv=fail; b=MlJ9HYj+bRpTHNwpFAmQ8xleO9jphWfx3tb1uDFYPUVLqu0TC6GEIDI4Yh7/NmP0vr3CJyriVHtljWCCRNb8rlL43l+F3heF5cpe9CMsgKCerRraBf44w7RHpxN8ZWgGPYmaF/cAa+CqY/qJmZiDp2G1MqMET5Cax7Kwwvxz7iA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790236466; c=relaxed/simple;
-	bh=LITYmTmoOjb09q1csEu5dsdbjCyub3F+qHsx7g3P/YI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=X58rKU/DjzbH2V4PZ24ZQLYeiNisEOpS6lcVY2bqkv2ZtC/ivTyQ5hzbWisS+sYDZnVl+58TreNcsGq6LEzFOOJk1VF2MYLI0+EbzI3PGFqZGwX5L4e9onCO7H4VjAtYvUE/9OdneDGYR/CH3lC1GQL300lEJCdbjC3C18h2GiA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Q5UaW2xT; arc=fail smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4979253B58;
+	Thu, 24 Sep 2026 07:54:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790236476; cv=none; b=QqoUUOGukZhj59XdoktGm8ZJ1zyRVaIZhtNt3hKy+pABcCum6n1g1ZJn0tT2BOS5X/+8UfBdzPrxqbjqY4GgXjhNcCvUEzFNvDJ42FV7Kj84omW3/sSpttkvcd6ThU14x/CmO8ZUr1RuTxT93qlR+SpT/xo3ETYWcE2qxJ8754g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790236476; c=relaxed/simple;
+	bh=zEb1ES0ydJK8Cg2Rz/0PIFe996/QjgU762OxcQSNUO4=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=esc5bLvvNDkjk+p0Q3c9wI1XEndAZzROSNhfyxs7G0IyMlXiQOgUiNFjqvGpEFxMPEuysVxra0Vi/fP54aUkU9ORWiahFoE2UX3lnz2iuoK8Gq4zb8pyiH8cDAgTlMqUkgUa7/Ay+Pmrz0DrdyLmoU14xHTveOlUMVHxzW2c0V4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g5ihOwBL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Q5UaW2xT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790236465; x=1821772465;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=LITYmTmoOjb09q1csEu5dsdbjCyub3F+qHsx7g3P/YI=;
-  b=Q5UaW2xTape1WApZVExhTytNhJlIu4AlnxNFmZjS46q/1aThbsl1QV+Q
-   IH9rWca+g0xYZJHskgYGFz8MR/9LBuw/7uDqwCruvWA1oJhKVUjWUWWKs
-   uTkU2TQdh1QnCR5LB3iIvrioOiQcURdtujsHWaud5dNp1KjcVuoHdycNQ
-   6Y9TmHwWgzEv5mclV0UlQtArtAMEmZgwF6usUS0ZunrIQ2/eM7VWMCbrK
-   HE+ARMfmnWCLSIwolp7Ra3MBVv88VeXvwfEr/njtFgdjhmGDZ0YISgl76
-   L8SzJvdndp1hOxJpDd49FVBglHUJ4FnI57KL4HLZZNuf1bBabP4aa/P68
-   Q==;
-X-CSE-ConnectionGUID: LTAuNQXpQUy3aNJJcVbQsw==
-X-CSE-MsgGUID: EMlZxru/T/+Ke1hCstfP7A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="89770319"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="89770319"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 00:54:24 -0700
-X-CSE-ConnectionGUID: iMCfGK8wSPufX5XmMhUF4w==
-X-CSE-MsgGUID: /lPYUOM9TYiyPJM0kXeYeA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="277700112"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 00:54:24 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 24 Sep 2026 00:54:23 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Thu, 24 Sep 2026 00:54:23 -0700
-Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.38) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 24 Sep 2026 00:54:12 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eNwJ1XNP6AYnTTVHjWSrvdM+8//zBMFfp8BNIR0Z9NYbpf5vbEFubPsBbjBnUknDMZKDtl5p8ik9eO2obfELy8q5bAehW3nrX7LzO7q+ui72q9kyKHVs+sP5+4sOTvyHE+x2tusGmcp22xw+WdUXK/CqIyPps+J4+M/94BmM4CVzyuQT69pamF3jJ7EIaBKvFGRs/XFnzRpRGmT3csBCrKpS4NOij5D+n6QJo+OcbA+hcyf2y62h69K+oh6zuFPBgrMJpO0ItCRGnrRuglvkpUwgAUTLQAeQRZzWfqWpS5RmU2A39OfEWRw4Sz40+Yjy+/MvJTWvjOzCDtcqyfdpWw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aBAJrvPZcjWfXa8Ch2MrvxvXckKWEUj9vPg1MTeBZkM=;
- b=M71BlvOi64x8SBFScEYi7agsIpGPkbfo13gEQ8xLiNQNjnFQThpDFYAUV0qNOUE93CCEk12eaEjS3BfI+4MfwdGcUiuMIF1WrpSMe9b8K+tl21S1CoDwKfyDfyXMAkJqdos+Czz9OJebD9IS/sbhJo8DYQRLuNLONGdkeEa0jF3181O6PEJY1cU0XPltpeTTwPEpPu4lHZoXW4K8IA/ece3kz0z4zmWw26S6H8UqJFp/73COD00uL2K6nHsoluWyYSalg29omGz0UrQU80s7ZzwnhSgNfsGaJgXohHhE8kqRMznHYj8Bt/EEuLzNY6sW4+vGJMiKXhANMm7Ex//ljg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from CO1PR11MB4835.namprd11.prod.outlook.com (2603:10b6:303:9e::22)
- by DS0PR11MB6350.namprd11.prod.outlook.com (2603:10b6:8:cd::8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.22; Thu, 24 Sep 2026 07:53:45 +0000
-Received: from CO1PR11MB4835.namprd11.prod.outlook.com
- ([fe80::d051:d948:c209:9225]) by CO1PR11MB4835.namprd11.prod.outlook.com
- ([fe80::d051:d948:c209:9225%4]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
- 07:53:45 +0000
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"iommu@lists.linux.dev" <iommu@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>
-CC: Jason Gunthorpe <jgg@ziepe.ca>, Alexey Kardashevskiy <aik@amd.com>, "Bjorn
- Helgaas" <helgaas@kernel.org>, Joerg Roedel <joro@8bytes.org>, "Jonathan
- Cameron" <jic23@kernel.org>, Nicolin Chen <nicolinc@nvidia.com>, Samuel Ortiz
-	<sameo@rivosinc.com>, Steven Price <steven.price@arm.com>, Suzuki K Poulose
-	<Suzuki.Poulose@arm.com>, Will Deacon <will@kernel.org>, Xu Yilun
-	<yilun.xu@linux.intel.com>, Shameer Kolothum
-	<shameerali.kolothum.thodi@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>
-Subject: RE: [RFC PATCH v6 02/11] vfio: cdev: Reject duplicate bind before
- updating KVM file
-Thread-Topic: [RFC PATCH v6 02/11] vfio: cdev: Reject duplicate bind before
- updating KVM file
-Thread-Index: AQHdRq1Ig+cVqk+GgEy3sNP+dGd3HLbdZQ7Q
-Date: Thu, 24 Sep 2026 07:53:45 +0000
-Message-ID: <CO1PR11MB483540981ADED57ABF6EB4878C812@CO1PR11MB4835.namprd11.prod.outlook.com>
-References: <20260917140159.1163281-1-aneesh.kumar@kernel.org>
- <20260917140159.1163281-3-aneesh.kumar@kernel.org>
-In-Reply-To: <20260917140159.1163281-3-aneesh.kumar@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CO1PR11MB4835:EE_|DS0PR11MB6350:EE_
-x-ms-office365-filtering-correlation-id: f2445dee-2401-4818-9e4f-08df1a10f587
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|38070700021|10067099003|56012099006|4143699003|22082099003|18002099003|11063799006;
-x-microsoft-antispam-message-info: QM86vTUzZZN/RBWeoUZkmpP5VepEBSVvTFCYdDFhPXwTjd6U9o0akx5y3zhyoRhjEFS7YtRXWOjCpUupPBblipL2wFgA/XrrkmlmlSSuk84DgpOFfReEQEVCIQ02DQezX3LXHqbneAjC1hB2uTXCEznLFjymJFqeqioTgDfzuIg0t+CgUJ06Rz+pUMJr/Y4VLEndUxvckgUxeMVPMw1lyhnDKB2OgMorGpT1XJdaPtPOsuSaWOognjidDw0Jy7nXwr1y2IaYDNeZXcwJe2Y1R7SL3JiUNKoTKerdP4qZ7QvMHqrodZHrLARyQkb2KwptwwJG7i5oVH2RMfiHzTlf3RQXn38wIPkKRoIEcNt2gCIhVS2fkGHD7phJrlQsdlIdJrdf5L3KU9snVrYmH+ij03sI9CS/UKvwOd9WyJ/D4MYD8Y9DYA0ceGEiToEWIIOBfeLawUU+L17cFZDMjzQYNc9o+Ltln17Uew7ovhzbqyxQaFJmpjilvuv4OxnyGgNXNwBJ/OpHIuZI6nC4/uYsBt6BkLPkP7u6kf4FWPyUODeXWNiQM4bYknY280zEb100SKuvbdVQsp7GgzorcdjaFWNSknBUKFEoR3AitzcdXdCGIdbWILPBE01Qge0761RepRpiKDrksx92kUPQ07AsDw4erwQY15l2GlmVw1bUR4E2TuVzSsv0LxSeAelsH9pDFyYziqAh4m1EyCSx7e7cMjsGx2j78JDLnWT1/hkUze8=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR11MB4835.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(38070700021)(10067099003)(56012099006)(4143699003)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?osrQi5VZNPqH85wmfnS3iZKIOzPN56KBjulvbOkbXZpFcelQzT0c0YtdmT9U?=
- =?us-ascii?Q?4Q3ifS0tIsswEjX+fZ9MX0+3ie7jzxupiig7S6BSuAFq1knx7OlO9tUOBsYi?=
- =?us-ascii?Q?T/lCtVzUkqbBCdHGCvpW1vOi8SElBeUgL4Pg5ohh7Ui2CDO4g2e+C9MVlkuD?=
- =?us-ascii?Q?mUxFSxgfn42cvij6ieSXbnTH3754LX2Ru6cAzq9GgBDWDZ7vxjph/rI+tY1Y?=
- =?us-ascii?Q?3N8kBXb++2UOuRsYaqg+ZqDJd8CvlUkuZeYRmpyo7/Qux+YQFt4jX2JVBjA9?=
- =?us-ascii?Q?brikZhbBt2SibYGXZA65pcHyupQxp/MjfODMJZm7H9Cwv8RR8JXwHEn+JMHV?=
- =?us-ascii?Q?prn7Is0PfNiMvLqvYa94NFD9tpisuiKo+cOgXHoa5faw9O5WGBTVrMsVhCMW?=
- =?us-ascii?Q?TCXFUXtxm1X/zZXohscbzFTertWYaF8DVemd0Zh5dH1jz6JVVYlW3hv0VJ/N?=
- =?us-ascii?Q?OzPZAflTbqauckQ+5zOdnXH/ivqATiDGaZ84bzibZBpEeo2/yuJjij2Ilb2X?=
- =?us-ascii?Q?aBwtvQMRvCDIq7+rzEVVrp0yK1e11KILm+shPuJhc0QUtKWJ3qLhvBsqrKKE?=
- =?us-ascii?Q?tgbY0VmEkmqASiB7VpDFNT7d6wHmoPbNCk70wcwj8gAgKz9jIDuwVfITOk1v?=
- =?us-ascii?Q?Sp7oYAnTATyGy3hEnyHdC3fBC4qbFt7xRydIMg6qRj7JVxEi/kntSag3qWZF?=
- =?us-ascii?Q?AjSJczmEJuyL2376kX7+FUJ+3vea2HYRD3+6FsM8a+YndfjZqlu4JMXRBetG?=
- =?us-ascii?Q?XPZfMZGtNY5qx0nE1pF/g3DvpFEz9QUyAtWD2qgg0IoEJif0RszWOkQvdsst?=
- =?us-ascii?Q?RkF/fRuuukOOHD2Y+6ouOZWKR3TphoOw5kuc9RmWqL2D4CgOoebkw5q0KWyO?=
- =?us-ascii?Q?P83kTWURs4dHzYzxrC/WqV/ysf4BcrFLzMoAbNvtTLguW7v0VOMldA4KcBUM?=
- =?us-ascii?Q?tvzsV7qP0AI/pqdSPwioV516l3xXMIiDv7kA/nUGJXGS6zGL8qfXBJ0gaEbk?=
- =?us-ascii?Q?HG/aZVU8gZL8W01388mE/QF7Vxa2wll2iMbPm4shCmDqvlcgMv0Hx1bCP+8Z?=
- =?us-ascii?Q?7Jn5I34VyLdMLhMWz1tQ01lv1Cs/knLQqBDsjSeIzpPmdyYhu9eKyAG/bbXv?=
- =?us-ascii?Q?AxrqCjwjIRoghQcabQEY67U6SjfvL70PzS4OBGAV+UE3wBM6WxqV9hFkPpjg?=
- =?us-ascii?Q?z1jXWHc2lsDyFbA7L7ezuTbVgi/pbAHpEzMwSUFmywJO/WOIgqWXB+p5nVm1?=
- =?us-ascii?Q?yt9oJuwCJFf4umqeFjEbSh7OQ4oTJwhGepBzb44/rpz4jL7omgNgWc9ai5WK?=
- =?us-ascii?Q?GM3p4PjzuZc4AP3WpnlH7dK34gxYUghDeZCGk9txuf0nU5AKfiGokJ7HEmmt?=
- =?us-ascii?Q?206znNapJT4cp3ia/VI9HJXot+gyiNIatNkKopqTOpijVtQbrN8X8OWawfog?=
- =?us-ascii?Q?dqCL1bI+GxgVAJdK4wN41gaTKnlUT5L7IPbcH25QpvN5Ih019GZfS/r7tjRu?=
- =?us-ascii?Q?gVO5zsyWn0fuoVrahjJnCY3CLYnNXjHqbBdXPdkNhAhBzVi/fbeAJ2rRNaM5?=
- =?us-ascii?Q?R90kXCo8a8Mgk+axHEk7yJvpk9mxVGQOMFHf26az69bnLSg9UG7Q+V9Z98jg?=
- =?us-ascii?Q?kXHDCL/Tu/wT0sEtZ8U7ZDkdiTygyAYHetpMjTQ0OApk/51Zy5GZZtfLCpuT?=
- =?us-ascii?Q?KH2IeZ/9yDyF07u7I0cJOmyZ+NRwqGxP64I/pntg+Cl+kEZx?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g5ihOwBL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F05591F000FF;
+	Thu, 24 Sep 2026 07:54:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790236474;
+	bh=BYKTemitrAEhbE5qfBfWWBprm2uQ4LAmZ3SOFCm3iVo=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=g5ihOwBLbAqVjP2jhDScCjB/Z0cfI+fd8Va7Qynkl5JbEYNsvO/Y7n4WV/xFCVaB5
+	 7lsKMcO4YO6v9YZPBrMVDtzLug61/oPlDIgr6v17Qf76Ge3bOs4YxVuYgkmJfWmsXP
+	 ns8y+Dl9+TvBqoxHpE2jvx2UH08Lnd1Q6trpG+uzO45OR8/HLKaMLrzUT5o9Hud43L
+	 8O2AEF1tKkO8GJvyKoc3nvuE+myNd2XzY5X6OqdHFxcXfhGOcdG17291liB9eMjCim
+	 aWKNrxXO6ICkOE5/N/9C2bSGcU3z9f94w+4adp5w7rj3rOvm9vhGRN3QlF2GnTi8XF
+	 jCZfSjFtlLwzQ==
+Subject: Re: [PATCH net 1/3] net: phylink: allow stopping a suspended instance
+From: netdev-bot+sashiko@kernel.org
+To: james.hilliard1@gmail.com
+Cc: linux@armlinux.org.uk, andrew@lunn.ch, hkallweit1@gmail.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ qiangqing.zhang@nxp.com, rmk+kernel@armlinux.org.uk,
+ maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, ansuelsmth@gmail.com,
+ yangtiezhu@loongson.cn, chenhuacai@kernel.org, richard.genoud@bootlin.com,
+ alastair@d-silva.org, mripard@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Date: Thu, 24 Sep 2026 07:54:32 +0000
+Message-ID: <179023647242.2160803.15587115569957913954@kernel.org>
+In-Reply-To:
+ <20260921-submit-stmmac-reset-fixes-v1-v1-1-87a4e431ee00@gmail.com>
+References:
+ <20260921-submit-stmmac-reset-fixes-v1-v1-1-87a4e431ee00@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: 20QworIHPpG60k3nWXkKIsqw78l9k5Ju+1E/QJAU7kY819+JS3DEcPke8SgIuR/Sd9wJ7zIQUXpOnOO6PYw4+oL86RyxXzD+wugcVv4zIMvQ4flDTX3wx3movUkP9Z53rKWSplQzzp06+keqyvXRZVfK6M7H3CDIIdr+aNK4m9luBuIVEGeJ8bOr0vTU+yUvZ80B8vN9maVYPcPDhkEj98fEJ9VcUFkmL69/zKBqPyQu+pzC94YIm66lzMA0c4P9Ff3ODq+1zpaDphlPP5nSWmzhgqtNBhwVGoVvm+pqu1tMh0nyXvWiXzpOIAoVrTzqK5ejL1y1oJA2tEo5e5riFA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4835.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2445dee-2401-4818-9e4f-08df1a10f587
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2026 07:53:45.0521
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 2QVM1+GRkk5du7ckJxiR1C3tME51M3yZpBlyrLqfEwrxDzt2Ntolnm0kMfRTkHIbCd2Cb+wmqgWO3dn33RNXAA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB6350
-X-OriginatorOrg: intel.com
 
-> From: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
-> Sent: Thursday, September 17, 2026 10:02 PM
->=20
-> The cdev path only supports one bound/open device fd, but
-> VFIO_DEVICE_BIND_IOMMUFD only checked the per-file access_granted flag
-> before capturing the KVM file reference. A second fd for the same device
-> could therefore replace device->kvm_file, fail later in vfio_df_open()
-> because open_count is already nonzero, and then clear the active KVM
-> association during error cleanup.
->=20
-> Reject the bind while holding dev_set->lock if the device is already
-> open, matching the existing cdev single-open rule before touching the
-> device-wide KVM state.
->=20
-> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-could you send it out as a separate fix?
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-> ---
->  drivers/vfio/device_cdev.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/vfio/device_cdev.c b/drivers/vfio/device_cdev.c
-> index ca75ab8eb7bd..67e48f7ebfc3 100644
-> --- a/drivers/vfio/device_cdev.c
-> +++ b/drivers/vfio/device_cdev.c
-> @@ -115,8 +115,8 @@ long vfio_df_ioctl_bind_iommufd(struct
-> vfio_device_file *df,
->  		return ret;
->=20
->  	mutex_lock(&device->dev_set->lock);
-> -	/* one device cannot be bound twice */
-> -	if (df->access_granted) {
-> +	/* The cdev path only supports one bound/open device fd. */
-> +	if (df->access_granted || device->open_count) {
->  		ret =3D -EINVAL;
->  		goto out_unlock;
->  	}
-> --
-> 2.43.0
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
+- [Medium] phylink_stop() is newly documented and implemented as a legal
+  replacement for phylink_resume() after phylink_suspend(), but it does…
+
+--
+
+net: phylink: allow stopping a suspended instance
+
+This makes phylink_stop() usable directly on a suspended phylink instance,
+so a MAC that cannot restore its hardware after system sleep can close the
+netdev instead of calling phylink_resume(). An already stopped instance
+returns early, and the MAC Wake-on-LAN case drains the resolve work,
+completes the deferred link-down and clears PHYLINK_DISABLE_MAC_WOL.
+
+> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+> index a1458da8111b6..8f9278112623b 100644
+> --- a/drivers/net/phy/phylink.c
+> +++ b/drivers/net/phy/phylink.c
+> @@ -2495,11 +2495,17 @@ EXPORT_SYMBOL_GPL(phylink_start);
+>   *
+>   * This will synchronously bring down the link if the link is not already
+>   * down (in other words, it will trigger a mac_link_down() method call.)
+> + * It may also be called after phylink_suspend() if the MAC cannot resume
+> + * and the network device must be closed instead.
+>   */
+>  void phylink_stop(struct phylink *pl)
+>  {
+>  	ASSERT_RTNL();
+>  
+> +	/* phylink_suspend() already stops the link without MAC WoL. */
+> +	if (test_bit(PHYLINK_DISABLE_STOPPED, &pl->phylink_disable_state))
+> +		return;
+> +
+
+[Severity: Medium]
+Does this new exit path leave the PHY advertisement clamped to the lowest
+speed?
+
+phylink_suspend() performs two things when PHY based power management speed
+control is in use:
+
+drivers/net/phy/phylink.c:phylink_suspend() {
+	...
+	} else {
+		phylink_stop(pl);
+	}
+
+	if (phylink_phy_pm_speed_ctrl(pl))
+		phylink_speed_down(pl, false);
+}
+
+The only place in phylink that reverses the second part is
+phylink_resume():
+
+drivers/net/phy/phylink.c:phylink_resume() {
+	ASSERT_RTNL();
+
+	if (phylink_phy_pm_speed_ctrl(pl))
+		phylink_speed_up(pl);
+	...
+}
+
+Both new exits added here, this early return and the MAC WoL completion
+block below, return without calling phylink_speed_up().  So a MAC that
+follows the new kernel-doc ("It may also be called after phylink_suspend()
+if the MAC cannot resume and the network device must be closed instead")
+ends up with the PHY still advertising only the lowest common speed, and
+with the original advertisement left in phydev->adv_old where phylink will
+never consume it.
+
+Should the new documentation state that the MAC has to call
+phylink_speed_up() itself in this case, or should phylink_stop() reverse
+the speed-down on these paths?
+
+The only in-tree user of wol_phy_speed_ctrl is stmmac, and stmmac_open()
+calls phylink_speed_up() unconditionally, so the next open repairs the
+residue in the common case.  The residue looks like it can become permanent
+if another speed-down runs first, since stmmac_release() also calls
+phylink_speed_down() when device_may_wakeup(priv->device) is true:
+
+drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:stmmac_release() {
+	...
+	if (device_may_wakeup(priv->device))
+		phylink_speed_down(priv->phylink, false);
+	...
+}
+
+and phy_speed_down() overwrites the saved advertisement each time:
+
+drivers/net/phy/phy.c:phy_speed_down() {
+	...
+	linkmode_copy(phydev->adv_old, adv_tmp);
+	...
+}
+
+With no intervening phylink_speed_up(), would the second phy_speed_down()
+store the already reduced set into phydev->adv_old, so the later
+phylink_speed_up() restores the reduced advertisement rather than the
+configured one?  Note device_may_wakeup(priv->device) can be true while
+pl->wolopts_mac is zero, since stmmac calls
+device_set_wakeup_capable(priv->device, 1) when plat->pmt is set.
+
+>  	if (pl->sfp_bus)
+>  		sfp_upstream_stop(pl->sfp_bus);
+>  	if (pl->phydev)
+> @@ -2512,6 +2518,16 @@ void phylink_stop(struct phylink *pl)
+>  
+>  	phylink_run_resolve_and_disable(pl, PHYLINK_DISABLE_STOPPED);
+>  
+> +	if (test_bit(PHYLINK_DISABLE_MAC_WOL, &pl->phylink_disable_state)) {
+> +		/* Finish the link-down deferred by MAC WoL, without restarting. */
+> +		flush_work(&pl->resolve);
+> +		mutex_lock(&pl->state_mutex);
+> +		if (pl->suspend_link_up)
+> +			phylink_link_down(pl);
+> +		__clear_bit(PHYLINK_DISABLE_MAC_WOL, &pl->phylink_disable_state);
+> +		mutex_unlock(&pl->state_mutex);
+> +	}
+> +
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260921-submit-stmmac-reset-fixes-v1-v1-0-87a4e431ee00%40gmail.com
