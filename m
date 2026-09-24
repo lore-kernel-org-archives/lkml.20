@@ -1,83 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98363D1CA8;
-	Thu, 24 Sep 2026 02:11:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A37F930C16B
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:11:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790215880; cv=none; b=mOalbgbL/+RS37JlB77t17UoG9phzKwmcZn1VVh8lukujlnldqVIeRil3ohU/N9xtG/Ot78C+cPEgdYoR14A1rBay24Fz4DXdF80Ye2Hc/LZd1ZJXr09Xyq6WtB5hmn+iDXF/Doep4E2aZ/gbBfPmU8IewtMMzHY+caAxrXxU2A=
+	t=1790215881; cv=none; b=pSgesP6SN40DSDrN04tACsuAIkCWT3y8n0mBWUVhLTxPgqBSa8eZPprGMs88bqOTS2yedkHDVmTYQhPiWc4yppAsQpOYto/5hPohWLDb+UfKzPYznLs5uHzvmM32KJ7sWAp4Hml/rNuyFKvqRV2FFoa6/0znm2ijWaXKgI9PSq4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790215880; c=relaxed/simple;
-	bh=mBu0WSQ/AwjUAODewwxl5iIYor0biSbLUUWCAZyhWuA=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=lAh85UrFjPtolCUYc8tauSFmjaKF9Cg1Nx5O4uGTALk1Wept+Aj1Isj2Wr2X76WJN9q7vSjOb3bGZeenoTlr5OKLMvNK0nd9O0TPKQeLj9jpkvVXNcF9RL+KI8GNRfo0Lq6bpVHVQ8TexPqySgDHUjV2H0gepIsiUrNjZC83+LA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lfvQFj5u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790215881; c=relaxed/simple;
+	bh=Lcya/Ph7NNNPdpppcypcCsE8VfW6DS4oIWcucMkFKeU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hm2p/PgA954PkN3g93oknVzoJjMSn8dLcbo4KY7+ehbJwdBJX9h7kHrQlQh4Zwvd6nvUhx2xPUHyEiEAcpx5COrZhWYDii2kANDtlH3G7Fi4FbdZWmH+2Cuo3fD2ED7DkTsJz9nglTT2BnO5PQGZmkBvfarAyb4nbn+PGAreM3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=AMGfkgfG; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lfvQFj5u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BE8A1F000FF;
-	Thu, 24 Sep 2026 02:11:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790215879;
-	bh=18HjCD9A8+DuIyl1hezJHD5Af2V3TogDRTGby2Iruic=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=lfvQFj5u7aGWmNbUI5l+4BUDiN5L4A/brjtLZToiPhjJ6/HFMYyxUNG1AzIi9ShT9
-	 ttQgnH0bQULp6GJjkx0W9tAoCsEapMDSkthYeyVGBNsd1pXJ7pkIgYjj0tLMqGWRvr
-	 iO3B9PUbA+4ry72Tg4Spfi+QGSqs8296/yyA8pwBvvnj+RTmEgCIttFCFRsDneku5w
-	 eBucFsR6v/++tR1kjU9VgKKzQ1WsEPpjhcrRRLhB6EX/Z2KzJb3pmmhZzmIosn3x43
-	 UMdoR5b9wi08MuGpVLjw9Uj0fgvF0hTWMaRXbyZwbXAJcm6ZcaQobo5dYFs/+0I8Tx
-	 h/ObqkFDbiJmA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 1990039E9611;
-	Thu, 24 Sep 2026 02:10:10 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="AMGfkgfG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=S4QSewLEnLIPGbNR6i/Iij/uoo8De3uC7phM0IJwuos=;
+	b=AMGfkgfGzTcev4msj15i0RV2kb7rpFzqlpFed002+IMTX7UUOCGOy8P+kltHM4
+	6y4RVBw4TcMkl0NZxoE1AJzxcTckDchwqa5UNIBKJrao/nRE5LRxf7gbssBeropw
+	cARMgua6qHU8KyMRaIQhTJwx3SVZzGH5CInTpCS0FVS9s=
+Received: from [IPV6:2409:8900:1eb0:45e:3c13:fdf5:6f81:b37a] (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDHfr2lhrRqHsXJAQ--.908S2;
+	Thu, 24 Sep 2026 10:10:47 +0800 (CST)
+Message-ID: <8a52d6f6-0c16-4ae8-af98-c6eec9167e45@163.com>
+Date: Thu, 24 Sep 2026 10:10:45 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 0/4] ntfs: fix MFT bitmap extension allocation
+To: Xuewen Wang <wangxuewen@kylinos.cn>, linkinjeon@kernel.org,
+ hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260924014514.1678828-1-wangxuewen@kylinos.cn>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20260924014514.1678828-1-wangxuewen@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] fou: reject omitted FOU_ATTR_IPPROTO on
- FOU_ENCAP_DIRECT
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179021580864.1277764.3665747130369583062.git-patchwork-notify@kernel.org>
-Date: Thu, 24 Sep 2026 02:10:08 +0000
-References: <20260921045920.1613098-1-benquike@gmail.com>
-In-Reply-To: <20260921045920.1613098-1-benquike@gmail.com>
-To: Hui Peng <benquike@gmail.com>
-Cc: kuniyu@google.com, hangbin.liu@linux.dev, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- willemb@google.com, therbert@google.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-CM-TRANSID:_____wDHfr2lhrRqHsXJAQ--.908S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrZFW5Xw13AFWDKw17uryfJFb_yoWkAFbEgF
+	93t348A3srtFnYqa90yrs2yryrK3yDKF12kF1qvrs3Xa4DA3yktwsFyr15KF17CF4UCry5
+	Arn0y3WfC34xXjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xREPl1tUUUUU==
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6QeSXWq0hqel7AAA3X
 
-Hello:
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
 
-On Mon, 21 Sep 2026 04:59:20 +0000 you wrote:
-> Commit 7a9bc9e3f423 ("fou: Don't allow 0 for FOU_ATTR_IPPROTO.") added
-> NLA_POLICY_MIN(NLA_U8, 1) to fou_nl_policy[FOU_ATTR_IPPROTO], which
-> rejects an explicitly supplied FOU_ATTR_IPPROTO == 0 attribute with
-> -ERANGE.
+在 2026/9/24 09:45, Xuewen Wang 写道:
+> This series fixes four bugs in the MFT bitmap extension path:
 > 
-> However, FOU_ATTR_IPPROTO is an optional netlink attribute. When a user
-> sends FOU_CMD_ADD with FOU_ATTR_TYPE set to FOU_ENCAP_DIRECT and omits
-> FOU_ATTR_IPPROTO entirely, nla_policy validation succeeds and
-> parse_nl_config() leaves cfg->protocol as 0 (from memset(cfg, 0,
-> sizeof(*cfg))). fou_create() then creates a FOU_ENCAP_DIRECT socket with
-> fou->protocol == 0.
+>    - The adjacent-cluster candidate can be outside the volume. Check it
+>      before accessing $Bitmap and fall back to the regular allocator.
+>    - The allocator can return an adjacent cluster that merges with the
+>      existing run. Preserve that run when rolling back a failed extension.
+>    - Rollback can wait for the initial $Bitmap scan while holding a folio
+>      the scanner needs. Wait for the scan before starting the allocation.
+>    - Direct allocation changes $Bitmap without updating the cached free
+>      counts. Update both counts and honor per-page accounting and space
+>      reserved for delayed allocation.
 > 
-> [...]
+> Xuewen Wang (4):
+>    ntfs: bound the adjacent cluster in MFT bitmap extension
+>    ntfs: fix rollback after MFT bitmap run coalescing
+>    ntfs: wait for the bitmap scan before MFT bitmap extension
+>    ntfs: account for direct MFT bitmap cluster allocation
+> 
+>   fs/ntfs/mft.c | 26 +++++++++++++++++++++++---
+>   1 file changed, 23 insertions(+), 3 deletions(-)
+> 
 
-Here is the summary with links:
-  - [net,v2] fou: reject omitted FOU_ATTR_IPPROTO on FOU_ENCAP_DIRECT
-    https://git.kernel.org/netdev/net/c/d22609f3d13f
+The series looks good to me.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
 
