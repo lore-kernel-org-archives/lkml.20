@@ -1,73 +1,215 @@
-Received: from mta1.migadu.com (out-193.mta1.migadu.com [95.215.58.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 831AD3CF1FF
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:16:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B95253B58
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:18:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790219784; cv=none; b=u/pudG77LGQ4EsKhzvO3ZBu8XQ4JiD6QZKGTOIqCLEsdGtnpw7zcGMrPM2SnxbUQR2o2BGg6yaGmSiso7ApjsmXkvQsPV5ReogGhZriwTH2Z0Hc9cMmf7HlNKRwMsMSV5fBDroqR+qP+A2LSGlEdANL2lMFiVxwB3YgKdTtoejA=
+	t=1790219894; cv=none; b=Dqcb5Tz3a3QLwoGtZRReerRfaaNHvZo9KZ8rVq3l3JHTmYokymyzdL5TaYGAjMwKJ6CHiG1KzdHeeGogs74b4ARt9FZiXy2F5PX8FCo1Hu4yHoh15a+Uab7R5HSlBPKKAO/gVZg7xHOAiGYnN2Lq+t2fFnTn7vDVvoK4hXNXikY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790219784; c=relaxed/simple;
-	bh=Sz/uMVvtvi3NFxxQ6n0vt/kFme+lA9TCV7g89jS3C4M=;
+	s=arc-20240116; t=1790219894; c=relaxed/simple;
+	bh=dBCzhl1X4q92qBGwn2pQvyx5Z8dLZ3uL6KEhFDZ9iIs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TVEjoCIwjcIy+Yk7HL4sMEzaW0uI1wkQl7qdDM69+KkuSuwT2J1zmb7K7DyKZKEaIATjiCyYt4FvivFMWO/LDZpr068iAtGWOwjf6diEVhlWTrfsQL/HAg2XxOZwJAsiH5wRynfVzaDC7hkmNLEoEONcmMgRfR3nCSJfJpnYE5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qGvhKsu0; arc=none smtp.client-ip=95.215.58.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=fx84ZGrkKSg+qt6sSoBPdM5L/OQa/YNR0ddabNLiNncAYXXg2BZ21JFe7HdD+MPIYXrtZEibB8Dta5HkF4LPxvGNOMpuZ14SiDESnco7kL7+4qU6CxQ+fNBK7GBbdfUJE/vCusl+8ZilIfvPd8l+loZnL6GekkSmiteqTo/w5ks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZsupzY4e; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=K8O+tE8e; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qGvhKsu0"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Sz/uMVvtvi3NFxxQ6n0vt/kFme+lA9TCV7g89jS3C4M=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790219778; v=1; x=1790824578;
- b=qGvhKsu0wrkzZGyT6ZwvFh+OJshy56ZEOjoC0fVWMYd0VG3y+agyP6hemWKiafPamAScej9T
- lkATVpIX34zjOpi8Q0IhJqee6fZHRbhme/o7CNFYtI3O8HFMjoXQVJd7UpdMv5ot2bxhONE3hnw
- LcIEg1yXT2v2Je4NBtYE1EQI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id e26be85f0c4105d4;
-	Thu, 24 Sep 2026 03:16:18 +0000
-X-Mizu-Trace-ID: e26be85f0c4105d4
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 24 Sep 2026 11:16:12 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: netdev-bot+sashiko@kernel.org
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, horms@kernel.org, shuah@kernel.org,
-	dsahern@kernel.org, idosch@nvidia.com, andrea.mayer@uniroma2.it,
-	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org, liuhangbin@kylinos.cn
-Subject: Re: [PATCH net-next v4] selftests: net: move log_test to lib file
- and remove duplicate code
-Message-ID: <arSV_FCIC21S138L@fedora>
-References: <20260922-self_log_test-v4-1-4c656801f8dc@kylinos.cn>
- <179021041767.2160803.17788389754543951970@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZsupzY4e";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="K8O+tE8e"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O36g0F1952758
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:18:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=tHodOW1NuMAhQ2hihU1WLFCt
+	BxwYsw6uUKaSj/sBdIk=; b=ZsupzY4eFlIZg9YdMGv+d3x62kLNgU1Vw2JenSW+
+	DNJ9VdU5f0xHu5mAZUdjt9nN+UBEoy8bUXBfy1/UPWnnpfkTRqSIiwRtwa0oMSAa
+	6CGCsZIP8c+07kxdsh+YRagDbJ2DJKWPn1p3EB+g4qb7WNOrrQ+8KXQfvHXYAeNi
+	Lv9PMyBmcomGIdFqmm5yqvND/dLjuf9xhhr3Sc4VmlDnFHxCKbpJz0Uso0tHnQl6
+	Shq7VuW5am/BX9SdNjYZQHomsC2JyYm8jbZrN6gZq8ORD5r3+aqZ7Mrn+IlVcQ+S
+	8kckK8BTydB6wPk9r4XPTqDfeYncTkqIeVv1M/sA125e2Q==
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvfjxu1f0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:18:12 +0000 (GMT)
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-143826c4a13so1590514c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:18:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790219892; x=1790824692; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tHodOW1NuMAhQ2hihU1WLFCtBxwYsw6uUKaSj/sBdIk=;
+        b=K8O+tE8eJLcfPq41KlUYBOkG7SJdoDmBK5IvkROXqpVtB5dEeYY4mZyEVOPb/Ahtya
+         YbR1eZNeRfDMZgwI0OuDiXwlXJzWhiOhBeJ/2bO0CTnE5z3a5wf6+kDSV6srKWOImBaK
+         vp0MYkTQQLBizdSzaVcYx3itkf8dYHYHGfyp2hi8gccHq3acNXyqf5/kKUv8+Rt1zWul
+         0aE/Tu7QxUcjl8e+WrtuKfkPZ6AxnJD7BbHUpr68npFVbZcFrUTno7xw5Ta2JhWugGad
+         i2BgOm/WaUoV9qxQ3xEKYfcfwTMCYruxDCs3mxlXlRRM3rYl1RDeq9EJw/UD64jQG51e
+         mq2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790219892; x=1790824692;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tHodOW1NuMAhQ2hihU1WLFCtBxwYsw6uUKaSj/sBdIk=;
+        b=gAfUhcOnX4TsoCfwTaRti2hL2YE9GmeB7o1r+ZEUr5O69JYsy2h40QU8n/RSCYkCU4
+         K0SUDxiKjJm975ioai0rr4AhMGvaU+PME6i25gVS2y1yvwe4SfZIHtpQfVA3PUjQmEGG
+         mxc2K7/J317yUJ4O0N93nUCPM71zFj1SsyGx5qHZWrNm2WXlfP5BdpW3js9BKCyPOKH+
+         DR6azWiDYtcJ2Y2qeCj1iWePTsdNpS/lid+CJkWDRXm6AKv+gU284j0jw0TVB/qqx5nh
+         N/FTyHEwI86vl/gm4sz5ihQBO89o/N41CxtzlNT9u9JpybCCHDSjhIaTPH3PN6E96TeU
+         2zKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwQyu4QsDEztnW2/avCiA7lBYRl9y7ZlwugC3tyjw+boNeGgev4WbOJmiiKewlopq2ntx3b+818E41UdOQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mjbCdqSnldZJRpFsPgFEga+KbPRbN2FEFSpo9GhafP3wV5DJDi
+	SCcrStflyyjbAn+pv1ghJR2ktQE0wtih6ScAn7c5Ko1/QQv/Urg/G12ei9XCCjiEUWtWZx6asVp
+	DetY8jwaZNnw4Pk0YRSE+lH9ZCav5GnsObbAzaU2iKOYoKy/VCZ41ff7M2hKxZR5UP/g=
+X-Gm-Gg: AYBFou0V/0WnyJ0C9d4jp+7LIYe4jcGr9FVGYGf8AYLDImGXx0UeQFWa1VJoJkr7X4+
+	8MJOY174AYtOSZExDP8LrybWZCxg2bLOiv+vjbJbWYUCz0RljJ8qv/53QumrDcOe7l0+YXu2+Ye
+	MAMhOGq50rcSeWqxE1xFWUFH7YngbejkoNjFfrm9oBCPpbZFcRi0vT0/zj3rEma4+XSIV1aOFd/
+	H7B33nimgHmECqXzQR1D+GjbNPf4n0rLoyr7PCbqUOlxhtlgheewzVflBs7NIkej1rPoBwlKu81
+	g55S9AZhdnoJDq9H1EujzSFfGyIaELqM9TFFZnvTzgQv8RJtcY73kN+FWv5MlDzJ4ZRnv6s5gD2
+	xC4AWW3miyD5waod0fZvVeJ974KMDdlgRoU5WCFXAgQ==
+X-Received: by 2002:a05:7022:c4d:b0:143:8829:5fb9 with SMTP id a92af1059eb24-14503f3c3fdmr785066c88.16.1790219891756;
+        Wed, 23 Sep 2026 20:18:11 -0700 (PDT)
+X-Received: by 2002:a05:7022:c4d:b0:143:8829:5fb9 with SMTP id a92af1059eb24-14503f3c3fdmr785041c88.16.1790219891200;
+        Wed, 23 Sep 2026 20:18:11 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96258351sm9861844eec.12.2026.09.23.20.18.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 20:18:10 -0700 (PDT)
+Date: Thu, 24 Sep 2026 11:18:05 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Yu Zhang <yu.zhang@oss.qualcomm.com>, linux-gpio@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Linus Walleij <linusw@kernel.org>
+Subject: Re: [PATCH v2] pinctrl: qcom: spmi-gpio: make direction changes
+ exclusive
+Message-ID: <arSWbexBeEYgBY_x@QCOM-aGQu4IUr3Y>
+References: <20260922065908.477523-1-shengchao.guo@oss.qualcomm.com>
+ <CAMRc=MfrBwqdMnT5TynJ0NVBf3OWKF7BSGr1cy4YjyCVrZdX1A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <179021041767.2160803.17788389754543951970@kernel.org>
+In-Reply-To: <CAMRc=MfrBwqdMnT5TynJ0NVBf3OWKF7BSGr1cy4YjyCVrZdX1A@mail.gmail.com>
+X-Proofpoint-ORIG-GUID: 2wtFcv270aNBsuB3SAzP2v_6kdxqaJKg
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAxNCBTYWx0ZWRfX3zn8lvyvrIYH
+ 7qk+s5g002KXw+taP8zRpCSDC/WpADeJo3pf4vnJtOtUw0JCY6CPH5agVvdSTB+uYaHdJ+1QdrI
+ 9h4EduL+RS9oIiCjg7RuVc364NKwtiYurBCAEatro07VkP5J0ewM7+TeIQqUlfpMvaehHjqJnnR
+ RpxJHubRBT2x9MVq+DoLuhspDFWjCulCkS7lpIvvEM+GCwAh3QCz7x5j+VXoRuWMg2VR9q2GswS
+ LNYuwCJKplmpI0L0ikQe6alcZzjHr55APThakl26ekHQC+z8eQfFVB8rwiVlB8raWxeqrlETUNf
+ jYpoD2xCCAnnJGvfqny0aC0xE4Fep6+i8L9fyVuM8x3bwFmFdtFm9vw62jg0Acy34cndRDggz6P
+ Mpr7nMfaX1IFylHHXzDNfp0rglKZNrxOXSwejOD8bpdavycHUHlM6xKT604tgOl6zewEO5OzosB
+ G9eBQf4RxUblu9AKRDQ==
+X-Proofpoint-GUID: 2wtFcv270aNBsuB3SAzP2v_6kdxqaJKg
+X-Authority-Analysis: v=2.4 cv=NLpAaE6g c=1 sm=1 tr=0 ts=6ab49674 cx=c_pps
+ a=kVLUcbK0zfr7ocalXnG1qA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=uQBmt4c_HcPZFEdrNxwA:9 a=CjuIK1q_8ugA:10
+ a=vr4QvYf-bLy2KjpDp97w:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAxNCBTYWx0ZWRfX4+wroMwm2i+W
+ vroszZAvN4z9+72XOEnlmiFpF6zejoocETwxysNoUWLcVn3LIfD12eulS8kL7+Hhag/ndP5LIl3
+ iwb3p+wxNvJbmnb/iz3phkb/yTb+ZTU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_01,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 adultscore=0 suspectscore=0 priorityscore=1501
+ impostorscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240014
 
-On Thu, Sep 24, 2026 at 12:40:17AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
+On Wed, Sep 23, 2026 at 02:07:56AM -0700, Bartosz Golaszewski wrote:
+> On Tue, 22 Sep 2026 08:59:08 +0200, Shawn Guo
+> <shengchao.guo@oss.qualcomm.com> said:
+> > pmic_gpio_populate() seeds pad->input_enabled and pad->output_enabled from
+> > the hardware MODE_CTL register, so a pad left in DIGITAL_INPUT or
+> > DIGITAL_INPUT_OUTPUT mode by the bootloader starts out with the input
+> > buffer enabled.  Neither direction callback clears the opposite buffer:
+> > .direction_output() only packs PIN_CONFIG_LEVEL, which sets
+> > output_enabled, and .direction_input() only packs PIN_CONFIG_INPUT_ENABLE,
+> > which sets input_enabled.  Requesting either direction on such a pad
+> > therefore programs MODE_DIGITAL_INPUT_OUTPUT rather than the requested
+> > direction.
+> >
+> > That silently breaks both directions.  After gpiod_direction_input() the
+> > pad keeps driving the line, since the output buffer is never disabled.
+> > And after gpiod_direction_output() pmic_gpio_get_direction() still reports
+> > GPIO_LINE_DIRECTION_IN, because it cannot tell plain input from
+> > input+output, which makes gpiolib consider the line an input while the
+> > driver is driving it.  On a board where several regulator-fixed nodes
+> > share one PMIC GPIO the shared GPIO proxy reads that direction back and
+> > rejects every consumer after the first:
+> >
+> >   reg-fixed-voltage regulator-wcn-core-vm-1p35: setup of GPIO (default) failed: -1
+> >   reg-fixed-voltage regulator-wcn-core-vm-1p35: error -EPERM: can't get GPIO
+> >
+> > Pack the opposite buffer's PIN_CONFIG_*_ENABLE along with the requested
+> > direction so that the resulting MODE_CTL is DIGITAL_INPUT or
+> > DIGITAL_OUTPUT, never both.  pmic_gpio_config_set() programs the registers
+> > once after walking all configs, so this stays a single register write.
+> >
+> > Pads that are genuinely bidirectional can still be described that way
+> > through pinconf, which is the interface that has always been able to
+> > express it; the gpiolib direction callbacks now mean what gpiolib says
+> > they mean.
+> >
+> > Fixes: 263447532463 ("pinctrl: qcom: spmi-gpio: implement .get_direction()")
+> > Assisted-by: LLM
+> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> > ---
+> > Changes for v2:
+> > - Drop GPIO shared-proxy patch
+> > - Update Fixes tag (Thanks Neil!)
+> > - Link to v1: https://lore.kernel.org/all/20260915014447.282121-1-shengchao.guo@oss.qualcomm.com/
+> >
+> >  drivers/pinctrl/qcom/pinctrl-spmi-gpio.c | 16 ++++++++++------
+> >  1 file changed, 10 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
+> > index f6dc43e27b38..eb4431591331 100644
+> > --- a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
+> > +++ b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
+> > @@ -741,22 +741,26 @@ static int pmic_gpio_get_direction(struct gpio_chip *chip, unsigned pin)
+> >  static int pmic_gpio_direction_input(struct gpio_chip *chip, unsigned pin)
+> >  {
+> >  	struct pmic_gpio_state *state = gpiochip_get_data(chip);
+> > -	unsigned long config;
+> > +	unsigned long configs[2];
+> >
+> > -	config = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 1);
+> > +	configs[0] = pinconf_to_config_packed(PIN_CONFIG_OUTPUT_ENABLE, 0);
+> > +	configs[1] = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 1);
+> >
+> > -	return pmic_gpio_config_set(state->ctrl, pin, &config, 1);
+> > +	return pmic_gpio_config_set(state->ctrl, pin, configs,
+> > +				    ARRAY_SIZE(configs));
+> >  }
+> >
+> >  static int pmic_gpio_direction_output(struct gpio_chip *chip,
+> >  				      unsigned pin, int val)
+> >  {
+> >  	struct pmic_gpio_state *state = gpiochip_get_data(chip);
+> > -	unsigned long config;
+> > +	unsigned long configs[2];
+> >
+> > -	config = pinconf_to_config_packed(PIN_CONFIG_LEVEL, val);
+> > +	configs[0] = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 0);
 > 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 0
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] Loop-variable corruption in fcnal-test.sh via bash dynamic
->   scoping: the new shared helper `log_test_expected()` in…
+> Sashiko's comment basically says that for open-drain GPIOs, if we set direction
+> to output via GPIOLIB and disable the input buffer, then later call
+> gpiod_get_value() on that GPIO, we'll never read what's really on the wire. Can
+> we not disable the input buffer for open-drain pins?
 
-Thanks, I will add "local a" in the new helper.
+Yes, that is the better fix -- thanks, I will do that in v3.
 
-pw-bot: cr
+Shawn
