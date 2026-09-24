@@ -1,141 +1,237 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98AE032D0EE;
-	Thu, 24 Sep 2026 08:42:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7659F3FD946
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:43:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790239334; cv=none; b=hT67jEaVmRMbdfcVEJKII//1SH2Y5vjyieegvgQSEanHkg8zJsCtmiC7EtWYzzQp7uQx/tft2T9EwOKmf9gn735H767jBD8+sJTVtlNbOjBbffOn+7Hk1eUT03/EYXsjTAUyL+0sWF3wXCqJTHvoPOH03yJXp842PvwEgVt7uq0=
+	t=1790239385; cv=none; b=FSq8SaYUG8kTg9LDYWC9H3bXFArutxgiM5g4cuDDyPnj4NrKl5AxZGojObO0qReeIMFY2Dkzj7b17Q3bCvw03EQmrZDmVODrn+WVTADzMjPkg9nOAU6w3iKuN1ydldSpQEo1dLmPENl6UDlIksngXvtkZfHItbEld7cuHWLvBiI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790239334; c=relaxed/simple;
-	bh=NM1WdLmsHsD6dsD2wHxs/bcrG5+MByru8jiHoQ2dbqs=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hXnpmTqnTQOT9FoWpL/+SOXYCQaAZbx4vGU7XEJ4NdQvXQMXBGF5j9TZOpsLQEx6TRMSA3YXRDjskfEK6+JHRnRS0JUzlQk1L6i9lsAMLnHbGubka+L0pfDVILxzEO/Zb0OmTcFOL+Qb9Lhehq0DAA6pbY4RbZYhiU93cGquqSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=0JF1CvGK; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1790239385; c=relaxed/simple;
+	bh=LDR88pRPadH5YbVZB0JSvzlf8x8iZc+HAMLWxUPf9i0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HG+LRVGWLcf9OASFf71Ni7Jfpt86lj/MdObixlFrZDk9ZIRBdx59r/WPuaOgy3CYbkaDdogEQn7UewtoyFwvnyg7buhH3WkwsMKI6rEAmP61vkKrgXF9L6mSV0kQsQipWC3JD9/4CGDN7irBW0UKazv8ihMjVfbYb5CpCNSWIJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=T5K8icr1; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="0JF1CvGK"
-Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5e3Au3875377;
-	Thu, 24 Sep 2026 04:41:56 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=ZoC86
-	GJFXHBzzuQ/7+tW90kw/hyLexlEs3UkF5+giTo=; b=0JF1CvGK1/HuyLjVIi+Bi
-	A3GoFEdMWLc9hx4yhs4BFw1iPDHo7NCP1odvYV2Obi0qZ85NsbGp3s9v1sE/afpY
-	lyYUOzMDLavSD46fU67c4a8hBMxQmARHmPSq2ON0KVrbVatNwXKDdYHlxiLiqIzX
-	rSICN7i2DYySQIY0GElGIhbtjBP7rBbpU7KEwQ9STuj/c1oUpJ2ZzR2z5riXnJ/R
-	haHZM4CXBszOvgfS2vIHp1FrHkPwlfYJK7pSyl9JNCTLj6shGK+/v7TiX8ayBTqT
-	8QnBJz8+TBPuGYqod8T4ZaY6XJeuKI7MlFP0BUg2uCygBvyWkdGAzNVR2qPd9+tJ
-	Q==
-Received: from nwd2mta3.analog.com ([137.71.173.56])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4gvmpk3tjc-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 24 Sep 2026 04:41:56 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 68O8ft2P016358
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 24 Sep 2026 04:41:55 -0400
-Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
- ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Thu, 24 Sep 2026 04:41:55 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
- ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Thu, 24 Sep 2026 04:41:55 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Thu, 24 Sep 2026 04:41:55 -0400
-Received: from JGERONI2-L01.ad.analog.com ([10.66.6.191])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 68O8fTpM015604;
-	Thu, 24 Sep 2026 04:41:48 -0400
-From: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
-To: Guenter Roeck <linux@roeck-us.net>
-CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-        "Shuah
- Khan" <skhan@linuxfoundation.org>,
-        Jean Delvare <jdelvare@suse.com>, <linux-hwmon@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-doc@vger.kernel.org>
-Subject: [PATCH v2 2/3] hwmon: (lm75) add MAX31875 documentation
-Date: Thu, 24 Sep 2026 16:41:20 +0800
-Message-ID: <20260924084121.82-3-johnerasmusmari.geronimo@analog.com>
-X-Mailer: git-send-email 2.44.0.windows.1
-In-Reply-To: <20260924084121.82-1-johnerasmusmari.geronimo@analog.com>
-References: <20260924084121.82-1-johnerasmusmari.geronimo@analog.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="T5K8icr1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=IES0DGNs4px2D7Z1njUR246i9JYyabrNmEEAlJUEP9M=;
+	b=T5K8icr1c+thaeaauEmupmgZHG3Tar1PiEUeS5ei2r9yY6cujOqEKFhJnAV7pg
+	/U5TxncpHnlddAAoYsQGPXgmsWK9eKyzlRLFGKQN6WyuIJhQKLW9pzHyojasBI3W
+	Qo0BwNizo3u0H3vK6Zgr71ygvDH1YOCrC60Dw1WcGfo7w=
+Received: from [IPV6:2409:8900:1eb0:45e:3c13:fdf5:6f81:b37a] (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3rr1s4rRqVNcMAg--.10243S2;
+	Thu, 24 Sep 2026 16:42:21 +0800 (CST)
+Message-ID: <0b50a37a-4ee6-47cb-9bf8-1b0d40cb26eb@163.com>
+Date: Thu, 24 Sep 2026 16:42:15 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ntfs: exclude DOS aliases from VFS link count
+To: Michael Woolweaver <michael@woolweaver.bid>,
+ Namjae Jeon <linkinjeon@kernel.org>, Hyunchul Lee <hyc.lee@gmail.com>
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260924041720.16477-1-michael@woolweaver.bid>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20260924041720.16477-1-michael@woolweaver.bid>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAzNiBTYWx0ZWRfX6P8m+7kZjbIX
- qIspasPYN0j91lgEWwBN2g9kmjR2sVf+tcB6er9OXqhHY5gt+D+cXJogEeN0CP5aTwY6dpGDmnJ
- tUXsRanAM4lIQhOb3Mba8b5hpN5eBwNKFGgR+crhgLuAtRJvQnL+
-X-Authority-Analysis: v=2.4 cv=HIlWhYtv c=1 sm=1 tr=0 ts=6ab4e254 cx=c_pps
- a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=Z0pTeXoby7EwIRygza74:22 a=XYAwZIGsAAAA:8 a=gAnH3GRIAAAA:8
- a=sACn_r3pBwMRQ58zdiQA:9 a=E8ToXWR_bxluHZ7gmE-Z:22
-X-Proofpoint-ORIG-GUID: qMo0kiCOr9mmhNHtxTOIsymexlaQf9SK
-X-Proofpoint-GUID: qMo0kiCOr9mmhNHtxTOIsymexlaQf9SK
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAzNiBTYWx0ZWRfX60NV5rJS1Iok
- yH0ZNbDAgqi0yqVQi15lEhZVSVqoI/xa4loNXOQpLO4O8VR/54shgO0kqiGAutlYWVJkO062e4L
- tquMGfViYbK5puEbTHk26KqKobfeftb4t8SBN7furO5rAxeVKYyzrtp1vJgBDzgB4hwwznUGlwf
- Oj4Z2t/tBHMKrmr9NfClwIhhAkuGZCLLrrtu9NmtA8uYdCduXHWPv8efFCXSMlUnzwG3btSW1/F
- pr0OLNb3ifdFQqLUYbOfEdJpVkS3nyc7xLI+GChsHPqzJJNkJN+8lpecew1nw1zBuIisvmOM62Z
- x6tJgOTwxfG9cB+X44HT4SPa5wdndZDpuEZrOiCX4Tqs0sqoNDNTogyAwp5gOK6ZUQ0VFl97XsD
- 01fiPknWFzsLnglFmd4uu0H0QjNxjjaxhNp0TLFzMpj/fSCyYtEJy+RsmYz5guBUT1efj2WX7TL
- gYxo66uzIwguBfbF5sA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 clxscore=1011 suspectscore=0
- priorityscore=1501 phishscore=0 adultscore=0 malwarescore=0 bulkscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609240036
+X-CM-TRANSID:_____wD3rr1s4rRqVNcMAg--.10243S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3WF4ktw4fXw4xWw4rAw17trb_yoWxWrWUpF
+	ZxA3sxtrWfXry2vas3tw4DZ3WS9a4FkrWUXr9xGw13J3ZYqwnagF18KrWjvr4SyrZ5J34j
+	qF4Yg3y7CayUXFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRSAprUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwg2bZmq04m1jvwAA3-
 
-Document the Maxim MAX31875 I2C temperature sensor as a supported
-chip in the lm75 driver documentation.
 
-Signed-off-by: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
----
- Documentation/hwmon/lm75.rst | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/hwmon/lm75.rst b/Documentation/hwmon/lm75.rst
-index ca46754e028b3..54a6a75e8a71b 100644
---- a/Documentation/hwmon/lm75.rst
-+++ b/Documentation/hwmon/lm75.rst
-@@ -66,9 +66,9 @@ Supported chips:
- 
- 	       http://www.microchip.com/
- 
--  * Analog Devices ADT75
-+  * Analog Devices ADT75, MAX31875
- 
--    Prefix: 'adt75'
-+    Prefix: 'adt75', 'max31875'
- 
-     Addresses scanned: none
- 
-@@ -76,6 +76,8 @@ Supported chips:
- 
- 	       https://www.analog.com/adt75
- 
-+	       https://www.analog.com/max31875
-+
-   * ST Microelectronics STDS75
- 
-     Prefix: 'stds75'
--- 
-2.34.1
+在 2026/9/24 12:17, Michael Woolweaver 写道:
+> NTFS counts each $FILE_NAME attribute in the MFT record link_count.
+> A file with separate Win32 and DOS 8.3 names therefore has a link_count
+> of two even though the DOS name is an alias and does not represent a
+> separate VFS hard link.
+> 
+> ntfs_read_locked_inode() copies the MFT link_count directly to i_nlink,
+> causing stat() to report an extra hard link for files with a separate
+> DOS alias.
+> 
+> The same distinction is needed when unlinking. ntfs_delete() removes
+> both the DOS and Win32 $FILE_NAME attributes, decrementing the on-disk
+> link_count for each, but it must decrement the VFS link count only for
+> the Win32 name. Otherwise a real hard link can reach i_nlink zero while
+> another VFS-visible name still exists.
+> 
+> Count non-DOS $FILE_NAME attributes when initializing i_nlink, while
+> still verifying that the MFT link_count matches the total number of
+> name attributes. Do not drop i_nlink when ntfs_delete() removes a DOS
+> alias.
+> 
+> This was reproduced with a file containing separate Win32 and DOS
+> names. Its MFT link_count was 2 while stat() incorrectly reported 2
+> links. With the fix, stat() reports 1.
+> 
+> After adding a real POSIX hard link, the MFT contained three
+> $FILE_NAME attributes while the VFS correctly reported two links.
+> Removing the Win32/DOS pair left the POSIX hard link with both the MFT
+> link_count and VFS i_nlink equal to 1.
+> 
+> The fix was runtime-tested with fs/ntfs on a disposable NTFS image and
+> compile-tested on ntfs-next with W=1. checkpatch.pl reports no issues.
+> 
+> Fixes: 1e9ea7e04472 ("Revert "fs: Remove NTFS classic"")
+> Assisted-by: LLM
+> Signed-off-by: Michael Woolweaver <michael@woolweaver.bid>
+> ---
+>   fs/ntfs/inode.c | 77 +++++++++++++++++++++++++++++++++++++++++++++++++
+>   fs/ntfs/namei.c |  5 +++-
+>   2 files changed, 81 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
+> index 9583b2c6c7a2..74a0d9d1e82b 100644
+> --- a/fs/ntfs/inode.c
+> +++ b/fs/ntfs/inode.c
+> @@ -621,6 +621,67 @@ static int ntfs_is_extended_system_file(struct ntfs_attr_search_ctx *ctx)
+>   	return 0;	/* NO, it is not an extended system file. */
+>   }
+>   
+> +/*
+> + * ntfs_count_vfs_links - count VFS-visible hard links
+> + * @ctx: initialized attribute search context
+> + *
+> + * The MFT link count counts all $FILE_NAME attributes.  A separate DOS 8.3
+> + * name therefore contributes to the on-disk count even though it is an alias
+> + * for its Win32 name and does not represent another VFS hard link.
+> + *
+> + * Return the number of VFS-visible links or -errno on error.
+> + */
+> +static int ntfs_count_vfs_links(struct ntfs_attr_search_ctx *ctx)
+> +{
+> +	unsigned int expected, names = 0, links = 0;
+> +	int err;
+> +
+> +	expected = le16_to_cpu(ctx->mrec->link_count);
+> +	ntfs_attr_reinit_search_ctx(ctx);
+
+Hi Michael,
+   Could we reinitialize the search context before reading link_count?
+
+   ntfs_attr_reinit_search_ctx(ctx);
+   expected = le16_to_cpu(ctx->mrec->link_count);
+
+   This ensures the count is read from the base MFT record even if the 
+incoming context points to an extent record.
+
+Thanks,
+Baolin.
+
+> +
+> +	while (!(err = ntfs_attr_lookup(AT_FILE_NAME, NULL, 0, 0, 0, NULL, 0,
+> +					ctx))) {
+> +		struct attr_record *attr = ctx->attr;
+> +		struct file_name_attr *fn;
+> +		u32 attr_len, value_len;
+> +		u16 value_off;
+> +
+> +		if (unlikely(attr->non_resident))
+> +			goto corrupt;
+> +
+> +		attr_len = le32_to_cpu(attr->length);
+> +		value_len = le32_to_cpu(attr->data.resident.value_length);
+> +		value_off = le16_to_cpu(attr->data.resident.value_offset);
+> +
+> +		if (unlikely(value_off > attr_len ||
+> +			     value_len > attr_len - value_off ||
+> +			     value_len < offsetof(struct file_name_attr, file_name)))
+> +			goto corrupt;
+> +
+> +		fn = (struct file_name_attr *)((u8 *)attr + value_off);
+> +		names++;
+> +		if (fn->file_name_type != FILE_NAME_DOS)
+> +			links++;
+> +	}
+> +
+> +	if (unlikely(err != -ENOENT))
+> +		return err;
+> +
+> +	if (unlikely(names != expected || !links)) {
+> +		ntfs_error(ctx->ntfs_ino->vol->sb,
+> +			   "Inode link count doesn't match file name attributes. You should run chkdsk.");
+> +		return -EIO;
+> +	}
+> +
+> +	ntfs_attr_reinit_search_ctx(ctx);
+> +	return links;
+> +
+> +corrupt:
+> +	ntfs_error(ctx->ntfs_ino->vol->sb,
+> +		   "Corrupt file name attribute. You should run chkdsk.");
+> +	return -EIO;
+> +}
+> +
+>   static struct lock_class_key ntfs_dir_inval_lock_key;
+>   
+>   void ntfs_set_vfs_operations(struct inode *inode, mode_t mode, dev_t dev)
+> @@ -872,6 +933,22 @@ static int ntfs_read_locked_inode(struct inode *vi)
+>   		}
+>   	}
+>   skip_attr_list_load:
+> +	/*
+> +	 * The MFT link count includes separate DOS 8.3 aliases.  Once the
+> +	 * attribute list is available, derive the VFS link count from the
+> +	 * $FILE_NAME namespaces instead.
+> +	 */
+> +	if (!(m->flags & MFT_RECORD_IS_DIRECTORY) && vi->i_ino != FILE_MFT) {
+> +		int nr_links;
+> +
+> +		nr_links = ntfs_count_vfs_links(ctx);
+> +		if (unlikely(nr_links < 0)) {
+> +			err = nr_links;
+> +			goto unm_err_out;
+> +		}
+> +		set_nlink(vi, nr_links);
+> +	}
+> +
+>   	err = ntfs_attr_lookup(AT_EA_INFORMATION, NULL, 0, 0, 0, NULL, 0, ctx);
+>   	if (!err) {
+>   		NInoSetHasEA(ni);
+> diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
+> index 75e201096525..891ee697c0d2 100644
+> --- a/fs/ntfs/namei.c
+> +++ b/fs/ntfs/namei.c
+> @@ -829,6 +829,7 @@ static int ntfs_delete(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
+>   	struct file_name_attr *fn = NULL;
+>   	bool looking_for_dos_name = false, looking_for_win32_name = false;
+>   	bool case_sensitive_match = true;
+> +	bool is_dos_name;
+>   	int err = 0;
+>   	struct mft_record *ni_mrec;
+>   	struct super_block *sb;
+> @@ -932,6 +933,8 @@ static int ntfs_delete(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
+>   	if (err)
+>   		goto err_out;
+>   
+> +	is_dos_name = fn->file_name_type == FILE_NAME_DOS;
+> +
+>   	err = ntfs_index_remove(dir_ni, fn, le32_to_cpu(actx->attr->data.resident.value_length));
+>   	if (err)
+>   		goto err_out;
+> @@ -942,7 +945,7 @@ static int ntfs_delete(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
+>   
+>   	ni_mrec = actx->base_mrec ? actx->base_mrec : actx->mrec;
+>   	ni_mrec->link_count = cpu_to_le16(le16_to_cpu(ni_mrec->link_count) - 1);
+> -	if (!S_ISDIR(VFS_I(ni)->i_mode))
+> +	if (!S_ISDIR(VFS_I(ni)->i_mode) && !is_dos_name)
+>   		drop_nlink(VFS_I(ni));
+>   
+>   	mark_mft_record_dirty(ni);
+> 
+> base-commit: 401898d748fcc8e19ceea1a37ed0de9075fe9ff2
 
