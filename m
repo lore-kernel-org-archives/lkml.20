@@ -1,268 +1,157 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBDBF399D08
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:43:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1464E3F86F2
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:44:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790228606; cv=none; b=kW7BmX5+8uepnJz3CSOdnarqAXxZKtVeTXqAY3Rl/ZlJyhhj6vnAmak6seT89j19FMf5760swVaADnD5A1fsFc8CiJr5W/mWcfixDcs4dSK9sQmqZxvqlNKKkBRmw5R8MiTcvNCV+B7ouzVUzrlp2VIPXdZGKqBye+oQaEP4VkU=
+	t=1790228650; cv=none; b=pZQsMCJcPwrRrl4IBwyVJ2uxXdQDtkc0YWzJdp6WR8n/wGkE5qiwg1/6N8vZkUqdlLhAv27un4zhQqdzxzPHhNOO+nO7JiOKrGgCkVWfgwhMl2xYYPVEc132aJw/QnqubhmoL7wSZohnsXa6bocwskpjk0NsjaJc6vYZb2P3ZFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790228606; c=relaxed/simple;
-	bh=UyNcwb9UBjEd4LNKzNSR126TJWgimVj/XZKwh+zDpgg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e5IPthgjNvi4uBLyvV8RzecULGQ+H1qCDWwVeReow5F51Nlnj21O+tBPUuLPJLPdC9KTDwzWT4hE/O0dZfEE82Zu3BDC1IeUfsFbL/SRvhYOPlik9Il3DimiZyQubHTjLZcYUk9Hct6T+gbQeLM+fZluF2sC3AL8MwkAK9CHXps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iU7BKP7/; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790228650; c=relaxed/simple;
+	bh=/5nGC3DI2uQnuEckbcMT4n7vOg6tU5KZ48BGgutQ0kU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oChB439r1nLfbb9RexHKjvWyblZNC1gegtzVqQw6YvO+BCz9hozpYwuScMOVoeSqEwfh9sEh76dtDM83XjzdgseSV5NZmZe2Dub34e4lgrjV3HcPKSJn3O+yFvZk10XpFf/ZwF10tx/f1yZBPpfepTAc9kky9AOvds++c+DiaBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ChCZ5MRN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HiLu7d+K; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iU7BKP7/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790228604; x=1821764604;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=UyNcwb9UBjEd4LNKzNSR126TJWgimVj/XZKwh+zDpgg=;
-  b=iU7BKP7/r2vcbgSLvJVfqKpPMSWlZ9SswyYH18EScara4h1Xbqy4DbbI
-   4KLTIspgZrXo6zOyW9ciNzcmqHcYjtJh77ofgivRbXBeQAkqHr8frZKrE
-   akhJinkizp3aKBLOc5hGrN7+1x1uwa++L9KFTkwq0B/NpJKfCxYO4QXZ4
-   tNDZEfmNAImK+KKS8Cgs6JPr0z5IdquqSOAR+/5iFSUJQi4PNHJYc69gY
-   yZZEmJWOisxtTEVo4Zy8i7GMYMdMWQ5XQmk5cuzCiscyfFC3lQwpCVOXU
-   +LT1gsvxJX0sfnoX/FTS82gTqa2VxypbqUVEuFh7RhmDjNi+b8e34PMa5
-   Q==;
-X-CSE-ConnectionGUID: mtPmBJ9dQaqmWUGiMnaq+Q==
-X-CSE-MsgGUID: YxAAmUxERsS5qQXl8vf/rg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="89761769"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="89761769"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 22:43:23 -0700
-X-CSE-ConnectionGUID: D9IIlMmRR+qJbdbJs9L2lw==
-X-CSE-MsgGUID: 47sN1UB9R5mCTtuwQLSFOA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="303452120"
-Received: from linux-pnp-server-17.sh.intel.com ([10.239.166.49])
-  by orviesa002.jf.intel.com with ESMTP; 23 Sep 2026 22:43:20 -0700
-From: Pan Deng <pan.deng@intel.com>
-To: akpm@linux-foundation.org,
-	liam@infradead.org,
-	ljs@kernel.org,
-	vbabka@kernel.org,
-	jannh@google.com,
-	pfalcato@suse.de
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Tianyou Li <tianyou.li@intel.com>,
-	Wangyang Guo <wangyang.guo@intel.com>,
-	Zhiguo Zhou <zhiguo.zhou@intel.com>,
-	Tim Chen <tim.c.chen@linux.intel.com>
-Subject: [PATCH] mm/vma: avoid redundant file rmap tree re-insert on new_below=0 split
-Date: Thu, 24 Sep 2026 13:43:01 +0800
-Message-ID: <20260924054301.2330822-1-pan.deng@intel.com>
-X-Mailer: git-send-email 2.43.5
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ChCZ5MRN";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HiLu7d+K"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5e9rC2420864
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:44:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	u42SO957172KIHAPRFEnb8SUe8Sdylu7eyZ5jZhTkfY=; b=ChCZ5MRN2vWsXFuq
+	FTsDXspcO1dAVpf/yqBdVW1LksWBZ6qdWMd8pcAzsc/Zh7EDQ9rr2yp+2fxuiMsf
+	WCSzA9nwh+IvFKv1ESgP4LvLxyCpqrE8J6rpbnqtrpfJd5Eaku4uhXVTSn/Us0Ow
+	acpEJaoZBZuEIzu+wMsuRurzkG5v6LjCK9IWk6kglvmYuVAZP4YafWAp0motoQNG
+	MIa8B3mDSpP25csg23xmM/+sqsMiZcInZWxDi8+vIALPGh2zTMEwTEJwjDUIiNc/
+	uhFZIv25qGKPcns5Mhwoy41sqeE57GMqSUsuLwpHGRILrDg6s/86WJYu1vg+8WXk
+	wH9fjg==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvstugua4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:44:07 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-32850005b6bso2169817eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:44:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790228646; x=1790833446; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=u42SO957172KIHAPRFEnb8SUe8Sdylu7eyZ5jZhTkfY=;
+        b=HiLu7d+KpHC/eCAZWNe6n5iwJVZSeP6hnIjUCf8CoTDFhy+wXv7ISsMa04mzFKoa6y
+         K5ag/NyTpeNbRjwcb1BGSjDiLl4+TZ4m0LX6YzmFJFAIeULEeZvksPTpUSwC6ndQhPvw
+         /xdJD/XKrmt/Rb7Pjt/UWY55LfSXsI789QrYmK977+E9EbkRotD7jiyuJG2JHCVUxK1h
+         9vm0WCIr/9nt0ZSYqxkGi/PetQVLFx1cMJoRjdnHe+Zx0+RTAi+Zd8iiDLKOuBbKsCOQ
+         VuAuGGvhSwDgtq8lx9jBuHy9KrA9zzV1Xnm66YZ/wJXr2dX0ItVt5bJHe2LBwYvflBQV
+         KmIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790228646; x=1790833446;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=u42SO957172KIHAPRFEnb8SUe8Sdylu7eyZ5jZhTkfY=;
+        b=dTwCGk/tZxitlXZWfF+sPwZBwyKm6td4nOLHes4tu/2rXdWu4g2jQ5SDukMLRwFrx4
+         fCEVLyfYi17gmTc5kIF4oMOXgEAXE2uxKJ88+6BIXSWOdHdpo5ICTCvI2Dt0Cve1yTo8
+         mMxlm+DfAa/kY28o0ryYohPqGCoy5bhbdfc7DhbwsJTGKaNiXMdqO5CbF8hByVPVCRxH
+         4PktA+9hzx0dIaPXdzZcTd62LNUDCvxNZ90EvDsf9h+b9QL70eG9nu3xBaWIJT0vWimb
+         x+A99WCTcN8VTs6yLhbCwMSJDiG7CU6k3CbxpHBQ1yKyPZDfBKrSnj1Ibr6UQYxCfZBJ
+         GAfw==
+X-Forwarded-Encrypted: i=1; AKwUvBxZVrpiH+oyfQQSrT4/uO5Vu4BVLstOa8z6M32fyS6dgUTteLOjfOCtO0w8p8rp23jnrTzDxwypVGQJ9g4=@vger.kernel.org
+X-Gm-Message-State: AFuF++ntFT6UJRZ8tGGucRJfRdM926gZFFSQyY9rM4XhABSnbgSHzdTp
+	O+JAJm8N/xclnVBiN3U+n3VpvxDQtzSmcV/d+EtMG1x5kWHpiMELRrZTpZn+hI4nvxT3gtQa2/Z
+	zxfHcWMpRERQh7OTgD1O1ZHYsvja6DkDGB7Tml0wC3TMGZpWl4uWzz7fITlLROryNHHE=
+X-Gm-Gg: AYBFou33Npaxi/vxiPqxcPcZ7xV1xcdrpD8vuBWQsuEpL+NO0k0zmZnJaQoHOzQ/WRr
+	RTj2sPT6bk99idLf63DnxMPizhkuVqg7CZbFPpl1B9IAxkQUidAy5MursAFyg3cboz598qOE189
+	ygU2Qb7QZHA+tjpPxHic9zpODk3tFJmy6t8sJ8M3wM7NCB4Ilo91nzoONEuyXaaqMwWOWLgR0y2
+	02UTpkKx9k5MGAHOSu48PwPEmJv2gXxoDPjGc+Mmp9KvXWwxTdDGFr0e62IIkdwkHT9T8losS4G
+	lnEuVuuYc3mtM61lxBq+6l1x2X+wW7YLHV+yacXF2tP5G2voJTza++JxTTgIsbM7gq6PYzAPSdD
+	g6GxBlpFWfQ14r1JoQplS/SEPNG2R
+X-Received: by 2002:a05:693c:88d0:10b0:33f:155c:e8f9 with SMTP id 5a478bee46e88-34004a899e7mr1045202eec.14.1790228646544;
+        Wed, 23 Sep 2026 22:44:06 -0700 (PDT)
+X-Received: by 2002:a05:693c:88d0:10b0:33f:155c:e8f9 with SMTP id 5a478bee46e88-34004a899e7mr1045181eec.14.1790228645831;
+        Wed, 23 Sep 2026 22:44:05 -0700 (PDT)
+Received: from [192.168.1.25] ([122.183.173.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e9625825asm10513616eec.13.2026.09.23.22.43.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 22:44:05 -0700 (PDT)
+Message-ID: <b2d93cb3-2a07-42c3-a030-5d8ca951d3dd@oss.qualcomm.com>
+Date: Thu, 24 Sep 2026 11:13:53 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/8] ASoC: qcom: lpass-macro-common: Add missing v2.9
+ version string
+To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+References: <20260922-add_shikra_support-v1-0-6c6cb6444caf@oss.qualcomm.com>
+ <20260922-add_shikra_support-v1-2-6c6cb6444caf@oss.qualcomm.com>
+Content-Language: en-US
+From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+In-Reply-To: <20260922-add_shikra_support-v1-2-6c6cb6444caf@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAyNCBTYWx0ZWRfXxI9yDuiS/6iB
+ 2X1veV95PWb8c4VuhYqgP615z4REwSWaRyPdzQXwkkDKpIoqb33kFIrUZHTM22CDW3zT6lda9PR
+ w6uQdaYfVXqIN9BwEcj8vSWRZ+9ShuA=
+X-Proofpoint-ORIG-GUID: 8MLCf2eQbK-qoK2MJbkkz-0U0AeHTz9E
+X-Proofpoint-GUID: 8MLCf2eQbK-qoK2MJbkkz-0U0AeHTz9E
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAyNCBTYWx0ZWRfX/WcydLQHpnF2
+ IxQOHCv5/q4N7Hg75Y00sIi5k3nNiECioN0EsVV0VIlMr24Hrg17ht+mHPiwBmF84rq5UzyE+gJ
+ 1/Hb+7zBnXQF/0oIzGIn7Vut7Oii4XtvC9v9xsrdYIqy2rvTNCQCpki/YXATr06ehtMkQltn+Hu
+ jYaFF+bF665KXFkYuA07GLghdiamAcASp+3kjq4EGdR1fKrFkk0HZjuGfXMQmZbSqnqzUoh5Llf
+ rCv6fzMMwYeiAr9AYzUtHuPMrXAcQZr8Jj8IOxEhK+hLivga/DrYvcAcM3YxKaOfWbxoXhr8ofs
+ hbllCEqs6zL0E52Dr5YoSsmyZMof7U1iOD4lTeGdZNh6PQ9WRCHk2g+N6iPoVEI7uT3dmGpTm+I
+ 03KSWi6h0NYuBaPYgZSeyGHw1gQA/NYMRu4UM1Ti2TL0CLNLRv8Xh1DoFAUBH+C5dsJIXH02Zyf
+ ihV5tfr6ntPFYz9OYBA==
+X-Authority-Analysis: v=2.4 cv=cKp1IVeN c=1 sm=1 tr=0 ts=6ab4b8a7 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=uk8ae9/F1LYL5lfeGCaUoA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=kbTR4NEJu8J_kXnuzwQA:9 a=QEXdDO2ut3YA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 malwarescore=0 impostorscore=0 suspectscore=0 adultscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240024
 
-Splitting a file-backed VMA removes it from the mapping's i_mmap interval
-tree and re-inserts it, two O(log n) walks with rebalancing, all inside
-the i_mmap_rwsem write-side critical section.  For a file mapped by many
-processes that lock is a single serialization point, so the cost translates
-into reduced exec throughput.
 
-While the re-insert is needed whenever the sort key changes, it is not for
-a new_below=0 split: there the new VMA takes the upper half and only the
-original VMA's vm_end shrinks, so vma_start_pgoff(), the sort key of the
-interval tree, stays constant and the VMA is already in the correct
-position.
 
-This change skips the re-insert for that case.  vma_prepare() no longer
-removes vp->vma from the tree; instead vma_complete() detects that case and
-only recomputes shared.rb_subtree_last up the ancestor chain.  Everything
-else keeps the remove + re-insert path.
+On 9/22/2026 3:12 PM, Mohammad Rafi Shaik wrote:
+> LPASS_CODEC_VERSION_2_9 is detected by lpass-va-macro.c and consumed by
+> lpass-wsa-macro.c, but lpass_macro_get_codec_version_string() never
+> learned about it, so the probe log reports "LPASS Codec Version NA" on
+> those parts.
+> 
+> Add the missing case.
+> 
+> Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> ---
 
-The case is detected by comparing vma_start_pgoff(vp->insert) against
-vma_start_pgoff(vp->vma): only a new_below=0 split leaves the former
-greater.  __split_vma() adjusts pgoff via vma_add_pgoff(new,
-linear_page_delta(vma, addr)), and linear_page_delta() is
-(addr - vm_start) >> PAGE_SHIFT with addr strictly inside the VMA, so the
-delta is at least one page and the new VMA's pgoff is strictly greater.
-For new_below=1 the two are initially equal and vp->vma's pgoff then
-increases, so the comparison is false both before and after the caller's
-endpoint updates, and the original path is taken.
+LGTM
 
-Inferring the case this way keeps the change small: struct vma_prepare
-gains no field and no caller changes.
-
-Moving the remove() out of vma_prepare() leaves vp->vma in the tree with a
-possibly stale sort key across the caller's endpoint updates, so
-vma_complete() re-keys it *before* inserting vp->adj_next: otherwise that
-key-driven descent could place adj_next in the wrong subtree.
-
-Measured on v7.3-rc4, on a 2-socket 192C/384T system running UnixBench
-execl (384 concurrent execve of the same binary), dropping the redundant
-remove + re-insert yields ~14% higher throughput by shortening the
-i_mmap_rwsem write-side critical section during the file VMA splits that
-execve performs on the shared libraries.
-
-Signed-off-by: Pan Deng <pan.deng@intel.com>
-Reviewed-by: Tianyou Li <tianyou.li@intel.com>
-Reviewed-by: Wangyang Guo <wangyang.guo@intel.com>
-Reviewed-by: Zhiguo Zhou <zhiguo.zhou@intel.com>
-Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
-Assisted-by: LLM
----
- include/linux/mm.h                |  1 +
- mm/interval_tree.c                | 13 ++++++++
- mm/vma.c                          | 54 +++++++++++++++++++++++++++++--
- mm/vma.h                          |  1 +
- tools/testing/vma/include/stubs.h |  4 +++
- 5 files changed, 71 insertions(+), 2 deletions(-)
-
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index dd09c438fa23..baf489343f86 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -4181,6 +4181,7 @@ void mapping_rmap_tree_insert_after(struct vm_area_struct *vma,
- 				    struct address_space *mapping);
- void mapping_rmap_tree_remove(struct vm_area_struct *vma,
- 			      struct address_space *mapping);
-+void mapping_rmap_tree_propagate(struct vm_area_struct *vma);
- struct vm_area_struct *
- mapping_rmap_tree_iter_first(struct address_space *mapping,
- 			     pgoff_t pgoff_start, pgoff_t pgoff_last);
-diff --git a/mm/interval_tree.c b/mm/interval_tree.c
-index 7bbbf15cfbf0..3b81c990aab2 100644
---- a/mm/interval_tree.c
-+++ b/mm/interval_tree.c
-@@ -64,6 +64,19 @@ void mapping_rmap_tree_remove(struct vm_area_struct *vma,
- 	__mapping_rmap_tree_remove(vma, &mapping->i_mmap);
- }
- 
-+/*
-+ * Recompute shared.rb_subtree_last for vma and its ancestors, for a vma whose
-+ * interval changed but whose vma_start_pgoff() (the tree's sort key) did not.
-+ * The NULL stop node makes the walk run up to the root, though it ends early
-+ * once the recomputed value stops changing.
-+ *
-+ * Wrapper because INTERVAL_TREE_DEFINE() above declares the callbacks static.
-+ */
-+void mapping_rmap_tree_propagate(struct vm_area_struct *vma)
-+{
-+	__mapping_rmap_tree_augment.propagate(&vma->shared.rb, NULL);
-+}
-+
- struct vm_area_struct *
- mapping_rmap_tree_iter_first(struct address_space *mapping,
- 			     pgoff_t pgoff_start, pgoff_t pgoff_last)
-diff --git a/mm/vma.c b/mm/vma.c
-index f29abb30956b..e1dbfd5094cd 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -365,11 +365,43 @@ static void vma_prepare(struct vma_prepare *vp)
- 
- 	if (vp->file) {
- 		flush_dcache_mmap_lock(vp->mapping);
--		mapping_rmap_tree_remove(vp->vma, vp->mapping);
-+		/* vp->vma is re-keyed by vma_complete(), if it needs to be. */
- 		if (vp->adj_next)
- 			mapping_rmap_tree_remove(vp->adj_next, vp->mapping);
- 	}
-+}
- 
-+/*
-+ * vma_split_keeps_rmap_key() - Check if vp->vma keeps its file rmap tree key
-+ * @vp: The vma_prepare struct
-+ *
-+ * True only for a new_below=0 __split_vma(): the new VMA takes the upper half,
-+ * so its vma_start_pgoff() is strictly greater, while vp->vma's (its key in the
-+ * file rmap interval tree) is unchanged and its tree position still correct, so
-+ * only shared.rb_subtree_last has to be recomputed.
-+ *
-+ * Relies on vp->insert being assigned by __split_vma() only; the check below
-+ * catches a second assignment site whose VMA does not abut vp->vma.
-+ */
-+static bool vma_split_keeps_rmap_key(const struct vma_prepare *vp)
-+{
-+	if (!vp->insert ||
-+	    vma_start_pgoff(vp->insert) <= vma_start_pgoff(vp->vma))
-+		return false;
-+
-+	/*
-+	 * Today only a new_below=0 __split_vma() reaches here, where the new
-+	 * VMA abuts vp->vma at the split point once the caller has updated
-+	 * vp->vma->vm_end.  If a future vp->insert user ever violates that,
-+	 * fall back to the safe remove + re-insert instead of trusting the
-+	 * fast path.
-+	 */
-+	if (vp->insert->vm_start != vp->vma->vm_end) {
-+		VM_WARN_ON_ONCE(1);
-+		return false;
-+	}
-+
-+	return true;
- }
- 
- /*
-@@ -384,9 +416,27 @@ static void vma_complete(struct vma_prepare *vp, struct vma_iterator *vmi,
- 			 struct mm_struct *mm)
- {
- 	if (vp->file) {
-+		if (vma_split_keeps_rmap_key(vp)) {
-+			/*
-+			 * Split paths go through init_vma_prep(), which
-+			 * passes a NULL vmg, so vp->adj_next is never set.
-+			 */
-+			VM_WARN_ON_ONCE(vp->adj_next);
-+			mapping_rmap_tree_propagate(vp->vma);
-+		} else {
-+			/*
-+			 * Re-key vp->vma *before* the insert of vp->adj_next
-+			 * below, so that the latter descends a valid
-+			 * search tree: vp->vma is the only node left in
-+			 * the tree that may carry a stale sort key
-+			 * (vp->adj_next itself was removed in
-+			 * vma_prepare()).
-+			 */
-+			mapping_rmap_tree_remove(vp->vma, vp->mapping);
-+			mapping_rmap_tree_insert(vp->vma, vp->mapping);
-+		}
- 		if (vp->adj_next)
- 			mapping_rmap_tree_insert(vp->adj_next, vp->mapping);
--		mapping_rmap_tree_insert(vp->vma, vp->mapping);
- 		flush_dcache_mmap_unlock(vp->mapping);
- 	}
- 
-diff --git a/mm/vma.h b/mm/vma.h
-index 024fabe63560..3f791e4d13f6 100644
---- a/mm/vma.h
-+++ b/mm/vma.h
-@@ -23,6 +23,7 @@ struct vma_prepare {
- 	struct file *file;
- 	struct address_space *mapping;
- 	struct anon_vma *anon_vma;
-+	/* Set by __split_vma() only; see vma_split_keeps_rmap_key(). */
- 	struct vm_area_struct *insert;
- 	struct vm_area_struct *remove;
- 	struct vm_area_struct *remove2;
-diff --git a/tools/testing/vma/include/stubs.h b/tools/testing/vma/include/stubs.h
-index d6136e19a8af..3b5184aeee54 100644
---- a/tools/testing/vma/include/stubs.h
-+++ b/tools/testing/vma/include/stubs.h
-@@ -267,6 +267,10 @@ static inline void mapping_rmap_tree_remove(struct vm_area_struct *vma,
- {
- }
- 
-+static inline void mapping_rmap_tree_propagate(struct vm_area_struct *vma)
-+{
-+}
-+
- static inline void flush_dcache_mmap_unlock(struct address_space *mapping)
- {
- }
--- 
-2.43.5
+Reviewed-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
 
