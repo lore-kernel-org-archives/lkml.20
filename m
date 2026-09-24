@@ -1,279 +1,660 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7AE401A14
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:45:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF7CE377A9D
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:45:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790243116; cv=none; b=J/lIs35IE0GyXMlfQF+Km7F9V0ZhPtAIynN05pHYsyD6m/z/hfTTMegwfJH0KeM4/WFE6sw63m/dQSL41xhUdONhu4UCn9AyGjG3PQn/AeRSQ3HLfDjIlSX9RKJRBDSx9ry6Bp2Nfe1iMDhqcHzrhWseiix3xSAhAAtlnk7SDzU=
+	t=1790243118; cv=none; b=s0U9Wx+YufT2Vbk0KQJl2x7Yua0QJ1A2oNRms8qkhFUplXD3VvIeVTPdfr7S6H4FpamdgFcC1w+gUzM9PKTGf4RepR5c+cjNzhNV0wV9o5/VdriNMC6k1w6XX5DUf67V+xsT5B8oH9f1dzzxYL3GIcZKzf2qUkLy4HVp5ZkJYFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790243116; c=relaxed/simple;
-	bh=B8adGb62mFEykDEZtmq1HeqsuhcAcPwEsLw9I4djGzc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Baa9g78lG8Sfs6um5ZC7EcsZCB/aEOo8aebCMnEqFUpD9p95uhGw4N+7+8cgq4p8ttOjz0A/pazDMgCC2Y6QdKPNUsPAHSYXROfX1nOuWm0qwUnw6/5XsEN/3jZoMS8nOk5aNRGPlnuudQlRmdcXeT31CKVv7KbWfYC36lAqJuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=goks4mov; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kV8os9pH; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790243118; c=relaxed/simple;
+	bh=KbG7MSORcq+QQYDxgG+lfNBSewrm4iOswLiKpvrQyw4=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=V1wPA4rQJ8dtSXjXFlhEuuIzKdUT6DyboY94omxF/ZK98DoVS+1CxC2X8YQfbnlUUMqH3JBYW8ppUOlexkPOfsYNJdjY2A/iLwtajc/IiLqs4HZ6dqOTdT4cFo51SDNFIA7nmeTaKfQoYLw6IbV5xUxW6jOMDTzVNX23JzAbCWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vamshigajjela.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RRkUtISE; arc=none smtp.client-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vamshigajjela.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="goks4mov";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kV8os9pH"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O9PqZE2775655
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:45:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=J/79Kk4C5UbIDKqD7ckWE4dOuSTVQY56ZWq
-	Q41O7b04=; b=goks4mov8gaST1pXM1/a3X80PcYPdCdy+bdsfg+J8oXLsli4qIY
-	66jFWnFnUalZt51tLpW0RxTGc43G6vpMPntU9HS/ymiUUsfpq4BN+kZLxQJZWfW1
-	i/X0XiwCoemHmJ0DfPxB4u68mKQhm4iXtaYuAO/ypMyS9mKiWo3kAY6ld40AuPc9
-	ha95YhPYKd0VLjzOY9i10/esu4Y/gw/76tLUVTVklUM6Pw6wKab97oMs+ir+1Hml
-	6gltB95l7O7qibmUeiy8st2lhKLWcuSuX9c5Lwo6FctmqUdp16B2EMVRxdN/pGrC
-	O7CMHpVBolchRhzWxKCZrDjM2fVZ1h9dYQQ==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvfjxvd6t-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:45:00 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30bcb065bfdso2782042eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:44:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RRkUtISE"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39de4a68f7cso1894179a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:45:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790243099; x=1790847899; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=J/79Kk4C5UbIDKqD7ckWE4dOuSTVQY56ZWqQ41O7b04=;
-        b=kV8os9pHwB4XO5K5or6dmd2ISxzVB0eHLj0VyKd6t4ttwXwseuoheOYVh9qCOYQhLr
-         LW1T3HvkW1boY7HDnDEf0Locnv/BT0pKTspM9SZlS+sS2aHewB3AWtvtX6vGZGnyn8Xx
-         PM4k0uFjIIoedhGJIieznSfdtyCEA/JDALAGvN4QTbnxgPk5eTMFfqmVoCBrEj3akqR+
-         g2FjtdpN17TgdA02YXBaQop3YLBwcswFRfuHScnOp5Dp91hLyMETWghomS+P0rBnZQoZ
-         m83UwABugvPy1oHpEKKJsa8AkrQ4UuLAMr+7FPwE7mCBW/OBc1vsnGvcR0aJDWW12tzB
-         ElaQ==
+        d=google.com; s=20251104; t=1790243107; x=1790847907; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=a1ORu9e5KXPSxUYo3pQ3hTC4q/SUua40wcDZ2hhFAgk=;
+        b=RRkUtISENMY5nYwcCCywT3ivl89HX97lBqSPvva3pDO87Ho6JZEALWg/cWzeyLjmw+
+         dcSmjGhVTm+yrRer+xyJ2o9NU8v32ySiOkxN1vGFeV2k6sgDjHIX9/gNo7xCMH5QszqZ
+         b8/KmG0edBJaUHTB7M+YKmVKLs7oTsyX6yiOvFTfZNJmx7TYkn6dy7M6TDly+UHQKMj2
+         4QC/dWz2Leex4uKpKWX45kEpSgL5gfszduNaOx4rqQmgfeHq1HAp86f3V6LqAZ+9QcRW
+         QIrHmP6nd1achTeJrrEYaqoUGt/v7QFFXvDtKHbKsokeTUcknUIpEPXPAIDK8dtKPvVE
+         O8ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790243099; x=1790847899;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=J/79Kk4C5UbIDKqD7ckWE4dOuSTVQY56ZWqQ41O7b04=;
-        b=BXKTxEzSrZdMdsPgWMTpT87dwuZurh3Xw4KpBW9K57j4t5GPhCEgTVRfM7GxT1pw+H
-         7Zm/0gr2yNxQJoyZBXHKgaoRcydz6SsgP3pEgL/j+ACKm0GyZmj16yZ/zI9a8vBKyulh
-         7RzEKW6i7dLjogqHtc8IfwOC5fYWlfs0t/MtU4byiNmoXdra6gWYCZ3BRVxjQjgxJZoY
-         TGi+9YN7lMVE5owT8wYevHFS/hfdweADPahOFbJHgAKlv1cYc7idxL40tyMNpx8arGcI
-         x7P72ZCg1mU65zVwEVVHwkN+11ONcRA1SDd1yQzZeL09Oqk+O4Q9ewa/giSFTC0fCAmR
-         WY1g==
-X-Forwarded-Encrypted: i=1; AKwUvBwyRrGLsY9FJX6xb7ezaMzj4s4hUno/jdFWxT6aRjRgby+rX4OppFRvXDgLcmlHDNO3BQEvIByvfaErgwc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nRnQVrJGcQTkE234l3eyMkoF0HfwnqmgvchItn2eHFexr9ddDT
-	DO/rAR39HllOq9ce/6A7rVr8RZrCh2a9OGdiDoQtZYUHJUW+8kiqFULGdLD+e1oyN/oayifRwrQ
-	gHUrR8/3u7Tx7wlHyRKPpCWlFfBtsonWAyGRsRUiQgLFKT0yfIhsfr+M4g5BdlCDtWpc=
-X-Gm-Gg: AYBFou2CoQIakG07OKq7DHd+G3x38lIUZ/t5YRakGYXgW24D62jyXx0VlvuqxJw6WP/
-	CRkCIVRKSd72EVtg+HSfV5OjI3XeIBC7+aVW7l4vP0BjaUm5azOsm2ZT0Ja7z2OmiAjmBtjZ8XN
-	GzNg2SY+PDa+s4SJ09uLZSTwkocGkdSmNDZWn9i1lcHOLykXbaWSINfe4tqaLLjT+vXqskQfLF2
-	j6gx3EcDX/A5IrSeBRZ5QGBLhSwC5PXS2gGb1dOtqgUgfws9N6S1y5u8L/JJLmLYF+pmaikua3p
-	A9j5O2md+XJ7ltBDGdARlR//kMIiqoxON/+enyi8UfHXD4Wu7GpqtCVgwpXqBcRmiGMiJpSibJM
-	l2FqUjPmDFKXSW01jq0LLPiFvKLTBXqgbUdj6uoFKweq3Xz9MopvbhYj+Qlc=
-X-Received: by 2002:a05:693c:240a:b0:315:afc1:72db with SMTP id 5a478bee46e88-33ffe955a25mr1406544eec.9.1790243099171;
-        Thu, 24 Sep 2026 02:44:59 -0700 (PDT)
-X-Received: by 2002:a05:693c:240a:b0:315:afc1:72db with SMTP id 5a478bee46e88-33ffe955a25mr1406513eec.9.1790243098521;
-        Thu, 24 Sep 2026 02:44:58 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96946d0csm13654309eec.21.2026.09.24.02.44.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 02:44:58 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH v2] arm64: dts: qcom: nord: Add more clock controller nodes
-Date: Thu, 24 Sep 2026 17:44:48 +0800
-Message-ID: <20260924094448.1030807-1-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1790243107; x=1790847907;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=a1ORu9e5KXPSxUYo3pQ3hTC4q/SUua40wcDZ2hhFAgk=;
+        b=17scA9cL4inqYna27YcpZ+19kkkyeApyeukdKorlLyyIy0Pe3u5mjanU+8zL219z02
+         GDNYgelqi1XfQxWEIJl5xe4pnB9z+zKZ6fCHrWDoOri8GEb4V0IYU8TKTiHF3nqT+Zzq
+         FgPFc6n9rfvtKfn1Ak8KMrvgW6Yc6829eCunNCxHFU3+pQDVT3BT9TQIPoNvVDS6oKQ4
+         ns4ZbBxgZEJkSc3n4UTvIPmZNAtWk2cKYk3JLNBTyiRFHUtY+jVT5J7Hi7qBs+av5ad9
+         qIxZ6Ybvsf4a8Y4MDM4R+1pAy+lqKrhr7VzaN4FFIx03HB6MAwGsb7EHSgJg/Z4kAfpz
+         UnYA==
+X-Forwarded-Encrypted: i=1; AKwUvByC13MHyY1DK5H8+YsJjNyzlnzhmPEjLGOGhnIAsXsTcydBj2e+RNhJ7iXJSpmBGKlAIFoq8Hf5RsStuGg=@vger.kernel.org
+X-Gm-Message-State: AFuF++n5/MIM8ZJdFYVaspe8dWfm6OnQiR8iRS1XgMiz0Ivwlussqq98
+	2FMne76+vb5PPGIPHs7L5EvBB8HXDs6L6vEUxWpvEsDbHojaf/o5Sfm5QTuBK5dAtP+45qE+Nad
+	OeSqrRcFZupNs+Ckhrg+RhS4/aZOymSuzaw==
+X-Received: from pjpo4.prod.google.com ([2002:a17:90a:9f84:b0:3a0:3d55:8086])
+ (user=vamshigajjela job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90a:d40f:b0:3a0:42a9:9c81 with SMTP id 98e67ed59e1d1-3a0986ee06cmr1628954a91.17.1790243107143;
+ Thu, 24 Sep 2026 02:45:07 -0700 (PDT)
+Date: Thu, 24 Sep 2026 15:14:58 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: -NdPDnIEr-6fT1I-XrXCaZUAEPXMsufm
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA0MCBTYWx0ZWRfX0k8Oqlf1yeUJ
- +k+qRaHtPW4FHo6c/07BSj+gT6+TW76cBnR0z2FQxVxzZhW2gQKG4azxDMOJKEoQpIU2fyU6yJj
- vvFpufXdwNY9GW+Rb6TK0m0+uytzug4h19d52YDQ0nLrjTpJ0T9eb8yDoAoTZQf2wUJfUNoBNI+
- 2dS8SdCJvcFUTkK6OY568n+HIEZfiw81gn4L6qTzB2tFBzVJ4xEuqrBjIANe6Zjv3NBtL2sJgFi
- fEuF9EupjYrZ/o1kOKZQeILZQUiZdZZTILcsX+RqRX7pyw+TY8naX2q74/PIU08wWlznUtBmeDV
- 3/BfETg2+iT5sHdj62QK2oxTrWOVgcV6FPQ+2SwK6tvgz9XwKuQFRRBLyqc43MibdCyix1opMhT
- n8OFVr7Qs37qdUn+AAanMxH7f+STEYBxplMGjDFUwjaswW+Aim8jiLfTZJjLrfw5kyQ1lcxBfNw
- thDrhV8t6PNTu/+sU6A==
-X-Proofpoint-GUID: -NdPDnIEr-6fT1I-XrXCaZUAEPXMsufm
-X-Authority-Analysis: v=2.4 cv=NLpAaE6g c=1 sm=1 tr=0 ts=6ab4f11c cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=lLTCYSv0VJgAjLIAHVUA:9 a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA0MCBTYWx0ZWRfX62zf6uuRZFs0
- ovO7w04EEMvNEDWET68M8slzZN/ahreUQgyZq60w2nwcDiNbgU1EAnHdEy3aO2XB/xI06+LOK0O
- Qo/2CFfmD3P+4le/0xL0QHTPThntRAM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 adultscore=0 suspectscore=0 priorityscore=1501
- impostorscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240040
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
+Message-ID: <20260924094458.228732-1-vamshigajjela@google.com>
+Subject: [PATCH] spmi: core: Add generic DebugFS interface for bus inspection
+From: vamshi gajjela <vamshigajjela@google.com>
+To: Stephen Boyd <sboyd@kernel.org>
+Cc: Jim Wylder <jwylder@google.com>, linux-kernel@vger.kernel.org, 
+	vamshi gajjela <vamshigajjela@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Taniya Das <taniya.das@oss.qualcomm.com>
+Introduce a generic, controller-agnostic DebugFS interface in the SPMI
+core under /sys/kernel/debug/spmi/spmi-<nr>/:
+- name: Displays the controller parent device name and OF node.
+- detect: Probes the bus for active slave IDs (0x0 to 0xF).
+- xfer: Transactional interface supporting register reads, writes,
+  and directed command opcodes with automatic opcode selection.
 
-Add the GPU, camera, video, and display clock controller nodes for
-the Qualcomm Nord SoC, along with their required dt-bindings includes.
+Write and command operations restrict access to root (mode 0600) and
+mark the kernel tainted with TAINT_USER. Runtime PM is managed
+automatically across transactions.
 
-Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Detailed interface syntax and parameters are documented in
+Documentation/ABI/testing/debugfs-spmi.
+
+Co-developed-by: Jim Wylder <jwylder@google.com>
+Signed-off-by: Jim Wylder <jwylder@google.com>
+Signed-off-by: vamshi gajjela <vamshigajjela@google.com>
 ---
-Changes for v2:
-- Drop dependency declaration as it's cleared
-- Add Revewed-by tag from Bartosz
-- Link to v1: https://lore.kernel.org/all/20260920081049.2183845-1-shengchao.guo@oss.qualcomm.com/
+ Documentation/ABI/testing/debugfs-spmi |  75 +++++
+ MAINTAINERS                            |   1 +
+ drivers/spmi/Makefile                  |   1 +
+ drivers/spmi/spmi-debugfs.c            | 371 +++++++++++++++++++++++++
+ drivers/spmi/spmi.c                    |   7 +
+ include/linux/spmi.h                   |  18 ++
+ 6 files changed, 473 insertions(+)
+ create mode 100644 Documentation/ABI/testing/debugfs-spmi
+ create mode 100644 drivers/spmi/spmi-debugfs.c
 
- arch/arm64/boot/dts/qcom/nord-embedded.dtsi | 108 ++++++++++++++++++++
- 1 file changed, 108 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-index 568fe68cd185..1ab7d9bc3cfe 100644
---- a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-+++ b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-@@ -3,7 +3,11 @@
-  * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+diff --git a/Documentation/ABI/testing/debugfs-spmi b/Documentation/ABI/testing/debugfs-spmi
+new file mode 100644
+index 000000000000..10ad075b8619
+--- /dev/null
++++ b/Documentation/ABI/testing/debugfs-spmi
+@@ -0,0 +1,75 @@
++What:		/sys/kernel/debug/spmi/spmi-<nr>/name
++Date:		September 2026
++KernelVersion:	7.0
++Contact:	vamshi gajjela <vamshigajjela@google.com>
++Description:
++		Displays the SPMI controller parent device name and
++		associated Device Tree node.
++Users:		Debugging, hardware diagnostics
++
++What:		/sys/kernel/debug/spmi/spmi-<nr>/detect
++Date:		September 2026
++KernelVersion:	7.0
++Contact:	vamshi gajjela <vamshigajjela@google.com>
++Description:
++		Scans the SPMI bus for all 16 possible MIPI SPMI slave IDs
++		(0x0 to 0xF) using standard register reads at offset 0x0.
++		Active slaves are printed in two-digit hexadecimal notation
++		in an i2cdetect-style grid, while unresponsive slaves are
++		represented with "--".
++Users:		Debugging, hardware diagnostics
++
++What:		/sys/kernel/debug/spmi/spmi-<nr>/xfer
++Date:		September 2026
++KernelVersion:	7.0
++Contact:	vamshi gajjela <vamshigajjela@google.com>
++Description:
++		Transactional interface for raw SPMI bus operations:
++
++		- Register Read:
++		    echo "r <sid> <addr> [len]" > xfer && cat xfer
++		  Reads 1 to 16 bytes starting at <addr> from slave <sid>.
++		  The optional [len] parameter defaults to 1 byte.
++		  Output is formatted as:
++		    0x<addr>: <byte0> <byte1> ...
++		  Reading the file consumes the response; subsequent reads
++		  return EOF (0 bytes) to prevent reading stale data.
++
++		- Register Write:
++		    echo "w <sid> <addr> <val...>" > xfer
++		  Writes 1 to 16 bytes starting at <addr> to slave <sid>.
++		  Values are separated by spaces (e.g. "w 0x4 0x8 0x12 0x34"
++		  or "w 4 8 12 34").
++
++		- Command:
++		    echo "c <sid> <opcode>" > xfer
++		  Sends a single SPMI command opcode (e.g. RESET 0x10,
++		  SLEEP 0x11, SHUTDOWN 0x12, WAKEUP 0x13) to slave <sid>.
++
++		Parameter Formatting & Validation:
++		- <sid>: 4-bit Slave Identifier (0x0 to 0xF, supports both
++		  decimal "4" and hexadecimal "0x4").
++		- <addr>: 16-bit register address (0x0000 to 0xFFFF) parsed in
++		  hexadecimal (supports both "0x12" and "12", as well as
++		  "08", "09").
++		- [len]: Number of bytes to read (1 to 16 for 8-bit addresses,
++		  up to 8 bytes for 16-bit extended addresses; default 1).
++		- <val...>: 1 to 16 hexadecimal byte values (0x00 to 0xFF,
++		  up to 8 bytes for 16-bit extended addresses). Values
++		  exceeding 0xFF or payloads exceeding 16 bytes are rejected
++		  with -EINVAL.
++		- <opcode>: 1-byte command opcode parsed in hexadecimal
++		  (0x00 to 0xFF, e.g. "0x10" or "10").
++		- Trailing unrecognized arguments return -EINVAL.
++
++		The interface automatically selects the optimal SPMI opcode
++		(Register Read/Write, Extended Register Read/Write, Extended
++		Register Read/Write Long, Zero Write) based on the address
++		and burst length.
++
++		All write and command operations mark the kernel as tainted
++		with TAINT_USER. On failure, the write system call returns a
++		negative errno (e.g. -EIO on bus NACK/timeout, -EINVAL on
++		syntax/range error, -EOPNOTSUPP if the controller lacks the
++		capability).
++Users:		Debugging, hardware bringup, manufacturing test
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 529c7d7ba113..6ba973aa98de 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -24946,6 +24946,7 @@ M:	Stephen Boyd <sboyd@kernel.org>
+ L:	linux-kernel@vger.kernel.org
+ S:	Maintained
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/sboyd/spmi.git
++F:	Documentation/ABI/testing/debugfs-spmi
+ F:	Documentation/devicetree/bindings/spmi/
+ F:	drivers/spmi/
+ F:	include/dt-bindings/spmi/spmi.h
+diff --git a/drivers/spmi/Makefile b/drivers/spmi/Makefile
+index 38ac635645ba..23cd6036863b 100644
+--- a/drivers/spmi/Makefile
++++ b/drivers/spmi/Makefile
+@@ -3,6 +3,7 @@
+ # Makefile for kernel SPMI framework.
+ #
+ obj-$(CONFIG_SPMI)	+= spmi.o spmi-devres.o
++obj-$(CONFIG_DEBUG_FS)	+= spmi-debugfs.o
+ 
+ obj-$(CONFIG_SPMI_APPLE)	+= spmi-apple-controller.o
+ obj-$(CONFIG_SPMI_HISI3670)	+= hisi-spmi-controller.o
+diff --git a/drivers/spmi/spmi-debugfs.c b/drivers/spmi/spmi-debugfs.c
+new file mode 100644
+index 000000000000..4b216a0f325e
+--- /dev/null
++++ b/drivers/spmi/spmi-debugfs.c
+@@ -0,0 +1,371 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * SPMI core DebugFS interface
++ *
++ * Copyright (C) 2026 Google LLC
++ */
++
++#include <linux/debugfs.h>
++#include <linux/seq_file.h>
++#include <linux/uaccess.h>
++#include <linux/slab.h>
++#include <linux/pm_runtime.h>
++#include <linux/spmi.h>
++#include <linux/mutex.h>
++#include <linux/ctype.h>
++#include <linux/string.h>
++#include <linux/of.h>
++#include <linux/panic.h>
++
++struct spmi_ctrl_debugfs {
++	struct dentry *dentry;
++	struct mutex lock; /* protects xfer_buf and xfer_len */
++	char xfer_buf[64];
++	size_t xfer_len;
++};
++
++/* Top-level SPMI debugfs directory (/sys/kernel/debug/spmi) */
++static struct dentry *spmi_debugfs_root;
++
++static int spmi_calc_read_opcode(u16 addr, size_t len, u8 *opc)
++{
++	if (len == 0)
++		return -EINVAL;
++
++	if (addr <= 0x1f && len == 1)
++		*opc = SPMI_CMD_READ;
++	else if (addr <= 0xff && len <= 16)
++		*opc = SPMI_CMD_EXT_READ;
++	else if (len <= 8)
++		*opc = SPMI_CMD_EXT_READL;
++	else
++		return -EINVAL;
++
++	return 0;
++}
++
++static int spmi_calc_write_opcode(u16 addr, size_t len, u8 *opc)
++{
++	if (len == 0)
++		return -EINVAL;
++
++	if (addr == 0 && len == 1)
++		*opc = SPMI_CMD_ZERO_WRITE;
++	else if (addr <= 0x1f && len == 1)
++		*opc = SPMI_CMD_WRITE;
++	else if (addr <= 0xff && len <= 16)
++		*opc = SPMI_CMD_EXT_WRITE;
++	else if (len <= 8)
++		*opc = SPMI_CMD_EXT_WRITEL;
++	else
++		return -EINVAL;
++
++	return 0;
++}
++
++static int spmi_debugfs_name_show(struct seq_file *s, void *data)
++{
++	struct spmi_controller *ctrl = s->private;
++	struct device *parent = ctrl->dev.parent;
++
++	if (!parent)
++		return -ENODEV;
++
++	if (dev_of_node(parent))
++		seq_printf(s, "%s (%pOF)\n", dev_name(parent), dev_of_node(parent));
++	else
++		seq_printf(s, "%s\n", dev_name(parent));
++
++	return 0;
++}
++DEFINE_SHOW_ATTRIBUTE(spmi_debugfs_name);
++
++static int spmi_debugfs_detect_show(struct seq_file *s, void *data)
++{
++	struct spmi_controller *ctrl = s->private;
++	struct device *parent = ctrl->dev.parent;
++	int ret, sid;
++	u8 dummy;
++	bool rpm;
++
++	if (!ctrl->read_cmd)
++		return -EOPNOTSUPP;
++
++	rpm = parent ? pm_runtime_enabled(parent) : false;
++	if (rpm) {
++		ret = pm_runtime_resume_and_get(parent);
++		if (ret < 0)
++			return ret;
++	}
++
++	/*
++	 * MIPI SPMI defines a 4-bit Slave Identifier (SID), allowing a maximum
++	 * of 16 slave devices (0x0 to 0xF) per bus. Format as a single-row grid.
++	 */
++	seq_puts(s, "     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f\n00: ");
++	for (sid = 0; sid < SPMI_MAX_SLAVE_ID; sid++) {
++		ret = ctrl->read_cmd(ctrl, SPMI_CMD_READ, sid, 0x0, &dummy, 1);
++		if (ret == 0)
++			seq_printf(s, "%02x ", sid);
++		else
++			seq_puts(s, "-- ");
++	}
++	seq_puts(s, "\n");
++
++	if (rpm) {
++		pm_runtime_mark_last_busy(parent);
++		pm_runtime_put_autosuspend(parent);
++	}
++
++	return 0;
++}
++DEFINE_SHOW_ATTRIBUTE(spmi_debugfs_detect);
++
++static ssize_t spmi_debugfs_xfer_read(struct file *file, char __user *user_buf,
++				      size_t count, loff_t *ppos)
++{
++	struct spmi_controller *ctrl = file->private_data;
++	struct spmi_ctrl_debugfs *dbg = ctrl->debugfs;
++	ssize_t ret;
++
++	if (!dbg)
++		return -ENODEV;
++
++	mutex_lock(&dbg->lock);
++	ret = simple_read_from_buffer(user_buf, count, ppos, dbg->xfer_buf, dbg->xfer_len);
++	if (ret > 0 && *ppos >= dbg->xfer_len)
++		dbg->xfer_len = 0;
++	mutex_unlock(&dbg->lock);
++
++	return ret;
++}
++
++static char *spmi_debugfs_next_tok(char **str)
++{
++	char *tok;
++
++	*str = skip_spaces(*str);
++	if (!**str)
++		return NULL;
++
++	tok = *str;
++	while (**str && !isspace(**str))
++		(*str)++;
++
++	if (**str) {
++		**str = '\0';
++		(*str)++;
++	}
++
++	return tok;
++}
++
++static ssize_t spmi_debugfs_xfer_write(struct file *file, const char __user *user_buf,
++				       size_t count, loff_t *ppos)
++{
++	struct spmi_controller *ctrl = file->private_data;
++	struct spmi_ctrl_debugfs *dbg = ctrl->debugfs;
++	struct device *parent = ctrl->dev.parent;
++	unsigned int sid, addr, len;
++	unsigned int cmd_opc, val;
++	char *str, *tok;
++	char kbuf[256];
++	int ret = 0, i;
++	u8 data[16];
++	size_t off;
++	u8 opcode;
++	char type;
++	bool rpm;
++
++	if (!dbg)
++		return -ENODEV;
++
++	if (count == 0 || count >= sizeof(kbuf))
++		return -EINVAL;
++
++	if (copy_from_user(kbuf, user_buf, count))
++		return -EFAULT;
++	kbuf[count] = '\0';
++
++	str = strim(kbuf);
++	type = tolower(*str);
++	if (type != 'r' && type != 'w' && type != 'c')
++		return -EINVAL;
++	str = skip_spaces(str + 1);
++
++	tok = spmi_debugfs_next_tok(&str);
++	if (!tok || kstrtouint(tok, 0, &sid) || sid >= SPMI_MAX_SLAVE_ID)
++		return -EINVAL;
++
++	rpm = parent ? pm_runtime_enabled(parent) : false;
++	if (rpm) {
++		ret = pm_runtime_resume_and_get(parent);
++		if (ret < 0)
++			return ret;
++	}
++
++	mutex_lock(&dbg->lock);
++	dbg->xfer_len = 0;
++
++	if (type == 'r') {
++		tok = spmi_debugfs_next_tok(&str);
++		if (!tok || kstrtouint(tok, 16, &addr)) {
++			ret = -EINVAL;
++			goto out;
++		}
++
++		len = 1;
++		tok = spmi_debugfs_next_tok(&str);
++		if (tok) {
++			if (kstrtouint(tok, 0, &len) || len == 0 || len > sizeof(data)) {
++				ret = -EINVAL;
++				goto out;
++			}
++			if (spmi_debugfs_next_tok(&str)) {
++				ret = -EINVAL;
++				goto out;
++			}
++		}
++
++		if (!ctrl->read_cmd) {
++			ret = -EOPNOTSUPP;
++			goto out;
++		}
++
++		ret = spmi_calc_read_opcode(addr, len, &opcode);
++		if (ret)
++			goto out;
++
++		ret = ctrl->read_cmd(ctrl, opcode, sid, addr, data, len);
++		if (!ret) {
++			off = scnprintf(dbg->xfer_buf, sizeof(dbg->xfer_buf),
++					"0x%04x:", addr);
++
++			for (i = 0; i < len; i++)
++				off += scnprintf(dbg->xfer_buf + off, sizeof(dbg->xfer_buf) - off,
++						 " %02x", data[i]);
++			off += scnprintf(dbg->xfer_buf + off, sizeof(dbg->xfer_buf) - off, "\n");
++			dbg->xfer_len = off;
++		}
++	} else if (type == 'w') {
++		tok = spmi_debugfs_next_tok(&str);
++		if (!tok || kstrtouint(tok, 16, &addr)) {
++			ret = -EINVAL;
++			goto out;
++		}
++
++		len = 0;
++		while ((tok = spmi_debugfs_next_tok(&str)) != NULL) {
++			if (len >= sizeof(data) || kstrtouint(tok, 16, &val) || val > 0xff) {
++				ret = -EINVAL;
++				goto out;
++			}
++			data[len++] = val;
++		}
++
++		if (len == 0) {
++			ret = -EINVAL;
++			goto out;
++		}
++
++		if (!ctrl->write_cmd) {
++			ret = -EOPNOTSUPP;
++			goto out;
++		}
++
++		ret = spmi_calc_write_opcode(addr, len, &opcode);
++		if (ret)
++			goto out;
++
++		add_taint(TAINT_USER, LOCKDEP_STILL_OK);
++
++		ret = ctrl->write_cmd(ctrl, opcode, sid, addr, data, len);
++	} else if (type == 'c') {
++		tok = spmi_debugfs_next_tok(&str);
++		if (!tok || kstrtouint(tok, 16, &cmd_opc) || cmd_opc > 0xff) {
++			ret = -EINVAL;
++			goto out;
++		}
++
++		if (spmi_debugfs_next_tok(&str)) {
++			ret = -EINVAL;
++			goto out;
++		}
++
++		if (!ctrl->cmd) {
++			ret = -EOPNOTSUPP;
++			goto out;
++		}
++
++		add_taint(TAINT_USER, LOCKDEP_STILL_OK);
++
++		ret = ctrl->cmd(ctrl, cmd_opc, sid);
++	}
++
++out:
++	mutex_unlock(&dbg->lock);
++
++	if (rpm) {
++		pm_runtime_mark_last_busy(parent);
++		pm_runtime_put_autosuspend(parent);
++	}
++
++	return ret ? ret : count;
++}
++
++static const struct file_operations spmi_debugfs_xfer_fops = {
++	.open		= simple_open,
++	.read		= spmi_debugfs_xfer_read,
++	.write		= spmi_debugfs_xfer_write,
++	.llseek		= default_llseek,
++};
++
++void spmi_controller_debugfs_init(struct spmi_controller *ctrl)
++{
++	struct spmi_ctrl_debugfs *dbg;
++	char name[32];
++
++	if (IS_ERR_OR_NULL(spmi_debugfs_root))
++		return;
++
++	dbg = kzalloc_obj(*dbg, GFP_KERNEL);
++	if (!dbg)
++		return;
++
++	mutex_init(&dbg->lock);
++
++	snprintf(name, sizeof(name), "spmi-%u", ctrl->nr);
++	dbg->dentry = debugfs_create_dir(name, spmi_debugfs_root);
++	if (IS_ERR_OR_NULL(dbg->dentry)) {
++		kfree(dbg);
++		return;
++	}
++
++	debugfs_create_file("name", 0444, dbg->dentry, ctrl, &spmi_debugfs_name_fops);
++	debugfs_create_file("detect", 0444, dbg->dentry, ctrl, &spmi_debugfs_detect_fops);
++	debugfs_create_file("xfer", 0600, dbg->dentry, ctrl, &spmi_debugfs_xfer_fops);
++
++	ctrl->debugfs = dbg;
++}
++
++void spmi_controller_debugfs_remove(struct spmi_controller *ctrl)
++{
++	if (!ctrl->debugfs)
++		return;
++
++	debugfs_remove(ctrl->debugfs->dentry);
++	kfree(ctrl->debugfs);
++	ctrl->debugfs = NULL;
++}
++
++void spmi_debugfs_init(void)
++{
++	if (!spmi_debugfs_root)
++		spmi_debugfs_root = debugfs_create_dir("spmi", NULL);
++}
++
++void spmi_debugfs_exit(void)
++{
++	debugfs_remove(spmi_debugfs_root);
++	spmi_debugfs_root = NULL;
++}
+diff --git a/drivers/spmi/spmi.c b/drivers/spmi/spmi.c
+index e889b129f3ac..7d2e9a762fb8 100644
+--- a/drivers/spmi/spmi.c
++++ b/drivers/spmi/spmi.c
+@@ -554,6 +554,8 @@ int spmi_controller_add(struct spmi_controller *ctrl)
+ 	dev_dbg(&ctrl->dev, "spmi-%d registered: dev:%p\n",
+ 		ctrl->nr, &ctrl->dev);
+ 
++	spmi_controller_debugfs_init(ctrl);
++
+ 	return 0;
+ };
+ EXPORT_SYMBOL_GPL(spmi_controller_add);
+@@ -580,6 +582,8 @@ void spmi_controller_remove(struct spmi_controller *ctrl)
+ 	if (!ctrl)
+ 		return;
+ 
++	spmi_controller_debugfs_remove(ctrl);
++
+ 	device_for_each_child(&ctrl->dev, NULL, spmi_ctrl_remove_device);
+ 	device_del(&ctrl->dev);
+ }
+@@ -603,6 +607,7 @@ EXPORT_SYMBOL_GPL(__spmi_driver_register);
+ 
+ static void __exit spmi_exit(void)
+ {
++	spmi_debugfs_exit();
+ 	bus_unregister(&spmi_bus_type);
+ }
+ module_exit(spmi_exit);
+@@ -615,6 +620,8 @@ static int __init spmi_init(void)
+ 	if (ret)
+ 		return ret;
+ 
++	spmi_debugfs_init();
++
+ 	is_registered = true;
+ 	return 0;
+ }
+diff --git a/include/linux/spmi.h b/include/linux/spmi.h
+index 28e8c8bd3944..fcd8b9fc6cbf 100644
+--- a/include/linux/spmi.h
++++ b/include/linux/spmi.h
+@@ -76,7 +76,10 @@ void spmi_device_remove(struct spmi_device *sdev);
+  * @cmd:	sends a non-data command sequence on the SPMI bus.
+  * @read_cmd:	sends a register read command sequence on the SPMI bus.
+  * @write_cmd:	sends a register write command sequence on the SPMI bus.
++ * @debugfs:	debugfs private data for this controller.
   */
++struct spmi_ctrl_debugfs;
++
+ struct spmi_controller {
+ 	struct device		dev;
+ 	unsigned int		nr;
+@@ -85,6 +88,9 @@ struct spmi_controller {
+ 			    u8 sid, u16 addr, u8 *buf, size_t len);
+ 	int	(*write_cmd)(struct spmi_controller *ctrl, u8 opcode,
+ 			     u8 sid, u16 addr, const u8 *buf, size_t len);
++#if IS_ENABLED(CONFIG_DEBUG_FS)
++	struct spmi_ctrl_debugfs *debugfs;
++#endif
+ };
  
-+#include <dt-bindings/clock/qcom,glymur-videocc.h>
-+#include <dt-bindings/clock/qcom,nord-camcc.h>
-+#include <dt-bindings/clock/qcom,nord-dispcc.h>
- #include <dt-bindings/clock/qcom,nord-gcc.h>
-+#include <dt-bindings/clock/qcom,nord-gpucc.h>
- #include <dt-bindings/clock/qcom,nord-negcc.h>
- #include <dt-bindings/clock/qcom,nord-nwgcc.h>
- #include <dt-bindings/clock/qcom,nord-segcc.h>
-@@ -772,6 +776,17 @@ hscnoc: interconnect@2000000 {
- 		qcom,bcm-voters = <&apps_bcm_voter>;
- 	};
+ static inline struct spmi_controller *to_spmi_controller(struct device *d)
+@@ -186,4 +192,16 @@ int spmi_command_sleep(struct spmi_device *sdev);
+ int spmi_command_wakeup(struct spmi_device *sdev);
+ int spmi_command_shutdown(struct spmi_device *sdev);
  
-+	gpucc: clock-controller@3d90000 {
-+		compatible = "qcom,nord-gpucc";
-+		reg = <0x0 0x03d90000 0x0 0x9800>;
-+		clocks = <&rpmhcc RPMH_CXO_CLK>,
-+			 <&nwgcc NW_GCC_GPU_GPLL0_CLK_SRC>,
-+			 <&nwgcc NW_GCC_GPU_GPLL0_DIV_CLK_SRC>;
-+		#clock-cells = <1>;
-+		#reset-cells = <1>;
-+		#power-domain-cells = <1>;
-+	};
++#if IS_ENABLED(CONFIG_DEBUG_FS)
++void spmi_debugfs_init(void);
++void spmi_debugfs_exit(void);
++void spmi_controller_debugfs_init(struct spmi_controller *ctrl);
++void spmi_controller_debugfs_remove(struct spmi_controller *ctrl);
++#else
++static inline void spmi_debugfs_init(void) {}
++static inline void spmi_debugfs_exit(void) {}
++static inline void spmi_controller_debugfs_init(struct spmi_controller *ctrl) {}
++static inline void spmi_controller_debugfs_remove(struct spmi_controller *ctrl) {}
++#endif
 +
- 	hpass_ag_noc: interconnect@5fc0000 {
- 		compatible = "qcom,nord-hpass-ag-noc";
- 		reg = <0x0  0x05fc0000 0x0 0x37080>;
-@@ -814,6 +829,99 @@ nwgcc: clock-controller@8b00000 {
- 		#power-domain-cells = <1>;
- 	};
- 
-+	dispcc1: clock-controller@8d00000 {
-+		compatible = "qcom,nord-dispcc1";
-+		reg = <0x0 0x08d00000 0x0 0x20000>;
-+		clocks = <&bi_tcxo_div2>,
-+			 <&bi_tcxo_ao_div2>,
-+			 <&nwgcc NW_GCC_DISP_1_AHB_CLK>,
-+			 <&sleep_clk>,
-+			 <0>,
-+			 <0>,
-+			 <0>,
-+			 <0>,
-+			 <0>,
-+			 <0>,
-+			 <0>,
-+			 <0>,
-+			 <0>,
-+			 <0>,
-+			 <0>,
-+			 <0>;
-+		power-domains = <&rpmhpd RPMHPD_MMCX>;
-+		required-opps = <&rpmhpd_opp_min_svs>;
-+		#clock-cells = <1>;
-+		#reset-cells = <1>;
-+		#power-domain-cells = <1>;
-+	};
-+
-+	gpu2cc: clock-controller@9890000 {
-+		compatible = "qcom,nord-gpu2cc";
-+		reg = <0x0 0x09890000 0x0 0xa000>;
-+		clocks = <&bi_tcxo_div2>,
-+			 <&negcc NE_GCC_GPU_2_GPLL0_CLK_SRC>,
-+			 <&negcc NE_GCC_GPU_2_GPLL0_DIV_CLK_SRC>;
-+		#clock-cells = <1>;
-+		#reset-cells = <1>;
-+		#power-domain-cells = <1>;
-+	};
-+
-+	camcc: clock-controller@9ce0000 {
-+		compatible = "qcom,nord-camcc";
-+		reg = <0x0 0x09ce0000 0x0 0x20000>;
-+		power-domains = <&rpmhpd RPMHPD_MMCX>,
-+				<&rpmhpd RPMHPD_MXC>;
-+		required-opps = <&rpmhpd_opp_low_svs>,
-+				<&rpmhpd_opp_low_svs>;
-+		clocks = <&nwgcc NW_GCC_CAMERA_AHB_CLK>,
-+			 <&bi_tcxo_div2>,
-+			 <&bi_tcxo_ao_div2>,
-+			 <&sleep_clk>;
-+		#clock-cells = <1>;
-+		#reset-cells = <1>;
-+		#power-domain-cells = <1>;
-+	};
-+
-+	videocc: clock-controller@aaf0000 {
-+		compatible = "qcom,nord-videocc";
-+		reg = <0x0 0x0aaf0000 0x0 0x10000>;
-+		clocks = <&bi_tcxo_div2>,
-+			 <&nwgcc NW_GCC_VIDEO_AHB_CLK>;
-+		power-domains = <&rpmhpd RPMHPD_MMCX>,
-+				<&rpmhpd RPMHPD_MXC>;
-+		required-opps = <&rpmhpd_opp_low_svs>,
-+				<&rpmhpd_opp_low_svs>;
-+		#clock-cells = <1>;
-+		#reset-cells = <1>;
-+		#power-domain-cells = <1>;
-+	};
-+
-+	dispcc0: clock-controller@af00000 {
-+		compatible = "qcom,nord-dispcc0";
-+		reg = <0x0 0x0af00000 0x0 0x20000>;
-+		clocks = <&bi_tcxo_div2>,
-+			 <&bi_tcxo_ao_div2>,
-+			 <&nwgcc NW_GCC_DISP_0_AHB_CLK>,
-+			 <&sleep_clk>,
-+			 <0>,
-+			 <0>,
-+			 <0>,
-+			 <0>,
-+			 <0>,
-+			 <0>,
-+			 <0>,
-+			 <0>,
-+			 <0>,
-+			 <0>,
-+			 <0>,
-+			 <0>;
-+		power-domains = <&rpmhpd RPMHPD_MMCX>;
-+		required-opps = <&rpmhpd_opp_min_svs>;
-+		#clock-cells = <1>;
-+		#reset-cells = <1>;
-+		#power-domain-cells = <1>;
-+	};
-+
- 	tcsrcc: clock-controller@f1d9000 {
- 		compatible = "qcom,nord-tcsrcc",
- 			     "syscon";
+ #endif
 -- 
-2.43.0
+2.56.0.rc1.310.g51773c2048-goog
 
