@@ -1,349 +1,184 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B4447ACD4
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:05:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790251527; cv=none; b=O7+otdMJJSH/uGYvA9hZxIKoWeXxr3YgAU9CphRcMW2cKaqFsYPMDEt6htkq66awcjXGsPVJlvJIbwVVsQEel0fwD6fLcNlLH2j3JHafV83aOAK9hKoWq3lWH/wVj4Gk5azHuJgOguKyd0ET4PXrzVN/Hk+kZ3u7UMydNQxT04U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790251527; c=relaxed/simple;
-	bh=ds23K+OyJTQUF+uJe3Z3aZkYRM2uQJYpNW1S6VVfBnI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ubYTq+pXsJ/y8GNJstHsD9/NUmAzu6pU33SSudpKw0t2fqRv52HFbFa4LefzDZK9h0WBrCzYBovrEuThqOt1dNo/M6LcLMHJ0088awQXvxta40VkeDU9z7cRjVjNA82uSMrC5Sfbobg9RuzoTiXWy7L+FurKnYtVUX73iOuyYiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=VQukQEwz; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=jQ6jfFL7; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=VmqcXyyu; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=3Xryt/r2; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2EB147AF5C;
+	Thu, 24 Sep 2026 12:05:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.152.168
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790251541; cv=fail; b=XhspEr1vsTHy6zESoMOInRpRET2JOVEAhoGe7SLu55HcAng5zuRFW5AQOJwIO0dCCMJ66KLik9frQY/pTWMXEL0q9SaBC7/Ww2CJLY0tm/p4sdooxhlpWDKuApCIjxWafdrn3/cyyGwvQ4OB4N6hEbkLVknHfteEcHxQ8G6F004=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790251541; c=relaxed/simple;
+	bh=EYpzI+fa9TD9Nt+4guBllVWLaaiCaUXR8FCoWfN130U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NDbl7FMnGQEMQgo4zUl8uATyLUj8r2XPSDCSs9/+xjYGE48DCX8l+LTsycnWOVPRTEhhy/PK/gpVZRpIBSE3LXK4i+2w0cVEJ5deo2ajB/2hQBCGJx/M/q18fAP5Zddds7P2V2zsO4ZwWHXA/UaGPpXbNt+UCxcwhBHOXz1yQAU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=a7vywXlm; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=QZ2Z/Z/c; arc=fail smtp.client-ip=67.231.152.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VQukQEwz";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jQ6jfFL7";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VmqcXyyu";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3Xryt/r2"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id C1DBC21F43;
-	Thu, 24 Sep 2026 12:05:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790251508; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=3/ut1muUCOASS07qjNauoQjT+MCK7YbrWPDfElhjUq0=;
-	b=VQukQEwz6ybiS0uNN1gVJWrXQdqk8qLiyDQV0Zyw/PuFI02kkbCxkoxX4w5P7CpQB21d7a
-	0XcPQdAdBktrtZOp6DzOd2QiQavGQSgfdYiuvag1bsB6ccijcAlwyBsEAbpCCZXP9xia5A
-	LhYQdi6P0/xu8cK63GP4OqsPujr8It4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790251508;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=3/ut1muUCOASS07qjNauoQjT+MCK7YbrWPDfElhjUq0=;
-	b=jQ6jfFL7fV8hfaPF0buBg5dg2UedfrcspqeJVTZ9lg/TxeVe7qsCzQ7RNIRPIkYopV4TL8
-	wySbo0U+c+Q+viDw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790251504; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=3/ut1muUCOASS07qjNauoQjT+MCK7YbrWPDfElhjUq0=;
-	b=VmqcXyyuxzK4Ciwl9HeOR0M6r6z9s14Ep/WfD42Y4llu/sKR/cCFjW9eVX+ZXNjf8Wqo6X
-	CXk+1/ArmTy5ShPWXLiPDq8WNo2EOwKmUeSpTannaQGInjTfKMB7rP+QmiqumlFseOq1qF
-	MwS+MvYrwdVWrKjDBHK7yY0YP/cV2x4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790251504;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=3/ut1muUCOASS07qjNauoQjT+MCK7YbrWPDfElhjUq0=;
-	b=3Xryt/r2s/pG04N8bEI/fUVohKjBIJ8pF4wYB1fNGWPpneS27EADisWSECJI2X40fxYRzJ
-	/YDpALDej/iWewCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4D94F13354;
-	Thu, 24 Sep 2026 12:05:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id k5tBAvARtWryTAAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Thu, 24 Sep 2026 12:05:04 +0000
-Message-ID: <e32e77d3-bb57-43b2-bf61-41ee73055cb8@suse.de>
-Date: Thu, 24 Sep 2026 14:05:03 +0200
+	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="a7vywXlm";
+	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="QZ2Z/Z/c"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O4qImI3664366;
+	Thu, 24 Sep 2026 07:05:32 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=PODMain02222019; bh=ZJoeBHeiQKNwwIlh
+	BSbfyjNR+vVP2DHCQ9A2bNfJ65c=; b=a7vywXlmqupBRylbl01pjt545AV3M8KP
+	ngW3NHcevhsrC3VYjFjutS58eJtp9NFFknVePfrrJ+1hkRMXKv9eMQ6spB9jBy21
+	9c7vlShwOYgSVPA3gaXgwVCyI5e3KFi/OHRGgxO5KZF1B8/O1obNQNR8mPGyQCNJ
+	rXiicmk1OR55hD4Raher/mO897qaNwmiTFR1/mMFdR4VoUJqTZ0n1rQyTMo5y0KI
+	8zhKxz4OKZpiFVEOeYbKl/rCmIxpxAdhqrJT1SSd6zYNFpzR+JUGl4FkZPxBJR0L
+	moJbIik23zt0H9H1qVpR/JZjqmi9kvYXMCXl+8wUm1kUNt4aYLN+6A==
+Received: from bl2pr02cu003.outbound.protection.outlook.com (mail-eastusazon11021131.outbound.protection.outlook.com [52.101.52.131])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4gsptj77wh-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 07:05:31 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=U/kNNb6dfklZwW8fjRke6c8nJC0axxJYpnGAUAnZnSNcuGLqg9aEfhom+XN9SK4mz6/fU6VhkAbjE3zvGZL4USLa9pj2U7bsq1MQIAegrJd6PEefN0xMiKfr0br2SC8FRBroaIUP0vIDa/izd8IzbzTeiJGIz1DSDkl7HF2+nFRmBuaO3w87ibXRTt/uxlI4OHE0Y+bRv1NVrq7xd9Sts0jeqU5Z/9kf3M64j/xRuV8Gkz7DjyInJxRyD8BkwWvgHsyht6VOMO2xp93Vib7o4NXhRyUcwm7M85GiVTQds4SN+KrGsNFVwlnn0Rp3fEMuYHAzfVwitP7RXhbovt0C6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZJoeBHeiQKNwwIlhBSbfyjNR+vVP2DHCQ9A2bNfJ65c=;
+ b=dueoT+ST9b+m2S/m8XwNelZWF1BO0B3Z1jX5NDHEL0+DsJP6ZAF9w0D0I6CzoPRfAKaW0Ft0XjTMHdHB1/pv+I+6zLdlfNGglFGVDNPj0eBMQpymaoYIszInduqYeR9WDvQeaymxqmzH4Q6DUrqzJXI8Sdr4iVmM/ePruKSGy1MDJTgHjayzARDN690QDttZse3SuvXLapMV9AhlLpqj9wV9POeGfAfEBx9Ma2b4SwbT0peeQfvvFsujgqfQRSuAE3eKd58cvURdznl3t1kB5wYxsAFL3HzJ9FymKUBa/0NGD/IF27Cr+9c7poEUR4k1mhezERNpTUL0MEMktVy6+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=cirrus.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZJoeBHeiQKNwwIlhBSbfyjNR+vVP2DHCQ9A2bNfJ65c=;
+ b=QZ2Z/Z/c4ffpiqZlV5vvGCBs+KwXITk2qamW8qHkhoxJ7STvM/ooWkSzq5JiIF3sLNN2dKsZ3flntS1BxDRP6qhqd7/1bsvLU1BB24PqeqiONgfeRQSW7alEi7XiLzZ8u/x35E0Al9XWmlwQAstx5ZRBqHYPgPXNevWIpzzlQnc=
+Received: from MN2PR07CA0027.namprd07.prod.outlook.com (2603:10b6:208:1a0::37)
+ by CY5PR19MB6448.namprd19.prod.outlook.com (2603:10b6:930:3c::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 12:05:26 +0000
+Received: from BN3PEPF00022BCA.namprd03.prod.outlook.com
+ (2603:10b6:208:1a0:cafe::1c) by MN2PR07CA0027.outlook.office365.com
+ (2603:10b6:208:1a0::37) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Thu,
+ 24 Sep 2026 12:05:26 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
+ IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
+ not signed) header.d=none;dmarc=fail action=oreject
+ header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ BN3PEPF00022BCA.mail.protection.outlook.com (10.167.248.167) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.8
+ via Frontend Transport; Thu, 24 Sep 2026 12:05:25 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 93176406540;
+	Thu, 24 Sep 2026 12:05:24 +0000 (UTC)
+Received: from ediswws07.ad.cirrus.com (ediswws07.ad.cirrus.com [198.90.208.12])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 8C45A820247;
+	Thu, 24 Sep 2026 12:05:24 +0000 (UTC)
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: lee@kernel.org, vkoul@kernel.org
+Cc: yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.dev,
+        linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
+        mfd@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 RESEND 0/2] Add SoundWire detach helper
+Date: Thu, 24 Sep 2026 13:05:18 +0100
+Message-ID: <20260924120520.2511081-1-ckeepax@opensource.cirrus.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/7] fbdev: describe where the boot logo goes in one
- place
-To: Max Pedraza <maximpedraza@gmail.com>, Helge Deller <deller@gmx.de>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Ripard <mripard@kernel.org>
-Cc: linux-fbdev@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260923201035.51007-1-maximpedraza@gmail.com>
- <20260923201035.51007-2-maximpedraza@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260923201035.51007-2-maximpedraza@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spam-Score: -2.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	FREEMAIL_TO(0.00)[gmail.com,gmx.de,ffwll.ch,kernel.org];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[dt];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo,suse.com:url]
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BCA:EE_|CY5PR19MB6448:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 5bfd3d47-7df9-4696-7adc-08df1a341e6a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|61400799027|36860700016|23010399003|376014|82310400026|10067099003|56012099006|11063799006|16102099003|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	iIfW2EJ659X04/rygkD7GBt9KdgYcTHr2a31ENn0BWosBnsX64q1BOoqzy0VtZdCKSs8zJ1DyAQRtk2juOSKJ0slK1nAWPBeYG0KMsp+PnU5x3T1FENPsRImrwbm/+f0hzWZjiZ+0x/kWuiym7R3vHIiCYNxk9216jJFXAAWAFpwzorKVVU6cWP7kDkvWJiCBclXmPQEcNb8rEC5k6zUlR96EwKW00YPuwk/ClX/hte+5lSubumKOn6Vl7oT2n9WfGoPifquoLtxF4iBWFtSGNIaqgEaaZ6pIN7332n2KNwSNRRrX0NgFobdZEYeNmvk6TWXsCQ4udJBdDcRDqncgsFN0QOjARNsA9UM4JOrm1lDzH6lY5uIJD/YNJtVm8yusgjTV32F4RAUppe4OcW12QfCWHRxCGu/D5XpPUj8R9ZdYGl5Yp2lMqTL3lsf2mLSMhhiWRgQ1+N4AEII4phKGrwEqPEkrbfp7KpInzq0XM2lyO8XU+V8o/wxlJSYVUQkZp/i3+sDh7mI5hp+GhEMIZBLFflclA0+rtXH4HiwE+YrPlAEI3U2hZbBKVWBVeleF1fBK8vHVcWADW/kjU6Hy3tfFkypdzPz+PW5+LFmnKmxr1udEVjiilRVOC/CtsXdCX2aK6SZQSlDGqVgp0J/sRQhjDmadMjMyN9HqL0tcTY=
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(61400799027)(36860700016)(23010399003)(376014)(82310400026)(10067099003)(56012099006)(11063799006)(16102099003)(18002099003)(13003099007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Y7g6OPw3a3pxR4E03jETQfUoLyZvHRnibY9qgdq61UN5s7PlqNTTa2Lk7ewwzAtUbUK4ZWFzwqfyeq9f6Q2tXhRIftEwDcs89xmjLGQaGdseIFyQYwMxVuaP0dso3Y/h9B4JLaOLV7NLksASwAC657avep8LCl+UGL02yrhl8yh4droJq121wj4SCeQbXuySbzfm7f6KT+cgNDe1ug9/hub9ueQvf1/fW/aONp5+9EVEM5NHaTI1aEfm1ZtOcs3WQd7laos7vnf1+Iq+Cgi3yJnZ8NR+ydfxFADwpfFUeJ2fQgUMnQ8+klBgWjtl68VOiHqHuzNLCR2//ZK42lvPzBoUrFwdiG/JlU45f3Kx/RKqySrfBeXsmcQrq70+hGkdRYl0BSyPbxY5l8BTpogAU5Q1m5OH9h/lq+ZYeSlhO7vjTVVTSXVGHLcDlkWdWjol
+X-Exchange-RoutingPolicyChecked:
+	eQhS+eTBL+AfYlaRY9qmBJFNuuG2J9y1v6AMO0u9EBwG+oChYsQAeuX92hBM97NvO1TM7JPOU191kon5R1AHeL8EF9nAc0MbteN1bj6tmX7TZktepqfL2SIdsu460Mrnz8HXfncJn4ms4O1vL+k1uq7EDLmJbPIQHyhqcn0+0yLOShBV4axufJca31O9/kfVi3a4Zd1dAeEYDuaCIfBNrVpuwYwpNzEvpVs66b3RAs+IXqwIICmTxlp+d6iK7gshPlc42u0b1szhsOeaIn23Soad+YUes6InLPxqB3dI2eFiwiDzSgg1ls1e7MtAkhVK7CPA2ZeAU1cADU5aFHTheg==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 12:05:25.8679
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5bfd3d47-7df9-4696-7adc-08df1a341e6a
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-BN3PEPF00022BCA.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR19MB6448
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA1MCBTYWx0ZWRfX23vORqsdNe4t
+ L2P5V3/yfletUivUb8Rsm3yAAxHzi+AApVQKhQ68nNxi0IGTpNJyIhimCbzwMcYEwe1ZBuAETdG
+ iR3AvwMTsmbRb0jZsnnTrorJiRnEHao=
+X-Authority-Analysis: v=2.4 cv=fuZJ914f c=1 sm=1 tr=0 ts=6ab5120b cx=c_pps
+ a=rXPbZPGhlTecGYCSGyL8Jw==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
+ a=VwQbUJbxAAAA:8 a=w1d2syhTAAAA:8 a=cZtL-XUxLnsMaWc3fMoA:9
+X-Proofpoint-GUID: VwrV3vmEcB82RUFtTivZQGwUG1rlRe5q
+X-Proofpoint-ORIG-GUID: VwrV3vmEcB82RUFtTivZQGwUG1rlRe5q
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA1MCBTYWx0ZWRfXysH5Rzzzccrz
+ m2/wtOUIvHo18F2bTrbMdEEF5T82u6j0tYl4/t/U84kdA3yOIYYMSMW8aKdcgWv1l8fimaMoWCF
+ UtVMvEhAgXtoZ5fr6ikBIj8LqyU+hmc9OyMm98rOEb9sDiCSfhJKrzEe4+wCDaaCzm3L5mx6i8O
+ BK3GRhXc9QGr9Pcj3B/JVfTuL9ZUVMFxrvF+GRNm2PujuwFbLS3NxiNIdwUyPk3YTrsnlP/skdY
+ ST4QZ9eatUpZqLDECGMJ246gO7Tk40wfWyvuBf1o8uNnpqZ0owrGeaPpvCfGyM6yswa5Nel+Psr
+ zzePZex564S95j5tmBT9DVTqJ9WqjN7Hx/KyrwnFNS7ZacgSJfVABw7SRDz/Xeb7HqwdS+gVdVZ
+ Ef8V/u07F+wTH2pVcc8hFP7k4zps0lkh5Ip+tYtngnmGN7lc41iEekYllqo68M0eOKe0k/OH5/+
+ H0KY8EUokfXl41IzUVw==
+X-Proofpoint-Spam-Reason: safe
 
-Hi
+Currently, if a SoundWire driver takes an action that causes the
+device to detach from the bus it needs to be careful. There will be
+a period of time until the detach is recognised by the core, if the
+driver immediately calls sdw_slave_wait_for_init() it is possible for
+that to complete before the detach has been recognised. Leaving the
+driver with a device that is potentially not ready for what follows.
 
-Am 23.09.26 um 22:10 schrieb Max Pedraza:
-> fb_prepare_logo() works out how many rows to keep clear for the logo and
-> fb_show_logo_line() works out where to draw it, and both of them open code
-> the same decision: centred if fb_center_logo, top left otherwise. The two
-> calculations have to agree, because fbcon erases whatever falls outside the
-> rows that were reserved, and nothing makes them.
->
-> Give the position a small structure of its own, with -1 on an axis meaning
-> centre on that axis, and have both callers ask for it. fb_center_logo
-> becomes {-1, -1} rather than a second path, and the arithmetic lives in one
-> function that both use, so they cannot end up disagreeing.
->
-> The structure and logo_place_axis() go in linux_logo.h rather than in the
-> frame buffer code, since where a logo goes is a property of the logo, not
-> of the one thing that draws it today.
+To avoid this race add a new helper that drivers can use to inform
+the core the device will detach. This clears the enumeration
+completions ensuring that sdw_slave_wait_for_init() can't complete
+until the device re-attaches.
 
-No, the position is not a property of the logo. The code in linux_logo.h 
-is only about the image itself.
+This is the third part of a longer series of moving these slave
+attach/deatach operations into the core:
 
-In the case of fbdev, the policy for drawin the the image should be part 
-of fbcon.
+https://lore.kernel.org/linux-sound/20260512103022.1154645-1-ckeepax@opensource.cirrus.com/
+https://lore.kernel.org/linux-sound/20260608102714.2503120-1-ckeepax@opensource.cirrus.com/
 
-Best regards
-Thomas
+I have based this series off Vinod's soundwire tree, but the patches
+apply to both the current MFD and SoundWire next branches so should
+be fine to apply to either tree.
 
->
-> logo_place_axis() also clamps, which the open coded version did not: the
-> result is now always a position at which the logo lies entirely on screen.
-> That is not reachable today, since the only positions are the two the
-> console offers, but it stops being something the next caller has to
-> remember.
->
-> No functional change intended.
->
-> Signed-off-by: Max Pedraza <maximpedraza@gmail.com>
-> ---
->   drivers/video/fbdev/core/fb_logo.c | 58 +++++++++++++++++++-----------
->   include/linux/linux_logo.h         | 29 +++++++++++++++
->   2 files changed, 67 insertions(+), 20 deletions(-)
->
-> diff --git a/drivers/video/fbdev/core/fb_logo.c b/drivers/video/fbdev/core/fb_logo.c
-> index 0bab8352b6..5ec9f9554f 100644
-> --- a/drivers/video/fbdev/core/fb_logo.c
-> +++ b/drivers/video/fbdev/core/fb_logo.c
-> @@ -8,6 +8,17 @@
->   bool fb_center_logo __read_mostly;
->   int fb_logo_count __read_mostly = -1;
->   
-> +/*
-> + * The placement in effect, as asked for on the console command line.
-> + */
-> +static const struct logo_placement *fb_logo_placement(void)
-> +{
-> +	static const struct logo_placement centred = { .x = -1, .y = -1 };
-> +	static const struct logo_placement top_left = { };
-> +
-> +	return fb_center_logo ? &centred : &top_left;
-> +}
-> +
->   static inline unsigned int safe_shift(unsigned int d, int n)
->   {
->   	return n < 0 ? d >> -n : d << n;
-> @@ -281,7 +292,11 @@ static int fb_show_logo_line(struct fb_info *info, int rotate,
->   {
->   	u32 *palette = NULL, *saved_pseudo_palette = NULL;
->   	unsigned char *logo_new = NULL, *logo_rotate = NULL;
-> +	const struct logo_placement *p;
-> +	unsigned int xres = info->var.xres;
-> +	unsigned int yres = info->var.yres;
->   	struct fb_image image;
-> +	unsigned int block;
->   
->   	/* Return if the frame buffer is not mapped or suspended */
->   	if (logo == NULL || info->state != FBINFO_STATE_RUNNING ||
-> @@ -322,26 +337,22 @@ static int fb_show_logo_line(struct fb_info *info, int rotate,
->   		fb_set_logo(info, logo, logo_new, fb_logo.depth);
->   	}
->   
-> -	if (fb_center_logo) {
-> -		int xres = info->var.xres;
-> -		int yres = info->var.yres;
-> +	image.width = logo->width;
-> +	image.height = logo->height;
->   
-> -		if (rotate == FB_ROTATE_CW || rotate == FB_ROTATE_CCW) {
-> -			xres = info->var.yres;
-> -			yres = info->var.xres;
-> -		}
-> +	if (rotate == FB_ROTATE_CW || rotate == FB_ROTATE_CCW)
-> +		swap(xres, yres);
->   
-> -		while (n && (n * (logo->width + 8) - 8 > xres))
-> -			--n;
-> -		image.dx = (xres - (n * (logo->width + 8) - 8)) / 2;
-> -		image.dy = y ?: (yres - logo->height) / 2;
-> -	} else {
-> -		image.dx = 0;
-> -		image.dy = y;
-> -	}
-> +	while (n && (n * (logo->width + 8) - 8 > xres))
-> +		--n;
->   
-> -	image.width = logo->width;
-> -	image.height = logo->height;
-> +	/* The copies are drawn in a row, so they are centred as one block */
-> +	block = n ? n * (logo->width + 8) - 8 : logo->width;
-> +
-> +	p = fb_logo_placement();
-> +	image.dx = logo_place_axis(p->x, xres, block);
-> +	/* A stacked logo goes where the caller put it */
-> +	image.dy = y ? y : logo_place_axis(p->y, yres, image.height);
->   
->   	if (rotate) {
->   		logo_rotate = kmalloc_array(logo->width, logo->height,
-> @@ -418,6 +429,7 @@ static int fb_show_extra_logos(struct fb_info *info, int y, int rotate)
->   int fb_prepare_logo(struct fb_info *info, int rotate)
->   {
->   	int depth = fb_get_color_depth(&info->var, &info->fix);
-> +	const struct logo_placement *p;
->   	unsigned int yres;
->   	int height;
->   
-> @@ -480,9 +492,15 @@ int fb_prepare_logo(struct fb_info *info, int rotate)
->   		}
->   	}
->   
-> -	height = fb_logo.logo->height;
-> -	if (fb_center_logo)
-> -		height += (yres - fb_logo.logo->height) / 2;
-> +	/*
-> +	 * fbcon only leaves the first @height rows of the screen alone, so a
-> +	 * logo placed further down would be drawn and then immediately
-> +	 * cleared. Ask the same placement fb_show_logo_line() will use, so
-> +	 * that the two cannot disagree.
-> +	 */
-> +	p = fb_logo_placement();
-> +	height = logo_place_axis(p->y, yres, fb_logo.logo->height) +
-> +		 fb_logo.logo->height;
->   #ifdef CONFIG_FB_LOGO_EXTRA
->   	height = fb_prepare_extra_logos(info, height, yres);
->   #endif
-> diff --git a/include/linux/linux_logo.h b/include/linux/linux_logo.h
-> index 1e727a2cb4..b3b15d3800 100644
-> --- a/include/linux/linux_logo.h
-> +++ b/include/linux/linux_logo.h
-> @@ -13,6 +13,8 @@
->    */
->   
->   #include <linux/init.h>
-> +#include <linux/minmax.h>
-> +#include <linux/types.h>
->   
->   
->   #define LINUX_LOGO_MONO		1	/* monochrome black/white */
-> @@ -36,6 +38,33 @@ extern const struct linux_logo logo_linux_clut224;
->   extern const struct linux_logo logo_spe_clut224;
->   
->   extern const struct linux_logo *fb_find_logo(int depth);
-> +
-> +/*
-> + * Where a boot logo goes. A coordinate of -1 centres the logo on that axis.
-> + * Whatever draws the logo describes its placement this way and computes it
-> + * with logo_place_axis(), so that no two places can end up disagreeing about
-> + * where the logo is.
-> + */
-> +struct logo_placement {
-> +	s32 x, y;
-> +};
-> +
-> +/*
-> + * Place a logo along one axis. @pos is the coordinate asked for, or -1 to
-> + * centre on that axis. The result is clamped so that the logo always lies
-> + * entirely within the screen: the drawing code does not clip, so asking for
-> + * more than that would otherwise scribble past the end of the frame buffer.
-> + */
-> +static inline int logo_place_axis(s32 pos, unsigned int span, unsigned int size)
-> +{
-> +	int last = (int)span - (int)size;
-> +
-> +	if (size > span)
-> +		return 0;
-> +
-> +	return pos == -1 ? last / 2 : clamp(pos, 0, last);
-> +}
-> +
->   #ifdef CONFIG_FB_LOGO_EXTRA
->   extern void fb_append_extra_logo(const struct linux_logo *logo,
->   				 unsigned int n);
+Thanks,
+Charles
+
+Changes since v1:
+ - Correct kerneldoc
+
+Charles Keepax (2):
+  soundwire: Add a helper function to indicate a device will detach
+  mfd: cs42l43: Move to core detach helper
+
+ drivers/mfd/cs42l43-sdw.c     |  2 --
+ drivers/mfd/cs42l43.c         | 15 +--------------
+ drivers/soundwire/bus.h       |  6 ------
+ include/linux/mfd/cs42l43.h   |  1 -
+ include/linux/soundwire/sdw.h | 26 ++++++++++++++++++++++++++
+ 5 files changed, 27 insertions(+), 23 deletions(-)
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
+2.47.3
 
