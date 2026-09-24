@@ -1,200 +1,143 @@
-Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2DD03D3485;
-	Thu, 24 Sep 2026 11:50:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F63E443AAB
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:51:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790250660; cv=pass; b=Kpit87sSIBY7gw4bUN9u+CLJE/QSMr08uHK9oPBcLJkK+bCPiFtf51QeDjbKVrqSEasW3f7XqP/YkK+7n5AXbZJhMQnNGfowGDTX2BsBw1Ueu6vN9VO/EKyCoyhr3I10Wyy6SYxiX+1TWd7TLogD2dwJ/wVe5Uj8XH0nJecnRRc=
+	t=1790250680; cv=pass; b=SywHkRhmUc1P3e9yOjj8gmFkRdR0lZbFpd/tSxZjnCrpzwas8leOVBg3SxYAAf7hiLKAHdP4eDly7AzepcIFuAXseY4VYUtuVjlhO0sVKJak6a3UqhSzy3i2BizKn5XlRzK2siXVV1YmSkY2e9XPH/rB9aX8kkC60XaBgiezcn8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790250660; c=relaxed/simple;
-	bh=eBaHN3Y/BWFH+RYMTiSSRGuCI4fa0Na4sl/rx/lOdY8=;
-	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=JZT8yX7APl8SOVr/PDgokorMysOL46rrGZps5RILUpghiabpYfL7m0L1oZGwpIPm75Kv4tKLSIQ9o/Gee6+Bc25ngNpGoA4u/pBpJ/s3WONXl1FocP1cFB0dtyV0Nc7w81BzYk8L3ldI0g2bWBi8M/PgCpvSvyKTUHX9rrAjywM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=WudqXkQ9; arc=pass smtp.client-ip=165.173.180.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	s=arc-20240116; t=1790250680; c=relaxed/simple;
+	bh=beqzQKKjoxSVK9Ait4o2AWQYoYHmh36alBr6u7mmw2I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=C5RLLijg0sZQLTTfMxV0Z60qyyeC0ivyQU6yueYb1eMgOpP0kWJgR+qSwdyU47IuZGRa/0oxMgzn3CEksNM6sYS5jmTykTXiZQLfiyiGJyyKhQstNIuoXSIjNZ6+95uGiL2Y6js092FlcLNDgbxfNGlSph49VkrEYTcvTeKWwI4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com; spf=pass smtp.mailfrom=futuring-girl.com; dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b=DznRrfa7; arc=pass smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="WudqXkQ9"
-ARC-Seal: i=1; a=rsa-sha256; t=1790250640; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=MZi9eX2mkZ7Ir+vzqlkr3lBL5Ts7hiTYHYSILke34zTmx2D1NUQ4PMHr2r5GCGy4AZ4zCjuzg2eaKXUDTaRh6Po4baSJvQUoeXjBAmNzaSoxONVvGqDXmX8PyyUDG3t1Mp3blUSEwYTg+QN+JKDXBwLECF+sSXn1rXYi1/vF4QI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790250640; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=szzgQ9yx9ieaZGMbPDCWaI5C0qscCyhncAmiXOLJGFY=; 
-	b=ikUv3BZ1z/3dZXfjQ85ZqEdB60OzBktdFa5qMiaphpxh01qjsOCDuQgbLGkVEbzisazS3xfhDvhxD6NkIdGFufV2yQmGHCIsosHBpBnmjDPITm528WzoIKAeGb7/lRVmGU2RxNabV/wfoRLd65v/WavuvfIt1uA2RBc3psJyLCY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790250640;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
-	bh=szzgQ9yx9ieaZGMbPDCWaI5C0qscCyhncAmiXOLJGFY=;
-	b=WudqXkQ99Bj2XjUhJrGbSvpYwLyKg546DsNAx51VDSDr53ku4Q/T2wtn7gMeaSF+
-	10CfPxFYJxQx30Hk5AyOkp29UgtNdLyNoHH6lH+DgkSPhezixkryp2QYJ/QNOkKobOU
-	U0HOUL95eGFTaFsKF1VSU55uCq+4WSTf88eG1lSl9uTNlfxHGFOT8XzVnuqfWtFKVEU
-	+b5onmeaG3t14SHk43zlQJtttiHBmWpj3ocmuP/fIoaMLYJLlkOvAPYXTlnwc2sOPhN
-	7HuTT6Xxik7KwHVPkdt/+c1/skg5t1AqKU52eqcLyYGTrxro/Lk22AGbQDEyLgJuhIw
-	FJzBchHbrw==
-Received: by smtp.zohomail.com with SMTPS id 179025063891131.335288653322777;
-	Thu, 24 Sep 2026 04:50:38 -0700 (PDT)
-Message-ID: <607266787ef89717b9c70fd86cc882761060dc00.camel@rong.moe>
-Subject: Re: [PATCH v7 08/13] leds: trigger: netdev: Implement
- hw_offloaded() callback
-From: Rong Zhang <i@rong.moe>
-To: Lee Jones <lee@kernel.org>
-Cc: Pavel Machek <pavel@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Thomas =?ISO-8859-1?Q?Wei=DFschuh?=
- <linux@weissschuh.net>,  Benson Leung <bleung@chromium.org>, Guenter Roeck
- <groeck@chromium.org>, Marek =?ISO-8859-1?Q?Beh=FAn?=	 <kabel@kernel.org>,
- Mark Pearson <mpearson-lenovo@squebb.ca>, "Derek J. Clark"	
- <derekjohn.clark@gmail.com>, Hans de Goede <hansg@kernel.org>, Ilpo
- =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>, Ike Panhc
- <ikepanhc@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, Jakub Kicinski
- <kuba@kernel.org>, Vishnu Sankar <vishnuocv@gmail.com>, Vishnu Sankar
- <vsankar@lenovo.com>, 	linux-leds@vger.kernel.org, netdev@vger.kernel.org,
- linux-doc@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- chrome-platform@lists.linux.dev, 	platform-driver-x86@vger.kernel.org
-In-Reply-To: <20260924085316.GB331088@google.com>
-References: <20260921-leds-trigger-hw-changed-v7-0-fe3cdb6dec51@rong.moe>
-		 <20260921-leds-trigger-hw-changed-v7-8-fe3cdb6dec51@rong.moe>
-		 <20260924085316.GB331088@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 19:47:29 +0800
+	dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b="DznRrfa7"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f55efebso313559766b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:51:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790250676; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qNOvgVdL+ix6DNn6sem+YpXbMfxk3IHBRwFJpCH6MBxXdVXRMyT5nRkjv/iMbjDc9L
+         jC2enQtM0eQ6Njs2lkSgqY/YkmokD1TNy7taKkN6EdavRESP2+2ROZLuRbG8b9nzmGAn
+         s/r+qOh5w+DY5BwpjqNG4HBzS5borCLFY8L4z7TkcFBUpjKpcTYZj+/6bCPjyYqTR+Uu
+         4iXKIAr6swbc+dTcSV7nzsK/qxtBAxBbOkCrY7BK1th5Pc++Et8dI84D/eHdm+bSo9Lm
+         qYYw/C/nq9Gu/YghRi+FHrSK1wNf6oNmBzxyYoHK9886PVe04+E/Di+XcP5uXKljUfy+
+         9t8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=omFqe/7YRCaMs7Y6/oYqn8ZEqPS++HtW5gJ+iDHObDM=;
+        fh=pXZZt0QrpBpcYvKlYFLQGclD5cmV2yJQgyg1AzyD74c=;
+        b=L2PKeHbOety486bBzDfNaqVileYbJ9m7NQrKsPJtxxY99qovFMN++0tkNQ++d4wOAe
+         dRY6KBJrVJrgO2AppA7zwWExaxxOC2D/cA6+0v8Cf926qC84SJWT5J+HlxTT4yTInZnv
+         W8kaJAEjuh7EW96GfTZtn46LSX0bjizyt8huuEUeDL+XcqWkQrjv+8hQmFo5/1RTaf8o
+         DH/31AlHqNb3Fx0co/zGZPdWp41antjzgR1QjgCGmVM4cG6v4d9Z1v3VxRu/tbwhI95K
+         crNf/s+rYTaHe8UpE5e/MSWpDRumvMs1e5x6e0J8knH6kDI4aakclJ9jY3GrwILDVKB9
+         fUCg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=futuring-girl.com; s=google; t=1790250676; x=1790855476; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=omFqe/7YRCaMs7Y6/oYqn8ZEqPS++HtW5gJ+iDHObDM=;
+        b=DznRrfa7ItvCi/j0cWXpGUaxAND5iPx1l6/8I/B7W8ysFoKCzPEtyLjK23J0dp4Zqp
+         ibdgZ4S4qHIRCrWG8ILW/bgfmMVTCmRNsdyBn+j1Qh5NESeQIZ2Kkfo5zJmdM3mhgl1C
+         lg0RT7xbUJ778K6ex1fwNPAo3fHUUh4MIaqX1zo3eshPw81WEiUsG9qwM5gGRQ7f1che
+         YjqbkIpaE0pqY7JHD14RUcQsysD8JFmgid+nbk3YAkPMhbD1bGuLclLTmHybGJw14njo
+         oZA6eadjq0l1GbcM2bF350pRuy+0fcnoWm4xTx1mjPPG5/f4/nl5bBOmhgMNgVf9+xHb
+         f5og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790250676; x=1790855476;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=omFqe/7YRCaMs7Y6/oYqn8ZEqPS++HtW5gJ+iDHObDM=;
+        b=2va9iD70lqayylElfPcDUXNWVy9JYUTHOwC+/Op4pwQP6hFzwUA7+d9jWmB0bTBHyv
+         Nuk59ObWVoS8PYMvbA1tveUPj/yXdH+mgILll9uzUWM2OaWyQikfTm7kuRQdE4i3M0kx
+         /nc37po5Hs7lWWdJY+A8EKGgLnSGpIduVz/Le7PLv8cTImSDPLfBKvbrK7F/Mhb6D2s7
+         CtwNQkDKeQxz3QZ32H9BihCBHqzfVUPV/VX1c4ZQXCPspMG8rAzOcepcLWHlumzty9FO
+         yQXdJthc5vzWHVKnp4phUx/wua+TQWLVvxUYbc19q4uRFW/wH/5AoVKG0FPKLRvey+Lv
+         CXSg==
+X-Forwarded-Encrypted: i=1; AKwUvByY4Y6ycQ7Tcz1HNSzOvZEfRQ2lSwTNhISluejDXrdB5beGxIRA/P2wOY+8RU2HD+XuZHgkwUh+T0TB/Rs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lkp1FxkRmUw576E5+HzoHJfis7Maio2tMJbbq/ZuK1iWWyDgRA
+	lUL2slund4w2Qihhrd3JGzvY/w53BqTtlpZVhBOjxA0fTgzDck72iH0QG7snWrWsgmwbzp+1PeC
+	SCNMqxLnmtvv0/T/T9lh3mE4qJOjdtFAsuScFFthq2Q==
+X-Gm-Gg: AYBFou2FvcvLhYjFeg4TNmnJdgpc+35iDgBV571uRxeB0ulzl/2sNtE8aEsdPt74QOC
+	lXVgYcQ3I4l9N7VrGfvCDH4lta8GZrs+XRiPMOfouHYra2XdN+BnrCYdq/xp4opkpk+L1mAAyVu
+	1shOSYWg7t2H9smTT/R1GTt0Ka3CV9aJjSz2FcnxdKxyvqMgr8/6032krfxxA0rRlqrbyonhITu
+	QIeTwi2nr/3hVe0nZ4VUeEbE7vqvHaesbJLJVZqKBYEi9jaJ+7MQmeGGDZ6Vv3zvmXwQy0F8Yxx
+	jIYjHRd0e8hzG8OwGiIoKz7Xj6145g0BrbxPrB3yEKalHpTUp4Nhqwq6
+X-Received: by 2002:a17:907:97cb:b0:c25:6230:dfcd with SMTP id
+ a640c23a62f3a-c2ac239eb52mr194296566b.15.1790250675739; Thu, 24 Sep 2026
+ 04:51:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Evolution 3.56.2-10+b1 
-X-ZohoMailClient: External
+References: <20260923140644.756254324@linuxfoundation.org>
+In-Reply-To: <20260923140644.756254324@linuxfoundation.org>
+From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+Date: Thu, 24 Sep 2026 20:50:58 +0900
+X-Gm-Features: AclHuK-Phr3WDpb7SshIHOAYwI2RYTxswDPC0MCmKsbJLi96tShPIIuezgDdacA
+Message-ID: <CAKL4bV7H-9F-JEM2ohs3G6GyC5Gi-C2sb0wJdixuObcE-bSuCQ@mail.gmail.com>
+Subject: Re: [PATCH 7.2 000/438] 7.2.8-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+	achill@achill.org, sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Lee,
+Hi Greg
 
-Thanks for your review.
+On Thu, Sep 24, 2026 at 12:19=E2=80=AFAM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.2.8 release.
+> There are 438 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Fri, 25 Sep 2026 14:05:46 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+>         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
+7.2.8-rc1.gz
+> or in the git tree and branch at:
+>         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
+-rc.git linux-7.2.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
+>
 
-On Thu, 2026-09-24 at 09:53 +0100, Lee Jones wrote:
-> --- checkpatch.pl: clean (0 issues) ---
->=20
-> On Mon, 21 Sep 2026, Rong Zhang wrote:
->=20
-> > "netdev" can run in hardware control according to hardware capabilities
-> > and trigger options.
-> >=20
-> > Implement hw_offloaded() callback to provide its hardware control state
-> > to the LED core, and document the relation between the custom
-> > "offloaded" attribute and the generic "trigger_may_offload_to_hw"
-> > attribute.
-> >=20
-> > The callback mimics how the existing "offloaded" attribute does, i.e.,
-> > locklessly reads hw_control, as it's just a hint and don't need to be
-> > accurate.
-> >=20
-> > Acked-by: Ike Panhc <ikepanhc@gmail.com>
-> > Signed-off-by: Rong Zhang <i@rong.moe>
-> > ---
-> > Changes in v7:
-> > - Rename the offloaded() callback to hw_offloaded() (thanks Lee Jones)
-> > - Rename the trigger_may_offload attribute to
-> >   trigger_may_offload_to_hw (ditto)
-> >=20
-> > Changes in v3:
-> > - Do not deprecate netdev's "offloaded" attribute (thanks Thomas
-> >   Wei=C3=9Fschuh)
-> > - Document the relation between the custom "offloaded" attribute and th=
-e
-> >   generic "trigger_may_offload" attribute (ditto)
-> > ---
-> >  Documentation/ABI/testing/sysfs-class-led                | 3 +++
-> >  Documentation/ABI/testing/sysfs-class-led-trigger-netdev | 3 +++
-> >  drivers/leds/trigger/ledtrig-netdev.c                    | 8 ++++++++
-> >  3 files changed, 14 insertions(+)
-> >=20
-> > diff --git a/Documentation/ABI/testing/sysfs-class-led b/Documentation/=
-ABI/testing/sysfs-class-led
-> > index 123e3a15b7d6..ea113fed10ef 100644
-> > --- a/Documentation/ABI/testing/sysfs-class-led
-> > +++ b/Documentation/ABI/testing/sysfs-class-led
-> > @@ -101,6 +101,9 @@ Description:
-> >  		- `[foo_trigger]`: the trigger is selected and offloaded to
-> >  		  hardware.
-> > =20
-> > +		The "netdev" trigger also provides a custom attribute to
-> > +		indicate its state, see `/sys/class/leds/<led>/offloaded`.
-> > +
-> >  What:		/sys/class/leds/<led>/inverted
-> >  Date:		January 2011
-> >  KernelVersion:	2.6.38
-> > diff --git a/Documentation/ABI/testing/sysfs-class-led-trigger-netdev b=
-/Documentation/ABI/testing/sysfs-class-led-trigger-netdev
-> > index ed46b37ab8a2..203ea58396ed 100644
-> > --- a/Documentation/ABI/testing/sysfs-class-led-trigger-netdev
-> > +++ b/Documentation/ABI/testing/sysfs-class-led-trigger-netdev
-> > @@ -75,6 +75,9 @@ Description:
-> >  		If 1, the LED blinking in requested mode is offloaded to
-> >  		hardware.
-> > =20
-> > +		LED trigger core also provides a generic attribute for this
-> > +		purpose, see `/sys/class/leds/<led>/trigger_may_offload_to_hw`.
-> > +
-> >  What:		/sys/class/leds/<led>/link_10
-> >  Date:		Jun 2023
-> >  KernelVersion:	6.5
-> > diff --git a/drivers/leds/trigger/ledtrig-netdev.c b/drivers/leds/trigg=
-er/ledtrig-netdev.c
-> > index 5b4e92c14dbb..60409f054e22 100644
-> > --- a/drivers/leds/trigger/ledtrig-netdev.c
-> > +++ b/drivers/leds/trigger/ledtrig-netdev.c
-> > @@ -798,10 +798,18 @@ static void netdev_trig_deactivate(struct led_cla=
-ssdev *led_cdev)
-> >  	kfree(trigger_data);
-> >  }
-> > =20
-> > +static bool netdev_trig_hw_offloaded(struct led_classdev *led_cdev)
-> > +{
-> > +	struct led_netdev_data *trigger_data =3D led_get_trigger_data(led_cde=
-v);
-> > +
-> > +	return trigger_data->hw_control;
->=20
-> How sure are we that trigger_data can NEVER be NULL?
+Linux version 7.2.8-rc1 tested.
 
-The hw_offloaded() callback is protected by led_cdev->trigger_lock, see
-__led_trigger_is_hw_controlled().
+Build successfully completed.
+Boot successfully completed.
+No dmesg regressions.
+Video output normal.
+Sound output normal.
 
-trigger_data is set in the trigger's activate() callback, which is
-protected by led_cdev->trigger_lock.
+Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
 
-trigger_data is cleared in led_trigger_set() when removing the current
-trigger, which is, again, protected by led_cdev->trigger_lock.
+[    0.000000] Linux version 7.2.8-rc1rv-g54e8ef17140e
+(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.2.1 20260810, GNU ld (GNU
+Binutils) 2.47) #1 SMP PREEMPT_DYNAMIC Thu Sep 24 19:15:39 JST 2026
 
-When CONFIG_LEDS_TRIGGERS=3Dn, the code is not built.
-
-If the trigger is currently inactive, the callback cannot be called.
-
-Therefore, it can never be NULL when we reach here.
-
-Note that the trigger's DEVICE_ATTR_RO(offloaded) makes the same
-assumption, too.
-
-Thanks,
-Rong
-
->=20
-> > +}
-> > +
-> >  static struct led_trigger netdev_led_trigger =3D {
-> >  	.name =3D "netdev",
-> >  	.activate =3D netdev_trig_activate,
-> >  	.deactivate =3D netdev_trig_deactivate,
-> > +	.hw_offloaded =3D netdev_trig_hw_offloaded,
-> >  	.groups =3D netdev_trig_groups,
-> >  };
-> > =20
-> >=20
-> > --=20
-> > 2.55.0
-> >=20
+Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
