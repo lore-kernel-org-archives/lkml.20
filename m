@@ -1,184 +1,71 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1075E4A1E0D
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:40:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6853D35F5E5;
+	Thu, 24 Sep 2026 15:41:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790264449; cv=none; b=rJYFayqfeANPX1xFNzbiDSOlHU8/J/oNITCS7xxiv2779MPve4hh9rUk3ujtrAu1pEGX22kqGsv0JW6rArSuZ8apVI1N+X/M7+5KirLD1uxXAq+eVU98aWUZus0evc1PX3M+8fPr+I9u7gtI9JlHk4vxZDtXWgKvYHlD+tlVAEw=
+	t=1790264467; cv=none; b=rCXoMs+2ZJj9eltjAYP+TwcdvTiBLYf081E1J0kBfGEscPdgTDfp5qeJe1UFsasei3GWY9WqLYJ8tywzMw/N4KU1CQESj1fdp6Q+Qw9iMOhSEpL9diEmKgESc63MsAk4rx7nstEsY0wOhCe7G3M9WR2yBQfqxT2TjrBHsO7UMIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790264449; c=relaxed/simple;
-	bh=ebRN482VVZQBFZDNJ/BItFu5AC3xieWcbgywBhgRNu4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Sf2PG3sXYdQUTn0j+rpanFB0fnp1tj0a0taNCtSjElMg4XrC7xG7RV4NL0WnK1YsLIMqj/5UKS0eK0bwKhXZ2WbTetWGaS1LzMmwBI1VjJLp4B3/+Oj1isPw9BA9zWAsjDNCXyGqRfhcMl2UL+ocnM/umKt2qjkpibLf3S7SfGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kn/KW8RO; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790264467; c=relaxed/simple;
+	bh=LtHn9P4uY6JY/xbhTzibkgwLNpSB34X1PxZc9W7PLBQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=YSjVuE/quU3aPLPJv2KfI0DpIqIroF3lwe3SQHovO8KA7afBniSeRfNH1s+GbZTt3BD2fyJsbH3KGx6RukdYJv6JYpt0nif8qJKoTq1L0WEjyJQONV29moMkwD8LCbtiBbVA/1OCRAB/77UcSYC8uV/rH+X+ZYfraCREUnIdaWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VzHiL3yL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kn/KW8RO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790264447; x=1821800447;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=ebRN482VVZQBFZDNJ/BItFu5AC3xieWcbgywBhgRNu4=;
-  b=kn/KW8ROnlqAvXS4z1h3Cr6EpfaJwYOh8OSOXo/2h5EK/EfyeixSO+rQ
-   YAXATLjefTBy2CpU81F7w+eH8IMT7vooOPhpczEtHM4ak2LWntJLL77Ca
-   gQzaVmRkq7nITyzRt3reNZtv2HiiPTXXF8OS483VRS/FkHm6DFNhrAW7p
-   O/JiUD6Kfd1ry/KWdLazk7bLq2ipmloWkPjgZHoSGNj07lRhueG6X3NG/
-   o8CZFdeXOoG/qE8GTV5XwEmkoPGrYxiVDOx/NkiaoQeHFHgvhm+EQnGXb
-   gcRuP8CxRCLE6298uw6dtBH1EaKwqwyt1hvKzzt3sGh6byyvp+1B9qDel
-   w==;
-X-CSE-ConnectionGUID: JVeeoiZhToObpxJl1vXiMA==
-X-CSE-MsgGUID: rO9F9kFkQrKJOG8uk87ilA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="89902428"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="89902428"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 08:40:46 -0700
-X-CSE-ConnectionGUID: FrCd/KBDSEitB6yIqXSZ8Q==
-X-CSE-MsgGUID: a9jAGTrlSrCkUCokoUS5nw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="272193812"
-Received: from dwoodwor-mobl2.amr.corp.intel.com (HELO [10.125.110.186]) ([10.125.110.186])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 08:40:46 -0700
-Message-ID: <171b1c57-1588-4f39-8f49-f2445fe74a82@intel.com>
-Date: Thu, 24 Sep 2026 08:40:45 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VzHiL3yL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7189D1F000FF;
+	Thu, 24 Sep 2026 15:41:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790264466;
+	bh=737AHlLWlTvpEJAWRPNz2w3MkgeoOAn9THRqVlYYKfU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=VzHiL3yL6TbkX02oxLYwhTHjuCB+ABnYwszp742O3ieNIF5kD0chiqNwDvXGaIgq0
+	 1HH/rC+n/tdGlGABUny71B6+hdOCwHntEIAeySK0qQTi/GoWFnQn4nokg60L2dhHOj
+	 rde87vj6fE7KFV3zMAe6//yD8/ukbVtVE0OV6XWNxfHeV1N4hEzuEArV58bRQ/B4iG
+	 qgprjZbKLTH6Gdq6p8nK88xBy+AIJr6PB0Mn1HLw3kIp7idczA/Cm8Ke4X7GrkRNcv
+	 C3b/2mN/s7TPsEsUm37CyhNxL1ADxQ2td4s5aJPPsGfMEEOrHVo4ZDsJtlPtWSv24H
+	 +f2g3ME6L8BRg==
+Date: Thu, 24 Sep 2026 08:41:04 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: =?UTF-8?B?VGjDqW8=?= Lebrun <theo.lebrun@bootlin.com>
+Cc: <netdev-bot+sashiko@kernel.org>, <conor.dooley@microchip.com>,
+ <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+ <pabeni@redhat.com>, <horms@kernel.org>, <nicolas.ferre@microchip.com>,
+ <sean.anderson@linux.dev>, <atenart@kernel.org>, <linux@armlinux.org.uk>,
+ <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, <nb@tipi-net.de>,
+ <vladimir.kondratiev@mobileye.com>, <gregory.clement@bootlin.com>,
+ <tawfik.bayouk@mobileye.com>, <thomas.petazzoni@bootlin.com>,
+ <maxime.chevallier@bootlin.com>, <stable@vger.kernel.org>
+Subject: Re: [PATCH net 1/3] net: macb: never give hardware a NULL RX buffer
+Message-ID: <20260924084104.25099f60@kernel.org>
+In-Reply-To: <DLNN7LYYGP7L.3OSN8JZNC37PS@bootlin.com>
+References: <20260918-macb-close-v1-1-05e32ce98813@bootlin.com>
+	<179010942002.2160803.8691011751847108495@kernel.org>
+	<20260923184756.16ce33a7@kernel.org>
+	<DLNN7LYYGP7L.3OSN8JZNC37PS@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 04/14] NTB: ntb_transport: Publish link state after QP
- setup
-To: Koichiro Den <den@valinux.co.jp>, Jon Mason <jdmason@kudzu.us>,
- Allen Hubbe <allenbh@gmail.com>
-Cc: Frank Li <Frank.Li@kernel.org>, Logan Gunthorpe <logang@deltatee.com>,
- fuyuanli <fuyuanli0722@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Nicholas Bellinger <nab@linux-iscsi.org>,
- Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260910040836.3792333-1-den@valinux.co.jp>
- <20260910040836.3792333-5-den@valinux.co.jp>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20260910040836.3792333-5-den@valinux.co.jp>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, 24 Sep 2026 17:13:58 +0200 Th=C3=A9o Lebrun wrote:
+> > If the AI interprets the rx poll side correctly these seem like a major
+> > flaw in setting the USED bit :( =20
+>=20
+> Yes the AI is correct (unsurprisingly). But two things:
 
+If it's correct then patch needs to be changed.
+Please don't write puzzles for me to solve.
 
-On 9/9/26 9:08 PM, Koichiro Den wrote:
-> ntb_transport_link_work() marks the transport link up before setting
-> up the QPs' MW and peer MSI state. A concurrent ntb_transport_link_up()
-> can then queue QP link work, which may enable RX and notify the client
-> before setup finishes.
-> 
-> Publish link_is_up with a release store after setting up all QPs,
-> and use acquire loads before queuing QP link work.
-> 
-> Fixes: fce8a7bb5b4b ("PCI-Express Non-Transparent Bridge Support")
-> Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/r/anyKbq3mpLG4y7rb@SMW015318
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+>  - before this patch what happened was that HW read the NULL descriptor,
+>    so not much better
+>  - we can detect in gem_rx() using our ring buffer cursors that tell us
+>    what we've managed to allocate, that we gem_rx() doesn't iterate
+>    over descriptors that haven't been allocated
 
-
-> ---
-> Changes in v2:
->   - No changes.
-> 
->  drivers/ntb/ntb_transport.c | 40 +++++++++++++++++++++++--------------
->  1 file changed, 25 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
-> index c77b173dca01..75d4a2e021f4 100644
-> --- a/drivers/ntb/ntb_transport.c
-> +++ b/drivers/ntb/ntb_transport.c
-> @@ -922,6 +922,16 @@ static void ntb_qp_link_down_reset(struct ntb_transport_qp *qp)
->  		qp->remote_rx_info->entry = qp->rx_max_entry - 1;
->  }
->  
-> +static void ntb_transport_schedule_qp_link(struct ntb_transport_qp *qp,
-> +					   unsigned long delay)
-> +{
-> +	struct ntb_transport_ctx *nt = qp->transport;
-> +
-> +	/* Pair with the link publication in ntb_transport_link_work(). */
-> +	if (smp_load_acquire(&nt->link_is_up))
-> +		schedule_delayed_work(&qp->link_work, delay);
-> +}
-> +
->  static void ntb_qp_link_cleanup(struct ntb_transport_qp *qp)
->  {
->  	struct ntb_transport_ctx *nt = qp->transport;
-> @@ -941,13 +951,10 @@ static void ntb_qp_link_cleanup_work(struct work_struct *work)
->  	struct ntb_transport_qp *qp = container_of(work,
->  						   struct ntb_transport_qp,
->  						   link_cleanup);
-> -	struct ntb_transport_ctx *nt = qp->transport;
->  
->  	ntb_qp_link_cleanup(qp);
-> -
-> -	if (nt->link_is_up)
-> -		schedule_delayed_work(&qp->link_work,
-> -				      msecs_to_jiffies(NTB_LINK_DOWN_TIMEOUT));
-> +	ntb_transport_schedule_qp_link(qp,
-> +				       msecs_to_jiffies(NTB_LINK_DOWN_TIMEOUT));
->  }
->  
->  static void ntb_qp_link_down(struct ntb_transport_qp *qp)
-> @@ -1089,16 +1096,19 @@ static void ntb_transport_link_work(struct work_struct *work)
->  			goto out1;
->  	}
->  
-> -	nt->link_is_up = true;
-> -
->  	for (i = 0; i < nt->qp_count; i++) {
-> -		struct ntb_transport_qp *qp = &nt->qp_vec[i];
-> -
->  		ntb_transport_setup_qp_mw(nt, i);
->  		ntb_transport_setup_qp_peer_msi(nt, i);
-> +	}
-> +
-> +	/* Publish the link only after every QP has been set up. */
-> +	smp_store_release(&nt->link_is_up, true);
-> +
-> +	for (i = 0; i < nt->qp_count; i++) {
-> +		struct ntb_transport_qp *qp = &nt->qp_vec[i];
->  
->  		if (qp->client_ready)
-> -			schedule_delayed_work(&qp->link_work, 0);
-> +			ntb_transport_schedule_qp_link(qp, 0);
->  	}
->  
->  	return;
-> @@ -1146,9 +1156,10 @@ static void ntb_qp_link_work(struct work_struct *work)
->  
->  		if (qp->active)
->  			tasklet_schedule(&qp->rxc_db_work);
-> -	} else if (nt->link_is_up)
-> -		schedule_delayed_work(&qp->link_work,
-> -				      msecs_to_jiffies(NTB_LINK_DOWN_TIMEOUT));
-> +	} else {
-> +		ntb_transport_schedule_qp_link(qp,
-> +					       msecs_to_jiffies(NTB_LINK_DOWN_TIMEOUT));
-> +	}
->  }
->  
->  static int ntb_transport_init_queue(struct ntb_transport_ctx *nt,
-> @@ -2392,8 +2403,7 @@ void ntb_transport_link_up(struct ntb_transport_qp *qp)
->  
->  	qp->client_ready = true;
->  
-> -	if (qp->transport->link_is_up)
-> -		schedule_delayed_work(&qp->link_work, 0);
-> +	ntb_transport_schedule_qp_link(qp, 0);
->  }
->  EXPORT_SYMBOL_GPL(ntb_transport_link_up);
->  
-
+Grammatically dubious puzzles at that.
