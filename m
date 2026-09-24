@@ -1,44 +1,33 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE86D311946;
-	Thu, 24 Sep 2026 12:51:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3D26146EC8B
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:52:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.214.250.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790254274; cv=none; b=A+sJRNxDqL0H9XGLXwiZuTV71BDD0c0KW/kYAn12EegSPcppoQrF6M/P3R9B6/ihD2oHlyT/THgF4xv1oODVwoYKYumAmeBBaA9gNGFt1Y7OMdF1y4k0+3zv/v3R+/1if+qU62DXzqaW3W0aBD5upoNLTwlYOmdmG4NGbdABtZA=
+	t=1790254369; cv=none; b=kMbEOiF6jvlPJhv4YpmPKgsjSR5GhEOjYhLwrY1g6pdA14lSh4KsheiErF3ZNdivGw7Ky4Ty4ECJ9NxnYKZA4DSKXTfjUwR54Gu2ukHKwE8HhMPtHzqr0sdsuxiyL6u7vNexdVKa9h+v3QWy5oHlIk1VceZgbR+G/r+kwr6wyAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790254274; c=relaxed/simple;
-	bh=0NoCcowoVuCQyLtJFecCntna/RvD8szpkF05RojNLwA=;
+	s=arc-20240116; t=1790254369; c=relaxed/simple;
+	bh=nEAgWl8CnNrhZ8oAkdEcKHVJtleKvq6lmyvIKfjrStk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g/72S0jMFVC2EPJyNhjI9qJvM6VF8aWsiNXhuZdjlswvYxl4QMezMM/yEZ2cBfYG/fKePupdr4Irm7rFMaj9QJP0Fcfm6XXPdXOMOJMhGjHarQck+zEVcA6J0M6qWhkoTGLflQiywSOnvrCYIGnW1IyDWkL1w81812RKTQt9tCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=ib+gPErF; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="ib+gPErF"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=5PtMn6ukGg6gAsqu/cBjeIKvLMgTB7HQzRle6zjWATg=; b=ib+gPErFxsicRDZfSVfRrDJlO4
-	IkT3EdKg1TZSG65DPsXiMOKLswHDzpB1ribsEEgjOBBv8QYVaaUaELPrHmDfdtbwhy1ivOAOlS+D1
-	NvzQTGVjr7t0IL2dWZujkGGuJnj3BLReG2vj2PjacAR7UF93rO36MRvPSZScozxC0dzY=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x9iul-006zbx-9w; Thu, 24 Sep 2026 14:51:03 +0200
-Date: Thu, 24 Sep 2026 14:51:03 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, maxime.chevallier@bootlin.com,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, sashiko-bot@kernel.org
-Subject: Re: [PATCH] net: stmmac: guard FCS stripping against runt frames
-Message-ID: <8b3d8225-0d86-4e73-86c8-b7f644faef56@lunn.ch>
-References: <20260923162339.1375698-1-qwe.aldo@gmail.com>
- <arQ4dVkI9llhXCDx@lore-desk>
- <78724445-4c69-44fb-b82a-1f9275e37e9e@lunn.ch>
- <arTX2kNFGXLg7vdn@lore-desk>
+	 Content-Type:Content-Disposition:In-Reply-To; b=StCaxdHtRx0EUmc1PWDfrBZD1+nOlYenGCcbdrgD+k8SoP4JJhbTmoWmH3/jJAuHgWPyqR8rCJmcmW8Cs0Yh+XGOwWLUc0GW5Lf8obw3dt2eMNnp0wKMmUms9qSBxW/QQ7wEJNshMFukHhRH4BQ6qaHOQjlYcKg8/bHLwDyrZSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org; spf=pass smtp.mailfrom=8bytes.org; arc=none smtp.client-ip=85.214.250.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
+Received: from 8bytes.org (p200300f6af404a00e4ccc4fdbbd66590.dip0.t-ipconnect.de [IPv6:2003:f6:af40:4a00:e4cc:c4fd:bbd6:6590])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.8bytes.org (Postfix) with ESMTPSA id C66711C7465;
+	Thu, 24 Sep 2026 14:52:46 +0200 (CEST)
+Date: Thu, 24 Sep 2026 14:52:45 +0200
+From: =?utf-8?B?SsO2cmcgUsO2ZGVs?= <joro@8bytes.org>
+To: Rik van Riel <riel@surriel.com>
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, will@kernel.org, 
+	robin.murphy@arm.com, iommu@lists.linux.dev, liam@infradead.org, 
+	maple-tree@lists.infradead.org, linux-mm@kvack.org, ashok.raj@oss.qualcomm.com, jgg@ziepe.ca, 
+	kyle@mcmartin.ca
+Subject: Re: [PATCH v5 0/3] iommu/iova: convert from rbtree to maple tree
+Message-ID: <arUZwesREX05SZ0J@8bytes.org>
+References: <20260818152505.1057922-1-riel@surriel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,34 +36,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <arTX2kNFGXLg7vdn@lore-desk>
+In-Reply-To: <20260818152505.1057922-1-riel@surriel.com>
 
-On Thu, Sep 24, 2026 at 09:57:14AM +0200, Lorenzo Bianconi wrote:
-> > > > @@ -5808,10 +5809,10 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
-> > > >  
-> > > >  		/* ACS is disabled; strip manually. */
-> > > >  		if (likely(!(status & rx_not_ls))) {
-> > > > -			if (buf2_len) {
-> > > > +			if (buf2_len >= ETH_FCS_LEN) {
-> > > 
-> > > I do not think this approach is correct since, at least theoretically, the FCS can be
-> > > splitted between buf1 and buf2.
-> > 
-> > We are talking about runt frames here, so less than 64 bytes in
-> > size. Can such a frame be split over two buffers? What is the minimum
-> > size of the first buffer?
+Hi Rik,
+
+On Tue, Aug 18, 2026 at 11:25:00AM -0400, Rik van Riel wrote:
+> Occasionally production workloads at Meta run into the linear search in
+> alloc_iova() in ways that cause real issues. For example, when enough
+> CPUs at a time fall into the linear search trap, systems have been known
+> to get stuck for so long that it causes soft lockups.
 > 
-> Why are talking just about runt frames?  According to my understanding,
-> this codebase (at least the one in stmmac_rx()) is executed on all
-> 'last fragments'. Am I missing something?
+> This series indexes the iova ranges in a maple tree instead. Its gap
+> search makes alloc_iova() O(log n).
 
-That the patch subject is wrong?
+Thanks for working on this, I really love the idea and more efficient
+allocation complexity. For long-term maintainability a few things need to be
+sorted out, though.
 
-[PATCH] net: stmmac: guard FCS stripping against runt frames
+First, I will ask AMDs IOMMU driver team to do some performance and regression
+tests with this series.
 
-I suspect this is an AI generated bug report, a minimal fix has been
-proposed, but no actual thought applied to the situation, such as does
-the hardware even allow it to happen, does it apply to more complex
-situations, such as fragmentation etc. The usual AI problems....
+> struct iova loses its rb_node and shrinks from 40 to 16 bytes.
+> The maple tree keeps its nodes outside the entries, so total memory
+> use ends up about the same as before.
+> 
+> Patch 2 handles the one thing the maple tree does that an rbtree does
+> not: erasing an entry can result in the need to rebalance a tree, and
+> allocation of maple tree nodes.
+> 
+> iovas are freed from atomic context, and GFP_ATOMIC allocations mean
+> the erase can fail. When it does, the entry is marked IOVA_DEFERRED
+> in place and the struct iova is freed. The marker keeps the range
+> reserved until iova_drain_deferred() retries the erase.
+> 
+> Ashok Raj asked on v4 whether the marker store can fail in turn, since
+> the WARN_ON_ONCE there reads like error handling for a case the comment
+> claims cannot happen.
+> 
+> Code examination shows that, with the current maple tree code, the
+> IOVA_DEFERRED maple tree store will never result in an allocation,
+> and cannot fail. This series adds a test case which allows us to verify
+> that maple tree property continues to be true.
+> 
+> Only a corrupted tree, one no longer holding the iova at its own range,
+> can reach a store type that allocates. The WARN_ON_ONCE is more of an
+> assertion than a recovery path.
 
-	Andrew
+This is a lot for the interface contract between the IOVA code and the Maple
+tree. We need a way to test and enforce that the maple tree implementation
+adheres to the requirements of the IOMMU code going forward. You mention that
+there is a test included, not sure if it covers all expectations this code has
+(especially when the expectations are different from the ones in core MM code).
+
+The last thing we want is regressions in one of the IOMMU-layers core
+componentents because of changes to core MM code.
+
+
+-Joerg
