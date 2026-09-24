@@ -1,75 +1,112 @@
-Received: from smtpcmd03116.aruba.it (smtpcmd03116.aruba.it [62.149.158.116])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A41C147FAEB
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:59:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.158.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E46347F791;
+	Thu, 24 Sep 2026 12:59:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790254755; cv=none; b=lwDeo3mjhKFvo9RlXv0le4JfYY+3SyUCo68tM45Pa30JXJK2fQdBhkMSCTjQlftzWfXbRpd4jc32QX9j4PjrXl2nYfA4FYRtI1BNcZv5CsWdJ52azSQs0k0KbqQ67z7/pVHCOvZvFDx5I4ItawL2+H64HMnr2i1pQcPcJoijxlk=
+	t=1790254775; cv=none; b=t0XAuAV+8H6c56oEku7cEkbpEovuqriTFgwWI4/TOLWWr/Mc0pgW2WKYLgryYQQOVnCmf6nq5GKOGGhY1+P70HWbNmydZ+yxhFzVZdFJrIymP3Hf9XjTpw29Rjc8IxkOtV11tQOhk74KoV0iEnkUcQNwtNKBEaH//prmPiWhKB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790254755; c=relaxed/simple;
-	bh=saaJAsHl1r1u7VWi/mwJDLeoO4wgnHrHNat/fSaqdRs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ac3vcBHxaVJiiqoAJLFyYaNAvRz3LZHBdxKKYQS9jpLkM3k2KYoDc2PqFrrhxVYkFUU4snUXb7mbWR3Rl/CKl3+lDyFHloRrSfux4BTdnFh9jg+tJpWeIS9WyxBgeGEeQ0lvUofVI8A/B700ITpS/z/Yq9exefkQc2zaKMqdYyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=LEcw1TG8; arc=none smtp.client-ip=62.149.158.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
+	s=arc-20240116; t=1790254775; c=relaxed/simple;
+	bh=o/KsqEl3H+5QMgLEPJhIWjfwqb+FH/cffq3so3sqvgc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=VvD0mIA82kg1Mu7HOjXvhL7AyW9zJ372t6hQLlFN2hNNPcui7ZEgiBa2iV6X3nV1gV8KZPpsproEGXzkQQCod421Z1htEwyqR69LbWsWTDwmLkZuS+YS+XeoJtJ3102hK+b36kkfnaKdukr9j6Iy1k2n0MuDjKfZ/AD59/jb/EA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=06KWwfjq; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="LEcw1TG8"
-Received: from [192.168.0.186] ([101.57.122.26])
-	by Aruba SMTP with ESMTPSA
-	id 9j2exBOsldVTC9j2fxSpwD; Thu, 24 Sep 2026 14:59:13 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1790254753; bh=saaJAsHl1r1u7VWi/mwJDLeoO4wgnHrHNat/fSaqdRs=;
-	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=LEcw1TG8ZiVudimjNmveOmvS/l0T3xfXyQmP5/Tv5u2ctzvPxoyhrN7sJ1lsXw3cE
-	 +154sf/YTr/v92YGoucWpC0rZ4m1U59xsw2QwSJkaF2V7MNbMERh7ZIhjgCPcWZTY1
-	 va5eLcSxbdHt5PwZAOjoxUMnHHwFtQdheNvSJV1E60u+mrS4Vu0SRCciAFMZwqrND8
-	 B0Fmf6pv3DzqjaNkv+wTWUIpCE30bUB7I/DVFRcf1vypnA+0Eih7UH9hXiI81XRTS+
-	 RLxv1JSG0vS2gLKzFThrMjXaOUpVcKgzn7yMa3h/DF0UZOE8IO/ACt7JnZZkVzRUlu
-	 r9ku1OUOgg8tQ==
-Message-ID: <85e1e7ba-1b1a-4f27-9931-48966cde7de3@enneenne.com>
-Date: Thu, 24 Sep 2026 14:59:12 +0200
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="06KWwfjq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1790254774; x=1821790774;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=o/KsqEl3H+5QMgLEPJhIWjfwqb+FH/cffq3so3sqvgc=;
+  b=06KWwfjqwAIrVzHMUJpUBPc3yTvlIDjR6wAOk+xBL7WYCS2C9rkgKlMw
+   2XuPL30ZwsC3hPFFHL1hxtpB1Y1xmdttJu+87GV7IqAYrKMQvNDzVcgf9
+   9AS5RD8KK2zWEfFfi1lVlMf6TEq88qVKuOd+MWA0KIzeHscah0/dnTsDh
+   4sxm/LFgH4rC0GU5z97jw2rve/835tJwXk5o0q2c+J3yJKqDRbD+Y6UXJ
+   HNtigrjBO8C9BORebHKGB+QgLzGq/y+f/DrXx0NDgYaJiPbqjmktYM1qP
+   mq1hVjYuJf7DZ7KXoIE8JlCmJgXtnSZgGE8q6YmoK8v42yAIEVwnQCf0m
+   w==;
+X-CSE-ConnectionGUID: EiqD0fL/QCmRZjyCm/pSPQ==
+X-CSE-MsgGUID: F/Zc8d7WRnOE6aTTnlk1uw==
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="64097082"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 05:59:33 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
+ chn-vm-ex2.mchp-main.com (10.10.87.31) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Thu, 24 Sep 2026 05:59:32 -0700
+Received: from [127.0.1.1] (10.10.85.11) by chn-vm-ex01.mchp-main.com
+ (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Thu, 24 Sep 2026 05:59:29 -0700
+From: Ariana Lazar <ariana.lazar@microchip.com>
+Date: Thu, 24 Sep 2026 15:59:20 +0300
+Subject: [PATCH v8 2/5] iio: dac: mcp47feb02: protect EEPROM store sequence
+ with mutex
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 4/4] pps: clients: gpio: release pins to an inactive
- state on remove and shutdown
-Content-Language: en-US
-To: Eliav Farber <farbere@amazon.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Fabio Estevam <festevam@gmail.com>, Andrew Morton
- <akpm@linux-foundation.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260922103051.5257-1-farbere@amazon.com>
- <20260923182243.41060-1-farbere@amazon.com>
- <20260923182243.41060-5-farbere@amazon.com>
-From: Rodolfo Giometti <giometti@enneenne.com>
-In-Reply-To: <20260923182243.41060-5-farbere@amazon.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfGKjO74BqyaYtiPPREZI9wg/8H+XkcPHZgLGrTkQ8swRk6uoTWQ77W1O+rNcw3H/Kc2WVsSWgkwnCkeiktu5Lv8fEWyNszc0zJ6iXST/VK0YeSBG6IkI
- JDvhlwt6MbkGfvxA8pizDkaKojo/MrfksrU4yyguQLhL/iqM8BbwNBo/MoFMpKZFIDMp4+Ni4We87Glmr/TOZ1SpzXI9ke9Vt8meJCjokLrhOmBvNnjRPNui
- FmnzYWrQ08Dp0RqQxS0qURIeZZY9WoAWFX1UsfrI/+PmVkWag8DM1lcwqJZ/nSBs/VgVrXTuA3hn3xObYyzYZ6CEdbeS3/ozIyv6FLRhUWIAyrrqHO7Z4XUV
- b18JM1b7yeGjFZZvkyUGlV+FsYhqeAtC5Gn9wJL75GrlcLX9N2a/r4J7zYzuhK2A0FU6zZaEvKKEHHehHqx3zGF6jXwpKxKIWDmjE9CjNDItgnCWs9mZAiBV
- HXWwFafkTkVGEtGXpnB/ej+yss34Vcv2oK5sCAAh8tYkbRcnBro5uA1ltjeBdFzs4mNzFCiUzIDU0pbIimPPdgTOvhNfbgyNTf1GhA==
+Message-ID: <20260924-mcp47feb02_refactor-v8-2-17dc2ce3485e@microchip.com>
+References: <20260924-mcp47feb02_refactor-v8-0-17dc2ce3485e@microchip.com>
+In-Reply-To: <20260924-mcp47feb02_refactor-v8-0-17dc2ce3485e@microchip.com>
+To: Jonathan Cameron <jic23@kernel.org>, David Lechner
+	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
+ Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: <linux-iio@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, Ariana Lazar <ariana.lazar@microchip.com>,
+	Jonathan Cameron <jic23@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790254762; l=1458;
+ i=ariana.lazar@microchip.com; s=20250825; h=from:subject:message-id;
+ bh=o/KsqEl3H+5QMgLEPJhIWjfwqb+FH/cffq3so3sqvgc=;
+ b=Qw4KVgfL7IkLpnK2Kmf8LGhtsNLNUqsqTP9CFCa9rwTDMEO383VO4o/d46yAKJV1o50LFkDA6
+ atRebzsRs0rDefctCQbhdVCA7XxbKkF/5k0BVlvX8mNDQZ+J24IpsvC
+X-Developer-Key: i=ariana.lazar@microchip.com; a=ed25519;
+ pk=jmvf1fSxcnzZmXfITM3L94IwutM+wqA1POQHiYyD6Dk=
 
-On Wed, Sep 23, 2026 at 06:22:43PM +0000, Eliav Farber wrote:
-> Convert the pps_register_source() failure path to dev_err_probe() too,
-> so all three probe error paths that share err_release_pins log the same
-> way. This path already returned PTR_ERR(data->pps), so this is a logging
-> change, not a fix.
+Move the mutex lock into store_eeprom_store() to prevent race conditions
+when reading volatile registers and writing them to the EEPROM.
 
-That reads right, thanks.
+Fixes: bf394cc80369 ("iio: dac: adding support for Microchip MCP47FEB02")
+Closes: https://lore.kernel.org/all/20260819125128.970911F000E9@smtp.kernel.org/
+Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
+---
+ drivers/iio/dac/mcp47feb02.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Acked-by: Rodolfo Giometti <giometti@enneenne.com>
+diff --git a/drivers/iio/dac/mcp47feb02.c b/drivers/iio/dac/mcp47feb02.c
+index 349574bc7489d9e5ac9722c3abbaaab0d2c3350e..8f8a67919cc2ecdb203ad350174bac2be1a307dc 100644
+--- a/drivers/iio/dac/mcp47feb02.c
++++ b/drivers/iio/dac/mcp47feb02.c
+@@ -440,8 +440,6 @@ static int mcp47feb02_write_to_eeprom(struct mcp47feb02_data *data, unsigned int
+ 	 * Wait until the currently occurring EEPROM Write Cycle is completed.
+ 	 * Only serial commands to the volatile memory are allowed.
+ 	 */
+-	guard(mutex)(&data->lock);
+-
+ 	ret = regmap_read_poll_timeout(data->regmap, MCP47FEB02_GAIN_CTRL_STATUS_REG_ADDR,
+ 				       eewa_val,
+ 				       !(eewa_val & MCP47FEB02_GAIN_BIT_STATUS_EEWA_MASK),
+@@ -467,6 +465,8 @@ static ssize_t store_eeprom_store(struct device *dev, struct device_attribute *a
+ 	if (!state)
+ 		return len;
+ 
++	guard(mutex)(&data->lock);
++
+ 	/*
+ 	 * Verify DAC Wiper and DAC Configuration are unlocked. If both are disabled,
+ 	 * writing to EEPROM is available.
 
-Ciao,
+-- 
+2.43.0
 
-Rodolfo
