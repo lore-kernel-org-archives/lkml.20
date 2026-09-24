@@ -1,245 +1,139 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BECEF401A18
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:51:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 090353E558C
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:53:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790290318; cv=none; b=SzILmXrF67TckSt+hq5ULdFq+wyzQNOBf/z+TXJZjCMbc8s2tC9RZlfXDYcD1WB6dZ7Qu2EXtjQyfXKHbhZjGQ/IGGd5IIv54QeVPkDRXRPzCpN7Utjv0p2YkuzxaVOiqee3lEyRqUT7xk6ytd9doqR9hyNjZs4gqNxe5zaEp34=
+	t=1790290424; cv=none; b=lZuo8OJ6RXuucl9GcZ7fSK7QfX5h+cvtnVnGyi+LPM0XkbEekokTTUsSBFSjiCkjGcy6MAvkV9YVaH4dKLaAUuUhmkOPyyxy/QrRDiQkq9BeoX1YxZhP6ctq0xGLqmUaVer4fBszh3B+Edk+x8zh0wdVUjth+IofZPipZqXbBUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790290318; c=relaxed/simple;
-	bh=62XiZv6zk3rTKUR1/CJN607c+3Nv6L/9YqYGWxYk92A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RgN1xTHWQhOg3DrjeJo1+G2/vfPmTv8kYvhB0YfQVI9p4d4alLGv/GX2BUEJ7aXxKax5ILc5HdC3BNHsAYy2d6dIaFUcYQu4aQE32FDjPzF/b2rMpenLUcsXnD54hSRBOeuO0Ivcv0pEt/tTcfvejLpW07AU/S01v8YT0KMVak4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jr7MkNWE; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790290424; c=relaxed/simple;
+	bh=iZ+xWnTaiwYqY244ouiVEpHW7Wth/ThJfp2DnzItInI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VwNd4vDy4HTmFkPi+j9Ogxz3p2uTbXI3Nh2oCWcAA6Uoz0O1Cz/JZQZ4gXa1qFUDGI4Lt0va7Eb98/veVISTMMRsN0rLhaNb7KushNqsIZdHzFdZwQpiooNvPH/s7ZjvWNlgtrsBIrPdECMvcc3dLZ46L4fb4RPWaUdXt/Bug6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=jdSaFljT; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jr7MkNWE"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1ca5b0d6so2344675e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:51:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="jdSaFljT"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e6b4e33e4so279764eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:53:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790290315; x=1790895115; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DY4/sCTlc60wxmtt4c/QaqdPIrvNF/5bj6Z1Qp+fliA=;
-        b=Jr7MkNWEv9EYHPscJTXfpurWeYrYnCM+0e9DH3RLK9v+Nzxzgy3jxSmw3Rz3HEmIeM
-         vc8RvLFYRO3qGRbf2Ab6qQZd8G+2zmeNFT1kR7r0K1BIumx0TyHU+TPNUmg4K7itAeCt
-         KqSB8clSDNfg6p2TZHy/2Xg+HH9Y70oOO+JLGLlPyAtpB048S9L9LfO8EiyEPT9w5ncO
-         O9xTcLFXKKweYgvlRQoGX7c9W0QaNUKpi3OTzmA7r0lvpgI5Mtubsx9+3vjF7lnwRrYq
-         HvPGtjDoVqqmO3uNUaE01pxfloL+FrLDw2FtO9/QOI+DzuBwtCVFKscHyN2qzVb6EvJF
-         veTw==
+        d=ziepe.ca; s=google; t=1790290422; x=1790895222; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HkHFg2PAsl7Q9sZ/6W2u68QBDReBA8b5w0p9gEJFVho=;
+        b=jdSaFljTli1plzX/hr/fLlSUKOf0gQVV4iDlrLVhr+fznUA1rH6AeMNPoT/KvwIUvh
+         kt2nd6sJoI4onq3Q0ozuZT70qy7PfwUGhdAOnhU0RGSrpskMhS02mF/0pYlTJWR0M9sz
+         L+76mrK7EFxqN8ORwd9aKLXxDxkG+BiPsO6xntKrcRhufxs7JSGnMjBYfErqOqk9KsiD
+         vPoUxSoY+zFAYZg0hyowmfSyFLr6jEr3iSEJVFroh8+msaYppDTa1Ut8dGDRz5pbnYfA
+         P5viOz8cjIxxKCLuAIP6+xU7kGrxx6dc9mr9UWVScqjrLLZNrcfuSZkkTF210Bs3ph+z
+         4OYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790290315; x=1790895115;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DY4/sCTlc60wxmtt4c/QaqdPIrvNF/5bj6Z1Qp+fliA=;
-        b=LnwtI70apI70UYE3LFoDRmXmDzgQ3VRVAAvQWvWhEBqOukH40PQJcwKXgqzp/wpcbM
-         Wz0bBmDbLe+2U+7lbbrMfBteK7xwBxAnwC9+98z5ND+u0mrdKbX/kmNtkQAKziPEz45o
-         bkpWHluK9OWH50BYVIaOb99UL7dWGoYLhnnoVMSoKttbhH4h3s9tkl2HYcqV1bExmYYy
-         gobipYaRgd/0O3tHVeE8Uue3zr3SXnBPrZse00zBQaFxsYs05ncDo7ai0xlJvXGri7FE
-         zljuGa6UMzDVuAAz52KyrWcsF65YusQFQtVqW9p9YgMKWH3AMkTPeIABlukYzIczVlB/
-         aoRQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw7EQw5HcjUXs+Pd5AI1vqGdEpX3CTzPLBcREk9r5VJiFLs7HXcsbJrCMMVo2vRm+uJW3ere/i0zRlsJAw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgGZzZthk03fHFQT4H7r5jWpSQG5FRZWtl+UcGh1tLFQtzNBVB
-	8IMea5ZZ9DXKJmDW0QfDNDQoNvZn+dYvebm5rZXkAVuNixveBqCK8qJo
-X-Gm-Gg: AYBFou1Zhq0K/P/33hVTO4HQuXnH29jC7S4uRKOdaBzXCCInTCewscVVR5j7HXHg8jK
-	6jgpOY7ewTRwtEdh8jKDUKO0HHhsJvhx9Nyikupp/0LjKz6a6nGI/tumYEEpAPtV6jOuQtSfkdJ
-	jm+/PLV2f6/aCtGUGUvvXFku7S81JALJGmscmlQiwBPP7OTQeqx6x7Do1w1iPhrNZ9xTw/x5UO9
-	CfyFz+w191GivkEE4bRvPx7DM7lAQhnVL7dqfAilWyUIGLJlEf0RvkP4Rr5G1JpILPwl64tWhVF
-	LEZgTJkebFYktZr5ycV01Xtl7vAMdU5bJCpnhry9XiK+QTe6dVv1Uhlgi5EylKGKQFjT7bBZUau
-	4X6rZ2voURjqe5w9XvBSzLy8/xpkBeeQsD1Bq7j9BtBO99CMHNIxMHNtsVMjCbSyOEe8b1WbAeW
-	KbvBX5thjM7mfcFm19deZMiJ5kvkF6G/guiHDi3ls0eKC4cmA53ZIKu3N6Gfiy3C8Gbtgb5T6bk
-	YvNMPcwNCUo8WQdxSWMR7hb1o0bkFGWp7pbqIUgrpVbJGv2UV0TwBw8fwtefnbwz1tkxUwkYv20
-	/MxNByZmtbx5xUehAvTfppQvXmc=
-X-Received: by 2002:a05:600c:1d28:b0:49c:fc6e:8cbd with SMTP id 5b1f17b1804b1-49fe66fc677mr74153985e9.33.1790290314882;
-        Thu, 24 Sep 2026 15:51:54 -0700 (PDT)
-Received: from 1Z10 (mob-176-245-31-160.net.vodafone.it. [176.245.31.160])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5ce4941sm97253225e9.6.2026.09.24.15.51.53
+        d=1e100.net; s=20260707; t=1790290422; x=1790895222;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=HkHFg2PAsl7Q9sZ/6W2u68QBDReBA8b5w0p9gEJFVho=;
+        b=ZVpBfZZWkOSi5aEQYFQWSSgCHQO6mDnZHkv0EMWgUl6qpgHqTvyh/iZnK3AS9UVVrd
+         5Uj+wMZBQPqG5JlC5i2rqmLVYktK2gXu/sO2FpTad1DePO4S56D5LzZ7SHXudI7velsJ
+         7Wip8E4bhDZDDsN79OfwcYVsEonabC5IVPKTfAMqVtI2gf2zPxX9IeYkaF3JWP53MTHW
+         8h4gzRncyQjeUNocFEJyreNMVeEyDUwS8vjBxBs/AUQlsKi7hwBrUjF7xifKjKGf8alz
+         FOCO5Sm9GTxeroW5Y/T07vp5m11WoniVpJzhG7UzZrHlCZPno1lkEGHfU1jSM6FWMHFs
+         pudQ==
+X-Forwarded-Encrypted: i=1; AKwUvByDByHbgVediE8o8cUbuuZVsmJzWvkHorunxniVbpfQ9NPMvl8/os2UF5x6BUozyktFGsfaIVV9UnSRy48=@vger.kernel.org
+X-Gm-Message-State: AFuF++kbuOJYaRtGw7tdxJHixd5iQpqIPTbkWoig7Px5M40KSCd3Vzom
+	IeMYSv2s4yJd6G9VaTDiBX7e532kgoCLi7l8AwzTyrd+qlT/m+Vqs2TN4pGecagrP2Y=
+X-Gm-Gg: AYBFou2Y/fmo3oQlTnkofHCgJb1bs32O4+qJyppAkEk+muTOo+wCLV9EH4vXttkgYxI
+	sKnu/EBAyDbv9WSq1cCNq98teuE7oXnvb4CZ5M7gKP2I0Me4q0EmzIYYUAq37grG+jOU33DUEHe
+	UkX91vYSyDhQpIBwM1XE/kUyfaWAuaNcTJQBInEEB+TRHZ1eAW1pNb0dUyu+VJ/shYoyRSNOcTp
+	kw+qqPRcYYeVR9ht6zdF+G6eMXEUZnpvtW7FeNWyrK9FL1hzQLohxIGbmlOyxc/lM/6dzJCUdwd
+	9woH76PJ5QQecOlAyNpoZeC5l/1c3GTpwjKDXBGSZ/wqlcf/hKpt0WVnbE07ckWK1Aw5DHkCh5L
+	o3voPaL0zj/NgJyXxRchYuIIGIXtFAcr6kJjYEqfD9THbGcoL+PKfESwMig2+PixvDe8akH/n2T
+	eO21jKJstYA1xHXgEpjalWe84rqpTd/aq5FOvzKb44J5qnQg==
+X-Received: by 2002:a05:693c:829b:10b0:33b:d89e:9fb2 with SMTP id 5a478bee46e88-34000f36181mr3727679eec.4.1790290422026;
+        Thu, 24 Sep 2026 15:53:42 -0700 (PDT)
+Received: from ziepe.ca ([130.41.10.202])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34141d2fe4bsm1631877eec.4.2026.09.24.15.53.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 15:51:54 -0700 (PDT)
-From: Maurizio Casciano <mauriziocasciano7@gmail.com>
-To: Sebastian Reichel <sre@kernel.org>
-Cc: Hans de Goede <hansg@kernel.org>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] power: supply: core: Honor supplied-from with CONFIG_OF=y
-Date: Fri, 25 Sep 2026 00:51:52 +0200
-Message-ID: <20260924225152.985489-1-mauriziocasciano7@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Thu, 24 Sep 2026 15:53:41 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x9sJw-00000000efs-2Wk8;
+	Thu, 24 Sep 2026 19:53:40 -0300
+Date: Thu, 24 Sep 2026 19:53:40 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Daniel Mentz <danielmentz@google.com>
+Cc: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Prakash Gupta <prakash.gupta@oss.qualcomm.com>
+Subject: Re: [PATCH v5] iommu/io-pgtable-arm: Add support for contiguous hint
+ bit
+Message-ID: <20260924225340.GC16465@ziepe.ca>
+References: <20260921-iommu_contig_hint-v5-1-e7fbd1c3774d@oss.qualcomm.com>
+ <20260924001502.GO1540250@ziepe.ca>
+ <CAE2F3rCVh0CmW6+a__PcCrBgsMJVompKJX_qYBdQ=exj3bYtCg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAE2F3rCVh0CmW6+a__PcCrBgsMJVompKJX_qYBdQ=exj3bYtCg@mail.gmail.com>
 
-The supplied-from device property is the name-based counterpart to
-firmware-node power-supplies references. It was added for non-DT platforms,
-but its parser is compiled only when CONFIG_OF is disabled. CONFIG_OF is
-a global kernel option, so x86 systems commonly enable it even when
-individual power supplies are described by software nodes.
+On Thu, Sep 24, 2026 at 11:49:50AM -0700, Daniel Mentz wrote:
+> On Wed, Sep 23, 2026 at 5:15 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
+> >
+> > On Mon, Sep 21, 2026 at 04:44:07PM +0530, Vijayanand Jitta wrote:
+> > > From: Prakash Gupta <prakash.gupta@oss.qualcomm.com>
+> > >
+> > > Add support for the contiguous hint (CONT) bit in ARM LPAE page tables.
+> > > When a set of consecutive PTEs map a naturally aligned contiguous block of
+> > > memory, set CONT on every descriptor in that group so the hardware can
+> > > combine translations and improve TLB reach.
+> > >
+> > > Advertise the supported CONT group sizes in pgsize_bitmap. Callers select
+> > > those sizes through the normal page-size selection path; io-pgtable-arm
+> > > then installs the corresponding tagged descriptors directly. A partial
+> > > unmap of a tagged CONT group is rejected before modifying any descriptor,
+> > > so a rejected request cannot leave the group partly unmapped.
+> > >
+> > > The IO_PGTABLE_QUIRK_ARM_NO_CONT_HINT quirk allows SMMU drivers to disable
+> > > CONT support for hardware with implementation-specific errata.
+> >
+> > smmuv3 has this errata, it must be disabled there too. I didn't notice
+> > it in this patch?
+> 
+> SMMU is an architecture specification. I am not aware of errors in
+> this architecture specification that would preclude the usage of the
+> contiguous bit. I understand that Arm MMU-700 has the following
+> erratum
+> 
+> 3777127 Under invalidation in TBU possible when using contiguous page
+> table entries
 
-Consequently, these consumers never populate supplied_from and supplier
-notifications do not reach their external_power_changed() callbacks. On a
-Lenovo Yoga Book YB1-X91L, ftrace showed the Whiskey Cove supplier
-notification running without invoking the BQ25892 callback, leaving the
-input current limit at its boot-time value.
+And a neoverse one too.
 
-Use a single power_supply_check_supplies() implementation for all
-configurations. Preserve firmware-node power-supplies references as the
-preferred firmware description and use the name-based supplied-from
-property only when no references are specified. Continue to honor an
-explicitly provided supplied_from list first and propagate errors from
-specified firmware references.
+> The recommended workaround is described as
+> 
+> "Ensure that contiguous page tables are removed using a single range
+> invalidation. Arm recommends using range invalidations to remove
+> contiguous entries anyway for performance reasons."
+> 
+> and I believe we are already doing this.
 
-With the fix, ftrace shows the BQ25892 callback on hotplug. A boot-offline
-test changes its input current limit from 500 mA to 2 A.
+No we aren't. Go read my fix on this:
 
-Fixes: 58a36bb06891 ("power: supply: core: Add support for supplied-from device-property")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
----
-Changes in v2:
-- Keep firmware-node power-supplies references ahead of the name-based
-  supplied-from fallback, as requested by Hans.
-- Propagate errors while resolving specified firmware references.
-- Use one power_supply_check_supplies() implementation, as requested by
-  Sebastian.
+https://lore.kernel.org/linux-iommu/1-v7-e84261bbe7cd+2ea80b-smmu_tlbi_jgg@nvidia.com/
 
-Link: https://lore.kernel.org/r/20260901145156.3177187-1-mauriziocasciano7@gmail.com
----
- drivers/power/supply/power_supply_core.c | 84 ++++++++++++------------
- 1 file changed, 42 insertions(+), 42 deletions(-)
+I have another patch that fixes it for iommu domain mappings too.
 
-diff --git a/drivers/power/supply/power_supply_core.c b/drivers/power/supply/power_supply_core.c
-index 47e307709e5e..945052a8371e 100644
---- a/drivers/power/supply/power_supply_core.c
-+++ b/drivers/power/supply/power_supply_core.c
-@@ -190,7 +190,35 @@ static void power_supply_deferred_register_work(struct work_struct *work)
- 		device_unlock(psy->dev.parent);
- }
- 
--#ifdef CONFIG_OF
-+static int power_supply_check_supplies_by_name(struct power_supply *psy)
-+{
-+	struct device *parent = psy->dev.parent;
-+	int nval, ret;
-+
-+	if (!parent)
-+		return 0;
-+
-+	nval = device_property_string_array_count(parent, "supplied-from");
-+	if (nval <= 0)
-+		return 0;
-+
-+	psy->supplied_from = devm_kmalloc_array(&psy->dev, nval,
-+						sizeof(*psy->supplied_from),
-+						GFP_KERNEL);
-+	if (!psy->supplied_from)
-+		return -ENOMEM;
-+
-+	ret = device_property_read_string_array(parent, "supplied-from",
-+						(const char **)psy->supplied_from,
-+						nval);
-+	if (ret < 0)
-+		return ret;
-+
-+	psy->num_supplies = nval;
-+
-+	return 0;
-+}
-+
- static int __power_supply_populate_supplied_from(struct power_supply *epsy,
- 						 void *data)
- {
-@@ -262,22 +290,21 @@ static int power_supply_find_supply_from_fwnode(struct fwnode_handle *supply_nod
- static int power_supply_check_supplies(struct power_supply *psy)
- {
- 	struct fwnode_handle *np;
--	int cnt = 0;
-+	int cnt, ret;
- 
- 	/* If there is already a list honor it */
- 	if (psy->supplied_from && psy->num_supplies > 0)
- 		return 0;
- 
--	/* No device node found, nothing to do */
--	if (!psy->dev.fwnode)
--		return 0;
--
--	do {
--		int ret;
-+	for (cnt = 0; psy->dev.fwnode; cnt++) {
-+		np = fwnode_find_reference(psy->dev.fwnode, "power-supplies", cnt);
-+		if (IS_ERR(np)) {
-+			ret = PTR_ERR(np);
-+			if (ret != -ENOENT)
-+				return ret;
- 
--		np = fwnode_find_reference(psy->dev.fwnode, "power-supplies", cnt++);
--		if (IS_ERR(np))
- 			break;
-+		}
- 
- 		ret = power_supply_find_supply_from_fwnode(np);
- 		fwnode_handle_put(np);
-@@ -286,48 +313,21 @@ static int power_supply_check_supplies(struct power_supply *psy)
- 			dev_dbg(&psy->dev, "Failed to find supply!\n");
- 			return ret;
- 		}
--	} while (!IS_ERR(np));
-+	}
- 
--	/* Missing valid "power-supplies" entries */
--	if (cnt == 1)
--		return 0;
-+	/* Fall back to the name-based property if no references were specified. */
-+	if (!cnt)
-+		return power_supply_check_supplies_by_name(psy);
- 
- 	/* All supplies found, allocate char * array for filling */
- 	psy->supplied_from = devm_kcalloc(&psy->dev,
--					  cnt - 1, sizeof(*psy->supplied_from),
-+					  cnt, sizeof(*psy->supplied_from),
- 					  GFP_KERNEL);
- 	if (!psy->supplied_from)
- 		return -ENOMEM;
- 
- 	return power_supply_populate_supplied_from(psy);
- }
--#else
--static int power_supply_check_supplies(struct power_supply *psy)
--{
--	int nval, ret;
--
--	if (!psy->dev.parent)
--		return 0;
--
--	nval = device_property_string_array_count(psy->dev.parent, "supplied-from");
--	if (nval <= 0)
--		return 0;
--
--	psy->supplied_from = devm_kmalloc_array(&psy->dev, nval,
--						sizeof(char *), GFP_KERNEL);
--	if (!psy->supplied_from)
--		return -ENOMEM;
--
--	ret = device_property_read_string_array(psy->dev.parent,
--		"supplied-from", (const char **)psy->supplied_from, nval);
--	if (ret < 0)
--		return ret;
--
--	psy->num_supplies = nval;
--
--	return 0;
--}
--#endif
- 
- struct psy_am_i_supplied_data {
- 	struct power_supply *psy;
--- 
-2.53.0
+Jason
