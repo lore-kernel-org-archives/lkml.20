@@ -1,150 +1,111 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3E142E8F8
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:30:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C8142E8F8
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:30:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790235008; cv=none; b=MdbPlKosUFLivqkyyfa33CnpRDSX5vbzlkzZ6b4dT6ZWEpwx5mzjHseZKirCMzPAWf3nJg2ZMV6jp2YYcLsViTICEzXFi6cTm8ChbtsxEP3nA/ydvQdAYoXxFRWSKD9b+CsP8jJwlKzJx4WwKEsuQTDUmlrorCNLQWH8fuxFnBY=
+	t=1790235016; cv=none; b=tvzKoNvlPaDBADEGmKTnyvz1AORefddZ9fe6Z5B8M64SQrDT2dvDm72eDhxqcdYzknmgJOOztPJCUK/pmAwoqIowU9cE69eG+p56C6i3+scO9QjCU9cJDeMXibOTpQA2ItaWTMX3PBj2sC+N52mIV4TQLe+RXMdCzHOIkh6rkrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790235008; c=relaxed/simple;
-	bh=uLnagpfUFVqNy8Hx6YY4OSsrTwJNd/dKrsdS6zcaC5A=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=PcET60rYbAmzh93CW1+G5Ff4vF7dzBUu77HyC3CclBHU3dBYfA4TQ7GnebdQ9YX4Sn35eiICHCRuCOyP4ZZEQnr5JEBv1rYncBMLWHLneuhnCkvD80sa0U2YowzQ7N4fdo2gmc/L7Y/LAvZX3k6glNLFs0HDnGwovDXL4wkN2K4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=HBfQbUYa; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790235016; c=relaxed/simple;
+	bh=khuHVzocWsqQdCp4xd38UXxEEbCRvbCsdj0A3wtdC/A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZBYiJf2EtnR/bn0D1HEJhulZU/wLgk1hWonwuzj1+KylcOGkXVpfNS8euiRat3XBOnL4TVwn3hEmFBT14vvEgxu1BooJIfueabd+RTKOI36qbEGCEaa38/qDatLwZSxcbq2OKsb6iqBLjyLYkBxIVipNXFo4PkeoMulWfx17zbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oCcbPWC6; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="HBfQbUYa"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so9627585e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:30:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oCcbPWC6"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398c066106cso1051371a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:30:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790235003; x=1790839803; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Mdc4xxWsL55mn3imyt0LizMFSY4UfYvhYLzlk2F0w9U=;
-        b=HBfQbUYadkpBJvEeftpMYsA9H2eDOHHBeXZb6/tTo95bkBiTqEEVk6EUNtcbUKNqhz
-         3TEZBI7qfSsBWG/qE/Wzdz3jc1kQatAr8yp5g3i/AwvqISj2/RW4cZS8sJUFCgH/J1fB
-         uDUybzSuIw01kr6cPFGw3LM1Z6pXjQguyquvtlhpPTRDjip5S2uPRDtEYutkpxGH9WuM
-         1+EzT/gZVTZmnP7ebKZHdo5Nj+E39kdaSAOgncx62Iro4hxCWpGMGsD9KMxo557bG/Ps
-         Ky/wEcFbY1kz6nMp9V/b1LZPaN5gKz7rDgEysgJ5sI60ruRBA0+d49oTIF+MdTEZj443
-         gbKQ==
+        d=gmail.com; s=20251104; t=1790235014; x=1790839814; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Kgip3jFcH5aQqUb4V/BMgffhYqMwWeXQnhdcCBzw/vY=;
+        b=oCcbPWC62e/S26kI/VsGwkRwfhy4mn8Txgr3kRdE2W0t466obIipCtgVSDDtEmbOcH
+         yvmtzj9NHkrv0JJMo9NPhknBmutPAS29VKpmPNV7nDQyzRxhVYGd21F2vR8mjBqKAD9K
+         aS0vlHNQ6Ghww7+qT2ZAsik9mZgdUG537shXgyKCIIyT32p0ju880u4KEzUHKQ6+9/7W
+         dMu377pW7oLC1IQ0FOOXi8u4h0jGylGUkTbQw3rXt6d0fv4dvBxeOnKO/+YFeUc7Fis9
+         J6t4sndk+malzMe/dvqT0bZ57C4WjwTk066kHkuqGooUSGJEW7Mz4Rp3UNtsB9/+TfTn
+         2NOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790235003; x=1790839803;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Mdc4xxWsL55mn3imyt0LizMFSY4UfYvhYLzlk2F0w9U=;
-        b=vIXwdPEugpBqPucEFdIeJCPoPWzOCG5MOnP5cw1VevTvTw5C9hQqnTfB7ywyDTbeyS
-         Lyt9NvySBZnAausKd4sQUIlfndk1xK2E9uwrgAavAHOWFseKowuoHlhgRbE6Vh7Go4RL
-         kV5es8xYSF31Ahs2DRJUk7dMs55x84hzx3IBnJEcgbA/y+8ObELynAgkt+W+7cCvQgzh
-         YayMlhkvQBekukXGyeEptCXBbN3pUKb87btRt8p1Yx4GwBb0ajpv1wJvPjOYRK8vGLgQ
-         bn37cTBgKhGaPR4nxLJQPOQkmewXwn3TjX88lh1BIMvAriJMU5UcAFL/+nTjKKLwaasE
-         5jSg==
-X-Forwarded-Encrypted: i=1; AKwUvBy1jRTD9KjM+SH+ssgAgAOd4nU1LMEsEDW624Y2foleYR0pYCT4Js0PmaWWNgHDtEHc7iE71ep81F9COBc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mBjiOfHl7jy3W7FDtCNKy1H3H46Wju8JIEP7l0c4uf9aU56Ccm
-	OUNhWyYkY0k4S90H1fXT7OQwU7Rs6h5/Uqz8I1plTsqrb7C68095FcokU6IdTLjFWUA=
-X-Gm-Gg: AYBFou3L1erL2yEORefAttDZBhBc2OK65vlTOg6aa5l0J3u5cnLhzGeelJLTWKqEUy/
-	8ivhFl4/1+M+uQnnIpbTdXjcqJUBFD3tWER70Erdy2mZvQy/eqygPxdQkijC4RYtHPYA3ETcdQo
-	c31wP2+6xHF/FDKkF5R3zgEw1UT9r1xIOsPpaAan+JsaDZ2KUAS0RxcfYcVMUx14MnGFR0JNvKI
-	mQ/pfBpHkyXHdd9+tTVlY1+My7APWJs44hwyg4jZq/iy+fSC1h4NV41w94mM+PZEzrhbO1okB+v
-	peXl3eSp9fP/k1SpK2yfiKA9ZuXUMkXQXcjx4Yry0FS9N0uPDAuyd6nh8bbq/GFPSluXBqxNhi8
-	DcRRXc6S+wwbq13wfvEbTk6JT+fEYP2kZUZqqiUY3UnkueRv3Hcp3XCLI6mrvH0UqK+nQG3IopG
-	ZhooIEYNgMrDxVSLUqEbk1dIATohTiqth++2AGDjQV6WQG3xb4e128Z4c6kcC00P92dWqLgR2oq
-	J6l+FWdH3Ds4E5/oQ==
-X-Received: by 2002:a05:600c:a47:b0:49e:823a:9dec with SMTP id 5b1f17b1804b1-49fe66c892cmr22336635e9.3.1790235002814;
-        Thu, 24 Sep 2026 00:30:02 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5bae43dsm45721935e9.5.2026.09.24.00.30.02
+        d=1e100.net; s=20260707; t=1790235014; x=1790839814;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Kgip3jFcH5aQqUb4V/BMgffhYqMwWeXQnhdcCBzw/vY=;
+        b=My+qTLM1Qt0fDU1E32rGN/2k8eZ1WZ5U4CAxlikI9HUxWHMGxln4/wiCPfCRnXXtls
+         ZXg54dQCfVVcZMvkR1vvTixv4mZ1ykNNxcuIGVq6ReleZbwoLJkKfhDtI7lUugvQBmT1
+         P8pUAYQmrYL2KvcE/lwF2PJJSGgoeLP+3Ht7abI1FNwBj0jp6VzYx5p30lL+rgHui+S9
+         tMwK9S1jl/Kgw0Y3h9SgA5p6EAzkXARJtTue2vUMt+HLHH7B9YrvCyeVeWoXRFwAAbT2
+         pshBCJkTI7/sSWjCJAMRKEnxt5XRkqtJ7PwHz+b0/BFS3A5ktydM01oo8qppT6LiZYgl
+         mtyg==
+X-Forwarded-Encrypted: i=1; AKwUvBwj3NznQmemzL6ZH1jcBCrp7a/QbrFx5RKRq8EMZgsfdJJ15rcQWNjETq6azD8a3DlpWkjiekXrU2Tkh0c=@vger.kernel.org
+X-Gm-Message-State: AFuF++mtE2+zZWd6PUgSxt9MRQZz2VpV2p4B99JAuP5OFl0jcBxksybh
+	urzz2eEVVCP6xb4Ud3S1F5jS5JvYYko6Sr/hPRfxj7Iv/nOPeQ+q5jWn
+X-Gm-Gg: AYBFou1LPJRcWUUNjlobsTmBKK+jpKm1caNOBfYyXVMh5afxerhg66ncF/hQnuiE6RE
+	TGveTJF2C5CQdJGu1h0RIySLIYskHz9uKWLqLDI+M8I+hrov83ULtQDpYwm2/jgtK5Qw9UQxK0z
+	+1EZc5HXBegifxO7yeTEBnNTYDCsGmXIR8EFbIrdbUdMcq+18FZ3rctWU6Scut+YD4iFC8Q09q0
+	1UlZT/RABYTtPV7BJqndnchdgJtryYk1kXdX2Yh9E8orCtQy2Ak+rxl8R9kgHQolA6zovpoL0Aq
+	zl2jxV+bVRBto46nkY9SJvEXqzYF+C4QwCJ75HYeXNTCL1X5eKUnCIMIm9x2/smmY7pK9hW5jHd
+	lEh/bTScQo2/mvGbu3f5ga/r4yXCNYsQaus1sXq5P58KOCvVqwFW13Zxw8HZ+SPRsFnfPEsPZqu
+	kz/kX0DsAdrIvKvtjIN81UZixXOZ5bW/pz/b2UtrFvlHLI8OHNKEwGtx92tf394renq9VjQWbz2
+	Jn2z1yr7BG8e20JpwVJjf3As1Bemr0eujql2MviETpbQ7UyrTtEtkqD4SEPNxaJJJOvJZ3VvBbs
+	zNnQtpgxDro/YQBZCTQs
+X-Received: by 2002:a17:90b:388d:b0:3a0:9640:803d with SMTP id 98e67ed59e1d1-3a09857005dmr1361485a91.4.1790235013787;
+        Thu, 24 Sep 2026 00:30:13 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0972efa0bsm3184726a91.8.2026.09.24.00.30.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 00:30:02 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Alex Elder <elder@riscstar.com>, Brian Masney <bmasney@redhat.com>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org,
- andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
- kees@kernel.org, gustavoars@kernel.org, p.zabel@pengutronix.de,
- daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, mfd@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] clk: toshiba: introduce a TC9564 SoC clock and
- reset driver
-In-Reply-To: <7147ce22-fc6d-4cff-9470-98e341da0a87@riscstar.com>
-References: <20260918165234.687224-1-elder@riscstar.com>
- <20260918165234.687224-4-elder@riscstar.com> <arG238GS8bMB6DkW@redhat.com>
- <0785235b-de06-44d4-9068-ec706eeba848@riscstar.com>
- <1jcxu3adn6.fsf@starbuckisacylon.baylibre.com>
- <7147ce22-fc6d-4cff-9470-98e341da0a87@riscstar.com>
-Date: Thu, 24 Sep 2026 09:29:56 +0200
-Message-ID: <1ja4p79kej.fsf@starbuckisacylon.baylibre.com>
+        Thu, 24 Sep 2026 00:30:13 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: jani.nikula@linux.intel.com,
+	tzimmermann@suse.de,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	airlied@gmail.com,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH v3 0/2] drm/udl: fix EDID short transfer check and probe USB cleanup
+Date: Thu, 24 Sep 2026 07:30:09 +0000
+Message-ID: <20260924073012.2742968-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
+In-Reply-To: <20260924064434.2541959-1-benquike@gmail.com>
+References: <20260919223511.3889061-1-benquike@gmail.com> <20260924064434.2541959-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On mer. 23 sept. 2026 at 16:33, Alex Elder <elder@riscstar.com> wrote:
+This series fixes two error-handling issues in the udl DRM driver:
 
-> On 9/23/26 3:58 PM, Jerome Brunet wrote:
->>>>> diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
->>>>> index f9592fd9ec2bb..50efa10d48450 100644
->>>>> --- a/drivers/clk/Kconfig
->>>>> +++ b/drivers/clk/Kconfig
->>>>> @@ -292,6 +292,17 @@ config COMMON_CLK_S2MPS11
->>>>>    	  clock. These multi-function devices have two (S2MPS14) or three
->>>>>    	  (S2MPS11, S5M8767) fixed-rate oscillators, clocked at 32KHz each.
->>>>>    
->>>>> +config COMMON_CLK_TC9564
->>>>> +	tristate "Toshiba TC9564 clock support"
->>>>> +	depends on TC9564_PCI
->>>> select RESET_CONTROLLER
->>> Thank you.  The reset and clock drivers were previously separate
->>> and the reset only became available if RESET_CONTROLLER was enabled.
->>> Combining them means I need this.  I will add it.
->> Why did you combine them ?
->> 
->> it would be a lot better if the reset were handled in
->> drivers/reset rather than in clock. There has already been some work to
->> move reset from clock back to reset. This often involve auxiliary drivers.
-> To be honest, I got a suggestion from someone to combine them, but
-> I said "no, I got feedback last year that separating them was
-> better."  But then a second person told me that these are often
-> combined, so I took that as "two against one" and decided to
-> merge them.
->
-> The other reason is that four registers are used:
->    #define CLK_CTRL0_OFFSET	0x1004
->    #define RST_CTRL0_OFFSET	0x1008
->    #define CLK_CTRL1_OFFSET	0x100c
->    define RST_CTRL1_OFFSET	0x1010
->
-> They alternate between clock and reset.  The previous separated
-> drivers specified the two offsets for each driver in the reg
-> property.  But somehow these interleaved registers seemed a
-> little off, so I thought the combined driver cleaned that up
-> a little.
->
-> I don't have any strong preference one way or another.  If you
-> think they're better separate, I don't mind separating them
-> again.  The two drivers are extremely simple.
+1. Reject short USB control transfers (ret < 2) in udl_read_edid_block()
+   with -EIO so uninitialized or stale bytes from read_buff[1] are not
+   copied into the EDID buffer.
+2. Call udl_drop_usb(udl) when drm_dev_register() fails in udl_usb_probe()
+   so the allocated URB list and DMA buffers are released.
 
-Yes, SoC manufacturer tend to mix the 2, it is fairly usual and we used
-to have many drivers in clock providing reset too. We have been slowly
-cleaning that up over the past few years.
+Changes in v3:
+- Change (ret != 2) to (ret < 2) in udl_read_edid_block(), as requested
+  by Thomas Zimmermann.
+- Add Reviewed-by tag from Thomas Zimmermann to both patches.
 
-To be clear it is not strictly forbbiden to mix ressources but putting
-things where they belong help review and maintainance.
+Changes in v2:
+- Split into two separate patches, as requested by Jani Nikula.
 
-There are several examples you can look at with auxiliary device
-support, ./tenstorrent/atlantis-prcm.c is a good example.
+Hui Peng (2):
+  drm/udl: reject short USB control transfers in udl_read_edid_block()
+  drm/udl: clean up USB resources if drm_dev_register() fails
 
->
-> 					-Alex
+ drivers/gpu/drm/udl/udl_drv.c  | 4 +++-
+ drivers/gpu/drm/udl/udl_edid.c | 2 +-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
--- 
-Jerome
