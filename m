@@ -1,178 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.archlinux.org (mail.archlinux.org [95.216.189.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DC2C4A64CC;
-	Thu, 24 Sep 2026 16:02:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D1DD4A1DE1;
+	Thu, 24 Sep 2026 16:02:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.216.189.61
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790265764; cv=none; b=ULixp0TvVCnSWmeFu2mInOJHOVpmbaiumX59hBujQuvbMXp2+181NoMosTBz0P7Udzc5SVNhnh9R1Ql5znw728LQONdaUSeeO/w8epgM2kB1RP0/SSuCXMExixbEurj/VL0hmAZ0euiY+XaUR1a6Ig0hpjgIPn3LTCkGaAbeYTk=
+	t=1790265779; cv=none; b=SrHn7giullG5L2dL49pT6stgcpwOUZfGwT/lvhBJyespMr/x3BZ3Q6oXkdM7aGSqhdA2oRX0aUJGF2oiSNYcrywaCHTXza1IT25TuEtHVjvbYevv/tcfJxVZkO3vgJbnOYyhRdDY5D7iTpFL0RsR01o5TUDovKmRZSR5Avs37zM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790265764; c=relaxed/simple;
-	bh=ZC7n+Wu/swBT9ZYEIkVtfiLJa+rbVEG83O5DVAMz1XY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ai+uuqgMUleYGLgDMZQtymmI9eJIhOj9+rnd/iKxEeMwTSNdONE/6N8GbB8+J42OxvnahxfO+Z3MWcyrxl9sEcPH3CPuUx6ua+qeXodgi3HfQRzLII506fD9aH2OTnm4WftLzI9GYuCxgQheb52F1YaMGjSuviCopOdlhuWg12k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JCVCgE0g; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790265779; c=relaxed/simple;
+	bh=ypkc0FuzcUHPgfC58MWa/fnycMenJ6PB86mv3ZMQuOE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WXlTg6U4yr5b9ot3ubl4IXzCS5IguF9uVexPNtF+MGWhts/EeEb7wXYPYHXegD9RKRMGQFBsKhkViXAwfYkMYYYMX3uNwOjwiXIvfZwR8Xfn7xlL1KatjVMlgx8QA5EKyhUepq3F+DdldSF4v8gX/lrb/hAdf46xSfcd+TS1mTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=archlinux.org; spf=pass smtp.mailfrom=archlinux.org; dkim=pass (4096-bit key) header.d=archlinux.org header.i=@archlinux.org header.b=HQwqIo2g; dkim=permerror (0-bit key) header.d=archlinux.org header.i=@archlinux.org header.b=5wwhhOvH; arc=none smtp.client-ip=95.216.189.61
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=archlinux.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=archlinux.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JCVCgE0g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7769E1F00893;
-	Thu, 24 Sep 2026 16:02:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790265762;
-	bh=LTVNxkLpxxqWMqUQZ0iwgzz/ZL7tmFRV02wmYrTnaqI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JCVCgE0gmJUzhASH+5rtu/5xRKwTuLgflc/WYMUQqRPPnF9eI+KOFeYkTO8Hj9Asu
-	 lbIam1iYoMGzFAljxVrWwRbgIxINu4lshZrJIGGYrNa7OLMnEogLxR8YWuzOzCddZN
-	 4rjqCo+1pd+4rkDWcIyXhh3/E0Ly+Hz2ffau6jPxiS9hnkwG1A/+v3o95vWGPGZ/9R
-	 k449H4J9d3LUcEk72NCiYEiPVxoaoWNgviro55RD1GvOrIxfXrdSDJXKkQzOPTGyE8
-	 4/Gk1eVUwiTQLWHPl9yE2MN2pRY8uPzQPcGVf/FHGn7+apyRqj7iMM151m4VIRGFJB
-	 PlnDtnnDfHEeQ==
-Date: Thu, 24 Sep 2026 19:02:35 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Alexander Potapenko <glider@google.com>,
-	Marco Elver <elver@google.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Dmitry Vyukov <dvyukov@google.com>, Len Brown <lenb@kernel.org>,
-	Pavel Machek <pavel@kernel.org>, kasan-dev@googlegroups.com,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH 4/5] hibernation, KFENCE: explicitly map/unmap KFENCE
- pages
-Message-ID: <arVJm8CiLG6vpy9-@kernel.org>
-References: <20260917-hibernation-v1-0-7f7dfae3dbe0@kernel.org>
- <20260917-hibernation-v1-4-7f7dfae3dbe0@kernel.org>
- <fec1931b-1173-4e14-b74a-7b3987a9b7bc@kernel.org>
- <arP0-maAEi5yeNnl@kernel.org>
- <d568a29b-5745-4214-96d3-1b635cd46c15@kernel.org>
+	dkim=pass (4096-bit key) header.d=archlinux.org header.i=@archlinux.org header.b="HQwqIo2g";
+	dkim=permerror (0-bit key) header.d=archlinux.org header.i=@archlinux.org header.b="5wwhhOvH"
+From: George Hu <integral@archlinux.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=archlinux.org;
+	s=dkim-rsa; t=1790265774;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=weJSPBdbOEXZMKYu3fBfRIOkPkIIHuxhlXQ0OoqPoA0=;
+	b=HQwqIo2gtfzzAoDly6x0Za7c8cnyRnvSvZ+Y7J0oZsLG13qyhrHd0GkqpT2d5Uhex+8TH4
+	5r7dK0uM83flxzDbrjRuQiZuvMyyYT+eLDcZ/Qfo3Ciu9rzGKeaPB0R1Gz/77wAjfoNmay
+	Cuky+8Qe/XLtCg/nM5G7oLwkyxZpjVK+izzpr9J91afuZzaqt7CzrVKx229djxAAj/HL+V
+	hv2mMvDkD739rAMe7Ndia1dKQhyXuDpKaZiKzrrHfORQgcnv7CLK+cDziil6o92xYqbXLT
+	DHGM8uuh9ltABlTTMMyLtSrToo58Q+NTv6VdVHfe9lvo+iPVeoVr40FHBedEYdtnPh9JHM
+	Hic13d2MiC5Sq3Vu+Pji7lWi4bV6xFEeF9K+k27Ske2KVS5V2yUqI8yUOjo1dAxVVo3C/J
+	uharwnL4xcjhX1IoMgeItEUevoXBbHSP8mAfR/UFjEdGXtoo114XC5NsKlKfncDh5OC8DR
+	4In82m9OG2pPx8TU2cvwxbQPisgOKgzXSLZQVdvOtsxM6mvFpDIq8nI//VTWRRpKWnLVh4
+	Beq19MnaDZwfuzpd3wK+cUB4w9GrQ+3DWetBHEBGYcaLt5Hfwy6inxlDMezmsbD0q2+rhA
+	uFbH+bInRndghPv/IV8YMiJKiieG5q3S3DMs2idb5bmVtqD56RbsM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=archlinux.org;
+	s=dkim-ed25519; t=1790265774;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=weJSPBdbOEXZMKYu3fBfRIOkPkIIHuxhlXQ0OoqPoA0=;
+	b=5wwhhOvHzFbA+30LNMWc/fXP8hRQ/U6ejll0pFYGJLVMCn+Z9yDehZ7K0l0h38r2a58mQf
+	+b+9696mYVToHuAw==
+Authentication-Results: mail.archlinux.org;
+	auth=pass smtp.auth=integral smtp.mailfrom=integral@archlinux.org
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>
+Cc: Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	x86@kernel.org,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	George Hu <integral@archlinux.org>
+Subject: [PATCH] bpf, x86: use 32-bit zero idiom for shorter encoding
+Date: Fri, 25 Sep 2026 00:01:54 +0800
+Message-ID: <20260924160154.12807-1-integral@archlinux.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d568a29b-5745-4214-96d3-1b635cd46c15@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 10:19:33AM +0200, David Hildenbrand (Arm) wrote:
-> On 9/23/26 17:49, Mike Rapoport wrote:
-> > On Wed, Sep 23, 2026 at 12:31:26PM +0200, David Hildenbrand (Arm) wrote:
-> >> On 9/17/26 08:07, Mike Rapoport (Microsoft) wrote:
-> >>> The pages protected by KFENCE are removed from the direct map.
-> >>>
-> >>> safe_copy_page() temporarily maps and unmaps them using set_direct_map
-> >>> APIs, or, when the stars align, even using debug_pagealloc_map_pages().
-> >>>
-> >>> Neither of these APIs cares whether it is a KFENCE page and both blindly
-> >>> perform the update of the kernel page table for any non-present page.
-> >>
-> >> Agreed, we should route this through the actual mechanism that modified the
-> >> directmap in the first place.
-> >>
-> >>>
-> >>> Ability to use debug_pagealloc_map_pages() to remap KFENCE pages when both
-> >>> KFENCE and debug_pagealloc are enabled is an amusing coincidence.
-> >>>
-> >>> But with increasing appetite for using set_direct_map for hardening
-> >>> purposes, it becomes too big of a hammer to enable saving any non-present
-> >>> page in the hibernation image.
-> >>>
-> >>> Another gotcha is that loongarch that does not have a direct map at all
-> >>> advertises ARCH_HAS_SET_DIRECT_MAP to allow coexistence of KFENCE and
-> >>> hibernation.
-> >>>
-> >>> Extend KFENCE with a bitmap that tracks which pages are protected and
-> >>> provide kfence_force_mapping() and kfence_restore_mapping() APIs that allow
-> >>> forced mapping and unmapping of KFENCE pages.
-> >>>
-> >>> Use these APIs in hibernate_{map,unmap}_pages() for KFENCE pages.
-> >>>
-> >>> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> >>> ---
-> >>>  include/linux/kfence.h  | 29 +++++++++++++++++++++++++++
-> >>>  kernel/power/snapshot.c |  7 +++++++
-> >>>  mm/kfence/core.c        | 52 +++++++++++++++++++++++++++++++++++++++++++++++--
-> >>>  3 files changed, 86 insertions(+), 2 deletions(-)
-> >>>
-> >>> diff --git a/include/linux/kfence.h b/include/linux/kfence.h
-> >>> index e5822f6e7f279..33a126cb6d1b7 100644
-> >>> --- a/include/linux/kfence.h
-> >>> +++ b/include/linux/kfence.h
-> >>> @@ -222,6 +222,32 @@ struct kmem_obj_info;
-> >>>  bool __kfence_obj_info(struct kmem_obj_info *kpp, void *object, struct slab *slab);
-> >>>  #endif
-> >>>  
-> >>> +/**
-> >>> + * kfence_force_mapping() - make sure a KFENCE page is mapped
-> >>> + * @page: page to map
-> >>> + *
-> >>> + * Check whether @page is protected and map it if needed.
-> >>> + *
-> >>> + * Requires: is_kfence_address(page_address(page))
-> >>> + *
-> >>> + * Return:
-> >>> + * * false - failed to map @page
-> >>> + * * true - @page is mapped
-> >>> + */
-> >>> +bool kfence_force_mapping(struct page *page);
-> >>> +
-> >>> +/**
-> >>> + * kfence_restore_mapping() - restore mapping of a KFENCE page
-> >>
-> >>
-> >> The name is misleading. You are actually restoring that the page is
-> >> unmapped/protected?
-> >>
-> >> 	kfence_force_mapping vs. kfence_restore_mapping
-> >>
-> >> is confusing.
-> >>
-> >> Can we find a better pair of function names that describe what is actually
-> >> happening?
-> >>
-> >> Maybe something along the lines of
-> >>
-> >> 	kfence_prepare_copy_page
-> >>
-> >> 	kfence_finish_copy_page
-> >>
-> >> That rather expresses what the caller intends to do.
-> > 
-> > Naming is hard :-D
-> > 
-> > I feel that _copy_page() is to vague and adding hibernation there is to
-> > mouthful :(
-> 
-> Yeah, I wouldn't mention hibernation.
-> 
-> 
-> 
-> > 
-> > And these could be used outside of safe_copy_page() someday.
-> > 
-> > How about 
-> > 
-> > kfence_set_page_present()
-> > kfence_set_page_default()
-> 
-> 
-> Maybe spell out "direct_map" ?
-> 
-> kfence_set_direct_map_present()
-> 
-> kfence_set_direct_map_default()
+Emit "xor eax, eax" instead of "xor rax, rax".
+In 64-bit mode, zeroing EAX implicitly clears RAX, and the 32-bit
+form encodes one byte smaller while keeping identical semantics.
 
-They are not necessarily in direct map :)
-loongarch does not have direct map, but still supports kfence
- 
-> But yeah, something along those lines is better.
-> 
-> -- 
-> Cheers,
-> 
-> David
+Signed-off-by: George Hu <integral@archlinux.org>
+---
+ arch/x86/net/bpf_jit_comp.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
+diff --git a/arch/x86/net/bpf_jit_comp.c b/arch/x86/net/bpf_jit_comp.c
+index 9fbef7504e51..2e3c8e9861a4 100644
+--- a/arch/x86/net/bpf_jit_comp.c
++++ b/arch/x86/net/bpf_jit_comp.c
+@@ -579,8 +579,11 @@ static void emit_prologue(u8 **pprog, u8 *ip, u32 stack_depth, bool ebpf_from_cb
+ 		if (tail_call_reachable && !is_subprog)
+ 			/* When it's the entry of the whole tailcall context,
+ 			 * zeroing rax means initialising tail_call_cnt.
++			 *
++			 * xor eax, eax
++			 * equivalent to 'xor rax, rax', but one byte less
+ 			 */
+-			EMIT3(0x48, 0x31, 0xC0); /* xor rax, rax */
++			EMIT2(0x31, 0xC0);
+ 		else
+ 			/* Keep the same instruction layout. */
+ 			emit_nops(&prog, 3);     /* nop3 */
 -- 
-Sincerely yours,
-Mike.
+2.55.0
+
