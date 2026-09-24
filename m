@@ -1,119 +1,213 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0AC25B091
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:18:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D41F41CB5A;
+	Thu, 24 Sep 2026 08:19:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790237939; cv=none; b=SCgx4aAm7XdLmtVzJWExIEfCZFEixbstSc4dy2s020Vqe2FMsLQcMiQXvwloFPtYHyPyAkhcKDb6E6Y8+aeXyVA/vBguNvmDnfwI9BvTdX8MhgWm5c8sDgmH+z4ewXA0HnSrTyzJiuq39M2p82AmzpA8UGNMOFnH2fu1b6hc1A8=
+	t=1790237985; cv=none; b=EiY+e9Sid0QaUhwz+cqpqlWDtoYLv3oP7yt+RdxIPi9KIzvOa6xm76q4pPC7VGrs0q9Bb/tP+yNsuO1CY4gxW8s6ZjzYr+6+gwO1tkJyaETlG9yevTnjBeNN3jkT3t+y0gR/P1beXLbG433uEIFrhn0txbKCjUsGQ1H+eu92myI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790237939; c=relaxed/simple;
-	bh=wZuq7eC8OrYGdcaqCRFbmsq6ewXm1RrabCWSktmSbEg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d5CHDKmpFONDhIXc9S59v3SHaajAOY2+DEyZ6pVXFIqcTMaHwOwcQAIjVLsmqt57121JJdzaNouAElz7FySN5XrPh6VnjteoIru9qB2SXoMOIVhcnuRU0HGAUQIxGiZ35VLg8FRj5Xrp07YRADrRIhXwoAPkIwAOInsMVTpcfvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=T73IFnSV; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790237985; c=relaxed/simple;
+	bh=WImGzSPhUQrfFfdTg4EMX+LlTIkR51MI4LJsWWS8GTE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MGVyUsuGBqZeBYUfM/jMCsS5ozon+jxMDrrXCbLSXAnmoLHgqXjkQqHNaNCLfe2ZqzMgeZyVai/iFfk5a64Mhi7UdTScJKQDfKKzEaVeOrQsnRpZRI7SsWrnzT6BLvoG8tUtWBp8t4czoPEYyUd1gaXcX0DSJGaP0bD+Rl22dpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n+gQShgo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="T73IFnSV"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49e6425f96eso32025e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:18:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790237936; x=1790842736; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=To3pmZtljGj4X5rJ/mnIJvMelKkwi9aYdQXapoWl02w=;
-        b=T73IFnSVoMn3oXW39/QSINzxKMH36UR5tzMwYpSUHS5gmbEWy2scHdrc3hGxvgGDtl
-         gQrCmFHpy2JSDdyF8aCEg2pD1jfFlLIbUV963y9F7WhIpDuJnzG+jN4XXjLaRK2XuiGe
-         c2r7DOUV61oNUXDOe1V6mH1auma2IkyckUo6uXcn7aEuXXSFb6aWqYWJ36eZgERysfeg
-         iNCfoqG5R/miv5aLbZT2FV+m5okmC1uqNDd4ZowtaCNErM6wwkJ6hb9QF0oIN3T80ya9
-         vs6K3Xfpu6ZMKUIbQ4KExGF1uoyn5ckJWqfjDMCTaFkQ0rWGHh5Zkum7czRwX9At4udB
-         /8iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790237936; x=1790842736;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=To3pmZtljGj4X5rJ/mnIJvMelKkwi9aYdQXapoWl02w=;
-        b=1kVYljsxd6AnUwb/skT4VdWu/Q8MvgvyhLX3cUoT+hzMwnoZPSix2fKwOzNLn1+e4u
-         f9ZC2C6/SggEKoPhZ7t4WVYRz+oX1C6UwrhiDxwTcxxKTWnjdn7KRPNfDvoNTuOPq9ON
-         XxBP/AG3F3WLXK+dG9p3tj6wTNpB80hYTO7b1GWkSEzfYzIGp2PDqCo2LZRuGo9buf/7
-         ZrGekS5gVh7me8iKOUeHDk6NoKFi3qPu/e45ZuzqHTMPfNUEjF39F2iLaBhexX1drpi9
-         qkTHx1tNAgcivYSeG54WxMDDOoDQA1BAIlIpSNvNnhWIYJFXuhKHdb0lBf5q0zPSrAqp
-         bNHw==
-X-Gm-Message-State: AFuF++kAAmAK7kcmzEEkdvpzkly2J+Q7DmmQHZYLxjCVhwwqsDYj/aAe
-	W64W+sBxEu1cPoqCSSBKEKSfNQT/obY5qQJ03Wi53+9lJgGNVLnudk0XT/fsJfxuLQ==
-X-Gm-Gg: AYBFou3h43KtMCbBNAXmrnumWbTvm5j7Im3MgKU933ncKOarfXwvVvWjtlo2zVbp16r
-	c85w4g1p+vfU61om2dGuTMWmMThVok+KGWvl3TlTH0n07wFi5OFt7Z0cy0Y9N+Yw3BWHcgN7JI2
-	7wL6zH2YAktpoTq/Jhg4hBs2EAO41gvyexIW56cU1DU8en8CmQYi+Ekw9WF4M3EijQKTuVGHil+
-	gC0wL7HXoIXIbZw8SDckYuDe88GHt8rVb7hRawDfrpSsmi12k+I1UQJ9NAkdN2XPd0hEkJc3zec
-	/PXevodGKEtAK+9EZnnnuiyRkyWT5fpXyCnAD01TIHJSrlSm/hgG2owin3yqmWIgNhgxXbFXFhp
-	Mt0+jVv/Oi1z9OJq12i3f5MxfRyD2GVoD1DnfoOOHncV+BNZsoxS5pNhUdljkPJ71aK8I3Kzmcv
-	mSZ0k99M6BUiCBdkkhm1iOcl4zZdLD8gEC9rOUK/g7LIajm5UoTRaX9rOnYCNJdvofmHFSw1Ehd
-	WO9pqw9tGIcbkn18J9MH+RhcgEmv5NgPuukaYFoXA==
-X-Received: by 2002:a05:600c:4aaa:b0:49f:ddcf:45b7 with SMTP id 5b1f17b1804b1-49fe5632713mr652925e9.10.1790237935405;
-        Thu, 24 Sep 2026 01:18:55 -0700 (PDT)
-Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd42f2sm47160755e9.15.2026.09.24.01.18.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 01:18:54 -0700 (PDT)
-Date: Thu, 24 Sep 2026 08:18:50 +0000
-From: Mostafa Saleh <smostafa@google.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, will@kernel.org,
-	robin.murphy@arm.com, joro@8bytes.org, nicolinc@nvidia.com,
-	praan@google.com
-Subject: Re: [PATCH 0/7] iommu/arm-smmu-v3: Fixes reported by Sashiko
-Message-ID: <arTc6smwFV3G2rSa@google.com>
-References: <20260828125409.1921538-1-smostafa@google.com>
- <20260924000344.GA3560397@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n+gQShgo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0BEF1F000FF;
+	Thu, 24 Sep 2026 08:19:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790237984;
+	bh=j38sKxcUuo+v+Xf2oFDiECaiMijka26xvcA+axqRQxY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=n+gQShgouLNB4db+aIgFmU0669lvvGgyqD5kLZaf6uVg42XzHAnFT+lXpFJw9bJKb
+	 EO1Bjtpb6VPH/M/4BVZKIF8ezAVotbvVw8WTP+tW7F7BQrt3if0KdoQ6pQ47M1GMdH
+	 TXRFzeOPvpjVJbZM7hixJhvVnDv+asJOWGsjGrSOyCVwDX7k2TE0Iqih5KSeCNZ1n/
+	 savoOMzeKelYBBa5rpykQ3V84ZCeIBG69Sj7aXKVzhDzOdo1rW4d1WvT8pPU+PZroG
+	 ppFv+Rwl1qgTNwaPNx/AA9iHYcGixy3TEbTwZAglGLRyta1LNgIqUlzPACmUYjrV0Y
+	 VrBK2DVCZG97g==
+Message-ID: <d568a29b-5745-4214-96d3-1b635cd46c15@kernel.org>
+Date: Thu, 24 Sep 2026 10:19:33 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260924000344.GA3560397@nvidia.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/5] hibernation, KFENCE: explicitly map/unmap KFENCE
+ pages
+To: Mike Rapoport <rppt@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Dmitry Vyukov <dvyukov@google.com>,
+ Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>,
+ kasan-dev@googlegroups.com, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, linux-pm@vger.kernel.org
+References: <20260917-hibernation-v1-0-7f7dfae3dbe0@kernel.org>
+ <20260917-hibernation-v1-4-7f7dfae3dbe0@kernel.org>
+ <fec1931b-1173-4e14-b74a-7b3987a9b7bc@kernel.org>
+ <arP0-maAEi5yeNnl@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <arP0-maAEi5yeNnl@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 23, 2026 at 09:03:44PM -0300, Jason Gunthorpe wrote:
-> On Fri, Aug 28, 2026 at 12:53:35PM +0000, Mostafa Saleh wrote:
-> > While running sashiko locally on the pKVM SMMUv3 driver patches, it
-> > reported some pre-existing issues in the SMMUv3 driver (the RB tree
-> > corruption and a missing NULL check) and given that this is not the
-> > first time a pre-existing issue appears in the driver from sashiko,
-> > I went ahead and passed the whole driver to Sashiko which reported a
-> > dozen of other issues(except the last one in this series), I included
-> > fixes for bugs I believe are true or worth fixing (others were mostly
-> > missing NULL checks or bizarre HW/FW configs I don’t think are needed).
-> > 
-> > I also sorted the patches based on severity from the most critical to
-> > the least, so it is easier to apply a prefix if some bugs are too
-> > theoretical
-> > 
-> > Mostafa Saleh (7):
-> >   iommu/arm-smmu-v3: Ensure L2 tables are visible before L1 ptrs
-> >   iommu/arm-smmu-v3: Prevent rbtree corruption from duplicate streams
-> >   iommu/arm-smmu-v3-iommufd: Fix error path in
-> >     arm_vsmmu_cache_invalidate()
-> >   iommu/arm-smmu-v3-test: Fix arm_smmu_v3_test_debug_print_used_bits()
-> >   iommu/arm-smmu-v3-test: Add missing error checks for inv array
-> >   iommu/arm-smmu-v3-test: Fix OOB in arm_smmu_v3_invs_test_verify()
-> >   iommu/arm-smmu-v3-test: Fix UBSAN error
+On 9/23/26 17:49, Mike Rapoport wrote:
+> On Wed, Sep 23, 2026 at 12:31:26PM +0200, David Hildenbrand (Arm) wrote:
+>> On 9/17/26 08:07, Mike Rapoport (Microsoft) wrote:
+>>> The pages protected by KFENCE are removed from the direct map.
+>>>
+>>> safe_copy_page() temporarily maps and unmaps them using set_direct_map
+>>> APIs, or, when the stars align, even using debug_pagealloc_map_pages().
+>>>
+>>> Neither of these APIs cares whether it is a KFENCE page and both blindly
+>>> perform the update of the kernel page table for any non-present page.
+>>
+>> Agreed, we should route this through the actual mechanism that modified the
+>> directmap in the first place.
+>>
+>>>
+>>> Ability to use debug_pagealloc_map_pages() to remap KFENCE pages when both
+>>> KFENCE and debug_pagealloc are enabled is an amusing coincidence.
+>>>
+>>> But with increasing appetite for using set_direct_map for hardening
+>>> purposes, it becomes too big of a hammer to enable saving any non-present
+>>> page in the hibernation image.
+>>>
+>>> Another gotcha is that loongarch that does not have a direct map at all
+>>> advertises ARCH_HAS_SET_DIRECT_MAP to allow coexistence of KFENCE and
+>>> hibernation.
+>>>
+>>> Extend KFENCE with a bitmap that tracks which pages are protected and
+>>> provide kfence_force_mapping() and kfence_restore_mapping() APIs that allow
+>>> forced mapping and unmapping of KFENCE pages.
+>>>
+>>> Use these APIs in hibernate_{map,unmap}_pages() for KFENCE pages.
+>>>
+>>> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+>>> ---
+>>>  include/linux/kfence.h  | 29 +++++++++++++++++++++++++++
+>>>  kernel/power/snapshot.c |  7 +++++++
+>>>  mm/kfence/core.c        | 52 +++++++++++++++++++++++++++++++++++++++++++++++--
+>>>  3 files changed, 86 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/include/linux/kfence.h b/include/linux/kfence.h
+>>> index e5822f6e7f279..33a126cb6d1b7 100644
+>>> --- a/include/linux/kfence.h
+>>> +++ b/include/linux/kfence.h
+>>> @@ -222,6 +222,32 @@ struct kmem_obj_info;
+>>>  bool __kfence_obj_info(struct kmem_obj_info *kpp, void *object, struct slab *slab);
+>>>  #endif
+>>>  
+>>> +/**
+>>> + * kfence_force_mapping() - make sure a KFENCE page is mapped
+>>> + * @page: page to map
+>>> + *
+>>> + * Check whether @page is protected and map it if needed.
+>>> + *
+>>> + * Requires: is_kfence_address(page_address(page))
+>>> + *
+>>> + * Return:
+>>> + * * false - failed to map @page
+>>> + * * true - @page is mapped
+>>> + */
+>>> +bool kfence_force_mapping(struct page *page);
+>>> +
+>>> +/**
+>>> + * kfence_restore_mapping() - restore mapping of a KFENCE page
+>>
+>>
+>> The name is misleading. You are actually restoring that the page is
+>> unmapped/protected?
+>>
+>> 	kfence_force_mapping vs. kfence_restore_mapping
+>>
+>> is confusing.
+>>
+>> Can we find a better pair of function names that describe what is actually
+>> happening?
+>>
+>> Maybe something along the lines of
+>>
+>> 	kfence_prepare_copy_page
+>>
+>> 	kfence_finish_copy_page
+>>
+>> That rather expresses what the caller intends to do.
 > 
-> Does this need a respin? At least the 3rd patch there should no go
-> as the iommufd tree has a different version of that fix now
+> Naming is hard :-D
+> 
+> I feel that _copy_page() is to vague and adding hibernation there is to
+> mouthful :(
 
-Yes, I will respin shortly, I will also drop patch 2 as  Nicolin
-posted a new version of his patch.
+Yeah, I wouldn't mention hibernation.
 
-Thanks,
-Mostafa
+
 
 > 
-> Jason
+> And these could be used outside of safe_copy_page() someday.
+> 
+> How about 
+> 
+> kfence_set_page_present()
+> kfence_set_page_default()
+
+
+Maybe spell out "direct_map" ?
+
+kfence_set_direct_map_present()
+
+kfence_set_direct_map_default()
+
+But yeah, something along those lines is better.
+
+-- 
+Cheers,
+
+David
