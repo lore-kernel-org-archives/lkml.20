@@ -1,116 +1,134 @@
-Received: from mail-oi2-f34.google.com (mail-oi2-f34.google.com [74.125.231.226])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA2E14AA41D
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:06:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.226
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790265992; cv=pass; b=I0bsHfkixxpxpHYutjM4u2B9DIB75NTiDmcrjx0MyEJ4qsBOoCeGAVd5iC6YrqfBlag5pOSbVm2i+GjZExtC9ibjqjMIAgOviW/wrdfn1aUFterWG2wQ8x4+x1fqDPpAvDQbTiE9W4NfYBVnm6YkMh/SB/sOdiHTtQYjclG8zKw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790265992; c=relaxed/simple;
-	bh=s87PL5rrwrP1hfiGb5q93550+Hv8VMpEJj1mpIiTKCg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bG9evnW6F8Q4X+cFFJz7TIkSKH56zpkrwPBPpfUSjp27/8wNYXtXDfaf2TJhKXGtR9jU9/GImxK2dGknoe5icFuGl8xlGARFeJsFVZGD++4AZDNsHI+IzQkr60Gt4kWIF2YEWbv064zEBYZmz9aWLRPFrWKyKs74wR92om7qSE8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lO48X/LT; arc=pass smtp.client-ip=74.125.231.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 16EA14BB281;
+	Thu, 24 Sep 2026 16:06:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790265993; cv=none; b=GM+44lLRqbSNHZZRNR83o4M3+a25Xj1jUKnJc8GWS6E6mvyKWXWL5fZ/8fV3rYAnrjHZPlXtxPenuWwPf3VXDTzNtu1m4laNgqhTj8Din5HIhiTHO6SVpyj7lYlXBrKiIWUMfxSGKqppXf3SaSyHNyzJRqdr2m6mvFVSvJMXhZU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790265993; c=relaxed/simple;
+	bh=J4qcShf5sghV5L5Y2wcHcCrDh9c4LPadyYpHFo9qgwE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RtQXvyoZ3u2K44i6u9OOm8zeSY8CDffXqTyxnRMBzjzitJxTXFoPuP0U+bk+qRTXonMyZ3f6Z9nEdYF/GixYNiqSL/2TdQpQgibeK/dmpnvCK18+gHqQvHnb1SnMt5VKtoh8jQNZYh/jcw6HD/y6BNdIjXSgzozOnGPPJhaWSX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=aVuot4se; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lO48X/LT"
-Received: by mail-oi2-f34.google.com with SMTP id 46e09a7af769-7f4f0dd5507so1072322a34.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:06:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790265989; cv=none;
-        d=google.com; s=arc-20260327;
-        b=M1SZgU93cfEcGxVdXicj1G5TCgILuIzZ00ssYyPuWdvtex+CsBxxGp/5moBznCFTQt
-         iugeXTWTYHXoZ8AJ2o5AkxtBB6q5tpA2d+cuY0uUXXApb+R/i3mh6awAz8jrUq5iqzzz
-         sjVovZtCFW36/PPPSpiTi24lCD0UmbQMHwHWMQrtX3UKtdzEzFyr6a/C0BzfhriYKnMu
-         TYxlGyy1XkmYcgRK23c3QhAYWiJSeCvccDIJ90ndoO2RCKevNT1I2XMypvpMPiT7WcA5
-         C4/d6T2l1gtjCeFMxi22NCY8o/W0eYzCgoOqpQvXwdsKAVVcqwpBQfVoHnndM+G220vY
-         XV6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=s87PL5rrwrP1hfiGb5q93550+Hv8VMpEJj1mpIiTKCg=;
-        fh=N++seIN8rqpMnTEulg7ebjGKf91irR51Zm2bXWHulJc=;
-        b=emlHdkpQU01qkTugO00gjE3zT46ntRFT0zS9kxnMAIZ/4NgiLRIJLktlfqxuc0q+ea
-         8R/zv591yOzW3/wd+yxGdaBWwIE6m4JT0lC72dTU32ZHVd+NOe7Vl8k2qKGwRWvP2K2g
-         GrjobiS4w+VxJJS8C/trg0H8FjBBMB2EP2M4nNaH1d0LgBq+bvOA8gpJUiXJJ7V/ujYr
-         RaCDDn2akAdwQ8+O8aikZqoGj6AsNSIJc/5FcF2/pkDufc0kOG/lsSIVh9h0nwsZmcay
-         fHcOZ8G9/GchA4kGPgqtTF+nn/cIokuJNx6JNPCT+wgeSdldOAU2H49OCn6rgFBVy/Un
-         J0mw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790265989; x=1790870789; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=s87PL5rrwrP1hfiGb5q93550+Hv8VMpEJj1mpIiTKCg=;
-        b=lO48X/LT9dqCaMQDc1j6i+bWX1ERyN4cgsOxZb01EAFQT7lJvIgxoE6mvSlKj257Nf
-         qeM7PP5RtKA0hBoc7oqXzpIFoMlEanm+PGG+Ny1S4LqpvXWa6emxuvUBIr886XUW5IXa
-         Limf76gud0UEroF/+cpsKrbYnXF9j57Ugw22XU6OIspFZvrrtJVShEpqrImoumEfJxs7
-         UOmE3XoqQEEDeldjagGFPenIWf64el1QpbBRTkcozaFDkXx5RqW4OuQIUAf0TZSxSD57
-         RwSoY4jroYCQ7vooDkvz7qOeeqdRylE0lLvERLbTkGDvY5bjd8OEBsEPTbr/U+kpZxs5
-         n8iQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790265989; x=1790870789;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s87PL5rrwrP1hfiGb5q93550+Hv8VMpEJj1mpIiTKCg=;
-        b=rOnbyHhyg8Si3bBIpibvbqO1jxWzzr1TguoEfGwriuM4WMzOCsAx+9/Px37Bfi1nvX
-         9BLzokldvigNfWFn4sHAZl9ZuX8Bt7XR/wb+sJ1Sp+AAeIgRAhq2ugwmg2JdDLeOCTi6
-         trQJvYpFw3fod3BI5P/flBMw3xB3eDSMLTCUrfkWxbxQKJZ3y2vV1D1oWyPG4pAnbPU3
-         jTEgmm9wigdQphqLCMONX9355yxJZ0wQoEUjwTGonVrCocr3a1Kt0opnUR3JcDF00k3m
-         zRVRNwhd9KMHTtOFnph0ttkuiFUIcfLRI/5nlg3ldwcnWS21lR3stfZp3c3JdGZkMB4d
-         gGCA==
-X-Forwarded-Encrypted: i=1; AKwUvByrTd3vVnRpTIhvpMzukMBQ1P+zk4fJa6rqCyxcRN8C0L2Y4BvXHR6C5FQXL8/9DymttEZKe7RXWMwfA1I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lrPnS17HpDChuaa7P8aVT0HKdLqfEZq13pO1GWVknJVAOgoPGX
-	tJvqpkdi6CJ6gHU51814/iCgFlaUuCvPsQl9JzA/cUHUIBcvnZ7YuS5g2Eya4PS6u/mngZc1KTb
-	EHoWQ/34dV8c85ur+cONhgIpQvaun0AQ=
-X-Gm-Gg: AYBFou2tMHWAtd4PQ7/CP4IimqSyXvmIJmX4yZn5izKNGICOwp4bsyDo4X2TXMPCivf
-	0A0Ur8wIBEJZJ/X7h0PDZEWqgC+GhC17afksenaCvpfirZahQwN5qlzq3R5ZpAx5cliZnPb3MeQ
-	4/l72BF8L0Fsilck9bw5C0G8xc3IN5iBzI6zuSeyMxKH9DtPSEsYhtvkajg4G467+9tu8JTk5ui
-	kt0fviGGPAd5qPINFTXglt3Wj7u+tmXWTaa83e4kZhV1sIIgkxPKXn9huR6KqJrVmoUPScst9nT
-	qVgusnBj4bLn4mozVE3mqMwwnbpUDEz/FKFh3jpVAC1iOgZ3qpHXSW0exYq5nRNwvzFuDb0LTyJ
-	hCp+T6/jkmOXv
-X-Received: by 2002:a05:6808:5395:b0:4b9:e5fa:8a11 with SMTP id
- 5614622812f47-4d728f2aabbmr2804188b6e.22.1790265989379; Thu, 24 Sep 2026
- 09:06:29 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="aVuot4se"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1BFEA1E7D;
+	Thu, 24 Sep 2026 09:06:28 -0700 (PDT)
+Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 64CBF3FAB1;
+	Thu, 24 Sep 2026 09:06:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790265991; bh=J4qcShf5sghV5L5Y2wcHcCrDh9c4LPadyYpHFo9qgwE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=aVuot4serLCoRiU+s6wSR2runjB+8k9giQ14cbikSaWMXrY/Ru9b+Y4oTOX6lUyp9
+	 1fllwkIVQxlBTs1OZVU3E6g96MI0pa54Bpf3hHH/CiDRdwC9StDwTk+MfRxBGnKs6i
+	 1Vl4dZDxf7l0oBa2Uyoj1TKRpIrk5NylkBzZXOs8=
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+To: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev
+Cc: maz@kernel.org,
+	will@kernel.org,
+	catalin.marinas@arm.com,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	steven.price@arm.com,
+	aneesh.kumar@kernel.org,
+	oupton@kernel.org,
+	gshan@redhat.com,
+	joey.gouly@arm.com,
+	tabba@google.com,
+	yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com,
+	alpergun@google.com,
+	fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org,
+	enju.kohei@fujitsu.com,
+	sudeep.holla@arm.com,
+	jonathan.cameron@oss.qualcomm.com,
+	Suzuki K Poulose <suzuki.poulose@arm.com>
+Subject: [PATCH v20 16/22] KVM: arm64: CCA: Add bare minimal S2 operations for Realm
+Date: Thu, 24 Sep 2026 17:04:58 +0100
+Message-ID: <20260924160504.853911-17-suzuki.poulose@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260924160504.853911-1-suzuki.poulose@arm.com>
+References: <20260924160504.853911-1-suzuki.poulose@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923022339.3340694-1-georgeandrout13@gmail.com> <arThye_219ruNbM2@google.com>
-In-Reply-To: <arThye_219ruNbM2@google.com>
-From: Georgios Androutsopoulos <georgeandrout13@gmail.com>
-Date: Thu, 24 Sep 2026 12:06:18 -0400
-X-Gm-Features: AclHuK-lOEBKK9dYOS2UY00MWakjMDOvzU7dNK00ORx8tBpC4tNpOn47rwDC-Po
-Message-ID: <CAESH5ocJR9SLHcYfusixDmOR-CLce=HTpLxFU7zVQZFPtD9uuA@mail.gmail.com>
-Subject: Re: [PATCH v2] rust: file: handle fd table teardown in file
- descriptor APIs
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Jan Kara <jack@suse.cz>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	linux-fsdevel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 4:39=E2=80=AFAM Alice Ryhl <aliceryhl@google.com> w=
-rote:
-> This looks like it should ideally be on the C side instead.
+Add bare minimal MMU operation hooks for Realms. The mem_abort handling
+is chosen as the default KVM variant. However this cannot be reached for
+Realms yet and we would need real RMI command support to make it fully
+functional.
 
-I could move the `NULL` checks into the C helpers in `fs/file.c` that
-currently dereference `current->files`. Since this would move the fix
-into the VFS code, would it be okay to send this as v3 of this patch?
+RMM takes care of the TLB flushing as required, when the Stage2 is
+modified. So host doesn't need to do anything explicitly. RMM doesn't
+support access flags for the stage2, even for the shared IPA.
 
-Best,
-George
+Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+---
+ arch/arm64/kvm/mmu.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+index 8f21652d3625c..1d2265801e7aa 100644
+--- a/arch/arm64/kvm/mmu.c
++++ b/arch/arm64/kvm/mmu.c
+@@ -180,6 +180,12 @@ static int kvm_vm_flush_remote_tlbs(struct kvm *kvm)
+ 	return 0;
+ }
+ 
++static int realm_vm_flush_remote_tlbs(struct kvm *kvm)
++{
++	/* Nothing to do here, RMM takes care of this */
++	return 0;
++}
++
+ /**
+  * kvm_arch_flush_remote_tlbs() - flush all VM TLB entries for v7/8
+  * @kvm:	pointer to kvm structure.
+@@ -210,6 +216,13 @@ static int kvm_vm_flush_remote_tlbs_range(struct kvm *kvm,
+ 	return 0;
+ }
+ 
++static int realm_vm_flush_remote_tlbs_range(struct kvm *kvm,
++					   gfn_t gfn, u64 nr_pages)
++{
++	/* Nothing to do here, RMM takes care of this */
++	return 0;
++}
++
+ int kvm_arch_flush_remote_tlbs_range(struct kvm *kvm,
+ 				     gfn_t gfn, u64 nr_pages)
+ {
+@@ -2880,6 +2893,17 @@ static const struct kvm_vm_s2_ops kvm_default_vm_s2_ops = {
+ 	.vm_mem_abort			= kvm_vm_mem_abort,
+ };
+ 
++static const struct kvm_vm_s2_ops realm_vm_s2_ops = {
++	.vm_flush_remote_tlbs		= realm_vm_flush_remote_tlbs,
++	.vm_flush_remote_tlbs_range	= realm_vm_flush_remote_tlbs_range,
++	.vm_mem_abort			= kvm_vm_mem_abort,
++	/*
++	 * Not supported for Realms
++	 *	.vm_age_gfn			= realm_vm_age_gfn,
++	 *	.vm_test_age_gfn		= realm_vm_test_age_gfn,
++	 */
++};
++
+ #define KVM_VM_S2_OPS(flavor, ops)		\
+ 		[flavor] = ops
+ static const struct kvm_vm_s2_ops *arm64_vm_s2_ops[] = {
+-- 
+2.43.0
+
