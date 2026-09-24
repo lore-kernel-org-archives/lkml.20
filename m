@@ -1,166 +1,278 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1832438484;
-	Thu, 24 Sep 2026 08:27:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC11335AC34
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:28:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790238432; cv=none; b=jmxLk5Q8knCc8V98KLIgM25b1ByXYzTy+X54twhoE72RhVUinALlQWbumOI/6uo/KteQuZYj9yM374/fihFXJ34HoogN5L4OvvQuHtcROTvj+PLxgsswFbONOv6ZDMg2Il6j7SlrJvvgY4R9/Ni0ik5kyou3IEGzK9HXIFlTj7Y=
+	t=1790238486; cv=none; b=ongoDYshMmyYlI+s43LW79ZcBzDwjUfWf/cgqye4Yv9HVxShBeAtLs0q74UzGq1JkdKc0PedUl/cI8Hur35aozmCCClswjB6+AQPPtPzFXE48nNj0ifTAHz8mEj1hLnbd0sKO/82BZ0iLzmeNGnLrEDmu/xMAr7wEq6Excy2k34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790238432; c=relaxed/simple;
-	bh=/ZJPM/j3VoX/brreRRGCIoNNpvJ58Zubgs3wsdoVSp4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LdFCz96JEthRkNXyj1mj4XGc3ZquVnPxKTwcix2+5WJHpNFLrSV6C8l7y7B5pvVibJ0JaKg0ogB24EyFVdJFZCWU9s0BmafoWnx65CurATtzLBLlDgcav7wBliigjuFshWZynfeQX53obuKZxaxMJAEtxBeCSaYoGOFfRpun2Rw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oCFteEh2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790238486; c=relaxed/simple;
+	bh=KwcK5xgPqiIzsIdZYwj+iTwLj1QDZWahTspRdU2yLkw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lUNrtKDJ3Tr2Dt4R1SuIGn0j3/GVR9DqSQdZq//vdoOzzDk5/PgjrEmMUmxjAJ923wB5bwW/hhludrLCS23pU4VC0uJ8G6Nzws8CQ8HvJHLpLT8hJRhb6aRkqMcUhEKJ89iZaXLtJzIaQ6mjZdp3KFiqEafX3knJa84Rs3rYyEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=kBJ3uuVk; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oCFteEh2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 109141F000FF;
-	Thu, 24 Sep 2026 08:27:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790238430;
-	bh=HnH+9D3+g9xSe5BhyiIPrM68xeq0CDckO2idDyxHKJA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oCFteEh2pew1BUXTkT/8DALQO1Q3pccGzeSjlRD+0RHTW5Ki0nlF1c5zUadWbhc8s
-	 4GDuE/nVq/rXW6X6vBFNDRiReaRJE90tg8FTd/y9RBoDcQ3LkeZBXzFO0wC7zDUsI9
-	 LYbZhUTdMz+pc8YKhC6bCmeRVxNpzKl7huq5CkJwWuOBOI1/I0NLHF0RqMKQEdckSN
-	 50+YfsKUbjZWJX4YV4WfN00WExPdQuTT6LfU/FG/KZEby+M6ztc0RKv/atWX0moXWf
-	 pLoOYZgSA2jSLlabvL+6yVwPlWGzREr374VOnRZSY5sw1kTeiHWRqU56xfN2Q7gsh6
-	 nxC9bptrHrJ7w==
-Date: Thu, 24 Sep 2026 09:27:05 +0100
-From: Lee Jones <lee@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Andre Przywara <andre.przywara@arm.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Hans de Goede <hansg@kernel.org>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	mfd@lists.linux.dev, linux-sunxi@lists.linux.dev,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v8 2/5] mfd: axp20x-i2c: Fix i2c instantiation
-Message-ID: <20260924082705.GO3864833@google.com>
-References: <20260910-axp318-regulator-v8-0-e906a61a7f3d@baylibre.com>
- <20260910-axp318-regulator-v8-2-e906a61a7f3d@baylibre.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="kBJ3uuVk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=mihx/T4hDNaaTgoju8xfzL5c8ChT4gZv0yw0Iy7hzj4=;
+	b=kBJ3uuVk7qPt73DvNfl9W8Tovxc05tQYlYDAVAtmMFjKnAC4V4XlvFYCmVr6M9
+	RsrJrrJBHxzZBC/KNGqH7ypzjZgv1Rfd40aE0Vy33OK1fHou4L/A4c6nSJqnSSuR
+	+loScpCXc2aumD8sPXUN58UqGYhFcfRyGclM3miGcDdlY=
+Received: from [IPV6:2409:8900:1eb0:45e:3c13:fdf5:6f81:b37a] (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wDnr6fx3rRqFo8PAg--.38281S2;
+	Thu, 24 Sep 2026 16:27:30 +0800 (CST)
+Message-ID: <e71aaf63-433e-45bf-a22c-b48f7ab3c4d8@163.com>
+Date: Thu, 24 Sep 2026 16:27:28 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910-axp318-regulator-v8-2-e906a61a7f3d@baylibre.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ntfs: exclude DOS aliases from VFS link count
+To: Michael Woolweaver <michael@woolweaver.bid>,
+ Namjae Jeon <linkinjeon@kernel.org>, Hyunchul Lee <hyc.lee@gmail.com>
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260924041720.16477-1-michael@woolweaver.bid>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20260924041720.16477-1-michael@woolweaver.bid>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnr6fx3rRqFo8PAg--.38281S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3WF4ktw4fXw4xWw4rAw17trb_yoW3CFWrpF
+	ZxC3sxtrZ3Xr12g3s3tw4DZa4S9r1Fkr4UXr9rGw13Aa1Fqwn2gFy8KrW0vr1SyrZ8Jw1q
+	qF4Yg3y7CayDXFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zR-18dUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwRO7hmq03vPwwAAA3s
 
-On Thu, 10 Sep 2026, Jerome Brunet wrote:
 
-> Apparently this device never really supported i2c instantiation via
-> sysfs, because the driver does not even look at the i2c device data,
-> which are not set. It would only probe if the device matched through DT.
+
+在 2026/9/24 12:17, Michael Woolweaver 写道:
+> NTFS counts each $FILE_NAME attribute in the MFT record link_count.
+> A file with separate Win32 and DOS 8.3 names therefore has a link_count
+> of two even though the DOS name is an alias and does not represent a
+> separate VFS hard link.
 > 
-> Fix that for correctness, even-though it is probably useless.
-> Add the missing AXP323 while at it.
+> ntfs_read_locked_inode() copies the MFT link_count directly to i_nlink,
+> causing stat() to report an extra hard link for files with a separate
+> DOS alias.
 > 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/r/20260717090209.2A09B1F000E9@smtp.kernel.org
-> Fixes: 41751b033aaa ("mfd: axp20x-i2c: Add i2c-ids to fix module auto-loading")
-> Acked-by: Chen-Yu Tsai <wens@kernel.org>
-> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+> The same distinction is needed when unlinking. ntfs_delete() removes
+> both the DOS and Win32 $FILE_NAME attributes, decrementing the on-disk
+> link_count for each, but it must decrement the VFS link count only for
+> the Win32 name. Otherwise a real hard link can reach i_nlink zero while
+> another VFS-visible name still exists.
+> 
+> Count non-DOS $FILE_NAME attributes when initializing i_nlink, while
+> still verifying that the MFT link_count matches the total number of
+> name attributes. Do not drop i_nlink when ntfs_delete() removes a DOS
+> alias.
+> 
+> This was reproduced with a file containing separate Win32 and DOS
+> names. Its MFT link_count was 2 while stat() incorrectly reported 2
+> links. With the fix, stat() reports 1.
+> 
+> After adding a real POSIX hard link, the MFT contained three
+> $FILE_NAME attributes while the VFS correctly reported two links.
+> Removing the Win32/DOS pair left the POSIX hard link with both the MFT
+> link_count and VFS i_nlink equal to 1.
+> 
+> The fix was runtime-tested with fs/ntfs on a disposable NTFS image and
+> compile-tested on ntfs-next with W=1. checkpatch.pl reports no issues.
+> 
+> Fixes: 1e9ea7e04472 ("Revert "fs: Remove NTFS classic"")
+> Assisted-by: LLM
+> Signed-off-by: Michael Woolweaver <michael@woolweaver.bid>
 > ---
->  drivers/mfd/axp20x-i2c.c   | 24 +++++++++++++-----------
->  drivers/mfd/axp20x-rsb.c   |  1 +
->  drivers/mfd/axp20x.c       |  1 -
->  include/linux/mfd/axp20x.h |  3 +--
->  4 files changed, 15 insertions(+), 14 deletions(-)
+>   fs/ntfs/inode.c | 77 +++++++++++++++++++++++++++++++++++++++++++++++++
+>   fs/ntfs/namei.c |  5 +++-
+>   2 files changed, 81 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/mfd/axp20x-i2c.c b/drivers/mfd/axp20x-i2c.c
-> index 5c93136f977e..a76bec5604c4 100644
-> --- a/drivers/mfd/axp20x-i2c.c
-> +++ b/drivers/mfd/axp20x-i2c.c
-> @@ -35,6 +35,7 @@ static int axp20x_i2c_probe(struct i2c_client *i2c)
->  	axp20x->irq = i2c->irq;
->  	dev_set_drvdata(axp20x->dev, axp20x);
->  
-> +	axp20x->variant = (kernel_ulong_t)i2c_get_match_data(i2c);
+> diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
+> index 9583b2c6c7a2..74a0d9d1e82b 100644
+> --- a/fs/ntfs/inode.c
+> +++ b/fs/ntfs/inode.c
+> @@ -621,6 +621,67 @@ static int ntfs_is_extended_system_file(struct ntfs_attr_search_ctx *ctx)
+>   	return 0;	/* NO, it is not an extended system file. */
+>   }
+>   
+> +/*
+> + * ntfs_count_vfs_links - count VFS-visible hard links
+> + * @ctx: initialized attribute search context
+> + *
+> + * The MFT link count counts all $FILE_NAME attributes.  A separate DOS 8.3
+> + * name therefore contributes to the on-disk count even though it is an alias
+> + * for its Win32 name and does not represent another VFS hard link.
+> + *
+> + * Return the number of VFS-visible links or -errno on error.
+> + */
+> +static int ntfs_count_vfs_links(struct ntfs_attr_search_ctx *ctx)
+> +{
+> +	unsigned int expected, names = 0, links = 0;
+> +	int err;
+> +
+> +	expected = le16_to_cpu(ctx->mrec->link_count);
+> +	ntfs_attr_reinit_search_ctx(ctx);
+> +
+> +	while (!(err = ntfs_attr_lookup(AT_FILE_NAME, NULL, 0, 0, 0, NULL, 0,
+> +					ctx))) {
+> +		struct attr_record *attr = ctx->attr;
+> +		struct file_name_attr *fn;
+> +		u32 attr_len, value_len;
+> +		u16 value_off;
+> +
+> +		if (unlikely(attr->non_resident))
+> +			goto corrupt;
+Hi Michael,
+   This check appears redundant.
+   Both lookup paths used by ntfs_attr_lookup(), ntfs_attr_find() and 
+ntfs_external_attr_find(), call ntfs_attr_value_is_valid() before 
+returning a matching attribute. That function checks 
+ntfs_attr_type_is_resident_only(), which already includes AT_FILE_NAME.
 
-device_get_match_data() is bus agnostic and should still work from the
-core driver.  What's the purpose of splitting it out and adding
-additional call-sites?
+   A non-resident $FILE_NAME would therefore be rejected by the lookup 
+before entering this loop body.
+   Could we remove this duplicate check to simplify the code?
 
->  	ret = axp20x_match_device(axp20x);
->  	if (ret)
->  		return ret;
-> @@ -76,17 +77,18 @@ MODULE_DEVICE_TABLE(of, axp20x_i2c_of_match);
->  #endif
->  
->  static const struct i2c_device_id axp20x_i2c_id[] = {
-> -	{ "axp152" },
-> -	{ "axp192" },
-> -	{ "axp202" },
-> -	{ "axp209" },
-> -	{ "axp221" },
-> -	{ "axp223" },
-> -	{ "axp313a" },
-> -	{ "axp717" },
-> -	{ "axp803" },
-> -	{ "axp806" },
-> -	{ "axp15060" },
-> +	{ .name = "axp152",	.driver_data = AXP152_ID },
-> +	{ .name = "axp192",	.driver_data = AXP192_ID },
-> +	{ .name = "axp202",	.driver_data = AXP202_ID },
-> +	{ .name = "axp209",	.driver_data = AXP209_ID },
-> +	{ .name = "axp221",	.driver_data = AXP221_ID },
-> +	{ .name = "axp223",	.driver_data = AXP223_ID },
-> +	{ .name = "axp313a",	.driver_data = AXP313A_ID },
-> +	{ .name = "axp323",	.driver_data = AXP323_ID },
-> +	{ .name = "axp717",	.driver_data = AXP717_ID },
-> +	{ .name = "axp803",	.driver_data = AXP803_ID },
-> +	{ .name = "axp806",	.driver_data = AXP806_ID },
-> +	{ .name = "axp15060",	.driver_data = AXP15060_ID },
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(i2c, axp20x_i2c_id);
-> diff --git a/drivers/mfd/axp20x-rsb.c b/drivers/mfd/axp20x-rsb.c
-> index 059656f2a1bd..8fdc870c1fe4 100644
-> --- a/drivers/mfd/axp20x-rsb.c
-> +++ b/drivers/mfd/axp20x-rsb.c
-> @@ -35,6 +35,7 @@ static int axp20x_rsb_probe(struct sunxi_rsb_device *rdev)
->  	axp20x->irq = rdev->irq;
->  	dev_set_drvdata(&rdev->dev, axp20x);
->  
-> +	axp20x->variant = (kernel_ulong_t)device_get_match_data(axp20x->dev);
->  	ret = axp20x_match_device(axp20x);
->  	if (ret)
->  		return ret;
-> diff --git a/drivers/mfd/axp20x.c b/drivers/mfd/axp20x.c
-> index 4d770e718716..de6946d4bb13 100644
-> --- a/drivers/mfd/axp20x.c
-> +++ b/drivers/mfd/axp20x.c
-> @@ -1267,7 +1267,6 @@ int axp20x_match_device(struct axp20x_dev *axp20x)
->  	const struct mfd_cell *cells_no_irq = NULL;
->  	int nr_cells_no_irq = 0;
->  
-> -	axp20x->variant = (long)device_get_match_data(dev);
->  	switch (axp20x->variant) {
->  	case AXP152_ID:
->  		axp20x->nr_cells = ARRAY_SIZE(axp152_cells);
-> diff --git a/include/linux/mfd/axp20x.h b/include/linux/mfd/axp20x.h
-> index b352661d99a1..1badb4868d17 100644
-> --- a/include/linux/mfd/axp20x.h
-> +++ b/include/linux/mfd/axp20x.h
-> @@ -997,8 +997,7 @@ static inline int axp20x_read_variable_width(struct regmap *regmap,
->  /**
->   * axp20x_match_device(): Setup axp20x variant related fields
->   *
-> - * @axp20x: axp20x device to setup (.dev field must be set)
-> - * @dev: device associated with this axp20x device
-> + * @axp20x: axp20x device to setup (.dev and variant fields must be set)
->   *
->   * This lets the axp20x core configure the mfd cells and register maps
->   * for later use.
+Thanks,
+Baolin.
+
+> +
+> +		attr_len = le32_to_cpu(attr->length);
+> +		value_len = le32_to_cpu(attr->data.resident.value_length);
+> +		value_off = le16_to_cpu(attr->data.resident.value_offset);
+> +
+> +		if (unlikely(value_off > attr_len ||
+> +			     value_len > attr_len - value_off ||
+> +			     value_len < offsetof(struct file_name_attr, file_name)))
+> +			goto corrupt;
+
+Hi Michael,
+    These bounds and minimum-length checks are also covered by 
+ntfs_attr_value_is_valid().
+
+   For the first two conditions, ntfs_resident_attr_value_get() already 
+checks that value->len <= attr_len and value_offset <= attr_len - 
+value->len, ensuring that the value fits entirely within the attribute. 
+This covers the same bounds, with the subtraction arranged differently.
+   For the third condition, ntfs_resident_attr_min_value_length() 
+returns offsetof(struct file_name_attr, file_name) + sizeof(__le16) for 
+AT_FILE_NAME, which is stricter than the check here.
+
+   None of these conditions can therefore hold after a successful 
+lookup. Could we remove these duplicate checks to simplify the code?
+
+Thanks,
+Baolin.
+
+> +
+> +		fn = (struct file_name_attr *)((u8 *)attr + value_off);
+> +		names++;
+> +		if (fn->file_name_type != FILE_NAME_DOS)
+> +			links++;
+> +	}
+> +
+> +	if (unlikely(err != -ENOENT))
+> +		return err;
+> +
+> +	if (unlikely(names != expected || !links)) {
+> +		ntfs_error(ctx->ntfs_ino->vol->sb,
+> +			   "Inode link count doesn't match file name attributes. You should run chkdsk.");
+> +		return -EIO;
+> +	}
+
+Hi Michael,
+    This condition indicates filesystem metadata corruption: either the 
+number of name attributes does not match the on-disk link count, or 
+there are no names contributing to the VFS link count.
+    Could we return -EFSCORRUPTED instead of -EIO to describe the error 
+more accurately?
+
+Thanks,
+Baolin.
+
+> +
+> +	ntfs_attr_reinit_search_ctx(ctx);
+> +	return links;
+> +
+> +corrupt:
+> +	ntfs_error(ctx->ntfs_ino->vol->sb,
+> +		   "Corrupt file name attribute. You should run chkdsk.");
+> +	return -EIO;
+
+Hi Michael,
+   Both checks that jump to corrupt appear to be covered by the 
+underlying validation and can be removed.
+   If you agree with those changes, the corrupt: label and its 
+associated error handling can also be dropped.
+
+Thanks,
+Baolin.
+
+> +}
+> +
+>   static struct lock_class_key ntfs_dir_inval_lock_key;
+>   
+>   void ntfs_set_vfs_operations(struct inode *inode, mode_t mode, dev_t dev)
+> @@ -872,6 +933,22 @@ static int ntfs_read_locked_inode(struct inode *vi)
+>   		}
+>   	}
+>   skip_attr_list_load:
+> +	/*
+> +	 * The MFT link count includes separate DOS 8.3 aliases.  Once the
+> +	 * attribute list is available, derive the VFS link count from the
+> +	 * $FILE_NAME namespaces instead.
+> +	 */
+> +	if (!(m->flags & MFT_RECORD_IS_DIRECTORY) && vi->i_ino != FILE_MFT) {
+> +		int nr_links;
+> +
+> +		nr_links = ntfs_count_vfs_links(ctx);
+> +		if (unlikely(nr_links < 0)) {
+> +			err = nr_links;
+> +			goto unm_err_out;
+> +		}
+> +		set_nlink(vi, nr_links);
+> +	}
+> +
+>   	err = ntfs_attr_lookup(AT_EA_INFORMATION, NULL, 0, 0, 0, NULL, 0, ctx);
+>   	if (!err) {
+>   		NInoSetHasEA(ni);
+> diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
+> index 75e201096525..891ee697c0d2 100644
+> --- a/fs/ntfs/namei.c
+> +++ b/fs/ntfs/namei.c
+> @@ -829,6 +829,7 @@ static int ntfs_delete(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
+>   	struct file_name_attr *fn = NULL;
+>   	bool looking_for_dos_name = false, looking_for_win32_name = false;
+>   	bool case_sensitive_match = true;
+> +	bool is_dos_name;
+>   	int err = 0;
+>   	struct mft_record *ni_mrec;
+>   	struct super_block *sb;
+> @@ -932,6 +933,8 @@ static int ntfs_delete(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
+>   	if (err)
+>   		goto err_out;
+>   
+> +	is_dos_name = fn->file_name_type == FILE_NAME_DOS;
+> +
+>   	err = ntfs_index_remove(dir_ni, fn, le32_to_cpu(actx->attr->data.resident.value_length));
+>   	if (err)
+>   		goto err_out;
+> @@ -942,7 +945,7 @@ static int ntfs_delete(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
+>   
+>   	ni_mrec = actx->base_mrec ? actx->base_mrec : actx->mrec;
+>   	ni_mrec->link_count = cpu_to_le16(le16_to_cpu(ni_mrec->link_count) - 1);
+> -	if (!S_ISDIR(VFS_I(ni)->i_mode))
+> +	if (!S_ISDIR(VFS_I(ni)->i_mode) && !is_dos_name)
+>   		drop_nlink(VFS_I(ni));
+>   
+>   	mark_mft_record_dirty(ni);
 > 
-> -- 
-> 2.53.0
-> 
+> base-commit: 401898d748fcc8e19ceea1a37ed0de9075fe9ff2
 
--- 
-Lee Jones
