@@ -1,197 +1,155 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 358354E56FC
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:15:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2297E4BA1EF
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:15:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790284536; cv=none; b=cfXhNGLwoZpSusmnETvQAdM5fBUAZeM/dI+lLiKIkGRtKKXtBQQRmNNV59GHJv9JyKS1o4Ym+LCDcd0DfdQbwMm2nMzSZv4LsJZqQOuhYUnY/7vprc4FIB9Mw+4aUzXyKjalWV2/YsCOfX4IJK2KG/lb9iP0P6bTdZ/q7cGFIhk=
+	t=1790284541; cv=none; b=b971cIH6GrbImXv6Gd4MkJR86B1EGpvnqMgIeupGoutP94OZHq4/IZxi4HY36g2wagOFFPU5RrKY7FC6UkN8GHLz94p1dRON7Q7HjSHPkSdM6DuIx/dufkxtI37bHlkbWUGHxlW33GQbcj022vbSBCwzfjwypQ5sOJlH1FEcBI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790284536; c=relaxed/simple;
-	bh=dmWP87UxI7uBujY0f2nbWfb3eJIAq1CPzDfzqVzPMAk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tT5nlJdrXdjwgqIiYZ+drnRaYiArQX1AH8sxlCGEAUJJvBqZgeZiGqRpTj7+mtGiVqfEVNPIQbw0c2AUYpKCSBMn+L20kEyoBgsQ0e51bfVLDzwCp2Ly6cpfOnNYkRNfCMdEAwJbG06boaFzhxfYh7AfddAzqkZkSVQ0ADYaYpc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cVMR9lyd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Pbl7pmvH; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cVMR9lyd";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Pbl7pmvH"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OIdk853462594
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:15:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	5tdcekugkB66ivyH706zrRjgKb9wjBOeIcQvd77Bs0o=; b=cVMR9lydDqbJ2eM0
-	G72iokSL9QiT6pKIanwZ1s8jWrDZ4g/wIY+JhOxxFyIDzvJraI4SxTcuxc9G3WWX
-	0xpfN47PJGNIKeVj2hUTvT94k564NGArOkbNekewDQPQfE7i/BxfmyQH//CTfYvr
-	2B+bt37+AI0O7qCaFVWWbVJf1nFhMm0+GYY0gK8gXzTBeuP5idvzYzLP49Vjgc6Y
-	uQAbU5XLo2spsBTVHA/X8EJWn1N+6VQsLT+8IhGeoLYe+UZN++Hn9HD3m1trvt5k
-	tx0wN4TzhWCNYqlfMpr3wtzyzs4K5mzOlyg7rLdBJNeZaCAKY5784Pwxs5bb87a3
-	Dv7I8g==
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw1tjjpmq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:15:33 +0000 (GMT)
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-14371f7ba1eso411680c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:15:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790284533; x=1790889333; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5tdcekugkB66ivyH706zrRjgKb9wjBOeIcQvd77Bs0o=;
-        b=Pbl7pmvHHwc8p64Jx36717p+1jwWjChwg/jOW3E/9YtrbmMmbwv/nYi7KfN8Ypkky7
-         xmduFIQH4mS9kDyBaniT+l5ib1TMHFH/19A5HTerKV7J74RY7ryJYRU+zmbi/hXHyrQl
-         F1bJB96+3o59FDiF6mCapmSq/o2j+mppmyDNSxki4LMmCfNcDjqqynaXRNCyWoTS+NOn
-         wmT4MZ+XdGVF6O2Pmf6ctRk5EcDXdGcjA1H59vtOhdyIQKj9xPCddr9byZgqiX5SfnlW
-         FEgfEfs+WnYPn3r5syTELCiPqzIGuKjULkdbp6hr8W9pakLeFmYswdKdRQsMa1fSu/ji
-         /bYw==
+	s=arc-20240116; t=1790284541; c=relaxed/simple;
+	bh=qQO8IjNznZO4TVHmChgwEFycresfyuIrZ5PYTPQqzKI=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=o2llzxxe8c8H4W3xoabLgfAaCGmdDTSzajHvusn4STTo1UNjOblVLTy9onlAnyRoebWTzZzpVOwA+UlgbRkkViEZ/5DHap+XMA3qLBWV/dG2i7Gz5vxrV91FpP7C0sXlHkQEoCWrOocxa11f/yiUUd781rofVyvIIQYHhRTmfU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4c55ba309c2so556999b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:15:39 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790284533; x=1790889333;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5tdcekugkB66ivyH706zrRjgKb9wjBOeIcQvd77Bs0o=;
-        b=k67qVMRut6kvqVaGpz3Ks2lNSVZuJFli5B5k5nu7xdDpSU9SkyQlpcpwk/E77qpxC5
-         kVY2PYNgd3NaACa7+ad6D6cDnzz5coIa0XRlbN+jYOvFNV3qjmaz059jy3OwdltaW8OO
-         aSIG175Fe3gzZmoriqTF8m4Wd2eYmqJWd+MobNlITGcJQqamz0KVhtwS3HGCzfl+550v
-         fAL3gAgbuSNWLo+AbNeS88bsKlrPS8KCHeQZC3cBRwUO3DgXs/I8qqp6agshwC/SViYs
-         ZDw3a+5aVOPQCstshg+d7ANb09d+KmWeb+JY9iHaUuEbUaOzsAqsrkwJwwOQgtCYbC7f
-         aaEg==
-X-Forwarded-Encrypted: i=1; AKwUvBx8GqX7ggOBAVlalMEbip/ioamExKnyDAJraQi8WvBgwT7Vo50HDgRGzqYgddRB6ohw99OD8AsM+Q7a2NM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kFkug4SxQuavgXUhpbxSM/amhYlbGiIhsVNUnYQxq/y+ppyh0P
-	hbP5nnVewbfR9q7hbSJQO2mnOR+s0KjAkjy3/Dfe/rAPGF/4K/KrSBNxxbKGVWUrjeVLfdxuOsC
-	Eiowd0BDX09OxqgXnNv1CSNQVYBn0YiFrz5Y4ZzByxKhzl/WDhopaqLXicDAaB+Uuv6w=
-X-Gm-Gg: AYBFou05wf5SBOn5qGbChySjwHGlGIkCKJ151Ayd29Zg5ovEHY91AYXywmfWoSR0AqC
-	ZbCYjb5tonXaT233RWLpla35jck8Zl0XlmP9l6n5OK/rbhR03PF8D6uafe7sxtl2ojSq2t9Ko0R
-	djR81pfqxao3CO4+N4ikubtaL5HoBxD/aydW0oG/ZqepDN5cTwKPeojg7t5wWbR4UVb+LfKIwMJ
-	sW/doll0eodRkKdb/RzfkK3/25MazreY2zAuYZMIWyZriI0WYSwY5Dm/egTYyDYuXMyzpcYCWk8
-	XM3ruGa2WRWfN8Mg++8zhoX5R/U+U09xbBl/ib5lR9tjvAnBNypesjgGiboDhBsBfP933nDWEtJ
-	rBKaibiRmAQUH753K4mhtLos=
-X-Received: by 2002:a05:7022:3f8b:b0:143:50a0:56d1 with SMTP id a92af1059eb24-145ee902dc9mr57119c88.17.1790284532678;
-        Thu, 24 Sep 2026 14:15:32 -0700 (PDT)
-X-Received: by 2002:a05:7022:3f8b:b0:143:50a0:56d1 with SMTP id a92af1059eb24-145ee902dc9mr57096c88.17.1790284531715;
-        Thu, 24 Sep 2026 14:15:31 -0700 (PDT)
-Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145acc47ab8sm1323776c88.6.2026.09.24.14.15.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 14:15:31 -0700 (PDT)
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Fri, 25 Sep 2026 02:44:35 +0530
-Subject: [PATCH 4/5] dt-bindings: display/msm: gpu: Document Mahua GPU/GMU
+        d=1e100.net; s=20260707; t=1790284539; x=1790889339;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=xSR4lHSmVBbVu0kM0E0aT0ni37Pqd8I1mINiI6DNGRM=;
+        b=RVrkbGcZ8CLtsxx/t0rA7h2YBQ4pzPcXBjX8eDRx9jJxsbjE8BkIgtMMMDptx1Qwc+
+         48EzoOCcm4r4Nc6JVRm7ZUCeKau05mGxdmfLXGmksD3/r4HIQpvjyaxOWFSnNZC+vyIG
+         umaJU6EGzyVLY8jRclYAp1ajto1FKdtiVPZMKSRxZUIQ0t5dhT49y5UTOlT5wKjtFaE4
+         e9pl0OTPkwRv/mbjZOIClE4g5mYyBsiKdeEmsmPkd2JhP3uJXXEfykWrdllXlNSo1B2j
+         FTIkz9zggfdqiHwPfK2sVasDrQL+LhOO/40S9lUSv/51sVKxXq9dUEx8+/bgLVmzYVdr
+         H2yg==
+X-Forwarded-Encrypted: i=1; AKwUvBzc5JMVVbnQSy6gzQnXDfs6o9q0QXh7TDNdni0MUUs8BZZMmIYoV8od1xrPeejPuJs3IoeNk9IshHMrpM0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kQfttp2sRKDbMr4SHKEIDmpN3Cc8DI2+37wXzJjc7X2xIVPvHc
+	uGLt2m4mbXQLmg31HCLQIYzdZxdNudIH/wPLmJS/5+rdeH5vZ4qXBhZIUZfkaZFm5vUk4UreGFw
+	fdTX8vmF9QKOoXiIz2bY5zWrDNXmBzqqRTccvYU5eu7cLnmHWzX5pvnC6sH8=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260925-mahua-gpu-v1-4-0fa0bfd8d315@oss.qualcomm.com>
-References: <20260925-mahua-gpu-v1-0-0fa0bfd8d315@oss.qualcomm.com>
-In-Reply-To: <20260925-mahua-gpu-v1-0-0fa0bfd8d315@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Jie Zhang <jie.zhang@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790284491; l=1718;
- i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=wFWuC08EWZRz11+MVbDa+H+VKqlWAF1+MEP53XMoALE=;
- b=k+Zpqxr+yNVuWSBKTLezYW3OVVU34ewiwjumOVOdyNbZ/VJePl2XAynAMxxfbm/xhPbHYjeDB
- z8R2UG9USMACf0QCKKlrU+RZeBDQVbQpTOfSVYPS4Xm7ALM0l7K/y+n
-X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
- pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Proofpoint-ORIG-GUID: vqtwkEVfr-nLR4oEvgJsUHlIGawqe6IF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA4NiBTYWx0ZWRfXyXdB4VzpYJsQ
- ftOAr7yDCisYyR1O93rxmB1b3bxt28re3QO+w+E9QaVHTl+16JpGi10fNiwI+wf48G5ZZjxgeES
- YLNkpdxbC/S2GeVrsbAEmY5tiWwqXaMBOdvoBeWmLm6jh6bKPYI+uNaT4H5EzD6ch/buYDPWvXb
- z5whwB90P8kYSPVoiJ73Zy9yYOjYK6jJBdRukDKzn9OsMKj5cPHx0mXRXE+ZOlcMFrx9MfxjOIH
- LdhgPYcBi0CTXmBTym0Hb2fFdDEQuiE7jBfh9nke/oOe+VQN9xbJoQOw8rIDnjNMx8Xu2quU6Dy
- Zw+Wujjbt/DA5RXsleMkBAo+hQ5R6EvWqSuQo81tzF+7Bg9wuqyhqaxfBP4IqUvQqMz3mP+Uuo9
- h1WPo8+daMTljNHorwTdOvxnqS1ew2t1YniLf5kI+Fy8geECMtu2i20hiZQlkTyPncbCgprREwK
- PvUgmzqKP2OUVXhNL7A==
-X-Authority-Analysis: v=2.4 cv=cK11IVeN c=1 sm=1 tr=0 ts=6ab592f5 cx=c_pps
- a=JYo30EpNSr/tUYqK9jHPoA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=I0ZAm1zAenetWGxY4hkA:9 a=QEXdDO2ut3YA:10
- a=Fk4IpSoW4aLDllm1B1p-:22
-X-Proofpoint-GUID: vqtwkEVfr-nLR4oEvgJsUHlIGawqe6IF
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA4NiBTYWx0ZWRfX79acDP/kJtjz
- cdykUKlr2Qo23VCNhAlZWbtI0QQk4m35gKZtBkq4KUuwKYoJJXQ7UaS1F+oTE38cqqxQf6NEdyS
- FfH6YsIu0Zj2Jcy641bR0eiOWw9xViY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- impostorscore=0 spamscore=0 malwarescore=0 phishscore=0 adultscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609240086
+X-Received: by 2002:a05:6808:448f:b0:4b9:a8ac:479 with SMTP id
+ 5614622812f47-4d72c73e50cmr3676645b6e.23.1790284538951; Thu, 24 Sep 2026
+ 14:15:38 -0700 (PDT)
+Date: Thu, 24 Sep 2026 14:15:38 -0700
+In-Reply-To: <6a65ac92.70955b6c.323240.002e.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab592fa.7428d045.30104c.0009.GAE@google.com>
+Subject: Re: [syzbot] [kernel?] KCSAN: data-race in mas_wr_store_entry / mtree_load
+From: syzbot <syzbot+caa2ebc5f1f594970675@syzkaller.appspotmail.com>
+To: aliceryhl@google.com, andrewjballance@gmail.com, liam@infradead.org, 
+	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org, 
+	syzkaller-bugs@googlegroups.com, tglx@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Jie Zhang <jie.zhang@oss.qualcomm.com>
+syzbot has found a reproducer for the following issue on:
 
-Adreno X2-85 GPU found in mahua SoC belongs to the A8x family and
-is a smaller variant of X2-90 with fewer slices and smaller internal
-memories. Update the dt bindings documentation to describe this GPU
-along with it's GMU.
+HEAD commit:    f49a343b305c Merge tag 'pinctrl-v7.3-2' of git://git.kerne..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=168a9c5e580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ea1e6d8de13bab08
+dashboard link: https://syzkaller.appspot.com/bug?extid=caa2ebc5f1f594970675
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17675c05580000
 
-Signed-off-by: Jie Zhang <jie.zhang@oss.qualcomm.com>
-Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+caa2ebc5f1f594970675@syzkaller.appspotmail.com
+
+==================================================================
+BUG: KCSAN: data-race in mas_wr_store_entry / mtree_load
+
+write to 0xffff88810493bb00 of 8 bytes by task 3643 on cpu 1:
+ mte_set_node_dead lib/maple_tree.c:305 [inline]
+ mas_put_in_tree lib/maple_tree.c:1652 [inline]
+ mas_replace_node lib/maple_tree.c:1667 [inline]
+ mas_wr_node_store lib/maple_tree.c:3276 [inline]
+ mas_wr_store_entry+0x3c1f/0x5ac0 lib/maple_tree.c:3606
+ mas_store_gfp+0x493/0x580 lib/maple_tree.c:4999
+ irq_insert_desc kernel/irq/irqdesc.c:195 [inline]
+ alloc_descs kernel/irq/irqdesc.c:531 [inline]
+ __irq_alloc_descs+0x361/0x4d0 kernel/irq/irqdesc.c:922
+ irq_domain_alloc_descs kernel/irq/irqdomain.c:-1 [inline]
+ irq_domain_alloc_irqs_locked+0x7f/0x7d0 kernel/irq/irqdomain.c:1639
+ __irq_domain_alloc_irqs+0x80/0xd0 kernel/irq/irqdomain.c:1713
+ __msi_domain_alloc_irqs+0x435/0xa00 kernel/irq/msi.c:1336
+ __msi_domain_alloc_locked kernel/irq/msi.c:1393 [inline]
+ msi_domain_alloc_locked+0x357/0x3e0 kernel/irq/msi.c:1398
+ msi_domain_alloc_irqs_all_locked+0xd2/0x110 kernel/irq/msi.c:1474
+ pci_msi_setup_msi_irqs+0x7a/0x90 drivers/pci/msi/irqdomain.c:17
+ __msix_setup_interrupts drivers/pci/msi/msi.c:687 [inline]
+ msix_setup_interrupts drivers/pci/msi/msi.c:708 [inline]
+ msix_capability_init+0x566/0x960 drivers/pci/msi/msi.c:748
+ __pci_enable_msix_range+0x41d/0x4b0 drivers/pci/msi/msi.c:856
+ pci_alloc_irq_vectors_affinity+0xac/0x1e0 drivers/pci/msi/api.c:268
+ vp_request_msix_vectors drivers/virtio/virtio_pci_common.c:159 [inline]
+ vp_find_vqs_msix+0x3f0/0x8b0 drivers/virtio/virtio_pci_common.c:416
+ vp_find_vqs+0x4a/0x4a0 drivers/virtio/virtio_pci_common.c:526
+ virtio_find_vqs include/linux/virtio_config.h:298 [inline]
+ virtio_find_single_vq include/linux/virtio_config.h:309 [inline]
+ probe_common+0x1e8/0x3c0 drivers/char/hw_random/virtio-rng.c:177
+ virtrng_probe+0x15/0x20 drivers/char/hw_random/virtio-rng.c:215
+ virtio_dev_probe+0x5cf/0x780 drivers/virtio/virtio.c:347
+ call_driver_probe drivers/base/dd.c:-1 [inline]
+ really_probe+0x1ba/0x600 drivers/base/dd.c:706
+ __driver_probe_device+0x14f/0x1c0 drivers/base/dd.c:868
+ device_driver_attach+0x8d/0x130 drivers/base/dd.c:1203
+ bind_store+0x17b/0x1c0 drivers/base/bus.c:267
+ drv_attr_store+0x57/0x80 drivers/base/bus.c:125
+ sysfs_kf_write+0xfe/0x120 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x1d2/0x2e0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x57f/0x9a0 fs/read_write.c:687
+ ksys_write+0xdc/0x1a0 fs/read_write.c:739
+ __do_sys_write fs/read_write.c:750 [inline]
+ __se_sys_write fs/read_write.c:747 [inline]
+ __x64_sys_write+0x40/0x50 fs/read_write.c:747
+ x64_sys_call+0x154e/0x2550 arch/x86/include/generated/asm/syscalls_64.h:2
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x112/0x360 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+read to 0xffff88810493bb00 of 8 bytes by task 3646 on cpu 0:
+ ma_dead_node lib/maple_tree.c:505 [inline]
+ mtree_lookup_walk lib/maple_tree.c:3049 [inline]
+ mtree_load+0x3fd/0x600 lib/maple_tree.c:5822
+ irq_to_desc kernel/irq/irqdesc.c:414 [inline]
+ kstat_irqs kernel/irq/irqdesc.c:1027 [inline]
+ kstat_irqs_usr+0x28/0x1a0 kernel/irq/irqdesc.c:1071
+ show_all_irqs fs/proc/stat.c:41 [inline]
+ show_stat+0x96f/0xb90 fs/proc/stat.c:135
+ seq_read_iter+0x2d9/0x8f0 fs/seq_file.c:231
+ proc_reg_read_iter+0xe6/0x180 fs/proc/inode.c:295
+ new_sync_read fs/read_write.c:493 [inline]
+ vfs_read+0x699/0x7c0 fs/read_write.c:574
+ ksys_read+0xdc/0x1a0 fs/read_write.c:716
+ __do_sys_read fs/read_write.c:725 [inline]
+ __se_sys_read fs/read_write.c:723 [inline]
+ __x64_sys_read+0x40/0x50 fs/read_write.c:723
+ x64_sys_call+0x2135/0x2550 arch/x86/include/generated/asm/syscalls_64.h:1
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x112/0x360 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+value changed: 0xffff888100b7f70e -> 0xffff88810493bb00
+
+Reported by Kernel Concurrency Sanitizer on:
+CPU: 0 UID: 0 PID: 3646 Comm: syz-executor354 Not tainted syzkaller #0 PREEMPT(lazy) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+==================================================================
+
+
 ---
- Documentation/devicetree/bindings/display/msm/gmu.yaml | 4 +++-
- Documentation/devicetree/bindings/display/msm/gpu.yaml | 1 +
- 2 files changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/display/msm/gmu.yaml b/Documentation/devicetree/bindings/display/msm/gmu.yaml
-index f22661447e7c..d10d6147358e 100644
---- a/Documentation/devicetree/bindings/display/msm/gmu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/gmu.yaml
-@@ -363,7 +363,9 @@ allOf:
-       properties:
-         compatible:
-           contains:
--            const: qcom,adreno-gmu-x290.1
-+            enum:
-+              - qcom,adreno-gmu-x285.0
-+              - qcom,adreno-gmu-x290.1
-     then:
-       properties:
-         reg:
-diff --git a/Documentation/devicetree/bindings/display/msm/gpu.yaml b/Documentation/devicetree/bindings/display/msm/gpu.yaml
-index e5efe2d35ddc..8a103f998dd8 100644
---- a/Documentation/devicetree/bindings/display/msm/gpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/gpu.yaml
-@@ -452,6 +452,7 @@ allOf:
-               - qcom,adreno-43051401
-               - qcom,adreno-44010000
-               - qcom,adreno-44050a01
-+              - qcom,adreno-44060000
-               - qcom,adreno-44070001
- 
-     then: # Starting with A6xx, the clocks are usually defined in the GMU node
-
--- 
-2.55.0
-
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
