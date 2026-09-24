@@ -1,92 +1,107 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 668284EB847
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B1244E8E04
 	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:53:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790286797; cv=none; b=YDPtWpJ5deybdkFM8mO++evmfoNZB2U85e+d3LFHQweS2P/jGoI+xXO4WJuYdxa6tm3/DpgBG2fy/2D4D4Q/53fQbiG3uBlN6l6xgFNdG7RYewBc2bUeVRlGYrP/gcr3y+eAv8aZ7+5gbTZmcQdK3BBCqRYjhHibWO2eiJ0hjqM=
+	t=1790286803; cv=none; b=YJ/C0yn7AyK/yBNmphGPY5SyNqVcl5cEIJCIZa8EE/q7qs4ups51ljq3g+2w44hSr1uThmdrB6hoRaH7cD6Y4r2g0GzoGteWfIV1fR796ETJsXpr8cMJqLKXdCBvxRH+gLV5WHIdUiEf+9qhb23/ERS3WaKZNvKyIlT+3KkG9WY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790286797; c=relaxed/simple;
-	bh=wUqMujLgG/ATUODYjLIuP7EXNqWn7rMgrL/D2IHZ4OA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f3yX4tiSNq27BTgDrmWb4QWcLsnATh7G4PCruhyLf4mQldtZhU8rFIg1wkdC7OMLrC+McmKwUo4bP7xhzN8w45J34OMC+Wo5dhK5I+slZfZmhiEjfmW4d4hC9GOltWI8EFSd3VJVqNEXel7RFgVz8/29DK1vywfErnvTxtyaF4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FYrXMKfF; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790286803; c=relaxed/simple;
+	bh=RbSuvXpZGJzj7DyvR5wUr6ym4Nnq30Ym0ZQqCgZv2e4=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=MI8P+3DKknE9GwQLk960vILHm43uSxqxltEeH/4oCelNRav1mTgF/YQwYiWJk37UNoHOV4+SWXXtYgFO9mwCB0LZXGW41WsT5wMEpJg623mFHePo8DoIdslR7+EHMVcXIg2JdIXxjIVvUiPXE5nXSkyPTK4VV6+p9ZSF+acXkqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=u8ip4hsX; arc=none smtp.client-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FYrXMKfF"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912df756so2182145e9.3
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="u8ip4hsX"
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3a0bcf8b74cso19141a91.1
         for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:53:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790286790; x=1790891590; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wUqMujLgG/ATUODYjLIuP7EXNqWn7rMgrL/D2IHZ4OA=;
-        b=FYrXMKfFuAhNF5aCQVPp9k70aZHLhA5y5y7FHJxEF4Cgx16UZb8Wh570H78iixISQc
-         VpF1eAnRuohAFSDR7cUU3I+zypSleeCnUiIzME1/76SDe+P8HBxG12VgJpzaufB07scV
-         sSopUoV1c6a+0C0jcWF11L5O+3mh4/MoITbUH9W6RhvlCP6aiKuEbiH6MF13cxRyYSjx
-         8oUO6wtI+N0XmO13bsw9XePdvAUAHS0Orr57nO5pnBYb3lVuU423CENcCI+DEz4td3kj
-         bm86dLsuIUEhJCUT7fEUCYQr5w+M9VsV+FSOXNcgS3YGNubtD/bRUReRMZ9jTvH6hyHf
-         qj1A==
+        d=google.com; s=20251104; t=1790286791; x=1790891591; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6LkhgjIPo4LQGHd0bFnsw+pSTli362MQLpClW50HsSw=;
+        b=u8ip4hsXZjYKo0/NLX1BwjJaC4gBAmy1XdO39VjPw5H3XSxbB7GkGlJKrpQUAK4s8A
+         du6dRREUDc/txuUNqgmifo0zXCjZOUJRvecq0Ij2rrIObXgozG3ROlk3p96eqV3Rlq6H
+         0VZgFQggx6if0cRZKzYWCC6YjVcXBpqxK17eahjRUX/oA1AEJ/SdXmiz8cn0L8rm1Yon
+         Y13vLKjLsQ7xvCBH3yzR/Qeeu22BiJb6CB/joUSsLJIAnoRhJFRTW5ilTW4mJ92UzG3q
+         GuHUfErxnYmJ4J0LOQGgRGfeB9VKqhDQE7jSsTblK46+OBE0rEozAsPCk9yb4gxtAEjp
+         osWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790286790; x=1790891590;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wUqMujLgG/ATUODYjLIuP7EXNqWn7rMgrL/D2IHZ4OA=;
-        b=RD7Lp1MTQwwYm4Cd2IftZBL0cjwfmrH/+ZUnfu+SCtYKkDZCqcUOpAevwDBqjytA2O
-         QUtzMR39f2wev/vuOXopBX3b3eoLrp/LrGQ9qKbiuwOXWkCv0f0Vko4TaYrHZH/6Zjrk
-         395rRUPuITiAgmoLJsMXxXOnGZW64/P+mJR9gq21woDr2JOb4ZzLvIcnpvgqjBDJOwtk
-         37vpjoU5PPluW+0U28QhzwBPKy7kDr8Bn8fZvMG1MjCgQKeqVRzpJ02Gk6fdY0xcrv+6
-         kBvjWJgUFuZlHd2v23Jdy/fHbdvU2iOzN7TZn6ZxXw9rrdinBQykWSKBhje545cie3bM
-         +auw==
-X-Forwarded-Encrypted: i=1; AKwUvBxQQXvqSJOaB++NUvixdqSflp6aWrUzXAl7nKjnxSidA+VvSS1JYZmSKWki6f6WqbEiyXUrk7zTDN3H7dw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmOSuhMp5Sgepq0Hff7QY/teP8hAX9fOqjNVBmBzM6+R50ifOa
-	AeeNV0OsOgX3fdatxoYuwNUlG6nn+6b2UCJmq6WxnbID2cCAZSlYhrpF
-X-Gm-Gg: AYBFou2eJM149ioNPOzljSirHYAjt40NX68CqzN9nLXzP5uNybvL2fB1Odxl9cfolTX
-	BDB0j05bjFPPvlSPxIinVWLrDD4D9xglHAXZw6KaPDQlbsWBh36wMkBsDONpIYyD0/5p9azACDr
-	yEr2l9IOdiOoQaL0u8vuFhvm8vP4oroFxWg8T3q2qByr7D95F+v6X7xUe2ouH2RzXJUCoVBLlMN
-	QRdAelGH3ap/0zSotlkRjmGlMfTRko7eTPA+F/6cA192zsCGHx013kgpZ4ayVcgRikkC+nR0l5Y
-	TQPubCDejL/f7g297Q90MJnL0Tdx++a5Rtm9zH0DraVW3cGe4vRV2gt6djVz3yetNvt4+U/zyRf
-	BGd4hZksUslLt3XI2x9qvTQvFH0KDRGDV6/7Bx8VP1Sb2sgVoGUfAMGzojKvB9DMMnUWTQ2rIYJ
-	I1qK4vtiDSZrY3DS1UBt3U7xL9x4OoXG978xU4P7ZTQeH/5uv/EPc7l3Jiycyz7lVkaxDHt9wOc
-	t0efUguZbnRnBqa3lDyKUQgj8nDV5nJz9FR4K+81MicFYOPjhMN/LA0YMGtZ8TAcv0M4LaKBzv8
-	b7pz3bBILZhjHV+o2w==
-X-Received: by 2002:a05:600c:8484:b0:49c:fe46:7219 with SMTP id 5b1f17b1804b1-49fe66d8135mr63220665e9.20.1790286790425;
-        Thu, 24 Sep 2026 14:53:10 -0700 (PDT)
-Received: from 1Z10 (mob-176-245-31-160.net.vodafone.it. [176.245.31.160])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff1419498sm991635e9.3.2026.09.24.14.53.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 14:53:09 -0700 (PDT)
-From: Maurizio Casciano <mauriziocasciano7@gmail.com>
-To: Hans de Goede <hansg@kernel.org>
-Cc: Ilpo Jarvinen <ilpo.jarvinen@linux.intel.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/3] platform/x86: Describe Yoga Book haptics and audio resources
-Date: Thu, 24 Sep 2026 23:53:06 +0200
-Message-ID: <20260924215306.930909-1-mauriziocasciano7@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260829225729.395270-1-mauriziocasciano7@gmail.com>
-References: <20260829225729.395270-1-mauriziocasciano7@gmail.com>
+        d=1e100.net; s=20260707; t=1790286791; x=1790891591;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6LkhgjIPo4LQGHd0bFnsw+pSTli362MQLpClW50HsSw=;
+        b=yzjWLtUUNJTmR1RtnEyDtE+yWJ8bfopB1VWhlLrNpHzhS1KB71EsTR3R0L18zB77Pi
+         Rbk5jIjW7oi89CeLe49zo7IKDsJI3pIJr+YQIG4xe9vY6M8qJ9EcioeRkrnSAmR0dfjE
+         MgHsilH5wSAUUjETgvKH824gG8DHOhupED9VZQIUYhoiqqoG8hm29nvqa/PXon+0zSfB
+         e38Oic44AspzW8t/doLOjEZ+A5jrB9vl9zHfO0JPOJheAuOvYciemKgujOL4uFnmYOPw
+         DMfkCH19euvnIEsfoQTfD0L4MABbp8d0PyrldBoT8A2na3cNfGks8eRfLO2SRCkwNN8u
+         FfpA==
+X-Forwarded-Encrypted: i=1; AKwUvBztvCfm2w5Phif7K2IoI5quJ9c/2sjMEn6WEl7ED08VRs3wMVzsjxD8ocbpZ0BF7wkA1ZaRtGkAVxURjjY=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+MVZKAA8ZYlsQ/Izn1XQviJaWEAstRj3DemygDtxejguOYZwr
+	s7vHF1Blc3YXpuK/SkOTej15CZ64OS3vXhmBmhpo3tV6oXoiP6sMmofMAHCLZr6blqIqb/cZkff
+	vHhFM6Q==
+X-Received: from pjrv22.prod.google.com ([2002:a17:90a:bb96:b0:3a0:9658:1de6])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2703:b0:3a0:2ffd:1a4b
+ with SMTP id 98e67ed59e1d1-3a098ce5269mr3354853a91.25.1790286791218; Thu, 24
+ Sep 2026 14:53:11 -0700 (PDT)
+Date: Thu, 24 Sep 2026 14:51:51 -0700
+In-Reply-To: <20260826-gmem-no-return-page-v4-0-3bb9c1ddb4e3@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260826-gmem-no-return-page-v4-0-3bb9c1ddb4e3@google.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <179028368772.2007408.8775233545709825615.b4-ty@b4>
+Subject: Re: [PATCH v4 0/5] Stop returning struct page from guest_memfd PFN lookup
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Ashish Kalra <ashish.kalra@amd.com>, 
+	Michael Roth <michael.roth@amd.com>, Brijesh Singh <brijesh.singh@amd.com>, 
+	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, David Hildenbrand <david@kernel.org>, Yan Zhao <yan.y.zhao@intel.com>, 
+	"Edgecombe, Rick P" <rick.p.edgecombe@intel.com>, Vishal Annapurve <vannapurve@google.com>, 
+	Fuad Tabba <fuad.tabba@linux.dev>, Ackerley Tng <ackerleytng@google.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev
+Content-Type: text/plain; charset="utf-8"
 
-Hi Hans,
+On Wed, 26 Aug 2026 09:01:45 +0000, Ackerley Tng wrote:
+> v4 splits out a new patch (3) that makes use of KVM MMU invalidation logic
+> introduced into the RMP fault handling in patch 2 to avoid warning on a
+> benign case.
+> 
+> Other changes in v4:
+> 
+> + Took Sean's version of the changelog for patch 2
+> + Picked up Fuad's Reviewed-by: and Tested-by:
+> 
+> [...]
 
-This v3 series has been pending since August 30. It incorporates Dmitry's
-feedback by describing the RT5677 GPIOs with a codec-attached software node
-and reprobes the codec after attaching it. The series remains unchanged.
+Applied to kvm-x86 coco, thanks!
 
-Please let me know if any further changes or testing are needed.
+[1/5] KVM: SEV: Treat unassigned RMP entry as benign race on PSMASH failure
+      https://github.com/kvm-x86/linux/commit/211606532680
+[2/5] KVM: SEV: Drop page refcount early during RMP fault handling
+      https://github.com/kvm-x86/linux/commit/375b32931b5d
+[3/5] KVM: SEV: Check for invalidation before warning on unassigned RMP entry
+      https://github.com/kvm-x86/linux/commit/acafcf32c83e
+[4/5] KVM: SEV: Drop page refcount early in VMSA reload
+      https://github.com/kvm-x86/linux/commit/3c427e5c0347
+[5/5] KVM: guest_memfd: Stop returning struct page from PFN lookup
+      https://github.com/kvm-x86/linux/commit/89fbe3de01cc
 
-With Best Regards,
-Maurizio Casciano
+--
+https://github.com/kvm-x86/linux/tree/next
