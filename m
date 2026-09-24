@@ -1,192 +1,214 @@
-Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E4E14A4832
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:22:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790263385; cv=none; b=VnPt+rwitjRcosbg1wBKRUBqLVamefSqjz/YvuWgXk4weD6/kZBA+ZuW8Nx7rBzjZVXFcHHMFazAra96oRbYKhffctHYeKhfJ6Ief9BrpoY8y+fZBkdgZLvz/0ODDgaxy8Ocl+V1eXLEOrvXtoHczfkXx5yCx5U7iJg3sNcVrb8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790263385; c=relaxed/simple;
-	bh=0NPQiXmcxX+mcYT+VPLSV1Q+UOJdUjBb6qH1Fe3KQ+k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pHehaVbeZdjzdGbgP/jI/K5ZU4JNqhYVhEDG9uPB2cGRzI3iHjsErU+goL2U0t2ZhE6uNo1pAE4Hf9+OTx0lcFnLnueUCQpHZZhUj3n0R2mEMv1iriC+2a95qILfFRWXU5yaZNxv953ojL5XetJk8N2KA5C4EGEZOz9URfcOAE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=rHiW/DHe; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ldzREHgy; arc=none smtp.client-ip=202.12.124.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E6634A2E24
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:23:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.10
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790263407; cv=fail; b=kPO+xmpQ9yNxrc4OzEoueGL/bJpFFOoKM5e9fhUlm/mFjGnjV/h58vDRFimSsOU3Gt+y+w37U6rW3rGO7DskJ5XdgiFEOt1CjMw8lZPbNaLdL7aSGi4L84Rezlq4eFBI2Z0aPHKRnCW5W4WyjUyJFdUugPIbpRswQokDj5ZAUtk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790263407; c=relaxed/simple;
+	bh=tRUdffl5VdgS1CJtdXyIcfNPn2/+WBn0fClAy76zlwM=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=TDfFIXbMT0vE6786uK9N0HmegRQk5o51B9uIVzVsAb2JhKr8q+MawcQHkdWKGjvvPH5qtJJ+J3pyy59BJmHVx7l0hXUdkmdArx2yqCLbf7TCeB6zsyrgOgX1SoBQcdQsV+KnkVe7upZcCrxzFkyv15Enus1e6wFQ6+BlWU5pCoE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=B6VVsp3l; arc=fail smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="rHiW/DHe";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ldzREHgy"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id CEAF57A00F7;
-	Thu, 24 Sep 2026 11:22:56 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Thu, 24 Sep 2026 11:22:57 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1790263376; x=
-	1790349776; bh=i9829kPweuklhix3Z1AJfyPME8Dj1E3vcoJGw3M8wqk=; b=r
-	HiW/DHek+JmfrjHge6+5C9Qq7tzQKeVot5KGDx5KDOk5tTqMfrK6MTIm/uxK0DS9
-	CuCwOTUvtLTyX/0bl/25EPfDPwCSYVOSVzlNa8mMvqdBVsuJdveRt1F296iDdBBu
-	vCT9AYnoDTn5ubo8QggHHPcWpPGWn059EUeol9yFM/doqKWQjPOOgx3sp+VOkOf0
-	Cv2yp3RiF77jwASVIitq9UMKDySW5O5FmhuHE6LiR0yrbBRLBJqmLEDLGZojj+JI
-	4sJ6tCR81IwhrcAqF/fkMegwBFCAn6tGnyq++AsCI6iyoGzckbXIWJyoTqZspLYh
-	ZA3z8Ojfn/8AYJ3JxJv/Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1790263376; x=1790349776; bh=i9829kPweuklhix3Z1AJfyPME8Dj1E3vcoJ
-	Gw3M8wqk=; b=ldzREHgy8qn/M67eVWZG1M9WNO1oVErf0HZcYvoi6NqEQMUKbhn
-	bOIAoaO3fnBQJ1WPq/JhdwNu4HtWJWR89hyjxbZqK5FgRiRAXp9JSLI2hYyP6lnq
-	ZBx5YU8oQtzpqTaIOUY+AJVKidm3Djfk1r7VvsIzP287bozKM5En+/qmHQg110EH
-	3340bNAwp/ZA6oXHEYbpS9l/EKnHz14FG66Lbx8opVCVAZFtsrfj02ECbmhwvmM+
-	bacjNYbemrGG8plMCyNspk6r+KxNl+y0nPjzrv8x0dInmO+0aHDBbZac9cMLFIkV
-	C4AlljPvACf5D3Lvhua8CkTI+WspfqUOqQw==
-X-ME-Sender: <xms:UEC1au9yDacykCnlx_WP67kQpJSkPNWA5yLrV91me4eVDGaZLihJIg>
-    <xme:UEC1asVk8Lnl_rcGxvYYBcjojy3rSvCdH6Y3jNkGe7N4XR2J4reHkLSrd9ZeY1CUr
-    TrEqyqMzIFLAacv_OQRLJtkl0fvZFWVYE5JesBoQNI36lpluBQXvz1t>
-X-ME-Received: <xmr:UEC1arZ3uLBl3_ssQkZvswUtrcOYch5TPavc0S3BEPZEPOWuYntfoWMU-o8>
-X-ME-Proxy-Cause: dmFkZTFOEUn76qAsDivzyhzaxVg7PBFGRMw+JOhFLqg+cNl/nhm8GytXTnazGyDSxwsGhK
-    j/+NkLfyi36dqu7YdqiPFUiCwIsC1ecyqSlqD3Tm3hsRlecNHu92tTNpFDWN+dz3gvKG6F
-    kN5sIFxDwtuWxWxoOY5Cuvq4sRqgoamTjVSTdtIc3wp8gBL3r56ubVMWhtzdXQ/CCaCogi
-    3u0GJXH7g/d5NIYGaXEA/71nb/j3UTqjEE5ZBwkqiRSN6z8w6QuD75ih3hLZEhI0hzYuY5
-    9UTL2y/fCg3Qga4bEbwRZkYBSwgzIa1EHyrLI7bgmDJR4jI8MMpa/XGhfqVoCL41U4VdPA
-    3jolhBlpuiuG5Ou3hokvPOnz/Q89mLkYMrjPAYjITIbsEpktlB6Cg4Mm5mEVLFfU/6gQf8
-    kklLUDvf7klk/P/ynJ3R9L9w+IMxpUNzHXVF5ENjbheqjRJzYBJmmvxXzkpErjl5zHRW0z
-    63kXRk0zRkkKEe6BuHAbHnnC5chSxOxfJZUlk1b3Wgbodb+Kh7os4JoftfVzuIOy9tFkzC
-    cqGP/6YUQ3FDRGn5Aurmxcgv01jUlsvAG2Why4sdj6Ah8fac1ngNEwwBAUyIbGqzP/ohmM
-    tmuGP1q0Bx56xS8dr2K0kCqihfpR48oEVX3WlAUE4EXHWZHKoV23ua1WITsA
-X-ME-Proxy: <xmx:UEC1aupICPxJWcKkt8t7vflDAD3oAj2LL1M3w1VwnAj9Y-Ikia5lPw>
-    <xmx:UEC1aq7_qO5Oo-YzWV4RA46mTsJXXLnexyxh4nc59ikI7eDZLnl14w>
-    <xmx:UEC1agWyou9GYHWILQj18DawbYQoIgCAnLZqsEUmHDBm6VJjfBo2Sg>
-    <xmx:UEC1aguVsLFGZpdWn8wHty3ntBLcN048_hojDKhqnfXZNB6ILy9lwA>
-    <xmx:UEC1amhavBbJoUeYNurtAFWp7GVDHeBBEeK-nn1jAkrNj7Qzvmj2hEOQ>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 24 Sep 2026 11:22:55 -0400 (EDT)
-Date: Thu, 24 Sep 2026 16:22:54 +0100
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	kernel-team@meta.com, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>
-Subject: Re: [PATCH v3 11/12] mm/collapse: declare the collapse interface in
- collapse.h
-Message-ID: <arU8w9qDCvKod7PO@thinkstation>
-References: <20260916093145.4022188-1-kirill@shutemov.name>
- <20260916093145.4022188-12-kirill@shutemov.name>
- <63f49a8b-cabf-4b93-a7e2-76b62c463a90@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="B6VVsp3l"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790263404; x=1821799404;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=tRUdffl5VdgS1CJtdXyIcfNPn2/+WBn0fClAy76zlwM=;
+  b=B6VVsp3luXC2GFTHpg8lakJJV/h0iJsOvFxqNYog4FMBv1FlontPepND
+   U/jEBOjBBwMURfcLSU6ZyAgAf4XxwtfqGnGzO+cboguWs8RcZYTmWBmle
+   MF7k1/yGAv3hCoGfIvsonnj26hc/k86dUG3gJ9VUllIhhn4V7vGFAUMqB
+   KquVavVtKwa3ByrkEHXbyJc4DWldSTVVss+xBHKS7X0XxBPdMeQXd6jXi
+   xLhQGBiHToXA23gWtcj2FXE/D8zhHe1K0uxQ5V1cxr0a5oYOsDUifKef6
+   JwnRdwrtoMyJ8YaM57EZ5kGsiWYG5zIh3m75ygIN9u7adcCiCPikp2acW
+   w==;
+X-CSE-ConnectionGUID: ueLShM49RIuz0mnGpGGoFw==
+X-CSE-MsgGUID: KiYY4LO5Q0aNXsuFU5+hiw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="102397057"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="102397057"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 08:23:20 -0700
+X-CSE-ConnectionGUID: Pj/bFA/xSCuZ/eyi8gqXuQ==
+X-CSE-MsgGUID: 9AdNgbjTTsq62WLp86fE/w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="278797351"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 08:23:20 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 24 Sep 2026 08:23:19 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 24 Sep 2026 08:23:19 -0700
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.58)
+ by edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 24 Sep 2026 08:23:19 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=laCulKP64k6w2tKw2DxWQRfWf4aKfFjATL5fet9fl7yadvGdPXNmqa1Om8AB5E53Jgd3qpQ9X9tt/W0QBa0Bouhx+Ei6mY6wEydXFRyQrT0V3WCyJA9S/YhQ5GjCdMQQysk2FaDqbg5G0uLnKVXED3Skz8G76aJP7KUtguCi3R1iubCJWfZw/squrbWzpVWCOKtdWk+72QZ2PD3xInjg1hAR/prNKFmawGWYpMVe0GkNe6Zi2ij9ibvJJ5RosJE0TZwfXB0rP2z7OHIl1TFYC7ac4sTpx4KHW50wNCdQzhtGGCLAzGPDtNcayaOc6HQ3ESDMnxNDjIhrCC+NGeOzYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vF4WnYOvT7+SM1hXqYqIuvOVVNJZzj/cyGz5nfUWwwE=;
+ b=kg6xkmmwaC3cI7efzBmBYVdQeisgIfFcrS0H4Ab6ZIq8B8bQSTl86/4WGCV92GTNI7qEsymbzKhRub1tLFoc4RxaA991gA1k1uQr5t7VIL3mvSaW5c9xG/xI4qXchXbLvT4q3aTRN+8XmMLv+xb3h50MZMtOptpGX9Ee+R/Ef+xDfnu91rCBPOrC5arCQdt685HY22NwITrmixzxzTnIeAJ8ORPxJkNNAhp4wMeE8e8Eeb9SgIMt/nhO6QEoxkkM1MFGJHF8tqxWv2qcY1KIAyKJaYnQS1fPgZRg6Ba0U9q+UOI7ydnWv4FcoIiu1S/OmmTICMW42uoUceRBwlP0iA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
+ by DS6PR11MB454219.namprd11.prod.outlook.com (2603:10b6:8:4c8::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 15:23:17 +0000
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc%5]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 15:23:17 +0000
+Message-ID: <10a42b38-190b-46ac-bddd-04216d44c22e@intel.com>
+Date: Thu, 24 Sep 2026 08:23:15 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 04/25] x86/resctrl: Apply Intel MBM quirk from
+ rdt_get_l3_mon_config()
+To: "Luck, Tony" <tony.luck@intel.com>, Babu Moger <babu.moger@amd.com>
+CC: Fenghua Yu <fenghuay@nvidia.com>, Maciej Wieczor-Retman
+	<maciej.wieczor-retman@intel.com>, Peter Newman <peternewman@google.com>,
+	James Morse <james.morse@arm.com>, Drew Fustini <dfustini@baylibre.com>,
+	"Dave Martin" <Dave.Martin@arm.com>, Chen Yu <yu.c.chen@intel.com>, David E
+ Box <david.e.box@intel.com>, <x86@kernel.org>, Christoph Hellwig
+	<hch@infradead.org>, <linux-kernel@vger.kernel.org>,
+	<patches@lists.linux.dev>
+References: <20260916231320.14502-1-tony.luck@intel.com>
+ <20260916231320.14502-5-tony.luck@intel.com>
+ <8e553b96-0755-4d23-967f-5d8a7a725474@amd.com>
+ <arLpCDOPyKuOHc37@agluck-desk3>
+From: Reinette Chatre <reinette.chatre@intel.com>
+Content-Language: en-US
+In-Reply-To: <arLpCDOPyKuOHc37@agluck-desk3>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR03CA0242.namprd03.prod.outlook.com
+ (2603:10b6:303:b4::7) To SJ2PR11MB8370.namprd11.prod.outlook.com
+ (2603:10b6:a03:540::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <63f49a8b-cabf-4b93-a7e2-76b62c463a90@kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|DS6PR11MB454219:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6d31f0f6-83d1-4d3c-c318-08df1a4fc24d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|10067099003|56012099006|18002099003|22082099003|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info: In2if3I/NiqWwMVG7ZYrTvuuP+8keKtikxsfzgon1LYrNkURnIh3ZUBdmQgHXBqSy/WO6CkioUNfMo4uqOpMufXSyyi30q0CLA4Gyc4mImVQKY9VrXqj319hPUk6Tc+oiILc0YgtWNJFJMP4pzwLu3ucok1qj9ISMMxW7+cXleOA3njw/5oUgjRmY1L4qz3Y+q/WD+TtgFjbFZrYtcDcBVz5BglGfuxfN6l4f/YYmyxIPPDEyd0RGOnaQRJvVV0N5YD7J61Xwv5heoqnD8r1CYHT1Ic6QqWZWK79Yt86cnTyL9A9U0k5VaNuhFcnRID5zVYcbRdGC4e/O6UHd3Q+rFWaO/MJJidoULIgKhiSAVjz3x3abSMjDU5avwUtT6mprL+O0KwE1K8T5c3Rjp71XhZ5MbEolXuVQD+LjLRDRgeqoRpxSR98qM/iO64uwzXHh4seanhg/YHWrh10wex4M2n4qr1l4jrYbRYo3cJhVqPQwra54p70uYdzpgN//scYzoVg3jjM6WG2f9DBELYE579UVeURqSieNGXr64MX/Ckesq9g3tXLxEdrdy6VvPfmun00Pyh307bqEf1Zrbtg0JLi179XzL7cQhSQkqLQinvqPYQhnKUqEz2LmHTbVZKm/aNyzVGq0cfE/YdbsObT1ekuvGqBFXeA2YAhRyI8wkg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(10067099003)(56012099006)(18002099003)(22082099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V256V053bnl4cFgraHJFL2gwWThxeVl3MXVlNTVwMS9pZ2pSR0F5UkZjd2Fu?=
+ =?utf-8?B?dXhIVHFneVNwMUpGUUdWYkRFalFqMXdWSVZuWTYwQ204cnBPYWZxNVp6RzRE?=
+ =?utf-8?B?NzJQM2VybEphaGtyYmJGemQ0ekdDTVBxN3RFUDN4bW9VT05MT1F4b1JmT3dR?=
+ =?utf-8?B?YWtJVXhjZzNyYldBZDE4U09xZ29DUlFtdHd6U0JjYUNqNWxQdG5CcjlnY3B3?=
+ =?utf-8?B?a0dDcTc4Ym5yRk4rR29WOURTc0tHbkd4L2FNUHl0Z3Vid0xkQzJleHBFY1cr?=
+ =?utf-8?B?c0JOdFhBejV4c3NwSG5rNjhJdGhmZmdOQlkrb25yY1BLQlRXRkVReTZLL1VR?=
+ =?utf-8?B?dHQraFY5eHJhSXJkZkU4OVlWVFcrRlJDS2JQbGVQUHRhd3JCeU9Mb2lOQlpR?=
+ =?utf-8?B?YVYvbmtGclhzekJkWFdrWHVITVhpSldYMEEzZ3VRaS91OHFBR1ZKVGFxR0JX?=
+ =?utf-8?B?OWh0S1pUYzUvRUlSWnVudFpkclU0RS9iNHVoYW9lWjlWZTZEdHNsUy9DdEFN?=
+ =?utf-8?B?R1o1dlF5d2tmV2FFMzZHd1NuNUluMEk2OEc0N2g5UE8rZ2Z2RWh2NEhLNVpO?=
+ =?utf-8?B?d2pEV0pEbWpBWjg4L25Db3M4MG9GVHFYTldkTzhWUHNCOXJRTGFtVU1rbmFR?=
+ =?utf-8?B?ZWJFWGZUb2lOTmxySE01VG85OGQ2TmduQlVZYzk2ZlVCa0RBSXhwM3ZiQkIr?=
+ =?utf-8?B?UHZ1VmFLaWUvNlloRUNYZ0I0dkJuYnVHWC8rVTlpNTZZa1AzaW5XZEFRaXgv?=
+ =?utf-8?B?NWxpaTNBSGQ4MVRyaEhWWkNxV01EYzBDMlIvNndQU2NldWpnYVBIOE5rWlhv?=
+ =?utf-8?B?YnFMeTQvb1FTSkgvb2NFRHhiNk5WVWdyc0JBUmtRVEVtMHRISURaRmtodkRM?=
+ =?utf-8?B?alYyUEZBZm00K3ZnWWsyNkVrVmh2cVE2S1ZIL0ZHdzV5SFJ2V2FJNzlwSGps?=
+ =?utf-8?B?ZUd4aDhyTlBWT1ZMV044MDN2YWl4Njd2OWo2emU2MVZ2USsvUW5kbS9CaDlG?=
+ =?utf-8?B?azM3UjFkc0FpWmJINGxZbDZDNkhJS1kreGVZdjZsV3lLZmdBMytidnh0YUhx?=
+ =?utf-8?B?RUkrU3R4UHhiNWkyUzdRTzVvYVBmMEVQeVV4ZTFqUGZWd3RNZ2tWTmR6Mitl?=
+ =?utf-8?B?Ym01SFR1MTk5UVJrdEVYVnpkYkdWYmd2Q3JEQ1B3YlpjMk1LWVp2U1pMdXFB?=
+ =?utf-8?B?bG9PcFgzM0JsajR5OWhYd3BCaWZwVnB1QzJvU2xRbG1PaEI0Z29wRUFvc1Vz?=
+ =?utf-8?B?dkF3UEs1dTFpVk51SzduYnJhaHdtWVBISTNoYjZ5bVk1SlExRVl0TmliWG9q?=
+ =?utf-8?B?b3BvUXBya3R2dE9KUm5mNDM1RWtROXVKUG1jSW9tZ0Z4enRSUWxNR1BRWTNz?=
+ =?utf-8?B?cFlBWUtYeS9EblRhMzJNSzVTS0dKNVZHM2VZd3VKTDROYkFhR1N1QlNFZ29P?=
+ =?utf-8?B?MC9Va0lNOXN6NTlGSzdEM3F4SFduNU1pOGFhV0V1MXE2OXBYbFI4SXFtbncz?=
+ =?utf-8?B?Q0JqcVdhWnRBYTJLM0VUUDRHTE14bXMxSUZpSWxEWHVPWUx3a29HMnBNMndJ?=
+ =?utf-8?B?dEFxemwxRkd1ZCtQUVB2dUpKUzlyMHh0Z3RlaUFxTDZyMUZtbHcvSkdzM3FP?=
+ =?utf-8?B?VmVJai80NmtPNm9OdGM5bGNwNk1tdVA2anpwRkZma0pIYWVEcFZkQnM2eDQ1?=
+ =?utf-8?B?SUhMVWh2T2FSUTNCbUtrdjc4R1Y1dFpWd0I3dzVKWDJXbEF6WW9HZWJEYlJY?=
+ =?utf-8?B?WDdiMjlhZCtETzN0M0lPenk0QVYwL2ZPRHo1Nlp4bjkxOTZIdytGWXZVZEJF?=
+ =?utf-8?B?RVM3NlU0WWFNSjQ4TmlIWTZrck9LRjRBWi8wVmpoWXdwR1N3QzBVMHpxLzVi?=
+ =?utf-8?B?UFJkaGNINXpDdnJNL1NmUDJaLzhGOW1KQmJqdndYelJpMFRwZHR4aVFRT3FJ?=
+ =?utf-8?B?MFo3Um84amh5MmJtbDlqbmI2UGpiZXNkM1VveHRBRGlOMUxYL2F3aDR3SFda?=
+ =?utf-8?B?ODFFS2pJTlZjTTk3MUtEcWZUZDVxVlRaakx3MzZlb3ZEaHpvSDUzaTkvdS9G?=
+ =?utf-8?B?RlBLTEhETHFwREEzdCtPTnJPbnlPSkZHcmZDeGttWGRLNVN5SC9La3Z0L3BM?=
+ =?utf-8?B?VENWOEo1eTJ1aTVOMDQvYnpoN0VRS3F5Z3Y0NjJST3dyODMrOTR5b1gzMFgz?=
+ =?utf-8?B?ZVRhT2phdElDVTJlcUhLRzZ4Y1BVTThlUUdrYnBLZTRKbW9yYVd5ajVrYUdB?=
+ =?utf-8?B?Q21hUXlVUmJ4M0ErTFI4Slc3U0pLaVoxS0Q5ejB4N2k0NXlSSFcwK25XZ3VV?=
+ =?utf-8?B?dHVmYW5SUWJWeTJ6NTBFVEtCN1oyT0lEUzFLY0pmNkpxUnRSanV6Ly9oOFY3?=
+ =?utf-8?Q?9HCA45XyF2AmuG+k=3D?=
+X-Exchange-RoutingPolicyChecked: c1A4/DYPAKaNgx68DccUxX133l9vb0F0U/of4FA13gJelt0kwVGPsarX4hwDTR1r88bSIjxrZZ/SK7b3LcndQ8Xo4OQ4zj1XTZzRf3LPfITz8wc8hR0MmHrZYJe5tTtGIfbhdk12NC1hcyPMDd4dW4i+REYbzXub5OUu367pVUI0BWyQMZReaImVf4jT2zKzUsIysoFGLIEUrBDWJ0F1ZByjVa5EZxEemBW681lqcu6m8tKHBf49uqQrFcGHDRi7DR0SpzVLyRHUGhkDELj+VcL+zp0lXQWT9ONCTC9LaJuZmga0wXb/vOjRP2zC+FS8LaxSjo49zUwebfBzj2KR0A==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6d31f0f6-83d1-4d3c-c318-08df1a4fc24d
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 15:23:17.6226
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Y3GOop+2T6D8XW3LW1fzCIKIZ6uwd9O//oacdCZjOQD++k+9Q0e6Bj5/yNa7qh2Maf/rWiq1bmR3pym24oLGznK1LYCF6i3PDgkYNMPgKj4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR11MB454219
+X-OriginatorOrg: intel.com
 
-On Wed, Sep 23, 2026 at 03:34:11PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/16/26 11:31, Kiryl Shutsemau wrote:
-> > From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> > 
-> > A collapse takes four calls:
-> > 
-> >   - collapse_control_init() - set up the control a caller carries;
-> >   - collapse_scan_pmd() - scan one PTE table, under mmap_lock;
-> >   - collapse_run_pmd() - collapse what the scan found, no mmap_lock;
-> 
-> As discussed, having a single collapse_pmd() function might be cleaner if that's
-> easily possible.
+Hi Tony and Babu,
 
-Answered on patch 9: the two calls are the point.
+On 9/22/26 1:46 PM, Luck, Tony wrote:
+> On Mon, Sep 21, 2026 at 12:45:02PM -0500, Babu Moger wrote:
+>> Hi Tony,
+>>
+>> I cannot test the AET telemetry functionality, but I have tested the series
+>> on my AMD systems. It appears to work as expected, with no observed side
+>> effects.
+> 
+> Hi Babu,
+> 
+> Awesome. Thanks for testing.
+> 
+>>
+>> A few comments below.
+>>
+>>>   int __init rdt_get_l3_mon_config(struct rdt_resource *r)
+>>>   {
+>>>   	struct rdt_hw_resource *hw_res = resctrl_to_arch_res(r);
+>>> @@ -500,25 +516,14 @@ int __init rdt_get_l3_mon_config(struct rdt_resource *r)
+>>>   		hw_res->mbm_cntr_assign_enabled = true;
+>>>   	}
+>>> +	if (intel_rdt_mbm_need_quirk)
+>>> +		intel_rdt_mbm_apply_quirk(r->mon.num_rmid);
+>>
+>> Not a bug right now.  Is it cleaner to send num_rmid instead of SNC adjusted
+>> r->mon.num_rmid ?
+> 
+> This quirk only applies to Skylake and Broadwell CPU models, which don't have
+> SNC. So there is no adjustment to r->mon.num_rmid. Future CPUs are using the
+> ACPI ERDT enumeration of MBM which includes a mechanism for RMID scaling if
+> needed. So this particular quirk isn't going to be re-used for new CPUs.
+> 
+> Is it cleaner? It's a few less characters in the source code - so maybe.
+> 
+> If Reinette agrees with you I can change for next spin of the series.
 
-> >   - collapse_control_release() - done with the control.
-> 
-> And as discussed, I hope we can just get rid of a release function that's not
-> actually supposed to release anything right now (unless I was missing an update
-> in one of the patches).
+This is a good catch. This patch thus changes behavior while it claims to
+just move code. Architectural enumeration should ideally not hide
+(without comment) model-specific subtleties.
 
-Will remove in v4.
-
-> > All four are static in khugepaged.c, as are collapse_possible_orders(),
-> > which says what a VMA allows, and the revalidate a caller needs once a
-> > collapse has given the mmap_lock up.  No other file can ask for a collapse
-> > without them.
-> > 
-> > Declare them in collapse.h, with a comment stating the order they are
-> > called in and who holds the lock over each step.  Each function says
-> > what it needs and what it does where it is defined.
-> > 
-> > hugepage_vma_revalidate() becomes collapse_vma_revalidate(): it is part of
-> > what a collapse offers now, not a helper of the daemon.
-> 
-> Is it just me or is collapse_vma_revalidate() an odd part of this interface?
-> 
-> You'd expect a matching function that performs the initial validation on a given
-> vma.
-> 
-> Maybe we should have a
-> 
-> 	orders = collapse_vma_validate(vma)
-> 
-> that really just wraps collapse_possible_orders(), an expose that instead to the
-> collapse users?
-> 
-> So they'd use collapse_vma_validate() to then call collapse_vma_revalidate()
-> after temporarily dropping the mmap lock?
-
-collapse_vma_revalidate() re-checks what the scan ran under: a VMA at
-the address, anonymous if the scan went that way, covering the PMD
-range, allowing this order.
-
-A collapse_vma_validate() could bundle what the callers check before a
-scan, for the sake of symmetry. Feels like overkill to me.
-
-> > -static enum scan_result hugepage_vma_revalidate(struct mm_struct *mm, unsigned long address,
-> > +enum scan_result collapse_vma_revalidate(struct mm_struct *mm, unsigned long address,
-> >  		bool expect_anon, struct vm_area_struct **vmap,
-> >  		struct collapse_control *cc, unsigned int order)
-> >  {
-> > @@ -1264,7 +1264,7 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm,
-> >  	}
-> >  
-> >  	mmap_read_lock(mm);
-> > -	result = hugepage_vma_revalidate(mm, pmd_addr, /*expect_anon=*/ true,
-> > +	result = collapse_vma_revalidate(mm, pmd_addr, /*expect_anon=*/ true,
-> >  					 &vma, cc, order);
-> >  	if (result != SCAN_SUCCEED) {
-> >  		mmap_read_unlock(mm);
-> > @@ -1299,7 +1299,7 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm,
-> >  	 * mmap_lock.
-> >  	 */
-> >  	mmap_write_lock(mm);
-> > -	result = hugepage_vma_revalidate(mm, pmd_addr, /*expect_anon=*/ true,
-> > +	result = collapse_vma_revalidate(mm, pmd_addr, /*expect_anon=*/ true,
-> >  					 &vma, cc, order);
-> >  	if (result != SCAN_SUCCEED)
-> >  		goto out_up_write;
-> > @@ -2741,7 +2741,8 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
-> >  	return result;
-> >  }
-> >  
-> > -static void collapse_control_init(struct collapse_control *cc)
-> > +/* Set up a control before its first scan; cc->policy is the caller's to fill */
-> 
-> 
-> Kerneldoc please. Applies to the other ones exposed as part of the same
-> interface as well.
-
-Will do, for all of them. The overview in collapse.h stays; it is what
-ties the calls together and says who holds the lock between them.
-
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Reinette
