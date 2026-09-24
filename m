@@ -1,113 +1,176 @@
-Received: from mout-y-209.mailbox.org (mout-y-209.mailbox.org [91.198.250.237])
+Received: from fortymile.utu.fi (fortymile.utu.fi [130.232.247.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A24A33D1AB9;
-	Thu, 24 Sep 2026 08:31:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.198.250.237
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7628D309EE9;
+	Thu, 24 Sep 2026 08:32:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.232.247.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790238704; cv=none; b=OY/PA2zElso+OjVT5+r6NzCdcyR8mR7w1UiMH1bZicQx0LglbQyADYyhCyOY+pMWE4vztS0IlUqidcAvlu5vM2FimsTeI6OKilRdzCsADBCJrV4ELfXkHHfgBs3l21AtdzUzLNlAqMzsAvdBm6nRRApiKBrO6P7h4hnfCvJjzos=
+	t=1790238724; cv=none; b=YPvDLMdfNpQ68GzWag9XINpvaC101ObaCHf8xT+ziNKwm6PuR0FJfhAGzWgL+Ynhe12N+No6iEppDTFtrRsWXZu68f+QJmCU/fI+EsjUBH69UHJbLTbCIC75M3Rzx/3hAiFx0exuajPeWpNG86qTNYrDXM3e9yOsno2Sd94GKDI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790238704; c=relaxed/simple;
-	bh=2q/WlDjU9Q7ZIjVz14cix63PZ+BOmqngGSQfJ+4PJBk=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=AHl7WsrrdPiZ8dbJKPw4zFlHHgDU+p/7FqjlSjpZN2Mq1nGqWqlyfTuAlbjZamUDjUq1/+Dr0eR633UFLXT5fHC7VnZ9BfCd4QNyHzqF0acegQBofOgjUs75QypTlGxxsH5UIDuI4ODDPTgWb3jaOhJWrqwvVvF7acSxiMWV3ck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chimac.ro; spf=pass smtp.mailfrom=chimac.ro; dkim=pass (2048-bit key) header.d=chimac.ro header.i=@chimac.ro header.b=PVZlWJk+; arc=none smtp.client-ip=91.198.250.237
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chimac.ro
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chimac.ro
+	s=arc-20240116; t=1790238724; c=relaxed/simple;
+	bh=EybUmtKzWa4h97sMCkxFj4OEctuEEAz0En05Ls9JEZs=;
+	h=MIME-Version:Content-Type:Date:Message-ID:CC:Subject:From:To:
+	 References:In-Reply-To; b=W6nPUKJenNaSY3AmTKEF91tpAvTR+YTptiUFVwkbhdWC54ivJjbtQH5CdcoemBnyKWvsKjmL0+f8CHIZizsD0CVTNEi/vvEZcnhX4UiUEqcPLcf2XK+GRiHyXnIDh3J/MdNnQXZNSdpEHJkRqZEwigYmbBvzoWfylQ1jq7sCJxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=utu.fi; spf=pass smtp.mailfrom=utu.fi; dkim=pass (2048-bit key) header.d=utu.fi header.i=@utu.fi header.b=YV7+dySi; arc=none smtp.client-ip=130.232.247.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=utu.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=utu.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=chimac.ro header.i=@chimac.ro header.b="PVZlWJk+"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-y-209.mailbox.org (Postfix) with ESMTPS id 4hqhrM1vZrz7vBk;
-	Wed, 23 Sep 2026 18:14:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chimac.ro; s=MBO0001;
-	t=1790180099;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ja10dpay0PFbmloo3P4uBr52vlFLWwA7lf07LoI1zL0=;
-	b=PVZlWJk+fZggLM32PaMTY84s7k2CUe8rduhWyYm4jR5cZouzL/3StaNPCV0OKs54bcurVM
-	C2SFhh+SLxxLgOwl7DwBdv0YIm2KR++LJ74wyTiECVXUa2OTX6UK2Xr1FdJvQkt5N4MqAs
-	fyD3p00myaKOn5IJn+7ulSDlut8sjB4nXLaPWpfh84HYi3cD94oI3NosjEdLCXY6GYK8ek
-	Oyns30ekLT0b77TxTZ7dltJqAeoqR2meW84PZSOhtPwaVPw1V5GnuSwg4dcBiBoVP1bSb2
-	Eyg9zYSq4InC94I4g42LXyuUR3Fs77iR0X78dL211bL0GMHez9d1VEescm58tQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of alex@chimac.ro designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=alex@chimac.ro
-Date: Wed, 23 Sep 2026 19:14:55 +0300 (EEST)
-From: Alexandru Chimac <alex@chimac.ro>
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Tomasz Figa <tomasz.figa@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Message-ID: <1343593353.60484.1790180095661@app.mailbox.org>
-In-Reply-To: <d679c0e9-febe-4069-9c2f-a2173a5218aa@kernel.org>
-References: <20260922-exynos9610-pinctrl-patch-v1-1-f6d816696591@chimac.ro>
- <d679c0e9-febe-4069-9c2f-a2173a5218aa@kernel.org>
-Subject: Re: [PATCH] dt-bindings: pinctrl: samsung: Require clocks for
- Exynos9610 pinctrl nodes
+	dkim=pass (2048-bit key) header.d=utu.fi header.i=@utu.fi header.b="YV7+dySi"
+Received: from smtp-03.utu.fi (smtp-03.utu.fi [130.232.207.30])
+	by fortymile.utu.fi  with ESMTPS id 68O8VX9h013219-68O8VX9j013219
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Thu, 24 Sep 2026 11:31:33 +0300
+Received: from ex19-16.utu.fi ([130.232.247.56])
+	by smtp-03.utu.fi with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.95)
+	(envelope-from <jaakko.ma.koivisto@utu.fi>)
+	id 1x9erc-00Emy5-UP;
+	Thu, 24 Sep 2026 11:31:32 +0300
+Received: from localhost (91.145.105.139) by ex19-16.utu.fi (130.232.247.56)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
+ 2026 11:31:32 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Priority: 3
-Importance: Normal
-X-Rspamd-Queue-Id: 4hqhrM1vZrz7vBk
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Thu, 24 Sep 2026 11:31:32 +0300
+Message-ID: <DLNENHM2KZMM.1IXMNOM1FL17W@utu.fi>
+CC: Andreas Klinger <ak@it-klinger.de>, Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?=
+	<nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+	<linux-iio@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/3] iio: chemical: sgp40: Implement
+ get_serial_number-command
+From: Jaakko Koivisto <jmatko@utu.fi>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>, Jaakko Koivisto
+	<jmatko@utu.fi>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20260918134019.1101308-1-jmatko@utu.fi>
+ <20260918134019.1101308-2-jmatko@utu.fi>
+ <aq6XtHY6Yp-qyg5f@ashevche-desk.local>
+In-Reply-To: <aq6XtHY6Yp-qyg5f@ashevche-desk.local>
+X-ClientProxiedBy: ex19-14.utu.fi (130.232.247.54) To ex19-16.utu.fi
+ (130.232.247.56)
+X-FEAS-BEC-Info: WlpIGw0aAQkEARIJHAEHBlJSCRoLAAEeDUhZUEhYSFhIWkhZXkguLT4lWFxYWFhYWFBeUVxfSFhISFpdSAIJCQMDB0YFCUYDBwEeARscBygdHB1GDgFIWUhaX0gJBgwa
+ ARFGGwANHgsADQYDBygBBhwNBEYLBwVIWEhaSFlcSFlbWEZaW1pGWlhfRltYSFBIWEhYSF5IWEhYSFhIWV5ICQMoARxFAwQBBg8NGkYMDUhYSFpfSAkGDBoBEUYbAA0e
+ CwANBgMHKAEGHA0ERgsHBUhYSFldSAkGDBEoAw0aBg0ERgcaD0hYSFpZSAwEDQsABg0aKAoJEQQBChoNRgsHBUhYSFpdSAQBBh0QRQEBBygeDw0aRgMNGgYNBEYHGg9I
+ WEhZUEgGHQYHRhsJKAkGCQQHD0YLBwVIWA==
+X-FEAS-Client-IP: 130.232.207.30
+X-FE-Last-Public-Client-IP: 130.232.207.30
+X-FE-Policy-ID: 3:5:2:SYSTEM
+X-FE-Hostname: fortymile.utu.fi
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; d=utu.fi; s=out-utu-v3; c=relaxed/relaxed;
+ h=mime-version:content-type:date:message-id:cc:subject:from:to:references;
+ bh=92acAzZFvhVDHt9lngW69ZfUTqXDmj+Y2HXTmSss9Nw=;
+ b=YV7+dySiWbEGJLvRy0Z68fCWZe6SCIWMAP+mKPWXl/LXOSmQ1gxwn2/lGxMFW7he1z7jPro9LDUO
+	iCKR4Z1/ITWqWhr+qsx/jjIh0uVFtupLlBpkoANKnC6+IKAjuYzVQ2hZNnI6XDoCztsX5312H0Iw
+	aDKZ6S1pHLbVxarUbh+rKUhZf5b2U3NgQiNu2YAP551SAWN7GgmG+LDXswdxYaornewEvq5FVF/p
+	jDGwYWvOeUTEMysn/0kQSN4m0sV15teVheUlkXwePpt6e/k7su36yzKjhUJU7qEiBJG4vbHuK/E8
+	FpQFAkrX2ORKpzkZ0CUF6whftMYdlxi5cwOHoQ==
 
-Hello!
-> On 09/23/2026 5:58 PM EEST Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> 
->  
-> On 22/09/2026 14:15, Alexandru Chimac wrote:
-> > All Exynos9610 pin controllers (except PINCTRL_TOP) have clocks assigned
-> > to them, so force the nodes to have clocks assigned to them.
-> > 
-> > Signed-off-by: Alexandru Chimac <alex@chimac.ro>
-> > ---
-> > Most Samsung Exynos9610 pin controllers (except TOP) have clocks
-> > designated for them, so allow the device tree node to include clock
-> 
-> I don't understand above. It's contradictory to commit msg which says
-> ALL. Here you say most.
-> 
+On Sat Sep 19, 2026 at 5:09 PM EEST, Andy Shevchenko wrote:
+> On Fri, Sep 18, 2026 at 04:40:17PM +0300, Jaakko Koivisto wrote:
+>> -Retrieve the chip serial number.
+>> -Present the serial number to userspace as device attribute.
+>> -Rename the tg_measure -struct now that is is used for multiple
+>> commands.
+>
+> ...
+>
+>> +	ret =3D i2c_master_send(client, (char*)&get_sn, sizeof(get_sn.command)=
+);
+>> +	if (ret !=3D sizeof(get_sn.command)) {
+>> +		dev_err(data->dev, "i2c_master_send ret: %d, expected %zu", ret, size=
+of(get_sn.command));
+>> +		return -EIO;
+>> +	}
+>> +	msleep(1);
+>
+> Explain this sleep.
 
-On Exynos9610, only TOP pinctrl doesn't have a clock (as far as I'm
-aware; haven't found a clock for it), while the rest of the pin controller
-blocks do.
+It is the maximum time it takes for the chip to execute the command.
+I'll add a comment describing it.
 
-> 
-> Why two commit msgs?
+In testing this command works if the sleep is omitted, but I would leave
+it here anyway to be sure we don't try to read the result before the
+chip is ready.
 
-The first message is the commit message, and the second one is the b4
-cover message. I wasn't actually sure how b4 handles that.
+>> +	ret =3D i2c_master_recv(client, (char*)&res, sizeof(res));
+>> +	if (ret < 0)
+>> +		return ret;
+>> +	if (ret !=3D sizeof(res)) {
+>> +		dev_err(data->dev, "i2c_master_recv ret: %d, expected: %zu", ret, siz=
+eof(res));
+>> +		return -EIO;
+>> +	}
+>> +
+>> +	if (crc8(sgp40_crc8_table, (u8*)&res.A, 2, SGP40_CRC8_INIT) !=3D res.A=
+_crc ||
+>> +	    crc8(sgp40_crc8_table, (u8*)&res.B, 2, SGP40_CRC8_INIT) !=3D res.B=
+_crc ||
+>> +	    crc8(sgp40_crc8_table, (u8*)&res.C, 2, SGP40_CRC8_INIT) !=3D res.C=
+_crc)
+>> +	{
+>> +		dev_warn(data->dev, "CRC error in get_serial_number");
+>> +	}
+>> +
+>> +	data->serial_number =3D 0LL | ((u64)be16_to_cpu(res.A) << 32) | ((u64)=
+be16_to_cpu(res.B) << 16) | (u64)be16_to_cpu(res.C);
+>
+> 0LL ?!
+>
 
-> 
-> > information for the driver.
-> 
-> that's ABI break without reason.
-> 
+I have no excuse for this. Both unnecessary and for u64 should have been
+LLU. I will remove it.
 
-AFAIK there are no (publicly available) users of this device, so this
-change shouldn't break any currently available device trees.
+>> +	dev_dbg(data->dev, "serial number: %llu", data->serial_number);
+>
+> Why?!
+>
 
-The best (most correct imo) implementation would be having the clock
-properties be optional, pin controllers for Exynos9610 don't need
-to be controlled by Linux for suspend/restore (change is more for
-information(?) correctness anyway), since the CMUs should have HWACG
-enabled anyway.
+You are right, not really debug information. Will remove.
 
-Regards,
-Alexandru Chimac <alex@chimac.ro
+>
+> ...
+>
+>> -	struct sgp40_tg_measure tg =3D {.command =3D {0x26, 0x0F}};
+>> +	struct sgp40_command tg =3D {.command =3D {0x26, 0x0F}};
+>
+> While at it, add more spaces.
+>
+
+Thanks, I'll fix this and other formatting mistakes.
+
+> ...
+>
+>> +}
+>> +
+>
+> Unneeded blank line.
+>
+>> +static IIO_DEVICE_ATTR_RO(serial_number, 0);
+>> +
+>> +static struct attribute *sgp40_attributes[] =3D {
+>> +	&iio_dev_attr_serial_number.dev_attr.attr,
+>> +	NULL
+>> +};
+>> +
+>> +static struct attribute_group sgp40_attribute_group =3D {
+>> +	.attrs =3D sgp40_attributes,
+>> +};
+>> +
+>> +
+>
+> Single blank line is enough and we have ATTRIBUTE_GROUPS().
+>
+
+Is using ATTRIBUTE_GROUPS() valid here? ATTRIBUTE_GROUPS(sgp40) will
+create both attribute_group sgp40_group and
+attribute_group *sgp40_groups[], and we only need the first one for iio_inf=
+o.
+The extra *sgp40_groups[] will create unused variable -warning.
