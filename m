@@ -1,126 +1,131 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E10C4A99D7;
-	Thu, 24 Sep 2026 16:08:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328C544E042;
+	Thu, 24 Sep 2026 16:08:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790266112; cv=none; b=b1CYDh/1pTcieE/tUKj1WZxjwm1S2FcqdtMcITVXWyJnMsLQpjyCElWmnEm7B2g3b9EQgaDTIp9dwlG7jH1w/Bjcc1mcx9paNy7z0zXfWqRKF2Qo38tEbzK+CNphOd4AKNcTgZv1v8aBPhQp98voiNlLOlpMmTkUayLnKcHt4oQ=
+	t=1790266140; cv=none; b=uR7a0SY2O2ARgIJtT2PXngbjiQiVrRKWhC9hiwaxqb7vcvBvbbaSKKgFhuViuy7mDlf1prM5Skm7wNIMr7bx19EilZRN3QsfpQtILt4vlh+LxTxl0gM2ZR9U4CKyv/04U9FQOH4ZKKLZ9TFmEFjhAm7Px2TkopOO5++AKdAWsrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790266112; c=relaxed/simple;
-	bh=PdOrdhPdZuZhrlxEVnCGfBAZmrpdFXAr/Fx0uRSk2gY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gY5lnNzIxROe8HJBZrkuED68VxPOeeqvO3Z1xRPURmML7WHT4BjcYrVmygQjcWCXItKB+4b6WHuCf7Fq96/JVlmnLYEiPmydI+9OOoRSPeZglvt/BApWghwBOY1kNB9hj2Zkn1VMLRLUfwCYspDRYYZiMUaiVIN4WHKr9XTgBA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ONsXbOcr; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790266140; c=relaxed/simple;
+	bh=AhgTXSLZaE7lh7aB7BwW98rIjwORzXntV/jYSOkKadk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZbiUTclIz39+M+LSzq7hVrs1R1v5SOTcm+KGDWeLLZOSCfDj/KRY5GtAyo/fNfVKQGkvpppbM5ZxkKY9wq+ixvbv/PxLM9KGx4B5fqAzo9HD3cFU+DRkJO1UrsZHv6d4bxpH9kMD8V+0F7W778vziBFuo9wwDejQT2PoPvxVgQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=hBICohN9; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ONsXbOcr"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 2E0C31A0FFD;
-	Thu, 24 Sep 2026 16:08:27 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 00C3760738;
-	Thu, 24 Sep 2026 16:08:27 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0105010329450;
-	Thu, 24 Sep 2026 18:06:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790266041; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=BH+arErWIBY7hpZKpPthQMU4Dv/fEL3yycrYdB+7SAY=;
-	b=ONsXbOcr23MBp97WH0svxjX/qajC1P03GDotsG32pqiLLyxtrTG9i/nFxLh60PPtt6ib8B
-	KpwGfgCIAwOe7tqrY2Dr+yZGfVzW92Q/qGCRLH12Zq2Z+wkPwECFoEWvCnx7LufxoQmNdg
-	WJ38Cg8+yZ30XQiNT8mAwHbSzwvtFH3WA1zvLte7l0Hovu7kidqd16A6YZg6XsdpHqCF84
-	NeFQDNgfTJzmgMmEB3SwdUbUw3tntTqszPGEZrO2bTGHan5QGUo5jUepD2J8Oh1oP19ybF
-	hrPgZgr2bEWcYpEAMR3ve3Agm7LWsRG1dKDyFtfL681JTjL1Biw6uMGRLV74FQ==
-From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Thu, 24 Sep 2026 18:06:25 +0200
-Subject: [PATCH 5.10.y] SUNRPC: lock against ->sock changing during sysfs
- read
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="hBICohN9"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OG5bK81519358;
+	Thu, 24 Sep 2026 16:08:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=UZRqKzukrqaIKiXxi31ZptdXf34p/3
+	d6InWbp5gz9TU=; b=hBICohN9FQTcJ5FwqJnLMyUapGdafi4sLvGRUEDIW8M8cL
+	1E7MwsRhEWpsSTkz+7QL1N/HSVlSaRZy+djxh/pYgUrQK/czAjeI3awd4BKfMxOt
+	+f85EQGFM8nCsx++i67JoMwRS7gIypXkrFLfMn8oUCjv5HAhX5Wc3dNdNgb9+Gm9
+	JqPFQG9ORp2jeNv5r6HhCP/9i7ITaAogqyQmQXMdyCqCzjwLWqslSUf4VfLpx6Qr
+	TPXCwOzYpQTsSxYWLe33bXxuw2dUoLbLzqebFJWynXr6XFNYnyAdvzh698LCfTtU
+	t2QsCOGtH7jrPEkgs8GzuozsU0mFkY355oXWsMCw==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgqscdx-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 16:08:57 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68OFlhmH2359209;
+	Thu, 24 Sep 2026 16:08:56 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gvb8jxmbd-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 16:08:56 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68OG8r8t38470118
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 24 Sep 2026 16:08:53 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1430720049;
+	Thu, 24 Sep 2026 16:08:53 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9E4A120040;
+	Thu, 24 Sep 2026 16:08:52 +0000 (GMT)
+Received: from osiris (unknown [9.111.55.6])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Thu, 24 Sep 2026 16:08:52 +0000 (GMT)
+Date: Thu, 24 Sep 2026 18:08:51 +0200
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Maximilian Immanuel Brandtner <maxbr@linux.ibm.com>
+Cc: oberpar@linux.ibm.com, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, gor@linux.ibm.com,
+        agordeev@linux.ibm.com, borntraeger@linux.ibm.com, svens@linux.ibm.com,
+        brueckner@linux.ibm.com, mjrosato@linux.ibm.com, farman@linux.ibm.com,
+        maximilian.immanuel.brandtner@protonmail.com
+Subject: Re: [PATCH v3 0/2] s390/sclp: Resize for sclp-vt220 console
+Message-ID: <20260924160851.18402C86-hca@linux.ibm.com>
+References: <20260924104732.1978942-1-maxbr@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-cve-2022-48816-v1-1-b44c7e4dd493@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ7CMAxE0atUs8ZVHNqq4SqIRTAOmEVBCVSgq
- ncnwPKNNH9B0WxasGsWZJ2t2G2q4E0DucTprGSnanjnBxd8RzIrVXjqxpEHYg59SCmKxC3q6Z4
- 12esX3KNv2bVvHP57eR6vKo9vDev6AQqjEkB6AAAA
-X-Change-ID: 20260924-cve-2022-48816-11959ffacca3
-To: stable@vger.kernel.org, 
- Trond Myklebust <trond.myklebust@hammerspace.com>, 
- Anna Schumaker <anna.schumaker@netapp.com>, 
- "J. Bruce Fields" <bfields@fieldses.org>, 
- Chuck Lever <chuck.lever@oracle.com>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Olga Kornievskaia <kolga@netapp.com>
-Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
- Anna Schumaker <Anna.Schumaker@Netapp.com>, linux-nfs@vger.kernel.org, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, NeilBrown <neilb@suse.de>, 
- Robert Garcia <rob_garcia@163.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790265996; l=1838;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=liulsZ/coQfT07R5JtzG+PjFTbjUtiJrY8ERm44fUGw=;
- b=hvuAFoVF4j+paPwTWzFrf8A5Zvpgx03sXgeYvPovb8Fl/DD4+3oPfzYGOZU2WXVBh2AVlco3N
- vH+l07ieePVCOtgTy7kARTUQVdDf8YorRQLKWt+tC9Bhkqw27kHEwg0
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924104732.1978942-1-maxbr@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=G+OJgNk5 c=1 sm=1 tr=0 ts=6ab54b19 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=VRWe4RfVVfz7S42VascA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA2NiBTYWx0ZWRfXzAdXWMvK6Uff
+ pqFIAu0Fc3/4MDPr35bDvOByu4gOB42EDygor685x90AC1/zHGvZuDTAb3PXKEetkJzsyB7Cfe3
+ 86KG+uJ24+FLNeCpRoJ9YJfxBwynMhH1Hb56fAn12+zo8D5H8Uxnb0W6X1Ge2B3q5o7qSXhxpd6
+ rIuJZwteUhuoIWBj5LBrniHcXuDJlf/Kpu59TPNHehxtrNhz8HIdYAzQssYpEVPzsvkc3fJxgdh
+ DdueqYe9OgkLZTJ14732+w5nAVZ38O6cIn3iPzZctHFNZGUm0l7pOhnWLdWcSWNXUKfEHV6WzAG
+ uuFDHBblB0PUDd9uq64q0BWyfxXbSkBcqXq3sG/1pFRtJRyq+k99pwnhr6sAvkLX53+djsrsP0g
+ tokHyw0t8Do43HWutFywYl3wLYZj52nRWHXgVamGGWyxDsiEFL68g9BjHhu+/YwW3nTkqRe3akb
+ jxmTYwN0MqKq21IRePw==
+X-Proofpoint-ORIG-GUID: Pouz4O6aQNRn8Dm-OUAyRTgY0cion6CO
+X-Proofpoint-GUID: JlfxRZvi2jH_bkEJcBFv1iOKRmPywgS5
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA2NiBTYWx0ZWRfX5MExj4wAm238
+ cMb9wEf0B90K0ehzi8yLX6ERnqGT01kKqAh5fZ1doQkk4zOqtGPo3rMnwH3qS9YvWBGI0RI+dXF
+ 4fPTs+CsDbMLCpJkxuHquVFlWx+NCAM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
+ bulkscore=0 priorityscore=1501 clxscore=1015 spamscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240066
 
-From: NeilBrown <neilb@suse.de>
+On Thu, Sep 24, 2026 at 12:47:30PM +0200, Maximilian Immanuel Brandtner wrote:
+> This patch-set implements resize event handling for the sclp-vt220
+> console and refactors some of the surrounding code.
+> 
+> ---
+> v3:
+> - guard against races when setting the initial winsize
+> - validate sclp header length
+> 
+> v2:
+> - don't set the initial winsize asynchronously
+> - validate sclp buffer length
+> 
+> Testing:
+> - Tested on QEMU: commit 38879a667f with the following patches applied:
+>     [PATCH] s390x/sclpconsole: implement resizing for vt220 consoles
+>     [PATCH v7 00/12] virtio-console: notify about the terminal size
+>     (https://lore.kernel.org/qemu-devel/20260609-console-resize-v7-0-0c550fdcec15@gmail.com/)
+>  - Tested on linux-next (commit c1f49dea2b8f)
+> 
+> Maximilian Immanuel Brandtner (2):
+>   s390/sclp: Introduce dedicated sclp-vt220 event buffer type
+>   s390/sclp: Implement resize for sclp-vt220 console
+> 
+>  drivers/s390/char/sclp_vt220.c | 87 +++++++++++++++++++++++++++++-----
+>  1 file changed, 74 insertions(+), 13 deletions(-)
 
-[ Upstream commit b49ea673e119f59c71645e2f65b3ccad857c90ee ]
-
-->sock can be set to NULL asynchronously unless ->recv_mutex is held.
-So it is important to hold that mutex.  Otherwise a sysfs read can
-trigger an oops.
-Commit 17f09d3f619a ("SUNRPC: Check if the xprt is connected before
-handling sysfs reads") appears to attempt to fix this problem, but it
-only narrows the race window.
-
-[ Removed the changes about net/sunrpc/sysfs.c, as this file doesn't
-exist in 5.10 ]
-
-Fixes: 17f09d3f619a ("SUNRPC: Check if the xprt is connected before handling sysfs reads")
-Fixes: a8482488a7d6 ("SUNRPC query transport's source port")
-Signed-off-by: NeilBrown <neilb@suse.de>
-Signed-off-by: Anna Schumaker <Anna.Schumaker@Netapp.com>
-Signed-off-by: Robert Garcia <rob_garcia@163.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
----
- net/sunrpc/xprtsock.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/net/sunrpc/xprtsock.c b/net/sunrpc/xprtsock.c
-index 5dccad3271fe..4ec6516a53e0 100644
---- a/net/sunrpc/xprtsock.c
-+++ b/net/sunrpc/xprtsock.c
-@@ -1666,7 +1666,12 @@ static int xs_get_srcport(struct sock_xprt *transport)
- unsigned short get_srcport(struct rpc_xprt *xprt)
- {
- 	struct sock_xprt *sock = container_of(xprt, struct sock_xprt, xprt);
--	return xs_sock_getport(sock->sock);
-+	unsigned short ret = 0;
-+	mutex_lock(&sock->recv_mutex);
-+	if (sock->sock)
-+		ret = xs_sock_getport(sock->sock);
-+	mutex_unlock(&sock->recv_mutex);
-+	return ret;
- }
- EXPORT_SYMBOL(get_srcport);
- 
-
----
-base-commit: 1797d8bf8d0c2e74defad605d14e3553d43a3caf
-change-id: 20260924-cve-2022-48816-11959ffacca3
-
-Best regards,
---  
-Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
-
+Applied, thanks!
