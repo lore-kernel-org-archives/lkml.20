@@ -1,204 +1,550 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19DDB486B86
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:27:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790263680; cv=fail; b=noChXjFDmYnlipAq+byoDiCIGkoC3kyhHihCYIeDupQEqDEG1Hcd0D/6pzvsPhaiUdGwPSg+5YHYUr8jDKOurtHSSkQfXtkABhgh/Md6IvNTUcYELaAGNgpf8/GJyXDbMTOuDUB3b8Rpm8ZWPjr+MSI0eOuv4Ggq7gIVigPeq94=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790263680; c=relaxed/simple;
-	bh=RRGhS4J+6eUIY2/Hk70xq6rjrhAcuRtoICcWhXU47d0=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=MeAxd4eOikDBnW4sTE9rBBcZkbVMmGKEzQdqYAf6owAXlgM+nvSxqH9bUBS2PXFv9Dg3rKBxLsLUTbB6rlPfLxbLSNayOZHoqeovoaMnCxyd6kwV1DHNqUYHUUVQZ9GpbLHvq2f+WJp9wnpKupwYWspCg87F02TN4PyqGhnABz0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JPqH7O7v; arc=fail smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A76E4A1DE8;
+	Thu, 24 Sep 2026 15:28:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790263684; cv=none; b=WE/IPDnWJeTb0LN1XrpQ5oXC5ODQuq4ZFee6U+qP5quJMODny7jCwhF20DkPWmjjBSopN7iP7p5DsJksuMAbOSFjbraQla7cAWMon2uVLhVre78RDyT2F8vBE4B0dFlDRzVONkLr21R4SWyISr/JCY6g8jFqmkDfUkTyvvxFc2g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790263684; c=relaxed/simple;
+	bh=IFylef1Uho/v2i1SPiYmwDYqojrNosvB9pyHGcxaKkY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pkYmzj3dpjE2dukF13k0ZMz82qXdhDtw9CZUjFxNiRg4g1A1w2Ws/wr6X5dj7FNerLp/PvGbE5LqF9DaaaxL3Hu4VJwSj53ZSBL4ahVZ1iK/AigjvIitmJm32n9DTfAfRGvCGj3vHBGPwyxI/gtccncl0e5Kix7vpL6QvZfAbvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=WjtCDEFD; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JPqH7O7v"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790263677; x=1821799677;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=RRGhS4J+6eUIY2/Hk70xq6rjrhAcuRtoICcWhXU47d0=;
-  b=JPqH7O7vO6BA+kQDh30GgHx9U92slsV/9lbLBBOgvYjfQEpuLU0A/720
-   riTVzahFj312I6iHrMi6IkySZRgpp6iRTUl+be8OMrslxF8+Ga5ChIm+D
-   UkjolWX8iSYIc+edw8Meen4siN48Qz3Rc743StYu7EnkBluZHzd478cvV
-   kOviKcPEYB+B5XGYdjQdDE+0h5a/qvUl4RbN6qn3U1/O3y7GrIF3jJgWT
-   P2wPgBN0XKfKYNHWBSjevx4ykzl1uEJPNEVCsAkjT/zYgktuMk166M/4p
-   aaJTX4HxAahXCZK6XrzOQOHQikmH8zHrqc1Q23kTeXBjJDunwgSWtT2Np
-   Q==;
-X-CSE-ConnectionGUID: euW4H1urRM6Gk8CHSTCQSA==
-X-CSE-MsgGUID: 3ZmReB5rRVCnsleemxf/tg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="101696940"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="101696940"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 08:27:42 -0700
-X-CSE-ConnectionGUID: xGI1NRCtT9m5UoelC0Q7Tw==
-X-CSE-MsgGUID: 7V3d4cvxSEmrhQ1vvz1euw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="271888695"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 08:27:43 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 24 Sep 2026 08:27:41 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Thu, 24 Sep 2026 08:27:41 -0700
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.23)
- by edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 24 Sep 2026 08:27:41 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GLeuCnPjnpGa7+89oPU8uniRqbO0kaKFXmE6bNexOkQp8ZZe/woUJ2aMwEk/xoH8cJY3Ksgul5f6pgz6S3V93+8IUSjLgZEujpJBCbQCtSeWdvEIaaQgthbxKS8yfTD3PVmoaemEwbR+MVSie4icPqoXkvZvEXTCjhLqRUrg+0vp8MR6lSwfYhGgsPYVzBLJAZdH7GZ4hKh4dOOBgFwMUr7d8b1hnh2ihoXOirfOE0fJaFdW5vFW+42EcVypUgaJVUr/R5WEceaqoMTBaQHnZAk4whq7dhPe3/ipbHBRiKDWJ+2a52JpyUBNU01RKqMOimqxk8wSvFjmVz3Zm9xRgA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0UaRbzs4CKuP0K5vz/YrfDSPEhDBcU7L/AgHqkVGiqg=;
- b=XUwm9a0AD659lIbt3tF2ibsxg3wnaRYN7linnTWOGVOUBNtpSRgL5zK1vDMnM6NSZGdDNhFZhKHrILmNWqaA2ksbRrYB7AoFZ80MJYYQG421sWs66KWx3g+ya3PcU7BPkKuZlYzgKMskZ3nL2NBzoD8PP3fFTZEwNnguY8knFVPdI6kDBm3FVObCJOcB13rNE/Qpa+9jD7ltH0Q3o9b2ZymqWhnAGoPdZdYgu2vqE2Kw42Gl9xhQsynypLoswUTEa4+1K09QGSUG3EbiNccF/Gj1r44BHGjkGM62NmjaLO0kfJxnlZohyHeE5TPs5NGKAWp7x66trzePb3/V8QrTIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
- by MW3PR11MB4569.namprd11.prod.outlook.com (2603:10b6:303:54::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
- 2026 15:27:32 +0000
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc%5]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
- 15:27:32 +0000
-Message-ID: <26f421b4-670a-4045-bc06-e801df65cfa8@intel.com>
-Date: Thu, 24 Sep 2026 08:27:30 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 07/25] x86/resctrl: Update special case for Intel
- Haswell enumeration
-To: Tony Luck <tony.luck@intel.com>, Fenghua Yu <fenghuay@nvidia.com>, "Maciej
- Wieczor-Retman" <maciej.wieczor-retman@intel.com>, Peter Newman
-	<peternewman@google.com>, James Morse <james.morse@arm.com>, Babu Moger
-	<babu.moger@amd.com>, Drew Fustini <dfustini@baylibre.com>, Dave Martin
-	<Dave.Martin@arm.com>, Chen Yu <yu.c.chen@intel.com>, David E Box
-	<david.e.box@intel.com>, <x86@kernel.org>
-CC: Christoph Hellwig <hch@infradead.org>, <linux-kernel@vger.kernel.org>,
-	<patches@lists.linux.dev>
-References: <20260916231320.14502-1-tony.luck@intel.com>
- <20260916231320.14502-8-tony.luck@intel.com>
-Content-Language: en-US
-From: Reinette Chatre <reinette.chatre@intel.com>
-In-Reply-To: <20260916231320.14502-8-tony.luck@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR03CA0264.namprd03.prod.outlook.com
- (2603:10b6:303:b4::29) To SJ2PR11MB8370.namprd11.prod.outlook.com
- (2603:10b6:a03:540::20)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="WjtCDEFD"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4EDBB175D;
+	Thu, 24 Sep 2026 08:27:58 -0700 (PDT)
+Received: from e142021.arm.com (unknown [10.57.8.50])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A08073F86F;
+	Thu, 24 Sep 2026 08:27:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790263681; bh=IFylef1Uho/v2i1SPiYmwDYqojrNosvB9pyHGcxaKkY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=WjtCDEFDserCzJfyrsaelesalZ2i48DIR+KCTCb6uaXXGAl5smRXJfVh7NDWNqsoe
+	 IplzpuaAnOprPL6+qL7oCWZ3dRxBEavzmz9dJGtegjqT6E4zzOPeprw1PkU3xg6x6W
+	 E8ECyaP2wOdHybZau4OPAqWKRLcrYmMI+8HJwOPA=
+From: Andre Przywara <andre.przywara@arm.com>
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	James Morse <james.morse@arm.com>,
+	Ben Horgan <ben.horgan@arm.com>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Fenghua Yu <fenghuay@nvidia.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
+	Ganapatrao Kulkarni <ganapatrao.kulkarni@oss.qualcomm.com>,
+	Trilok Soni <tsoni@quicinc.com>,
+	Srinivas Ramana <sramana@qti.qualcomm.com>,
+	Niyas Sait <niyas.sait@arm.com>,
+	Lee Trager <lee@trager.us>,
+	Ritwick Sharma <ritwick.sharma@arm.com>,
+	Gavin Shan <gshan@redhat.com>,
+	linux-acpi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v11 01/13] arm_mpam: let low level MSC accessors return an error
+Date: Thu, 24 Sep 2026 17:27:27 +0200
+Message-ID: <20260924152739.2865510-2-andre.przywara@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260924152739.2865510-1-andre.przywara@arm.com>
+References: <20260924152739.2865510-1-andre.przywara@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|MW3PR11MB4569:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb126bed-4ce9-4fe0-1230-08df1a505a07
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|10067099003|56012099006|5023799004|11063799006|4143699003|3023799007|18002099003|22082099003|921020;
-X-Microsoft-Antispam-Message-Info: fuB7AxeZ76ueTm/Ma6yNYwoL01Pws289lj6wR6laJ2NVAwUd/SkxDkX4TceGKwAXzQybRAuvBoEFZpX4IminC2h7F8Ta+MyWgLJ9lLMXZNasbKLpboq+bqBsqbfR5lKRGmg0hH/VDqFyA/GXLMkyh0cNZsZmEmgB/qGRMDzJn3Zbm8ILbX88xBeiTUgspmkFHXyhY8UD9a6wtlXoDzMXKVNa43qZ8Jo+5slDHC3tOnk05ZAycgDErfh5tb8OCxCTNp8QmwMcoJFKB7PClIWUF50i3CwyInqvOnVPs0TthddHDb4EWHq47Sc/mwh1rrd9ZqDdfX9FvlRbrGrzmEUKHvnctf+AjggaDoH3yXJ7tEsGHQ/YAq1xEjIK6jPsCZsBrdpuUUfbIKEb+un77qltzKhlF+VEJkr2rd4OWav5mDpXItoZc0QIgpNZcIOZPLU3wkiQ6LhbFQ0BqvPZBSXs1HC1pIS/+CveY4GbCfDuAmaMe3bX+MJn/jZK2aSiDOy6pg1D/e62qk/bPjnj+EL/ObIe9wHduARx4kdTPZbedkomURJxpPl2oY6c/EtrL9hG3GwkiE/Ae6Vup5r3T9bRlQzc1MZ5qAKpLtAli+5SfhHd7DiU8fKBaYxghL7ZbkVyYVtQr0ZTagUXv8BzRZgcwhJu9Jgc5PqGiV7+s3LXvgHJledzWYsaX/i4f2ndpvGFIMQ6TgJQiKLcgALUMlqlJQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(5023799004)(11063799006)(4143699003)(3023799007)(18002099003)(22082099003)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WW1rYkdwNFIyOGVjNVAwMVJTWlhadG5FVjU3S3VvNzk4WWo5ditxanlabUZ6?=
- =?utf-8?B?ZjQzdHpyS2dkdFJ0NWdrMU9mVTNHU0ZIbldpMzdBWTFWWWNsRzFJT1VGTTdq?=
- =?utf-8?B?bjRtQjBPWE9ZVEtXQmlMT3FjSTRBS3g3UzJmV01NcmFGUU14UVZ1ZUwwdE1h?=
- =?utf-8?B?ZEh3emxzODF2S1YvanBGYXAyQ3JQdittRmtQL2V6M1ByenZtMGhsVjN6V2Yz?=
- =?utf-8?B?WWMwck1GMTd1WmJsaEtWQTRxc2d1dzFKOUR2NkRrOUlhQjgya1lzUEF2RVMy?=
- =?utf-8?B?RWJOZlpsV3liNkk2azFDQWtHOEF5cUw4YXdoTXlsc2FycDNnM0xLT1hIRXF5?=
- =?utf-8?B?UjJlaFU3eU9GZ1F6dUdmdDFUN0pNRkFoeERoamxqNUdkYXh3ejNDT2VYMVBD?=
- =?utf-8?B?cFFBTWJ5YlhlclVTSWZEb0xzMmNad0Q4RGFlK0xqVVFzZ0RBYXB3Ri9TSDhP?=
- =?utf-8?B?UG1rVk9rZFJuK0FJS0RyTlVKMExsTVZkQmdFRTFkN3JEYk9RaFJUa1Q4VWY4?=
- =?utf-8?B?cjl4eHRuWXlmTjBzbllLZnphVjJNWTg0L3Rjd2lyTUkrY1RkTU5lb1F5cCtC?=
- =?utf-8?B?VU13TG9GR2RFM0lzWW5HcHFKd3VsNDRab2VpUGJVL0p6RXdzakFHdGNlbEI2?=
- =?utf-8?B?Rkp1SjVIZ1Z4c29rUS9CaW5uWERCYVdXQm4yeFM3N2tyWlljY2Q2eklackx4?=
- =?utf-8?B?WXhITTVZYmtOdTBCMEUwMGIybFZ5TEZZNE9LQ0hSMXJJblg5c3hvWU1yVGk5?=
- =?utf-8?B?Zllhdnk1Q2d4RGU0aDJCZ05EK3VWWHBHcnRQeWtBem9TdUs0aXptdThVbHlZ?=
- =?utf-8?B?UVVZVU9NcDBZcGxlVmU0NE40R1BMTUNnN2RYWW5nRXVtUVU4YVhidGdSdnl4?=
- =?utf-8?B?NGFjZjNoRmk4bkdZTnFnN0Y1Q3VYMkpSNGh4ODdLU2twbVhxRE1sRHpCUmkz?=
- =?utf-8?B?MzhSZ3NDaGNna0dkOHM1dVJHM3lQaEJSSHQwMTNDbStiNnBTL1ZhSDRxRTF2?=
- =?utf-8?B?ZXBPT0huSHpWYlUzd1FiaEtWVTNSUFMvMlZya20rV29FZjFkQUNsNSttSFFZ?=
- =?utf-8?B?end0cGYvUjRZaWpUSUpZeTRicXA0dzYvdlo1VG41T3dCK0ZjKzBpZGJrZlhQ?=
- =?utf-8?B?eFIzYSt2Q0dmK3RHSFpQaVlUSjc2UnQzVUk0T3l4M2Y0ckhzRW1mdFExdWhs?=
- =?utf-8?B?YWlZdmhGTW80bnM4aDUvNktqQ0ZzTk1JamdZR29BUlRjeHFFdXFTcW9sQ2pL?=
- =?utf-8?B?dHBwNURTeVM5LzI4MnFSdjRHc1J0S3RydlRJbDBXazdIc3NVMWNHUzgzRTBj?=
- =?utf-8?B?eFJTL3NGcyt5a29PK1A4Nmk3cGZ1UU1WM3A5UEVZdkU5TG5Ea2NaQlhtRSta?=
- =?utf-8?B?dXJiR1hvU1FDMXRwL2FMZ0hLVHFQSFB4cXhZTW9EVno2T0h4M1FlTDlGODMz?=
- =?utf-8?B?SnloUDhVZ3A4MjVndCt0TzNndnpKcmJoVG5mblF1MFV6ejVGL2RTM2QzK0hr?=
- =?utf-8?B?WlNNTk94dlI1YmJBeUl3ak5tL3BUSFI2bFZkeHN4cDNuTldROE8wM0FMUG9i?=
- =?utf-8?B?WlA1Yjk3ZGFHeVhqOTZYT1cwK0VkVjNSMm1vT2JmemJjUjdIWGlKTmxaKzdD?=
- =?utf-8?B?WWhQNVNCWWpUdjlnRExxSGNmczBtVTVheEdpUEZOQzJTc1JYRjZEMkxRQUdq?=
- =?utf-8?B?bGtZMG5TL2NXRlV0SW14dUwvbitOejZoZW5ka0cxZWtqWTNicWJIYTF2UnRY?=
- =?utf-8?B?d2FQQU5OQ2Q1RGcwYUlmOFR5QWhETGhCRUlWaDhZMFREekxwMjlkTUxwQ1pR?=
- =?utf-8?B?d0N3MStFck1DSlpuRlFpUTk3eEtqUUtiWW41RjAvbVZYSWFib0ZuYlNmQlVX?=
- =?utf-8?B?SDlpbEpFbXA3Q3d4N1MwRkNRZ0lUM0Y3TDhYUUtORDF4bEtsRXYwdUVCZGxY?=
- =?utf-8?B?VnV2alJ3NUNrSEI5Wm12UkxnQnVmZTZYTCt1OEtrSm5HRENHdVhqb3VFZUc3?=
- =?utf-8?B?L2VXcGJDTktOdk1hOGs3UjNVSmh6UjZqUVZwYUE5N3ZQZGxZeUprQlo0RkZK?=
- =?utf-8?B?MGFaSURqL2c4a2thMlBSSW5PQ2dETG5pOHpNVWo2dzRoWGtueGN6dUdjTHlJ?=
- =?utf-8?B?RjhyN3prNkMwKzdTVTFVM2VWeklvMEQ3eDZLWXhxbmsrOGlXRi92NmtkeGVN?=
- =?utf-8?B?SGJGdDhRNTFlcFRWTXkxT2xnNDExeDUxbmxVVWQySkduNlpndmpMTzg4TTY3?=
- =?utf-8?B?dGlxeHoxQXJuQUI4NG10NlpKZHdCaW9MRmRHODNUWXBTKzBaSGY0T080amU3?=
- =?utf-8?B?bVVtRUM0K1pYS2ZCemdNb2JKc1V3bm9PcnRFYjFHcDd3dmJyQ3VrbzI1OEdB?=
- =?utf-8?Q?bK0LWyTiLNYUgEIA=3D?=
-X-Exchange-RoutingPolicyChecked: fX1meZRFb/7FlTSJemsCuzkCc5vCzkl4P18pNWp5VqJYtw5G6qKZOcIEdla0edBZP9Vb6K3YtmGK2qzTEIundtmsZG2Z2F//44KY/5hwucQUw2v1Sg41Z7A3w9v/46kTCxDgv6tu525rtq8Ig/HugtLwcgozydl0keoEBNo3s5qzaQEuDfL7jMPMEpzhZuC/D4ZgEHrLiPWx7wYm1C05TNQs0UaEYhAn+h3H3uZHW3GCJLWdd4yz5nfv7rdCLPqMg9WmLqO+x4Qe5sU23f3kMUeQ0vrgWVqeQ/GXPpYn+cwMMuWJtr8Cl8Evn2+DSXWr4rb3khdOVtrWku467e86QA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb126bed-4ce9-4fe0-1230-08df1a505a07
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 15:27:32.1934
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2ekdoNDUpaCrMUVhTP78sk6UPiSN/0yl5fNRn4q5mNtQ/YK86RFmsF7SqFFRVx8CWLg5grbxxOtjIq399M5pTtA1qW4HejBTgR5HWk5OeeA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR11MB4569
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-Hi Tony,
+The upcoming MPAM-Fb support does not use MMIO primitives to access an
+MSC, but employs a shared-memory/doorbell based firmware protocol.
+Its complexity means that it must be able to handle errors, whereas we
+always assume an MMIO based MSC access succeeds today.
 
-On 9/16/26 4:13 PM, Tony Luck wrote:
-> Certain Intel Haswell CPUs have support for resctrl L3 cache allocation
-> but do not enumerate the feature. There is a quirk to check for support
-> and provide hard-coded parameters. This quirk sets rdt_alloc_capable
-> to indicate to get_rdt_alloc_resources() that normal enumeration is
-> not needed.
-> 
-> Drop setting of rdt_alloc_capable in cache_alloc_hsw_probe() in
-> preparation for removal of this global variable.
+Change the __mpam_read_reg() low level accessor function to return the
+requested data through a pointer, and return an error code instead.
+Also change the __mpam_write_reg() accessor function to return an error
+code. At the moment this is always 0, so all error handling paths are
+not exercised at the moment. This will change later when alternative
+MSC access methods like MPAM-Fb are activated.
 
-The changelog just states "Drop setting of rdt_alloc_capable" without
-any explanation *why* it is ok to do so. Consider something like this draft:
+Change all direct users of those MSC wrappers to comply with the new
+prototypes, though the errors are not propagated all the way up yet.
 
-	Certain Intel Haswell CPUs support resctrl L3 cache allocation but do
-	not enumerate the feature. A quirk probes for support and provides
-	hard-coded parameters. The quirk sets both the global rdt_alloc_capable
-	and the resource specific rdt_resource::alloc_capable, only the
-	global is used to signal that normal enumeration can be skipped.
+Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Reviewed-by: Ben Horgan <ben.horgan@arm.com>
+Reviewed-by: Gavin Shan <gshan@redhat.com>
+Tested-by: Gavin Shan <gshan@redhat.com> # on NVIDIA Grace Hopper
+---
+ drivers/resctrl/mpam_devices.c | 208 +++++++++++++++++++++------------
+ 1 file changed, 134 insertions(+), 74 deletions(-)
 
-	The global rdt_alloc_capable is redundant since rdt_resource::alloc_capable
-	already	carries the same information.
+diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+index dd422c56fbb14..c7686d3799653 100644
+--- a/drivers/resctrl/mpam_devices.c
++++ b/drivers/resctrl/mpam_devices.c
+@@ -177,59 +177,68 @@ static void mpam_assert_partid_sizes_fixed(void)
+ 		WARN_ON_ONCE(!partid_max_published);
+ }
+ 
+-static u32 __mpam_read_reg(struct mpam_msc *msc, u16 reg)
++static int __mpam_read_reg(struct mpam_msc *msc, u16 reg, u32 *res)
+ {
+ 	WARN_ON_ONCE(!cpumask_test_cpu(smp_processor_id(), &msc->accessibility));
+ 
+-	return readl_relaxed(msc->mapped_hwpage + reg);
++	*res = readl_relaxed(msc->mapped_hwpage + reg);
++
++	return 0;
+ }
+ 
+-static inline u32 _mpam_read_partsel_reg(struct mpam_msc *msc, u16 reg)
++static inline int _mpam_read_partsel_reg(struct mpam_msc *msc, u16 reg,
++					 u32 *res)
+ {
+ 	lockdep_assert_held_once(&msc->part_sel_lock);
+-	return __mpam_read_reg(msc, reg);
++	return __mpam_read_reg(msc, reg, res);
+ }
+ 
+-#define mpam_read_partsel_reg(msc, reg) _mpam_read_partsel_reg(msc, MPAMF_##reg)
++#define mpam_read_partsel_reg(msc, reg, res) _mpam_read_partsel_reg(msc, MPAMF_##reg, res)
+ 
+-static void __mpam_write_reg(struct mpam_msc *msc, u16 reg, u32 val)
++static int __mpam_write_reg(struct mpam_msc *msc, u16 reg, u32 val)
+ {
+ 	WARN_ON_ONCE(reg + sizeof(u32) > msc->mapped_hwpage_sz);
+ 	WARN_ON_ONCE(!cpumask_test_cpu(smp_processor_id(), &msc->accessibility));
+ 
+ 	writel_relaxed(val, msc->mapped_hwpage + reg);
++
++	return 0;
+ }
+ 
+-static inline void _mpam_write_partsel_reg(struct mpam_msc *msc, u16 reg, u32 val)
++static inline int _mpam_write_partsel_reg(struct mpam_msc *msc, u16 reg, u32 val)
+ {
+ 	lockdep_assert_held_once(&msc->part_sel_lock);
+-	__mpam_write_reg(msc, reg, val);
++	return __mpam_write_reg(msc, reg, val);
+ }
+ 
+ #define mpam_write_partsel_reg(msc, reg, val)  _mpam_write_partsel_reg(msc, MPAMCFG_##reg, val)
+ 
+-static inline u32 _mpam_read_monsel_reg(struct mpam_msc *msc, u16 reg)
++static inline int _mpam_read_monsel_reg(struct mpam_msc *msc, u16 reg,
++					u32 *res)
+ {
+ 	mpam_mon_sel_lock_held(msc);
+-	return __mpam_read_reg(msc, reg);
++	return __mpam_read_reg(msc, reg, res);
+ }
+ 
+-#define mpam_read_monsel_reg(msc, reg) _mpam_read_monsel_reg(msc, MSMON_##reg)
++#define mpam_read_monsel_reg(msc, reg, res) _mpam_read_monsel_reg(msc, MSMON_##reg, res)
+ 
+-static inline void _mpam_write_monsel_reg(struct mpam_msc *msc, u16 reg, u32 val)
++static inline int _mpam_write_monsel_reg(struct mpam_msc *msc, u16 reg, u32 val)
+ {
+ 	mpam_mon_sel_lock_held(msc);
+-	__mpam_write_reg(msc, reg, val);
++	return __mpam_write_reg(msc, reg, val);
+ }
+ 
+ #define mpam_write_monsel_reg(msc, reg, val)   _mpam_write_monsel_reg(msc, MSMON_##reg, val)
+ 
+ static bool mpam_msc_check_aidr(struct mpam_msc *msc)
+ {
+-	u32 aidr = __mpam_read_reg(msc, MPAMF_AIDR);
+-	u32 major = FIELD_GET(MPAMF_AIDR_ARCH_MAJOR_REV, aidr);
+-	u32 minor = FIELD_GET(MPAMF_AIDR_ARCH_MINOR_REV, aidr);
++	u32 aidr, major, minor;
+ 
++	if (__mpam_read_reg(msc, MPAMF_AIDR, &aidr))
++		return false;
++
++	major = FIELD_GET(MPAMF_AIDR_ARCH_MAJOR_REV, aidr);
++	minor = FIELD_GET(MPAMF_AIDR_ARCH_MINOR_REV, aidr);
+ 	/*
+ 	 * v0.0 and >v2.x aren't supported, but anything else should be backward
+ 	 * compatible to v0.1 or v1.0.
+@@ -242,25 +251,41 @@ static bool mpam_msc_check_aidr(struct mpam_msc *msc)
+ 	return true;
+ }
+ 
+-static u64 mpam_msc_read_idr(struct mpam_msc *msc)
++static int mpam_msc_read_idr(struct mpam_msc *msc, u64 *res)
+ {
+-	u64 idr_high = 0, idr_low;
++	u32 idr_high, idr_low;
++	int ret;
+ 
+ 	lockdep_assert_held(&msc->part_sel_lock);
+ 
+-	idr_low = mpam_read_partsel_reg(msc, IDR);
+-	if (FIELD_GET(MPAMF_IDR_EXT, idr_low))
+-		idr_high = mpam_read_partsel_reg(msc, IDR + 4);
++	ret = mpam_read_partsel_reg(msc, IDR, &idr_low);
++	if (ret)
++		return ret;
++
++	if (FIELD_GET(MPAMF_IDR_EXT, idr_low)) {
++		ret = mpam_read_partsel_reg(msc, IDR + 4, &idr_high);
++		if (ret)
++			return ret;
++	} else {
++		idr_high = 0;
++	}
++
++	*res = ((u64)idr_high << 32) | idr_low;
+ 
+-	return (idr_high << 32) | idr_low;
++	return 0;
+ }
+ 
+-static void mpam_msc_clear_esr(struct mpam_msc *msc)
++static int mpam_msc_clear_esr(struct mpam_msc *msc)
+ {
+-	u64 esr_low = __mpam_read_reg(msc, MPAMF_ESR);
++	u32 esr_low;
++	int ret;
++
++	ret = __mpam_read_reg(msc, MPAMF_ESR, &esr_low);
++	if (ret)
++		return ret;
+ 
+ 	if (!esr_low)
+-		return;
++		return 0;
+ 
+ 	/*
+ 	 * Clearing the high/low bits of MPAMF_ESR can not be atomic.
+@@ -268,44 +293,59 @@ static void mpam_msc_clear_esr(struct mpam_msc *msc)
+ 	 * lower half prevent hardware from updating either half of the
+ 	 * register.
+ 	 */
+-	if (msc->has_extd_esr)
+-		__mpam_write_reg(msc, MPAMF_ESR + 4, 0);
+-	__mpam_write_reg(msc, MPAMF_ESR, 0);
++	if (msc->has_extd_esr) {
++		ret = __mpam_write_reg(msc, MPAMF_ESR + 4, 0);
++		if (ret)
++			return ret;
++	}
++
++	return __mpam_write_reg(msc, MPAMF_ESR, 0);
+ }
+ 
+-static u64 mpam_msc_read_esr(struct mpam_msc *msc)
++static int mpam_msc_read_esr(struct mpam_msc *msc, u64 *res)
+ {
+-	u64 esr_high = 0, esr_low;
++	u32 esr_high, esr_low;
++	int ret;
+ 
+-	esr_low = __mpam_read_reg(msc, MPAMF_ESR);
+-	if (msc->has_extd_esr)
+-		esr_high = __mpam_read_reg(msc, MPAMF_ESR + 4);
++	ret = __mpam_read_reg(msc, MPAMF_ESR, &esr_low);
++	if (ret)
++		return ret;
+ 
+-	return (esr_high << 32) | esr_low;
++	if (msc->has_extd_esr) {
++		ret = __mpam_read_reg(msc, MPAMF_ESR + 4, &esr_high);
++		if (ret)
++			return ret;
++	} else {
++		esr_high = 0;
++	}
++
++	*res = ((u64)esr_high << 32) | esr_low;
++
++	return 0;
+ }
+ 
+-static void __mpam_part_sel_raw(u32 partsel, struct mpam_msc *msc)
++static int __mpam_part_sel_raw(u32 partsel, struct mpam_msc *msc)
+ {
+ 	lockdep_assert_held(&msc->part_sel_lock);
+ 
+-	mpam_write_partsel_reg(msc, PART_SEL, partsel);
++	return mpam_write_partsel_reg(msc, PART_SEL, partsel);
+ }
+ 
+-static void __mpam_part_sel(u8 ris_idx, u16 partid, struct mpam_msc *msc)
++static int __mpam_part_sel(u8 ris_idx, u16 partid, struct mpam_msc *msc)
+ {
+ 	u32 partsel = FIELD_PREP(MPAMCFG_PART_SEL_RIS, ris_idx) |
+ 		      FIELD_PREP(MPAMCFG_PART_SEL_PARTID_SEL, partid);
+ 
+-	__mpam_part_sel_raw(partsel, msc);
++	return __mpam_part_sel_raw(partsel, msc);
+ }
+ 
+-static void __mpam_intpart_sel(u8 ris_idx, u16 intpartid, struct mpam_msc *msc)
++static int __mpam_intpart_sel(u8 ris_idx, u16 intpartid, struct mpam_msc *msc)
+ {
+ 	u32 partsel = FIELD_PREP(MPAMCFG_PART_SEL_RIS, ris_idx) |
+ 		      FIELD_PREP(MPAMCFG_PART_SEL_PARTID_SEL, intpartid) |
+ 		      MPAMCFG_PART_SEL_INTERNAL;
+ 
+-	__mpam_part_sel_raw(partsel, msc);
++	return __mpam_part_sel_raw(partsel, msc);
+ }
+ 
+ int mpam_register_requestor(u16 partid_max, u8 pmg_max)
+@@ -774,13 +814,13 @@ static bool mpam_ris_hw_probe_csu_nrdy(struct mpam_msc_ris *ris)
+ 	mpam_write_monsel_reg(msc, CFG_CSU_CTL, ctl_val);
+ 
+ 	_mpam_write_monsel_reg(msc, MSMON_CSU, MSMON___NRDY);
+-	now = _mpam_read_monsel_reg(msc, MSMON_CSU);
++	_mpam_read_monsel_reg(msc, MSMON_CSU, &now);
+ 	can_set = now & MSMON___NRDY;
+ 
+ 	_mpam_write_monsel_reg(msc, MSMON_CSU, 0);
+ 	/* Configuration change to try and coax hardware into setting nrdy */
+ 	mpam_write_monsel_reg(msc, CFG_CSU_FLT, 0x1);
+-	now = _mpam_read_monsel_reg(msc, MSMON_CSU);
++	_mpam_read_monsel_reg(msc, MSMON_CSU, &now);
+ 	can_clear = !(now & MSMON___NRDY);
+ 	mpam_mon_sel_unlock(msc);
+ 
+@@ -800,7 +840,9 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+ 
+ 	/* Cache Capacity Partitioning */
+ 	if (FIELD_GET(MPAMF_IDR_HAS_CCAP_PART, ris->idr)) {
+-		u32 ccap_features = mpam_read_partsel_reg(msc, CCAP_IDR);
++		u32 ccap_features;
++
++		mpam_read_partsel_reg(msc, CCAP_IDR, &ccap_features);
+ 
+ 		props->cmax_wd = FIELD_GET(MPAMF_CCAP_IDR_CMAX_WD, ccap_features);
+ 		if (props->cmax_wd &&
+@@ -823,7 +865,9 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+ 
+ 	/* Cache Portion partitioning */
+ 	if (FIELD_GET(MPAMF_IDR_HAS_CPOR_PART, ris->idr)) {
+-		u32 cpor_features = mpam_read_partsel_reg(msc, CPOR_IDR);
++		u32 cpor_features;
++
++		mpam_read_partsel_reg(msc, CPOR_IDR, &cpor_features);
+ 
+ 		props->cpbm_wd = FIELD_GET(MPAMF_CPOR_IDR_CPBM_WD, cpor_features);
+ 		if (props->cpbm_wd)
+@@ -832,7 +876,9 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+ 
+ 	/* Memory bandwidth partitioning */
+ 	if (FIELD_GET(MPAMF_IDR_HAS_MBW_PART, ris->idr)) {
+-		u32 mbw_features = mpam_read_partsel_reg(msc, MBW_IDR);
++		u32 mbw_features;
++
++		mpam_read_partsel_reg(msc, MBW_IDR, &mbw_features);
+ 
+ 		/* portion bitmap resolution */
+ 		props->mbw_pbm_bits = FIELD_GET(MPAMF_MBW_IDR_BWPBM_WD, mbw_features);
+@@ -860,7 +906,9 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+ 
+ 	/* Priority partitioning */
+ 	if (FIELD_GET(MPAMF_IDR_HAS_PRI_PART, ris->idr)) {
+-		u32 pri_features = mpam_read_partsel_reg(msc, PRI_IDR);
++		u32 pri_features;
++
++		mpam_read_partsel_reg(msc, PRI_IDR, &pri_features);
+ 
+ 		props->intpri_wd = FIELD_GET(MPAMF_PRI_IDR_INTPRI_WD, pri_features);
+ 		if (props->intpri_wd && FIELD_GET(MPAMF_PRI_IDR_HAS_INTPRI, pri_features)) {
+@@ -879,7 +927,9 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+ 
+ 	/* Performance Monitoring */
+ 	if (FIELD_GET(MPAMF_IDR_HAS_MSMON, ris->idr)) {
+-		u32 msmon_features = mpam_read_partsel_reg(msc, MSMON_IDR);
++		u32 msmon_features;
++
++		mpam_read_partsel_reg(msc, MSMON_IDR, &msmon_features);
+ 
+ 		/*
+ 		 * If the firmware max-nrdy-us property is missing, the
+@@ -892,7 +942,8 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+ 		if (FIELD_GET(MPAMF_MSMON_IDR_MSMON_CSU, msmon_features)) {
+ 			u32 csumonidr;
+ 
+-			csumonidr = mpam_read_partsel_reg(msc, CSUMON_IDR);
++			mpam_read_partsel_reg(msc, CSUMON_IDR, &csumonidr);
++
+ 			props->num_csu_mon = FIELD_GET(MPAMF_CSUMON_IDR_NUM_MON, csumonidr);
+ 			if (props->num_csu_mon) {
+ 				bool hw_managed;
+@@ -915,7 +966,9 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+ 		}
+ 		if (FIELD_GET(MPAMF_MSMON_IDR_MSMON_MBWU, msmon_features)) {
+ 			bool has_long;
+-			u32 mbwumon_idr = mpam_read_partsel_reg(msc, MBWUMON_IDR);
++			u32 mbwumon_idr;
++
++			mpam_read_partsel_reg(msc, MBWUMON_IDR, &mbwumon_idr);
+ 
+ 			props->num_mbwu_mon = FIELD_GET(MPAMF_MBWUMON_IDR_NUM_MON, mbwumon_idr);
+ 			if (props->num_mbwu_mon) {
+@@ -945,8 +998,11 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+ 	 */
+ 	if (FIELD_GET(MPAMF_IDR_HAS_PARTID_NRW, ris->idr) &&
+ 	    class->type != MPAM_CLASS_UNKNOWN) {
+-		u32 nrwidr = mpam_read_partsel_reg(msc, PARTID_NRW_IDR);
+-		u16 partid_max = FIELD_GET(MPAMF_PARTID_NRW_IDR_INTPARTID_MAX, nrwidr);
++		u16 partid_max;
++		u32 nrwidr;
++
++		mpam_read_partsel_reg(msc, PARTID_NRW_IDR, &nrwidr);
++		partid_max = FIELD_GET(MPAMF_PARTID_NRW_IDR_INTPARTID_MAX, nrwidr);
+ 
+ 		mpam_set_feature(mpam_feat_partid_nrw, props);
+ 		msc->partid_max = min(msc->partid_max, partid_max);
+@@ -970,8 +1026,9 @@ static int mpam_msc_hw_probe(struct mpam_msc *msc)
+ 
+ 	/* Grab an IDR value to find out how many RIS there are */
+ 	mutex_lock(&msc->part_sel_lock);
+-	idr = mpam_msc_read_idr(msc);
+-	msc->iidr = mpam_read_partsel_reg(msc, IIDR);
++	mpam_msc_read_idr(msc, &idr);
++	mpam_read_partsel_reg(msc, IIDR, &msc->iidr);
++
+ 	mutex_unlock(&msc->part_sel_lock);
+ 
+ 	mpam_enable_quirks(msc);
+@@ -985,7 +1042,7 @@ static int mpam_msc_hw_probe(struct mpam_msc *msc)
+ 	for (ris_idx = 0; ris_idx <= msc->ris_max; ris_idx++) {
+ 		mutex_lock(&msc->part_sel_lock);
+ 		__mpam_part_sel(ris_idx, 0, msc);
+-		idr = mpam_msc_read_idr(msc);
++		mpam_msc_read_idr(msc, &idr);
+ 		mutex_unlock(&msc->part_sel_lock);
+ 
+ 		partid_max = FIELD_GET(MPAMF_IDR_PARTID_MAX, idr);
+@@ -1039,24 +1096,24 @@ static u64 mpam_msc_read_mbwu_l(struct mpam_msc *msc)
+ {
+ 	int retry = 3;
+ 	u32 mbwu_l_low;
+-	u64 mbwu_l_high1, mbwu_l_high2;
++	u32 mbwu_l_high1, mbwu_l_high2;
+ 
+ 	mpam_mon_sel_lock_held(msc);
+ 
+ 	WARN_ON_ONCE((MSMON_MBWU_L + sizeof(u64)) > msc->mapped_hwpage_sz);
+ 	WARN_ON_ONCE(!cpumask_test_cpu(smp_processor_id(), &msc->accessibility));
+ 
+-	mbwu_l_high2 = __mpam_read_reg(msc, MSMON_MBWU_L + 4);
++	__mpam_read_reg(msc, MSMON_MBWU_L + 4, &mbwu_l_high2);
+ 	do {
+ 		mbwu_l_high1 = mbwu_l_high2;
+-		mbwu_l_low = __mpam_read_reg(msc, MSMON_MBWU_L);
+-		mbwu_l_high2 = __mpam_read_reg(msc, MSMON_MBWU_L + 4);
++		__mpam_read_reg(msc, MSMON_MBWU_L, &mbwu_l_low);
++		__mpam_read_reg(msc, MSMON_MBWU_L + 4, &mbwu_l_high2);
+ 
+ 		retry--;
+ 	} while (mbwu_l_high1 != mbwu_l_high2 && retry > 0);
+ 
+ 	if (mbwu_l_high1 == mbwu_l_high2)
+-		return (mbwu_l_high1 << 32) | mbwu_l_low;
++		return ((u64)mbwu_l_high1 << 32) | mbwu_l_low;
+ 
+ 	pr_warn("Failed to read a stable value\n");
+ 	return MSMON___L_NRDY;
+@@ -1120,14 +1177,14 @@ static void read_msmon_ctl_flt_vals(struct mon_read *m, u32 *ctl_val,
+ 
+ 	switch (m->type) {
+ 	case mpam_feat_msmon_csu:
+-		*ctl_val = mpam_read_monsel_reg(msc, CFG_CSU_CTL);
+-		*flt_val = mpam_read_monsel_reg(msc, CFG_CSU_FLT);
++		mpam_read_monsel_reg(msc, CFG_CSU_CTL, ctl_val);
++		mpam_read_monsel_reg(msc, CFG_CSU_FLT, flt_val);
+ 		break;
+ 	case mpam_feat_msmon_mbwu_31counter:
+ 	case mpam_feat_msmon_mbwu_44counter:
+ 	case mpam_feat_msmon_mbwu_63counter:
+-		*ctl_val = mpam_read_monsel_reg(msc, CFG_MBWU_CTL);
+-		*flt_val = mpam_read_monsel_reg(msc, CFG_MBWU_FLT);
++		mpam_read_monsel_reg(msc, CFG_MBWU_CTL, ctl_val);
++		mpam_read_monsel_reg(msc, CFG_MBWU_FLT, flt_val);
+ 		break;
+ 	default:
+ 		pr_warn("Unexpected monitor type %d\n", m->type);
+@@ -1205,6 +1262,7 @@ static u64 mpam_msmon_overflow_val(enum mpam_device_features type,
+ static void __ris_msmon_read(void *arg)
+ {
+ 	u64 now;
++	u32 now32;
+ 	bool nrdy = false;
+ 	bool config_mismatch;
+ 	bool overflow = false;
+@@ -1267,9 +1325,9 @@ static void __ris_msmon_read(void *arg)
+ 
+ 	switch (m->type) {
+ 	case mpam_feat_msmon_csu:
+-		now = mpam_read_monsel_reg(msc, CSU);
+-		nrdy = now & MSMON___NRDY;
+-		now = FIELD_GET(MSMON___VALUE, now);
++		mpam_read_monsel_reg(msc, CSU, &now32);
++		nrdy = now32 & MSMON___NRDY;
++		now = FIELD_GET(MSMON___VALUE, now32);
+ 
+ 		if (mpam_has_quirk(IGNORE_CSU_NRDY, msc) && m->waited_timeout)
+ 			nrdy = false;
+@@ -1287,9 +1345,9 @@ static void __ris_msmon_read(void *arg)
+ 			else
+ 				now = FIELD_GET(MSMON___L_VALUE, now);
+ 		} else {
+-			now = mpam_read_monsel_reg(msc, MBWU);
+-			nrdy = now & MSMON___NRDY;
+-			now = FIELD_GET(MSMON___VALUE, now);
++			mpam_read_monsel_reg(msc, MBWU, &now32);
++			nrdy = now32 & MSMON___NRDY;
++			now = FIELD_GET(MSMON___VALUE, now32);
+ 		}
+ 
+ 		if (mpam_has_quirk(T241_MBW_COUNTER_SCALE_64, msc))
+@@ -1689,16 +1747,18 @@ static int mpam_save_mbwu_state(void *arg)
+ 		mon_sel = FIELD_PREP(MSMON_CFG_MON_SEL_MON_SEL, i) |
+ 			  FIELD_PREP(MSMON_CFG_MON_SEL_RIS, ris->ris_idx);
+ 		mpam_write_monsel_reg(msc, CFG_MON_SEL, mon_sel);
+-
+-		cur_flt = mpam_read_monsel_reg(msc, CFG_MBWU_FLT);
+-		cur_ctl = mpam_read_monsel_reg(msc, CFG_MBWU_CTL);
++		mpam_read_monsel_reg(msc, CFG_MBWU_FLT, &cur_flt);
++		mpam_read_monsel_reg(msc, CFG_MBWU_CTL, &cur_ctl);
+ 		mpam_write_monsel_reg(msc, CFG_MBWU_CTL, 0);
+ 
+ 		if (mpam_ris_has_mbwu_long_counter(ris)) {
+ 			val = mpam_msc_read_mbwu_l(msc);
+ 			mpam_msc_zero_mbwu_l(msc);
+ 		} else {
+-			val = mpam_read_monsel_reg(msc, MBWU);
++			u32 val32;
++
++			mpam_read_monsel_reg(msc, MBWU, &val32);
++			val = val32;
+ 			mpam_write_monsel_reg(msc, MBWU, 0);
+ 		}
+ 
+@@ -2473,7 +2533,7 @@ static irqreturn_t __mpam_irq_handler(int irq, struct mpam_msc *msc)
+ 					   &msc->accessibility)))
+ 		return IRQ_NONE;
+ 
+-	reg = mpam_msc_read_esr(msc);
++	mpam_msc_read_esr(msc, &reg);
+ 
+ 	errcode = FIELD_GET(MPAMF_ESR_ERRCODE, reg);
+ 	if (!errcode)
+-- 
+2.43.0
 
-	Stop setting rdt_alloc_capable in the quirk and rely on the resource
-	specific flag to prepare for removal of this global variable.
-
-	No functional change intended.
-
-> 
-> Signed-off-by: Tony Luck <tony.luck@intel.com>
-> ---
-Patch looks good to me.
-
-Reinette
