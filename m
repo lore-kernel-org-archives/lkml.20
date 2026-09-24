@@ -1,226 +1,189 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E61D2C027C
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:02:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790244131; cv=pass; b=UR3EPlClZ7HaHOdlXQnzqImBt8fFe6YDCALpoFUxuyY8owwJDSzoMppUCnbSLw2XaB1Zs1iV5Z6yj/W9wgXu0sMWPBgVLlkIe+z/qjFkZ9Ct96Frdjh8T69TkRT4UhETZdsofpuyxJ0x3NvY5Ni8OKphmL295h1aafXdADYRqNs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790244131; c=relaxed/simple;
-	bh=aF/YUsfn15Am1lyN4UTB4NRsRKQjq3M/wl+L8J2wO2M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IPb9SWYexLlXtBRVGYR3iPQxeb/ya6N+uYgV2j2QwYqOVBSNesMmwFXO0gFwY9880tIQoDV+U382UFPpW2fGcwh4h2vwK1TMNWBK0dqBBtvgRf7TyPfPwvS++ArG3RCmEXq8HIR1KG87sgpJi19WoZQKi368IL6V5Ckupn4kmpQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nYsq+CSd; arc=pass smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nYsq+CSd"
-Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d43f9b119so28944377b3.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:02:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790244125; cv=none;
-        d=google.com; s=arc-20260327;
-        b=W6u3b2snlUhxrk1HrVSojesCDJLK2dzIBuEgiWBNiWmoI3kp+jp3V1/P7vnx4cDr05
-         FRKTrXI8GLBFXWMZpBd4GgH6vCqvxjLjm0/arz2BwdoOdrsYKbxErG9I/icW66YXu+yM
-         rPDE+SiIonI4gB+hKr8iVp13j+j14+H0L7Svl5lXwLkOKV3fQ5mWH5EmshCNHYwA/iWJ
-         YzI17xXafY2g5A1PFrmbSZJs1e0u88chrCNOjgX/jrwwb07jh74eoxSW+RjbtAM4Lp3h
-         FMX5Ak1RMCUZ9D5JWdAMAKH64RFGAAHsjGtqYr9KcNB5/wrdx9k/TIgADXwFgELVkkGN
-         rg5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Yf2eXBIzfUAyDI8YQcFwCnYg3j6ep9DZNkN0GsU9MPc=;
-        fh=d4VZMYiMI6piY9iosurz3dYnJN3yV4m/HhY7AElVanY=;
-        b=jebfHQ4ACwduBbkQGw1q1HLLFUBwfHhdNLPl18cjMZwNBaFnhhmq/+5or4sNTmnE+l
-         POJOblZIu23dk3JGZkJb+ek3ZHTdeGrzrP3aAXM4T3H20MDEnZzIuSXiFmqBnTNfBu9g
-         KNISgy0f+O0Jmc4q1pi1YmFh4YWs7si34p23CaUP7nUh5hwqHCmMEQ5H1w4KLciwsIN4
-         K1VPiwlBdGhDEd3JhC6JmqZhZPR9ZscqZZcgBDKngiTkjnh95ELYL1KsUfwoP7CLF2yL
-         MHOeYRbRiEt0MRwO5m/ul+24BwHVUU13wCvZ7GeD0FURZ6aZq09Rkh4dUEdrKzjUcZ0i
-         AFXA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790244125; x=1790848925; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Yf2eXBIzfUAyDI8YQcFwCnYg3j6ep9DZNkN0GsU9MPc=;
-        b=nYsq+CSdFf6UwoKKyCvz6nEEOorVQdkseLHJvEJvXDWZu7/Cd6KiZ3SybDgb2JJNBW
-         o2QWy5B3QwiaPEdZr8GVaw6fjPdEDk4f9S/oNn/COfRmpqT0Z8nQZniv7LJvfs/lzT5T
-         Mwnt7HFz71IsOcsMbZP34yEkgs5WFwIVJVlIZeJC0lQzhA5vG9PJPHfM1Vr1RPxRJdSN
-         /b9T5exi3QnNlLXD+Hx0A/hfNIgJzwnztvyigFStDJBI4Xl7/kajYOvW3F0J7iS1tt/5
-         84osfU5tUFwgk7NzYaNv5fMeiZIkXRVCE4zPO9eXap3NLrTRUe8JiN1JiOAZ19yqSmC+
-         iSZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790244125; x=1790848925;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Yf2eXBIzfUAyDI8YQcFwCnYg3j6ep9DZNkN0GsU9MPc=;
-        b=0Okr9uOX7t2sGMzLrS8P1B29QenFS8o/XvnE/EKZ1tPvlaMmjtT2n3ttut4xVVcAME
-         xpUUEJuFhW8mR95MNf2zKW6K5sMApNwfR7WjMuswTOoCbZQFcmypw0I2iNYk4c4cw7GS
-         Pf4sbpkNqu8s64XGAzVy9g4rGhoFmWU36p/6tkwFVY9a+28QpJNN2QQzsTnFszfbbFI5
-         VKc2xj/3Tm3fDKqDSJoaK3shFi/F0WjL90MOLXpMXk6uqry8muihB5Ifq1R5jcVDQ8V4
-         CUDN14S1VqWtEm2zFwkFQl27UpN1aVvQ4JW6zzJHj2MC8S2Fp7HeuaLqXU2i8RfqENj+
-         im4A==
-X-Forwarded-Encrypted: i=1; AKwUvByQJWRWd8xu6uUZP0VZ+HFC6+iPG9qGyYsnD36Nqgj3KyCWROQYMZks5+OAr7Il5AqVqsqZ1U3oLOlVLHU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kxZrrDlPfXnjophkNuf/dj8E/3OVmyY5GCsPgSrlf5I6iFy0f6
-	QeurOQI5VC5iaRBt63PSez6FOOBeoVwvwOfjhx6tmY7nF9fKYrmBtGgqj7X8aXROcURqcWD42WF
-	N+Vn7tyAysB0zxzDqq7qRfqQRJd3QflQ=
-X-Gm-Gg: AYBFou1Dp3F4OaqK2eLU8RQ8zKy1RHk/3X4ugs6ja5n3YQPfFGUKKk2gYofrcWqH/ur
-	xGJ1my8BGtbqyDgCqcEvgEJLEmdxIeZPco/nDh20LCq44zKpYcq4dNfmsht0yXUe27pi1gB2pnB
-	f6O29ODJMrXQK7UWxZgPS1N+kRtOJC5yTDkKx+D5mswEg02eiIPxD7oN4zNqBer3HJicquwv9OW
-	+Urx5mobMUYL0YfW5RA5RvQRKchPXHmn4A3Y66CUF2WZl97W1z16uZFF8wLkNvVgtv/cfl5Qkv1
-	brRoUhmyhbBaVMgFE8MQfjDES+YOOs2Gk7j5hZthow4ILrYu4l5ht0/HRiygU6N7EXcBIxBBAHA
-	KuTqE3UbWAnzTQCQxY1Bq1W4=
-X-Received: by 2002:a05:690c:e3c3:b0:869:1ab2:33aa with SMTP id
- 00721157ae682-8a645aae281mr9464687b3.20.1790244124691; Thu, 24 Sep 2026
- 03:02:04 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF5B45FFD0;
+	Thu, 24 Sep 2026 10:02:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790244161; cv=none; b=OQ/Xy+4sqxqPqESmtMj3cUVVLm7YUCZJBWjpph2hl+TkiMvqwi5PKO0pT0BWjg8/i37wnMwZT7k/Y6UAcJklUdsYqBatdxiabDbS/Ytxp0ra+P41pe8dK/hLEddQzHbul3SMFsIf5j3g1YBXzYCSqiohIr7HHFmk4gNFMnzsKpc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790244161; c=relaxed/simple;
+	bh=GQ48VFT/4iDnIs9T5r2L9cI3nsiDUQaqivsQUdQkZiQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rPS035sP3oFsAYqRTsGWpPlMWY5LJU2fXBk5HEz1WJmuvybqXWW+dO7aey1oGgrbwMjd2ZM9TOknfGzG3ZrMtMzWYmmAbvHjbY1kzV2Mnwr9bCaDyW2m1kfKSL4prnXnAlgTyIbfranwRQjDiSmFDC/y+TntW8VHVOEn/2fKs1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn; spf=pass smtp.mailfrom=mails.ucas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.ucas.ac.cn
+Received: from fric.. (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowABnajgg9bRqrumVCA--.9312S2;
+	Thu, 24 Sep 2026 18:02:08 +0800 (CST)
+From: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
+To: mic@digikod.net,
+	gnoack@google.com,
+	paul@paul-moore.com,
+	jmorris@namei.org,
+	serge@hallyn.com
+Cc: fahimitahera@gmail.com,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] landlock: Fix domain leak on concurrent F_SETOWN and file release
+Date: Thu, 24 Sep 2026 10:02:06 +0000
+Message-Id: <20260924100206.173523-1-xujiakai24@mails.ucas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921192559.2619635-1-shakeel.butt@linux.dev>
- <CALOAHbA4EgGw_uWfbXD0Q87exP7ek=z9ENuU_ARgb+DgBgy1kQ@mail.gmail.com> <arPyspcEFNkqfNyr@linux.dev>
-In-Reply-To: <arPyspcEFNkqfNyr@linux.dev>
-From: Yafang Shao <laoar.shao@gmail.com>
-Date: Thu, 24 Sep 2026 18:01:27 +0800
-X-Gm-Features: AclHuK-I9uw-yPD5uF_5nJaKC0fsPFwXnig4t8YGhNpVyr0Q5duPYTUrOw96ia4
-Message-ID: <CALOAHbDKRw9cPN_GxOYbp9u50cvr7PzPyoGPsSwoPDPAwBCGbA@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/4] memcg_ext: memcg policy through cgroup-attached struct_ops
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Alexei Starovoitov <ast@kernel.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, JP Kobryn <jp.kobryn@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, Tejun Heo <tj@kernel.org>, Michal Koutny <mkoutny@suse.com>, 
-	Amery Hung <ameryhung@gmail.com>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Emil Tsalapatis <emil@etsalapatis.com>, 
-	Jiri Olsa <jolsa@kernel.org>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
-	John Fastabend <john.fastabend@gmail.com>, Jiayuan Chen <jiayuan.chen@linux.dev>, hui.zhu@linux.dev, 
-	Donet Tom <donettom@linux.ibm.com>, Greg Thelen <gthelen@google.com>, 
-	Meta kernel team <kernel-team@meta.com>, linux-mm@kvack.org, bpf@vger.kernel.org, 
-	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowABnajgg9bRqrumVCA--.9312S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxtFWkXr4ktry3AFyUGry8Zrb_yoWxXr4kpF
+	WYga15Kr48JF40ka17GFs7ZFyavw4rtr47WFZ3GrWfJa4ayF18Za1xur129F45Gr4kAr4Y
+	qr1UKFZ09FWDAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28I
+	cVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx
+	0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48J
+	MxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+	67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+	x0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73Uj
+	IFyTuYvjxUg5r4UUUUU
+X-CM-SenderInfo: 50xmxthndljko6pdxz3voxutnvoduhdfq/
 
-On Wed, Sep 23, 2026 at 11:47=E2=80=AFPM Shakeel Butt <shakeel.butt@linux.d=
-ev> wrote:
->
-> Hi Yafang,
->
-> On Wed, Sep 23, 2026 at 09:07:40PM +0800, Yafang Shao wrote:
-> > On Tue, Sep 22, 2026 at 3:30=E2=80=AFAM Shakeel Butt <shakeel.butt@linu=
-x.dev> wrote:
-> > >
-> [...]
-> > >
-> > > Known open questions
-> > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > >
-> > > The semantics of memory.high for remote chargers or kernel threads is=
- a
-> > > grey area and this series does not aim to resolve that.
-> > >
-> > > Another open question is whether a bound on debt deferral is needed. =
-At
-> > > the moment, we think that rather than putting a limit on deferral for
-> > > memory.high, it will be better to handle that through an async worker=
- like
-> > > memcg->high_work.  We aim to introduce that later, along with the rig=
-ht CPU
-> > > accounting for that async work.
-> >
-> > Hello Shakeel,
-> >
-> > On the open question of how deferred debt eventually gets paid: would
-> > it make sense for the policy to also notify userspace (e.g. via
-> > ringbuf) when it defers,
->
-> I think the notification through bpf programs is already possible and a b=
-pf
-> program deciding to bypass memory.high can already do notification via ri=
-ngbuf.
->
-> > and have a userspace reclaimer do the reclaim
-> > through memory.reclaim?
-> >
-> > I understand one of the concerns for the async worker is CPU
-> > accounting. If the concern is that the kworker's CPU usage is not
-> > charged to the target cgroup, the userspace reclaimer could instead be
-> > spawned with clone3(CLONE_INTO_CGROUP) so it runs inside the target
-> > cgroup, and both its CPU and memory usage get charged there.
-> >
-> > One caveat: intermediate cgroups with the no-internal-process
-> > constraint cannot take processes, so this would only work for leaf
-> > cgroups.
-> >
-> > What do you think?
->
-> I think all of this is possible without additional code and with this ser=
-ies.
-> With AI, should be very easy to prototype it. Please take a stab and I wi=
-ll look
-> into it as well (time permitting).
+The Landlock domain reference recorded by hook_file_set_fowner() was only
+dropped by hook_file_free_security(), which runs from security_file_free()
+without holding file->f_owner->lock.  hook_file_set_fowner() itself runs
+under that lock (since commit 26f204380a3c ("fs: Fix file_set_fowner LSM
+hook inconsistencies")), so the get-side and the put-side of the same
+storage slot were not mutually exclusive.
 
-An LLM helped me quickly implement a userspace async memcg reclaimer
-based on your series, and it seems to work quite well.
+If the final fput()/__fput() of a file runs concurrently with an
+in-flight F_SETOWN on another CPU, the free path can drain the blob
+(dropping the previously recorded domain) before the set path stores a
+freshly acquired domain reference into it.  The new reference is then
+orphaned: hook_file_free_security() has already run, so nothing will
+ever drop it, and the whole domain (struct landlock_ruleset, its
+landlock_hierarchy and its landlock_details) leaks.  kmemleak reports
+this as a "memory leak in landlock_merge_ruleset" with the leaked
+hierarchy showing usage=1 and parent=NULL.
 
->
-> Thanks for taking a look and also please let me know what other ways you =
-think
-> memcg can be customized through BPF in a beneficial way.
+Add a file_release hook, called by __fput() before
+file_f_owner_release() (i.e. while the fown_struct and its lock are
+still alive), which takes file->f_owner->lock, snapshots and clears the
+recorded fown_subject/fown_tg references, and drops them outside the
+lock.  This serializes the recorded reference lifecycle with
+hook_file_set_fowner(), closing the store-after-put window in both
+directions (the reverse interleaving would have been a double-put).
+hook_file_free_security() stays as a no-op safety net for files without
+a fown_struct.
 
-Sure. On our production servers we have been running a set of BPF
-programs to tailor kernel behavior for different workloads =E2=80=94 all of
-them global programs so far =E2=80=94 and I believe they are all good
-candidates for per-cgroup BPF policies now that cgroup-attached
-struct_ops is available. They have been really helpful in our
-Kubernetes production environment. I have sent some of them upstream,
-such as:
+Cc: stable@vger.kernel.org
+Fixes: 54a6e6bbf3bef ("landlock: Add signal scoping")
+Assisted-by: OpenCode:DeepSeek-V4-Flash
+Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
+---
+ security/landlock/fs.c | 42 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 42 insertions(+)
 
-  - BPF-THP
-    https://lwn.net/Articles/1039689/
-  - BPF-auto-NUMA
-    https://lwn.net/Articles/1054030/
+diff --git a/security/landlock/fs.c b/security/landlock/fs.c
+index f7e5e4ef9eac3..8261aa55b0127 100644
+--- a/security/landlock/fs.c
++++ b/security/landlock/fs.c
+@@ -1971,8 +1971,49 @@ static void hook_file_set_fowner(struct file *file)
+ 	put_pid(prev_tg);
+ }
+ 
++/*
++ * Drops the Landlock references saved by hook_file_set_fowner(), in a
++ * critical section serialized with it thanks to file->f_owner->lock, and
++ * before file_f_owner_release() frees this lock.  Without this mutual
++ * exclusion, a concurrent F_SETOWN could store a new domain reference into a
++ * file being released (the last fput() made it unreachable to future F_SETOWN
++ * users), which would then never be dropped, leaking the whole domain.
++ */
++static void hook_file_release(struct file *file)
++{
++	struct landlock_ruleset *prev_dom;
++	struct pid *prev_tg;
++	struct fown_struct *fown;
++
++	fown = file_f_owner(file);
++	if (!fown)
++		/* No owner was ever recorded, cf. hook_file_set_fowner(). */
++		return;
++
++	/*
++	 * __fput() calls this hook before file_f_owner_release(), so the
++	 * fown_struct is still alive here.
++	 */
++	write_lock_irq(&fown->lock);
++	prev_dom = landlock_file(file)->fown_subject.domain;
++	prev_tg = landlock_file(file)->fown_tg;
++	landlock_file(file)->fown_subject.domain = NULL;
++	landlock_file(file)->fown_tg = NULL;
++	write_unlock_irq(&fown->lock);
++
++	/* May be called in an RCU read-side critical section. */
++	landlock_put_ruleset_deferred(prev_dom);
++	put_pid(prev_tg);
++}
++
+ static void hook_file_free_security(struct file *file)
+ {
++	/*
++	 * hook_file_release() already dropped and cleared these references if
++	 * they were ever recorded.  Keep a defensive cleanup for files without
++	 * a fown_struct (e.g. never owning files), which hook_file_release()
++	 * skips.
++	 */
+ 	put_pid(landlock_file(file)->fown_tg);
+ 	landlock_put_ruleset_deferred(landlock_file(file)->fown_subject.domain);
+ }
+@@ -2003,6 +2044,7 @@ static struct security_hook_list landlock_hooks[] __ro_after_init = {
+ 	LSM_HOOK_INIT(file_ioctl, hook_file_ioctl),
+ 	LSM_HOOK_INIT(file_ioctl_compat, hook_file_ioctl_compat),
+ 	LSM_HOOK_INIT(file_set_fowner, hook_file_set_fowner),
++	LSM_HOOK_INIT(file_release, hook_file_release),
+ 	LSM_HOOK_INIT(file_free_security, hook_file_free_security),
+ };
+ 
+-- 
+2.34.1
 
-Perhaps we can revisit both of them and turn them into per-cgroup
-policies =E2=80=94 what do you think?
 
-We are also running some custom BPF programs that have not been sent
-upstream yet, such as:
+Crash report (memory_leak_in_landlock_merge_ruleset_SyzGPT_20260917_162959_7d54763d, kernel 7.2-v3, appended below for reference; everything after the "-- " signature is discarded by git am):
 
-  - BPF-async-reclaimer
-    We don't care about the CPU accounting of the kworker, so we just
-wake up a kworker to do the async reclaiming.
-  - BPF-fault-around
+---
+BUG: memory leak
+unreferenced object 0xffff88810fd82cc0 (size 96):
+  comm "syz.1.2048", pid 20078, jiffies 4295170985
+  hex dump (first 32 bytes):
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+    00 08 a4 0d 81 88 ff ff 00 00 00 00 00 00 00 00  ................
+  backtrace (crc 5533466b):
+    kmemleak_alloc_recursive home/zzzrrll/tmp/kf_src/linux-7.2.3/include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook home/zzzrrll/tmp/kf_src/linux-7.2.3/mm/slub.c:4597 [inline]
+    slab_alloc_node home/zzzrrll/tmp/kf_src/linux-7.2.3/mm/slub.c:4917 [inline]
+    __do_kmalloc_node home/zzzrrll/tmp/kf_src/linux-7.2.3/mm/slub.c:5333 [inline]
+    __kmalloc_noprof+0x210/0x4d0 home/zzzrrll/tmp/kf_src/linux-7.2.3/mm/slub.c:5359
+    _kmalloc_noprof home/zzzrrll/tmp/kf_src/linux-7.2.3/include/linux/slab.h:992 [inline]
+    _kzalloc_noprof home/zzzrrll/tmp/kf_src/linux-7.2.3/include/linux/slab.h:1309 [inline]
+    create_ruleset home/zzzrrll/tmp/kf_src/linux-7.2.3/security/landlock/ruleset.c:36 [inline]
+    landlock_merge_ruleset+0x8b/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.2.3/security/landlock/ruleset.c:565
+    __do_sys_landlock_restrict_self home/zzzrrll/tmp/kf_src/linux-7.2.3/security/landlock/syscalls.c:599 [inline]
+    __se_sys_landlock_restrict_self+0x180/0x330 home/zzzrrll/tmp/kf_src/linux-7.2.3/security/landlock/syscalls.c:526
+    do_syscall_x64 home/zzzrrll/tmp/kf_src/linux-7.2.3/arch/x86/entry/syscall_64.c:63 [inline]
+    do_syscall_64+0x154/0x3b0 home/zzzrrll/tmp/kf_src/linux-7.2.3/arch/x86/entry/syscall_64.c:94
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Both are really beneficial to our workloads, and both are global programs t=
-oday.
 
-We are planning a few more customizations to resolve painful
-production issues, such as:
+<<<<<<<<<<<<<<< tail report >>>>>>>>>>>>>>>
 
-  - The long-standing inode::lock contention caused by dentries [0].
-    We have not started implementing it yet, but we might introduce a
-memcg->dentry_limit or a memcg->vfs_cache_pressure as BPF policies..
-  - cgroup-level readahead.
 
-So, to answer your question directly: for memcg itself, the beneficial
-customizations for us are the reclaim policy (the async reclaimer
-above), the dentry/vfs cache pressure knobs, and fault-around; the
-rest are per-cgroup MM policies that would need the
-struct_ops-to-cgroup mechanism generalized beyond memcg =E2=80=94 which is =
-why
-I hope these use cases can help make the design more generic.
+---
 
-[0] https://lore.kernel.org/linux-fsdevel/20240511200240.6354-2-torvalds@li=
-nux-foundation.org/
-
---=20
-Regards
-Yafang
