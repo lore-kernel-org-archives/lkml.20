@@ -1,64 +1,62 @@
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 946A43E49EC
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:14:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22153425878
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:14:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790234100; cv=none; b=ex1vZHiADKoUhe0ZJBmnYACgwKFUzzja7nfamTduARW85hsrJolyWxIwDv22kUNRCWN8Dmr3Z+lWgV+2O6xkCqN14GY4L/6v9LQ5yTiyS0/EvmTDgkQCl7CYHRxYw85YJOBTt0M5HwuVVvPBqF0sHIgWj890VoetsDYqa6ct7Kw=
+	t=1790234107; cv=none; b=gMMBBchcysJJUJ5dLusVgw1Y4CBxbp7GtsnGsEdpTDc1fcA6fPrEx7uckYBVW99vJUiVRxvazdQgp7TxRflKBRxetQMK3S6QTnp/TB2V8lFT7SCftN+X+Sg42SsyxHmYGfayA/99+vJGLrd7bKMbQzUw1j6+xKRb7S1x9Wn56XI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790234100; c=relaxed/simple;
-	bh=U1Z6kjsMVIbbbRSSBlT8V0uTPKeoPfC6ZhdfOLN5uW0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bUymXQfGJbjyyjyLvRMSGoZSmgFeczTqF3KWSbfzx5XLMCE47Ey2/2pgSE2PnzxF4svkAXfpZzTYicDuE1Im+7UENU7w0DpL42xtvrjiKzyPpHDYkPgmkqtLYjhI9eDzDtAPbSmtvuPZFEKALP3bOAl3NREnBA+WuPVgqLc4nD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wermuth.pl; spf=fail smtp.mailfrom=wermuth.pl; dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b=bnOWYsid; arc=none smtp.client-ip=74.125.228.99
+	s=arc-20240116; t=1790234107; c=relaxed/simple;
+	bh=7N6pTSfQIgQpZbCNDu3Pk+zXTCh3MC0AIlBR223ryak=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qKsSZ4a4gQiU58QjiqAwba3y9o1HWLqaxlY6kc4/EbBsMXU7B/LapcFjcTXixNJDVP+3puaWMt1ajBoHhTPZJHGtlhDkBiA/4GSmlxZLdsfoL5MTT7FT9B7fKPVbpUEqD8nueQ8v21UKRfUblsh0C9zZvF889BDrByogoCJRtPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wermuth.pl; spf=fail smtp.mailfrom=wermuth.pl; dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b=JDCZOGhH; arc=none smtp.client-ip=209.85.208.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wermuth.pl
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=wermuth.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b="bnOWYsid"
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aa1d00daaaso2868876a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:14:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b="JDCZOGhH"
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6aa13a28848so948110a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:14:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=wermuth-pl.20251104.gappssmtp.com; s=20251104; t=1790234092; x=1790838892; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W/q4IHYKCy6ATe5C6R4o2zyKGD60s2UPYSeHPBkDVEs=;
-        b=bnOWYsidpe7xcw9Oe4mvJ75tR8m7UZt09lWMnVpb3C2BFx4V6szCbUQG1cpL0cvDz8
-         VBAEMyNl9awcfhiNAC3ORD/oBwOGOjVhb+X7UsuSRtc64m/QvAXd88MKjPrfOrlus1uP
-         6I5hfloudEjOrEyo52yCNjosVUVk1FguWI48ifALKHQsaNkvp/P8BB+kHslLq5nSNgno
-         zKguWvBRCLZ/JYM+OUqdm710LG3YDfphlkZtLBcmcH0K5D2AuSOuqctPoHHJDq/JTmHf
-         Kr10+4Op2dllW4WatMFouVM1YWFzVU7g5mdrlaQ0B3MYrUNeMkMfG27767xQrKw6Qhwn
-         yJWg==
+        d=wermuth-pl.20251104.gappssmtp.com; s=20251104; t=1790234090; x=1790838890; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bU+4t3FGIXSiYOJEMQu/Cnc9Vdhxqo1btIx27NvDSa0=;
+        b=JDCZOGhHB2+AI8B/l5/VdQjnSq1x0lSHoerfCzJrsm5cKaPp/OhRnsnkRzoAedKhWS
+         Tzy9VwrRbvc/KIKUhi+Q4F30a5MgP9pL0Jnk9KUwkkmJ2FNhstHKR/ZDadeGfrZ7UU8u
+         a8zE6MaKIdXok2MBFYK/+YRa1rgrRS4fKoVeSt0xgQyATmEESaKF5/HfwPZJ/u0xcJsM
+         kKU0W0x9tHiIrngNjlzD+ma7cw4cX6tqMiN7J1u6UZlMXc6fshcIxadXE9F8UsQ2VToy
+         oS6VxdIdkF0t+Bjns0JFENQoFRyErIBorM0g0zGjCHYHXgNae0vF4s1Csz+GI0htq+EX
+         venA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790234092; x=1790838892;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W/q4IHYKCy6ATe5C6R4o2zyKGD60s2UPYSeHPBkDVEs=;
-        b=AjWkoRm3Yv5ZScM8oSVl/yfgV8bqBZT4rOIFtlVpq8WwqgkLiCtY7zdBPuT8DeQMy+
-         1EfpbKqjHWkV1eYMh7fOfYSnSKFH2L8Xoa+8VsZh7KkMRx7sEHSwxHMvT8XMaWrlD3/3
-         ke+Tpvb0NokqPhxEQSxrmTEV30NtlOOOTGNXvDwHTp5ZeZojj912B01D5rhL4WIVkUR5
-         sCwIRpO6O01COzyNTOyXqUcJaMhNf8dYRAjyW0XBPxvjqaSbZ0j2OEzkuc61MJ47e50Z
-         Uabw6PXU+eReDakNMcvNX3jU9Ix8NAO3NfVAoQzNUqjNFA1PjwtXdEhNt2gZTEgeLXEH
-         1syA==
-X-Forwarded-Encrypted: i=1; AKwUvBymrOfvX5/0ffD+MSX0fl2Vx1SK1HTQBORe+ztllZjJJ3a99jDS/XqJDaTcrqIC+62GEcrW9AhRyMUQfms=@vger.kernel.org
-X-Gm-Message-State: AFuF++n4PcZFNA/1ygBCY8/h5r2E2AA+i97WEyynZv7gi+lTDNTgvu/x
-	cRUccXaEU2ChUnloO8Pa61SfYIgHNniMBLIZwE1L8GfCSO0tg+nSvXq2hg+4dYM8DJM=
-X-Gm-Gg: AYBFou0+EThSyfUgj58JYmT91FdF7KSD9g61+wN4H3/K6RWydThiEexjpt5VAESLT1a
-	vmbKjSsdzYOp7Qf/Dbq1wSh9j4Tyaw9qzClZzum0pri9G7+WsDUktiUdzejmmIbJgWR/cD1zSNf
-	+lKVfI3f+k5fiQ3t96k4N8ehod+eLoguwMr5IixQtVnxIO8FfLditFSq5gNWZGf3168dhEOzKlf
-	pSG0y2fYVsNvVUpf8LSoDXt/Cruq5CEuP/SOblyXO5+980gB0xjdfZNtMrpFxGZYO/VPZWW+D6Y
-	S/UayeUNRdekGQunZ9KNmi8fFzurXIU0GGRG5eNKk317Wfwua8XkBod8bOSxyoYo6UBJmjqOO5R
-	Hqwp/SbKHxCrlRLlrrG9jpDqjctxmy6ytZpNb57nuuyDBObVgVa1XzKdEnKcND6Nb8kX0rvSad5
-	rBK3B9S9u2WE+Dw5tqKaIpimNTXy/EjzOlmhEg7pAfRaWmdo2+wtVDdWgLORzZohLPCxN14IWdq
-	2E98vPHEnlGycAOkmxaHNNWE73rhOHfKQ33bFO/iKgWgOU=
-X-Received: by 2002:a05:6402:5385:b0:6aa:aaf2:f6a0 with SMTP id 4fb4d7f45d1cf-6aac8ecf65bmr1299955a12.1.1790234091341;
-        Thu, 24 Sep 2026 00:14:51 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790234090; x=1790838890;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bU+4t3FGIXSiYOJEMQu/Cnc9Vdhxqo1btIx27NvDSa0=;
+        b=jrq39TqxVT4DPbwcae4/BGn3cnn0V3KbQYo6NwH0zQXyi2aSCeRekmiiLazDGNKR/3
+         Bq/BX8XnovjNOKSJ1cyQ9i86ZJZgtfYHnZK/UKc2EjD2g2v73xW31tG/kUWXpc0spitw
+         bECTDO8utB7rZQ+TIqalxZOMrTsjsOHjlCoHKxWbneaF9f1Z5qR5PeqHbjy2FGNZboaP
+         b39gsp1Yu3bMJuqlGzQxxQvLm1eQVWDnjrimMDEk7Njw3pzHitT43E1nN7JSLWor2t5D
+         RyqGw+Xd/3YWTFQ5uhGzFTz0rjPMEtjToAR90xuyYVLmWtDRYDl98OG57XgTcTnTzLLy
+         WtRA==
+X-Forwarded-Encrypted: i=1; AKwUvBz2NdXqRWtBZqWYB3tkbWut32v2bS5wgTb4h3hERvCA3oBzXozdejhd+iBZ/KvR4bqzL5EHaSGhvAj8P9Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++mVDCQ0KPiYuFytpH4x7Yd9ItoByL+cRSiItLZKUnaJhJS+iDi9
+	Us+zi7BTPJXaSql9G+LnF3Ay0qt0BuOWolN8K4JNDZDFr0jintA7uac26hcz9Hh9bMY=
+X-Gm-Gg: AYBFou2+rXgc6jc+cePQsmx0oJ3W4q1M6lMXEVIq6q7Is9tzOGxZcGlBZUbw+8PMUsz
+	y4a9UgxVQIz/snT/YdyNbJAcFu3UGxCLZ3Gjex8ONvEhigM/p/OkID2aL4PWM1Fm9+16ndtfvTP
+	ZyivRGo989/0BFd4Mm56f14ZX+jnGnbduUuk+zWAB/fwKVnD9RgR4PsgU09dX9Js68PP+hOsenE
+	3WZIzsh7azs6YFZsA5sYA8/rRgy0huxpwxHH9dQ5j/85tpV/BIiT1VU5ru9VIpVebOIVkxOwsi6
+	GaLgqOBEg6VUecNJ0otjmh1BPvxPNaw1+0l0ZmjY9GbXm81afRyPr8w3RW0Ut2EPdMjjNfagADS
+	hmFMa2ma8WXFD7pNIidiKrTlIuf0NavIv5uGZc8fDdlBLhSR1BV1dwRZZBfnbfMX8PbXMni22H1
+	mZyVIqugzEwUAgaD+JAzSQ8j5483dJDY+gSfsACmXrhhn4IUVjpIkpklfwiBiEcq6yayvnrCZ4V
+	qZciJfsv07d+J4HCcwKJvEPR/NDAaXl4iRqGqr91QcAxIE=
+X-Received: by 2002:aa7:d712:0:b0:6a6:b2b9:7660 with SMTP id 4fb4d7f45d1cf-6aac8f86d0dmr907853a12.13.1790234089543;
+        Thu, 24 Sep 2026 00:14:49 -0700 (PDT)
 Received: from janlin-02.home.wermuth.pl (109-206-198-27.host.skynet.net.pl. [109.206.198.27])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aab38a9756sm3306589a12.25.2026.09.24.00.14.50
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aab38a9756sm3306589a12.25.2026.09.24.00.14.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 00:14:50 -0700 (PDT)
+        Thu, 24 Sep 2026 00:14:49 -0700 (PDT)
 From: Adam Wermuth <adam@wermuth.pl>
 To: Heiko Stuebner <heiko@sntech.de>
 Cc: Rob Herring <robh@kernel.org>,
@@ -69,12 +67,10 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Adam Wermuth <adam@wermuth.pl>
-Subject: [PATCH 1/3] arm64: dts: rockchip: Enable USB 2.0 host1 on Radxa ROCK 3B
-Date: Thu, 24 Sep 2026 09:14:43 +0200
-Message-ID: <20260924071445.441822-2-adam@wermuth.pl>
+Subject: [PATCH 0/3] Subject: [PATCH 0/3] arm64: dts: rockchip: Enable M.2 B-key slot and fan on Radxa ROCK 3B
+Date: Thu, 24 Sep 2026 09:14:42 +0200
+Message-ID: <20260924071445.441822-1-adam@wermuth.pl>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260924071445.441822-1-adam@wermuth.pl>
-References: <20260924071445.441822-1-adam@wermuth.pl>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,47 +79,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The USB 2.0 data lines of the M.2 B-key slot are routed to USB2_HOST3,
-which is served by usb_host1_ehci/ohci through the host port of
-usb2phy1. Enable the controllers and the PHY port so that modules in
-the B-key slot, such as LTE modems, can enumerate.
+The Radxa ROCK 3B has an M.2 B-key slot intended for 4G/5G modules and
+a 2-pin fan header, neither of which is currently described in the
+mainline device tree.
 
-Signed-off-by: Adam Wermuth <adam@wermuth.pl>
----
- arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+Patch 1 enables the second USB 2.0 host controller, which serves the
+USB lines of the B-key slot. Patch 2 describes the power, reset and
+W_DISABLE# controls of the slot. Patch 3 adds the PWM fan and ties it
+to the CPU thermal zone.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
-index 149a5306bb03..ad9a91c0d0d0 100644
---- a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
-@@ -758,6 +758,14 @@ &usb_host0_xhci {
- 	status = "okay";
- };
- 
-+&usb_host1_ehci {
-+	status = "okay";
-+};
-+
-+&usb_host1_ohci {
-+	status = "okay";
-+};
-+
- &usb_host1_xhci {
- 	status = "okay";
- };
-@@ -780,6 +788,11 @@ &usb2phy1 {
- 	status = "okay";
- };
- 
-+&usb2phy1_host {
-+	phy-supply = <&vcc5v0_usb_host>;
-+	status = "okay";
-+};
-+
- &usb2phy1_otg {
- 	phy-supply = <&vcc5v0_usb_host>;
- 	status = "okay";
+Pin assignments were checked against the ROCK 3B V1.51 schematic.
+Tested on a ROCK 3B with a SIMCom SIM7600G-H module and a 5V fan,
+running Linux 6.12 (OpenWrt) with the same changes applied.
+
+Adam Wermuth (3):
+  arm64: dts: rockchip: Enable USB 2.0 host1 on Radxa ROCK 3B
+  arm64: dts: rockchip: Enable M.2 B-key WWAN slot on Radxa ROCK 3B
+  arm64: dts: rockchip: Add PWM fan to Radxa ROCK 3B
+
+ .../boot/dts/rockchip/rk3568-rock-3b.dts      | 102 ++++++++++++++++++
+ 1 file changed, 102 insertions(+)
+
+
+base-commit: 23d8f49fcae5d72b77744c7f349c12462c3bb748
 -- 
 2.43.0
 
