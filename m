@@ -1,105 +1,45 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D656E476045;
-	Thu, 24 Sep 2026 11:19:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BE75E4779A1
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:19:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.214.250.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790248786; cv=none; b=TtdAdBHlwQ8wFXYaVr9Zp4d0xVIosSim6f8BPzn39iBPgGYDTksaADNZ09XdZx+oxM1/ghpTwGT84rYtOt50FK9jwrsCErAyW41y982oMZCDSaRr3mHg22LNXrLIDc6sPKBssy2QLY1RoeF0DKU7rb3o2UU2zoXaGBtpiYo7fx8=
+	t=1790248791; cv=none; b=DQAY3lZfgMoFvmcd7kHGeSTcezlQeszjvOZfMV/WH6PpKSFgQVIp/D43ZqlP+EGCeXq5rc8FUoLkbX0Myzddh2fKZDXbWZtWnQP9+FS9rRRU/oTslo0gUP5TdHt/h4PhzyzXtuYXldOP1ObtaoQKuqIM3rXFEGPcrHoQ25UsNVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790248786; c=relaxed/simple;
-	bh=xne99fIg1eHNEi/3fzizDiVwnWQgKjB/aaKHaEhU60I=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=eOiIUY575NeUCpKCleABUPKiAV/Cb9IFVO3nprPQuDGAxDdF5McvQxfSpzwVYOCWpG5miWyot11hF6TM98w1FrTAknODl883mEcZF4DcPvBv3gKniY+RiJDtL7fPM/prrTY4ujKEMsEm22omC7xVcMy0UmvIKLx6f56xZ/P+qgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=SVcY+xOs; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="SVcY+xOs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=M8
-	sgqMtKOkJNxptGJB3po9Dr10HGc07N+AeeiZtfcDA=; b=SVcY+xOswBMn8AVKMi
-	zJX0Uo52WAMr/Cre1UBSlwoC2jNArh8rXKBu9heQ16WJSqhuMsl3hMIKRGD0/3Mk
-	nsWOx095JVpNRIToPzdI6t0/eY4AJtst0PE4TOeckjbOLFJ6wm65DD188pX5Jwxd
-	3N6WpDDqmRqEBQmMVoBE4p4RA=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3H4YqB7Vqww4oAg--.65098S4;
-	Thu, 24 Sep 2026 19:19:17 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Linus Walleij <linusw@kernel.org>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	linux-renesas-soc@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-tegra@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH 2/4] pinctrl: renesas: rzn1: free maps on DT map failure
-Date: Thu, 24 Sep 2026 19:18:50 +0800
-Message-Id: <20260924111856.622898-3-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260924111856.622898-1-yaojiale02@163.com>
-References: <20260924111856.622898-1-yaojiale02@163.com>
+	s=arc-20240116; t=1790248791; c=relaxed/simple;
+	bh=2TFbphBbI/gwZlavoTD0D4ENeBckd92XPWy8tsKPZcE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E1MS7lC6VON0lDfXh30RL8SBTqHaPCVWlWVKZ8CcbWzhgtQfSc18EpW6zFGJYLgbMJo7eWfZXvuSBdqzzhwqI2I4Pm0SiBe6U5WIoCYJl8EbU9IFJyIYCltO7ss/NvqXn2h4wZuXMRfZ38ade/tk10tATi2PU/XtmZ+FU9nhFno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org; spf=pass smtp.mailfrom=8bytes.org; arc=none smtp.client-ip=85.214.250.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
+Received: from 8bytes.org (p200300f6af404a00e4ccc4fdbbd66590.dip0.t-ipconnect.de [IPv6:2003:f6:af40:4a00:e4cc:c4fd:bbd6:6590])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.8bytes.org (Postfix) with ESMTPSA id CE4C31C7465;
+	Thu, 24 Sep 2026 13:19:46 +0200 (CEST)
+Date: Thu, 24 Sep 2026 13:19:45 +0200
+From: =?utf-8?B?SsO2cmcgUsO2ZGVs?= <joro@8bytes.org>
+To: Andrew Jones <andrew.jones@oss.qualcomm.com>
+Cc: iommu@lists.linux.dev, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, jgg@nvidia.com, tomasz.jeznach@linux.dev, will@kernel.org, 
+	robin.murphy@arm.com, pjw@kernel.org, palmer@dabbelt.com
+Subject: Re: [PATCH] iommu/riscv: Report cache coherency capability
+Message-ID: <arUHQrcUWgU5nbVE@8bytes.org>
+References: <20260821112100.572037-1-andrew.jones@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3H4YqB7Vqww4oAg--.65098S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Cw4DJw45KFyUXF1rAFWkJFb_yoW8JF4xpF
-	s3GFW5Ar4rGws2gFWftw1xXF9xua97try5W34UK34fZFsIyrn2yF1a9FWYyrsYkFWfAr1a
-	vr43Aa4rC3s8J3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRnqXQUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhXWEWq1BzUOXAAA3j
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260821112100.572037-1-andrew.jones@oss.qualcomm.com>
 
-rzn1_dt_node_to_map_one() appends mappings for each DT node.  If a
-node fails after map storage has been reserved, the top-level callback
-returns without releasing mappings built for the current and previous
-nodes.
+On Fri, Aug 21, 2026 at 01:21:00PM +0200, Andrew Jones wrote:
+>  drivers/iommu/riscv/iommu.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
 
-Free the accumulated map and clear the output parameters on every error
-path.
-
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/pinctrl/renesas/pinctrl-rzn1.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/pinctrl/renesas/pinctrl-rzn1.c b/drivers/pinctrl/renesas/pinctrl-rzn1.c
-index fb874867dbfb..1b977504d26e 100644
---- a/drivers/pinctrl/renesas/pinctrl-rzn1.c
-+++ b/drivers/pinctrl/renesas/pinctrl-rzn1.c
-@@ -411,15 +411,21 @@ static int rzn1_dt_node_to_map(struct pinctrl_dev *pctldev,
- 
- 	ret = rzn1_dt_node_to_map_one(pctldev, np, map, num_maps);
- 	if (ret < 0)
--		return ret;
-+		goto err_free_map;
- 
- 	for_each_child_of_node_scoped(np, child) {
- 		ret = rzn1_dt_node_to_map_one(pctldev, child, map, num_maps);
- 		if (ret < 0)
--			return ret;
-+			goto err_free_map;
- 	}
- 
- 	return 0;
-+
-+err_free_map:
-+	pinctrl_utils_free_map(pctldev, *map, *num_maps);
-+	*map = NULL;
-+	*num_maps = 0;
-+	return ret;
- }
- 
- static const struct pinctrl_ops rzn1_pctrl_ops = {
--- 
-2.34.1
+Applied, thanks.
 
