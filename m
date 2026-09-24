@@ -1,92 +1,216 @@
-Received: from mta0.migadu.com (out-228.mta0.migadu.com [91.218.175.228])
+Received: from mail-oi2-f41.google.com (mail-oi2-f41.google.com [74.125.231.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE6C64718FA
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:28:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.228
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790245716; cv=none; b=VMvAvomH/MYf7IxWYxLypQqW0kQ7bOCMRaPPj+kAjhe4hRk+hDpHx7kdHfXEJABubtMZEAmtnrQZyxKCMp5NRCLyvUjx8pFFMTHOUiI9E9QBGCuz/a9+oUgyFZx+fpq5zxbCGiUBCdewsF7Eh5KpGx35CG2rQC/kRI+Pc/lknac=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790245716; c=relaxed/simple;
-	bh=l8wslZqsYjoUhW8BVyXUXs6u/mOGOCtbqiMACO0PwU0=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD823A5433
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:29:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.233
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790245784; cv=pass; b=WivFKufCm0oDoP+S/E4SuFLnzcWXodCG1Tmcd72fB1IBi/x1m9wb8TG+x4t1+31NsYLaZFo8U49kiNtbnwrDJcnyEDYTqa+PqQGUnHyIfvDtKDRvQ3EUDe3aijdPn5N3CNsVHtY29Gxu15X3knLqsXIvj7Y9+0VH0b830iXdLFc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790245784; c=relaxed/simple;
+	bh=G74mpPleZBdV6sts4IWt44dv6esQXRZkYrm8knhqpvU=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=F/Smb1QKr0pIAzNvwJ25AHg+l55IZnQ/uRx9tpXF1vUAspJhFLUcPnIxiac+F3pbmZw6gm/29uZz/XgGHDn+lAyEzOTpTDIfm4vaVnQ84/IcGIJkbISEuo5/OxMZfnuaYw99pIZm1j7czgIDYMkORRHfG+qE+EoHN+Hprg6+rXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Ra9GLdGL; arc=none smtp.client-ip=91.218.175.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 To:Cc:Content-Type; b=CFh9rXUPzjJFil76/UuRCbQqeeUCy8P5YmsHWIeTDzGtKN3lZc3GrP/1T/mbzuKHhUeIXSqeA2dmgECUNZT/QUINZSWB3M5gRqoOafS7Ly4KN6TkTTXbGVdsU4Z6zl4OzIIXcNaXHh86CmcPf6edDAL9bxha5juxM2YTfPCBiWc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xfrkL9hS; arc=pass smtp.client-ip=74.125.231.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Ra9GLdGL"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=l8wslZqsYjoUhW8BVyXUXs6u/mOGOCtbqiMACO0PwU0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790245712; v=1; x=1790850512;
- b=Ra9GLdGLkfuNW1+4BsHIMLLiqsAp93C9cBrkXQxZMwLT+J02okDGxNwfWYOqbtP6wsfCkIpp
- vLk8/nlWuVJBJwcVq7kau15YB9M7abwiq9zZKmlp1uNaDnlXaPeVNp+RY6M6tumIA62rr84vdEy
- Bb1VnUPuk45myzbOflalPwqM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id caeba6e59557e796;
-	Thu, 24 Sep 2026 10:28:32 +0000
-X-Mizu-Trace-ID: caeba6e59557e796
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b778bdb5b8so5178e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:28:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxx1eHvFWaltE3lXUQN9xiQFwAXvsgrny2XBRu6SwsH+FOvejjeqZdsliFz6F5Ykw9qykJdKw4p3tglUW4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nIe3m/7W4TzlO7SnV31QSOxHlBXIb6h3knfGjyPYYoYeQKaRkO
-	crzvW0tsY0ZHlZHLdpi1ph6K9zTszomyfeWRaBfvoF0um3uDpp12KivRNM793ATE8P8G7A8YE06
-	idC/qiUmaR7QBdPmwaNGKmR3px0I2TtmNwrzX0S5Y
-X-Received: by 2002:a05:6512:2249:b0:5b8:c95d:529c with SMTP id
- 2adb3069b0e04-5b8dd6d373cmr194835e87.0.1790245707622; Thu, 24 Sep 2026
- 03:28:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xfrkL9hS"
+Received: by mail-oi2-f41.google.com with SMTP id 46e09a7af769-805cc8b4231so1248988a34.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:29:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790245782; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sDVvD+ulHhmUHTmmOUKQmJm5f8htmfnM+a6n7x1vxSrT2+CxAZ3e+MubPYCoYJt1hB
+         c7qjUTatwAQAS7cKFl4v0NKLw/XM2mh5ChLkZCWl+AwHLWAq2edhvqUJhX/Juc7mv7j+
+         brb8OooGm+vZTVOo03ZaYwVytZHPMsVCXzgrsOkGgRqrSwpezGvf/UcFEQgsTh/YyLnm
+         y4gIw85ulRhZZoxPiFrFxq+g/COq69/tByUS4CikEM0uDnRG4OYGJm1Ddpk4XEQLUpFI
+         nRrsQZaNCH2UygnGVP7HVHoZyBgK2oET26DnPZQUsVbgwGnCusmUnK+UUYatvECtE9Js
+         qBCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Za0dWSit03gXTMmeVZPbk2nVTp5Bf9hP0g9GqMt8bYk=;
+        fh=bdLRhp6MNfaBhWVrqgkAm3dodePxLXPVjJ8vkBAKAEw=;
+        b=De5m5NK6z40NUEeVD4tbc2yNyBaz/45t0/XFvXrSf1L+1q4wcb1CDoLuHCQJllIP/x
+         c27vE4Fog9BCM4uvICoi/pM96WWIVzVXM+ldpQyTSX4PxGD8r4CKGfH4mD56P7hwgIi8
+         I2kUYyHOtwtuprW76koIM9ygnyITWv02DWMZ3uvhwjvjjN2g/r5py7vjuFwHiDqvKPze
+         PoWH8mapRJOeHMmm3hJFzABWY18PVnkoq7fu4d1vix2Xbm6aofKiEs0yO4PQuT+nj0Qk
+         WhFaK/gpIu+w/2LrDFyQO8kq+aXLVLKX1mO1fU7iQWg1NpCVKNZRleXpJ5Xj/+fn4Jps
+         m0hA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790245782; x=1790850582; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Za0dWSit03gXTMmeVZPbk2nVTp5Bf9hP0g9GqMt8bYk=;
+        b=xfrkL9hSE9eu8oOoWZKYmdnYILJA8AoDP/KsJCwxKkuyrXVxsAJ2U3RkyR4Pr/VELe
+         XM8Q1T2ENKkCBmJJc+14lXogUl+Y5bzO4JSobm9l7gbEPcqXuno4GhimSpdpqPKCcEKF
+         reL8GU75MYUPLD8hjQuwj4aFt829teoZdzdRuM9HEl4bNRGU/N9fbLAFnPJ8O1aE3b29
+         zCdH2FVU9gTV23aQC5TN+6Ys0Dths0fXCDoAbOI0sDO0QPJTjvZVvgs9naJhl2Shg7Qt
+         4oXY8zPGBG3heIaLucnKQoX/zwD6lLzaHhWkfnxuNTLwAdOWyQPNu35WKulleynVXcH/
+         1I6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790245782; x=1790850582;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Za0dWSit03gXTMmeVZPbk2nVTp5Bf9hP0g9GqMt8bYk=;
+        b=1RdMiPvRNyV3vKNMg5pl9r1QfnDSD30Gdl186qEZj8Bp4orGyawl34OwHTcHYQazV6
+         mJ0stytnY7YDbzarG6TFaeky0ducODKG/HbcFnc+nMl/0Ndb956tjUrc2r0qfbBx4Bqe
+         FqnNLRyhmDd11YXSjMIunBy00Oj7Lry+Qzf/tYdqKdUBfSAV7+cQ2Y6oXkyIC6OWqFsf
+         52zxSo57qxWW4s0Thq34wR07utBHA/92GIboawEDGAcMVbtvPvnbXN0h6YpNDTfn7sD0
+         9O2OAIS7F1HUxfHJjhDsYHR/ogsqYM7iEEzbuJokkhh06hShi3NcIRs+0MhyuzmJymQc
+         +TCg==
+X-Forwarded-Encrypted: i=1; AKwUvBwjXq17phviGSiiz9rclKbzPLnjHygxWe3zxt98oIdQUvJVgfQ8XdHMBEu62myZPXT/D00hXnQ0JUb4Les=@vger.kernel.org
+X-Gm-Message-State: AFuF++k2LPp3ocP4j6Tp26lq6y3lpECzd0coU3B5FK76nBkrSIZca/Ek
+	gvGMmBT3YO0+RhEt6bteYZyAVee1KztNI8UYEPnLtvysL/Glx30yTweWfplD4DJ+wT+/P2CxDyM
+	jlQgyxLA5CGSjvRmszKj1p1pmTj0YmnbzbcbGCvVJN6fA0REQAthMaz0=
+X-Gm-Gg: AYBFou3CAGU3+kQUTtTGP9f7xuufFGBCslQpynXDuMgB4xgYO9S42/Gt2dmhM0kLjAA
+	S4rujtPI+fzoL/EAYCJ0GZ6p8aD84oMvLx8ZhKEU0JgdaiW6mNUeOGLcEC14FJLKoeiost9DVee
+	dfmEGktVU0WMM2yDEHy6YhoezEunII4vTE04rB3BYZGtUNnY0IjG/xpU5rE7uK/UogxJsy7MvkO
+	BVn5nvCyiZ4ncibIvo89DUQYhNC0Y9C4xiZUzCIZWDXBpGEMSEVXymixcFmmUq5CbhKNifL9aHj
+	iTb+uf9CRKUreMzkPV+sgFWYJ7/Tbn3AJubCSbgoSB/5vcm2mKL6lGLjooXAErX/TmfcUqdD52/
+	CseVuEEGk362McdK1twQeZk2KUMd/21U5B8j9AwKrMA6aDHxcmBnkLL8=
+X-Received: by 2002:a05:6830:6d49:b0:814:aa56:6e89 with SMTP id
+ 46e09a7af769-8177e2c4c2bmr2369455a34.0.1790245781726; Thu, 24 Sep 2026
+ 03:29:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911104715.307500-1-fuad.tabba@linux.dev> <868q5579ol.wl-maz@kernel.org>
- <CA+EHjTw0U0d91Cv4NYEJvUuT=JabwZeeYwpZ2P1xyVeOVX46Ew@mail.gmail.com> <arT5r6Tqg9PnSYLz@willie-the-truck>
-In-Reply-To: <arT5r6Tqg9PnSYLz@willie-the-truck>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Thu, 24 Sep 2026 11:27:51 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTwKd=0kY1vxmZZ3Wk3iDcVnrdz9fPXekzr=y7eRwUYKaQ@mail.gmail.com>
-X-Gm-Features: AclHuK9f1UKfVBh-sHVCnHRjsiBkOb4-h4MYma9pM03DKGJaXn8h00-d7nViPT4
-Message-ID: <CA+EHjTwKd=0kY1vxmZZ3Wk3iDcVnrdz9fPXekzr=y7eRwUYKaQ@mail.gmail.com>
-Subject: Re: [PATCH v3] KVM: arm64: Trap guest MPAM accesses whenever MPAM is implemented
-To: Will Deacon <will@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Catalin Marinas <catalin.marinas@arm.com>, James Morse <james.morse@arm.com>, 
-	Ben Horgan <ben.horgan@arm.com>, Xi Ruoyao <xry111@xry111.site>, 
-	Mark Rutland <mark.rutland@arm.com>, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Gavin Shan <gshan@redhat.com>, 
-	Yuan Yao <yaoyuan@linux.alibaba.com>, linux-arm-kernel@lists.infradead.org, 
-	kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260922-mainline-rouven-mxl2g5-v1-1-a0ed53631a5f@linaro.org> <179021686449.2160803.8908232708246171616@kernel.org>
+In-Reply-To: <179021686449.2160803.8908232708246171616@kernel.org>
+From: Rouven Czerwinski <rouven.czerwinski@linaro.org>
+Date: Thu, 24 Sep 2026 12:29:30 +0200
+X-Gm-Features: AclHuK_aOxC3J5_iCvwfOE00WCFt-0d0n6YkXEksYRBvq7Sj8b1cGea10v1asag
+Message-ID: <CAK8z29U=KG0cZKBCeRcyX7BFMFwP=nhnbkN_O3HrCxJ2NXQZvg@mail.gmail.com>
+Subject: Re: [PATCH] net: phy: mxl-gpy: add 2.5G for MXL68211C
+To: netdev-bot+sashiko@kernel.org
+Cc: lxu@maxlinear.com, andrew@lunn.ch, hkallweit1@gmail.com, 
+	linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, daniel@makrotopia.org, 
+	maxime.chevallier@bootlin.com, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Will,
+Hi,
 
-On Thu, 24 Sept 2026 at 11:21, Will Deacon <will@kernel.org> wrote:
-[...]
-> > I'll probe MPAMIDR_EL1.HAS_HCR once in cpu_hyp_init_context(), next to
-> > HAS_MPAM, and test the flag in both trap functions instead.
-> >
-> > I'll hold off on v4 until Will has had a chance to comment as well.
+On Thu, 24 Sept 2026 at 04:27, <netdev-bot+sashiko@kernel.org> wrote:
 >
-> I'm planning to generalise the logic you added recently in
-> gmid_el1_accessible() so that __cpuinfo_store_cpu() stores the values
-> in 'struct cpuinfo_arm64' with the overrides already applied. I don't
-> think that directly impacts this patch, but it should make the general
-> shape of things easier to reason about. I also need it for the parallel
-> hotplug work.
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 1
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [Medium] Missing `Fixes:` tag =E2=80=94 a user-visible bug fix is submi=
+tted as
+>   a net-next feature.
 
-In that case, I'll respin this as Marc suggested.
+My guess would be that we can add this, I suspect that stable would pick up
+this patch automatically  either way.
 
-> If you fancy helping with that, please let me know.
+> - [Low] Commit message names the wrong part number: the subject ("net:
+>   phy: mxl-gpy: add 2.5G for MXL68211C") and the body sentence ("the=E2=
+=80=A6
 
-Sure! Just let me know how I could help.
+I'll fix the typos in a v2.
 
-Cheers,
-/fuad
+>
+> --
+>
+> net: phy: mxl-gpy: add 2.5G for MXL68211C
+>
+> This switches the MxL86211C phy_driver entry from gpy_config_init() to
+> gpy21x_config_init(), so that PHY_INTERFACE_MODE_2500BASEX and
+> PHY_INTERFACE_MODE_SGMII get advertised in phydev->possible_interfaces.
+> The changelog reports that 2.5G then negotiates against a Mikrotik
+> CRS310-G+2S+IN.
+>
+> > net: phy: mxl-gpy: add 2.5G for MXL68211C
+>
+> [Severity: Low]
+> The subject says "MXL68211C", and the body repeats it in "the 2.5G speed
+> indication is the same between GPY211 & MXL68211C", while the first body
+> sentence and the code use MXL86211C.
+>
+> The driver only knows the latter spelling:
+>
+> drivers/net/phy/mxl-gpy.c:
+>         #define PHY_ID_MXL86211C        0xC1335400
+>         ...
+>                 .name           =3D "Maxlinear Ethernet MxL86211C",
+>
+> Could the digits be un-transposed in the subject and in that sentence on =
+a
+> resend?
+>
+> > diff --git a/drivers/net/phy/mxl-gpy.c b/drivers/net/phy/mxl-gpy.c
+> > index 0da2d4e9d8548..089a1a9e5bc61 100644
+> > --- a/drivers/net/phy/mxl-gpy.c
+> > +++ b/drivers/net/phy/mxl-gpy.c
+> > @@ -1405,7 +1405,7 @@ static struct phy_driver gpy_drivers[] =3D {
+> >               PHY_ID_MATCH_MODEL(PHY_ID_MXL86211C),
+> >               .name           =3D "Maxlinear Ethernet MxL86211C",
+> >               .get_features   =3D genphy_c45_pma_read_abilities,
+> > -             .config_init    =3D gpy_config_init,
+> > +             .config_init    =3D gpy21x_config_init,
+>
+> [Severity: Medium]
+> Should this carry a Fixes: tag rather than going in as a feature?
+>
+> The only functional delta is the possible_interfaces advertisement:
+>
+> drivers/net/phy/mxl-gpy.c:
+>         static int gpy21x_config_init(struct phy_device *phydev)
+>         {
+>                 __set_bit(PHY_INTERFACE_MODE_2500BASEX, phydev->possible_=
+interfaces);
+>                 __set_bit(PHY_INTERFACE_MODE_SGMII, phydev->possible_inte=
+rfaces);
+>
+>                 return gpy_config_init(phydev);
+>         }
+>
+> git blame shows the MxL86211C entry, including .config_init =3D
+> gpy_config_init, came in with:
+>
+> 9d844da693d6d0 ("net: phy: mxl-gpy: add support for MxL86211C")
+>
+> and every other GPY21x entry (GPY211B/C, GPY212B/C, GPY215B/C) already us=
+es
+> gpy21x_config_init. Together with the changelog note that 2.5G only
+> negotiates "with this change", that reads like the original entry was
+> incomplete rather than an intentional 1G restriction.
+>
+> Would it make sense to add:
+>
+>         Fixes: 9d844da693d6 ("net: phy: mxl-gpy: add support for MxL86211=
+C")
+>
+> so that boards with this PHY, which are limited to 1G on released kernels=
+,
+> get the fix through stable?
+>
+> >               .probe          =3D gpy_probe,
+> >               .inband_caps    =3D gpy_inband_caps,
+> >               .config_inband  =3D gpy_config_inband,
+>
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20260922-mainline-rouven-mxl2g5-v1-1-a0ed53631a5f%40linaro.org
 
-> Will
+pw-bot: cr
