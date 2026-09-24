@@ -1,138 +1,157 @@
-Received: from ironport.ite.com.tw (unknown [210.202.87.179])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013005.outbound.protection.outlook.com [40.93.196.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6FC8455181;
-	Thu, 24 Sep 2026 09:56:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.179
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790243787; cv=none; b=mRzsIAsLeFUopteMxjr++CERDTsdUpyqiouA+6Gee6INlm1U+5knc9CDyBUfrgaSHpo9i821NHyRKmg+ju68TIvHihgUqAzIbsD47ODzyyQAtmgkK/BAI/tEZoOYIeFsMT5KFoU73tY09kseVP+4zoQvEarmFhKLAqrW7vYc54c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790243787; c=relaxed/simple;
-	bh=HI1c6UyjCQYidbeRlhQGBOpgLQIWBvpDLaGO6u/0yPY=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=mKhlR8ugw3IaLZO0le9q+rjv/m0BXknG/uuuhcKK97oixqXDMAI72px90x2IsTAEz9UakQQHWQCYNyGkfA1VhnwApiMFWVhbrGDiMaUSM7Z3Vailx9+fiv996EMIXAALHTUmcZNTN19HmDnTXMwIb7bjMLo6r2HuaOzUV24P4/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=JCMxOQh/; arc=none smtp.client-ip=210.202.87.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7597F42A154
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:56:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.5
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790243797; cv=fail; b=W7o04ywDnKcVlwYUvXzCkvZGSMtBWydH44CwEHqLbs9kIh6T89czfafFXGubLixU6LMpXm8VVygJg5x9hTQFDV4LbaTsfa9ZVD6RSETEx1nKD5RcIbt09k859gad/Qkev2QrkppY9BXx9EevP+Or71OAuuPJ0ZRtPb9lJ8cKm5E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790243797; c=relaxed/simple;
+	bh=cFJ8ij5xH9uAHQhh6pXl3K3RcFVWOuxNA+NKpqBNs0g=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=b0zHG02SI2OGTbDcHL4ivYDJFBtjBPZAwyPvIK9XRZ0Ikd4cdSFs2DYRkzLt+4+2GHeVeeV+5gRoCCZhBIn9bPDPNGeoqiivcaLT19Ufd68NMi+i4DbHmTPPYD2Qp5Tx4y6qGkTlWadxehk4VizFbYZitUJ1v9XTXC/MtclUjKY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=utVXGfNG; arc=fail smtp.client-ip=40.93.196.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="JCMxOQh/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=ite.com.tw; s=dkim;
-  h=from:subject:date:message-id:mime-version:
-   content-transfer-encoding:to:cc;
-  bh=6U3G0DIBwxeEOQz0w/zl3FiSVCBsPfwsigR/rJ5Yqr0=;
-  b=JCMxOQh/+J4FGF/InAJIxBWyOM35QRoGJ5XuAIaWiUnu/ByKsit+96AZ
-   ZV7g2l6s1vx4BJ32Gn83EosDTvMwswFN52RL3+ZIkvecFfJ5/ZGMOgPBT
-   GS3d4zcdmyHC5y/z4DQUPE66m1EmGPy/z+LP2Bd9yTJw8XLxkQNEFIx2O
-   jSPRRyBjvF0Zq/0OpOUFoxZT0xlgD7MaWoYCMYhCyvVeXKpHnR9lZ19RN
-   J2l4i8Fis4rkVLR/lQFmIZQwzwpCpEaTSa4rDj31Z98Hu0y3MoxKRZ7Gj
-   Jp7Kb3EIZ76o2Ifi42I5YMFx+YtuFUPB+P92cQl/CFU7crupN8rZZZu/C
-   g==;
-X-CSE-ConnectionGUID: irPtFuCOQmap79C8PQJA4A==
-X-CSE-MsgGUID: qS0gJPxFSfeizDjL5LcK/A==
-Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
-  by ironport.ite.com.tw with ESMTP; 24 Sep 2026 17:55:58 +0800
-Received: from jiraproxy.ite.com.tw (jira.internal.ite.com.tw [192.168.35.200])
-	by mse.ite.com.tw with ESMTP id 68O9tr0M039527;
-	Thu, 24 Sep 2026 17:55:53 +0800 (+08)
-	(envelope-from ite_pd@ite.com.tw)
-Received: from [127.0.1.1] (ITE01791W10.internal.ite.com.tw [192.168.37.107])
-	by jiraproxy.ite.com.tw (Postfix) with ESMTP id B9D6C2D58;
-	Thu, 24 Sep 2026 17:55:53 +0800 (CST)
-From: Amber Kao <ite_pd@ite.com.tw>
-Subject: [PATCH v3 0/2] usb: typec: ucsi: Add IT527x/IT885x series support
-Date: Thu, 24 Sep 2026 17:56:35 +0800
-Message-Id: <20260924-ucsi-itepd-it527x-v3-0-a7392aa087f5@ite.com.tw>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="utVXGfNG"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BSoQhzFOjsNfvGFEYMnWuaTqyoywjuas6Aka5nGoP7xMA38RNQycbm20vfihCBKSZtNJQAfo8ycGT/XhWvHN78YPdG3jFxNBBNSUzQcYQwQE9NNJZmsavtpd7lH9vaPVnfU613znsFe0FDaSN7Lp6Gnqa5SA6qGLo0/dQE3I3zR4eC6g/CiGgV7ZuLM0bWQu0YrdgwTdZsW7dRYChOsk4ZJKODIjAVoYyI1FGjBHCPY/gpMdp+KyU8xFqjk62fk3rnErA70MFjXg3pjHptYbJA9Eo9e/MyZk2IFoOzRi9ErufAegwbYt3ET60fp+Bq7NOAND6+34395srd/yct+IOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KixhLCT8Sy0JVFdESmBfF/ksLTBjSdShCFoD5dBLjl0=;
+ b=iNZWp8nS430JiZxyPbGOlRbmbAoUn4COpCSMc32s96qumFBIHHy3+4oU4qm9nQLEJqr846sHKRFxhaPlpjailNBNY9QUTmLSkqLzZSDMO91s4D9pguhj7Lq+39IZwbRrB3o/JIIiCFKRTnH8eRs5ae00xokdEd4cBS33zFHs8HFi5gXoCJFaF3oFU2FbiIYMRePZdp+d+oTbBrsYA1Fgw8F8QpfAxDGgjOPaxgHROcwUYvcu+Ptha9UT1MyTw+YQIOrLGASGDk45GYiFUNce6/pUo4KpabCySiycdZFWVdfzPbKnaq083XKPJq4Dvlqptnql/HneYbaF65FLvrpqcw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=collabora.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KixhLCT8Sy0JVFdESmBfF/ksLTBjSdShCFoD5dBLjl0=;
+ b=utVXGfNGUbHJRPve4LmMUp5023NGpUUV3C0NBj8r/3QLGZFFXRR9ehMjX12691vEObasljKwo0iwmi1xNe3lxupKeyCtMxrCFcK75YCCUv1Hsnu6MLnh9cdNzuxkIL4PEyZ6mdqNcNlF0VSAKT8ioqvYy/IXsjuGcS/j2ZZR1V8=
+Received: from CH0P223CA0019.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:116::7)
+ by SA1PR12MB999107.namprd12.prod.outlook.com (2603:10b6:806:4a2::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 09:56:14 +0000
+Received: from CH1PEPF0000AD7F.namprd04.prod.outlook.com
+ (2603:10b6:610:116:cafe::92) by CH0P223CA0019.outlook.office365.com
+ (2603:10b6:610:116::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Thu,
+ 24 Sep 2026 09:56:14 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000AD7F.mail.protection.outlook.com (10.167.244.88) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 09:56:14 +0000
+Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
+ 2026 04:56:11 -0500
+From: Honglei Huang <honghuan@amd.com>
+To: <dmitry.osipenko@collabora.com>, <odaki@rsg.ci.i.u-tokyo.ac.jp>,
+	<airlied@redhat.com>, <kraxel@redhat.com>
+CC: <gurchetansingh@chromium.org>, <olvaffe@gmail.com>, <Ray.Huang@amd.com>,
+	<dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, Honglei Huang <honghuan@amd.com>
+Subject: [RFC PATCH v9 1/4] drm/virtio-gpu: Add VIRTIO_GPU_CAPSET_ROCM capability
+Date: Thu, 24 Sep 2026 17:55:53 +0800
+Message-ID: <20260924095556.1326164-2-honghuan@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260924095556.1326164-1-honghuan@amd.com>
+References: <20260924095556.1326164-1-honghuan@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NTQ6CMBAF4KuQri1hyk/BlfcwLtpSZEwE0paKI
- dzdFjeaGDeTvMybb1ZitUFtyTFZidEeLY5DCPkhIaoXw1VTbEMmLGNV1gDQWVmk6PTUhlkyvtB
- S1lxUIDhIScLdZHSHy26eL+9sZ3nTykUoNnq0bjTP/amH2Pvne6AZhULVWQGik2V+CutUjffUP
- Uh84NknUf8iWCC4ZG1T5Fwpzr6IbdteeHoH8ggBAAA=
-X-Change-ID: 20260911-ucsi-itepd-it527x-5b87a61a71bb
-To: Amber Kao <amber.kao@ite.com.tw>, Jeson Yang <jeson.yang@ite.com.tw>,
-        Yaode Fang <Yaode.Fang@ite.com.tw>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Amber Kao <ite_pd@ite.com.tw>
-X-Mailer: b4 0.15.2
-X-MAIL:mse.ite.com.tw 68O9tr0M039527
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7F:EE_|SA1PR12MB999107:EE_
+X-MS-Office365-Filtering-Correlation-Id: 77e73dd1-6f8c-486a-1ec4-08df1a221231
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|10067099003|56012099006|11063799006|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	zFP2OjEjZZiMJ4M3mSZIisqC19ljQpI0tPZPwBrkpD1Uu++ofcLOD5I1achrh2M0aAgEGROEFWTKQQtX/9I9HkHO6GHWNW2HgJKSd28cCEnKnwpNPzH1Rvfqy4y10ee57qr7VjWphlLynK+d968yozfIweqJyj7eOKQMeGSozl4jU2w486XtXD28vS4DI18jaOrmBC9lIvth7G9KH1rFuvfhibfQReJBVoNl7UganRsq9mULdMfdaGPeUGwn0fSD6IuBwu4fcxn20RlOdy9wUJGpRu9+uLXijiQkFbq5eONrRfI8QErCAnho+kAur1JqbMt9SXd3X0neOITqFZpp2rM4jUTh4sb9G0SQXGhWqxtjQAKfHDjT08yex8tmFQyAugDpoxETTnxQ+uUrwpYqyr9e0OBZ+wzMyCxFshwWpXIVc2JB5lhing1kZ9L5U6Akq57dPUrr76si5ltrYFsnYRpQiaCP5TKS7I3RvwpqoBMjcsPBxk9rvYbRadZSF7UyXJdkIgscHE4i8n8o7wD7NPAvlAwSh7bpkFk48rOhdCVYB9FBjqdEzy9WvtI+BOWJkcm12vjcNiRZK0oxdy0Ctg9rm4Tihz8WZy15tFHMQhLwyiljCxRpAZQH82BjnLNtHFfwfkZks6fYLaz94E/QcqqZhrS+L8ys+SXZQKwAbaF4GeIIs+AcoFthzr8tbSO9i/UeYyC28cVDlmTOTFPLLA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	YPAtiAV/ygHc+u+ocMCabko9dy4xMaicX8RHV3AA1kEf4Y9HY29wPjh6tDeQJ44PaAyyUMRBTlRyDoTsWA/rLoPPT/qpCkl1Fi/eRtBU/csVfouUmi+zRKvZPetYmMcyLeZWqY7yN9mxBLoLPjQdssRgtXPL2upspANx/T5O+FQS7n8XeULZ1HEzZFxbtFyzPsUKFF4IrAhquSUNqtZlL9eV81+OSfwsUSr+268f5rZ+QEiiiH8/9BVA7c83kUzTy/Li0q4mCmgy6ePi1gtpTVxhHwXnasc/QSZ2UVswizk54GSpFHHZkVTUfh/oj4MD/9eZ7TSm1B8YVASr8ucpObMvBbE0wqgrgUmgeayNUod4q6Kw4fdQ2mU1LDIubRVM0ilswa/iX/5Mfi1oZ15Bvw+5R5Ma8jeN9iron7U97e+GTXxSnC4nzy7YPCfbjsyq
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 09:56:14.5482
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77e73dd1-6f8c-486a-1ec4-08df1a221231
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000AD7F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB999107
 
-This series extends the itepd UCSI driver with support for more ITE
-Type-C PD controllers.
+Add a new GPU capability set VIRTIO_GPU_CAPSET_ROCM to support
+ROCm compute workloads in virtualized environments.
 
-The IT527x series and the IT8855, IT8856 and IT8857 run the same UCSI
-firmware codebase as the IT8851 and are software compatible with it, so
-they are described as fallbacks to "ite,it8851". The IT8853, IT8856,
-IT8857, IT5272 and IT5274 drive two Type-C connectors, the other
-variants drive one.
+ROCm (Radeon Open Compute) is AMD's open-source software platform
+for GPU compute and HPC workloads.
 
-This series depends on the following series, which has not been picked
-up yet:
+ID 7 is already used by VIRCL, and gfxstream's rutabaga_gfx has
+already claimed IDs 7-9 ahead of any spec or kernel header update,
+so ROCm uses ID 10 to avoid a further collision. A matching
+virtio-gpu specification change is in progress to register this
+assignment.
 
-https://lore.kernel.org/linux-usb/20260807-ucsi-itepd-v7-0-998ac11ed0ef@ite.com.tw/
+Also add the matching VIRTGPU_DRM_CAPSET_ROCM alias in virtgpu_drm.h
+for consistency with the other capability sets exposed through
+DRM_IOCTL_VIRTGPU_GET_CAPS.
 
-Signed-off-by: Amber Kao <ite_pd@ite.com.tw>
+Signed-off-by: Honglei Huang <honghuan@amd.com>
 ---
-Changes in v3:
-- Drop DisplayPort alternate mode support, it will be sent separately.
-- Move the Kconfig and MODULE_DESCRIPTION updates into a separate
-  patch (Heikki).
-- dt-bindings: restore the maintainers entry and drop the unrelated
-  example changes
-- Link to v2: https://patch.msgid.link/20260918-ucsi-itepd-it527x-v2-0-7b2d9437cc72@ite.com.tw
+ include/uapi/drm/virtgpu_drm.h  | 1 +
+ include/uapi/linux/virtio_gpu.h | 1 +
+ 2 files changed, 2 insertions(+)
 
-Changes in v2:
-- dt-bindings: drop the second example, it only differs by the
-  compatible string.
-- dt-bindings: express the IT527x series, IT8853 and IT885[5-7] as
-  fallbacks to "ite,it8851"; all parts run the same UCSI firmware
-  codebase, so the driver needs no per-part handling.
-- dt-bindings: add IT8855, IT8856 and IT8857.
-- dt-bindings: move the variant description out of the 'compatible'
-  property and shorten it.
-- dt-bindings: fix indentation in the existing example.
-- driver: drop the "ite,it5271" of_device_id entry, now covered by the
-  fallback.
-- driver: update MODULE_DESCRIPTION and the Kconfig prompt to cover the
-  IT885x and IT527x series.
-- Link to v1: https://patch.msgid.link/20260911-ucsi-itepd-it527x-v1-0-14c8041afb53@ite.com.tw
+diff --git a/include/uapi/drm/virtgpu_drm.h b/include/uapi/drm/virtgpu_drm.h
+index 95587e12ae..9b886e9772 100644
+--- a/include/uapi/drm/virtgpu_drm.h
++++ b/include/uapi/drm/virtgpu_drm.h
+@@ -170,6 +170,7 @@ struct drm_virtgpu_3d_wait {
+ #define VIRTGPU_DRM_CAPSET_VENUS 4
+ #define VIRTGPU_DRM_CAPSET_CROSS_DOMAIN 5
+ #define VIRTGPU_DRM_CAPSET_DRM 6
++#define VIRTGPU_DRM_CAPSET_ROCM 10
+ struct drm_virtgpu_get_caps {
+ 	__u32 cap_set_id;
+ 	__u32 cap_set_ver;
+diff --git a/include/uapi/linux/virtio_gpu.h b/include/uapi/linux/virtio_gpu.h
+index 4f530d9005..e22049835e 100644
+--- a/include/uapi/linux/virtio_gpu.h
++++ b/include/uapi/linux/virtio_gpu.h
+@@ -321,6 +321,7 @@ struct virtio_gpu_cmd_submit {
+ #define VIRTIO_GPU_CAPSET_VENUS 4
+ #define VIRTIO_GPU_CAPSET_CROSS_DOMAIN 5
+ #define VIRTIO_GPU_CAPSET_DRM 6
++#define VIRTIO_GPU_CAPSET_ROCM 10
+ 
+ /* VIRTIO_GPU_CMD_GET_CAPSET_INFO */
+ struct virtio_gpu_get_capset_info {
 
-To: Amber Kao <amber.kao@ite.com.tw>
-To: Jeson Yang <jeson.yang@ite.com.tw>
-To: Yaode Fang <Yaode.Fang@ite.com.tw>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: linux-usb@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-
----
-Amber Kao (2):
-      dt-bindings: usb: ite,it8851: Add IT527x and IT885x series support
-      usb: typec: ucsi: itepd: Update descriptions for IT885x and IT527x series
-
- .../devicetree/bindings/usb/ite,it8851.yaml        | 34 +++++++++++++++++-----
- drivers/usb/typec/ucsi/Kconfig                     |  5 ++--
- drivers/usb/typec/ucsi/ucsi_itepd.c                |  2 +-
- 3 files changed, 31 insertions(+), 10 deletions(-)
----
-base-commit: a8092db1cf4c3fd6cad36c5a10dcaa60d95ef114
-change-id: 20260911-ucsi-itepd-it527x-5b87a61a71bb
-
-Best regards,
---  
-Amber Kao <ite_pd@ite.com.tw>
+base-commit: 766bfba0f3bae329f99b42dcabc3ef11fa368f0b
+-- 
+2.34.1
 
