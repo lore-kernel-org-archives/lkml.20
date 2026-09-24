@@ -1,152 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-248.mta1.migadu.com [95.215.58.248])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3533A3F4DD2;
-	Thu, 24 Sep 2026 06:09:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C38F3F6C42
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:09:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.248
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790230151; cv=none; b=Eow9qAuEnKiQ0eiiIgqZyMKPn/PKGUlNnsWWjyIebtSfOq9Hv7lvzKT/3P098YZhVJLlUERXyO8bBNovobKcqunuelUtvZhN/fJ2s/UJFaL/ivYOVVnZ78CQSxti0zBs86AfCU2ykq3pl/5okwdZqzkzj85O4HWQvZ30c5Rf99M=
+	t=1790230152; cv=none; b=bm2O5LnqE1+xOS1iFuspXVXmDJBrKBc5+BtsWfhV3r2trxfzJbnt7eCfyq1vgXi6Xu8Uj0nm5IFk/huxQKLIZZ93WeqL/wNvB2rL7O7KCcFnWj6/h2lxdJOGHOPXppgMl2y9vT3q3pvSTj1KCmKxxDN9f5TPib9Tmy8PqUrKKh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790230151; c=relaxed/simple;
-	bh=4CJEyVcs1k79aNGKjlS207vQIHEMmJ4tXfjSXmeKvKc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=khm5VYKpKCejmtyoFy+6yAcaSk8qTo2F20jo4bHSNZ6ohwpYFEJEMNtEDyKTvWL6eM2dYa8QCpysD7A0Ql2dFFHEnl60RBVq9Bnu2Nva3hr1hAl1k1PU38fTBR3fhyQcKmUvMUiNwxnWQg57LXuXv1XWprINUYPley1Qqy4ay4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MPNqW2n3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790230152; c=relaxed/simple;
+	bh=XHpWqj04QFUErnLgPhyPwQH0c/whsMd8F/Sj8yIguRU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SM317WKPE0D04G1j4lgBbU8hduHNp9TkYctT8OF169YYQM/O/tydhgsJpFAgH5xf8Pc5EpBNfqae2Y4OhyWPMutjbhTdCgliEW4VM2XbVxuoFHj6nfqxMGxVXUfsNTJ5oW3qy998gCS+h1e+KqE1SVbXNjZ2EnXi7I0LwCHC3mk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mzRh2PTa; arc=none smtp.client-ip=95.215.58.248
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MPNqW2n3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F8231F000FF;
-	Thu, 24 Sep 2026 06:08:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790230149;
-	bh=scK31GWR2h/dTmEm9pgXi3rZWUkl7hz/7+eEu9rpbOk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MPNqW2n3xQPMHb3zk4FZ6ncKB0hS41jziOySyXRP85orS2goMtQH2mm/0L9yaZxJ7
-	 uyfxEYDfSKu8jV+fdC4+eGcFWr353MFkOwEd70Y7yLG+AbSEyBgtn2ckcyeoRzGBD+
-	 I2tflAOZ4Q1fn7RbuaEgmuUo+/QGXFno6TJ+hS3dXjCIRl3cw4GGfgWF+2qH69vs2P
-	 MwZo6Xz45RCXfRm9huH6Y7sEvvHmd8YWAtVSH/kZU0DX+sGsu33lFAv7L2p9isA4MW
-	 5TroSKQNx8yklWoYeiNZ44FrEEEF8XAaphtrhBdD4Jpm+EP38YK8c58oQMes/CsBtO
-	 qlrJqSzruzYKg==
-From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-To: iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Mostafa Saleh <smostafa@google.com>,
-	Petr Tesarik <ptesarik@suse.com>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	linux-arm-kernel@lists.infradead.org,
-	loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org,
-	linux-s390@vger.kernel.org,
-	x86@kernel.org
-Subject: [PATCH v6 3/8] dma: swiotlb: Track whether the pool size was explicitly set
-Date: Thu, 24 Sep 2026 11:37:51 +0530
-Message-ID: <20260924060756.1325156-4-aneesh.kumar@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260924060756.1325156-1-aneesh.kumar@kernel.org>
-References: <20260924060756.1325156-1-aneesh.kumar@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mzRh2PTa"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=XHpWqj04QFUErnLgPhyPwQH0c/whsMd8F/Sj8yIguRU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790230149; v=1; x=1790834949;
+ b=mzRh2PTalm3Dav7jsgFBxbh4tm2OL4xI0bEZyFfjPdXfs5mAXqrfeSghemM1mgJYGmAnqjux
+ AQBY6bHBkhVf+FrK8XufmIHvVhqovSTPFFpIe7LlLX7oqMXQiQphX9ujMu1ocujIlkLCN14CE0b
+ SS9VN5GZlt9J7OcHMkrIwxIE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6c5b36d10930dac6;
+	Thu, 24 Sep 2026 06:09:09 +0000
+X-Mizu-Trace-ID: 6c5b36d10930dac6
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5b778bdb5b8so3501e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:09:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwDvd3d9QyGgxR9zIbpcAyeVbsbcBHcpk7C8YryaQPQB3uenfs2Of35qT439JL6LEYYdxQdgH1bGjRi3ic=@vger.kernel.org
+X-Gm-Message-State: AFuF++lqWlZaWVeC/G1SXKRkGZ4YcmA7dMmVsg25f2UogupQ4mjS4k4d
+	fZXYh6Yl72D+jR11gTxfiKtedhS0qUoGPBDMYG/dyaBAf54v8EiEPSRvqBRxfhdFVGwrph3u2bi
+	PUbUfZbiZ4gtrIpePsbcnkJCklknLX3w8+xYaOJMI
+X-Received: by 2002:a05:6512:2395:b0:5b8:b502:9a76 with SMTP id
+ 2adb3069b0e04-5b8de5cbe34mr121752e87.13.1790230147200; Wed, 23 Sep 2026
+ 23:09:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260923-kvm-arm-prefault-v4-0-d4b0b4dfa8c3@kernel.org> <20260923-kvm-arm-prefault-v4-11-d4b0b4dfa8c3@kernel.org>
+In-Reply-To: <20260923-kvm-arm-prefault-v4-11-d4b0b4dfa8c3@kernel.org>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Thu, 24 Sep 2026 07:08:31 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTyPsMQ-p4uRpHEd5sabKZPV0nuQv0VdoPWy7PpLtUe93Q@mail.gmail.com>
+X-Gm-Features: AclHuK_F7RRmcZYBgSNF-QK5bg4WxE50rqT6HjF75xbDwVFCBghG7Y9qfeVwzCs
+Message-ID: <CA+EHjTyPsMQ-p4uRpHEd5sabKZPV0nuQv0VdoPWy7PpLtUe93Q@mail.gmail.com>
+Subject: Re: [PATCH v4 11/14] Documentation: KVM: document arm64 KVM_PRE_FAULT_MEMORY
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Mark Rutland <mark.rutland@arm.com>, 
+	Randy Dunlap <rdunlap@infradead.org>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
+	Janosch Frank <frankja@linux.ibm.com>, David Hildenbrand <david@kernel.org>, 
+	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, Jack Thomson <jackabt@amazon.com>, 
+	Jack Thomson <jackabt.amazon@gmail.com>, Alexandru Elisei <alexandru.elisei@arm.com>, 
+	Vincent Donnefort <vdonnefort@google.com>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+	Sean Christopherson <seanjc@google.com>, Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+	Leo Soares Passos <Leo.Bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>, linux-s390@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-swiotlb_adjust_size() must not override a pool size supplied through the
-swiotlb= command-line parameter.
+On Wed, 23 Sept 2026 at 16:18, Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
+>
+> Update the KVM API documentation to reflect the fact that arm64 now
+> supports this functionality.
+>
+> Also document error values and arm64-specific behaviour.
+>
+> Reviewed-by: Oliver Upton <oupton@kernel.org>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Currently, it determines whether a size was supplied by comparing
-default_nslabs with IO_TLB_DEFAULT_SIZE. This fails when the user
-explicitly requests the compiled-in default size, allowing the request
-to be overwritten by automatic pool sizing.
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-Record whether swiotlb= supplied a numeric size in swiotlb_cmdline_size_set
-and check that flag directly before adjusting the pool size.
-
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-Reviewed-by: Robin Murphy <robin.murphy@arm.com>
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Robin Murphy <robin.murphy@arm.com>
-Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
----
- kernel/dma/swiotlb.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-index b59dd2a5984e..61efa3244daa 100644
---- a/kernel/dma/swiotlb.c
-+++ b/kernel/dma/swiotlb.c
-@@ -100,6 +100,7 @@ static struct io_tlb_mem io_tlb_default_mem;
- 
- static unsigned long default_nslabs = IO_TLB_DEFAULT_SIZE >> IO_TLB_SHIFT;
- static unsigned long default_nareas;
-+static bool swiotlb_cmdline_size_set __initdata;
- 
- /**
-  * struct io_tlb_area - IO TLB memory area descriptor
-@@ -253,6 +254,7 @@ setup_io_tlb_npages(char *str)
- 		/* avoid tail segment of size < IO_TLB_SEGSIZE */
- 		default_nslabs =
- 			ALIGN(simple_strtoul(str, &str, 0), IO_TLB_SEGSIZE);
-+		swiotlb_cmdline_size_set = true;
- 	}
- 	if (*str == ',')
- 		++str;
-@@ -295,7 +297,7 @@ void __init swiotlb_adjust_size(unsigned long size)
- 	 * architectures such as those supporting memory encryption to
- 	 * adjust/expand SWIOTLB size for their use.
- 	 */
--	if (default_nslabs != IO_TLB_DEFAULT_SIZE >> IO_TLB_SHIFT)
-+	if (swiotlb_cmdline_size_set)
- 		return;
- 
- 	default_nslabs = swiotlb_calc_nslabs(size, default_nareas);
--- 
-2.43.0
-
+Cheers,
+/fuad
