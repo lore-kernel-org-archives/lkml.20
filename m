@@ -1,181 +1,145 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011038.outbound.protection.outlook.com [52.101.65.38])
+Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9CB3D3301;
-	Thu, 24 Sep 2026 02:15:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790216126; cv=fail; b=cxNSyG8x9AL8ctaLVhM2NmciIy9u28aD/KZAB7Y/W4IW6qHO+bcGkvBkMHgObgGGS1f8jb2wuXdy6qY58oImDA2mMhLJG8+86BMLb5l+VSJi0NlxIZC/qyP/sk3Iw7Vjh7ykgIGe46YTso9VJuIUkoahDy7q6DFeKSueH7B68CA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790216126; c=relaxed/simple;
-	bh=DbB1OX5IfP+Aa4JJZFZeQmu0GaeD9cYFh6QIpCUPBa4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=cM7Ny3Kn5ooYGb8/bN/PQ50CunQqyQNgqeO64rJNcw71EnJ5pPkw8XhozX+RoyBk2LKj0tVCMsODKYMrs/8zPBjuQ1XXtXoOSsrAH4VAdPC+Hynf2qKLV9O0lKEFRfwTNy5uo0FvY85bRZv053eq5tWCZ9DIZZ9DAUIOTckdg30=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=P+mBGn9A; arc=fail smtp.client-ip=52.101.65.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9CB382283;
+	Thu, 24 Sep 2026 02:15:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790216129; cv=none; b=a07gefaah6QLRhyLTHWiuu2f2rvaw6RamP6uPL2hgoN0SgB1AcKxN09WsqeNFNXlHLubq2Gn1eV++g3BgHI4itmTO1AwidZwu0Ypc33uLDXycJXAkuRG0KNs1U/mg9ivt8gwf/XDg68fwuDWKMzhSZsYBSKUfbvGeCLTwnibN/Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790216129; c=relaxed/simple;
+	bh=Ukq4s/g2LbAcLSo+DPv2hScrAIpjP5dVSjl63kehKK4=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=gBY5j4FQVURTXSXg5MSet3X60EoRhUhV89fOtRGWdGf3s6gcWkks6rL3rbXeCAs/yhGxadWxZyyPUX3IsBlkNqzWUaTPvo4gSO8sao5M2U8zxB8JgS6UAW6UZeQO6QIx7vC+M0x1ZVJCpA5hMH1sFw8S3/pQdrq3lBOet20BJ7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=l7ojbSQt; arc=none smtp.client-ip=18.194.254.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="P+mBGn9A"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ls/3t/JSeW4YVSMD/MVRSQfcM3Yc17Cyh0JCkn92LsEn2RnKB8+yu7cEOcx0C4iNGnLaDRHaoSuA9XlBwfPNybEsNCJWN9WPR523yJT28Hr7E68chodJebacKA7Kt2DXGIQokgASZTPBmlzOMJfEIWo+tveE1FDFRPbpK6q5QH4L2bnSNiOYzlf7Q6lHzzshjjaZ8/pN1O4tLE5+xnczbe6DfBR+F1+/wFfOeVyhHr42EYWa6fjEQl9b+WbwApEZ87jJ4211YeI7xEe0advMZLHnngGoz20gft5v3s4Ey5kLhHaqSO/Vnx0lR155mQhVjYSlBIaxlP+Fc7+Avm262g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/7SxZfaMUcFZGp8qT/QV79t6+TbCtHEhX+9VAx/x1dk=;
- b=WSZLvECA8nn987/GisuNwApRe/YfpO0nnZ2S+Pe+jlg8ZgPAFXdiQOj8YYR8UBA7dlWnZWaP9dxrmVqnACly4r9tl0Viz24bZi5p9NHVRCXf1Q8wIECGqs64qpsdzs+og3fzPVkRBuuZ2QN1F7sXM4LkExtbiFTS2xIxhTakziHd0yqq0phs4pfG7P0EObJ78Z+JK+tbTwpXdy3rbARgP7m6dvGkQMGzHiZytbAxYylpg80LX8ZL4jvP3Dq+Ktkp//jyD3oPuWmi2z/rtI1FZLU7m8q5nxt+xwxA404bMLaCOIUCPgnAJv9pGQXVqASxNmWT1hVLuRInXLSWKTMpFw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/7SxZfaMUcFZGp8qT/QV79t6+TbCtHEhX+9VAx/x1dk=;
- b=P+mBGn9AuRNqrGCndE3Zhj9+hKjv0UWIUm+XqPy0PLmYMUH5HjB9bWA9v0DWSinRMpTTEW9KP6h1rBMFR4M4R36gNcCfFn3pTfqd3J5HYQ3F43Ksr9HtL+C9ZQZ9f96Ijh4x0xyJ2RO6rj2rW/ngcuV9KlE5AtbU9/1GHyNlggUzxV8X+mJvHVwo8nU0+5rHQEIcKdc+PXeDb1blbtNL/Km3YJGuuvmAWVJ7GSNn3mModxb8ovrxFEGV9NSR3QOUoN7Ewva2qK95ForzMiiZPqSBexzaAZXkR6H4MIzWZCEmczTtbLLZ/zs8lbcC8haFjDn95k1wHqumd6bbeSWPXw==
-Received: from AS4PR04MB9338.eurprd04.prod.outlook.com (2603:10a6:20b:4e6::17)
- by AS1PR04MB9698.eurprd04.prod.outlook.com (2603:10a6:20b:481::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Thu, 24 Sep
- 2026 02:15:17 +0000
-Received: from AS4PR04MB9338.eurprd04.prod.outlook.com
- ([fe80::7c4c:9c56:8552:f680]) by AS4PR04MB9338.eurprd04.prod.outlook.com
- ([fe80::7c4c:9c56:8552:f680%6]) with mapi id 15.21.0428.018; Thu, 24 Sep 2026
- 02:15:17 +0000
-From: Wei Fang <wei.fang@nxp.com>
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-CC: "andrew@lunn.ch" <andrew@lunn.ch>, Frank Li <frank.li@nxp.com>, Shenwei
- Wang <shenwei.wang@nxp.com>, "imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>, Sashiko
-	<sashiko-bot@kernel.org>
-Subject: RE: [PATCH net v2] net: fec: reject oversized fragments before
- bounce-buffer memcpy
-Thread-Topic: [PATCH net v2] net: fec: reject oversized fragments before
- bounce-buffer memcpy
-Thread-Index: AQHdS5tstlaag/g0dkmYtQrGXydJr7bc/JGQ
-Date: Thu, 24 Sep 2026 02:15:17 +0000
-Message-ID:
- <AS4PR04MB9338DCEE973A1AF4F6F59AF288812@AS4PR04MB9338.eurprd04.prod.outlook.com>
-References: <20260923203738.1583735-1-qwe.aldo@gmail.com>
-In-Reply-To: <20260923203738.1583735-1-qwe.aldo@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AS4PR04MB9338:EE_|AS1PR04MB9698:EE_
-x-ms-office365-filtering-correlation-id: 4b007be0-5cc8-4814-b855-08df19e1ad67
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|19092799006|366016|23010399003|38070700021|10067099003|56012099006|11063799006|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- 6/9jxG/Xq3D2EMtDRAV4snqcNE+R5aTLx7JRL5nDUZNnzLNKLpLDWNH88QHt53IScnfwO8sVZwUurUciZyMrZ1lSYMQXDLf3eEE45xuMuGsmvCTj6MkIGilkvNlDMJ2tjd47MiXglDyHtrb0KqEtaB+wDzO3Ht9G1t8aHSsCIa8gtvqnSuEkO/NKY/Uz7cOunSUQojNO196GQc0lE+zesXVCREsjsxEh/2FXKZMogYpiu19GhLiJwuVFVmTm2gStPjvEfV1JrUR+cFKS/rQeB7ZCsvXD/Zr5eAgVaN23d6aPlzwnoJBbIkUFABUlNBo4EbTT4hQc9B6ImndbeB7oCRGqtG+pFGfeSPhV6MvLwXTZffSbvBExRRmvu+e0mDMT9F2yKXG5YIn/IRWZFM5Z6yjiXuuFD8VBKdcJLxfGvhmfy0LVNPAUlThVMva2q/rDvIMkyLAsnpE6K0lcIjAtGJiEiQl8UY8A2iENZkKDeT/m8cjrHWBnMXj6m5if8fArmyPVF+v7Go63TYnapDgBAUpvCsS5k2sujA0O5DK8HtmE1U7PZVR5DwWu7oujx/J/zldMXuR07gZBsG/JbDKmS88+Jx04+1y136NftXyCHUGzgVSY+jXaoOEN/EnV5BEK/ZyyExhWPsPdA4cScivt697EAtFxCoqXB0Jw6FvVtSk=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR04MB9338.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(19092799006)(366016)(23010399003)(38070700021)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?ttTjrnFKLiA83162XoORP/aI4D2jxQhyJQXin0FhEWoq49aqT4ZxUWx9NhNQ?=
- =?us-ascii?Q?zH+zv4P9YZekcKCoOyl/652W1uylbtffwu4ZU7Pyi/1lk42LZgHXpjpAa9Mp?=
- =?us-ascii?Q?30BNTEduhoT4QJGsaUKr2IK86DyeLu/e7MQgApCX/Yo3lLUvKRtw1BHXOqnW?=
- =?us-ascii?Q?Esv8ePgzblEhRbYRdopwJZcPBOqccONeez0n2qJGyiQJ7QqfwDu1kM2KeKbT?=
- =?us-ascii?Q?OglXEaiztU5Tq+I9/t4TCUv5MJNP8mRtiXJ0LbswNlW0dGZTL1OR57+EEt5C?=
- =?us-ascii?Q?mxEY63dF3ogWQW7AamY+B2JcFrBlkoSlODLdPnYg13GZ1lWt0MM/wIqtVWDF?=
- =?us-ascii?Q?gnAcC+Dea3fX0SCtdpLnbEjIf2G2NObDmzmn9MhQSE38i7fldv/Ml668A9ZH?=
- =?us-ascii?Q?qQ8kygL59rU1D2CnaEu5A+OlbDPG7GDXHcr1yqArYBEkmNMzyCpCr6CM7xRw?=
- =?us-ascii?Q?hxSNRfomSkhQumrauUFd1be8+vqSn056yS/ijm+uufFSWQr/6twQkjyq+mjX?=
- =?us-ascii?Q?Zx6jFgC7dXFUI/8BYrWOG4e/h86GAJjHaAFTYpgrV77vTtPVW4fAwjfZlMDx?=
- =?us-ascii?Q?Cq0+ezqBfrzqYEdiqZXzzNHz38aroBnHBd4b3Ph8K7lnwMjJN7hhcpBGomH9?=
- =?us-ascii?Q?Tfdc2cnbEpPQxg6M6eYJyVNYY633y1JMD4i2gj6rsvdJAzsmAKATth1zYatj?=
- =?us-ascii?Q?eN2lXQ5IKJvOVO7Li2COOLi1uhurdVhy+vWg0SpCjnZZlgPds8/mTaSRXDT5?=
- =?us-ascii?Q?l6sf5at1hOqyMaobKnJKTJvr1lmOGlYGK+SNUvb5/vO4LtjukjR7CS0VW9VK?=
- =?us-ascii?Q?KGRU01d2LMd/nsfbdijAt+pNgae4UOyWqzCBFIM1xHkAGw30WBtV8MgD52wf?=
- =?us-ascii?Q?u0e9nIezk1okeM9RHN/idqyl3ZDqmQc5xCVBm3AnLgqn8mapsSpKBLlWle/E?=
- =?us-ascii?Q?O9aXAm/56J7s3wkfimHAujGlGq7+xw99XVE7vUdq4ZI87qoEMjVp34hEIpEz?=
- =?us-ascii?Q?PuSXjjcOh2GaqFwW6RCnvl71jYhwJCfrrLWFbqiBqwp2bW7Qb8AWmwXCeGfV?=
- =?us-ascii?Q?B1fWuPTGO0HIDHg1dq/h3nwYwpJBZHzR4mEnCy+l51lM2za5Mc3LAHRgmq/K?=
- =?us-ascii?Q?979rOm/5lJauy6zr9PBweeY+xa46Cg0bSBFYS3qL7eRYC1XIWz1qefFnSPHV?=
- =?us-ascii?Q?MkH4BPh/KJszfvc70v9wdFvjqLnS7NTqe6hMfTh39nRyK9UNyJdm6ZGB6U8T?=
- =?us-ascii?Q?QJqHCmckTbPYvZ1s47/Ydp1m406UyOsV1ySGQ1CiQhTKankW59wvwHoMBRhA?=
- =?us-ascii?Q?SXp8QL38bA/RU/Sb4ZhJ4+fbC8UTDr3uRZmSnjZsVIIkqKNBrw657Rjp6hNE?=
- =?us-ascii?Q?Iuuvd+eSstHCYQkCl914JW+j+28u+9Jp5smTvQHallcWXcimVqQZk3IRFqJo?=
- =?us-ascii?Q?Qk6mMHwrMiAIJCgQtM8vXyOQNM/3m64PdT/lb/WA6NEC/RAqwMW0igOX5XcH?=
- =?us-ascii?Q?Yf8XMquh7fI1b5Lf1H0kI0Zm0RItrgYyafh6Uf5sRQb6b3X5P0MC460xNtsf?=
- =?us-ascii?Q?0k7rO08fuaEdelQ5P+CcO4mmzxay+v+G8BrW1nRte1o/6okJTFsrwr8vXfAH?=
- =?us-ascii?Q?avVFIu9dt0625L14jZeeh1ZOVfuwGR5nytEO2ct8TsNKlRF9iO45neuBI68t?=
- =?us-ascii?Q?gSikwAkjc5Bjk5NMBigVkQhc3bdIxdHnBiDvVV2w5qPgluLG?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="l7ojbSQt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1790216057;
+	bh=Ukq4s/g2LbAcLSo+DPv2hScrAIpjP5dVSjl63kehKK4=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=l7ojbSQtnSA+IEl/Dtycf7jzRcDTbr0aqBhVK/j6h7ZpXOAY0txHS3u8xz1KXD/A9
+	 Nk9TC66qAvtw5EP+sQH5WTx8bNsIdxu8UMXh7tcb4X9D9zLPAkaEei6AoHOnjkMLjf
+	 MSDkhgpJ8CCupBOZIh/ah8kx0KIFmQmaAh1rhPs4=
+X-QQ-mid: esmtpsz21t1790216051t6a98fa04
+X-QQ-Originating-IP: 1SD5VCR6xWCfe2vzl2aIguq6PDEir4epJ5QDcl9DXTI=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 24 Sep 2026 10:14:09 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 5874928214263819641
+EX-QQ-RecipientCnt: 18
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9338.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b007be0-5cc8-4814-b855-08df19e1ad67
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2026 02:15:17.7297
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 1ByZHVa6FLjr5UfnTYwxXzElVvQN+6OukoljMPNH1EPavMxqfGRYPAj+GSgcUi7MecNMHOS6ahy7+PiNwsSzHw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9698
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=8f62a79aaf3f531d7ad204d4c4b9ef58a31bebd84138d89c089572e5c418;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Thu, 24 Sep 2026 10:14:06 +0800
+Message-Id: <DLN6MI8PLD0A.3ELK15A3DA9NF@linux.spacemit.com>
+Cc: "Bruno Banelli" <bbanelli@gmail.com>, <linux-pci@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, "Alex Elder"
+ <elder@riscstar.com>, "Yixun Lan" <dlan@kernel.org>, "Lorenzo Pieralisi"
+ <lpieralisi@kernel.org>, "Krzysztof Wilczynski" <kwilczynski@kernel.org>,
+ "Rob Herring" <robh@kernel.org>, "Bjorn Helgaas" <bhelgaas@google.com>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Uwe Kleine-Koenig"
+ <u.kleine-koenig@baylibre.com>, "Javier Martinez Canillas"
+ <javierm@redhat.com>, <linux-kernel@vger.kernel.org>, "linux-riscv"
+ <linux-riscv-bounces@lists.infradead.org>, "Troy Mitchell"
+ <troy.mitchell@linux.spacemit.com>
+Subject: Re: [BUG] PCI: spacemit-k1: port C probe hard-hangs a CPU with one
+ endpoint on Milk-V Jupiter
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Manivannan Sadhasivam" <mani@kernel.org>, "Encrow Thorne"
+ <encrow.thorne@linux.spacemit.com>
+X-Mailer: aerc 0.21.0-reader-ipc4
+References: <20260825052249.66921-1-bbanelli@gmail.com>
+ <DLKRGJBNFVQO.15WZ2SXQLOY0T@linux.spacemit.com>
+ <xuafb5qshj6rowe3v6sxyfvtemy4wg2ttqs7lcwu3txu2mpyzm@fr72njh6zgvi>
+In-Reply-To: <xuafb5qshj6rowe3v6sxyfvtemy4wg2ttqs7lcwu3txu2mpyzm@fr72njh6zgvi>
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: OW4JKxETGMY2ZtXC37cQOMjtmvJ65GqUQyhRbehIHzwnmoGlMeejKfbj
+	ulQMC6wYWFuKeP5DLmRXzz6ULrJOtc/MWhr6rjSjmKy579MregMEBkbKAb4OmrefCbjSQBI
+	xDcDgPI48wyBJej8VGW0c9l/XbZOIvkVP+uaQAFV2Qi4u4TlnNOLAjEmS1cRaSuMnohISnq
+	kCyAKYcA6MYyl/6+xUom8XmoQaBARF0EAeEAbdiGrZXiRkCAhQMjMvhdjx3Cz2myZMih6Pj
+	INZFCr0Bkw0CCVcyr4kWymyh733r9XcMXs+SrurY+redH8iV62UWTSurc5ejQD03oyaEqDY
+	9as28qi4jTlQmQjHiKL7schxs39ntwoc/67wuWVL+2Kx2Mk+lu5kP5JUDvmJrLzQDg2fOVD
+	NzvH70RXO8jfplOc2iyFJCu7xVnoknR224BuweBi+mMRSrahE0uOz1LfqlvXlMwiv2oLLqQ
+	rJBziovNn/EO+bqZiJmnKrV8GWHq+2s4xvcMiZ5kB+pVyTdFBQdsBKWLpsqzNbg1GBzEk+W
+	U5NvztKZpw5MV/sQLXMxyUUu4omrkP8njO04ys/mvX0mg4f95Wo/EJKJ1OjaXdUbGekQXVe
+	0/KN+PbomqS00hX4EAFiIlfwe+1dkkNhk4w083R4r1iz2G457/TJf/cJWP7DakHEljhw4mh
+	9RjcknB2H8gDyrCWUg06p5OxoF0fTfoI4uO0CpzBzbO5jSynglYO0uBRppZmW99l79Crrej
+	Gz7l6iMljZiK8F6Bwj8vVhoLzoTr9wsMRh0VAZEiusE5t3K+zYdkhusf4iuCLNW4jSN7sXF
+	jBaQSQSIunhAudlEZ1qPAYJzPIHOA2pjsI8zUIjGXaKDVld2DdprWWXJibsDJ6D2ZGWPVM4
+	TCzvtOQHhY4+pU611HophJhseE1sI5A0aQc2Hc6Hy4ml0aJ8D093XopymMiCj2GjV5cDK7z
+	+ZI2a5G4YbYLJg4Y3Ys5mFct8bMn6BB9jt89zQypNBYlTOkkdg6hWNE7o/7kRno6GBQ4YEK
+	NmvBH0wzggEJur8VcyIzQgFljc22DPLfPA/xyLorBoXlC2Q5fImPmGitxl1A0FEX1cCbWF7
+	lGVyiV5VjDHrVsSfRKOcLT/TyC2QjjNGBwrFlsGkPilLhl58GK+W153g55XHytAZw==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
-> fec_enet_txq_submit_frag_skb() and fec_enet_txq_submit_skb() copy
-> transmit data into a per-ring bounce buffer when the source address is
-> misaligned or the FEC_QUIRK_SWAP_FRAME quirk is active. The bounce
-> buffers are allocated as kmalloc(FEC_ENET_TX_FRSIZE) where
-> FEC_ENET_TX_FRSIZE is 2048 bytes.
->=20
-> However, skb_frag_size() can return up to PAGE_SIZE (4096 on most
-> architectures) for scatter-gather fragments, and skb_headlen() can
-> exceed 2048 for certain GSO packets. When this happens the memcpy
-> overflows the bounce buffer by up to 2048 bytes, corrupting adjacent
-> heap objects.
->=20
-> Add a length check before each bounce-buffer copy. If the data exceeds
-> the bounce buffer capacity, fall through to the error path rather than
-> performing the out-of-bounds write.
->=20
-> Fixes: 6605b730c061 ("FEC: Add alignment handling for FEC driver")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-> ---
->  drivers/net/ethernet/freescale/fec_main.c | 4 ++++
->  1 file changed, 4 insertions(+)
->=20
-> diff --git a/drivers/net/ethernet/freescale/fec_main.c
-> b/drivers/net/ethernet/freescale/fec_main.c
-> index 794ec42..8614984 100644
-> --- a/drivers/net/ethernet/freescale/fec_main.c
-> +++ b/drivers/net/ethernet/freescale/fec_main.c
-> @@ -558,6 +558,8 @@ fec_enet_txq_submit_frag_skb(struct
-> fec_enet_priv_tx_q *txq,
->  		index =3D fec_enet_get_bd_index(bdp, &txq->bd);
->  		if (((unsigned long) bufaddr) & fep->tx_align ||
->  			fep->quirks & FEC_QUIRK_SWAP_FRAME) {
-> +			if (frag_len > FEC_ENET_TX_FRSIZE)
-> +				goto dma_mapping_error;
->  			memcpy(txq->tx_bounce[index], bufaddr, frag_len);
->  			bufaddr =3D txq->tx_bounce[index];
->=20
-> @@ -634,6 +636,8 @@ static int fec_enet_txq_submit_skb(struct
-> fec_enet_priv_tx_q *txq,
->  	index =3D fec_enet_get_bd_index(bdp, &txq->bd);
->  	if (((unsigned long) bufaddr) & fep->tx_align ||
->  		fep->quirks & FEC_QUIRK_SWAP_FRAME) {
-> +		if (buflen > FEC_ENET_TX_FRSIZE)
-> +			goto release;
+--8f62a79aaf3f531d7ad204d4c4b9ef58a31bebd84138d89c089572e5c418
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-Where is the 'release' label, I could not find it in latest net tree.
+On Mon Sep 21, 2026 at 4:03 PM +08, Manivannan Sadhasivam wrote:
+> On Mon, Sep 21, 2026 at 01:55:42PM +0800, Encrow Thorne wrote:
+>
+> [...]
+>
+>> Hi Bruno,
+>>=20
+>> The issue was caused by a missing hardware configuration in the K1 PCIe
+>> initialization.
+>>=20
+>> The PMU PCIE_CONTROL_LOGIC register contains an IGNORE_PERSTN bit (BIT(2=
+)).
+>> The hardware manual describes it as follows:
+>>=20
+>> =E2=80=9CWhen set to 1, the PCIe controller and PHY ignore the PERSTN si=
+gnal from
+>> the link partner in both RC and EP modes.=E2=80=9D
+>>=20
+>> This bit was not configured during RC initialization. As a result, the
+>> controller and PHY could still be affected by the PERSTN input during th=
+e
+>> early DBI accesses. With the Intel I225-V installed, the first DBI acces=
+s
+>> could remain pending and hang the CPU.
+>>=20
+>
+> What does this 'PERSTN' bit controls? PERST# or something else? PERST# is
+> controlled only by the Root Complex btw. Also, why does this missing regi=
+ster
+> configuration only affecting Intel I225-V endpoint and not others?
+Encrow has already posted a patch here [1] and explained the reasoning; it =
+seems to
+depend on the device's behavior.
 
-Also, do not repost a new version within 24 hours.
-https://elixir.bootlin.com/linux/v7.3-rc3/source/Documentation/process/main=
-tainer-netdev.rst#L15
+Link: https://lore.kernel.org/all/20260924-spacemit-k1-pcie-fix-v1-1-002b5c=
+1ba9fc@linux.spacemit.com/ [1]
 
+
+--=20
+Troy Mitchell
+
+
+--8f62a79aaf3f531d7ad204d4c4b9ef58a31bebd84138d89c089572e5c418
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCarSHbg0caUB0cm95LXku
+b3JnAAoJEJgJ74D5MzQvxO8A/1764CfP8OTcIm5rW5emuurOXkqTKQ7BL9ChVP5g
+Wre/AP9SDdlVovEUp1d9V4EYidzXJuHBOkk14Z04haPo5wMhAA==
+=KKPr
+-----END PGP SIGNATURE-----
+
+--8f62a79aaf3f531d7ad204d4c4b9ef58a31bebd84138d89c089572e5c418--
