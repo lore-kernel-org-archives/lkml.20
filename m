@@ -1,155 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57497426429;
-	Thu, 24 Sep 2026 08:22:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 531F2426429
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:22:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790238158; cv=none; b=CnPv0eU8F5AjEzCZYD8PGS3u7OA+uZS63afjI6sjrY+fZiSwggRlEMOhBoBBr9U0OGOBWPmnutUhQHUGVNH0LbUsDzqRAsUBqTvopKsiLnZrzcGcCtZeroRXfW22Fu9NdX5v3Kgn/nAY+l7s0sMBW20YVy5aqAvc3nSD9A+rwYI=
+	t=1790238166; cv=none; b=ELBn+3NCJSgRUIbXpiz/PqfAGstpzdLu3JilmVFmu7k+0IODB5x3D4zvAIwIc5YX/+jSFrBdy6lsncZkvWh7Pmk01zP4tkYfl4XXNCNGK7QeFnDgaAfRVJRsgcUH2xHfKKNF5F05ReuxSUI8PTPcZ6FstjzubOm9kO7kjnB0uuI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790238158; c=relaxed/simple;
-	bh=8mS0WnmDPjvJRLmaLeMur/dAi99exVtiFFE6AqDBa8w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=X+tY9Ph5sWzIBAZ0DC9k/WzUmTUd+j+x1kQ9BSOAIkq40w5EXp74k9miy3cL4Smc9vz7mp3Nqb5/GItVnStRPSvpeqL5gX6GFmEmMfC2ZllYI4RqUNbMxl/mk3eGxIgz2FbXRQRnDNnzkwgCwBGNUVNoArpcTyb82NGvGvj3sUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LNMAN4kr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790238166; c=relaxed/simple;
+	bh=Dq4IZXrtgGbdE5mjpprcJEBrzgXkFHM02HzALU+oizA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=M9roVF+xgY+E1gkDAlYsJmQILgdnJwlhgrQhe2LeZZEK36FCmTr9E3k41cFhcGmXcU/IS0WPuyNZj1FnO6hPdcaYa8Ts/X9mybfisDHa3+uYHZvLn4SZDFDdS0Aaj/iuSpK9Gir9c2jvnR9bLTRXMDNhF2/OJAe1oD3s7wqkwbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cdgGnTVC; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LNMAN4kr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A3AA1F000FF;
-	Thu, 24 Sep 2026 08:22:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790238156;
-	bh=zjnvdX4OTyAwJHkUGs5en/XjY3eVG8NVFw9/eGuVK9A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=LNMAN4krt28cole0f7wMCUz0H0YeKVnZtuqU3CczpnWiAzfANlCgkpBXdBzqqwhii
-	 Vfx2tg2s/DJaqlo4vgVuks63zNln7nRCcrX8CW202Eakk93z2xDouav9PZ5EqLm8Xe
-	 BGhAEkLKqkFsgTkqu+C1GDW5X6IPSmHqqt+76adXFicTXJQ7kVrbLxmVa8Ad3MBRDd
-	 z5c8kfO4xTpArHPtdUyDUe+BiwL2gsXYkEd6Jgwrio8O6ezrrEV0oVo/SmJamDPyp+
-	 3wrq1NSHC5vc7OZa9if+agjikqDSX7ezg7+gW5124YMOJmMKor+kBzJMeuiXYdocna
-	 fZq+yWTVk9xgA==
-Message-ID: <2c05bf39-7e04-4cc7-9926-3cbf673865b5@kernel.org>
-Date: Thu, 24 Sep 2026 10:22:32 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cdgGnTVC"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7d2bb404so6093095e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:22:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790238163; x=1790842963; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4HHnn+wFyq/rjLJHO0qvSlndCsSVnEJyRlM3aqBNu7s=;
+        b=cdgGnTVCkH8u54JJcFBoVxF05d9D34iwtqjDzH4TbhzttNjQMDfY9TTpWGdbCrUfgM
+         ZJB26cJwEPikMGB1QMER94FoFzKN/NyZiKgxKX3lXaHH3ry4VE2xGHOFoNJAjXxOHDID
+         P5Uv+ZB2qTd+vLTDDpRliEnlBG+8zMJOVWqV6e8eKTtHtYlq+vaQZdf4jsbu9z6wAwXF
+         gB2ahuaP//ZLZJarh1SnwIyGT/PWO9GkIwq/2Pq4pdhZqxySPR+JB0gp7t8mpJ5VNETQ
+         KY0f3M99hLI2x9zW0ytThfL0DtZge8cmC2FMe5Gz17/b6c5JHIVnVzy0HPTOgCwMiL57
+         bFpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790238163; x=1790842963;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4HHnn+wFyq/rjLJHO0qvSlndCsSVnEJyRlM3aqBNu7s=;
+        b=SV+xL+f5vMYbfM/X+AbEff0HjbloUUDS+LGECSqtFWJKyFIdK5f61q384dn4jqQRjz
+         JRpChvcPDvkPabQB9utVVt6XtPpJh9kJxoXG2VQ1nPlYQjFpJWMLs0Mlw2qhOn739l/g
+         qagFPhRTbp6JyeJ9JmlbIy8PZw9+N4wrIL7IUWU4b0z1+iO0X1PmUZDVm02YhyDvlCIy
+         aF2eMApR3cnN8tSZQo46/qrGNqfhBGSuDgiVXUKQJT0zUutliDCj7LpU3vihIr31Cg4W
+         +wQdmMsO8+otq4qx2Wn/JbpN/f7EmxGzh7vwS5v8m0nyF+7kMLJ/5j9MUPXeqbzvCDC0
+         Fqyw==
+X-Forwarded-Encrypted: i=1; AKwUvBy5gboN7yqQ3c2mpEUc5xi08pxKn1ZYEim9M+rCv+W48EPRjlg6IEXTO2sxMpGAE08AfsukX4DEmrkkkWI=@vger.kernel.org
+X-Gm-Message-State: AFuF++leXDY5x/JbB6mOwSIEMw30aVqkvPWxDF4TmfQlWQ8lY7Foq+Tp
+	LyAA7pY2gVdTNi72E+TUqUyx7nKRgYhCzucQNKkyweYy0h4xAA+zGdEk0mwU7Izq
+X-Gm-Gg: AYBFou069nrlumlEQRVORKURPudHET9TtCVyZkcZoPBlmro1YdV+VOf6tJP+iT3ARHp
+	pprOJCZ7W5WWTe5i9E/fuVVhBAwxSowYw+7GehLh7rKv1+OQLeg36AsGWN2/p4GPDv0jWD6Z0rE
+	3Kgl50KjM0KPgRoImYTqJl+z+AcDI/X2WwYAIy/ifbpip3dlVD26nxbNrAdLYzDIxSHoqgWymYY
+	Y0AkKhqCT+SxmS53dxNgZzvLfJOdDLjlHAKeexiVbg18hk78E1joa/qRNFE3BagaBxCXdWsPvog
+	6bGLePgdkJM7/PJxPSM+yztO1mIy/bYoVKe2+a7Wh/Ec8gfNqebgBncjnqbC1dClCRSU8tA3OR6
+	eJFHPWQ73IvfF/j5cLnrozFjNxpsQXFuq2bolAz+HRN7rf1pF/y7lYOGlbeUqMzvv0Z4/WtfSR3
+	0gMNnj9DtDqTrmBR3ZaqLXllWfki0Uatvz4NDSIOHcfFNNf5xoes6cMiAoaOHqAzps8sNtbwVBY
+	3ATTCJfQonnbxWHxnT7dpSeD6hUd3hDwn0=
+X-Received: by 2002:a05:600c:8b5b:b0:49c:f13e:e4d with SMTP id 5b1f17b1804b1-49fe66f17damr26591975e9.10.1790238161498;
+        Thu, 24 Sep 2026 01:22:41 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdf157cdfsm56052875e9.0.2026.09.24.01.22.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 01:22:40 -0700 (PDT)
+Date: Thu, 24 Sep 2026 09:22:39 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Johan Almbladh <johan.almbladh@anyfinetworks.com>
+Cc: tsbogend@alpha.franken.de, ast@kernel.org, daniel@iogearbox.net,
+ andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
+ paulburton@kernel.org, main.kalliope@gmail.com, martin.lau@linux.dev,
+ song@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org,
+ emil@etsalapatis.com, ihor.solodrai@linux.dev, linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, philmd@oss.qualcomm.com
+Subject: Re: [PATCH bpf 1/2] bpf, mips: Fix immediate JMP JEQ/JNE on MIPS32
+Message-ID: <20260924092239.0743b082@pumpkin>
+In-Reply-To: <20260923105158.3514342-1-johan.almbladh@anyfinetworks.com>
+References: <20260923105158.3514342-1-johan.almbladh@anyfinetworks.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] MAINTAINERS: document the branch in git T: entries
-To: Matthias Goergens <matthias.goergens@gmail.com>,
- Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Theodore Ts'o <tytso@mit.edu>,
- workflows@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <64b0be79c535bb9545f9f81a5044146a8726c761.1790220653.git.matthias.goergens@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <64b0be79c535bb9545f9f81a5044146a8726c761.1790220653.git.matthias.goergens@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 24/09/2026 05:35, Matthias Goergens wrote:
-> T: entries have named a branch after the repository URL since commit
-> a1aa5a770dc3 ("MAINTAINERS: update hwmon subsystem git trees"), and
-> 109 of the 846 git T: lines do so today.  Commit 083bf9c56d06
-> ("get_maintainer: add more --self-test options") taught
-> get_maintainer.pl to parse that optional branch and check it with git
-> ls-remote.  The preamble, however, still describes T: as it did after
-> commit 50306fb5398f ("[PATCH] Clarify T: field in MAINTAINERS"), as
-> "tree type and location", and does not mention the branch.
+On Wed, 23 Sep 2026 12:51:57 +0200
+Johan Almbladh <johan.almbladh@anyfinetworks.com> wrote:
+
+> An addu instruction was emitted instead of addiu, causing the immediate
+> value 1 to be interpreted as register $at. This made the comparison
+> result invalid when the immediate operand was negative. Note that $at
+> is mapped to BPF_REG_AX, which is used for constant blinding.
+                                                      ^^ building??
+
+David
+
 > 
-> Documentation/process/submitting-patches.rst sends contributors to the
-> T: entry to find the tree to prepare patches against.  When
-> development happens on a branch other than the repository's HEAD, a
-> branch-less entry points them at the wrong tree; on 2026-09-24, 173 of
-> the 273 repositories named without a branch had a HEAD that mainline
-> already contained.
+> Fix the instruction to use the immediate form.
 > 
-> Document the existing practice and say when to name a branch.
+> Found with test_bpf on MIPS32r1 emulated by QEMU.
 > 
-> Suggested-by: Theodore Ts'o <tytso@mit.edu>
-> Link: https://lore.kernel.org/all/arSMwd1bGO1vrif-@mit.edu/
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+> Fixes: eb63cfcd2ee8 ("mips, bpf: Add eBPF JIT for 32-bit MIPS")
+> Signed-off-by: Johan Almbladh <johan.almbladh@anyfinetworks.com>
 > ---
-> Ted, as I said in my reply on the ext4 patch
-> (https://lore.kernel.org/all/20260924033200.3615554-1-matthias.goergens@gmail.com/),
-> I'm sending only a few of the per-tree T: patches for now, and would
-> value your view before sending the rest.
+>  arch/mips/net/bpf_jit_comp32.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
->  MAINTAINERS | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index cc3cae2e378b..6edc17d66b44 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -30,6 +30,8 @@ Descriptions of section entries and preferred order
->         See Documentation/maintainer/maintainer-entry-profile.rst for details.
->  	T: *SCM* tree type and location.
->  	   Type is one of: git, hg, quilt, stgit, topgit
-> +	   A git entry may name a branch after the URL; name one when
-> +	   development does not happen on the repository's HEAD.
+> diff --git a/arch/mips/net/bpf_jit_comp32.c b/arch/mips/net/bpf_jit_comp32.c
+> index 40a878b672f5..15a2a153dc87 100644
+> --- a/arch/mips/net/bpf_jit_comp32.c
+> +++ b/arch/mips/net/bpf_jit_comp32.c
+> @@ -1111,7 +1111,7 @@ static void emit_jmp_i64(struct jit_context *ctx,
+>  			emit(ctx, xor, tmp, lo(dst), tmp);
+>  		}
+>  		if (imm < 0) { /* Compare sign extension */
+> -			emit(ctx, addu, MIPS_R_T9, hi(dst), 1);
+> +			emit(ctx, addiu, MIPS_R_T9, hi(dst), 1);
+>  			emit(ctx, or, tmp, tmp, MIPS_R_T9);
+>  		} else {       /* Compare zero extension */
+>  			emit(ctx, or, tmp, tmp, hi(dst));
 
-What is repository's HEAD? The one ref in remotes/origin/HEAD? Pointing
-almost always to the master branch? I think no one works on master
-branch, because that mirrors origin/master. So basically this would
-expect EVERY tree entry to be renamed... and then - which branch - since
-almost all of us have more than one (at least fixes and for-next).
-Basically the DEFAULT is that you do not work on master.
-
-If you disagree, please point me where is the HEAD:
-https://web.git.kernel.org/pub/scm/linux/kernel/git/krzk/linux.git/
-(and all branches are active, meaning nothing is stalled or some wip-dev
-work)
-
-I don't think this change in that form and naming is useful for developers.
-
-What contributors need is the branch feeding next, because this is the
-base for them.
-
-Best regards,
-Krzysztof
