@@ -1,174 +1,245 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11AA6DDA9;
-	Thu, 24 Sep 2026 17:53:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790272419; cv=none; b=oEGQOkWdD7ptYohvYKGLFkRo3qah0eZm+ChMZWqMpnf9pusdfWYk3HDEMQ0s7seaThaDhA54KQIrq+RLzeSCBnsoXPh9ImrqK4u61A3AsJr3Sl1Q5yPI+ot5meQUv1D43ESDMamExjxS+kOusvYAx+o+AqViTPKTWaNYlDovHKk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790272419; c=relaxed/simple;
-	bh=kJnwXJt8x25uiov7kuDwLLMKBOyadOT3tRfrITNfba0=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=Ep8XnSeLRel7ao9OKpt6Bnbd+uMrRkjBpbz2kEIHc3YU0R/NswimHlKibMypOSIa2di0xV1xxbzqnwtK2d4WC3+Kg4drN7QDFyq9Vgvnlqi+Fq+rdCVwZy07wHra80sHwuQZTr7iDu4J+H0vOGazbnbCgZyOWzdO4cLkhTbcPnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=efrgByyQ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18DC84C151C
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:54:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790272468; cv=fail; b=fCJbV+ysNyVUTZgkQLCM/RV2c2KfL1FYKtfr5e736MW23ytwKbrxSWQpShsQXnPDWzbxP5idWp74uTXX23sIjcklV402zGr2Xcj0EWw1zt3YzN9A47XUuoruB/gHM1EtmhKT6pLpNaZtpG2N+OyeA7Xl0sTTaMmoDr+9THa1hx8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790272468; c=relaxed/simple;
+	bh=dqFgKQUrdzyeOlv4Fw9To054gJh7k8801RoIUWeoau8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=EZJOZvMjFDFP00Jg2OBa14Gy5Nla9poDYCfhrN8dLZ/BckvdD5hfFZZN4lOQUou0lBGaerQW368p5SmItNwl8jNfycJA6MQWL1QG8LVDVmWC6bRMCtYHI1qLn82O9S5V2wLLgz1WxxUUBlvOIoI79aRFMj3Y27gh8WMeom2jr08=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=btRz73pg; arc=fail smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="efrgByyQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 654A21F000FF;
-	Thu, 24 Sep 2026 17:53:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790272418;
-	bh=4UPw7OXirCe0mF0T2wa7/6PbS5yUoNJ22h+T3YjbRl8=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=efrgByyQk4aaVEdaC18avWJMFAEbxwh00sDdZjeO1fvqXeNZ0RJnKuGozi75Ps6MV
-	 j+mpMpel0P2r+94rRysc6FBzSiO5lXIPpgrfBzenW8BFII5cmj4JW/eRwrTNcro5bl
-	 uYOmcBdTvI7LZWHjkxcpW+clt+h6/nY8vV/RUW1hLuxOF1lkNN/cBA4tMb0GtjuRdp
-	 ljOSoFtXG/MpOjQPG8VDGja8imGuB3ROlfgiD6a3CCZmH+Z+/rjQGiWSm1YZEShup2
-	 BwBcL98oKW5gtoKi0shBL4yYm19ZIGYfJ/HyfcDKQoWobJUiu5bltWOPaUnLtbp/pq
-	 ooY1qgCZkF5KQ==
-Content-Type: multipart/mixed; boundary="===============7400983552028659018=="
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="btRz73pg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790272458; x=1821808458;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=dqFgKQUrdzyeOlv4Fw9To054gJh7k8801RoIUWeoau8=;
+  b=btRz73pgZCPi/WgR70EJUObAjHJ8A7LJBPeqN2GhWmyNrwI0I6Iu3AiU
+   l2urZAM0C5vdH5MTODfiGnQoKcSuOTDycu43UF7HeSFgcHdP3mtma9yjC
+   aZdLbn0A6l0aLs9neMhLuXfM1v0d2PtYYhK1KETnGjl5Qc/fOscQsKrVg
+   kb9nCaFrHWPxxXYNTM2ejMiJ6lge3uxVjZUcet2Vwpc/OabVvJnRbdscH
+   uRdCMyzdXICdm49Oc4XXlA0Ay3XBdijq+tFi+FSEzoefnz56nyYLp5O9U
+   OV6SVazDwS3vPe28/vbJQhP8T/T97wgmeHs/jMJ19KgiRi3Q9cVKwKgPQ
+   g==;
+X-CSE-ConnectionGUID: QVAR2pctQiu6zK3Q75djpg==
+X-CSE-MsgGUID: 3p0DTnDuS3uJ9RGKpLD9Xg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="89916959"
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="89916959"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 10:54:17 -0700
+X-CSE-ConnectionGUID: Nyt2QovvQaGO6mmGRiSsvQ==
+X-CSE-MsgGUID: Z6QvoKExQbSMaDfdxJLywg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="273196494"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 10:54:17 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 24 Sep 2026 10:54:16 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 24 Sep 2026 10:54:16 -0700
+Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.70) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 24 Sep 2026 10:54:16 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pOs6He7rPUlm0N1ViWKeSbAWqJ8Zg3R2ZCbuAlceTphgYHJp2Vboz5b4G8VQj8ROWjnp8gAwAXLWuNn6dLD86vncBGieGzi8YASE3kiKwPi/FHUIpV2eCReUKwhhNcSKTciNplPCqX0DjTNpKbwSCvBUfOq8+ecgBT+ow6GnSElRSmuOruFG1A6PLoWjDei9i3Veq8aR4+uNPM6Ty8dTYehhs9e8OYdt5DWXvQjtvgiZ2sd2g50d7/OguiLBpJLy72nEN/MRtEy+RVshrbf3OGBTI/VjVAnjm6B2K+1nhO88zudXZJQlPDQyf3mXHD+9H2wkA/ITYiMQrHK4oj/99g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dqFgKQUrdzyeOlv4Fw9To054gJh7k8801RoIUWeoau8=;
+ b=ZmwnirnkIwaYpWOTDoMYjhLSV8heOw0Dgb7uNRTd06Y68wwhN2ozys63HaebZPWncxmjXw+YpOF50R2CZn/YLuulV5Vw9A4lcfSwOEqeB2IP55is3g+u0TSSDJavzHs3Cr6eVWffjwzJ2VZ/nJO+XMFfBmwdsS6648yqH0k8rkHBQebDBI3Ejmgi7joI1RAP1qmCOzt2QP6fAeHhS4sda+sPbaO5TLQEFDXW0dI1MP11abLpq9NfM/xjKzHw8hd8Dqnm4DCEfnkPwTSvLVkRQCmrYPHtY+zesN9P6WhZIR46oWZSyfZDh8cqYfv0/Hj8LYLAvAQl/6LWxWGq3deapA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from SJ1PR11MB6105.namprd11.prod.outlook.com (2603:10b6:a03:48c::21)
+ by MN2PR11MB4582.namprd11.prod.outlook.com (2603:10b6:208:265::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 17:54:14 +0000
+Received: from SJ1PR11MB6105.namprd11.prod.outlook.com
+ ([fe80::28d9:5273:4572:320d]) by SJ1PR11MB6105.namprd11.prod.outlook.com
+ ([fe80::28d9:5273:4572:320d%5]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 17:54:14 +0000
+From: "Ababneh, Ehab" <ehab.ababneh@intel.com>
+To: Barry Song <baohua@kernel.org>
+CC: "ryncsn@gmail.com" <ryncsn@gmail.com>, "akpm@linux-foundation.org"
+	<akpm@linux-foundation.org>, "axelrasmussen@google.com"
+	<axelrasmussen@google.com>, "kasong@tencent.com" <kasong@tencent.com>,
+	"lance.yang@linux.dev" <lance.yang@linux.dev>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
+	"qi.zheng@linux.dev" <qi.zheng@linux.dev>, "shakeel.butt@linux.dev"
+	<shakeel.butt@linux.dev>, "weixugc@google.com" <weixugc@google.com>,
+	"yuanchu@google.com" <yuanchu@google.com>, "yuzhao@google.com"
+	<yuzhao@google.com>
+Subject: RE: [RFC PATCH] mm/mglru: dynamically protect readahead fault folios
+ under refault pressure
+Thread-Topic: [RFC PATCH] mm/mglru: dynamically protect readahead fault folios
+ under refault pressure
+Thread-Index: AQHdOjxqaRSPWT3KQUCvH7lHJPZvdLa6CN8AgAA+YQCAAYnQ0IAABs2AgAAAX2CAIV5sIIAACU+AgADjkEA=
+Date: Thu, 24 Sep 2026 17:54:13 +0000
+Message-ID: <SJ1PR11MB610584E71CD980C9F85952F38C812@SJ1PR11MB6105.namprd11.prod.outlook.com>
+References: <apcVhWzEwkwHYjB1@KASONG-MC4>
+ <20260901220430.79810-1-baohua@kernel.org>
+ <SJ1PR11MB61051CC2791B67C97BEB2D4B8CB72@SJ1PR11MB6105.namprd11.prod.outlook.com>
+ <CAGsJ_4yRJnr4xXdokVHu85b7XPe0p6rZ+Lzv4sE_gCWdOF4YAw@mail.gmail.com>
+ <SJ1PR11MB6105505CAF620B23978FBEF18CB72@SJ1PR11MB6105.namprd11.prod.outlook.com>
+ <SJ1PR11MB61057EF65B62E06E2C2049008C812@SJ1PR11MB6105.namprd11.prod.outlook.com>
+ <CAGsJ_4yHZ5ck1hk+Lo-7aQudApm0Nx=4yssUDrRTz681PuW=tw@mail.gmail.com>
+In-Reply-To: <CAGsJ_4yHZ5ck1hk+Lo-7aQudApm0Nx=4yssUDrRTz681PuW=tw@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ1PR11MB6105:EE_|MN2PR11MB4582:EE_
+x-ms-office365-filtering-correlation-id: 67a4385d-a258-4698-4adc-08df1a64d871
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|4143699003|10067099003|11063799006|56012099006|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info: 37OgirdiM8ksIdezmhBIq/AvJMBnJWZRpE89G4s4KRA2TnmPv05yjo0j0YRuQ0mgFNUqQalkyQ8rT2g5aJ2xfacZcNTERblug8EJzku/y0A+HFBWalIvPLDli30oVT91Lmr+1N1ajPSexA4q5MQxYx3fvhWtk9yDXfFfMT4D9m4vcjfPwYAudkVnbUrQpqiaWksvAAjfmyY+ibsXitNFbptlaHMFwDewMmURDFrHJ3ej29ThoEwTknTMNOEfpG8mdI6ICuBUQLF76I4E2VMeRV20CWXe7u0b64LL14x0Z07qlWLnwu6jwoWZRPvJZ81O6A/aOi6OqpO13qW4pd5lDqOodoa9hU3ajbzIPmuNoVtmI1cy1ReNSpK7Mby4VZ5/o4JVP7JJjxS7+pI39zRgQoUo+rXiyNxa+/8ohgSQ1kSP/TkwBL3G6SuoynMxp5wDUjrEhJLo71OhKucbIvGFOZPXWj3jyHCCqbkb8VwpB+YvUVwCUAf15srENgQ+tDum9KdCxkV5Rn1XZ+23CNcnxjfqoZAKatPuvevJMTjyZ6mJqFHMnkQErSf4e5Gg/1MyhAvN9KSYEnsoThNBMELgJ67lrR7aq0DvA6OQN0YvxJAQ/YJpRS1k8Y6K8suYsiAkSIZ8woKIt0kt9YPf5hS7zapZ5eEgo6ig3Hm63bIaSci0q2Gh2sh3geabipNyPkXg
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ1PR11MB6105.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(4143699003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?NDZxMC9UYTA2ekJFYTZxYW56RE5FYjAxRjlxOE1LcHdla3VLbldtZHJCTy82?=
+ =?utf-8?B?dTlNbVZxNkJFRUJPaDNwS0o2K1JyVlA2NTIvd0xpLzB1VXk3UC82czc3aGVI?=
+ =?utf-8?B?d0pNZDBHcXZkcTgrR2U4MEsyb2JodFcvbEJCRUk3aGNmRUhJWUg3a0FRTG9R?=
+ =?utf-8?B?VzJOODNVY0lONkxqU09CMmNNNjl1QXUydWZFNkwzdnlETk1mUTd3WlBuYnNQ?=
+ =?utf-8?B?MUpiMWV1UUNaSkpFa3ZLdGl5cW1QYjQyV2tnaFBTNG1NZ2U2aFNRZnlPOTRB?=
+ =?utf-8?B?NmFmQkc1anZ5ZG9jZWdhTHd1T0pXcXRHazNNNXJFZU0rUE1wMitGdjJtcEU1?=
+ =?utf-8?B?cXlqR0ZHTUVNMWZtVVVub2p1M3E1WFRPdmU1bWVBcTI0akJTZmozTDM0WEls?=
+ =?utf-8?B?VU9ETjJsM0JrbU5nK1VKSFFFdnFPa1pCQWsxMUJoaks2SkJVYVFIemhYVzc3?=
+ =?utf-8?B?SzJ2SEJBN0N0WDZCd3oySDFBVDNRSTNpanozYSs0VGlCenBDOFJxSEh5ak5u?=
+ =?utf-8?B?b0xnQVUyYnpwTDNoWERnVnEyZGhoUVNmUFpTMnBMQThjS1hnTEwrOW9zaFdu?=
+ =?utf-8?B?OVRvS2VVSyt0dWM1SlRPcTNvSll4bVFiYUhGSHhqaWVPSDV6R2g4OUx4MnFT?=
+ =?utf-8?B?QkI5SFh1dE9sRWV6L3VEN2ExTG8xUWtjTmZTcTVaeE52YmJaVE1wY3dSUGE1?=
+ =?utf-8?B?RWRzMTl1bXY0dDJGSlB6OFBra0Juc2xUYlZQdCtUbkhMdnFRQ1JMZ2hHVU1m?=
+ =?utf-8?B?YmIvcUdKU2JTNXVDeWlkWi9sYzBFelRPOUkxWlhPMDBMVXArRGx6bmM0SE8x?=
+ =?utf-8?B?Q09kZ0s2RVBMSnIweGw3Tm5KS0xoM290MVZqQXZZNEZTMnhhWVpSbHJWTFR2?=
+ =?utf-8?B?Y1daRzlUYTVmRHhFVTdFOGE1RnN4dFdrd1Y4Wi9MR0hOVURLWTRYRDlYNDFY?=
+ =?utf-8?B?T1RGRHB4SWpuMHg2TEpydTZmcTJLU2wwa2xJbGRnbksvdDY4dms3dEc5QVRE?=
+ =?utf-8?B?dkFNYmo1MnhZT0g3bUR5aHBmNEZ2bU5mMnhOU3g3dmc4RTM2cUI1RkZja3Bz?=
+ =?utf-8?B?d1ZQNmcramR6dTFrZVY4cExZSy9leFovc2pyWUxkYkhqZS9leDFPKzVhaFNU?=
+ =?utf-8?B?RG9JMFl2ZlZLbzNFb3pReGR6YytueUpNU3pkOEFndTdmbUJHMkdJZ1NRcVF2?=
+ =?utf-8?B?QjVIN3VJa3puT253cU1YOVZaU0xWUHRJS2M1MVNPSGUzeGRoWHE2N2Y0Yldr?=
+ =?utf-8?B?ZDlhZU9KR2pOU205MTdxbklhOFI1Q0xwUTBIS1JsUTlYa2Q2eEZMcWF2TmJh?=
+ =?utf-8?B?alpOYzgyQU1QMmtHRnh0bEZUeGZObUFVZytwK2tDckQxQU0zanZBdTdwcDBa?=
+ =?utf-8?B?UnpmbmRBN051VHFKTlZhZ1BzV1NPNy82OGxxL0J5RlV2ZzJsczdKM2hYWlcr?=
+ =?utf-8?B?ZUFZYzRtdWg3NUd3VGZnWFA3eDlTdThRZXJpQ0xpTloydEZ6aUYzYXZ3K2dH?=
+ =?utf-8?B?N01weStNMXVxNUFJbEI5eHF1eWtCSjQxaHRTek00d1JFZUw2WVZhMkt5NHJL?=
+ =?utf-8?B?dkxvOXp3VWd1b1RORm9WbXUvZ3Rvc0d6SUJoSnlSNHRnTTdreVFlMnlIc0ZP?=
+ =?utf-8?B?OXFHQ3k1WUVVSG85VlFSN2hpN2RXMWJ2dkk4NUhZOENxdSt4OVhOb3YvSjEx?=
+ =?utf-8?B?eWJmOHJTaGRVdE1CeTJSMDZRMkRYYlZDNGdWNzRmQkZSZG9WelN5cjgwUHpL?=
+ =?utf-8?B?V0NHa2lmalFBT3oxT0c3azNXamw0MXNiSEFJN0pyZW1nOEphOUo0TERYd1VJ?=
+ =?utf-8?B?bHRaVDJ3U1U3U2dXRUozRkRpbGNWZXhuWHp6RkFIc3U2OFR5KzB6N0lXcng5?=
+ =?utf-8?B?MzZ6K016MHBsQ0NKckhFRHJBZUl3RDRxdTloK1BNSnVaclJKZmdyVDBhU0Nj?=
+ =?utf-8?B?NzRucWluNXFqSzNQbUxxVjVCSXRnYUlGeElyKzVLb1RLOXprNWhORmJXRFlP?=
+ =?utf-8?B?TDM0aXVpQW9hVVdxeUIrRmgzTW9QelNvL290SEVGRjVsT1hqVUpvUjNVYjVD?=
+ =?utf-8?B?ZjNuV1JLSTZVMkY4azUzN015eXZRNFFqUU5pdFAzdWwza0E0UDhDRGVVYit5?=
+ =?utf-8?B?WnMrb0oveEtNQTZZSURUUVB6V2Z1L3dXakN3WnpEYjJJNVh1bkI2Z3ZsdHpt?=
+ =?utf-8?B?cTdwaVFLR0FhQzRvRVEvNE5tYloyQzhFaUhYaGJBWW5CZGFPdVRSWmdvTmRm?=
+ =?utf-8?B?d2V6T28ybWhEcUhnS2VmMUl6MWJLa0ZHdnRZODZEMXJDb2lORk1oUnlUZVFM?=
+ =?utf-8?B?SDZNTElrU3dIWVBZTWtMTnBYOENSOTdqWlA0V3dtWEFjYUd1MzYwQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <9ff9f911b980da0e9100578ccf6dba5c7a5414e0b0075922e750161220370554@mail.kernel.org>
-In-Reply-To: <20260924170543.1017048-4-florent.revest@linux.dev>
-References: <20260924170543.1017048-4-florent.revest@linux.dev>
-Subject: Re: [PATCH bpf v3 3/3] selftests/bpf: Detach a trampoline prog while a task sleeps before it
-From: bot+bpf-ci@kernel.org
-To: florent.revest@linux.dev,bpf@vger.kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org
-Cc: florent.revest@linux.dev,martin.lau@linux.dev,eddyz87@gmail.com,memxor@gmail.com,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,kpsingh@kernel.org,john.fastabend@gmail.com,leon.hwang@linux.dev,zirajs7@gmail.com,rhkrqnwk98@gmail.com,puranjay@kernel.org,xukuohai@huaweicloud.com,iii@linux.ibm.com,hbathini@linux.ibm.com,chleroy@kernel.org,naveen@kernel.org,bjorn@kernel.org,pulehui@huawei.com,yangtiezhu@loongson.cn,hengqi.chen@gmail.com,linux-kernel@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Thu, 24 Sep 2026 17:53:34 +0000 (UTC)
+X-Exchange-RoutingPolicyChecked: yQhjXTCg+aQDfJhmbtdvvd4wr4pokmSwNvnWJ33ajXQuQpc5hQaqSmbRdVYgcKjpW0o3Bn0auBuDhOBCTrehTXwjEno2remPmk7ZN8xUIY+VyuMH0qsVqyGVAzWdVD1Ia8kYoqMUVBJhDISZTYRv08xK5Kusm5Qo/lXTN0W9VrrA66Etju4aQgHIPTbAGyubLmoE+CYRvpOHhYHvawg3aR6ZeQpqi3KNt/oIplba8zxrCEsAQoKJuGvtrLB/9oFOfpUqCmIBQ3VgeppfguHrrgfe2p0y0cwwo7L1GdzbY3cXBqahBeEQwpCuKjNCUfLGtXUudMmyhF4cc3KPjmw8OQ==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6105.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67a4385d-a258-4698-4adc-08df1a64d871
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2026 17:54:14.0118
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 456NjjHrGL+7UOrGKDDyVy9tQN+Be7SX9Z2ITMhcPiPbinllYiNZuwLyaSeqNqy70TzKHcAjT7gM6TDDNMGVZg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR11MB4582
+X-OriginatorOrg: intel.com
 
---===============7400983552028659018==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-> diff --git a/tools/testing/selftests/bpf/prog_tests/bpf_mod_race.c b/tools/testing/selftests/bpf/prog_tests/bpf_mod_race.c
-> index ecc3d47919ad..f8497e764beb 100644
-> --- a/tools/testing/selftests/bpf/prog_tests/bpf_mod_race.c
-> +++ b/tools/testing/selftests/bpf/prog_tests/bpf_mod_race.c
-
-[ ... ]
-
-> diff --git a/tools/testing/selftests/bpf/prog_tests/tramp_prog_detach.c b/tools/testing/selftests/bpf/prog_tests/tramp_prog_detach.c
-> new file mode 100644
-> index 000000000000..002eb4920c91
-> --- /dev/null
-> +++ b/tools/testing/selftests/bpf/prog_tests/tramp_prog_detach.c
-
-[ ... ]
-
-> +static void test_detach(bool sleepable_fexit, bool victim_fexit)
-> +{
-> +	struct tramp_prog_detach *sleepable = NULL, *victim = NULL;
-> +	struct pollfd pfd = { .events = POLLIN };
-> +	struct uffdio_copy uffd_copy = {};
-> +	struct uffd_msg uffd_msg;
-> +	void *fault_page, *src_page = MAP_FAILED;
-> +	long page_size = getpagesize();
-> +	bool started = false;
-> +	void *thread_ret;
-> +	pthread_t thread;
-> +	int uffd = -1;
-
-[ ... ]
-
-> +	sleepable_prog = pick_prog(sleepable, sleepable_fexit, true);
-> +
-> +	/* Not armed yet so this doesn't block, make sure sleepable runs first */
-> +	if (!ASSERT_OK((long)run_sleepable(NULL), "dry run"))
-> +		goto out;
-> +	if (!ASSERT_LT(sleepable->bss->ts, victim->bss->ts, "prog order"))
-> +		goto out;
-> +
-> +	uffd = uffd_block_page(fault_page);
-> +	if (!ASSERT_GE(uffd, 0, "userfaultfd open + register address"))
-> +		goto out;
-
-A subsystem pattern flags this as potentially concerning: uffd_block_page()
-returns -errno when syscall(__NR_userfaultfd, O_CLOEXEC) fails. On a kernel
-without CONFIG_USERFAULTFD that is -ENOSYS, and the test then fails through
-ASSERT_GE() instead of calling test__skip() with a message saying userfaultfd
-is not available. While tools/testing/selftests/bpf/config sets
-CONFIG_USERFAULTFD=y so the BPF CI kernel always has it, and the same
-ASSERT_GE pattern already exists in bpf_mod_race.c (serial_test_bpf_mod_race)
-from before this commit, is this the intended behavior for environments
-without userfaultfd support?
-
-> +	sleepable->bss->fault_addr = fault_page;
-> +
-> +	if (!ASSERT_OK(pthread_create(&thread, NULL, run_sleepable, NULL),
-> +		       "pthread_create"))
-> +		goto out;
-> +	started = true;
-> +
-> +	/* Wait for the thread to sleep in bpf_copy_from_user() */
-> +	pfd.fd = uffd;
-> +	if (!ASSERT_EQ(poll(&pfd, 1, 10000), 1, "poll uffd"))
-> +		goto out;
-> +	if (!ASSERT_EQ(read(uffd, &uffd_msg, sizeof(uffd_msg)), sizeof(uffd_msg),
-> +		       "read uffd"))
-> +		goto out;
-> +	if (!ASSERT_EQ(uffd_msg.event, UFFD_EVENT_PAGEFAULT, "uffd pagefault"))
-> +		goto out;
-> +
-> +	/* Detach and unload the victim prog, and make sure it is gone */
-> +	tramp_prog_detach__destroy(victim);
-> +	victim = NULL;
-> +	kern_sync_rcu();
-> +	usleep(100 * 1000);
-> +	kern_sync_rcu();
-
-Does this wait actually ensure the victim prog is gone before the task
-resumes?
-
-The test only catches the use-after-free if the victim prog has actually been
-freed before UFFDIO_COPY releases the sleeping task. The wait here does not
-guarantee that, and on the kernel this series produces it most likely is not
-freed yet.
-
-Commit 1c2316cf73ba ("bpf: Wait for an RCU tasks grace period before freeing
-trampoline progs") changed __bpf_prog_put_noref() so that a tramp_linked
-prog is freed through call_rcu_tasks(&prog->aux->rcu, __bpf_prog_put_rcu_tasks),
-then call_rcu(), then bpf_prog_free(), which calls schedule_work() for the
-final vfree.
-
-RCU Tasks callbacks are lazy. call_rcu_tasks_generic() only sets needwake
-for wakeme_after_rcu (a synchronous waiter) or when the queue reaches
-rcu_task_lazy_lim. Otherwise it arms lazy_timer with rcu_tasks.lazy_jiffies
-= DIV_ROUND_UP(HZ, 4) (kernel/rcu/tasks.h:145), which is about 250ms by
-default.
-
-Nothing on the detach path forces a synchronous RCU Tasks wait. Detaching
-the victim while the sleepable prog stays attached goes through
-modify_ftrace_direct(), and its tmp_ops is static, so it is not
-FTRACE_OPS_FL_DYNAMIC and ftrace_shutdown() does not call
-synchronize_rcu_tasks().
-
-The test waits only kern_sync_rcu() + 100ms + kern_sync_rcu().
-kern_sync_rcu() is membarrier(MEMBARRIER_CMD_SHARED), which is
-synchronize_rcu() on SMP and a no-op with one CPU online. That is well short
-of 250ms lazy delay + RCU Tasks GP + RCU GP + workqueue.
-
-So when the thread resumes in the old image, the victim's bpf_prog and JIT
-image are usually still allocated. On a kernel that has 1c2316cf73ba but
-lacks 2ece3357872c (or breaks it later), the thread would run the victim
-prog without a KASAN report and the test would pass.
-
-Consider waiting well beyond the RCU Tasks lazy period (for example about 1s,
-or polling until the victim prog ID is no longer returned by
-bpf_prog_get_next_id()/bpf_prog_get_fd_by_id()) before releasing the thread.
-
-[ ... ]
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36034251810
---===============7400983552028659018==--
+SGkgQmFycnksDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogQmFycnkg
+U29uZyA8YmFvaHVhQGtlcm5lbC5vcmc+DQo+IFNlbnQ6IFdlZG5lc2RheSwgU2VwdGVtYmVyIDIz
+LCAyMDI2IDk6MDggUE0NCj4gVG86IEFiYWJuZWgsIEVoYWIgPGVoYWIuYWJhYm5laEBpbnRlbC5j
+b20+DQo+IENjOiByeW5jc25AZ21haWwuY29tOyBha3BtQGxpbnV4LWZvdW5kYXRpb24ub3JnOw0K
+PiBheGVscmFzbXVzc2VuQGdvb2dsZS5jb207IGthc29uZ0B0ZW5jZW50LmNvbTsgbGFuY2UueWFu
+Z0BsaW51eC5kZXY7DQo+IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc7IGxpbnV4LW1tQGt2
+YWNrLm9yZzsgcWkuemhlbmdAbGludXguZGV2Ow0KPiBzaGFrZWVsLmJ1dHRAbGludXguZGV2OyB3
+ZWl4dWdjQGdvb2dsZS5jb207IHl1YW5jaHVAZ29vZ2xlLmNvbTsNCj4geXV6aGFvQGdvb2dsZS5j
+b20NCj4gU3ViamVjdDogUmU6IFtSRkMgUEFUQ0hdIG1tL21nbHJ1OiBkeW5hbWljYWxseSBwcm90
+ZWN0IHJlYWRhaGVhZCBmYXVsdA0KPiBmb2xpb3MgdW5kZXIgcmVmYXVsdCBwcmVzc3VyZQ0KPiAN
+Cj4gT24gVGh1LCBTZXAgMjQsIDIwMjYgYXQgMTE6NDPigK9BTSBBYmFibmVoLCBFaGFiDQo+IDxl
+aGFiLmFiYWJuZWhAaW50ZWwuY29tPiB3cm90ZToNCj4gPg0KPiA+IEhpIEthaXJ1aSwgQmFycnks
+DQo+ID4NCj4gPiBBcG9sb2dpZXMgZm9yIHRoZSBkZWxheSBpbiBnZXR0aW5nIGJhY2sgdG8geW91
+IHdpdGggdGhlc2UgcmVzdWx0cyDigJQgbXkNCj4gPiB0ZXN0IGVudmlyb25tZW50IGdvdCBjb3Jy
+dXB0ZWQgYW5kIEkgaGFkIHRvIHNwZW5kIHNvbWUgdGltZSByZWNvdmVyaW5nDQo+ID4gaXQgYmVm
+b3JlIEkgY291bGQgcmUtcnVuIHRoZSBiZW5jaG1hcmsuDQo+IA0KPiBObyB3b3JyaWVzLCBFaGFi
+LiBBbmQgdGhhbmtzIHZlcnkgbXVjaCBmb3IgeW91ciB0ZXN0aW5nIQ0KPiANCj4gWy4uLl0NCj4g
+DQo+ID4gPiA+ID4gSSBhZ3JlZSB0aGF0IHJldmVydGluZyB0aGUgY29tbWl0IHRoYXQgY2F1c2Vk
+IHRoZSByZWdyZXNzaW9uIGlzDQo+ID4gPiA+ID4gbm90IHRoZSBvcHRpbWFsIHBhdGguIEkgZXhw
+ZWN0IHRoZXJlIGFyZSBtYW55IHdvcmtsb2FkcyBhbmQNCj4gPiA+ID4gPiBzY2VuYXJpb3MgdGhh
+dCBiZW5lZml0IGZyb20gdGhlIGJlaGF2aW9yIGludHJvZHVjZWQgYnkgdGhhdA0KPiA+ID4gPiA+
+IGNvbW1pdCwgc28gcmV2ZXJ0aW5nIGl0IGNvdWxkIHVubmVjZXNzYXJpbHkgcmVncmVzcyB0aG9z
+ZSB3b3JrbG9hZHMuDQo+ID4gPiA+ID4NCj4gPiA+ID4gPiBJIHdpbGwgcnVuIHRoZSBDYXNzYW5k
+cmEgYmVuY2htYXJrIHdpdGggS2FpcnVpJ3MgTUdMUlUtRkcNCj4gPiA+ID4gPiBwYXRjaGVzIHRv
+IHNlZSB3aGV0aGVyIHRoZXkgYWRkcmVzcyB0aGUgaXNzdWUgSSBhbSBzZWVpbmcuIEkNCj4gPiA+
+ID4gPiB3aWxsIHNlbmQgdGhlIHJlc3VsdHMgd2hlbiB0aGV5IGFyZSByZWFkeS4NCj4gPiA+ID4g
+Pg0KPiA+DQo+ID4gVGhhbmtzIGZvciB0aGUgcG9pbnRlciDigJQgSSBnYXZlIHlvdXIgTUdMUlUt
+RkcgZml4IGEgdHJ5IGFnYWluc3QgdGhlDQo+ID4gc2FtZSBDYXNzYW5kcmEgcmVhZCBiZW5jaG1h
+cmsgSSB1c2VkIGZvciBteSBwYXRjaCAoNCBub2RlcywgNzIwcywgMTAwDQo+IHJlYWRlcnMpLg0K
+PiA+DQo+ID4gUmVzdWx0cyB3aXRoIE1HTFJVLUZHOg0KPiA+ICAgT3AgcmF0ZTogICAgICAgICAg
+ICAgICAgICA1NS4wayAtIDU2LjVrIG9wL3MNCj4gDQo+IEkgbm90aWNlZCB0aGlzIGlzIGV2ZW4g
+aGlnaGVyIHRoYW4geW91ciBkeW5hbWljIHJlYWRhaGVhZCBmaXg6ICJ0aHJvdWdocHV0DQo+IH41
+MS45ay01Mi43ayBvcC9zIg0KPiANCj4gSXMgdGhpcyBhIHJ1bi10by1ydW4gdmFyaWF0aW9uLCBv
+ciBpcyB0aGUgaW1wcm92ZW1lbnQgc3RhYmxlIGFjcm9zcyBydW5zPw0KPiANCg0KWWVzLCBJIGNh
+bid0IGV4cGxhaW4gdGhlIHNsaWdodCBnYWluIGluIHRocm91Z2hwdXQgYnV0IGxvc3MgaW4gbGF0
+ZW5jeSBjb21wYXJlZA0KdG8gbXkgZml4LiBJJ2xsIHByb2JhYmx5IHN0dWR5IHRoaXMgaW4gbW9y
+ZSBkZXRhaWwgd2hlbiBJIGNhbiBkZWRpY2F0ZSBzb21lDQp0aW1lIHRvIGl0Lg0KDQpUeXBpY2Fs
+bHksIEkgZ2V0IGEgdW5pcXVlIHJlc3VsdCBpbW1lZGlhdGVseSBhZnRlciBhIHJlYm9vdCwgYnV0
+IHN1YnNlcXVlbnQNCnJ1bnMgYXJlIHZlcnkgY29uc2lzdGVudC4gVGhlIHZhcmlhdGlvbiBpcyB1
+c3VhbGx5IGFyb3VuZCAwLjEgbXMgZ2Fpbi9sb3NzIGluDQpsYXRlbmN5IGFuZCBhcHByb3hpbWF0
+ZWx5IDEwMC0yMDAgcmVxdWVzdHMgcGVyIHNlY29uZCBpbiB0aHJvdWdocHV0LiBJDQpkaXNjYXJk
+IHRoZSByZXN1bHRzIGZyb20gdGhlIGZpcnN0IHJ1bi4NCg0KPiA+ICAgTGF0ZW5jeSA5OXRoIHBl
+cmNlbnRpbGU6ICA2LjggLSA2LjkgbXMNCj4gPg0KPiA+IEZvciByZWZlcmVuY2UsIGhlcmUncyB3
+aGVyZSB0aGUgb3RoZXIgdmFyaWFudHMgbGFuZGVkIG9uIHRoZSBzYW1lIHNldHVwOg0KPiA+DQo+
+ID4gICBSZWdyZXNzaW9uICg2Y2JkZDk3MjZmYjUsICJtbS9tZ2xydTogdXNlIGZvbGlvX21hcmtf
+YWNjZXNzZWQgdG8NCj4gPiAgIHJlcGxhY2UgZm9saW9fc2V0X2FjdGl2ZSIpOg0KPiA+ICAgICAg
+IHA5OSB+OS4yLTkuNSBtcywgdGhyb3VnaHB1dCB+NDEuOGstNDMuNmsgb3Avcw0KPiA+DQo+ID4g
+ICBSZXZlcnQgb2YgNmNiZGQ5NzI2ZmI1Og0KPiA+ICAgICAgIHA5OSB+NS41LTUuNiBtcywgdGhy
+b3VnaHB1dCB+NTEuOWstNTMuMWsgb3Avcw0KPiA+DQo+ID4gICBNeSBkeW5hbWljIHJlYWRhaGVh
+ZC1jcmVkaXQgZml4Og0KPiA+ICAgICAgIHA5OSB+NS44IG1zLCB0aHJvdWdocHV0IH41MS45ay01
+Mi43ayBvcC9zDQo+ID4NCj4gPiBTbyBNR0xSVS1GRyByZWNvdmVycyBtb3N0IG9mIHRoZSBsYXRl
+bmN5IHJlZ3Jlc3Npb24sIGJ1dCB0aGUgcmV2ZXJ0DQo+ID4gYW5kIG15IGZpeCBzdGlsbCByZWNv
+dmVyIG1vcmUgb2YgaXQ6IHA5OSB3aXRoIE1HTFJVLUZHIGlzIG5vdGljZWFibHkNCj4gPiBoaWdo
+ZXIgdGhhbiB3aXRoIHRoZSByZXZlcnQgYW5kIG15IGZpeCAoNi44LTYuOSBtcyB2cyB+NS41LTUu
+OCBtcyksDQo+ID4gdGhvdWdoIGl0J3Mgc3RpbGwgYSBiaWcgaW1wcm92ZW1lbnQgb3ZlciB0aGUg
+cmVncmVzc2lvbidzIDkuMi05LjUgbXMuDQo+IA0KPiBXZSBhbHNvIGhhdmUgdGhpcyA6DQo+IGh0
+dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4LW1tLzIwMjYwOTAxMjIwNDMwLjc5ODEwLTEtDQo+
+IGJhb2h1YUBrZXJuZWwub3JnLw0KPiANCj4geW91IG9uY2UgcmVwb3J0ZWQgaXQgYXMgOg0KPiAi
+dGhyb3VnaHB1dCB3YXMgYXBwcm94aW1hdGVseQ0KPiA0OS40SyB0byA1MC4zSyBvcHMvcywgYXZl
+cmFnaW5nIGFib3V0IDUwLjBLIG9wcy9zLCB3aGlsZSB0aGUgOTl0aC1wZXJjZW50aWxlDQo+IGxh
+dGVuY3kgcmVtYWluZWQgYXJvdW5kIDcuMCB0byA3LjEgbXMiDQo+IA0KDQpZZXMsIHRoaXMgaXMg
+ZnJvbSBiZWZvcmUgdGhlIGRhdGEgd2FzIGNvcnJ1cHRlZC4gSSBnZXQgc2xpZ2h0bHkgZGlmZmVy
+ZW50IHJlc3VsdHMNCndpdGggbXkgZml4IGFuZCB3aXRoIHRoZSByZXZlcnQsIGJ1dCB0aGUgb3Zl
+cmFsbCBwYXR0ZXJuIHJlbWFpbnMgY29uc2lzdGVudC4NCg0KVGhhbmtzLA0KRWhhYg0KDQo+ID4N
+Cj4gPiBIYXBweSB0byBkaWcgZnVydGhlciBpZiB1c2VmdWwg4oCUIGxldCBtZSBrbm93IGlmIHlv
+dSdkIGxpa2UgbW9yZSBkZXRhaWwNCj4gPiBvbiB0aGUgbGF0ZW5jeSBkaXN0cmlidXRpb24gb3Ig
+YSBsb25nZXIgcnVuIHRvIGNvbmZpcm0gdGhlc2UgbnVtYmVycw0KPiA+IGFyZSBzdGFibGUuDQo+
+ID4NCj4gDQo+IFRoYW5rcw0KPiBCYXJyeQ0K
