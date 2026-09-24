@@ -1,115 +1,225 @@
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D703DB333
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:50:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22BA7411A04;
+	Thu, 24 Sep 2026 03:50:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790221815; cv=none; b=PyLS82CK8ABfm8wbpVlhTxJuuJeo2WWe2AvNhsAyy2m2Xux3aaUmpSg74r2Fv5Lc8KyERCQ11OJig5e4hJculGyCupr3M0Prd7BoUT5ACIZASs7gn7ehrkJiZhcFemShokPEWmDVslm+FCcKX7GAdHm3D2uwhg4ZDAgiSk+LIbo=
+	t=1790221819; cv=none; b=lLh7gzw7iX+deQiMmcSQKClFIBj5lQf5u6m9Y7w9iKwLP4grhk956sn4q3VMIEUc645RTUBSL7xQXergw1xP1bx95PMcayx0W0J3z9apY6ih2z7FYWD2JXQAle/hIxJKfKeXXz9f24uOpdcNi8LeV6MExHep/H2ONWpQpQNzjnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790221815; c=relaxed/simple;
-	bh=SZ7GsHT8co1hYBRQ1MxrFpOyPv3QmJNstrzyBqgK8C0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=awbty5c0+3fNPlBmfC2dBS4fv34et3Mr55QQvuXe70pk8uDGThOgx6LXgcQcBdSp5ItExyD7hTuaepPI9b2I2iysFRlBD7v7csWRM9HcvpYiohmruItgluobuERO7eDD/PGD+kUCm+HvF5bjPWJ5i/hutPHQbhP9nncM/vpgZxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=4oQvTJFW; arc=none smtp.client-ip=44.202.169.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1790221819; c=relaxed/simple;
+	bh=EYDtgQh4UcsNtSysALP+BZSrwdnGwsWWo/9NQvy0WCI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=J9xr9i5jX4gYOdXDEVhFf3SPf7Q4oFF1LaPqNX6avA58PyDpR9jWANpdGrGJ5WnNP9DIiB7LLJjSTd5f6rdyguVrLcgPYRfl9SiI5mAGoJjLfr6MIzAfcfC/qOacep+4V9cthLWxyDiqqLXYfyfMh9Y+pBf5Rev3f5glkWJ1aXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LAoLIIDU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="4oQvTJFW"
-Received: from eig-obgw-6002b.ext.cloudfilter.net ([10.0.30.203])
-	by cmsmtp with ESMTPS
-	id 9Ng6xrd07Lvgb9aTNxXEbT; Thu, 24 Sep 2026 03:50:13 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id 9aTMx0MA3RC6e9aTNxWlco; Thu, 24 Sep 2026 03:50:13 +0000
-X-Authority-Analysis: v=2.4 cv=FvsF/3rq c=1 sm=1 tr=0 ts=6ab49df5
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=49j0FZ7RFL9ueZfULrUA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=sZU3/E8VcenRe+jpr4Zrh8hcTwdKL/4W/UpzOO1JkY8=; b=4oQvTJFWuPPxR2gEjhg6N60MvD
-	1oxGQ+1CKC/AKUgI8XUcFHklZLl8NiQdcNXGQnHFxiC0FxBB5ZIUClmWgVrVk4QmZfgphIqrmT5aS
-	TsPSnJYx1VnTqlChg/t/MetfMa+PTojj/at/9135RNuJWUlaQuMNG/Epy3c8UDQLiwozM+RKYy19y
-	9LBUTfdLrFNgDxZe3zrdSiFAwEva3MNavUzeep2HnFwLvjYIxnPPIovTp9QquE9UGdXVh7+QlRhGv
-	D+xNrRZVneSuVzesF0SLa8vtPCu+dEb+HKu6xlPTzrV+6pejKa59TCxVCk/D7p3ESYfcuOiZBsC94
-	w33V3fWw==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:37000 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100)
-	(envelope-from <re@w6rz.net>)
-	id 1x9aTM-00000003pxf-0Wt2;
-	Wed, 23 Sep 2026 21:50:12 -0600
-Message-ID: <007efcf5-f2ed-447d-a6de-5bf8daca3076@w6rz.net>
-Date: Wed, 23 Sep 2026 20:50:10 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LAoLIIDU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 209201F00898;
+	Thu, 24 Sep 2026 03:50:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790221817;
+	bh=vL0tcDYJr3n2Q4j6if2QNfUOhtsuGg0RL0rCca8Bhnk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=LAoLIIDUnEmOBMkyDlO5bl4xr79XHe+LIjFG3J45nGFqVXb0VXQZeqVDMcM7XnvDv
+	 6+QchEdBrf0LA4iqvpnsOFjdzrLf69/UngP40z89FLxkH9cr1i97Jj5Kd1JpitopCy
+	 2OkyBLtfhP++3A0fK5OkyC4PLZ9S3REsklGRzWk0L73Shr5ygVR0CDVTGEZh79bNyk
+	 BoQNYixweWY4Aq4ntBTwhOizQsNGTHt4QE9M0vSt/zvkXrpJludha7iKr/3gO2KEgC
+	 DpTZSbW3wml9kQePNy/H7+Sd2PunY2lRVJrRSJtgodxzPhC4R5WmyYzataIJc2O00Q
+	 xvI+aViWdo4Gg==
+Date: Thu, 24 Sep 2026 04:50:10 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Srirangan Madhavan <smadhavan@nvidia.com>
+Cc: Alison Schofield <alison.schofield@intel.com>, Bjorn Helgaas
+ <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>, Davidlohr Bueso
+ <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>, Vishal Verma
+ <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, Alex Williamson
+ <alex.williamson@redhat.com>, vsethi@nvidia.com, alwilliamson@nvidia.com,
+ Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>, Vishal Aslot
+ <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>, Jiandi An
+ <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v13 13/15] cxl: Restore CXL state after PCI reset
+Message-ID: <20260924045010.3c1b299f@jic23-hlaptop>
+In-Reply-To: <20260922083924.2451158-14-smadhavan@nvidia.com>
+References: <20260922083924.2451158-1-smadhavan@nvidia.com>
+	<20260922083924.2451158-14-smadhavan@nvidia.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/398] 6.18.54-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260923140643.441954610@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260923140643.441954610@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1x9aTM-00000003pxf-0Wt2
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:37000
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 37
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfMOMHCKjbdcuN7PKV6ib7DB8P7dFfJGCCBYhF78iNP2ncABnygHwIIayFbYFgmOvVHNjx5Wrw5vIV03mpWwRThsj7cdMqY7bZHzQVfZUrPlmSVNNOWKe
- wXn+YlQuFg0pEEA5+XD6Lra7zTAgeB2Ut02tU4zr2KDdDh2PjALq7Lx0/cYTK5EWN4046QhBgh4lBlI06Xa1YhsIkRSTayb7KK4=
 
-On 9/23/26 07:01, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.54 release.
-> There are 398 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Fri, 25 Sep 2026 14:05:48 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.54-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+On Tue, 22 Sep 2026 08:39:22 +0000
+Srirangan Madhavan <smadhavan@nvidia.com> wrote:
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+> Restore the PCI configuration needed for HDM access, followed by cached
+> HDM decoder and CXL Device DVSEC state. Recommit a cleared locked decoder
+> before restoring its lock, but leave surviving locked state unchanged.
+> 
+> Stop at the first restoration failure and preserve a disabled PCI command
+> snapshot. Keep IOMMU exclusion active through restoration and post-reset
+> cache invalidation.
+> 
+> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
 
-Tested-by: Ron Economos <re@w6rz.net>
+Hi Srirangan,
+
+I'm out of time for today so main request it to take a look at that
+final function. It is running quite a complex statemachine with a bunch
+of ownership transfers. That's the sort of single function that takes
+too much energy to review. Please have a revisit and see if there
+is a simpler stepwise way to do that.
+
+> @@ -726,6 +1064,18 @@ static int cxl_reset_disable_cache(struct pci_dev *pdev, int dvsec, u16 cap)
+>  	return cxl_reset_wait_cache_wbi(pdev, dvsec);
+>  }
+>  
+> +static int cxl_reset_restore_cache_policy(struct pci_dev *pdev, int dvsec)
+> +{
+> +	int rc;
+> +
+> +	rc = cxl_reset_update_ctrl2_no_replay(pdev, dvsec, 0,
+> +					      PCI_DVSEC_CXL_DISABLE_CACHING);
+> +	if (rc)
+> +		pci_err(pdev, "failed to re-enable CXL caching: %d\n", rc);
+> +
+> +	return rc;
+> +}
+> +
+>  static int cxl_reset_wait_done(struct pci_dev *pdev, int dvsec, u16 cap)
+>  {
+>  	unsigned long deadline;
+> @@ -767,28 +1117,41 @@ static int cxl_reset_wait_done(struct pci_dev *pdev, int dvsec, u16 cap)
+>  	}
+>  }
+>  
+> -static int cxl_reset_execute(struct pci_dev *pdev, int dvsec, u16 cap,
+> -			     struct cxl_hdm_range_context *range_ctx)
+> +static int cxl_reset_execute(struct pci_dev *pdev, int dvsec, u16 cap)
+>  {
+> +	struct cxl_hdm_info *snapshot = NULL;
+> +	struct cxl_hdm_range_context range_ctx;
+> +	u16 command;
+>  	int rc, rc2;
+>  
+> -	rc = cxl_reset_disable_cache(pdev, dvsec, cap);
+> +	down_write(&cxl_rwsem.region);
+> +	INIT_LIST_HEAD(&range_ctx.ranges);
+> +
+> +	rc = cxl_hdm_ranges_prepare(&range_ctx, pdev);
+> +	if (rc)
+> +		goto out_destroy_ranges;
+> +
+> +	rc = cxl_snapshot_hdm(pdev, &snapshot);
+>  	if (rc)
+>  		goto out_destroy_ranges;
+>  
+> +	rc = cxl_reset_disable_cache(pdev, dvsec, cap);
+> +	if (rc)
+> +		goto out_destroy_enable_cache;
+> +
+>  	if (!pci_wait_for_pending_transaction(pdev)) {
+>  		pci_err(pdev, "timed out waiting for pending transactions\n");
+>  		rc = -ETIMEDOUT;
+> -		goto out_destroy_ranges;
+> +		goto out_destroy_enable_cache;
+>  	}
+>  
+>  	rc = pci_dev_reset_iommu_prepare(pdev);
+>  	if (rc) {
+>  		pci_err(pdev, "failed to stop IOMMU for CXL reset: %d\n", rc);
+> -		goto out_destroy_ranges;
+> +		goto out_destroy_enable_cache;
+>  	}
+>  
+> -	/* Clear Memory Clear again even if this command write reports failure. */
+> +	/* Clear Memory Clear below even if this command write reports failure. */
+>  	rc = cxl_reset_update_ctrl2_no_replay(pdev, dvsec,
+>  					      PCI_DVSEC_CXL_INIT_CXL_RST |
+>  					      PCI_DVSEC_CXL_RST_MEM_CLR_EN, 0);
+> @@ -798,39 +1161,60 @@ static int cxl_reset_execute(struct pci_dev *pdev, int dvsec, u16 cap,
+>  	rc = cxl_reset_wait_done(pdev, dvsec, cap);
+>  
+>  out_clear_memory:
+> -	rc2 = cxl_reset_update_ctrl2_no_replay(
+> -		pdev, dvsec, 0, PCI_DVSEC_CXL_RST_MEM_CLR_EN);
+> +	rc2 = cxl_reset_update_ctrl2_no_replay(pdev, dvsec, 0,
+> +					       PCI_DVSEC_CXL_RST_MEM_CLR_EN);
+>  	if (rc2)
+>  		pci_err(pdev, "failed to clear CXL Reset Memory Clear: %d\n",
+> -			rc2);
+> +			 rc2);
+>  	rc = rc ?: rc2;
+> +	if (rc)
+> +		goto out_finish_ranges;
+> +
+> +	cxl_restore_pci_state_for_hdm_restore(pdev, &command);
+> +	rc = cxl_restore_state(pdev, snapshot);
+>  
+> +out_finish_ranges:
+>  	/* Evict lines fetched during reset before ending DMA exclusion. */
+> -	rc2 = cxl_hdm_ranges_finish(range_ctx);
+> +	rc2 = cxl_hdm_ranges_finish(&range_ctx);
+>  	rc = rc ?: rc2;
+> +	if (rc)
+> +		goto out_fail_closed;
+> +
+>  	pci_dev_reset_iommu_done(pdev);
+> -	goto out_enable_cache;
+>  
+> -out_destroy_ranges:
+> -	cxl_hdm_range_context_destroy(range_ctx);
+> +	rc = cxl_reset_restore_cache_policy(pdev, dvsec);
+> +	if (rc) {
+> +		cxl_reset_save_disabled_state(pdev);
+> +		goto out_unlock;
+> +	}
+>  
+> -out_enable_cache:
+> -	/*
+> -	 * DISABLE_CACHING was the first preparation step. Restore the original
+> -	 * cache policy last, after reset exclusion has ended.
+> -	 */
+> -	rc2 = cxl_reset_update_ctrl2_no_replay(
+> -		pdev, dvsec, 0, PCI_DVSEC_CXL_DISABLE_CACHING);
+> -	if (rc2)
+> -		pci_err(pdev, "failed to re-enable CXL caching: %d\n", rc2);
+> +	rc = cxl_reset_save_restored_state(pdev, command);
+> +	goto out_unlock;
+> +
+> +out_fail_closed:
+> +	cxl_reset_save_disabled_state(pdev);
+> +	pci_dev_reset_iommu_done(pdev);
+> +	rc2 = cxl_reset_restore_cache_policy(pdev, dvsec);
+>  	rc = rc ?: rc2;
+> +	goto out_unlock;
+> +
+> +out_destroy_enable_cache:
+> +	cxl_hdm_range_context_destroy(&range_ctx);
+> +	rc2 = cxl_reset_restore_cache_policy(pdev, dvsec);
+> +	rc = rc ?: rc2;
+> +	goto out_unlock;
+> +
+> +out_destroy_ranges:
+> +	cxl_hdm_range_context_destroy(&range_ctx);
+>  
+> +out_unlock:
+> +	kfree(snapshot);
+> +	up_write(&cxl_rwsem.region);
+
+This is going to take some signficant unpicking but as
+it stands it is very complex to follow with releases quite
+often out of reverse order of setup and complex hand
+off from one function to another. Please take another look
+even if I don't get back to this with more specific comments.
+
+
+>  	return rc;
+>  }
+
 
