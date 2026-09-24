@@ -1,154 +1,338 @@
-Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021110.outbound.protection.outlook.com [52.101.95.110])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D7FA49B1FC;
-	Thu, 24 Sep 2026 20:28:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.110
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790281705; cv=fail; b=TtM8pvS0z3qD4VQfEuQj961xKEDWXAnN0AUMn3bsuDVn8vK5AiUNqCWwP6gnNbrV/JfOzJSyiX3623SXcUxpwGFzQwnN+tbb9Kikswlk9boLkpSP8iDsrpRSFyq0/VFq5Vip2L9ED1ZdB8MDZ8R/PMiT1YkyTDCXG1jC3AA9Eeo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790281705; c=relaxed/simple;
-	bh=/Pr87V4yV5QdoRAAAZIGkkbPnji8/k6xWtaeNdZI5Ss=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=NwlDQRZuQj8qQZIwG1kA6za0RG9/70cWOVsfhzKG1ZVZ0sAqpnIsCXtTvTiSbtijLifW+pXUFRpH01E+7iGn/ZxI5YEqdveNjEEmBWix+6zUwLLJtiPaHsyiWtlNjzBi8nnmc7+USgs8BoAEERrt9eKbp3cRhpovNhDEaAa3v9I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.95.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OC1aQxj+0rRfMuc+S+AykSKrQcYZR5RoeuysHQSGayXlBGf02GbsmgDrlfWWYrZG4ABUidRzhbFZlkEMuvaPSCazPc4GS6mIWd18ctlWZ9LOf4zbJ6ROH8rtXon+kBxRsUbNK6f5JUoWlul1zdEcXe4ARWLC0m1/I7G0QzAcdrAxXu9GRpGTAHMDvmTEKT8kEjwwXELDeZ6O+2R4NNCrG741ZIpS4nvKlE1Z7mEUZgOlygX86XaWo8fu1xRqG0ja4Ply5Mo7udKVfvQkdV8wiJiIRBkhx/2Voj+k6IpgwGUccIly7qE9sJeISIkpSNDVYdAfy3GP4r8HO2aiuA6J/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=bhytgpVnL6mvOKCFA5hrBzS17irb13x2oSFuGx/iLcI=;
- b=EpNi740LsIJnCV6P4JgIsNUirosPcDYZBnTkQexYlClKOQ3+o9p3/SbHSP5lKJnb6lJVV5trCtuVug6OGOV2XW1KIbbc3yKzu5WHZPxoOTfbzZT7DMna6BZt8kVF46I48Nm4oqPzLaXuO9DenCkSvv67IBjnC4SBwPneEmsVldtrvLngCp3kA3sn58Np7h6Dv1/gmjs6XJ01yzQlDjhjuxzhsD/y55jGOJMsHNa8aLp/0D9mPJ8VchFxryLWDelwwfqee1XKsZMb8PioT6Jdi/QwLdUEsnMMPrGKNSsD9fn7Sa7GAmYS2FhLmkoic6dDcD15EkxNLJtLJQT+JvNECQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by LO3P123MB3180.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:b8::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
- 2026 20:28:14 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
- 20:28:13 +0000
-Date: Thu, 24 Sep 2026 16:28:07 -0400
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux Next Mailing List <linux-next@vger.kernel.org>, 
-	linux-modules@vger.kernel.org
-Subject: Re: linux-next: build failure in the last build
-Message-ID: <qascvrv6wprgcnd5rtc2n63ryq23exbzfcshmejmk4tapmrbnc@rxce2vktppvs>
-References: <arVxd8GejREjgvPt@sirena.org.uk>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <arVxd8GejREjgvPt@sirena.org.uk>
-X-ClientProxiedBy: YT4P288CA0004.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d4::9) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AA3D4CE66A
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:28:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790281704; cv=none; b=nbMcsLHjKOF7uP6rIQBL1Er5Mi0IZxCFd6MboBatu+OpzF/XkYSTYpomwV5muJ/PycrWAGuygSRaaVnDqBR4caVTSTKXw5kDnjKxRA0HfLGuqNlegozzfPJr9MPVf2O6uDQVQu6RiL8HngcnU3LY/2gCzdhxPCs557Ple8+BJMg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790281704; c=relaxed/simple;
+	bh=lRJwUh7KMech+ZSPEicbNm0j9fhVZJD3m4G7Hr2ukHs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TjYQSy9mrPqR9+rqHaBtWrZu1+46keis6me8VfbvxphBSsDVwOjgbBi4yiwpjonveVA7SNlJ6a08h2pdYkOhDn3yPlM0LRcxn4zrAPO5NVeAs5xdr4R39zTFMBV26J6SrfleDP5eYxlx09kPoEe79a7SGW7siBVMWbzEhTI9/1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eQzzjoSt; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eQzzjoSt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B9591F00893;
+	Thu, 24 Sep 2026 20:28:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790281700;
+	bh=qfcIZKwA8q7CQROBoedXLhEH4e3CxPJmdbEI4YWW4Fw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=eQzzjoStR1tqW8Ni5DRYwUkCCm+VnI3jwVczkbjBct5Ko9n4GZPp+qlv2az8a89Ir
+	 pqAVKmqkwC1WoyLp3sU606u4GJ/0S2qRqNvXlNzxOrKiJ3T1Odi5HKrNa8EBBz8bRa
+	 vLpr/BNXnk2Iu4Kd4LLIcS+biICtGEbvMgnVwoMbaF78zNMbssELPcJv6Vi6MMy1zC
+	 6Sob7d9/5q6L38ekw9AB/R5uvuK9YbCz9DtsT7gZNTV66B3XAHj3xASPlGLIxTjtaM
+	 VpmUjf6u69cNI4wpqhp+rFrkSZdnyHkk62nRWQzgnVkZdiLU3iAvAaXkTTEBso0Qw0
+	 f7Aus2KH6oAkA==
+Message-ID: <69c54254-9657-4b95-a1cb-a6c0429c1c8c@kernel.org>
+Date: Thu, 24 Sep 2026 22:28:10 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO3P123MB3180:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8e3a408d-4242-4ea3-5c54-08df1a7a5b66
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|56012099006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	yrCGzgwO9MYDlpHijE7uA9S1E8ErInANhZKoIA/4D6VgX5CtR95trYy7ARBZKyR2sRPfJtbSSokBw1G1eJI0Lb4ahnWomhKH2bUqZo+R4PZM6zl2CbvUhG8WwYC6DBzHsitY8JCnI0cPthRpE0cMK1DMjDGRK1nyaNTQLQbsLCBoVTWea1OzTggZ+EoNpQb/xR7UKVMsopNkD8037iY9TTOCYoy2MeymdCU394P1a7qGMa5WyQRNnGKV5bnNzpAL6v32V9z5vfaaZUXV8jiAqCgL1fv+GJ4AklUIiZrqB9/5vsUzh+UMjickzEqHatdhZwa5bh7WxMODdssFNiEfuGrMW0xOISOpQtcQQAE9cziT6+ok6WsBRtppV1ycKk9xGQgYR/mEt9gKqgnROTwHvDvhlTD7smK1J0xPtMPeqCvIhj4espxJ9UR1apqxDZhwXwwRIrJDwxCyWbz9z+P2HmPTQf3EkBzjfO6CSjWnhOK2AvSvCRlltFl2cr+ksejhQ30d5Oc+reb1d7Tz2EAobzx1X9i8hzg3Xy7kR/EXwQQDJniRq8gIJ7d+ASzv4aFEr+uhx3sy5B5bDTnyUWn2pC5Kuvrh7Vz3/Ri0EMGf6cQ2U2RcpiozAHS8zUjrAx23tqnMDAbcJxOIsRuFXyyDe0nigG/tkxazr8/ZQF+fW7s=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?anRZZDdGeHB1d3lKZDE5dnJJb1hCTEJvemdBY0NlWTc4bThLNlpFM2oxRXBR?=
- =?utf-8?B?UUptUDZSQisyM2ZIWHJIelFlYmdhWXNMVUphNzNHcjdmbzh3bzNoSDlBZ0U0?=
- =?utf-8?B?VG9RWFU2RlhNaXFtYzlDbHgwVGNoZEtUOG9tek9lMWFwMUJFZ3BOSHJpclZm?=
- =?utf-8?B?dXErTUd1a2VLZlBBRUdsQjVTTVFQV20zMHRxN3M4b3ljQU1aa1dCcjdBRWJ2?=
- =?utf-8?B?blZxRnh1QTV1eDBwYW40bTBOWHMyOEljcjVCcmxLYWlJdXpGSXFMTVc1Z0ZB?=
- =?utf-8?B?MGUwQldZdjBwQ0VTaUpiSjN0T1ZmUkUzdWxRNHpGQ3ZTRWpxSUpKNlBOQXFr?=
- =?utf-8?B?WUFlb0tMTGJOME96bHY4VEd1LzJGejNmUGJ5dVhrT3dyV3hmdlVPR2d5S01E?=
- =?utf-8?B?NU9EZDRDN1pjeTIxNm5uTkxZczZYZ1p4M2lxUmYrbFMyeExxei8vY3FFUkVn?=
- =?utf-8?B?bU5yWUkraXF1UHZvVXlBNmlTdUR4U0oyMVVCdzU3N25Cb2FEcnpnYXhhVjBu?=
- =?utf-8?B?ZGxwQ2JLNEVRRk0rWEU3R1ZnR1JPQUk3dnVFNFVNZEVTUHloZHcvN0oyWFBU?=
- =?utf-8?B?VWRHeXkxNnU4SnVpMy9LUFhJanVTL1h1T0hyUnhNOGRXdUFpTFc2N05OVFVQ?=
- =?utf-8?B?d3FGZDB1RXVoeUFHUnl1UGltcnNqanVJYTYzSFNZZzk3b3FIdDNGUHk2Tkov?=
- =?utf-8?B?bVpmTWxvTGwzZmpHaDRaM2UzaklhdGRHTW1xWDgyejJRajhrajVPV1FKRGNq?=
- =?utf-8?B?TE1ySHVQVlVlY3RTSndOZHNlZklnK21PL3NscVRMdDBTYWdKK2o0UGJZZGlQ?=
- =?utf-8?B?SXlIakpiSlUyV1NZclVLQ2tMM2dweW5NcGllTGNTNm9LSG5YbW9FMDZWZys0?=
- =?utf-8?B?Nm5oekhzWjBjODN2eGpLLzJCVmt0NDV3RFFNT1BBeUFzNzBacFNidGl4dDN5?=
- =?utf-8?B?eUh5SUtlUFU3V0FXYUxhcmZnMFJDSENHVDUyUFhyMkZjSkNFYVg2aWdpbWlY?=
- =?utf-8?B?bWpzRWUzSDRYaFdoS0NkMlZLQ3VyUG5YVzhPY1MrWmVETUpNVHJFVWNvRXVM?=
- =?utf-8?B?bE5DbUFUQW40WFR0RThqQis1Sit1bVBaTklQWTNCYjd2RU9wWG1YZmRkREFJ?=
- =?utf-8?B?UWJKU1V1YzdZQnUrWDFDcmt6SU1GWUxLVEJIalBNb0RmT0tnOHpmNXRzSlhn?=
- =?utf-8?B?TXIzTjBDL200eXA0MmRURmtER3ZkQ1JIUG9nS0xxTWFjMlkzek1aTXJ2dGJD?=
- =?utf-8?B?bHZWelVVUWthU04zb2UxV3JNaWhma2pVa2NWQUl2cFNxV3FhM0htSzh2cXRz?=
- =?utf-8?B?K2dSZENWcDFZM2hzRU5qZ3RrZWFhWFc5MWlhNHg4MWo1NE5Sa3d6SkxaMEVW?=
- =?utf-8?B?aG16N2g2cVBTRzhsNFNLTHBkaVVya1NOVG9IM1F6bGl1M1JLa0YzMng3bEdL?=
- =?utf-8?B?OVp5Mlk1b1ZIT1JaOTlvTXp2RHZ2OWh6Vk5xS3Z1ajhORUNSQ0FRV1Jmenhy?=
- =?utf-8?B?NkxNL2lqUHJHUGFqQ1ZIenpjUTNIaVRDQlpKcERSM2dPQWgyVkFxQ3pHOVFP?=
- =?utf-8?B?VmtLTnRwWXFaUVl3V3BtSithNnZIS3FZYmdTdUw1T2djRFZGRFgxY05IczNi?=
- =?utf-8?B?ZXVtRHpSK0NxRk5VY2ErSWpHWEw4V1R5MGJ0cGZLQUFSQTBOK0ZVa2lpQnBW?=
- =?utf-8?B?YitIRXlQL0VibVBwQ1hVMitjeW5UYTNRbmRPTitWSWR0eUxEbGF0Mk5MSEpk?=
- =?utf-8?B?TFdWYkxESHFFUGNnQTh2cnZPcWdaZU1FbHNTWmNMdXJZcTlPZDN1RDhPeC9X?=
- =?utf-8?B?UUI0NUttYnRxMFQ0Y0IvRU1ESjJJYnhydWhCbDhIVWpON3BTQnU2UUVJLzBS?=
- =?utf-8?B?VktuWmpYOUgxakpoejk4bm1lMUZuM04yYjhJSnlhZndhTW9nK0w5OXBBQWFD?=
- =?utf-8?B?OVZhd2hJa0c1MmE1aHUyOXhkS0ZZTTk0b2JLMlNabGJOTUt0QUZrbFYxN3Ir?=
- =?utf-8?B?NkNMMkg0d3FMYkQ0dWdUd2hsWitmSzBHdVRBS1dJSytEQUdodEJBRzNFcGJZ?=
- =?utf-8?B?YVYrYS92STZtZDBqWG5nM0VvblFBeVZQbU5TbHlSZmVwR0s2TndSOGhHUWlY?=
- =?utf-8?B?aGtSZENPTDdQemlYKytTYnRlaUZDbDdiQXlKRThqd2lWdDY2a1p3S2NrNnFa?=
- =?utf-8?B?VEQzNkc0L0w0NENCVGpFU2t4T2kwTFhQR2R3cHplcGJNUndkd1JUcnY1NS9L?=
- =?utf-8?B?dFZCYldzeFVSVEhQVFZNOHVmUGZ3YW5WVERWNVBsOTQzb3VCeUQyYzVvQWRt?=
- =?utf-8?B?eEQza1pITDVnajJEdjZKcUZMQWIyLzBxR25LVEdLSFJLdFhyRVFRQT09?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e3a408d-4242-4ea3-5c54-08df1a7a5b66
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 20:28:13.4447
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Hj0PgK5Sxc69i9HqMG8AMT5g5FjIlV/xph4WOqHDF3DJGMHEAN7f+MpRa+g7apNxCIgY8jakAkFWxFu3j+Qfxw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO3P123MB3180
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND v7 12/29] mm: handle PMD swap entries in fork path
+To: Usama Arif <usama.arif@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, chrisl@kernel.org,
+ kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org
+Cc: ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>,
+ willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
+ riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org,
+ baohua@kernel.org, dev.jain@arm.com, baolin.wang@linux.alibaba.com,
+ Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>,
+ lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com,
+ shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
+ luizcap@redhat.com, kernel-team@meta.com
+References: <20260914122950.3283997-1-usama.arif@linux.dev>
+ <20260914122950.3283997-13-usama.arif@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260914122950.3283997-13-usama.arif@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 24, 2026 at 07:52:39PM +0100, Mark Brown wrote:
-> Hi all,
+On 9/14/26 14:28, Usama Arif wrote:
+> copy_huge_pmd() only knows about migration and device-private PMDs, so a
+> PMD swap entry would fall through to the present-PMD path and fork() would
+> duplicate it without taking a reference on the slots it points at.
 > 
-> After merging the pagemap-headers tree, today's linux-next build
-> (arm64 allyesconfig) failed like this:
+> Copy it the way copy_nonpresent_pte() copies a PTE swap entry: duplicate
+> the swap references, clear the exclusive marker on the source, put the
+> destination mm on mmlist, and account the child's slots to MM_SWAPENTS.
 > 
-> ld: can not size stub section: file truncated
-> `$d' referenced in section `__patchable_function_entries' of kernel/kheaders.o: defined in discarded section `.discard.addressable' of kernel/kheaders.o
-> `$d' referenced in section `.init_array' of kernel/kheaders.o: defined in discarded section `.discard.addressable' of kernel/kheaders.o
-> `$d' referenced in section `.initcall.modnames' of kernel/kheaders.o: defined in discarded section `.note.gnu.property' of kernel/kheaders.o
+> Duplicating HPAGE_PMD_NR slots one at a time would be wasteful, so give
+> swap_dup_entry_direct() an nr argument and rename it accordingly. Unlike
+> the put side it hands nr straight to the per-cluster helper, so the range
+> has to sit inside one cluster - which it does, since SWAPFILE_CLUSTER ==
+> HPAGE_PMD_NR under CONFIG_THP_SWAP and a PMD-order folio's slots are only
+> ever allocated at a cluster head. Reject a crossing range with -EINVAL so a
+> future caller cannot walk off the end of the swap table.
+
+You have a lot of patches, put you could (should? :) ) consider moving the
+swapfile.c stuff into a separate patch, such that we can more reliably catch
+swap maintainers attention (and shrink this patch here).
+
 > 
-> Caused by commit
+> The GFP_ATOMIC extend-table allocation inside the dup can fail;
+> copy_huge_pmd() then drops both PMD locks and retries once with
+> GFP_KERNEL. Bound it to one retry, because swap_retry_table_alloc() also
+> returns 0 when it decides the table is not needed. Normalise any remaining
+> failure to -ENOMEM: copy_pmd_range() treats every other error as "not a
+> huge PMD" and would then reach pmd_none_or_clear_bad(), clearing the source
+> PMD and leaking its swap slots.
 > 
->    69efc02bccc76 (module: extend module_blacklist parameter to built-in modules)
-> 
-> I have reverted that commit and 1ca4515ee4e01 (module: rename
-> module_blacklist to module_denylist) which collided with it.  
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
 
-Hi Mark,
+[...]
 
-Thank you for the report.
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index 0e347a545588c..6dfe8ef6dd371 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -1894,7 +1894,7 @@ bool touch_pmd(struct vm_area_struct *vma, unsigned long addr,
+>  	return false;
+>  }
+>  
+> -static void copy_huge_non_present_pmd(
+> +static int copy_huge_non_present_pmd(
+>  		struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>  		pmd_t *dst_pmd, pmd_t *src_pmd, unsigned long addr,
+>  		struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
+> @@ -1940,14 +1940,40 @@ static void copy_huge_non_present_pmd(
+>  		 */
+>  		folio_try_dup_anon_rmap_pmd(src_folio, &src_folio->page,
+>  					    dst_vma, src_vma);
+> +	} else if (softleaf_is_swap(entry)) {
+> +		int err;
+> +
+> +		/*
+> +		 * PMD swap entry: duplicate swap references and clear
+> +		 * exclusive on source, matching copy_nonpresent_pte().
+> +		 *
 
-At first glance, this appears to be caused by a corrupted/truncated
-kernel/kheaders.o on the build runner rather than an issue in the patch
-itself, no? Could you try a clean rebuild of arm64 allyesconfig with the
-commits re-applied? It should build cleanly.
+I'd drop that, rather obvious.
 
-I will take a detailed look.
+> +		 * A PMD swap entry only exists under CONFIG_THP_SWAP, where
+> +		 * SWAPFILE_CLUSTER == HPAGE_PMD_NR, and it is cluster aligned,
+> +		 * so these HPAGE_PMD_NR slots are exactly one cluster - which
+> +		 * is what swap_dup_entries_direct() requires.
+
+This is the more relevant information.
+
+> +		 */
+> +		err = swap_dup_entries_direct(entry, HPAGE_PMD_NR);
+> +		if (err < 0)
+> +			return err;
+> +
+> +		mm_prepare_for_swap_entries(dst_mm);
+> +
+> +		if (pmd_swp_exclusive(pmd)) {
+> +			pmd = pmd_swp_clear_exclusive(pmd);
+> +			set_pmd_at(src_mm, addr, src_pmd, pmd);
+> +		}
+>  	}
+>  
+> -	add_mm_counter(dst_mm, MM_ANONPAGES, HPAGE_PMD_NR);
+> +	if (softleaf_is_swap(entry))
+> +		add_mm_counter(dst_mm, MM_SWAPENTS, HPAGE_PMD_NR);
+> +	else
+> +		add_mm_counter(dst_mm, MM_ANONPAGES, HPAGE_PMD_NR);
+
+Can we instead just do it like the PTE variant and move these into the
+respective cases?
+
+BTW, I'm surprised that we don't have to handle file THP migration and always
+assume MM_ANONPAGES. Maybe we always zap them instead of using migration entries
+... maybe :)
+
+>  int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+> @@ -1957,6 +1983,7 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>  	spinlock_t *dst_ptl, *src_ptl;
+>  	struct page *src_page;
+>  	struct folio *src_folio;
+> +	bool retried = false;
+
+Do we really need this retried logic? I cannot easily spot something similar in
+copy_pte_range(). I'd assume once swap_retry_table_alloc() succeeds we should be
+mostly good.
 
 
-Kind regards,
+>  	pmd_t pmd;
+>  	pgtable_t pgtable = NULL;
+>  	int ret = -ENOMEM;
+> @@ -1988,6 +2015,7 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>  	if (unlikely(!pgtable))
+>  		goto out;
+>  
+> +retry:
+>  	dst_ptl = pmd_lock(dst_mm, dst_pmd);
+>  	src_ptl = pmd_lockptr(src_mm, src_pmd);
+>  	spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+> @@ -1995,11 +2023,34 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>  	ret = -EAGAIN;
+>  	pmd = *src_pmd;
+>  
+> -	if (unlikely(thp_migration_supported() &&
+> -		     pmd_is_valid_softleaf(pmd))) {
+
+That thp_migration_supported() thingy is one ugly function.
+
+> -		copy_huge_non_present_pmd(dst_mm, src_mm, dst_pmd, src_pmd, addr,
+> -					  dst_vma, src_vma, pmd, pgtable);
+> -		ret = 0;
+> +	if (unlikely(pmd_is_valid_softleaf(pmd))) {
+> +		ret = copy_huge_non_present_pmd(dst_mm, src_mm, dst_pmd, src_pmd,
+> +						addr, dst_vma, src_vma, pmd,
+> +						pgtable);
+> +		if (ret) {
+> +			spin_unlock(src_ptl);
+> +			spin_unlock(dst_ptl);
+> +			/*
+> +			 * For PMD swap entries -ENOMEM means the per-cluster
+> +			 * swap-extend table couldn't be GFP_ATOMIC-allocated.
+> +			 * Try the GFP_KERNEL fallback once before giving up.
+> +			 * swap_retry_table_alloc() also returns 0 when it
+> +			 * decides the table is not needed after all, so bound
+> +			 * this to a single retry rather than looping on it.
+> +			 */
+> +			if (ret == -ENOMEM && !retried) {
+> +				softleaf_t entry = softleaf_from_pmd(pmd);
+> +
+> +				retried = true;
+> +				if (softleaf_is_swap(entry) &&
+
+How can we suddenly not have a PMD
+
+> +				    !swap_retry_table_alloc(entry, HPAGE_PMD_NR,
+> +							    GFP_KERNEL))
+> +					goto retry;
+> +			}
+> +			pte_free(dst_mm, pgtable);
+> +			ret = -ENOMEM;
+> +			goto out;
+> +		}
+
+
+That's .... messy :)
+
+
+I was wondering whether we could handle it slightly like the PTE case: return
+-EIO and let the caller do that for us. We only have to return the "softleaf_t
+entry"
+
+Would avoid the retry label, the manual unlocking etc.
+
+Nit sure, just a thought. The code as is is definitely too messy :)
+
+>  		goto out_unlock;
+>  	}
+>  
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 477d7e359b447..84e1e1c22bffa 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -979,7 +979,7 @@ copy_nonpresent_pte(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>  	struct page *page;
+>  
+>  	if (likely(softleaf_is_swap(entry))) {
+> -		if (swap_dup_entry_direct(entry) < 0)
+> +		if (swap_dup_entries_direct(entry, 1) < 0)
+>  			return -EIO;
+>  
+>  		mm_prepare_for_swap_entries(dst_mm);
+> @@ -1394,7 +1394,7 @@ copy_pte_range(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
+>  
+>  	if (ret == -EIO) {
+>  		VM_WARN_ON_ONCE(!entry.val);
+> -		if (swap_retry_table_alloc(entry, GFP_KERNEL) < 0) {
+> +		if (swap_retry_table_alloc(entry, 1, GFP_KERNEL) < 0) {
+>  			ret = -ENOMEM;
+>  			goto out;
+
+
+For both, I'd provide a simple inline helper that maintains the existing
+interface. Less chrun in unrelated code.
+
+[...]
+
+>  
+>  /*
+> - * swap_dup_entry_direct() - Increase reference count of a swap entry by one.
+> + * swap_dup_entries_direct() - Increase reference count of swap entries by one.
+>   * @entry: first swap entry from which we want to increase the refcount.
+> + * @nr: number of contiguous swap entries to duplicate.
+>   *
+>   * Returns 0 for success, or -ENOMEM if the extend table is required
+>   * but could not be atomically allocated.  Returns -EINVAL if the swap
+> @@ -3978,8 +3997,16 @@ void si_swapinfo(struct sysinfo *val)
+>   * owner. e.g., locking the PTL of a PTE containing the entry being increased.
+>   * Also the swap entry must have a count >= 1. Otherwise folio_dup_swap should
+>   * be used.
+> + *
+> + * Unlike swap_put_entries_direct(), the whole range [entry, entry + nr) must
+> + * lie within one swap cluster; a range that crosses a cluster boundary is
+> + * rejected with -EINVAL. The only caller passing nr > 1 is the PMD swap entry
+> + * fork path: a PMD swap entry can only exist with CONFIG_THP_SWAP, where
+> + * SWAPFILE_CLUSTER == HPAGE_PMD_NR, and a PMD-order folio's slots are only ever
+> + * allocated at a cluster head (see alloc_swap_scan_cluster()), so such a range
+> + * is exactly one cluster.
+
+I would reduce this drastically. This will bitrot easily and the details are
+only relevant if this actually ever starts failing.
+
+Just keep the first sentence and add the details to the patch description (which
+you effectively already have)
+
 -- 
-Aaron Tomlin
+Cheers,
+
+David
