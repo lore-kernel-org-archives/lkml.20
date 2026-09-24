@@ -1,56 +1,56 @@
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5A2648551C
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:58:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 321C949BD94
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:58:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790261915; cv=none; b=ro8SnEMBX7ooNfnJx/p7+dyUvEOqwO6ewbJVUfahRKI+zK6U1kgPNY8FKbbRzgwwLolxyA2ih5T287cNSfvTZFvaj8lxvQBtKhAKm7BG4RoO2JRxyhh0xWIJ5BMMfy3TxF1QN98o6pNnyxi9o4uvtz3rudtlYto67fsFFlwoSrE=
+	t=1790261915; cv=none; b=Ch4UsJAiO2Xeff4rozPAH4/PJqUiOd1FwF26ZhqTDvuJ3/MrKrGARaPqJZsDtzvsbSJSFg92eaXorykLNswXQORBEVgXswhDorR1S3geyYnw1nt92KydAcFColhBoc6UlwivIHUhQV4SIF9NbtB5BRboLAjExt+K4RmnLDrIjak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790261915; c=relaxed/simple;
-	bh=GtXTawTkGaLEnygFpzjGviB4NZO0NEo7bzwgCMnHdD0=;
+	bh=w1cqUyc/Ize4PtxGR8ncKrrTkut9WX1VnYvd2cwe5OE=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=lWGWIzpDem8xGPt3U48QiOZ5UyUcBpq0FRVn6B/Aeoo/nFyctq8KolOHWu2WrartV3J7+Bn/+URdcIP5eMAk0MI98ZHay5TmTGCGh5ohB4+rGmek63sXhlqEUC51z6H1RwQaZY1ghIw/dRRgz34nBDnZ+0W17mMsL4YSliEtyMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jr7IfXFP; arc=none smtp.client-ip=209.85.221.71
+	 To:Cc:Content-Type; b=YqGdTsz0ooy4t414/fwiIL/sKdwrrcv0Y458as4bUJ8cFvgDXio/4l9AlVShkUXRKA+Vc0P8rLO8HK5EHCPvx4qdwnO/jrM9hQULsLQ7zTQpkzQEAGtWFQkVq3FeB9qBuGaw8afcstCDmQtiHOXa323DFF6TifPOA3JEM6mvgDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=FApVzSf2; arc=none smtp.client-ip=209.85.128.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jr7IfXFP"
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48706ee8fbaso1529201f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:58:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="FApVzSf2"
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49e6b5c5f44so31618895e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:58:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790261910; x=1790866710; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790261908; x=1790866708; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9Ssz0kuZEB0oM4fbrjjlkUTjFkWgmAmLspvk/qGU7c0=;
-        b=jr7IfXFP/j9NwmILP5UO8kvmbhcRUKkrSNMVw6sIdJrDYBsVjIRTFucXNQUyaiTBpp
-         1UCa0CqkinH33EZL4jiNoZT+/c5Un8anu4jy8SlilSf3jgMmn+tMzmOzkoRRbSi8ABey
-         UqxH56xViho5dACa9t0xhQInBUIYqFEFRNla2sWa+/gsaaj/7pWmMHLWqBhRixBvrGzP
-         /Jq6Lp3PswEyd1Ake7YK8DHIo687xKnjuT0NUXBwznZJlYh6yQD5LYLbkJ8+E893RPd2
-         2hA884RQdYXBY0vZaxZsTceiRcO9kquhyQyeH4UHSOFB34PWwCmUw3L/XQ820hFYBYc/
-         lgHQ==
+        bh=Q/4Lk189uH8ybB/G/PRCaP8BERsbtAT8+BPaWTHQHns=;
+        b=FApVzSf2BW279I+jATByGUptkqcd9qo12XJOi99MmMgJPH934cqnyO20E3WAKt63J4
+         Yq1Aj2Z55zn5nxsw5S1E0aERm2aUruCPm9/m7BS9+6PdC7c7XdW7sCbpFJWzm/K+Anaq
+         yJcOSQjPNczGEDviqSNoUzg6mHwYoQZniKqKyiekS5oYwGYg6Bhl2oaK5WImBOZaehmS
+         4k7Bf7vGx4f2FB3a0mFmMtJLJk6IcbBHKs+6w/tPGXOOMAI29Fa2Thzansk4MckQ9n9E
+         CnrQA5Ewt6BYuozj5ccvSUhp2/sAm1wbx5tRwfZe3mLAAW2jzJJ0HWF5F94nET3zEIYH
+         4WBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790261910; x=1790866710;
+        d=1e100.net; s=20260707; t=1790261908; x=1790866708;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9Ssz0kuZEB0oM4fbrjjlkUTjFkWgmAmLspvk/qGU7c0=;
-        b=Gy0mju0bSoA6YsQF3nf5yuqTee2wuiKVK26YcFP9O7xlfI5nCWYtAGW1oK3MgzjtQF
-         re/qBRGgPMxmcm6E41/I9dmXmoXgAl0WflpnW5RV9KvuC4NXpErJeum7R1kYB0xwAjyl
-         /3wS+Pi01JRszO5cCFyj4+wErX2ZQ2qSggodc826sv92RHfQ6yNG6wg3wA9TGYUftw+E
-         Zof2qX2ArZbbM/SHVbXUs0FxTj8ChKiubwuvpCFUhPeWZWiXCx7lLrlESZtlFmn5FzT5
-         RdPY6huJ+ub9BpxJ0OhrcySnRRpdIKxnUNH9pPDVeVXwV+PzJn83lPW9+qGiS1P0J1xQ
-         3Ing==
-X-Forwarded-Encrypted: i=1; AKwUvByGpIOfkPF90xwx5Oc2eV769KD4yKz9sbKDPYwIflDx8ACgERIhsGBkyAiKGhvm8LX+Cyrh/S1vVDIBr8k=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDXOoOJh56yuiXpX0sQHn3JPPpzAgcaYDt5JUQN+02UD3gdcwj
-	86gWt0r8EwjHGgr8YolNDWqEPBOeYzebGLLA/HmE459vTwXnQabPQLg37UI3Qrq9b9AjSahAJHU
-	TgMvK7jnISsHCthpVxy+gRg==
-X-Received: from wrbfk11.prod.google.com ([2002:a05:6000:270b:b0:482:e0a4:9fd8])
+        bh=Q/4Lk189uH8ybB/G/PRCaP8BERsbtAT8+BPaWTHQHns=;
+        b=YOe9HezULRRvrYv72nC8WQEEv7k5SjtX7nEI5deU7J8ii5jBOIz0IVG7IuFGONlvUp
+         VC17M0Voaq8V+mwNPssV0OHl7O41cUCAIJ+GvGIk2kMPaHQV7vSZLy9SwJrGq+fwjrPh
+         UDlwfOW4iMRFgQB1hjXHdSNLs5mNLKUphF5eWFBfZ+k7C3e9CL996XgMVsiKc1DpSB+d
+         +sgqN1N2jeXngtE4PAB0/I3K5kaSJbuWAbk2fBjawtuv6i50vYT8QUH2IvNYQAOvz3kd
+         ZXKtIg354xelfjXvOeThFMEqThvAy8bt9hszu38/i3UDplW4CuaTfW2EjiyWdpdpwRxQ
+         Z4pQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxKskGSgkO8YUaDMo1gCgIUvZnFBAQbazagqbeccShbkfV2Wk/nibSLsmEjoBy1vDvAQr3sUyWQf7X0jXE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lNaJpQrwwqB/zXn55l3yu/s4XH/MwFZ9UZQ7mSu8/T87oqy7O5
+	9kPmG2DV1gIrVxLV/ZDGRCZolEuIYUOupM+647R6mUhhw13b6B9S2GboFEJ6/fRAezgBkGiKE0g
+	i+O/cUBJY6FLyLrXihsv9mg==
+X-Received: from wmpg33.prod.google.com ([2002:a05:600c:4ca1:b0:49d:f06:1f0b])
  (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a5d:64c8:0:b0:487:2589:ce4f with SMTP id ffacd0b85a97d-4887170f1c0mr5191154f8f.43.1790261909393;
- Thu, 24 Sep 2026 07:58:29 -0700 (PDT)
-Date: Thu, 24 Sep 2026 15:57:39 +0100
+ 2002:a05:600c:1d99:b0:49e:6c27:d093 with SMTP id 5b1f17b1804b1-49fe7b739f4mr38613285e9.15.1790261908146;
+ Thu, 24 Sep 2026 07:58:28 -0700 (PDT)
+Date: Thu, 24 Sep 2026 15:57:38 +0100
 In-Reply-To: <20260924145754.1285146-1-vdonnefort@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260924145754.1285146-1-vdonnefort@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
-Message-ID: <20260924145754.1285146-6-vdonnefort@google.com>
-Subject: [PATCH v7 05/20] tracing/remotes: Annotate remote shared fields with READ_ONCE/WRITE_ONCE
+Message-ID: <20260924145754.1285146-5-vdonnefort@google.com>
+Subject: [PATCH v7 04/20] tracing/remotes: Initialise pos in trace_start()
 From: Vincent Donnefort <vdonnefort@google.com>
 To: rostedt@goodmis.org, mhiramat@kernel.org, 
 	linux-trace-kernel@vger.kernel.org
@@ -69,91 +69,36 @@ Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com,
 	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-tracing_on_show(), remote_event_enable_show(), and buffer_size_kb_show()
-read remote->tracing_on, evt->enabled, and remote->trace_buffer_size
-without holding remote->lock, while the corresponding write and cmdline
-functions modify them under the lock.
+When *pos is 0, trace_start() passes a dummy local variable i to
+trace_next() to fetch the first entry without modifying *pos. In that
+branch, i was left uninitialized.
 
-While this is unlikely to cause issues in practice, annotate the accesses
-with READ_ONCE() and WRITE_ONCE() to keep KCSAN happy.
+While i is discarded and causes no functional issues, initialise i and
+keep static analysers happy.
 
 Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 ---
- kernel/trace/trace_remote.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+ kernel/trace/trace_remote.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/kernel/trace/trace_remote.c b/kernel/trace/trace_remote.c
-index aa76845a630a..517546e8343a 100644
+index ae22d13308a5..aa76845a630a 100644
 --- a/kernel/trace/trace_remote.c
 +++ b/kernel/trace/trace_remote.c
-@@ -136,7 +136,7 @@ static int trace_remote_enable_tracing(struct trace_remote *remote)
- 		return ret;
+@@ -748,12 +748,12 @@ static void *trace_start(struct seq_file *m, loff_t *pos)
+ 
+ 	trace_remote_iter_read_start(iter);
+ 
++	i = iter->pos;
+ 	if (!*pos) {
+ 		iter->pos = -1;
+ 		return trace_next(m, NULL, &i);
  	}
  
--	remote->tracing_on = true;
-+	WRITE_ONCE(remote->tracing_on, true);
- 
- 	return 0;
- }
-@@ -155,7 +155,7 @@ static int trace_remote_disable_tracing(struct trace_remote *remote)
- 		return ret;
- 
- 	ring_buffer_poll_remote(remote->trace_buffer, RING_BUFFER_ALL_CPUS);
--	remote->tracing_on = false;
-+	WRITE_ONCE(remote->tracing_on, false);
- 	trace_remote_try_unload(remote);
- 
- 	return 0;
-@@ -250,11 +250,12 @@ tracing_on_write(struct file *filp, const char __user *ubuf, size_t cnt, loff_t
- 
- 	return cnt;
- }
-+
- static int tracing_on_show(struct seq_file *s, void *unused)
- {
- 	struct trace_remote *remote = s->private;
- 
--	seq_printf(s, "%d\n", remote->tracing_on);
-+	seq_printf(s, "%d\n", READ_ONCE(remote->tracing_on));
- 
- 	return 0;
- }
-@@ -281,7 +282,7 @@ static ssize_t buffer_size_kb_write(struct file *filp, const char __user *ubuf,
- 	if (trace_remote_loaded(remote))
- 		return -EBUSY;
- 
--	remote->trace_buffer_size = val;
-+	WRITE_ONCE(remote->trace_buffer_size, val);
- 
- 	return cnt;
- }
-@@ -290,7 +291,7 @@ static int buffer_size_kb_show(struct seq_file *s, void *unused)
- {
- 	struct trace_remote *remote = s->private;
- 
--	seq_printf(s, "%lu (%s)\n", remote->trace_buffer_size >> 10,
-+	seq_printf(s, "%lu (%s)\n", READ_ONCE(remote->trace_buffer_size) >> 10,
- 		   trace_remote_loaded(remote) ? "loaded" : "unloaded");
- 
- 	return 0;
-@@ -1131,7 +1132,7 @@ trace_remote_enable_event(struct trace_remote *remote, struct remote_event *evt,
- 	if (ret)
- 		return ret;
- 
--	evt->enabled = enable;
-+	WRITE_ONCE(evt->enabled, enable);
- 
- 	return 0;
- }
-@@ -1140,7 +1141,7 @@ static int remote_event_enable_show(struct seq_file *s, void *unused)
- {
- 	struct remote_event *evt = s->private;
- 
--	seq_printf(s, "%d\n", evt->enabled);
-+	seq_printf(s, "%d\n", READ_ONCE(evt->enabled));
- 
- 	return 0;
- }
+-	i = iter->pos;
+ 	while (i < *pos) {
+ 		iter = trace_next(m, NULL, &i);
+ 		if (!iter)
 -- 
 2.56.0.rc1.310.g51773c2048-goog
 
