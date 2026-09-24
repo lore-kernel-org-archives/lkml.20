@@ -1,110 +1,170 @@
-Received: from seashell.cherry.relay.mailchannels.net (seashell.cherry.relay.mailchannels.net [23.83.223.162])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8EA83EB80D;
-	Thu, 24 Sep 2026 17:01:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.223.162
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BCE223DC6;
+	Thu, 24 Sep 2026 17:01:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790269275; cv=none; b=mBSbkvjv8Xj78jgtf/mQL7+TQz0XtZZXQqg5hrsWFh0XIRM6pRnLJn+pV4BDlHiL1dkmnrkkbRvHiBNrRQ/OnIwwkcYxpUFxB2il5OHehAHMODDBQFTydY+i6LdRCwc4DKP/qm+PVEP5EIfeMbwxEdWG2tDLjETOhDHaeF7GjH8=
+	t=1790269285; cv=none; b=egFAA+5SV9cC7BNepp57DwPmNVMo0qwoAZd6OnXj/rwnIPvJP6CXhKrQ+CHPLlIhozXF1dWaaBbKilSMA2MehyZpQvZqoglhBCG6PeQHr64OZOr4qAalkmaUEZCgYcFJEiDiVjuEtKNSJMHmc+IscObs7r7YPo9r5hcFso7Vuw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790269275; c=relaxed/simple;
-	bh=MiAlFzz/JgKGEQ1e00PaKqXcB98BZc0aDPq4O46YCEU=;
+	s=arc-20240116; t=1790269285; c=relaxed/simple;
+	bh=HoiZ1dOgaiWoXjsmkLXohzLMB9R80yFujkHl4ErAofo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tjkM24Kv3KC22M16hZxKi6rh0r+bfLvWiTdkhen8kJ4pjzQp9X7LPOfkPbk8GpzqS8glNSqiRHj7Ns8YPl7kkUr2cAHIAwSAQHTKf2HfRe90SWxN9G0Emdb/2gQHXS7EMFU3jR+SBA5fqrzqMkMHB2JSxBtWiub/J53ZFkSM1pc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net; spf=fail smtp.mailfrom=stgolabs.net; dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b=FrbCG3sk; arc=none smtp.client-ip=23.83.223.162
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=cPUj1UmTjAFWI7KGcljbJOg85zolVKy6kxgolGk9Rmx5LQUNGIVm+f/rh9S8LYTXtyHVKJonBy+07Lk3NWycOiop7JaN3Tnn6T7IRNTLIBmxj0zJBfBmBSDCvNMWWNCiGuOK4MWaAyqDcEotR5a+UoOA3GHMjGvZHU0JLhASEYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W+cHBIAz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b="FrbCG3sk"
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id A70A4402F69;
-	Thu, 24 Sep 2026 16:42:52 +0000 (UTC)
-Received: from pdx1-sub0-mail-a252.dreamhost.com (trex-green-5.trex.outbound.svc.cluster.local [100.96.3.213])
-	(Authenticated sender: dreamhost)
-	by relay.mailchannels.net (Postfix) with ESMTPA id 153B9402BFC;
-	Thu, 24 Sep 2026 16:42:51 +0000 (UTC)
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
-X-MailChannels-Auth-Id: dreamhost
-X-Left-Industry: 23044e9a64930f9d_1790268171342_686159737
-X-MC-Loop-Signature: 1790268171342:3160133764
-X-MC-Ingress-Time: 1790268171342
-Received: from pdx1-sub0-mail-a252.dreamhost.com (pop.dreamhost.com
- [64.90.62.162])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.96.3.213 (trex/8.0.2);
-	Thu, 24 Sep 2026 16:42:51 +0000
-Received: from offworld (unknown [76.167.199.67])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: dave@stgolabs.net)
-	by pdx1-sub0-mail-a252.dreamhost.com (Postfix) with ESMTPSA id 4hrKQ22WSnz102x;
-	Thu, 24 Sep 2026 09:42:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
-	s=dreamhost; t=1790268170;
-	bh=iQSb0yDnh3rC42nJgA6uJqywfCVo70Z2eMm5wrmYWBA=;
-	h=Date:From:To:Cc:Subject:Content-Type;
-	b=FrbCG3skknlDwgQDxmuHsTp8S3fYtvbiBlG6xSVWdcSluf/D4jsUtSEyYCbNZBNrv
-	 joSMU8fxdTGRUWd97w5G43PA9FsXQqsyYDcHFl5xkWIz4bznR9yKsLEZC2PGhr9+/V
-	 ejL7xXf3SLDt1sKaq0fQYdIbjNDBkwibC+H/8bKNfvd4KmUcuR+KOOoHBzW7KEBg52
-	 aCwwMX4bA5itzTkGlS1AaWz1iDPirHSKCUW+WraC8dz88jhi+79GZNAAK3OuFD/2kL
-	 fKthIR+CrnemWRh4hCAnB/oOsQub8Ig9Tud+eGNuguXiOCz53jdzcp1TD6be39A+3J
-	 9cIRKemJUni9A==
-Date: Thu, 24 Sep 2026 09:42:47 -0700
-From: Davidlohr Bueso <dave@stgolabs.net>
-To: Jiale Yao <yaojiale02@163.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dan Williams <djbw@kernel.org>, Ira Weiny <iweiny@kernel.org>,
-	Li Ming <ming.li@zohomail.com>, linux-cxl@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] cxl/acpi: Check ACPI companion before use
-Message-ID: <20260924164247.rsb4h7qjx5bvrthg@offworld>
-References: <20260924125404.923551-1-yaojiale02@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W+cHBIAz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3044D1F00893;
+	Thu, 24 Sep 2026 17:01:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790269283;
+	bh=nQm2TSsOFmCL75Ew2X2Ml8+Y1hxvqV0VYttpBX+ucy0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=W+cHBIAz4in40QufQgPnl6guc10fk/nKNFwovmn27Hn+FaoIpEPFdc5yE3AwgTwN9
+	 8L00pVPfG69smeuGgutlyNuAk3wfOPA3BwzoH+EU/jrEASrrdmn6oD+BwGzBh4a1mn
+	 OYxgH1XzECdZ5VQ82B2/g/rUZpYQ8FDlSRjBuBUaY4HjIBIMS8XzF4Cwcw0//xclVE
+	 S2nhuYKt9zeI6zhzemyAQ63SI0PfJ/9YrrJGAkGnsD8RgYvZPE2Jpd+y0Zh4jqxSMc
+	 C85+HE/uXDHOjjNizh40QzNePtLV4AvsyOcvvE+is9T1gSFRBd0rZqFfeffSUwHWHX
+	 SAx7zSgXrZIhA==
+Date: Thu, 24 Sep 2026 18:01:19 +0100
+From: Conor Dooley <conor@kernel.org>
+To: xianwei.zhao@amlogic.com
+Cc: Junyi Zhao <junyi.zhao@amlogic.com>, Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Xianwei Zhao <xianwei.zhaol@amlogic.com>,
+	Junyi Zhao <junyi.zhaol@amlogic.com>, linux-i2c@vger.kernel.org,
+	linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: i2c: add Amlogic A9 I2C controller
+Message-ID: <20260924-primarily-harmonica-fe3455834a4d@spud>
+References: <20260924-a9-i2c-v1-0-b8ad9b46f4a8@amlogic.com>
+ <20260924-a9-i2c-v1-1-b8ad9b46f4a8@amlogic.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="bItvP1XPExBUqZoU"
 Content-Disposition: inline
-In-Reply-To: <20260924125404.923551-1-yaojiale02@163.com>
-User-Agent: NeoMutt/20220429
+In-Reply-To: <20260924-a9-i2c-v1-1-b8ad9b46f4a8@amlogic.com>
 
-On Thu, 24 Sep 2026, Jiale Yao wrote:
+--bItvP1XPExBUqZoU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
->Platform drivers can be forced to match devices outside their ID tables
->through driver_override.  cxl_acpi_probe() assumes that every bound device
->has an ACPI companion and dereferences adev->dev.bus without checking the
->result of ACPI_COMPANION().  Force-binding cxl_acpi to a platform device
->without a companion therefore causes a NULL pointer dereference.
->
->This was reproduced by setting the driver override for the pcspkr platform
->device to cxl_acpi and binding it through sysfs:
->
->  BUG: kernel NULL pointer dereference, address: 0000000000000280
->  #PF: supervisor read access in kernel mode
->  RIP: cxl_acpi_probe+0xf4/0x220
->  Call Trace:
->   platform_probe+0x4d/0x80
->   really_probe+0x106/0x370
->   device_driver_attach+0x4c/0xa0
->   bind_store+0xd0/0x100
->
->Commit 2b3a5dabe89e ("platform/surface: acpi-notify: Check ACPI
->companion before use") fixed the same force-binding issue in another
->platform driver.  Check the companion before setting up the CXL root and
->return -ENODEV when it is absent.
->
->Fixes: 7d4b5ca2e2cb ("cxl/acpi: Add downstream port data to cxl_port instances")
->Cc: stable@vger.kernel.org
->Signed-off-by: Jiale Yao <yaojiale02@163.com>
+On Thu, Sep 24, 2026 at 08:39:34AM +0000, Xianwei Zhao via B4 Relay wrote:
+> From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+>=20
+> Add a Device Tree binding for the I2C controller found on the
+> Amlogic A9 SoC.
+>=20
+> Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-With Dave's comment,
+Since this is not in the existing meson file, does that mean that
+there's a substantial change in the IP design, other than the addition
+of dma support?
 
-Reviewed-by: Davidlohr Bueso <dave@stgolabs.net>
+> ---
+>  .../devicetree/bindings/i2c/amlogic,a9-i2c.yaml    | 61 ++++++++++++++++=
+++++++
+>  1 file changed, 61 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml b/=
+Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml
+> new file mode 100644
+> index 000000000000..681241a52680
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml
+> @@ -0,0 +1,61 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/i2c/amlogic,a9-i2c.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Amlogic A9 I2C Controller
+> +
+> +maintainers:
+> +  - Xianwei Zhao <xianwei.zhaol@amlogic.com>
+> +  - Junyi Zhao <junyi.zhaol@amlogic.com>
+> +
+> +allOf:
+> +  - $ref: /schemas/i2c/i2c-controller.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: amlogic,a9-i2c
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  dmas:
+> +    items:
+> +      - description: DMA controller phandle and request line for RX
+> +      - description: DMA controller phandle and request line for TX
+> +
+> +  dma-names:
+> +    items:
+> +      - const: rx
+> +      - const: tx
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - clocks
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    i2c@3a4400 {
+> +        compatible =3D "amlogic,a9-i2c";
+> +        reg =3D <0x3a4400 0x3c>;
+> +        interrupts =3D <1 164 1>;
+> +        clocks =3D <&clkc_periphs 11>;
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+
+> +        eeprom@52 {
+> +            compatible =3D "atmel,24c32";
+> +            reg =3D <0x52>;
+> +        };
+
+Remove this from your example please.
+pw-bot: changes-requested
+
+Thanks,
+Conor.
+
+> +    };
+>=20
+> --=20
+> 2.52.0
+>=20
+>=20
+
+--bItvP1XPExBUqZoU
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarVXXwAKCRB4tDGHoIJi
+0jmbAQD1+PWjoCf58ZsShK3wOnr3jQBCWLxJWedfv/9RCZ8hLgEAvsMsA+s7U7IE
+/rNJ549B02Ub9QvF/P2SlcaHzmzGRgk=
+=qjV7
+-----END PGP SIGNATURE-----
+
+--bItvP1XPExBUqZoU--
