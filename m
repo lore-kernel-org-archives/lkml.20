@@ -1,143 +1,113 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from sonata.ens-lyon.org (sonata.ens-lyon.org [140.77.166.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0B5041A92A
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 23:51:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3118341F37F;
+	Thu, 24 Sep 2026 23:53:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.77.166.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790293917; cv=none; b=tRoFFDr44pAivvaNjTz41gK7tanEZQ/NtQA+qdUrkA1jqQJPiTSrjGWIagiXMj98MhTNVcyg9GMSsFFAZaKmY6tbXIbROFTLq9HKPwA1G4Pq00tem2r4iybWyPEvfIbCSraI7ZskcP06eSr0G7ZjC/a9OZCnW66df5tuT6lSehA=
+	t=1790294032; cv=none; b=WQqScfFotL7D++Z2uZS+JDpllQSfLUtpaPBmOvHyiVf9P1PnL2LpJOZpn8bxkCrPK3MQdk4YWJ7fmH+gQ1bx3n605awRfKsXvfdxIRJrl8ciSpFZjJVdkNJ2vB1nEDuclmjG0dNAQ7ITdBZMOBbF8F88Uctf5Ov3UZgdYmlrgLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790293917; c=relaxed/simple;
-	bh=6Uq6wuyjUbyExy01Se/2Jy1Aqebw97lxp1LfmLrA5bs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UGOWwxqgyqysx6qnTcoUSL/Rf26NZ4r61OkKdM7TZ+RI3xNj2lc2mMLXokZweiod82g0C1wfyjGhRq07A0narrxZMNcAVI/NA7bzdgNC1n3tT+DowNz7/Y2+3YiYQL6zXn8K7P6vjfRu0mCdl0ltRtn5ehKfdd4G0T1W4PiSIkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VTKqj2o2; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790294032; c=relaxed/simple;
+	bh=Y/moXp8VReBpllKRS1BPunMWKD4QIxlzxHHvCbVzkEA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ttJckq3mOD4FV8S19NTACTPK/F3HHv9S1Rrs6h8P/tM45Tfd10nI6dVR985S5os2sTowhK53S7kDW0tIcgvAnJz5GXILpFU3nAINgQ9xFl5WGuWrbQYsRTqVqKkUtiY4Ql9qNWUjPbkH4Tk0I55sMF5oGjNXUpc8KK4l4by1WYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ens-lyon.org; spf=pass smtp.mailfrom=bounce.ens-lyon.org; dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b=H2/gmDFb; dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b=gaCZN1Q2; arc=none smtp.client-ip=140.77.166.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ens-lyon.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bounce.ens-lyon.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VTKqj2o2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790293915; x=1821829915;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=6Uq6wuyjUbyExy01Se/2Jy1Aqebw97lxp1LfmLrA5bs=;
-  b=VTKqj2o2w86rXHs3iaJwyGiFABb89Pgfhtknjo/6ekuyOEbWWuxwmFb0
-   PSd61mfz9nRY9mmZPeyTzcwMshwRzop+vGb1gH2yL/0/Uhcx+sjXoe3G2
-   RvkO3k+Gn0O22v05Yyi54iDOhPq5tlQh24hevN/hpJUdOIUOZNmPherGk
-   Z5rL3/UtdOlN5pizr6gtfrSkg1JxHxN2EN1lZvcu37tKU1wXvKv6JBQCV
-   Um2oSx/1d9thNSfNaPAjqzl5Da2A6ZFr+CyQAODEYnbsyo716UPmlPnkW
-   cbxdFGZrmcHgQfdNQXoX7c1v52B7QNl8QaGXsUUU8SJ02k52lD2HoRFlj
-   A==;
-X-CSE-ConnectionGUID: arVyRrqBSxqtNULqxMA4WA==
-X-CSE-MsgGUID: /jZcPkylRJ2q15FF8NXe+A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="90300919"
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="90300919"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 16:51:54 -0700
-X-CSE-ConnectionGUID: ou+D2gJoThGs7F3ndWMy0g==
-X-CSE-MsgGUID: RB+w73acSbe8Xm7tGfItiQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="272762319"
-Received: from ssimmeri-mobl2.amr.corp.intel.com (HELO [10.125.110.219]) ([10.125.110.219])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 16:51:53 -0700
-Message-ID: <67a44daf-feb7-4760-9b68-bfea176b4ab4@intel.com>
-Date: Thu, 24 Sep 2026 16:51:53 -0700
+	dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b="H2/gmDFb";
+	dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b="gaCZN1Q2"
+Received: from localhost (localhost [127.0.0.1])
+	by sonata.ens-lyon.org (Postfix) with ESMTP id 19E75A492E;
+	Fri, 25 Sep 2026 01:53:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ens-lyon.org; s=dkim;
+	t=1790294029; bh=Y/moXp8VReBpllKRS1BPunMWKD4QIxlzxHHvCbVzkEA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=H2/gmDFbEoKmDKXPJ57r3MUaiDptf8okbfZAuW5NLjgoqaEnq04xYrZxZPb6THVM0
+	 jHYasiv2E0vOsSYosTpbqXY4g3mBfQQ4AMNqzQQbS5HHJBjx+dBuHOUAiQJIdR7t42
+	 KQo1KkTLtlsb45NuTrMyxm+ad3hVP393+7wo8zLMHvIsTmfXxUTm8NykYrRSdTpn3C
+	 DY3WSVwtGApKf4M6zjw52JIJ+tPqSpxDmydfPPobrl8jnuhWl0nH9+azITmpiX4lnH
+	 tUR7NPfVYBzX0AX0qbYlW0vITNOusYkxSFgKGYgegJD0RsDzBc3OYV6NYtL7dJVTcO
+	 hZXuSdc4KhgFQ==
+Received: from sonata.ens-lyon.org ([127.0.0.1])
+	by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id rkLvCz5llTAr; Fri, 25 Sep 2026 01:53:49 +0200 (CEST)
+Received: from end (lfbn-bor-1-980-210.w90-120.abo.wanadoo.fr [90.120.173.210])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by sonata.ens-lyon.org (Postfix) with ESMTPSA id 05E42A4903;
+	Fri, 25 Sep 2026 01:53:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ens-lyon.org; s=dkim;
+	t=1790294028; bh=Y/moXp8VReBpllKRS1BPunMWKD4QIxlzxHHvCbVzkEA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=gaCZN1Q2P3z0OkbgW31eeLPLFZHZ90Uupkrz9rdHaaIl/qh21XHEMkE8LQrbx4ypQ
+	 t1vgvngIq/qlAxe7hjWYcXfewoWxKcZHeuDOpdTibMYxAAl+2Kl35ZO4nx9pwtsNlt
+	 HUjWtgkwyNlx2tyHGPLNZaUSMeSFM+39V0ABKgK7mL5SBkpvkqr+LchnJ0isbiSvKq
+	 kgjb1ZYHapYoAqn1J1heMFh1vBBZKaB0jQugWQeeZd9S2qdgtLpWux+TXTJIkC/6KJ
+	 JYN/bfyXuHUdaToWSjbvAZTTPsUN+7pGMVk4oIZPI9cjr6g/gxa1phbv1CgeJIS4ik
+	 H8Ha0wt+Hfi3Q==
+Received: from samy by end with local (Exim 4.100)
+	(envelope-from <samuel.thibault@ens-lyon.org>)
+	id 1x9tG7-000000001wr-0Q46;
+	Fri, 25 Sep 2026 01:53:47 +0200
+Date: Fri, 25 Sep 2026 01:53:47 +0200
+From: Samuel Thibault <samuel.thibault@ens-lyon.org>
+To: Petr Mladek <pmladek@suse.com>
+Cc: John Ogness <john.ogness@linutronix.de>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Marcos Paulo de Souza <mpdesouza@suse.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Fushuai Wang <wangfushuai@baidu.com>, Kees Cook <kees@kernel.org>,
+	Stepan Ionichev <sozdayvek@gmail.com>, linux-serial@vger.kernel.org,
+	Manuel Lauss <manuel.lauss@gmail.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] braille: nbcon: Allow using a serial driver
+ converted to nbcon API as a Braille console
+Message-ID: <arW4C9TYane57IGN@end>
+Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Petr Mladek <pmladek@suse.com>,
+	John Ogness <john.ogness@linutronix.de>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Marcos Paulo de Souza <mpdesouza@suse.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Fushuai Wang <wangfushuai@baidu.com>, Kees Cook <kees@kernel.org>,
+	Stepan Ionichev <sozdayvek@gmail.com>, linux-serial@vger.kernel.org,
+	Manuel Lauss <manuel.lauss@gmail.com>, linux-kernel@vger.kernel.org
+References: <20260922072558.98854-1-pmladek@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/mm: Drop the page allocation from
- pud_free_pmd_page()
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Cc: Pedro Falcato <pfalcato@suse.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski
- <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, x86@kernel.org,
- "H . Peter Anvin" <hpa@zytor.com>, Mike Rapoport <rppt@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Toshi Kani <toshi.kani@hpe.com>,
- linux-mm@kvack.org, regressions@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <d8b502f7-a552-4600-b348-614d1d62afa5@intel.com>
- <20260924203915.189167-1-mikhail.v.gavrilov@gmail.com>
-Content-Language: en-US
-From: Dave Hansen <dave.hansen@intel.com>
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <20260924203915.189167-1-mikhail.v.gavrilov@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922072558.98854-1-pmladek@suse.com>
+Organization: I am not organized
 
-On 9/24/26 13:39, Mikhail Gavrilov wrote:
-> On 9/24/26 10:21, Dave Hansen wrote:
->> OK, I've got a version of Mikhail's fix with a changelog and comments
->> I've munged a bit:
->>
->>> https://git.kernel.org/pub/scm/linux/kernel/git/daveh/devel.git/log/?h=pmdfree
->>
->> Does that look OK to everyone?
-> 
-> Looks good to me, thanks.  The code is v2 with your comments and the
-> declarations reordered, so the testing done for v2 still applies.
-> 
-> Two small things, both optional:
-> 
->  - "The new mmap_read_lock() is held over a GFP_KERNEL allocation":
->    the lock held over the allocation is the same init_mm lock, but
->    taken in vmap_try_huge_pud(), not the new one in CPA.  Maybe "The
->    huge vmap code holds the same lock over a GFP_KERNEL allocation,
->    which is a no-no now that reclaim can take it."
-> 
->  - The kernel-doc lost its "Return:" line while the function still
->    returns int, so kernel-doc -Wreturn will complain about it.
+Hello,
 
-Thanks for those! I've integrated them.
+Petr Mladek, le mar. 22 sept. 2026 09:25:56 +0200, a ecrit:
+> Note 3: I do not have any device to read the Braille output so I am not
+> 	sure if the output is correct. I just checked the output on
+> 	the serial console and it is a bit suspicious. It looks like
+> 	it prints every message N-times when N is the length of the string.
+> 	And it adds one character in each iteration, for example:
 
-I think we'll hold on to this fix until early next week and then queue
-it in the x86/urgent pile.
+That is actually expected: braille displays don't show the whole log of
+what was printed, it only shows the last print. Getting it printed on
+each character output is expected if characters are printed one by one,
+the device will show the text as it gets printed.
+
+Thanks for fixing this!
+
+With regards,
+Samuel
