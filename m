@@ -1,372 +1,841 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C18313B6C13
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:03:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4883A3D0910;
+	Thu, 24 Sep 2026 02:03:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790215389; cv=none; b=AoaHDV+9Kvb+jqrt2uCA4uzEiz6YiLVAKSH6mHXKP+5vI+ErHold5c0mZMURdo0rASPFcNWiy1mP0xtQWT70Ji2XwkPXIrX88uNXhKPpiiQWZREqj2oDLKq4n8TzF2pj6wQLH8+qj2J74hVTYKM4qohjuYdU7fYFTAkAmByJoDs=
+	t=1790215387; cv=none; b=jpP9G9Zh4Ntv1PQA1siuToarYPgg17MGHS/4P1lyUp24xaTN96v42xHabmZJob2n4PuhQToSOGWLHf5szMumrQfj5qTsLU0NkQRhJAr6OxSK1VB3EzXae8NZaj1Ge7RvYurAh2dKCnkw1Z3frGzlJa82fOa8O2yPv2ky6mIIdsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790215389; c=relaxed/simple;
-	bh=hlX4pEWIoDa93Z0PteTeKbVBVhfAEdJD+lzJ1g8tlow=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=msMKJmqbqLwYJYBDgHlYhKJzps/mt2N2Q9Cf7r7dxX1omX4W5BgthQa4R6ZS8Rra4ldf4ELMFydr0bK+e5o1PbDSKeNtBAI5dfQoeAY2pHzDj5M4qiG1e0+xMwFubRpN400WRcK7tsPYl53whQN8t/bRYweC8y+h2ZfWyQr6nO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QhMpLwzM; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=MQZoOXTK; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790215387; c=relaxed/simple;
+	bh=vPyzVNjzJGwkcWE5JfdpbyMy4+JMfAGmfR4Mr0uULmk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Y9l8YFvPk11BC1orfWT7bOf5VYYyN9at/5pbMSE0YCfj56cYo0PP3Rn2zZNnr33g4ztpeHHmapZ/JCJ4TH8La/sR0zdhU6otDIBYPozn+19zEYmeLg55LHTalmZuwGV5W1n4As7ubmNpa1V8Beq3PhfvhSZMgA62f7dknB2y66g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=IBsTkQ+y; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QhMpLwzM";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="MQZoOXTK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790215384;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qHHzEr/PQ8Ota366roI4JQKjOGZB7hvFyWShQyVaC18=;
-	b=QhMpLwzMSgCShNq6iYznAdmWX02anqncIe51IIL33r758XnLSdpOzQlkkgfkZ9dQu3O10m
-	Ek3XpMZGKJQF9PCWVSodfyMy3/fzrn16KUhPLXtKaYMhh7XuPkcHL8mYJ7Odx+GrPm1teN
-	+GogyhOHxXCqXmbFBI5rlFE90XvCskE=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-436-FfJGgUbdNMyQh1MyqmlUhQ-1; Wed, 23 Sep 2026 22:03:03 -0400
-X-MC-Unique: FfJGgUbdNMyQh1MyqmlUhQ-1
-X-Mimecast-MFC-AGG-ID: FfJGgUbdNMyQh1MyqmlUhQ_1790215382
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49e6422198fso10106885e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:03:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790215382; x=1790820182; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qHHzEr/PQ8Ota366roI4JQKjOGZB7hvFyWShQyVaC18=;
-        b=MQZoOXTKF4Ri2H3lraNLrJPxQVvF5MYJixm5aslN7cdjhQzIIPTG5VCE5Up+vDnK66
-         pW9HCIgvSXMQEA87+hOOdOyH+MFc6iR9/B1kVoMEtoGI5uaoLu7kSBgAXQq/Lf3OsRct
-         BObDorUOTibCDZiktKT6HodGSCFIE7QwstBZxSa5qRn1HIYTx54h0HjQXnzcEiHuOpCt
-         9k4cw/V96jGm2nXlcOwvJ0MPE9sMaXd52cID2UWyxlf/4Jnk3i0805kLi35PerUyfhbr
-         Za2ypP32QNOLjfaEmPRL7+5bVMjozx2F3a6cIj0qLJEe2WtzgT5NwgsNR2CH8cspaSmh
-         u5jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790215382; x=1790820182;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=qHHzEr/PQ8Ota366roI4JQKjOGZB7hvFyWShQyVaC18=;
-        b=pi9v4SniLo25Mf0/jfALOJxlkVKqJfz2nv72+PnqYdnhdNxj0rexlDtV+IbdryS4fN
-         tJ7KR4aT1j1qZYbNSt7vvO5xRbMv67piziLsH8FS9SM0bq4zbsMgE3iCtz25hj3S537x
-         oukVc5TStcefIbBoGRxoCqp8c5TvqND8oRmv7b1T9/jF9FD3gy7herbIeqtglKVjHuxW
-         FFdTm9ubt79hrVCzW3/M32U5Jwf/50wbr4/X7ejYhgVMySEFpeO8RboJfbx2G/jKHENc
-         FFUhZaeisJ0n8BoqZiln1wBa2g4gXYz8nqhXlU8YqqDvbvmju/XFNFUG1NlHqrmmJyR8
-         felA==
-X-Forwarded-Encrypted: i=1; AKwUvBw1HUPeok58cBRzW7I/7faWmQWHPNS4jW/nTfqqzD1pZjzm4+WE426tEmEWh8ax/FtU9FZNp+YsaYnI5j0=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9G5fJ/XTpFQDsJqFKCJwXvpWKrX8pOGq3Ah5d6RBuOmAygQHe
-	LPKwFqwJLElVqVvIfI2Hsz5x4/TSFy+DCA/Jq90+flbte8f+gp05v84o2ZjuzgygFjuX5sTyvHU
-	b6OXrecYBFAnV483XHzZTcr8p8uU5XTSV7k+iW2NYUj4Ii7nlVIga3k/z2suieZEqDQ==
-X-Gm-Gg: AYBFou21g8SGOnoymemzAUQzCp2KXc7n2228Xw4LLLn3XZnK0pBx8TSu1rA3IDodAqy
-	vEUAuMAlllAvFx+YXVnLmqnKACCz0S3GojaFQre0F/6eHqDIQ3cdmvSUWw37otJJcv+G5Dk5DWo
-	R7aBlZ4Aphm7sZfAvVD7b1DJkhXsHFSpcroHf1nNGECYf1h2yAWszVrlPFTx6Yq6i38xBchDmzc
-	nKwilyUZCF9C0tet0XsQCFUcQFO9Q0PuMCSuM7oxbSTVFzdqFgoGFwFY0RdzQ26Vn47va0mCe6Z
-	mL1kZgURpy3L/wdWcTi/4uo/PLzdYBEYFjw1jVzt2/gGuLKaAElDTlzBaS0vGP5hDa58Suak0rh
-	x2UwfBIcE503/UFoxlFNgwB3RK6dvv1o4Hn0NrsFFxx0iDKzdPEUFj0LdlIoLJGyE7Q==
-X-Received: by 2002:a05:600c:a013:b0:49d:2555:1a6d with SMTP id 5b1f17b1804b1-49fe66f1ac3mr12576605e9.16.1790215381628;
-        Wed, 23 Sep 2026 19:03:01 -0700 (PDT)
-X-Received: by 2002:a05:600c:a013:b0:49d:2555:1a6d with SMTP id 5b1f17b1804b1-49fe66f1ac3mr12576185e9.16.1790215381049;
-        Wed, 23 Sep 2026 19:03:01 -0700 (PDT)
-Received: from redhat.com (2a02-ab04-0158-f000-2548-f3bd-8b42-b18f.dynamic.v6.chello.sk. [2a02:ab04:158:f000:2548:f3bd:8b42:b18f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cbd134sm30854095e9.9.2026.09.23.19.02.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 19:03:00 -0700 (PDT)
-Date: Wed, 23 Sep 2026 22:02:57 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Eric Dumazet <edumazet@google.com>
-Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	Paulos Yibelo <habte.yibelo@gmail.com>, netdev@vger.kernel.org,
-	richard@nod.at, anton.ivanov@cambridgegreys.com,
-	johannes@sipsolutions.net, jasowangio@gmail.com,
-	eperezma@redhat.com, xuanzhuo@linux.alibaba.com,
-	andrew+netdev@lunn.ch, pablo@netfilter.org, fw@strlen.de,
-	phil@nwl.cc, razor@blackwall.org, idosch@nvidia.com,
-	dsahern@kernel.org, davem@davemloft.net, kuba@kernel.org,
-	pabeni@redhat.com, horms@kernel.org, linux-um@lists.infradead.org,
-	virtualization@lists.linux.dev, netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org, bridge@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v6 1/2] net: validate virtio checksum start after
- network header
-Message-ID: <20260923081209-mutt-send-email-mst@kernel.org>
-References: <20260922030310.8684-1-habte.yibelo@gmail.com>
- <20260922030310.8684-2-habte.yibelo@gmail.com>
- <willemdebruijn.kernel.259bc7096258d@gmail.com>
- <willemdebruijn.kernel.2cdfef118aa1d@gmail.com>
- <20260923061215-mutt-send-email-mst@kernel.org>
- <CANn89iJaE5UarTdg6FMEp=rZ9mG3g=xrVRLyvMS5S02iE8CwGg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="IBsTkQ+y"
+Received: from mrdev.corp.microsoft.com (192-184-212-33.fiber.dynamic.sonic.net [192.184.212.33])
+	by linux.microsoft.com (Postfix) with ESMTPSA id E3DBB20B716A;
+	Wed, 23 Sep 2026 19:02:11 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com E3DBB20B716A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1790215332;
+	bh=U9JjpZFNMfPdbmhs4oSugv6LAGT4eFrkBFgtb9mMrpA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=IBsTkQ+yvj7a0PdzTk9wi+ZiA7/Jx4vwslhCF/aaiU7NS2ofhVx9+WNqmLlMWHXu2
+	 24Kb03yUmuKIKlgrgqAEticAyExOSzkjZilTtV/hfRuu4kFNsHlu4G/7DebE1I7k7n
+	 J44H+4tYinNq/iINgobXxnXxZ0Pv5VTeVz38nxog=
+From: Mukesh R <mrathor@linux.microsoft.com>
+To: linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev,
+	linux-arch@vger.kernel.org
+Cc: jgg@nvidia.com,
+	jacob.pan@linux.microsoft.com,
+	kys@microsoft.com,
+	haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
+	hpa@zytor.com,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	arnd@arndb.de,
+	mrathor@linux.microsoft.com
+Subject: [PATCH V1 3/3] x86/hyperv: Implement root VM IOMMU kernel only driver
+Date: Wed, 23 Sep 2026 19:02:21 -0700
+Message-ID: <20260924020221.128762-4-mrathor@linux.microsoft.com>
+X-Mailer: git-send-email 2.51.2.vfs.0.1
+In-Reply-To: <20260924020221.128762-1-mrathor@linux.microsoft.com>
+References: <20260924020221.128762-1-mrathor@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CANn89iJaE5UarTdg6FMEp=rZ9mG3g=xrVRLyvMS5S02iE8CwGg@mail.gmail.com>
 
-On Wed, Sep 23, 2026 at 12:46:42PM +0200, Eric Dumazet wrote:
-> On Wed, Sep 23, 2026 at 12:21 PM Michael S. Tsirkin <mst@redhat.com> wrote:
-> >
-> > On Tue, Sep 22, 2026 at 09:27:26PM -0400, Willem de Bruijn wrote:
-> > > Willem de Bruijn wrote:
-> > > > Paulos Yibelo wrote:
-> > > > > __virtio_net_hdr_to_skb() checks a minimum network-header length for
-> > > > > CHECKSUM_PARTIAL packets. Its checksum start is relative to skb->data,
-> > > > > but some callers have not established skb->network_header when they
-> > > > > convert the virtio header.
-> > > > >
-> > > > > Pass the data-relative L3 origin explicitly. Ethernet receive paths
-> > > > > parse the frame and nested VLAN headers without changing skb state.
-> > > > > AF_PACKET uses the frame's actual L3 origin even when the socket
-> > > > > protocol is ETH_P_IP and the raw frame carries VLAN tags. Non-Ethernet
-> > > > > AF_PACKET devices retain their established skb network offset.
-> > > > >
-> > > > > Also pass the actual L3 protocol so IPv6 packets use the 40-byte base
-> > > > > header minimum even without TCPv6 GSO. IFF_TUN obtains that protocol
-> > > > > from the packet before skb->protocol is set. Name the Ethernet parser
-> > > > > accordingly, use the same origin for tunnel validation, and propagate
-> > > > > conversion failures in UML.
-> > > > >
-> > > > > The bound remains a minimum; fragmentation paths separately validate
-> > > > > the parsed IPv4 or IPv6 header length before completing a checksum.
-> > > > >
-> > > > > Fixes: 49d14b54a527 ("net: test for not too small csum_start in virtio_net_hdr_to_skb()")
-> > > > > Fixes: a2fb4bc4e2a6 ("net: implement virtio helpers to handle UDP GSO tunneling.")
-> > > > > Reported-by: Paulos Yibelo <habte.yibelo@gmail.com>
-> > > > > Link: https://lore.kernel.org/netdev/20260920004733.6473-2-habte.yibelo@gmail.com/
-> > > > > Cc: stable@vger.kernel.org
-> > > > > Assisted-by: LLM
-> > > > > Signed-off-by: Paulos Yibelo <habte.yibelo@gmail.com>
-> > > > > ---
-> > > > >  arch/um/drivers/vector_transports.c | 13 ++++-
-> > > > >  drivers/net/tun_vnet.h              | 52 ++++++++++++++++-
-> > > > >  drivers/net/virtio_net.c            | 10 +++-
-> > > > >  include/linux/virtio_net.h          | 87 ++++++++++++++++++++++++-----
-> > > > >  net/packet/af_packet.c              | 24 +++++++-
-> > > > >  5 files changed, 163 insertions(+), 23 deletions(-)
-> > > >
-> > > > The fix may still miss the case IPv4 packets have options.
-> > > >
-> > > > This version is a very large patch.
-> > > >
-> > > > Untested shorter first suggestion by bot, which looks plausible as a
-> > > > starting point for discussion.
-> > >
-> > > Cleaned up some more:
-> > >
-> > >     diff --git a/drivers/net/tun_vnet.h b/drivers/net/tun_vnet.h
-> > >     index f4c652b1fa44..c24607af2aad 100644
-> > >     --- a/drivers/net/tun_vnet.h
-> > >     +++ b/drivers/net/tun_vnet.h
-> > >     @@ -180,6 +180,9 @@ static inline int tun_vnet_hdr_put(int sz, struct iov_iter *iter,
-> > >      static inline int tun_vnet_hdr_to_skb(unsigned int flags, struct sk_buff *skb,
-> > >                            const struct virtio_net_hdr *hdr)
-> > >      {
-> > >     +    if ((flags & TUN_TYPE_MASK) == IFF_TUN)
-> > >     +        skb_reset_network_header(skb);
-> > >     +
-> > >          return virtio_net_hdr_to_skb(skb, hdr, tun_vnet_is_little_endian(flags));
-> > >      }
-> > >
-> > >     @@ -199,6 +202,9 @@ tun_vnet_hdr_tnl_to_skb(unsigned int flags, netdev_features_t features,
-> > >                  struct sk_buff *skb,
-> > >                  const struct virtio_net_hdr_v1_hash_tunnel *hdr)
-> > >      {
-> > >     +    if ((flags & TUN_TYPE_MASK) == IFF_TUN)
-> > >     +        skb_reset_network_header(skb);
-> > >     +
-> > >
-> > >     diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
-> > >     index c381b916c1b5..02c448de0802 100644
-> > >     --- a/include/linux/virtio_net.h
-> > >     +++ b/include/linux/virtio_net.h
-> > >     @@ -48,6 +48,42 @@ static inline int virtio_net_hdr_set_proto(struct sk_buff *skb,
-> > >          return 0;
-> > >      }
-> > >
-> > >     +static inline int virtio_net_hdr_nh_min_len(const struct sk_buff *skb,
-> > >     +                        unsigned int nh_min_len)
-> > >     +{
-> > >     +    int thoff = skb_transport_offset(skb);
-> > >     +    __be16 proto;
-> > >     +    int nhoff;
-> > >     +
-> > >     +    if (skb_network_header_was_set(skb)) {
-> > >     +        nhoff = skb_network_offset(skb);
-> > >     +        proto = skb->protocol;
-> > >     +    } else {
-> > >     +        if (unlikely(thoff < ETH_HLEN))
-> > >     +            return -EINVAL;
-> > >     +        nhoff = ETH_HLEN;
-> > >     +        proto = eth_hdr(skb)->h_proto;
-> > >     +    }
-> > >     +
-> > >     +    if (eth_type_vlan(proto)) {
-> > >     +        proto = __vlan_get_protocol(skb, proto, &nhoff);
-> > >     +        if (!proto)
-> > >     +            return -EINVAL;
-> > >     +    }
-> > >     +
-> > >     +    if (proto == htons(ETH_P_IP)) {
-> > >     +        const struct iphdr *iph = (void *)(skb->data + nhoff);
-> > >     +
-> > >     +        if (unlikely(thoff < nhoff + sizeof(*iph)))
-> > >     +            return -EINVAL;
-> > >     +        nh_min_len = max_t(u32, iph->ihl * 4, sizeof(*iph));
-> > >     +    } else if (proto == htons(ETH_P_IPV6)) {
-> > >     +        nh_min_len = sizeof(struct ipv6hdr);
-> > >     +    }
-> > >     +
-> > >     +    return nhoff + nh_min_len;
-> > >     +}
-> > >     +
-> > >      static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
-> > >                            const struct virtio_net_hdr *hdr,
-> > >                            bool little_endian, u8 hdr_gso_type)
-> > >     @@ -98,13 +134,15 @@ static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
-> > >              u32 start = __virtio16_to_cpu(little_endian, hdr->csum_start);
-> > >              u32 off = __virtio16_to_cpu(little_endian, hdr->csum_offset);
-> > >              u32 needed = start + max_t(u32, thlen, off + sizeof(__sum16));
-> > >     +        int min_thoff;
-> > >
-> > >              if (!pskb_may_pull(skb, needed))
-> > >                  return -EINVAL;
-> > >
-> > >              if (!skb_partial_csum_set(skb, start, off))
-> > >                  return -EINVAL;
-> > >     -        if (skb_transport_offset(skb) < nh_min_len)
-> > >     +        min_thoff = virtio_net_hdr_nh_min_len(skb, nh_min_len);
-> > >     +        if (min_thoff < 0 || skb_transport_offset(skb) < min_thoff)
-> > >                  return -EINVAL;
-> >
-> >
-> > Certainly looks much better. But I'd like to ask, generally:
-> > doesn't the net stack need to protect against weird packets?
-> >
-> 
-> It does, but csum_start/csum_offset are not "weird packet" material,
-> they are skb metadata, not bytes on the wire.
-> 
-> For essentially every skb in the kernel, this metadata is produced by
-> the kernel itself,
-> from headers it has just built or just parsed, and the rest of the
-> stack (GSO, skb_checksum_help(),
-> fragmentation, netfilter, and every driver doing TX csum offload)
-> consumes it as an invariant.
-> The only producers of attacker/guest controlled CHECKSUM_PARTIAL metadata are
-> the virtio_net_hdr_to_skb() callers: af_packet, tun/tap, virtio_net,
-> and the UML vector driver.
-> 
-> So this is not "virtio specific validation", this is input validation
-> at the one trust boundary
-> where the invariant can be violated.
+Add a new file to implement a kernel only virtual IOMMU that works
+with Microsoft Hyper-V hypervisor (aka MSHV) on privileged VMs aka
+root VMs. The hypervisor claims the IOMMU upon boot, and this driver
+communicates with it for creating and deleting paging domains, attaching
+of devices, mapping and unmapping of pages, etc. During boot, hypervisor
+automatically creates identity and blocked domains, so there is no need
+to do hypercalls to create them.  This is a kernel only driver and only
+supported on baremetal root (and not L1VH root) without any guest passthru
+support. Support for guest device passthru will be added incrementally.
 
+Signed-off-by: Mukesh R <mrathor@linux.microsoft.com>
+---
+ arch/x86/kernel/pci-dma.c            |   2 +
+ drivers/iommu/Kconfig                |   1 +
+ drivers/iommu/hyperv/Kconfig         |  15 +
+ drivers/iommu/hyperv/Makefile        |   1 +
+ drivers/iommu/hyperv/hv-iommu-root.c | 656 +++++++++++++++++++++++++++
+ include/asm-generic/mshyperv.h       |   3 +
+ include/linux/hyperv.h               |   6 +
+ 7 files changed, 684 insertions(+)
+ create mode 100644 drivers/iommu/hyperv/Kconfig
+ create mode 100644 drivers/iommu/hyperv/hv-iommu-root.c
 
-Thanks for the explanation Eric!
-
-> 
-> > It seems likely that not all drivers validate headers defensively,
-> > and incoming packets can easily become outgoing ones.
-> 
-> Packets coming from a real NIC are CHECKSUM_UNNECESSARY,
-> CHECKSUM_COMPLETE or CHECKSUM_NONE.
-> They do not carry a remote-provided csum_start.
-> (Remote checksum offload is the rare exception, and there the offsets
-> are computed by the stack from headers it just parsed.)
-> 
-> Incoming packets becoming outgoing ones is precisely the problem here:
-> a virtio_net RX skb with VIRTIO_NET_HDR_F_NEEDS_CSUM becomes
-> an skb that can be bridged/forwarded/fragmented and then handed to a real NIC.
-
-Well:
-
-$ git grep 'skb->csum_start\ ='
-drivers/net/ethernet/hisilicon/hns3/hns3_enet.c:        skb->csum_start = (unsigned char *)th - skb->head;
-drivers/net/ethernet/mellanox/mlx5/core/en_rx.c:        skb->csum_start = (unsigned char *)uh - skb->head;
-drivers/net/ethernet/mellanox/mlx5/core/en_rx.c:        skb->csum_start = (unsigned char *)uh - skb->head;
-drivers/net/ethernet/mellanox/mlx5/core/en_rx.c:        skb->csum_start = (unsigned char *)tcp - skb->head;
-drivers/net/ethernet/mellanox/mlx5/core/en_rx.c:        skb->csum_start = (unsigned char *)tcp - skb->head;
-drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c:         skb->csum_start = skb_transport_header(skb) - skb->head;
-
-What did I miss?
-
-> 
-> > So do we even need virtio specific validation, or is it enough to
-> > validate everything in the net stack, where we are poking at the
-> > header anyway?
-> 
-> The core stack cannot afford it.
-> 
-> 1) Drivers program skb->csum_start / skb->csum_offset straight into
-> the TX descriptor, and the NIC will happily write two bytes wherever
-> it was told, e.g. into the IP header of the frame we put on the wire.
-> Auditing/adding checks in every driver is not realistic, and drivers
-> must not pay for it.
-> 
-> 2) Catching this in the core would mean re-parsing L2/L3 in
-> dev_hard_start_xmit()
-> (or in every place that eventually looks at the transport header) for
-> the 99.99+%
-> of packets that were built by the stack and are known to be consistent.
-> That is far more expensive than one check at injection time.
-> 
-> 3) Failing at injection returns -EINVAL to the sendmsg()/writev() caller,
-> which is the correct and testable behavior. Failing later means dropping
-> the packet deep in the xmit path, usually with a splat: the commit being fixed
-> here (49d14b54a527) exists exactly because such a packet reached
-> skb_checksum_help() from ip_do_fragment() and hit the "offset (-6) >=
-> skb_headlen() (14)" WARN.
-> 
-> >
-> > Or maybe it's more a defense in depth thing?
-> >
-> > My worries:
-> > - more poking at the header, more cache misses, where we really
-> >   do not need that
-> 
-> I do not expect anything measurable.
-> 
-> af_packet and tun: we have just copied that header from user space, it is in L1.
-> virtio_net: we call eth_type_trans() right after, and GRO parses L3/L4
-> immediately.
-> 
-> The whole block is under the CHECKSUM_PARTIAL condition, where we already
-> do pskb_may_pull() and skb_partial_csum_set(), i.e. we already touch
-> this cache line.
-> Reading iph->ihl from a cache line we are about to read anyway is noise.
-> 
-> > - future protocol extensions that now will require surgery in
-> >   virtio, instead of just being passed through to the host
-> 
-> Fair, and this is an argument about how the check is written, not
-> about whether it exists.
-> The rule should be:
-> 
-> Only tighten the bound for the protocols we already parse (IPv4/IPv6),
-> and keep the existing generic minimum for anything else.
-> 
-> Then an unknown ethertype simply keeps flowing, no surgery is needed.
-> Willem's version does that. A new protocol would only be impacted if it wanted
-> csum_start to point inside what we consider the L3 header, and such a packet
-> would not survive the rest of the stack anyway.
-> 
-> So: not defense in depth, but validation at the trust boundary, where
-> it is cheapest
-> and where we can still report the error to the producer.
-> 
-> >
-> > What do others think?
-> >
-> > --
-> > MST
-> >
+diff --git a/arch/x86/kernel/pci-dma.c b/arch/x86/kernel/pci-dma.c
+index 6267363e0189..37fed8c7a8c2 100644
+--- a/arch/x86/kernel/pci-dma.c
++++ b/arch/x86/kernel/pci-dma.c
+@@ -8,6 +8,7 @@
+ #include <linux/gfp.h>
+ #include <linux/pci.h>
+ #include <linux/amd-iommu.h>
++#include <linux/hyperv.h>
+ 
+ #include <asm/proto.h>
+ #include <asm/dma.h>
+@@ -103,6 +104,7 @@ void __init pci_iommu_alloc(void)
+ 	}
+ 	pci_swiotlb_detect();
+ 	gart_iommu_hole_init();
++	hv_iommu_detect();
+ 	amd_iommu_detect();
+ 	detect_intel_iommu();
+ 	swiotlb_init(x86_swiotlb_enable, x86_swiotlb_flags);
+diff --git a/drivers/iommu/Kconfig b/drivers/iommu/Kconfig
+index 6e07bd69467a..3e410e0f3e1d 100644
+--- a/drivers/iommu/Kconfig
++++ b/drivers/iommu/Kconfig
+@@ -197,6 +197,7 @@ source "drivers/iommu/arm/Kconfig"
+ source "drivers/iommu/intel/Kconfig"
+ source "drivers/iommu/iommufd/Kconfig"
+ source "drivers/iommu/riscv/Kconfig"
++source "drivers/iommu/hyperv/Kconfig"
+ 
+ config IRQ_REMAP
+ 	bool "Support for Interrupt Remapping"
+diff --git a/drivers/iommu/hyperv/Kconfig b/drivers/iommu/hyperv/Kconfig
+new file mode 100644
+index 000000000000..796845dd16d9
+--- /dev/null
++++ b/drivers/iommu/hyperv/Kconfig
+@@ -0,0 +1,15 @@
++# SPDX-License-Identifier: GPL-2.0-only
++# Hyper-V IOMMU support
++
++config HYPERV_ROOT_IOMMU
++	bool "Hyper-V IOMMU Device in root VM"
++	depends on HYPERV && X86 && PCI_MSI && MSHV_ROOT
++	select IOMMU_API
++	default HYPERV
++	help
++	  This enables Hyper-V pseudo IOMMU device. When running as privileged
++          VM aka root on Microsoft Hyper-V hypervisor, this must be enabled
++          for doing any PCI passthru of devices to guest VMs. This applies to
++          both PFs and VFs. When enabling this, it is best to disable amd/intel
++          iommus via: intel_iommu=off amd_iommu=off as the hypervisor really
++          owns the iommu.
+diff --git a/drivers/iommu/hyperv/Makefile b/drivers/iommu/hyperv/Makefile
+index 6ef0ef97f3dd..c7e7d0dac2a4 100644
+--- a/drivers/iommu/hyperv/Makefile
++++ b/drivers/iommu/hyperv/Makefile
+@@ -1,2 +1,3 @@
+ # SPDX-License-Identifier: GPL-2.0
+ obj-$(CONFIG_IRQ_REMAP) += hv-irq-remap-x86.o
++obj-$(CONFIG_HYPERV_ROOT_IOMMU) += hv-iommu-root.o
+diff --git a/drivers/iommu/hyperv/hv-iommu-root.c b/drivers/iommu/hyperv/hv-iommu-root.c
+new file mode 100644
+index 000000000000..4c6ebaa8fb97
+--- /dev/null
++++ b/drivers/iommu/hyperv/hv-iommu-root.c
+@@ -0,0 +1,656 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Hyper-V root vIOMMU driver.
++ * Copyright (C) 2026, Microsoft, Inc.
++ */
++#include <linux/pci.h>
++#include <linux/dma-map-ops.h>
++#include <linux/interval_tree.h>
++#include <linux/hyperv.h>
++#include <asm/iommu.h>
++#include <asm/mshyperv.h>
++#include "../dma-iommu.h"
++
++/*
++ * We will not claim these PCI devices. Eg hypervisor debugger is using it
++ * for a dynamic debug session. They cannot be enumerated under static ACPI
++ * device scope.
++ */
++static char *hv_skip_pci_devs;
++static int __init hv_iommu_setup_skip(char *str)
++{
++	hv_skip_pci_devs = str;
++	return 1;
++}
++/* Eg: hv_iommu_skip=(SSSS:BB:DD.F)(SSSS:BB:DD.F) */
++__setup("hv_iommu_skip=", hv_iommu_setup_skip);
++
++static ulong hv_iommu_max_iova;
++static struct iommu_domain_ops hv_paging_domain_ops;
++
++/* IOMMU device that we export to the world. MSHV supports max of one */
++static struct iommu_device hv_virt_iommu;
++
++struct hv_domain {
++	struct iommu_domain iommu_dom;
++	u32 domid_num;			      /* as opposed to domain_id.type */
++	spinlock_t mappings_lock;	      /* protects mappings_tree */
++	struct rb_root_cached mappings_tree;  /* iova to pa lookup tree */
++};
++
++#define to_hv_domain(d) container_of(d, struct hv_domain, iommu_dom)
++
++struct hv_iommu_mapping {
++	phys_addr_t paddr;
++	struct interval_tree_node iova;
++	u32 flags;
++};
++
++/*
++ * By default, during boot the hypervisor creates one Stage 2 (S2) default
++ * domain. It has two types:
++ *   S2 default: access to entire root partition memory. This for the host
++ *		 maps to IOMMU_DOMAIN_IDENTITY in the iommu subsystem, and
++ *		 is called HV_DEVICE_DOMAIN_ID_S2_DEFAULT in the hypervisor.
++ *   S2 NULL: Blocks everything, ie, IOMMU_DOMAIN_BLOCKED in linux.
++ */
++
++/*
++ * Create dummy domains to correspond to hypervisor prebuilt default identity
++ * and null domains (dummy because we do not make hypercalls to create them).
++ */
++static struct hv_domain hv_def_identity_dom;
++static struct hv_domain hv_def_blocked_dom;
++
++static bool hv_special_domain(struct hv_domain *hvdom)
++{
++	return hvdom == &hv_def_identity_dom || hvdom == &hv_def_blocked_dom;
++}
++
++#define HV_IOMMU_PGSIZES SZ_4K	      /* for now, to be enhanced */
++
++static DEFINE_IDA(hv_iommu_domids);   /* unique numeric ids for new domains */
++
++static bool hv_iommu_capable(struct device *dev, enum iommu_cap cap)
++{
++	switch (cap) {
++	case IOMMU_CAP_CACHE_COHERENCY:
++		return true;
++	default:
++		return false;
++	}
++}
++
++static int hv_iommu_add_tree_mapping(struct hv_domain *hvdom, ulong iova,
++				     phys_addr_t paddr, size_t size, u32 flags)
++{
++	ulong irqflags;
++	struct hv_iommu_mapping *mapping;
++
++	mapping = kzalloc_obj(struct hv_iommu_mapping, GFP_ATOMIC);
++	if (!mapping)
++		return -ENOMEM;
++
++	mapping->paddr = paddr;
++	mapping->iova.start = iova;
++	mapping->iova.last = iova + size - 1;
++	mapping->flags = flags;
++
++	spin_lock_irqsave(&hvdom->mappings_lock, irqflags);
++	interval_tree_insert(&mapping->iova, &hvdom->mappings_tree);
++	spin_unlock_irqrestore(&hvdom->mappings_lock, irqflags);
++
++	return 0;
++}
++
++/* If size == 0, then last = ULONG_MAX. With iova 0, will remove everything */
++static size_t hv_iommu_del_tree_mappings(struct hv_domain *hvdom, ulong iova,
++					 size_t size)
++{
++	ulong flags;
++	size_t unmapped = 0;
++	ulong last = iova + size - 1;
++	struct hv_iommu_mapping *mapping = NULL;
++	struct interval_tree_node *node, *next;
++
++	spin_lock_irqsave(&hvdom->mappings_lock, flags);
++	next = interval_tree_iter_first(&hvdom->mappings_tree, iova, last);
++	while (next) {
++		node = next;
++		mapping = container_of(node, struct hv_iommu_mapping, iova);
++		next = interval_tree_iter_next(node, iova, last);
++
++		/* Splitting of a mapping is not supported at present */
++		if (mapping->iova.start < iova)
++			break;
++
++		unmapped += mapping->iova.last - mapping->iova.start + 1;
++
++		interval_tree_remove(node, &hvdom->mappings_tree);
++		kfree(mapping);
++	}
++	spin_unlock_irqrestore(&hvdom->mappings_lock, flags);
++
++	return unmapped;
++}
++
++/* Create a new device domain in the hypervisor */
++static int hv_iommu_create_hyp_devdom(struct hv_domain *hvdom)
++{
++	u64 status;
++	struct hv_input_device_domain *ddp;
++	struct hv_input_create_device_domain *input;
++	ulong flags;
++
++	local_irq_save(flags);
++	input = *this_cpu_ptr(hyperv_pcpu_input_arg);
++	memset(input, 0, sizeof(*input));
++
++	ddp = &input->device_domain;
++	ddp->partition_id = HV_PARTITION_ID_SELF;
++	ddp->domain_id.type = HV_DEVICE_DOMAIN_TYPE_S2;
++	ddp->domain_id.id = hvdom->domid_num;
++
++	input->create_device_domain_flags.forward_progress_required = 1;
++	input->create_device_domain_flags.inherit_owning_vtl = 0;
++
++	status = hv_do_hypercall(HVCALL_CREATE_DEVICE_DOMAIN, input, NULL);
++
++	local_irq_restore(flags);
++
++	if (!hv_result_success(status))
++		hv_status_err(status, "\n");
++
++	return hv_result_to_errno(status);
++}
++
++static struct iommu_domain *hv_iommu_domain_alloc_paging(struct device *dev)
++{
++	struct hv_domain *hvdom;
++	int rc;
++
++	if (!dev_is_pci(dev))
++		return NULL;
++
++	hvdom = kzalloc_obj(struct hv_domain);
++	if (hvdom == NULL)
++		return ERR_PTR(-ENOMEM);
++
++	spin_lock_init(&hvdom->mappings_lock);
++	hvdom->mappings_tree = RB_ROOT_CACHED;
++
++	rc = ida_alloc_range(&hv_iommu_domids,
++			     HV_DEVICE_DOMAIN_ID_S2_DEFAULT + 1,
++			     HV_DEVICE_DOMAIN_ID_S2_NULL - 1, GFP_KERNEL);
++	if (rc < 0)
++		goto out_err;
++
++	hvdom->domid_num = rc;
++	hvdom->iommu_dom.pgsize_bitmap = HV_IOMMU_PGSIZES;
++	hvdom->iommu_dom.geometry.aperture_start = 0;
++	hvdom->iommu_dom.geometry.aperture_end = hv_iommu_max_iova;
++	hvdom->iommu_dom.geometry.force_aperture = true;
++	hvdom->iommu_dom.ops = &hv_paging_domain_ops;
++
++	rc = hv_iommu_create_hyp_devdom(hvdom);
++	if (rc)
++		goto out_err1;
++
++	return &hvdom->iommu_dom;
++
++out_err1:
++	ida_free(&hv_iommu_domids, hvdom->domid_num);
++out_err:
++	kfree(hvdom);
++	return ERR_PTR(rc);
++}
++
++static void hv_iommu_domain_free(struct iommu_domain *immdom)
++{
++	ulong flags;
++	u64 status;
++	struct hv_input_delete_device_domain *input;
++	struct hv_input_device_domain *ddp;
++	struct hv_domain *hvdom = to_hv_domain(immdom);
++
++	if (hv_special_domain(hvdom))
++		return;
++
++	/* Cleanup any remaining. 0 for size results in ULONG_MAX as the last */
++	hv_iommu_del_tree_mappings(hvdom, 0, 0);
++
++	local_irq_save(flags);
++	input = *this_cpu_ptr(hyperv_pcpu_input_arg);
++	ddp = &input->device_domain;
++	memset(input, 0, sizeof(*input));
++
++	ddp->partition_id = HV_PARTITION_ID_SELF;
++	ddp->domain_id.type = HV_DEVICE_DOMAIN_TYPE_S2;
++	ddp->domain_id.id = hvdom->domid_num;
++
++	status = hv_do_hypercall(HVCALL_DELETE_DEVICE_DOMAIN, input,
++				 NULL);
++	local_irq_restore(flags);
++
++	if (hv_result_success(status))
++		ida_free(&hv_iommu_domids, hvdom->domid_num);
++	else
++		hv_status_err(status, "\n");
++
++	kfree(hvdom);
++}
++
++/*
++ * Attach a device to the default domain, or the null domain, or to a domain
++ * previously created in the hypervisor.
++ */
++static int hv_iommu_att_dev2dom(struct hv_domain *hvdom, struct pci_dev *pdev)
++{
++	ulong flags;
++	u64 status;
++	struct hv_input_attach_device_domain *input;
++
++	local_irq_save(flags);
++	input = *this_cpu_ptr(hyperv_pcpu_input_arg);
++	memset(input, 0, sizeof(*input));
++
++	/* For null domain, hvdom->domid_num == HV_DEVICE_DOMAIN_ID_S2_NULL */
++	input->device_domain.partition_id = HV_PARTITION_ID_SELF;
++	input->device_domain.domain_id.type = HV_DEVICE_DOMAIN_TYPE_S2;
++	input->device_domain.domain_id.id = hvdom->domid_num;
++
++	input->device_id.as_uint64 = hv_build_devid_type_pci(pdev);
++
++	status = hv_do_hypercall(HVCALL_ATTACH_DEVICE_DOMAIN, input, NULL);
++	local_irq_restore(flags);
++
++	if (!hv_result_success(status))
++		hv_status_err(status, "\n");
++
++	return hv_result_to_errno(status);
++}
++
++static int hv_iommu_attach_dev(struct iommu_domain *immdom, struct device *dev,
++			       struct iommu_domain *old)
++{
++	struct pci_dev *pdev;
++	int rc;
++	struct hv_domain *hvdom_new = to_hv_domain(immdom);
++
++	pdev = to_pci_dev(dev);
++
++	rc = hv_iommu_att_dev2dom(hvdom_new, pdev);
++	if (rc)
++		WARN(1, "Failed to attach pdev:%s\n", pci_name(pdev));
++
++	return rc;
++}
++
++static u64 hv_iommu_unmap_batch(u32 domid_num, ulong iova, u16 count)
++{
++	ulong flags;
++	struct hv_input_unmap_device_gpa_pages *input;
++	u64 status;
++
++	local_irq_save(flags);
++	input = *this_cpu_ptr(hyperv_pcpu_input_arg);
++	memset(input, 0, sizeof(*input));
++
++	input->device_domain.partition_id = HV_PARTITION_ID_SELF;
++	input->device_domain.domain_id.type = HV_DEVICE_DOMAIN_TYPE_S2;
++	input->device_domain.domain_id.id = domid_num;
++	input->target_device_va_base = iova;
++
++	status = hv_do_rep_hypercall(HVCALL_UNMAP_DEVICE_GPA_PAGES, count,
++				     0, input, NULL);
++	local_irq_restore(flags);
++
++	if (!hv_result_success(status))
++		hv_status_err(status, "iova:0x%lx count:0x%x\n", iova, count);
++
++	return status;
++}
++
++static size_t hv_iommu_hyp_unmap_pages(struct iommu_domain *immdom, ulong iova,
++				       size_t size)
++{
++	u64 status;
++	struct hv_domain *hvdom = to_hv_domain(immdom);
++	size_t tot_done = 0;
++	ulong npages = size >> HV_HYP_PAGE_SHIFT;
++
++	while (npages) {
++		int done, count = min(npages, HV_REP_COUNT_MAX);
++
++		status = hv_iommu_unmap_batch(hvdom->domid_num, iova, count);
++
++		done = hv_repcomp(status);
++		tot_done += done;
++		npages -= done;
++		iova += done << HV_HYP_PAGE_SHIFT;
++
++		if (!hv_result_success(status))
++			break;
++	}
++
++	return tot_done << HV_HYP_PAGE_SHIFT;
++}
++
++static size_t hv_iommu_unmap_pages(struct iommu_domain *immdom, ulong iova,
++				   size_t pgsize, size_t pgcount,
++				   struct iommu_iotlb_gather *gather)
++{
++	struct hv_domain *hvdom = to_hv_domain(immdom);
++	size_t unmapped_sz, size = pgsize * pgcount;
++
++	unmapped_sz = hv_iommu_del_tree_mappings(hvdom, iova, size);
++	if (unmapped_sz != size)
++		pr_err("%s: could not delete exact mappings (%lx:%lx/%lx)\n",
++		       __func__, iova, unmapped_sz, size);
++
++	size = hv_iommu_hyp_unmap_pages(immdom, iova, unmapped_sz);
++	if (size != unmapped_sz)
++		WARN(1, "Failed to unmap exact sizes(%lx/%lx)\n", unmapped_sz,
++		     size);
++
++	return size;
++}
++
++/* Return: must return exact status from the hypercall without changes */
++static u64 hv_iommu_map_pgs(struct hv_domain *hvdom, ulong iova,
++			    phys_addr_t paddr, ulong npages, u32 map_flags)
++{
++	u64 status;
++	int i;
++	struct hv_input_map_device_gpa_pages *input;
++	unsigned long flags, pfn;
++
++	local_irq_save(flags);
++	input = *this_cpu_ptr(hyperv_pcpu_input_arg);
++	memset(input, 0, sizeof(*input));
++
++	input->device_domain.partition_id = HV_PARTITION_ID_SELF;
++	input->device_domain.domain_id.type = HV_DEVICE_DOMAIN_TYPE_S2;
++	input->device_domain.domain_id.id = hvdom->domid_num;
++	input->map_flags = map_flags;
++	input->target_device_va_base = iova;
++
++	pfn = paddr >> HV_HYP_PAGE_SHIFT;
++	for (i = 0; i < npages; i++, pfn++)
++		input->gpa_page_list[i] = pfn;
++
++	status = hv_do_rep_hypercall(HVCALL_MAP_DEVICE_GPA_PAGES, npages, 0,
++				     input, NULL);
++	local_irq_restore(flags);
++
++	if (!hv_result_success(status))
++		hv_status_err(status, "npgs:%lx paddr:%llx iova:%lx mf:0x%x\n",
++			      npages, paddr, iova, map_flags);
++	return status;
++}
++
++#define HV_MAP_DEVICE_GPA_BATCH_SIZE   \
++	((HV_HYP_PAGE_SIZE - sizeof(struct hv_input_map_device_gpa_pages)) \
++			/ sizeof(u64))
++
++/*
++ * The core VFIO code loops over memory ranges calling this function with the
++ * largest pgsize from HV_IOMMU_PGSIZES. cond_resched() is in vfio_iommu_map.
++ */
++static int hv_iommu_map_pages(struct iommu_domain *immdom, ulong iova,
++			      phys_addr_t paddr, size_t pgsize, size_t pgcount,
++			      int prot, gfp_t gfp, size_t *mapped)
++{
++	u32 map_flags;
++	int ret;
++	u64 status = 0;
++	ulong npages, sav_iova = iova, done = 0;
++	struct hv_domain *hvdom = to_hv_domain(immdom);
++	phys_addr_t sav_paddr = paddr;
++	size_t done_size, size = pgsize * pgcount;
++
++	map_flags = HV_MAP_GPA_READABLE;	/* required */
++	map_flags |= prot & IOMMU_WRITE ? HV_MAP_GPA_WRITABLE : 0;
++
++	npages = size >> HV_HYP_PAGE_SHIFT;
++	while (done < npages) {
++		ulong completed, remain = npages - done;
++
++		remain = min(remain, HV_MAP_DEVICE_GPA_BATCH_SIZE);
++
++		status = hv_iommu_map_pgs(hvdom, iova, paddr, remain,
++					  map_flags);
++
++		completed = hv_repcomp(status);
++		done = done + completed;
++		iova = iova + (completed << HV_HYP_PAGE_SHIFT);
++		paddr = paddr + (completed << HV_HYP_PAGE_SHIFT);
++
++		if (hv_result_needs_memory(status)) {
++			ret = hv_call_deposit_pages(NUMA_NO_NODE,
++						    hv_current_partition_id,
++						    256);
++			if (ret)
++				break;
++			continue;
++		}
++		if (!hv_result_success(status))
++			break;
++	}
++
++	done_size = done << HV_HYP_PAGE_SHIFT;
++
++	if (mapped)
++		*mapped = done_size;
++
++	if (done_size == 0)
++		return hv_result_to_errno(status);
++
++	ret = hv_iommu_add_tree_mapping(hvdom, sav_iova, sav_paddr, done_size,
++					map_flags);
++	if (ret) {
++		size = hv_iommu_hyp_unmap_pages(immdom, sav_iova, done_size);
++		if (size != done_size)
++			WARN(1, "Failed to unmap exact sizes(%lx/%lx)\n",
++			     done_size, size);
++		if (mapped)
++			*mapped = done_size - size;
++
++		return ret;
++	}
++
++	return 0;
++}
++
++static phys_addr_t hv_iommu_iova_to_phys(struct iommu_domain *immdom,
++					 dma_addr_t iova)
++{
++	unsigned long flags;
++	struct hv_iommu_mapping *mapping;
++	struct interval_tree_node *node;
++	u64 paddr = 0;
++	struct hv_domain *hvdom = to_hv_domain(immdom);
++
++	spin_lock_irqsave(&hvdom->mappings_lock, flags);
++	node = interval_tree_iter_first(&hvdom->mappings_tree, iova, iova);
++	if (node) {
++		mapping = container_of(node, struct hv_iommu_mapping, iova);
++		paddr = mapping->paddr + (iova - mapping->iova.start);
++	}
++	spin_unlock_irqrestore(&hvdom->mappings_lock, flags);
++
++	return paddr;
++}
++
++/*
++ * Currently, hypervisor does not provide list of devices it is using
++ * dynamically. So use this to allow users to manually specify devices that
++ * should be skipped. (eg. hypervisor debugger using some network device).
++ */
++static struct iommu_device *hv_iommu_probe_device(struct device *dev)
++{
++	if (!dev_is_pci(dev))
++		return ERR_PTR(-ENODEV);
++
++	if (hv_skip_pci_devs && *hv_skip_pci_devs) {
++		int rc, parsed, segment, bus, slot, func;
++		int pos = 0;
++		struct pci_dev *pdev = to_pci_dev(dev);
++
++		do {
++			parsed = 0;
++
++			rc = sscanf(hv_skip_pci_devs + pos, " (%x:%x:%x.%x) %n",
++				    &segment, &bus, &slot, &func, &parsed);
++
++			if (rc != 4 || parsed <= 0)
++				break;
++
++			if (pci_domain_nr(pdev->bus) == segment &&
++			    pdev->bus->number == bus &&
++			    PCI_SLOT(pdev->devfn) == slot &&
++			    PCI_FUNC(pdev->devfn) == func) {
++
++				dev_info(dev, "skipped by Hyper-V IOMMU\n");
++				return ERR_PTR(-ENODEV);
++			}
++			pos += parsed;
++
++		} while (hv_skip_pci_devs[pos]);
++	}
++
++	return &hv_virt_iommu;
++}
++
++static struct iommu_group *hv_iommu_device_group(struct device *dev)
++{
++	return pci_device_group(dev);
++}
++
++static void hv_iommu_get_resv_regions(struct device *dev,
++				      struct list_head *head)
++{
++	struct iommu_resv_region *reg;
++
++	/* reserve the entire LAPIC region */
++	reg = iommu_alloc_resv_region(0xfee00000, SZ_1M, 0, IOMMU_RESV_MSI,
++				      GFP_KERNEL);
++	if (reg)
++		list_add_tail(&reg->list, head);
++}
++
++static struct iommu_domain_ops hv_paging_domain_ops = {
++	.attach_dev = hv_iommu_attach_dev,
++	.map_pages = hv_iommu_map_pages,
++	.unmap_pages = hv_iommu_unmap_pages,
++	.iova_to_phys = hv_iommu_iova_to_phys,
++	.free = hv_iommu_domain_free,
++};
++
++static struct iommu_ops hv_iommu_ops = {
++	.capable	    = hv_iommu_capable,
++	.domain_alloc_paging	= hv_iommu_domain_alloc_paging,
++	.probe_device	    = hv_iommu_probe_device,
++	.device_group	    = hv_iommu_device_group,
++	.get_resv_regions   = hv_iommu_get_resv_regions,
++	.owner		    = THIS_MODULE,
++	.identity_domain    = &hv_def_identity_dom.iommu_dom,
++	.blocked_domain     = &hv_def_blocked_dom.iommu_dom,
++	.release_domain     = &hv_def_blocked_dom.iommu_dom,
++};
++
++static const struct iommu_domain_ops hv_special_domain_ops = {
++	.attach_dev = hv_iommu_attach_dev,
++};
++
++static void __init hv_initialize_special_domains(void)
++{
++	hv_def_identity_dom.iommu_dom.type = IOMMU_DOMAIN_IDENTITY;
++	hv_def_identity_dom.iommu_dom.ops = &hv_special_domain_ops;
++	hv_def_identity_dom.iommu_dom.owner = &hv_iommu_ops;
++	hv_def_identity_dom.domid_num = HV_DEVICE_DOMAIN_ID_S2_DEFAULT; /* 0 */
++
++	hv_def_blocked_dom.iommu_dom.type = IOMMU_DOMAIN_BLOCKED;
++	hv_def_blocked_dom.iommu_dom.ops = &hv_special_domain_ops;
++	hv_def_blocked_dom.iommu_dom.owner = &hv_iommu_ops;
++	hv_def_blocked_dom.domid_num = HV_DEVICE_DOMAIN_ID_S2_NULL; /* INTMAX */
++}
++
++static int hv_iommu_get_caps(struct hv_output_get_iommu_capabilities *caps)
++{
++	u64 status;
++	unsigned long flags;
++	struct hv_input_get_iommu_capabilities *input;
++	struct hv_output_get_iommu_capabilities *output;
++
++	local_irq_save(flags);
++
++	input = *this_cpu_ptr(hyperv_pcpu_input_arg);
++	output = *this_cpu_ptr(hyperv_pcpu_output_arg);
++	memset(input, 0, sizeof(*input));
++	input->partition_id = HV_PARTITION_ID_SELF;
++	status = hv_do_hypercall(HVCALL_GET_IOMMU_CAPABILITIES, input, output);
++	*caps = *output;
++
++	local_irq_restore(flags);
++
++	if (!hv_result_success(status))
++		hv_status_err(status, "\n");
++
++	return hv_result_to_errno(status);
++}
++
++static int __init hv_iommu_init(void)
++{
++	int rc;
++	struct iommu_device *iommup = &hv_virt_iommu;
++	struct hv_output_get_iommu_capabilities caps;
++
++	if (!hv_is_hyperv_initialized())
++		return -ENODEV;
++
++	rc = hv_iommu_get_caps(&caps);
++	if (rc)
++		return rc;
++
++	hv_iommu_max_iova = ((ulong)1 << caps.max_iova_width) - 1;
++
++	rc = iommu_device_sysfs_add(iommup, NULL, NULL, "%s", "hyperv-iommu");
++	if (rc) {
++		pr_err("Hyper-V: iommu_device_sysfs_add failed: %d\n", rc);
++		return rc;
++	}
++
++	/* This must come before iommu_device_register() because the latter
++	 * calls into the hooks.
++	 */
++	hv_initialize_special_domains();
++
++	rc = iommu_device_register(iommup, &hv_iommu_ops, NULL);
++	if (rc) {
++		pr_err("Hyper-V: iommu_device_register failed: %d\n", rc);
++		goto err_sysfs_remove;
++	}
++
++	pr_info("Hyper-V IOMMU initialized\n");
++
++	return 0;
++
++err_sysfs_remove:
++	iommu_device_sysfs_remove(iommup);
++	return rc;
++}
++
++void __init hv_iommu_detect(void)
++{
++	if (no_iommu || iommu_detected || hv_l1vh_partition())
++		return;
++
++	if (!(ms_hyperv.misc_features & HV_DEVICE_DOMAIN_AVAILABLE))
++		return;
++
++	iommu_detected = 1;
++	x86_init.iommu.iommu_init = hv_iommu_init;
++
++	pci_request_acs();
++}
+diff --git a/include/asm-generic/mshyperv.h b/include/asm-generic/mshyperv.h
+index bf601d67cecb..fa8331c7c3a2 100644
+--- a/include/asm-generic/mshyperv.h
++++ b/include/asm-generic/mshyperv.h
+@@ -28,6 +28,9 @@
+ 
+ #define VTPM_BASE_ADDRESS 0xfed40000
+ 
++#define HV_REP_COUNT_MAX        \
++	(HV_HYPERCALL_REP_COMP_MASK >> HV_HYPERCALL_REP_COMP_OFFSET)
++
+ enum hv_partition_type {
+ 	HV_PARTITION_TYPE_GUEST,
+ 	HV_PARTITION_TYPE_ROOT,
+diff --git a/include/linux/hyperv.h b/include/linux/hyperv.h
+index 9e109d91aa14..01a69f88cfa7 100644
+--- a/include/linux/hyperv.h
++++ b/include/linux/hyperv.h
+@@ -1783,4 +1783,10 @@ static inline unsigned long virt_to_hvpfn(void *addr)
+ #define HVPFN_DOWN(x)	((x) >> HV_HYP_PAGE_SHIFT)
+ #define page_to_hvpfn(page)	(page_to_pfn(page) * NR_HV_HYP_PAGES_IN_PAGE)
+ 
++#ifdef CONFIG_HYPERV_ROOT_IOMMU
++void __init hv_iommu_detect(void);
++#else
++static inline void hv_iommu_detect(void) { }
++#endif /* CONFIG_HYPERV_ROOT_IOMMU */
++
+ #endif /* _HYPERV_H */
+-- 
+2.51.2.vfs.0.1
 
