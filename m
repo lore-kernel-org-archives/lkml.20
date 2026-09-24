@@ -1,321 +1,138 @@
-Received: from mta1.migadu.com (out-135.mta1.migadu.com [95.215.58.135])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A31B84A6CF5
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:15:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFE7D1FB1
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:16:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790280918; cv=none; b=Fm8dfJ3KAoZ52qc4pBSgR6PKT1zHIRKhaMrSjJPbGT+9EyusKqdzwn3KN4aWQYY3jVlf77+VqHEA4Wj2wUj151DzKprQqguZ4mkiuf+TfWSQj+lYeuHteevkJg+TJwSbRAUSyeKC4beKnbwmScjXWVkWW4iGd4yTm1jkcP1Ioa8=
+	t=1790280997; cv=none; b=P6o9O2cvPL/A5C2szgpoZtTNzSb23onaW+9lP2nko8DtzYfv6CdR5a4duLqHVmWNcm81Wb9hkqWo7goUmJm9OrXzAcxRM8YzLytRcocmCEEtDVw20Da4Yo9MosqoHeR4zAXJ/SDJ3dxebnZCyiWT+7XbPlP+9ubKyhN18JV9XIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790280918; c=relaxed/simple;
-	bh=3FK/qIMRQSXYGyL8CzqTw7WcVWDR72Geww9KG/fEIE4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IL7s/aC0hA+9kt5GdZ7Y5NmGWZx1Y5kRx8yd7s60IXnEWyGiMwiOUXP//lK0sBt6Nn0k3Caujt+Jcbl67yOrhYzEyWq/8RVjBggker5kA8RoJxsAIN8G9cTdL7GXVKJNYfinu3C3ILfKWcPmiwTuVb16MH36X9CMbRMKexaMjNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ChxHHwVg; arc=none smtp.client-ip=95.215.58.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790280997; c=relaxed/simple;
+	bh=LmbjwTK4tuaONw1jCkYsUmgRPvsp4oLyl3+5bT69KPA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hVVBzraEtIL9eB6gESUjTK4MlKU3D88wDT9Il2Ccb8xaKAhOX8vXUtZ+4QBBVp9P7mc3KBX2OFRNJ3k4WxZMbPQI4xYPigiYrzag0NPIDCfcni9eM0OQojCtw7SyBK/P8OF87w6Buf7fitLrWyvCnxOgzDX4VjStCsXnyrwTBb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lVoCeg34; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ChxHHwVg"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=3FK/qIMRQSXYGyL8CzqTw7WcVWDR72Geww9KG/fEIE4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790280914; v=1; x=1790885714;
- b=ChxHHwVgP9KdlO3V13lZO747makbszLlWUeQH45JDzr1Ect26ZLJ5QK+I9f58Lk0zeN1jOyO
- g8w7hAeP1UrmlTpgsNCiCnDhDNFmfGqOyN7vpKYorX+1jSRcxhGh9RFPElVR28J+R4heqKeJVvv
- EdnAqvHDihIS4Z7agyct5Ggk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f3b409eef374a769;
-	Thu, 24 Sep 2026 20:15:08 +0000
-X-Mizu-Trace-ID: f3b409eef374a769
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <c8b8504c-8e54-479f-a372-3d2755edaf88@linux.dev>
-Date: Thu, 24 Sep 2026 13:14:59 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lVoCeg34"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so1012115e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:16:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790280990; x=1790885790; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WT1vJAlJB3UqsXiDI150AgVhKS27Afshhi+pSW9AfhY=;
+        b=lVoCeg3431wztc9TcpBQOLG7GJbZRxQ+peAsFNgURU8sHwQ+HS9NmwBf0jwoDKqk0z
+         jvrEsRpWmCrwVOXtWEs5tsQd4kqQ1FB931YCPIGDWyXBBNf7PGq03d1/z2Ma3DLLnvSQ
+         vRpKRAL75yLqCGKZ9OF/iwErMmxuzOOkmGHMwNPqVZ/mU+KegWyyVIazeYxmhax58BKU
+         ukqJwhGO7JEwJECTHSV5gSwU5tzAlK6jcM1/XG5D3p5rEhSNCP/py6b1GzndrOWk4yJD
+         XkF6Z6RTRPuZQeBwmYCgKcYBYOzR4YwfV9D87/ce6LnWN+8oBt+6UUD+84M36XU/unaI
+         ByIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790280990; x=1790885790;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WT1vJAlJB3UqsXiDI150AgVhKS27Afshhi+pSW9AfhY=;
+        b=S4XnB/cyCDUSj1ytrKDIMs+l/DPnNJ6uOp9+HEMIkltqMGy3BeO2ZAvo9cMRSJBsAu
+         aVCcCgNjcVA8qV1vXXRZfJRt0o2snxuYog2IYic6zU+kWyivtqZL5q7T5DDMmZuOFgFh
+         WNRKermMD3ZjxYP9PL+kVcKM/QiB+DN+OI88aNMbop7f2hUOWIkqck1m3rOTWaPmYcXl
+         eGGnEvw5HffJhaoO9cPGSrOlz/S2xkZ5ZecxQs8v1/HIiGrlOR7P/9XTV7gQeQZA6omF
+         /P0WNgV1O+eTBKcIgfH03ngri6O6utGEIfANzSN3iLD9I3YrOAVuxeTDAnn4PiyRcFPw
+         9y7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwrdfH5F4fnME7VojVgP76w8FDf2C2QTSkxyExID2h4Z99BMCAtK8YINf+p/3SYrtw4yfecAjtmMTMu8wo=@vger.kernel.org
+X-Gm-Message-State: AFuF++n5iM4f2V5o6MJAsG1u0nvnMbmZugc03nE5Duj6GyZbeASw+lWp
+	HVama7Q9D2vp6Ia5INsnMM/BKMqDaYTz9hhY2eBqdLsy/aVBuoUrLTEm
+X-Gm-Gg: AYBFou0rbzMxXwWFXiehxzWyuJ7U9V4ZiTSaDTOf0ZpfdgoEZ4KucZUchyBYy9By9N+
+	fdXzw7AkvlzeQslEnOGLdaUmrAqIqaxPqyPht4JVpbIofRq/OEHX3ogYEutlSORWiYM64rF0S70
+	4+mSMjj3CC8Ypx4N6HLE9hz+XRE9xbM9bCmG8xIadYV5mjVU/6Mh56LtMv0O3ispsEgToCu0IOK
+	MLpT1TPHudPRaxFia0Q9qvnH8Cc2J62tGVxGsHzbQyjLNUacgiGji/J6Wfez/Mo4N5ic/18nSU9
+	Y/DDWMGwwWOv+0qF+wilWk9BdZlbQnDmNEPkhD1hGSdJYzR59eQmiS7cECjqGcFhyRIBpPD3Wtr
+	zxKjDSNQda03znO3ZIbeFFWovatjGDutjUkbfszrnoD2C24KUTu+jNUg2Y3MNgHwiFb9+0i6VNv
+	sI0UQQOGtBIawrNzWtJwse4Qp14hD7ZoVf96z0FwZSnpcs4s19A7pCepxENwVbsIEB1esx4B5II
+	p8poLfK3mi1cCuJ4PvOnnVBH+z0fsplRe/93ijtAUw8rDXvDQD9krW134BooCQKlBwNfWGF4Hly
+	bqzU9y9iIfIb9TJhzQpU+fMXIkGQT8qmgB5XCGrxWqVRoJwpg5IVVhRpcKKbJrJt0QbGef7mWRp
+	a5Aj5XnGD7Ar8nw9T3zpK9Q==
+X-Received: by 2002:a05:600c:8b5b:b0:49c:f13e:e4d with SMTP id 5b1f17b1804b1-49fe66f17damr60720065e9.10.1790280989870;
+        Thu, 24 Sep 2026 13:16:29 -0700 (PDT)
+Received: from MBP-von-Karl.localdomain (dynamic-2a02-3100-adbf-6901-3138-76b5-e9f7-b9cf.310.pool.telefonica.de. [2a02:3100:adbf:6901:3138:76b5:e9f7:b9cf])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5dfa6a7sm144818795e9.12.2026.09.24.13.16.28
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 24 Sep 2026 13:16:29 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: SJ Park <sj@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Bijan Tabatabai <bijan311@gmail.com>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] mm/damon: preserve quota state when constructing schemes
+Date: Thu, 24 Sep 2026 22:16:12 +0200
+Message-Id: <20260924201615.4478-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 3/4] memcg_ext: allow BPF to defer memory.high
- enforcement
-To: Shakeel Butt <shakeel.butt@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>,
- Alexei Starovoitov <ast@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Muchun Song <muchun.song@linux.dev>, Tejun Heo <tj@kernel.org>,
- Michal Koutny <mkoutny@suse.com>, Amery Hung <ameryhung@gmail.com>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>,
- Emil Tsalapatis <emil@etsalapatis.com>, Jiri Olsa <jolsa@kernel.org>,
- Ihor Solodrai <ihor.solodrai@linux.dev>,
- John Fastabend <john.fastabend@gmail.com>,
- Jiayuan Chen <jiayuan.chen@linux.dev>, hui.zhu@linux.dev,
- Donet Tom <donettom@linux.ibm.com>, Greg Thelen <gthelen@google.com>,
- Meta kernel team <kernel-team@meta.com>, linux-mm@kvack.org,
- bpf@vger.kernel.org, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260921192559.2619635-1-shakeel.butt@linux.dev>
- <20260921192559.2619635-4-shakeel.butt@linux.dev>
-Content-Language: en-US
-From: JP Kobryn <jp.kobryn@linux.dev>
-In-Reply-To: <20260921192559.2619635-4-shakeel.butt@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/21/26 12:25 PM, Shakeel Butt wrote:
-> Before it returns, try_charge_memcg() calls __mem_cgroup_handle_over_high(),
-> which reclaims and can throttle the task.  That happens wherever the charge
-> happens, so a task holding a kernel lock can be stuck there, and everything
-> waiting on the lock is stuck behind it.
-> 
-> Let's add high_policy ops through which a program gets a read-only snapshot
-> of the charge and returns a request.  There is one so far:
-> BPF_MEMCG_HIGH_DEFER_INLINE skips the inline call.
-> 
-> A charge runs the policies of its cgroup and of every ancestor.
-> task_struct::in_bpf_memcg stops a program that allocates from re-entering
-> the charge path and the dispatcher with it.
-> 
-> A memcg outlives its cgroup while it has charges, and cgroup_bpf_release()
-> frees the arrays when the cgroup goes. Take the reference for the walk.
-> 
-> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
-> ---
->   MAINTAINERS                    |  1 +
->   include/linux/bpf-cgroup.h     |  3 ++
->   include/linux/bpf_memcontrol.h | 53 +++++++++++++++++++++-
->   include/linux/cgroup.h         |  7 +++
->   include/linux/sched.h          |  4 ++
->   mm/bpf_memcontrol.c            | 82 +++++++++++++++++++++++++++++++++-
->   mm/memcontrol.c                | 31 ++++++++++++-
->   7 files changed, 176 insertions(+), 5 deletions(-)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 6215fcb07770..0c84beab396f 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -5032,6 +5032,7 @@ L:	bpf@vger.kernel.org
->   L:	linux-mm@kvack.org
->   S:	Maintained
->   F:	mm/bpf_memcontrol.c
-> +F:	include/linux/bpf_memcontrol.h
->   
->   BPF [MISC]
->   L:	bpf@vger.kernel.org
-> diff --git a/include/linux/bpf-cgroup.h b/include/linux/bpf-cgroup.h
-> index 4e8150848bd2..e19cf83e58f3 100644
-> --- a/include/linux/bpf-cgroup.h
-> +++ b/include/linux/bpf-cgroup.h
-> @@ -517,6 +517,9 @@ static inline int cgroup_bpf_struct_ops_attach(struct bpf_map *map,
->   
->   #define cgroup_bpf_enabled(atype) (0)
->   #define cgroup_bpf_enabled_runtime(atype) (0)
-> +/* Nothing can be attached, so the walk has nothing to walk. */
-> +#define bpf_cgroup_struct_ops_foreach(var, item, cgrp, atype)		\
-> +	for ((void)(cgrp), (item) = NULL, (var) = NULL; 0; )
->   #define BPF_CGROUP_RUN_SA_PROG_LOCK(sk, uaddr, uaddrlen, atype, t_ctx) ({ 0; })
->   #define BPF_CGROUP_RUN_SA_PROG(sk, uaddr, uaddrlen, atype) ({ 0; })
->   #define BPF_CGROUP_PRE_CONNECT_ENABLED(sk) (0)
-> diff --git a/include/linux/bpf_memcontrol.h b/include/linux/bpf_memcontrol.h
-> index 8204d894761e..76ea5d1c3d32 100644
-> --- a/include/linux/bpf_memcontrol.h
-> +++ b/include/linux/bpf_memcontrol.h
-> @@ -5,13 +5,62 @@
->    * A bpf_memcg_ops is attached to a cgroup.  A charge runs the policies of
->    * that cgroup and of every ancestor, and the kernel combines what they
->    * return.  BPF only picks between things the kernel already does.
-> - *
-> - * The type has no members yet; they come with the policies that use them.
->    */
->   #ifndef _LINUX_BPF_MEMCONTROL_H
->   #define _LINUX_BPF_MEMCONTROL_H
->   
-> +#include <linux/types.h>
-> +#include <linux/gfp_types.h>
-> +
-> +struct mem_cgroup;
-> +struct task_struct;
-> +
-> +/*
-> + * What a policy can ask for when a cgroup is over memory.high.  The kernel
-> + * ORs them, so one policy cannot undo another.
-> + */
-> +enum bpf_memcg_high_request {
-> +	BPF_MEMCG_HIGH_NO_OPINION	= 0,
-> +	/*
-> +	 * Skip the inline reclaim and throttle.  The debt is kept and paid on
-> +	 * the way back to userspace, where no kernel locks are held.
-> +	 */
-> +	BPF_MEMCG_HIGH_DEFER_INLINE	= 1U << 0,
-> +};
-> +
-> +#define BPF_MEMCG_HIGH_VALID_MASK	BPF_MEMCG_HIGH_DEFER_INLINE
-> +
-> +/* Read-only snapshot.  Only values the caller already has. */
-> +struct bpf_memcg_ctx {
-> +	struct mem_cgroup	*memcg;			/* charged memcg */
-> +	struct mem_cgroup	*memcg_over_limit;	/* NULL if none found */
-> +	struct task_struct	*task;			/* current */
-> +	u64			cgroup_id;
-> +	u64			over_limit_cgroup_id;	/* 0 if none */
-> +	u64			nr_pages_over_high;
-> +	u32			gfp_flags;
-> +};
-> +
->   struct bpf_memcg_ops {
-> +	/**
-> +	 * high_policy - say where memory.high should be enforced
-> +	 * @ctx: snapshot of the charge
-> +	 *
-> +	 * Return: bits from enum bpf_memcg_high_request, or 0.  Other bits
-> +	 * are dropped.
-> +	 */
-> +	u32 (*high_policy)(const struct bpf_memcg_ctx *ctx);
->   };
->   
-> +/*
-> + * Run every high_policy on @memcg's cgroup and its ancestors, and return the
-> + * combined request for the caller to act on.
-> + *
-> + * @memcg:	the memcg being charged, never NULL
-> + * @over_limit:	first memcg found over memory.high or swap.high, or NULL
-> + * @gfp_mask:	the charge's gfp mask
-> + */
-> +u32 bpf_memcg_high_policy(struct mem_cgroup *memcg,
-> +			  struct mem_cgroup *over_limit, gfp_t gfp_mask);
-> +
->   #endif /* _LINUX_BPF_MEMCONTROL_H */
-> diff --git a/include/linux/cgroup.h b/include/linux/cgroup.h
-> index 5dfa915a630e..cf92b6cec819 100644
-> --- a/include/linux/cgroup.h
-> +++ b/include/linux/cgroup.h
-> @@ -959,10 +959,17 @@ static inline void cgroup_bpf_put(struct cgroup *cgrp)
->   	percpu_ref_put(&cgrp->bpf.refcnt);
->   }
->   
-> +/* Fails once the cgroup is gone and its bpf state has been freed. */
-> +static inline bool cgroup_bpf_tryget_live(struct cgroup *cgrp)
-> +{
-> +	return percpu_ref_tryget_live_rcu(&cgrp->bpf.refcnt);
-> +}
-> +
->   #else /* CONFIG_CGROUP_BPF */
->   
->   static inline void cgroup_bpf_get(struct cgroup *cgrp) {}
->   static inline void cgroup_bpf_put(struct cgroup *cgrp) {}
-> +static inline bool cgroup_bpf_tryget_live(struct cgroup *cgrp) { return false; }
->   
->   #endif /* CONFIG_CGROUP_BPF */
->   
-> diff --git a/include/linux/sched.h b/include/linux/sched.h
-> index 8b3d47a325cc..4b20a346aaa8 100644
-> --- a/include/linux/sched.h
-> +++ b/include/linux/sched.h
-> @@ -1031,6 +1031,10 @@ struct task_struct {
->   #ifdef CONFIG_MEMCG_V1
->   	unsigned			in_user_fault:1;
->   #endif
-> +#ifdef CONFIG_MEMCG
-> +	/* A bpf_memcg_ops program is running; do not recurse into policy */
-> +	unsigned			in_bpf_memcg:1;
-> +#endif
->   #ifdef CONFIG_LRU_GEN
->   	/* whether the LRU algorithm may apply to this access */
->   	unsigned			in_lru_fault:1;
-> diff --git a/mm/bpf_memcontrol.c b/mm/bpf_memcontrol.c
-> index fd6dff150f01..cfd0f1d443c9 100644
-> --- a/mm/bpf_memcontrol.c
-> +++ b/mm/bpf_memcontrol.c
-> @@ -246,8 +246,17 @@ static const struct btf_kfunc_id_set bpf_memcontrol_reclaim_kfunc_set = {
->    * request and the kernel acts on it.  Nothing here reclaims or sleeps.
->    */
->   
-> -/* CFI stubs.  A slot points at these while its policy is being detached. */
-> +/*
-> + * CFI stubs.  These really run: a slot points at them while its policy is
-> + * being detached.  Return 0, the identity for the kernel's OR.
-> + */
-> +static u32 high_policy_stub(const struct bpf_memcg_ctx *ctx)
-> +{
-> +	return BPF_MEMCG_HIGH_NO_OPINION;
-> +}
-> +
->   static struct bpf_memcg_ops __bpf_memcg_ops = {
-> +	.high_policy = high_policy_stub,
->   };
->   
->   static const struct bpf_func_proto *
-> @@ -326,6 +335,77 @@ static struct bpf_struct_ops bpf_memcg_ops_desc = {
->   	 */
->   };
->   
-> +static void bpf_memcg_ctx_init(struct bpf_memcg_ctx *ctx,
-> +			       struct mem_cgroup *memcg,
-> +			       struct mem_cgroup *over_limit, gfp_t gfp_mask)
-> +{
-> +	ctx->memcg = memcg;
-> +	ctx->memcg_over_limit = over_limit;
-> +	ctx->task = current;
-> +	ctx->cgroup_id = cgroup_id(memcg->css.cgroup);
-> +	ctx->over_limit_cgroup_id = over_limit ?
-> +		cgroup_id(over_limit->css.cgroup) : 0;
-> +	ctx->nr_pages_over_high = current->memcg_nr_pages_over_high;
-> +	ctx->gfp_flags = (__force u32)gfp_mask;
-> +}
-> +
-> +u32 bpf_memcg_high_policy(struct mem_cgroup *memcg,
-> +			  struct mem_cgroup *over_limit, gfp_t gfp_mask)
-> +{
-> +	const struct bpf_prog_array_item *item;
-> +	const struct bpf_memcg_ops *ops;
-> +	struct bpf_memcg_ctx ctx;
-> +	u32 acc = BPF_MEMCG_HIGH_NO_OPINION;
-> +	struct cgroup *cgrp;
-> +
-> +	if (!cgroup_bpf_enabled(CGROUP_MEMCG_OPS))
-> +		return acc;
-> +
-> +	/*
-> +	 * Only the default hierarchy has a cgroup_bpf, and the static key is
-> +	 * global, so one policy anywhere turns this on for v1 memcgs too.  A
-> +	 * v1 memcg still cannot get here, because memory.high and swap.high
-> +	 * are both v2-only and so it never builds the debt that leads to this
-> +	 * call.  A hook on a path v1 can reach needs its own cgroup_on_dfl()
-> +	 * test: a v1 cgroup has no effective array and an uninitialised
-> +	 * cgrp->bpf.refcnt.
-> +	 */
-> +	cgrp = memcg->css.cgroup;
-> +
-> +	/*
-> +	 * A program can allocate and re-enter the charge path.  Skip the
-> +	 * nested call.  This guards the callbacks only.
-> +	 */
-> +	if (current->in_bpf_memcg)
-> +		return acc;
-> +	current->in_bpf_memcg = 1;
-> +
-> +	rcu_read_lock_dont_migrate();
-> +
-> +	/*
-> +	 * A memcg outlives its cgroup while it has charges, and
-> +	 * cgroup_bpf_release() frees the arrays when the cgroup goes.
-> +	 */
-> +	if (!cgroup_bpf_tryget_live(cgrp))
-> +		goto out;
-> +
-> +	bpf_memcg_ctx_init(&ctx, memcg, over_limit, gfp_mask);
-> +
-> +	bpf_cgroup_struct_ops_foreach(ops, item, cgrp, CGROUP_MEMCG_OPS) {
-> +		if (ops->high_policy)
-> +			acc |= ops->high_policy(&ctx) &
-> +			       BPF_MEMCG_HIGH_VALID_MASK;
-> +	}
+damon_commit_ctx() first commits the running context's parameters to a
+temporary context for validating proposed updates. Constructing the
+temporary schemes clears the running schemes' quota state because
+damon_new_scheme() initializes the quota passed as a parameter before
+copying it to the new scheme. Even an update later rejected with -EINVAL
+loses the running quota state.
 
-If I'm reading correctly, the gfp_mask at this point doesn't account for
-task restrictions, so the BPF program may see __GFP_FS, __GFP_IO, etc
-which may later be cleared when setting up the scan_control instance.
+Initialize the new scheme's copy instead, and add KUnit tests for the
+constructor and for accepted and rejected context updates.
+
+In the v1 live test with damo, a scheme with a plain 64 KiB size quota and
+a 60-second reset interval uses its quota, and a full "damo tune" with
+unchanged parameters then lets it try another 64 KiB within the same
+window. With the fix, sz_tried stays at 64 KiB.
+
+KUnit was rerun after the rebase on x86-64 and i386. With only patch 2
+applied, the two new tests fail. With the fix, all 46 DAMON KUnit tests
+pass on both architectures.
+
+The v1 DAMON selftests showed no new failures (QEMU TCG guest; the
+wss_estimation test missed its accuracy bounds with and without the fix).
+
+Changes since v1 [1], following SJ's review [2]:
+ - Collect SJ's Reviewed-by for patch 2.
+ - Explain the running-context validation in the opening paragraph.
+ - Clarify which quota is passed as a parameter and use "commit" for the
+   context operation.
+ - Point Fixes to commit 60bd24f272d0 ("mm/damon/sysfs: test commit input
+   against realistic destination"). Drop the redundant stable version
+   comment.
+ - Rebase onto mm-new. No changes to the fix or test logic.
+
+The series is based on mm-new at ad8b9fe7a502. On damon/next, patch 2
+shares context with the PSI goal test [3] and applies with git am -3.
+
+[1] v1
+https://lore.kernel.org/r/20260921003047.12041-1-kmehltretter@gmail.com/
+
+[2] SJ's clarification
+https://lore.kernel.org/r/20260922120845.44460-1-sj@kernel.org/
+
+[3] PSI goal tests
+https://lore.kernel.org/r/20260921020013.33105-3-kmehltretter@gmail.com/
+
+Karl Mehltretter (2):
+  mm/damon/core: preserve the quota passed to damon_new_scheme()
+  mm/damon/tests/core-kunit: test preservation of quota state
+
+ mm/damon/core.c             |   6 +-
+ mm/damon/tests/core-kunit.h | 107 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 110 insertions(+), 3 deletions(-)
+
+
+base-commit: ad8b9fe7a5021ee745b61d6d33254a69af65efdb
+-- 
+2.53.0
+
