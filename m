@@ -1,83 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CEA53F929B;
-	Thu, 24 Sep 2026 16:41:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88894423EA4;
+	Thu, 24 Sep 2026 16:42:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790268088; cv=none; b=S0Ca3tPyocdljxq9+NFQYsOWn4AGYEsF3SRcGMUBO3JfvTJggUTJoIzOGiw1w+E9v8rj7//3l5tFGIjkOFg4CUVYj/lGYMSSyZIZsTPKsGT4qho/z88valF+STPaoNKMnBIhBh3qeq7eLR8M+2ewndgo4djGoqPcnwKiNXJf32c=
+	t=1790268163; cv=none; b=QA3LKWOmWwW7zxdKrQBXGScNza+fJvn09YdKe44xT7Ue9OIeLaPgoRniu1HqqpemzWXhm0CHPccTAgBG6/APBWVbuX/mY8FfIXwtbhFlZyZX2cOl7+qA9FXUIzz/naVjSZB6ENdpdMT9CwSTr9f9rWMSCOXwLvjtv9JFemjgVXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790268088; c=relaxed/simple;
-	bh=hCK3S1nGycehD1h0LxDF7olD/zKboAi8qe4YwYGpF00=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=JtL8iMc82e7YmMir1NyGtE9DexmgNgaYYNbdn5UZ9J9nuLc2IIoZdj5TZ+uOwz8ESTG5bxlp49hK+Bx4Ej1a0Q1PBDpMSiN/7ash+81rTvR5bYvn7ZDd0nMnTfxum8WLhXbNBQ9askh6IVKhoEgu/5/Zh9X3iPXk20v0CssMiJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aPF/Rwa8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790268163; c=relaxed/simple;
+	bh=dpbpYZ5+lgTe9XC4Cj5HD4BLbPsEeIu1ToCXwC3XR6M=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=A/l/mG1QGihmqowMdkupzba5g2+fkKQTsHpozqC/kit+UdkN7vW2L/0X1c0jVxtz2Mz0WYZjCxJCYjiX1gKCX9PPWlFrKPXnvlKDlfRbO+fapFNEIUA8ShmkgQzUYfIkf3BsJcUYHw168bSxUbvZODm/vILQ1+L9VEovSx4mPts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kbn+lorB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aPF/Rwa8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24E701F000FF;
-	Thu, 24 Sep 2026 16:41:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kbn+lorB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0F631F00893;
+	Thu, 24 Sep 2026 16:42:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790268087;
-	bh=7EZRmSyJFSvpjHRNdeogcewSTHxFc+R9PjSaKds5Q44=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=aPF/Rwa8NG8htZsnaC00OWLTtAlFb4BevIYybfipUiLwU8GA0kqpFbdn+7EJrhEII
-	 HzGjSIOlKl7QT1mxruErkt7QEBCfISxA+8guSY64zmuFi2cgsiqEEVO2fhr1B99RVJ
-	 FMW4Qfyw/SvwK5hLAbr4/b9Pl+terdGFhRAZTKkTZn4mrafbQllTI43t40mU4Qa2j8
-	 DJHRGCOnMSY6i6wb6AuihhYCJRw8oIKaXzhK6XLA65AZxAJmqfFfvCl6P6aIHXnx4l
-	 hy2Q+C5VtGXJEC/qOW33SJj7KYvd3+LePMs4qXPDvrs6whzR/uSBrc5QrpbdA68zGM
-	 4zmsKgyQkQQfQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 568063A566CE;
-	Thu, 24 Sep 2026 16:40:17 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1790268162;
+	bh=dpbpYZ5+lgTe9XC4Cj5HD4BLbPsEeIu1ToCXwC3XR6M=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=kbn+lorB7GI2kogrG1WpRUupqUsGaWtsUxrf3BZ9HLFCpgwo9lQT/3fRCauvA+akH
+	 B3YrIU+rLDHMC2QKDe+zcv2KlIJnEbYIcezCxmP4Un/X6cuTH1tYCRNTCRfh4nQrDA
+	 TMDMAUCu0suCpmRevLhIJpY4bHmNoAywFLKJLg++7asnsFN8fGwsh2QtyWcp6KwKsZ
+	 GzPojJ8R6DxQTwPmlw1UqAKegtVb19NNzjP/Sz1QLbJruDCUz+OZoGKlBN2GslxRXG
+	 yTlQyvHOjAGkg4a1Pre2kb5d781BfejPGQYwC22UPAhp4dEwkUxpD+r7ShiePxT6D5
+	 xHwoAY5kjJ/AQ==
+Date: Thu, 24 Sep 2026 06:42:41 -1000
+Message-ID: <843f8193c544cb6bcda128cc106a9027@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Guopeng Zhang <guopeng.zhang@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+    =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+    cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+    Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: Re: [PATCH] cgroup/pids: Restore pids.events notifications in local
+ mode
+In-Reply-To: <20260924091536.63572-1-guopeng.zhang@linux.dev>
+References: <20260924091536.63572-1-guopeng.zhang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v4 0/3] net: ethernet: oa_tc6: add reset-gpios
- support
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179026801588.1646186.7823364033020899549.git-patchwork-notify@kernel.org>
-Date: Thu, 24 Sep 2026 16:40:15 +0000
-References: <20260918231450.55966-1-alessandro.zini@siemens.com>
-In-Reply-To: <20260918231450.55966-1-alessandro.zini@siemens.com>
-To: Alessandro Zini <alessandro.zini@siemens.com>
-Cc: parthiban.veerasooran@microchip.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- ciprian.regus@analog.com, qingfang.deng@linux.dev, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 
-Hello:
+Applied to cgroup/for-7.3-fixes with the comment rewrapped and stable cc'd.
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Thanks.
 
-On Sat, 19 Sep 2026 01:14:47 +0200 you wrote:
-> This series adds optional reset GPIO support for OPEN Alliance 10BASE-T1x
-> MAC-PHY devices using the OA TC6 library, and documents the property for
-> the Microchip LAN8650/1 MAC-PHY.
-> 
-> Patch 1 documents the optional reset-gpios property for the Microchip
-> LAN8650/1.
-> 
-> [...]
-
-Here is the summary with links:
-  - [net-next,v4,1/3] dt-bindings: net: microchip,lan8650: add reset-gpios property
-    https://git.kernel.org/netdev/net-next/c/7afc23c9884d
-  - [net-next,v4,2/3] net: ethernet: oa_tc6: return ERR_PTR from oa_tc6_init()
-    https://git.kernel.org/netdev/net-next/c/15358c2c3dca
-  - [net-next,v4,3/3] net: ethernet: oa_tc6: add reset-gpios support
-    https://git.kernel.org/netdev/net-next/c/8d5dab574a95
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+--
+tejun
