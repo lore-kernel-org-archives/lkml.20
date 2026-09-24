@@ -1,90 +1,64 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BC7A374E7F;
-	Thu, 24 Sep 2026 20:54:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C57F4E06D4;
+	Thu, 24 Sep 2026 20:54:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790283288; cv=none; b=Pdz7K3nJxtmu7C6Xq8/rkbafbD/HI8f0YyBk1l9/ma8ZunULPWtyhQhJFrlwUmXX29fYBqEZVhPxdVxTr49VSX6Uxw+532gmxLZaL7cknrRqGZGBzEkjedFE+y7yckriD4sEKtXZRXXU7iguLi2bt+PyqTksI8CynNHwipGFCFI=
+	t=1790283293; cv=none; b=pdPlW2beQ99r8NoStAWT+WISiBQiHh3d2fKKapplCeSj5su4GQbckyB1/qIG25IBWAkn4PWMu4uyf97jfIoAUj3R0VCmzjfFuVRIphlVXTK7rtZJl0g1VJdUtus/ZsptnANwHg7HmjxAPkr4y9HLe1MtSvLqMwSkgGTLcJsk6z8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790283288; c=relaxed/simple;
-	bh=uA0Bp8lrw2jX8ZwXSyrF9Fcc/M4EwAUsZDeQAxZ0Hr0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=flqiHO9hhQhJXqNSL4fJrHvu3EgWO5NNEhFhMYQYgNrRVH2gg7SafZyw6V6tthlz5ZabwCBYxXbCF8BVp6bg6Hb9lKtSz6oQVEvTNmhbPMMoAUqjcZfj8xs/uCz4dc3cMllSOK22pkrApK4LFebLLfPom+0QuGJ+IAhRT4pVR6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g/dEA4zO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790283293; c=relaxed/simple;
+	bh=b1P+dpAJd4ilROWRR7JOoHU3ZN+/43f++yN0FOOmJOg=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date; b=OnCYDObDjTT/qWu4sK7wKb6bYNW/6FwuywoBWZxJG30eoGGpQnQwtVwW5QQj9h5TadH6sOHZ70h574KYln54eJu5StDGtNLfhEwvYGyw472uWwqWC3Sd0SZQRB9mzrApmjvl6niQOnwMVObVS4jdu63JSRMY9tpmhNhNk6Vnmyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pfp05dVs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g/dEA4zO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98EE11F000FF;
-	Thu, 24 Sep 2026 20:54:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pfp05dVs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C2151F000FF;
+	Thu, 24 Sep 2026 20:54:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790283286;
-	bh=hfelJYcuvy3YH+Y9mKFdTCc4S+f9cbisEzGvLAiWVYE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=g/dEA4zOpzsZfA2OY4RgtWpV8zjHOLVLr6dn00a53M1S703IWoWEUENJvMOfF032H
-	 V3M7RJYZwvKScFN3OUo/+2E4v+mWNxgcPbu4mhAXxMsmt/YpGWga7mwuBP2VkGGnAf
-	 yCD4ET7cLvFkEUFjDptKV2V6dC+wZg2y4cPm4uxmU3Lt1aXO36jb0H3sQw6cvLZx8A
-	 fQ3R2S1NR2nJk59a52TX+GsvXOdKIlV2FTYNqIe+qZfQqjrL+mqXkQ92+zmlSijo9v
-	 ZOaVxuHw0znHrVJ6CWk0hPaYGXKPdE515fnxU2oKjz4UH6HF8TF5IUp4KH42jMLY6w
-	 caIKQ/0mMDoPg==
-Date: Thu, 24 Sep 2026 21:54:43 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jonas Rebmann <jre@pengutronix.de>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de
-Subject: Re: [PATCH v7 08/13] spi: spidev_test: allow disabling rx or tx
- buffers
-Message-ID: <dcb8c604-b394-4126-bfc0-81ce23603d26@sirena.org.uk>
-References: <20260924-spi-sun4i-spidev_test-v7-0-126e31a07fdc@pengutronix.de>
- <20260924-spi-sun4i-spidev_test-v7-8-126e31a07fdc@pengutronix.de>
+	s=k20260515; t=1790283291;
+	bh=b1P+dpAJd4ilROWRR7JOoHU3ZN+/43f++yN0FOOmJOg=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=Pfp05dVs/nLmYIwmmnLuU0LGKKQVgRhmPpAa63GrlYfezIpIa8MiknbvumacL5KHr
+	 aD5LGT1J4G+sxM3szSR/SVopfWCk9palAi+9ftWzHPYV/uH9CiblGWpQd7TxEKR1BX
+	 vp/0x2ADg47hr0O/G0zNYtjv5gs7y6BpIJr9bgsOBUirZosc0dkx/+2RXmdIDx4IhY
+	 B3xZjK/CVoI+D+NVjl+Jj7rM1eLEJ0n0OxU/ySHWKH9VDSc1BLuDmCsoNAeS1hyV11
+	 8kxiyhLyfmz9UTxzFfAPuFHBBLbvUzI4zlSxTaIgOeeJY01834C2XRexO3sZT2b613
+	 VeiSrrWV5JUGQ==
+Message-ID: <b54f443b33e1637e31a4db8d56c11a1c@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+	brads@mainlining.org, cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] cgroup: prevent css_set UAF after namespace
+ publication
+In-Reply-To: <20260924111036.3330268-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20260924111036.3330268-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Date: Thu, 24 Sep 2026 10:52:45 -1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="0PQWNGqYXqRhBKvd"
-Content-Disposition: inline
-In-Reply-To: <20260924-spi-sun4i-spidev_test-v7-8-126e31a07fdc@pengutronix.de>
-X-Cookie: Oh, so there you are!
 
+Hello, Jeremy.
 
---0PQWNGqYXqRhBKvd
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Thu, Sep 24, 2026 at 11:10:37AM +0000, Jeremy Jean wrote:
+> copy_cgroup_ns() sets the root of a new cgroup namespace to the parent's
+> css_set. When the child is created in a different cgroup,
+> cgroup_post_fork() replaces that root with the child's css_set after the
+> namespace is visible.
 
-On Thu, Sep 24, 2026 at 03:43:58PM +0200, Jonas Rebmann wrote:
-> From: Marc Kleine-Budde <mkl@pengutronix.de>
->=20
-> Allow not providing rx or tx buffers. This is useful to check if drivers
-> that don't use SPI_CONTROLLER_MUST_RX (or -TX respectively) handle their
-> operations correctly without a buffer.
+Looks good to me.
 
-> -	_write_count +=3D len;
-> -	_read_count +=3D len;
-> +	if (do_tx)
-> +		_write_count +=3D len;
-> +	if (do_rx)
-> +		_read_count +=3D len;
+Acked-by: Tejun Heo <tj@kernel.org>
 
-Separate issue but this exposes the fact that show_transfer_rate()
-prints these with the wrong labels, previously it made no odds since
-they were incremented in sync and always had the same value.
+Can you repost with the namespace maintainers cc'd (Christian Brauner and
+the NAMESPACES entry in MAINTAINERS)? I'd like their acks too.
 
---0PQWNGqYXqRhBKvd
-Content-Type: application/pgp-signature; name="signature.asc"
+Thanks.
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq1jhIACgkQJNaLcl1U
-h9ByYgf/f2smLO3RVG5xbTqGjeK+kJnYXa3Lih+7eOwAb90Qxax/iu6nPyksLVO9
-xs/0GsSdHbYLs9nrRGu6VV0F0df5Oadl4nwwtAk6ArpS19lcB/yfWjvnGZZ33ENK
-QByF0qsoqsePJfogprH0Ka5UO0oJCa6BgIweC2ayv10r8WvKRJyoKbrDi3SNiEI5
-VwytUdoQAbKRxDbo5RvMiOmyGA6jHLZhRaI87DPWVRh6H8xdDQWkfa4T8nebWIQi
-ZF6ala+VfsQhbWGXeJfKyz8OnnVmmQwPXrJm5ioRpMfYtYktFwYdG+sxXCfmHfdH
-inPPLXWfmrmzElb/YLrsW/7GPuL9wQ==
-=lwLx
------END PGP SIGNATURE-----
-
---0PQWNGqYXqRhBKvd--
+--
+tejun
