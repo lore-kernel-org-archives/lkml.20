@@ -1,173 +1,146 @@
-Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f41.google.com (mail-oo2-f41.google.com [74.125.231.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7019433A9FE;
-	Thu, 24 Sep 2026 18:09:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790273367; cv=none; b=Pt3Zs6n16G9UrB9OuV+QM43kR0Ci7r27acTPiNLvvxftuALRzTE7LLbLP3Beb/gkPX9op8xiimQis6Y6k9Q+8CzQfXDLUe2Epr8RK5oavlqGqEbO0+9xnLQHNdETW1BqXz/K+21mmeyvi1rJiWKjrf/knZliUPbmlWwLC8vc0MU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEBDA41D23A
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:09:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790273367; cv=pass; b=p0oA0p1kn6kP1PsblR7sRcIRxZrPz/m8+UbdvjIZId5asbHchvhb7GbqaTF/TSItcvOSGX0A2ciHwR1+FtgRVI6eqfr2L4/lrzXPckMAT+4a45wdR6eMaFW26uInzEmgYOEHWYThyluyaQCE50YyY+i2ZYJDVHBgLd1GOvrPeJ0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790273367; c=relaxed/simple;
-	bh=DVbq6piq7V6+Q/cQjhHZNalbSD7sLko8WTH7pDEBt3I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sIrndBh6AT4Fprth0JmQm85Ugf2d94aWoOn+yuzgJweFBwHmz2Dqvr98AW5LSYjTLurwLAm5YeXtOqVp796cDdnJFCx4EiD+E6ZmRZVEKGcBPQY0ibDLikm4KpElYhbGSyHulwHrfOTYxz6+GK4WjpsK2imrda1HCbL0m/Q8ewA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
-Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
-	by leonov.paulk.fr (Postfix) with ESMTPS id 06A4C3700EDB;
-	Thu, 24 Sep 2026 18:09:11 +0000 (UTC)
-Received: by laika.paulk.fr (Postfix, from userid 65534)
-	id F0D92B64BC9; Thu, 24 Sep 2026 18:09:09 +0000 (UTC)
-X-Spam-Level: 
-Received: from collins (unknown [192.168.1.1])
-	by laika.paulk.fr (Postfix) with ESMTPSA id 6C623B64BC9;
-	Thu, 24 Sep 2026 18:09:08 +0000 (UTC)
-Date: Thu, 24 Sep 2026 20:09:06 +0200
-From: Paul Kocialkowski <paulk@sys-base.io>
-To: Michael Nazzareno Trimarchi <michael@amarulasolutions.com>
-Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	devicetree <devicetree@vger.kernel.org>,
-	"open list:FREESCALE IMX / MXC FEC DRIVER" <imx@lists.linux.dev>,
-	linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	linux-media <linux-media@vger.kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Marco Felsch <m.felsch@pengutronix.de>,
-	Michael Tretter <m.tretter@pengutronix.de>
-Subject: Re: [PATCH 00/14] media: Add V4L2 H.264 stateless encode and VC8000E
- support
-Message-ID: <arVnQmik-CveaAkY@collins>
-References: <20260522101653.2565125-1-paulk@sys-base.io>
- <ad9788bba0851dcb86c22f40c2562f2a57ac8e6c.camel@collabora.com>
- <CAOf5uwktfp0a3Vi5Jd8Zw5knGMHd_FH=iusRX1NgHYC4VSuzBA@mail.gmail.com>
- <arQxC3DmDyVIGdqq@collins>
- <CAOf5uw=SeHZSnYjPOptAGYwPkQc7L7gDpOrDWJH3UF0r1qdrtg@mail.gmail.com>
+	bh=2EkFOHbtczJ25xIy9v+cbiIrZHbSfV+/ZFifSdlSvm0=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=Kue+AnzZLFC5jpAAsDMF5RSxLbMBRk+2j9RxpM/oJJTS4J/XnWLeoOyH46bv9XeLGaMMQkOXGO4rq+2rAQOxG/xFN+C6nIF3T4pfvDnqarPK46m65K7Md4iu80sDg3VWv0KSPcGTrVRStrg6jUt5vBVqcy1tWx4z7pIksc1zB6o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NcFtfn/+; arc=pass smtp.client-ip=74.125.231.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NcFtfn/+"
+Received: by mail-oo2-f41.google.com with SMTP id 006d021491bc7-6b1ae6b200fso107297eaf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:09:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790273364; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NdQYv16/p/ectdaCnmVQI9wRcT9vOq3lQ7kTyqxXQHRVHawWre+EpS07dEGahes5Es
+         FdIOK2PrewwAFEQCfmuPZCjx2A6yeOSfs7ZtLV9UF4UIA/lWbmTqIHxpt8rEyoBdeEpH
+         II1FoT+hEnHOVg49uKAWrt7YQhizTwO/eyzm0j9TWiRfryEcc910y5qvStxFTfok8TS/
+         bnAM1mNF3Ze7nIrjVcmgXisfQpR4y+EdipCPpUj6vojXJjshaI7+sHClRWvhe/fDbU4b
+         VnP7RRZpn/kROgk+nYuOu5Q6OykhCJb9WNmsur9fJJoxVBCpu9P3MNaTdxFC9zovg2bW
+         oDBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=2EkFOHbtczJ25xIy9v+cbiIrZHbSfV+/ZFifSdlSvm0=;
+        fh=SXNTMMtrT6gTomPePdpCgED9IeYhn5xbQ6QJM/gMXUI=;
+        b=Q9AW9iniXgPv7Ei4E8pTycIE21kDTM5Xz5oRpD0aYDMcHqz6PwK70kydpNp9ruRWhm
+         TnQdnRmLbLu7eZBQyv2OenFvtcPkEj6wehTmXzRR8eiaE24cgzqj9sULCpfmUIZ0L+CC
+         SqJxL/7+unTN+cdys1HooxlYRudfhYAWq8WDs1Lm2QM1ndVs+ppJgiTF5FkJGHyuPwlD
+         +B90WFH0vDdG/eGQ1iOXJXDuEwcujS/3D5FQkzFYQOf+2FZOHlVdbkNDRJyrwKZfWqD/
+         WJQxoYNZ/rZh/N8QuiXTMHfBVgHrBFkNrfHjC3AmTrd0k8Cfem7RAlYvDJKtFg5l3Zl7
+         gWlA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790273364; x=1790878164; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:from:mime-version:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=2EkFOHbtczJ25xIy9v+cbiIrZHbSfV+/ZFifSdlSvm0=;
+        b=NcFtfn/+Jxow3K8bNArOLLr2cZfJRbIwMl5c3X9CCd0ZoZKr8ewqPuaGDrWd3KYxy8
+         cmEw+McSe0AJDtPWEgwk8QPc0kKa8vu/cFc5H++CJQCvQ+5g7DtFieAYF95XVbkkIbqB
+         9gL7vEhSU70muCzUk1G/JbXMhZFjwVQ0iHAMjPdTVUieZ17K27timh4xLI7NTIWAJi3V
+         z7S67DCYz3f3jSQn1aGKHiexsUzI765s+SchzKD7rD1I/r6PoGHGc98MFfaEQaylU9Uj
+         Hh2D8gtoGqjR0m435lhP21R2aaCqCxEKLd193EhK4pK6ChAtAub2cTqLWUE/qR2Vwt+9
+         Nd/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790273364; x=1790878164;
+        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2EkFOHbtczJ25xIy9v+cbiIrZHbSfV+/ZFifSdlSvm0=;
+        b=fXCe7WMVbGyobL1kAmsn/hSAKHKnNiCpjLviMFkVy68tp+yyHgZu0NBr/0xzzMXqoh
+         sd+5RZBKkK+Si9UI2rcYMTUsgsE+ehbOv9JE0wdt0QYOYbCKAFRHpmN1c/VrWcjAC5V4
+         WAsKX7tX+WPqNO2HapfUO+bMCrHFxso1sBiKhIk7j/Uonzu4OWSlc8kECR0Kw2nBLNhM
+         vdBJQ8lwUEH2qEu4PmtD8HgJkof7AVsepfs2CYBth/bZqR0PxWbNaOw4yMaIl4mgBQWC
+         HSx6hXflL1Pq19ZxqMrpYv705YUPqP2uZszto8UeBW5N1UASKz/cgm+p3R0Ns1cRNLSc
+         YMog==
+X-Forwarded-Encrypted: i=1; AKwUvBwj12OBDqKOREU+qJA79bvIQG28IX2UKinD0cQemD6H2nA86F1Gie1J3ZT22jsjTHpDYbk9mzj0xuC3P1c=@vger.kernel.org
+X-Gm-Message-State: AFuF++mBtLIiftLNnCReR+C4/++HpHg52hf0OKQbG8yzu2NKZK6nQHpo
+	oCbveWDaeFsndo6NjU3qY6CePGMqXL6fd9DfsFfFhqMpIUT85b3xV4g1RSn9litMzrgcDAiIlxi
+	TnByDs7H9D1Ct3ffJd2875vafRXQL9yY=
+X-Gm-Gg: AYBFou0SRYbUA+LUowI3cEnRggJtDz9UJn9h0xIjz7Jm8wy5FDU2NtQT+y2JduMVHRe
+	0XuVI7tHt/6OFv1Ryq8C/LO4q/FEskngqZ1cgDrkScKrbSRkNzu9pC9oGDzZfms/hr5Lk1npqs5
+	sMif7NUft5g8/wxYeG5XPOo7+p3kFxKcRFNupp8VSglnPIIDZRv+n5o9kU9w+1EV9qXPL/60NYq
+	mK6d8fDb/0nmo14E2yh6iA6p0ptLM/LGVURHFjLQsV+ndD4bILHcFlSOd+NYvnqFgJY0ZQhVrAY
+	I10IMDPFu5GS7CwMk9QQ4SLFZWiA0ZdT6gS1jighbQbOSB1BgoAUu+UJElSJu4AjgAirYgWgSOK
+	W8kkejNLPHPO4B9KO03bNGw==
+X-Received: by 2002:a4a:e911:0:b0:6cd:3fcc:96cd with SMTP id
+ 006d021491bc7-6d440727618mr2876058eaf.75.1790273364474; Thu, 24 Sep 2026
+ 11:09:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="CZn6uW8WXhqK4f0/"
-Content-Disposition: inline
-In-Reply-To: <CAOf5uw=SeHZSnYjPOptAGYwPkQc7L7gDpOrDWJH3UF0r1qdrtg@mail.gmail.com>
+From: David Kahurani <k.kahurani@gmail.com>
+Date: Thu, 24 Sep 2026 21:10:17 +0300
+X-Gm-Features: AclHuK-UFtDLQMsV18Y4wTPBabatIQ__XOC0_s6nwPVOifgFG4IFCTOuHeX7SZM
+Message-ID: <CAAZOf26tZiTZLsh1717muAospPb95HHAcxqLq0_qmL850+-oPg@mail.gmail.com>
+Subject: Other user-space threading issues
+To: io-uring <io-uring@vger.kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+	linux-kernel@vger.kernel.org, Ingo Molnar <mingo@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, tglx@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
---CZn6uW8WXhqK4f0/
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Just replying to this :
+https://lwn.net/ml/all/20260911154148.644489-2-axboe@kernel.dk/ but
+because this thread is locked on lwn.net I will do it right here :-)
 
-Hi Michael,
+...............
 
-Le Thu 24 Sep 26, 07:30, Michael Nazzareno Trimarchi a =C3=A9crit :
-> I have added your patch to gstreamer
->=20
-> v4l2codecs: add the stateless H.264 and VP8 encoder elements
->=20
-> Backport of the encoder work from the branch v4l2codecs/h264enc of
-> https://github.com/paulkocialkowski/gstreamer (commit f59de5779ef1, based
-> on release 1.26.0) onto the gstreamer1.0-plugins-bad 1.28.5 this build
-> uses.
 
-Yes this is the right gstreamer branch to use here.
+I know you do ask for this and this not part of the review to the
+patchset it responds to. However, I think this is important enough to
+append here. At least for FYI purposes.
 
-> Generate the right element and encode stream:
->=20
-> gst-launch-1.0 videotestsrc num-buffers=3D100 !
-> video/x-raw,width=3D720,height=3D576 !  v4l2slh264enc ! h264parse !
-> matroskamux ! filesink location=3D/tmp/t2.mkv
->=20
-> And playback over Wayland.
->=20
-> Solve some problem. I have implemented:
->=20
-> const struct hantro_variant px30_vpu_variant =3D {
->         .enc_offset =3D 0x0,
->         .enc_fmts =3D rockchip_vpu_enc_fmts,
->         .num_enc_fmts =3D ARRAY_SIZE(rockchip_vpu_enc_fmts),
->         .dec_offset =3D 0x400,
->         .dec_fmts =3D rockchip_vdpu2_dec_fmts,
->         .num_dec_fmts =3D ARRAY_SIZE(rockchip_vdpu2_dec_fmts),
->         .codec =3D HANTRO_JPEG_ENCODER | HANTRO_H264_ENCODER |
->                  HANTRO_MPEG2_DECODER | HANTRO_VP8_DECODER |
->                  HANTRO_H264_DECODER,
->         .codec_ops =3D px30_vpu_codec_ops,
->         .irqs =3D rockchip_vpu2_irqs,
->         .num_irqs =3D ARRAY_SIZE(rockchip_vpu2_irqs),
->         .init =3D rk3036_vpu_hw_init,
->         .clk_names =3D rockchip_vpu_clk_names,
->         .num_clocks =3D ARRAY_SIZE(rockchip_vpu_clk_names)
-> };
->=20
-> I have advertised the:
->=20
->        {
->                 .fourcc =3D V4L2_PIX_FMT_H264_SLICE,
->                 .codec_mode =3D HANTRO_MODE_H264_ENC,
->                 .max_depth =3D 2,
->                 .header_size =3D H264_ENC_HEADER_SIZE,
->                 .frmsize =3D {
->                         .min_width =3D FMT_MIN_WIDTH,
->                         .max_width =3D FMT_FHD_WIDTH,
->                         .step_width =3D MB_DIM,
->                         .min_height =3D FMT_MIN_HEIGHT,
->                         .max_height =3D FMT_FHD_HEIGHT,
->                         .step_height =3D MB_DIM,
->                 },
->         },
->=20
-> Create the rockchip_vpu_hw_h264_enc.c. I need to test this on rk3399
+io-uring uses a file model and a file model, from the looks of it( not
+something I have a lot of experience with), seems very leniet in it's
+security model especially from a user-space perspective. For instance,
+there's no way to restrict a process from reading data that belongs to
+another process, if the socket is shared. This is obviously something
+that is probably common across all files. In other words, a shared
+file could possibly be generally said to be, insecure. I don't know
+for sure.
 
-Then I guess this is using register configuration from the earlier H.264
-encoding work that I've done at Bootlin, adapted for the new stateless
-encode helpers? That part is probably not quite trivial, which is why I
-was a bit surprised.
+io-uring has file_table construct and a buffer concept. These are
+additional concepts to a filesystem file's private_data. At the same
+time, these objects and members of io-uring will get shared when the
+file is shared across processes.
 
-> I have a small change only in the common part. Hope that it's a bit clear.
+The above obviously introduces additional security and possibly
+*memory* concerns. If one process for instance setups up an io-uring
+and add somes files into the file table, then the ring gets shared
+with another process, then and now this second process has access to
+the contents of the file_table and possibly files that the first
+process didn't share with it. In fact, the second process can now even
+close files that were opened the by first process and then saved to
+the file_table. Just essentially putting, the second process now
+essentially has total control over files that belong to the first
+process. This and vice versa.
 
-Yes in comparison to the register configuration code, the platform
-changes are rather small indeed.
+The same thing applies to buffers. In fact, just going with the
+scenario above, whereby we have a first process and a second process
+and the first process configures buffers then shares the ring. The
+second process can for instance, add buffers to the head of the buffer
+list and each time the first process grabs a buffer from the
+buffer_list then this buffer belongs to the second process; the kernel
+doesn't know this and proceeds to write to the buffer and eventually
+the second process can now watch what is happening in the first
+process and the first process is denied access to it's data,
+effectively. This could be a bug even in a normal / ordinary consumer
+operations where there's no malicious users at all.
 
-All the best,
+At the very least, the above are at least issues that are mostly
+fairly inconsequential and probably ill described but, still, I am yet
+to come across io-uring code that works around these problem(s).
 
-Paul
+Anyways
 
---=20
-Paul Kocialkowski,
-
-Independent contractor - sys-base - https://www.sys-base.io/
-Free software developer - https://www.paulk.fr/
-
-Expert in multimedia, graphics and embedded hardware support with Linux.
-
---CZn6uW8WXhqK4f0/
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmq1Z0IACgkQhP3B6o/u
-lQyEpQ/+IyLXFwk9YODr0WJI5I/wgdBuKj8S2gQmK7H45sYlvZfEDYQ+j4AV9wyl
-cOncZklhJzTNhVkAUthAjhHyJTl0PDAwk/Smf/zc6dd72xWf77NAK0QlvBRFDQqS
-kATP5MQfhKYXxnmPe5Aqbkb3xRSrxqjgnm8JbA7d/mh0R0ms8D07ekMxVHTSNJqe
-Kad2GX8HvnJDM+ETEQYFm4wr4PUVMW/LMEB9yE6sFjw4wdvFw0AQaJn9GIOenIJL
-S5OklJjNSg/FwO9qyLdYP+hoWn3DIxW3fHBotVZqlttgJSkCjG0SnCZbhKRhKyAu
-mmRjQhQ1m1LjvPxcNsIdgP4kUoSgP6239nLbapUvYnnbl1lNh0jDQYNuWBIKs1FU
-cn80fGsJxqYO3spl3pw1rCm5u+5mfAOz4rTquUfqVSWn44N5uSyjMMAHkddTUh1U
-JisiR3msNZLvStkbK0syAbQnhGXpyQC8grMremDf+jGXuYYySRv3vkPK7i/S+HfT
-zD3PCw3oriPh7b13A/d2CT1lW51sqkwKQacPEuKFqLm++hRJX4t65byE3OhhNpaI
-NXggjvgwk1c9EZ31GVuK/fyGoQvnWk0eUuRVCMs04gVpPX0G54tEG/DQtqyjjD4Q
-hCgzC339OPU4ma6H13w94ODFw4iNvUgBRZpffBAAOPyYpuzDujA=
-=YnXV
------END PGP SIGNATURE-----
-
---CZn6uW8WXhqK4f0/--
+..................
