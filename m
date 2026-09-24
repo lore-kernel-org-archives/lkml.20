@@ -1,130 +1,122 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BACA39CCF6;
-	Thu, 24 Sep 2026 06:57:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21177404BDD
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:57:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790233084; cv=none; b=gQX9BKKg5saokmUmCOV5LrrLYBrZzNZ5OT5DoFCG3N0y0voOv/LYqPVmX7xT3f8nZfdnHi30rgpkQQ/894LhbuXfDzcuv0TGtF3GTpkW8kC8Bwfcm+mfICgDcbQ87ZyBF4J5ezMMj8ghEHUHXXD7VINq3eXOmwSBYygMkrDlbUA=
+	t=1790233081; cv=none; b=TanrU0R+i8U0uVuwkKxnazP/wdnYwYbtwXXST/FjVgwHsDodwGWDJ42tgNc4CC3IXi6AqqpqAGIdzszfXbNlOrmV+oGgKjr410msLGhUcQPUpYxHzpHQ3+5b3sHKKHlSReXBmviJsOt1eT6NEA/vuOcHLZ3cVUpJHE6MZkO2RfY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790233084; c=relaxed/simple;
-	bh=iqCe5C8lOZ/zYi4WI8Dp1cLEbo7dXTITBB4PNEZXRTc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GlcFgkytBWdE5IB6Pt9zWH0C3DUD/2qQV58HqC1SJkoPmDyTz8/6jRqw2DDyzgJ43+57mIcBv61En85s+Ini9ms890T3yiWn5azGxGGty3S7oRKj4UkLdKnhPf8DXs7sqqNqGfYV30eM51jkfmyE2SgU38LVBmfMJSX05CR2ah0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=XPwKEaA/; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1790233081; c=relaxed/simple;
+	bh=cEws77B34mezF7Fbb4Epf+Lm/6OxLGSzhrgitn+yT3k=;
+	h=Message-Id:To:Subject:Date:From:Cc:Mime-Version:Content-Type; b=hmtQ0GGNWBkgDLd8p2viIv1FeBsEua545wTmSYfM9W1u9pNNeAvoFtkCxqNx3q/HelPLGQuR2o1XL9nlFvONu79CcMSrMnMQTBtAddeMWKRTKgEoF5c/oim9rgBS7bDcHOEwZz/vLBqVPhGbctwa/ZaecNFAVTXsVXpNccDDxY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=NDp3JVbl; arc=none smtp.client-ip=209.127.230.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="XPwKEaA/"
-Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id 8B3712020D;
-	Thu, 24 Sep 2026 08:57:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1790233067;
-	bh=9imW1wh7P5NcD6+FCFtASpqY9fQcjduq5Jb0jSIcZCk=; h=From:To:Subject;
-	b=XPwKEaA/+oTj2IDcyMNLsr7qvw5nGGrHYPG1V2WEYtUm/nT4Yvj4Roa0AuLBD7VJK
-	 XUJHj2Fh1U2rD0XNwsIdamM122hqQlFPOUCcTFcDEkGqbZm8hdRJAf8hZ+DS/a7al5
-	 zfAeGxCpokrGKObCw7Yf/ZW+96l+xvEBWuS3coi/IxvSghh9EN1IvCWwzizDRw4hy3
-	 Y5vZMjaLNPXmtmNglg1QVvbOMp+ZnzMDsV5yGyj+y2it6nYfBAszRjCfHlgzNgaY3A
-	 uUM9Z+E1lMVfrh42e7quGI/bATET4zNpx+dTTc2HnyhMp8kcsJ0FIPvgvPQvhWJswW
-	 RCuD/UlPhJKWQ==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shawn Guo <shawnguo@kernel.org>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v3 1/7] dt-bindings: arm: fsl: Add Lino iMX91/iMX93
-Date: Thu, 24 Sep 2026 08:57:27 +0200
-Message-ID: <20260924065735.17678-2-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260924065735.17678-1-francesco@dolcini.it>
-References: <20260924065735.17678-1-francesco@dolcini.it>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="NDp3JVbl"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1790233061; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=5l2X4JLLDk5x9GpXbqtkHY3m3lqdL9hdPzSkDQBIzXs=;
+ b=NDp3JVblnedSGNTUCWbNiP8TXlGODEU3wXV70Gfzz4KulDMLsJQTq3jCoEKHxiezyhJC4e
+ 0/A3EaVl7shF16z6TbnbV/LO/gPfdxcDndud60HxM5e34Byljed4D8w03JhMQy60YInGTz
+ LRai/ffFKeknhpaas1+4efDt9dbNJe3sbT5eEd/JXPR/vvSYKOwnufTUfDMpHPsb136TId
+ b6ZkuPYB7wDepvGRrHI5KDDtUhHYxSHXrNp5oxMGhBPDoJzzhnP5Obgz5kt1TJ+n/+frW3
+ Uku9vmez8yTgNsk7eQvrrrez0+P+NVtb7r5O4S+RAwoF7M9UDtkcBOiInYFkrQ==
+Message-Id: <20260924065443.1650126-1-yinxin.x@bytedance.com>
+Content-Transfer-Encoding: 7bit
+X-Lms-Return-Path: <lba+26ab4c9e2+1aacf6+vger.kernel.org+yinxin.x@bytedance.com>
+To: "Alexander Viro" <viro@zeniv.linux.org.uk>, 
+	"Christian Brauner" <brauner@kernel.org>, "Jan Kara" <jack@suse.cz>
+Subject: [PATCH v2] writeback: size foreign flushes by target wb dirty pages
+Date: Thu, 24 Sep 2026 14:54:43 +0800
+X-Mailer: git-send-email 2.20.1
+From: "Xin Yin" <yinxin.x@bytedance.com>
+X-Original-From: Xin Yin <yinxin.x@bytedance.com>
+Cc: "Tejun Heo" <tj@kernel.org>, "Jens Axboe" <axboe@kernel.dk>, 
+	<linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+Foreign dirty tracking records the bdi and wb memcg IDs of recently
+dirtied foreign inodes. When the source memcg needs foreign writeback,
+mem_cgroup_flush_foreign() queues WB_REASON_FOREIGN_FLUSH to the
+recorded target bdi_writeback.
 
-Add bindings for the Toradex Lino iMX91 and Lino iMX93 SoMs, based on
-the NXP i.MX91 and i.MX93 SoCs, respectively.
+cgroup_writeback_by_id() currently sizes this best-effort work from the
+target memcg's NR_FILE_DIRTY counter. The work is scoped to one target
+wb, so a memcg-wide dirty count can over-size a single-bdi flush when
+the target memcg has dirty pages on other devices. It can also under-size
+the flush when the target wb has dirty pages charged to other memcgs.
 
-Lino SoMs use two board-to-board connectors to interface with a carrier
-board. They can also be mounted on the Lino-Verdin Adapter, which
-converts the Lino interface to the Toradex Verdin family pinout and
-allows the SoM to be used with Verdin-compatible carrier boards.
+Over-sizing keeps the target wb busy longer and can delay later
+writeback work. Under-sizing can finish before enough pages are written
+back for the source memcg.
 
-The Lino-Verdin Adapter also provides a Wi-Fi/Bluetooth module, an
-Ethernet PHY and a GPIO expander.
+Use the target wb's WB_RECLAIMABLE counter and keep the existing 25%
+headroom. This keeps the budget aligned with the writeback object being
+queued.
 
-Add compatibles for systems consisting of a Lino SoM mounted on a
-Lino-Verdin Adapter and connected to either a Verdin Development Board
-or a Dahlia carrier board.
-
-Link: https://www.toradex.com/computer-on-modules/lino-arm-family/nxp-imx91
-Link: https://www.toradex.com/computer-on-modules/lino-arm-family/nxp-imx93
-Link: https://www.toradex.com/accessories/lino-verdin-adapter
-Link: https://www.toradex.com/products/carrier-board/dahlia-carrier-board-kit
-Link: https://www.toradex.com/products/carrier-board/verdin-development-board-kit
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Fixes: 97b27821b485 ("writeback, memcg: Implement foreign dirty flushing")
+Reviewed-by: Jan Kara <jack@suse.cz>
+Acked-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Xin Yin <yinxin.x@bytedance.com>
 ---
-v3: rebased
-v2:
- - add acked-by
----
- Documentation/devicetree/bindings/arm/fsl.yaml | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+Changes in v2:
+- Submit the budget fix on its own. Drop the snapshot writeback patch
+  for now, pending further evidence of its benefit in production.
+- Add Jan's Reviewed-by and Tejun's Acked-by.
+- No code changes from v1 patch 1.
 
-diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
-index adf209b3b7cf..f3c73510c18b 100644
---- a/Documentation/devicetree/bindings/arm/fsl.yaml
-+++ b/Documentation/devicetree/bindings/arm/fsl.yaml
-@@ -1528,6 +1528,15 @@ properties:
-               - fsl,imx91-11x11-frdm-s    # FRDM i.MX91S Development Board
-           - const: fsl,imx91
+v1: https://lore.kernel.org/linux-fsdevel/cover.1788836830.git.yinxin.x@bytedance.com/
+
+ fs/fs-writeback.c | 17 +++++++----------
+ 1 file changed, 7 insertions(+), 10 deletions(-)
+
+diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
+index 7c75ed7e8979..7c2340a5dead 100644
+--- a/fs/fs-writeback.c
++++ b/fs/fs-writeback.c
+@@ -1131,7 +1131,7 @@ int cgroup_writeback_by_id(u64 bdi_id, int memcg_id,
+ 	struct cgroup_subsys_state *memcg_css;
+ 	struct bdi_writeback *wb;
+ 	struct wb_writeback_work *work;
+-	unsigned long dirty;
++	long dirty;
+ 	int ret;
  
-+      - description: i.MX91 boards with Toradex Lino Modules and Verdin Adapter
-+        items:
-+          - enum:
-+              - toradex,lino-imx91-verdin-dahlia # Lino iMX91 Module on Verdin Dahlia Board
-+              - toradex,lino-imx91-verdin-dev    # Lino iMX91 Module on Verdin Dev Board
-+          - const: toradex,lino-imx91-verdin     # Lino iMX91 Module on Verdin Adapter
-+          - const: toradex,lino-imx91
-+          - const: fsl,imx91
-+
-       - description: i.MX93 based Boards
-         items:
-           - enum:
-@@ -1539,6 +1548,15 @@ properties:
-               - fsl,imx93-wireless-frdm   # i.MX93 and IW610G WLCSP (Wi-Fi + BLE + 802.15.4) SiP FRDM Board
-           - const: fsl,imx93
+ 	/* lookup bdi and memcg */
+@@ -1160,16 +1160,13 @@ int cgroup_writeback_by_id(u64 bdi_id, int memcg_id,
+ 	}
  
-+      - description: i.MX93 boards with Toradex Lino Modules and Verdin Adapter
-+        items:
-+          - enum:
-+              - toradex,lino-imx93-verdin-dahlia # Lino iMX93 Module on Verdin Dahlia Board
-+              - toradex,lino-imx93-verdin-dev    # Lino iMX93 Module on Verdin Dev Board
-+          - const: toradex,lino-imx93-verdin     # Lino iMX93 Module on Verdin Adapter
-+          - const: toradex,lino-imx93
-+          - const: fsl,imx93
-+
-       - description: i.MX94 based Boards
-         items:
-           - enum:
+ 	/*
+-	 * The caller is attempting to write out most of
+-	 * the currently dirty pages.  Let's take the current dirty page
+-	 * count and inflate it by 25% which should be large enough to
+-	 * flush out most dirty pages while avoiding getting livelocked by
+-	 * concurrent dirtiers.
+-	 *
+-	 * BTW the memcg stats are flushed periodically and this is best-effort
+-	 * estimation, so some potential error is ok.
++	 * The caller is attempting to write out most of the target wb's
++	 * currently dirty pages.  Size the work from the wb's reclaimable pages
++	 * and inflate the count by 25%, which should be large enough to flush
++	 * out most dirty pages while avoiding getting livelocked by concurrent
++	 * dirtiers.
+ 	 */
+-	dirty = memcg_page_state(mem_cgroup_from_css(memcg_css), NR_FILE_DIRTY);
++	dirty = wb_stat_sum(wb, WB_RECLAIMABLE);
+ 	dirty = dirty * 10 / 8;
+ 
+ 	/* issue the writeback work */
+
+base-commit: 46b513250491a7bfc97d98791dbe6a10bcc8129d
 -- 
-2.47.3
-
+2.20.1
