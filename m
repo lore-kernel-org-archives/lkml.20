@@ -1,126 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A259412C04
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:54:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C37F32C924
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:55:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790279665; cv=none; b=YB4QmVewg2yj3dqZg28j0+o8LZLC0/obYD61FnI0hyugYB9h38hbThmG78M0G3YHwgZgLXMzuoVnW37uozeI8M/FtNB8F55KDW+gkhmP103VPzEo+S+0HIbaoOruFkCLd9O0xhLQjofoLazLOef9gqVepdkjAMifwIPoGfA9LIM=
+	t=1790279741; cv=none; b=MJvxosTS33JC+SoyL4MZ01voUQ7RPFNuRMBgKMaY7ylQIKkDoDoGoe9KNrFWpuEnVpTRhFbpw3WQn5jjYJBv2Ae2KzsOAQmMlfeLwxoNC3nx6J121IohPCVAA0oMl5qRXyL/+IR15sX9qh/jR6H5iRXBGVykXvAQ8sMI66bmJtY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790279665; c=relaxed/simple;
-	bh=Xk735ReweqVrVn13Ui3Uv7zUhw3DLKK/ZBmVPDrpTFU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bOkw+JHALggF7eDXKBIsGXKRzBtb7AasgNMQXOZnK8+P5f0dxNtD7tVazsrSyDPsnkEcVttiG7l2DzPhpr2MxFRy7UkqgCeLOyUyX2d3fzkyOl6adXGvRHoqFZ9laZ2oKE1dqsikjsjGA+tWxzcY8AxIIEndbWiIegP9XQ9t/wQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ue+9AbvB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790279741; c=relaxed/simple;
+	bh=D7keJcwSqQOp0NdseY0wgS/ZtqGq5arWxyNwX4kPY/4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pyf9azLTcCerCnHA1kncw1OsnxO5I5IMdmsAafwphbVlcy9MKZ3Uk4O3wQ2pn9EmRmZ5QIZk/G8+KrGxCrnLtRSAMcPAvm3+ppBnnlAcsbw40HTAjNhlWKhehN+WxUmK81XMErfXOoVooDPYKAxCFsNzEiBOwzP+UJjGSrALrqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T2ffVWZT; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ue+9AbvB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B13A1F000FF;
-	Thu, 24 Sep 2026 19:54:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790279654;
-	bh=0HJNKuMWG8smWqhbQSNH8vsLE/Fn0+yWkGNbv2CcO2E=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Ue+9AbvBliMX+AIYWSvzQWUAHjFI3jdLOlYH/aiNY3rhxae13ZiGjmWsr8aJZNcpr
-	 MfQ1/lX8DbksvJiuh/nkNXdhKQe81Z2d8J4cm9YHvfu0c61XAOxufIl4bGlteKSYa8
-	 3ZxGS5STiI1p6uzVLM6rQlB7RiVVJOjXfEvc4MfFDn0cZrc/5OGQij2Y5y8akxyKOt
-	 QrJ8ML2y4spobTgcJPcgtV+cNiAaLhG9i5cVWxzjvybQ87SHmd0fMDX5VkeYBwd8R7
-	 VNVePZoQSbnizLpo3ctvplSR/tUOuDV4rK1BKVLcgMxf8plzTKyPdXN+oUImJ7G2wI
-	 SWj4KOKPH2BTQ==
-Message-ID: <25cae0dd-6b4b-4519-8119-231e2f65da46@kernel.org>
-Date: Thu, 24 Sep 2026 21:54:08 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T2ffVWZT"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3931so1687035e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:55:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790279735; x=1790884535; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=enCFhbXwk6dv8V+Qy1/Wb32GY2e39ckcjINn4OP9c1c=;
+        b=T2ffVWZTjlXPmKdN31mN2kxJ4x/5mXymv4ikfd6E22R1vjZeaF1eLaUr96Io7vQp4j
+         4K4CtDcMiiHlQ60CgKcSwXFH8vpTH4j/EDOzPH3Hyun+ZhdgN0IBm9Iv54ust0QaI4tj
+         Wn6QN2zc/O2eDpDtlYeLZPR07XM7oUX/rW42MVVYVvGDce6tGTGXX7OuMYnHrCg4UaGH
+         wVjku4mUnKRKg/9W/8I0x3BbKBFEoCIhQGkopqw4AFaEqKtXy+l398U+No5UqSvMG8G6
+         +HEr2VOP+MJKeM/lWjs2nAc4lw6ZJzpwR8eLScMFs4vH7hOQwhXPBESnUnMemNH7yeWF
+         13KA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790279735; x=1790884535;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=enCFhbXwk6dv8V+Qy1/Wb32GY2e39ckcjINn4OP9c1c=;
+        b=z+2z+Y5PAKvv2O2I1WAQJcadYvNgiqJ8ZFyy0ySogtMnAQGoxrh48WBGW3n6UJm4q+
+         DO8Nx9bcL0b81dJbLX1DUoNhT3X0un7rBpIdtVn4VfBICCdiMqkIZBAHuc4O/b+PbR5B
+         ++pdDwXaJ+QJWrrfiEiWOHM4vaGWHskjFs4Fzzv78CZzb6k5HTW9HCNKbpZyCF5dPb8F
+         YKYHphQIeBXgbW2yenHAnpZJm+6pmSQskTpjxahGDxr/pfJ3h5as7sDFHLAgGZ/oUIvV
+         DZ4uIYZs7vZf/WUrlNeheDbvtyMRp/2FJD0eAgdsOvYlqSbPAHflC78awsLMos5C/NEr
+         atAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzV1nM9Oup8yNXdjXEHApvAccw30DCDH7ZseYZWE6X0mN9Pij5HZnfOi/LCR6mCRO73ydcOwJrCfLj3fDY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAkLyNdEDwwqacrbtVJUAixgJtwt+MfnGwwUsnA5UCeJDdO+31
+	rDzABVu1Eq9dDVzWDoIqdz5K3kRs311TTUZJ2yS+EAUq6kznM26tTTEZ
+X-Gm-Gg: AYBFou359rvKW40MCTUaiWStMxlMik0VjrRfBumNL5ks/kN+kQ0/5WUrMGDNrePG4MN
+	DJX2cTHcPmFK22OSS6YeCf7dN4juYw9GRmjlQJP1JP110D98kj8zCCgd6lhZXhahpSqhVmXaqm9
+	C8VenanJRlOSy+bKsUtgOcKQ3W5VfuCAVnU8RVo2wPJvPa8oEYr07yyO4T9gEQWDvnsyYr4Re5n
+	3FyI3onN3CIM6WQqM+rUO3z6cSYaHISk2inNi0a6TqoukXo/EuRUDOCyxe5fekUK1vzKqxw/pQ+
+	LpWcz+6vGw+sGtb22BhgGNjN93+mXPnFjvtfL+B5RFZN7muY2JmV+iZqklzX6LuW5/MeKry2r54
+	1sCa6saoKJf1OLDWW6uudd4hKy4XX/trKVy43jd6v/7LXZnFIjK7G9EyNYzgTrIG3yJoofZNj7d
+	S/oTZx58b6alo7L+8pVjpNI7nGAy0+SO8QTv0dAmPHmCV10dKgY9QkjRWODIPOeKjO+hBmfmffP
+	g+zoqdZ3z4HBNpUHfo8bN1um8T7KNkjK6q+DndPYbn9F1Y9Ax2/
+X-Received: by 2002:a05:600c:6290:b0:49e:799a:8969 with SMTP id 5b1f17b1804b1-49fe6707bb7mr68120475e9.30.1790279735177;
+        Thu, 24 Sep 2026 12:55:35 -0700 (PDT)
+Received: from fedora ([202.47.63.86])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff06cbd2dsm1277235e9.12.2026.09.24.12.55.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 12:55:34 -0700 (PDT)
+From: Muhammad Bilal <meatuni001@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Sam Ravnborg <sam@ravnborg.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Muhammad Bilal <meatuni001@gmail.com>
+Subject: [PATCH v2] drm/panel: tdo-tl070wsh30: Remove panel on attach failure
+Date: Fri, 25 Sep 2026 00:55:12 +0500
+Message-ID: <20260924195512.336690-1-meatuni001@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <message-id-of-your-v1-email>
+References: <message-id-of-your-v1-email>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] mm/memory: reuse the whole exclusive large folio
- on a write fault
-To: Yuan-Hao Hsu <aa9736195201@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>, liam@infradead.org,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Barry Song <baohua@kernel.org>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <0c0c19d0-997a-4c8d-a103-2b3d153f4e32@kernel.org>
- <20260919111851.678-1-aa9736195201@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260919111851.678-1-aa9736195201@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/19/26 13:18, Yuan-Hao Hsu wrote:
-> On Sat, 19 Sep 2026 12:10:56 +0200, David Hildenbrand (Arm) wrote:
->> Are you measuring the worst-case latency of a single write fault or only the
->> average over all writes?
-> 
-> The single fault.  Each store is timed by itself (clock_gettime()
-> before and after), and the latency numbers come from a pattern where
-> every store takes one of these faults (one store per folio), so there
-> is nothing else in the average.  The tables show the median of those
-> faults; I also have p99 and max (i7-12700KF, in a VM, us):
-> 
->                      v7.3-rc3+              patched
->                      p50   p99   max        p50        p99        max
->   64K, 1 fault      0.42  0.57  25-26      0.71-0.74  0.96-1.10  28-60
->   2M, 1 fault       0.50  0.67  0.7-1.2    10.0-10.2  12.2-15.8  13-22
-> 
-> max is the slowest store of a run, median over 15 runs.  The 25 us on
-> the base kernel are interrupts; the VM has those on both sides.  The
-> 2M row is the worst case by construction, every one of those faults
-> walks all 512 PTEs.
+tdo_tl070wsh30_panel_add() calls drm_panel_add() to link the panel
+into the global panel_list before tdo_tl070wsh30_panel_probe() calls
+mipi_dsi_attach(). The panel object itself is allocated with
+devm_drm_panel_alloc(), which only arranges for an automatic
+drm_panel_put() (via devm_add_action_or_reset()) when the DSI device
+is torn down; unlike devm_drm_panel_add(), it does not call
+drm_panel_remove() for you.
 
-Thanks. See my other mail, we should focus on keeping the fault path as fast as
-possible and minimizing the work in there.
+If mipi_dsi_attach() fails, probe() returns the error directly:
 
--- 
-Cheers,
+        return mipi_dsi_attach(dsi);
 
-David
+Once probe() returns an error, the driver core releases devres
+resources for the device, which drops the allocation's own
+reference. But drm_panel_add() had already taken its own reference
+and linked panel->list into the global panel_list, and nothing
+undoes that. The panel is left registered in panel_list pointing at
+a device that failed to bind, where it can still be found and
+dereferenced by later lookups/iterations such as
+of_drm_find_panel() or find_panel_by_fwnode().
+
+Switch to devm_mipi_dsi_attach() so mipi_dsi_detach() is handled
+automatically on unbind and tdo_tl070wsh30_panel_remove() no longer
+needs the manual call. It still returns directly on failure without
+touching panel_list, so drm_panel_remove() stays on that path.
+
+Fixes: cf40c6600592 ("drm: panel: add TDO tl070wsh30 panel driver")
+Cc: stable@vger.kernel.org
+Suggested-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+---
+Changes in v2:
+- Switch to devm_mipi_dsi_attach(), as suggested by Neil. Drop the
+  now-redundant mipi_dsi_detach() call from remove().
+- Keep drm_panel_remove() on the attach failure path, since
+  devm_mipi_dsi_attach() doesn't touch panel_list on its own.
+
+ drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c b/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
+index fa961abdd2d7..ea59d4993ff5 100644
+--- a/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
++++ b/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
+@@ -179,17 +179,16 @@ static int tdo_tl070wsh30_panel_probe(struct mipi_dsi_device *dsi)
+ 	if (err < 0)
+ 		return err;
+ 
+-	return mipi_dsi_attach(dsi);
++	err = devm_mipi_dsi_attach(&dsi->dev, dsi);
++	if (err < 0)
++		drm_panel_remove(&tdo_tl070wsh30->base);
++
++	return err;
+ }
+ 
+ static void tdo_tl070wsh30_panel_remove(struct mipi_dsi_device *dsi)
+ {
+ 	struct tdo_tl070wsh30_panel *tdo_tl070wsh30 = mipi_dsi_get_drvdata(dsi);
+-	int err;
+-
+-	err = mipi_dsi_detach(dsi);
+-	if (err < 0)
+-		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", err);
+ 
+ 	drm_panel_remove(&tdo_tl070wsh30->base);
+ }
+--
+2.55.0
