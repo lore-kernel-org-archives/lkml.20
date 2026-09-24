@@ -1,41 +1,37 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FE0B43BDC8;
-	Thu, 24 Sep 2026 08:39:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9052843F4D3;
+	Thu, 24 Sep 2026 08:39:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790239190; cv=none; b=qkRiFtvJoQEJJhrJAK5JYDp6PDW7OmX+xSM/OY4H+FPB8jCdEqToLAl97eSDtGmnxhrC1+0NH2A5gKr5Z4UuVSFJPPP2TlgkFKfeRsKCbA7XtL1DfCqOwMSt/C9NEbJhUTxcrromWt3g6yOavqCGzdUydvKOt455Nz/7ppBb/7E=
+	t=1790239190; cv=none; b=NRW5/bnrQ0mZdL/N0DBD8IRLiThtRSNDOx2BU5B3GWlXGynPvX5cL4kit8XZwa9nX6tC7Fv89gmbYddGNFlmkzlo/Hw6knHW0FW4aZFkNYhYzO5AcQop0+HYiZbe9pN8ZVBUBH8Q9s3j0oTeKufYekP8OatMvi0uhHcuFwKHkh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790239190; c=relaxed/simple;
-	bh=EETdgEDLf9xnEdLLlR5xefqHysCkpeORLVvQGQ1eyMk=;
+	bh=yEDah2MOwLRCA/BRHKa32zTVNeM2FP3L1cxzRHm41cA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=geRt2Mx3WRQl1jsHKnwPnaXZg+cXmqc9etsu3HmsgO4z9kU/fZ+CZ8Fd+7wDlTCor4xOlcWLFHOvJGjZ6un6bXZ9Hh4kUFqIEeN+FdZZvMI8vH8ry5PU9dqhIyaI8BoXBMGPU2GEeTANCIQRgzKqRLNGyhwoxfbd73LEDd+TLxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=j9VofeK5; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 In-Reply-To:To:Cc; b=Gz9LypRq1IMbz7eWeLZ/2j4hiukrKl/9Vq96SBe7LkrB2Jo3YWM09ypKiOHoLajdWje3cpQi3AzrWu1g+2lQiwIbtrFc4/smIxRFPHU1sBqCn9/gA91ebvt3eUDgxVnkggSONFydRnVsmE3N8I3b1YT226E13HIhhGrt1Uffg9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o/sii+gB; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="j9VofeK5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790239187;
-	bh=EETdgEDLf9xnEdLLlR5xefqHysCkpeORLVvQGQ1eyMk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=j9VofeK5yUZlxAnjy3Sd24TUNbe2q0htxw8A8COQW0vV68/uILWcHKSN4fU/46Vez
-	 9Wx0EuOOIT6hoY7QatxUvjot8n9bwFxRSSX+xkH2I8iQd99vVIH8819/0uyXOS4nDO
-	 yX3qnAW+FKgdyCm6YAAjB+hv3saSRlhHTMn+AXWpoe8hW7DG48oVQ0mNNyD5wmG+e+
-	 gwC54PmSqToF2+6azUX5mqmrCUUdmPzKCEgsCZKKyHMP4cedR8dE+6FR2/z/t//KCF
-	 c6x6WgjYEGXQa2Hdg4vfBwT83MQw3RGetTOSUbQFU3C1l2yANZ2741OO+XCJbtavkd
-	 eWNzZnmHiqDiQ==
-Received: from yukiji.home (unknown [100.64.0.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: laeyraud)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E2C8617E0A6A;
-	Thu, 24 Sep 2026 10:39:46 +0200 (CEST)
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Date: Thu, 24 Sep 2026 10:38:13 +0200
-Subject: [PATCH v3 4/4] arm64: dts: mediatek: add Genio 520-EVK board
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o/sii+gB"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 50075C4AF0C;
+	Thu, 24 Sep 2026 08:39:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790239190;
+	bh=yEDah2MOwLRCA/BRHKa32zTVNeM2FP3L1cxzRHm41cA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=o/sii+gBxdf1713wrawfXfVTZ+ZtTpMa2LW6WfAh+dhGowD1VUIjCfp+Igmqbek27
+	 tRybNmUfJMIq1uVzN/xTdE+PEgbcweO8F/4A97pfHqwSTPtnSiotaFhN/VIwzP2ux0
+	 YK3fGtAJBBkIacUb+xOIUgiWGVg6U+YZsWXmIcqFza0DLmcnIeRvyLW+7b7inOWRKf
+	 dkagF9TyckKANCoBvmpn8fccUpXocDsTGj198fB0RR8QAvHhkv+QtMq73tyXQ9aFB3
+	 OV0J3V6tLgw7m7DHgwuXJcxoVFTCz6OPiGAvMN7JoTDHt9J6wMf+fFX05xn8pJxzlX
+	 5cV/v6wBicFDQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3374DC98314;
+	Thu, 24 Sep 2026 08:39:50 +0000 (UTC)
+From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Date: Thu, 24 Sep 2026 08:39:35 +0000
+Subject: [PATCH 2/3] i2c: amlogic: Add Amlogic A9 I2C controller driver
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,130 +40,588 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-add-mediatek-genio-520-720-evk-v3-4-2ec5c80677d4@collabora.com>
-References: <20260924-add-mediatek-genio-520-720-evk-v3-0-2ec5c80677d4@collabora.com>
-In-Reply-To: <20260924-add-mediatek-genio-520-720-evk-v3-0-2ec5c80677d4@collabora.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+Message-Id: <20260924-a9-i2c-v1-2-b8ad9b46f4a8@amlogic.com>
+References: <20260924-a9-i2c-v1-0-b8ad9b46f4a8@amlogic.com>
+In-Reply-To: <20260924-a9-i2c-v1-0-b8ad9b46f4a8@amlogic.com>
+To: Junyi Zhao <junyi.zhao@amlogic.com>, Andi Shyti <andi.shyti@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Sean Wang <sean.wang@mediatek.com>
-Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
- linux-serial@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+ Xianwei Zhao <xianwei.zhaol@amlogic.com>
+Cc: Junyi Zhao <junyi.zhaol@amlogic.com>, linux-i2c@vger.kernel.org, 
+ linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790239184; l=3368;
- i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=EETdgEDLf9xnEdLLlR5xefqHysCkpeORLVvQGQ1eyMk=;
- b=TXovTYgd41NpTpxrSao0sRVf/zsni/cXGy69f9J/nwCaVk9DcyJtpMZ+qsJgluIP+6+/BabBX
- bDqHuILwm9RBaktDU5JwNv87o9wcrw+SkldMyaifzK+EaKNJViN/UDF
-X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
- pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790239188; l=15210;
+ i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
+ bh=1TE5FHYr4KzXu8z56MINWwBJEOCkxLRfzFl6FDQEy+s=;
+ b=/MiTX/AdPJSX2eD+Xhw7Sd9SDnKqSNEKDn+bVcRco45gDlrfqv3FEl1o8tLl/KlH0ZzO3f9hE
+ RykIzLn92K9AaE705gKArh2UVPQQipVdgPTp/dxOyJeBcqStqntcUyc
+X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
+ pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
+X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
+ auth_id=578
+X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Reply-To: xianwei.zhao@amlogic.com
 
-Add devicetree for the basic hardware enablement of the Genio 520-EVK
-board, based on MT8371 SoC.
+From: Junyi Zhao <junyi.zhao@amlogic.com>
 
-MT8371 SoC is a variant of MT8189 SoC with the following differences:
-  - Arm Cortex-A78 CPU core maximum frequency (2.2 Ghz for MT8371, 3 Ghz
-  for MT8189).
-  - Arm Mali G57 MC2 GPU core maximum frequency (880 Mhz for MT8371, 1.1
-  Ghz for MT8189)
-  - one ISP engine instead of two
-MT8371 hardware register maps are identical to MT8189.
+Add support for the new I2C controller used by Amlogic A9 SoCs.
 
-The Genio 520-EVK has following features:
-  - MT8371 SoC
-  - MT6365 PMIC
-  - MT6319 Buck IC
-  - MT6375 Charger IC
-  - 8GB LPDDR5 RAM
-  - 64GB eMMC 5.1
-  - 128GB UFS
-  - 20V DC Jack
-  - USB Type-C Power Adapter
-  - Micro SD card slot
-  - Push Button x 4 (Power, Reset, Download and Home Key)
-  - LED x 3 (System Power, Reset, DC-IN Power)
-  - USB Type-C Connector (USB 3.2) x 2
-  - USB Type-C Connector (USB 2.0) x 1
-  - 3.5mm Earphone Jack x 1 (with Microphone Input)
-  - 3.5mm Line Out Audio Jack x 1
-  - Analog Microphone x 1
-  - Digital Microphone x 2
-  - Gigabit Ethernet with RJ45 connector
-  - DP x 1 (Mode over USB Type-C)
-  - LVDS port x 1
-  - eDP port x 1
-  - UART x2 with serial-to-usb converters and USB Type-C connectors
-  - UART Port x 2 on Pin Header
-  - M.2 Slot x 2
-  - I2C Capacitive Touch Pad
-  - 4-Lane DSI x 1
-  - 4-Data Lane CSI x 2
-  - I2S Pin header
-  - 40-Pin 2.54mm Pin Header x 1
-  - CAN Bus x 1 (RS232 Connector)
+Add a dedicated Kconfig option and Makefile entry for the A9 I2C
+controller driver.
 
-Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Signed-off-by: Junyi Zhao <junyi.zhao@amlogic.com>
+Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
 ---
- arch/arm64/boot/dts/mediatek/Makefile              |  1 +
- .../boot/dts/mediatek/mt8371-genio-520-evk.dts     | 32 ++++++++++++++++++++++
- 2 files changed, 33 insertions(+)
+ drivers/i2c/busses/Kconfig          |   9 +
+ drivers/i2c/busses/Makefile         |   1 +
+ drivers/i2c/busses/i2c-amlogic-a9.c | 504 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 514 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/mediatek/Makefile b/arch/arm64/boot/dts/mediatek/Makefile
-index 5c75ea1ef09a..e6a8109ffbaa 100644
---- a/arch/arm64/boot/dts/mediatek/Makefile
-+++ b/arch/arm64/boot/dts/mediatek/Makefile
-@@ -168,6 +168,7 @@ dtb-$(CONFIG_ARCH_MEDIATEK) += mt8365-evk.dtb
- dtb-$(CONFIG_ARCH_MEDIATEK) += mt8370-genio-510-evk.dtb
- dtb-$(CONFIG_ARCH_MEDIATEK) += mt8370-grinn-genio-510-sbc.dtb
- dtb-$(CONFIG_ARCH_MEDIATEK) += mt8370-tungsten-smarc.dtb
-+dtb-$(CONFIG_ARCH_MEDIATEK) += mt8371-genio-520-evk.dtb
- dtb-$(CONFIG_ARCH_MEDIATEK) += mt8395-genio-1200-evk.dtb
- dtb-$(CONFIG_ARCH_MEDIATEK) += mt8395-genio-1200-evk-ufs.dtb
- dtb-$(CONFIG_ARCH_MEDIATEK) += mt8390-genio-700-evk.dtb
-diff --git a/arch/arm64/boot/dts/mediatek/mt8371-genio-520-evk.dts b/arch/arm64/boot/dts/mediatek/mt8371-genio-520-evk.dts
+diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
+index d7b89508311f..5595a5166569 100644
+--- a/drivers/i2c/busses/Kconfig
++++ b/drivers/i2c/busses/Kconfig
+@@ -885,6 +885,15 @@ config I2C_MESON
+ 	  If you say yes to this option, support will be included for the
+ 	  I2C interface on the Amlogic Meson family of SoCs.
+ 
++config I2C_AMLOGIC_A9
++	tristate "Amlogic new I2C controller"
++	depends on ARCH_MESON || COMPILE_TEST
++	depends on COMMON_CLK
++	help
++	  If you say yes to this option, support will be included for the
++	  I2C interface on the new Amlogic family of SoCs.
++
++
+ config I2C_MICROCHIP_CORE
+ 	tristate "Microchip FPGA I2C controller"
+ 	depends on ARCH_MICROCHIP_POLARFIRE || COMPILE_TEST
+diff --git a/drivers/i2c/busses/Makefile b/drivers/i2c/busses/Makefile
+index 3755c54b3d82..9ffb1082b80b 100644
+--- a/drivers/i2c/busses/Makefile
++++ b/drivers/i2c/busses/Makefile
+@@ -82,6 +82,7 @@ obj-$(CONFIG_I2C_LPC2K)		+= i2c-lpc2k.o
+ obj-$(CONFIG_I2C_LS2X)		+= i2c-ls2x.o
+ obj-$(CONFIG_I2C_LS2X_V2)	+= i2c-ls2x-v2.o
+ obj-$(CONFIG_I2C_MESON)		+= i2c-meson.o
++obj-$(CONFIG_I2C_AMLOGIC_A9)	+= i2c-amlogic-a9.o
+ obj-$(CONFIG_I2C_MICROCHIP_CORE)	+= i2c-microchip-corei2c.o
+ obj-$(CONFIG_I2C_MPC)		+= i2c-mpc.o
+ obj-$(CONFIG_I2C_MT65XX)	+= i2c-mt65xx.o
+diff --git a/drivers/i2c/busses/i2c-amlogic-a9.c b/drivers/i2c/busses/i2c-amlogic-a9.c
 new file mode 100644
-index 000000000000..b4fd343bc08a
+index 000000000000..2fcac7ee0e72
 --- /dev/null
-+++ b/arch/arm64/boot/dts/mediatek/mt8371-genio-520-evk.dts
-@@ -0,0 +1,32 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++++ b/drivers/i2c/busses/i2c-amlogic-a9.c
+@@ -0,0 +1,504 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
 +/*
-+ * Copyright (c) 2025 Collabora Ltd.
-+ * Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-+ */
-+/dts-v1/;
-+
-+#include "mt8189.dtsi"
-+#include "mt8391-genio-common.dtsi"
-+
-+/*
-+ * MT8371 SoC is a variant of the MT8189 with only one ISP engine
-+ * and lower maximum frequency on the big cores and on the Mali GPU.
++ * Copyright (C) 2026 Amlogic, Inc. All rights reserved
 + */
 +
-+/ {
-+	model = "MediaTek Genio 520 EVK";
-+	compatible = "mediatek,mt8371-evk", "mediatek,mt8371",
-+		     "mediatek,mt8189";
++#include <linux/clk.h>
++#include <linux/completion.h>
++#include <linux/i2c.h>
++#include <linux/interrupt.h>
++#include <linux/io.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/of_device.h>
++#include <linux/platform_device.h>
++#include <linux/pinctrl/consumer.h>
++#include <linux/delay.h>
++
++/* Amlogic I2C register map */
++#define REG_CFG_RDY		0x00
++#define REG_CFG_I2C		0x04
++#define REG_CFG_START		0x08
++#define REG_CFG_BUS		0x0c
++#define REG_TX_RD_ADDR		0x10
++#define REG_TX_WR_ADDR		0x14
++#define REG_RX_RD_ADDR		0x18
++#define REG_RX_WR_ADDR		0x1c
++#define REG_CGF_TX		0x20
++#define REG_CGF_RX		0x24
++#define REG_CGF_IRQ_STATE	0x30
++#define REG_CGF_IRQ_ENABLE	0x34
++#define REG_SHAKE_BLK_CNT	0x38
++
++/* CFG RDY fields */
++#define RDY_TEE_ONLY		BIT(1)
++#define RDY_IF			BIT(0)
++
++/* CFG I2C fields */
++#define I2C_RX_THR		GENMASK(23, 16)
++#define I2C_TX_THR		GENMASK(15, 8)
++
++/* CFG BUS fields */
++#define BUS_NO_STOP		BIT(18)
++#define BUS_SPEED_MODE		BIT(17)
++#define BUS_SLAVE_MODE		BIT(16)
++#define BUS_FILTER_MASK		GENMASK(15, 12)
++/* SCL = clk/b_ratio	if b_ratio<=8, SCL = clk/8 */
++#define BUS_RATIO_MASK		GENMASK(11, 0)
++
++/* CFG START fields */
++#define START_START		BIT(31)
++#define START_LEN		GENMASK(23, 12)
++#define START_LEN_SHIFT		12
++#define START_SLAVE_ADDR	GENMASK(10, 1)
++#define START_READ		BIT(0)
++
++/* CFG TX_RX fields */
++#define TX_RX_EMPTY		BIT(9)
++#define TX_RX_FULL		BIT(8)
++#define TX_RX_DATA		GENMASK(7, 0)
++
++/*CGF IRQ fields */
++#define IRQ_ALL_MASK		0xffff
++#define A9_NCK_ERROR		BIT(0)
++#define A9_RX_EMPTY		BIT(1)
++#define A9_RX_FULL		BIT(2)
++#define A9_TX_EMPTY		BIT(3)
++#define A9_TX_FULL		BIT(4)
++#define A9_RX_THRESH_READ	BIT(5)
++#define A9_TX_THRESH_WRITE	BIT(6)
++#define A9_PHY_DONE		BIT(7)
++#define A9_TASK_DONE		BIT(8)
++#define A9_ALL_DONE		BIT(9)
++
++#define A9_TRANS_DONE		(A9_PHY_DONE | A9_NCK_ERROR)
++#define A9_TRANS_ERROR		(A9_NCK_ERROR)
++#define A9_ENABLE_IRQ_BIT	(A9_NCK_ERROR | A9_PHY_DONE)
++#define THRESH_MODE		(A9_RX_THRESH_READ | A9_TX_THRESH_WRITE)
++
++#define A9_I2C_FIFO_DEPTH	32
++#define A9_I2C_HALF_FIFO	(A9_I2C_FIFO_DEPTH >> 1)
++
++#define I2C_TIMEOUT_MS		500
++
++enum {
++	STATE_IDLE,
++	STATE_READ,
++	STATE_WRITE,
 +};
 +
-+&cpu6 {
-+	cpu-supply = <&mt6319_sid6_vbuck1>;
++enum fifo_fill_mode {
++	FIFO_FILL_FULL,
++	FIFO_FILL_HALF,
 +};
 +
-+&cpu7 {
-+	cpu-supply = <&mt6319_sid6_vbuck1>;
++/**
++ * struct aml_i2c - Amlogic I2C device private data
++ *
++ * @adap:	I2C adapter instance
++ * @dev:	Pointer to device structure
++ * @regs:	Base address of the device memory mapped registers
++ * @clk:	Pointer to clock structure
++ * @msg:	Pointer to the current I2C message
++ * @state:	Current state in the driver state machine
++ * @count:	Number of bytes to be sent/received in current transfer
++ * @pos:	Current position in the send/receive buffer
++ * @error:	Flag set when an error is received
++ * @lock:	To avoid race conditions between irq handler and xfer code
++ * @done:	Completion used to wait for transfer termination
++ * @clk_rate:	Clock source rate of I2C module
++ * @frequency:	Operating frequency of I2C bus clock
++ */
++struct aml_i2c {
++	struct i2c_adapter	adap;
++	struct device		*dev;
++	void __iomem		*regs;
++	struct clk		*clk;
++
++	struct i2c_msg		*msg;
++	int			state;
++	int			count;
++	int			pos;
++	int			error;
++	/* protect reg access */
++	spinlock_t		lock;
++	struct completion	done;
++	unsigned long		clk_rate;
++	unsigned int		frequency;
 +};
 +
-+&mt6319_sid6 {
-+	status = "okay";
++static void aml_i2c_set_mask(struct aml_i2c *i2c, int reg, u32 mask, u32 val)
++{
++	u32 data;
++
++	data = readl(i2c->regs + reg);
++	data &= ~mask;
++	data |= val & mask;
++	writel(data, i2c->regs + reg);
++}
++
++/*
++ * SCL = clk/b_ratio. if b_ratio<=8, SCL = clk/8
++ */
++static int aml_i2c_set_clk_div(struct aml_i2c *i2c)
++{
++	unsigned long clk_rate = i2c->clk_rate;
++	unsigned int div;
++
++	div = DIV_ROUND_UP(clk_rate, i2c->frequency);
++
++	/* clock divider has 12 bits */
++	if (div >= (1 << 12)) {
++		dev_err(i2c->dev, "requested bus frequency too low\n");
++		return -EINVAL;
++	} else if (div <= 8) {
++		dev_err(i2c->dev, "requested bus frequency too high\n");
++		return -EINVAL;
++	}
++	/* CFG_BUS reg:11 - 0 bits
++	 */
++	aml_i2c_set_mask(i2c, REG_CFG_BUS, BUS_RATIO_MASK, div);
++
++	return 0;
++}
++
++static void reset_fifo_pos(struct aml_i2c *i2c)
++{
++	writel(0x00, i2c->regs + REG_TX_RD_ADDR);
++	writel(0x00, i2c->regs + REG_TX_WR_ADDR);
++	writel(0x00, i2c->regs + REG_RX_WR_ADDR);
++	writel(0x00, i2c->regs + REG_RX_RD_ADDR);
++}
++
++static int controller_is_error(struct aml_i2c *i2c)
++{
++	int ret = 0;
++
++	if (readl(i2c->regs + REG_CGF_IRQ_STATE) & A9_TRANS_ERROR)
++		ret = -ENXIO;
++
++	return ret;
++}
++
++static int controller_is_done(struct aml_i2c *i2c)
++{
++	return readl(i2c->regs + REG_CGF_IRQ_STATE) & A9_TRANS_DONE;
++}
++
++static void clear_irq_status(struct aml_i2c *i2c, u32 irq_bits)
++{
++	writel(irq_bits, i2c->regs + REG_CGF_IRQ_STATE);
++}
++
++static int aml_i2c_init(struct aml_i2c *i2c)
++{
++	int ret;
++
++	clear_irq_status(i2c, IRQ_ALL_MASK);
++	writel(A9_ENABLE_IRQ_BIT, i2c->regs + REG_CGF_IRQ_ENABLE);
++	aml_i2c_set_mask(i2c, REG_CFG_BUS, BUS_NO_STOP, BUS_NO_STOP);
++	aml_i2c_set_mask(i2c, REG_CFG_I2C, I2C_RX_THR | I2C_TX_THR,
++			 A9_I2C_FIFO_DEPTH << 16 | A9_I2C_HALF_FIFO << 8);
++	reset_fifo_pos(i2c);
++	ret = aml_i2c_set_clk_div(i2c);
++
++	return ret;
++}
++
++static void aml_i2c_add_stop(struct aml_i2c *i2c)
++{
++	aml_i2c_set_mask(i2c, REG_CFG_BUS, BUS_NO_STOP, 0);
++}
++
++static void aml_i2c_cpy_data_to_user(struct aml_i2c *i2c, u8 data)
++{
++	u8 *buf = i2c->msg->buf + i2c->pos;
++
++	i2c->count = 1;
++	*buf = data;
++}
++
++static void aml_i2c_put_data(struct aml_i2c *i2c, char *buf, int len)
++{
++	int i;
++
++	/* this i2c module when trans 0 byte, must put at least 1.
++	 */
++	if (!i2c->msg->len) {
++		writel(0x00, i2c->regs + REG_CGF_TX);
++		return;
++	}
++
++	for (i = 0; i < len; i++, buf++)
++		writel(*buf, i2c->regs + REG_CGF_TX);
++}
++
++static void aml_i2c_prepare_xfer(struct aml_i2c *i2c, enum fifo_fill_mode mode)
++{
++	bool write = !(i2c->msg->flags & I2C_M_RD);
++
++	if (write) {
++		if (mode == FIFO_FILL_FULL)
++			i2c->count = min(i2c->msg->len - i2c->pos, A9_I2C_FIFO_DEPTH);
++		else
++			i2c->count = min(i2c->msg->len - i2c->pos, A9_I2C_HALF_FIFO);
++		aml_i2c_put_data(i2c, i2c->msg->buf + i2c->pos, i2c->count);
++	}
++}
++
++static irqreturn_t aml_i2c_irq(int irqno, void *dev_id)
++{
++	struct aml_i2c *i2c = dev_id;
++	int ret;
++	u32 rd_len, i;
++	u32 rd_val;
++
++	spin_lock(&i2c->lock);
++	ret = controller_is_error(i2c);
++	if (ret) {
++		i2c->error = ret;
++		goto complete_irq_out;
++	}
++
++	switch (i2c->state) {
++	case STATE_READ:
++		rd_len = min(i2c->msg->len - i2c->pos, A9_I2C_FIFO_DEPTH);
++		for (i = 0; i < rd_len; i++) {
++			rd_val = readl(i2c->regs + REG_CGF_RX);
++			aml_i2c_cpy_data_to_user(i2c, rd_val & TX_RX_DATA);
++			i2c->pos += i2c->count;
++		}
++		/* rx must clear thresh after read fifo */
++		clear_irq_status(i2c, A9_RX_THRESH_READ);
++		break;
++	case STATE_WRITE:
++		aml_i2c_prepare_xfer(i2c, FIFO_FILL_HALF);
++		if ((i2c->pos + A9_I2C_HALF_FIFO) >= i2c->msg->len)
++			aml_i2c_set_mask(i2c, REG_CGF_IRQ_ENABLE, A9_TX_THRESH_WRITE, 0);
++		/* tx must clear thresh after write fifo */
++		clear_irq_status(i2c, A9_TX_THRESH_WRITE);
++		i2c->pos += i2c->count;
++		break;
++	case STATE_IDLE:
++		dev_warn(i2c->dev, "i2c irq triggered abnormally!!!, irq_state:0x%x,irq_en:0x%x\n",
++			 readl(i2c->regs + REG_CGF_IRQ_STATE),
++			 readl(i2c->regs + REG_CGF_IRQ_ENABLE));
++		break;
++	default:
++		break;
++	}
++
++	if (!controller_is_done(i2c)) {
++		goto irq_trans_out;
++	} else {
++		if (i2c->state == STATE_READ && (i2c->msg->len - i2c->pos))
++			goto irq_trans_out;
++	}
++
++complete_irq_out:
++	reset_fifo_pos(i2c);
++	complete(&i2c->done);
++	i2c->state = STATE_IDLE;
++	aml_i2c_set_mask(i2c, REG_CGF_IRQ_ENABLE, A9_RX_THRESH_READ | A9_TX_THRESH_WRITE, 0);
++	clear_irq_status(i2c, IRQ_ALL_MASK);
++irq_trans_out:
++	spin_unlock(&i2c->lock);
++
++	return IRQ_HANDLED;
++}
++
++static void aml_i2c_do_start(struct aml_i2c *i2c, struct i2c_msg *msg)
++{
++	unsigned int reg_val;
++	unsigned int trans_len;
++
++	trans_len = msg->len;
++	reg_val = (unsigned int)((msg->addr << 1) |
++				((msg->flags & I2C_M_RD) ? START_READ : 0) |
++				((trans_len & 0xfff) << 12) | START_START);
++	aml_i2c_set_mask(i2c, REG_CFG_START,
++			 START_START | START_SLAVE_ADDR | START_READ | START_LEN, reg_val);
++	clear_irq_status(i2c, IRQ_ALL_MASK);
++	/* enable thresh mode */
++	if (trans_len > A9_I2C_FIFO_DEPTH) {
++		reg_val = (msg->flags & I2C_M_RD) ? A9_RX_THRESH_READ : A9_TX_THRESH_WRITE;
++		aml_i2c_set_mask(i2c, REG_CGF_IRQ_ENABLE,
++				 A9_RX_THRESH_READ | A9_TX_THRESH_WRITE, reg_val);
++	}
++}
++
++static int aml_i2c_xfer_msg(struct aml_i2c *i2c, struct i2c_msg *msg, bool last)
++{
++	unsigned long time_left, flags;
++	int ret = 0;
++
++	i2c->msg = msg;
++	i2c->pos = 0;
++	i2c->count = 0;
++	i2c->error = 0;
++
++	i2c->state = (msg->flags & I2C_M_RD) ? STATE_READ : STATE_WRITE;
++	aml_i2c_prepare_xfer(i2c, FIFO_FILL_FULL);
++	i2c->pos += i2c->count;
++	reinit_completion(&i2c->done);
++
++	if (last)
++		aml_i2c_add_stop(i2c);
++	/* Start the transfer */
++	aml_i2c_do_start(i2c, msg);
++
++	time_left = msecs_to_jiffies(I2C_TIMEOUT_MS);
++	time_left = wait_for_completion_timeout(&i2c->done, time_left);
++
++	/*
++	 * Protect access to i2c struct and registers from interrupt
++	 * handlers triggered by a transfer terminated after the
++	 * timeout period
++	 */
++	spin_lock_irqsave(&i2c->lock, flags);
++
++	if (!time_left) {
++		i2c->state = STATE_IDLE;
++		clear_irq_status(i2c, IRQ_ALL_MASK);
++		reset_fifo_pos(i2c);
++		ret = -ETIMEDOUT;
++	}
++
++	if (i2c->error)
++		ret = i2c->error;
++
++	spin_unlock_irqrestore(&i2c->lock, flags);
++
++	return ret;
++}
++
++static int aml_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
++{
++	struct aml_i2c *i2c = adap->algo_data;
++	int i, ret = 0;
++
++	for (i = 0; i < num; i++) {
++		ret = aml_i2c_xfer_msg(i2c, msgs + i, i == num - 1);
++		if (ret)
++			break;
++	}
++
++	return ret ?: i;
++}
++
++static u32 aml_i2c_func(struct i2c_adapter *adap)
++{
++	return I2C_FUNC_I2C | I2C_FUNC_SMBUS_EMUL;
++}
++
++static const struct i2c_algorithm aml_i2c_algorithm = {
++	.master_xfer	= aml_i2c_xfer,
++	.functionality	= aml_i2c_func,
 +};
++
++static int aml_i2c_probe(struct platform_device *pdev)
++{
++	struct device_node *np = pdev->dev.of_node;
++	struct aml_i2c *i2c;
++	struct i2c_timings timings;
++	int irq, ret;
++
++	i2c = devm_kzalloc(&pdev->dev, sizeof(struct aml_i2c), GFP_KERNEL);
++	if (!i2c)
++		return -ENOMEM;
++
++	i2c_parse_fw_timings(&pdev->dev, &timings, true);
++	i2c->frequency = timings.bus_freq_hz;
++
++	i2c->dev = &pdev->dev;
++	platform_set_drvdata(pdev, i2c);
++
++	spin_lock_init(&i2c->lock);
++	init_completion(&i2c->done);
++
++	i2c->regs  = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(i2c->regs))
++		return PTR_ERR(i2c->regs);
++
++	i2c->clk = devm_clk_get(&pdev->dev, NULL);
++	if (IS_ERR(i2c->clk)) {
++		dev_err(&pdev->dev, "can't get device clock\n");
++		return PTR_ERR(i2c->clk);
++	}
++
++	i2c->clk_rate = clk_get_rate(i2c->clk);
++	if (i2c->clk_rate == 0) {
++		dev_err(&pdev->dev, "failed to get clk rate\n");
++		return -EINVAL;
++	}
++
++	ret = aml_i2c_init(i2c);
++	if (ret < 0) {
++		dev_err(&pdev->dev, "fail init i2c\n");
++		return ret;
++	}
++
++	irq = platform_get_irq(pdev, 0);
++	if (irq < 0) {
++		dev_err(&pdev->dev, "can't find IRQ\n");
++		return irq;
++	}
++
++	ret = devm_request_irq(&pdev->dev, irq, aml_i2c_irq, 0, dev_name(&pdev->dev), i2c);
++	if (ret < 0) {
++		dev_err(&pdev->dev, "can't request IRQ\n");
++		return ret;
++	}
++
++	ret = clk_prepare_enable(i2c->clk);
++	if (ret < 0) {
++		dev_err(&pdev->dev, "can't prepare clock\n");
++		return ret;
++	}
++
++	strscpy(i2c->adap.name, "Amlogic I2C adapter",
++		sizeof(i2c->adap.name));
++	i2c->adap.owner = THIS_MODULE;
++	i2c->adap.algo = &aml_i2c_algorithm;
++	i2c->adap.dev.parent = &pdev->dev;
++	i2c->adap.dev.of_node = np;
++	i2c->adap.algo_data = i2c;
++
++	ret = i2c_add_adapter(&i2c->adap);
++	if (ret < 0) {
++		clk_disable_unprepare(i2c->clk);
++		return ret;
++	}
++
++	return 0;
++}
++
++static void aml_i2c_remove(struct platform_device *pdev)
++{
++	struct aml_i2c *i2c = platform_get_drvdata(pdev);
++
++	i2c_del_adapter(&i2c->adap);
++	clk_disable_unprepare(i2c->clk);
++}
++
++static const struct of_device_id aml_i2c_match[] = {
++	{	.compatible = "amlogic,a9-i2c",},
++	{ }
++};
++
++MODULE_DEVICE_TABLE(of, aml_i2c_match);
++
++static struct platform_driver aml_i2c_driver = {
++	.probe   = aml_i2c_probe,
++	.remove  = aml_i2c_remove,
++	.driver  = {
++		.name  = "amlogic-i2c",
++		.of_match_table = aml_i2c_match,
++	},
++};
++
++module_platform_driver(aml_i2c_driver);
++
++MODULE_DESCRIPTION("Amlogic I2C Bus driver");
++MODULE_AUTHOR("Junyi Zhao <junyi.zhao@amlogic.com>");
++MODULE_LICENSE("GPL");
 
 -- 
-2.55.0
+2.52.0
+
 
