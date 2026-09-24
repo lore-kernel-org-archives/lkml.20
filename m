@@ -1,140 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ADF945A2B4;
-	Thu, 24 Sep 2026 10:09:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3377446AEF2
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:09:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790244581; cv=none; b=HOMAiEdW/W5o5C0r2eL5hYzaEu0DoQGeaHeELnuUF885aireV0+wa0qe2FH3VeYhMdAFYSvnw5hD0CFRt9/kP1JFimxuFgzcKk2yVW3jHWuMpomYlisTCH243FlPDl8ewEBAdWBLNTi0ECgXTmNjLavGrHlz5awiw9MP9J+4vTI=
+	t=1790244587; cv=none; b=etNT/UKOW2sNMIxofOFMFaduDAxrA9gO3CvrormyDeEjg6P4Pl6KWH7d4/QDx8CopSTyxdZSvLb6wAmPRG1D5peeAYL4D2QzDJljAleoOUy9ooM+pfYVzl/Qh7VA2gqLDIWRfw5Pzry7S44FdhETlxTdvqKnVjlk4PpOyQuf0aA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790244581; c=relaxed/simple;
-	bh=avIOrMrcCb3ADh7Va+Vlx0jLbixEvoTxHwR3rEyIMcs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rSVjuoNDvEAk0kg52VcDDUQs77g3mzX2WmG6nxJsLuCGxYJhANlIMEd55as8zQi914Oyx8bdn8Nm1BJ9khEFozyZe5hrA1oK8y78tubbd8mSr7RgOc7J5s0w7Jgfoq5pGKcDGi2Hw7xFIipNFfpfiEmJ6JoLQdwgS4aoToSjP0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dnSLogll; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790244587; c=relaxed/simple;
+	bh=jILoZbJ+my7bWI2B+7FewLVJxay0NSGO5ePWDhd1TUo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jiAkI07g+PtHrjC30Zpjn3+cMSD4KvZkNcNJM9IOPvuBXsx46Gr+6l2ZLrDCWws3ZawRHjGkkiYrvDBu0BmloZXMCBxL1GH9ObkmqxlSwo81RJOtvVC+ZayE54F8aP3opl1YltoHbyuxJDFLdfADyA8XJ4X8WHaxgQgWEE2MUC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=hLU3PI0U; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dnSLogll"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 507301F000FF;
-	Thu, 24 Sep 2026 10:09:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790244569;
-	bh=T/L8GH36WphB4FWEap/OQWo2XNq0RD33mRMiQ8zqE3c=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dnSLogllfOwGPjiiYgYeYNLUbV922KBGPQBr1iWfsc0tB53dUpUKxf7Bdtcpcr3bI
-	 N/yMdNt2Ov0UkVr3MhgwO2+hKGw0VJvasN8PtaGsg7DTl5Ql1ufzTr95NdJDCRfBOD
-	 wRMGS47TdnCWOSqXI+wAq/TqxOS5zw8/ZLyamBfgIKhWLJU98AI0JXzOWvht07ccMo
-	 2JB/877rqVQmvUlpiMOQYNo009UWntXGbqTXDczrJzMPMIo32vZaRkqz6B5foRNisc
-	 tn0L4hnJrri/j4++dOckyGH9o5Ual1j5zyEjqvpx9L8hqj3USKaRp7UJIrXQt3YkOi
-	 q/ADwv496KpUg==
-From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-To: linux-coco@lists.linux.dev,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Joerg Roedel <joro@8bytes.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Brian Starkey <Brian.Starkey@arm.com>,
-	John Stultz <jstultz@google.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Radu Rendec <radu@rendec.net>,
-	"T.J. Mercier" <tjmercier@google.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	"K . Y . Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-media@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH v8 13/14] mm: Assert CoCo shared allocations may sleep
-Date: Thu, 24 Sep 2026 15:35:28 +0530
-Message-ID: <20260924100529.1398790-14-aneesh.kumar@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260924100529.1398790-1-aneesh.kumar@kernel.org>
-References: <20260924100529.1398790-1-aneesh.kumar@kernel.org>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="hLU3PI0U"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-39b910bdf2eso982898a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:09:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790244568; x=1790849368; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xbp5TiM82eBTMnFo2jw9yYRLjU2bFsj3L5CkfeZk11g=;
+        b=hLU3PI0UZx/UePX/X8ApS2mzKuRxbMnuRfaeVoQCnIp7I7igkUCVFhN/uee02EQrF0
+         vA5zKmHqKn7f7ObhV33kYpeaYoG514EeaSH1NoDtnALX55hVPGPE3CNEWTwSrZ5kMMPi
+         5B0En1IUJEYPn0Nxi90eC54n74ijMJuI6IiH0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790244568; x=1790849368;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xbp5TiM82eBTMnFo2jw9yYRLjU2bFsj3L5CkfeZk11g=;
+        b=i0yA31I6SBvx6f2i67YcBLxyLDy6GKh2I1/rDO2Qq5Bu3iXbc3WRIt4qlyOma6Jw94
+         g2Q+hLBtKrTav+hOS31tMTG7Esu/1GXtubq2gM6lp0jSbNCDIW+rXdy3kQfMlF/7ijDw
+         jVI6boUCP7EKq4cBMyfse5yw/TnPljcG7Sfg68+L6J544cEJM944vEZXIGclK1+eQsus
+         dreO7LWsUEnaLvhwc9d2tFYaAqw6yPP+7p7TKuvZZOpQjirFKNoovAdLRhGfaeSQaCjq
+         kBDuViDk1iLmoIgbxsH4H36gB9HKScOaXcrwpkJPKN9gBRkOtsvNmzm5EM/W1vXK0RIG
+         tF9w==
+X-Forwarded-Encrypted: i=1; AKwUvByU3MLyKmE1WCUWZnGbvb9qMp1+WRsKl/l/iI/2KzOtkqN7VIBzat1oy26EFL0H5/oZaVID9a2DtkZaIRo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mVHcV+uSn6ah99LW64vRtdqB3qcwCsc/IQu/7D63GnN8bH69oP
+	T29VYEPOSF1dO/MF+p/cNmNLFlp5m2S2gcZp45w+imnPawhx7CdgPxHrvTp71HOQlg==
+X-Gm-Gg: AYBFou0T/7SkCgIPwxz3+kGCTRJdPsVdLbXkpkyx0iLf1Oe+RZLH4t4s3r3letV+nqa
+	NHrTXmcM750MvLFWVK1+vZmMQy1tZsVaSGjd6DT3gxtRvuhXFd/n7+E0PvsTiuXHVW3d7rcyKV1
+	g16tpAgWTZzeY8hC5aQMKK/XIvTdAe+Cv/LAnyzNd1vvhtte6Dz/aZDlgYKyVwJx5hac1zW0yPd
+	UY1aGCbdlqsf0DpGpClSlQedBDF76dT7eGVnrDaRioeCOGTSKo+FHoVNc2AYROsj5gDliJlgVHP
+	tl+AR01m6KSPH5l3EVbV6ZLc+llpTM7RhB81pP7HWypNOhlHzaGb2HmVtOHkLGEo6Alqrivsj5r
+	cGzpU0nXQyRLd3peSKqllijH6/4FN9Qxg7aEIkz989XSNDvYQMGDT5YIBwAZGgVzzKK3fNDU3Ho
+	Mw7UKO0BncGdAw5yKeDyqTkNAZMOKVoGd+Gz0AMYsFLM0A59/UFQ+u4tdM89ee9e5GNV5lEq+ls
+	PuvvkKvk8TciVyFSo6UB4CAYJhPTjhpWVefoA==
+X-Received: by 2002:a17:90a:e50:b0:3a0:9aa4:f9fd with SMTP id 98e67ed59e1d1-3a09aa51430mr1029898a91.12.1790244563742;
+        Thu, 24 Sep 2026 03:09:23 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:564:f2fc:acc1:e4c8])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a082872cfasm3159170a91.2.2026.09.24.03.09.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 03:09:23 -0700 (PDT)
+Date: Thu, 24 Sep 2026 19:09:19 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: syzbot <syzbot+fb23651a7efbea8868ed@syzkaller.appspotmail.com>
+Cc: axboe@kernel.dk, linux-block@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, minchan@kernel.org, senozhatsky@chromium.org, 
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [block?] WARNING: zero-size vmalloc in disksize_store
+Message-ID: <arT1HxFd0q8Kdz47@google.com>
+References: <6ab152fc.71f81b7d.15fa6d.0031.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6ab152fc.71f81b7d.15fa6d.0031.GAE@google.com>
 
-On platforms with memory encryption, alloc_cc_shared_pages_node()
-transitions the allocated memory to the shared state.
-set_memory_decrypted() may sleep, so the transition must run from a
-sleepable context.
+On (26/09/21 08:53), syzbot wrote:
+> Hello,
+> 
+> syzbot found the following issue on:
+> 
+> HEAD commit:    73ae59e97596 Merge tag 'erofs-for-7.3-rc1-2' of git://git...
+> git tree:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux master
+> console output: https://syzkaller.appspot.com/x/log.txt?x=11d5d525580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=c35e49327a11721f
+> dashboard link: https://syzkaller.appspot.com/bug?extid=fb23651a7efbea8868ed
+> compiler:       aarch64-linux-gnu-gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+> userspace arch: arm64
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=175514c9580000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=123b1005580000
 
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
----
- mm/cc_shared.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/mm/cc_shared.c b/mm/cc_shared.c
-index 9eb79832a702..6f68a3f44ef8 100644
---- a/mm/cc_shared.c
-+++ b/mm/cc_shared.c
-@@ -8,6 +8,7 @@
- #include <linux/errno.h>
- #include <linux/export.h>
- #include <linux/gfp.h>
-+#include <linux/kernel.h>
- #include <linux/log2.h>
- #include <linux/mm.h>
- #include <linux/mem_encrypt.h>
-@@ -106,6 +107,8 @@ static int __alloc_cc_shared_pages_node(int nid, gfp_t gfp,
- 	unsigned int order;
- 	int ret;
- 
-+	might_sleep();
-+
- 	ret = cc_shared_calc_layout(requested, &layout);
- 	if (ret)
- 		return ret;
--- 
-2.43.0
-
+#syz fix: zram: switch to unsigned long indexing
