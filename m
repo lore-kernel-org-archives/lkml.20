@@ -1,276 +1,204 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D2C2147ACF1;
-	Thu, 24 Sep 2026 15:27:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790263677; cv=none; b=RiKstYSJdz6HBkyCYWytopp5AvAiLDjRk0w07afHSW6LIQu6NMC63ueFVZuAEIqXOegrBIqHK99yxHhsW+Ky3amm/kWjknAJI5u9LN8o6Gj9h1iX9PMWDK6a3Qe5ARXHbtDxTH4a8q4GC+FVkExYw0q6N6DCSM5RMGt8Q1BV1e8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790263677; c=relaxed/simple;
-	bh=1THeMS33ETbvcLwulgT4pT0oTmWktKEfyhGVp2Vhdlo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WZIJuTwRBYKsybqAlPfUb+zZ8NsnQwmdLURWZN3IJ5FFaDTy/Hg3noC8vTAYnpn2DULldGWSA8utDRkVKXkTx1NKkFlptM++lTpnJA14A/MmpSYFjpO1TuexYW5T+GF3TBkcGuirpDb3xbhQi34fMyZVAP4MfHFpfNnlw5PkdNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=VjV8Yy3Q; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19DDB486B86
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:27:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790263680; cv=fail; b=noChXjFDmYnlipAq+byoDiCIGkoC3kyhHihCYIeDupQEqDEG1Hcd0D/6pzvsPhaiUdGwPSg+5YHYUr8jDKOurtHSSkQfXtkABhgh/Md6IvNTUcYELaAGNgpf8/GJyXDbMTOuDUB3b8Rpm8ZWPjr+MSI0eOuv4Ggq7gIVigPeq94=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790263680; c=relaxed/simple;
+	bh=RRGhS4J+6eUIY2/Hk70xq6rjrhAcuRtoICcWhXU47d0=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=MeAxd4eOikDBnW4sTE9rBBcZkbVMmGKEzQdqYAf6owAXlgM+nvSxqH9bUBS2PXFv9Dg3rKBxLsLUTbB6rlPfLxbLSNayOZHoqeovoaMnCxyd6kwV1DHNqUYHUUVQZ9GpbLHvq2f+WJp9wnpKupwYWspCg87F02TN4PyqGhnABz0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JPqH7O7v; arc=fail smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="VjV8Yy3Q"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9EBAA1756;
-	Thu, 24 Sep 2026 08:27:50 -0700 (PDT)
-Received: from e142021.arm.com (unknown [10.57.8.50])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6CB093F86F;
-	Thu, 24 Sep 2026 08:27:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790263674; bh=1THeMS33ETbvcLwulgT4pT0oTmWktKEfyhGVp2Vhdlo=;
-	h=From:To:Cc:Subject:Date:From;
-	b=VjV8Yy3QcGH2iCtgKUmXrBjiSDtz7ykJD9nqyk8SCH4mcZklM+6g2Uleu7qaQUR5u
-	 dyyuC6ZPj2xjH0NtzF0yIcQC54DT9gX1W7d9V7pMv2tdtm+BVlYjtRmVh6YX6nL7Mb
-	 6HQzEc3I/dxCEbOynwHM/X+kQo0fEjPhRTmw5JJk=
-From: Andre Przywara <andre.przywara@arm.com>
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	James Morse <james.morse@arm.com>,
-	Ben Horgan <ben.horgan@arm.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Fenghua Yu <fenghuay@nvidia.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
-	Ganapatrao Kulkarni <ganapatrao.kulkarni@oss.qualcomm.com>,
-	Trilok Soni <tsoni@quicinc.com>,
-	Srinivas Ramana <sramana@qti.qualcomm.com>,
-	Niyas Sait <niyas.sait@arm.com>,
-	Lee Trager <lee@trager.us>,
-	Ritwick Sharma <ritwick.sharma@arm.com>,
-	Gavin Shan <gshan@redhat.com>,
-	linux-acpi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v11 00/13] arm_mpam: Add MPAM-Fb firmware support
-Date: Thu, 24 Sep 2026 17:27:26 +0200
-Message-ID: <20260924152739.2865510-1-andre.przywara@arm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JPqH7O7v"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790263677; x=1821799677;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=RRGhS4J+6eUIY2/Hk70xq6rjrhAcuRtoICcWhXU47d0=;
+  b=JPqH7O7vO6BA+kQDh30GgHx9U92slsV/9lbLBBOgvYjfQEpuLU0A/720
+   riTVzahFj312I6iHrMi6IkySZRgpp6iRTUl+be8OMrslxF8+Ga5ChIm+D
+   UkjolWX8iSYIc+edw8Meen4siN48Qz3Rc743StYu7EnkBluZHzd478cvV
+   kOviKcPEYB+B5XGYdjQdDE+0h5a/qvUl4RbN6qn3U1/O3y7GrIF3jJgWT
+   P2wPgBN0XKfKYNHWBSjevx4ykzl1uEJPNEVCsAkjT/zYgktuMk166M/4p
+   aaJTX4HxAahXCZK6XrzOQOHQikmH8zHrqc1Q23kTeXBjJDunwgSWtT2Np
+   Q==;
+X-CSE-ConnectionGUID: euW4H1urRM6Gk8CHSTCQSA==
+X-CSE-MsgGUID: 3ZmReB5rRVCnsleemxf/tg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="101696940"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="101696940"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 08:27:42 -0700
+X-CSE-ConnectionGUID: xGI1NRCtT9m5UoelC0Q7Tw==
+X-CSE-MsgGUID: 7V3d4cvxSEmrhQ1vvz1euw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="271888695"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 08:27:43 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 24 Sep 2026 08:27:41 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 24 Sep 2026 08:27:41 -0700
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.23)
+ by edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 24 Sep 2026 08:27:41 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GLeuCnPjnpGa7+89oPU8uniRqbO0kaKFXmE6bNexOkQp8ZZe/woUJ2aMwEk/xoH8cJY3Ksgul5f6pgz6S3V93+8IUSjLgZEujpJBCbQCtSeWdvEIaaQgthbxKS8yfTD3PVmoaemEwbR+MVSie4icPqoXkvZvEXTCjhLqRUrg+0vp8MR6lSwfYhGgsPYVzBLJAZdH7GZ4hKh4dOOBgFwMUr7d8b1hnh2ihoXOirfOE0fJaFdW5vFW+42EcVypUgaJVUr/R5WEceaqoMTBaQHnZAk4whq7dhPe3/ipbHBRiKDWJ+2a52JpyUBNU01RKqMOimqxk8wSvFjmVz3Zm9xRgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0UaRbzs4CKuP0K5vz/YrfDSPEhDBcU7L/AgHqkVGiqg=;
+ b=XUwm9a0AD659lIbt3tF2ibsxg3wnaRYN7linnTWOGVOUBNtpSRgL5zK1vDMnM6NSZGdDNhFZhKHrILmNWqaA2ksbRrYB7AoFZ80MJYYQG421sWs66KWx3g+ya3PcU7BPkKuZlYzgKMskZ3nL2NBzoD8PP3fFTZEwNnguY8knFVPdI6kDBm3FVObCJOcB13rNE/Qpa+9jD7ltH0Q3o9b2ZymqWhnAGoPdZdYgu2vqE2Kw42Gl9xhQsynypLoswUTEa4+1K09QGSUG3EbiNccF/Gj1r44BHGjkGM62NmjaLO0kfJxnlZohyHeE5TPs5NGKAWp7x66trzePb3/V8QrTIQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
+ by MW3PR11MB4569.namprd11.prod.outlook.com (2603:10b6:303:54::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 15:27:32 +0000
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc%5]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 15:27:32 +0000
+Message-ID: <26f421b4-670a-4045-bc06-e801df65cfa8@intel.com>
+Date: Thu, 24 Sep 2026 08:27:30 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 07/25] x86/resctrl: Update special case for Intel
+ Haswell enumeration
+To: Tony Luck <tony.luck@intel.com>, Fenghua Yu <fenghuay@nvidia.com>, "Maciej
+ Wieczor-Retman" <maciej.wieczor-retman@intel.com>, Peter Newman
+	<peternewman@google.com>, James Morse <james.morse@arm.com>, Babu Moger
+	<babu.moger@amd.com>, Drew Fustini <dfustini@baylibre.com>, Dave Martin
+	<Dave.Martin@arm.com>, Chen Yu <yu.c.chen@intel.com>, David E Box
+	<david.e.box@intel.com>, <x86@kernel.org>
+CC: Christoph Hellwig <hch@infradead.org>, <linux-kernel@vger.kernel.org>,
+	<patches@lists.linux.dev>
+References: <20260916231320.14502-1-tony.luck@intel.com>
+ <20260916231320.14502-8-tony.luck@intel.com>
+Content-Language: en-US
+From: Reinette Chatre <reinette.chatre@intel.com>
+In-Reply-To: <20260916231320.14502-8-tony.luck@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR03CA0264.namprd03.prod.outlook.com
+ (2603:10b6:303:b4::29) To SJ2PR11MB8370.namprd11.prod.outlook.com
+ (2603:10b6:a03:540::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|MW3PR11MB4569:EE_
+X-MS-Office365-Filtering-Correlation-Id: bb126bed-4ce9-4fe0-1230-08df1a505a07
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|10067099003|56012099006|5023799004|11063799006|4143699003|3023799007|18002099003|22082099003|921020;
+X-Microsoft-Antispam-Message-Info: fuB7AxeZ76ueTm/Ma6yNYwoL01Pws289lj6wR6laJ2NVAwUd/SkxDkX4TceGKwAXzQybRAuvBoEFZpX4IminC2h7F8Ta+MyWgLJ9lLMXZNasbKLpboq+bqBsqbfR5lKRGmg0hH/VDqFyA/GXLMkyh0cNZsZmEmgB/qGRMDzJn3Zbm8ILbX88xBeiTUgspmkFHXyhY8UD9a6wtlXoDzMXKVNa43qZ8Jo+5slDHC3tOnk05ZAycgDErfh5tb8OCxCTNp8QmwMcoJFKB7PClIWUF50i3CwyInqvOnVPs0TthddHDb4EWHq47Sc/mwh1rrd9ZqDdfX9FvlRbrGrzmEUKHvnctf+AjggaDoH3yXJ7tEsGHQ/YAq1xEjIK6jPsCZsBrdpuUUfbIKEb+un77qltzKhlF+VEJkr2rd4OWav5mDpXItoZc0QIgpNZcIOZPLU3wkiQ6LhbFQ0BqvPZBSXs1HC1pIS/+CveY4GbCfDuAmaMe3bX+MJn/jZK2aSiDOy6pg1D/e62qk/bPjnj+EL/ObIe9wHduARx4kdTPZbedkomURJxpPl2oY6c/EtrL9hG3GwkiE/Ae6Vup5r3T9bRlQzc1MZ5qAKpLtAli+5SfhHd7DiU8fKBaYxghL7ZbkVyYVtQr0ZTagUXv8BzRZgcwhJu9Jgc5PqGiV7+s3LXvgHJledzWYsaX/i4f2ndpvGFIMQ6TgJQiKLcgALUMlqlJQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(5023799004)(11063799006)(4143699003)(3023799007)(18002099003)(22082099003)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WW1rYkdwNFIyOGVjNVAwMVJTWlhadG5FVjU3S3VvNzk4WWo5ditxanlabUZ6?=
+ =?utf-8?B?ZjQzdHpyS2dkdFJ0NWdrMU9mVTNHU0ZIbldpMzdBWTFWWWNsRzFJT1VGTTdq?=
+ =?utf-8?B?bjRtQjBPWE9ZVEtXQmlMT3FjSTRBS3g3UzJmV01NcmFGUU14UVZ1ZUwwdE1h?=
+ =?utf-8?B?ZEh3emxzODF2S1YvanBGYXAyQ3JQdittRmtQL2V6M1ByenZtMGhsVjN6V2Yz?=
+ =?utf-8?B?WWMwck1GMTd1WmJsaEtWQTRxc2d1dzFKOUR2NkRrOUlhQjgya1lzUEF2RVMy?=
+ =?utf-8?B?RWJOZlpsV3liNkk2azFDQWtHOEF5cUw4YXdoTXlsc2FycDNnM0xLT1hIRXF5?=
+ =?utf-8?B?UjJlaFU3eU9GZ1F6dUdmdDFUN0pNRkFoeERoamxqNUdkYXh3ejNDT2VYMVBD?=
+ =?utf-8?B?cFFBTWJ5YlhlclVTSWZEb0xzMmNad0Q4RGFlK0xqVVFzZ0RBYXB3Ri9TSDhP?=
+ =?utf-8?B?UG1rVk9rZFJuK0FJS0RyTlVKMExsTVZkQmdFRTFkN3JEYk9RaFJUa1Q4VWY4?=
+ =?utf-8?B?cjl4eHRuWXlmTjBzbllLZnphVjJNWTg0L3Rjd2lyTUkrY1RkTU5lb1F5cCtC?=
+ =?utf-8?B?VU13TG9GR2RFM0lzWW5HcHFKd3VsNDRab2VpUGJVL0p6RXdzakFHdGNlbEI2?=
+ =?utf-8?B?Rkp1SjVIZ1Z4c29rUS9CaW5uWERCYVdXQm4yeFM3N2tyWlljY2Q2eklackx4?=
+ =?utf-8?B?WXhITTVZYmtOdTBCMEUwMGIybFZ5TEZZNE9LQ0hSMXJJblg5c3hvWU1yVGk5?=
+ =?utf-8?B?Zllhdnk1Q2d4RGU0aDJCZ05EK3VWWHBHcnRQeWtBem9TdUs0aXptdThVbHlZ?=
+ =?utf-8?B?UVVZVU9NcDBZcGxlVmU0NE40R1BMTUNnN2RYWW5nRXVtUVU4YVhidGdSdnl4?=
+ =?utf-8?B?NGFjZjNoRmk4bkdZTnFnN0Y1Q3VYMkpSNGh4ODdLU2twbVhxRE1sRHpCUmkz?=
+ =?utf-8?B?MzhSZ3NDaGNna0dkOHM1dVJHM3lQaEJSSHQwMTNDbStiNnBTL1ZhSDRxRTF2?=
+ =?utf-8?B?ZXBPT0huSHpWYlUzd1FiaEtWVTNSUFMvMlZya20rV29FZjFkQUNsNSttSFFZ?=
+ =?utf-8?B?end0cGYvUjRZaWpUSUpZeTRicXA0dzYvdlo1VG41T3dCK0ZjKzBpZGJrZlhQ?=
+ =?utf-8?B?eFIzYSt2Q0dmK3RHSFpQaVlUSjc2UnQzVUk0T3l4M2Y0ckhzRW1mdFExdWhs?=
+ =?utf-8?B?YWlZdmhGTW80bnM4aDUvNktqQ0ZzTk1JamdZR29BUlRjeHFFdXFTcW9sQ2pL?=
+ =?utf-8?B?dHBwNURTeVM5LzI4MnFSdjRHc1J0S3RydlRJbDBXazdIc3NVMWNHUzgzRTBj?=
+ =?utf-8?B?eFJTL3NGcyt5a29PK1A4Nmk3cGZ1UU1WM3A5UEVZdkU5TG5Ea2NaQlhtRSta?=
+ =?utf-8?B?dXJiR1hvU1FDMXRwL2FMZ0hLVHFQSFB4cXhZTW9EVno2T0h4M1FlTDlGODMz?=
+ =?utf-8?B?SnloUDhVZ3A4MjVndCt0TzNndnpKcmJoVG5mblF1MFV6ejVGL2RTM2QzK0hr?=
+ =?utf-8?B?WlNNTk94dlI1YmJBeUl3ak5tL3BUSFI2bFZkeHN4cDNuTldROE8wM0FMUG9i?=
+ =?utf-8?B?WlA1Yjk3ZGFHeVhqOTZYT1cwK0VkVjNSMm1vT2JmemJjUjdIWGlKTmxaKzdD?=
+ =?utf-8?B?WWhQNVNCWWpUdjlnRExxSGNmczBtVTVheEdpUEZOQzJTc1JYRjZEMkxRQUdq?=
+ =?utf-8?B?bGtZMG5TL2NXRlV0SW14dUwvbitOejZoZW5ka0cxZWtqWTNicWJIYTF2UnRY?=
+ =?utf-8?B?d2FQQU5OQ2Q1RGcwYUlmOFR5QWhETGhCRUlWaDhZMFREekxwMjlkTUxwQ1pR?=
+ =?utf-8?B?d0N3MStFck1DSlpuRlFpUTk3eEtqUUtiWW41RjAvbVZYSWFib0ZuYlNmQlVX?=
+ =?utf-8?B?SDlpbEpFbXA3Q3d4N1MwRkNRZ0lUM0Y3TDhYUUtORDF4bEtsRXYwdUVCZGxY?=
+ =?utf-8?B?VnV2alJ3NUNrSEI5Wm12UkxnQnVmZTZYTCt1OEtrSm5HRENHdVhqb3VFZUc3?=
+ =?utf-8?B?L2VXcGJDTktOdk1hOGs3UjNVSmh6UjZqUVZwYUE5N3ZQZGxZeUprQlo0RkZK?=
+ =?utf-8?B?MGFaSURqL2c4a2thMlBSSW5PQ2dETG5pOHpNVWo2dzRoWGtueGN6dUdjTHlJ?=
+ =?utf-8?B?RjhyN3prNkMwKzdTVTFVM2VWeklvMEQ3eDZLWXhxbmsrOGlXRi92NmtkeGVN?=
+ =?utf-8?B?SGJGdDhRNTFlcFRWTXkxT2xnNDExeDUxbmxVVWQySkduNlpndmpMTzg4TTY3?=
+ =?utf-8?B?dGlxeHoxQXJuQUI4NG10NlpKZHdCaW9MRmRHODNUWXBTKzBaSGY0T080amU3?=
+ =?utf-8?B?bVVtRUM0K1pYS2ZCemdNb2JKc1V3bm9PcnRFYjFHcDd3dmJyQ3VrbzI1OEdB?=
+ =?utf-8?Q?bK0LWyTiLNYUgEIA=3D?=
+X-Exchange-RoutingPolicyChecked: fX1meZRFb/7FlTSJemsCuzkCc5vCzkl4P18pNWp5VqJYtw5G6qKZOcIEdla0edBZP9Vb6K3YtmGK2qzTEIundtmsZG2Z2F//44KY/5hwucQUw2v1Sg41Z7A3w9v/46kTCxDgv6tu525rtq8Ig/HugtLwcgozydl0keoEBNo3s5qzaQEuDfL7jMPMEpzhZuC/D4ZgEHrLiPWx7wYm1C05TNQs0UaEYhAn+h3H3uZHW3GCJLWdd4yz5nfv7rdCLPqMg9WmLqO+x4Qe5sU23f3kMUeQ0vrgWVqeQ/GXPpYn+cwMMuWJtr8Cl8Evn2+DSXWr4rb3khdOVtrWku467e86QA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb126bed-4ce9-4fe0-1230-08df1a505a07
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 15:27:32.1934
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2ekdoNDUpaCrMUVhTP78sk6UPiSN/0yl5fNRn4q5mNtQ/YK86RFmsF7SqFFRVx8CWLg5grbxxOtjIq399M5pTtA1qW4HejBTgR5HWk5OeeA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR11MB4569
+X-OriginatorOrg: intel.com
 
-Hi,
+Hi Tony,
 
-a small update to the MPAM-Fb code, for firmware based MSC accesses.
-I dropped the two RFC patches from v10, the specification change will not
-be published in time, so we will add this ideally in the next cycle.
-However the preparatory changes to have an MPAM-Fb specific MSC ID stay.
-Other than that there is one new patch to propagate errors, now all
-functions exported from mpam_devices() report MSC access errors.
-Some identifier renames and two small bug fixes complete the changes,
-for a changelog see below. Based on v7.3-rc1.
+On 9/16/26 4:13 PM, Tony Luck wrote:
+> Certain Intel Haswell CPUs have support for resctrl L3 cache allocation
+> but do not enumerate the feature. There is a quirk to check for support
+> and provide hard-coded parameters. This quirk sets rdt_alloc_capable
+> to indicate to get_rdt_alloc_resources() that normal enumeration is
+> not needed.
+> 
+> Drop setting of rdt_alloc_capable in cache_alloc_hsw_probe() in
+> preparation for removal of this global variable.
 
-=======================
-The Arm MPAM specification defines Memory System Components (MSCs),
-which are devices that are programmed through an MMIO register frame. In
-some occasions this turned out to be too limiting: the MSC might be
-located behind a separate bus system (for instance inside an on-board
-controller), it might be mapped secure-only, or in a different processor
-socket without direct MMIO mapping. Also the MMIO access might be too slow
-or it would need to be filtered or otherwise access controlled. Finally
-there might be bugs in the MSC integration, which require a mediating
-firmware to be accessible.
+The changelog just states "Drop setting of rdt_alloc_capable" without
+any explanation *why* it is ok to do so. Consider something like this draft:
 
-To accommodate all those different use cases, the MPAM-Fb specification
-[1] describes an alternative way to access MSCs. Accesses to an MSC
-would be wrapped in a message and communicated to the system using a
-shared-memory/mailbox system mostly mimicking the Arm SCMI spec.
-For ACPI systems, this would be abstracted through an ACPI PCC channel,
-which provides the shared-memory region and the mailbox trigger. We can
-lean on existing ACPI parsing code to register with these two
-subsystems, but cannot rely on the existing SCMI code in the kernel.
-This means we somewhat need to open code a very simplified SCMI handler,
-which just provides enough functionality for the very basic subset of
-SCMI that the MPAM-Fb spec requires.
+	Certain Intel Haswell CPUs support resctrl L3 cache allocation but do
+	not enumerate the feature. A quirk probes for support and provides
+	hard-coded parameters. The quirk sets both the global rdt_alloc_capable
+	and the resource specific rdt_resource::alloc_capable, only the
+	global is used to signal that normal enumeration can be skipped.
 
-The first nine patches rework all MSC access wrappers to propagate error
-information. Pure MMIO based MSC accesses would never fail, but the
-MPAM-Fb access can go wrong in multiple ways. The patches have been split
-up purely for reviewing reasons, if the number is a problem, we could as
-well squash them. Please note that until the very last patch of this series
-any MSC accesses would always only return 0, it's only the final enablement
-of MPAM-Fb that could possibly introduce errors. Hence all former patches
-can add error handling gradually, those code paths wouldn't be triggered
-before the very last patch.
-Patch 10/13 solves a nasty problem: At the moment we protect stateful MSC
-register accesses (mon_sel) through a spinlock. Unfortunately the mailbox
-subsystem and the slow nature of the communication through this channel
-forbid MPAM-Fb access in atomic context. So this patch keeps using a
-spinlock for MMIO based accesses, but reverts to a mutex otherwise.
-We just deny taking the lock for MPAM-Fb in atomic context, ideally we
-wouldn't need that (no need to IPI another core when the MSC access does
-not need to be local to one particular core), or we simply deny that part
-of the functionality (access through perf).
-Patch 11/13 adds the code to redirect MSC accesses through the
-PCC shmem/mailbox system.
-Patch 12/13 reworks the error interrupt handler to use a threaded IRQ for
-MPAM-Fb, to be able to do MPAM-Fb MSC accesses inside (which might sleep).
-Patch 13/13 then adds the code to detect and store the PCC channel
-information from the ACPI tables, and eventually enables MPAM-Fb accesses.
+	The global rdt_alloc_capable is redundant since rdt_resource::alloc_capable
+	already	carries the same information.
 
-This whole series would enable systems where some MSCs are not accessible
-via MMIO to use those components anyway.
+	Stop setting rdt_alloc_capable in the quirk and rely on the resource
+	specific flag to prepare for removal of this global variable.
 
-Please have a look and test!
+	No functional change intended.
 
-Cheers,
-Andre
+> 
+> Signed-off-by: Tony Luck <tony.luck@intel.com>
+> ---
+Patch looks good to me.
 
-[1] https://developer.arm.com/documentation/den0144/latest
-
-Changes in v11:
-- drop RFC patches for MPAM-ACPI spec change
-- add patch to propagte error in mpam_reset_class_locked()
-- move PCC channel put operation into mpam_msc_destroy()
-- increase props[] array size in ACPI code to accommodate new ID
-- use msc_fb_id in mpam_fb.c to stress independent numbering
-- use shorter "fb_id" name in msc struct for MPAM-Fb MSC number
-
-Changes in v10:
-- rebase on v7.3-rc1
-- add tags
-- (re-)introduce mpam_fb_msc_id field to allow per-PCC MSC IDs
-- add patch to introduce mpam_fb_offset ACPI MSC node field
-- add patch to adjust mpam_fb_msc_id if needed
-- add mon_sel_mutex comment
-- "select" missing KConfig symbols
-
-Changes in v9:
-- always create a threaded IRQ, but differ handling between PCC and MMIO
-- drop dev ptr setting for shared mailbox client (leave at NULL)
-- propagate errors from IRQ setup functions (incl. mpam_disable_msc_ecr)
-- improve MPAM-Fb error reporting (drop snprintf call)
-
-Changes in v8:
-- disable error IRQ on irqchip level when device side fails
-- use MSC dev pointer for dev_err() instead of mailbox one
-- smaller white space and formatting fixes
-- reorder MPAM-Fb definitions
-- rename error translation function to mpam_fb_to_linux_errno()
-- add review and test tags
-
-Changes in v7:
-- add tags
-- add new patch to propagate errors in mpam_reprogram_ris_partid()
-- prevent loop when mpam_diable() tries MSC accesses again
-- register MMIO error IRQ handler without IRQF_ONESHOT
-- re-use existing "err" variable instead of declaring "ret"
-- initialise mon_sel_lock later, to wait for interface decision
-- convert timeout units for nominal latency, between us and ms
- 
-Changes in v6:
-- keep using hard IRQ handler for MMIO based accesses
-- move shmem buffer size and MPAM-Fb version check into mpam_fb.c
-- drop mutex guard in mpam_fb_send_request(), we use gotos anyway
-- factor out MPAM-Fb protocol error translation
-- add MPAM_FB_ERR_BUSY error code to translation
-- explicitly report also MPAM-Fb protocol error number when disabling MPAM
-- remove unneeded MPAM-Fb details from mpam_internal.h
-- drop leftover mpam_fb_msc_id usage 
-
-Changes in v5:
-- do not initialise _high variables early
-- fix whitespace issues
-- add Jonathan's Reviewed-by: tags
-- init only either the spinlock OR the mutex for the mon_sel_lock
-- drop warning about mapped_hwpage_sz for MPAM-Fb in mpam_msc_zero_mbwu_l()
-- change IRQ handler to threaded handler, to allow MPAM-Fb MSC accesses
-- disallow per-CPU IRQs (PPIs) for MPAM-Fb
-- trigger MPAM disabling on MPAM-Fb protocol errors
-- fix MPAM_PROTOCOL_VERSION_CMD name
-- use PCC driver defined symbol for PCC_CHAN_FLAGS_IRQ
-- add comment about usage of PCC's .signature field
-- check for illegal MPAM-Fb command before sending request
-- drop CPU accessibility check for MPAM-Fb based MSC accesses
-- move MPAM-Fb protocol message structs inside build functions
-- add comment about largest message size
-- drop extra msc->mpam_fb_msc_id, in favour using pdev->id
-- use already defined local dev variable instead of &pdev->dev
-- use FIELD_GET() macro for MPAM-Fb protocol check
-- drop devm_mutex_init() for pcc_chan_lock
-
-Changes in v4:
-- unify error check patterns
-- use scoped_guard(mutex) and ACQUIRE to simplify error handling
-- use struct kref for PCC channel refcount
-- drop unused mailbox rx_callback function
-- increase size of props[] array to hold new msc_id property
-- set mailbox TX timeout based on ACPI MPAM table field
-- use devm_mutex_init() to allow automatic cleanup
-- avoid overwriting error value for arm,not-ready-us property read
-- prune MPAM-Fb protocol token to fit into bitmask inside register
-- check return value for AIDR read
-- use two separate MPAM-Fb protocol payload structs
-- prune header list for mpam_fb.c
-- drop "nrdy handled as an error" change
-- fix message size field in MPAM-Fb protocol shmem area
-- drop message size return from MPAM-Fb message build functions
-- bring back IRQ flag in MPAM-Fb protocol header
-
-Changes in v3:
-- drop inner/outer mon_sel lock patch, replace with simpler version
-- harmonise code patterns in error propagation changes
-- drop mon_sel lock before erroring out in mpam_ris_hw_probe_csu_nrdy()
-- refactor mpam_msc_read_mbwu_l() to return an error
-- drop special NRDY handling in __ris_msmon_read()
-- add IRQ numbers in error interrupt handler to help pinpoint failure
-- refactor MPAM-Fb message generation to accommodate more than read/write
-- check MPAM-Fb protocol version at probe time
-- drop mpam_fb.h header, merge into mpam_internal.h
-- translate MPAM-Fb error code in Linux codes where needed
-- clear IRQ flag bit in MPAM-Fb protocol header
-- drop unneeded endianness conversions when crafting MPAM-Fb message
-- use C struct to model MPAM-Fb message payload
-
-Changes in v2:
-- add patches to add error propagation to MSC access wrappers
-- drop former patch 1/5 (not needed)
-- drop lock in mpam_reprogram_msc(), to avoid double lock
-- add support for multiple MSCs per PCC channel
-- adjust SCMI protocol code to use a PCC subtype 3 channel
-- let PCC code handle the PCC channel negotiation (due to subtype 3)
-- drop SCMI names in shmem offsets, and use existing PCC type 3 struct
-- adjust shmem field offsets to match MPAM-Fb spec, not pure SCMI
-- prevent MPAM-Fb calls inside atomic smp_call_function_any() payload
-- skip all MSC accesses inside the IRQ handler when using MPAM-Fb
-
-Andre Przywara (13):
-  arm_mpam: let low level MSC accessors return an error
-  arm_mpam: propagate MSC access errors for hw_probe functions
-  arm_mpam: propagate MSC access errors for MBWU counters
-  arm_mpam: propagate MSC access errors for msmon helpers
-  arm_mpam: propagate MSC access errors for __ris_msmon_read()
-  arm_mpam: propagate MSC access errors for state saving function
-  arm_mpam: propagate MSC access errors for mpam_reprogram_ris_partid()
-  arm_mpam: propagate MSC access errors for interrupt control
-  arm_mpam: propagate MSC access errors in mpam_reset_class_locked()
-  arm_mpam: prepare mon_sel locking for MPAM-Fb
-  arm_mpam: add MPAM-Fb MSC firmware access support
-  arm_mpam: change MPAM-Fb error IRQ to use a threaded IRQ handler
-  arm_mpam: detect and enable MPAM-Fb PCC support
-
- drivers/acpi/arm64/mpam.c       |   6 +-
- drivers/resctrl/Kconfig         |   2 +
- drivers/resctrl/Makefile        |   2 +-
- drivers/resctrl/mpam_devices.c  | 915 ++++++++++++++++++++++++--------
- drivers/resctrl/mpam_fb.c       | 253 +++++++++
- drivers/resctrl/mpam_internal.h |  70 ++-
- include/linux/arm_mpam.h        |   2 +-
- 7 files changed, 1004 insertions(+), 246 deletions(-)
- create mode 100644 drivers/resctrl/mpam_fb.c
-
--- 
-2.43.0
-
+Reinette
