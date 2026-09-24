@@ -1,193 +1,920 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E8E94B7176
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:05:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790269509; cv=pass; b=SQRtY79DCoZaB4tXfeqqJjRUs8MhosL5M7SY0aEtcxZpBQPHM14rn9KHqpcU9P70uNd1u52k74NikkEr0iTbqBsCeRlA2yeBcadr5QWBO3s8SwDKyvTm/gs6DSd9RTh+B7x+wLBDU8HEwQUzq1T6E5ryjIKgLZMc2DPOTmhbzJw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790269509; c=relaxed/simple;
-	bh=1F8/rz3ypcsoCgDUnUPkG7WkBCl4kCGuN1jCJU9T35k=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UfdxAd7NdHAKTvimgFU3WASYBPl9JmtYPditECzJ+Clf5JTHclTdfk6jD423iEBElQMqpxc+UTmEJA4xDfHMIrlwCT1vXcYM7wDIflaYcTJXD0+xLanwzkAJFR/zjNKg8NHmrhjUECt9Moh8xqOuS2sCBDRVnWaHmPGGkeiK2VI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=s5wdWVwc; arc=pass smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 799C54B4868
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:05:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.200
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790269504; cv=none; b=lZehw9slEAPB6IVcwDDLbKMWmToDelG03n/zyKpKGY0nUcUnDbiSAhyytJqG1WxeNcxIiYuidYUEyH7ud2iK/W6V+LAGodOiTnIHTzUJrT3LHl1Hgft9VEgGSRHv274vjGHPCX+H1sm5ccoRP5o+iRiqR43gC5p7NtW9jRHnDgY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790269504; c=relaxed/simple;
+	bh=LT0gDprijMHviI0w/nka7Qrrc/yuClUYQSHv4qsyRIU=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=cQZxzcGjM0vxl9NZsUCrep8ojPmunmdn60Ke8Fh9RcMdyUskoZ869t6GcDMCwlDb2h10gVvLJPe+YHGtl8ixNGkunMse/D0RKSDEvPIMGWs/4/MdHAb0dcCuyZIl63PtjGlaqAe4v0nTEEhsGB7vr8O58prQhTSWKPGDDmV2zOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=CBuMLbPD; arc=none smtp.client-ip=74.125.82.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="s5wdWVwc"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfbd148aso733756d6.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:05:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790269506; cv=none;
-        d=google.com; s=arc-20260327;
-        b=L5NhlhxjLz1h3Of/XcrShSl6NNyPhQC1cKfxELUCoYVdNGAcP7GII3KPG3saSWIniO
-         y+J4Ixy6brWc9w4CZIX7p9+phH6Up1MbLAgKA2NLmSpDoRoLWH5YR9JlXmSHDrQ2ldmo
-         EGZzdLkc4vNHeLQJJd9PddhXFKjsN5bJhldLipobx77AygudfN/ebeCrR7BOp+IqTWOk
-         kXfifNdN4klcO09mIIdnp8gqDQVcwPhPRfo1GcR1ODq704DSivPGyTelreTT2wlTD4dp
-         F8vy0IOrRnWAybgDiQ96vyCpcaVD+e5JCnCzvvCENQnWGU+bPIAWNH/RN022EqiFOpuY
-         MtZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=OHcWMQ1Z3aW3bHAxm3qzvYkMiIOMbOZVWxnCDEHnj30=;
-        fh=Sm/GjYVCtlBa49q1ZiZUcejTD3qidlSsD/2pQhq1T1E=;
-        b=ea6JhpLciZnwReBmyIsPDDz9tCM3832ou798Q7JNfP8z4XFeYWNqVsJkSxZc77A8al
-         7ASVq7JwKiDDxmYKeXHt5Q1S4WLjLD+awO/Tn95L2HnyH3AH1Xo/T1yWRu6rs9p7E/ha
-         2h+yjsI0qDJyzgjrO5q3/o5pkSzw64ugFfREfg6nXeVE1LD1N5nPDsSNCDHA1W33lVlD
-         nTA/m+/oDm/8bUlOUNvvxY2vehWNx6Oaxh4a3SBO8dufxX1gOkcFNyctaRNA2Fey8L1A
-         TDbW5Sa4po9bby898zd/FMv8kgnoj6BX4por73Q8qUQh4C/KBJQFlz/8e/GKtzgZVgME
-         V7JA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="CBuMLbPD"
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33713e5e6daso3065469eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:05:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790269506; x=1790874306; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OHcWMQ1Z3aW3bHAxm3qzvYkMiIOMbOZVWxnCDEHnj30=;
-        b=s5wdWVwc5chjFqw2cWCygu2xSMRvyyJf5NFwiFfSSQvFMOVGSbt8gkny9PTMMJTc52
-         yHZMs9R/JVxLJjKgptEPtXI/kYOyeWwcmUKY6tSsDiTGO43LilqoZHkloUcvLGPWTFoI
-         PaGqpr8l0jlYeQww8GvXDfpx2MPg/SIJ5geyxpZcSV2+AJ7SIU5OSe6bz3gzBHOtoObF
-         FMAZj4AsT8QvtstcM+JzkKTY1ujPqPrtR19K0jI5ZqzJ60Mz86/jpPYQ1CEQZ88AH/8c
-         HxImTm1F8JH+l730uPkU74cgWmu5QWVe/hlhLpuwqjQIwoiOtxWmSKNe99myPbBrL0qO
-         UXqQ==
+        d=google.com; s=20251104; t=1790269501; x=1790874301; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gKUZMR/uJIipb7QWpKRkzHbZOWZAoHtwDSDFg24YiYU=;
+        b=CBuMLbPDU9OuzSF1dIH2sJQPnx9tKNzCNLCM1yBxAz15eZE+JSWURVhab0LiAdo+Xl
+         06EGKGTC9kbMAiKsNPjKjKXFcjtrOf8dphmnuF4oNcnQ2561WJkbOv8WCNPMNyyXwzN7
+         DVncNrBE+eQLL0Jx9toAWBR22fobNYktjlf0S7z70NywuuLvl36Ui4LSU3QsKeulynTa
+         h4nMNsl5HuzBHXQtpWHbRDmzXpvbipE5emFHDWc2nRY+yC0kKB9Ze39WzlVVHjoje9l3
+         ZO09IX6EkcDpZywiv216o61CRkoh7IgoEbIgMqmgl/jhLu3b77mhVV0GM6bhy1f4HN36
+         UdTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790269506; x=1790874306;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OHcWMQ1Z3aW3bHAxm3qzvYkMiIOMbOZVWxnCDEHnj30=;
-        b=dFq8CqmkPHoozyd2La5mp5Ea/ca3mIZkTUe+hyT5KWGaz3fujaT1+IwvI+vKAbU3ul
-         zzcrSkVXKADd+54xJrTs/zhqZ06XtEBUmxEUYuUhtZOECivZsewUq6RsnXfBPORIfqdS
-         3gHSf59BzS9s0SgUo2GgN62hlNiwnUJ7vnQAow1bjXV68WjUOhbxXjM+4eA1wvBWOi+y
-         bkyJJ8vtC8W6m4XBjSvKY1tDA3Z6mQuzUopElHwiJ2sTbGjmGrGHy+3ijxuw8uKqQCWe
-         5e4cFE3xUGR18Dd8NElbYY9LhO6cWGQ2D+BYAXLvrxiZWQcd2AvAbiSYdxy90pER3Rew
-         Kxxw==
-X-Forwarded-Encrypted: i=1; AKwUvBwe1o+JG4a/ep77Hzp3NrDX9TWK6593k7hU+bQFESMSq5gDRCnHfI3NXwdnsTdjh27Ek8sdUvWMaBagGaU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kIiSvMk8gPZZr89EhU1lri4e2M7ABfmfU2eH0V9V0U2maMDP5y
-	BBPnoInrYVQUQjiQC5lXq6eaPMxKjGdV12Q5ZB0mMTah4oXQ6HPPFKHftrfjB5acS58C2+5NlEw
-	0AqVa11qc8L/wBmjMcMmhv89XwepkZaW+N8XWL7oj
-X-Gm-Gg: AYBFou3+n9EGz7AlQLikSy0PwOAEdBzwl9LLltOuXdnVXd2Ms1l94Dv31iGa0WKj7ak
-	WOzHwin5KGlR4B3tcxOsbfEgMvBifA0Bu68cBqOAjHRNnuIuqjinZ+LfThw3K5EU3DrOdjepgvM
-	Tv0ij0LPQtyYKf36Ok/1rCBvEcNTGuTdaXlopY4equPAUz9ML6LZYudvjjpFMvZXBknKGGhB9Tu
-	RENeup7whFtddghi+6X6JuGKlj/6Q5xneI4zExadz070x14nXWY3JzDsizFffH6XC6PT0cHkVSO
-	/lKL3PchhFJW8CkUuD2VT6Od241TT8hjHjm4g5Wu+Z6U1TmfnAGlR2l5jRXpporDjFS+NWLuaYN
-	u7lkL+7H/amVDOz+zCogTdKmLybH6e1F6RUyClNiUzA==
-X-Received: by 2002:a05:6214:4a83:b0:912:cec:7450 with SMTP id
- 6a1803df08f44-91421b1851amr31284116d6.0.1790269505101; Thu, 24 Sep 2026
- 10:05:05 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 24 Sep 2026 10:05:04 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 24 Sep 2026 10:05:04 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <20260924135201.850038-2-suzuki.poulose@arm.com>
-References: <20260924135201.850038-1-suzuki.poulose@arm.com> <20260924135201.850038-2-suzuki.poulose@arm.com>
+        d=1e100.net; s=20260707; t=1790269501; x=1790874301;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gKUZMR/uJIipb7QWpKRkzHbZOWZAoHtwDSDFg24YiYU=;
+        b=2vZjvBjXtnz3rjWrkboLY2Qlu8X9Q79Q7MLtafzaVrrVdgtcqzTrLP3H5kVe/E1DEM
+         tUPhcAuCYa+AonbxkE/+3i6/LlhaG8YrxqbR69SIJhvM+lEKZ2CojcGkRso6kGophnfP
+         GJGlNklDgdFsyYbwS8D35dlxql06BDICSKqNIg2Dp9+Q4OC4gv2C/RogfdfFpIgJGqz0
+         47KBVh/+7/5Y4F+K19FSdrjTlP+quXEEGLL3t5doAXsqfwJVgujg1RolMqbJoqCsOorl
+         F5irzcYHuqBqh4j2v6lphh+9Pwb5o3Ig4RvAaNOD8zfxl9ShqbTPkN4mjCA5sSzHlkc9
+         Z5Ag==
+X-Forwarded-Encrypted: i=1; AKwUvBwtOa0bZ2s7wR5+8dv4y/prV2ZnR/CAca220JiJs0afhSq+ZPAPnDce01VAGzqBdRDA9zJgQe0v3Kko31c=@vger.kernel.org
+X-Gm-Message-State: AFuF++mGIWuNXPM81zO8qmXF8ndSxL+vl0CvDPZugSyoG3pKm/uzgG6S
+	YnSt3XRnzx0dhp8Y2NpOVCV9B1dpLIAhIAX7u+dGOMkq/UplsnXffaUqr/891cGl8cA0DsTnaa+
+	LMUpIAwi6Uw==
+X-Received: from dycst11.prod.google.com ([2002:a05:693c:37cb:b0:336:dd02:97ba])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:bf83:b0:33c:e82:70c9
+ with SMTP id 5a478bee46e88-34000f299a3mr2606939eec.32.1790269500010; Thu, 24
+ Sep 2026 10:05:00 -0700 (PDT)
+Date: Thu, 24 Sep 2026 10:03:46 -0700
+In-Reply-To: <20260924170346.3872848-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Date: Thu, 24 Sep 2026 10:05:04 -0700
-X-Gm-Features: AclHuK_DlezgNpJkyQ6-N0Dq0ZFyu15Ut5n5SPUx6_YH9nitYJ5xMl_wRWW9wVM
-Message-ID: <CAEvNRgH8Hwt6_VaFxJVvytZ4La1R7bUN2emc37_fWecF9j2-YA@mail.gmail.com>
-Subject: Re: [PATCH v19 1/7] firmware: arm_rmm: Add SMC definitions for
- calling the RMM
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org, 
-	gshan@redhat.com, joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com, 
-	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, 
-	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com, 
-	WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com, 
-	sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
+Mime-Version: 1.0
+References: <20260924053645.3555041-1-irogers@google.com> <20260924170346.3872848-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260924170346.3872848-27-irogers@google.com>
+Subject: [PATCH v2 26/26] perf vendor events intel: Fix snowridgex umask encoding.
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, dapeng1.mi@linux.intel.com, 
+	namhyung@kernel.org, edward.baker@intel.com, perry.taylor@intel.com, 
+	eranian@google.com
+Cc: adrian.hunter@intel.com, afaerber@suse.de, ctshao@google.com, 
+	james.clark@linaro.org, jolsa@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, mani@kernel.org, mingo@redhat.com, 
+	peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Suzuki K Poulose <suzuki.poulose@arm.com> writes:
+Fix UMaskExt that was wrongly encoded when the UMask was 0.
 
->
-> [...snip...]
->
-> +
-> +/*
-> + * Note many of these fields are smaller than u64 but all fields have u64
-> + * alignment, so use u64 to ensure correct alignment.
-> + */
-> +struct rmm_config {
-> +	union { /* 0x0 */
-> +		struct {
-> +			u64 tracking_region_size;
-> +			u64 rmi_granule_size;
-> +		};
-> +		u8 sizer[SZ_4K];
-> +	};
-> +};
-> +
-> +static_assert(sizeof(struct rmm_config) == SZ_4K);
-> +
-> +#define RMI_REALM_PARAM_FLAG_MEC_POLICY_MASK	GENMASK(8, 7)
-> +#define RMI_REALM_PARAM_FLAG_LFA_POLICY_MASK	GENMASK(6, 5)
-> +#define RMI_REALM_PARAM_FLAG_DA			BIT(3)
-> +#define RMI_REALM_PARAM_FLAG_PMU		BIT(2)
-> +#define RMI_REALM_PARAM_FLAG_SVE		BIT(1)
-> +
-> +#define RMI_HASH_SHA_256			0
-> +#define RMI_HASH_SHA_512			1
-> +#define RMI_HASH_SHA_384			2
-> +
-> +struct realm_params {
-> +	union { /* 0x0 */
-> +		struct {
-> +			u64 flags0;
-> +			u64 s2sz;
-> +			u64 sve_vl;
-> +			u64 num_bps;
-> +			u64 num_wps;
-> +			u64 pmu_num_ctrs;
-> +			u64 hash_algo;
-> +			u64 num_aux_planes;
-> +		};
-> +		u8 padding0[0x400];
+Fixes: 2bb848f820a5 ("perf vendor events intel: Fix uncore topics for snowr=
+idgex")
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ .../arch/x86/snowridgex/uncore-cache.json     | 68 +++++++++++++++++++
+ .../x86/snowridgex/uncore-interconnect.json   | 10 +++
+ 2 files changed, 78 insertions(+)
 
-The union + sizer concept is cool. Technically this one isn't a padding,
-it's also a sizer? (same for the other structs below.
+diff --git a/tools/perf/pmu-events/arch/x86/snowridgex/uncore-cache.json b/=
+tools/perf/pmu-events/arch/x86/snowridgex/uncore-cache.json
+index a81776deb2e6..c32f1f3f826a 100644
+--- a/tools/perf/pmu-events/arch/x86/snowridgex/uncore-cache.json
++++ b/tools/perf/pmu-events/arch/x86/snowridgex/uncore-cache.json
+@@ -1592,6 +1592,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Cache Lookups : All Request Filter : Counts =
+the number of times the LLC was accessed - this includes code, data, prefet=
+ches and hints coming from L2.  This has numerous filters available.  Note =
+the non-standard filtering equation.  This event will count requests that l=
+ookup the cache multiple times with multiple increments.  One must ALWAYS s=
+elect a state or states (in the umask field) to match.  Otherwise, the even=
+t will count nothing. : Any local or remote transaction to the LLC, includi=
+ng prefetch.",
++        "UMask": "0x2000",
+         "Unit": "CHA"
+     },
+     {
+@@ -1624,6 +1625,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Cache Lookups : CRd Request Filter : Counts =
+the number of times the LLC was accessed - this includes code, data, prefet=
+ches and hints coming from L2.  This has numerous filters available.  Note =
+the non-standard filtering equation.  This event will count requests that l=
+ookup the cache multiple times with multiple increments.  One must ALWAYS s=
+elect a state or states (in the umask field) to match.  Otherwise, the even=
+t will count nothing. : Local or remote CRd transactions to the LLC.  This =
+includes CRd prefetch.",
++        "UMask": "0x1000",
+         "Unit": "CHA"
+     },
+     {
+@@ -1645,6 +1647,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Cache Lookups : Local request Filter : Count=
+s the number of times the LLC was accessed - this includes code, data, pref=
+etches and hints coming from L2.  This has numerous filters available.  Not=
+e the non-standard filtering equation.  This event will count requests that=
+ lookup the cache multiple times with multiple increments.  One must ALWAYS=
+ select a state or states (in the umask field) to match.  Otherwise, the ev=
+ent will count nothing. : Any local transaction to the LLC, including prefe=
+tches from the Core",
++        "UMask": "0x4000",
+         "Unit": "CHA"
+     },
+     {
+@@ -1687,6 +1690,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Cache Lookups : Data Read Request Filter : C=
+ounts the number of times the LLC was accessed - this includes code, data, =
+prefetches and hints coming from L2.  This has numerous filters available. =
+ Note the non-standard filtering equation.  This event will count requests =
+that lookup the cache multiple times with multiple increments.  One must AL=
+WAYS select a state or states (in the umask field) to match.  Otherwise, th=
+e event will count nothing. : Read transactions.",
++        "UMask": "0x100",
+         "Unit": "CHA"
+     },
+     {
+@@ -1752,6 +1756,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Cache Lookups : Flush or Invalidate Filter :=
+ Counts the number of times the LLC was accessed - this includes code, data=
+, prefetches and hints coming from L2.  This has numerous filters available=
+.  Note the non-standard filtering equation.  This event will count request=
+s that lookup the cache multiple times with multiple increments.  One must =
+ALWAYS select a state or states (in the umask field) to match.  Otherwise, =
+the event will count nothing.",
++        "UMask": "0x400",
+         "Unit": "CHA"
+     },
+     {
+@@ -1773,6 +1778,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Cache Lookups : Transactions homed locally F=
+ilter : Counts the number of times the LLC was accessed - this includes cod=
+e, data, prefetches and hints coming from L2.  This has numerous filters av=
+ailable.  Note the non-standard filtering equation.  This event will count =
+requests that lookup the cache multiple times with multiple increments.  On=
+e must ALWAYS select a state or states (in the umask field) to match.  Othe=
+rwise, the event will count nothing. : Transaction whose address resides in=
+ the local MC.",
++        "UMask": "0x80000",
+         "Unit": "CHA"
+     },
+     {
+@@ -1805,6 +1811,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Cache Lookups : Write Request Filter : Count=
+s the number of times the LLC was accessed - this includes code, data, pref=
+etches and hints coming from L2.  This has numerous filters available.  Not=
+e the non-standard filtering equation.  This event will count requests that=
+ lookup the cache multiple times with multiple increments.  One must ALWAYS=
+ select a state or states (in the umask field) to match.  Otherwise, the ev=
+ent will count nothing. : Writeback transactions to the LLC  This includes =
+all write transactions -- both Cacheable and UC.",
++        "UMask": "0x200",
+         "Unit": "CHA"
+     },
+     {
+@@ -1925,6 +1932,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Cache Lookups : RFO Request Filter : Counts =
+the number of times the LLC was accessed - this includes code, data, prefet=
+ches and hints coming from L2.  This has numerous filters available.  Note =
+the non-standard filtering equation.  This event will count requests that l=
+ookup the cache multiple times with multiple increments.  One must ALWAYS s=
+elect a state or states (in the umask field) to match.  Otherwise, the even=
+t will count nothing. : Local or remote RFO transactions to the LLC.  This =
+includes RFO prefetch.",
++        "UMask": "0x800",
+         "Unit": "CHA"
+     },
+     {
+@@ -2077,6 +2085,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Lines Victimized : Local Only : Counts the n=
+umber of lines that were victimized on a fill.  This can be filtered by the=
+ state that the line was in.",
++        "UMask": "0x2000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2195,6 +2204,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x10000000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2205,6 +2215,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x20000000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2215,6 +2226,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x80000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2225,6 +2237,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x8000000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2235,6 +2248,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x200",
+         "Unit": "CHA"
+     },
+     {
+@@ -2289,6 +2303,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x40000000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2299,6 +2314,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x10000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2309,6 +2325,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x2000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2319,6 +2336,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x100",
+         "Unit": "CHA"
+     },
+     {
+@@ -2329,6 +2347,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x200000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2339,6 +2358,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x4000000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2349,6 +2369,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x800000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2359,6 +2380,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x1000000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2369,6 +2391,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x400",
+         "Unit": "CHA"
+     },
+     {
+@@ -2379,6 +2402,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x8000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2411,6 +2435,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x100000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2421,6 +2446,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x20000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2431,6 +2457,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x400000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2441,6 +2468,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x2000000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2451,6 +2479,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x1000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2461,6 +2490,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x80000000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2471,6 +2501,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x100000000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2481,6 +2512,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x200000000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2491,6 +2523,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "Pipe Rejects : More Miscellaneous events in =
+the Cbo.",
++        "UMask": "0x4000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2523,6 +2556,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "CHA iMC CHNx READ Credits Empty : MC10 : Cou=
+nts the number of times when there are no credits available for sending rea=
+ds from the CHA into the iMC.  In order to send reads into the memory contr=
+oller, the HA must first acquire a credit for the iMC's AD Ingress queue. :=
+ Filter for memory controller 10 only.",
++        "UMask": "0x400",
+         "Unit": "CHA"
+     },
+     {
+@@ -2533,6 +2567,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "CHA iMC CHNx READ Credits Empty : MC11 : Cou=
+nts the number of times when there are no credits available for sending rea=
+ds from the CHA into the iMC.  In order to send reads into the memory contr=
+oller, the HA must first acquire a credit for the iMC's AD Ingress queue. :=
+ Filter for memory controller 11 only.",
++        "UMask": "0x800",
+         "Unit": "CHA"
+     },
+     {
+@@ -2543,6 +2578,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "CHA iMC CHNx READ Credits Empty : MC12 : Cou=
+nts the number of times when there are no credits available for sending rea=
+ds from the CHA into the iMC.  In order to send reads into the memory contr=
+oller, the HA must first acquire a credit for the iMC's AD Ingress queue. :=
+ Filter for memory controller 12 only.",
++        "UMask": "0x1000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2553,6 +2589,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "CHA iMC CHNx READ Credits Empty : MC13 : Cou=
+nts the number of times when there are no credits available for sending rea=
+ds from the CHA into the iMC.  In order to send reads into the memory contr=
+oller, the HA must first acquire a credit for the iMC's AD Ingress queue. :=
+ Filter for memory controller 13 only.",
++        "UMask": "0x2000",
+         "Unit": "CHA"
+     },
+     {
+@@ -2629,6 +2666,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "CHA iMC CHNx READ Credits Empty : MC8 : Coun=
+ts the number of times when there are no credits available for sending read=
+s from the CHA into the iMC.  In order to send reads into the memory contro=
+ller, the HA must first acquire a credit for the iMC's AD Ingress queue. : =
+Filter for memory controller 8 only.",
++        "UMask": "0x100",
+         "Unit": "CHA"
+     },
+     {
+@@ -2639,6 +2677,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "CHA iMC CHNx READ Credits Empty : MC9 : Coun=
+ts the number of times when there are no credits available for sending read=
+s from the CHA into the iMC.  In order to send reads into the memory contro=
+ller, the HA must first acquire a credit for the iMC's AD Ingress queue. : =
+Filter for memory controller 9 only.",
++        "UMask": "0x200",
+         "Unit": "CHA"
+     },
+     {
+@@ -5047,6 +5086,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "TOR Inserts : DDR4 Access : Counts the numbe=
+r of entries successfully inserted into the TOR that match qualifications s=
+pecified by the subevent.   Does not include addressless requests such as l=
+ocks and interrupts.",
++        "UMask": "0x400",
+         "Unit": "CHA"
+     },
+     {
+@@ -5057,6 +5097,7 @@
+         "EventName": "UNC_CHA_TOR_INSERTS.DDR4",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0x400",
+         "Unit": "CHA"
+     },
+     {
+@@ -5078,6 +5119,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "TOR Inserts : Just Hits : Counts the number =
+of entries successfully inserted into the TOR that match qualifications spe=
+cified by the subevent.   Does not include addressless requests such as loc=
+ks and interrupts.",
++        "UMask": "0x100",
+         "Unit": "CHA"
+     },
+     {
+@@ -5687,6 +5729,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "TOR Inserts : Just ISOC : Counts the number =
+of entries successfully inserted into the TOR that match qualifications spe=
+cified by the subevent.   Does not include addressless requests such as loc=
+ks and interrupts.",
++        "UMask": "0x200000000",
+         "Unit": "CHA"
+     },
+     {
+@@ -5697,6 +5740,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "TOR Inserts : Just Local Targets : Counts th=
+e number of entries successfully inserted into the TOR that match qualifica=
+tions specified by the subevent.   Does not include addressless requests su=
+ch as locks and interrupts.",
++        "UMask": "0x8000",
+         "Unit": "CHA"
+     },
+     {
+@@ -5740,6 +5784,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "TOR Inserts : Match the Opcode in b[29:19] o=
+f the extended umask field : Counts the number of entries successfully inse=
+rted into the TOR that match qualifications specified by the subevent.   Do=
+es not include addressless requests such as locks and interrupts.",
++        "UMask": "0x20000",
+         "Unit": "CHA"
+     },
+     {
+@@ -5750,6 +5795,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "TOR Inserts : Just Misses : Counts the numbe=
+r of entries successfully inserted into the TOR that match qualifications s=
+pecified by the subevent.   Does not include addressless requests such as l=
+ocks and interrupts.",
++        "UMask": "0x200",
+         "Unit": "CHA"
+     },
+     {
+@@ -5760,6 +5806,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "TOR Inserts : MMCFG Access : Counts the numb=
+er of entries successfully inserted into the TOR that match qualifications =
+specified by the subevent.   Does not include addressless requests such as =
+locks and interrupts.",
++        "UMask": "0x2000",
+         "Unit": "CHA"
+     },
+     {
+@@ -5770,6 +5817,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "TOR Inserts : Just NearMem : Counts the numb=
+er of entries successfully inserted into the TOR that match qualifications =
+specified by the subevent.   Does not include addressless requests such as =
+locks and interrupts.",
++        "UMask": "0x40000000",
+         "Unit": "CHA"
+     },
+     {
+@@ -5780,6 +5828,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "TOR Inserts : Just NonCoherent : Counts the =
+number of entries successfully inserted into the TOR that match qualificati=
+ons specified by the subevent.   Does not include addressless requests such=
+ as locks and interrupts.",
++        "UMask": "0x100000000",
+         "Unit": "CHA"
+     },
+     {
+@@ -5790,6 +5839,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "TOR Inserts : Just NotNearMem : Counts the n=
+umber of entries successfully inserted into the TOR that match qualificatio=
+ns specified by the subevent.   Does not include addressless requests such =
+as locks and interrupts.",
++        "UMask": "0x80000000",
+         "Unit": "CHA"
+     },
+     {
+@@ -5800,6 +5850,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "TOR Inserts : Match the PreMorphed Opcode in=
+ b[29:19] of the extended umask field : Counts the number of entries succes=
+sfully inserted into the TOR that match qualifications specified by the sub=
+event.   Does not include addressless requests such as locks and interrupts=
+.",
++        "UMask": "0x40000",
+         "Unit": "CHA"
+     },
+     {
+@@ -5832,6 +5883,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "TOR Occupancy : DDR4 Access : For each cycle=
+, this event accumulates the number of valid entries in the TOR that match =
+qualifications specified by the subevent.     Does not include addressless =
+requests such as locks and interrupts.",
++        "UMask": "0x400",
+         "Unit": "CHA"
+     },
+     {
+@@ -5853,6 +5905,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "TOR Occupancy : Just Hits : For each cycle, =
+this event accumulates the number of valid entries in the TOR that match qu=
+alifications specified by the subevent.     Does not include addressless re=
+quests such as locks and interrupts.",
++        "UMask": "0x100",
+         "Unit": "CHA"
+     },
+     {
+@@ -6440,6 +6493,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "TOR Occupancy : Just ISOC : For each cycle, =
+this event accumulates the number of valid entries in the TOR that match qu=
+alifications specified by the subevent.     Does not include addressless re=
+quests such as locks and interrupts.",
++        "UMask": "0x200000000",
+         "Unit": "CHA"
+     },
+     {
+@@ -6450,6 +6504,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "TOR Occupancy : Just Local Targets : For eac=
+h cycle, this event accumulates the number of valid entries in the TOR that=
+ match qualifications specified by the subevent.     Does not include addre=
+ssless requests such as locks and interrupts.",
++        "UMask": "0x8000",
+         "Unit": "CHA"
+     },
+     {
+@@ -6493,6 +6548,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "TOR Occupancy : Match the Opcode in b[29:19]=
+ of the extended umask field : For each cycle, this event accumulates the n=
+umber of valid entries in the TOR that match qualifications specified by th=
+e subevent.     Does not include addressless requests such as locks and int=
+errupts.",
++        "UMask": "0x20000",
+         "Unit": "CHA"
+     },
+     {
+@@ -6503,6 +6559,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "TOR Occupancy : Just Misses : For each cycle=
+, this event accumulates the number of valid entries in the TOR that match =
+qualifications specified by the subevent.     Does not include addressless =
+requests such as locks and interrupts.",
++        "UMask": "0x200",
+         "Unit": "CHA"
+     },
+     {
+@@ -6513,6 +6570,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "TOR Occupancy : MMCFG Access : For each cycl=
+e, this event accumulates the number of valid entries in the TOR that match=
+ qualifications specified by the subevent.     Does not include addressless=
+ requests such as locks and interrupts.",
++        "UMask": "0x2000",
+         "Unit": "CHA"
+     },
+     {
+@@ -6523,6 +6581,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "TOR Occupancy : Just NearMem : For each cycl=
+e, this event accumulates the number of valid entries in the TOR that match=
+ qualifications specified by the subevent.     Does not include addressless=
+ requests such as locks and interrupts.",
++        "UMask": "0x40000000",
+         "Unit": "CHA"
+     },
+     {
+@@ -6533,6 +6592,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "TOR Occupancy : Just NonCoherent : For each =
+cycle, this event accumulates the number of valid entries in the TOR that m=
+atch qualifications specified by the subevent.     Does not include address=
+less requests such as locks and interrupts.",
++        "UMask": "0x100000000",
+         "Unit": "CHA"
+     },
+     {
+@@ -6543,6 +6603,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "TOR Occupancy : Just NotNearMem : For each c=
+ycle, this event accumulates the number of valid entries in the TOR that ma=
+tch qualifications specified by the subevent.     Does not include addressl=
+ess requests such as locks and interrupts.",
++        "UMask": "0x80000000",
+         "Unit": "CHA"
+     },
+     {
+@@ -6553,6 +6614,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "TOR Occupancy : Match the PreMorphed Opcode =
+in b[29:19] of the extended umask field : For each cycle, this event accumu=
+lates the number of valid entries in the TOR that match qualifications spec=
+ified by the subevent.     Does not include addressless requests such as lo=
+cks and interrupts.",
++        "UMask": "0x40000",
+         "Unit": "CHA"
+     },
+     {
+@@ -8356,6 +8418,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "CHA iMC CHNx WRITE Credits Empty : MC10 : Co=
+unts the number of times when there are no credits available for sending WR=
+ITEs from the CHA into the iMC.  In order to send WRITEs into the memory co=
+ntroller, the HA must first acquire a credit for the iMC's BL Ingress queue=
+. : Filter for memory controller 10 only.",
++        "UMask": "0x400",
+         "Unit": "CHA"
+     },
+     {
+@@ -8366,6 +8429,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "CHA iMC CHNx WRITE Credits Empty : MC11 : Co=
+unts the number of times when there are no credits available for sending WR=
+ITEs from the CHA into the iMC.  In order to send WRITEs into the memory co=
+ntroller, the HA must first acquire a credit for the iMC's BL Ingress queue=
+. : Filter for memory controller 11 only.",
++        "UMask": "0x800",
+         "Unit": "CHA"
+     },
+     {
+@@ -8376,6 +8440,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "CHA iMC CHNx WRITE Credits Empty : MC12 : Co=
+unts the number of times when there are no credits available for sending WR=
+ITEs from the CHA into the iMC.  In order to send WRITEs into the memory co=
+ntroller, the HA must first acquire a credit for the iMC's BL Ingress queue=
+. : Filter for memory controller 12 only.",
++        "UMask": "0x1000",
+         "Unit": "CHA"
+     },
+     {
+@@ -8386,6 +8451,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "CHA iMC CHNx WRITE Credits Empty : MC13 : Co=
+unts the number of times when there are no credits available for sending WR=
+ITEs from the CHA into the iMC.  In order to send WRITEs into the memory co=
+ntroller, the HA must first acquire a credit for the iMC's BL Ingress queue=
+. : Filter for memory controller 13 only.",
++        "UMask": "0x2000",
+         "Unit": "CHA"
+     },
+     {
+@@ -8462,6 +8528,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "CHA iMC CHNx WRITE Credits Empty : MC8 : Cou=
+nts the number of times when there are no credits available for sending WRI=
+TEs from the CHA into the iMC.  In order to send WRITEs into the memory con=
+troller, the HA must first acquire a credit for the iMC's BL Ingress queue.=
+ : Filter for memory controller 8 only.",
++        "UMask": "0x100",
+         "Unit": "CHA"
+     },
+     {
+@@ -8472,6 +8539,7 @@
+         "Experimental": "1",
+         "PerPkg": "1",
+         "PublicDescription": "CHA iMC CHNx WRITE Credits Empty : MC9 : Cou=
+nts the number of times when there are no credits available for sending WRI=
+TEs from the CHA into the iMC.  In order to send WRITEs into the memory con=
+troller, the HA must first acquire a credit for the iMC's BL Ingress queue.=
+ : Filter for memory controller 9 only.",
++        "UMask": "0x200",
+         "Unit": "CHA"
+     },
+     {
+diff --git a/tools/perf/pmu-events/arch/x86/snowridgex/uncore-interconnect.=
+json b/tools/perf/pmu-events/arch/x86/snowridgex/uncore-interconnect.json
+index 88ee90b8a2d9..9667e4f48c13 100644
+--- a/tools/perf/pmu-events/arch/x86/snowridgex/uncore-interconnect.json
++++ b/tools/perf/pmu-events/arch/x86/snowridgex/uncore-interconnect.json
+@@ -2210,6 +2210,7 @@
+         "EventName": "UNC_M2M_IMC_WRITES.CH0_FROM_TGR",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0x500",
+         "Unit": "M2M"
+     },
+     {
+@@ -2239,6 +2240,7 @@
+         "EventName": "UNC_M2M_IMC_WRITES.CH0_NI_MISS",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0x2000",
+         "Unit": "M2M"
+     },
+     {
+@@ -2278,6 +2280,7 @@
+         "EventName": "UNC_M2M_IMC_WRITES.CH1_FROM_TGR",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0x900",
+         "Unit": "M2M"
+     },
+     {
+@@ -2307,6 +2310,7 @@
+         "EventName": "UNC_M2M_IMC_WRITES.CH1_NI_MISS",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0xc00",
+         "Unit": "M2M"
+     },
+     {
+@@ -2336,6 +2340,7 @@
+         "EventName": "UNC_M2M_IMC_WRITES.FROM_TGR",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0x1d00",
+         "Unit": "M2M"
+     },
+     {
+@@ -2365,6 +2370,7 @@
+         "EventName": "UNC_M2M_IMC_WRITES.NI_MISS",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0x1c00",
+         "Unit": "M2M"
+     },
+     {
+@@ -2837,6 +2843,7 @@
+         "EventName": "UNC_M2M_PREFCAM_DROP_REASONS_CH0.RPQ_PROXY",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0x100",
+         "Unit": "M2M"
+     },
+     {
+@@ -2866,6 +2873,7 @@
+         "EventName": "UNC_M2M_PREFCAM_DROP_REASONS_CH0.XPT_THRESH",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0x200",
+         "Unit": "M2M"
+     },
+     {
+@@ -2935,6 +2943,7 @@
+         "EventName": "UNC_M2M_PREFCAM_DROP_REASONS_CH1.RPQ_PROXY",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0x100",
+         "Unit": "M2M"
+     },
+     {
+@@ -2964,6 +2973,7 @@
+         "EventName": "UNC_M2M_PREFCAM_DROP_REASONS_CH1.XPT_THRESH",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0x200",
+         "Unit": "M2M"
+     },
+     {
+--=20
+2.56.0.rc1.315.gc6ed9934b7-goog
 
-> +	};
-> +	union { /* 0x400 */
-> +		struct {
-> +			u8 rpv[64];
-> +			u64 ats_plane;
-> +		};
-> +		u8 padding1[0x400];
-> +	};
-> +	union { /* 0x800 */
-> +		struct {
-> +			u64 padding2;
-> +			u64 rtt_base;
-> +			s64 rtt_level_start;
-> +			u64 rtt_num_start;
-> +			u64 flags1;
-> +			u64 max_num_vdevs;
-> +		};
-> +		u8 padding3[0x700];
-> +	};
-> +	union { /* 0xf00 */
-> +		struct {
-> +			u8 padding4[0x80];
-> +			u64 aux_rtt_base[3];
-> +		};
-> +		u8 padding5[0x100];
-> +	};
-> +};
-> +
-> +static_assert(sizeof(struct realm_params) == SZ_4K);
-> +
-
-Does declaring this struct as packed matter? I guess the static_assert()
-has the same effect.
-
->
-> [...snip...]
->
