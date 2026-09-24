@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9081C423EB4
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:25:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B9974AA03F;
+	Thu, 24 Sep 2026 19:25:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790277917; cv=none; b=esBaNL2O1WGL4w+lMqU+yEyp7932oYI31UZCJMrhfJQIRsxGOablviksPNCR6Q+Zx8gqfU9MkHbhRunhk5OYAUNtFCA5BEMKgBvU2AIFLpYROxGV/wwFQa2bZABPqVdO5PpO1Sve0G0XXO7yXpIbE9ovAmZoiX0rz0PxLzeykLg=
+	t=1790277924; cv=none; b=GqCsCTV68vxxdbUigZnZHm4vOPaOAfZlypeszZMGCYOAahHgmAbhnkU3bZLZIekJGzSzkW7JR4a/UR/OXZ1J8zUIh9FVI2OgSPLRXuY67jspowGKAXd+q3qWIMVQ3dnlQDAMNHUkKryyhG13ebEDhgCaMfMigYZfSiM85oKkgvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790277917; c=relaxed/simple;
-	bh=kM9mdcewbP9G+9i/G7dpxlJKWXskWmPZeikbqA5nDFk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=j3cr1ZavP6r7PlW8ZopWR4tuyc5knbIKCNY8iw/8QgbSeTFoGevTqSbHWAWvlHTrtA8iJZ8nFFSWl8Qxlj/FyVCAPrFIVVv6gW+8LB/X1TFaC14cHT6wJ/FkI6rMXFrhAPXHepNqjvPEZvwJIlCaYl80lXNwGjoIgiRywoFKs2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uk9VLad9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790277924; c=relaxed/simple;
+	bh=g4I7ZfRHqBIDUGDCZv/j7Wd6snY1FlVhlASe1itygNU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VJqSJet1QUsaeplXMX0JBKB2HQ/RQUSUpBH9zlAwz4uWMhw7zKtGEfSqYAXlyvr6zZB7tkAlA9dG38s6PRCH/NFiY1E/QnKvEcokESZ/QSRjk9P4/ZQw8a+ITYSLn61OppzPgO31GUYKjYd5cCCwTn0JlWPnR62BER1UmE9/cBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E2pUprhT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uk9VLad9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D33111F000FF;
-	Thu, 24 Sep 2026 19:25:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E2pUprhT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C02C01F00893;
+	Thu, 24 Sep 2026 19:25:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790277916;
-	bh=kTOMC78hYvS4j1N/2zdXN2BOuarPzYcebqGM60fGb1E=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=Uk9VLad9LzwzSjWcD4uq9aAkxNO+ukDyV9bQn2Vanyv+1K6CW0pemtuWvev8LDwVS
-	 RJfttSYCp9KRyHOOeDaITobw0TOq3HrRqUm6Ba1rC8nrQD7eYDYTPgNQae6d3Xs/gt
-	 7aJjb0GhtrUzkl7+0yTDybsjsJhhmDMPr7ZNb2McOlCp1YgGncHkCmRkz3qkKQUBdF
-	 cT/2UkHXuOaJW+/7OV6p3LJxh9xLK7JaDBnN1Y3vY6ZXjgfEStyhOLVo5lEigBetV1
-	 z3LozGyd4eDPkbdPQtCxVBWyJZvNz5+/10XJqM78NqjWWpXPMErX4Yw7yGnYWodAB3
-	 vSIelN++i5ALA==
-Message-ID: <f6f3a109-efd5-4371-9442-f87e73367521@kernel.org>
-Date: Thu, 24 Sep 2026 21:21:26 +0200
+	s=k20260515; t=1790277919;
+	bh=t2tvt0mN+rfQIn0XcEUNtP28LzckUHtZkO5l64gDOok=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=E2pUprhT9/xwQ9JjC3QDHZ6WqHqRvyWkQ/fT1SA+mJGJ9Sscsom0u+SS0svWOgisH
+	 sV2vxa8TOvmlrSnsAYnQJr8BEE/wmhpasXR4FfFuEhaOMO1XJrREILb1bqKgT0mjio
+	 JgC1sT1fMupQp75dEFBL4vjEl0gyZ5cMv8e/VXVkTFnACzYMADFFnYEIUW7Me3vxSc
+	 3e+BYAyaEqTReMGpedv1kTZjQBnMY3mjhTVUynxRiOR3pdmGBY866Mwo17cVmQDFdH
+	 e0uKVSmK7/mDX9uwSrAKwea1RIZJeVTFuYc5aKQoH5RJnV4c2B/JfnurcivxoUo5VM
+	 1B0UJ7z0GKODw==
+Message-ID: <2c1def7b-aceb-45c7-9cf0-8518ef26dff3@kernel.org>
+Date: Thu, 24 Sep 2026 21:25:07 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,16 +35,18 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: remove the unused zone->unaccepted_cleanup
-To: Usama Arif <usama.arif@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, axelrasmussen@google.com,
- baohua@kernel.org, baolin.wang@linux.alibaba.com, baoquan.he@linux.dev,
- kasong@tencent.com, liam@infradead.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, ljs@kernel.org, mhocko@suse.com, qi.zheng@linux.dev,
- rppt@kernel.org, shakeel.butt@linux.dev, surenb@google.com,
- vbabka@kernel.org, weixugc@google.com, yuanchu@google.com,
- hannes@cmpxchg.org, kernel-team@meta.com
-References: <20260924191103.3475117-1-usama.arif@linux.dev>
+Subject: Re: [PATCH] selftests/mm: fix mlock2 errno handling and false PASS on
+ ENOSYS
+To: Park Tae-sun <ts930@dgu.ac.kr>, Andrew Morton
+ <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260923-selftests-mm-mlock2-fix-v1-1-750b627854c6@dgu.ac.kr>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -91,17 +93,85 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260924191103.3475117-1-usama.arif@linux.dev>
+In-Reply-To: <20260923-selftests-mm-mlock2-fix-v1-1-750b627854c6@dgu.ac.kr>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/24/26 21:11, Usama Arif wrote:
-> Commit fefc07518227 ("mm/page_alloc: fix race condition in unaccepted
-> memory handling") removed the zones_with_unaccepted_pages static key and
-> the work that decremented it, but left the work_struct behind in struct
-> zone. Nothing uses it anymore, so let's remove it.
+On 9/23/26 11:26, Park Tae-sun wrote:
+> While inspecting selftests/mm syscall wrappers, I noticed that mlock2_()
+> in mlock2.h handles the syscall return value differently from other
+> wrappers:
 > 
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+>     int ret = syscall(__NR_mlock2, start, len, flags);
+>     if (ret) {
+>         errno = ret;
+>         return -1;
+>     }
+> 
+> Commit 1ddae9d67ee1 ("selftests/mm/mlock: print error on failure")
+> introduced this intending to make mlock2_() behave like libc by setting
+> errno and returning -1. However, glibc syscall(2) already returns -1 on
+> failure and sets positive errno. Assigning "errno = ret;" overwrites
+> errno with -1.
+> 
+> To verify this, mlock2 was disabled in the kernel (via sys_ni_syscall) to
+> return -ENOSYS. Testing revealed two interrelated defects:
+> 
+> 1. In the unmodified test, mlock2_() clobbered errno to -1. The check
+>    "if (ret && errno == ENOSYS)" in main() was bypassed, resulting in an
+>    immediate crash in the first test:
+> 
+>        ~ # ./mlock2-tests
+>        TAP version 13
+>        1..15
+>        Bail out! mlock2(0): Unknown error -1
+>        # Planned tests != run tests (15 != 0)
+>        # Totals: pass:0 fail:0 xfail:0 xpass:0 skip:0 error:0
+>        (exit code: 1 - FAIL)
+> 
+> 2. After restoring mlock2_() to directly return syscall(), errno correctly
+>    retained ENOSYS (38), entering the ENOSYS check in main(). However, it
+>    then called ksft_finished():
+> 
+>        ~ # ./mlock2-tests
+>        TAP version 13
+>        # Totals: pass:0 fail:0 xfail:0 xpass:0 skip:0 error:0
+>        ~ # echo $?
+>        0
+> 
+>    Because ksft_set_plan() had not been called yet (ksft_plan == 0) and
+>    zero tests ran (ksft_pass == 0), ksft_finished() evaluated 0 == 0 as
+>    success and exited with KSFT_PASS (code 0) without any TAP skip header.
+> 
+> Fix both issues by:
+> 1. Returning the syscall() result directly in mlock2_() so that errno is
+>    preserved.
+> 2. Calling ksft_exit_skip() on ENOSYS so unsupported kernels report a TAP
+>    skip ("1..0 # SKIP ...") and exit with KSFT_SKIP (code 4).
+> 
+> Verification on the mlock2-disabled kernel:
+> 
+>     ~ # ./mlock2-tests
+>     TAP version 13
+>     1..0 # SKIP mlock2() syscall is not supported
+>     ~ # echo $?
+>     4
+> 
+> Re-enabling mlock2 in the kernel confirmed all 15 tests pass cleanly:
+> 
+>     ~ # ./mlock2-tests
+>     TAP version 13
+>     1..15
+>     ok 1 test_mlock_lock: Locked
+>     ...
+>     ok 15 test_mlockall_future_droppable: droppable memory not locked
+>     # Totals: pass:15 fail:0 xfail:0 xpass:0 skip:0 error:0
+>     ~ # echo $?
+>     0
+> 
+> Fixes: 1ddae9d67ee1 ("selftests/mm/mlock: print error on failure")
+> Fixes: 65c89684896d ("selftests/mm: mlock2-tests: conform test to TAP format output")
+> Signed-off-by: Park Tae-sun <ts930@dgu.ac.kr>
 > ---
 
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
