@@ -1,219 +1,391 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17FF729B781;
-	Thu, 24 Sep 2026 00:21:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790209287; cv=pass; b=VoQMsByBXKbq8ChMj/7Sck2QfR7rKMDkhGhz+DSC0mgDondl5cJnWw2rglLd0/jXl9lqi8AnS9nQ2ueywFLZ3SVQN+fBiaakJHJNJ/iJJpG3O2Wgjj3i1zR9cJSbY6jaopIquEccUUw7vxag0qjRH2KVJEtIy7dYaTJovbSdjvg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790209287; c=relaxed/simple;
-	bh=rYcXIJB0H9vuXe1TlPZ+/eIGNDr4asuuq5vLlOyvj5I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=R4HBM4RIdBILbbDD6yJ7nm9ey43gudk+W5izQ9HLOuBUanZV4P2icVbauFZfm/AzzDtTJvHldMlCy+kPUUqrTxGkXjPNhjzORGKeNkPzcgaLk4fu7j6J495KyCU97ijC72p8uMqxL+vndIQ+USibM6FNeoy2vcNr70QSklQ04Bg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b=S9G62yRf; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16CD217A586;
+	Thu, 24 Sep 2026 00:23:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790209431; cv=none; b=QEGqcqm9kodjOpX3FBSvJvpwMjOhAq14dYz6iEJM6icGJvBueJmOUq5RS6wqsbTtuO+AzrCw4GE6WSput7ijxDC054hS6ZP8hIi8B+FLeVwdg51VCuaPy6lIJu06FgI0GZv0sNJ2ibWjvS2XM7ikh0a9qBwdEzJ8mvCy8/iYC0g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790209431; c=relaxed/simple;
+	bh=VUuKfYfe5NqXSCU7iRvFUVCkXKdrX9Qr/m7Edw1j4rQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sF6sZUnP3x0z/ezF+n2LTVq4jKrv42FzVdHR38Zz3MbFY4Sefy3GdF/vc01Qu1Zx2dF/6ptPiz60cVl/6Uv3kdw9U0VkCUARBqCE1IaIZrRTB1lciHAyGTeAQme8KTZcxJMTFLcx3qMqu2Tq018nJu2CuG0xApx+MGn0nfZy3N0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jQTH6OF3; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="S9G62yRf"
-ARC-Seal: i=1; a=rsa-sha256; t=1790209260; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=RmFSmR+1S/O8XJgs4Qq+OihW6QlUM8YP+T7Z/RrdX3m3THAK/9Xv6d3W7c6tiGIUnzd8mx1IoA+v1Lnxah/ZKjzq809PjeuLfzle9CtcErnx5PtwturgfslcG5GNxFLCckCevSNthJfMgXmU/URPeow6LCRdqBGj8HdnlMu5Hvg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790209260; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=+KorbPrqnzxaHJHprvzhFbK2cDqoGlVN/qVwcgSSmY8=; 
-	b=fHjBBGlSuVeTwrNq74hCBsevsJWPBCnbEJl2CYPYyfFyquskfD8ijO16gp7mWo50qKvpBOcWHxFBk83sMbrl9NbXk3PQq41w1rOPTt3LeIoEpfqni/o6i0IaTjiYENDCus4YCfqQ0pFvttuIAexjCxie07natRgs73VzrBExyZg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
-	dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790209260;
-	s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Reply-To;
-	bh=+KorbPrqnzxaHJHprvzhFbK2cDqoGlVN/qVwcgSSmY8=;
-	b=S9G62yRfWOj9Bujog9JzgkRDlQqanHnsx7MdtIao3Ps19dcm+bEVYvFQgV4jyM5B
-	+Jypcm2lDsTWxssXqxUtV2r6tFJu3MMtnCPiKbNPLyFjusGF556WYp/1HcMzeBrXI1X
-	+s6swrAJolnUOtr9avsrFSEnU3fgK9CShkWvKr4s=
-Received: by smtp.zohomail.com with SMTPS id 1790209260058565.5535614783416;
-	Wed, 23 Sep 2026 17:21:00 -0700 (PDT)
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-Date: Wed, 23 Sep 2026 17:20:57 -0700
-Subject: [PATCH] drm/tyr: safely write GpuInfo to userspace
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jQTH6OF3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790209429; x=1821745429;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=VUuKfYfe5NqXSCU7iRvFUVCkXKdrX9Qr/m7Edw1j4rQ=;
+  b=jQTH6OF34FP/BMSf5Od/6P5MGOXHa50eRoIAgWugbNETtPoLdORlmAiL
+   +LSY5lpEE8MTtTteHlIXYo1emjkiQB74gIApm4D9K/0RCQXJUdt55O61/
+   dCs+PJ0SH/L+iVEMDgxfpSHyoNAKbc0TZcD9j+HbG+EJLbI2Kyuj4+XZ9
+   UTJX14++DwU6Dbjy4kHk/u23Yw6Emoq1/Nvk4MtF3dkXTLwTow93aBOEE
+   MWZ7AcYlFu6Cy46KUiVN/h/VfSuwuD5D6jBZevZRiLmU7SoSunsQ7nMwB
+   phB3bRMXc5y4iZWb3eJt7Ns8IMA98e8S3YLtNOe3fk+7WakqyE5Ww4YPA
+   Q==;
+X-CSE-ConnectionGUID: S2NHXGhGQnWCl+lF38+yag==
+X-CSE-MsgGUID: lZXPnpujSnS2Hf4VJUN29g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="89870805"
+X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
+   d="scan'208";a="89870805"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 17:23:48 -0700
+X-CSE-ConnectionGUID: D9Fawb1PTLy/0+5wbKVfXQ==
+X-CSE-MsgGUID: R0bxgo/tR1CxX/IKhlHQgQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
+   d="scan'208";a="5097909"
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 17:23:45 -0700
+Message-ID: <a2f2063b-b491-4f65-9e42-1c3dfa1902c7@linux.intel.com>
+Date: Thu, 24 Sep 2026 08:23:42 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 4/6] perf tools: Show memory region in perf-c2c
+ subcommand
+To: Thomas Falcon <thomas.falcon@intel.com>, sashiko-bot@kernel.org
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>
+References: <20260923161043.95C171F000FF@smtp.kernel.org>
+ <20260923170903.48388-1-thomas.falcon@intel.com>
+ <20260923170903.48388-5-thomas.falcon@intel.com>
+Content-Language: en-US
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <20260923170903.48388-5-thomas.falcon@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-b4-gpu_info_intobytes-v1-1-bb2173f91e11@collabora.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQ5AMBAAvyJ71oRVgq+ICLVlL620JUT6d43LJ
- HOYecGTY/LQZy84utizNUnKPAO1z2YjwWtywAKbosNKLFJsxzmx0TYh2OUJ5IXCVdYau6pWLaT
- 2cKT5/r/DGOMHkbTHdWcAAAA=
-X-Change-ID: 20260923-b4-gpu_info_intobytes-c2d45f2935c8
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Deborah Brouwer <deborah.brouwer@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5507;
- i=deborah.brouwer@collabora.com; h=from:subject:message-id;
- bh=rYcXIJB0H9vuXe1TlPZ+/eIGNDr4asuuq5vLlOyvj5I=;
- b=owGbwMvMwCVWuULzOU9c7WvG02pJDFlbcl6922VbouxzKmSFrbzFd6MNlXNart8quMbbsaiTg
- TGZ71BaRykLgxgXg6yYIstZe6Me8ar3Rrrz/zfDzGFlAhnCwMUpABMRc2X4p/Gy6n0xK8P7eTm/
- lHabdfV/idkXb6wiF3PRaCXXBtX3vYwMK6oqNtQ2egm/ebDEZYvKU90s6VorqfxpGcJ7DV1181Z
- wAwA=
-X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
- fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 
-Tyr creates the struct drm_panthor_gpu_info from the Panthor UAPI
-bindings. It initializes this struct by querying the gpu and then writes
-the struct into userspace memory faithfully byte-by-byte.
+Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
 
-Currently, the struct drm_panthor_gpu_info does not have any implicit
-padding, but if implicit padding were added in the future Rust does not
-guarantee that it would be initialized. Then when Tyr writes the struct
-back to userspace it could expose uninitialized kernel memory.
+Thanks.
 
-Tyr implements the unsafe trait AsBytes for GpuInfo whereby the developer
-guarantees that struct drm_panthor_gpu_info does not include implicit
-padding, pointers, or interior mutability. This allows Tyr to safely copy
-the struct into userspace memory. However, relying on the unsafe trait
-AsBytes is fragile because if the Panthor UAPI changes, the SAFETY
-guarantees may no longer be accurate.
 
-Instead, use the macros provided by the zerocopy crate to safely derive
-the traits IntoBytes and Immutable for struct drm_panthor_gpu_info. This
-will cause a compile error if the Panthor UAPI changes in a way that the
-traits IntoBytes or Immutable can no longer be implemented.
-
-Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
----
- drivers/gpu/drm/tyr/file.rs |  2 +-
- drivers/gpu/drm/tyr/gpu.rs  | 12 ------------
- rust/Makefile               | 12 +++++++++---
- rust/bindgen_parameters     |  4 ++++
- rust/uapi/lib.rs            |  4 ++++
- 5 files changed, 18 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
-index 9f60a90d4948..ceadde976502 100644
---- a/drivers/gpu/drm/tyr/file.rs
-+++ b/drivers/gpu/drm/tyr/file.rs
-@@ -54,7 +54,7 @@ pub(crate) fn dev_query(
-                     )
-                     .writer();
- 
--                    writer.write(&reg_data.gpu_info)?;
-+                    writer.write_slice(reg_data.gpu_info.as_bytes())?;
- 
-                     Ok(0)
-                 }
-diff --git a/drivers/gpu/drm/tyr/gpu.rs b/drivers/gpu/drm/tyr/gpu.rs
-index e1b04a0c5159..fde5bd0f87a1 100644
---- a/drivers/gpu/drm/tyr/gpu.rs
-+++ b/drivers/gpu/drm/tyr/gpu.rs
-@@ -16,7 +16,6 @@
-     },
-     prelude::*,
-     time::Delta,
--    transmute::AsBytes,
-     uapi, //
- };
- 
-@@ -134,17 +133,6 @@ fn deref_mut(&mut self) -> &mut Self::Target {
-     }
- }
- 
--// SAFETY: `GpuInfo`'s invariant guarantees that it is the same type that is
--// already exposed to userspace by the C driver. This implies that it fulfills
--// the requirements for `AsBytes`.
--//
--// This means:
--//
--// - No implicit padding,
--// - No kernel pointers,
--// - No interior mutability.
--unsafe impl AsBytes for GpuInfo {}
--
- struct GpuModels {
-     name: &'static str,
-     arch_major: u32,
-diff --git a/rust/Makefile b/rust/Makefile
-index da1a7409d984..bf02a1efd6f3 100644
---- a/rust/Makefile
-+++ b/rust/Makefile
-@@ -365,8 +365,11 @@ rusttestlib-bindings: private rustc_target_flags = --extern ffi --extern pin_ini
- rusttestlib-bindings: $(src)/bindings/lib.rs rusttestlib-ffi rusttestlib-pin_init FORCE
- 	+$(call if_changed,rustc_test_library)
- 
--rusttestlib-uapi: private rustc_target_flags = --extern ffi --extern pin_init
--rusttestlib-uapi: $(src)/uapi/lib.rs rusttestlib-ffi rusttestlib-pin_init FORCE
-+rusttestlib-uapi: private rustc_target_flags = --extern ffi --extern pin_init \
-+	--extern zerocopy=$(objtree)/$(obj)/test/libzerocopy.rlib \
-+	--extern zerocopy_derive=$(objtree)/$(obj)/test/$(libzerocopy_derive_name)
-+rusttestlib-uapi: $(src)/uapi/lib.rs rusttestlib-ffi rusttestlib-pin_init \
-+	rusttestlib-zerocopy rusttestlib-zerocopy_derive FORCE
- 	+$(call if_changed,rustc_test_library)
- 
- quiet_cmd_rustdoc_test = RUSTDOC T $<
-@@ -782,11 +785,14 @@ $(obj)/bindings.o: $(src)/bindings/lib.rs \
-     $(obj)/bindings/bindings_helpers_generated.rs FORCE
- 	+$(call if_changed_rule,rustc_library)
- 
--$(obj)/uapi.o: private rustc_target_flags = --extern ffi --extern pin_init
-+$(obj)/uapi.o: private rustc_target_flags = --extern ffi --extern pin_init \
-+	--extern zerocopy --extern zerocopy_derive
- $(obj)/uapi.o: private skip_gendwarfksyms = 1
- $(obj)/uapi.o: $(src)/uapi/lib.rs \
-     $(obj)/ffi.o \
-     $(obj)/pin_init.o \
-+    $(obj)/zerocopy.o \
-+    $(obj)/$(libzerocopy_derive_name) \
-     $(obj)/uapi/uapi_generated.rs FORCE
- 	+$(call if_changed_rule,rustc_library)
- 
-diff --git a/rust/bindgen_parameters b/rust/bindgen_parameters
-index 8402b0c93545..65d913181eec 100644
---- a/rust/bindgen_parameters
-+++ b/rust/bindgen_parameters
-@@ -71,3 +71,7 @@
- # Structs should implement `Zeroable` when all of their fields do.
- --with-derive-custom-struct .*=MaybeZeroable
- --with-derive-custom-union .*=MaybeZeroable
-+
-+# `drm_panthor_gpu_info` is copied byte-for-byte to userspace.
-+--with-derive-custom-struct '^drm_panthor_gpu_info$'=IntoBytes
-+--with-derive-custom-struct '^drm_panthor_gpu_info$'=Immutable
-diff --git a/rust/uapi/lib.rs b/rust/uapi/lib.rs
-index 797ead5b5626..ddb35ffcd4b6 100644
---- a/rust/uapi/lib.rs
-+++ b/rust/uapi/lib.rs
-@@ -36,5 +36,9 @@
- type __kernel_ptrdiff_t = isize;
- 
- use pin_init::MaybeZeroable;
-+use zerocopy_derive::{
-+    Immutable,
-+    IntoBytes, //
-+};
- 
- include!(concat!(env!("OBJTREE"), "/rust/uapi/uapi_generated.rs"));
-
----
-base-commit: 896ed083362758b33c49a1b5e5a3423c5814d87e
-change-id: 20260923-b4-gpu_info_intobytes-c2d45f2935c8
-
-Best regards,
--- 
-Deborah Brouwer <deborah.brouwer@collabora.com>
-
+On 9/24/2026 1:09 AM, Thomas Falcon wrote:
+> From: Dapeng Mi <dapeng1.mi@linux.intel.com>
+>
+> Add memory region field to the cacheline list view to help users
+> identify the memory region to which the cacheline belongs. The memory
+> region field was included with the introduction of support for the
+> Off-module Response facility (OMR) [1] in Intel's Diamond Rapids and
+> Nova Lake architectures.
+>
+> An example of the new perf c2c output including the memory region
+> field is shown below:
+>
+> # Index             Address  Region  Node  PA cnt     Hitm    Total  LclHitm  RmtHitm  records    Loads
+> # .....  ..................  ......  ....  ......  .......  .......  .......  .......  .......  .......
+> #
+>       0  0xffffffff84eb0040     N/A     0    1205   23.25%      544      544        0     1677     1677
+>       1  0xffffffff84f03a80     N/A     0       1   18.12%      424      424        0      585      585
+> [...]
+>      19  0xffffffff845bc840   Mem-0     0      13    0.30%        7        7        0       31       31
+>      20  0xff3bbba284520a00     N/A     0      10    0.26%        6        6        0       11       11
+>      21  0xff3bbbe0bc833500     N/A     0      24    0.26%        6        6        0       30       30
+>
+> [1]: https://lore.kernel.org/all/20260114011750.350569-1-dapeng1.mi@linux.intel.com/
+>
+> Assisted-by: Sashiko:gemini-3.1-pro-preview
+> Assisted-by: GitHub-Copilot:claude-opus-4-8
+> Reviewed-by: Ian Rogers <irogers@google.com>
+> Reviewed-by: Namhyung Kim <namhyung@kernel.org>
+> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+> Co-developed-by: Thomas Falcon <thomas.falcon@intel.com>
+> Signed-off-by: Thomas Falcon <thomas.falcon@intel.com>
+> ---
+> v11: perf-c2c: revert to only recording a real memory region for a
+>      cacheline
+> v10: only update mem_region for real cache/memory regions so N/A samples
+>      don't overwrite a valid region; add #include <stdio.h> for asprintf
+>      (Sashiko)
+> v9: Update perf-c2c to include cache region reporting (Dapeng Mi)
+> v8: Update developer tags and commit message with real example
+>     output (Dapeng Mi)
+> v7: fix output_str allocation error handling which introduced
+>     a memory leak (Sashiko)
+> v6: rebased onto 7.3-rc1
+> v5: make the cacheline header span and ui_quirks() width
+>     fixup depend on memory-region availability (Namhyung Kim)
+> v4: correctly handle output_str memory allocation failure
+> v3: make memory region reporting conditional on feature bit
+> ---
+>  tools/perf/builtin-c2c.c | 114 +++++++++++++++++++++++++++++++++++----
+>  tools/perf/util/c2c.h    |   1 +
+>  2 files changed, 104 insertions(+), 11 deletions(-)
+>
+> diff --git a/tools/perf/builtin-c2c.c b/tools/perf/builtin-c2c.c
+> index 6b64c0d6b24f..a42423ca990d 100644
+> --- a/tools/perf/builtin-c2c.c
+> +++ b/tools/perf/builtin-c2c.c
+> @@ -14,6 +14,7 @@
+>  #include <inttypes.h>
+>  #include <stdlib.h>
+>  #include <string.h>
+> +#include <stdio.h>
+>  
+>  #include <asm/bug.h>
+>  #include <linux/compiler.h>
+> @@ -72,6 +73,7 @@ struct perf_c2c {
+>  
+>  	bool			 show_src;
+>  	bool			 show_all;
+> +	bool			 show_mem_region;
+>  	bool			 use_stdio;
+>  	bool			 stats_only;
+>  	bool			 symbol_full;
+> @@ -248,6 +250,18 @@ static void c2c_he__set_node(struct c2c_hist_entry *c2c_he,
+>  	}
+>  }
+>  
+> +static void c2c_he__set_mem_region(struct c2c_hist_entry *c2c_he,
+> +				   unsigned int mem_region)
+> +{
+> +	if (WARN_ONCE(mem_region > PERF_MEM_REGION_MEM7,
+> +		      "WARNING: invalid memory region ID\n"))
+> +		return;
+> +
+> +	/* Update mem_region only if it really accesses memory */
+> +	if (mem_region >= PERF_MEM_REGION_MMIO)
+> +		c2c_he->mem_region = mem_region;
+> +}
+> +
+>  static void compute_stats(struct c2c_hist_entry *c2c_he,
+>  			  struct c2c_stats *stats,
+>  			  u64 weight)
+> @@ -306,6 +320,7 @@ static int process_sample_event(const struct perf_tool *tool __maybe_unused,
+>  	struct addr_location al;
+>  	struct mem_info *mi = NULL;
+>  	struct callchain_cursor *cursor;
+> +	unsigned int mem_region;
+>  	int ret;
+>  
+>  	addr_location__init(&al);
+> @@ -333,6 +348,7 @@ static int process_sample_event(const struct perf_tool *tool __maybe_unused,
+>  	}
+>  
+>  	c2c_decode_stats(&stats, mi);
+> +	mem_region = mem_info__data_src(mi)->mem_region;
+>  
+>  	he = hists__add_entry_ops(&c2c_hists->hists, &c2c_entry_ops,
+>  				  &al, NULL, NULL, mi, NULL,
+> @@ -349,6 +365,7 @@ static int process_sample_event(const struct perf_tool *tool __maybe_unused,
+>  	c2c_he__set_cpu(c2c_he, sample);
+>  	c2c_he__set_node(c2c_he, sample);
+>  	c2c_he__set_evsel(c2c_he, evsel);
+> +	c2c_he__set_mem_region(c2c_he, mem_region);
+>  
+>  	hists__inc_nr_samples(&c2c_hists->hists, he->filtered);
+>  
+> @@ -402,6 +419,7 @@ static int process_sample_event(const struct perf_tool *tool __maybe_unused,
+>  		c2c_he__set_cpu(c2c_he, sample);
+>  		c2c_he__set_node(c2c_he, sample);
+>  		c2c_he__set_evsel(c2c_he, evsel);
+> +		c2c_he__set_mem_region(c2c_he, mem_region);
+>  
+>  		hists__inc_nr_samples(&c2c_hists->hists, he->filtered);
+>  		ret = hist_entry__append_callchain(he, sample);
+> @@ -540,6 +558,45 @@ dcacheline_node_count(struct perf_hpp_fmt *fmt, struct perf_hpp *hpp,
+>  	return scnprintf(hpp->buf, hpp->size, "%*lu", width, c2c_he->paddr_cnt);
+>  }
+>  
+> +static int
+> +dcacheline_node_mem_region(struct perf_hpp_fmt *fmt, struct perf_hpp *hpp,
+> +			   struct hist_entry *he)
+> +{
+> +	int width = c2c_width(fmt, hpp, he->hists);
+> +	struct c2c_hist_entry *c2c_he;
+> +	unsigned int mem_region;
+> +	char buf[20];
+> +
+> +	c2c_he = container_of(he, struct c2c_hist_entry, he);
+> +	mem_region = c2c_he->mem_region;
+> +
+> +	switch (mem_region) {
+> +	case PERF_MEM_REGION_NA:
+> +	case PERF_MEM_REGION_RSVD:
+> +		scnprintf(buf, sizeof(buf), "N/A");
+> +		break;
+> +	case PERF_MEM_REGION_MMIO:
+> +		scnprintf(buf, sizeof(buf), "MMIO");
+> +		break;
+> +	case PERF_MEM_REGION_MEM0:
+> +	case PERF_MEM_REGION_MEM1:
+> +	case PERF_MEM_REGION_MEM2:
+> +	case PERF_MEM_REGION_MEM3:
+> +	case PERF_MEM_REGION_MEM4:
+> +	case PERF_MEM_REGION_MEM5:
+> +	case PERF_MEM_REGION_MEM6:
+> +	case PERF_MEM_REGION_MEM7:
+> +		scnprintf(buf, sizeof(buf), "Mem-%d",
+> +			  mem_region - PERF_MEM_REGION_MEM0);
+> +		break;
+> +	default:
+> +		scnprintf(buf, sizeof(buf), "N/A");
+> +		break;
+> +	}
+> +
+> +	return scnprintf(hpp->buf, hpp->size, "%*s", width, buf);
+> +}
+> +
+>  static int offset_entry(struct perf_hpp_fmt *fmt, struct perf_hpp *hpp,
+>  			struct hist_entry *he)
+>  {
+> @@ -1360,6 +1417,14 @@ static struct c2c_dimension dim_dcacheline_node = {
+>  	.width		= 4,
+>  };
+>  
+> +static struct c2c_dimension dim_dcacheline_mem_region = {
+> +	.header		= HEADER_LOW("Region"),
+> +	.name		= "dcacheline_mem_region",
+> +	.cmp		= empty_cmp,
+> +	.entry		= dcacheline_node_mem_region,
+> +	.width		= 6,
+> +};
+> +
+>  static struct c2c_dimension dim_dcacheline_count = {
+>  	.header		= HEADER_LOW("PA cnt"),
+>  	.name		= "dcacheline_count",
+> @@ -1791,6 +1856,7 @@ static struct c2c_dimension dim_dcacheline_num_empty = {
+>  
+>  static struct c2c_dimension *dimensions[] = {
+>  	&dim_dcacheline,
+> +	&dim_dcacheline_mem_region,
+>  	&dim_dcacheline_node,
+>  	&dim_dcacheline_count,
+>  	&dim_offset,
+> @@ -2854,8 +2920,11 @@ static int ui_quirks(void)
+>  	/* Fix the zero line for dcacheline column. */
+>  	buf = fill_line(chk_double_cl ? "Double-Cacheline" : "Cacheline",
+>  				dim_dcacheline.width +
+> +				(c2c.show_mem_region ?
+> +					dim_dcacheline_mem_region.width : 0) +
+>  				dim_dcacheline_node.width +
+> -				dim_dcacheline_count.width + 4);
+> +				dim_dcacheline_count.width +
+> +				(c2c.show_mem_region ? 6 : 4));
+>  	if (!buf)
+>  		return -ENOMEM;
+>  
+> @@ -3107,7 +3176,8 @@ static int perf_c2c__report(int argc, const char **argv)
+>  	OPT_END()
+>  	};
+>  	int err = 0;
+> -	const char *output_str, *sort_str = NULL;
+> +	const char *sort_str = NULL;
+> +	char *output_str = NULL;
+>  	struct perf_env *env;
+>  
+>  	annotation_options__init();
+> @@ -3272,9 +3342,16 @@ static int perf_c2c__report(int argc, const char **argv)
+>  		goto out_mem2node;
+>  	}
+>  
+> -	if (c2c.display != DISPLAY_SNP_PEER)
+> -		output_str = "cl_idx,"
+> +	c2c.show_mem_region = perf_header__has_feat(&session->header,
+> +						HEADER_MEMORY_RANGES);
+> +	if (c2c.show_mem_region)
+> +		dim_dcacheline.header.line[0].span = 3;
+> +
+> +	if (c2c.display != DISPLAY_SNP_PEER) {
+> +		if (asprintf(&output_str,
+> +			     "cl_idx,"
+>  			     "dcacheline,"
+> +			     "%s"
+>  			     "dcacheline_node,"
+>  			     "dcacheline_count,"
+>  			     "percent_costly_snoop,"
+> @@ -3286,10 +3363,17 @@ static int perf_c2c__report(int argc, const char **argv)
+>  			     "ld_fbhit,ld_l1hit,ld_l2hit,"
+>  			     "ld_lclhit,lcl_hitm,"
+>  			     "ld_rmthit,rmt_hitm,"
+> -			     "dram_lcl,dram_rmt";
+> -	else
+> -		output_str = "cl_idx,"
+> +			     "dram_lcl,dram_rmt",
+> +			     c2c.show_mem_region ?
+> +			     "dcacheline_mem_region," : "") < 0) {
+> +			err = -ENOMEM;
+> +			goto out_mem2node;
+> +		}
+> +	} else {
+> +		if (asprintf(&output_str,
+> +			     "cl_idx,"
+>  			     "dcacheline,"
+> +			     "%s"
+>  			     "dcacheline_node,"
+>  			     "dcacheline_count,"
+>  			     "percent_costly_snoop,"
+> @@ -3301,7 +3385,13 @@ static int perf_c2c__report(int argc, const char **argv)
+>  			     "ld_fbhit,ld_l1hit,ld_l2hit,"
+>  			     "ld_lclhit,lcl_hitm,"
+>  			     "ld_rmthit,rmt_hitm,"
+> -			     "dram_lcl,dram_rmt";
+> +			     "dram_lcl,dram_rmt",
+> +			     c2c.show_mem_region ?
+> +			     "dcacheline_mem_region," : "") < 0) {
+> +			err = -ENOMEM;
+> +			goto out_mem2node;
+> +		}
+> +	}
+>  
+>  	if (c2c.display == DISPLAY_TOT_HITM)
+>  		sort_str = "tot_hitm";
+> @@ -3315,7 +3405,7 @@ static int perf_c2c__report(int argc, const char **argv)
+>  	err = c2c_hists__reinit(&c2c.hists, output_str, sort_str, perf_session__env(session));
+>  	if (err) {
+>  		pr_err("Failed to reinitialize hists\n");
+> -		goto out_mem2node;
+> +		goto out_str;
+>  	}
+>  
+>  	ui_progress__init(&prog, c2c.hists.hists.nr_entries, "Sorting...");
+> @@ -3324,17 +3414,19 @@ static int perf_c2c__report(int argc, const char **argv)
+>  	hists__output_resort_cb(&c2c.hists.hists, &prog, resort_shared_cl_cb);
+>  	err = hists__iterate_cb(&c2c.hists.hists, resort_cl_cb, perf_session__env(session));
+>  	if (err)
+> -		goto out_mem2node;
+> +		goto out_str;
+>  
+>  	ui_progress__finish();
+>  
+>  	if (ui_quirks()) {
+>  		pr_err("failed to setup UI\n");
+> -		goto out_mem2node;
+> +		goto out_str;
+>  	}
+>  
+>  	perf_c2c_display(session);
+>  
+> +out_str:
+> +	free(output_str);
+>  out_mem2node:
+>  	mem2node__exit(&c2c.mem2node);
+>  out_session:
+> diff --git a/tools/perf/util/c2c.h b/tools/perf/util/c2c.h
+> index 53f024e25d99..f04e78e1a2e3 100644
+> --- a/tools/perf/util/c2c.h
+> +++ b/tools/perf/util/c2c.h
+> @@ -33,6 +33,7 @@ struct c2c_hist_entry {
+>  	unsigned long		*nodeset;
+>  	struct c2c_stats	*node_stats;
+>  	unsigned int		 cacheline_idx;
+> +	unsigned int		 mem_region;
+>  
+>  	struct compute_stats	 cstats;
+>  
