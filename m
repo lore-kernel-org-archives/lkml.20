@@ -1,111 +1,148 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D85476CDC;
-	Thu, 24 Sep 2026 11:06:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BDCF3F39ED
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:07:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790247997; cv=none; b=T4kUdYtgkMJGpGalEFtnH6WeS5DJ8Q9KRKRM7UT2J+SqQbfUo3wQ7Y6Sk44Hsk8KXv5VpKx533bLw92S3Hr3P9hh+nEsyqXz32Q+YXxDqRkZW2RnhQ7woZm7o2SRpHqxeEIKOWOcZYq5zDLW8+l0cHXb2pu8tYwb8IwgyfmB7/Y=
+	t=1790248024; cv=none; b=g5VpoOpriNcujo2P6Gkv0Sh+HLMvp0HEIiejpcPSsJW4JMG0cCdBppOpaWUqgz5Z9gUizzZ9ejRwGi2HLc4JCJeIMAhyC8sFUkssEUS/6Cuu4VUXHLkSFZGKXvng5Dr6Z0Flv036+1oLhSChNF5nPq0Njn7UeKEgY4Z6z8Aip2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790247997; c=relaxed/simple;
-	bh=VCOUBmSvA08OLSZZ0QUtRpBpXc4RIeX5lNww1zeNj+w=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=tTZTER6ITCHLoRhsn2RuW7dNqAEcbMT8+BdUfPPNhY4LRGPHH/8RUwLvzGY8KTUUC+Czqvxu0+AZPXWycizqi3PsZAWBoAvu13SQHNQSoioi7ufeYyxx5WKh1rFXFEJ9/8VyjzRTWXZr7riQdPvZfd0vac47SOs/xOvmxHdB7j4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ZWKFbg3W; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790248024; c=relaxed/simple;
+	bh=yrI+URhESve6HspNSDzOp1zvNel+JG1IKi2qkoCondc=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=nXrHKQPhl1uq8+CMVNd5oBt+nZ+m2jGPEeC9A+5GTBRYuryw5tS1c4lWEjeNkJWGVjdc/aFdwUXhYghzQPNU+sMphcLPc1W23tE/ADK39estq6wirLcIv6YeICN1rimDZ/OQ5T0A9P1n7Fx4gpuFNHnPUasyTfdXHFGA/PSsMbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=brd0+XcZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ZWKFbg3W"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Gb
-	iQVEWtVb+Jbk8/U09Tj0Cxmmbe6xVeYJInM/aCluU=; b=ZWKFbg3WI+2uRabZyb
-	xLrcHeF30uZ1HravdqT0LHmBtf7HH0omtCkWZq+EvQMIMYYUxgmjwiLZw3iFh48n
-	I1ye0PvgRdVMyWGMKkHzHEgUlgVtH7oaZpXBNzW4eKMQIAVUvo4MbeAhI+xkjXz1
-	ry+pEQZ3r8jd+GvNWukxD4XxA=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3N3wNBLVqE0AmAg--.64280S5;
-	Thu, 24 Sep 2026 19:05:56 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Namjae Jeon <linkinjeon@kernel.org>,
-	Sungjong Seo <sj1557.seo@samsung.com>,
-	Yuezhang Mo <yuezhang.mo@sony.com>,
-	Jan Kara <jack@suse.com>,
-	Hyunchul Lee <hyc.lee@gmail.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	exfat@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	ntfs@lists.linux.dev
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH 3/3] exfat: drain in-flight DIO before buffered write fallback
-Date: Thu, 24 Sep 2026 19:05:44 +0800
-Message-Id: <20260924110544.601390-4-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260924110544.601390-1-yaojiale02@163.com>
-References: <20260924110544.601390-1-yaojiale02@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="brd0+XcZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD8591F000FF;
+	Thu, 24 Sep 2026 11:06:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790248019;
+	bh=V83SDi+TUKENS52JUz3LtD47/hn1tvgx9IbuoycR/fs=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=brd0+XcZ+T/++LOIA8GlDMksB2c6WU9A6TT+j/FD6hT2mnAX4p7ZMC28gJLwIZgTM
+	 kxZT49ruolfPZuPDZD+srOdTGi8ucS1YuuWvZphubO3ONKH34eIqreEvxF1vvE4TVh
+	 gQ+6ZvR7H4o04QgdQ6AghgsokUd3RM7FnM/ZPY8eEtfZ7rIUKY5MUdeLNusqKgdRj0
+	 HKV2TD6a6d/eqjI/APsysiaQMxF9gvDniZoIuesNMrTnJO2LRQwNkrraAm8JOpcWy1
+	 ZnzxoVz3ntVoTmoOeJyFRZ7r/NQtrQKWDV64bgH5JO5aJMZJs0eguD8rvStpKkIFtz
+	 DtNdVUMgnezcA==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 6A3231980058;
+	Thu, 24 Sep 2026 07:06:57 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Thu, 24 Sep 2026 07:06:57 -0400
+X-ME-Sender: <xms:UAS1aixT8NOaKJwLfpkEB33FUo1rJI0RVZdIEGnWfZqYkrKef3yHEg>
+    <xme:UAS1apHFK9gEOhNU2twu2mTvTQS9P3JuzXlvD9cjkOB9prvPTTnuclMWcL97yktkg
+    grCa6I5ljFXgOl6PrIP8tcc6ouOFyXa1VRiwMo1J3DXHtRGLDwWHTM>
+X-ME-Proxy-Cause: dmFkZTF7LK1rs7PqibZaYl6YD5o4BdJnxPzTa9Znv2PsJIIQl0yV0gEmFLbqPJxoOQaArn
+    QgwNXR9LaaoW0zNd6tnIr5ccKRJm/GPwwrxIoXCpg8RW5k+7LrI6NGaxnSc4qJ3oES3emt
+    qtDjzkAA+tjZ9GbhCiJpPXdkxHXehMrK+JVb6QdlGSIBvPlVPcpxhOGm9ZYaOccfy2db3M
+    yH6IuoEI4E/PfcvNbNV2+9Yj/CrNhWhF3DvF8HlRJKiPUC68asHg/cVucKXVSjXBmvDwQh
+    uCqVjTdooIOAAsVlKDLul9RfKct4b31VO5BzEln4RP+j/3ZEqSUfqsEKl5y8Nv6+WVUbex
+    CSvWF2xpJE0qwupL4w9rNVt8iXQvnVFSGXN8zt6qM9i7G1kroqzpVQTT8N5S0/SKi02gxj
+    AMcp3xLJ8Y3zfJSgize8E/J1Z/TMFCpTaPxgg96cfx/CW6GjzkWBS/UhpjrTbt8GYxHyy5
+    pXqWzBGmYzEw6IO6paV9s/T7JoHRihDSNPOA3f3ukdL8nlj1mtkOPJnobhNs9T3qVmKdKH
+    9osBF6Btx2OTod3oS9SVg/DF91tfLAwVQ8/RE+i4w+CDaZPHrWIDp1gZKuF4QjvzHYxmPQ
+    OEBXpfgh3xn75yDDwWgZ/D6a2gtfFyf9aH/+WQl4dX94ZrjJ00IvB0e/nR2A
+X-ME-Proxy: <xmx:UQS1aubkipL416tQEisSo9bDGL2N9HqxD33ITnBAy2_nrv4oJmetVg>
+    <xmx:UQS1as1naPVe8n80heAOWYjq-YYW7pQvb_JInvMSey5rM4OzuNTALQ>
+    <xmx:UQS1asdznUlqyMk9KJXQFQ7XjTFHpd2Rm70VQlc26IS2ap6x_DII3Q>
+    <xmx:UQS1alH8rzZ2IS6YdvmoblTLbxQhl60VyHYoUC2YCyZQLLsyHwkZmw>
+    <xmx:UQS1al3HXeFmRqHM7vo-gjotzAIQzlIy8FXVlj0aL44kS-Qc5ScjsQXF>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 1D23BF80080; Thu, 24 Sep 2026 07:06:56 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3N3wNBLVqE0AmAg--.64280S5
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tF4kGFy5AFykKF47tr1rXrb_yoW8ZF43pr
-	Z0ga45JryDt397XwnruF48W3WFk395A3y3ZrWvv3WDCrWUWr4vga1ktr1YvF43JanrGr4j
-	qa109rykAr1DCaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRorW7UUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8BQOSGq1BBRZSAAA38
+Date: Thu, 24 Sep 2026 13:06:35 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: jaidevshastri@vt.edu, "Ilias Apalodimas" <ilias.apalodimas@linaro.org>
+Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-Id: <501132b4-eba0-4bf8-a9c0-0c209e1bee3a@app.fastmail.com>
+In-Reply-To: <20260921-mb-efi-capsule-v1-1-fbf2a2032afb@vt.edu>
+References: <20260921-mb-efi-capsule-v1-1-fbf2a2032afb@vt.edu>
+Subject: Re: [PATCH] efi: capsule: publish capsule_pending after efi_reset_type
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-An asynchronous direct write can remain in flight after the inode lock is
-released.  If another direct write falls back to buffered I/O while the
-first write is still pending, iomap_file_buffered_write() can dirty pages
-before the first write completes its post-I/O page cache invalidation.
-The invalidation then finds dirty pages, reports a page cache invalidation
-failure, and records -EIO in the mapping error sequence.  A later fsync()
-therefore returns -EIO.
+Hello Jaidev,
 
-Commit 15cdefd0c0522f9d5e12d947fa04f4c11649b699 ("ext4: drain
-in-flight DIO before buffered write fallback") fixed the same race in
-ext4.  ExFAT has an equivalent fallback after iomap_dio_rw() returns
--ENOTBLK or a short write, but does not drain other in-flight DIO before
-dirtying the page cache.
+On Tue, 22 Sep 2026, at 03:09, Jaidev Shastri via B4 Relay wrote:
+> From: Jaidev Shastri <jaidevshastri@vt.edu>
+>
+> efi_capsule_update_locked() sets capsule_pending and then
+> efi_reset_type, both with plain stores. efi_capsule_pending() reads them
+> from the reboot path without capsule_mutex.
+>
+> The comment above efi_capsule_pending() covers a caller that misses the
+> update entirely. It does not cover the other outcome: with neither the
+> stores nor the loads ordered, a caller can observe capsule_pending set
+> and efi_reset_type still -1, and the reboot path then acts on a capsule
+> with an invalid reset type.
+>
+> Write efi_reset_type first and publish the flag with
+> smp_store_release(), paired with smp_load_acquire() in
+> efi_capsule_pending(). A caller that misses the update entirely still
+> behaves as documented.
+>
+> Found with MBCheck, a static herd7-based memory consistency checker.
+>
+> Signed-off-by: Jaidev Shastri <jaidevshastri@vt.edu>
+> ---
+>  drivers/firmware/efi/capsule.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+>
 
-Wait for in-flight DIO before calling iomap_file_buffered_write() in the
-fallback path.
+I think the tool's conclusion is correct that concurrent execution
+of efi_capsule_pending() and efi_capsule_update() may result in the
+re-ordering and subsequent misreporting of the EFI reset type.
 
-A reproducer using concurrent AIO direct writes and buffered fallback
-triggered the following warning and made a subsequent fsync() return
--EIO:
+However, in practice, efi_capsule_pending() is only called on the
+reboot path after all other CPUs have been stopped, so there is
+really nothing to fix here.
 
-  Page cache invalidation failure on direct I/O.  Possible data corruption
-  due to collision with buffered I/O!
 
-Fixes: 867b9c96dc83 ("exfat: add iomap direct I/O support")
-Link: https://lore.kernel.org/r/20260629113827.4074335-3-libaokun@linux.alibaba.com
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- fs/exfat/file.c | 6 ++++++
- 1 file changed, 6 insertions(+)
 
-diff --git a/fs/exfat/file.c b/fs/exfat/file.c
-index a2a9ee1a2004..cf5ccbd54823 100644
---- a/fs/exfat/file.c
-+++ b/fs/exfat/file.c
-@@ -807,6 +807,12 @@ static ssize_t exfat_fallback_buffered_write(struct kiocb *iocb,
- 
- 	iocb->ki_flags &= ~IOCB_DIRECT;
- 
-+	/*
-+	 * Prevent concurrent direct I/O and buffered I/O to the same file
-+	 * range. Wait for in-flight DIO to finish before dirtying pages.
-+	 */
-+	inode_dio_wait(file_inode(iocb->ki_filp));
-+
- 	written = iomap_file_buffered_write(iocb, from, &exfat_write_iomap_ops,
- 			NULL, NULL);
- 	if (written < 0)
--- 
-2.34.1
-
+> diff --git a/drivers/firmware/efi/capsule.c b/drivers/firmware/efi/capsule.c
+> index dd6252638..2129007d8 100644
+> --- a/drivers/firmware/efi/capsule.c
+> +++ b/drivers/firmware/efi/capsule.c
+> @@ -50,7 +50,8 @@ static DEFINE_MUTEX(capsule_mutex);
+>   */
+>  bool efi_capsule_pending(int *reset_type)
+>  {
+> -	if (!capsule_pending)
+> +	/* Pairs with the smp_store_release() in efi_capsule_update_locked(). */
+> +	if (!smp_load_acquire(&capsule_pending))
+>  		return false;
+> 
+>  	if (reset_type)
+> @@ -173,8 +174,14 @@ efi_capsule_update_locked(efi_capsule_header_t *capsule,
+> 
+>  	status = efi.update_capsule(&capsule, 1, sglist_phys);
+>  	if (status == EFI_SUCCESS) {
+> -		capsule_pending = true;
+>  		efi_reset_type = reset;
+> +		/*
+> +		 * efi_capsule_pending() reads the flag without capsule_mutex
+> +		 * and then the reset type, which is stored above. Publish the
+> +		 * flag with release semantics so that a reader that sees it
+> +		 * also sees the matching reset type.
+> +		 */
+> +		smp_store_release(&capsule_pending, true);
+>  	}
+> 
+>  	return efi_status_to_err(status);
+>
+> ---
+> base-commit: 93f51579e7df248780214094418f205253383cc5
+> change-id: 20260921-mb-efi-capsule-d111fa00ae80
+>
+> Best regards,
+> --  
+> Jaidev Shastri <jaidevshastri@vt.edu>
