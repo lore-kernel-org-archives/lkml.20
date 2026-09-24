@@ -1,70 +1,177 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8CBE53939C1
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:55:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D3B49B5AD
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:55:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790261743; cv=none; b=abpMZbFKSgCMrg/zkb43piHETO5Iboy1omyl67afQ0zo5C0exQWF4PrlK+HUH2k51sY0S55kNL8pwixI2fpknTZ9o0ceOXnuW8Y7SMLwYehzVqh0o7iuBBsAk0Jv1wg96kZgJfByVbWLMZZhD4CtLl4/UFnWXmtjB2oQMuZ9aNo=
+	t=1790261746; cv=none; b=lgWYPM4090ubmT8axHCdY/lubskTI/Jl3tK+aEHTO9v7l/tXZbGNOdis4ySBV37McyWTFRSfPTFJ1z86/QfajQcog+pwGrBo+sBff7DFWHiozrXKU6zUKDrrqE31w2pkmDkb/uXHZkPXoM+Pqul+NUFLuLlFuHMWJXr6C2uAHW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790261743; c=relaxed/simple;
-	bh=dGigSJ9bfvrCJTJezA64ql8bioG3tCAfNENgeTrxU1Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=efP1/QiOSCdRJab7vZ5Bhc3udB7npnB0fiIEPUM6GxtwFcKJXqfqnooyDHl3j2ejENLdYkMzZ+BUIWQqB7pt0Fo+UJgnou9Ro6u6HJjNEnt+cURwPUckRPCOvRpbB6+f68FOhkiTGzMqV9OW8yjxxPxefrAZ06CU+Ei3qIsJAWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=E8wY485n; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790261746; c=relaxed/simple;
+	bh=b5V5cIZLU8hlEyl9xnRq6vDvMkK3WNR9AD+lAL6zb7o=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=OFHq1CCkMGBFSYrQzG31zFqjEECVh73z2oun976nsn1M/BWdpsWsKp40IbiOoYrBtSwj8jfpnl0fNxAl6nkRAvJK9Ve5OtvOK9eLkwhiyqLgy5drKVIpriNhqPbkX1BtUold1vCE5XBdjBKZKqTYGNJ7d4yw71EPXzMiQqa5S0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bxOdxZ0b; arc=none smtp.client-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="E8wY485n"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5A645143D;
-	Thu, 24 Sep 2026 07:55:36 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 901AE3F86C;
-	Thu, 24 Sep 2026 07:55:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790261739; bh=dGigSJ9bfvrCJTJezA64ql8bioG3tCAfNENgeTrxU1Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=E8wY485nFSqGU6S68M3V7c2yBFx/I6meN/gefaMYakGsj8ECSU4oXwejSsWS8ZLOM
-	 5/tTS/L8YHroe8ZcG3B/Gtd5eGBLKQQYt6H8oyPmZpXEp7RK5DcIaNo3mhhL9SBYqM
-	 EDD/mT6Qjdv6uCpo4PxSSlWvXQYf89EJsF7zglcQ=
-Date: Thu, 24 Sep 2026 15:55:32 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Beata Michalska <beata.michalska@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, will@kernel.org,
-	suzuki.poulose@arm.com, James.Morse@arm.com, xuewen.yan94@gmail.com,
-	seanwang1@lenovo.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: errata: Add Cortex-A725 erratum 3821522 workaround
-Message-ID: <arU55PEnc7Gjy830@arm.com>
-References: <20260908104800.3744507-1-beata.michalska@arm.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bxOdxZ0b"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2db3b126c9fso22139885ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:55:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790261744; x=1790866544; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NJA6+TyaqV1MSLc4kyfe+npiP/DQmyuJ2EVEHCwB3Gc=;
+        b=bxOdxZ0bNqDIjcfJ+O1thU9G4XuwLcnsby+I544PCpChkBYvw7XsiIwjPvOJB9MGKw
+         CSUcaUEnv270/XxLEWbxTZFbE7lkI7QVQuflgcljql+X4xWHUA9nSfQHVhQ51qDUVWSh
+         ivb9qiIF3eGReqaL6HD2EAJEAd8+eahCwj/SITHFL4R4D0bdYLwj9zjSf3TDCOh6fsDS
+         gXL0n3n+9Ljsw5pBwITjxCrgwraKh59kbM0I0UaJzMCfQ9yY0O5+X0D8rRm6s+glqhXG
+         qvUutqXxq612VzvY+cg7LqVrSjd8uhvoAdlB/VaMH8qGpRs1Bgv53Z/vEA0KT8VYX9v3
+         Kvhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790261744; x=1790866544;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NJA6+TyaqV1MSLc4kyfe+npiP/DQmyuJ2EVEHCwB3Gc=;
+        b=Loh8KpyP7UkRYHjNcMkyOWfeTOMMOY1PMuvpUm4lnM7v7ilwIBpUhNzc3Hu6shn3OW
+         Kax3EGEhQiHz3IdcvLUAUH7c9vEN8EquQeGH3HwC5B8YO+n2RX/qX3g+WfvK0g0BsyJ6
+         giE5dW0qcwiTkqzATu+jlNExEPxzERalM/k2Xo/paS3rvknOGRRK2FTNGtdAE1LJ7xK0
+         bWTR7DTrVmdVdk7gnfnj5ZKpBafIUhq+2SU4x6/erJYFMk7cG8B+/pubC/PDEgdC7+FK
+         yT41dR34Vtq6Di8lpHUX2jGImeOBOqAmwD36R0DmG4GrhATX1ysrmCvkeU2N77VL+Wls
+         gUoA==
+X-Forwarded-Encrypted: i=1; AKwUvBwTloC+ZcFvRHp2gr6eGhqzuLGBDyijx0N5dtfWJ/B2an4O4AMMOaJ5rR7xmNBf3/ul+2TLSsZc1e4NM8w=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPKSHJn91MiqtTZqTBJP79JiRxhJAW2IQUaMeILKgAUEyHKBcL
+	8RNbtRsUQ640udyCJa3sHZXqO+IbZ0WBT3WJi9gI7fgkxU2/zHcrTmQS4cI2pXd85hyMcQbjGY4
+	ZbZDIpQ==
+X-Received: from plqu20.prod.google.com ([2002:a17:902:a614:b0:2dd:c066:f654])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:3804:b0:2dd:c100:424a
+ with SMTP id d9443c01a7336-2df7e247c77mr22889315ad.46.1790261743478; Thu, 24
+ Sep 2026 07:55:43 -0700 (PDT)
+Date: Thu, 24 Sep 2026 07:55:42 -0700
+In-Reply-To: <20260924080648.51014-1-zhoujinmeng@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908104800.3744507-1-beata.michalska@arm.com>
+Mime-Version: 1.0
+References: <20260924080648.51014-1-zhoujinmeng@bytedance.com>
+Message-ID: <arU57oqykUfeKqv2@google.com>
+Subject: Re: [PATCH] KVM: x86: Wake blocked vCPUs before offlining a CPU
+From: Sean Christopherson <seanjc@google.com>
+To: Jinmeng Zhou <jinmengzhou22@gmail.com>
+Cc: pbonzini@redhat.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
+	dave.hansen@linux.intel.com, hpa@zytor.com, feng.wu@intel.com, x86@kernel.org, 
+	kvm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Jinmeng Zhou <zhoujinmeng@bytedance.com>, Guixiong Wei <weiguixiong@bytedance.com>
+Content-Type: text/plain; charset="us-ascii"
 
-Hi Beata,
+On Thu, Sep 24, 2026, Jinmeng Zhou wrote:
+> Posted-interrupt wakeup state is tied to the physical CPU on which a vCPU
+> blocks. CPU hotplug migrates sleeping tasks before KVM's CPU offline
+> callback, but the vCPU remains on the old CPU's wakeup list and its posted
+> interrupt descriptor still targets the old physical APIC.
+> 
+> If a device posts an interrupt after the old CPU becomes unavailable, the
+> wakeup notification cannot make the blocked vCPU runnable. The vCPU cannot
+> repair the stale notification destination because that happens only after
+> the vCPU is scheduled back in.
+> 
+> Add an architecture hook to KVM's CPU offline path and a corresponding
+> optional x86 vendor callback. After CPUHP_AP_SCHED_WAIT_EMPTY has migrated
+> tasks away from the dying CPU, have VMX set KVM_REQ_UNBLOCK and wake every
+> vCPU on that CPU's posted-interrupt wakeup list. The vCPUs then unblock on
+> online CPUs and the existing load path rebuilds their wakeup-list and
+> posted-interrupt destination state.
+> 
+> Fixes: bf9f6ac8d749 ("KVM: Update Posted-Interrupts Descriptor when vCPU is blocked")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jinmeng Zhou <zhoujinmeng@bytedance.com>
+> Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
 
-On Tue, Sep 08, 2026 at 12:47:08PM +0200, Beata Michalska wrote:
-> diff --git a/arch/arm64/include/asm/topology.h b/arch/arm64/include/asm/topology.h
-> index b9eaf4ad70850..93f33ee078638 100644
-> --- a/arch/arm64/include/asm/topology.h
-> +++ b/arch/arm64/include/asm/topology.h
-> @@ -17,6 +17,12 @@ int pcibus_to_node(struct pci_bus *bus);
+SoB chain is wrong.  Whoever sends the patch needs to come last.  And presumably
+there's a missing "Co-developed-by: Guixiong Wei <weiguixiong@bytedance.com>".
+The patch also needs a "From: Jinmeng Zhou <zhoujinmeng@bytedance.com>" since
+you're using a different address to send the email.
+
+> diff --git a/arch/x86/kvm/vmx/posted_intr.c b/arch/x86/kvm/vmx/posted_intr.c
+> index 4a6d9a17da238..2d6cca1606bd1 100644
+> --- a/arch/x86/kvm/vmx/posted_intr.c
+> +++ b/arch/x86/kvm/vmx/posted_intr.c
+> @@ -266,6 +266,29 @@ void pi_wakeup_handler(void)
+>  	raw_spin_unlock(spinlock);
+>  }
 >  
->  #include <linux/arch_topology.h>
->  
-> +static inline bool this_cpu_has_broken_amu_constcnt(void)
+> +void pi_wakeup_cpu_offline(unsigned int cpu)
 > +{
-> +	return this_cpu_has_cap(ARM64_WORKAROUND_2457168) ||
-> +	       this_cpu_has_cap(ARM64_WORKAROUND_3821522);
+> +	struct list_head *wakeup_list = &per_cpu(wakeup_vcpus_on_cpu, cpu);
+> +	raw_spinlock_t *spinlock = &per_cpu(wakeup_vcpus_on_cpu_lock, cpu);
+> +	struct vcpu_vt *vt;
+> +	unsigned long flags;
+> +
+> +	/*
+> +	 * CPUHP_AP_SCHED_WAIT_EMPTY has already migrated tasks away from the
+
+IIUC, CPUHP_AP_SCHED_WAIT_EMPTY just waits for task migrations to complete,
+CPUHP_AP_ACTIVE => sched_cpu_deactivate() is what actually initiates the migration.
+That matters because I think it means we can repurpose CPUHP_AP_X86_KVM_CLK_ONLINE.
+
+> +	 * dying CPU.  Force blocked vCPUs to leave the block loop so that their
+> +	 * PI wakeup state is rebuilt on an online CPU before the old notification
+> +	 * destination becomes unreachable.
+> +	 */
+> +	raw_spin_lock_irqsave(spinlock, flags);
+> +	list_for_each_entry(vt, wakeup_list, pi_wakeup_list) {
+> +		struct kvm_vcpu *vcpu = vt_to_vcpu(vt);
+> +
+> +		kvm_make_request(KVM_REQ_UNBLOCK, vcpu);
+
+Hrm, KVM_REQ_UNBLOCK is going to cause spurious wakeups for the vCPU.  That isn't
+the end of the world, but it's definitely undesirable, especially since these
+flows are shared with SUSPEND+RESUME.
+
+If we attach to CPUHP_AP_X86_KVM_CLK_ONLINE, can we do a bare __kvm_vcpu_wake_up(),
+so that the task (temporarily) wakes up and gets migrated to a new pCPU before this
+pCPU goes down?
+
+> +		kvm_vcpu_wake_up(vcpu);
+> +	}
+> +	raw_spin_unlock_irqrestore(spinlock, flags);
 > +}
+> +
+>  void __init pi_init_cpu(int cpu)
+>  {
+>  	INIT_LIST_HEAD(&per_cpu(wakeup_vcpus_on_cpu, cpu));
+> diff --git a/arch/x86/kvm/vmx/posted_intr.h b/arch/x86/kvm/vmx/posted_intr.h
+> index a4af39948cf04..41414c583a063 100644
+> --- a/arch/x86/kvm/vmx/posted_intr.h
+> +++ b/arch/x86/kvm/vmx/posted_intr.h
+> @@ -11,6 +11,7 @@
+>  void vmx_vcpu_pi_load(struct kvm_vcpu *vcpu, int cpu);
+>  void vmx_vcpu_pi_put(struct kvm_vcpu *vcpu);
+>  void pi_wakeup_handler(void);
+> +void pi_wakeup_cpu_offline(unsigned int cpu);
+>  void __init pi_init_cpu(int cpu);
+>  void pi_apicv_pre_state_restore(struct kvm_vcpu *vcpu);
+>  bool pi_has_pending_interrupt(struct kvm_vcpu *vcpu);
+> diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+> index 79468ddfe4736..ea0ded5d64509 100644
+> --- a/arch/x86/kvm/x86.c
+> +++ b/arch/x86/kvm/x86.c
+> @@ -9820,6 +9820,11 @@ void kvm_arch_disable_virtualization_cpu(void)
+>  		__module_get(THIS_MODULE);
+>  }
+>  
+> +void kvm_arch_prepare_cpu_offline(unsigned int cpu)
 
-Instead of this, please add ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT and set
-it in the .capability field of a multi-cap entry. We do the same with
-ARM64_WORKAROUND_REPEAT_TLBI_SYNC.
+I don't love adding an arch hook for this, because CPUHP_AP_KVM_ONLINE is tied to
+KVM_GENERIC_HARDWARE_ENABLING=y.  I think I'd rather turn CPUHP_AP_X86_KVM_CLK_ONLINE
+into a slightly more generic CPUHP_AP_X86_KVM_ONLINE
 
--- 
-Catalin
+> +{
+> +	kvm_x86_call(prepare_cpu_offline)(cpu);
+
+My vote for the names would just be "cpu_offline", i.e. no "prepare".
