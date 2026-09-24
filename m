@@ -1,177 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37024356747;
-	Thu, 24 Sep 2026 04:33:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEDC9397694
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:33:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790224393; cv=none; b=nIbJS/8PEWj2mXxdyXTSHhbnBHEDTugzll00cxeHSTOLe/4WlZ8hL5V7dXGFkQiobiDofFy9bDocSe7+ZDjpG+R5ArGxnDZiv4dOCX+fJaTboyJ1EVafcGs5QcRKZIp+SrGkNMh/BGyE8j/JmOhELuv7jeFfDZyo5V+3f4sFImA=
+	t=1790224410; cv=none; b=u4TPXqNNHEYyZACi4+b0QEcqbLRmlqAp37qkKmle1pqWlkSzfYYVUkOYSNY15eNFDExRjdkBz6gqWA6X8a2l//72NYn6dPD1LqXA0LNLxD+N/ZR2lWeVltgWZBi5yytD/GV6zpWL5eJBhdDF/54Z/N3V0nmKQysi5rqZE1eVLPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790224393; c=relaxed/simple;
-	bh=uX1rQEz/DQPqwnMt1TgfUGScOkJ+rvzCpJD+kcswAUw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nc7/s4FuR4TZu+b1XnKTHiECwXqDscDRr7rQ/9f9iJE7IjVDAYxxmCgatqdVaRPWLY7Dpq2llTk0C5vK81eTG7wfnCMO+8J7b/rbuwiNY0Xcj0RNlzyeNj6oyyxtu7Fo37AUvDBLTvmZG5JLtTQEbdLOCDV9ehYbnik1O1iQaeg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CsUtjgoj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790224410; c=relaxed/simple;
+	bh=OrSXABowRLKXcfGGx5eoS81GIA6P1ugsfb9hzNaC6lg=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=q+3H9gs8qOrBk4gC3/AFyITIWUvpbV5ODEKl02fdCoFkY1voFDFN/YZqWeNcVulvFx9hNnoLqP4c/u4lEBWgF2RuM4D5N0pfBn7R2KZTe+Q3u50eS8C+P4R2sC7NgCAIU13pBSXCEARs4ZFF1o+q+OfCZXJWFoi4Wcwl8IQyURM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YySIPBb9; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CsUtjgoj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EE441F000FF;
-	Thu, 24 Sep 2026 04:33:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790224391;
-	bh=CcNwL7xRwOV9aWxBCz320PcsLt2UGmXCGMzZht9hwDc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CsUtjgojaBrtU9hln5KGYU0lX2Fizlvya9euFa9GR5Ik6Y6KqsbQmYRFNAOtId5n/
-	 mGtGf3lYj23X9Wg2W+T0WCwVrEw5A+eywzQZx8wc3uCFbxbCmBJgJbnPX4lZMCFKUv
-	 7jvCtN6D7McOmqOYGW1h/A0eB1s2LMpYk/9hAAbDzU23X5LL6qCg5a1x01RIGpm2Ei
-	 4l8O4CcNgBKccOs3/1FuoaAuJkV2DMlhyjcNAIa475JQHuLKta6xFY1ewUmtqjOsX+
-	 FTBvj1fDLGg3WHEX0BTe1E4N8tHukTQShqVOoTV4PxPxNEb0TSgeqV4mi+ad7O7dBt
-	 xKr/Gsgs9Cqaw==
-Date: Thu, 24 Sep 2026 06:33:05 +0200
-From: Gao Xiang <xiang@kernel.org>
-To: Artem Dinaburg <artem@trailofbits.com>
-Cc: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>, Gao Xiang <xiang@kernel.org>,
-	Chao Yu <chao@kernel.org>, Yue Hu <huyue2@coolpad.com>,
-	Jeffle Xu <jefflexu@linux.alibaba.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Sandeep Dhavale <dhavale@google.com>,
-	Will Shiu <will.shiu@mediatek.com>,
-	Gao Xiang <hsiangkao@linux.alibaba.com>,
-	Alexandre Mergnat <amergnat@baylibre.com>
-Subject: Re: [PATCH 6.1.y] erofs: Fix detection of atomic context
-Message-ID: <arSoAUX4jDzgY-rG@MacBookPro.fritz.box>
-Mail-Followup-To: Artem Dinaburg <artem@trailofbits.com>,
-	stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>, Gao Xiang <xiang@kernel.org>,
-	Chao Yu <chao@kernel.org>, Yue Hu <huyue2@coolpad.com>,
-	Jeffle Xu <jefflexu@linux.alibaba.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Sandeep Dhavale <dhavale@google.com>,
-	Will Shiu <will.shiu@mediatek.com>,
-	Gao Xiang <hsiangkao@linux.alibaba.com>,
-	Alexandre Mergnat <amergnat@baylibre.com>
-References: <20260922200448.27724-1-artem@trailofbits.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YySIPBb9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790224408; x=1821760408;
+  h=date:from:to:cc:subject:message-id;
+  bh=OrSXABowRLKXcfGGx5eoS81GIA6P1ugsfb9hzNaC6lg=;
+  b=YySIPBb9Tjc5xYM0sKpNVBmrG0nKR88ahl5z4DjE9kaZPc3mjNz14Efu
+   rdSUeIW1Pb6oZdJfKgujvVO73/Ug5nAl1zJM9ZYLcu3dKp//4CsN3cpvl
+   WsVG1B2VYWMuXMAf/3kqygol2ymBKZP5K5hDyEha4+H8eeQ3IEqz0mmpA
+   0tK9nYcirS3twhNLXE5m1rftRk210zCZfLbZMdW8cc4II+zTi35BdeU28
+   oi37exe47dD/g4Mr10EHBEHoA76Wy6qHNykmbgesj1sKGrmCkqjYWqfS/
+   bwH97ghhQW4ECBml6Ir0k6Hy3YbFg+NrM+zgH3YLO4kytSttmA9zjpOUf
+   Q==;
+X-CSE-ConnectionGUID: DSRce9sJSvKSQx8sN33sTA==
+X-CSE-MsgGUID: EFFkbLfOSZaJaiwCzTTWgg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="91003978"
+X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
+   d="scan'208";a="91003978"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 21:33:28 -0700
+X-CSE-ConnectionGUID: ZqLHcQoJRZGUDAeBK26G6Q==
+X-CSE-MsgGUID: 5XRDI0pZTviHi1my+ES0WA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
+   d="scan'208";a="5032935"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa012.fm.intel.com with ESMTP; 23 Sep 2026 21:33:26 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x9b99-00000000ID2-1xAm;
+	Thu, 24 Sep 2026 04:33:23 +0000
+Date: Thu, 24 Sep 2026 12:32:41 +0800
+From: kernel test robot <lkp@intel.com>
+To: John Johansen <john.johansen@canonical.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: security/apparmor/af_unix.c:764:50: sparse: sparse:
+ incorrect type in argument 1 (different address spaces)
+Message-ID: <202609241230.DoBklUpQ-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260922200448.27724-1-artem@trailofbits.com>
 
-Hi Artem,
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   fe2ec83746e501645709761605c2464a44fd2929
+commit: 4483efe4f21510b30c24bc97d9fd0e8feab94125 apparmor: fix shadowing of plabel that prevents cache from being updated
+date:   3 months ago
+config: sparc-randconfig-r1307-20260924 (https://download.01.org/0day-ci/archive/20260924/202609241230.DoBklUpQ-lkp@intel.com/config)
+compiler: sparc-linux-gcc (GCC) 16.1.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260924/202609241230.DoBklUpQ-lkp@intel.com/reproduce)
 
-On Tue, Sep 22, 2026 at 04:04:36PM -0400, Artem Dinaburg wrote:
-> From: Sandeep Dhavale <dhavale@google.com>
-> 
-> [ Upstream commit 12d0a24afd9ea58e581ea64d64e066f2027b28d9 ]
-> 
-> Current check for atomic context is not sufficient as
-> z_erofs_decompressqueue_endio can be called under rcu lock
-> from blk_mq_flush_plug_list(). See the stacktrace [1]
-> 
-> In such case we should hand off the decompression work for async
-> processing rather than trying to do sync decompression in current
-> context. Patch fixes the detection by checking for
-> rcu_read_lock_any_held() and while at it use more appropriate
-> !in_task() check than in_atomic().
-> 
-> Background: Historically erofs would always schedule a kworker for
-> decompression which would incur the scheduling cost regardless of
-> the context. But z_erofs_decompressqueue_endio() may not always
-> be in atomic context and we could actually benefit from doing the
-> decompression in z_erofs_decompressqueue_endio() if we are in
-> thread context, for example when running with dm-verity.
-> This optimization was later added in patch [2] which has shown
-> improvement in performance benchmarks.
-> 
-> ==============================================
-> [1] Problem stacktrace
-> [name:core&]BUG: sleeping function called from invalid context at kernel/locking/mutex.c:291
-> [name:core&]in_atomic(): 0, irqs_disabled(): 0, non_block: 0, pid: 1615, name: CpuMonitorServi
-> [name:core&]preempt_count: 0, expected: 0
-> [name:core&]RCU nest depth: 1, expected: 0
-> CPU: 7 PID: 1615 Comm: CpuMonitorServi Tainted: G S      W  OE      6.1.25-android14-5-maybe-dirty-mainline #1
-> Hardware name: MT6897 (DT)
-> Call trace:
->  dump_backtrace+0x108/0x15c
->  show_stack+0x20/0x30
->  dump_stack_lvl+0x6c/0x8c
->  dump_stack+0x20/0x48
->  __might_resched+0x1fc/0x308
->  __might_sleep+0x50/0x88
->  mutex_lock+0x2c/0x110
->  z_erofs_decompress_queue+0x11c/0xc10
->  z_erofs_decompress_kickoff+0x110/0x1a4
->  z_erofs_decompressqueue_endio+0x154/0x180
->  bio_endio+0x1b0/0x1d8
->  __dm_io_complete+0x22c/0x280
->  clone_endio+0xe4/0x280
->  bio_endio+0x1b0/0x1d8
->  blk_update_request+0x138/0x3a4
->  blk_mq_plug_issue_direct+0xd4/0x19c
->  blk_mq_flush_plug_list+0x2b0/0x354
->  __blk_flush_plug+0x110/0x160
->  blk_finish_plug+0x30/0x4c
->  read_pages+0x2fc/0x370
->  page_cache_ra_unbounded+0xa4/0x23c
->  page_cache_ra_order+0x290/0x320
->  do_sync_mmap_readahead+0x108/0x2c0
->  filemap_fault+0x19c/0x52c
->  __do_fault+0xc4/0x114
->  handle_mm_fault+0x5b4/0x1168
->  do_page_fault+0x338/0x4b4
->  do_translation_fault+0x40/0x60
->  do_mem_abort+0x60/0xc8
->  el0_da+0x4c/0xe0
->  el0t_64_sync_handler+0xd4/0xfc
->  el0t_64_sync+0x1a0/0x1a4
-> 
-> [2] Link: https://lore.kernel.org/all/20210317035448.13921-1-huangjianan@oppo.com/
-> 
-> Reported-by: Will Shiu <Will.Shiu@mediatek.com>
-> Suggested-by: Gao Xiang <xiang@kernel.org>
-> Signed-off-by: Sandeep Dhavale <dhavale@google.com>
-> Reviewed-by: Gao Xiang <hsiangkao@linux.alibaba.com>
-> Reviewed-by: Alexandre Mergnat <amergnat@baylibre.com>
-> Link: https://lore.kernel.org/r/20230621220848.3379029-1-dhavale@google.com
-> Signed-off-by: Gao Xiang <hsiangkao@linux.alibaba.com>
-> 
-> [ Backport to 6.1.y: the source change is unchanged; only its location
->   in z_erofs_decompress_kickoff() differs. ]
-> Assisted-by: LLM
-> Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
-> ---
-> Hi Greg, Sasha, and EROFS maintainers,
-> 
-> I am continuing backporting CVE fixes still missing from 6.1.y.
-> This fix is inherited by v6.6 and every later mainline release, but 6.1.y
-> still has the affected code. The target-specific adjustment is described
-> in the bracketed note above.
-> 
-> Could you please queue it for 6.1.y?
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 4483efe4f215 ("apparmor: fix shadowing of plabel that prevents cache from being updated")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609241230.DoBklUpQ-lkp@intel.com/
 
-Sorry for late reply.
+sparse warnings: (new ones prefixed by >>)
+>> security/apparmor/af_unix.c:764:50: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct aa_label *l @@     got struct aa_label [noderef] __rcu *label @@
+   security/apparmor/af_unix.c:764:50: sparse:     expected struct aa_label *l
+   security/apparmor/af_unix.c:764:50: sparse:     got struct aa_label [noderef] __rcu *label
 
-Thanks for your effort, this commit has a follow-up commit
-commit c99fab6e80b76422741d34aafc2f930a482afbdd
+vim +764 security/apparmor/af_unix.c
 
-erofs: fix atomic context detection when !CONFIG_DEBUG_LOCK_ALLOC
+   705	
+   706	/* This fn is only checked if something has changed in the security
+   707	 * boundaries. Otherwise cached info off file is sufficient
+   708	 */
+   709	int aa_unix_file_perm(const struct cred *subj_cred, struct aa_label *label,
+   710			      const char *op, u32 request, struct file *file)
+   711	{
+   712		struct socket *sock = (struct socket *) file->private_data;
+   713		struct sockaddr_un *addr, *peer_addr;
+   714		int addrlen, peer_addrlen;
+   715		struct aa_label *plabel = NULL;
+   716		struct sock *peer_sk = NULL;
+   717		u32 sk_req = request & ~NET_PEER_MASK;
+   718		struct path path;
+   719		bool is_sk_fs;
+   720		int error = 0;
+   721	
+   722		AA_BUG(!label);
+   723		AA_BUG(!sock);
+   724		AA_BUG(!sock->sk);
+   725		AA_BUG(sock->sk->sk_family != PF_UNIX);
+   726	
+   727		/* investigate only using lock via unix_peer_get()
+   728		 * addr only needs the memory barrier, but need to investigate
+   729		 * path
+   730		 */
+   731		unix_state_lock(sock->sk);
+   732		peer_sk = unix_peer(sock->sk);
+   733		if (peer_sk)
+   734			sock_hold(peer_sk);
+   735	
+   736		is_sk_fs = is_unix_fs(sock->sk);
+   737		addr = aa_sunaddr(unix_sk(sock->sk), &addrlen);
+   738		path = unix_sk(sock->sk)->path;
+   739		unix_state_unlock(sock->sk);
+   740	
+   741		if (is_sk_fs && peer_sk)
+   742			sk_req = request;
+   743		if (sk_req) {
+   744				error = aa_unix_label_sk_perm(subj_cred, label, op,
+   745							      sk_req, sock->sk,
+   746							      is_sk_fs ? &path : NULL);
+   747		}
+   748		if (!peer_sk)
+   749			goto out;
+   750	
+   751		peer_addr = aa_sunaddr(unix_sk(peer_sk), &peer_addrlen);
+   752	
+   753		struct path peer_path;
+   754	
+   755		peer_path = unix_sk(peer_sk)->path;
+   756		if (!is_sk_fs && is_unix_fs(peer_sk)) {
+   757			last_error(error,
+   758				   unix_fs_perm(op, request, subj_cred, label,
+   759						is_unix_fs(peer_sk) ? &peer_path : NULL));
+   760		} else if (!is_sk_fs) {
+   761			struct aa_sk_ctx *pctx = aa_sock(peer_sk);
+   762	
+   763			rcu_read_lock();
+ > 764			plabel = aa_get_newest_label(pctx->label);
+   765			rcu_read_unlock();
+   766			/* no fs check of aa_unix_peer_perm because conditions above
+   767			 * ensure they will never be done
+   768			 */
+   769			last_error(error,
+   770				xcheck(unix_peer_perm(subj_cred, label, op,
+   771						      MAY_READ | MAY_WRITE, sock->sk,
+   772						      is_sk_fs ? &path : NULL,
+   773						      peer_addr, peer_addrlen,
+   774						      is_unix_fs(peer_sk) ?
+   775								&peer_path : NULL,
+   776						      plabel),
+   777				       unix_peer_perm(file->f_cred, plabel, op,
+   778						      MAY_READ | MAY_WRITE, peer_sk,
+   779						      is_unix_fs(peer_sk) ?
+   780								&peer_path : NULL,
+   781						      addr, addrlen,
+   782						      is_sk_fs ? &path : NULL,
+   783						      label)));
+   784			if (!error && !__aa_subj_label_is_cached(plabel, label))
+   785				update_peer_ctx(peer_sk, pctx, label);
+   786		}
+   787		sock_put(peer_sk);
+   788	
+   789	out:
+   790	
+   791		/* update peer cache to latest successful perm check */
+   792		if (error == 0)
+   793			update_sk_ctx(sock->sk, label, plabel);
+   794		aa_put_label(plabel);
+   795	
+   796		return error;
+   797	}
+   798	
 
-could you please consider backport those to stable kernels as well?
-
-Thanks,
-Gao Xiang
-
-> 
-> Thanks,
-> Artem Dinaburg
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
