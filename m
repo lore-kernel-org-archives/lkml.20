@@ -1,108 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF4E14A2A78;
-	Thu, 24 Sep 2026 15:41:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D972248C8A4;
+	Thu, 24 Sep 2026 15:41:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790264497; cv=none; b=mmSRCXzeVNYT1k1UbmF1TXtfFlGPNuVskdt/JE3b6JOvrOCpoXcnOQaFGCnSJL3C/7FTKu+kr6A87o/hCJumffmW9nwS5PMe4QvkBLkqq0vtgfI8nlvpO0DQCEhk+5Y9KRiXraEjD60Z30URVI6U7gh1eYBNqi28ygNkUIg2tVY=
+	t=1790264516; cv=none; b=fIjcuvgY2t1faulQAV1ZkDTSn/RNawUmO3tx//Qd6OqANhxQOsBj78Y4XsYjiibf0W8em3FaJfuTizxxsmZ6eQctNtP8pyEnaAwKvmRdYXcvuRwi46pSa6gXCPgyAsGJs+c2t4iDFn04MDVNOg9u23LS5MUZlvjonaTLxvGdCDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790264497; c=relaxed/simple;
-	bh=e/Sxn8K7dsJV3ATbUcQjIv4QG7GxBYh/gFPNrHCya1Y=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=cpoqXSo/KdSBWrBHHxk/oatfUFKSJrS+GDXszDVlpzvtjkHjfU6RauRbQRlv/ToTr9k51zXt7+ZD0fg6VlDvwreS+F46ERqI3kDXV88w42kHFTnudCejYgackS4EmmlnbIlVJLMrWqoUpmagJF1apuT3hraNnx/dP+98pTLX0xE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R7O+IDI6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790264516; c=relaxed/simple;
+	bh=EYOzGhrk1cQRDYWCBxk5DFNvd+2AoIFiSMjKIW8jw2I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dsQd4VDAMUB800K/PxrHEa6WB9d6MDu2qqiz85Y7Q2DH80AeVYpdYkldpHX+q16K4bnCJuNcjp2IZmI3xkYvEo22C9SUo8aQRtki+CVnCOcUiFQ32X1oU7hoUQxPgvFTCdFN/U02DSvam27BXFdCI1us9lH2HIgGmxkZ8dvBpys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ZKD11e4b; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R7O+IDI6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D77C61F000FF;
-	Thu, 24 Sep 2026 15:41:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790264495;
-	bh=eN2cjKfCvDXuqmgo4UbcmS7JlECYCHZ3VnJoYKEKeeA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=R7O+IDI6MizHFzQoZXlcztXkhOVZN4+VLOtDDYP3vtSk149l1qtXhc7GiyjbrHQE4
-	 Y+LGhikL5W7dg05q2pXPUyKuboNlf7IXfGZLuWLwXnuf4vJLhzdVIY50BKGQgNPh7Y
-	 dGCplrYXTs2TEcUr16Oo5z1ik9m3MYnJdQK3PN5DsfT+HoBwM3RMbYkUGjF6c1ufYk
-	 DYBGymFWNj+XrRJ5ZU/r/Z78UuQ6Nv8VYRMIxN80Vy2/9OilPC0qSPb+R0dG21d5Wr
-	 g5axXW77NkXA5w8o5hUmtpGZrFNoLtPfBaWxA/VmfduQnC+SYPfgY9T+E3dGbeYgZn
-	 r2MmKJb1ORVjQ==
-From: Nathan Chancellor <nathan@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Nicolas Schier <nsc@kernel.org>, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
- Julian Braha <julianbraha@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, 
- Vegard Nossum <vegard.nossum@oracle.com>, 
- Nauman Sabir <officialnaumansabir@gmail.com>, Tejun Heo <tj@kernel.org>, 
- Nicolas Pitre <nico@fluxnic.net>, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
- Matthew Maurer <mmaurer@google.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Andrew Jones <andrew.jones@linux.dev>, 
- Graham Roff <grahamr@qti.qualcomm.com>, 
- Masahiro Yamada <masahiroy@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
- Krzysztof Kozlowski <krzk@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- "Borislav Petkov (AMD)" <bp@alien8.de>, Gary Guo <gary@garyguo.net>, 
- linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org
-In-Reply-To: <20260919005923.i.879-kees@kernel.org>
-References: <20260919005923.i.879-kees@kernel.org>
-Subject: Re: [PATCH 0/3] kconfig: Introduce cc-option-str
-Message-Id: <179026447975.3085989.6407201524539416516.b4-ty@b4>
-Date: Thu, 24 Sep 2026 11:41:19 -0400
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ZKD11e4b"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 467991E4D;
+	Thu, 24 Sep 2026 08:41:50 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 600483F86F;
+	Thu, 24 Sep 2026 08:41:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790264513; bh=EYOzGhrk1cQRDYWCBxk5DFNvd+2AoIFiSMjKIW8jw2I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZKD11e4bnomsMJDUsU9g10tBzzsYHGGthfpkwNu37qzdhK/q+Lb78tVvd9LYjAEqY
+	 RcXRcF3PbFNV1tCjKHgxKAUjuSC+3vyj88e25ZkX/aySxc+lURjzjlE/FrKWyJjVUr
+	 37s+P/cN2A/pvCpJHCux1D5/5/drpnEc4QB1JP+s=
+Date: Thu, 24 Sep 2026 16:41:51 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: Ian Rogers <irogers@google.com>
+Cc: acme@kernel.org, alice.mei.rogers@gmail.com,
+	linux-perf-users@vger.kernel.org, namhyung@kernel.org,
+	adrian.hunter@intel.com, dapeng1.mi@linux.intel.com,
+	james.clark@linaro.org, leo.yan@linux.dev,
+	linux-kernel@vger.kernel.org, mingo@redhat.com,
+	peterz@infradead.org, tmricht@linux.ibm.com
+Subject: Re: [PATCH v2 38/49] perf python: Port arm-cs-trace-disasm to perf
+ module
+Message-ID: <20260924154151.GM200420@e132581.arm.com>
+References: <cover.1789966896.git.irogers@google.com>
+ <f724b653476e2733c18b02268c57baaaa54870ba.1789966896.git.irogers@google.com>
+ <20260923090007.GJ200420@e132581.arm.com>
+ <CAP-5=fUn8hafFn_RJs0vgaZKmeGEvWqRwtC4arYrCgogETXUJQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1220; i=nathan@kernel.org;
- h=from:subject:message-id; bh=e/Sxn8K7dsJV3ATbUcQjIv4QG7GxBYh/gFPNrHCya1Y=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFlbXZZYeB0JP77O+dvt43dWLDAKP3wy8Y/NlmIZM5Wie
- a8CxMT9OkpZGMS4GGTFFFmqH6seNzScc5bxxqlJMHNYmUCGMHBxCsBE3q9iZDh7r6T0/syYi1H1
- T+9q127/8ztnx4HvVouFnU7cEwtcKzSX4b/7G9/tM7Ny2A0y7Cyt7FyiDBKNJ11drDlP+8vbZVe
- /eDEDAA==
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAP-5=fUn8hafFn_RJs0vgaZKmeGEvWqRwtC4arYrCgogETXUJQ@mail.gmail.com>
 
-On Fri, 18 Sep 2026 17:59:24 -0700, Kees Cook wrote:
-> kconfig: Introduce cc-option-str
+On Wed, Sep 23, 2026 at 06:40:57AM -0700, Ian Rogers wrote:
+
+[...]
+
+> > > @@ -44,8 +56,8 @@ branch_search='[[:space:]](bl|b(\.(eq|ne|cs|cc|mi|pl|vs|vc|hi|ls|ge|lt|gt|le|al)
+> > >  if [ "$(id -u)" == 0 ] && [ -e /proc/kcore ]; then
+> > >       echo "Testing kernel disassembly"
+> > >       perf record -o ${perfdata} -e cs_etm//k --kcore -Se -m,64K -- touch $file > /dev/null 2>&1
+> > > -     perf script -i ${perfdata} --itrace=b -s python:${script_path} -- \
+> > > -             -d --stop-sample=2 -k ${perfdata}/kcore_dir/kcore 2> /dev/null > ${file}
+> > > +     $PYTHON ${script_path} -i ${perfdata} --itrace=b -d --stop-sample=2 \
+> > > +             -k ${perfdata}/kcore_dir/kcore 2> /dev/null > ${file}
+> > >       grep -q -E ${branch_search} ${file}
+> > >       echo "Found kernel branches"
+> > >  else
+> > > @@ -56,8 +68,8 @@ fi
+> > >  ## Test user ##
+> > >  echo "Testing userspace disassembly"
+> > >  perf record -o ${perfdata} -e cs_etm//u -Se -m,64K -- touch $file > /dev/null 2>&1
+> > > -perf script -i ${perfdata} --itrace=b -s python:${script_path} -- \
+> > > -     -d --stop-sample=2 2> /dev/null > ${file}
+> > > +perf inject --itrace=b -i ${perfdata} -o ${perfdata2}
+> > > +$PYTHON ${script_path} -i ${perfdata2} -d --stop-sample=2 2> /dev/null > ${file}
+> >
+> > The perf script command is replaced with perf inject and a Python
+> > command. I learned from the above that we can pass the itrace option to
+> > the Python script.
+> >
+> > This is fine with me. I'm just curious why we don't use a single Python
+> > command here.
 > 
-> Hi,
-> 
-> While reviewing the recent build speedup series[1], it became clear
-> that we needed a general solution in kconfig to avoid repeating detected
-> toolchain options. Implement cc-option-str and ld-option-str, and while
-> at it, create "def_string" and friends to match "def_bool".
-> 
-> [...]
+> A single Python command that would handle both the itrace and file
+> processing? We could. Having the script command also perform an
+> inject-like rewrite of the data seemed less obvious to me than just
+> having perf inject do the work and then running the script. It does
+> mean a change for people using the script, and two commands could be
+> less convenient than one. We could expand the Python module "session"
+> code to include the ability to rewrite itrace data specifically for
+> this script. I'm hoping that we can have more composable perf_tools in
+> the code, similar to the ASLR code.
 
-Applied to
+> It would be nice to add itrace support to the Python code with
+> composing tools in mind. I was just putting off worrying about this
+> for now.
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/kbuild/linux.git kbuild-next-unstable
+Sorry for the confusion. I should have made this clearer in my previous
+reply.
 
-Thanks!
+I was referring to this change:
 
-[1/3] kconfig: Add "def_string", "def_int" and "def_hex"
-      https://git.kernel.org/kbuild/c/651fb291c4c86
-[2/3] kconfig: Replace "cc-option-bit" with "cc-option-str"
-      https://git.kernel.org/kbuild/c/889a621272f9b
-[3/3] kconfig: Add "ld-option-str"
-      https://git.kernel.org/kbuild/c/cfcc465018818
++     $PYTHON ${script_path} -i ${perfdata} --itrace=b -d --stop-sample=2 \
++             -k ${perfdata}/kcore_dir/kcore 2> /dev/null > ${file}
 
-Please look out for regression or issue reports or other follow up
-comments, as they may result in the patch/series getting dropped or
-reverted. Patches applied to an "unstable" branch are accepted pending
-wider testing in -next and any post-commit review; they will generally
-be moved to the main branch in a week if no issues are found.
+If itrace processing is not currently supported by the Python code,
+wouldn't adding --itrace=b here break the test?
 
-Best regards,
--- 
-Cheers,
-Nathan
-
-
+Thanks,
+Leo
