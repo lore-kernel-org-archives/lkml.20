@@ -1,181 +1,140 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012007.outbound.protection.outlook.com [52.101.43.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA534749D8
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:13:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790248385; cv=none; b=Jvl/56U7lYfDkYSsDJfAGY0xkF/sRVLUIsu1Ksjv4/nRYO8OFjzG6qYdAxrKyy3VeEttvIZbgg3WLTt3nG473FCgUColp0d8zu3fAo3W4g8kMzODTIfO4YQ6PeF79FUatLje4kZEemXEwRDnDl+THEmZZBAEzGkfLh9daBbx4nY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790248385; c=relaxed/simple;
-	bh=NqIuQ4YWrHMEt+JOeSh5y6YMSISYq9XBflrASMSrEaM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XywK/aiI6r9aPWJ1N9ViwU7mZYoK5YmszA2LzGE1spSe8nHrcd8j0Kw+1I3d0k4D7bvqjJdC9IsO4t0Fg70X/syHtF6syBXTL/lkfWgphOf4qZjsXsydHQhcHZVVKO1dkzXgQVSam3PW9t+OPk9596DBaVYVRHK1l74Tx3N/C7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VetLI3IZ; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38452407CDF;
+	Thu, 24 Sep 2026 11:15:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790248533; cv=fail; b=M4jB723HwBIB3vMEaUtt7c+Mep8DdJdguqce0Z8eh5AST/w5JiYmrkLO+NvO8n/CX3mi/vwZpCAMysmO+y9M+LG0ydqaCO3/4OIC8U9/NsNvgilblLaxQMN184JvqzITenFsRxnZy+wy6SAxlZnpKN9fhkTtnJY1ygxRaGZKOGs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790248533; c=relaxed/simple;
+	bh=+YOcHY4BEjrCMqN6YSHRdM8yHSm4jCR1m2ACyfmb9js=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=h3yvKar5YGMXEQY9yUdyzVjpf/t7RSNPWVk2siWBY/Gy8ELD5ZgL+TjtUp99q+8MAL8K2nOheGQ1GQJUHkg26B5jDlogA4EC3Brl7168Dw3WalAUbG5jDEt2krUgJ9+fg9puKrhz3sluB6s+Xfx0pDaoG+5ApuHM6R1ZK+dXTdw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=mnEjbHLf; arc=fail smtp.client-ip=52.101.43.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VetLI3IZ"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccb652d7so1348765a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:13:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790248383; x=1790853183; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xajPQk8GjdXK5kaUdC9KQJ19YcliIXFOaF4kzScKofU=;
-        b=VetLI3IZ+yBOGXsBmOpn7kZajcrhs+usBl5BRtrvBBXz/Xav/zV2sSbwBKXLswWsk9
-         sHShrRM2dQFjWFk+x/2QnMRbUhMdQlI3rn7n53xQBl2ThEwYb9OjUoV4e2ZQSuLcDbQY
-         0+ytgRQcZsASrkArcwbTpK5r/2L8gIZYk3BMeGZNVuKhZW1DQvgdutifzP2aQSIooId5
-         6A41r46Gd8GryrRRQJ3uYPbiuDJqV3ZQHeJlT6rEAQAZTyULgyjvUowiOq0iw5NqOWOc
-         VLObAWYPKw4zwGnnpX19dIopUk5yn5Fh6DHkGT2g8IX6QbdSw5AV65jPzO+4TcIsj6JK
-         aDYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790248383; x=1790853183;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xajPQk8GjdXK5kaUdC9KQJ19YcliIXFOaF4kzScKofU=;
-        b=jxTyvt2SzqjYGraohnWsLuZQv361Mh4h2/cWOaGFXJWAaq9cX9uL446+DHLjtwOkmZ
-         xp0rQARQ7toCTV2MuAJL/VhrrCNyD8Cowl5SuzvDXL35fHPI20Bb/HVpQXq12YTtzBvW
-         w0wJEYgoSLEmP0BCpbT4gtY9ddYH5QJSx+2LjHx2T86Se49eQkzRj7pq0JSvU7nc8J7o
-         D1PH9xyc2HwQRKyKMjzzsfario6wgqtjBxr7+UFY4KYzq2eTVANCqVkGlgTsqfdgbTDx
-         3mehTfuGZEupEr0RpBD75DvbiLUk5P6rvA4h9F3WNSWjelV4gsXZrx9N/7n5jb7YDAmK
-         lgzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy0JdRge0gKU3KQOoDKu481bcoeL+D9/79/bT4zA0GT4bxugBt+CcNaf88mOE8c/oaCqIyx27rEZoWv+F8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mljq71Zptt7trAzLc8aJKC/u7Z8f73YelGg9q0ImJGPSXo8hFe
-	ELNLCcooPsVcPmKivuaxN8V7pZ0YqfbRFgPb0WG+AcE5pp534F+MUhu+
-X-Gm-Gg: AYBFou3EzuuD6CON1q+UhYkknMxWl5VVHse10D9K02B+N/xCg0kX7LwPRnZlengsL+D
-	UP0HLC+XgsqYPipZhWOLrM/mO1z2LjkqqxUn5U8S0OPkzS3dvUSHTGRwRQnbhYdsS005raIzs2u
-	Kw+fu+gbne7uJ8DplRtFaj4eCzMCTv3YkELLCAAo/GZjl8/vWdKda1EGrmDmfm8ywMP6OgSchv2
-	gSRO+Jxwx/3c1ipdlsBwZse6I6y5Djo8EEIMEvV4iheMNlM5SyYK+wz81MCjCCZI6mgzb3kMNHR
-	pWyR31OqTEKWHQ/hNf2Mvtmym/R/VgBqwBgjwng8d4PI3ssWd7Anh9/6KP7FDpZI/cwyD/HU7D5
-	DzlRP6VM9x5rr2PCMNlc8z8o889O0LeWTQu+6FdRxQczKfyxjLateRSx5QlhpVYphhFeVf7OXJV
-	oh648DddC9urnrMIlSuDxvq9CdrYjocwncLXIdUiUagMFRVdDte3GgIi2on9lJqT3sDTYv5E5Bg
-	bA/w5FFs65ZzB2eGdHQ7lxdwyWXbxeGQQ==
-X-Received: by 2002:a17:90b:314e:b0:39e:5ade:f9de with SMTP id 98e67ed59e1d1-3a098b431dbmr1903170a91.26.1790248378423;
-        Thu, 24 Sep 2026 04:12:58 -0700 (PDT)
-Received: from arch.localdomain (123202092053.ctinets.com. [123.202.92.53])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0974ec5dfsm4399478a91.3.2026.09.24.04.12.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 04:12:58 -0700 (PDT)
-From: Jun Yan <jerrysteve1101@gmail.com>
-To: damon.ding@rock-chips.com
-Cc: Laurent.pinchart@ideasonboard.com,
-	airlied@gmail.com,
-	andrzej.hajda@intel.com,
-	dri-devel@lists.freedesktop.org,
-	heiko@sntech.de,
-	jernej.skrabec@gmail.com,
-	jerrysteve1101@gmail.com,
-	jonas@kwiboo.se,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	luca.ceresoli@bootlin.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de
-Subject: Re: [PATCH RSEND] drm/bridge: analogix_dp: use devm_phy_optional_get() for the DP PHY
-Date: Thu, 24 Sep 2026 19:12:49 +0800
-Message-ID: <20260924111251.936444-1-jerrysteve1101@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <a0754d11-d88b-4dda-972f-7c696a037bc2@rock-chips.com>
-References: <a0754d11-d88b-4dda-972f-7c696a037bc2@rock-chips.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="mnEjbHLf"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wdkZ9cdo1y0jzA2YkYgtrZQxW6awtimuKfuZDXylAcbSAkgZCgchAnYhcgxPb0TN55laSXKkCwJWzY5eVQRV9yXqPnsfuZA5CLUJzDyLgzHeG3kx8ZV3OLqJtlM1JPme5fNbN9o7sPtVEuAV5iCIqLreInLrktDtJmbmuQI7EJRMWU8Vwkj3XxpSKXPcofHeyeAORQ6qrJB9xfxx1HNQsbU+kVllkeSYf+Hn4/VKKH5mQT034UNgaxBAPLfLgklNNDIrQdJYJ0DMcvArMyx9G0RzDgBZyaltIxBQW5QC8gl8vROZ9yOCM4qvG6P+NTBqYpiF/N7Yg5bNA4xn4n1LLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+YOcHY4BEjrCMqN6YSHRdM8yHSm4jCR1m2ACyfmb9js=;
+ b=XGh/rhjvdS8bJjHtkU9k3TVb6fhrDQ3qmvcVN47o3tLx2zOfIv5lvLDozlXZAiNxdFdHJjNAdEZyQiRjuTcdbYhRpEbdcbe/rmBTkXBP9L1jAvzRPk6hqqH2btQUx5E0YjhOp2a075gC0MjewogV3MrQlTlKGOp6vmxryqUoYxajzt0N/CqIkYWGj1HJnCP9aa4mW5ubhJFr48B4h6zDGr9+gFtL4JYO3LxVwNtXH0Rh43GOlfVjU7vLna22wI+mVWmqQCiXIatdCWJezNeVJxkJenDN4CDOwyyAS10iXGj4u9/1gCW3L5y7WcdHGTK2f2AiN3kZrxiu16BVqCxdew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+YOcHY4BEjrCMqN6YSHRdM8yHSm4jCR1m2ACyfmb9js=;
+ b=mnEjbHLfHXnA8pznqRzImrJmQh1TJnkhqUq/GUn4Xwf8xCFxduuJc3iqVJu/nKQ8dhh58zGwC/+6SpodYfgluuaqQ5wxW80mDTsBdS8OaRZjzkdLs/dOvtouJtpeTBVut4TstrfLDgnRXrsce2HlBmc2qKviZob6j1WSawDgJN0=
+Received: from MW4PR03CA0075.namprd03.prod.outlook.com (2603:10b6:303:b6::20)
+ by CY8PR12MB8265.namprd12.prod.outlook.com (2603:10b6:930:72::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 11:15:19 +0000
+Received: from CO1PEPF00012E65.namprd05.prod.outlook.com
+ (2603:10b6:303:b6:cafe::13) by MW4PR03CA0075.outlook.office365.com
+ (2603:10b6:303:b6::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Thu,
+ 24 Sep 2026 11:15:19 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF00012E65.mail.protection.outlook.com (10.167.249.74) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 11:15:18 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
+ 2026 06:15:04 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
+ 2026 06:15:04 -0500
+Received: from [192.168.1.3] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Thu, 24 Sep 2026 06:14:57 -0500
+Message-ID: <43fb3d8a-0736-44ae-bd7f-01e701d4b7d9@amd.com>
+Date: Thu, 24 Sep 2026 16:44:50 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-> On 9/24/2026 11:24 AM, Damon Ding wrote:
-> > Hi Jun,
-> > 
-> > On 9/24/2026 10:04 AM, Jun Yan wrote:
-> >> The DP PHY is optional: the Rockchip RK3399 eDP controller (used as the
-> >> internal eDP port) has no separate PHY device and relies on its built-in
-> >> PHY, which is programmed directly through the GRF registers, so its DT
-> >> node carries no "phys"/"phy-names" property.
-> >>
-> >> Requesting the PHY with devm_phy_get() therefore returns -ENODEV (or
-> >> -ENOSYS when CONFIG_GENERIC_PHY is disabled) and the driver logs a
-> >> misleading "no DP phy configured" error at probe time before falling back
-> >> to a NULL phy.
-> >>
-> >> Use devm_phy_optional_get() instead, which returns NULL when the PHY is
-> >> absent and otherwise behaves identically, and drop the manual -ENODEV/
-> >> -ENOSYS handling. This also removes the spurious error message.
-> >>
-> >> Assisted-by: Claude:deepseek-v4-flash
-> >> Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
-> >> ---
-> >>   .../gpu/drm/bridge/analogix/analogix_dp_core.c | 18 +++---------------
-> >>   1 file changed, 3 insertions(+), 15 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/ 
-> >> drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> >> index 18e76d1e78e1..28eb668d3e3f 100644
-> >> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> >> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> >> @@ -1427,21 +1427,9 @@ analogix_dp_probe(struct device *dev, struct 
-> >> analogix_dp_plat_data *plat_data)
-> >>       if (ret)
-> >>           return ERR_PTR(ret);
-> >> -    dp->phy = devm_phy_get(dp->dev, "dp");
-> >> -    if (IS_ERR(dp->phy)) {
-> >> -        dev_err(dp->dev, "no DP phy configured\n");
-> >> -        ret = PTR_ERR(dp->phy);
-> >> -        if (ret) {
-> >> -            /*
-> >> -             * phy itself is not enabled, so we can move forward
-> >> -             * assigning NULL to phy pointer.
-> >> -             */
-> >> -            if (ret == -ENOSYS || ret == -ENODEV)
-> >> -                dp->phy = NULL;
-> >> -            else
-> >> -                return ERR_PTR(ret);
-> >> -        }
-> >> -    }
-> > 
-> > It should be better to add some comments here:
-> > 
-> > /*
-> >   * Exynos5/RK3288/RK3399 use Analogix DP controller built-in PHY,
-> >   * no separate PHY configuration is needed.
-> >   */
-> 
-> Well, I think it should be fixed to:
-> 
-> /*
->   * RK3288/RK3399 use Analogix DP controller built-in PHY,
->   * no extra PHY configuration is required.
->   */
-> 
-> The Exynos5xxx case may be more complex.
-> 
-
-Thanks for the review. I will add the comments in the patch and send v2 soon.
-
-> > 
-> >> +    dp->phy = devm_phy_optional_get(dp->dev, "dp");
-> >> +    if (IS_ERR(dp->phy))
-> >> +        return ERR_CAST(dp->phy);
-> >>       dp->clock = devm_clk_get(&pdev->dev, "dp");
-> >>       if (IS_ERR(dp->clock)) {
-> > 
-> > With the comment added:
-> > Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
-> > 
-> > Best regards,
-> > Damon
-> > 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 00/28] KVM: Enable FRED support with KVM VMX
+To: Sohil Mehta <sohil.mehta@intel.com>, <kvm@vger.kernel.org>,
+	<x86@kernel.org>
+CC: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
+	<seanjc@google.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+	<skhan@linuxfoundation.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
+	<mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+	<dave.hansen@linux.intel.com>, "H . Peter Anvin" <hpa@zytor.com>, Xin Li
+	<xin@zytor.com>, Andy Lutomirski <luto@kernel.org>, Peter Zijlstra
+	<peterz@infradead.org>, Andrew Cooper <andrew.cooper3@citrix.com>, "Tom
+ Lendacky" <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>,
+	Shivansh Dhiman <shivansh.dhiman@amd.com>, David Woodhouse
+	<dwmw@amazon.co.uk>, Chao Gao <chao.gao@intel.com>, Binbin Wu
+	<binbin.wu@linux.intel.com>, Zhao Liu <zhao1.liu@intel.com>, Yosry Ahmed
+	<yosry@kernel.org>, David Matlack <dmatlack@google.com>,
+	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-kselftest@vger.kernel.org>
+References: <20260911213659.2025974-1-sohil.mehta@intel.com>
+Content-Language: en-US
+From: Shivansh Dhiman <shivansh.dhiman@amd.com>
+In-Reply-To: <20260911213659.2025974-1-sohil.mehta@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E65:EE_|CY8PR12MB8265:EE_
+X-MS-Office365-Filtering-Correlation-Id: c3a4cd40-a92c-4d83-68b8-08df1a2d1e0d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|7416014|1800799024|36860700016|30052699003|23010399003|10067099003|22082099003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	4+/Uy0cJHSX3rRgVCaD2vngN+e9Bx9DjRzRg2nnnlZrWPS8c4BrYuWH6mPspegzkNiZS/3m+AtzddOWXlLxrHJ39ZSEhirLFbLr9J53X5UVodWd263bfquceguAFZ2ofq3RKJwjNuh+Mk+z9CHev//no4tJBTt9Zz2V7LAvb+FEt+rWxtkOb2PtN8VZJRVzU8iv5xxNO3UMns51i08tIB6IzCZqQ58eRT6MP/hMGbsMZVWT/4/0rkSzTduJKyzhmqxb4zQTcEKBBq0ksPi9VSoDa20FqyAlF/3QRQZ5oWybwxGBQS/w6BeJmyivq5VNgLsqTCNe9t4ySh+BnG1yNmj0loV0uyOiRgDrf9wMk9mBdmbKhkvd5HaBd2sUHq2IzGcMV/9gSL7EjIo6WNO2VJPrwaiUrIV/1H/6ghchmXO3GZD986l0BYlitOyUoeccYgA9gjrTnJyJNPmnfYv16FIvFNm//KvKH29scH0S71oNkhafLeNpTUCy8KdQVQMU+nC4dvcoayoQggGLonUSMya7FfejLfgMg2mOGutAez1WHERlXN4NdtCqt7wfDtt0VOCrF3z6MAhhr47ysrwhOumyms1q6pHFex8svyQ2ojr4/UXRiDZPgucU7lfoTBF68hFq6XnbbhesxN2Z08bGEVB5YqcIPWaAu5Q4SpqNjl17I8mCvbb+e5HvJyVaLTINY27xeRSL9WJwrSFA5Lru8kg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(7416014)(1800799024)(36860700016)(30052699003)(23010399003)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	MP4Xa21R5JrTq/5t4+/FxQRWub/UBxjj3aFUpgUcuqbQw3/X+igIUcE6cxHb25mHKMFTFpoJq77y02LsWFd5w7qYsfsKXU4kUtl54j5rDDcL36Kd9b1hg1lfaERcQ5frVrwtZS5GB/ggrysZydwZsibzFHXD5RhJDP7MypyCV0HjlCoVD2Vc4uI6n4m6m1sQpLDmfVN320vm/Z00kTOXGZSjASst7alt8Q1w5uuqLMEPlw4ZlnyCZfom1cdOKlh8kYJOybjhEOAYRrhN9muNFMicCRkwxaREP+x3REuPWRslQGJtg4R83AJH9pVhQeHSM7/FNcvasklxYIeqpAsNt5WrQr9zcjfvAdBqx88YPjFxdnKoP/+TgnFydgKmtOjkfDxoKI9zAybTvAhjRZj+uY+VTJXjg5GUSu4yDJ0Q7OJgRp1VoSi4AMxNZd2jAP4h
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 11:15:18.9225
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3a4cd40-a92c-4d83-68b8-08df1a2d1e0d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF00012E65.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8265
 
 
 
+On 12-09-26 03:06, Sohil Mehta wrote:
+> Opens
+> -----
+
+> AMD compatibility: The SVM enabling [5] builds on the same common
+> plumbing but I haven't had a chance to look at the series yet. Shivansh,
+> please let me know if there are any incompatibilities. I assume most of
+> the opens apply to SVM as well so resolutions would help both vendors.
+
+Thanks for the series Sohil. I've been able to run SVM side of vFRED with
+changes rebased on top of this series. So, no incompatibilities in common
+plumbing as of now. Will let you know if anything comes up.
+
+Cheers,
+Shivansh
