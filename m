@@ -1,186 +1,139 @@
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2456A47798A
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:21:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790252474; cv=pass; b=GDXo/xohjcxxAVRzWU5oc0NKqZr9/oEIzJSiZrQE96JrBcPPyenOiY/aAD75T7z/MMoB87+r+EDUO3YdLWscnHEP6cH/DoF4ZWFG27iUh7tfr/vB820cwoy67yt8mpzyiA6vUEeVoUchXiTqlZcdUeTw/+cpa7VYMnjIKvcw6Jc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790252474; c=relaxed/simple;
-	bh=K9ufhPEWTbcGbUWPnsFi5tG5G32ivdBgHbHB+/9JtVw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UeLlsUZR4DxG7m7IFT4OY7iQYupt2y1OdXI4bOr5W7mpbYA6V6BOxQwmPNYFoVbV2KJW2DWnDp1Q6usFCh4a8sxwJ8pJyMG0x+nO4UW4zcYz2y+6bLWTp7dR6TU94/fL/4zePcjgeOvJgzr7+T9/yc2IrI+w8ZKC+g5tuEf3g+M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RxOLFp8z; arc=pass smtp.client-ip=209.85.160.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A56347AF5C
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:21:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790252486; cv=none; b=XWLU5GnFYRR4IPSxsufGVNz5SMfdEPWoy67iqMCC9ak/F/YBVfWsgKs6LdfUim/5sPu6OrsF/Ft+RvTIO5nxKMlXuZZQBJXnglC2fxAmbjt9nWMk0yDAEluDNWWRBKjHX02zw17eghu6YBjbU0py3wY+99YKmcer2Ee5KWk6A60=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790252486; c=relaxed/simple;
+	bh=/oZU2iXNo+CbzykkqU059B60grjKuzDMZZXc8K1zOLs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NTi8RNvRMTcDmA9IZs7NP8nXmRKSEAy7etjY1FDeUQ/ECqq+8ab2gcjmIblE6OUdVesEXEW5Oms+UwDSabzdpOTK5ciXOZyENWkGHhXWayNQZHGGjW2eNyf1gG/QdWFJPmdLm8uvzrNNwjpEeisr8poGWZvA9kL89H2b5GyQB2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DwIDURAf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PoGwP84m; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RxOLFp8z"
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-52faa58bff5so237491cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:21:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790252472; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hrw3UPD4Gh5X36T+b+XIIcE6MDsr+aWKasBw9JC6IDyngP7Z8sh9I0azb+xR3Yz/a1
-         WHBg2LtxqTp5OsIZp9kGTZqaTSxPvYUOOsyUyqAABCALgaiOxa/wesX1+rEHVLOn9PPq
-         6ENcN/hF6d6FbGJNcQUvPptM1WnKHYddCupqodGGC6dCUhuvBP3FmxBzxfxzjhAD6ssc
-         jbwlJaPMiIUc5Ohgra8MeB7KXrbfVk1lr/pex0p5so618PbxEMQW75rnBaURHi8N3jtj
-         03k71q4W4VpaGG01la+xTmsqDmjzM2R4Uo1WzHoDmgxBtPE1VDPKjKD4VOXdcWgRSVwX
-         mPSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=NkGH7LeMJDJfHMf9D0brPKFR1SEB0UnnB2ab6h95oe4=;
-        fh=UeTpewyogaZLouDz5r2yGXDrZ+CWL92J7jcDf/J7Cvg=;
-        b=ABaxZflmTqbwO5vmGOi/du1QlGjDaWLZ/6ByoKW2UQsit9uTIg2rnwcuA9K24DaVeO
-         zUIcloMly3y91qvFMj7+7Ku8I3FtSxMHdBrJUYIzTdxwKt1yCpWUTbCSUjcgoLAO1lTZ
-         W9QViMgyBx3Bw/dR3AkQfQEv1pIUwDNXTQduO4O9HocUKluByz2SIS/51HwOglufV094
-         C+3Pa/xP8YXBHrTIuuqLPf/QxKpt4TzwMJKdk83fUZKyORwd+59sVOlJd9V2dKxBUW8u
-         66ry6PR+W8wxXZdgU5sE+Rche/MF+IIUIz3RQfZb0xrF5X+SOhtN2gmDYSa9l0B2xySF
-         Gs5Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DwIDURAf";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PoGwP84m"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OC4Wum3134054
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:21:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=Zu8lIQBQAtkKDY5ZOhEFQeqE
+	h8xnZLBa80Wnc032cXA=; b=DwIDURAf3JwI4tyvVuY6QUrW/mZl9y0NIGJk/eEL
+	Rb5yiftOILdAVYji7/lCyt8liyn3bAgOvI08jlRsTczxjTW4jhL1FEWwSjnkDYuv
+	6hEktigVqMM/FDP2qXdHuqD3ddtBlObxxtHuxrV3B2QJEUc+oaSj/8X7R09bX1ib
+	zWYEFKXE4cVYPNrR3K+yo26GV+OctG9VHazB2lH3P4Cfbg4Uixl/H0r/+nDQr5xZ
+	dtyiwaYgjeMtGgWKJK1J2ai30B2OiGHvgnjgT6bftWaqqicXbRhUvVPi3aUQJQCf
+	Cy5gFesTwQ1ugzgI8fj7/osxqUihltNhPB22mWYe9kZOCA==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw1ragk3r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:21:23 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7961a79fcd8so599132137.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:21:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790252472; x=1790857272; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1790252482; x=1790857282; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=NkGH7LeMJDJfHMf9D0brPKFR1SEB0UnnB2ab6h95oe4=;
-        b=RxOLFp8zns9PebEfZOT5KCV4HOlHPO51bVjqJXi77VlNxbLzELm0H3mDLQ0YG5FSbP
-         iHnwm+NSqxJ6fMldJbBXqaoBzY68es+RwxdL1ReKIX/wWGPpQsaLPH71d6bmCOiCn6l9
-         UrbDCzYsyF0jPJE0prMOVEUbVQqjAy2TKax/yaCQVXqQra4x38ey9+i3CTpaD+pOizwV
-         CDMvzkDNQBIB2RnIZvX663wd8SAJ5W0bgdUnvLnzjPllJ3qiTF1IcO/N9B8KhX6PUMaU
-         lE8o10voXt4eKcpDKrx6JTPn2hnLMemEJ/Lya/Ay6apKDtceIncTxBlInsqPK9sf72dq
-         setg==
+        bh=Zu8lIQBQAtkKDY5ZOhEFQeqEh8xnZLBa80Wnc032cXA=;
+        b=PoGwP84m9d6004RywTkznlOvfAAkhP9Fhyj2XMg6I24bZITyYO9gkObUcGE9zSIXGE
+         fb53IwwQJGVMZiKNPbSf1C44HNKS70UPTESWQqgA+ZHyHfWWkSgO9gPSw/3Ule9aN6ub
+         l+BY13ImaH8vL/2l3qqAHZcfJskyNqXX//fZE/Yc5Wmpe3e/iuXz7MGRb04thhDOVlk6
+         898zEfPpmpxaMAn1c55agpkFsHoD6085KyWMkVLFoSIWUaORz1oqnzDOcT6kOzhCbQcC
+         G9fIiO7D6AzDcH8RQvEwJkpxdLXzMdHQbsFoNmxG4k3D1Sc5pXcrwtRdSzxlYlcnsaCX
+         Fmsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790252472; x=1790857272;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790252482; x=1790857282;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NkGH7LeMJDJfHMf9D0brPKFR1SEB0UnnB2ab6h95oe4=;
-        b=aPtTp/5GFlz301Bvv/gH2YeB9FZaQu+JyOdAIUnPStzcz7LL/l1StUmWeDbbhJQc7S
-         YEnMJKEuBSQcGEXIm8PK0MTCB+RFb6Xgw8bs6c3Kpi/H/n6+gZGCbc4+ZGaAEPmtbS57
-         U91G0D0k0TpZ+zNoEBsfuL7MHr2dZ2topTF5vDiBW9s+EdS1zERSbcDcjW93IeKWyp2z
-         v8X2/6nbNw2xYt2tw9n8ORTcrLtugZrhmOkThwUYRi/gKBdWlgXZIC/PoPUmso4o84QK
-         K6o7fb97s61kGimFBUVuNV3SElvnfDxFddYlU/IyrmixS00ANNMNeXL+X1JTxeNQyDNZ
-         iELw==
-X-Gm-Message-State: AFuF++m2hIIV5cMDxe/IjCubuFbaqhkxk7sSeYWKCp4Nj9xDYYzW8250
-	9GZu2LzDBe+z8CtpNCZTfx0Ma3+rCVC6gaplJn35HMFvzgc6EajH0ty7ahknMvRjCY9pJqmRgPo
-	xgpctKYVmLq2Wk8xv1yyW+THqjj4U19RMjloU4v5L
-X-Gm-Gg: AYBFou2gRyoEJ5zFAN4txmRVuiTgw3stq0lbo93hDPUl/Pkq6tFrhP72/M8rxJ/Luvk
-	rRtjwvmVVmNQFoINr/IxpsaympbGwzTCkneRWxCwuONpPGRxoc4Np/usSvtaRqBkm17xbFYa+vN
-	W1M7tAC0OqdjSaM4eG/FFoRbjElXZXdKmP704xsEH1RwAnOGkH92RNNhSfq7kD7Fvhh0jCUNn4q
-	ZuDPDfOg9WIpcH/io7dX88SU9aTqBc4YIR0KI9OzWq0Xedq49e41GuAQDzaTXrfGMH7pd+AKpip
-	6hpKsrjcMdWz4ZZDUCAOasLeOk4fwI9oKYCE7UQ0xTs4hzTpypzALSW1uvPJCtx724u/AOIJ40+
-	nMOTNc7ic
-X-Received: by 2002:a05:622a:5507:b0:50f:af60:3496 with SMTP id
- d75a77b69052e-532fe9f468dmr9310531cf.1.1790252471121; Thu, 24 Sep 2026
- 05:21:11 -0700 (PDT)
+        bh=Zu8lIQBQAtkKDY5ZOhEFQeqEh8xnZLBa80Wnc032cXA=;
+        b=TkIbempiqLPEPKnDVGRwsB6OqWQ7ByE+7REp8k/e58OXPjFzeh+Lh/AqEJdZOhh9Lv
+         UGGgx0JjnNFQiZmgjC1A56G+h7zx2U7KwsTgrM537Z9egYdPcO5yMC5LNGdV0LYZ2Oyh
+         AmntDLOpPxmD3jJorFeBc52J3Ab2c4CnN5jlo5nKnymj20aTFfiwo2s8MbIJ36qJymVg
+         cUlOALkfhlMV7UkqXplGqv7kkHvtnKIB1T4ViPXj5o4avJ9ZeCpxEtEZTAw3IoxOIQWM
+         ZscePAz3XRtbwPlb72yCIf0cGZRL/Y9kFO402awj+vvuVpokxrC7QQaffc/abBzgDBpv
+         bLAw==
+X-Forwarded-Encrypted: i=1; AKwUvBx55cKcsNWYUwlP9cl6pnpMuWX9CjwurMTNWk6pCJF3g8CIdICfUkqA4BF7P0ngDsQm0mYFi/ItlJvdAK8=@vger.kernel.org
+X-Gm-Message-State: AFuF++muJ8r6CurK8TegAVkHKGBAVcYZ72fcOCrut+moY0Nu4adDbBnr
+	6IxwLoSIBVg7x1+CLjI6FGtvTpPf+KOk/Q5NyGIf3Zy8Q8Z0Zr1u21d4+YMfkF7Tb7PwJejc7LV
+	2ufv2NryOP9vX0H8GWVfA8W3rR3cvfM6mxAj4hXjR3Cq5wQah9xhQYbwh8l9OLJ/DBoQ=
+X-Gm-Gg: AYBFou3yPRNPf3ZNrP5DxbMRqvZwkgkzcbg6OmLvNI24tJjpNIyDZhlEbiV0th4K03/
+	sYDrHB/fuuKskEQDBH9uHq02C0uPXuk/Il2LWbk3+vit0X9R0akiDf0IiFunFCe82phS0MJO31B
+	mS6haKRhftkcusnRhNExyMHnz45PJZG32J35owaZazEnd7Gnp7LnCkxmY+vmihBmnFg8NRTTakx
+	CbTuJth7NnY3ozQ/mRLxxbLOh4cU7MHOePY9mMF2uTF4vpOrXjmc0otgEoLBxKSgAB6TE7vvorA
+	oj6HT89nGxKq3bXXlaumH9YcgHdfwo1BAcWSA155tsYdmuPpujAsMJrm9HKGcyCbehFl0cJ2Y/D
+	QljDBCyZLgNq6QxQ=
+X-Received: by 2002:a05:6102:3706:b0:7a7:19aa:f0d4 with SMTP id ada2fe7eead31-7af1f619c90mr1088308137.33.1790252482089;
+        Thu, 24 Sep 2026 05:21:22 -0700 (PDT)
+X-Received: by 2002:a05:6102:3706:b0:7a7:19aa:f0d4 with SMTP id ada2fe7eead31-7af1f619c90mr1088279137.33.1790252481364;
+        Thu, 24 Sep 2026 05:21:21 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886876c1fdsm16655704f8f.14.2026.09.24.05.21.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 05:21:15 -0700 (PDT)
+Date: Thu, 24 Sep 2026 15:21:13 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Shawn Guo <shawnguo@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, brgl@kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] arm64: dts: qcom: nord: add GPI DMA controller
+ nodes
+Message-ID: <nv5stigwlyrwgpdwo3d6ctmqfopy7tgdrnrhvfvwxxvz5yxwtd@4kis7hnqw4bv>
+References: <20260924-nord-gpi-dts-v3-0-74a85134699f@oss.qualcomm.com>
+ <20260924-nord-gpi-dts-v3-1-74a85134699f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922211559.3633398-1-sadrul@google.com> <sqmmgjre63ltp2m6y5ui35hijnnwfljnzjscceunvzmzd5rh6i@us2amzhvtkw7>
-In-Reply-To: <sqmmgjre63ltp2m6y5ui35hijnnwfljnzjscceunvzmzd5rh6i@us2amzhvtkw7>
-From: Sadrul Chowdhury <sadrul@google.com>
-Date: Thu, 24 Sep 2026 08:21:00 -0400
-X-Gm-Features: AclHuK89lBo3kLTsEvW7wqXIE_9vbscPCVVxotToLaOHDgnCk-gw32aXdN6iQ4M
-Message-ID: <CAKgcGXgfr-hbBj+tc--uD5t3J6Q7zhnSsm17JwU0ZdVhb1ai+Q@mail.gmail.com>
-Subject: Re: [PATCH 1/2] fs/epoll: mark epoll_wait tasks TASK_FREEZABLE
-To: Jan Kara <jack@suse.cz>
-Cc: linux-kernel@vger.kernel.org, 
-	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org, 
-	Pavel Machek <pavel@kernel.org>, linux-pm@vger.kernel.org, 
-	John Stultz <jstultz@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924-nord-gpi-dts-v3-1-74a85134699f@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA1MSBTYWx0ZWRfX0TMuOjX9JJNP
+ Utgp4WmxpT3N9aP+Rt+J7MFNnf/aetXoK00u1mNRu1EMERXUobmBDms3IwaagtWV82t8h7fByL2
+ xnjr7t7V/rN5mb/HdVJ5BNtn/Mtnm8CtGRB2FtO51iBTMzsUNOXot7xswu7LtiIgzmnS/yifn0Z
+ 5KEnODFdyvMJPTanechEiHfYA8io3f0PNez/RxWgEPD9Xs1bLmtr8O9CXy16K3ayPC6WZzZHeC7
+ 6jjXF3LnQanji5q6VlchPlst3DnQn4ZW2DeDeyzcWVgZuHO9RknnWFCRI3QJz1ztJ9h7x54NFnR
+ b30MpzlQ9ZlbPdDMkB5m9wUXH6IXzn75s3rbRDesO+e0CH7F7d8gU0z89FVaTCEPZRwK585es8V
+ muB84YxVtdof5ZQANHhbMmd/xfIeWoFM3UgREoNFHAntxDuQ7J0uTbtAEeuYmmzRGmRXFqdIotd
+ 4t0yTf0gQE7IIerHHfQ==
+X-Proofpoint-ORIG-GUID: TcKDtHSJnyAE1Ah7Htg3LAgpW6EsVRcZ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA1MSBTYWx0ZWRfX/zD+7fCbpAH/
+ tLzhZX0/xXd0UQWF7H3TiXPV4nAwMB2WNrrTPUcDtKMxWjVduqCOIAo7LIcGxYmNM5tPfn9BHi1
+ 3y92plc7k3SYiRDU1uAEaZruoRn+ppg=
+X-Authority-Analysis: v=2.4 cv=fvpJ914f c=1 sm=1 tr=0 ts=6ab515c3 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=svJ9ipqeD9EGsNKrb54A:9 a=CjuIK1q_8ugA:10
+ a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-GUID: TcKDtHSJnyAE1Ah7Htg3LAgpW6EsVRcZ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 suspectscore=0 impostorscore=0
+ adultscore=0 spamscore=0 malwarescore=0 clxscore=1015 bulkscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609240051
 
-On Wed, Sep 23, 2026 at 7:24=E2=80=AFAM Jan Kara <jack@suse.cz> wrote:
->
-> On Tue 22-09-26 21:15:58, Sadrul Chowdhury wrote:
-> > During system suspend (freeze_processes) and resume (thaw_processes),
-> > threads blocked in epoll_wait() sleep in TASK_INTERRUPTIBLE. When
-> > try_to_freeze_tasks() executes, it must wake up every sleeping thread
-> > with a synthetic signal so the thread can schedule, run try_to_freeze()=
-,
-> > enter TASK_FROZEN, and sleep again. Upon resume, the freezer wakes them
-> > all up simultaneously, only for each thread to re-enter ep_poll(),
-> > observe no ready I/O events, and call schedule() to go back to sleep.
-> >
-> > On systems with numerous event-driven daemons (where hundreds of
-> > threads idle in event loops), this causes a large wakeup stampede and
-> > thousands of redundant context switches per suspend/resume cycle.
-> >
-> > An earlier attempt to make epoll_wait() freezable in commit 1c441e92120=
-1
-> > ("epoll: use freezable blocking call") was reverted in commit
-> > c511851de162 ("Revert "epoll: use freezable blocking call"") due to
-> > reports of userspace corruption (Bugzilla #61781). Under the legacy
-> > freezer design, freezable tasks could wake up prematurely while
-> > hardware and peripheral drivers were still suspended.
-> >
-> > With the 2022 core freezer rewrite (commit f5d39b020809 ("freezer,sched=
-:
-> > Rewrite core freezer logic")), the legacy fake-signal mechanism was
-> > replaced with the TASK_FROZEN state. Tasks sleeping in TASK_FREEZABLE
-> > are safely frozen in-place without waking them up, and the scheduler
-> > guarantees they cannot be woken until thaw_processes() explicitly clear=
-s
-> > the frozen state.
-> >
-> > Mark sleeping tasks in ep_poll() as TASK_FREEZABLE. Benchmarks on an
-> > ARM64 test device demonstrate that combining this with freezable
-> > select/poll reduces thaw latency by 63% (from 20.64 ms down to 7.55 ms
-> > mean at fixed CPU frequency) and reduces context switches during
-> > freeze/thaw by 87%.
-> >
-> > Signed-off-by: Sadrul Chowdhury <sadrul@google.com>
->
-> With similar caveat as on patch 2/2 feel free to add:
->
-> Reviewed-by: Jan Kara <jack@suse.cz>
->
+On 26-09-24 14:10:03, Bartosz Golaszewski wrote:
+> Add GPI DMA controller nodes for all three QUPv3 engines.
+> 
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-Thank you for the review!
-
-Regards,
-Sadrul
-
->                                                                 Honza
->
-> > ---
-> >  fs/eventpoll.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/fs/eventpoll.c b/fs/eventpoll.c
-> > index 6cbef8b4c2e0..35992f6457bf 100644
-> > --- a/fs/eventpoll.c
-> > +++ b/fs/eventpoll.c
-> > @@ -39,6 +39,7 @@
-> >  #include <linux/rculist.h>
-> >  #include <linux/capability.h>
-> >  #include <net/busy_poll.h>
-> > +#include <linux/freezer.h>
-> >
-> >  #include <trace/hooks/fs.h>
-> >
-> > @@ -1987,7 +1988,7 @@ static int ep_poll(struct eventpoll *ep, struct e=
-poll_event __user *events,
-> >                * the same lock on wakeup ep_poll_callback() side, so it
-> >                * is safe to avoid an explicit barrier.
-> >                */
-> > -             __set_current_state(TASK_INTERRUPTIBLE);
-> > +             __set_current_state(TASK_INTERRUPTIBLE | TASK_FREEZABLE);
-> >
-> >               /*
-> >                * Do the final check under the lock. ep_start/done_scan(=
-)
-> > --
-> > 2.55.0.1082.g2b9226bbc0-goog
-> >
-> --
-> Jan Kara <jack@suse.com>
-> SUSE Labs, CR
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
