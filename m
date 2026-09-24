@@ -1,184 +1,100 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66363374E7F;
-	Thu, 24 Sep 2026 20:57:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59E694ADD80
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:57:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790283438; cv=none; b=kmwLldDYU9G6x18XnyaLiojFHmSIkUegfuKRD+6i8LL6KvGzDowWVZcoTTIDB85wbuAFL5o7pgkHRadadRTX9pAo4bJF0A//ImQTpWZK/oUTJ9wTL1CEAo8LqKO7ymwmWXQrtgtgVM5suYFlamFdX7rvym2Me/lytn3xZJF687k=
+	t=1790283478; cv=none; b=mhlMhST678ZYzUGyTMDihW9JCmsR/o92KQExWJX19eJLU9VPwKD4PRUDjgwE8Dz4awpOTuHn+w/hzdT1g91zQDYo6RKhLRsagt1JpG8OWLZaH0xTdrss3JfzUDXf9wYJ1+w1I6FlApsHF0MC7h+XYUZzUAiw3zD243xkH0t59Rs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790283438; c=relaxed/simple;
-	bh=t430mUTIw07MFcm83lM9Mc72hLdFTPO8GyLjUEFz4jE=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=TnYtqpO+HBAv3/dqTfYDHuTCQREB61vjtKlgVG9sibutHMdUkgRVFD41HSNtLPPUag4lEU08nL+xeKYbDJxW5kF+F3VJfG/bw8u2J3zYqN1TGmN0WFvdFKFVvJ9XsGcf2RhHe1idPz4qvMRHon/PCIVLUJtATOJXdJpOim8pUHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=mwGvR+DI; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=KbKBqmvY; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790283478; c=relaxed/simple;
+	bh=cI6JjRAPl5s3hwiM9J/azCfPvw76HMtUKiwS7d7bH2Y=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=auJCdqxuyES0mUHzHBwDixboDK8omD6En2rHZ942OYkIVCf/2NUARGws9c3L5oCWYOsfMGu/343g64t9SsyjjuxAR1eTiz2r3XrBLkYUfjh8h9Rr+Uewi/C9jfGZ5Kh+zDvDRnHSufinzBwTjp/GAnXhy8dJIVVLe+GiR7To79w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=marek.ca; spf=pass smtp.mailfrom=marek.ca; dkim=pass (2048-bit key) header.d=marek.ca header.i=@marek.ca header.b=CuUwyyiS; arc=none smtp.client-ip=74.125.227.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=marek.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marek.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="mwGvR+DI";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="KbKBqmvY"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790283432; bh=6A8oSXEnglRwtTXy1m0gWwK
-	QH62nOQ0JoQVnZFjsbzQ=; b=mwGvR+DIu+B1t0Q4ccFJUpxNMEitxpPA7Jx4Mhtqqc0F34liRa
-	gDQhwrnZwY8/DOxqVwr7m9QC1X4A+gUnp8EwYCUHpuaOoWvRNjrt5sYtzBEJE9pzku8C4bd23RZ
-	QH3McqO1O+u2Ts1Ptu5DTJwnEZ3pivbI58EgVkSxkjfT1ymIAl6GsnhJwpQXpI+jS2oLwaIkciZ
-	Tn0p9vZ1+28oO/85na3NjO2s3C3R49BR503WHzCtxHjab298QAodzJUBm0k3+D9Io7/Bzqg9lJE
-	q6IEmaK84qyQTzfn0F9+LutRln6tQOA37Nwt+rqKVsgzvobQs6QXK0jz0UVM1ZDQ+gw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790283432; bh=6A8oSXEnglRwtTXy1m0gWwK
-	QH62nOQ0JoQVnZFjsbzQ=; b=KbKBqmvYsF82yPVYXic5ZHOef1yP1/FV57/biFsMbrGLeBqJhE
-	RZUEj5zInN5/JnfPSjnpnJCYJW2UnQfLXICA==;
-Date: Thu, 24 Sep 2026 21:57:12 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: =?ISO-8859-1?Q?J=E9r=E9my_Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?ISO-8859-1?Q?Michal_Koutn=FD_?= <mkoutny@suse.com>
-CC: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_cgroup=3A_prevent_css=5F?=
- =?US-ASCII?Q?set_UAF_after_namespace_publication?=
-In-Reply-To: <20260924111036.3330268-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20260924111036.3330268-2-Jeremy.Jean@oss.cyber.gouv.fr>
-Message-ID: <F16F3E85-3042-4C43-BEA2-A969DAD7DC71@mainlining.org>
+	dkim=pass (2048-bit key) header.d=marek.ca header.i=@marek.ca header.b="CuUwyyiS"
+Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-7856441f7dcso105471137.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:57:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=marek.ca; s=google; t=1790283476; x=1790888276; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-language:content-type:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:cc:to
+         :subject:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xrph7KLghv0DUb1CsXQcyrZfkEtJln0bzCnCNAimfOg=;
+        b=CuUwyyiSXh2N9oCbTmFURDYhw3HRscbSuIzhTgPmvHY9/hwpORY0Rlo8knQt3hHdhZ
+         jSIi7z7vV+5xIu04WmqHyZuep8NZE4B4iO86OMrjfouz+iSX/bazFyhNDe0/VJL8KcQF
+         sfzH4Raq2HQUR+L6q2ZEVaC8j2XkDy2C7PPo0deAbOfrGtq77jRA8VPI5FeAG219doAg
+         fvsjcOlibngbGgy8R6hu1vaOtTXDdbeuN6TkCNQfXElt8V/WJA46Ah8GKmiuraG8022u
+         TPn3jNUDOV34GjnJ41+AUbD56zFKcu3Lc1Lj+hUqL8uOPagPKdwSl0ViLeytz1rn+uCL
+         U67Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790283476; x=1790888276;
+        h=content-transfer-encoding:content-language:content-type:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:cc:to
+         :subject:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xrph7KLghv0DUb1CsXQcyrZfkEtJln0bzCnCNAimfOg=;
+        b=qERj0hedL3owirhMySnTYWsG7FCUg4ctPNbQrRYGoTkMA+R9eI4RxWgAEEl6wKQywX
+         O4pbohaBxZuPUnre9YItGZ/6/PPc3aqcloo7aGv65pXWUiIcQYYvHvPgEKNDUUr3QQMi
+         L0EebiG1mURSLTK4LQ1MqhN9h61xkXz9bPX1bV87ZVftsJ6Igg1Y4bzo/9CI918zMeTY
+         3wy7TQsq/xHUVIDQIUaVyReqH+CX2pDbrpwXPfESJRj0qr4U6CUl5AkGJ0svrgQu015Y
+         aoj/bRyvnk2iA27rk9wCpPJmBoDJ/jKDoKddJG8H4wmF1sSh0MPvgc7HTkP22M2T9b9u
+         aVww==
+X-Forwarded-Encrypted: i=1; AKwUvBzYZysbeBtoO4KmefmepgihBufR09kBbqvaCEHqsGjuKtaPk/3mBee0GMVE40+hUJKamFsKJh+WpgUg0FI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mCk9jTScww998o5XuCMRneeDDGxjocUyQLy6VdqUe/RiHqDeMR
+	85R5fqQgwbZTZSVVVy+ta4axiJgNOIUsDbpMxUdCNDCz7668aNAAwzjEDf4kkQBE0NCdUxiKPow
+	xCaTV
+X-Gm-Gg: AYBFou1JKzCJBKSguSfdEQgxl7r/3UxgYmIa9EOBdl3B2clysSMbMrnsLX9mEwScIlD
+	R9jRzEX5xpXSyT2/zBwycLNn+NNjgyIJgJpK3HJ4IFZXhqoxo5O6YXyhGXXV8wx6r+Rdf462NTb
+	qGNw3oB55WqyZo+Qv1VY7hFC+igcK0Tnvh1xc6JQqxkqmHpi4DZXTeJI6qEXldaUU0hl8M3bPOr
+	o0Sqmy0mgK8ouNGeAO4Xj5y9v/khLejVHzfIGgmHDF7Tv7RmcABpT/88brHNGLVy9zkMKXNykj1
+	qcUt5gFRNyzPiR1H1OjiAMnEUKzEvmdNRBW1AuMiSezGbtjxoIikCKsm1tugSeC6LFcJH6I+chF
+	607EcJTd3uBaH/KnU3N1Lk7aI+MXzk+WNM5UBBdH9fB/lLZ+hdtErMUHrvfYW7YIDZrYoJH3L2x
+	cRlUorHWYp50Hqwcjtl/06cFVaTx6UXxw8Se20/TtY2F/Vird7kqStHtqDQT0elWYA2wNJdggDJ
+	6GRHqawRjeYzOBizAHaWlv5SaRnsbh0esYQskA6rosg
+X-Received: by 2002:a05:6102:441e:b0:7a6:a24e:811f with SMTP id ada2fe7eead31-7af1c79966cmr2103036137.7.1790283476089;
+        Thu, 24 Sep 2026 13:57:56 -0700 (PDT)
+Received: from [192.168.0.189] (modemcable125.110-19-135.mc.videotron.ca. [135.19.110.125])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cc65d664a6sm647405e0c.15.2026.09.24.13.57.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 13:57:55 -0700 (PDT)
+Subject: Re: [PATCH] ASoC: codecs: lpass-wsa-macro: rewrite the interpolator
+ volume after enabling clocks
+To: Liviu Nicoara <lnicoara@thinkoid.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Johan Hovold <johan@kernel.org>,
+ linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260924125940.22665-1-lnicoara@thinkoid.org>
+ <54f8af3d-a01c-d1fb-36b4-7eac71174f92@marek.ca>
+ <CAAhq3a6OV6+Z0p=qVqpUiL-QoP92fYTsf5MBQL-f2oedddW=Dg@mail.gmail.com>
+From: Jonathan Marek <jonathan@marek.ca>
+Message-ID: <d617c7b0-e6e3-bcc0-7ea9-5b955bc367bf@marek.ca>
+Date: Thu, 24 Sep 2026 16:52:42 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAAhq3a6OV6+Z0p=qVqpUiL-QoP92fYTsf5MBQL-f2oedddW=Dg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On 24 September 2026 12:10:37 BST, "Jérémy Jean"
-<Jeremy.Jean@oss.cyber.gouv.fr> wrote:
->copy_cgroup_ns() sets the root of a new cgroup namespace to the parent's
->css_set. When the child is created in a different cgroup,
->cgroup_post_fork() replaces that root with the child's css_set after the
->namespace is visible.
->
->Publishing the namespace before root_cset is final lets readers race with
->cgroup_post_fork(). A reader can load the old root just before it is
->replaced and its reference is dropped, then continue using the freed
->css_set. KASAN reports:
->
->  BUG: KASAN: slab-use-after-free in kernfs_get.part.0+0x47/0x60
->  Write of size 4 at addr ff1100000379f320 by task ns-path-probe/69
->   kernfs_walk_and_get_ns+0x1cc/0x280
->   cgroup_get_from_path+0xfb/0x340
->   nft_socket_cgroup_subtree_level+0x14/0x1a0
->
->Finalize root_cset before adding the namespace to the tree. Allocate the
->namespace ID at creation, add unshared namespaces after creation succeeds,
->and only remove namespaces that were added.
->
->Fixes: ef2c41cf38a7 ("clone3: allow spawning processes into cgroups")
->Assisted-by: LLM
+On 9/24/26 3:52 PM, Liviu Nicoara wrote:> However, on my unpatched 
+driver an idle volume change did not take place
+> when playback starts (changed it from 69 to 81 and it played at 69). A
+> change done during playback though, takes effect at once. I don't think
+> anything writes the register in between.
 
-Nice! Thanks
-
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-
-
->Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
->---
->Changes in v2:
->- Finalize root_cset before publication.
->- Defer tree insertion on fork.
->- Handle unshare and failed forks.
->
->v1: https://lore.kernel.org/all/20260923204935.2253203-2-Jeremy.Jean@oss.cyber.gouv.fr/
->
-> kernel/cgroup/cgroup.c    | 22 +++++++++++++---------
-> kernel/cgroup/namespace.c |  5 +++--
-> kernel/nsproxy.c          |  5 +++++
-> 3 files changed, 21 insertions(+), 11 deletions(-)
->
->diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
->index 227d09704ca5..78f6d235c19b 100644
->--- a/kernel/cgroup/cgroup.c
->+++ b/kernel/cgroup/cgroup.c
->@@ -7009,6 +7009,19 @@ int cgroup_can_fork(struct task_struct *child, struct kernel_clone_args *kargs)
-> 			goto out_revert;
-> 	} while_each_subsys_mask();
-> 
->+	/* Publish a new cgroup namespace only after its root is final. */
->+	if (kargs->flags & CLONE_NEWCGROUP) {
->+		struct cgroup_namespace *ns = child->nsproxy->cgroup_ns;
->+		struct css_set *rcset = ns->root_cset;
->+
->+		if (rcset != kargs->cset) {
->+			get_css_set(kargs->cset);
->+			ns->root_cset = kargs->cset;
->+			put_css_set(rcset);
->+		}
->+		ns_tree_add_raw(ns);
->+	}
->+
-> 	return 0;
-> 
-> out_revert:
->@@ -7127,15 +7140,6 @@ void cgroup_post_fork(struct task_struct *child,
-> 		ss->fork(child);
-> 	} while_each_subsys_mask();
-> 
->-	/* Make the new cset the root_cset of the new cgroup namespace. */
->-	if (kargs->flags & CLONE_NEWCGROUP) {
->-		struct css_set *rcset = child->nsproxy->cgroup_ns->root_cset;
->-
->-		get_css_set(cset);
->-		child->nsproxy->cgroup_ns->root_cset = cset;
->-		put_css_set(rcset);
->-	}
->-
-> 	/* Cgroup has to be killed so take down child immediately. */
-> 	if (unlikely(kill))
-> 		do_send_sig_info(SIGKILL, SEND_SIG_NOINFO, child, PIDTYPE_TGID);
->diff --git a/kernel/cgroup/namespace.c b/kernel/cgroup/namespace.c
->index ea4ee13936be..6c8ac36231d9 100644
->--- a/kernel/cgroup/namespace.c
->+++ b/kernel/cgroup/namespace.c
->@@ -30,12 +30,14 @@ static struct cgroup_namespace *alloc_cgroup_ns(void)
-> 	ret = ns_common_init(new_ns);
-> 	if (ret)
-> 		return ERR_PTR(ret);
->+	ns_tree_gen_id(new_ns);
-> 	return no_free_ptr(new_ns);
-> }
-> 
-> void free_cgroup_ns(struct cgroup_namespace *ns)
-> {
->-	ns_tree_remove(ns);
->+	if (ns_tree_active(ns))
->+		ns_tree_remove(ns);
-> 	put_css_set(ns->root_cset);
-> 	dec_cgroup_namespaces(ns->ucounts);
-> 	put_user_ns(ns->user_ns);
->@@ -85,7 +87,6 @@ struct cgroup_namespace *copy_cgroup_ns(u64 flags,
-> 	new_ns->ucounts = ucounts;
-> 	new_ns->root_cset = cset;
-> 
->-	ns_tree_add(new_ns);
-> 	return new_ns;
-> }
-> 
->diff --git a/kernel/nsproxy.c b/kernel/nsproxy.c
->index d9d3d5973bf5..01c4dcf26993 100644
->--- a/kernel/nsproxy.c
->+++ b/kernel/nsproxy.c
->@@ -238,6 +238,11 @@ int unshare_nsproxy_namespaces(unsigned long unshare_flags,
-> 		goto out;
-> 	}
-> 
->+#ifdef CONFIG_CGROUPS
->+	if (flags & CLONE_NEWCGROUP)
->+		ns_tree_add_raw((*new_nsp)->cgroup_ns);
->+#endif
->+
-> out:
-> 	return err;
-> }
->
-
-
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+in this case, while its playing with the wrong volume, use /dev/mem to 
+directly read the value of the volume register and then write the same 
+value, if that fixes the volume from 69 to 81, then this patch might be 
+necessary, otherwise its papering over the issue like I wrote
