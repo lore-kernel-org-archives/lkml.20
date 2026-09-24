@@ -1,164 +1,92 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B15E4499B4;
-	Thu, 24 Sep 2026 22:43:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F9463AFCF0;
+	Thu, 24 Sep 2026 22:44:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790289784; cv=none; b=VujXsiv0pXQNODQbDxWNVhayA6K94tKT266buPTkKX1c4nLjrAU36chQGz13ZRTU0iZu5sqBmbss+5wjwKRtAbOPX4eCcPt5dXdiLQSFcqE7/dW+1MSko5Wbyo9J2GtodgWMQy+bFSgfnROf+YB5nmT5cgfbZkL8JaRFKwJGUhk=
+	t=1790289869; cv=none; b=fWM4+KsRvs5AVEm8ez8OSqfEN+bgVk2+cJC6hNKu3wuxNmLBgePBHh0extDH1KuGOHTx88Vx5A9K7NsbGP+F/lBcNAbamGMPlIJ3Y58NiD0IaUNVitf1jc3sNibbcoE5n2emWSgXLIJeiAhAzxUxIiCguXJBWvPKDGmbxydGNXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790289784; c=relaxed/simple;
-	bh=5k6ew4bZKs5Kak0IIZkqP5OL1erIyyXEfACAGORomcc=;
+	s=arc-20240116; t=1790289869; c=relaxed/simple;
+	bh=/LcAwawtdh+vFXy4RPNGhay5ZAJ5ZL2TM79kGXhvM+w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hjz5GMg2hjXX+05y1BvUbd5jImmQ+BRykA7DWRse4zaspj44QlXdXHbiHoAceOZuItgPp4nvRrn5+XfiqTrKH7FlYDpeVcEExwME7IiuDilDTwDuUzpz8L01KC6I7OZveVynQz0tJ5xGxFrr9EXKDRrv3TtlneXG60yJF2NR314=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BOhQRPBJ; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=XUZW2E4KGJFfIg5kMhXRpVpfx90c8DbVEsQaMbWvE1AniXREIlLiOP1kwuovzChDxirXEi4Iu94aY67nYjodpYUMHsm9T5zgCS0dvwmdQ8JlJwOC9thBiDelBaIMz1UZmF5SuLTVQRPuaNsjZ27DZeqRkFi0julEcwvb03QAPMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J/sMDUKy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BOhQRPBJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790289782; x=1821825782;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=5k6ew4bZKs5Kak0IIZkqP5OL1erIyyXEfACAGORomcc=;
-  b=BOhQRPBJ7shxsNBKFCiZbV8WJ3psif/tlHaGK5XGI6X3fdojQamFVFfJ
-   dW5h4NjVy2zK+CFjhidRE22fofn0khqlEJXz0BPLiprFoYUv3rwdtNJxP
-   LtNMNh/Du6Q26wKmtuMa27e73EoSSoronuvFHe0SYwBW+hEun9PWrCzOM
-   Y118UFSIatZ/bRB06JnI7yG305YLEcoP9hXACGPsRghLRvlQbj+kG8qR7
-   37BjA6KXgLzEvVutnlwbfA0ti4vZqF7veSAJEA4jOjRx36FQIBzOgX/1N
-   4wwSevAlWZ2F8TGgnVjDykJN7DiigC91F08AylAgieXonngiYNGCCM1Lb
-   w==;
-X-CSE-ConnectionGUID: E2tiyNVvRGWTUSfBd8pQfQ==
-X-CSE-MsgGUID: aRWjjuhAQD6rkx9OTsgrOw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="107459057"
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="107459057"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 15:43:01 -0700
-X-CSE-ConnectionGUID: U5Dk8CFqRMui2FINcs4gCw==
-X-CSE-MsgGUID: 0sfLiX2TT1WjCokNpBJP4Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="272276214"
-Received: from igk-lkp-server01.igk.intel.com (HELO a88263cc608e) ([10.211.93.152])
-  by orviesa010.jf.intel.com with ESMTP; 24 Sep 2026 15:42:58 -0700
-Received: from kbuild by a88263cc608e with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x9s9U-000000000Sk-1VZT;
-	Thu, 24 Sep 2026 22:42:52 +0000
-Date: Fri, 25 Sep 2026 00:42:13 +0200
-From: kernel test robot <lkp@intel.com>
-To: Coia Prant <coiaprant@gmail.com>, Heiko Stuebner <heiko@sntech.de>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: oe-kbuild-all@lists.linux.dev,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	netdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Coia Prant <coiaprant@gmail.com>
-Subject: Re: [PATCH net] net: ethernet: stmmac: dwmac-rk: fix bulk clock leak
- when the PHY clock fails
-Message-ID: <202609250009.lQiuYnR7-lkp@intel.com>
-References: <20260919174223.2356964-1-coiaprant@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J/sMDUKy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B9201F000FF;
+	Thu, 24 Sep 2026 22:44:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790289867;
+	bh=KSp5vtGOZtUJ8r+LrSa8vQqGsW4HE7drn/gWpkEcRwI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=J/sMDUKyatmBvfxfR9vf4cmjK8LAYReknQWe2VcBZm/pr4YP9HlmsnJc/p3rZfS+j
+	 56XerZBtaYeciJ/diNDgzj9K8FNWLr7yRPo49+OsE+BBnS9OV9oFIr4tWfsWgH2oOz
+	 tewWAyqj0QgkCaQgILPoHKLAvlhWRUppkW1vAHt/fN17DF1UOtDtlGLqzL/152Posj
+	 rbKIc3G+5GsTCfAZpkLrWZFZjfG0qqZ6Jej4MbMrEUnBsSqZzP5nMLEjpeYNKhLqjQ
+	 lPGGxFVfqXo+xMvPW3Hl4vjWyx+XdL8BVa3pA+41JDrvFys6xED2B6KlfIlKQtiUoj
+	 SjfrWLQO7+DMg==
+Date: Thu, 24 Sep 2026 23:44:22 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Praveen Talari <praveen.talari@oss.qualcomm.com>
+Cc: konrad.dybcio@oss.qualcomm.com, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	chandana.chiluveru@oss.qualcomm.com,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] spi: qcom-geni: Use GPIO to notify master of SPI
+ target activity
+Message-ID: <fcf39ba0-ed92-4a47-b778-a6d39e6831a6@sirena.org.uk>
+References: <20260824-use_gpio_to_notify_master_of_spi_target_activity-v4-0-fde2ebf043db@oss.qualcomm.com>
+ <20260824-use_gpio_to_notify_master_of_spi_target_activity-v4-2-fde2ebf043db@oss.qualcomm.com>
+ <95c6a43b-37b7-48eb-be88-79f1883212d6@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wTAftiCSfHDXtl/h"
+Content-Disposition: inline
+In-Reply-To: <95c6a43b-37b7-48eb-be88-79f1883212d6@sirena.org.uk>
+X-Cookie: You enjoy the company of other people.
+
+
+--wTAftiCSfHDXtl/h
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260919174223.2356964-1-coiaprant@gmail.com>
 
-Hi Coia,
+On Thu, Sep 24, 2026 at 11:41:14PM +0100, Mark Brown wrote:
+> On Mon, Aug 24, 2026 at 07:56:00PM +0530, Praveen Talari wrote:
 
-kernel test robot noticed the following build warnings:
+> > When operating in SPI target mode, the GENI controller relies on an
+> > external GPIO to notify the SPI master about the target's active state.
 
-[auto build test WARNING on net/main]
+> I'll apply this since it probably doesn't actually matter but this is
+> broken for probe deferral, and might cause issues if the system really
+> does have a GPIO but it fails for some reason.  It's better to just
+> handle all errors as errors, _optional() already returns NULL if the
+> GPIO is genuintely missing.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Coia-Prant/net-ethernet-stmmac-dwmac-rk-fix-bulk-clock-leak-when-the-PHY-clock-fails/20260920-014223
-base:   net/main
-patch link:    https://lore.kernel.org/r/20260919174223.2356964-1-coiaprant%40gmail.com
-patch subject: [PATCH net] net: ethernet: stmmac: dwmac-rk: fix bulk clock leak when the PHY clock fails
-config: loongarch-allyesconfig (https://download.01.org/0day-ci/archive/20260925/202609250009.lQiuYnR7-lkp@intel.com/config)
-compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260925/202609250009.lQiuYnR7-lkp@intel.com/reproduce)
+Actually no, it needs a rebase anyway - please resend against for-7.4.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609250009.lQiuYnR7-lkp@intel.com/
+--wTAftiCSfHDXtl/h
+Content-Type: application/pgp-signature; name="signature.asc"
 
-All warnings (new ones prefixed by >>):
+-----BEGIN PGP SIGNATURE-----
 
->> drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c:1168:5: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
-    1168 |                                 return ret;
-         |                                 ^
-   drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c:1165:4: note: previous statement is here
-    1165 |                         if (ret)
-         |                         ^
-   drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c:1177:2: warning: non-void function does not return a value in all control paths [-Wreturn-type]
-    1177 |         } else {
-         |         ^
-   drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c:1177:4: error: expected identifier or '('
-    1177 |         } else {
-         |           ^
-   drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c:1189:2: error: expected identifier or '('
-    1189 |         return 0;
-         |         ^
-   drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c:1190:1: error: extraneous closing brace ('}')
-    1190 | }
-         | ^
-   2 warnings and 3 errors generated.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq1p8UACgkQJNaLcl1U
+h9Bfkgf+JNq7EeZiGGKVXtqGg8FSC4PZwc8A09PQhuHez6cEkJ2P5P2IFbYaAu95
+EByKLpuxp4N6yyHy7WDJQLov/T3FTH1mXpQTGS2d6toplztfwx1o51eEhkdLsEb6
+dk0HvBNiaFxQ1LxA+YOLkmnFJ2gsf0UIoOGZaSRgSeycB8GC9moQhVAl2T2umjrR
+eOA4ieU7BjTy/WiAMDo+zsYixQcTmB+EiA8A3hwq0PYZ0sukbQ6tiVop7dsOzpsr
+M03A+LTZHnt0xSVF8SH82ZH/mWJQmt/JhmlWqcr4iV/uF9tVM4Dc3msb1m2FnOnN
+bJBF1UolGYQxJxZ8QyRiMbAL6T9uqA==
+=pap0
+-----END PGP SIGNATURE-----
 
-
-vim +/if +1168 drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-
-7ad269ea1a2b7d Roger Chen            2014-12-29  1152  
-7ad269ea1a2b7d Roger Chen            2014-12-29  1153  static int gmac_clk_enable(struct rk_priv_data *bsp_priv, bool enable)
-7ad269ea1a2b7d Roger Chen            2014-12-29  1154  {
-ea449f7fa0bf3f Sebastian Reichel     2023-04-07  1155  	int ret;
-7ad269ea1a2b7d Roger Chen            2014-12-29  1156  
-7ad269ea1a2b7d Roger Chen            2014-12-29  1157  	if (enable) {
-7ad269ea1a2b7d Roger Chen            2014-12-29  1158  		if (!bsp_priv->clk_enabled) {
-ea449f7fa0bf3f Sebastian Reichel     2023-04-07  1159  			ret = clk_bulk_prepare_enable(bsp_priv->num_clks,
-ea449f7fa0bf3f Sebastian Reichel     2023-04-07  1160  						      bsp_priv->clks);
-ea449f7fa0bf3f Sebastian Reichel     2023-04-07  1161  			if (ret)
-ea449f7fa0bf3f Sebastian Reichel     2023-04-07  1162  				return ret;
-7ad269ea1a2b7d Roger Chen            2014-12-29  1163  
-ea449f7fa0bf3f Sebastian Reichel     2023-04-07  1164  			ret = clk_prepare_enable(bsp_priv->clk_phy);
-ea449f7fa0bf3f Sebastian Reichel     2023-04-07  1165  			if (ret)
-cb278e6780d874 Coia Prant            2026-09-20  1166  				clk_bulk_disable_unprepare(bsp_priv->num_clks,
-cb278e6780d874 Coia Prant            2026-09-20  1167  							   bsp_priv->clks);
-ea449f7fa0bf3f Sebastian Reichel     2023-04-07 @1168  				return ret;
-cb278e6780d874 Coia Prant            2026-09-20  1169  			}
-23c94d63a7e395 David Wu              2018-06-28  1170  
-5c1fc7cb81dfed Russell King (Oracle  2026-02-04  1171) 			rk_configure_io_clksel(bsp_priv);
-5c1fc7cb81dfed Russell King (Oracle  2026-02-04  1172) 			rk_ungate_rmii_clock(bsp_priv);
-2f2b60a0ec2826 David Wu              2022-08-30  1173  
-7ad269ea1a2b7d Roger Chen            2014-12-29  1174  			mdelay(5);
-7ad269ea1a2b7d Roger Chen            2014-12-29  1175  			bsp_priv->clk_enabled = true;
-7ad269ea1a2b7d Roger Chen            2014-12-29  1176  		}
-7ad269ea1a2b7d Roger Chen            2014-12-29  1177  	} else {
-7ad269ea1a2b7d Roger Chen            2014-12-29  1178  		if (bsp_priv->clk_enabled) {
-5c1fc7cb81dfed Russell King (Oracle  2026-02-04  1179) 			rk_gate_rmii_clock(bsp_priv);
-7f864458e9a6d2 Sebastian Reichel     2025-10-14  1180  
-ea449f7fa0bf3f Sebastian Reichel     2023-04-07  1181  			clk_bulk_disable_unprepare(bsp_priv->num_clks,
-ea449f7fa0bf3f Sebastian Reichel     2023-04-07  1182  						   bsp_priv->clks);
-fecd4d7eef8b21 David Wu              2017-08-10  1183  			clk_disable_unprepare(bsp_priv->clk_phy);
-fecd4d7eef8b21 David Wu              2017-08-10  1184  
-7ad269ea1a2b7d Roger Chen            2014-12-29  1185  			bsp_priv->clk_enabled = false;
-7ad269ea1a2b7d Roger Chen            2014-12-29  1186  		}
-7ad269ea1a2b7d Roger Chen            2014-12-29  1187  	}
-7ad269ea1a2b7d Roger Chen            2014-12-29  1188  
-7ad269ea1a2b7d Roger Chen            2014-12-29  1189  	return 0;
-7ad269ea1a2b7d Roger Chen            2014-12-29  1190  }
-7ad269ea1a2b7d Roger Chen            2014-12-29  1191  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+--wTAftiCSfHDXtl/h--
