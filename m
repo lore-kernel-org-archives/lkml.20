@@ -1,87 +1,197 @@
-Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C1A14854E6;
-	Thu, 24 Sep 2026 13:22:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED7B347FB17;
+	Thu, 24 Sep 2026 13:23:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790256171; cv=none; b=AHIJZxAtM7HieKPbW+aZIJbqBrAgsT/yqBPELrg2lyjD5BBqGDoXuT/K5/HOP6jMa1vmsLu+GUEtb/gL2CEOLfGrI3JWTdrIumSx40EZHFGeojfyhgGQh+IIW8mpKtPCh1Szp9AGm2JNpE/XI9omYfK/2Rsi5H5UEVYaQyEyqMc=
+	t=1790256187; cv=none; b=o6z5+TxYSSitjTLRPMXxqe1innxJ/5b+mufvJvrhBlC1+ZvYVFaJQ1kdHOkX0cZwzKZSxn2fwoao5FA6wCL3sFg6sxLF5VjVFZ0XGaFj50uvSZBNpWFss3tRd60r2h2yB3y0Sxwa85cSPmqJwP92hfyhjKBRyGbe0Z/MJs6RIBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790256171; c=relaxed/simple;
-	bh=Av2FYaVaDd1JBZFAXqH2sO2sXPEwc0QKlMWYTmIJAg8=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=WzmsCY99KiaKDtureAlDkKcBfc30+n4M/sxO2pYFiEk3BwCzKWF2lr/NxkqoWuCATlEMAZwWi3Gfoc5j31HCe9u7jDXL/CMkrsYMmP5fLqgCmTBYxmDQkaemAZyOr8ZwCR0UEHP69uD5FrWKOf9J/K88lwGz3OnxxD0XG2Xe48I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=LbcviaqS; arc=none smtp.client-ip=195.39.247.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
+	s=arc-20240116; t=1790256187; c=relaxed/simple;
+	bh=QOH4xBl/CkYL2rclp5PVIoSCYiuxsQInpcawsiffP8k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HwZzrvzC0+Q/lPLCn1MD2sG6jfkzh6sB/2E8qXD34mDw8yxpVXcxZ+yC6l4B6XNZbo4j+Gr7EdXs3YTRPilYBfGEk6SAa4hMBtT4OE/uXFQsE+9qatEeBSV/tT2cjyiKe0+FU1qMYDO53HDj614PiGWjQ3jIBfx3IGN1pK2HV88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ep339rKL; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="LbcviaqS"
-From: Yureka Lilian <yureka@cyberchaos.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
-	s=mail; t=1790256153;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=i73iHN07Xn5dbQ15hrDEY+QFRLYirRH7hxrF8MHF8eQ=;
-	b=LbcviaqSxqHSmF7WPlr5Qub3WMBvHwWqUNfXcyzATsTziknRRpIqWEuTM3wTkwgIwHE5pw
-	s2tf69q9DiEH3xk8Px9Wa6XxcJXmR+77e9W3XZFtGU4c4ofPcMaFv1gDeTHu3Shdct3JBA
-	FQs7NhKf+y5zK55C5uH3Cl4XXP65EDk=
-Subject: [PATCH 0/3] arm64: dts: apple: dt-check-style strict fixes for
- Apple M4
-Date: Thu, 24 Sep 2026 15:22:22 +0200
-Message-Id: <20260924-apple-dts-m4-dt-style-check-v1-0-3ec651d75baf@cyberchaos.dev>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ep339rKL"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OC6BfS2183157;
+	Thu, 24 Sep 2026 13:22:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=Zb5TauC0/1EmZZ5+gHx+JlMdrwywUA
+	qna/NOKIkopo0=; b=ep339rKLtGttWLzyIjTde1Xn151NfClCRjbtMX5jUMSTwe
+	9aQbdEllJ6seeudBEH/fD/6cGXrzJO2zI/MgueE5DgArWt14qqncrfr+M4CO8fof
+	3Qv8noHUD3BpQTX931zeoUD9vZBtyDjVYHjkTg+fOPZVjcxTKWxLx3NLBfwiHC8l
+	gAfTbGiuB4GJx7IKLzJHkR7vUd3FvWq4nufRes19psl2fuEXvCOM6OWivYA2lYIS
+	2uXOYsXTeR5J85klIHR371qnBdkq1WYN3R+yBV4Q3CpdCKVNoqQkRzfeuuh9Le9M
+	prWmZEVY+HXPhso7bbJ3wrLDJzojTauJEOf/0FGQ==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgsh9d1-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 13:22:12 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68OCHXPm2061440;
+	Thu, 24 Sep 2026 13:22:12 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gvb8jx18t-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 13:22:12 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68ODMArl43450786
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 24 Sep 2026 13:22:10 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4CFE220043;
+	Thu, 24 Sep 2026 13:22:10 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 629CA20040;
+	Thu, 24 Sep 2026 13:22:06 +0000 (GMT)
+Received: from li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com (unknown [9.124.210.215])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Thu, 24 Sep 2026 13:22:06 +0000 (GMT)
+Date: Thu, 24 Sep 2026 18:52:03 +0530
+From: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+To: Zhang Yi <yi.zhang@huaweicloud.com>
+Cc: linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+        linux-kernel@vger.kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca,
+        libaokun@linux.alibaba.com, jack@suse.cz, ritesh.list@gmail.com,
+        djwong@kernel.org, hch@infradead.org, yi.zhang@huawei.com,
+        yizhang089@gmail.com, chengzhihao1@huawei.com, yangerkun@huawei.com,
+        wangkefeng.wang@huawei.com, yukuai@fnnas.com
+Subject: Re: [PATCH v6 05/31] ext4: recheck extent status tree before block
+ allocation
+Message-ID: <arUj-7QI2U12y1i-@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
+References: <20260903123543.2302999-1-yi.zhang@huaweicloud.com>
+ <20260903123543.2302999-6-yi.zhang@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ6CQAxA4auQrm0yTAg6XsW4wE6R+oOT6WAgh
- LtbdfXybd4KyllY4VitkPktKq/RUO8qoKEbr4wSzeCdb13wDXYpPRhjUXw2FtSymGlgumPLdR8
- iBX9we7BDytzL/Lufzn/rdLkxle8Stu0D3tQgyn8AAAA=
-X-Change-ID: 20260924-apple-dts-m4-dt-style-check-6e1f9dc92807
-To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Yureka Lilian <yureka@cyberchaos.dev>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903123543.2302999-6-yi.zhang@huaweicloud.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=V/XoQuni c=1 sm=1 tr=0 ts=6ab52405 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=i0EeH86SAAAA:8 a=VnNF1IyMAAAA:8 a=lrqsI6jtUP4MPYQepmEA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: f7eDj3y-0gQI_LJNo4BSzLK_mYSDq_qf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA1NCBTYWx0ZWRfXzTPVi+Yhq4H5
+ y3wEJboMGV4gJVZZpR7Hll/7oz2noBJeEvu4afm/lugah0qd4lK8L7TY4gkoSPMStKdVYIcM7kl
+ KSIwjcfH/T3EDtgOHpx+QBDNNT3cmZ15GHHEF44hgFCKe3HRw3Viy+5lUYJbpTF7NXa1NxSexkt
+ 3oH4bNmLd62ZJcre+9s1CsezRjmqnxLNAH2wU6yckbAszDGL66QHzKSJP+WNjYLcxLu7t6dhw9X
+ oy4yaJXHnSl3I2jPIkBweTccXSmbWurtMLa2o/t6zy4ySaKu+g14HtmYW6iHhVF4olFsKcWMQlD
+ D6OpDlFY2yBJxdyiyWwJmudVmXxJTAI6cZfHa2zWW8S4GRSLA/zD0kjiJEosv7rRvHsTZCW5aAf
+ 62imDpyCBK2pyQFl1FXvG7Y25ndkRQ4Fk1jlr9QgWT5ayWwJql5quSPlgbVpwKuQoL19rRPp+f2
+ BJqNEVY4kdkAnlupjUg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA1NCBTYWx0ZWRfXzKrw+O33+7rZ
+ 5p4h3U3AQpyt/ybngYJqwaSW8gikQUVLelTBToWMbeqPYNJQCh/vYZVMCR5Q9Uez8ujaY1E4TyG
+ Mm12BCW7n3Kl0ZochvMhlsQhjb6Kgfc=
+X-Proofpoint-GUID: z8ZTS9vpD2r7ZfSulbtVvTqzHQDd0aOJ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 malwarescore=0 clxscore=1015 phishscore=0
+ bulkscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240054
 
-Hi,
+On Thu, Sep 03, 2026 at 08:35:17PM +0800, Zhang Yi wrote:
+> From: Zhang Yi <yi.zhang@huawei.com>
+> 
+> After acquiring i_data_sem in write mode, recheck that the mapping
+> found via the extent status tree or disk query has not changed. A
+> racing truncate may have trimmed the extent between the earlier lookup
+> and the write lock acquisition, since writeback does not hold i_rwsem
+> or the folio locks covering the full extent. This could cause
+> ext4_map_create_blocks() to allocate blocks beyond the truncated range,
+> potentially leading to quota leaks in the upcomming iomap buffered
+> writeback path since the iomap writeback infrastructure caches extents
+> beyond the folio range.
+> 
+> Therefore, if we find a valid extent and the sequence number has
+> changed, retry the entire lookup to obtain the correct trimmed mapping.
+> 
+> Suggested-by: Jan Kara <jack@suse.cz>
+> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+> ---
+>  fs/ext4/inode.c | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+> 
+> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+> index 84991fe99071..b71b1d2588ae 100644
+> --- a/fs/ext4/inode.c
+> +++ b/fs/ext4/inode.c
+> @@ -734,6 +734,7 @@ int ext4_map_blocks(handle_t *handle, struct inode *inode,
+>  	else
+>  		ext4_check_map_extents_env(inode);
+>  
+> +create_retry:
+>  	/* Lookup extent status tree firstly */
+>  	if (ext4_es_lookup_extent(inode, map->m_lblk, NULL, &es, &map->m_seq)) {
+>  		if (ext4_es_is_written(&es) || ext4_es_is_unwritten(&es)) {
+> @@ -784,6 +785,8 @@ int ext4_map_blocks(handle_t *handle, struct inode *inode,
+>  	down_read(&EXT4_I(inode)->i_data_sem);
+>  	retval = ext4_map_query_blocks(handle, inode, map, flags);
+>  	up_read((&EXT4_I(inode)->i_data_sem));
+> +	if (retval < 0)
+> +		return retval;
 
-mirroring recent changes to the M3 and M3 Pro/Max/Ultra device trees,
-this makes the M4 device trees broadly compliant with
-`dt-check-style --mode=strict`, leaving the same exceptions:
+Hey Zhang, I think there's a slight change in behavior that we return if
+the query fails now. Earlier we would have still tried the create_blocks
+call and, in case of transient errors like ENOMEM, might have suceeded.
+I don't think it's that big of a deal though. 
 
-- line-length errors up to 82 columns are left as-is
-- cache-related properties are left out of order to preserve human
-  readability
-- the property-order and line-length issues in the generated pmgr nodes
-  are left as-is
+Rest looks fine and I agree with your reply to Sashiko, I think we
+can tweak those things if we ever encounter a livelock.
 
-I checked carefully that the modifications do not cause any functional
-change in the compiled DTs.
+Feel free to add:
 
-Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
----
-Yureka Lilian (3):
-      dts: apple: t8132: Fix blank-lines-related dt-check-style issues
-      dts: apple: t8132: Fix ordering-related dt-check-style issues
-      dts: apple: t8132: Fix some line-length-related dt-check-style issues
+Reviewed-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
 
- arch/arm64/boot/dts/apple/t8132-j604.dts  |   9 +-
- arch/arm64/boot/dts/apple/t8132-j713.dts  |   9 +-
- arch/arm64/boot/dts/apple/t8132-j715.dts  |   9 +-
- arch/arm64/boot/dts/apple/t8132-jxxx.dtsi |   8 +-
- arch/arm64/boot/dts/apple/t8132.dtsi      | 210 +++++++++++++++++-------------
- 5 files changed, 142 insertions(+), 103 deletions(-)
----
-base-commit: eea4f3b5e9e19389af3b99af64cdf7352b67c298
-change-id: 20260924-apple-dts-m4-dt-style-check-6e1f9dc92807
+Also, if you don't mind can you add
 
-Best regards,
---  
-Yureka Lilian <yureka@cyberchaos.dev>
+Link: https://lore.kernel.org/linux-ext4/b0781809-4759-4e12-be17-71555b764f48@gmail.com/
 
+(or the call trace) to the next version as it explains the issue pretty well.
+Looking at these things later takes some time to recall everything and
+such traces help a lot.
+
+Regards,
+ojaswin
+
+>  
+>  found:
+>  	if (retval > 0 && map->m_flags & EXT4_MAP_MAPPED) {
+> @@ -820,6 +823,19 @@ int ext4_map_blocks(handle_t *handle, struct inode *inode,
+>  	 * with create == 1 flag.
+>  	 */
+>  	down_write(&EXT4_I(inode)->i_data_sem);
+> +
+> +	/*
+> +	 * Check the validity of the mapping found via the extent status
+> +	 * tree or the disk query. A racing truncate may have changed the
+> +	 * extent, since writeback does not hold i_rwsem or the folio locks
+> +	 * covering the full extent.
+> +	 */
+> +	if (map->m_seq != READ_ONCE(EXT4_I(inode)->i_es_seq)) {
+> +		up_write(&EXT4_I(inode)->i_data_sem);
+> +		map->m_flags = 0;
+> +		map->m_len = orig_mlen;
+> +		goto create_retry;
+> +	}
+>  	retval = ext4_map_create_blocks(handle, inode, map, flags);
+>  	up_write((&EXT4_I(inode)->i_data_sem));
+>  
+> -- 
+> 2.52.0
+> 
