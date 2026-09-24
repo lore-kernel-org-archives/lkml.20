@@ -1,74 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-214.mta1.migadu.com [95.215.58.214])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F20330C165;
-	Thu, 24 Sep 2026 01:29:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8614B2DF3EA
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:31:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.214
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790213394; cv=none; b=Ob+gUEbLHiSRaEEKySD0dat9H7J0lE/VKxXjS1BnvLAl9yVubKWHlaDgy8jMlVmXrPUtFsNSAK23KfmAnrOw13s46xQk1KgJmFgkKtuDZcZiDKS56gEDSrXpY9BsIGs7TJmur+m7U621SOKdST4GnfDHCBUy3tmmM59DPKZ6GWU=
+	t=1790213480; cv=none; b=O4T2rp7PwiFYDZJYmgHAO26PIgHG1AOJoUu/RAf+a9V9JgTif0/J+TJuYO11jta28Q/p9B+o6d4aQoWwhnF9j6/KbLwtbV6SccLKpRoSfLcpomYx0Xqpcv8D8F7mE9XobZElXF30IS/k5gNLEtFicaqivztNBJ+45AsXJXso+WU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790213394; c=relaxed/simple;
-	bh=pj0jHwkVYBdX7kqJM8efKHTfipm8FC8rVLCSapBCxT4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bJpOqIwnOeoVw304TDlWHd1pvWcRMxl3KtWeqCxAkuHRDoO6HrvKJuzA2GQ7Don0l88R21HSpDUEKbdCEG10scTBR1BBUf/LVPU0yjs6uQeBloYCRr8/lFquSBVt/nQNqnAIErCkMqx41tcyFGSpR5YmIvblIagt5hxl99XVcPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UDqmkMIu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790213480; c=relaxed/simple;
+	bh=ag+ZUwlDzFeNvrCPxmLy3KDciZGg8ZkkgsfnAenlFAE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j8cp3g7CYIbXuFCMMXyR6rOPPMJN3erYyH+8Qeg8kQqnXeZ/DQ0DXx9Z9MwL5AB1of6N3+U2fPK6dDEi4nVZvb4zVKraCNIoZ3qIX6mw9MhsF+pYQYrDPtI1a5GWCVyj38Hf35YK2JgvjRzcFwLgGUI+zkfWiz95SWszWjfcEJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mMro5ifd; arc=none smtp.client-ip=95.215.58.214
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UDqmkMIu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59E801F000FF;
-	Thu, 24 Sep 2026 01:29:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790213393;
-	bh=N6QOJhN7/fWsre07emNYlhsWwp+fLxSmp4LKaZ3dZpo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=UDqmkMIurPSxLLsfG6Dq8kfYg4IkPtxidoT4mK+B6/cnUMue+PzOYas48B7P0wYqH
-	 B0vtKb/uKS9yurhb7hMLhpJfkenmTBjnNrI1iz38y9MdRT9Wp9nWh3p7yVowVxuxGL
-	 8MMXeNqAlyOoHbXibGD1UNJ48u/FiwRbtoIu0YvlrbqXy0HE1jHEiDlapXItBHGps8
-	 Q5dJetUO0DZzFd+LO0YFQDQQvAXcSRdH5oJ7C+aLheXSlyBUILh1LTtcFGS7R7XTb/
-	 szLq5A7KI3iOTOrdSfGpNEHZj+fLP2NIT7inLvIE8YRlag0XwLLCfYxRC0MU9mOGF6
-	 zF2C8vMlq4ztg==
-Date: Thu, 24 Sep 2026 02:29:46 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Srirangan Madhavan <smadhavan@nvidia.com>
-Cc: Alison Schofield <alison.schofield@intel.com>, Bjorn Helgaas
- <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>, Davidlohr Bueso
- <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>, Vishal Verma
- <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, Alex Williamson
- <alex.williamson@redhat.com>, vsethi@nvidia.com, alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>, Vishal Aslot
- <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>, Jiandi An
- <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v13 03/15] cxl: Move HDM decoder programming helpers
-Message-ID: <20260924022946.4e158d17@jic23-hlaptop>
-In-Reply-To: <20260922083924.2451158-4-smadhavan@nvidia.com>
-References: <20260922083924.2451158-1-smadhavan@nvidia.com>
-	<20260922083924.2451158-4-smadhavan@nvidia.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mMro5ifd"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ag+ZUwlDzFeNvrCPxmLy3KDciZGg8ZkkgsfnAenlFAE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790213474; v=1; x=1790818274;
+ b=mMro5ifdbAQiIVpxbTsyzcerG1jd66OxzHyuoROc32ENXNtjB8FPYvRzp1bmv5n289aOo2qv
+ ophIDmu9dX9gcEJ+NsrJY6DPp62ox4/id77PZFleePbUI+o0xtgye4W4GpAX1Qh7KSsV3r+4QwD
+ ldZKsovRSG2s6IjurtpNPQKY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id b1111577bfa5aa53;
+	Thu, 24 Sep 2026 01:31:14 +0000
+X-Mizu-Trace-ID: b1111577bfa5aa53
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 24 Sep 2026 09:31:07 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Gabriel Goller <g.goller@proxmox.com>
+Cc: Andrea Mayer <andrea.mayer@uniroma2.it>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v3] net: ipv6: seg6: report lwtunnel setup
+ errors via extack
+Message-ID: <arR9WwUQv5NReOyS@fedora>
+References: <20260923120228.172643-1-g.goller@proxmox.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923120228.172643-1-g.goller@proxmox.com>
 
-On Tue, 22 Sep 2026 08:39:12 +0000
-Srirangan Madhavan <smadhavan@nvidia.com> wrote:
-
-> Move the HDM decoder programming helpers and cxl_rwsem from hdm.c to
-> resource.c for reuse by reset restoration. Keep their behavior unchanged
-> and expose only the cross-object helpers within cxl_core.
-
-I'd very briefly mention that the ordering of patches was chosen for
-minimal code churn, but that it necessitates some functions are
-use cross module in a fashion that is dropped in later patches.
-
+Hi Gabriel,
+On Wed, Sep 23, 2026 at 02:02:04PM +0200, Gabriel Goller wrote:
+> seg6_build_state() rejected invalid configurations with a generic -EINVAL,
+> so "ip route add ... encap seg6 ..." always reported "Invalid argument".
 > 
-> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
-Otherwise much more readable!  Thanks for splitting it all up
-into more bitesized chunks.
+> Attach an extack message to each of them. The checks themselves and their
+> return values are unchanged.
+> 
+> Signed-off-by: Gabriel Goller <g.goller@proxmox.com>
+> ---
+> 
+> v3 (https://lore.kernel.org/all/20260922090851.38978-1-g.goller@proxmox.com/):
+>  * format fix
+>  * use NL_SET_ERR_MSG_ATTR
+> 
+> v2 (https://lore.kernel.org/all/20260918153544.1178884-1-g.goller@proxmox.com/):
+>  * dropped tests
+> 
+>  net/ipv6/seg6_iptunnel.c | 24 +++++++++++++++++++-----
+>  1 file changed, 19 insertions(+), 5 deletions(-)
+> 
+> diff --git a/net/ipv6/seg6_iptunnel.c b/net/ipv6/seg6_iptunnel.c
+> index 61c6a27bf202..9f1aecc4f215 100644
+> --- a/net/ipv6/seg6_iptunnel.c
+> +++ b/net/ipv6/seg6_iptunnel.c
+> @@ -756,8 +756,11 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
+>  	struct seg6_lwt *slwt;
+>  	int err;
+>  
+> -	if (family != AF_INET && family != AF_INET6)
+> +	if (family != AF_INET && family != AF_INET6) {
+> +		NL_SET_ERR_MSG(extack,
+> +			       "unsupported address family for SRv6 encapsulation");
+>  		return -EINVAL;
+> +	}
+>  
+>  	err = nla_parse_nested_deprecated(tb, SEG6_IPTUNNEL_MAX, nla,
+>  					  seg6_iptunnel_policy, extack);
+> @@ -765,8 +768,10 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
+>  	if (err < 0)
+>  		return err;
+>  
+> -	if (!tb[SEG6_IPTUNNEL_SRH])
+> +	if (!tb[SEG6_IPTUNNEL_SRH]) {
+> +		NL_SET_ERR_MSG_ATTR(extack, nla, "missing SRv6 SRH attribute");
+>  		return -EINVAL;
 
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+My bad. NL_SET_ERR_MSG_ATTR expects the specific attr. In this error path,
+there is no tb[SEG6_IPTUNNEL_SRH]. So we can keep using NL_SET_ERR_MSG().
 
+> +	}
+>  
+>  	tuninfo = nla_data(tb[SEG6_IPTUNNEL_SRH]);
+>  	tuninfo_len = nla_len(tb[SEG6_IPTUNNEL_SRH]);
+> @@ -776,13 +781,18 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
+>  	 */
+>  	min_size = sizeof(*tuninfo) + sizeof(struct ipv6_sr_hdr) +
+>  		   sizeof(struct in6_addr);
+> -	if (tuninfo_len < min_size)
+> +	if (tuninfo_len < min_size) {
+> +		NL_SET_ERR_MSG(extack, "truncated SRv6 SRH attribute");
+
+And here I think we can use like
+
+	NL_SET_ERR_MSG_ATTR(extact, tb[SEG6_IPTUNNEL_SRH], "truncated ...")
+
+>  		return -EINVAL;
+> +	}
+>  
+>  	switch (tuninfo->mode) {
+>  	case SEG6_IPTUN_MODE_INLINE:
+> -		if (family != AF_INET6)
+> +		if (family != AF_INET6) {
+> +			NL_SET_ERR_MSG(extack,
+> +				       "inline mode requires an IPv6 route");
+
+Same here
+
+	NL_SET_ERR_MSG_ATTR(extact, tb[SEG6_IPTUNNEL_SRH], "inline ...")
+
+>  			return -EINVAL;
+> +		}
+>  
+>  		if (tb[SEG6_IPTUNNEL_SRC]) {
+>  			NL_SET_ERR_MSG(extack, "incompatible mode for tunsrc");
+> @@ -798,12 +808,16 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
+>  	case SEG6_IPTUN_MODE_L2ENCAP_RED:
+>  		break;
+>  	default:
+> +		NL_SET_ERR_MSG(extack, "invalid SRv6 encapsulation mode");
+
+And here.
+
+>  		return -EINVAL;
+>  	}
+>  
+>  	/* verify that SRH is consistent */
+> -	if (!seg6_validate_srh(tuninfo->srh, tuninfo_len - sizeof(*tuninfo), false))
+> +	if (!seg6_validate_srh(tuninfo->srh, tuninfo_len - sizeof(*tuninfo),
+> +			       false)) {
+> +		NL_SET_ERR_MSG(extack, "invalid SRv6 segment routing header");
+>  		return -EINVAL;
+> +	}
+
+Here.
+
+Thanks
+Hangbin
