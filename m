@@ -1,64 +1,64 @@
 Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27286444707
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:06:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B37BD3AFD1A
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:06:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790240805; cv=none; b=I1SYsCAnFvHsldwezTo+ygzCfcDiTLlj5LksA/dyZKpFMTiI2g7Nr8t2mYgifT2pP03nTG2yGss5G2N0IaD6utIWQ6llhIuhwKBYBbJbE6tur7LsGkdMQxXJnOtsbKoA6R6ERD+xQOoENAd/fKihlQfFAkTWeVqytF9Q+WhfE6E=
+	t=1790240805; cv=none; b=dPeosjEkTK5Z3h5UHF+/UWmvFXhdTQb2Az/IJix1bUdIDyWU7E5DIZM7luZnv6gEW8tl/yHsiiNd786brkg1oXDiH3jNOTeXXwE30jr/OZrtoMlIAUzMzaO+yyYjrhKOP0Wg5wSFjRYXMgpLIeW/xjROhcbKk55We/rxmV3/DiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790240805; c=relaxed/simple;
-	bh=4dRwls4R8/kpI+9XIG1uUVhIvaRqvFRURWdJz121/9Y=;
+	bh=pHKuLppcHfDuAK2M2cO6egQfNx6bD98n/HcfLOmdFLY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d8heSngwqFmgATBeRccQv+XZKQpr+LtBo9t8g2rH+RE1mUmI2s0NIoI4HwiW+2ug2tIjhwqFloz9402BaD1Wp7C9i6bcnCNmJZq4YQ7XAEWOMMWlbGoJ4WizUavgyB5ePJnLNF2jimuP3RFpwe21PfPpIrbuAaEAn0TPDa9Wy/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XAMmjRIw; arc=none smtp.client-ip=74.125.225.76
+	 MIME-Version; b=pEoTsWGowJ9OBybCx8GGvkpulhh68642sTSSlHcM4TAPYU3PaYesqP+HyMM1ty+15MmweURxZWtEW7Pr8qyNWr5fTNVPCjsOP6vQEjHRRNLX4Zi6oL3H56xSVsnGHO+IyjeDCwgwS445IYa060dybdtXukb+/d67udpZYTLzrRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r8wviNvw; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XAMmjRIw"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843cedd129so1177460f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:06:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r8wviNvw"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b24c3so1184520f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:06:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790240801; x=1790845601; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790240800; x=1790845600; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1fteixIIwblHawz7BNGvMfhTpgCIGOR+rDxVKC84SHY=;
-        b=XAMmjRIwfNyOKl9N8ATL1UgRjLrG4GuxegFmvd31KlsWioczYxyAQskcYHoD0POjit
-         l9tMWAWP6Mpt8mX63ZX+fk89o0/PLzP7qZS/sGL3zEw6+0pBHyr0zjLCO9mIJd/xYbJH
-         9rlXRV82ESkqgGIU4uR/GqQpcn97fsZQtApvfySJPAlLg67yIFGy7rim/pP0/HpkIyGK
-         a7twxlPGJsw9r6f4KMEAQ21/WZ+k1AB5c9f0NyekGr5XhvoBWELbjGH1KiNl0RTCjw+b
-         L8/By9B5/hXmuuK1t9pq3mMWDSo1InGAgvG5X+6z4e+o2NiSCqXrTS95437fj8I5iXFY
-         upkg==
+        bh=6iC9+L/tjpXDsD8YIdygEJ0lQkMMFcHXbDyMth7/EM0=;
+        b=r8wviNvwsyxD8TGeSy7mMWicq1l+M1oK4MHlbIQ5j1Q1ittQlu/3DcxwhyMcYXmkL1
+         KhjDO9MdFo7nESZYwrvkVk0zIRmS9syU5Ak+XADCem/olJMeH0AeLC1GzFrAFrP/s7y2
+         EtGDuFTo8mDX1paPLjxKG176A3ihSl2EWDXNrxQYOds9pMxgd8nXi1t+RLf6RngAXpZT
+         M8Bf4ib4Ba51Vg/3ZJBwLbI9TSBAQE0qLD4U9CiLKlmh72kyopI7+6TUe5pMPcUig1TH
+         HGWZLoAfRFqeAv2e8EEIjCZm0B2Bj6UdmSKZ50cFyMwHzk8bOFE/206DLGRSO7nAn/AK
+         jejg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790240801; x=1790845601;
+        d=1e100.net; s=20260707; t=1790240800; x=1790845600;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1fteixIIwblHawz7BNGvMfhTpgCIGOR+rDxVKC84SHY=;
-        b=kbM30wiubcz0a/F0nUcYnmcqHNc5VWba3z0IOnyzK11kX00+6K+GKpCTd2nstf0QQO
-         4Kw+KVnrt2DW3mqO8cEF/CEDaAwkuNAhkFZsSpcom0g3bhU6esIZvLd9QMQo6lDjGvXu
-         oYg8QMIbYYjYEq0h0Wuth+a349RGRRpIAFjCtQatETDhxi1/BGPrL2VcaQ5X5YjcaDak
-         RyvduIh3QXK3s0y8/c/AF0OqbAssqaY8I6mhalYSa6dSY1PpIJyn7X3bxGFVR5PXh0tn
-         dI6KoBZ0y5nNjCLMn6o9fflvyK6rVfUguNdtE52bBJMN407dmwFer2AQkr1pWNltPQ63
-         4WtA==
-X-Forwarded-Encrypted: i=1; AKwUvBxWdPRBHS/6v8Nkc2qH83f5VP9ICOnAOXouKruN6TSLd25xmIz7t3VU5Z1rhM59T62PNto/A6cAbdFFajg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lzwyJPTtFL9NG9gaXwfzFC1WgqEc2A8G8GjE9M7ZGiOiNTsRQE
-	2ZbCheARMD5d/g3NXw5B0djKr61U+6DRdoQKNeLiVh3ev2Ey9xU1EFsI
-X-Gm-Gg: AYBFou1x6yskz7ucPhZ4kXhLXkmJpKpTMjfxO67OrcLSMdszJIjSiJmf2vxvpDsbx26
-	SRDOYTC3b4dc+hKT6KRRZyJYMs850oEeS886MB3Qv2h6DTxwQlAU8sF7xCa4+zx+T2ZNt9watSD
-	yAFUrQF3BTc4Nr4yyypQD+r1MRUs1QMVymvIn/DPlcGZGAt3k08ubBBiagyFbmamDauBvlOoYdr
-	by2zgHGiBheZ0ra0v5/P6jvZOjl7z9wn0Kix5eiqY4ph+tWSM1rxOjCqtcnNe4L0Nd1bTOFyZca
-	HLmgAbAifEZohgRkSDGUil6slP9AbHcTHocQA33MDtsIKwjanV9XISPy1vT/rpH0RexgBA6YJYH
-	S8vg9mtlfRH6aU8JKmAWrT+oimgaQTnS70YeQyv1s+uvswi6p0j92cgcHvwhgDFXj1aGz0vsNXx
-	zUMA+1FBoeFHYkqvhXbKHBsC0CPQ3/DGEbovC13kDn6NrizGOzsdVk4Nj0KSNyDOs8sf9KiWj/F
-	6oC+HypfeOnO2x96Eg0yB2zq3DbaA==
-X-Received: by 2002:a5d:64c7:0:b0:487:27f6:a4df with SMTP id ffacd0b85a97d-488716b8a05mr3203154f8f.47.1790240801226;
-        Thu, 24 Sep 2026 02:06:41 -0700 (PDT)
+        bh=6iC9+L/tjpXDsD8YIdygEJ0lQkMMFcHXbDyMth7/EM0=;
+        b=SzwF6gjUYgyBOmAXrzvaWnGSNstcxeI4/G/U/WYOfXXko2WAmWfj+DXZaENPPyMeIc
+         RsnxFDGTR8apWiuZkuKWfuIj4qNsHB0m68WeSDfpyjm+0jQe2hDwmJVt7bh83c7T89ss
+         URz1z82tGkt+HZBGAXQVzcSUO5g9L9WQpvv0VxOmwdJkB5fXeDgByn8ER44NO5iQrGtx
+         A7xrQcOvny5MN2RD89jZ4ogPRQtODx/8jzj1Bf39NGdOPIIbHqzeKCG5hKzpRM1qtjJU
+         wHvyRqp2MvyR3CpHZxQQYga/h3dBFu5ZoU+vW/h0nG8Oovs302SKSsQiO0qfrZqyeDh2
+         HWjw==
+X-Forwarded-Encrypted: i=1; AKwUvBzirlgatmAk40pzwN+nN3Iomq8wyG0nSt995vLKYWzzl2eFXb4XCrVNU2Bm2whBatU6eUXw25eQTwOxmZ4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lU+4c9MK+x+u9Ic/UuVkgZ2ie5GSzeWtTrmPzP9Cf34sz/UYXx
+	OkdFdVgaNu0NBcfQWQDNdISfXPcE1VfIxhkp2iAhvOMXbM8/okpOifep
+X-Gm-Gg: AYBFou0LDE1aVwowbIJAXQpotbpgAn2cocOYYDT5oAGw5MWzFPXnprFXsGyVHxAtMY1
+	k6oPqdZudawO31qU1jt9XF2eoL5M5P3WAJ4rQfb6l2exj5zBvMVcAg32oAcLviIIHrY6CDTl6io
+	GYRfQts1YoFLfkFseeQgKndvWyiiL9BKe8nfZyU4BQGBQS3iCgnlR9w9sf0DyTdAIxJcUK4/Fg1
+	JWLcAz//T7rzoummlnn5Rb7QF+HJPug737Yg5V0FraMYilkw/bSHg+dTO5WP3CmFn+pOcLb63Hu
+	R2mt6/Zy6+F77gwookfw4mSkCivaQFLPnO1BE+QaekKxINp2ayAk4fhpQTIiwfVVg0VMw7C26Wu
+	IOMqOo6r5+sGdLr6fPPOysGR/uYuv7desT+oJU9lA85gzfqmHLtAb8IaTC7u0jdOOTl46pVExyN
+	wfkaYkgeO8kk+UOJKKc/eCa50Sw08fxWGg+4oyX5Ze3M6opzWw8AhngSvoIjmhcPu0OY1onUgBn
+	iCM+hkDapJ3kMdEV2q5aoO8GSr8fA==
+X-Received: by 2002:a5d:64e6:0:b0:487:35f:f0f0 with SMTP id ffacd0b85a97d-488716bf1dbmr3547155f8f.14.1790240799678;
+        Thu, 24 Sep 2026 02:06:39 -0700 (PDT)
 Received: from xeon ([188.163.112.76])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886877c379sm12875561f8f.29.2026.09.24.02.06.39
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886877c379sm12875561f8f.29.2026.09.24.02.06.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 02:06:40 -0700 (PDT)
+        Thu, 24 Sep 2026 02:06:39 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -70,9 +70,9 @@ To: Rob Herring <robh@kernel.org>,
 Cc: devicetree@vger.kernel.org,
 	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 3/7] ARM: tegra: lg-x3: Lower supported suspend mode
-Date: Thu, 24 Sep 2026 12:06:04 +0300
-Message-ID: <20260924090608.28734-4-clamor95@gmail.com>
+Subject: [PATCH v1 2/7] ARM: tegra: lg-x3: Remove pinctrl-* properties duplication
+Date: Thu, 24 Sep 2026 12:06:03 +0300
+Message-ID: <20260924090608.28734-3-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260924090608.28734-1-clamor95@gmail.com>
 References: <20260924090608.28734-1-clamor95@gmail.com>
@@ -84,27 +84,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-LG P880 and P895 are perfectly capable of supporting the lowest suspend
-mode currently available for Tegra devices which is LP1.
+The pinctrl-names and pinctrl-0 are defined in the common device tree,
+having them in the individual trees is redundant. Remove them.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts | 3 ---
+ arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts | 3 ---
+ 2 files changed, 6 deletions(-)
 
-diff --git a/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi b/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
-index 5b4da6ee991ff..5f3273a4dcf46 100644
---- a/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
-+++ b/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
-@@ -1695,7 +1695,7 @@ bridge_output: endpoint {
- 	pmc@7000e400 {
- 		status = "okay";
- 		nvidia,invert-interrupt;
--		nvidia,suspend-mode = <2>;
-+		nvidia,suspend-mode = <1>;
- 		nvidia,cpu-pwr-good-time = <2000>;
- 		nvidia,cpu-pwr-off-time = <200>;
- 		nvidia,core-pwr-good-time = <3845 3845>;
+diff --git a/arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts b/arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts
+index d4a3513a3fd42..d76f9f465ddc6 100644
+--- a/arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts
++++ b/arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts
+@@ -13,9 +13,6 @@ aliases {
+ 	};
+ 
+ 	pinmux@70000868 {
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&state_default>;
+-
+ 		state_default: pinmux {
+ 			/* WLAN SDIO pinmux */
+ 			host-wlan-wake {
+diff --git a/arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts b/arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts
+index 7a62707f9f7fa..4ee84f4bd1878 100644
+--- a/arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts
++++ b/arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts
+@@ -8,9 +8,6 @@ / {
+ 	compatible = "lg,p895", "nvidia,tegra30";
+ 
+ 	pinmux@70000868 {
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&state_default>;
+-
+ 		state_default: pinmux {
+ 			/* GNSS UART-B pinmux */
+ 			uartb-cts-rxd {
 -- 
 2.53.0
 
