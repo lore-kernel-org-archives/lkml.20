@@ -1,385 +1,119 @@
-Received: from mta0.migadu.com (out-70.mta0.migadu.com [91.218.175.70])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF66425B091
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:18:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0AC25B091
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:18:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790237929; cv=none; b=LfYU/TNoPI6pexrrcblSoItY6hBAZ+4VZmIIGbt3o3xNiUhYIFX9kEwtD682RcB6ITUZzkJ5Me7j7WH/NO9wGWzMjCK1+V1MxKheSnGDl3X7yo77Ds7TPDplCpYdJaiMl4L2mV1BV6fBHYxLVPoLvSpkA6fSSaMR4BBa6umHiyY=
+	t=1790237939; cv=none; b=SCgx4aAm7XdLmtVzJWExIEfCZFEixbstSc4dy2s020Vqe2FMsLQcMiQXvwloFPtYHyPyAkhcKDb6E6Y8+aeXyVA/vBguNvmDnfwI9BvTdX8MhgWm5c8sDgmH+z4ewXA0HnSrTyzJiuq39M2p82AmzpA8UGNMOFnH2fu1b6hc1A8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790237929; c=relaxed/simple;
-	bh=hiZm/fDY1BSL9L8Z/AeOAzDlzCsEcbpWsqTMEAbyvN8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PMfHoCn+qCGKyYSLSJVj6f1iaD7Qq4OTiK2sLye6Yf/tnOW+D+/XP+gvbTAAHDfb6PHKLLz04Lwu1v0BU6ijgWRhngSnzQWc9PfWz6PA+7IQYQUrYFCHWB1vJWHJtBKIoeSpA9Uh02iTmbTpKmre5GvnGPTAvnIhnVo0ZrFNEOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=k8JaaJaW; arc=none smtp.client-ip=91.218.175.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790237939; c=relaxed/simple;
+	bh=wZuq7eC8OrYGdcaqCRFbmsq6ewXm1RrabCWSktmSbEg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d5CHDKmpFONDhIXc9S59v3SHaajAOY2+DEyZ6pVXFIqcTMaHwOwcQAIjVLsmqt57121JJdzaNouAElz7FySN5XrPh6VnjteoIru9qB2SXoMOIVhcnuRU0HGAUQIxGiZ35VLg8FRj5Xrp07YRADrRIhXwoAPkIwAOInsMVTpcfvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=T73IFnSV; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="k8JaaJaW"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=hiZm/fDY1BSL9L8Z/AeOAzDlzCsEcbpWsqTMEAbyvN8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790237924; v=1; x=1790842724;
- b=k8JaaJaWXbOjikevRN7KesWKpKFHeWJIlNu5qUk0sxzXwRiY4WXuGKa6IphDaR6PnRZ0G6sp
- MYdfEJIe+q9ddCu7RvFAIvGvAOhwx9l/ZNbCyLwhjX6FTmk0sC15LK0xQGDtpPU4Z7QV9XNejMw
- RzzTWHrA/vefBCDcsFv1skTw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d3ded82f82490e85;
-	Thu, 24 Sep 2026 08:18:43 +0000
-X-Mizu-Trace-ID: d3ded82f82490e85
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf v2] bpf: cpumap: fix use-after-free of dev_rx on netdev unregister
-Date: Thu, 24 Sep 2026 16:18:27 +0800
-Message-ID: <20260924081828.26575-1-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="T73IFnSV"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49e6425f96eso32025e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:18:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790237936; x=1790842736; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=To3pmZtljGj4X5rJ/mnIJvMelKkwi9aYdQXapoWl02w=;
+        b=T73IFnSVoMn3oXW39/QSINzxKMH36UR5tzMwYpSUHS5gmbEWy2scHdrc3hGxvgGDtl
+         gQrCmFHpy2JSDdyF8aCEg2pD1jfFlLIbUV963y9F7WhIpDuJnzG+jN4XXjLaRK2XuiGe
+         c2r7DOUV61oNUXDOe1V6mH1auma2IkyckUo6uXcn7aEuXXSFb6aWqYWJ36eZgERysfeg
+         iNCfoqG5R/miv5aLbZT2FV+m5okmC1uqNDd4ZowtaCNErM6wwkJ6hb9QF0oIN3T80ya9
+         vs6K3Xfpu6ZMKUIbQ4KExGF1uoyn5ckJWqfjDMCTaFkQ0rWGHh5Zkum7czRwX9At4udB
+         /8iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790237936; x=1790842736;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=To3pmZtljGj4X5rJ/mnIJvMelKkwi9aYdQXapoWl02w=;
+        b=1kVYljsxd6AnUwb/skT4VdWu/Q8MvgvyhLX3cUoT+hzMwnoZPSix2fKwOzNLn1+e4u
+         f9ZC2C6/SggEKoPhZ7t4WVYRz+oX1C6UwrhiDxwTcxxKTWnjdn7KRPNfDvoNTuOPq9ON
+         XxBP/AG3F3WLXK+dG9p3tj6wTNpB80hYTO7b1GWkSEzfYzIGp2PDqCo2LZRuGo9buf/7
+         ZrGekS5gVh7me8iKOUeHDk6NoKFi3qPu/e45ZuzqHTMPfNUEjF39F2iLaBhexX1drpi9
+         qkTHx1tNAgcivYSeG54WxMDDOoDQA1BAIlIpSNvNnhWIYJFXuhKHdb0lBf5q0zPSrAqp
+         bNHw==
+X-Gm-Message-State: AFuF++kAAmAK7kcmzEEkdvpzkly2J+Q7DmmQHZYLxjCVhwwqsDYj/aAe
+	W64W+sBxEu1cPoqCSSBKEKSfNQT/obY5qQJ03Wi53+9lJgGNVLnudk0XT/fsJfxuLQ==
+X-Gm-Gg: AYBFou3h43KtMCbBNAXmrnumWbTvm5j7Im3MgKU933ncKOarfXwvVvWjtlo2zVbp16r
+	c85w4g1p+vfU61om2dGuTMWmMThVok+KGWvl3TlTH0n07wFi5OFt7Z0cy0Y9N+Yw3BWHcgN7JI2
+	7wL6zH2YAktpoTq/Jhg4hBs2EAO41gvyexIW56cU1DU8en8CmQYi+Ekw9WF4M3EijQKTuVGHil+
+	gC0wL7HXoIXIbZw8SDckYuDe88GHt8rVb7hRawDfrpSsmi12k+I1UQJ9NAkdN2XPd0hEkJc3zec
+	/PXevodGKEtAK+9EZnnnuiyRkyWT5fpXyCnAD01TIHJSrlSm/hgG2owin3yqmWIgNhgxXbFXFhp
+	Mt0+jVv/Oi1z9OJq12i3f5MxfRyD2GVoD1DnfoOOHncV+BNZsoxS5pNhUdljkPJ71aK8I3Kzmcv
+	mSZ0k99M6BUiCBdkkhm1iOcl4zZdLD8gEC9rOUK/g7LIajm5UoTRaX9rOnYCNJdvofmHFSw1Ehd
+	WO9pqw9tGIcbkn18J9MH+RhcgEmv5NgPuukaYFoXA==
+X-Received: by 2002:a05:600c:4aaa:b0:49f:ddcf:45b7 with SMTP id 5b1f17b1804b1-49fe5632713mr652925e9.10.1790237935405;
+        Thu, 24 Sep 2026 01:18:55 -0700 (PDT)
+Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd42f2sm47160755e9.15.2026.09.24.01.18.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 01:18:54 -0700 (PDT)
+Date: Thu, 24 Sep 2026 08:18:50 +0000
+From: Mostafa Saleh <smostafa@google.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, will@kernel.org,
+	robin.murphy@arm.com, joro@8bytes.org, nicolinc@nvidia.com,
+	praan@google.com
+Subject: Re: [PATCH 0/7] iommu/arm-smmu-v3: Fixes reported by Sashiko
+Message-ID: <arTc6smwFV3G2rSa@google.com>
+References: <20260828125409.1921538-1-smostafa@google.com>
+ <20260924000344.GA3560397@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260924000344.GA3560397@nvidia.com>
 
-1. The ring holds the ingress device with no reference.
+On Wed, Sep 23, 2026 at 09:03:44PM -0300, Jason Gunthorpe wrote:
+> On Fri, Aug 28, 2026 at 12:53:35PM +0000, Mostafa Saleh wrote:
+> > While running sashiko locally on the pKVM SMMUv3 driver patches, it
+> > reported some pre-existing issues in the SMMUv3 driver (the RB tree
+> > corruption and a missing NULL check) and given that this is not the
+> > first time a pre-existing issue appears in the driver from sashiko,
+> > I went ahead and passed the whole driver to Sashiko which reported a
+> > dozen of other issues(except the last one in this series), I included
+> > fixes for bugs I believe are true or worth fixing (others were mostly
+> > missing NULL checks or bizarre HW/FW configs I don’t think are needed).
+> > 
+> > I also sorted the patches based on severity from the most critical to
+> > the least, so it is easier to apply a prefix if some bugs are too
+> > theoretical
+> > 
+> > Mostafa Saleh (7):
+> >   iommu/arm-smmu-v3: Ensure L2 tables are visible before L1 ptrs
+> >   iommu/arm-smmu-v3: Prevent rbtree corruption from duplicate streams
+> >   iommu/arm-smmu-v3-iommufd: Fix error path in
+> >     arm_vsmmu_cache_invalidate()
+> >   iommu/arm-smmu-v3-test: Fix arm_smmu_v3_test_debug_print_used_bits()
+> >   iommu/arm-smmu-v3-test: Add missing error checks for inv array
+> >   iommu/arm-smmu-v3-test: Fix OOB in arm_smmu_v3_invs_test_verify()
+> >   iommu/arm-smmu-v3-test: Fix UBSAN error
+> 
+> Does this need a respin? At least the 3rd patch there should no go
+> as the iommufd tree has a different version of that fix now
 
-Native XDP stores it in the frame:
+Yes, I will respin shortly, I will also drop patch 2 as  Nicolin
+posted a new version of his patch.
 
-	cpu_map_enqueue()
-		xdpf->dev_rx = dev_rx;
-		bq_enqueue()
+Thanks,
+Mostafa
 
-Generic XDP queues the skb as is, skb->dev is the ingress device:
-
-	cpu_map_generic_redirect()
-		ptr_ring_produce(rcpu->queue, skb);
-
-Both sit in rcpu->queue until the kthread runs.
-
-2. The kthread builds the skb from that pointer and hands it to the
-stack, skb->dev has no reference either:
-
-	cpu_map_kthread_run()
-		__xdp_build_skb_from_frame()
-			eth_type_trans()	/* sets skb->dev */
-		gro_receive_skb()
-
-The cpumap XDP prog uses it too, as rxq.dev and in xdp_do_redirect().
-
-3. If the device is torn down while the frames wait in the ring, the
-pointer is stale. Nothing in unregister knows about the ring:
-flush_all_backlogs() only walks the softnet backlog, synchronize_net()
-does not wait for a kthread, and no reference stops free_netdev().
-Seen with a veth in a netns, XDP redirect to a cpumap entry, and
-"ip link del" while the kthread was not scheduled:
-
-  BUG: KASAN: slab-use-after-free in eth_type_trans+0x4d9/0x590
-  Read of size 8 at addr ffff888100634500 by task cpumap/1/map:2/623
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x91/0xf0
-   print_report+0xd1/0x630
-   kasan_report+0xf3/0x130
-   __asan_report_load8_noabort+0x14/0x30
-   eth_type_trans+0x4d9/0x590
-   __xdp_build_skb_from_frame+0x311/0x860
-   cpu_map_kthread_run+0x852/0x1ca0
-   kthread+0x3a2/0x4d0
-   ret_from_fork+0x619/0x8e0
-   ret_from_fork_asm+0x1a/0x30
-   </TASK>
-
-  Allocated by task 609:
-   __kvmalloc_node_noprof+0x382/0xae0
-   alloc_netdev_mqs+0x8a/0x12c0
-   rtnl_create_link+0xad5/0xf10
-   veth_newlink+0x214/0xb50
-   rtnl_newlink+0xd60/0x2640
-   rtnetlink_rcv_msg+0x74a/0xc30
-   netlink_rcv_skb+0x147/0x400
-
-  Freed by task 631:
-   kfree+0x282/0x660
-   kvfree+0x31/0x40
-   netdev_release+0x6d/0x90
-   device_release+0xce/0x250
-   kobject_put+0x18d/0x4f0
-   netdev_run_todo+0x7fb/0x10f0
-   rtnl_dellink+0x392/0xc10
-   rtnetlink_rcv_msg+0x74a/0xc30
-   netlink_rcv_skb+0x147/0x400
-
-The easy fix is a reference per frame:
-
-	cpu_map_enqueue()
-		xdpf->dev_rx = dev_rx;
-		dev_hold()
-	cpu_map_kthread_run()
-		gro_receive_skb()
-		dev_put()
-
-GRO is the problem. The skb may stay in rcpu->gro after
-gro_receive_skb(), and even after cpu_map_gro_flush() some skbs stay,
-flush_old only pushes the old ones. So we can't tell which skbs really
-left, and so can't tell when to dev_put(). Doing it right needs a hook
-in the GRO core path. Not worth it.
-
-So use the netdev notifier and let the kthread finish its work before
-the device is freed:
-
-1. On NETDEV_UNREGISTER, take the ring size and ask the kthread to
-   consume that many frames, or until the ring is empty. After that,
-   every frame that was in the ring has been handled by the stack or
-   dropped. The device is closed, so no new frames for it can show up.
-2. The kthread wakes the notifier once it got there. The device is
-   still alive until then, so the frames go up the stack as usual.
-   Nothing is dropped and frames of other devices are not told apart,
-   unlike flush_backlog(), which only frees the skbs of that device.
-3. On the last round of the drain, flush GRO fully, flush_old is 0.
-   Every other round keeps the flush logic as is.
-
-Entry teardown stops the kthread under the same mutex and unlinks the
-entry after that, so an unregister can't slip in while the ring still
-has frames, and the notifier never waits on a kthread that is gone.
-
-One hole is left: the cpumap prog may redirect the frame to another
-cpumap entry, and that ring may have reported done already. So while
-the device is unregistering, drop on XDP_REDIRECT instead. That check
-only runs when the prog picks XDP_REDIRECT. The check, the redirect and
-the flush are one RCU read section, and unregister does
-synchronize_net() before the notifier runs, so a frame that passed the
-check is in the target ring before the drain starts.
-
-The notifier has to ask every entry, a cpumap entry is not tied to a
-netns and any device can feed it. So an unregister anywhere drains
-every ring in the system, once per device, with RTNL held. That is
-bounded: qsize is capped at 16384, each entry consumes at most one
-ring plus a GRO flush, and the kthreads do it in parallel. Those
-frames had to be consumed anyway. Nothing changes on the hot path,
-the kthread reads one field per batch.
-
-Fixes: 1c601d829ab0 ("bpf: cpumap xdp_buff to skb conversion and allocation")
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
-v2 -> v3: point Fixes at the commit that stores and uses dev_rx, spell
-out in the message that the drain under RTNL is bounded by qsize.
-v2: https://lore.kernel.org/bpf/20260922121022.256777-1-jiayuan.chen@linux.dev/
-v1 -> v2: stop the kthread under cpu_map_mutex in entry teardown, so an
-unregister can't miss frames still in the ring. Reword the message,
-trim comments.
-v1: https://lore.kernel.org/bpf/DLKA28VU4GIV.I4EVTT076Y5Q@gmail.com/
-
-Local review asked about the full GRO flush handing skbs of the
-unregistering device to RPS after flush_all_backlogs() ran. That can't
-happen: enqueue_to_backlog() drops skbs whose device is not running,
-and dev_close() cleared that before reg_state changed.
-
-Local review also flagged that a full GRO flush can hand a PTP packet to
-skb_defer_rx_timestamp(), which keeps skb->dev in the PHY driver's
-queue. That needs dev->phydev, which phy_disconnect() clears on
-dev_close(), before reg_state changes. Anything queued before that is
-owned by the PHY driver, same as on the normal NAPI path. Not a cpumap
-issue, so not handled here.
----
- kernel/bpf/cpumap.c | 93 ++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 88 insertions(+), 5 deletions(-)
-
-diff --git a/kernel/bpf/cpumap.c b/kernel/bpf/cpumap.c
-index 5e59ab896f058..0c9647f28034d 100644
---- a/kernel/bpf/cpumap.c
-+++ b/kernel/bpf/cpumap.c
-@@ -74,8 +74,15 @@ struct bpf_cpu_map_entry {
- 
- 	struct completion kthread_running;
- 	struct rcu_work free_work;
-+
-+	struct list_head list;
-+	wait_queue_head_t drain_wq;
-+	u32 drain_left; /* frames to consume, see cpu_map_netdev_event() */
- };
- 
-+static LIST_HEAD(cpu_map_list);
-+static DEFINE_MUTEX(cpu_map_mutex);
-+
- struct bpf_cpu_map {
- 	struct bpf_map map;
- 	/* Below members specific for map type */
-@@ -136,6 +143,12 @@ static void __cpu_map_ring_cleanup(struct ptr_ring *ring)
- 	}
- }
- 
-+/* cpumap to cpumap redirect, the target ring may be done draining already */
-+static bool cpu_map_dev_unregistering(const struct net_device *dev)
-+{
-+	return unlikely(READ_ONCE(dev->reg_state) != NETREG_REGISTERED);
-+}
-+
- static u32 cpu_map_bpf_prog_run_skb(struct bpf_cpu_map_entry *rcpu,
- 				    void **skbs, u32 skb_n,
- 				    struct xdp_cpumap_stats *stats)
-@@ -153,6 +166,11 @@ static u32 cpu_map_bpf_prog_run_skb(struct bpf_cpu_map_entry *rcpu,
- 			skbs[pass++] = skb;
- 			break;
- 		case XDP_REDIRECT:
-+			if (cpu_map_dev_unregistering(skb->dev)) {
-+				kfree_skb(skb);
-+				stats->drop++;
-+				break;
-+			}
- 			err = xdp_do_generic_redirect(skb->dev, skb, &xdp,
- 						      rcpu->prog);
- 			if (unlikely(err)) {
-@@ -213,6 +231,11 @@ static int cpu_map_bpf_prog_run_xdp(struct bpf_cpu_map_entry *rcpu,
- 			}
- 			break;
- 		case XDP_REDIRECT:
-+			if (cpu_map_dev_unregistering(xdpf->dev_rx)) {
-+				xdp_return_frame(xdpf);
-+				stats->drop++;
-+				break;
-+			}
- 			err = xdp_do_redirect(xdpf->dev_rx, &xdp,
- 					      rcpu->prog);
- 			if (unlikely(err)) {
-@@ -310,14 +333,16 @@ static int cpu_map_kthread_run(void *data)
- 		struct cpu_map_ret ret = { };
- 		void *frames[CPUMAP_BATCH];
- 		void *skbs[CPUMAP_BATCH];
--		u32 i, n, m;
-+		bool drained = false;
-+		u32 i, n, m, left;
- 		bool empty;
- 
- 		/* Release CPU reschedule checks */
- 		if (__ptr_ring_empty(rcpu->queue)) {
- 			set_current_state(TASK_INTERRUPTIBLE);
- 			/* Recheck to avoid lost wake-up */
--			if (__ptr_ring_empty(rcpu->queue)) {
-+			if (__ptr_ring_empty(rcpu->queue) &&
-+			    !READ_ONCE(rcpu->drain_left)) {
- 				schedule();
- 				sched = 1;
- 				last_qs = jiffies;
-@@ -398,10 +423,23 @@ static int cpu_map_kthread_run(void *data)
- 		/* Flush either every 64 packets or in case of empty ring */
- 		packets += n;
- 		empty = __ptr_ring_empty(rcpu->queue);
--		if (packets >= NAPI_POLL_WEIGHT || empty) {
--			cpu_map_gro_flush(rcpu, empty);
-+		left = READ_ONCE(rcpu->drain_left);
-+		if (unlikely(left)) {
-+			/* We are draining, drained is true on the last round */
-+			left -= min(n, left);
-+			drained = empty || !left;
-+			if (!drained)
-+				WRITE_ONCE(rcpu->drain_left, left);
-+		}
-+		if (packets >= NAPI_POLL_WEIGHT || empty || drained) {
-+			cpu_map_gro_flush(rcpu, empty || drained);
- 			packets = 0;
- 		}
-+		/* Only report back once GRO is flushed too */
-+		if (unlikely(drained)) {
-+			WRITE_ONCE(rcpu->drain_left, 0);
-+			wake_up(&rcpu->drain_wq);
-+		}
- 
- 		local_bh_enable(); /* resched point, may call do_softirq() */
- 	}
-@@ -473,6 +511,7 @@ __cpu_map_entry_alloc(struct bpf_map *map, struct bpf_cpumap_val *value,
- 	rcpu->map_id = map->id;
- 	rcpu->value.qsize  = value->qsize;
- 	gro_init(&rcpu->gro);
-+	init_waitqueue_head(&rcpu->drain_wq);
- 
- 	if (fd > 0) {
- 		err = __cpu_map_load_bpf_program(rcpu, map, fd);
-@@ -500,6 +539,10 @@ __cpu_map_entry_alloc(struct bpf_map *map, struct bpf_cpumap_val *value,
- 	 */
- 	wait_for_completion(&rcpu->kthread_running);
- 
-+	mutex_lock(&cpu_map_mutex);
-+	list_add_tail(&rcpu->list, &cpu_map_list);
-+	mutex_unlock(&cpu_map_mutex);
-+
- 	return rcpu;
- 
- free_prog:
-@@ -530,9 +573,13 @@ static void __cpu_map_entry_free(struct work_struct *work)
- 
- 	/* kthread_stop will wake_up_process and wait for it to complete.
- 	 * cpu_map_kthread_run() makes sure the pointer ring is empty
--	 * before exiting.
-+	 * before exiting. Under the mutex, so the notifier sees either the
-+	 * frames or no entry.
- 	 */
-+	mutex_lock(&cpu_map_mutex);
- 	kthread_stop(rcpu->kthread);
-+	list_del(&rcpu->list);
-+	mutex_unlock(&cpu_map_mutex);
- 
- 	if (rcpu->prog)
- 		bpf_prog_put(rcpu->prog);
-@@ -832,3 +879,39 @@ void __cpu_map_flush(struct list_head *flush_list)
- 		wake_up_process(bq->obj->kthread);
- 	}
- }
-+
-+/* Frames in the ring and skbs in GRO hold a raw pointer to the ingress
-+ * device, make every kthread consume them before the device is freed.
-+ */
-+static int cpu_map_netdev_event(struct notifier_block *nb,
-+				unsigned long event, void *ptr)
-+{
-+	struct bpf_cpu_map_entry *rcpu;
-+
-+	if (event != NETDEV_UNREGISTER)
-+		return NOTIFY_OK;
-+
-+	mutex_lock(&cpu_map_mutex);
-+	list_for_each_entry(rcpu, &cpu_map_list, list) {
-+		/* the whole ring, plus a batch already pulled out */
-+		WRITE_ONCE(rcpu->drain_left, rcpu->queue->size + CPUMAP_BATCH);
-+		wake_up_process(rcpu->kthread);
-+	}
-+	list_for_each_entry(rcpu, &cpu_map_list, list)
-+		wait_event(rcpu->drain_wq, !READ_ONCE(rcpu->drain_left));
-+	mutex_unlock(&cpu_map_mutex);
-+
-+	return NOTIFY_OK;
-+}
-+
-+static struct notifier_block cpu_map_notifier = {
-+	.notifier_call = cpu_map_netdev_event,
-+};
-+
-+static int __init cpu_map_init(void)
-+{
-+	register_netdevice_notifier(&cpu_map_notifier);
-+
-+	return 0;
-+}
-+subsys_initcall(cpu_map_init);
--- 
-2.43.0
-
+> 
+> Jason
