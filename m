@@ -1,171 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD772D876F;
-	Thu, 24 Sep 2026 09:07:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7CD283CF1EF;
+	Thu, 24 Sep 2026 09:07:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790240849; cv=none; b=uQRKUdzKdobISidVgQu3hrFXcJRcT0K39Pg0NwK+dgfBwqm8syNu7Rn1snUr1vfoWpdiFO80Qqkap/hRbmbot3DUge7giCZ/l+GiAyogTKp4BnUUe6QX4eDaK4aRjoh357Ucry/ROpInOAc/xvdUY9uctz12lROZt+f49xF8N4A=
+	t=1790240867; cv=none; b=hVjQ3Ktz3txLrSgUUyoIsElhNlkELkLlqWMosfgcQBpR8PEOslL4GCu0W20sLeaJnH+ztS7ZqIQ+8MIbCg4ultwWufMhUBpvLkwpJIxAdtrPv3RI3BL6eGkqT0ppvuLSAtC94mWoJxFLPLrFMUDUZv7a2vaoQAA7htnPozINCcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790240849; c=relaxed/simple;
-	bh=JLZ3rGiZZOr7YO/jvpWCxZYD6B7P1DllugeVw46XtUI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=dsIRR8MHnmTyKYjadb/ja5Dlofa1LWgVzHmijueAhQW9+8aYl1jG3z2x0xbg6iK2b2tUjOf01QAxgTG+vkuETiVGfJqW7/ttIskd7A/Kd+9rBvsk0yfB+ukTJBGgDtaAMFEkQm7lZWxmWdHD2u0GLNImJ2R8CPAxBv2470IISO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cPg2Jui/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790240867; c=relaxed/simple;
+	bh=KCpkwX3n9hDTqSNw48pPQoWBY0FYrWUGqdnZtj2ba/c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Z5pS3YFHP9QsMH692gOPitoyB8gFK8796yCFy9hufZYwN8eYr4MEKk7j5lw251x55RzODzNOdAxbXgcNY5CGd5RGl5Sh8tEEIf3p/nRTsEhrew/RL2b1qgcKSqNA3wNkcJV1H8oEMXfggUPXZurn11aVG4rDtiuj9Y6xkIGhZWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Lg0Ij3N6; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cPg2Jui/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6C251F000FF;
-	Thu, 24 Sep 2026 09:07:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790240847;
-	bh=Zk20Ep6/d6197RprSKRr49OuNiYfxV066J/nSmSGDW0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=cPg2Jui/09mWM3nXccXSUqtiN9hDFvTLhXO+Fq82Mecwc4mwLQZnHDLyV9YTPF7/G
-	 AgLW8j80I7AstYCAJR5eWMH6wV2qTm8AtkuPtTXY1FOaPSQekZuhQ8WhULVYMaGzTv
-	 nttyuxHJ++RS6R6Qg0NDOsg2xjBhg7AB/EmIrS7wCwUrrcldatVjJEKL5+e67Rsh9w
-	 tquWe6kpRjdCVUuidQIAHuNB2139VMaqVsDV2iW4omT07vgzjl43zHu+/okDSnpocN
-	 LA8k/eysRMJ97XNZlaUhJVcna86/YMeV/LQ2xViRr2tEwITJjDA4ocigU1PMMFYflj
-	 dIJpPiXGsteTg==
-Subject: Re: [PATCH net 1/2] udp: fix auto-selected port colliding with an
- existing SO_REUSEPORT socket
-From: netdev-bot+sashiko@kernel.org
-To: jiayuan.chen@linux.dev
-Cc: netdev@vger.kernel.org, willemdebruijn.kernel@gmail.com,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, shuah@kernel.org, therbert@google.com,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Date: Thu, 24 Sep 2026 09:07:26 +0000
-Message-ID: <179024084635.2160803.17112917565020576047@kernel.org>
-In-Reply-To: <20260923060547.118748-1-jiayuan.chen@linux.dev>
-References: <20260923060547.118748-1-jiayuan.chen@linux.dev>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Lg0Ij3N6"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6686B1516;
+	Thu, 24 Sep 2026 02:07:40 -0700 (PDT)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8609B3F86F;
+	Thu, 24 Sep 2026 02:07:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790240863; bh=KCpkwX3n9hDTqSNw48pPQoWBY0FYrWUGqdnZtj2ba/c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Lg0Ij3N6WVWS4N+OYN2hfyqo2WvEhy7KK3wQywFVE5UG/R8DywLrfxYuW45vNJY6d
+	 pmPerYPn3hSU4jzj0AFR4h3OaxXAhFO0GypCth150WgOVAF2J9ECiv7wyAsOmGv/19
+	 8+/thaVS4iiXGenDxi+2mBgVObYURDzgpxm1V9/0=
+Message-ID: <30c42b73-204d-4531-bd1a-1ee160a4b000@arm.com>
+Date: Thu, 24 Sep 2026 11:07:40 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 03/11] dt-bindings: pinctrl: add Allwinner B288 pin
+ controller
+To: Pablo Mazzini <pmazzini@gmail.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec
+ <jernej.skrabec@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+ Samuel Holland <samuel@sholland.org>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-sunxi@lists.linux.dev
+References: <20260923201701.43391-1-pmazzini@gmail.com>
+ <20260923201701.43391-3-pmazzini@gmail.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20260923201701.43391-3-pmazzini@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Hi Pablo,
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+On 9/23/26 22:16, Pablo Mazzini wrote:
+> One controller at 0x01c20800 with four external interrupt banks.
+> 
+> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+> ---
+>   .../pinctrl/allwinner,sun8i-b288-pinctrl.yaml | 108 ++++++++++++++++++
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Why is this a new file? Can't you just add the new compatible string to 
+the existing allwinner,sun4i-a10-pinctrl.yaml binding?
 
-- [High] Incomplete fix.
+Cheers,
+Andre
 
---
+P.S. Since we have seen this a lot lately: please wait with a new 
+version of your series for a few days, to allow other people to comment, 
+and to allow discussions to settle down. Not everyone can respond quickly.
 
-udp: fix auto-selected port colliding with an existing SO_REUSEPORT socket
+>   1 file changed, 108 insertions(+)
+>   create mode 100644 Documentation/devicetree/bindings/pinctrl/allwinner,sun8i-b288-pinctrl.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/pinctrl/allwinner,sun8i-b288-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/allwinner,sun8i-b288-pinctrl.yaml
+> new file mode 100644
+> index 000000000000..806da97ab708
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pinctrl/allwinner,sun8i-b288-pinctrl.yaml
+> @@ -0,0 +1,108 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/pinctrl/allwinner,sun8i-b288-pinctrl.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Allwinner B288 Pin Controller
+> +
+> +maintainers:
+> +  - Chen-Yu Tsai <wens@csie.org>
+> +  - Jernej Skrabec <jernej.skrabec@gmail.com>
+> +
+> +properties:
+> +  compatible:
+> +    const: allwinner,sun8i-b288-pinctrl
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    description:
+> +      One interrupt per bank of external interrupt capable pins.
+> +    maxItems: 4
+> +
+> +  clocks:
+> +    items:
+> +      - description: Bus Clock
+> +      - description: High Frequency Oscillator
+> +      - description: Low Frequency Oscillator
+> +
+> +  clock-names:
+> +    items:
+> +      - const: apb
+> +      - const: hosc
+> +      - const: losc
+> +
+> +  gpio-controller: true
+> +  interrupt-controller: true
+> +  gpio-line-names: true
+> +
+> +  "#gpio-cells":
+> +    const: 3
+> +
+> +  "#interrupt-cells":
+> +    const: 3
+> +
+> +patternProperties:
+> +  "-pins$":
+> +    type: object
+> +    $ref: /schemas/pinctrl/pincfg-node.yaml#
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      pins: true
+> +      function: true
+> +      bias-pull-up: true
+> +      bias-pull-down: true
+> +      bias-disable: true
+> +      drive-strength:
+> +        enum: [10, 20, 30, 40]
+> +
+> +    required:
+> +      - pins
+> +      - function
+> +
+> +  "^vcc-p[bcdfg]-supply$":
+> +    description:
+> +      Power supplies for pin banks.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - clocks
+> +  - clock-names
+> +  - gpio-controller
+> +  - "#gpio-cells"
+> +  - interrupt-controller
+> +  - "#interrupt-cells"
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/sun8i-b288-ccu.h>
+> +
+> +    pio: pinctrl@1c20800 {
+> +        compatible = "allwinner,sun8i-b288-pinctrl";
+> +        reg = <0x01c20800 0x400>;
+> +        interrupts = <GIC_SPI 15 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <GIC_SPI 21 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>;
+> +        clocks = <&ccu CLK_BUS_PIO>, <&osc24M>, <&osc32k>;
+> +        clock-names = "apb", "hosc", "losc";
+> +        gpio-controller;
+> +        #gpio-cells = <3>;
+> +        interrupt-controller;
+> +        #interrupt-cells = <3>;
+> +
+> +        mmc0_pins: mmc0-pins {
+> +            pins = "PF0", "PF1", "PF2", "PF3", "PF4", "PF5";
+> +            function = "sdc0";
+> +            drive-strength = <30>;
+> +            bias-pull-up;
+> +        };
+> +    };
 
-This commit changes udp_lib_lport_inuse() so that, during a port scan
-(bitmap != NULL), compatible SO_REUSEPORT sockets are marked in the bitmap
-instead of being skipped. The reuseport exemption now applies only when a
-specific port is requested. This matches TCP commit 0643ee4fd1b7.
-
-> diff --git a/net/ipv4/udp.c b/net/ipv4/udp.c
-> index b090bd1f59e86..a7ade3171becc 100644
-> --- a/net/ipv4/udp.c
-> +++ b/net/ipv4/udp.c
-> @@ -147,11 +147,10 @@ static int udp_lib_lport_inuse(struct net *net, __u16 num,
->  		    (!sk2->sk_bound_dev_if || !sk->sk_bound_dev_if ||
->  		     sk2->sk_bound_dev_if == sk->sk_bound_dev_if) &&
->  		    inet_rcv_saddr_equal(sk, sk2, true)) {
-> -			if (sk2->sk_reuseport && sk->sk_reuseport &&
-> +			if (!bitmap && sk2->sk_reuseport && sk->sk_reuseport &&
-
-[Severity: High]
-Doesn't this leave the same collision in place when both sockets also have
-SO_REUSEADDR set?
-
-The new !bitmap check sits inside the outer filter in
-udp_lib_lport_inuse(), and that filter is also evaluated in scan mode:
-
-net/ipv4/udp.c:udp_lib_lport_inuse() {
-    ...
-		    (bitmap || udp_sk(sk2)->udp_port_hash == num) &&
-		    (!sk2->sk_reuse || !sk->sk_reuse) &&
-    ...
-}
-
-If sk and sk2 both have sk_reuse set, the outer condition is false. In that
-case neither the new reuseport branch nor the __set_bit() runs, so sk2's
-port is never marked in the bitmap.
-
-udp_lib_get_port() then treats the port as free:
-
-    if (low <= snum && snum <= high &&
-        !test_bit(snum >> udptable->log, bitmap) &&
-        !inet_is_local_reserved_port(net, snum))
-            goto found;
-
-At found:, since sk->sk_reuseport is set, udp_reuseport_add_sock() finds
-sk2 (same port hash, same bound dev, sk2->sk_reuseport, same uid) and does:
-
-    return reuseport_add_sock(sk, sk2,
-                              inet_rcv_saddr_any(sk));
-
-The unrelated socket then joins the existing reuseport group and gets part
-of its datagrams. That is the symptom described in the commit message.
-
-IPv6 goes through the same path via udp_v6_get_port()->udp_lib_get_port().
-Implicit autobind from connect()/sendmsg() on an unbound socket calls
-udp_lib_get_port(sk, 0, ...) and reaches it as well.
-
-The commit message says:
-
-    Note that this still collides when both sockets also have SO_REUSEADDR
-    set: udp_lib_lport_inuse() skips such a pair before it reaches the
-    reuseport check, so the port is never marked either. That is not a
-    common setup and is left as is here.
-
-Is that really uncommon? Server code and libraries often set SO_REUSEADDR
-together with SO_REUSEPORT.
-
-The message also says UDP now does the same as TCP. TCP's scan calls
-inet_bind_conflict() with relax == false, and that treats a reuse pair as a
-conflict:
-
-net/ipv4/inet_connection_sock.c:inet_bind_conflict() {
-    ...
-		if (sk->sk_reuse && sk2->sk_reuse &&
-		    sk2->sk_state != TCP_LISTEN) {
-			if (!relax || (!reuseport_ok && sk->sk_reuseport &&
-    ...
-				return true;
-    ...
-}
-
-So TCP never hands out an occupied port during a scan because of
-SO_REUSEADDR, but the UDP scan still does.
-
-Could the outer term be changed to something like:
-
-    (bitmap || !sk2->sk_reuse || !sk->sk_reuse) &&
-
-so that every compatible occupied port is marked during the scan? The
-SO_REUSEADDR and SO_REUSEPORT exemptions would still apply on the
-explicit-port path.
-
-Separately, sockets that have only SO_REUSEADDR set can also be given the
-same auto-selected port today. That behaviour predates this patch, but the
-same change would fix it too.
-
->  			    !rcu_access_pointer(sk->sk_reuseport_cb) &&
->  			    uid_eq(uid, sk_uid(sk2))) {
-> -				if (!bitmap)
-> -					return 0;
-> +				return 0;
->  			} else {
->  				if (!bitmap)
->  					return 1;
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260923060547.118748-1-jiayuan.chen%40linux.dev
