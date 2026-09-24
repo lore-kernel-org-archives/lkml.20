@@ -1,121 +1,72 @@
-Received: from mta1.migadu.com (out-215.mta1.migadu.com [95.215.58.215])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4BDB44AB64
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:36:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.215
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DDD9442385;
+	Thu, 24 Sep 2026 22:36:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790289395; cv=none; b=lXBaHtCVuHbRy0ld6BudhsJWHKN/EFDry9fzaTuodCatBh/iHCkL7djAhWXRpQLGqvr4uYZN7vyc0ByVh3dr37DnRfnoFhWzkibu+ustCx6svnzfxKKjfXZfVGBnD5G5nxPT/DhoCiUZmPHPexxwDPstjRe+YhRAlKXcI1zQEgM=
+	t=1790289409; cv=none; b=DJLfwkwSxoYdQD28gz1moADL53dTgw3e5KIiDQYnOcB0yMi9AgKxoddFXvap7UsfuXZEa47ZJSXvZNukpqkLe+SvI2ix/1lbRY/SEhd7uk6kEZlPqgB/mAYUCnJxtCE8o9EkghZ0f2VSXi5gYjheapG+MOpIcYuxXOVy42dOzLM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790289395; c=relaxed/simple;
-	bh=6tASAd8sUDq5Ftr41lemiI/nY6tO72VqXbeQ3Os+o5Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QzbzFufuqFsaXts62t1q/6yKTLrpXkGCqSv7C4fh2MInzSa5fD3I1q7S6CKlNnSC0jBHKQycmqxbjq8wlZ4AiqHkM1cTczo6UOVGmeZwblyebVxyKSGaGr01sbCACuimBcOrLEKote2zbVkAPtxgd25uLohQn14hSGluKZ6VrQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=B41dXUOT; arc=none smtp.client-ip=95.215.58.215
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790289409; c=relaxed/simple;
+	bh=1wmX4rp8dbQalKgfoYF2kUKKu5XPfwP/gP2gXlSUrog=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=SJbIslGfqehgLDGC7nXOWf3VEuDFTA/faKJ/7NNwo6Hw/5XNOIKGyECEXYjzDVDDA0GFxZT5lVt62ek83mu0F1n9pJpInNPxkAqEdMNDh16Mor+bhK9vJF23AfyvpFHGbr1t7S9+jdrtsDznLvl3zRVZepR80GbhIAAsgKHRkYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NMoeOI8A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="B41dXUOT"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=6tASAd8sUDq5Ftr41lemiI/nY6tO72VqXbeQ3Os+o5Q=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790289391; v=1; x=1790894191;
- b=B41dXUOThndc05ma5tGSSoiI86LIS0CyB2WJBO9fEj/lP4Ztem5KgGOpxCzkYEfZE43IArqE
- bJial81CjDJBPlwt3GyBjQ8dC8IkZsN9Tr1yJHTFPB5ZfHFADwr0WomNwe/gIjlEbpn7CzSYPrO
- oQmAJnjiF4aRHimuno12lBbA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e5a9a7017ca58495;
-	Thu, 24 Sep 2026 22:36:31 +0000
-X-Mizu-Trace-ID: e5a9a7017ca58495
-X-Migadu-Flow: FLOW_OUT
-From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
-Date: Thu, 24 Sep 2026 22:35:46 +0000
-Subject: [PATCH v2 2/9] ftrace: Let ftrace_call_adjust() reject a patch
- site
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NMoeOI8A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 063F71F000FF;
+	Thu, 24 Sep 2026 22:36:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790289408;
+	bh=oP/zxzF7zYNaQTJI7+MbpMn4XM//3Jpa5qEvLqTdNPU=;
+	h=Date:From:To:Cc:Subject;
+	b=NMoeOI8AtN+NYS8sImy/69uLAceoi5SEgy2znPjzlUeVQGoZhslSPgunAR6gi2O+m
+	 8dYQB8C/AwRtYBLHuyVQH/BGh1G6UZKwEZPFPcitPfCtkvyP+hzDbCpZSWfqaLf1NV
+	 uSbEJJR5VN4TTsSui3xMCTwA3CqZI6YKz9WsZbn4T1LVbUNU+4bGyqCKCkm0bW65tE
+	 yqo9Q8FoDpvEYWJo9ycY7z4W8FZSsV7kT5aGKKqIaa8riyS1ToGYrWldaFV+0qakHz
+	 XySI+xeF8n9DF0dNoDmMeyqdwW5tUI4e2vJMPf+LhujQYLJdYHQaO2uGgYbFcrgisd
+	 p9YrYqWLZevZQ==
+Date: Thu, 24 Sep 2026 23:36:44 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Arnaldo Carvalho de Melo <arnaldo.melo@gmail.com>,
+	Namhyung Kim <namhyung@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
+Subject: Missing signoff in the perf tree
+Message-ID: <arWl_CVE0g8dSTSU@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-b4-arm64-callops-kcfi-v2-2-587865b6d991@linux.dev>
-References: <20260924-b4-arm64-callops-kcfi-v2-0-587865b6d991@linux.dev>
-In-Reply-To: <20260924-b4-arm64-callops-kcfi-v2-0-587865b6d991@linux.dev>
-To: Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Puranjay Mohan <puranjay@kernel.org>, Xu Kuohai <xukuohai@huaweicloud.com>, 
- Ard Biesheuvel <ardb@kernel.org>, 
- Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Sami Tolvanen <samitolvanen@google.com>, Kees Cook <kees@kernel.org>
-Cc: Leon Hwang <leon.hwang@linux.dev>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Josh Poimboeuf <jpoimboe@kernel.org>, live-patching@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
- linux-kbuild@vger.kernel.org, llvm@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org, 
- linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- Ben Cressey <ben@cressey.dev>, 
- "Florent Revest (Anthropic)" <florent.revest@linux.dev>, 
- "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
-X-Mailer: b4 0.15.2
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="NWV7WeiHSCOmpR2R"
+Content-Disposition: inline
 
-When ftrace_call_adjust() returns 0 for a patch site,
-ftrace_process_locs() does not skip the site. The NULL test runs before
-the adjustment since commit 6eeca746fa5f ("ftrace: Test mcount_loc
-addr before calling ftrace_call_addr()"), so the 0 is stored as the
-record's ip and ftrace_init_nop() later hits the BUG_ON() in arm64's
-patch_map(). Test the adjusted address too and count the site as
-skipped.
 
-Reviewed-by: Ben Cressey <ben@cressey.dev>
-Reviewed-by: Florent Revest (Anthropic) <florent.revest@linux.dev>
-Assisted-by: LLM
-Signed-off-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
----
- kernel/trace/ftrace.c | 5 +++++
- 1 file changed, 5 insertions(+)
+--NWV7WeiHSCOmpR2R
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
-index 2cc2d41353c10..fa541d3e8784a 100644
---- a/kernel/trace/ftrace.c
-+++ b/kernel/trace/ftrace.c
-@@ -7676,6 +7676,11 @@ static int ftrace_process_locs(struct module *mod,
- 		}
- 
- 		addr = ftrace_call_adjust(addr);
-+		/* The architecture may return 0 to reject a patch site */
-+		if (!addr) {
-+			skipped++;
-+			continue;
-+		}
- 
- 		end_offset = (pg->index+1) * sizeof(pg->records[0]);
- 		if (end_offset > PAGE_SIZE << pg->order) {
+Commit
 
--- 
-2.52.0
+  4c09f6c47b769 ("perf annotate: Fix NULL pointer dereference in loongarch_call__parse")
 
+is missing a Signed-off-by from its author
+
+--NWV7WeiHSCOmpR2R
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq1pfsACgkQJNaLcl1U
+h9B3ogf/T+qa6GFbWwTt/2i2tNnJ56TuCw3ilf9G3OBYNZfnu50KTXTC40iq+SoL
+wdkJM8NdTEG/VoFJkCniwODGOtY3qRjL8ScLdVmxW0vOueuhdSF28Y810HCz0ZGH
+MwpzlNsPxlz7hGt9+AdxY09flhNIO40uNliLvHQ1UR5hcYb75DCvEWz5XOBHGQ8/
+Zo6+OrdA6fdVUx3HyGUL2S4FhKMiQ9zbstqjOXXQxJ8dzbGThLpny+v86oUPh5At
+L6pgyZxsmY9uBvjzSJ75W2KOUnHXRUOXYdMr7QVQqLj4n8SihtJuojaPInTPktDI
+swgJmUjB7JZx3OHKyrkcVwvirYgTow==
+=GHuI
+-----END PGP SIGNATURE-----
+
+--NWV7WeiHSCOmpR2R--
