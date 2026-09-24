@@ -1,72 +1,86 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C8DF4A0903
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:18:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A4364A0F19;
+	Thu, 24 Sep 2026 15:18:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790263086; cv=none; b=XNc0MzYfPHWfIYiEEe2HWQx1NQzk2rSDM7ZO7BrS16FDTybORUDLp0530preRRG4ISHi3YxLvJuVbfsVWDGSWeNofT0ww1JBUq8JxUeQV4NbMyKC/IbM7AcgyxkS838kqCgdfyVdgSbELGm/yMtnznqoWcNlFmnI3wGm5+yIMy0=
+	t=1790263089; cv=none; b=CVC94Nksi4f2jpM1Wi+lKHlVig0+rWdO1wFwMihKkyYIQ/bvcX2U1/9x6WiQRrXsh2AMpN2Lwb9LfasvAln8W2BQySGm8sT8fDykCrTGMpkQbzS6EhfVkkr2HX7dSHFjYGk1pHO/UKt7KB3DFjRgZuABheqYm7qwsttm12CjGRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790263086; c=relaxed/simple;
-	bh=76iVLK0VPTZDliaYEJ/ilyrbsmphhkUV7YVxqpf8bZQ=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=t7veb0Cq458toWdE8w7uj96ChoCeqVa3oboFo9pXSyEmLsxosWBuHQEcLrhBEcPCiPRkag8ZwqaI5jQ0Nqpo1nf8mZWqKAhqGuo57/8Sz0tGl+M6sHCEP2UM11SFtTMwnTPrvtsyknX4m8WX06otSEr60b84mouiYEbLz1nbodo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4cbc77da654so3292303b6e.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:18:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790263084; x=1790867884;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=xdOF5JIZdDFeszicpp++risEMJHX43/rvpe4LTtYknA=;
-        b=sbYlWbAWxngq/IcTyAnZC2etta2F/OLjJEkUp488u0CvyeyO4SwVt3VKfshyTBLWiJ
-         6uR3A14BrAQ7EGeEtW1E8oA52zH/rwzcWUcOEcNc36jzJIxNlCy9cIy9ynWUO98GZoom
-         9/NbdSQAlmvEX1dNJLyaGEvKwhjCB2nLf4Ct6MB7MbjOyEwSv3HJ/TB55StnuhHGp/Ok
-         n8sJcjoiyQpGCrA2Ie5o6JshW7MZAz4IbwLo7MsM72zp6SVwWMHQG4Jc2I772e7x4guM
-         1djdPSpeq+NRiMks3q8YEsE+vGxLfZYK797kpmbF6fCmniNIJ6zVxa9r+vMBE4p4Z2Tt
-         mjdQ==
-X-Gm-Message-State: AFuF++lguxt4Y99zZ9AjXjXqzEA3qtvxuYuO/qHmsJSwcuGVOZtFjW1N
-	IrgajkMxU7xKhi8EZnWlehMfOHjoW5W5gIjUPbUzDMb5ZsnH2biy1B+LRl9Zds+h8Zeejo5weNd
-	S0vRS49WxP9QvjmWpYoAQ71ogJo5tO2rCdwEtS7To8n52voKuiZtTCOTAo0M=
+	s=arc-20240116; t=1790263089; c=relaxed/simple;
+	bh=dlAuDdeH7HY9CoVQifyjSIftEOhfWFw06TmkRKM+SZw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FsZJQbLqOy//B1kSjFQhMGK74LGlM00ZWy3yQRFdI90Gd6roh4/nbNLBEOawVJF4GRHCgG5z1jtJLewU7Ka6TzsrEIKFm9620j0VblaF+kD5qpH7KDzbs72KkQlnCbth+O+UOE8aLyVK53NS+8jPQz3BrrW6tHv+pnYh62QumoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=arTnCgIO; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="arTnCgIO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08A1C1F000FF;
+	Thu, 24 Sep 2026 15:18:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790263088;
+	bh=xOBRz2hFpaMmKkpFTvDfTKM7BARA0aC8rFrP1uaft04=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=arTnCgIO2VD1i3B8n6cfS7QwCEWxUv5gZE4Khm37czx0G3PEpFJG7MZDYQZKX/BCw
+	 TTXA7IG6g9ZpewReBsqBAJm0rYql2JBxzifl7USVqWaJS7o9blkrAXYmjJaI247ngT
+	 93OM1V1n20WnAimpPFGVznQ1h4413ZLuhAVasp5z1vArUQqqENTNs2tEgJIHsCiYby
+	 /HZ48MxYuCL4wvRhTAzL7BkkN74i3MoqZ9IUOhQlutK5mWWoi2YN4mNU4NOXytoLbX
+	 4UcjeTqVD+79sLmE8ycUBiH2OFzRPvgD2RiGbg79vO1WNYQLHgWNy6lElRr6qkfv8x
+	 0lYkJE4Ni/5Fg==
+Date: Thu, 24 Sep 2026 11:18:06 -0400
+From: Sasha Levin <sashal@kernel.org>
+To: Theodore Tso <tytso@mit.edu>
+Cc: corbet@lwn.net, workflows@vger.kernel.org, linux-doc@vger.kernel.org,
+	skhan@linuxfoundation.org, rdunlap@infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] docs: add AGENTS.md as a symlink to README
+Message-ID: <arU_LkBIPFqxPsOZ@laps>
+References: <20260924134945.3095661-1-sashal@kernel.org>
+ <arUzB37qmq1WREh_@mit.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:159b:b0:4b9:a829:f01c with SMTP id
- 5614622812f47-4d72e16431dmr2867604b6e.40.1790263084273; Thu, 24 Sep 2026
- 08:18:04 -0700 (PDT)
-Date: Thu, 24 Sep 2026 08:18:04 -0700
-In-Reply-To: <20260924145805.6139-1-nsvatoslav515@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab53f2c.dc2998a4.2261f5.003d.GAE@google.com>
-Subject: Re: [syzbot] [raid?] general protection fault in ppl_write_stripe_run
-From: syzbot <syzbot+75d7e96ad03ac2dbbd9f@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, nsvatoslav515@gmail.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <arUzB37qmq1WREh_@mit.edu>
 
-Hello,
+On Thu, Sep 24, 2026 at 10:31:07AM -0400, Theodore Tso wrote:
+>On Thu, Sep 24, 2026 at 09:49:45AM -0500, Sasha Levin wrote:
+>> Most coding agents have standardized on AGENTS.md as the file they load
+>> automatically from the root of a repository. README already tells AI
+>> tools to read and follow Documentation/process/coding-assistants.rst,
+>> but that only helps if the agent decides to read README before acting,
+>> which in practice it often doesn't.
+>>
+>> Add a top-level AGENTS.md symlink to README, so agents load it on their
+>> own and follow its pointer to the AI guidelines. This keeps a single
+>> entry point for every reader, and avoids adding a separate copy of the
+>> policy that could drift from the RST.
+>
+>There's a lot of stuff in README that isn't going to be useful for to
+>an AI agent.  This will resullt in an increased amount of token
+>consumption, that could impact people's token budgets.  Prehaps it
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+I tried doing the math here: README is 1,265 tokens with OpenAI's o200k
+tokenizer and 2,403 with Claude's.
 
-Reported-by: syzbot+75d7e96ad03ac2dbbd9f@syzkaller.appspotmail.com
-Tested-by: syzbot+75d7e96ad03ac2dbbd9f@syzkaller.appspotmail.com
+Measuring the common CLI agents, the first request is about 14k to 15k tokens
+before it reads anything, and the one line Makefile change that I used as an
+example took between 88k and 118k input tokens per session.
 
-Tested on:
+>would be a bit more efficient if we explicitly ask the agent to read
+>and follow certain process files, including coding-assistants.rst; if
+>they are preparing a patch, to consult submitting-patches.rst, etc?
 
-commit:         50d05c7c Merge tag 'landlock-7.3-rc3' of git://git.ker..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=16edad25580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
-dashboard link: https://syzkaller.appspot.com/bug?extid=75d7e96ad03ac2dbbd9f
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=135a9d15580000
+This is sort of already what README is, no? it's just an index pointing to our
+documentation without much actual content otherwise.
 
-Note: testing is done by a robot and is best-effort only.
+I suppose there are parts there that are completely irrelevant to someone using
+an AI agent, but those seem to be quite minimal. Is it worth the overhead of
+maintaining yet another doc index?
+
+-- 
+Thanks,
+Sasha
