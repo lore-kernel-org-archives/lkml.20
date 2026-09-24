@@ -1,176 +1,89 @@
-Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com [74.125.227.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A28A485CD2
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:29:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D6F48986B;
+	Thu, 24 Sep 2026 13:29:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790256569; cv=none; b=nRpjMFhN2g96dom6y2HfFkbAW2kUv3YN8XiyRjjr3AvqfER9KH9/cTzFo/i5IpMVJj2Id6WnwjBLEtdte6TcvwYwIUzhOVkF4FaHfQHn1qj6P1V0qV5oITlb/w52Wm5JDDGgfnLbIc2HQQGrn+ek9leYjKL1Jf/IVRdRSLGR+nQ=
+	t=1790256580; cv=none; b=ciET3iconjVNLvlP6EH0mzyQCxGd5ObnrMecdsh3ZEliXwy+uAXK6WUOu6JnMAgChsifEvz/FcCV5mp9Q8+XIkZdwVaGrWWX9xYBrlbx/d+fSztrhapes487IX03qndxfOkzWRjnMOS8tjxEyzR1iwiieXeTJG0L8uRZfmf551o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790256569; c=relaxed/simple;
-	bh=2b3dzNDHb6p5o6L8IhZiMGWrYX5yxOgf7BIMickiWCE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Hw4a44p8VujULyj3MVdbqBPtXsTWRYiwMwHGGXSMadrFM10kPPg6TZM0TtgFOiYNWkCvxdlwbykbTDu2MYNnFb0u8u2sN/MSmF1mFOABXKkS1kLY0ZgNoQ1Yvq89W6V5ckZy4MDWYRpHy8n6JMEpX3sTz3Ayr51yYD1eiuek/hA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nuaVf9dk; arc=none smtp.client-ip=74.125.227.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790256580; c=relaxed/simple;
+	bh=Wn0h0nC/v6/vZwYyh+YABKKYnd3PJ8mwkZdXdeLwO0E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=f2+UkYemCXP+3Lk3lZMjnpi+0q/gv58ndlnCDX18Pdp/+VvSAMmtviNRHj+3W5RA3zE/olLHo019ae3CrgawVJB4NHK7Oz+1Gw9mw0U7nn+kARA341OylDIJ6/Asb1qfXwair7VVsN6hpCm3fsIxHFGjAp1HtkvIgOwIukSrQqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zk1XZmo6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nuaVf9dk"
-Received: by mail-vs2-f41.google.com with SMTP id 71dfb90a1353d-5c67e512ee5so786391e0c.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:29:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790256555; x=1790861355; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WiOjRaKfF0vUqv8jQnQqyvZEh2gZF6+fO0ZCS3cuQxg=;
-        b=nuaVf9dkdi7WZPWlERMIf6U+9X8w+G3PFxIHFIcQ05JEufsj6KQMuqiJCBurGUmnMt
-         kIhPAXY3sTE7AMFJ3ksHi09WPngEe0eQoYF06C0KH+D+7Bnqxe6cQq3Ai9TheDg1/02R
-         ViZe+wC1q/VrcgXTx69U7m6mdzxfTHPVjww66mew2jEuFb8ZjEf3qQBDePIlYQ8MGPhP
-         tLQ8E393ah1Y2O7ST5iw6x0O7T64qeG7+UEZGRvSW8uHyE2F0ZWNnyPNFD1XkPIPeJxc
-         32XAsMZfNHxNsooDmTDtTY5TRnX1IzfTBo8QHELMS5IcJ50lNPvYZbZr+guu/5sO2YWk
-         h+pA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790256555; x=1790861355;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WiOjRaKfF0vUqv8jQnQqyvZEh2gZF6+fO0ZCS3cuQxg=;
-        b=fnfQemUbCdLimAZgRCbfmDbZfQkmFjpSgBoAyMez6ZL3GUHMQO3TLdugAhRL8l8wbw
-         /tsVBAxJGmPnUUdNYLC0fTYwERTOqTXgnh9a2scHSwYYpZP86ajkskfid/dkOlA9/mg1
-         YdulUwCvP+bDCFWsUJd3nV5HVUsTbBJktg3UdWaLF/xu635tXNb+jzpCSAyhIxFreRaI
-         OQoqrMwAavXLLbH2JW95aGR1dnu3DyQS0gzKjR+guCwPjfmiQNZmNEjyukzmISrKA57k
-         tYhd2IfGmWUhgUbuUgs65R8LaeKaC96aizqeJeTMrldSKQeH2IjS3qx5y5Ltb+QU0ZGh
-         WATA==
-X-Forwarded-Encrypted: i=1; AKwUvByVp4rT3NIxAwb33QVIfTQJQNGb3wx+1tDQhXLqIr7wL+P3EKRBaWmqRWY53uGhQXWgwAmx3aB5QUGAKvY=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6YdXw7LxHJ0NdEApmNZVreYEt4ui7WgkX0HOBHSb3o9WeeLuN
-	KhSuAoQDAVfDiFVCj8bPzEfSKN3b6GjfCnVUdSLOxLppx7RjzEu5Z9EE
-X-Gm-Gg: AYBFou2E+oKOWT9BR/RBccgevIKpmspt8ukXXtfrxvUramUJUqmViz/5aj+6DvO9Hny
-	/gySEvr1rL6vK76uodvOg31EN/rcscdvhR91pXqBfnCMS3D+IdGOnS87Etwi5/qG32EJoWvr+eG
-	/LtgXQKWEKTwxaD3pjiBtBcnBXuDGhJ3Iuw7BWMnX9nd+dQwVxb666ROe7a7EAdDGVZxe/EXgDw
-	krGuLFAihgS1nskEyBV/hmbZcWkwTEulpccgC833nT5psBiGGXQ0eSIzRKFNHIHsjT7gy7wSnY4
-	KxyYM9X8zorVUGQLdBaN740oUboQFUAXdzG5ZZaEJ3r66qNh3Y76c0qz7WGtvs84o15djWM86xq
-	uC0NpcViDxTvfPI6SCW0xl4JTCD8/YjmD5o8QOejgf2RgMX2uFlWBr1hC0uKBaY1NvNp095ClHC
-	tUVYVzs4TbOQPEQMFgvR2UgszhxzTL0I0fhsppT7PMDRzwC4HOJz36EvNwZRwEfyBYyW4eSzl6L
-	JXCA9Qn7Q==
-X-Received: by 2002:a05:6122:2985:b0:5c9:a60d:3278 with SMTP id 71dfb90a1353d-5cb0b583951mr1377425e0c.12.1790256555017;
-        Thu, 24 Sep 2026 06:29:15 -0700 (PDT)
-Received: from maclinux ([2803:c600:9110:8ba5:43a9:9b8b:ebdc:6411])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9f03c7d18sm6571974e0c.1.2026.09.24.06.29.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 06:29:14 -0700 (PDT)
-From: =?UTF-8?q?Francisco=20Beltr=C3=A1n=20Millal=C3=A9n?= <fbeltranmillalen@gmail.com>
-To: rafael@kernel.org,
-	bhelgaas@google.com,
-	linux-acpi@vger.kernel.org,
-	linux-pci@vger.kernel.org
-Cc: lenb@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ACPI: PCI: take native PME control on Apple machines
-Date: Thu, 24 Sep 2026 10:28:59 -0300
-Message-ID: <20260924132859.24751-1-fbeltranmillalen@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zk1XZmo6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABABA1F000FF;
+	Thu, 24 Sep 2026 13:29:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790256569;
+	bh=67y9kaimjq2VniwiKCMsp2XrFz2PUat4wCUfkM8Rkeo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Zk1XZmo6es6B2zCBtqV6RxhHUZZsHXE6DUuDA5K67pSDuVndyy+xpfJd3mPO3P0dV
+	 hHkKhUyB9kPa9surDnpm9sCcJKBYd7t2y0O41oktqo90Piwy3UynTdsew7AJjhQ/pE
+	 1cLgDrGftxtuzSCBbVClWva9S2zN3By8ao8CbL9rgTOhhsb0qVGY6IQ1KjM66SWxET
+	 d05diY8fZaDyN6dSPS/iJq7p2Eu3Df0gLj+b+Y20Jyb93ePQH/t4dTCnLZddbkTIx4
+	 mxl+/YwcikHh1Nv3HE09OMo3dl8pVzwUFtCCZwlTr7xGpbwhx101IDyED8mqSDxOCB
+	 xWPtzjBQ5KMbQ==
+Date: Thu, 24 Sep 2026 14:29:25 +0100
+From: Simon Horman <horms@kernel.org>
+To: Linkui Xiao <xiaolinkui@126.com>
+Cc: aleksandr.loktionov@intel.com, anthony.l.nguyen@intel.com,
+	przemyslaw.kitszel@intel.com, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Linkui Xiao <xiaolinkui@kylinos.cn>
+Subject: Re: [PATCH net v3] i40e: limit the DDP profile count returned by the
+ firmware
+Message-ID: <20260924132925.GF13925@horms.kernel.org>
+References: <20260922091123.506598-1-xiaolinkui@126.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922091123.506598-1-xiaolinkui@126.com>
 
-Since commit 7bc5a2bad0b8 ("ACPI: Support _OSI("Darwin") correctly")
-negotiate_os_control() skips the _OSC handshake on Apple machines and
-hardcodes the set of features the OS takes over, because those firmwares
-return failure once _OSI("Darwin") has been acknowledged.  The hardcoded
-set is ~OSC_PCI_EXPRESS_PME_CONTROL, i.e. everything except PME.  No
-reason was given for leaving PME out.
+On Tue, Sep 22, 2026 at 05:11:23PM +0800, Linkui Xiao wrote:
+> From: Linkui Xiao <xiaolinkui@kylinos.cn>
+> 
+> i40e_aq_get_ddp_list() writes into a I40E_PROFILE_LIST_SIZE buffer, which
+> is sized for I40E_MAX_PROFILE_NUM (16) i40e_profile_info entries plus the
+> 4 byte p_count header. i40e_ddp_does_profile_exist() and
+> i40e_ddp_does_profile_overlap() then loop over profile_list->p_count
+> without bounding it, so a firmware reporting more than 16 profiles makes
+> both helpers walk past the end of the on-stack buff[] and compare against
+> whatever happens to follow it on the stack.
+> 
+> The same buffer is handed to the firmware as an indirect admin queue
+> buffer, and the admin queue code copies all of it into the DMA bounce
+> buffer before submitting the command, so its uninitialized contents were
+> visible to the device as well.
+> 
+> Zero initialize buff[] and reject the list when the firmware reports more
+> profiles than the buffer can hold, instead of answering from a list that
+> was only partially read. Both helpers already report errors to
+> i40e_ddp_load(), which aborts the operation.
+> 
+> Fixes: cdc594e00370 ("i40e: Implement DDP support in i40e driver")
+> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+> ---
+> Changes in v3:
+> - Zero initialize buff[] in both helpers: the whole buffer is copied into
+>   the admin queue DMA bounce buffer and copied back afterwards, so its
+>   contents were exposed to the device, and entries the firmware never
+>   wrote were compared against. (Sashiko AI review)
+> - Reject the list when the firmware reports more profiles than buff[] can
+>   hold, instead of silently clamping the scan and then answering from a
+>   list that was only partially read. (Sashiko AI review)
+> - Dropped the Reviewed-by tag, as the code changed after the review.
 
-The result is that host_bridge->native_pme stays 0, so portdrv never
-registers the PME service for any root port.  A PCIe device that
-runtime suspends still arms PME# (the PCI core enables it because
-pci_dev_run_wake() only looks at capability), asserts it when it needs
-attention, and is never resumed: no service handles the root port
-interrupt, and the polling fallback in pci_pme_list_scan() skips the
-device whenever the bridge above it is runtime suspended, which is
-exactly when the device itself is suspended.
+Thanks for the updates.
 
-On a MacBookPro14,3 this silently breaks USB-C hotplug.  Both xHCI
-controllers sit inside the Thunderbolt (Alpine Ridge) switches and
-runtime suspend to D3hot when idle, together with their parent
-bridges.  Plugging a SuperSpeed device in is then never noticed:
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-  0000:7d:00.0 suspended, PMCSR 0x8103 (D3hot, PME_En=1, PME_Status=1)
-  ... no kernel message at all, for minutes ...
-
-The device only appears once something else resumes the controller,
-which makes it look intermittent.  The firmware on this machine does not
-handle PME on behalf of the OS either: XHC2/XHC3 declare _PRW returning
-GPE 0x6D, that GPE is enabled and has never fired, and its _L6D handler
-notifies PWRB, XHC1 and HDEF only - never XHC2 or XHC3.
-
-With PME control taken, the root port PME interrupt is serviced and the
-controller is resumed as soon as something is plugged in.
-
-Use calculate_control() for the assumed set rather than open coding it:
-that is by definition the set that would have been requested, it drops a
-magic constant, and on a kernel built without some of those features it
-no longer claims control of services the OS cannot provide.
-
-Note this also makes pme_is_native() true for pciehp (drivers/pci/
-hotplug/pciehp_core.c), so hotplug ports now disable their interrupt
-across suspend and clear spurious events on resume, as they do on every
-non-Apple machine.  x86_apple_machine covers Macs back to 2006, so this
-reaches models that were never tested with native PME.
-
-Tested on a MacBookPro14,3, 6.18.49, with a USB 3.1 SATA enclosure:
-
-  - before: plugged in at 09:20 with 0000:7d:00.0 runtime suspended, still
-    invisible at 09:21 with PME_Status latched at 1; only appeared when
-    0000:7d:00.0 was forced to power/control=on.
-  - with pcie_ports=native (which reaches the same code path in
-    get_port_device_capability()): pcie_pme bound to 5 root ports, and the
-    same enclosure enumerated in the same second it was plugged in, 66 s
-    after the controller had suspended, with nothing forced.
-  - with this patch, nothing forced: pcie_pme bound to 5 root ports and the
-    _OSC line now reads "OS assumes control of [PCIeHotplug SHPCHotplug PME
-    AER PCIeCapability LTR DPC]".  The enclosure was unplugged at 20:42:13,
-    0000:7d:00.0 runtime suspended to D3hot, and on plugging it back in at
-    20:43:06 (53 s later) the root port took a PME interrupt and the device
-    enumerated in the same second.
-  - wifi, internal keyboard, touchbar and audio all came up; 66 warnings
-    and 45 errors during boot, against 65/43 on the distribution kernel.
-
-One rough edge, reproducible on both boots: the port driver logs
-"PME: Spurious native interrupt!" right before the device is resumed.
-pcie_pme_handle_request() falls back to pcie_pme_walk_bus() when the root
-port reports its own requester ID without PCI_PM_CTRL_PME_STATUS set, and
-that walk skips PCIe devices, so the xHCI is never attributed.  The device
-is still resumed and the wakeup works, but attributing PMEs from PCIe
-devices behind a switch looks like a separate shortcoming; it is not
-addressed here.
-
-Boot with pcie_ports=native also showed no new AER/DPC activity and
-slightly fewer warnings than a boot without it, so taking the remaining
-control bit does not appear to disturb anything else on this machine.
-
-Fixes: 7bc5a2bad0b8 ("ACPI: Support _OSI("Darwin") correctly")
-Signed-off-by: Francisco Beltrán Millalén <fbeltranmillalen@gmail.com>
----
---- a/drivers/acpi/pci_root.c
-+++ b/drivers/acpi/pci_root.c
-@@ -568,9 +568,14 @@
- 	 * Apple always return failure on _OSC calls when _OSI("Darwin") has
- 	 * been called successfully. We know the feature set supported by the
- 	 * platform, so avoid calling _OSC at all
-+	 *
-+	 * Assume control of the same features that would have been requested,
-+	 * PCIe PME included.  Leaving PME out disables the PME service for
-+	 * every root port, and nothing takes over: a device that runtime
-+	 * suspends asserts PME# and is never resumed.
- 	 */
- 	if (x86_apple_machine) {
--		root->osc_control_set = ~OSC_PCI_EXPRESS_PME_CONTROL;
-+		root->osc_control_set = calculate_control();
- 		decode_osc_control(root, "OS assumes control of",
- 				   root->osc_control_set);
- 		return;
