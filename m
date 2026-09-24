@@ -1,110 +1,128 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA52848097E
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:20:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CD23481252;
+	Thu, 24 Sep 2026 13:20:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790256053; cv=none; b=rdSt/I85PxF+3ARfGAVfmdkQDjBCwZUHiLf1QV76H+Ia1R894sFK0VDPavX/zjZfnbr/NQ7dy6RZSMeQRZBV/veMa697jhmB/Pv/fPKA0HwflK3xgwfH7GXpdZZCINortq7NEdFUbGZVWGUJeXTghDIGQJTdPVJqjqW/87D6bBw=
+	t=1790256056; cv=none; b=fWE0RgNddomO+ITaJRkcG10ePsw93OrBrmcBL6R0Bk5gaBTTksGCV/RGUo8kzQIZXp14Q44yo87jtH4R0CF7+BMm5yO2c0btrHpbH1Tl8P7pDEbiCdDQTpjLA/fdxqdcEc9IqEp7RsugCQIkuejQgwhCaeuN2iNmTQPevj98ckk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790256053; c=relaxed/simple;
-	bh=EnvthftjhvU8ihf6MuZ2HVlJqWyKvLQbdgWDQpD+FZY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=l4KKSXdMTMYu38Gi5X32R3AtUiBBgANIRNOpZVa8ZNTqq0JcZlCQf0/8COnmIyo571lkXZ+3FidgKI20UyVpSJ1XqfNmuTWu/sRjm/vokR3rOgrNxRylPiJRYKrCD2gh+kqkyFOtj6q/zhJAiDeMo4Pzm3tZcqcbpztl2cWkJi8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linbit.com; spf=pass smtp.mailfrom=linbit.com; dkim=pass (2048-bit key) header.d=linbit-com.20251104.gappssmtp.com header.i=@linbit-com.20251104.gappssmtp.com header.b=0SaMmP3B; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linbit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linbit.com
+	s=arc-20240116; t=1790256056; c=relaxed/simple;
+	bh=H7nd8+NkvTtKkDbrYqkM1Xmy/y7FDgyoOxSX6BbeI3g=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=B8sfXZLnFxorQQpdqJjr67vv/n7RQZgJffb9B6jAjbAqGX7rS7oL0kyZkmS7V0ykbXotCSVJkSlkudZLOdMKO2zytzCh+pnfdl43tD0tB3i9R43f9CQmjx5k0oOX1PYJwWKcZyaulnaqsIp3w++KbpJaIjKlelpK/SVG/USWq/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=BddsRQ/U; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linbit-com.20251104.gappssmtp.com header.i=@linbit-com.20251104.gappssmtp.com header.b="0SaMmP3B"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48439feca17so1785062f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:20:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linbit-com.20251104.gappssmtp.com; s=20251104; t=1790256046; x=1790860846; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S3ndpV76gcHySuhNV3ES4GgzpJyufvPVRLRBa1QmBk4=;
-        b=0SaMmP3BywW+Q5Jb2EekN3/OhS1Vh/eQz2epGY/udxmNw/hbTBnMJUPMUfbCkajwUJ
-         i6itq5AHC8A2EnY2f3nWvSLV9DSRn/yx6IB+2sbDSYXG+20GT/VJUjnYC7SaeKgs4ulY
-         Jem25oiH3W1uSYxxspE7tX/ZC73tvMyLB2Gn0d63EnSLeKk6BWnHDAV0LbTXyrFExHSJ
-         m2TQFAoHQtQJVSy+8oGvvisXLmwAoadL6JS5L0425DEdI6G8upiXJNetZBrOcqkK6TOH
-         rjb7QJB4FbqRa0y4odrvgHdUFIcoWROgZLjpMgRwcn1hotCgzde7CjUbQnLIm78/0WSx
-         ZmWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790256046; x=1790860846;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=S3ndpV76gcHySuhNV3ES4GgzpJyufvPVRLRBa1QmBk4=;
-        b=bkl0aJLdcAImmOnvlnp2nIKFU1daoZfg0aMowJMCdPFOCwqkp9D5S4TrI6lmUcIBgt
-         ZgEERIjRzBp+zyzPYFFsmTm1aRC8nObSCS5cqQt7wykAGdJxCTVsFprftsMW1SpNJHId
-         QM1gh8ZtClLPfr8q93dWtyKa6qiBsYec2jsEQr9fODGt5slgAvq0xM/05ID0OTO94s2S
-         DlS00H1mLGTFIKVR8d/bvsISP60+BGhsKTmIgs7zrNhp7lypB7QsDTtDK2Rrb81Whsjz
-         48wG0y1xP/jLvJ/M6uBRvAXJVn7YAbG4V1AWJFrXWllJkDKwrhToM+AvgeFeiv7MxEl4
-         btAg==
-X-Forwarded-Encrypted: i=1; AKwUvBwRDZ+JeIBxkwYA/LRHdcp25J4k2D6Src14VuCYRwCDbChla3e/7BeJzDbTv2WB9FzsnjvBgxOHE08kjH4=@vger.kernel.org
-X-Gm-Message-State: AFuF++knofrgH/U3m4KEUKXiouhN/fLeuisPZPo49i3BZcbrex+IyM6O
-	sapON586oz/nuH5Y5I/DJArum0fQFvMAREiqQPXz3XJLJPo9lzO2ZxPHqznzoIAUZfSX2oMxbEJ
-	RZ7VK
-X-Gm-Gg: AYBFou3Gb+2dcuD6l+NG/gay/180cwyoORmqtjmIFGxmzoUjMn7InS1ykL/bDQCAy2X
-	BZXqZN9eiArzTXYDsw3hUwAnR8d+rr1tSIMpACeeP38YgmhKfCNT70AWh/Mp9UWHAL59zQh6mU2
-	g30qz8qwn/jey6/6Y/aqVUdT2VyT94EkAvoVfGpUPfRSoP4ZDk90p8xJBlgqu7yrMvaBZ5++bBE
-	x3zgWL9Sv2GVr3/+GpK9m0MidgmzI7p5S3pO2ggkR9EW29C5RFpezef0vWASbKWZlJRxW9d/hUI
-	lRNvKUTVtF/HIaKy5MZCWOOWaSWk7O+dv5TyQYMwLhhwdisJtrhaqNw5seNdUf+XU75eacP9518
-	tzoV9k8HYzlVxzLfIMn+3HbfeS7J7r2uYdwLKC+b6b4j/CEf8B4gJLJDD+QTkbVjQlZVfqfYG0T
-	ihkhPLvmgiHjpR6ple4ZOqlDflCz6jBk3eABXq62J/v0d7Q4TcGc7jtPvSDgeqIMll+zg9K0Ndf
-	IMxur0VPT9TBkwhBZ38pQwWhGDKWPGvmpRKlPpqHmD/C7HM84YoDA6r
-X-Received: by 2002:a05:6000:2083:b0:488:5c28:94d0 with SMTP id ffacd0b85a97d-4887172596fmr3965034f8f.19.1790256046354;
-        Thu, 24 Sep 2026 06:20:46 -0700 (PDT)
-Received: from [10.190.130.145] (046125162068.public.t-mobile.at. [46.125.162.68])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886877a2d5sm14280483f8f.27.2026.09.24.06.20.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 06:20:45 -0700 (PDT)
-Message-ID: <d6dc53d4-e2b2-4012-9ef9-6c7c15b51c15@linbit.com>
-Date: Thu, 24 Sep 2026 15:20:43 +0200
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="BddsRQ/U"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=vQ
+	W8S4/0nq/AUT2KXMkhDrRHQ+sSLWd9EBh9wzVJFG8=; b=BddsRQ/UiLWP+PRlyL
+	BDidsUeLDDJvws1xa65WHPW0QI4UHUajHffdeNfePGsLHAlLAvVz0LovxiYzuz9d
+	QnURc9i3rA2FK8yyBl4wy4phnH25wA3BrzAuH2j5YBBggbfp0qJwFqLqo//Akp1k
+	s6CsqiDxbQQt5COTTAgOLAvkU=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3d5ROI7Vqq0FrAg--.32720S6;
+	Thu, 24 Sep 2026 21:19:41 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Ming Yen Hsieh <mingyen.hsieh@mediatek.com>,
+	Javier Tia <floss@jetm.me>,
+	Leon Yen <leon.yen@mediatek.com>,
+	Eason Lai <Eason.Lai@mediatek.com>,
+	Marek Vasut <marex@nabladev.com>,
+	Ville Nummela <ville.nummela@kempower.com>,
+	Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>,
+	Nelson Yu <nelson.yu@mediatek.com>,
+	Rong Yan <rong.yan@mediatek.com>,
+	Quan Zhou <quan.zhou@mediatek.com>,
+	Prameela Rani Garnepudi <prameela.j04cs@gmail.com>,
+	Kalle Valo <kvalo@kernel.org>,
+	Amitkumar Karwar <amit.karwar@redpinesignals.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Cc: Jiale Yao <yaojiale02@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 4/4] wifi: mm81x: unwind add_interface failure
+Date: Thu, 24 Sep 2026 21:19:04 +0800
+Message-Id: <20260924131908.950229-5-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260924131908.950229-1-yaojiale02@163.com>
+References: <20260924131908.950229-1-yaojiale02@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drbd: remove unused drbd_nl_mcgrps[] array
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Arnd Bergmann <arnd@arndb.de>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, Lars Ellenberg <lars.ellenberg@linbit.com>,
- Philipp Reisner <philipp.reisner@linbit.com>, drbd-dev@lists.linux.dev
-References: <20260519203057.1340528-1-arnd@kernel.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christoph_B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>
-In-Reply-To: <20260519203057.1340528-1-arnd@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3d5ROI7Vqq0FrAg--.32720S6
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr47trWfAr1kAFyxCr4DJwb_yoW8tr1kpr
+	4kWrZ8KrZ8JrWrGa18Ca10vFyrXw4xGFW3CFy8Gwn5uF1qvr1fGFy5Aws0yFnYkFyfG3W2
+	yrW0krn8W3ZxG37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piCeHPUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8A3rJmq1I21MFwAA36
 
-On 5/19/26 22:30, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> After the rework, two files have a copy of drbd_nl_mcgrps[], but one
-> of them has no references:
-> 
-> drivers/block/drbd/drbd_nl_gen.c:641:42: error: 'drbd_nl_mcgrps' defined but not used [-Werror=unused-const-variable=]
->    641 | static const struct genl_multicast_group drbd_nl_mcgrps[] = {
->        |                                          ^~~~~~~~~~~~~~
-> 
-> At the default warning level, -Wunused-const-variables is turned off,
-> so this has gone unnoticed.
-> 
-> Remove the extra variable.
-> 
-> Fixes: 8098eeb693c4 ("drbd: replace genl_magic with explicit netlink serialization")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->   drivers/block/drbd/drbd_nl_gen.c | 4 ----
->   1 file changed, 4 deletions(-)
-@Jens ping, seems like this was never applied? I think it should also 
-apply to the current tree.
+mac80211 does not call remove_interface() after add_interface() fails, so
+the driver must undo any state it published before returning an error.
 
-Thanks,
-Christoph
+mm81x_mac_ops_add_interface() publishes the vif through the RCU-protected
+vif table and initializes AP beacon handling before querying firmware
+capabilities.  If that query fails, the published pointer remains after
+mac80211 frees the vif.  Interrupt processing can then retrieve and
+dereference the stale vif.
+
+Finish AP beacon handling, clear the RCU slot, and ask the firmware to
+remove the interface when the capabilities query fails.  Preserve the
+original query error if firmware cleanup also fails.
+
+Commit 2fb6480c52f6 ("wifi: mt76: mt7915: unwind state on add_interface
+failure") fixed the same failure-unwind pattern in another wireless driver.
+
+Fixes: b1906cea00b0 ("wifi: mm81x: add mm81x Wi-Fi HaLow driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/net/wireless/morsemicro/mm81x/mac.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/wireless/morsemicro/mm81x/mac.c b/drivers/net/wireless/morsemicro/mm81x/mac.c
+index 0fa80b1488aa..1edad7eace61 100644
+--- a/drivers/net/wireless/morsemicro/mm81x/mac.c
++++ b/drivers/net/wireless/morsemicro/mm81x/mac.c
+@@ -2169,7 +2169,7 @@ static int mm81x_mac_restart(struct mm81x *mors)
+ static int mm81x_mac_ops_add_interface(struct ieee80211_hw *hw,
+ 				       struct ieee80211_vif *vif)
+ {
+-	int ret = 0;
++	int cleanup_ret, ret = 0;
+ 	struct mm81x *mors = hw->priv;
+ 	struct mm81x_vif *mors_vif = (struct mm81x_vif *)vif->drv_priv;
+ 
+@@ -2221,6 +2221,13 @@ static int mm81x_mac_ops_add_interface(struct ieee80211_hw *hw,
+ 		dev_err(mors->dev,
+ 			"mm81x_cmd_get_capabilities failed for vif %d",
+ 			mors_vif->id);
++		if (vif->type == NL80211_IFTYPE_AP)
++			mm81x_mac_beacon_finish(mors_vif);
++		RCU_INIT_POINTER(mors->vifs[mors_vif->id], NULL);
++		cleanup_ret = mm81x_cmd_rm_if(mors, mors_vif->id);
++		if (cleanup_ret)
++			dev_err(mors->dev, "mm81x_cmd_rm_if failed %d",
++				cleanup_ret);
+ 		return ret;
+ 	}
+ 
+-- 
+2.34.1
+
