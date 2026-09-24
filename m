@@ -1,128 +1,179 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A5AA3F076F;
-	Thu, 24 Sep 2026 19:24:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 828AF3E120B
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:25:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790277872; cv=none; b=JY3sa/igYhP9IKZeJ3yMwWqViwKtAwmX4xzLjPuQ/mJnkCketG4p+a3NOz7qSdYihLOhBDAS+jbxkhmxOXsd1uWQZmw22YdGOiuBY6nngJfSGyo+55sQBrdRgduTfASzZscNyrMDoCWb8u7Zfs1Dyp5jtMuPfWkq+CWRnZS4s0g=
+	t=1790277916; cv=none; b=AvxVWYtcn5ERoH/yZmw3gLb8BtUDQFuytp/0AufJ76YEXdJ5DH32m+H+zKiTQZh15lUnd3KWhwi5uJnP8leCLkkOSLouUV6DKSg7CI9tqONCG/f6Z94AqX6BdnqGlJPauWZ2OZbgOZiW/BBpzfEhp5PP62m3+45pvUwReSK0atc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790277872; c=relaxed/simple;
-	bh=XGDU4sPxGOicRFWUUe5dPqhIZOP+tY9auoyXPUyflUY=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=rpRHDEBcbGzOFdQJDpaaIZFxiviEL49oA2oTs9U3JiLKY404aAWwadLsALmcD5nKeYaqB3kDm99ydWOCoqrcNh65DYlxIXgTC+l8HNIvIFpcdIUOkJyw8iQ23/iisyWIi0gQmgiaNA/GzHTk/zoalnf6aElO75DxudGoEzqjk+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=VK4JbV/T; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=A1qYr1Us; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790277916; c=relaxed/simple;
+	bh=rNx+CfZXcU/cVFNz60AcgmLxdqGnvMrGSZVBz/AGdbI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=asGu2UtmAIVPiz0/W7e1StPwtJulqeyKNtUGugfJlyUmp/J01nE6CooxeEV4nLd33iW22Wp3jqSFceJGI8EI674RleJcbtMNRgxwzmzgByqIYCFCgu9d2XbW412/srBEYKJnibwk+ESxcKDe0YyLgApoY7yMVvP9TTzt+Qw2xFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hy6CsqU/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="VK4JbV/T";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="A1qYr1Us"
-Date: Thu, 24 Sep 2026 19:24:25 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790277867;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=E83MbgTT+njH+yPdmG2ct9F3eIf6Os6rJygUXrLc5xU=;
-	b=VK4JbV/T1paHAewjxa77hc16ijboAI2Y1Z62H4mK40p2kfITg/AZ3VvPozzFeX+3n2sp32
-	SRjkKVoN5YpqraKvof39nckFrafrbbm1r0myI/JiXMXthd+agvhzr9Z1bBCpzrM/YLMFLg
-	vS0i2sXRB4GNilZcXz2rabA+AA0KwUSxWuHCgTIheO5MxTW0Gz7WcWv7IA6MlO472P8Vb6
-	5qf1tfqU+f43wh3bQzOb5iU7mjaIz6OVQfEnwtMRuWuAhg6jqpZMtitmdi4F/pfAYcIvn4
-	LWZG/6PKBGWqXDj+UIMVCB2tKj1PkSiG44QLbtu/gPvr4PdO4tCCl8jVPv39vA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790277867;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=E83MbgTT+njH+yPdmG2ct9F3eIf6Os6rJygUXrLc5xU=;
-	b=A1qYr1UswJffG+iuV+q4p4oaZQB2ZOxp1sV3lauUv/QrKXSV3kXBG3kxzxUlS55GoU3Gxl
-	ApQ8NCWYO5jSHRCQ==
-From: "tip-bot2 for Jose A. Perez de Azpillaga" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/mm] x86/mm: Fix void/int conditional in pgd_clear()
-Cc: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260923212731.19599-1-azpijr@gmail.com>
-References: <20260923212731.19599-1-azpijr@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hy6CsqU/"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 211F3C2BCB3;
+	Thu, 24 Sep 2026 19:25:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790277916;
+	bh=rNx+CfZXcU/cVFNz60AcgmLxdqGnvMrGSZVBz/AGdbI=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=hy6CsqU/vqPeIWo713TbJnB7S7LJ5zefYxbT9rhGkuNrXVU045HQsR51dO5/uL99O
+	 v9p1m69niQFe5bQ7BhzQMLAC5t+SQT04SGRQ6aatEbuS/qP/8DshUTHF0eyy2iODne
+	 rDzC77sy157RPjhYpDh/EXmN3l9NnM8sepNJhYrZMsa94Rx93umaKflXsN+QRihMDQ
+	 i8GTJdzV/AhZR4FeWz56G3GpN3/a1P3bgwCrOBL/4muNMQoP1u+L/2lp3YCey4+nQA
+	 xxffRnexFHxCcz93FDQCS4qzjD43cN6CvGg3bBIYjw876DJDbxC6J5ehA0wO8XImJU
+	 MGdWrbDAZ9mzQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F0886C98321;
+	Thu, 24 Sep 2026 19:25:15 +0000 (UTC)
+From: Vasilij Markin via B4 Relay <devnull+vasilij.kernel.tototo.si@kernel.org>
+Date: Thu, 24 Sep 2026 21:25:13 +0200
+Subject: [PATCH] drm/appletbdrm: Add suspend and resume support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179027786597.2819794.11702575723414712469.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260924-appletbdrm-pm-v1-1-0e5432132161@tototo.si>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSyMT3cSCgpzUkqSUolzdglxds6QUIyMDYwvTpNQkJaCegqLUtMwKsHn
+ RsbW1AO3TfuZfAAAA
+X-Change-ID: 20260924-appletbdrm-pm-6bd220385beb
+To: Aun-Ali Zaidi <admin@kodeit.net>, Aditya Garg <aditya.garg@linux.dev>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Kerem Karabay <kekrby@gmail.com>, Atharva Tiwari <evepolonium@gmail.com>, 
+ Vasilij Markin <vasilij.kernel@tototo.si>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790277915; l=4094;
+ i=vasilij.kernel@tototo.si; s=20260924; h=from:subject:message-id;
+ bh=U9TR53zPKdFsJOhaemvo6rCzlInILyrXYml8JDZPnyk=;
+ b=TDq3ZsRwuEwNu59ZQph4synn4jS5RIHLjQWWEEQ1iV6mWja7AsKaW1jcKVJ+sYZcGMgh+Yz6n
+ 0JnFJZZ07KXC3UPflQN1J5unSjpSBKv3EeENWVBxJgkMeJHQG2Io53J
+X-Developer-Key: i=vasilij.kernel@tototo.si; a=ed25519;
+ pk=GBDozjDEYjDf6fxRiVINxMYHaGbpq/11fq4B6pdR7Gs=
+X-Endpoint-Received: by B4 Relay for vasilij.kernel@tototo.si/20260924 with
+ auth_id=1057
+X-Original-From: Vasilij Markin <vasilij.kernel@tototo.si>
+Reply-To: vasilij.kernel@tototo.si
 
-The following commit has been merged into the x86/mm branch of tip:
+From: Vasilij Markin <vasilij.kernel@tototo.si>
 
-Commit-ID:     4f8c177caac8ecdedeb95caa673214fc3f6a75cb
-Gitweb:        https://git.kernel.org/tip/4f8c177caac8ecdedeb95caa673214fc3f6=
-a75cb
-Author:        Jose A. Perez de Azpillaga <azpijr@gmail.com>
-AuthorDate:    Wed, 23 Sep 2026 23:27:25 +02:00
-Committer:     Dave Hansen <dave.hansen@linux.intel.com>
-CommitterDate: Thu, 24 Sep 2026 12:19:01 -07:00
+The driver has no USB power management callbacks, so the USB core
+unbinds it before system suspend and binds it again on resume. The DRM
+device is unregistered and registered again on every suspend and resume
+cycle, userspace driving the Touch Bar through it (such as tiny-dfr)
+loses its device, and the Touch Bar stays dark after resume.
 
-x86/mm: Fix void/int conditional in pgd_clear()
+Implement suspend and resume with drm_mode_config_helper_suspend() and
+drm_mode_config_helper_resume(), so the device stays registered and the
+last committed state is restored on resume. If the device was reset
+while suspended, repeat the probe-time handshake first.
 
-sparse building mm/ reports an error for every pgd_clear() caller:
-
-  mm/pgtable-generic.c:30:9: error: incompatible types in conditional express=
-ion (different base types):
-  mm/pgtable-generic.c:30:9:    void
-  mm/pgtable-generic.c:30:9:    int
-
-pgtable_l5_enabled() ? native_pgd_clear(pgd) : 0 mixes a void function
-call with an int constant. C11 6.5.15 requires the second and third
-operands of a conditional expression to both have arithmetic type, both
-have the same structure or union type, both have void type, or to be
-compatible pointer types. void and int are none of those, so this is a
-type error, not just a style issue. GCC accepts it as an extension, and
-the result type is void, so there is no runtime effect today.
-
-The macro only exists when the p4d level is not folded, that is, when
-CONFIG_PGTABLE_LEVELS > 4; with a folded p4d, asm-generic/pgtable-nop4d.h
-defines pgd_clear() as a no-op.
-
-All callers use pgd_clear() as a statement (mm/memory.c and friends), so
-use the do { } while (0) form, matching the paravirt definition in
-asm/paravirt.h.
-
-Found by running sparse 0.6.5-rc1 over mm/. No functional change.
-
-Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
-Link: https://patch.msgid.link/20260923212731.19599-1-azpijr@gmail.com
+Fixes: 0670c2f56e45 ("drm/tiny: add driver for Apple Touch Bars in x86 Macs")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Vasilij Markin <vasilij.kernel@tototo.si>
 ---
- arch/x86/include/asm/pgtable.h | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Tested on a MacBookPro16,2 with this change backported to 7.2.7, deep (S3)
+suspend by closing the lid, tiny-dfr 0.3.7. Without it the driver is probed
+again on every resume and systemd stops tiny-dfr; with it tiny-dfr keeps
+running, the driver is not probed again and the Touch Bar shows its content
+right after resume. The reset_resume path is untested: the device never came
+back reset.
 
-diff --git a/arch/x86/include/asm/pgtable.h b/arch/x86/include/asm/pgtable.h
-index d5f4917..153cb62 100644
---- a/arch/x86/include/asm/pgtable.h
-+++ b/arch/x86/include/asm/pgtable.h
-@@ -66,7 +66,11 @@ extern pmdval_t early_pmd_flags;
-=20
- #ifndef __PAGETABLE_P4D_FOLDED
- #define set_pgd(pgdp, pgd)		native_set_pgd(pgdp, pgd)
--#define pgd_clear(pgd)			(pgtable_l5_enabled() ? native_pgd_clear(pgd) : 0)
-+#define pgd_clear(pgdp)			\
-+do {					\
-+	if (pgtable_l5_enabled())	\
-+		native_pgd_clear(pgdp);	\
-+} while (0)
- #endif
-=20
- #ifndef set_p4d
+Kernels before commit 3d95f93b30b8 ("drm/appletbdrm: Convert to atomic_create_state")
+also need the plane reset hook to free the existing state, otherwise
+drm_mode_config_reset() on resume hits WARN_ON(plane->state) in
+appletbdrm_primary_plane_reset() and leaks the old state. 7.2.y is such a
+kernel; the tested backport carries that change as a separate patch.
+
+Built on drm-misc-next (c4c54ffd6) with W=1 without warnings.
+---
+ drivers/gpu/drm/tiny/appletbdrm.c | 43 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 43 insertions(+)
+
+diff --git a/drivers/gpu/drm/tiny/appletbdrm.c b/drivers/gpu/drm/tiny/appletbdrm.c
+index 4297d9c11..024ad8bf6 100644
+--- a/drivers/gpu/drm/tiny/appletbdrm.c
++++ b/drivers/gpu/drm/tiny/appletbdrm.c
+@@ -30,6 +30,7 @@
+ #include <drm/drm_gem_atomic_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_gem_shmem_helper.h>
++#include <drm/drm_modeset_helper.h>
+ #include <drm/drm_plane.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+@@ -821,6 +822,45 @@ static void appletbdrm_shutdown(struct usb_interface *intf)
+ 	drm_atomic_helper_shutdown(&adev->drm);
+ }
+ 
++static int appletbdrm_suspend(struct usb_interface *intf, pm_message_t message)
++{
++	struct appletbdrm_device *adev = usb_get_intfdata(intf);
++
++	return drm_mode_config_helper_suspend(&adev->drm);
++}
++
++static int appletbdrm_resume(struct usb_interface *intf)
++{
++	struct appletbdrm_device *adev = usb_get_intfdata(intf);
++
++	return drm_mode_config_helper_resume(&adev->drm);
++}
++
++static int appletbdrm_reset_resume(struct usb_interface *intf)
++{
++	struct appletbdrm_device *adev = usb_get_intfdata(intf);
++	struct drm_device *drm = &adev->drm;
++	int ret;
++
++	/*
++	 * A reset puts the device back into its initial state, where it
++	 * expects the same handshake as during probe
++	 */
++	ret = appletbdrm_get_information(adev);
++	if (ret) {
++		drm_err(drm, "Failed to get display information\n");
++		return ret;
++	}
++
++	ret = appletbdrm_signal_readiness(adev);
++	if (ret) {
++		drm_err(drm, "Failed to signal readiness\n");
++		return ret;
++	}
++
++	return drm_mode_config_helper_resume(drm);
++}
++
+ static const struct usb_device_id appletbdrm_usb_id_table[] = {
+ 	{ USB_DEVICE_INTERFACE_CLASS(0x05ac, 0x8302, USB_CLASS_AUDIO_VIDEO) },
+ 	{}
+@@ -832,6 +872,9 @@ static struct usb_driver appletbdrm_usb_driver = {
+ 	.probe		= appletbdrm_probe,
+ 	.disconnect	= appletbdrm_disconnect,
+ 	.shutdown	= appletbdrm_shutdown,
++	.suspend	= appletbdrm_suspend,
++	.resume		= appletbdrm_resume,
++	.reset_resume	= appletbdrm_reset_resume,
+ 	.id_table	= appletbdrm_usb_id_table,
+ };
+ module_usb_driver(appletbdrm_usb_driver);
+
+---
+base-commit: c4c54ffd65555ac5316f8faf4d7dc8c815877937
+change-id: 20260924-appletbdrm-pm-6bd220385beb
+
+Best regards,
+-- 
+Vasilij Markin <vasilij.kernel@tototo.si>
+
+
