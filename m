@@ -1,169 +1,162 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011065.outbound.protection.outlook.com [40.93.194.65])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35FF347ECD3
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:04:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.65
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790255087; cv=fail; b=RgiW9Dc6a1aN3Q8e0ZsQxCDYpCfg+k+029fA4UizVPiPQtfrWDUVRA+NrrlRZudP7tGjaFctZFzyzdSQ0M8123hgRnvUm/nr1+1T54qIOwnG3e00iGTFsMFd/qR19/heQefkZm+7CUU1AsSv+rabM58rPiGxOHaqAgG7TMoSFQ4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790255087; c=relaxed/simple;
-	bh=hp/IinP7y41CrF1kVr8rNXfx4xhQ036WSqLnMr4esRk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=a8JcIHg3Tc2TMiE8kgmU5RSZTTU72uas2K3CXPn1G0KCV+VNCkP33X4gQSTohiA0beWxeYsiGjNTnYk4lG0v2erwxzM7q8HuE4f+iXINfz4/dVo2H61XV43uSVIi9EkzLXkSoMnytSDBMJv1hDB3nh5rJGe7fADuLVMdITSnm54=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Qpye8S7Z; arc=fail smtp.client-ip=40.93.194.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EFF6481255;
+	Thu, 24 Sep 2026 13:05:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790255107; cv=none; b=r8aw965M/vxNa8u4PE+WxAZs/BOF4euqL5J9umumFkvkzolrMpCES6Rqplc5cKp9qK5B2Ih1jRT803rXhp+quimQIGD0wHr7yWX6XK35aT/LKLKk6xHFyVRUUQkrhG72EvPs/fcOD5iABq9mHCMtCs7KbtFJSN/41d+WjYDo0sw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790255107; c=relaxed/simple;
+	bh=v94DbVQw+05Ntmjd28VMwMgCPVXvis86MvU9154Zke4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ubDKXIQOd7pXuDpdo5BbUnA+rcj5vyY+PYfzNRsjG4DmHNsd95oSr6vc7bpNWzrMi2o1i45ouG7VyfGD9M+R8fa0yZ/99MWZR87W4MGyO3jyWyLERYgr6wVMsigHpdV16Vw5nX4JZ7pAWWYYDe8+dKkl5cpgzlcQNJdQVrtJjhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Rp0Slkn+; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Qpye8S7Z"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kpM5J8JgYAKeN4JSXdZvRb7S7QnB9dAGh2FAP797VDjlwi4s/DmHVjg2NXUjPMdrj1HdJnvZk8kUpW3Rs1QQ9WhibV6xUVRXZxYBNTUwIjhvXv+DeHdQi2EQEy0nRs1EvIdGmnCsiPOarsfrMTz8tvd4ER+YqE1tWDJ7f61CCXkVo1EiVp2uAbBsPZ74FqZVAY67PrSFzkjNRcJg4KRIl5WquQ6iWWmEtnyGYoluLPgIpa/sWOlYRz4s749MHKKXNOMrlYuyHK9hJetpaxFS12AAYnLQS3X0ZfLlTm/8DMtmd3Ve0MING7RLzivi4RP6PNx7XGHmO92MEqj4sbo62w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZR1WbcjS7Et8H1Is/yfuP+KF2JF244+6G603E2mLLi8=;
- b=pQvW85630BYRM2NQn6ci24WvJaWTsAjLmhQr9zEWXnb34gYg3pJ5iCNRKQHwfKL9okvxVumaEbhqmdJFY70vbL3no+CH3urDzvsRiEY6Tcd5Nz1kqq3zf+W9sECduwA3yRA2+ZKtpRQ9a7DXogaWJmS/Scs8cpIjHk0Aj6jVwC+p2SsmX/+SXBuScM1A1CUkjAkHOUJyQrH1qHwI9IP+x6Mmtm/WBKxVMQ3yWacDiPymNW+f6peEweyJ7hYnP+Zc1JlHfEvNx8bF3cHzwtUJzNYD+bnL3TeKHAZXCw1M0loqKn54DO/uraY7N/jo+3Uw3l2Se8JrixzjaMI+N5/UFg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZR1WbcjS7Et8H1Is/yfuP+KF2JF244+6G603E2mLLi8=;
- b=Qpye8S7Zo28nC59P65usB97SnHQ0TekLGvEvrHsh2PeBhz/FkUpFX3EOwAUD/QdpNl9VahcgD9jlsULor+Kcts8iKVUh+bLE6uBgqaWuzJ1iVu0Ud0YwiiAJSTB+VO06lNTEm9AmbLBFEDLhxm3AGxIU/LR1mholJZy4eqUhNEw=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM4PR12MB5963.namprd12.prod.outlook.com (2603:10b6:8:6a::8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.18; Thu, 24 Sep 2026 13:04:33 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
- 13:04:33 +0000
-Message-ID: <0e2f0fb5-a491-495b-a174-066f7c1ae314@amd.com>
-Date: Thu, 24 Sep 2026 15:04:29 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] drm/amdgpu: implement workaround for sdma dcc
- corruption
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260924124319.1895-1-pierre-eric.pelloux-prayer@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260924124319.1895-1-pierre-eric.pelloux-prayer@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR08CA0016.namprd08.prod.outlook.com
- (2603:10b6:208:239::21) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Rp0Slkn+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1790255101;
+	bh=v94DbVQw+05Ntmjd28VMwMgCPVXvis86MvU9154Zke4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=Rp0Slkn+RwOD1u871FiNkc312zlBUzdL7toPFbg04Q4W1WnMbOq6wDcg3Jfn5peM6
+	 vhd+3Enhg9ayT+PqjWf8KSxrpIt+Wzm+LhfUFm9ocuL2vsqQ5AZvKfYyauy1TCHAxz
+	 1qibfcRTNK1AxZy6YaNFx9x+EPNYi6Ok2tQJLILBx6WiZrWdIKs0MTRSu0La/eF2y/
+	 r7+hHB0+98SCUqRNHhjJrMa9ZDILYqeGTgo7pH5uDmCHe8HQ4eC3bjK4U0ydho/h7N
+	 58W/OkJgpdwHE33CSM+VROGPzkzDeNyVP44sbFLZ2qELBGFxrz38y/DhNphwM+JfFD
+	 v8zBZqeZLP4WA==
+Received: from benjamin-XPS-13-9310 (unknown [100.64.1.43])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: benjamin.gaignard)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 6F8A217E0A68;
+	Thu, 24 Sep 2026 15:05:01 +0200 (CEST)
+From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+To: nicolas.dufresne@collabora.com,
+	benjamin.gaignard@collabora.com,
+	p.zabel@pengutronix.de,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com
+Cc: linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	kernel@collabora.com
+Subject: [PATCH v3 3/3] media: verisilicon: Remove useless internal fields
+Date: Thu, 24 Sep 2026 15:04:53 +0200
+Message-ID: <20260924130453.196299-4-benjamin.gaignard@collabora.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260924130453.196299-1-benjamin.gaignard@collabora.com>
+References: <20260924130453.196299-1-benjamin.gaignard@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB5963:EE_
-X-MS-Office365-Filtering-Correlation-Id: de71676a-847f-47a5-b4ea-08df1a3c60de
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|10067099003|56012099006|18002099003|22082099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	mburu+RYxcLWf0G+PC0yShm2FnoK42lqIJmmS/PXL0TUDREI4Bowzwt2zE+IDdFAo1R5gEMXNqztG91w2AGTS0F5c3lEX5Rc99pmLmgEHBA1GqeBGcpXtw3tIUg98TyTXuC8n5xYz4tFB1s3UoMuMxR2RRySFziaUljs1L5zxtpXg3GnTdKJ0iSeYQnDWOHHSWZov46OeAyXwBgYYLDaawQo/YKRDsBANdx6jWc9OMMTRcWm7ehUgH7f+8IA5IxETZmeV/q1jkEYOLHnBY29wnFCBG/AFl6zawOOiPmnENj+C0SpdWgGrlc36jc9Tcf1B8T5el2NLdf7tG3Mdz44wyqXnv1xJgVqoW1y8oNcahehfi0VPnoMy0GzC72M3mzloTRhqjDfE8Mb8lUW7d8J4BjKQlm6FZZDDPBH3vLElou9jQpBdZUtoXURw9Dcj4yjGhcUIFBosj1MM9+JLD+E16HxMOSaC2LOzuf8OsjJClx28dDmS8oB2b643lqsQFsQYpHvWlnAUFO43GWLWCyqJwSiyY3Ethv1hAPajUT/HT/FQGQprl0rUv1eF8KAt0nNTcEKWrzch2j5jkXwMbOA4nrLBwXpoKH0f5yjAigoRkwU3HOmPo7REZMdZ/eolhuB
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(10067099003)(56012099006)(18002099003)(22082099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?c1ZoWndwWUhxb3RUbzloUnMyWHZ1YmVnWVZ1UTlWSzVuZ1FXaUpMYXdYd01o?=
- =?utf-8?B?S2NxOW9QTXorVkJJOUJ2WmdWM0xkUHBHc3R4ZzR0OW03UWtRUndQdFVGaXBZ?=
- =?utf-8?B?U3lzdlkxK1hmTDFUNWtiUUxOV1pEOXM1ZzNsRjg0dU1seEdZWFIxajhuM3FS?=
- =?utf-8?B?S3FCQ0FBL0ZETVFXRGJ6ZmlNZVBNWlNRdTN4VWZtOVp6TUk2blFGR0NOdSto?=
- =?utf-8?B?Wi9IOW9xUWpQQTE0VGthb09TM2Jobjk0ZE9OMjlIdFF2RisrajFHTDFMMSth?=
- =?utf-8?B?SmJnUk9uSkJKdG1qQld3OWowWENLVlg2dDZ3bGhHZEF1TEdOOFYzQURrMEpL?=
- =?utf-8?B?MVZwY2k3T0x0Q3hTajdHOVArcVlVUnJrZDNrNXRpR01MR2hNSEhwUlVDNUc0?=
- =?utf-8?B?WkszTGVKN1Y5Z2pKaVl2Tm03cGxvN0p2VWx1OWQ1YTdyM1J0dXk2Tm9ML2VX?=
- =?utf-8?B?NkEyMHVxclZSRG1yRURBRzZyUWR2OXRXN1Bud204UzFER2pHQ1ltTDk2SGZl?=
- =?utf-8?B?TE43NUQvaEMrUzZpZXRLYjhJSVAzeXlxQi85UlgzSGZnVzM5emRxKzVRYzQy?=
- =?utf-8?B?bGtvUVFhUHk0YXIxMGMyWmJiSkhCNXVZdGJuYnhGMlltUTF3TFpDSldTbm1x?=
- =?utf-8?B?NnYvdVB6UDZXdXFRNDlxWHFCbGJCMTZUWjFGSi9DQW1lblptckV3dGYvWWNx?=
- =?utf-8?B?RlR4eFhPK3JPMUxvSWU3eDFHemgwdVk5ZndvaHFkSXkrY0xrSXRFRlMwTzBX?=
- =?utf-8?B?Y3k5UTlOdWtZWTVDUWNWSW0xc1QyNkJOVjhoTDhBSmxYYk92cDhHT0RKbDVr?=
- =?utf-8?B?RWMySTcxbHNWSDNWQThhYlNDcHptQ3NKaXNCLzB3ZUZjK014Zk5jZVpFRUFW?=
- =?utf-8?B?SXZXWGlQWElwYk1mOW1YZm1lV2piN1VvKzI2SHFMb28wbW01dzVDeW5vaVBp?=
- =?utf-8?B?THh1M0wvaWNOMDExMm1mM3RqSytmeG13VEN6anBjTy9hcVAxdW94YlRPT1o1?=
- =?utf-8?B?MWdPcW5zYlhlUFQ3alhoejV4NTlLOGp3WGFUYmE5UDVuMmZXN1FONW9xbEZo?=
- =?utf-8?B?SzYvSmpReHl6S0toVC94WUNuV1NHNldVUC8rK2ZvTUVRR2lvckh5U2VDQUYr?=
- =?utf-8?B?TGFnNXk1OWpWQU9kbDlCeG1uYjR4N0tZelNRL05FZVhoMm5FVlpseTh2NzVO?=
- =?utf-8?B?STNMSk9OZm85RjhOU2RsZG5rSFQ5Y0t5a1Q1Ni9US2Z4S01NaFdtOTZUS000?=
- =?utf-8?B?bnhhMElPNUhZOWM5c0QwbXdZc1RTK1lnOXZHcmNwSCtYMS82dk9tMU9sVnhP?=
- =?utf-8?B?YlFrUUo4TVhuMCt3bGduVkNJa1FiL28yNld0dmlTRzZFbGpNSTN4bGRUbTRJ?=
- =?utf-8?B?MmZ0Uk53K1pVS3A3cFV3bzNjVXgxWGJGN1JVUVQvdnB1NFlpaC9JUjdaUFQz?=
- =?utf-8?B?ajBZQm5qZWRSYjJQWWVUbjFpOXhycE9jcVhGYVE2dEpmVzhRSTRFNmU1NmpF?=
- =?utf-8?B?Q3Qrc3ZqYzRjbmN4UlB0RGtUS3c1MmlmZ1NkSlpsa2tDTGxUeDV3K0VyVWFx?=
- =?utf-8?B?UUdvZzI3UnlEVnlyUzZOMmx0dnhGQ0tjQ0cvRnRucnM2cy9aS3lCckdFQTFF?=
- =?utf-8?B?Q2VlQVpFajdaczUwaWs5bE5MSndSeHdDb0Q1QlNKQ1g5RmpIOXd2WXlMazRB?=
- =?utf-8?B?QXRJOTJBejZYSGRTMXFUVXFwcjVWcU9lTTdEWWRBSXUyOTRuQjdsS1ZoUnV1?=
- =?utf-8?B?cnpKaFoxNGRteUwwYWdyTzY3cml3VzBqbDVReTlUTGkwTWtCZ0dxSFhHeGVQ?=
- =?utf-8?B?SWY5Rlo5U2RsZVRkS3BvNnU1TkNkaDY2TnFOQnBheVBIZC9qQzlSTnk3L3V5?=
- =?utf-8?B?c0xtenVJOHczSzZhOWM1U05uKzZJeFVOQktLRHdxcU1TNHUrMzYrL2NhQ25j?=
- =?utf-8?B?WStZbjZtdCtWZnNyanp4MDJxMi9saURBQnprTU50UnBkZzZSOHQxOEZmY2J5?=
- =?utf-8?B?bVYwZVdnSWNvMDdLTHlOZ3F3QXh5Zm5qZExaMDQwa1NHYVhRVy9zcVVTM3k1?=
- =?utf-8?B?a1p4TVNzckFvenRSb01SdHFlNzFtcmRmb0E1KzBTQVNHMVd2MVhEbmpYaFlR?=
- =?utf-8?B?eEF0TGsyOUNDcnFRS3pYUndqeFBrNXVRd0g0OVE5N2ZJTnJyQ0dMUkE4Z0c4?=
- =?utf-8?B?ZHNWZ2hXSE9ROFZDZmQzVjd3eDg5dGFQN3F1ZkJhUU9MdDRnSmlPUEppWmtC?=
- =?utf-8?B?azZnak0rakRjL0V3bXM3L1dvZkc3aXlDempkWXFtOHYwOWRxd2dqTlIrVlY4?=
- =?utf-8?Q?68F9RpU2n5gJgsDH8R?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: de71676a-847f-47a5-b4ea-08df1a3c60de
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 13:04:33.7168
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: p3WZp5MOLnjsiqSZGyVAbX0wqZ+QGG4Z42G5lw9qQmLfq+8x56ZT5c4nIlqq6oWf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5963
+Content-Transfer-Encoding: 8bit
 
-On 9/24/26 14:43, Pierre-Eric Pelloux-Prayer wrote:
-> For unknown reasons, on gfx12 using multiple entities can causes
-> random corruption of BOs with DCC.
-> This workaround seems to prevent the issue until the root cause
-> is understood and fixed.
-> 
-> Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5663
-> Fixes: 3a6f6eeb3db5 ("drm/amdgpu: give ttm entities access to all the sdma scheds")
-> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 3d620ec2937f..a826e091ea58 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -2392,6 +2392,11 @@ void amdgpu_ttm_enable_buffer_funcs(struct amdgpu_device *adev)
->  
->  	num_clear_entities = MIN(adev->mman.num_buffer_funcs_scheds, TTM_NUM_MOVE_FENCES);
->  	num_move_entities = MIN(adev->mman.num_buffer_funcs_scheds, TTM_NUM_MOVE_FENCES);
-> +        /* TODO: workaround for DCC corruption when moving BOs from multiple queues at
-> +         * the same time: use a single queue until the root cause is identified and fixed.
-> +         */
-> +	if (IP_VERSION_MAJ(amdgpu_ip_version(adev, SDMA0_HWIP, 0)) == 7)
+No more variants are using multiple registers regions.
+Remove the useless fields and simplify driver code.
 
-Thinking it through it would be nice if we could check for that DCC HW generation instead of the SDMA version.
+Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+---
+ drivers/media/platform/verisilicon/hantro.h   |  9 ++-------
+ .../media/platform/verisilicon/hantro_drv.c   | 20 +++++--------------
+ 2 files changed, 7 insertions(+), 22 deletions(-)
 
-But we need a fix ASAP so the patch is Reviewed-by: Christian König <christian.koenig@amd.com>.
-
-Regards,
-Christian.
-
-> +		num_move_entities = 1;
->  
->  	adev->mman.clear_entities = kcalloc(num_clear_entities,
->  						sizeof(struct amdgpu_ttm_buffer_entity),
+diff --git a/drivers/media/platform/verisilicon/hantro.h b/drivers/media/platform/verisilicon/hantro.h
+index 0353de154a1e..ca03bc690fbf 100644
+--- a/drivers/media/platform/verisilicon/hantro.h
++++ b/drivers/media/platform/verisilicon/hantro.h
+@@ -72,8 +72,6 @@ struct hantro_irq {
+  * @num_irqs:			number of irqs in the array
+  * @clk_names:			array of clock names
+  * @num_clocks:			number of clocks in the array
+- * @reg_names:			array of register range names
+- * @num_regs:			number of register range names in the array
+  * @double_buffer:		core needs double buffering
+  * @legacy_regs:		core uses legacy register set
+  * @late_postproc:		postproc must be set up at the end of the job
+@@ -97,8 +95,6 @@ struct hantro_variant {
+ 	int num_irqs;
+ 	const char * const *clk_names;
+ 	int num_clocks;
+-	const char * const *reg_names;
+-	int num_regs;
+ 	unsigned int double_buffer : 1;
+ 	unsigned int legacy_regs : 1;
+ 	unsigned int late_postproc : 1;
+@@ -184,7 +180,7 @@ hantro_vdev_to_func(struct video_device *vdev)
+  *			dev_ macros.
+  * @clocks:		Array of clock handles.
+  * @resets:		Array of reset handles.
+- * @reg_bases:		Mapped addresses of VPU registers.
++ * @reg_base:		Mapped address of VPU registers.
+  * @enc_base:		Mapped address of VPU encoder register for convenience.
+  * @dec_base:		Mapped address of VPU decoder register for convenience.
+  * @ctrl_base:		Mapped address of VPU control block.
+@@ -204,10 +200,9 @@ struct hantro_dev {
+ 	struct device *dev;
+ 	struct clk_bulk_data *clocks;
+ 	struct reset_control *resets;
+-	void __iomem **reg_bases;
++	void __iomem *reg_base;
+ 	void __iomem *enc_base;
+ 	void __iomem *dec_base;
+-	void __iomem *ctrl_base;
+ 
+ 	struct mutex vpu_mutex;	/* video_device lock */
+ 	spinlock_t irqlock;
+diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
+index 12c804dcc669..6e3a24156a69 100644
+--- a/drivers/media/platform/verisilicon/hantro_drv.c
++++ b/drivers/media/platform/verisilicon/hantro_drv.c
+@@ -1080,7 +1080,6 @@ static int hantro_probe(struct platform_device *pdev)
+ {
+ 	const struct of_device_id *match;
+ 	struct hantro_dev *vpu;
+-	int num_bases;
+ 	int i, ret;
+ 
+ 	vpu = devm_kzalloc(&pdev->dev, sizeof(*vpu), GFP_KERNEL);
+@@ -1128,21 +1127,12 @@ static int hantro_probe(struct platform_device *pdev)
+ 	if (IS_ERR(vpu->resets))
+ 		return PTR_ERR(vpu->resets);
+ 
+-	num_bases = vpu->variant->num_regs ?: 1;
+-	vpu->reg_bases = devm_kcalloc(&pdev->dev, num_bases,
+-				      sizeof(*vpu->reg_bases), GFP_KERNEL);
+-	if (!vpu->reg_bases)
+-		return -ENOMEM;
++	vpu->reg_base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(vpu->reg_base))
++		return PTR_ERR(vpu->reg_base);
+ 
+-	for (i = 0; i < num_bases; i++) {
+-		vpu->reg_bases[i] = vpu->variant->reg_names ?
+-		      devm_platform_ioremap_resource_byname(pdev, vpu->variant->reg_names[i]) :
+-		      devm_platform_ioremap_resource(pdev, 0);
+-		if (IS_ERR(vpu->reg_bases[i]))
+-			return PTR_ERR(vpu->reg_bases[i]);
+-	}
+-	vpu->enc_base = vpu->reg_bases[0] + vpu->variant->enc_offset;
+-	vpu->dec_base = vpu->reg_bases[0] + vpu->variant->dec_offset;
++	vpu->enc_base = vpu->reg_base + vpu->variant->enc_offset;
++	vpu->dec_base = vpu->reg_base + vpu->variant->dec_offset;
+ 
+ 	/**
+ 	 * TODO: Eventually allow taking advantage of full 64-bit address space.
+-- 
+2.53.0
 
