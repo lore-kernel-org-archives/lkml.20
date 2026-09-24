@@ -1,88 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30BD23E0C75
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:48:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 24F284A92FA;
+	Thu, 24 Sep 2026 17:48:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790272087; cv=none; b=cTPJ+r7YPrKHU9mR6zg8fYKn2VZLMx8lFzT4JX/Wl38xKDlcVBLbefJl0oed2P3X8DKFXRhQQIPrypfI6NN6vu5oXaog8J2K9AC9+hcOAETGbxU42pQw2G9KfZHLuHt3i4YvLjhv1WfhpLbhDy1W7tc6BiCaz0Ou2IoGhRl80X0=
+	t=1790272100; cv=none; b=Bl/eDe+4D6k3c+FbntUtaIJtKiDmVuTM62TRigDjiWz3mrDdsVI84npk53Vm+vK9so0EJxIiBgVvQqxGxca5W19Z22hs1XW4Svx/1Ms4bXqD7hQ2pWd5SYDCoUZMzGxV6sgE3/0yPXUdKbvD/kiKpVExldVKdL1/VsjLT63FYUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790272087; c=relaxed/simple;
-	bh=awU/+KKqsNOHwi3kVCFWiJ+VNP++NzSi5tQHgxXuuSg=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eGoEMRqS32NxIWsJLSj08KTzR0Y2d5/tpObeO/LLITkbEFWov0Ugq5T3R8ORjo10LN9B2IMKvr0taxgznBvoYUNWLcZ2o34vKdMLgySlIznDbm2f9gTYFSmWvr0hslA5TqqK6pxFhvYlb0MyPEoTff6kI4ZbGi8fqrovnZ8WoYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cuwDHg0M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790272100; c=relaxed/simple;
+	bh=gJTu2GKU6GBN9Ent8nfP/3LDprR16DIyQDpia6hxA0Y=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=B2a1akGPtwe2yEegrODfzo9QPbKUw9hd2OhlgWof0EF7DM0ROkju17Bv3VSh4EcagxvCUUiQV+HCIg1o+v1/VSNXPtldAM5cPD2JvCg/WOF1nWInO0k4VSsvGqPmRbu2M/++wmm19sJRKlGWji8gXKWPLKP2pz3bCq/vfeNv8PQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=i9n0hfl4; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cuwDHg0M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85E091F000FF;
-	Thu, 24 Sep 2026 17:48:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790272085;
-	bh=HrDCAQV1pZi3wvTFhrBJGDrVzvo7VEXwMuFwKQsn68I=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=cuwDHg0M0dcx8Zn4ENcoBoRVIKryfT/MqeBIfA/QVhTV75W6toAGmEqnAE3nm0ce9
-	 hn07it7qaLs/bzlXIDQbToAPmQrc+w9VI/KaODzn0tTAzXN0JJE/nd69D6gQAAoRzS
-	 C8/hXdw9LuaDKyTiQqqB9jDh5KON7/ynOg5vX56gHc4G5Q1hfe4pT5aSorJ/ZP6GKU
-	 8pNlcBBafUDjkcbWrWmGhb2ZVcQl+nHkaWrzV6+zg1E2qPFI7pdyQhcJZ21Irijzlq
-	 zIrGwNDveL0rH6dfE0qmRzA9qltaxQea62eC6nnfTuybfZbh7eJBoQHIFxhHjc4IR1
-	 ToavUt2S74D2w==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x9nYB-0000000D8pg-1TQT;
-	Thu, 24 Sep 2026 17:48:03 +0000
-Date: Thu, 24 Sep 2026 18:48:02 +0100
-Message-ID: <86o6dm4k31.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Zhu Ling <zhuling2709@phytium.com.cn>
-Cc: tglx@kernel.org,
-	radu@rendec.net,
-	zenghui.yu@linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] irqchip/gic: Fix UBSAN shift-out-of-bounds in GIC helpers
-In-Reply-To: <20260923082804.13197-1-zhuling2709@phytium.com.cn>
-References: <6b668efe-ef7a-474a-957c-893755ebba46@linux.dev>
-	<20260923082804.13197-1-zhuling2709@phytium.com.cn>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="i9n0hfl4"
+Received: from [100.65.161.51] (unknown [20.236.11.185])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 26E9120B7168;
+	Thu, 24 Sep 2026 10:47:29 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 26E9120B7168
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1790272049;
+	bh=dDnGDmx5A+LgnNNVIQ49CJjfmce0lnemjO1LvEOr3mA=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To:From;
+	b=i9n0hfl4dqFez8rBG7yagyv08/eLYAhZ+PrwGXhSENTLA1m/g85tYweM3QgoQyCKb
+	 ZiREM61/dwGIDuFQsoLQIoNHfmKg85wsWixVh32bSYEHh7OfIw0IMDnxanmjCGE8WA
+	 6HC7QCrL+nFkxNO/96hPN+9gbxpiZNG/a0rrKIwE=
+Message-ID: <4072da50-4c3f-4df9-aef9-789f2431e33c@linux.microsoft.com>
+Date: Thu, 24 Sep 2026 10:48:17 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: zhuling2709@phytium.com.cn, tglx@kernel.org, radu@rendec.net, zenghui.yu@linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+ iommu@lists.linux.dev, linux-arch@vger.kernel.org,
+ easwar.hariharan@linux.microsoft.com, jgg@nvidia.com,
+ jacob.pan@linux.microsoft.com, kys@microsoft.com, haiyangz@microsoft.com,
+ wei.liu@kernel.org, decui@microsoft.com, tglx@kernel.org, mingo@redhat.com,
+ bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+ joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, arnd@arndb.de
+Subject: Re: [PATCH V1 2/3] mshv: Import data structs around device domains
+ from hyperv headers
+To: Mukesh R <mrathor@linux.microsoft.com>
+References: <20260924020221.128762-1-mrathor@linux.microsoft.com>
+ <20260924020221.128762-3-mrathor@linux.microsoft.com>
+From: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
+Content-Language: en-US
+In-Reply-To: <20260924020221.128762-3-mrathor@linux.microsoft.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, 23 Sep 2026 09:28:04 +0100,
-Zhu Ling <zhuling2709@phytium.com.cn> wrote:
+On 9/23/2026 19:02, Mukesh R wrote:
+> Copy/import from Hyper-V public headers, definitions and declarations that
+> are related to creating iommu domains in the hypervisor, attaching devices
+> to them, doing the reverse, etc.
 > 
-> When running with UBSAN enabled, enabling a GPIO controller that uses a
-> GIC interrupt as its parent triggers several shift-out-of-bounds warnings:
+> Signed-off-by: Mukesh R <mrathor@linux.microsoft.com>
+> ---
+>  include/hyperv/hvgdk_mini.h |  9 ++++
+>  include/hyperv/hvhdk_mini.h | 87 +++++++++++++++++++++++++++++++++++++
+>  2 files changed, 96 insertions(+)
 > 
->   shift-out-of-bounds in drivers/irqchip/irq-gic-common.c:50:21
->   left shift of 2 by 30 places cannot be represented in type 'int'
-> 
-> Similar reports are emitted from gic_poke_irq() and gic_peek_irq() in
-> drivers/irqchip/irq-gic-v3.c. The corresponding GICv2 helpers use the
-> same signed-shift pattern. These masks are generated by shifting signed
-> integer constants, which invokes undefined behavior when bit 31 is
-> selected.
-> 
-> Use BIT() to generate the masks with an unsigned type and make their
-> intent explicit.
-> 
-> Signed-off-by: Zhu Ling <zhuling2709@phytium.com.cn>
-
-Acked-by: Marc Zyngier <maz@kernel.org>
-
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
+Reviewed-by: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
