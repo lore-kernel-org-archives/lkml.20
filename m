@@ -1,68 +1,68 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72BD343C058
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:36:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DC494908BD
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:36:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790256969; cv=none; b=j9dxQoGLJAcgcR9yIuIgPspBUWQNm2F1tzhDm5Yi8rbVFh3C4TkPlSiRw6lSVgHK+eV3pDdoB2Hzn9HeTOlzvs0hYRlisePZ4N5BZ0NaSdRBGdZmrKLdKmSTtACnMqjOiQhhp4Gy0kkM+r3UqBOCoer1SaeJCdf/B6zlkLAXjqc=
+	t=1790256976; cv=none; b=Czl816lxB/ZfCdlO6SUo25R4uIzlyte/k8W23GYDOydFov4snqbBzWdzEZY9LLwsRLD6jTIX+2U0TQpghc0RE08emtB3zgxqUV3XurEciNrwtICb1tdyqALL819XPCcGd4FOzHIGSKc/JnKjSZ/6ruzSrkvZ3erePR4hcLHb87w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790256969; c=relaxed/simple;
-	bh=JjQca4qE+VW6R8cQeCI3PAms0wwszdPg1j6ZSaYalAo=;
+	s=arc-20240116; t=1790256976; c=relaxed/simple;
+	bh=evrRCeuryAkwx+SXOVMlSZDKRxNEsafEiaMiOGEQRVw=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=sxFzZSfIxgi9QY2xgbXrfZlrLy0LQC40MqfTVcisL7kppJEGsekjJtILRBPlYnOoRoRutDWh76Clc/IkC7Vobmg0ct9dtUgsMl5pUcIp7NBY99YkiloWocTw4IImisu9dn2QtWJAR8LRqkqImf0jVRYcROtTcNF0/BWTPQC3Kvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wh7f4x67; arc=none smtp.client-ip=74.125.225.141
+	 In-Reply-To:Content-Type; b=V1Apfdi3o1z+yeJf5UNVmBD1hl68zPsNsZpPR/IyvLzqwKJkzRBzcyhl+pgv6qWoIhjxyVznTyNZMyQ56p5E6qh55s051cYmbDNpAQdp8meJ6sISwg5rBT0PE6/1i4ZzTDQjXJWdSqOiqXKtXxsBUUEynVW3XebUNfFlHduHEkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=yfmQArZP; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wh7f4x67"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so11961905e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:36:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="yfmQArZP"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c3ea1f6so1234084f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:36:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790256961; x=1790861761; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1790256971; x=1790861771; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=U22T5ktXeO8XQfbmyXBSjvK2W4d1tae1YGReIurscXk=;
-        b=wh7f4x67clrkaxNpehGJ1MXHo/NRAtOehqeEMqEu2FUISybBa3iv8rQaoaKx/90xq7
-         6t9Edb31X1met+JXcCPwOVGSXJby1yXU73/bQt+L7FHQDGED9qbMq1cc8aEuTdGPU7qf
-         2OQP66BF+rMEVz0mCE/DKzPcafDIYeeBbNmc/GY9XyIShN8KPEPFrVVbzE+yD2PN4yIs
-         Pj53P8t5iCJ38IZiThbkwdiqvINfUff49jAzpTKpGJsS5ldL15REnB3hiFi+FBfDu4sX
-         zOlHDloJ2JzavkrudEiEeZVOtF4NVhVK3dqZ7jYLu9BIaA31z0vfu4juQFbSt0YcXTeg
-         vMLw==
+        bh=7kq1rlVWGiV1pqhG3Dazdv4aEIgD6fu2O0iHNrxpq1g=;
+        b=yfmQArZPon0KbzseO2rRQ5EgRYq3VjSll6smbmahaGDQ1tn7SHq4B+xYjtTE9h8J7O
+         ET3UHH7fEGJLF8/MD4cIF2uvF8rVswovyXFy6ADOIMaquCSoPV6poe/akAfD9/lIYY0M
+         tjD8gzcue0LItIPFhGVpll47Na9xaEhy5D4iSgSoQK83nVU/zpyeb1DL0MYR1gjmTBPe
+         RO26uyH+0kUnFsdamQtE1rqtA1kLFxmd4hQ+QnyuGONEOQoFsk/FiEspGYLg52WuDTaH
+         Rqk63nk8Af7ApXQaZiL2bNMCQfEy9GeC/EYkWPoafCPSyAsP9ayvOlUolTSthZmszUsJ
+         3L7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790256961; x=1790861761;
+        d=1e100.net; s=20260707; t=1790256971; x=1790861771;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U22T5ktXeO8XQfbmyXBSjvK2W4d1tae1YGReIurscXk=;
-        b=dc6e45K1M1W1Wvr/OCESSD10yAqZx0qyHejmmDF/NVi+chwbdi6LDOWaXD8w58Ybc3
-         Dfu4jT5q1RY+vqlewESAUL4+vhoqEa0i4BTZJkwVg1uj7Sr4UtH2RUGMkONxtTSJKBqu
-         dgkDfVT4J+1C6jwxtymwB6YCmRJ2C5uqfvQmusx+xtV5KW5HLR8e9/5pc2v/9rnAaNaD
-         NNHMqzRcnZg3KZWYw7spcFQfS7W8xOKVPjjuUPnozR5ancRPH3chJ31RgpLHcVV3/awk
-         aYYVnPh5eYtKw4FTCw8QYHfsddK6+x9lwZv+8vYQX+GKjjNEznmroBYFeSRHn6wDDaQs
-         WhmA==
-X-Forwarded-Encrypted: i=1; AKwUvBy8fC362SC5YUwAL9le00AsUl7kG6y6gDHhZ5A0EMd6jsxru0GWo6QxhM8h3vVqThlEZcUiFAtvQDZGiwk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kxF0wygG1/oPVUdp44wKhMfiO9+HDG9MUOhu9SbXBE7qlXKiO9
-	gnquwTTeDW9gPbhgYxL6U0RFd0YujJdojAoboYaWAzCjsrgYF8+ngrHFI2OEHZM5xlY=
-X-Gm-Gg: AYBFou1FRxwBI4yTMCf/kO1VtG/O9IK35w8uRnCRG2Z0owxjvJlpi/EyvvFnNU+j8nu
-	N6E+8qi/1jTMnQWDToM3p8qq/HE/Ruvbmr5qdohYCOwLwMsMhyaY7xfsRt/wB7PoKsjZgBMhOWT
-	1Ws4W0IYk0qaUfGH48Fxb38H1LD5iey5fGmK/7BSl/cgMfUy7fyi6zE5qdmRDn7PaqmzOlsSiB5
-	R0Td8MZzSZWXtpOPRuEFDbvDstXztlzt6qwEPv48jDjIaNA8/jhN7nFbMV0KzJ6wvK7ZmSnqolr
-	37f5NTPsjFWGTN3WzcKmlnpO8ONCdgo6TeeyZty4VGfffeSGmWajHlgyU+iGVfqfs/JdFMeTeaH
-	XJijPmNEUUnI7LGJNpIiMYya/j9nWOC4VTsRQwLj0kFP+raTgXgLUjWLbWadjm1gTT/YBXO5X0T
-	naL92hiWoRTPAGfeXzite4lVcR5T3U2mSfevVM+FeMxg0/575k7uODp3kTIdSfWjvrZi5NrX5JB
-	GF9cZWOnJXRBGtAMT3lMhbrPPooD5pLIM+8CarddzHRiA819SKWdA==
-X-Received: by 2002:a05:600c:1385:b0:49f:ce78:3567 with SMTP id 5b1f17b1804b1-49fe66fa5c2mr40253725e9.24.1790256960649;
-        Thu, 24 Sep 2026 06:36:00 -0700 (PDT)
+        bh=7kq1rlVWGiV1pqhG3Dazdv4aEIgD6fu2O0iHNrxpq1g=;
+        b=vOnQkH54cSBinpokfSAqxwOyD5EZBJNPx6+UVpzi1/KGpPnTAJo8PEZsFDW9pFaIZn
+         rcfWGDRyU3G8LVETkL7HeK5GSgxCxG5SCD2jaN6w31mXHq2pgQiJaHzZQnbd7KT+vjQ2
+         1pacqllHMSekQ6Pu2FQiPCqwGM+c/SeQd6ByqgW0cW6OxRVKRRraOmwp69/cXkzzTiyW
+         4na2bBHlDam6LpTy1tojLnvFPvVKBTX90Cu3ap1PI9AdmoUjfCzO7WEd0DH5N8yFkkwg
+         VHefOWQ6mhHPfchG3uEelNwU0t7Jcz1KiTuUDOx5ftjA3t6RlMlpAnpKImaEVsFNcFlo
+         qqCg==
+X-Forwarded-Encrypted: i=1; AKwUvByIPHUaGsrrxIgGDm+suzfGVIi/9qHbE5K5OKga4+7+la3KxhCqk5ky7CBXy7yrmrjJDfPjr/Yk561FVbE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mTbEEKh0jffPOPJ+oN0+iVuEquujtPdyWd7xdIZiojgza50cer
+	vUsa50PbYINxpetanMBEjD4KdGxCxtaVMDdsEV2i6KCWj76SfEtv38CKcbTWpYhRD0A=
+X-Gm-Gg: AYBFou2FoKtusKKtlkaNAj1OcQm1jhO+4stQGYlVbSgDbqbcw2M+WE/h1sl8QLpyNFE
+	jCsFvQEs6k9wQz/4iGk89ECUsA3D+bdWJZ9m0dZ8jfhc0ISH1lIG3rf3LvnQ/055S4Hjeytn0/f
+	eqC8aliEFKnv3A5suOqTeQl5F4kN0U31nGMZygwDrA9BHXBpA4MMNet3vgQXNObrkoHe0E2/OdG
+	iqGQTRqy6HkCiHeP8BnuPu+U0nOAkcXANFS5ZwuAe3lcY8BIVG3awZ+JcTDitVAXgizOveGavEo
+	IklUF53nz6LyU5+fQvReYwU2u0Y75A619Mu/2uEb508XDvvtS7FqQuOkbo3VD9wVvo1wO9s34SX
+	eo54+WZu7SF5IInrQGvMTG5IzSi4HieRn94icpJlNsAjrTuoQwc/FD4PUJTPdvfPTEakd2mBmMJ
+	BxGWyEz72y1i4qTUEGCC7N/zTDTse5T1t+zd1LadNdgV9erAfLXJYi6TR45SX4sNT/8NkTWmklD
+	HRYFLjzwzAtYC0m5oWc4tJ2jqFg4jOLpl6KBIys+3B4JaD8T2NiPg==
+X-Received: by 2002:a05:6000:2885:b0:487:1572:e8c6 with SMTP id ffacd0b85a97d-488716b22c7mr4810267f8f.53.1790256970626;
+        Thu, 24 Sep 2026 06:36:10 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a? ([2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886877a2d5sm14384759f8f.27.2026.09.24.06.35.59
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886876c027sm16399749f8f.17.2026.09.24.06.36.09
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 06:36:00 -0700 (PDT)
-Message-ID: <3c92a2ea-c588-4bc6-8d6a-8006f595e9cf@linaro.org>
-Date: Thu, 24 Sep 2026 15:35:59 +0200
+        Thu, 24 Sep 2026 06:36:10 -0700 (PDT)
+Message-ID: <62d21c0e-8b67-4a50-bdf4-f13d7fae349c@linaro.org>
+Date: Thu, 24 Sep 2026 15:36:09 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,8 +72,8 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 6/9] drm/panel: novatek-nt36672a: Add 3 panels used in
- Xiaomi phones
+Subject: Re: [PATCH v2 7/9] drm/panel: novatek-nt36672a: Add Tianma panel for
+ Xiaomi Mi A2
 To: Alexey Minnekhanov <alexeymin@minlexx.ru>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
  <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
@@ -84,9 +84,9 @@ To: Alexey Minnekhanov <alexeymin@minlexx.ru>, Rob Herring <robh@kernel.org>,
 Cc: David Heidelberg <david@ixit.cz>, Joel Selvaraj <foss@joelselvaraj.com>,
  Chintan Patel <chintanlike@gmail.com>, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- phone-devel@vger.kernel.org, Richard Acayan <mailingradian@gmail.com>
+ phone-devel@vger.kernel.org
 References: <20260917-nt36672a-panels-v2-0-f8de8be5b86f@minlexx.ru>
- <20260917-nt36672a-panels-v2-6-f8de8be5b86f@minlexx.ru>
+ <20260917-nt36672a-panels-v2-7-f8de8be5b86f@minlexx.ru>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -113,226 +113,106 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260917-nt36672a-panels-v2-6-f8de8be5b86f@minlexx.ru>
+In-Reply-To: <20260917-nt36672a-panels-v2-7-f8de8be5b86f@minlexx.ru>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 9/17/26 18:43, Alexey Minnekhanov wrote:
-> Add support for 3 panels used in 2 Xiaomi smartphones, all based on
-> Qualcomm SDM636/660 SoC:
+> Add support for Tianma TL060FVXS16-00 video mode panel based on
+> Novatek NT36672A, used in Xiaomi Mi A2 smartphone (xiaomi-jasmine).
+> It shares some code with already supported panel in this driver
+> for xiaomi-lavender, so we can reuse the same panel deinit function.
 > 
-> * Shenchao panel used in Xiaomi Redmi Note 7 (xiaomi-lavender), the
->    exact model string is unknown
-> * Tianma TL063FVMC43-02  for Xiaomi Redmi Note 6 Pro (xiaomi-tulip)
-> * Tianma TL063FVMCA01-00 for Xiaomi Redmi Note 7 (xiaomi-lavender)
-> 
-> They all are DSI video mode panels using Novatek NT36672A controller,
-> so they can share almost exactly the same init/off sequences with
-> minimal differences between variants. This allows to avoid a lot of
-> code duplication.
-> 
-> Co-developed-by: Richard Acayan <mailingradian@gmail.com>
-> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
 > Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
 > 
 > ---
-> v2: sort compatible strings alphabetically in of_device_id
+> v2: use mipi_dsi_usleep_range() instead of usleep_range()
 > ---
->   drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 166 +++++++++++++++++++++++++
->   1 file changed, 166 insertions(+)
+>   drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 57 ++++++++++++++++++++++++++
+>   1 file changed, 57 insertions(+)
 > 
 > diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-> index a445c8067aa5f..d356348d39608 100644
+> index d356348d39608..48dff2279b0e9 100644
 > --- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
 > +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-> @@ -357,6 +357,90 @@ static void tianma_fhd_video_send_deinit_cmds(struct mipi_dsi_multi_context *dsi
->   	msleep(60); /* 0x3C = 60ms delay */
+> @@ -441,6 +441,29 @@ static void lavender_tulip_deinit_cmds(struct mipi_dsi_multi_context *dsi_ctx)
+>   	mipi_dsi_msleep(dsi_ctx, 120);
 >   }
 >   
-> +static void lavender_tulip_init_cmds(struct mipi_dsi_multi_context *dsi_ctx)
+> +static void tianma_jasmine_init_cmds(struct mipi_dsi_multi_context *dsi_ctx)
 > +{
-> +	/*
-> +	 * This function supports 3 similar panels with minimal differences
-> +	 * in their init sequences. We assume base to be lavender-tianma
-> +	 * panel, and 2 variations (lavender-shenchao and tulip) are handled as
-> +	 * differences to base.
-> +	 */
-> +	const struct device_node *node = dev_of_node(&dsi_ctx->dsi->dev);
-> +	bool is_shenchao = of_device_is_compatible(node, "shenchao,fhdplus-video");
-> +	bool is_tulip = of_device_is_compatible(node, "tianma,tl063fvmc43-02");
-> +
 > +	dsi_ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
 > +
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x25);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x20);
 > +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x18, 0x96);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x05, 0x04);
-> +
-> +	if (is_shenchao)
-> +		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x27);
-> +	else
-> +		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x20);
-> +
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-> +
-> +	if (is_shenchao)
-> +		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd9, 0x10);
-> +	else
-> +		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x78, 0x01);
-> +
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x24);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x82, 0x13);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x84, 0x31);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x88, 0x13);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8a, 0x31);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8e, 0xe4);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8f, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x90, 0x80);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x26);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa9, 0x12);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xaa, 0x10);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xae, 0x8a);
-> +
-> +	if (is_shenchao)
-> +		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1c, 0xfa);
-> +
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MIPI_DCS_SET_PARTIAL_ROWS, 0x10);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MIPI_DCS_SET_PARTIAL_COLUMNS, 0x50);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x32, 0x2f);
 > +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x10);
 > +
-> +	if (is_shenchao)
-> +		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0, 0x01);
-> +
 > +	mipi_dsi_dcs_exit_sleep_mode_multi(dsi_ctx);
-> +	mipi_dsi_msleep(dsi_ctx, 80);
+> +	mipi_dsi_msleep(dsi_ctx, 70);
 > +
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0, 0x01);
-> +	mipi_dsi_dcs_set_tear_on_multi(dsi_ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
-> +
-> +	if (is_tulip) {
-> +		mipi_dsi_dcs_set_display_brightness_multi(dsi_ctx, 0x00ff);
-> +	} else {
-> +		/* lavender tianma + shenchao specific part */
-> +		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x68, 0x03, 0x04);
-> +		mipi_dsi_dcs_set_display_brightness_multi(dsi_ctx, 0x00b8);
-> +	}
-> +
+> +	mipi_dsi_dcs_set_display_brightness_multi(dsi_ctx, 0x00ff);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x68, 0x03, 0x04);
 > +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x2c);
 > +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MIPI_DCS_WRITE_POWER_SAVE, 0x00);
 > +
 > +	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
-> +}
-> +
-> +static void lavender_tulip_deinit_cmds(struct mipi_dsi_multi_context *dsi_ctx)
-> +{
-> +	dsi_ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-> +
-> +	mipi_dsi_dcs_set_display_off_multi(dsi_ctx);
-> +	mipi_dsi_msleep(dsi_ctx, 20);
-> +	mipi_dsi_dcs_enter_sleep_mode_multi(dsi_ctx);
-> +	mipi_dsi_msleep(dsi_ctx, 120);
+> +	mipi_dsi_usleep_range(dsi_ctx, 5000, 6000);
 > +}
 > +
 >   static const struct drm_display_mode tianma_fhd_video_panel_default_mode = {
 >   	.clock		= 161331,
 >   
-> @@ -389,6 +473,85 @@ static const struct nt36672a_panel_desc tianma_fhd_video_panel_desc = {
->   	.send_deinit_cmds = tianma_fhd_video_send_deinit_cmds,
+> @@ -552,6 +575,39 @@ static const struct nt36672a_panel_desc tianmaplus_e7t_tulip_panel_desc = {
+>   	.send_deinit_cmds = lavender_tulip_deinit_cmds,
 >   };
 >   
-> +/* common for both lavender-tianma and lavender-shenchao panels */
-> +static const struct drm_display_mode lavender_panel_default_mode = {
-> +	.clock		= (1080 + 90 + 2 + 120) * (2340 + 10 + 3 + 8) * 60 / 1000,
+> +static const struct drm_display_mode tianma_jasmine_panel_default_mode = {
+> +	.clock		= (1080 + 96 + 4 + 56) * (2160 + 4 + 2 + 33) * 60 / 1000,
 > +
 > +	.hdisplay	= 1080,
-> +	.hsync_start	= 1080 + 90,
-> +	.hsync_end	= 1080 + 90 + 2,
-> +	.htotal		= 1080 + 90 + 2 + 120,
+> +	.hsync_start	= 1080 + 96,
+> +	.hsync_end	= 1080 + 96 + 4,
+> +	.htotal		= 1080 + 96 + 4 + 56,
 > +
-> +	.vdisplay	= 2340,
-> +	.vsync_start	= 2340 + 10,
-> +	.vsync_end	= 2340 + 10 + 3,
-> +	.vtotal		= 2340 + 10 + 3 + 8,
+> +	.vdisplay	= 2160,
+> +	.vsync_start	= 2160 + 4,
+> +	.vsync_end	= 2160 + 4 + 2,
+> +	.vtotal		= 2160 + 4 + 2 + 33,
 > +
+> +	.width_mm = 68,
+> +	.height_mm = 136,
 > +	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
 > +};
 > +
-> +static const struct nt36672a_panel_desc shenchao_lavender_panel_desc = {
-> +	.display_mode = &lavender_panel_default_mode,
-> +
-> +	.width_mm = 67,
-> +	.height_mm = 145,
-> +
-> +	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-> +			MIPI_DSI_CLOCK_NON_CONTINUOUS,
-> +	.format = MIPI_DSI_FMT_RGB888,
-> +	.lanes = 4,
-> +	.send_init_cmds = lavender_tulip_init_cmds,
-> +	.send_deinit_cmds = lavender_tulip_deinit_cmds,
-> +};
-> +
-> +static const struct nt36672a_panel_desc tianma_lavender_panel_desc = {
-> +	.display_mode = &lavender_panel_default_mode,
-> +
-> +	.width_mm = 67,
-> +	.height_mm = 145,
-> +
-> +	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-> +			MIPI_DSI_CLOCK_NON_CONTINUOUS,
-> +	.format = MIPI_DSI_FMT_RGB888,
-> +	.lanes = 4,
-> +	.send_init_cmds = lavender_tulip_init_cmds,
-> +	.send_deinit_cmds = lavender_tulip_deinit_cmds,
-> +};
-> +
-> +static const struct drm_display_mode tianmaplus_e7t_tulip_mode = {
-> +	.clock		= (1080 + 100 + 28 + 120) * (2280 + 10 + 3 + 8) * 60 / 1000,
-> +
-> +	.hdisplay	= 1080,
-> +	.hsync_start	= 1080 + 100,
-> +	.hsync_end	= 1080 + 100 + 28,
-> +	.htotal		= 1080 + 100 + 28 + 120,
-> +
-> +	.vdisplay	= 2280,
-> +	.vsync_start	= 2280 + 10,
-> +	.vsync_end	= 2280 + 10 + 3,
-> +	.vtotal		= 2280 + 10 + 3 + 8,
+> +static const struct nt36672a_panel_desc tianma_jasmine_panel_desc = {
+> +	.display_mode = &tianma_jasmine_panel_default_mode,
 > +
 > +	.width_mm = 68,
-> +	.height_mm = 143,
-> +
-> +	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-> +};
-> +
-> +static const struct nt36672a_panel_desc tianmaplus_e7t_tulip_panel_desc = {
-> +	.display_mode = &tianmaplus_e7t_tulip_mode,
-> +
-> +	.width_mm = 68,
-> +	.height_mm = 143,
+> +	.height_mm = 136,
 > +
 > +	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
 > +			MIPI_DSI_CLOCK_NON_CONTINUOUS,
 > +	.format = MIPI_DSI_FMT_RGB888,
 > +	.lanes = 4,
-> +	/* tulip panel uses almost the same init/deinit sequences as lavender */
-> +	.send_init_cmds = lavender_tulip_init_cmds,
+> +	.send_init_cmds = tianma_jasmine_init_cmds,
+> +	/* jasmine panel uses the same deinit sequence as lavender/tulip */
 > +	.send_deinit_cmds = lavender_tulip_deinit_cmds,
 > +};
 > +
 >   static int nt36672a_panel_add(struct nt36672a_panel *pinfo)
 >   {
 >   	struct device *dev = &pinfo->link->dev;
-> @@ -465,7 +628,10 @@ static void nt36672a_panel_remove(struct mipi_dsi_device *dsi)
->   }
->   
+> @@ -630,6 +686,7 @@ static void nt36672a_panel_remove(struct mipi_dsi_device *dsi)
 >   static const struct of_device_id panel_nt36672a_match[] = {
-> +	{ .compatible = "shenchao,fhdplus-video", .data = &shenchao_lavender_panel_desc },
+>   	{ .compatible = "shenchao,fhdplus-video", .data = &shenchao_lavender_panel_desc },
 >   	{ .compatible = "tianma,fhd-video", .data = &tianma_fhd_video_panel_desc },
-> +	{ .compatible = "tianma,tl063fvmc43-02", .data = &tianmaplus_e7t_tulip_panel_desc },
-> +	{ .compatible = "tianma,tl063fvmca01-00", .data = &tianma_lavender_panel_desc },
+> +	{ .compatible = "tianma,tl060fvxs16-00", .data = &tianma_jasmine_panel_desc },
+>   	{ .compatible = "tianma,tl063fvmc43-02", .data = &tianmaplus_e7t_tulip_panel_desc },
+>   	{ .compatible = "tianma,tl063fvmca01-00", .data = &tianma_lavender_panel_desc },
 >   	{ },
->   };
->   MODULE_DEVICE_TABLE(of, panel_nt36672a_match);
 > 
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
