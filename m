@@ -1,167 +1,443 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11022098.outbound.protection.outlook.com [40.107.209.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7775C35C1B2;
-	Thu, 24 Sep 2026 12:26:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B544147D474
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:27:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790252805; cv=fail; b=U2Yum2kgEamndEEB4xyZ8GV5tWLhlmb4/6mNoAoN9J8w1N05JUZrj9LY2q/GyyeHH2Xey5E9/OVd8tg/4PwEthETng+7Cy/xOeLTZ0M5QZelSvXOsEF+h63YwP9hb3y7GIIEXdCuiZegry4Oaq2rBW6Ytllh15XH0coJeDTRt28=
+	t=1790252832; cv=pass; b=ifuiMgh0u+fVS1SL8wbPZ1QKYSF4KF+LwHUhEe8/f+h3D6WgwH30V2r8lY15IgbT/yLzqbAYmzns0+JRcEwWYbS/SZwSy8aaAD/AwNh+9W4Kduevvlri8mAl/NYEsHA/PSjoy242ISa/ja55R4QZgRotldJUbUR9VcstqE+jkjY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790252805; c=relaxed/simple;
-	bh=E4duF26uw45GQXW4vGK1Hb04SfZgqVMZl9LIADehhAo=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=W2y8hqUxAvXxEgd/wel9e0XCrsaTNAbZa1m8dssY04KwXSFL6eU6j8FmhFWBuIOjrdTLa86JzOddcjMpb+DjSZ9K+RYxxJPOakGIkHgrN04/keuv2joM1w3KhARhoupm6hVVoX0c9CA0RsrC2tNs8cDTrv2nPNo7tyaOWjpezEk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lieber.org; spf=pass smtp.mailfrom=lieber.org; dkim=pass (2048-bit key) header.d=lieber.org header.i=@lieber.org header.b=mmDE5I3T; arc=fail smtp.client-ip=40.107.209.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lieber.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lieber.org
+	s=arc-20240116; t=1790252832; c=relaxed/simple;
+	bh=w9wC2Uu4PoMxm5u2Tow7lq4uAXIYb5VOPDHAeFRMpZw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Vy/f+trwVqcfpXEeZ0wVRIba01oNMV7u7OfaAKnFDUdb7leBNpE8eOhHvhHpYCMPekZn6m/AX0qNf1yynVU/gzrxFZJ4J51cW6Qd9Ot+fTxmY3liubscL9IEiwHingB9fsSTbrlO1G3VMIqXkGfOBwAj/C7Mk0CCiaIxwfTJTUU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RywBeWcJ; arc=pass smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lieber.org header.i=@lieber.org header.b="mmDE5I3T"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XsRo9k+7Jr0COSazaFwzvjK2F+N08fVM2GSSQZmB7FGF52qcnwXwpKFlq8Z42Io96YSZ8Vfx1prwnDd4tIoe7lFfLO+GwChoNCp4rId+0Jo+rthMVlufW6r03AmxWx/CkGoNNNU2E+kQ2V7Lr0+tKKGaaXLnQmTbDhlwxlQ6iW/0o91InWcyDYL/7+cIGcAehWeVp3CWsB4QGpj67s+iGeUmUmkMMWTxE9KgsFGKvyEGSZaUf0KU0OF0CTFAr1635bpnvFCzV3jlYfvyPPQH+06yNVNFkj7gYyA1lzFFxazZjCO95z6FwUDUcae/50L7uJUiCytqRLweib/zWLTKDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mA/BU78xhBed7iNu6lEnIfOPb1U/xRiB8zzX0R65AdY=;
- b=c5kXahrPGzizB1KdcSJfCKC7tEzGEjDZEbgfBoQ8skoTUT+vft1z77GJ+CycdArAEBoGtZvuNtVp+2VNv13lw5Hfx0Srn80n5tELNxk7pavgHMaSTow7I0TSSkW6qqYiE84yGgit9fHS4GZYoYeGh3IFUrtTMe85FzI6DQv6qen9J5t39oaiOAdsjUfn1xzDbcoY1EzSGaYXvqzpP/X5yVxrMIG6rTnb6+AaQQ+w3JwvUqSsRIzdwN1WS1ibPdBEekg/aMhberTKpGGRP6Bx4vrpfc0KmlH7Sc1+w8eb0tq1Z4Hf83g10mcdQIvzU/uH5GoI7lPA2/CFqvs6oKNvSA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=lieber.org; dmarc=pass action=none header.from=lieber.org;
- dkim=pass header.d=lieber.org; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lieber.org;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mA/BU78xhBed7iNu6lEnIfOPb1U/xRiB8zzX0R65AdY=;
- b=mmDE5I3T7QwHoIg0q3cjqzdArMUNvtBifG0jZL6ZHCa9d4qx8G8ULwygt7+c1IqKODN5QSKsrvXclafim4AFCjiVFSy1cVncXgsVbsuPZ/wm6XH9T6fbix5H6fHBN+zOddN/h2NrWdBs4ir6EDkf0J1FIwZV+8TVrjiykWnvVmYwFU+tJzdkJRuxuuYlgMYvR118c83CpCWNGekrmBL6s7P35U8oOpVV663wPDhkhr7xjRpxFesW/Vy5qTK3gv7g01Sew+MJglZhkmifoDGd0g4wphWOHkLnNxHIrqfkI0Nd0DBH5wE10K8PMoadTKUG/kavITXhgX1Iry0GGNIiZA==
-Received: from SJ0PR15MB4696.namprd15.prod.outlook.com (2603:10b6:a03:37d::17)
- by MW3PR15MB4009.namprd15.prod.outlook.com (2603:10b6:303:51::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
- 2026 12:26:37 +0000
-Received: from SJ0PR15MB4696.namprd15.prod.outlook.com
- ([fe80::14c7:ac20:ac6e:6f61]) by SJ0PR15MB4696.namprd15.prod.outlook.com
- ([fe80::14c7:ac20:ac6e:6f61%5]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
- 12:26:37 +0000
-From: Kurt Lieber <kurt@lieber.org>
-To: Mika Westerberg <mika.westerberg@linux.intel.com>
-CC: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-	"andreas.noever@gmail.com" <andreas.noever@gmail.com>, "westeri@kernel.org"
-	<westeri@kernel.org>, "YehezkelShB@gmail.com" <YehezkelShB@gmail.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [PATCH] thunderbolt: Disable CL states for the Anker Prime TB5 dock
-Thread-Topic: [PATCH] thunderbolt: Disable CL states for the Anker Prime TB5
- dock
-Thread-Index: AQHdTB/xumZMHV37HU+Dgj/1DHc0GQ==
-Date: Thu, 24 Sep 2026 12:26:37 +0000
-Message-ID:
- <SJ0PR15MB46960A6F15BCA58C0726C908A3812@SJ0PR15MB4696.namprd15.prod.outlook.com>
-References:
- <SJ0PR15MB4696D491504DB667AA8E0617A3812@SJ0PR15MB4696.namprd15.prod.outlook.com>
- <20260924073514.GM106095@black.igk.intel.com>
- <SJ0PR15MB4696C6AB0D4FB7C86C420008A3812@SJ0PR15MB4696.namprd15.prod.outlook.com>
- <20260924101046.GN106095@black.igk.intel.com>
-In-Reply-To: <20260924101046.GN106095@black.igk.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=lieber.org;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR15MB4696:EE_|MW3PR15MB4009:EE_
-x-ms-office365-filtering-correlation-id: 2b909b6a-6a29-43bf-1a68-08df1a371432
-x-ms-exchange-atpmessageproperties: SA
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|10070799003|10067099003|56012099006|4143699003|38070700021|7055299009|18002099003|22082099003|55112099003;
-x-microsoft-antispam-message-info:
- 74pncuXkWRd42fDiPh7XKmBtWSMmbv7hNZRm13DJa3l80kBVRGW9Qljg5nCXzY+5QLHx+B6ydue5ro/2YTZ5XYhsreqsiF/kR5sQ+cY4sBxteRaENRkx7WQGYEub3s4fHw1oxMqvHw5fGIPh56iDRJO0h8ZFJ4/mu52/wOk6Vb/dzvNq5ZixhgR0Q4frOKmXEQ2NENMeQtsCFtVYFfYSvEsZmWj3E8MUURgBZ8GPuERlU98qvNw6nbzjY70PmQzvaJ48yxqlzyJxRxhPVZ3P/umDcPSwNof5l0MsXh1aeagDT1XZLKg05VFK/Jto31GEIl1JERTKx0oScwKfegC4mvDC+hunj+WupX2tenYbG1vnhc5F2/wJCjFYpAMHAXycFoREoyHZDbyWWu4GlVPAoWinRv03JTvA6VmV/z8RGnLUM89wV3OLSRsmB9BvQd6O+lEhq0ih/vHqjN6sCsq8RY9OgzWtzxUMMaunry3/3p/V1I/0tOz3rLzGCogXuApPWz8kIJndZ1/4zwEVxnbu9VcGJoNt6OF/wZD9AwdF1BDeGuncukP9fRkEFdSWR9PxzMkTL57RTKP4tC0YYipWKaNHtYRrsRLdjcaZw9wBhDFJ7UHIbq7w+BuMftVsspHaRGUWsQ+NAbNSpiXpFX/rtSWbmUjxNEBNw3GM8o14i+BP37dDXY7xCwnRUCnHIhmoRMwxmHvdfmTdOv+VZ+nGfVIuRID1rJMTuB4kcNaEvtC/59DNR5MBU37N6e+Z4kDG
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR15MB4696.namprd15.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(10070799003)(10067099003)(56012099006)(4143699003)(38070700021)(7055299009)(18002099003)(22082099003)(55112099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?PcdvuCcLZfEQOr2UDNrr/xjUDsgnR5+jfaOf1/upah6JtqivgEOnb6Fzev?=
- =?iso-8859-1?Q?7SMduDdS5UjWAvZzd+ZFpoO6rUzE8j7ujMh+BeuH8r2boqM5cTfjUAhpbF?=
- =?iso-8859-1?Q?6Q2HFt4ce87G8HxhIdQCEDeCe9Yj5XxVpbSNNcmadm9q82+LdxJTMf4M+q?=
- =?iso-8859-1?Q?qr3lPHp6cSGjm/sgG4WozWyplR8ZoFHC9F6pMNvLnvmbHWZ2jSlchkbTU+?=
- =?iso-8859-1?Q?LNy0sruVY9evwNQsh3NVGNTIWfUgnZEFQhkCIGnIwFfCUi9190oggVvzbA?=
- =?iso-8859-1?Q?jiKWvjs4RCmh43QHoIrMiO1/nrpVTW91zXxVBj7gyob85X5rMXq6y+9o+2?=
- =?iso-8859-1?Q?80oNmkQm8u1pLnI7mdFXM/taPUJTAKdh7wWFCiHuyjIZ2yvca95iQ5Ca9f?=
- =?iso-8859-1?Q?fND1DFr7D24hz0ziSGAfc1l1g/Ez0Gm+E9cIqmvwEyq5I9keQUBGQbPJs5?=
- =?iso-8859-1?Q?r/GLuBXHJtFmVDBtEcl/q5yXRtD+ctfdY44ZBv6C2+nUPytIPWC0MZI0bz?=
- =?iso-8859-1?Q?2WxBu8RX3YSj7TWfR337VLkFNKjx15xSuriL1ijaXtH1zueDXPKxQ94iDA?=
- =?iso-8859-1?Q?r+iU/6R4sGet461rJZFmcGhlnuWu1jh7cM515NWPVaTmv3gdFa+98r8Z+T?=
- =?iso-8859-1?Q?ikdODZkVHrgZTLM+V9u/mU7x4QXtbjGJ5yukLi7L0SLDQd/aRWc+wEsqsf?=
- =?iso-8859-1?Q?MNp79rtyYigR8F0K0V4TPVBU3R3VvzDqhct1a5NPU8CO96jH0x3VpCtJhH?=
- =?iso-8859-1?Q?h5JkC2F7xsbno3wj2KL719AxzK1B6q929++DeagDi1Kz3C5H4RyDa5lyem?=
- =?iso-8859-1?Q?5gYLEjUm24WK9HAVOrP0tQ4/k7dskqsbfrbxi201KDu3+SjSQNXiDwSRLD?=
- =?iso-8859-1?Q?YFsBCBd1SrQ6YxN4Da+DZJiJv2phwFr8gTfW+uwdjnbCi7IiOU/u8DeuLl?=
- =?iso-8859-1?Q?8HYVmwU0El2fbCj7+NXDOBnVl2Tx0af3lqDp+mhlrs/B/tSUYuRtQMP5+O?=
- =?iso-8859-1?Q?alJZCN56kda+LxoeRHpTaTK0CXTJFc4kZgHClbwI+t1+d8GCSAwZEsk1Vd?=
- =?iso-8859-1?Q?2CPdczl63CnMIUwwuwzjaXBpxFcT3CRbrvUyPUOCAeHCAMWhKZshc9mQg1?=
- =?iso-8859-1?Q?OoSNkLZb0A/MQe9nFJaGNjuqup63YIx18GcQQrOON/pDmWQ+EGB96U1KKl?=
- =?iso-8859-1?Q?daUM1T7BS2nFPnN/sTKdsPIgI1O2r2Wr2sgLd2qTWsvUy1byWtbMCemE5j?=
- =?iso-8859-1?Q?yhQJDHi0tZ7rSeaS5+83UEDILbnw6NyH8sHG5RMwE73k+ZJfrMqi1Qt5sv?=
- =?iso-8859-1?Q?IdyavjtdfW6mhB6/6/3BNQN+fbkzyOHqjOGR3ezNsfhbmwI3PU420C2WZx?=
- =?iso-8859-1?Q?FlNcrm7abMXxgoSVi5mrHmFiF79E4Jp3decMVuh8L1Pyl+qSM2raWUpzpQ?=
- =?iso-8859-1?Q?k1WJXU+57r7f+yLhe79+awaKBbrxo4/cS6OvZVyCl/kHbHzNn57GcPa3Pr?=
- =?iso-8859-1?Q?iM7CSZbkd1zh2PGzLv1ePtQjLGvWhZ92BCJappAMWUZDhpLxr+9ku8IfZk?=
- =?iso-8859-1?Q?R19cECb9mWO99ycZScy5icAS3aD717b2+KhlnePN93qKtLrnJSWu9/xKDM?=
- =?iso-8859-1?Q?5+6Dr9EXnlHZ/E/+dhsOC78KL/7T6ClZoZjytuyY9/YWudT2HZkNZDACme?=
- =?iso-8859-1?Q?sZ6d3Q2mW/ZvjZCqow+edObrlv9LQ2/65WbbiHw24PYNTlaZtYRiZLlDTs?=
- =?iso-8859-1?Q?1CpMv/TS48TFafy9EfP428dpbeG/3fsMdA3r1aEuWCdyWuSaVaFaTCUPzQ?=
- =?iso-8859-1?Q?ow+ScH10gN7DGoCHD6y60Ys5W+7S0LX9le6NUre4V2G9NY7P5hG7?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RywBeWcJ"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6351831so1263841f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:27:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790252826; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WUDUUUZOszepmCGMP/IvfKKqPQxWZdasNpjQ0DP5Yq2gtnyEC8KxMMs8KYn+bO/YxF
+         hr4ZijgGACYr/LUAtTZg4mn/9v528VshTyZ9TWlvq6fzhOgopN5iLzyEf5+yNIRYycP2
+         5+nVUMA1hFyFi909MJVSaXq63+HXcsEkbuUcidEybBLWAeDZ4EAw2cYbH5k9ykNvvyTh
+         y0pnrUHameGcq8OOs/LmDKSC7hn5emKdvSuER3e4eOm+7I/sr05EGkPtGs2PFP0YDEvE
+         tDtebia9Ba2Em45hVQLb6M6GFN/f4R/TmKMojda6sfVfofi9SBJnq9h0Fms1JCmlSMBe
+         RXXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=fsUHcVD4iiMNHcWgFlCKX7SZ89+33YRspZou+LqEcC4=;
+        fh=Qc8Q7ZzF+5gAzdV2MziaX/Z/uQri53L55LWi5lCI37M=;
+        b=CWw7ucjE0pCfdGbchQSVy8wuMM4Zbs/JI9A0m9dTS4OpieP6Lzgo/osWKSSefyxsTC
+         1PRcNzCKv/GKSM8QZIrQd9yZGM+D/pjUD1/rqGuGE68qVzBuOy9BdDcsUlBbO+ARVZa9
+         2t6jCBq6llRk2Xi8Qq5VRKAieiswN4LUO7l3vGwUwyrX5UZBKZVnosADdx5Na9Gz6IYX
+         VqmLiljV15Evxwc/7CkkaqEr+NPSX8JZkGH70qnuzJCDt4c/ip6tpqzMtctTnuI3fMcj
+         a+vXNLQD0tsYRAUHGNuQm7Rb8GFnhdu5NjhQ4XsMyDTADWCYMn0VfqSjvMPdTlVaPVYL
+         6CRw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790252826; x=1790857626; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fsUHcVD4iiMNHcWgFlCKX7SZ89+33YRspZou+LqEcC4=;
+        b=RywBeWcJiVS48jPcT6fXiHdRICBGblKhMRQH8FqrmlvPBzT96e/A7t5UCG6e9I25m9
+         AzFXj1S8X2PakBWW6WsFpYvtyZp/JJ2TXt7yMgqXnX18bSFS8HbTQowu6gdMf2MpXlE0
+         VtdWvjnvQkdxbf56kl4rxoH19wtk0Dqs7s0ODkxA2xrV40uQ41cFJ/pnBrM4YodY2sje
+         ZlyZZMbDBEKmUiQgVoj4h3q3mGYvx0AspZ3mbO1l5icfJc36vS+23YXTdowmekaib/Tq
+         nn3yNCEk/Z1xpCEo/9OIhW10+FUJABrnqKDd6a/wzEdzghrUiJvfzfAapF8Orm3/KtFo
+         mE5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790252826; x=1790857626;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fsUHcVD4iiMNHcWgFlCKX7SZ89+33YRspZou+LqEcC4=;
+        b=iGynfNN8iHVCKrLGHPkf5k6rgpoPC/sxgDwB1E2mjjKDytsVMIfMqah2lJIyV216zG
+         gH0gLOWoHlActKI/5B+zPtn3DvHSTLDGCTyk5i+c9JF+V0kbKSeSTtTRTVc2SDa/UuMt
+         d6X6V9d1iiuhhxHpW3dCtj4UlH1CcjYimGxTFPHIPZ0Eb4FuD0/cHL0hjfvL3ppnBSe6
+         +Jff27p9eW0cPFRpYWT0hu6f2eM1RAUT/hIAlrXLz8eMcfquNorns07QoVVqE7O6BPeQ
+         /YTg21twcouloKxCRm7kFeiBEkO5xO2FUIJZRgdEewRkDmENqd/zhj3agMu3G5vGavvx
+         52xg==
+X-Forwarded-Encrypted: i=1; AKwUvBy4eCu1JP8gAx/tZVgY/QExj06bJ2xVfFu55EG29n3zfffgaMLV45Uk40qOQkA+biu64v7hA2//dOC4jsA=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0XigUZCXQ8cX5Aj40QQkl3AzyNtOr8fNrXcm63/e1pOpcvlnf
+	sfsNdGEkukUd30XWYdb9IuqxI/JYfxgY3/gPMOzKadAUBOqUqI2gNYifaepwHGxGY3T79VytOrm
+	7W0JPu9aVqaXwYDJ/JxptLg/94wXIdPs=
+X-Gm-Gg: AYBFou0l2U+uP2Gk5PT2dnY0UbyGcHZffewjcyTVkkJd+RAk1lZqnbunWHXTiknVlCu
+	jocAjDjo0lArSFrSpUN1B+/yVl7M8eJAPrzaUOOQ/k3fmZgDYQaaI2saN3YvGSWhZBNA0Nqgb7M
+	qtIoej8S03qh5DTWKEHks60sNHp9Y2bHXInZRGoDjDg/WqGlIbdzEd6Wc+JziPUR88G7FsWYfCI
+	OexrDOHsEVskIt2A9fUf3kc/kzvrl61e0EfLvt+LX4HhWXc5XAXXlHxZ7Elz1VZCXRfLMn0wpLx
+	L6YWjK89FCUYbFQsL+BlFIEsqCnM0CdDUx7QIB/jXl9aP1xZ7OKi7UUy5pgYJzPSoog1ksjIEMl
+	r13hooW5ek/TWGOi/1V/zk3Fxj1xLSjc8VPs8e6qCvDXeneVMs56KMzHDQJMvqUTvDzyuumAWMf
+	o=
+X-Received: by 2002:a05:6000:4108:b0:488:7787:469d with SMTP id
+ ffacd0b85a97d-4887787490dmr518685f8f.25.1790252826401; Thu, 24 Sep 2026
+ 05:27:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: lieber.org
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR15MB4696.namprd15.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2b909b6a-6a29-43bf-1a68-08df1a371432
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2026 12:26:37.4114
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 213667ce-a7c7-4f7f-ac87-9abccbddaa2f
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: tUdYwRK9Gd5sV5PMOU/N2acVQGbRpEN2Mt+glJyGBMpaOyT9jQifjZH4uO1bdCgY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR15MB4009
+References: <20260922144629.586997-1-claudiu.beznea@kernel.org> <20260922144629.586997-8-claudiu.beznea@kernel.org>
+In-Reply-To: <20260922144629.586997-8-claudiu.beznea@kernel.org>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Thu, 24 Sep 2026 13:26:39 +0100
+X-Gm-Features: AclHuK-S3QMwI_w2mkt6y9Ay25qMMmBISReR0o_iUHkOdDzEtDuJRClEaL9GrhY
+Message-ID: <CA+V-a8ubQ0igr1Yt5Giq9-iZ2YX13Wwjm_6yK0eeD4CnhSHhVg@mail.gmail.com>
+Subject: Re: [PATCH v4 7/8] PCI: rzg3s-host: Re-enumerate the bus on PCIe
+ link-state changes
+To: Claudiu Beznea <claudiu.beznea@kernel.org>
+Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org, 
+	robh@kernel.org, bhelgaas@google.com, p.zabel@pengutronix.de, 
+	claudiu.beznea@tuxon.dev, linux-pci@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	John Madieu <john.madieu.xa@bp.renesas.com>, 
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The Anker Prime TB5 dock identifies itself in the DROM as 01ea:83b5.=0A=
-Its router config space is an Intel Barlow Ridge 80G hub (8087:5786).=0A=
-The upstream lane adapter advertises CL0s, CL1, and CL2. With CLx left=0A=
-enabled, TMU uni-directional LowRes setup fails with -ENOTCONN, the USB3=0A=
-and DisplayPort tunnels are aborted, and the router reconnects in a loop.=
-=0A=
-Loading thunderbolt with clx=3D0 keeps the link up on this machine.=0A=
-=0A=
-Match the DROM id together with the Barlow Ridge hub id and disable CL=0A=
-states for this dock only. QUIRK_NO_CLX takes the same early-out as the=0A=
-module parameter, without disabling CLx for every other router.=0A=
-=0A=
-Assisted-by: LLM=0A=
-Signed-off-by: Kurt Lieber <kurt@lieber.org>=0A=
----=0A=
-Runtime-tested on linux-omarchy 7.2.5-3 (LG Gram 17Z90S, Meteor Lake).=0A=
-Booted with thunderbolt.clx left at the default (Y). The dock came up=0A=
-once, CL0s/CL1/CL2 Enable stayed 0 while the support bits stayed 1, the=0A=
-link stayed in CL0 at 40 Gb/s, and the TMU uni-directional reconnect=0A=
-loop did not occur.=0A=
-=0A=
- drivers/thunderbolt/quirks.c | 3 +++=0A=
- 1 file changed, 3 insertions(+)=0A=
-=0A=
-diff --git a/drivers/thunderbolt/quirks.c b/drivers/thunderbolt/quirks.c=0A=
---- a/drivers/thunderbolt/quirks.c=0A=
-+++ b/drivers/thunderbolt/quirks.c=0A=
-@@ -116,2 +116,5 @@=0A=
- 	{ 0x0438, 0x020b, 0x0000, 0x0000, quirk_clx_disable },=0A=
-+	/* CLx is unstable on the Anker Prime TB5 dock (DROM 01ea:83b5). */=0A=
-+	{ 0x8087, PCI_DEVICE_ID_INTEL_BARLOW_RIDGE_HUB_80G_BRIDGE, 0x01ea, 0x83b5=
-,=0A=
-+		  quirk_clx_disable },=0A=
- };=0A=
+On Tue, Sep 22, 2026 at 3:55=E2=80=AFPM Claudiu Beznea
+<claudiu.beznea@kernel.org> wrote:
+>
+> From: John Madieu <john.madieu.xa@bp.renesas.com>
+>
+> The RZ/G3{E, S}, RZ/V2{H(P), N} PCIe controllers does not expose the
+> standard PCIe Slot Capability registers, so the generic pciehp driver
+> cannot be used. The only link-state signal the hardware provides is the
+> DL_UpDown bit in the PEIS0 event status register, which is raised on ever=
+y
+> Data Link layer up/down transition.
+>
+> Enable DL_UpDown in PEIE0 and hook up an interrupt handler so the driver
+> can react to link-state changes: a device that trains after boot gets
+> enumerated, and a device that disappears on link loss is removed. This
+> provides hotplug-like behavior without the PCI hotplug core, which is
+> unavailable for the reason above.
+>
+> On a DL_UpDown event the handler acks the W1C status bit and schedules a
+> worker that inspects PCSTAT1.DL_DOWN_STS:
+>
+>   - link up: re-run max link speed negotiation, wait for the link to
+>     settle and pci_rescan_bus() the root bus;
+>   - link down: walk the bus in reverse and pci_stop_and_remove_bus_device=
+()
+>     each child.
+>
+> Both paths take pci_lock_rescan_remove() to serialize against the PCI
+> core.
+>
+> Link events are processed only after the controller has been fully
+> initialized.
+>
+> While at it, make probe tolerant of an absent device. Previously, if the
+> link failed to come up during rzg3s_pcie_host_init(), probe tore the
+> controller back down and failed. Distinguish this case with -ENODEV,
+> leave the controller and refclk running, and let the link-up path
+> enumerate the device once it appears.
+>
+> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+> Co-developed-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+> ---
+>
+> Changes in v4:
+> - dropped .reset_root_port() changes
+>
+> Changes in v3:
+> - added RZG3S_PCI_PEIE0_DL_UPDOWN
+> - re-worked the support by implemeting
+>   struct pci_host_bridge::reset_root_port()
+> - introduced the struct rzg3s_pcie_host::state to:
+> -- avoid touching the controller while a reset root port is in progress
+> -- and avoid touching the controller in case a reset root port failed
+> -- and to be able to re-use the already existing code in the reset
+>    root port function
+> -- and added CLASS() constructs helpers for it to keep the state handling
+>    code simpler
+> - updated the patch description to reflect the updates
+>
+>  drivers/pci/controller/pcie-rzg3s-host.c | 155 ++++++++++++++++++++---
+>  1 file changed, 139 insertions(+), 16 deletions(-)
+>
+Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Tested-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+
+Cheers,
+Prabhakar
+
+> diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/contr=
+oller/pcie-rzg3s-host.c
+> index f4b27a77a89d..1c0353598b59 100644
+> --- a/drivers/pci/controller/pcie-rzg3s-host.c
+> +++ b/drivers/pci/controller/pcie-rzg3s-host.c
+> @@ -86,6 +86,7 @@
+>  #define RZG3S_PCI_MSGRCVIS_MRI                 BIT(24)
+>
+>  #define RZG3S_PCI_PEIE0                                0x200
+> +#define RZG3S_PCI_PEIE0_DL_UPDOWN              BIT(9)
+>
+>  #define RZG3S_PCI_PEIS0                                0x204
+>  #define RZG3S_PCI_PEIS0_RX_DLLP_PM_ENTER       BIT(12)
+> @@ -323,6 +324,7 @@ struct rzg3s_pcie_port {
+>   * @msi: MSI data structure
+>   * @port: PCIe Root Port
+>   * @hw_lock: lock for access to the HW resources
+> + * @event_irq: PCIe event interrupt for DL_UpDown detection
+>   * @intx_irqs: INTx interrupts
+>   * @max_link_speed: maximum supported link speed
+>   * @controller_id: PCIe controller identifier, used for System Controlle=
+r access
+> @@ -340,6 +342,7 @@ struct rzg3s_pcie_host {
+>         struct rzg3s_pcie_msi msi;
+>         struct rzg3s_pcie_port port;
+>         raw_spinlock_t hw_lock;
+> +       int event_irq;
+>         int intx_irqs[PCI_NUM_INTX];
+>         int max_link_speed;
+>         enum rzg3s_pcie_controller_id controller_id;
+> @@ -1095,6 +1098,89 @@ static int rzg3s_pcie_set_max_link_speed(struct rz=
+g3s_pcie_host *host)
+>         return ret;
+>  }
+>
+> +static void rzg3s_pcie_link_event(struct rzg3s_pcie_host *host)
+> +{
+> +       struct pci_host_bridge *bridge =3D pci_host_bridge_from_priv(host=
+);
+> +       struct pci_bus *bus =3D bridge->bus;
+> +       u32 val;
+> +
+> +       val =3D readl_relaxed(host->axi + RZG3S_PCI_PCSTAT1);
+> +       if (val & RZG3S_PCI_PCSTAT1_DL_DOWN_STS) {
+> +               struct pci_dev *dev, *tmp;
+> +
+> +               dev_info(host->dev, "PCIe link down, removing devices\n")=
+;
+> +
+> +               pci_lock_rescan_remove();
+> +               list_for_each_entry_safe_reverse(dev, tmp, &bus->devices,
+> +                                                bus_list)
+> +                       pci_stop_and_remove_bus_device(dev);
+> +               pci_unlock_rescan_remove();
+> +       } else {
+> +               int ret;
+> +
+> +               dev_info(host->dev, "PCIe link up, rescanning bus\n");
+> +
+> +               /*
+> +                * Attempt link speed negotiation now that the link is up=
+.
+> +                * Failure is non-fatal: the device works at the negotiat=
+ed
+> +                * speed.
+> +                */
+> +               ret =3D rzg3s_pcie_set_max_link_speed(host);
+> +               if (ret)
+> +                       dev_info(host->dev, "Failed to set max link speed=
+\n");
+> +
+> +               pci_host_common_link_train_delay(host->max_link_speed);
+> +
+> +               pci_lock_rescan_remove();
+> +               pci_rescan_bus(bus);
+> +               pci_unlock_rescan_remove();
+> +       }
+> +}
+> +
+> +static irqreturn_t rzg3s_pcie_event_irq_thread(int irq, void *data)
+> +{
+> +       struct rzg3s_pcie_host *host =3D data;
+> +       u32 status;
+> +
+> +       status =3D readl_relaxed(host->axi + RZG3S_PCI_PEIS0);
+> +
+> +       if (!(status & RZG3S_PCI_PEIS0_DL_UPDOWN))
+> +               return IRQ_NONE;
+> +
+> +       /* Clear the DL_UpDown status (W1C) */
+> +       writel_relaxed(RZG3S_PCI_PEIS0_DL_UPDOWN, host->axi + RZG3S_PCI_P=
+EIS0);
+> +
+> +       rzg3s_pcie_link_event(host);
+> +
+> +       return IRQ_HANDLED;
+> +}
+> +
+> +static int rzg3s_pcie_request_event_irq(struct rzg3s_pcie_host *host)
+> +{
+> +       struct device *dev =3D host->dev;
+> +       struct platform_device *pdev =3D to_platform_device(dev);
+> +       const char *evt_name;
+> +       int ret, irq;
+> +
+> +       evt_name =3D devm_kasprintf(dev, GFP_KERNEL, "%s-evt", dev_name(d=
+ev));
+> +       if (!evt_name)
+> +               return -ENOMEM;
+> +
+> +       irq =3D platform_get_irq_byname(pdev, "pcie_evt");
+> +       if (irq < 0)
+> +               return irq;
+> +
+> +       ret =3D request_threaded_irq(irq, NULL, rzg3s_pcie_event_irq_thre=
+ad,
+> +                                  IRQF_ONESHOT, evt_name, host);
+> +       if (ret) {
+> +               return dev_err_probe(dev, ret,
+> +                                    "Failed to request pcie_evt IRQ\n");
+> +       }
+> +       host->event_irq =3D irq;
+> +
+> +       return 0;
+> +}
+> +
+>  static void rzg3s_pcie_teardown_intx(struct rzg3s_pcie_host *host, int c=
+ount)
+>  {
+>         if (host->intx_domain)
+> @@ -1106,6 +1192,17 @@ static void rzg3s_pcie_teardown_intx(struct rzg3s_=
+pcie_host *host, int count)
+>         }
+>  }
+>
+> +static void rzg3s_pcie_teardown_irqdomain(struct rzg3s_pcie_host *host)
+> +{
+> +       if (host->event_irq > 0)
+> +               free_irq(host->event_irq, host);
+> +
+> +       if (IS_ENABLED(CONFIG_PCI_MSI))
+> +               rzg3s_pcie_teardown_msi(host);
+> +
+> +       rzg3s_pcie_teardown_intx(host, PCI_NUM_INTX);
+> +}
+> +
+>  static int rzg3s_pcie_init_irqdomain(struct rzg3s_pcie_host *host)
+>  {
+>         struct device *dev =3D host->dev;
+> @@ -1152,22 +1249,21 @@ static int rzg3s_pcie_init_irqdomain(struct rzg3s=
+_pcie_host *host)
+>                         goto teardown_intx;
+>         }
+>
+> +       ret =3D rzg3s_pcie_request_event_irq(host);
+> +       if (ret)
+> +               goto teardown_msi;
+> +
+>         return 0;
+>
+> +teardown_msi:
+> +       if (IS_ENABLED(CONFIG_PCI_MSI))
+> +               rzg3s_pcie_teardown_msi(host);
+>  teardown_intx:
+>         rzg3s_pcie_teardown_intx(host, i);
+>
+>         return ret;
+>  }
+>
+> -static void rzg3s_pcie_teardown_irqdomain(struct rzg3s_pcie_host *host)
+> -{
+> -       if (IS_ENABLED(CONFIG_PCI_MSI))
+> -               rzg3s_pcie_teardown_msi(host);
+> -
+> -       rzg3s_pcie_teardown_intx(host, PCI_NUM_INTX);
+> -}
+> -
+>  static int rzg3s_pcie_config_init(struct rzg3s_pcie_host *host)
+>  {
+>         struct pci_host_bridge *bridge =3D pci_host_bridge_from_priv(host=
+);
+> @@ -1679,16 +1775,21 @@ static int rzg3s_pcie_host_init(struct rzg3s_pcie=
+_host *host)
+>                                  PCIE_LINK_WAIT_SLEEP_MS * MILLI,
+>                                  PCIE_LINK_WAIT_SLEEP_MS * MILLI *
+>                                  PCIE_LINK_WAIT_MAX_RETRIES);
+> -       if (ret)
+> -               goto config_deinit_post;
+> +       if (ret) {
+> +               /*
+> +                * Link is down. Leave the controller running so the
+> +                * DL_UpDown handler can enumerate a device that appears
+> +                * later.
+> +                */
+> +               dev_info(host->dev, "PCIe link down, waiting for DL_UpDow=
+n\n");
+> +               ret =3D -ENODEV;
+> +       }
+>
+>         val =3D readl_relaxed(host->axi + RZG3S_PCI_PCSTAT2);
+>         dev_info(host->dev, "PCIe link status [0x%x]\n", val);
+>
+> -       return 0;
+> +       return ret;
+>
+> -config_deinit_post:
+> -       host->data->config_deinit(host);
+>  config_deinit_and_refclk:
+>         clk_disable_unprepare(host->port.refclk);
+>  config_deinit:
+> @@ -1723,8 +1824,14 @@ rzg3s_pcie_host_setup(struct rzg3s_pcie_host *host=
+,
+>
+>         ret =3D rzg3s_pcie_host_init(host);
+>         if (ret) {
+> -               dev_err_probe(dev, ret, "Failed to initialize the HW!\n")=
+;
+> -               goto teardown_irqdomain;
+> +               if (ret !=3D -ENODEV) {
+> +                       dev_err_probe(dev, ret,
+> +                                     "Failed to initialize the HW!\n");
+> +                       goto teardown_irqdomain;
+> +               }
+> +
+> +               /* Link is down: hotplug via DL_UpDown will recover. */
+> +               return 0;
+>         }
+>
+>         ret =3D rzg3s_pcie_set_max_link_speed(host);
+> @@ -2004,6 +2111,14 @@ static int rzg3s_pcie_probe(struct platform_device=
+ *pdev)
+>         if (ret)
+>                 goto host_probe_teardown;
+>
+> +       /*
+> +        * Unmask the PCIe event IRQ at the end of probe to avoid
+> +        * spurious link-state events during controller setup and bus
+> +        * enumeration. From here on, DL_UpDown events trigger the link
+> +        * IRQ thread to (re)scan the bus.
+> +        */
+> +       writel_relaxed(RZG3S_PCI_PEIE0_DL_UPDOWN, host->axi + RZG3S_PCI_P=
+EIE0);
+> +
+>         return 0;
+>
+>  host_probe_teardown:
+> @@ -2039,8 +2154,16 @@ static int rzg3s_pcie_suspend_noirq(struct device =
+*dev)
+>  static int rzg3s_pcie_resume_noirq(struct device *dev)
+>  {
+>         struct rzg3s_pcie_host *host =3D dev_get_drvdata(dev);
+> +       int ret;
+>
+> -       return rzg3s_pcie_host_start(host);
+> +       ret =3D rzg3s_pcie_host_start(host);
+> +       if (ret)
+> +               return ret;
+> +
+> +       /* Unmask link up/down IRQ. */
+> +       writel_relaxed(RZG3S_PCI_PEIE0_DL_UPDOWN, host->axi + RZG3S_PCI_P=
+EIE0);
+> +
+> +       return 0;
+>  }
+>
+>  static const struct dev_pm_ops rzg3s_pcie_pm_ops =3D {
+> --
+> 2.43.0
+>
+>
