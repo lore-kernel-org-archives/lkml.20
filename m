@@ -1,301 +1,213 @@
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011044.outbound.protection.outlook.com [40.107.130.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB17F3A782D
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:04:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.197
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790269459; cv=none; b=eTDaH3uaWbWyGcxwP2OxVmqCARYynaOqGUidvhXml3V5MTbEL6+TKB9g6U0f2/mXGBdjKJ8urcDeQ5aCtzHCqDKWtqq7g8K1TJOPdNKJFHY2IYUsLOdd1oL7zY6g9jYhb67ZAErWQghWtywNLxIsgY7VJLzjxG/293ef7lnymgs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790269459; c=relaxed/simple;
-	bh=PH/MK75mh9EoGDiRTj6r7NBtQYqEEt1b45imvPHB0TQ=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=BmCY/YfvGzq7eOTqsseq7FXkSZNoEMhfNwGeK2ujsU/ZEJoUkhR6EkGM2mWYahSSZGznUpAW8cI3dSHI+iQXicuxlL2Di/2iWT2pYHD8tZ4nA1u52Ls69AzQXSs0N3j3uUYJTgOhf0tE31mxNgo+vVAMI1TL5/UZf49bNrrwa24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dxMCK8NP; arc=none smtp.client-ip=74.125.82.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 127544119F8;
+	Thu, 24 Sep 2026 17:04:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790269461; cv=fail; b=BPok3cYtfBdZqH4XM77JFZl1RfUz/uugM2U8kcmFV8gv8UwtHtpNM3IVTLJ8GnZYQLk62sjDjxkHXn4wtNj0XoVUCIFkLoROJZvCsJSISGkwaEudQoheqh5PuSeLNipOjUMsxYksCvvS+MP+2C/t+KF1XxSJBnE3tBCMSis1gQE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790269461; c=relaxed/simple;
+	bh=0nbjkgTcOZOX+leJqt4I7uvz17mKMkI8mFaLdy/wghc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=ZZMiSZQQSmLiftRILubfh2SO+ggvTlp2YI7L5rxrvpr98qHr0mkFGoBeYZ2U3+SCHyHUlJ9/ykXkjQR9tZByyogNUC0k30AlZcz3LpwFyDf9B/gzSmo1i8lNxgXjkjhp/zUlLSooT0k4DpadN7yBuuCN0y5v1MrFUy9WvCbS1uQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=NZEnWzdD; arc=fail smtp.client-ip=40.107.130.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dxMCK8NP"
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-334f782d1abso1298702eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:04:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790269456; x=1790874256; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=GfWTVgSIJlb1FgS8OnOV/UO7fQGgzevTJ3j+SCzXphI=;
-        b=dxMCK8NPmrEacVdN5gUZo2VhPUuhYyBpaSG1F18CNoXmssIzawapzI+nPSCLjm8ArA
-         oFtglSdvkm+kil26rydP4nxhyOsxw1FJ4Ugc4PVmXL8Mll1SCjiyOzjjOmbF3X69lFQF
-         cQbCOsbtciSfDXeD+8WCjOimUb3rWUJnB30VWxwDtv8VK0gzlfoIxPu0imZ5gb0I9AnK
-         KeWMAJfCJ2udgsfa1KKnFZWj7SJuBn0ymD0aVvdJGz3/Jz1bDezWY6Tqf5ezjBgEp5r4
-         qJINuIJozPTDo/FiLBGziJFp0YEkWmxHjUxe5LeuZsAs7KDY2iI+H8cBj5k1hEWyW3Hw
-         H41A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790269456; x=1790874256;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GfWTVgSIJlb1FgS8OnOV/UO7fQGgzevTJ3j+SCzXphI=;
-        b=cYXk8HsV/ZZJFE42EnbCv2yQ2lEtEM9h61gBva85ahNTPdYr4vW5381sbGYkjrvmph
-         7/6dDt8f4Nb0ercddaj741bpkYMwjVen3I7B74itYhzmYCjiVkb1tJLmnusTyYRnOm57
-         SwTWIqenTLV2ISj6dbz4Ae6duddUa4T9DRiJU6ENJ/v2SwsUoiEY7CvfT8F/uit0noM+
-         FwDBcGw4aTz80I3COGo4xyTSR6cX1VkHeB3rlt24kmd4xSu7iS2vn/sXyLwd/EYp9QRG
-         AdNuG6Xt77uYz+4kka0ScjXM4hLO6pJrYkrSGdEe+rEyFEamjYhlFbdfkqgDRAbcGJ+J
-         h5Vw==
-X-Forwarded-Encrypted: i=1; AKwUvBwy/9HpykYCf9n3dAeIrBllI05ju0FKpZCDcvJzmDFxNGY4mlysIqeHBaLk1syNaT+3jbf6GRCNFZnDY+c=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmR5G+tOqIVnCA9j+wrpbgDB/7TwIHgSfJ/8BKgxN/LiVzmexI
-	7bbAgFlaB9sczP2eWrqCYq5E+4eV7OsBwfilgQjcyDgo2lHY7xFSsYu2QZlAuj9M8dnJSpI85Uw
-	oa4Y5ssMTjQ==
-X-Received: from dlx15.prod.google.com ([2002:a05:7022:8f:b0:144:e53d:6fa6])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:818e:b0:327:affc:b506
- with SMTP id 5a478bee46e88-34004e839e1mr3541996eec.15.1790269456065; Thu, 24
- Sep 2026 10:04:16 -0700 (PDT)
-Date: Thu, 24 Sep 2026 10:03:27 -0700
-In-Reply-To: <20260924170346.3872848-1-irogers@google.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="NZEnWzdD"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=j/pWnUbTioozyOZjsQC6ruyM/ipmNVPvCSdWNlnsTTUz6iJNgAxez5EWaNNRQgnPEfJkFDjOwxZAhIL7/TK+xrbfghVhSj4tmLZ/ZnlsAv6Db1uQzaIDm5ZKG1MItpLzVvSkx4oaQ2qypGc3ksE6VWY0bZVf68Y55Y3O/MlqCL2DfIpZNrgbjMYqNDL3goBRqNhcAV2y3f++F2BTlb9+mUtLWXWu4arfIaaXNZVse8KeDJOPeJ5PkKzkcFuqbWi+f7pmnxKM8Le0mJCggSxE804E59iSEBJUIDDCEhyrkvXfGUkhCDDv9X1Cxs322MS25lEhAX37i7TM+wTZ1PVBgw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iFSfCf364HDDIbyy0n5mTLmrRpPAAe1jnyBrMQQjCF4=;
+ b=XQoqHCTjxfb57We/GLcH8WbvtCvlI0G7NqrVPhj+uSrjDyiTx2zKknm051WzJpadD3fTLYYd4nuKJLxs2ifoFR1m79vMhrXvjCsxRRZWTrwmbLRWB6KR6gHqtfOsi+RJ6/5sBTyw+vpcIcx7+JP1AhM+mV4ZnmY37GqrQmu+QSe6SH9egDYmL6LAoFafNZaehIq+wOjPInuZF6EtKccXjXxZCMuJL7UEP26fF5Iq+X2JDB82G7gfTBedua3TbFSIf2IUxgxHRLDqJIt2IDxjTj7drzij38iQ/KN1QQrQwy6HxLLaZNKDXXniKe42SnWE6eU21zt4Do2+qkkVcujAhg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iFSfCf364HDDIbyy0n5mTLmrRpPAAe1jnyBrMQQjCF4=;
+ b=NZEnWzdDDgLd/Zkffzu8EKNTJjAfE/ZjMxS1QN46HIUOkipPw8jvf8MZG7rU4BwyjEHtPWjfG7n0PQcke4iBRbxeiE1JcYjqTOcOJNXDgB982m4pZ4sx1e4hJ7dewQ55vHL3iApALEQGl9iVBD2YID03+y+yJVZLY7Jf9GbDm0ZjYDrMMDG9jhloq60IrLWBF7O8lz3bx5/uXg3GbsYm5Id2+YV7RFo6ojagzaLdtJnms+yXoBkcPNbadxt31Cze1dqacTsfdNQwxy/g3xlFTbmaL6BO2xnYhZjf47WL5b5g5QVIeI26N0m6BHkCgYOfQvSVtLbV5t2HC53+jR+H7g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GV1PR04MB10198.eurprd04.prod.outlook.com (2603:10a6:150:1a2::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.22; Thu, 24 Sep
+ 2026 17:04:13 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 17:04:13 +0000
+Date: Thu, 24 Sep 2026 12:04:04 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Richard Zhu <hongxing.zhu@nxp.com>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, linux-kernel@vger.kernel.org,
+	Peng Fan <peng.fan@nxp.com>, linux-pci@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev
+Subject: Re: [PATCH] PCI: dwc: imx6: use regmap_assign_bits() for conditional
+ set/clear
+Message-ID: <arVYBC5N4PCETEGH@SMW015318>
+References: <20260924083429.461746-1-peng.fan@oss.nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924083429.461746-1-peng.fan@oss.nxp.com>
+X-ClientProxiedBy: PH7P220CA0003.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:326::25) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260924053645.3555041-1-irogers@google.com> <20260924170346.3872848-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260924170346.3872848-8-irogers@google.com>
-Subject: [PATCH v2 07/26] perf vendor events intel: Update graniterapids
- events from 1.20 to 1.21
-From: Ian Rogers <irogers@google.com>
-To: irogers@google.com, acme@kernel.org, dapeng1.mi@linux.intel.com, 
-	namhyung@kernel.org, edward.baker@intel.com, perry.taylor@intel.com, 
-	eranian@google.com
-Cc: adrian.hunter@intel.com, afaerber@suse.de, ctshao@google.com, 
-	james.clark@linaro.org, jolsa@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, mani@kernel.org, mingo@redhat.com, 
-	peterz@infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV1PR04MB10198:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8f09a538-8884-46e1-e644-08df1a5ddbf3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|1800799024|7416014|376014|23010399003|10067099003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	s+GJ6Zpnd5baPAb18TmYKdhKRYYzwrLUNqE+RoHLuczbvfJq+Cs2lHBrfVGxRbCq06L1jQ857fw2adAMIlbReb76fbOBiDB6TzeljG+BU7rStcC+khKXyY0Ee5x/hxnRsM4eWY/cCPkstFqzrF83mqGFgOS5zajqDWmps3/kFYjfQaabwbXWG0U363vGutAKP7zgBbVvB2LvYdxlKaCtdwBHmPjuFrGfZySLQlj7eJ/vU6otvNhkZOI+KHa/8aPTxNJhYBrinrRjecY3W6CwwjU3ASX4uX3RA5IaX0Ow4XadeUQ/rC/NPUGkA3lcLhL4IB2FuZbYHrKIHdGAxeaYXh3qi289WxYQCr92K/eYyAW1/5TIGA+YoW3kEdgs+gBSOQVh7xffENNlvkDvYzxsaOmlqpyIbEWvYy9QVaZsaDTRLgYIpH4QZFN93oT8Z+BRBLhN7oQcvbATWRaSrML9O6bI2wIyLMoF/3Z3yn4vgU5fYWPR8HOp0qaTo6eQ+p26Kht3WkPXpIfXLXxbNw2xHe9dl2gbd/mNNbwVHEK7byOTxrv8aPf3oKPub0w5ktL81UUxsmh21E3z18qP3+r5yQ30+oUi+nT35TkefdlRUUQGveAj375G10RuV6bERKI126sGoDHicfF7LKxTPns9hGuyQ6recvGxGF8KSvgHugI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(1800799024)(7416014)(376014)(23010399003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?XmX/LE0M7TwN8UZFUnO7cihPb2X9P6n/aQPrupFKhj3TFBIwcsvney2lGe3Y?=
+ =?us-ascii?Q?LswfnP7POpuYS3SouZrTWrRnccAVY154LqoKNcO4CAnG/w4zTiyOnsielptV?=
+ =?us-ascii?Q?IXmL51ANu+N6Vmcf7chwf1r1qiWEYdY9A43iKG9tvZ3hmaIQeA9LVj/i3Ud8?=
+ =?us-ascii?Q?opr/FzsaozkLtcbKuO6DmxStDXFeCZwJn7fW2u9IPlXU+hf3bpiUxdzVv0kY?=
+ =?us-ascii?Q?hRI+fUx3xEol+nUZvJr4A7M3u/g34wtkGbvWU97jgNwpu/YQabMM6TIybI22?=
+ =?us-ascii?Q?p7QTLO9IF/N5NYuD5QRGJFoGei+ZDxJ8bnxz/xMStOqL8rFJApbNOfYIAM9v?=
+ =?us-ascii?Q?9Daali3BmwQs5f/tP/6Syn57+V3+sUW0ksFpTl5L/KMRxQW374c7F8Q10cQH?=
+ =?us-ascii?Q?/NAzwweHqneYoM2FT31730ELGl60Ob/UReY+6flFRhPWeZVCBNsauIp8cFcw?=
+ =?us-ascii?Q?sRh3JPUtVj+AQZbOlaLjeeoruTt7uxQ1a59U3OiRhNjKBMuZOgTPDm60K0Gw?=
+ =?us-ascii?Q?dq1ziIEc5MsfbN8annIBeF6HVwB3LErEQOcp/OE2nu0JByo2CgCN2SRYfp3Z?=
+ =?us-ascii?Q?qk26hnrINMVE94TRMYvj+sJEzSKahRwmaPJ4MOM1f7fuGVzuerXpta6JGVzh?=
+ =?us-ascii?Q?p4944ffcgpw4RqcFJ6w/5jhskLn/J9Ly1jU60Obq23K0FDjD0Fa03g2FF0WH?=
+ =?us-ascii?Q?F+xvocyh3zdGzQdcrwuZF7A9LYIUkgAPJ2MnTWVzCc8CKwbwFghxumqDKNSL?=
+ =?us-ascii?Q?/6oWtg5KZuPesdkYTFxzd37o6ChzB4y6Tx9q2f73mxgyD1SzlpGKcsPsShWH?=
+ =?us-ascii?Q?nnbLBacfAs50iS7w9cG2qCXQQr6hzbqR7DFhMAAc/dVQbih1r0n87jy3pt8j?=
+ =?us-ascii?Q?U/ULZRXDF4EgCvMQyT8jMGHI9Y+ftPbAhFTgv4b2cNo2vMNgYds1t3oFTcUR?=
+ =?us-ascii?Q?Ee3+mgFPUq1Rsrxdk/dwgYg47ZuHMMhId8pj/FYl4vgpWgr0W7N0Mb2BP8Ji?=
+ =?us-ascii?Q?zy9u5TuU1hUYc1HR7D/OI2THv3EIIasoAVQuNwcLYpCl8DZQy6AXI0JZMWq3?=
+ =?us-ascii?Q?kYusJSYT9iKYiVgSi6Kc+KMneCU7wIbxwz4hvkpnNslS1jp8U8japCOCBSf/?=
+ =?us-ascii?Q?QffqrDvXbzgMv0iM0QlKzJDjx7YiuPZS40Qzt8Ne/wbWfnFPlLB6w1BA13cZ?=
+ =?us-ascii?Q?jppfCywl8jzcT/+7sxyHyLSjHq+f1OlpkMpWXBV6O8lnGF0/0f4Y0YOCCBRP?=
+ =?us-ascii?Q?BzWdkT8GZwz6qXll9kjOnkikmdZywRCMdWuk0gEMkycdRAJjSfUnZs7EiVWs?=
+ =?us-ascii?Q?31PO13nvbBlxFax/gJLNUlP7XwQsTPCJOouqN8EzVjmw4LzEcbXLr0ZmzFhO?=
+ =?us-ascii?Q?XeZj5ppq5OFzY4UUrDmcAkghOIHRnItlwh3Y4Zj1nZ6c+kVgcFdIx0WFDqyf?=
+ =?us-ascii?Q?VgQEX3XeEd8rGbQxIcM3YUxuugxumVxf3jKRhq9r9teEJAJTkwbGxvhMSOq+?=
+ =?us-ascii?Q?sOk9XUMCvQpAFMEk5BHeqhbIf5UGB4HeBj17ZPMo6Yt+P07/uBuuwi6D85M4?=
+ =?us-ascii?Q?m4PhKhaWjxk2Fswq5csn9wikxnqLwiu6r8hSKtb6P2njsiCBo+p282xSKXzP?=
+ =?us-ascii?Q?ZrRwMqlda8yU8UyncNVf2tamHWZ7CHOJHOF6fpBmEwzbYdFkGFfov7EODk5d?=
+ =?us-ascii?Q?UF8Km7Yvf73NTCawz/cdSagloQDmPN7zBriuWbLQ7pB2ZiGRSbMl4ZBOp5RX?=
+ =?us-ascii?Q?pNyzSAvQ3enpfSVlrIUcOayoDZHm5ozong+Ty+09/wKI5Hp8T5vI?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f09a538-8884-46e1-e644-08df1a5ddbf3
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 17:04:13.7553
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TzttnULstgaa2dAnCSJUfQDH5M2xLvX1JPz22YqzaTbjjwGP+kIGVRgsVU/T9IxGrsaanutBMdu8SJEZ/P4d2msGZfMItD86ci6Vdqr+1m5z95UclKMWKpbMHF3IBPqb
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10198
 
-The updated events were published in:
+On Thu, Sep 24, 2026 at 04:34:28PM +0800, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
+>
+> Replace multiple if/else blocks using regmap_set_bits()/regmap_clear_bits()
+> with the simpler regmap_assign_bits() calls.
+>
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
 
-  https://github.com/intel/perfmon/commit/8732d043b432e9d04086a07feb23d9df7=
-0a10f17
+Thanks for clean up this. It is much better.
 
-Fix wrong encoding of UMaskExt.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-Fixes: 917f63ad7580 ("perf vendor events: Update graniterapids events and a=
-dd counter information")
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- .../pmu-events/arch/x86/graniterapids/other.json  |  9 +++++++++
- .../arch/x86/graniterapids/pipeline.json          |  6 +++---
- .../arch/x86/graniterapids/uncore-cache.json      | 15 +++++++++++++++
- .../x86/graniterapids/uncore-interconnect.json    |  2 ++
- .../arch/x86/graniterapids/uncore-io.json         | 12 ++++++++++++
- tools/perf/pmu-events/arch/x86/mapfile.csv        |  2 +-
- 6 files changed, 42 insertions(+), 4 deletions(-)
-
-diff --git a/tools/perf/pmu-events/arch/x86/graniterapids/other.json b/tool=
-s/perf/pmu-events/arch/x86/graniterapids/other.json
-index c0747750b1a8..9173b9e3df9a 100644
---- a/tools/perf/pmu-events/arch/x86/graniterapids/other.json
-+++ b/tools/perf/pmu-events/arch/x86/graniterapids/other.json
-@@ -41,6 +41,15 @@
-         "SampleAfterValue": "203",
-         "UMask": "0x1"
-     },
-+    {
-+        "BriefDescription": "Increments whenever there is an update to the=
- LBR array. [This event is alias to MISC_RETIRED.LBR_INSERTS]",
-+        "Counter": "0,1,2,3,4,5,6,7",
-+        "EventCode": "0xcc",
-+        "EventName": "LBR_INSERTS.ANY",
-+        "PublicDescription": "Increments when an entry is added to the Las=
-t Branch Record (LBR) array (or removed from the array in case of RETURNs i=
-n call stack mode). The event requires LBR enable via IA32_DEBUGCTL MSR and=
- branch type selection via MSR_LBR_SELECT. [This event is alias to MISC_RET=
-IRED.LBR_INSERTS]",
-+        "SampleAfterValue": "100003",
-+        "UMask": "0x20"
-+    },
-     {
-         "BriefDescription": "Counts streaming stores that have any type of=
- response.",
-         "Counter": "0,1,2,3",
-diff --git a/tools/perf/pmu-events/arch/x86/graniterapids/pipeline.json b/t=
-ools/perf/pmu-events/arch/x86/graniterapids/pipeline.json
-index afc77bdeb600..e7be30ceb46d 100644
---- a/tools/perf/pmu-events/arch/x86/graniterapids/pipeline.json
-+++ b/tools/perf/pmu-events/arch/x86/graniterapids/pipeline.json
-@@ -559,7 +559,7 @@
-         "Counter": "0,1,2,3,4,5,6,7",
-         "EventCode": "0xc0",
-         "EventName": "INST_RETIRED.REP_ITERATION",
--        "PublicDescription": "Number of iterations of Repeat (REP) string =
-retired instructions such as MOVS, CMPS, and SCAS. Each has a byte, word, a=
-nd doubleword version and string instructions can be repeated using a repet=
-ition prefix, REP, that allows their architectural execution to be repeated=
- a number of times as specified by the RCX register. Note: Since the number=
- of iterations within a REP instruction can be significantly affected by fa=
-st strings, this event may vary run to run and not match the architectural =
-number of iterations (specified by RCX)",
-+        "PublicDescription": "Number of iterations of Repeat (REP) string =
-retired instructions such as MOVS, CMPS, and SCAS. Each has a byte, word, a=
-nd doubleword version and string instructions can be repeated using a repet=
-ition prefix, REP, that allows their architectural execution to be repeated=
- a number of times as specified by the RCX register. Note: Since the number=
- of iterations within a REP instruction can be significantly affected by fa=
-st strings, this event may vary from run to run and not match the architect=
-ural number of iterations (specified by RCX).",
-         "SampleAfterValue": "2000003",
-         "UMask": "0x8"
-     },
-@@ -780,11 +780,11 @@
-         "UMask": "0x20"
-     },
-     {
--        "BriefDescription": "Increments whenever there is an update to the=
- LBR array.",
-+        "BriefDescription": "Increments whenever there is an update to the=
- LBR array. [This event is alias to LBR_INSERTS.ANY]",
-         "Counter": "0,1,2,3,4,5,6,7",
-         "EventCode": "0xcc",
-         "EventName": "MISC_RETIRED.LBR_INSERTS",
--        "PublicDescription": "Increments when an entry is added to the Las=
-t Branch Record (LBR) array (or removed from the array in case of RETURNs i=
-n call stack mode). The event requires LBR enable via IA32_DEBUGCTL MSR and=
- branch type selection via MSR_LBR_SELECT.",
-+        "PublicDescription": "Increments when an entry is added to the Las=
-t Branch Record (LBR) array (or removed from the array in case of RETURNs i=
-n call stack mode). The event requires LBR enable via IA32_DEBUGCTL MSR and=
- branch type selection via MSR_LBR_SELECT. [This event is alias to LBR_INSE=
-RTS.ANY]",
-         "SampleAfterValue": "100003",
-         "UMask": "0x20"
-     },
-diff --git a/tools/perf/pmu-events/arch/x86/graniterapids/uncore-cache.json=
- b/tools/perf/pmu-events/arch/x86/graniterapids/uncore-cache.json
-index 721fc42797b1..899f4534db74 100644
---- a/tools/perf/pmu-events/arch/x86/graniterapids/uncore-cache.json
-+++ b/tools/perf/pmu-events/arch/x86/graniterapids/uncore-cache.json
-@@ -664,6 +664,16 @@
-         "UMask": "0x10",
-         "Unit": "CHA"
-     },
-+    {
-+        "BriefDescription": "UNC_CHA_PIPE_REJECT2.ANYQ_TOPA_MATCH",
-+        "Counter": "0,1,2,3",
-+        "EventCode": "0x72",
-+        "EventName": "UNC_CHA_PIPE_REJECT2.ANYQ_TOPA_MATCH",
-+        "Experimental": "1",
-+        "PerPkg": "1",
-+        "UMask": "0x20007f",
-+        "Unit": "CHA"
-+    },
-     {
-         "BriefDescription": "UNC_CHA_REMOTE_SF.ALLOC_EXCLUSIVE",
-         "Counter": "0,1,2,3",
-@@ -701,6 +711,7 @@
-         "EventName": "UNC_CHA_REMOTE_SF.DIRBACKED_ONLY",
-         "Experimental": "1",
-         "PerPkg": "1",
-+        "UMask": "0x4000",
-         "Unit": "CHA"
-     },
-     {
-@@ -730,6 +741,7 @@
-         "EventName": "UNC_CHA_REMOTE_SF.INCLUSIVE_ONLY",
-         "Experimental": "1",
-         "PerPkg": "1",
-+        "UMask": "0x2000",
-         "Unit": "CHA"
-     },
-     {
-@@ -748,6 +760,7 @@
-         "EventName": "UNC_CHA_REMOTE_SF.UPDATE_EXCLUSIVE",
-         "Experimental": "1",
-         "PerPkg": "1",
-+        "UMask": "0x100",
-         "Unit": "CHA"
-     },
-     {
-@@ -767,6 +780,7 @@
-         "EventName": "UNC_CHA_REMOTE_SF.VICTIM_EXCLUSIVE",
-         "Experimental": "1",
-         "PerPkg": "1",
-+        "UMask": "0x400",
-         "Unit": "CHA"
-     },
-     {
-@@ -776,6 +790,7 @@
-         "EventName": "UNC_CHA_REMOTE_SF.VICTIM_SHARED",
-         "Experimental": "1",
-         "PerPkg": "1",
-+        "UMask": "0x200",
-         "Unit": "CHA"
-     },
-     {
-diff --git a/tools/perf/pmu-events/arch/x86/graniterapids/uncore-interconne=
-ct.json b/tools/perf/pmu-events/arch/x86/graniterapids/uncore-interconnect.=
-json
-index 9f0c4c7198b0..4dbf9b8481cd 100644
---- a/tools/perf/pmu-events/arch/x86/graniterapids/uncore-interconnect.json
-+++ b/tools/perf/pmu-events/arch/x86/graniterapids/uncore-interconnect.json
-@@ -513,6 +513,7 @@
-         "EventName": "UNC_B2CMI_IMC_WRITES.NI",
-         "Experimental": "1",
-         "PerPkg": "1",
-+        "UMask": "0x300",
-         "Unit": "B2CMI"
-     },
-     {
-@@ -522,6 +523,7 @@
-         "EventName": "UNC_B2CMI_IMC_WRITES.NI_MISS",
-         "Experimental": "1",
-         "PerPkg": "1",
-+        "UMask": "0x500",
-         "Unit": "B2CMI"
-     },
-     {
-diff --git a/tools/perf/pmu-events/arch/x86/graniterapids/uncore-io.json b/=
-tools/perf/pmu-events/arch/x86/graniterapids/uncore-io.json
-index 2ea2637df3fb..0e56bbed4d65 100644
---- a/tools/perf/pmu-events/arch/x86/graniterapids/uncore-io.json
-+++ b/tools/perf/pmu-events/arch/x86/graniterapids/uncore-io.json
-@@ -652,6 +652,18 @@
-         "UMask": "0x1",
-         "Unit": "IIO"
-     },
-+    {
-+        "BriefDescription": "Data requested of the CPU : Card reading from=
- another Card (same or different stack)",
-+        "Counter": "0,1",
-+        "EventCode": "0x83",
-+        "EventName": "UNC_IIO_DATA_REQ_OF_CPU.PEER_READ.ALL_PARTS",
-+        "Experimental": "1",
-+        "FCMask": "0x07",
-+        "PerPkg": "1",
-+        "PortMask": "0x0FF",
-+        "UMask": "0x8",
-+        "Unit": "IIO"
-+    },
-     {
-         "BriefDescription": "Data requested of the CPU : Card reading from=
- another Card (same or different stack)",
-         "Counter": "0,1",
-diff --git a/tools/perf/pmu-events/arch/x86/mapfile.csv b/tools/perf/pmu-ev=
-ents/arch/x86/mapfile.csv
-index 3753ff64835e..3e9a86ca18ac 100644
---- a/tools/perf/pmu-events/arch/x86/mapfile.csv
-+++ b/tools/perf/pmu-events/arch/x86/mapfile.csv
-@@ -13,7 +13,7 @@ GenuineIntel-6-CF,v1.25,emeraldrapids,core
- GenuineIntel-6-5[CF],v13,goldmont,core
- GenuineIntel-6-7A,v1.01,goldmontplus,core
- GenuineIntel-6-B6,v1.13,grandridge,core
--GenuineIntel-6-A[DE],v1.20,graniterapids,core
-+GenuineIntel-6-A[DE],v1.21,graniterapids,core
- GenuineIntel-6-(3C|45|46),v36,haswell,core
- GenuineIntel-6-3F,v29,haswellx,core
- GenuineIntel-6-7[DE],v1.24,icelake,core
---=20
-2.56.0.rc1.315.gc6ed9934b7-goog
-
+>  drivers/pci/controller/dwc/pci-imx6.c | 32 +++++++--------------------
+>  1 file changed, 8 insertions(+), 24 deletions(-)
+>
+> diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
+> index 28fed010b503f..e2e55a88e0132 100644
+> --- a/drivers/pci/controller/dwc/pci-imx6.c
+> +++ b/drivers/pci/controller/dwc/pci-imx6.c
+> @@ -747,12 +747,8 @@ static int imx_pcie_attach_pd(struct device *dev)
+>
+>  static int imx6q_pcie_enable_ref_clk(struct imx_pcie *imx_pcie, bool enable)
+>  {
+> -	if (enable)
+> -		regmap_set_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR1,
+> -				IMX6Q_GPR1_PCIE_REF_CLK_EN);
+> -	else
+> -		regmap_clear_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR1,
+> -				  IMX6Q_GPR1_PCIE_REF_CLK_EN);
+> +	regmap_assign_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR1,
+> +			   IMX6Q_GPR1_PCIE_REF_CLK_EN, enable);
+>
+>  	return 0;
+>  }
+> @@ -868,12 +864,8 @@ static void imx_pcie_clk_disable(struct imx_pcie *imx_pcie)
+>
+>  static int imx6sx_pcie_core_reset(struct imx_pcie *imx_pcie, bool assert)
+>  {
+> -	if (assert)
+> -		regmap_set_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR12,
+> -				IMX6SX_GPR12_PCIE_TEST_POWERDOWN);
+> -	else
+> -		regmap_clear_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR12,
+> -				  IMX6SX_GPR12_PCIE_TEST_POWERDOWN);
+> +	regmap_assign_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR12,
+> +			   IMX6SX_GPR12_PCIE_TEST_POWERDOWN, assert);
+>
+>  	/* Force PCIe PHY reset */
+>  	regmap_update_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR5, IMX6SX_GPR5_PCIE_BTNRST_RESET,
+> @@ -883,12 +875,8 @@ static int imx6sx_pcie_core_reset(struct imx_pcie *imx_pcie, bool assert)
+>
+>  static int imx6qp_pcie_core_reset(struct imx_pcie *imx_pcie, bool assert)
+>  {
+> -	if (assert)
+> -		regmap_set_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR1,
+> -				IMX6Q_GPR1_PCIE_TEST_PD);
+> -	else
+> -		regmap_clear_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR1,
+> -				  IMX6Q_GPR1_PCIE_TEST_PD);
+> +	regmap_assign_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR1,
+> +			   IMX6Q_GPR1_PCIE_TEST_PD, assert);
+>
+>  	regmap_update_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR1, IMX6Q_GPR1_PCIE_SW_RST,
+>  			   assert ? IMX6Q_GPR1_PCIE_SW_RST : 0);
+> @@ -901,12 +889,8 @@ static int imx6qp_pcie_core_reset(struct imx_pcie *imx_pcie, bool assert)
+>
+>  static int imx6q_pcie_core_reset(struct imx_pcie *imx_pcie, bool assert)
+>  {
+> -	if (assert)
+> -		regmap_set_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR1,
+> -				IMX6Q_GPR1_PCIE_TEST_PD);
+> -	else
+> -		regmap_clear_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR1,
+> -				  IMX6Q_GPR1_PCIE_TEST_PD);
+> +	regmap_assign_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR1,
+> +			   IMX6Q_GPR1_PCIE_TEST_PD, assert);
+>
+>  	if (!assert)
+>  		usleep_range(200, 500);
+> --
+> 2.50.1
+>
+>
