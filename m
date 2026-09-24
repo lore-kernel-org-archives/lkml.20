@@ -1,129 +1,142 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from mail-m118115.qiye.163.com (mail-m118115.qiye.163.com [115.236.118.115])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37F383D9674
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:55:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 808283AC0EF
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:55:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.118.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790222155; cv=none; b=B2OeGS+XZy9AbEBqj0moWKBD3ZLJeSW+k/X/99EFDTaK0Th9GuUkbvq36K0EV55H6UbFHB4PJ29U80tGvrzpGRIem6ft2r16hgXDaYvA0OgoUfaFxYhOsH2doDR9FN+nHPVXyiFw/er6yFUiiOeeL4wy9EYWopaEQY8Ko4Q/kT4=
+	t=1790222163; cv=none; b=MywHclZZAr9mn1b9npSCNHKw71ZdJFsHJO0hcx+qPRWT4RmDQnhIqF4Ez53Au6sMrGmTy7wE9NzKKkLpwJx5HJaxVoU8fS+2PPJ9RZOWXip5ZHoC/b3GVYfPRPdVy+Id8aFsQXrPPa6fpmpVcGs7lkWB6mXnkMiCBWeveARB6ag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790222155; c=relaxed/simple;
-	bh=lzlSPTzlh/Y5qjIW/JUnZhJwQdNHGCW9Q33UHnVlrS4=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=EeNtubtKF0jVWXQgs14MB0+dmYyXF5+wf/hSzjwmGtmbiALKMygeuEsJlcHvq4fWXC+NIZxcA1P+1kstX/+fpYmU48imYB76tM4sbhrF8ieg9uMrkxXJ4b+c7dft001FwuhUes3Mt9jniUZCu4VF288bZQv/WPRmEpbxncP15cg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=W2biRSuj; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790222163; c=relaxed/simple;
+	bh=Gii0hZt4rrHVnkIZnDUldhYQigdo3NfJ69/jkm3drzg=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=A3vinQ2A7jRQihEhPoGP9f6O2NGpNLAnBG75U7ndk9Boe8e+cP6CHCVG9wXUfmWH+iTvdvgf7DsE5cSfC2xwHgu4cJTKupIqbtpRGczK2p8AW6AyA7wBL6Z1J4WJ8aVtZKKtIKzlEnUQJUEE4qMx6iBg/bCfGhiIBDACbiJ/hoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=R2qke+wv; arc=none smtp.client-ip=115.236.118.115
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="W2biRSuj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790222154; x=1821758154;
-  h=date:from:to:cc:subject:message-id:mime-version:
-   in-reply-to;
-  bh=lzlSPTzlh/Y5qjIW/JUnZhJwQdNHGCW9Q33UHnVlrS4=;
-  b=W2biRSuj0u0nLtSGbtgkJqnpQCC4qvP1RgqKXMPsphx4A4wzc+AFYpfv
-   xlc2x8BuS3siwN4u5dxsFgMu+RganXeFo1gBT/1+I4qcolXCbZrOTyYCF
-   vQuw/Ifp2mEPWLu6swYn8lLpNbkiBppGESv93SwSDeTJ4wP6oDYdTCpxM
-   KCu7YMIG3YTt92PGHL5NOOLFjEByYvTpcz4P/nXz1YMwCBzoktp2XzWIb
-   Gcv9IVcWKOdmL4FAVR+RlyAt2hHF51mxX1En5rCjyAy9EtllJnBnC4Gu8
-   kJS9bFDV3YTN05g3d3o2yfxZ/v0lFDnzNMG0AqTozqTb16vj4NdN4HjqS
-   w==;
-X-CSE-ConnectionGUID: hH+g2/hZSiO8CL1CtCnhFA==
-X-CSE-MsgGUID: NSlT9OYHRiWmwjpTkPaYmQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="91087211"
-X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="91087211"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 20:55:53 -0700
-X-CSE-ConnectionGUID: 6IppWfUsRoKkrEUti05hiA==
-X-CSE-MsgGUID: FU/g7o9gQVqhsp1vb3mJVg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="273381451"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 20:55:50 -0700
-Date: Thu, 24 Sep 2026 11:55:47 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: "Harry Yoo (Meta)" <harry@kernel.org>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, Hyunwoo Kim <imv4bel@gmail.com>,
-	linux-mm@kvack.org, Vlastimil Babka <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	linux-kernel@vger.kernel.org, yi1.lai@intel.com
-Subject: Re: [PATCH v3] mm/slab: take n->list_lock in
- __slab_try_return_freelist() to avoid race
-Message-ID: <202609240534.9fe4984a-lkp@intel.com>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="R2qke+wv"
+Received: from [172.16.12.74] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4ef67db11;
+	Thu, 24 Sep 2026 11:40:27 +0800 (GMT+08:00)
+Message-ID: <a0754d11-d88b-4dda-972f-7c696a037bc2@rock-chips.com>
+Date: Thu, 24 Sep 2026 11:40:26 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903-slab-fix-aba-v3-1-b44cb6badd54@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RSEND] drm/bridge: analogix_dp: use
+ devm_phy_optional_get() for the DP PHY
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Jun Yan <jerrysteve1101@gmail.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Heiko Stuebner <heiko@sntech.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
+References: <20260924020417.868588-1-jerrysteve1101@gmail.com>
+ <0ef54850-6919-4a29-a8df-586a3dc2de5f@rock-chips.com>
+Content-Language: en-US
+In-Reply-To: <0ef54850-6919-4a29-a8df-586a3dc2de5f@rock-chips.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0d180169903a8kunm9636794c1822a2
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGUkZVkhPTBlCHRlMHRpMGVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=R2qke+wv6KNzNLcVu0eEdHjxQszzsXDF9ACD9mTV4CxZ/ZXKWIwxNzTQqOiNNDQPFP0gCf6xZfuh0PqcHz/aMcGhDQV2s/5XbqC2H/LAfUL4btsNm1hSbcTqzUD7AsjLvtKdpEJoKLEjEHei693VjiYmqfUaLeEoYwqWUV1/7v4=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=FzcMe83hf5C3AZ1U0/2gbxcveYRvl8Cs0W878bkhmyk=;
+	h=date:mime-version:subject:message-id:from;
 
+On 9/24/2026 11:24 AM, Damon Ding wrote:
+> Hi Jun,
+> 
+> On 9/24/2026 10:04 AM, Jun Yan wrote:
+>> The DP PHY is optional: the Rockchip RK3399 eDP controller (used as the
+>> internal eDP port) has no separate PHY device and relies on its built-in
+>> PHY, which is programmed directly through the GRF registers, so its DT
+>> node carries no "phys"/"phy-names" property.
+>>
+>> Requesting the PHY with devm_phy_get() therefore returns -ENODEV (or
+>> -ENOSYS when CONFIG_GENERIC_PHY is disabled) and the driver logs a
+>> misleading "no DP phy configured" error at probe time before falling back
+>> to a NULL phy.
+>>
+>> Use devm_phy_optional_get() instead, which returns NULL when the PHY is
+>> absent and otherwise behaves identically, and drop the manual -ENODEV/
+>> -ENOSYS handling. This also removes the spurious error message.
+>>
+>> Assisted-by: Claude:deepseek-v4-flash
+>> Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+>> ---
+>>   .../gpu/drm/bridge/analogix/analogix_dp_core.c | 18 +++---------------
+>>   1 file changed, 3 insertions(+), 15 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/ 
+>> drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>> index 18e76d1e78e1..28eb668d3e3f 100644
+>> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>> @@ -1427,21 +1427,9 @@ analogix_dp_probe(struct device *dev, struct 
+>> analogix_dp_plat_data *plat_data)
+>>       if (ret)
+>>           return ERR_PTR(ret);
+>> -    dp->phy = devm_phy_get(dp->dev, "dp");
+>> -    if (IS_ERR(dp->phy)) {
+>> -        dev_err(dp->dev, "no DP phy configured\n");
+>> -        ret = PTR_ERR(dp->phy);
+>> -        if (ret) {
+>> -            /*
+>> -             * phy itself is not enabled, so we can move forward
+>> -             * assigning NULL to phy pointer.
+>> -             */
+>> -            if (ret == -ENOSYS || ret == -ENODEV)
+>> -                dp->phy = NULL;
+>> -            else
+>> -                return ERR_PTR(ret);
+>> -        }
+>> -    }
+> 
+> It should be better to add some comments here:
+> 
+> /*
+>   * Exynos5/RK3288/RK3399 use Analogix DP controller built-in PHY,
+>   * no separate PHY configuration is needed.
+>   */
 
-Hello,
+Well, I think it should be fixed to:
 
-kernel test robot noticed a 2.3% regression of stress-ng.pagemove.page_remaps_per_sec on:
+/*
+  * RK3288/RK3399 use Analogix DP controller built-in PHY,
+  * no extra PHY configuration is required.
+  */
 
+The Exynos5xxx case may be more complex.
 
-commit: 710555228bde64392410a9e8959d0324c1a0a598 ("[PATCH v3] mm/slab: take n->list_lock in __slab_try_return_freelist() to avoid race")
-url: https://github.com/intel-lab-lkp/linux/commits/Harry-Yoo-Meta/mm-slab-take-n-list_lock-in-__slab_try_return_freelist-to-avoid-race/20260903-153226
-patch link: https://lore.kernel.org/all/20260903-slab-fix-aba-v3-1-b44cb6badd54@kernel.org/
-patch subject: [PATCH v3] mm/slab: take n->list_lock in __slab_try_return_freelist() to avoid race
+> 
+>> +    dp->phy = devm_phy_optional_get(dp->dev, "dp");
+>> +    if (IS_ERR(dp->phy))
+>> +        return ERR_CAST(dp->phy);
+>>       dp->clock = devm_clk_get(&pdev->dev, "dp");
+>>       if (IS_ERR(dp->clock)) {
+> 
+> With the comment added:
+> Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
+> 
+> Best regards,
+> Damon
+> 
 
-testcase: stress-ng
-config: x86_64-rhel-9.4
-compiler: gcc-14
-test machine: 192 threads 2 sockets Intel(R) Xeon(R) 6740E  CPU @ 2.4GHz (Sierra Forest) with 256G memory
-parameters:
-
-	nr_threads: 100%
-	testtime: 60s
-	test: pagemove
-	cpufreq_governor: performance
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <yi1.lai@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202609240534.9fe4984a-lkp@intel.com
-
-
-Details are as below:
--------------------------------------------------------------------------------------------------->
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20260924/202609240534.9fe4984a-lkp@intel.com
-
-=========================================================================================
-compiler/cpufreq_governor/kconfig/nr_threads/rootfs/tbox_group/test/testcase/testtime:
-  gcc-14/performance/x86_64-rhel-9.4/100%/debian-13-x86_64-20250902.cgz/igk-srf-2sp3/pagemove/stress-ng/60s
-
-commit: 
-  v7.3-rc1
-  710555228b ("[PATCH v3] mm/slab: take n->list_lock in __slab_try_return_freelist() to avoid race")
-
-        v7.3-rc1 710555228bde64392410a9e8959
----------------- --------------------------- 
-         %stddev     %change         %stddev
-             \          |                \  
-  74699042            -2.5%   72797565        stress-ng.pagemove.ops
-   1245981            -2.5%    1214288        stress-ng.pagemove.ops_per_sec
-    291125            -2.3%     284309        stress-ng.pagemove.page_remaps_per_sec
-
-
-Disclaimer:
-Results have been estimated based on internal Intel analysis and are provided
-for informational purposes only. Any difference in system hardware or software
-design or configuration may affect actual performance.
-
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
 
