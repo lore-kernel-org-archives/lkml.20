@@ -1,133 +1,76 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB55041A922;
-	Thu, 24 Sep 2026 08:42:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A298941A547;
+	Thu, 24 Sep 2026 08:42:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.126.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790239324; cv=none; b=l3JszSv2/K6FSG1pjekglyFHTdcFbssBwbSAVECf9ZZGEmWToKvx4j/4Vt4UDevNg9v1TrKLcztlD5v1yb+/2yK4oWekKUTf7kMBKaYrfM2WNGsvrMz5DARWqpKcUPI01VhP0QN7JBmMFPpoV7l+C05z6CHLIQKTdfZ+vTuogPw=
+	t=1790239327; cv=none; b=m0LQKYQTTYgY5b0a5dLSfXlXcgx0lykW27SI+GZvZhT2h8z0LCYruwvAxemCClrUQp2rLGh5u1BtgnaweZplQXyAhBVczhTENT4aq1u23vPjyNtZYQp8D1S0vFvSkQB1nBvm3g4Hll5r7qzPfBCOyzsHP9g+tdOsh3rI0XahU2w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790239324; c=relaxed/simple;
-	bh=oSAlGN/fOLl0k9QhmywFYbOnlTWfRUPevGrfUVzEOqI=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=tpgDEbQorOkw+o1g16h25kNjTNME9XlfAwxPE76RYSuvcuuuOcS8oHFjsiM7U7/eUTOzRzHe+3+ICVkm6RZVMSv5Mj1y+CGGapgVXzejZLjrvlas3tVMDNeeMpczijYp5WKfHLN/ymx9mHEcSTELeuKB+ZAOjeJ5ym/MhtHczGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=qWdTLlVo; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1790239327; c=relaxed/simple;
+	bh=I5dfBTlOw1SAlp4G0K+tSnWcUymaRIOUKWkS7vb8KcA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NlFpbIXNS1Hm8BQocG0Rn1v8g5Qqg9ECxQeB4EGJwf+VP84sRJJAhTFoa10Jl0AApt456B5x/r1GLggRn2IDcWuKAG08ksEr3s6JPa3ijF9+Urx8DzDTKDWi7suG5ECQrO+rsgn1h3PKPdI2a6uF6KdBZVBy8hkzWnf/+a96lVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net; spf=pass smtp.mailfrom=weissschuh.net; dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b=en9WWI07; arc=none smtp.client-ip=159.69.126.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="qWdTLlVo"
-Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5cMQq151887;
-	Thu, 24 Sep 2026 04:41:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=DKIM; bh=7zQOVib9l6Rs70GQeWpWTMTQxI9
-	OaEIVqcGS9UaI7dA=; b=qWdTLlVoj1hdzUQLQgZiGRtQ48Sa4HrwF8cvLEveBoh
-	YBuwHhTQ8oCxifCG05IQCC4fgXWs4D5fN7f9ean3u6aT65lZzrjBABssRzmaMtht
-	vT8bgpnGNF6iJVR4N2Np6JShru0OZlL0gcnIsddi3NsB3QnNTSUYMT6/Tsd/Ugob
-	+5Pt+oSj7RhLBOPHO3Y0UR4nQw5MtWCCxMB5+nv6CUu8TmMZMELRw36FyHU1zR/Q
-	6ykx8sz/qpUd/Hftqs54QZACdTz1+SD0+EDdJcY+MYzloM10A1Nm7sTARskKyQe1
-	N3MLt8Ikn4V2ppGTJ094ABiWA6zx+fGbSPfQVSKbO7w==
-Received: from nwd2mta3.analog.com ([137.71.173.56])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4gv5cx8q2d-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 24 Sep 2026 04:41:46 -0400 (EDT)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 68O8fjVC016349
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 24 Sep 2026 04:41:45 -0400
-Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
- ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Thu, 24 Sep 2026 04:41:45 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
- ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Thu, 24 Sep 2026 04:41:45 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Thu, 24 Sep 2026 04:41:45 -0400
-Received: from JGERONI2-L01.ad.analog.com ([10.66.6.191])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 68O8fTpK015604;
-	Thu, 24 Sep 2026 04:41:32 -0400
-From: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
-To: Guenter Roeck <linux@roeck-us.net>
-CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-        "Shuah
- Khan" <skhan@linuxfoundation.org>,
-        Jean Delvare <jdelvare@suse.com>, <linux-hwmon@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-doc@vger.kernel.org>
-Subject: [PATCH v2 0/3] hwmon: (lm75) add MAX31875 support
-Date: Thu, 24 Sep 2026 16:41:18 +0800
-Message-ID: <20260924084121.82-1-johnerasmusmari.geronimo@analog.com>
-X-Mailer: git-send-email 2.44.0.windows.1
+	dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b="en9WWI07"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+	s=mail; t=1790239322;
+	bh=I5dfBTlOw1SAlp4G0K+tSnWcUymaRIOUKWkS7vb8KcA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=en9WWI07jzML3e8jWctWf0TKL6ot0A7jvN1FIYrvQmjbFI1LKE8T9GzAds11xr2d6
+	 pSQIQWYnun6Q3ral6Jq8KbwGkXU2suqaSh/SrtgKK+SNrXj2q8ODD9Dorno6O5M0Uu
+	 L1e4mpCVBrl/UwcUE5CL9JpHrOlN3w8aGi8XJZr8=
+Date: Thu, 24 Sep 2026 10:41:53 +0200
+From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
+To: Danish Khateeb <danishkhateeb03@gmail.com>
+Cc: Willy Tarreau <w@1wt.eu>, Shuah Khan <shuah@kernel.org>, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] tools/nolibc: fix WIFSIGNALED() for status 0
+Message-ID: <8fd097e6-ff23-41f6-ad3e-273e5e9b26f3@t-8ch.de>
+References: <20260923205622.1123270-1-danishkhateeb03@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-ORIG-GUID: WwSd4NVUnEMg9obAms4EEMdBpyfkURox
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAzNiBTYWx0ZWRfXyLLuFiN1UzRh
- MGRPtrvpDqKwcrz+XfmBbJYnDREnwhqQmLG4BhG20U2f5QQSvQCuj+l3eJUW+QYLyJiBhVSHQ7r
- jlA1HcY+sznOipZos4FoAbdcVDwsZ8ILVgCJ3qBNtZdthCKFDnunJqkIDDQgfArfKDNTWoXKObV
- lAu9Z37ol2K093LeeJ0qsDxGI0r9++rxJhsPlZC35S/X4vVedLP93d/mq4LHoBmSE5eDc8flGIz
- Lg61n9EHxJ9UKVdWmphumC4RSflpb59Rbhat7dCjptq0Ofd3iC/PT8HEcEa8nLgKgYv+XNwv4Zp
- zmrZ6ni2TnPqEupYBoRk4XD2lNu5+jSpscX5YbrPOPSMdn8auPHsRfkASHk9w5p74IsfciWsBLW
- uiPl5SSllDgYZHSUnuLQlok96MUpRR59oprPJjpABAmyW2cHAOQ6wR8xj7BXoNl9bh4E6tkuLlH
- jVK6zA+t9epwhOY/Alw==
-X-Proofpoint-GUID: WwSd4NVUnEMg9obAms4EEMdBpyfkURox
-X-Authority-Analysis: v=2.4 cv=I8rw19gg c=1 sm=1 tr=0 ts=6ab4e24a cx=c_pps
- a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=OmVn7CZJonkx5R5zMQLL:22 a=lmotxbxmNOxI8_FDkaQA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAzNiBTYWx0ZWRfXxDWhtJlfHscr
- STeuUrmqOgsHQmi3z5SqIX1vVL2ijxWclaK718EegxMezNmB62dVcDFQsZNMy052DiboLb9/rtA
- Ku8d9iExn/U0s4YAGt6GpNvlXCBAkBlC2/4NbmX4z9lG0sOP4BHL
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 impostorscore=0 priorityscore=1501 spamscore=0 malwarescore=0
- lowpriorityscore=0 adultscore=0 bulkscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240036
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923205622.1123270-1-danishkhateeb03@gmail.com>
 
-Add support for the Analog Devices MAX31875 I2C temperature sensor by
-extending the existing lm75 driver.
+On 2026-09-23 15:56:20-0500, Danish Khateeb wrote:
+> nolibc's WIFSIGNALED() is true for status 0, so a child that exits with
+> 0 looks as if it was killed by signal 0. I ran into it in a nolibc init
+> for a QEMU test, which reported every clean exit of a child that way.
+> 
+> Patch 1 fixes the macro. Patch 2 adds nolibc-test cases for the wait
+> status macros, which would have caught it.
+> 
+> Tested on top of nolibc/for-next f2212892b6a0:
+> - x86_64: without patch 1, the new wifsignaled_exit0 test fails, and
+>   the rest of nolibc-test gives the same results with and without it.
+> - x86_64, i386, and arm and sparc64 under qemu-user: all new tests pass.
+> - libc-test against glibc: all new tests pass, so the expected values
+>   match glibc.
+> 
+> Danish Khateeb (2):
+>   tools/nolibc: fix WIFSIGNALED() for status 0
+>   selftests/nolibc: add tests for the wait status macros
 
-The MAX31875 provides a 16-bit configuration register, selectable
-resolution of 8, 9, 10, or 12 bits, conversion rates of 125 ms, 250 ms,
-1 s, or 4 s, and an alarm output.
+Applied without the Cc stable, as we don't do that in the nolibc
+subsystem.
 
-As suggested by Guenter Roeck, this version reworks the implementation
-to extend the existing lm75 driver instead of max31827, since the
-MAX31875 is another LM75 variant (similar to max31725/max31726) rather
-than a max31827-family part.
+Thanks!
 
-Changes since v1:
-- Rework the implementation to use the existing lm75 driver instead of
-  the previously selected max31827 base driver.
-- Add the MAX31875 Device Tree binding, documentation, and driver
-  configuration for resolution, conversion rate, and alarm reporting.
-
-John Erasmus Mari Geronimo (3):
-  dt-bindings: hwmon: lm75: add MAX31875
-  hwmon: (lm75) add MAX31875 documentation
-  hwmon: (lm75) add MAX31875 support
-
- .../devicetree/bindings/hwmon/lm75.yaml       |  1 +
- Documentation/hwmon/lm75.rst                  |  6 +++--
- drivers/hwmon/Kconfig                         |  2 +-
- drivers/hwmon/lm75.c                          | 25 +++++++++++++++++++
- 4 files changed, 31 insertions(+), 3 deletions(-)
-
-
-base-commit: 9955c92abe72564a49c293b1c15cd3b4f02ea6a0
--- 
-2.34.1
-
+>  tools/include/nolibc/types.h                 | 2 +-
+>  tools/testing/selftests/nolibc/nolibc-test.c | 8 ++++++++
+>  2 files changed, 9 insertions(+), 1 deletion(-)
+> 
+> 
+> base-commit: f2212892b6a0c2adab438783e9fa8093c90786d7
+> -- 
+> 2.55.0
+> 
