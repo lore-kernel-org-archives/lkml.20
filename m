@@ -1,232 +1,253 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F3C4AA58E;
-	Thu, 24 Sep 2026 18:10:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790273452; cv=none; b=s/5YhWOPSZFMmuGjsdTFYo1Eh7PGYdzvvK7K+MEUmW66DfLxhbmCX2lXtih92YSqG9HbhHwH/eWG0KgtQU4bBkZWhiYvRJcmA5e05P1C1eDXRg5tSVJ1mkm5o+KsJVlPvyVSuPgaNfNWWVVjidtQW4ERvazLb2gUFwj9Mmk+rzI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790273452; c=relaxed/simple;
-	bh=BOL6ljZqHT4eSR2tcAznUPg+wvR8oXMCt8dAB/9cdg0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Wl8jOzaQo087y5mfOyKxJ6a5CSpFyDqd3ZOC8Jgqdzjq0cjDYl/ibWo3X1Pwa7pvJyfvZOcOnRsA88NLyGoyCUMbqkfjmegtJ5IkrYEyQMcnjyayayYs0XbpB07CD1/ZI43is8+YEdUHLA5g81F/1u/QAPzSpE1RvqTYdw3u+t4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KOfdlZh8; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B11FE4AA59A
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:10:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790273460; cv=pass; b=rkGEPDwv6Zo7g+zKJWpfG2VRHc/en2NWlk08boPv4QSFrIePvDFqXYo4nO6DkOP7YZDghBr/1MijScR6jRLCBqwcf8aiNWPnW87vWQGNibe03trdzfFwOnDCNZVsJSCu2ky4wcD/a6dehkBSpQ2UMTuXwYs2r3bcitEjqIdld9w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790273460; c=relaxed/simple;
+	bh=5lhOVXQZup+E3Rx2DZM+/coFT9uP8Ke0U5hX3WPESxE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=hNjyaQUBbAA1DUxpvNZ4U6uYPbSDBGf6Sy8UCwDEyENdOXMeuR8LMVQ1fmIPVOleKC8QitDbJ+hkIeOy0FhRnEt2ZwdhMd6SGXLXS/3c+56zKnkX0agLPyE7yO6voW4+kohGBgUk0CB5thLkAqlVqGYg1SkG5IMvTK3Vt8fMfrg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=fI1qdBJB; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KOfdlZh8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A19721F000FF;
-	Thu, 24 Sep 2026 18:10:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790273450;
-	bh=iUyJ3F5pCxEfwlQ9lea9YBXzOZT5eF2QS0Ypku+S4+A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KOfdlZh8AhBNa5q67lGeLuUDyYXS9ySz9LwZ7tl4QraCw/AgSVFSa6kA7uXz5WuC3
-	 LjyZqxyYiq2kNBhcWHj7Xv6M60DQ3CB4yLXEGpTCpj8szSCyZr8KEt3FLv7hfps8+r
-	 bA2bJk1Ro7y+Ze38W0qvHPE6IAT8VgNgcw0ebFYGV14QJWcOiU0KeXhzBI4kEuwMol
-	 3wic/2fdUxBMxK1dAAjtA5qZ43vCi46EvP+/bXLD9qdadurZhHGTISl/vTZ4eqnbHX
-	 +fOVlydtluEHLHWopRV2URuqgM3zS0alFuF3LkFQda/xFFzbFgO9M3s5aFowAvxhXp
-	 nbA2czTeDzWWQ==
-Date: Thu, 24 Sep 2026 19:10:42 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Serge Semin <fancer.lancer@gmail.com>, linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 2/2] spi: dw: Add DMA support for enhanced memory
- operations
-Message-ID: <e77a4254-2041-47f1-b0a7-b496f77a29d1@sirena.org.uk>
-References: <20260923095705.233297-1-changhuang.liang@starfivetech.com>
- <20260923095705.233297-3-changhuang.liang@starfivetech.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="fI1qdBJB"
+ARC-Seal: i=1; a=rsa-sha256; t=1790273425; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=ldl/MqTGybXADH88ZA6vA1SFiO6eOkmETO1olpiubiONZ1uVx3vL/RTnn9XDUVX1XKiMA9tNEsf47ametpZjSbq440iw2fqHOf/mWXt4VqTzDQyRdF+nIsR0dpRshGj6MeQAs0uEemnW3K1vyhDnFS6jQFkG/IMZwrWvzsjpjRc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790273425; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=6O0y7YHB5eYuiFJy4FE91xQeeayyLqa5GzNXokwz1uU=; 
+	b=JGevWE2YeXTQDfk9n4+1yXbV3BWtXvtgu85YOrpb84VN8FTGHouwYDO32NvzXyYS2W5BQB9YGQwxZvMt3+66ouGyW+/RGrU9jXrVRYOSMN6k+VGPJ/htWKLoIxOQ47vxZyjLwjuZzUkG5MhcPck5F6DmAruWD9Ca2T5cTDDEVO4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790273425;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+	bh=6O0y7YHB5eYuiFJy4FE91xQeeayyLqa5GzNXokwz1uU=;
+	b=fI1qdBJB1/gBQNDYmx+nD+DJ0IJfO8es8q5XORMYiuMfcE+utQoqeMDR4UlVOxai
+	4I7t/DiviIND1nNcuqcKuw7FUszJXMnPL2qAWOlQxmGajjYC5AnWXRjy4gruB+WybLq
+	QJ9GtvxP3qMgH6ObqawLRy7zULrtu6hLErSVUKtw=
+Received: by smtp.zohomail.com with SMTPS id 1790273424541916.4231231614267;
+	Thu, 24 Sep 2026 11:10:24 -0700 (PDT)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Date: Thu, 24 Sep 2026 19:09:25 +0100
+Subject: [PATCH v10 08/15] drm/panfrost: Move all DRM device initialisation
+ into device_init()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7CCrzub0Penet8VL"
-Content-Disposition: inline
-In-Reply-To: <20260923095705.233297-3-changhuang.liang@starfivetech.com>
-X-Cookie: Oh, so there you are!
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260924-claude-fixes-v10-8-755929b3cc19@collabora.com>
+References: <20260924-claude-fixes-v10-0-755929b3cc19@collabora.com>
+In-Reply-To: <20260924-claude-fixes-v10-0-755929b3cc19@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, 
+ "Marty E. Plummer" <hanetzer@startmail.com>, 
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5733;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=5lhOVXQZup+E3Rx2DZM+/coFT9uP8Ke0U5hX3WPESxE=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqtWdZlkhG9Z1EaqYQ4Dm5mOq37cOAplMn5rPan
+ t1jLmReJSWJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCarVnWQAKCRAOJn5M7lND
+ PSMaDACuOLKonzc/p0k29nV79c+L2mJYlMAYdzDFMt4hxFe+Ju+x3M58w4kbuZm8RAJSOLpmYYQ
+ 6LxmtfDh532FSaBfWQtIDjxh+zNEDZG3lo9860VEu92XXrgpQT+EP9zfsJ2YeGWJJBJ04Wyzrr/
+ BGp2jUYGMyahjIIUL2j9k3gt8Ma2UOq90Cm3gHdiQv5AfyUsU26rajXyAS8ZDCcwSbLY/LihO3h
+ 8bdQMmtKqnmbrXKjcVqgVaE3vhFXtIJ+XS+KfciBk3GISKBPCIYqhWqCbIRbIT8Qh2pl1JQXkk8
+ mbOirMwGCttmVaoMYqoesKvdsRhZZCsV6riTAI+SpWtuoWpOCFyn76Qugm2/ffjdosAbADUcTmp
+ ZqMooru7AqTEb0j1Ea6Z9wVP9RumnADYv/feF+lDrcl0LT+d0k5SMjaeZSRW/fp9fplb0wmOGt5
+ LtvYhFhClqieBuaQwPFXoFL2src59USHqyFwHwthDa8AQFhHb3gRt/QdWB68PHBrtwsss=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
+Ideally the probe() function will do as little as possible, and all device
+initialisation and registration should happen inside the panfrost device
+subsystem, just like it's done in Panthor. This also simplifies resource
+unwinding in the error path.
 
---7CCrzub0Penet8VL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Do the same thing for DRM driver remove, as in, sweep most of the action
+into panfrost_device_fini(), just like we did for device probe.
 
-On Wed, Sep 23, 2026 at 02:57:05AM -0700, Changhuang Liang wrote:
-> Implement DMA support for enhanced SPI memory operations. On some
-> platforms, such as JHB100, only one DMA channel is available for the
-> enhanced SPI controller, so the channel is allocated dynamically based
-> on the transfer direction.
->=20
-> Add enhanced memory DMA callbacks (init/exit, setup, can_dma, transfer)
-> to struct dw_spi_dma_ops and hook them into the generic DMA operations.
-> The channel is requested per operation and released afterwards.
->=20
-> In dw_spi_exec_enh_mem_op(), record the direction in dws->tx_dir and use
-> the DMA path when a channel is available, can_dma_enh_mem() accepts the
-> transfer, and the transfer exceeds the FIFO length; otherwise fall back
-> to the interrupt path.
->=20
-> Rework dw_spi_dma_wait_tx_done() to take an explicit speed_hz, add one
-> to TXFLR for the word possibly left in the shift register, and compute
-> the delay in ns or us, dropping the dependency on the xfer pointer.
->=20
-> Also move the udelay(5) workaround into dw_spi_enh_write_cmd_addr() so
-> it applies to both paths, and enable the generic DMA setup in
-> dw_spi_jhb100_init().
->=20
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> ---
->  drivers/spi/spi-dw-core.c | 107 ++++++++++-----
->  drivers/spi/spi-dw-dma.c  | 281 +++++++++++++++++++++++++++++++++++++-
->  drivers/spi/spi-dw-mmio.c |   2 +
->  drivers/spi/spi-dw.h      |  10 ++
->  4 files changed, 357 insertions(+), 43 deletions(-)
->=20
-> diff --git a/drivers/spi/spi-dw-core.c b/drivers/spi/spi-dw-core.c
-> index 04a5b48373e1..6da3812f72f6 100644
-> --- a/drivers/spi/spi-dw-core.c
-> +++ b/drivers/spi/spi-dw-core.c
-> @@ -970,6 +970,15 @@ static void dw_spi_enh_write_cmd_addr(struct dw_spi =
-*dws, const struct spi_mem_o
-> =20
->  		dw_spi_set_cs(mem->spi, false);
->  	}
-> +
-> +	/*
-> +	 * FIXME: The exact reason for this delay is not fully understood,
-> +	 * but empirical testing shows it significantly improves the stability
-> +	 * of read/write operations. Without this delay, occasional transfer
-> +	 * errors or timeouts may occur under certain conditions.
-> +	 * Keeping it as a safeguard based on practical validation.
-> +	 */
-> +	udelay(5);
->  }
-> =20
->  static int dw_spi_exec_enh_mem_op(struct spi_mem *mem, const struct spi_=
-mem_op *op)
-> @@ -981,6 +990,8 @@ static int dw_spi_exec_enh_mem_op(struct spi_mem *mem=
-, const struct spi_mem_op *
->  	unsigned long long ms;
->  	int ret;
-> =20
-> +	dws->dma_mapped =3D false;
-> +
->  	switch (op->data.buswidth) {
->  	case 0:
->  	case 1:
-> @@ -1004,10 +1015,13 @@ static int dw_spi_exec_enh_mem_op(struct spi_mem =
-*mem, const struct spi_mem_op *
->  	cfg.dfs =3D 8;
->  	cfg.freq =3D clamp(op->max_freq, 0U, dws->max_mem_freq);
->  	cfg.ndf =3D op->data.nbytes;
-> -	if (op->data.dir =3D=3D SPI_MEM_DATA_IN)
-> +	if (op->data.dir =3D=3D SPI_MEM_DATA_IN) {
->  		cfg.tmode =3D DW_SPI_CTRLR0_TMOD_RO;
-> -	else
-> +		dws->tx_dir =3D false;
-> +	} else {
->  		cfg.tmode =3D DW_SPI_CTRLR0_TMOD_TO;
-> +		dws->tx_dir =3D true;
-> +	}
-> =20
->  	if (op->data.buswidth =3D=3D op->addr.buswidth &&
->  	    op->data.buswidth =3D=3D op->cmd.buswidth)
-> @@ -1043,47 +1057,68 @@ static int dw_spi_exec_enh_mem_op(struct spi_mem =
-*mem, const struct spi_mem_op *
->  		}
->  	}
-> =20
-> -	dw_spi_enh_write_cmd_addr(dws, op, mem);
-> -
-> -	/*
-> -	 * FIXME: The exact reason for this delay is not fully understood,
-> -	 * but empirical testing shows it significantly improves the stability
-> -	 * of read/write operations. Without this delay, occasional transfer
-> -	 * errors or timeouts may occur under certain conditions.
-> -	 * Keeping it as a safeguard based on practical validation.
-> -	 */
-> -	udelay(5);
-> +	if (dws->dma_ops && dws->dma_ops->dma_enh_mem_init &&
-> +	    dws->dma_ops->can_dma_enh_mem && op->data.nbytes > dws->fifo_len) {
-> +		ret =3D dws->dma_ops->dma_enh_mem_init(ctlr->dev.parent, dws);
-> +		if (ret) {
-> +			dev_dbg(&ctlr->dev, "DMA enh mem init failed (%d)\n", ret);
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+---
+ drivers/gpu/drm/panfrost/panfrost_device.c | 41 ++++++++++++++++++++++++
+ drivers/gpu/drm/panfrost/panfrost_drv.c    | 51 +-----------------------------
+ 2 files changed, 42 insertions(+), 50 deletions(-)
 
-This doesn't pay attention to the probe time detection of DMA, and
-there's no probe time path for requesting the channels so we'll always
-drop and request the channel.
+diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+index 9f2b1967a398..d531bada62f6 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_device.c
++++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+@@ -8,6 +8,7 @@
+ #include <linux/pm_domain.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regulator/consumer.h>
++#include <drm/drm_drv.h>
+ 
+ #include "panfrost_device.h"
+ #include "panfrost_devfreq.h"
+@@ -230,6 +231,12 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+ {
+ 	int err;
+ 
++	pfdev->comp = of_device_get_match_data(pfdev->base.dev);
++	if (!pfdev->comp)
++		return -ENODEV;
++
++	pfdev->coherent = device_get_dma_attr(pfdev->base.dev) == DEV_DMA_COHERENT;
++
+ #ifdef CONFIG_DEBUG_FS
+ 	mutex_init(&pfdev->debugfs.gems_lock);
+ 	INIT_LIST_HEAD(&pfdev->debugfs.gems_list);
+@@ -291,8 +298,35 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+ 	if (err)
+ 		goto out_perfcnt;
+ 
++	/* The reason we must manually set the PM status and usage counter is
++	 * we have just powered the device up but did not go through the PM
++	 * runtime resume callback, so we need to update these ourselves.
++	 */
++	pm_runtime_set_active(pfdev->base.dev);
++	pm_runtime_mark_last_busy(pfdev->base.dev);
++	pm_runtime_get_noresume(pfdev->base.dev);
++	pm_runtime_enable(pfdev->base.dev);
++	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
++	pm_runtime_use_autosuspend(pfdev->base.dev);
++
++	/*
++	 * Register the DRM device with the core and the connectors with
++	 * sysfs
++	 */
++	err = drm_dev_register(&pfdev->base, 0);
++	if (err < 0)
++		goto err_disable_rpm;
++
++	pm_runtime_put_autosuspend(pfdev->base.dev);
++
+ 	return 0;
+ 
++err_disable_rpm:
++	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
++	pm_runtime_disable(pfdev->base.dev);
++	pm_runtime_put_noidle(pfdev->base.dev);
++	pm_runtime_set_suspended(pfdev->base.dev);
++	panfrost_gem_fini(pfdev);
+ out_perfcnt:
+ 	panfrost_perfcnt_fini(pfdev);
+ out_job:
+@@ -316,6 +350,13 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+ 
+ void panfrost_device_fini(struct panfrost_device *pfdev)
+ {
++	pm_runtime_get_sync(pfdev->base.dev);
++
++	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
++	pm_runtime_disable(pfdev->base.dev);
++	pm_runtime_put_noidle(pfdev->base.dev);
++	pm_runtime_set_suspended(pfdev->base.dev);
++
+ 	panfrost_gem_fini(pfdev);
+ 	panfrost_perfcnt_fini(pfdev);
+ 	panfrost_jm_fini(pfdev);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index 02ddd391231c..f77780c72a1a 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -830,7 +830,6 @@ static const struct drm_driver panfrost_drm_driver = {
+ static int panfrost_probe(struct platform_device *pdev)
+ {
+ 	struct panfrost_device *pfdev;
+-	int err;
+ 
+ 	pfdev = devm_drm_dev_alloc(&pdev->dev, &panfrost_drm_driver,
+ 				   struct panfrost_device, base);
+@@ -839,50 +838,7 @@ static int panfrost_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, pfdev);
+ 
+-	pfdev->comp = of_device_get_match_data(&pdev->dev);
+-	if (!pfdev->comp)
+-		return -ENODEV;
+-
+-	pfdev->coherent = device_get_dma_attr(&pdev->dev) == DEV_DMA_COHERENT;
+-
+-	err = panfrost_device_init(pfdev);
+-	if (err) {
+-		if (err != -EPROBE_DEFER)
+-			dev_err(&pdev->dev, "Fatal error during GPU init\n");
+-		goto err_out0;
+-	}
+-
+-	/* The reason we must manually set the PM status and usage counter is
+-	 * we have just powered the device up but did not go through the PM
+-	 * runtime resume callback, so we need to update these ourselves.
+-	 */
+-	pm_runtime_set_active(pfdev->base.dev);
+-	pm_runtime_mark_last_busy(pfdev->base.dev);
+-	pm_runtime_get_noresume(pfdev->base.dev);
+-	pm_runtime_enable(pfdev->base.dev);
+-	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
+-	pm_runtime_use_autosuspend(pfdev->base.dev);
+-
+-	/*
+-	 * Register the DRM device with the core and the connectors with
+-	 * sysfs
+-	 */
+-	err = drm_dev_register(&pfdev->base, 0);
+-	if (err < 0)
+-		goto err_out1;
+-
+-	pm_runtime_put_autosuspend(pfdev->base.dev);
+-
+-	return 0;
+-
+-err_out1:
+-	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+-	pm_runtime_disable(pfdev->base.dev);
+-	pm_runtime_put_noidle(pfdev->base.dev);
+-	pm_runtime_set_suspended(pfdev->base.dev);
+-	panfrost_device_fini(pfdev);
+-err_out0:
+-	return err;
++	return panfrost_device_init(pfdev);
+ }
+ 
+ static void panfrost_remove(struct platform_device *pdev)
+@@ -891,11 +847,6 @@ static void panfrost_remove(struct platform_device *pdev)
+ 
+ 	drm_dev_unregister(&pfdev->base);
+ 
+-	pm_runtime_get_sync(pfdev->base.dev);
+-	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+-	pm_runtime_put_noidle(pfdev->base.dev);
+-	pm_runtime_disable(pfdev->base.dev);
+-	pm_runtime_set_suspended(pfdev->base.dev);
+ 	panfrost_device_fini(pfdev);
+ }
+ 
 
-> +	if (dws->dma_mapped) {
-> +		dw_spi_enh_write_cmd_addr(dws, op, mem);
-> =20
-> -	/* Use timeout calculation from spi_transfer_wait() */
-> -	ms =3D 8LL * MSEC_PER_SEC * (dws->rx_len ? dws->rx_len : dws->tx_len);
-> -	do_div(ms, dws->current_freq);
-> +		ret =3D dws->dma_ops->dma_enh_mem_transfer(mem, op);
-> =20
-> -	/*
-> -	 * Increase it twice and add 200 ms tolerance, use
-> -	 * predefined maximum in case of overflow.
-> -	 */
-> -	ms +=3D ms + 200;
-> -	if (ms > UINT_MAX)
-> -		ms =3D UINT_MAX;
-> +		dws->dma_ops->dma_enh_mem_exit(dws);
+-- 
+2.55.0
 
-Do we check for errors from the hardware anywhere?
-
-> +static int dw_spi_dma_wait_tx_done(struct dw_spi *dws, u32 speed_hz)
->  {
->  	int retry =3D DW_SPI_WAIT_RETRIES;
->  	struct spi_delay delay;
-> +	unsigned long ns, us;
->  	u32 nents;
-> =20
-> -	nents =3D dw_readl(dws, DW_SPI_TXFLR);
-> -	delay.unit =3D SPI_DELAY_UNIT_SCK;
-> -	delay.value =3D nents * dws->n_bytes * BITS_PER_BYTE;
-> +	/* Account for the word that may still be in the shift register */
-> +	nents =3D dw_readl(dws, DW_SPI_TXFLR) + 1;
-
-This affects all DMA users and wasn't really explained, it should
-probably be a separate patch.
-
-> +static int dw_spi_enh_mem_dma_caps_init(struct dw_spi *dws)
-> +{
-
-> +static void dw_spi_enh_mem_dma_maxburst_init(struct dw_spi *dws)
-> +{
-
-These are very close to the non-enhanced versions, it would be better to
-factor out the common bits.
-
-> +static int dw_spi_enh_mem_dma_init_generic(struct device *dev, struct dw=
-_spi *dws)
-> +{
-> +	int ret;
-> +
-> +	if (dws->tx_dir) {
-> +		if (dws->txchan)
-> +			return -EBUSY;
-
-Surely if the driver already has a channel there's no error?
-
---7CCrzub0Penet8VL
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq1Z6EACgkQJNaLcl1U
-h9BTygf/Y89pFFSN6zhkrm8QC6M8gwZjgWPBuPYViYYlQfJ8y36BNwze5uZIpFfx
-1+HUoZNcei0U0MyTVxYPRzg4PSCcOfVyCQ8wVhYrCdxBRnPp/AYYFovrFcTqfsMI
-377Ge2vc2mbRxkuyf89b7mM6giMTn12//PFvGCiGzneFpzgvqrGVUFRgNbp6vdVn
-nONrD9hUpI7RHhrNzUdnTFMsku99DL47UvpSlNkqWEEicQ82/weiV7+JDxzFeKG4
-21KwJu7LQWkd4Kbd3wpav1CIJu9jqCjcwDmoNPhjIhOFgpxBFj8ByJf7gkZP7R76
-T5UwTkOdmIp1uTJmADWTUYa6r5jAxQ==
-=RZBn
------END PGP SIGNATURE-----
-
---7CCrzub0Penet8VL--
