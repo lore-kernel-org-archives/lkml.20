@@ -1,35 +1,60 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C79381E8B;
-	Thu, 24 Sep 2026 01:41:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 968B937F306
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:42:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790214077; cv=none; b=eJ3xT1clpT4Im91HgAxj2Iikbbb+ilJ4CzgaGy4FwqMuGGOvWNVwHAgNy+MvWr5RkqWkZWX0YZ5bYDrJeQkBwMBxP950bvM0/3/mY4U/oRJste4cS9LviM5mh2CCLFobGiJi6u4GK3pGwO/yHv8Gzhwx0wNctYjIaqUdlavHgj4=
+	t=1790214150; cv=none; b=TEzzJvU4B6SUXJEdpQvfcEP0aDrO+cGgIxrplFEpxK/7F2w3n+fPT07BnXDoeUhwHVcDMIve/Nqycqq6wRWhtqiuqvNMYfRDPenJEXJBHE8e6SLGSi3h3peyaj7ZeYdpytg3aShDgp/+Snt2kJtmnZawcAHDiUpjtIPJS7CuA/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790214077; c=relaxed/simple;
-	bh=nC72NqSKgiG5NTFORV9fGD/moqOfIg8oK88apAv18GE=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=E3/ZZ5/b9xU1lsIjgD/wBl1k0UQty1TXK/zgqpvkXccr/bRW/f+tesEsDZ8cf6gx16hGeo3oH/+6BhV6R67pxc4sKVpxlwhZEyNzM/IqPcTU/8DcCY6RNfaM5Wd+CVfXvW9gbOwyde1xF8eFcw7FM7DaT2h+YD952s60bU3ctHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tb3n0xqF; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tb3n0xqF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8424C1F00893;
-	Thu, 24 Sep 2026 01:41:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790214076;
-	bh=eqnb1Vg86PARE4GBksgGeAsSXPnDWXL5uidKJJFhf4M=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=Tb3n0xqF85yHvZxbKU6d98SoDtSiEqWHKPqi3SCi70jSUEr8C/NrWCDwjYdraJ+O9
-	 Pr24PJPMbpvcwVwDqDRWadpwxXqo57V2TQcKdlUZVc+NzeV8Kf8I6wd7QnAc///pzN
-	 CkQWWoTRrmmOn+8KGzui/IbxzQ46OZd4qE7I5X9SrSPHh0b98lmOdANDTTIlWM1bv6
-	 VdgEkpN9tmaCuy8V53NZVCIN5RDiwYIhMMhVMsa4db2vIZpb0svRa54UNslZ6cbLbp
-	 iTBOJZqeb6Q74cgJ09hRc5vFMCyiVIGW8D9iLb0KE38phtEsNbxZykiA++LfFGS2eP
-	 cZmYsRoI8pYfQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 568BE39E9611;
-	Thu, 24 Sep 2026 01:40:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=arc-20240116; t=1790214150; c=relaxed/simple;
+	bh=7r527Yk1UbVeRDnlPmYI5WSwV+ouVCPoTrgY70vXBCA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jKt23/Ac/Utc2ugejGpGdOa1pqDpaHngHNquU4grPGEJt8y8txiXUqOfvzDAu+pkm5n1aAAV/pNIdzs7z9VD6XayB5YefM+qOOg1eFpPKItY1kztQftuFR8myXpHrWxi0dKxT+nas17cvaJCbgl4G8RW2eBuxvqdw8ICuX/keNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 2d7f7448b7b911f19a56ed5b684f684d-20260924
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
+	HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, SA_TRUSTED, SA_EXISTED
+	SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_BAD
+	CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU
+	AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:ff59cbe8-433e-45ea-bae8-9eefa49dd3db,IP:20,
+	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:20
+X-CID-INFO: VERSION:1.3.19,REQID:ff59cbe8-433e-45ea-bae8-9eefa49dd3db,IP:20,UR
+	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+	elease,TS:20
+X-CID-META: VersionHash:7db8b62,CLOUDID:8697ea62f6e9d3a9cf72ba9c5e0674ba,BulkI
+	D:2609240942213WNWGTJX,BulkQuantity:0,SF:17|19|38|66|78|102|127|850|865|89
+	8,TC:nil,Content:0|15|50|99,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS
+	:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,A
+	RC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 2d7f7448b7b911f19a56ed5b684f684d-20260924
+X-User: wangxuewen@kylinos.cn
+Received: from localhost.localdomain [(223.70.159.239)] by mailgw.kylinos.cn
+	(envelope-from <wangxuewen@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 329142879; Thu, 24 Sep 2026 09:42:18 +0800
+From: Xuewen Wang <wangxuewen@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Xuewen Wang <wangxuewen@kylinos.cn>
+Subject: [PATCH v1 0/4] ntfs: fix MFT bitmap extension allocation
+Date: Thu, 24 Sep 2026 09:42:03 +0800
+Message-Id: <20260924014207.1678305-1-wangxuewen@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,44 +62,28 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] ipv6: sr: enforce exact attribute length for
- SEG6_ATTR_DST
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179021400590.1269562.2967028555293483325.git-patchwork-notify@kernel.org>
-Date: Thu, 24 Sep 2026 01:40:05 +0000
-References: <20260921044025.1535982-1-benquike@gmail.com>
-In-Reply-To: <20260921044025.1535982-1-benquike@gmail.com>
-To: Hui Peng <benquike@gmail.com>
-Cc: andrea.mayer@uniroma2.it, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, hangbin.liu@linux.dev, horms@kernel.org,
- david.lebrun@uclouvain.be, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-Hello:
+This series fixes four bugs in the MFT bitmap extension path:
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+  - The adjacent-cluster candidate can be outside the volume. Check it
+    before accessing $Bitmap and fall back to the regular allocator.
+  - The allocator can return an adjacent cluster that merges with the
+    existing run. Preserve that run when rolling back a failed extension.
+  - Rollback can wait for the initial $Bitmap scan while holding a folio
+    the scanner needs. Wait for the scan before starting the allocation.
+  - Direct allocation changes $Bitmap without updating the cached free
+    counts. Update both counts and honor per-page accounting and space
+    reserved for delayed allocation. 
 
-On Mon, 21 Sep 2026 04:40:25 +0000 you wrote:
-> In seg6_genl_policy, SEG6_ATTR_DST is defined with .type = NLA_BINARY and
-> .len = sizeof(struct in6_addr). For NLA_BINARY, .len only enforces the
-> maximum payload length and permits shorter payloads (e.g., 0 bytes).
-> When seg6_genl_set_tunsrc() copies sizeof(struct in6_addr) bytes via
-> kmemdup(val, sizeof(*val), GFP_KERNEL), a short SEG6_ATTR_DST attribute
-> triggers a 16-byte out-of-bounds read past skb->tail into uninitialized
-> skb->head memory, which is stored in sdata->tun_src and leaked back to
-> userspace via SEG6_CMD_GET_TUNSRC.
-> 
-> [...]
+Xuewen Wang (4):
+  ntfs: bound the adjacent cluster in MFT bitmap extension
+  ntfs: fix rollback after MFT bitmap run coalescing
+  ntfs: wait for the bitmap scan before MFT bitmap extension
+  ntfs: account for direct MFT bitmap cluster allocation
 
-Here is the summary with links:
-  - [net,v2] ipv6: sr: enforce exact attribute length for SEG6_ATTR_DST
-    https://git.kernel.org/netdev/net/c/2d959c75c27f
+ fs/ntfs/mft.c | 26 +++++++++++++++++++++++---
+ 1 file changed, 23 insertions(+), 3 deletions(-)
 
-You are awesome, thank you!
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.25.1
 
