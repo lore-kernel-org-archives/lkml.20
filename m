@@ -1,92 +1,75 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C575411A02
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:03:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D83C041F35E
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:04:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790233440; cv=none; b=XHmPE8TUgZm9Zc04JHcWgKPV1GUg/QgGdP2zKwRGpVg+koUrdosf2nRhzRMhOGF12wJfVrawqSkMQp58YSqty6v69rNczOhwVN0C7GMtRUUNufh4uiuWKI2XYJ+IBk04PBsbmMfS0qPSjvvERgOCcXBoZNilFjgp7SwAyBltm5E=
+	t=1790233460; cv=none; b=kS+0goLYROwSgA+4DeaNTppQAo1Qag8cv25PDCarBO2JslGhyINqOVllCaXng0DDGWYxKD9acVvue2/BRmJCdTjvE8TNIcJOMSTA37dBOITaF1LJl34WfrOAF6muUleHkqzUlXk2aB6W5xlvD/cXrEl20MKjXPxwgfC0tRzrIJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790233440; c=relaxed/simple;
-	bh=HThu999JdrJsgMHwqzxbZIWm9oNlifMrfJOz7Lutz6Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CPniqa/43fOIWRF7pn6rg2YSgfzyQ/u/1hL5L4SR01JYIdKqSlJO7qZKCMCU2CQWarJOPXoxJJf8Ah8Bh3V924EifNyKjNSJD2V1FOBEmDlv2ygdvWoUiAQ48lQmBy9NRn4kc8VJy6DXTHYeGHpfJaE0YcuxTtNu7M8TyZlaqhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WLs3Z1Y4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PP77nBnG; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790233460; c=relaxed/simple;
+	bh=hSzjj5EWj93aJkVCLgJoqkSUV4JeHbR4WsKjyBSNkqc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aoVDI6are7JFJ0w7qPa6mG4icx+hdpjbAp3iNhYjhRpj5Rg17UZr1fsqQO3nqySplhTiM55d0GixSWj1RifrEpqxDLXpUwPoscVQB4m89hgoDqVK0ek2fggymYOhw3c0ZVy1SkkNWsWiGaEC+rhYBF1c95TypRWbaSG+3iUvRqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AASOGoCP; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WLs3Z1Y4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PP77nBnG"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5eU3r2421318
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:03:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=/fJFsThCRy735OBr32VrOnDr17SixmR1mu1
-	90oUUl6I=; b=WLs3Z1Y4cZRfEeoiZazWeki9a+bZk8LcUjbcX6YndjZyvEZ8R4S
-	jmb2YFDfkYPbRx6EzkJJ/cPFTAiLqKpHgYpc2laF53BXz2a4HPqBYih+dAiZEOdk
-	TCSKO5htqjTUkrnDaCYB5EIoJgejdWJ49tuwcwr8MFlm6M2LC41c4kH692U+bMFt
-	2MfRMDQ8dTGr1HwC8NiHIKcL6xUMpscssqVpBtKzxV8fURZIxnUoWKwgcmHUJxAP
-	wPdA4PMhbn2971Mxh4KBduZ2Uplk1bExpXORIUm9olHj9jYfAKiXNZD3ZdQ1gFjl
-	Gwf/iGpzO/QCrtUA2Z1MVGQo26kzMvhw11w==
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvstuh6ee-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:03:47 +0000 (GMT)
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1416f32fe11so2541975c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:03:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AASOGoCP"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d91c22d27dso6708065ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:04:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790233426; x=1790838226; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790233453; x=1790838253; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/fJFsThCRy735OBr32VrOnDr17SixmR1mu190oUUl6I=;
-        b=PP77nBnG30IZQnh6RuInOjG7xTi4AZ8ySC5qSJ3zYejU6V64hbwTuIwhgvsDxSsL9U
-         D9v/+1Bjiiyfe+e5TdFcayotiRCj6EmgxJE1dGB3R1vmCp88nttqZI7sINaS31i+pe2R
-         hDbOtQqQv0VXSHPV8a2LQ6+zL4oI1OVd3dbOuBqNScJXXPPM4XanQdz3QDHzR90gMxTF
-         mzcHbJ95kydMy22DcXAncZsSKYOlC9ub1QmLnBO1thHKoETkLalHHWpPqKbikhkxzJKb
-         ZhOcPj+ldMdqLz52ibElTXib9QYlbpLZhnQRXLLz1ZkCPAB9wt/bEQLwbf4U8KHk3sYU
-         ffkQ==
+        bh=Y2LTg3vvPFgbzPTkmqn0IohkH/9PUn3rBZlX6gCR2Kg=;
+        b=AASOGoCPmgpcvKwW6C5Pij6fWD8oWuFePAYlGNEP4mei+K+IJw9mF+JkIpQtNfBW3R
+         stxNIIJwQPht3FDyHXjXhQp1geXi+E7nnhl4xbqWLJkDEYe5Z5v/Ty/fgaTrrjdf926c
+         hTagZ9ZJ4z6ZiRBbabJnvcvRZUdXOZMnfMi3MfspG+oz3fs68Edx/NAzWoy6TcGZVh5I
+         jEcnjwaswU01AsVQO0AmnRM0kzy+Eivj9n+s/OgKsyxbNY1qMzx5UuGMPzBIZjtu24XW
+         T5PizlQ1hjSiixUYz/GUJ6/1IhYIk8kbnuW65IJ5IfRPt/SO/3ajhjlJTNGQYQyvuhdU
+         0vcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790233426; x=1790838226;
+        d=1e100.net; s=20260707; t=1790233453; x=1790838253;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/fJFsThCRy735OBr32VrOnDr17SixmR1mu190oUUl6I=;
-        b=nBMYOjKYvc2k+H01OD1C5yBnFjc4lbp6Bk8MzQEA/t42LshQQjhdoIq3H2t203bt0j
-         4BFLDC8zHGsspxiOytobxf09Z7WUCkjVwTFaNvSBxgQndMW15q8BVYHzc/vVTrxLStyx
-         FZsA2JP8wkGbNBkYm9tCgtaLrllNjmcmUF7PZUvqZ6zo0wmutbUKQ0nMkv+5Y+BxR16V
-         q2A8Uaq+26ubimzzW2sQSjKzur65NGcJrpAfFjju5ya8acxdaej9fTwH8srVqJzyWAU7
-         9wTp/pYQMg68zgEAltlgSzlYq+yoxaibASSpnrLH1yJHLGa+GKFuFbwXdrFOJN8fnUBO
-         VcNg==
-X-Forwarded-Encrypted: i=1; AKwUvBywzKPcIjcZ+tD4DCkGMavv3y0f9NmRLDKbF6d5gIFdvNIrQ5ok757o7THLKwnggdJzmbt8Ll/XPCqxC6U=@vger.kernel.org
-X-Gm-Message-State: AFuF++l1fv8uJG1qaIjB3Pq9BdZMSd6BfN7GvWnsoe1jLE3uof0r8VJs
-	2ZsLBRImFlyoKiYX8CiVHlqv5HJuYCtztZ/NYrYmYtwlOWMAaoIa+DLD+CSnSztPMp8Nzni7Zxb
-	IxtnqtE9ZGgrRa2XGIoABG4LE8oy/3jh85Xg08aoeknULQlBRQDlgp3ILWqOL7dI7s7A=
-X-Gm-Gg: AYBFou0o/VRjy2ZPBO4soJ5VQB2+4E3/6u/FglfF23dswxCQtSlCNiehjv94RnvQPA5
-	jbRCHgD+yzK2gxc3o/9YzzCcDN9Kh1NbEP72lEODNwvA/X2P4DMVnw233ewISdKOCleEJJFsFs3
-	GBlx1fdDWgzXq8hVbZffRRx9pvk5qbZcCjw0p8jYgmmTJOCdmd5F4Qah2cxhcqW4pSrndyiakZJ
-	TEeNZx3kdXMGibLQyl6zSJmGOaZNoAdjCeHmpEUMpfJTrlKKlADkgWfPxLFruC32C2kjndJJnSn
-	GP1XkZsuGRu6ncE7O/TaRG59iE7Lj6+DuzJVhc6ahnrHQMLK21/AGdzKVPZbHooEy/ypxmysiyW
-	02GGrTkYKqWuHSXstf7mwNzV5TKBs7BnTXtfYKm58U9GTpS3ZPPONqQ0SGUU=
-X-Received: by 2002:a05:701b:4504:20b0:144:fdf0:9d91 with SMTP id a92af1059eb24-14504031b58mr1138273c88.24.1790233425570;
-        Thu, 24 Sep 2026 00:03:45 -0700 (PDT)
-X-Received: by 2002:a05:701b:4504:20b0:144:fdf0:9d91 with SMTP id a92af1059eb24-14504031b58mr1138236c88.24.1790233424620;
-        Thu, 24 Sep 2026 00:03:44 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f983d73fsm14289599c88.6.2026.09.24.00.03.41
+        bh=Y2LTg3vvPFgbzPTkmqn0IohkH/9PUn3rBZlX6gCR2Kg=;
+        b=18cX6Bkwx65I6A1xX5/LlYBtvImouY0cE6IMRCLpAt2MRImyI+DIurIyYdnIaz5n3H
+         fe0xVubTb4+6dJElIHl/nBvTvc82Tnqwk2VeL39IHFSLE4iMhhEk8yeka02nnSPFXR4J
+         tt1jKci+/ge7WpQbnYj/In/qjn2X3XkVBUqgCXpxc/Y3EDDBLZH91ECy8aE75fxzQoMa
+         7pdNU6szstaz0xataCUSs9Q3ZK8ZJFCUOCpX5VXMlGBVs8E9afNAp0o5xJ+DG7qsrt+V
+         s6Z9qYM3KXGzRcOGaeY2IWNwQhbis2ZUg95esV8nWn238FBx1dsgsP/4SnCQWuBf45KR
+         OSAg==
+X-Forwarded-Encrypted: i=1; AKwUvBzE5qN/k1n4UisJtkvBakiiDXGfyRmmMhzRf1r1Cstowpcr2iB8ZD1vjrG5JkaoG06A2A9tvgEZTENKSzg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mvEM9FEg/8tytHDAmoYyMaZ92vT2XWiHGZrNknZUNb8cWZeJix
+	QOIJ9UfHjZjDfSMUCvxBmWQqVYZGR8OtrREXVkUrGJskSbamstH8BVm6
+X-Gm-Gg: AYBFou22kXBBw7VZb91bepQVG6QQLn1kQQG1ofSJS+mWRDW+DYp7X04UlYfOuxms6Kl
+	STku5PErtrNKwbW9euRnS9TdDlSH2qPFw8vfJQweLzrFtVfhpHgUvszbM9e/q9lraGLA4HoqxYx
+	3OoyzoTjT/oYeeCKC9aUPsTmtDca31RZe96fx4BFRwOa2mOaYm+yuCla+y7LAtv8c0dNDAaSAyi
+	F/WubRVEfkotxww6ygcNWm+ZEm5TllscGdvuQaBMQPUOws5bATLwB3Y4pHsv5QrQmMQXg8Tw3Po
+	yurhHJysev+wMCWoz3TzAHZI1v1ExAuVP7vglgCQjvfcDdiTrLc5EpqCDtYRnL+N1y71/G8w/7i
+	yAFD1ljBDgDZMcnRTyhTXw8hd9Cnz0RjLHVIhd9KzhtrxUxW7Zq7u7yLkGXn5EXoiU0ZD+aHofr
+	sPVuPLkhMa58Lreoot9f3ecJ5SbXc9IfXmbRdx73Ckt53MasK9HsfxNS053x8LsBmtI1Tc1ergd
+	L+IxM6vfMvCP/iIawM7MMc/ZWWoCVCkHYt3Mx0mkWG8RbZUkblyZAS8KTSHbcIopeWqXW+v3Bbs
+	Ro0WXJqnKuUq1RQXn14m
+X-Received: by 2002:a17:903:b4e:b0:2dd:c100:4b75 with SMTP id d9443c01a7336-2df7dc5aa2emr13480375ad.44.1790233452740;
+        Thu, 24 Sep 2026 00:04:12 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a60c4a8sm21543205ad.79.2026.09.24.00.04.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 00:03:44 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Yu Zhang <yu.zhang@oss.qualcomm.com>, linux-gpio@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH v4] pinctrl: qcom: spmi-gpio: make direction changes exclusive
-Date: Thu, 24 Sep 2026 15:03:22 +0800
-Message-ID: <20260924070323.983528-1-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+        Thu, 24 Sep 2026 00:04:12 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: slava@dubeyko.com,
+	glaubitz@physik.fu-berlin.de,
+	frank.li@vivo.com
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH v2] hfs: validate allocation block parameters in hfs_mdb_get()
+Date: Thu, 24 Sep 2026 07:04:10 +0000
+Message-ID: <20260924070410.2629558-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -94,172 +77,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAyOSBTYWx0ZWRfX6gPnx0951ixj
- oiPYyffE1fJE6AXy6QQlqZj6bpXBc1UhrOZEO2bPeZX/MHc/Map2fdinTuksOpYjU5gIUAbGA0h
- MUBc7SSxVBmQ4iWZG7hB8hbiPOMOOAI=
-X-Proofpoint-ORIG-GUID: WjD9oqyI7gJj2SPqV4Ok3VNaeZvMIv7o
-X-Proofpoint-GUID: WjD9oqyI7gJj2SPqV4Ok3VNaeZvMIv7o
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAyOSBTYWx0ZWRfX4IjHqStWPdR4
- qFc1HMs2hlcaRBqOxVJDT9DKCvdlxwbL+LQfHgEhy3ztBe0/tmTGzD3zOoLiD3jj18NXnQdNl0n
- 9jNeQgZpaOicHG7hluITTCy7qenB5L6D3aLu4Nz7awzjyGzrTytciyafhUl1n0scM9MMiUSEZ8q
- wpA/i3kb26yERVTn/KckJQVnRokhrhJwg872m/yS5jfizADaiZsl6fclnh2T0VOAMfCyqBnA+hZ
- iZYj5vyepsHAzmYxC1z0I99q45oTlCt0q7sBFI8k1Vhgqu8Cl1ug5tK/9O0EXbX/yobLKfeXD0G
- yf/2CzFYBt1l3X91hYFrhigDcdWCLQblszi6bsqbFtKF+Hsn9jRKE93nldXZ1r8r+dTxdM881xu
- cGCURYzrEqj3Y6AP/zutrxWVvpcom+qHea79NbAqrG+bGJr2Aqg5SYcPNW5GDf07n/2RCPUPfpl
- kLybZdBu20Hxlvc9QbA==
-X-Authority-Analysis: v=2.4 cv=cKp1IVeN c=1 sm=1 tr=0 ts=6ab4cb53 cx=c_pps
- a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=E7y4-Cke29mXp6t5dL8A:9 a=vBUdepa8ALXHeOFLBtFW:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 impostorscore=0 suspectscore=0 adultscore=0
- priorityscore=1501 bulkscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240029
 
-pmic_gpio_populate() seeds pad->input_enabled and pad->output_enabled from
-the hardware MODE_CTL register, so a pad left in DIGITAL_INPUT or
-DIGITAL_INPUT_OUTPUT mode by the bootloader starts out with the input
-buffer enabled.  Neither direction callback clears the opposite buffer:
-.direction_output() only packs PIN_CONFIG_LEVEL, which sets
-output_enabled, and .direction_input() only packs PIN_CONFIG_INPUT_ENABLE,
-which sets input_enabled.  Requesting either direction on such a pad
-therefore programs MODE_DIGITAL_INPUT_OUTPUT rather than the requested
-direction.
+In hfs_mdb_get(), drNmAlBlks (fs_ablocks), drAlBlkSiz (alloc_blksz), and
+drFreeBks (free_ablocks) are read from the on-disk Master Directory Block
+without checking their mutual consistency against the partition size, and
+failure to allocate HFS_SB(sb)->bitmap returns -ENOMEM without releasing
+HFS_SB(sb)->mdb_bh, HFS_SB(sb)->mdb, HFS_SB(sb)->alt_mdb_bh, or
+HFS_SB(sb)->alt_mdb.
 
-That silently breaks both directions.  After gpiod_direction_input() the
-pad keeps driving the line.  And after gpiod_direction_output()
-pmic_gpio_get_direction() still reports GPIO_LINE_DIRECTION_IN, because it
-cannot tell plain input from input+output, which makes gpiolib consider
-the line an input while the driver is driving it.  On a board where
-several regulator-fixed nodes share one PMIC GPIO the shared GPIO proxy
-reads that direction back and rejects every consumer after the first:
+Validate that fs_ablocks is non-zero, free_ablocks does not exceed
+fs_ablocks, and drAlBlSt + fs_ablocks * (alloc_blksz >>
+HFS_SECTOR_SIZE_BITS) fits within part_size, and clean up via
+hfs_mdb_put(sb) on error.
 
-  reg-fixed-voltage regulator-wcn-core-vm-1p35: setup of GPIO (default) failed: -1
-  reg-fixed-voltage regulator-wcn-core-vm-1p35: error -EPERM: can't get GPIO
+Tested in QEMU against Linux 7.3.0-rc3 by mounting a crafted HFS image
+with drNmAlBlks = 10 and drFreeBks = 50: on the unfixed kernel
+hfs_mdb_get() accepts the inconsistent MDB parameters, causing filesystem
+corruption ("hfs: (loop2): extents (cnid 0x3) bitmap corrupted"); whereas
+with the fix applied mount fails immediately with "hfs: inconsistent
+allocation block parameters in MDB" (-EINVAL).
 
-Pack the opposite buffer's PIN_CONFIG_*_ENABLE along with the requested
-direction so that the resulting MODE_CTL is DIGITAL_INPUT or
-DIGITAL_OUTPUT, never both.  pmic_gpio_config_set() programs the registers
-once after walking all configs, so this stays a single register write.
-
-Open-drain and open-source outputs are the exception: such a pad only ever
-drives one rail, so DIGITAL_INPUT_OUTPUT is physically correct for it, and
-pmic_gpio_get() needs the input buffer to sample the line rather than
-return the value last written.  So .direction_output() programs the input
-buffer from pad->buffer_type in either case, rather than only clearing it
-for a CMOS pad: the buffer may have been left off by the bootloader or by
-an earlier direction change made with a different buffer type, and an
-open-drain pad that keeps it off would fall back to reporting the value
-last written.  gpiolib applies PIN_CONFIG_DRIVE_OPEN_DRAIN before calling
-.direction_output(), so pad->buffer_type is up to date there.  Key
-pmic_gpio_get_direction() off output_enabled so that these pads still read
-back as outputs.
-
-An input must not drive the line whatever the buffer type, so
-.direction_input() clears output_enabled unconditionally.
-
-Pads that are genuinely bidirectional can still be described that way
-through pinconf, which is the interface that has always been able to
-express it; the gpiolib direction callbacks now mean what gpiolib says
-they mean.
-
-Fixes: 263447532463 ("pinctrl: qcom: spmi-gpio: implement .get_direction()")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-Changes for v4:
-- .direction_output() now programs PIN_CONFIG_INPUT_ENABLE unconditionally
-  from pad->buffer_type, instead of only clearing it for a CMOS pad,
-  so an open-drain or open-source pad whose input buffer was already off
-  gets it re-enabled rather than falling back to reporting the value last
-  written.
-- Link to v3: https://lore.kernel.org/all/20260924032314.948638-1-shengchao.guo@oss.qualcomm.com/
+Changes in v2:
+- Validate consistency between drNmAlBlks, drAlBlkSiz, drFreeBks, and
+  part_size in hfs_mdb_get(), as requested by Viacheslav Dubeyko.
 
-Changes for v3:
-- .direction_output() clears PIN_CONFIG_INPUT_ENABLE only for
-  PMIC_GPIO_OUT_BUF_CMOS pads; open-drain/open-source keep the input
-  buffer so pmic_gpio_get() samples the wire.
-- pmic_gpio_get_direction() now keys on output_enabled instead of
-  input_enabled - required, or an open-drain output reports IN again and
-  the -EPERM regression returns.
-- Link to v2: https://lore.kernel.org/all/20260922065908.477523-1-shengchao.guo@oss.qualcomm.com/
+ fs/hfs/mdb.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-Changes for v2:
-- Drop GPIO shared-proxy patch
-- Update Fixes tag (Thanks Neil!)
-- Link to v1: https://lore.kernel.org/all/20260915014447.282121-1-shengchao.guo@oss.qualcomm.com/
-
- drivers/pinctrl/qcom/pinctrl-spmi-gpio.c | 37 +++++++++++++++++++-----
- 1 file changed, 29 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
-index f6dc43e27b38..9163bb14d703 100644
---- a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
-+++ b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
-@@ -734,29 +734,50 @@ static int pmic_gpio_get_direction(struct gpio_chip *chip, unsigned pin)
- 	    (!pad->input_enabled && !pad->output_enabled))
- 		return -EINVAL;
+diff --git a/fs/hfs/mdb.c b/fs/hfs/mdb.c
+index 277de712f9d4..665753a2cba9 100644
+--- a/fs/hfs/mdb.c
++++ b/fs/hfs/mdb.c
+@@ -214,6 +214,14 @@ int hfs_mdb_get(struct super_block *sb)
  
--	/* Make sure the state is aligned on what pmic_gpio_get() returns */
--	return pad->input_enabled ? GPIO_LINE_DIRECTION_IN : GPIO_LINE_DIRECTION_OUT;
-+	/*
-+	 * An open-drain or open-source pad keeps its input buffer enabled while
-+	 * driving, so the output buffer is what tells the direction.
-+	 */
-+	return pad->output_enabled ? GPIO_LINE_DIRECTION_OUT : GPIO_LINE_DIRECTION_IN;
+ 	/* These parameters are read from and written to the MDB */
+ 	HFS_SB(sb)->free_ablocks = be16_to_cpu(mdb->drFreeBks);
++	if (!HFS_SB(sb)->fs_ablocks ||
++	    HFS_SB(sb)->free_ablocks > HFS_SB(sb)->fs_ablocks ||
++	    (sector_t)be16_to_cpu(mdb->drAlBlSt) +
++	    (sector_t)HFS_SB(sb)->fs_ablocks *
++	    (HFS_SB(sb)->alloc_blksz >> HFS_SECTOR_SIZE_BITS) > part_size) {
++		pr_err("inconsistent allocation block parameters in MDB\n");
++		goto out_err;
++	}
+ 	atomic64_set(&HFS_SB(sb)->next_id, be32_to_cpu(mdb->drNxtCNID));
+ 	HFS_SB(sb)->root_files = be16_to_cpu(mdb->drNmFls);
+ 	HFS_SB(sb)->root_dirs = be16_to_cpu(mdb->drNmRtDirs);
+@@ -305,6 +313,10 @@ int hfs_mdb_get(struct super_block *sb)
+ 	}
+ 
+ 	return 0;
++
++out_err:
++	hfs_mdb_put(sb);
++	return -EINVAL;
  }
  
- static int pmic_gpio_direction_input(struct gpio_chip *chip, unsigned pin)
- {
- 	struct pmic_gpio_state *state = gpiochip_get_data(chip);
--	unsigned long config;
-+	unsigned long configs[2];
- 
--	config = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 1);
-+	configs[0] = pinconf_to_config_packed(PIN_CONFIG_OUTPUT_ENABLE, 0);
-+	configs[1] = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 1);
- 
--	return pmic_gpio_config_set(state->ctrl, pin, &config, 1);
-+	return pmic_gpio_config_set(state->ctrl, pin, configs,
-+				    ARRAY_SIZE(configs));
- }
- 
- static int pmic_gpio_direction_output(struct gpio_chip *chip,
- 				      unsigned pin, int val)
- {
- 	struct pmic_gpio_state *state = gpiochip_get_data(chip);
--	unsigned long config;
-+	struct pmic_gpio_pad *pad = state->ctrl->desc->pins[pin].drv_data;
-+	unsigned long configs[2];
- 
--	config = pinconf_to_config_packed(PIN_CONFIG_LEVEL, val);
-+	/*
-+	 * An open-drain or open-source pad only ever drives one rail, so the
-+	 * line can still be sampled while the pad is an output.  Keep the input
-+	 * buffer enabled for those, so that pmic_gpio_get() reports what is on
-+	 * the wire rather than the value last written, and disable it for a
-+	 * CMOS pad, so that the pad ends up in DIGITAL_OUTPUT rather than
-+	 * DIGITAL_INPUT_OUTPUT.  Program it either way, as the buffer may have
-+	 * been left in the opposite state by the bootloader or by an earlier
-+	 * direction change with a different buffer type.  gpiolib applies
-+	 * PIN_CONFIG_DRIVE_OPEN_DRAIN before calling this, so buffer_type is
-+	 * already up to date here.
-+	 */
-+	configs[0] = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE,
-+					     pad->buffer_type != PMIC_GPIO_OUT_BUF_CMOS);
-+	configs[1] = pinconf_to_config_packed(PIN_CONFIG_LEVEL, val);
- 
--	return pmic_gpio_config_set(state->ctrl, pin, &config, 1);
-+	return pmic_gpio_config_set(state->ctrl, pin, configs,
-+				    ARRAY_SIZE(configs));
- }
- 
- static int pmic_gpio_get(struct gpio_chip *chip, unsigned pin)
+ /*
 -- 
-2.43.0
-
+2.55.0.1082.g2b9226bbc0-goog
