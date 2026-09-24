@@ -1,84 +1,166 @@
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06CB541F7DE;
-	Thu, 24 Sep 2026 19:29:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.126.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E5674B7149
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:30:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790278187; cv=none; b=i3uCyUrEU1il1p35pIFZPA+W6+5mXxI5q4Q8X7Uz4M/NNhOZW6RlPfzqce10ByfHHNCJWxBPkkdHdF/k0u6MGC5WYaOZrIEPEJjao0JZEyqeOBA82gs901c+b044vABWozT/2rI6Y1dLnh5yNCC36aKzH+B1he8K12Dz8HLIUIo=
+	t=1790278222; cv=none; b=Oz4pgNLgO246GHdTiCces/a84+7SVSqMOnkDTnj0C2nBqfrTwSd6E85qM1LUs9NApuwhHuzQ57uABBnUJZio9wcG4eRVcVgjhWkHpwyTlzEVViL4FuKIehaOr8iaXe8t9fbCo1nYq8e8RIxiNBkMaORcXW2fJGWfV93eABgmjO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790278187; c=relaxed/simple;
-	bh=M1lsxIL/2IL4doIfEi3/p2wMJzNcTgPBz5Sr+95DIF8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F/ytcJCjW62o99EdPPwfHXyfMCCcreyMbrdCuB3QRmdIdKUg3knOYJ/80T9Qifk7Y54laIWDkSnc/F/V+tkNzH47g/wPjkLk8RisTLINAKzlIL4ngrGcMz/ycbESrubIfiA6zN4sTCWp4kblzJS0yCNi/O9UV28sy2bvBeIS0m0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net; spf=pass smtp.mailfrom=weissschuh.net; dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b=bAfciQh8; arc=none smtp.client-ip=159.69.126.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
+	s=arc-20240116; t=1790278222; c=relaxed/simple;
+	bh=OzqluZqRVfMingGFZl8Ew6dmAbmJFB15xftTLwFF31c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GQRDtRmHUtC10yBKSlAd31Gavdji4ckGUE8Dac1UKxvUPp/8TNe9c9jcdLf3pNlVW+8kgnBr7vJ7lz0+vcEZkHPpMwcVfFfMEnr6fi6vCUZ5u+2OOCR6ms0BrYCAmsKo1EWAUkYXP6dq6h7uheV2TBJSpmPtHowKrQtyEvVVsO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OnzXOLy6; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b="bAfciQh8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
-	s=mail; t=1790278175;
-	bh=M1lsxIL/2IL4doIfEi3/p2wMJzNcTgPBz5Sr+95DIF8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bAfciQh8ufJtT6JcK2olGLbxOSxQgAZaSBTnrRQ/sIUWvWxnU1pewo8VfGW4jSfSM
-	 +J2Jc/DN6EGjy9iOIMTTd6D/WhWtvcTcTMPaj5lwQ3gicrHRUrWFJcR4TvFW2S+hM/
-	 JPLvWX+5HMYch7DuDOuk8av8Cic1i2gzc80MV4F0=
-Date: Thu, 24 Sep 2026 21:29:35 +0200
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
-To: Danish Khateeb <danishkhateeb03@gmail.com>
-Cc: Willy Tarreau <w@1wt.eu>, Shuah Khan <shuah@kernel.org>, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] tools/nolibc: fix verrx() and errx()
-Message-ID: <4215a112-138b-4fc9-b958-a0ac112cee83@t-8ch.de>
-References: <20260924120958.23698-1-danishkhateeb03@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OnzXOLy6"
+Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2d747ec6188so471715ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:30:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790278220; x=1790883020; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FULwkoFMwVo8tcQ8iB8waPMOVXDiej94ubxh80J+bpE=;
+        b=OnzXOLy6YY0Xmqhh7G0VUhv6KGZLGOILJ+860EnHj+qZySYsY8wgCDnRnupL7udqaD
+         ntHlDjzr5yVEF+o4J9OSA9Tg/WymXzrnCbq9M9RTIUCb4fSK/yTgSOuDQXmf4y5NRkLK
+         wsMZH2Iou6/Xd7OVNmEWYLDd8JF39RhWyvXF3JiZeXZyZw9j98/P8RXW4qb4TVp6hXuB
+         zeNxjuPQtZ8TRdqGrRxCzulT2WPpKFjFw6U31U6sksn+EbqxW7pK05tkbC63qCJOCvR+
+         GtYwRANf38Nlbq57JfAPLVgchmmQMjUhOj0kSrSHKPAma+5MPvUwleAMofFAS5ipgKFt
+         7u0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790278220; x=1790883020;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FULwkoFMwVo8tcQ8iB8waPMOVXDiej94ubxh80J+bpE=;
+        b=OwyEjydkLUGYGf1Q/E7D/VYZ8J2qseW/R2XZop04xUkrhPUdH2V1dvFsInSwwhnuIE
+         00nDMGCJSFfAdh9DTxDkNdIz+weNX6z66ot9UVgVZNwKc8Y8eiCn5ZY0qy/IOe/KyFmt
+         rw79ziBbxGM7f9fZMdlI/DiyBJEl/+MiF9scXv5ukuTrCLkRpWDWB8kg8NgeojrgwJPJ
+         MmW9i9tz9xVbP65UNkYaZM8ogtOh5ZLPS7moLRZSRuO0jRR46FUwDy3WpIcght6uHThN
+         mOxMztq5MJHmCOS0Y+ulkHUZg2EZm0aU67Ym09TlvGnprhxxRzFq1WjuEtUVOSXl4cL0
+         YrAw==
+X-Forwarded-Encrypted: i=1; AKwUvBwRhjMThPf7B9Z7XIsmmawzC1GQv6H5DoF+7IaQjtLQhgx/9vlKkeVJS6XZvx3KMw+24LJy0bgCBtHMds8=@vger.kernel.org
+X-Gm-Message-State: AFuF++k6xMHfNMme4BxgQFLVgNYEsuQMiFMgQVsgS/DKuilrGQlOacA1
+	QkSjTj4FaysY7RH4tQ18LLmCIgV/lwxYPS+sW9B3/ugibyE+ahFRf1sr
+X-Gm-Gg: AYBFou2/JZz8kVb2yML3+1EhdDTJtc9yQdcesIVzP7pLxlQAOGUKUU83pFeKUREztaH
+	vRN5OKEf0K8z6IxZfQ2CXqrmAmz7JmclSd1vvaOol2LaZvJZpSOjXoY4NV4v+ySlzg4dafeSGhd
+	4YE2UrkCUXtF67gPZOr+tv9v1xRXqclwyyMeHzkPnK4QU78h3noeS+6NqkW4u6h35FVgrcEmzmO
+	eRVZHIQPZxdB5xAI9p+KM5tR7XGGfIykUYMhlZHcJUUq5+QgMN4K8He3AbjWWLu7d6jD0Fw6UdD
+	8entdq3VritxT6GUNnKwJs1xL8s1BAAn4czydlbqDzn+SgnVtYLR9wlzWy9wlan7+2PG/opmMuO
+	auiOa33KVOx21jyEWWwHudXU6bkhMP/MOCVOWHaxAk3ADS56y3F6JsOtPbgdgGgLxNPLIOIRchs
+	q+cogveoGCTAS8cW63xxH+vS3r0KBPf2WzoPAeVkzrapIHaCHgXLNgZFz/B9UefmB3Sri8/B3+V
+	U/gTcxvRRFevEMGvAQB5vpo
+X-Received: by 2002:a17:903:240b:b0:2dd:c053:ec70 with SMTP id d9443c01a7336-2df7e119fc5mr34820385ad.35.1790278219488;
+        Thu, 24 Sep 2026 12:30:19 -0700 (PDT)
+Received: from localhost.localdomain ([103.77.186.88])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9140545bsm858585ad.39.2026.09.24.12.30.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 12:30:17 -0700 (PDT)
+From: Raj Ojha <rajojha047@gmail.com>
+To: Ulf Hansson <ulf.hansson@linaro.org>
+Cc: Maxim Levitsky <maximlevitsky@gmail.com>,
+	Alex Dubov <oakad@yahoo.com>,
+	linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com,
+	Raj Ojha <rajojha047@gmail.com>,
+	syzbot+ccffdf05833ebdaeae70@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] memstick: core: wait for request completion before freeing card
+Date: Fri, 25 Sep 2026 00:59:55 +0530
+Message-ID: <20260924192955.1941-1-rajojha047@gmail.com>
+X-Mailer: git-send-email 2.47.0.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924120958.23698-1-danishkhateeb03@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On 2026-09-24 07:09:56-0500, Danish Khateeb wrote:
-> verrx() passes its va_list to the variadic warnx() instead of vwarnx(),
-> so errx() and verrx() print their messages with the wrong arguments,
-> and can crash when the format has a "%s".
-> 
-> Patch 1 fixes it. Patch 2 adds a nolibc-test case for errx(), which
-> would have caught it.
-> 
-> The series is independent of the readdir_r()/FD_* series [1] and merges
-> cleanly with it.
-> 
-> Tested on top of nolibc/for-next 61fb00d6efee, on x86_64 and i386, and
-> on arm, arm64 and sparc64 under qemu-user:
-> 
-> - nolibc-test, all tests: no failures with the series. The only
->   difference from before is the new errx test, which passes. It also
->   passes against glibc (make libc-test).
-> 
-> - Without patch 1, the errx test fails on all five. On x86_64 the child
->   is killed by SIGSEGV.
-> 
-> [1] https://lore.kernel.org/all/20260924015222.31693-1-danishkhateeb03@gmail.com/
-> 
-> Danish Khateeb (2):
->   tools/nolibc: fix verrx() and errx() message formatting
->   selftests/nolibc: add a test for errx()
+In memstick_alloc_card() and memstick_set_rw_addr(),
+wait_for_completion_timeout() is used to wait for device identification
+and address configuration requests to complete.
 
-Thanks!
+The memstick subsystem does not provide an abort or cancellation
+callback in struct memstick_host for in-flight requests. If
+wait_for_completion_timeout() expires (for instance, when a USB transfer
+or command retry is delayed), memstick_alloc_card() returns an error and
+frees the memstick_dev structure via kfree(card).
 
-I picked up the bugfix. The selftests looks like a lot of additional
-code for the value it provides, so I didn't apply it.
+However, the host controller driver (such as rtsx_usb_ms) is still
+running the request asynchronously in worker context. When the transfer
+eventually finishes, the driver writes into host->req->data, which
+points to memory inside the already freed card structure. This leads to
+a KASAN slab-use-after-free write:
 
->  tools/include/nolibc/err.h                   |  2 +-
->  tools/testing/selftests/nolibc/nolibc-test.c | 47 ++++++++++++++++++++
->  2 files changed, 48 insertions(+), 1 deletion(-)
-> 
-> 
-> base-commit: 61fb00d6efeeeb9fd65c81db3bd8b2ac140f573c
-> -- 
-> 2.55.0
-> 
+  BUG: KASAN: slab-use-after-free in ms_read_bytes+0x8fe/0x990
+  Write of size 1 at addr ffff88813c188079 by task kworker/1:5/5239
+  Workqueue: events rtsx_usb_ms_handle_req
+  Call Trace:
+   ms_read_bytes+0x8fe/0x990 drivers/memstick/host/rtsx_usb_ms.c:450
+   rtsx_usb_ms_issue_cmd drivers/memstick/host/rtsx_usb_ms.c:477 [inline]
+   rtsx_usb_ms_handle_req+0x557/0x1a00 drivers/memstick/host/rtsx_usb_ms.c:531
+   process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+   worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+   kthread+0x373/0x450 kernel/kthread.c:436
+
+  Allocated by task 1662:
+   memstick_alloc_card drivers/memstick/core/memstick.c:383 [inline]
+   memstick_check+0x2c1/0x10d0 drivers/memstick/core/memstick.c:452
+   process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+
+  Freed by task 1662:
+   kfree+0x20c/0x650 mm/slub.c:6792
+   memstick_alloc_card drivers/memstick/core/memstick.c:420 [inline]
+   memstick_check+0x72b/0x10d0 drivers/memstick/core/memstick.c:452
+   process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+
+Host controller drivers (rtsx_usb_ms, jmb38x_ms, tifm_ms, r592) already
+implement their own hardware and bus timeouts, and callers in
+mspro_block and ms_block already rely on wait_for_completion()
+unconditionally.
+
+Replace wait_for_completion_timeout() with wait_for_completion() in
+memstick_set_rw_addr() and memstick_alloc_card() so that the card
+structure is never freed while an asynchronous request is in flight.
+
+Fixes: baf8532a147d ("memstick: initial commit for Sony MemoryStick support")
+Reported-by: syzbot+ccffdf05833ebdaeae70@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=ccffdf05833ebdaeae70
+Cc: stable@vger.kernel.org
+Signed-off-by: Raj Ojha <rajojha047@gmail.com>
+---
+ drivers/memstick/core/memstick.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/memstick/core/memstick.c b/drivers/memstick/core/memstick.c
+index 7f3f47db4c98..1a2b3c4d5e6f 100644
+--- a/drivers/memstick/core/memstick.c
++++ b/drivers/memstick/core/memstick.c
+@@ -378,9 +378,7 @@ int memstick_set_rw_addr(struct memstick_dev *card)
+ {
+ 	card->next_request = h_memstick_set_rw_addr;
+ 	memstick_new_req(card->host);
+-	if (!wait_for_completion_timeout(&card->mrq_complete,
+-			msecs_to_jiffies(500)))
+-		card->current_mrq.error = -ETIMEDOUT;
++	wait_for_completion(&card->mrq_complete);
+ 
+ 	return card->current_mrq.error;
+ }
+@@ -413,9 +411,7 @@ static struct memstick_dev *memstick_alloc_card(struct memstick_host *host)
+ 			goto err_out;
+ 
+ 		card->next_request = h_memstick_read_dev_id;
+ 		memstick_new_req(host);
+-		if (!wait_for_completion_timeout(&card->mrq_complete,
+-				msecs_to_jiffies(500)))
+-			card->current_mrq.error = -ETIMEDOUT;
++		wait_for_completion(&card->mrq_complete);
+ 
+ 		if (card->current_mrq.error)
+ 			goto err_out;
+-- 
+2.47.0.windows.1
