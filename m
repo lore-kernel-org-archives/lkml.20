@@ -1,95 +1,298 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f18.google.com (mail-oo2-f18.google.com [74.125.231.146])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 186001C84D7;
-	Thu, 24 Sep 2026 00:54:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C505E1EFFA1
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:55:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790211282; cv=none; b=jT61aRWPfV1oCEV1+rlUzo2AK7GAOqKdref3yvGUqJ+LpqESjfNLXZZReuLPkaOa37VUBiqUXEat07SY6fxSVBd0GrnJDnQaI4r+BnH91n7kxhdTFsjerwaD6v7hBME2o3984XHSHO1HUhrQNa05rT5bLukiKIaNayRZZy6CO9k=
+	t=1790211333; cv=none; b=TXg3iFIGNiD7vXrGg/Bd4/ksCL3Y15NbluY7YaoSOE7ld9zAJVKcPyHxh+/KSLSZ/tgyRDavb0vZey0hU/SIUjcG4q6SpUJFtwSzY6XX5Xc4YBqT2pTn9vtj+MWfmTGBX77JmFTAgL7xFgvdnFllgB54bMPZcnfRVNJEsSZ51gc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790211282; c=relaxed/simple;
-	bh=TKbV2YIsNSc9iwsBoTwJ3ldYJiEHQarMU2Ztugg+ELg=;
+	s=arc-20240116; t=1790211333; c=relaxed/simple;
+	bh=+3lgLeKyGoruCl5bCKhJ3T83Paha5+SBWFamsUnyxf0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K7mgG5ce+LSH6w3g2A6d500xatpEYW2V/jQ1LoPeG4k4BNG4As+pSyQoNIkRbr8y84PxV0iN1Zq+STqaSEcB2Tt5C1Bxjg31iQI24PaNTGnIZQn2KN88p+J0HWKjnSvtmZQWA2iJu4kuvs3vKCOXnOSETWbDsnUCDnqX45CMuRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DwsokGza; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=AOKWyb75368/AI3baWqCe9CkKIBBp7i5+dJ7E7CSiUn+SJKUG+EI80RnenAdrvLo81skNtPi8p9Yr6GnjZSlmVEowTQcyuG3NMlaZOdn+FkURQpEwP9dnSEyXlRCfze/PWJ5YKto42rliNjlE0eweF/ewtpO7k9ESaywO2Sv6fc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RAC8yCSI; arc=none smtp.client-ip=74.125.231.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DwsokGza"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D43E21F000FF;
-	Thu, 24 Sep 2026 00:54:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790211280;
-	bh=JG/dQUoHZvNPjuzT2aknhD7GBua9EthZihMp0PZ3Kfs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DwsokGzaUOCo7l7Vit8j1Q/7xVnmrcm7JwppmeLky5NS75hGp0kEIVdZu53dE1k9N
-	 V5OsSXL8FcHh3TgRbtjA8q1Q5yFs7icvGhxdJOLJEsC08LDoFIDCwj5oX0C9DZoD1j
-	 1lZlS+BNQhXufAT/SZYiieg99DK4u+/IyrlxuvaIqTvQjLjF1scZE/1x3J69qPPdD6
-	 UVGXSPXcGM2/fEoFUSDT0m5MxQUQE6NkhsmOyK09pukypQmhUeVzhP4MsQ/c8WU2tb
-	 T8cpKXL9pSCsXTq/HJeAH+BBE8IFR9nkShk+nvYkNtUtukTocVn2F5Bsq4Sx1Zsefu
-	 7Oo1bq71LC3/w==
-Date: Wed, 23 Sep 2026 19:54:37 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Charlie Garner <charlie@akao.au>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Val Packett <val@packett.cool>, Laurentiu Tudor <laurentiu.tudor1@dell.com>, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] arm64: dts: qcom: Dell Inspiron 14 Plus 7441
- backlight and touchscreen fixes
-Message-ID: <arR0w0aBkGa0W7_a@baldur>
-References: <20260923152506.44989-1-charlie@akao.au>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RAC8yCSI"
+Received: by mail-oo2-f18.google.com with SMTP id 006d021491bc7-6b390bcab0cso866730eaf.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:55:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790211330; x=1790816130; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FfxOZpGwcVSI/AA/FeGaBOP+LTq0nuPyB8Q6sUgl39Y=;
+        b=RAC8yCSIs8pHIsurtJ8Y9VAoEzTjaKQFYiHerJU+V5l/gqtYzFnMfWcHgCawBMfQCv
+         6YJJ2SLy49VuXvUDPu2uH31YAAhfPzFsZ/9G/i1yBOy/y6BKAJF3qZKD0fFMsinwMeKh
+         tLJvVFpTZSDkh4LIGzgvHODZcv3nGXfgKo+KGbtNb27eqA7EyvGJbURVSLqSvqvjb5q2
+         rILJHm0MACSsujgle3lBb9Av3FSgY8/M0gLisr8b9Rt4TKp/SsX/UeYDHAmX61GUpYEB
+         kEbnUya7qpRQSVkE9XOVHTeHfSQ3Qp5zr2t+eLKR0nVsXf/zL9nJowIgBmzXwJVskIQI
+         Hl8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790211330; x=1790816130;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=FfxOZpGwcVSI/AA/FeGaBOP+LTq0nuPyB8Q6sUgl39Y=;
+        b=AIhfdUdxw4sLdcVND36tDnZaExLr1aLA2AigxY8umAMGbdEQQLS56fDy8+rnFW7ZMo
+         AMaNTWsihr++2NNau9TSqpJxceioddOWo9J4vS3SFSkEMSVLHp3avKYfGCtz33rchDmy
+         JzUXwYXlTt1nmYTcJgpjUEPEjObJxEzwWkNKNs+Gk3LX9VGVPk4OIeyp0KG8cDzCJh9V
+         9NiZXziyI/5ctHXMNItXSqNJWydU9c9w32AeEtqytFJIoGdw6Rj5qhcxNiBopL+ncDQP
+         ldEkktlDnOvCF4M41uDxi5i7frmAVA5R6cB57vMNl1Bo/poyHfgwqz8/8TFu5T2bNl0F
+         eEVw==
+X-Forwarded-Encrypted: i=1; AKwUvBxNo6FJ9cbkEfsLmf4ntLdfgPexxGbStGRxfahddyLfvCCS6qwlwCcjJMIhrX1jJDX0/Qu5YghJs63gvb0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nkhhqStuAqza/CDxYhDXbS9qXC8vnM3aJWaTyZy99r/CAP2hYa
+	JwCz+5c9B48JkRAP9NQ1AonrYVp+35hiU1Mpjzcb6rPn2nWf76JdmXSA
+X-Gm-Gg: AYBFou38vHwx8G7CitJm668AnBCvlqKwuJ4ZzARQOO80UaD9jse4RK21GgMdZmuddUK
+	WZE5ECF2OjyAEFG2IQlbFzK3k6vIhYqPnSs9Tn38Zt8MLIOzppClZu0/rcqH1OU4h0GzLBgdF0D
+	zuQe0CPefCcXhn11XmMD5ExnrApRF9oJ4Z46oUrxtZ/l2qMnMNrv+Y59Nwmbsns3Z2kDZDX5ASZ
+	CRqD+O9/2PsrQftraG6uUU4PpBXeWygKFfZIaqfPTGEAwGPwyX+3qvU1ufs0In/L7nrCiZl2lie
+	SAWPJ5F9VNg5NDA+eqwZdTTJ5k4nbM6aFpoteEgTYMpvBLqu6/GTRLNbERc5aarIpJ+Woze8VvP
+	+YXnBjujBFjFJvIXorcGeJtLQuMWHs3zg4b6gQkQrv5rJQcTmROZj+Ub88qm4asx9qoNvjiByxk
+	FFuSnnSMAvbrB3T3W3BecwcKpxbRaF/HijPKZ2uFdEN/kOuAAEpYoINIYCxFZsNOeZu+vQjiSlA
+	KkLCITZSO0kRTBHyvde
+X-Received: by 2002:a4a:e906:0:b0:6d0:1fe7:1744 with SMTP id 006d021491bc7-6d441d73979mr913528eaf.83.1790211329662;
+        Wed, 23 Sep 2026 17:55:29 -0700 (PDT)
+Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:56::])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-491ed1e75a1sm859150fac.4.2026.09.23.17.55.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 17:55:27 -0700 (PDT)
+Date: Wed, 23 Sep 2026 17:55:23 -0700
+From: Bobby Eshleman <bobbyeshleman@gmail.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: sgarzare@redhat.com, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	corbet@lwn.net, skhan@linuxfoundation.org, stefanha@redhat.com,
+	mst@redhat.com, jasowangio@gmail.com, xuanzhuo@linux.alibaba.com,
+	eperezma@redhat.com, shuah@kernel.org, rdunlap@infradead.org,
+	donald.hunter@gmail.com, virtualization@lists.linux.dev,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, sargun@sargun.me, jlinbox@meta.com,
+	sdf.kernel@gmail.com, bobbyeshleman@meta.com
+Subject: Re: [PATCH net-next v2 6/6] selftests/vsock: test the netns assign
+ privilege checks
+Message-ID: <arR0+/7pGWSY+NrD@devvm29614.prn0.facebook.com>
+References: <20260921-vsock-guest-ns-v2-6-693bd78fde9e@meta.com>
+ <179019126776.2160803.16648507383433583043@kernel.org>
+ <arRttf9k4yKahe4R@devvm29614.prn0.facebook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260923152506.44989-1-charlie@akao.au>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <arRttf9k4yKahe4R@devvm29614.prn0.facebook.com>
 
-On Thu, Sep 24, 2026 at 12:55:04AM +0930, Charlie Garner wrote:
-> Two fixes for the Dell Inspiron 14 Plus 7441.
+On Wed, Sep 23, 2026 at 05:24:21PM -0700, Bobby Eshleman wrote:
+> On Wed, Sep 23, 2026 at 07:21:07PM +0000, netdev-bot+sashiko@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 2 potential
+> > issue(s) to consider.
+> > 
+> > Critical: 0 · High: 0 · Medium: 1 · Low: 1
+> > 
+> > If you believe none of the issues are legitimate, please reply to each
+> > issue of Medium severity or higher and explain why the AI is wrong.
+> > If any of them are legitimate and you plan to respin, please let patchwork
+> > know by including "pw-bot: cr" as a separate line at the end of your reply
+> > (one such reply per series is enough).
+> > 
+> > - [Medium] Both new selftests
+> >   (`test_ns_guest_assign_g2h_netns_no_cap_net_admin_fails`,…
+> > - [Low] The two new shared-VM tests omit the `vm_reset_g2h()` cleanup
+> >   that every other ns_guest_assign_g2h_netns_* test in USE_SHARED_VM…
+> > 
+> > --
+> > 
+> > selftests/vsock: test the netns assign privilege checks
+> > 
+> > Adds two vmtest.sh cases that attempt VSOCK_CMD_DEV_NETNS_SET without
+> > CAP_NET_ADMIN and from an unprivileged user namespace, and enables
+> > CONFIG_USER_NS in the vsock selftest config.
+> > 
+> > > diff --git a/tools/testing/selftests/vsock/vmtest.sh b/tools/testing/selftests/vsock/vmtest.sh
+> > > index e94cc2fd90ccd..4f42bcdac3f6c 100755
+> > > --- a/tools/testing/selftests/vsock/vmtest.sh
+> > > +++ b/tools/testing/selftests/vsock/vmtest.sh
+> > 
+> > [ ... ]
+> > 
+> > > @@ -187,6 +195,8 @@ readonly TEST_DESCS=(
+> > >  	ns_guest_assign_g2h_netns_host_connect_ok
+> > >  	ns_guest_assign_g2h_netns_reset_on_ns_delete_ok
+> > >  	ns_guest_assign_g2h_netns_old_conn_send_fails
+> > > +	ns_guest_assign_g2h_netns_no_cap_net_admin_fails
+> > > +	ns_guest_assign_g2h_netns_unpriv_user_ns_fails
+> > >  )
+> > >  readonly NS_MODES=("local" "global")
+> > 
+> > [Severity: Low]
+> > Both new tests are added to USE_SHARED_VM but neither calls
+> > vm_reset_g2h() on any exit path, unlike every other
+> > ns_guest_assign_g2h_netns_* test in that list.
+> > 
+> > Should these follow the sibling pattern?  If the privilege check under
+> > test is broken, the assign succeeds and the guest's single g2h device is
+> > left owned by the transient namespace created by unshare, while the
+> > harness moves on to the next test in the same VM.
+> > 
+> > The kernel does restore this by itself once that namespace is reaped:
+> > 
+> > net/vmw_vsock/af_vsock.c:vsock_g2h_net_reset() {
+> > 	if (likely(rcu_access_pointer(vsock_g2h_net) != net))
+> > 		return;
+> > 
+> > 	mutex_lock(&vsock_register_mutex);
+> > 	if (rcu_access_pointer(vsock_g2h_net) == net)
+> > 		rcu_assign_pointer(vsock_g2h_net, &init_net);
+> > 	...
+> > }
+> > 
+> > registered as .pre_exit in vsock_pernet_ops, and the next test's
+> > vm_ns_assign_g2h() overwrites the pointer anyway.  The residual window is
+> > the asynchronous teardown that ..._reset_on_ns_delete_ok already documents
+> > ("the namespace itself is dismantled from a workqueue, so the device does
+> > not come back the same instant").  Since the new tests are appended last
+> > in TEST_NAMES and USE_SHARED_VM, a default run is unaffected; this only
+> > shows up with selective or reordered invocation.
 > 
-> Patch 1 gives the eDP panel a PWM backlight. The AUO B140QAX01.H panel
-> only supports PWM-pin brightness, so the DP AUX fallback registers a
-> backlight with max_brightness 0 and brightness cannot be changed. The PWM
-> wiring (PMK8550 gpio5 func3, pmk8550_pwm) matches the HP OmniBook X14.
-> It goes in the Inspiron DT rather than x1-dell-thena.dtsi, because the
-> Latitude 7455 was submitted with a different panel and a working
-> backlight, and only the Inspiron has been tested. The dtsi only gains a
-> panel label, which leaves the Latitude DTB functionally unchanged. If a
-> Latitude 7455 owner can confirm the same PWM wiring, this can move to the
-> dtsi.
+> Yes, these tests should call it regardless. Relying on cleanup makes the
+> pass/fail race-y.
 > 
-> Patch 2 moves the touchscreen from 0x10, where nothing responds, to 0x09.
-> That is where the HID-over-I2C device answers, where the firmware's DSDT
-> places it on this machine, and where the Latitude 7455 DT already has the
-> same part.
+> > 
+> > [ ... ]
+> > 
+> > > @@ -1832,6 +1842,48 @@ test_ns_guest_assign_g2h_netns_reset_on_ns_delete_ok() {
+> > >  	return "${KSFT_PASS}"
+> > >  }
+> > >  
+> > > +test_ns_guest_assign_g2h_netns_no_cap_net_admin_fails() {
+> > > +	local cmd="unshare -n setpriv --bounding-set=-net_admin"
+> > > +	local rc
+> > > +
+> > > +	vm_ssh "init_ns" -- "${cmd}" python3 /root/ynl/cli.py --no-schema \
+> > > +		--spec /root/ynl/vsock.yaml --do dev-netns-set &>/dev/null
+> > > +	rc=$?
+> > > +
+> > > +	if [[ "${rc}" -eq 0 ]]; then
+> > > +		log_host "assign unexpectedly succeeded without CAP_NET_ADMIN"
+> > > +		return "${KSFT_FAIL}"
+> > > +	fi
+> > > +
+> > > +	return "${KSFT_PASS}"
+> > > +}
+> > 
+> > [Severity: Medium]
+> > Can this test pass without the capability check ever being reached?  The
+> > only assertion is rc -eq 0 => FAIL, output is discarded with &>/dev/null,
+> > and there is no positive control, so any nonzero status reads as
+> > KSFT_PASS.
+> > 
+> > A few concrete sources of a nonzero status that are not -EPERM:
+> > 
+> > net/vmw_vsock/af_vsock.c:vsock_nl_dev_netns_set_doit() {
+> > 	int err = vsock_g2h_net_assign(genl_info_net(info));
+> > 
+> > 	if (err == -ENODEV)
+> > 		NL_SET_ERR_MSG(info->extack,
+> > 			       "no guest-to-host transport is loaded");
+> > 	else if (err == -EOPNOTSUPP)
+> > 	...
+> > }
+> > 
+> > and cli.py collapses all of those to the same status as -EPERM:
+> > 
+> > tools/net/ynl/pyynl/cli.py:main() {
+> >     except NlError as e:
+> >         print(e)
+> >         sys.exit(1)
+> > }
+> > 
+> > vm_ssh() also returns ssh's own status, so a transport failure (255) or a
+> > remote shell failure (127, e.g. an installed util-linux that does not
+> > accept setpriv --bounding-set=-net_admin) is indistinguishable from the
+> > expected refusal.  A python-side failure such as a missing
+> > /root/ynl/vsock.yaml exits 1 too.
+> > 
+> > Would it be worth asserting the privileged case succeeds first?  The file
+> > already has the helper the sibling tests use as a precondition:
+> > 
+> > vm_ns_assign_g2h() {
+> > 	local ns=$1
+> > 	local nspid=$2
+> > 
+> > 	vm_ns_exec "${ns}" "${nspid}" "python3 /root/ynl/cli.py --no-schema \
+> > 		--spec /root/ynl/vsock.yaml --do dev-netns-set"
+> > }
+> > 
+> > On the changelog note "ynl's cli.py does not report the errno": is that
+> > accurate?  NlError.__str__() in tools/net/ynl/pyynl/lib/ynl.py does:
+> > 
+> >         msg += os.strerror(self.error)
+> > 
+> > so the error string is printed and the test could match "Operation not
+> > permitted" instead of sending everything to /dev/null.
 > 
-> As far as I know, no Inspiron 14 Plus 7441 has its touchscreen at 0x10.
-> The original node matches the CRD, XPS 13 9345 and T14s nodes the DT was
-> based on.
+> I considered this but felt like grepping stderr/stdout is somewhat
+> unnatural. My plan was to later propose that cli.py returns the err via
+> exit code, and then update these tests.
 > 
-> Charlie Garner (2):
->   arm64: dts: qcom: x1e80100-dell-inspiron-14-plus-7441: add PWM
->     backlight
->   arm64: dts: qcom: x1e80100-dell-inspiron-14-plus-7441: fix touchscreen
->     i2c address
+> First checking the privileged assign sounds like a reasonable middle
+> ground to rule out the other error states.
 > 
+> > 
+> > > +
+> > > +test_ns_guest_assign_g2h_netns_unpriv_user_ns_fails() {
+> > > +	local unpriv_uid=65534
+> > > +	local unpriv
+> > > +	local rc
+> > > +
+> > > +	unpriv="setpriv --reuid=${unpriv_uid} --regid=${unpriv_uid}"
+> > > +	unpriv="${unpriv} --clear-groups"
+> > > +
+> > > +	if ! vm_ssh "init_ns" -- "${unpriv} unshare -U true"; then
+> > > +		log_host "unprivileged user namespaces unavailable, skipping"
+> > > +		return "${KSFT_SKIP}"
+> > > +	fi
+> > > +
+> > > +	vm_ssh "init_ns" -- "${unpriv} unshare -Urn" \
+> > > +		python3 /root/ynl/cli.py --no-schema \
+> > > +		--spec /root/ynl/vsock.yaml --do dev-netns-set &>/dev/null
+> > > +	rc=$?
+> > > +
+> > > +	if [[ "${rc}" -eq 0 ]]; then
+> > > +		log_host "assign unexpectedly succeeded for unprivileged user"
+> > > +		return "${KSFT_FAIL}"
+> > > +	fi
+> > > +
+> > > +	return "${KSFT_PASS}"
+> > > +}
+> > 
+> > [Severity: Medium]
+> > Same rc != 0 => KSFT_PASS inference here, plus the availability probe is
+> > not the command being measured:
+> > 
+> > 	probe:    ${unpriv} unshare -U true
+> > 	measured: ${unpriv} unshare -Urn python3 /root/ynl/cli.py ...
+> > 
+> > If the extra -r/-n setup or the python startup under uid 65534 fails, the
+> > result is KSFT_PASS rather than KSFT_SKIP or KSFT_FAIL, and the child user
+> > namespace never actually holds CAP_NET_ADMIN, which is the condition the
+> > commit message says is being tested:
+> > 
+> >     the other confirms that CAP_NET_ADMIN in an unprivileged user ns
+> >     alone is insufficient.
+> > 
+> > Would checking the reported error string, or asserting the privileged
+> > assign works in the same test, make these two cases fail if
+> > GENL_ADMIN_PERM is ever dropped from VSOCK_CMD_DEV_NETNS_SET?
+> 
+> Yep, can follow the same approach as above.
 
-Applied
-
-Thank you,
-Bjorn
-
->  arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi   |  2 +-
->  .../x1e80100-dell-inspiron-14-plus-7441.dts   | 31 +++++++++++++++++--
->  2 files changed, 30 insertions(+), 3 deletions(-)
-> 
-> 
-> base-commit: 32afff1e816e10185bb571aa9d89dc2eb061d548
-> -- 
-> 2.55.0
-> 
+pw-bot: cr
