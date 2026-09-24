@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1A53BB10E;
-	Thu, 24 Sep 2026 01:55:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34AA831578E;
+	Thu, 24 Sep 2026 01:59:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790214959; cv=none; b=SQ2Cyn21aGXfkVswMXY48Y2xA0UP3SrHfQO/5Vy7MTuc1LnBx97lamqkJFbAdfElRwR7iKw95tIQjzHlLhc+EJurULRS9CJn6hMJr21xqDwgZUCvD4R2NFxw9H4NN53EGV9pDS+y6UQ2kMWN0rC0LUwUxiMJZk/MUSprhoWaPKQ=
+	t=1790215148; cv=none; b=pVno7pPYSzZa6KBBJYXRVRol6wt2T0ETbdqMXeje9jKpDA+45HLR2cmk81uhSY71MHRZ1jLZOQYrRJWlOvnOzhyaKgtbeIhQBBMyqlqvF9By4UgZF49PRAgWPkINpwbAwMfLsFrKsubnolmTCulKc0fXBI+xuNihgnFqCxveeTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790214959; c=relaxed/simple;
-	bh=lWp25Fg7EpR0C/XbEX4lsNNIrqxjI5MBoHFCLAF5AXY=;
+	s=arc-20240116; t=1790215148; c=relaxed/simple;
+	bh=ng3NjO7xLm02YelMfX/Z3DVR/wZvosLB8vx7H8B7APE=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=AUQDyy7kofc8W8ssSst6/dwbB7/bORezzri42FhW4g0aghEExiftyDixOGKe9Y23clmgg0XKAlTwutX0Nr2O2gHFfRztRT5jH1LTqPzRpR9sV7fYHNmJ+t9o/xDx0/dFptB8V6EVSXsm7z/1ruU9tyRfVLuHWRo124hLYZU3LjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K8A+Z0qG; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=mzj8ILm3/7TQAVZkg195ViztCdiLI1NllDo6PDd/5WsXoJX2ekkEInSsKB4BCwg8z7HXnJY/f4Nm+kPKWAjZ3NHc0/PkSMNtuy6JWpzqCWgnOZdO9jRKxJQB2yIEn9/JSJzxxtogfOpiU6YOYi6tG2av0N9n/HgNpz0Eb1CaCZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XHQa58Pe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K8A+Z0qG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62D0B1F00899;
-	Thu, 24 Sep 2026 01:55:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XHQa58Pe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 203841F000FF;
+	Thu, 24 Sep 2026 01:59:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790214957;
-	bh=NLlxKLEwdj6R94NFZREneEC67JN6yr719CbwOaK7yt8=;
+	s=k20260515; t=1790215146;
+	bh=l8JNnc2oBRcvuUjWimJY2wugiW93wv8FZSUibAK5Phg=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=K8A+Z0qG9YYdyZqKxP/RhqmCLD4G9UgzRu7QdOs1zjuO74Q6rESk8UXMINpMV0Y6D
-	 AejGxGZKPH2e00SpeVgGYnwqTMm850ADewy1CzFAlkYuf3s5tWYtKmI+lpZ9jjxyuU
-	 v4/iJQRrKE1H5g5C8Vpi6gGekq4suy6aiS4bsmrbC1W4/ToS6uwW3IjLSU8f+VwKxc
-	 jenTUfA/v1JuWI53oQpqim/JuO12hHcsxYXYqX/5JI9hu86BbUUdhJWj5OyNSZKxzb
-	 06v5KBrm0hJx2gQE4JyFcsZzBbKzNOsJdbU/SefYs+hq5kJjD44Yi5OoJoCMvlEtAK
-	 hNXoCmDl+N21g==
-Subject: Re: [PATCH net-next v10 3/3] w5100: detect carrier state using link
- status bit and optional interrupt
+	b=XHQa58PeyX8/BRNnOdBaAr3/5o09RQbpSO/tChP123Ks/PUMsaH4iQd8UGDBkl28r
+	 ug+H7f3sBf0pzPCLtiI0LBtnnEO5Kd4j/+Hg5U5gW6cX1vsG9xgqeXL2eUxy6xFkLe
+	 vYxYcisqVQf0HUL3ujE/+DtDDTDUQ3UtldTgaYDU6ULFvK3X3iAlj+TZRD3AhqOAVB
+	 AI+jr8FyMNCOxZqON8WVX57YQZhWvRR4UwdcW7rH1iNOATnFZdISTsJeNF9cAMr7Ql
+	 34csEuFuTXQMuqq6lxLEMU1r8dVpmsF1MbQwbCt37aQCRN9NXdfExZAgrxEJK9ovyc
+	 9YBA+bkzONCgg==
+Subject:
+ Re: [PATCH net v3] sctp: carry peer capabilities across an INIT collision
 From: netdev-bot+sashiko@kernel.org
-To: arthur@marmottus.net
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, arnd@arndb.de, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 24 Sep 2026 01:55:55 +0000
-Message-ID: <179021495594.2160803.16936851129108019714@kernel.org>
-In-Reply-To: <20260921-wiznet-link-gpio-v10-3-5874a7a147a2@marmottus.net>
-References: <20260921-wiznet-link-gpio-v10-3-5874a7a147a2@marmottus.net>
+To: wbriggs@cellusys.com
+Cc: marcelo.leitner@gmail.com, lucien.xin@gmail.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ linux-sctp@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Thu, 24 Sep 2026 01:59:05 +0000
+Message-ID: <179021514567.2160803.16218616091479610626@kernel.org>
+In-Reply-To: <20260921135733.577647-1-wbriggs@cellusys.com>
+References: <20260921135733.577647-1-wbriggs@cellusys.com>
 X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -48,10 +48,10 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 8 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider.
 
-Critical: 0 · High: 2 · Medium: 5 · Low: 1
+Critical: 0 · High: 2 · Medium: 0 (1) · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -59,396 +59,204 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] w5100_suspend() does not quiesce the deferred hardware-access
-  paths before closing the controller: it disables the IRQs, cancels…
-- [High] w5100_stop() now waits synchronously for the receive worker
-  *before* stopping the hardware that produces receive traffic:…
-- [Medium] The patch silently repairs a live, user-visible regression
-  introduced by dacf281771a9 ("w5100: remove unused gpio link…
-- [Medium] Commit message claim is not implemented: the message states
-  "w5100_remove(), w5100_stop() and w5100_suspend() call…
-- [Medium] w5500_report_carrier_state() (w5100.c:369-386) silently
-  discards a failed PHYCFGR read: w5500_get_phycfgr_lnk() returns a…
-- [Medium] Lost link-state edge because the PHYCFGR sample is taken
-  before the edge-triggered link IRQ is (re-)enabled.
-- [Medium] w5100_suspend() calls cancel_work_sync(&priv->restart_work)
-  (line 1004) BEFORE netif_device_detach() (line 1006).
-- [Low] For a w5500 whose DT does not supply the optional second
-  (LINKLED) interrupt, the driver installs w5500_get_link() in…
+- [High] sctp_assoc_update() (net/sctp/associola.c:1114) now copies
+  new->peer.intl_capable into the surviving association but never re-…
+- [High] sctp_assoc_update() now enables peer.asconf_capable
+  (net/sctp/associola.c:1112) and peer.reconf_capable (associola.c:1113)…
+
+Pre-existing issues:
+- [Medium] The collision merge still does not carry
+  asoc->peer.adaptation_ind.
 
 --
 
-w5100: detect carrier state using link status bit and optional interrupt
+sctp: carry peer capabilities across an INIT collision
 
-This adds carrier detection for the w5500 by reading the Link Status bit of
-PHYCFGR, exposes it through a new w5500-only .get_link callback, and adds an
-optional second interrupt (LINKLED) to update the carrier with
-netif_carrier_on|off().  It also reworks probe/remove ordering, IRQ
-enable/disable across open/stop/suspend/resume and work cancellation.
+sctp_assoc_update() folds a temporary association into an existing one when
+an INIT collision is resolved, and today it only copies asoc->c, peer.rwnd,
+peer.sack_needed, peer.auth_capable and peer.i.  This patch extends the copy
+block with prsctp_capable, ecn_capable, asconf_capable, reconf_capable,
+intl_capable, ipv4_address and ipv6_address so the surviving association
+reflects what the peer advertised in the colliding INIT.
 
-> diff --git a/drivers/net/ethernet/wiznet/w5100.c b/drivers/net/ethernet/wiznet/w5100.c
-> index 53d8dc642fbd6..203a2099aa7b8 100644
-> --- a/drivers/net/ethernet/wiznet/w5100.c
-> +++ b/drivers/net/ethernet/wiznet/w5100.c
+A few questions about the state that is derived from those bits but is not
+refreshed by the merge.
 
-[ ... ]
-
-> @@ -345,6 +352,77 @@ static void w5500_memory_configure(struct w5100_priv *priv)
->  	}
->  }
->  
-> +static int w5500_get_phycfgr_lnk(struct net_device *ndev)
-> +{
-> +	struct w5100_priv *priv = netdev_priv(ndev);
-> +	int ret = w5100_read(priv, W5500_PHYCFGR);
-> +
-> +	if (ret < 0) {
-> +		netif_err(priv, link, ndev,
-> +			  "failed to read link status: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	return ret & PHYCFGR_LNK;
-> +}
-> +
-> +static void w5500_report_carrier_state(struct net_device *ndev)
-> +{
-> +	struct w5100_priv *priv = netdev_priv(ndev);
-> +	int state;
-> +
-> +	mutex_lock(&priv->link_lock);
-> +
-> +	state = w5500_get_phycfgr_lnk(ndev);
-> +	if (state > 0) {
-> +		netif_info(priv, link, ndev, "link is up\n");
-> +		netif_carrier_on(ndev);
-> +	} else if (state == 0) {
-> +		netif_info(priv, link, ndev, "link is down\n");
-> +		netif_carrier_off(ndev);
-> +	}
-> +
-> +	mutex_unlock(&priv->link_lock);
-> +}
-
-[Severity: Medium]
-What happens to the carrier state when the PHYCFGR read fails here?
-
-w5500_get_phycfgr_lnk() returns a negative errno on SPI failure, but
-w5500_report_carrier_state() only acts on state > 0 and state == 0, and it
-returns void, so the error is neither acted on nor propagated.
-
-The carrier is forced off beforehand (netif_carrier_off() in w5100_probe()
-for the link_irq case, and in w5100_stop()/w5100_suspend()), and
-w5100_open() samples the state exactly once:
-
-	if (priv->link_irq > 0) {
-		w5500_report_carrier_state(ndev);
-		enable_irq(priv->link_irq);
-	}
-
-	return 0;
-
-Since w5100_open() still returns 0 and the link IRQ is edge triggered
-(IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING), no further event arrives while
-the link stays up.  Can a single failed read at open (or resume, or restart)
-therefore leave the netdev permanently without carrier, with dev_activate()
-refusing to leave noop_qdisc and dev_watchdog() skipping the device, until
-the cable is toggled or the interface is cycled?  Meanwhile w5500_get_link()
-re-reads the register and keeps reporting "Link detected: yes".
-
-> +
-> +static irqreturn_t w5500_detect_link_interrupt(int irq, void *ndev_instance)
-> +{
-> +	struct net_device *ndev = ndev_instance;
-> +
-> +	if (netif_running(ndev))
-> +		w5500_report_carrier_state(ndev);
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static u32 w5500_get_link(struct net_device *ndev)
-> +{
-> +	struct w5100_priv *priv = netdev_priv(ndev);
-> +	int state;
-> +	bool link;
-> +
-> +	mutex_lock(&priv->link_lock);
-> +
-> +	if (!netif_device_present(ndev)) {
-> +		link = netif_carrier_ok(ndev);
-> +		goto out;
-> +	}
-> +
-> +	state = w5500_get_phycfgr_lnk(ndev);
-> +
-> +	if (state < 0) {
-> +		link = netif_carrier_ok(ndev);
-> +		goto out;
-> +	}
-> +
-> +	link = state > 0;
-> +
-> +out:
-> +	mutex_unlock(&priv->link_lock);
-> +
-> +	return link;
-> +}
-
-[Severity: Low]
-This isn't a bug as such, since the commit message documents the intent, but
-for a w5500 board whose DT has no second (LINKLED) interrupt the two link
-uAPIs end up permanently disagreeing.
-
-w5100_probe() installs the new ops for every w5500:
-
-	ndev->ethtool_ops = ops->chip_id == W5500 ? &w5500_ethtool_ops :
-						    &w5100_ethtool_ops;
-
-so ethtool reports the real PHYCFGR bit, while every netif_carrier_on|off()
-call in this patch (including the netif_carrier_off() in probe) sits inside
-an if (priv->link_irq > 0) block.
-
-With the carrier bit never touched, netif_carrier_ok() stays true (nothing
-in net/core sets __LINK_STATE_NOCARRIER at registration).  Would it be
-better to only publish .get_link when the driver can also maintain the
-carrier, so that ip link and ETHTOOL_GLINK cannot report IFF_LOWER_UP and
-"Link detected: no" at the same time?
-
-[ ... ]
-
-> @@ -656,9 +744,16 @@ static int w5100_open(struct net_device *ndev)
->  	struct w5100_priv *priv = netdev_priv(ndev);
->  
->  	netif_info(priv, ifup, ndev, "enabling\n");
-> -	w5100_hw_start(priv);
->  	napi_enable(&priv->napi);
-> +	enable_irq(priv->irq);
-> +	w5100_hw_start(priv);
->  	netif_start_queue(ndev);
-> +
-> +	if (priv->link_irq > 0) {
-> +		w5500_report_carrier_state(ndev);
-> +		enable_irq(priv->link_irq);
-> +	}
-> +
->  	return 0;
->  }
-
-[Severity: Medium]
-Can a link transition be missed here because PHYCFGR is sampled before the
-edge triggered IRQ is enabled?
-
-The same read-then-enable order is used in w5100_restart() and
-w5100_resume().  The IRQ is requested with
-
-	IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING | IRQF_ONESHOT |
-	IRQF_NO_AUTOEN
-
-so at open the enable_irq() is the initial irq_startup(): the flow handler
-has never run, no IRQS_PENDING state exists in the irq_desc for the core to
-resend, and replay of an edge that happened while the line was masked
-depends on the irqchip latching it (GPIO controllers such as bcm2835 clear
-the per-line edge enable bits on mask, so nothing is recorded).
-
-A transition inside the window between the read and enable_irq() would then
-be seen by neither, leaving the carrier stale until the next physical
-change.  Would enabling the IRQ first and reading PHYCFGR afterwards be
-safe, given that w5500_report_carrier_state() is idempotent and serialized
-by priv->link_lock?  The v7 changelog entry ("Enable the link IRQ before
-reading the PHYCFGR bit") suggests this order was intentional at some point.
-
->  
-> @@ -667,13 +762,38 @@ static int w5100_stop(struct net_device *ndev)
->  	struct w5100_priv *priv = netdev_priv(ndev);
->  
->  	netif_info(priv, ifdown, ndev, "shutting down\n");
-> +
-> +	disable_irq(priv->irq);
-> +	if (priv->link_irq > 0)
-> +		disable_irq(priv->link_irq);
-> +
-> +	cancel_work_sync(&priv->restart_work);
-> +	cancel_work_sync(&priv->setrx_work);
-> +	flush_work(&priv->rx_work);
-> +	flush_work(&priv->tx_work);
-> +
->  	w5100_hw_close(priv);
+> diff --git a/net/sctp/associola.c b/net/sctp/associola.c
+> index 4521be3bd85aa..0bd0a662b5463 100644
+> --- a/net/sctp/associola.c
+> +++ b/net/sctp/associola.c
+> @@ -1107,6 +1107,13 @@ int sctp_assoc_update(struct sctp_association *asoc,
+>  	asoc->peer.rwnd = new->peer.rwnd;
+>  	asoc->peer.sack_needed = new->peer.sack_needed;
+>  	asoc->peer.auth_capable = new->peer.auth_capable;
+> +	asoc->peer.prsctp_capable = new->peer.prsctp_capable;
+> +	asoc->peer.ecn_capable = new->peer.ecn_capable;
+> +	asoc->peer.asconf_capable = new->peer.asconf_capable;
+> +	asoc->peer.reconf_capable = new->peer.reconf_capable;
 
 [Severity: High]
-Can flush_work(&priv->rx_work) block here indefinitely, since it now runs
-before w5100_hw_close() stops the producer of receive traffic?
 
-disable_irq() stops interrupt handling, but socket 0 is still open and the
-chip keeps filling its 16 KB RX buffer.  The worker drains without a budget
-or a shutdown check:
+Turning these two bits on lets the surviving association accept inbound
+ASCONF and RE-CONFIG, but the receive-side sequence counters those features
+compare against are still the survivor's own.
 
-drivers/net/ethernet/wiznet/w5100.c:w5100_rx_work() {
-	while ((skb = w5100_rx_skb(priv->ndev)))
-		netif_rx(skb);
+Both are derived from the peer's Initial TSN in sctp_process_init(), which in
+a collision runs on the temporary association only:
 
-	w5100_enable_intr(priv);
-}
-
-and w5100_rx_skb() only returns NULL once the hardware buffer reads empty:
-
-	u16 rx_buf_len = w5100_read16(priv, W5100_S0_RX_RSR(priv));
-
-	if (rx_buf_len == 0)
-		return NULL;
-
-The SPI drain rate is well below the wire rate, so an adjacent sender
-flooding the link can keep RSR non-zero for as long as it likes.
-
-ndo_stop runs under RTNL, so would "ip link set dev down" (and
-unregister_netdev() from w5100_remove(), which now runs first) stall with
-RTNL held, blocking all other network configuration?  Closing the hardware
-before flushing rx_work, as the previous code did, would avoid this.
-
-> -	netif_carrier_off(ndev);
-> +
-> +	if (priv->link_irq > 0)  {
-> +		mutex_lock(&priv->link_lock);
-> +		netif_carrier_off(ndev);
-> +		mutex_unlock(&priv->link_lock);
-> +	}
-> +
-
-[Severity: Medium]
-Making this netif_carrier_off() conditional, together with the new carrier
-sampling in w5100_open()/w5100_resume(), looks like it also repairs an
-existing user visible breakage.  Should that be split out with a Fixes: tag?
-
-In the baseline tree, dacf281771a9 ("w5100: remove unused gpio link
-detection") removed w5100_get_link()/w5100_detect_link() and both
-netif_carrier_on() call sites, but kept the unconditional
-netif_carrier_off() in w5100_stop() and w5100_suspend().  git grep
-netif_carrier_on on the baseline returns no match in this driver.
-
-A freshly registered netdev has __LINK_STATE_NOCARRIER clear, so the first
-ifup works, but after the first ifdown (or suspend cycle) the bit is set and
-nothing ever clears it again, and dev_activate() takes the "Delay activation
-until next carrier-on event" path, so the interface cannot transmit until
-the module is reloaded.
-
-As written, the fix is buried in a feature patch that also rewrites probe
-ordering, IRQ enable/disable and work cancellation, which makes it hard to
-pick up for stable.
-
->  	netif_stop_queue(ndev);
->  	napi_disable(&priv->napi);
->  	return 0;
->  }
->  
-> +static const struct ethtool_ops w5500_ethtool_ops = {
-> +	.get_drvinfo		= w5100_get_drvinfo,
-> +	.get_msglevel		= w5100_get_msglevel,
-> +	.set_msglevel		= w5100_set_msglevel,
-> +	.get_link		= w5500_get_link,
-> +	.get_regs_len		= w5100_get_regs_len,
-> +	.get_regs		= w5100_get_regs,
-> +};
-> +
-
-[ ... ]
-
-> @@ -839,9 +997,20 @@ static int w5100_suspend(struct device *dev)
->  	struct w5100_priv *priv = netdev_priv(ndev);
->  
->  	if (netif_running(ndev)) {
-> -		netif_carrier_off(ndev);
-> +		disable_irq(priv->irq);
-> +		if (priv->link_irq > 0)
-> +			disable_irq(priv->link_irq);
-> +
-> +		cancel_work_sync(&priv->restart_work);
-> +
->  		netif_device_detach(ndev);
-
-[Severity: Medium]
-The commit message says:
-
-    w5100_remove(), w5100_stop() and w5100_suspend() call
-    cancel_work_sync()/flush_work() to make sure there is no pending
-    work
-
-but w5100_suspend() only drains restart_work.  w5100_stop() and
-w5100_remove() drain all four (restart_work, setrx_work, rx_work, tx_work).
-Could the changelog be adjusted, or the suspend path made to match?
-
-[Severity: High]
-Does leaving setrx_work, rx_work and tx_work pending here allow the chip to
-be re-armed after w5100_hw_close()?
-
-disable_irq()/synchronize_irq() waits for the threaded handler only, not for
-work already queued on priv->xfer_wq:
-
-w5100_interrupt()      -> queue_work(priv->xfer_wq, &priv->rx_work)
-w5100_start_tx()       -> queue_work(priv->xfer_wq, &priv->tx_work)
-w5100_set_rx_mode()    -> schedule_work(&priv->setrx_work)
-
-A pending w5100_rx_work() ends with w5100_enable_intr(), re-arming
-W5500_SIMR / W5100_IMR; w5100_setrx_work() calls w5100_hw_start(), which
-issues S0_CR_OPEN and enables interrupts again; w5100_tx_work() can program
-S0_TX_WR and issue S0_CR_SEND.
-
-Any of these can run concurrently with, or after, the w5100_hw_close() a few
-lines below, so the controller can stay open with socket interrupts armed
-for the whole suspend while the CPU IRQ is disabled, and the SPI transfers
-are issued after the device was marked absent.  All in-tree ops set
-may_sleep = true, so this is the live path.  Would replicating the
-w5100_stop() sequence here be appropriate?
-
-[Severity: Medium]
-Can restart_work be re-queued after this cancel_work_sync(), because the
-cancel happens before netif_device_detach()?
-
-In that window the device is still running, still present, and (for the
-link IRQ case) still carrier-ok, and the tx watchdog timer is not lowered on
-the suspend path.  On the dev_close() path, dev_deactivate_many() calls
-netdev_watchdog_down() before ndo_stop, which is what makes the same
-ordering safe in w5100_stop().
-
-dev_watchdog() only requires:
-
-net/sched/sch_generic.c:dev_watchdog() {
-		if (netif_device_present(dev) &&
-		    netif_running(dev) &&
-		    netif_carrier_ok(dev)) {
+net/sctp/sm_make_chunk.c:sctp_process_init() {
 	...
+	asoc->strreset_inseq = asoc->peer.i.initial_tsn;
+	...
+	asoc->peer.addip_serial = asoc->peer.i.initial_tsn - 1;
 }
 
-and w5100_tx_timeout() is now unconditional:
+sctp_assoc_update() copies asoc->peer.i but leaves peer.addip_serial and
+strreset_inseq untouched, so a COOKIE_WAIT survivor keeps zero for both.
 
-	schedule_work(&priv->restart_work);
+Can the peer's ASCONF then never be processed?  sctp_sf_do_asconf() now
+clears the capability gate and reaches:
 
-The re-queued w5100_restart() would then pass its
+net/sctp/sm_statefuns.c:sctp_sf_do_asconf() {
+	...
+	if (serial == asoc->peer.addip_serial + 1) {
+	...
+	} else if (serial < asoc->peer.addip_serial + 1) {
+	...
+	} else {
+		/* discarded */
+	}
+}
 
-	if (!netif_running(ndev) || !netif_device_present(ndev))
-		return;
+With the peer's serial equal to its Initial TSN and peer.addip_serial at 0,
+neither arm matches and the chunk lands in the final else, so no ASCONF-ACK
+is sent.  Does the peer then retransmit until its T4 limit and give up on
+ASCONF entirely?
 
-test, since nothing serializes that check with netif_device_detach(), and
-proceed to w5100_hw_reset(), enable_irq(priv->irq), w5100_hw_start() and the
-PHYCFGR read, concurrently with the w5100_hw_close() below.  Would detaching
-first and cancelling afterwards close this?
+The RE-CONFIG side has the same shape.  sctp_process_strreset_outreq(), and
+equally the inreq/tsnreq/addstrm_out/addstrm_in handlers, validate against
+the stale strreset_inseq:
 
->  
-> +		if (priv->link_irq > 0) {
-> +			mutex_lock(&priv->link_lock);
-> +			netif_carrier_off(ndev);
-> +			mutex_unlock(&priv->link_lock);
-> +		}
-> +
->  		w5100_hw_close(priv);
->  	}
->  	return 0;
+net/sctp/stream.c:sctp_process_strreset_outreq() {
+	...
+	if (TSN_lt(asoc->strreset_inseq, request_seq) ||
+	    TSN_lt(request_seq, asoc->strreset_inseq - 2)) {
+		result = SCTP_STRRESET_ERR_BAD_SEQNO;
+		goto err;
+	}
+}
+
+The testing notes describe ASCONF and RE-CONFIG appearing on the wire, which
+exercises the outbound counters (addip_serial and strreset_outseq, both set
+locally from asoc->c.initial_tsn).  Was the inbound direction tested too?
+
+Should the merge also carry strreset_inseq and peer.addip_serial, or
+re-derive them from new->peer.i.initial_tsn the way sctp_process_init() does?
+
+> +	asoc->peer.intl_capable = new->peer.intl_capable;
+
+[Severity: High]
+
+This bit selects the chunk operation set, and the merge copies the bit
+without re-selecting it.  The only place asoc->stream.si is derived from it
+is sctp_stream_interleave_init(), reached from sctp_stream_init():
+
+net/sctp/stream_interleave.c:sctp_stream_interleave_init() {
+	...
+	stream->si = asoc->peer.intl_capable ? &sctp_stream_interleave_1
+					     : &sctp_stream_interleave_0;
+}
+
+In a collision that ran on the temporary association.  Neither branch of
+sctp_assoc_update() refreshes it on the survivor: sctp_stream_update() copies
+out/in/outcnt/incnt and leaves stream->si alone, sctp_stream_clear() only
+zeroes mid/mid_uo, and the COOKIE_ECHOED case calls neither.  asoc->frag_point
+is not recomputed either, although normal negotiation pairs the two:
+
+net/sctp/sm_make_chunk.c:sctp_process_init() {
+	...
+	if (sctp_stream_init(&asoc->stream, ...))
+		goto clean_up;
+
+	/* Update frag_point when stream_interleave may get changed. */
+	sctp_assoc_update_frag_point(asoc);
+}
+
+So after the merge peer.intl_capable is 1 while stream.si is still
+&sctp_stream_interleave_0.  The INIT-ACK extension list is built from
+peer.intl_capable, so the peer is told I-DATA is in use.  What happens when
+it sends one?
+
+net/sctp/sm_statefuns.c:sctp_eat_data() {
+	...
+	if (!asoc->stream.si->validate_data(chunk))
+		return SCTP_IERROR_PROTO_VIOLATION;
+}
+
+sctp_validate_data() returns false for anything that is not SCTP_CID_DATA,
+and the callers turn SCTP_IERROR_PROTO_VIOLATION into
+sctp_sf_abort_violation().  Can a peer that legitimately follows the
+negotiated extension abort the association this way?
+
+There is a second effect in the send path, which branches directly on the
+bit rather than on stream.si:
+
+net/sctp/stream_sched.c:sctp_sched_dequeue_done() {
+	...
+	if (!list_is_last(&ch->frag_list, &ch->msg->chunks) &&
+	    !q->asoc->peer.intl_capable) {
+		/* pin stream.out_curr */
+	}
+}
+
+With the bit set but plain DATA chunks being dequeued, stream.out_curr is no
+longer pinned mid-message.  Can the PRIO/RR schedulers then interleave
+fragments of different streams on the wire?  Before this patch the survivor
+kept intl_capable at 0 and the pin was taken.
+
+The reverse case looks reachable too: a restart where the new INIT no longer
+advertises I-DATA now clears the bit while stream.si stays
+&sctp_stream_interleave_1, leaving I-DATA and I-FORWARD-TSN installed for a
+peer that did not negotiate them.
+
+Would calling sctp_stream_interleave_init() and sctp_assoc_update_frag_point()
+on the surviving association after the copy address both directions?
+
+> +	asoc->peer.ipv4_address = new->peer.ipv4_address;
+> +	asoc->peer.ipv6_address = new->peer.ipv6_address;
+>  	asoc->peer.i = new->peer.i;
 
 [Severity: Medium]
-Same observation as in w5100_stop(): this suspend path previously called
-netif_carrier_off() with no matching netif_carrier_on() anywhere in the
-driver, so a suspend/resume cycle left the interface stuck without carrier.
-The repair is welcome, but it is not called out in the changelog and there
-is no Fixes: tag referencing dacf281771a9.
+
+This is a pre-existing issue and not introduced by this patch, but since the
+copy block is being extended: peer.adaptation_ind is still not carried.
+
+sctp_process_param() records the peer's Adaptation Layer Indication on the
+association it is processing, which in a collision is the temporary one:
+
+net/sctp/sm_make_chunk.c:sctp_process_param() {
+	...
+	case SCTP_PARAM_ADAPTATION_LAYER_IND:
+		asoc->peer.adaptation_ind = ntohl(param.aind->adaptation_ind);
+}
+
+and the completion path reads the survivor's copy right after the merge:
+
+net/sctp/sm_statefuns.c:sctp_sf_do_dupcook_b() {
+	...
+	if (asoc->peer.adaptation_ind)
+		sctp_add_cmd_sf(commands, SCTP_CMD_ADAPTATION_IND, SCTP_NULL());
+}
+
+For a COOKIE_WAIT survivor the field is still 0, so is the
+SCTP_ADAPTATION_INDICATION notification dropped even though the peer asked
+for it, and on a restart is an older non-zero value reported instead of the
+new one?  asoc->c = new->c does update c.adaptation_ind, but nothing copies
+that into peer.adaptation_ind after the merge.
+
+Note this field is a separate __u32 rather than part of the bitfield block
+the changelog calls "the rest of the block", so it is outside what the patch
+sets out to fix.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260921-wiznet-link-gpio-v10-0-5874a7a147a2%40marmottus.net
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260921135733.577647-1-wbriggs%40cellusys.com
