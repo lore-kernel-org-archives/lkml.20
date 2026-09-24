@@ -1,224 +1,174 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011018.outbound.protection.outlook.com [52.101.52.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA99F4A2A41;
-	Thu, 24 Sep 2026 15:44:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790264655; cv=none; b=M6cRkPvWB4x0JRl30FXh9KlmIKm/YvHwS9HThWMwxYaqcAPG1na1oFQV4rrIrX2xL8n9OSvxprDBiyvxqTdODiLFrBjtt7LxzLw1oAcKuxXZxoSs0sFYuEaCAH9yAcDAzw/ewnUxtUDCqX1i5cLJrKn4A+HYeMBFVQB+iSD8yak=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790264655; c=relaxed/simple;
-	bh=6+PpXr9we17NiHs9bfur1AcFceo7Prw6yWY+x/mBO1s=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=oalDxchJ7y5DUqIa6/Ewc43Ek0U9NLrPIEH8X4hP/miNhihNk/uVrTKd9UXRAR/TjiSWKmZBicof+VRPdKNRC3kmTC4yeCiGTYLjn+CBbkuwAVptFk8Ql+MaA2Juxm4OWO99WZpdvpFuw6RN0/fIIa7iL2xb6GGidOIVuSAQoqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=TLnU+Qhs; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=vq7Hpc2U; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E44E4A0F0C;
+	Thu, 24 Sep 2026 15:44:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.18
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790264665; cv=fail; b=XXTBZ8mNNK4GVNfHDhLFLiyhetkkUoXG0NcrDcle4HhF3xoWuXGF1D8qyc1M6QaLuf7mfKJgtzhpDwFlAxjEvc+N/4o6WG4JoGKLjf/EzqjBxmCBHgAjTWT/q4JU2mOxtCo4WAPYukqz306pmMzK/8znP5/krTSsDNtp54cQbqs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790264665; c=relaxed/simple;
+	bh=DRE6LolWDJyl+9bCPDiChsQrUEU4xEy1VVhFdoMHgD4=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=XnobXTHjjUs2k7AMGOxlPpd7eLuDMsXfylQxz5mrI8G2iFrqNDMPxR/ctVUrrSXiv4/HTBe4ig1EjRYcLMT9ZoJtbkwLuHhaFK6VJkNn0LoXor0uKNUrMUIorjms03pNcQlca4TLw4YgV4LmAGK2Ba9qQoTelvCSBM/u1jhAp44=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=uHGNVDzW; arc=fail smtp.client-ip=52.101.52.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="TLnU+Qhs";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="vq7Hpc2U"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790264650; bh=i2iaEK+NM6sskxsNF3Qx6tK
-	fZhZ0WROgaR2aVfzDl2E=; b=TLnU+QhsFfP2m1PRm/z9eS5x8rViKPLMRHiobywvA6to/oHsy8
-	JvrVzrWbY6+FRfowiludcCzemr8oWdacmwTf5kg8ixk3o8XeZYP2KvPHlhaDp4iing0OS5XVieh
-	YSLTYMB5LQXJwoH9BBaV1nehBlKFaHWkpvwA51JJs7VkYc8KLwq5kU8bywE0GbflG0QT1tU1uc/
-	2O+AOIWAd1QoHyMNWsQFVJGqUwvz/Bf72/S2N8BOfXpL51s9gAHZhXtXL7I0n78BwhgUzezZrTH
-	nL9gnMlsj9FtjEFv+c8Adlny3uFxZyNdG6d23mUKoPhUtiqDLJIjQRCcuJ08dyQXx8w==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790264650; bh=i2iaEK+NM6sskxsNF3Qx6tK
-	fZhZ0WROgaR2aVfzDl2E=; b=vq7Hpc2UbOhktvTPwoiLvwTmIUiMuk/lFcXbpPOxdBtJesn+lS
-	ik+qivB/AfCVFRYdrghhf/2PTOnz8wnHbuAQ==;
-Date: Thu, 24 Sep 2026 16:44:12 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: parri.andrea@gmail.com
-CC: davem@davemloft.net, josef@toxicpanda.com, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, mhiramat@kernel.org, naveen@kernel.org,
- rostedt@goodmis.org, stable@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_kprobes=3A_Fix_permanent_ha?=
- =?US-ASCII?Q?ng_when_flushing_the_kprobe_optimizer?=
-In-Reply-To: <20260924092142.199198-1-parri.andrea@gmail.com>
-Message-ID: <B46E3026-C65B-4D01-9A6C-7DACB6D6552A@mainlining.org>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="uHGNVDzW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Tf6pKqZxIPBql2Ia8/rRnoAbUSUPOPo9Cj9Gw/G0qg1iM3/FyPrQRNW1vheHScRjs9MFrEMC4lXvX7LQfQoQ3t3sUIm4ELy7kZKtJ9GH5GxNowMZ5xK9lH++QzjMNWynpagkxGBVlwfwhvBhN8d/O9OFRwJZdeysvGIUTgrvOAWoYi/+gAacvHqvNxxhXg1pkXlOOiD0mvzXMBFDB7YaZSfgMIeXhNcPaENvlkdsy+GiPE7ZXyEWPOQn+u+3OlID2Z3csy3UwNIwI16G6c7+Vbe+2vXlCTj9MQClvu/mBdjfqR0QFhlyN9IA21k7mm9QkAxXbe7W5EQ2B35YkUQ+WA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CRW9wY4Z1+O6DWOU9N2SUhA4D6AxgLdH4aFsl5GVgJc=;
+ b=Wm0nBcviOYWgA7/GZIU66aARPcWAFf/bXv4ePSEu+mWHUD8HL60EbZ9niD2N32S2EofjrOfMDFCr0boUwiWphrelLU5ClF4vnsrikvwSClLXtxr4hKlfdJOOVqH+y0j3A06i0RE5+V2E9VDqyc7uDxRMBkO2sBUy+H3EBBbpe0HWS8HzE8uzQtqSBgr5RlxY7UVzoyhfA1rWG+2VpTWcHEXzQcVk35ilcpVwjj0NLG8BrYRb1NdRKr00Yrgrw2CCkp8LJowC/SSnZCrXHkMC8IekxvT7lhYltII22JfhmjN3HDw8ZDhXVlHqd8o5Dk2Mog0i6psa6h0fKgcYBsgzBg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CRW9wY4Z1+O6DWOU9N2SUhA4D6AxgLdH4aFsl5GVgJc=;
+ b=uHGNVDzWzqRRJtTotoON/aAtQjLiI7uO9MCs8VlsWcRaXXZ7gJYRmV7d6YIPXlOczgTBIRk+qa/0pMd9vF7OSVZMp5DnYvTj1ex6j9JxI7ydnSilmzu+AMrqeFyg+4pGxhukAtkZr0nGdbVUWDldhU24VCd5C7VrYk3b5HuVH9o=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by DS6PR12MB152050.namprd12.prod.outlook.com (2603:10b6:8:410::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 15:44:20 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 15:44:20 +0000
+Message-ID: <a2f981e4-ac6a-4d1f-8c5c-bf529e0a16e2@amd.com>
+Date: Thu, 24 Sep 2026 10:44:18 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] USB: quirks: Ignore wakeup from the Valve Index HMD hub
+Content-Language: en-US
+To: Curtis Vogt <curtis.vogt@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Michal Pecio <michal.pecio@gmail.com>
+References: <20260924034200.421686-1-curtis.vogt@gmail.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20260924034200.421686-1-curtis.vogt@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CH2PR07CA0045.namprd07.prod.outlook.com
+ (2603:10b6:610:5b::19) To PH8PR12MB6914.namprd12.prod.outlook.com
+ (2603:10b6:510:1cb::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|DS6PR12MB152050:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2e1a0361-ad9b-496d-0dfc-08df1a52b320
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|22082099003|18002099003|56012099006|5023799004|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	hzIe+QKO86Ys9knjQYPbrq0BwCiIi2gX9PQmlZiyX0HhbL2VV4qgEINV0dhSU7GsamqpJ7le5f46xvaE7kEW7XAvgjjpsigmF6BslC0Zg9+m3/MEqbpT35eojMGEGsWyA3726VO43dBsqrrG2fl7IHI0Yo9PjA2WSXVEeS3ePQwJpbmdY9cp0/iFbaO8r8jLzvxgC8001dRBes4jLpS/FZV85e4FRuq2t2Nqlyt7HRf3FA06GvDlt1xy3e4x2+9ud9YVxCwWQC8zhZ8T7urfyejBVBIeKhO3PDbaOE5YMowgFD/kr8wGRIT9dakWGYByyFZlNNALdySuq2u0Z3EQIogaH6xY/+GxaqYIS329dbfHse1ZqBqu4Gd9AO/9LVJAjlVvQe7QmGsaNfzBLgOUHIfYsURUAvxaPCQ/74eidYE73+efvBfVN9hpY4TTQx7AKTnUkRkEpA9mXSe6HYS0IIIhaPblIaVUG7qZkLyEPedr/rkfgmKuDTKnQAS7YX5A1qYmStUp4nW5Gvvu3UNut4+upiURCNKMuJgBH9q/lSBJOPTYi5J6/TuvG5NLHXCxcW+gJeG1bZiHv+wfI2na3JP+yEzhKpWQIfWB51NDlCg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(22082099003)(18002099003)(56012099006)(5023799004)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RzVsbVZyU0F2ODlYRXEzUytDR3pkeStKQ1hiNXQ1YjBZMUVleWpnTG1sVWlI?=
+ =?utf-8?B?QVA2aWlGL1BjMmRZU0M4N2YxcVhxRnArK25IZTF6dldMdmV4bFowOWhJMW96?=
+ =?utf-8?B?Y295emhjdDJJaG5NaFlQcTZWTkdhNkJQMXJrL3Q0M1QwWUVXbkRUM2VtdTNt?=
+ =?utf-8?B?SklYY2crZHk2U0FwcVhYbGhaMWZFcVdnemp5TU1LMHpzbWVQWGlWWkVaVk1S?=
+ =?utf-8?B?OGFQZllEN2NjMGt0YWV0RkV2M2FtVlF5SExkYWM0WmhLdEZ0MTJVUmVLdGkv?=
+ =?utf-8?B?bHJKNmFNeUNSelZjaTMwNUVieS9aMVZ3OGsyRTE5aG9LWHJtZkhja1NBaFBs?=
+ =?utf-8?B?S1p2WFNEMXljREw3RjFGdm9YQnpFT2VPV2Y4VlROVEtFTW0wcURhZFRZMC81?=
+ =?utf-8?B?MUJCVmxObVpsaFp3RzJLTnBxbmI3OHVXTGFVU1g2LzlqZW9Oc0ZrUDRndnNs?=
+ =?utf-8?B?UVZsV0R5N2UvVUJPQkk5QUs2Yjd0K3dkUmI3UlNraTlXc2FIVTZaRGFOZWUx?=
+ =?utf-8?B?M0Q3Um1MdGxacU9Fcjcrd25ta2kwUitocDVCRlZxOTZtMzI0dzNJd1gxVEIw?=
+ =?utf-8?B?K0xVa01YNDk1WVNEaDRFN29lbXhVcFJRNzVra2tpK0Z0cUNGTTNrVUdXdHg5?=
+ =?utf-8?B?cmhPU2VzczNiMXdwNFppd0dKdFVDbHd4eEVLZ2s0WktOTklsbWV0UnMrN0Nk?=
+ =?utf-8?B?NEZnemdXOWphRlBtenRBRGRTV3psNVp0ZXlQNlZncFcwcWV0RmhIMnlxdFM4?=
+ =?utf-8?B?a2pXdU93eHladzBURWNxVFJoR3BQVlVHWFhvMENTeU9GK0UxdHhEaGVHSmpV?=
+ =?utf-8?B?QlhFNStvNExSNFJ2ZHFnZVh0Q1lvak1WY2xKOWt1UllXRG82NWV2SXNqUlp0?=
+ =?utf-8?B?eWZtY2x0TTRFK2htYW1vTHMwVWNSVVl0b25LOEZYWU5WOWFURHN3a0ZnS3dh?=
+ =?utf-8?B?cGhCLy9QZ21MU0Y3ZGRrRk0wcGxOWVZ4MG8vRGdjVHJQa2YrMS8ycjR6N25L?=
+ =?utf-8?B?YUdYekpMM2Zya2U4VU9FS2ZqbVBlRStMS3lBU1RYVlVHcVMxVzNJbnU4UThi?=
+ =?utf-8?B?YlJVbVFRSFM5ZkpWVUlDTWtoMHlTMDl1OHA0YVhjZ0h2RTVQRjhaNmVScjlV?=
+ =?utf-8?B?WTJWV1RKdnd3cmxmT2VuaXpRV1JZY3RhQ0c3SjUxVGJ5MHlWRU5WYTN5cS9S?=
+ =?utf-8?B?SDJlQ0Z2Z012YVRZbzkzaUZGVjZFL1JnSHpvZmpFV0xCWWtZZUc4elVURjBw?=
+ =?utf-8?B?YXI0bXZON2VvVlpEYktrRWdzTjQrcVlJZlhIUGd6dVVWOUdBbjRFT0Z4djBr?=
+ =?utf-8?B?U1h1ZlQ0RXpRcFIxc2Yvd1hkNmpIcXFld0w5bm9Jblo0OEd1N0RuVDNzcnZa?=
+ =?utf-8?B?Y3kwZnNoY1BxUnIvdk4vRDRVck9HYmttcGZxcEJ3K2ZyeGpvb3pXdFkxZ3ZK?=
+ =?utf-8?B?MTZIYktCUmo5aUxseC93UHZySVMzbXNEYWFzdjc4Z2FrR2tVdHJmQ0dFaVVa?=
+ =?utf-8?B?U0h5OEZoTTJ5V0NYdmZyZ0FGZ3RRKy9hYU5KZmplNE9MQWtobXcwU0FDRWJO?=
+ =?utf-8?B?WjlmZ1g1dE1BYzBRcUVJWlZ3MXl0UDliWDVFUnRybE1hZHNKUWNLMGthOVpV?=
+ =?utf-8?B?SDZZTGZYMXlNc3hVd0pvd2x5VGxEQ2sxRmNMRUU2Sk4rQ00vd3lhaHVWTkdp?=
+ =?utf-8?B?Qk02WVNYUzhpWHdhemVwZGcyTTMvTFQycEV4N0JOWFFqK3FXVGNvQk5JYlI3?=
+ =?utf-8?B?bFZaMWdIaW91THhFd29QWGNxbmUvbHpDZ01zSXJ1YWdjR3YrTE93ZEZlYWt6?=
+ =?utf-8?B?dkpLNW9oLy9Td1RvaUpWb0s1WnNLL3hZLzV2R21pRFlUNFVCbDFnUklMRzVy?=
+ =?utf-8?B?MFNqMXRGdHFFRTZtRVpXajJBMGlKRkRLckJrUElwZmZSQzE5alpFUTRHb0RN?=
+ =?utf-8?B?WGc5MGprZFNPbWgxbTJ3K3JHeFV5Z0dzT3c4VndEK3JkTEZQMlBSR2JJV1pP?=
+ =?utf-8?B?dDF6ZUtUWUNJTDNBRUJueStJNjBocnNaNnJpQUpjM3JiNUJkeXFDeWZkS1Vo?=
+ =?utf-8?B?TW1KMGswYTROZmVPU3BHTHExZHZ0UWJ4czVTWUVQSXEvdTFRQXpWNVRDOXZm?=
+ =?utf-8?B?blljUVZrLzUwaklqT1lSb2dyd2laMkJBSi9sS2RMck9FUHM5TmJvRVU3NjZT?=
+ =?utf-8?B?WE5Mc3hwcU1oWUVHQjVneS92K2s4cEhvSWZtK0hUa2J2NlV2OW9UZFY0U1NT?=
+ =?utf-8?B?SUtTQVZzcU9ic0Uyd0FMYWhNNjVRcjJmcGFTZHA3MlRFdStEY3RkVUNIMldM?=
+ =?utf-8?B?Mnh6bFNGK0Z4dE1HTHZVZG1KZnF6WFRibzZOQ1doZDE3RkpjZ3RlZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2e1a0361-ad9b-496d-0dfc-08df1a52b320
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 15:44:20.6456
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 20t6DS0MWAHrC67R6par1Y3WPM9xwm5Y2D6es4MZ5vtC1F29+fxoakiu2Lds/fXaCKKa8/ACSEgRwbiyDSGSSw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB152050
 
-On 24 September 2026 10:21:39 BST, Andrea Parri <parri.andrea@gmail.com>
-wrote:
->Writing 0 to /proc/sys/debug/kprobes-optimization while a kprobe is
->jump-optimized never returns. The writer sleeps in D state forever with
->kprobe_sysctl_mutex held, so any later read or write of that sysctl
->hangs as well. For example, with vfs_read+9 as an optimizable address
->in this build:
->
->  # cd /sys/kernel/tracing
->  # echo 'p:myprobe vfs_read+9' >> kprobe_events
->  # echo 1 > events/kprobes/myprobe/enable
->  # # wait until /sys/kernel/debug/kprobes/list shows [OPTIMIZED]
->  # echo 0 > /proc/sys/debug/kprobes-optimization
-
-Couldn't reproduce this on PowerPC, because PowerPC won't work for this
-bug unfortunately...
-
-But this is a real bug in some cases:
 
 
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
+On 9/23/26 22:41, Curtis Vogt wrote:
+> The Valve Index HMD's onboard USB hub (28de:2613) asserts remote wakeup a
+> few seconds after the host enters S3, so a system with the headset
+> attached does not stay suspended. Observed on 7.3-rc2: every suspend
+> attempt returned after ~6 seconds with wakeup events recorded from the
+> hub. Disabling wakeup on the hub through sysfs allows the host to stay
+> asleep until woken from the front panel. The headset most likely reacts to
+> the DisplayPort link being taken down as the host suspends.
+> 
+> Nothing behind this hub is a device that should be able to wake the host.
+> The headset includes a radio, microphone, and a downstream Microchip
+> USB2744 hub.
+> 
+> Link: https://lore.kernel.org/all/20260910170254.833871-1-mario.limonciello@amd.com
+> Signed-off-by: Curtis Vogt <curtis.vogt@gmail.com>
 
+I guess this would make sense:
 
->
->  INFO: task sh:246 blocked for more than 10 seconds.
->  Call Trace:
->   <TASK>
->   __schedule+0x1176/0x4f70
->   schedule+0xdc/0x2c0
->   schedule_timeout+0x17b/0x260
->   wait_for_completion+0x173/0x3c0
->   wait_for_kprobe_optimizer_locked+0xbc/0x130
->   proc_kprobes_optimization_handler+0x156/0x1b0
->   proc_sys_call_handler+0x324/0x490
->   vfs_write+0x52d/0xfe0
->   ksys_write+0xff/0x200
->   do_syscall_64+0x106/0x630
->   entry_SYSCALL_64_after_hwframe+0x77/0x7f
->   </TASK>
->  ...
->  INFO: task cat:265 is blocked on a mutex likely owned by task sh:246.
->
->wait_for_kprobe_optimizer_locked() reinitializes optimizer_completion,
->asks the optimizer thread to flush and sleeps in wait_for_completion().
->The thread drains the (un)optimizing lists, but calls complete() only
->if completion_done() is true, i.e. if the completion is already done,
->which never happens while someone waits. disarm_all_kprobes() and
->kprobe_trace_self_tests_init() wait the same way.
->
->Calling complete() unconditionally would not be enough: the waiter
->drops kprobe_mutex while it sleeps, and nothing else serializes the
->sysctl handler against the debugfs "enabled" file. A second flusher
->that still finds the lists non-empty, e.g. because a disabled probe is
->queued for unoptimizing, reinitializes the completion under the first:
->
->  sysctl write                      debugfs "enabled" write
->  unoptimize_all_kprobes()
->    wait_for_kprobe_optimizer_locked()
->      init_completion(c)
->      mutex_unlock(&kprobe_mutex)
->      wait_for_completion(c)
->                                    disarm_all_kprobes()
->                                      wait_for_kprobe_optimizer_locked()
->                                        init_completion(c)
->                                          // c->wait is reset, the first
->                                          // waiter is off the queue
->                                        mutex_unlock(&kprobe_mutex)
->                                        wait_for_completion(c)
->  kprobe_optimizer()
->    complete(c)
->      // wakes the debugfs writer only
->
->where c is &optimizer_completion. Lining up the two writes during an
->optimizer pass loses the sysctl writer this way.
->
->Replace the completion with a counter of optimizer passes, bumped at the
->end of each pass and signalled with wake_up_var_locked(), both under
->kprobe_mutex. A flusher samples the count and waits with
->wait_var_event_mutex(), which drops kprobe_mutex only while sleeping, so
->a new count means a whole pass ran in the meantime. Nothing is
->reinitialized, so several flushers can sleep in the wait at once.
->
->Fixes: 73c12f209462 ("kprobes: Use dedicated kthread for kprobe optimizer")
->Cc: stable@vger.kernel.org
->Assisted-by: LLM
->Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
->---
->This overlaps with two patches under discussion in the "rcu-tasks: build
->Tasks RCU on Tasks Trace readers in trampolines" thread:
->
-> - Masami's RFC "kprobes: Make optprobe optimizer multi-generational and
->   asynchronous" [1] rewrites the same code.  It drops the
->   completion_done() check, which fixes the hang reported here, but it
->   keeps init_completion() in wait_for_kprobe_optimizer_locked(), so the
->   concurrent-flusher case described above remains.  The two patches
->   conflict textually.
->
-> - Josef's "kprobes: Expose the optprobe jump window to Tasks RCU" [2]
->   changes kprobe_optimizer() around synchronize_rcu_tasks(); its
->   kernel/kprobes.c hunks still apply on top of this patch.
->
->[1]
->https://lore.kernel.org/all/179017148080.466588.9116221556625712980.stgit@devnote2/
->[2]
->https://lore.kernel.org/all/20260922-b4-rcu-tasks-preempt-qs-v5-3-410f57770bad@toxicpanda.com/
->
-> kernel/kprobes.c | 22 ++++++++++++++--------
-> 1 file changed, 14 insertions(+), 8 deletions(-)
->
->diff --git a/kernel/kprobes.c b/kernel/kprobes.c
->index 6337da5cab9e7..4edd8ca5c6578 100644
->--- a/kernel/kprobes.c
->+++ b/kernel/kprobes.c
->@@ -42,6 +42,7 @@
-> #include <linux/execmem.h>
-> #include <linux/cleanup.h>
-> #include <linux/wait.h>
->+#include <linux/wait_bit.h>
-> 
-> #include <asm/sections.h>
-> #include <asm/cacheflush.h>
->@@ -526,7 +527,8 @@ enum {
-> 	OPTIMIZER_ST_FLUSHING = 2,
-> };
-> 
->-static DECLARE_COMPLETION(optimizer_completion);
->+/* Bumped at the end of each kprobe_optimizer() pass, under 'kprobe_mutex' */
->+static unsigned long optimizer_passes;
-> 
-> #define OPTIMIZE_DELAY 5
-> 
->@@ -654,9 +656,9 @@ static void kprobe_optimizer(void)
-> 		do_free_cleaned_kprobes();
-> 	}
-> 
->-	/* Step 5: Kick optimizer again if needed. But if there is a flush requested, */
->-	if (completion_done(&optimizer_completion))
->-		complete(&optimizer_completion);
->+	/* Step 5: Wake up flushers, and kick optimizer again if needed. */
->+	optimizer_passes++;
->+	wake_up_var_locked(&optimizer_passes, &kprobe_mutex);
-> 
-> 	if (!list_empty(&optimizing_list) || !list_empty(&unoptimizing_list))
-> 		kick_kprobe_optimizer();	/*normal kick*/
->@@ -708,7 +710,8 @@ static void wait_for_kprobe_optimizer_locked(void)
-> 	lockdep_assert_held(&kprobe_mutex);
-> 
-> 	while (!list_empty(&optimizing_list) || !list_empty(&unoptimizing_list)) {
->-		init_completion(&optimizer_completion);
->+		unsigned long passes = optimizer_passes;
->+
-> 		/*
-> 		 * Set state to OPTIMIZER_ST_FLUSHING and wake up the thread if it's
-> 		 * idle. If it's already kicked, it will see the state change.
->@@ -717,9 +720,12 @@ static void wait_for_kprobe_optimizer_locked(void)
-> 			OPTIMIZER_ST_FLUSHING) != OPTIMIZER_ST_FLUSHING)
-> 			wake_up(&kprobe_optimizer_wait);
-> 
->-		mutex_unlock(&kprobe_mutex);
->-		wait_for_completion(&optimizer_completion);
->-		mutex_lock(&kprobe_mutex);
->+		/*
->+		 * kprobe_optimizer() holds 'kprobe_mutex' for a whole pass, which
->+		 * this drops while sleeping, so a new count means a full pass ran.
->+		 */
->+		wait_var_event_mutex(&optimizer_passes,
->+				     optimizer_passes != passes, &kprobe_mutex);
-> 	}
-> }
-> 
->
+Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/4333
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+Thanks for the patch.
+
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>> ---
+>   drivers/usb/core/quirks.c | 4 ++++
+>   1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/usb/core/quirks.c b/drivers/usb/core/quirks.c
+> index b5b577f0b931..7ededf8d9cfd 100644
+> --- a/drivers/usb/core/quirks.c
+> +++ b/drivers/usb/core/quirks.c
+> @@ -596,6 +596,10 @@ static const struct usb_device_id usb_quirk_list[] = {
+>   	/* ShanWan Wireless Gamepad */
+>   	{ USB_DEVICE(0x2563, 0x0575), .driver_info = USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE },
+>   
+> +	/* Valve Index HMD hub */
+> +	{ USB_DEVICE(0x28de, 0x2613), .driver_info =
+> +			USB_QUIRK_IGNORE_REMOTE_WAKEUP },
+> +
+>   	/* UGREEN 35871 - BOS descriptor fetch hangs at SuperSpeed Plus */
+>   	{ USB_DEVICE(0x2b89, 0x5871), .driver_info = USB_QUIRK_NO_BOS },
+>   
+
