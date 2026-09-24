@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D1173E5EDB
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:11:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D1C381E92
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:11:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790223115; cv=none; b=nRMR+oVEqiHZuBRRKZ+pi/MiZ2ClGZkveXZF1MkNvrfGoZPpnoyVnqPP5IK5O6CuAQvdydACuwtLifGWHEJFRtdc1XbCuxWZRb0B/t/48VnJEj17T3RVVXAaYQareTuYoejeZlshKgRBm4SWsRs4uNYbxW219w/o9wVMU6+8jM0=
+	t=1790223119; cv=none; b=X7P6hC8yaXJZdITRhY8GN6Azn9zmu3Q5CNEsw7ACO5lIMT9zmsLIlmT2QUlj/QGx+jW9DOJTAFwNjj1Y0uhkazBX+Cz6wel/OOVAxiieDdqwWujhlsHa/dpID6Un+XAht5XulFcK9//pRck6KLZ1oRsEWQOVjlBvKerER3rkIPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790223115; c=relaxed/simple;
-	bh=XY+nQdyJ+KyuA8zd1GBySyql0bYa0v2fGuh6+8Hbmos=;
+	s=arc-20240116; t=1790223119; c=relaxed/simple;
+	bh=KxGOgO/oHuKBzXRk20V8hJ+nLCjV1WKJz0A4Gosb6W4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O0tC04CcT7zsFMhSzxsnMl3QOVTYA7MPHn3m+e6XLrOvWlrZzofrcFJziH5kRCVGTLKEPwBDp6ULazOhW3X8Mr9wkSO3UaFFPuNMISlLOOLlLixCF6q+YUiZHp1QX77yOU3N8GNQdh6wkCcUTDfB3hDCa8mZjw2BCvJ3vBUpUhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SiVkh65f; arc=none smtp.client-ip=192.198.163.14
+	 MIME-Version; b=ZEY1RN3/FeBnLIAxbcfX9rq0Qb18dBreprDNpJboksXlp+oJGMFsMS+tWSQF7GoCak+0Zq1f7IVZJkhO/3XztUrVbazSHpyV13DcmUOA/UFUl7/+/FSgvw3vftUFDjjR6rJK6sa5nATg0FmZ+c87kfQzJsIlPqIeuihn8m1bCfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LYeAbULP; arc=none smtp.client-ip=192.198.163.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SiVkh65f"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LYeAbULP"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790223113; x=1821759113;
+  t=1790223118; x=1821759118;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=XY+nQdyJ+KyuA8zd1GBySyql0bYa0v2fGuh6+8Hbmos=;
-  b=SiVkh65faMP7VHUPozNpZZ2owX+ehEFc3PPpOKVrG84E7awybnbvsO39
-   6mSruXXBMg4hBZC6csrnPFHgE6Fb40Dgb6aiI4F0GQYcys5DGrLtjXgFY
-   fAeL41Bz7p8EKel+/KcPvwsz017r0F0KLhdODcq2Q5r6Jhoo4r0EgEi2p
-   R4AICfKnELBWK/9QTSTyTh5PZZzJ/6JpA+BkWRRZvbEQMGesVvet0Z3A+
-   /0H4BDirHJDq0Db7z0jnASWPKT99EWusHqTMNBVVSG6AVVRZBSSqB9N21
-   MPNQqu6jVYW6d/q34+1/5O7CDNP7BnwZ0W97ZgDF0k7LX9k44yLYsc5YQ
-   A==;
-X-CSE-ConnectionGUID: uSXqESD8S3ejxfBrQpsLxg==
-X-CSE-MsgGUID: m3iOHgLhSISCnd600P58Zw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="91002569"
+  bh=KxGOgO/oHuKBzXRk20V8hJ+nLCjV1WKJz0A4Gosb6W4=;
+  b=LYeAbULPYONfuLs+GSanCALrQOYkrCe7r/Aiec/wxNPfpawBf3TUCY9n
+   IATxMhp8I6GvpRLtHnq8dnh1MFVAehFFYv9Mfz7280amQJgRaZ1Mnr56v
+   uQxEAKhvkiRDZxj9agc4un+CYNqCUtBfwPvb9UqUH+dV+wRYXViC1krNj
+   IR1OzgJwt/g0t9Rh7KftJ9LgxKRCcHtFScZYwZ9x8n73QOPi2g3JvfOJC
+   YlDFIDBfNYOXhnulb8CtVQEz+BX8bpCrPKnkgm2JFBhfGcKyxF0raDNnu
+   GmWVvwxHNIyfDC4zafL6GXwiVj9PHEwTLgamC6DHHC50U5170Kme7TnT4
+   w==;
+X-CSE-ConnectionGUID: syeIaNB2T9awodI2hWCZgg==
+X-CSE-MsgGUID: Bl4vjq7IQFqiSScmjtjr/g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="91002581"
 X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="91002569"
+   d="scan'208";a="91002581"
 Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 21:11:52 -0700
-X-CSE-ConnectionGUID: 4JCttB7tR8+Y1s1ofoKjKA==
-X-CSE-MsgGUID: Gx7bc6xfQ9CmJonBLlat0g==
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 21:11:57 -0700
+X-CSE-ConnectionGUID: SJ7MdlvOSkCH8/zje2YpIQ==
+X-CSE-MsgGUID: NGj2BS5pS9afVwhmjQdi7A==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="5009482"
+   d="scan'208";a="5009495"
 Received: from unknown (HELO gnr-sp-2s-612.sh.intel.com) ([10.112.229.148])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 21:11:48 -0700
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 21:11:53 -0700
 From: Zhenzhong Duan <zhenzhong.duan@intel.com>
 To: x86@kernel.org,
 	linux-coco@lists.linux.dev,
@@ -67,9 +67,9 @@ Cc: dave.hansen@linux.intel.com,
 	xiaoyao.li@intel.com,
 	kevin.tian@intel.com,
 	chao.p.peng@intel.com
-Subject: [RFC PATCH 13/15] x86/tdx: Add __tdcall_saved() helper
-Date: Thu, 24 Sep 2026 12:10:30 +0800
-Message-ID: <20260924041032.1096569-14-zhenzhong.duan@intel.com>
+Subject: [RFC PATCH 14/15] x86/tdx: Add TDG.DMAR.ACCEPT module call wrapper for TDX Connect
+Date: Thu, 24 Sep 2026 12:10:31 +0800
+Message-ID: <20260924041032.1096569-15-zhenzhong.duan@intel.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
 References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
@@ -81,57 +81,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The TDX Connect ABI defines TDCALL leaves that use registers up to r15
-in struct tdx_module_args as input, without returning output arguments.
+TDG.DMAR.ACCEPT updates the PASID table entry of the TDI as present to
+allow DMA access to the TD private memory.
 
-Add __tdcall_saved() for these leaves.
+For TDG.DMAR.ACCEPT, the R8-R15 input registers are reserved and must
+be zero. Use a zero-initialized argument structure with __tdcall_saved()
+so the complete TDCALL input register set is loaded with the required
+values.
+
+Translate TDX module return codes into Linux errno values.
 
 Signed-off-by: Zhenzhong Duan <zhenzhong.duan@intel.com>
 ---
- arch/x86/coco/tdx/tdcall.S        | 17 +++++++++++++++++
+ arch/x86/coco/tdx/tdx_connect.c   | 28 ++++++++++++++++++++++++++++
  arch/x86/include/asm/shared/tdx.h |  1 +
- 2 files changed, 18 insertions(+)
+ arch/x86/include/asm/tdx.h        |  1 +
+ 3 files changed, 30 insertions(+)
 
-diff --git a/arch/x86/coco/tdx/tdcall.S b/arch/x86/coco/tdx/tdcall.S
-index 52d9786da308..1dca01909dee 100644
---- a/arch/x86/coco/tdx/tdcall.S
-+++ b/arch/x86/coco/tdx/tdcall.S
-@@ -44,6 +44,23 @@ SYM_FUNC_START(__tdcall_ret)
- 	TDX_MODULE_CALL host=0 ret=1
- SYM_FUNC_END(__tdcall_ret)
- 
-+/*
-+ * __tdcall_saved() - Used by TDX guests to request services from the TDX
-+ * module (does not include VMM services) using TDCALL instruction.
-+ *
-+ * __tdcall_saved() function ABI:
-+ *
-+ * @fn   (RDI)	- TDCALL Leaf ID, moved to RAX
-+ * @args (RSI)	- struct tdx_module_args for input
-+ *
-+ * All registers in @args are used as input registers.
-+ *
-+ * Return status of TDCALL via RAX.
-+ */
-+SYM_FUNC_START(__tdcall_saved)
-+	TDX_MODULE_CALL host=0 saved=1
-+SYM_FUNC_END(__tdcall_saved)
+diff --git a/arch/x86/coco/tdx/tdx_connect.c b/arch/x86/coco/tdx/tdx_connect.c
+index 3ef10b1df401..a03b1da9a52a 100644
+--- a/arch/x86/coco/tdx/tdx_connect.c
++++ b/arch/x86/coco/tdx/tdx_connect.c
+@@ -136,3 +136,31 @@ int tdx_mcall_tdi_start(u64 func_id, u64 exp_bind_session)
+ 	return tdx_mcall_tdi_to_errno(ret);
+ }
+ EXPORT_SYMBOL_FOR_MODULES(tdx_mcall_tdi_start, "tdx-guest");
 +
- /*
-  * __tdcall_saved_ret() - Used by TDX guests to request services from the
-  * TDX module (including VMM services) using TDCALL instruction, with
++/**
++ * tdx_mcall_dmar_accept() - Accept PASID table entry of a TDI instance
++ * @func_id: Function identifier specifying the TDI instance
++ * @target: DMAR target, 0 for non-partitioned TD or L1, 1-3 for L2 VM1-VM3,
++ *          other value reserved
++ *
++ * Update the PASID table entry of the TDI to mark the DMA Remapping (DMAR)
++ * state as present, allowing DMA access to the TD private memory.
++ *
++ * Return 0 on success, -ENXIO for invalid operands, -EBUSY for busy operation,
++ * -ENODEV for TDI not present or invalid metadata, or -EIO on other TDCALL failures.
++ */
++int tdx_mcall_dmar_accept(u64 func_id, u64 target)
++{
++	struct tdx_module_args args = {
++		.rcx = func_id,
++		.rdx = target,
++	};
++	u64 ret;
++
++	ret = __tdcall_saved(TDG_DMAR_ACCEPT, &args);
++	if (!ret)
++		return 0;
++
++	return tdx_mcall_tdi_to_errno(ret);
++}
++EXPORT_SYMBOL_FOR_MODULES(tdx_mcall_dmar_accept, "tdx-guest");
 diff --git a/arch/x86/include/asm/shared/tdx.h b/arch/x86/include/asm/shared/tdx.h
-index 72520f09ef3f..90f2842f4253 100644
+index 90f2842f4253..01387f6b24b3 100644
 --- a/arch/x86/include/asm/shared/tdx.h
 +++ b/arch/x86/include/asm/shared/tdx.h
-@@ -153,6 +153,7 @@ struct tdx_module_args {
- /* Used to communicate with the TDX module */
- u64 __tdcall(u64 fn, struct tdx_module_args *args);
- u64 __tdcall_ret(u64 fn, struct tdx_module_args *args);
-+u64 __tdcall_saved(u64 fn, struct tdx_module_args *args);
- u64 __tdcall_saved_ret(u64 fn, struct tdx_module_args *args);
+@@ -22,6 +22,7 @@
+ #define TDG_VM_WR			8
+ #define TDG_TDI_READ			67
+ #define TDG_TDI_START			68
++#define TDG_DMAR_ACCEPT			70
+ #define TDG_MMIO_ACCEPT			71
  
- /* Used to request services from the VMM */
+ /* TDX TD attributes */
+diff --git a/arch/x86/include/asm/tdx.h b/arch/x86/include/asm/tdx.h
+index 787b3039ef5a..118cc58cc909 100644
+--- a/arch/x86/include/asm/tdx.h
++++ b/arch/x86/include/asm/tdx.h
+@@ -157,6 +157,7 @@ u64 tdx_hcall_tdcm(u16 devid, void *buf, size_t size, u8 vector);
+ int tdx_mcall_tdi_read(u64 func_id, u64 field, u64 *value);
+ int tdx_mcall_mmio_accept(u64 func_id, u64 index, u32 pg_offset, u32 page_cnt, phys_addr_t gpa);
+ int tdx_mcall_tdi_start(u64 func_id, u64 exp_bind_session);
++int tdx_mcall_dmar_accept(u64 func_id, u64 target);
+ #endif
+ 
+ void __init tdx_dump_attributes(u64 td_attr);
 -- 
 2.52.0
 
