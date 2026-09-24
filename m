@@ -1,144 +1,121 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C5F29A9C3
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:04:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790211862; cv=pass; b=uUnFqRIkDdjjd1XtmUgVhPH1zWYxlekqblieaxXpte/LsjIS6d3z13QKd/iABrQgjWxSwOWEZmzJ4riXCu396r/WHBm5ZxblarAIjVwHQ1Z04un7McWqJRXwO4WqRG6TV2JrzptACzfR9bjLba3AJxzwIlkEXGdSdBpIIr7gymM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790211862; c=relaxed/simple;
-	bh=e7NYzYowAH42T4CIyLla37LCOTvpZlsNv4w1YShEB0s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=D3y/ktLVrc/w9n0jKxI+LpCTSU3PFgl01wBfZixodaJ+e91GhlRsOeUTNvTy2y/2ADSxXXvPSUdbvp7JWOwHZbOt+hSGddwk5R87nKM6WwIozVXWip1zkQ4O8Lt2lnrBA1Va+eB1AMJeFXmBdzYZm+zB6jFxSP7N8pVKtN0l9c4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ajy0EMXt; arc=pass smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5251F3164BB
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:04:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790211864; cv=none; b=AXmEo0yaFbND9Czes6fijOnCtoqwW1ElrlDsHeJfknLpju2SU/E6dtIVnK522stA5pXFVA956A6Cs/CyqqUCG90KjMQM1SoVX+6qPYoDFCpxOMoQJkn9ryn8euHe4r6gI+i78+QbrgtweMHsEdBa8PcK+mElzPQbParc+7k8U2E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790211864; c=relaxed/simple;
+	bh=JfjOTmn23C52eZ50zQilW55eYmOVRRAElDsqXwSu/Ys=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fZMwxHSigXu/2avHl1lLWJReFEcgDLZydMB7oC4yUjbMeJrPd0LPcDGPniQz+242lutlbHKfaMxGTm8+YYMzwT/qrc405qFLzHAKT7u1xeZ1qdGdHz17+itR5o0Ef/sr0bYx+2QLo12/AqC4Xgq9zqD7MQFIsNYosv0vaLCq8Tk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XHDH3SwU; arc=none smtp.client-ip=74.125.230.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ajy0EMXt"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f89so1074189f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:04:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790211859; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XiryYbZiliwJeLeLgbkLzeVBblG6D/c8rrDh7iNHnfb8CUI4LHYxm2YxcoKipxXWVp
-         ITl8eR9JdYt7fG9invLiV6+d8YgDB9w0pfZYtlEC5JHUVRCCkTmBHbx9y/R99KCircSm
-         x+DYzU3vYbEdPGjfywzyoA/17Rzaz/0oPwtUJsmWo+BbWGopUfQV0zPA9gPpUQH5+eop
-         ub77/JLuPmVG3m9Jo7ODmIYG2aT4aDr8aMRbwU6pAqwdA2iClFC8CfWzvm94tyFNLjGh
-         7cz85Vcj0J1tmdQR+2XyUah6EfSMOR4usreexcTWyXUmSwT0K2ZxQrFJAsIp3zFC5MPX
-         lhEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=e7NYzYowAH42T4CIyLla37LCOTvpZlsNv4w1YShEB0s=;
-        fh=+Q5Cjxu+z6ke8dbIgtLSwpt+Rj/9sHl8YfagEwhQTLs=;
-        b=ZaFUpNdbJjzDaLd3HXQX9lmqnoSTbQ02IXmNGrOkUrNnr7lU8kaEOyFCQ2aEPunVMd
-         U80UEnuoRE7sBw+krVCvr2NdaIAlkr894aYXZyB2DLrPlSYqnZfRhUEhMYAcY3zEh4mE
-         s8aWPbsa0yoctn8PTua1P367irOfUVfz+vZv9nQW0se3a+Cx6eTVrVB7i+h6nqJ14dOG
-         5UNG2PPHv5wEAKe5zgfF7aZsu4lx1AFnlI+Kd5fer0U5MIjCX03K2PJAgt2SqS11YnvW
-         aOSBVjidPAJbhWU0bJlg1/peUyhSsn/RtbYijj+3pWb9UA5zhaJBLBS2ovuVAf/1ta3F
-         6DJQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XHDH3SwU"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-91059280d58so10438756d6.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:04:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790211859; x=1790816659; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=e7NYzYowAH42T4CIyLla37LCOTvpZlsNv4w1YShEB0s=;
-        b=ajy0EMXtWXEEtuEzs0fhJaHHzTOIefavKgLWDDqenNKEF592vNluon8kjHRz53ZWeg
-         T+cSyPPQoj5F8jyZFK1Ee7puNyQLV+PVASSq8d7XDnmrf1yfL8JrU4R8j8DGw1DAnpD8
-         neChnzF5hLluCtW6ZInxgguX6oVyKkIXtpQ2t2oOXcFNPMbWaSRkL6tTOSjmuZlHN5M0
-         +2d6ZhV6JieiXYs9qK04hilhRB0dG8DzkLQFuS02GKwvKicGf1TUpgAqS+HabX41kjzo
-         alx5DyBXS0hF9OC2ysqJ5aZlqNUHL4M+wS4BnFrUPVek3ojlVc66fdKIlZyKmSlYwftG
-         JOTQ==
+        d=gmail.com; s=20251104; t=1790211862; x=1790816662; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=czd/s34OcW98EL8w2Vq/LmrqDyHhrcgOAIgDbU3R4Z0=;
+        b=XHDH3SwUGa4Ioe8PNEqE3KfbMp1yTiJ24g5X5MyESGkoVmniIccVKN4BWoyKuRuHMX
+         Dat6SqiY3NudxFDfIvzL5efKRcPpjm+HsuKzaCWIPcL4ZagJcf81HpViFtTk84wTLBhw
+         +sqPl58fX4bNABjHHmM0+B1j/qNcff4pffJp6Q5t6QMtrkmXi/Wr7KhqmwbDpB8GsbyX
+         enRXNTjdfeD2JVyOrWKUIZfzGc4wainScB4/GzAdwZs0y7v1W7Xa132yOIwl+nOQmv2w
+         nSEOMjJ3KEM7hSK3/LTgvNM8UbOTiQcBOCIGDeuH8oPgGE44wFyZFhVIK2hLuCbMv8PC
+         G1RQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790211859; x=1790816659;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=e7NYzYowAH42T4CIyLla37LCOTvpZlsNv4w1YShEB0s=;
-        b=X8y09gpEhpLFCnT+E4wL3mqdRT0Qaoak72VWWPvkckQCeYNggUYSnblVUShKJd76kY
-         nphq4kSPoRdyXaV7VMlkU9nuOL/9CsxJWVELPMgrJ2hBlk65THW/qnHjtbeP44NKE0OA
-         0sSZjQxWuLc6aeNbXL1ta1l6w1qVgpAPlOTOVHt+7ZoTDVnBhGs4W2pWbZP9fwIEfrdR
-         HW9p7/ezEq0zyON5B5UsWb6ItfHVvBhvwS/rEzwYvU8f/uClXd5o0s1BWGJ3auxujao+
-         BIkt+r1ielQ5Bcc2JkEm0ldSOzu3gjOuoHu+x+2EOp9B5SOYHjvmsv/U61RnUbh+mGys
-         pCbg==
-X-Forwarded-Encrypted: i=1; AKwUvByp4f6TKPOVHAVrPs86bMq8WskaEZW1WkXRSCVBezVIux9SC4M63Ik/RhiPZ2Lx1xxiV9K0HSYdC9P4j2A=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0qIy9HoqeKLD7fTLy14CTcd8OmA8k6qTfQbIOCxELPOmXlm3Q
-	lu+VYzUWNAihAtcxpZ2TYl7gbFcLoacESjzldeTRcvJl3Z/E4tHzYuMPEDJotxMCR6AYY4Woyqq
-	Tbd0kHtK4GQm75ginTOGg8it6otEfaTE=
-X-Gm-Gg: AYBFou3uNnoBjFlCrXNOFOcpa5OsH3COB8RIKo9OCKp1QlEfJzDhjinWMfeqD2Kd7G5
-	cRgfssd0TJIuG4Dh3bKi9TNfDzWC3Xf4etKSnBBMkQJF6WYaMT5TGMTGCHq++JdeNjVlJx/h7qP
-	K+GX1l2chg9WrGeM+wsm1W44xOJyM7BAk9nLWmlQTtU+9CFb2sU3VPhg9QDqnB6zLrBTqoe0ST6
-	qgM//gKQVFHvfpJ5I53W4aU6Eboujr0NloMyWzz8/yewUWttjWryqaVVuxsvkHQfaFBnI8Cxxm0
-	u1Kjucd8zueathg2Yy2V/r9A7v6DXyQphMG39q+aQldT+6v1SEb8iqHHOvSgTiH8MPUnVCv1LbH
-	CASnohXc6Nfg2
-X-Received: by 2002:a05:600c:1c0d:b0:49f:ce73:7ac with SMTP id
- 5b1f17b1804b1-49fe67106d6mr15096175e9.35.1790211858543; Wed, 23 Sep 2026
- 18:04:18 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790211862; x=1790816662;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=czd/s34OcW98EL8w2Vq/LmrqDyHhrcgOAIgDbU3R4Z0=;
+        b=ORPKc0w7WvuxsteadQv62BbzUBwe8A1huQWa1MnxRmy72na2OMsJV/sB8lhpql+wyD
+         5sZFZFwXs3B3WB12gVD46fGhOLBXnjrJjTi/YyFFZ+r9Vut8BNi1hXNTXzy8oVW9rYAa
+         im+PRIISzzC/9LeZJzxZnhA+O7aM9UEV4CE98ZqAg77KKkzQZfHHLHF+sejzdKvUsYRY
+         dT9pwIoCdqp+eLwt28mNgzqQuzqizdi8i79EWdQv+01jY5CWoaZCxtKlDJZO/A2se45D
+         tyyGyXG2cukFCacbJbVugu5Ei6AZZFE+rKMjHXzY9cxhqlmh7m4qCIU8Lrr7RdRlHzBu
+         OKEg==
+X-Forwarded-Encrypted: i=1; AKwUvBxoJ6nSh4Lj1QK24jq4QIoia59yH1Dz/NVlQ3i8w1OPFp3KMIcgrZrutivN+ab+Spisak5qMknF+OsHLw8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mbEbLehvNp3e2yRWkBFEZ11cYPi8KUMsbkXU81D5hruQB4Ow/z
+	OfwHU+hbFbvnKKjmODrNT6/MdhcrKYlzSWzaIvXaSV2CXfjG33Y0FhMF
+X-Gm-Gg: AYBFou3Mp4edYP3sR1KaehzkZkMR689hOCnaQgLisUeYYEgb9KIhIWBrQVAEGgtbPPU
+	jfHV1bQk2alEfurAYNtx4U5FGoOFWuWoNOTgABcpj/fopHQadkGLUZOWNNp/fbqwh/IZgv6ypEI
+	1NO92YFTlxT754COgUVFvvAUoy89m8pNPCNTtJrcqHamaZ41AJSUN/OrWXLxXWRJ6aUMmYDIJ9p
+	d3fpLiFa6m1H/Jbk3H/CHiaRVxcFhr5aO8wxoyDsN1fnc3Hpaa2dyjiNIsUaBZou6yM/M2FIp72
+	XJEKhRhGkYNyFIRbH4WUpy8yxIY0NPAXZDfAV89lqTCiFUXJEDx1dsECWzC5/bWZ2Q2yZt8rjPp
+	yZ1IhRlIHEK1il2WyMolq5jtov8uQ2r84nWlsKW1Pjf2wFduA1cO8sqTzXPz5YCtbSWhK4xTMkh
+	9uW10u4jt0kIgCwHsjVRNEfNxzAhTGRCdpJ/Qf2AzfofI3x0xbXV3Vs5xhbSwAZpYDJb4q6tASP
+	KdKY498qrfThlJzfTRjGg==
+X-Received: by 2002:a05:620a:4413:b0:939:9f51:29a0 with SMTP id af79cd13be357-93c363d6c97mr68153185a.50.1790211862043;
+        Wed, 23 Sep 2026 18:04:22 -0700 (PDT)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c2485883asm349018185a.20.2026.09.23.18.04.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 18:04:21 -0700 (PDT)
+From: Yuho Choi <oss.patchbox@gmail.com>
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Rob Herring <robh@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	linux-pci@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yuho Choi <oss.patchbox@gmail.com>
+Subject: [PATCH v2] PCI: rcar: Release temporary device tree node reference
+Date: Wed, 23 Sep 2026 21:04:11 -0400
+Message-ID: <20260924010418.726980-1-oss.patchbox@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923095435.591542-1-kunwu.chan@gmail.com> <7efbc8e2ecbf397fc8e44327d13e9a7021b97212.camel@infradead.org>
- <CAN_Opa-tDcZOEk=Mt5MAqUTkg2as5G79uBkxkUaJif8b5QpXYQ@mail.gmail.com>
- <1cb9c1d40f246ddbe24c9fb930d6dce16aaa25a1.camel@infradead.org>
- <CAN_Opa-xVAzFAJVU3rwCsiBzVpQYqUYWzgpBBP7EaX3K+ASk1g@mail.gmail.com> <19595BD7-98B3-46F0-8B47-DAFF304C5A7A@infradead.org>
-In-Reply-To: <19595BD7-98B3-46F0-8B47-DAFF304C5A7A@infradead.org>
-From: KunWu Chan <kunwu.chan@gmail.com>
-Date: Thu, 24 Sep 2026 09:04:07 +0800
-X-Gm-Features: AclHuK9lgR6kmKYPwa1ltvDPz79B4tIYoVe6PMK2Mrf54spd1LXi9d__ShA6Me4
-Message-ID: <CAN_Opa9r1ZbZjLQ_jHSaFQ=8Q-QPrDNxqOrN=feCNz=3N3kNGw@mail.gmail.com>
-Subject: Re: [PATCH 00/17] KVM: Use atomic SRCU for gfn-to-pfn cache,
- reinstate guest mode for x86 nesting
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, rcu@vger.kernel.org, 
-	pbonzini@redhat.com, seanjc@google.com, paul@xen.org, paulmck@kernel.org, 
-	kunwu.chan@linux.dev, nh-open-source@amazon.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 12:46=E2=80=AFAM David Woodhouse <dwmw2@infradead.o=
-rg> wrote:
->
-> On 23 September 2026 18:26:32 CEST, KunWu Chan <kunwu.chan@gmail.com> wro=
-te:
-> >On Thu, Sep 24, 2026 at 12:07=E2=80=AFAM David Woodhouse <dwmw2@infradea=
-d.org> wrote:
-> >>
-> >> On Wed, 2026-09-23 at 23:58 +0800, KunWu Chan wrote:
-> >> >
-> >> > You mentioned that the SRCU read side scales a lot better and avoids
-> >> > cacheline bouncing. If you happen to have any existing measurements =
-of
-> >> > the reader side, such as throughput or reader-side latency, I would =
-be
-> >> > very interested in seeing them. That would be useful for understandi=
-ng
-> >> > the reader-side benefit you mentioned.
-> >> >
-> >> > Of course, no need to rerun anything just for this. I was mainly
-> >> > wondering whether you already had such data from the existing testin=
-g.
-> >>
-> >> Most of the KVM gfn-to-pfn-cache usage is per-vCPU so doesn't get much
-> >> parallelism. The main case is interrupt delivery to Xen guests' event
-> >> channels, and I did some benchmarking of parallel interrupt delivery.
-> >> I'll see if I still have those results, or tell my friend to go and
-> >> repeat some meaningful tests.
-> >
-> >Thanks David, that would be very helpful.
-> >
-> >The parallel interrupt delivery case sounds particularly interesting.
-> >Please don't go to any trouble if the old results are not available.
-> >I really appreciate you checking, and I also appreciate your friend's
-> >help with the measurements.
->
-> It's no trouble; my friend is remarkably compliant once I've held its met=
-hodology to account and probed at its conclusions.
->
+of_find_matching_node() returns a referenced node even when it is used
+only as a boolean test. Drop the reference right after the match check.
 
-Haha, fair enough. Thanks again to both of you for indulging me. :-)
+Fixes: a115b1bd3af0 ("PCI: rcar: Add L1 link state fix into data abort hook")
+Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+---
+Changes in v2:
+- Use an explicit of_node_put() instead of __free(device_node) (Marek Vasut)
+- Switch to my oss.patchbox address
+
+v1: https://lore.kernel.org/all/20260801233841.469826-1-dbgh9129@gmail.com/
+
+ drivers/pci/controller/pcie-rcar-host.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/pci/controller/pcie-rcar-host.c b/drivers/pci/controller/pcie-rcar-host.c
+index cd9171eebc289..1f5e33c802b5b 100644
+--- a/drivers/pci/controller/pcie-rcar-host.c
++++ b/drivers/pci/controller/pcie-rcar-host.c
+@@ -1122,7 +1122,11 @@ static const struct of_device_id rcar_pcie_abort_handler_of_match[] __initconst
+ 
+ static int __init rcar_pcie_init(void)
+ {
+-	if (of_find_matching_node(NULL, rcar_pcie_abort_handler_of_match)) {
++	struct device_node *np;
++
++	np = of_find_matching_node(NULL, rcar_pcie_abort_handler_of_match);
++	if (np) {
++		of_node_put(np);
+ #ifdef CONFIG_ARM_LPAE
+ 		hook_fault_code(17, rcar_pcie_aarch32_abort_handler, SIGBUS, 0,
+ 				"asynchronous external abort");
+
+base-commit: f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
+-- 
+2.43.0
+
