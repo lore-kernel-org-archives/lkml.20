@@ -1,68 +1,68 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE8F64C8C54
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:04:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE7C4CC604
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:04:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790280282; cv=none; b=ERuDRqDuKLzpby4lJkUDOB6fBZJMd5oy6f9pdiZWDKSeyDW9iWYEr7GTs9ksKnrOfHvACHVUD7KhsB01D7b2nqQLq7a3D0/6f8nKf+Fr/zubei85T4jrLVmupM7BoeOaF/vWflq2+DvUDKGFHTWnvhmVsLNxqQuj5tpdGWC/rew=
+	t=1790280284; cv=none; b=QTvXl67/w1bD7WxwBGoV4RUym0jbkxlYeAGBg8OAIp41orXvVOaQilRBT59vpbfReijJjVT3vHPrQlC3H4nZnDIl8LBsKqNfpJHzOkEdXQLFU5sLjpjhS75n2JVRMGuJWOx6oHlVlBfnjZcYS1l1kIhimaMQO+dA597ZD9TFHq8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790280282; c=relaxed/simple;
-	bh=pA6UJFYAdUJYNZRTgO/wCDr+bljQsjsVqN7G2i9omLM=;
+	s=arc-20240116; t=1790280284; c=relaxed/simple;
+	bh=DMFbDtxDxzTU0blumPnTcfeaoGFThDy6cVflVpMuxmM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LTNjOAa2S0rPgt+tJdG//Mxwwwemq8XJddYGypq1HhDMF3Q7nsveew+WzYCl7Tz4WSY5CiliKcIUB8b0h7zVtY5Kdpo0YBYwFq2FTy2duzpvRg9EBL2GcRwb5SPgFnntr8kYOZ8XbOc+tQylYokR6fIf4V87Gr+q1rIKFY9/U7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zyj4GE1V; arc=none smtp.client-ip=74.125.225.140
+	 In-Reply-To:To:Cc; b=V8CIrY9SHK8qENBUHHkJaxCGhUHF5w6a0c6K7Le3sXmQ5aCgy0+M9oywzsPW98VqdnZ/RoCWpO+YFCXCTzIFnjsd8h1Aoeggw99b0c32WjddvWWOSN0XvUfSwaPm9NJxNT75D73hRauqaaC32iYR6KpWlBsqfo/p825rLDhe1dU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GBO8113d; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zyj4GE1V"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b5so1185635e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:04:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GBO8113d"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350faaso100927f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:04:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790280279; x=1790885079; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790280280; x=1790885080; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EvoJ+1SnGtHb1aER45OX4q+Sg7b0MJkGQf+G9BmIWik=;
-        b=Zyj4GE1Vhhex3ox0LhMQ+5FTa4U2KQlY0Dz7KnXOxmyzn20wXsC7XbGtOWLAH/0Dpc
-         wjXhYzGJ4bqJVa1nrvAJcZY9koN5QjQvsPAe8IQ73otToRuiIA6RLyfSEgH2dOevr+xL
-         3rXyuXibXBngwkQnkxUPl63465mUz0ovAxrVWg+npZ1zUvfvBmI3N87/k4vusxGSSneu
-         jdhqrBMtH0YmmcI97+Sil9/YSu5Uj/A3A7ocU3Yk49whnNL+gGkYROzbUI/aqrZ0Tz9k
-         dfFfQPTs91+2ihGQdEG3JllEKUHyJFt6JUdB1fy3zWYHpTKA1TABwY0pJuz7Npls4C0Z
-         b0Ig==
+        bh=girgJjULVwYK69uHVXTl40PhKgdfAEex+6Vx4Om71qs=;
+        b=GBO8113dPZTVwPF/thJwo50ZwOsEGE7DZFgiYsJJ0jWViOarhxRB2tU11cKKZqT45P
+         kVnbf9e/q2wgv2b6zxrGFuBd/hO6DRqT0msNE8Iagov2iUU+f1s2WfeKMPISBTpeuXcK
+         Pda/DEdP8gD3BipmqStrj06Anilo9l7mbYHxisdLDeEU3Kd+5l8IH+8+zV/gaUIuMtwi
+         Sio1Sj9hL0Aa47qigr6JPRuA6tASjVksxgG2S6Q5tRz3vrNRWR1B40GbkqhVFdu7MJbq
+         a/ETOgL694eNvZNYRlGEYDR4UgVoYOOnVTOKz6Xwx53wnNcvSSKXfnMtg90Wn3lxVwjJ
+         YcJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790280279; x=1790885079;
+        d=1e100.net; s=20260707; t=1790280280; x=1790885080;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EvoJ+1SnGtHb1aER45OX4q+Sg7b0MJkGQf+G9BmIWik=;
-        b=n6ue84cPZmZdjYj22/K5qjhQbVdlCXlw7OWnod7a9PFgSnvWTqErTtKpY2cDVvI7Eb
-         YKWveKRoPKdks6d8eiFDZemBXXt8yhfS+FTME++SPW7GNDQmU8Kx1csAT1VCCfF6MhY3
-         UTy/B8uEJxNxASQxUX7K6u1IfMyFaso3Chg+Pr8TKB+zfuEYkeGjAITW370fksH2768M
-         gmo3lhX8ztzomhY7InTfkhMBDvFv6ZtwGxcpdze7ARH5t4BP8fWnhzQC07qQbsOq8roL
-         GTBZbwe28b0XiCezrKovSqF9kYOZvVJNCja50dbkLYUFzjFIKsQzHrtScJODajlXiIJ+
-         gjJg==
-X-Forwarded-Encrypted: i=1; AKwUvBwKEz95flg74ABkJ4CHqZc8z8s3QDKoUA6+dq3QD7nRTx8XnDsi5mPGJ3FjcAUMF4Bo5jAPygHqTBkFNSE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKncRza/t3VBBGBXUAoQxvokzPHArJeAhvYMdyp5inQZk83syy
-	F/hqJyx1oFcLSM0b9CmOf9NerpyrpjjRupH+VD2q+vgOFGAQwFZOemXf
-X-Gm-Gg: AYBFou2VkEIgc8kt//PTeWbLdQsCQw6rBXYB6CYr8MP0UewOT65JssYx7LGPZ4Ir2VP
-	vC17GuWNHkLOXF8i6BdrbBQb+vrS5+EAXBgSySD4/T1idydqHg3aezpHyoZ19K6cKV0E5e37A7s
-	YGFaPDU2hPprjeAmwZeCI7u70NjWD/bTnwHJT9VJde69am7dbhId+5S6m1+9TRsfK+l8jRHVCEb
-	DYm7wY1a38iZSont5zDh79ViOIZmXM7mgJna0fmPsevwejFT940kZMepD+csc2B9B6Ve0IswyfZ
-	KHO2BGVjxwdfZUyV6NOHN3vDIcdSYXHR+2Ze6zHtiY4O/e1awOI6ILs8YX6+c0diiGKTZXiRwgo
-	nxKZTqZKeg1GdoPr/KDTxjo8PvWDSPMxmMIPZ4dfnUAGpG0B+VN1qsdwtHmAsPd2Stx58+VKgiR
-	hG5I4T+mjqX4AtcaQsTfQyjruC/8zTylpKqaH962JGl5fFkKXnxfwSGtxJWQ3aHeu28eHfnjnkk
-	bRM3SA2L6qllSK4CZK8G9oGWnQ=
-X-Received: by 2002:a05:600c:37c9:b0:49f:c2ef:cfb9 with SMTP id 5b1f17b1804b1-49fe66c897cmr55518965e9.4.1790280279053;
-        Thu, 24 Sep 2026 13:04:39 -0700 (PDT)
+        bh=girgJjULVwYK69uHVXTl40PhKgdfAEex+6Vx4Om71qs=;
+        b=xKfG2SkSjLTPsxgIIZbXxnruKQyErNf+eXQbvIs3VMf2sBjNHTVpH8SyxPJt3/B/3q
+         XZltsIliWQbCfxQ08Fr6U2RUIte8Ao+mkZVBrcgJY9IYqZjS/rJR1xjdeTqCkOGcLn0s
+         26/T9/eAkMRe3SYTNZ8cVIxvSx2oiA1w8ojjIMHfPsa49FEHFuO2TjM3BKSn4HAYTZcm
+         ISvmeNswAvAYndDZNYKhqf2mcAc1eZFLfSYZGBG3X7DHmucjf5ZSddlEKj/WiR+cWBX3
+         lSzOF9fpQxtRfTq4Dlm+X1J93AO/oS7SagEYuiAySOgPo2hsOn1Tb8XeERCDSoKPM1wq
+         8gRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzvw+At88qNfthpq8vonROv1MgxhIP4E643wOw9e98FQkxk7ex+tJwsADTT3UT47ktS/Po2KHFF62Df8eQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++m67n7qdDLHld0zzXHQ9QVenAZgr7KzJLW0RivGk5X9QpQpCzdT
+	XfxRPCuJ1CjUGqMVv61gq4Lbxr/DXrGrx4Ka1laZRaduWjf50fLG6oSn
+X-Gm-Gg: AYBFou0oyZdppthIDyr+5JDAIqSIuKMXHkKgbAe6Kre6j58Vnd+S88aTyUYRBSdHilM
+	sR1uvIYIIEgI2Ni/vq/WMt5RbWnCtO+sNWWRbARkBxLjXUmtLf0N9AZvMemNFZxi6PPrIgm8fm3
+	cxmjvfKsxZ8/Nit7L9e42ScWjYL8/qzLvxttX4pDmlCSk1H0idgsEf77hcVd3rsj/d/q1uBMh18
+	UwadxYspRb+YYbhvZvrS981khJa/gXXyEIYWzh3w3DkgZtWE0cUE9AZwZNYPUiuvrTz3GC8GuEA
+	wQgJUdjufzLdWF1tRvw9pUMM+pwsb4GWSDlBP50R+IMPIYqfVNCQjbbu3/3CWlxNPzFwSxjUOOz
+	tb8UZwM8ATdZ+8RmXFR/4Nq7Bw2qej0qJQaPtOoL3vjnBNZiwv4At8do0Ctb2EgEbs2VhF6glns
+	NU3FCX18NeiCjdDzzgKqBP1J/ViwvkNR9EIFLxRL3W6CveBzOTp7fx6dRDyK6gmzE3jtNc3+FW1
+	bwYF5yW+7EG5K0tBcYbz7n40BI=
+X-Received: by 2002:a05:600c:698d:b0:49d:1df6:2592 with SMTP id 5b1f17b1804b1-49ff06e504dmr1234455e9.21.1790280280382;
+        Thu, 24 Sep 2026 13:04:40 -0700 (PDT)
 Received: from [192.168.0.253] (5403F394.catv.pool.telekom.hu. [84.3.243.148])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4887a30b1dfsm1551603f8f.4.2026.09.24.13.04.37
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4887a30b1dfsm1551603f8f.4.2026.09.24.13.04.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 13:04:38 -0700 (PDT)
+        Thu, 24 Sep 2026 13:04:39 -0700 (PDT)
 From: Gabor Juhos <j4g8y7@gmail.com>
-Date: Thu, 24 Sep 2026 22:04:18 +0200
-Subject: [PATCH 3/8] mtd: rawnand: qcom: make config_nand_page_write() more
+Date: Thu, 24 Sep 2026 22:04:19 +0200
+Subject: [PATCH 4/8] mtd: rawnand: qcom: make config_nand_cw_write() more
  generic
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-qcom_nandc-share-more-code-v1-3-f3012199b161@gmail.com>
+Message-Id: <20260924-qcom_nandc-share-more-code-v1-4-f3012199b161@gmail.com>
 References: <20260924-qcom_nandc-share-more-code-v1-0-f3012199b161@gmail.com>
 In-Reply-To: <20260924-qcom_nandc-share-more-code-v1-0-f3012199b161@gmail.com>
 To: Manivannan Sadhasivam <mani@kernel.org>, 
@@ -102,57 +102,57 @@ Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
  1 file changed, 5 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/mtd/nand/raw/qcom_nandc.c b/drivers/mtd/nand/raw/qcom_nandc.c
-index c65a8416c3f5..1f3c00823309 100644
+index 1f3c00823309..99fbf5458083 100644
 --- a/drivers/mtd/nand/raw/qcom_nandc.c
 +++ b/drivers/mtd/nand/raw/qcom_nandc.c
-@@ -365,10 +365,8 @@ config_nand_single_cw_page_read(struct nand_chip *chip,
-  * Helper to prepare DMA descriptors used to configure registers needed for
-  * before writing a NAND page.
+@@ -378,10 +378,8 @@ static void qcom_nandc_config_page_write(struct qcom_nand_controller *nandc)
+  * Helper to prepare DMA descriptors for configuring registers
+  * before writing each codeword in NAND page.
   */
--static void config_nand_page_write(struct nand_chip *chip)
-+static void qcom_nandc_config_page_write(struct qcom_nand_controller *nandc)
+-static void config_nand_cw_write(struct nand_chip *chip)
++static void qcom_nandc_config_cw_write(struct qcom_nand_controller *nandc)
  {
 -	struct qcom_nand_controller *nandc = get_qcom_nand_controller(chip);
 -
- 	qcom_write_reg_dma(nandc, &nandc->regs->addr0, NAND_ADDR0, 2, 0);
- 	qcom_write_reg_dma(nandc, &nandc->regs->cfg0, NAND_DEV0_CFG0, 3, 0);
- 	if (!nandc->props->qpic_version2)
-@@ -989,7 +987,7 @@ static int qcom_nandc_write_page(struct nand_chip *chip, const u8 *buf,
+ 	qcom_write_reg_dma(nandc, &nandc->regs->cmd, NAND_FLASH_CMD, 1, NAND_BAM_NEXT_SGL);
+ 	qcom_write_reg_dma(nandc, &nandc->regs->exec, NAND_EXEC_CMD, 1, NAND_BAM_NEXT_SGL);
  
- 	host->use_ecc = true;
- 	update_rw_regs(host, ecc->steps, false, 0);
--	config_nand_page_write(chip);
-+	qcom_nandc_config_page_write(nandc);
+@@ -1018,7 +1016,7 @@ static int qcom_nandc_write_page(struct nand_chip *chip, const u8 *buf,
+ 					    oob_buf, oob_size, 0);
+ 		}
  
- 	for (i = 0; i < ecc->steps; i++) {
- 		int data_size, oob_size;
-@@ -1059,7 +1057,7 @@ static int qcom_nandc_write_page_raw(struct nand_chip *chip,
+-		config_nand_cw_write(chip);
++		qcom_nandc_config_cw_write(nandc);
  
- 	host->use_ecc = false;
- 	update_rw_regs(host, ecc->steps, false, 0);
--	config_nand_page_write(chip);
-+	qcom_nandc_config_page_write(nandc);
+ 		data_buf += data_size;
+ 		oob_buf += oob_size;
+@@ -1094,7 +1092,7 @@ static int qcom_nandc_write_page_raw(struct nand_chip *chip,
+ 		qcom_write_data_dma(nandc, reg_off, oob_buf, oob_size2, 0);
+ 		oob_buf += oob_size2;
  
- 	for (i = 0; i < ecc->steps; i++) {
- 		int data_size1, data_size2, oob_size1, oob_size2;
-@@ -1143,7 +1141,7 @@ static int qcom_nandc_write_oob(struct nand_chip *chip, int page)
- 	set_address(host, host->cw_size * (ecc->steps - 1), page);
- 	update_rw_regs(host, 1, false, 0);
+-		config_nand_cw_write(chip);
++		qcom_nandc_config_cw_write(nandc);
+ 	}
  
--	config_nand_page_write(chip);
-+	qcom_nandc_config_page_write(nandc);
+ 	ret = qcom_submit_descs(nandc);
+@@ -1144,7 +1142,7 @@ static int qcom_nandc_write_oob(struct nand_chip *chip, int page)
+ 	qcom_nandc_config_page_write(nandc);
  	qcom_write_data_dma(nandc, FLASH_BUF_ACC,
  			    nandc->data_buffer, data_size + oob_size, 0);
- 	config_nand_cw_write(chip);
-@@ -1219,7 +1217,7 @@ static int qcom_nandc_block_markbad(struct nand_chip *chip, loff_t ofs)
- 	set_address(host, host->cw_size * (ecc->steps - 1), page);
- 	update_rw_regs(host, 1, false, ecc->steps - 1);
+-	config_nand_cw_write(chip);
++	qcom_nandc_config_cw_write(nandc);
  
--	config_nand_page_write(chip);
-+	qcom_nandc_config_page_write(nandc);
+ 	ret = qcom_submit_descs(nandc);
+ 	if (ret) {
+@@ -1220,7 +1218,7 @@ static int qcom_nandc_block_markbad(struct nand_chip *chip, loff_t ofs)
+ 	qcom_nandc_config_page_write(nandc);
  	qcom_write_data_dma(nandc, FLASH_BUF_ACC,
  			    nandc->data_buffer, host->cw_size, 0);
- 	config_nand_cw_write(chip);
+-	config_nand_cw_write(chip);
++	qcom_nandc_config_cw_write(nandc);
+ 
+ 	ret = qcom_submit_descs(nandc);
+ 	if (ret) {
 
 -- 
 2.55.0
