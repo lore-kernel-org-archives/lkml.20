@@ -1,210 +1,245 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F685401A18;
-	Thu, 24 Sep 2026 06:09:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18475349CFF;
+	Thu, 24 Sep 2026 06:10:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790230191; cv=none; b=nLW+fRqhcWV1rQ5gwj7pI8iMR7vxBXLHNkfpVvQzyh2m4KJb9NZBkzcfUfQ7W3SuNDbD6MT8bq8Sm7utyWqxMeFl93nZ04cmcY477esGAj4LlpHJIItjSqslUctEInFZ8IwhV3oLb/6TKb0zssaxWXh/NdLx/l72MWuFUbRN0x4=
+	t=1790230203; cv=none; b=Nfgei8VQUCQnCZKhH9lUBeMG9VqrKf+d23WGBEwOdDNjXAhcT99VG4AHBLCSjWSpcYCTPuf+vcDUd83eFvpqL+JT/lRpx7zkfmgOuoVqv3YHSTDAtFI8nu6pfiaMYe7Kf0TCsuCH0Qcgolrn1X+C1P/6g3MGmNe0nDWinybDUew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790230191; c=relaxed/simple;
-	bh=sI/zyDuEE7ZYsdkLhr9ZUtzZemwzr2aoYjZxkeuqYK0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=GDlumANE5HqwDHcl8f6MAl68gAYP1udU0DgGEZG81WxKwI79t8HEi5wa2QbfgGL65qOG2g6AXGKG24VLNlEaGzKjfSY3Pu1B7AY4EQwPq4B/asRCBBOLM9tdWQNxN6ydbQQDW/6f8gg7l+w+rnGc7g9yGMvwMOf5upK6J1e+U8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AIOoGXNe; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790230203; c=relaxed/simple;
+	bh=oPkJ7I4m81bREd/9YR0WWkqRm9bqwo35PiQcvWTzNFU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=I7Nt29hTaAucEYW0K71uGHbKolMqdcy9cxycZ1haT2kxtjbWXD3yARbUE5ms6oFYnnE48cWdFqVHCu2u2rowO/facJL0Eq5XppNEM1KJ6RNu2NXzbbegQnXlQSPCJa8YPaXDeD05342WKwRKSqbmpNV7i8hOyuSWu/qmsOAzo5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JH592GnK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AIOoGXNe"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 11716C2BCF5;
-	Thu, 24 Sep 2026 06:09:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790230191;
-	bh=sI/zyDuEE7ZYsdkLhr9ZUtzZemwzr2aoYjZxkeuqYK0=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=AIOoGXNeF2Y3bQQpunWGEow9ohq3H5jAMsvWk7423e/sg204irbtTT9T+EGPq/KPB
-	 XDaGjU/AAiSE6ed5cE7jVYYkIiMEbuGzllWGZ0W4/Pv+iUku+E0INC3I6AONiI32ft
-	 xIUOHNUI5V5UrO5F5Bvbr2zWw0l62y1F+X76kJIX7GAHzgqKppT9IYAOEb2ey+MWIf
-	 mEd0BWnk/C0FiHF6lMp4XchuSrXMMWKpCzMn68+D4DuOE/YUkwtGvYRc/5NnQ/mPVe
-	 mjm5GrhDEd+hNlD+h6TbPcvKjJmeBir2n1jGnln7nV7ELN3tXDdzQ51mU5wdtnD323
-	 rDiTEeP3zWnQw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E0C48C98314;
-	Thu, 24 Sep 2026 06:09:50 +0000 (UTC)
-From: Nikolay Plastinin via B4 Relay <devnull+plaztininikolai.gmail.com@kernel.org>
-Date: Thu, 24 Sep 2026 14:09:50 +0800
-Subject: [PATCH] leds: trigger: input-events: Restore previous brightness
- on input
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JH592GnK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C1171F00893;
+	Thu, 24 Sep 2026 06:09:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790230201;
+	bh=Fa0KQ3fgRkDVGiDssz/j9qXG8YHMD9kKAj2GPSYE3Uo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JH592GnKcE2iGAD07ASXMeBURt6QXUxEDyZ1fIFQ0oGthXjgqzKxtqRghMZfV1SDX
+	 KjJCxF8wcsi0g3KU9Ll7drA0AED0KkzETF78nCFEaWQ7DCGbNiDY9pAKt3CISBLgxN
+	 ByVHf4gXBDkom9D/wNER72wL+d5o/rzfaA8lNRA6OZohytw6ckxnTgM58h5UUmx0oI
+	 QZxwJQoZCfqoiQUriDiBnPqaMeSVQgkY4vpC+PYkcwBmnmgSD/0GybQM/AP391pGdc
+	 dpQTnoZxeQ5tW8Wygzal5/6KEoXFAcjH/muCPqK8a6yKzU5SdpruNHq7BWA6AsmqPm
+	 rBHuXRBApBJFQ==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Mostafa Saleh <smostafa@google.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	linux-arm-kernel@lists.infradead.org,
+	loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org,
+	linux-s390@vger.kernel.org,
+	x86@kernel.org
+Subject: [PATCH v6 6/8] dma: swiotlb: Centralize memory-encryption pool sizing
+Date: Thu, 24 Sep 2026 11:37:54 +0530
+Message-ID: <20260924060756.1325156-7-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260924060756.1325156-1-aneesh.kumar@kernel.org>
+References: <20260924060756.1325156-1-aneesh.kumar@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-leds-input-events-brightness-v1-1-b0ceff3a2343@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqDMBAF0KvIrDugoZraqxQXUX91QKaSiVIQ7
- 25w+TbvIEMUGL2LgyJ2MflpRvUoaJiDTmAZs8mVrilb9+QFo7HouiXGDk3GfZRpTgozDr4JaIP
- 3/aumXKwRX/nf/ac7zwsKPWR2bgAAAA==
-X-Change-ID: 20260924-leds-input-events-brightness-a76ae9a77b85
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>
-Cc: Hans de Goede <hansg@kernel.org>, linux-leds@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Nikolay Plastinin <plaztininikolai@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790230189; l=5164;
- i=plaztininikolai@gmail.com; s=20260924; h=from:subject:message-id;
- bh=9fTT6vvDmUwr05vJ+INi1EAlZ6Qq/4jBiJx926Ym6ag=;
- b=iSyqaocEPGAyae/34hitEU9b3XpMlSKVdJgT46oKncr840/8VDDay0kerys/Yhhth8K+cuDrR
- gehFFcUudZeBsxTK90iMBubAwVE4h8szv54Pd4qKVmJ+rGgpz4ZeeyT
-X-Developer-Key: i=plaztininikolai@gmail.com; a=ed25519;
- pk=bmHrETa14IbiLNkJSoiLqUMni+IeSFwhOSDM4vVFN4s=
-X-Endpoint-Received: by B4 Relay for plaztininikolai@gmail.com/20260924
- with auth_id=1052
-X-Original-From: Nikolay Plastinin <plaztininikolai@gmail.com>
-Reply-To: plaztininikolai@gmail.com
+Content-Transfer-Encoding: 8bit
 
-From: Nikolay Plastinin <plaztininikolai@gmail.com>
+Memory-encrypted guests use shared or unencrypted memory for DMA and may
+route all DMA through SWIOTLB. The default pool can therefore be too
+small for I/O-intensive workloads.
 
-The trigger turns the LEDs back on with LED_FULL, which the LED core
-clamps to max_brightness. For keyboard backlights with several levels,
-such as asus::kbd_backlight, this means the backlight always comes back
-at maximum after being idle instead of at the level the user picked.
+Move the existing x86 guest-sizing policy into the SWIOTLB core. For
+SWIOTLB_POOL_CC_GUEST, size the pool to 6% of guest memory, clamped
+between the normal default and 1 GiB. Preserve an explicit swiotlb=
+size.
 
-Remember the brightness in blink_brightness before turning the LEDs off
-and use it when turning them back on, as the netdev trigger does.
-Brightness changes made while the trigger is active are picked up too.
-This needs per-LED handling, so convert the trigger from the simple
-trigger API to a regular trigger with an activate callback.
+Host memory encryption still selects a normal-sized shared pool and
+does not use the guest-sizing policy.
 
-Tested on an ASUS ROG Flow X13 GV302XV: with the keyboard backlight at
-level 1, it now comes back at level 1 after going idle instead of at 3.
-A level changed with the brightness hotkeys while the trigger is active
-is restored after the next idle period as well.
+A restricted DMA pool already provides shared bounce buffers for its
+devices. Record its presence during reserved-memory initialization and
+do not select the confidential-guest default-pool policy solely because
+guest memory encryption is active.
 
-Assisted-by: Claude Opus 5.5
-Signed-off-by: Nikolay Plastinin <plaztininikolai@gmail.com>
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: Andy Lutomirski <luto@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Thomas Gleixner <tglx@kernel.org>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: x86@kernel.org
+Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Robin Murphy <robin.murphy@arm.com>
+Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
 ---
-This came up while looking at a keyboard backlight idle timeout for ASUS
-laptops in asusctl:
-https://github.com/OpenGamingCollective/asusctl/issues/98
+ arch/x86/mm/mem_encrypt.c | 24 ------------------------
+ kernel/dma/swiotlb.c      | 27 +++++++++++++++++++++++++--
+ 2 files changed, 25 insertions(+), 26 deletions(-)
 
-The trigger walks trig->led_cdevs under rcu_read_lock() the same way
-led_trigger_event() does. I can add a helper in led-triggers.c instead
-if that is preferred.
----
- drivers/leds/trigger/ledtrig-input-events.c | 56 +++++++++++++++++++++++++----
- 1 file changed, 50 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/leds/trigger/ledtrig-input-events.c b/drivers/leds/trigger/ledtrig-input-events.c
-index d057b2a23..d1ef14ae8 100644
---- a/drivers/leds/trigger/ledtrig-input-events.c
-+++ b/drivers/leds/trigger/ledtrig-input-events.c
-@@ -10,6 +10,7 @@
- #include <linux/leds.h>
- #include <linux/module.h>
- #include <linux/moduleparam.h>
-+#include <linux/rculist.h>
- #include <linux/slab.h>
- #include <linux/spinlock.h>
- #include <linux/workqueue.h>
-@@ -28,7 +29,48 @@ static struct input_events_data {
- 	unsigned long led_off_time;
- } input_events_data;
+diff --git a/arch/x86/mm/mem_encrypt.c b/arch/x86/mm/mem_encrypt.c
+index 95bae74fdab2..912f22ca838f 100644
+--- a/arch/x86/mm/mem_encrypt.c
++++ b/arch/x86/mm/mem_encrypt.c
+@@ -101,9 +101,6 @@ void __init mem_encrypt_init(void)
  
--static struct led_trigger *input_events_led_trigger;
-+static int input_events_activate(struct led_classdev *led_cdev)
-+{
-+	struct input_events_data *data = &input_events_data;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&data->lock, flags);
-+
-+	if (led_cdev->brightness)
-+		led_cdev->blink_brightness = led_cdev->brightness;
-+	if (!led_cdev->blink_brightness)
-+		led_cdev->blink_brightness = led_cdev->max_brightness;
-+
-+	led_set_brightness(led_cdev, data->led_on ? led_cdev->blink_brightness : LED_OFF);
-+
-+	spin_unlock_irqrestore(&data->lock, flags);
-+
-+	return 0;
-+}
-+
-+static struct led_trigger input_events_led_trigger = {
-+	.name = "input-events",
-+	.activate = input_events_activate,
-+};
-+
-+/* Must be called with input_events_data.lock held */
-+static void input_events_set_leds(bool on)
-+{
-+	struct led_classdev *led_cdev;
-+
-+	rcu_read_lock();
-+	list_for_each_entry_rcu(led_cdev, &input_events_led_trigger.led_cdevs, trig_list) {
-+		/*
-+		 * Remember the brightness the LED was last set to, so that it
-+		 * is restored instead of max brightness on the next input event.
-+		 */
-+		if (led_cdev->brightness)
-+			led_cdev->blink_brightness = led_cdev->brightness;
-+
-+		led_set_brightness(led_cdev, on ? led_cdev->blink_brightness : LED_OFF);
-+	}
-+	rcu_read_unlock();
-+}
- 
- static void led_input_events_work(struct work_struct *work)
+ void __init mem_encrypt_setup_arch(void)
  {
-@@ -42,7 +84,7 @@ static void led_input_events_work(struct work_struct *work)
- 	 * running before a new event pushed led_off_time back.
- 	 */
- 	if (time_after_eq(jiffies, data->led_off_time)) {
--		led_trigger_event(input_events_led_trigger, LED_OFF);
-+		input_events_set_leds(false);
- 		data->led_on = false;
- 	}
+-	phys_addr_t total_mem = memblock_phys_mem_size();
+-	unsigned long size;
+-
+ 	/*
+ 	 * Do RMP table fixups after the e820 tables have been setup by
+ 	 * e820__memory_setup().
+@@ -114,27 +111,6 @@ void __init mem_encrypt_setup_arch(void)
+ 	if (!cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT))
+ 		return;
  
-@@ -59,7 +101,7 @@ static void input_events_event(struct input_handle *handle, unsigned int type,
- 	spin_lock_irqsave(&data->lock, flags);
- 
- 	if (!data->led_on) {
--		led_trigger_event(input_events_led_trigger, LED_FULL);
-+		input_events_set_leds(true);
- 		data->led_on = true;
- 	}
- 	data->led_off_time = jiffies + led_off_delay;
-@@ -138,11 +180,13 @@ static int __init input_events_init(void)
- 	INIT_DELAYED_WORK(&input_events_data.work, led_input_events_work);
- 	spin_lock_init(&input_events_data.lock);
- 
--	led_trigger_register_simple("input-events", &input_events_led_trigger);
-+	ret = led_trigger_register(&input_events_led_trigger);
-+	if (ret)
-+		return ret;
- 
- 	ret = input_register_handler(&input_events_handler);
- 	if (ret) {
--		led_trigger_unregister_simple(input_events_led_trigger);
-+		led_trigger_unregister(&input_events_led_trigger);
- 		return ret;
- 	}
- 
-@@ -153,7 +197,7 @@ static void __exit input_events_exit(void)
- {
- 	input_unregister_handler(&input_events_handler);
- 	cancel_delayed_work_sync(&input_events_data.work);
--	led_trigger_unregister_simple(input_events_led_trigger);
-+	led_trigger_unregister(&input_events_led_trigger);
+-	/*
+-	 * For SEV and TDX, all DMA has to occur via shared/unencrypted pages.
+-	 * Kernel uses SWIOTLB to make this happen without changing device
+-	 * drivers. However, depending on the workload being run, the
+-	 * default 64MB of SWIOTLB may not be enough and SWIOTLB may
+-	 * run out of buffers for DMA, resulting in I/O errors and/or
+-	 * performance degradation especially with high I/O workloads.
+-	 *
+-	 * Adjust the default size of SWIOTLB using a percentage of guest
+-	 * memory for SWIOTLB buffers. Also, as the SWIOTLB bounce buffer
+-	 * memory is allocated from low memory, ensure that the adjusted size
+-	 * is within the limits of low available memory.
+-	 *
+-	 * The percentage of guest memory used here for SWIOTLB buffers
+-	 * is more of an approximation of the static adjustment which
+-	 * 64MB for <1G, and ~128M to 256M for 1G-to-4G, i.e., the 6%
+-	 */
+-	size = total_mem * 6 / 100;
+-	size = clamp_val(size, IO_TLB_DEFAULT_SIZE, SZ_1G);
+-	swiotlb_adjust_size(size);
+-
+ 	/* Set restricted memory access for virtio. */
+ 	virtio_set_mem_acc_cb(virtio_require_restricted_mem_acc);
  }
+diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+index 75ee63cd354e..e626cca63ad1 100644
+--- a/kernel/dma/swiotlb.c
++++ b/kernel/dma/swiotlb.c
+@@ -33,6 +33,7 @@
+ #include <linux/kmsan-checks.h>
+ #include <linux/iommu-helper.h>
+ #include <linux/init.h>
++#include <linux/math64.h>
+ #include <linux/memblock.h>
+ #include <linux/mm.h>
+ #include <linux/pfn.h>
+@@ -80,6 +81,7 @@ struct io_tlb_slot {
  
- module_init(input_events_init);
-
----
-base-commit: f475845eaf3d749114a63270bf2efea459e14dd2
-change-id: 20260924-leds-input-events-brightness-a76ae9a77b85
-
-Best regards,
+ static bool swiotlb_force_bounce;
+ static bool swiotlb_force_disable;
++static bool restricted_dma_pool_present __initdata;
+ 
+ enum swiotlb_pool_policy {
+ 	SWIOTLB_POOL_NONE,
+@@ -478,7 +480,25 @@ swiotlb_adjust_pool_size(enum swiotlb_pool_policy policy)
+ 		size = min(swiotlb_default_pool_size(), size);
+ 		break;
+ 	case SWIOTLB_POOL_CC_GUEST:
+-		return;
++		/*
++		 * For SEV and TDX and CCA, all DMA has to occur via
++		 * shared/unencrypted pages. Kernel uses SWIOTLB to make this
++		 * happen without changing device drivers. However, depending on
++		 * the workload being run, the default 64MB of SWIOTLB may not be
++		 * enough and SWIOTLB may run out of buffers for DMA, resulting in
++		 * I/O errors and/or performance degradation especially with high
++		 * I/O workloads.
++		 *
++		 * Adjust the default size of SWIOTLB using a percentage of guest
++		 * memory for SWIOTLB buffers.
++		 *
++		 * The percentage of guest memory used here for SWIOTLB buffers is
++		 * more of an approximation of the static adjustment which 64MB for
++		 * <1G, and ~128M to 256M for 1G-to-4G, i.e., the 6%
++		 */
++		size = div_u64((u64)memblock_phys_mem_size() * 6, 100);
++		size = clamp_val(size, IO_TLB_DEFAULT_SIZE, SZ_1G);
++		break;
+ 	case SWIOTLB_POOL_NONE:
+ 		WARN(true, "Cannot adjust SWIOTLB size without a pool\n");
+ 		return;
+@@ -496,7 +516,8 @@ swiotlb_select_pool_policy(unsigned int flags)
+ 	if (swiotlb_force_disable)
+ 		return SWIOTLB_POOL_NONE;
+ 
+-	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT))
++	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT) &&
++	    !restricted_dma_pool_present)
+ 		return SWIOTLB_POOL_CC_GUEST;
+ 
+ 	if (cc_platform_has(CC_ATTR_HOST_MEM_ENCRYPT))
+@@ -2142,6 +2163,8 @@ static int __init rmem_swiotlb_setup(unsigned long node,
+ 	    of_get_flat_dt_prop(node, "no-map", NULL))
+ 		return -EINVAL;
+ 
++	restricted_dma_pool_present = true;
++
+ 	pr_info("Reserved memory: created restricted DMA pool at %pa, size %ld MiB\n",
+ 		&rmem->base, (unsigned long)rmem->size / SZ_1M);
+ 	return 0;
 -- 
-Nikolay Plastinin <plaztininikolai@gmail.com>
-
+2.43.0
 
