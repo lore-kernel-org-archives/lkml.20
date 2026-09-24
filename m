@@ -1,24 +1,24 @@
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B246247F3BD;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B44ED47F3CE;
 	Thu, 24 Sep 2026 12:06:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790251573; cv=pass; b=gmpyEpqSgW0rHSPRAqNaPAhxpXDBe035Fr51BPN5IVYzdexHHYT+7mBfD4LD2VIDFK42yfafVtA2mjt9N//zl/Sbqj3113XjONqlcta3dUqeOwbO5qLr4fqDiF78ZqVCtQatG+/pDiG+ICXFzL/0ZaVQZ7KHO4tOpoxNDHoOhAY=
+	t=1790251573; cv=pass; b=n0UXZm/8TgELz2rufdKJKEmlUCyCyPQevcb4WnD6Y2ktLHyFDb58DoaW5nC0opDLSGnAM6UPijkPE+Ljca2cvFBWBPCrtzc7bhqWtQBIK40bcSntSFSWlHfyihKjyR9G1BJA9wZeGZJoWpdErjpS+6jucbdVw6o9a7GHKd7KIZw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790251573; c=relaxed/simple;
-	bh=5n6MC8OCutxNNqzW0IJ1YtGCXB2tAZC79xrRknihPBE=;
+	bh=d8mkg5xHqBVJd/+OAcCCmrGfIWtwBQsBozU015Qzeis=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GfFgZY/arSNHzM8RomXBwajO2HNnmrNex8ceHxjuLgduJp2QblyWgtiATyFmBF0JI3DFTWLFtM8A3K+zLMXoY3guQHNeFHf1jFQ/lc9GauMfu+9eEyjXJj9LFDOcZl4AREJ44bfYCygbe+b3k0eZS+rUwJ+YvMKHoOsql1wHwmE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=C5QmBehn; arc=pass smtp.client-ip=185.203.200.13
+	 In-Reply-To:To:Cc; b=XPC/lCALeBkvh9GJBLosbujHoPd5G+dYJ8EoZSvFBbTPbIK9CduVULOTTDKsvMrmY7ygUy7sRLhPL8TDktTTm/4o/PiM9S9Ch981BbR6FI/DIPv+GLGzhxa9sn/6DViwh6bp98pY2SfCEiOGwdPOfxszgNp3ECnOpBGhNoU00yY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=KuofrP7P; arc=pass smtp.client-ip=185.203.200.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="C5QmBehn"
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="KuofrP7P"
 Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5dd5:4b00:9ebf:dff:fe00:fdb5])
 	(Authenticated sender: sha@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 5D002202148;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 493D8202146;
 	Thu, 24 Sep 2026 14:05:58 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1790251558;
@@ -26,38 +26,38 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Y2IJ1FOgva1rI7Yw1jUWrpI2Sl1miEz2GupOamZThWs=;
-	b=C5QmBehneQ9t8miIBtfHFq9l2PyzvXq8X0tvgd9woJMS+XX685ET8SgYQwvUzuMpp3m4Vx
-	simnHXUPEd9skUTO1u5iIiz//BZjmd7lboHoZ535FM12EawXS4uRs681HOmOUydY4qzSFS
-	En4qoWrHX4A6g28KouSPLejytE4tGXB9MIR1JTqoDHcX/lWN+nSo/EzANh3SpW0/wdOVO7
-	5T8y3pTf0nK5IAZZQ12B6fpzqHunQwSaue437ScN4cTvTvpL/xjyCNg5Mm8Ha861Ac9H0p
-	XOj649zfb/mjldy0tLLLk4huntPOQCoQWKEVKEmT9kPuZ0U60r70EmzmCftDWg==
+	bh=OEJ46ggGZWe0oK3mgVswoMNXQd3lYnmiKqKpdz18DF0=;
+	b=KuofrP7P/LYm+qp2dHicW0mfuqSV9qtUFePorYaRn+gwTFtzvAgC2yMk5a+FxYmuE1gsEB
+	2ZV+knn1nDg9VMV50HPW0ItQB338ompWtzfMXljNh4SLMyqTkWcuPKou1QNJNy5keqeZc/
+	nUecSQdRDLpiGDpBbG7D9Csg5xYo0f9yL9enPSMXk82AUFpfuPWA1ndGgQhOeRuWhh7tFI
+	pDIzEePl2iY/bU8sWitjdOuP2Sww9N9H/tBayCbBrFHKaTo7eT9+CWeFiP5mHcEz6vtnpk
+	V6O0eQJ6O3R5UiqmMgBS3v8RExuA32JfIODZ7e8eKcB8vpUhFjwrcY4qlBDRkA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1790251558;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Y2IJ1FOgva1rI7Yw1jUWrpI2Sl1miEz2GupOamZThWs=;
-	b=caxzu/W2a9eZ1qhCMohtH27eWO99xtEFvSjYka6daNSfdd7C5UITuIlmoCeQbXn4iX07Ha
-	GmFLf3liqdE3hTsSKzSbiEUb7sxW1qAkc6fVpnGJnmLQu6YycTyu/giSfXoVkMSbW956ez
-	SGkCrVWIm2i9QolCpAEAMbXMTp7DvSQDbNJByA/MuXnb5sA11KOcCiGi5lDo/keQevnHgQ
-	AJUfbWNZlViD5+uhQBe2QSNXvEt/i7NNaygZiiCtCof2Lp1Zo0USYiiGBuhvxqZE3Tw8zx
-	Va01/oOqhFuSeSvqmdXXe1ykrf6zbTqpdnPnw5GHSmxQhnmsD8nAq54kbDxSSQ==
+	bh=OEJ46ggGZWe0oK3mgVswoMNXQd3lYnmiKqKpdz18DF0=;
+	b=D3n0ivvZ3B0J90AM2uVLT2EQQWKMt4ljPzRdfhMzmGqIXevZbo1OvyU3i/XRzcwteVAx7F
+	3I4z7tp1aWeFyOFhzuTLSNMYnayy4Fz4h9PwZBCDSeB4s+b6jdZ6nxRwk27zX7SSDeuvCo
+	rvZx5gsduaU6ivcoDdyCi0qlEyfXjbNVEuv6HnWW4ep6/TXpMORL7WnxVQkJxDLJDz2zSj
+	AxfKs4jgHyvdQHLEcLmekqSmUTWMgQbBc9abdRYV6ev5LNqJe18/ACmQUe7adrPrgdZYsX
+	7dBYKeOUdab7l8qp9ddxzGpfSqtWQFPpM8aZuvillWwsQsLGNRoQelGZLLlHug==
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790251558; a=rsa-sha256;
 	cv=none;
-	b=Tnr+ivCFRbr5qt3cA18bb03Z2M5hMjzq/5e6PydxC5K+f/hzVsQlbppfnFdWXI4KImC6jw
-	eE95omQ80tr1j8ZcKQ7l9+Nivbl4GlleyCKBDKt5+BbjluAX0bg27zWLgmpBl37HQeEGJi
-	v/KnRmbJWmEeZFRH2ZN5+39aD8OKoqUosp4Kp3CmjbknNl3eLrLKgUi5j/V6xkvGQbK3Xv
-	OCxhqQ6g/zReWJJadlkGjSsTcHap7IDCjloO2BbkprmMWlWvTtMEFxkeNbdvK8lZaBtmQ+
-	46Mn0ilCHOREmSja2wtc9Nwvpz7WHPdIv2WU/w7qXx9Cggjtnj+qRPKVvV38Kw==
+	b=Frtvpck3tfE6bOlQx8S6kDFarE/HTC0dNZXlfGTFsc8OIdNdw7QQ22uXjGq06JUeLp1+kF
+	b1X5CWkz/EnB43ykizN4W289bacKQ8xMOPPGlSz0H3qarpik0EgSxpyrpBr0OSjP8rfjWl
+	JB9K95H7OHVtDbePnfqPvIFKYoyCToU0Xsz1Dud1ON1LjSQaP6J3CvydXD6LJqiMnFYuQ8
+	p4KetEKO/vqwuATfzg32VzUTjIpIkqaALs/0p2PHkweWlUBzD9Hgph8pMJ8ZH05lPTYQ2J
+	d/1Ybk4ABrdiVoEgmdyA+PiJWPFD87SxbPihnvFpILNNOiufr8+IIRg1ovUsrQ==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
 From: Sascha Hauer <s.hauer@pengutronix.de>
-Date: Thu, 24 Sep 2026 14:06:00 +0200
-Subject: [PATCH v2 6/9] media: synopsys: hdmirx: skip the 5V detect
- interrupt without a GPIO
+Date: Thu, 24 Sep 2026 14:05:59 +0200
+Subject: [PATCH v2 5/9] media: synopsys: hdmirx: give the signal lock wait
+ a real timeout
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,7 +66,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-hdmirx-media-v2-6-c12f641d8b0f@pengutronix.de>
+Message-Id: <20260924-hdmirx-media-v2-5-c12f641d8b0f@pengutronix.de>
 References: <20260924-hdmirx-media-v2-0-c12f641d8b0f@pengutronix.de>
 In-Reply-To: <20260924-hdmirx-media-v2-0-c12f641d8b0f@pengutronix.de>
 To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
@@ -79,99 +79,108 @@ Cc: Gerald Loacker <gerald.loacker@wolfvision.net>,
  devicetree@vger.kernel.org, kernel@collabora.com, 
  linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790251557; l=3146;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790251557; l=3970;
  i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
- bh=3NO0zESYj/3ElTwx0ZVhOFTkcHedyRyzVM26Lv3Soks=;
- b=a6QlpgCxbOiX8edP/2OZPqQD2MyYJK2Mt2SMSTYxkycHvc/W79qQrC+Z+dTpOFuzX8u/Wscgy
- hW3vy4b9IDBCZkhMArnphW2Zme9EK8DRHSlNce8AJbQ7XvLcOO2vMUV
+ bh=0hHdQ+VWpFV0ycvFYU3V1hB2DnTx7fiQV8RNjs7P0AA=;
+ b=xjYzqQq5Dw1gWPZ7BY4AGLJSuJacJsq0DmrUIMiNV6ykipyrFE2bbnZgxCLJtIuBwPqh05aAa
+ uO7mJxmOyGLA4I7+rkSIhBJzVOw50qdUSCw++Fnn1FUtVZbfhgkvkaQ
 X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
  pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
 
 From: Gerald Loacker <gerald.loacker@wolfvision.net>
 
-The hpd GPIO is fetched with devm_gpiod_get_optional(), so a board that
-does not wire 5V detect to the receiver leaves detect_5v_gpio NULL.
-hdmirx_setup_irq() then calls gpiod_to_irq() on it anyway, which returns
--EINVAL for a NULL descriptor, and probe fails. The GPIO is only
-optional as far as the fetch goes.
+hdmirx_wait_signal_lock() bounded itself by a count of 300 iterations.
+How long that came to depended on the debounce inside
+tx_5v_power_present(), which the loop calls once per iteration and which
+sleeps about 7ms of it, so the effective timeout was around two seconds
+by accident rather than by design.
 
-Set the interrupt up only when the GPIO is there. det_irq then keeps the
-zero devm_kzalloc() gave it, so hdmirx_enable_irq() and
-hdmirx_disable_irq() skip it as well.
+That accident is about to go away. A later patch in this series takes the
+5V state from an upstream subdev where the board has no hpd-gpios, which
+leaves tx_5v_power_present() a plain read of a flag costing microseconds.
+The same 300 iterations would then be over in a few milliseconds and the
+wait would give up almost immediately.
 
-Nothing else has to change for such a board to probe: 5V is then never
-reported as present, which is what gpiod_get_value_cansleep() on a NULL
-descriptor already returns. Getting the state from somewhere else is a
-separate matter.
+Poll on a fixed 10ms interval against an explicit three second deadline.
+Check the deadline after the 5V test so a disconnect is still reported as
+-ENOLINK rather than a timeout, and report the timeout as -ETIMEDOUT; the
+sole caller only tests for non-zero, so neither is a change in behaviour.
 
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Gerald Loacker <gerald.loacker@wolfvision.net>
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 ---
- .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 34 ++++++++++++----------
- 1 file changed, 19 insertions(+), 15 deletions(-)
+ .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 40 +++++++++++++++-------
+ 1 file changed, 28 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-index 9af1e71afb4e5..4b94e35c912c1 100644
+index d80143347fe0c..9af1e71afb4e5 100644
 --- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
 +++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-@@ -2525,7 +2525,8 @@ static void hdmirx_disable_irq(struct device *dev)
+@@ -2133,13 +2133,25 @@ static irqreturn_t hdmirx_dma_irq_handler(int irq, void *dev_id)
+ 	return IRQ_HANDLED;
+ }
+ 
++/*
++ * Wait for the HDMI signal to lock: TMDS clock detection and ratio
++ * configuration, then PHY and CMU lock, then DMA lock.
++ *
++ * The wait used to be bounded by a count of 300 iterations. What that came
++ * to in wall clock time was decided by the debounce inside
++ * tx_5v_power_present(), which is called once per iteration and sleeps
++ * about 7ms of it, so the real timeout was an accident of how 5V happens to
++ * be sensed. Poll on a fixed interval against an explicit deadline instead.
++ */
+ static int hdmirx_wait_signal_lock(struct snps_hdmirx_dev *hdmirx_dev)
  {
- 	struct snps_hdmirx_dev *hdmirx_dev = dev_get_drvdata(dev);
+ 	struct v4l2_device *v4l2_dev = &hdmirx_dev->v4l2_dev;
+ 	u32 mu_status, scdc_status, dma_st10, cmu_st;
+-	u32 i;
++	unsigned long timeout;
++
++	timeout = jiffies + msecs_to_jiffies(3000);
  
--	disable_irq(hdmirx_dev->det_irq);
-+	if (hdmirx_dev->det_irq > 0)
-+		disable_irq(hdmirx_dev->det_irq);
- 	disable_irq(hdmirx_dev->dma_irq);
- 	disable_irq(hdmirx_dev->hdmi_irq);
+-	for (i = 0; i < 300; i++) {
++	for (;;) {
+ 		mu_status = hdmirx_readl(hdmirx_dev, MAINUNIT_STATUS);
+ 		scdc_status = hdmirx_readl(hdmirx_dev, SCDC_REGBANK_STATUS3);
+ 		dma_st10 = hdmirx_readl(hdmirx_dev, DMA_STATUS10);
+@@ -2153,21 +2165,25 @@ static int hdmirx_wait_signal_lock(struct snps_hdmirx_dev *hdmirx_dev)
+ 		if (!tx_5v_power_present(hdmirx_dev)) {
+ 			v4l2_dbg(1, debug, v4l2_dev,
+ 				 "%s: HDMI pull out, return\n", __func__);
+-			return -1;
++			return -ENOLINK;
+ 		}
  
-@@ -2539,7 +2540,8 @@ static void hdmirx_enable_irq(struct device *dev)
- 
- 	enable_irq(hdmirx_dev->hdmi_irq);
- 	enable_irq(hdmirx_dev->dma_irq);
--	enable_irq(hdmirx_dev->det_irq);
-+	if (hdmirx_dev->det_irq > 0)
-+		enable_irq(hdmirx_dev->det_irq);
- 
- 	queue_delayed_work(system_dfl_wq,
- 			   &hdmirx_dev->delayed_work_hotplug,
-@@ -2623,21 +2625,23 @@ static int hdmirx_setup_irq(struct snps_hdmirx_dev *hdmirx_dev,
- 		return ret;
- 	}
- 
--	irq = gpiod_to_irq(hdmirx_dev->detect_5v_gpio);
--	if (irq < 0) {
--		dev_err_probe(dev, irq, "failed to get hdmirx-5v irq\n");
--		return irq;
+-		hdmirx_tmds_clk_ratio_config(hdmirx_dev);
 -	}
-+	if (hdmirx_dev->detect_5v_gpio) {
-+		irq = gpiod_to_irq(hdmirx_dev->detect_5v_gpio);
-+		if (irq < 0) {
-+			dev_err_probe(dev, irq, "failed to get hdmirx-5v irq\n");
-+			return irq;
++		if (time_after(jiffies, timeout)) {
++			v4l2_err(v4l2_dev,
++				 "%s: signal not lock, tmds_clk_ratio:%d\n",
++				 __func__, hdmirx_dev->tmds_clk_ratio);
++			v4l2_err(v4l2_dev,
++				 "%s: mu_st:%#x, scdc_st:%#x, dma_st10:%#x, cmu_st:%#x\n",
++				 __func__, mu_status, scdc_status, dma_st10,
++				 cmu_st);
++			return -ETIMEDOUT;
 +		}
  
--	irq_set_status_flags(irq, IRQ_NOAUTOEN);
-+		irq_set_status_flags(irq, IRQ_NOAUTOEN);
- 
--	hdmirx_dev->det_irq = irq;
--	ret = devm_request_irq(dev, irq, hdmirx_5v_det_irq_handler,
--			       IRQF_TRIGGER_FALLING | IRQF_TRIGGER_RISING,
--			       "rk_hdmirx-5v", hdmirx_dev);
--	if (ret) {
--		dev_err_probe(dev, ret, "failed to request hdmirx-5v irq\n");
--		return ret;
-+		hdmirx_dev->det_irq = irq;
-+		ret = devm_request_irq(dev, irq, hdmirx_5v_det_irq_handler,
-+				       IRQF_TRIGGER_FALLING | IRQF_TRIGGER_RISING,
-+				       "rk_hdmirx-5v", hdmirx_dev);
-+		if (ret) {
-+			dev_err_probe(dev, ret, "failed to request hdmirx-5v irq\n");
-+			return ret;
-+		}
+-	if (i == 300) {
+-		v4l2_err(v4l2_dev, "%s: signal not lock, tmds_clk_ratio:%d\n",
+-			 __func__, hdmirx_dev->tmds_clk_ratio);
+-		v4l2_err(v4l2_dev, "%s: mu_st:%#x, scdc_st:%#x, dma_st10:%#x\n",
+-			 __func__, mu_status, scdc_status, dma_st10);
+-		return -1;
++		hdmirx_tmds_clk_ratio_config(hdmirx_dev);
++		usleep_range(10000, 11000);
  	}
  
- 	return 0;
+-	v4l2_dbg(1, debug, v4l2_dev, "%s: signal lock ok, i:%d\n", __func__, i);
++	v4l2_dbg(1, debug, v4l2_dev, "%s: signal lock ok\n", __func__);
+ 	hdmirx_writel(hdmirx_dev, GLOBAL_SWRESET_REQUEST, DATAPATH_SWRESETREQ);
+ 
+ 	reinit_completion(&hdmirx_dev->avi_pkt_rcv);
 
 -- 
 2.47.3
