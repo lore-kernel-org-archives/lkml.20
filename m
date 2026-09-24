@@ -1,84 +1,203 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com [209.85.221.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F75148CD48
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:58:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B3D49D5BF
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:58:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790261912; cv=none; b=KDI9+3pyCUYW/agXfY1vYmGIoFOJFY7xq+9+/4RIKDWEM4GV+GhTenk7yzwnnoHE5DvZgokWZ2qyO/w92R8ZrjqSdUcYJ71c07av71BIw4jFyCxcDmj+SWUDQymDvP7HVAZSniCONe2wDgkqQffZtWR/iUDCC1KBPiIRSweFsrA=
+	t=1790261913; cv=none; b=qKCf91zj85/M4RvLslomVH+MNTN7XYotiKzBeDtHiEzhbycC6v6LLOtD/FN3qW+PZt+eD/RMzEjgmxY1XCG2KjROhWda19e+wJdcNsuDvDVJxr9Q+AMNGp+7lrXM3A3B8SBQhbJEhbx455QIsl66HYWuBqpMiNfO5g7Otr5Shoc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790261912; c=relaxed/simple;
-	bh=HvsHnujOTR+tbTjTf+ubB9CPmb7Zr3dQaWbiDzd/IhU=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=KtU5RANEEaykhozGS2x6BgIudSM1PXaiWnQyL/84nyuDWuyq8o34Bfu8e5xO8FP1VBachjx7VdGUM/xjqLkpGwSNOwC12P6xLKutqaosm+hEr5BO5MYPeVno5dOuVxn2tHeagLiJ5MoiS9arWAYWz4Z0MtKieVNRUz2Cyq9X4Mw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b37620eb73so3363513b6e.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:58:25 -0700 (PDT)
+	s=arc-20240116; t=1790261913; c=relaxed/simple;
+	bh=iGxObYsxfMXVS4DwNX66BB2uJBMvQFGo72urG75z4Kc=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=MGQl8FE+lQLGpbU0fLWmFj/RYus7ACGiCgf5yAl2MqL2dVo/BN7e/DtTMy/3LI8wbqek246ACZg+MZiItrQDzMsh8xXZ5hG6mwjldGHPpzzfjSpkSYTgLcxZ7mzJIYZQoyeTLXcWluDU9MzMS+xc9XYJT1TdznZxHenqH3JYTzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YiINUp4o; arc=none smtp.client-ip=209.85.221.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YiINUp4o"
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48701401090so1906524f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:58:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790261904; x=1790866704; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1e18QunqfVE00zml0hGARGcOCLbgPTTNUS9PK9RCQ6c=;
+        b=YiINUp4oOTBbiqrGDlgQzk6IUAQC9vYtV9S/k5DXq0U/OBR7LEmOEB+EPloGbprPeX
+         zSh8LQdVVse7zJD5Z5u0UVQcmCG2E0426/pWtNxbWexkMOI+yqfloi6GkoE4btnW98Fa
+         zrmBEKA4orZcXxKRhWsP8w1D31wzc7utFCwX0vNj6Z//up7Q1XLxjd44na6hd/Ph8jJa
+         YsfoOwrzub2MsptsN+T50ozWzDYiLTsOjnQ7Y1zk6b03SRcSATyASw0dl67DuMQ9/gpM
+         e5vUOqpcz4f7vQ1qBSSDeYkZ4J6svq/p+6IAJ5wx0GqbNDEsEXlxbcItxEQ//KZmhpu0
+         R+vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790261901; x=1790866701;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=S3M+ar6YBdgnzj1/7DVo4OrJetEqbREAyuzbpQVgYiE=;
-        b=KpSRqkAayyciBS+YZ/eWK5Y9Atb923I6/pR+vIewi9UohteHT+MH33KZrNBa0827nV
-         zmFrrQkGtw7/rBPA2JAvB+cWvp00e49yE2Rwl9gAkD0N5wuiaA+cEq1gkAaJarEHXo7Y
-         LOsxbNj7zIS5ctkT2ChkaGupZ1DBuvAWQvnVoL1/PvWGPgKyxG5GIbba6sasrDiRZlel
-         LPiSan6jCAzA8eHvARNHWU65TrsUWUmpy16HRDoQNbekjQsBYCna6yzIWiHdZBXOqcuv
-         IzX+6gusEGSOHzXqsADfc6Xydv5jYGMeZHaiHbbQuVQikWiK6fjdoKu9mzet+AUQSJdB
-         IUkg==
-X-Gm-Message-State: AFuF++lc8UY7eGJWLOVxy51HpA8+zqAp4qZHFvM3r81oGg4QeDEUGUHu
-	AZErd4kma4MLs/zHmi2nC5wlKnsiA2FtWmD+T0LNBR91hsf0PXYHJZf7GmAuiSffx8nj2/cq1qM
-	MAAQGTNqhWRqGsw/9B10TWH9oqf/lfrCjqT7GX9d+pPGwIpp91gbQBI3fMdw=
+        d=1e100.net; s=20260707; t=1790261904; x=1790866704;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1e18QunqfVE00zml0hGARGcOCLbgPTTNUS9PK9RCQ6c=;
+        b=SxvPGuzFSrSUTuDy0hVa0S2uJgpcNibxyV/SOGyT8+kfgpvWU4ExIM7J9Y7dErf8+E
+         rKPutQL1END+knryNHdKU+dbNeBOZNXsaI+yhVZL2IzI72kJzJHmHcZK7J+o3SXyhGnY
+         P5IJ37H/kWRyteRYnYqo8QCSd1dwAsS3Xf0kSSQqAU98GdYGX2fjfuoRPVkflEW4gPb9
+         eNAWpbgaMzM8epPzOimj/xixwyICYSKN1LanIPUz04xos9KPb7hDvnxiiSnwhhUWZ34s
+         AZIgxcuhFdWd3R1iDkwAX6KKUlDsl44jGDN6mXWg0PqwWsqgvuw3q3OWP75/dCowGRYj
+         laKA==
+X-Forwarded-Encrypted: i=1; AKwUvByJr8w+Ghbuhu7yMeiXeDxSTvTyNEfl4tZc1JD+3mHaUjbKrTVtXxAFpOxbQ361XEXUZRtPIDMb70fl+/0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lQ9goOgvC/s4WTzPI2AuvXy1xfvGaytfIJ0yJ8JiLUEb8hhJX/
+	QeIEM8oAorBrbVIQv+9j31EwqzU0lXgvNYXBahqCnO+iW7nJ3mOEJIRJ0UWskgZz3xs3JrRGKQF
+	lPJlT1u3QOG++EJL/DvlIcA==
+X-Received: from wrbep7.prod.google.com ([2002:a05:6000:42c7:b0:487:1add:cc9e])
+ (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6000:3105:b0:487:27f9:82d with SMTP id ffacd0b85a97d-488716f7577mr5418365f8f.34.1790261903929;
+ Thu, 24 Sep 2026 07:58:23 -0700 (PDT)
+Date: Thu, 24 Sep 2026 15:57:34 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3306:b0:4a3:f4b7:cbdf with SMTP id
- 5614622812f47-4d72e671f07mr3044756b6e.15.1790261901097; Thu, 24 Sep 2026
- 07:58:21 -0700 (PDT)
-Date: Thu, 24 Sep 2026 07:58:21 -0700
-In-Reply-To: <6ab41129.e548f532.1ca396.001f.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab53a8d.7428d045.30104c.0007.GAE@google.com>
-Subject: Forwarded: [PATCH] Testing ppl_conf for a null pointer
-From: syzbot <syzbot+75d7e96ad03ac2dbbd9f@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
+Message-ID: <20260924145754.1285146-1-vdonnefort@google.com>
+Subject: [PATCH v7 00/20] tracing/remotes: Add printk, dump_on_panic and boot parameters
+From: Vincent Donnefort <vdonnefort@google.com>
+To: rostedt@goodmis.org, mhiramat@kernel.org, 
+	linux-trace-kernel@vger.kernel.org
+Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+This series extends the recently introduced trace remotes
+infrastructure, bringing useful features for developers:
 
-***
+  * dump_on_panic: Dump the trace remote buffer on system panic.
+  * dmesg: Redirect remote events to dmesg.
+  * trace_remote=: Configure a trace_remote from the commandline.
+  * poll_ms: Modify the polling period.
 
-Subject: [PATCH] Testing ppl_conf for a null pointer
-Author: nsvatoslav515@gmail.com
+It also brings a couple of optimisations:
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 50d05c7c76c9
+  * In-header compressed length support for small events.
+  * Single work thread for remote polling.
 
-Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
----
- drivers/md/raid5-ppl.c | 3 +++
- 1 file changed, 3 insertions(+)
+And some misc improvements:
 
-diff --git a/drivers/md/raid5-ppl.c b/drivers/md/raid5-ppl.c
-index 7f8a9d3fd578..e54ed4e44b0f 100644
---- a/drivers/md/raid5-ppl.c
-+++ b/drivers/md/raid5-ppl.c
-@@ -535,6 +535,9 @@ void ppl_write_stripe_run(struct r5conf *conf)
- 	struct ppl_log *log;
- 	int i;
- 
-+	if (!ppl_conf)
-+		return;
-+
- 	for (i = 0; i < ppl_conf->count; i++) {
- 		log = &ppl_conf->child_logs[i];
- 
+  * Use kstrtobool where possible
+  * Free resources on remote registration failure
+
+Changelog:
+
+v7:
+
+  * Check for printk timestamps in dmesg selftest. (Sashiko)
+  * Touch NMI watchdog in the panic dump loop. (Sashiko)
+  * Add READ_ONCE()/WRITE_ONCE() for panic_on. (Sashiko)
+  * Defer dmesg and tracing enabling after all cmdline options are parsed. (Sashiko)
+  * Guard sysrq panic trigger in dump_on_panic.tc with TRIGGER_PANIC env variable. (Sashiko)
+  * Rebase on 7.3-rc4
+
+v6 (https://lore.kernel.org/all/20260817135517.3919534-1-vdonnefort@google.com/):
+
+  * Replace WARN_ON with pr_warn for buf_size in cmdline parsing. (Sashiko)
+  * Add READ_ONCE()/WRITE_ONCE() for poll_ms (Sashiko)
+  * Add support for HAVE_64BIT_ALIGNED_ACCESS arch is set in simple_ring_buffer. (Sashiko)
+  * Add selftest tracefs file requirements, TMPDIR leak, and awk regex. (Sashiko)
+  * Rebase on 7.2
+
+v5 (https://lore.kernel.org/all/20260812161340.2417322-1-vdonnefort@google.com/):
+
+  * Use seq_buf_str() for safe, properly terminated trace_seq extraction. (Steven)
+  * Remove destructive dmesg -c from selftests and rely on timestamp matching instead. (Steven)
+  * Allow several trace_remote=XXX cmdline options.
+  * Rebase on 7.2-rc7
+
+v4 (https://lore.kernel.org/all/20260804140333.797210-1-vdonnefort@google.com/):
+
+  * Rebase on 7.2-rc6
+  * Use trace_append_boot_param() to parse cmdline options.
+  * Fix trace_remote_iterator cleanup order for non-consuming iterators
+    (Sashiko).
+
+v3 (https://lore.kernel.org/all/20260721103603.342266-1-vdonnefort@google.com/):
+
+  * Make sure dmesg and panic handlers are using null-terminated
+    trace_seq.
+  * Make struct trace_remote more compact
+  * Fix dump_on_panic test unloaded case (Sashiko)
+  * Rebase on 7.2-rc4
+
+v2 (https://lore.kernel.org/all/20260605163825.1762953-1-vdonnefort@google.com/):
+
+Sashiko had a few spot-on comments on the v1 which forced me to heavily
+re-arrange the series, so I thought it'd be alright to send a v2
+already including those changes.
+
+  * dump_on_oops -> dump_on_panic
+  * printk -> dmesg
+  * Allow to configure poll_ms
+  * Make the ring_buffer_iter functions panic-friendly
+  * Gate tracefs .open on remote registration (Sashiko)
+  * Use irqsave for reader lock (Sashiko)
+  * Fix iter locking for TRI_DMESG (Sashiko)
+  * Yield in the dmesg work (Sashiko)
+
+v1 (https://lore.kernel.org/all/20260602171146.2238998-1-vdonnefort@google.com/)
+
+Vincent Donnefort (20):
+  tracing/remotes: Gate tracefs files opening on trace remote
+    registration
+  tracing/remotes: Release tracefs,eventfs on registration failure
+  tracing/remotes: Use kstrtobool for boolean tracefs files
+  tracing/remotes: Initialise pos in trace_start()
+  tracing/remotes: Annotate remote shared fields with
+    READ_ONCE/WRITE_ONCE
+  tracing/remotes: Use a single per-remote polling work
+  tracing/simple_ring_buffer: Add support for compressed length
+  tracing/remotes: Add dmesg tracefs file
+  tracing/remotes: selftests: Add a test for the dmesg tracefs file
+  tracing/remotes: selftests: Prefix hypervisor folder
+  ring-buffer: Use irqsave for the reader lock in
+    ring_buffer_poll_remote
+  ring-buffer: Use panic-friendly locking in ring_buffer_iter interface
+  ring-buffer: Add ring_buffer_read_remote_meta_page()
+  ring-buffer: Add kerneldoc for ring_buffer_poll_remote
+  tracing/remotes: Add dump_on_panic tracefs file
+  tracing/remotes: selftests: Add a test for the dump_on_panic tracefs
+    file
+  tracing/remotes: Add poll_ms tracefs file
+  tracing/remotes: Add trace_remote cmdline options
+  Documentation: tracing/remotes: Add detailed tracefs layout
+  Documentation/kernel-parameters: Add trace_remote
+
+ .../admin-guide/kernel-parameters.txt         |  19 +
+ Documentation/trace/remotes.rst               |  66 +-
+ include/linux/ring_buffer.h                   |   1 +
+ kernel/trace/ring_buffer.c                    |  88 +-
+ kernel/trace/simple_ring_buffer.c             |  23 +-
+ kernel/trace/trace_remote.c                   | 841 +++++++++++++++---
+ .../buffer_size.tc                            |   0
+ .../test.d/remotes/00hypervisor/dmesg.tc      |  11 +
+ .../remotes/00hypervisor/dump_on_panic.tc     |  11 +
+ .../{hypervisor => 00hypervisor}/hotplug.tc   |   0
+ .../{hypervisor => 00hypervisor}/reset.tc     |   0
+ .../{hypervisor => 00hypervisor}/trace.tc     |   0
+ .../trace_pipe.tc                             |   0
+ .../{hypervisor => 00hypervisor}/unloading.tc |   0
+ .../selftests/ftrace/test.d/remotes/dmesg.tc  |  86 ++
+ .../ftrace/test.d/remotes/dump_on_panic.tc    |  50 ++
+ .../selftests/ftrace/test.d/remotes/functions |   2 +
+ 17 files changed, 1050 insertions(+), 148 deletions(-)
+ rename tools/testing/selftests/ftrace/test.d/remotes/{hypervisor => 00hypervisor}/buffer_size.tc (100%)
+ create mode 100644 tools/testing/selftests/ftrace/test.d/remotes/00hypervisor/dmesg.tc
+ create mode 100644 tools/testing/selftests/ftrace/test.d/remotes/00hypervisor/dump_on_panic.tc
+ rename tools/testing/selftests/ftrace/test.d/remotes/{hypervisor => 00hypervisor}/hotplug.tc (100%)
+ rename tools/testing/selftests/ftrace/test.d/remotes/{hypervisor => 00hypervisor}/reset.tc (100%)
+ rename tools/testing/selftests/ftrace/test.d/remotes/{hypervisor => 00hypervisor}/trace.tc (100%)
+ rename tools/testing/selftests/ftrace/test.d/remotes/{hypervisor => 00hypervisor}/trace_pipe.tc (100%)
+ rename tools/testing/selftests/ftrace/test.d/remotes/{hypervisor => 00hypervisor}/unloading.tc (100%)
+ create mode 100644 tools/testing/selftests/ftrace/test.d/remotes/dmesg.tc
+ create mode 100644 tools/testing/selftests/ftrace/test.d/remotes/dump_on_panic.tc
+
+
+base-commit: 93f51579e7df248780214094418f205253383cc5
 -- 
-2.47.3
+2.56.0.rc1.310.g51773c2048-goog
 
