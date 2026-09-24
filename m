@@ -1,69 +1,69 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 090353E558C
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:53:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B743282F1F
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:55:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790290424; cv=none; b=lZuo8OJ6RXuucl9GcZ7fSK7QfX5h+cvtnVnGyi+LPM0XkbEekokTTUsSBFSjiCkjGcy6MAvkV9YVaH4dKLaAUuUhmkOPyyxy/QrRDiQkq9BeoX1YxZhP6ctq0xGLqmUaVer4fBszh3B+Edk+x8zh0wdVUjth+IofZPipZqXbBUk=
+	t=1790290537; cv=none; b=cWgoNwA77WA8BPRAtKk2dT4kNu3q89xM01nG4N8aEy+z4/8pcvbDV/kEY6ZzkdWHDuQULUWSwgsIKQYXzKwQsL0HhmckM3HfLkO9kZIMEIABNA+HklRnGFIJP/+ze6NMH4S6hy7ippicf1+sb5w6VmvGnGsojvcDdbG2X/IQLxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790290424; c=relaxed/simple;
-	bh=iZ+xWnTaiwYqY244ouiVEpHW7Wth/ThJfp2DnzItInI=;
+	s=arc-20240116; t=1790290537; c=relaxed/simple;
+	bh=Ot0cDlosSJ7B0rKy6gYVAmZetDbxU6jeRs6fzTiE2ZQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VwNd4vDy4HTmFkPi+j9Ogxz3p2uTbXI3Nh2oCWcAA6Uoz0O1Cz/JZQZ4gXa1qFUDGI4Lt0va7Eb98/veVISTMMRsN0rLhaNb7KushNqsIZdHzFdZwQpiooNvPH/s7ZjvWNlgtrsBIrPdECMvcc3dLZ46L4fb4RPWaUdXt/Bug6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=jdSaFljT; arc=none smtp.client-ip=74.125.229.43
+	 Content-Type:Content-Disposition:In-Reply-To; b=CBfmIebDWAm5kwzdgc5dLKoniR94l7V3UTOGCHO4lADcBZayufwXdvCUzhMGoisQwX+DTvI6Optgd0tWwbBpLnFhOGnblar6qbqh+FzcBCdwoN0+p9PgMmExsoD1Zj6xWnzGaGi9FWlhn6J5h26rwufRyrbIq8WXNnjLGo6CeYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=aLacATwX; arc=none smtp.client-ip=74.125.229.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="jdSaFljT"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e6b4e33e4so279764eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:53:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="aLacATwX"
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd04f7f2so338503c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:55:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1790290422; x=1790895222; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HkHFg2PAsl7Q9sZ/6W2u68QBDReBA8b5w0p9gEJFVho=;
-        b=jdSaFljTli1plzX/hr/fLlSUKOf0gQVV4iDlrLVhr+fznUA1rH6AeMNPoT/KvwIUvh
-         kt2nd6sJoI4onq3Q0ozuZT70qy7PfwUGhdAOnhU0RGSrpskMhS02mF/0pYlTJWR0M9sz
-         L+76mrK7EFxqN8ORwd9aKLXxDxkG+BiPsO6xntKrcRhufxs7JSGnMjBYfErqOqk9KsiD
-         vPoUxSoY+zFAYZg0hyowmfSyFLr6jEr3iSEJVFroh8+msaYppDTa1Ut8dGDRz5pbnYfA
-         P5viOz8cjIxxKCLuAIP6+xU7kGrxx6dc9mr9UWVScqjrLLZNrcfuSZkkTF210Bs3ph+z
-         4OYg==
+        d=ziepe.ca; s=google; t=1790290536; x=1790895336; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tIp+aiyQTzTnGdKMDtuefZl/ywWVdEoeMd4a05iequo=;
+        b=aLacATwXjKl9i52SEYMYnrs0OGOUMX1JlWUXwVDtvblpkgbAmp2aebKC/OrLKReD7J
+         v2Y5D2cJv/bmpJ3TD8hxFAnY8u4lFWHBBa2Dk3pGqQCFcjAPn0b1RcgXp5uEXEVs0rPA
+         odm0JW94q6NaYcysaS0JZ1rBWEKyeyyDJ81TRthDEMAqilBazfuo6tZI4gfB+didmW0S
+         w/VBkMSMx0+XsgK0IurMa1OyWGNOSXlL3K8icsewIYO0imWqCuicEHdvdQFscoym++HQ
+         h8dkHHGt8HPtqdaltXCGq2nSGVY8x1BorLhAGDbjk+MILFhb4W87MUucY5RxzUwVhziQ
+         2APw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790290422; x=1790895222;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=HkHFg2PAsl7Q9sZ/6W2u68QBDReBA8b5w0p9gEJFVho=;
-        b=ZVpBfZZWkOSi5aEQYFQWSSgCHQO6mDnZHkv0EMWgUl6qpgHqTvyh/iZnK3AS9UVVrd
-         5Uj+wMZBQPqG5JlC5i2rqmLVYktK2gXu/sO2FpTad1DePO4S56D5LzZ7SHXudI7velsJ
-         7Wip8E4bhDZDDsN79OfwcYVsEonabC5IVPKTfAMqVtI2gf2zPxX9IeYkaF3JWP53MTHW
-         8h4gzRncyQjeUNocFEJyreNMVeEyDUwS8vjBxBs/AUQlsKi7hwBrUjF7xifKjKGf8alz
-         FOCO5Sm9GTxeroW5Y/T07vp5m11WoniVpJzhG7UzZrHlCZPno1lkEGHfU1jSM6FWMHFs
-         pudQ==
-X-Forwarded-Encrypted: i=1; AKwUvByDByHbgVediE8o8cUbuuZVsmJzWvkHorunxniVbpfQ9NPMvl8/os2UF5x6BUozyktFGsfaIVV9UnSRy48=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbuOJYaRtGw7tdxJHixd5iQpqIPTbkWoig7Px5M40KSCd3Vzom
-	IeMYSv2s4yJd6G9VaTDiBX7e532kgoCLi7l8AwzTyrd+qlT/m+Vqs2TN4pGecagrP2Y=
-X-Gm-Gg: AYBFou2Y/fmo3oQlTnkofHCgJb1bs32O4+qJyppAkEk+muTOo+wCLV9EH4vXttkgYxI
-	sKnu/EBAyDbv9WSq1cCNq98teuE7oXnvb4CZ5M7gKP2I0Me4q0EmzIYYUAq37grG+jOU33DUEHe
-	UkX91vYSyDhQpIBwM1XE/kUyfaWAuaNcTJQBInEEB+TRHZ1eAW1pNb0dUyu+VJ/shYoyRSNOcTp
-	kw+qqPRcYYeVR9ht6zdF+G6eMXEUZnpvtW7FeNWyrK9FL1hzQLohxIGbmlOyxc/lM/6dzJCUdwd
-	9woH76PJ5QQecOlAyNpoZeC5l/1c3GTpwjKDXBGSZ/wqlcf/hKpt0WVnbE07ckWK1Aw5DHkCh5L
-	o3voPaL0zj/NgJyXxRchYuIIGIXtFAcr6kJjYEqfD9THbGcoL+PKfESwMig2+PixvDe8akH/n2T
-	eO21jKJstYA1xHXgEpjalWe84rqpTd/aq5FOvzKb44J5qnQg==
-X-Received: by 2002:a05:693c:829b:10b0:33b:d89e:9fb2 with SMTP id 5a478bee46e88-34000f36181mr3727679eec.4.1790290422026;
-        Thu, 24 Sep 2026 15:53:42 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790290536; x=1790895336;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tIp+aiyQTzTnGdKMDtuefZl/ywWVdEoeMd4a05iequo=;
+        b=UklnQP/rN6eDxNh0LM9wfa68mJUkuYHgjSXEFUBL7SAcSJjmhgP+NOUujySVPyUmjd
+         j1/WnyrDAG3hi6FHtI0bLz5kA0vgEbQiLX76Q7zVADG9Zkdk6wkG1WtbdPFNvB20kTgJ
+         xNlzPWr1OavlbPFA692cwaoLQtS7Kq9Q/D51Zorf43Ir8T1s51no7TL132ZX1zAos2Zg
+         uQ+qEXn+twb168H68I3YYiI/0KWltcFCBG/imPE035BSC7UsTMu45MjdH2DzrTLpxz7j
+         3c+wntWFo1+DCV0B9MaZGBByK1jqPATO+wO4z64xgg7OVN+k5w5ltb7vgvlovNUcqzJh
+         JWNA==
+X-Forwarded-Encrypted: i=1; AKwUvBy9Fvo61PXklA+DlSyJafX+jxIBvukT8Tm2TiVeQWa4BZkkdwaU2QoUZ1EyORVFgKGSKcYAiK7yuq/cfDQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mK0trHgdSos8QPs9IURagWQLBlnE2rlyvnZ4MdncKZXkzyb9sN
+	86ecXGgWhVMYLGxdYA49GVD9XCDhZX/VNJdubx9RnWBfmMztt09dHtT977+EyVRxvxg=
+X-Gm-Gg: AYBFou1o4kw+ZHdMorbiRdbutnQ19H6PcscEVZ4cCMngVJ6qMowaHiyizhjxnwGpm+I
+	7pHNr4M0fi5fdNbNhB5i6Ijn3mucv5EF2/z3PBEf7Yd+p+LC+VRr0EobkBZVaIeB2G+0LhD27vW
+	nnan30Do81z+gBh8RHU9TUV3r3FyayzOSr+CYg6P5ji4IlIfAW/0y3mMKnV1EKjVcvDVPxvkNC+
+	rBnuLWDh3f9tzPwu5LGGYo3x4aUsc0Xc1WXOK/7nqAIpRZNz4+cEdV6fyWOTm//BQafLSGSRfLb
+	G0ou+gddoHyZNe5cbswpwJiBuK5pbY0O/2l2jF84lnMXjPPTgkcx/W5k5EZAu1irn/C18SFCwMT
+	R39pEDePf+fYuyorzNw3tCYGOIYI/aWQ6umdycXIwba+9RsrJPmaA8LON78lgTTaSNvQZSYNlDo
+	nD4ZaxfIFS9TE5+v0usT3ObvmBV06a2UyHXb9NCydInPdE
+X-Received: by 2002:a05:7300:7312:b0:33b:dd45:716c with SMTP id 5a478bee46e88-340cc11f887mr2763537eec.13.1790290535581;
+        Thu, 24 Sep 2026 15:55:35 -0700 (PDT)
 Received: from ziepe.ca ([130.41.10.202])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34141d2fe4bsm1631877eec.4.2026.09.24.15.53.41
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34141d2fe4bsm1639551eec.4.2026.09.24.15.55.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 15:53:41 -0700 (PDT)
+        Thu, 24 Sep 2026 15:55:35 -0700 (PDT)
 Received: from jgg by wakko with local (Exim 4.97)
 	(envelope-from <jgg@ziepe.ca>)
-	id 1x9sJw-00000000efs-2Wk8;
-	Thu, 24 Sep 2026 19:53:40 -0300
-Date: Thu, 24 Sep 2026 19:53:40 -0300
+	id 1x9sLm-00000000elU-0EsA;
+	Thu, 24 Sep 2026 19:55:34 -0300
+Date: Thu, 24 Sep 2026 19:55:34 -0300
 From: Jason Gunthorpe <jgg@ziepe.ca>
 To: Daniel Mentz <danielmentz@google.com>
 Cc: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>,
@@ -74,66 +74,40 @@ Cc: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>,
 	Prakash Gupta <prakash.gupta@oss.qualcomm.com>
 Subject: Re: [PATCH v5] iommu/io-pgtable-arm: Add support for contiguous hint
  bit
-Message-ID: <20260924225340.GC16465@ziepe.ca>
+Message-ID: <20260924225534.GD16465@ziepe.ca>
 References: <20260921-iommu_contig_hint-v5-1-e7fbd1c3774d@oss.qualcomm.com>
- <20260924001502.GO1540250@ziepe.ca>
- <CAE2F3rCVh0CmW6+a__PcCrBgsMJVompKJX_qYBdQ=exj3bYtCg@mail.gmail.com>
+ <CAE2F3rAMAnV9+WNLZtGQX6cHPsZ6wbfRJ1Z3d5mF1+8WHL-uMA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAE2F3rCVh0CmW6+a__PcCrBgsMJVompKJX_qYBdQ=exj3bYtCg@mail.gmail.com>
+In-Reply-To: <CAE2F3rAMAnV9+WNLZtGQX6cHPsZ6wbfRJ1Z3d5mF1+8WHL-uMA@mail.gmail.com>
 
-On Thu, Sep 24, 2026 at 11:49:50AM -0700, Daniel Mentz wrote:
-> On Wed, Sep 23, 2026 at 5:15 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
-> >
-> > On Mon, Sep 21, 2026 at 04:44:07PM +0530, Vijayanand Jitta wrote:
-> > > From: Prakash Gupta <prakash.gupta@oss.qualcomm.com>
-> > >
-> > > Add support for the contiguous hint (CONT) bit in ARM LPAE page tables.
-> > > When a set of consecutive PTEs map a naturally aligned contiguous block of
-> > > memory, set CONT on every descriptor in that group so the hardware can
-> > > combine translations and improve TLB reach.
-> > >
-> > > Advertise the supported CONT group sizes in pgsize_bitmap. Callers select
-> > > those sizes through the normal page-size selection path; io-pgtable-arm
-> > > then installs the corresponding tagged descriptors directly. A partial
-> > > unmap of a tagged CONT group is rejected before modifying any descriptor,
-> > > so a rejected request cannot leave the group partly unmapped.
-> > >
-> > > The IO_PGTABLE_QUIRK_ARM_NO_CONT_HINT quirk allows SMMU drivers to disable
-> > > CONT support for hardware with implementation-specific errata.
-> >
-> > smmuv3 has this errata, it must be disabled there too. I didn't notice
-> > it in this patch?
+On Thu, Sep 24, 2026 at 01:36:12PM -0700, Daniel Mentz wrote:
+
+> Interaction with Hardware Dirty Tracking (IO_PGTABLE_QUIRK_ARM_HD)
 > 
-> SMMU is an architecture specification. I am not aware of errors in
-> this architecture specification that would preclude the usage of the
-> contiguous bit. I understand that Arm MMU-700 has the following
-> erratum
-> 
-> 3777127 Under invalidation in TBU possible when using contiguous page
-> table entries
+> When Hardware Dirty Tracking (ARM_LPAE_PTE_DBM) is enabled on Stage-1 tables:
+>  * In visit_dirty() / arm_lpae_read_and_clear_dirty(), dirty bits are
+> queried and cleared on a page-by-page granularity
+> (iopte_set_writeable_clean(ptep)).
+>  * If a single 4KB page within a 64KB CONT group is marked clean while
+> neighboring pages remain marked dirty/writeable, the descriptors in
+> that group will differ in access permissions (AP[2]).
+>  * According to Arm ARM D8.3.1, all descriptors in a contiguous block
+> must share identical permissions and attributes. If dirty tracking is
+> active on a domain, consider whether IO_PGTABLE_QUIRK_ARM_NO_CONT_HINT
+> should be set or whether CONT sizes should be suppressed when
+> IO_PGTABLE_QUIRK_ARM_HD is active.
 
-And a neoverse one too.
+This is right, handling dirty and CONT together is a PITA. You should
+probably make them exclusive for this simplified implementation.
 
-> The recommended workaround is described as
-> 
-> "Ensure that contiguous page tables are removed using a single range
-> invalidation. Arm recommends using range invalidations to remove
-> contiguous entries anyway for performance reasons."
-> 
-> and I believe we are already doing this.
-
-No we aren't. Go read my fix on this:
-
-https://lore.kernel.org/linux-iommu/1-v7-e84261bbe7cd+2ea80b-smmu_tlbi_jgg@nvidia.com/
-
-I have another patch that fixes it for iommu domain mappings too.
+SMMUv3 is the only user of dirty and it will switch to iommupt which
+does all this right.
 
 Jason
