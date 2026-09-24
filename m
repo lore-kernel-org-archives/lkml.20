@@ -1,65 +1,65 @@
-Received: from mail-wr2-f38.google.com (mail-wr2-f38.google.com [74.125.225.102])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03CC14432FF
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:12:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2AF544998D
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:13:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790241183; cv=none; b=WHU85qm6orpEKN+4JgVhkGvlxuOIa5rEdriCqXQWjEozpvbBNP/KvDlR0hpOoxljqIp3moFZf+Hr3ALCCTIqVamVFlv6SJpB6Btc6tcqrvTUYwMHRMAlfvGVhzdug4JVJ3UaSJT9KRCVmF0brc7y3BqsXV3u5WYg+4ok5EdGiPk=
+	t=1790241184; cv=none; b=BGt3VQXJlUmFWtz094GgMQA/gL80uwaomG9Xg+IRmTsF0CgQbW46KSDMI4O+uofNxBPoc0OmaIi6CjZngJzAQFP/1DfCpOO4wufIDqG3byNeOKQKAwaJfd1md/IqJYwJY+LjLdlYiNJJ+h9XFizjlES6U3n7V8MM23VqY5aRL1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790241183; c=relaxed/simple;
-	bh=+hOZACThI9fTymMJZFcS53sfhvVmabkJCCIZDLXeVX8=;
+	s=arc-20240116; t=1790241184; c=relaxed/simple;
+	bh=RYRoyEZy3AZX96/W22uGNOvKvksOSwlIn7uO1WdQA74=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eo3Kuy0ydR7LLHuxU1AMAe5qMQc39n1zhXiEP+VPfE2X1Top6L0T3cPn3pbR6DFeqn2bTjeOMsOc6e51Dh0sZ6hcpEjBfogfDR+YDNqDbGioiZlJl9Ux3oed+Hy3yPmCtuYXDUufqZvSr/vXPdKVPXTs6QT/ikIaX5x/v9ENQsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MRTt7MeS; arc=none smtp.client-ip=74.125.225.102
+	 MIME-Version; b=CON2SBnxTbbA9fg/G1w4EjhmXtui/YyVQj76iVoq/Tb+7d251GxbZP/CxpKH1pWRl71d6zwj0aYqtyP+IEdRP1mbT0BmVEi55FfGHS7u3Svzn4ZgL++m7/YlFrFfop3MLakm0aDmoIAqpQCCc7Pi5liHDC+rVpMpgrUyKd/BxMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mWJgp0cD; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MRTt7MeS"
-Received: by mail-wr2-f38.google.com with SMTP id ffacd0b85a97d-482f6350f89so1275855f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:12:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mWJgp0cD"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48449f62b93so734088f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:13:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790241178; x=1790845978; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790241181; x=1790845981; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ULqy3851A4B8rk2HooNfYhmLdLyD4QbbwevT0D7ixEg=;
-        b=MRTt7MeSaAaW6U7mujoM4gBZPX69ndIkCJOjsuWSbBg7SgTg5l2pQX4NLTvN18UNGV
-         YGoc2YBLkUcf5uvxwxcsBGtNj6N2RRDX0wfX39pjf8UfeA+2j4KGNagUHCgQ0+EvPKbE
-         xI+AkjHC4IyQl+HylGQJqK1Z/boQPiYM/9h/cqSnLNcAtSJ2198fVQE8ekSjucUvw0pb
-         RiFUTO7cXLH/yTwlrOzVP8TYwIvHjQUbhntQz1Snd+bJUy01DRRh/qPxXOVaGuzDFR/a
-         ELKoFmdAYHUGrEARMOIiUfViIrPUiy5IcsTPixoIv9WbqGOb/3e/o+vRhAaHHxDH0I1X
-         hlhw==
+        bh=3/GiZQj0CaseyrQZxOd/ioPb55nZ1v2BOlX+DpEu3BI=;
+        b=mWJgp0cD0DM87D2738zgSOVYuR5hlg//Uu1mCt4DFc1sNCWyFPabhj8TSsKKcg+9f1
+         Cn6RagoOVukVH8bJwQHzu3Zb7vpj4zNXSxWlcP5xUh+B7F+bQdvVi4c3CJ7LAlTIRcch
+         vhpAEH9DvQETawOVRa0mhXxkAPUjQqR8s57Ix3z+Y/zp29yX6rm+4yod+sHu5k9l1AKE
+         etGCuatNuKciF/FjDiLvPczKZ+Q9MI0M6+AhUdAYn9AVMTWqi1rjEYZs4KhO5JY1weKi
+         AI1AapihHnre2QpaWYSd6n5ihPyGGlrt1sRR42XZSEbjFWZmOGyFRuUVqMpAXInq+9Td
+         +wXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790241178; x=1790845978;
+        d=1e100.net; s=20260707; t=1790241181; x=1790845981;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ULqy3851A4B8rk2HooNfYhmLdLyD4QbbwevT0D7ixEg=;
-        b=tuoVvtlpzzYL0Obc49qFRZnot04LAYJkhq/3SRzlILJBEAblEFK8gjwnBMABAYzAcn
-         hF7G5f/EZVqe0iddRgUxW7A8c1u4RLygIY9OliSdCR/sVEGCtafPS+0cee+Ie3J53kTL
-         V+5Q0DSOuha972tKK78XKMss//V6MxJPbDsa957GFZjHvNlGiXUS85gRRVe/VfpZrVrD
-         Utnc4stmYu/gsY2H9T4dEXJ8MV5/gxCyZw+CIJDigRKwVnxOrHuavAVYe0JWJ564vSVg
-         nkIyPzFuvy0aabTHry4cWpivZlQvRxLY5wlJl78u15B3/5hFjzrXuZNdb8efsVKw3g3W
-         EwrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzosEz9y3Lrqi+Cp6B0eaBE1VMQwS7yu/SNPWKRofpRSPTdfpgZXjet1mggcrPYIkYXUNeZwuXgfHPq5Rs=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7wGoB9wCr0f9U/WIWdigBXmA3vOjPRKc2Ptfnrjn78NNrC3Oz
-	zTSo1D63B1mHHoLwIQPAkLcuziDrhtNVpzbmOTdRMqKXEsMmVp/uDHUx
-X-Gm-Gg: AYBFou1NvsfF2O6yh/U/z+4mXaI9A4JJ2HGXYpU/4ae6HaYnk+9DuLKzrg+oRpueX4x
-	3a/4BmHGNKDiqfSevTMvqyR6eVHrUcuVDN3/G1r8Dcezn/4fhzWKiXevzLlb811MSCCwI4/SDrx
-	tNOjhuSiXfGwOsjOjaBaltKfJmZ5Ua5O7NLutDc9hJeGLR4eu4RSAhKBRu7n1g2FchzzxU1PV/w
-	6egh4rbBb70By1eSPp9JOBKhZbS/Ur+x3Ct+uHNhZqBSVFM415KBB4H7sPZdb72mibCa/WkvgUI
-	FyCHPl4FmLVS+d0P/uQ8j7y1qUbvWOyKUbCj47FKcvU8GrPqcWeAAoZElQV3ehmAtKoEsCekhno
-	+yUGbo4aY3SHeqMkUezvSbyAAWPZQuEYOuTUAkZUjoG8u57QhC7ubA5QgVYcxcHazOEEExsPSjr
-	/O0G/NGUKvEmO72NXvUpyMyamEUpkZIAmeBbku8A6dXFhAXLgspgxV6SXJdjuyPyJ0XIzkpsMTp
-	TC6q2RvZVHQh8g6OWz4u9y03s7TSCpCeircOoeV4ESUps4jll9q8mcXtb3dkgwf7sIucqihjb72
-	19kX
-X-Received: by 2002:a05:6000:4012:b0:487:40d:af33 with SMTP id ffacd0b85a97d-4887171633bmr3055061f8f.13.1790241178110;
-        Thu, 24 Sep 2026 02:12:58 -0700 (PDT)
+        bh=3/GiZQj0CaseyrQZxOd/ioPb55nZ1v2BOlX+DpEu3BI=;
+        b=NVwrSUI60MuskhCo6SoToee2C8vX0MCOjk9y+D3IOXOYrDCECtpVVydm3kWFGYBCU3
+         /VNHpSY4AwLQropZ8vbe+ngob/O8eaK06BL2b70y4teU6PhmMAqT/+6VWNei7F4M3R9E
+         SU8dIC/wX8uDZGfAjMml8vVenEvUG/lO8NKepFTev787xDCtbNMhEgpoNtm1VkF5OaBB
+         jGFJgYV8tUEBDIoMplZMIOWPrEt1Cu62NICjQfPJkMxBiY6+mKE5rj3xNQy07nC+eTay
+         4uSv0gYralpAZkqLJT2dL8LUdxD8LglDcvJJ0tU/VqT+Cd80UrD0QVIHYp61gE67E4M/
+         9g2g==
+X-Forwarded-Encrypted: i=1; AKwUvBzNDa7jiCk7pciALvqQAf1c2eMQ3QA3S+BNT0Trn+iTVWRrN/AA3Bi66Czx7lwghR00RzuiX8UNgfGcIeI=@vger.kernel.org
+X-Gm-Message-State: AFuF++k8XT8nIvYBy18sgx4iKyVOP0RiIkuFVzmPxPtOh7Djmnb8WJnO
+	1wIuiYZzKHXF0sWF/sCLWw0ESelNDt+qPuWSZQoa5Pi40vIvXpuP/K1zCverf5W30Pk=
+X-Gm-Gg: AYBFou1sgyE84Ws/UYTMt0c1r8pPNJkNP8rBNCTLMk16QBQDS97CnCFpIOp84kXwHgT
+	SOpnkgVMRGNjR1fNE+AqTHOrTXX2dJkc6W4fCeWeS3pYJe5G8UCbuf/dwCg9WoK5C9drtG6pNFL
+	+Vv5QinHFUxLLEyVOkCVj3M/GJuWdkK3LNg2l29OG381a1uUBWON29gqqMVDP3Sb4SBtPHsEhyN
+	IgLDqZjzC05o4cXU/6WSYJ9oHyiMIl/oOSyV67gn1eiQ9+ePDV9ml/HoDzFeOkLSL95rj2yu5pD
+	ed1VcQ2qVuZvAhPBPWHRjrw9yxQJLIXL+xQQp5YsuVFB9M2UG/09o3+VBIOGwRY5j+hkHuAJyVy
+	oPw9vXDDcixLvCTxQg639LDPFUUi1ddYHQXIt73r3MAbP2LTuSN4JjL6kJwV0ShvyJMalwKeyqM
+	0DM0o3ui2zM67OslIov3QGIhwIkKZ04ZAYM5/vt/J5fVFZLZMVDK8yJuk26oyTXRFfeEIeMHNie
+	n+ub4wfr5vzY+MbAG4knfDpoxQrFq4PXJY9N/FvWZ/oFKk8UahvIAqEvavGmAlObsg3gna9A/wD
+	wmHT
+X-Received: by 2002:a05:6000:41f5:b0:47f:9158:5924 with SMTP id ffacd0b85a97d-4887169cfd7mr3162682f8f.9.1790241180882;
+        Thu, 24 Sep 2026 02:13:00 -0700 (PDT)
 Received: from andreayoga.localdomain (93-42-14-189.ip84.fastwebnet.it. [93.42.14.189])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886848636asm12756677f8f.6.2026.09.24.02.12.56
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886848636asm12756677f8f.6.2026.09.24.02.12.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 02:12:57 -0700 (PDT)
+        Thu, 24 Sep 2026 02:13:00 -0700 (PDT)
 From: Andrea Parri <parri.andrea@gmail.com>
 To: Christian Brauner <brauner@kernel.org>,
 	Carlos Maiolino <cem@kernel.org>,
@@ -75,10 +75,12 @@ To: Christian Brauner <brauner@kernel.org>,
 Cc: Andrea Parri <parri.andrea@gmail.com>,
 	linux-xfs@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/4] xfs: add an error tag to inject a ->writeback_submit() failure
-Date: Thu, 24 Sep 2026 11:11:52 +0200
-Message-ID: <20260924091203.198225-3-parri.andrea@gmail.com>
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>
+Subject: [PATCH v2 3/4] iomap: don't lose a fiemap iteration error when emitting the last extent
+Date: Thu, 24 Sep 2026 11:11:53 +0200
+Message-ID: <20260924091203.198225-4-parri.andrea@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260924091203.198225-1-parri.andrea@gmail.com>
 References: <20260924091203.198225-1-parri.andrea@gmail.com>
@@ -90,73 +92,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The only in-tree way for xfs_writeback_submit() to fail is a failing
-xfs_reflink_convert_cow(), which requires a shared (reflinked) CoW
-extent.  There was previously no way to exercise that failure path
-from userspace, which made it hard to write an xfstest for it, e.g.
-for "iomap: don't resubmit an ioend after ->writeback_submit()
-failed".
+iomap_fiemap() emits extents one behind: iomap_fiemap_iter() flushes the
+previous extent and remembers the current one, and the remembered extent
+is written with FIEMAP_EXTENT_LAST after the iteration loop.
 
-Add XFS_ERRTAG_WB_COW_CONVERT_ERROR to force xfs_reflink_convert_cow()
-to fail with -EIO, so that ->writeback_submit() failure and its
-callers' error handling can be exercised with error injection alone,
-without needing a corrupted or racy COW fork.
+That final flush overwrites ret, so when ->iomap_begin() fails partway
+through the iteration the error is replaced by the result of
+iomap_to_fiemap() (zero on success) and iomap_fiemap() returns success
+with a truncated extent list whose last entry is wrongly marked as the
+last extent in the file.  The pre-iomap_iter code returned the error
+from inside the loop, before flushing the pending extent.
 
-Suggested-by: Christoph Hellwig <hch@infradead.org>
+Check for the iteration error before flushing the pending extent, so
+that real errors are propagated and only a successful iteration emits
+the final FIEMAP_EXTENT_LAST extent.  -ENOENT (no mapping) is still not
+an error, and the pending extent is still emitted in that case.
+
+Fixes: 7892386d3571 ("iomap: switch iomap_fiemap to use iomap_iter")
+Cc: <stable@vger.kernel.org> # v5.15
+Reviewed-by: Brian Foster <bfoster@redhat.com>
+Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 Assisted-by: LLM
 Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 ---
- fs/xfs/libxfs/xfs_errortag.h | 6 ++++--
- fs/xfs/xfs_reflink.c         | 5 +++++
- 2 files changed, 9 insertions(+), 2 deletions(-)
+ fs/iomap/fiemap.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/fs/xfs/libxfs/xfs_errortag.h b/fs/xfs/libxfs/xfs_errortag.h
-index 6de207fed2d89..e6b0864051b0a 100644
---- a/fs/xfs/libxfs/xfs_errortag.h
-+++ b/fs/xfs/libxfs/xfs_errortag.h
-@@ -75,7 +75,8 @@
- #define XFS_ERRTAG_METAFILE_RESV_CRITICAL		45
- #define XFS_ERRTAG_FORCE_ZERO_RANGE			46
- #define XFS_ERRTAG_ZONE_RESET				47
--#define XFS_ERRTAG_MAX					48
-+#define XFS_ERRTAG_WB_COW_CONVERT_ERROR		48
-+#define XFS_ERRTAG_MAX					49
+diff --git a/fs/iomap/fiemap.c b/fs/iomap/fiemap.c
+index d11dadff82865..54b824b7edb5c 100644
+--- a/fs/iomap/fiemap.c
++++ b/fs/iomap/fiemap.c
+@@ -76,15 +76,15 @@ int iomap_fiemap(struct inode *inode, struct fiemap_extent_info *fi,
+ 	while ((ret = iomap_iter(&iter, ops)) > 0)
+ 		iter.status = iomap_fiemap_iter(&iter, fi, &prev);
  
- /*
-  * Random factors for above tags, 1 means always, 2 means 1/2 time, etc.
-@@ -137,7 +138,8 @@ XFS_ERRTAG(WRITE_DELAY_MS,	write_delay_ms,		3000) \
- XFS_ERRTAG(EXCHMAPS_FINISH_ONE,	exchmaps_finish_one,	1) \
- XFS_ERRTAG(METAFILE_RESV_CRITICAL, metafile_resv_crit,	4) \
- XFS_ERRTAG(FORCE_ZERO_RANGE,	force_zero_range,	4) \
--XFS_ERRTAG(ZONE_RESET,		zone_reset,		1)
-+XFS_ERRTAG(ZONE_RESET,		zone_reset,		1) \
-+XFS_ERRTAG(WB_COW_CONVERT_ERROR, wb_cow_convert_error,	1)
- #endif /* XFS_ERRTAG */
- 
- #endif /* __XFS_ERRORTAG_H_ */
-diff --git a/fs/xfs/xfs_reflink.c b/fs/xfs/xfs_reflink.c
-index 4801361366359..104542b10d9e0 100644
---- a/fs/xfs/xfs_reflink.c
-+++ b/fs/xfs/xfs_reflink.c
-@@ -34,6 +34,8 @@
- #include "xfs_rtalloc.h"
- #include "xfs_rtgroup.h"
- #include "xfs_metafile.h"
-+#include "xfs_errortag.h"
-+#include "xfs_error.h"
- 
- /*
-  * Copy on Write of Shared Blocks
-@@ -346,6 +348,9 @@ xfs_reflink_convert_cow(
- 
- 	ASSERT(count != 0);
- 
-+	if (XFS_TEST_ERROR(mp, XFS_ERRTAG_WB_COW_CONVERT_ERROR))
-+		return -EIO;
++	/* inode with no (attribute) mapping will give ENOENT */
++	if (ret < 0 && ret != -ENOENT)
++		return ret;
 +
- 	xfs_ilock(ip, XFS_ILOCK_EXCL);
- 	error = xfs_reflink_convert_cow_locked(ip, offset_fsb, count_fsb);
- 	xfs_iunlock(ip, XFS_ILOCK_EXCL);
+ 	if (prev.type != IOMAP_HOLE) {
+ 		ret = iomap_to_fiemap(fi, &prev, FIEMAP_EXTENT_LAST);
+ 		if (ret < 0)
+ 			return ret;
+ 	}
+-
+-	/* inode with no (attribute) mapping will give ENOENT */
+-	if (ret < 0 && ret != -ENOENT)
+-		return ret;
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(iomap_fiemap);
 -- 
 2.53.0
 
