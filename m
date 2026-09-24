@@ -1,33 +1,33 @@
-Received: from mta1.migadu.com (out-175.mta1.migadu.com [95.215.58.175])
+Received: from mta1.migadu.com (out-198.mta1.migadu.com [95.215.58.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057EB4A92C1
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:51:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 533894A99B3
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:51:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790265072; cv=none; b=ihSMcRnkr31TRnCVKg/ar2WyWpWrH8j+EdxzWNVto2CFSEKK4WNT1IIVQMWWoI5AGXSMUhKvRnIqXwKuxRHlwpzyaqr1LAolpSjDnaIA8ZapNIZiBEPeuh2mE6FA6IHBnoA6ND60WDQHKq9lELJE+ZZVONptwBnVuGERZuWZUxw=
+	t=1790265077; cv=none; b=UNmiM+dVeQIy8qHH13nfBOn6nfeVvm7EVAj82d9J/5m5SpLNWY+w6xuRF+LhRJehREpsyey45qVFlGX5zIrCZGBJ13Rdmfd+1UDdrbV6+FmybZYDqluIYhPSdRpfmfr3pODOF9OJXgK+V2Cx11/J3PeNaBk1YpE0PJGrKRqr8Jc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790265072; c=relaxed/simple;
-	bh=lpQPKCnPQl6ljeMVZXOHFfvX7z1b0IqJGif01Q01Pdw=;
+	s=arc-20240116; t=1790265077; c=relaxed/simple;
+	bh=Ne424r/36je1ilOD3xcuRjIqebPC+88WgD6Zv6z4z2Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tqwsC8/iaUy1sDhpXE8hzDJDir01c0L0Vi1WF2vkT1jjstZ718W+ZX4GvOiadYy/39Acf8sHpyILrRBHjUsaL8EtTpjoDO4/kKDWVZjRJp/IXFxYzVLCAjKj2iuO2HsW/cdSCsXjN4coQ9GgtswFC/WvgQew0Qcv0yXbKvrsOBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=agMz2o1A; arc=none smtp.client-ip=95.215.58.175
+	 MIME-Version; b=oyLquWKCAJNGRthsxYDfp4fb8RGM0kGctptMBCdpYNrH/aCStLaAa92Snh7sXVjUXoPe1G8QDO10Ldmi2AnFDQuvcl2NkRpZ1Zf6ukjYeMiVSZaImV0pCPuRUIRKGEHBcaA7jinwLg8bVg+TTW90tQPsgvlec9X2f4mGYdT2U1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BXtvTzyd; arc=none smtp.client-ip=95.215.58.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="agMz2o1A"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BXtvTzyd"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lpQPKCnPQl6ljeMVZXOHFfvX7z1b0IqJGif01Q01Pdw=;
+DKIM-Signature: a=rsa-sha256; bh=Ne424r/36je1ilOD3xcuRjIqebPC+88WgD6Zv6z4z2Q=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790265068; v=1; x=1790869868;
- b=agMz2o1AGMg00CkHmpHvSeCYIokzDasMa/8h/jmZtaQiKGDcQ2fuHijClX/wbqdHJE2BLuhZ
- JU7e6afGURkDxOWob3y/vhX77PpccXkCwFP5FgdkTyNDAgpWsBlDnSA9+e2HLAXdgHAIQdcB7F8
- kR7ojTiSbL4SlYHhjWFzDM7Y=
+ t=1790265073; v=1; x=1790869873;
+ b=BXtvTzydL7v0prAOoASk9PdgJnEKqHbiY+HJNs6fIR7O7l/a3uP/XWHZWcxYlO3tMYyO8k50
+ /Uq0JKIfVz4FNIKXgw/1MXAIVGphWUhGVCDKVBWzjy+/pYtXPTweyyAeMXXgk1mfbgfl/tBSkFM
+ 8chGPsdYDDBDSOzqeFUm4Da4=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 537b6d4498c28822;
-	Thu, 24 Sep 2026 15:51:06 +0000
-X-Mizu-Trace-ID: 537b6d4498c28822
+Received: by smtp.migadu.com with ESMTPS id df65bdec98111fa4;
+	Thu, 24 Sep 2026 15:51:12 +0000
+X-Mizu-Trace-ID: df65bdec98111fa4
 X-Migadu-Flow: FLOW_OUT
 From: Shakeel Butt <shakeel.butt@linux.dev>
 To: Peter Zijlstra <peterz@infradead.org>,
@@ -46,9 +46,9 @@ Cc: Paul McKenney <paulmck@kernel.org>,
 	cgroups@vger.kernel.org,
 	driver-core@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH RESEND 5/7] locking/selftests: add KUnit tests for lock holder tracking
-Date: Thu, 24 Sep 2026 08:50:23 -0700
-Message-ID: <20260924155025.949998-6-shakeel.butt@linux.dev>
+Subject: [PATCH RESEND 7/7] kernfs, cgroup: track holders of the cgroupfs locks
+Date: Thu, 24 Sep 2026 08:50:25 -0700
+Message-ID: <20260924155025.949998-8-shakeel.butt@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260924155025.949998-1-shakeel.butt@linux.dev>
 References: <20260924155025.949998-1-shakeel.butt@linux.dev>
@@ -60,841 +60,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add 16 KUnit tests that check task_nr_tracked_locks(current) always
-equals the number of opted-in locks the task holds. They cover:
+Opt the cgroupfs kernfs rwsems, cgroup_mutex and cgroup_threadgroup_rwsem
+in to lock holder tracking.
 
-  - locks that did not opt in, which must not count
-  - the mutex, rw_semaphore and percpu_rw_semaphore lock and trylock
-    calls, including the killable, interruptible, freezable and io ones
-  - downgrade_write(), the cleanup.h guards, and nested locks released
-    out of order
-  - the percpu_rwsem_release()/percpu_rwsem_acquire() hand-off
-  - re-init clearing the opt-in
+Add KERNFS_ROOT_TRACK_LOCK_HOLDERS, which opts in a root's kernfs_rwsem,
+kernfs_iattr_rwsem and kernfs_supers_rwsem, and pass it from
+cgroup_setup_root(). Other kernfs users have their own roots, so only
+cgroupfs is affected. All three are held across work that can allocate,
+so a holder stuck in reclaim can stall many other cgroupfs operations;
+kernfs_iattr_rwsem is write-held across kernfs_iattrs(), which allocates
+with GFP_KERNEL.
 
-Five tests use a helper thread that holds a lock. They check that a
-failed trylock does not count, that a lock taken right as the helper
-releases it (usually through the slow path) counts exactly once, and
-that each task has its own count.
+cgroup_mutex is taken by every cgroup create, destroy and migrate, and is
+held across the same kind of work, so a stalled holder stalls the whole
+cgroupfs control plane.
 
-Three cases cover what the opt-in changes besides the count: that an
-opted-in but unheld lock still reads unlocked, which the sticky bit
-would otherwise break for rwsem_is_locked() and its callers; that
-*_track_holder() refuses a lock that is already held; and that the
-non_owner rwsem calls warn and do not count. The last needs
-CONFIG_DEBUG_LOCK_ALLOC, as without it they are plain down_read() and
-up_read(), so it skips otherwise.
+cgroup_threadgroup_rwsem is taken for read on every fork and exit, and
+usually for write on migration, so a stalled holder can stall process
+creation on the whole machine.
 
-Tests compare against the count at the start of the test, not zero.
+The last two are statically defined, so opt them in from cgroup_init().
+That runs after jump_label_init() and before anything can take either
+lock.
 
-Passes on UML, x86_64, x86_64 with PROVE_LOCKING + DEBUG_MUTEXES +
-DEBUG_RWSEMS (where the mutex fast path is compiled out), and x86_64
-PREEMPT_RT:
+signal->cgroup_threadgroup_rwsem, used with favordynmods, is left alone.
+Its readers also hold cgroup_threadgroup_rwsem, so they are counted
+already, and its writer only blocks the process being migrated.
 
-  tools/testing/kunit/kunit.py run --kunitconfig=kernel/locking/ lockholder
+These opt-ins are for a policy that reads the count. On their own they
+only turn on the static branch, so they should go in with that policy.
 
 Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
 ---
- kernel/locking/.kunitconfig       |   4 +
- kernel/locking/Makefile           |   1 +
- kernel/locking/lockholder_kunit.c | 741 ++++++++++++++++++++++++++++++
- lib/Kconfig.debug                 |  13 +
- 4 files changed, 759 insertions(+)
- create mode 100644 kernel/locking/.kunitconfig
- create mode 100644 kernel/locking/lockholder_kunit.c
+ fs/kernfs/dir.c        |  5 +++++
+ include/linux/kernfs.h |  7 +++++++
+ kernel/cgroup/cgroup.c | 27 ++++++++++++++++++++++++++-
+ 3 files changed, 38 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/locking/.kunitconfig b/kernel/locking/.kunitconfig
-new file mode 100644
-index 000000000000..ed243843b8b0
---- /dev/null
-+++ b/kernel/locking/.kunitconfig
-@@ -0,0 +1,4 @@
-+CONFIG_KUNIT=y
-+CONFIG_SMP=y
-+CONFIG_TRACK_LOCK_HOLDERS=y
-+CONFIG_TRACK_LOCK_HOLDERS_KUNIT_TEST=y
-diff --git a/kernel/locking/Makefile b/kernel/locking/Makefile
-index a0945beb304c..d23b754df40f 100644
---- a/kernel/locking/Makefile
-+++ b/kernel/locking/Makefile
-@@ -10,6 +10,7 @@ CONTEXT_ANALYSIS_rwsem.o := y
- 
- obj-y += mutex.o semaphore.o rwsem.o percpu-rwsem.o
- obj-$(CONFIG_TRACK_LOCK_HOLDERS) += lockholder.o
-+obj-$(CONFIG_TRACK_LOCK_HOLDERS_KUNIT_TEST) += lockholder_kunit.o
- 
- # Avoid recursion lockdep -> sanitizer -> ... -> lockdep & improve performance.
- KASAN_SANITIZE_lockdep.o := n
-diff --git a/kernel/locking/lockholder_kunit.c b/kernel/locking/lockholder_kunit.c
-new file mode 100644
-index 000000000000..6b3c3a66f7df
---- /dev/null
-+++ b/kernel/locking/lockholder_kunit.c
-@@ -0,0 +1,741 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * KUnit tests for sleeping lock holder tracking: check that
-+ * task_nr_tracked_locks(current) always equals the number of opted-in
-+ * locks the task holds.
-+ */
-+#include <kunit/test.h>
-+#include <linux/completion.h>
-+#include <linux/delay.h>
-+#include <linux/kthread.h>
-+#include <linux/lockholder.h>
-+#include <linux/mutex.h>
-+#include <linux/percpu-rwsem.h>
-+#include <linux/rwsem.h>
-+#include <linux/sched.h>
-+
-+struct lockholder_ctx {
-+	struct mutex		tmutex;
-+	struct mutex		tmutex2;
-+	struct mutex		pmutex;
-+	struct rw_semaphore	tsem;
-+	struct rw_semaphore	tsem2;
-+	struct rw_semaphore	psem;
-+	struct percpu_rw_semaphore	tpcpu;
-+	struct percpu_rw_semaphore	ppcpu;
-+	bool			pcpu_ready;
-+
-+	/* Count at test start. Tests compare against it, not against zero. */
-+	unsigned int		base;
-+
-+	/* Helper thread that holds a lock until told to release it. */
-+	struct completion	helper_holds;
-+	struct completion	helper_may_release;
-+	struct completion	helper_done;
-+	unsigned int		helper_depth_held;
-+	unsigned int		helper_depth_after;
-+};
-+
-+/* Check the count relative to the start of the test. */
-+#define EXPECT_DEPTH(test, ctx, n)					\
-+	KUNIT_EXPECT_EQ((test), (ctx)->base + (unsigned int)(n),	\
-+			task_nr_tracked_locks(current))
-+
-+#define ASSERT_DEPTH(test, ctx, n)					\
-+	KUNIT_ASSERT_EQ((test), (ctx)->base + (unsigned int)(n),	\
-+			task_nr_tracked_locks(current))
-+
-+static int lockholder_init(struct kunit *test)
-+{
-+	struct lockholder_ctx *ctx;
-+
-+	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx);
-+
-+	mutex_init(&ctx->tmutex);
-+	mutex_init(&ctx->tmutex2);
-+	mutex_init(&ctx->pmutex);
-+	init_rwsem(&ctx->tsem);
-+	init_rwsem(&ctx->tsem2);
-+	init_rwsem(&ctx->psem);
-+
-+	mutex_track_holder(&ctx->tmutex);
-+	mutex_track_holder(&ctx->tmutex2);
-+	rwsem_track_holder(&ctx->tsem);
-+	rwsem_track_holder(&ctx->tsem2);
-+
-+	KUNIT_ASSERT_EQ(test, 0, percpu_init_rwsem(&ctx->tpcpu));
-+	if (percpu_init_rwsem(&ctx->ppcpu)) {
-+		percpu_free_rwsem(&ctx->tpcpu);
-+		KUNIT_ASSERT_TRUE(test, false);
+diff --git a/fs/kernfs/dir.c b/fs/kernfs/dir.c
+index cc6288d5b4cc..1116bb38c1ff 100644
+--- a/fs/kernfs/dir.c
++++ b/fs/kernfs/dir.c
+@@ -1035,6 +1035,11 @@ struct kernfs_root *kernfs_create_root(struct kernfs_syscall_ops *scops,
+ 	init_rwsem(&root->kernfs_rwsem);
+ 	init_rwsem(&root->kernfs_iattr_rwsem);
+ 	init_rwsem(&root->kernfs_supers_rwsem);
++	if (flags & KERNFS_ROOT_TRACK_LOCK_HOLDERS) {
++		rwsem_track_holder(&root->kernfs_rwsem);
++		rwsem_track_holder(&root->kernfs_iattr_rwsem);
++		rwsem_track_holder(&root->kernfs_supers_rwsem);
 +	}
-+	ctx->pcpu_ready = true;
-+	percpu_rwsem_track_holder(&ctx->tpcpu);
-+
-+	init_completion(&ctx->helper_holds);
-+	init_completion(&ctx->helper_may_release);
-+	init_completion(&ctx->helper_done);
-+
-+	ctx->base = task_nr_tracked_locks(current);
-+	test->priv = ctx;
-+	return 0;
-+}
-+
-+static void lockholder_exit(struct kunit *test)
-+{
-+	struct lockholder_ctx *ctx = test->priv;
-+
-+	if (ctx && ctx->pcpu_ready) {
-+		percpu_free_rwsem(&ctx->tpcpu);
-+		percpu_free_rwsem(&ctx->ppcpu);
-+		ctx->pcpu_ready = false;
-+	}
-+}
-+
-+/* Locks that did not opt in are never counted. */
-+static void untracked_locks_are_not_counted(struct kunit *test)
-+{
-+	struct lockholder_ctx *ctx = test->priv;
-+
-+	mutex_lock(&ctx->pmutex);
-+	EXPECT_DEPTH(test, ctx, 0);
-+	mutex_unlock(&ctx->pmutex);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	KUNIT_EXPECT_TRUE(test, mutex_trylock(&ctx->pmutex));
-+	EXPECT_DEPTH(test, ctx, 0);
-+	mutex_unlock(&ctx->pmutex);
-+
-+	down_read(&ctx->psem);
-+	EXPECT_DEPTH(test, ctx, 0);
-+	up_read(&ctx->psem);
-+
-+	down_write(&ctx->psem);
-+	EXPECT_DEPTH(test, ctx, 0);
-+	up_write(&ctx->psem);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	percpu_down_read(&ctx->ppcpu);
-+	EXPECT_DEPTH(test, ctx, 0);
-+	percpu_up_read(&ctx->ppcpu);
-+
-+	percpu_down_write(&ctx->ppcpu);
-+	EXPECT_DEPTH(test, ctx, 0);
-+	percpu_up_write(&ctx->ppcpu);
-+	EXPECT_DEPTH(test, ctx, 0);
-+}
-+
-+static void tracked_mutex_is_counted(struct kunit *test)
-+{
-+	struct lockholder_ctx *ctx = test->priv;
-+
-+	mutex_lock(&ctx->tmutex);
-+	EXPECT_DEPTH(test, ctx, 1);
-+	mutex_unlock(&ctx->tmutex);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	KUNIT_ASSERT_EQ(test, 0, mutex_lock_interruptible(&ctx->tmutex));
-+	EXPECT_DEPTH(test, ctx, 1);
-+	mutex_unlock(&ctx->tmutex);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	KUNIT_ASSERT_EQ(test, 0, mutex_lock_killable(&ctx->tmutex));
-+	EXPECT_DEPTH(test, ctx, 1);
-+	mutex_unlock(&ctx->tmutex);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	mutex_lock_io(&ctx->tmutex);
-+	EXPECT_DEPTH(test, ctx, 1);
-+	mutex_unlock(&ctx->tmutex);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	KUNIT_ASSERT_TRUE(test, mutex_trylock(&ctx->tmutex));
-+	EXPECT_DEPTH(test, ctx, 1);
-+	mutex_unlock(&ctx->tmutex);
-+	EXPECT_DEPTH(test, ctx, 0);
-+}
-+
-+static void tracked_rwsem_read_is_counted(struct kunit *test)
-+{
-+	struct lockholder_ctx *ctx = test->priv;
-+
-+	down_read(&ctx->tsem);
-+	EXPECT_DEPTH(test, ctx, 1);
-+	up_read(&ctx->tsem);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	KUNIT_ASSERT_EQ(test, 0, down_read_killable(&ctx->tsem));
-+	EXPECT_DEPTH(test, ctx, 1);
-+	up_read(&ctx->tsem);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	KUNIT_ASSERT_EQ(test, 0, down_read_interruptible(&ctx->tsem));
-+	EXPECT_DEPTH(test, ctx, 1);
-+	up_read(&ctx->tsem);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	KUNIT_ASSERT_EQ(test, 1, down_read_trylock(&ctx->tsem));
-+	EXPECT_DEPTH(test, ctx, 1);
-+	up_read(&ctx->tsem);
-+	EXPECT_DEPTH(test, ctx, 0);
-+}
-+
-+static void tracked_rwsem_write_is_counted(struct kunit *test)
-+{
-+	struct lockholder_ctx *ctx = test->priv;
-+
-+	down_write(&ctx->tsem);
-+	EXPECT_DEPTH(test, ctx, 1);
-+	up_write(&ctx->tsem);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	KUNIT_ASSERT_EQ(test, 0, down_write_killable(&ctx->tsem));
-+	EXPECT_DEPTH(test, ctx, 1);
-+	up_write(&ctx->tsem);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	KUNIT_ASSERT_EQ(test, 1, down_write_trylock(&ctx->tsem));
-+	EXPECT_DEPTH(test, ctx, 1);
-+	up_write(&ctx->tsem);
-+	EXPECT_DEPTH(test, ctx, 0);
-+}
-+
-+static void tracked_percpu_rwsem_is_counted(struct kunit *test)
-+{
-+	struct lockholder_ctx *ctx = test->priv;
-+
-+	percpu_down_read(&ctx->tpcpu);
-+	EXPECT_DEPTH(test, ctx, 1);
-+	percpu_up_read(&ctx->tpcpu);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	percpu_down_read_freezable(&ctx->tpcpu, false);
-+	EXPECT_DEPTH(test, ctx, 1);
-+	percpu_up_read(&ctx->tpcpu);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	KUNIT_ASSERT_TRUE(test, percpu_down_read_trylock(&ctx->tpcpu));
-+	EXPECT_DEPTH(test, ctx, 1);
-+	percpu_up_read(&ctx->tpcpu);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	percpu_down_write(&ctx->tpcpu);
-+	EXPECT_DEPTH(test, ctx, 1);
-+	percpu_up_write(&ctx->tpcpu);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	scoped_guard(percpu_read, &ctx->tpcpu)
-+		EXPECT_DEPTH(test, ctx, 1);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	scoped_guard(percpu_write, &ctx->tpcpu)
-+		EXPECT_DEPTH(test, ctx, 1);
-+	EXPECT_DEPTH(test, ctx, 0);
-+}
-+
-+/*
-+ * percpu_rwsem_release()/percpu_rwsem_acquire() move the count with the
-+ * lock.
-+ */
-+static void percpu_rwsem_handover_moves_the_count(struct kunit *test)
-+{
-+	struct lockholder_ctx *ctx = test->priv;
-+
-+	percpu_down_write(&ctx->tpcpu);
-+	ASSERT_DEPTH(test, ctx, 1);
-+
-+	/* As if returning to user space with the lock held. */
-+	percpu_rwsem_release(&ctx->tpcpu, _THIS_IP_);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	/* Take it back before releasing it. */
-+	percpu_rwsem_acquire(&ctx->tpcpu, false, _THIS_IP_);
-+	EXPECT_DEPTH(test, ctx, 1);
-+
-+	percpu_up_write(&ctx->tpcpu);
-+	EXPECT_DEPTH(test, ctx, 0);
-+}
-+
-+/* The percpu read slow path, used right after a writer, is counted too. */
-+static void percpu_rwsem_slow_read_path_is_counted(struct kunit *test)
-+{
-+	struct lockholder_ctx *ctx = test->priv;
-+
-+	/* A writer forces readers onto the slow path for a while. */
-+	percpu_down_write(&ctx->tpcpu);
-+	ASSERT_DEPTH(test, ctx, 1);
-+	percpu_up_write(&ctx->tpcpu);
-+	ASSERT_DEPTH(test, ctx, 0);
+ 	INIT_LIST_HEAD(&root->supers);
+ 	rwlock_init(&root->kernfs_rename_lock);
+ 
+diff --git a/include/linux/kernfs.h b/include/linux/kernfs.h
+index 73786b567ccd..ea2efdc5277e 100644
+--- a/include/linux/kernfs.h
++++ b/include/linux/kernfs.h
+@@ -156,6 +156,13 @@ enum kernfs_root_flag {
+ 	 * Renames must not change the parent node.
+ 	 */
+ 	KERNFS_ROOT_INVARIANT_PARENT		= 0x0010,
 +
 +	/*
-+	 * rcu_sync stays non-idle for a grace period after a writer, so
-+	 * this most likely uses the slow path.
++	 * Track the holders of this root's rwsems (see
++	 * CONFIG_TRACK_LOCK_HOLDERS).  Use it for roots whose locks are
++	 * shared so widely that a stalled holder stalls unrelated work.
 +	 */
-+	percpu_down_read(&ctx->tpcpu);
-+	EXPECT_DEPTH(test, ctx, 1);
-+	percpu_up_read(&ctx->tpcpu);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	KUNIT_EXPECT_TRUE(test, percpu_down_read_trylock(&ctx->tpcpu));
-+	EXPECT_DEPTH(test, ctx, 1);
-+	percpu_up_read(&ctx->tpcpu);
-+	EXPECT_DEPTH(test, ctx, 0);
-+}
-+
-+/* downgrade_write() keeps the lock held, so the count does not change. */
-+static void downgrade_write_keeps_the_count(struct kunit *test)
-+{
-+	struct lockholder_ctx *ctx = test->priv;
-+
-+	down_write(&ctx->tsem);
-+	ASSERT_DEPTH(test, ctx, 1);
-+
-+	downgrade_write(&ctx->tsem);
-+	EXPECT_DEPTH(test, ctx, 1);
-+
-+	up_read(&ctx->tsem);
-+	EXPECT_DEPTH(test, ctx, 0);
-+}
-+
-+/* Tracked locks add up; untracked ones in between do not count. */
-+static void nested_locks_stack(struct kunit *test)
-+{
-+	struct lockholder_ctx *ctx = test->priv;
-+
-+	mutex_lock(&ctx->tmutex);
-+	EXPECT_DEPTH(test, ctx, 1);
-+
-+	mutex_lock(&ctx->pmutex);
-+	EXPECT_DEPTH(test, ctx, 1);
-+
-+	down_read(&ctx->tsem);
-+	EXPECT_DEPTH(test, ctx, 2);
-+
-+	down_write(&ctx->psem);
-+	EXPECT_DEPTH(test, ctx, 2);
-+
-+	mutex_lock(&ctx->tmutex2);
-+	EXPECT_DEPTH(test, ctx, 3);
-+
-+	down_read(&ctx->tsem2);
-+	EXPECT_DEPTH(test, ctx, 4);
-+
-+	percpu_down_read(&ctx->tpcpu);
-+	EXPECT_DEPTH(test, ctx, 5);
-+
-+	percpu_down_read(&ctx->ppcpu);
-+	EXPECT_DEPTH(test, ctx, 5);
-+
-+	/* Release in a different order than taken. */
-+	up_read(&ctx->tsem);
-+	EXPECT_DEPTH(test, ctx, 4);
-+	percpu_up_read(&ctx->ppcpu);
-+	EXPECT_DEPTH(test, ctx, 4);
-+	up_write(&ctx->psem);
-+	EXPECT_DEPTH(test, ctx, 4);
-+	percpu_up_read(&ctx->tpcpu);
-+	EXPECT_DEPTH(test, ctx, 3);
-+	up_read(&ctx->tsem2);
-+	EXPECT_DEPTH(test, ctx, 2);
-+	mutex_unlock(&ctx->pmutex);
-+	EXPECT_DEPTH(test, ctx, 2);
-+	mutex_unlock(&ctx->tmutex2);
-+	EXPECT_DEPTH(test, ctx, 1);
-+	mutex_unlock(&ctx->tmutex);
-+	EXPECT_DEPTH(test, ctx, 0);
-+}
-+
-+/* cleanup.h guards are counted too. */
-+static void guards_are_counted(struct kunit *test)
-+{
-+	struct lockholder_ctx *ctx = test->priv;
-+
-+	scoped_guard(mutex, &ctx->tmutex)
-+		EXPECT_DEPTH(test, ctx, 1);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	scoped_guard(rwsem_read, &ctx->tsem)
-+		EXPECT_DEPTH(test, ctx, 1);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	scoped_guard(rwsem_write, &ctx->tsem)
-+		EXPECT_DEPTH(test, ctx, 1);
-+	EXPECT_DEPTH(test, ctx, 0);
-+}
-+
-+/*
-+ * The helper thread takes a lock and records its own count. It is used to
-+ * create contention and to check that counts are per task.
-+ */
-+enum helper_lock {
-+	HELPER_TMUTEX,
-+	HELPER_TSEM_WRITE,
-+	HELPER_TPCPU_WRITE,
-+};
-+
-+struct helper_arg {
-+	struct lockholder_ctx	*ctx;
-+	enum helper_lock	which;
-+};
-+
-+static int lockholder_helper(void *data)
-+{
-+	struct helper_arg *arg = data;
-+	struct lockholder_ctx *ctx = arg->ctx;
-+
-+	switch (arg->which) {
-+	case HELPER_TMUTEX:
-+		mutex_lock(&ctx->tmutex);
-+		break;
-+	case HELPER_TSEM_WRITE:
-+		down_write(&ctx->tsem);
-+		break;
-+	case HELPER_TPCPU_WRITE:
-+		percpu_down_write(&ctx->tpcpu);
-+		break;
-+	}
-+
-+	ctx->helper_depth_held = task_nr_tracked_locks(current);
-+	complete(&ctx->helper_holds);
-+
-+	wait_for_completion(&ctx->helper_may_release);
-+
-+	switch (arg->which) {
-+	case HELPER_TMUTEX:
-+		mutex_unlock(&ctx->tmutex);
-+		break;
-+	case HELPER_TSEM_WRITE:
-+		up_write(&ctx->tsem);
-+		break;
-+	case HELPER_TPCPU_WRITE:
-+		percpu_up_write(&ctx->tpcpu);
-+		break;
-+	}
-+
-+	ctx->helper_depth_after = task_nr_tracked_locks(current);
-+	complete(&ctx->helper_done);
-+
-+	/* Wait for kthread_stop(). */
-+	while (!kthread_should_stop())
-+		schedule_timeout_interruptible(HZ / 10);
-+	return 0;
-+}
-+
-+static struct task_struct *start_helper(struct kunit *test,
-+					enum helper_lock which)
-+{
-+	struct lockholder_ctx *ctx = test->priv;
-+	struct helper_arg *arg;
-+	struct task_struct *t;
-+
-+	arg = kunit_kzalloc(test, sizeof(*arg), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, arg);
-+	arg->ctx = ctx;
-+	arg->which = which;
-+
-+	t = kthread_run(lockholder_helper, arg, "lockholder_kunit");
-+	KUNIT_ASSERT_FALSE(test, IS_ERR(t));
-+
-+	wait_for_completion(&ctx->helper_holds);
-+	return t;
-+}
-+
-+static void stop_helper(struct kunit *test, struct task_struct *t)
-+{
-+	struct lockholder_ctx *ctx = test->priv;
-+
-+	complete(&ctx->helper_may_release);
-+	wait_for_completion(&ctx->helper_done);
-+	kthread_stop(t);
-+}
-+
-+/* Each task has its own count, and a new task starts at zero. */
-+static void the_count_is_per_task(struct kunit *test)
-+{
-+	struct lockholder_ctx *ctx = test->priv;
-+	struct task_struct *t;
-+
-+	down_read(&ctx->tsem2);
-+	ASSERT_DEPTH(test, ctx, 1);
-+
-+	t = start_helper(test, HELPER_TMUTEX);
-+
-+	/* The helper's lock is not in our count. */
-+	EXPECT_DEPTH(test, ctx, 1);
-+	/* The helper started from zero, not from our count. */
-+	KUNIT_EXPECT_EQ(test, 1u, ctx->helper_depth_held);
-+
-+	stop_helper(test, t);
-+	KUNIT_EXPECT_EQ(test, 0u, ctx->helper_depth_after);
-+
-+	EXPECT_DEPTH(test, ctx, 1);
-+	up_read(&ctx->tsem2);
-+	EXPECT_DEPTH(test, ctx, 0);
-+}
-+
-+/* A failed trylock is not counted. */
-+static void failed_trylock_is_not_counted(struct kunit *test)
-+{
-+	struct lockholder_ctx *ctx = test->priv;
-+	struct task_struct *t;
-+
-+	t = start_helper(test, HELPER_TSEM_WRITE);
-+
-+	KUNIT_EXPECT_EQ(test, 0, down_read_trylock(&ctx->tsem));
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	KUNIT_EXPECT_EQ(test, 0, down_write_trylock(&ctx->tsem));
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	stop_helper(test, t);
-+
-+	/* Once the lock is free, the trylock succeeds and counts. */
-+	KUNIT_ASSERT_EQ(test, 1, down_read_trylock(&ctx->tsem));
-+	EXPECT_DEPTH(test, ctx, 1);
-+	up_read(&ctx->tsem);
-+	EXPECT_DEPTH(test, ctx, 0);
-+}
-+
-+/*
-+ * A failed mutex_trylock() is not counted, and a contended mutex_lock()
-+ * is counted exactly once: not zero (slow path missed) and not twice
-+ * (fast and slow path both counted).
-+ */
-+static void contended_mutex_is_counted_once(struct kunit *test)
-+{
-+	struct lockholder_ctx *ctx = test->priv;
-+	struct task_struct *t;
-+
-+	t = start_helper(test, HELPER_TMUTEX);
-+
-+	KUNIT_EXPECT_FALSE(test, mutex_trylock(&ctx->tmutex));
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	/*
-+	 * Let the helper release the lock. mutex_lock() below most likely
-+	 * finds it still held and takes the slow path.
-+	 */
-+	complete(&ctx->helper_may_release);
-+
-+	mutex_lock(&ctx->tmutex);
-+	EXPECT_DEPTH(test, ctx, 1);
-+	mutex_unlock(&ctx->tmutex);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	wait_for_completion(&ctx->helper_done);
-+	kthread_stop(t);
-+}
-+
-+/* The same for a contended rwsem. */
-+static void contended_rwsem_is_counted_once(struct kunit *test)
-+{
-+	struct lockholder_ctx *ctx = test->priv;
-+	struct task_struct *t;
-+
-+	t = start_helper(test, HELPER_TSEM_WRITE);
-+
-+	complete(&ctx->helper_may_release);
-+
-+	down_write(&ctx->tsem);
-+	EXPECT_DEPTH(test, ctx, 1);
-+	up_write(&ctx->tsem);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	down_read(&ctx->tsem);
-+	EXPECT_DEPTH(test, ctx, 1);
-+	up_read(&ctx->tsem);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	wait_for_completion(&ctx->helper_done);
-+	kthread_stop(t);
-+}
-+
-+/* The same for a percpu_rw_semaphore, starting with a failed read trylock. */
-+static void contended_percpu_rwsem_is_counted_once(struct kunit *test)
-+{
-+	struct lockholder_ctx *ctx = test->priv;
-+	struct task_struct *t;
-+
-+	t = start_helper(test, HELPER_TPCPU_WRITE);
-+	KUNIT_EXPECT_EQ(test, 1u, ctx->helper_depth_held);
-+
-+	KUNIT_EXPECT_FALSE(test, percpu_down_read_trylock(&ctx->tpcpu));
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	complete(&ctx->helper_may_release);
-+
-+	percpu_down_read(&ctx->tpcpu);
-+	EXPECT_DEPTH(test, ctx, 1);
-+	percpu_up_read(&ctx->tpcpu);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	percpu_down_write(&ctx->tpcpu);
-+	EXPECT_DEPTH(test, ctx, 1);
-+	percpu_up_write(&ctx->tpcpu);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	wait_for_completion(&ctx->helper_done);
-+	KUNIT_EXPECT_EQ(test, 0u, ctx->helper_depth_after);
-+	kthread_stop(t);
-+}
-+
-+/* Initializing a lock again clears its opt-in. */
-+/*
-+ * The opt-in is a sticky bit in the same word that says whether the lock is
-+ * held, so an opted-in lock that nobody holds must still read as unlocked.
-+ */
-+static void opted_in_lock_still_reads_unlocked(struct kunit *test)
-+{
-+	struct lockholder_ctx *ctx = test->priv;
-+
-+	KUNIT_EXPECT_FALSE(test, rwsem_is_locked(&ctx->tsem));
-+	KUNIT_EXPECT_FALSE(test, mutex_is_locked(&ctx->tmutex));
-+	KUNIT_EXPECT_FALSE(test, percpu_is_read_locked(&ctx->tpcpu));
-+	KUNIT_EXPECT_FALSE(test, percpu_is_write_locked(&ctx->tpcpu));
-+
-+	down_read(&ctx->tsem);
-+	KUNIT_EXPECT_TRUE(test, rwsem_is_locked(&ctx->tsem));
-+	up_read(&ctx->tsem);
-+	KUNIT_EXPECT_FALSE(test, rwsem_is_locked(&ctx->tsem));
-+
-+	down_write(&ctx->tsem);
-+	KUNIT_EXPECT_TRUE(test, rwsem_is_locked(&ctx->tsem));
-+	up_write(&ctx->tsem);
-+	KUNIT_EXPECT_FALSE(test, rwsem_is_locked(&ctx->tsem));
-+
-+	mutex_lock(&ctx->tmutex);
-+	KUNIT_EXPECT_TRUE(test, mutex_is_locked(&ctx->tmutex));
-+	mutex_unlock(&ctx->tmutex);
-+	KUNIT_EXPECT_FALSE(test, mutex_is_locked(&ctx->tmutex));
-+
-+	percpu_down_write(&ctx->tpcpu);
-+	KUNIT_EXPECT_TRUE(test, percpu_is_write_locked(&ctx->tpcpu));
-+	percpu_up_write(&ctx->tpcpu);
-+	KUNIT_EXPECT_FALSE(test, percpu_is_write_locked(&ctx->tpcpu));
-+}
-+
-+/* Opting in a lock that is already held is refused, and warns. */
-+static void track_holder_on_a_held_lock_is_refused(struct kunit *test)
-+{
-+	struct lockholder_ctx *ctx = test->priv;
-+
-+	mutex_lock(&ctx->pmutex);
-+	down_read(&ctx->psem);
-+	percpu_down_read(&ctx->ppcpu);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	kunit_warning_suppress(test) {
-+		mutex_track_holder(&ctx->pmutex);
-+		rwsem_track_holder(&ctx->psem);
-+		percpu_rwsem_track_holder(&ctx->ppcpu);
-+		KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, 3);
-+	}
-+
-+	/* Refused, so the locks are still untracked and nothing is counted. */
-+	EXPECT_DEPTH(test, ctx, 0);
-+	percpu_up_read(&ctx->ppcpu);
-+	up_read(&ctx->psem);
-+	mutex_unlock(&ctx->pmutex);
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	mutex_lock(&ctx->pmutex);
-+	EXPECT_DEPTH(test, ctx, 0);
-+	mutex_unlock(&ctx->pmutex);
-+}
-+
-+/*
-+ * The non_owner calls can run in different tasks, which a per-task count
-+ * cannot follow. Both sides warn on a tracked rwsem and neither counts.
-+ *
-+ * Without CONFIG_DEBUG_LOCK_ALLOC they are plain down_read()/up_read(),
-+ * which are counted and balanced, so there is nothing to test.
-+ */
-+static void non_owner_on_a_tracked_rwsem_warns(struct kunit *test)
-+{
-+	struct lockholder_ctx *ctx = test->priv;
-+
-+	if (!IS_ENABLED(CONFIG_DEBUG_LOCK_ALLOC))
-+		kunit_skip(test, "non_owner API needs CONFIG_DEBUG_LOCK_ALLOC");
-+
-+	kunit_warning_suppress(test) {
-+		down_read_non_owner(&ctx->tsem);
-+		EXPECT_DEPTH(test, ctx, 0);
-+		up_read_non_owner(&ctx->tsem);
-+		KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, 2);
-+	}
-+	EXPECT_DEPTH(test, ctx, 0);
-+
-+	/* An untracked rwsem uses them without warning, and is not counted. */
-+	down_read_non_owner(&ctx->psem);
-+	EXPECT_DEPTH(test, ctx, 0);
-+	up_read_non_owner(&ctx->psem);
-+	EXPECT_DEPTH(test, ctx, 0);
-+}
-+
-+static void reinit_clears_the_opt_in(struct kunit *test)
-+{
-+	struct lockholder_ctx *ctx = test->priv;
-+
-+	down_read(&ctx->tsem);
-+	EXPECT_DEPTH(test, ctx, 1);
-+	up_read(&ctx->tsem);
-+
-+	init_rwsem(&ctx->tsem);
-+	down_read(&ctx->tsem);
-+	EXPECT_DEPTH(test, ctx, 0);
-+	up_read(&ctx->tsem);
-+
-+	percpu_down_read(&ctx->tpcpu);
-+	EXPECT_DEPTH(test, ctx, 1);
-+	percpu_up_read(&ctx->tpcpu);
-+
-+	percpu_free_rwsem(&ctx->tpcpu);
-+	KUNIT_ASSERT_EQ(test, 0, percpu_init_rwsem(&ctx->tpcpu));
-+	percpu_down_read(&ctx->tpcpu);
-+	EXPECT_DEPTH(test, ctx, 0);
-+	percpu_up_read(&ctx->tpcpu);
-+
-+	mutex_lock(&ctx->tmutex);
-+	EXPECT_DEPTH(test, ctx, 1);
-+	mutex_unlock(&ctx->tmutex);
-+
-+	mutex_init(&ctx->tmutex);
-+	mutex_lock(&ctx->tmutex);
-+	EXPECT_DEPTH(test, ctx, 0);
-+	mutex_unlock(&ctx->tmutex);
-+	EXPECT_DEPTH(test, ctx, 0);
-+}
-+
-+static struct kunit_case lockholder_test_cases[] = {
-+	KUNIT_CASE(untracked_locks_are_not_counted),
-+	KUNIT_CASE(tracked_mutex_is_counted),
-+	KUNIT_CASE(tracked_rwsem_read_is_counted),
-+	KUNIT_CASE(tracked_rwsem_write_is_counted),
-+	KUNIT_CASE(tracked_percpu_rwsem_is_counted),
-+	KUNIT_CASE(percpu_rwsem_handover_moves_the_count),
-+	KUNIT_CASE(percpu_rwsem_slow_read_path_is_counted),
-+	KUNIT_CASE(downgrade_write_keeps_the_count),
-+	KUNIT_CASE(nested_locks_stack),
-+	KUNIT_CASE(guards_are_counted),
-+	KUNIT_CASE(the_count_is_per_task),
-+	KUNIT_CASE(failed_trylock_is_not_counted),
-+	KUNIT_CASE(contended_mutex_is_counted_once),
-+	KUNIT_CASE(contended_rwsem_is_counted_once),
-+	KUNIT_CASE(contended_percpu_rwsem_is_counted_once),
-+	KUNIT_CASE(reinit_clears_the_opt_in),
-+	KUNIT_CASE(opted_in_lock_still_reads_unlocked),
-+	KUNIT_CASE(track_holder_on_a_held_lock_is_refused),
-+	KUNIT_CASE(non_owner_on_a_tracked_rwsem_warns),
-+	{}
-+};
-+
-+static struct kunit_suite lockholder_test_suite = {
-+	.name = "lockholder",
-+	.init = lockholder_init,
-+	.exit = lockholder_exit,
-+	.test_cases = lockholder_test_cases,
-+};
-+kunit_test_suite(lockholder_test_suite);
-+
-+MODULE_DESCRIPTION("KUnit tests for sleeping lock holder tracking");
-+MODULE_LICENSE("GPL");
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 163192b2ed7f..67fc86b4fc6f 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -1672,6 +1672,19 @@ config WW_MUTEX_SELFTEST
- 	  Say M if you want these self tests to build as a module.
- 	  Say N if you are unsure.
++	KERNFS_ROOT_TRACK_LOCK_HOLDERS		= 0x0020,
+ };
  
-+config TRACK_LOCK_HOLDERS_KUNIT_TEST
-+	tristate "KUnit tests for sleeping lock holder tracking" if !KUNIT_ALL_TESTS
-+	depends on KUNIT && TRACK_LOCK_HOLDERS
-+	default KUNIT_ALL_TESTS
-+	help
-+	  Check that task_nr_tracked_locks() always equals the number of
-+	  opted-in locks the task holds.
+ /* type-specific structures for kernfs_node union members */
+diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
+index 804318ae160e..87d66aae2558 100644
+--- a/kernel/cgroup/cgroup.c
++++ b/kernel/cgroup/cgroup.c
+@@ -2191,11 +2191,18 @@ int cgroup_setup_root(struct cgroup_root *root, u32 ss_mask)
+ 	kf_sops = root == &cgrp_dfl_root ?
+ 		&cgroup_kf_syscall_ops : &cgroup1_kf_syscall_ops;
+ 
++	/*
++	 * Track the holders of the cgroupfs kernfs locks.  They are held
++	 * across work that can charge memory, so a holder stuck in reclaim
++	 * can stall many other cgroupfs operations.  Other kernfs users have
++	 * their own roots and are not affected.
++	 */
+ 	root->kf_root = kernfs_create_root(kf_sops,
+ 					   KERNFS_ROOT_CREATE_DEACTIVATED |
+ 					   KERNFS_ROOT_SUPPORT_EXPORTOP |
+ 					   KERNFS_ROOT_SUPPORT_USER_XATTR |
+-					   KERNFS_ROOT_INVARIANT_PARENT,
++					   KERNFS_ROOT_INVARIANT_PARENT |
++					   KERNFS_ROOT_TRACK_LOCK_HOLDERS,
+ 					   root_cgrp);
+ 	if (IS_ERR(root->kf_root)) {
+ 		ret = PTR_ERR(root->kf_root);
+@@ -6552,6 +6559,24 @@ int __init cgroup_init(void)
+ 	get_user_ns(init_cgroup_ns.user_ns);
+ 	cgroup_rt_init();
+ 
++	/*
++	 * cgroup_mutex is taken by every cgroup create, destroy and migrate
++	 * and is held across work that can allocate, so a holder stuck in
++	 * reclaim stalls the whole cgroupfs control plane.
++	 *
++	 * cgroup_threadgroup_rwsem is taken for read by fork and exit, and
++	 * usually for write by migration, so a stalled holder can stall
++	 * process creation on the whole machine.
++	 *
++	 * Neither can be held yet, as rest_init() has not run.
++	 *
++	 * signal->cgroup_threadgroup_rwsem is not tracked.  Its readers hold
++	 * cgroup_threadgroup_rwsem too, so they are counted already, and its
++	 * writer only blocks the process being migrated.
++	 */
++	mutex_track_holder(&cgroup_mutex);
++	percpu_rwsem_track_holder(&cgroup_threadgroup_rwsem);
 +
-+	  For more information on KUnit and unit tests in general, refer to
-+	  the KUnit documentation in Documentation/dev-tools/kunit/.
-+
-+	  If unsure, say N.
-+
- config SCF_TORTURE_TEST
- 	tristate "torture tests for smp_call_function*()"
- 	depends on DEBUG_KERNEL
+ 	cgroup_lock();
+ 
+ 	/*
 -- 
 2.53.0-Meta
 
