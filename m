@@ -1,119 +1,138 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04DB3441027
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:02:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9337143DEB7
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:02:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790240532; cv=none; b=ACLXrcVuaSjPuCrk3afWIT/PlTXhSHQrGBvrzXekqvZGH//CeKvJdA0PxG/NY6a5UwvQHFStkti5Ab15fWepiGYNf13WkT/9wD5outLhR8ZnPgF3R8KIBCw2NODUcQEJXSy4b5eanACOtZEEpoV+XpETcNMuAmyRMytUjCZmeEw=
+	t=1790240536; cv=none; b=BeEqTv+5oJ639XKblzxl5/+HQPO55adLWrHyZPOAJMrtuY5IwRctH9nhbCl7+QcK+qagmFthbK0SHEsbLmeUSsvlJzXqZUkUjW0Of07ls6GB9ByMFpI5zh/SWra5a6Rsa04oLoRd8ZFstzzndk2ORQZEEjuqEd1TA0g9uRzBNVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790240532; c=relaxed/simple;
-	bh=9vNjSL90J4yX9kw1EA3qLyad04ZhUpY0Tkov9iZfDhE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qPVF9rL84cAvDdjoJmGeMCz9V8FYSmo6srpgZ95VCoAHqk8kNnYebD5V3tZNUZUCFKdAZcmAdOc/TQJddYprp5q9zYc0naWAtjdmuOPXlCxMfkobjC0rKbASbu0HoyRK+zdeFQtZJFG9xqLflTQo1EsCan8cFQaelY/7USh+zls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=o1HW+vr2; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790240536; c=relaxed/simple;
+	bh=Ce2ymKVfonavaoEYAGBUsfI9fZcWikNo8pBvq8Buq4Q=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
+	 References:In-Reply-To; b=Imc12BOqs3keRIR9GVD3etvKmcywbAGKPgnqLp9c6Ii5V/yeCzquVWxf3LF7wp+Y4Fj8gRWWgyAirSzZvAL0jnZsLLdivYeQJiZUjQa7+t6bnMW8YxzrHV4u/iRVoWxymcCQsCS/9iVS3u0Z7Qx9DxjnbV+qPxe+vX4zqyXBeBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=a1HHHn6/; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="o1HW+vr2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=ul
-	cahvz8a6nzlF4ykRPpW3Il7se8hI2AGVvN4y2l3qE=; b=o1HW+vr2OsMyIUMO4W
-	JJV2I/ccg0RTYSUATHgrQXDdaAKghCfgJ1nQAmw3uthXE5ugwKu7gocaJQXbbR7M
-	RBbhJVTzJoLhYQYh9OIh42oPBbzFiG2AhrW0DbH8k5g1Vp4+v9SkMvD3zrhstJl+
-	9lFp8aj5p2lTJgYyDgACQhgmA=
-Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3H73Q5rRqL6EhAg--.34883S8;
-	Thu, 24 Sep 2026 17:01:17 +0800 (CST)
-From: Baolin Liu <liubaolin12138@163.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v3 6/6] ntfs: report shutdown errors to fsnotify
-Date: Thu, 24 Sep 2026 17:01:02 +0800
-Message-ID: <20260924090102.2865942-7-liubaolin12138@163.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260924090102.2865942-1-liubaolin12138@163.com>
-References: <20260924090102.2865942-1-liubaolin12138@163.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="a1HHHn6/"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id C4D2B4E41055;
+	Thu, 24 Sep 2026 09:02:11 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9035A5FB45;
+	Thu, 24 Sep 2026 09:02:11 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2457A1032944A;
+	Thu, 24 Sep 2026 11:02:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790240528; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=vR7HTskuo3QA3UfAnJnKV8R+LADlbZiIPXzgpnhb+y0=;
+	b=a1HHHn6/Lau7NKqrsoJ6ZKglKHjAE5aINeiOnPet24A2RUQq1BFBnlNjQ4HlASH24L8kwM
+	8sZVzzg1I/AXv/TcPBLTSJ1Q93r/4wtf2Poxb8ujP3ERwNwfk+O/TUTFibZsvOoDeoQIEN
+	CnrMOZjtOxmNG6HBZRIrMDfH+Q6/tgYqeyA+1wNzLLpqwMopPD5DPdrHgfiVd2hs9ZYgJ3
+	2PRuzZL5uXmcUhFk31aug8s3nprebTsm3RR3LpVSiKVhxM5rg0git3O5IBRyt2j1WK6WNJ
+	rIwIFPM6h5muT/vt2tw7Kl5Yt7sWKlfTNCgM+dIP7K3K6N36KZ7JkQihaLoDZg==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3H73Q5rRqL6EhAg--.34883S8
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZFyDXr4DZFyxJw4kJFW7CFg_yoW8uF17pF
-	97Ar9xtwn2qF129wsFyw43A3WSvFyku34UKw1UGw1Igw1kKr10qF4kKF1F9F1F9a4F9w48
-	Zw1UK398uFW7ZrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jcrc-UUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6R24g2q05t33iwAA3W
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 24 Sep 2026 11:02:03 +0200
+Message-Id: <DLNFAUX8MFA1.3UMOGNLDKDRJM@bootlin.com>
+To: "Zijin Tao" <taozj888@163.com>, <maintainer@kernel.org>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+Subject: Re: [PATCH] net: macb: rate limit netdev error info print in the
+ data path
+Cc: <linux-kernel@vger.kernel.org>, <conor.dooley@microchip.com>,
+ <andrew+netdev@lunn.ch>, <netdev@vger.kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260920100920.65773-1-taozj888@163.com>
+In-Reply-To: <20260920100920.65773-1-taozj888@163.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Baolin Liu <liubaolin@kylinos.cn>
+Hello Zijin,
 
-Notify FAN_FS_ERROR listeners when NTFS enters forced shutdown after
-FS_IOC_SHUTDOWN or backing-device removal. Keep the shutdown state
-transition and notification together in a dedicated helper.
+You missed part of my recent feedback [0][1]. Copy paste:
 
-Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
----
- fs/ntfs/super.c  | 12 +++++++++---
- fs/ntfs/volume.h |  1 +
- 2 files changed, 10 insertions(+), 3 deletions(-)
+ - Also you are missing the prefix [PATCH net] or [PATCH net-next].
+   Read up about this here (and read the full page):
+   https://www.kernel.org/doc/html/latest/process/maintainer-netdev.html
 
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index a7a7ecf9d074..a0d3934ef6c8 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -414,6 +414,12 @@ void ntfs_report_file_metadata_error(struct inode *inode, int error)
- 		fserror_report_file_metadata(inode, error, GFP_ATOMIC);
- }
- 
-+void ntfs_report_shutdown(struct ntfs_volume *vol)
-+{
-+	NVolSetShutdown(vol);
-+	fserror_report_shutdown(vol->sb, GFP_ATOMIC);
-+}
-+
- void ntfs_handle_error(struct super_block *sb)
- {
- 	struct ntfs_volume *vol = NTFS_SB(sb);
-@@ -430,7 +436,7 @@ void ntfs_handle_error(struct super_block *sb)
- 		      sb->s_id);
- 	} else if (vol->on_errors == ON_ERRORS_CONTINUE) {
- 		if (errseq_check(&sb->s_wb_err, vol->wb_err) == -ENODEV) {
--			NVolSetShutdown(vol);
-+			ntfs_report_shutdown(vol);
- 			vol->wb_err = sb->s_wb_err;
- 		}
- 	}
-@@ -2086,10 +2092,10 @@ int ntfs_force_shutdown(struct super_block *sb, u32 flags)
- 		if (ret)
- 			return ret;
- 		bdev_thaw(sb->s_bdev);
--		NVolSetShutdown(vol);
-+		ntfs_report_shutdown(vol);
- 		break;
- 	case FS_SHUTDOWN_FLAGS_NOLOGFLUSH:
--		NVolSetShutdown(vol);
-+		ntfs_report_shutdown(vol);
- 		break;
- 	default:
- 		return -EINVAL;
-diff --git a/fs/ntfs/volume.h b/fs/ntfs/volume.h
-index 366e9f5d0443..648fe8991304 100644
---- a/fs/ntfs/volume.h
-+++ b/fs/ntfs/volume.h
-@@ -256,6 +256,7 @@ DEFINE_NVOL_BIT_OPS(SymlinkNative)
- 
- void ntfs_report_metadata_error(struct ntfs_volume *vol, int error);
- void ntfs_report_file_metadata_error(struct inode *inode, int error);
-+void ntfs_report_shutdown(struct ntfs_volume *vol);
- 
- static inline void ntfs_inc_free_clusters(struct ntfs_volume *vol, s64 nr)
- {
--- 
-2.51.0
+ - Also your To/Cc list is weird, make sure to use
+   scripts/get_maintainer.pl (or use b4 for patch
+   management which uses it automatically).
+
+In addition, make sure to read the "submitting patches" guide [2].
+You missed:
+ - replying to all review points one by one using interleaved [4]
+ - V2 in subject [3]
+ - write up a changelog [4]
+
+Also this one is less well known, but the net subsystem (and many others
+nowadays) expect people to reply to Sashiko review emails to say
+whether they agree or disagree. Especially if they disagree. You can
+mostly skip over the pre-existing issues which don't relate to your
+series.
+
+For example Sashiko says you don't cover some log netdev_err() calls.
+You can reply explaining why only the ones you touched are important to
+deal with.
+
+--
+
+And I see just now I have in my inbox an email from you asking how to do
+it properly. Good! But it doesn't show up on lore, I'm not sure why.
+
+Replying to it here:
+
+ - Don't send the same patch but slightly modified. Maintainers need to
+   know the latest version. New version means V2/V3/etc, even if
+   changes are tiny (like a typo fix in commit message).
+
+ - Don't put V1 for the first revision. I think that's git-format-patch
+   default behavior.
+
+ - Using git-format-patch looks something like:
+
+   =E2=9F=A9 git format-patch -1 998b159fdd78 --subject-prefix=3D"PATCH net=
+" -v2
+   v2-0001-net-macb-take-bp-lock-around-NCR-read-modify-writ.patch
+
+   =E2=9F=A9 grep ^Subject v2-0001-net-macb-take-bp-lock-around-NCR-read-mo=
+dify-writ.patch
+   Subject: [PATCH net v2] net: macb: take bp->lock around NCR read-modify-=
+writes
+
+   =E2=9F=A9 scripts/get_maintainer.pl v2-0001-*.patch
+   "Th=C3=A9o Lebrun" <theo.lebrun@bootlin.com> (maintainer:ATMEL MACB ETHE=
+RNET DRIVER)
+   Conor Dooley <conor.dooley@microchip.com> (reviewer:ATMEL MACB ETHERNET =
+DRIVER)
+   Andrew Lunn <andrew+netdev@lunn.ch> (maintainer:NETWORKING DRIVERS)
+   ...
+
+   I think most people call scripts/get_maintainer.pl and write the
+   git send-email --to/--cc flags by hand. I've been using b4 for a few
+   years now so I don't really know the usual git format-patch workflow.
+
+   Or you can use `git send-email --cc-cmd=3Dscripts/get_maintainer.pl`.
+
+[0]: https://lore.kernel.org/all/DLKVCOXTNGVZ.3CC6KFXDIFJ3X@bootlin.com/
+[1]: https://lore.kernel.org/all/DLKVEXS7X14N.XLLMBDDX6ZJW@bootlin.com/
+[2]: https://www.kernel.org/doc/html/latest/process/submitting-patches.html
+[3]: https://www.kernel.org/doc/html/latest/process/submitting-patches.html=
+#subject-line
+[4]: https://www.kernel.org/doc/html/latest/process/submitting-patches.html=
+#respond-to-review-comments
+
+Thanks,
+
+--
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
