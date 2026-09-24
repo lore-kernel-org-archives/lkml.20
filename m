@@ -1,89 +1,73 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 575C63D0919
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:58:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3208943C058
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:58:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790236711; cv=none; b=NDMpDRiPNyQjIozLjnDh3coxge9uMuzDURJG5jQIwfwPnpIKlAeO9Yvbcy0IYJg1/pI5K5WXtyFmtv6JZdSjg4zuHGgFk5XEAtG06/bxo6dNh9FqeWNc1mvVW8FnH0JUH9aabgQU/BcOvsutTe9YZ3Raup31y08qR8XBj9DdqeY=
+	t=1790236716; cv=none; b=CqVUFAARNsusXLyQTRelGqp95gxyUoKjOSiq8kfYWOxXfMgf5EtDrzaGCJO9IXiLF11w6CwihNDZ7cQiIh1vba9qfX7u6m3dRMbE+GHF5plrBvwBByk+z1OKdrLQgiNjnxwSU8cqpx2PAbGsj/YIgrXU73xNWG0W0E/09bzBl/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790236711; c=relaxed/simple;
-	bh=w9n4ef3NCBXWc1DpGUKI/TCXbHtusJ1IfeRhwnKuQ5Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Kn7W7yrELRSA/8LK8WZHt/x0lMRlmH2qYFrCo6t/6xA2XANoZnYsCf1X/xiX+6BfR5hw+iL8yX54k1bPsG78D6mkw5BKAg9B3Uk/yuAXMgZVJb1rrJ9FJR6mu/ahr13x1jLkWzbLc9PvoHTR65uukO/KFw4a5d3tzEuHpKzrjus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=apwa4PMP; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="apwa4PMP"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4aeso876016a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:58:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1790236708; x=1790841508; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=olGfWlX6xVbhFK+fX2D0BitKwIFHB7YuSmffyiYh0rE=;
-        b=apwa4PMPQX9k0r1KdrWPu3LCz134Nn2yDQwy6alClA00EGhKo6WxOqNi0O9Qh1rCQY
-         mytFoZI9/myBYWAZtpVkwbGL1BOvzLQ6N1wsMfuBRC5qXTWDjoLsbfWLCjplXP31YDuZ
-         noDxXwNEyWalZ1iB4XTaop5miJvZzN74E4ryk3SUfkhkS4/wnHwP9Lvt2PRcSBWdepqu
-         Svw8Q2ejrFBqW/81nnlmq/IQKNxP2We3Hb84jMO/QSuqLXsVTGvQKcdG0qNXFa25tsUF
-         RNO3bl2JSaYOj7WriqTGcaabIDz7DwiLGM0t53kX4k1D7/Wx7+kaavkhNBR6W+61fp2G
-         RnZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790236708; x=1790841508;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=olGfWlX6xVbhFK+fX2D0BitKwIFHB7YuSmffyiYh0rE=;
-        b=Z29aQK1evIpYi8XofXWYUeUp+pNH7a7vFR6GJFJ7ZdCWwL+vmby7LXXlTpc1ItEUW0
-         BtvC6lNHlWmrUocWETttL7BYQSSOC0+kdhnojxXwmz5S2vHI3xhea8KScH5hL4pflr97
-         xq8C8en1myG/udxWn4Iz+ldGem3wG8sizS9rvsz1dLuZHQvb6AsPPSbnUBp4GYzjmIi0
-         0s8MHwSxwtJkW21vqVb3FfOAM8e3AN+MVQNG1eXYwYU/dmsxqCuNSP4oG7v6a6eqF6o7
-         3w3afKSj1ff9xE4R17NNoYpdwGXTQWo3vD+LAXJAA9mABhRe3YoWOqsYtKPCBpqtVtwC
-         UrVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwrRcgiDu3fUjnFvl+Rb/kbifFOPRIv4SAg61AfhFVi1mxTch79BQmS5t0khqT3UcWz0jSP+RLVnZEQeUA=@vger.kernel.org
-X-Gm-Message-State: AFuF++m4LgApqerTcxxiAQ3zsMVVSE0DjrrvHIU6HkEmbCAtCtM+ikNz
-	uqvVRGI8kmv9Li0clAN3ILR5LyBC5PVuj+yrq4HH0cT6zP2UYoY9tDMYN4D241gKVao=
-X-Gm-Gg: AYBFou1kEbHMaEdYJrkD4w/jB8YpndmwmX68sPpzIYW5LqhylSpDOMr5paNa85nAbgp
-	nZJ3n+rvLqBBUYAfywFIYfAup31xW0MYam9u5PNkh/Dj3m1mH/kVI5nkQb0m66oGOvV+YjJI6D6
-	o4OiqjXv5Ov5p9mUG1KlcQ5wJ66UTaHnZy7q/Lx03rIysJWfCKc7ZyXjcOaJbuS5v+2461qg1B1
-	AUAkH4JoesFj6+/eeS5NypDyW253beW4Y73d79W25TTWeypSzOJiVkrfI0+JNURRxCXTWl1F6hC
-	w8jpU3lXOrfUIe2mG+6mYbiL1Kd69sQRVzb1BBbnyrXZ3B4T39vR6tzz74ptuAe0rfeoTpLlcGm
-	8HWTNQHQiVg4OcUgpCVwlHnGxvepHGrhWN6sExhtdxGNJ3yUKYioG5T9kXBzIw3Fweeg3jDaVfr
-	YnpWnApyrkpTYof3CCU+TTz1vRP/5MgRL+Q+fTgZgAWyFbqYr2VQnhmcCMEEn+bb1/R5PzVf6CG
-	wy9eh8XTrHw7fvZB2I=
-X-Received: by 2002:a17:90a:2ce6:b0:3a0:a055:1741 with SMTP id 98e67ed59e1d1-3a0a0552127mr324523a91.27.1790236708461;
-        Thu, 24 Sep 2026 00:58:28 -0700 (PDT)
-Received: from n232-176-004.byted.org ([36.110.163.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0972eec92sm3575622a91.7.2026.09.24.00.58.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 00:58:28 -0700 (PDT)
-From: Muchun Song <songmuchun@bytedance.com>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	s=arc-20240116; t=1790236716; c=relaxed/simple;
+	bh=2i+pUx8Jx0VbFvLQtBDLV1pztcH4yhr2KxIwlmbPzUw=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=GqfvWWBk7yXRhoCW8Lf2Vj+ghurxbZqyvfQJSCOdeGCeCwVU4SkNb3jG2qPodhO+bD04taHXtpzrDIwXImhIvf0L4W+sRUngHJ5HSu5OxUFrTe0wd07E0v+DfXBCRPua5HYVyNsknW80LgJ5FSlQVsRr8tBlmO9K4y6yNtt9Bv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: b6d53262b7ed11f19a56ed5b684f684d-20260924
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
+	HR_TO_NAME, IP_TRUSTED, SRC_TRUSTED, SA_UNTRUSTED, SA_UNFAMILIAR
+	SN_UNTRUSTED, SN_UNFAMILIAR, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
+	CIE_BAD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU
+	AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:cb111aff-4125-417d-a602-48041cbe1fbe,IP:20,
+	URL:0,TC:0,Content:-5,EDM:-20,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACT
+	ION:release,TS:-5
+X-CID-INFO: VERSION:1.3.19,REQID:cb111aff-4125-417d-a602-48041cbe1fbe,IP:20,UR
+	L:0,TC:0,Content:-5,EDM:-20,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-5
+X-CID-META: VersionHash:7db8b62,CLOUDID:feb0b3b7ee6932ed16d02d9d7988ff3e,BulkI
+	D:260924155827EAH3VYUG,BulkQuantity:0,SF:19|38|66|72|78|81|82|102|127|136|
+	850|865|898,TC:nil,Content:0|15|50|99,EDM:-19|2|-100,IP:-2,URL:0,File:nil,
+	RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,D
+	KP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FSD
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: b6d53262b7ed11f19a56ed5b684f684d-20260924
+X-User: lianyangyang@kylinos.cn
+Received: from localhost.localdomain [(39.156.73.11)] by mailgw.kylinos.cn
+	(envelope-from <lianyangyang@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1967902563; Thu, 24 Sep 2026 15:58:22 +0800
+From: Yangyang Lian <lianyangyang@kylinos.cn>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Baoquan He <baoquan.he@linux.dev>,
 	Mike Rapoport <rppt@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>
-Cc: Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	linuxppc-dev@lists.ozlabs.org,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Huacai Chen <chenhuacai@kernel.org>
+Cc: Dave Young <ruirui.yang@linux.dev>,
+	WANG Xuerui <kernel@xen0n.name>,
+	kexec@lists.infradead.org,
+	loongarch@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Muchun Song <songmuchun@bytedance.com>,
-	muchun.song@linux.dev
-Subject: [PATCH v2 5/6] mm/sparse-vmemmap: open-code vmemmap_populate_address()
-Date: Thu, 24 Sep 2026 15:52:58 +0800
-Message-ID: <20260924075259.2013039-6-songmuchun@bytedance.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260924075259.2013039-1-songmuchun@bytedance.com>
-References: <20260924075259.2013039-1-songmuchun@bytedance.com>
+	Yangyang Lian <lianyangyang@kylinos.cn>,
+	Haoran Jiang <jianghaoran@kylinos.cn>,
+	Tao Cui <cuitao@kylinos.cn>,
+	George Guo <guodongtai@kylinos.cn>
+Subject: [PATCH v2] LoongArch: kdump: add arch_crash_save_vmcoreinfo() support
+Date: Thu, 24 Sep 2026 15:56:55 +0800
+Message-Id: <20260924075655.375632-1-lianyangyang@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260923060349.146780-1-lianyangyang@kylinos.cn>
+References: <20260923060349.146780-1-lianyangyang@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -92,102 +76,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vmemmap_populate_address() no longer has any callers that need the
-returned PTE.  Its only remaining user, vmemmap_populate_range(), only
-checks whether population succeeded.
+Since commit 23c85094fe18 ("proc/kcore: add vmcoreinfo note to
+/proc/kcore") the kernel has exported the vmcoreinfo PT_NOTE on
+/proc/kcore as wellas /proc/vmcore.
 
-Open-code vmemmap_populate_address() directly in
-vmemmap_populate_basepages(), remove the now-redundant range helper,
-and return -ENOMEM directly on failure.
+LoongArch does not provide arch_crash_save_vmcoreinfo(), so the
+arch-specific values are missing from the vmcoreinfo PT_NOTE. The
+generic exporter in kernel/vmcore_info.c already provides
+NUMBER(VMALLOC_START), but tools like crash cannot derive the module
+and vmemmap ranges, VA_BITS, or the KASLR offset of a LoongArch dump.
 
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
+Since commit 18210a104bb9 ("LoongArch: Expand module virtual address
+space to 2GB") the vmalloc and module boundaries are no longer stable
+across kernel versions either, so vmcoreinfo is the only reliable
+source for them.
+
+Provide this function in a separate file that is built at the same time
+as its caller in kernel/vmcore_info.c, and add a LOONGARCH64 section to
+Documentation/admin-guide/kdump/vmcoreinfo.rst.
+
+Reported-by: Haoran Jiang <jianghaoran@kylinos.cn>
+Suggested-by: Haoran Jiang <jianghaoran@kylinos.cn>
+Tested-by: Tao Cui <cuitao@kylinos.cn>
+Co-developed-by: George Guo <guodongtai@kylinos.cn>
+Signed-off-by: George Guo <guodongtai@kylinos.cn>
+Signed-off-by: Yangyang Lian <lianyangyang@kylinos.cn>
 ---
-v2:
-- Collect Acked-by from Qi Zheng
----
- mm/sparse-vmemmap.c | 54 ++++++++++++++-------------------------------
- 1 file changed, 17 insertions(+), 37 deletions(-)
+V2 -> V1: Export VMEMMAP_END + 1 to make it an exclusive bound, matching
+          what tools like makedumpfile expect.
+          Add Tested-by tag from Tao Cui.
 
-diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
-index a5b47e496322..f5364c1cafe5 100644
---- a/mm/sparse-vmemmap.c
-+++ b/mm/sparse-vmemmap.c
-@@ -315,8 +315,8 @@ static pgd_t * __meminit vmemmap_pgd_populate(unsigned long addr, int node)
- 	return pgd;
- }
+ .../admin-guide/kdump/vmcoreinfo.rst          | 29 +++++++++++++++++++
+ arch/loongarch/kernel/Makefile                |  1 +
+ arch/loongarch/kernel/vmcore_info.c           | 21 ++++++++++++++
+ 3 files changed, 51 insertions(+)
+ create mode 100644 arch/loongarch/kernel/vmcore_info.c
+
+diff --git a/Documentation/admin-guide/kdump/vmcoreinfo.rst b/Documentation/admin-guide/kdump/vmcoreinfo.rst
+index 7663c610fe90..2ff921232616 100644
+--- a/Documentation/admin-guide/kdump/vmcoreinfo.rst
++++ b/Documentation/admin-guide/kdump/vmcoreinfo.rst
+@@ -594,3 +594,32 @@ va_kernel_pa_offset
  
--static pte_t * __meminit vmemmap_populate_address(unsigned long addr, int node,
--						  struct vmem_altmap *altmap)
-+int __meminit vmemmap_populate_basepages(unsigned long start, unsigned long end,
-+					 int node, struct vmem_altmap *altmap)
- {
- 	pgd_t *pgd;
- 	p4d_t *p4d;
-@@ -324,48 +324,28 @@ static pte_t * __meminit vmemmap_populate_address(unsigned long addr, int node,
- 	pmd_t *pmd;
- 	pte_t *pte;
+ Indicates the offset between the kernel virtual and physical mappings.
+ Used to translate virtual to physical addresses.
++
++LOONGARCH64
++===========
++
++VA_BITS
++-------
++
++The maximum number of bits for virtual addresses. Used to compute the
++virtual memory ranges.
++
++PHYS_OFFSET
++-----------
++
++Indicates the physical address of the start of memory. Used to translate
++virtual to physical addresses.
++
++KERNELOFFSET
++------------
++
++The kernel randomization offset. Used to locate the kernel text in
++virtual memory. If KASLR is disabled, this value is zero.
++
++MODULES_VADDR|MODULES_END|VMALLOC_START|VMALLOC_END|VMEMMAP_START|VMEMMAP_END
++-----------------------------------------------------------------------------
++
++Used to get the correct ranges:
++	MODULES_VADDR ~ MODULES_END-1 : Kernel module space.
++	VMALLOC_START ~ VMALLOC_END-1 : vmalloc() / ioremap() space.
++	VMEMMAP_START ~ VMEMMAP_END-1 : vmemmap region, used for struct page array.
+diff --git a/arch/loongarch/kernel/Makefile b/arch/loongarch/kernel/Makefile
+index 001924877772..6260c15adaba 100644
+--- a/arch/loongarch/kernel/Makefile
++++ b/arch/loongarch/kernel/Makefile
+@@ -64,6 +64,7 @@ obj-$(CONFIG_RELOCATABLE)	+= relocate.o
+ obj-$(CONFIG_KEXEC_CORE)	+= machine_kexec.o relocate_kernel.o
+ obj-$(CONFIG_KEXEC_FILE)	+= machine_kexec_file.o kexec_efi.o kexec_elf.o
+ obj-$(CONFIG_CRASH_DUMP)	+= crash_dump.o
++obj-$(CONFIG_VMCORE_INFO)	+= vmcore_info.o
  
--	pgd = vmemmap_pgd_populate(addr, node);
--	if (!pgd)
--		return NULL;
--	p4d = vmemmap_p4d_populate(pgd, addr, node);
--	if (!p4d)
--		return NULL;
--	pud = vmemmap_pud_populate(p4d, addr, node);
--	if (!pud)
--		return NULL;
--	pmd = vmemmap_pmd_populate(pud, addr, node);
--	if (!pmd)
--		return NULL;
--	pte = vmemmap_pte_populate(pmd, addr, node, altmap);
--	if (!pte)
--		return NULL;
--	vmemmap_verify(pte, node, addr, addr + PAGE_SIZE);
--
--	return pte;
--}
--
--static int __meminit vmemmap_populate_range(unsigned long start,
--					    unsigned long end, int node,
--					    struct vmem_altmap *altmap)
--{
--	unsigned long addr = start;
--	pte_t *pte;
--
--	for (; addr < end; addr += PAGE_SIZE) {
--		pte = vmemmap_populate_address(addr, node, altmap);
-+	for (unsigned long addr = start; addr < end; addr += PAGE_SIZE) {
-+		pgd = vmemmap_pgd_populate(addr, node);
-+		if (!pgd)
-+			return -ENOMEM;
-+		p4d = vmemmap_p4d_populate(pgd, addr, node);
-+		if (!p4d)
-+			return -ENOMEM;
-+		pud = vmemmap_pud_populate(p4d, addr, node);
-+		if (!pud)
-+			return -ENOMEM;
-+		pmd = vmemmap_pmd_populate(pud, addr, node);
-+		if (!pmd)
-+			return -ENOMEM;
-+		pte = vmemmap_pte_populate(pmd, addr, node, altmap);
- 		if (!pte)
- 			return -ENOMEM;
-+		vmemmap_verify(pte, node, addr, addr + PAGE_SIZE);
- 	}
- 
- 	return 0;
- }
- 
--int __meminit vmemmap_populate_basepages(unsigned long start, unsigned long end,
--					 int node, struct vmem_altmap *altmap)
--{
--	return vmemmap_populate_range(start, end, node, altmap);
--}
--
- /*
-  * Write protect the mirrored tail page structs for HVO. This will be
-  * called from the hugetlb code when gathering and initializing the
+ obj-$(CONFIG_UNWINDER_GUESS)	+= unwind_guess.o
+ obj-$(CONFIG_UNWINDER_PROLOGUE) += unwind_prologue.o
+diff --git a/arch/loongarch/kernel/vmcore_info.c b/arch/loongarch/kernel/vmcore_info.c
+new file mode 100644
+index 000000000000..fb703b716253
+--- /dev/null
++++ b/arch/loongarch/kernel/vmcore_info.c
+@@ -0,0 +1,21 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#include <linux/vmcore_info.h>
++#include <asm/addrspace.h>
++#include <asm/pgtable.h>
++#include <asm/setup.h>
++
++void arch_crash_save_vmcoreinfo(void)
++{
++	VMCOREINFO_NUMBER(VA_BITS);
++	/* NUMBER(VMALLOC_START) is exported by the generic code */
++	vmcoreinfo_append_str("NUMBER(VMALLOC_END)=0x%lx\n", VMALLOC_END);
++#ifdef CONFIG_64BIT
++	vmcoreinfo_append_str("NUMBER(MODULES_VADDR)=0x%lx\n", MODULES_VADDR);
++	vmcoreinfo_append_str("NUMBER(MODULES_END)=0x%lx\n", MODULES_END);
++	vmcoreinfo_append_str("NUMBER(VMEMMAP_START)=0x%lx\n", (unsigned long)vmemmap);
++	vmcoreinfo_append_str("NUMBER(VMEMMAP_END)=0x%lx\n", VMEMMAP_END + 1);
++#endif
++	vmcoreinfo_append_str("NUMBER(PHYS_OFFSET)=0x%lx\n", PHYS_OFFSET);
++	vmcoreinfo_append_str("KERNELOFFSET=%lx\n", kaslr_offset());
++}
 -- 
-2.54.0
+2.25.1
 
