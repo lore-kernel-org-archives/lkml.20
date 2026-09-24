@@ -1,394 +1,180 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9940E4C7556
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:12:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1D9418365;
+	Thu, 24 Sep 2026 20:14:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.9
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790280766; cv=pass; b=YIGF1lLLfOMrVqP+VYB52aLL+gdNtx3hYIw72iNYLVd0hscy4URPzEsNnuf8+WDVjh/r5L8YlU5UynBkUdCI1UfLIszx2AL0wK8R2niJ1jxKQxMaQYOGKuIVjafZ6t/0Ua8Bh0ahfyl+LdaCDHEeZjdCzylhYsO9TWhJsHZhS20=
+	t=1790280894; cv=fail; b=upVW9JzioPb9yN8btKZ1MHR/24SfLgIRSk7LtUowEODQbscyXXLx7uqBSVqlnrCRtCdpBj34wdqVrbhFSOhKjNe1jFYuJhwb9HiFQqX57ASYwd7jE87dXh6xwAQSsqj58dLxFKZGJGyyBruS0xhJ2copDCSGpwktKjy/Rq6XZ6E=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790280766; c=relaxed/simple;
-	bh=+fmR/U1H6avzccBRXy1O++xjv67Ls5rrWcxfYYUejZ8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VqU4hMa/hmb4zHyGkl1RZNazg7AV//iQ4/fzFcq919x/4JFveB6wOO5jiz7bhb881YpsmmhMBFcglQC1jbcym5ZbLBsq//T3JvGlxZ5jH3ao4PxxPhmF/pV2FVmVO/bez33N+BLxBIbqpOluAhzWJGgd1TGoILpVR60o1Oa0XAw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kz3em7Lb; arc=pass smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790280894; c=relaxed/simple;
+	bh=zfNYQGmw9EhiZfOr8T38+bfsATK3X4F5Nze7T0GDpR0=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=GIhOFzfITb8Wug/7Bp2VgZROpNKBsj7dYlEsUs32i4QmVJGOPSp6+iHQ6PTI9CPk1b53Dk9iCmjdSLQSTfaZwiT6HxdqmVrbk7H5KbztCypFWkVZMQ8kwif++1YOMwBWKh+rBcZi94zqBPzj5OvOE1goipqQl00CAav1QKGU9Wo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dJV2wG7l; arc=fail smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kz3em7Lb"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ee1f9bso703055ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:12:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790280756; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TFmpPKwPEMpV9XVd/TssLGdsZKEj3A9g42Neeg9YhR/YAxE5A6kglSROztP2xzkY/Z
-         YmQC8wXjEpNFWqjwYoTKTr9QKYglHYBe9UyFYFea2+A2LZRSV1Xqe+IYSj4us0JTA7rr
-         ojg2PE8PGDjhe5LFvY9lnTdlokVwmRASxQkDTjh5+JrQAno99BKMdvisnMHbsRoTQJsW
-         DWYHtS4VnVo2iKlf7MeivaVXCTkONTa3nPNMTXMtT0mx6Lj2STTITnZdC5yYtpUABJEM
-         jU4Hi8qXD7iUxzQW/8BbWuc8IrxA+UISDhZ5WM7+f82esdNEvVBvBTUdRMwKJNWwwaaY
-         4TyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0l+jl3PEeluCBsGioL2G68K7W+3gmkNVOtgi3VkNGno=;
-        fh=EZiPGmV1L2m2ODBhNvBVa3HqUDh3bGTWA4/iI9QZ5i4=;
-        b=NjUbwzQA3E6RTrtifPs3/TEZk20wBWdEGrXTfDSQwF6lcVACri96FCDZu2lePtR5bL
-         tXEXHf4Sl1AH/f0O1u+BksPcrssJn7u5X45B2ZRqDRwDUF9I8jG5c96RTLvs2g74LXRN
-         /+VH5agyW+NPdrCCIvZ+CWFLbirN8oQsulzaa1gAD/3O9A0vuqVrlBKKZP5BBBz9lmks
-         QNtt55oksMKxeBwMHSA6OgVheZaybQvEjv1xV0j6i8HDC4Bp0np8m464T5kgixWBVGEC
-         7VN3ijQ9/613Q3WGyM5PsXjY2f1X7aCAKVeWuAqcbwiX0cit6vJn6ivvMxw5IsZCM1WR
-         2ulQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790280756; x=1790885556; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0l+jl3PEeluCBsGioL2G68K7W+3gmkNVOtgi3VkNGno=;
-        b=kz3em7Lb5uSY8qWs5LMAw0tOhwh8FyZUygAFsiIEm5J1mQjNlzzLFtFM6vCV3EZYdb
-         ngAZGTzVWnLGlmNpbEqJmFQg3ryeV0h9iqcjMmu6wmlbsoy0ugHk0bhZYUvJNfy5va8c
-         7JXBCXV5pVEYMiLlTCHwOG/26v0DMCY7KcT5cf7op0nbKcTEuZuo/y3BsA17CTfC4nEN
-         W1QQVfVUyGCHOHF2veHkq8g1vBNhRuJPPphIGMFuYXb8zvldouql4/INfIXU6iIXOLRx
-         5KW2BosAGTBcUsv6yH5KjaZM/xjT/rxeo8qm5kQ+TcWOuupDUwzgs4BRMDvihjvdsGap
-         mPoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790280756; x=1790885556;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0l+jl3PEeluCBsGioL2G68K7W+3gmkNVOtgi3VkNGno=;
-        b=mMQ3q/3BNFMigtG1LLorDfl0ljUWnq/Ydjy8sar3AKjhD0NsuB82yRWKYDsQGKfRv7
-         GrJm/zJvMnCWsvenNrxZ1p23u01IF/xKR+J1SCm2Lvnw987/D5agkwtW3xc8sbFNbxGP
-         VsPCMgdK7K2xdm55OAP7gotBrB9hv9CBflo5+A9sNiU5dyD2HO0fqyS55XOixTBlqEqX
-         dlyam5FFuSbMMVXvCgM494+Y5rKwgHe9DhbiJpMw77yfRLBer7HDTCTMZHn8z4gzzHk+
-         yiOtBCJqahFaByI9jCDNUUwPj9vXXiYCtcs86aJNwoPLJu8jv4TkmRw7Hlm+Nql1TyEl
-         NZCg==
-X-Forwarded-Encrypted: i=1; AKwUvBxF/6s3s/Q1DR8sf+RcWKDPdeNwp1ridglJtRi00gDVWoIaUpyH2wGsxSKXv8goyF2asYPWcGPq03YNH/8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lSA5lZ3/TPAx2GSdhkORGIRNHEtzwHHI8i1JHqEKstTslIbc+N
-	04w9F6o0E1+zXhR2N2YabkvXvMacd4omYWXseNKPtf2tKa3g4F7ZK+NoTaFh7Tubwk8ChiQ3I3R
-	A6gh7HQV4gN0JYwWKxq12zZdXTLZLzio=
-X-Gm-Gg: AYBFou0WzxcoLGsCX/gTn/nKM6h9jJi7skzUNspAID/M7Y8YcCFKv5IW/zkY5b+bO7c
-	x3h6Awk7U4VFZCEAB5ov0cCC4goMNn+2lDMxs7tE4R1u0e7cHa3SdPUGtBQCBcqY5Lhoru8bwDF
-	uysLqqlD0HLxbEaLRlWmJLYOymTKn7CCxKPJnVl+UWZuoqPQgbTD9AzEhn5Jo33N3B9WddH5UMF
-	3kdRCNKPxjS2shRhvCX4wDeJT0QL9ZoRF92YlpEmCs1dWENLelC7Zaup0crJbmihkfispexRqzY
-	MYTZhAutC0ZomD7J4a/J0DMZjANYRyq0gtVKlVLLBZOropDb1qz9vf5QJclW2muWnsK6ayw=
-X-Received: by 2002:a17:902:e94e:b0:2df:7e40:6f6c with SMTP id
- d9443c01a7336-2df7e407013mr31670965ad.46.1790280755626; Thu, 24 Sep 2026
- 13:12:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dJV2wG7l"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790280892; x=1821816892;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=zfNYQGmw9EhiZfOr8T38+bfsATK3X4F5Nze7T0GDpR0=;
+  b=dJV2wG7ltrqaCgRsOsX1Y8vAEHS4rzX7UINRTA0hpD0gxzRZUksyWdHk
+   0gMBKnB+3YzS0BOjg+uO5jd87kBBiybnhb8eDXSN6mNfek5d/Y/9JF0Nx
+   gl6zhPDGjC+qe4LryhajxSmh25Vf7z/CP+sHPBoJ0q/qpuZkbFxR9W6j+
+   SL1ktJdkQ4UmwqGg2VVI6JXsDi1Wnv0UvZfYXcsbFecFllNAbZ+GvtR3Q
+   fkk7gMsp2/eZtuXk7wWS/0vZ01Kk8vFGqyT0y4EhvMZUctS3TMJfUjjuh
+   AidllrJOKfSPikaOD1rJPcwjmueCbRkF48+FkWMlKcvwueOZIQ0lJF+0D
+   g==;
+X-CSE-ConnectionGUID: paM3zGO+QS2Zwf+nfdDsVg==
+X-CSE-MsgGUID: pG05chaHS3uDl78RTvM4hQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="112852539"
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="112852539"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 13:14:51 -0700
+X-CSE-ConnectionGUID: zZBl5KrlRWe+wQrVOO7OgA==
+X-CSE-MsgGUID: LqzCbEhlRpWqxnIivcgCJg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="273228620"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 13:14:51 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 24 Sep 2026 13:14:50 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 24 Sep 2026 13:14:50 -0700
+Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.68) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 24 Sep 2026 13:14:50 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qJMLBvAbXk/7fryqt3Km2At4gQHzVaH5PhcrGZW5wbS6YD6qCbaDvpSLhhyNFf0HaMZLgGlx3dQzi/NbkyAFnLfEqflPzmTPrTASGr2wOwpaL5pLUZORFbj87E+n3bp+N9BTTc5dAo8y61tduq/nOD66G3/jlY6/AM7D4LIAfCKaiyBT1VIE8pMs6VtGRK2Av4LS6zFDZ3SmV7Wep8HZFJ5VAWTLDhgK6GRR3rUYp30M73EPFlGBcA74RP9FeamLPJtdvIe8ICyFA63DcJvPOBP0DATLzd6QAuQo8T/97qexHYeXQ/MEb65tzdV5JLlyMHMknqlbIyoCX2kW08/aFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zCrOX87mY8Agvo8RVxrYLzNtqX7+PXBQlSOCnhwYRjY=;
+ b=d501zj3QhkBpli5EaP1IFJB5I97yNziax/CZOkPH2SWUeBYufeFZxYUH5F0Yz8NVp/+VvByX85R6RQPxJMg0zshjYJ1rdQwXnAdGFiZA700PAyjv4DIthEubFMjuJY02QTa5r0yb1MpuIxPchSbU4vIy4ajtvZmyf7Vz+Ww6RgTshPG6CmkH2e4t87y03Co+2CZA9FrSSAkLRgeOP9kCs2aP0D0Onz7Xtvs5JKS3hbOs9Yexxw1chOVuh7aSz9TJjDbDQodAV9/11hbwMPs6HOyHEFQ3n5fqbtDfeOdx25a0yTGvNVRfBa3ygIGfGdip3wxBLQufWf5p28kwvmnOFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
+ by MW3PR11MB4697.namprd11.prod.outlook.com (2603:10b6:303:2c::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 20:14:41 +0000
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::6fbf:c112:d0a8:f1a8]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::6fbf:c112:d0a8:f1a8%5]) with mapi id 15.21.0428.018; Thu, 24 Sep 2026
+ 20:14:41 +0000
+Date: Thu, 24 Sep 2026 13:14:36 -0700
+From: Alison Schofield <alison.schofield@intel.com>
+To: Guixin Liu <kanie@linux.alibaba.com>
+CC: Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>,
+	Jonathan Cameron <jic23@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-cxl@vger.kernel.org>
+Subject: Re: [PATCH v2] checkpatch: don't flag ACQUIRE_ERR() assignments in
+ if conditions
+Message-ID: <arWErJvkQtZkGXlK@aschofie-mobl2.lan>
+References: <20260924033923.4140210-1-kanie@linux.alibaba.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260924033923.4140210-1-kanie@linux.alibaba.com>
+X-ClientProxiedBy: SJ0PR13CA0112.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c5::27) To DS4PPF0BAC23327.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923201701.43391-1-pmazzini@gmail.com> <8871e921-f66c-475b-a489-560028eb2200@arm.com>
-In-Reply-To: <8871e921-f66c-475b-a489-560028eb2200@arm.com>
-From: Pablo Mazzini <pmazzini@gmail.com>
-Date: Thu, 24 Sep 2026 21:12:01 +0100
-X-Gm-Features: AclHuK_-mnDGIb_ID5ajTTS6OK8_9vcC7qVQlZUU6wB7EYPhgJdDLHDg8SJ6_uQ
-Message-ID: <CAAxh=jsb_SGxKEisYYcg-eSbzE2iOUwnvmGUww_rUdXW64E84g@mail.gmail.com>
-Subject: Re: [PATCH v1 01/11] dt-bindings: clock: add Allwinner B288 CCU
-To: Andre Przywara <andre.przywara@arm.com>
-Cc: Brian Masney <bmasney+clk@redhat.com>, Chen-Yu Tsai <wens@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Maxime Ripard <mripard@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Rob Herring <robh@kernel.org>, Samuel Holland <samuel@sholland.org>, Stephen Boyd <sboyd@kernel.org>, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-sunxi@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|MW3PR11MB4697:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e7a202d-0472-4aa5-61fa-08df1a78772d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: Gi91ShYUkKLTeqTZCdF0KrqBszMPd+YKPcO1r2lp6Hoc+xCzVhtqhK54FUoOBdnuoUMIbfaeb1HidsS8U27FjxuUritEqKoIsJ1LLdWllRqpSjAKZAb5KE6l7Y2q5WlS+BOGEBcLBEd2mTtea7+m/68hiTCnJraWCyLNRdfEbcAwOZJswMzgn6OfQk4P2O00lhQDJT9bTItDcjsnnGhuO1xFniJkaxtP06KLdujHSJu3pg6GDvAlIDLwITgF9QTww/70Pq0IyLfJT/OxYb84/PjW3hsUedh0hlQCvcV45OuEEAHnuScJMYMP6k+riZ+3ajz98Y4Lsetevryax5KMAClJCtI+jmIbagyceYLs0Xb4O8JX6+4Bmsur9ciBOyLk1Hfpo4Qht06o6oGM/s2iVXGP+dNxu9dtWCqLZgwsw7TG8AoV+nC5+PvoIosc9YHlpueJqY4u17ahOePaMD5OfbfpN/qxEadzxD7DyQIPZKA9XqV4rC1vtplXj+n9JqEVP0PWyF19tnChmxWVWPMVduYBTX2bkqOqg0I4T74TpQcLgnScE2uvJrWjV56BM4dbHXjiueuZfl0ny5rFEBExaKNMpym74bo0m8pb8ZKMYeMwHBnhWvRXcXE6QD6JwAEkSKIdSNIcKi4SerDgyWytUHLIgeCGWIZArP/QkftEGFc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?SipY4lytUIa/lhBIjJClKjDxYDQMFhIJN3ALFIHZe8bDlSogWz2Oam3+F0tL?=
+ =?us-ascii?Q?YQQuvc8gyadbjLfNyTNpoNehvM5Ln9jI+/Qu2+kUCMrUIt6i0AZXWoddGrr8?=
+ =?us-ascii?Q?6WiYhTcX4rKXysy/E0djPUPEa2uzZVsELGQtmFMd4KXWOYQYHfa82TISVBNC?=
+ =?us-ascii?Q?MSOaERZ876nUjAdOfyBXhVT+AUp9/2BzrAJdAQZa22m7EJKXJRPzZz3SYGjv?=
+ =?us-ascii?Q?JYKjihQLNNMtmuMePI8qbgPL60HGYO7XY8LEZ0D/K9+Q/3JT1dcFfgEyLAV2?=
+ =?us-ascii?Q?cc5pAjdPVvQ4FbZgPMsH67I0schH+0Ra2m4S+KGIvchLAHhYhsPv0G083Aly?=
+ =?us-ascii?Q?oEDJW6l01KJouDxZBOaO4VxQPp4wWVmQcYq6EHVYJqnAca89CeihfKkB/41m?=
+ =?us-ascii?Q?8XSaPnMWM3usmX3Ag73u4LEDrlVUdBV87FU0PHubrrAIox/RM7FVwRpxtCxJ?=
+ =?us-ascii?Q?OuY4gu+2yO7JeqzLJ2mCiKKqE5P9T9JjAwAprbIJvOCT5GVzKvpDD6cmVQX1?=
+ =?us-ascii?Q?Qw+RVY7jNSZIEbzYWOaEmr614g0Devw7Flt5PpQWYrePsGV092TfTWEojSGd?=
+ =?us-ascii?Q?4fa8p7573MSefHIcDT54y+R4Q4vMVrOXdmpnHQNPNNIOIGBIPo0LXX2JGB7N?=
+ =?us-ascii?Q?aHY3Kdyig7D7W4rCtMG6NjhXUrofx3aZXHfKUfH3l5dFd6QIHRPlcLIpzHNu?=
+ =?us-ascii?Q?GL2Ep0b9blusuOUZyl0YgsKxqloJEC51QSQE7bMgnls73Bn+ZNWNnz0asogf?=
+ =?us-ascii?Q?zzdqzBZyVk0iBg1LbMtcNzXM+Z6/KHBNfW/qBNnCt0PMiCpFx5PH2OvJISCh?=
+ =?us-ascii?Q?Xl7w5qebqNe9oiOu4akZf3QNQO2TVsC53RnCNt1ciiCxzJ+zcylnieFNqnfg?=
+ =?us-ascii?Q?euHfx2WtLNf28eCF2poY4z/EGIaTT+CJs/dfps4V51dMWoPi9tj8GmFxe/61?=
+ =?us-ascii?Q?4n3BXr8zFLdrQ3JbY1SAGh/kL+1Sr58gV5+p9njGhmuxNJff2dfC6Z9CqMK8?=
+ =?us-ascii?Q?/6+lhf6TLVYx4k0QfAA6ufxkAgn7IXEeMcE1kgcRe7sb7jAncCsNa3DtWiBb?=
+ =?us-ascii?Q?tCEwUIchTC8ivwlcY0JDry+GOGgu7Cxy0WcmO/cbfLy5h8S6jRtnjUo1qQYf?=
+ =?us-ascii?Q?WnjV2nKYbO9cbvs7+Id31l7ynMrConYqj9qKvrixEOqtGSJa0gS/Hsf4Uzel?=
+ =?us-ascii?Q?Vl3F2N8nnMO6ULJt37CZCjWPj9/hep64KUOmaVHkk7ReUOOY+fxpRqsvyhHA?=
+ =?us-ascii?Q?pd8ANnprSqx1Wobo0QXahPCGbfax9GzZkpm9RQbqjzYMHoJsYXQVcqwqnKcw?=
+ =?us-ascii?Q?pdixKGj+qTAVXte/FULFM9U1HGLul3xCnBERnU0L8nTfzU3eY/tc1edV7oSa?=
+ =?us-ascii?Q?n5+qeGn6VJ9ReFA2yA8fhg4K6+M8Edao5NXqLMi5eVOeZKlVdG7YwAPE5hq0?=
+ =?us-ascii?Q?+vlayzAY1h4uGmuag79qQix0QpfL8Vym5ZokmoRBcjNrd1QQIwZ4flcgnXLj?=
+ =?us-ascii?Q?r/+4BlqzBnk5AOEBSshjrxGBA8+WOniMRtm/uIuNW4vBX9nvBr51+0VOwFq0?=
+ =?us-ascii?Q?e/69qExywtM8PgNcTyqdzv1ueIRHAx7rbU10SPvT8ACFUZZmqdo6YwVVcSXz?=
+ =?us-ascii?Q?6MDlV86PVGlwE81TJWYNctXPiCnFUf0FWOrptnvkg1W4KQO1IbD5IKBWW8yN?=
+ =?us-ascii?Q?JOL/Hba3afPBTTMp2kzd6FLlnJYtwpchiJ4W6LzRJt/e3w/f4fOIftI6jDT4?=
+ =?us-ascii?Q?EozCIHp7a98lUagDgKfqoeJ1C3EKqwE=3D?=
+X-Exchange-RoutingPolicyChecked: MROHc39S+nbxbEwmZlOz9nDMDZuy+dC0bdaux2cRG/vIVev61COqUG0RkCWC4fp0USz9ruhNecy9IkMSi6Tf8350V1UjbL5fIgdinhPuJmkvH/QnEi/YbQmshEaYeKng5fl1RT9UAAjUgnG7SxNEIr2pbdS1mqLd1yvboyVEVVQMy5qgWWFsi61cDEiOTBAog8tYbnqR50aQhLunpN0Sm6JY0fm1L3Z6c6RSzKEs3ur71SCuNzsi7t7v4+JDQu91T+p1gCfKCBj+9anDCe8K3sLegLmsBkPFEIzCKq+gKei58hLYhhDuCelJnZWVSPvJPheGv6HldKakWsy47pTZPQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e7a202d-0472-4aa5-61fa-08df1a78772d
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 20:14:41.0658
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kUnnczC63tZsZLWKsoZBug3xVMgEA1ikv6WIgr9gq8ZvbGRdW8Bej19fnYRwmN/jMutJv2WMyB9AW+KglMK2NrW/71ovCVUbdbe2vUOIS2I=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR11MB4697
+X-OriginatorOrg: intel.com
 
-Hi Andre,
-
-thanks for the review.
-
-> please add a cover letter
-
-Done for v2.
-
-> One problem in general is the lack of access to a manual [...]
-
-The descriptions come from the BSP's clk-sun8iw10.{c,h}, cross-checked
-against ccu-sun50i-a64.c - nine of the eleven PLLs are bit-identical -
-and exercised on the device up to userspace.
-
-> I am afraid you cannot push off the responsibility to other people
-
-Copy-paste mistake, sorry. Moot now: folding both bindings into the
-existing files removes those entries.
-
-> why do you need a separate binding?
-
-You're right, it's a strict subset; v2 just adds the compatible to
-allwinner,sun4i-a10-ccu.yaml.
-
-Thanks,
-Pablo
+On Thu, Sep 24, 2026 at 11:39:23AM +0800, Guixin Liu wrote:
+> ACQUIRE_ERR() and its wrappers, PM_RUNTIME_ACQUIRE_ERR() and
+> IIO_DEV_ACQUIRE_FAILED(), report whether a conditional cleanup.h guard
+> was acquired, and drivers consume the result directly in an if
+> condition:
+> 
+> 	if ((rc = ACQUIRE_ERR(mutex_intr, &lock)))
+> 		return rc;
+> 
+> That combined form is the established style at the 49 in-tree call
+> sites under drivers/cxl and drivers/pci/tsm.c, so ASSIGN_IN_IF fires
+> there only as a false positive, and every patch touching those lines
+> carries noise that reviewers have to wave off manually.
+> 
+> Skip the check only when every assignment in the condition assigns the
+> result of such a call, matched by the *_ACQUIRE_ERR() /
+> *_ACQUIRE_FAILED() naming convention of its wrappers. Plain
+> assignments, mixed conditions and near-miss identifiers still get
+> flagged.
+> 
+> Suggested-by: Alison Schofield <alison.schofield@intel.com>
+> Cc: linux-cxl@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Guixin Liu <kanie@linux.alibaba.com>
 
 
-On Thu, Sep 24, 2026 at 10:03=E2=80=AFAM Andre Przywara <andre.przywara@arm=
-.com> wrote:
->
-> Hi Pablo,
->
-> many thanks for sending this series, on a first glance this looks pretty
-> good.
-> As a general comment: please add a cover letter (git format-patch ...
-> --cover-letter, then edit the generated file), and explain a bit about
-> the background of this work. This would be a good place to briefly
-> describe what the B288 is, how it's related to other SoCs, how you came
-> to all this information, the firmware story, and the existing
-> limitations of this port.
->
-> One problem in general is the lack of access to a manual, I am not even
-> sure we ever upstreamed SoC support without one. Especially the clock
-> driver is quite tricky, we would love to compare the clock descriptions
-> against some documentation.
->
-> On 9/23/26 22:16, Pablo Mazzini wrote:
-> > The B288 (sun8iw10p1) is a dual Cortex-A7 SoC used in e-book readers.
-> >
-> > Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
-> > ---
-> >   .../clock/allwinner,sun8i-b288-ccu.yaml       | 55 ++++++++++++
-> >   include/dt-bindings/clock/sun8i-b288-ccu.h    | 90 ++++++++++++++++++=
-+
-> >   include/dt-bindings/reset/sun8i-b288-ccu.h    | 45 ++++++++++
-> >   3 files changed, 190 insertions(+)
-> >   create mode 100644 Documentation/devicetree/bindings/clock/allwinner,=
-sun8i-b288-ccu.yaml
-> >   create mode 100644 include/dt-bindings/clock/sun8i-b288-ccu.h
-> >   create mode 100644 include/dt-bindings/reset/sun8i-b288-ccu.h
-> >
-> > diff --git a/Documentation/devicetree/bindings/clock/allwinner,sun8i-b2=
-88-ccu.yaml b/Documentation/devicetree/bindings/clock/allwinner,sun8i-b288-=
-ccu.yaml
-> > new file mode 100644
-> > index 000000000000..22b59d5b652c
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/clock/allwinner,sun8i-b288-ccu.=
-yaml
-> > @@ -0,0 +1,55 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/clock/allwinner,sun8i-b288-ccu.yaml=
-#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Allwinner B288 Clock Control Unit
-> > +
-> > +maintainers:
-> > +  - Chen-Yu Tsai <wens@csie.org>
-> > +  - Maxime Ripard <mripard@kernel.org>
->
-> I am afraid you cannot push off the responsibility to other people,
-> especially I think Maxime wouldn't be really interested any more ;-)
->
-> Actually, why do you need a separate binding? Wouldn't it be enough to
-> just add the compatible string to the existing
-> allwinner,sun4i-a10-ccu.yaml file? This one here looks like a subset of
-> this, and would blend in there easily.
->
-> Cheers,
-> Andre
->
-> > +
-> > +properties:
-> > +  "#clock-cells":
-> > +    const: 1
-> > +
-> > +  "#reset-cells":
-> > +    const: 1
-> > +
-> > +  compatible:
-> > +    const: allwinner,sun8i-b288-ccu
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  clocks:
-> > +    items:
-> > +      - description: High Frequency Oscillator
-> > +      - description: Low Frequency Oscillator
-> > +
-> > +  clock-names:
-> > +    items:
-> > +      - const: hosc
-> > +      - const: losc
-> > +
-> > +required:
-> > +  - "#clock-cells"
-> > +  - "#reset-cells"
-> > +  - compatible
-> > +  - reg
-> > +  - clocks
-> > +  - clock-names
-> > +
-> > +additionalProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    ccu: clock-controller@1c20000 {
-> > +        compatible =3D "allwinner,sun8i-b288-ccu";
-> > +        reg =3D <0x01c20000 0x400>;
-> > +        clocks =3D <&osc24M>, <&osc32k>;
-> > +        clock-names =3D "hosc", "losc";
-> > +        #clock-cells =3D <1>;
-> > +        #reset-cells =3D <1>;
-> > +    };
-> > diff --git a/include/dt-bindings/clock/sun8i-b288-ccu.h b/include/dt-bi=
-ndings/clock/sun8i-b288-ccu.h
-> > new file mode 100644
-> > index 000000000000..3dc1704d001e
-> > --- /dev/null
-> > +++ b/include/dt-bindings/clock/sun8i-b288-ccu.h
-> > @@ -0,0 +1,90 @@
-> > +/* SPDX-License-Identifier: (GPL-2.0-only OR MIT) */
-> > +#ifndef _DT_BINDINGS_CLK_SUN8I_B288_H_
-> > +#define _DT_BINDINGS_CLK_SUN8I_B288_H_
-> > +
-> > +#define CLK_PLL_CPUX 0
-> > +#define CLK_PLL_AUDIO_BASE   1
-> > +#define CLK_PLL_VIDEO0       2
-> > +#define CLK_PLL_DDR0 3
-> > +#define CLK_PLL_PERIPH0      4
-> > +#define CLK_PLL_VIDEO1       5
-> > +#define CLK_PLL_24M  6
-> > +#define CLK_PLL_PERIPH1      7
-> > +#define CLK_PLL_DE   8
-> > +#define CLK_PLL_DDR1 9
-> > +
-> > +#define CLK_PLL_PERIPH0_2X   10
-> > +#define CLK_PLL_PERIPH1_2X   11
-> > +#define CLK_CPUX     12
-> > +#define CLK_AXI      13
-> > +#define CLK_CPUAPB   14
-> > +#define CLK_AHB1     15
-> > +#define CLK_APB1     16
-> > +#define CLK_APB2     17
-> > +
-> > +#define CLK_NAND     18
-> > +#define CLK_MMC0     19
-> > +#define CLK_MMC1     20
-> > +#define CLK_MMC2     21
-> > +#define CLK_MMC3     22
-> > +#define CLK_SPI0     23
-> > +#define CLK_SPI1     24
-> > +#define CLK_SPI2     25
-> > +#define CLK_DRAM     26
-> > +#define CLK_DE       27
-> > +#define CLK_EE       28
-> > +#define CLK_EDMA     29
-> > +#define CLK_TCON0    30
-> > +#define CLK_MBUS     31
-> > +
-> > +#define CLK_BUS_THS  32
-> > +#define CLK_BUS_NAND 33
-> > +#define CLK_BUS_SDMMC0_BUS   34
-> > +#define CLK_BUS_SDMMC1_BUS   35
-> > +#define CLK_BUS_SDMMC2_BUS   36
-> > +#define CLK_BUS_SDMMC3_BUS   37
-> > +#define CLK_BUS_SPI0 38
-> > +#define CLK_BUS_SPI1 39
-> > +#define CLK_BUS_SPI2 40
-> > +#define CLK_BUS_I2S0 41
-> > +#define CLK_BUS_I2S1 42
-> > +#define CLK_BUS_SPDIF        43
-> > +#define CLK_BUS_DSD  44
-> > +#define CLK_BUS_DMIC 45
-> > +#define CLK_BUS_USBOHCI0     46
-> > +#define CLK_BUS_USBEHCI0     47
-> > +#define CLK_BUS_USBOTG       48
-> > +#define CLK_BUS_DE   49
-> > +#define CLK_BUS_EE   50
-> > +#define CLK_BUS_TCON0        51
-> > +#define CLK_BUS_CSI_S        52
-> > +#define CLK_BUS_CSI_M        53
-> > +#define CLK_BUS_CSI_MISC     54
-> > +#define CLK_BUS_ADDA 55
-> > +#define CLK_BUS_SDRAM        56
-> > +#define CLK_BUS_PSRAM        57
-> > +#define CLK_BUS_DMA  58
-> > +#define CLK_BUS_UART0        59
-> > +#define CLK_BUS_UART1        60
-> > +#define CLK_BUS_UART2        61
-> > +#define CLK_BUS_UART3        62
-> > +#define CLK_BUS_UART4        63
-> > +#define CLK_BUS_UART5        64
-> > +#define CLK_BUS_TWI0 65
-> > +#define CLK_BUS_TWI1 66
-> > +#define CLK_BUS_TWI2 67
-> > +#define CLK_BUS_PIO  68
-> > +#define CLK_BUS_GPADC        69
-> > +#define CLK_BUS_KEYADC       70
-> > +
-> > +/*
-> > + * mmc0 and mmc1 are v4p1x controllers driven in the old timing mode, =
-which
-> > + * needs the sample and output phase clocks. mmc2 and mmc3 are newer b=
-locks
-> > + * that do their own delay calibration and have none.
-> > + */
-> > +#define CLK_MMC0_SAMPLE      71
-> > +#define CLK_MMC0_OUTPUT      72
-> > +#define CLK_MMC1_SAMPLE      73
-> > +#define CLK_MMC1_OUTPUT      74
-> > +
-> > +#endif
-> > diff --git a/include/dt-bindings/reset/sun8i-b288-ccu.h b/include/dt-bi=
-ndings/reset/sun8i-b288-ccu.h
-> > new file mode 100644
-> > index 000000000000..675145654548
-> > --- /dev/null
-> > +++ b/include/dt-bindings/reset/sun8i-b288-ccu.h
-> > @@ -0,0 +1,45 @@
-> > +/* SPDX-License-Identifier: (GPL-2.0-only OR MIT) */
-> > +#ifndef _DT_BINDINGS_RST_SUN8I_B288_H_
-> > +#define _DT_BINDINGS_RST_SUN8I_B288_H_
-> > +
-> > +#define RST_BUS_THS  0
-> > +#define RST_BUS_NAND 1
-> > +#define RST_BUS_MMC0 2
-> > +#define RST_BUS_MMC1 3
-> > +#define RST_BUS_MMC2 4
-> > +#define RST_BUS_MMC3 5
-> > +#define RST_BUS_SPI0 6
-> > +#define RST_BUS_SPI1 7
-> > +#define RST_BUS_SPI2 8
-> > +#define RST_BUS_I2S0 9
-> > +#define RST_BUS_I2S1 10
-> > +#define RST_BUS_SPDIF        11
-> > +#define RST_BUS_DSD  12
-> > +#define RST_BUS_DMIC 13
-> > +#define RST_USBPHY0  14
-> > +#define RST_BUS_OHCI0        15
-> > +#define RST_BUS_EHCI0        16
-> > +#define RST_BUS_OTG  17
-> > +#define RST_BUS_DE   18
-> > +#define RST_BUS_EE   19
-> > +#define RST_BUS_TCON0        20
-> > +#define RST_BUS_CSI  21
-> > +#define RST_BUS_ADDA 22
-> > +#define RST_BUS_WLAN 23
-> > +#define RST_MBUS     24
-> > +#define RST_BUS_DRAM 25
-> > +#define RST_BUS_PSRAM        26
-> > +#define RST_BUS_DMA  27
-> > +#define RST_BUS_UART0        28
-> > +#define RST_BUS_UART1        29
-> > +#define RST_BUS_UART2        30
-> > +#define RST_BUS_UART3        31
-> > +#define RST_BUS_UART4        32
-> > +#define RST_BUS_UART5        33
-> > +#define RST_BUS_I2C0 34
-> > +#define RST_BUS_I2C1 35
-> > +#define RST_BUS_I2C2 36
-> > +#define RST_BUS_GPADC        37
-> > +#define RST_BUS_KEYADC       38
-> > +
-> > +#endif
->
+Reviewed-by: Alison Schofield <alison.schofield@intel.com>
+
