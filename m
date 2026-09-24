@@ -1,114 +1,222 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F4A64A0EF3
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:22:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 932C44A0EF1;
+	Thu, 24 Sep 2026 15:22:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790263350; cv=none; b=Y0y39f9OLMtnN4WgDgsU4hCZR/mdN+k/YI293fldSunZnTZYETFGdGHbhlua9OzngnIS305wPy2pqpOq26iIJwW2lyqCPRo300PrphYWYB8sdTW+L9OAj+AcecM3DA4wIlhPEYsbXCsGCidTCOP3WiHYYvBlYUcZcU9cRIP9nRU=
+	t=1790263348; cv=none; b=AjydOwCClaAQTtwDAxyn4erBGC96wnNsU4ZRKLi2mgmsxn9+fYarLn/p7oPbSxNPUAhcOmoxtuIc8bXYd70LITHHU0f769YHNFv2lxmh2AIciHwoYk3Zl2Dg35M2BRkB5s047lSHyknU83Myv9kKxWEpfTxFHrzUsOOrJfuEb8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790263350; c=relaxed/simple;
-	bh=gy0Cq5Nf4xhfo88W93+N+0w9AXoEE74EW7msY3z9pu8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=XsNYPH/g16oLE3avh2UYRJhqUNZqzw15j7VvwqVz+RnAErlwe9fSgSs3A5zjFFsGt4B9TeZKeCHpziSAtQ8h7/A+jgbhOXZzKKM65q4nfyDihSEmg4ujGqQxg4sm089tfUmRurXz1F5kxGvS1WZZUXq+JqCSmkqgdq2SAh4H9yM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=GiF1JGTz; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=MjwpfEBG; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790263348; c=relaxed/simple;
+	bh=ezlzSOUHgpZK0dAcZsvnMlqq8vUFEavpyz5MDK+9Fy4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=a3NQaNL8elo8RnyMSfwI/pNpJNd6/rSSQdnH86KP7UiW/qsNEDuP/nRZf7jTm5qaPJDZlAHRJlYrNMqw3zCMnUxI5PII/cZk8M6o5w7Q6tu1XCk8S20RKgAq8g5Yw32WXVJGZPMZewPuy3Qv0RppoJrbhc3uGMPgLwMzhrvP0Y8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=Qz3gnf0r; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="GiF1JGTz";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="MjwpfEBG"
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790263342;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=r8Ay6B3pde2Qw6QSifBjiU1xjG3RDjgIXb53bOdgio4=;
-	b=GiF1JGTz/SMBdQ87nHczSVRBAIneNax77+XsLOc5dmXOTzAUkZ0W5S2WqZkWQJs7cwsb3i
-	gsVIjXALwfnJNOK5HV8ZzDbhDEqHb6WCRJmee5NlYqQR5oUEuPzkfkhPJ8FmTYmmx4mIEw
-	2EKLSLMJawWChn01Fq6RWK5o0BAyKY4xx3c4+bZGAQbuYFt9fU6T2LXn+22T6QlOF30eJ2
-	jS5lV35GfKDHo+WzZw70t6Isfm1g2kLIrBXWJUzDw7IOrKXAAq2FayfNoz7uX1DrTe3a3K
-	4HKHY1SocnhHcn+PEx2GtZLCm98PCJsjb5+xKGq7aU1q2uufWFmF+tf9LD6KaA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790263342;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=r8Ay6B3pde2Qw6QSifBjiU1xjG3RDjgIXb53bOdgio4=;
-	b=MjwpfEBGjKmKN1FYbgmp17F0NO4QQCs28lE2iB8bcJ1pAJvc8eC0xxGLX0B1Ey25KrvfJl
-	BqNjPCp84/ul5kCQ==
-To: Tzung-Bi Shih <tzungbi@kernel.org>, Petr Mladek <pmladek@suse.com>
-Cc: Kees Cook <kees@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Tony Luck <tony.luck@intel.com>, "Guilherme
- G. Piccoli" <gpiccoli@igalia.com>, Steven Rostedt <rostedt@goodmis.org>,
- Sergey Senozhatsky <senozhatsky@chromium.org>, tfiga@chromium.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] printk: Introduce loglevel bypass for pstore console
-In-Reply-To: <aqj426Zjg8pw1I97@google.com>
-References: <20260831070346.3490745-1-tzungbi@kernel.org>
- <aqEmwXTLaTyUhhYG@pathway.suse.cz> <aqj426Zjg8pw1I97@google.com>
-Date: Thu, 24 Sep 2026 17:28:21 +0206
-Message-ID: <87cxu2u11u.fsf@jogness.linutronix.de>
+	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="Qz3gnf0r"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+	s=201707; t=1790263314;
+	bh=V4bT6QQrpl1qVat6dN2utOKpKwESjAKUGxUpph+ijfA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=Qz3gnf0raqw4TIFYyG5UgijKIVzNMnwgn9OkL4ZigQQaWyhXD1kheV88UJ4R0fTnu
+	 xAbnGQbqXl5aoRr5RO8iygHH8qIMODKWd0ufP4+YqMcckLKSkt7Glfb6nh8uyO71c5
+	 iIVMPJMNxeeJXQmlRxwVuZzKYZuhhlVOT0tasspqeBr8mdljw6+bYDfPyTP4i9xqDh
+	 dY+SDSvcO6PwSR6SDcuFYIKWFbUMYa3WzVI0ZtVDPvPX/xT4m16pHKkV5ZjtK58vGr
+	 FxKEYqFec57k0GcZI+Qrqeyz6gPDCbYDCJWJBA1jtxKwUl5dLHCkWUC2xPeQ/LrK1X
+	 RZDQHc5Ct8UGA==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by mail.ozlabs.org (Postfix) with ESMTPSA id 4hrHcd6Ldnz4w0Q;
+	Fri, 25 Sep 2026 01:21:53 +1000 (AEST)
+From: Matt Evans <matt@ozlabs.org>
+To: Alex Williamson <alex@shazbot.org>,
+	Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Alex Mastro <amastro@fb.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Longfang Liu <liulongfang@huawei.com>
+Cc: Mahmoud Adam <mngyadam@amazon.de>,
+	David Matlack <dmatlack@google.com>,
+	=?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	kvm@vger.kernel.org,
+	linux-pci@vger.kernel.org
+Subject: [PATCH v7 1/9] vfio/pci: Remove DMABUF export dependency on vdev->memory_lock
+Date: Thu, 24 Sep 2026 16:21:44 +0100
+Message-ID: <20260924152159.49702-2-matt@ozlabs.org>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260924152159.49702-1-matt@ozlabs.org>
+References: <20260924152159.49702-1-matt@ozlabs.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On 2026-09-15, Tzung-Bi Shih <tzungbi@kernel.org> wrote:
->>> Currently, offline consoles (e.g., pstore_console backed by ramoops)
->>> inherit the system's global console_loglevel.
->>> 
->>> In production environments, physical serial consoles (UARTs) are often
->>> heavily rate-limited to prevent verbose messages from causing severe
->>> execution bottlenecks.  Unfortunately, this identically silences the
->>> pstore console.  When a kernel panic or lockup occurs, engineers are
->>> left inspecting a crash dump that has been stripped of the verbose logs
->>> that could have identified the root cause.
->>> 
->>> This series introduces CON_BYPASS_LOGLEVEL, a simple flag that allows
->>> specialized offline consoles to request unsuppressed logs directly.
->>> 
->>> Patch 1 introduces the CON_BYPASS_LOGLEVEL flag.
->>> Patch 2 adopts the flag in pstore_console.
->> 
->> I believe that a better solution for this problem would be adding
->> the per-console loglevel feature, see
->> https://lore.kernel.org/all/cover.1764272407.git.chris@chrisdown.name/
->> 
->> It is currently blocked by a cleanup of the console registration code,
->> see https://lore.kernel.org/all/20260604101459.393162-1-pmladek@suse.com/
->> 
->> I am going to send v5 of the console registration code cleanup soon,
->> hopefully later this week or the following week. It would be nice
->> when it gets some more review.
->
-> Thanks for the context.  I completely agree that the per-console
-> loglevel is the proper long-term solution, and I understand that console
-> registration cleanup and the larger printk reworks are massive and
-> complex efforts.
->
-> Because those foundational changes naturally take time, I was wondering
-> if we could consider my approach as a narrow and localized exception
-> just for offline consoles like pstore.
->
-> Given that we already use LOG_FORCE_CON to bypass loglevels on a
-> per-message basis, introducing a symmetric per-console flag like
-> CON_BYPASS_LOGLEVEL might be an acceptable short-term solution.
->
-> Would you be open to a localized flag like this in the interim, or do
-> you strongly prefer to hold off until the full per-console loglevel
-> architecture lands?
+The VFIO_DEVICE_FEATURE_DMA_BUF export previously used
+vdev->memory_lock to protect VFIO's list of exported DMABUFs
+(vdev->dmabufs) and their revocation status.  When adding a new
+export, memory_lock was taken for write.
 
-I agree with Petr that we need to go with per-console loglevels here.
-However, we really need to prioritize our efforts to get that
-per-console loglevel series mainline (which means getting the cleanup
-series mainline first).
+A future commit will refactor DMABUF export into a function used from
+mmap(), which would create a new mmap_lock -> memory_lock dependency.
 
-@Petr: Maybe we can find some time in Prag to sit down together and go
-through the rather large queue of various printk series that are waiting
-to be reviewed.
+In preparation, this commit introduces a vdev->dmabuf_lock that
+protects the dmabufs list, per-DMABUF revocation state, and a new
+bars_revoked flag.  The flag tracks the device-wide BAR revocation
+state set via vfio_pci_dma_buf_move() under dmabuf_lock, removing the
+test of __vfio_pci_memory_enabled() and dependency on
+vdev->memory_lock.
 
-John
+This is a cleanup currently, but allows the future export path to
+avoid holding memory_lock under mmap_lock and a therefore avoid a
+deadlock scenario (a fault handler attempting to take mmap_lock in a
+vfio-pci variant driver thread that holds memory_lock, vs another
+thread doing an mmap/export holding them both in the other order).
+
+Signed-off-by: Matt Evans <matt@ozlabs.org>
+---
+ drivers/vfio/pci/vfio_pci_core.c   |  2 ++
+ drivers/vfio/pci/vfio_pci_dmabuf.c | 30 +++++++++++++++++++++++++-----
+ include/linux/vfio_pci_core.h      |  2 ++
+ 3 files changed, 29 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+index 6757054e9d87..1f6066107831 100644
+--- a/drivers/vfio/pci/vfio_pci_core.c
++++ b/drivers/vfio/pci/vfio_pci_core.c
+@@ -663,6 +663,7 @@ int vfio_pci_core_enable(struct vfio_pci_core_device *vdev)
+ 		vdev->has_vga = true;
+ 
+ 	vfio_pci_core_map_bars(vdev);
++	vdev->bars_revoked = false;
+ 
+ 	return 0;
+ 
+@@ -2197,6 +2198,7 @@ int vfio_pci_core_init_dev(struct vfio_device *core_vdev)
+ 		return ret;
+ 	INIT_LIST_HEAD(&vdev->dmabufs);
+ 	init_rwsem(&vdev->memory_lock);
++	init_rwsem(&vdev->dmabuf_lock);
+ 	xa_init(&vdev->ctx);
+ 
+ 	return 0;
+diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+index c16f460c01d6..847ee5cc78e7 100644
+--- a/drivers/vfio/pci/vfio_pci_dmabuf.c
++++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+@@ -90,9 +90,9 @@ static void vfio_pci_dma_buf_release(struct dma_buf *dmabuf)
+ 	 * The refcount prevents both.
+ 	 */
+ 	if (priv->vdev) {
+-		down_write(&priv->vdev->memory_lock);
++		down_write(&priv->vdev->dmabuf_lock);
+ 		list_del_init(&priv->dmabufs_elm);
+-		up_write(&priv->vdev->memory_lock);
++		up_write(&priv->vdev->dmabuf_lock);
+ 		vfio_device_put_registration(&priv->vdev->vdev);
+ 	}
+ 	kfree(priv->phys_vec);
+@@ -305,12 +305,27 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+ 
+ 	/* dma_buf_put() now frees priv */
+ 	INIT_LIST_HEAD(&priv->dmabufs_elm);
+-	down_write(&vdev->memory_lock);
++
++	/*
++	 * dmabuf_lock synchronises access (R) or updates (W) to the
++	 * vdev->dmabufs list and to bars_revoked (see below).  The
++	 * revocation state of DMABUF elements in the list is written
++	 * holding both dmabuf_lock(W) and resv, and tested with
++	 * either.
++	 *
++	 * dmabuf_lock -> resv
++	 *
++	 * vdev->bars_revoked tracks the BAR revocation status updated
++	 * via vfio_pci_dma_buf_move(), so the initial DMABUF state
++	 * follows the same criteria that later update the DMABUF
++	 * state (BAR zap, etc.).
++	 */
++	down_write(&vdev->dmabuf_lock);
+ 	dma_resv_lock(priv->dmabuf->resv, NULL);
+-	priv->revoked = !__vfio_pci_memory_enabled(vdev);
++	priv->revoked = vdev->bars_revoked;
+ 	list_add_tail(&priv->dmabufs_elm, &vdev->dmabufs);
+ 	dma_resv_unlock(priv->dmabuf->resv);
+-	up_write(&vdev->memory_lock);
++	up_write(&vdev->dmabuf_lock);
+ 
+ 	/*
+ 	 * dma_buf_fd() consumes the reference, when the file closes the dmabuf
+@@ -340,6 +355,8 @@ void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
+ 
+ 	lockdep_assert_held_write(&vdev->memory_lock);
+ 
++	down_write(&vdev->dmabuf_lock);
++	vdev->bars_revoked = revoked;
+ 	list_for_each_entry_safe(priv, tmp, &vdev->dmabufs, dmabufs_elm) {
+ 		if (!get_file_active(&priv->dmabuf->file))
+ 			continue;
+@@ -375,6 +392,7 @@ void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
+ 		}
+ 		fput(priv->dmabuf->file);
+ 	}
++	up_write(&vdev->dmabuf_lock);
+ }
+ 
+ void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev)
+@@ -393,6 +411,7 @@ void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev)
+ 	 */
+ 	vfio_pci_dma_buf_move(vdev, true);
+ 
++	down_write(&vdev->dmabuf_lock);
+ 	list_for_each_entry_safe(priv, tmp, &vdev->dmabufs, dmabufs_elm) {
+ 		if (!get_file_active(&priv->dmabuf->file))
+ 			continue;
+@@ -402,5 +421,6 @@ void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev)
+ 		vfio_device_put_registration(&vdev->vdev);
+ 		fput(priv->dmabuf->file);
+ 	}
++	up_write(&vdev->dmabuf_lock);
+ 	up_write(&vdev->memory_lock);
+ }
+diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
+index 9a1674c152aa..f99b152edcca 100644
+--- a/include/linux/vfio_pci_core.h
++++ b/include/linux/vfio_pci_core.h
+@@ -134,6 +134,7 @@ struct vfio_pci_core_device {
+ 	bool			pm_intx_masked;
+ 	bool			pm_runtime_engaged;
+ 	bool			sriov_active;
++	bool			bars_revoked;
+ 	struct pci_saved_state	*pci_saved_state;
+ 	struct pci_saved_state	*pm_save;
+ 	int			ioeventfds_nr;
+@@ -148,6 +149,7 @@ struct vfio_pci_core_device {
+ 	struct vfio_pci_core_device	*sriov_pf_core_dev;
+ 	struct notifier_block	nb;
+ 	struct rw_semaphore	memory_lock;
++	struct rw_semaphore	dmabuf_lock;
+ 	struct list_head	dmabufs;
+ };
+ 
+-- 
+2.50.1 (Apple Git-155)
+
