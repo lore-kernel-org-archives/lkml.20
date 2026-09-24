@@ -1,46 +1,45 @@
 Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BFA8433BD4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C0D143441C
 	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:30:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.207.212.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790235026; cv=none; b=tFy3EnOCzyrLeKae7MRgih1rjKwiVm2QuM4B+B4a9JJo84TLeYliwi2pTYSnsbmN1dUekoUtqdDJdO3Pw+AGwPvVtaq1pSu8blphf0l2fUUA9UFrNhn22FyHVCbjjwuf7PUVwbi3hQ6u88dh9YFoypr9iipHBOCuCl3VMXQg5vY=
+	t=1790235026; cv=none; b=dKzUHwZWMDqgSTGJsBL7gxjjrrEcPBam1+rj/RCPV9U3Y5caNMOE9ZCjEKRPY5IMdbNu0q4eUM4tN7nL9k3PqtXCPqZ4UZ+YmNmdLzlPS9ogQ4rhVNlFgfdZnW1Xe6k/PbDxlNKvijtlRhTgg3Jvnymq9QUPyZ1nNdOVeD432Hs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790235026; c=relaxed/simple;
-	bh=XQZaE5K7wELBkVpj5cyeE1NqTTZjP6LdzHGCCTMEDUs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=TpGCpcLqcPW4RhYuYf7OFMme+WKPOfcOLVVKVswl8f0uHPak1W9IHnqFW1bxK74NgD9McLbLU1jqM0cTTVZuAmNi8MT3wcnSnGRyXZKJtWxbvwwFaNQiR0M8osT9Rp9KH3D1smhq7PWhsQczbmruIl/FK1CwQTwgIvznTNiCrB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=vSgVBxHi; arc=none smtp.client-ip=91.207.212.86
+	bh=I0wnj4cfP9QXKZMSQcKBmdn44XncswUt16pM8bKQD8g=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=Fbj6yK092iLDz7qa1rb3pvbWGwEF//ubkUF5XyBq5SkucWiurnVFgjL/sU9YOTe7cps2XPIsnBAEIpBleeb6nI/iUF3vhdLiauwt7npnewcDm8d0F9Bc5P/ilD+K0pbWenfOJFFVvzJZ8p/dHRPnDIjc3ZH/OwJ2DmWV3VgCXt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=Jd5v2332; arc=none smtp.client-ip=91.207.212.86
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="vSgVBxHi"
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="Jd5v2332"
 Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
-	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5e24H1074552;
-	Thu, 24 Sep 2026 08:30:02 +0100
+	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5e24G1074552;
+	Thu, 24 Sep 2026 08:30:01 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=w
-	Y5QBrESUN0/XfKKkTM0Mt7rDLxNZiQqJ2r/kOUUbl0=; b=vSgVBxHin5NMDIxDL
-	xeyaJXQUwkrPpIZ0LeJYsrAG11VTsdWijCq0T0bS7jcVPuCLo1yGguCaImemo7ad
-	tuG04Bop+wVOInB3oZSsdWvvpHYnSJMNJbm7ly5koMbztnlG/CV3vvDwbWo0VUu1
-	7B2YWGUrBNna4P23n+Q9rIXfPUHqKpJSMm9GpKKfuUeAtJ4OsoMCUJ/Ucxc9ECfV
-	UN6nYMUbYbzBEPkGLhhp4JU0TXTHtTT5njHtI7OGHBJm8rhWYS3/T8sJ1IQyoz7B
-	Zd2/g/66zuUQc/5YMb+EvfCV4zZTx7jlcgSL0uK6VlQ1UfOJeS5NBtpF+qxj/cqd
-	21HLA==
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=dk201812; bh=GwCWX0hIymZeTk8CBCaMjoo
+	M7BcItLFtPQbi77JUdFw=; b=Jd5v23325a19gML8KqntxFnEsMQVH52fG7HNaOY
+	5stKy9fu+K8Bjje2kuX4JnW3hfCt87ijbZsOltmBjE2AsJi8nrt86s/CPJt5SPe/
+	urECcP7kKS2ZpMAftpv76cDyNv1ymaWd+caKI8w67cWVim1HWB0nEeLUbzO+sEhu
+	jKXO8EgyaZVY4bWSRnog6arKXG2VplV1TWE4WEdiBvbmUI2qeiIxwl/HftVV+rK/
+	HLFLdhXcupQFTKTzubWiOcpx09sVoPbcqzBK8yvEVh6H600PHDqnCAB+S9qTFxwb
+	gXthURuAy4uGFd+k2UFu5tEfzGy7ZYN7Hzg9IU7lQJ+DqzA==
 Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4gsgnq3w1f-1
+	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4gsgnq3w1c-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 24 Sep 2026 08:30:02 +0100 (BST)
+	Thu, 24 Sep 2026 08:30:01 +0100 (BST)
 Received: from [127.0.1.1] (172.25.5.18) by HHMAIL01.hh.imgtec.org
  (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 24 Sep
- 2026 08:30:00 +0100
+ 2026 08:29:59 +0100
 From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Thu, 24 Sep 2026 10:29:43 +0300
-Subject: [PATCH v7 1/3] drm/imagination: Release KCCB slot on error path in
- pvr_queue_run_job()
+Subject: [PATCH v7 0/3] drm/imagination: Propagate all KCCB command
+ submission code errors
+Date: Thu, 24 Sep 2026 10:29:42 +0300
+Message-ID: <20260924-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v7-0-584796cb599d@imgtec.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,9 +48,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260924-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v7-1-584796cb599d@imgtec.com>
-References: <20260924-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v7-0-584796cb599d@imgtec.com>
-In-Reply-To: <20260924-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v7-0-584796cb599d@imgtec.com>
+X-B4-Tracking: v=1; b=H4sIAGfRtGoC/63RwU7EIBAG4FfZcHYMpQztevI9jAcKQxddlga6j
+ WbTd5euMdb0WI9/MsP3T7ixTMlTZk+HG0s0+ezjpYTm4cDMSV96Am9LZoILxduKQyfhOuQxkQ4
+ wpDjoXo8E+nwGSimmDC7FAO/GdGCChXztgs/Lq2CiJeBWk3QcnemQFWRI5PzHvcDL63cuK29kx
+ kVdJk4+jzF93htO1TL3U6baW2aqoALnLKJAaZUVzz70I5lHEwNb2kxi7cndnihejTWi0xa5po1
+ X/3pH3uz26uJJbFrNC+jUcePJ//Vk8TrVSoeFVGZ7H669dreHxUMSSjSikii7jadWntj/fwo42
+ KPFukGlkOwfb57nL6kKgOZPAwAA
+X-Change-ID: 20260810-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-0dae4f05fcb5
 To: Alessio Belle <alessio.belle@imgtec.com>,
         Luigi Santivetti
 	<luigi.santivetti@imgtec.com>,
@@ -64,85 +67,102 @@ CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
         <linux-kernel@vger.kernel.org>,
         Alexandru Dadu <alexandru.dadu@imgtec.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790234999; l=1648;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790234999; l=3152;
  i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=XQZaE5K7wELBkVpj5cyeE1NqTTZjP6LdzHGCCTMEDUs=;
- b=3HX2lf2OzTEsE75nrz8icr29gO5jQzARD4vpnqtKo63BhsdxOug4NOaQgIRxvca1RaSvNCbsS
- xOAUZRBWNE1C86KNfv8mgjWKRYZkRDqQBRqL5xE1Cq/qF+bkW2bOUCi
+ bh=I0wnj4cfP9QXKZMSQcKBmdn44XncswUt16pM8bKQD8g=;
+ b=QGG6eKW3DWzvNpYkoO4D3babR/2lWhNiCFpLGBo6yqwbTscZauk4hxOFl/Kzz5hW+mEIOmNv+
+ 4cP1OPCIbO8CGiENU2RKUNyf5uBEHQRhoLMevN0L/FpCGxTw114cNy4
 X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
  pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAzMSBTYWx0ZWRfXxUo1Ok/X3MGX
- C6cmJrivraaoobvj7k+09uMnn6l2KHElCFUwjmopg2WlVk0mqpMpnGKrQ6+ttU67gYGKpwbtqLS
- EPuYAspwchXmQv8Vg2M8h7mppW2fXtPYRIDLtHZrQI/kLQBtep0LGLdhtOi/Ocj4nBkcdtTie3K
- dhhQhOIxXWgTjDoSXQiL1G7poidYqhyXGabFDQW9kUB0rMXbZaf8WIO4qXxXoVKI1WnM9DTObn+
- P0ihlQH/hlzcnzkop92GtmVz8hd5Q+MchibuA0EJwJwJUXa66pdorqNHIulF+nuznYqjg/3t/Vq
- zHORiCROtrfv4JI+LoUuV9Ub2/JT+5XfOQvnDlXecbARxM6gkiXXCyaKF3dtIkj1PCEDdwQl7Ul
- nUtCI3aKilF50hNSiGvPJx5xCEW2jgDzCHCrHelR0HzPbmfxmaeX5PQ+s4J43EDu8y0bl+VrDIS
- qc5pzfdBkqbe0/SLlgw==
-X-Proofpoint-ORIG-GUID: 9OaJ0EH4VptLFBUtk8jbDgvl8H1xpRiT
-X-Authority-Analysis: v=2.4 cv=fYs4WEQF c=1 sm=1 tr=0 ts=6ab4d17a cx=c_pps
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAzMSBTYWx0ZWRfXzHBI9uc9K3Ga
+ BcDhZzgLD3mAgU9xB+Vo6yw45MjFJw1wiI0Pe6BomYnS5DVv228TUCw+MJiH8Tf6wrIRfmQGyKS
+ FEcOiLKV6gUTKawJePASeMURbShTI3D9wQQguPziVAPl5SIijcmlX4iR6dkrOplNXWUkfLFLVU+
+ 9GZIVXQ4+iPcNfohhRmzm1JLg3vK9MTN8Gr8dldM2BSnQNRhFbJM+pIsUhkttQOc6d5ib6fLAd1
+ 7zGjWHX2eQ3AjZhJM9kHARRUSpqIMxyVDJyXxWV3CHQbKA00Ap5uMazDZYGeREIn7x4xtagTmc5
+ jw9xhRzDIyIX6a+gBDZRF3FgZ4XvHYGTh2wcwth94FDX2YlFqa4dBV+52Rg/9XXMDh8PsntKqoU
+ QqUwbTk3/ddr5XSiBHhObLrwa1fj26hfC/OMH2k/2rnJAAMoL0O/ZLq8o1+VBUDvwHI0jB/pwJs
+ 2e2F04vvJ9/KwDpIYZQ==
+X-Proofpoint-ORIG-GUID: GXyMmWuXaQQdvdCvwVNHd2xY6qEsACHU
+X-Authority-Analysis: v=2.4 cv=fYs4WEQF c=1 sm=1 tr=0 ts=6ab4d179 cx=c_pps
  a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
  a=sVS2Dey4ZWMA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=r_1tXGB3AAAA:8 a=zXiuvu5RTUsjFMotISsA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-GUID: 9OaJ0EH4VptLFBUtk8jbDgvl8H1xpRiT
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAzMSBTYWx0ZWRfX6x3JhQpqf4z6
- QW+yX2dlnZznDAMCk50uybNIZZozAV3qcj8zQtKWpa8U4xn+fKsCzvGuqeNEkH6auxpb59v7ivU
- dzb7jo6l5syZUje8Iqb0avGaXXZHGEc=
+ a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=QyXUC8HyAAAA:8 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=e5mUnYsNAAAA:8 a=-Nkvb9cpL7o7CB8Fd5MA:9 a=QEXdDO2ut3YA:10
+ a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-GUID: GXyMmWuXaQQdvdCvwVNHd2xY6qEsACHU
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAzMSBTYWx0ZWRfX4i8kZ5m2S5We
+ /BL6FglGlLwWbNOhGHz9gFcj/VsgKoY4gEkeNDyjEUaIXNBVwloOOQNkWZoVw9G9/wgO8vZPUQa
+ zphu48oRHnwBk5DXqgYG6ozBQBlKXXQ=
 
-Add an error path to pvr_queue_run_job() instead of just a warning and
-release the KCCB in that path.
+- Set up an error path for pvr_queue_run_job().
+- Propagate errors from KCCB submission functions.
+- Early release pm references in case of errors.
 
 Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
 ---
- drivers/gpu/drm/imagination/pvr_queue.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+Changes in v7:
+- Fix for the early release pm references in case of errors commit.
+  Error variable was being overwritten before having a chance to be
+  checked.
+- Link to v6: https://patch.msgid.link/20260924-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v6-0-d9d5375665ed@imgtec.com
 
-diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
-index 24a8645aa913..8dd87192fabc 100644
---- a/drivers/gpu/drm/imagination/pvr_queue.c
-+++ b/drivers/gpu/drm/imagination/pvr_queue.c
-@@ -767,17 +767,19 @@ static struct dma_fence *pvr_queue_run_job(struct drm_sched_job *sched_job)
- 		    (job->type != DRM_PVR_JOB_TYPE_GEOMETRY ||
- 		     job->paired_job->type != DRM_PVR_JOB_TYPE_FRAGMENT ||
- 		     job->hwrt != job->paired_job->hwrt ||
--		     job->ctx != job->paired_job->ctx)))
--		return ERR_PTR(-EINVAL);
-+		     job->ctx != job->paired_job->ctx))) {
-+		err = -EINVAL;
-+		goto err_release;
-+	}
- 
- 	err = pvr_job_get_pm_ref(job);
- 	if (WARN_ON(err))
--		return ERR_PTR(err);
-+		goto err_release;
- 
- 	if (job->paired_job) {
- 		err = pvr_job_get_pm_ref(job->paired_job);
- 		if (WARN_ON(err))
--			return ERR_PTR(err);
-+			goto err_release;
- 	}
- 
- 	/* Submit our job to the CCCB */
-@@ -814,7 +816,14 @@ static struct dma_fence *pvr_queue_run_job(struct drm_sched_job *sched_job)
- 		trace_pvr_job_submit_fw(job);
- 	}
- 
-+	if (WARN_ON(err))
-+		goto err_release;
-+
- 	return dma_fence_get(job->done_fence);
-+
-+err_release:
-+	pvr_kccb_release_slot(pvr_dev);
-+	return ERR_PTR(err);
- }
- 
- static void pvr_queue_stop(struct pvr_queue *queue, struct pvr_job *bad_job)
+Changes in v6:
+- Refactor the patch into 3 commits.
+- Rebased on a more recent drm-misc-next.
+- Link to v5: https://patch.msgid.link/20260908-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v5-1-5e262721454b@imgtec.com
 
--- 
-2.43.0
+Changes in v5:
+- Added pvr_job_release_pm_ref() to the kccb kick command return value
+check.
+- Update v4 description typo.
+- Link to v4: https://patch.msgid.link/20260907-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v4-1-b684f58a06ce@imgtec.com
+
+Changes in v4:
+- Added a check over the return value of the kccb kick command.
+- Link to v3: https://patch.msgid.link/20260907-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v3-1-4578a0fadf69@imgtec.com
+
+Changes in v3:
+- Dropped the job->kccb_fence check since pvr_queue_prepare_job() makes
+sure that the check would always be true.
+- Dropped the power references from the patch.
+- Link to v2: https://patch.msgid.link/20260814-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v2-1-35355fad50ae@imgtec.com
+
+Changes in v2:
+- Provide an error path in pvr_queue_run_job(). The path will use
+pvr_kccb_release_slot() to avoid resource leaks.
+- Link to v1: https://patch.msgid.link/20260811-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v1-1-ffd55254d6d2@imgtec.com
+
+To: Alessio Belle <alessio.belle@imgtec.com>
+To: Luigi Santivetti <luigi.santivetti@imgtec.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: imagination@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Alessio Belle (1):
+      drm/imagination: Propagate all errors from KCCB command submission code
+
+Alexandru Dadu (2):
+      drm/imagination: Release KCCB slot on error path in pvr_queue_run_job()
+      drm/imagination: Release pm references in case of error
+
+ drivers/gpu/drm/imagination/pvr_ccb.c   | 33 +++++++++++++++-----
+ drivers/gpu/drm/imagination/pvr_ccb.h   |  6 ++--
+ drivers/gpu/drm/imagination/pvr_cccb.c  | 12 ++++---
+ drivers/gpu/drm/imagination/pvr_cccb.h  | 20 ++++++------
+ drivers/gpu/drm/imagination/pvr_queue.c | 55 +++++++++++++++++++++++----------
+ 5 files changed, 85 insertions(+), 41 deletions(-)
+---
+base-commit: a8fe4e162ba8212b7e51fdb024b37800f36b496c
+change-id: 20260810-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-0dae4f05fcb5
+
+Best regards,
+--  
+Alexandru Dadu <alexandru.dadu@imgtec.com>
 
