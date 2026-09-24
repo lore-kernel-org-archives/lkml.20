@@ -1,116 +1,100 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B81F4734D6
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:04:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48E8F3F39ED
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:04:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790247878; cv=none; b=iahrHBHuj51+Vep2C1n8kw7XsYufMlQRGu6J3Jt8PxT9l+BlCfWhxLUkTIIW140FjK6b+nZCGyZnf0I0z+aA/GQlIyiqGuhQIeQNRVfz2jrE81ovD8WIUxxxPTiJf8ZJu9XZf+KNpiH+tK/MTIr1onYjKCZrwh5It4Zbqisk8j4=
+	t=1790247892; cv=none; b=sajfTm2C9A+G+TAGd7CH0aEM4mKYHbJYcAQX0teQQfrR0RuXCF+IF0MdOtwEqEr0+VCt25X6oJV43B6p8LohtPK5WAFyhXVpfpALHia9KjbKVNDwktnJ4lwpxsO5IrBZqerso1IErwZLCJlstsnmQb3y/aTH10FLoqKjCL+Bs6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790247878; c=relaxed/simple;
-	bh=gjl55k3HwxMMJ0LOIwdvjtRAZ8r4q+pBj3WpSnBkx80=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LeV+kr4j/UY7gMRSya9LJLu9KK2TcnEBK8sKGsfbOLQMAqorfkJgifPFKsuYI03RRWDi2qfqSgyLtihyBhyK/dkojp5cjHO1haCye2Zp4hp7MqRsQPiwfjWPkx4nJ4N/zY0y1Rnu35pY6KmFeBshYIx8Sk4PlFGRh37hNnAgwEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=st69cXnp; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790247892; c=relaxed/simple;
+	bh=FErskk5FNvOkMDXY676R7VSxtI1/h67QxFxplvDBh2I=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=dWhQtZNJRoyzalsfNjgQRfqtfdmMu9Sh2NPdRoIGgqy9vKv9sUhsTZDJSPuHocznq9uPIXZukORlQSc4f/2uHHb744qMTAxd5OjWXItq6kEcDNNeFkUJ6OUwNzJPj+WK3zfGphayA9l+kjspY/D5MwFh20CpYsKwRRoV4tBrXZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=PwOJVqgh; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="st69cXnp"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4cdc0d663so878255a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:04:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790247876; x=1790852676; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BQaBTh1+PqRhhhrSlt9lMnh9oT4JHlghqyyhXL51U2o=;
-        b=st69cXnpj/NYP1BLU8JOAPerkBV7sjsxkRvYaG1zTX+8mcUXQMddkELaYC4kbax0MY
-         dG6eWHw2nSC+D0ux+Eakj7C//1APViDBvKmVCUFaYDSVIGn1KCH+1+JmrOzwEH1mMOAY
-         N83AP4GPJlODIi0wXuqMGeYyMvUgvLQhXOYpuGpIFgzRvhfqs2NP6lGQJKN1OLThbEy5
-         BudZFLqgwWc2vDmSC7y7nBaBOPnZD36PsSKaijXJyllWYSMWDgzclblyXGqdSBQLbA+D
-         ttJA6UePPwdeMMUxBs3uQp8VJN703oPCufI3UsMIrToelNvo1FseyBxSaIVQRA+rhtxK
-         toaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790247876; x=1790852676;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BQaBTh1+PqRhhhrSlt9lMnh9oT4JHlghqyyhXL51U2o=;
-        b=2SjhU1SC1LiY/Bel1ZpJG0q5oh3LmBsCtqniClQjd2qlln+zLmguOsexzSIOB1OvF6
-         MI+VceE80ja3hnIFiHOXKc/DT7VnnQEu1l9fJOv6zbXNMDYbl+OYYboJfTYZ14oj9DbY
-         j4A45WXKaZouEs8YuG/qhPuDyBWeTZykzd/nmihBe510BIG4kOYtengaMO0gM4j09pFG
-         Ww/DqhLcWZd+zq0hGqO2aW1vL5Bp5sJrwehnEj08YV7dGuWduDdb3mTuFfz+ur3VH9a7
-         FY/gEBxvcsf9kJbVhqfSkODAdtFw39tQ/t1L5Z8UCAU78cchqZNrjVeUiSPGnoYlFt7W
-         Qiiw==
-X-Forwarded-Encrypted: i=1; AKwUvBwe3xAiPAVAePzKTiHZnGHzxtdwzlFYVFcjjTeZC5R4ZTLLgVsHZx6WxvCfPJXEr80IWpwOu0iskX1TVMo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kgecectp+M4n/VHDd/F5NIEuxrR4g/dqR9/p7VS1YxEX/Dc8Hu
-	lacr7wawBc5rdpq1f0OT11qVzXWVzs7FltbpWlE0CbHefNPb/RsershQ
-X-Gm-Gg: AYBFou0Ynbf5RjxSUeI2+nnnHmfK8NPO0vCIC0LwwKsEeifrszpLYy1LTq5mkY1jy6u
-	wFnN/6tg/ak3/g8cINa0mSJvalGQ3GFLFb64Uq6VYYUdE0lL0x2JFhIm9PvSP/Yv8jyY9so7ZUN
-	xGj6/e3mFodlDirmFUMLfMdOzy/LnpZVLACDsDneHP5LZBAoApmXbzhhpvGezHIbTJJnAFUfnfV
-	JxAZlnfRgOgaapT9sOop6LkJTZARSdrw9RkFbrPrWjscEqWlB9XKbPRQ90AIDrtbWmrJeEDTT4Y
-	7lUJaprWy3wqKaKY9qk3OXxnVxxvxzphit9m9ish/SAH0bR+FMqbASQP77zeAP7z0gNZGnDzW7l
-	aiPmhEXWzge5rRZxUO+QsThy9mZ48k6Izl4Kl2lYpZqm9F1p2lFkASDZikTcVsStLnWeKm+x7+f
-	MTvtaA81eksCg7F9g9xblm3sJFn/Ra8IQ5l/JunrY9O0L0oX60JJYkfD4=
-X-Received: by 2002:a17:90a:cf84:b0:3a0:9eb1:7300 with SMTP id 98e67ed59e1d1-3a09eb175a7mr737462a91.49.1790247876472;
-        Thu, 24 Sep 2026 04:04:36 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0974ec5dfsm4356860a91.3.2026.09.24.04.04.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 04:04:36 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Thinh.Nguyen@synopsys.com,
-	gregkh@linuxfoundation.org,
-	neil.armstrong@linaro.org,
-	khilman@baylibre.com
-Cc: linux-usb@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	jbrunet@baylibre.com,
-	martin.blumenstingl@googlemail.com,
-	felipe.balbi@linux.intel.com,
-	lgs201920130244@gmail.com
-Subject: [PATCH] usb: dwc3: meson-g12a: disable VBUS regulator on remove
-Date: Thu, 24 Sep 2026 19:04:29 +0800
-Message-ID: <20260924110429.1557653-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="PwOJVqgh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1790247886;
+	bh=FErskk5FNvOkMDXY676R7VSxtI1/h67QxFxplvDBh2I=;
+	h=From:Subject:Date:To:Cc:From;
+	b=PwOJVqghNA8B3L+mWu0Hrpz/MFW2qsmFQqfBa3/lqtKJv9782dX82gk3VFRUSpd0U
+	 K7EIrHTUnUCL8/4Jsb7708TGLw3Lz1/eOyRO9ndENbgNzTGfWPfixs76Pcl0g8IAUu
+	 aT35CneOUAnp2bA7JhM9O2Odk0dablutfgJUmLQmeUEdcXPYCU7tpOJ+5YtfE0jSFo
+	 A023PkwabIwUNpTqxq0Js27Y1VXo2ddJbC2hfhnbsi77LAm71iWyL2jdhTRt4sj7ON
+	 hvRyhqNhkriFy3Q7I8BBm8dIbvKIeqI29X5N01qTY8FqzJkCKfpNI1KYuYVnkScX4b
+	 B4rkSteQwPhLg==
+Received: from fedora-32.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4B5BD17E00A9;
+	Thu, 24 Sep 2026 13:04:46 +0200 (CEST)
+From: Boris Brezillon <boris.brezillon@collabora.com>
+Subject: [PATCH v2 0/5] drm/panthor: Fix partial unmaps, again
+Date: Thu, 24 Sep 2026 13:04:37 +0200
+Message-Id: <20260924-panthor-fix-partial-unmap-v2-0-59a68a1f9e14@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NSw7CMAxEr1JljVGSfmHFPVAXJiTUUptUTqlAV
+ e5OqMSWnd9o5nkT0TLZKM7FJtiuFCn4DPpQCDOgf1ige2ahpW7kSTUwo1+GwODolW9eCEd4+gl
+ nwFrLsnJaqa4SeT+zzaXdfe0zDxSXwO/91aq+6c/a/rGuCiSYVsrOqdpZLC8mjCPeAuPRhEn0K
+ aUP6JBB08YAAAA=
+X-Change-ID: 20260916-panthor-fix-partial-unmap-a52034f21184
+To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Akash Goel <akash.goel@arm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Boris Brezillon <boris.brezillon@collabora.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790247886; l=1322;
+ i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
+ bh=FErskk5FNvOkMDXY676R7VSxtI1/h67QxFxplvDBh2I=;
+ b=4IFBqnF2jyKTQukNzXtRJ/tR7mc+ZVBXGPPoHOezl+zFGQ1Bz21WoSnQKEohx5KIfNmy1SBdX
+ nIiaL8nvd7lDDMVt2y570NUVczDE/04rh09eJ+uFtL/s+Y9mq56XP8e
+X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
+ pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 
-dwc3_meson_g12a_probe() enables priv->vbus when the optional regulator is
-present, but dwc3_meson_g12a_remove() does not perform the matching
-regulator_disable(). The probe error path already disables the regulator
-before rearming the reset control.
+The first patch is just a theoretical perf improvement to avoid
+unnecessary unmap+map caused by false positive returned by
+iova_mapped_as_huge_page(). The second patch is a fix for a real
+bug when iova_mapped_as_huge_page() is called on an imported BO.
+The last 2 patches are just consolidating the logic to make things
+clearer.
 
-Disable priv->vbus in the remove path before reset_control_rearm() to
-match the cleanup performed by the probe error path.
-
-Fixes: c99993376f72 ("usb: dwc3: Add Amlogic G12A DWC3 glue")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/usb/dwc3/dwc3-meson-g12a.c | 3 +++
- 1 file changed, 3 insertions(+)
+Changes in v2:
+- Add a commit dropping a redundant panthor_fix_sparse_map_offset() call
+- Collect R-bs
+- Link to v1: https://patch.msgid.link/20260917-panthor-fix-partial-unmap-v1-0-c7008f15fea3@collabora.com
 
-diff --git a/drivers/usb/dwc3/dwc3-meson-g12a.c b/drivers/usb/dwc3/dwc3-meson-g12a.c
-index 4d611c08e8a4..7ca6fb89027f 100644
---- a/drivers/usb/dwc3/dwc3-meson-g12a.c
-+++ b/drivers/usb/dwc3/dwc3-meson-g12a.c
-@@ -851,6 +851,9 @@ static void dwc3_meson_g12a_remove(struct platform_device *pdev)
- 	pm_runtime_put_noidle(dev);
- 	pm_runtime_set_suspended(dev);
- 
-+	if (priv->vbus)
-+		regulator_disable(priv->vbus);
-+
- 	reset_control_rearm(priv->reset);
- 
- 	clk_bulk_disable_unprepare(priv->drvdata->num_clks,
+---
+Boris Brezillon (5):
+      drm/panthor: Avoid false positives in iova_mapped_as_huge_page()
+      drm/panthor: Fix iova_mapped_as_huge_page() for imported BOs
+      drm/panthor: Consolidate the is-huge-page-mapping test
+      drm/panthor: Actually check huge-page mapping on sparse regions
+      drm/panthor: Remove redundant panthor_fix_sparse_map_offset() call
 
-base-commit: f03c39de3a1307371a4032757cd1732e91087c7d
--- 
-2.43.0
+ drivers/gpu/drm/panthor/panthor_mmu.c | 112 +++++++++++++++++++++++-----------
+ 1 file changed, 77 insertions(+), 35 deletions(-)
+---
+base-commit: 45585c3aa285854face65293acc95eff73063d6d
+change-id: 20260916-panthor-fix-partial-unmap-a52034f21184
+
+Best regards,
+--  
+Boris Brezillon <boris.brezillon@collabora.com>
 
