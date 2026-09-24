@@ -1,32 +1,33 @@
-Received: from mta1.migadu.com (out-211.mta1.migadu.com [95.215.58.211])
+Received: from mta1.migadu.com (out-216.mta1.migadu.com [95.215.58.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9793F3DC4C2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D0CF3DFC61
 	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:15:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.211
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790266531; cv=none; b=kJ6OCk3ibYmqCpFSkqum3Iuoz3YlC/gF089px8DUs3dj6guIEsK2H+P5NLCf4/x3mZSOpTZpI5TW81QzzeW+Q8f6IhNAOYtRnxDZ+yvpuFJZXdjLwnEdH+cfleicBaIniAiU+p9Pbm2zLPshfnzkS60mLMFoKAlO7s8kW/wiJsY=
+	t=1790266531; cv=none; b=jXzoWmDAK2TILiOKfdnZvv72/Xw3HfY/Yb0jO30MjoNWD3h5iRKSb9a5mZHJiPMhUAL5RI0eUji0C0vSQJFcputOntNHhU8RbsoIzcTMTRN9k7OziPE1Vbub50Hzx2xkgQL3zV3lCJv7aV69NTHPvCad+UGRzZFEsZqMv+x1Sj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790266531; c=relaxed/simple;
-	bh=pA+73TkIqbFf0NM7bziE93GdtfVOjhH6bzAEwWZEJ74=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aFcC4vImqc4NaEHUSJ58Dxnt0UyfCGUX4Iq1T2zIk4g9R8kpQMJDpy2e7JFdRq00EyLSe2NjWTrPbc1crhHzbaBfOe6f6VpidkpJbBQa+BA72F6CGe/eN73Fm1Ii1ReDAYFDIoPoEDNLax5TFpmVmC4i1R0XB45hABH/yLTnD+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=K7oADMKF; arc=none smtp.client-ip=95.215.58.211
+	bh=bbqKbCVQWUtgUYZiQExxW9IUx9sKykumuGPzmEQ+fcs=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=W8qOLnqGIsmwrg3s56RWbioJpi2TzZcd9p33ji05P7vCvvWqy/JlixK4SxTAsqdS6LrfzyFbMs6bUukoYyEs1tj+E3+68Fcczxnen8YaTSqTGH0teg0/2aqreJbi4XD48MVVMPYnr/cgZZ82z7LCysbRGvXAqX/3LpzOKQne7J8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=f4plrYL1; arc=none smtp.client-ip=95.215.58.216
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="K7oADMKF"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="f4plrYL1"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=pA+73TkIqbFf0NM7bziE93GdtfVOjhH6bzAEwWZEJ74=;
+DKIM-Signature: a=rsa-sha256; bh=bbqKbCVQWUtgUYZiQExxW9IUx9sKykumuGPzmEQ+fcs=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790266527; v=1; x=1790871327;
- b=K7oADMKF22h2miGvoGf8bfDVsAWuHf4oTPAtWweFkoLEtYR+yxHkFKZBQDn8zugJzNoUVczs
- xZobrr2RIbpa5Qmd9nz6W3HmgZtBTQP4VpfIL3++gdoXr2dIdP1uVewxRP6QbO9zl2cqqRo0Bm1
- GX8aJkLlx2fKhCEQq+l6msvI=
+ t=1790266528; v=1; x=1790871328;
+ b=f4plrYL15OXVvNdzAl11rF4fVQ8a6/2QHeLxaVsXGLz9cTHrkmmjDXQwwoQJDUB2KNGn8asM
+ FVlE3XB35JdfCdKG4im7wyQEvuERRmt96HjltvJZAisFPVvCeJBLlmVKxNUoneZwtDu+x64pfzg
+ 2zXFoHaAGRVGPM0oEJ7PX5ts=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id cf2236c452ea164d;
-	Thu, 24 Sep 2026 16:15:19 +0000
-X-Mizu-Trace-ID: cf2236c452ea164d
+Received: by smtp.migadu.com with ESMTPS id 29c0e88ef0365e47;
+	Thu, 24 Sep 2026 16:15:28 +0000
+X-Mizu-Trace-ID: 29c0e88ef0365e47
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: Marc Zyngier <maz@kernel.org>,
@@ -37,10 +38,12 @@ Cc: Radu Rendec <radu@rendec.net>,
 	Fuad Tabba <tabba@google.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/3] irqchip/gic-v3: Memory-safety fixes on the probe paths
-Date: Thu, 24 Sep 2026 17:15:11 +0100
-Message-Id: <20260924161514.1112730-1-fuad.tabba@linux.dev>
+Subject: [PATCH 1/3] irqchip/gic-v3-its: Don't free a vPE table shared with another ITS
+Date: Thu, 24 Sep 2026 17:15:12 +0100
+Message-Id: <20260924161514.1112730-2-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260924161514.1112730-1-fuad.tabba@linux.dev>
+References: <20260924161514.1112730-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,35 +52,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi folks,
+On GICv4.1, its_alloc_tables() copies a sibling's vPE table baser
+rather than allocating one, but its_free_tables() frees it like the
+rest. A probe failure on the copying ITS then frees pages the enabled
+sibling still points GITS_BASER2 at, and the kernel comes up running
+on that sibling.
 
-Three probe-time bugs in the GICv3 drivers. The kernel keeps running
-after each of them, so the memory involved is live rather than on the
-way to a reset.
+Mark a shared table so its_free_tables() skips it.
 
-The first two free memory an enabled ITS still points at. Boot carries
-on because its_init() discards a failed probe and gic_init_bases()
-discards what its_init() returns. The third is a write past the end of
-redist_regs[] for an enabled GICC with a zero GICR base.
-fa2dabe57220e's commit message says such tables exist, and I haven't
-seen one.
+Fixes: 5e5168461c22c ("irqchip/gic-v4.1: VPE table (aka GICR_VPROPBASER) allocation")
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+ drivers/irqchip/irq-gic-v3-its.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Based on Linux 7.3-rc4 (93f51579e7df2).
-
-Cheers,
-/fuad
-
-Fuad Tabba (3):
-  irqchip/gic-v3-its: Don't free a vPE table shared with another ITS
-  irqchip/gic-v3-its: Don't free the tables of an enabled ITS
-  irqchip/gic-v3: Don't register a redistributor that was never counted
-
- drivers/irqchip/irq-gic-v3-its.c | 16 +++++++++++-----
- drivers/irqchip/irq-gic-v3.c     |  6 ++++++
- 2 files changed, 17 insertions(+), 5 deletions(-)
-
-
-base-commit: 93f51579e7df248780214094418f205253383cc5
+diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
+index e9807af235373..58e52095e6ea8 100644
+--- a/drivers/irqchip/irq-gic-v3-its.c
++++ b/drivers/irqchip/irq-gic-v3-its.c
+@@ -87,6 +87,8 @@ struct its_baser {
+ 	u64		val;
+ 	u32		order;
+ 	u32		psz;
++	/* Inherited from a sibling ITS, not freed here */
++	bool		shared;
+ };
+ 
+ struct its_device;
+@@ -2604,7 +2606,8 @@ static void its_free_tables(struct its_node *its)
+ 
+ 	for (i = 0; i < GITS_BASER_NR_REGS; i++) {
+ 		if (its->tables[i].base) {
+-			its_free_pages(its->tables[i].base, its->tables[i].order);
++			if (!its->tables[i].shared)
++				its_free_pages(its->tables[i].base, its->tables[i].order);
+ 			its->tables[i].base = NULL;
+ 		}
+ 	}
+@@ -2703,6 +2706,7 @@ static int its_alloc_tables(struct its_node *its)
+ 				WARN_ON(i != 2);
+ 				if ((sibling = find_sibling_its(its))) {
+ 					*baser = sibling->tables[2];
++					baser->shared = true;
+ 					its_write_baser(its, baser, baser->val);
+ 					continue;
+ 				}
 -- 
 2.39.5
 
