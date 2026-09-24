@@ -1,99 +1,115 @@
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9285E3DE450;
-	Thu, 24 Sep 2026 18:01:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A3483DE450;
+	Thu, 24 Sep 2026 18:02:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790272907; cv=none; b=g8gQQShATuVfltPs/HKdKzz9mmVIiZh0fu1SziOgVcGVi5jux+sK3HyH1xqMyaeLK47AxLwdLe68OUvaRRC1TkiBGBYvmwFVW58Luy5MOWWjKQ6kZ+ZCjWL3c1HHV1st2fNiBxw7xolUirGlR5Hz1+jQiuZyiN6M/RzNa30vBf8=
+	t=1790272949; cv=none; b=bqlaSYa+PS7HAv4jKw1tFCPslG7ZYoa4tlcsJF/qNAZX3/ofdvzo3stxZt+P6+5hQF3f3RpriPu/wx8U/JX0RltcjHaKUl+WRligQ255jFoM7XSAFMQBtQnOpUQnokhVHRHaYNmJNJZankx3LF6xivQaQozcBRkomMqxXwp/ZdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790272907; c=relaxed/simple;
-	bh=9Bz+zmSclqz2/PiF27JHPe5qGo74vrDFI1ZxbBe6Hos=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PPIT1zlPMpU6nMSuByF/WyPfYy1BfKn0HNYw2hKCN6fIbtMuLbc0Pqia/qgzeS3x70sEp8krs/LSu9H5csP7YRZxiuPTHrVAPhSRXMnbxkwJPLsU566z2w6+hWX36avsClpIZ7XGgvzXZ4g3xXNTLs5tMupL2/W0+tsu5AKmDAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=Fe0nJ1Zp; arc=none smtp.client-ip=199.89.1.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1790272949; c=relaxed/simple;
+	bh=AZGoHTeTNDMkQadnKB7dfXyJXbKwG3HyJJJgZx1Sglk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uNPiWhxRNo5Zj7wOxFwaZJxaitBFgOi5vOrqMylLJ61I5nK7kdj/umxjocBc9pnVMQuw90zRvNRwnM1BkMJyFDwk09L7NJvF8jZcrL57Ogu2pKMr9p7li0e53JiOOUqEZ7YlQPuJn1V/5c1mvWmLHjJGcHDRzcoLUkKizPSD+6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kf1WS8ya; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="Fe0nJ1Zp"
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4hrM8y6mR0z1XM5kW;
-	Thu, 24 Sep 2026 18:01:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1790272893; x=1792864894; bh=S+LCdIAUEZXHTSYTefczNZKI
-	mY/l3usWmlLwQxNDeqw=; b=Fe0nJ1ZpjxfLOfaNl1zLK8FnNJqYLLPHWBu+jhto
-	aiBiQfmuydx8e6/P1PpSoS6nXKsavJx+V1Xp2czBtHjAVQkNSV/Cz7+78wm2Sdna
-	5JMLT+8TH7yri0LORg8dG+8KjPo38UqoW7B4vkNepvHYOjE0iRjgpUVlGXfCYkLx
-	toI1nLDxfbnt6MARO/awiq7YfkRGlIV+b4u7pB9t8iN0sHzudXdhHmRBrwOjcg/9
-	kL2THEblL2gz9t2AuAdzoLTu0WlxVk7TnLEtvSTeDXrblEbwyybM04PV8lFSpQP0
-	rYq9fwdmsFuZdTvfKIQQabfS/7S6N8p4OzxAx0co1EEQ3w==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id C7_IbOr_IvQb; Thu, 24 Sep 2026 18:01:33 +0000 (UTC)
-Received: from [IPV6:2a00:79e0:2ed2:d:dc45:df52:b6ee:9465] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4hrM8p6yLHz1XM4Sx;
-	Thu, 24 Sep 2026 18:01:30 +0000 (UTC)
-Message-ID: <b6e08595-50f5-494b-ae5e-726513d8dae2@acm.org>
-Date: Thu, 24 Sep 2026 11:01:29 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kf1WS8ya"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44CE61F000FF;
+	Thu, 24 Sep 2026 18:02:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790272947;
+	bh=YA0J79tad2IBUY1yBO/VfFPFz3wKbQS6yL6NKWIQSe8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Kf1WS8yaONAJBrSoiagUl8fGmXcfKQjgzQsXjpAgZzJHtAuL1P5Y+G4b07aYjrPeB
+	 87vGqOr9BaFV7iv+z1WTGLHkepaq20wH7EqfqftXOrs3hyMJbowiXb8QjA54VQuzAw
+	 uGj3P769fAxCshoOZUjy9BIH023X5FgCk0CPJueP6NNNdNGMhJorS5l3vgXRftZe2O
+	 jI5rIxe8VggrC9xmaX8+Zo95V8BiZX+JW4ZC7t6EatMpdZt8qeuTB+uXHTK6UOo3Ub
+	 cnxsU5wik8RLjZa261wYxzli0+BErwkz9Y/1plNB6ocJGGF3IGCil/7dTx1J7ldeEa
+	 4oRdyYxnGIHDA==
+Date: Thu, 24 Sep 2026 19:02:23 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Serge Semin <fancer.lancer@gmail.com>, linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] spi: dw: Request DMA channels at runtime instead
+ of probe
+Message-ID: <4688e732-0fab-4e23-9d3c-e0326b3bd65e@sirena.org.uk>
+References: <20260923095705.233297-1-changhuang.liang@starfivetech.com>
+ <20260923095705.233297-2-changhuang.liang@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] loop: defer the queue limits clear to a workqueue
-To: Tao Cui <cui.tao@linux.dev>, axboe@kernel.dk, hch@lst.de,
- Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-Cc: cuitao@kylinos.cn, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260924102027.2307044-1-cui.tao@linux.dev>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20260924102027.2307044-1-cui.tao@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="QXquaRQuIuUTfBi1"
+Content-Disposition: inline
+In-Reply-To: <20260923095705.233297-2-changhuang.liang@starfivetech.com>
+X-Cookie: Oh, so there you are!
 
-On 9/24/26 3:20 AM, Tao Cui wrote:
-> +	memflags = blk_mq_freeze_queue(lo->lo_queue);
-> +	mutex_lock(&lo->clear_limits_lock);
-> +	if (lo->clear_limits_gen == lo->rebind_gen) {
-> +		mode = lo->clear_limits_mode;
-> +		lo->clear_limits_mode = 0;
+
+--QXquaRQuIuUTfBi1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Wed, Sep 23, 2026 at 02:57:04AM -0700, Changhuang Liang wrote:
+> The DW SPI controller requests its DMA channels in
+> dw_spi_add_controller(), which ties them up for the entire lifetime of
+> the controller. Even a controller that is only ever used for standard
+> SPI transfers and never for enhanced SPI transfers holds the channels
+> exclusively from probe onwards, preventing them from being shared with
+> other users.
+
+> +static int dw_spi_prepare_hardware(struct spi_controller *ctlr)
+> +{
+> +	struct dw_spi *dws = spi_controller_get_devdata(ctlr);
+> +	int ret;
 > +
-> +		if (mode & FALLOC_FL_ZERO_RANGE)
-> +			lim.max_write_zeroes_sectors = 0;
+> +	if (!ctlr->can_dma)
+> +		return 0;
 > +
-> +		if (mode & FALLOC_FL_PUNCH_HOLE) {
-> +			lim.max_hw_discard_sectors = 0;
-> +			lim.discard_granularity = 0;
-> +		}
+> +	ret = dws->dma_ops->dma_init(ctlr->dev.parent, dws);
+> +	if (ret) {
+> +		/*
+> +		 * DMA is optional: fall back to the PIO/IRQ path instead of
+> +		 * failing the message. Use dev_dbg() since this may happen
+> +		 * on every prepare.
+> +		 */
+> +		dev_dbg(&ctlr->dev, "DMA init failed (%d), using PIO\n", ret);
+> +
+> +		return 0;
 > +	}
+> +
+> +	return 0;
+> +}
 
-I propose to remove the member variables clear_limits_gen and
-rebind_gen. These member variables complicate verifying correctness
-of the code and IMHO are not necessary. If loop_clear_limits() races
-with loop_clear_limits_workfn(), the work will be rescheduled and
-loop_clear_limits_workfn() will be called another time.
+This seems like a lot of overhead for every existing controller with
+DMA, we'll have to go through the request/release cycle whenever DMA
+gets used which feels like a bunch of overhead for a hot path -
+especially in the fast path in spi_sync().  If some platforms need it
+they should be able to opt into it rather than forcing it on every
+single platform.
 
->   	queue_limits_commit_update(lo->lo_queue, &lim);
-> +	mutex_unlock(&lo->clear_limits_lock);
+> +static int dw_spi_unprepare_hardware(struct spi_controller *ctlr)
+> +{
 
-Since the mutex_lock(&lo->clear_limits_lock) call occurs after
-queue_limits_start_update(), please move the
-mutex_unlock(&lo->clear_limits_lock) call above the
-queue_limits_commit_update() call. This has no impact on
-correctness nor on the lock nesting order but makes the code
-easier to follow.
+Adding this also causes overhead since we do the unprepare in the
+thread.
 
-Thanks,
+--QXquaRQuIuUTfBi1
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Bart.
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq1Za4ACgkQJNaLcl1U
+h9Aytwf/XEi0d3qudaZSUOkvXzZdpza6mIsitOh5B5MXes9ITVxlL4S6PTtZP4v7
+DFSgvNqEtkj34FbqBhyvgXmFXgVGBVnUjuj2fs0YjAAe13toAVDZXUq451cRJ0Ys
+wtzuuV52K0tTCMegWS4nGTp+T87tha+6wSNZd4om/pyjhUx6WOQR8WBMaX79lbgx
+Bm+D2VrsbGgBjFUbfhHfri0tzlETgud5zKD7stcECCzfkooJnBTv/HKLQ9DQPl0H
+vRdHBvXWJW1TtaHM7jYe22RaYBkTKjN+XVCuNRUpD17eUEtGEb8uWjGXTQ2xrEN3
+E+iEcb6zoEv5/iuyzUs37jOjIGpsEQ==
+=71SQ
+-----END PGP SIGNATURE-----
+
+--QXquaRQuIuUTfBi1--
