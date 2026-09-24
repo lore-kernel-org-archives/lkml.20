@@ -1,338 +1,325 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022131.outbound.protection.outlook.com [52.101.101.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3BAA3EB815;
-	Thu, 24 Sep 2026 16:35:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790267722; cv=none; b=Tg4jcM9drONcklefbU8+riYjMteT08mKRZKIDuSWLYYNal4KHS4CEpjV0bThTFTiFKebSFZq/v4sg8rxPSrg6XQLb/YSTlZtFTYUhINK+Zl6BXWpsWdqJ2S+zclPqIspgeUYxdDzgHlxNFCaH384ly5zFk+yzSI/uX5NjdEI0Fo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790267722; c=relaxed/simple;
-	bh=iNbBus2U8ZFYU1VXwPxKX66INGGSt1tx61ILURfxYj8=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=i21hhsRFvD2BulANp6EeE4YVSiUsAWeLJw5hthzp7iZEjH9QPT7bxowakfvlA894W3GLUys4oDSHib5ApZmObDNHlPSaVaGV2oPa0OLQwxt07NVM6o+9Jq7CkP1II2tlDf3B3hD5BZluTLiuOqcKCT2afk2XnRh7UO8rnXDAqYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=hr1WJpk7; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=Dh8GAAuS; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="hr1WJpk7";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="Dh8GAAuS"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790267678; bh=cF/z0+szAgUkO9TvSE+7Cxq
-	bF20dYd3g3xPL7sA9krI=; b=hr1WJpk7icOmBpou61m8nv/jxbyGwztwopBb4dZn9vHVSeZFEb
-	doqNJRDkNa/S/sfKlzi1K/iIGec6MF55f57V97aZIuxwDhkSK6Pgei0LeWd36Z0l6zzBUH93Hx6
-	dHznPDC7GyJc0L1cD56ovgiMOEllMdkd5eIs9cyM0lIWXCTj7jAqz7LDeKFBc4ctRzw90SXzqnr
-	49IYDG99QW5uUFlU0KG9kiLkzYye92gx+VmLRUAhBr/1NAOLLTKjDT7NrEEpWS4HXRXOtRlf7ia
-	XuVAJwiQRQur91hltWzCLbo268PFIhzM2nlDKkdHuaFoipY6LRdSDwTpIK9vCH7jtRA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790267678; bh=cF/z0+szAgUkO9TvSE+7Cxq
-	bF20dYd3g3xPL7sA9krI=; b=Dh8GAAuSUcB1A4vUTuGXEMHpR8ZnSsXyjTVHGA/M4ftuLzjRWp
-	nCsuqaeNFmUh6snyxpI//EE9NIqgNYL6auDw==;
-Date: Thu, 24 Sep 2026 17:34:38 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: kmehltretter@gmail.com
-CC: bigeasy@linutronix.de, boqun@kernel.org, clrkwllms@kernel.org, corbet@lwn.net,
- elver@google.com, frederic@kernel.org, glider@google.com,
- joelagnelf@nvidia.com, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
- lyude@redhat.com, peterz@infradead.org, rostedt@goodmis.org, tglx@kernel.org
-Subject: Re: [PATCH v3] softirq: Preserve interrupt context during IRQ exit
-In-Reply-To: <20260924041538.52574-1-kmehltretter@gmail.com>
-Message-ID: <706B01DB-E4B8-453C-9265-0B861F649F68@mainlining.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC8ED3BCD2B
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:35:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790267754; cv=fail; b=tlCSydr6hgXkebp+Ng/iaAhkhdYA9CVccwvpBPi92HDUN+EEbeZZdMkqhu1xQ4ZfMJBjUBJ2ySdMALrRZmBa+ORpx2Bgsy34rjUkvx1ppKylM57Ix1uK/76ocInKrEb753CBcFInVgsmgROATUFUE55l1IL9MSJEJQaayDZkWCE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790267754; c=relaxed/simple;
+	bh=YaxA5e2Msou+hNfzEvmHBljdchdXKqhDhlF7GYn6k+4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=ACJ/SNkFbkTHmXkwcbo4z/7OrloQp0DoLpAVkAyP6KRGE5WVI66/4ZrvvnkubP1WYubX6YbWdb185XtPpBk4sxbqfZYD8EbM9aanNK59ki2yChrcVYBt0yaRLp3UnFkMlXsgbapmqmDXhZfzLYE330ZTF0WtD5E7AjjGhvOd574=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.101.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bHt70IZf30YylUfOUxOincGYOKO9+2r8vo2bEgbPGfLWVaHY6FofZFeBWBidWcSOR1y36LoN65/Zb9qowXhzMZ0YI19gAwnBzDSByg1KqrLIwwcHUQlqIvFIAagDVRHS93tsvFdOmJzXUlbD3LDE5ORt4fTiYzCpQ7HSUckCC8MJc+lcxpgMUbkK2qnlh26SF8hSi73xznxJtQSavsNvMYzuUZa8wpfMjchAWfjw/HnTQAiST9ltUjEUw9/ncUqDiRYQ40fijLCf1lV0njpkoWtQoW715XpBg/c2W+jEyro2a6UuUl37/rkLQktQ6PMdm4xNP0Db8u0EUYSmPl/j9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=opiWxe4PDKhbg3w712/uzx8pwHCVvzXlY5udqcXSIFM=;
+ b=pswnd238kMcR3uzcJKJgjwLPO6Ze5/SEBjx1+WvQ7hQFdn4ADF7R831K+pc53lsIRWs07mv99lWfwWRjt9BAfqJn26bbLFUcH13aWG2WWcqQ3TbHJdQ2fy0c59fI+C0qAlll1jRZ+pI9Se7hoAnQDrqctRqgSalRJuJRw0S8RVoC+lXu1UEDwF/bmUzghKenlhM/5CE+B3VBMKx9m4TfCjyt38jdYMQBP9CpAo2FusLHITvwaIf1zxB5f5pJ2/QRXw7tH+aLu9EMZxlDZncdeRPs9c3xjzcTHWA+Vb1O7EQbHM5W2TxVjOouy+o9a/vALspCyi3H4i2cULcIT9QBBg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by LOYP123MB3405.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:114::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 16:35:47 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 16:35:47 +0000
+Date: Thu, 24 Sep 2026 12:35:34 -0400
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: Petr Mladek <pmladek@suse.com>
+Cc: akpm@linux-foundation.org, peterz@infradead.org, rostedt@goodmis.org, 
+	senozhatsky@chromium.org, neelx@suse.com, sean@ashe.io, rishil1999@outlook.com, 
+	linux-kernel@vger.kernel.org, "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
+	john.ogness@linutronix.de
+Subject: Re: [RFC PATCH] panic, printk, sys_info: Introduce
+ crash_kexec_in_memory_sys_info
+Message-ID: <bw764via7pr3demxiq7mwnnysdafu5e5qt3xtnsx5jfjxu3kmb@ksxcdlwolwxd>
+References: <20260916201546.661384-1-atomlin@atomlin.com>
+ <arKe6WiDWKpv-_S3@pathway.suse.cz>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <arKe6WiDWKpv-_S3@pathway.suse.cz>
+X-ClientProxiedBy: MA3P292CA0015.ESPP292.PROD.OUTLOOK.COM
+ (2603:10a6:250:2c::11) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LOYP123MB3405:EE_
+X-MS-Office365-Filtering-Correlation-Id: a776cb1b-b707-42ce-36a7-08df1a59e23a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|7416014|376014|5023799004|56012099006|3023799007|4143699003|22082099003|18002099003|10067099003|6133799003|27256017;
+X-Microsoft-Antispam-Message-Info:
+	CXtD0nJ4JkBzGQ3AwLfax4NCjbWSDamYIgZ8cEgePtRT1/Gcub4Lq4tuJ4Lm18lX6hg4MJig4o1rbdlgXe6IxvDEpbPUaHG2ihlPZsZhpwAZPBJ3Hxj5teu+yI2BtjK+ilSpgUtXmpsCFnElx79YiChtKnsip1gFaN85Cge79TLFpy57YnCakC1YsRnIHsxbbGGpIam+PFeAoVe+id799IOfRUHvuSuTHodGmJrrqBihptYLO6cjDnhRyTI9MVZbPWC4NaEQp2QyY+P90iSfhYMx28gcLHsGwvWzIWrjYgCtEb4HAPkpSyOLUFI/plYH0dJs/4tb0Li1+UBHnMiKLuRA7EkPMR7iszmWC+bgLOihAxyNdjhQM5FzuDfh1scv1Ejt59+55l/Yk4OFPh3IR9WO12fq50evbIfcwDTg9RgQhzlYaPp3Nbja8el8aDzjoTKfOBJ5evU5zQSSbLFW+7VdO2K3MCspp9K21Q6NUjfJb/E+qhim/IJ8PAgARJ/uLKKCN2M3mmJcM5qyHaJ/BUWpj6XoV2BCkyRjhD5tFE6hAwpytsosNAPnQrTH5ZcibdHEnOkKVtcvoCj9T4pceDtYzVY0zkDKpeIPRoQNegQ6rcvm3sKqvUTELP6cbHq3jb9JSIlQnwFMpOpvXgVBwRSFLygesGW7ct07M0hZzIyi9tKpOlGTZtsriA2l75yx/Yw9AwtjyOg4PouZzkrYiP4G3A72R62tatnRGLFs+xs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(5023799004)(56012099006)(3023799007)(4143699003)(22082099003)(18002099003)(10067099003)(6133799003)(27256017);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NzgvQ3pNM2cvUDBXVWhLZXp2Y0RYTWd1MXhGSmNNaDJpSytQQXBPcEtudHVh?=
+ =?utf-8?B?Q25wMzJlZjl6MEtPRUo2VjdIblZnVlRNd2R2Tk1MQzlFd3UyN1REMkowbld3?=
+ =?utf-8?B?Wk02Y3NyUXVUdG5GRExqQmFKNW9Cd2J3dnljNFJIaWdMcVVZeGRnUDY4ajA3?=
+ =?utf-8?B?bkdHZEt0dkdTdkVmNnlsU0FBTmppTjFUN1FINHpFR0I0VzFkMWJoN2NQZGdu?=
+ =?utf-8?B?OWhDcnNJd0tRTzU1SU1Ma1dqVThicDBDbmVUWFBxU0NXWUFLTGxUckx2Q25B?=
+ =?utf-8?B?YU5zNGdRditscGNyeTFOZWw5eGZYZ1VVMmR2OW9xeiszaVVybG92cEJOWFpr?=
+ =?utf-8?B?eTVxbXdQd2tkSUsvNk1OYkRLVDFIZnBIT2xFVXA2bWkwLzFWdENCMGxmL3ow?=
+ =?utf-8?B?K1NQMUtBOHhCeHNFRXFQVnB4Y0VsVU1iYk12aDBEeWFhbVR3QVloWTdjaVBa?=
+ =?utf-8?B?aUNIbWJydGJMRVFBOWNES3M3WnhpdG1pRXU2bGZyN1E1aUYzc21NakhYVnV6?=
+ =?utf-8?B?aW1peWpERnBFVlpPV1FhZXp1OU1uekEwM1ptMGhQMnN1N2FSWklTWlVVb3Yy?=
+ =?utf-8?B?UEtHVDNvdHRYQ0dYREhWQVVIZkFNaE5hVXVyT0RZQm5Oc0M2OU1SbExLY2tO?=
+ =?utf-8?B?U1J4d2hqcnlwb0RiN05Od3o5cmhWTi9Td0VBRWQ3d3c1VVZwVzBtYnBEZkx6?=
+ =?utf-8?B?UXU3TnZDVGt2ZFdXMXFQQXJQUnM5SXNHVXBTaDdvOWpwTCtqVFJuV1pyUmdq?=
+ =?utf-8?B?YUpOYkhSYjN4NE5vMnU1VVBNWVFmYW4xbk9CZmxuRzRNSkUzOW50QUN1c3ho?=
+ =?utf-8?B?aVNNYmtHdzdkMVhmSXF4WUVucEM0VXRaOFBpNjFuV0pmcHJsOFpyNm9Gc016?=
+ =?utf-8?B?ZHpTMzRQdzhTL1VlcnRxRCtYa29kN3Z3MEZzdFl3NlpxbklLYVpBRnYreFN1?=
+ =?utf-8?B?VTg5WkxsYVB0R2k3UlB6UmY0dkFXRE05SjFvNkFvVW03YmdvcEtaNGFwckEx?=
+ =?utf-8?B?L2tGRWVGQi8wemZjVEcvVGJOZExwZzNUaG5DT3J5TStOVVdSN3c2YlBDYS9w?=
+ =?utf-8?B?a3RPelNQVkhOdHdHQUkyeWRrSjY5M3NrV0FPVUZwZHhlTWNJMHlJbFNHOUI0?=
+ =?utf-8?B?eS9MVEZmZlpRbmF3Y2tteVJ4N1E2TUk3MWMyU3RqVzhWWjV5TFVCZzNSK1Fh?=
+ =?utf-8?B?TlNWZDIzaW8vNXc2M29nM3I2aTJUYy9Mb0JTSFQyZ0VEdnZvTklNU0dzVVB0?=
+ =?utf-8?B?bVBoQXh5V2kvcm1BY0hBTGVDM0U1SFlmc29wcExSa3RVNThYMlMzM25hZnV5?=
+ =?utf-8?B?MG5PRXBDdVh4WEZUc0tOTGhSQ1lkaVlVRWgrTGJhNkF3MXhPMlE4azRjaHBG?=
+ =?utf-8?B?OGt0MENRUHRLcWxLaHprcTB3YjVwcGhRN29zWWZjWjE1WklVTUgxcGlXREM2?=
+ =?utf-8?B?OUFnRzhrUk45eUVEdTh6bDhESlR4MDR1UkFMVkhqa0NsekhaUjRmc3FGbnBm?=
+ =?utf-8?B?K24wQXk0NkpYRERISEFld0xCcGpTRFJJZ3pHNldpd24zMnorSTVUdG90bkF6?=
+ =?utf-8?B?dGh0V0JERHZiMkxieTR5TUl4WEN5OTBRNVRFUy9xMkxMUWlkTHdEdWpYL25N?=
+ =?utf-8?B?TzFIZmNRdzNIZXpxVTVhUzg1SnQ1MGtCRVJ5UTUyazkzaEMweE0yMzhpVUJO?=
+ =?utf-8?B?NTdOVmRKU3ZidWpEUE9GeEJvRTA1dEMwT3J4ZTM0NzJLVmE2R3NCc092L20y?=
+ =?utf-8?B?R0RyRDhlUFJYeVZTSWhFSDRaaExNbXBSNXBOOWloRnlXcXJERjF5UXdWbWhJ?=
+ =?utf-8?B?RGxXV3pBWnZobDhDY2RxS2lscmhROG85MnQ4bGZoU2ltWVFFa3ZJdFRwSlVR?=
+ =?utf-8?B?dzU4QVBodkxWTFVjQjhFZklYcVdtbGtPMjRtcDlVS05hOVQ4WVY2UGQybWJa?=
+ =?utf-8?B?OGtBTFBPR2lRVmRhcnNCZzBQeTA5N3lZTmxKbHQxTmhhdDllM09RTVp0TW9U?=
+ =?utf-8?B?aGs4L2lHSG9DZGUzMCtJanE0NDh1dG1XMGtoZkNmZHNEVjN4TDQwVk9RelVp?=
+ =?utf-8?B?MTlEMlN1c2d1SHQ2enczdERTT1g3cDFJaG4vZmxlajI3TklMK2dQKzREcmVL?=
+ =?utf-8?B?N3kwdFk1QU0xcnNBamhWWFhDSzhaQm5MbElNQitpZlU1b1d5T1d6Mjg5VVRM?=
+ =?utf-8?B?NVN6b2hESUt5SzhxYkorSG44bFVzNTdQd3JmTjlDWmtGOFo0citUVmM1ZjZa?=
+ =?utf-8?B?Zng2ZTNxRUJzNVEvdUJlVlFhSTFpV0hubDdQVGhNcnFYRXBjMkdhMytwdWpp?=
+ =?utf-8?B?OXdFOFVTcFowVGlsMG1ZU1dubCtvc1hzMGtpZDdJWnBuSFpRbHlqUT09?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a776cb1b-b707-42ce-36a7-08df1a59e23a
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 16:35:47.0430
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vQMv1Qm7HTpXLTBl3moOQhA+Dbfds3QH2/oPrH2529DLD/k//A8N7D6t+hCquAAUdrWcYwj+SmEVXUihrPcneg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOYP123MB3405
 
-On 24 September 2026 05:15:38 BST, Karl Mehltretter
-<kmehltretter@gmail.com> wrote:
->__irq_exit_rcu() removes HARDIRQ_OFFSET first and then runs
->hrtimer_rearm_deferred(), invoke_softirq() and wake_timersd(). This is
->interrupt exit work with interrupts disabled, but preempt_count already
->describes the interrupted task again. Everything which derives the
->context from preempt_count gets it wrong in that window:
->
->  - ftrace, perf and the ring buffer record task context and use the
->    task recursion and context slots.
->  - KCSAN attributes the accesses to the interrupted task, KMSAN uses
->    and changes its state. KCOV and the printk caller id see a task.
->  - On PREEMPT_RT can_spin_trylock() and local_trylock() reject hard
->    interrupt context to avoid interfering with PI when the interrupted
->    task is blocked on a lock. That check does not reject calls made in
->    this window. BPF programs attached to sched_waking or sched_wakeup
->    can reach it through kmalloc_nolock().
->  - An oops kills the interrupted task instead of ending in "Fatal
->    exception in interrupt".
->
->Tracing and the sanitizers see the wrong context in this window. No
->failure caused by this misclassification is known. The early removal of
->HARDIRQ_OFFSET predates git. lockdep is not affected because
->lockdep_hardirq_exit() is the last operation in irq_exit().
->
->Keep HARDIRQ_OFFSET until right before tick_irq_exit(), which needs
->in_hardirq() to be false for the outermost interrupt. Softirq handlers
->must not run with HARDIRQ_OFFSET set, so softirq_handle_begin() replaces
->it with SOFTIRQ_OFFSET and softirq_handle_end() reverts that, each in a
->single raw preempt_count update. The raw operations keep the preemption
->disable location recorded by irq_enter_rcu(), and lockdep is updated by
->hand. softirq_handle_begin() detects the case with
->in_hardirq() because __do_softirq() is reached through the stack switch
->in do_softirq_own_stack() and cannot take an argument.
->
->The checks run before HARDIRQ_OFFSET is removed. !in_interrupt() becomes
->irq_count() == HARDIRQ_OFFSET, as in irq_enter_rcu(). The timer thread
->check becomes !in_nmi() && hardirq_count() == HARDIRQ_OFFSET. It does
->not test softirq_count(): the timer thread must also wake when the
->interrupt hit softirq processing or a section with BHs disabled.
->A softirq raised in the timer thread wakeup is handled by the timer
->thread, which handles all pending softirqs.
->
->A softirq raised in the final preempt_count_sub(), e.g. by a consumer of
->the preempt_enable tracepoint, misses these checks. Wake ksoftirqd for
->it as raise_softirq_irqoff() would. Otherwise it waits for the next
->interrupt exit and a cpuidle driver reports it as pending at idle entry.
->
->The number of preempt_count updates and the interrupt time accounting
->are unchanged. The preemptoff tracer now reports the interrupt and the
->softirq processing on top of it as one section, and function graph with
->nofuncgraph-irqs also skips the interrupt exit work, including the
->__do_softirq() frame.
->
->Suggested-by: Peter Zijlstra <peterz@infradead.org>
->Link: https://lore.kernel.org/r/20260813130826.GW687043@noisy.programming.kicks-ass.net
->Assisted-by: LLM
->Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
->---
->
->Notes:
->    Thanks for the review, Sebastian.
->    
->    v3 also adds a pending softirq check after the final
->    preempt_count_sub(). A preempt_enable tracepoint callback can raise a
->    softirq there, after the softirq and timer thread checks. With an RCU
->    reader in that callback I saw 10 NOHZ tick-stop warnings per boot in
->    QEMU without the new check, and none on the base kernel or with the
->    check. The check wakes ksoftirqd for newly pending softirqs. Does this
->    case justify the extra check on every IRQ exit?
->    
->    Changes in v3:
->    - Operands swapped, no casts, one irq_count() check per direction,
->      lockdep_softirqs_off() before it (Sebastian).
->    - Timer thread check without IRQ_EXIT_TIMERS, order of the exit work
->      kept (Sebastian).
->    - from_hardirq renamed to from_irq_exit, comment as Sebastian suggested.
->    - ksoftirqd wakeup for a softirq raised in the final
->      preempt_count_sub(), see above.
->    - Documentation/core-api/entry.rst updated.
->    - Rebased on tip/master c81f6d2398d0.
->    
->    I am not proposing this for stable.
->    
->    Testing: base against v3 in QEMU on x86-64 in separate configurations
->    (non-RT, threadirqs, RT, KCSAN, KMSAN, rcutorture), on arm32, arm64,
->    ppc64, s390x, parisc, sparc64, riscv64, loongarch64 and m68k, and on a
->    SAM9X75 (also RT), a Raspberry Pi 500+ and a Raspberry Pi 400. No
->    regressions observed in these runs.
->    
->    v2: https://lore.kernel.org/r/20260905023210.82853-1-kmehltretter@gmail.com
->
-> Documentation/core-api/entry.rst | 16 ++++---
-> kernel/softirq.c                 | 79 +++++++++++++++++++++++++++-----
-> 2 files changed, 77 insertions(+), 18 deletions(-)
->
->diff --git a/Documentation/core-api/entry.rst b/Documentation/core-api/entry.rst
->index 79fdaed954d9d..ff3df997b151f 100644
->--- a/Documentation/core-api/entry.rst
->+++ b/Documentation/core-api/entry.rst
->@@ -197,8 +197,9 @@ return true, handles NOHZ tick state and interrupt time accounting. This
-> means that up to the point where irq_enter_rcu() is invoked in_hardirq()
-> returns false.
+On Tue, Sep 22, 2026 at 05:29:45PM +0200, Petr Mladek wrote:
+> Adding Guilherme and John into Cc.
 > 
->-irq_exit_rcu() handles interrupt time accounting, undoes the preemption
->-count update and eventually handles soft interrupts and NOHZ tick state.
->+irq_exit_rcu() handles interrupt time accounting, handles soft interrupts if
->+possible, undoes the preemption count update and finally handles the NOHZ tick
->+state.
+> On Wed 2026-09-16 16:15:46, Aaron Tomlin wrote:
+> > When investigating kernel panics, capturing post-mortem diagnostic
+> > telemetry (e.g. memory zone metrics, lock states, active timers, and
+> > blocked tasks) is vital for root-cause analysis.
+> >
+> > While crash_kexec_post_notifiers allows executing panic notifiers and
+> > sys_info() before jumping to the kdump kernel, it is frequently avoided
+> > in production environments due to the risk of watchdog timeouts induced
+> > by synchronous hardware console emission.
 > 
-> In theory, the preemption count could be updated in irqentry_enter(). In
-> practice, deferring this update to irq_enter_rcu() allows the
-> preemption-count
->@@ -207,10 +208,13 @@ irqentry_exit(), which are described in the next paragraph. The only downside
-> is that the early entry code up to irq_enter_rcu() must be aware that the
-> preemption count has not yet been updated with the HARDIRQ_OFFSET state.
+> There seems to be various motivations to set/clear
+> crash_kexec_post_notifiers.
 > 
->-Note that irq_exit_rcu() must remove HARDIRQ_OFFSET from the preemption count
->-before it handles soft interrupts, whose handlers must run in BH context rather
->-than irq-disabled context. In addition, irqentry_exit() might schedule, which
->-also requires that HARDIRQ_OFFSET has been removed from the preemption count.
->+Note that soft interrupt handlers must run in BH context rather than in hard
->+interrupt context. irq_exit_rcu() therefore replaces HARDIRQ_OFFSET with
->+SOFTIRQ_OFFSET in the preemption count while it handles soft interrupts and
->+puts HARDIRQ_OFFSET back afterwards, so that the remaining interrupt exit work
->+is still attributed to the interrupt. HARDIRQ_OFFSET is removed before
->+irq_exit_rcu() returns because irqentry_exit() might schedule, which requires
->+that HARDIRQ_OFFSET has been removed from the preemption count.
+> Guilherme wanted to add some filtering because some notifiers
+> were failing, see
+> see https://lore.kernel.org/all/20220108153451.195121-1-gpiccoli@igalia.com/
 > 
-> Even though interrupt handlers are expected to run with local interrupts
-> disabled, interrupt nesting is common from an entry/exit perspective. For
->diff --git a/kernel/softirq.c b/kernel/softirq.c
->index c3729c5b284b0..efa6707edc0e9 100644
->--- a/kernel/softirq.c
->+++ b/kernel/softirq.c
->@@ -350,8 +350,8 @@ static inline void ksoftirqd_run_end(void)
-> 	local_irq_enable();
-> }
+> I believe that they are called after kdump by default because
+> the information provided by them is included in the dump.
+> This idea is supported by the commit f06e5153f4ae2e2f3
+> ("kernel/panic.c: add "crash_kexec_post_notifiers" option
+> for kdump after panic_notifers").
 > 
->-static inline void softirq_handle_begin(void) { }
->-static inline void softirq_handle_end(void) { }
->+static inline bool softirq_handle_begin(void) { return false; }
->+static inline void softirq_handle_end(bool from_irq_exit) { }
+> On the other hand, crash_kexec_post_notifiers is explicitely when
+> the kernel is running on some hypervisors because the hypervisors
+> need to get notified about the panic() before crash dump.
 > 
-> static inline bool should_wake_ksoftirqd(void)
-> {
->@@ -481,15 +481,40 @@ void __local_bh_enable_ip(unsigned long ip, unsigned int cnt)
-> }
-> EXPORT_SYMBOL(__local_bh_enable_ip);
-> 
->-static inline void softirq_handle_begin(void)
->+static inline bool softirq_handle_begin(void)
-> {
->-	__local_bh_disable_ip(_RET_IP_, SOFTIRQ_OFFSET);
->+	bool from_irq_exit = in_hardirq();
->+
->+	if (!from_irq_exit) {
->+		__local_bh_disable_ip(_RET_IP_, SOFTIRQ_OFFSET);
->+		return false;
->+	}
->+
->+	/*
->+	 * Only reached from irq_exit(), with HARDIRQ_OFFSET still set.
->+	 * Replace it with SOFTIRQ_OFFSET before handle_softirqs() enables
->+	 * interrupts. Use the raw operation to preserve the preemption
->+	 * disable location recorded by irq_enter_rcu(), and update lockdep
->+	 * directly.
->+	 */
->+	__preempt_count_sub(HARDIRQ_OFFSET - SOFTIRQ_OFFSET);
->+	lockdep_softirqs_off(_RET_IP_);
->+	WARN_ON_ONCE(irq_count() != SOFTIRQ_OFFSET);
->+
->+	return true;
-> }
-> 
->-static inline void softirq_handle_end(void)
->+static inline void softirq_handle_end(bool from_irq_exit)
-> {
->-	__local_bh_enable(SOFTIRQ_OFFSET);
->-	WARN_ON_ONCE(in_interrupt());
->+	if (!from_irq_exit) {
->+		__local_bh_enable(SOFTIRQ_OFFSET);
->+		WARN_ON_ONCE(in_interrupt());
->+		return;
->+	}
->+
->+	lockdep_softirqs_on(_RET_IP_);
->+	__preempt_count_add(HARDIRQ_OFFSET - SOFTIRQ_OFFSET);
->+	WARN_ON_ONCE(irq_count() != HARDIRQ_OFFSET);
-> }
-> 
-> static inline void ksoftirqd_run_begin(void)
->@@ -605,6 +630,7 @@ static void handle_softirqs(bool ksirqd)
-> 	unsigned long old_flags = current->flags;
-> 	int max_restart = MAX_SOFTIRQ_RESTART;
-> 	struct softirq_action *h;
->+	bool from_irq_exit;
-> 	bool in_hardirq;
-> 	__u32 pending;
-> 	int softirq_bit;
->@@ -618,7 +644,7 @@ static void handle_softirqs(bool ksirqd)
-> 
-> 	pending = local_softirq_pending();
-> 
->-	softirq_handle_begin();
->+	from_irq_exit = softirq_handle_begin();
-> 	in_hardirq = lockdep_softirq_start();
-> 	account_softirq_enter(current);
-> 
->@@ -670,7 +696,7 @@ static void handle_softirqs(bool ksirqd)
-> 
-> 	account_softirq_exit(current);
-> 	lockdep_softirq_end(in_hardirq);
->-	softirq_handle_end();
->+	softirq_handle_end(from_irq_exit);
-> 	current_restore_flags(old_flags, PF_MEMALLOC);
-> }
-> 
->@@ -742,14 +768,20 @@ static inline void wake_timersd(void) { }
-> 
-> static inline void __irq_exit_rcu(void)
-> {
->+	u32 pending;
->+
-> #ifndef __ARCH_IRQ_EXIT_IRQS_DISABLED
-> 	local_irq_disable();
-> #else
-> 	lockdep_assert_irqs_disabled();
-> #endif
-> 	account_hardirq_exit(current);
->-	preempt_count_sub(HARDIRQ_OFFSET);
->-	if (!in_interrupt() && local_softirq_pending()) {
->+
->+	/*
->+	 * HARDIRQ_OFFSET is still set. Only the outermost interrupt handles
->+	 * softirqs, and only if it did not hit a softirq or BH disabled section.
->+	 */
->+	if (irq_count() == HARDIRQ_OFFSET && local_softirq_pending()) {
-> 		/*
-> 		 * If we left hrtimers unarmed, make sure to arm them now,
-> 		 * before enabling interrupts to run softirq.
->@@ -758,10 +790,33 @@ static inline void __irq_exit_rcu(void)
-> 		invoke_softirq();
-> 	}
-> 
->+	/*
->+	 * Wake the timer thread even if the interrupt hit a softirq or a
->+	 * section with BHs disabled. Only nested interrupts and NMIs are
->+	 * excluded.
->+	 */
-> 	if (IS_ENABLED(CONFIG_IRQ_FORCED_THREADING) && force_irqthreads() &&
->-	    local_timers_pending_force_th() && !(in_nmi() | in_hardirq()))
->+	    local_timers_pending_force_th() &&
->+	    !in_nmi() && hardirq_count() == HARDIRQ_OFFSET)
-> 		wake_timersd();
-> 
->+	pending = local_softirq_pending();
->+
->+	/*
->+	 * tick_irq_exit() relies on in_hardirq() being false for the
->+	 * outermost interrupt.
->+	 */
->+	preempt_count_sub(HARDIRQ_OFFSET);
->+
->+	/*
->+	 * A softirq raised in preempt_count_sub(), e.g. by a tracepoint,
->+	 * missed the checks above. Wake ksoftirqd as raise_softirq_irqoff()
->+	 * would have done.
->+	 */
->+	if (unlikely(local_softirq_pending() & ~pending) && !in_interrupt() &&
->+	    should_wake_ksoftirqd())
->+		wakeup_softirqd();
->+
-> 	tick_irq_exit();
-> }
-> 
->
->base-commit: c81f6d2398d063009cc9ad2c98f126daaa7669e2
->
-Nice! LGTM, thanks
+> All I want to say is that the situation around
+> crash_kexec_post_notifiers is much more complicated. And I hear
+> about the watchdog timeouts in this context for the first time.
 
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Hi Petr,
 
+Thank you for your feedback.
 
-(Note this review is done by correctness!)
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+Interesting. Guilherme's work on classifying and filtering panic notifiers
+sought to address a well-known vulnerability: namely, that third-party or
+device driver callbacks registered on panic_notifier_list can be fragile,
+corrupt state, or hang the crashed kernel before kdump has had an
+opportunity to boot.
+
+However, my proposal here is quite distinct from Guilherme's effort, though
+it shares the goal of making pre-kdump execution dependable.
+
+    1.  Bypassing panic notifier entirely
+
+        I deliberately avoid invoking panic_notifier_list. The instability
+        of arbitrary notifier callbacks that Guilherme highlighted is
+        precisely why some operators avoid crash_kexec_post_notifiers in
+        production. Our intent is strictly to collect well-defined kernel
+        state via sys_info()
+
+    2.  Purely in-memory collection
+
+        This patch addresses both dilemmas simultaneously:
+            - It eliminates the risk of notifier instability by not
+              invoking panic_notifier_list.
+
+            - It eliminates console stalls by suppressing console emission
+              and freezing the printk tail, recording the telemetry purely
+              into the printk ring buffer in RAM (within milliseconds)
+              before jumping to __crash_kexec().
+
+Consequently, the capture kernel receives an enriched log_buf (extractable
+via vmcore-dmesg.txt or the vmcore) with virtually zero risk of hardware
+watchdog trips or notifier lockups.
+
+> > To resolve this dilemma, introduce the crash_kexec_in_memory_sys_info
+> > boot parameter. When enabled, it captures diagnostic telemetry directly
+> > into the printk ring buffer entirely in RAM before jumping to
+> > __crash_kexec(), completing in milliseconds rather than tens of seconds.
+> > 
+> > To make this safe, fast, and reliable without risking buffer overflow:
+> >     1.  Scoped console flush suppression
+> > 
+> >         Provide printk_suppress_console_flush(bool) to clear the console
+> >         flush mask in printk_get_console_flush_type(). Messages written
+> >         via vprintk_store() remain in the printk ring buffer in memory
+> >         and avoid synchronous hardware console emission and waking
+> >         kthreads.
+> 
+> This might help when the claim about watchdog reports is true.
+> I am not sure about it. Anyway, there are other ways how to
+> prevent watchdogs stepping in (touching them, disabling them, ...)
+
+Regarding watchdog intervention, the concern does not stem from internal
+kernel watchdogs (e.g. softlockup watchdog), but rather from autonomous
+vendor-specific hardware/platform watchdogs (e.g. hpwdt).
+
+A situation occurs with IPMI watchdog
+(i.e. drivers/char/ipmi/ipmi_watchdog.c) configured with pre-timeouts,
+where the BMC asserts an NMI and independently enforces a hard reset after
+a brief remaining window.
+
+In these configurations:
+    - "Touching" the watchdog is ineffective i.e. touch_nmi_watchdog() has
+      no awareness of external hardware or BMC timers.
+
+    - Some production environments mandate nowayout=1
+      (drivers/char/ipmi/ipmi_watchdog.c), which deliberately forbids
+      software from stopping the timer.
+
+On a slow serial console or IPMI Serial-over-LAN (e.g. 115200 baud),
+flushing comprehensive sys_info() output (e.g. tasks or stacktraces) can
+exceed 10 seconds, allowing the hardware timer to expire and reset the
+system before kdump can initialise.
+
+Regarding your remark that console output is important when crashdump
+fails, I completely agree. That scenario is explicitly handled:
+
+        sys_info(si_mask);
+        kmsg_dump_desc(KMSG_DUMP_PANIC, buf);
+        __crash_kexec(NULL);
+        printk_freeze_tail(false);
+        printk_suppress_console_flush(false);
+
+If __crash_kexec() fails or is not armed, suppression is immediately
+unmasked before proceeding down the remainder of panic(). As a result,
+console_flush_on_panic() flushes the complete buffer, including both the
+panic Oops and the newly gathered sys_info telemetry, out to the physical
+console as normal.
+
+To clarify, an independent, external hardware controller will forcibly
+reboot the machine if the kernel spends too long flushing diagnostic logs
+to slow physical serial lines before jumping to __crash_kexec().
+
+> 
+> The console output is important when the crashdump fails.
+> 
+> >      2. Scoped ring buffer tail freezing
+> > 
+> >         Introduce printk_freeze_tail(bool) in printk_ringbuffer. When
+> >         active, desc_push_tail() and data_push_tail() refuse to advance
+> >         the tail. If diagnostic logging exhausts available ring buffer
+> >         headroom, new records are safely dropped, guaranteeing that the
+> >         initial panic Oops, faulting registers, and primary stack trace
+> >         are never overwritten.
+> 
+> This is another questionable feature. The ring buffer would need to be
+> super big to hold all messages since the boot. IMHO, servers are
+> normally running hundreds of days and the log buffer gets rotated,
+> like the user space logs, ...
+
+Apologies for the misunderstanding regarding the lifecycle of the freeze.
+Please note, newly proposed printk_freeze_tail() is not active from boot,
+nor does it hinder normal buffer rotation while the system is running. It
+is activated strictly for the few milliseconds during which sys_info()
+executes:
+
+        printk_freeze_tail(true);
+        sys_info(si_mask);
+        printk_freeze_tail(false);
+
+Prior to this call, the panic Oops, registers, and faulting stack trace
+have already been logged. The sole purpose of freezing the tail during
+sys_info() is to prevent newly generated telemetry from wrapping the buffer
+and overwriting that initial, critical panic Oops if the remaining headroom
+is exhausted.
+
+> >     3.  Execution sequence reordering
+> > 
+> >         Reorder __sys_info() so compact, high-signal subsystems (e.g.
+> >         memory) are collected first, leaving high-volume dumps (all CPU
+> >         backtraces, full task lists, and ftrace) for last.
+> 
+> This might make sense. I am just afraid that it might be a personal
+> opinion and we might end up with an endless shuffling here.
+
+Fair point. The intention was merely to prioritise compact, high-density
+metrics before unbounded dumps (e.g. all-task backtraces). However, if this
+introduces unwanted churn, I am entirely content to drop the reordering and
+retain the existing sequence.
+
+> My opinion:
+> 
+> IMHO, it does not make much sense to dump sys_info() before kdump
+> and block consoles. The information is lost when kdump fails.
+> The information can be extracted from the crashdump when
+> kdump succeeds.
+
+The information is not lost if kdump fails, as suppression is immediately
+lifted. In an ideal world, the full vmcore (i.e. makedumpfile -d 31) is
+always saved intact. In production, however, dump targets may suffer from
+storage exhaustion (e.g. accumulated prior vmcores). When this occurs,
+writing the multi-gigabyte /proc/vmcore is truncated mid-stream, leaving
+the memory dump corrupt or too incomplete to extract dmesg e.g. via crash
+or drgn.
+
+Crucially, kdump utilities (e.g. makedumpfile --dump-dmesg) extract
+vmcore-dmesg.txt first. Because it requires only a few megabytes, it
+reliably succeeds even when saving the full vmcore fails due to ENOSPC.
+Capturing sys_info() in-memory beforehand guarantees that vital state
+remains preserved in vmcore-dmesg.txt as the sole surviving diagnostic
+artefact.
+
+Kind regards,
+-- 
+Aaron Tomlin
