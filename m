@@ -1,80 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4087F36E460;
-	Thu, 24 Sep 2026 02:31:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C2A368277
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:32:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790217092; cv=none; b=uUV4oAhdu7HDmCB8P6rHK1ks4juumDYhYsTPU5rfGeRHvHijVpk0z3ehG/IuRb5XnB447F62bdDJxhwbxxCTtaIW3mvhjOlBXxqx0oCzwhqSMFUnAMlUC5i5MShsdj7BrP4E6EuhrLiwqgMI6q4BVCwl6P1b1geeoSC5XzyWuto=
+	t=1790217143; cv=none; b=fhjMHXO+1HelzRbCXV05XIN1M9bc03YEd6TzcVWSZAlyXU6M0nGOrXdbrRDXZ4tekXLz0Ptf5D50d0Ycz46tAUDpU4EECpKMp5nxPDN4zGC4EEGLf4sjWSdAaCB72iUBVWUFoPrB/p3R2/jqY0AMBS/WtUWTgBqumd2QtIJkKss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790217092; c=relaxed/simple;
-	bh=z8A+upRzWOoH0KV2oHewwc5lQGyYPK2YWGejk+BBYMY=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=oAAf693IuFOckGNR9zHPwjNMcIlsWROqXLb4fbYUx8ksanzSQgWcrKPSSSgV3cbWdBDEqouTLLhpc5OXKLEDzsu891lc+E1EOAJzYJGCRA0m2wUex6QCB0VINLF8UuDN7OzlCl6kXYQFIThO1oz2qvVP9yEB7C16/unVPaUkk8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JC5xI6yM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790217143; c=relaxed/simple;
+	bh=aw7qZwIXpGXOmSs1ULjd8Cr81ugs2SyoXsZIXwSlKtQ=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=kZrWo7F2K8mux3UNrWSt6ahQsQgm8Nc7uPULmUy7ePE3jpdso4Vv3qYeHABftZ4MX18lJ9tfUtUYPSmbe10iv+8Kqqzp6Z6lFUa1uWKtd2KRdleAwoWwcZ4abyiYo3nw4qVXSzb3LBaw9hiz6XtWxkFzA3l48VzjOC+vvsQFXV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Dt8pihoj; arc=none smtp.client-ip=192.198.163.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JC5xI6yM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C85461F000FF;
-	Thu, 24 Sep 2026 02:31:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790217090;
-	bh=2qc7d2EWlAB6vGwNe4e6/zzd/A8J1JEyXp8FOsKTS5o=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=JC5xI6yMewNWhNsEmO7JHny5cUGcQ9hRjrTCOpGEA7hCuTOaO71iLRgCRIouRJuFL
-	 qeQIZpHkVP8d9aNMCRDhC2i9B2eHQeLTeohmixvAQKQHP4e3DVjsP7NNIBmPJ9iy5V
-	 SEIlkyAb9Q3dNW2JVdoItMt1Ip+5ZW042ZB2aGPSgJmuYQnxGISbIBveFxSpf0ua/S
-	 k34VaEIlqR9t4pROBMgDFb1qLEikHLLRsdkEzFKiBPGGDaZ6sNUxJh6zTbcbn1Q052
-	 qPvIhCwNc/XHsoZCUpnGPhdgzCyS4TRlL4T+zwRJeHD+ksrZ2BVuf1pyBv7+3d4kyj
-	 tFmJ2lPOdXp/Q==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93A6939E9611;
-	Thu, 24 Sep 2026 02:30:21 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Dt8pihoj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790217141; x=1821753141;
+  h=date:from:to:cc:subject:message-id;
+  bh=aw7qZwIXpGXOmSs1ULjd8Cr81ugs2SyoXsZIXwSlKtQ=;
+  b=Dt8pihojgoP+vWqzYDIpPwfWv7CqS4FQrlWIJ6XoNpGkHMUl+jzSmSTF
+   VaJ2Vn9PkerDB9Jl9Biwby6nAMg0vzxeE+hVa3gv6M5h98fwOkWh3LFxz
+   MfhOPQGSEkW14XH1mRWqDxMqKIDbqIUVaC0lLZlgimTe36LDbqgirVvZL
+   fnE2qN5OU86bx6wtQOJw1LjWti0p3GY/FUfyNJmfwkQ641KL9TgyYyNGi
+   zRL+vYpxFvIEpDwQoua7Dhj/NkTteq1TFlI4d8VppI3dcLmp+hfa3GpK8
+   eJzESWQyxf17OR4sJ6W01uPbmvPdrcpOm/PFtC7RwhebGr3QNy8MR1XeT
+   Q==;
+X-CSE-ConnectionGUID: y1cZqutpT92yCoMXIA1bbQ==
+X-CSE-MsgGUID: W6IsMekASzCmvDm/pb1w5A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="1472196"
+X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
+   d="scan'208";a="1472196"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 19:32:21 -0700
+X-CSE-ConnectionGUID: kVvdyMzFSEyb9J6Ig6lArQ==
+X-CSE-MsgGUID: JRaLN8S1QuKMnD8eeSsDFQ==
+X-ExtLoop1: 1
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa003.fm.intel.com with ESMTP; 23 Sep 2026 19:32:19 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x9ZFw-00000000I78-27Ur;
+	Thu, 24 Sep 2026 02:32:16 +0000
+Date: Thu, 24 Sep 2026 10:31:35 +0800
+From: kernel test robot <lkp@intel.com>
+To: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Alexei Starovoitov <ast@kernel.org>, JP Kobryn <inwardvessel@gmail.com>
+Subject: mm/bpf_memcontrol.c:125:27: sparse: sparse: symbol
+ 'bpf_mem_cgroup_memory_events' was not declared. Should it be static?
+Message-ID: <202609241059.dkB8hWSY-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] net: airoha: npu: cancel wdt_work after releasing the
- WDT
- IRQ
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179021702008.1285615.10214789929001458933.git-patchwork-notify@kernel.org>
-Date: Thu, 24 Sep 2026 02:30:20 +0000
-References: <20260922000914.542068-1-mhun512@gmail.com>
-In-Reply-To: <20260922000914.542068-1-mhun512@gmail.com>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: lorenzo@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- ae878000@gmail.com
 
-Hello:
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   fe2ec83746e501645709761605c2464a44fd2929
+commit: 99430ab8b804c26b8a0dec93fcbfe75469f3edc7 mm: introduce BPF kfuncs to access memcg statistics and events
+date:   9 months ago
+config: sparc-randconfig-r1307-20260924 (https://download.01.org/0day-ci/archive/20260924/202609241059.dkB8hWSY-lkp@intel.com/config)
+compiler: sparc-linux-gcc (GCC) 16.1.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260924/202609241059.dkB8hWSY-lkp@intel.com/reproduce)
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 99430ab8b804 ("mm: introduce BPF kfuncs to access memcg statistics and events")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609241059.dkB8hWSY-lkp@intel.com/
 
-On Mon, 21 Sep 2026 20:09:14 -0400 you wrote:
-> airoha_npu_remove() calls cancel_work_sync() on each core's wdt_work,
-> but the watchdog IRQ that queues it is requested with devm_request_irq()
-> and is freed only after .remove() returns.  airoha_npu_wdt_handler() can
-> therefore schedule_work() again once the cancel has returned.  struct
-> airoha_npu, which contains the work, is devm_kzalloc()'d and is freed in
-> that same unwind, so the late work dereferences freed memory.
-> 
-> [...]
+sparse warnings: (new ones prefixed by >>)
+>> mm/bpf_memcontrol.c:125:27: sparse: sparse: symbol 'bpf_mem_cgroup_memory_events' was not declared. Should it be static?
+   mm/bpf_memcontrol.c:68:9: sparse: sparse: context imbalance in 'bpf_get_mem_cgroup' - different lock contexts for basic block
 
-Here is the summary with links:
-  - [net] net: airoha: npu: cancel wdt_work after releasing the WDT IRQ
-    https://git.kernel.org/netdev/net/c/4bdee8060d1e
+vim +/bpf_mem_cgroup_memory_events +125 mm/bpf_memcontrol.c
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+   117	
+   118	/**
+   119	 * bpf_mem_cgroup_memory_events - Read memory cgroup's memory event value
+   120	 * @memcg: memory cgroup
+   121	 * @event: memory event id
+   122	 *
+   123	 * Return: The current value of the memory event counter.
+   124	 */
+ > 125	__bpf_kfunc unsigned long bpf_mem_cgroup_memory_events(struct mem_cgroup *memcg,
+   126							       enum memcg_memory_event event)
+   127	{
+   128		if (unlikely(event >= MEMCG_NR_MEMORY_EVENTS))
+   129			return (unsigned long)-1;
+   130	
+   131		return atomic_long_read(&memcg->memory_events[event]);
+   132	}
+   133	
 
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
