@@ -1,64 +1,64 @@
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
+Received: from mail-lr2-f35.google.com (mail-lr2-f35.google.com [74.125.230.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA2CF37EFE2
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:19:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B66E839891F
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:19:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790270344; cv=none; b=LHTKArVNmS3Oaf/yE7/P0lDzNM2/0X9hPujfG9hPCS9mfSD1ENKozAW/9GhYxugUHBRyMqnukXOpNBSUvq8fWTOrqW2jElgg7sQLE8rOW8vGMzzlAChCT+Q7Sjw0nlafXMbSm7n5PM2lxarOnpQukVo9EMhLaNmHQghRMsF+65g=
+	t=1790270367; cv=none; b=qT4eJcbByLwUsNLShqz3LYExobVEbZ79PRv3WD2tDaXo5fV0MJkgqtKSx3XBfxBzkkO7Hq4XYYJlOkZIFiUPKGwOzNvWPM4CdrSWims5ishuULS52URyeN/dGJtXy6dn+rlr74ixOAyg1+/jwCyKBErfCQYo27xxBLcjLLRH4mE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790270344; c=relaxed/simple;
-	bh=IzOSQ5PgShuwmISU178ZdszugMpsD5D2m5PTctJO2LQ=;
+	s=arc-20240116; t=1790270367; c=relaxed/simple;
+	bh=EyBcA/Tev/w21v3ps54k1u/khzZboHd8p90RlqkDXVQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QJrZNz1GswvG+p05+FFFULYZRxoBzppf4eL5yC62gFJTVXMPuA8tXxU8zzGq9xlOPecT/Pl6xJZOsxalqogZplrBwme6V5EXlSYOUV+SqpGkype2KCnn1muy69F53xuHCknrPeKc+Q7fDi3RT1viqCF9yKqipVRYSHC6rA5yL9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qsRpgt3Y; arc=none smtp.client-ip=74.125.230.76
+	 MIME-Version; b=d1FkU+eZA/jx9YKRoONUMGWw5zJa51BxOir2zewhiHkKRY8ZACz3uxImUzOKKEuXRvAAc2ibz5Amg331oQzTiqyZd3egl7xVAW/xx0igz5du8RYQVCk0sETiwt7uLm4kDP8NUBQvbzLdj/+7HYmlWVT2VnG6LnxQoppouRkcJ3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ljZQCWZ5; arc=none smtp.client-ip=74.125.230.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qsRpgt3Y"
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a5919af2eeso17708631fa.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:19:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ljZQCWZ5"
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a612404718so19022451fa.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:19:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790270341; x=1790875141; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790270364; x=1790875164; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IEg9sPLG6R2rCCs4MQKovEl/ls6n0s+ptG5DL7CC2NY=;
-        b=qsRpgt3YWee5mEfFoEQnNZFe4UJqFMFY1KyWlHPiG7YJZ9bni5KMSfHzx1QmI8aDL5
-         rEa7zQwxZuUZZnqYCb8s2RzAwxHuKeULr+1BMMj92D/GhbLBEfcUazgoQdx0PLemZ+m2
-         1152v5jUZvtckfwiJ/Gz0zttQZCKJkTWxGu4xHUVJuknX9uea8RRE4oKK/6cpnJlWct6
-         tgdtgafhm+Ow2O6XnmN2Qj2DCPnn64Zu1wZS6DwT/sifvBfPsq586/2Ka4UyT6wfTGdS
-         ZS8xRvt7TthvNbAYMxhD3Mq9qPHMzq0HYi3tf+FLG6dK+vaOrjyuTKT+1GtG3jyaBEA7
-         aYBA==
+        bh=c3E0X8b6Xsqtylg83ebF8p2MOGz7r4MjOPY7FVP1I+Q=;
+        b=ljZQCWZ5rij70ieOuZ4HQsx5GnZ47ERim9yuxscVlGrQr0VyOp+O7MV0GyuqusQ6Yn
+         iqWFf4KzRvtnGq9vAF4GLk+P3X7UKnLjN04ViF9jfOovhK1oQVMs7pb3KokmKZs78i4X
+         roaTJwP/jedSHihjJ2FVE7FpiP+Nj8fOC16Yfk60lwxmGgl9ojhEhagf2HNLH7kdunoq
+         TH7PlxTqvsTd4VGGBEUY/edzt5/xx+KB1dls5/6v6097s8/O+d0kB0eeJ8FCLSRJru3f
+         vOWINVocWw0WZbN0OQPvKcbINdYAKqisZY+1QF2UcFaHXqsKd9zCBeW4d594e/KExXPh
+         m4NQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790270341; x=1790875141;
+        d=1e100.net; s=20260707; t=1790270364; x=1790875164;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IEg9sPLG6R2rCCs4MQKovEl/ls6n0s+ptG5DL7CC2NY=;
-        b=f6f4AT8QyB4vEc7bXaDUfkPOF+qlesmVc2ZIfQc40XWV8rvW2qU944uNYqGLrQ50bF
-         VY/XCKtrLKCXJhKqG4IrD2EC77t7bDknG8NB7xHzcNBTe1jGZMZOKn8SimEdePhIr4kp
-         M587ygyums9zy6vRASlC5gwm1IrCMEJJmZpQVryOhqvzDm60RdlsKgUcsnZZLCFGuJwl
-         KAQS5KE+pSVNvwNFQ2Jah743xZsvecDG61bwGV3DL1dzMoAVIHlcrSk0CEep3okeDFab
-         M+LVJsi4rKb8adaZnYfaU5Hb0IDKT8kQZrmNbUgoTB2BAAfB6HUdnZDPFvlCPwpVaBK1
-         JJFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz8aMF2hcFUBrtfqRs+pCvgcmzVVOjgHArP9htOly35686cnrFe/2I+BwuV7J8yy5opUFcWnlE8S882z7c=@vger.kernel.org
-X-Gm-Message-State: AFuF++nebpCwsVpo7rPvi3Q8HmxfS7HzghTmL7Yv1jr6fPRSfH1JHJ49
-	Cqz6Jfs6lfHGqfw+kWChZd9WRmMdiXekPTdcLgQifadNWBkZUq/Zt9b0
-X-Gm-Gg: AYBFou2/oYhiAW99H+rlQIi4htc282SmqgX9wU6/nPlzfc+FaACcLYbEG5RVfFCEf8l
-	IsmdW2DL7JUWJh/XvAdLHNZ+UE5sKLew6NNAig4bVHtxU3aTforCy7nNBOh8VsGDkkC1UO1ycXy
-	lxacr95nDi3y/+2KCeQ6ENkuCZ+cNrqtliCDmPnEsWjClJo37jMUoCkMD7FdsgE8wAE4AyrmlYs
-	qkIaTaFeAriRFZchn9mnI52fTo/R1EQVya/Q288klXz3gU5mBuGNWkcaDwtFuf3ukh/dj9SBuxx
-	cYLEB0dQk/vAyfF+Lf6U2JBIpuJeEw9N7voyMeErLCJnvlwiNfv8o6EaQuZydn19RazgdNNBEN6
-	q8nZW9QPALcPvKt8M+EjOcSAo2wvZ/JN6AZMln71E1T+hg1fRH38miZ7Q478BP/LIOnRA7dNBbe
-	W1HMgZl6dHbLBUG46d9M1ZwV2fd9y6W3hk0mgS9TupJBkKYv0eAM4YzqNzDkd9meOAfoOKhUygd
-	DS2c9t1vPRuHfw=
-X-Received: by 2002:a05:651c:b0f:b0:3a1:f4e7:a820 with SMTP id 38308e7fff4ca-3a63bf292bfmr8906191fa.4.1790270340690;
-        Thu, 24 Sep 2026 10:19:00 -0700 (PDT)
+        bh=c3E0X8b6Xsqtylg83ebF8p2MOGz7r4MjOPY7FVP1I+Q=;
+        b=B7nYMZdiWB0pwymiGEuydly2yB//BQScVed4rBIOj1NtqyYD7XpfNDgoUf/peB3jnC
+         tW6EPzQAvoIQvENVyfv+NjhB640I9XP1WdnEU3xY+aF8YTqMlive1320WMXyp4YLY6Zl
+         RIvq9ft/xd2CoItgmQg445H7O47PbJw/EcYxpO5Ee19CVaLc2vuAOo/TpfLJqNDelpyy
+         1SK7ezOzv+s8p4mozW5xM3U1HXuC72glh8N9FnFKplQEtsrbpm0xWQcY4pW2yOfWPatN
+         SZRrj1uePPkbAmmreAwF1qfRswpRaacMpqDqSb5F9rclS09UX5kF4MlX2Ct06s+kcAx1
+         gOWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw1kBBqWZ4Kprbx45jRsydlmyR6stjSqLvtujfvDE/OsPQPTBF9QO/Xt+zrOy1DGNmFPE0PKlDyUCYhsZA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mizuF1wkcviNG7efrfA4P92X6iuIHubqx8jPHoh6HSTZY/6g0o
+	CXagzaqaa5QFwdmupHtmsLe52rkGeN7JYyA9W7nKVNrKck8egwTU70/r
+X-Gm-Gg: AYBFou30Jnx475s3YKXujEvwdlKcKvKNJN9rUTOCCDtqWb7yHajC19tOYwdnEWSFS4l
+	9JyoASzRPp3GvvLi/nlenjj2xuy39n0Yx2eYqAV3gk6LA8Wd2ktPpovcD+nH0L2I/l6/Gjtvqzi
+	gAqmC6E9cei2xI1dc3+zaNHSYJUDbCKKyUpuNrqoN2CKUbCFgdGpCDYhZGagHgE+z+dqx21Qeeq
+	d/Pq4RSJok4XxhKEmlW62Yoatmm9Lz9TmpGGSssnb/7Zx4qOJMibGR9FxulM8HSE+jjjv3ZmGO6
+	TgHZ/knEXVCd4z7z5PSM1sRttDjB4/liAOBm6CcIE6pAnh1wTWuTPTETyB2rLS/5NKu9kjQpv9e
+	QNSXlAOusMKrMCKG5cE+HNj62wWypnxbafTZC1aBeSAMSqrRgfct1afrdkmP60Xiugjbk878qEu
+	ouT+Yv/XxZLFDV5XyOIfnnFgHzN2QPwGhRmy+R2hFtf6IVQAW8D0RxuV1kmVGYIxwv0XMYi6nea
+	ilnEtCZdfMThcc=
+X-Received: by 2002:a2e:bc16:0:b0:3a4:9b64:9811 with SMTP id 38308e7fff4ca-3a63c0de06amr8123461fa.15.1790270363193;
+        Thu, 24 Sep 2026 10:19:23 -0700 (PDT)
 Received: from quietus.tail91f8a6.ts.net ([104.194.144.188])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a63bf2c4aesm9450601fa.8.2026.09.24.10.18.58
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a63bf2c4aesm9450601fa.8.2026.09.24.10.19.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 10:19:00 -0700 (PDT)
+        Thu, 24 Sep 2026 10:19:22 -0700 (PDT)
 From: Ruslan Koreev <koreev.r@gmail.com>
 To: sakari.ailus@linux.intel.com,
 	benjamin.mugnier@foss.st.com,
@@ -74,9 +74,9 @@ Cc: mchehab@kernel.org,
 	linux-kernel@vger.kernel.org,
 	Peter Marshall <pm@petermarshall.ca>,
 	Ruslan Koreev <koreev.r@gmail.com>
-Subject: [PATCH 1/4] platform/x86: int3472: Map the VD55G1 power enable GPIO to "vana"
-Date: Thu, 24 Sep 2026 20:18:17 +0300
-Message-ID: <20260924171820.1179823-2-koreev.r@gmail.com>
+Subject: [PATCH 2/4] media: ipu-bridge: Add the ST VD55G1 (TBE20A1)
+Date: Thu, 24 Sep 2026 20:18:18 +0300
+Message-ID: <20260924171820.1179823-3-koreev.r@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260924171820.1179823-1-koreev.r@gmail.com>
 References: <20260924171820.1179823-1-koreev.r@gmail.com>
@@ -88,29 +88,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Lenovo ThinkPad X1 Carbon Gen 14 has an ST VD55G1 IR camera, ACPI
-HID TBE20A1, behind an INT3472 discrete device that provides a power
-enable GPIO, a reset GPIO and a privacy LED. The vd55g1 driver names its
-analog supply "vana", so map the power enable regulator to that name, as
-is already done for the imx471 on the same laptop.
+Add the ACPI HID Lenovo uses for the ST VD55G1 IR camera of the ThinkPad
+X1 Carbon Gen 14. The firmware describes one CSI-2 data lane and, as
+usual, no link frequency, so the value has to come from this table; the
+vd55g1 driver requires exactly one.
+
+Use 402 MHz (804 Mbps). The sensor derives its MIPI rate and clock tree
+from this value and the IPU7 CSI-2 receiver reads the same value back
+through V4L2_CID_LINK_FREQ, so both ends agree by construction. At
+804 Mbps a full-width 10-bit line takes about 11 us on the link, which
+allows well over 100 fps at full resolution; lower rates lengthen every
+line proportionally. The rate is in the lower half of the 250 to
+1200 Mbps range the sensor supports and is the one validated on the
+hardware, where 804x704 streams at 58 fps.
 
 Signed-off-by: Ruslan Koreev <koreev.r@gmail.com>
 ---
- drivers/platform/x86/intel/int3472/discrete.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/media/pci/intel/ipu-bridge.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/platform/x86/intel/int3472/discrete.c
-index 6c729fcfc..d005595ba 100644
---- a/drivers/platform/x86/intel/int3472/discrete.c
-+++ b/drivers/platform/x86/intel/int3472/discrete.c
-@@ -130,6 +130,7 @@ skl_int3472_gpiod_get_from_temp_lookup(struct int3472_discrete_device *int3472,
- static const char * const power_enable_hids_vana[] = {
- 	"SONY471A", /* imx471 on Lenovo X9-14 and X9-15 */
- 	"TBE20A0", /* imx471 on Lenovo X1 Carbon G14 */
-+	"TBE20A1", /* vd55g1 on Lenovo X1 Carbon G14 */
- 	NULL
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+index bd64c0400..5941428ed 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -101,6 +101,8 @@ static const struct ipu_sensor_config ipu_supported_sensors[] = {
+ 	IPU_SENSOR_CONFIG("SONY471A", 1, 200000000),
+ 	/* Sony IMX471 (found on Lenovo X1 Carbon G14) */
+ 	IPU_SENSOR_CONFIG("TBE20A0", 1, 200000000),
++	/* STMicroelectronics VD55G1 (found on Lenovo X1 Carbon G14) */
++	IPU_SENSOR_CONFIG("TBE20A1", 1, 402000000),
+ 	/* Toshiba T4KA3 */
+ 	IPU_SENSOR_CONFIG("XMCC0003", 1, 321468000),
  };
- 
 -- 
 2.55.0
 
