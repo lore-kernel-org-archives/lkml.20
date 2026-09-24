@@ -1,95 +1,205 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-227.mta0.migadu.com [91.218.175.227])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E3F0408031
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:35:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C6E4442385
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:36:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790289346; cv=none; b=NXAPeA8CqkFPzCmZfN4GFSJ2DdRK0DFYuY454d48aGIM6oG1lllIsHe1rUt3LpbXKHEK9hCv17/vuAreyxWyc6pnAXUM5QQnliwX+VGfQ8Xqr43RG32MCj/1PxlBOdffpzTOi38//azJ8fWUpa2WCplgwB9O07G5OlU0+njMz4o=
+	t=1790289371; cv=none; b=YLTwh5N9SHHtt0vM5esiiaLSVfgORi03kJEYGOMNcOYTkLza1ZNCiWyu7L27xCtpwGGvug0nDvIzLMkkywZ/VwvnIUBrn9ox/vxqO1yUKsLn2qx7aN1BNWzMASSehaJrtMg1M5FQHwi8pImNRkzI+qk8c6oLwfccUYlx8MhIZCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790289346; c=relaxed/simple;
-	bh=vtr6W1O31FpaX/pzPdDit5sOxv1DO5xUcNtn4hmhJaQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AKqJ1rkx4Kl3//NcJV5Z4MEqCJyL4E1WYX3xSFVK5YMi7fyNyAcJp8fppFu9k5b8RYIAQ3yohbUQO44fH+k+ei39kIcN/3U2K/6soyvjD9jo0//3GMLxxuFhMu3o8CtnzGuu1sNOdEE06w3mV3MDYsPz3L6bb16XQx8p3I0D2Xo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 435f209cb86811f19a56ed5b684f684d-20260925
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:c6beb6ea-48e1-4be4-b826-17633d0beb8b,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:7db8b62,CLOUDID:54f32270c7c6fe69605ccc699f2c9a9a,BulkI
-	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|52|99,
-	EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
-	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 435f209cb86811f19a56ed5b684f684d-20260925
-X-User: liwanwu@kylinos.cn
-Received: from [10.42.12.206] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <liwanwu@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
-	with ESMTP id 2006305272; Fri, 25 Sep 2026 06:35:37 +0800
-Message-ID: <e29045bd-6043-4f1d-baea-7616e7090c39@kylinos.cn>
-Date: Fri, 25 Sep 2026 06:35:34 +0800
+	s=arc-20240116; t=1790289371; c=relaxed/simple;
+	bh=KWzjCrXxXC1mrZWmAQxMmdx2xq0eTkpdm5eISaRI2fA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=V6Kmgv2Zo18QZlzq61Zj3QHDzxeCTlFyxrXP+j3I7ofCY4jEjbTZ2j0H4kJ2F4+q44eWVt5liLHotBQVRMlXVvQZD1+L6SQ9JPE1orpeWLJ90f5znT/fYfmWh91PaUweLPGRaZUFiGepSByUBFrTWKN/betLyl5gKQ25KyWtXqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FQWqfe51; arc=none smtp.client-ip=91.218.175.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FQWqfe51"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=KWzjCrXxXC1mrZWmAQxMmdx2xq0eTkpdm5eISaRI2fA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790289366; v=1; x=1790894166;
+ b=FQWqfe51OuCdj2jOK83/kNYU/GYGxLUswbe4XuTISNExIQy845eK0R2jB97HfS0WgHYwUvP2
+ 5hoYb+30hLh21OWnLddBaONXGVrsUqjyMAeyzttSboDR6bEnU8IX5k1Er3QbX8OsKUAmXZdyK3X
+ YHfpZKaGEGVM9i6cIIcsZ2HQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8b83c7835642c7f3;
+	Thu, 24 Sep 2026 22:36:05 +0000
+X-Mizu-Trace-ID: 8b83c7835642c7f3
+X-Migadu-Flow: FLOW_OUT
+From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+Subject: [PATCH v2 0/9] arm64: ftrace: support CALL_OPS on kernels built
+ with kCFI
+Date: Thu, 24 Sep 2026 22:35:44 +0000
+Message-Id: <20260924-b4-arm64-callops-kcfi-v2-0-587865b6d991@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] tools/sched_ext: Fix three example scheduler bugs
-To: Tejun Heo <tj@kernel.org>
-Cc: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
- Changwoo Min <changwoo@igalia.com>, sched-ext@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260924143659.268595-1-liwanwu@kylinos.cn>
- <9c8dd70b66bba55c87376f227d986945@kernel.org>
-Content-Language: en-US
-From: liwanwu <liwanwu@kylinos.cn>
-In-Reply-To: <9c8dd70b66bba55c87376f227d986945@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMCltWoC/4WOQQ6CMBREr0K69ssHmyKuvIdh0ZaPVLGQFhoM4
+ e5SXLpw+SYzL7MwT86QZ5dkYY6C8aa3G+SHhOlW2juBqTdmOeYCS+SgOEj3Ehy07Lp+8PDUjQG
+ OmAmimjcK2bYdHDVm3r236st+Ug/SY5TFhpKeQDlpdRujbkgVT/fwVx/7rfFj79770ZBF779PI
+ QMETUKci+JUKtTXzthpPtYUWLWu6wdgFOE//AAAAA==
+X-Change-ID: 20260904-b4-arm64-callops-kcfi-40016eed4fb0
+To: Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Puranjay Mohan <puranjay@kernel.org>, Xu Kuohai <xukuohai@huaweicloud.com>, 
+ Ard Biesheuvel <ardb@kernel.org>, 
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Sami Tolvanen <samitolvanen@google.com>, Kees Cook <kees@kernel.org>
+Cc: Leon Hwang <leon.hwang@linux.dev>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Josh Poimboeuf <jpoimboe@kernel.org>, live-patching@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+ linux-kbuild@vger.kernel.org, llvm@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org, 
+ linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ sashiko-bot@kernel.org, 
+ "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>, 
+ Ben Cressey <ben@cressey.dev>, 
+ "Florent Revest (Anthropic)" <florent.revest@linux.dev>
+X-Mailer: b4 0.15.2
 
-Hi Tejun,
+CALL_OPS and kCFI have been mutually exclusive on arm64 since commit
+baaf553d3bc3 ("arm64: Implement HAVE_DYNAMIC_FTRACE_WITH_CALL_OPS").
+kCFI checks the type hash at a fixed offset before the entry point, so
+every function needs the same number of prefix NOPs. Before clang 21 the
+compiler could not emit prefix NOPs without also adding the function to
+ftrace's table. Since commit 9315e22b0c0a ("arm64: ftrace: allow
+DIRECT_CALLS without CALL_OPS") a kCFI kernel can attach BPF
+trampolines. A trampoline out of BL range is reached through
+ftrace_caller. That path costs ~10 ns more per call than on a CALL_OPS
+kernel, plus ~4 ns for every extra ftrace_ops registered. Clang 21 takes
+a section name as a third argument of -fpatchable-function-entry [1].
+This series uses it to give every function three prefix NOPs while
+keeping untraced functions out of ftrace's table, and enables CALL_OPS
+under kCFI. The per-call cost drops by ~10 ns and stops growing with the
+number of ftrace_ops registered.
 
-Thank you for the careful review and for catching this. It was a
-serious mistake on my part, and I sincerely apologize -- I should have
-tested the fixes before sending them out.
+Patch 1 frees the page group of a module whose patch sites are all
+skipped, which patch 2 can cause. Patch 2 lets core ftrace skip a
+patch site the architecture rejects, which patch 5 relies on. Patch 3
+takes the sorttable entry offset from Kconfig. Patch 4 lets notrace
+keep the prefix NOPs. Patch 5 makes the arm64 prefix layout
+configurable and refuses patch sites that do not fit. Patch 6 applies
+the prefix count where the type hash is emitted or read by hand.
+Patch 7 adds the compiler probe and enables CALL_OPS under CFI. Patch 8
+uses five NOPs on ThinLTO kernels with BTI. Patch 9 gives Rust
+functions the same prefix NOPs.
 
-I will reproduce each bug, verify that the fix actually resolves it,
-rework 3/3 properly, and send a corrected series when it is ready.
+The cost is text size, 4.8% of .text on a defconfig-based build with
+CFI and 7.4% with ThinLTO and BTI. CALL_OPS under CFI needs clang 21 or
+later, and Rust 1.98 or later with RUST=y. Commit d3359af21fc9e ("arm64:
+bti: Disable in-kernel BTI with recent versions of Clang") turns BTI
+off on clang 21 or later, so a mainline build has one or the other
+today. A module must be built with the same prefix count as its kernel,
+since vermagic does not carry the count.
 
-Again, my apologies for the wasted round-trip.
+Numbers below are from a KVM guest on a Graviton4 host, v7.3-rc1 with
+and without this series, clang 21.1.4. Cost of a fentry program on a
+syscall, per call, the call with the program attached minus the call
+without it:
 
-Wanwu
+  Kernel            | Trampoline   | Extra      || Per-call cost (ns)
+                    | vs. BL range | ftrace_ops || Median | Min  | Max
+  ==================+==============+============++========+======+======
+  kCFI, base        | out of range |          0 ||   32.9 | 32.6 | 33.4
+  kCFI, base        | out of range |         16 ||   92.6 | 92.4 | 96.3
+  kCFI, base        | in range     |          0 ||   21.3 | 21.0 | 21.8
+  ------------------+--------------+------------++--------+------+------
+  kCFI, this series | out of range |          0 ||   22.7 | 22.0 | 22.9
+  kCFI, this series | out of range |         16 ||   22.1 | 21.9 | 22.4
+  kCFI, this series | in range     |          0 ||   22.4 | 22.1 | 22.6
+  ------------------+--------------+------------++--------+------+------
 
-在 2026/9/25 00:17, Tejun Heo 写道:
-> Hello, Wanwu.
-> 
-> On Thu, Sep 24, 2026 at 10:36:56PM +0800, Wanwu Li wrote:
->>   - try_dispatch() trusts a pid popped from a cgroup's FIFO.  If the
->>     task migrated to another cgroup between enqueue and dispatch, it is
->>     dispatched under the old cgroup's context, violating the core
->>     "paired CPUs only run tasks from the same cgroup" invariant.
-> 
-> 3/3 calls scx_bpf_task_cgroup() on a task from bpf_task_from_pid(). The
-> kfunc only accepts the tasks passed to the current op, so the scheduler
-> is disabled on its first dispatch:
-> 
->    sched_ext: BPF scheduler "pair" enabled
->    sched_ext: BPF scheduler "pair" disabled (runtime error)
->    sched_ext: pair: called on a task not being operated on
->       scx_bpf_task_cgroup+0x15b/0x160
->       bpf__sched_ext_ops_dispatch+0x47/0xa3
-> 
-> This means the patches were posted without being run at all. That's not
-> acceptable. Please reproduce each bug and verify that the fix resolves it
-> before posting.
-> 
-> Thanks.
-> 
+Mark Rutland discussed the uniform prefix with a section for untraced
+entries in 2022 [2]. His review of the DIRECT_CALLS series raised the
+cost of the ftrace_caller path [3]. Josh Poimboeuf's objtool support
+for arm64 livepatch [4] detects the prefix by the CALL_OPS layout and
+treats kCFI and CALL_OPS as never meeting, which this series changes.
+
+[1] https://github.com/llvm/llvm-project/pull/131230
+[2] https://lore.kernel.org/all/Y1LBGZPMfCZ8A1bl@FVFF77S0Q05N/
+[3] https://lore.kernel.org/all/amjnf5gz0xP5PTSB@J2N7QTR9R3/
+[4] https://lore.kernel.org/all/cover.1786230311.git.jpoimboe@kernel.org/
+
+---
+Changes in v2:
+- Drop the RFC tag.
+- New patch 1: free the page group of a module whose patch sites are
+  all skipped (sashiko on v1 patch 1). Tested on arm64 under KVM with
+  KASAN: a module built without the prefix NOPs, loaded 20 times,
+  leaks one page group per load without it and none with it.
+- Patch 2: comment the new check in ftrace_process_locs() (Steven
+  Rostedt).
+- Patch 3: comment the 0 case of the sorttable Makefile guard (bpf-ci).
+- Patches 4 and 9: reword the bindgen comments, the flag can go because
+  removing it does not change the ABI (Miguel Ojeda).
+- Patch 9: filter -fpatchable-function-entry out of bindgen's flags on
+  the bindgen_c_flags_final line, so GCC builds are covered too
+  (Miguel Ojeda).
+- Link to v1: https://patch.msgid.link/20260904-b4-arm64-callops-kcfi-v1-0-ce6687739b0c@linux.dev
+
+---
+Jose Fernandez (Anthropic) (9):
+      ftrace: Do not leak a module's empty page group
+      ftrace: Let ftrace_call_adjust() reject a patch site
+      scripts/sorttable: Make the arm64 before_func offset configurable
+      compiler_types: Let notrace keep the function prefix NOPs
+      arm64: ftrace: Make the CALL_OPS prefix layout configurable
+      arm64: cfi: Use CONFIG_ARM64_FUNCTION_PREFIX_NOPS for the type hash offset
+      arm64: ftrace: Support CALL_OPS on kernels built with kCFI
+      arm64: ftrace: Use five prefix NOPs on ThinLTO kernels with BTI
+      arm64: ftrace: Allow CALL_OPS on kCFI kernels built with Rust
+
+ arch/arm64/Kconfig                    |  27 +++++++-
+ arch/arm64/Makefile                   |  15 ++++-
+ arch/arm64/include/asm/cfi.h          |   8 +++
+ arch/arm64/include/asm/ftrace.h       |  16 +++++
+ arch/arm64/include/asm/linkage.h      |  11 ++++
+ arch/arm64/kernel/entry-ftrace.S      |  16 ++---
+ arch/arm64/kernel/ftrace.c            | 120 +++++++++++++++++++---------------
+ arch/arm64/kernel/pi/Makefile         |   2 +
+ arch/arm64/kernel/vdso/Makefile       |   2 +-
+ arch/arm64/net/bpf_jit_comp.c         |   8 ++-
+ drivers/firmware/efi/libstub/Makefile |   2 +-
+ include/linux/compiler_types.h        |   9 +++
+ kernel/trace/ftrace.c                 |  19 ++++++
+ rust/Makefile                         |   7 +-
+ scripts/Makefile                      |   4 ++
+ scripts/sorttable.c                   |   7 +-
+ 16 files changed, 206 insertions(+), 67 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260904-b4-arm64-callops-kcfi-40016eed4fb0
+
+Best regards,
+--  
+Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
+
