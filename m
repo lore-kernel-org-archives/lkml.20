@@ -1,61 +1,71 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F8749EC53;
-	Thu, 24 Sep 2026 15:33:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C59249CF43;
+	Thu, 24 Sep 2026 15:34:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790264037; cv=none; b=cPn5vEoQX9VeO1M2DUq2w0NYXunPPbffIhsHKnFU0moKJRZRNmO3zTDfmbUssiBJkHOWTaNRzP5jK3fQJXfbCpHEFYvkAApXYkgKkN5l49QjZy0eLt+yEZX2QLgcyJO4Ans8RP+RaEFg/Vo9HeLgNKjnpIkE3cjS5WrGeXygO0Q=
+	t=1790264079; cv=none; b=ZfV7sxnbxOFamCk0ljhon8z9QNvy9zGI4xQbuj06hmze3+pkM/rjn4lZI6n1rQb94xCN7TjsYAqVSY8ytzRtXDWe5QEYcvwDrmBZ6ULY0hxcOneIWPcGr7guCTO9KO1/B8bYgIrgwm1dtaxracfb8KLSLstnWHof2EseFSRvqsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790264037; c=relaxed/simple;
-	bh=Aarko+3CQIaswT5E/GL4c0rHkWp+5MRf2/LxY93nxiQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gjddR/ZJjvduzzTyZqLK7/7NQzSGArid4COoyuK4BDpEHjtqq68uSXHQSZtmtBqmTfwQDHumj7nSpVQbfFp1dtCiLchDnUrfxap32vapEsWQ9+37cVvZrrSPNi3OXpy4zJQKBaYk0KsAGvmMS67xsEV3pDXMds9vrDjxDSg10c4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UCx1bn3V; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790264079; c=relaxed/simple;
+	bh=lm2frTX4PmhGYZEhN3/Vdc73jPbQF8yV+Z3T+AHyZyc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aSR0v5h9bsvdvONxwYZF7yGet6xWlmjFyOgMFC80NtH4hGEKWSVQ64zIHfy6seu4l3i6UWVeMhew2RmCvrlk7x8ykJHSATFbNwdr74Oeg4qujy/2LJQti7FOqZZ//vJlH8TyP5xeTi1YflzLgiBS6trBTHNC0rPhS67+p3OStnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oxc1vMvw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UCx1bn3V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93FE71F000FF;
-	Thu, 24 Sep 2026 15:33:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oxc1vMvw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 705491F000FF;
+	Thu, 24 Sep 2026 15:34:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790264035;
-	bh=0y3bhQ+E5gqrg/HPQpK6Xwg1YQ6uGBxrc+WKYjyPp74=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=UCx1bn3VFUyyQieRuHSGXQms4dxjx7wLhVh2n8k7kaS4Nk8CNw0fsTvjolhfDr4pP
-	 GMYg+hjnNfd4ViQPFk20H3NKNq9Bdy/Fo+m4bSRbiexSCBboseCfkK3ho3qN2IUHKq
-	 AsIvQujQpXWknitxQORoSnsscBIXsej/2nlYFZxMOXLw15PiOWGT8evUHSPhyse3eA
-	 iZkmqMf95Ox1WMbxXnVwSx+NUdnYx4oDZgjtYNXZPGTtaXJ9L7+dYjAekgPOT92rAe
-	 ekPqcWng4nEAnnhHpxwLjASo8OOowR1ETtRfE8sVJH7tM+JmbCvFZqH52WhCmXJumS
-	 p8MQJ+J6k8UcA==
-Date: Thu, 24 Sep 2026 08:33:55 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
-Cc: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
- <pabeni@redhat.com>, <hkallweit1@gmail.com>, <linux@armlinux.org.uk>,
- <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <UNGLinuxDriver@microchip.com>
-Subject: Re: [PATCH net-next v3 0/4] net: microchip_t1s: fix collision
- detection on PLCA status change
-Message-ID: <20260924083355.5e839290@kernel.org>
-In-Reply-To: <20260918143302.76909-1-parthiban.veerasooran@microchip.com>
-References: <20260918143302.76909-1-parthiban.veerasooran@microchip.com>
+	s=k20260515; t=1790264077;
+	bh=W/Ljat49QaUj4eL8f4hzZRQRMOMmyTOMPP2vNAZzWmQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oxc1vMvw+VtiJW7aIeXGqs+p23tQHLToK5Rh1ixS12xZIfTfwD7B/dIdeSrQvC5D9
+	 el7EjZPTbBVCg305SzIcrCzGNKOLDrSkKalBhcY52zbFsqapiBmZIfiXgHfEyjph0Z
+	 yY9xgZMVDw0prRfwFB/FvZsC3X/x8Rq4WT9boB1JTbDaXJjOh6udrFIgjtjz2m7K8r
+	 UF+4zZA2wi6/b8MQMRIz5engjCZZCs0hYY1VTiDVCRc90H7156PG5ayw2DZUhn/a8f
+	 HVWt34/7+pj8fdkFx0emyp0lThMtvey0AWWd5bF1fwCiMbSBv5s0JAoF6ffgD6ZHCP
+	 YrlTjg3mbYLWA==
+Date: Thu, 24 Sep 2026 10:34:35 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Vitaliy Sochnev <sochnev.v.74@gmail.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Lorenzo Bianconi <lorenzo@kernel.org>, linux-pm@vger.kernel.org,
+	Daniel Lezcano <daniel.lezcano@kernel.org>
+Subject: Re: [PATCH v2 3/4] dt-bindings: arm: airoha: Use one thermal sensor
+ cell for AN7583
+Message-ID: <179026407528.231290.11921306500711802178.robh@kernel.org>
+References: <20260915191131.25214-1-sochnev.v.74@gmail.com>
+ <20260915191131.25214-4-sochnev.v.74@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915191131.25214-4-sochnev.v.74@gmail.com>
 
-On Fri, 18 Sep 2026 20:02:58 +0530 Parthiban Veerasooran wrote:
-> In a 10BASE-T1S multidrop network, the PHY autonomously transitions
-> between PLCA mode and CSMA/CD mode based on BEACON availability. The
-> existing collision detection logic only adjusted on explicit ethtool
-> PLCA changes, leaving it in the wrong state across these autonomous
-> transitions.
 
-I'm going to assume at least one of the High or Medium severity
-findings is correct, please respond to the AI feedback in timely
-fashion, even if it's just to agree / tell us that v4 is coming.
--- 
-pw-bot: cr
+On Tue, 15 Sep 2026 20:11:30 +0100, Vitaliy Sochnev wrote:
+> AN7583 has three temperature sensors behind the chip SCU: bandgap, GbE
+> and CPU. With no cells a thermal zone can only refer to the bandgap
+> sensor.
+> 
+> Use one cell to select the sensor. The AN7583 compatible is new in
+> 7.3-rc1 and no device tree uses the property yet.
+> 
+> Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
+> ---
+>  .../devicetree/bindings/arm/airoha,en7581-chip-scu.yaml        | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+
