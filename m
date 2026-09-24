@@ -1,210 +1,129 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90D040D587;
-	Thu, 24 Sep 2026 07:14:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 946A43E49EC
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:14:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790234084; cv=none; b=owTiOw50963Ns6Nt+RmqPJZnpC9mTnqhCKmewHyd8FBuPaf7RQUBGAhEoDiJBglnj4mKbN1cRR2sg26261Y68LliRm8naiLOU1OK1Poxyo6+U4HsMG6cqugdc7RNm3AzaqNRkGOuLHWC6pzw6I9o2pTgiS2Ls08H1Qpq38FAAOc=
+	t=1790234100; cv=none; b=ex1vZHiADKoUhe0ZJBmnYACgwKFUzzja7nfamTduARW85hsrJolyWxIwDv22kUNRCWN8Dmr3Z+lWgV+2O6xkCqN14GY4L/6v9LQ5yTiyS0/EvmTDgkQCl7CYHRxYw85YJOBTt0M5HwuVVvPBqF0sHIgWj890VoetsDYqa6ct7Kw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790234084; c=relaxed/simple;
-	bh=NBZ+eic9CfIEwgnBewHMCalGbR6k3uxner4TVUF83uk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=okihCd4RKQfhhmeziSV1nKFqm0ANYh6vMhVxn3jZn6TMWtWp4a8iDzrV5DC7Xrml4XQNeuNeR6Idub0qgrUxgQh2C7aGZPHUS+Cb2lMizBvjGmcYgS5hXjBZMgR+Gf8eVhviC1M8xqb5tEIkZLuFoLkr+Nvg9BpiFBdl7pn57JE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=lEB74waK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=heyBVIvW; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=bGgQDb2V; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=MdeQGqzD; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790234100; c=relaxed/simple;
+	bh=U1Z6kjsMVIbbbRSSBlT8V0uTPKeoPfC6ZhdfOLN5uW0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bUymXQfGJbjyyjyLvRMSGoZSmgFeczTqF3KWSbfzx5XLMCE47Ey2/2pgSE2PnzxF4svkAXfpZzTYicDuE1Im+7UENU7w0DpL42xtvrjiKzyPpHDYkPgmkqtLYjhI9eDzDtAPbSmtvuPZFEKALP3bOAl3NREnBA+WuPVgqLc4nD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wermuth.pl; spf=fail smtp.mailfrom=wermuth.pl; dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b=bnOWYsid; arc=none smtp.client-ip=74.125.228.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wermuth.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=wermuth.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="lEB74waK";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="heyBVIvW";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="bGgQDb2V";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MdeQGqzD"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 6618D21C40;
-	Thu, 24 Sep 2026 07:14:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790234070; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=l1UzpKZExQHMgq+sq0aemQthY02cjPSoIUfciqIEIaE=;
-	b=lEB74waKjCNzIPQgRSgy6lHlkj+gwyoJwFri8Zfs/+e21A1Pp6DGEuqkf2Qg18xfuVDFpa
-	68Q1r0l06H4sgKPWMUQrbYGAKLvgO4KjTAsj1L8u+5drEEdJwaEsp3QdG7q9BkZPVrmUe6
-	ucO1+/A4oHlFp9vJzuf+kiWbDfBg+kI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790234070;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=l1UzpKZExQHMgq+sq0aemQthY02cjPSoIUfciqIEIaE=;
-	b=heyBVIvWHWTwiCNdC/5RpW9/oY2sJg8Hst2cP7sXtj7gS8Nd+vOHEHMJkhyq3mmnhNVh3q
-	8KjeGrO2995JoYCw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790234066; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=l1UzpKZExQHMgq+sq0aemQthY02cjPSoIUfciqIEIaE=;
-	b=bGgQDb2V5m3rkqavrer2ZCW4Ya2tX+tiGP7mna3pk9KD4fBeC6hf89OcWFTY5krxBCSP+o
-	2igWuiFmqHvf7Wzct0o8i38aSnUTbu76I7gIhiyOH5bm/xAVRj1UDnTURzLtq1icvGqMk2
-	IbTUhCh97u3ZFfCkXx/g3TOylBwi9S0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790234066;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=l1UzpKZExQHMgq+sq0aemQthY02cjPSoIUfciqIEIaE=;
-	b=MdeQGqzDCxiNWGlYm3VoqJE7inIR2oistRjtJVNnWy6ewu6YORpH3ArvHjjLV4jaazuenq
-	KwE6NbhTVEpwjYDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F110D13354;
-	Thu, 24 Sep 2026 07:14:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id oTP2LtHNtGoqCQAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Thu, 24 Sep 2026 07:14:25 +0000
-Message-ID: <35bc19a3-27d7-4d3e-978e-0692de78f8a0@suse.de>
-Date: Thu, 24 Sep 2026 09:14:25 +0200
+	dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b="bnOWYsid"
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aa1d00daaaso2868876a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:14:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=wermuth-pl.20251104.gappssmtp.com; s=20251104; t=1790234092; x=1790838892; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=W/q4IHYKCy6ATe5C6R4o2zyKGD60s2UPYSeHPBkDVEs=;
+        b=bnOWYsidpe7xcw9Oe4mvJ75tR8m7UZt09lWMnVpb3C2BFx4V6szCbUQG1cpL0cvDz8
+         VBAEMyNl9awcfhiNAC3ORD/oBwOGOjVhb+X7UsuSRtc64m/QvAXd88MKjPrfOrlus1uP
+         6I5hfloudEjOrEyo52yCNjosVUVk1FguWI48ifALKHQsaNkvp/P8BB+kHslLq5nSNgno
+         zKguWvBRCLZ/JYM+OUqdm710LG3YDfphlkZtLBcmcH0K5D2AuSOuqctPoHHJDq/JTmHf
+         Kr10+4Op2dllW4WatMFouVM1YWFzVU7g5mdrlaQ0B3MYrUNeMkMfG27767xQrKw6Qhwn
+         yJWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790234092; x=1790838892;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=W/q4IHYKCy6ATe5C6R4o2zyKGD60s2UPYSeHPBkDVEs=;
+        b=AjWkoRm3Yv5ZScM8oSVl/yfgV8bqBZT4rOIFtlVpq8WwqgkLiCtY7zdBPuT8DeQMy+
+         1EfpbKqjHWkV1eYMh7fOfYSnSKFH2L8Xoa+8VsZh7KkMRx7sEHSwxHMvT8XMaWrlD3/3
+         ke+Tpvb0NokqPhxEQSxrmTEV30NtlOOOTGNXvDwHTp5ZeZojj912B01D5rhL4WIVkUR5
+         sCwIRpO6O01COzyNTOyXqUcJaMhNf8dYRAjyW0XBPxvjqaSbZ0j2OEzkuc61MJ47e50Z
+         Uabw6PXU+eReDakNMcvNX3jU9Ix8NAO3NfVAoQzNUqjNFA1PjwtXdEhNt2gZTEgeLXEH
+         1syA==
+X-Forwarded-Encrypted: i=1; AKwUvBymrOfvX5/0ffD+MSX0fl2Vx1SK1HTQBORe+ztllZjJJ3a99jDS/XqJDaTcrqIC+62GEcrW9AhRyMUQfms=@vger.kernel.org
+X-Gm-Message-State: AFuF++n4PcZFNA/1ygBCY8/h5r2E2AA+i97WEyynZv7gi+lTDNTgvu/x
+	cRUccXaEU2ChUnloO8Pa61SfYIgHNniMBLIZwE1L8GfCSO0tg+nSvXq2hg+4dYM8DJM=
+X-Gm-Gg: AYBFou0+EThSyfUgj58JYmT91FdF7KSD9g61+wN4H3/K6RWydThiEexjpt5VAESLT1a
+	vmbKjSsdzYOp7Qf/Dbq1wSh9j4Tyaw9qzClZzum0pri9G7+WsDUktiUdzejmmIbJgWR/cD1zSNf
+	+lKVfI3f+k5fiQ3t96k4N8ehod+eLoguwMr5IixQtVnxIO8FfLditFSq5gNWZGf3168dhEOzKlf
+	pSG0y2fYVsNvVUpf8LSoDXt/Cruq5CEuP/SOblyXO5+980gB0xjdfZNtMrpFxGZYO/VPZWW+D6Y
+	S/UayeUNRdekGQunZ9KNmi8fFzurXIU0GGRG5eNKk317Wfwua8XkBod8bOSxyoYo6UBJmjqOO5R
+	Hqwp/SbKHxCrlRLlrrG9jpDqjctxmy6ytZpNb57nuuyDBObVgVa1XzKdEnKcND6Nb8kX0rvSad5
+	rBK3B9S9u2WE+Dw5tqKaIpimNTXy/EjzOlmhEg7pAfRaWmdo2+wtVDdWgLORzZohLPCxN14IWdq
+	2E98vPHEnlGycAOkmxaHNNWE73rhOHfKQ33bFO/iKgWgOU=
+X-Received: by 2002:a05:6402:5385:b0:6aa:aaf2:f6a0 with SMTP id 4fb4d7f45d1cf-6aac8ecf65bmr1299955a12.1.1790234091341;
+        Thu, 24 Sep 2026 00:14:51 -0700 (PDT)
+Received: from janlin-02.home.wermuth.pl (109-206-198-27.host.skynet.net.pl. [109.206.198.27])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aab38a9756sm3306589a12.25.2026.09.24.00.14.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 00:14:50 -0700 (PDT)
+From: Adam Wermuth <adam@wermuth.pl>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Adam Wermuth <adam@wermuth.pl>
+Subject: [PATCH 1/3] arm64: dts: rockchip: Enable USB 2.0 host1 on Radxa ROCK 3B
+Date: Thu, 24 Sep 2026 09:14:43 +0200
+Message-ID: <20260924071445.441822-2-adam@wermuth.pl>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260924071445.441822-1-adam@wermuth.pl>
+References: <20260924071445.441822-1-adam@wermuth.pl>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] drm/udl: reject short USB control transfers in
- udl_read_edid_block()
-To: Hui Peng <benquike@gmail.com>, jani.nikula@linux.intel.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260919223511.3889061-1-benquike@gmail.com>
- <20260924064434.2541959-1-benquike@gmail.com>
- <20260924064434.2541959-2-benquike@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260924064434.2541959-2-benquike@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Score: -4.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	MIME_TRACE(0.00)[0:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.com:url]
-X-Spam-Flag: NO
 
-Hi
+The USB 2.0 data lines of the M.2 B-key slot are routed to USB2_HOST3,
+which is served by usb_host1_ehci/ohci through the host port of
+usb2phy1. Enable the controllers and the PHY port so that modules in
+the B-key slot, such as LTE modems, can enumerate.
 
-Am 24.09.26 um 08:44 schrieb Hui Peng:
-> In udl_read_edid_block(), usb_control_msg() requests 2 bytes into
-> read_buff for each EDID byte, and read_buff[1] is stored into buf[i].
-> Currently the short-transfer check tests ret < 1 instead of ret != 2, so
-> if a short USB control transfer returns 1 byte, read_buff[1] is not
-> written by usb_control_msg() and retains the previous iteration's byte (or
-> uninitialized kmalloc(2) memory on the first iteration), which is then
-> copied into buf[i].
->
-> Change the check from ret < 1 to ret != 2 so any short USB control
-> transfer fails with -EIO.
->
-> Tested in QEMU against Linux 7.3.0-rc3 using dummy_hcd and raw-gadget
-> emulating a DisplayLink UDL USB device: on the unfixed kernel, when
-> usb_control_msg() returned 1 byte for an EDID read (short transfer),
-> udl_read_edid_block() accepted ret = 1 and stored stale read_buff[1]
-> data into the EDID buffer; whereas with this fix applied, ret != 2
-> correctly fails with -EIO and prevents EDID buffer corruption.
->
-> Fixes: 5320918b9a87 ("drm/udl: initial UDL driver (v4)")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
-> Changes in v2:
-> - Split out as patch 1/2 as requested by Jani Nikula.
-> - Added testing details in QEMU on short USB EDID control transfers.
->
->   drivers/gpu/drm/udl/udl_edid.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/udl/udl_edid.c b/drivers/gpu/drm/udl/udl_edid.c
-> index af4cff2a7c51..b7c462436573 100644
-> --- a/drivers/gpu/drm/udl/udl_edid.c
-> +++ b/drivers/gpu/drm/udl/udl_edid.c
-> @@ -36,7 +36,7 @@ static int udl_read_edid_block(void *data, u8 *buf, unsigned int block, size_t l
->   		if (ret < 0) {
->   			drm_err(dev, "Read EDID byte %zu failed err %x\n", i, ret);
->   			goto err_drm_dev_exit;
-> -		} else if (ret < 1) {
-> +		} else if (ret != 2) {
+Signed-off-by: Adam Wermuth <adam@wermuth.pl>
+---
+ arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-Please test for (ret < 2) instead. It makes the test a little less 
-dependent on the earlier calls.
-
-Best regards
-Thomas
-
->   			ret = -EIO;
->   			drm_err(dev, "Read EDID byte %zu failed\n", i);
->   			goto err_drm_dev_exit;
-
+diff --git a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
+index 149a5306bb03..ad9a91c0d0d0 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
+@@ -758,6 +758,14 @@ &usb_host0_xhci {
+ 	status = "okay";
+ };
+ 
++&usb_host1_ehci {
++	status = "okay";
++};
++
++&usb_host1_ohci {
++	status = "okay";
++};
++
+ &usb_host1_xhci {
+ 	status = "okay";
+ };
+@@ -780,6 +788,11 @@ &usb2phy1 {
+ 	status = "okay";
+ };
+ 
++&usb2phy1_host {
++	phy-supply = <&vcc5v0_usb_host>;
++	status = "okay";
++};
++
+ &usb2phy1_otg {
+ 	phy-supply = <&vcc5v0_usb_host>;
+ 	status = "okay";
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
+2.43.0
 
