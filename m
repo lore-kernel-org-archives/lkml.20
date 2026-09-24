@@ -1,94 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-56.ptr.blmpb.com (va-2-56.ptr.blmpb.com [209.127.231.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C15348C4B;
-	Thu, 24 Sep 2026 08:11:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B076140B0FE
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:11:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790237464; cv=none; b=dzVxkeZVIbm6Vjeh7pCwSEB1HkNDyhHZMtatkbjtTgR3GUdIxI1fM+69LUhwioWbxc2L2MabLALSZJt9cdSxFQpTHWTaOVDyQ3HZox6XEfS32LN/b53Zxs31h4KMm8OwOnt3Yt+XVmdYPSW79T2yMhLlJ01IUNvnKmCE3yV73Ic=
+	t=1790237483; cv=none; b=A+/wAY+3MU/5xOgtzeR5LPvTKEsk/tYEKx1Q6F/YDii7M+x6gXCCjIONoB+2loR/2FcmTEUwcl2nkCz0Rzu7JI9oWiCmUoJsagcP1Q66sIHhmtf7ts30UHFeCnqvrGQJuiaA6txH+dswRXECCVWstgkeOoSi3bgU+++SbGOg24Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790237464; c=relaxed/simple;
-	bh=u/zCSPgotF04F4tEk89JtGPviFNZt0zCsAzwMIg57OI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TaRA6+9vREoS80mJx1fyBZtS2uSsoVHQ1b1uBa/cpG2B1j7UGmmHFZWm+wFBGhF2mGKXX/qTrOcpMGQLQj1KAVag4GHS/uuu+GovsrjdDALlXq+2qvIFszqmZUwWEmzv3ckcctimZmxELW7LxuReNQz0SYsgXBDefQpi7M3egJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=layloauo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790237483; c=relaxed/simple;
+	bh=AoDdUurWe21FElda9XiGLhWIKP/LxkJBdQ3+g0QX3Og=;
+	h=Date:To:From:References:Content-Type:Message-Id:Cc:Subject:
+	 Mime-Version:In-Reply-To; b=Go9uABn+/XIBJgVY7HN3DR+4StwLkd2oDPhjsr/DL3vpZOul2+fG2tFhqX6UTB03d4fXyrmE81aI8HmQrWdUEZGUo9XtWcMSBsx7OBs6iJ2wesA9U0t3J0BO2aLUIKsheuf2e6Y6p5X4RHfJOpx6PrnVe6/5Bkvo+TMW9Y/+sKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com; spf=none smtp.mailfrom=bedmex.com; dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b=rZdiQ/8a; arc=none smtp.client-ip=209.127.231.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bedmex.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="layloauo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29A671F000FF;
-	Thu, 24 Sep 2026 08:11:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790237463;
-	bh=hfqRxle/hFfTdy4URaW6NUOCmaEuRP2IH3lVRTZex/I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=layloauoUgWYmwy+dhIybkzZXC6wP+nJ+B8MGdrFLKD177nfPYOqEag3ujhv6+ym1
-	 b3lv5z+tpbrhhqoBvpTnDhATE/xFZYijTmzmJxHZpk8KRkvqCmu7/VrdgS3tWpsL3n
-	 WYyNaRzy11RFmQ/X0Y9rsumk79UKxBZvB0QDDGNV8YKeZNgzIZWiJs98ppESUfxpYD
-	 0iof4jlrU+96tBgElcBZP/1sIWtKXK7dw0GS0QEf2lI+BrUlJivzAKhu5iG2tiwpqi
-	 UyulyEoXryfx+2f7WznPkGv8N0iE66nkEaC93pXDim4sqBlN1LY9Lao0sUoQmRLozd
-	 dreKboWZYE6gg==
-Received: by pali.im (Postfix)
-	id EF2B243B; Thu, 24 Sep 2026 10:11:04 +0200 (CEST)
-Date: Thu, 24 Sep 2026 10:11:04 +0200
-From: Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
-To: Emanuel =?utf-8?B?w4F2aWxh?= <avilaemanueel@gmail.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] hwmon: (dell-smm) Add Dell 16 DC16250 to fan control
- whitelist
-Message-ID: <20260924081104.o2dwdhr6sk2a6f3t@pali>
-References: <20260924044829.2889204-1-avilaemanueel@gmail.com>
+	dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b="rZdiQ/8a"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=bedmex-com.20200927.dkim.feishu.cn; t=1790237476;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=AoDdUurWe21FElda9XiGLhWIKP/LxkJBdQ3+g0QX3Og=;
+ b=rZdiQ/8am1Krzf7nPNakRPnVHxbyiG9Bhc4pCISoPBmcBMZNCLja2h8S6/rx1gXf6ABkpg
+ tuPzGi22JYO2PGQWO6zvekqPm1dCLfCXjj0jNleUy1Hy7/yKBFtFQVBofmMmwPvNkY+7zS
+ qEogwFh/cAZxWA/68ulkrpnTImKpJvTHPc9vJfF36DCCYHUPvP4PONWAZ/mjggMRbjoxF3
+ ik3MClyzRVi1B4++djubBIJs8omsUHQgH9rXj4T1GTpdqVeHJrut1xJD0GRjvnBp59w1B1
+ VsWt9RChSk4rSnWmQeyQwU2gAerbxYCJNTjSlG7tT2fOqQzMX49027zmHbihAw==
+Date: Thu, 24 Sep 2026 16:11:10 +0800
+To: "Krzysztof Kozlowski" <krzk@kernel.org>
+From: =?utf-8?q?=E6=9D=A8=E5=BD=A6=E7=AB=8B?= <yanli.yang@bedmex.com>
+References: <cover.1790235697.git.yanli.yang@bedmex.com> <a9adff17461c1e66d645d2d0edb35a05a536e1a7.1790235697.git.yanli.yang@bedmex.com>
+	<270a77b9-30fe-4b5c-8971-33c1f64f3772@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Message-Id: <0c6903be00b92ecb18f2e74fdd9f8cb39e4db47b.1b45eb39.c5f7.44a3.8394.2b83fdd684c2@feishu.cn>
+Cc: <linux-bluetooth@vger.kernel.org>, <marcel@holtmann.org>, 
+	<devicetree@vger.kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>, 
+	<conor+dt@kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<zhirunliu@aicsemi.com>, <dijiaxu@aicsemi.com>, <chunqiuliu@aicsemi.com>, 
+	<liheng.wei@bedmex.com>
+Subject: Re: [PATCH bluetooth-next v5 1/3] dt-bindings: vendor-prefixes: Add AIC Semiconductor
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260924044829.2889204-1-avilaemanueel@gmail.com>
-User-Agent: NeoMutt/20180716
+Mime-Version: 1.0
+In-Reply-To: <270a77b9-30fe-4b5c-8971-33c1f64f3772@kernel.org>
+X-Lms-Return-Path: <lba+16ab4db1f+a468c7+vger.kernel.org+yanli.yang@bedmex.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Thursday 24 September 2026 01:48:29 Emanuel Ávila wrote:
-> On the Dell 16 DC16250, the BIOS keeps the CPU fan at its highest state
-> (~4700 RPM) even when the system is idle at 45 °C, and fan speed writes
-> through pwm1 are overridden by the BIOS within a few seconds.
-> 
-> The I8K_FAN_30A3_31A3 SMM code pair works on this machine through the
-> WMI-SMM backend: after writing 1 to pwm1_enable, the fan accepts all
-> three fan states (0, 128 and 255 via pwm1) and reports matching RPM,
-> and writing 2 hands control back to the BIOS.
-> 
-> Tested on BIOS 1.8.1 with kernel 7.1.5 (Pop!_OS 24.04).
-> 
-> Assisted-by: claude-opus-5-5
-> Signed-off-by: Emanuel Ávila <avilaemanueel@gmail.com>
 
-Acked-by: Pali Rohár <pali@kernel.org>
+> From: "Krzysztof Kozlowski"<krzk@kernel.org>
+> Date:=C2=A0 Thu, Sep 24, 2026, 15:51
+> Subject:=C2=A0 Re: [PATCH bluetooth-next v5 1/3] dt-bindings: vendor-pref=
+ixes: Add AIC Semiconductor
+> To: "Yanli Yang"<yanli.yang@bedmex.com>, <linux-bluetooth@vger.kernel.org=
+>
+> Cc: <marcel@holtmann.org>, <devicetree@vger.kernel.org>, <robh@kernel.org=
+>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <linux-kernel@vger.kernel.o=
+rg>, <zhirunliu@aicsemi.com>, <dijiaxu@aicsemi.com>, <chunqiuliu@aicsemi.co=
+m>, <liheng.wei@bedmex.com>
+> On 24/09/2026 05:34, Yanli Yang wrote:
+> > Add the vendor prefix for AIC Semiconductor (Shanghai) Co., Ltd.,
+> > used by the AIC8800D80 Bluetooth bindings.
+> >=C2=A0
+> > Signed-off-by: Zhirun Liu <zhirunliu@aicsemi.com>
+> > Signed-off-by: Dijia Xu <dijiaxu@aicsemi.com>
+> > Signed-off-by: Chunqiu Liu <chunqiuliu@aicsemi.com>
+> > Signed-off-by: Liheng Wei <liheng.wei@bedmex.com>
+> > Signed-off-by: Yanli Yang <yanli.yang@bedmex.com>
+>=C2=A0
+> 5 people worked on this one liner?
+>=C2=A0
+> Best regards,
+> Krzysztof
+>=C2=A0
+Hi, Krzysztof
 
-> ---
->  drivers/hwmon/dell-smm-hwmon.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/hwmon/dell-smm-hwmon.c b/drivers/hwmon/dell-smm-hwmon.c
-> index 99a58ed26..88837f028 100644
-> --- a/drivers/hwmon/dell-smm-hwmon.c
-> +++ b/drivers/hwmon/dell-smm-hwmon.c
-> @@ -1679,6 +1679,14 @@ static const struct dmi_system_id i8k_whitelist_fan_control[] __initconst = {
->  		},
->  		.driver_data = (void *)&i8k_fan_control_data[I8K_FAN_30A3_31A3],
->  	},
-> +	{
-> +		.ident = "Dell 16 DC16250",
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
-> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Dell 16 DC16250"),
-> +		},
-> +		.driver_data = (void *)&i8k_fan_control_data[I8K_FAN_30A3_31A3],
-> +	},
->  	{ }
->  };
->  
-> -- 
-> 2.43.0
-> 
+Thanks for pointing this out.
+You are right, this is only a one-line fix. I will remove the extra Signed-=
+off-by lines from this commit and keep only the author and relevant contrib=
+utors for this specific change in next version.
