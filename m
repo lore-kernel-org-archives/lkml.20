@@ -1,106 +1,150 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19942D592C
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:23:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B65046D090
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:23:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790249027; cv=none; b=t8qHrOFXgRtV13uxLw1t05EDDurtA1pCaStRoDTNQHt+kEIYRB3T4I4wvafUV+xPzaOgyr1WUD1BA6rRhn/SvdCs3cyXwfQHG1TFjI91ZC3idvdi6DfuUWWoW2OAvyPHKu8qwQkrdBwa7RHvM7TxQ1fJyCLOzUF810ZBTwgcSlM=
+	t=1790249030; cv=none; b=mfNzZTGU3BNGPiVUwfH/xoe9sSDPY7Ge56bklnzG9X0/MVREGrbRkOGXb4yvg37LQc/ftqL7um8LlpKV0gwWTRS8BsA6oMwSF1JS1UXyZ73ro0BaeOgel/oX3t4hlnuw7Jzu0ssArYJWV15xO1m+GAl5yJwnvR0JcVNF4szbGjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790249027; c=relaxed/simple;
-	bh=V0m//0BePu9K8bXVScZ93KCgFEBxnZwn/T+75hu0Jt0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A0d3rfsaxEf0mLeVS0z0b6cHkqA0QK7Cc87kxdeRUENovIm8nKd7VLSP+1IZFbCfJX9kwlhh+HTsk2EpfZ/8j5PzX1ovtFvL1SNSkgUPwLlQ0CPZZSmUy9I20CWP+Q8ms0T8aoUTWo3y/KRFgzvbgcmEwYenRS3BdW2+J4BvfP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VCoswlss; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790249030; c=relaxed/simple;
+	bh=OjkUmDAD4oz+xbzZpBjuR9oWr5XlqS+v3UAsqgqWTLU=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=ZtQ5g6grTjpS2aVUE1E/5l4BtWj9g57Cnag5Sms/HVvLNF4+JaPYfLCTVLcoXsGN2DHYc2ifsD+d/k6wXOLPuXNkJ4AOFiKDIhAZYA5GHqwyYLFKaVfFk4mpZESfZXs4R85AOK8Rv0dcgwY/wWwt+Vlvq62416exoVJ1U8WZ0uY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B4E+CWfB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VCoswlss"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b5b07ec78so1057376a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:23:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790249023; x=1790853823; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dvO1Qkk2Cc/fKI8T9OqiFoCZ+Xfk2+7b9EWzAp6ijiU=;
-        b=VCoswlssL+w0LmTtzhPJpQNiRzwxEoOwi+NGUhr0u5j3kH+wfMjoa3VXTqZzqeoYwE
-         ef+U73DTnaCwDHucnOx0Vmh+TUWdVaqTPCvYj/h1vz2Q/27pjzAmSxt6FPl6Ilmseoda
-         3+ki4ShunUnPZEAyGpOrhCY4EzIWCy03O+3o0G5hZakCLUfJxWAd3GxyXcc4ooV549Lk
-         HQgHO0PPhhYhQg0Z7PguZyyHwLEL/4bw5RGfT2kf73JA65EzXdSMrbVUSjh3k6tx0/f7
-         S+TfPrK/KFwUAW3EWmGasfAPyJuwCMao5wolCm8p1IkegdZTo17R7lo41hpRVZTwMthy
-         zkLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790249023; x=1790853823;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dvO1Qkk2Cc/fKI8T9OqiFoCZ+Xfk2+7b9EWzAp6ijiU=;
-        b=GBRo5opE6QrUi/eg9cxbWH/kw/aEgiuLemBcENkuRAiCmaz6WxI1u/4fWajwDNE4GC
-         vBDaXEs7PTOWjD2Y9q4hGcKasHkez2r1WeelRAcJxiU3wzs5gVFy3XJaeK9mMcbkSqhr
-         T8e1geOgq4L3OdNvVFn2y/3RJbdEETyWo0X53jzo8l4h3EKA6keHmZti96rSSS4zvFEq
-         dhaBpJJ/Kyl4Gpq1QhJgZX+VQB61/NzMlASLEJ48Oxc78J6PsNhx5245CEo+LsmcINje
-         71d9A0sfxGTJSE17sCXfbJBsfo0FMhiAb8c4vUTM8MhGamPOV22kEtvl5Ceh/6UJbUzw
-         dyUA==
-X-Forwarded-Encrypted: i=1; AKwUvBw0E+JSQU5cAKaYkqzL0yZ2Ck/GmFr7Ma+lvUoFwHkR8MQtcGVypzTQTUb5/I+EuOS/2p8um3bkXPJGxM8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lcBlkY3hw0jxUvOCJtkzlWAVPbwASiVfLCV7Bwm5NL7kE0p72+
-	PpC4mJR3Hz9AcxmMx26yUNQoJyMFZiWBKZilD6Nk26z3q70NZw++rGiu
-X-Gm-Gg: AYBFou07TFPAnikKf676iI43QroxdeaeUAPy3G8rKfofHd2JeNJIVdl9NKC4IR8K23c
-	8XMdwGA1rDDyf55JT0xFbNTiIiJ+n2flhDZ6sV1s8NGV/kMOMVZgda1wTt/0+DhpFHCp5NfHrjD
-	v1ShoUb1UUL3JgZtsgwsYGctkucNxENxSre4iFi5EMdghyGOEMZ+XZzOMQaGjTWIYJfe8viaQHs
-	+spiL723MlOBidjQvhzuLNGTkmsO1K//EvPHfJSbBboGzwbQwh8T7m2uAnyYO7JoYnmjZ7IG5kc
-	GW2U0VYDJd1zX6relA6Bb6+AsjeC17OhrYUZJf7lh7e9pbfQAYt4dG2fv/Kh2syPZSad3l6HQaC
-	34FYtmDYtxYqoBA4VO7cH6Uc7ljwx3gVRFPH/jyviyqEtbqZ7S4MaDAfK5FfZczwCw3nnkw320r
-	kciSC2bPGszJ9BE7WHcyw9XqqWySXusatWoroKNgGzIOV8TARQCIumTkOe7ACKeCkX
-X-Received: by 2002:a17:90b:524c:b0:39e:1310:cb36 with SMTP id 98e67ed59e1d1-3a0985bce17mr1718584a91.20.1790249018445;
-        Thu, 24 Sep 2026 04:23:38 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0813318c1sm3586800a91.4.2026.09.24.04.23.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 04:23:37 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: broonie@kernel.org,
-	heiko@sntech.de,
-	william.zhang@broadcom.com,
-	kursad.oney@broadcom.com,
-	jonas.gorski@gmail.com
-Cc: linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linusw@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	jon.lin@rock-chips.com,
-	bcm-kernel-feedback-list@broadcom.com,
-	noltari@gmail.com,
-	lgs201920130244@gmail.com
-Subject: [PATCH 0/3] spi: balance remove-path teardown in three drivers
-Date: Thu, 24 Sep 2026 19:23:26 +0800
-Message-ID: <20260924112329.1566051-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B4E+CWfB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CAB41F000FF
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:23:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790249029;
+	bh=CTU8Ogs42D+dXZMfPUs99jOT2Cxtsrhzqaj0v6zLINg=;
+	h=From:Date:Subject:To:Cc;
+	b=B4E+CWfBXgRV9MSkJ7xnY0CqF4p85wE8OCoXJ98nmNpMzcJCwh7ys3JzYiqA5kiG6
+	 pOWSeR2zRkaC3If/whLu1VXG89eQQouZGhtgD72VVqExu0TK5r0gBSeyw9GOFMARHk
+	 tdCkJ+prmtuOOQpu7rQ8a4lEZk9XOb1/0HJbtBItz8A0UrdVtSWh6r7dIw3t405JIb
+	 UEwmsxpE+aptDEOvalt6eHqB3EgCBSelVsQ1O0PlS2xC3YqktK43qnfdvq/InLcVtj
+	 sBJKuLWs3DwfggvpjcMOMeMTElF60JWP8jUyfx45HouxF3oqZU8j6jsMQYlnp2Yn1y
+	 oZxyJLeymiRbw==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f13d7aso2469063e87.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:23:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy5BqBIKE4mnDUHEBILlavEMUcolMICIPrl3jwAkkuhU/INYK42nm3OFGIqZlRG2zuMIhUXAgLTTpCZLWI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mPmq31+rYtXJ4LifyDT02N0eDBNya/cuutm+yjikSlkEnYwcD3
+	1ejU5pIU4rbnUBhOivvDO36q94tsNPTc/xHfZZh4as4h6pAbwlx4AlGD1b/DOLXBR5m/h+j84JK
+	EJHsnZRtQyfxvINQDy7EmhDah1m+9dZo=
+X-Received: by 2002:a05:6512:3f06:b0:5b6:1a7c:27 with SMTP id
+ 2adb3069b0e04-5b8df06f8e1mr816426e87.42.1790249027932; Thu, 24 Sep 2026
+ 04:23:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 24 Sep 2026 13:23:36 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmSO0q+PnZRo2cOE02P6sQubU0ZYvgrx2sskm1Py-aQcA@mail.gmail.com>
+X-Gm-Features: AclHuK9_TBH5d_zYCtFMkyhTuN0r2OWG1lnmkelwMJd_YLu1Ajk2Ug68WJDjqqU
+Message-ID: <CAD++jLmSO0q+PnZRo2cOE02P6sQubU0ZYvgrx2sskm1Py-aQcA@mail.gmail.com>
+Subject: [GIT PULL] Pin control fixes for the v7.3 series
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Linux pin control <linux-gpio@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, "hpp.iscas" <hppiscas@163.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Several SPI drivers establish resources or runtime-PM state during probe
-but do not perform the matching teardown after successful removal.
+Hi Linus,
 
-Add the missing unmap or runtime-PM cleanup in each driver's remove path,
-following the cleanup already used by its probe error paths.
+here are some pin control fixes for v7.3. I guess I should have
+sent some earlier but I was procrastinating.
 
-Guangshuo Li (3):
-  spi: fsl: unmap immr_spi_cs on remove
-  spi: rockchip-sfc: Clean up runtime PM on remove
-  spi: bcm63xx-hsspi: Disable runtime PM on remove
+The serialization patch is the only one which is not a driver fix,
+but that one is really important.
 
- drivers/spi/spi-bcm63xx-hsspi.c | 1 +
- drivers/spi/spi-fsl-spi.c       | 8 ++++++++
- drivers/spi/spi-rockchip-sfc.c  | 6 ++++++
- 3 files changed, 15 insertions(+)
+I noticed now that one of the Qualcomm fixes seems to have a
+weird name as committer (or maybe people are actually named
+"hpp iscas" all lowercase, I don't know), it's just a oneliner but if
+that's a problem  then tell me and I'll send a new pull request
+with that patch dropped.
 
+Please pull them in!
 
-base-commit: f03c39de3a1307371a4032757cd1732e91087c7d
--- 
-2.43.0
+Yours,
+Linus Walleij
 
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-pinctrl.git
+tags/pinctrl-v7.3-2
+
+for you to fetch changes up to ae2c5bf969573708cd5b6bb6393631255d83c3fe:
+
+  pinctrl: tegra238: Fix register bank for AON pin groups (2026-09-21
+00:06:32 +0200)
+
+----------------------------------------------------------------
+Pin control fixes for the v7.3 series:
+
+- Serialize the calls to pinctrl_generic_dt_nod_to_map()
+
+- Fix a typo in S4 group in the Meson driver.
+
+- Fix bank width and regmap usage in the MPFS-SSIO driver.
+
+- Data register output latch behavior and voltage encoding
+  fixes in the Sunxi driver.
+
+- Free the IRQ domain on the error path in the single driver.
+
+- Fix some QUP1 SE2/SE3 groups and a missing OF module
+  alias in the Qualcomm drivers.
+
+- Fix up the register banks for AON (I guess always-on)
+  pins in the Tegra238 driver.
+
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+
+----------------------------------------------------------------
+Andre Przywara (1):
+      pinctrl: sunxi: A523: fix voltage withstand encoding
+
+Conor Dooley (2):
+      pinctrl: mpfs-mssio: fix width of unused bank voltage setting
+      pinctrl: mpfs-mssio: use correct regmap function to set bank voltage
+
+Ilya Titov (1):
+      pinctrl: sunxi: keep a shadow copy of the data register output latches
+
+Myeonghun Pak (1):
+      pinctrl: single: free the IRQ on domain creation failure
+
+Prathamesh Shete (1):
+      pinctrl: tegra238: Fix register bank for AON pin groups
+
+Sarah Emery (1):
+      pinctrl: generic: serialise pinctrl_generic_dt_node_to_map()
+
+Sean Anderson (1):
+      pinctrl: meson: Fix typo in s4 group name
+
+Shawn Guo (1):
+      pinctrl: qcom: nord: Split QUP1 SE2/SE3 into lane-pair functions
+
+hpp.iscas (1):
+      pinctrl: qcom: ipq5210: Publish the OF module alias
+
+ .../bindings/pinctrl/qcom,nord-tlmm.yaml           |   7 +-
+ drivers/pinctrl/meson/pinctrl-meson-s4.c           |   2 +-
+ drivers/pinctrl/microchip/pinctrl-mpfs-mssio.c     |   6 +-
+ drivers/pinctrl/pinctrl-generic.c                  |   4 +
+ drivers/pinctrl/pinctrl-single.c                   |   3 +-
+ drivers/pinctrl/qcom/pinctrl-ipq5210.c             |   1 +
+ drivers/pinctrl/qcom/pinctrl-nord.c                |  34 ++--
+ drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c      |   2 +-
+ drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c        |   2 +-
+ drivers/pinctrl/sunxi/pinctrl-sunxi.c              |  82 +++++++--
+ drivers/pinctrl/sunxi/pinctrl-sunxi.h              |   9 +
+ drivers/pinctrl/tegra/pinctrl-tegra238.c           | 204 ++++++++++-----------
+ 12 files changed, 218 insertions(+), 138 deletions(-)
