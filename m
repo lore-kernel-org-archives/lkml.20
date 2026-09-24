@@ -1,127 +1,89 @@
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BED14AA41E;
-	Thu, 24 Sep 2026 18:15:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 723104AA58E;
+	Thu, 24 Sep 2026 18:17:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790273722; cv=none; b=N76zGZtLsWXQ5lSTf5Bu46+EsctSPLXJ+VLcfzS9fIv/jii1eO0Jyrn6qCTdW+gQ2Wpui7epmOYMxKzj3nyvY44SI7klA//r9rNXrJSRo0Sn12F5Way8sXweKQ/UI35Ny75HncDvF/D5rQJ6fcBEnjmkzMlUmWp1mCyN91Vhkcs=
+	t=1790273869; cv=none; b=XrJN/DTmb2TJPkzz3gePibfDQJ9mdbDVWcupQM7zrVeWSDqvj1S4DmVBSdhW7jtiDARqJ31VZqbmWJ54Z7aM99b2Rbnf7hg+1hTxl5/nW8pC8LGhm1oMFdFaveAH4l+ymF18ClT09NFKv/UHbwr+ZtgyUDAqO1hpsnbO4COI7K0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790273722; c=relaxed/simple;
-	bh=wX8CSj2fNMWwCN/CUlUpxrxanIa2BZUzno2ME71/0zE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pkAE8VOeBdkdMnvsOZADj8WCHh2jcfvH0UWKGqioTIJ2KZi4neyWgF87uxhBlB6jVeu+iugemUwNUSxXbpaWlycInk4+YI0QeE/ZYR1162GVItQU/cZ/t9ubVmIhkECc7OIgBYle8dCx2Hqi/Cqi5/vY8DI5FBvLPjY/YcEbfPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=OAIh3WtG; arc=none smtp.client-ip=96.67.55.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	s=arc-20240116; t=1790273869; c=relaxed/simple;
+	bh=Q2fxuKurFXQih0iiPwngj7pvtHiZ6idUejyYBXZJ05g=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=p1rcy9B4eXzr55iPB6a/kRgDFImT9TUsbyZDjg9xAKVfRRjy46NsWWfOSo2v2KhDZqOv4F+KgZZXuOKywkAMYDuqNU+p5ImNQWZg02gOKtG2iO8i0A0a9xR8DK6+NPzpicVaIITyMQwFGs46daevLLAGIvWpYsm+5WkJTSbVRsU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VZLkyqYN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="OAIh3WtG"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=wX8CSj2fNMWwCN/CUlUpxrxanIa2BZUzno2ME71/0zE=; b=OAIh3W
-	tGD3YH8owDqUp8FviZpRcyXxHQqpTPleog+faXwIQZh19fWn0SW/U5aEYDzlYglaflJbiiF6t1k4m
-	bo+fCQ0U0Q2u0m+jicUUH42aRuCUD15VoZfupmNR9d8u1FdUiLCnRKlFLcun1d6znBHhkFXN2lBhP
-	TiBv7p9NChjggdQrsD/M/jrX1xnYse8KbIMqauuw+rhFMSAcHD5KnyOlz6L3YYHQNaRLX4pj59uHO
-	GRAYtKLvk5mtHCh9uydQQD53zlJ+Vuqv4n7i8XdEEFAfd0maQ1ogkh90OFcOznMeq0pxq5ksBHe7G
-	a4XmqjJKjRthdWfxgUF722GpMqHg==;
-Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1x9nvx-00000004TfP-3vhu;
-	Thu, 24 Sep 2026 18:12:37 +0000
-Message-ID: <7571f005bca65aa4ad5e7ec89e62801ad058b689.camel@surriel.com>
-Subject: Re: [PATCH v5 01/11] mm, swap: add virtual swap device
- infrastructure
-From: Rik van Riel <riel@surriel.com>
-To: Chris Li <chrisl@kernel.org>, Nhat Pham <nphamcs@gmail.com>
-Cc: akpm@linux-foundation.org, kasong@tencent.com, hannes@cmpxchg.org, 
-	mhocko@kernel.org, roman.gushchin@linux.dev, shakeel.butt@linux.dev, 
-	yosry@kernel.org, david@kernel.org, muchun.song@linux.dev, 
-	shikemeng@huaweicloud.com, baoquan.he@linux.dev, baohua@kernel.org, 
-	youngjun.park@lge.com, chengming.zhou@linux.dev, ljs@kernel.org, 
-	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
-	qi.zheng@linux.dev, axelrasmussen@google.com, yuanchu@google.com, 
-	weixugc@google.com, gourry@gourry.net, haowenchao22@gmail.com,
- corbet@lwn.net, 	hughd@google.com, baolin.wang@linux.alibaba.com,
- tj@kernel.org, mkoutny@suse.com, 	skhan@linuxfoundation.org,
- kunwu.chan@linux.dev, kernel-team@meta.com, 	linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	cgroups@vger.kernel.org
-Date: Thu, 24 Sep 2026 14:12:36 -0400
-In-Reply-To: <CACePvbVaDNspMDSw_qAcapKAzXj3JGV-KMYmow7aePa0POHpSg@mail.gmail.com>
-References: <20260918180241.3424851-1-nphamcs@gmail.com>
-	 <20260918180241.3424851-2-nphamcs@gmail.com>
-	 <CACePvbVaDNspMDSw_qAcapKAzXj3JGV-KMYmow7aePa0POHpSg@mail.gmail.com>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VZLkyqYN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 907191F000FF;
+	Thu, 24 Sep 2026 18:17:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790273866;
+	bh=xdeuR2BjInsKEFRWSDa4uTBw+SSZywIiz5uJRWZbRiA=;
+	h=Date:From:To:Cc:Subject;
+	b=VZLkyqYN9voPDno+JPIaIXxuNlSUEKt4bsP8Fqv5PaCQI56RudBNJjTUiUoL8ip1F
+	 odlWlhW9wF2hdTgu1IcJhuwnqw48t1nrYhUcloVc6BWXQZtexlBdgp/9+tBeRx7D2E
+	 NWQxoi0JM8xznHuyRsyliKeeLaUeUH2Owtu29vpean4H/L7X4u4xh2sx/l38L0KU1T
+	 NuBEvotJMS4hdcl7SbOZwLF1AZkA9raKawJK1VVc/nf6uXlDyaznpAmesVWlvjcKxI
+	 fjd/JvgiTgDw8OZSs1H8/Pst8adm0ASiZvSeGRLEBHjev3ER3bGc6KipE8RdfXz+Hw
+	 KV+fswPubawmg==
+Date: Thu, 24 Sep 2026 19:17:42 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Armin Wolf <W_Armin@gmx.de>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: build failure after merge of the pagemap-headers tree
+Message-ID: <arVpRvAzgfZkSHDF@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Tue, 2026-09-22 at 23:18 -1000, Chris Li wrote:
-> On Fri, Sep 18, 2026 at 1:03=E2=80=AFPM Nhat Pham <nphamcs@gmail.com> wro=
-te:
-> >=20
-> >=20
-> > @@ -482,6 +491,11 @@ void swap_read_folio(struct swap_io_ctx *ctx,
-> > struct folio *folio)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (zswap_load(folio) !=3D -=
-ENOENT)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 goto finish;
-> >=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (unlikely(swap_is_vswap(sis)))=
- {
->=20
-> There are too many swap_is_vswap() in this series. It fragments the
-> code path, making things harder to reason about. Esepcially around
-> locks. I count 22 in this patch alone.
->=20
-> I consider this the biggest drawback of this series. This
-> fragmentation of the code path.
+Hi all,
 
-Could we avoid that by simply always having everything
-go through the vswap abstraction layer?
+After merging the pagemap-headers tree, today's linux-next build
+(powerpc ppc4xx_defconfig) failed like this:
 
-When everything in vswap, we don't need to test for it.
+In file included from /tmp/next/build/include/linux/preempt.h:11,
+                 from /tmp/next/build/include/linux/alloc_tag.h:11,
+                 from /tmp/next/build/include/linux/percpu.h:5,
+                 from /tmp/next/build/arch/powerpc/include/asm/time.h:14,
+                 from /tmp/next/build/arch/powerpc/platforms/44x/sam440ep.c:21:
+/tmp/next/build/include/linux/acpi.h: In function '__free_acpi_object_free':
+/tmp/next/build/include/linux/cleanup.h:211:92: error: suggest braces around empty body in an 'if' statement [-Werror=empty-body]
+  211 |         static __always_inline void __free_##_name(void *p) { _type _T = *(_type *)p; _free; }
+      |                                                                                            ^
+/tmp/next/build/include/linux/acpi.h:31:1: note: in expansion of macro 'DEFINE_FREE'
+   31 | DEFINE_FREE(acpi_object_free, union acpi_object *, if (_T) ACPI_FREE(_T));
+      | ^~~~~~~~~~~
+cc1: all warnings being treated as errors
+make[6]: *** [/tmp/next/build/scripts/Makefile.build:290: arch/powerpc/platforms/44x/sam440ep.o] Error 1
+make[6]: *** Waiting for unfinished jobs....
+In file included from /tmp/next/build/include/linux/preempt.h:11,
+                 from /tmp/next/build/include/linux/sched.h:15,
+                 from /tmp/next/build/include/linux/ratelimit.h:6,
+                 from /tmp/next/build/include/linux/dev_printk.h:16,
+                 from /tmp/next/build/include/linux/device.h:15,
+                 from /tmp/next/build/include/linux/platform_device.h:13,
+                 from /tmp/next/build/arch/powerpc/platforms/44x/warp.c:11:
+/tmp/next/build/include/linux/acpi.h: In function '__free_acpi_object_free':
+/tmp/next/build/include/linux/cleanup.h:211:92: error: suggest braces around empty body in an 'if' statement [-Werror=empty-body]
+  211 |         static __always_inline void __free_##_name(void *p) { _type _T = *(_type *)p; _free; }
+      |                                                                                            ^
+/tmp/next/build/include/linux/acpi.h:31:1: note: in expansion of macro 'DEFINE_FREE'
+   31 | DEFINE_FREE(acpi_object_free, union acpi_object *, if (_T) ACPI_FREE(_T));
+      | ^~~~~~~~~~~
+cc1: all warnings being treated as errors
 
-Handling the details of what's behind the vswap would
-be handled one layer down.
+Caused by commit
 
-Chris, do you think that would be cleaner?
+   f54586fcd661e (ACPI: fan: Use __free() to simplify AML error handling)
 
-What am I missing?
-
---=20
-All Rights Reversed.
+(it was also causing lots of warnings in other GCC configurations but
+didn't trip -Werror in allmodconfig since it doesn't seem to upset
+clang.).  I have reverted that commit for today.
