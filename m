@@ -1,108 +1,217 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BA772448B90;
-	Thu, 24 Sep 2026 10:35:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92C382E266C;
+	Thu, 24 Sep 2026 10:36:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790246156; cv=none; b=PNdwNRME5oOnT3HgARo2GOuNCxzwvdL7hgHfYaqYOmEOkJGpoERgQlsiz+Ab2osRXEvtyPLv8ea+Nut++GzGSogx2JINMz7k/ueSeYBidXxYmv8v+a86VB5DjGcsqSdpat+4Ad3LQfW/Eig1LhDfJnu6jkpbPHfkoiJSuiZDwF8=
+	t=1790246206; cv=none; b=Eu0udFn7xrYReLc3MMcLi8ZhtUbSnwnTW1RSPjnfX44KpYQrH2R7BaMuF+iQsTRVR+YFWG4XXyrUiHIna1x+4+5U3r0eYxaFngpLJIbS8i+DT6x9jnX/cnQ7aGtjLXJzfk8Lzb8DJjW466Q8OAVkGLzoT7yBTT05vchnR/3NeBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790246156; c=relaxed/simple;
-	bh=6cyMeBMhrGavK9oDVUWeQnMviClTnzNiDHf2LfBUEFI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sM6VgWj3qydBt5DG0iMxhU3MOb1Adyl7AyPZ/w8K6vIeQmEaII98rzvAwfuIPvGEkKSsEW6xLU+Is8GgJyVKax0O1znlPuD0N2scZtEMxZcUemiQIJ2QHGlI/BsvocAY/ybMt8qi/7yTlYQbmqBRA0Mu+sFk2sT5+pF1R1GNKOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=UiDcv+bD; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790246206; c=relaxed/simple;
+	bh=sIaQCM/zVQP8UahTCWbTCOaVnjUb1AGHtQ8usqmu1Ho=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jKnM2uZlIyN6hwZMz6okFxqiCdd0WTBtTAnHGy7YIjZ2ETtck+JrRrZwajTLFNvaqrmm6Giid5Oay9j8547+QPBUG3SFZmvgGsTtFhARUBX9362ojRwo1uEOk2n7ir4FH9L5CHuIOJvtHWUK+lNdKVUQge03ULG1oHic8LEW3dA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nxsw.ie; spf=pass smtp.mailfrom=nxsw.ie; dkim=pass (2048-bit key) header.d=nxsw.ie header.i=@nxsw.ie header.b=PPSFoIhA; arc=none smtp.client-ip=185.70.43.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nxsw.ie
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxsw.ie
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="UiDcv+bD"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 558AE1516;
-	Thu, 24 Sep 2026 03:35:50 -0700 (PDT)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D66343F86C;
-	Thu, 24 Sep 2026 03:35:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790246153; bh=6cyMeBMhrGavK9oDVUWeQnMviClTnzNiDHf2LfBUEFI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=UiDcv+bDUZWdPZJfaaloYomd7k8j0fBSIHRpGls/xrzxvnzSVPLqHUDPAJ9zwmIT+
-	 WpftGglC7ZUCwPI8q24A+v/3sZK02m1/LND/uqGLBHik19UH1BvfmfUrH1nqaTB2Rq
-	 8cuOdlAWaZB1ohf5s9IiTnqKcp4ZDJtnAsaA9JCo=
-Message-ID: <ca773e60-e709-4b07-bf7f-14f92b8e3e5e@arm.com>
-Date: Thu, 24 Sep 2026 12:35:48 +0200
+	dkim=pass (2048-bit key) header.d=nxsw.ie header.i=@nxsw.ie header.b="PPSFoIhA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxsw.ie;
+	s=protonmail2; t=1790246194; x=1790505394;
+	bh=F/ZACrV0aO4tIi1yz6r8avu0F7Wz4cAKOEl6OlC0s8M=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=PPSFoIhAHCReWnNEt/yAkqwhMU4gOeJGrRwd/T5v1b/abU2dTq79+izGTsXdrVqxF
+	 LHxR8f7LDAVZh5X07ZY2qrfmQA7LTN4ufjJFpWVg+RRWKpxpMrBM9OdujSDzTIuUFg
+	 bQNOX4PmLowms8RYAMU+B37XZL8aKeRfi4aJ5lfpXwIZpo1bEEOyNud+UOzIrh0N7G
+	 SOwL98xWljNdYX/R1oIVj05NIBoA/DuqwKDAWCjaPLwcEWqYMZKufQAsdsaoxEVxd/
+	 5ysghwseELMjho+iQA8F5uhHm2ZbIot/05lXqS3N0UQBUhFv0Zxi+ag8KTt/0M6k5d
+	 78eqpEcda6SJA==
+Date: Thu, 24 Sep 2026 10:36:28 +0000
+To: Jianfeng Liu <liujianfeng1994@gmail.com>, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+From: Bryan O'Donoghue <bod.linux@nxsw.ie>
+Cc: linux-arm-msm@vger.kernel.org, Jessica Zhang <jesszhan0024@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org, =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>, freedreno@lists.freedesktop.org, Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>
+Subject: Re: [RFC PATCH v1 2/2] drm/msm: reject dma-buf imports without struct page info
+Message-ID: <bfd744b0-c51a-4b9a-9f30-0d5aa9c79512@nxsw.ie>
+In-Reply-To: <20260923074256.9357-3-liujianfeng1994@gmail.com>
+References: <20260923074256.9357-1-liujianfeng1994@gmail.com> <20260923074256.9357-3-liujianfeng1994@gmail.com>
+Feedback-ID: 136405006:user:proton
+X-Pm-Message-ID: 43bcfb19f2be4ecc4f397510c6eb20c44cd61e73
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 12/14] arm_mpam: detect and enable MPAM-Fb PCC support
-To: Sudeep Holla <sudeep.holla@kernel.org>, Ben Horgan <ben.horgan@arm.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Hanjun Guo <guohanjun@huawei.com>, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- James Morse <james.morse@arm.com>,
- Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu
- <fenghuay@nvidia.com>, Jonathan Cameron <jic23@kernel.org>,
- Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
- Ganapatrao Kulkarni <ganapatrao.kulkarni@oss.qualcomm.com>,
- Trilok Soni <tsoni@quicinc.com>, Srinivas Ramana <sramana@qti.qualcomm.com>,
- Niyas Sait <niyas.sait@arm.com>, Lee Trager <lee@trager.us>,
- Ritwick Sharma <ritwick.sharma@arm.com>, Gavin Shan <gshan@redhat.com>,
- linux-acpi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260911112835.714162-1-andre.przywara@arm.com>
- <20260911112835.714162-13-andre.przywara@arm.com>
- <3e7bdafd-d6ea-422c-82ff-e278a17280ff@arm.com>
- <a314ee8f-4152-4b29-8348-6cd750eced40@arm.com>
- <d96cbb8f-631c-433f-a553-6a6e20531f68@arm.com>
- <20260924-snobbish-brainy-velociraptor-06bdd4@sudeepholla>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20260924-snobbish-brainy-velociraptor-06bdd4@sudeepholla>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Sudeep,
+On 23/09/2026 08:42, Jianfeng Liu wrote:
+> msm_gem_import() fills the GEM object's page array with the deprecated
+> drm_prime_sg_to_page_array() and stores the attachment sg_table for
+> later mapping into the GPU's own pagetables via iommu_map_sgtable().
+> Both need the struct page of the sg_table:
+>=20
+>   - iommu_map_sg() maps sg_phys() of each entry, and
+>   - drm_prime_sg_to_page_array() iterates with for_each_sgtable_page,
+>     which walks sg->length.
+>=20
+> When CONFIG_DMABUF_DEBUG=3Dy, dma_buf_map_attachment() hands importers
+> a copy of the sg_table with the page pointers stripped and sg->length
+> zeroed.  In that case drm_prime_sg_to_page_array() "succeeds" while
+> filling zero entries, leaving msm_obj->pages uninitialized garbage
+> (kvmalloc_objs() does not zero).  The buffer is imported anyway, and
+> the first VM_BIND map of it fails asynchronously in the scheduler job
+> run - after userspace has already enqueued GPU work referencing the
+> mapping.  Userspace then observes arm-smmu translation faults from
+> UCHE, e.g. hardware video decode in clapper/chromium:
+>=20
+>    gpu fault: ttbr0=3D000000088a889000 iova=3D000000010741c000 dir=3DREAD
+>    type=3DTRANSLATION source=3DUCHE
+>=20
+> Replace the deprecated helper with an explicit loop so that a missing
+> or short page list is detected at import time and rejected with
+> -EINVAL.  This turns the silent memory corruption into a clean import
+> error, letting userspace fall back instead of crashing the GPU.
+>=20
+> Note that msm fundamentally cannot map a page-less sg_table into its
+> per-process GPU pagetables (it needs the physical addresses), so
+> imports of such buffers can never work until msm is converted to
+> build its GPU mappings from the attachment's DMA addresses.
+>=20
+> Signed-off-by: Jianfeng Liu <liujianfeng1994@gmail.com>
+>=20
+> ---
+>=20
+>   drivers/gpu/drm/msm/msm_gem.c | 31 ++++++++++++++++++++++++++++---
+>   1 file changed, 28 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.=
+c
+> index c4cff3d53d81b..0d5a91181d05b 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.c
+> +++ b/drivers/gpu/drm/msm/msm_gem.c
+> @@ -1307,7 +1307,8 @@ struct drm_gem_object *msm_gem_import(struct drm_de=
+vice *dev,
+>   =09struct msm_gem_object *msm_obj;
+>   =09struct drm_gem_object *obj;
+>   =09struct dma_buf *dmabuf =3D attach->dmabuf;
+> -=09size_t size, npages;
+> +=09struct sg_page_iter piter;
+> +=09size_t size, npages, filled =3D 0;
+>   =09int ret;
+>=20
+>   =09size =3D PAGE_ALIGN(dmabuf->size);
+> @@ -1333,8 +1334,32 @@ struct drm_gem_object *msm_gem_import(struct drm_d=
+evice *dev,
+>   =09=09goto fail;
+>   =09}
+>=20
+> -=09ret =3D drm_prime_sg_to_page_array(sgt, msm_obj->pages, npages);
+> -=09if (ret) {
+> +=09/*
+> +=09 * Fill the page array ourselves instead of using the deprecated
+> +=09 * drm_prime_sg_to_page_array(), so that we can detect sg_tables
+> +=09 * that carry no struct page at all.  Those must be rejected:
+> +=09 * msm maps imported buffers into the GPU's own pagetables with
+> +=09 * iommu_map_sgtable(), which needs the physical pages, so an
+> +=09 * import without page information could never be mapped.  The
+> +=09 * most prominent case is the page-stripping sg_table wrapper that
+> +=09 * dma_buf_map_attachment() hands out when CONFIG_DMABUF_DEBUG=3Dy.
+> +=09 *
+> +=09 * drm_prime_sg_to_page_array() would "succeed" with zero entries
+> +=09 * filled in that case and leave msm_obj->pages uninitialized,
+> +=09 * which later blows up as arm-smmu translation faults from UCHE.
+> +=09 */
+> +=09for_each_sgtable_page(sgt, &piter, 0) {
+> +=09=09if (WARN_ON(filled >=3D npages)) {
+> +=09=09=09ret =3D -EINVAL;
+> +=09=09=09goto fail;
+> +=09=09}
+> +=09=09msm_obj->pages[filled++] =3D sg_page_iter_page(&piter);
+> +=09}
+> +=09if (filled !=3D npages) {
+> +=09=09DRM_DEV_ERROR(dev->dev,
+> +=09=09=09      "import of dmabuf from '%s' rejected: sg_table has no/mis=
+aligned struct page info\n",
+> +=09=09=09      dmabuf->exp_name ?: "?");
+> +=09=09ret =3D -EINVAL;
+>   =09=09goto fail;
+>   =09}
+>=20
+> --
+> 2.47.3
+>=20
+>=20
 
-On 9/24/26 11:48, Sudeep Holla wrote:
-> On Mon, Sep 21, 2026 at 05:28:27PM +0100, Ben Horgan wrote:
->> Hi Andre,
->>
->> On 21/09/2026 17:09, Andre Przywara wrote:
->>> Hi Ben,
->>>
->>> On 9/11/26 17:09, Ben Horgan wrote:
->>>> Hi Andre,
->>>>
-> 
-> [...]
-> 
->>>>
->>>> This looks like the change earlier in the series to
->>>> drivers/acpi/arm64/mpam.c makes no functional effect unless the proposed
->>>> spec changes are accepted; the default is msc->id. I'd just move the
->>>
->>> Yes, but it reduces churn, and more importantly, is more true to the
->>> MPAM-Fb spec, which says:"The MSC identifiers are sequential and start from
->>> 0 for each agent which uses this protocol." So this requires that we have
->>> per-channel IDs for the MSCs, that's why I think it's justified to
->>> introduce this already now, even when it's somewhat redundant as the code
->>> stands now, as we always assign the system-wide ID to it.
->>>
->>> I can of course move that out (and have that already on top of v9,
->>> internally), but wanted to check this with you.
->>
->> I don't really mind. If Lorenzo/Sudeep are happy with doing the preparation
->> work in drivers/acpi/arm64/mpam.c then I'm ok with it. It's currently a
->> non-functional change but does make the expected path forward slightly
->> clearer.
->>
-> 
-> Sure, I am okay to have it added here if we plan to use it in the future.
-> We can always rip it off if the spec changes its direction or gets deemed
-> as broken 😉.
-Many thanks, will keep it in then.
+This very much looks like an LLM generated patch - the commit log, the=20
+large comment in the code and TBH the solution too.
 
-Cheers,
-Andre
+Why is the fix Adreno specific ?
+
+Shouldn't this function be ammended with
+
+ > +=09if (filled !=3D npages)
+
+instead ?
+
+/**
+  * drm_prime_sg_to_page_array - convert an sg table into a page array
+  * @sgt: scatter-gather table to convert
+  * @pages: array of page pointers to store the pages in
+  * @max_entries: size of the passed-in array
+  *
+  * Exports an sg table into an array of pages.
+  *
+  * This function is deprecated and strongly discouraged to be used.
+  * The page array is only useful for page faults and those can corrupt=20
+fields
+  * in the struct page if they are not handled by the exporting driver.
+  */
+int __deprecated drm_prime_sg_to_page_array(struct sg_table *sgt,
+                                             struct page **pages,
+                                             int max_entries)
+{
+         struct sg_page_iter page_iter;
+         struct page **p =3D pages;
+
+         for_each_sgtable_page(sgt, &page_iter, 0) {
+                 if (WARN_ON(p - pages >=3D max_entries))
+                         return -1;
+                 *p++ =3D sg_page_iter_page(&page_iter);
+         }
+         return 0;
+}
+EXPORT_SYMBOL(drm_prime_sg_to_page_array);
+
+All the LLM seems to have done here is copy the code out of=20
+drm_prime_sg_to_page_array() and then add a check for filled !=3D npages
+
+But if that is a valid check for Adreno - then it is a valid check for:
+
+  grep drm_prime_sg_to_page_array drivers/* -r
+drivers/gpu/drm/vmwgfx/vmwgfx_blit.c:=09=09ret =3D=20
+drm_prime_sg_to_page_array(src->ttm->sg, src_pages,
+drivers/gpu/drm/vmwgfx/vmwgfx_blit.c:=09=09ret =3D=20
+drm_prime_sg_to_page_array(dst->ttm->sg, dst_pages,
+drivers/gpu/drm/omapdrm/omap_gem.c:=09=09ret =3D=20
+drm_prime_sg_to_page_array(sgt, pages, npages);
+drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c:=09ret =3D=20
+drm_prime_sg_to_page_array(sgt, etnaviv_obj->pages, npages);
+drivers/gpu/drm/drm_prime.c: * drm_prime_sg_to_page_array - convert an=20
+sg table into a page array
+drivers/gpu/drm/drm_prime.c:int __deprecated=20
+drm_prime_sg_to_page_array(struct sg_table *sgt,
+drivers/gpu/drm/drm_prime.c:EXPORT_SYMBOL(drm_prime_sg_to_page_array);
+drivers/gpu/drm/msm/msm_gem.c:=09ret =3D drm_prime_sg_to_page_array(sgt,=20
+msm_obj->pages, npages);
+drivers/gpu/drm/xen/xen_drm_front_gem.c:=09ret =3D=20
+drm_prime_sg_to_page_array(sgt, xen_obj->pages,
+
+and should live in the helper function with an appropriate Fixes: tag=20
+for backporting...
+
+---
+bod
+
