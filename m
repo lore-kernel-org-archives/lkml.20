@@ -1,98 +1,142 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9800A3A48E6
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:33:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35DA326927
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:33:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790224423; cv=none; b=S8RlVNNFRAlX5FpB2jv9Q02NMEChN6EnbAfyKQJHBKAi45IlzjetPXcV+OGK5zhfhI2QwZqRxeAR7c4G3bUDIF5RpM4jglAAK2uLU+xOeRYBii+xgtHU4e8YqMg8Cwvc0FXcbsKA9j9h/jiTW1fA3wAAuxyAB9RB9feisPgZVaI=
+	t=1790224431; cv=none; b=mGNQXH59Gzw8zcYdLxlZg+gufpOP32y3vqaiNyE8k1GH4EWBaD6KP4DSsohZ4EKGIlzxjpAxVIyB8LxfAtYULkzXKER6/w3Jy/1LeeHjnfsi8s4tq30jSzm+NBWJmHeTuBnqM+WxNBGHuySQZPtuJHZLeKTZdmNl29RVECw0AvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790224423; c=relaxed/simple;
-	bh=3QrqEW61DfZO06NnG7amST4oSEHfnKg19eZK/WvZLE0=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=IzsjARTGqKLGzydwnsoFsUxwoE49qZ5n032MYK9nk5zGCicYeDSpvDo2g9cwK2lDpPCYjDXSmDy1mMG9IgWSoa3vzkIEmujV6rDGFDDGxcP6SuPaIUlryDfCmuKBcGsNeuwkZec+BNjmt87CLKhDvfPeiNMLX2DtJCagCGn6zO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4a7de733fa9so2583338b6e.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:33:41 -0700 (PDT)
+	s=arc-20240116; t=1790224431; c=relaxed/simple;
+	bh=udQ5SvOfEFJRoSpEeM2DTmvXBIixvY25zbrzK65E2+4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CVcIAx074VN1+HKMtNE/RHePPvvo8L94EY/6wYDdklWAtGbnmsWtx6yEMwZsXad28fjIGRqMvAy5jo5Z2uGop6uYePTxkgItENGVmgxUCiR1leMf2edBKzyXv/73OEISEGr62KWLoRc9pWJSZV68IM5R247H7cN/DhrVhJftUMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IIjHevZr; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IIjHevZr"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2dd58e1e2c7so8567285ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:33:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790224429; x=1790829229; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Y4vvzIu3QIeoIKEnWqNtiV06AkWPOeNhNL2yLykrai0=;
+        b=IIjHevZr5JUqk9b2CO56O2f6LcacqkD1hzfcD6CjAA3iaexSZF+QoicphYN8AWyjhh
+         XumI12HVXAar9JpWoe34etpzhjhv1YpjPL0ewRSATlJXdBwBzcYr8ifeZQkzn5nIQ2xW
+         7qB+sC13i9ocED3LXhABxpnHX6brSAaHKo/i4pKv7KriUOENmAezHyFnKPCkZiRvrQWD
+         Z4i5InmMwUJRekR7wN1rKzi39s3IVCDtBDIeMT6M9VOvD9TGvwG3iia0R4EMVLao1Ln/
+         fr59vuKnNUbQMiG1P+I4xMSYuF2Hh0wcUSRBP0mYYe+g3AOKuDykuJx6GkO59/uzeDWQ
+         +Zyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790224420; x=1790829220;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nBcnLi08l1NYXdX9F9Sp3GEPBb3p9r+MlaeoU1T9lP8=;
-        b=MYqx2PohzkQ2c+IU6Sw28sFzwRa1gneWu55HAfAhFijx8o467tm2K8B9SWSPBVdJUx
-         /LWEaGPgA+fUSEqok9US5zLXTcWVuoI0NuSC0FH95C5t9nRBg3o9xVtI6tty0VVq4zRj
-         FTKXHBmCZl3G3T/PAGllJWiE5+OIt9/rp+UVcntkxvK4GDqJjlw/6GbB37qksqeF2K/I
-         gG6zYMJ4JKKz3H4658kJ7uMFYdWcFDiCuStfEe8DmhZsPr0qKCVS4fGTdtg2zZ5/mOWT
-         SIIuu3X3uC+H6Y/8VRhlpb0Nx9uda/vec1KB+FwadoMnDVnznFlQuNuntCvwfBk6Tevl
-         /7aA==
-X-Forwarded-Encrypted: i=1; AKwUvBx1ZPyyQWQOt3vZM0ujMJYzJbOk1xw0h7Eszh+wI9YR0o/rX5WdqJJBfQPclyWf9yRT7aLdFPs9C7rWmN8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kIlGPjTocZatT0MhHPI2Z0wtd/Qc9YC9gXkFRgo/apVAYKXRIq
-	ktojLFtvp0nZd2e/W7RNmK9tRKV0YM5/PCZz7nOip+q4SOjIrPQxfSX6v1eDKcC0yAVxUB4RmQm
-	rhZDNDc/a+BOYYmHae8oJRNzci/lKjyhLocDCTvn76AuwMMleUTiAPyT771c=
+        d=1e100.net; s=20260707; t=1790224429; x=1790829229;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Y4vvzIu3QIeoIKEnWqNtiV06AkWPOeNhNL2yLykrai0=;
+        b=HhUnyWzH42VCUxZzN8ylqjSGxdcSBpWbLeUMfGR9vYwI6GmDId0Y1Jz7tI3kpW9B+h
+         dBbRBMuVKZZaU3IexC6EVr19SI8UiCH84gyJH4IHhw4bdb3KHdTw5zOPv3Gu0OUg0MCQ
+         4J2yePIV6y7g6Zad6InNAEb0NcV5zPEZUfNi1IJbrfRwZ3TaSEgP0TJdqutc5mgngXfZ
+         SHKh51wUwOK6HIRfWUmnl32CvdhP28CrjeG1ieNiS4X4o0uQDxDGIUG0Dzmj4st8wrqL
+         CWoVDSh5dIOCt5/zHfjn8npvHhGDqtHAtMN2eTUv8vN9fuqa1PW19DsU3ErcKyWFVWG0
+         Gr/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxZ/YOTVNpfmV2XYUF/jPe3mpXQ5RU7MJRc+rjp2zPnPq8/BvsIgmhqrw94EmjSUsxCHz/ul9wcKfMkFtI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mmbhHBFeYU7i/ZwOJk+VhprgH45ploF6ple1e/vAJ7GgPRQRmT
+	1qt31N0adtxJROLpqvSp1kHUfjAI4ZegnihHqlsE6kDhvaWUuan/mc0d
+X-Gm-Gg: AYBFou079Nxv3R3n+JAvOrefC+IVvVnkTx0qlEI/kNta3qjg6z2YfR8KlH8NMuuv9Ey
+	KVXxpNpF6f6nEoTES4BnpyZQZhwCknFINwNyaFD3EmyRjdVb7bfkrXz4BBxPIG3yjggAhlsJaE2
+	Mv04D1wuKCIW0yu6/l1Tt34znKcKekWzbK2QBUmBGEjpGRJNdjLi2HE0taGxFzbJtIeCB6Y8W8W
+	FSAMQ17XT2Fyby8stoyLRyUe32fGK7g4LQkeuKgkP7L+zzoWfznxVe3i8Q1rd526Y5xNz72rxN0
+	WGJvTlDZt8+8tFdUj8LtuwMb4cS4h2LM+rY3J4FfTyARugfVFpcSy88FocR6o1gWLsO2Y8o16rM
+	E5COPGY1ZgHU2qIal9LfJg9MdpyME7h0y1poCbTewIMkWHaUY2sQ256aGvZb5L73upwE3X+dfxo
+	NfyU0L3d9MFVHCXgeYi9J/PGIwiFWibnpn1c/e9dJp5C4RPxPH2CkRTA2hWVRJ5t5OxISsluWVZ
+	6JmscuIY3pjHVx2aasPPFJZVorztVJEENkxchsT
+X-Received: by 2002:a17:903:24d:b0:2dd:c100:b2c3 with SMTP id d9443c01a7336-2df7dc48c22mr10231635ad.46.1790224429058;
+        Wed, 23 Sep 2026 21:33:49 -0700 (PDT)
+Received: from thangnn-Dell.vingroup.local ([101.99.14.40])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5a982esm19662755ad.22.2026.09.23.21.33.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 21:33:48 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: dmitry.torokhov@gmail.com
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	sashiko-bot@kernel.org,
+	syzbot+1075f6dc93f398c1857e@syzkaller.appspotmail.com,
+	lkp@intel.com,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Subject: [PATCH v3] Input: serio - don't sleep on serio_mutex from drvctl_store()
+Date: Thu, 24 Sep 2026 11:32:02 +0700
+Message-ID: <20260924043202.719245-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:124a:b0:4c3:7695:1178 with SMTP id
- 5614622812f47-4d72c04249bmr1240958b6e.8.1790224420584; Wed, 23 Sep 2026
- 21:33:40 -0700 (PDT)
-Date: Wed, 23 Sep 2026 21:33:40 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab4a824.2e4f7bcc.334f63.0000.GAE@google.com>
-Subject: [syzbot] Monthly input report (Sep 2026)
-From: syzbot <syzbot+list8f8640fedc8d63924cf2@syzkaller.appspotmail.com>
-To: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello input maintainers/developers,
+Writing to the drvctl attribute takes serio_mutex while holding the
+attribute's kernfs active reference. serio_unregister_port() does the
+opposite: it holds serio_mutex and device_del() then waits for active
+references to drain in kernfs_drain(). If a drvctl write is in flight
+when the port is unregistered, the writer waits for serio_mutex and the
+unregistering task waits for the writer, and neither makes progress.
+Interruptibility of the lock does not help, as nothing signals the writer.
 
-This is a 31-day syzbot report for the input subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/input
+lockdep reports it as:
 
-During the period, 6 new issues were detected and 1 were fixed.
-In total, 33 issues are still open and 66 have already been fixed.
-There are also 4 low-priority issues.
+  WARNING: possible circular locking dependency detected
+  repro/4908 is trying to acquire lock:
+   (kn->active){++++}-{0:0}, at: __kernfs_remove+0x34c/0xb90
+  but task is already holding lock:
+   (serio_mutex){+.+.}-{4:4}, at: serio_unregister_port+0x1b/0x40
+   drvctl_store
+   sysfs_kf_write
+   ...
+   kernfs_drain
+   device_del
+   serio_destroy_port
+   serio_unregister_port
+   userio_char_release
 
-Some of the still happening issues:
+Use mutex_trylock() and restart the syscall when the mutex is busy, so
+the active reference is dropped before waiting. Once the port is being
+removed the retried write fails with -ENODEV.
 
-Ref  Crashes Repro Title
-<1>  1367    Yes   KASAN: slab-out-of-bounds Read in mcp2221_raw_event (2)
-                   https://syzkaller.appspot.com/bug?extid=1018672fe70298606e5f
-<2>  199     Yes   KASAN: slab-use-after-free Read in report_descriptor_read
-                   https://syzkaller.appspot.com/bug?extid=bc537ca7a0efe33988eb
-<3>  87      No    KASAN: slab-use-after-free Read in str_to_user (2)
-                   https://syzkaller.appspot.com/bug?extid=aec1962419768c5caf88
-<4>  51      Yes   WARNING: ODEBUG bug in hid_device_remove
-                   https://syzkaller.appspot.com/bug?extid=f8fb5598924c7e645553
-<5>  40      Yes   INFO: task hung in devres_release_group (2)
-                   https://syzkaller.appspot.com/bug?extid=d789904ff97c2f3dac88
-<6>  21      Yes   BUG: sleeping function called from invalid context in __hid_request
-                   https://syzkaller.appspot.com/bug?extid=912222e4cb82423535fa
-<7>  20      Yes   KASAN: slab-use-after-free Read in input_dev_uevent (2)
-                   https://syzkaller.appspot.com/bug?extid=2a123f6269da57ffefaa
-<8>  18      No    WARNING in roccat_open
-                   https://syzkaller.appspot.com/bug?extid=e7b6bbf6cf88d7d932c3
-<9>  12      Yes   KASAN: slab-out-of-bounds Read in aqc_raw_event
-                   https://syzkaller.appspot.com/bug?extid=9ee5f5dc18673d6b2f37
-<10> 7       Yes   KASAN: slab-use-after-free Read in atkbd_set_repeat_rate
-                   https://syzkaller.appspot.com/bug?extid=1e2ef9bcb29af666b2e6
-
+Reported-by: syzbot+1075f6dc93f398c1857e@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=1075f6dc93f398c1857e
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ drivers/input/serio/serio.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
+diff --git a/drivers/input/serio/serio.c b/drivers/input/serio/serio.c
+index 54dd26249b02..ebee89adc8a6 100644
+--- a/drivers/input/serio/serio.c
++++ b/drivers/input/serio/serio.c
+@@ -15,6 +15,7 @@
+ #include <linux/serio.h>
+ #include <linux/errno.h>
+ #include <linux/sched.h>
++#include <linux/sched/signal.h>
+ #include <linux/slab.h>
+ #include <linux/workqueue.h>
+ #include <linux/mutex.h>
+@@ -357,7 +358,8 @@ static ssize_t drvctl_store(struct device *dev, struct device_attribute *attr, c
+ 	struct device_driver *drv;
+ 	int error;
+ 
+-	scoped_cond_guard(mutex_intr, return -EINTR, &serio_mutex) {
++	/* Removal holds serio_mutex and waits for us: retry, don't sleep. */
++	scoped_cond_guard(mutex_try, return restart_syscall(), &serio_mutex) {
+ 		if (!strncmp(buf, "none", count)) {
+ 			serio_disconnect_port(serio);
+ 		} else if (!strncmp(buf, "reconnect", count)) {
 
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
+base-commit: daae2ab46e0cb612f50ca1d86cf50e5962461ae5
+-- 
+2.43.0
 
-You may send multiple commands in a single email message.
