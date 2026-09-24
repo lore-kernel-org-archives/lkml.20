@@ -1,139 +1,134 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86C30376BC1
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:07:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3387D380FD5
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:07:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790258827; cv=none; b=RAcFrerqiGR+9AX5rpYNO2Gt29xU48pRI1jUh8NumtgrFP/ZiD6MLXcDwfrVtJVuD5ho/+eAn2Mf+4tO+IoWdJwA5Xe0XIV71zG1zCnGEJcnEtUgOv7REAyD5Aym6hhcU1QEo4n9DCXzUZVp4Ee5JeNJ3ntaC8PO2duL0XZdKL4=
+	t=1790258830; cv=none; b=HyuzR0nit+fdM2Koggg8evFHQshgslYnn4jd6YKSHQulVNmewqINv7WphIzvI/mXgIno+bwKLcR5T1YnM8rgdss0q5gYJ60tCXn5ZEcleaWnMPt1sYmxDBGSG8wi0XzLyTc5TpsDs9eyvUVUo291bkESDBIwBNv+7eee/AZva0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790258827; c=relaxed/simple;
-	bh=GC6+lg7Gi2oM3B60HChdLke11qcKRYNxpaj36DtcwJE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=S5GjBTgY9iUOa5T88dYjrXPy1SPK/f4yEtLUL7bunxAYy1MdEtoFZqKZ/vCpFAURv/ph7pKVch0b8V858lyRD9JUAE7dhhNFoiAMl5ykpC5hjO10qaKZyKn380ASPoxRdeGhnnYPGxRvf/DJaAI53+wZwdVMktALBvIGD8YSlm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LhCUVUYS; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790258830; c=relaxed/simple;
+	bh=8tYi0WAgjaIJKipC9deR0xFZyoQuyzFMvHZ4foYg+RY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lc+HxoTXsaJMcHKuzqLJDfNBlm3/4DAp3DzylLbULuPrE30Ukynfp/8EXc010/Wi5yJmoAOgiRgl7hmQAluBFywKkZI/3KOT1URlNIh4BsbkgwK9pXBB2/rRdH62WjnVe/GmDsOQ9r2pnQB/atyBlTLCvMKJJFVhbDymUrAXy9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=dcimGur3; arc=none smtp.client-ip=74.125.230.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LhCUVUYS"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso12006895e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:07:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="dcimGur3"
+Received: by mail-qk2-f41.google.com with SMTP id d75a77b69052e-532c7643bc4so22521521cf.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:07:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790258825; x=1790863625; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=h4+moVG7ALNUHSWlTD3Rr/Ll9jrIrLEWhCFkgg7SYzk=;
-        b=LhCUVUYSPeZH+cNDphxOsZY/J1K4tXqfTxOR17XGWUQCi2wMJ6o44O4MyChpS6heOl
-         Mc4Wtg0Osx5W3MVWRImmWRfN+knhalJ8mDRK3arUSMG4VyqIAb6NGhZy5XyOU5tpq/Xq
-         BE47J3WPXYd5bZ3OM/Nw1k2jLZURNddcJWRPz+h8X0yr0LT1CR93vUetrEFT69F7HwjB
-         f3BBlfERuoGPDHJ2l/he5CBC6/dHCRDNTifRYQOXWManOV/wINKXPNbyVdAdFhgfnQzd
-         5q2sfn+/57TcFfNVQDzrAD4WHsaVoM+gx9o3h/ow0KDvMMl2q0LaucoAK/V9qcr9Ia4g
-         Lluw==
+        d=gourry.net; s=google; t=1790258828; x=1790863628; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/ztBx4OPk6JOhZIQ7ImRBBL50CNHJh8elF9MxANZMVE=;
+        b=dcimGur3kPV9EKM93rmL3TDcB5EE3EPswfpDMtbdZfH/MJnWsv7KWDImHpNRV1IF1C
+         MTO5Cxdmxz8kw0VfY35H23Ca6QrzCWq/g5iBRE1DpOgIiRoFlONvQqppJcc+WCuNZcJZ
+         ZtER8+1tUg+FY3Hbb0SfX59ElhBp1WRBguMmZYx5oDM83S8iuDGSJAwyao4VuoVjdEXC
+         l06IZQyua43U5iABwOmcOnIHHG/v2RFll0PSgaKT+0hYQ3TWJWkfyCFtnwQjliSDo7zd
+         OgY7LmaJ48q+Hj5Z22OGyVRCVNI7Z7zdxKJjObVfd/4NnasrJ7CLKuAhuKr9ZP6zIBnt
+         Flhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790258825; x=1790863625;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=h4+moVG7ALNUHSWlTD3Rr/Ll9jrIrLEWhCFkgg7SYzk=;
-        b=zgI2cmL5JEcnsnzXD1tdYxrvDGypqa5UI7QCGu8Ki+SZ+HYvwmiulGihGgIyYxxhLw
-         sbbQr7PCgN/wbioErr/CH7jQT7jMC2XEOaBdrQpFqy9lFMntvEuJyY+PPNxBuOlusuCG
-         APP37G84/IB/+X8SSQtDVKl4YDEJQ8LjfRbzOZ0MJoCEe5431le0lWSwJYswxEof34PO
-         HdrRT0clmGZENHs+8y74IXWsSNN14LQvAIeX80Lbqm9CP0BFpDjD993oTGYBNzmsjZ95
-         KOBihLZ7jW6tYbjCTvxie/BVlflvtNfIodzsLnlTdkDusg19sHTq4TP4BRPNNervgqpJ
-         JE1A==
-X-Forwarded-Encrypted: i=1; AKwUvBxPZxRMz+icIciy/fb/IuEF/6sOI56u1VxTtFkOi+QNQ79GEfF7S4CdpXmkeXfWY7WiE3FAGZ2w29a3Ibk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nUfAFZhjrcJ2ZCWstbGuTzJQhZJE6XiE3nUra9MAODXANexcUb
-	lSwN1MQWl1nD9hRCgpqHepwht/OUCis3FJeQsTIPJSbvdjRFOhO0Grr3mxv3gyp+
-X-Gm-Gg: AYBFou3A2h/cMJl+WzBj+v+FlnNLqRG+5NfpeUrJsO9w1VKKd/TuJbEnjh+K5ndo84Z
-	mOykd3xnEXuEUFlYgBmnwNBaMhGxGGlilE9I2LBQFXyg8KDJPpBCttovaNkuZnNbg7bLRTl4agG
-	yP99qML6qbaAYp/Po4SwDMW06diF+wnUb7zAP/AbdpK05lBAHkb7W6EValWs0O4LGiC3gocCjxe
-	8GGbb6aDs4DuhsKo46bqsxVUrTjDJYM2reF5F+R2735R7rQ0mXK3IvDI8LRPDI3DIBbaj5k3fke
-	f92d85T+j/dS8wGwBLU3QWpZqYDfK7quLwJv30UOFUAztE9LX/+qZRPq7H6lqEdsXj0vX++YIZA
-	WIrAShf3pTLPOi9QdkJVEVIbWYXEVYX6+L58SeBX7u0Ln05CM+tTNGOXlQOQD94uH8UNF6WHA9t
-	jAxgdBNlEGUfYPWV/9B8+uZBAkn42sS0l2oPGq5dQ1t+yHio3uc/Cc33b1j/VXVkEJjk6B3kvGi
-	O7GrGx0OL71qPmX1M8bKx0k8JTwJgdbbAalJaW1d6911RJjdObnKsrsJVy5FngZWc+aEmqRw8b4
-	PQ==
-X-Received: by 2002:a05:600c:4689:b0:49f:bc8a:b103 with SMTP id 5b1f17b1804b1-49fe66841f8mr45428675e9.0.1790258824470;
-        Thu, 24 Sep 2026 07:07:04 -0700 (PDT)
-Received: from [127.0.0.2] (0xd461ec5f.inet.dsl.telianet.dk. [212.97.236.95])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5e07bdcsm64234815e9.15.2026.09.24.07.07.01
+        d=1e100.net; s=20260707; t=1790258828; x=1790863628;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/ztBx4OPk6JOhZIQ7ImRBBL50CNHJh8elF9MxANZMVE=;
+        b=G8nCD76n7gSUwNxLD3YCyRREXhoKtqPh/uFg0VInslWnIji5QP8wRS9Uoz6ivoAzs6
+         nDSlrSFXJ4jnqOS23wOiwlxMlU73odGoZW/hXxiPCK/RLAQhPmEOLrpO4I+OsNvqUcNs
+         703xT05xG93iY/ix7zJEYmRAi1XSQ5MYRYYgFNY1Xi6bKR+KPyED1GttDzG3PU+7h2q0
+         vYQoYQYosQcR2udL+j1xIU6C+xMIT+4z4h7Ubo0bVkVF3SnwBC3327B3fsCpgJ5mAhfZ
+         YnkzN83nSF5oWgnYHpL87VNZkxjfZEPss9fXzTk93+8cauU0fDvKr/BpW1M+Hevulo3U
+         8LbA==
+X-Forwarded-Encrypted: i=1; AKwUvBxvv68CIv0kJwQq+8Jc4jd74Mj3vuuBPF14qIWwrcSKAQvxLb33VgDo6qvYpvFErZKAt1DvlTyuz+UxMsc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mCi06nzsiCiYMOo6yNAE0Y0PvXmvreGt6C3NoJbt+FTeilygOu
+	g3jBiX7Zl1w4w0iH8Q52BssEIpGKXa+5sz3Qk3BWda66k7oLQUGJf6EUKKu602M4aWA=
+X-Gm-Gg: AYBFou2RlxX46TzAL4kJXItRii8gmsekCG2pSLUT7dihGJwtz/aR7oac+T387FHOZ2y
+	pTkGAYl4UFL68y57LNxXHjJ94Y00hroRIfdQqxp6zyF6N8c7hLTVojY3GQmrsbd5e2cFELjfcoH
+	dw9uDxr2cwrnSC6dz8PSFxpxE3yYk/Xf+bL67b0FUMyM4w+qZ5XST1psDksSj/YsE06WLYXH18e
+	8X5XK+2waAH9577rXbvhaG3K4pXkc+zFSDWd+DyJ+iBw5jYNP3FONgTo3ZMJnuunV4/DGzdI9ql
+	X2lgf3F0j/UJ6KXyFD2jVT84sROm98oM2aHO8DgGNKP5apDTrZsR8a85FYlvQ2qISvz5T4T+/Op
+	kvOR3k3da/rgbXQ54j/B8BC1QP5WdCXNiAlZ6LpWtD6KV0d9qzq729M53O8oPCY/Fy871bK/djo
+	ZULER0DR1Lp8dg916BYhwNCobrIMXx5aMx8fREUdIbQ+47+Uq42O/FV8rmgcUhuj4a7V9GwGaVj
+	gUKtM4iWsDe2ytRymml8pwZLFV9DnbvBCSdSgUDiQndqWAUWBQ6sBc=
+X-Received: by 2002:a05:622a:1f8f:b0:532:bda6:a48b with SMTP id d75a77b69052e-532fea0a65cmr25291591cf.12.1790258828027;
+        Thu, 24 Sep 2026 07:07:08 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532eaec185esm43147051cf.3.2026.09.24.07.07.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 07:07:03 -0700 (PDT)
-From: Malte Wechter <maltewechter@gmail.com>
-Date: Thu, 24 Sep 2026 16:06:58 +0200
-Subject: [PATCH v2] rnull: configfs: add power to configfs features
+        Thu, 24 Sep 2026 07:07:07 -0700 (PDT)
+Date: Thu, 24 Sep 2026 10:07:05 -0400
+From: Gregory Price <gourry@gourry.net>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
+	rppt@kernel.org, surenb@google.com, mhocko@suse.com, mingo@redhat.com, 
+	peterz@infradead.org, juri.lelli@redhat.com, vincent.guittot@linaro.org, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, 
+	vschneid@redhat.com, kprateek.nayak@amd.com, ziy@nvidia.com, 
+	baolin.wang@linux.alibaba.com, nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
+	baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev, kas@kernel.org, 
+	matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com, 
+	ying.huang@linux.alibaba.com, apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, 
+	hannes@cmpxchg.org, shy828301@gmail.com, raghavendra.kt@amd.com, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 2/7] mm: allow shared folios to be promoted to a fast
+ tier
+Message-ID: <arUtcPIw_FaUSPv4@gourry-fedora-PF4VCD3F>
+References: <20260922182928.2199090-1-gourry@gourry.net>
+ <20260922182928.2199090-3-gourry@gourry.net>
+ <f0cd5c54-deca-42e7-bc85-1838dfa917f3@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-upstream-v7-3-rc3-v2-1-ca56ae7a73e9@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAIEutWoC/32Nyw6CMBBFf4XM2jFtiWBd+R+GRR8DjJFHWmg0h
- H8XcO/yJOeeu0CkwBThli0QKHHkod9AnTJwrekbQvYbgxKqEFqWOI9xCmQ6TCXmGFyOwttLobU
- 3Nhew7cZANb+P5qP6cZztk9y0h3aj5TgN4XOcJrl7//pJokQvbKGEra/K6XvTGX6d3dBBta7rF
- +c8mxXEAAAA
-X-Change-ID: 20260917-upstream-v7-3-rc3-0db5699dab30
-To: Andreas Hindborg <a.hindborg@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Jens Axboe <axboe@kernel.dk>
-Cc: linux-block@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Malte Wechter <maltewechter@gmail.com>, 
- Alice Ryhl <aliceryhl@google.com>, 
- Daniel Almeida <daniel.almeida@collabora.com>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790258821; l=1634;
- i=maltewechter@gmail.com; s=20260812; h=from:subject:message-id;
- bh=GC6+lg7Gi2oM3B60HChdLke11qcKRYNxpaj36DtcwJE=;
- b=HBkxMA+FpFwazc6nsQOIkIwjEP66uRgwrFErgqQgHY2Vz3ZG7kCoducPa1Tbgc0gFq/lIGEAB
- ZU0B2/mbhfpAO3hE8VMtY5FCL6iw2ib8J9d3ZOOAMLzcmhll38DV8Bz
-X-Developer-Key: i=maltewechter@gmail.com; a=ed25519;
- pk=Ta/JQQMOW0Cbxp+yEwWqWFEyKFRyuQeSoYicwD7yvWI=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f0cd5c54-deca-42e7-bc85-1838dfa917f3@kernel.org>
 
-features displayed by configfs for rnull was inconsistent with the
-actual features available. This correctly exposes `power` as a feature,
-which is also consistent with the C null_blk driver.
+On Thu, Sep 24, 2026 at 01:59:15PM +0200, David Hildenbrand (Arm) wrote:
+> I wonder if a better name would just make the comment above (about memory
+> tiering) implicit and make more sense of the sysctl_numa_balancing_mode &
+> NUMA_BALANCING_MEMORY_TIERING) check.
+> 
+> 	folio_promotable()
+> 
+> 	folio_is_promotable()
+> 
+> 	folio_numa_promotable()
+>
+> etc.
+> 
+> because that seems to be what we really test with both things combined.
+>
 
-Fixes: d969d504bc13 ("rnull: enable configuration via `configfs`")
+maybe:  folio_numab_promotable() ?
 
-Signed-off-by: Malte Wechter <maltewechter@gmail.com>
----
-Changes in v2:
-- Add fixes tag
-- Link to v1: https://patch.msgid.link/20260917-upstream-v7-3-rc3-v1-1-d0b620bf82c9@gmail.com
+> > -		if ((vma->vm_flags & VM_EXEC) && folio_maybe_mapped_shared(folio))
+> > +		if ((vma->vm_flags & VM_EXEC) &&
+> > +		    folio_maybe_mapped_shared(folio) &&
+> > +		    (!folio_in_lowtier(folio) || !node_is_toptier(node)))
+> >  			return -EACCES;
+> >  
+> >  		/*
+> 
+> Sashiko has some comment about anonymous shared COW folios. I think it has a
+> point, but didn't look too closely.
+>
 
-To: Andreas Hindborg <a.hindborg@kernel.org>
-To: Boqun Feng <boqun@kernel.org>
-To: Jens Axboe <axboe@kernel.dk>
-To: Alice Ryhl <aliceryhl@google.com>
-To: Daniel Almeida <daniel.almeida@collabora.com>
-Cc: linux-block@vger.kernel.org
-Cc: rust-for-linux@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/block/rnull/configfs.rs | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+its tl;dr:
 
-diff --git a/drivers/block/rnull/configfs.rs b/drivers/block/rnull/configfs.rs
-index 32c10c3f4d0fd7..5f1cdd54cf48aa 100644
---- a/drivers/block/rnull/configfs.rs
-+++ b/drivers/block/rnull/configfs.rs
-@@ -35,7 +35,7 @@ impl AttributeOperations<0> for Config {
- 
-     fn show(_this: &Config, page: &mut [u8; PAGE_SIZE]) -> Result<usize> {
-         let mut writer = kernel::str::Formatter::new(page);
--        writer.write_str("blocksize,size,rotational,irqmode\n")?;
-+        writer.write_str("blocksize,size,rotational,irqmode,power\n")?;
-         Ok(writer.bytes_written())
-     }
- }
+`skipping this check means those folios could end up freely migrating east-west
+ between slow tiers`
 
----
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
-change-id: 20260917-upstream-v7-3-rc3-0db5699dab30
+Which cannot happen (we only migrate to top tier, numab will never
+migrate *to* a slow tier).
 
-Best regards,
---  
-Malte Wechter <maltewechter@gmail.com>
+basically false-positive
 
+~Gregory
