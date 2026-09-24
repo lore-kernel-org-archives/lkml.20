@@ -1,120 +1,236 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E064F41A504
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:21:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F36BF37EFE2
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:21:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790270467; cv=none; b=P2fInQj3niluAMYjW0Lr3rl+v7YAqxvNw5aBE93EB9DlRGkp/ZPoqIVbZgGk4QBneDLoDZEXoxsY3gvlr9Uj8KhgXvKVpRL3yq6t1Hj/4jV7K+kcQHjWVyeEdC4l/8QB7cj5hrX/OuXEk1DqW1PdwSIu635nLPqsxNmbEUrkAg0=
+	t=1790270475; cv=none; b=EErVC40Ar5pzC0YSEHIIAZnoE0HeupjQXSa+QitICoHdgiT/SowEnuN8CdBhync5NmVydKALIc9kj1c0XH/rqBZvU8hEfOHjkc9/04/LQqf1efnvzyKtMR5YFmfNF2qYZCz/rVoTapBdpDYVMSsYcv8dosrZ2OGCla2U6QG2iwE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790270467; c=relaxed/simple;
-	bh=zYEK7bqTK81B9cfb1lNVZACMRyatDb4IFpKYqtTn76M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=J8wkHhooRFKkIUTI31Y7FWwZW705O+LcTscetvLGbHRgHxBWLZ+JM0oAafAimPZq/SbOGVd26pby264cNTrG8GP3GC9L1mmDpB5CppJ2VIia+ilQkcM1kWfUYa1oXIceyxIX+VxanD07I+6Gy6qKIu/HSYo48ge2HTEjaMrmCKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PSQj2I1M; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790270475; c=relaxed/simple;
+	bh=9hbD4jdGFmGOeRA7tQwWLcXjUa/gKCEjFcT5qzOvuaU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=G5GoF7NvETdaEQ9YpglGPZTbyN+CbTeuRHdHR91VFYnVnce6hwU+Jrvef4wFElKX2pfgU+SNOYk+HHhLDyd/sJlEDMO+gkS1LbfyRC4XhwW8Wb2mLzcePsxO+rWOZr1pUNa41O1HzlKAygCG/vad47wXDbHsuaNYxoRwUL1B4Qk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MPfqDsq0; arc=none smtp.client-ip=209.85.167.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PSQj2I1M"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790270465; x=1821806465;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=zYEK7bqTK81B9cfb1lNVZACMRyatDb4IFpKYqtTn76M=;
-  b=PSQj2I1M1UparNOLfYm6/txST/zPZBgFEmpNzz4Oa2TflZcujtvWL4mK
-   UbY3YF13xkJdEECY48XMefFtgDHLTu2sgOrM6JTSPHUdcKoU93DDErZfz
-   nmcEl47uP8aF3lJ5OU3Mmb3A0oCxCBA+hPBr8g/ZAqQWdzUcZe0ncfNVH
-   2rb7d7amATVsoAlmpYuw224X29gyL+Wd3ZsRbpeepp63PzqhxvqN9W4fZ
-   dhirAzGPa4DhzKG10Jyrscu3wQanI4i/uOWMqDJTyCgtt5XgIt1PTauy7
-   zux0oVr+Cu5kQNep/R3ERYpJQQSKDPImNEnJSU77VlGQTEOHADNpGSu6H
-   Q==;
-X-CSE-ConnectionGUID: v0m7A5h7Te2ProebrhWKTw==
-X-CSE-MsgGUID: 0O5TcdiLTxy8WD7Jb7bn7w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="107437030"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="107437030"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 10:21:05 -0700
-X-CSE-ConnectionGUID: vf3yPULhQ2GSNc4Lw1fP6Q==
-X-CSE-MsgGUID: TESpmyX2RdaAm3wzd41vtA==
-X-ExtLoop1: 1
-Received: from jjgreens-desk24.amr.corp.intel.com (HELO [10.125.110.171]) ([10.125.110.171])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 10:21:03 -0700
-Message-ID: <d8b502f7-a552-4600-b348-614d1d62afa5@intel.com>
-Date: Thu, 24 Sep 2026 10:21:03 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MPfqDsq0"
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b76694fb7aso94230e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:21:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790270472; x=1790875272; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lqsAA1Z/+A0DL+6b0jsQ5hEaK/NGO6yJObFrFwTQ76E=;
+        b=MPfqDsq0n04ySMNTV6CfKYlqAprDwK/9z9OXq0hVkJ2na+1vFt8Lp+AsxXTPgwTRQX
+         7qbt9XkOfgEka/nQdE05ndV0+jgSUUwq5C/JpLcj0kobp3mAYO+YvkNrt0rXjjaDfgQ3
+         +7WokfBKdb7DNjEcHQwSrSYJiw6p88ZsG4uB17DMUOHovAh8FircdkWxdvYgFP6yDKQU
+         H86H1Ikcu6uQMJ7kOJlhHnphPR2x3kP1uTGv6wyZhLM4hQJhOvoAeIwV0AQRDaP5uK3g
+         0eGb2KpEVbW6Zb7xzxSuA/+EzqtTd1qVyKxB7I6rPNhe6ayFAQ4Phc6ZBsShpifC1dOl
+         4VjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790270472; x=1790875272;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lqsAA1Z/+A0DL+6b0jsQ5hEaK/NGO6yJObFrFwTQ76E=;
+        b=L5wpY4EPvRvhavOxq59MwPWPpNe/Rh5LzCI/4U6mNz768GIO9UBesUW+mNGO5mnq9Y
+         ARFI/ZXB5xcLrbaZZGvgv2Tssmn6voTY1H4wkglegTX9uqVUA1WVjNlj998ceZmMcbYx
+         fbme3DaBYHhZZ63I5v0SC72VNXXnuod2dB/ZQ+4s8j8HN4uvI/isKTSwvpqVSeSO66B8
+         6HX/Q8UoIH5+pig1OmxXp007jJoKtKuI5Z1S1VXpmqvUJb7X5ALdiI8837G2brUNmM5v
+         ZrzPK01q2LMgfruxxqtap0hiSzz0+cfxFE8vllrvkIfSS91M4UIylDSvDMfjr/mzRRvB
+         05jQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw/gaecfyzmfUeiuree7hb+QRUaWuaENEcNB5UDzmXkqnq1B3A8SAnew3/YP3bPDyrIrCM6jhvnqEqwMEo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kNiWnC82240niz0TSMS1O9Fnp/hRkQ3d4bOm06x4tg9oV2J1fd
+	b7Lw6heR/zNtMTp/wU6ryxwOAiLrvXFKhI9iaogHouMHcZ4J0aWjkkmeQgY2qgG6kqBxBAy+8Tc
+	=
+X-Gm-Gg: AYBFou0w5HMQlTRFn9AKWhoRRfN6xt9XoAI6ZxKVJwWxZfSlUDoZkCnL/UZ0fUEOOsc
+	4l7o17FwqQLPJvFg80e5Hvi0qeLxZQ3o5eJGE5WCPO8xuMIs8xsmhpSEKOslbJXDua5TE4B4bdN
+	XxX8+PNlabKgsl/mfRVrItDXVsSVpL3JX/sQE+5h76s6nRaXO/kQzZ1hocXk8w6Lo+vo3onFVii
+	H56xT/rKL4fYbRC1CX1MwOttyVIWUi5FuoPvf3jvqvgI1oFNriDFOhnHBZaj2K+BNgF/c7/AakT
+	8WO65hOoBowtl5kbhdNaCkHMiIuhti+BfBttO/V13sXlrl9V2Mhypmwi2H805nKOuPE1Jghc3WM
+	/+CUVPg8ab5U63tuK4OqZuyDyhX1R4/CttTXvP4I5r2AH/ua27Tm7ZyQWdOoEL+CKpaaTWcZiWP
+	qSuhHTGReFLe21RaK5WJ7Ok2l7G37OYjp03wqf+1xGUESFl9utIiEPd2h4Vs2X5cMitrl6RF3qu
+	ES6r4NHj4usTEI=
+X-Received: by 2002:a05:6512:104b:b0:5b0:6343:a298 with SMTP id 2adb3069b0e04-5b8df0c3615mr1164514e87.7.1790270471737;
+        Thu, 24 Sep 2026 10:21:11 -0700 (PDT)
+Received: from quietus.tail91f8a6.ts.net ([104.194.144.188])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d859505csm1611065e87.74.2026.09.24.10.21.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 10:21:11 -0700 (PDT)
+From: Ruslan Koreev <koreev.r@gmail.com>
+To: lee@kernel.org,
+	pavel@kernel.org,
+	rillian.grant@gmail.com
+Cc: linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ruslan Koreev <koreev.r@gmail.com>
+Subject: [PATCH 2/2] leds: flash: lm3643: Describe the LED of ACPI boards without LED nodes
+Date: Thu, 24 Sep 2026 20:20:40 +0300
+Message-ID: <20260924172040.1185688-3-koreev.r@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260924172040.1185688-1-koreev.r@gmail.com>
+References: <20260821083620.68324-1-rillian.grant@gmail.com>
+ <20260924172040.1185688-1-koreev.r@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/mm: Drop the page allocation from
- pud_free_pmd_page()
-To: Pedro Falcato <pfalcato@suse.de>,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, x86@kernel.org,
- "H . Peter Anvin" <hpa@zytor.com>, Mike Rapoport <rppt@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Toshi Kani <toshi.kani@hpe.com>,
- linux-mm@kvack.org, regressions@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20260923223116.20090-1-mikhail.v.gavrilov@gmail.com>
- <arVV9WLXQOwR8Hy8@pedro-suse.tail5790ac.ts.net>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <arVV9WLXQOwR8Hy8@pedro-suse.tail5790ac.ts.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-OK, I've got a version of Mikhail's fix with a changelog and comments
-I've munged a bit:
+Lenovo ThinkPads enumerate the LM3643 through ACPI (HID TXNW3643)
+without a _DSD, so the device has no LED child nodes and the driver
+refuses to probe. On these laptops the chip drives the Windows Hello IR
+flood illuminator, with both current sources feeding a single LED, and
+Lenovo's Windows driver applies a fixed configuration to any LM3643 it
+finds.
 
-> https://git.kernel.org/pub/scm/linux/kernel/git/daveh/devel.git/log/?h=pmdfree
+Add a DMI table that provides that description as a software node when
+the firmware offers none: one IR flash LED on both outputs, with torch
+and flash limits well below the chip's maximums. Start with the ThinkPad
+X1 Carbon Gen 14.
 
-Does that look OK to everyone?
+The description is keyed by DMI instead of being applied to every
+TXNW3643 because the wiring is a board property: which output feeds
+which LED and how much current the LED tolerates cannot be read from the
+chip, and a wrong guess overdrives an LED. The firmware cannot be fixed
+from the driver side, and a per-board table is what x86-android-tablets
+does for devices whose ACPI tables describe nothing either. Boards with
+a _DSD are not affected, the fallback only runs when the device has no
+child nodes. The limits are conservative because the LED part is not
+documented; the illuminator is bright enough for face authentication at
+a fraction of them.
+
+Tested on that laptop: torch through /sys/class/leds/ir:flash lights the
+ST VD55G1 IR camera's field of view, and the resulting frames are good
+enough for face authentication.
+
+Signed-off-by: Ruslan Koreev <koreev.r@gmail.com>
+---
+ drivers/leds/flash/leds-lm3643.c | 92 ++++++++++++++++++++++++++++++++
+ 1 file changed, 92 insertions(+)
+
+diff --git a/drivers/leds/flash/leds-lm3643.c b/drivers/leds/flash/leds-lm3643.c
+index bbe9358c9..fa0ecead5 100644
+--- a/drivers/leds/flash/leds-lm3643.c
++++ b/drivers/leds/flash/leds-lm3643.c
+@@ -9,6 +9,7 @@
+ #include <linux/bitfield.h>
+ #include <linux/bits.h>
+ #include <linux/cleanup.h>
++#include <linux/dmi.h>
+ #include <linux/i2c.h>
+ #include <linux/led-class-flash.h>
+ #include <linux/leds.h>
+@@ -690,6 +691,91 @@ static int lm3643_register_led(struct device *dev, struct lm3643 *chip,
+ 	return lm3643_register_v4l2(dev, led, fwnode);
+ }
+ 
++/*
++ * Lenovo ThinkPads enumerate the chip through ACPI (HID TXNW3643) without a
++ * _DSD, so the LED is not described by firmware. On the boards below it drives
++ * the Windows Hello IR flood illuminator, with both current sources feeding a
++ * single LED. Describe that with a software node, with torch and flash limits
++ * (100 mA and 300 mA per output) well below the chip's maximums.
++ */
++static const u32 lm3643_ir_flood_sources[] = { 0, 1 };
++
++static const struct property_entry lm3643_ir_flood_props[] = {
++	PROPERTY_ENTRY_U32_ARRAY("led-sources", lm3643_ir_flood_sources),
++	PROPERTY_ENTRY_STRING("function", LED_FUNCTION_FLASH),
++	PROPERTY_ENTRY_U32("color", LED_COLOR_ID_IR),
++	PROPERTY_ENTRY_U32("led-max-microamp", 200000),
++	PROPERTY_ENTRY_U32("flash-max-microamp", 600000),
++	PROPERTY_ENTRY_U32("flash-max-timeout-us", 100000),
++	{ }
++};
++
++static const struct software_node lm3643_ir_flood_root = {
++	.name = "lm3643",
++};
++
++static const struct software_node lm3643_ir_flood_led = {
++	.name = "led-0",
++	.parent = &lm3643_ir_flood_root,
++	.properties = lm3643_ir_flood_props,
++};
++
++static const struct software_node *lm3643_ir_flood_nodes[] = {
++	&lm3643_ir_flood_root,
++	&lm3643_ir_flood_led,
++	NULL
++};
++
++static const struct dmi_system_id lm3643_dmi_leds[] = {
++	{
++		/* Lenovo ThinkPad X1 Carbon Gen 14 */
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_VERSION, "ThinkPad X1 Carbon Gen 14"),
++		},
++		.driver_data = (void *)lm3643_ir_flood_nodes,
++	},
++	{ }
++};
++
++static void lm3643_remove_dmi_leds(void *data)
++{
++	struct device *dev = data;
++	const struct dmi_system_id *id = dmi_first_match(lm3643_dmi_leds);
++
++	set_secondary_fwnode(dev, NULL);
++	if (id)
++		software_node_unregister_node_group(id->driver_data);
++}
++
++static int lm3643_add_dmi_leds(struct device *dev)
++{
++	const struct dmi_system_id *id;
++	const struct software_node **nodes;
++	int ret;
++
++	if (!has_acpi_companion(dev))
++		return 0;
++
++	id = dmi_first_match(lm3643_dmi_leds);
++	if (!id)
++		return 0;
++
++	nodes = id->driver_data;
++	/* The nodes are static: a second chip on the same board cannot reuse them */
++	if (software_node_fwnode(nodes[0]))
++		return dev_err_probe(dev, -EBUSY, "LED description already in use\n");
++
++	ret = software_node_register_node_group(nodes);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to register the LED description\n");
++
++	set_secondary_fwnode(dev, software_node_fwnode(nodes[0]));
++	dev_info(dev, "no LED nodes in firmware, using the DMI description\n");
++
++	return devm_add_action_or_reset(dev, lm3643_remove_dmi_leds, dev);
++}
++
+ static int lm3643_probe(struct i2c_client *client)
+ {
+ 	struct device *dev = &client->dev;
+@@ -699,6 +785,12 @@ static int lm3643_probe(struct i2c_client *client)
+ 	int ret;
+ 
+ 	count = device_get_child_node_count(dev);
++	if (!count) {
++		ret = lm3643_add_dmi_leds(dev);
++		if (ret)
++			return ret;
++		count = device_get_child_node_count(dev);
++	}
+ 	if (!count || count > LM3643_NUM_CHANNELS)
+ 		return dev_err_probe(dev, -EINVAL, "%u LED nodes found, expected 1 to %d\n",
+ 					 count, LM3643_NUM_CHANNELS);
+-- 
+2.55.0
+
