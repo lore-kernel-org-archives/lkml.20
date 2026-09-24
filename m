@@ -1,90 +1,66 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C9F47F2C3;
-	Thu, 24 Sep 2026 12:56:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04AFD1C5499;
+	Thu, 24 Sep 2026 12:56:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790254567; cv=none; b=S3q7b5jOV5d2hbQowSoPS/+btH0UEclJtG8hyLlKhKxyQbm2oj0II70mvEklTvSv2s+9yxsReswvlQFxURPK2CDKIjoKaWSjMMsYLNzR0dl5lKYCtHMF6GYrEFiFP8mHzEWyNHKwfSyLFRUOPzBushWG5MwuEUB3C1QmZ8RB3yc=
+	t=1790254585; cv=none; b=L1qOsfVgnSZAiuEj3UDbiBsuyY16GIktkopfdGdLrtnyLvZLsNTXO3JaG8IG9Rd7dHO0LuTE6Jl/maDAvfrmHgxm7WOGi1+NEVt6Ea/5yjA7TlryjJxRK4P6IChUVp3xhw4GaCa9LPOVNZ3MKM6vHvIFiAMit1PvY76IUR5wnJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790254567; c=relaxed/simple;
-	bh=wckW0pLUl0XGza6js7xCA0N8WeVmAJ2BbW7KXsTbXYg=;
+	s=arc-20240116; t=1790254585; c=relaxed/simple;
+	bh=O75wbtyg05DxKLL8eA2veA23+UtQ+VhJQZPoDXI3q+U=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D7Jw9S201C4ckTTigzqfMsOWwEMMURlyjTN57gVXZRBMnaEJ4av/TaHKVKnvAgv599Gq/5cNkmeUJlBHJBUhz9VpAuet9GWZofxeiZD1ukJFszEzapbpiAg/lTI+chwWhVyAkwrTkv2JSphTo/IXY9s9Rr8kxPaYOOkiqsAwlHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=1wKXFamb; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZxQpZJMaypkWiQZq1iAWV6m/AMM3t6x+KhdOGOBDMAc7WANPu43PoQeSfqLmKmibEjftEVt99iWeKXrRTuEVoMIUTfa6jGfhOJEWMzSsa6PvkebTVqOES/Tzpk8ns56KS1HjtfHB9/ogW/4OJbaJSp62xXrjqFfzUo/GyZ5Vt4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I88jW1rS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="1wKXFamb"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=WooKxSWp5+7w/ZcuqR2kzT/R011tLmNtXUvNvyQbLxE=; b=1wKXFamb0XGKIsLJQ81FM0af36
-	yr1BhcmXo+KunorNssde+pcUZTWF4bD0w6lYX16pq5M+RUzAIk7aQTojBm6GLBDX9xX4SlhwfYhjj
-	UNqD5KDprVcoKlJPtYZoI2Rb5Tz9nh1hyXvw1hbQDDCJY2u7lgkLUH4xFD7If3hrboJM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x9izS-006zgF-SY; Thu, 24 Sep 2026 14:55:54 +0200
-Date: Thu, 24 Sep 2026 14:55:54 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	Andre Przywara <andre.przywara@arm.com>
-Subject: Re: [PATCH net-next v3 3/5] net: stmmac: sun55i: Make the delay step
- configurable
-Message-ID: <c2de8c6b-807c-4308-90b5-cfe40c73fd0f@lunn.ch>
-References: <20260923-allwinner-a733-gmac-support-v3-0-15735155a789@baylibre.com>
- <20260923-allwinner-a733-gmac-support-v3-3-15735155a789@baylibre.com>
- <26334006-a2af-49d3-8f26-18cd44118c6b@lunn.ch>
- <1j4iff9gig.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I88jW1rS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A04D1F000FF;
+	Thu, 24 Sep 2026 12:56:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790254583;
+	bh=7+tkMPSWDlHQYFcrU2RO/g7XreK+HAtQ9qaL8xnkmGc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=I88jW1rSOoynMhq//Z5Drjd1alHjadA5ziFptEv0Lj4KevC1wmaET4oi+8g1CFK+I
+	 Obziu571unpEOOQ1ukGNPpmF4duafx2CZ3Eg4OYGu29+l6OAdh4FCPjqy4qpRWflIv
+	 jwkmk9AcY2lKU4XpSNYsjSG3uG9zXmuBNNhisyJ2A5aGRpEagAkjcwccuK39BPafNm
+	 CHuZGkFdlKrGRV/fpNuWSME7a8hM9dPTBrjHCQ2/9va0FlqCMBAyOrfDJmlWedLXZT
+	 S7bY8tPZzkuLb/kxtChyCuDySlqZcSHKQZw71ZIb8lXd2VejFQHSprugduyvgiVva0
+	 UIGzmQne1wQFQ==
+Date: Thu, 24 Sep 2026 14:56:19 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Chuan Liu <chuan.liu@amlogic.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 01/12] dt-bindings: soc: amlogic: Reordering
+ compatible of clk-measure
+Message-ID: <20260924-truthful-likable-myna-c9ebac@quoll>
+References: <20260920-more-socs-to-support-clk_measure-v2-0-224382a429e8@amlogic.com>
+ <20260920-more-socs-to-support-clk_measure-v2-1-224382a429e8@amlogic.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <1j4iff9gig.fsf@starbuckisacylon.baylibre.com>
+In-Reply-To: <20260920-more-socs-to-support-clk_measure-v2-1-224382a429e8@amlogic.com>
 
-On Thu, Sep 24, 2026 at 10:53:59AM +0200, Jerome Brunet wrote:
-> On jeu. 24 sept. 2026 at 04:30, Andrew Lunn <andrew@lunn.ch> wrote:
+On Sun, Sep 20, 2026 at 06:25:03PM +0800, Chuan Liu wrote:
+> Sort the compatible properties defined by clk-measure in alphabetical
+> order.
 > 
-> >> +	 * Correcting them would break the DT ABI of the published DTs.
-> >> +	 */
-> >> +	.txdly_step_ps = 100,
-> >> +	.rxdly_step_ps = 100,
-> >
-> > Could you be a bit more specific about what published means?
-> 
-> DTs like those ones:
-> * https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts?h=v7.3-rc4#n88
-> * https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts?h=v7.3-rc4#n87
-> * https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm64/boot/dts/allwinner/sun55i-t527-orangepi-4a.dts?h=v7.3-rc4#n106
+> Signed-off-by: Chuan Liu <chuan.liu@amlogic.com>
+> ---
+>  .../bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml     | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
 
-In tree. That is fine.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-I was initially thinking it might be out of tree. Those we don't care
-about.
+Best regards,
+Krzysztof
 
-  Andrew
