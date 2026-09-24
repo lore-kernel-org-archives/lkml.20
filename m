@@ -1,87 +1,73 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-147.mta0.migadu.com [91.218.175.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5013B4749D4;
-	Thu, 24 Sep 2026 11:27:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD09F4766A5
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:27:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790249231; cv=none; b=oSwfrH5m9Mkx3gs9MM9ViB7+WTS91F6o3HY9HmBEDA7r7yUXdkMyL8J+1ZzjXDsp4yk2Ks5DbAJ/aSCPEAcAbslrQ9iqP+Z2hd3/93dACD3lEvJcGa/LgqPCJLYFICzinomDzPX3mqhZ3elJerovgAz9XvArlKgcL7vS8SICXkQ=
+	t=1790249239; cv=none; b=VERFBM6rD7qRzQzbU73aJjttCK97w8cRJMTQpj6ihgjts52Ez6pH4huzD2wsrvIrqM95DZOsmYWhc92byQdP4wC32kx3VK2J1dwXhyBTH/Te9S8nrfLRjvcyS+isTavg8UX7TW9eXoIMs48E+JKjTUDuC6Ms3AC/xjtOELFz7gI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790249231; c=relaxed/simple;
-	bh=Ds0VP6NgpHgGjrktIUEiwwpNPT0ElcBSW3E0Wmcvg2I=;
+	s=arc-20240116; t=1790249239; c=relaxed/simple;
+	bh=wdW8FL4CrcYs3IlqjSRmJQL1D/VjHT4D9E/Mn1PzdOI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AW6HITB/mizhEI1v+I1yOgl0IhMJOFknX5UkwsPbf9wImstRW5bu6Z/z8dRbCJ+SbbjeLMlBYKM/LS8o3gVpAv9yc9ZcOvHB/VNHeeo+sRsJI98zUdQwtWBsmucUQe1vYJasBhMB05+LVyDBI2QiaElVta8DiOoPZUEKNb80rVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=GTcq46Rq; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=KmfM2BUo/MIHFOAQYd4+IZuj9Ol+8pmNoevSObusrvdbqMqxtqaRF6UvKn3mkuZ0ihkTvCbU8hmG091XKD8eHUyx4U9DlYFh2EELADcsasqMdphj/3wgKSABHS+fkJQhltrI/4vdnnZQ/cthD4PP4NLTG8j+mhCEaW7SXCSfBio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=N016X3gy; arc=none smtp.client-ip=91.218.175.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="GTcq46Rq"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5A6E3105BB9;
-	Thu, 24 Sep 2026 13:26:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1790249223;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=5xwCXfeCM8EghcCMeFwzYoiWEPOW1omxmLCe7yuZSXw=;
-	b=GTcq46RqlTxZZaDm4SxorwJpOYWiWvV/ZTETSBW/t2txdOyWbNnHjAg1VGHLNbpmZ/L2IM
-	6Vmw7cBg7nizrkQWi8WXkMifp9+dIdD+oQI4KvnezW9/kbNIEYG1cHSkJ5lrF1ra9HFqoo
-	a/4H3sGtwq9MOQDLNn3By16kQDPIsf0fNbzNNHPUr5+rmBfl0bVdGBWNRSZhagyTpH85fk
-	gLrU7hJuTMQFnsNg18S83GsBS4iAk2d8ruVpRRluqF6+50fvxlM1E62nv96IqC3ccKhWBe
-	W/h956UOCpqKM0cdOqyQhgpKiZYc2VJxYoqb9UpzmXP+KctC1JfNfhzhS+zqrA==
-Date: Thu, 24 Sep 2026 13:26:58 +0200
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 7.2 000/438] 7.2.8-rc1 review
-Message-ID: <arUJAsTgllLGVIt-@duo.ucw.cz>
-References: <20260923140644.756254324@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="N016X3gy"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=wdW8FL4CrcYs3IlqjSRmJQL1D/VjHT4D9E/Mn1PzdOI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790249234; v=1; x=1790854034;
+ b=N016X3gyLGB5l7wm9MrJe3dz38EqLJW/kr6uQryfmtMwzd+QIBtQh4cyR9fF+rJQRQVo6v+C
+ 5h5hlRJ6dxubWEHWAEeNHi9jV6dxJKKS0j21F9bYkRqFFL1CPsTgbYGXtE+BXlOaCcJKm9CsLSf
+ VoOHAX+X3Qiq/Q2hS0+mAMWU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 8e2d080d4a9bc1aa;
+	Thu, 24 Sep 2026 11:27:14 +0000
+X-Mizu-Trace-ID: 8e2d080d4a9bc1aa
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 24 Sep 2026 19:27:07 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Qishuai Liu <lqs@lqs.me>
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, horms@kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] ipv6: fix prefix route expiry in
+ modify_prefix_route()
+Message-ID: <arUJCyrHCU6lSf3p@fedora>
+References: <20260923132048.3272878-1-lqs@lqs.me>
+ <arR6KOhDYJrK0lqB@fedora>
+ <CACtPduyfC3QMKsFTLjwvVRYfa28T-mNWLeA0CPLtRM5=s2ZnDQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="jXz/Wp/mcl7nof3B"
-Content-Disposition: inline
-In-Reply-To: <20260923140644.756254324@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
-
-
---jXz/Wp/mcl7nof3B
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <CACtPduyfC3QMKsFTLjwvVRYfa28T-mNWLeA0CPLtRM5=s2ZnDQ@mail.gmail.com>
 
-Hi!
+On Thu, Sep 24, 2026 at 12:35:18PM +0900, Qishuai Liu wrote:
+> On Thu, Sep 24, 2026 at 10:18 AM Hangbin Liu <hangbin.liu@linux.dev> wrote:
+> >
+> > On Wed, Sep 23, 2026 at 01:20:48PM +0000, Qishuai Liu wrote:
+> > > modify_prefix_route() is given the lifetime in clock_t relative to now,
+> > > but fib6_set_expires() wants an absolute jiffies value. So when a
+> > > permanent address is changed to a finite valid_lft, the prefix route
+> > > ends up already expired and GC removes it.
+> >
+> > nit: Does GC really removes it? I see the expires is negative, but the time
+> > seems overflow and GC won't remove it.
+> 
+> Yes, it is removed once the fib6 GC runs, i.e. within gc_interval if
+> the GC timer is already armed by another expiring route, or right away
+> with "sysctl -w net.ipv6.route.flush=1".
 
-> This is the start of the stable review cycle for the 7.2.8 release.
-> There are 438 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+Ah, yes.
 
-CIP testing did not find any problems here:
-
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-7.2.y
-
-Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
-
-Best regards,
-                                                                Pavel
-
---jXz/Wp/mcl7nof3B
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCarUJAgAKCRAw5/Bqldv6
-8oJeAJ0e4ifV49htfKhfbmPNxPd8ZOSYVwCgs+wD7UBcbdrmBN4Mf0o2Mt0KMow=
-=jLVM
------END PGP SIGNATURE-----
-
---jXz/Wp/mcl7nof3B--
+Thanks
+Hangbin
