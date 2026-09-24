@@ -1,143 +1,330 @@
-Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79E29353A8F
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:36:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15743CF032;
+	Thu, 24 Sep 2026 03:36:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790220970; cv=none; b=jDOBOnttAPLmxK4JBPu8XdhdDREjvedkTdgEKvgcUV1zXrpc3xJ0YTm65vs/vC1xhFHUmMWpqkZQDq1cvrxH39JHvY665DEMUjadVBozMXmMmCaHUFgg2yqqR2Lxbz5VoPfuvcaImF0PiJiecARNEM6auj+eHvf5YPchorw0LYI=
+	t=1790220978; cv=none; b=GUofiGNRXus7lK5G/0kDKbJXEjMfB21ls7OZs9W2JcFebZCIUnXFmIZJ0dm+w+NrONxkGj6aw+guvLwHFYLUah+hBi06ua0ERJXjmieVOhdglI7xUaqR4GGqbbrCRJMEg/PI6z4hM1QeSuLvx+cySDWn+1spW6DfA/7ASK77Eo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790220970; c=relaxed/simple;
-	bh=sJZTiRE4OUMgIDk5R/0YM1dl/ks9KGppBoMMxq9hWO4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h32yNaK3K6JbG/sPJGg4Ha4S2mxInAnRMuXQWvlSPv49oFVp1N9f9GZCJyZKYMCMiHpxf6MvxAT+u11ytsES0L0fm8D2vIfuUzTXiNOQkVMhz7mhrfJgTedm1kWRhWx7ckO7kLmeX5SjDBAvePmECRkIQZqv/14LqesxyJnuFbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=nLm1iL6D; arc=none smtp.client-ip=115.124.30.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1790220978; c=relaxed/simple;
+	bh=37NG+zVsSRo8YaXnUJldRHtHxbZhsJ41nENKVL4Woy0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fC7hRs2Jp59Ekhz+KwmNj+NsgXxVPdSRZNBMR/JLCslcp6/mOwSrIuV6CNwoNVeOgxsK6fu6bfwVpXvNQEm6TKk47hSMnnLFVQWND1WR9QGzCZWIpeDhJyc8GmJ6B8l9wL5KJX50iEaQ3WN7a9Ni65VQbypRaMEDaJQrQDb4HgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BLRAX8E/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="nLm1iL6D"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1790220959; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=9RKSlysD+0ZWwxjfgD/8VADDTDaH0BRY2XHrTBmcZlc=;
-	b=nLm1iL6DFV84z/uF4enlJc04kix8W5lar+9Oj+T4EKbjtIfc13L3ZSkbNGHFaeE8We4JNEGFpggTN00QODbzYh4BSh4HDXhTfruyJXWygIKt7tFnH5mgB3S4xFRIC05hcrUQE/t+GxmsWm9WdNd4FyBICq9ry7msyr7ICTfUXyk=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=kanie@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0XBYWSto_1790220957;
-Received: from 30.178.84.73(mailfrom:kanie@linux.alibaba.com fp:SMTPD_---0XBYWSto_1790220957 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 24 Sep 2026 11:35:58 +0800
-Message-ID: <e5c16b71-1ee8-46e6-a100-c49ce81a80e7@linux.alibaba.com>
-Date: Thu, 24 Sep 2026 11:35:57 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BLRAX8E/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 340C71F000FF;
+	Thu, 24 Sep 2026 03:36:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790220976;
+	bh=hqUONY15mblfrbweb+lCaDMlvswl82wq+y8LoUP1c2M=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=BLRAX8E/hBDbFGUNbcIn38hmzGpyyheRUw3pAkMmcH2slqhqTCaYk+8xGpe7tydN8
+	 WoQpASf63EQmkF3NDF+H/6hnm3gy5fcwgzkBtFT0wwSdCpnB3zYvU5F3XpYoLtAlJu
+	 q2tEPme9WiNUo+IQC5K3UnjHokFj5UxD6cXrioK1uiJEChe1OEkNrMoSKyrH2qu3XD
+	 LgsnoJXok8qr1wD/W53cd2nkhsHHXXLFtw7Oyzf0ew/r8Zw/YC2d0+JQpSt/c02N2E
+	 aT0TyLdE2F560gwXXGNcITYQkI09Nch3+0Zq9ZJujFTT5dc9fCN04MRDzz2WZu9hYa
+	 0SP0y8gGJKZcw==
+Date: Thu, 24 Sep 2026 04:36:09 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Srirangan Madhavan <smadhavan@nvidia.com>
+Cc: Alison Schofield <alison.schofield@intel.com>, Bjorn Helgaas
+ <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>, Davidlohr Bueso
+ <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>, Vishal Verma
+ <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, Alex Williamson
+ <alex.williamson@redhat.com>, vsethi@nvidia.com, alwilliamson@nvidia.com,
+ Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>, Vishal Aslot
+ <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>, Jiandi An
+ <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v13 09/15] cxl: Cache endpoint HDM state during PCI
+ enumeration
+Message-ID: <20260924043609.5dc4a7f4@jic23-hlaptop>
+In-Reply-To: <20260922083924.2451158-10-smadhavan@nvidia.com>
+References: <20260922083924.2451158-1-smadhavan@nvidia.com>
+	<20260922083924.2451158-10-smadhavan@nvidia.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND] checkpatch: don't flag ACQUIRE_ERR() assignments
- in if conditions
-To: Alison Schofield <alison.schofield@intel.com>
-Cc: Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>,
- Jonathan Cameron <jic23@kernel.org>, linux-kernel@vger.kernel.org
-References: <20260916020921.3480730-1-kanie@linux.alibaba.com>
- <arMQGUpW2snww9-a@aschofie-mobl2.lan>
-From: Guixin Liu <kanie@linux.alibaba.com>
-In-Reply-To: <arMQGUpW2snww9-a@aschofie-mobl2.lan>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+
+On Tue, 22 Sep 2026 08:39:18 +0000
+Srirangan Madhavan <smadhavan@nvidia.com> wrote:
+
+> PCI capability initialization runs before BAR resources are finalized,
+> while driver binding is too late for driver-independent reset support.
+> Create pci_dev->hdm during pci_bus_add_device(), after PCI resource setup
+> and before driver binding.
+> 
+> Cache BAR-relative HDM location, global control, decoder settings, and CXL
+> Device DVSEC Control, then publish the completed cache under cxl_rwsem.dpa.
+> Restore PCI_COMMAND after temporary MMIO access and reject decoder-count
+> changes.
+> 
+> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
+
+A few things inline.  Maybe well overlap with Benjamin's comments!
+
+> diff --git a/drivers/cxl/core/resource.c b/drivers/cxl/core/resource.c
+> index 7eea2bc38d94..b5f8c28e613f 100644
+> --- a/drivers/cxl/core/resource.c
+> +++ b/drivers/cxl/core/resource.c
+
+
+> +static int __cxl_pci_hdm_read_info(struct pci_dev *pdev,
+> +				   struct cxl_register_map *map, int dvsec,
+> +				   struct cxl_hdm_info **out)
+> +{
+> +	struct cxl_reg_map *hdm_map = &map->component_map.hdm_decoder;
+> +	struct cxl_hdm_info *info = NULL;
+
+Fits in with comments below, but that should not be set to NULL up
+here.
+
+> +	resource_size_t hdm_offset;
+> +	void __iomem *hdm;
+> +	int decoder_count;
+> +	size_t required;
+> +	u16 dvsec_ctrl;
+> +	int rc;
+> +
+> +	rc = cxl_setup_regs(map);
+> +	if (rc)
+> +		return rc;
+> +	if (!hdm_map->valid)
+> +		return -ENODEV;
+> +	if (hdm_map->offset > map->max_size ||
+> +	    hdm_map->size > map->max_size - hdm_map->offset)
+> +		return -ENXIO;
+
+That first lot can happen before setup regs.  Does it makes sense
+to do that, then setup the regs before the follow up check?
+
+> +	if (check_add_overflow(map->bar_offset,
+> +			       (resource_size_t)hdm_map->offset, &hdm_offset))
+> +		return -EOVERFLOW;
+> +
+> +	hdm = ioremap(map->resource + hdm_map->offset, hdm_map->size);
+> +	if (!hdm)
+> +		return -ENOMEM;
+> +
+> +	decoder_count = cxl_hdm_decoder_count(readl(hdm + CXL_HDM_DECODER_CAP_OFFSET));
+> +	if (decoder_count < 0) {
+> +		rc = decoder_count;
+> +		goto out_unmap;
+> +	}
+> +
+> +	required = CXL_HDM_DECODER0_TL_HIGH(decoder_count - 1) +
+> +		   sizeof(u32);
+
+I'd add a comment on why this size.
+
+> +	if (required > hdm_map->size) {
+> +		pci_err(pdev,
+> +			"CXL HDM decoder count exceeds mapped register block\n");
+> +		rc = -ENXIO;
+> +		goto out_unmap;
+> +	}
+> +
+> +	rc = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_CTRL,
+> +				  &dvsec_ctrl);
+> +	if (rc) {
+> +		rc = pcibios_err_to_errno(rc);
+> +		goto out_unmap;
+> +	}
+> +
+> +	info = kzalloc(struct_size(info, settings, decoder_count), GFP_KERNEL);
+
+Ah. So burried in here is where info is allocated.
+If you can use struct_size for the size you can use the _obj allocators instead.
+Probably kzalloc_flex().
 
 
 
-在 2026/9/23 07:32, Alison Schofield 写道:
-> On Wed, Sep 16, 2026 at 10:09:21AM +0800, Guixin Liu wrote:
->> ACQUIRE_ERR() and its wrappers, PM_RUNTIME_ACQUIRE_ERR() and
->> IIO_DEV_ACQUIRE_FAILED(), report whether a conditional cleanup.h guard
->> was acquired, and drivers consume the result directly in an if
->> condition:
->>
->> 	if ((rc = ACQUIRE_ERR(mutex_intr, &lock)))
->> 		return rc;
->>
->> That combined form is the established style at the 49 in-tree call
->> sites under drivers/cxl and drivers/pci/tsm.c, so ASSIGN_IN_IF fires
->> there only as a false positive, and every patch touching those lines
->> carries noise that reviewers have to wave off manually.
->>
->> Skip the check when the assigned expression is a call to a macro from
->> that family, matched by the *_ACQUIRE_ERR() / *_ACQUIRE_FAILED() naming
->> convention of its wrappers. Plain assignments and near-miss identifiers
->> still get flagged.
-> Hi Guixin,
->
-> Glad to see you picking this up!
->
-> I tried to address the same checkpatch false positive last year. Joe Perches
-> gave some useful feedback on my v1, including a suggestion to use checkpatch's
-> $Lval, and I incorporated that into v2 along with some test cases. That may
-> be useful for your next version.
->
-> More inline -
-Yes, got that, thanks.
->
->> Signed-off-by: Guixin Liu <kanie@linux.alibaba.com>
->> ---
->> Discussion leading to this patch, where the false positive showed up on
->> a cxl patch and covering the wrapper macros was requested as well:
->>
->> https://lore.kernel.org/linux-cxl/20260910094017.4032170-3-kanie@linux.alibaba.com/
->>
->>  scripts/checkpatch.pl | 7 ++++++-
->>  1 file changed, 6 insertions(+), 1 deletion(-)
->>
->> diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
->> index 8a7787d228a6..fbc500bcfaa1 100755
->> --- a/scripts/checkpatch.pl
->> +++ b/scripts/checkpatch.pl
->> @@ -5777,7 +5777,12 @@ sub process {
->>  			my ($s, $c) = ($stat, $cond);
->>  			my $fixed_assign_in_if = 0;
->>  
->> -			if ($c =~ /\bif\s*\(.*[^<>!=]=[^=].*/s) {
->> +			# ACQUIRE_ERR() and its wrappers, e.g. PM_RUNTIME_ACQUIRE_ERR()
->> +			# and IIO_DEV_ACQUIRE_FAILED(), are intended to be evaluated in
->> +			# an if condition, with the error assigned in the condition:
->> +			#	if ((rc = ACQUIRE_ERR(name, &lock)))
->> +			if ($c =~ /\bif\s*\(.*[^<>!=]=[^=].*/s &&
->> +			    $c !~ /=\s*\w*ACQUIRE_(?:ERR|FAILED)\s*\(/) {
-> What happens if there is also an unrelated assignment in the condition? For example:
-> 	if ((rc = regular_function()) || (ret = ACQUIRE_ERR(lock_type, &lock)))
->
-> It looks like the ACQUIRE_ERR() match suppresses ASSIGN_IN_IF for the whole condition,
-> including the unrelated assignment.
->
-> Could you use $Lval, as Joe suggested on my v1, to make this more precise?
-OK, changed in v2, thanks.
-> I also suggest running this against a small test program with the expected-pass cases,
-> ordinary assignments, and mixed cases like the one above. Feel free to reuse or extend
-> the test cases from my v2 [1].
-Sure, I will try to test as much as possible.
->
-> Could you also Cc linux-cxl on the next version? There are several users of this form
-> there, so it may help get some review and testing tags on the patch.
-OK, will cc linux-cxl in v2, thanks.
+> +	if (!info) {
+> +		rc = -ENOMEM;
+> +		goto out_unmap;
+> +	}
+> +
+> +	info->decoder_count = decoder_count;
+> +	info->hdm_bar = map->bar;
+> +	info->hdm_offset = hdm_offset;
+> +	info->hdm_size = hdm_map->size;
+> +	info->global_ctrl = readl(hdm + CXL_HDM_DECODER_CTRL_OFFSET);
+> +	info->dvsec_ctrl = dvsec_ctrl;
+> +	info->dvsec_ctrl_valid = true;
+> +
+> +	for (int i = 0; i < decoder_count; i++) {
+> +		rc = cxl_pci_hdm_read_decoder(pdev, &info->settings[i], hdm, i);
+> +		if (rc)
+> +			goto out_unmap;
 
-Best Regards,
-Guixin Liu
->
-> -- Alison
->
->
-> [1] https://lore.kernel.org/linux-cxl/20250815010645.2980846-1-alison.schofield@intel.com/
->
->
->
->
->>  				if (ERROR("ASSIGN_IN_IF",
->>  					  "do not use assignment in if condition\n" . $herecurr) &&
->>  				    $fix && $perl_version_ok) {
->>
->> base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
->> -- 
->> 2.43.7
->>
+with ordering below fixed this should goto free_info; or something like that.
+
+> +	}
+> +
+> +	/*
+> +	 * A changed decoder count means the snapshot no longer describes the
+> +	 * complete hardware state. Reject it rather than publish a partial cache.
+> +	 */
+> +	rc = cxl_hdm_decoder_count(readl(hdm + CXL_HDM_DECODER_CAP_OFFSET));
+> +	if (rc != decoder_count) {
+> +		pci_err(pdev, "CXL HDM decoder count changed from %d to %d\n",
+> +			decoder_count, rc);
+> +		rc = -ENXIO;
+> +		goto out_unmap;
+> +	}
+> +
+> +	*out = info;
+> +	info = NULL;
+
+Don't use this pattern of papering over stuff before then
+running your error path.  Given no __free magic for iounmap just
+have two exit paths and duplicate the iounmap().
+
+> +	rc = 0;
+> +
+> +out_unmap:
+> +	kfree(info);
+> +	iounmap(hdm);
+
+FWIW these are in the wrong order. You should unwind in reverse of
+setup.
+
+> +	return rc;
+> +}
+> +
+> +static int cxl_pci_hdm_read_info(struct pci_dev *pdev,
+> +				 struct cxl_register_map *map, int dvsec,
+> +				 struct cxl_hdm_info **out)
+> +{
+> +	bool restore_command = false;
+> +	u16 command;
+> +	int rc, rc2;
+> +
+> +	guard(pci_dev)(pdev);
+> +
+> +	rc = pci_read_config_word(pdev, PCI_COMMAND, &command);
+> +	if (rc)
+> +		return pcibios_err_to_errno(rc);
+> +
+> +	if (!(command & PCI_COMMAND_MEMORY)) {
+> +		rc = pci_write_config_word(pdev, PCI_COMMAND,
+> +					   command | PCI_COMMAND_MEMORY);
+> +		if (rc)
+> +			return pcibios_err_to_errno(rc);
+> +		restore_command = true;
+> +	}
+> +
+> +	rc = __cxl_pci_hdm_read_info(pdev, map, dvsec, out);
+
+To keep ownership and lifetimes clear I'd have this helper return "out"
+and use a PTR_ERR() for errors.  Then I'd hand over to a __free()
+in here so that you can then explicitly hand ownership on by again
+returning out (with a ptr_no_free() or similar).  Basically
+we want that flow of ownership to be obvious.  That may lead to dances
+where you allocate then pass the ptr on via a ptr_no_free() in two
+lines but that is fine.
+
+> +	if (!restore_command)
+> +		return rc;
+> +
+> +	if (!rc) {
+
+This looks like a good path?  If so have the bad path out of line
+not this.
+
+> +		rc = pci_write_config_word(pdev, PCI_COMMAND, command);
+> +		return pcibios_err_to_errno(rc);
+> +	}
+> +
+> +	rc2 = pci_write_config_word(pdev, PCI_COMMAND, command);
+> +	if (rc2)
+> +		pci_err(pdev,
+> +			"failed to restore PCI_COMMAND after CXL HDM cache init: %d\n",
+> +			pcibios_err_to_errno(rc2));
+> +
+> +	return rc;
+> +}
+> +
+> +static int __pci_cxl_hdm_cache_init(struct pci_dev *pdev)
+> +{
+> +	struct cxl_hdm_info *info __free(kfree) = NULL;
+
+See cleanup.h documentation.  I have no idea where the = NULL
+at the top pattern is coming from, but there has been strong
+push back from Linus and others on that in the kernel because
+it introduces ordering problems. 
+
+Here I have no idea where it is getting allocated.
+If possible make that allocation function return info.
+
+
+> +	struct cxl_register_map map = { };
+> +	struct resource *bar;
+> +	int dvsec;
+> +	int rc;
+> +
+> +	scoped_guard(rwsem_read, &cxl_rwsem.dpa)
+> +		if (pdev->hdm)
+> +			return 0;
+
+Add a comment on why just taking the lock briefly for this
+check is useful. I'd expect something to need hdm to stick around
+though perhaps lifetimes are fine and that isn't an issue.
+
+> +
+> +	dvsec = cxl_pci_hdm_dvsec(pdev);
+> +	if (dvsec < 0)
+> +		return dvsec;
+> +
+> +	rc = cxl_find_regblock(pdev, CXL_REGLOC_RBI_COMPONENT, &map);
+> +	if (rc)
+> +		return rc;
+> +	if (map.bar < 0 || map.bar >= PCI_STD_NUM_BARS)
+> +		return -ENODEV;
+> +
+> +	bar = &pdev->resource[map.bar];
+> +	if (!pci_resource_len(pdev, map.bar) ||
+> +	    (bar->flags & (IORESOURCE_UNSET | IORESOURCE_DISABLED)) ||
+> +	    resource_type(bar) != IORESOURCE_MEM || !bar->start || !bar->end)
+> +		return -ENODEV;
+> +
+> +	rc = cxl_pci_hdm_read_info(pdev, &map, dvsec, &info);
+> +	if (rc)
+> +		return rc;
+> +
+> +	guard(rwsem_write)(&cxl_rwsem.dpa);
+> +	if (!pdev->hdm)
+
+Needs a comment. I'm going to guess race given this pairs
+with the one above?
+
+> +		pdev->hdm = no_free_ptr(info);
+> +
+> +	return 0;
+> +}
+
+> +
+> +void pci_cxl_hdm_cache_release(struct pci_dev *pdev)
+> +{
+> +	struct cxl_hdm_info *info;
+> +
+> +	guard(rwsem_write)(&cxl_rwsem.dpa);
+> +	info = pdev->hdm;
+> +	pdev->hdm = NULL;
+
+I'd like a comment on why we need to set this NULL.
+I'd kind of not really expect there to ever be a path by
+which this is checked after release but maybe there is?
+
+> +	kfree(info);
+> +}
 
