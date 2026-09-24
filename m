@@ -1,138 +1,148 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D6C3A5E87
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:35:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.235
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790242552; cv=pass; b=G25clGsWkg2upNdIIElHEKWz0iHTlIIEQgBVVPcz9v2kDJ1LpLJudR00GmRpjNVHwE9/dXxWLqXt7Ahu3tu5toN/qCtkEu7yW8ldysW4qez6ZbvOHA1vTgbbJqQcUmD7gUV8bDvHSQlPeDALD6eii+nzBSl+pY6yqs5uvsjnrl4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790242552; c=relaxed/simple;
-	bh=nWVJkgh6v0OqckNbFT0DrWjVwyF8kZpU9defMGtQRv4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sG7Ur/DY9ccKkBrhP666pJu1+i3w97dWHhKxkwr96K12qPLjFnor8URxID+o7/BOkri04YcukoJuNPNYxisO8WLcBwdqtPMM99lHOPD8IiogpR23lDhcHbXwtembj3n/P0Z3j8yWaEaR7/07goTZSJmVdV9B+2RdYrwYX41ObfQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Pgw3UzkS; arc=pass smtp.client-ip=74.125.230.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F6C93446B0
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:36:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790242574; cv=none; b=hce6ZnSfyUjBXldkxX7nk9hbPbFwgTu/3a7s9EbmQijFzF9Pkgbd1EmVcSUlpA8xtfPUHr2W4qefF/O8FDb0ewHju3IbzVpMRP3J2w94xQlOr03Tu5QZNA7CYhrPPXnT1KXHh6biqRlK5u2GfcJl7Rykj39b0dRHlM378XOrCvA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790242574; c=relaxed/simple;
+	bh=TIBXLVpu3P6njrqobBE78+Uft6aHC9UBtcy9JkXN4PM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nB2IF2yVSbx63RQMaNVJhsGHRq2zHHgDB/b1jDps2hptWcEiFY7BB4q7MM7aKwu6FxhGDcUpsEC3ksQ+qmD5OEgC+SnC/rGvqXd0XJUmgdNz/r69kCS1Lub6x2gGU0HILAf1yX+A3qYrOciK5oFnk6LNzWa8PET+2JzspWmiNdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jtRzq49l; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Pgw3UzkS"
-Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-530d8a00bcdso12401731cf.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:35:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790242549; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TkkRP7zJO716sGefNzGten739LWlJ90oFJKAFAZRY3n+1/Z2DfdSuEgSiSx318cu62
-         dDVT037w0pT5WPr1VEiuNRv8/FGLz/K0hlcOUw3Hb5/V64c9uPXCHd+8Par/jSUaZ/ja
-         7aCr3DQf0vVv/uUC/PIVeo9oNyFkFDiru4YB4f87mfSShXF1WhvpkXAt6k5PtYYwH0uw
-         E/XtoEH7sH2xvc080HaRsRN11Ky+IomTPRoEhm0fv9MjDL3QytSjA9f/KzV+lYlTLj0K
-         T9y8CyYW3WsttSARTpA8w+JH1mE3bqrBxRI0wPFTKllWVVR9Ozia5qJrMNM/wOtByA7u
-         Tidg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dObnSyq7Q524W//2DcmkBmFSB16ZHOQqAqIVcmv+gqs=;
-        fh=Lk+TfCIZ3fb6ieNJqepbX3gel/Oooc5NIQEWcQTuntE=;
-        b=gGA0CuLSwEWOiRSVAMesK0mCONjZ1aaweiBKsmt1tAqLw3pSZi0JFJc+VvJn4MQkHA
-         30Z2jsz5qpd3Dll0uf6iCMvPSPVFFynxH58IXG6fMvtyTtFg6txa61m38zpflPlc1VGU
-         VwfNaKMzJBqQiBImEwBJ6gK+craj66fhkklkzFLoBJy+TTSBSOHDxl2VXigprX/QbX3X
-         pJ0jD0TxiYbi3OoeeLuFK9XJ9sAlwpQpL32MmDF3VuKTeLg5E4dWArS9u/Nobgvn7Qce
-         nlmCUp7v2ApiUcO3EZSiQf47iH9QEZNvdTqwQ5yBYURwPiKL4FJXZMUSt3eAKNaReLro
-         ag6w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jtRzq49l"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4bdf8abaaso1331133a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:36:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790242549; x=1790847349; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dObnSyq7Q524W//2DcmkBmFSB16ZHOQqAqIVcmv+gqs=;
-        b=Pgw3UzkSS5G509XDtJqprYWpMHuzkjGDqg5X7dxV3Dp+WSB8ESX59+UK7d2SHIYtK9
-         HImH8TuzIeP4jOMVt8K1+R7goL2juDW53mGSZI1DwLU5TJD+gHRhbLU6wROxDO7DBZoh
-         9ocuP577Znz1WXMC6p1Nmm2WNnR40JrRtTpIUduOiPYMwri/OBunGV9jZ6Rd9kF/Yxzj
-         Oo+1LUdUwJLqcgrjIectGJDSH7l+yJ6B12ijGQTDAZjFAU0DDXpZIUzI9rnsSP51D4wQ
-         tWqPwpQTPcEJIMFVgixtq0D5hhQfGg9Gk7a0VPJ1+ND/cDxyLZiKwCkq9tW1mnF49zdz
-         MkCw==
+        d=gmail.com; s=20251104; t=1790242572; x=1790847372; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jgrohmt14ZqMIQv1HD1kxLIsELyeYSK07XxKwKFPOeU=;
+        b=jtRzq49ljyyLIqJODVeq+aM1aasGzmiKF3RbxfsBTtlaNBLeW6YT0OuSq3eu/67Kas
+         X2Y+hWC4d4z//jTm3spk6PY+9tLNzIHboialNZlT6rVM33TW7BWJ3UotMi/BwzaI3wC6
+         lXmZPFUGuPVvFxQBaa2At/CiGFD8xtRAINRu+/MwAHruPSSZcV74BHZwH5tfe91gAI7g
+         i8/Y8v/k/PbVzrkFmUKnuSoYH6F7C3wnfT40mcAjzGRcT56logFL28kBfFUM+HB0mAMl
+         ojMj1VBo3qPsit6BL70ttTpKsKJ+urz82FMVCuMw2kz+kAbONBU3iYh4AJkXqqkw70sb
+         lNUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790242549; x=1790847349;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dObnSyq7Q524W//2DcmkBmFSB16ZHOQqAqIVcmv+gqs=;
-        b=k2o/E91BUTOJX05n/q/PScaqd61ZOmkPIiE8Hvu0sQ4bsjz4n1ihKdLNoeKjWh+Fxy
-         m5XVybwvCSDVNt1NTMvbo17WfHWKRQBi5yvAk7/EadjpKOlEKHcRz9Yf0JePot2SaYk+
-         IGJJhctQ3BOoUdRi0YYaEQZEQA6oUCZytybSgPg/zanTbmbkKJ+hlpZAbPfQf+kBMRn9
-         pige8i2T4OTteYZc6Qpt2kIZcFKYZljatGjuBL93MVEu8dTzBRpcfhIE2bTSwMUK3l2i
-         dx72WW0CuIxyQMotk0Baw7Qtf5F0WyEmSuq8fDOmomqTwzqOmBjVK4a4hpHx3VOInPii
-         orGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxcQWyUppoEdzJdrD3xngE1BfUgHSACn/uNX6obhlBLEuLmaG12jAugaB78+C0EyCba4QFiaGQ3iEsHPe8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mqZ8QgDF2A3wfDmdUrjds9cnGGDoJ2Fsst3b+KUCMSkYlZJGFY
-	AwWSDYnxvnxNYzz1HoKDS2s3yEddAl90jllbZn5z7CuFHBLxNmZ0Taz+wNVcvcgFHC8HVzTsGb5
-	ZA7s6Yzy/FyE9ZHQZWQR94ZBExrQdZISqqrahTnFb
-X-Gm-Gg: AYBFou3znqAYW8cvK2qsaiHOhqFAonvaJ4FqZuYZqe8wrVGC9bJE+G2Zuay6slmmxKA
-	7pB+k7u3pptJKXtE5EhLdE8AwxishSIa0Inm+X/S/MvhyhDoHT24XNdSHVL143rCQO30uJ7Mk3D
-	Dcze/vFFXCoNTaLVwAsFbpR7xNEWFMdUHBG7ChLi+Ypvxl224mddZOV07iQ4fxgo0GvQ/JcsFKH
-	RPNFeLXEbO7/VP7qcoeXW8gM8rpmkhgoixEAZFzv47F27kP4VRrVFhEGeTmmiYr50hUZGhzisKc
-	mQVDR9Atz3rcBjGgtfWCdBZJUszRRmGW5fzOWoSJp8ENCQZggvBVmEncPPbYVASXr7PAhWYx8K0
-	v6t8w7cRLXfkDEc5t4VaBCujD/0C+Wz+u5TX6NHVvlYY0TNGXLjc8LqI9qb4I9/uWTuoD
-X-Received: by 2002:ac8:5e4e:0:b0:532:ddf9:c668 with SMTP id
- d75a77b69052e-532feb25f4fmr13958811cf.53.1790242548221; Thu, 24 Sep 2026
- 02:35:48 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790242572; x=1790847372;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jgrohmt14ZqMIQv1HD1kxLIsELyeYSK07XxKwKFPOeU=;
+        b=A5ARmaAhOeG3vxjHz8TDSVf9h0G4e44czuJPVG8ZPXFRqkLTGiYnbdKy5j0ggCaLF+
+         AG8Uhe9tAET/ygUC7rmHaRGamJN5rIw7yHwdzmZxAPoQifUKqo+VShrDIQ1qIWCwia9X
+         J3PHpDmakmWt42OPVRppm3Z/3haUpMU++0D9WDBB8t8QEsdVncKFypzKgjhUrOlUMxHN
+         8+L2LiNgKq/PtnoUXBocu1ktKsS/oaeDst3ecoJWchntESaawQlOTcEbmKtNnhA7dnls
+         V1KHHv8VCaB3kym0nyhbPRtzCIFT+Ay9ivUmk3PT6s3crIEIo62V+AlzGayFEDnBYu4m
+         2RUA==
+X-Forwarded-Encrypted: i=1; AKwUvBwryBpWLOqzf0JBXOkXar0CazwmWprmQc6GsRv02JjY3Co05xqp/13n1d/+ppHhMrqvKCVjE4SQ3mlqDLU=@vger.kernel.org
+X-Gm-Message-State: AFuF++ldLQRe4s/bToy4vaM7wMadZRqRTuRSIGmS9WjOspNExTXBEpYM
+	IK8jSF7ZbartpmXHOysT3/4rW5VqCiqm1tCqo7HZEvBriOw0uXomu7Bj
+X-Gm-Gg: AYBFou2R5ZWHn+nwuCuij8W0rxSx3k6mfJ0pFqciBs+9amh+8xHLfRU8wjaf7G0VoFE
+	wGihn8p58SNAlgfct35sP4nxtGX5Fky2YJc5y/22pKIjftkF8NI5Tr5NBIHiS7Ys+iZwM7kJIVc
+	/lLvNA6IQmGyjwXSxnu9K06FXRc/HTMEqDw+3pfxGzeYd6wEPp0gSZRR2pyDcCV3KIySSJkOGP5
+	1rq0U1CmnfvW0MH0X00lVKbDn4gqgVHSi9dKoFCdQeNSmUHGz4lpeF+ukNdOjzFxkggwoG/R/MV
+	xT8a5ADkzVrH4RYNvol9ONLjaopXd/NhflLchKCOKyE8ovueachnttko6DNr9TVaKAPFjESv5A6
+	/KGjZA7Lp/opKmrYE3GIO9x5uAYcnYnf0AznA2jZqT+v1UemfekbyI5T639J64hC29q4xBflmfs
+	ekbqezI6SnYoGqPPjJ1sXzF1d7EkhJQ5AjRFsoiqbr0H2ziMstmal8v6TbyNwrJTE3wfvqWI4UT
+	vfT15xZo8l5xU8zzGcpnYKRyC6KlSPquvtYE8HcxDTsRGFFBBLQm4JRGYUFkC7EouB87mjipF3W
+	5W3XJJA0jA==
+X-Received: by 2002:a17:90b:1d49:b0:39e:6c68:c777 with SMTP id 98e67ed59e1d1-3a098e0166bmr1585304a91.45.1790242572238;
+        Thu, 24 Sep 2026 02:36:12 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0972b22c3sm3939404a91.1.2026.09.24.02.36.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 02:36:11 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	dsahern@kernel.org
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	andrea.mayer@uniroma2.it,
+	hangbin.liu@linux.dev,
+	leitao@debian.org,
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH net v4] ipv6: sr: enforce exact attribute length for SEG6_ATTR_DST
+Date: Thu, 24 Sep 2026 09:36:10 +0000
+Message-ID: <20260924093610.3286959-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260920063419.3587332-1-yilinzhang@moonshot.ai> <8a9dff4063a2745653b7e88ceb745d75efa16e68.1790224474.git.yilinzhang@moonshot.ai>
-In-Reply-To: <8a9dff4063a2745653b7e88ceb745d75efa16e68.1790224474.git.yilinzhang@moonshot.ai>
-From: Eric Dumazet <edumazet@google.com>
-Date: Thu, 24 Sep 2026 11:35:37 +0200
-X-Gm-Features: AclHuK-rRRv07fF_euLQdzkSjhzPwlSUWaftcxHkR9xtjqpGBEK49dFgtxnRZ_k
-Message-ID: <CANn89iLaofHpg9J8to+H7Z=Xs-rZfseziNN0vXBkE8zJ8DQcsw@mail.gmail.com>
-Subject: Re: [PATCH v2] tcp: fix use-after-free of retransmit_skb_hint in tcp_send_synack()
-To: Yilin Zhang <yilinzhang@moonshot.ai>
-Cc: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Neal Cardwell <ncardwell@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Kimi Security Team <bug-report@moonshot.ai>, Weiming Shi <shiweiming@moonshot.ai>, 
-	Kuniyuki Iwashima <kuniyu@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 6:49=E2=80=AFAM Yilin Zhang <yilinzhang@moonshot.ai=
-> wrote:
->
-> When tcp_send_synack() replaces the cloned SYN skb at the head of the
-> retransmit queue with a copy, it frees the original with
-> tcp_rtx_queue_unlink_and_free() and only repairs tp->highest_sack.
-> tp->retransmit_skb_hint keeps pointing at the freed
-> skbuff_fclone_cache object.
->
-> The dangling hint is read in tcp_verify_retransmit_hint() and used as
-> the root of the rbtree walk in tcp_xmit_retransmit_queue().  An
-> unprivileged TFO client (sendmsg(MSG_FASTOPEN)) can arm the hint with
-> an attacker-supplied ICMP fragmentation-needed message, after which a
-> simultaneous open frees the armed SYN skb:
->
->   BUG: KASAN: slab-use-after-free in tcp_mark_skb_lost (net/ipv4/tcp_inpu=
-t.c:1316)
->   Read of size 4 at addr ffff88800604d928 by task swapper/1/0
->   Call Trace:
->    tcp_mark_skb_lost (net/ipv4/tcp_input.c:1316)
->    tcp_simple_retransmit (net/ipv4/tcp_input.c:3158)
->    tcp_v4_err (net/ipv4/tcp_ipv4.c:587)
->
-> Sync the hint to the copy.
->
-> Fixes: c31b70c9968f ("tcp: Add logic to check for SYN w/ data in tcp_simp=
-le_retransmit")
-> Reported-by: Kimi Security Team <bug-report@moonshot.ai>
-> Tested-by: Weiming Shi <shiweiming@moonshot.ai>
-> Signed-off-by: Yilin Zhang <yilinzhang@moonshot.ai>
-> ---
-> Changes in v2:
-> - Correct the Fixes: tag (Eric Dumazet).
-> ---
+In seg6_genl_policy, SEG6_ATTR_DST is defined with .type = NLA_BINARY and
+.len = sizeof(struct in6_addr). For NLA_BINARY, .len only enforces the
+maximum payload length and permits shorter payloads (e.g., 0 bytes).
+When seg6_genl_set_tunsrc() copies sizeof(struct in6_addr) bytes via
+kmemdup(val, sizeof(*val), GFP_KERNEL), a short SEG6_ATTR_DST attribute
+triggers a 16-byte out-of-bounds read past skb->tail into uninitialized
+skb->head memory, which is stored in sdata->tun_src and leaked back to
+userspace via SEG6_CMD_GET_TUNSRC.
 
-Thanks for the fix.
+Switch SEG6_ATTR_DST in seg6_genl_policy to
+NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)) so that generic netlink
+validation rejects any attribute whose length is not exactly
+sizeof(struct in6_addr) with -ERANGE.
 
-Reviewed-by: Eric Dumazet <edumazet@google.com>
+Tested in QEMU against Linux 7.3.0-rc3 by sending a SEG6_CMD_SET_TUNSRC
+Generic Netlink message with a 0-byte SEG6_ATTR_DST attribute followed
+by SEG6_CMD_GET_TUNSRC. On the unfixed kernel, SEG6_CMD_SET_TUNSRC
+succeeds (err = 0) and SEG6_CMD_GET_TUNSRC leaks 16 bytes of
+uninitialized kernel heap memory; with this patch applied,
+SEG6_CMD_SET_TUNSRC is rejected by netlink policy validation with
+-ERANGE (-34) and tun_src remains zeroed.
+
+Fixes: 915d7e5e5930 ("ipv6: sr: add code base for control plane support of SR-IPv6")
+Cc: stable@vger.kernel.org
+Reviewed-by: Andrea Mayer <andrea.mayer@uniroma2.it>
+Reviewed-by: Hangbin Liu <hangbin.liu@linux.dev>
+Reviewed-by: Breno Leitao <leitao@debian.org>
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+Changes in v4:
+- Drop raw hex memory dump string from commit message as suggested by Breno
+  Leitao.
+- Add Reviewed-by tag from Breno Leitao.
+
+Changes in v3:
+- Add Reviewed-by tag from Andrea Mayer.
+- Send as a fresh standalone thread (no In-Reply-To header) as requested by
+  Jakub Kicinski.
+
+Changes in v2:
+- Drop the redundant nla_len(info->attrs[SEG6_ATTR_DST]) !=
+  sizeof(struct in6_addr) check in seg6_genl_set_tunsrc() since
+  NLA_POLICY_EXACT_LEN() in seg6_genl_policy already enforces the exact
+  length, as pointed out by Hangbin Liu.
+
+ net/ipv6/seg6.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/net/ipv6/seg6.c b/net/ipv6/seg6.c
+index 62a7eb779202..8c2b156c227a 100644
+--- a/net/ipv6/seg6.c
++++ b/net/ipv6/seg6.c
+@@ -138,8 +138,8 @@ void seg6_icmp_srh(struct sk_buff *skb, struct inet6_skb_parm *opt)
+ static struct genl_family seg6_genl_family;
+ 
+ static const struct nla_policy seg6_genl_policy[SEG6_ATTR_MAX + 1] = {
+-	[SEG6_ATTR_DST]				= { .type = NLA_BINARY,
+-		.len = sizeof(struct in6_addr) },
++	[SEG6_ATTR_DST]				=
++		NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)),
+ 	[SEG6_ATTR_HMACKEYID]		= { .type = NLA_U32, },
+ 	[SEG6_ATTR_SECRET]			= { .type = NLA_BINARY, },
