@@ -1,80 +1,60 @@
-Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
+Received: from mta1.migadu.com (out-147.mta1.migadu.com [95.215.58.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97719438015
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:26:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8334AD4BB
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:27:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790281563; cv=none; b=ZOhpnPflE03czQXy7TowfGgtBcwv+GxxYsjj9Nh7RicvV81A/PS4RJz1cvD6lTSK/TFqFsyhH6etnyXrsQvCiqxs39cRtL5Jsr93WHBNJRxw51aHSegvzphMUBHGgISACtjhMhLmgSCmFen3rP7AD8U1wp5w84eaP/qE4hKQeCk=
+	t=1790281643; cv=none; b=Gofk7eCn1pSXer8h/ADRCe0ZcgSmQ7ieftdZ5nrg5YSs9chG0cIhUZMNdmmUcj+NZDSEBEL8ex2wbDYPK9jcKZP9+ATk2UE8c3IeF6ebm4PzhIOuawbDICAFRhwaLJnn9TAoXSDbRqT905LFgpsj6B1B+9/Vp59MjvFrpcTrqkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790281563; c=relaxed/simple;
-	bh=uRYPAtAtLif7i10854CTEewWmJAf/TWjXqRBv41TdEI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Tv6keqN5ibzCPkEXbog05lVPaRULBc9Q2RWHRQTXxPZtgrupCVisuMZiWeJ0Jyvab75P/d61RKhGbvj6ABgeDtAlC7Hy4s9d5GH27f1IM8RPQU/TLaeqLkpBmw6Nkjkx2Qsb42bHzhZMm6bWxE+7QcWtGU4MwbPwxzw5myideJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XI4oiPFE; arc=none smtp.client-ip=74.125.226.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790281643; c=relaxed/simple;
+	bh=8VEzepUYXnkMgxydyc4i9ERcKbbyPZU5XIr7Df9ZbXQ=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=XWXzAmiGLutt+yD54KALj1Rmw+Eosdfpnp6Us0UpJw8+V+BWjFhJN4Oq4aBjx/wj/RPNqc9DLNLtscjwjqpIUdlybl8kTR8Lyl3GWLCMSZyaQh3tetlZ+dUzStADnQPNOJhLYbtQ5rdeK/BR9Yz34LxQdFJSSp3Ned/AHsWhUXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DBAfSKAn; arc=none smtp.client-ip=95.215.58.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XI4oiPFE"
-Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-982dd15d169so140668241.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:25:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790281556; x=1790886356; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iv7JMCOOiStR26xduJ20yGu4jGk3+F31OuSygzoMJug=;
-        b=XI4oiPFEvODXpDmkNwakyL26cPhBZO0fAkDbzIYLDNg6xgLvTAkKVqFwgam4Ojh4Zj
-         1GsuEzJTH641jtPyku/gQLRYwtmylTydyUEgM6R0XYjqO6LGZEQI8LQ6hN6nxkyZXhGa
-         7d1Q2uGNumuVABxni+c/deDXTBa1yO+AD0L0ULPNlplrPe2cglZXELUCSDIyrI2aWov5
-         ZX4pL92GWVccxd6S1hNDBIqNpDDlruf1vOlgZCSbcJdlmfUE7ZquB+Trl1/bo7HO6XIU
-         UWlwBKvq/NhavnzSHYDMqsVk5wnicTTlA+E9Is4YjVr0z4S5eJI7duLF57KyhTtzy2Ec
-         1sLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790281556; x=1790886356;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iv7JMCOOiStR26xduJ20yGu4jGk3+F31OuSygzoMJug=;
-        b=FI6QpgUTHpPpE9Wxak8Uz7E+rathQIEbqD/Ofbl+Qctu0S6mmBdD7pqRaisTc8ptrW
-         ST2uvAsqBZIJOMxBfbuQ19FgXyY8ijIcwTQnfhDS/5iGyxtkZ+quJe9IFK8o1qghwhRl
-         hQlImL9ZQfgJIqAhNsR7LwT3r9mAsZS/2eE6pPIOpG0XDWB02tgpJrEAJPaTeSFjjI9p
-         VJ9EpKKA3Y41fT1lu9O88o+2T0hcCoHiSPDqwzOSmFhd/02/K/k3BuGz3grElzZ4EZko
-         WbVPz+GdV0xp55iq2dH4wMzNLsMHBfZLZyNnx7EKPlkHYL4YHPQBljvfoZaxV4ngT5KD
-         KGfg==
-X-Forwarded-Encrypted: i=1; AKwUvBw0tZjRzjMxhjcJlcpcmCu4SpFe4fSvT6HQ+LQ6Tu+i4+z9lqfjDfNbJfTgq13nCVIR9vKy/U4cueYpltI=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/7rAN+FOFrNPKJVg/fD77lfT0cR15eeuYpb69nxPXEXihyv5T
-	iAunjVP95/2bYj3kP2aKlwj4B1mn5wFX5qkBzRjU3jA50uUW50s5OM3d
-X-Gm-Gg: AYBFou0epdCrnq0yM/aIDr4sb/nuZqnqPbHYw9oi3u0tFuRdhqI92olxE2SABsnPegZ
-	YN2ja+DqB47s1O9bz3jD2RTW/SM7RCNt2AoY+JPeLZOg9ww7Eiwm/LRRHL7FlqI+kaqAlalxrX+
-	rDMbuaPcuaVKKlE6Z7K8Pn5inar/bWRoz/FBOpia/cZzO06sZVMVb+unfhGRtyXcXH7J9OfEh+9
-	UTLYW1p5R8Iy7If3Gc+KggITOHo4iTBCn7APWuN+iHZLbpwCDJ4q3ZUsA13pXMvJhx3EZhA1DfH
-	njG7yTL68sG9tepiId8g+wDvZ0Q/CsBTgFmNA48umzErDEeI6S7VHEE9JY2ddD1nAptN4fuCGvf
-	j6h+1wQ0q0uUjuibaMYMkI8DAUtiP0JgZyZeFsfb9AVCrF9VvTWf1vjEfDJ1KJ4ZGCAUA6nIbJ4
-	TvRTviJa7IOygw5eMIA7Gch3vBzyk9Me8eGNq8KWVDoLqXOHZij/1EQBn1h32O5w4atE1uayfQR
-	FYWhvWV715G
-X-Received: by 2002:a05:6102:c53:b0:7a1:f7c3:3a45 with SMTP id ada2fe7eead31-7af1d6c4296mr1934116137.18.1790281556440;
-        Thu, 24 Sep 2026 13:25:56 -0700 (PDT)
-Received: from adriano.lan ([2803:9810:3dd5:d810:440b:4079:aa61:d217])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7b0db1d1152sm782102137.6.2026.09.24.13.25.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 13:25:55 -0700 (PDT)
-From: Adriano Cordova <adrianox@gmail.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>
-Cc: netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Phil Sutter <phil@nwl.cc>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DBAfSKAn"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=8VEzepUYXnkMgxydyc4i9ERcKbbyPZU5XIr7Df9ZbXQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790281634; v=1; x=1790886434;
+ b=DBAfSKAnDTLDMCani1gCI+J6Vs74Z9vAHPnaHuetN3ABipcUkr/bcebyokue+WxJFtV+2KlR
+ 1hfUSPab7+VJKZV/ZNewRGSF5wCyQVjTdv+r897Yyw3reUrwGfmhiNNlxsMU7i1iu24UWFROp4A
+ OrF4syyoktEPET66cZJMSBFo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 81d824b08deb57c9;
+	Thu, 24 Sep 2026 20:27:14 +0000
+X-Mizu-Trace-ID: 81d824b08deb57c9
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: arighi@nvidia.com,
+	bsegall@google.com,
+	changwoo@igalia.com,
+	dietmar.eggemann@arm.com,
+	juri.lelli@redhat.com,
+	justinstitt@google.com,
+	kprateek.nayak@amd.com,
 	linux-kernel@vger.kernel.org,
-	Adriano Cordova <adrianox@gmail.com>
-Subject: [PATCH net-next] netfilter: nf_flow_table_bpf: populate VLAN encap in XDP flowtable lookup
-Date: Thu, 24 Sep 2026 17:25:43 -0300
-Message-ID: <20260924202543.1090535-1-adrianox@gmail.com>
-X-Mailer: git-send-email 2.51.0
+	llvm@lists.linux.dev,
+	mgorman@suse.de,
+	mingo@redhat.com,
+	morbo@google.com,
+	nathan@kernel.org,
+	ndesaulniers@google.com,
+	peterz@infradead.org,
+	rostedt@goodmis.org,
+	sched-ext@lists.linux.dev,
+	tj@kernel.org,
+	usama.arif@linux.dev,
+	vincent.guittot@linaro.org,
+	void@manifault.com,
+	vschneid@redhat.com
+Subject: [PATCH] sched_ext: Test scx_has_subs() inline before calling sub-sched hooks
+Date: Thu, 24 Sep 2026 13:27:11 -0700
+Message-ID: <20260924202711.4042339-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,61 +63,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-encap[] is part of the flow_offload_tuple rhashtable key
-(flow_offload_hash() hashes up to __hash), so a lookup has to fill it like
-the skb path does.  bpf_xdp_flow_lookup() builds its key from struct
-bpf_fib_lookup only, which has no encap fields, so it leaves encap[]
-zeroed and can never match a flow whose tuple carries a VLAN encap.
+scx_reenq_reject(), scx_process_sync_ecaps() and scx_resolve_local_dsq()
+return early if there are no sub-schedulers, but clang emits the full
+prologue before the static branch. Without sub-schedulers, we still pay
+for a call and for saving and restoring up to six registers, on every
+wakeup, dispatch and local DSQ insert.
 
-Fill encap[0] from an in-band 802.1Q tag, mirroring the ETH_P_8021Q case
-of nf_flow_tuple_encap().
+Let's move the scx_has_subs() test into inline wrappers, so that these
+calls go away completely. The wrappers keep lockdep_assert_rq_held().
 
-Link: https://github.com/xdp-project/xdp-tools/issues/488
-Signed-off-by: Adriano Cordova <adrianox@gmail.com>
+In a pinned perf bench sched pipe test on x86-64 with clang 22, this
+reduced kernel instructions by 52-54 per context switch with scx_simple,
+scx_lavd and scx_layered.
+
+No functional change intended.
+
+Signed-off-by: Usama Arif <usama.arif@linux.dev>
 ---
- net/netfilter/nf_flow_table_bpf.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ kernel/sched/ext/sub.c | 25 +++++++++----------------
+ kernel/sched/ext/sub.h | 35 +++++++++++++++++++++++++++++++----
+ 2 files changed, 40 insertions(+), 20 deletions(-)
 
-diff --git a/net/netfilter/nf_flow_table_bpf.c b/net/netfilter/nf_flow_table_bpf.c
-index cbd5b97a6329..479f8242da2b 100644
---- a/net/netfilter/nf_flow_table_bpf.c
-+++ b/net/netfilter/nf_flow_table_bpf.c
-@@ -10,6 +10,7 @@
- #include <linux/kernel.h>
- #include <linux/init.h>
- #include <linux/module.h>
-+#include <linux/if_vlan.h>
- #include <net/netfilter/nf_flow_table.h>
- #include <linux/bpf.h>
- #include <linux/btf.h>
-@@ -60,6 +61,8 @@ bpf_xdp_flow_lookup(struct xdp_md *ctx, struct bpf_fib_lookup *fib_tuple,
- 		    struct bpf_flowtable_opts *opts, u32 opts_len)
- {
- 	struct xdp_buff *xdp = (struct xdp_buff *)ctx;
-+	const struct ethhdr *eth = xdp->data;
-+	const struct vlan_hdr *vh;
- 	struct flow_offload_tuple tuple = {
- 		.iifidx = fib_tuple->ifindex,
- 		.l3proto = fib_tuple->family,
-@@ -91,6 +94,18 @@ bpf_xdp_flow_lookup(struct xdp_md *ctx, struct bpf_fib_lookup *fib_tuple,
- 		return NULL;
- 	}
+diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
+index 6463cebd88985..10567196be96c 100644
+--- a/kernel/sched/ext/sub.c
++++ b/kernel/sched/ext/sub.c
+@@ -675,7 +675,7 @@ void scx_rescue_init(struct rq *rq)
+ }
  
-+	/* encap[] is part of the lookup key, fill it from the 802.1Q tag. */
-+	if (eth + 1 <= (const struct ethhdr *)xdp->data_end &&
-+	    eth->h_proto == htons(ETH_P_8021Q)) {
-+		vh = (const struct vlan_hdr *)(eth + 1);
-+		if (unlikely(vh + 1 > (const struct vlan_hdr *)xdp->data_end)) {
-+			opts->error = -EINVAL;
-+			return NULL;
-+		}
-+		tuple.encap[0].id = ntohs(vh->h_vlan_TCI);
-+		tuple.encap[0].proto = htons(ETH_P_8021Q);
-+	}
+ /**
+- * scx_resolve_local_dsq - Pick the local, rescue or reject DSQ for an insert
++ * __scx_resolve_local_dsq - Pick the local, rescue or reject DSQ for an insert
+  * @sch: enqueuing sub-sched
+  * @rq: rq whose local DSQ @p targets
+  * @p: task being inserted
+@@ -695,12 +695,9 @@ void scx_rescue_init(struct rq *rq)
+  * to and run by its nearest non-bypassing ancestor. If root is bypassing, it
+  * always holds all caps.
+  */
+-struct scx_dispatch_q *scx_resolve_local_dsq(struct scx_sched *sch, struct rq *rq,
+-					     struct task_struct *p, u64 *enq_flags)
++struct scx_dispatch_q *__scx_resolve_local_dsq(struct scx_sched *sch, struct rq *rq,
++					       struct task_struct *p, u64 *enq_flags)
+ {
+-	if (!scx_has_subs())
+-		return &rq->scx.local_dsq;
+-
+ 	s32 cid = __scx_cpu_to_cid(cpu_of(rq));
+ 	struct scx_sched *asch = rq->scx.remote_activate_sch ?: sch;
+ 	u64 needed = scx_caps_for_enq(*enq_flags);
+@@ -783,14 +780,12 @@ bool scx_task_reenq_on_cap_revoke(struct rq *rq, struct task_struct *p)
+  * scx_do_enqueue_task(), which ejects the owning sub past SCX_REENQ_MAX_REPEAT.
+  * Rejection can't happen for root.
+  */
+-void scx_reenq_reject(struct rq *rq)
++void __scx_reenq_reject(struct rq *rq)
+ {
+ 	LIST_HEAD(tasks);
+ 	struct task_struct *p, *n;
+ 
+-	lockdep_assert_rq_held(rq);
+-
+-	if (!scx_has_subs() || list_empty(&rq->scx.reject_dsq.list))
++	if (list_empty(&rq->scx.reject_dsq.list))
+ 		return;
+ 
+ 	/*
+@@ -926,7 +921,7 @@ static void queue_sync_ecaps(struct scx_sched *sch, s32 cid)
+ 	struct scx_sched_pcpu *pcpu = per_cpu_ptr(sch->pcpu, cpu);
+ 
+ 	/*
+-	 * Pairs with smp_mb() in scx_process_sync_ecaps(). Either the check
++	 * Pairs with smp_mb() in __scx_process_sync_ecaps(). Either the check
+ 	 * below sees the node off the list and queues it, or the in-flight sync
+ 	 * sees the caps[] update made before this call.
+ 	 */
+@@ -951,7 +946,7 @@ static void discard_queued_syncs(struct rq *rq)
+ }
+ 
+ /**
+- * scx_process_sync_ecaps - Sync this cpu's ecaps to pshard->caps[]
++ * __scx_process_sync_ecaps - Sync this cpu's ecaps to pshard->caps[]
+  * @rq: the cid's cpu rq
+  * @prev: @rq's previous task from the in-progress dispatch
+  *
+@@ -963,16 +958,14 @@ static void discard_queued_syncs(struct rq *rq)
+  * learns the cid's idle state. Such a gain arms the per-rq
+  * %SCX_RQ_SUB_IDLE_RENOTIFY gate so the next idle pick delivers it.
+  */
+-void scx_process_sync_ecaps(struct rq *rq, struct task_struct *prev)
++void __scx_process_sync_ecaps(struct rq *rq, struct task_struct *prev)
+ {
+ 	s32 cpu = cpu_of(rq);
+ 	s32 cid, shard;
+ 	struct llist_node *batch, *pos, *tmp;
+ 	u64 lost_all = 0;
+ 
+-	lockdep_assert_rq_held(rq);
+-
+-	if (!scx_has_subs() || likely(llist_empty(&rq->scx.ecaps_to_sync)))
++	if (likely(llist_empty(&rq->scx.ecaps_to_sync)))
+ 		return;
+ 
+ 	/*
+diff --git a/kernel/sched/ext/sub.h b/kernel/sched/ext/sub.h
+index f7bcdfda8dd85..6a7076b9a1ddb 100644
+--- a/kernel/sched/ext/sub.h
++++ b/kernel/sched/ext/sub.h
+@@ -28,16 +28,16 @@ bool scx_bpf_sub_dispatch(u64 cgroup_id, const struct bpf_prog_aux *aux);
+ void scx_free_pshards(struct scx_sched *sch);
+ s32 scx_alloc_pshards(struct scx_sched *sch);
+ void scx_init_root_caps(struct scx_sched *sch);
+-void scx_process_sync_ecaps(struct rq *rq, struct task_struct *prev);
++void __scx_process_sync_ecaps(struct rq *rq, struct task_struct *prev);
+ void scx_unbypass_replay_ecaps(struct rq *rq, struct scx_sched *sch);
+ void scx_online_ecaps(struct rq *rq);
+ void scx_offline_ecaps(struct rq *rq);
+ void scx_discard_ecaps_to_sync(s32 cpu, struct scx_sched_pcpu *pcpu);
+ void scx_discard_stale_ecaps_syncs(void);
+-struct scx_dispatch_q *scx_resolve_local_dsq(struct scx_sched *sch, struct rq *rq,
+-					     struct task_struct *p, u64 *enq_flags);
++struct scx_dispatch_q *__scx_resolve_local_dsq(struct scx_sched *sch, struct rq *rq,
++					       struct task_struct *p, u64 *enq_flags);
+ bool scx_task_reenq_on_cap_revoke(struct rq *rq, struct task_struct *p);
+-void scx_reenq_reject(struct rq *rq);
++void __scx_reenq_reject(struct rq *rq);
+ void scx_rescue_charge(struct rq *rq, s64 delta_exec);
+ void scx_rescue_end(struct rq *rq);
+ bool scx_rescue_keep(struct rq *rq, struct task_struct *p);
+@@ -72,6 +72,33 @@ static inline void scx_dec_has_subs(struct scx_sched *sch)
+ 		static_branch_dec(&__scx_has_subs);
+ }
+ 
++/* hot-path hooks, gated inline so that a root-only system skips the calls */
++static inline void scx_process_sync_ecaps(struct rq *rq, struct task_struct *prev)
++{
++	lockdep_assert_rq_held(rq);
 +
- 	tuplehash = bpf_xdp_flow_tuple_lookup(xdp->rxq->dev, &tuple, proto);
- 	if (IS_ERR(tuplehash)) {
- 		opts->error = PTR_ERR(tuplehash);
++	if (scx_has_subs())
++		__scx_process_sync_ecaps(rq, prev);
++}
++
++static inline struct scx_dispatch_q *scx_resolve_local_dsq(struct scx_sched *sch,
++							   struct rq *rq,
++							   struct task_struct *p,
++							   u64 *enq_flags)
++{
++	if (!scx_has_subs())
++		return &rq->scx.local_dsq;
++	return __scx_resolve_local_dsq(sch, rq, p, enq_flags);
++}
++
++static inline void scx_reenq_reject(struct rq *rq)
++{
++	lockdep_assert_rq_held(rq);
++
++	if (scx_has_subs())
++		__scx_reenq_reject(rq);
++}
++
+ #else	/* CONFIG_EXT_SUB_SCHED */
+ 
+ static inline struct scx_sched *scx_next_descendant_pre(struct scx_sched *pos, struct scx_sched *root) { return pos ? NULL : root; }
 -- 
-2.51.0
+2.53.0-Meta
 
