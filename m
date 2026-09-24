@@ -1,87 +1,50 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843D230FC26
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:30:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE83222A4EE;
+	Thu, 24 Sep 2026 09:30:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790242238; cv=none; b=nPYARAKPaJG9Na9oh6RQSOMooM8Y9XTv+HfAjudXuLym2689+X0jCFogbS7vASxJoyyVBera4jejiHwCWSmLgMYTihrWs9bbou41JTzQKABYlTWUENkx592SJPv3qzv98VUepCHri47xeieenNfDMRuNOLLATMFcCjdqYPxMN2w=
+	t=1790242243; cv=none; b=puZ2ilhXYWVMtyoAMsU1VvuROEts6d0am2vVlCeib707LNVTP8YVatFLKXpQYZY4iIymEItNJXxXCOzO6t3jjaT7uLNZw25FxJkMlfVHPD+8yA57d6808DKUmuaosUlgGvcW/OEbEcr883EWUlGqexM1YMP7MaKvWiyYAhLFnEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790242238; c=relaxed/simple;
-	bh=OGeIwVwDe8oME1g5NKc/KR/rvF0BXlH+bMB1IT3yRkg=;
+	s=arc-20240116; t=1790242243; c=relaxed/simple;
+	bh=uRbXECVa57tm4T6YlvH/CitT0T3Ec9bEFz84rOg1SE0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JxB+3+1i8NIh4uKoQeeGDRA32SW1Vog1BdcHH0EE7VwAu54mxsR9HIWtPjwXuw0HQjbnVCyBSlwzMPm4EDN8eLFASES3wJZtFuMRNQaCnNLSo7bVK14X9cTtXTcvwCHR5xv5vp3bVDWpbw4oRah4uZCpCVCPVsyhoQAU7pvOQaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=F6FjQAd5; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=eWJJ5226; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 In-Reply-To:Content-Type; b=VyBiQWzhlRKp29IJ1SIYJRXnFEUg0aciSeBXZA18Gx1IHASfsBkbWjV760het3cw1IRFt3lh6qjCbLDFIP0LM5tXocxMCdolk/jHKouXRLY+jXN5DjL2YDuKdKiRobeJaGkmeofrZVEvQ6jdqW+24sUOgiom0BmNhtAr0kLRcgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dLGRqKCS; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="F6FjQAd5";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="eWJJ5226"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790242235;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mTrjsIWcICpVWaDL+QIPC/Do7s36dFqemExsR7yHAPE=;
-	b=F6FjQAd5QyNw5jnu/fE+3Yvo97mfMc076r+4dd7jeIz2ypIPuLyhLb0Gvj7Q+xrbYcXgWS
-	RmybaSAju2HZvJDCzj+Ls4LT50aAy3b8wRl4t2CH1kC88G61Bd41tGwqXMBC9iHqDuChen
-	PkcX8Trpwz2s4eHphfioTxDM2UmDc5o=
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-336--TojluxPNIGxLCp8ngLbWQ-1; Thu, 24 Sep 2026 05:30:33 -0400
-X-MC-Unique: -TojluxPNIGxLCp8ngLbWQ-1
-X-Mimecast-MFC-AGG-ID: -TojluxPNIGxLCp8ngLbWQ_1790242232
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c293743f5cdso208768966b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:30:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790242232; x=1790847032; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mTrjsIWcICpVWaDL+QIPC/Do7s36dFqemExsR7yHAPE=;
-        b=eWJJ522627IaLcthjkZHs7nISpUNmQ2UKNlOytSMp9olzcw9hWWnC7toUmuWSpXRGr
-         8DkQnM99Nuin45EED7TEG7Rs2QjO7u876dQq8Nsh39+TlQM2UOLj81CpI0htaNIU57eS
-         loSyWILpkjYE9eXyyJP+0f2ZJYfEJcTPi6MqPho+WWM7DaFhbkpomLz8opldi6vgHi1n
-         WNO+ovbjpZwak04gRdzl1WfZPG2nfcDu/XDqibXf5Ya/VlsqT6rVRb3fsPGhsW5c4+PX
-         U9ypNNTtREMoJ9LDuxSowj+eWQ+r0DGlhZWSeidnotVDjZCHGyv922k6+UZ9cXrsODim
-         7ZpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790242232; x=1790847032;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mTrjsIWcICpVWaDL+QIPC/Do7s36dFqemExsR7yHAPE=;
-        b=ntqJO+dgwmp4+ROZlLM3xWdO4yz0r4fEqYlMMkAS7qHMXC8UUgNqNCCkvRM3Iwgyru
-         6sFx4qttbn37QS52JmII8gZL4vkqKDzCk1cGKUEfqVYy75hYrSqa3Nu6yPlnLeehLyNS
-         smUKN04fDUyZzPEqz+UfCvOkHBzIFS6rULwL4aO/UvOcopZjPHARI6uGagRJ6XVywJOa
-         Huc+39cxtTmQIH1Ei5Ut//oQR7PCekXubD3UOsd0unjeGx5SqOkp3mwBzA+855pO+AOm
-         D97jYE9eou8AWJCMeQIOE6NxfCdmPPLve4E+DtvPD5l9tHECMUxaJGXsjRTS7CQXet+C
-         9ScQ==
-X-Forwarded-Encrypted: i=1; AKwUvByDtdZgOtVO7XkdRkCrmKKqGw1G+1jnZnn9HSCr8x3Dm/4HeVtj01tufTmbAF+eiaX/DkukdRxBlKdutmY=@vger.kernel.org
-X-Gm-Message-State: AFuF++maRkuqjBpfKUU2NS4Yc/arjOKfW22JIoiyKQwrwL+rDDe+lhK/
-	U87KRrxbxUqdDSkDQdWWfdRTuv2zdG8JGFQwu5GxKW50HnKrHh9y25A9ZQ9R8qQ0qgWyS93RgY2
-	5+3aJqUpVsuFJY3gMRf+E6GehiGNsc25nldt7OxaFMsDTQCskErn/3LySDoxkncZD+w==
-X-Gm-Gg: AYBFou2TRSUfLDnkGJfIF7bODe9Ma8eypmtUo0TcARwsS2HvLjzBdFA2dTvrsM0pFTe
-	oYZhMJSH5Aufy6JqSg8EghOszlqB3hQ7cMBWAQTuuhylpUL8zrqiWoM3J9B/e2rqAoQ9og+8oc2
-	6Dql9Hco48spXGjNN4tKGqr4JtdrHKNZ/FI9R1XqTquHn3Miwefht3TpgL+K6f0MaKSGfgsoYse
-	VUzhbFUOk9pbkkcPUEQGT9RpJsPHTI6cDXgGgeD8ex37V2YZcxeQQzaz0DNGkApB3KcM+qNZOhd
-	M+1aFFZprvzjSizNXzeHKqsTp3p8brM1OKT6Ubwo5neJLL3yKuwuwtILiqSb8xyMiAgN9OUuPwL
-	fjUT0gsv0qgMZNxS1WBtKRNaWXhKBGzYsl1Hc7x/q26pX7ql/Sps+4XCH4OSBF3WZH2TVyRugGg
-	==
-X-Received: by 2002:a17:907:1999:b0:c29:45ad:7af7 with SMTP id a640c23a62f3a-c2ac256d4damr160715666b.30.1790242232108;
-        Thu, 24 Sep 2026 02:30:32 -0700 (PDT)
-X-Received: by 2002:a17:907:1999:b0:c29:45ad:7af7 with SMTP id a640c23a62f3a-c2ac256d4damr160713466b.30.1790242231685;
-        Thu, 24 Sep 2026 02:30:31 -0700 (PDT)
-Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae6ecd17sm269433866b.63.2026.09.24.02.30.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 02:30:31 -0700 (PDT)
-Message-ID: <a7148410-7e21-42cf-939c-e24537fdf031@redhat.com>
-Date: Thu, 24 Sep 2026 11:30:29 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dLGRqKCS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790242240; x=1821778240;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=uRbXECVa57tm4T6YlvH/CitT0T3Ec9bEFz84rOg1SE0=;
+  b=dLGRqKCS8Y7I5p9Lj2NmnFE4nLKC0yY41AVTJpoYI/j/YaMYQ4Ul1306
+   o5X3i+GU0/Ja55cDcAxPB1ODD9T0+JMre5UoPk/ib9x3F8TaBPoW+q778
+   tpOydfho5buc9DbCACkYg/QK9/54v1MGcCWWwvdVgIndGO5gS7PGs6YFI
+   e/nwnZtBsM+Cstx3rPLhYqeZ+0DiQE6hIvNUtkpl7yNgE/brzRGVpJKk0
+   NurWRZOAXNGBXNuzmoNPcmrFyMS7dv8xBqHZir4RQcitqr5Uqq6P2ydAR
+   XJuxfOrhLsgq5MXs/xh0zLvzMYVphAcl88OuvqqMdX7wrbkihRDsXo3AI
+   A==;
+X-CSE-ConnectionGUID: laGEd5KrS6qBqDbFhc4ZTA==
+X-CSE-MsgGUID: 7yfRFE3fRFmokcuv+zRi7Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="90129802"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="90129802"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 02:30:38 -0700
+X-CSE-ConnectionGUID: dgpsANy8RXy5X5fss4cD1g==
+X-CSE-MsgGUID: ljf8FQFCRIqWSWaaEWqmAg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="272565765"
+Received: from xiaoyaol-hp-g830.ccr.corp.intel.com (HELO [10.124.240.119]) ([10.124.240.119])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 02:30:35 -0700
+Message-ID: <eca53031-fd47-4471-9d05-d73295a0f57e@intel.com>
+Date: Thu, 24 Sep 2026 17:30:32 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,87 +52,235 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2] net: phy: refuse to attach a PHY whose driver
- is being unbound
-To: Aleksei Sviridkin <f@lex.la>, netdev@vger.kernel.org
-Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- linux-kernel@vger.kernel.org, maxime.chevallier@bootlin.com
-References: <20260919015340.499675-1-f@lex.la>
+Subject: Re: [PATCH v4 1/4] KVM: TDX: Track configurable CPUID bits allowed by
+ KVM
+To: Binbin Wu <binbin.wu@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, seanjc@google.com,
+ pbonzini@redhat.com, dave.hansen@linux.intel.com, andrew.cooper3@citrix.com,
+ nik.borisov@suse.com, kas@kernel.org, rick.p.edgecombe@intel.com,
+ chao.gao@intel.com, tony.lindgren@linux.intel.com, kishen.maloor@intel.com,
+ dedekind1@gmail.com
+References: <20260917072548.2314491-1-binbin.wu@linux.intel.com>
+ <20260917072548.2314491-2-binbin.wu@linux.intel.com>
+ <39047bbc-757d-4131-a25c-5a7743fd591a@intel.com>
+ <062f5365-7eb5-4e04-9c84-f5ecd566f019@linux.intel.com>
 Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20260919015340.499675-1-f@lex.la>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <062f5365-7eb5-4e04-9c84-f5ecd566f019@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/19/26 03:53, Aleksei Sviridkin wrote:
-> phy_remove() clears phydev->drv as its last act; the driver core clears
-> d->driver only afterwards, in device_unbind_cleanup(). An attach entering
-> that window still sees d->driver, so it skips the genphy substitution and
-> then dereferences the NULL phydev->drv.
+On 9/24/2026 3:49 PM, Binbin Wu wrote:
+> On 9/24/2026 2:36 PM, Xiaoyao Li wrote:
 > 
-> Unbinding a PHY driver under an attached consumer crashes in real life.
-> The board that showed it is an MT7981 whose copper PHY driver needs
-> firmware from the rootfs, so the driver arrives after DSA has attached
-> the PHY. I was testing how a port copes with that driver coming and
-> going, on an OpenWrt 6.18 kernel with the distro's backports, local
-> patches and the series under test. Racing a sysfs unbind against port
-> teardown and bring-up oopsed twice: once in the state machine, and once
-> inside a live phy_attach_direct() where phy_init_hw() had already
-> entered the driver's config_init(). The second came after a
-> one-line NULL check at the state-machine site let the run continue, with
-> nothing added to widen the window. Both have this root. Neither is this
-> dereference: in one the driver went away under a port close, in the other
-> mid-attach, and in neither was phydev->drv already NULL when an attach
-> started. That window is the narrow member of the family, and reaching it on
-> demand needed a 200 ms msleep() at the end of phy_remove().
+> Thanks a lot for the detailed review!
 > 
-> Refuse the attach rather than let it complete on a driverless PHY, with
-> -EBUSY, which this function already returns when the PHY is attached
-> elsewhere. Without phylink the netdev would come up on a PHY that never ran
-> config_init. Under phylink it does not get that far: phylink_bringup_phy()
-> dereferences phy->drv->name as soon as the attach returns.
+>> On 9/17/2026 3:25 PM, Binbin Wu wrote:
+>>> Add tdx_cpu_cfg_caps[] to track the subset of TDX directly configurable
+>>> CPUID feature bits that KVM supports, and build the masks during TDX
+>>> hardware setup via tdx_initialize_cpu_cfg_caps().
+>>>
+>>> The TDX module reports the CPUID bits that the VMM can directly configure
+>>> for a TD, but KVM cannot blindly expose all reported bits to userspace.
+>>> Certain features imply additional architectural state, e.g. one or more
+>>> MSRs, that KVM must explicitly manage across host/guest transitions to
+>>> prevent host state corruption.  The existing hardcoded denylist cannot
+>>> account for new host state clobbering features introduced by future TDX
+>>> modules.
+>>>
+>>> Except for a few fixed-1 bits required for basic TDX support, host state
+>>> clobbering features are either directly configurable or gated by TD
+>>> ATTRIBUTES/XFAM, which KVM already validates.  Tracking only the directly
+>>> configurable bits to build an allowlist is therefore sufficient.
+>>>
+>>> Organize tdx_cpu_cfg_caps[] following kvm_cpu_caps[] so that the masks can
+>>> be built with similar feature-name based initializers.  Directly
+>>> configurable non-feature bits will be handled separately.
+>>>
+>>> The allowlist is prepared to be consumed by later patches to filter
+>>> KVM_TDX_CAPABILITIES and to reject unsupported CPUID input to
+>>> KVM_TDX_INIT_VM, so that newly introduced TDX directly configurable CPUID
+>>> feature bits stay hidden from userspace until KVM explicitly opts in.
+>>>
+>>> By default, intersect the allowlist with kvm_cpu_caps[] via TDX_CFG_F().
+>>> Requiring support for non-TDX VMs avoids committing to TDX-specific
+>>> behavior before general KVM support is established, and respects KVM's
+>>> logic around disabling certain features, since the reasons for disabling
+>>> them could apply to TDX as well.  Allow exceptions through
+>>> TDX_CFG_EXTRA_F() only with sufficient justification.
+>>
+>> One name just crosses my mind. How about TDX_CFG_INDEP_F()? where INDEP stands
+>> for independent.
+>>
+>> - TDX_CFG_F() for features that are dependent on kvm_cpu_caps[]
+>> - TDX_CFG_INDEP_F() for features not dependent on kvm_cpu_caps[]
 > 
-> The mid-attach case needs serialisation rather than a NULL test.
-> phy_init_hw() tests phydev->drv once on entry and then dereferences it
-> several more times, and it calls the driver's own config_init(), which is
-> where one of those oopses landed, on a dereference made by driver code that
-> no test in phylib can reach. The device lock is not available either:
-> phy_attach_direct() runs under rtnl from ndo_open, while phy_remove() runs
-> under the device lock and calls sfp_bus_del_upstream(), which takes rtnl
-> for a PHY with an SFP bus.
+> I am not sure if it's better.
+> But if people prefer independent to extra, I would use TDX_CFG_INDEPENDENT_F()
+> instead.
 > 
-> Assisted-by: LLM
-> Signed-off-by: Aleksei Sviridkin <f@lex.la>
-> ---
+>>
+>>> Add comments as placeholders for HLE, RTM, WAITPKG and FRED, which KVM
+>>> doesn't support for TDX yet.
+>>
+>> 1. why add comments for them? Because implementation wise, they are possible to
+>> be supported by KVM but just current KVM doesn't have code to support them yet?
+>>
+>> If so, are the others the features that are concluded to be impossible to be
+>> supported by KVM?
+>>
+>> 2. We don't need to talk about FRED, which is even not suppported for normal VMs
+>> yet. Unless we are trying to enable FRED for TDs specifically.
 > 
-> Notes:
->      v1: https://lore.kernel.org/netdev/20260914204200.2743251-1-f@lex.la/
->      
->      v2:
->      - Said in the commit message where this was seen. The site in
->        phy_attach_direct() was found by reading the unbind path, but the race it
->        belongs to was not theoretical: it took the same board down twice with no
->        instrumentation in the kernel, while a sysfs unbind of the PHY driver was
->        raced against port teardown and bring-up. v1 opened with "found by
->        reading, not from a crash report", which was true of the site and
->        misleading about the race; that line is gone. The second of those two
->        came after the state-machine site had been given a local NULL test so the
->        run could continue, so the kernel that produced it carried that one extra
->        check; nothing was added to widen the window in either. The traces were
->        read at the time and the dumps were not preserved.
+> OK, I will drop them to avoid confusion.
+> 
+>>
+>>> Allow MWAIT, XTPR, and HT through TDX_CFG_EXTRA_F(), as these bits are
+>>> not advertised in kvm_cpu_caps[].  The remaining directly configurable
+>>> feature bits outside kvm_cpu_caps[] are left out of the allowlist:
+>>>
+>>>   - Features forced to zero when #VE is reduced, or lacking KVM support
+>>>     for the associated MSRs: EST, TM2, SDBG, DCA, ACPI, ACC (TM), RDT_A,
+>>>     RDT_M, TME, PCONFIG, and CORE_CAPABILITIES.  Handle CORE_CAPABILITIES
+>>>     in a subsequent patch.
+>>
+>> why not split into two category? Because they are overlapped?
+>>
+>>   - Features forced to zero when #VE is reduced
+>>   - Features lack KVM support
+>>
+> 
+> Yes, there is overlap between them.
+> If split into two categories, it would be:
+> - Features forced to zero when #VE is reduced, which also lack KVM support
+> - Features unrelated to #VE reduction that lack KVM support
+> 
+> Because the changelog was already getting quite long, I combined them into a
+> single category.
 
-I read the above as you observed the addressed race without additional delays
-in a real-life usage. That means target should be net.
+I think that should be OK. It only adds 2-3 lines?
 
-More importantly if you observe and address a crash you should include the
-relevant stack trace in the commit message.
+>> As for "features forced to zero when #VE is reduced", do you mean when TDX
+>> module supports "#VE reduction" feature, the features becomes fixed0? or when
+>> guest enables "reduce #VE", the guest see a 0 value even though the feature is
+>> still configurable to host userspace and host userspace configure it to 1?
+> 
+> 
+> #VE is reduced means the guest reduced the related #VE, i.e. TDCS.TD_CTRL.REDUCE_VE
+> is 1 and the related bit in TDCS.FEATURE_PARAVIRT_CTRL is 0.
 
-Also I think that the sashiko feedback is relevant: you should attempt to close
-the wider race, with proper locking. I read last part of the commit message as
-a pre-existing lock inversion (RTNL should not be acquired under the device lock,
-only vice-versa) prevents the more straight-forward fix. You should
-provably investigate solving such lock inversion.
+I think "features forced to zero when #VE is reduced" doesn't matter at all
+here. KVM cannot predict TD's behavior and KVM cannot make decision just based
+on one of the possibility of TD's behavior. i.e., KVM still needs to consider if
+it can support the features when TD doesn't enable reduce_ve. So what really
+matters is KVM doesn't/cannot support these features correctly.
 
-/P
+So it's just one category: features not supported by KVM.
+We don't need to talk #VE reduction at all.
 
+>>
+>>>   - Features tied to IA32_MISC_ENABLE bits that a TD cannot set when
+>>>     TDCS.TD_CTLS.REDUCE_VE is set: CID and PBE.
+>>
+>> What is CID?
+> 
+> X86_FEATURE_CID, Context ID, more specifically, L1 CONTEXT ID
+
+My bad. I only search 'CID' in arch/x86/kvm/cpuid.c where uses CNXT-ID instead
+of CID.
+
+>> and Is PBE related to any bit of IA32_MISC_ENABLE? Did you mean PEBS instead?
+> 
+> X86_FEATURE_PBE, Pending Break Enable.
+> 
+> Since kernel already has X86_FEATURE_XXX for them, so I use them directly without
+> other description.
+> 
+>>
+>> I don't understand what this category. It talks about something when
+>> TDCS.TD_CTLS.REDUCE_VE is set, which depends on guest TD's behavior. So what if
+>> the guest TD doesn't set TDCS.TD_CTLS.REDUCE_VE?
+> 
+> If the guest set TDCS.TD_CTLS.REDUCE_VE, write 1 to the the related bit trigger #GP.
+> If the guest doesn't set TDCS.TD_CTLS.REDUCE_VE, the value is passed to KVM, and
+> KVM will save the value without do corresponding virtualization.
+> 
+> Considering TDCS.TD_CTLS.REDUCE_VE is set by the Linux guest by default, it should
+> not allow these features.
+
+After some search, I find that X86_FEATURE_CID (CPUID.0x1:ECX[10]) is related to
+MSR_IA32_MISC_ENABLE[24], which seems to be a model specific bit.
+
+And on SDM, vol3. 14.5.6 L1 Data Cache Context Mode
+
+  L1 data cache context mode is a feature of processors based on the Intel
+  NetBurst microarchitecture that support Intel Hyper-Threading Technology.
+  When CPUID.01H:ECX[10] =1, the processor supports setting L1 data cache
+  context mode using the L1 data cache context mode flag (IA32_MISC_ENABLE[bit
+  24]). Selectable modes are adaptive mode (default) and shared mode.
+
+CPUID.0x1:ECX[10] is 0 on SPR and EMR (I didn't check more). It looks this CPUID
+bit will not show up on any TDX capable CPUs. I think we can report it to TDX
+architects and just make the bit fixed0 as a spec fix?
+
+For X86_FEATURE_PBE (CPUID.0x1:EDX[31]), it's related to bit 10 of MSR
+IA32_MISC_ENABLE. The CPUID is 1 on SPR and EMR. But bit 10 of MSR
+IA32_MISC_ENABLE is always 0 and setting bit 10 to 1 fails. It seems though
+CPUID.0x1:EDX[31] is set to 1, but it's not related to bit 10 of MSR
+IA32_MISC_ENABLE?
+
+>>
+>>>   - Features that can clobber host state and lack KVM support for TDX:
+>>>     FRED.
+>>>
+>>>   - Unsupported features: PREFETCHWT1 (Xeon Phi only), PSN (absent from
+>>>     TDX-capable CPUs), AMX-TRANSPOSE (never implemented on an Intel
+>>>     platform), and RAO_INT (defined only for future processors).
+>>
+>> PREFETCHWT1 (if the name is correct) is not supported by the kernel right? For
+>> such unknown features, it's straightforward to not support it.
+>>
+>> AMX-TRANSPOSE has been turned into reserved, and kernel never supports it. I
+>> think we don't need to mention it at all.
+> 
+> The guest could be other OS, not just Linux.
+
+why guest OS matters? Are you considering the compatibility that it will break
+the case where host userspace configures them to TDs and the TD OS (other than
+Linux) is using them? If from this perspective, other bits will be a concern as
+well.
+
+>>
+>> RAO_INT is fixed 0 for TDX 1.5?
+> 
+> I was doing this patch series based on the latest CSV version of the CPUID
+> virtualization document from "Intel TDX Module ABI Definitions" updated in June 2026.
+> https://cdrdv2.intel.com/v1/dl/getContent/795381
+
+I see, it might be defined for TDX 2.0/3.0.
+
+>>
+>> At last, I think we can just classify all of the above as 3 types:
+>>
+>> - Features that are directly configurable by TDX and in kvm_cpu_caps[].
+>>   use TDX_CFG_F()
+>>
+>> - Features that are directly configurable by TDX and KVM actually supports them
+>>   or KVM can support them but not in kvm_cpu_caps[]. Use TDX_CFG_EXTRA_F().
+>>   For example, MWAIT, XTPR, and HT.
+>>
+>> - Features that are directly configurable by TDX but KVM or kenrel doesn't
+>>   support them.
+>>   For example, RDT_A, RDT_M, PREFETCHWT1, PSN,
+> 
+> Because excluding some bits changes the ABI, I listed all these directly configurable
+> features out of kvm_cpu_caps[] to explain why we must exclude some bits.
+
+I think all the bits that are directly configurable but out of kvm_cpu_caps[]
+and not supported by KVM fall into the last category. You can just list all of
+them instead of my "for example".
+
+As for the bits like FRED/RAO_INT, we don't need to consider them since they are
+not generally supported by KVM.  They are just the new features to KVM, which
+can be just treated as unknown though the TDX spec has defined the
+virtualization type of them.
