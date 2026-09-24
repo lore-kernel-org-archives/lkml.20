@@ -1,239 +1,177 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E064A2E38
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:49:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C8BB49F133;
+	Thu, 24 Sep 2026 15:49:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790264979; cv=none; b=gGwTDZ9cSNhiWHR0LXgsK0g89DXiDw+0falSbrxGob6tVo5xl0hzdE6AHJcskvTot2in92kVMZlQt+rghDqPgMpXvJ8+dPk55n60TGDmGhtedpBwlL5MPtIG2J6m3w5H6BGWLwIEEcvW8oe0dNqLWsAtKA1/DHIIEQF9gk57shI=
+	t=1790264999; cv=none; b=BKMewxBAoNcdRAkY69glZskfCYoLhkw8SQ4nFagVIfsrtWAFRlL5mykY6Bxxpk7ZW1bhK1QF2m86CIU8TucgOLpaWPKOosrzOOjeAyPxx6aDw6At5gCEzDRrGSIL5DOjTF+oxvKWHDFsTXxtMxl5iODYhVhOViM7HP6K/Mpa200=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790264979; c=relaxed/simple;
-	bh=lboV5YV78Zed8jcQuQTEpJv1QJ+dmz/OU0ema2AxzGc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=F2Je9xG/8HoN+L3kWELeEPBCkGXhTZoWEb3GFRcwPzjT43i1XAWwIeCb3TU9dLnaOmDzop2W/ReXk3OQ8Fdp0tzvkefnKUGbSMsTndoq2unHsCZtXIecyy0kapDqMmF3GvUyG0J3MO30Xv8jJ6Yfiod+KMd+k6IVF2U/DuvxUCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BkKXe0pg; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790264999; c=relaxed/simple;
+	bh=9+uqdxtcu6rBegFoKpvshXCzSay83nFMY5uyI1rBSAA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I9SFKaPpTceRvVPZgdBBngFTYzKDxVllgyYF2lmp5ym1GM4rNcmHBCoSKlvd5Ht46ck0OUoMSSRKkchLI0SnlfjypKy+B810BByJ8jQo5Ip7I4g8FniuWSOMhXeElWTRuob7qGJfKV09Y42frzqkztGYkxXpk+tJtrj1o/baqmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QtXtATge; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BkKXe0pg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790264977; x=1821800977;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=lboV5YV78Zed8jcQuQTEpJv1QJ+dmz/OU0ema2AxzGc=;
-  b=BkKXe0pgmg+avK9XHNai01d69ajoyHSX5xxdwSgyy/qWIZDZm1DWiVMJ
-   5+yW32SeR4hpzBolEVWlQPxVRHcE555cMtwCTb79Q+e4HF0QBIeziI6nQ
-   JB+I5tsaNPjUrVmL+dYTi8ae1GNMM3Ry/7inrK4604Kl1tVDbMBLLdxWk
-   gBiusRRu3cvf0VKnOUbfMJCYDNUG/9n13og9bPzN1nh/laLutb6E2rbOW
-   JDeyif8JVTuykIM2HBKSp3gSwyGM65FXZhxatDeBTG+StWaPZIZItoVLg
-   6vNyFmWdcC7wO71Q8wGrf+QTPhiQIbFuJA6vkYQMThhJWiPsDQ+qnuQ2r
-   w==;
-X-CSE-ConnectionGUID: f/xK8Wv9RzOdTsGNxZ83pA==
-X-CSE-MsgGUID: mDF74o3PTti5Cp3OEzfVmw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="108534854"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="108534854"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 08:49:36 -0700
-X-CSE-ConnectionGUID: GEZtSdbxTSGNP0txW9uOOA==
-X-CSE-MsgGUID: mOxb0klqQZSpxehw+huXQg==
-X-ExtLoop1: 1
-Received: from dwoodwor-mobl2.amr.corp.intel.com (HELO [10.125.110.186]) ([10.125.110.186])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 08:49:36 -0700
-Message-ID: <f1cd3816-8933-4ad7-bff1-73c103dff533@intel.com>
-Date: Thu, 24 Sep 2026 08:49:34 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QtXtATge"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD26B1F000FF;
+	Thu, 24 Sep 2026 15:49:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790264997;
+	bh=adX4Y7r/DWNGOUOGLuLi9FeUPsBpo9HjSjYThCKsYbI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QtXtATge/W7X1F2Ei72Hf74vg2JjbkFPhXOpPkdoRM8Am/OBoTB9RCP1v9YcJFvhx
+	 jvFhZ/DnQzwb9qCQpXxR1kpwO7u6skpqsEe1FfppoRjcEi3WLdY5fiCLjnCXd4HUHk
+	 Hi1aC5nUBKoVXs3b58jwbSw9fqQd6HEptgZ5yFj8hy6T2ZRQhjpYVgOo0pIOGymFVm
+	 ETlbFNVSEn1ymefhIaAzE+5GmtezyjM+bTtC0e0VNA7CYWwWvYsKMaHiVQwZbKmDS4
+	 yJcLCQDXO4elf66tJe77EoZs7q1Prz+vZjHeZEuOJmWRoyNpX85R3xJOcPbSAtZqKf
+	 YFEqH01/szJ8Q==
+Date: Thu, 24 Sep 2026 10:49:55 -0500
+From: Rob Herring <robh@kernel.org>
+To: netdev-bot+sashiko@kernel.org
+Cc: cjd@cjdns.fr, netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, krzk+dt@kernel.org, conor+dt@kernel.org,
+	matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+	chester.a.unal@arinc9.com, daniel@makrotopia.org,
+	linux@armlinux.org.uk, arinc.unal@arinc9.com,
+	Landen.Chao@mediatek.com, dqfext@gmail.com, sean.wang@mediatek.com,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, naseefkm@gmail.com,
+	b.larsson@gmx.com
+Subject: Re: [PATCH v2 net-next 6/7] dt-bindings: net: dsa: mediatek,mt7530:
+ add econet,en751221
+Message-ID: <20260924154955.GA337010-robh@kernel.org>
+References: <20260915174643.253660-7-cjd@cjdns.fr>
+ <178967820050.22033.18093714968849770785@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 08/14] NTB: ntb_transport: Stop RX tasklet scheduling
- before freeing a queue
-To: Koichiro Den <den@valinux.co.jp>, Jon Mason <jdmason@kudzu.us>,
- Allen Hubbe <allenbh@gmail.com>
-Cc: Frank Li <Frank.Li@kernel.org>, Logan Gunthorpe <logang@deltatee.com>,
- fuyuanli <fuyuanli0722@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Nicholas Bellinger <nab@linux-iscsi.org>,
- Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260910040836.3792333-1-den@valinux.co.jp>
- <20260910040836.3792333-9-den@valinux.co.jp>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20260910040836.3792333-9-den@valinux.co.jp>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <178967820050.22033.18093714968849770785@kernel.org>
 
-
-
-On 9/9/26 9:08 PM, Koichiro Den wrote:
-> A caller can read qp->active before teardown clears it, then schedule
-> the RX tasklet after tasklet_kill() returns. The MSI handler does not
-> check active at all. Teardown also releases DMA channels before
-> draining the tasklet.
+On Thu, Sep 17, 2026 at 08:50:00PM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 7 potential
+> issue(s) to consider:
 > 
-> Protect active updates and the check-and-schedule sequence with
-> rx_sched_lock, including the MSI path. Clear active under the lock,
-> then drain the tasklet before releasing DMA channels or queue entries.
-> QP link work is already disabled, so it cannot reactivate RX. Use a
-> separate lock to avoid contention with RX list operations.
+> Critical: 0 · High: 1 · Medium: 4 · Low: 2
 > 
-> Fixes: e902133162af ("ntb: stop tasklet from spinning forever during shutdown.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-
-I do wonder at some point we should convert tasklet to threaded irq...
-
-> ---
-> Changes in v2:
->   - No changes.
+> - [High] net: dsa: lockless child_bus access causes MDIO race condition
+> - [Medium] The new switch-device compatible `econet,en751221`
+>   (mediatek,mt7530.yaml line 126) is the identical string already…
+> - [Medium] The new `econet,en751221` conditional (mediatek,mt7530.yaml
+>   lines 369-377) applies only `$ref: "#/$defs/mt7530-passthrough-dsa-…
+> - [Medium] The series patch "net: dsa: mediatek: support MDIO switch
+>   downstream of MMIO switch" moved `mt7530_setup_mdio_irq()` out of…
+> - [Medium] In passthrough mode `mt753x_cpu_port_enable()` (added by the
+>   series patch "net: dsa: mediatek: add support for passthrough mode")…
+> - [Low] The paragraph added to the binding description
+>   (mediatek,mt7530.yaml lines 32-36) states that "EcoNet EN751221 SoCs…
+> - [Low] Concern that neither `econet,en751221-switch` nor
+>   `econet,en751221` has any consumer: at this commit…
 > 
->  drivers/ntb/ntb_transport.c | 50 +++++++++++++++++++++++--------------
->  1 file changed, 31 insertions(+), 19 deletions(-)
+> --
 > 
-> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
-> index e5599c7ca93f..45d4365becac 100644
-> --- a/drivers/ntb/ntb_transport.c
-> +++ b/drivers/ntb/ntb_transport.c
-> @@ -179,6 +179,8 @@ struct ntb_transport_qp {
->  	unsigned int rx_max_frame;
->  	unsigned int rx_alloc_entry;
->  	dma_cookie_t last_cookie;
-> +	/* Protect active and RX tasklet scheduling. */
-> +	spinlock_t rx_sched_lock;
->  	struct tasklet_struct rxc_db_work;
->  
->  	void (*event_handler)(void *data, int status);
-> @@ -649,11 +651,26 @@ static int ntb_transport_setup_qp_mw(struct ntb_transport_ctx *nt,
->  	return 0;
->  }
->  
-> +static void ntb_transport_set_qp_active(struct ntb_transport_qp *qp, bool active)
-> +{
-> +	guard(spinlock_irqsave)(&qp->rx_sched_lock);
-> +
-> +	qp->active = active;
-> +}
-> +
-> +static void ntb_transport_schedule_rxc(struct ntb_transport_qp *qp)
-> +{
-> +	guard(spinlock_irqsave)(&qp->rx_sched_lock);
-> +
-> +	if (qp->active)
-> +		tasklet_schedule(&qp->rxc_db_work);
-> +}
-> +
->  static irqreturn_t ntb_transport_isr(int irq, void *dev)
->  {
->  	struct ntb_transport_qp *qp = dev;
->  
-> -	tasklet_schedule(&qp->rxc_db_work);
-> +	ntb_transport_schedule_rxc(qp);
->  
->  	return IRQ_HANDLED;
->  }
-> @@ -895,7 +912,7 @@ static int ntb_set_mw(struct ntb_transport_ctx *nt, int num_mw,
->  static void ntb_qp_link_context_reset(struct ntb_transport_qp *qp)
->  {
->  	qp->link_is_up = false;
-> -	qp->active = false;
-> +	ntb_transport_set_qp_active(qp, false);
->  
->  	qp->tx_index = 0;
->  	qp->rx_index = 0;
-> @@ -1159,13 +1176,12 @@ static void ntb_qp_link_work(struct work_struct *work)
->  	if (val & BIT(qp->qp_num)) {
->  		dev_info(&pdev->dev, "qp %d: Link Up\n", qp->qp_num);
->  		qp->link_is_up = true;
-> -		qp->active = true;
-> +		ntb_transport_set_qp_active(qp, true);
->  
->  		if (qp->event_handler)
->  			qp->event_handler(qp->cb_data, qp->link_is_up);
->  
-> -		if (qp->active)
-> -			tasklet_schedule(&qp->rxc_db_work);
-> +		ntb_transport_schedule_rxc(qp);
->  	} else {
->  		ntb_transport_schedule_qp_link(qp,
->  					       msecs_to_jiffies(NTB_LINK_DOWN_TIMEOUT));
-> @@ -1193,6 +1209,7 @@ static int ntb_transport_init_queue(struct ntb_transport_ctx *nt,
->  	qp->ndev = nt->ndev;
->  	qp->client_ready = false;
->  	qp->event_handler = NULL;
-> +	spin_lock_init(&qp->rx_sched_lock);
->  	ntb_qp_link_context_reset(qp);
->  
->  	if (mw_num < qp_count % mw_count)
-> @@ -1729,8 +1746,7 @@ static void ntb_transport_rxc_db(unsigned long data)
->  
->  	if (i == qp->rx_max_entry) {
->  		/* there is more work to do */
-> -		if (qp->active)
-> -			tasklet_schedule(&qp->rxc_db_work);
-> +		ntb_transport_schedule_rxc(qp);
->  	} else if (ntb_db_read(qp->ndev) & BIT_ULL(qp->qp_num)) {
->  		/* the doorbell bit is set: clear it */
->  		ntb_db_clear(qp->ndev, BIT_ULL(qp->qp_num));
-> @@ -1741,8 +1757,7 @@ static void ntb_transport_rxc_db(unsigned long data)
->  		 * ntb_process_rxc and clearing the doorbell bit:
->  		 * there might be some more work to do.
->  		 */
-> -		if (qp->active)
-> -			tasklet_schedule(&qp->rxc_db_work);
-> +		ntb_transport_schedule_rxc(qp);
->  	}
->  }
->  
-> @@ -2209,7 +2224,11 @@ void ntb_transport_free_queue(struct ntb_transport_qp *qp)
->  	disable_work_sync(&qp->link_cleanup);
->  	disable_delayed_work_sync(&qp->link_work);
->  	qp->link_is_up = false;
-> -	qp->active = false;
-> +	ntb_transport_set_qp_active(qp, false);
-> +
-> +	qp_bit = BIT_ULL(qp->qp_num);
-> +	ntb_db_set_mask(qp->ndev, qp_bit);
-> +	tasklet_kill(&qp->rxc_db_work);
->  
->  	if (qp->tx_offload_thread) {
->  		kthread_stop(qp->tx_offload_thread);
-> @@ -2251,11 +2270,6 @@ void ntb_transport_free_queue(struct ntb_transport_qp *qp)
->  		dma_release_channel(chan);
->  	}
->  
-> -	qp_bit = BIT_ULL(qp->qp_num);
-> -
-> -	ntb_db_set_mask(qp->ndev, qp_bit);
-> -	tasklet_kill(&qp->rxc_db_work);
-> -
->  	qp->cb_data = NULL;
->  	qp->rx_handler = NULL;
->  	qp->tx_handler = NULL;
-> @@ -2350,8 +2364,7 @@ int ntb_transport_rx_enqueue(struct ntb_transport_qp *qp, void *cb, void *data,
->  
->  	ntb_list_add(&qp->ntb_rx_q_lock, &entry->entry, &qp->rx_pend_q);
->  
-> -	if (qp->active)
-> -		tasklet_schedule(&qp->rxc_db_work);
-> +	ntb_transport_schedule_rxc(qp);
->  
->  	return 0;
->  }
-> @@ -2548,8 +2561,7 @@ static void ntb_transport_doorbell_callback(void *data, int vector)
->  		qp_num = __ffs(db_bits);
->  		qp = &nt->qp_vec[qp_num];
->  
-> -		if (qp->active)
-> -			tasklet_schedule(&qp->rxc_db_work);
-> +		ntb_transport_schedule_rxc(qp);
->  
->  		db_bits &= ~BIT_ULL(qp_num);
->  	}
+> dt-bindings: net: dsa: mediatek,mt7530: add econet,en751221
+> 
+> This adds two compatible strings to the MT7530 binding: econet,en751221-switch
+> for the memory mapped switch built into the EcoNet EN751221 SoC, and
+> econet,en751221 for the MT7530 multi-chip module that some EN751221 packages
+> attach to port 5 of the on-die switch via TRGMII. A new $defs block constrains
+> the DSA link port of the multi-chip module.
+> 
+> A few questions on the schema below, plus two observations about other
+> patches in the same series.
+> 
+> > diff --git a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
+> > index e29fb86934981..106c4087528d7 100644
+> > --- a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
+> > +++ b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
+> > @@ -29,6 +29,12 @@ description: |
+> >    and the switch registers are directly mapped into SoC's memory map rather than
+> >    using MDIO. The DSA driver currently doesn't support MT7620 variants.
+> >  
+> > +  EcoNet EN751221 SoCs have a memory mapped MT7530 with 3x 10/100 PHYs and 1x
+>                                                           ^^^^
+> 
+> [Severity: Low]
+> Should this be 4x 10/100 PHYs?  The commit message of this patch says
+> "ports 0..3 are 10/100 only, port 4 has a gigabit PHY", which is four fast
+> ethernet PHYs, and en751221_mac_port_get_caps() in the later driver patch of
+> this series agrees:
+> 
+> 	/* EN751221 ports 0..3 are connected to the integrated FE PHYs. */
+> 	case 0 ... 3:
+> 		__set_bit(PHY_INTERFACE_MODE_INTERNAL, config->supported_interfaces);
+> 		config->mac_capabilities |= MAC_10 | MAC_100;
+> 
+> Since there is no in-tree EN751221 switch DTS yet, this paragraph is the only
+> port reference a DT author has.
+> 
+> > +  gigabit PHY. Some EN751221 chips such as EN7513G and EN7526G have a multi-chip
+> > +  module implementation of the MT7530 as well as the on-die switch. In these
+> > +  packages, the multi-chip module is connected to port 5 of the on-die switch
+> > +  via a TRGMII link.
+> > +
+> >    There is only the standalone version of MT7531.
+> >  
+> >    Port 5 on MT7530 supports various configurations:
+> > @@ -111,6 +117,14 @@ properties:
+> >            Built-in switch of the EcoNet EN7528 SoC
+> >          const: econet,en7528-switch
+> >  
+> > +      - description:
+> > +          Built-in switch of EcoNet EN751221 SoC
+> > +        const: econet,en751221-switch
+> > +
+> > +      - description:
+> > +          Multi-chip module MT7530 in EN751221 SoC
+> > +        const: econet,en751221
+> 
+> [Severity: Medium]
+> Can this string collide with the existing SoC compatible?  econet,en751221 is
+> already documented as the EN751221 root node compatible in
+> Documentation/devicetree/bindings/mips/econet.yaml:
+> 
+>   properties:
+>     $nodename:
+>       const: '/'
+> 
+>     compatible:
+>       oneOf:
+>         - description: Boards with EcoNet EN751221 family SoC
+>           items:
+>             - enum:
+>                 - smartfiber,xp8421-b
+>             - const: econet,en751221
+> 
+> and arch/mips/boot/dts/econet/en751221.dtsi uses it on the root node:
+> 
+>   / {
+> 	compatible = "econet,en751221";
+> 
+> dtschema derives the select clause of a binding from the strings enumerated
+> under properties:compatible, so after this patch mediatek,mt7530.yaml is also
+> selected for that root node.  The switch schema has required: [compatible,
+> reg], unevaluatedProperties: false, and via the new conditional below also
+> required: [mediatek,mcm] (which in turn pulls in resets and reset-names).  Does
+> make dtbs_check on arch/mips/boot/dts/econet/en751221_smartfiber_xp8421-b.dtb
+> now report the root node as an invalid MT7530 switch node?
+> 
+> The reverse direction looks affected too: a switch@... node carrying
+> compatible = "econet,en751221" is selected by mips/econet.yaml and fails its
+> $nodename: const: '/' and its two-entry board/SoC compatible list.
+> 
+> The analogous MT7621 case does not collide because the SoC root uses
+> mediatek,mt7621-soc.  Since the SoC compatible is already released, would a
+> distinct string for the switch, e.g. econet,en751221-mcm-switch, work here?
 
+This needs to be addressed.
+
+Rob
