@@ -1,76 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06101390986;
-	Thu, 24 Sep 2026 14:41:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20DB848124E
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:44:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790260913; cv=none; b=KqXz5li3sUO8sFNA38/M5+qxoDa9BE+UXLnqLNOQqpARMUeIT9hI3cnb6vqVDwW03SAXWOefJHFkXGvjsfhatfA8pgGjuHOxWbM+xPrhNFTgl0rJ1tBlR4IxYXYJrgqsMzRdrgnYhhQ8XymvBottmicqXq/BP5GLaixvIm63KR0=
+	t=1790261045; cv=none; b=hdOsmwVgDJHr/ZViEFpv+HxEMR2ABKEQVOu7RSRjiulLkmC1CbUbr9kIStDYwpqCisLa5E4fcq453piXCO9YDFr2MS6p4KQx+RvhSPigyIH1VacY/3iwGCqtOfqE33vyUkGcLas6FPpZgJDjU+/IcRKieaLfZCbc6xk8CqsFyVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790260913; c=relaxed/simple;
-	bh=olyggtUT4XkAWHwOtAXhMyGXgXLXLeCvpeud3+HAERI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EnMM9CnAiuBfpkdqcbyMdByOqJ6aKyZkPrb1EtsfofcGBLhZAAvWynmJkHpagYtRCOp7xgarGs2Kibf3958hY4WSanEn+Zyj0LUrsVs/SIM+kkE4+ABfIPLSc74TZkEB4gOs6rWCDt3xtXgxM3DCEnFf6MuVfGFFDl7Fn0Ei9PA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OW6HS8oq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790261045; c=relaxed/simple;
+	bh=sLJrYImmpj7cDJOuqV/tBWAPnB7FJaQ0Atb+mCiWXi0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VvoL0Mh8FBpH8rkUXg4KTI1pkDkPo0cCpUYOsW20BKcbCD1cOhs/Jlue41zGefJtjP10uC5Wv2jbtTIA/omViP12WQxFXQJWnrIw72VtKJx2NO6fPfL2yeSnZQiq/whtucU2Yn2xNtT0I0S3Yp53uax/rB5k060iYXN7cQc9Aq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WRTmxSRw; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OW6HS8oq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6565B1F000FF;
-	Thu, 24 Sep 2026 14:41:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790260911;
-	bh=30DeOh+RnQi89KzPRmHL/URm5M418Bb8r3J5IBl0ccI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OW6HS8oq/AQEtS9bWj0ywrQlOIUwBmu9ekGyt/JPgBWsXHjad3uvtFWd7otpv8+xe
-	 XjMDc9xNMMduBEWnEzvt0SHEPH+KYstaZc8wdHb0n5v4y7MEJw8aETEANnCr36gwT4
-	 da82wBykF2k54yu0q7YmKOxz18QudTT8oSd68oA+37Z6wDdkNRSX6xs/5UC/ox31fq
-	 AxZQybVBkEDFMP1XHBEbnFkqBUgCgt13LThBF3IL6nVnS1HlZpGl7xYz8cXb7rbguL
-	 hjVIUm/eoMbla2Lk9CuLA0jNcQtPQFOzF1bXliHXATIHJvVJjf3sdyDr/FiYSHD9FZ
-	 6HBMmHa+4n50g==
-Date: Thu, 24 Sep 2026 09:41:49 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Peter Griffin <peter.griffin@linaro.org>
-Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Pranjal Shrivastava <praan@google.com>,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	Robin Murphy <robin.murphy@arm.com>,
-	Mostafa Saleh <smostafa@google.com>,
-	Daniel Mentz <danielmentz@google.com>, linux-kernel@vger.kernel.org,
-	willmcvicker@google.com, tudor.ambarus@linaro.org,
-	Conor Dooley <conor+dt@kernel.org>, iommu@lists.linux.dev,
-	kernel-team@android.com, andre.draszik@linaro.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Will Deacon <will@kernel.org>, jyescas@google.com
-Subject: Re: [PATCH v2 1/2] dt-bindings: iommu: arm,smmu-v3: Add
- arm,instdata-override property
-Message-ID: <179026090862.4166237.2751536786551835786.robh@kernel.org>
-References: <20260911-arm-smmu-v3-instcfg-override-v2-0-5804e4f400b5@linaro.org>
- <20260911-arm-smmu-v3-instcfg-override-v2-1-5804e4f400b5@linaro.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WRTmxSRw"
+Received: by mail-pz2-f43.google.com with SMTP id 41be03b00d2f7-cc4c3304833so985653a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:44:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790261043; x=1790865843; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BDZWmJgca/oRmUPYb8QTvKV4Z0J2CBYz2565yw2xf3w=;
+        b=WRTmxSRwis/UanTHeTpTr3J+xKDuEswXPLqM85GQUpLA/nrg53JCYR29/+Rq85XDsh
+         GfeQlM4/pYrOn8QYFuDdi3iu0UTvYYr89E+ZAOo0fX1HEs82+VZrRcEyBNU1wnnz15K+
+         0NC/hz5ICDbY1phbxfEyx/1K2pSUiI3prBXr/+y56ywh82o3hYrtMznrSol+vFdjpyLs
+         Cmc4GUgBeTxJ24sT1H5cqdiLfQ0/VA1UHy+rXbSLJfFuQ/+rQXjnOETlrIF7Z+pmkSIs
+         q3B2bfKa0BajiMbDL10nb4jaHYXFJMM3uZu1qBDBD30JEy4Z+i1d7vHwUP1t4B+vyNw4
+         ZQjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790261043; x=1790865843;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BDZWmJgca/oRmUPYb8QTvKV4Z0J2CBYz2565yw2xf3w=;
+        b=eFeojI7HvgL+h7nCX8ICGeO7YiHf+TBGdV3iNvn6fqRxxE1xx/ivZhSzcZCq35Q8dN
+         VWFseB3/+zT/GoCUMhUlGJ7E2iBgOVwUkKhTt/3ibQmXpSVLJOu0JaUJBWfFNzKJU8Q2
+         S69B4KI723e7iCplOoXHWMJ3rfoAA3a6SL4qpKBDifAXz3FOewvvOguh77ByPVQBd58P
+         U1e3y8/GAsorF6J4UeRR64QLEnBiiepjJfksp/8j9wFED1Z7zMXG0+Aie/99R2CCLNhP
+         c3WUeidWEJzGnq8rQQmjTt/KSTHkBvxs3nEv0Y6gIdmwPq4Szza5XDQfOqluHBOftghN
+         6+Ew==
+X-Forwarded-Encrypted: i=1; AKwUvBzxumOOKk6lRYr3hfLiCl2kCN7H3UYFvkFQZjJgnE0Vgj8NDpzKJQSxLk7hLhLLH7E+DmrkA56arLl92a4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwaTjqXYQDP2QMRsQRv66ui03JOisfIo8ni/IrBMzIEfyKLQQw
+	KljYYG5EJBRlhzNEu/L42FNrAWhJL8+mWwFxgudT53tB2Plmw4m/GtiK
+X-Gm-Gg: AYBFou0sa0aZy5FXKjg/JkIINuPHGCJ0bdKp08qXwmFUKQAVIxRRKbDtPbuEEqgUNRq
+	e2cMcEuR2UyL4YUqUWqBrsFWoh0OMX64Q948HJQ9NcQEK+c87Zs+bo/u+Qh1QhvBOh8NBFydmA/
+	8eKw6xaZL1zEN0oyyaEvbNEqGZT9VGnW0yT4GilF1HoAE5Tld0nY1i7QvLidZGx9+NKOfqG+syb
+	XlH+uyMfGWpEpF2o+9wdcySRr9ZEbdTZn0v8YyjiBJ1iyDKj2FXk9c0JQ+w2HmcF5vStsvxdOb8
+	nHsJaWgS2xWP7pxRuW19gdWxlcPJVge9gYT/MkM05gO1mxXAU4bnLdI2alNfk4wcrtXoUIdY7VW
+	cEr/cIxLr0jgCKcduUrPpO3W1Uifpqkh3S4YzJH8S0Xl/JSPSb6P312ZWjtXZ4TX/WSTe3XCrwp
+	MEXFYZppTaVqYgg+qeWoru9PK0O5YNK1Tb5kFi7T7ifqhfCLDnrDfVwLxvIWauNQ==
+X-Received: by 2002:a05:6a20:9149:b0:3d3:ae40:51e7 with SMTP id adf61e73a8af0-3de0e762e07mr2709521637.27.1790261043213;
+        Thu, 24 Sep 2026 07:44:03 -0700 (PDT)
+Received: from lgs.. ([47.82.103.134])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f3f2d0esm2982721a12.22.2026.09.24.07.43.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 07:44:02 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Lee Jones <lee@kernel.org>,
+	Mattias Wallin <mattias.wallin@stericsson.com>,
+	Ludovic Barre <ludovic.barre@stericsson.com>,
+	Samuel Ortiz <sameo@linux.intel.com>,
+	Julien Delacou <julien.delacou@stericsson.com>,
+	Alexandre Torgue <alexandre.torgue@st.com>,
+	linux-arm-kernel@lists.infradead.org,
+	mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] mfd: ab8500: fix child device leaks on probe failure
+Date: Thu, 24 Sep 2026 22:43:55 +0800
+Message-ID: <20260924144355.1604369-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911-arm-smmu-v3-instcfg-override-v2-1-5804e4f400b5@linaro.org>
+Content-Transfer-Encoding: 8bit
 
+ab8500_probe() registers MFD child devices before completing the
+remaining device initialization. If a later MFD registration or sysfs
+group creation fails, previously registered child devices are not
+removed.
 
-On Fri, 11 Sep 2026 21:21:05 +0000, Peter Griffin wrote:
-> arm,instdata-override DT property is intended to be used for SMMUs that
-> have a silicon integration issue with the AxPROT[2] signal always being 1
-> making all transactions appear as instructions.
-> 
-> Google Tensor G5 (Laguna) is an example of an SoC with this silicon
-> erratum. The DT property can be specified to enable a software
-> workaround which overrides the incoming attribute to data.
-> 
-> Signed-off-by: Peter Griffin <peter.griffin@linaro.org>
-> ---
-> ---
->  Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
+Use devm_mfd_add_devices() so registered MFD child devices are removed
+when probe fails.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+The issue was identified by a static analysis tool I developed and
+confirmed by manual review.
+
+Fixes: cca69b67b3ba ("mfd: Export ab8500 chip id to sysfs")
+Fixes: 9c717cf3fa16 ("mfd: ab8500-core: Add device for new RTC version for AB8540 cut2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+v2:
+  - Use devm_mfd_add_devices() for all MFD child registrations, as
+    suggested by Lee Jones.
+
+ drivers/mfd/ab8500-core.c | 44 ++++++++++++++++++++-------------------
+ 1 file changed, 23 insertions(+), 21 deletions(-)
+
+diff --git a/drivers/mfd/ab8500-core.c b/drivers/mfd/ab8500-core.c
+index f0bc0b5a6f4a..55dd9ad285ae 100644
+--- a/drivers/mfd/ab8500-core.c
++++ b/drivers/mfd/ab8500-core.c
+@@ -1194,39 +1194,41 @@ static int ab8500_probe(struct platform_device *pdev)
+ 		return ret;
+ 
+ 	if (is_ab9540(ab8500))
+-		ret = mfd_add_devices(ab8500->dev, 0, ab9540_devs,
+-				ARRAY_SIZE(ab9540_devs), NULL,
+-				0, ab8500->domain);
++		ret = devm_mfd_add_devices(ab8500->dev, 0, ab9540_devs,
++					   ARRAY_SIZE(ab9540_devs), NULL,
++					   0, ab8500->domain);
+ 	else if (is_ab8540(ab8500)) {
+-		ret = mfd_add_devices(ab8500->dev, 0, ab8540_devs,
+-			      ARRAY_SIZE(ab8540_devs), NULL,
+-			      0, ab8500->domain);
++		ret = devm_mfd_add_devices(ab8500->dev, 0, ab8540_devs,
++					   ARRAY_SIZE(ab8540_devs), NULL,
++					   0, ab8500->domain);
+ 		if (ret)
+ 			return ret;
+ 
+ 		if (is_ab8540_1p2_or_earlier(ab8500))
+-			ret = mfd_add_devices(ab8500->dev, 0, ab8540_cut1_devs,
+-			      ARRAY_SIZE(ab8540_cut1_devs), NULL,
+-			      0, ab8500->domain);
++			ret = devm_mfd_add_devices(ab8500->dev, 0,
++						   ab8540_cut1_devs,
++						   ARRAY_SIZE(ab8540_cut1_devs),
++						   NULL, 0, ab8500->domain);
+ 		else /* ab8540 >= cut2 */
+-			ret = mfd_add_devices(ab8500->dev, 0, ab8540_cut2_devs,
+-			      ARRAY_SIZE(ab8540_cut2_devs), NULL,
+-			      0, ab8500->domain);
++			ret = devm_mfd_add_devices(ab8500->dev, 0,
++						   ab8540_cut2_devs,
++						   ARRAY_SIZE(ab8540_cut2_devs),
++						   NULL, 0, ab8500->domain);
+ 	} else if (is_ab8505(ab8500))
+-		ret = mfd_add_devices(ab8500->dev, 0, ab8505_devs,
+-			      ARRAY_SIZE(ab8505_devs), NULL,
+-			      0, ab8500->domain);
++		ret = devm_mfd_add_devices(ab8500->dev, 0, ab8505_devs,
++					   ARRAY_SIZE(ab8505_devs), NULL,
++					   0, ab8500->domain);
+ 	else
+-		ret = mfd_add_devices(ab8500->dev, 0, ab8500_devs,
+-				ARRAY_SIZE(ab8500_devs), NULL,
+-				0, ab8500->domain);
++		ret = devm_mfd_add_devices(ab8500->dev, 0, ab8500_devs,
++					   ARRAY_SIZE(ab8500_devs), NULL,
++					   0, ab8500->domain);
+ 	if (ret)
+ 		return ret;
+ 
+ 	/* Add battery management devices */
+-	ret = mfd_add_devices(ab8500->dev, 0, ab8500_bm_devs,
+-			      ARRAY_SIZE(ab8500_bm_devs), NULL,
+-			      0, ab8500->domain);
++	ret = devm_mfd_add_devices(ab8500->dev, 0, ab8500_bm_devs,
++				   ARRAY_SIZE(ab8500_bm_devs), NULL,
++				   0, ab8500->domain);
+ 	if (ret)
+ 		dev_err(ab8500->dev, "error adding bm devices\n");
+ 
+-- 
+2.43.0
 
