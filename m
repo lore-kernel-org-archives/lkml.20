@@ -1,76 +1,83 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B72377EC7;
-	Thu, 24 Sep 2026 12:40:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D3C2F8EBC;
+	Thu, 24 Sep 2026 12:40:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790253656; cv=none; b=SoPq7AUuGwiP0+JWBjL9tXv5WSJt0yYy54Y8kX0pXT7C4mPdKm42uzH7y08TIXUcf0FrPaIKmA/+ldKLLNcNTho51N00/YDLHRmPkDxp7Pco2+cA+4UnbHlX5IJpFmEYJ669xm61SZynmomqpOp3xZKuMJT9TF89awvlG23VKvE=
+	t=1790253656; cv=none; b=aOXetwY8QhtjV0mJz/sHgUO7CEYLnHz0A/YdcGccWZ93eUIEt+yITE/kOwM9zfFkcHqS2QnWaXygd65Q5bzMZNNlTaiC6R1V7/OZ+B+EFscbxohGV9yiLI5tfOg8AQXxZRPFZCyeKULUEhvW1zm4pwo/Y5Te3MIoxUvLiiWDkyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790253656; c=relaxed/simple;
-	bh=ZcNh+l6SeSrEevzUyaiIbHJKDijrGi3F9DOB0SBLJpQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ptMOMmF6xAJ2N1jcI4IEOdL38V6cw/pDgLCrIFCg5/XCKJkJ9AQ55G1o0FHvB0qIEB4DEmyXO04RtY2PYztlf11kc2cxzL9eKf/dyrU/QMfziIOmdektC1Zn1hmOqqN9N0EtMOMynLUOuhmUnYRtSJMIGnYfUmJilRZx9y0rf98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=eEpIPmlD; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	bh=SmfhWUHgjEhs7ScLOGqPgd9CVRRbouQ05MUP19ZDCX0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=O7B9WDrC4DZhY55Izz2ivnnfwDGNOYuKGarZTFXXl3vElShpuGWcYI4fF6xvo3HjL7OfWcj7+E0/fGFhjdzvSHABTFHCELpZSqMauGxCbPToTLLCcFxFRxE/JLHTN8EJSjk02ZIJa1/0lU8k8hPjZsn3a1F20Eoga1K6wlCH6mc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=dd6Nw9qG; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="eEpIPmlD"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=LlhL8lPQK+mGmThvRzcBFWd03/EYCS0ROgcvO+lg6ns=; b=eEpIPmlDWOZam71wIcPWwH/Ioz
-	eo5DxMECgO/mlGeLs861lSC0kURUaOMryIZVvkatNfERA1W5avV/zuuPs4N1UW7n9eXUEsiJ/lhTN
-	yHa8qqjgAawkok0KNH0/I2quTGeu2QdlYVO8+6ZpDh3Poqa49od5rLEnxgCcHVjF1s4M=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x9iks-006zVy-Nh; Thu, 24 Sep 2026 14:40:50 +0200
-Date: Thu, 24 Sep 2026 14:40:50 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Aldo Ariel <qwe.aldo@gmail.com>
-Cc: wei.fang@nxp.com, frank.li@nxp.com, shenwei.wang@nxp.com,
-	imx@lists.linux.dev, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH net v2] net: fec: reject oversized fragments before
- bounce-buffer memcpy
-Message-ID: <a230cd62-db31-4128-acfa-93501d30aa39@lunn.ch>
-References: <20260923203738.1583735-1-qwe.aldo@gmail.com>
- <f3c05fe4-b90a-484b-8b3f-0cf0b101a20a@lunn.ch>
- <CAP48Hfto4qc285B3Jw7ZRuC-wGf57JOBPZOdrrAt-aDfGcas8Q@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="dd6Nw9qG"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Content-Type:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=F+mLTFWcuTBUsCxvuF5xTJ0KZMxOy4eAk395s+P/g3g=;
+	t=1790253654; x=1791463254; b=dd6Nw9qGNBxe1DKxc19l77kn/BzaNHgIqBnHHpLfSJRDQI7
+	UuQlQBh0GBIPgRGT5Wwbr9/YSVQwZn0N5y0KZJz8Jbk+1opJcskVGOErt/a5WTL+4D5Vix7DSu9R/
+	8RFdPGsUOWemPfp5KMk28Dll1yOM5FYNsNHm5UfxtEXxrYr0t72zWN6O6omzFXUtf2aFhBlQnWbgw
+	emNFNvOkqJ7nyQhj+600O1WewvV04WUqBsfxMjLkR3Tvsnd46BkU/f3wd1lNbWS7HErsMMlM5x1Q/
+	q44XD1TBQATa768lPfvwe5EQnUdI6m54wBvuh1NMa4mlEm9tTj2GWQBHqs4vJiGA==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1x9ikr-000000092x8-1pkb;
+	Thu, 24 Sep 2026 14:40:49 +0200
+From: Johannes Berg <johannes@sipsolutions.net>
+To: linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-um@lists.infradead.org,
+	linux-s390@vger.kernel.org
+Cc: Heiko Carstens <hca@linux.ibm.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Johannes Berg <johannes.berg@intel.com>
+Subject: [PATCH 1/4] s390: remove unwind_module_init()
+Date: Thu, 24 Sep 2026 14:35:50 +0200
+Message-ID: <20260924144039.4af0d88b163a.I91f8c59a12ad3d5fe67d50aa3b0434d666ffc9f8@changeid>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260924124039.1621965-6-johannes@sipsolutions.net>
+References: <20260924124039.1621965-6-johannes@sipsolutions.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAP48Hfto4qc285B3Jw7ZRuC-wGf57JOBPZOdrrAt-aDfGcas8Q@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 23, 2026 at 06:22:01PM -0300, Aldo Ariel wrote:
-> Hi Andrew,
-> 
-> PKT_MAXBUF_SIZE = round_down(2048 - 64, 64) = 1984
-> max_mtu (non-jumbo) = 1984 - VLAN_ETH_HLEN - ETH_FCS_LEN = 1962
-> 
-> So for standard MTU, max_mtu < FEC_ENET_TX_FRSIZE and individual
-> fragments should not exceed the bounce buffer.
-> 
-> However, when the device supports jumbo frames,
-> max_buf_size = MAX_JUMBO_BUF_SIZE (~16256) and max_mtu reaches ~16234.
-> Scatter-gather fragments in that case can exceed FEC_ENET_TX_FRSIZE
-> while still needing the bounce path for alignment or byte-swap.
-> 
-> Should I respin with a check only for the jumbo path, or is the
-> unconditional guard acceptable?
+From: Johannes Berg <johannes.berg@intel.com>
 
-Can bounce buffers and jumbo be used at the same time?
+This is dead code, but will likely conflict with
+the ORC unwinder unification.
 
-How is the scatter-gather size determined? Maybe the better fix is to
-set the fragment size based on the size of the bounce buffer when it
-is in use?
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+---
+ arch/s390/include/asm/unwind.h | 3 ---
+ 1 file changed, 3 deletions(-)
 
-	Andrew
+diff --git a/arch/s390/include/asm/unwind.h b/arch/s390/include/asm/unwind.h
+index b8ecf04e3468..021056d5982c 100644
+--- a/arch/s390/include/asm/unwind.h
++++ b/arch/s390/include/asm/unwind.h
+@@ -91,8 +91,5 @@ static inline struct pt_regs *unwind_get_entry_regs(struct unwind_state *state)
+ 	     unwind_next_frame(state))
+ 
+ static inline void unwind_init(void) {}
+-static inline void unwind_module_init(struct module *mod, void *orc_ip,
+-				      size_t orc_ip_size, void *orc,
+-				      size_t orc_size) {}
+ 
+ #endif /* _ASM_S390_UNWIND_H */
+-- 
+2.55.0
+
