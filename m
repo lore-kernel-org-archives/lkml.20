@@ -1,78 +1,92 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com [209.85.160.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30CBB3E1D0D;
-	Thu, 24 Sep 2026 19:16:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 846553E4C96
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:17:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790277421; cv=none; b=H8r5vEuG9Jij8VjtZaFOIgswv1gE1O8swIhVHvaR7wpV84TVLvy8bfdHiY/gCiPw5CR5z7oRTmBEZZghyt6AWmimtYxgIxsnr/Sv9b0vaAMoXAe4nI03teFb7b31UWiplRNH9Qx3RHNoC3fQh1DZZIA2xfEgIX1AqwiWlp2BTag=
+	t=1790277433; cv=none; b=kaBIocFHxuJz/t7GdMKnWl+tX8o92dJD4Cm4tMHJs/xfwhmhQ8bfAOtRD8Qh8u2yJGkCaJNUN0q2GQHtdSsoBFt72uMCUKo6hKh0OmIwwYbxm2IyVkEK89eEFRhT5Ebfb17UjwCBMbw3rtRSSs+QuOlok9+uvewB11K5Fc8SJ3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790277421; c=relaxed/simple;
-	bh=ABk/a0ZJeo+bhveUhniq3EYtEEp0+QNiMk2ovo67Uw4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GrISAt9FKX+BoZKnG/cN10pbbvFnvePdXhXuyz/bo9OXK2GDh5X34xFKdPQdHtUDBsaTdu68j5qP+KtuGOhXR+RStIIjsMatMMIXJho0Cwq1zsxFJ2w19JOAJzx2XH57WQcUq+mNM66xOco8d457CC9iMTjNlNzw5MQj+ZceDhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=UQdZRQTq; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="UQdZRQTq"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=5cDKLpM7uWxow/Xj3HdbMMFz9dBw5P3A067HqPQPt3A=; b=UQdZRQTqu2tk5ervOAxVI25VLp
-	DjGkHrC6dJTbVddSSSPRgiCJuIhxa5EwVv+RY0HulDPrZbIjbrmV8Gr4f0h22a+jurAiTimBvvS5r
-	9ywN0/Hasex/rjuDJmQRWeJWJDlqkF/NSRMX8NSF0aYrUxnngQUfVkDzmvVQAnjn2uFc=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x9ow3-0074GX-QU; Thu, 24 Sep 2026 21:16:47 +0200
-Date: Thu, 24 Sep 2026 21:16:47 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Conor Dooley <conor@kernel.org>
-Cc: Kyle Switch <kyle.switch@motor-comm.com>, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
-	Frank.Sae@motor-comm.com, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
-	jianmin.wang@motor-comm.com, jie.han@motor-comm.com
-Subject: Re: [PATCH net-next v21 1/3] dt-bindings: net: Document Motorcomm
- YT8824 PHY package
-Message-ID: <c78999ec-82c5-4719-9358-5dbded43ccdf@lunn.ch>
-References: <20260924075048.4060414-1-kyle.switch@motor-comm.com>
- <20260924075048.4060414-2-kyle.switch@motor-comm.com>
- <20260924-vowed-roulette-abda42cec444@spud>
+	s=arc-20240116; t=1790277433; c=relaxed/simple;
+	bh=Do+SToxO4bBqq16MzgfCnw8c86idIxeG43rUvJtatlc=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
+	 Content-Type; b=abl3T3r5EneHQMJciPU6R8Uehm2jscwGPk7IDhXWdVKIrgukYkS/q4Pki40HTvuOqysX9wKvbmFxKFQqZEZW213R8iy8LGsYc6PP+i5C78Qb/ayXFHJ9lkE3b/60pNPybv1goYUhMM167Qs4rjIwlXAFkehhNSliLtZ2I9v09Uo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-47b7f5b898aso187267fac.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:17:11 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790277430; x=1790882230;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=u6Zo2YjzBYgo48wThZ8L5cZxgCoFZKsPtxAFNP9PHaw=;
+        b=x1jqi+1zHRXOTvZ4Mmgz1Tey6TiRTH5KO4K6crliNSDwX/TsouoVeoPTrxmvcbug6O
+         kvWF889ZTWhfV4paXZ116fWlx0txP3fhQdR4lQO9rQxVnCzLXfE4XT/Z5mQhLZMjkJTx
+         bD+jifGbzCHXLblyq0FHHgy1w8mwQY00JPCKvgMVPzkLVkUKnocPViBDtP2X6oyirZm3
+         bZIdouNAfrLWjaB+02hYFxecmZda4FuChc8bBziAkjEh4KvxKuyiKUCM1eJDIvFoalr+
+         xSfSIoedF/0i/+qMCiQys6xT1lHYOLuiKBAk7a1zUWOiMOP2uFFRCT7o9Z2Qrwey7QI2
+         PBHg==
+X-Forwarded-Encrypted: i=1; AKwUvBzbYVbfFjdEFOMnA8dUDa4u59r5BvCuZmf4Rk9Urq/E3wlJ9xcCR4elHuGRPmPaMk+OyRHUHlQBPltzW1k=@vger.kernel.org
+X-Gm-Message-State: AFuF++kHQtpHiMBxoNCv0nCa4L5l2DuFD86UjGU2cur7oiZUIJBjPYOh
+	9q52PQ5wp1Pb8zYHO0TeFAT4EufSs72sEO/PJrOk919+1F062eILu/kSUts/Vv1i/cnVB4y//Rp
+	Mtg3JVc3AKRmgYB2KzZKKimXD1CAjLUs0oKzG7mCPE+tY8GAwwgUvavqAy3Y=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924-vowed-roulette-abda42cec444@spud>
+X-Received: by 2002:a05:6808:30a6:b0:4b9:a88b:8895 with SMTP id
+ 5614622812f47-4d72c738d4fmr4507322b6e.43.1790277430411; Thu, 24 Sep 2026
+ 12:17:10 -0700 (PDT)
+Date: Thu, 24 Sep 2026 12:17:10 -0700
+In-Reply-To: <CAG21Q81aiFDj+UDw2LMipYvvJFh=mRVVE4bDEgEo3FXfR1nTfg@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab57736.80e1c6cc.1e8e5f.0015.GAE@google.com>
+Subject: Re: test fix
+From: syzbot <syzbot+843bf2f48f4d12e6682e@syzkaller.appspotmail.com>
+To: igorpetindev@gmail.com
+Cc: igorpetindev@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-> > +$ref: ethernet-phy-package.yaml#
-> > +
-> > +properties:
-> > +  compatible:
-> > +    enum:
-> > +      - motorcomm,yt8824-package
-> > +  phy-mode:
-> > +    $ref: /schemas/types.yaml#/definitions/string
-> > +    enum: [ internal, 10g-qxgmii ]
-> 
-> This should be after ref, but also have a vendor prefix.
-> Additionally, the qcom ethernet-phy-package user also has a mode
-> property. Net folks, should this be made common?
+> #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
 
-phy-mode is definitely wrong, it has a different meaning, and reusing
-it is just going to cause confusion.
+This crash does not have a reproducer. I cannot test it.
 
-qcom,package-mode does have the same meaning as what is trying to be
-expressed here. So yes, a common, vendor independent property would
-make sense. It maybe should be in ethernet-phy-package.
-
-	Andrew
+> master
+>
+> diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+> index 95774b0f1484..030735da6b8c 100644
+> --- a/drivers/tty/serial/serial_core.c
+> +++ b/drivers/tty/serial/serial_core.c
+> @@ -3210,8 +3210,15 @@ static void serial_core_remove_one_port(struct
+> uart_driver *drv,
+>   /*
+>   * If the port is used as a console, unregister it
+>   */
+> - if (uart_console(uport))
+> + if (uart_console(uport)) {
+>   unregister_console(uport->cons);
+> + port->console = false;
+> + }
+> +
+> + guard(mutex)(&port->mutex);
+> +
+> + if (tty_port_initialized(port))
+> + uart_shutdown(NULL, state);
+>
+>   /*
+>   * Free the port IO and memory resources, if any.
+> @@ -3227,7 +3234,6 @@ static void serial_core_remove_one_port(struct
+> uart_driver *drv,
+>   uport->type = PORT_UNKNOWN;
+>   uport->port_dev = NULL;
+>
+> - guard(mutex)(&port->mutex);
+>   WARN_ON(atomic_dec_return(&state->refcount) < 0);
+>   wait_event(state->remove_wait, !atomic_read(&state->refcount));
+>   state->uart_port = NULL;
