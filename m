@@ -1,181 +1,98 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEDC9397694
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:33:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9800A3A48E6
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:33:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790224410; cv=none; b=u4TPXqNNHEYyZACi4+b0QEcqbLRmlqAp37qkKmle1pqWlkSzfYYVUkOYSNY15eNFDExRjdkBz6gqWA6X8a2l//72NYn6dPD1LqXA0LNLxD+N/ZR2lWeVltgWZBi5yytD/GV6zpWL5eJBhdDF/54Z/N3V0nmKQysi5rqZE1eVLPE=
+	t=1790224423; cv=none; b=S8RlVNNFRAlX5FpB2jv9Q02NMEChN6EnbAfyKQJHBKAi45IlzjetPXcV+OGK5zhfhI2QwZqRxeAR7c4G3bUDIF5RpM4jglAAK2uLU+xOeRYBii+xgtHU4e8YqMg8Cwvc0FXcbsKA9j9h/jiTW1fA3wAAuxyAB9RB9feisPgZVaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790224410; c=relaxed/simple;
-	bh=OrSXABowRLKXcfGGx5eoS81GIA6P1ugsfb9hzNaC6lg=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=q+3H9gs8qOrBk4gC3/AFyITIWUvpbV5ODEKl02fdCoFkY1voFDFN/YZqWeNcVulvFx9hNnoLqP4c/u4lEBWgF2RuM4D5N0pfBn7R2KZTe+Q3u50eS8C+P4R2sC7NgCAIU13pBSXCEARs4ZFF1o+q+OfCZXJWFoi4Wcwl8IQyURM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YySIPBb9; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YySIPBb9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790224408; x=1821760408;
-  h=date:from:to:cc:subject:message-id;
-  bh=OrSXABowRLKXcfGGx5eoS81GIA6P1ugsfb9hzNaC6lg=;
-  b=YySIPBb9Tjc5xYM0sKpNVBmrG0nKR88ahl5z4DjE9kaZPc3mjNz14Efu
-   rdSUeIW1Pb6oZdJfKgujvVO73/Ug5nAl1zJM9ZYLcu3dKp//4CsN3cpvl
-   WsVG1B2VYWMuXMAf/3kqygol2ymBKZP5K5hDyEha4+H8eeQ3IEqz0mmpA
-   0tK9nYcirS3twhNLXE5m1rftRk210zCZfLbZMdW8cc4II+zTi35BdeU28
-   oi37exe47dD/g4Mr10EHBEHoA76Wy6qHNykmbgesj1sKGrmCkqjYWqfS/
-   bwH97ghhQW4ECBml6Ir0k6Hy3YbFg+NrM+zgH3YLO4kytSttmA9zjpOUf
-   Q==;
-X-CSE-ConnectionGUID: DSRce9sJSvKSQx8sN33sTA==
-X-CSE-MsgGUID: EFFkbLfOSZaJaiwCzTTWgg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="91003978"
-X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="91003978"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 21:33:28 -0700
-X-CSE-ConnectionGUID: ZqLHcQoJRZGUDAeBK26G6Q==
-X-CSE-MsgGUID: 5XRDI0pZTviHi1my+ES0WA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="5032935"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa012.fm.intel.com with ESMTP; 23 Sep 2026 21:33:26 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x9b99-00000000ID2-1xAm;
-	Thu, 24 Sep 2026 04:33:23 +0000
-Date: Thu, 24 Sep 2026 12:32:41 +0800
-From: kernel test robot <lkp@intel.com>
-To: John Johansen <john.johansen@canonical.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: security/apparmor/af_unix.c:764:50: sparse: sparse:
- incorrect type in argument 1 (different address spaces)
-Message-ID: <202609241230.DoBklUpQ-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	s=arc-20240116; t=1790224423; c=relaxed/simple;
+	bh=3QrqEW61DfZO06NnG7amST4oSEHfnKg19eZK/WvZLE0=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=IzsjARTGqKLGzydwnsoFsUxwoE49qZ5n032MYK9nk5zGCicYeDSpvDo2g9cwK2lDpPCYjDXSmDy1mMG9IgWSoa3vzkIEmujV6rDGFDDGxcP6SuPaIUlryDfCmuKBcGsNeuwkZec+BNjmt87CLKhDvfPeiNMLX2DtJCagCGn6zO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4a7de733fa9so2583338b6e.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:33:41 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790224420; x=1790829220;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nBcnLi08l1NYXdX9F9Sp3GEPBb3p9r+MlaeoU1T9lP8=;
+        b=MYqx2PohzkQ2c+IU6Sw28sFzwRa1gneWu55HAfAhFijx8o467tm2K8B9SWSPBVdJUx
+         /LWEaGPgA+fUSEqok9US5zLXTcWVuoI0NuSC0FH95C5t9nRBg3o9xVtI6tty0VVq4zRj
+         FTKXHBmCZl3G3T/PAGllJWiE5+OIt9/rp+UVcntkxvK4GDqJjlw/6GbB37qksqeF2K/I
+         gG6zYMJ4JKKz3H4658kJ7uMFYdWcFDiCuStfEe8DmhZsPr0qKCVS4fGTdtg2zZ5/mOWT
+         SIIuu3X3uC+H6Y/8VRhlpb0Nx9uda/vec1KB+FwadoMnDVnznFlQuNuntCvwfBk6Tevl
+         /7aA==
+X-Forwarded-Encrypted: i=1; AKwUvBx1ZPyyQWQOt3vZM0ujMJYzJbOk1xw0h7Eszh+wI9YR0o/rX5WdqJJBfQPclyWf9yRT7aLdFPs9C7rWmN8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kIlGPjTocZatT0MhHPI2Z0wtd/Qc9YC9gXkFRgo/apVAYKXRIq
+	ktojLFtvp0nZd2e/W7RNmK9tRKV0YM5/PCZz7nOip+q4SOjIrPQxfSX6v1eDKcC0yAVxUB4RmQm
+	rhZDNDc/a+BOYYmHae8oJRNzci/lKjyhLocDCTvn76AuwMMleUTiAPyT771c=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-Received: by 2002:a05:6808:124a:b0:4c3:7695:1178 with SMTP id
+ 5614622812f47-4d72c04249bmr1240958b6e.8.1790224420584; Wed, 23 Sep 2026
+ 21:33:40 -0700 (PDT)
+Date: Wed, 23 Sep 2026 21:33:40 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab4a824.2e4f7bcc.334f63.0000.GAE@google.com>
+Subject: [syzbot] Monthly input report (Sep 2026)
+From: syzbot <syzbot+list8f8640fedc8d63924cf2@syzkaller.appspotmail.com>
+To: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   fe2ec83746e501645709761605c2464a44fd2929
-commit: 4483efe4f21510b30c24bc97d9fd0e8feab94125 apparmor: fix shadowing of plabel that prevents cache from being updated
-date:   3 months ago
-config: sparc-randconfig-r1307-20260924 (https://download.01.org/0day-ci/archive/20260924/202609241230.DoBklUpQ-lkp@intel.com/config)
-compiler: sparc-linux-gcc (GCC) 16.1.0
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260924/202609241230.DoBklUpQ-lkp@intel.com/reproduce)
+Hello input maintainers/developers,
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 4483efe4f215 ("apparmor: fix shadowing of plabel that prevents cache from being updated")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609241230.DoBklUpQ-lkp@intel.com/
+This is a 31-day syzbot report for the input subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/input
 
-sparse warnings: (new ones prefixed by >>)
->> security/apparmor/af_unix.c:764:50: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct aa_label *l @@     got struct aa_label [noderef] __rcu *label @@
-   security/apparmor/af_unix.c:764:50: sparse:     expected struct aa_label *l
-   security/apparmor/af_unix.c:764:50: sparse:     got struct aa_label [noderef] __rcu *label
+During the period, 6 new issues were detected and 1 were fixed.
+In total, 33 issues are still open and 66 have already been fixed.
+There are also 4 low-priority issues.
 
-vim +764 security/apparmor/af_unix.c
+Some of the still happening issues:
 
-   705	
-   706	/* This fn is only checked if something has changed in the security
-   707	 * boundaries. Otherwise cached info off file is sufficient
-   708	 */
-   709	int aa_unix_file_perm(const struct cred *subj_cred, struct aa_label *label,
-   710			      const char *op, u32 request, struct file *file)
-   711	{
-   712		struct socket *sock = (struct socket *) file->private_data;
-   713		struct sockaddr_un *addr, *peer_addr;
-   714		int addrlen, peer_addrlen;
-   715		struct aa_label *plabel = NULL;
-   716		struct sock *peer_sk = NULL;
-   717		u32 sk_req = request & ~NET_PEER_MASK;
-   718		struct path path;
-   719		bool is_sk_fs;
-   720		int error = 0;
-   721	
-   722		AA_BUG(!label);
-   723		AA_BUG(!sock);
-   724		AA_BUG(!sock->sk);
-   725		AA_BUG(sock->sk->sk_family != PF_UNIX);
-   726	
-   727		/* investigate only using lock via unix_peer_get()
-   728		 * addr only needs the memory barrier, but need to investigate
-   729		 * path
-   730		 */
-   731		unix_state_lock(sock->sk);
-   732		peer_sk = unix_peer(sock->sk);
-   733		if (peer_sk)
-   734			sock_hold(peer_sk);
-   735	
-   736		is_sk_fs = is_unix_fs(sock->sk);
-   737		addr = aa_sunaddr(unix_sk(sock->sk), &addrlen);
-   738		path = unix_sk(sock->sk)->path;
-   739		unix_state_unlock(sock->sk);
-   740	
-   741		if (is_sk_fs && peer_sk)
-   742			sk_req = request;
-   743		if (sk_req) {
-   744				error = aa_unix_label_sk_perm(subj_cred, label, op,
-   745							      sk_req, sock->sk,
-   746							      is_sk_fs ? &path : NULL);
-   747		}
-   748		if (!peer_sk)
-   749			goto out;
-   750	
-   751		peer_addr = aa_sunaddr(unix_sk(peer_sk), &peer_addrlen);
-   752	
-   753		struct path peer_path;
-   754	
-   755		peer_path = unix_sk(peer_sk)->path;
-   756		if (!is_sk_fs && is_unix_fs(peer_sk)) {
-   757			last_error(error,
-   758				   unix_fs_perm(op, request, subj_cred, label,
-   759						is_unix_fs(peer_sk) ? &peer_path : NULL));
-   760		} else if (!is_sk_fs) {
-   761			struct aa_sk_ctx *pctx = aa_sock(peer_sk);
-   762	
-   763			rcu_read_lock();
- > 764			plabel = aa_get_newest_label(pctx->label);
-   765			rcu_read_unlock();
-   766			/* no fs check of aa_unix_peer_perm because conditions above
-   767			 * ensure they will never be done
-   768			 */
-   769			last_error(error,
-   770				xcheck(unix_peer_perm(subj_cred, label, op,
-   771						      MAY_READ | MAY_WRITE, sock->sk,
-   772						      is_sk_fs ? &path : NULL,
-   773						      peer_addr, peer_addrlen,
-   774						      is_unix_fs(peer_sk) ?
-   775								&peer_path : NULL,
-   776						      plabel),
-   777				       unix_peer_perm(file->f_cred, plabel, op,
-   778						      MAY_READ | MAY_WRITE, peer_sk,
-   779						      is_unix_fs(peer_sk) ?
-   780								&peer_path : NULL,
-   781						      addr, addrlen,
-   782						      is_sk_fs ? &path : NULL,
-   783						      label)));
-   784			if (!error && !__aa_subj_label_is_cached(plabel, label))
-   785				update_peer_ctx(peer_sk, pctx, label);
-   786		}
-   787		sock_put(peer_sk);
-   788	
-   789	out:
-   790	
-   791		/* update peer cache to latest successful perm check */
-   792		if (error == 0)
-   793			update_sk_ctx(sock->sk, label, plabel);
-   794		aa_put_label(plabel);
-   795	
-   796		return error;
-   797	}
-   798	
+Ref  Crashes Repro Title
+<1>  1367    Yes   KASAN: slab-out-of-bounds Read in mcp2221_raw_event (2)
+                   https://syzkaller.appspot.com/bug?extid=1018672fe70298606e5f
+<2>  199     Yes   KASAN: slab-use-after-free Read in report_descriptor_read
+                   https://syzkaller.appspot.com/bug?extid=bc537ca7a0efe33988eb
+<3>  87      No    KASAN: slab-use-after-free Read in str_to_user (2)
+                   https://syzkaller.appspot.com/bug?extid=aec1962419768c5caf88
+<4>  51      Yes   WARNING: ODEBUG bug in hid_device_remove
+                   https://syzkaller.appspot.com/bug?extid=f8fb5598924c7e645553
+<5>  40      Yes   INFO: task hung in devres_release_group (2)
+                   https://syzkaller.appspot.com/bug?extid=d789904ff97c2f3dac88
+<6>  21      Yes   BUG: sleeping function called from invalid context in __hid_request
+                   https://syzkaller.appspot.com/bug?extid=912222e4cb82423535fa
+<7>  20      Yes   KASAN: slab-use-after-free Read in input_dev_uevent (2)
+                   https://syzkaller.appspot.com/bug?extid=2a123f6269da57ffefaa
+<8>  18      No    WARNING in roccat_open
+                   https://syzkaller.appspot.com/bug?extid=e7b6bbf6cf88d7d932c3
+<9>  12      Yes   KASAN: slab-out-of-bounds Read in aqc_raw_event
+                   https://syzkaller.appspot.com/bug?extid=9ee5f5dc18673d6b2f37
+<10> 7       Yes   KASAN: slab-use-after-free Read in atkbd_set_repeat_rate
+                   https://syzkaller.appspot.com/bug?extid=1e2ef9bcb29af666b2e6
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
+
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
