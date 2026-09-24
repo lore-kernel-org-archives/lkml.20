@@ -1,63 +1,50 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E8474A64CC;
-	Thu, 24 Sep 2026 16:02:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DC2C4A64CC;
+	Thu, 24 Sep 2026 16:02:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790265753; cv=none; b=r6Utt5gULWmVUFI8PztN+aTKj0l/zA72J0+GKWD+6rVATuJEbq8sHuLagjSBLXKmExDBlbgVA71xAFOJWVL2Yant4Tk2UNNIziidXu/TeTGD4lPzouAJe2NcpDclfYhZtxLlZttK1RzeR24+6b/DvDI48+WeFGuvyJJ4VtakI/8=
+	t=1790265764; cv=none; b=ULixp0TvVCnSWmeFu2mInOJHOVpmbaiumX59hBujQuvbMXp2+181NoMosTBz0P7Udzc5SVNhnh9R1Ql5znw728LQONdaUSeeO/w8epgM2kB1RP0/SSuCXMExixbEurj/VL0hmAZ0euiY+XaUR1a6Ig0hpjgIPn3LTCkGaAbeYTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790265753; c=relaxed/simple;
-	bh=m3aT+Q9KcjAVnZrusec3LFJm8HqZLZA6CLmCcSrpfAI=;
+	s=arc-20240116; t=1790265764; c=relaxed/simple;
+	bh=ZC7n+Wu/swBT9ZYEIkVtfiLJa+rbVEG83O5DVAMz1XY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I+ZmIB/ULqJ3WryTtbPOMJaziRKUzMkP0TiBL5W946+9WXEJD67caBmvuPe4hDmXz07Vg19KNi1M5flUiOo+9aDadwG/DGTBE+J4RUKKF1O4qLDj1gK2sK7nHfIxEMFrxmygVHGc/p2OwXkTCAYE+N0hHEfM9kIxN52ETbpnjx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=kmx4KbUU; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ai+uuqgMUleYGLgDMZQtymmI9eJIhOj9+rnd/iKxEeMwTSNdONE/6N8GbB8+J42OxvnahxfO+Z3MWcyrxl9sEcPH3CPuUx6ua+qeXodgi3HfQRzLII506fD9aH2OTnm4WftLzI9GYuCxgQheb52F1YaMGjSuviCopOdlhuWg12k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JCVCgE0g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="kmx4KbUU"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=5kqu4msBQ4bPA9UbwPhfUf7tiJJTHmh9JW9r09bgkbk=; b=kmx4KbUU5Z/OTnAMxRKrbvGjJ2
-	tsbUFAUp8Zq2P/d+kbI2ASEwFWAxn/srG/qUNLkBpgH++jcfq3YIDgQEN5yjs3puCkJk4IJUwkgbe
-	nzVe+dzzuXntHuewVTRpZhCQJWweWiAZLzTIwMQNYwq17DDMIfP6U96JtPCsZJJhk7Vs=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x9ltj-0071tD-RU; Thu, 24 Sep 2026 18:02:11 +0200
-Date: Thu, 24 Sep 2026 18:02:11 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	Andre Przywara <andre.przywara@arm.com>
-Subject: Re: [PATCH net-next v3 0/5] net: stmmac: Add support for Allwinner
- A733 GMAC210
-Message-ID: <491f043e-6dc6-4936-a490-31a3362c5b6e@lunn.ch>
-References: <20260923-allwinner-a733-gmac-support-v3-0-15735155a789@baylibre.com>
- <9cc61625-47c9-4bdf-97f0-0528f661a399@lunn.ch>
- <1j7bkb9h5k.fsf@starbuckisacylon.baylibre.com>
- <5fae3b42-552a-458a-9710-927360e58c37@lunn.ch>
- <1jv77u8yak.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JCVCgE0g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7769E1F00893;
+	Thu, 24 Sep 2026 16:02:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790265762;
+	bh=LTVNxkLpxxqWMqUQZ0iwgzz/ZL7tmFRV02wmYrTnaqI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JCVCgE0gmJUzhASH+5rtu/5xRKwTuLgflc/WYMUQqRPPnF9eI+KOFeYkTO8Hj9Asu
+	 lbIam1iYoMGzFAljxVrWwRbgIxINu4lshZrJIGGYrNa7OLMnEogLxR8YWuzOzCddZN
+	 4rjqCo+1pd+4rkDWcIyXhh3/E0Ly+Hz2ffau6jPxiS9hnkwG1A/+v3o95vWGPGZ/9R
+	 k449H4J9d3LUcEk72NCiYEiPVxoaoWNgviro55RD1GvOrIxfXrdSDJXKkQzOPTGyE8
+	 4/Gk1eVUwiTQLWHPl9yE2MN2pRY8uPzQPcGVf/FHGn7+apyRqj7iMM151m4VIRGFJB
+	 PlnDtnnDfHEeQ==
+Date: Thu, 24 Sep 2026 19:02:35 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Dmitry Vyukov <dvyukov@google.com>, Len Brown <lenb@kernel.org>,
+	Pavel Machek <pavel@kernel.org>, kasan-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH 4/5] hibernation, KFENCE: explicitly map/unmap KFENCE
+ pages
+Message-ID: <arVJm8CiLG6vpy9-@kernel.org>
+References: <20260917-hibernation-v1-0-7f7dfae3dbe0@kernel.org>
+ <20260917-hibernation-v1-4-7f7dfae3dbe0@kernel.org>
+ <fec1931b-1173-4e14-b74a-7b3987a9b7bc@kernel.org>
+ <arP0-maAEi5yeNnl@kernel.org>
+ <d568a29b-5745-4214-96d3-1b635cd46c15@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,79 +53,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1jv77u8yak.fsf@starbuckisacylon.baylibre.com>
+In-Reply-To: <d568a29b-5745-4214-96d3-1b635cd46c15@kernel.org>
 
-> It is not the PCB doing the delays so rgmii-id it is (in DT) - got it.
-
-Yep.
-
+On Thu, Sep 24, 2026 at 10:19:33AM +0200, David Hildenbrand (Arm) wrote:
+> On 9/23/26 17:49, Mike Rapoport wrote:
+> > On Wed, Sep 23, 2026 at 12:31:26PM +0200, David Hildenbrand (Arm) wrote:
+> >> On 9/17/26 08:07, Mike Rapoport (Microsoft) wrote:
+> >>> The pages protected by KFENCE are removed from the direct map.
+> >>>
+> >>> safe_copy_page() temporarily maps and unmaps them using set_direct_map
+> >>> APIs, or, when the stars align, even using debug_pagealloc_map_pages().
+> >>>
+> >>> Neither of these APIs cares whether it is a KFENCE page and both blindly
+> >>> perform the update of the kernel page table for any non-present page.
+> >>
+> >> Agreed, we should route this through the actual mechanism that modified the
+> >> directmap in the first place.
+> >>
+> >>>
+> >>> Ability to use debug_pagealloc_map_pages() to remap KFENCE pages when both
+> >>> KFENCE and debug_pagealloc are enabled is an amusing coincidence.
+> >>>
+> >>> But with increasing appetite for using set_direct_map for hardening
+> >>> purposes, it becomes too big of a hammer to enable saving any non-present
+> >>> page in the hibernation image.
+> >>>
+> >>> Another gotcha is that loongarch that does not have a direct map at all
+> >>> advertises ARCH_HAS_SET_DIRECT_MAP to allow coexistence of KFENCE and
+> >>> hibernation.
+> >>>
+> >>> Extend KFENCE with a bitmap that tracks which pages are protected and
+> >>> provide kfence_force_mapping() and kfence_restore_mapping() APIs that allow
+> >>> forced mapping and unmapping of KFENCE pages.
+> >>>
+> >>> Use these APIs in hibernate_{map,unmap}_pages() for KFENCE pages.
+> >>>
+> >>> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> >>> ---
+> >>>  include/linux/kfence.h  | 29 +++++++++++++++++++++++++++
+> >>>  kernel/power/snapshot.c |  7 +++++++
+> >>>  mm/kfence/core.c        | 52 +++++++++++++++++++++++++++++++++++++++++++++++--
+> >>>  3 files changed, 86 insertions(+), 2 deletions(-)
+> >>>
+> >>> diff --git a/include/linux/kfence.h b/include/linux/kfence.h
+> >>> index e5822f6e7f279..33a126cb6d1b7 100644
+> >>> --- a/include/linux/kfence.h
+> >>> +++ b/include/linux/kfence.h
+> >>> @@ -222,6 +222,32 @@ struct kmem_obj_info;
+> >>>  bool __kfence_obj_info(struct kmem_obj_info *kpp, void *object, struct slab *slab);
+> >>>  #endif
+> >>>  
+> >>> +/**
+> >>> + * kfence_force_mapping() - make sure a KFENCE page is mapped
+> >>> + * @page: page to map
+> >>> + *
+> >>> + * Check whether @page is protected and map it if needed.
+> >>> + *
+> >>> + * Requires: is_kfence_address(page_address(page))
+> >>> + *
+> >>> + * Return:
+> >>> + * * false - failed to map @page
+> >>> + * * true - @page is mapped
+> >>> + */
+> >>> +bool kfence_force_mapping(struct page *page);
+> >>> +
+> >>> +/**
+> >>> + * kfence_restore_mapping() - restore mapping of a KFENCE page
+> >>
+> >>
+> >> The name is misleading. You are actually restoring that the page is
+> >> unmapped/protected?
+> >>
+> >> 	kfence_force_mapping vs. kfence_restore_mapping
+> >>
+> >> is confusing.
+> >>
+> >> Can we find a better pair of function names that describe what is actually
+> >> happening?
+> >>
+> >> Maybe something along the lines of
+> >>
+> >> 	kfence_prepare_copy_page
+> >>
+> >> 	kfence_finish_copy_page
+> >>
+> >> That rather expresses what the caller intends to do.
+> > 
+> > Naming is hard :-D
+> > 
+> > I feel that _copy_page() is to vague and adding hibernation there is to
+> > mouthful :(
 > 
-> I dunno what is sane or not, but the allwinner dwmac drivers do set some
-> delays. sun8i-dwmac and sun55i-dwmac do so, even before this change.
-
-As the document i linked to says, doing small tuning delays is
-fine. We strongly prefer the PHY does the 2ns delay, if it can.
-
-> If I understand correctly :
+> Yeah, I wouldn't mention hibernation.
 > 
-> """
-> When the MAC implements the delay, it must ensure that the PHY does not
-> also implement the same delay. So it must modify the phy-mode it passes
-> to the PHY, removing the delay it has added. Failure to remove the delay
-> will result in a non-functioning link
-> """
 > 
-> IOW when the gmac has *-internal-delay-ps set and honors them, it should
-> also amend phymode seen by PHY to make sure it does not add its own
-> delays, should it ever be fixed ?
-
-You need to differentiate between small fine tuning delays, and the
-2ns delay required by the RGMII standard. If the MAC is just doing
-fine tuning, you need to still pass PHY_INTERFACE_MODE_RGMII_ID so the
-PHY adds the 2ns delay. If the MAC is adding a big delay, you need to
-pass PHY_INTERFACE_MODE_RGMII to the PHY.
-
-If you have the schematics, it would be good to confirm the strapping
-on the PHY, and add a comment in the DTS file about what is going on
-here.
-
-The other option i hinted at was use phy-mode = 'na'. I'm still
-considering this, it has some advantages.
-
-The problem with passing PHY_INTERFACE_MODE_RGMII or
-PHY_INTERFACE_MODE_RGMII_ID to the PHY is we have no way of knowing if
-the hardware is honouring it. It appears the board you are working on
-does the opposite of what we would prefer. I guess there are going to
-be other similar boards, but are they going to get a similar level of
-review and the issues spotted? Are they going to end up passing the
-wrong PHY_INTERFACE_MODE_RGMII value to the PHY?
-
-By making the PHY reject PHY_INTERFACE_MODE_RGMII* it makes it very
-clear something odd is going on here, and care needs to be taken. It
-will be very much in your face for DT writers, so they are more likely
-to get it correct.
-
-And if in the future we do find out how to control the PHY delays in
-software, boards using phy-mode = 'na' are safe, no change. Other
-boards which got passed review could well break. Been there, done
-that, don't want to repeat it.
-
-> > But this PHY is going to cause you lots of problems.
 > 
-> We don't get to choose I'm afraid :)
+> > 
+> > And these could be used outside of safe_copy_page() someday.
+> > 
+> > How about 
+> > 
+> > kfence_set_page_present()
+> > kfence_set_page_default()
+> 
+> 
+> Maybe spell out "direct_map" ?
+> 
+> kfence_set_direct_map_present()
+> 
+> kfence_set_direct_map_default()
 
-Yes, you have just the first victim.
+They are not necessarily in direct map :)
+loongarch does not have direct map, but still supports kfence
+ 
+> But yeah, something along those lines is better.
+> 
+> -- 
+> Cheers,
+> 
+> David
 
-It would be nice if somebody reached out to the vendor and asked if:
-
-Can the RGMII delays be configured in software?
-
-if not:
-
-Can the RGMII delay strapping be seen in software?
-
-If we know the strapping we can at least return EOPNOTSUPP if the
-requested does not match what the hardware is doing, and we get a
-clear indication of a problem.
-
-    Andrew
+-- 
+Sincerely yours,
+Mike.
