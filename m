@@ -1,142 +1,133 @@
-Received: from mx0b-0064b401.pphosted.com (mx0b-0064b401.pphosted.com [205.220.178.238])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D05125B0BB;
-	Thu, 24 Sep 2026 03:01:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.178.238
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458302D592C
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:03:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790218926; cv=none; b=SIOVmOg+uHCkxPgkUPRMTCmM6OJxS84Sp5NfqvWWXsK3CKyrl+Wg/rBoK69tmqK/4mzg/Bno3U70KE7kxvz1NyasAAAEjiaI2xyQ/m2hVFpQ0d/hbOqKnmyefaLRQS/b1UV1CRvnaL8/vj5+VntIldEjckBZnUVDEpUzFqhaVpg=
+	t=1790219035; cv=none; b=T6P/d0ftc/7L1/s1f73EnvmvRBOKMxG2oLZBmaN8zrqmauD2U7vxS+wUj15OC0gH7PieGCzShuvMNU8ZIVKP/TrMv9lvhLmA3sVfIWiIUzJs6SJ3e7KTrSAllfMIshlvDZpq5NUgd3fp6VXct2nMIVnTwC1jZnvwOJjL65HNIrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790218926; c=relaxed/simple;
-	bh=MmhTlul3whAnFNcoQH5VFn2cXzhlWyVMv/zdLsaJoSA=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=sr8JW/FcaDguefMVCoW/dY0VzUZu9y/sz12Lxnbr1YYqFjA0pKsq2m5+AHqjuRfPsjnir9KuLQkMlrw/gPpxoRLLZPAwjkOVLHf+9hEFGnb9IYSE4kAR9lzMYXPKzSxMA8bbmLYIb1arbiqwup7M+7emPbQiAl26FVJXqj38uQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com; spf=fail smtp.mailfrom=windriver.com; dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b=SUXXUYu0; arc=none smtp.client-ip=205.220.178.238
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=windriver.com
+	s=arc-20240116; t=1790219035; c=relaxed/simple;
+	bh=EaSyvjvgS188EtX7hWuGpx7JU9522ewQuDCxU65EkxI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NjVIws2d8j9pDwe3WjqLjLxvWk1FgywBpVAeCahL9+VlniUaPWl4B5dTJXMPRilb2/HDiNc6Sm7T8GQ66wqY++KTwDoK7zeoz0JXXrVK/U12R18QgTm1V5hEXcTF/lO8gq5ecQlw7DHSaJLBlvMqYTB+VL+tGXWhzxmvDAqu4ss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TG/gx+Mo; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b="SUXXUYu0"
-Received: from pps.filterd (m0250812.ppops.net [127.0.0.1])
-	by mx0a-0064b401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O2JWoI3160168;
-	Thu, 24 Sep 2026 03:01:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:message-id:mime-version:subject:to; s=PPS06212021; bh=qxAcZQ01E
-	+RSQiaT4qMSzA15+vXM98J20kJ4iYN/d1o=; b=SUXXUYu0g00s+ciRjk8d903T4
-	I1zotUhItD4VH5/ZkTIxAIxbJXphBIMcNZtDzkHtuysN8UQjk8vUxPYpxDlwaYTp
-	J68Nq+AIQ+XNBRix6M+fI/eq5KVv/jRwRyyFFffjFoiiKW4OceQDcspBZwuNbhMB
-	KAFqN4BsimBchLWW3cCo6Mkg+Mtt4TN6hZ+lFS9V2Z347c+sqsAJIERb8xlvAk3Z
-	Fzbi2RylY0ie9jA+6GXj9lh2eNmh4fzxutCdf1stzheAKYg/SWkok/Aum8XMc9D1
-	zfInwQNHi2TeTXPa37s/K4OnQA+Q0LrucUEZzjhXuciRTIOjG7wQcoW8aleLg==
-Received: from ala-exchng02.corp.ad.wrs.com (ala-exchng02.wrs.com [128.224.246.37])
-	by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 4gshc7r4s0-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Thu, 24 Sep 2026 03:01:12 +0000 (GMT)
-Received: from ala-exchng01.corp.ad.wrs.com (10.11.224.121) by
- ALA-EXCHNG02.corp.ad.wrs.com (10.11.224.122) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.61; Wed, 23 Sep 2026 20:01:11 -0700
-Received: from pek-yzhou-d3.wrs.com (10.11.232.110) by
- ala-exchng01.corp.ad.wrs.com (10.11.224.121) with Microsoft SMTP Server id
- 15.1.2507.61 via Frontend Transport; Wed, 23 Sep 2026 20:01:09 -0700
-From: Yun Zhou <yun.zhou@windriver.com>
-To: <rostedt@goodmis.org>, <mhiramat@kernel.org>, <mark.rutland@arm.com>,
-        <mathieu.desnoyers@efficios.com>, <yun.zhou@windriver.com>
-CC: <linux-kernel@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>
-Subject: [PATCH] ftrace: add max field to function profiler stats
-Date: Thu, 24 Sep 2026 11:01:08 +0800
-Message-ID: <20260924030108.2673654-1-yun.zhou@windriver.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TG/gx+Mo"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-39b31b4281eso1172399a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:03:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790219033; x=1790823833; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hSJK5l1XEbWtgCR1VGoo0OE9b5AL7+ONChxVba323TI=;
+        b=TG/gx+MobDDw6jqqr4MJKOxtykO8z0BzPWVVoNVpIdq/WXJmI+aqL4NgGs6lTQ9rUb
+         iHO+OR/bw8XEMo/mlilaUTMhkzccL67ubLpPG01Cg1L2DvIgcat0HBLMjUXfwdMZVvGA
+         EeVl4SmQOiwcaDL4ZWZbOVWngtthGaWsP2EqvVQ6kqc2TSAPSjfnNEGyqbEYU8HvHakg
+         XDiWfgQ360As9ScoZNVr7Wj5Oz3gPwDgW/QsfbhzMdwcWOQVizgQEJAmdicbh84CwCUg
+         jYs1FAKXvHAmsl42xiY81odnWSoTbPee0HL9ttVJK6/DMe5l2ORVeJaT224Nifm5BaLz
+         3lbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790219033; x=1790823833;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hSJK5l1XEbWtgCR1VGoo0OE9b5AL7+ONChxVba323TI=;
+        b=0C5tJVzOgX4XNex2Ocz0Fk2fDprFFRjVlRz+ewgXATUFgfMT1RiU12wnp9A9BBV2LK
+         3pce4bmTh9NsNpM1hy8DXR8uRneCRFBFZ60ikiuvRr+hc9uL0NOIGrr03DlgACOsPJgQ
+         +sgLTCIwYKXwIa9z+qIv1H442awpX9RbfHkqNw6ZFOGfcnaO4MvQCH3UEO2rvaYvYrgt
+         9+4/pAE7HbvvrEJGa4YHUlP/SXf/NdotmjdPOmnPy4QR4tu/xMZWXNcSbe90UV/iMgYD
+         LdM7IfkNP7WWQYf7WeihytR4oi07kqxTRtTSrV80EvmuTCm0ZQkBMDE8hWNREusg2FMH
+         7E6A==
+X-Forwarded-Encrypted: i=1; AKwUvBwEbfh6Aq14V7Y6JSH2hNeiUb9HhMIkD3LSOsk8p42sDA6JkTs/39sDX+UaiD1y0qlmyera11x4xtEGKXE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJ9825/i85YbcjThJ3bO4+OaZlEozGGJUxxqsgphP8lyXuvIHV
+	SxhjHJOtuIud1p+weVewAemEEh/ptVRY7Ynz4zHlW2TP8qbt8dkOesVU
+X-Gm-Gg: AYBFou38976cmlk1WFouEZdaIH+FVmbm7LrpmZD2yh0FCpAUTt8ctmyoJD9u/xQep1r
+	enQVYhre6sbgqOJTpZd5HSQrr1Mab1MNwJuXKaNnQCwxUcUuzS/zWu3yzRErGsOV7JEGUfgXzYI
+	FI0ObsyBg2mFuQsEIlRrvF3CSKlPQ+rD6KaG8ZOWullsWE36mWI+nKq/DwhFWop9rVqUhOcbzb4
+	JOfXemxpjngPGiRZh1UusPrO009S/UgtVCghLDbm+du9L2k0ief+lMjFbgaFxdsktyKk+MJ2YrN
+	2FvSVxx5Yy86c9DNW7P324tMYzv0H2eZlqgkk+DMCsW+LL3sac1M1uKDmBiNx3KleVeWflwvu5P
+	Am/g1UmwCcm1JHvGhB08XfMQa1eb4LIZ4qOnFadnaP52LnvaDyPaLaKb+jZlL5iUKWQjQCzkZPs
+	21mSYWlRC5ilzuVwOUy/aC9XlVYtRh40+HTVNEpucPk6NFyB20HVIGcOaCUkjDzcLz2jUSVRwTo
+	G5HDyjKlxwy9YkQHAFMPFQ1SYSsEGBlw4VGWn32ZiGBjkg5/g==
+X-Received: by 2002:a17:90b:51c1:b0:39e:6c68:c77b with SMTP id 98e67ed59e1d1-3a098e078b8mr910792a91.49.1790219033463;
+        Wed, 23 Sep 2026 20:03:53 -0700 (PDT)
+Received: from [172.19.1.42] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a09738f98asm2082693a91.15.2026.09.23.20.03.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 20:03:53 -0700 (PDT)
+Message-ID: <d53cc934-965a-4ae8-a6cf-298c5a587e5d@gmail.com>
+Date: Thu, 24 Sep 2026 11:03:51 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: spi: nuvoton,ma35d1-spi: Add Nuvoton
+ MA35D1 SPI controller
+To: Krzysztof Kozlowski <krzk@kernel.org>, broonie@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, cwweng@nuvoton.com
+References: <20260923041926.425551-1-cwweng.linux@gmail.com>
+ <20260923041926.425551-2-cwweng.linux@gmail.com>
+ <005e8cd7-811f-4304-bac3-e0c531958922@kernel.org>
+Content-Language: en-US
+From: Chi-Wen Weng <cwweng.linux@gmail.com>
+In-Reply-To: <005e8cd7-811f-4304-bac3-e0c531958922@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAxMyBTYWx0ZWRfX4LfYGpPAAg0w
- n0/hA6Atc21gs1RX4gqiz5xYeh0nyGRBu7JQJnTLjqnjkzncCCoFbJJN3eWah5ToRhZ8sNHxcEH
- UzoP053+7J9jW2tyV0j7mD9f89OO8P80i/PclQqiqAtJD2TOgHcx3RH9lX15zyBk1Yueu/c0cLI
- 011cMqSFKxtxSpxUq4iDdYXqK/PlyZXOsqUKDHYMUGk7vlh708GU7od0BtKuiFvwFeNseEmqNxr
- i5eA6i8E3v3KVMc24wLgbNBA+3sdix19H81iqVmVLKltgkj9sldtCk86DRgSTo/l3Kt+fOn2D9t
- rriH9P/StX7Q8ukIeUiH5ljV/kqBiB5f0CgpC9Fm4Ecu0PXZSzmEZLXdSr5tf12SXU6GqxB2Sec
- un13qAl7hsA9Yf2MJxJ1SEIwbs0DlS9pV837xUhX3m4r76OD+kAViHFGGnnsadYFT4QV/qOf/dt
- t3L6dX03ohyrmmPqasg==
-X-Proofpoint-GUID: u2NJddyI0oNm_Bs5EnwybAqh5mXegNUs
-X-Proofpoint-ORIG-GUID: u2NJddyI0oNm_Bs5EnwybAqh5mXegNUs
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAxMyBTYWx0ZWRfX9UrEhYodE5y0
- F2rcXNGKRqHX62LJ5lgX6eX8sPBpBELKDcS6cSS8d67TlFpERS4XCGGm491jkQgFRzw4TgjrtD1
- HAAW8nCy28cPrfvd3Kthz/2/q3u+qA4wPGLRf0eDZ9axWhWUpmD+
-X-Authority-Analysis: v=2.4 cv=feM4WEQF c=1 sm=1 tr=0 ts=6ab49278 cx=c_pps
- a=Lg6ja3A245NiLSnFpY5YKQ==:117 a=Lg6ja3A245NiLSnFpY5YKQ==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=bi6dqmuHe4P4UrxVR6um:22
- a=fTW__CHxibyLmBMfj2wP:22 a=t7CeM3EgAAAA:8 a=2KTbmC8ocYsl8OsA7GEA:9
- a=FdTzh2GWekK77mhwV6Dw:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_01,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 impostorscore=0 clxscore=1011 priorityscore=1501
- lowpriorityscore=0 malwarescore=0 spamscore=0 adultscore=0 bulkscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609240013
 
-The function profiler (trace_stat/function<cpu>) reports Hit, Time,
-Avg and s^2 per function. Add a "max" field recording the maximum
-single-call duration, which is valuable for real-time tuning and for
-investigating occasional latency spikes.
 
-Like Time/Avg, it honors the graph-time and sleep-time options, so it
-reflects entry-to-return wall-clock latency.
 
-Signed-off-by: Yun Zhou <yun.zhou@windriver.com>
----
- kernel/trace/ftrace.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+Krzysztof Kozlowski 於 2026/9/23 下午 08:35 寫道:
+> On 23/09/2026 06:19, Chi-Wen Weng wrote:
+>> From: Chi-Wen Weng <cwweng@nuvoton.com>
+>>
+>> Add a Devicetree binding for the SPI controller found in the
+>> Nuvoton MA35D1 SoC.
+> 
+> I could swear I saw it last days... I did check and indeed. There is
+> qspi which is almost the same binding. Why this cannot be in the same
+> file? What are the differences justifying duplicating files?
+> 
+> 
+> 
+> Best regards,
+> Krzysztof
 
-diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
-index 673a54fdf392..98535f5533db 100644
---- a/kernel/trace/ftrace.c
-+++ b/kernel/trace/ftrace.c
-@@ -428,6 +428,7 @@ struct ftrace_profile {
- #ifdef CONFIG_FUNCTION_GRAPH_TRACER
- 	unsigned long long		time;
- 	unsigned long long		time_squared;
-+	unsigned long long		time_max;
- #endif
- };
- 
-@@ -530,9 +531,9 @@ static int function_stat_headers(struct seq_file *m)
- {
- #ifdef CONFIG_FUNCTION_GRAPH_TRACER
- 	seq_puts(m, "  Function                               "
--		 "Hit    Time            Avg             s^2\n"
-+		 "Hit    Time            Avg             s^2             max\n"
- 		    "  --------                               "
--		 "---    ----            ---             ---\n");
-+		 "---    ----            ---             ---             ---\n");
- #else
- 	seq_puts(m, "  Function                               Hit\n"
- 		    "  --------                               ---\n");
-@@ -613,6 +614,8 @@ static int function_stat_show(struct seq_file *m, void *v)
- 	trace_print_graph_duration(avg, &s);
- 	trace_seq_puts(&s, "    ");
- 	trace_print_graph_duration(stddev, &s);
-+	trace_seq_puts(&s, "    ");
-+	trace_print_graph_duration(rec->time_max, &s);
- 	trace_print_seq(m, &s);
- #endif
- 	seq_putc(m, '\n');
-@@ -920,6 +923,8 @@ static void profile_graph_return(struct ftrace_graph_ret *trace,
- 	if (rec) {
- 		rec->time += calltime;
- 		rec->time_squared += calltime * calltime;
-+		if (calltime > rec->time_max)
-+			rec->time_max = calltime;
- 	}
- }
- 
--- 
-2.43.0
+Hi Krzysztof,
+
+Thanks for pointing this out.
+
+The MA35D1 SPI and QSPI controllers are separate hardware IPs. QSPI
+additionally supports dual/quad/DTR transfers and a target-mode timeout
+function, while the SPI controller does not.
+
+However, these differences do not require different Devicetree
+properties. The register resource, clock, reset, interrupt and native
+chip-select descriptions are otherwise the same, so I agree that they
+should share one binding.
+
+There is currently one driver-related difference: the existing QSPI
+driver does not yet support GPIO chip selects, while the new SPI driver
+does. I will therefore keep the QSPI cs-gpios restriction in the shared
+schema for now using a compatible-specific conditional.
+
+We also plan to add GPIO chip-select support to the QSPI driver in a
+follow-up patch. Once that support is added, the QSPI-specific
+cs-gpios restriction can be removed and both compatibles can use the
+same schema constraints.
+
+I will merge the SPI and QSPI bindings in v2.
+
+Thanks,
+Chi-Wen
 
