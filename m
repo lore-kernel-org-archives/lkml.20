@@ -1,481 +1,170 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+Received: from mta0.migadu.com (out-146.mta0.migadu.com [91.218.175.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FB364D9560
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:42:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1890B4CC62E
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:42:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790282544; cv=none; b=RGBPTHg28dRgK7QVKZ1wVU21ob0M+q72KZe1pWZWqqDebVtXvEqUrVwINGoEgEhr81A0Ti6xzDL2Olkdgqacpw52z2RMT0UoZ0XKM4QYis+aiAm0tRCVtdplf2SoUb6vaQHJX/9VUd7KHWU0iyj5zb+e/W8TzvwXBGkNOx3/y/Y=
+	t=1790282556; cv=none; b=dZshbiutUbIWYSIUDfCzM9IIYRsQBc9lwkUos6eup3oQJ+ysZfcagfGzxmFGCG3Hzcsnc6fsK973fSp3+NNuevCZ3tJYqSYFpizEN891uzIv4OoBf2OlocE80QtoDnTulon05wiehy+KMwqdOfftjCekcrKfDYeaiEHK1lQEvuk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790282544; c=relaxed/simple;
-	bh=cqxpIjT7+OaMZ0dtk8ejWhpu/1wYH0cc5jMty8Ds7Ys=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lYoKxUlUPEUkPHTw60I9x2bDh9VKNTPIPWRzv5A/sLow1azKxeIBVCuR19aZ10lV24+0lu0ScXGpnU9HvNVIaAjhxQD1SlD3lu+ymZWEo0B3IJp92j/o+yTYxcmjdYIWqiW9Xq2OKVUj3UFObBoXpYU6j7wL3kThIjJndJVdVJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NbrS33ub; arc=none smtp.client-ip=74.125.229.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790282556; c=relaxed/simple;
+	bh=nnArrsZ9H8yG5uIeRkg0y81lA15dy/yoQgT4igabXhs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=di/lbK1KO541AxJITmqAXxrGxZkWYIljM5oOUoeohjav0QFbwr/PJsOhWzbBfuhXF/c1POwuz78f1YvP+zoDMZls6PQC29Y4E9xfyXCk6GuWIQB/Z9vlYek9iU2nl8bOZNwa6Dhwx1Z3pXUrMufrAuu5uju8XAMM+tyq0qM3QAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=movhOMzi; arc=none smtp.client-ip=91.218.175.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NbrS33ub"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-328664b7528so121730eec.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:42:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790282535; x=1790887335; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kbwJSqTGaUlliYwuSU2088BChxyXusMw7vXczuO3o0k=;
-        b=NbrS33ubUDa7B+FxUvbIDr77E0s7DvOe0SG8feCvUmaOLek1kSrStDjq7Wm+Lo4KWK
-         a3EiCgxDfZ4aIVMFAKO2DPhH6dorxy+A3vQcmFZ19R/yNqDQTw2miW/AlvfEbhgqmNe4
-         xDLLYCDriB6U1b1l2vYV7X9+v/eGvcdqCqxLODGf0ETBeCiHb8GQOK8M5sS6Vv0iqJHL
-         g9FVT6zZy/oimDL8jVYGw005PGBqWK8kiVSVtiXI8Uf5G4odNl5L8ndk6TgVQ2dw4GGA
-         YhghdcTzhloEoWUnYlyq776cUTZKajN9/esERC0G0490xL0nrOlooEoFwxpCm+4caqpI
-         Qb5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790282535; x=1790887335;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kbwJSqTGaUlliYwuSU2088BChxyXusMw7vXczuO3o0k=;
-        b=FUHO+CvRj9pV/XgpiTTj+YdE4/HGfz2x4Hrogv/F5p2S/UikDYBS4E5U1CGDe5T5V+
-         glQug8B0M/ejsOwKQpZaJ60zsC0ovfxzBktFhG/eYeXYbNsXOJ7/PgHZ5/JKwwNh6Lea
-         BTZmucVzSiEWfVGrOBhefGs8m5dVXo4sGnt06VQt5NnKrhHVtriXVpiTtA8Ag1Cqt3F2
-         SVEHRRhARG3x7RvLwwcVBiurQ8GfywHjTKHlTRlSNRsLilSuXl5wnLPgN7OOjldseo9m
-         GgQHMAy2VVnmaw2GlQ821IlDbxo8Fm1zzP3unJZkTshRmdx0H0z9NXLHvAxlCeiMQRlf
-         G70A==
-X-Gm-Message-State: AFuF++kwKsM9DY0S9YeFqpxdSq11VBO+Ppt8RW3J1LKHgK822+A/OcSQ
-	GTbg/mRBkUBAGZw6U8gX2zgGabe/MlF7v4qsLqE52eVI4PEYlyOzQVSt
-X-Gm-Gg: AYBFou1RJeBR9VknNUe7G4+KYlomjKkOBb0S9XS6ZQljF950WGZINO06WGpHLPK2mM5
-	AAhag4qNAVxu3tRc32Vqrm0nKSdDqIsRZAcdiUckZGWMKRPj6iuqxNkqfidBBG7xAIduP/MgD4y
-	eWcIuYlj8VVLyTUAU2EsnUNSqSeBRX4dv2/OmG2wH/7BSTPy84YmsdLOdS5cSFPobBoIfhb0EON
-	XITSvqkaby/pbM6cmZiLYVDDBKNQrQFRylJl2rH32IjqmBokTrJ9yZE6GKGSPnXmnXogK3BZoZ2
-	HyLS6kxGS+4KTQ3eOF0v+YlB2HEAmZoqc8BHmyH2/HVsNX4nU5/F5ewBUMzHqVGhVTrJI9iWyOq
-	09i+ogi87Z9GWD5vJeijn2qS59Vk+NQ6maMUMf2K265fY0y8Si7q5ndccOriK6AcgJQ2ISiPi9i
-	feoCN2eMG8ydmKZJvW/ho5MnHrKXXjRqmnd8T0CtnFqhuhZxzuKlAlsOM7VEWSSujWQUs94GEWj
-	Ja7QvMSKchCNET69JiC+Kn4HuUcZaiURm8BlbcjQA==
-X-Received: by 2002:a05:7301:6406:b0:33b:faec:b73c with SMTP id 5a478bee46e88-34000c2d82bmr2824149eec.25.1790282534476;
-        Thu, 24 Sep 2026 13:42:14 -0700 (PDT)
-Received: from pop-os.scu.edu ([129.210.115.107])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34141d2fe4bsm1073470eec.4.2026.09.24.13.42.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 13:42:13 -0700 (PDT)
-From: Cong Wang <xiyou.wangcong@gmail.com>
-To: Kees Cook <kees@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	Will Drewry <wad@chromium.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Andy Lutomirski <luto@amacapital.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH 2/3] selftests/seccomp: cover restart of unreceived notifications
-Date: Thu, 24 Sep 2026 13:42:08 -0700
-Message-ID: <20260924204209.477694-3-xiyou.wangcong@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260924204209.477694-1-xiyou.wangcong@gmail.com>
-References: <20260924204209.477694-1-xiyou.wangcong@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="movhOMzi"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=nnArrsZ9H8yG5uIeRkg0y81lA15dy/yoQgT4igabXhs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790282547; v=1; x=1790887347;
+ b=movhOMziQtRSeKkzCtOdTDgLn/vpuXyK3ONg4P+AqvP9xRlLcvwoVH9I7sTEjNelr4oKA0T0
+ CMQdTkWulpOzBLIKErJjheg6krYOy5tP0AhfgpKjLrwDUpoWsRduXhpPGkriFs1QtDMs2SledM4
+ 3KOQyAivloZDBVXZgA8qgW2A=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e2e7b493161569e3;
+	Thu, 24 Sep 2026 20:42:26 +0000
+X-Mizu-Trace-ID: e2e7b493161569e3
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 24 Sep 2026 13:42:24 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Yafang Shao <laoar.shao@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	JP Kobryn <jp.kobryn@linux.dev>, Muchun Song <muchun.song@linux.dev>, Tejun Heo <tj@kernel.org>, 
+	Michal Koutny <mkoutny@suse.com>, Amery Hung <ameryhung@gmail.com>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Emil Tsalapatis <emil@etsalapatis.com>, 
+	Jiri Olsa <jolsa@kernel.org>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	John Fastabend <john.fastabend@gmail.com>, Jiayuan Chen <jiayuan.chen@linux.dev>, hui.zhu@linux.dev, 
+	Donet Tom <donettom@linux.ibm.com>, Greg Thelen <gthelen@google.com>, 
+	Meta kernel team <kernel-team@meta.com>, linux-mm@kvack.org, bpf@vger.kernel.org, cgroups@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/4] memcg_ext: memcg policy through cgroup-attached
+ struct_ops
+Message-ID: <arWJBBOdvLsOSdCt@linux.dev>
+References: <20260921192559.2619635-1-shakeel.butt@linux.dev>
+ <CALOAHbA4EgGw_uWfbXD0Q87exP7ek=z9ENuU_ARgb+DgBgy1kQ@mail.gmail.com>
+ <arPyspcEFNkqfNyr@linux.dev>
+ <CALOAHbDKRw9cPN_GxOYbp9u50cvr7PzPyoGPsSwoPDPAwBCGbA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CALOAHbDKRw9cPN_GxOYbp9u50cvr7PzPyoGPsSwoPDPAwBCGbA@mail.gmail.com>
 
-From: Cong Wang <cwang@multikernel.io>
+On Thu, Sep 24, 2026 at 06:01:27PM +0800, Yafang Shao wrote:
+> On Wed, Sep 23, 2026 at 11:47 PM Shakeel Butt <shakeel.butt@linux.dev> wrote:
+> >
+> > Hi Yafang,
+> >
+> > On Wed, Sep 23, 2026 at 09:07:40PM +0800, Yafang Shao wrote:
+> > > On Tue, Sep 22, 2026 at 3:30 AM Shakeel Butt <shakeel.butt@linux.dev> wrote:
+> > > >
+> > > Hello Shakeel,
+> > >
+> > > On the open question of how deferred debt eventually gets paid: would
+> > > it make sense for the policy to also notify userspace (e.g. via
+> > > ringbuf) when it defers,
+> >
+> > I think the notification through bpf programs is already possible and a bpf
+> > program deciding to bypass memory.high can already do notification via ringbuf.
+> >
+> > > and have a userspace reclaimer do the reclaim
+> > > through memory.reclaim?
+> > >
+> > > I understand one of the concerns for the async worker is CPU
+> > > accounting. If the concern is that the kworker's CPU usage is not
+> > > charged to the target cgroup, the userspace reclaimer could instead be
+> > > spawned with clone3(CLONE_INTO_CGROUP) so it runs inside the target
+> > > cgroup, and both its CPU and memory usage get charged there.
+> > >
+> > > One caveat: intermediate cgroups with the no-internal-process
+> > > constraint cannot take processes, so this would only work for leaf
+> > > cgroups.
+> > >
+> > > What do you think?
+> >
+> > I think all of this is possible without additional code and with this series.
+> > With AI, should be very easy to prototype it. Please take a stab and I will look
+> > into it as well (time permitting).
+> 
+> An LLM helped me quickly implement a userspace async memcg reclaimer
+> based on your series, and it seems to work quite well.
 
-Exercise restart and killable-wait flag combinations before receipt,
-after a failed receive, and after receipt. Cover repeated interruptions,
-listener closure, fatal signals, flag validation and supervisor errors.
+That's awesome. Please do take a look at the code and provide feedback and if
+you don't mind, a tested-by tag would be awesome.
 
-Verify that restarted fork creates exactly one child, close releases its
-descriptor, and denied fork returns EAGAIN. Preserve compatibility
-checks with restart disabled. Synchronize pre-receipt signals through a
-socket and check post-receipt response preservation without task-state
-polling.
+> 
+> >
+> > Thanks for taking a look and also please let me know what other ways you think
+> > memcg can be customized through BPF in a beneficial way.
+> 
+> Sure. On our production servers we have been running a set of BPF
+> programs to tailor kernel behavior for different workloads — all of
+> them global programs so far — and I believe they are all good
+> candidates for per-cgroup BPF policies now that cgroup-attached
+> struct_ops is available. They have been really helpful in our
+> Kubernetes production environment. I have sent some of them upstream,
+> such as:
+> 
+>   - BPF-THP
+>     https://lwn.net/Articles/1039689/
+>   - BPF-auto-NUMA
+>     https://lwn.net/Articles/1054030/
+> 
+> Perhaps we can revisit both of them and turn them into per-cgroup
+> policies — what do you think?
 
-All 136 seccomp selftests passed before the polling cleanup. After
-that change, all four revised post-receipt variants and the existing
-wait-killable test passed.
+Yes seems interesting and I remember other folks (I think Rik) were interested
+in these ideas as well.
 
-Assisted-by: Codex:gpt-6
-Signed-off-by: Cong Wang <cwang@multikernel.io>
----
- tools/testing/selftests/seccomp/seccomp_bpf.c | 354 ++++++++++++++++++
- 1 file changed, 354 insertions(+)
+> 
+> We are also running some custom BPF programs that have not been sent
+> upstream yet, such as:
+> 
+>   - BPF-async-reclaimer
+>     We don't care about the CPU accounting of the kworker, so we just
+> wake up a kworker to do the async reclaiming.
 
-diff --git a/tools/testing/selftests/seccomp/seccomp_bpf.c b/tools/testing/selftests/seccomp/seccomp_bpf.c
-index 0622bc2acad4..6635340c0428 100644
---- a/tools/testing/selftests/seccomp/seccomp_bpf.c
-+++ b/tools/testing/selftests/seccomp/seccomp_bpf.c
-@@ -307,6 +307,10 @@ struct seccomp_notif_addfd_big {
- #define SECCOMP_FILTER_FLAG_WAIT_KILLABLE_RECV (1UL << 5)
- #endif
- 
-+#ifndef SECCOMP_FILTER_FLAG_RESTART_BEFORE_RECV
-+#define SECCOMP_FILTER_FLAG_RESTART_BEFORE_RECV (1UL << 6)
-+#endif
-+
- #ifndef seccomp
- int seccomp(unsigned int op, unsigned int flags, void *args)
- {
-@@ -4639,6 +4643,356 @@ static long get_proc_syscall(struct __test_metadata *_metadata, int pid)
- 	return ret;
- }
- 
-+
-+static void notification_restart_handler(int sig)
-+{
-+	char c;
-+	int saved_errno = errno;
-+
-+	if (write(handled, "s", 1) != 1 || read(handled, &c, 1) != 1)
-+		_exit(1);
-+	errno = saved_errno;
-+}
-+
-+FIXTURE(notification_restart) {
-+	int listener;
-+	int sync[2];
-+	pid_t pid;
-+};
-+
-+FIXTURE_VARIANT(notification_restart) {
-+	bool restart;
-+	bool killable;
-+};
-+
-+FIXTURE_VARIANT_ADD(notification_restart, neither) {
-+	.restart = false, .killable = false,
-+};
-+FIXTURE_VARIANT_ADD(notification_restart, restart) {
-+	.restart = true, .killable = false,
-+};
-+FIXTURE_VARIANT_ADD(notification_restart, killable) {
-+	.restart = false, .killable = true,
-+};
-+FIXTURE_VARIANT_ADD(notification_restart, both) {
-+	.restart = true, .killable = true,
-+};
-+
-+FIXTURE_SETUP(notification_restart)
-+{
-+	unsigned int flags = SECCOMP_FILTER_FLAG_NEW_LISTENER;
-+
-+	self->pid = -1;
-+	self->listener = -1;
-+	self->sync[0] = self->sync[1] = -1;
-+	ASSERT_EQ(prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0), 0);
-+	ASSERT_EQ(socketpair(AF_UNIX, SOCK_STREAM, 0, self->sync), 0);
-+	if (variant->restart)
-+		flags |= SECCOMP_FILTER_FLAG_RESTART_BEFORE_RECV;
-+	if (variant->killable)
-+		flags |= SECCOMP_FILTER_FLAG_WAIT_KILLABLE_RECV;
-+	self->listener = user_notif_syscall(__NR_getppid, flags);
-+	ASSERT_GE(self->listener, 0);
-+}
-+
-+FIXTURE_TEARDOWN(notification_restart)
-+{
-+	if (self->pid > 0) {
-+		kill(self->pid, SIGKILL);
-+		waitpid(self->pid, NULL, 0);
-+	}
-+	close(self->listener);
-+	close(self->sync[0]);
-+	close(self->sync[1]);
-+}
-+
-+static void notification_restart_child(struct __test_metadata *_metadata,
-+				       struct _test_data_notification_restart *self)
-+{
-+	struct sigaction action = { .sa_handler = notification_restart_handler };
-+	long result[2];
-+
-+	self->pid = fork();
-+	ASSERT_GE(self->pid, 0);
-+	if (self->pid)
-+		return;
-+
-+	close(self->listener);
-+	close(self->sync[0]);
-+	handled = self->sync[1];
-+	if (sigemptyset(&action.sa_mask) || sigaction(SIGUSR1, &action, NULL))
-+		_exit(1);
-+	result[0] = syscall(__NR_getppid);
-+	result[1] = errno;
-+	if (write(handled, result, sizeof(result)) != sizeof(result))
-+		_exit(1);
-+	_exit(0);
-+}
-+
-+static void notification_pending(struct __test_metadata *_metadata, int fd)
-+{
-+	struct pollfd pfd = { .fd = fd, .events = POLLIN };
-+
-+	ASSERT_EQ(poll(&pfd, 1, 5000), 1);
-+	ASSERT_TRUE(pfd.revents & POLLIN);
-+}
-+
-+static void notification_signal(struct __test_metadata *_metadata,
-+				struct _test_data_notification_restart *self)
-+{
-+	struct pollfd pfd = { .fd = self->sync[0], .events = POLLIN };
-+	char c;
-+
-+	ASSERT_EQ(kill(self->pid, SIGUSR1), 0);
-+	ASSERT_EQ(poll(&pfd, 1, 5000), 1);
-+	ASSERT_EQ(read(self->sync[0], &c, 1), 1);
-+	ASSERT_EQ(c, 's');
-+	/* The handler holds the task until the abandoned request is checked. */
-+	pfd.fd = self->listener;
-+	ASSERT_EQ(poll(&pfd, 1, 0), 0);
-+	ASSERT_EQ(write(self->sync[0], "r", 1), 1);
-+}
-+
-+static void notification_result(struct __test_metadata *_metadata,
-+				struct _test_data_notification_restart *self,
-+				long value, int error)
-+{
-+	long result[2];
-+	int status;
-+
-+	ASSERT_EQ(read(self->sync[0], result, sizeof(result)), sizeof(result));
-+	EXPECT_EQ(result[0], value);
-+	if (value == -1)
-+		EXPECT_EQ(result[1], error);
-+	ASSERT_EQ(waitpid(self->pid, &status, 0), self->pid);
-+	self->pid = -1;
-+	ASSERT_TRUE(WIFEXITED(status));
-+	EXPECT_EQ(WEXITSTATUS(status), 0);
-+}
-+
-+TEST_F(notification_restart, before_receive)
-+{
-+	struct seccomp_notif req = {};
-+	struct seccomp_notif_resp resp = {};
-+	int i;
-+
-+	notification_restart_child(_metadata, self);
-+	for (i = 0; i < 3; i++) {
-+		notification_pending(_metadata, self->listener);
-+		notification_signal(_metadata, self);
-+		if (!variant->restart) {
-+			notification_result(_metadata, self, -1, EINTR);
-+			return;
-+		}
-+	}
-+	notification_pending(_metadata, self->listener);
-+	ASSERT_EQ(ioctl(self->listener, SECCOMP_IOCTL_NOTIF_RECV, &req), 0);
-+	resp.id = req.id;
-+	resp.flags = SECCOMP_USER_NOTIF_FLAG_CONTINUE;
-+	ASSERT_EQ(ioctl(self->listener, SECCOMP_IOCTL_NOTIF_SEND, &resp), 0);
-+	notification_result(_metadata, self, getpid(), 0);
-+}
-+
-+TEST_F(notification_restart, failed_receive)
-+{
-+	struct seccomp_notif_resp resp = {};
-+	struct seccomp_notif req = {};
-+	void *buf;
-+
-+	buf = mmap(NULL, sizeof(req), PROT_READ, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	ASSERT_NE(buf, MAP_FAILED);
-+	notification_restart_child(_metadata, self);
-+	notification_pending(_metadata, self->listener);
-+	ASSERT_EQ(ioctl(self->listener, SECCOMP_IOCTL_NOTIF_RECV, buf), -1);
-+	ASSERT_EQ(errno, EFAULT);
-+	ASSERT_EQ(munmap(buf, sizeof(req)), 0);
-+	notification_signal(_metadata, self);
-+	if (!variant->restart) {
-+		notification_result(_metadata, self, -1, EINTR);
-+		return;
-+	}
-+	notification_pending(_metadata, self->listener);
-+	ASSERT_EQ(ioctl(self->listener, SECCOMP_IOCTL_NOTIF_RECV, &req), 0);
-+	resp.id = req.id;
-+	resp.error = -EAGAIN;
-+	ASSERT_EQ(ioctl(self->listener, SECCOMP_IOCTL_NOTIF_SEND, &resp), 0);
-+	notification_result(_metadata, self, -1, EAGAIN);
-+}
-+
-+TEST_F(notification_restart, after_receive)
-+{
-+	struct seccomp_notif req = {};
-+	struct seccomp_notif_resp resp = {};
-+	char c;
-+
-+	notification_restart_child(_metadata, self);
-+	notification_pending(_metadata, self->listener);
-+	ASSERT_EQ(ioctl(self->listener, SECCOMP_IOCTL_NOTIF_RECV, &req), 0);
-+	if (!variant->killable) {
-+		notification_signal(_metadata, self);
-+		notification_result(_metadata, self, -1, EINTR);
-+		ASSERT_EQ(ioctl(self->listener, SECCOMP_IOCTL_NOTIF_ID_VALID, &req.id), -1);
-+		EXPECT_EQ(errno, ENOENT);
-+		return;
-+	}
-+	ASSERT_EQ(kill(self->pid, SIGUSR1), 0);
-+	/* Either ordering of signal delivery and reply must preserve the response. */
-+	resp.id = req.id;
-+	resp.val = USER_NOTIF_MAGIC;
-+	ASSERT_EQ(ioctl(self->listener, SECCOMP_IOCTL_NOTIF_SEND, &resp), 0);
-+	ASSERT_EQ(read(self->sync[0], &c, 1), 1);
-+	ASSERT_EQ(c, 's');
-+	ASSERT_EQ(write(self->sync[0], "r", 1), 1);
-+	notification_result(_metadata, self, USER_NOTIF_MAGIC, 0);
-+}
-+
-+TEST_F(notification_restart, fork_and_close)
-+{
-+	struct sigaction action = { .sa_handler = notification_restart_handler };
-+	struct sock_filter filter[] = {
-+		BPF_STMT(BPF_LD | BPF_W | BPF_ABS, offsetof(struct seccomp_data, nr)),
-+#ifdef __NR_fork
-+		BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_fork, 0, 1),
-+		BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_USER_NOTIF),
-+#endif
-+#ifdef __NR_clone
-+		BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_clone, 0, 1),
-+		BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_USER_NOTIF),
-+#endif
-+#ifdef __NR_clone3
-+		BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_clone3, 0, 1),
-+		BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_USER_NOTIF),
-+#endif
-+		BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_close, 0, 1),
-+		BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_USER_NOTIF),
-+		BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_ALLOW),
-+	};
-+	struct sock_fprog prog = { .len = ARRAY_SIZE(filter), .filter = filter };
-+	char control[CMSG_SPACE(sizeof(int))] = {};
-+	char c = 'f';
-+	struct iovec iov = { .iov_base = &c, .iov_len = 1 };
-+	struct msghdr msg = {
-+		.msg_iov = &iov, .msg_iovlen = 1,
-+		.msg_control = control, .msg_controllen = sizeof(control),
-+	};
-+	struct cmsghdr *cmsg;
-+	unsigned int flags = SECCOMP_FILTER_FLAG_NEW_LISTENER;
-+	int i, fd, listener, status;
-+	long result[2] = {};
-+	pid_t child;
-+
-+	if (variant->restart)
-+		flags |= SECCOMP_FILTER_FLAG_RESTART_BEFORE_RECV;
-+	if (variant->killable)
-+		flags |= SECCOMP_FILTER_FLAG_WAIT_KILLABLE_RECV;
-+	ASSERT_EQ(close(self->listener), 0);
-+	self->listener = -1;
-+	self->pid = fork();
-+	ASSERT_GE(self->pid, 0);
-+	if (!self->pid) {
-+		close(self->sync[0]);
-+		handled = self->sync[1];
-+		ASSERT_EQ(sigemptyset(&action.sa_mask), 0);
-+		ASSERT_EQ(sigaction(SIGUSR1, &action, NULL), 0);
-+		fd = open("/dev/null", O_RDONLY);
-+		ASSERT_GE(fd, 0);
-+		listener = seccomp(SECCOMP_SET_MODE_FILTER, flags, &prog);
-+		ASSERT_GE(listener, 0);
-+		cmsg = CMSG_FIRSTHDR(&msg);
-+		cmsg->cmsg_level = SOL_SOCKET;
-+		cmsg->cmsg_type = SCM_RIGHTS;
-+		cmsg->cmsg_len = CMSG_LEN(sizeof(listener));
-+		memcpy(CMSG_DATA(cmsg), &listener, sizeof(listener));
-+		ASSERT_EQ(sendmsg(handled, &msg, 0), 1);
-+
-+		child = fork();
-+		if (!child)
-+			_exit(0);
-+		if (variant->restart) {
-+			ASSERT_GT(child, 0);
-+			ASSERT_EQ(waitpid(child, &status, 0), child);
-+			ASSERT_TRUE(WIFEXITED(status));
-+			ASSERT_EQ(WEXITSTATUS(status), 0);
-+			ASSERT_EQ(waitpid(-1, &status, WNOHANG), -1);
-+			ASSERT_EQ(errno, ECHILD);
-+			ASSERT_EQ(close(fd), 0);
-+			ASSERT_EQ(fcntl(fd, F_GETFD), -1);
-+			ASSERT_EQ(errno, EBADF);
-+		} else {
-+			ASSERT_EQ(child, -1);
-+			ASSERT_EQ(errno, EINTR);
-+			ASSERT_EQ(close(fd), -1);
-+			ASSERT_EQ(errno, EINTR);
-+			ASSERT_GE(fcntl(fd, F_GETFD), 0);
-+		}
-+
-+		ASSERT_EQ(fork(), -1);
-+		ASSERT_EQ(errno, EAGAIN);
-+		ASSERT_EQ(write(handled, result, sizeof(result)), sizeof(result));
-+		_exit(0);
-+	}
-+	ASSERT_EQ(recvmsg(self->sync[0], &msg, 0), 1);
-+	ASSERT_FALSE(msg.msg_flags & MSG_CTRUNC);
-+	cmsg = CMSG_FIRSTHDR(&msg);
-+	ASSERT_NE(cmsg, NULL);
-+	ASSERT_EQ(cmsg->cmsg_level, SOL_SOCKET);
-+	ASSERT_EQ(cmsg->cmsg_type, SCM_RIGHTS);
-+	ASSERT_EQ(cmsg->cmsg_len, CMSG_LEN(sizeof(listener)));
-+	memcpy(&self->listener, CMSG_DATA(cmsg), sizeof(self->listener));
-+
-+	for (i = 0; i < 3; i++) {
-+		struct seccomp_notif req = {};
-+		struct seccomp_notif_resp resp = {};
-+
-+		notification_pending(_metadata, self->listener);
-+		if (i < 2 || variant->restart) {
-+			notification_signal(_metadata, self);
-+			if (!variant->restart)
-+				continue;
-+			notification_pending(_metadata, self->listener);
-+		}
-+		ASSERT_EQ(ioctl(self->listener, SECCOMP_IOCTL_NOTIF_RECV, &req), 0);
-+		EXPECT_EQ(req.pid, self->pid);
-+		resp.id = req.id;
-+		if (i == 2)
-+			resp.error = -EAGAIN;
-+		else
-+			resp.flags = SECCOMP_USER_NOTIF_FLAG_CONTINUE;
-+		ASSERT_EQ(ioctl(self->listener, SECCOMP_IOCTL_NOTIF_SEND, &resp), 0);
-+	}
-+	notification_result(_metadata, self, 0, 0);
-+}
-+
-+TEST_F(notification_restart, fatal_signal)
-+{
-+	int status;
-+
-+	notification_restart_child(_metadata, self);
-+	notification_pending(_metadata, self->listener);
-+	ASSERT_EQ(kill(self->pid, SIGKILL), 0);
-+	ASSERT_EQ(waitpid(self->pid, &status, 0), self->pid);
-+	self->pid = -1;
-+	ASSERT_TRUE(WIFSIGNALED(status));
-+	EXPECT_EQ(WTERMSIG(status), SIGKILL);
-+}
-+
-+TEST_F(notification_restart, listener_closed)
-+{
-+	notification_restart_child(_metadata, self);
-+	notification_pending(_metadata, self->listener);
-+	ASSERT_EQ(close(self->listener), 0);
-+	self->listener = -1;
-+	notification_result(_metadata, self, -1, ENOSYS);
-+}
-+
-+TEST(user_notification_restart_requires_listener)
-+{
-+	ASSERT_EQ(prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0), 0);
-+	EXPECT_EQ(user_notif_syscall(__NR_getppid,
-+				   SECCOMP_FILTER_FLAG_RESTART_BEFORE_RECV), -1);
-+	EXPECT_EQ(errno, EINVAL);
-+}
-+
- /* Ensure non-fatal signals prior to receive are unmodified */
- TEST(user_notification_wait_killable_pre_notification)
- {
--- 
-2.43.0
+I understand but I think for general solution we do need accounting for this and
+I have rfc out for this.
 
+>   - BPF-fault-around
+> 
+> Both are really beneficial to our workloads, and both are global programs today.
+> 
+> We are planning a few more customizations to resolve painful
+> production issues, such as:
+> 
+>   - The long-standing inode::lock contention caused by dentries [0].
+>     We have not started implementing it yet, but we might introduce a
+> memcg->dentry_limit or a memcg->vfs_cache_pressure as BPF policies..
+>   - cgroup-level readahead.
+> 
+> So, to answer your question directly: for memcg itself, the beneficial
+> customizations for us are the reclaim policy (the async reclaimer
+> above), the dentry/vfs cache pressure knobs, and fault-around; the
+> rest are per-cgroup MM policies that would need the
+> struct_ops-to-cgroup mechanism generalized beyond memcg — which is why
+> I hope these use cases can help make the design more generic.
+> 
+
+Thanks a lot for this information, I will think more on these.
+
+> [0] https://lore.kernel.org/linux-fsdevel/20240511200240.6354-2-torvalds@linux-foundation.org/
+> 
+> -- 
+> Regards
+> Yafang
