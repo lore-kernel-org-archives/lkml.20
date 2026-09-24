@@ -1,72 +1,147 @@
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A45A13CF043
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:02:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790272956; cv=none; b=WSHhlJtvymvjfpnEMgh7t8VaIHgS2ZUmFN0UW745+M5S6eVnZtQWkuQr4PInwxrXW/kE/QdBLm0XAfXwo3y5sH3qAFec6ITWcpqkYgU6WV3zXvI3D6VG3TSuBxselmgagDw2XjoAnba0w1PCeMfm3VrcTCs8IwdILWIl8azcwaQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790272956; c=relaxed/simple;
-	bh=BWQmMk4P7oWQZ6selUXVbWgc3eCmQ2XDAFOZYJ0wtvY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FCtFczEtGSjjVKN+WsF41pokugcuMASs2HEXtvFIZ4CLRY/ZgawmCHG7m7eO0kmVZXez9iflfvc2Nn8/ZNlaqImJtPcuJGn/bcoCjOdaSzz6Yp0NGm4SklxDKtc7PYUJBS9V4LkSMbcdvLAJfIW3c3xBwrYbL5Z8KVa4CUMr87Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=XBsI2RkD; arc=none smtp.client-ip=185.70.43.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D85415B76
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:03:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790273039; cv=pass; b=a6T18mT5A1vNePv2wOCmiYcrOn0fEPXqNGWPmx2NChAC33x3jj62iRb8mdqB8M+buUDmR7Rj/68IxkjuWOpfwOJAEjzgTDoeSdSnQ8iG/o5a+1aBk3iuH+LeqJDxojj1MLsmP5fkNxrQ/xvk3asdGB0Hm9ooQkIW25xto2ef3dM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790273039; c=relaxed/simple;
+	bh=be7ui7RFb4TvlxRvgKCPBiOHLIe8vlOIGLT6VBBiuVM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=N8QZP+LHGXs+YRDgFnGVTWllzs4SrwVxw74FwtP1qYgMSiIEQ3BlL6gF230GV4WLmF+X9Z7HWHWKe0+rGm4eV60yop6Hcq6aDvLznttmFGqitdZu0igqAwjqdlv89dOJYj4MlESzT1eGa8iB7Z9it7iNaTcYo9emvqTJzPLsgZs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=criticallink.com; spf=pass smtp.mailfrom=criticallink.com; dkim=pass (2048-bit key) header.d=criticallink.com header.i=@criticallink.com header.b=Tllg3cgI; arc=pass smtp.client-ip=74.125.224.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=criticallink.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=criticallink.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="XBsI2RkD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1790272950; x=1790532150;
-	bh=yw4Nx+apWUj5aMc01ZYswKCHC3oxA/NJaFvqqFiFb6o=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=XBsI2RkD3KGBSvEbYylArmUzoF9JHZb4otYJunaZVlgY02LOpi+LCIxGwHA6Py3mq
-	 ObpPSU6eb93OLFugL0uCbbrPe0qJGrrCh5EVeNcgTDZI4GiAS7nw2gfptPZb4tTcss
-	 w3kIlXNSOre35E635KHGZN+Ox8Sa4bNSq5o+aKBc/I56WBkJ6NiXJvy1kBOsAN//8g
-	 KOJq4V8Kf7R9Ae5H2aG1qv9CGBKUrvVj0nufEFkaLz6zsIvjuJTr09OiOnxBleCkQ5
-	 hgPfLoc/HT2twSBgz8CtAc6byzAvg/eVkNLWGMMqbLw8javzobmlJOm74zD8Y98m6G
-	 /uaVELx1nEUVg==
-Date: Thu, 24 Sep 2026 18:02:24 +0000
-To: Jakub Kicinski <kuba@kernel.org>
-From: Sagar Taunk <sagartaunk@proton.me>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, Matthew Maurer <mmaurer@google.com>, Carlos Llamas <cmllamas@google.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>
-Subject: Re: [PATCH net-next v4] rust: net: netlink: validate attribute length before casting to `c_int`
-Message-ID: <pg6AgjGkbepQeI2FIcnGmFk79uPhI0wShhVJVNbvrLkULQtO4jco6gm4xKaLiGFV9UVZBVK_h-sDlHtVip5s34SkCRyDoE47V9Zse9GsLAg=@proton.me>
-In-Reply-To: <20260924104645.4764dbba@kernel.org>
-References: <20260923120504.9100-1-sagartaunk@proton.me> <20260924104645.4764dbba@kernel.org>
-Feedback-ID: 130121444:user:proton
-X-Pm-Message-ID: 8552dff6b3f12d1f9196725532baf41082287872
+	dkim=pass (2048-bit key) header.d=criticallink.com header.i=@criticallink.com header.b="Tllg3cgI"
+Received: by mail-yx2-f42.google.com with SMTP id 956f58d0204a3-672f5240195so159971d50.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:03:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790273037; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nPjhymoryaS9CAXY8lua4mtQURL4JjSf1av+bRbw22L9O6HCDpHFjv0ys/DfNSV3tI
+         gwiMoyDg7xzGKH/87foD0GxSgSaI3HjT7Tvz/OYC485f5qAvs7sq3cuB55oJz5jyYiWi
+         2GSKJ1RHotitnN3S9t/jfqv6+ue4MhlDchgaYrdUjdkivCV1Tpl1e++2VUSsuqkK2wNx
+         y5eZv8qRTcZZF1HPQSi6tJeqUSc9ByeqFHNPSCpc5Cby1X6QQlfpQxORcCGm19L+ltNE
+         QmuJMH4wP15XY+PSVBCUhMZfHSd6fy7OCdYRXPqaIJLuqPbRZNTH/jh9eYTDSr1H3ZLG
+         94KA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GbI6rbvHDi76XEhVIPPpSzJuZ9OLSAAQszp6JpdmYTs=;
+        fh=J5gOyrLQcPBBT9qkGi9linofTMjNjmkApOpUdnqNlEM=;
+        b=mVnvZMzSTa5v8fbgiPSEbp+5aC6rPF7dtvMyD0m/zo+y0c6y80NAHWeRStC6eMPhBb
+         aaUAByhP+My68CDoPnPK+FNdtVe9VohephwxtNNWNWIxlD+AAwwrGfaN04ru3/BtbROb
+         gYPL4UvowkU3JA5DWmGmpbmstZordqzHRnQeo+gC6WojKTYrSSbwpeOk3iDKm2+GEYdV
+         EHE4IALyXkdZWPpn5Z8u9rDxmB1qdk3jhupoYAuvJkEZRUZi/dr6mQwu0LzHhrsgd3ta
+         SWLmMlmV+EiXxivawLt8NVkUHuOy0SslwmI9rI5Vk+KIBLgBnxya3cX34c8u/yvSbFEp
+         eaWw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=criticallink.com; s=google; t=1790273036; x=1790877836; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GbI6rbvHDi76XEhVIPPpSzJuZ9OLSAAQszp6JpdmYTs=;
+        b=Tllg3cgIs6Mh/QsE/gqtoODSVbxsjQTUklnMElum9L+0Mg7Z58Jvx5lGe9DXBEvpQm
+         UchuSGjjQpmHpdQeM30OXV9skW3zA0Ksucr+Bw8IrCuZLaVypsanKji52dK5vjcPevoB
+         ZnjXgGW45scARmkFDbXcvQLqNQExve44Lmc63dJ0T5trQnEvnx6c9ardk5j0iiDGgPPp
+         BchPZ/j0mPfJ2tTWiMvBvmnzsG8FChmaNKvCyUPGvY27HgIwLNx6xApZzfmvVWXMuncd
+         nRmjwC0bDVB1Q9qzmhfkYC5+aOy/lxzk1Cloogorzg1TUwiagURqYVV06Zp101/GDPIW
+         WjPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790273037; x=1790877837;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GbI6rbvHDi76XEhVIPPpSzJuZ9OLSAAQszp6JpdmYTs=;
+        b=BOVyZ8OiJk+IIlpg26QnpNsoa8pbkBU9UuyO6MuCYlp/F4jtGNHYfo+L4ZNyYvEoFb
+         20wvC70ZWVf4hWbLgcsUvZ3CzZPxgQHiqqUF4yL3WddbXSXG3DrC/W4hEHZL1Ktoxb5I
+         4JUqkrIq/0GXnxzRZvAdUwkWyjhUUD7zkH+k3rAqEaBXe//J1eXTvlKc7zsXLQ45I91O
+         m3in6s3cDqCz7tOompcVt0Mm3rjV43x+74DqMek3MwNCVpSM5841cyc7Y8KuPxb0D9xf
+         Zh3vbiYGZEuTIufPcTPXUkD7187zxcBA1N+d7dRJQVrN+h/XDFl47hQC5IyVkx37XKJb
+         brpg==
+X-Forwarded-Encrypted: i=1; AKwUvBwoOrfW7K/qBPzCO5yCJBDM4g6z8qXaxtyDh2M2RKCSDpH+JBOn+OrP9ncUn79Wo4nybUCwXPrVpntKReQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++klffIVGZOnp1Ul/dtEVscmXlABhKjgk0U5vp+/4EMzzajMIkR0
+	GmSfSE0EbeI5JuJlWxSwkjU2PJJvhwc4KerzQrUkA/dgujkCGoNDPUSP0WiZRKdnQlJzxegVF3K
+	G1KYEBY0ZMkXFzC3XDAVEN8X63D6cCsl5mrVYJnMF
+X-Gm-Gg: AYBFou38c1vR3+aN6An09RKgx8dulh7ERPRmCAnJ61uu2sEtghkXuD4HFAbvQsbEdU+
+	nlgKOU1yOlRBm/mBxNEomlfklaU/8ucymx1K8fOKLlU3Cn82f1FiaEwfPwyFgVcLb+LUK/rJyAq
+	UUFnZehqIWCxbNnDe2Fia2YTAynkOEJCI6Ohx0sJk39ExXvfuHU2WsK0MiBAxvCOYdYIXfHTXav
+	4Io73bs4UktQhaJS11/7WA0H8Qtxqgppi5lm4tae4xQDZRaNRi6T42IypUSBuXLt0TEZUjzH08m
+	KDiYtvjqFmDumlycLEVct5+ggF6l6rWPsdWg9fa5Vmw53rNs/DWqqimFWDx0H8SY
+X-Received: by 2002:a05:690e:4893:20b0:673:1df3:a6f8 with SMTP id
+ 956f58d0204a3-6731df4bb08mr827628d50.27.1790273034957; Thu, 24 Sep 2026
+ 11:03:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260919171100.90430-1-kmehltretter@gmail.com>
+ <20260919171100.90430-4-kmehltretter@gmail.com> <CAHp75VfOwZG0htxs7LJ5X4cdTMApESRpDaGCQqJpD3RSap+-6w@mail.gmail.com>
+In-Reply-To: <CAHp75VfOwZG0htxs7LJ5X4cdTMApESRpDaGCQqJpD3RSap+-6w@mail.gmail.com>
+From: Jon Cormier <jcormier@criticallink.com>
+Date: Thu, 24 Sep 2026 14:03:43 -0400
+X-Gm-Features: AclHuK9W-13IkypRQ3w-qHAtFYIaLjYWqfxyZOrezr6nxGY3oYYuRteiyYlIevs
+Message-ID: <CADL8D3aLAViH=5gVVRz7==M0T6rVuksNSgcoZCCTAJjroUnuxw@mail.gmail.com>
+Subject: Re: [PATCH 3/3] gpio: tps65219: Fix TPS65214 GPIO direction programming
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Jerome Neanne <jneanne@baylibre.com>, 
+	Shree Ramamoorthy <s-ramamoorthy@ti.com>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
+	Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, linux-omap@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Sorry, my last patch was based on the rust-next tree so I thought it was no=
-t applying because I commited this on top of that so I just removed that an=
-d rebased on rust-next again.=20
+On Thu, Sep 24, 2026 at 11:47=E2=80=AFAM Andy Shevchenko
+<andy.shevchenko@gmail.com> wrote:
+>
+> On Sat, Sep 19, 2026 at 8:11=E2=80=AFPM Karl Mehltretter <kmehltretter@gm=
+ail.com> wrote:
+> >
+> > GPIO_LINE_DIRECTION_OUT and GPIO_LINE_DIRECTION_IN have the values 0
+> > and 1, respectively, while the TPS65214 GPIO_CONFIG field is BIT(1).
+> > regmap_update_bits() masks the supplied value, so passing either
+> > direction value clears the field and selects input mode.
+> >
+> > Translate the GPIO direction to the register encoding used by
+> > tps65214_gpio_get_direction(), setting GPIO_CONFIG for output and
+> > clearing it for input.
+>
+> ...
+>
+> > +       val =3D direction =3D=3D GPIO_LINE_DIRECTION_OUT ?
+> > +               TPS65214_GPIO0_DIR_MASK : 0;
+> >         ret =3D regmap_update_bits(gpio->tps->regmap, TPS65219_REG_GENE=
+RAL_CONFIG,
+> > -                                TPS65214_GPIO0_DIR_MASK, direction);
+> > +                                TPS65214_GPIO0_DIR_MASK, val);
+>
+> regmap_assign_bits()
+That would make sense, it would simplify the diff.  I think something
+like this, right.
 
-Am I supposed to rebase on this one?=20
-`https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git/`
+-        ret =3D regmap_update_bits(gpio->tps->regmap,
+TPS65219_REG_GENERAL_CONFIG,
+ -                                TPS65214_GPIO0_DIR_MASK, direction);
++        ret =3D regmap_assign_bits(gpio->tps->regmap,
+TPS65219_REG_GENERAL_CONFIG,
+ +                                TPS65214_GPIO0_DIR_MASK, direction
+=3D=3D GPIO_LINE_DIRECTION_OUT);
 
 
+--=20
+Jonathan Cormier
+Senior Software Engineer
 
+Office:  315.425.4045 x222
 
-
-
-On Thursday, September 24th, 2026 at 11:16 PM, Jakub Kicinski <kuba@kernel.=
-org> wrote:
-
-> On Wed, 23 Sep 2026 12:05:17 +0000 Sagar Taunk wrote:
-> > Rebased on the upstream rust-next tree.
->=20
-> I'm confused, you're tagging this for net-next but rebasing
-> on rust-next. This patch does not apply for us.
-> --
-> pw-bot: cr
-> 
+http://www.CriticalLink.com
+6712 Brooklawn Parkway, Syracuse, NY 13211
