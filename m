@@ -1,159 +1,245 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02E0243F4D3
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:22:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E153911B5
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:22:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790284953; cv=none; b=M7u6uqX9d/Jb7fxdsC783iJWC3l63lD3WCxDlyHvMxRJYonfodax1LPITfztrgwqEJchv7bVNClozFBaoXeJKA6GEKOmlbIUvpcC3kUQ1SZQ7w3lFur8/bGRKVJo4Ole5vH0GS7MhU2GlffmQq2sAY0PeWLGr3o+PoTQ+u3mzUo=
+	t=1790284964; cv=none; b=lMxqzQ9+xBHV5J+pY22p35CAxmZzGukbXgr4bjDyxhcA6ahmSt0akpJVHk1xFSLaGFjc739w6pGCkvC8QbknV35uZO3A7Y1Pw2Du0RdSNnt/6JdfyMPzkdFVJHCxcwj+1db5keysTS5Lv+WMZoOmQ5r5IdXDXsa4h//JoutiELE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790284953; c=relaxed/simple;
-	bh=6kcQ8W/2jwK8APrrep1L/VCX0QLyn6OGdgFMflB0og0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m44nywX36Bqgv1oipxUs/bsK7J7vGdC0PXdOVkjWxfNTjNZPpynplL+RGzJXuPbcdEMdMsnrquxGajKBFgMXvqH2K+NwzY5SvdpcCpZ52nFyq4KEVFHj/JT3me8moy1D8ob+MdbN0RJAzifea2+c8LyZNSZUL0uZSNj84G6PkoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AG4ABhXq; arc=none smtp.client-ip=74.125.225.141
+	s=arc-20240116; t=1790284964; c=relaxed/simple;
+	bh=a8UW03hFC4y6xIrI/jY9IpQN2DP0E4+UInOOitHWCq0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RpRlVge24azDf/HM/SKEG+noW6hP5K16L1SSAtxe25QjuXZ+IeuAcbh5znhZbM3vTg4glhbG49BOwKUc3wCKLP+VDewemdlgXxtqayGHYqyRMzDtVslVQdM214hkDvUm8MtxWLpHY9m023wkJLuUqvWRl953cj3D7yDRl0miBNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UKWg6FeI; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AG4ABhXq"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fbc3db5fbso144455e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:22:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UKWg6FeI"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24afso205582a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:22:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790284946; x=1790889746; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YSkIisDkYKIIi4WkWWXOgZThDC1sNfe6ebPPfj77RR0=;
-        b=AG4ABhXqZcLbcPSU5i6Ywm9QKdcz2UrVVpRM+nSRsIrCNG+tTDLDhC+AtVeb+Izb8i
-         8/fEwxBYYFhNsiV4a29FzPLpDx4DsOGD0kZmljW5dByTTI37mtKFnvbryAOtSmIoqUlH
-         rtnFTA3zFTF5ZcJPZCaVdG0tNaGX+PBidoMjv1F3MljyVVK9Mi+ih7FAyEnAHpvrVXHs
-         pRFd3K+X5t1ZIyxDqv942ksCeYBb/GBr/VGSt7/OqSyn0YxlYMGmrvv/RwxckH4tq76Q
-         iDs1YeSUw/WYZ6FBBO50ahLoMtNDYzFYACSUgAttM+L6x7V6xA8ZFBrkmePMfZIhSps/
-         F21Q==
+        d=gmail.com; s=20251104; t=1790284963; x=1790889763; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XNeX0VLmUYHcPXZxiAvv/hSZfqe9z0guoQ2EWN7NS/g=;
+        b=UKWg6FeIp+QcZbBOi9RV8Vsv0ybC+q/eQVqfLW9gXNewL1D4v7MyuCnzSRSIZMm4Ya
+         cOcl4aI7OKLygx0FoKHCqsfc8AZp+mP1zMRP23MWAWOh6646wDaGF6bzNAwJ7dftM8tw
+         SJeD16wrp2Pa7gqrWpzaYA2KHl8Xo9BQHwxpLsZGTYWMtAi5FJC+qzeeCdcLYhXrag14
+         AcNwbzyL1+2s+SxjA1wnoRDigjo96wy7nDsKINvwAUrxuzGs/t3b4o9PA9B5yO1J5kRo
+         LF/xltEpKvIeZbFdJimhiyCwZKvWnST7j45zFQHVEBscPwZeMetjV+kmxkay1OzYFILW
+         PUFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790284946; x=1790889746;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790284963; x=1790889763;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YSkIisDkYKIIi4WkWWXOgZThDC1sNfe6ebPPfj77RR0=;
-        b=ODxTzGizjSYqQrBdcod8JdCQF6lRgXUqxcAKijpKsB1RMpIV1yX5ylvVcQnY1rlw9x
-         VJYYwEhNozMOIiloNwy9ptGWMaJTurz7dEaBPLryV4SgmTswgQRjWXxALw8UArSnczlt
-         /oJ3EZlbtMNK1AdR1rSjHZPI6uQERUfqrhY+KbDKsUoqdmNWy8aHpITrnw1Oij6S1WWO
-         a7ry5bzWZhZ+2YhwGgyjrpphwtB8CrDEbDb7RWJjlXH4+q+OAPAFsm8QzMVMjTiHmdEd
-         XKTvvdcgbA5fHz+GtRpdUXkNNYyCzPHHKt9u+yW70iOUr8FdES1PrG2wiVl9Fp84ygrG
-         /FfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwSRo67betZ8NxQ9NAuZI+8fw6E22uL+ps/T5Q5UU86PEcW8M/jyutMiqhi8CGfiw7M6ZXJXW9eq2AD37Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++k19Z3BGZ+3SfSF5uXBqxpME8CNfuUy4t5+68odGJ7e0JHZ0q2k
-	ltpjJcmRMMD6GgLzpOpZ/dGpka6gx8DBvM1sO+7iPd8ilCU+YpB75q6y
-X-Gm-Gg: AYBFou0AXaU24Pcz/I9X1V0GQIOm/RNj05hiuvyMFPwJJy63vxPQL2/GUyLenR6ttjr
-	/zkHXQKhX035M/W/7puS5WXMC+tllSAfCWjPlCul8H6AB6l1nuAFnNb/IYrFzm0fMv6U2FWh4lT
-	uz/IK3/ylbOBRLYfRG1zm3BoV4oOSfLqdrHwBm42S6q5fF8DCw7QONlrJyYB1+ebf1+n1lHJK4j
-	dpXFFUS0cmBCPtKTLjAVfsvb32moYnpq44nwGx+ILDovz2CgE9s641WhGCMeK82cdAB/rSWFRKp
-	iHed0owZ+hLRWJMiosJY8tpnLRRgh/XU9LoTcZCmjhZiTf2Ipah0LfYQp9zE1oYHQXd4EApsCkv
-	AwzUw70WJYP1qdCozjX8nP9CCuYwn+e5Sc5+J8cgt1+s+Bfn+nPbM+xJmuMnzk92vICmV+4tc88
-	2auKYnrv0B+hlXU94wXNsWJFWEPqjXmiq/IfggIjA94rtSsklNuvHMc8CJ/7iQMJ3kBDAMrnWUs
-	KIqkJnO/pNRTlU07cHqr22Z0eQqmpP7/dDNcBTzSfcLOw45uH7AxBMQc5CPkM+kDSTS4dasdn0v
-	jMJX4K6hkY5xtxq2X0jifw9mWxffFyqntMlAYQYw9lDuCinUO0rRQhlc/lQ4eFNXct1+Ecw8bee
-	qfAlJf/Wn8Ht44U/sTpD6qg==
-X-Received: by 2002:a05:600c:c490:b0:49d:1da4:511b with SMTP id 5b1f17b1804b1-49fe67bcb85mr60709165e9.1.1790284946476;
-        Thu, 24 Sep 2026 14:22:26 -0700 (PDT)
-Received: from ?IPV6:2a02:3100:610f:ecfc:4dfb:2ac9:70ba:48bd? (dynamic-2a02-3100-610f-ecfc-4dfb-2ac9-70ba-48bd.310.pool.telefonica.de. [2a02:3100:610f:ecfc:4dfb:2ac9:70ba:48bd])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a34a570sm1809789f8f.13.2026.09.24.14.22.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 14:22:25 -0700 (PDT)
-Message-ID: <798e192b-b10f-46ee-8059-bf8d6db058b9@gmail.com>
-Date: Thu, 24 Sep 2026 23:22:24 +0200
+        bh=XNeX0VLmUYHcPXZxiAvv/hSZfqe9z0guoQ2EWN7NS/g=;
+        b=CX4v6sKamxAUHA/WxZbotOEosO8xj8z8BRkfyc5KyJElG372cq5XbXfypVGm41pEAB
+         r0gMKzYDom6UB04vHERFlsvn6wHXXrpsdgWNT4oOvkSP5elzsp5kH/x8/wRLyddU8roT
+         ZuJcUH9RukUWx1yBRud5PAdnmOarrzzYTt83JZM6TLfPHil1OaCWZznZrHcF2UcmH4So
+         c50KnO3nbLm1VuayNuOnZP6EiIREO+kJv4T4Uj/cErjpbbkuz51E5bZ1xODnvjx61JcC
+         rMwQnLD74oxkyYdYhL0ZiI4ydjFQ+PE587TfBlYDsEVhBm/RRqeRfW/aQeIw8jVUJoRk
+         B7Pw==
+X-Forwarded-Encrypted: i=1; AKwUvBwzCopMHNsOf825bJhOxhQdRVBMCGwJfxuz2RIhRNsyCMzypnOa4T13ZiGmyAq11vnZoWXzZK90wwbJ5m0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kk18+AI8qTNDUJNP4Ad3B+LqUEPrro1RbK7BXKFDmSc/w6hhVD
+	7OtmmhQfdvB6MGEpSqzE2wegEffOBNuHumb0qvn3iYAHjca40mZEpajt
+X-Gm-Gg: AYBFou1DICefQZD0MzVjy4WmNNZjONhpv32fyTsm+YeGAKvjNniFG9iclPqYKQIwYmw
+	9Zv+SxoYWKT7krn64MyaMe4qiyPWl9OSBu6GsWKgaGmW0JW4xjv5sQ9G0kjVnHNHnUu1da5r6Hz
+	u37J6pBLqzeut8qLpnxzFjZnw+apdHmSoTLb6O0K1Tnpnk8EDSJgEeMoxOIm3weWdmPb+CiAx2g
+	b0QfSA+dHKrdWZL3OxDCFLDX69trKsru0z/ZU/fwknq+Ykt535yDrAz7qM/r9XAgAa+HICB2N2J
+	k5rCub+ZgaE/W/lFDK0NpPJBpnztIByhuiLCXvoDe7UKnymueplqj+NjWwn07Xh9bFXv/wddqrV
+	1WDe98GwvBqNmAvF0/i8eSX037jyL10xto9zwFGePndPubo+6BL5uR2RZH9hVCAlp/Hz4r8OKZj
+	9aEhgcEZ/iYbsaWu+9nGb8B6vH23+K4e54Y7mAKmO5mGKuu91zIMozAYzqQsx1OhMkkNQq1CI/P
+	/oyJ9kUTzyomiT1kcG/cr1+XwP0ALAvmz9m50kbTmLIj7pDrexKw187O1iXZKXtOFjQoE2O7Ou8
+	TsnOnkgSIA/WK7ssbUZtLKFKtL1BL4j+yrrxKbEjRy7L9wNVPecfxVCnVRY=
+X-Received: by 2002:a17:90b:4e8f:b0:39e:6c68:1551 with SMTP id 98e67ed59e1d1-3a09896c4demr3131575a91.25.1790284962600;
+        Thu, 24 Sep 2026 14:22:42 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b99e5711sm461579a91.17.2026.09.24.14.22.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 14:22:42 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-mtd@lists.infradead.org (open list:MEMORY TECHNOLOGY DEVICES (MTD)),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCHv3] dt-bindings: mtd: convert IBM NDFC binding to YAML
+Date: Thu, 24 Sep 2026 14:22:40 -0700
+Message-ID: <20260924212240.81857-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] net: hsr: shrink seqnr_lock to sequence counter
- updates
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, andrew+netdev@lunn.ch,
- shuah@kernel.org, kees@kernel.org, petr.wozniak@gmail.com,
- qingfang.deng@linux.dev, fmaurer@redhat.com, luka.gejak@linux.dev,
- xiaoliang.yang_1@nxp.com, skhawaja@google.com, liuhangbin@gmail.com,
- stable@vger.kernel.org, sdf.kernel@gmail.com,
- syzbot+fbf74291c3b7e753b481@syzkaller.appspotmail.com
-References: <20260809121455.1745-1-xiexinet@gmail.com>
- <20260809121455.1745-3-xiexinet@gmail.com>
- <20260923103725.kB_5-sDD@linutronix.de>
-Content-Language: en-GB
-From: Xin Xie <xiexinet@gmail.com>
-Autocrypt: addr=xiexinet@gmail.com; keydata=
- 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
- sNySbH3veZ/55EtlXA==
-In-Reply-To: <20260923103725.kB_5-sDD@linutronix.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 23/09/2026 12:37, Sebastian Andrzej Siewior wrote:
-> This fix relies on the bitmap seq nr handling while the Fixes commits
-> below do not have it. Doesn't this revert the synchronisation change
-> leading to the problem it tried to solve at least in the stable kernels?
+The NDFC NAND flash controller was only described in a legacy text file,
+so dtbs_check reported "failed to match any schema with compatible:
+['ibm,ndfc']" for the ndfc nodes of the bluestone, canyonlands, eiger,
+glacier, sequoia and warp device trees.
 
-You're right. Shrinking the lock can reintroduce ordering drops on 
-pre-bitmap kernels, and the sender's bitmap does not make reordering safe 
-for older peers.
+Convert the binding to the YAML format so those nodes match the generic
+nand-controller-legacy schema.  Describe the node's reg, ccr and
+bank-settings properties, along with its "nand" chip node which carries
+the legacy partition layout.
 
-Across ten VM runs per mode against an unmodified pre-bitmap HSRv0
-peer, the narrowed-lock control delivered 19,128 of 20,000 test frames
-at the peer's master. The ordered-consumer prototype delivered all
-20,000 exactly once.
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v3: fix wrong regex
+ v2: fix reg value
+ .../devicetree/bindings/mtd/ibm,ndfc.txt      | 39 --------
+ .../devicetree/bindings/mtd/ibm,ndfc.yaml     | 88 +++++++++++++++++++
+ 2 files changed, 88 insertions(+), 39 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/mtd/ibm,ndfc.txt
+ create mode 100644 Documentation/devicetree/bindings/mtd/ibm,ndfc.yaml
 
-I'll rework patch 2 around a single consumer for locally numbered
-traffic, including supervision. Each frame would be submitted to all
-its lower devices before the next frame is numbered. An idle caller
-would process only its own input inline; contention or re-entry would
-queue input to one BH worker.
-
-No HSR lock would be held across segmentation or dev_queue_xmit().
-Deferred inputs would retain their core TX recursion depth. This
-preserves the original per-lower submission ordering without relying
-on bitmap tolerance.
-
-On PREEMPT_RT, consumer ownership would not provide priority inheritance
-from queued producers; progress depends on the consumer being scheduled.
-I will test this explicitly.
-
+diff --git a/Documentation/devicetree/bindings/mtd/ibm,ndfc.txt b/Documentation/devicetree/bindings/mtd/ibm,ndfc.txt
+deleted file mode 100644
+index 869f0b5f16e8..000000000000
+--- a/Documentation/devicetree/bindings/mtd/ibm,ndfc.txt
++++ /dev/null
+@@ -1,39 +0,0 @@
+-AMCC NDFC (NanD Flash Controller)
+-
+-Required properties:
+-- compatible : "ibm,ndfc".
+-- reg : should specify chip select and size used for the chip (0x2000).
+-
+-Optional properties:
+-- ccr : NDFC config and control register value (default 0).
+-- bank-settings : NDFC bank configuration register value (default 0).
+-
+-Notes:
+-- partition(s) - follows the OF MTD standard for partitions
+-
+-Example:
+-
+-ndfc@1,0 {
+-	compatible = "ibm,ndfc";
+-	reg = <0x00000001 0x00000000 0x00002000>;
+-	ccr = <0x00001000>;
+-	bank-settings = <0x80002222>;
+-	#address-cells = <1>;
+-	#size-cells = <1>;
+-
+-	nand {
+-		#address-cells = <1>;
+-		#size-cells = <1>;
+-
+-		partition@0 {
+-			label = "kernel";
+-			reg = <0x00000000 0x00200000>;
+-		};
+-		partition@200000 {
+-			label = "root";
+-			reg = <0x00200000 0x03E00000>;
+-		};
+-	};
+-};
+-
+-
+diff --git a/Documentation/devicetree/bindings/mtd/ibm,ndfc.yaml b/Documentation/devicetree/bindings/mtd/ibm,ndfc.yaml
+new file mode 100644
+index 000000000000..e614c5855b42
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mtd/ibm,ndfc.yaml
+@@ -0,0 +1,88 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mtd/ibm,ndfc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: IBM/AMCC NDFC (NAND Flash Controller)
++
++maintainers:
++  - Miquel Raynal <miquel.raynal@bootlin.com>
++  - Richard Weinberger <richard@nod.at>
++
++description: |
++  The NDFC is the NAND flash controller integrated into the IBM/AMCC
++  PowerPC 44x SoCs.
++
++allOf:
++  - $ref: nand-controller-legacy.yaml#
++
++properties:
++  compatible:
++    const: ibm,ndfc
++
++  reg:
++    description: Chip select and size used for the chip.
++    maxItems: 1
++
++  ccr:
++    description: NDFC config and control register value.
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  bank-settings:
++    description: NDFC bank configuration register value.
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  nand:
++    type: object
++    description: NAND chip attached to the controller.
++
++    properties:
++      "#address-cells":
++        const: 1
++      "#size-cells":
++        const: 1
++
++    patternProperties:
++      "^partition@[0-9a-f]+$":
++        $ref: /schemas/mtd/partitions/partition.yaml#/$defs/partition-node
++        deprecated: true
++
++    unevaluatedProperties: false
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    ebc {
++        #address-cells = <2>;
++        #size-cells = <1>;
++
++        ndfc@1,0 {
++            compatible = "ibm,ndfc";
++            reg = <0x00000001 0x00000000 0x00002000>;
++            ccr = <0x00001000>;
++            bank-settings = <0x80002222>;
++            #address-cells = <1>;
++            #size-cells = <1>;
++
++            nand {
++                #address-cells = <1>;
++                #size-cells = <1>;
++
++                partition@0 {
++                    label = "kernel";
++                    reg = <0x00000000 0x00200000>;
++                };
++                partition@200000 {
++                    label = "root";
++                    reg = <0x00200000 0x03e00000>;
++                };
++            };
++        };
++    };
++...
 -- 
-Xin
+2.55.0
+
