@@ -1,157 +1,179 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013002.outbound.protection.outlook.com [52.101.72.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A1562C027C;
-	Thu, 24 Sep 2026 10:02:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790244158; cv=none; b=dpxrmuIVkN3fyddX4gobtMpXpB7Ir50OJW9f+pPbOnqGhtsN9TVhC0hWp5qYiNMrA4/57JZegGkkLGo6wuNAGHYQeb6Sv9lAcHvhL4Urfi9H/CX4nRcAbf3z6suEWNLkJnLRMZ/I078r+0iOzHzV4I/Vh7wvKieWbIkBfUGtZJ4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790244158; c=relaxed/simple;
-	bh=j9bzPr8c/APpw1BFsgzCv6jQ1N1HBVG3AWZYXhTX1wU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IY1DPY4pGj+cv9anp9HBGtZKLIb1duBo4qxmvMh5NU3ptA0i4/Mdf7rle3NB9tpIElhdxURfGtK3GHBKXPWbkEvRY3VckE//VU3MteFtvmTRqO68aapMmQ+qqb3ckMa8aNTu/CLoKt5VFxwJ1nIerfpTucZDbQlIwpUMJqXXNYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=k1UDX0Sc; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=R//TPFuf; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ZrXg5bKf; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=cbf8/GAg; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A47342AF85;
+	Thu, 24 Sep 2026 10:03:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.2
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790244189; cv=fail; b=eKg6/l8OWPMv/EO2H5C0LllVARJE6ZhyLsWDPr22X746Noo8Jm7ttyH9YFHk1owm2EGq+Mb8kZ0omqrXDEqlAZajvJOfV5Gnj3p3BV1hRHogOyX72Niz4PILKvpk7YLtzZmvEEHaDWrDuJjXLjPBhTnEzPeEgEolOwM5rAxmzy0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790244189; c=relaxed/simple;
+	bh=73iV088va7Mg7D+g8ARx2GYA47lgVZUqj+0KM2z2DJc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=ZNio57EGJ2aWzoTfpkXVg24zw6JLX4mBCvgfNnGGLYG7dquB5if6inkR0G+6NJTTsKuiPFMiCv8fXRW4KASf1rn38nUBZGXoFyYMA8g+L4xLCQ2s334jgcBYLCfAHkL5Ox35LHa3ZjdU62ZbWP4vBQ8mozh8Ute8/GJSVjc4N7I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=ecXCL09b; arc=fail smtp.client-ip=52.101.72.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="k1UDX0Sc";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="R//TPFuf";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ZrXg5bKf";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="cbf8/GAg"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 23D1820078;
-	Thu, 24 Sep 2026 10:02:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790244144; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QUgbq2oEPVNbQ4QENlBT3vH4AJoiP0XYBkZ7hOGg7tQ=;
-	b=k1UDX0ScgR177+S8gtL0B5TSSbz7rNXB6MmgYOpPi7yzJ/Y8LGibYhJg5LKbfQ1GtsSvoj
-	4X928R8jaRA8yqAZNN7PsvzB7cUNuVDfw2236IHaJDjF/MQnYZ3COWNKXGsAu65HDiWhN7
-	FjZl+UH6fv5NrFymm5kbF9zxK3wxMl0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790244144;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QUgbq2oEPVNbQ4QENlBT3vH4AJoiP0XYBkZ7hOGg7tQ=;
-	b=R//TPFuf/11ED5Xq6lKCgQ3A9LTO+78tPISpshJsvoAVDveh9LJljAKxTLCvVssswYAEiU
-	mlS4phsYpMKyNiAg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790244140; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QUgbq2oEPVNbQ4QENlBT3vH4AJoiP0XYBkZ7hOGg7tQ=;
-	b=ZrXg5bKfqAiXRfqCx17EHFgvrfQy69ONHxIU2SKZ8XNlukoLoXDmsCq0nY1OCXXXVPqW9M
-	9P5JQytZIPFB9JcVDP7AR5V7VUlYNjO1ul5Q45/+7Clq3nveUNUWVV/X71oWgsBykiV6Lp
-	eyugY02y4FWgzB1cx/YL5tqw+SjiTkw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790244140;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QUgbq2oEPVNbQ4QENlBT3vH4AJoiP0XYBkZ7hOGg7tQ=;
-	b=cbf8/GAgMko46tktgPctenXiNGV9q/ko10jXLleVD/Q179KrKPlQpgGIOi2S34m6CtYotF
-	18i2oi5EC+ZwAiAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F037313354;
-	Thu, 24 Sep 2026 10:02:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 1cr6MSv1tGrxRAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 24 Sep 2026 10:02:19 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 7B32CA132E; Thu, 24 Sep 2026 12:02:19 +0200 (CEST)
-Date: Thu, 24 Sep 2026 12:02:19 +0200
-From: Jan Kara <jack@suse.cz>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: Jan Kara <jack@suse.cz>, Christian Brauner <brauner@kernel.org>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] isofs: tie the name conversion buffer to its bound
-Message-ID: <q2yv3qj5fhkg6gm2zgada2agi2vywt4g264ijw7ocpk4mxclkp@7iehjt5slo6u>
-References: <20260922155524.1993425-1-matthias.goergens@gmail.com>
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="ecXCL09b"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Eh3kwuGOBC1NrQ6hh/a8pBriKPqYFF2GP6IeuRgseq0qcypfKfAO4rZMxZGClcuZa91bB4pKcKj1dfObvGYC7zPlIMlOUgsTlKYRwpsxU3TbFuT+rQ4/m43YgsMJ3R3clTfiYMDcNGJC86b4y7uFFSzpVKeh77n8yjoiuGbyE7DCJ2HTOTzGFWRpE40NNoig/p6oXhkWe8fASlvkKF7fUHPrsvedFjyX7a7mzOeZ1utPgPWXS6mK3EYLsCG7dgehgLu/BWG6hyLw2A9tcLJ/MnSAyjvJFlt1hfxajB7D1DpmNWmEfuTrUjpZ6pHj/oSE8DH+lZ3Y9jSUFp+XiNTVoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7fspICiYhf6bOkPX3VdB3DM5eceotDOWCxay+2dEmLY=;
+ b=xLSzzeXHrRNGRmDgpkNZ9+zLEGiupIcv9SGEIg7afbymddhwEtrhrqKrfUgWNrSAUj3zRki6hkHKDWBLndGkqRMihOWH+9MnrNIE4n8WuMxyg6y1WD885RvgGz8zOHFw0usGMumeOZEhqVNdZJoKdQ3dNesrg1ryyEjgXkdXqfrYgqiw7crSI+sgY+yZzN7AQrZvrRxBNidFr8FqLoTdoBEn/PO9FeSZr470Dk/4VjQsuIawh80xExZ8H/YzoSOaOUzMrPDcUcyJhQ++1ARyRoKwSk0setveZ4otfvcFB6GgBwJuYloQ4j0ElwtgjHKR2hof5AbqG7Z0OO+mrIAB5g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7fspICiYhf6bOkPX3VdB3DM5eceotDOWCxay+2dEmLY=;
+ b=ecXCL09byU//RL0rFb8DXN29tuZZhM9saYitmCaL3d6nWR7SeVXhMPlj2mBBgC1Tr1Vz1eP9zUn8pjJfH2+M+QDLS14bekhr+P70zzTbQ0U9xyU/tZwpcd1y8lS3ra8GRuYUfCM0Faa6N+PUYgrB8j9CgzAcDK10txQhfUdBcE4NafLc/kcYbnagYp0o+KYZKHENE5Req6RYaWTv5uYXAgD7BCyq02H3KS+RnDAGM60/AeYIZtMBwbY9Hn8yj6AnpCKs/1LXcriAUgnXxwy08qdyS5UFx9ZYTRlO0wwS6P3TqCn9VoY8eX+tVfIVx5FWV3pMSJIdEwIKmQ9JKaFfxA==
+Received: from DU2P250CA0012.EURP250.PROD.OUTLOOK.COM (2603:10a6:10:231::17)
+ by MI3PR10MB9900.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:290:73::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 10:02:52 +0000
+Received: from DB1PEPF000509ED.eurprd03.prod.outlook.com
+ (2603:10a6:10:231:cafe::80) by DU2P250CA0012.outlook.office365.com
+ (2603:10a6:10:231::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Thu,
+ 24 Sep 2026 10:02:52 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ DB1PEPF000509ED.mail.protection.outlook.com (10.167.242.71) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 10:02:52 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 24 Sep
+ 2026 12:08:42 +0200
+Received: from [10.48.86.251] (10.48.86.251) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 24 Sep
+ 2026 12:02:50 +0200
+Message-ID: <d2fe0f9c-190c-4359-8a91-cebe8a95693e@foss.st.com>
+Date: Thu, 24 Sep 2026 12:02:49 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922155524.1993425-1-matthias.goergens@gmail.com>
-X-Spam-Score: -2.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Flag: NO
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 05/14] iio: adc: stm32-adc: rework internal channels
+ data
+To: Jonathan Cameron <jic23@kernel.org>, Andy Shevchenko <andy@kernel.org>
+CC: Marek Vasut <marex@nabladev.com>, <linux-iio@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	<linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, David Lechner
+	<dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>
+References: <20260923-adc-stm32mp25-v1-v2-0-46bc019537c6@foss.st.com>
+ <20260923-adc-stm32mp25-v1-v2-5-46bc019537c6@foss.st.com>
+Content-Language: en-US
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <20260923-adc-stm32mp25-v1-v2-5-46bc019537c6@foss.st.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB1PEPF000509ED:EE_|MI3PR10MB9900:EE_
+X-MS-Office365-Filtering-Correlation-Id: 66d83fba-f927-4511-1d79-08df1a22ff68
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|82310400026|1800799024|36860700016|23010399003|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	7tI1xhLnRUU2MkZjSdgM1aF96Tux4eTlNIDFZ/p8Qwr6VrcKLPSCnO2lDcpbmdkTMZhfp9EO/ctXXj1Az/wclUU7ZC/VZuMvyB1pks4NhO8kPPlx1eIoxvgYVYsUOHjSw0fXlr070iHGrDHc3BsIZBMGUbAEen5CbK1Ckr0Y7wqex7Ka9fuIYJlYqcBmCTTvHRAtFbgqTbSgbyzZjQVW/Rg0EKUFsIFhJAaZqFyeDz/UEXaMYrq5rhWcvMWw4niU/MOpQKb9CYydpChsW7JNj8a+rTovIZKCfX8aU4LX1DLBBvik+kKicmuetqEHKHCazvtgISTJTItLmxXut5AoISNUY3nxDrJQtpq5SejZWAKBDnt7uk8y2ofeO7dZOB81ypoecY+oXcy077feIBtoOoOBwMsE2tJotyCGvbZ6LYKthSoC0vpdcFVk0ZiEzYpjxtlyRhQL9XHPqBUM3Q+tdkjOmyguyoLnG4uXQ2nBUFwjBM/wPg0uWZPhiUUvwhDg/ixPOeXubnBxtz/C8Bo7zq0VV/x0oMOskJUIdqcsQYOcctJmgLGk2vHdr2TJm509Kk/keHfYtM3wmmYL8fDERjSWcqRMY4LczOcY47qUXxyZfKWbSf9Crk5s0TE5nFeAhVJgUs6S33/9ymW9yTobhQ==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(1800799024)(36860700016)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	9DskYKj+kcGeJlr0+ggS7HP0aqh9tL5kTtEzNJCR6QhyPPeYXHNIlYP1sasG0DPJRbaeMNj0fOw7pzSNJ6JSe4A4ORAgt6mp7jkLnU8fvahnpYjyDb6hAotIjOZTd0LNLbiq9fOEOjs9HoGCLQFZQ7oOgq7H6kfUGjVzvfIJZMF7y7UnBsPqs1IqIKHxYfteTTWSJGIpmgdmtDb2eTOXEMwyMJIB5ey1rLkiGf/+VWc0Bg880xaq+NVqSdtQmyh7mfcMmE6tYOy7vL3GzLJ4kAGqiLmpJR2Thl8Z9kjSJi2qPvtSEIhVT2nt8Fja6NEwSA/uFO02F8+OPhNwBGRA9VXc4qT2u6gOmJdIWRFwKLgezogAy36fz/tdRvpbDvX/ZBOHKjtAh4x6DWoJS/VhkLFdqg/s07KdERc7tlmrGmyQI2/5rPGS61UJ5bjuqIMd
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 10:02:52.4886
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66d83fba-f927-4511-1d79-08df1a22ff68
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB1PEPF000509ED.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI3PR10MB9900
 
-On Tue 22-09-26 23:55:22, Matthias Goergens wrote:
-> Two cleanups around the scratch buffer isofs_readdir() and
-> isofs_lookup() hand to the name converters.  No functional change; the
-> first patch's assertions hold on the current code.
+On 9/23/26 17:39, Fabrice Gasnier wrote:
+> Diversity in internal channels data array lead to have zeroed data.
+> To facilitate addition of new internal channels, without touching
+> all array initializers, only focus on exiting channels on each
+> supported ADC variant (e.g. each SoC).
 > 
-> Found while looking at something else: get_joliet_filename() has been
-> passing PAGE_SIZE as its output bound since b2eb2e288604 shrank the
-> buffer to 1024, which is safe only because de->name_len is a single
-> byte.  That seemed worth writing down in a form the compiler checks.
+> This also allows to get rid of static_assert() checks.
+> 
+> No functional change intended.
 
-Well, the buffer indeed was allocated PAGE_SIZE large but the space beyond
-offset 1024 was used for the storage of iso_directory_record loaded from
-the disk (tmpde). So the storage available for the name was only 1024 bytes
-large from the start. Only the failures would be more subtle if the
-overflow ever happened before b2eb2e288604. That being said I agree that
-get_joliet_filename() usage is outright wrong (despite being harmless) and
-making buffer size handling logic more robust is useful.
+[ snip ]
 
-								Honza
+> -static const unsigned int stm32_adc_min_ts_mp1[] = { 100, 100, 100, 4300, 9800 };
+> -static_assert(ARRAY_SIZE(stm32_adc_min_ts_mp1) == STM32_ADC_INT_CH_NB);
+> +static const unsigned int stm32_adc_min_ts_mp1[STM32_ADC_INT_CH_NB] = {
+> +	[STM32_ADC_INT_CH_VDDCORE] = 100,
+> +	[STM32_ADC_INT_CH_VREFINT] = 4300,
+> +	[STM32_ADC_INT_CH_VBAT] = 9800
+> +};
 
+Hi all,
+
+Oops, I just figured out I've mixed changes with a fix here. So, I just
+have sent a separate fix for that [1].
+It's been noticed by sashiko [2].
+
+I'll wait a bit before sending a V3, to leave time to review other patches.
+
+>  
+>  static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
+>  	.regs = &stm32mp1_adc_regspec,
+> @@ -2760,8 +2756,13 @@ static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
+>  	.vref_charac_mv = 3300,
+>  };
+>  
+> -static const unsigned int stm32_adc_min_ts_mp13[] = { 100, 0, 0, 4300, 9800 };
+> -static_assert(ARRAY_SIZE(stm32_adc_min_ts_mp13) == STM32_ADC_INT_CH_NB);
+> +static const unsigned int stm32_adc_min_ts_mp13[STM32_ADC_INT_CH_NB] = {
+> +	[STM32_ADC_INT_CH_VDDCORE] = 1000,
+> +	[STM32_ADC_INT_CH_VDDCPU] = 1000,
+> +	[STM32_ADC_INT_CH_VDDQ_DDR] = 1000,
+> +	[STM32_ADC_INT_CH_VREFINT] = 4300,
+> +	[STM32_ADC_INT_CH_VBAT] = 9800
+> +};
+
+Same here.
+
+[1]
+https://lore.kernel.org/linux-iio/20260924-adc-fix-sampling-v1-1-13814954d8d7@foss.st.com/
+
+[2]
+https://sashiko.dev/#/message/20260923155115.20E4E1F00893%40smtp.kernel.org
+
+BR,
+Fabrice
+
+>  
+>  static const struct stm32_adc_cfg stm32mp13_adc_cfg = {
+>  	.regs = &stm32mp13_adc_regspec,
 > 
-> Matthias Goergens (2):
->   isofs: size the name conversion buffer from a named constant
->   isofs: bound the Joliet iocharset conversion by the output buffer
-> 
->  fs/isofs/dir.c    |  9 ++++++++-
->  fs/isofs/isofs.h  |  9 +++++++++
->  fs/isofs/joliet.c | 25 ++++++++++++++++++++-----
->  fs/isofs/namei.c  |  2 +-
->  fs/isofs/rock.c   |  3 +++
->  5 files changed, 41 insertions(+), 7 deletions(-)
-> 
-> 
-> base-commit: 40288c9206c17eb66a603262e06a58d300d0f279
-> -- 
-> 2.55.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+
