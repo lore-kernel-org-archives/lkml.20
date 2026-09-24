@@ -1,147 +1,150 @@
-Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D85415B76
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:03:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790273039; cv=pass; b=a6T18mT5A1vNePv2wOCmiYcrOn0fEPXqNGWPmx2NChAC33x3jj62iRb8mdqB8M+buUDmR7Rj/68IxkjuWOpfwOJAEjzgTDoeSdSnQ8iG/o5a+1aBk3iuH+LeqJDxojj1MLsmP5fkNxrQ/xvk3asdGB0Hm9ooQkIW25xto2ef3dM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790273039; c=relaxed/simple;
-	bh=be7ui7RFb4TvlxRvgKCPBiOHLIe8vlOIGLT6VBBiuVM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=N8QZP+LHGXs+YRDgFnGVTWllzs4SrwVxw74FwtP1qYgMSiIEQ3BlL6gF230GV4WLmF+X9Z7HWHWKe0+rGm4eV60yop6Hcq6aDvLznttmFGqitdZu0igqAwjqdlv89dOJYj4MlESzT1eGa8iB7Z9it7iNaTcYo9emvqTJzPLsgZs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=criticallink.com; spf=pass smtp.mailfrom=criticallink.com; dkim=pass (2048-bit key) header.d=criticallink.com header.i=@criticallink.com header.b=Tllg3cgI; arc=pass smtp.client-ip=74.125.224.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=criticallink.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=criticallink.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A8423F0AA7
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:04:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790273059; cv=none; b=qk2MLPp7fFlrf/63+N69a1aakMAVIuiteh4PTbOES6eIbIFHhUZBczUvTb/QkVgRT+pXycvGE7y15LzC0HPnj3Nz8k0MWzwTn1M6DMOr1FBMOyTq92bMMb6SbTkp0Uq9sQkKuGmSDfs1bmzOIVBpPOFLJ950he5fkrY8F2E7jjc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790273059; c=relaxed/simple;
+	bh=y7PL0+ejjyHGcnok7ngTGhIV4WHYWuQR9i0Pn0Z9nR8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WrLbN4icR6k/REBW4r6iN0kx4PUhtBmM7eXaRKBQII0SCjJ8O7CXc0fQD1IGfPhqqx4FGWVFO//fv3CvTpWzoPp4SXsAb1Z02237wpAUE/GbUWyFQNrLR5KcjG3nDWzuyer32LlGd8dTUcQ1yU/7c1YzYGzIDUZzHJ04x2tZvPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MuWAQ0Hy; arc=none smtp.client-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=criticallink.com header.i=@criticallink.com header.b="Tllg3cgI"
-Received: by mail-yx2-f42.google.com with SMTP id 956f58d0204a3-672f5240195so159971d50.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:03:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790273037; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nPjhymoryaS9CAXY8lua4mtQURL4JjSf1av+bRbw22L9O6HCDpHFjv0ys/DfNSV3tI
-         gwiMoyDg7xzGKH/87foD0GxSgSaI3HjT7Tvz/OYC485f5qAvs7sq3cuB55oJz5jyYiWi
-         2GSKJ1RHotitnN3S9t/jfqv6+ue4MhlDchgaYrdUjdkivCV1Tpl1e++2VUSsuqkK2wNx
-         y5eZv8qRTcZZF1HPQSi6tJeqUSc9ByeqFHNPSCpc5Cby1X6QQlfpQxORcCGm19L+ltNE
-         QmuJMH4wP15XY+PSVBCUhMZfHSd6fy7OCdYRXPqaIJLuqPbRZNTH/jh9eYTDSr1H3ZLG
-         94KA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=GbI6rbvHDi76XEhVIPPpSzJuZ9OLSAAQszp6JpdmYTs=;
-        fh=J5gOyrLQcPBBT9qkGi9linofTMjNjmkApOpUdnqNlEM=;
-        b=mVnvZMzSTa5v8fbgiPSEbp+5aC6rPF7dtvMyD0m/zo+y0c6y80NAHWeRStC6eMPhBb
-         aaUAByhP+My68CDoPnPK+FNdtVe9VohephwxtNNWNWIxlD+AAwwrGfaN04ru3/BtbROb
-         gYPL4UvowkU3JA5DWmGmpbmstZordqzHRnQeo+gC6WojKTYrSSbwpeOk3iDKm2+GEYdV
-         EHE4IALyXkdZWPpn5Z8u9rDxmB1qdk3jhupoYAuvJkEZRUZi/dr6mQwu0LzHhrsgd3ta
-         SWLmMlmV+EiXxivawLt8NVkUHuOy0SslwmI9rI5Vk+KIBLgBnxya3cX34c8u/yvSbFEp
-         eaWw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MuWAQ0Hy"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c2946aa0d5aso186209266b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:04:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=criticallink.com; s=google; t=1790273036; x=1790877836; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GbI6rbvHDi76XEhVIPPpSzJuZ9OLSAAQszp6JpdmYTs=;
-        b=Tllg3cgIs6Mh/QsE/gqtoODSVbxsjQTUklnMElum9L+0Mg7Z58Jvx5lGe9DXBEvpQm
-         UchuSGjjQpmHpdQeM30OXV9skW3zA0Ksucr+Bw8IrCuZLaVypsanKji52dK5vjcPevoB
-         ZnjXgGW45scARmkFDbXcvQLqNQExve44Lmc63dJ0T5trQnEvnx6c9ardk5j0iiDGgPPp
-         BchPZ/j0mPfJ2tTWiMvBvmnzsG8FChmaNKvCyUPGvY27HgIwLNx6xApZzfmvVWXMuncd
-         nRmjwC0bDVB1Q9qzmhfkYC5+aOy/lxzk1Cloogorzg1TUwiagURqYVV06Zp101/GDPIW
-         WjPw==
+        d=gmail.com; s=20251104; t=1790273056; x=1790877856; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8ZaSVO+SF6MEByvXtiNZMR9/TYrsAkgI1sYilat2LtQ=;
+        b=MuWAQ0HyO144YjPCnNEPhO39lRH+EK2CCiHkS2HHTlJEuTpToT3q2pzYDLi/znwRPW
+         gpMN57KKXWivPsxe5Mf5Jc8dqR5lj41L+HH8LvR6qIXadM5FGFdCnWbnbzxU5xYHMcOf
+         RvxU9f8Q63v6zQyh/CAnzDoHE0v8OAIgIQSkOtW2pV8d15tburpy9Fuc7xohb92c9mhf
+         RazyWXt8TPqBZAAulmhR5UnEGIOXvFvxDm1uxNF/uQvt1jR7zrG1uTd4xah2r+2foTtR
+         UxYJitxk+AvGqAUv+RMRmig45/5/f/AcR/IS/LFMk7fQ2kmk8z6L73KdkUGmpmN+acpg
+         87qA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790273037; x=1790877837;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GbI6rbvHDi76XEhVIPPpSzJuZ9OLSAAQszp6JpdmYTs=;
-        b=BOVyZ8OiJk+IIlpg26QnpNsoa8pbkBU9UuyO6MuCYlp/F4jtGNHYfo+L4ZNyYvEoFb
-         20wvC70ZWVf4hWbLgcsUvZ3CzZPxgQHiqqUF4yL3WddbXSXG3DrC/W4hEHZL1Ktoxb5I
-         4JUqkrIq/0GXnxzRZvAdUwkWyjhUUD7zkH+k3rAqEaBXe//J1eXTvlKc7zsXLQ45I91O
-         m3in6s3cDqCz7tOompcVt0Mm3rjV43x+74DqMek3MwNCVpSM5841cyc7Y8KuPxb0D9xf
-         Zh3vbiYGZEuTIufPcTPXUkD7187zxcBA1N+d7dRJQVrN+h/XDFl47hQC5IyVkx37XKJb
-         brpg==
-X-Forwarded-Encrypted: i=1; AKwUvBwoOrfW7K/qBPzCO5yCJBDM4g6z8qXaxtyDh2M2RKCSDpH+JBOn+OrP9ncUn79Wo4nybUCwXPrVpntKReQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++klffIVGZOnp1Ul/dtEVscmXlABhKjgk0U5vp+/4EMzzajMIkR0
-	GmSfSE0EbeI5JuJlWxSwkjU2PJJvhwc4KerzQrUkA/dgujkCGoNDPUSP0WiZRKdnQlJzxegVF3K
-	G1KYEBY0ZMkXFzC3XDAVEN8X63D6cCsl5mrVYJnMF
-X-Gm-Gg: AYBFou38c1vR3+aN6An09RKgx8dulh7ERPRmCAnJ61uu2sEtghkXuD4HFAbvQsbEdU+
-	nlgKOU1yOlRBm/mBxNEomlfklaU/8ucymx1K8fOKLlU3Cn82f1FiaEwfPwyFgVcLb+LUK/rJyAq
-	UUFnZehqIWCxbNnDe2Fia2YTAynkOEJCI6Ohx0sJk39ExXvfuHU2WsK0MiBAxvCOYdYIXfHTXav
-	4Io73bs4UktQhaJS11/7WA0H8Qtxqgppi5lm4tae4xQDZRaNRi6T42IypUSBuXLt0TEZUjzH08m
-	KDiYtvjqFmDumlycLEVct5+ggF6l6rWPsdWg9fa5Vmw53rNs/DWqqimFWDx0H8SY
-X-Received: by 2002:a05:690e:4893:20b0:673:1df3:a6f8 with SMTP id
- 956f58d0204a3-6731df4bb08mr827628d50.27.1790273034957; Thu, 24 Sep 2026
- 11:03:54 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790273056; x=1790877856;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8ZaSVO+SF6MEByvXtiNZMR9/TYrsAkgI1sYilat2LtQ=;
+        b=mlqDJxk9HyegpIG7rXBGNCJmPJt2Y+EeXF6U+KcilxJWWbksQU4M1+nJNznBG8SBLO
+         efjl/TnHoVYOxbVBPm1eju44mjy5+G8UZkQZFO+BTicLb9V8cZU2hfRCZVnm2nxBKnMe
+         rC3R2EhGjS22hjJH02WA2xtYpwGSXgDPjnPZHFdiRC5Q9ewoLHxiQt9zcuT6dMCrLaIv
+         I999xfzZmRBICKsf+kNYxvMjyXafPlt5Idn9+qEbvm6dH2DbLhK2facx4dZfH10c5ai7
+         TQwbzicm9zj4uL5LOgu0qLNlKPMKgv2SJYuD0NJzyvdUByXjgW8jMmXGay9yRcTzrLVo
+         uYWg==
+X-Forwarded-Encrypted: i=1; AKwUvBwud/vW7eAWxqfbzTGX4KLEYbzDQIe9qTgh+DzB0kbtuQLUHEFqs/j+q6iTgQDWCZkkwcAk8kKswdtIBRA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mTBxyBsH9fXS4OiGrokp1f/5mR24HLd8f9T72oUhmvgV0jM2FO
+	C5zKXgyb9GGmHuBEeiFJL5j+EcuTH0O8agC6x1p0pWEImECPRrQVdxrDY0VN2xNN8g==
+X-Gm-Gg: AYBFou3BWUamngAadqWs9peW85uVw8I43OuqtEawu0xg8/juQwT90xJw9AZkru8o7qq
+	zjsfg6iIVtJE3oR+IRiERKUTzpo/+req3u58lZ60wcbrzA2ql4YfFyygRSJvwIFONn2+lZSPV+N
+	2CEAYux8ItDxrwNR0C2tx7SrFJSTvVwTjTDp6M68A6GpdbzpOBJd6iaErDuB7edQr9uzBtJMh9y
+	0qlUAhQ696ZELuO2/U3K2R4QD40Fwp9fb08iGLlFEE51fvB1Me85rVPHb5QQky679aljRJPUxwe
+	RAACtBg3DHYwa8ORPGyj/n321jtZSpCUC304NpGHFq8B3YNrbcM0O+T1oWtdRZAsVap3iN8GKT4
+	QASNbrDXP29xwSTBpGN1TmrVMw0FprC4XVDGFmD8pUIwHejvJm/zExa8n9UeoMGw6Nq4WOGyC+a
+	sueM04rNpuCSpdUvt1kbGLAAfjwZX4s8vvnXM3IJqalF6ux8oKiessB3XlaySW+nNj4ipBSoWBM
+	CMD
+X-Received: by 2002:a17:907:6ea9:b0:c29:42ad:acd0 with SMTP id a640c23a62f3a-c2ac23a733fmr314809466b.30.1790273055386;
+        Thu, 24 Sep 2026 11:04:15 -0700 (PDT)
+Received: from okuroshi-laptop ([169.150.245.5])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae6610a6sm336715966b.39.2026.09.24.11.04.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 11:04:14 -0700 (PDT)
+From: Artem Maksimov <okuroshioffc@gmail.com>
+To: Jorge Lopez <jorge.lopez2@hp.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+	Artem Maksimov <okuroshioffc@gmail.com>
+Subject: [PATCH] platform/x86: hp-bioscfg: support large bios data
+Date: Thu, 24 Sep 2026 21:03:41 +0300
+Message-ID: <20260924180341.34064-1-okuroshioffc@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260919171100.90430-1-kmehltretter@gmail.com>
- <20260919171100.90430-4-kmehltretter@gmail.com> <CAHp75VfOwZG0htxs7LJ5X4cdTMApESRpDaGCQqJpD3RSap+-6w@mail.gmail.com>
-In-Reply-To: <CAHp75VfOwZG0htxs7LJ5X4cdTMApESRpDaGCQqJpD3RSap+-6w@mail.gmail.com>
-From: Jon Cormier <jcormier@criticallink.com>
-Date: Thu, 24 Sep 2026 14:03:43 -0400
-X-Gm-Features: AclHuK9W-13IkypRQ3w-qHAtFYIaLjYWqfxyZOrezr6nxGY3oYYuRteiyYlIevs
-Message-ID: <CADL8D3aLAViH=5gVVRz7==M0T6rVuksNSgcoZCCTAJjroUnuxw@mail.gmail.com>
-Subject: Re: [PATCH 3/3] gpio: tps65219: Fix TPS65214 GPIO direction programming
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Jerome Neanne <jneanne@baylibre.com>, 
-	Shree Ramamoorthy <s-ramamoorthy@ti.com>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
-	Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, linux-omap@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 11:47=E2=80=AFAM Andy Shevchenko
-<andy.shevchenko@gmail.com> wrote:
->
-> On Sat, Sep 19, 2026 at 8:11=E2=80=AFPM Karl Mehltretter <kmehltretter@gm=
-ail.com> wrote:
-> >
-> > GPIO_LINE_DIRECTION_OUT and GPIO_LINE_DIRECTION_IN have the values 0
-> > and 1, respectively, while the TPS65214 GPIO_CONFIG field is BIT(1).
-> > regmap_update_bits() masks the supplied value, so passing either
-> > direction value clears the field and selects input mode.
-> >
-> > Translate the GPIO direction to the register encoding used by
-> > tps65214_gpio_get_direction(), setting GPIO_CONFIG for output and
-> > clearing it for input.
->
-> ...
->
-> > +       val =3D direction =3D=3D GPIO_LINE_DIRECTION_OUT ?
-> > +               TPS65214_GPIO0_DIR_MASK : 0;
-> >         ret =3D regmap_update_bits(gpio->tps->regmap, TPS65219_REG_GENE=
-RAL_CONFIG,
-> > -                                TPS65214_GPIO0_DIR_MASK, direction);
-> > +                                TPS65214_GPIO0_DIR_MASK, val);
->
-> regmap_assign_bits()
-That would make sense, it would simplify the diff.  I think something
-like this, right.
+Memory allocation for ordered_list_data and string_data
+can fail if contiguous physical memory is fragmented or insufficient.
+Switch from kzalloc_objs to kvzalloc_objs to fall back to
+virtually contiguous memory when physically contiguous
+allocation fails.
 
--        ret =3D regmap_update_bits(gpio->tps->regmap,
-TPS65219_REG_GENERAL_CONFIG,
- -                                TPS65214_GPIO0_DIR_MASK, direction);
-+        ret =3D regmap_assign_bits(gpio->tps->regmap,
-TPS65219_REG_GENERAL_CONFIG,
- +                                TPS65214_GPIO0_DIR_MASK, direction
-=3D=3D GPIO_LINE_DIRECTION_OUT);
+Signed-off-by: Artem Maksimov <okuroshioffc@gmail.com>
+---
+ .../x86/hp/hp-bioscfg/order-list-attributes.c         | 11 ++++++++---
+ .../platform/x86/hp/hp-bioscfg/string-attributes.c    | 11 ++++++++---
+ 2 files changed, 16 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/platform/x86/hp/hp-bioscfg/order-list-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/order-list-attributes.c
+index 5bf8d40bdf81..80ac15435a18 100644
+--- a/drivers/platform/x86/hp/hp-bioscfg/order-list-attributes.c
++++ b/drivers/platform/x86/hp/hp-bioscfg/order-list-attributes.c
+@@ -98,8 +98,13 @@ int hp_alloc_ordered_list_data(void)
+ {
+ 	bioscfg_drv.ordered_list_instances_count =
+ 		hp_get_instance_count(HP_WMI_BIOS_ORDERED_LIST_GUID);
+-	bioscfg_drv.ordered_list_data = kzalloc_objs(*bioscfg_drv.ordered_list_data,
+-						     bioscfg_drv.ordered_list_instances_count);
++
++	if (!bioscfg_drv.ordered_list_instances_count)
++		return -EINVAL;
++	bioscfg_drv.ordered_list_data =
++			kvzalloc_objs(*bioscfg_drv.ordered_list_data,
++						bioscfg_drv.ordered_list_instances_count);
++
+ 	if (!bioscfg_drv.ordered_list_data) {
+ 		bioscfg_drv.ordered_list_instances_count = 0;
+ 		return -ENOMEM;
+@@ -438,6 +443,6 @@ void hp_exit_ordered_list_attributes(void)
+ 	}
+ 	bioscfg_drv.ordered_list_instances_count = 0;
+ 
+-	kfree(bioscfg_drv.ordered_list_data);
++	kvfree(bioscfg_drv.ordered_list_data);
+ 	bioscfg_drv.ordered_list_data = NULL;
+ }
+diff --git a/drivers/platform/x86/hp/hp-bioscfg/string-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/string-attributes.c
+index f3dfba270f7e..095201004d87 100644
+--- a/drivers/platform/x86/hp/hp-bioscfg/string-attributes.c
++++ b/drivers/platform/x86/hp/hp-bioscfg/string-attributes.c
+@@ -101,8 +101,13 @@ static const struct attribute_group string_attr_group = {
+ int hp_alloc_string_data(void)
+ {
+ 	bioscfg_drv.string_instances_count = hp_get_instance_count(HP_WMI_BIOS_STRING_GUID);
+-	bioscfg_drv.string_data = kzalloc_objs(*bioscfg_drv.string_data,
+-					       bioscfg_drv.string_instances_count);
++
++	if (!bioscfg_drv.string_instances_count)
++		return -EINVAL;
++	bioscfg_drv.string_data =
++			kvzalloc_objs(*bioscfg_drv.string_data,
++					bioscfg_drv.string_instances_count);
++
+ 	if (!bioscfg_drv.string_data) {
+ 		bioscfg_drv.string_instances_count = 0;
+ 		return -ENOMEM;
+@@ -390,6 +395,6 @@ void hp_exit_string_attributes(void)
+ 	}
+ 	bioscfg_drv.string_instances_count = 0;
+ 
+-	kfree(bioscfg_drv.string_data);
++	kvfree(bioscfg_drv.string_data);
+ 	bioscfg_drv.string_data = NULL;
+ }
+-- 
+2.53.0
 
---=20
-Jonathan Cormier
-Senior Software Engineer
-
-Office:  315.425.4045 x222
-
-http://www.CriticalLink.com
-6712 Brooklawn Parkway, Syracuse, NY 13211
