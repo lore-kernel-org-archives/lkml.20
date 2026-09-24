@@ -1,220 +1,229 @@
-Received: from mta0.migadu.com (out-10.mta0.migadu.com [91.218.175.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF6C6379C56
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:17:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.10
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 237423D8918
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:22:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790223459; cv=none; b=C0XxI2q820GT453xEA2SGt96/zZrhJ8bzi2d7zcX/O4Q4jV9Vr5dhHyuRhO8Kvy3VfnNIoUcxITVuvgbyoZlKFc3ywSG5NbuRr0nQLkH9WSVD/n6F+8OuOnRsOIZy6XsChlq4vot0jH712hX2efT4ayxsEo24ApT74b1fEr/hJc=
+	t=1790223747; cv=none; b=rFhzV+yPdgN1Pqsc5q4iexMUyWDSvoUQOunEWWJdnRUAo1De6g8qDEtt4aUzLqOmacv+2Ma8k41B6RBZZPzKIRVf3qukYxLAFEkdO/jwjnSCeL10IINXjPWedmYzFWh9weXWqag+55tUNu71qI6JUjKA5giYVYT5ikhUq4BlC+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790223459; c=relaxed/simple;
-	bh=nMPnE+cQpNJeJ+D+zqkXY1Fai7+zycPMt1Imwgwn4OU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=c9Nviu4XCexq1yLumeEILZArfyCD5z7tcdSHDgtCb4HDHwLn+5lyniWIHC/OguXy//xIGqoQcqkV4nOCE0u9SzAiOAKxs957nF9hMu3PPQjhtIw1vD1sqS5iBM7jHAFcULkflIRM6plBOvXa6831RE6rbgv5W6eSyQwyqfCjBM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=woolweaver.bid; spf=pass smtp.mailfrom=woolweaver.bid; dkim=pass (2048-bit key) header.d=woolweaver.bid header.i=@woolweaver.bid header.b=Qw46Djzy; arc=none smtp.client-ip=91.218.175.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=woolweaver.bid
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=woolweaver.bid
+	s=arc-20240116; t=1790223747; c=relaxed/simple;
+	bh=fUdSVAPf6JXOiBt1WWMuSzllWnjreq6oNfBQJVovxRA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=siFsxa/hd3U30HVn/e1plOdewomQTqp8eQyynoGefAzoDkVvKDEWCADFtTYfDYXA3oiR2lAssARfxZvfkepm22GhwzdufZzlqLiPleCMru+c4ngRfzRjUa8WDIZeJ/SfcgDILLNX7nOs76pcgHSc9pMbSa3iWNifr/2S1AqHwa8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=vcaCmMp8; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=woolweaver.bid header.i=@woolweaver.bid header.b="Qw46Djzy"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nMPnE+cQpNJeJ+D+zqkXY1Fai7+zycPMt1Imwgwn4OU=;
- c=simple/simple; d=woolweaver.bid;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790223454; v=1; x=1790828254;
- b=Qw46DjzyA2bEr7nVLmKv65iUUevYgFW5oIxqDKrFh+0isqbuew/Ju/ENrlulzwbB7uSqCGr7
- uPL/4KLOCILLzhT09Xxdry5YK6F9U96SRRHg+2lo2xYpk0ZXcBxqHJInPtraGnPRjjODMViGc/T
- MtSZIa3fbxm3KrUsThrysggEsFhAPki16kCtWEqqKRI+xafb39Qmi5Ptojm337ewdtxIN9boNNQ
- FiXG25rmym8qN6zugaY5RsCxSCU/KzXUBlFfdzqIGk3eqE8i6jttGCs/axoFJSjBJDQwlFCaDkb
- RQbpEIYtUxmfHlMOehLD6G3KdCeMaW8kjJMirTTV2qheQ==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9894b03afe6d6956;
-	Thu, 24 Sep 2026 04:17:24 +0000
-X-Mizu-Trace-ID: 9894b03afe6d6956
-X-Migadu-Flow: FLOW_OUT
-From: Michael Woolweaver <michael@woolweaver.bid>
-To: Namjae Jeon <linkinjeon@kernel.org>,
-	Hyunchul Lee <hyc.lee@gmail.com>
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Michael Woolweaver <michael@woolweaver.bid>
-Subject: [PATCH] ntfs: exclude DOS aliases from VFS link count
-Date: Wed, 23 Sep 2026 23:17:20 -0500
-Message-ID: <20260924041720.16477-1-michael@woolweaver.bid>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="vcaCmMp8"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 728BB152B;
+	Wed, 23 Sep 2026 21:22:16 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 17AE03F632;
+	Wed, 23 Sep 2026 21:22:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790223739; bh=fUdSVAPf6JXOiBt1WWMuSzllWnjreq6oNfBQJVovxRA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=vcaCmMp8KMgI7rlLS5ZdKK8H9cM1yzjrrGOEQJN1omkufGYnpJu1rXNXvkRmte5If
+	 JM82hP0WEX+At0U6W5yRcvzxzqF2hKPJV4EX7zarCcdCE2nIZPwkJ9WahHNcaiNPSB
+	 w0ABcm0ZfrX3w23T+UrHGy8IFaoNbLi2EBRYeZ8c=
+Date: Thu, 24 Sep 2026 09:52:15 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: Ryan Roberts <ryan.roberts@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Linu Cherian <linu.cherian@arm.com>, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, kasan-dev@googlegroups.com
+Subject: Re: [PATCH V2 4/4] arm64/mm: Use pgdp_get() for PGD accesses
+Message-ID: <6g6jx5mcpv3zkxqyysfyldn6zgc2m6vydjwnoz3balrdjre2pe@wdso3tebrjn3>
+References: <20260922061638.3967467-1-anshuman.khandual@arm.com>
+ <20260922061638.3967467-5-anshuman.khandual@arm.com>
+ <a2365246-53a4-41e6-a655-6813f913cc1f@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a2365246-53a4-41e6-a655-6813f913cc1f@arm.com>
 
-NTFS counts each $FILE_NAME attribute in the MFT record link_count.
-A file with separate Win32 and DOS 8.3 names therefore has a link_count
-of two even though the DOS name is an alias and does not represent a
-separate VFS hard link.
+On Wed, Sep 23, 2026 at 09:31:28AM +0100, Ryan Roberts wrote:
+> On 22/09/2026 07:16, Anshuman Khandual wrote:
+> > Replace READ_ONCE() with pgdp_get() for PGD accesses in preparation for
+> > supporting both D64 and D128 translation table formats.
+> > 
+> > READ_ONCE() cannot currently be used for 128-bit page table entries on
+> > arm64 because it does not provide the required 128-bit single-copy
+> > atomicity, causing builds to fail for accesses wider than 64 bits.
+> > 
+> > Although LDP/STP provide the required atomicity when FEAT_LSE is
+> > available (as required by FEAT_D128), extending READ_ONCE() to support
+> > 128-bit accesses is undesirable. READ_ONCE() is a general-purpose API,
+> > so doing so could encourage other 128-bit users that would either fail
+> > to build in configurations without D128 support or, if D128 becomes a
+> > runtime option, silently permit tearing on systems without the required
+> > hardware support.
+> > 
+> > Instead, standardize PGD accesses on the existing page-table helpers.
+> > These can be overridden on arm64 to provide 128-bit single-copy
+> > atomicity when required. No functional change intended.
+> 
+> I notice you have unconverted READ_ONCE(*pgdp) in:
+> 
+>  - p4d_offset_phys()
+>  - p4d_offset()
+> 
+> Is that intentional?
 
-ntfs_read_locked_inode() copies the MFT link_count directly to i_nlink,
-causing stat() to report an extra hard link for files with a separate
-DOS alias.
+Platform overrride for p4dp_get() should solve the problem as well.
 
-The same distinction is needed when unlinking. ntfs_delete() removes
-both the DOS and Win32 $FILE_NAME attributes, decrementing the on-disk
-link_count for each, but it must decrement the VFS link count only for
-the Win32 name. Otherwise a real hard link can reach i_nlink zero while
-another VFS-visible name still exists.
-
-Count non-DOS $FILE_NAME attributes when initializing i_nlink, while
-still verifying that the MFT link_count matches the total number of
-name attributes. Do not drop i_nlink when ntfs_delete() removes a DOS
-alias.
-
-This was reproduced with a file containing separate Win32 and DOS
-names. Its MFT link_count was 2 while stat() incorrectly reported 2
-links. With the fix, stat() reports 1.
-
-After adding a real POSIX hard link, the MFT contained three
-$FILE_NAME attributes while the VFS correctly reported two links.
-Removing the Win32/DOS pair left the POSIX hard link with both the MFT
-link_count and VFS i_nlink equal to 1.
-
-The fix was runtime-tested with fs/ntfs on a disposable NTFS image and
-compile-tested on ntfs-next with W=1. checkpatch.pl reports no issues.
-
-Fixes: 1e9ea7e04472 ("Revert "fs: Remove NTFS classic"")
-Assisted-by: LLM
-Signed-off-by: Michael Woolweaver <michael@woolweaver.bid>
----
- fs/ntfs/inode.c | 77 +++++++++++++++++++++++++++++++++++++++++++++++++
- fs/ntfs/namei.c |  5 +++-
- 2 files changed, 81 insertions(+), 1 deletion(-)
-
-diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
-index 9583b2c6c7a2..74a0d9d1e82b 100644
---- a/fs/ntfs/inode.c
-+++ b/fs/ntfs/inode.c
-@@ -621,6 +621,67 @@ static int ntfs_is_extended_system_file(struct ntfs_attr_search_ctx *ctx)
- 	return 0;	/* NO, it is not an extended system file. */
- }
- 
-+/*
-+ * ntfs_count_vfs_links - count VFS-visible hard links
-+ * @ctx: initialized attribute search context
-+ *
-+ * The MFT link count counts all $FILE_NAME attributes.  A separate DOS 8.3
-+ * name therefore contributes to the on-disk count even though it is an alias
-+ * for its Win32 name and does not represent another VFS hard link.
-+ *
-+ * Return the number of VFS-visible links or -errno on error.
-+ */
-+static int ntfs_count_vfs_links(struct ntfs_attr_search_ctx *ctx)
-+{
-+	unsigned int expected, names = 0, links = 0;
-+	int err;
-+
-+	expected = le16_to_cpu(ctx->mrec->link_count);
-+	ntfs_attr_reinit_search_ctx(ctx);
-+
-+	while (!(err = ntfs_attr_lookup(AT_FILE_NAME, NULL, 0, 0, 0, NULL, 0,
-+					ctx))) {
-+		struct attr_record *attr = ctx->attr;
-+		struct file_name_attr *fn;
-+		u32 attr_len, value_len;
-+		u16 value_off;
-+
-+		if (unlikely(attr->non_resident))
-+			goto corrupt;
-+
-+		attr_len = le32_to_cpu(attr->length);
-+		value_len = le32_to_cpu(attr->data.resident.value_length);
-+		value_off = le16_to_cpu(attr->data.resident.value_offset);
-+
-+		if (unlikely(value_off > attr_len ||
-+			     value_len > attr_len - value_off ||
-+			     value_len < offsetof(struct file_name_attr, file_name)))
-+			goto corrupt;
-+
-+		fn = (struct file_name_attr *)((u8 *)attr + value_off);
-+		names++;
-+		if (fn->file_name_type != FILE_NAME_DOS)
-+			links++;
-+	}
-+
-+	if (unlikely(err != -ENOENT))
-+		return err;
-+
-+	if (unlikely(names != expected || !links)) {
-+		ntfs_error(ctx->ntfs_ino->vol->sb,
-+			   "Inode link count doesn't match file name attributes. You should run chkdsk.");
-+		return -EIO;
-+	}
-+
-+	ntfs_attr_reinit_search_ctx(ctx);
-+	return links;
-+
-+corrupt:
-+	ntfs_error(ctx->ntfs_ino->vol->sb,
-+		   "Corrupt file name attribute. You should run chkdsk.");
-+	return -EIO;
-+}
-+
- static struct lock_class_key ntfs_dir_inval_lock_key;
- 
- void ntfs_set_vfs_operations(struct inode *inode, mode_t mode, dev_t dev)
-@@ -872,6 +933,22 @@ static int ntfs_read_locked_inode(struct inode *vi)
- 		}
- 	}
- skip_attr_list_load:
-+	/*
-+	 * The MFT link count includes separate DOS 8.3 aliases.  Once the
-+	 * attribute list is available, derive the VFS link count from the
-+	 * $FILE_NAME namespaces instead.
-+	 */
-+	if (!(m->flags & MFT_RECORD_IS_DIRECTORY) && vi->i_ino != FILE_MFT) {
-+		int nr_links;
-+
-+		nr_links = ntfs_count_vfs_links(ctx);
-+		if (unlikely(nr_links < 0)) {
-+			err = nr_links;
-+			goto unm_err_out;
-+		}
-+		set_nlink(vi, nr_links);
-+	}
-+
- 	err = ntfs_attr_lookup(AT_EA_INFORMATION, NULL, 0, 0, 0, NULL, 0, ctx);
- 	if (!err) {
- 		NInoSetHasEA(ni);
-diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
-index 75e201096525..891ee697c0d2 100644
---- a/fs/ntfs/namei.c
-+++ b/fs/ntfs/namei.c
-@@ -829,6 +829,7 @@ static int ntfs_delete(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
- 	struct file_name_attr *fn = NULL;
- 	bool looking_for_dos_name = false, looking_for_win32_name = false;
- 	bool case_sensitive_match = true;
-+	bool is_dos_name;
- 	int err = 0;
- 	struct mft_record *ni_mrec;
- 	struct super_block *sb;
-@@ -932,6 +933,8 @@ static int ntfs_delete(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
- 	if (err)
- 		goto err_out;
- 
-+	is_dos_name = fn->file_name_type == FILE_NAME_DOS;
-+
- 	err = ntfs_index_remove(dir_ni, fn, le32_to_cpu(actx->attr->data.resident.value_length));
- 	if (err)
- 		goto err_out;
-@@ -942,7 +945,7 @@ static int ntfs_delete(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
- 
- 	ni_mrec = actx->base_mrec ? actx->base_mrec : actx->mrec;
- 	ni_mrec->link_count = cpu_to_le16(le16_to_cpu(ni_mrec->link_count) - 1);
--	if (!S_ISDIR(VFS_I(ni)->i_mode))
-+	if (!S_ISDIR(VFS_I(ni)->i_mode) && !is_dos_name)
- 		drop_nlink(VFS_I(ni));
- 
- 	mark_mft_record_dirty(ni);
-
-base-commit: 401898d748fcc8e19ceea1a37ed0de9075fe9ff2
--- 
-2.55.0
-
+> 
+> Thanks,
+> Ryan
+> 
+> 
+> > 
+> > Cc: Catalin Marinas <catalin.marinas@arm.com>
+> > Cc: Will Deacon <will@kernel.org>
+> > Cc: Ryan Roberts <ryan.roberts@arm.com>
+> > Cc: Mark Rutland <mark.rutland@arm.com>
+> > Cc: linux-arm-kernel@lists.infradead.org
+> > Cc: linux-kernel@vger.kernel.org
+> > Cc: kasan-dev@googlegroups.com
+> > Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
+> > ---
+> >  arch/arm64/mm/fault.c       | 2 +-
+> >  arch/arm64/mm/hugetlbpage.c | 2 +-
+> >  arch/arm64/mm/kasan_init.c  | 6 +++---
+> >  arch/arm64/mm/mmu.c         | 6 +++---
+> >  arch/arm64/mm/pageattr.c    | 2 +-
+> >  arch/arm64/mm/trans_pgd.c   | 4 ++--
+> >  6 files changed, 11 insertions(+), 11 deletions(-)
+> > 
+> > diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
+> > index a6afd8929a10..43f25418275a 100644
+> > --- a/arch/arm64/mm/fault.c
+> > +++ b/arch/arm64/mm/fault.c
+> > @@ -160,7 +160,7 @@ static void show_pte(unsigned long addr)
+> >  	guard(irqsave)();
+> >  
+> >  	pgdp = pgd_offset(mm, addr);
+> > -	pgd = READ_ONCE(*pgdp);
+> > +	pgd = pgdp_get(pgdp);
+> >  	ptval_to_str(pxd_str, pgd_val(pgd));
+> >  	pr_alert("[%016lx] pgd=%s", addr, pxd_str);
+> >  
+> > diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
+> > index 5771bf49e1fe..e05e5b41ae50 100644
+> > --- a/arch/arm64/mm/hugetlbpage.c
+> > +++ b/arch/arm64/mm/hugetlbpage.c
+> > @@ -284,7 +284,7 @@ pte_t *huge_pte_offset(struct mm_struct *mm,
+> >  	pmd_t *pmdp, pmd;
+> >  
+> >  	pgdp = pgd_offset(mm, addr);
+> > -	if (!pgd_present(READ_ONCE(*pgdp)))
+> > +	if (!pgd_present(pgdp_get(pgdp)))
+> >  		return NULL;
+> >  
+> >  	p4dp = p4d_offset(pgdp, addr);
+> > diff --git a/arch/arm64/mm/kasan_init.c b/arch/arm64/mm/kasan_init.c
+> > index 4dd8c1186471..f61f5bc09467 100644
+> > --- a/arch/arm64/mm/kasan_init.c
+> > +++ b/arch/arm64/mm/kasan_init.c
+> > @@ -102,7 +102,7 @@ static pud_t *__init kasan_pud_offset(p4d_t *p4dp, unsigned long addr, int node,
+> >  static p4d_t *__init kasan_p4d_offset(pgd_t *pgdp, unsigned long addr, int node,
+> >  				      bool early)
+> >  {
+> > -	if (pgd_none(READ_ONCE(*pgdp))) {
+> > +	if (pgd_none(pgdp_get(pgdp))) {
+> >  		phys_addr_t p4d_phys = early ?
+> >  				__pa_symbol(kasan_early_shadow_p4d)
+> >  					: kasan_alloc_zeroed_page(node);
+> > @@ -256,7 +256,7 @@ static int __init root_level_idx(u64 addr)
+> >  static void __init clone_next_level(u64 addr, pgd_t *tmp_pg_dir, pud_t *pud)
+> >  {
+> >  	int idx = root_level_idx(addr);
+> > -	pgd_t pgd = READ_ONCE(swapper_pg_dir[idx]);
+> > +	pgd_t pgd = pgdp_get(swapper_pg_dir + idx);
+> >  	pud_t *pudp = (pud_t *)__phys_to_kimg(__pgd_to_phys(pgd));
+> >  
+> >  	memcpy(pud, pudp, PAGE_SIZE);
+> > @@ -280,7 +280,7 @@ static int __init next_level_idx(u64 addr)
+> >   */
+> >  static void __init clear_next_level(int pgd_idx, int start, int end)
+> >  {
+> > -	pgd_t pgd = READ_ONCE(swapper_pg_dir[pgd_idx]);
+> > +	pgd_t pgd = pgdp_get(swapper_pg_dir + pgd_idx);
+> >  	pud_t *pudp = (pud_t *)__phys_to_kimg(__pgd_to_phys(pgd));
+> >  
+> >  	memset(&pudp[start], 0, (end - start) * sizeof(pud_t));
+> > diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
+> > index 83709d987e7c..76d8d320aeed 100644
+> > --- a/arch/arm64/mm/mmu.c
+> > +++ b/arch/arm64/mm/mmu.c
+> > @@ -434,7 +434,7 @@ static int alloc_init_p4d(pgd_t *pgdp, unsigned long addr, unsigned long end,
+> >  {
+> >  	int ret;
+> >  	unsigned long next;
+> > -	pgd_t pgd = READ_ONCE(*pgdp);
+> > +	pgd_t pgd = pgdp_get(pgdp);
+> >  	p4d_t *p4dp;
+> >  
+> >  	if (pgd_none(pgd)) {
+> > @@ -1649,7 +1649,7 @@ static void unmap_hotplug_range(unsigned long addr, unsigned long end,
+> >  	do {
+> >  		next = pgd_addr_end(addr, end);
+> >  		pgdp = pgd_offset_k(addr);
+> > -		pgd = READ_ONCE(*pgdp);
+> > +		pgd = pgdp_get(pgdp);
+> >  		if (pgd_none(pgd))
+> >  			continue;
+> >  
+> > @@ -1827,7 +1827,7 @@ static void free_empty_tables(unsigned long addr, unsigned long end,
+> >  	do {
+> >  		next = pgd_addr_end(addr, end);
+> >  		pgdp = pgd_offset_k(addr);
+> > -		pgd = READ_ONCE(*pgdp);
+> > +		pgd = pgdp_get(pgdp);
+> >  		if (pgd_none(pgd))
+> >  			continue;
+> >  
+> > diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
+> > index 826856ef64a8..dfa1356daac2 100644
+> > --- a/arch/arm64/mm/pageattr.c
+> > +++ b/arch/arm64/mm/pageattr.c
+> > @@ -399,7 +399,7 @@ bool kernel_page_present(struct page *page)
+> >  	unsigned long addr = (unsigned long)page_address(page);
+> >  
+> >  	pgdp = pgd_offset_k(addr);
+> > -	if (pgd_none(READ_ONCE(*pgdp)))
+> > +	if (pgd_none(pgdp_get(pgdp)))
+> >  		return false;
+> >  
+> >  	p4dp = p4d_offset(pgdp, addr);
+> > diff --git a/arch/arm64/mm/trans_pgd.c b/arch/arm64/mm/trans_pgd.c
+> > index 7afe2beca4ba..06470d690f9f 100644
+> > --- a/arch/arm64/mm/trans_pgd.c
+> > +++ b/arch/arm64/mm/trans_pgd.c
+> > @@ -134,7 +134,7 @@ static int copy_p4d(struct trans_pgd_info *info, pgd_t *dst_pgdp,
+> >  	unsigned long next;
+> >  	unsigned long addr = start;
+> >  
+> > -	if (pgd_none(READ_ONCE(*dst_pgdp))) {
+> > +	if (pgd_none(pgdp_get(dst_pgdp))) {
+> >  		dst_p4dp = trans_alloc(info);
+> >  		if (!dst_p4dp)
+> >  			return -ENOMEM;
+> > @@ -164,7 +164,7 @@ static int copy_page_tables(struct trans_pgd_info *info, pgd_t *dst_pgdp,
+> >  	dst_pgdp = pgd_offset_pgd(dst_pgdp, start);
+> >  	do {
+> >  		next = pgd_addr_end(addr, end);
+> > -		if (pgd_none(READ_ONCE(*src_pgdp)))
+> > +		if (pgd_none(pgdp_get(src_pgdp)))
+> >  			continue;
+> >  		if (copy_p4d(info, dst_pgdp, src_pgdp, addr, next))
+> >  			return -ENOMEM;
+> 
