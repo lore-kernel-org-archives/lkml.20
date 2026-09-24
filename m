@@ -1,88 +1,224 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C65A3D953F;
-	Thu, 24 Sep 2026 17:03:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF863A782D
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:03:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790269406; cv=none; b=ZwpQPlfOnMEDGkIXw6h8M2EdbY7a56ywyi8H59x0aWvpnSWiYhseB/uS7hZyG5J9uKG/adN+/t8T+BLvNyh44s1sAAv4PPF7LpuxTuRPcqHmicZQl7iGo9hs65kC6yh8eZnaRw/6slAxp//HhTgFCknFwHkPKt66Yewfe4WJepI=
+	t=1790269441; cv=none; b=jFCMBoTnJVDbeFCX3n62bzvRh5Tf73DFmSJ/C55XyZPQZ9j9lO+jaIEBwYn4h1a1kAvwqpTcSz9JQDguSmLI3tDNiiaYWC9eODVf6jpaWcR/3g/nUuoj2sB/tsd3GA+R24Qf0yPvDZ3bqdM583wilGE6v4zz8rjwnMjaZd4y8+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790269406; c=relaxed/simple;
-	bh=GRYhMLA42NBei7YREWiLPxZRkNEQ5hzK4zvgTmWJl+M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=awQkGoyApD7whpL0x/Id7JEC26JkRp9km3VOvtSfTjkgd+IHaBpwyhQvJzJXAh6MztqSMGLCj7O5MsOR/4BCbIP3tDwq/elBVXEYGoG8vqFXkC+JivK7xl/gRH5+Y0romn3U1oW7vgiqTEuR1WG+nllmJJYYpVinZlhzn+WstJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C8sPSa+p; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790269441; c=relaxed/simple;
+	bh=4SoFhzVw/94tqvtflu+Tj1a78SUgPAk/QO2ub5Qe2cw=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=WESPtt+QJQ7uKGhvPyCRsWliHCybPAeLFLy0ritl1zH7ao7K2uhBSIJwcdvW1S6OKgG7tesVZQsEamp/y9BCxGSDMkgTqlh3Azn/qX3GZ2D9O/T18hgB8bx0BdJAT9ZeWDFswvnbpNY4bHXV0DIA/5gl/a6RL68dxYyqak4nuFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=f5PzefRV; arc=none smtp.client-ip=74.125.82.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C8sPSa+p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CA6A1F000FF;
-	Thu, 24 Sep 2026 17:03:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790269405;
-	bh=WUIXMGlF00n/an+XIpdJzwcraIyNlcy2fVXrbp/3+vI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=C8sPSa+pp//4QY0n2InsviILwO2ANC2TmhgCzyKFTFL88X1OA1rd8piCZ75I9NYuf
-	 fEC4gZaibZp2Mu+2cnaTVOycqGqUN+E9Ir2xIWEGVyYNu6SlG/wx/nOI6//uR1xuM4
-	 SzEUnwUkjRl2qhzU1qZe9tmBaUl+HYwW3ds7tqxVGzCfdWyeX7dlIOsyUE70XAxjMu
-	 a1FMvSAzwEYZrtkuHzbC+3WNlKr6kjS85sdATWW8JqrBJCfxxFOzOz+bs56EPWukLg
-	 Caw4bVrWp2lhFZChfGOJzssdpZ7QUgtYQEDQOIS3Fyfy1xEhSduphAsxvK/HcrHISG
-	 ZL+oTMyBJa+Ig==
-Date: Thu, 24 Sep 2026 18:03:18 +0100
-From: Mark Brown <broonie@kernel.org>
-To: shengjiu.wang@oss.nxp.com
-Cc: lgirdwood@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de,
-	kernel@pengutronix.de, festevam@gmail.com, shawnguo@kernel.org,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, shengjiu.wang@gmail.com,
-	Xiubo.Lee@gmail.com, nicoleotsuka@gmail.com, perex@perex.cz,
-	tiwai@suse.com, linuxppc-dev@lists.ozlabs.org,
-	Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: Re: [RESEND PATCH v5 0/5] ASoC: fsl_asrc/fsl_easrc: expose
- per-pair/context DAIs and fix DMA race
-Message-ID: <744ce325-9d2e-45c7-b7d6-15ec7558dc83@sirena.org.uk>
-References: <20260922033428.1690822-1-shengjiu.wang@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="f5PzefRV"
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33310847fcaso4088962eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:03:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790269438; x=1790874238; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cyXAOukuVR4PO1yjp7Vd0Zlf5j4zZeUYttuhWOvgjiE=;
+        b=f5PzefRVcfcYBHgaMMbp9bgFk3SVqtuPZLAzUimB7ZhGOxIr8MEdfNUREtJTJ09URo
+         eMBRbXD2coICtVwQ3JLDCKdGrGh4Hn560aCxdpgx8qttN+FzX2v9TfQaWkTrfVeR9Jkq
+         nlqSSjHl2U8JFlRxQX2lCKPN295Y54u3ZHTJCfjxlDNHImPn9FyouWrbfrJiD5SrtUWm
+         dBpGJ3ORqpUpHgJAl7YCU+xX1OynICkbhICgpL1Ce/2RnPe+2n4YGsnHUiVBlenP1gef
+         lFHYU6YWJKS//jqp4UQjuBdyGGZwzkgGebl+NA0N5x85ztUaS5SO1NfwcoyoEh0B8l3E
+         Y4Dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790269438; x=1790874238;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cyXAOukuVR4PO1yjp7Vd0Zlf5j4zZeUYttuhWOvgjiE=;
+        b=ojL80R4WbrHNFu1Q3ntpBvZ/EPfTyUJQSeifAkXo9fT7t/SUG3XSnIkPyWRYnv9MR6
+         c2B4pJ/sFG4HGZ/uzLakAc4Wna5j4cA9iQwfXFZDaHhzDliJZGSzm5GvZ6In5OfZKqRt
+         AdlJJfEOVffwHGmvBl2ma3utEfwocHbS4M9tAAlx1ylWnc7AdVulyFnjgzXlmFAdizoY
+         IGGnfhV8v4GQ/JMOd84Wc0VE/pNaNMBOyoztWjs6NZGMOs+Fv1si5nbv7yH09+8fypsq
+         ++m9kkHDSbm/pF3I7RYW4QM4Rx8ytDnipDOItCaZRjT6JXzbNe6dL7f8mmNLAMICrNee
+         h45w==
+X-Forwarded-Encrypted: i=1; AKwUvBws0bjqIy+IjL36eyj5yu0o1R5ZNXzjpUV7ksDrl6jC6J1ZnKmAgvwR4RXkknWzOJ+l5Ruaj+n2RQ/r32Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++lsp5OBujWULlg5KBA8ScGE148qj3eTt/tZ7QcEyortVL5aTWiS
+	dXkqiEW94r1FwcEoDulI10Hhnoxa1XHiTBC6BjJsQWQTsFBJGyPema2RjDAnaaybAdNwbnUmYH/
+	uZ6vXlODT2g==
+X-Received: from dlj31.prod.google.com ([2002:a05:7022:51f:b0:144:fbc3:1059])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:98f:b0:143:298e:459e
+ with SMTP id a92af1059eb24-14503fd98bfmr3578370c88.41.1790269437794; Thu, 24
+ Sep 2026 10:03:57 -0700 (PDT)
+Date: Thu, 24 Sep 2026 10:03:20 -0700
+In-Reply-To: <20260924053645.3555041-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="thyvYpNwRTH7ReUZ"
-Content-Disposition: inline
-In-Reply-To: <20260922033428.1690822-1-shengjiu.wang@oss.nxp.com>
-X-Cookie: What's so funny?
+Mime-Version: 1.0
+References: <20260924053645.3555041-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260924170346.3872848-1-irogers@google.com>
+Subject: [PATCH v2 00/26] perf vendor events intel: update
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, dapeng1.mi@linux.intel.com, 
+	namhyung@kernel.org, edward.baker@intel.com, perry.taylor@intel.com, 
+	eranian@google.com
+Cc: adrian.hunter@intel.com, afaerber@suse.de, ctshao@google.com, 
+	james.clark@linaro.org, jolsa@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, mani@kernel.org, mingo@redhat.com, 
+	peterz@infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
+Sync the Linux kernel perf PMU event json with the latest upstream
+Intel perfmon repository. The updates were created by running:
+https://github.com/intel/perfmon/blob/main/scripts/create_perf_json.py
 
---thyvYpNwRTH7ReUZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+v2 adds fixes for a number of umask encodings a bug caught by Sashiko
+in v1. The fix to the perfmon converter script is in:
+ttps://github.com/intel/perfmon/pull/388
 
-On Tue, Sep 22, 2026 at 11:34:23AM +0800, shengjiu.wang@oss.nxp.com wrote:
+v1:
+https://lore.kernel.org/linux-perf-users/20260924053645.3555041-1-irogers@google.com/
 
-> Changes since v5:
-> - rebase to latest master of linux-next
+Ian Rogers (26):
+  perf vendor events intel: Update alderlake events from 1.40 to 1.41
+  perf vendor events intel: Update alderlaken events from 1.40 to 1.41
+  perf vendor events intel: Update arrowlake events from 1.20 to 1.21
+  perf vendor events intel: Update broadwell metrics to TMA 5.2
+  perf vendor events intel: Update cascadelakex metrics to TMA 5.2
+  perf vendor events intel: Update emeraldrapids events from 1.24 to
+    1.25
+  perf vendor events intel: Update graniterapids events from 1.20 to
+    1.21
+  perf vendor events intel: Update haswell metrics to TMA 5.2
+  perf vendor events intel: Update icelake events to 1.25 and TMA
+    metrics to 5.2
+  perf vendor events intel: Update icelakex events to 1.31 and TMA
+    metrics to 5.2
+  perf vendor events intel: Update ivybridge metrics to TMA 5.2
+  perf vendor events intel: Update ivytown metrics to TMA 5.2
+  perf vendor events intel: Update jaketown metrics to TMA 5.2
+  perf vendor events intel: Update meteorlake events from 1.22 to 1.23
+  perf vendor events intel: Update novalake events from 1.00 to 1.04
+  perf vendor events intel: Update pantherlake events from 1.07 to 1.08
+  perf vendor events intel: Update rocketlake events from 1.04 to 1.06
+  perf vendor events intel: Update sandybridge metrics to TMA 5.2
+  perf vendor events intel: Update sapphirerapids events from 1.39 to
+    1.40
+  perf vendor events intel: Update skylake metrics to TMA 5.2
+  perf vendor events intel: Update tigerlake events to 1.20 and TMA
+    metrics to 5.2
+  perf vendor events intel: Fix clearwaterforest umask encoding.
+  perf vendor events intel: Fix lunarlake umask encoding.
+  perf vendor events intel: Fix sierraforest umask encoding.
+  perf vendor events intel: Fix skylakex umask encoding.
+  perf vendor events intel: Fix snowridgex umask encoding.
 
-That's not a resend, a rebase is a new version.  This is all confusing
-b4 badly, it's not picking up any of the reviews as being attached to
-the v5 that already exist and doesn't even look at the new version since
-it sees that it already has v5.  Can you please send a v6 with all the
-reviews pulled in?
+ .../pmu-events/arch/x86/alderlake/cache.json  |   4 +-
+ .../pmu-events/arch/x86/alderlake/memory.json |  13 +
+ .../pmu-events/arch/x86/alderlake/other.json  |  10 +
+ .../arch/x86/alderlake/pipeline.json          |   6 +-
+ .../pmu-events/arch/x86/alderlaken/cache.json |   4 +-
+ .../pmu-events/arch/x86/arrowlake/cache.json  |   1 +
+ .../pmu-events/arch/x86/arrowlake/other.json  |  19 +
+ .../arch/x86/arrowlake/pipeline.json          |  10 +-
+ .../arch/x86/broadwell/bdw-metrics.json       |  51 +-
+ .../arch/x86/broadwell/metricgroups.json      |   3 +-
+ .../arch/x86/broadwellde/bdwde-metrics.json   |  49 +-
+ .../arch/x86/broadwellde/metricgroups.json    |   3 +-
+ .../arch/x86/broadwellx/bdx-metrics.json      |  63 +--
+ .../arch/x86/broadwellx/metricgroups.json     |   3 +-
+ .../arch/x86/cascadelakex/clx-metrics.json    |  94 ++--
+ .../arch/x86/cascadelakex/metricgroups.json   |   3 +-
+ .../x86/cascadelakex/uncore-interconnect.json |   6 +
+ .../arch/x86/clearwaterforest/pipeline.json   |   3 +-
+ .../x86/clearwaterforest/uncore-cache.json    |   5 +
+ .../clearwaterforest/uncore-interconnect.json |   2 +
+ .../arch/x86/emeraldrapids/cache.json         |   2 +-
+ .../arch/x86/emeraldrapids/memory.json        |  35 ++
+ .../arch/x86/emeraldrapids/other.json         |   9 +
+ .../arch/x86/emeraldrapids/pipeline.json      |  10 +-
+ .../arch/x86/emeraldrapids/uncore-cache.json  |  42 ++
+ .../emeraldrapids/uncore-interconnect.json    |  12 +
+ .../arch/x86/emeraldrapids/uncore-io.json     |  54 +-
+ .../arch/x86/emeraldrapids/uncore-memory.json |  10 +
+ .../arch/x86/graniterapids/other.json         |   9 +
+ .../arch/x86/graniterapids/pipeline.json      |   6 +-
+ .../arch/x86/graniterapids/uncore-cache.json  |  15 +
+ .../graniterapids/uncore-interconnect.json    |   2 +
+ .../arch/x86/graniterapids/uncore-io.json     |  12 +
+ .../arch/x86/haswell/hsw-metrics.json         |  49 +-
+ .../arch/x86/haswell/metricgroups.json        |   3 +-
+ .../arch/x86/haswellx/hsx-metrics.json        |  61 +--
+ .../arch/x86/haswellx/metricgroups.json       |   3 +-
+ .../arch/x86/icelake/icl-metrics.json         |  84 ++-
+ .../pmu-events/arch/x86/icelake/memory.json   |  24 +
+ .../arch/x86/icelake/metricgroups.json        |   2 +-
+ .../pmu-events/arch/x86/icelake/other.json    |   9 +
+ .../pmu-events/arch/x86/icelake/pipeline.json |   9 +-
+ .../arch/x86/icelakex/icx-metrics.json        | 101 ++--
+ .../pmu-events/arch/x86/icelakex/memory.json  |  24 +
+ .../arch/x86/icelakex/metricgroups.json       |   2 +-
+ .../pmu-events/arch/x86/icelakex/other.json   |   9 +
+ .../arch/x86/icelakex/pipeline.json           |   7 +-
+ .../arch/x86/icelakex/uncore-cache.json       |  79 +++
+ .../x86/icelakex/uncore-interconnect.json     |  22 +
+ .../arch/x86/ivybridge/ivb-metrics.json       |  51 +-
+ .../arch/x86/ivybridge/metricgroups.json      |   3 +-
+ .../arch/x86/ivytown/ivt-metrics.json         |  63 +--
+ .../arch/x86/ivytown/metricgroups.json        |   3 +-
+ .../arch/x86/jaketown/jkt-metrics.json        |  41 +-
+ .../arch/x86/jaketown/metricgroups.json       |   3 +-
+ .../pmu-events/arch/x86/lunarlake/cache.json  |   3 +
+ .../arch/x86/lunarlake/pipeline.json          |   2 +
+ tools/perf/pmu-events/arch/x86/mapfile.csv    |  26 +-
+ .../pmu-events/arch/x86/meteorlake/other.json |  10 +
+ .../arch/x86/meteorlake/pipeline.json         |   6 +-
+ .../pmu-events/arch/x86/novalake/cache.json   | 500 ++++++++++++++++-
+ .../arch/x86/novalake/floating-point.json     | 423 +++++++++++++++
+ .../arch/x86/novalake/frontend.json           | 147 ++++-
+ .../pmu-events/arch/x86/novalake/memory.json  |  24 +
+ .../pmu-events/arch/x86/novalake/other.json   | 213 ++++++++
+ .../arch/x86/novalake/pipeline.json           | 508 +++++++++++++++++-
+ .../arch/x86/novalake/virtual-memory.json     | 173 ++++++
+ .../arch/x86/pantherlake/cache.json           |   3 +
+ .../arch/x86/pantherlake/other.json           |  10 +
+ .../arch/x86/pantherlake/pipeline.json        |  10 +-
+ .../arch/x86/rocketlake/memory.json           |  24 +
+ .../arch/x86/rocketlake/metricgroups.json     |   2 +-
+ .../pmu-events/arch/x86/rocketlake/other.json |   9 +
+ .../arch/x86/rocketlake/pipeline.json         |   9 +-
+ .../arch/x86/rocketlake/rkl-metrics.json      |  84 ++-
+ .../arch/x86/sandybridge/metricgroups.json    |   3 +-
+ .../arch/x86/sandybridge/snb-metrics.json     |  35 +-
+ .../arch/x86/sapphirerapids/cache.json        |   2 +-
+ .../arch/x86/sapphirerapids/memory.json       |  35 ++
+ .../arch/x86/sapphirerapids/metricgroups.json |   2 +-
+ .../arch/x86/sapphirerapids/other.json        |   9 +
+ .../arch/x86/sapphirerapids/pipeline.json     |  10 +-
+ .../arch/x86/sapphirerapids/spr-metrics.json  |  93 ++--
+ .../arch/x86/sapphirerapids/uncore-cache.json |  42 ++
+ .../sapphirerapids/uncore-interconnect.json   |  12 +
+ .../arch/x86/sapphirerapids/uncore-io.json    |  54 +-
+ .../x86/sapphirerapids/uncore-memory.json     |  10 +
+ .../arch/x86/sierraforest/uncore-cache.json   |   5 +
+ .../x86/sierraforest/uncore-interconnect.json |   2 +
+ .../arch/x86/skylake/metricgroups.json        |   3 +-
+ .../arch/x86/skylake/skl-metrics.json         |  59 +-
+ .../arch/x86/skylakex/metricgroups.json       |   3 +-
+ .../arch/x86/skylakex/skx-metrics.json        |  94 ++--
+ .../x86/skylakex/uncore-interconnect.json     |   6 +
+ .../arch/x86/snowridgex/uncore-cache.json     |  68 +++
+ .../x86/snowridgex/uncore-interconnect.json   |  10 +
+ .../arch/x86/tigerlake/metricgroups.json      |   2 +-
+ .../pmu-events/arch/x86/tigerlake/other.json  |   9 +
+ .../arch/x86/tigerlake/pipeline.json          |   7 +-
+ .../arch/x86/tigerlake/tgl-metrics.json       |  82 +--
+ 100 files changed, 3279 insertions(+), 786 deletions(-)
 
---thyvYpNwRTH7ReUZ
-Content-Type: application/pgp-signature; name="signature.asc"
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq1V9UACgkQJNaLcl1U
-h9BVcwf7BCet5mcdSMq0zC0cNsA9teLN9+P2zlswGHdgRRU40PVwEFizlbbS7wZl
-DOt1x1P94upHDBxOIj1BQlE2NH0CCx1Ndmd+GoJ0iq+zvPD+6wWhehE1HJyf1odN
-tHP8B7rCqkWXpKyWwPhWuQ7K6CjRo524433hqpLMfwEwIi4cRw2AIDPEJZEDxe4G
-YVIw8Rs1M9mOcSeAW1AcEx6zW8ZRr9Fcsl1ZL4z5iOj7rBRVLjfy6AKbM+Xkekpf
-3JcHWVENhCGh1J2m2PHfK3X4eKOJzRY/QJozB9KyoB75lQHUiYpC9msiJ+F4IN2J
-2IKKSaDZ354mcPpf2uwWiGkUJN/bEw==
-=1Dsv
------END PGP SIGNATURE-----
-
---thyvYpNwRTH7ReUZ--
