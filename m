@@ -1,103 +1,130 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 176453932D1;
-	Thu, 24 Sep 2026 14:13:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1D903F9F2E;
+	Thu, 24 Sep 2026 14:13:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790259240; cv=none; b=hPV7lQjDI1m8/6Gda5ea6MmZvPiWrpfaN166bQWJcp1MCfUprjK3rJ5/e5DuqJQR5eWxqyGKP05xRbFUxVEF/YXDx1haATXnnBHkgRf6jMR6ObC8Df2mqa4k4Y/+rVM0hStEPNo9Tbo4M7OCYCVno2FeazRMGrhxq8plKUSvOD0=
+	t=1790259240; cv=none; b=ldcUNmhkjFLLRKjTPdaIcmZUF8UHYNKXhvSGT57Gun9gS5DUO9/A4hP8bklumJp4iLRccM8pQjSYZpFJsT8wwGSjPgNddp/WTqzKwm+JmUF3cN9CoKQjPcBrRYKIDSI+bVeqaqsExQ9oJjAqjLlwzc8KaiblMmdxeyFxTzqyo6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790259240; c=relaxed/simple;
-	bh=/Uy7DAdU0mosHarlpyf9ytp/CWyo2kPyZX7E1zok3yc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=H1lO5SWfR4TSAYpx3A7l+50al0wEzHfHmSRKUnT7gkMscERqHOArNih9sPqao9qse0cSMd4l566IrnhnUDxt5wcnLHWFrFw+o0GWAVmAosGB8tm+LEBHm1D0trqv+S+hpcChpFUB51PMzF9r81B+014ah90+qNWtWSD71oqWi7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=qYLzLY4w; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	bh=itktBToQJzX3ATH/tKZQwm1LvGMXIyIkRR0U9uiu0Q0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=f5FBlq2KWmClchlAhCoGErTnP4nrfmYkYrbU4IRwuB1jjlu+Erut1hOTvwGl/xoKHft0Dcs7duJ6kEE0ygetgyMiQ3M00MvEjck4ap0LNvGZD/sVfJE2nCk9U96eok8NgVci/AuWosmNoero0o3vm13/VzyYiTPU9VDi+b3aD0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=z4eydWpE; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="qYLzLY4w"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=EO
-	U1yQk9X2oC2BNnQBqt12AdJYjuCwcmAuQONkn1kYs=; b=qYLzLY4wkqd0sqTHss
-	0daapivXnnVpWa8tXyWPwQUxTlxrfvMvwLql06VCIbpbMi6w1BESd8HKNzdhHn2b
-	SeBfDf9Jer7i1acGIRPODRC+tXuWHf73XTtkS0yaooP62CMdHMR+WlOdsiplS8bS
-	t0dFSuZJ6B92PL8e5HMBRDD44=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDXN8sIMLVqBMA4Ag--.5098S8;
-	Thu, 24 Sep 2026 22:13:37 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Masaki Ota <masaki.ota@jp.alps.com>,
-	"Daniel M. Lambea" <dmlambea@gmail.com>,
-	David Barksdale <dbarksdale@uplogix.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 06/10] HID: mcp2200: validate READ_ALL response length
-Date: Thu, 24 Sep 2026 22:13:21 +0800
-Message-Id: <20260924141326.1154421-7-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260924141326.1154421-1-yaojiale02@163.com>
-References: <20260924141326.1154421-1-yaojiale02@163.com>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="z4eydWpE"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 9F3B8534030E;
+	Thu, 24 Sep 2026 16:13:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1790259235;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=1adee67F+xacVj9t64rhDSS20++bszReCRyOPHWY3+w=;
+	b=z4eydWpEfIykKvXbbcYgkINf5+41yKfBJJk2lvuZBFNPemzO3G0VehrTYL6TLMnlauaGzY
+	kCzXyAofex+7EYSs+tb2p6k0aU1EmyIpFKK0LMnRzqg3rCocWw7xUK1Yf6T4jLFzX1Vi05
+	AapUwXVXpxetXOiSqIYVGizMmdVo2iw=
+Message-ID: <9bf036d5-92b1-4a65-9f8f-5b1fa1c99d97@ixit.cz>
+Date: Thu, 24 Sep 2026 16:13:55 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXN8sIMLVqBMA4Ag--.5098S8
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tr1DAFWkWFy8CryrWFyDKFg_yoW8WF18pF
-	Z8t398Cr45Jr4I9w4DJF1ruryrJr1kGrWxWF97C3W0vwnxXFya9FZa9Fyvgr13XFWqywn3
-	GanYqwsrGa4qka7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRm9a9UUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhEYUmq1MBHFMAAA3e
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/8] Speakers for Pixel 3 / 3 XL
+To: Mark Brown <broonie@kernel.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ David Rhodes <drhodes@opensource.cirrus.com>,
+ Conor Dooley <conor+dt@kernel.org>, linux-sound@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ patches@opensource.cirrus.com, devicetree@vger.kernel.org,
+ phone-devel@vger.kernel.org, Charles Keepax <ckeepax@opensource.cirrus.com>
+References: <20260924-pixel3-audio-v4-0-85b5d133aa5e@ixit.cz>
+ <d4816505-c2fd-4afc-8126-76843db674e7@sirena.org.uk>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <d4816505-c2fd-4afc-8126-76843db674e7@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The HID core invokes raw_event callbacks before validating the report
-length.  mcp2200_raw_event() casts a READ_ALL response to struct
-mcp_read_all_resp and reads fields through offset ten without checking that
-the response contains the structure.
+On 24/09/2026 16:11, Mark Brown wrote:
+> On Thu, Sep 24, 2026 at 03:24:05PM +0200, David Heidelberg via B4 Relay wrote:
+>> This series address:
+> 
+>> Changes in v4:
+>> - Rebase on top of d4d1619ebd55 ("ASoC: codecs: cs35l*: use .auto_selectable_formats") (Mark)
 
-A one-byte READ_ALL response reproduced the issue under KASAN:
+wrong wording, I meant by it this was only conflict I noticed. I'll rebase 
+against your tree directly.
 
-  BUG: KASAN: slab-out-of-bounds in mcp2200_raw_event+0x24b/0x3a0
-  Read of size 1 by task hidtrigger/89
-  Call Trace:
-   mcp2200_raw_event+0x24b/0x3a0
-   kasan_report+0x139/0x170
+Sorry for spam.
 
-Reject an incomplete READ_ALL response with a protocol error before reading
-its fields.  The common completion path then wakes the command waiter with
-the error instead of leaving it to time out.
-
-Commit 47669bec44fe ("HID: asus: refactor the two workqueues and init
-sequence") added the same kind of raw_event length validation to hid-asus.
-
-Fixes: 740329d7120f ("HID: mcp2200: added driver for GPIOs of MCP2200")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/hid/hid-mcp2200.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/hid/hid-mcp2200.c b/drivers/hid/hid-mcp2200.c
-index dafdd5b4a079..c6fd5fb5d578 100644
---- a/drivers/hid/hid-mcp2200.c
-+++ b/drivers/hid/hid-mcp2200.c
-@@ -301,6 +301,11 @@ static int mcp2200_raw_event(struct hid_device *hdev, struct hid_report *report,
- 
- 	switch (data[0]) {
- 	case READ_ALL:
-+		if (size < sizeof(*all_resp)) {
-+			mcp->status = -EPROTO;
-+			break;
-+		}
-+
- 		all_resp = (struct mcp_read_all_resp *) data;
- 		mcp->status = 0;
- 		mcp->gpio_inval = all_resp->io_port_val_bmap;
--- 
-2.34.1
+David>
+> That's not what your b4 metadata claims:
+> 
+>> ---
+>> base-commit: 3d7783543c2646af69ad65825e810060494bea21
+>> change-id: 20260613-pixel3-audio-bdbfb49e8037
+> 
+> That's yesterday's -next and while this does now apply against that it
+> doesn't apply against my tree since you've also included DT changes :/
 
