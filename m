@@ -1,156 +1,123 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010067.outbound.protection.outlook.com [52.101.46.67])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD3C4A688C;
-	Thu, 24 Sep 2026 15:31:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790263879; cv=fail; b=i33JNFkDrdAfLKczFo59cClPhBM9m78lxXRu55I/4US+4aNm3M6BGE/ZU1FVmGlaz3bWVuOk+r5AFLGoNUYHgaO3FVujXqSriEx15j0VfDAzD8Xj8H1PeX1WPYWAw23T1Bl89VnDz2ZytnBx4deLbNgxIlGdReWdfFJl4I5wT14=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790263879; c=relaxed/simple;
-	bh=OSsHcX/4+opZyQqtwVxIN7f//0LjYqW9mL19iJIIyhU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=PCNnI+VGy31dUty2QdDBVSdbh1o25fHgmffvE8TKemY/CVqaC1MeQ136TDKSVllDUnXnZv+hGpJe+3Y9UHCbuhi5x34SGyzQ5pQBkad9tNHeyx7ZzxXypL5vdSi9vkd0fsNmhV97/qulhqNELjkG98hSYr49C7z2zzS7u7IQTAw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=g0BubkK3; arc=fail smtp.client-ip=52.101.46.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E23E849BD91;
+	Thu, 24 Sep 2026 15:31:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790263902; cv=none; b=O/SxKlpnCHTPk9698Yt05ImTYRTP8WdpMKRpWBtGDFq4nmwbjMyv4i0+9jmNDEn5NIlVJv0ec3tRj5GRZN3SqBAvNbN0bVyGJatGQEhkPo+nTEO8MPtGYWCz1pJ1r9pVUETE/NVxIOjsXkKg9YYi9uf5sYFwdbsQCEsD7CCLcOg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790263902; c=relaxed/simple;
+	bh=uMpCpZa6hYesAU6Onxp9Dh8ZRur/ramkDn5vvN5YYWQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=A+jKWDu6xSlZMH0lzdr/regTAB2+3I17/aVBelsb+YZ0lPlLvdsj/DsECCsUF0nUv7vzc9wXqj4o6D1GtGPoIHI3piJZAG6qM5BXBGV1l0oI1KjcSCTcETS8LKfk7dhYE2xT56m6iKhCaaU0YssdnlgNl81uH95uRJk44UlvlrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=hp059QVv; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="g0BubkK3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BqOpEgLunO3emOyz+Otx8Et5Oqff/6ZvOF4qT01Nv39O3GL7vJgzJMqRtqT39VzR8sWO85H6HUGl2iItCudszLWV6gLhJsijEqJCln+8TY/6eMyFlR//Fx8RNnvDDRh3pElhcSeSav/1s9KYrC3FhIibHX2HaXMpSGRS7666fN8DqPKaLWTI/mqVIUxYA3Ipi1TGmXW5nOSwEs0rC3J7NAeV9qA8KEj9qs5bWgzLTb/1fR4IE4KcYOVFtHSyAhtBLVnrV44OFc8DXngi0fsmN+Qy71LrPrLpYKOe/Z6QJH1+boF0yR1MBSAi/GXuO3bU7bxBproJEhFIeNttMtxqtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MUk1gnqrZD5mD/u81nPYqoRFE5M2LJYEKuNuHvCBEVc=;
- b=qMmlsDslXeqkkLxq4SRnhAFN54IoqPBHci+3/ZyDbLjlkhteJ+ptIaDKwECxcwLuI6e+fzwOduqhNuNGQPoWcghDwboM9DZYtpBzuuMZFA7YQG6RWT6Q4ngggh7Cumbog1oytYw9fziyVQ542V5zoDx1Ct4WwcP4Q9LevOIIolpgontysGaHH2ul8yqcIFhyPnBmpBo6bul61nS95Qyjghl75ZMxS+b4//ThX4wrBRZsjQGWJ/OXfq48YfGDkp1LWDyz6JDYoee4rMGFCqBT66c5D5qmBvVW0DF2HV18MnwRQ5AWbk7/dMc1EiJT4dbFpk//bIahhPf/VL3cCK6esg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MUk1gnqrZD5mD/u81nPYqoRFE5M2LJYEKuNuHvCBEVc=;
- b=g0BubkK32rj3GcT+88DiDQmTGThB494g7yrT1eM/NjKe/dA26PlEIQXczb/gyh30/U0n/z1VkvjlYy2/BNr/mNTKN/dP7eTXL8aPs4qGvlj/31eQfMLOdHBlsAfcadvKnbabC/0ryOu2PxaX+6M0dd8bSyoZvc/8F/sFU8s/1OI=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
- DS6PR12MB765380.namprd12.prod.outlook.com (2603:10b6:8:411::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
- 2026 15:31:16 +0000
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf%5]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
- 15:31:16 +0000
-Date: Thu, 24 Sep 2026 11:31:12 -0400
-From: Yazen Ghannam <yazen.ghannam@amd.com>
-To: Rui Qi <qirui.001@bytedance.com>
-Cc: tony.luck@intel.com, bp@alien8.de, linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] RAS/AMD/FMPM: Make max_nr_entries read-only
-Message-ID: <20260924153112.GH1080284@yaz-khff2.amd.com>
-References: <20260821094748.145394-1-qirui.001@bytedance.com>
- <20260826035314.1536340-1-qirui.001@bytedance.com>
- <20260826035314.1536340-4-qirui.001@bytedance.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826035314.1536340-4-qirui.001@bytedance.com>
-X-ClientProxiedBy: BLAPR03CA0007.namprd03.prod.outlook.com
- (2603:10b6:208:32b::12) To DM4PR12MB6374.namprd12.prod.outlook.com
- (2603:10b6:8:a3::18)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="hp059QVv"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OC6Bsr2183157;
+	Thu, 24 Sep 2026 15:31:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=vGIjl9
+	TLDdiGYrrBXxUYqV7A0qZL9cYeg+mzgDMBWmE=; b=hp059QVvEv4EbeNolu7iK9
+	3EBDMv/tpBdP2ibRndIkfwEr1Qb9nTuWfXuNBC7eUJco6SGtFTz5Jswm5ZaU1QQl
+	rzQwJ54ecGfeu4NOk2hjafYBybzPe9wSAVigqKoN7mMGg1SLVhypekZbcXE0zKFA
+	juD2ChbAEPsV9WZbMJvpUQjW3M3LdMtNORJyLmumi2SmPeMbliH4hHkfZcS1ivxC
+	UuRq1XyFN/9whCnM8Xev0wkhNRdvqehayxsKzjcougtuY1i5DhJ2u822CSmrtc1f
+	NcLfHFjiNx182Ad5daj5dOaw5qUjXzHXA+L3QgYBMDlhV55ZlNcK8G36hgQqY76g
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgshxr2-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 15:31:39 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68OEOoZ52194322;
+	Thu, 24 Sep 2026 15:31:38 GMT
+Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbt2xbhn-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 15:31:38 +0000 (GMT)
+Received: from smtpav01.wdc07v.mail.ibm.com (smtpav01.wdc07v.mail.ibm.com [10.39.53.228])
+	by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68OFVbDE29229730
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 24 Sep 2026 15:31:37 GMT
+Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id EDF0158068;
+	Thu, 24 Sep 2026 15:31:36 +0000 (GMT)
+Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B46DD5804B;
+	Thu, 24 Sep 2026 15:31:34 +0000 (GMT)
+Received: from [9.111.196.99] (unknown [9.111.196.99])
+	by smtpav01.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 24 Sep 2026 15:31:34 +0000 (GMT)
+Message-ID: <e7343e01-724a-4393-86ae-de13fb052ed1@linux.ibm.com>
+Date: Thu, 24 Sep 2026 17:31:19 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|DS6PR12MB765380:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20613ffe-c6cc-42cd-e735-08df1a50df92
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|56012099006|11063799006|6133799003|10067099003|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	5oGHl77A5IKYGvNC5D3uA3Jnaz2FMA4o0q9/cyvOwnZZHGiMR1hwayO6XZ7v2FWvqrGFdp6Tvk6Of3EO07nJQI3I4ZSy05XJ3vaz9AjX/p0iZBMdYKiw9BlFmxyX5rv+sM2b82dW8SxGtYjGEyy1rlJ0G4fo/YAENBV2zwlDad7ma9kNpy5i/xQSC8cqBs5k9C6afaA8kkPa6q3/Y/t4Qdmz5IFLQvRCeg70DLwMyWgOIINUb0V24sQBs4X6qVwPeWmowAgELXiVE6XqJejkOFn8X/P1Sh+EedMKLQ8N60ePLvTSmapsRyoLSoywC43x+gFHUkRQAsxMQswvMBMkR8kGHh8jtR5MsF17SoWw7TnMrAm8LFvSH9fWj2TSTxdgAbcKnVQglA5U05x8v/2lQp10YUbeNnj9kZ4/d2UzmO9G2wdPRHEs7oygOdFWd/2H5GXxKnJja3XayM2ir2pQL3hHX/uQeNGWIB6dWKMJpjpdRF/BB5HKLrNhgtWLvCEL9JGq4FeCwaijZLvtDFJ8wH/BJ/vLK+v7yvVmJ2r5ePunIgdetucpedveOkM1O7LT+abcB83a4dcE1NG9ASAoXVto5oTMJ97Ud9yyw2m8hPe/jP0dWUTK9oKXQDe2XrLJDSXV9PFljWY0TFkMOGai8Tx0rBIqZRGcWon1Mg8maDU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(56012099006)(11063799006)(6133799003)(10067099003)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?CpMMttazqx6lVOzNsB5rtokThkbHghLPyR9l70WIUkM8IdTO9n06zVm5BsKg?=
- =?us-ascii?Q?LHbjKVUm1qLTA4hbSfSmaXmOYnxIAk674uxWRN/daQldgINSw4+EI/xUYKo4?=
- =?us-ascii?Q?zFbgQuRpK1UMJiL78PnnwRzt+9Rvr9yEMbUAby2oduN24+WkbvP/JPNk5mPA?=
- =?us-ascii?Q?kUAPM7kYs+uaREpSskP6JBD0nezuGngxjw0tD5SrXAXjdDVIjhhdU3Y0CevY?=
- =?us-ascii?Q?TDz3wLG0/xQ51HyihT9qeDoiVdv6Vep6E9ccbp8CrZM+kSdNuKr7Z6opeb6Q?=
- =?us-ascii?Q?EDaAj1U6f8U43L8f5E+vk+VnlwlTC2XQAau1lG0MYkoaNllLBEa8Y2wwd0l+?=
- =?us-ascii?Q?LAtAG6/FAC1W6VrKfpExS8oZZ1ul76JjJA59GTW/80T5oUHJ+TuhHIdOcs0A?=
- =?us-ascii?Q?YSbhqVd+Ttwfhl9R7goK+QTmNmjyZyUlYbR+KY/zdj6u7pwjePJYzU0GhDrA?=
- =?us-ascii?Q?YIPVNmPrWlBiJume2e9rQkr6ST3aYrCc+EUm5x8u4M6se0/KIJFFB6d7RlYe?=
- =?us-ascii?Q?1CPWrCStZ2/3EDbOvyePoZ+1sjg5Hnu15P43lMOgN++iFyQS1eslNH5fJAPh?=
- =?us-ascii?Q?GPxQg+oqel9MkWizjlSFWM2Ih+DIUa90WRnUHrdnW12BAaFl68qeX8SpbXkY?=
- =?us-ascii?Q?syUridYGAiPSV5d05Ojd4J7xJorZ9+2VvS/b3z5dx9yPV9fiOe3YV5CzzVaS?=
- =?us-ascii?Q?HNDV1gx5ZhQXs7YvMWpnhZ9Vt6/trjJFZCIUgIChcmrs5s89jp13rFPrWARU?=
- =?us-ascii?Q?51wweK/7NUkl16PVWThp1mJ02Cj4K8oPAO2VvnIetaUEg9IGr4B2MAsZyrlj?=
- =?us-ascii?Q?IMmcbFm0zVhA0wB6COZsXO3BO5dLvfHFO+/zUUWsrT1dVf5JWY/ZnrU0xuD6?=
- =?us-ascii?Q?N0VGxSV/tac4GjvitbMh1cyM6UcuMMTcoCL1QgmUjTxJG/atZCYEC9sABpVV?=
- =?us-ascii?Q?MMSyuQmqTBDTTjxa6ImAozBVSCS1CUfqDQ0z1VnvF3oJHGM9QD7PYrkW1Sfb?=
- =?us-ascii?Q?iYWpbxxIIHUpBjCUiPn2t4VkXvlsWPvgfLFYEdWpOoqfo+iVUJtufwZqKSdA?=
- =?us-ascii?Q?fJcG0dqQUYOGiizQnB6bMLBdJ7cIQZXi0X83zDz5IjBDuE765h3CRh45YWr4?=
- =?us-ascii?Q?mpzgk4fzFdHY/qscJKo9rJK8MAzerY8Fy1iCvpw2WLq2cUmisO/iHlTnK0MV?=
- =?us-ascii?Q?ltvqsJNWV06+dMMOuzB9/YVXZ7xt+ncp6nGofO/noozQDBwk0szO33pfV2tF?=
- =?us-ascii?Q?nh4eJQ/igP0HHwcLLVY5U+9uwf5/u8mleknC2XgSOZfDmTR438j5hekql4b/?=
- =?us-ascii?Q?K/vPGFDkGrG0GJSVatlOhpB1AEOrBNXvtb7lopeDbRS1i/xnBI7poeWfFoD6?=
- =?us-ascii?Q?yu7Zymexxod50EUxJbqcCzr7NY+q+DXVyeIyoIG+lJsgrHbUEbDUylv9CDbq?=
- =?us-ascii?Q?xiHrYKj9Yer8h7xDjZ7gK0vIWKaZvWSV/+WdzQ6slB1VKyiQNXrvLX4do2P+?=
- =?us-ascii?Q?+Y7ZH2DZXvt7Wk6Q+Auvf+NCwr5YvSMzXkcn3FKcY6tS5GQPJ2xYPQAOLwOw?=
- =?us-ascii?Q?95Xop2FLXyATxns3Emr2K+Qeco97RwWy9WrFDNaORFDLEiu79h7PxnC8mG0y?=
- =?us-ascii?Q?zM97Cq3/Aw8O2nSZXjyJJQTIA9/K1rPQ1MjydFyPs2RM7yChehtM73aTMjoc?=
- =?us-ascii?Q?QEQGVN6NkEbH17X4ev4Qfok33d1ofv7qE4RNWZhL+NJtaeYp?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20613ffe-c6cc-42cd-e735-08df1a50df92
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 15:31:16.2548
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /Yoguj3osf9F3KiEGcHjICcXhvI88wtkW9U7GZiFhsKJlWm0gdDza4cKj5tnqOMCO7XnJdtuTA5b60dxalybpw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB765380
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] s390/sclp: Implement resize for sclp-vt220 console
+To: Maximilian Immanuel Brandtner <maxbr@linux.ibm.com>,
+        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+        borntraeger@linux.ibm.com, svens@linux.ibm.com,
+        brueckner@linux.ibm.com, mjrosato@linux.ibm.com, farman@linux.ibm.com,
+        maximilian.immanuel.brandtner@protonmail.com
+References: <20260924104732.1978942-1-maxbr@linux.ibm.com>
+ <20260924104732.1978942-3-maxbr@linux.ibm.com>
+From: Peter Oberparleiter <oberpar@linux.ibm.com>
+Content-Language: en-US
+In-Reply-To: <20260924104732.1978942-3-maxbr@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=V/XoQuni c=1 sm=1 tr=0 ts=6ab5425b cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
+ a=zBLIaIyO4mf18BS1cK4A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: xlb-ptLXWwhgS4eO4Hfso2KwmmQyUyeB
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA2MiBTYWx0ZWRfXxLZsMoX6Naut
+ s6X1M8pjOm/V9nwrqkCpDyt6Gi7lfyiVwPYAtddUIu42dJbY1CUODD9jMqigoxHTox2Tx1xaaYb
+ mgq+xdRcXPeuMrqKkwV+lkmF+nPgj/hW6MOClquAoAovpjJbk6Zcou22e4QPgrD8K8fYJhFAam2
+ dmxgGbSkG7uNe3mggfw/aZEyhHNkOuKyc46CSilDyAAOaKSQsCSXYZKAEEcY126V6KCj83llBKj
+ jjvkw71FP58+mT974AsAD/i41bXNz5EAlLyfhcFs68FPfjFYj+XAGC0cXLHPgMi2B2MZjsgHzT/
+ vlOsz9LF3PMGApCx0xccSoyH750ZVYsIwqRn9198odl+y9aotK/z7pSJCo3WROWL6Q8stiiFPJr
+ s8auY76sWX0ZiTNUtaqMWEylUI9gFPHQz6taYXwM5iRLzZyyhr2SBNpXzAOKg+p6RgbBBy9RC1g
+ utkLKOON5otjAjUE2zw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA2MiBTYWx0ZWRfXyahyww5s+Jo0
+ 6NRsbiX3X3dbhr5DDLZgfx1OTsaGCZAlY/HC4g2qj/E4eG8TJDPnn1J0AQ3PMTxKaKnfsKgEThd
+ OwQIB/nkYHqBpoyFNg4m9MrSZaN/Zsc=
+X-Proofpoint-GUID: c0J1QMfOHmfPD1Rjtxw6H4jioLBS_1Ny
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 malwarescore=0 clxscore=1015 phishscore=0
+ bulkscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240062
 
-On Wed, Aug 26, 2026 at 11:53:13AM +0800, Rui Qi wrote:
-> max_nr_entries is used during module init to calculate max_rec_len.
-> That length determines the size of each allocated FRU record and is not
-> resized after init.
+On 24.09.2026 12:47, Maximilian Immanuel Brandtner wrote:
+> Add support for sclp vt220 resize events to enable host-initiated
+> terminal resizing when using the sclp-vt220 console.
 > 
-> Leaving the parameter writable lets a later sysfs write raise the runtime
-> limit used by update_fru_record(), allowing entries beyond the allocated
-> flexible array to be written.
+> This allows QEMU to dynamically resize the console. On older kernel
+> versions, these events are safely ignored as the kernel drops events
+> with undefined tty codes.
 > 
-> Expose the parameter as read-only so it can still be set at module load
-> time, but cannot diverge from the allocation size afterwards.
-> 
-> Fixes: 6f15e617cc99 ("RAS: Introduce a FRU memory poison manager")
-> Signed-off-by: Rui Qi <qirui.001@bytedance.com>
-> ---
->  drivers/ras/amd/fmpm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/ras/amd/fmpm.c b/drivers/ras/amd/fmpm.c
-> index e3f7bd053479..c13db1f743e5 100644
-> --- a/drivers/ras/amd/fmpm.c
-> +++ b/drivers/ras/amd/fmpm.c
-> @@ -138,7 +138,7 @@ static struct dentry *fmpm_dfs_entries;
->   * No input or '0' will default to FMPM_DEFAULT_MAX_NR_ENTRIES.
->   */
->  static u8 max_nr_entries;
-> -module_param(max_nr_entries, byte, 0644);
-> +module_param(max_nr_entries, byte, 0444);
->  MODULE_PARM_DESC(max_nr_entries,
->  		 "Maximum number of memory poison descriptor entries per FRU");
->  
-> -- 
+> Signed-off-by: Maximilian Immanuel Brandtner <maxbr@linux.ibm.com>
 
-Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
+Reviewed-by: Peter Oberparleiter <oberpar@linux.ibm.com>
 
-Thanks,
-Yazen
+
+-- 
+Peter Oberparleiter
+Linux on IBM Z Development - IBM Germany R&D
