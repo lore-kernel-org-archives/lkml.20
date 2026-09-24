@@ -1,41 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25514485CD7;
-	Fri, 25 Sep 2026 10:16:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFCA748E0DE;
+	Fri, 25 Sep 2026 10:16:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790331371; cv=none; b=d427XBU+vewqci2EuJHSBS+HqXbkvXi/H5UGYW45SPrtC8WPtJrC/F+Z/ScxR6NJS3oY28J4Np+Rnhf+llaXR+S1M+oiCcU7AudM3aHx28h5qd0LFz4hunjxo8LJZJKqvQCWJoJWwOC7iS0KgMPNBDDe50flH7/dBpSpNE2n4Ug=
+	t=1790331377; cv=none; b=nZI6ekPlvbDengMDLM6YQmcy4wATTLGk1xR37GTBb7ROyAAtKq0JANkNfiGts2IPgtHxDDFOG0dfTyBV7CcGMmW3+llypuuu55y2DinmF9Msi320MDJCJ/C9NI04P8aLC9Jar5gf0hU2TEaCRYh4/w7Ad60n8jPOCl4NsYg0ZzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790331371; c=relaxed/simple;
-	bh=iUO2JpnXzlAInWi8HTqSgcPDVX5U8rPRjdvAHI4MNHA=;
+	s=arc-20240116; t=1790331377; c=relaxed/simple;
+	bh=y/pkRgfVgqtwzu360IWPfkOBTH+11IHGTURl/Z+hIfo=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=paVvQDwJJbMuJSNhT1xfQ6XP4ax7DkLt+IxznzCk3AlIVe5iSwkpxgg1jbHXr/vvlee80Xxb3Gqh07kTC2m/wAdbxXjVrmkM4PR+FNXueZjpvPmwh8yw6yuP8iZN+QnJjIBWGcxybAg7tEjXoXmiMcyUULq375C7mTFMAzfhxKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fvR8IMlB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=todZaFGYQFQWkvbi6i/MBq6QLbSIMMVNzQyeji3rJUK0iv5UIcdwH3sRqNoI6uZGTt1YVTxBgFojbxgm1uOr4hCJc9jBOMncFihYYKSDYDflogihcj5BiWpGGo238Qb5Oolyb5cDom5JguQgVQd3SrIiwZCuwv4WdOqRE5SMCOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yp9XNDYk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fvR8IMlB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E7BD1F000FF;
-	Fri, 25 Sep 2026 10:16:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yp9XNDYk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12B7F1F000FF;
+	Fri, 25 Sep 2026 10:16:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790331369;
-	bh=M+vBDpkP85SOhgMfPHtkH9MMpFsUvijVL1VAyC6CrHM=;
+	s=k20260515; t=1790331376;
+	bh=x30XPvX9oq5pFzlLxMBNs2CmcKu5R9h7xi4wepN5BgE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=fvR8IMlB4je/GfgVEEoXQFbK2Q/DJFuPLuikBHOFtGk9HrrZwvDyBb4DL4oOp5xJw
-	 kLNFP+1M5C35wxxe1jPfztcdVes6W8EeKCz83M3cXUvMDg+Sfmj5vvWVKtFWqcJc3W
-	 mowmQ482ecFln1yhRn1Id1olv92FWFhugoUV/Fdvs4Pz5V6O38ga8swApzixusZlcI
-	 u4JdCxW5eOgiUPfKNqaIxHvPc+YiiiGdQyCqoDvcREO3WebP6gZys7C3SS98iqbp8/
-	 Df/0rUd7BhjZye4xzBBubOxpIDl7aZULAwu7qUkV40HEA5zgl3QKPe45xj2GxSE5Gi
-	 11Bqe76eEgPsg==
+	b=Yp9XNDYkzMo2akdZaGKgo9VdxHiTbYUkikcYR/CVxUgOqs93WJRYJM8B1HtHY4LJy
+	 S9apQrQGKZdnhk0wOTgh0uLDvIiu00W6cr/N6gshuu2LItEs7GejiD8xfD5Pcw1kzN
+	 xvYwN+dU1W2FmGlyxPizBYakw4fiR1GBTGaG4Uq6NgAu0+aFgUbIsIK9YjlE7pGssh
+	 knPYebqiS+jX05vL0Q49CI9GfIC3xt5LCsfDnU9Pd2ippBOyY3XoOztlKT6TpR2y/h
+	 Z9qB9qp4CqZb5CBikJF+0oLaaqSBnGNWd64RE7UoFK8IT/PHqkmoYr9aESf3O1t9EX
+	 0FgXPQRZ2k4DQ==
 From: Mark Brown <broonie@kernel.org>
-To: shengjiu.wang@gmail.com, xiubo.lee@gmail.com, lgirdwood@gmail.com, 
- perex@perex.cz, tiwai@suse.com, Slavin Liu <bolin.liu@seu.edu.cn>
-Cc: festevam@gmail.com, nicoleotsuka@gmail.com, linux-sound@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260913125147.109920-1-bolin.liu@seu.edu.cn>
-References: <20260913125147.109920-1-bolin.liu@seu.edu.cn>
-Subject: Re: [PATCH] ASoC: fsl_asrc: check the second front-end DMA channel
-Message-Id: <179028904061.149798.13069346951239387977.b4-ty@b4>
-Date: Thu, 24 Sep 2026 23:30:40 +0100
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, 
+ Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+In-Reply-To: <20260918-qaif_dai_id_support-v1-0-ed863c0e5e45@oss.qualcomm.com>
+References: <20260918-qaif_dai_id_support-v1-0-ed863c0e5e45@oss.qualcomm.com>
+Subject: Re: [PATCH 0/3] ASoC: qcom: Add QAIF AIF MI2S and TDM DAI support
+Message-Id: <179027514987.149798.7431502097778220726.b4-ty@b4>
+Date: Thu, 24 Sep 2026 19:39:09 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,20 +50,28 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1124; i=broonie@kernel.org;
- h=from:subject:message-id; bh=iUO2JpnXzlAInWi8HTqSgcPDVX5U8rPRjdvAHI4MNHA=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqtknlTqkxgc8EuTdMZ2N0h1vMz/mdcCdJv8Mxt
- n54N7wtw/aJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarZJ5QAKCRAk1otyXVSH
- 0NK5B/9Zyjl5+h0lBKOOrT5R1v94ccmhe4sOX94NrIq13oUq34jWwSIhp188KV/FCAizYQ5i2mM
- 9sqOKCUUvoNa+MRcpYE/ivCDMZLSiMfz8IDhkXoYOE1B4eFQV0+nIuJaVPu6idvcsnuIyO1MGR8
- ke5xroUf/cT7nBKoAQBblSgzhfbMHVwp7wy5mYVkvemnBz2crtgRAb/Yrc+rf1HU7APXlz8oVz9
- Iuy4EolSzeEUHsQ1efj55CWvjxZoqszxKloNkrtYbEo6lSOq0xbzZf8v7maDt8wd1owXOwfp+Xi
- EW0QY0MjAP9/MPWdJp32nN6Z3xWbi83FJmJ/rUNCqLl/cQUO
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1683; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=y/pkRgfVgqtwzu360IWPfkOBTH+11IHGTURl/Z+hIfo=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqtknrjKnqQqh1MGdfB3eKth+VB2/gSvZmbLtEs
+ 2tAFqnTs8yJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarZJ6wAKCRAk1otyXVSH
+ 0NSdB/4kBbLmp3iWDFgQAs0p0PNUdWqoGbksGWw/SkFJBrH9CP9Q85gBNc0B173FSaW5zM360zW
+ g/lInIcZ77EjbJasODiS90LnPEc6ak5LrtuK6wZpnRQoT17ClWgccYI/tExcQxhsKOdZ/mKqvwo
+ xbH++xoV8MfJGP/646rxkENrsvosBj2xJMZpWwozlUatkfr2ZpHuyimvFw8+StwRXFfY5ksUSC7
+ uBuoHzjdUtCAEYsbCrUOa1Z8Jcal6kTtMQKX5j5CYL7XOp14Vsd/XIjneaF7qVLqli3MM+cKPoE
+ n7bLnlYzku7SJPX6kyICd+hGQuUE1fRHQg8xvTqwiEAEX5yD
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Sun, 13 Sep 2026 20:51:47 +0800, Slavin Liu wrote:
-> ASoC: fsl_asrc: check the second front-end DMA channel
+On Fri, 18 Sep 2026 19:01:11 +0530, Mohammad Rafi Shaik wrote:
+> ASoC: qcom: Add QAIF AIF MI2S and TDM DAI support
+> 
+> Add support for Qualcomm Audio Interface (QAIF) AIF MI2S and TDM DAI
+> id's across the Qualcomm audio stack.
+> 
+> The new DAI IDs are required for platforms such as Shikra, Hawi, and Nord,
+> where QAIF audio interfaces are used to connect external audio devices.
+> 
+> [...]
 
 Applied to
 
@@ -66,8 +79,12 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl_asrc: check the second front-end DMA channel
-      https://git.kernel.org/broonie/sound/c/b4136c0d69ea
+[1/3] ASoC: dt-bindings: qcom: add QAIF AIF MI2S and TDM dai ids
+      https://git.kernel.org/broonie/sound/c/7cb06353a203
+[2/3] ASoC: qcom: qdsp6: lpass-ports: add support for QAIF AIF MI2S and TDM dais
+      https://git.kernel.org/broonie/sound/c/897be15f03b1
+[3/3] ASoC: qcom: sc8280xp: Handle AIF MI2S and TDM interfaces
+      https://git.kernel.org/broonie/sound/c/654d53e6901f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
