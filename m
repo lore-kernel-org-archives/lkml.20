@@ -1,64 +1,64 @@
-Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E26793AEF51
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:24:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2DBE403EB9
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:24:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790288692; cv=none; b=ut5TtI0gDq4LuoB3HGtVtJAi1RsAXVmqd+a7/XBcCS2kB4/nlNzHZUeg9MTgsu0dmVIcGtVqbQSN+U5lVUsypFgbiGKsOCM3LRcyeqVxG1tGKvh7TCkvNuZtg8t2CuyhvkH3VkM6NbmJX2d+JQTF35xYDv7ylUPAl3Hel5K7PHA=
+	t=1790288692; cv=none; b=up+nvQyPG2hvdJUzxOqu7LpopyygpahLZ9eqHFODyAtF8Nd28kjxDvsSpSxZWUgtBdeUudbQcU2yp8YiyHQ8CBpu0l59KLKThlHiv3ZZzUnwoq7JVlm5H5ABA0cxBoqSAHeibS8/GCXWgk78GVGCFJbqlTj3thoUSuKQbzfK/Ok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790288692; c=relaxed/simple;
-	bh=ucLMqZ1UiBxVGeoeiorG+3ar2kSDUn+x16bRZmYSIRQ=;
+	bh=0CIVmuZgnNf8YV7SFFeCJfSGG6AnPk/hZxzAYsVAg94=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VjrjWjdo8QQoY1TIlfdqMYJxjHtriC8TSgG+9wHm2Qvp5X4dnIOOFZN8WwiWlttLFAd4r+K6s0raX7LjOwu1a7ldtIjJ6SeIlx/vypqxyt1vkHGWbpOvKRi4UPLgdE2qamsyagDRXiq31/XyeawJ6VStK3tmn0+rPBPwnPQ7ddk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=bSVxXmnN; arc=none smtp.client-ip=74.125.230.234
+	 MIME-Version; b=DSLmR778ryrMHaEz7J7Xca6KTQgNPuwy/wOOcI9kVLC+4VR53Yj8zl0E/1LtBWhRUuYllWYOC91F/bMqb1QmOAF7Zo/OhpxWuk1CrEnT9iYEhQw5yKDetEV3Lg8zumJVX5fVk68FnONr3kJcYDwfArIMYIf9iDHbzjUaWhFo/pw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=aYfqdwNz; arc=none smtp.client-ip=74.125.230.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="bSVxXmnN"
-Received: by mail-qk2-f42.google.com with SMTP id af79cd13be357-93be29bb454so41998085a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:24:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="aYfqdwNz"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc9b6e3so3530556d6.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:24:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790288689; x=1790893489; darn=vger.kernel.org;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790288690; x=1790893490; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=X4YnIQUduM9WqwnHXJR5IBSgzIzuiNO0FPLqtzOsUaQ=;
-        b=bSVxXmnNxYxEUypEfFbSDgxaAsb3mpfXI9FsJmpdofVWTJPjrYaChdGFynmk8t1t1I
-         N8+Msknm37AQWsi8TnGnSGOqLK8CFTds8fVPCx3SRdngr2MoPX4asEcjF7xtF5wNu5hl
-         UPMhpoTKKG7sY2lnADUwtSImOq/sW4KdphwzNUqXqINlG7CXxdGdhQW1NBtKEMqTtbCZ
-         RcSUqL7MgfbRnHYov/OvMimrUrtzSSENr7I2UZWLsd+N1hmQNfNgwIo6vAvafiTIW9vU
-         j2TQ1S+Fa7/X+z6wbJQJDo1EZ2UOHiFAJtpHRhCvpULO8dQABotyMH45Bvyq8hy6Hd4t
-         q9AQ==
+        bh=6KPtyojyWu8c8G12DM6+VdUpBOs3905ZK16r2yXTzMY=;
+        b=aYfqdwNzmrhK/ZT8hwr78Pg/K66I4hGu9UH21yCQmCiShVzUvFNIB19fICI+/ssccE
+         n+lLcj4YaXunSlTUg8AN+QVO8eVvvPcTary57wQD7jB9PRYsQ+CmfAWlVCa51sA72Ml7
+         b4V4Exqt9D4T6t4hYqrwwP79h3kpUXg8vMFvl8rNFTU5bnNBIYMwK2lYzIrrPjt2hf4D
+         uyBsYWNVkjVWLRhDKK5E3NroWcH7raq0yWvyovdpowY4dn+vT2iY6ht/yIj5edKDKyqW
+         /haTs2mmkdwhOGpaAPbhHhB+LuIENjyJWHCI6DUkn0ZEIPPYkmf+4XoWLkJ462KQZh6Z
+         9Dsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790288689; x=1790893489;
+        d=1e100.net; s=20260707; t=1790288690; x=1790893490;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=X4YnIQUduM9WqwnHXJR5IBSgzIzuiNO0FPLqtzOsUaQ=;
-        b=LquBjOeH6h2j6eWwuPfPxpc1M7T2QzWTUh0oVyhQElYiFIOL3rEjskEQEkHBdzB/YP
-         Vff2anibKP7eSmh9ImHqYAZUqSNJ0erJe/VUaL/6thOeKGSv7ZCaqil5Oq9ONnsGn2gG
-         Vzh/HtBr7MIa2wwMw/s2Vxh40SdLuzGsY9fWr0sGGGCPyG2Egvxutzvx50kCAHTDmBvs
-         ojfP8Mgkt/nJ1O3vyE32YfR8bsmYZMVPKGn0GRb2Ee6n13f5X2cSltPvmxObJytCLTge
-         q8A4KAeHxHOti8ooCkDh2bjthpWImPoC1TBaq9n884CtVcLsYuwxjKW5LPMXSxgErdti
-         RXdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzK8wyQa6hZRMEqzVm9vtf/QiZG0hXRvtqYx34ZJHH62JCcJKKPSXd+lSjz0XXpzw+jtKH7nW4fIGNdCnU=@vger.kernel.org
-X-Gm-Message-State: AFuF++krzrM8Ah1BP2kJPOWbBguHuswd8qTarCMkh9xnM7uSFQ/wB/3z
-	JrDqgWNEehrBB8s8UUVSRBgfw7bBsjPHfrGLO4yTO6gLwtsQ9QSYwSXHKVePIRxWtaA=
-X-Gm-Gg: AYBFou1f1AyIuagFgvEI2aWPHWOl2plLnwdxb9RF2Q7h8nXVjc9TQ0ekE1zkHTyd7bn
-	5r1M8mBCE3dnTfivKLIirH7/tUJhA4PfMdlVv6uXNPyjmG8ziMN+hHA8XMk5uDDBAxTi3qQ6bBq
-	lkrK5Gkk5mYXollXq5YvP82RGGVa3tQeGY0bqh+J8hs+UYeoFVfoX2Y4O7XOtxEtckci7cJREcq
-	3KDTLXfBWKZAOrdfnCW28+Rj0TP0TIfT0EEtsG0hm/Ol2j/gCkyVd99CTSBzEBJJLYEeIcQIXQN
-	xbThp3qKgHqxzIN09anDvBdlxYgbFpsRQRaxCGMo6qFxRSR3pKQAnpxX/gPtZ4l7S2mznZkkYta
-	Q/dkY3CxcVmctjsVLNH3fETGWmxwwXAeQ+Ag8vv1t4QMvO+6VMZGWLDP3Ajss9s5ytlhxmFlJFO
-	XV46JslaYO2LekoAfCTxXXpSrakgEfJS/uJBhc3fTwGYKSNYMHsBJaatD/wLPUtFgv1NcAmOYeC
-	SU=
-X-Received: by 2002:a05:620a:3711:b0:93b:e578:5838 with SMTP id af79cd13be357-93c43b86652mr142688685a.12.1790288688837;
-        Thu, 24 Sep 2026 15:24:48 -0700 (PDT)
+        bh=6KPtyojyWu8c8G12DM6+VdUpBOs3905ZK16r2yXTzMY=;
+        b=usLVbKAtIfSPKU139fgG9VGcAEXMJJAGZZCRb6NpDE05/pAw4G35NA7JXOxejx+m82
+         fYf+DBYM3GcExCRp+jUPX95YOzzJs9MYXcbwxu5yw3xxsRSSozs31En6nZcEz5i9VRUw
+         LFRUzLHkWgwV1A2qynaqFjFg7jJKCRXvlCvflqaNp/Dz/njBqVekwgP1YMEh5pfT0Ean
+         /mHVXUeHTP8gjaK7orT9xn5JsFpFJmbjgdHeflOrUP8i/BrHEs1PBEB7CSXREr4TgI8U
+         M8SWq3rzHSd+YNDeyueyC0zY5cdCsfE5nbgVm+EZAWqAXkzxHokXg3YOL+w1PBpHAhZx
+         gNfw==
+X-Forwarded-Encrypted: i=1; AKwUvBwL/cWcaYzE+BSLl01w5Xz7/hPmh52LnHWaGGvAMtJXtt6T783DJJWDOKZLOQETBOu85+X95EqQf/elqXk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mOh8aNL9jdKVnawf6uUpPnTqiWZOwkDIGbYX4pfmuIGICP/aMp
+	GXXKdLZvO+NquNMxunBAJqoIjcU1oi30xijumQ3fnhdLjkSoGlt2IW3T4YPFWH7CJ7U=
+X-Gm-Gg: AYBFou1IYL2wO52MB499wwsklFcZQao1S72V+iPnL9d1Z/lEYcD9IgoPm5aR7B3kWSW
+	pIZ/MCW00zhCyd5INNeQ5lYbN5tfdfWRBcyIyj+rZ7buQXDsPixy7xUFWjlotLzZ7sceJt15H3X
+	kjivWXMXTYA9vZ012sOivW3mYWdOyOYl94HkZ7iPo88Tlw8wZtQkn3QwjZ4f00tggGmAiQmxacw
+	Y6CK/PEFXnLrkQXesVZzr/G1Oi1eWsmaxtH6+51w04wgw8Own8W9XkzuZ8pVTlQpskQJAY680Ul
+	hzY1FiWW/wK/dM9L4tI221MW9Wj19q1wiixJoh7RrC0e3RM6kq3l0gmioQbRBJjnr6UpNVLmr6M
+	R28WKO1ZhQE5MYaw0tbq5+v6zMfFceAcBM+AV6sFF0mVOAXZIUtOT92+IKD/zw5t64Paxtwokt5
+	25jTjmdgrcaMWZvPLxpk29Uyz+MsE+WA7S0DlHyATYit85LBHoenO/1Mw2fes9gPIbQuTWAwrHa
+	zu3prlCzmn4YA==
+X-Received: by 2002:ad4:5ec6:0:b0:912:15a8:bd9f with SMTP id 6a1803df08f44-9142f6a130dmr13977176d6.7.1790288689912;
+        Thu, 24 Sep 2026 15:24:49 -0700 (PDT)
 Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91430eaf5basm3516496d6.44.2026.09.24.15.24.47
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91430eaf5basm3516496d6.44.2026.09.24.15.24.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 15:24:48 -0700 (PDT)
+        Thu, 24 Sep 2026 15:24:49 -0700 (PDT)
 From: Alex Elder <elder@riscstar.com>
 To: bhelgaas@google.com
 Cc: lizhi.hou@amd.com,
@@ -71,9 +71,9 @@ Cc: lizhi.hou@amd.com,
 	robh@kernel.org,
 	linux-pci@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 1/3] PCI: of: make a flags argument optional
-Date: Thu, 24 Sep 2026 17:24:41 -0500
-Message-ID: <20260924222444.1351466-2-elder@riscstar.com>
+Subject: [PATCH v3 2/3] PCI: of: introduce of_pci_build_prop_ranges()
+Date: Thu, 24 Sep 2026 17:24:42 -0500
+Message-ID: <20260924222444.1351466-3-elder@riscstar.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260924222444.1351466-1-elder@riscstar.com>
 References: <20260924222444.1351466-1-elder@riscstar.com>
@@ -85,36 +85,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The address of a u32 object is passed to of_pci_get_addr_flags() so
-it can be filled with the computed flags value.
+Move the bulk of what happens inside of_pci_prop_ranges() into
+a helper function that builds up the value to be passed to
+of_changeset_add_prop_u32_array().
 
-Allow a null pointer to be passed, so that the validity of the
-resource's flags can be checked without filling in the flags value.
+This helper will be used in the next commit to build the ranges
+property for a statically-defined PCI endpoint devicetree node
+when it has a "pci-ep-bus" sub-node.
 
 Signed-off-by: Alex Elder <elder@riscstar.com>
 ---
- drivers/pci/of_property.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/pci/of_property.c | 129 +++++++++++++++++++++++++-------------
+ 1 file changed, 86 insertions(+), 43 deletions(-)
 
 diff --git a/drivers/pci/of_property.c b/drivers/pci/of_property.c
-index 1e5d7dde467b8..a6c0cca986bdc 100644
+index a6c0cca986bdc..9f30b3c09a730 100644
 --- a/drivers/pci/of_property.c
 +++ b/drivers/pci/of_property.c
-@@ -82,9 +82,11 @@ static int of_pci_get_addr_flags(const struct resource *res, u32 *flags)
- 	else
- 		return -EINVAL;
- 
--	*flags = FIELD_PREP(OF_PCI_ADDR_FIELD_SS, ss);
--	if (res->flags & IORESOURCE_PREFETCH)
--		*flags |= OF_PCI_ADDR_FIELD_PREFETCH;
-+	if (flags) {
-+		*flags = FIELD_PREP(OF_PCI_ADDR_FIELD_SS, ss);
-+		if (res->flags & IORESOURCE_PREFETCH)
-+			*flags |= OF_PCI_ADDR_FIELD_PREFETCH;
-+	}
- 
- 	return 0;
+@@ -102,57 +102,100 @@ static int of_pci_prop_bus_range(struct pci_dev *pdev,
+ 					       ARRAY_SIZE(bus_range));
  }
+ 
++/*
++ * Build a "ranges" property value that defines the mapping between
++ * child and parent PCI address space for each of the given PCI
++ * device's resources.
++ *
++ * Returns a dynamically allocated array of u32 devicetree cells, or
++ * a null pointer if allocation fails.  The cell array is built as a
++ * of_pci_prop_ranges structure consisting of 8 32-bit cells in host
++ * byte order.  It is suitable for use as the value of a PCI device
++ * node "ranges" property passed to of_changeset_add_prop_u32_array().
++ * The total number of cells in the array is returned in *count.
++ *
++ * Caller is responsible for ensuring the returned pointer gets freed.
++ */
++static u32 *of_pci_build_prop_ranges(struct pci_dev *pdev, u32 *count)
++{
++	bool bridge_device = pci_is_bridge(pdev);
++	struct of_pci_range_entry *entries;
++	struct of_pci_range_entry *ep;
++	u32 resource_count = 0;
++	struct resource *res;
++	u32 first;
++	u32 num;
++	u32 i;
++
++	if (bridge_device) {
++		first = PCI_BRIDGE_RESOURCES;
++		num = PCI_BRIDGE_RESOURCE_NUM;
++	} else {
++		first = PCI_STD_RESOURCES;
++		num = PCI_STD_NUM_BARS;
++	}
++
++	/* First count how many resources will get a range property */
++	res = &pdev->resource[first];
++	for (i = 0; i < num; i++, res++)
++		if (resource_size(res) && !of_pci_get_addr_flags(res, NULL))
++			resource_count++;
++
++	entries = kzalloc_objs(*entries, resource_count);
++	if (!entries)
++		return NULL;
++
++	ep = entries;
++	res = &pdev->resource[first];
++	for (i = 0; i < num; i++, res++) {
++		u64 size = resource_size(res);
++		u32 flags;
++
++		if (!size || of_pci_get_addr_flags(res, &flags))
++			continue;
++
++		/* Record the size in the range entry */
++		ep->size[0] = upper_32_bits(size);
++		ep->size[1] = lower_32_bits(size);
++
++		/* Record the parent bus address from the resource */
++		of_pci_set_address(pdev, ep->parent_addr,
++				   pci_bus_address(pdev, first + i),
++				   flags, false);
++
++		/*
++		 * For a bridge device, the child address matches the
++		 * parent address (including its flags cell).  For an
++		 * endpoint device, the (flags) cell contains the BAR
++		 * number, and the two address cells are zero.
++		 */
++		if (bridge_device)
++			memcpy(ep->child_addr, ep->parent_addr,
++			       sizeof(ep->child_addr));
++		else
++			ep->child_addr[0] = i;
++
++		ep++;
++	}
++	*count = resource_count * sizeof(*ep) / sizeof(u32);
++
++	return (u32 *)entries;
++}
++
+ static int of_pci_prop_ranges(struct pci_dev *pdev, struct of_changeset *ocs,
+ 			      struct device_node *np)
+ {
+ 	struct of_pci_range_entry *rp;
+-	struct resource *res;
+-	int i, j, ret;
+-	u32 flags, num;
+-	u64 val64;
++	u32 *value;
++	u32 count;
++	int ret;
+ 
+-	if (pci_is_bridge(pdev)) {
+-		num = PCI_BRIDGE_RESOURCE_NUM;
+-		res = &pdev->resource[PCI_BRIDGE_RESOURCES];
+-	} else {
+-		num = PCI_STD_NUM_BARS;
+-		res = &pdev->resource[PCI_STD_RESOURCES];
+-	}
+-
+-	rp = kzalloc_objs(*rp, num);
+-	if (!rp)
++	value = of_pci_build_prop_ranges(pdev, &count);
++	if (!value)
+ 		return -ENOMEM;
+ 
+-	for (i = 0, j = 0; j < num; j++) {
+-		if (!resource_size(&res[j]))
+-			continue;
++	ret = of_changeset_add_prop_u32_array(ocs, np, "ranges", value, count);
+ 
+-		if (of_pci_get_addr_flags(&res[j], &flags))
+-			continue;
+-
+-		val64 = pci_bus_address(pdev, &res[j] - pdev->resource);
+-		of_pci_set_address(pdev, rp[i].parent_addr, val64, flags,
+-				   false);
+-		if (pci_is_bridge(pdev)) {
+-			memcpy(rp[i].child_addr, rp[i].parent_addr,
+-			       sizeof(rp[i].child_addr));
+-		} else {
+-			/*
+-			 * For endpoint device, the lower 64-bits of child
+-			 * address is always zero.
+-			 */
+-			rp[i].child_addr[0] = j;
+-		}
+-
+-		val64 = resource_size(&res[j]);
+-		rp[i].size[0] = upper_32_bits(val64);
+-		rp[i].size[1] = lower_32_bits(val64);
+-
+-		i++;
+-	}
+-
+-	ret = of_changeset_add_prop_u32_array(ocs, np, "ranges", (u32 *)rp,
+-					      i * sizeof(*rp) / sizeof(u32));
+ 	kfree(rp);
+ 
+ 	return ret;
 -- 
 2.53.0
 
