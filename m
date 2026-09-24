@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1190D432BD6;
-	Thu, 24 Sep 2026 08:23:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE352253B58;
+	Thu, 24 Sep 2026 08:24:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790238217; cv=none; b=gH4cNIr1+b/0jCrXjVIAa3zt5n7dgDnmT1obH9O+qULy8SS36IUQT/aXb0rxcx71I8XkzNwZ3xpLJ9n+AoDC6++HFd0fuIqLmT2CjWWWCdl0pIgD0rGt0I3Hl707ZX9wDn2TjTc+ju1O1tox2rcAiK710uq5fymqjYSJlaA9ahw=
+	t=1790238285; cv=none; b=p94fbcqzHuiudYf1jGIgOr29blsLux1RENTkP5s6PEzDIH8V+PPk9P6wqBQJn70BOuxfUDp77e4KfXP5kMaes5Rd7QM/3cNi9VOA+amJ+OrWB+A8PTbbLUQP3fYVbeIZ+XGAXX9EnII2sJT0rStehfHlHu0+qTy50l2eAugfyR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790238217; c=relaxed/simple;
-	bh=pq3ootEcRNlE5VmwPiLsqT1U3a54cF5U18IpkqaJGsg=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=ShNI0QI8mkDWTZum884RpKT0V14T2kTLtkZIpqdTnrubHdj6YbjBcF6jbczYCVd/a9wZKZ2QzCPfr35lKXpr0bLv8JyDpwODWqKjwX8AAWZGXreW4Q3qrLhaEhqTqePxuKy64Njs7CJ/gLbgFncXVTsh9W9CuXP3OA7JMJXetss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c0kukZOv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790238285; c=relaxed/simple;
+	bh=qH/xoIQQTjhDSiZhLliQjwC+Qf7DIwFZJQ4us8xPFLs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VD5GSbYYnCuJC+HiWVUe+vMtzd5T7vOaYfa9kfTe2007ZUA7qb51ENgJwlv8Ueec9Euh6jROLRGVNjWmpftH60VkBke0DNMXazYyt49kdStvsP4Bh7cKSNKykymt03MEqbkU9ep8NDNdUH5V0xOs08/CLPvGYUfXfwuEEQKPxhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hzWmfzKK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c0kukZOv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 118F01F000FF;
-	Thu, 24 Sep 2026 08:23:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hzWmfzKK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41AA61F000FF;
+	Thu, 24 Sep 2026 08:24:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790238214;
-	bh=0R3Mxbv3vdpxWcQQoOquOV4kjUr9blHIMswP0RJ/a58=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=c0kukZOvskiiPKmmSymm5exGovbxASfO3P63WOJaDq/7+wmrV4idTAKOlrVmL4xN4
-	 thZhxpzmIjjAwFxvHbiHWAqru4ohnWveaTrWJyxrS2Id+CwDvgf0KtS7VxJHgkfAig
-	 TZYtCREuDyZscaRuJLQBbtu0HTT/cF1pVzCEznuPsgcRrAtTcy8jI7TZGjJ4gRACY5
-	 IvcHdXa7ZYtYhNVVzBa9Ur3F47IB6i+61dq0IaetRo1/ZGQYGl94/bhZvWeWKKHR67
-	 B5ucLA7oYVY3YaziIhN9haJQsP2PImSZeY92OJlMMnJf/H+LcRG8KqA0CJ5iYeoOjE
-	 aCNu5pfjCvRSA==
-Message-ID: <eee40025-da99-48df-8687-5d93c99037e4@kernel.org>
-Date: Thu, 24 Sep 2026 10:23:30 +0200
+	s=k20260515; t=1790238284;
+	bh=H6tVKrw4vxknpsCfaS2E4oakwh3qbNJjyw35eI3TWIc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hzWmfzKKA3g7QupfnK6ZXnZ8fF2lZmD4DkqCumCqrtgN93b7O+7bJmvVJ1wgkpYnD
+	 JngGUo5JcR8XUqFasFfWGuKlyVPrp4/EEgIbQq/P0Rjcamg+xUTt/cH84ulyAf2FWA
+	 Jn/VnSq1myqFWD0scz6TZNRuDqQtlBJ26+5xrUTfo7fIFZ8h8KXU6W5Y6D9OVk3nRX
+	 YbvbF+9ERz/iDuTXVHdzKAQbzRYnPsMccVdi9XhiCsbxa3DoIb76y+sHqlpXYmeGYy
+	 nuGjLdFvXLSiwS9cOskArOuBZj110IiIXsVSikwXW6yGYoPCx5gvK1fgMC2uHd4zw7
+	 GRdxs8Hm8d1Pw==
+Message-ID: <4ef027ea-13b1-475b-ae31-7d8ca18fcecc@kernel.org>
+Date: Thu, 24 Sep 2026 10:24:40 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,8 +35,8 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] MAINTAINERS: document the branch in git T: entries
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH 2/2] docs: submitting-patches: mention the branch in T:
+ entries
 To: Matthias Goergens <matthias.goergens@gmail.com>,
  Jonathan Corbet <corbet@lwn.net>
 Cc: Shuah Khan <skhan@linuxfoundation.org>,
@@ -44,7 +44,8 @@ Cc: Shuah Khan <skhan@linuxfoundation.org>,
  workflows@vger.kernel.org, linux-doc@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <64b0be79c535bb9545f9f81a5044146a8726c761.1790220653.git.matthias.goergens@gmail.com>
- <2c05bf39-7e04-4cc7-9926-3cbf673865b5@kernel.org>
+ <e592d82c3a9fed3300488fa65380ab055852c984.1790220653.git.matthias.goergens@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -89,73 +90,39 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <2c05bf39-7e04-4cc7-9926-3cbf673865b5@kernel.org>
+In-Reply-To: <e592d82c3a9fed3300488fa65380ab055852c984.1790220653.git.matthias.goergens@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24/09/2026 10:22, Krzysztof Kozlowski wrote:
-> On 24/09/2026 05:35, Matthias Goergens wrote:
->> T: entries have named a branch after the repository URL since commit
->> a1aa5a770dc3 ("MAINTAINERS: update hwmon subsystem git trees"), and
->> 109 of the 846 git T: lines do so today.  Commit 083bf9c56d06
->> ("get_maintainer: add more --self-test options") taught
->> get_maintainer.pl to parse that optional branch and check it with git
->> ls-remote.  The preamble, however, still describes T: as it did after
->> commit 50306fb5398f ("[PATCH] Clarify T: field in MAINTAINERS"), as
->> "tree type and location", and does not mention the branch.
->>
->> Documentation/process/submitting-patches.rst sends contributors to the
->> T: entry to find the tree to prepare patches against.  When
->> development happens on a branch other than the repository's HEAD, a
->> branch-less entry points them at the wrong tree; on 2026-09-24, 173 of
->> the 273 repositories named without a branch had a HEAD that mainline
->> already contained.
->>
->> Document the existing practice and say when to name a branch.
->>
->> Suggested-by: Theodore Ts'o <tytso@mit.edu>
->> Link: https://lore.kernel.org/all/arSMwd1bGO1vrif-@mit.edu/
->> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
->> ---
->> Ted, as I said in my reply on the ext4 patch
->> (https://lore.kernel.org/all/20260924033200.3615554-1-matthias.goergens@gmail.com/),
->> I'm sending only a few of the per-tree T: patches for now, and would
->> value your view before sending the rest.
->>
->>  MAINTAINERS | 2 ++
->>  1 file changed, 2 insertions(+)
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index cc3cae2e378b..6edc17d66b44 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -30,6 +30,8 @@ Descriptions of section entries and preferred order
->>         See Documentation/maintainer/maintainer-entry-profile.rst for details.
->>  	T: *SCM* tree type and location.
->>  	   Type is one of: git, hg, quilt, stgit, topgit
->> +	   A git entry may name a branch after the URL; name one when
->> +	   development does not happen on the repository's HEAD.
+On 24/09/2026 05:35, Matthias Goergens wrote:
+> A git T: entry in MAINTAINERS may name a branch after the repository
+> URL, and where it does, that branch rather than the repository's HEAD
+> is the one to prepare patches against.  Say so where contributors are
+> sent to the T: entry.
 > 
-> What is repository's HEAD? The one ref in remotes/origin/HEAD? Pointing
-> almost always to the master branch? I think no one works on master
-> branch, because that mirrors origin/master. So basically this would
-> expect EVERY tree entry to be renamed... and then - which branch - since
-> almost all of us have more than one (at least fixes and for-next).
-> Basically the DEFAULT is that you do not work on master.
+> Suggested-by: Theodore Ts'o <tytso@mit.edu>
+> Link: https://lore.kernel.org/all/arSMwd1bGO1vrif-@mit.edu/
+> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+> ---
+>  Documentation/process/submitting-patches.rst | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
 > 
-> If you disagree, please point me where is the HEAD:
-> https://web.git.kernel.org/pub/scm/linux/kernel/git/krzk/linux.git/
-> (and all branches are active, meaning nothing is stalled or some wip-dev
-> work)
-> 
-> I don't think this change in that form and naming is useful for developers.
-> 
-> What contributors need is the branch feeding next, because this is the
-> base for them.
-> 
+> diff --git a/Documentation/process/submitting-patches.rst b/Documentation/process/submitting-patches.rst
+> index 7ae79452e1b4..2936388dcaee 100644
+> --- a/Documentation/process/submitting-patches.rst
+> +++ b/Documentation/process/submitting-patches.rst
+> @@ -37,8 +37,9 @@ which can be grabbed with::
+>  Note, however, that you may not want to develop against the mainline tree
+>  directly.  Most subsystem maintainers run their own trees and want to see
+>  patches prepared against those trees.  See the **T:** entry for the subsystem
+> -in the MAINTAINERS file to find that tree, or simply ask the maintainer if
+> -the tree is not listed there.
+> +in the MAINTAINERS file to find that tree, and the branch to work against if
+> +the entry names one, or simply ask the maintainer if the tree is not listed
+> +there.
 
-Also, people could explain their branches in ABOUT page...
-https://web.git.kernel.org/pub/scm/linux/kernel/git/krzk/linux.git/about/
+Honestly this should be squashed with previous. It is one logical change
+- amend format of T: entry and update the docs which reference that T:.
 
 Best regards,
 Krzysztof
