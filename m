@@ -1,487 +1,178 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8484A386D
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:11:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9522B415B6E
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:13:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790273499; cv=pass; b=MSXlBklq0neFUR4yhJbsQy7NAJb5T5vcncQfpJ6d/lRnGmj4oVrSdLm/0hwllr/5tzyhR4YJH+vEkOLEZKe5Izd3JW0IUnWIH45WKsHQ1j94o3eWUsz87dwNYqPFPr07Ncv6KofrGNq+E+ZX6Ma/SkYADa4C0MhepKjx3GZj3z0=
+	t=1790273593; cv=pass; b=Kp8BSfdHP7WaZZuaZYaJOVw/mdwym7ukQhRcylDcwVuVT4sZsryyc8vAGR/2K4D3+se0E5MbXT5QRzooX1RvYy42oH57b/nMce/JF9OqS1RQaPfB+4vXGUrnX1OxHrcfbURxk4DKy85hlN/pQQZKpMUyUPw8mMoUqxq/Wh4BjTY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790273499; c=relaxed/simple;
-	bh=fr8A5rOzYlWd53PWW3R67Vucgp8tQFqn7KnBcY0nUG8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NzO+Czv8374fB/w9YbFajMFNpH8dyub77uCisHho45mbWpxaRME5X4B8FexyCewDYqj9th8LEl8IwYAgzyNyW0EVkk1rPPXgoMO13raXFp2Sg0jU5nMlK/Rqvzs8cmOhdGECShqDbS2nPoAL5oUNAfd3kVrz2ojE/zkK1zG104o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=YjhKYoGD; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1790273593; c=relaxed/simple;
+	bh=obM89duV/YDQdOLprqIx6ewSPHAr0cjoNZPC7dSU81A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IEU4YtnVSvrLrjDcefUywZaMxaZom+A/mEKPnGOZL3LYE06EkqZrSDxM49KEVag9/UCoFeDeF/ORTKP4RZDakg+ha29x7Pige0NsAeFB+uGj4C1ky36ry/++jqgEN9fqukpJMhd2ck4g0yipAphuPMSoWZ5VITC0YSMUad+iZp0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SbvzXo7h; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="YjhKYoGD"
-ARC-Seal: i=1; a=rsa-sha256; t=1790273465; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=WUErFZMDk5ZTkpr+ch/wXVRrnnkzmzBbUwKZ/AYb5QONum5KRIqhOj050Q0kupodELKeOSZorrS0oTdgpE0dtlJiOiVSMzPXOfm1Apvxc4ckGldfwdo72th29R+sxHF9RiD83Uh0R9I/KJFcX78/TVpDtQ5sJrGKQGoeEljs+lU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790273465; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=HtXaaVHStmqXh+vt1a/Y1wX6CwPDilAocWr/3vOH1Xs=; 
-	b=KeDBSNK1EamqvtcTzKm00DarxNhhS3gcs9PO0z/vsnFKfgcMCsBvYI3Dsaz25Gz6dV+W4jh6FiU6+0cHT1YKtC1VF2cuNFpZssMI4Ap95hOtWstYN6Y1irrgT8prI852Uzel2ymFwPjnsgyozbJI66JCY0sZHdIWAPq1z3GEQrk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790273465;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=HtXaaVHStmqXh+vt1a/Y1wX6CwPDilAocWr/3vOH1Xs=;
-	b=YjhKYoGD74GF5eiAQRMAiOleG6L2aeKf/gbao5VQs8zMSe2rXMqx0NJrnX8oDZ9w
-	+8Cq2LPTYQbdYlkBcjGOqXUFisCKPnZ5H20gcIL6t2dymca38xJX3BI2VktUKWycySE
-	og26KVOUjtOd+D6/gDMi+kxa+dbwN3yzalmQAcXE=
-Received: by smtp.zohomail.com with SMTPS id 1790273464048209.66059778559736;
-	Thu, 24 Sep 2026 11:11:04 -0700 (PDT)
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Thu, 24 Sep 2026 19:09:32 +0100
-Subject: [PATCH v10 15/15] drm/panfrost: Fix races between perfcnt and
- reset sequence
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SbvzXo7h"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4aa8d881so341385d50.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:13:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790273590; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VeCaiMN/cCYsXoeKweioZU5F7PYESUTxaH61GhZjY34F1X21Hpkl2kKGMObPyUTUjm
+         GQw0trmhHt3IOcuv3ijyvZ69dkLArvXMsEGjK6ym/HhJ2er0Mk3H4WyxoS9ftD7IAYu9
+         eWzdaC+vwB5HExEh3TfAnS6sZlJWelAzuvR6P/OtpcIjPTALImP72Yvr0u6S0bSGcgTn
+         6tEHf8xAG8tOHrep33eje+Skh+6JrRUxP6sHauivk8T8DOVVrNFq5bBNkl6ku6IcSOw8
+         R1uzbZZocpKstRsJxbOnbpbEdu5x/bGav7eQuCRpP6liMHxS0l9sC2PJGgbFZSK8QboC
+         oEew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=K5/HMVOS3XLD3/CmnfQQxYp5K4Q9PjCgcZilabgKRo8=;
+        fh=AFhrJL8baQ0CSUnYDAd/LeNhWVHHXaExf7RvRfQLwXg=;
+        b=YF/W6jh+t3xUB0fOox3Zg6YMrBAl7XUp+zFMHF1uZc3hMwsLC+hthCAa0C1nXIu0U/
+         mVTu8HvB5gmDQ1JrMghIFlqADVbP4yU6lZLUFhzdtIf948iaORONUj4SwW5weg8PqDC/
+         vmgDwtmLX+xPZw3r9W5Xv6/V0dr1CTThxfY0InbyvpjkMOc7wEethiNM9foz8aCB5Uuw
+         waHdR2jEevDY5+Vf7M0oyOF1p0UN322BOaCyEJpqjPFXtnQFXnSZQlAKkQiEnTlJcLCM
+         j2Mj/b5ZoPsmrtpkPHPtcs/cyq4R1a0OxBU9t3iFRs1K9yrB+LPaFyTirHsEpZV+x8Rb
+         KHWg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790273590; x=1790878390; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=K5/HMVOS3XLD3/CmnfQQxYp5K4Q9PjCgcZilabgKRo8=;
+        b=SbvzXo7hrk0G6IauEmNn8RcRTFDhXSYqND3iYB+yTSkk/RWTVAJUMeNbgREjaGaJht
+         dlN1Eg/3m89JfwDHLE0FluvYhAG3q3xdg3l7jNZUUJrO+l21ou8qZFzxUfbvYJvzQXOg
+         5/+ygTJVT+uaqLti+EfJmQA/N2W5pjkKps/R6ID31PGjFY4W5cJ8VvClXQeU/Ck/ZqAQ
+         Y3WpYCjClKYmTsfxbbDWMvEQMJKv2FtuUgZQjWqydKctnyzYsWgzRtVwS8KSrcokkmr6
+         KIqzntdUUlJs5UMpLtcBj6DmlwlgqYUD+4o6vaTavK6EWNOGL++xcPWaQBtsgV/s5fPB
+         y9Fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790273590; x=1790878390;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K5/HMVOS3XLD3/CmnfQQxYp5K4Q9PjCgcZilabgKRo8=;
+        b=IFc1K63qCY34TIMtjQBkGabaZJSaovE/fYEdtVVBM65f/7NdbpW0ExGHvkwkAsgjX7
+         QWK7Dtz1HQ+EqHAL94obKNRI83ZOmK5di/rWTpW37fRaWcGShvQcvo69M5u3QVC59BQx
+         DlUmcU/dI4dMfXPzmYGrTtCv6An0aeedJfp8bW7h9ri0fUiUMxepH+1WLYZwNmvnIZTD
+         ikWFxuIT/LBuoPaz7wg4BDojYTpPGfH9Ksris1dF0B/ogJP/tospGxb7SsPz04/kn/jg
+         cXIxbseC0H0+C7U7gSHYIA6Ld4gyb1ojmvfk7AwybtNWVkHsqd7c4Ur/a5qcjOZKST/Y
+         OjFA==
+X-Forwarded-Encrypted: i=1; AKwUvByrrIE/AQ0gSqxp5RnVUjXqwxXrcxUB+lvrWr3WdHbOMSFk9+uv12TdKP6bE5PNPxVkhyM5rJWiCkcK/Fc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nTrf43o+aa0GCSY87Ih9LS3gV5MTBkUhv6q2QKOeVT3fUDCyvt
+	6E3PRDa9+BuYGZvONx3rigAcpukmQnLcK9CmfXWiu+nsbiDrBVp+0KKyIR4t7mSk4aZa15+E+9F
+	ZKNGRn4TDE1N4VhaHPZNwQFFH1ePyqTM=
+X-Gm-Gg: AYBFou3zQOrpiLr4k65fIIH826BnptUzUf5M4/+ulYRC5om/bOhyf+bNhTIaFoE7R3h
+	QsrPEolwNnYz0we0hMzeRth06QrKNuqRM17x3B1CX/GBXzJADoRgh4TBJI3NE00z9a2mwozaM9W
+	McfUE4V2pwOiaMUoztbcC5aE0BoOW25Kip8LN/aMwJv6thQ1WKOH1hwsP2GfhZJBqDfW/+d0avl
+	7PpRupfTITvGt0No2jZnUBdC2skT7AM4DyKZmEdObQ7KSETsBeYiiJ/LhwY8lHNzqrmHtDPzEug
+	6geuS9jNIiTolVoHHQgaJ26Qi3zGwkBCCSlY47u/+9tE49BzC4djX4Ur
+X-Received: by 2002:a05:690e:418b:b0:671:5ede:96e2 with SMTP id
+ 956f58d0204a3-672ed2603d0mr2064645d50.8.1790273590483; Thu, 24 Sep 2026
+ 11:13:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260924-claude-fixes-v10-15-755929b3cc19@collabora.com>
-References: <20260924-claude-fixes-v10-0-755929b3cc19@collabora.com>
-In-Reply-To: <20260924-claude-fixes-v10-0-755929b3cc19@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>, 
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=14027;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=fr8A5rOzYlWd53PWW3R67Vucgp8tQFqn7KnBcY0nUG8=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqtWdZUuB5RjKX6juJ5YeeQLvMzK0UZLyqsZZTm
- VQ7WgPvYdeJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCarVnWQAKCRAOJn5M7lND
- PeKqDACrVbvtUpiR814wUhHbqeZdQCtezUbIIPGzIzvL+CVe/hLYcu1ed+GWNCVh1dmmD9JiQP8
- Et51dGL5n3pwmFaCxGG00EfKqApQD/PcQGp6FNoeaodV81jKCFFHkdZGiNptwbjfyGrkrKPyXAe
- XSRPWr0QubGuAFGRr8edhz36p0m0phNIR3F8xRlck9P1KPbCDHm+c/MJrlltvo6stuWNm6NS2dT
- p84THlOTLSRGRy1J5XVtb6MJPt2Ul5HJPRZZSKr/8PAHc7HgtIo8DrNA4UgxknRNYHCgTJMHlJG
- 5rufXWsMUD2le81ldTPxhjPVZPofHgCap+ySA7uwoWDPsUkfI3mK3FLQx1oXMf1mlFrnkWMu0U7
- yIhh6KRsaa/QQPhKlAR3PQV6tvfjEzrepg+5a4NXEuTflWSSm4teT2adz3f7b657Z6UWTqmDfFN
- gHSTaEWx3ov1HCD3aiFNYGI8DwBLgHTfJbxB09R/xSXzu+mZizU5QsaRePxsXaXsOfEcQ=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
+References: <20260912191156.185448-1-sumeet4linux@gmail.com>
+In-Reply-To: <20260912191156.185448-1-sumeet4linux@gmail.com>
+From: Sumeet Pawnikar <sumeet4linux@gmail.com>
+Date: Thu, 24 Sep 2026 23:42:59 +0530
+X-Gm-Features: AclHuK9xd3dlB_Cgp98d7h2ns81HK8suGpMur6yXKcYJOLZ9LOtfHEkjox28BFY
+Message-ID: <CAJ9orWTDrTTRLqwnwu9YMQQKt0k2g7qZEpH6fDcMFcTbTs55KA@mail.gmail.com>
+Subject: Re: [PATCH v2 0/5] PM: Use %pe to print error pointers symbolically
+To: rafael@kernel.org, krzk@kernel.org, amit.kachhap@gmail.com, 
+	daniel.lezcano@kernel.org, thara.gopinath@gmail.com, talel@amazon.com, 
+	hayashi.kunihiko@socionext.com, mhiramat@kernel.org, mmayer@broadcom.com, 
+	viresh.kumar@linaro.org, sumitg@nvidia.com, peter.griffin@linaro.org, 
+	myungjoo.ham@samsung.com, kyungmin.park@samsung.com, cw00.choi@samsung.com, 
+	Frank.Li@nxp.com, s.hauer@pengutronix.de, matthias.bgg@gmail.com, 
+	angelogioacchino.delregno@collabora.com, sven@kernel.org, j@jannau.net, 
+	marcan@marcan.st, casey.connolly@linaro.org, sre@kernel.org, wens@kernel.org, 
+	t.schramm@manjaro.org
+Cc: bcm-kernel-feedback-list@broadcom.com, linux-samsung-soc@vger.kernel.org, 
+	kernel@pengutronix.de, imx@lists.linux.dev, 
+	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Formerly, the reset sequence would race with panfrost_mmu_as_put()
-when tearing down a perfcnt session. On top of that, poking GPU
-registers to program a perfcnt session or obtaining a dump might lead to
-undefined behaviour when done at the same time a reset was ongoing.
+On Sun, Sep 13, 2026 at 12:42=E2=80=AFAM Sumeet Pawnikar <sumeet4linux@gmai=
+l.com> wrote:
+>
+> This patch series is a cleanup for subsystems under power management
+> (linux-pm) that converts several instances of error pointer printing
+> to use the `%pe` format specifier instead of explicitly casting with
+> `PTR_ERR()`.
+>
+> Currently, many drivers use `PTR_ERR()` paired with `%ld` or `%li` to
+> print error codes returned as pointers. By switching to `%pe` and passing
+> the error pointer directly, the logging subsystem will automatically
+> print the symbolic error name (e.g., `-ENOMEM`, `-EPROBE_DEFER`) when
+> `CONFIG_SYMBOLIC_ERRNAME` is enabled, and gracefully fall back to the
+> numeric value otherwise.
+>
+> This change significantly improves the readability of kernel logs and
+> dmesg traces during debugging, without introducing any functional changes
+> or side effects.
+>
+> The cleanup has been applied across the following PM subsystems/drivers:
+> * powercap (intel_rapl_msr)
+> * thermal (cpufreq_cooling, devfreq_cooling, qcom)
+> * cpufreq (bmips, cppc, qoriq, s3c64xx)
+> * devfreq (imx-bus, imx8m-ddrc)
+> * power/supply (various battery and charger drivers)
+>
+ping for review request on above listed changes in this v2 series.
 
-Use the reset r/w semaphore to govern access to the hardware at reset
-time. On top of that, expand the DRM uAPI for the perfcnt DUMP operation
-so that userspace can be made aware of a reset having happened. UM needs
-to know about this condition because counter data is inaccurate after
-a reset, so the best approach is simply to try again.
+Thanks,
+Sumeet.
 
-The new perfcnt-aware reset sequence also takes care to reestablish
-perfcnt to its original configuration if there was an enabled session,
-or else flags the current session as dead if that failed.
-
-Also bump DRM driver minor to reflect the new DUMP IOCTL req field.
-
-Fixes: 73e467f60acd ("drm/panfrost: Consolidate reset handling")
-Fixes: 7786fd108777 ("drm/panfrost: Expose performance counters through unstable ioctls")
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
----
- drivers/gpu/drm/panfrost/panfrost_device.c  |   2 +
- drivers/gpu/drm/panfrost/panfrost_drv.c     |   3 +-
- drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 200 ++++++++++++++++++++--------
- drivers/gpu/drm/panfrost/panfrost_perfcnt.h |   1 +
- include/uapi/drm/panfrost_drm.h             |   8 +-
- 5 files changed, 155 insertions(+), 59 deletions(-)
-
-diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-index 801ca07ccb28..98de04362517 100644
---- a/drivers/gpu/drm/panfrost/panfrost_device.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-@@ -483,6 +483,8 @@ void panfrost_device_reset(struct panfrost_device *pfdev, bool enable_job_int)
- 	panfrost_jm_reset_interrupts(pfdev);
- 	if (enable_job_int)
- 		panfrost_jm_enable_interrupts(pfdev);
-+
-+	panfrost_perfcnt_reset(pfdev);
- }
- 
- static int panfrost_device_runtime_resume(struct device *dev)
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index 571a26b84126..de9b1c115181 100644
---- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -808,6 +808,7 @@ static const struct file_operations panfrost_drm_driver_fops = {
-  * - 1.6 - adds PANFROST_BO_MAP_WB, PANFROST_IOCTL_SYNC_BO,
-  *	   PANFROST_IOCTL_QUERY_BO_INFO and
-  *	   DRM_PANFROST_PARAM_SELECTED_COHERENCY
-+ * - 1.7 - adds PERFCNT_DUMP req state field
-  */
- static const struct drm_driver panfrost_drm_driver = {
- 	.driver_features	= DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ,
-@@ -820,7 +821,7 @@ static const struct drm_driver panfrost_drm_driver = {
- 	.name			= "panfrost",
- 	.desc			= "panfrost DRM",
- 	.major			= 1,
--	.minor			= 6,
-+	.minor			= 7,
- 
- 	.gem_create_object	= panfrost_gem_create_object,
- 	.gem_prime_import	= panfrost_gem_prime_import,
-diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-index b3f71d7fd82a..91983d450c24 100644
---- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-@@ -11,6 +11,7 @@
- #include <drm/drm_file.h>
- #include <drm/drm_gem_shmem_helper.h>
- #include <drm/panfrost_drm.h>
-+#include <drm/drm_print.h>
- 
- #include "panfrost_device.h"
- #include "panfrost_features.h"
-@@ -28,21 +29,31 @@
- 
- struct panfrost_perfcnt {
- 	struct panfrost_gem_mapping *mapping;
-+	unsigned int counterset;
- 	size_t bosize;
- 	void *buf;
- 	struct panfrost_file_priv *user;
- 	struct mutex lock;
- 	struct completion dump_comp;
-+	unsigned int state;
-+	bool owns_as_ref;
- };
- 
- static void panfrost_perfcnt_hw_disable(struct panfrost_device *pfdev)
- {
-+	struct panfrost_perfcnt *perfcnt = pfdev->perfcnt;
-+
- 	gpu_write(pfdev, GPU_PERFCNT_CFG,
- 		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
- 	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0x0);
- 	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0x0);
- 	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0x0);
- 	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
-+
-+	if (perfcnt->owns_as_ref) {
-+		panfrost_mmu_as_put(pfdev, perfcnt->mapping->mmu);
-+		perfcnt->owns_as_ref = false;
-+	}
- }
- 
- void panfrost_perfcnt_clean_cache_done(struct panfrost_device *pfdev)
-@@ -58,25 +69,100 @@ void panfrost_perfcnt_sample_done(struct panfrost_device *pfdev)
- 		complete(&pfdev->perfcnt->dump_comp);
- }
- 
--static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev)
-+static int panfrost_perfcnt_hw_enable(struct panfrost_device *pfdev)
- {
--	u64 gpuva;
-+	struct panfrost_perfcnt *perfcnt = pfdev->perfcnt;
-+	u32 cfg, as;
- 	int ret;
- 
--	reinit_completion(&pfdev->perfcnt->dump_comp);
--	gpuva = pfdev->perfcnt->mapping->mmnode.start << PAGE_SHIFT;
--	gpu_write(pfdev, GPU_PERFCNT_BASE_LO, lower_32_bits(gpuva));
--	gpu_write(pfdev, GPU_PERFCNT_BASE_HI, upper_32_bits(gpuva));
--	gpu_write(pfdev, GPU_INT_CLEAR,
--		  GPU_IRQ_CLEAN_CACHES_COMPLETED |
--		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
--	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_SAMPLE);
-+	drm_WARN_ON(&pfdev->base, perfcnt->owns_as_ref);
-+
-+	ret = panfrost_mmu_as_get(pfdev, perfcnt->mapping->mmu);
-+	if (ret < 0)
-+		return ret;
-+
-+	perfcnt->owns_as_ref = true;
-+
-+	as = ret;
-+	cfg = GPU_PERFCNT_CFG_AS(as) |
-+	      GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_MANUAL);
-+
-+	/*
-+	 * Bifrost GPUs have 2 set of counters, but we're only interested by
-+	 * the first one for now.
-+	 */
-+	if (panfrost_model_is_bifrost(pfdev))
-+		cfg |= GPU_PERFCNT_CFG_SETSEL(perfcnt->counterset);
-+
-+	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0xffffffff);
-+	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0xffffffff);
-+	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0xffffffff);
-+
-+	/*
-+	 * Due to PRLAM-8186 we need to disable the Tiler before we enable HW
-+	 * counters.
-+	 */
-+	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
-+		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
-+	else
-+		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
-+
-+	gpu_write(pfdev, GPU_PERFCNT_CFG, cfg);
-+
-+	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
-+		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
-+
-+	return 0;
-+}
-+
-+static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev, u32 *state)
-+{
-+	struct panfrost_perfcnt *perfcnt = pfdev->perfcnt;
-+	u64 gpuva = perfcnt->mapping->mmnode.start << PAGE_SHIFT;
-+	int ret;
-+
-+	scoped_guard(rwsem_read, &pfdev->reset.lock) {
-+		*state = perfcnt->state;
-+		if (perfcnt->state & PANFROST_PERFCNT_SESSION_DEAD)
-+			return -EIO;
-+
-+		perfcnt->state = 0;
-+
-+		reinit_completion(&pfdev->perfcnt->dump_comp);
-+
-+		gpu_write(pfdev, GPU_PERFCNT_BASE_LO, lower_32_bits(gpuva));
-+		gpu_write(pfdev, GPU_PERFCNT_BASE_HI, upper_32_bits(gpuva));
-+		gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_CLEAN_CACHES_COMPLETED |
-+						GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
-+		gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_SAMPLE);
-+	}
-+
-+	/*
-+	 * Here we release the reset semaphore because perfcnt should not get in the way
-+	 * of a HW reset. Besides, a legitimate reset might be issued during the wait.
-+	 */
- 	ret = wait_for_completion_interruptible_timeout(&pfdev->perfcnt->dump_comp,
- 							msecs_to_jiffies(1000));
-+
-+	/* A reset might come through in the gap between the completion returning and the following
-+	 * check, but because no sample was produced, we don't care to relay the state back to UM
-+	 */
- 	if (!ret)
--		ret = -ETIMEDOUT;
--	else if (ret > 0)
--		ret = 0;
-+		return -ETIMEDOUT;
-+
-+	scoped_guard(rwsem_read, &pfdev->reset.lock) {
-+		u32 new_state = perfcnt->state;
-+
-+		*state |= new_state;
-+		if (new_state & PANFROST_PERFCNT_SESSION_DEAD)
-+			return -EIO;
-+
-+		perfcnt->state = 0;
-+
-+		/* If we faced a reset during our SAMPLE, the user needs to try again. */
-+		if (new_state & PANFROST_PERFCNT_SESSION_INTERRUPTED_BY_RESET)
-+			return -EAGAIN;
-+	}
- 
- 	return ret;
- }
-@@ -87,9 +173,8 @@ static int panfrost_perfcnt_enable_locked(struct panfrost_device *pfdev,
- {
- 	struct panfrost_file_priv *user = file_priv->driver_priv;
- 	struct panfrost_perfcnt *perfcnt = pfdev->perfcnt;
--	struct iosys_map map;
- 	struct drm_gem_shmem_object *bo;
--	u32 cfg, as;
-+	struct iosys_map map;
- 	int ret;
- 
- 	if (user == perfcnt->user)
-@@ -122,54 +207,29 @@ static int panfrost_perfcnt_enable_locked(struct panfrost_device *pfdev,
- 	ret = drm_gem_vmap(&bo->base, &map);
- 	if (ret)
- 		goto err_put_mapping;
-+
- 	perfcnt->buf = map.vaddr;
-+	perfcnt->counterset = counterset;
- 
- 	panfrost_gem_internal_set_label(&bo->base, "Perfcnt sample buffer");
- 
--	/*
--	 * Clear the counters to start from a fresh state.
--	 */
--	gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
--	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
--
--	ret = panfrost_mmu_as_get(pfdev, perfcnt->mapping->mmu);
--	if (ret < 0)
--		goto err_vunmap;
--
--	as = ret;
--	cfg = GPU_PERFCNT_CFG_AS(as) |
--	      GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_MANUAL);
--
--	/*
--	 * Bifrost GPUs have 2 set of counters, but we're only interested by
--	 * the first one for now.
--	 */
--	if (panfrost_model_is_bifrost(pfdev))
--		cfg |= GPU_PERFCNT_CFG_SETSEL(counterset);
--
--	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0xffffffff);
--	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0xffffffff);
--	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0xffffffff);
--
--	/*
--	 * Due to PRLAM-8186 we need to disable the Tiler before we enable HW
--	 * counters.
--	 */
--	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
--		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
--	else
--		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
-+	scoped_guard(rwsem_read, &pfdev->reset.lock) {
-+		/*
-+		 * Clear the counters to start from a fresh state.
-+		 */
-+		gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
-+		gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
- 
--	gpu_write(pfdev, GPU_PERFCNT_CFG, cfg);
-+		ret = panfrost_perfcnt_hw_enable(pfdev);
-+		if (ret)
-+			goto err_vunmap;
- 
--	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
--		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
-+		perfcnt->user = user;
-+	}
- 
- 	/* The BO ref is retained by the mapping. */
- 	drm_gem_object_put(&bo->base);
- 
--	perfcnt->user = user;
--
- 	return 0;
- 
- err_vunmap:
-@@ -195,13 +255,14 @@ static int panfrost_perfcnt_disable_locked(struct panfrost_device *pfdev,
- 	if (user != perfcnt->user)
- 		return -EINVAL;
- 
--	panfrost_perfcnt_hw_disable(pfdev);
-+	scoped_guard(rwsem_read, &pfdev->reset.lock) {
-+		panfrost_perfcnt_hw_disable(pfdev);
-+		perfcnt->user = NULL;
-+	}
- 
--	perfcnt->user = NULL;
- 	drm_gem_vunmap(&perfcnt->mapping->obj->base.base, &map);
- 	perfcnt->buf = NULL;
- 	panfrost_gem_close(&perfcnt->mapping->obj->base.base, file_priv);
--	panfrost_mmu_as_put(pfdev, perfcnt->mapping->mmu);
- 	panfrost_gem_mapping_put(perfcnt->mapping);
- 	perfcnt->mapping = NULL;
- 	pm_runtime_put_autosuspend(pfdev->base.dev);
-@@ -249,13 +310,16 @@ int panfrost_ioctl_perfcnt_dump(struct drm_device *dev, void *data,
- 	if (ret)
- 		return ret;
- 
-+	if (req->pad)
-+		return -EINVAL;
-+
- 	mutex_lock(&perfcnt->lock);
- 	if (perfcnt->user != file_priv->driver_priv) {
- 		ret = -EINVAL;
- 		goto out;
- 	}
- 
--	ret = panfrost_perfcnt_dump_locked(pfdev);
-+	ret = panfrost_perfcnt_dump_locked(pfdev, &req->state);
- 	if (ret)
- 		goto out;
- 
-@@ -338,3 +402,25 @@ void panfrost_perfcnt_fini(struct panfrost_device *pfdev)
- 	/* Disable everything before leaving. */
- 	panfrost_perfcnt_hw_disable(pfdev);
- }
-+
-+void panfrost_perfcnt_reset(struct panfrost_device *pfdev)
-+{
-+	struct panfrost_perfcnt *perfcnt = pfdev->perfcnt;
-+
-+	if (drm_WARN_ON(&pfdev->base, !perfcnt))
-+		return;
-+
-+	lockdep_assert_held(&pfdev->reset.lock);
-+
-+	if (!perfcnt->user)
-+		return;
-+
-+	/* All active AS are released during the MMU post_reset. */
-+	perfcnt->owns_as_ref = false;
-+	perfcnt->state |= PANFROST_PERFCNT_SESSION_INTERRUPTED_BY_RESET;
-+	if (panfrost_perfcnt_hw_enable(pfdev))
-+		perfcnt->state |= PANFROST_PERFCNT_SESSION_DEAD;
-+
-+	/* Unblock pending sample requests. */
-+	complete(&perfcnt->dump_comp);
-+}
-diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.h b/drivers/gpu/drm/panfrost/panfrost_perfcnt.h
-index 8bbcf5f5fb33..8b9bc704b634 100644
---- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.h
-+++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.h
-@@ -14,5 +14,6 @@ int panfrost_ioctl_perfcnt_enable(struct drm_device *dev, void *data,
- 				  struct drm_file *file_priv);
- int panfrost_ioctl_perfcnt_dump(struct drm_device *dev, void *data,
- 				struct drm_file *file_priv);
-+void panfrost_perfcnt_reset(struct panfrost_device *pfdev);
- 
- #endif
-diff --git a/include/uapi/drm/panfrost_drm.h b/include/uapi/drm/panfrost_drm.h
-index 50d5337f35ef..97e001040543 100644
---- a/include/uapi/drm/panfrost_drm.h
-+++ b/include/uapi/drm/panfrost_drm.h
-@@ -47,7 +47,7 @@ extern "C" {
-  * them for anything but debugging purpose.
-  */
- #define DRM_IOCTL_PANFROST_PERFCNT_ENABLE	DRM_IOW(DRM_COMMAND_BASE + DRM_PANFROST_PERFCNT_ENABLE, struct drm_panfrost_perfcnt_enable)
--#define DRM_IOCTL_PANFROST_PERFCNT_DUMP		DRM_IOW(DRM_COMMAND_BASE + DRM_PANFROST_PERFCNT_DUMP, struct drm_panfrost_perfcnt_dump)
-+#define DRM_IOCTL_PANFROST_PERFCNT_DUMP		DRM_IOWR(DRM_COMMAND_BASE + DRM_PANFROST_PERFCNT_DUMP, struct drm_panfrost_perfcnt_dump)
- 
- #define PANFROST_JD_REQ_FS (1 << 0)
- #define PANFROST_JD_REQ_CYCLE_COUNT (1 << 1)
-@@ -270,8 +270,14 @@ struct drm_panfrost_perfcnt_enable {
- 	__u32 counterset;
- };
- 
-+/* Perfcnt dump state as influenced by a HW reset */
-+#define PANFROST_PERFCNT_SESSION_DEAD                 (1 << 0)
-+#define PANFROST_PERFCNT_SESSION_INTERRUPTED_BY_RESET (1 << 1)
-+
- struct drm_panfrost_perfcnt_dump {
- 	__u64 buf_ptr;
-+	__u32 state;
-+	__u32 pad;		/* MBZ */
- };
- 
- /* madvise provides a way to tell the kernel in case a buffers contents
-
--- 
-2.55.0
-
+> ---
+> changes in v2:
+>  - Krzysztof kozlowski suggested to use dev_err_probe instead of dev_err
+>    for *_probe() functions during review of v1 series. This will be done
+>    in different patch series.
+>  - Here in v2, reverted the changes for dev_err under *_probe() functions=
+.
+>
+>  - Link to v1: https://lore.kernel.org/all/20260906061755.5103-1-sumeet4l=
+inux@gmail.com/
+>
+> ---
+>
+> Sumeet Pawnikar (5):
+>   power: Use %pe to print error pointers symbolically
+>   devfreq: Use %pe to print error pointers symbolically
+>   cpufreq: Use %pe to print error pointers symbolically
+>   thermal: Use %pe to print error pointers symbolically
+>   powercap: intel_rapl: Use %pe to print error pointers symbolically
+>
+>  drivers/cpufreq/bmips-cpufreq.c            | 4 ++--
+>  drivers/cpufreq/cppc_cpufreq.c             | 4 ++--
+>  drivers/cpufreq/qoriq-cpufreq.c            | 4 ++--
+>  drivers/cpufreq/s3c64xx-cpufreq.c          | 5 ++---
+>  drivers/devfreq/imx-bus.c                  | 4 ++--
+>  drivers/devfreq/imx8m-ddrc.c               | 3 +--
+>  drivers/power/reset/macsmc-reboot.c        | 4 ++--
+>  drivers/power/supply/cpcap-charger.c       | 4 ++--
+>  drivers/power/supply/intel_dc_ti_battery.c | 2 +-
+>  drivers/power/supply/qcom_smbx.c           | 2 +-
+>  drivers/powercap/intel_rapl_msr.c          | 4 ++--
+>  drivers/thermal/cpufreq_cooling.c          | 4 ++--
+>  drivers/thermal/devfreq_cooling.c          | 4 ++--
+>  drivers/thermal/qcom/qcom-spmi-adc-tm5.c   | 4 ++--
+>  14 files changed, 25 insertions(+), 27 deletions(-)
+>
+> --
+> 2.43.0
+>
