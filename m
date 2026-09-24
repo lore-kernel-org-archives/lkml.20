@@ -1,122 +1,117 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from mta1.migadu.com (out-38.mta1.migadu.com [95.215.58.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2FAC30C165;
-	Thu, 24 Sep 2026 01:24:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC07912C534
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:25:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790213058; cv=none; b=SjGa5QU9crTruh666YI6y698Ja64hNxp89q4sPo2qmdx83kWYrJckO8+ec+BeEu4g0jrj9R2zxR321m4DVNCzw4nUOxS7T3Hu6Tq4GjxQpAItu6A1u6OT1obDY3ifg69PoYRFg7j8B2taBFZXuyd2wPWZmLuMt5gH+BrodyNvI8=
+	t=1790213138; cv=none; b=GDVBFu7ScyR3s4W6GRp37odo7cd+PHKWs0Go2suOg2vdstWy9GiaEbPOxEtJjqF/amjtFIeZI1fLtx6sNih000jo0W1HZ101hE60x7i6OPkK2lqvysV/pyN0gyPtxLjPID+Z7OUPs5TPOioc4RZNoDASIhZr+rQ0rewWJ7sGons=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790213058; c=relaxed/simple;
-	bh=bWLHkHEx500RTqcbIBXrqF+vj0ZFF75ZCg6uHnuV8ZA=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=bA09X8kPNeu/O3g6xO0T5MqpE6j/w38q0ksMZHw4ML4oethAtaUYQ88pg+7hce4bhBowuszA/WJ7BaQBaS4cRtiDCA2tdX9gyycarKptX9ebDkSG/GV9GLOIxs+RUAT4g385gEKI2G267Kh4r0i5GE3zcR8kTRuDDvNWyahQmbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=pdr87xZc; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1790213138; c=relaxed/simple;
+	bh=DeMHDh3uSjVrxgU96xYeFj/2pU456l46kIvtq+IJU28=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qx86gFkjraol+9CZfu3RFFvEyeF7St4FMFA4vGDdSDTkqiWunVzpetog8H5kSc4V8+FeReWkR7DqmhlmHV+QuQkb4SA9GyQyjtDH/j8jRuylpNxU9SXD4WuFMf8E7FqsYw/Hj6xBBC1htuM2KOeltIbODFRnZyRWfqEFcl6lTF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dbgw8NUk; arc=none smtp.client-ip=95.215.58.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="pdr87xZc"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68O1O5bdC782689, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1790213045; bh=ckLzataiL8INfmPyHUYQYpdXsv7nHjVqvggVUw659QA=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=pdr87xZcPOo6c1fSMustigmo/9npm0XaYvTGs9MkWG/7s3x3LseXdLFm1WrwsBFNk
-	 kUB4FyP+ZAYGIEZCB8xCggAQuqWqBMMIHATDe5FAO4l0DFzgoN3mBZwKAMDX040XhJ
-	 MiePAV7AbRI0ddN8q299Cqsr/+VJOU0VNvzyNJn5xj+MThlySMyUi9kBldYfsc1hu1
-	 P3Y9cfa/Vh7wcLnBnLf9MtgnduvcF1y8xGUXIxgrv0Qan8epG4v2k1qSPRGTzuGfaU
-	 djk2kYxCcIg29vKPb+/jKHVI5aPBQjXdwUQsEIWbbHJUcFfqQKe5jjmWGAW75XHswH
-	 PhjBcGVw1C3/A==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68O1O5bdC782689
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 24 Sep 2026 09:24:05 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 24 Sep 2026 09:24:04 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Thu, 24 Sep 2026 09:24:04 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Luka Gejak <luka.gejak@linux.dev>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
- Straube" <straube.linux@gmail.com>, Peter Robinson <pbrobinson@gmail.com>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>
-Subject: RE: [PATCH v4 6/6] MAINTAINERS: add entry for the RTL8723B rtw88
- driver
-Thread-Topic: [PATCH v4 6/6] MAINTAINERS: add entry for the RTL8723B rtw88
- driver
-Thread-Index: AQHdS6ORhAIu01Pc706RGB6onKA0grbc7Ynw
-Date: Thu, 24 Sep 2026 01:24:04 +0000
-Message-ID: <afb044e0aef8425880ddb24add9340ab@realtek.com>
-References: <20260923213557.186205-1-luka.gejak@linux.dev>
- <20260923213557.186205-7-luka.gejak@linux.dev>
-In-Reply-To: <20260923213557.186205-7-luka.gejak@linux.dev>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dbgw8NUk"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=DeMHDh3uSjVrxgU96xYeFj/2pU456l46kIvtq+IJU28=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790213135; v=1; x=1790817935;
+ b=dbgw8NUkAscS+FN3V5JCakI3PZGbtafKdWoCj382lOxe6Jz18aHVm1DNUPJby86D2AV/8SRS
+ vayumL/e7csfewXpzm81T4PM26xe0BR/tDovvoyJWX5CI++hRxzxO/Or3dKMeV7kccVZhI4Ora3
+ 58Vnf5sCyXt9YAG1kEj4VOE4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f81bd399fb250b99;
+	Thu, 24 Sep 2026 01:25:34 +0000
+X-Mizu-Trace-ID: f81bd399fb250b99
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b49d86a5-299b-41a8-b65f-51f1aac2a1e4@linux.dev>
+Date: Thu, 24 Sep 2026 09:25:27 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [net-next,PATCH v1] enetc: Increase eMDIO MDC rate to 1.2 MHz
+To: Marek Vasut <marex@nabladev.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Clark Wang <xiaoning.wang@nxp.com>,
+ Claudiu Manoil <claudiu.manoil@nxp.com>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>, Wei Fang <wei.fang@nxp.com>,
+ imx@lists.linux.dev, linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+References: <20260924003132.580306-1-marex@nabladev.com>
+From: Qingfang Deng <qingfang.deng@linux.dev>
+In-Reply-To: <20260924003132.580306-1-marex@nabladev.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Luka Gejak <luka.gejak@linux.dev> wrote:
-> Add Luka Gejak as the maintainer for the RTL8723B/RTL8723BS and
-> as designated reviewer for support in rtw88 subsystem.
->=20
-> Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
+Hi,
+
+On 2026/9/24 8:30, Marek Vasut wrote:
+> The current eMDIO MDC rate is 558 kHz on i.MX95 B0. This is very low,
+> but also very compatible. However, for example NXP TJA1120 PHY needs
+> at minimum 1 MHz MDC clock and 558 kHz does not work with that PHY.
+>
+> As a minimum change, increase the MDC clock to 1.2 MHz which should be
+> equally very compatible, since even old PHYs like LAN8210Ai, KSZ8794,
+> DP83822 support up to 2.5 MHz MDC clock frequency, and it covers the
+> NXP TJA1120 as well. There is no known rationale for why the 558 kHz
+> was picked when the eMDIO driver was added.
+>
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
 > ---
->  MAINTAINERS | 8 ++++++++
->  1 file changed, 8 insertions(+)
->=20
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 0b42e898f4d8..7851cfcc9368 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -23007,6 +23007,13 @@ S:     Maintained
->  F:     Documentation/devicetree/bindings/net/dsa/realtek.yaml
->  F:     drivers/net/dsa/realtek/*
->=20
-> +REALTEK RTL8723B WIRELESS DRIVER (rtw88)
-> +M:     Luka Gejak <luka.gejak@linux.dev>
-> +L:     linux-wireless@vger.kernel.org
-> +S:     Maintained
-> +F:     drivers/net/wireless/realtek/rtw88/rtw8723b*.c
-> +F:     drivers/net/wireless/realtek/rtw88/rtw8723b*.h
-> +
+> Cc: "David S. Miller" <davem@davemloft.net>
+> Cc: Andrew Lunn <andrew+netdev@lunn.ch>
+> Cc: Clark Wang <xiaoning.wang@nxp.com>
+> Cc: Claudiu Manoil <claudiu.manoil@nxp.com>
+> Cc: Eric Dumazet <edumazet@google.com>
+> Cc: Jakub Kicinski <kuba@kernel.org>
+> Cc: Paolo Abeni <pabeni@redhat.com>
+> Cc: Vladimir Oltean <vladimir.oltean@nxp.com>
+> Cc: Wei Fang <wei.fang@nxp.com>
+> Cc: imx@lists.linux.dev
+> Cc: linux-kernel@vger.kernel.org
+> Cc: netdev@vger.kernel.org
+> ---
+> NOTE: Alternatively, I can either add a DT property to configure the
+>        clock rate, or model the clock as clock hw divider and then use
+>        assigned-clock-rates DT property to configure the desired rate?
 
-I think no need this entry.
+There's a documented DT property, at 
+Documentation/devicetree/bindings/net/mdio.yaml :
 
-Just with below 'R', the ./scripts/get_maintainer.pl with rtw88 patch can
-output your name, no?
+   clock-frequency:
+     description:
+       Desired MDIO bus clock frequency in Hz. Values greater than IEEE 
+802.3
+       defined 2.5MHz should only be used when all devices on the bus 
+support
+       the given clock speed.
 
->  REALTEK SPI-NAND
->  M:     Chris Packham <chris.packham@alliedtelesis.co.nz>
->  S:     Maintained
-> @@ -23027,6 +23034,7 @@ F:      drivers/net/wireless/realtek/rtlwifi/
->=20
->  REALTEK WIRELESS DRIVER (rtw88)
->  M:     Ping-Ke Shih <pkshih@realtek.com>
-> +R:     Luka Gejak <luka.gejak@linux.dev>
->  L:     linux-wireless@vger.kernel.org
->  S:     Maintained
->  T:     git https://github.com/pkshih/rtw.git
-> --
-> 2.55.0
+If the property is absent, you should configure the standard 2.5MHz rate 
+by default, instead of 1.2MHz.
 
-By the way, your patch should tag rtw-next (i.e. [PATCH v5 rtw-next]).
-Otherwise, NIPA test your patches on wireless-next tree, reporting
-errors [1].
-
-I don't know if someone is reading your patches. I'd skip v4.
-Please wait a while and send v5.
-
-[1] https://patchwork.kernel.org/user/todo/linux-wireless/?series=3D1172592
-
-
-
+> ---
+>   drivers/net/ethernet/freescale/enetc/enetc_mdio.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/net/ethernet/freescale/enetc/enetc_mdio.c b/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
+> index 998aaa394e9c4..30ea91cea00e5 100644
+> --- a/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
+> +++ b/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
+> @@ -24,7 +24,7 @@
+>   
+>   #define ENETC_EMDIO_CFG \
+>   	(MDIO_CFG_HOLD(2) | \
+> -	 MDIO_CFG_CLKDIV(258) | \
+> +	 MDIO_CFG_CLKDIV(138) | \
+>   	 MDIO_CFG_NEG)
+>   
+>   #define MDIO_CTL_DEV_ADDR(x)	((x) & 0x1f)
