@@ -1,155 +1,93 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C88FC3515C7;
-	Thu, 24 Sep 2026 20:22:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A48804B53FD;
+	Thu, 24 Sep 2026 20:23:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790281381; cv=none; b=GpL9cmXIOiuAoq51LVPWsDJkHYtn3gEIFkzBE1nq5XQIBFCkFs+YEq+8cjRAHM6prxXBLI9LTRG/WRIMa2mgbA/G3q7f9zelNHfvjfpvG5zk2yltZMHHHhRZNmv+AY3PKh6+bcN1vzuNyzGRYR/85z1ECB7zjGe2nXGi4FrdVgQ=
+	t=1790281386; cv=none; b=ky/tEHZdqPaRTOW2GpWtmvSQaiov77kAe627uHIbTkApRU/KSCtPz/j/phr8ecDNmiAo1RXMJjROALQEcYSx33rsUpKfRD5v9G3Eml9YgiT2qOPPivuKCJfVA2WuKYJTqaECs0hOab6q1H1qJkD+j4Xe5usSZ/u4AHwCxVZtDV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790281381; c=relaxed/simple;
-	bh=boRxUpW25x67S2FV2atISAuJqrzadzV6HeLbDg3Lerw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ItD0aSCMNiGoq7mdpwRn5SNU8Glz1MvmYLTu+4Dlo+NY02Uc+iYDxVFJ36+L7CWVjp3GVwL+G0L5BUV1LH5pgZHRK9Jn3aNmWMw8K1C8Y2OTTAezQVlCXAKXTIYzcwrwLdw8fyz6UlHPN76++tvMZc0oeAnBISNMrv+FYkREq7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Sy4abGcI; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1790281386; c=relaxed/simple;
+	bh=DG4/JC2yQl/yudwx9CEAJ2szViywAi4MSaaVut8TaYM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ghhvZXevEgCN9MwkdJIwbrgl/naNxawytdXNI4yWBvYgbNK85XRDeh5i59lgbxUl9lb8J+nx2ozJnwPFA4d079/pMcJ08sc2hJmZ6aMEK3eumg74qYJ9eKpIhjbupgTryXjByxam45XQWnNMK0Opze7olYyI1Q6ywl5YXscq0o0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=dbxuM/N4; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Sy4abGcI"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=bvQpNq8en5RKT6K3ZHe+u0VWk0SsW+4iyMjAqoSpnrw=; b=Sy4abGcIotABKktZwnP/AYAfG8
-	hagtxFUXVtqrucGBMI7cQRJEmvHIJP2Mn28g7aCsjxxcUfXFa3FqUtPh5muf8jfeSpng4p/wEZ8At
-	ZfFtwrvLJF9GAg2L6QSmyly/1ImpKsT/j1cGfi7LmD9ePveftvS4RnAhO1OLMfBNux3g/YXHO490A
-	jeKECDNnXeGLrdKTB33UgMsZg9/r3WGo2y4acMGWGuqI9qowymwbPH0VQDMwfDxCXbtTxOH7vy0Pe
-	5tX0AZMYVBy9Fu+LTBB7vbKYhd1GXxON6eH1gFo+nG9/iPQ4dXYmbMaEdK24hdTh2c4MhKCU3CgAu
-	NX83D3Xw==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x9py3-0000000C8HV-3AfE;
-	Thu, 24 Sep 2026 20:22:55 +0000
-Message-ID: <1f5285e0-a483-49d9-b230-b72f85344a03@infradead.org>
-Date: Thu, 24 Sep 2026 13:22:55 -0700
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="dbxuM/N4"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id DC4A91A1007;
+	Thu, 24 Sep 2026 20:23:00 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 97AB560738;
+	Thu, 24 Sep 2026 20:23:00 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F3AC9103290CA;
+	Thu, 24 Sep 2026 22:22:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790281378; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=fa6Gg0qJE+U990tz2t717JRwoVprlww61vWO4kxSzRs=;
+	b=dbxuM/N4ejppQ/Bcgc8rcjUe86thO4T7WnlKalC0oxnkHCGbNeHxI+cqM1l1zQl9soHQJ2
+	tyjAZcM/xMEFHRTjCLu2aOtyYsRZ+M8/KgV8XkNVc9ys4VGQRS9GUUTFItPjGSfT8CTd8L
+	U6Md75rSqM9mvYIONUAZIqfXnxmr+LTnI0Gv0E7RKteh8SBY3lNTh/HRbJb7HR4aDyVc+s
+	arnpijUZOoWrrfIv0Re4Rq5LaZL8lp7HFyVDd+AprOf/EtMBGQkcO/HawRjLHRSPF0SztQ
+	Tcu2Xa1Fw2mvDgs2QRW9BTQFx3sT+zVuuwvZqLFLjGYnKbgOzgAPm84JKCISrw==
+From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Subject: [PATCH 5.10.y 0/3] net: preserve skb_end_offset() in
+ skb_unclone_keeptruesize()
+Date: Thu, 24 Sep 2026 22:22:41 +0200
+Message-Id: <20260924-cve-2022-49142-v1-0-0bfea684c11b@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] scripts/kernel-doc: fix false pointer-to-function match
- for array members
-To: Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260923-kerneldoc-embedded-bitmap-v1-1-f0d7fca9a0c5@oss.qualcomm.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260923-kerneldoc-embedded-bitmap-v1-1-f0d7fca9a0c5@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMBCE4Vchc3ZJu2mL+CrGA5RV1wOQVomG8
+ O5WOX6TzL8iS1LJOFUrkiyadRoL7KFCvHfjTUiHYrDhYFp2FBehAibXWsfU+N6HcOSusQ7lNCe
+ 56vsfPMPX1tQfXPY9v/qHxOevhm37AsDQDDR6AAAA
+X-Change-ID: 20260924-cve-2022-49142-75b56682a714
+To: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
+ Jakub Kicinski <kuba@kernel.org>, Eric Dumazet <edumazet@google.com>, 
+ Alexey Kuznetsov <kuznet@ms2.inr.ac.ru>, 
+ Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>, Marco Elver <elver@google.com>, 
+ Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ Benjamin Robin <benjamin.robin@bootlin.com>, 
+ "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ syzbot <syzkaller@googlegroups.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790281368; l=764;
+ i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
+ bh=DG4/JC2yQl/yudwx9CEAJ2szViywAi4MSaaVut8TaYM=;
+ b=k8cYsXhFHaztfJXdSGgzE6f02bFM2G30xJRtO+OEG5/kYQIeNQ8IoOWrZX79UyYryH/2nQqV+
+ bzViCY5wqmWDqk6MkAsU2PgpuAKzed3NaGGTaVdJPbsEB0Gr3nmIiCm
+X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
+ pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
+X-Last-TLS-Session-Version: TLSv1.3
 
-[ + Mauro]
+I backported two other patches to make the series apply cleanly.
 
-On 9/23/26 10:39 AM, Jeff Johnson wrote:
-> Currently 'scripts/kernel-doc -Wall -Werror -none' produces the following
-> warnings for patch [1]:
-> 
-> Warning: include/linux/ieee80211-uhr.h:735 struct member 'valid_tid_bmap' not described in 'ieee80211_smd_ctx'
-> Warning: include/linux/ieee80211-uhr.h:735 Excess struct member 'dl.valid_tid_bmap' description in 'ieee80211_smd_ctx' (did you mean one of: 'valid_tid_bmap', 'valid_ctx_bmap')
-> Warning: include/linux/ieee80211-uhr.h:735 Excess struct member 'ul.valid_tid_bmap' description in 'ieee80211_smd_ctx' (did you mean one of: 'valid_tid_bmap', 'valid_ctx_bmap')
-> 
-> That patch contains the following (members not part of the issue have been
-> removed):
-> 
-> /**
->  * struct ieee80211_smd_ctx - IEEE 802.11bn SMD Roaming Context (refer
->  *	IEEE P802.11bn/D2.0, Aug 2026, subclause 37.16.9)
->  *
->  * @valid_ctx_bmap: Bitmap indicating which context fields are valid;
->  *	bit positions defined by IEEE80211_SMD_CTX_VALID_* constants
->  * @dl: Down-link context data
->  * @dl.valid_tid_bmap: valid DL TIDs for which context is present
->  * @ul: Up-link context data
->  * @ul.valid_tid_bmap: valid UL TIDs for which context is present
->  */
-> struct ieee80211_smd_ctx {
-> 	DECLARE_BITMAP(valid_ctx_bmap, IEEE80211_SMD_CTX_NUM_VALID_CTX);
-> 	struct {
-> 		DECLARE_BITMAP(valid_tid_bmap, IEEE80211_SMD_CTX_NUM_TIDS);
-> 	} dl;
-> 	struct {
-> 		DECLARE_BITMAP(valid_tid_bmap, IEEE80211_SMD_CTX_NUM_TIDS);
-> 	} ul;
-> };
-> 
-> rewrite_struct_members() processes each member of an embedded named
-> struct/union. Before testing for a pointer-to-function declaration, it
-> does not strip array notation from the member string. When DECLARE_BITMAP
-> is expanded by the struct xforms to:
-> 
->   unsigned long name[BITS_TO_LONGS(N)]
-> 
-> the subscript contains parentheses. The pointer-to-function regex
-> '^([^\(]+\(\*?\s*)([\w.]*)(\s*\).*)' then greedily matches the leading
-> portion up to the '(' inside the subscript, producing a garbled member
-> name and losing the correct 'substruct.name' form.
-> 
-> Fix this by stripping array notation unconditionally before the
-> pointer-to-function test, rather than only inside the else branch.
-> This is safe because the array dimensions are not needed for either
-> the pointer-to-function rewrite or the subsequent name extraction.
-> 
-> [1] https://lore.kernel.org/all/20260908-smd-v1-10-65ad4ab30fbd@oss.qualcomm.com/
-> 
-> Assisted-by: LLM
-> Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-> ---
->  tools/lib/python/kdoc/kdoc_parser.py | 12 ++++++++++--
->  1 file changed, 10 insertions(+), 2 deletions(-)
-> 
-> diff --git a/tools/lib/python/kdoc/kdoc_parser.py b/tools/lib/python/kdoc/kdoc_parser.py
-> index d9ad1ddc87dd..f097a13e47e2 100644
-> --- a/tools/lib/python/kdoc/kdoc_parser.py
-> +++ b/tools/lib/python/kdoc/kdoc_parser.py
-> @@ -738,6 +738,15 @@ class KernelDoc:
->                      for arg in content.split(';'):
->                          arg = arg.strip()
->                          #
-> +                        # Remove array portions. Array members whose
-> +                        # dimensions are expressed as macro calls
-> +                        # (e.g. DECLARE_BITMAP expansions) contain
-> +                        # parentheses inside [...] that would otherwise
-> +                        # cause a false match as a pointer-to-function
-> +                        # declaration.
-> +                        #
-> +                        arg = KernRe(r'\[.*\]').sub('', arg)
-> +                        #
->                          # Look for (type)(*name)(args) - pointer to function
->                          #
->                          r = KernRe(r'^([^\(]+\(\*?\s*)([\w.]*)(\s*\).*)')
-> @@ -754,10 +763,9 @@ class KernelDoc:
->                          #
->                          else:
->                              #
-> -                            # Remove bitmap and array portions and spaces around commas
-> +                            # Remove bitfield portions and spaces around commas
->                              #
->                              arg = KernRe(r':\s*\d+\s*').sub('', arg)
-> -                            arg = KernRe(r'\[.*\]').sub('', arg)
->                              arg = KernRe(r'\s*,\s*').sub(',', arg)
->                              #
->                              # Look for a normal decl - "type name[,name...]"
-> 
-> ---
-> base-commit: 414f2b40f7b0244ea3ec1f7411d194a6d9c89c33
-> change-id: 20260923-kerneldoc-embedded-bitmap-2e363ca11863
-> 
-> 
+Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+---
+Eric Dumazet (3):
+      net: add and use skb_unclone_keeptruesize() helper
+      net: add skb_set_end_offset() helper
+      net: preserve skb_end_offset() in skb_unclone_keeptruesize()
 
--- 
-~Randy
+ include/linux/skbuff.h | 26 ++++++++++++++++++++
+ net/core/skbuff.c      | 65 +++++++++++++++++++++++++++++---------------------
+ net/ipv4/tcp_output.c  |  6 ++---
+ 3 files changed, 67 insertions(+), 30 deletions(-)
+---
+base-commit: 1797d8bf8d0c2e74defad605d14e3553d43a3caf
+change-id: 20260924-cve-2022-49142-75b56682a714
+
+Best regards,
+--  
+Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
 
