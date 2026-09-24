@@ -1,50 +1,33 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 366B941F5CA;
-	Thu, 24 Sep 2026 07:49:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B59A3E7145;
+	Thu, 24 Sep 2026 07:50:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790236193; cv=none; b=cPC48FTR4ZJzYOBuoBFdjNF4Bs5kIeIP3RWFam/32vL9dS0eFo1iQBSgBY/YS8m913KI7VUFcHk0QrPYUR+lQ/0KqQuGQfJajW9j1UBicLG2knuy5XrxYd/ODUhr1LbDmbxvMJMTsIz7fTX+c9Pwbmjmp4j6BFhNWgab/+lY7II=
+	t=1790236214; cv=none; b=Ft4aa8AUGscBSnHmyy3+PeciFwIAXqfa6moFSsrsmV8eAzx2f7xhPimbz/23QDX5dOUlg8nfAnmmqyKK3v5nZqJFIb7g+Hsar+/p5nTGag2L4UOTbFslLFMr1n4jOScEzcENxwjUkLNI7ZPJZg8RRjpbHQo8ZwanHVPVh8vpbhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790236193; c=relaxed/simple;
-	bh=TpkAp2xl8VUoc1MOiXnXhebcZEXL65twEmm9Rhkh8n4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qRgRoVoXGShFpoEszj1/pLrl24lk5z3GfSPz+XpipYs3CNomopJUrUj0f3VXqG1AQNJRtYsMcHtMxkYCHMl1JOxw2CzKBpFQtwqHZTsBYo3kA3HESoXL0rZpG49coiel6klCCnIcHfe2RxUIGNsn7sthww06g3/h1/+IsoXKwsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=H1XnexKv; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790236214; c=relaxed/simple;
+	bh=Qj0te7eGJQSqezg4WUh94TJNtvGrDCfxRYklUhsZl7s=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=W3gxGwOfV/Zva70H/a5/XGMFrChlClBQPvqCVjqx/1xJWzpZx+FSAAmsFCcxO5U4h0UXfpbDq34jdxnCMFs7UWvlUx4pdY9irRe9No6SC+dSxaytmnYTn46Jw+ZRNgT7drKrmS5aHFcE7Zfha7eUfAIBILSQhD2+B1u1YgKCBG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eRT+7H9A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="H1XnexKv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790236191; x=1821772191;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=TpkAp2xl8VUoc1MOiXnXhebcZEXL65twEmm9Rhkh8n4=;
-  b=H1XnexKvPRZ40sGVQH07L1FBnFbF5ZulxW2eE3xWTgb+k3Rmi8TDIHbO
-   WbMglvmC62bV4UsEJRfUesRGwnlpjV94iqwjpk5RkDGTDRExWc1wM+ODz
-   mUO7ofYkTYkgoggcjN93egFxGn/FXUMu4AkN3ooW/C1lYkNPNV1ydNOJj
-   pnbiJ5qNfrhZCyPjXyXem93g0kdqE2Jji/WtuvX7FD6QzSVzVLP6yVO+a
-   +4Goyw0oVbxsbJRBohJdUk6jJebfLIqWWMTqm/2KZlnoClJHHu9F88veX
-   KhptnAJ+e1lTdEaFBYLSAEjYgd/+6t5dNTqJQAvAy28Ui6BuDwY+oEOsz
-   A==;
-X-CSE-ConnectionGUID: w07YFKpgTXW3qAyyWT2SrA==
-X-CSE-MsgGUID: vrGrBs13Scy6Su/eftgFvQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="89954810"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="89954810"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 00:49:50 -0700
-X-CSE-ConnectionGUID: 0JZefgtJRYa0w/pdGw1cXA==
-X-CSE-MsgGUID: KFuxz9k/TmejVKzhHLlL7Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="271783705"
-Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 00:49:48 -0700
-Message-ID: <062f5365-7eb5-4e04-9c84-f5ecd566f019@linux.intel.com>
-Date: Thu, 24 Sep 2026 15:49:45 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eRT+7H9A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5D691F000FF;
+	Thu, 24 Sep 2026 07:50:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790236212;
+	bh=XDvywVc6Ep1SuVeW2SGy85kW0rD7YUN5EGSklkhHzQk=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=eRT+7H9ABPwFjh7BVERhP8cozvQ4MQhStKNB7IRvgfIVy1HpxDFA1S9CLNaBl5pzI
+	 KbWjS+JLXuC1wfFOu3O1kKNSLzYoFlGe7Tv2kGJimLChc4ZoVJCdySlQ6e/Tz0sL1D
+	 U0iYGLcnxGjb2dU5iqN0HCoSkRnXP9Xme2baHRJ40E4KIM8t0wkAmMfPUSppRNQrim
+	 DTNpz+zdjksrk7NtzRiTQlySjLsTl2p+yx+bYXTEnPJmuk8zk0/jV46rM7nWCxR/1h
+	 T2pphZq6jbBIsqIE5qVV+FHA7Q1fgJbsv1XCiH44gQdnf98X4nCMENM2ur68i1YPoB
+	 mW+MzuRrfmFrA==
+Message-ID: <08bbb615-a054-472c-9873-787cc0f7a4d7@kernel.org>
+Date: Thu, 24 Sep 2026 09:50:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,183 +35,115 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/4] KVM: TDX: Track configurable CPUID bits allowed by
- KVM
-To: Xiaoyao Li <xiaoyao.li@intel.com>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, seanjc@google.com,
- pbonzini@redhat.com, dave.hansen@linux.intel.com, andrew.cooper3@citrix.com,
- nik.borisov@suse.com, kas@kernel.org, rick.p.edgecombe@intel.com,
- chao.gao@intel.com, tony.lindgren@linux.intel.com, kishen.maloor@intel.com,
- dedekind1@gmail.com
-References: <20260917072548.2314491-1-binbin.wu@linux.intel.com>
- <20260917072548.2314491-2-binbin.wu@linux.intel.com>
- <39047bbc-757d-4131-a25c-5a7743fd591a@intel.com>
+Subject: Re: [syzbot] [mm?] [ext4?] WARNING in __folio_set_anon
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+To: Lance Yang <lance.yang@linux.dev>, ljs@kernel.org,
+ akpm@linux-foundation.org
+Cc: harry@kernel.org, jannh@google.com, liam@infradead.org,
+ linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, riel@surriel.com, syzkaller-bugs@googlegroups.com,
+ vbabka@kernel.org, syzbot+c181d3198e98f8aef8b9@syzkaller.appspotmail.com
+References: <6ab4ae75.80e1c6cc.1e8e5f.000d.GAE@google.com>
+ <20260924065458.49698-1-lance.yang@linux.dev>
+ <0a0a07f8-8ac9-4d75-b4c6-c403865f0be9@kernel.org>
 Content-Language: en-US
-From: Binbin Wu <binbin.wu@linux.intel.com>
-In-Reply-To: <39047bbc-757d-4131-a25c-5a7743fd591a@intel.com>
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <0a0a07f8-8ac9-4d75-b4c6-c403865f0be9@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/24/2026 2:36 PM, Xiaoyao Li wrote:
-
-Thanks a lot for the detailed review!
-
-> On 9/17/2026 3:25 PM, Binbin Wu wrote:
->> Add tdx_cpu_cfg_caps[] to track the subset of TDX directly configurable
->> CPUID feature bits that KVM supports, and build the masks during TDX
->> hardware setup via tdx_initialize_cpu_cfg_caps().
+On 9/24/26 09:43, David Hildenbrand (Arm) wrote:
+> On 9/24/26 08:54, Lance Yang wrote:
 >>
->> The TDX module reports the CPUID bits that the VMM can directly configure
->> for a TD, but KVM cannot blindly expose all reported bits to userspace.
->> Certain features imply additional architectural state, e.g. one or more
->> MSRs, that KVM must explicitly manage across host/guest transitions to
->> prevent host state corruption.  The existing hardcoded denylist cannot
->> account for new host state clobbering features introduced by future TDX
->> modules.
+>> On Wed, Sep 23, 2026 at 10:00:37PM -0700, syzbot wrote:
+>>> Hello,
+>>>
+>>> syzbot found the following issue on:
+>>>
+>>> HEAD commit:    38872197cae2 Merge branch 'for-next/fixes' into for-kernelci
+>>> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+>>> console output: https://syzkaller.appspot.com/x/log.txt?x=17a44d25580000
+>>> kernel config:  https://syzkaller.appspot.com/x/.config?x=56ed23170c168d4c
+>>> dashboard link: https://syzkaller.appspot.com/bug?extid=c181d3198e98f8aef8b9
+>>> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+>>> userspace arch: arm64
+>>> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=16a36515580000
+>>> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16dcf4c9580000
 >>
->> Except for a few fixed-1 bits required for basic TDX support, host state
->> clobbering features are either directly configurable or gated by TD
->> ATTRIBUTES/XFAM, which KVM already validates.  Tracking only the directly
->> configurable bits to build an allowlist is therefore sufficient.
->>
->> Organize tdx_cpu_cfg_caps[] following kvm_cpu_caps[] so that the masks can
->> be built with similar feature-name based initializers.  Directly
->> configurable non-feature bits will be handled separately.
->>
->> The allowlist is prepared to be consumed by later patches to filter
->> KVM_TDX_CAPABILITIES and to reject unsupported CPUID input to
->> KVM_TDX_INIT_VM, so that newly introduced TDX directly configurable CPUID
->> feature bits stay hidden from userspace until KVM explicitly opts in.
->>
->> By default, intersect the allowlist with kvm_cpu_caps[] via TDX_CFG_F().
->> Requiring support for non-TDX VMs avoids committing to TDX-specific
->> behavior before general KVM support is established, and respects KVM's
->> logic around disabling certain features, since the reasons for disabling
->> them could apply to TDX as well.  Allow exceptions through
->> TDX_CFG_EXTRA_F() only with sufficient justification.
+>> Looking at the repro, emm ... the repro maps an O_RDONLY /dev/zero fd with
 > 
-> One name just crosses my mind. How about TDX_CFG_INDEP_F()? where INDEP stands
-> for independent.
+> Does this trigger upstream or only after Lorenzo's rework (not upstream yet IIRC)
 > 
-> - TDX_CFG_F() for features that are dependent on kvm_cpu_caps[]
-> - TDX_CFG_INDEP_F() for features not dependent on kvm_cpu_caps[]
-
-I am not sure if it's better.
-But if people prefer independent to extra, I would use TDX_CFG_INDEPENDENT_F()
-instead.
-
+> 46827ac1ab221 mm/vma: make MAP_PRIVATE-mapped /dev/zero mappings truly anonymous
+> db7438ea23180 mm/vma: only permit MAP_PRIVATE /dev/zero to be mapped anonymous
+> 54e8e096ea86b mm: implement file_is_dev_zero() to uniquely identify /dev/zero
+> fb24843cfd9eb mm: move drivers/char/mem.c to mm/char-mem.c
 > 
->> Add comments as placeholders for HLE, RTM, WAITPKG and FRED, which KVM
->> doesn't support for TDX yet.
+> I assume it triggers upstream. Does it also trigger with lorenzo's changes?
 > 
-> 1. why add comments for them? Because implementation wise, they are possible to
-> be supported by KVM but just current KVM doesn't have code to support them yet?
+>> MAP_SHARED | PROT_READ. do_mmap() clears VM_SHARED and VM_MAYWRITE, so
 > 
-> If so, are the others the features that are concluded to be impossible to be
-> supported by KVM?
+> Clearing VM_MAYWRITE for a private mapping is odd. Can you point me at the code
+> that clears both things?
 > 
-> 2. We don't need to talk about FRED, which is even not suppported for normal VMs
-> yet. Unless we are trying to enable FRED for TDs specifically.
+> I assume we still have the file pointer, and as the file is read-only we remove
+> VM_MAYWRITE. But why are we removing MAP_SHARED? (where?)
 
-OK, I will drop them to avoid confusion.
+Looking at the code, it's the
 
-> 
->> Allow MWAIT, XTPR, and HT through TDX_CFG_EXTRA_F(), as these bits are
->> not advertised in kvm_cpu_caps[].  The remaining directly configurable
->> feature bits outside kvm_cpu_caps[] are left out of the allowlist:
->>
->>   - Features forced to zero when #VE is reduced, or lacking KVM support
->>     for the associated MSRs: EST, TM2, SDBG, DCA, ACPI, ACC (TM), RDT_A,
->>     RDT_M, TME, PCONFIG, and CORE_CAPABILITIES.  Handle CORE_CAPABILITIES
->>     in a subsequent patch.
-> 
-> why not split into two category? Because they are overlapped?
-> 
->   - Features forced to zero when #VE is reduced
->   - Features lack KVM support
->
+	if (!(file->f_mode & FMODE_WRITE))
+		vma_flags_clear(&vma_flags, VMA_MAYWRITE_BIT, VMA_SHARED_BIT);
 
-Yes, there is overlap between them.
-If split into two categories, it would be:
-- Features forced to zero when #VE is reduced, which also lack KVM support
-- Features unrelated to #VE reduction that lack KVM support
+So we end up with VMA_MAYSHARE_BIT but without VMA_MAYWRITE_BIT and without
+VMA_SHARED_BIT.
 
-Because the changelog was already getting quite long, I combined them into a
-single category.
- 
-> As for "features forced to zero when #VE is reduced", do you mean when TDX
-> module supports "#VE reduction" feature, the features becomes fixed0? or when
-> guest enables "reduce #VE", the guest see a 0 value even though the feature is
-> still configurable to host userspace and host userspace configure it to 1?
+So it's by definition not a COW mapping. But it's marked anonymous and confuses
+the system :)
 
+-- 
+Cheers,
 
-#VE is reduced means the guest reduced the related #VE, i.e. TDCS.TD_CTRL.REDUCE_VE
-is 1 and the related bit in TDCS.FEATURE_PARAVIRT_CTRL is 0.
-
-> 
->>   - Features tied to IA32_MISC_ENABLE bits that a TD cannot set when
->>     TDCS.TD_CTLS.REDUCE_VE is set: CID and PBE.
-> 
-> What is CID?
-
-X86_FEATURE_CID, Context ID, more specifically, L1 CONTEXT ID
-
-> and Is PBE related to any bit of IA32_MISC_ENABLE? Did you mean PEBS instead?
-
-X86_FEATURE_PBE, Pending Break Enable.
-
-Since kernel already has X86_FEATURE_XXX for them, so I use them directly without
-other description.
-
-> 
-> I don't understand what this category. It talks about something when
-> TDCS.TD_CTLS.REDUCE_VE is set, which depends on guest TD's behavior. So what if
-> the guest TD doesn't set TDCS.TD_CTLS.REDUCE_VE?
-
-If the guest set TDCS.TD_CTLS.REDUCE_VE, write 1 to the the related bit trigger #GP.
-If the guest doesn't set TDCS.TD_CTLS.REDUCE_VE, the value is passed to KVM, and
-KVM will save the value without do corresponding virtualization.
-
-Considering TDCS.TD_CTLS.REDUCE_VE is set by the Linux guest by default, it should
-not allow these features.
-
-> 
->>   - Features that can clobber host state and lack KVM support for TDX:
->>     FRED.
->>
->>   - Unsupported features: PREFETCHWT1 (Xeon Phi only), PSN (absent from
->>     TDX-capable CPUs), AMX-TRANSPOSE (never implemented on an Intel
->>     platform), and RAO_INT (defined only for future processors).
-> 
-> PREFETCHWT1 (if the name is correct) is not supported by the kernel right? For
-> such unknown features, it's straightforward to not support it.
-> 
-> AMX-TRANSPOSE has been turned into reserved, and kernel never supports it. I
-> think we don't need to mention it at all.
-
-The guest could be other OS, not just Linux.
-
-> 
-> RAO_INT is fixed 0 for TDX 1.5?
-
-I was doing this patch series based on the latest CSV version of the CPUID
-virtualization document from "Intel TDX Module ABI Definitions" updated in June 2026.
-https://cdrdv2.intel.com/v1/dl/getContent/795381
-
-> 
-> At last, I think we can just classify all of the above as 3 types:
-> 
-> - Features that are directly configurable by TDX and in kvm_cpu_caps[].
->   use TDX_CFG_F()
-> 
-> - Features that are directly configurable by TDX and KVM actually supports them
->   or KVM can support them but not in kvm_cpu_caps[]. Use TDX_CFG_EXTRA_F().
->   For example, MWAIT, XTPR, and HT.
-> 
-> - Features that are directly configurable by TDX but KVM or kenrel doesn't
->   support them.
->   For example, RDT_A, RDT_M, PREFETCHWT1, PSN,
-
-Because excluding some bits changes the ABI, I listed all these directly configurable
-features out of kvm_cpu_caps[] to explain why we must exclude some bits.
-
+David
