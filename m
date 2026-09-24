@@ -1,264 +1,184 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3767747F3BC
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:10:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790251860; cv=none; b=rm5r+NUOyzOWvm6pUfR9aWbt02lj+WC4+W0hnucphaON9C0G97Mvdi/gLn0mAPz28FSeh9njB5uAOB44Zq7VKWu3QsvMjsO5IddZ0LizTz94xxDhS90QfXh9VBqMipLvbJg+AkSN1zRCH1Jc0dRjtjzB3uYJMWuZHh8Sf61N+Ic=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790251860; c=relaxed/simple;
-	bh=IgtQ7NG3+ltNOk7/3bBV0TizU/mZJ41BEdTzaOl3LaQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=I89b038rj1vbV12AM2wE+iBzt0hUlC560p8sOg5l9Y3x3YGWT0zn/XLLLBAUl/PkN1qyAgFSxNeVpgSQ2zrqluQOo0SDrsX/VRA+R7DHWmr1XtApibzMcBWG9EwufJVNAiWPR6hV22tqZv1FHKgUWgh1956u14eNtq1BhVbo3xY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fVueGZa1; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70DB847D931;
+	Thu, 24 Sep 2026 12:11:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.152.168
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790251884; cv=fail; b=XRD6MyQRvKfn1su266IjA5wJrOsPvkEGvtAvITXf1VC+NdPup7Fn0d/9wbpYl4F9WKxjPFVitjOrHXENyGmpGpsAhFXVFPhkkjiITSGrtdVdoRFobSafeelykcIbw4b+iHAa1ECJf7ewsN9nJ5kB/P8vLtoSN2wtft+8K/oJEro=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790251884; c=relaxed/simple;
+	bh=acsPx/2VPFjNjUn1jfnmE79c4Cs7flJOb98G20QY8/I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=V4g5nKo3sZlRc3ZJf8KdiB/3tXe16HM5CVFAh0zjEg0Mfqyk+cnBHShVk7ZizshH4aFHI4MEEoVAYY8RPL6Ssui8m/TqFXnK07Oq6Qf/orOEnzoL+/4BTk9qiF0oXPKi4WR7/eRSy6c43X7KaQ/qIWLqbeYdEpg+LizP8jCGhP0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=mV6h5AWE; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=A8DCpt7M; arc=fail smtp.client-ip=67.231.152.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fVueGZa1"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4B88C152B;
-	Thu, 24 Sep 2026 05:10:54 -0700 (PDT)
-Received: from [10.57.83.110] (unknown [10.57.83.110])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 592DA3F86C;
-	Thu, 24 Sep 2026 05:10:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790251857; bh=IgtQ7NG3+ltNOk7/3bBV0TizU/mZJ41BEdTzaOl3LaQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fVueGZa1I/lX4r15+916hs6NmRSDKrWZR6N4zsyNwcmBGnEr7G+vVnyiLovJQEz4/
-	 Sr3z02kzeKphesgRh4uF3U/WGgbLannb3g6KrCHJUu+dr50lL+cvaZDOlBigyiftFV
-	 sAhDDsEP16LQbxhuU1UpU1ewgOxX04Eg/s1QVvCg=
-Message-ID: <070d08d9-f778-4780-878a-2c2c4cb4f160@arm.com>
-Date: Thu, 24 Sep 2026 13:10:53 +0100
+	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="mV6h5AWE";
+	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="A8DCpt7M"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O4ktdD3655109;
+	Thu, 24 Sep 2026 07:10:55 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=PODMain02222019; bh=LiJrhdf7orjFMrpca5
+	AIEVefRfjU3YJraJhQSlc0dMA=; b=mV6h5AWEufiIA1fnPjZxFO9CwYj3K3swoV
+	tqJVNZNKJMpZmo0iBPHSLWOa7YYZIef2m8bX3SKiHiFEiCmV/RyM0cv/ASyPpUYU
+	Wf8cveXMdtvH49VeYW6C7Uw0zi/YsvQMSVSeLn/oy4o91H+VlFZkg6wEnLryieaH
+	PUF+rBlvQjToiTV5PwaktYtmu/Bffi7j0xw1AgYiy/eUZ3GAMRaVxJE0LJjbLCYf
+	5w4UpGU/Tu3+uVYo6AwMCj2rILWMA891YzaV1QkasWtfgbYeh+QKycYkZr/iJCAD
+	XKGu0bl3OCUYvynO+q1pItgyfSMDK4bxyTrHfNfQ+l+h/mJ8NpjA==
+Received: from bn1pr04cu002.outbound.protection.outlook.com (mail-eastus2azon11020091.outbound.protection.outlook.com [52.101.56.91])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4gsptj783t-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 07:10:55 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=l3KoYWgETObZ6JAB9sjEsWH+a84xHgpL0J832KOjEkDCjJefrdJHcmANEnxnvxtow7W7pC1UJcWzgEX38hxpeJs7IEsYBDuC96oSbuu0NNY1tDISte6QAkVV9ru6YISyumJ55kxOw1QmQLo54XFCx+8RNckZX0SuMS5tQEzs/MJ1OTor+oUiwva/XlRuk4P+y8k30R6klrLwFHNM3RQtMhdZsDdiNJa32G6Jo3BGKaLKD2Y7RJlxOIBvgiNEPfw4jya4i9Ou5eS2j1T/25cUUhyWbKXu1C7AkzbzE0h7DVA8sCfAv20U3mla1uIYiBueVec7fJShvT2GfHau4V2gww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LiJrhdf7orjFMrpca5AIEVefRfjU3YJraJhQSlc0dMA=;
+ b=I9tzX9La0YQnpGKTYqJ0MnvKOva4U8h73+K6G99mB5jWc6OduI+RyuRd555DMNKQEvAlEzoGdvyzkOEnPyGX4quKjdt4kVs6SvR/Fcnpc/U1h+Cjw4UJID4613tsQH2y68ioWmfrqwshhrnxtMZYXjkDLM51t8YHDRakhLboPv3jz1XgPKhe9QtUfssJqFGU/Y6otKE0EmW93cSch7PgQqTzeFULcN77Ul5zKVPcOxDM9HC1za6FbL+6ywuzZ3ymwgas/Qu5IruiVd53PTWpVo8Rg7oVuBD67ZL+YN4U9FIadDNOtkSAeRY94M8+tmIGWpfX34VywtL2agOSO13e2g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=cirrus.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LiJrhdf7orjFMrpca5AIEVefRfjU3YJraJhQSlc0dMA=;
+ b=A8DCpt7MtO4uKIcB2K9m10izt3zIDiWJXEagzMQjWDc0ljOSo/Geu550waNHVDJiLNzyrTcQA9P1zUmyLiqFJQkgvIiKMRKMTAc69GGHfxCxppUY+ofQxWPbL0QRoQsUyLPHW4jrgVu35Y6jo8nprDHO4aXb7U7XzORPZu/8Z40=
+Received: from SJ0P220CA0009.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::25)
+ by DM3PPF7C2EA11C8.namprd19.prod.outlook.com (2603:10b6:f:fc00::73b) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 12:10:47 +0000
+Received: from SJ1PEPF000037A8.namprd03.prod.outlook.com
+ (2603:10b6:a03:41b:cafe::9c) by SJ0P220CA0009.outlook.office365.com
+ (2603:10b6:a03:41b::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Thu,
+ 24 Sep 2026 12:10:47 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
+ smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ SJ1PEPF000037A8.mail.protection.outlook.com (10.167.244.181) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.8
+ via Frontend Transport; Thu, 24 Sep 2026 12:10:46 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 2528D406540;
+	Thu, 24 Sep 2026 12:10:45 +0000 (UTC)
+Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 0BE87820247;
+	Thu, 24 Sep 2026 12:10:45 +0000 (UTC)
+Date: Thu, 24 Sep 2026 13:10:43 +0100
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
+        David Rhodes <david.rhodes@cirrus.com>,
+        Richard Fitzgerald <rf@opensource.cirrus.com>,
+        Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+        linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
+        linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
+        linux-arm-kernel@lists.infradead.org,
+        linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH] ASoC: use regmap_assign_bits() for conditional set/clear
+Message-ID: <arUTQzogoZ1TJCh7@opensource.cirrus.com>
+References: <20260924083420.461715-1-peng.fan@oss.nxp.com>
+ <arTxlkxUFjg8EOJ2@opensource.cirrus.com>
+ <0a1eb6d0-262a-4e19-b947-e9c810a79261@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V3 4/4] arm64/mm: Use pgdp_get() for PGD accesses
-To: Anshuman Khandual <anshuman.khandual@arm.com>,
- linux-arm-kernel@lists.infradead.org
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Lorenzo Stoakes <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Linu Cherian <linu.cherian@arm.com>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, kasan-dev@googlegroups.com
-References: <20260924062214.1635078-1-anshuman.khandual@arm.com>
- <20260924062214.1635078-5-anshuman.khandual@arm.com>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260924062214.1635078-5-anshuman.khandual@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0a1eb6d0-262a-4e19-b947-e9c810a79261@sirena.org.uk>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037A8:EE_|DM3PPF7C2EA11C8:EE_
+X-MS-Office365-Filtering-Correlation-Id: f1409f45-fe7c-4999-66a3-08df1a34ddd8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|61400799027|23010399003|7416014|376014|10067099003|56012099006|16102099003|18002099003|22082099003|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	YZ4QuQqr5IwMv79lGLiJO4ihK850jxumBZuBo4dlYm8kmyMbIQ40H0GsJ31xv3EKsHqJG0JL/+ey/rqdkTnDIg5cpzpMshuJUQGFJd26tCuLiAXjdYHb7e3EVwzGTZM5pWk1QwoQy4xwaSHZU3nhNOFBSngqn57TM/hpajd2v3/LRvPILYsrf5ghQ6L5un3nqATLaOFMMvmckjS/SFE0qZBPAzYqki3hn1OA7qiijPQjast+sgkJ1ASzjoIuJlnY+ZUA4I9angi0mJszuE1ZaiKb+2/j10gnbW3JPdq+2bOy+sklQ/jNA0YvHp6MgK3BTHJHAuO1ZiAF4Y9zSfVJSziNXPKZVFBIofZBM0P584mekUY0MubJrxSbfkkBRoq+QZKZn4fqPy2oZBFHHF2PLyzzYRfmHsV6rSnB+bYDFr7JxSzpfVqcxQ6Pp0JRq4N3Pqke1Js+2ibRi8HF9axb91Ner473q/g1y4qXGae47mbQ6ypUYNnuoLAJyvrPgZo0KpuyaVbaDo9ryr9xYZ1ZTaG5/kZqjMqqaHMVHuXwBuREOH3xNPGsvp/br3ZlZWBL29RGnGKjBijn1vftyv/U2Stee1u/YNHU2/fiTI3wEKuz9YVsaGTm6LNCPWdadq/mu1P9lp5mq4BFDS1gzGfP58++VVIxMzD8oiwTuUSgaPINJud0/rN8ptbOSwxWtuMI3eh8a7i3Pgy8dO4Rapqt4A==
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(61400799027)(23010399003)(7416014)(376014)(10067099003)(56012099006)(16102099003)(18002099003)(22082099003)(4143699003)(11063799006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	12zDWvMN9T7teCIQLVjgTWWJznpFNYz8OoaD15rtVAsriZmeWCTaa0NSonXNERc7u0IfJphPQyJabnephtvUCc6BSHoujqv2BbYm6nwE2jhglDMfOl+bpGHiJ3vPyZL6wz4AjVAhBm3rRFi/NyauWqJk9ZQQTtYQdUo2bsxC92INapuppydcDCMlEoSFuXaJI2eNbc3IrKs2VXBVbu4amfTTYUnmPa1iJMAqnBfXtTmP3AKs/v+4jH0k8Brlm+8v5eqnO78OdHgJeZm1bkxSN6PpApN+qZdJRyQ7QoHcwLKrZgUExQBtusbdFc1vZcBMycMHxXN2Ou6sz4OKi78ug5iMEAwe9DoTeGpfrvnPVtC+aV6A83qLW2E/ASTxeDxSy+xFEdk4iIPm1/hu1HqCLoObl2jAuOgkVEk591DeYZf7A4mHLZr1kwSDefNMJ9Cr
+X-Exchange-RoutingPolicyChecked:
+	WMpi1jEestbrQhA1oX0L/aJEardRgpDgtfXGDhKl1Jo4+q6XhLJGYIimtNRzAw2pIyCRB77J2hku8amxW7MLVorQMlTwZGGM80MDGbuuYCgrRPmw5vJCi15AjCPNhpOi7kkruHE6/8lGAgeKdM305EmJA8wDkqKpOg5xtYH0LMyl2ejrUzjJRDjs71Xlvu1uF0Tf8zhhuaNoHVDAUsKKJvdAIVK5ii9hmjey7jYgL3jajylGJVLoNwhmS87bANkUuHE+D2fgykxhIA2VZh0M5EUFgesH9OZGzqCzwSZWmfMClK8soEzeluAdTFIrv989TqxVROKM7HuLz6YJN7y8TQ==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 12:10:46.9250
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f1409f45-fe7c-4999-66a3-08df1a34ddd8
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-SJ1PEPF000037A8.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPF7C2EA11C8
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA1MCBTYWx0ZWRfXyTVR/x10z/AN
+ Bzd2sN+2/MGJ/EMGCriWgkKTrbw+NpUa0zSwvXJYR1lbRFw8NKEW7N2jy5IE0UWIi0A5wj7KxQX
+ 7hKh0j388rOaGD2kbdg+l3Hqji1/KU4=
+X-Authority-Analysis: v=2.4 cv=fuZJ914f c=1 sm=1 tr=0 ts=6ab5134f cx=c_pps
+ a=DCeSEX+nBJmE/I7rcEuDsA==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
+ a=P-bQNk1nBDSioH3yHm8A:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: nvIBLbVWm0sYEfdSZH9SKo3DmOELgT8k
+X-Proofpoint-ORIG-GUID: nvIBLbVWm0sYEfdSZH9SKo3DmOELgT8k
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA1MCBTYWx0ZWRfX3C3dU5m7ZlJG
+ Cxia/FidQ34ATftvaspsh+WI8xP8Ul7Dsmct0wGeBmm6+jqReDXBszljeHe7EuqNeZnIcwu9diI
+ ZPd9CAOofQVc1YJq4AeiWuDYhTz/L+E8+btHGoE1m1cKmnzmRiTduOOKwaiy9fiq43rOBFYHM5o
+ KSNZtqATWd2B+Q4a2czan4VZhmEEXu1QPqYfHcSRUMKT3B5dW43uH9ygUJ72LaxR+KDJjEwLXKf
+ bRGhLRW14d5KLkFHUS05mxkIgsT7PCmkOCd2nWQRjWCpJ3QQr+loOH37QgWGqN1kV2LzUdoo9KM
+ nc+CYSRtN97FT3aZDNk8rPhalEUwTDu778stOTwCqX8ZLYzHJ7/w50xGvUIRn0TlF0yXgaAuy3h
+ APxschu1DqpGH1YUgWa15kJeCED7XiS+wlS3sTvA/pRgCkFGtPymEjcx+R7MWmPPl8uWq3jKdXX
+ T4PgCQkrDQEQWsAo55A==
+X-Proofpoint-Spam-Reason: safe
 
-On 24/09/2026 07:22, Anshuman Khandual wrote:
-> Replace READ_ONCE() with pgdp_get() for PGD accesses in preparation for
-> supporting both D64 and D128 translation table formats.
+On Thu, Sep 24, 2026 at 01:04:16PM +0100, Mark Brown wrote:
+> On Thu, Sep 24, 2026 at 10:47:02AM +0100, Charles Keepax wrote:
+> > On Thu, Sep 24, 2026 at 04:34:12PM +0800, Peng Fan (OSS) wrote:
 > 
-> READ_ONCE() cannot currently be used for 128-bit page table entries on
-> arm64 because it does not provide the required 128-bit single-copy
-> atomicity, causing builds to fail for accesses wider than 64 bits.
+> > > Replace if/else blocks using regmap_set_bits()/regmap_clear_bits() with
+> > > the simpler regmap_assign_bits() calls in the cs35l45 codec and the
+> > > mediatek mt8188 ADDA and DMIC DAI drivers.
 > 
-> Although LDP/STP provide the required atomicity when FEAT_LSE is
-> available (as required by FEAT_D128), extending READ_ONCE() to support
-> 128-bit accesses is undesirable. READ_ONCE() is a general-purpose API,
-> so doing so could encourage other 128-bit users that would either fail
-> to build in configurations without D128 support or, if D128 becomes a
-> runtime option, silently permit tearing on systems without the required
-> hardware support.
+> > > -	if ((bool)ucontrol->value.integer.value[0])
+> > > -		regmap_set_bits(cs35l45->regmap, CS35L45_BLOCK_ENABLES2, CS35L45_SYNC_EN_MASK);
+> > > -	else
+> > > -		regmap_clear_bits(cs35l45->regmap, CS35L45_BLOCK_ENABLES2, CS35L45_SYNC_EN_MASK);
 > 
-> Instead, standardize PGD accesses on the existing page-table helpers.
-> These can be overridden on arm64 to provide 128-bit single-copy
-> atomicity when required.
+> > > +	regmap_assign_bits(cs35l45->regmap, CS35L45_BLOCK_ENABLES2, CS35L45_SYNC_EN_MASK,
+> > > +			   (bool)ucontrol->value.integer.value[0]);
 > 
-> For now override pgdp_get() which is same as the generic memory default
-> to avoid build dependency problem for callers in header <asm/pgtable.h>.
+> > This doesn't work value will be bit(0) but SYNC_EN is bit(8).
 > 
-> No functional change intended.
+> No, it's _assign_bits() not _update_bits() so it'll set the bits
+> specified in the third argument if the fourth argument is true.
 > 
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: Will Deacon <will@kernel.org>
-> Cc: Ryan Roberts <ryan.roberts@arm.com>
-> Cc: Mark Rutland <mark.rutland@arm.com>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: kasan-dev@googlegroups.com
-> Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
+> > Also would be better to split this patch into two, one for the
+> > mediatek stuff, one for the cirrus stuff.
+> 
+> Yes.
 
-Reviewed-by: Ryan Roberts <ryan.roberts@arm.com>
+oops yeah, thanks for the correction.
 
-> ---
-> Changes in V3
-> 
-> - Added platform override for pgdp_get()
-> - Replaced READ_ONCE() in p4d_offset_phys() and p4d_offset()
-> 
->  arch/arm64/include/asm/pgtable.h | 10 ++++++++--
->  arch/arm64/mm/fault.c            |  2 +-
->  arch/arm64/mm/hugetlbpage.c      |  2 +-
->  arch/arm64/mm/kasan_init.c       |  6 +++---
->  arch/arm64/mm/mmu.c              |  6 +++---
->  arch/arm64/mm/pageattr.c         |  2 +-
->  arch/arm64/mm/trans_pgd.c        |  4 ++--
->  7 files changed, 19 insertions(+), 13 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-> index f235f68a7518..05d273f276b8 100644
-> --- a/arch/arm64/include/asm/pgtable.h
-> +++ b/arch/arm64/include/asm/pgtable.h
-> @@ -102,6 +102,12 @@ static inline p4d_t p4dp_get(p4d_t *p4dp)
->  	return READ_ONCE(*p4dp);
->  }
->  
-> +#define pgdp_get pgdp_get
-> +static inline pgd_t pgdp_get(pgd_t *pgdp)
-> +{
-> +	return READ_ONCE(*pgdp);
-> +}
-> +
->  #ifdef CONFIG_TRANSPARENT_HUGEPAGE
->  #define __HAVE_ARCH_FLUSH_PMD_TLB_RANGE
->  
-> @@ -1102,7 +1108,7 @@ static inline phys_addr_t p4d_offset_phys(pgd_t *pgdp, unsigned long addr)
->  {
->  	VM_WARN_ON_ONCE(!pgtable_l5_enabled());
->  
-> -	return pgd_page_paddr(READ_ONCE(*pgdp)) + p4d_index(addr) * sizeof(p4d_t);
-> +	return pgd_page_paddr(pgdp_get(pgdp)) + p4d_index(addr) * sizeof(p4d_t);
->  }
->  
->  static inline
-> @@ -1116,7 +1122,7 @@ p4d_t *p4d_offset_lockless(pgd_t *pgdp, pgd_t pgd, unsigned long addr)
->  
->  static inline p4d_t *p4d_offset(pgd_t *pgdp, unsigned long addr)
->  {
-> -	return p4d_offset_lockless(pgdp, READ_ONCE(*pgdp), addr);
-> +	return p4d_offset_lockless(pgdp, pgdp_get(pgdp), addr);
->  }
->  
->  static inline p4d_t *p4d_set_fixmap(unsigned long addr)
-> diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
-> index a6afd8929a10..43f25418275a 100644
-> --- a/arch/arm64/mm/fault.c
-> +++ b/arch/arm64/mm/fault.c
-> @@ -160,7 +160,7 @@ static void show_pte(unsigned long addr)
->  	guard(irqsave)();
->  
->  	pgdp = pgd_offset(mm, addr);
-> -	pgd = READ_ONCE(*pgdp);
-> +	pgd = pgdp_get(pgdp);
->  	ptval_to_str(pxd_str, pgd_val(pgd));
->  	pr_alert("[%016lx] pgd=%s", addr, pxd_str);
->  
-> diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
-> index 5771bf49e1fe..e05e5b41ae50 100644
-> --- a/arch/arm64/mm/hugetlbpage.c
-> +++ b/arch/arm64/mm/hugetlbpage.c
-> @@ -284,7 +284,7 @@ pte_t *huge_pte_offset(struct mm_struct *mm,
->  	pmd_t *pmdp, pmd;
->  
->  	pgdp = pgd_offset(mm, addr);
-> -	if (!pgd_present(READ_ONCE(*pgdp)))
-> +	if (!pgd_present(pgdp_get(pgdp)))
->  		return NULL;
->  
->  	p4dp = p4d_offset(pgdp, addr);
-> diff --git a/arch/arm64/mm/kasan_init.c b/arch/arm64/mm/kasan_init.c
-> index 4dd8c1186471..f61f5bc09467 100644
-> --- a/arch/arm64/mm/kasan_init.c
-> +++ b/arch/arm64/mm/kasan_init.c
-> @@ -102,7 +102,7 @@ static pud_t *__init kasan_pud_offset(p4d_t *p4dp, unsigned long addr, int node,
->  static p4d_t *__init kasan_p4d_offset(pgd_t *pgdp, unsigned long addr, int node,
->  				      bool early)
->  {
-> -	if (pgd_none(READ_ONCE(*pgdp))) {
-> +	if (pgd_none(pgdp_get(pgdp))) {
->  		phys_addr_t p4d_phys = early ?
->  				__pa_symbol(kasan_early_shadow_p4d)
->  					: kasan_alloc_zeroed_page(node);
-> @@ -256,7 +256,7 @@ static int __init root_level_idx(u64 addr)
->  static void __init clone_next_level(u64 addr, pgd_t *tmp_pg_dir, pud_t *pud)
->  {
->  	int idx = root_level_idx(addr);
-> -	pgd_t pgd = READ_ONCE(swapper_pg_dir[idx]);
-> +	pgd_t pgd = pgdp_get(swapper_pg_dir + idx);
->  	pud_t *pudp = (pud_t *)__phys_to_kimg(__pgd_to_phys(pgd));
->  
->  	memcpy(pud, pudp, PAGE_SIZE);
-> @@ -280,7 +280,7 @@ static int __init next_level_idx(u64 addr)
->   */
->  static void __init clear_next_level(int pgd_idx, int start, int end)
->  {
-> -	pgd_t pgd = READ_ONCE(swapper_pg_dir[pgd_idx]);
-> +	pgd_t pgd = pgdp_get(swapper_pg_dir + pgd_idx);
->  	pud_t *pudp = (pud_t *)__phys_to_kimg(__pgd_to_phys(pgd));
->  
->  	memset(&pudp[start], 0, (end - start) * sizeof(pud_t));
-> diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-> index 83709d987e7c..76d8d320aeed 100644
-> --- a/arch/arm64/mm/mmu.c
-> +++ b/arch/arm64/mm/mmu.c
-> @@ -434,7 +434,7 @@ static int alloc_init_p4d(pgd_t *pgdp, unsigned long addr, unsigned long end,
->  {
->  	int ret;
->  	unsigned long next;
-> -	pgd_t pgd = READ_ONCE(*pgdp);
-> +	pgd_t pgd = pgdp_get(pgdp);
->  	p4d_t *p4dp;
->  
->  	if (pgd_none(pgd)) {
-> @@ -1649,7 +1649,7 @@ static void unmap_hotplug_range(unsigned long addr, unsigned long end,
->  	do {
->  		next = pgd_addr_end(addr, end);
->  		pgdp = pgd_offset_k(addr);
-> -		pgd = READ_ONCE(*pgdp);
-> +		pgd = pgdp_get(pgdp);
->  		if (pgd_none(pgd))
->  			continue;
->  
-> @@ -1827,7 +1827,7 @@ static void free_empty_tables(unsigned long addr, unsigned long end,
->  	do {
->  		next = pgd_addr_end(addr, end);
->  		pgdp = pgd_offset_k(addr);
-> -		pgd = READ_ONCE(*pgdp);
-> +		pgd = pgdp_get(pgdp);
->  		if (pgd_none(pgd))
->  			continue;
->  
-> diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
-> index 826856ef64a8..dfa1356daac2 100644
-> --- a/arch/arm64/mm/pageattr.c
-> +++ b/arch/arm64/mm/pageattr.c
-> @@ -399,7 +399,7 @@ bool kernel_page_present(struct page *page)
->  	unsigned long addr = (unsigned long)page_address(page);
->  
->  	pgdp = pgd_offset_k(addr);
-> -	if (pgd_none(READ_ONCE(*pgdp)))
-> +	if (pgd_none(pgdp_get(pgdp)))
->  		return false;
->  
->  	p4dp = p4d_offset(pgdp, addr);
-> diff --git a/arch/arm64/mm/trans_pgd.c b/arch/arm64/mm/trans_pgd.c
-> index 7afe2beca4ba..06470d690f9f 100644
-> --- a/arch/arm64/mm/trans_pgd.c
-> +++ b/arch/arm64/mm/trans_pgd.c
-> @@ -134,7 +134,7 @@ static int copy_p4d(struct trans_pgd_info *info, pgd_t *dst_pgdp,
->  	unsigned long next;
->  	unsigned long addr = start;
->  
-> -	if (pgd_none(READ_ONCE(*dst_pgdp))) {
-> +	if (pgd_none(pgdp_get(dst_pgdp))) {
->  		dst_p4dp = trans_alloc(info);
->  		if (!dst_p4dp)
->  			return -ENOMEM;
-> @@ -164,7 +164,7 @@ static int copy_page_tables(struct trans_pgd_info *info, pgd_t *dst_pgdp,
->  	dst_pgdp = pgd_offset_pgd(dst_pgdp, start);
->  	do {
->  		next = pgd_addr_end(addr, end);
-> -		if (pgd_none(READ_ONCE(*src_pgdp)))
-> +		if (pgd_none(pgdp_get(src_pgdp)))
->  			continue;
->  		if (copy_p4d(info, dst_pgdp, src_pgdp, addr, next))
->  			return -ENOMEM;
-
+Thanks,
+Charles
