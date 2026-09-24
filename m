@@ -1,139 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D02A04D7D21
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:02:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C9DA4D8D80;
+	Thu, 24 Sep 2026 21:02:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790283770; cv=none; b=S0io2sJyADW/hCNYnxppRibBqxQq8qQZWkB7y9JqgEmNFhFrTR/eC9gAtWv07bp6kcEOvBb3LhMhkZ8sheE/6XLcyLs+7IqQupcb+qINxqIkScCzaL8NbM2ffcH1aKNqVNLIsgxGKOsbKEZenhYptMLm/j8R12d58Ole+kLxHXw=
+	t=1790283779; cv=none; b=Ru84IPjpomyWJSWi2iVUhdaKLKYTK9gCaE7V2k0l+3PkCQpmvkdQggdpTwqfL9l/oeFJa89Z80g0Iuse1wdWfS1ZWQ00gyyr+3KGvO/CbDUxDmtssz+QGLoNMaFmSb+EcJFjKibDjNVy69SeetGNWXZKMQaM+L1enLXn2fYhpis=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790283770; c=relaxed/simple;
-	bh=dhXOoH73I8DK39cQunRBznrql7IyNj1kyFFWEwRYmNc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gTnIw19UtqspOZWtE29u6oygZxcX9RixphqIZy+F+9jedAtuKZZWcYTYrtzAXgv8cvqsWSIaU674gkQgpDiZSzRqpPj+pnDJ+zCE5nk1yNNAZh0daUdeeZf/NQhYOBg3KE2QQeUiVOg90VQik5qwdyyLJJmzSeKYaPYcmbidC90=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gre+hySW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790283779; c=relaxed/simple;
+	bh=lspyLU4mTfOqWHFyXt7jAnyEi7/vLQDrl/Kxo5xgTeI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=WxZoIn1znNFccVIWXGtzbKVeKOdNfRMSJmr3hzWjNLwzYE6BmG+MFS8OMKFGjiisEDGc7DySywbJTmj2498G65ibV/DWCAE9hi9AyIKkcbrrcklVPEWzuDdYFmkRBcnnDQm3ID5w+ckQMaqvwjp/xtZO/zI2Mcak1XHNZqV7JZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=mnObMppF; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gre+hySW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BE781F008AB
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:02:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790283766;
-	bh=XoiJXxM6i/kbsQEIiuA+nIFj4EQ8kOYLlbyqdsm+xTc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Gre+hySW4Jcz6RHQZXjSedwjaQRk3V5Msvma829u3XUHKWLJTnz4sDzashDTfOPN6
-	 VtK+wv0V9y3/FM/D5kxsa5vcWpRHSox3YmpUShUhKSeIeNpsKMnWY+fhui0WfNi9qX
-	 AjzSbiuGAPcQ+2ueHQ33MCPcKhiIGtgJQ9ARiZ6XOOFqLnizMdkory1LoOgcXGDB0D
-	 0Rz6YPypeeH2FNrlJc1tauCxBWyNb88Oa6bxM/avzQl5IOEGdIuywI+yrI/KoE1pbY
-	 IVgOj379nXeMFK4EhWBUVwCoQpObxwGscSax+dBCPxYsYoTHWll87TXwTuNoB/ybZg
-	 QFymTZx0RE+zQ==
-Received: by mail-qk2-f37.google.com with SMTP id af79cd13be357-93910cc46c8so28811485a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:02:46 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzUTKqG5BDAPFmXjs/gV1x2ICyhsiykeVjIkCxCnLBJpJgsqhbXBzR4aElwLKBQkKmQ45f2wE90F0eSalE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQkNtjJxtetJWNkHGkKZEI3G8piS7FAZAGfl+FvfMFdlifQHNI
-	KRz992/+LwhWlJR+ZstKi1XaJWkkoCwZTPcODgTrkBOpJOLe/4phVlJ9gqMOFonPUX7+clY+XUN
-	t1KAKf3BiCi7X0D8ayIBFQCMhT+xObBY=
-X-Received: by 2002:a05:620a:4612:b0:93c:234e:d10 with SMTP id
- af79cd13be357-93c43b86557mr105850685a.11.1790283765486; Thu, 24 Sep 2026
- 14:02:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="mnObMppF"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=szf/9tp/1Xj/7ds5+seIYfgvG1k8RQwYdh0oNCdCCzA=; b=mnObMppFVlraHgVDIFJsjoRswl
+	Z7Xf9M6f15Eh90DppqqLZ6SJFlc+/Tnxv02fef//OGcC4uOdQXY3LNNnLRt+HYatV6SebOh5YOI1d
+	lwVoQ2cL5cJOjxy3XqA1f9wPQMFT2n74l/DhNtrCwq+iRx6VWwCG7QIMl4wJS8E6UmCZCjHXPWMcP
+	A/vHGfQ7U5s72+Tb2jERdvaIR9Y05Ve2/w+1Jomko/v239XmqbrpZ6KnEmfSWMDam5lRja72/djoN
+	butUmltrbKYSOGjuzcbeoHdCFHRkbWDjQI3WIWWFYNNskYCeoLebZejwwVKdEj+mZbemF6lzgF4tr
+	oITH0Dqw==;
+Received: from [151.115.150.205] (port=54884 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1x9qaj-0000000GkcJ-3BEZ;
+	Thu, 24 Sep 2026 23:02:53 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD=20?= <mkoutny@suse.com>
+Cc: brads@mainlining.org,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Christian Brauner <christian@brauner.io>,
+	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: [PATCH v2] cgroup: prevent css_set UAF after namespace publication
+Date: Thu, 24 Sep 2026 21:01:03 +0000
+Message-ID: <20260924210102.3773873-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924131106.1730494-1-dev.jain@arm.com> <20260924131106.1730494-4-dev.jain@arm.com>
-In-Reply-To: <20260924131106.1730494-4-dev.jain@arm.com>
-From: Barry Song <baohua@kernel.org>
-Date: Fri, 25 Sep 2026 05:02:33 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4yVhXF+-gOrOB+JOK6nZt19SA=LT+gXpmaMpErg6Ra5NQ@mail.gmail.com>
-X-Gm-Features: AclHuK_dkYU1S8LfF7mhgKUW-YMPRJkOty82Eqfv1olkQu1iouCk5LG5Qs9Q-x0
-Message-ID: <CAGsJ_4yVhXF+-gOrOB+JOK6nZt19SA=LT+gXpmaMpErg6Ra5NQ@mail.gmail.com>
-Subject: Re: [PATCH v3 3/9] mm: move anon-exclusive batch helper to rmap.h
-To: Dev Jain <dev.jain@arm.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
-	hughd@google.com, chrisl@kernel.org, kasong@tencent.com, davem@davemloft.net, 
-	andreas@gaisler.com, riel@surriel.com, liam@infradead.org, vbabka@kernel.org, 
-	harry@kernel.org, jannh@google.com, lance.yang@linux.dev, 
-	baolin.wang@linux.alibaba.com, shikemeng@huaweicloud.com, nphamcs@gmail.com, 
-	baoquan.he@linux.dev, youngjun.park@lge.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, rppt@kernel.org, surenb@google.com, 
-	mhocko@suse.com, pfalcato@suse.de, jgg@ziepe.ca, thuth@redhat.com, 
-	sparclinux@vger.kernel.org, ryan.roberts@arm.com, anshuman.khandual@arm.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Thu, Sep 24, 2026 at 9:11=E2=80=AFPM Dev Jain <dev.jain@arm.com> wrote:
->
-> In preparation for optimizing large folio unmapping, we need to reuse
-> the page_anon_exclusive_batch helper in rmap.c and rmap.h and obey the
-> existing use in mprotect.c .
->
-> Therefore, move it from mprotect.c to rmap.h.
->
-> While at it, change return type, start_idx and max_len to unsigned long
-> type for future proofing against THP support at >=3D PUD level. Also
-> shorten expected_anon_exclusive -> anon_exclusive.
+copy_cgroup_ns() sets the root of a new cgroup namespace to the parent's
+css_set. When the child is created in a different cgroup,
+cgroup_post_fork() replaces that root with the child's css_set after the
+namespace is visible.
 
-I really think the `expected` prefix makes the semantics clearer, so I
-don't think it's necessary to remove it.
+Publishing the namespace before root_cset is final lets readers race with
+cgroup_post_fork(). A reader can load the old root just before it is
+replaced and its reference is dropped, then continue using the freed
+css_set. KASAN reports:
 
-If you really find it too long, maybe just use
-`expected_exclusive`, since we're already in the anon context and
-know that it is definitely anon.
+  BUG: KASAN: slab-use-after-free in kernfs_get.part.0+0x47/0x60
+  Write of size 4 at addr ff1100000379f320 by task ns-path-probe/69
+   kernfs_walk_and_get_ns+0x1cc/0x280
+   cgroup_get_from_path+0xfb/0x340
+   nft_socket_cgroup_subtree_level+0x14/0x1a0
 
-Another option might be to make `*exclusive` an output parameter.
-Then we wouldn't need to call
-`expected_anon_exclusive =3D PageAnonExclusive(first_page + batch_idx);`
-in the caller.
+Finalize root_cset before adding the namespace to the tree. Allocate the
+namespace ID at creation, add unshared namespaces after creation succeeds,
+and only remove namespaces that were added.
 
- static __always_inline unsigned long
-page_anon_exclusive_batch(unsigned long start_idx,
-                unsigned long max_len, struct page *first_page, bool *exclu=
-sive)
+Fixes: ef2c41cf38a7 ("clone3: allow spawning processes into cgroups")
+Assisted-by: LLM
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+Reposting v2 with NAMESPACES in Cc, as requested by Tejun Heo.
 
->
-> Signed-off-by: Dev Jain <dev.jain@arm.com>
+Changes in v2:
+- Finalize root_cset before publication.
+- Defer tree insertion on fork.
+- Handle unshare and failed forks.
 
-Otherwise, the patch looks good to me.
+v1: https://lore.kernel.org/all/20260923204935.2253203-2-Jeremy.Jean@oss.cyber.gouv.fr/
 
-Reviewed-by: Barry Song <baohua@kernel.org>
+ kernel/cgroup/cgroup.c    | 22 +++++++++++++---------
+ kernel/cgroup/namespace.c |  5 +++--
+ kernel/nsproxy.c          |  5 +++++
+ 3 files changed, 21 insertions(+), 11 deletions(-)
 
-> ---
->  include/linux/rmap.h | 17 +++++++++++++++++
->  mm/mprotect.c        | 18 +-----------------
->  2 files changed, 18 insertions(+), 17 deletions(-)
->
-> diff --git a/include/linux/rmap.h b/include/linux/rmap.h
-> index 74cca0e3c7264..62ef511a6175a 100644
-> --- a/include/linux/rmap.h
-> +++ b/include/linux/rmap.h
-> @@ -106,6 +106,23 @@ enum ttu_flags {
->
->  #ifdef CONFIG_MMU
->
-> +/*
-> + * Get max length of consecutive PTEs pointing to PageAnonExclusive() pa=
-ges or
-> + * !PageAnonExclusive() pages, starting from start_idx. Caller must enfo=
-rce
-> + * that the PTEs point to consecutive pages of the same anon large folio=
-.
-> + */
-> +static __always_inline unsigned long page_anon_exclusive_batch(unsigned =
-long start_idx,
-> +               unsigned long max_len, struct page *first_page, bool anon=
-_exclusive)
-> +{
-> +       unsigned long idx;
-> +
-> +       for (idx =3D start_idx + 1; idx < start_idx + max_len; ++idx) {
-> +               if (anon_exclusive !=3D PageAnonExclusive(first_page + id=
-x))
-> +                       break;
-> +       }
-> +       return idx - start_idx;
-> +}
-> +
-
-Thanks
-Barry
+diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
+index 227d09704ca5..78f6d235c19b 100644
+--- a/kernel/cgroup/cgroup.c
++++ b/kernel/cgroup/cgroup.c
+@@ -7009,6 +7009,19 @@ int cgroup_can_fork(struct task_struct *child, struct kernel_clone_args *kargs)
+ 			goto out_revert;
+ 	} while_each_subsys_mask();
+ 
++	/* Publish a new cgroup namespace only after its root is final. */
++	if (kargs->flags & CLONE_NEWCGROUP) {
++		struct cgroup_namespace *ns = child->nsproxy->cgroup_ns;
++		struct css_set *rcset = ns->root_cset;
++
++		if (rcset != kargs->cset) {
++			get_css_set(kargs->cset);
++			ns->root_cset = kargs->cset;
++			put_css_set(rcset);
++		}
++		ns_tree_add_raw(ns);
++	}
++
+ 	return 0;
+ 
+ out_revert:
+@@ -7127,15 +7140,6 @@ void cgroup_post_fork(struct task_struct *child,
+ 		ss->fork(child);
+ 	} while_each_subsys_mask();
+ 
+-	/* Make the new cset the root_cset of the new cgroup namespace. */
+-	if (kargs->flags & CLONE_NEWCGROUP) {
+-		struct css_set *rcset = child->nsproxy->cgroup_ns->root_cset;
+-
+-		get_css_set(cset);
+-		child->nsproxy->cgroup_ns->root_cset = cset;
+-		put_css_set(rcset);
+-	}
+-
+ 	/* Cgroup has to be killed so take down child immediately. */
+ 	if (unlikely(kill))
+ 		do_send_sig_info(SIGKILL, SEND_SIG_NOINFO, child, PIDTYPE_TGID);
+diff --git a/kernel/cgroup/namespace.c b/kernel/cgroup/namespace.c
+index ea4ee13936be..6c8ac36231d9 100644
+--- a/kernel/cgroup/namespace.c
++++ b/kernel/cgroup/namespace.c
+@@ -30,12 +30,14 @@ static struct cgroup_namespace *alloc_cgroup_ns(void)
+ 	ret = ns_common_init(new_ns);
+ 	if (ret)
+ 		return ERR_PTR(ret);
++	ns_tree_gen_id(new_ns);
+ 	return no_free_ptr(new_ns);
+ }
+ 
+ void free_cgroup_ns(struct cgroup_namespace *ns)
+ {
+-	ns_tree_remove(ns);
++	if (ns_tree_active(ns))
++		ns_tree_remove(ns);
+ 	put_css_set(ns->root_cset);
+ 	dec_cgroup_namespaces(ns->ucounts);
+ 	put_user_ns(ns->user_ns);
+@@ -85,7 +87,6 @@ struct cgroup_namespace *copy_cgroup_ns(u64 flags,
+ 	new_ns->ucounts = ucounts;
+ 	new_ns->root_cset = cset;
+ 
+-	ns_tree_add(new_ns);
+ 	return new_ns;
+ }
+ 
+diff --git a/kernel/nsproxy.c b/kernel/nsproxy.c
+index d9d3d5973bf5..01c4dcf26993 100644
+--- a/kernel/nsproxy.c
++++ b/kernel/nsproxy.c
+@@ -238,6 +238,11 @@ int unshare_nsproxy_namespaces(unsigned long unshare_flags,
+ 		goto out;
+ 	}
+ 
++#ifdef CONFIG_CGROUPS
++	if (flags & CLONE_NEWCGROUP)
++		ns_tree_add_raw((*new_nsp)->cgroup_ns);
++#endif
++
+ out:
+ 	return err;
+ }
+-- 
+2.47.3
