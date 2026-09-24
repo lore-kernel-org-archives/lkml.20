@@ -1,40 +1,87 @@
-Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE4D635677C
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:32:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7051532C8B
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:32:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790242344; cv=none; b=CJu8Ggfheq83NCj3F0VP9aHKGZbKSdo3AZYWhfMsUXa7PTRyNCzsGM6ewHPXrTETz0XUXpVFlAzBGrRN5TL30ZN5/MkZYxvR9i4DdtCS61fDU68AdxOz5zwcsf+mOQ3xwX9+vP8Yqqc1CTqyyeG+wargH5gwC/jHOVU8kMLa20Q=
+	t=1790242360; cv=none; b=ptcausjoMSWrcbm2sMC3lcRpGgLqXfAqnzKTt6E2E3n7e8HCC/pz3Q4dG6QmTquwdD4c3V6ma+lhWTBkZdrPQlqgp00fsBSVDLBC0evMyht1BTjmaBu5ebuS1GaMf6DFBxvMgmsZECZCKO5JowJlBPySCQOHGNRNJiRuQDe3/+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790242344; c=relaxed/simple;
-	bh=EtgmPf0YD4JWmvmkDlXpwIpNbP+mzzcg4V9Fbz1+j7k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=ZCPhE3aLU6292OdS1Uwyeo8qz6exXk9BrJ6H1Ow689ctZxNBRWN9LRLNwn47dK4Opje+5mR1azoENTXrNaLDdLBqdEeVkRhEvGY2QpjsGV/LIahFFL7SZnmm+CwM3eYuhuzGHL0M6e+KhcU4F+LKxrb9DbyA9V8e9oUoNBNcTTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=l+Vdvivn; arc=none smtp.client-ip=113.46.200.218
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1790242360; c=relaxed/simple;
+	bh=rwxv8tLdSgWEik0hiYWE6kOHX12q7aE4xGYPQuj35g8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=L8CAU/gTUtIUQ9nex7WwrrX/ORQDdl9LYMPDwXyvm0xaFFi/b3/WwGig/EsmLpQHARC7fvAeK4mS33Wg6l+zZ9fUA61FY9ZIVrgsoHM9pnKFnEbbdYx+iZzkqjNmfFZ1qwwdEK/lw9Xwe7OXgCKjF2y3KQ7nSb91qRj5pNTiGxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dfjCoWHC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VHyqEEzZ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="l+Vdvivn"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=cMX/+oSPzTvNY1c3CJzYQL8oSLhnLgll20elCaYZ7Rc=;
-	b=l+VdvivnO83mL++6AFuZROEKnnmLey08tbQ49CIjMIGd9UTcBF9rGAKx2iKU6PvNzD76E/jS/
-	T+fe2ZtvAe0usuT9Cbk2DculvYYCNrlrqsu4owBKLGfa4HyzgebfEDapBYnfm0G45yFdWkN+0fK
-	csSx95YhI6DtOKGXuFjtTCE=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4hr7bN5srSzpStW;
-	Thu, 24 Sep 2026 17:20:16 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 971DE40537;
-	Thu, 24 Sep 2026 17:32:16 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 24 Sep 2026 17:32:15 +0800
-Message-ID: <927d57a4-64ab-4420-9485-5336f2ec3fd5@huawei.com>
-Date: Thu, 24 Sep 2026 17:32:14 +0800
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dfjCoWHC";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VHyqEEzZ"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O9PnEn1080193
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:32:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	D044GLB66qpCbxwLa31iTBfwL9c0q5C1qDPuwruympk=; b=dfjCoWHCxVPZ8bcS
+	vtMjfKASYygu+TGxtrUydJ3JY/FmhufyuSHXI5rbSYJrE7Gr6fAs1mFVsKAgrzlN
+	6ADJNfQ+T9Lsnau9TDj1O4cBZclAa9KWURGyjWWj+2SfXGDZRTh21nRtZhu6HxA2
+	tJrMcw+Aw9EtmSZagqArXZyJ1zmBIZ+w+k7KPIy4sF98Ta/rmZyXYuIWWyPWCfEl
+	h8TpPK/Ez9fggx7BLPRjOFva8UHNwoPC1g1+5OXkD2A9j42xjzygodqS672FiZuY
+	lp9MqlYtA8mtFws9pyVWvPvA/u1wvUVY8GjL4nsoW6Boid2kR2dIMIrWX5YVr1QU
+	AcfiEw==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvfmwmbhm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:32:37 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-33713e5e6daso2480243eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:32:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790242356; x=1790847156; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=D044GLB66qpCbxwLa31iTBfwL9c0q5C1qDPuwruympk=;
+        b=VHyqEEzZvPOe/q7pvji36Oe+83aFyA6rh1x5C4fOU7vIW7E/gg30PsD6M2aONcHVhL
+         gmdVyb0VC8DDJOHaCpEBvpAQzg7iTT51FjHj9j89+Uh5MUPXX/bQ3g9nDRGKctwoGchm
+         uFDS9IPD4gCEq+sFaY/3h0I0DlJeV4NkfJyPwzuViPgmhmYfGAHMlbWxLAVOqlZ8TszA
+         ZRvJMDqCrnfl5nN/bXluL6iEQW+EvUi9XtGwjRvyAHRED2MNfx4lUUMmh4O8hvCwScZ6
+         K7VnfrGHQHjZfhj7CPHMrVEqGwNBAbd+kob6GYz0hjlUAmXWWYBXdgsq1yqyZ2S8rFf0
+         WpwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790242356; x=1790847156;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=D044GLB66qpCbxwLa31iTBfwL9c0q5C1qDPuwruympk=;
+        b=Lx/W51deIXALWMIeVQoCXmFtZz1J0zglHPNjRnPuN66MI7m3tzNSnwv4CjB6DUHqaL
+         Yyxan6+K14sS65ENJmHvojqJ9bD0co1fKcda/qFvPDL7//UcVQccQTDPY1CvBQ6vNuEZ
+         W6A5RjwJ7oULyJ3yCHCwX4HoeBIFUe6czxxCNyEJf0wzygiCGXAZe2lG0nMTGCrHnN9b
+         6mx6X6Jaig/XDjjOxUK8f67bQQBstpVKhxheYc1GgzGOlsSs09CUl4Ra/Mbfk32cBdFt
+         I0+Hbaq+6f+089Cn0IVtiRc9aS9YhAnJyuT3OaoPu/kmrkqIYHTTOhDKn85iw1On6Hic
+         M1Zg==
+X-Forwarded-Encrypted: i=1; AKwUvByqQdF+uuSq/QlbkJKSOqU+MpIsKaMlKnJoINy+BeviYsrRLKnFbzqX5e9bA0COWnuRH9tvb9z7T+tN5II=@vger.kernel.org
+X-Gm-Message-State: AFuF++mJsKYka4xdu6YoACyGVh8nmH0iVDHp2KtVS04xBC1dcFKsdGSi
+	gK9Ws+rXtZZRGUwKtjsLLaQuXIbWGv22Au6vkWQeEy3mfz6rKND1vmSkicobrUT2d0I1Dn64QhD
+	XxsRqVuH4jT0C2Nd2iriVoAbFrl9wKpaTu80/X4aSGzfN6l5fcDiuafic/Yv3DQjSO5A=
+X-Gm-Gg: AYBFou0tFyyRBSfCGD5Vp/faieAT4d1InNo7ye5d23oJe/aPzSP9saKB+0NBkDebcKg
+	xJyhxKQ/GtD8gb1bQcJaY+87Io2mkNAotAjgy1gdOcNt1UVBJGhu3oxnbe/VbBk4MH5I13o9C2l
+	ONoRXJkMl6ml6d0cLe127ssUbkGzaPFWClFDzIftXEcD35WC7pk+IVgWXRwspe63Rr0HnyzGP7x
+	oz31BkJVgCengzDAmlHz4lHxCvcIJOPZZXZI/ENLnQmkLHxa3kW1P2ODdH/F/Nh7YTYG+9nb1Gn
+	OZaKb1ahTAkbfuNmr3etiL+xSio9XYKeHptDqBrOVDSndI40JUwNfmub2vOMyCkRAPTaPtheG37
+	q0ePmXY9jZUqN8DbU1cGjNIy1ajX0
+X-Received: by 2002:a05:7301:5511:b0:33c:e63:f2fc with SMTP id 5a478bee46e88-34000449db5mr1625524eec.23.1790242355947;
+        Thu, 24 Sep 2026 02:32:35 -0700 (PDT)
+X-Received: by 2002:a05:7301:5511:b0:33c:e63:f2fc with SMTP id 5a478bee46e88-34000449db5mr1625502eec.23.1790242355277;
+        Thu, 24 Sep 2026 02:32:35 -0700 (PDT)
+Received: from [10.217.216.70] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e939fdabcsm13400388eec.3.2026.09.24.02.32.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 02:32:34 -0700 (PDT)
+Message-ID: <b0a01589-a3ed-4c4c-8222-64131b0e6db1@oss.qualcomm.com>
+Date: Thu, 24 Sep 2026 15:02:18 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,210 +89,101 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 00/14] arm64: entry: Convert to Generic Entry
-To: Kees Cook <kees@kernel.org>
-CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<oleg@redhat.com>, <luto@amacapital.net>, <wad@chromium.org>,
-	<peterz@infradead.org>, <ada.coupriediaz@arm.com>, <linusw@kernel.org>,
-	<yeoreum.yun@arm.com>, <kevin.brodsky@arm.com>, <anshuman.khandual@arm.com>,
-	<james.morse@arm.com>, <thuth@redhat.com>, <vladimir.murzin@arm.com>,
-	<tglx@kernel.org>, <broonie@kernel.org>, <liqiang01@kylinos.cn>,
-	<ryan.roberts@arm.com>, <pengcan@kylinos.cn>, <kmehltretter@gmail.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20260922035510.1090299-1-ruanjinjie@huawei.com>
- <202609221129.B5E13A7@keescook>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <202609221129.B5E13A7@keescook>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Subject: Re: [PATCH] clk: qcom: smd-rpm: Skip proxy votes on clocks for
+ QCM2290
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>, Georgi Djakov <djakov@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        Stephen Boyd <sboyd@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260910-clk-smd-rpm-skip-proxy-v1-1-1cb5694a99d9@oss.qualcomm.com>
+ <dab99b27-ebc2-477e-b56a-26250aceee23@oss.qualcomm.com>
+ <ad4aff4f-2d66-425a-a358-6cefaaa1319e@oss.qualcomm.com>
+ <bbf2e7e8-42cf-4146-a2ec-b5182a161109@oss.qualcomm.com>
+Content-Language: en-US
+From: Imran Shaik <imran.shaik@oss.qualcomm.com>
+In-Reply-To: <bbf2e7e8-42cf-4146-a2ec-b5182a161109@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAzOSBTYWx0ZWRfX9r2zeVF+J0i5
+ FPU85qnqWXsEGDSZjjljgQUkY+GkqIyEF0vgkF7GisLSjGLyMMKSmFWmfnv2X+iZvciTifwINz8
+ 6N3WDgXSTB00mbiLj5V0mZdosGRObzpFDHDDeL364B++xQ8rW4hcK+wQvZtcVsgJVYF8xCfgSog
+ CnuYyV64t0QDcc6weKAVCG7/XXVu8XqxSbEDiE259teYQ3vynBCJxqN+Fyic7lNzBeRlvTVe6oy
+ i9z1Hm4qBF5nZ6ZgdyDDnD9HnsgHoKnP85f8qCUuVQi5B8BceYnf+feIebq1wN3jsfwxWjV5PaW
+ DCw/xsm2QLUu9+LXp13S0OhDLi4l0yejKDUMIn0psgeMM2azV5JNGQcQs23diMQte3BNy2wy6br
+ jh6sdg260jCflq/bqDqQAizuGPhb7LsnGioNNXrX27ubCNkNeqHF/83Ze723fCl3dce2SWLeVpF
+ SVczE9oWyDjbeE8XMPA==
+X-Authority-Analysis: v=2.4 cv=WK/qzXsR c=1 sm=1 tr=0 ts=6ab4ee35 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=mssyiQsI3MLSchi5Q0YA:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAzOSBTYWx0ZWRfXyBMuQzV7FEca
+ ilIaTZo6wQqR9xu9kARJxFLg76WmpZWmi4mjJMZ1M2MSjBlBlCHWdAWCD6IJQcYmEkiQ1TF4oMH
+ 7tj/0nFzikHzpvvq7riLDu3MzMHqZ38=
+X-Proofpoint-ORIG-GUID: xn11GBKGEgJUTNUZhwfQRF4_XHVGM5am
+X-Proofpoint-GUID: xn11GBKGEgJUTNUZhwfQRF4_XHVGM5am
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 bulkscore=0 suspectscore=0 adultscore=0
+ priorityscore=1501 malwarescore=0 lowpriorityscore=0 impostorscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609240039
 
 
 
-在 2026/9/23 2:29, Kees Cook 写道:
-> On Tue, Sep 22, 2026 at 11:54:56AM +0800, Jinjie Ruan wrote:
->> This series converts arm64 to the generic entry infrastructure.
+On 21-09-2026 02:23 pm, Konrad Dybcio wrote:
+> On 9/16/26 1:05 PM, Imran Shaik wrote:
+>>
+>>
+>> On 11-09-2026 02:36 pm, Konrad Dybcio wrote:
+>>> On 9/10/26 3:44 PM, Imran Shaik wrote:
+>>>> clk_smd_rpm_handoff() votes both active and sleep RPM resource states for
+>>>> every clock, keeping them non-zero until a consumer takes over. If there
+>>>> is no consumer, those clocks will remain active in the idle scenario as
+>>>> well, and the sleep vote is never cleared, blocking XO shutdown.
+>>>>
+>>>> Introduce the skip_clks_handoff flag to handle this on QCM2290 clocks,
+>>>> keeping other targets unaffected.
+>>>>
+>>>> Fixes: 00f64b58874e ("clk: qcom: Add support for SMD-RPM Clocks")
+>>>> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+>>>> ---
+>>>
+>>> Are you booting with clk_ignore_unused?
+>>>
+>>
+>> No Konrad, clk_ignore_unused is not present.
+>>
+>> Irrespective of clk_ignore_unused, the proxy votes are placed to RPM
+>> during handoff. If no consumer takes over, those votes remain active,
+>> keeping the resource ON in idle and preventing XO shutdown.
 > 
-> With my trusty LLM driving a bunch of orchestration, I gave this
-> a fairly wide before/after run under qemu-system-aarch64, trying
-> to cover things beyond the ptrace/breakpoints/abi/fp/vDSO list in
-> the cover letter. But since this is all emulated, it's mainly basic
-> correctness coverage, without any meaningful concurrency coverage. I
-> just wanted to find stuff that maybe hadn't been exercised yet.
+> I re-read this and yeah you're right
 > 
-> tl;dr: the only behavioral difference I could find anywhere is what
-> patch 1 fixed, and I found no meaningful regressions.
-> 
-> Setup: the series applies cleanly to v7.3-rc2 (I only noticed later
-> the series was actually based on -rc4), so "base" is v7.3-rc2 and
-> "patched" is the same tree plus the 14 patches, with each pair built
-> from the same config with GCC 16.1.0. The guest was QEMU 11.1.0:
-> 
->   -M virt,gic-version=max,mte=on -cpu max,pauth-impdef=on -smp 4
-> 
-> I used four kernel configs, each built for both base and patched:
-> 
->   plain    defconfig + SECCOMP, USER_NS, AUDITSYSCALL, KUNIT_ALL_TESTS
->   lockdep  plain + PROVE_LOCKING, TRACE_IRQFLAGS, PROVE_RCU,
->              DEBUG_ATOMIC_SLEEP, DEBUG_PREEMPT
->   hooks    lockdep + the options that add work to syscall entry/exit:
->              FTRACE_SYSCALLS, KSTACK_ERASE, LKDTM, NO_HZ_FULL,
->              CONTEXT_TRACKING_USER (booted nohz_full=2-3)
->   rt       hooks + PREEMPT_RT
-> 
-> and ran userspace tests from both an AArch64 and an AArch32 (armhf)
-> userspace, since the latter takes the is_compat_task() side of
-> ptrace_save_reg() and the cover letter didn't mentioned COMPAT.
-> 
-> Results were identical on base and patched (pass/fail/skip):
-> 
->   seccomp_bpf                   98/1/12 (AArch64), 94/2/15 (AArch32)
->   ptrace selftests              get/set_syscall_info, peeksiginfo,
->                                 vmaccess: no change
->   breakpoint_test_arm64         213/0/0
->   rseq basic, percpu_ops        pass
->   KUnit (KUNIT_ALL_TESTS)       ~1500 results, no change
->   MTE selftests                 117/0/0 (but see below)
->   strace 6.18 test suite        81/6/0 (ptrace/seccomp tests)
->   audit (a0 filter)             pass
->   syscall tracepoints           pass (argument recorded correctly)
->   lkdtm KSTACK_ERASE            pass
->   lkdtm stack-entropy.sh        7 bits
->   lockdep/RCU                   0 splats in lockdep, hooks, and rt
-> 
-> The only delta I could find was the expected one:
-> 
->   sysemu_singlestep (new test)  FAIL on base, pass on patched
-> 
-> So patch 1 fixes the described bug, but it had no in-tree test, so I
-> wrote one. I'll send that separately.
-> 
-> Various things I noticed along the way:
-> 
-> - The set of traceable symbols on the syscall path changes:
-> 
->     removed: syscall_trace_enter, syscall_trace_exit,
->              el0_svc_common.constprop.0
->     added:   trace_syscall_enter, trace_syscall_exit,
->              syscall_enter_audit
-> 
->   These aren't ABI, and the new names are the same ones x86,
->   riscv, loongarch, and s390 already expose, so this is really an
->   improvement. But it might be worth a sentence in the cover letter,
->   since patch 13's "[Compatibility]" note could be read as "nothing
->   observable changes", which isn't _strictly_ true. :)
-> 
-> - Syscall-path stack use grows by 48 bytes. Base do_el0_svc() has a
->   16-byte frame and calls el0_svc_common() with a 48-byte frame; with
->   patch 14 inlining it (plus the __always_inline generic enter/exit
->   helpers), do_el0_svc() grows from 48 to 808 bytes and 1 to 13 calls,
->   with a single 112-byte frame: 112 - 64 = 48. lkdtm KSTACK_ERASE with
->   randomize_kstack_offset=off confirms exactly that at runtime (2288 vs
->   2336 bytes, ten samples, no variance), on both userspaces and in
->   both the hooks and rt configs. It's small, but it's not mentioned as
->   a (minor) trade-off for patch 14's ~1% speedup. Other size deltas:
->   .text +12K, ptrace.o -3.6K, and +3.1K of shared
->   kernel/entry/syscall-common.o (all seems expected/unremarkable).
-> 
-> - Patch 14 also moves that inlined code into .noinstr.text (+896
->   bytes). Since arm64 doesn't have objtool noinstr validation like x86,
->   I checked the images directly: no calls from .noinstr.text to
->   instrumentation outside the noinstr range, and no __mcount_loc entry
->   falls inside it, on either kernel. But we don't seem to have anything
->   that will continue to enforce this?
-> 
-> - CONFIG_DEBUG_RSEQ "depends on ... && !GENERIC_ENTRY", so patch 13
->   makes it unselectable on arm64 and rseq_syscall() becomes the no-op
->   stub. Patches 5 and 9 carefully reposition that call, and then patch
->   13 removes its effect. Not a bug (generic entry does the equivalent
->   via rseq_debug_enabled, and I can see __rseq_debug_syscall_return()
->   called from the new do_el0_svc()), but patch 5 reads like a
->   standalone fix that disappears eight patches later, so a note in the
->   cover letter might help make sense of this?
-> 
-> - The cover letter includes the gvisor SUD numbers, but SUD needs
->   ARCH_SUPPORTS_SYSCALL_USER_DISPATCH (as well as GENERIC_ENTRY),
->   and with the SUD patch dropped in v18, arm64 doesn't select it,
->   so CONFIG_SYSCALL_USER_DISPATCH can't be enabled yet. (rseq slice
->   extension is similarly blocked on HAVE_GENERIC_TIF_BITS.) A reader
->   could take those numbers as something this series delivers.
-> 
-> - arm64 defconfig has FTRACE_SYSCALLS=n, which means
->   SYSCALL_WORK_SYSCALL_TRACEPOINT can never be set and the tracepoint
->   paths touched by patches 2, 3, and 9 aren't even built. So anyone
->   testing with defconfig isn't exercising those; you may want to test
->   with it enabled. (Also, compat tasks never hit syscall tracepoints
->   on arm64 at all, due to ARCH_TRACE_IGNORE_COMPAT_SYSCALLS, so that
->   path can only be covered by native tasks, but that's unchanged by
->   the series.)
-> 
-> - I verified that the entry work ordering is unchanged. It looks
->   correct to me: arm64 did ptrace, seccomp, tracepoint, audit; generic
->   entry does the same. (It also checks SUD and rseq-slice before those,
->   but neither can be enabled on arm64 yet.)
-> 
-> Suggestions:
-> 
-> - rr: Since you have real hardware, could you also run the rr test
->   suite? rr has been the most sensitive ptrace user I've encountered,
->   and it depends on exactly the syscall-stop and single-step behavior
->   this series touches. I couldn't run it: QEMU's TCG PMU exposes PMUv3
->   but only counts CPU_CYCLES (BR_RETIRED always reads 0, on every
->   CPU model I tried), so rr aborts in check_working_counters(). If
->   you do, note that you'll need "proc_mem.force_override=always" (or
->   CONFIG_PROC_MEM_ALWAYS_FORCE=y), or three rr tests fail for unrelated
->   reasons (rr-debugger/rr#4093). Build and test instructions are here:
->   https://github.com/rr-debugger/rr/wiki/Building-And-Installing#tests
+> Is the handoff functionality necessary at all for non-icc clocks?
 
-Hi Kees,
+Actually, if any consumers surviving on these proxy votes on other
+targets as of today, removing the handoff logic could impact boot-up as
+well. Hence, introduced the skip_clk_handoff flag to maintain backward
+compatibility on other targets.
 
-Thank you for your detailed testing.
+Thanks,
+Imran
 
-I tested the rr test cases on a Kunpeng HIP09 (with minor adaptations,
-since Kunpeng CPUs aren't supported by default), and the results showed
-no regressions.
-
-|               |    7.3-rc4 baseline     |   Patched                 |
-
-|  ------------ |------------------------ | ------------------------- |
-|   result      |  87% passed, 190 failed |   88% passed, 186 failed  |
-
-
-| Failure Mode   | 7.3-rc4 baseline |   Patched  |
-| ------------   | ---------------- | ---------- |
-| TICK_MISMATCH  |         76       |   74       |
-| TIMEOUT        |         68       |   65       |
-| GDB_SCRIPT     |         34       |   37       |
-| PERF_EVENT_OPEN|         3        |   2        |
-|   OVERSHOOT    |         1        |   0        |
-|    OTHER       |         8        |   8        |
-| -------------- |  --------------- | ---------- |
-|  Total         |      190         |   186      |
-
+> I'm suspecting that this was just a port of the ancient msm-3.10
+> logic where the (modified) clock framework had a handoff mechanism
+> similar to today's sync_state, except the toning-down of these
+> clocks was never added
 > 
-> - MTE: I didn't see MTE in the cover letter's test list, and it seems
->   relevant since patch 13 puts _TIF_MTE_ASYNC_FAULT into
->   ARCH_EXIT_TO_USER_MODE_WORK, so an async tag check fault lands
->   on the reworked exit path. The MTE selftests showed no differences,
->   but a third of them don't actually run for me under QEMU, so they'd
->   be worth running on your hardware. (Testing MTE under QEMU saw
-
-Turns out our arm64 machines don't support MTE; I was testing it on QEMU.
-
->   check_mmap_options hang at test 5, the first test with tag checking
->   on, and check_child_memory never produces output, on both base and
->   patched, so only 117 of the 183 planned MTE tests ran. But this is,
->   of course, a QEMU/selftest issue unrelated to the generic entry.)
-> 
-> So, for the series:
-> 
-> Tested-by: Kees Cook <kees@kernel.org>
-> 
-> -Kees
-> 
-
--- 
-Best regards,
-Jinjie
+> Konrad
 
