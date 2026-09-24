@@ -1,120 +1,213 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 521AB408626
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:30:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3732F37CD2C
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:30:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790253058; cv=none; b=mF1Fi6i8UVWp7kA/TS8oQbh/xiyvHZ2Hl4dG2eRGIYt+6R+6GQGEi9r4CnPXj/XZmOx5AnxLEXywYhZoR/SZxw1eM080NlPxXy/ZnNHvcdEiu6wEAhnptI5q9LiMM2j9NBTW2bSvYXZwjT/REmmQR9M6wNAKXgL9wJ3ilXjeSTg=
+	t=1790253058; cv=none; b=L6t3Ba2fT1fl5TvATNvSLJT2Y3B6d+6jFF/5Vq9NgTCPzPjVPFVW3+2JtiTS77xjB72Da8MIGiwwm0GEa8ExlE+dN0lcLZJVsG5lbscfDe7xK8mmVifN5Ca90xYP9WB8+D/SKPMt8a/6z1ZWVe29Rvr1va4dq1y2XTCQT8601TQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790253058; c=relaxed/simple;
-	bh=rsgS7rHkTq7viCTKRBVhQwtXUX5Iw9WtW8IFUt/hYzg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Nuu/7LrxChL8h4vFKLTKurif1FVR3BtoQoA5NHhMBHKNnL456ZjJ2DODNY+F+2qAExHv92woe+qxLFNNCw/6JPvoG0ZGUATdMfVh3wPk7NV+pNRUSFTajEOJP/hZNSdcuva1+klBCg3pMyTGNP4RxVhq337oiZwlcjRSpD9/9rg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=b//Sv/IQ; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	bh=omk9GI045/Wzc6JEiHTL3O2HU5TJfulTTCxUFqD7tN0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=up4FWxE96ZZzLEU3QyMfHyfX/4weKsimmbD8WfH/3lnEr5Oo+GR+n8N/Gokt9rBHZgrp6ztuqeneqDWWYGmkQ8YpGfWf8BB/PJAEXRT4f5xheogogIMmW+ST8c0U4l2I75xBVvz7w9xEtdzFF2jVcs9SpRsHVSXxOKxGAYsyJ3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IkNJdfGM; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="b//Sv/IQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790253054;
-	bh=rsgS7rHkTq7viCTKRBVhQwtXUX5Iw9WtW8IFUt/hYzg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=b//Sv/IQIDLDzU7wIf/kerQCMO3IR1zwBMva1V7e3E8PLIFsf1A4Cqys4qXkpyi3H
-	 G1915I+vDaKg5zsRY5x8eVgHlDv1MVeDKgx1jDtEniSYmonyuLgv3v6MQ4dWlm5ahV
-	 k/TyUHCD9JeaCkKDSAE+Zul0OAX3XZRv2cOSWqlJ0oZEyQbBFhurlRx7STN2nEM7Ys
-	 4vCeW/K9AEuacWKq9jf6gQEt7kSoZmeHm2OAuxda+IBuE5YMg2RlOQKQleDXTkoD8t
-	 Fmlt/tDcVbMRET6Gi9ObAnKZm+EE2PRIcHYPnGkmrp1PmyyiKMYF5Y3t22vBCQvLjB
-	 gdr/o1JwUPjmg==
-Received: from fedora-32.home (unknown [100.64.0.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id CA0A317E0D5D;
-	Thu, 24 Sep 2026 14:30:53 +0200 (CEST)
-From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Thu, 24 Sep 2026 14:30:45 +0200
-Subject: [PATCH 3/3] drm/panthor: Move cache-flush after UPDATE(UNMAPPED)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IkNJdfGM"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6c0fce17so10851285e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:30:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790253052; x=1790857852; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IeZGVwvFZh+DRIKqU9fspJebPiKjj3eoo80WtQQLI48=;
+        b=IkNJdfGMtF1KdIA0c/UZ1zk5m/AYh6gTTl9E8NS6892RjGyjWHwadJRndSZsG8hjUB
+         8PTqS1EnoutCOkrobRey36lGNGqMrzKmmoyBBvaefPTceT5NxpN2PldvCjHTjUfTsnUR
+         5Pr8NKsJLObIfW1mDKPD0Mwf+Irgip+b0Nq9LwNAAEfgzQS2CCdt5I4IB+W5dntnYGSr
+         1J3M82Z+qfxX6+PKclXv2xMlVKUDCTEIHovfZlIzLAR2b5OAlMcM5f9Gi+iHLS/rnBIR
+         DRSwwAZihgUVVEqfy52FYGGioTmuEEbjh2U9mRLVjMu+Gu/zWuD7r3aI0NuSiF4esBwt
+         Pzxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790253052; x=1790857852;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IeZGVwvFZh+DRIKqU9fspJebPiKjj3eoo80WtQQLI48=;
+        b=RVgich3AlUQs5egNe2P2wKJxmAoCievS2eiu8MPLHze10ZF2kgBpUVHXeWfm1hvd2t
+         m6yxXg5teJ/J8/Wk7A9Q46Rp7EbQ/2HAYGcuOfnMcpPlmT9Fw91Hzp5/ImDWc0eKGWDb
+         0/dxYw7wHIgmaZ2zeiHtt1/K4NeVYPB/JNj53+HAUdsJcJnC+6z3mE/Vh6bGzUoceFBo
+         iJo4cRrrWtSJnZRomkB/pwBpO/8YRqxB++hQ1mBzorqYHbQFjo01eLJKX94599HQc7bR
+         TrC7FdKH5NIcx99Jr4CfoFCNKPrZL2/0JvFifIG9oR+gmLb171pnloBTh7uhCSZGM5ED
+         6bcw==
+X-Forwarded-Encrypted: i=1; AKwUvBzTr3PuCNST7GfY7yB9BkecfLNaAcU3gckoStDeM6HoFzwnQTAM03k75cpOSPDNnOSLmbNZ0jtrgOfx5iM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kqEStVRH0t/NR2Mk99yTk/JyYuwgIp/qfBz4pHEgTTrdM+jtRs
+	uAo7Tr6bB4IoXwypCPvg5ruowBbziIXXX3vfi7zljoFmn1RtDTYEOquq
+X-Gm-Gg: AYBFou2moEsIzTMEXGki4O4YmV4iJCBClDAt8co8I61BnVW+5ch1bRry8qxt2g/GfiP
+	A6/c+jAEtSLOM6xS4hrbkPwldVN5pq88UF+s6xKBY0Jn0E9N7ezsMLHM/T2mnA890lvJ3R4p8X2
+	AoK/Q1jruFSpOx4eMZXMroDFH1nZ8DfswTnP5SVvY4FtSyq5CAeRRxRGKuGUiSXDYWv1sVlyTyk
+	CDOGYPy+AkrmYOr159yAH+HHFq6gJ9dW+uqwwF563lpmHRhkDYxexquVXI92faQzq2yhe5aARxS
+	mgv6AtBY84LfX6ViJYgBYiWitPGhRxabZ16S1WUVXhCCeEKFNn/kpQcduCR2WrXhw9XLi05QX+M
+	XM5O9j6687bmhpszYxBecKYgepcHZS3fONUjMzvb7F1tT7AuhK5HF8Kpe0sRQFbFdme519+L6eu
+	SIj02jxufMWDzn0kiU4XuFnGC03RR+mxgS8eJV6tdtuhQju39421kQ+fQMLP2qDHw1UzvsIhsPd
+	Oq2QFYNsGXB6fZzvF4l2MFRYofdzcJ4XMT+iUsTiY+9l2oAhwakL7ExMXfZXGZR2jcMAtVXQ/g=
+X-Received: by 2002:a05:600c:138c:b0:49d:174e:2a1e with SMTP id 5b1f17b1804b1-49fe66e6538mr38211495e9.19.1790253051185;
+        Thu, 24 Sep 2026 05:30:51 -0700 (PDT)
+Received: from pws-dionisio-3680.powersoft.it (78-209-174-168.subs.proxad.net. [78.209.174.168])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5bae43dsm64010115e9.5.2026.09.24.05.30.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 05:30:50 -0700 (PDT)
+From: Michele Dionisio <michele.dionisio@gmail.com>
+To: Arend van Spriel <arend.vanspriel@broadcom.com>
+Cc: Michele Dionisio <michele.dionisio@gmail.com>,
+	Hante Meuleman <meuleman@broadcom.com>,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	Kalle Valo <kvalo@kernel.org>,
+	Pieter-Paul Giesberts <pieterpg@broadcom.com>,
+	linux-wireless@vger.kernel.org,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH wireless 1/1] wifi: brcmfmac: fix P2P device removal race in brcmf_detach()
+Date: Thu, 24 Sep 2026 14:30:27 +0200
+Message-ID: <20260924123027.4122909-2-michele.dionisio@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260924123027.4122909-1-michele.dionisio@gmail.com>
+References: <20260924123027.4122909-1-michele.dionisio@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-panthor-mmu-fixes-v1-3-e25f9b106466@collabora.com>
-References: <20260924-panthor-mmu-fixes-v1-0-e25f9b106466@collabora.com>
-In-Reply-To: <20260924-panthor-mmu-fixes-v1-0-e25f9b106466@collabora.com>
-To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Akash Goel <akash.goel@arm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Chia-I Wu <olvaffe@gmail.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, 
- Boris Brezillon <boris.brezillon@collabora.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790253051; l=2299;
- i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=rsgS7rHkTq7viCTKRBVhQwtXUX5Iw9WtW8IFUt/hYzg=;
- b=R2OTeuEvmvcvLmu7zMLWxLECynGQWE2U58cPhqAF006drMWikFuxxPkYN2i+75gJR4K6c0klb
- IEJN4Wcgl6IBxFN3Pdyh/lnUDSHtSnLj8unAo9C46DTZS5ReHOXIE5k
-X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
- pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
+Content-Transfer-Encoding: 8bit
 
-Right now, there's a theoretical window during which the GPU can populate
-the cache with data from a VM that's about to be evicted through the
-UPDATE(UNMAPPED) command.
-In practice this won't happen (hence the absence of Fixes tag) because
-when panthor_mmu_as_disable() is called, the VM is guaranteed to be idle
-(no active CSG pointing to this VM), but as we say, better safe than
-sorry.
+When the driver is removed while the user space process that created
+the P2P device (e.g. wpa_supplicant) is still exiting, the P2P device
+interface is removed twice and the kernel crashes.
 
-Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+The two paths are:
+
+ - wpa_supplicant, on exit, sends NL80211_CMD_DEL_INTERFACE for the P2P
+   device. nl80211_del_interface() holds RTNL and the wiphy mutex and
+   calls brcmf_p2p_del_vif(), which disables discovery and waits up to
+   1.5 s for BRCMF_E_IF_DEL. Then it calls brcmf_remove_interface(),
+   which unregisters the wdev and frees the vif and the ifp.
+
+ - brcmf_detach() sets the bus down, so BRCMF_E_IF_DEL never arrives,
+   and calls brcmf_remove_interface(ifp, false) for the same ifp.
+   brcmf_p2p_ifp_removed() reads ifp->vif and then blocks on
+   rtnl_lock(). When brcmf_p2p_del_vif() releases RTNL, it calls
+   cfg80211_unregister_wdev() on the wdev that was already unregistered
+   and freed.
+
+The second list_del_rcu() of wdev->list faults on LIST_POISON2:
+
+  brcmfmac: brcmf_p2p_del_vif delete P2P vif
+  brcmfmac: brcmf_p2p_deinit_discovery enter
+  brcmfmac: brcmf_p2p_del_vif P2P: GO_NEG_PHASE status cleared
+  brcmfmac: brcmf_detach Enter
+  brcmfmac: brcmf_bus_change_state 1 -> 0
+  brcmfmac: brcmf_remove_interface Enter, bsscfgidx=1, ifidx=0
+  brcmfmac: brcmf_del_if Enter, bsscfgidx=1, ifidx=0
+  brcmfmac: brcmf_p2p_ifp_removed P2P: device interface removed
+  [1.5 s later, brcmf_p2p_del_vif() timed out]
+  brcmfmac: brcmf_remove_interface Enter, bsscfgidx=1, ifidx=0
+  brcmfmac: brcmf_del_if Enter, bsscfgidx=1, ifidx=0
+  brcmfmac: brcmf_p2p_ifp_removed P2P: device interface removed
+  Unable to handle kernel paging request at virtual address dead000000000122
+  Internal error: Oops: 96000044 [#1] PREEMPT_RT SMP
+  pc : _cfg80211_unregister_wdev+0x6c/0x264 [cfg80211]
+  Call trace:
+   _cfg80211_unregister_wdev+0x6c/0x264 [cfg80211]
+   cfg80211_unregister_wdev+0x10/0x1c [cfg80211]
+   brcmf_p2p_ifp_removed+0x84/0xb0 [brcmfmac]
+   brcmf_remove_interface+0x1f4/0x254 [brcmfmac]
+   brcmf_detach+0x88/0x180 [brcmfmac]
+   brcmf_sdio_remove+0x90/0x7b0 [brcmfmac]
+   brcmf_sdiod_remove+0x20/0xa0 [brcmfmac]
+   brcmf_ops_sdio_remove+0xbc/0x12c [brcmfmac]
+   sdio_bus_remove+0x38/0x144
+   device_release_driver_internal+0x1e8/0x2c0
+   device_release_driver+0x14/0x20
+   brcmf_sdio_bus_remove+0x2c/0x40 [brcmfmac]
+   brcmf_fwvid_unregister_vendor+0xd8/0x170 [brcmfmac]
+   __exit_compat+0x18/0x418 [brcmfmac_cyw]
+   __arm64_sys_delete_module+0x1ac/0x244
+
+The log was taken with debug=0x406 on an i.MX 8M Plus board with a
+CYW55513 (Sona IF513) on SDIO. The driver is the Ezurio backport of
+brcmfmac from v6.18.22 on a 5.4-rt kernel. The code involved is the same
+in mainline.
+
+To reproduce:
+
+  1. Start wpa_supplicant on wlan0 and let it associate. It creates the
+     P2P device (iw dev shows "type P2P-device").
+  2. Stop wpa_supplicant and remove the driver without waiting for
+     wpa_supplicant to exit:
+
+       kill $(pidof wpa_supplicant)
+       rmmod brcmfmac_cyw brcmfmac
+
+The crash is reproducible on that board.
+
+For the interface without a netdev (the P2P device), take RTNL and the
+wiphy mutex in brcmf_detach() before reading iflist, and remove it with
+locked=true. If brcmf_p2p_del_vif() runs first, brcmf_detach() finds the
+slot empty. If brcmf_detach() runs first, nl80211 does not find the wdev
+any more. The interfaces with a netdev are removed as before, because
+brcmf_del_if() takes RTNL on its own for the primary interface.
+
+Fixes: 9831bcb987df ("brcmfmac: Deleting of p2p device is leaking memory.")
+Cc: stable@vger.kernel.org
+Assisted-by: claude-opus-5-5
+Signed-off-by: Michele Dionisio <michele.dionisio@gmail.com>
 ---
- drivers/gpu/drm/panthor/panthor_mmu.c | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+ .../broadcom/brcm80211/brcmfmac/core.c        | 27 +++++++++++++++++--
+ 1 file changed, 25 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-index 038a092fd08c..bb71274aa36b 100644
---- a/drivers/gpu/drm/panthor/panthor_mmu.c
-+++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-@@ -631,12 +631,6 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr)
- 	panthor_mmu_irq_disable_events(&ptdev->mmu->irq,
- 				       panthor_mmu_as_fault_mask(ptdev, as_nr));
- 
--	/* Flush+invalidate RW caches, invalidate RO ones. */
--	ret = panthor_gpu_flush_caches(ptdev, CACHE_CLEAN | CACHE_INV,
--				       CACHE_CLEAN | CACHE_INV, 0);
--	if (ret)
--		return ret;
--
- 	if (vm && vm->locked_region.size) {
- 		/* Unlock the region if there's a lock pending. */
- 		ret = as_send_cmd_and_wait(ptdev, vm->as.id, AS_COMMAND_UNLOCK);
-@@ -648,7 +642,18 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr)
- 	gpu_write64(mmu->iomem, AS_MEMATTR(as_nr), 0);
- 	gpu_write64(mmu->iomem, AS_TRANSCFG(as_nr), AS_TRANSCFG_ADRMODE_UNMAPPED);
- 
--	return as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
-+	ret = as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
-+	if (ret)
-+		return ret;
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
+index d2ae679856067..92ec269f43b23 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
+@@ -1489,8 +1489,31 @@ void brcmf_detach(struct device *dev)
+ 	brcmf_bus_change_state(bus_if, BRCMF_BUS_DOWN);
+ 	/* make sure primary interface removed last */
+ 	for (i = BRCMF_MAX_IFS - 1; i > -1; i--) {
+-		if (drvr->iflist[i])
+-			brcmf_remove_interface(drvr->iflist[i], false);
++		struct brcmf_if *ifp = drvr->iflist[i];
 +
-+	/* Flush+invalidate RW caches after we've unmapped, to make sure any
-+	 * cacheline eviction is effective before we potentially return
-+	 * memory pointed by this VM to the system. This needs to be done
-+	 * after the UPDATE(UNMAPPED) operation to guarantee that not further
-+	 * PT-walk can pull VM data into the cache.
-+	 */
-+	return panthor_gpu_flush_caches(ptdev, CACHE_CLEAN | CACHE_INV,
-+					CACHE_CLEAN | CACHE_INV, 0);
- }
++		if (!ifp)
++			continue;
++
++		if (ifp->ndev) {
++			brcmf_remove_interface(ifp, false);
++			continue;
++		}
++
++		/* The P2P device interface has no netdev. Its removal can
++		 * race with NL80211_CMD_DEL_INTERFACE issued by a user space
++		 * process that is exiting (e.g. wpa_supplicant), which ends
++		 * in brcmf_p2p_del_vif() under RTNL and the wiphy mutex. If
++		 * both paths remove the interface, the wdev is unregistered
++		 * twice and the vif is used after being freed. Take the same
++		 * locks and re-read iflist, so only one path removes it.
++		 */
++		rtnl_lock();
++		wiphy_lock(drvr->wiphy);
++		ifp = drvr->iflist[i];
++		if (ifp)
++			brcmf_remove_interface(ifp, true);
++		wiphy_unlock(drvr->wiphy);
++		rtnl_unlock();
+ 	}
+ 	brcmf_bus_stop(drvr->bus_if);
  
- static u32 panthor_mmu_fault_mask(struct panthor_device *ptdev, u32 value)
-
 -- 
-2.55.0
+2.53.0
 
