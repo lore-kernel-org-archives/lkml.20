@@ -1,141 +1,236 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DFD63C1985;
-	Thu, 24 Sep 2026 21:39:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F3C648EBE4;
+	Thu, 24 Sep 2026 21:40:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790285996; cv=none; b=TL+LxpWUzbg2crIgu9xXdWPesq7dYGkVvUXBrlkGgLqTCikmCxCN9wNkYZ+YoOjctHQSlBLBdiu4Av0pyMhXJQhvKVtvFao1y+FD2dYSGCpM7HPfcg7jt5oPGrcexVruY99SDkv3lAiE9NSUhX0YlIQNPg95Z9HKOYRJ889UBDo=
+	t=1790286043; cv=none; b=N2PwaXpU1Ih3qKbcjUGrX0kMA9adXilmo3qg2mo5iZ1PdUvyzATEP7D26MphtEti4nZF215fENX8ucm8docDx2ryKKiA0ExIk3OdJD7o2sz6sYMO5qpBBwphf0VUZOUqp+L1zJiZmPb5iNa2Kw803HA3GEm6zjynNS8hOyea4Wo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790285996; c=relaxed/simple;
-	bh=6zdCffLvP6l5b2gM3OWv2UAqdeUut3sp9XOz7+bUXaA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=iar1Sbz94/geFcKkFg5YLfC+eZ5Vj+p0y1DDecC8kzZvjGpebI9uoK+wG4ShuL8qWNhv6ky/3EEclrFzBfN1YA99DssA93uiP/SnJbdIXuykTZsh3I+dmGWFtMSujuBXNX4G7XGykPHErhSU03ueov2S9Qa/A+94SFf7Pvz05Jo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HGuaPSUo; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790286043; c=relaxed/simple;
+	bh=uZEGjqzjATumkblECZJsy4fqtmsbRPajJm3qmJ2q6+c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=T6qfTis7d9tTpliRPqahED/rG8C6LUEM4TPkXcVV/y0de1SqvavqOkxle2yL/wJTWw7bUSCRTNLApKtVbhz7pPXV5nA+cWUUBYBEzCUGZw0IIXCV0fIwEgva2anyukze80mIA6n+YKKHAjrIohXcmHKASrPtB9fbyVmI9jleUGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FrnIxpwO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HGuaPSUo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790285994; x=1821821994;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=6zdCffLvP6l5b2gM3OWv2UAqdeUut3sp9XOz7+bUXaA=;
-  b=HGuaPSUoUpRjjL7trhEeVQ7pIW+I61PBa9Qg6CbgIByhXRMIy8pa9+1N
-   27vsFWuYlPFgi6HqWyne5Lh21Ls+jqy67DQWcBWEaa02ZYXsZbvmd5qml
-   5VGCs78U2l0IVXZCVrwh6I74vk42/E1MFLS1RyOYz0k+TaUunCeUowB6b
-   9d75MI8nZYlucess/mf9XAT2xLhcnUvkvPYKXBMNKtDi/RI/Rv1+M4GQh
-   WKlTrtO6ugijgsN3FPOhqz2q4CllLcXB1C3EJUvIuWbRR0Wq7ILgs6+tv
-   23zqFRQ+6j8sqyxysR5JZivQVXpol89+7ze3I+8ed9MIgWuPct4XLGO78
-   g==;
-X-CSE-ConnectionGUID: 7a1q9zO3Q/et2mOghAxNnA==
-X-CSE-MsgGUID: VSKV8M0IQPOfmW4LmMHgbg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="93961574"
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="93961574"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 14:39:53 -0700
-X-CSE-ConnectionGUID: OmF7bD9BR9GRlSrsBvuKKg==
-X-CSE-MsgGUID: Y7X+UIauSwKBM4YFYarlzA==
-X-ExtLoop1: 1
-Received: from spandruv-desk.jf.intel.com ([10.54.55.20])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 14:39:53 -0700
-Message-ID: <9e3c9e829991004b2a01b6b3bf90d1123862260f.camel@linux.intel.com>
-Subject: Re: [PATCH 1/2] platform/x86/intel: power-domains: Handle failed
- init in tpmi_get_linux_die_id()
-From: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
-To: Kristen Carlson Accardi <kristen.c.accardi@intel.com>, Hans de Goede
-	 <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=
-	 <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 24 Sep 2026 14:39:53 -0700
-In-Reply-To: <20260924193625.1830526-2-kristen.c.accardi@intel.com>
-References: <20260924193625.1830526-1-kristen.c.accardi@intel.com>
-	 <20260924193625.1830526-2-kristen.c.accardi@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FrnIxpwO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3C291F000FF;
+	Thu, 24 Sep 2026 21:40:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790286042;
+	bh=0YAyGdOukJ0qYZkjGuAKlfkUUfncvLOSrgHap0ySDdA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=FrnIxpwOKuSGUoioG2GBn+/QLM8IKz+YSsUUrfyi6alteNwu1uQlQG9g6vFmflRmG
+	 7g92FMn2ZIQGZ90hDu9+jMIzR903S0SAt1N6h/CHCaXvJ7oBFCUJ6pNxA9D6E7tfAi
+	 qrz4GUpFwpixKFhk1H+uleVEOVbz1nU+q7iUPBgZu7VKRegE7lAYKWPgKLzJBoi0Yz
+	 0GGrv3ZHUL5XeHmWUI9IhLj+mF74VgaFZKILr6qcZBPZiWS+PIcl178ZvRuxa1j983
+	 WA8lLBoIl7R6HX8ClLq0Vcq5C8+t0TH2Nb2WWJP2q1rJTJqv77ffM3h84wZOYJDdrv
+	 177TSnNApOQKA==
+Message-ID: <c73021d4-60c8-4446-9c08-f9d7807a3a0f@kernel.org>
+Date: Thu, 24 Sep 2026 22:53:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/7] sched/numa: scan read-only file mappings in
+ tiering mode
+To: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
+ vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
+ mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
+ vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+ bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+ kprateek.nayak@amd.com, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
+ nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
+ baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev,
+ kas@kernel.org, matthew.brost@intel.com, joshua.hahnjy@gmail.com,
+ rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com,
+ apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, hannes@cmpxchg.org,
+ shy828301@gmail.com, raghavendra.kt@amd.com, stable@vger.kernel.org
+References: <20260922182928.2199090-1-gourry@gourry.net>
+ <20260922182928.2199090-4-gourry@gourry.net>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260922182928.2199090-4-gourry@gourry.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, 2026-09-24 at 12:36 -0700, Kristen Carlson Accardi wrote:
-> tpmi_init() returns early with -ENODEV on CPU models that are not in
-> tpmi_cpu_ids, before domain_die_map is allocated. When the driver is
-> built in, tpmi_get_linux_die_id() remains callable after the failed
-> init and dereferences the NULL domain_die_map.
->=20
-> This is reachable from user space: uncore-frequency-tpmi calls
-> tpmi_get_linux_die_id() from the show function of the world-readable
-> die_id sysfs attribute. The attribute is created on multi-die
-> packages
-> for clusters with the core agent type, so reading it on such a CPU
-> that is missing from tpmi_cpu_ids oopses.
->=20
-> Likewise, if cpuhp_setup_state() fails, the error path frees
-> domain_die_map but leaves the pointer set, so a later call would read
-> freed memory.
->=20
-> Return -ENODEV when the map was not allocated, and clear the pointer
-> wherever it is freed.
->=20
-> tpmi_get_linux_cpu_number(), tpmi_get_punit_core_number() and
-> tpmi_get_power_domain_id() read only the static per-CPU data and hash
-> table, so they are safe after a failed init.
-> tpmi_get_power_domain_mask()
-> has the same problem as this helper but no callers, so it is handled
-> separately.
->=20
-> Fixes: e37be5d85c60 ("platform/x86/intel: power-domains: Add
-> interface to get Linux die ID")
+On 9/22/26 20:29, Gregory Price wrote:
+> From: "Gregory Price (Meta)" <gourry@gourry.net>
+> 
+> Commit 4591ce4f2d22 ("sched/numa: Do not trap hinting faults for
+> shared libraries") excludes file-backed read-only VMAs from NUMA
+> hint faulting to prevent east-west placement bouncing.
+> 
+> This filter hides hot file folios on slow memory from promotion.
+> 
+> Scan those VMAs when tiering is enabled, but make their scans promotion
+> only to retains the existing restriction. Keep the historical VMA
+> predicate unchanged for backport-ability.
+> 
+> Read the balancing mode once per task_numa_work() invocation and build
+> the protection flags for each VMA from that snapshot. This keeps the PTE
+> and PMD paths on the same policy for an entire protection walk (which
+> may be split across multiple scanning periods).
+> 
+> On a host with 768 GB of DRAM and 256 GB of CXL memory running two
+> database services using ~430GB each, 169 MB of their shared 185 MB
+> main binary accumulated on CXL before permanently stuck there.
+> 
+> With the change, the binary tier residency tracks its runtime hotness.
+> 
+> Fixes: c574bbe91703 ("NUMA balancing: optimize page placement for memory tiering system")
+> Cc: stable@vger.kernel.org
 > Assisted-by: LLM
-> Signed-off-by: Kristen Carlson Accardi <kristen.c.accardi@intel.com>
-
-    Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 > ---
-> =C2=A0drivers/platform/x86/intel/tpmi_power_domains.c | 9 +++++++++
-> =C2=A01 file changed, 9 insertions(+)
->=20
-> diff --git a/drivers/platform/x86/intel/tpmi_power_domains.c
-> b/drivers/platform/x86/intel/tpmi_power_domains.c
-> index 833052dc34d2..ea51fc56297d 100644
-> --- a/drivers/platform/x86/intel/tpmi_power_domains.c
-> +++ b/drivers/platform/x86/intel/tpmi_power_domains.c
-> @@ -156,6 +156,13 @@ EXPORT_SYMBOL_NS_GPL(tpmi_get_power_domain_mask,
-> "INTEL_TPMI_POWER_DOMAIN");
-> =C2=A0
-> =C2=A0int tpmi_get_linux_die_id(int pkg_id, int domain_id)
-> =C2=A0{
-> +	/*
-> +	 * When built in, this stays callable after tpmi_init()
-> failed
-> +	 * before allocating the map.
-> +	 */
-> +	if (!domain_die_map)
-> +		return -ENODEV;
+>  kernel/sched/fair.c | 31 +++++++++++++++++++++----------
+>  1 file changed, 21 insertions(+), 10 deletions(-)
+> 
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index dc78d24ed8bc0..8a4687f67d82f 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -4119,21 +4119,21 @@ static bool vma_is_accessed(struct mm_struct *mm, struct vm_area_struct *vma)
+>   */
+>  static void task_numa_work(struct callback_head *work)
+>  {
+> +	const unsigned int numab_mode = READ_ONCE(sysctl_numa_balancing_mode);
+> +	const bool tiering = numab_mode & NUMA_BALANCING_MEMORY_TIERING;
+>  	unsigned long migrate, next_scan, now = jiffies;
+>  	struct task_struct *p = current;
+>  	struct mm_struct *mm = p->mm;
+>  	u64 runtime = p->se.sum_exec_runtime;
+>  	struct vm_area_struct *vma;
+> -	unsigned long cp_flags = MM_CP_PROT_NUMA;
+> +	unsigned long cp_flags;
+>  	unsigned long start, end;
+>  	unsigned long nr_pte_updates = 0;
+>  	long pages, virtpages;
+>  	struct vma_iterator vmi;
+>  	bool vma_pids_skipped;
+>  	bool vma_pids_forced = false;
+> -
+> -	if (!(READ_ONCE(sysctl_numa_balancing_mode) & NUMA_BALANCING_NORMAL))
+> -		cp_flags |= MM_CP_PROT_NUMA_PROMO_ONLY;
+> +	bool placement_scan;
+>  
+>  	WARN_ON_ONCE(p != container_of(work, struct task_struct, numa_work));
+>  
+> @@ -4221,13 +4221,19 @@ static void task_numa_work(struct callback_head *work)
+>  		}
+>  
+>  		/*
+> -		 * Shared library pages mapped by multiple processes are not
+> -		 * migrated as it is expected they are cache replicated. Avoid
+> -		 * hinting faults in read-only file-backed mappings or the vDSO
+> -		 * as migrating the pages will be of marginal benefit.
+> +		 * Shared library pages mapped by multiple processes are limited
+> +		 * to south->north migrations as it is expected they are cache
+> +		 * replicated. The benefit of east-west migration in this case
+> +		 * is at best marginal and may be harmful due to TLB/cache
+> +		 * invalidation.
+> +		 *
+> +		 * Allow promotion as a cold page incurring many cache-misses
+> +		 * under cache pressure can drive considerable bandwidth.
+>  		 */
+> -		if (!vma->vm_mm ||
+> -		    (vma->vm_file && (vma->vm_flags & (VM_READ|VM_WRITE)) == (VM_READ))) {
+> +		placement_scan = !(vma->vm_file &&
+> +			(vma->vm_flags & (VM_READ | VM_WRITE)) == VM_READ);
+
+Indentation looks weird here as well. Maybe it's my mail client.
+
 > +
-> =C2=A0	if (pkg_id >=3D topology_max_packages() || domain_id >=3D
-> MAX_POWER_DOMAINS)
-> =C2=A0		return -EINVAL;
-> =C2=A0
-> @@ -245,6 +252,7 @@ static int __init tpmi_init(void)
-> =C2=A0
-> =C2=A0free_domain_map:
-> =C2=A0	kfree(domain_die_map);
-> +	domain_die_map =3D NULL;
-> =C2=A0
-> =C2=A0free_domain_mask:
-> =C2=A0	kfree(tpmi_power_domain_mask);
-> @@ -258,6 +266,7 @@ static void __exit tpmi_exit(void)
-> =C2=A0	cpuhp_remove_state(tpmi_hp_state);
-> =C2=A0	kfree(tpmi_power_domain_mask);
-> =C2=A0	kfree(domain_die_map);
-> +	domain_die_map =3D NULL;
-> =C2=A0}
-> =C2=A0module_exit(tpmi_exit)
-> =C2=A0
+> +		if (!vma->vm_mm || (!placement_scan && !tiering)) {
+>  			trace_sched_skip_vma_numa(mm, vma, NUMAB_SKIP_SHARED_RO);
+>  			continue;
+>  		}
+> @@ -4307,6 +4313,11 @@ static void task_numa_work(struct callback_head *work)
+>  			continue;
+>  		}
+>  
+> +		placement_scan &= numab_mode & NUMA_BALANCING_NORMAL;
+
+Do we have to update placement_scan at all?
+
+Can't we do:
+
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 8a4687f67d82f..fc8862ee31442 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -4121,6 +4121,7 @@ static void task_numa_work(struct callback_head *work)
+ {
+        const unsigned int numab_mode = READ_ONCE(sysctl_numa_balancing_mode);
+        const bool tiering = numab_mode & NUMA_BALANCING_MEMORY_TIERING;
++       const bool balancing = numab_mode & NUMA_BALANCING_NORMAL;
+        unsigned long migrate, next_scan, now = jiffies;
+        struct task_struct *p = current;
+        struct mm_struct *mm = p->mm;
+@@ -4313,9 +4314,8 @@ static void task_numa_work(struct callback_head *work)
+                        continue;
+                }
+
+-               placement_scan &= numab_mode & NUMA_BALANCING_NORMAL;
+                cp_flags = MM_CP_PROT_NUMA;
+-               if (!placement_scan)
++               if (!placement_scan || !balancing)
+                        cp_flags |= MM_CP_PROT_NUMA_PROMO_ONLY;
+
+                do {
+
+(maybe I messed up my boolean algreba, it's late)
+
+-- 
+Cheers,
+
+David
