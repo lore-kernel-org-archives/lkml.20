@@ -1,89 +1,397 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F04C53EFFD7
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:21:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A3A3F076F
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:21:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790277692; cv=none; b=d958F1yZNo+ddoPGJUNUxH0OGIOP7YtnuyHYN4t3WaKCGsBzFvdJe7J9wQn7+LkK1GIRiOWxekwllvfWb9g3RCDfqsNKOeRTrnyxQ4plxKnXD6knQvrQ1927f85XHbKLEiQ4G/NgS3himfwEQ0oBsHv0kpyKslHjOTGjoAvrD+0=
+	t=1790277711; cv=none; b=k4W+5bLFL9bgeMlLIkQeBRwjT8jzOvQqfnXCfoSKSgb5oBvafT1iWP9hiJ8TJVlYb30BnefskChlPDoPgHVJStZu/f1vJtgHkh32GA5l5K+dEQIxTRbwRrS4eidwBgLlphkRjv8pqBng+qPFDVbfSBIYn8hhZK/XnRw4p414QMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790277692; c=relaxed/simple;
-	bh=4CYZq+XivpUOXknGL5/ONdRYXa8exEUr6gpRyUOiiO0=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=byrnqL1U/6vk9X3EYFfptqRU3x57iEz5k6lS+BhTcFHQN4qC5HUOZ6yS3qr9qyfdIvGm1D+eb0TXnU7SFJazAPprtDQ4rRsf05vQTz4rz6WWotMAR2hIAtqh+hZ3qnRzQUoSCL2r56LSSKWWcaMQHeG8L8dFMkI0zrADGVIZqco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4cbc77da654so472073b6e.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:21:30 -0700 (PDT)
+	s=arc-20240116; t=1790277711; c=relaxed/simple;
+	bh=PfO8Sq7IXAOz60LVt/tca74TacRB7+0yWjNBDzLLO9E=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=ISLnaO4SRg7w6rCaE+1/GE7zkywbUj5p9fzvfe1TJnrfV+3KYATWEnJKOEmm83CTew7WEDW/iaympYlmv6wy9Plxi/wJPGJUIthCMketNrXYnU67HLkU14VGHiOfb85vDvj7VHVmlHuWWLHll0djFtjMmQ6eX5iVBp/OVOG+Nlc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XnQaWNDe; arc=none smtp.client-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XnQaWNDe"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ce7dfd33ffso719815ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:21:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790277706; x=1790882506; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uxZ5y/LhcF5KpWYDQexjS+jc6SBuDbvkLh6zxVIRYEk=;
+        b=XnQaWNDeB5gd0TzNYlMLMSbb5h8GJIWWGclQjH7Dz6j0BcWp/Wh3f2GKOUx4h6u8Kw
+         NuJ2cUtgdz25YM4JqxoxPS5kd6bKR0pAz7H440U2u0ndjgBHnZf+h3xJcOBKamkqnWOr
+         7w5eea5MWTRgcMZK55DnhzPt7TimlS0q43f0MJ2F6EmmwHsrDuYrBj1k/fUaqXnB/rmT
+         rBYGCEYnTw2xQVwSdxutj0ylOAOzfTZuv7xldovChVed7to+CsSIFwfZEA1vVs17XMx/
+         INAJkksOZlg/eTqBWsV+0Vwx96AnZmwBxczvhJ728H9ydLxyXHcwOXyFbQerM3ZhzDsn
+         J9hQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790277690; x=1790882490;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=G4OPnoGCxey7bEjq8ZLGQYRdw5p19KWGGfadWKd6dxo=;
-        b=2JwfeYQL82wW3QxJ7/bkS/6t40NA9Iejyw/vz+ckE3J3NCoIGaAO4x4yweavPyFXvE
-         bRANOiUb5QVm5VpgnRdMppAubKLa/tVKSMGGBXIuE8Z3+Cm3wfw76C4CpD0FJx4LGg3w
-         L3sQRqMsHLrzBwH5XMleepiNRlOZqWd8m7IeispSGLZCl0G2MSv1zJIbmFOm1Mp6FciT
-         C+swtucTP3fQDvekXNtT/5w3U3TDFRH+7ceDO5l6X3fhdmMrFabT0My55/cOZAxpCD4+
-         bIoaCfJftnf+ixm8roQWMIla6Bb+mLNED+9Ni4UQYgELtZmXdRoW9IphXQDNHfvS1C3a
-         AnKg==
-X-Forwarded-Encrypted: i=1; AKwUvBzqNkj2WSqQUJ8BwuOrn0kvJhA8nzK854wsXJDiXiVQeaaDCI4Gt0fYhdVzUx5skJgNGiivBt9n1QtFaMY=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0lL0i1MHe2nWX4WWkAKG4W2JJVhvTCzIicVZzZxDCzS/YCXLa
-	bYgERKVryJqewLEc1eXwkWRmaLMiZ8K/0lnhC2B5qQQDDNmoCdcgLP3lHD5QegK2UkwTkrUq6Qq
-	ZNhrxfur0fp5MEY7GzaBMSFFCAkUvaV7J/E0SSz/2NT158DjEwBvUQqSf/uE=
+        d=1e100.net; s=20260707; t=1790277706; x=1790882506;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uxZ5y/LhcF5KpWYDQexjS+jc6SBuDbvkLh6zxVIRYEk=;
+        b=B0HlMJIW/Ko/Tf9PohWvQKiEuumWyYv/ExSD5A1o8gTySGAyOUS9KdgCAt/PcjEhSl
+         fo6Ve18iuf5xnTO9Vt9zdMn3EG2zyAI9C0KiiF48qVZfFEDXjsHMAE1uMeor20Z9maI4
+         Hu9JPdPOpxCcI7uj1TPmnClgGRQUFyTDwxSU7FNoWaYs45uHsyYW0qda8zK7Ip6tBoGC
+         axVlsNYyGS4Fbt9M+sJ0C+OQlvQ23EPfdWAH0q1ReGJEE+YiIXdt8rnbXh80SfyoHus7
+         q/zC0DeVwgVsbYcK1LhCqBmRyDC+kfn7as25GBPmTJVHWJCj9GMOCuKodLukOMuTIq2c
+         uQwg==
+X-Forwarded-Encrypted: i=1; AKwUvBzEaz23WpCcQrPUHdZ5NInbSycZxMj6bHRhUqO1hZy9rnnjqRzV/oAR08SiMK6TmWLs0Xt6f4iIRQ0lRAM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nb8M+vtB+gjmoEkfvM4nibav0gzvnUNoiyYuVS4UfCEI761ER3
+	LGY0kKue9qSMEUblv0ChiE4M0Pl1edcNQSTZKAwKmLjVmr54Ja6OanJdf2qC1VwSyxiqi5Cb4+o
+	uuBA89g==
+X-Received: from plmg19.prod.google.com ([2002:a17:903:3cd3:b0:2df:5f56:47fb])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:d582:b0:2dd:c100:7cbe
+ with SMTP id d9443c01a7336-2df7dc5b18fmr27549835ad.58.1790277706233; Thu, 24
+ Sep 2026 12:21:46 -0700 (PDT)
+Date: Thu, 24 Sep 2026 12:21:45 -0700
+In-Reply-To: <CAEvNRgH6w_a9+2rOr6r+47JqWc+-8cHq=c7r76nYG2i5deOxSg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6f93:b0:485:48da:133d with SMTP id
- 5614622812f47-4d72c042eebmr3146622b6e.10.1790277689791; Thu, 24 Sep 2026
- 12:21:29 -0700 (PDT)
-Date: Thu, 24 Sep 2026 12:21:29 -0700
-In-Reply-To: <CALq3yPV0NNZAO4pARgPe3_f-m2oFJH1FEKx-JsX7gc0s80jBQg@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab57839.80e1c6cc.1e8e5f.0016.GAE@google.com>
-Subject: Re: [syzbot] [mmc?] KASAN: slab-use-after-free Write in ms_read_bytes
-From: syzbot <syzbot+ccffdf05833ebdaeae70@syzkaller.appspotmail.com>
-To: rajojha047@gmail.com
-Cc: rajojha047@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+References: <20260922001332.1121266-1-seanjc@google.com> <20260922001332.1121266-5-seanjc@google.com>
+ <CAEvNRgH6w_a9+2rOr6r+47JqWc+-8cHq=c7r76nYG2i5deOxSg@mail.gmail.com>
+Message-ID: <arV4SS8FHwd6Qjs1@google.com>
+Subject: Re: [PATCH v5 4/6] KVM: guest_memfd: Split bind() into
+ prepare()+commit() phases
+From: Sean Christopherson <seanjc@google.com>
+To: Ackerley Tng <ackerleytng@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Stefan Teodorescu <fane@google.com>, 
+	Dennis Tighe <dtighe@google.com>, Sashiko Bot <sashiko-bot@kernel.org>, 
+	Yan Zhao <yan.y.zhao@intel.com>
+Content-Type: text/plain; charset="us-ascii"
 
-> #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+On Thu, Sep 24, 2026, Ackerley Tng wrote:
+> Sean Christopherson <seanjc@google.com> writes:
+> The gifting seems a bit asymmetric to me. For gmem bindings, always getting a
+> ref on the file and always dropping would be more symmetric.
 
-This crash does not have a reproducer. I cannot test it.
+It's definitely asymmetric, but lack of symmetry isn't inherently bad.  I do
+agree that the code isn't the prettiest, but for me the asymmetry itself doesn't
+really bother me.
+ 
+> Now that there is a commit stage, explicitly not taking a ref
+> on the file in the committing stage is clearer imo.
+> 
+> If you'd like to stack the above refactoring as a patch after [5/6],
+> here's my suggestion:
 
-> master
->
-> diff --git a/drivers/memstick/core/memstick.c b/drivers/memstick/core/memstick.c
-> index 7f3f47db4c98..1a2b3c4d5e6f 100644
-> --- a/drivers/memstick/core/memstick.c
-> +++ b/drivers/memstick/core/memstick.c
-> @@ -378,9 +378,7 @@ int memstick_set_rw_addr(struct memstick_dev *card)
->  {
->   card->next_request = h_memstick_set_rw_addr;
->   memstick_new_req(card->host);
-> - if (!wait_for_completion_timeout(&card->mrq_complete,
-> - msecs_to_jiffies(500)))
-> - card->current_mrq.error = -ETIMEDOUT;
-> + wait_for_completion(&card->mrq_complete);
->
->   return card->current_mrq.error;
->  }
-> @@ -413,9 +411,7 @@ static struct memstick_dev
-> *memstick_alloc_card(struct memstick_host *host)
->   goto err_out;
->
->   card->next_request = h_memstick_read_dev_id;
->   memstick_new_req(host);
-> - if (!wait_for_completion_timeout(&card->mrq_complete,
-> - msecs_to_jiffies(500)))
-> - card->current_mrq.error = -ETIMEDOUT;
-> + wait_for_completion(&card->mrq_complete);
->
->   if (card->current_mrq.error)
->   goto err_out;
+...
+
+> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+> index 90461880ff854..e783d0ee4cf9d 100644
+> --- a/virt/kvm/kvm_main.c
+> +++ b/virt/kvm/kvm_main.c
+> @@ -2019,6 +2019,7 @@ static int kvm_set_memory_region(struct kvm *kvm,
+>  	struct kvm_memslots *slots;
+>  	enum kvm_mr_change change;
+>  	unsigned long npages;
+> +	struct file *file = NULL;
+>  	gfn_t base_gfn;
+>  	int as_id, id;
+>  	int r;
+> @@ -2126,7 +2127,13 @@ static int kvm_set_memory_region(struct kvm *kvm,
+>  	new->flags = mem->flags;
+>  	new->userspace_addr = mem->userspace_addr;
+>  	if (change == KVM_MR_CREATE && (mem->flags & KVM_MEM_GUEST_MEMFD)) {
+> -		r = kvm_gmem_prepare_memory_region(kvm, new, mem->guest_memfd,
+> +		file = fget(mem->guest_memfd);
+> +		if (!file) {
+> +			r = -EBADF;
+> +			goto out;
+> +		}
+> +
+> +		r = kvm_gmem_prepare_memory_region(kvm, new, file,
+>  						   mem->guest_memfd_offset);
+
+I agree with pretty much all of your points, and I actually like many aspects of
+this, but I don't love passing in the file pointer.  I don't hate it either, it
+just feels too much like the responsibilities of preparing the gmem aspects of
+the memslot are being split between core KVM and guest_memfd.
+
+E.g. if kvm_set_memory_region() grabs the file pointer, then it's weird not having
+it also set slot->gmem.file.  But then if we set slot->gmem.file, not setting
+slot->gmem.pgoff feels weird.  I also don't like that it becomes difficult to see
+that the file pointer is getting stashed in the memslot, e.g. begs the question of
+"what are we doing with this file?".
+
+Huh.  Ok.  I *was* going to say that my vote would be to make the "gift" more
+explicit, by returning the file, to avoid splitting responsibilities while making
+the code more obvious and less ugly, e.g.:
+
+	if (mem->flags & KVM_MEM_GUEST_MEMFD) {
+		gmem_file = kvm_gmem_prepare_memory_region(kvm, new, change,
+							   mem->guest_memfd,
+							   mem->guest_memfd_offset);
+		if (IS_ERR(gmem_file)) {
+			r = PTR_ERR(gmem_file);
+			goto out;
+		}
+	} else {
+		gmem_file = NULL;
+	}
+
+	r = kvm_set_memslot(kvm, old, new, change);
+
+	/*
+	 * Drop the reference to the gmem file, even on success.  The file pins
+	 * KVM, not the other way 'round.  Active bindings are invalidated if
+	 * the file is closed before memslots are destroyed.
+	 */
+	if (gmem_file)
+		fput(gmem_file);
+
+But after fiddling with this for an hour or so, I realized that if we fully commit
+to configuring new.gmem in kvm_set_memory_region(), then we can move the prepare()
+call into kvm_prepare_memory_region() without needing to plumb extra parameters,
+and make the gmem stuff look a lot more like the rest of the memslot code.  E.g.
+
+	if (mem->flags & KVM_MEM_GUEST_MEMFD) {
+#ifdef CONFIG_KVM_GUEST_MEMFD
+		new->gmem.file = fget(mem->guest_memfd);
+		if (!new->gmem.file) {
+			r = -EBADF;
+			goto out;
+		}
+
+		new->gmem.pgoff = mem->guest_memfd_offset >> PAGE_SHIFT;
+#endif
+	}
+
+	r = kvm_set_memslot(kvm, old, new, change);
+
+	/*
+	 * Drop the reference to the gmem file, even on success.  The file pins
+	 * KVM, not the other way 'round.  Active bindings are invalidated if
+	 * the file is closed before memslots are destroyed.
+	 */
+#ifdef CONFIG_KVM_GUEST_MEMFD
+	if (new->gmem.file)
+		fput(new->gmem.file);
+#endif
+
+Not being able to get rid of the #ifdefs is a shame, but from a control flow
+perspective, this feels more right than anything else.  Full diff (not fully
+tested, and would need to be split into 3+ patches):
+
+diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+index a13445c26d9d..d1e502d3246b 100644
+--- a/virt/kvm/guest_memfd.c
++++ b/virt/kvm/guest_memfd.c
+@@ -1003,73 +1003,61 @@ int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args)
+ 	return __kvm_gmem_create(kvm, size, flags);
+ }
+ 
+-int kvm_gmem_prepare_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot,
+-				   unsigned int fd, uoff_t offset)
++int kvm_gmem_prepare_memory_region(struct kvm *kvm,
++				   const struct kvm_memory_slot *old,
++				   struct kvm_memory_slot *new,
++				   enum kvm_mr_change change)
+ {
+-	uoff_t size = slot->npages << PAGE_SHIFT;
+ 	struct gmem_file *f;
+ 	struct inode *inode;
+-	struct file *file;
+ 
++	BUILD_BUG_ON(sizeof(gfn_t) != sizeof(new->gmem.pgoff));
+ 
+-	BUILD_BUG_ON(sizeof(gpa_t) != sizeof(offset));
+-	BUILD_BUG_ON(sizeof(gfn_t) != sizeof(slot->gmem.pgoff));
+-
+-	if (WARN_ON_ONCE(slot->flags & KVM_MEMSLOT_GMEM_ONLY))
++	if (WARN_ON_ONCE(change != KVM_MR_CREATE))
+ 		return -EINVAL;
+ 
+-	file = fget(fd);
+-	if (!file)
+-		return -EBADF;
++	if (WARN_ON_ONCE(new->flags & KVM_MEMSLOT_GMEM_ONLY))
++		return -EINVAL;
+ 
+-	if (file->f_op != &kvm_gmem_fops)
+-		goto err;
++	if (new->gmem.file->f_op != &kvm_gmem_fops)
++		return -EINVAL;
+ 
+-	f = file->private_data;
++	f = new->gmem.file->private_data;
+ 	if (f->kvm != kvm)
+-		goto err;
++		return -EINVAL;
+ 
+-	inode = file_inode(file);
++	inode = file_inode(new->gmem.file);
+ 
+-	if (!PAGE_ALIGNED(offset) || offset + size > i_size_read(inode))
+-		goto err;
++	if (new->gmem.pgoff + new->npages  > i_size_read(inode) >> PAGE_SHIFT)
++		return -EINVAL;
+ 
+ 	/*
+ 	 * memslots of flag KVM_MEM_GUEST_MEMFD are immutable to change, so
+ 	 * kvm_gmem_bind() must occur on a new memslot.  Because the memslot
+ 	 * is not visible yet, kvm_gmem_get_pfn() is guaranteed to see the file.
+ 	 */
+-	slot->gmem.file = file;
+-	slot->gmem.pgoff = offset >> PAGE_SHIFT;
+ 	if (gmem_in_place_conversion || kvm_gmem_supports_mmap(inode))
+-		slot->flags |= KVM_MEMSLOT_GMEM_ONLY;
++		new->flags |= KVM_MEMSLOT_GMEM_ONLY;
+ 
+-	/*
+-	 * Gift the caller a reference to the file.  The reference will be
+-	 * dropped after bindings are established, or if installing the new
+-	 * memslot ultimately fails.
+-	 */
+ 	return 0;
+-
+-err:
+-	fput(file);
+-	return -EINVAL;
+ }
+ 
+-int kvm_gmem_commit_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot)
++int kvm_gmem_commit_memory_region(struct kvm *kvm, struct kvm_memory_slot *old,
++				  struct kvm_memory_slot *new,
++				  enum kvm_mr_change change)
+ {
+-	struct gmem_file *f = slot->gmem.file->private_data;
+-	struct inode *inode = file_inode(slot->gmem.file);
++	struct gmem_file *f = new->gmem.file->private_data;
++	struct inode *inode = file_inode(new->gmem.file);
+ 	unsigned long start, end;
+ 	int r;
+ 
+-	if (WARN_ON_ONCE(slot->gmem.file->f_op != &kvm_gmem_fops))
++	if (WARN_ON_ONCE(new->gmem.file->f_op != &kvm_gmem_fops))
+ 		return -EIO;
+ 
+ 	filemap_invalidate_lock(inode->i_mapping);
+ 
+-	start = slot->gmem.pgoff;
+-	end = start + slot->npages;
++	start = new->gmem.pgoff;
++	end = start + new->npages;
+ 
+ 	if (!xa_empty(&f->bindings) &&
+ 	    xa_find(&f->bindings, &start, end - 1, XA_PRESENT)) {
+@@ -1077,7 +1065,7 @@ int kvm_gmem_commit_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot)
+ 		return -EEXIST;
+ 	}
+ 
+-	r = xa_err(xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL));
++	r = xa_err(xa_store_range(&f->bindings, start, end - 1, new, GFP_KERNEL));
+ 	if (r)
+ 		xa_store_range(&f->bindings, start, end - 1, NULL, GFP_KERNEL);
+ 
+diff --git a/virt/kvm/guest_memfd.h b/virt/kvm/guest_memfd.h
+index 01bd359d27e3..63723ffee0a5 100644
+--- a/virt/kvm/guest_memfd.h
++++ b/virt/kvm/guest_memfd.h
+@@ -8,9 +8,13 @@
+ int kvm_gmem_init(struct module *module);
+ void kvm_gmem_exit(void);
+ int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args);
+-int kvm_gmem_prepare_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot,
+-				   unsigned int fd, uoff_t offset);
+-int kvm_gmem_commit_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot);
++int kvm_gmem_prepare_memory_region(struct kvm *kvm,
++				   const struct kvm_memory_slot *old,
++				   struct kvm_memory_slot *new,
++				   enum kvm_mr_change change);
++int kvm_gmem_commit_memory_region(struct kvm *kvm, struct kvm_memory_slot *old,
++				  struct kvm_memory_slot *new,
++				  enum kvm_mr_change change);
+ void kvm_gmem_unbind(struct kvm_memory_slot *slot);
+ #else
+ static inline int kvm_gmem_init(struct module *module)
+@@ -20,15 +24,18 @@ static inline int kvm_gmem_init(struct module *module)
+ static inline void kvm_gmem_exit(void) {};
+ 
+ static inline int kvm_gmem_prepare_memory_region(struct kvm *kvm,
+-						 struct kvm_memory_slot *slot,
+-						 unsigned int fd, uoff_t offset)
++						 const struct kvm_memory_slot *old,
++						 struct kvm_memory_slot *new,
++						 enum kvm_mr_change change)
+ {
+ 	WARN_ON_ONCE(1);
+ 	return -EIO;
+ }
+ 
+ static inline int kvm_gmem_commit_memory_region(struct kvm *kvm,
+-						struct kvm_memory_slot *slot)
++						struct kvm_memory_slot *old,
++						struct kvm_memory_slot *new,
++						enum kvm_mr_change change)
+ {
+ 	WARN_ON_ONCE(1);
+ 	return -EIO;
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 9fff2f4bf2f1..70d70042a9ce 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -1681,6 +1681,12 @@ static int kvm_prepare_memory_region(struct kvm *kvm,
+ {
+ 	int r;
+ 
++	if (new && (new->flags & KVM_MEM_GUEST_MEMFD)) {
++		r = kvm_gmem_prepare_memory_region(kvm, old, new, change);
++		if (r)
++			return r;
++	}
++
+ 	/*
+ 	 * If dirty logging is disabled, nullify the bitmap; the old bitmap
+ 	 * will be freed on "commit".  If logging is enabled in both old and
+@@ -1952,8 +1958,8 @@ static int kvm_set_memslot(struct kvm *kvm,
+ 	if (r)
+ 		goto err;
+ 
+-	if (change == KVM_MR_CREATE && (new->flags & KVM_MEM_GUEST_MEMFD)) {
+-		r = kvm_gmem_commit_memory_region(kvm, new);
++	if (new && (new->flags & KVM_MEM_GUEST_MEMFD)) {
++		r = kvm_gmem_commit_memory_region(kvm, old, new, change);
+ 		if (r) {
+ 			kvm_arch_free_memslot(kvm, new);
+ 			kvm_destroy_dirty_bitmap(new);
+@@ -2133,11 +2139,16 @@ static int kvm_set_memory_region(struct kvm *kvm,
+ 	new->npages = npages;
+ 	new->flags = mem->flags;
+ 	new->userspace_addr = mem->userspace_addr;
+-	if (change == KVM_MR_CREATE && (mem->flags & KVM_MEM_GUEST_MEMFD)) {
+-		r = kvm_gmem_prepare_memory_region(kvm, new, mem->guest_memfd,
+-						   mem->guest_memfd_offset);
+-		if (r)
++	if (mem->flags & KVM_MEM_GUEST_MEMFD) {
++#ifdef CONFIG_KVM_GUEST_MEMFD
++		new->gmem.file = fget(mem->guest_memfd);
++		if (!new->gmem.file) {
++			r = -EBADF;
+ 			goto out;
++		}
++
++		new->gmem.pgoff = mem->guest_memfd_offset >> PAGE_SHIFT;
++#endif
+ 	}
+ 
+ 	r = kvm_set_memslot(kvm, old, new, change);
+@@ -2148,7 +2159,7 @@ static int kvm_set_memory_region(struct kvm *kvm,
+ 	 * the file is closed before memslots are destroyed.
+ 	 */
+ #ifdef CONFIG_KVM_GUEST_MEMFD
+-	if (change == KVM_MR_CREATE && (mem->flags & KVM_MEM_GUEST_MEMFD))
++	if (new->gmem.file)
+ 		fput(new->gmem.file);
+ #endif
