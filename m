@@ -1,71 +1,71 @@
-Received: from mail-oa2-f26.google.com (mail-oa2-f26.google.com [74.125.231.90])
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E621C4CE681
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:44:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.90
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D344E2F28
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:44:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790271891; cv=none; b=UF9ziIjpEDhWt6zFbSZrMdRZskO/gaHHgn30aDmG026fQ2xA31jPLyAY82HYGy0Wi4+AGT7ap51lmv1f2MqaDfCjTqQPq4Sj3iQdsjbvBLIcXQwcoYDumii3xQu1RdYOQTH2G3HRsV48LM1797C99u/QxP7FRNARE6Zwxyhf8VM=
+	t=1790271893; cv=none; b=rTGjT4BI0Aut4dswj7DAAknMLVzmUMRCty/2UOzrozotpYElpvdnfc8c+qWYUjHcF4dtcH84cldCPb6A5bj1NAYQTZvd9qX2Rf69GPFiaA3/5JcrPW1IqUXfTwjq8gc0Ysd0r2KGJ+bB+7qw+6j7Jkw5mSQW9D4+4+bjqDoX6/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790271891; c=relaxed/simple;
-	bh=lENjvTcJ6jn6OOtjQT9OxyeXMbXMz3M/XL/BEeU1C48=;
+	s=arc-20240116; t=1790271893; c=relaxed/simple;
+	bh=oSKv4z50xpgiudG7X7lH49P4ApuJBJy/7sOi24m92pY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JrMGhQ8/Yl8HbchafQQMHwEOGE314VYEBo/1LNvWvHtr6Q67mHN1zvmchX7Pun02tVuBnZT4JXyDOeyL65awLuwzyyYDoU3IFQHq3KIfbBfUf970H0O589Rjda/zfeJq6t1kuWh4QC+LZhWPDf/VyF/HZZXTOtE5xzDW6mwtCB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k5/ocFJo; arc=none smtp.client-ip=74.125.231.90
+	 In-Reply-To:To:Cc; b=Z/97CwdRT7EWvZ5gzhY/CIJ0nVWRe5W9dCS/mlWrf4+iRbrZKFWsenzHsGAVMbh6VSF67shBqhk6NY2jseN+RZMvY7A8CY5GNVu7yN43ay+OgTCpdZ0wneHziPmiey+g6E9rECj/WS3GwTqr5BLFL9v/sFPXFhCxMP78B4lguNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UuVfWVgD; arc=none smtp.client-ip=74.125.231.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k5/ocFJo"
-Received: by mail-oa2-f26.google.com with SMTP id 586e51a60fabf-466cc88a9b9so110441fac.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:44:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UuVfWVgD"
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-466ccde2b71so121864fac.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:44:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790271887; x=1790876687; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790271889; x=1790876689; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VrMqc8Q1NW4R8bM+PWgpFGuXOWv8RLSIAwP5mrNvnTc=;
-        b=k5/ocFJo/TqwLLtij4rM8EDgk1dATiT5Fxr9mic6QuxyfVU9JyxzoHPFj6DZNL/REx
-         KempqyQLQxYgqqt0DTDIXx45dc70oJZkfuYEwC2As6rNhLBQ8pfRwm66MUAqGrIIwiTt
-         5TXgUEW5PicfDJFkpzqVfQxxirvAGuVcPSGVcS+VYRWN7W8cCNKLYZKNZIIArYkzfmv9
-         ajETeCZWxQlnaF4x37F2zT4f3G0LVWbPpV/BNBd2W75RuDB6R7GFfz2oZzpUPzAAUb4m
-         leM1LzkNkajv6631vxo6UAFQ6sEVGWE7edTZEkaQyH4LkY3Am+GFO2sdCAlq972csj1A
-         SadA==
+        bh=f1PwaHwj9rfBVEy3YdGHV1C8wVDTJmsR2WRPtw2545g=;
+        b=UuVfWVgD7sksFyV1j8Xn/VBzvMbg/wbKpWBFoiQ72bUA52+8+h/+ST1ahiAaChzIfy
+         I6tTPg4A5Lg6+awrLyPjVDyIOvCF4CSjM+1skZXmNhB9YLiaAZjxllE92LNlLa51pEKz
+         IEkQh3+fE3eT0Bf2f/wnxK4/yyzV5PznvdUWbRFtAJnIpR0uYeH1w1kg/0x8Ck1jDeu6
+         C3mv4GQVQ8iIDkkjzg/V1SfP4RZyBWWtkkueuOaRFTV5vAfohCM5vhpCwSZduN7E9Weh
+         U3tGKc0alyo76KZJU4OxLuLtTATdDqzKVoD5NkB+mbEZd/2O95aoxAYmNCop7Rvyd7Bk
+         th7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790271887; x=1790876687;
+        d=1e100.net; s=20260707; t=1790271889; x=1790876689;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VrMqc8Q1NW4R8bM+PWgpFGuXOWv8RLSIAwP5mrNvnTc=;
-        b=TvHv5TwvBiawF6ax2e6KrrXAHHu5dqAjzfAALl/WStTn5iMePlIr4jLXn1742lWGaM
-         kwGD2eVEbUYIPlMRGwIOmEgYAbq/w31PisPDnhyfDGb4Dv1fW98bvBblbbSRq9PPRqcI
-         430EI3AxQZZ6sFKBQVHMALD391QT+d/HbD8WQkw/WcjY8eMbnTKMCoN45Pc6VpYKIlQ4
-         vrre5U98Wk1Flnt5Q1TgwU/abTJdyE8azHpE7cFD9Xo4tz0E4V0UvsVldFsO3ZUUkJze
-         E9Oj22G5Jou2oSkERXnNgxSWUtBZAaOSIwIQ45oeIXbd4I5BcKmWlFKWqCEqK5R2gSz7
-         blzw==
-X-Forwarded-Encrypted: i=1; AKwUvBxvrMzM03cUi7wkFqdSVwMkHS5BJfj4FSk29pe6lpJKvXqR83vDAO6zoJ2ySncWiVUiBpVxtgWiCPKAYUc=@vger.kernel.org
-X-Gm-Message-State: AFuF++neIH7++UJxYlN+2eDOIWfJDibs7q3Um49rr10RlhBXrHORPjZZ
-	Frnhbs8ak0AjMw5WdythG3IR+QPmdpviLaFHCqS/ifnMxyDYdf8fxJc2
-X-Gm-Gg: AYBFou2r99EMojUrsnFMXWAMfz65mTZ+TjNSNdRrcUHtvY/LxBaRF+C6ngnr2DIzf2o
-	iCMAD6B+eB4X+dvu0DWvCp7e0lPZ8k20qYi6Z+xKNyfOo3vS9FdS7smFsFmpLVDcOYgoMYEKG3E
-	Xe7PPMl1Psn/hJ3sx6Euj6cuEFGYDONEagKJsg4BORv4DJ5ScE0Qx7NCoYIQplPwkBsVB9WrBlr
-	YG62Sdeb4lB+Lx1gpjm6mRxNmchHBW76naoiOPqisqRp3qwnjAm87cQoxH2N7WEE9al+qR9nU93
-	81m9LU2qhRJKXa9rRpSmSQWILiPwyKoVug6RUa7gApzQNsGAERTiM2TfvfkzV5a84z9Si9itc1E
-	edBt5vPexfOeZTHihs1nok417THTM70/5BIwGLwpH5zSWfR2jEaxNZhixExF81JoNdMpG901TTR
-	p33bIkkDoE+D44tKQxHj2BxlXBcDi0INJUnMgTrpcmyXwC6IGa0Pvmkxw7bh7HDBiMmJdaUpJuU
-	ha7c/VO4myL8Fk3+3YCqFnQYehM7kpqPWHt14PkQHwUn2JOff9iEbptjNVbhAKW4wx/vzedAkgB
-	JST/SH+vNF0aEFiBw9cQAQvomcmKHB7/qKaXvvPDqHmUfCfo7R+6Wmy5hFW6qmaztjccF0yAIU8
-	pkkjw+wYEx/pC8KZeXc7w4Q==
-X-Received: by 2002:a05:6870:d88f:b0:47c:f956:c7bd with SMTP id 586e51a60fabf-491e4e5f03emr3167632fac.3.1790271887477;
-        Thu, 24 Sep 2026 10:44:47 -0700 (PDT)
+        bh=f1PwaHwj9rfBVEy3YdGHV1C8wVDTJmsR2WRPtw2545g=;
+        b=fE34ms6HH6Q0Uu32OJZftzHHXRmPEPgbm7J8+AdpcR4E1Wfe8W2/makA+K2gO8jh1i
+         Myue3UHysWSjtlMaUgmVNH4vEfaMoHpvBNQ+OLYtiHSNS/R/GG9RdgI1X01qeDHpTZpy
+         sa9exxcVNFMd/BN1JLZXN5vcqASqgS/c11s4ig6GRNSJ0cT+xct0XiSclgebzBSM7fPh
+         oO6x5YLy+bGrbegX4X4TCcUNpt2ySmsxv0onL3SRMs7UbfGyQVbkbOdAygqUuPfD3nmj
+         slqLaxovua328hqUCt3d8lQvA5it0rJDESy+wlE16++ya8VmV+GyG5H5C4xXwsrXvBnx
+         j/zw==
+X-Forwarded-Encrypted: i=1; AKwUvBxABMrMTGnkZ66Mdbj1xXaFBU30jKOx4HNiv2NzpelmYWwvEfeXBWs1ooXGGgALxeMvosVUzmml8xMv6kU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nYVj52/DgVqrNpcCiJOHM7J5GRCWfORF3q9CfGGdEQIHK0pXPl
+	1qIZ+kijrS1hWDF7QTXxZCD7zPC0/nfE23FXqT7HsEa71WSmfWNBvaZH
+X-Gm-Gg: AYBFou0G/2dFDs2rN6GS1jLd5YN2LoZaWdQtp0dtVytXr8RX2xkaDkx2x6h20yRLhqk
+	wOsLBUi/VM8s+2AuKJQXxfy9X8TVbajHMN3Q9QC56t6YNyFQN9SyQ5eQ5yMANbLSK2VClPj9bur
+	q0kfW/+VgIp12Qe+Ml8GkzUIUuFeFkzwyyhuJZ9QLcYYYMXXdjqs3fdSYMsSBX9aRHRzohk8nAq
+	8FtJr2bj/xD03mKTgjV9S2L6gnVqNVEhHtR1pthVLbhF+F7oLvLGkxx2DS0UYKebyE1DN8BWh6H
+	DdZ0qRM2kRJdSD0K7pSTK80hxVtQrafRwIlyakt877zLdgmknICzOC/BRgaG6HCHyRZynlaD5wo
+	J2xjjLzOXd8+LNnAKkfcevpNJMBoMcsjhdt0F5cOjDMB72gw4l0i/9xgrdVf9PRCt3MtlNfLEEX
+	AGrKYB2cgtNt4Vd2IjWg9OCYf+pG3ieqBi2FfCzNQqYePbDbXqa84sHkjM4tDBztZPCY4qvQNXP
+	T0qD9NjCmCAOxJxPRRktPqoAR1D/JxOwM8ztzSkCvogGzyJ0uXD1swlSVsPFCcLhQlP9gFuILRb
+	tvVR8Qsapdr1Xk2fqfAKAtGMDgGXtY0HSJqaeLEfkR2vYrcDGqbPczuKfAs2XUv6WlPi1hV0yvA
+	fJidZTbp5VW+XhXoeTcyLyw==
+X-Received: by 2002:a05:6870:46a4:b0:485:d1ab:7936 with SMTP id 586e51a60fabf-491e517f415mr3158477fac.23.1790271889262;
+        Thu, 24 Sep 2026 10:44:49 -0700 (PDT)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-491e8f8d14asm3027802fac.0.2026.09.24.10.44.46
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-491e8f8d14asm3027802fac.0.2026.09.24.10.44.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 10:44:47 -0700 (PDT)
+        Thu, 24 Sep 2026 10:44:48 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Thu, 24 Sep 2026 11:44:37 -0600
-Subject: [PATCH net v3 07/10] net: stmmac: account for failed live XDP
- reopening
+Date: Thu, 24 Sep 2026 11:44:38 -0600
+Subject: [PATCH net v3 08/10] net: stmmac: use the tracked datapath restart
+ for XSK pool changes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,7 +74,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-submit-stmmac-reset-fixes-v1-v3-7-c031e3f3a282@gmail.com>
+Message-Id: <20260924-submit-stmmac-reset-fixes-v1-v3-8-c031e3f3a282@gmail.com>
 References: <20260924-submit-stmmac-reset-fixes-v1-v3-0-c031e3f3a282@gmail.com>
 In-Reply-To: <20260924-submit-stmmac-reset-fixes-v1-v3-0-c031e3f3a282@gmail.com>
 To: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, 
@@ -110,203 +110,272 @@ Cc: Richard Genoud <richard.genoud@bootlin.com>,
  Ding Hui <dinghui1111@163.com>, James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-The XDP-specific release/open pair bypasses the ordinary datapath
-bookkeeping, and its caller ignores reopen errors. A failed allocation
-therefore leaves the device marked running with NAPI disabled and rings
-released. A later close disables NAPI again. An IRQ-request failure also
-frees descriptors after starting DMA without first stopping it.
+Live XSK pool changes free and replace individual RX/TX queues through
+void helpers. An allocation failure is only logged and the caller enables
+NAPI over missing rings. The TX queue and its timer also remain available
+while their storage is being freed.
 
-Detach and stop phylink while replacing the XDP datapath, update its
-ownership state, and reattach only after successful reopening. Preserve
-the existing PTP registration on success, but release it on failure so a
-DOWN datapath has no residual PTP ownership. Drain transmitters and timer
-producers after freeing IRQs which can restart TX queues, including on
-the ordinary release path.
+Use the XDP datapath release/open pair instead. Quiesce all NAPI contexts,
+transmitters, IRQ handlers and timers while the old program and pool bitmap
+still describe the active layout. Only then change the bitmap and rebuild
+the queues. This pauses all queues during a pool change, but avoids a
+partially running datapath and shares its failure and ownership handling
+with program changes instead of maintaining a second queue-level lifetime.
 
-Keep the old program reference until the change has succeeded. On an
-attach failure restore the old program and return the error, allowing the
-core to release the proposed program. Program removal must still succeed
-when the non-XDP datapath cannot restart: BPF link teardown cannot retain
-the detached program. Leave the interface administratively up but detached
-for an ordinary down/up recovery in either failure case.
+Undo the new pool's bitmap bit and DMA mapping if reopening for attachment
+fails. For removal, free every reference to the pool before unmapping it
+and return success even if rebuilding the ordinary queues fails: socket
+teardown must not leave the departing pool reachable. In both cases failed
+reopening leaves the interface detached for down/up recovery.
 
-Fixes: ac746c8520d9 ("net: stmmac: enhance XDP ZC driver level switching performance")
+Remove the unused per-queue allocation/enable helpers. Preserve their TBS
+programming when using the full XDP reopen path, and clear the released TX
+pool pointer alongside its RX counterpart.
+
+Fixes: bba2556efad6 ("net: stmmac: Enable RX via AF_XDP zero-copy")
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 47 +++++++++++++++--------
- drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c  | 31 +++++++++++----
- 2 files changed, 54 insertions(+), 24 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h      |   4 -
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 105 +---------------------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c  |  44 +++++----
+ 3 files changed, 24 insertions(+), 129 deletions(-)
 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+index ab5157fccc46..f07623a1285c 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -437,10 +437,6 @@ static inline bool stmmac_xdp_is_enabled(struct stmmac_priv *priv)
+ 	return !!priv->xdp_prog;
+ }
+ 
+-void stmmac_disable_rx_queue(struct stmmac_priv *priv, u32 queue);
+-void stmmac_enable_rx_queue(struct stmmac_priv *priv, u32 queue);
+-void stmmac_disable_tx_queue(struct stmmac_priv *priv, u32 queue);
+-void stmmac_enable_tx_queue(struct stmmac_priv *priv, u32 queue);
+ int stmmac_xsk_wakeup(struct net_device *dev, u32 queue, u32 flags);
+ struct timespec64 stmmac_calc_tas_basetime(ktime_t old_base_time,
+ 					   ktime_t current_time,
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index ce598b575763..467f471874cf 100644
+index 467f471874cf..d56b7f911db0 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4314,12 +4314,10 @@ static int stmmac_open(struct net_device *dev)
- 	return ret;
+@@ -2232,6 +2232,7 @@ static void __free_dma_tx_desc_resources(struct stmmac_priv *priv,
+ 	tx_q->dma_etx = NULL;
+ 	tx_q->dma_entx = NULL;
+ 	tx_q->dma_tx = NULL;
++	tx_q->xsk_pool = NULL;
  }
  
--/* Quiesce NAPI and transmit queues without releasing their resources. */
--static void stmmac_quiesce(struct stmmac_priv *priv)
-+static void stmmac_stop_tx_queues(struct stmmac_priv *priv)
- {
- 	u8 chan;
- 
--	stmmac_disable_all_queues(priv);
- 	netif_tx_disable(priv->dev);
- 
- 	/* A poll function can still arm a timer after napi_complete_done().
-@@ -4332,6 +4330,13 @@ static void stmmac_quiesce(struct stmmac_priv *priv)
- 		hrtimer_cancel(&priv->dma_conf->tx_queue[chan].txtimer);
+ static void free_dma_tx_desc_resources(struct stmmac_priv *priv,
+@@ -7148,107 +7149,6 @@ static int stmmac_xdp_xmit(struct net_device *dev, int num_frames,
+ 	return nxmit;
  }
  
-+/* Quiesce NAPI and transmit queues without releasing their resources. */
-+static void stmmac_quiesce(struct stmmac_priv *priv)
-+{
-+	stmmac_disable_all_queues(priv);
-+	stmmac_stop_tx_queues(priv);
-+}
-+
- static void __stmmac_release(struct net_device *dev)
- {
- 	struct stmmac_priv *priv = netdev_priv(dev);
-@@ -4350,6 +4355,9 @@ static void __stmmac_release(struct net_device *dev)
- 	/* Free the IRQ lines */
- 	stmmac_free_irq(dev, REQ_IRQ_ERR_ALL, 0);
- 
-+	/* TX error IRQs can restart a queue after the first quiescence. */
-+	stmmac_stop_tx_queues(priv);
-+
- 	/* Stop TX/RX DMA after draining IRQ handlers which can restart it. */
- 	stmmac_stop_all_dma(priv);
- 
-@@ -7244,19 +7252,15 @@ void stmmac_enable_tx_queue(struct stmmac_priv *priv, u32 queue)
+-void stmmac_disable_rx_queue(struct stmmac_priv *priv, u32 queue)
+-{
+-	struct stmmac_channel *ch = &priv->channel[queue];
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&ch->lock, flags);
+-	stmmac_disable_dma_irq(priv, priv->ioaddr, queue, 1, 0);
+-	spin_unlock_irqrestore(&ch->lock, flags);
+-
+-	stmmac_stop_rx_dma(priv, queue);
+-	__free_dma_rx_desc_resources(priv, priv->dma_conf, queue);
+-}
+-
+-void stmmac_enable_rx_queue(struct stmmac_priv *priv, u32 queue)
+-{
+-	struct stmmac_rx_queue *rx_q = &priv->dma_conf->rx_queue[queue];
+-	struct stmmac_channel *ch = &priv->channel[queue];
+-	unsigned long flags;
+-	int ret;
+-
+-	ret = __alloc_dma_rx_desc_resources(priv, priv->dma_conf, queue);
+-	if (ret) {
+-		netdev_err(priv->dev, "Failed to alloc RX desc.\n");
+-		return;
+-	}
+-
+-	ret = __init_dma_rx_desc_rings(priv, priv->dma_conf, queue, GFP_KERNEL);
+-	if (ret) {
+-		__free_dma_rx_desc_resources(priv, priv->dma_conf, queue);
+-		netdev_err(priv->dev, "Failed to init RX desc.\n");
+-		return;
+-	}
+-
+-	stmmac_reset_rx_queue(priv, queue);
+-	stmmac_clear_rx_descriptors(priv, priv->dma_conf, queue);
+-
+-	stmmac_init_rx_chan(priv, priv->ioaddr, priv->plat->dma_cfg,
+-			    rx_q->dma_rx_phy, queue);
+-
+-	stmmac_set_queue_rx_tail_ptr(priv, rx_q, queue, rx_q->buf_alloc_num);
+-
+-	stmmac_set_queue_rx_buf_size(priv, rx_q, queue);
+-
+-	stmmac_start_rx_dma(priv, queue);
+-
+-	spin_lock_irqsave(&ch->lock, flags);
+-	stmmac_enable_dma_irq(priv, priv->ioaddr, queue, 1, 0);
+-	spin_unlock_irqrestore(&ch->lock, flags);
+-}
+-
+-void stmmac_disable_tx_queue(struct stmmac_priv *priv, u32 queue)
+-{
+-	struct stmmac_channel *ch = &priv->channel[queue];
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&ch->lock, flags);
+-	stmmac_disable_dma_irq(priv, priv->ioaddr, queue, 0, 1);
+-	spin_unlock_irqrestore(&ch->lock, flags);
+-
+-	stmmac_stop_tx_dma(priv, queue);
+-	__free_dma_tx_desc_resources(priv, priv->dma_conf, queue);
+-}
+-
+-void stmmac_enable_tx_queue(struct stmmac_priv *priv, u32 queue)
+-{
+-	struct stmmac_tx_queue *tx_q = &priv->dma_conf->tx_queue[queue];
+-	struct stmmac_channel *ch = &priv->channel[queue];
+-	unsigned long flags;
+-	int ret;
+-
+-	ret = __alloc_dma_tx_desc_resources(priv, priv->dma_conf, queue);
+-	if (ret) {
+-		netdev_err(priv->dev, "Failed to alloc TX desc.\n");
+-		return;
+-	}
+-
+-	ret = __init_dma_tx_desc_rings(priv,  priv->dma_conf, queue);
+-	if (ret) {
+-		__free_dma_tx_desc_resources(priv, priv->dma_conf, queue);
+-		netdev_err(priv->dev, "Failed to init TX desc.\n");
+-		return;
+-	}
+-
+-	stmmac_reset_tx_queue(priv, queue);
+-	stmmac_clear_tx_descriptors(priv, priv->dma_conf, queue);
+-
+-	stmmac_init_tx_chan(priv, priv->ioaddr, priv->plat->dma_cfg,
+-			    tx_q->dma_tx_phy, queue);
+-
+-	if (tx_q->tbs & STMMAC_TBS_AVAIL)
+-		stmmac_enable_tbs(priv, priv->ioaddr, 1, queue);
+-
+-	stmmac_set_queue_tx_tail_ptr(priv, tx_q, queue, 0);
+-
+-	stmmac_start_tx_dma(priv, queue);
+-
+-	spin_lock_irqsave(&ch->lock, flags);
+-	stmmac_enable_dma_irq(priv, priv->ioaddr, queue, 0, 1);
+-	spin_unlock_irqrestore(&ch->lock, flags);
+-}
+-
  void stmmac_xdp_release(struct net_device *dev)
  {
  	struct stmmac_priv *priv = netdev_priv(dev);
--	u8 chan;
--
--	/* Ensure tx function is not running */
--	netif_tx_disable(dev);
+@@ -7345,6 +7245,9 @@ int stmmac_xdp_open(struct net_device *dev)
  
--	/* Disable NAPI process */
--	stmmac_disable_all_queues(priv);
--
--	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
--		hrtimer_cancel(&priv->dma_conf->tx_queue[chan].txtimer);
-+	netif_device_detach(dev);
-+	phylink_stop(priv->phylink);
-+	stmmac_quiesce(priv);
-+	priv->datapath = STMMAC_DATAPATH_DOWN;
+ 		stmmac_set_queue_tx_tail_ptr(priv, tx_q, chan, 0);
  
- 	/* Free the IRQ lines */
- 	stmmac_free_irq(dev, REQ_IRQ_ERR_ALL, 0);
-+	stmmac_stop_tx_queues(priv);
- 
- 	/* Stop TX/RX DMA channels */
- 	stmmac_stop_all_dma(priv);
-@@ -7271,7 +7275,13 @@ void stmmac_xdp_release(struct net_device *dev)
- 	 * watchdogs during reset
- 	 */
- 	netif_trans_update(dev);
--	netif_carrier_off(dev);
++		if (tx_q->tbs & STMMAC_TBS_AVAIL)
++			stmmac_enable_tbs(priv, priv->ioaddr, 1, chan);
 +
-+	if (stmmac_fpe_supported(priv))
-+		ethtool_mmsv_stop(&priv->fpe_cfg.mmsv);
-+
-+	/* Keep PTP across the immediately following stmmac_xdp_open(). That
-+	 * function releases it if reopening fails, before returning DOWN.
-+	 */
- }
- 
- int stmmac_xdp_open(struct net_device *dev)
-@@ -7350,19 +7360,22 @@ int stmmac_xdp_open(struct net_device *dev)
- 
- 	/* Enable NAPI process*/
- 	stmmac_enable_all_queues(priv);
--	netif_carrier_on(dev);
--	netif_tx_start_all_queues(dev);
- 	stmmac_enable_all_dma_irq(priv);
-+	priv->datapath = STMMAC_DATAPATH_RUNNING;
-+	phylink_start(priv->phylink);
-+	netif_device_attach(dev);
- 
- 	return 0;
- 
- irq_error:
--	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
--		hrtimer_cancel(&priv->dma_conf->tx_queue[chan].txtimer);
-+	stmmac_stop_tx_queues(priv);
-+	stmmac_stop_all_dma(priv);
-+	stmmac_mac_set(priv, priv->ioaddr, false);
- 
- init_error:
- 	free_dma_desc_resources(priv, priv->dma_conf);
- dma_desc_error:
-+	stmmac_release_ptp(priv);
- 	return ret;
- }
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c
-index 909219775507..7ecb7addd2ea 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c
-@@ -108,6 +108,7 @@ int stmmac_xdp_set_prog(struct stmmac_priv *priv, struct bpf_prog *prog,
- 	struct bpf_prog *old_prog;
- 	bool need_update;
- 	bool if_running;
-+	int ret;
- 
- 	if_running = priv->datapath == STMMAC_DATAPATH_RUNNING;
- 
-@@ -119,25 +120,41 @@ int stmmac_xdp_set_prog(struct stmmac_priv *priv, struct bpf_prog *prog,
- 		return -EOPNOTSUPP;
+ 		hrtimer_setup(&tx_q->txtimer, stmmac_tx_timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
  	}
  
--	if (!prog)
--		xdp_features_clear_redirect_target(dev);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c
+index 7ecb7addd2ea..907ac49a1b76 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c
+@@ -9,7 +9,6 @@
+ static int stmmac_xdp_enable_pool(struct stmmac_priv *priv,
+ 				  struct xsk_buff_pool *pool, u16 queue)
+ {
+-	struct stmmac_channel *ch = &priv->channel[queue];
+ 	bool need_update;
+ 	u32 frame_size;
+ 	int err;
+@@ -34,23 +33,23 @@ static int stmmac_xdp_enable_pool(struct stmmac_priv *priv,
+ 	need_update = priv->datapath == STMMAC_DATAPATH_RUNNING &&
+ 		      stmmac_xdp_is_enabled(priv);
+ 
+-	if (need_update) {
+-		napi_disable(&ch->rx_napi);
+-		napi_disable(&ch->tx_napi);
+-		stmmac_disable_rx_queue(priv, queue);
+-		stmmac_disable_tx_queue(priv, queue);
+-	}
++	if (need_update)
++		stmmac_xdp_release(priv->dev);
+ 
+ 	set_bit(queue, priv->af_xdp_zc_qps);
+ 
+ 	if (need_update) {
+-		stmmac_enable_rx_queue(priv, queue);
+-		stmmac_enable_tx_queue(priv, queue);
+-		napi_enable(&ch->rxtx_napi);
 -
- 	need_update = !!priv->xdp_prog != !!prog;
- 	if (if_running && need_update)
- 		stmmac_xdp_release(dev);
- 
- 	old_prog = xchg(&priv->xdp_prog, prog);
--	if (old_prog)
--		bpf_prog_put(old_prog);
- 
- 	/* Disable RX SPH for XDP operation */
- 	priv->sph_active = priv->sph_capable && !stmmac_xdp_is_enabled(priv);
- 
--	if (if_running && need_update)
--		stmmac_xdp_open(dev);
-+	if (if_running && need_update) {
-+		ret = stmmac_xdp_open(dev);
-+		if (ret) {
-+			netdev_err(dev, "failed reopening after XDP change: %pe; interface remains detached\n",
-+				   ERR_PTR(ret));
-+			if (prog) {
-+				/* The core retains the old program on error and drops
-+				 * the reference it passed for the proposed program.
-+				 */
-+				xchg(&priv->xdp_prog, old_prog);
-+				priv->sph_active = priv->sph_capable && !old_prog;
-+				return ret;
-+			}
-+			/* Uninstalling a BPF link must release its program even
-+			 * if the non-XDP datapath cannot be restarted.
-+			 */
+-		err = stmmac_xsk_wakeup(priv->dev, queue, XDP_WAKEUP_RX);
+-		if (err)
++		err = stmmac_xdp_open(priv->dev);
++		if (err) {
++			clear_bit(queue, priv->af_xdp_zc_qps);
++			xsk_pool_dma_unmap(pool, STMMAC_RX_DMA_ATTR);
++			netdev_err(priv->dev, "failed reopening after XSK pool attach: %pe; interface remains detached\n",
++				   ERR_PTR(err));
+ 			return err;
 +		}
-+	}
 +
-+	if (old_prog)
-+		bpf_prog_put(old_prog);
- 
- 	if (prog)
- 		xdp_features_set_redirect_target(dev, false);
-+	else
-+		xdp_features_clear_redirect_target(dev);
++		/* The pool is installed even if link resolution is still pending. */
++		napi_schedule(&priv->channel[queue].rxtx_napi);
+ 	}
  
  	return 0;
+@@ -58,9 +57,9 @@ static int stmmac_xdp_enable_pool(struct stmmac_priv *priv,
+ 
+ static int stmmac_xdp_disable_pool(struct stmmac_priv *priv, u16 queue)
+ {
+-	struct stmmac_channel *ch = &priv->channel[queue];
+ 	struct xsk_buff_pool *pool;
+ 	bool need_update;
++	int err;
+ 
+ 	if (queue >= priv->plat->rx_queues_to_use ||
+ 	    queue >= priv->plat->tx_queues_to_use)
+@@ -73,24 +72,21 @@ static int stmmac_xdp_disable_pool(struct stmmac_priv *priv, u16 queue)
+ 	need_update = priv->datapath == STMMAC_DATAPATH_RUNNING &&
+ 		      stmmac_xdp_is_enabled(priv);
+ 
+-	if (need_update) {
+-		napi_disable(&ch->rxtx_napi);
+-		stmmac_disable_rx_queue(priv, queue);
+-		stmmac_disable_tx_queue(priv, queue);
+-		synchronize_rcu();
+-	}
++	if (need_update)
++		stmmac_xdp_release(priv->dev);
+ 
+ 	xsk_pool_dma_unmap(pool, STMMAC_RX_DMA_ATTR);
+ 
+ 	clear_bit(queue, priv->af_xdp_zc_qps);
+ 
+ 	if (need_update) {
+-		stmmac_enable_rx_queue(priv, queue);
+-		stmmac_enable_tx_queue(priv, queue);
+-		napi_enable(&ch->rx_napi);
+-		napi_enable(&ch->tx_napi);
++		err = stmmac_xdp_open(priv->dev);
++		if (err)
++			netdev_err(priv->dev, "failed reopening after XSK pool removal: %pe; interface remains detached\n",
++				   ERR_PTR(err));
+ 	}
+ 
++	/* Socket teardown must be able to unmap and free the removed pool. */
+ 	return 0;
  }
+ 
 
 -- 
 2.53.0
