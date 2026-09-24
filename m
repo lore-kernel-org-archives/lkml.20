@@ -1,219 +1,126 @@
-Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
+Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46EC934F24A;
-	Thu, 24 Sep 2026 14:49:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9994938E8CB
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:52:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790261399; cv=none; b=neNCB04ve0pjE4+tsan1/j0zUUPKrX66J4Y5yXoNwfwG9GwNqqDobeHhYLpWuTo1PoP6Roe8freOTh//UyWLn8D2xTJ+IXNy+73o2F0RIGdsY8Al9Uo+ijy9Z3oT2ZKvvZ4/kdxdXG+K7tSGCLbuC1ehgsn49njKp9c6hzhxH6k=
+	t=1790261548; cv=none; b=tOUAaFjPAww2v3M7Gg5q/mTqHsfaSH0EOx7R1qBngtIr3RUdiNeZPpmSm7fUe9S+CD1MHohgNv+VIQ6r0D5kqwQ+hmoikbHjjHrT9RcDaYAJJ5DJp6YJ+yNVKcwSkLW9EEMJLnknOChzyGGyO9Eza8JwJ6Zg3vFBSyZkaAp6EsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790261399; c=relaxed/simple;
-	bh=D+IP4+4v7fnIPA9OmKnecZpBczuSIC/SdEFuJTJ/YHc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ZzsfKsYHoLZOgwTuIxG5dWivDKGk4y6W7YqIBqI+LGzsK8Jgpuh++sOZxiISuRtDxiFMU/O8BbQ6par+TX2awifp0D84e7JNHolHmvVmqdIw9k/iBKVgqs2PrSmhgYtib7cYGcej7ano84/fOZSX9hKrvj5ez7a5ADzr9hkv7/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=vFtyYAgC; arc=none smtp.client-ip=212.27.42.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	s=arc-20240116; t=1790261548; c=relaxed/simple;
+	bh=hRY30TeL57M4PX7xHpe82ZiE060OSBRDY6/8NGTRirw=;
+	h=MIME-Version:Date:From:To:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=RhHy+ny6XtwiME35W2jMs2hyYbaVcjGruHAUL0qZVC9+igfjA7GwYoTjQNsNPPi1DLp3ppinWvj2rCs1vmTDD/hvmKaajO53wo2UG8hSH3Csdfer5dWfqpcAqXdvEq7D91buYCxCYctfj2YrNZQvExX9Q8I2KkrHa2Syjl8RrPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=qCGGgBcF; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Lnvt/cX8; arc=none smtp.client-ip=202.12.124.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="vFtyYAgC"
-Received: from localhost.localdomain (unknown [82.96.140.143])
-	(Authenticated sender: stephane.grosjean@free.fr)
-	by smtp6-g21.free.fr (Postfix) with ESMTPSA id ADDB2780514;
-	Thu, 24 Sep 2026 16:49:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1790261393;
-	bh=D+IP4+4v7fnIPA9OmKnecZpBczuSIC/SdEFuJTJ/YHc=;
-	h=From:Date:Subject:To:Cc:From;
-	b=vFtyYAgCkhz1GQ/jOSG4KWSIiG3+OZakHdmvvz1xZNxxL4UZfkVYZ7LbjnbDQcXrr
-	 YzImAIaawjgpKaYMAQvb/WAQXWkI3dmsLCSHgFtXJVAv+RoPnXYtA3MaQ2fYq74JJj
-	 XNfzE8XjnBaznjGN4bVIhk9kp/YD7kMHuuvEPHKRBb4NcAHoOzG9bAjP5AtRaHQpdh
-	 MModZUJbs5M0rPwC90CaZpsyan7DLN0/uQ9XneOLUm7ugpWXOO6teq5QyaKd2uf/gU
-	 0iU8SDV3deywbfg7r037KsqDV54BguUwepjaKg7Uw75LUFIEAQn1LtErtjSwWyYkW6
-	 /w3/Om1E+DP/A==
-From: =?utf-8?q?St=C3=A9phane_Grosjean?= <stephane.grosjean@free.fr>
-Date: Thu, 24 Sep 2026 16:49:25 +0200
-Subject: [PATCH] can: peak_usb: Add PCAN-USB bus errors reporting
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="qCGGgBcF";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Lnvt/cX8"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id E67DC7A0084;
+	Thu, 24 Sep 2026 10:52:24 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Thu, 24 Sep 2026 10:52:25 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:content-transfer-encoding:content-type:content-type:date:date
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1790261544;
+	 x=1790347944; bh=TPULziU45xEAp0z06O6r8EtQQ9b4bEJhIQ+F3+c0N0k=; b=
+	qCGGgBcF5IrMEyA+2Vg3Cm1E4TN0DCP9l0ZTmvbmTQpBxMzMfwEywk1U6pJM68ms
+	KWYSfKX8oegd1y2i2t94iD5cpdil9XOTIQECEt377ticstM0ZiPpNa5SbEJyAydN
+	iOS8h7X3HHIMWfCxRmk8MrFyUrnL3yfnPHFgtbLwY9YuYLB+Bm9Il1pDBd0G5IJj
+	JyqHTLVLj87oExE8G/2kC2p+ilYAjpk0CAsCxbCSUr56uuZCpBpLWH5oCb6ndmcW
+	t7Uk90mzn3vm4kMOnJeNy2QJF7JfZAQBzJqXBsD5MxfjMzQe/Kuj4QTdiDrwBs73
+	mmwAoWf49FBZrEbfqfqBBg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-transfer-encoding:content-type
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm1; t=1790261544; x=1790347944; bh=T
+	PULziU45xEAp0z06O6r8EtQQ9b4bEJhIQ+F3+c0N0k=; b=Lnvt/cX8OPHVhRXjS
+	W/Z7Ege+fNqGWht47wQcp0bfNLTV5otXaFngN1vh3JKN4KeqVDPuy/+6T47T7iFn
+	77Z6551Bp3CNiwMNW1FUUKciZAE2D1l9W/Bgs3loq401+syY10n19kw4YOUMPNiB
+	H1BFPjBw3siZ5Qe9rrmixwv6UpF15NFOxBPoUz9EplvB1SqXdp5W5SlY11Sk0pgz
+	Hb/076aK740Ind4M6T8DR5zsPShFxAEeT93FHVOtPdtCyXe2PdXfD2KtAsAf8X/B
+	YT9aqgfAkeTpPHR/DZ3kALemLSKaufK0v5hHrbtSVJCCPAH1PrXosQlTyMlCi1Oo
+	/IhJQ==
+X-ME-Sender: <xms:Ijm1amU4MuGj2WbKrK--olIUbFKTwdbyODGljU6MCwyqO35qM1hQGA>
+    <xme:Ijm1ataUt2_Y3AQwf7fLZ75BZWdkf8UH8foAJlOn_zNKBNs_xXkI9FJrWjgnetgsE
+    ZKQHAICUi9hq5j59lMPicxieHQcL9-fQw6nkuYsL1djQl0U0ITche7P>
+X-ME-Proxy-Cause: dmFkZTFNCD4DWmQAaFWTOGsv/CF2h+xmNG1ovTwUC57jy09Mk/vbeUN1WVFCfkhb3zlhM7
+    hNZwa6C1sfd+PQXMSgPkMwBe+zekbozFVQqoV10InDO71OTGq09Cm+Ap1pXO0JROvLBbmg
+    keLSciWQ4tCYgATN4l44Sg3P6qxbDjofAzcORov/1+XjJKdCGqUdtd+yke7whuM4JXpe0X
+    6yfwhj3sREnHjuqI0scuYPawe6FnO35ZY/nqpOD0IqV6ygxdzbsTR/J2hsbTMYl3F0qdji
+    aDD+4Nth2ckN9YygQol+KcosXIGWQbEFRZHooVQmVAduCKTPJ/0Xt9WJU0reuqKWjGuDcY
+    xBfA/RmigeRy8MXgr+/AyTUr28gzzQGauUNFfaipVoG0HTgfazJTvomVFASVN8SPc2anwV
+    yPuIqYBc5o+hIH1J8gV3Pc9Qq95QJrE5wqUYUaYBUv7D9OP7DaWn6/Re09Ua7KxwcXjkr7
+    SwBOVteOkn7nRl9O33sf0rQ5+2mGB+OqxD8Vv7IXtjFtboHavb7aIKUv9r8Uu0asaQ6Xrr
+    UC5RaAJZ6+oen0FvvdCrNoukfpNM7XNzgT/jFBrepMovxt/rSH7MdW0FIh5J9zkeU2JwoG
+    yb0Rts1n50atu72+z986+glU7SjE9M96Dz8IePd72PulXdL7/vq54QCZAZCw
+X-ME-Proxy: <xmx:JDm1ahWjnrtAimoL0LAeJfkFcqLSoPVQ3nrcYM_mZEP7llpBcjw_vQ>
+    <xmx:JDm1auI0OG6SP-6xzmGvN19l9sg5BaNx9EzfPBf35IiIklIVbCQY3g>
+    <xmx:JDm1ah3Jb53UQVDIQxQvZv5-YmgsMSJDym7jSDQ_asjQXL9SSTbOTA>
+    <xmx:JDm1arKweTTUxAVmrqa7J9RJNsGyWq1Uz1T8342HkWYkQ1Wht-VB5w>
+    <xmx:KDm1asPDuVjh6ZoUctJfXw7ZadkhM__uBbuFWhizoCUiSQQn69Aj5kTr>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id A607332A0087; Thu, 24 Sep 2026 10:52:18 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260924-peak_usb-v1-1-d48875169a59@peak-system.fr>
-X-B4-Tracking: v=1; b=H4sIAHQ4tWoC/yXM7QpAQBCF4VvR/La1Nl/rViQtZhkK7SAl927x8
- 6n3nAsYHSFDEVzg8CCmZfaIwgDawcw9Cuq8QUmVSq1isaKZ6p0bkXR5KjNjI6s1+Hx1aOn8rsr
- qN+/NiO327uG+H84P98BsAAAA
-X-Change-ID: 20260924-peak_usb-5d8607af1f99
-To: Marc Kleine-Budde <mkl@pengutronix.de>, 
- Vincent Mailhol <mailhol@kernel.org>
-Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>
-X-Mailer: b4 0.16.0
+X-ThreadId: Ax0R8qDxSViF
+Date: Thu, 24 Sep 2026 16:51:42 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Qingfang Deng" <qingfang.deng@linux.dev>,
+ "Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>,
+ "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
+ "Thomas Gleixner" <tglx@kernel.org>, "Nam Cao" <namcao@linutronix.de>,
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Message-Id: <c0ab08f9-2258-41da-8fc5-0b95ae62ed1b@app.fastmail.com>
+In-Reply-To: <20260923013913.357710-1-qingfang.deng@linux.dev>
+References: <20260923013913.357710-1-qingfang.deng@linux.dev>
+Subject: Re: [PATCH v3] riscv: use generic relaxed MMIO accessors
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-From: Stéphane Grosjean <s.grosjean@peak-system.fr>
+On Wed, Sep 23, 2026, at 03:39, Qingfang Deng wrote:
+> The relaxed MMIO accessors duplicate the generic implementation, as noted
+> by their FIXME comment. Remove those definitions and their empty barrier
+> hooks so asm-generic/io.h supplies them through the existing asm/io.h
+> include path.
 
-The good old PCAN-USB was missing CAN bus error reporting. This patch fixes
-that.
+This seems fine.
 
-Signed-off-by: Stéphane Grosjean <s.grosjean@peak-system.fr>
----
- drivers/net/can/usb/peak_usb/pcan_usb.c | 101 ++++++++++++++++++++++++++++++--
- 1 file changed, 97 insertions(+), 4 deletions(-)
+> The M-mode timer uses the lightweight asm/mmio.h header before the
+> generic relaxed accessors are available. Use readl_cpu() and readq_cpu()
+> there, which perform the same accesses and endian conversion as the
+> existing relaxed accessors.
+>
+> @@ -17,18 +17,18 @@ typedef unsigned long cycles_t;
+>  #ifdef CONFIG_64BIT
+>  static inline cycles_t get_cycles(void)
+>  {
+> -	return readq_relaxed(clint_time_val);
+> +	return readq_cpu(clint_time_val);
+>  }
+>  #else /* !CONFIG_64BIT */
+>  static inline u32 get_cycles(void)
+>  {
+> -	return readl_relaxed(((u32 __iomem *)clint_time_val));
+> +	return readl_cpu(((u32 __iomem *)clint_time_val));
+>  }
+>  #define get_cycles get_cycles
 
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
-index 8fd058c32856..e5be07f3dd54 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb.c
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
-@@ -115,6 +115,7 @@
- #define PCAN_USB_REC_BUSEVT		5
- 
- /* CAN bus events notifications selection mask */
-+#define PCAN_USB_ERR_ECC		0x01	/* ask for BERR */
- #define PCAN_USB_ERR_RXERR		0x02	/* ask for rxerr counter */
- #define PCAN_USB_ERR_TXERR		0x04	/* ask for txerr counter */
- 
-@@ -122,7 +123,20 @@
-  * In other words, its interest is to know which side among rx and tx is
-  * responsible of the change of the bus state.
-  */
--#define PCAN_USB_BERR_MASK	(PCAN_USB_ERR_RXERR | PCAN_USB_ERR_TXERR)
-+#define PCAN_USB_BERR_MASK	(PCAN_USB_ERR_ECC | \
-+				 PCAN_USB_ERR_RXERR | PCAN_USB_ERR_TXERR)
-+
-+/* SJA1000 ECC register */
-+#define PCAN_SJA1000_ECC_SEG		0x1f
-+#define PCAN_SJA1000_ECC_DIR		0x20
-+#define PCAN_SJA1000_ECC_ERR		6
-+#define PCAN_SJA1000_ECC_BIT		0x00
-+#define PCAN_SJA1000_ECC_FORM		0x40
-+#define PCAN_SJA1000_ECC_STUFF		0x80
-+#define PCAN_SJA1000_ECC_MASK		0xc0
-+
-+/* SJA1000 Bus Error Interrupt */
-+#define PCAN_SJA1000_IRQ_BEI		0x80
- 
- /* identify bus event packets with rx/tx error counters */
- #define PCAN_USB_ERR_CNT_DEC		0x00	/* counters are decreasing */
-@@ -550,7 +564,8 @@ static int pcan_usb_decode_error(struct pcan_usb_msg_context *mc, u8 n,
- /* decode bus event usb packet: first byte contains rxerr while 2nd one contains
-  * txerr.
-  */
--static int pcan_usb_handle_bus_evt(struct pcan_usb_msg_context *mc, u8 ir)
-+static int pcan_usb_handle_bus_evt(struct pcan_usb_msg_context *mc, u8 ir,
-+				   u8 status_len)
- {
- 	struct pcan_usb *pdev = mc->pdev;
- 
-@@ -569,6 +584,83 @@ static int pcan_usb_handle_bus_evt(struct pcan_usb_msg_context *mc, u8 ir)
- 		break;
- 	}
- 
-+	/* process bus error interrupt */
-+	if (ir & PCAN_SJA1000_IRQ_BEI) {
-+		u8 rec_len = status_len & PCAN_USB_STATUSLEN_DLC;
-+		u8 *pd = mc->ptr, ecc = 0;
-+
-+		if (rec_len > 2)
-+			ecc = *pd++;
-+
-+		if (rec_len > 1) {
-+			/* save rx/tx error counters from data bytes */
-+			pdev->bec.rxerr = *pd++;
-+			pdev->bec.txerr = *pd++;
-+		}
-+
-+		/* create an "bus-error frame" skb if any bit is set in ECC */
-+		if (ecc) {
-+			struct net_device_stats *stats = &mc->netdev->stats;
-+			struct sk_buff *skb;
-+			struct can_frame *cf;
-+			u8 can_err_tx = 0;
-+
-+			pdev->dev.can.can_stats.bus_error++;
-+
-+			/* Error occurred during reception? */
-+			if (ecc & PCAN_SJA1000_ECC_DIR) {
-+				stats->rx_errors++;
-+			} else {
-+				stats->tx_errors++;
-+				can_err_tx = CAN_ERR_PROT_TX;
-+			}
-+
-+			/* if berr-reporting is off, stop here */
-+			if (!(pdev->dev.can.ctrlmode &
-+						CAN_CTRLMODE_BERR_REPORTING))
-+				return 0;
-+
-+			/* allocate an skb to store the error frame */
-+			skb = alloc_can_err_skb(mc->netdev, &cf);
-+			if (!skb)
-+				return -ENOMEM;
-+
-+			cf->can_id |= CAN_ERR_PROT | CAN_ERR_BUSERROR;
-+			cf->data[2] |= can_err_tx;
-+
-+			/* set error type according to 1st data byte (ECC) */
-+			switch (ecc & PCAN_SJA1000_ECC_MASK) {
-+			case PCAN_SJA1000_ECC_BIT:
-+				cf->data[2] |= CAN_ERR_PROT_BIT;
-+				break;
-+			case PCAN_SJA1000_ECC_FORM:
-+				cf->data[2] |= CAN_ERR_PROT_FORM;
-+				break;
-+			case PCAN_SJA1000_ECC_STUFF:
-+				cf->data[2] |= CAN_ERR_PROT_STUFF;
-+				break;
-+			default:
-+				break;
-+			}
-+
-+			/* set error location */
-+			cf->data[3] = ecc & PCAN_SJA1000_ECC_SEG;
-+
-+			cf->data[6] = pdev->bec.txerr;
-+			cf->data[7] = pdev->bec.rxerr;
-+
-+			if (status_len & PCAN_USB_STATUSLEN_TIMESTAMP) {
-+				struct skb_shared_hwtstamps *hwts =
-+					skb_hwtstamps(skb);
-+
-+				peak_usb_get_ts_time(&mc->pdev->time_ref,
-+						     mc->ts16, &hwts->hwtstamp);
-+			}
-+
-+			netif_rx(skb);
-+		}
-+	}
-+
- 	return 0;
- }
- 
-@@ -627,7 +719,7 @@ static int pcan_usb_decode_status(struct pcan_usb_msg_context *mc,
- 
- 	case PCAN_USB_REC_BUSEVT:
- 		/* bus event notifications (get rxerr/txerr) */
--		err = pcan_usb_handle_bus_evt(mc, n);
-+		err = pcan_usb_handle_bus_evt(mc, n, status_len);
- 		if (err)
- 			return err;
- 		break;
-@@ -1017,7 +1109,8 @@ const struct peak_usb_adapter pcan_usb = {
- 	.device_id = PCAN_USB_PRODUCT_ID,
- 	.ctrl_count = 1,
- 	.ctrlmode_supported = CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
--			      CAN_CTRLMODE_CC_LEN8_DLC,
-+			      CAN_CTRLMODE_CC_LEN8_DLC |
-+			      CAN_CTRLMODE_BERR_REPORTING,
- 	.clock = {
- 		.freq = PCAN_USB_CRYSTAL_HZ / 2,
- 	},
+I don't understand this bit: Why should these not keep using the
+portable accessors? As far as I can tell, the readl_cpu() helpers
+are just an implementation detail in riscv and could be removed
+along with the custom readl_relaxed() variant, but with your
+patch that becomes harder.
 
----
-base-commit: 3bb1277609aae9b56b8e9462fe18fc000944fa96
-change-id: 20260924-peak_usb-5d8607af1f99
-
-Best regards,
---  
-Stéphane Grosjean <s.grosjean@peak-system.fr>
-
+     Arnd
