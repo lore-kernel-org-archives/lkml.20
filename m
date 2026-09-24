@@ -1,158 +1,114 @@
-Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 651A34AFE06
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:38:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 593324A1E03
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:39:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790275096; cv=none; b=NUX6KjhlfOVQXVVDNlLv4QqxDPWDW/GYqd8+agclk0LMv1RIVbIS+Pa5TX0NL/V4ujEIOOspSRX0JMzqPTIM+BLoglyV9v9v17l8BEyFTDbAfckQ4pk+a7syeBAJLR6CE9zB9Ya35hXehrSfalbgcVFC2UUOZW7f28btoYsmYkg=
+	t=1790275144; cv=none; b=ps2uiorXzXI4zMtiULYvtx/qRMHgMxQqf5MvYWbuQrnaviOc1+rlKSELU1pIv36NMpcFKjHD8x1917uMsFMfYzwD0c9xjnjO58yCXolg6MK+RrVC+iBhPih7lw48o+sqmoHzydmY+IgB/72Ucc9n/LscrZMakWPIo3O3gKmoYmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790275096; c=relaxed/simple;
-	bh=KtJnvxUz7F1I15+Pd4kNaboHZ1qLrVt2fXrek2eqdJc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QMePnJZQWz8WN8kVD2CfPvnqrTdYy/RQREuPNs06OVBKiSSY8/W7AsSJhEcyU3NsiPfn3lENg0516rAH+m12W6P1zc96UrrHyTliGPuuGselVWbragqy9nxRplzUDmuxfSyzeVDTQfM418GY3j1mB9NaaV8AzhpZ4LzYyDZ4fu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kYnGSJ53; arc=none smtp.client-ip=74.125.224.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790275144; c=relaxed/simple;
+	bh=xl+6SGpN5r+JlU8uWnKJTgqgf7MWKOx0cJnxdrgT1hs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=aAZGXXlHP2cWVJapHhwNd1yvV/fd8Aus9kuDqjJVEo89ZM4xiziZ5eB/VAHF34xNFvfIbtaOM7YGQIKAdqkeK8QyQzDu7FOmMOm70Yg4rzE1qdMWerOEcafmlzqdcZNlwJHJ7c4XVUczBIp6mIS5Rc+tU0Gi6jDOUUV8rbn6LU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=eLazKvW4; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kYnGSJ53"
-Received: by mail-yx2-f41.google.com with SMTP id 00721157ae682-8a860e532bbso840807b3.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:38:12 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="eLazKvW4"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f63546c5so86981f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:39:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790275092; x=1790879892; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OKxC5vK38YZk3hwc5cGza3RH/rKb/7PEzxup8t6oAVk=;
-        b=kYnGSJ53NBNWDf9RdAv/W6NO+CnYjWPEHfDRqOU4LItsVLT6PFb+J6QbFob4r0/0YX
-         hQJuwqH9OLpcNdK8bLFM6NiT0U8kd7dwHEsL0OgfMgdHhQNwfeNXkujIfS46oVrPboFE
-         35Vvv+Mh1RGyeaDlW8xo/ZOUI5o40Oe3wRx2Dab+5Ek7yw75IqPKyuPc+ah1dxRIsgy8
-         e6KmIPWIrpZhpAOZOhGYWfQBpEFwp/C81FwFY4EkiVXeHvwfyb9lJsysHzyCaOedEtS7
-         AQeqH4dmv+2hfoUE/MGNa7Qx4KI8NIkf/47IobOuIbmYG+HAsQdM4yyH+jyFLda03ZTO
-         Tysw==
+        d=konsulko.com; s=google; t=1790275140; x=1790879940; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T1qvv+WBQk97TqMLFAiiMPDCR04SnZ5MGolPSxFRq8k=;
+        b=eLazKvW4X4AGJ0zRmqcZpHg3kHDH8OTcoR8RxqjipORjmL10SyurP8R3hm5irtrrtZ
+         T9+85d03A+x16SntkTlcZVdYZ+2hU9yPlIAhFZDbLyR7J8FxIXyzo3jUCB4B4geuzfJB
+         ypC6lU6U8Wm7sogHFsNjTgm/ompz3YdjL9f8U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790275092; x=1790879892;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=OKxC5vK38YZk3hwc5cGza3RH/rKb/7PEzxup8t6oAVk=;
-        b=F7kw5JnEaX9BYegwTclZGALhnFSNKSJR4N1uxY5ZCF/bOHEN7bB5Addr/hO3oUSMFt
-         HzR3Apno0LBeIXoqQe3uPAa9eXDmub8g9dUzLZM9Oyaz+OJtbH4DqtfNqx5qhILOdclH
-         VDrZcf3YPxCNQEq3P5U6HyIwghRDz/IkLfx6V9Z3SnMJ37iKtFo1wgz8Jag6tyMAc/7p
-         l6yjvSHOzZGJRRFWWSpuKtc3zJXPl5N23Bkk+SB+xegYmCLmf5IyPy+hOxbdRdcKelzV
-         ks39KrVFuBMhUp0FTpl5rr2if5H82kucIz4fBfJcnHsD1+xuC0aqVdtgeQiyhglEuOLi
-         z/lA==
-X-Forwarded-Encrypted: i=1; AKwUvByyBYBKOzoqThq3rg+hL053Rw6MKgfTuRk2TOEhGYKl/hwsTVEVrbHbOxUQL1CG4WqY3tMpccQ93o+Cau0=@vger.kernel.org
-X-Gm-Message-State: AFuF++koQUofPTCVpf2s5tsOjTHWy/t7OiHeWvmNF9gI3FdJs7BjXsiv
-	0d3Vz4+kJ8Gk/EfLMOWiuz7pq0dvaOCAX4hQDag41Ucu72YcCn4p/9Kv
-X-Gm-Gg: AYBFou3n/IrLIhLR2HbWhtPuYaexewSezrds4j0D72Jkvo1LNnzfAw0Fi/M8LZkmZnp
-	ylwSXTsE6VJggLyG8URwMCpGfqPG3rbQ9JF8RLG/xLNrP57+X9mhp7bDBqi0WV5GxCrSMONcCZ4
-	MRfVs1dKSufekcTF0Uz7osDbGQxiYjBED68WRILonPrZTTz0cxtI/ZBN1uClqr7DzEJoTpI3l4g
-	np73jo7M4mXleiS18Q9Yp6eFB9SpEw2JPd/Q0f+MWG9VVnzE98hQFm0dSwN1WkqKpfLzQ6OSb9M
-	36S5sqUkxNSODYyyADAy3LHJnLNExwlRkBm2shESC1584PrM4D6ESWAKP0tdV0olufr9K4dSbzq
-	OYy33StyehX7SV8RftUoUfJjrZ3uEZaRUyBQMpwy8lSCB0nKg6ql9yheY5TkP4e9LmQBPPNVJuo
-	ZU19rOExmFULO0tXWrVGFt3cH25G8QMacv/h9ws+iYiNElP/MF7551dmYFtZ8w3c6R5ZKKCEBqg
-	CQ=
-X-Received: by 2002:a05:690e:4403:b0:672:99e1:11f7 with SMTP id 956f58d0204a3-672ed528680mr1242578d50.148.1790275091473;
-        Thu, 24 Sep 2026 11:38:11 -0700 (PDT)
-Received: from suesslenovo ([71.132.185.69])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-672d81781c6sm2494424d50.16.2026.09.24.11.38.10
+        d=1e100.net; s=20260707; t=1790275140; x=1790879940;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=T1qvv+WBQk97TqMLFAiiMPDCR04SnZ5MGolPSxFRq8k=;
+        b=NGFhyhzgwBd6W6F+fvWpcxU62WSeBs3sC4QSW570si4rOTHrn5ZbQGUusTaNupLLBI
+         lSlP28m76DI/TY5uZm5rq7KWol0r8zrYxSPGDxNRj9KgwfR2+/UO10cAg4zbRrfEmX2n
+         HD/3nrrr7ofn/mFr+QOzt9agmEmRXkcOo6pahSJOEkcCTi7koJ6NULNXHLWIYbzzIP/a
+         Yrt15c921WPOnQ0OjCfw15cljBoRdmO/GSHVFo2MVLwksaZp6bZ2b7hLtjQ94I95FVs1
+         9iTPQBvSiTRg9FkGTkKIdBapC3b5g6nxPtqSv3g8WoZGcOIB2jDsbGlxjJpgWWRn/hDt
+         y1Tg==
+X-Gm-Message-State: AFuF++mqB3ky/oT2ZAiztFPN8Y/5805blHHh9GLN/bQ8i87OkQcixir9
+	dkbdAeu/WETMj065qcz6w5KcrtA8GhW7+pVuwP7yb9jxhIDxIN74Uk9tjt5+KkeArJV32ey0T4N
+	rPNxQ
+X-Gm-Gg: AYBFou2vXsd/spAtMZWtKnlOJ8qpeUeXKD94040CN10UqwtTZNjlLVWJ6K2eQvK/LQZ
+	XEV5X2qWc+O1lZgNkC/l8YhHzmAeA9ybenYrWcG9bxM/Qs7+/eI1Q58DC6zDWLYwMNdbSGHPRqF
+	8Q2yOOsh+MSn6MDJesUPmPZXmhV1H7XmSszT52WSKPS3ZT/Jzgm2xCZyZcudL38NFK6nP1ummfA
+	LODfO9Y2+YE0Xh4VKUApLdZ0O4nRuMsFKtTYhJ5zfgJX5EkqZxQhcIDiQdk/Vi5tO6uYB55JQqq
+	RuSIeR1OjNtUhrqoMRJ6bUoua7c8hwOEHFEM5zDC558iDMjFzk+2VodRIJLiAFQ2fchR9Vay8Lp
+	F2rPWl/8ePAur7x4YOXnKAwdUjaWRiXB1pKscHfldFnEmumPSGlgakok1SAygKl8MDrEzYXTVKq
+	+Tr+sy2nPaBJoJRtpxng+cuxgP8kNcR2RpLGCf8K04oLTubBA33l0F6TmUeg3icG+YJ2/YF5kuG
+	AdtCy/s3CFWLZM=
+X-Received: by 2002:a05:6000:1861:b0:487:1f81:e4b8 with SMTP id ffacd0b85a97d-48871725513mr6281791f8f.20.1790275140361;
+        Thu, 24 Sep 2026 11:39:00 -0700 (PDT)
+Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a84205esm852642f8f.37.2026.09.24.11.38.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 11:38:10 -0700 (PDT)
-Date: Thu, 24 Sep 2026 14:37:40 -0400
-From: Justin Suess <utilityemal77@gmail.com>
-To: Paul Moore <paul@paul-moore.com>
-Cc: David Windsor <dwindsor@gmail.com>, 
-	Daniel Borkmann <daniel@iogearbox.net>, alexei.starovoitov@gmail.com, brauner@kernel.org, 
-	john.fastabend@gmail.com, memxor@gmail.com, kpsingh@kernel.org, matt@bobrowski.net, 
-	bpf@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH bpf-next 4/8] bpf, lsm: Let BPF LSM provide xattrs at
- inode creation
-Message-ID: <arVkWs7tG3ayGxyX@suesslenovo>
-References: <20260915150739.284189-1-daniel@iogearbox.net>
- <20260915150739.284189-5-daniel@iogearbox.net>
- <CAHC9VhR2Zp9LzDRwDOZoesOC7o8hretfgRH-PRqQRXA0EES2vA@mail.gmail.com>
- <CAEXv5_g1XQAwsydnbu9SUvxNBdYQf+xXjPaZMeC8hxgfThP+pw@mail.gmail.com>
- <arVKSpezisxe3pkr@suesslenovo>
- <CAHC9VhSwbHF8tZkZ00JM40VTBeXVgcVdoBt7NcX0XKaKSARWug@mail.gmail.com>
+        Thu, 24 Sep 2026 11:38:59 -0700 (PDT)
+From: Petko Manolov <petko.manolov@konsulko.com>
+To: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	dinguyen@kernel.org,
+	arnemaximilian.richter@draeger.com,
+	martynas.grybauskas@draeger.com,
+	Petko Manolov <petko.manolov@konsulko.com>
+Subject: [PATCH v2 0/2] arm: dts: nxp: imx: add Draeger M48 CPU board
+Date: Thu, 24 Sep 2026 21:38:52 +0300
+Message-ID: <20260924183855.1393302-1-petko.manolov@konsulko.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHC9VhSwbHF8tZkZ00JM40VTBeXVgcVdoBt7NcX0XKaKSARWug@mail.gmail.com>
 
-On Thu, Sep 24, 2026 at 12:23:13PM -0400, Paul Moore wrote:
-> On Thu, Sep 24, 2026 at 12:15 PM Justin Suess <utilityemal77@gmail.com> wrote:
-> > On Wed, Sep 23, 2026 at 03:14:28PM -0400, David Windsor wrote:
-> > > On Wed, Sep 23, 2026 at 12:57 PM Paul Moore <paul@paul-moore.com> wrote:
-> > > > @David, simply for my own understanding, did you ask Daniel to do
-> > > > this, or was Daniel operating on his own with this patchset?
-> > > >
-> > >
-> > > Daniel and I work together and both have things written on top of this
-> > > kfunc. He reached out to collaborate, I agreed. We're also going to
-> > > send bpf_set_file_xattr shortly.
-> > >
-> > > This implementation was chosen due to its immediate mergeability (it
-> > > only touches security/bpf), but was actually suggested by Kumar in v1
-> > > or so of my original series.
-> > >
-> > > That said, sorry for any confusion about this appearing as a new
-> > > series rather than as v7 of my previous one.
-> >
-> > Howdy all,
-> >
-> > Hope you all are doing well and having a good Thursday.
-> >
-> > These patches are excellent and useful, and have been in the pipeline
-> > for a while.
-> >
-> > In the interest of moving forward:
-> >
-> > Would you both be able to live with the following: provide a security hook
-> > for lsm_get_xattr_slot or another proper interface with the necessary
-> > abstraction, and keep the kfunc where it is in fs/?
-> 
-> That still doesn't change the fundamentals around the kfunc: it is
-> really only a valid to call it from within the LSM inode_init_security
-> callback, it populates a LSM framework managed buffer, and that buffer
-> is then used to by the LSM framework code in
-> security_inode_init_security() to do the xattr initialization using
-> the values from the BPF LSM as well as all of the other configured
-> LSMs.  It's very hard to see this as anything other than an LSM kfunc.
-> I worked with David over several revisions of his patchset to review
-> the code and get it in a good place, I'm supportive of the basic
-> ideas, but this really needs to be located in
-> security/bpf_lsm_kfuncs.c as it is an LSM kfunc.  As we've seen there
-> is precedence for subsystem specific kfuncs located in the associated
-> subsystem's directory, things should be no different here.
->
-Hello,
+Adds the device trees for “Dräger M48 on NXP i.MX6 (Q|DL) and Intel/Altera
+SoCFPGA Cyclone V” board variant.  It has both (the SoC and FPGA) on the
+same carrier and they are cross-monitoring each other.  The SoCFPGA boots
+independently off qspi flash.
 
-I'm less arguing for any particular placement:
+This is the imx6 devicetree part.  There are two bindings as well as device
+trees, since M48 is using two parts: imx6q and imx6dl.
 
-More so that the concrete security interest of just getting the kfunc
-*somewhere* is much more important. I have no doubt that the function
-would be equally well stewarded in either directory.
+new in v2:
 
-The xattr kfunc in security/ question can be fought best in a different
-venue where it's not holding back good contributions. So I think
-swallowing this bitter pill for now will be best for cooperation and
-good faith if nothing else, otherwise users and contributors are left
-footing the bill indefinitely.
+  - add the tag from Conor Dooley <conor.dooley@microchip.com>;
 
-Admittedly I'm biased and am toying with a project that this kfunc
-would be really nice in, so take me with a grain of salt :)
+  - it should be clarified that "draeger" vendor prefix is added in
+    my previous Draeger M48 patch series;
 
-Thanks,
-Justin
+Petko Manolov (2):
+  dt-bindings: arm: fsl: add Draeger M48 dual-cpu board
+  arm: dts: nxp: imx: Add devicetree files for M48
 
-> -- 
-> paul-moore.com
+ .../devicetree/bindings/arm/fsl.yaml          |   2 +
+ arch/arm/boot/dts/nxp/imx/Makefile            |   2 +
+ .../boot/dts/nxp/imx/imx6dl-draeger-m48.dts   |  23 ++
+ .../boot/dts/nxp/imx/imx6q-draeger-m48.dts    |  23 ++
+ .../boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi | 369 ++++++++++++++++++
+ .../boot/dts/nxp/imx/imx6qp-draeger-m48.dts   |  78 ++++
+ 6 files changed, 497 insertions(+)
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-draeger-m48.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6qp-draeger-m48.dts
+
+-- 
+2.47.3
+
