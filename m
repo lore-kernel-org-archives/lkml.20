@@ -1,56 +1,56 @@
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0EA95326CB
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:35:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5692D53160C
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:35:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790271315; cv=none; b=au69DKwe7sNVBp4lh8BgMfEfsvpdldNFi8KS+jAL248hcaW+6c8PP4etu45i6raEEDDch7YIXoVL0d23VmkvUBg9UOjoI4EGmetig3G/nm1CJgz8KjViFxr3mYsrwtVvvPVZb6zXRHveajgu9e2kLeLKptJAgfVSO3enpCiBqXQ=
+	t=1790271314; cv=none; b=s4K+UvWTPqv/JMCcFztxI8YcW5ioRE0a0iktqvdlnqsM3NamMvAIJX9dIpjgNIEzar1cWJ5C4cdwfPZtyyeVk6ZhX0qYMYu3erTYBlYHosnGUSqBngumz0quygU2SyGtF0wz1R+nbQKTitjI0BJyfVveYmjhtJy70xkIS6rP1f4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790271315; c=relaxed/simple;
-	bh=42HZykLu1fdko6HtVS6V2zN5Rp/brQ1pPyYBjphQlKk=;
+	s=arc-20240116; t=1790271314; c=relaxed/simple;
+	bh=yxfwQFFvYn4deCEiQyhWpCNkmEd6Vbj3wfsJc3/PZt8=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=m4l4OGNo0HrtAnDHIZw0g5lbAPGRNRcQdd8LoWHoBR7XNi6kWZMXO3P5Ps7N1C6L+ToxTHqNRHJFN4BTvVqnlphJyF7CNGrh9RX9Wndi/5NKmmqX7VlWxjrR096lsMfK+9RcvLS6ImPd4hs7kP8ypj+TEMikR0iiHITeWVI2/dY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fVY5viZv; arc=none smtp.client-ip=209.85.210.198
+	 To:Cc:Content-Type; b=WaFlBlsPBOJ+UUUuecc8/eIej0/6+D/DSz5sRYSiHXq9BxcSdRPt++gUxrUTpax+gfTluIhi5jXGCz8FsT8KvI/Jbv8JzNKLmsJ4Zgls6kkgd4joEUSx563IM9PoEe1VI3EYdqMOhUgtfi7tVMGMjvOCs1O7xwsOJlcY8nSRLZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=SWbNgQmE; arc=none smtp.client-ip=209.85.214.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fVY5viZv"
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8696b921ac0so77687b3a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:35:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="SWbNgQmE"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2dd1631d291so161535ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:35:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790271313; x=1790876113; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790271311; x=1790876111; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=44zkx5wXiPoFVTiEc5KY1Ag9ipCGGabDIfpXco19T3Q=;
-        b=fVY5viZvNJwhWXTGOvhQqZPhuMIVibY1HUZyTgTCn/bi5pQPvRCg4IVoMxhM9zo+1E
-         sNCdQ3rQijRAvaTA/VmP0YyLaWTuY0kJA8wdXflLEWZX52nep1UnGXl4FOLauz8oDyRn
-         7/cPlfd2dc0tKGxyH5v3BkKt8gS7hmdTEfoxTpcQTovGja9MgA3zotyRgjK82FgEDBI7
-         VgDTDTI1RwwNkuLzgFmIY84I4nSEa8a9JRgZmO9zkAMAaQA0oQztosE1fu5YUK4LKejj
-         /RKNdDSRihCB5Q3hhecW36Svm3kUsgTyD6g9UOOIl4UJK1jVQ/+eRVb/6ugC68HM0N+9
-         jQhg==
+        bh=yVR7tTueFjx2BoB8JeWxPq21TCubaJ8apr4e1etJ6IU=;
+        b=SWbNgQmEbAqpoWIhNdreefDrfdpZtOtz6gXK97d1rxnuDX0Gw9ae8lOK+hQYvwReBe
+         TZsUgatJsVjxIgwHQ3dEVjyezOMI9TBEhpzV3Fj7lsk2O66maQqlAPBqvDzW5vBhaNnF
+         RfRh7TI4HWARjPJQkxwvUWYLnjlAtdRnpUgxE2N19tZuLEQkfQQr9TLAJYLQBSC2I6a9
+         Q8tfQJbOl5Pia+dXo6q7jvh9o9jurkPPazQ/bnBG7ovjidTO8WKfoeQ41FiI9fqeyXeU
+         M8ksFcWba3sYOwe0e4W26UTzL3aK1HbVOc1IZ7LXj5hQ8fXLaRWRnQkHUaIOFus+F42D
+         iSRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790271313; x=1790876113;
+        d=1e100.net; s=20260707; t=1790271311; x=1790876111;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=44zkx5wXiPoFVTiEc5KY1Ag9ipCGGabDIfpXco19T3Q=;
-        b=gtAbNO2eO1nhOkEp6MYvT/fEoknl0phkLmT6XfrMZVmvycyPkikStmJSJMeLJ7gBKE
-         ItReQYbrObC8CyXLaF9HsgdgE31dA7Z933g4WMvZesqN1lTNDje6e23XRHxdfrLMweFV
-         G7SWzdo1/m4AAexazvvX4Ygo6BAmaofFnW59N+UWHik9yKqeMoLKqLRznErG7YoyUUIT
-         NnUSCCujw+ndM8ZPkPnhjuza5163MLrgrk4iIzD7xH6issdmc0P0VU5w7ZsXjSkChSWc
-         RtUdJ5qnB3WrlXSlT1jVLgQy4kFteBeQcTDlkf4OUw1EB5Sf1rEH7YHRi00TFLJKSLYe
-         0KFQ==
-X-Gm-Message-State: AFuF++kaMfc1bsQ8bMebbYvBzy4AIZfyrnAjm7Md/UXahK57DuVBGsII
-	Ey+6mx+qZ/KUqfX5nTsOhXIfUycVpmN8PZcBTEloJKmEhd4AGPi27w3edMERv1PMAmvQ2pboe/m
-	iSbRgcZ52m1AFhM1iPCbw+K92DDFJweH93SDmwDvOJu30Acx9bK+Rz0pKx+ZU/NSSLlnXhuPGcq
-	jmvpndjF5CGxheoEkKq1P0owHOm8TRR9Z0mt+EZOczz6xsBpTasT4MalY=
-X-Received: from pgbfq21.prod.google.com ([2002:a05:6a02:2995:b0:c88:e5cb:265])
+        bh=yVR7tTueFjx2BoB8JeWxPq21TCubaJ8apr4e1etJ6IU=;
+        b=xDjywxzjpZSBwygqLGnajOvg+II2ndFxrP69RWjQ38dMbNPkoZib6G0VtTMleRFKyo
+         hAZm1wNaC1DcqBGW+I3ypbXCmAjEf755kxHdPj3ZYN6YQSNjVFIyxkYCdLhJkHNkFbCh
+         GZNUqLkxpksDvjhdAHM4wsyPZr+bAsU/V/G9N/151B5zQ9OxsaG40BaDsryvdZyVyMRJ
+         yC0yWmdNyxbg7bqv1ufcki+fov1p9MssMjGrPuLfMkyKQQUbVcCaRxfpMBF6bnJG6OWe
+         qJ3DYZeuRy0aNqnC5uZHiIAGPEO2ohmOvHNJrkcvkl4JqXe6LwMml93wnKNV7VeD78RF
+         zMXA==
+X-Gm-Message-State: AFuF++kBWJgsrxi11t5RCGtQjHmp3w+BPuXo7FYxdCEqqvLS3+R9Vcfs
+	xu8xWGaDr3LmsaLSE3ljKVhan+7cfderiMq6EqYOiuOPy/unRi5GSDK231Yf9VzHt3EH22DdCaS
+	f/z0gCq+2BaclpIjxjOWXkJ8HVLyuUPefk5TbXXRGapOsZbxNige4Ca9R6mQ5xLB7TMWsgDgEE2
+	AtysNuhejoeICXJjGFMIyiw0E4oFkyz7eLBENpwVPJsziDlmDx+Bd6ieY=
+X-Received: from plrr9.prod.google.com ([2002:a17:902:c609:b0:2db:1a14:e0c8])
  (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a20:3d09:b0:3dd:a196:906f with SMTP id adf61e73a8af0-3de0e942ae3mr2935846637.57.1790271312798;
- Thu, 24 Sep 2026 10:35:12 -0700 (PDT)
-Date: Thu, 24 Sep 2026 17:34:52 +0000
+ 2002:a17:902:c40c:b0:2df:434f:5f50 with SMTP id d9443c01a7336-2df7e43e9b3mr28496375ad.36.1790271311136;
+ Thu, 24 Sep 2026 10:35:11 -0700 (PDT)
+Date: Thu, 24 Sep 2026 17:34:50 +0000
 In-Reply-To: <20260924173501.856380-1-dmatlack@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260924173501.856380-1-dmatlack@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260924173501.856380-7-dmatlack@google.com>
-Subject: [PATCH 06/15] PCI/ASPM: Save LTR state in the saved capability store
+Message-ID: <20260924173501.856380-5-dmatlack@google.com>
+Subject: [PATCH 04/15] PCI: Save PCIe state in the saved capability store
 From: David Matlack <dmatlack@google.com>
 To: linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
 	linuxppc-dev@lists.ozlabs.org
@@ -73,93 +73,280 @@ Cc: Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>,
 	David Matlack <dmatlack@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Save and restore the LTR maximum latency registers through the per-device
-saved capability store instead of a private pci_cap_saved_state buffer.
+Save and restore the PCIe capability control registers through the
+per-device saved capability store instead of a private pci_cap_saved_state
+buffer.
 
-Reserve the DWORD by its configuration space offset during device setup,
-and keep accessing the registers a DWORD at a time because some devices
-only support DWORD access to them.
+The private buffer is an opaque array of u16s whose layout is a contract
+between pci_save_pcie_state() and pci_restore_pcie_state(). Anything else
+that needs to touch the saved state has to know that contract, e.g.
+pci_update_aspm_saved_state() patches the saved Link Control register with
+a comment reminding the reader that cap[1] is LNKCTL. Indexing the saved
+state by configuration space offset removes the coupling.
+
+Describe the registers to save in pcie_saved_regs[] and drive the
+reservation, save, and restore loops from it so that the three can no
+longer disagree about which register is where.
+
+Reserve the registers based on pci_is_pcie() rather than
+pci_find_capability(PCI_CAP_ID_EXP), so that a device whose capability
+list is broken but whose pcie_cap a quirk has fixed up gets saved state
+like any other PCIe device. Drop the save buffer that
+quirk_intel_qat_vf_cap() builds by hand, since it is no longer needed.
+
+Keep using pcie_capability_read_word() and pcie_capability_write_word() to
+access the hardware so that registers the device does not implement are
+skipped. Reserve space for all of the registers regardless; that is
+harmless, since an unimplemented register reads back as zero and is
+never written.
+
+While here, make pci_save_pcie_state() void now that it cannot fail.
 
 No functional change intended.
 
 Assisted-by: LLM
 Signed-off-by: David Matlack <dmatlack@google.com>
 ---
- drivers/pci/pci.c       | 12 ++++++++----
- drivers/pci/pcie/aspm.c | 19 +++----------------
- 2 files changed, 11 insertions(+), 20 deletions(-)
+ drivers/pci/pci.c       | 83 +++++++++++++++++++++--------------------
+ drivers/pci/pcie/aspm.c | 16 +++-----
+ drivers/pci/quirks.c    | 30 +--------------
+ 3 files changed, 49 insertions(+), 80 deletions(-)
 
 diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index 9e49806c6891..e53bca1cb50f 100644
+index 7be54751a5d3..1c2c572aa49c 100644
 --- a/drivers/pci/pci.c
 +++ b/drivers/pci/pci.c
-@@ -3580,10 +3580,14 @@ void pci_allocate_cap_save_buffers(struct pci_dev *dev)
- 			pci_err(dev, "unable to reserve PCI-X save state\n");
- 	}
- 
--	error = pci_add_ext_cap_save_buffer(dev, PCI_EXT_CAP_ID_LTR,
--					    2 * sizeof(u16));
--	if (error)
--		pci_err(dev, "unable to allocate suspend buffer for LTR\n");
-+	pos = pci_find_ext_capability(dev, PCI_EXT_CAP_ID_LTR);
-+	if (pos) {
-+		unsigned int off = pos + PCI_LTR_MAX_SNOOP_LAT;
-+
-+		error = pci_reserve_saved_cap(dev, off, sizeof(u32));
-+		if (error)
-+			pci_err(dev, "unable to reserve LTR save state\n");
-+	}
- 
- 	pci_allocate_vc_save_buffers(dev);
+@@ -1648,7 +1648,20 @@ int pci_set_power_state_locked(struct pci_dev *dev, pci_power_t state)
  }
-diff --git a/drivers/pci/pcie/aspm.c b/drivers/pci/pcie/aspm.c
-index 02922b887ec6..16f22af98686 100644
---- a/drivers/pci/pcie/aspm.c
-+++ b/drivers/pci/pcie/aspm.c
-@@ -30,8 +30,6 @@
- void pci_save_ltr_state(struct pci_dev *dev)
+ EXPORT_SYMBOL(pci_set_power_state_locked);
+ 
+-#define PCI_EXP_SAVE_REGS	7
++/*
++ * PCIe capability registers saved and restored by the PCI core. Registers a
++ * device does not implement are skipped by the pcie_capability_*() accessors,
++ * so space is reserved for all of them regardless of the device.
++ */
++static const u16 pcie_saved_regs[] = {
++	PCI_EXP_DEVCTL,
++	PCI_EXP_LNKCTL,
++	PCI_EXP_SLTCTL,
++	PCI_EXP_RTCTL,
++	PCI_EXP_DEVCTL2,
++	PCI_EXP_LNKCTL2,
++	PCI_EXP_SLTCTL2,
++};
+ 
+ static struct pci_cap_saved_state *_pci_find_saved_cap(struct pci_dev *pci_dev,
+ 						       u16 cap, bool extended)
+@@ -1672,41 +1685,27 @@ struct pci_cap_saved_state *pci_find_saved_ext_cap(struct pci_dev *dev, u16 cap)
+ 	return _pci_find_saved_cap(dev, cap, true);
+ }
+ 
+-static int pci_save_pcie_state(struct pci_dev *dev)
++static void pci_save_pcie_state(struct pci_dev *dev)
  {
- 	int ltr;
+-	int i = 0;
 -	struct pci_cap_saved_state *save_state;
--	u32 *cap;
+-	u16 *cap;
++	unsigned int i;
++	u16 val;
  
  	if (!pci_is_pcie(dev))
- 		return;
-@@ -40,31 +38,20 @@ void pci_save_ltr_state(struct pci_dev *dev)
- 	if (!ltr)
- 		return;
+-		return 0;
++		return;
  
--	save_state = pci_find_saved_ext_cap(dev, PCI_EXT_CAP_ID_LTR);
+-	save_state = pci_find_saved_cap(dev, PCI_CAP_ID_EXP);
 -	if (!save_state) {
--		pci_err(dev, "no suspend buffer for LTR; ASPM issues possible after resume\n");
--		return;
--	}
+-		pci_err(dev, "buffer not found in %s\n", __func__);
+-		return -ENOMEM;
++	for (i = 0; i < ARRAY_SIZE(pcie_saved_regs); i++) {
++		pcie_capability_read_word(dev, pcie_saved_regs[i], &val);
++		pci_write_saved_cap_word(dev, dev->pcie_cap + pcie_saved_regs[i],
++					 val);
+ 	}
+ 
+-	cap = (u16 *)&save_state->cap.data[0];
+-	pcie_capability_read_word(dev, PCI_EXP_DEVCTL, &cap[i++]);
+-	pcie_capability_read_word(dev, PCI_EXP_LNKCTL, &cap[i++]);
+-	pcie_capability_read_word(dev, PCI_EXP_SLTCTL, &cap[i++]);
+-	pcie_capability_read_word(dev, PCI_EXP_RTCTL,  &cap[i++]);
+-	pcie_capability_read_word(dev, PCI_EXP_DEVCTL2, &cap[i++]);
+-	pcie_capability_read_word(dev, PCI_EXP_LNKCTL2, &cap[i++]);
+-	pcie_capability_read_word(dev, PCI_EXP_SLTCTL2, &cap[i++]);
 -
- 	/* Some broken devices only support dword access to LTR */
--	cap = &save_state->cap.data[0];
--	pci_read_config_dword(dev, ltr + PCI_LTR_MAX_SNOOP_LAT, cap);
-+	pci_save_cap_dword(dev, ltr + PCI_LTR_MAX_SNOOP_LAT);
+ 	pci_save_aspm_l1ss_state(dev);
+ 	pci_save_ltr_state(dev);
+-
+-	return 0;
  }
  
- void pci_restore_ltr_state(struct pci_dev *dev)
+ static void pci_restore_pcie_state(struct pci_dev *dev)
+ {
+-	int i = 0;
+-	struct pci_cap_saved_state *save_state;
+-	u16 *cap;
++	unsigned int i;
+ 
+ 	/*
+ 	 * Restore max latencies (in the LTR capability) before enabling
+@@ -1715,8 +1714,7 @@ static void pci_restore_pcie_state(struct pci_dev *dev)
+ 	pci_restore_ltr_state(dev);
+ 	pci_restore_aspm_l1ss_state(dev);
+ 
+-	save_state = pci_find_saved_cap(dev, PCI_CAP_ID_EXP);
+-	if (!save_state)
++	if (!pci_is_pcie(dev))
+ 		return;
+ 
+ 	/*
+@@ -1726,14 +1724,13 @@ static void pci_restore_pcie_state(struct pci_dev *dev)
+ 	 */
+ 	pci_bridge_reconfigure_ltr(dev);
+ 
+-	cap = (u16 *)&save_state->cap.data[0];
+-	pcie_capability_write_word(dev, PCI_EXP_DEVCTL, cap[i++]);
+-	pcie_capability_write_word(dev, PCI_EXP_LNKCTL, cap[i++]);
+-	pcie_capability_write_word(dev, PCI_EXP_SLTCTL, cap[i++]);
+-	pcie_capability_write_word(dev, PCI_EXP_RTCTL, cap[i++]);
+-	pcie_capability_write_word(dev, PCI_EXP_DEVCTL2, cap[i++]);
+-	pcie_capability_write_word(dev, PCI_EXP_LNKCTL2, cap[i++]);
+-	pcie_capability_write_word(dev, PCI_EXP_SLTCTL2, cap[i++]);
++	for (i = 0; i < ARRAY_SIZE(pcie_saved_regs); i++) {
++		u16 reg = pcie_saved_regs[i];
++		u16 val;
++
++		if (pci_read_saved_cap_word(dev, dev->pcie_cap + reg, &val))
++			pcie_capability_write_word(dev, reg, val);
++	}
+ }
+ 
+ static int pci_save_pcix_state(struct pci_dev *dev)
+@@ -1788,9 +1785,7 @@ int pci_save_state(struct pci_dev *dev)
+ 	}
+ 	dev->state_saved = true;
+ 
+-	i = pci_save_pcie_state(dev);
+-	if (i != 0)
+-		return i;
++	pci_save_pcie_state(dev);
+ 
+ 	i = pci_save_pcix_state(dev);
+ 	if (i != 0)
+@@ -3583,12 +3578,18 @@ int pci_add_ext_cap_save_buffer(struct pci_dev *dev, u16 cap, unsigned int size)
+  */
+ void pci_allocate_cap_save_buffers(struct pci_dev *dev)
+ {
++	unsigned int i;
+ 	int error;
+ 
+-	error = pci_add_cap_save_buffer(dev, PCI_CAP_ID_EXP,
+-					PCI_EXP_SAVE_REGS * sizeof(u16));
+-	if (error)
+-		pci_err(dev, "unable to preallocate PCI Express save buffer\n");
++	for (i = 0; pci_is_pcie(dev) && i < ARRAY_SIZE(pcie_saved_regs); i++) {
++		unsigned int off = dev->pcie_cap + pcie_saved_regs[i];
++
++		error = pci_reserve_saved_cap(dev, off, sizeof(u16));
++		if (error) {
++			pci_err(dev, "unable to reserve PCI Express save state\n");
++			break;
++		}
++	}
+ 
+ 	error = pci_add_cap_save_buffer(dev, PCI_CAP_ID_PCIX, sizeof(u16));
+ 	if (error)
+diff --git a/drivers/pci/pcie/aspm.c b/drivers/pci/pcie/aspm.c
+index 95ac34a34bd5..02922b887ec6 100644
+--- a/drivers/pci/pcie/aspm.c
++++ b/drivers/pci/pcie/aspm.c
+@@ -324,26 +324,20 @@ static int policy_to_clkpm_state(struct pcie_link_state *link)
+ 
+ static void pci_update_aspm_saved_state(struct pci_dev *dev)
  {
 -	struct pci_cap_saved_state *save_state;
- 	int ltr;
--	u32 *cap;
+-	u16 *cap, lnkctl, aspm_ctl;
+-
+-	save_state = pci_find_saved_cap(dev, PCI_CAP_ID_EXP);
+-	if (!save_state)
+-		return;
++	u16 lnkctl, aspm_ctl;
  
--	save_state = pci_find_saved_ext_cap(dev, PCI_EXT_CAP_ID_LTR);
- 	ltr = pci_find_ext_capability(dev, PCI_EXT_CAP_ID_LTR);
--	if (!save_state || !ltr)
-+	if (!ltr)
- 		return;
+ 	pcie_capability_read_word(dev, PCI_EXP_LNKCTL, &lnkctl);
  
- 	/* Some broken devices only support dword access to LTR */
--	cap = &save_state->cap.data[0];
--	pci_write_config_dword(dev, ltr + PCI_LTR_MAX_SNOOP_LAT, *cap);
-+	pci_restore_cap_dword(dev, ltr + PCI_LTR_MAX_SNOOP_LAT);
+ 	/*
+-	 * Update ASPM and CLKREQ bits of LNKCTL in save_state. We only
++	 * Update ASPM and CLKREQ bits of LNKCTL in the saved state. We only
+ 	 * write PCI_EXP_LNKCTL_CCC during enumeration, so it shouldn't
+-	 * change after being captured in save_state.
++	 * change after being captured in the saved state.
+ 	 */
+ 	aspm_ctl = lnkctl & (PCI_EXP_LNKCTL_ASPMC | PCI_EXP_LNKCTL_CLKREQ_EN);
+ 	lnkctl &= ~(PCI_EXP_LNKCTL_ASPMC | PCI_EXP_LNKCTL_CLKREQ_EN);
+ 
+-	/* Depends on pci_save_pcie_state(): cap[1] is LNKCTL */
+-	cap = (u16 *)&save_state->cap.data[0];
+-	cap[1] = lnkctl | aspm_ctl;
++	pci_write_saved_cap_word(dev, dev->pcie_cap + PCI_EXP_LNKCTL,
++				 lnkctl | aspm_ctl);
  }
  
- void pci_configure_aspm_l1ss(struct pci_dev *pdev)
+ static void pcie_set_clkpm_nocheck(struct pcie_link_state *link, int enable)
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index de9bbccda21f..ffebab844165 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -5514,10 +5514,9 @@ int pci_dev_specific_disable_acs_redir(struct pci_dev *dev)
+  */
+ static void quirk_intel_qat_vf_cap(struct pci_dev *pdev)
+ {
+-	int pos, i = 0, ret;
++	int pos, ret;
+ 	u8 next_cap;
+-	u16 reg16, *cap;
+-	struct pci_cap_saved_state *state;
++	u16 reg16;
+ 
+ 	/* Bail if the hardware bug is fixed */
+ 	if (pdev->pcie_cap || pci_find_capability(pdev, PCI_CAP_ID_EXP))
+@@ -5548,10 +5547,6 @@ static void quirk_intel_qat_vf_cap(struct pci_dev *pdev)
+ 	pci_read_config_word(pdev, pos, &reg16);
+ 	if (reg16 == (0x0000 | PCI_CAP_ID_EXP)) {
+ 		u32 status;
+-#ifndef PCI_EXP_SAVE_REGS
+-#define PCI_EXP_SAVE_REGS     7
+-#endif
+-		int size = PCI_EXP_SAVE_REGS * sizeof(u16);
+ 
+ 		pdev->pcie_cap = pos;
+ 		pci_read_config_word(pdev, pos + PCI_EXP_FLAGS, &reg16);
+@@ -5563,27 +5558,6 @@ static void quirk_intel_qat_vf_cap(struct pci_dev *pdev)
+ 		ret = pci_read_config_dword(pdev, PCI_CFG_SPACE_SIZE, &status);
+ 		if ((ret != PCIBIOS_SUCCESSFUL) || (PCI_POSSIBLE_ERROR(status)))
+ 			pdev->cfg_size = PCI_CFG_SPACE_SIZE;
+-
+-		if (pci_find_saved_cap(pdev, PCI_CAP_ID_EXP))
+-			return;
+-
+-		/* Save PCIe cap */
+-		state = kzalloc(sizeof(*state) + size, GFP_KERNEL);
+-		if (!state)
+-			return;
+-
+-		state->cap.cap_nr = PCI_CAP_ID_EXP;
+-		state->cap.cap_extended = 0;
+-		state->cap.size = size;
+-		cap = (u16 *)&state->cap.data[0];
+-		pcie_capability_read_word(pdev, PCI_EXP_DEVCTL, &cap[i++]);
+-		pcie_capability_read_word(pdev, PCI_EXP_LNKCTL, &cap[i++]);
+-		pcie_capability_read_word(pdev, PCI_EXP_SLTCTL, &cap[i++]);
+-		pcie_capability_read_word(pdev, PCI_EXP_RTCTL,  &cap[i++]);
+-		pcie_capability_read_word(pdev, PCI_EXP_DEVCTL2, &cap[i++]);
+-		pcie_capability_read_word(pdev, PCI_EXP_LNKCTL2, &cap[i++]);
+-		pcie_capability_read_word(pdev, PCI_EXP_SLTCTL2, &cap[i++]);
+-		hlist_add_head(&state->next, &pdev->saved_cap_space);
+ 	}
+ }
+ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x443, quirk_intel_qat_vf_cap);
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
