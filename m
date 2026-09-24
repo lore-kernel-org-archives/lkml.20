@@ -1,170 +1,167 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A89E4A6CD2
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:56:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0DF4A440D
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:57:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790265387; cv=none; b=ebDpPh0xyZTQ4JV+goOM8NUQST7q2I3mRGpWKdqRsCUpfHsLnPK1DuSZp1jc2H6YOUiOKlut5EOVYfIOZuv4wuoJGLclJeuulcl8O4dK10bOgj5hlVaOZchHtK2oa2IBg0OaJm2lqo4idQqCZYmgvhVlsTwrgSy4Xo1I/M4RlrM=
+	t=1790265474; cv=none; b=CICkEHJgVQsLcBWTXnu7llLNxaO1qwDjCqiRZuJRr7CwmLX2spXz4VCBjbJhwaSaoEnWI2r2SNvKuYCTVQspU18kSkGTRAfrL5EVtaxiWGPtnEBw21K8BYe2FKLx+M/smjzYH70mH4Av/F7K8sXrEVhQcCDwKq52GnZYUzptkzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790265387; c=relaxed/simple;
-	bh=SzpsF1R44Ubodi/lWdByRj3ussGr5imnuwlywY4gVK4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LZH3UvUJUAphYUIxqJO+ShyGNOr+8hxnyNKbn1U5ANYpJXwVOBr8qO6gPpyfFcsGO/fs2cIct1Ewrf/ruFRtG8gkJGDNu2fsw2nQM9PtNdYHa4VXtlGVIaceIdfUEUcazAxTD4lXaHz6GrBSyxB7AHLxjvQpP3pQ322bcqo5PYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NfBMH7yh; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=UshE4h47; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790265474; c=relaxed/simple;
+	bh=xR/QhuyOoQlYEjf/95BpSbBuYdVgGL9SPrwUiXWXyVs=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Z1R6yXxUCDBTqcXcgKLDnHRCLrK2RzjlYY5NLfBs/mTAJXvlvic0KUHcWQk1+Kg0v7UPwbKxXMeUoCDSFYhON86hA4B0/7Iz0cMnGt6Exygpq6x+zPWNt4ecKfex8sXMtv6cVfCA36jCUzyU/ytxmJUu7Z4Ms++/mCs21iFdH6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=g5Nlr6dY; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NfBMH7yh";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="UshE4h47"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790265385;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BsIicbnwmHZxyMI07vJAKZ5x+YHru/pqorNr3bVuoUs=;
-	b=NfBMH7yh+OQawnmR1xv/rmEYxHv33zlbk8fsr7uz2Ck8uqlhrUgr0dd5HMjNk+dYqZ5dhl
-	HRc9AF3suWhnPq5A65LyH2iWnm7dHk9AiSRAOiNG8g5KAAe5HEb3ZmyPArxK7vXMnbF1n/
-	u0e7MT/CaLmbirTkF6v86G6hf3E+uXY=
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-641-9S64aXyWOrmOT4LVNf7aWw-1; Thu, 24 Sep 2026 11:56:23 -0400
-X-MC-Unique: 9S64aXyWOrmOT4LVNf7aWw-1
-X-Mimecast-MFC-AGG-ID: 9S64aXyWOrmOT4LVNf7aWw_1790265382
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c29466736e3so213791066b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:56:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790265382; x=1790870182; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BsIicbnwmHZxyMI07vJAKZ5x+YHru/pqorNr3bVuoUs=;
-        b=UshE4h47sI9NtWfWCugd+LddLlvaa7IXNIR2zXv1pn0UWX77z2W8IiMbg3cFLOsP4c
-         EIfrab0R59uhfBMlpROLHM1hi3E8xcuLbc2PTsXbr4EiDqoIYIpt4wwdW/ZURcMPJT6Z
-         xAvGt0sOKqJ9/XZwO9mok/dS+QGyeH/gipNoU7BZ1ZB0MTrYZYL/Nx/uI/qSS6F9QvNY
-         LVVjMWvROYKaBIZtrp5gwl6BmGgHNKAwdbUyrmWPPI4Sma3Y+ob/KHB7fdeNCytrpa47
-         QvC4d8x+dx3CnY0LPBu3h/7hBQuj5oJoUxk82MAVnG4JzKYHfTXluh39a9SfPFUyAEZN
-         RazQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790265382; x=1790870182;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BsIicbnwmHZxyMI07vJAKZ5x+YHru/pqorNr3bVuoUs=;
-        b=JhfvMRMddVZwh+F4ChRmHdyH6YcssgKr5FrqtWhXtDUPMloOV/mHVN+aKjzSvWK9Mr
-         d2EW7UmCUBE1ZKaq+SS+S1EJFtYGDzdDgQNFRl/3xqtFJSYn27Hl9iY5SY/eCbsOql0d
-         T0Q6VLIdqRMvk9vZn1vyDfK6ndeUEnXiyOuVV/kzKQOBtRX1qDea8gTle8mj6vER9zLr
-         uVlUm4bRHqIMpkCrfAa/HSL1s5JsAIAYJ1RgPJqJ9/OK8K4vaAZkeLQ4fnqISA89ilP2
-         DqKdfRqIALTXgoEXfqszwMqoLhjntaQ2n1O8BDwble22KLhrHKFToN1OnPO9wHw91PQN
-         GZqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzw425nMufRXLN2vsdsyVStbfQyMa9EPCfTnUjZE/NghnZGChDjxmNXNzUAjyIhakN0YL56KiBxpwFr+bo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nZijjA26SbaMPqNnV2fGzN6O7j2oBwPIoKyO7KzPT4i2LhY947
-	Eso2tynEJIH1ixdHwUMA8vQayKaBLUCtpegSdeMDOhB4kJpcSqxhflE0160a/DLDFejmyPBipnU
-	0lOhOaMHV88F1Zfyj6nozThEbQ7jKpbfo0qOHfFpymeVfpTYEZ0a4MGz0c8zX42Fmjg==
-X-Gm-Gg: AYBFou1gpWr97Eqn3MYCGYfeHEQi5DmfKC10eflOpCevgrICa4VCsOgboP04xHMnIoc
-	nYVxxNdmXeIAJF6EBqso4fhg/pCQQaQZ4i4OIanmIJfm2cBu71UeHtg3H56LWZA48oksiwZPbXJ
-	GLyLi8uvOcu8IBTFFSgZySFHJ9GHl1uaHN/VHsmBR+TLWJSeI8FTriRf4F/mu2+T106z2hQpOuY
-	f9Igb/6RwqF0PE2H5co1QPKsPp4c4ir+jXEAkuLMEZEV0XZedi9iEAm+xQEnZusSo1T26etl6zo
-	+nGsGZagjm5Yx46SADmi33yAHAEfWwu2kKV8McX6UidZyNBJRy4E2tgp26jZ8nHtYMHwbAT04JJ
-	OuP8Z+uS/aTHMaVdIZq9rAjHeOs3nTUmrxGe+3fczOIi6wcUFqBwq86dLaAaOueZWXQ==
-X-Received: by 2002:a17:907:968b:b0:c26:1648:a072 with SMTP id a640c23a62f3a-c2ac2594bcdmr230041166b.45.1790265382174;
-        Thu, 24 Sep 2026 08:56:22 -0700 (PDT)
-X-Received: by 2002:a17:907:968b:b0:c26:1648:a072 with SMTP id a640c23a62f3a-c2ac2594bcdmr230038666b.45.1790265381573;
-        Thu, 24 Sep 2026 08:56:21 -0700 (PDT)
-Received: from redhat.com (2a02-ab04-0158-f000-2548-f3bd-8b42-b18f.dynamic.v6.chello.sk. [2a02:ab04:158:f000:2548:f3bd:8b42:b18f])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae33e046sm312897966b.8.2026.09.24.08.56.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 08:56:21 -0700 (PDT)
-Date: Thu, 24 Sep 2026 11:56:19 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Fang Xieyan <fangxy@xiaopeng.com>
-Cc: Jason Wang <jasowangio@gmail.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Rusty Russell <rusty@rustcorp.com.au>, stable@vger.kernel.org,
-	virtualization@lists.linux.dev, kvm@vger.kernel.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] vringh: reject empty / undersized indirect descriptor
- tables
-Message-ID: <20260924114316-mutt-send-email-mst@kernel.org>
-References: <20260924030627.13287-1-fangxy@xiaopeng.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="g5Nlr6dY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790265472; x=1821801472;
+  h=message-id:date:mime-version:subject:from:to:cc:
+   references:in-reply-to:content-transfer-encoding;
+  bh=xR/QhuyOoQlYEjf/95BpSbBuYdVgGL9SPrwUiXWXyVs=;
+  b=g5Nlr6dYa3ikAnwockw6K5dRgVH3TP39cSqhKWFsskmRNa+gePmVbQD/
+   Uv6wBb3HgW8/QSxvBCgwTPj7JoaofeHYflSE18PggcI5JYhxz7tv93QYx
+   nyH9dLfYNMB4ZIiMUenlNzYWn6deZbYRZ4aZ0nysw9IAvwdTyMmBwn9pg
+   gbeB0Dx4u0idQp/915jVHn4PrvAVucLsEGHC/qZ76S7ROv6xBToF6FLVm
+   oLBONUro5ab+h8H4bLi2EG4Vt9J+S207DVnYqu6fqxf0LQewNAbPQcfei
+   wA+vB45qGMQ2an4QJE0E0NizIq8JQZjFrtFlwVjoXVu4+OIUDX1vTyUGz
+   w==;
+X-CSE-ConnectionGUID: +L5xHoV1RKehWa4GtR1bNw==
+X-CSE-MsgGUID: KoNA4dThQFSLNCqQzPpAjw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="91062021"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="91062021"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 08:57:51 -0700
+X-CSE-ConnectionGUID: H5mDk8OiTzq9ChT9VrOY/g==
+X-CSE-MsgGUID: KoAO9j/mRqqKbBoYgokpeg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="278803108"
+Received: from dwoodwor-mobl2.amr.corp.intel.com (HELO [10.125.110.186]) ([10.125.110.186])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 08:57:50 -0700
+Message-ID: <879429f5-b209-49ef-be1c-184eb7d5783b@intel.com>
+Date: Thu, 24 Sep 2026 08:57:49 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924030627.13287-1-fangxy@xiaopeng.com>
-
-On Thu, Sep 24, 2026 at 11:06:27AM +0800, Fang Xieyan wrote:
-> move_to_indirect() rejects an indirect descriptor table only when its
-> length is not an exact multiple of sizeof(struct vring_desc).  A guest
-> descriptor with VRING_DESC_F_INDIRECT and len == 0 passes that check, so
-> *desc_max becomes 0, yet __vringh_iov() keeps walking the (empty) table
-> and aborts with -ELOOP only after reading one full descriptor past its
-> end -- leaking 16 bytes of memory adjacent to the table into a kernel
-> stack variable.
-> 
-> Reject any len smaller than one descriptor, before the existing stride
-> check, so no descriptor is ever fetched from an empty table.
-> 
-> Fixes: f87d0fbb5798 ("vringh: host-side implementation of virtio rings.")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Hawkeye:GLM-5.3-flash
-> Assisted-by: Qoder:Qwen3.8-Max
-> Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
-> ---
->  drivers/vhost/vringh.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> Leak path: once move_to_indirect() sets *desc_max = 0 and points *descs
-> at the (empty) table, the next __vringh_iov() iteration first runs
-> 
-> 	err = copy(vrh, &desc, &descs[i], sizeof(desc));
-> 
-> i.e. a 16-byte read from descs[0] -- one full struct vring_desc past the
-> end of the table -- *before* the "indirect_count > desc_max" test fires.
-> When the guest page backing the table sits just before a sensitive host
-> page, those 16 bytes are attacker-influenced adjacent memory.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 11/14] NTB: ntb_transport: Prepare remote RX info
+ accesses for MW teardown
+From: Dave Jiang <dave.jiang@intel.com>
+To: Koichiro Den <den@valinux.co.jp>, Jon Mason <jdmason@kudzu.us>,
+ Allen Hubbe <allenbh@gmail.com>
+Cc: Frank Li <Frank.Li@kernel.org>, Logan Gunthorpe <logang@deltatee.com>,
+ fuyuanli <fuyuanli0722@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nicholas Bellinger <nab@linux-iscsi.org>,
+ Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260910040836.3792333-1-den@valinux.co.jp>
+ <20260910040836.3792333-12-den@valinux.co.jp>
+ <11a47b77-b140-46df-bee6-3484e18ad62e@intel.com>
+Content-Language: en-US
+In-Reply-To: <11a47b77-b140-46df-bee6-3484e18ad62e@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
-> The multiple-of-16 stride check is kept for defense in depth.
+
+On 9/24/26 8:56 AM, Dave Jiang wrote:
 > 
-> Userspace reproducer (move_to_indirect()/__vringh_iov() extracted verbatim,
-> 2048-byte region followed by a guarded red zone):
 > 
->     [VULNERABLE] return=-62 (-ELOOP)  OOB-read=YES  bytes-past-region=16
->     [PATCHED   ] return=-22 (-EINVAL) OOB-read=no   bytes-past-region=0
+> On 9/9/26 9:08 PM, Koichiro Den wrote:
+>> The next patch clears remote_rx_info when freeing its MW.
+>> ntb_transport_tx_free_entry() and debugfs stats reads can run during
+>> link cleanup, so make them handle a NULL pointer.
+>>
+>> The pointer is accessed locklessly. Use READ_ONCE() and WRITE_ONCE()
+>> to prevent compiler-induced tearing, and retain the read value so
+>> the NULL check and dereference use the same pointer.
+>>
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> 
+> Reviewed-by: Dave Jiang <dave.jiang@intel.com>
 
-it seems nicer not to fail with EINVAL not with ELOOP as we currently
-do, so the patch is fine. but the commit log if weird, looks like
-an ai hallucination.
-
-
-"an attacker" "vulnerable" and "leak" - is there an implication that this is a
-security problem somehow? Because I do not see how this data gets
-anywhere.
+Probably should take a look at the sashiko raised issue.
 
 > 
-> diff --git a/drivers/vhost/vringh.c b/drivers/vhost/vringh.c
-> index 9066f9f..0767748 100644
-> --- a/drivers/vhost/vringh.c
-> +++ b/drivers/vhost/vringh.c
-> @@ -197,8 +197,9 @@ static int move_to_indirect(const struct vringh *vrh,
->  	}
->  
->  	len = vringh32_to_cpu(vrh, desc->len);
-> -	if (unlikely(len % sizeof(struct vring_desc))) {
-> -		vringh_bad("Strange indirect len %u", desc->len);
-> +	if (unlikely(len < sizeof(struct vring_desc) ||
-> +		     len % sizeof(struct vring_desc))) {
-> +		vringh_bad("Invalid indirect len %u", desc->len);
->  		return -EINVAL;
->  	}
->  
-> -- 
-> 2.50.1
+>> ---
+>> Changes in v2:
+>>   - No changes.
+>>
+>>  drivers/ntb/ntb_transport.c | 22 +++++++++++++++++-----
+>>  1 file changed, 17 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
+>> index 7ccba2c04f54..b949f36a4f2d 100644
+>> --- a/drivers/ntb/ntb_transport.c
+>> +++ b/drivers/ntb/ntb_transport.c
+>> @@ -489,6 +489,7 @@ EXPORT_SYMBOL_GPL(ntb_transport_unregister_client);
+>>  static int ntb_qp_debugfs_stats_show(struct seq_file *s, void *v)
+>>  {
+>>  	struct ntb_transport_qp *qp = s->private;
+>> +	struct ntb_rx_info *remote_rx_info;
+>>  
+>>  	if (!qp || !qp->link_is_up)
+>>  		return 0;
+>> @@ -516,7 +517,9 @@ static int ntb_qp_debugfs_stats_show(struct seq_file *s, void *v)
+>>  	seq_printf(s, "tx_err_no_buf - %llu\n", qp->tx_err_no_buf);
+>>  	seq_printf(s, "tx_mw - \t0x%p\n", qp->tx_mw);
+>>  	seq_printf(s, "tx_index (H) - \t%u\n", qp->tx_index);
+>> -	seq_printf(s, "RRI (T) - \t%u\n", qp->remote_rx_info->entry);
+>> +	remote_rx_info = READ_ONCE(qp->remote_rx_info);
+>> +	if (remote_rx_info)
+>> +		seq_printf(s, "RRI (T) - \t%u\n", remote_rx_info->entry);
+>>  	seq_printf(s, "tx_max_entry - \t%u\n", qp->tx_max_entry);
+>>  	seq_printf(s, "free tx - \t%u\n", ntb_transport_tx_free_entry(qp));
+>>  	seq_putc(s, '\n');
+>> @@ -611,7 +614,7 @@ static int ntb_transport_setup_qp_mw(struct ntb_transport_ctx *nt,
+>>  	qp->rx_buff = mw->virt_addr + rx_size * (qp_num / mw_count);
+>>  	rx_size -= sizeof(struct ntb_rx_info);
+>>  
+>> -	qp->remote_rx_info = qp->rx_buff + rx_size;
+>> +	WRITE_ONCE(qp->remote_rx_info, qp->rx_buff + rx_size);
+>>  
+>>  	/* Due to housekeeping, there must be atleast 2 buffs */
+>>  	qp->rx_max_frame = min(transport_mtu, rx_size / 2);
+>> @@ -934,9 +937,12 @@ static void ntb_qp_link_context_reset(struct ntb_transport_qp *qp)
+>>  
+>>  static void ntb_qp_link_down_reset(struct ntb_transport_qp *qp)
+>>  {
+>> +	struct ntb_rx_info *remote_rx_info;
+>> +
+>>  	ntb_qp_link_context_reset(qp);
+>> -	if (qp->remote_rx_info)
+>> -		qp->remote_rx_info->entry = qp->rx_max_entry - 1;
+>> +	remote_rx_info = READ_ONCE(qp->remote_rx_info);
+>> +	if (remote_rx_info)
+>> +		remote_rx_info->entry = qp->rx_max_entry - 1;
+>>  }
+>>  
+>>  static void ntb_transport_schedule_qp_link(struct ntb_transport_qp *qp,
+>> @@ -2558,8 +2564,14 @@ EXPORT_SYMBOL_GPL(ntb_transport_max_size);
+>>  
+>>  unsigned int ntb_transport_tx_free_entry(struct ntb_transport_qp *qp)
+>>  {
+>> +	struct ntb_rx_info *remote_rx_info = READ_ONCE(qp->remote_rx_info);
+>>  	unsigned int head = qp->tx_index;
+>> -	unsigned int tail = qp->remote_rx_info->entry;
+>> +	unsigned int tail;
+>> +
+>> +	if (!remote_rx_info)
+>> +		return 0;
+>> +
+>> +	tail = remote_rx_info->entry;
+>>  
+>>  	return tail >= head ? tail - head : qp->tx_max_entry + tail - head;
+>>  }
+> 
 
