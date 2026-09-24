@@ -1,204 +1,434 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF31B3955FF;
-	Thu, 24 Sep 2026 05:36:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEDD13C13EC
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:37:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.205
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790228200; cv=fail; b=reJAm80seQFkBVjURRkKXXwKm6M0n7HThF3t+Jzw09lqmgI60MpMdP0Uw6LXsSr/HJEZGC4sdPe0r3RcxYp5dXtt4U5PiC4XNDuzyQ2CtHHSZl+dkAq2vbvVXq2vS5hboklfcPctc09hrCnuEV9CEFZ3/MUbBVKFh98tkFBl3L0=
+	t=1790228244; cv=pass; b=T2zXT94XCTndddMOZOXcDUsfW+wHkU7xXTOOdIwbmYFytdu/XokzzLk3Xqg8cnbJE7TCs03SDghbK6nQJCkf4wQFw8vJ5aY3XowdKoyykZtLTjphi1riPmBKd79MyYcKKwfqZ8K+w93YkAD2BPZAL0Q3BaWfsO+YMUBI9gNrzx0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790228200; c=relaxed/simple;
-	bh=fPv3k6p2ef0GppcOU1FFw7oDtmabALCG+5NUMGxibJI=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=ZY9CQey+0Uc30WiI/cXd6zKb0KOwV96sZFlhq6uM0nVMQnTY91wh04uy+RtPujQkJXC74BEFW7+bvrEfs981uwMoXicPM1CxwfOrHm/5mswwKg8A5Fbx0KPU3hXcW2rj1fKbK3AX9ZWpLg72pKG9RD4KD6vJNi3k8xdhWo/ZkRs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nv9GSLrk; arc=fail smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790228244; c=relaxed/simple;
+	bh=gYYABWvrzWCrywRLbq27Xdlb4j078Tukxz87WLwIhkA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WKjABSw3YmsuD512ZlLotlfjQXT4BriZyR58TP9LlgsA86rvfHfsdMsHWSvdtvIA3HgtXTM+6cJkRxpYdDKUHgOY80h4G5X9xe+olAwzOZt8RKwuzOPx6fFiQARpD0U66Ftr8sf0YuCovF90RLzZmEL3NYl346x6NuEGbrq7wCY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tomeuvizoso.net; spf=pass smtp.mailfrom=tomeuvizoso.net; dkim=pass (2048-bit key) header.d=tomeuvizoso-net.20251104.gappssmtp.com header.i=@tomeuvizoso-net.20251104.gappssmtp.com header.b=aJ2+9FRf; arc=pass smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tomeuvizoso.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tomeuvizoso.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nv9GSLrk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790228199; x=1821764199;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=fPv3k6p2ef0GppcOU1FFw7oDtmabALCG+5NUMGxibJI=;
-  b=nv9GSLrkBgS0PNkAUnIS2IDwIKH5v0Ych/vdvxjDOiqJ0AVe3Up0fsKu
-   v7IfIqDOeVL1g6stfUY2fBVnrnXRy0ZjukjUmabHwtTbUb/caglpi+6vD
-   HgMFSFZCuGKeZsVcy0Q5MtCxV5RX3gAf5suFoOlkoLTHEz5aPJEunNUBC
-   vXASoXBFesjTCbYAd8Sddwy17UiH1EJDjKQ4ZuNiQxqc34hDS22xZc5fX
-   8SAsqpUyebLebID0Lq4Jcv859dvcudrpMFxFaW9rvXTmgnz6Y2tJKTcq5
-   lHo3Lgfre5pkzYeloV3LRlgLUbb85xm/EvoBZTBgQQ7FrP+CgSsHI9rIO
-   Q==;
-X-CSE-ConnectionGUID: XxqF/MRpT+uQv91eY7ohPg==
-X-CSE-MsgGUID: AwWNXfpORZ2RiFsE6bVVsw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="89761184"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="89761184"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 22:36:37 -0700
-X-CSE-ConnectionGUID: UOqMajaMQHGzmuYTXpbRcw==
-X-CSE-MsgGUID: PHbqJL90T3y0YbDi09IL5Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="301866671"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 22:36:37 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 23 Sep 2026 22:36:36 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Wed, 23 Sep 2026 22:36:36 -0700
-Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.42) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 23 Sep 2026 22:36:36 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KQAV7RDjpPrqrFECE8o75ijZimm0gFhXz5Z6sHAS2E6ce5ZGfHbSMKtep1BhvIzmxyT8ldGDMwYibTOce5agD0cDrZQP98C4DsFReMgJyXFrW12vvwOc0+ag2jXehF1DZooymmpj/TAn+Y+24Z/EAFdDPqlm3iMWVpYnQTeRUn8fdR8UXaKQfDnf3OxHFXRll/6PKQleExYZ8dsbQdbSqQpDHWLi9agnCoRoIK1C1q5cpZugX+4+4KpQAqR7BAvGpwU4rxGQe4FRIoiTyWcop1If+9wrmJvbyHPomopij4hOr98jFJge8kc/jauKTw2g2Yg2/FVRcUUQKm4+stmwhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0bb9XcUPf0TLMINZA99RW78whINUc8lus0Ihwm7/26w=;
- b=WbCmAW+7Frh1F4wL1j3JJ3NQoEKFEGliecNHPQU4gqD6Rz6B1VB7vfW06eZ2udlVTCOUJb1eVORHHQHy5OPTSLRfAO2YNz4LrtR7sqcNxMYUiSiziFpsuVM8CVTmr1oGdYF/4RAC+6SEXRr+JCGCwW+L1/twrY8UsUnqhJhA5yY+53pXQZy1u4HcHvHz5idgXO9XU9oa86//71tkTJHG25QW1SEDOdgF2iVfBSWU/zz7cUiaQ55LeST5Dl5x51F55UIkmq9IhY4wZ+rEjgaoRZtzEsLzHqSkhNyHFRjf1qEhtEBY4qaqaKVxyA3I2mSd4RlRjb5gxG0GQz+icaU3Xw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA0PR11MB8380.namprd11.prod.outlook.com (2603:10b6:208:485::21)
- by MW3PR11MB4681.namprd11.prod.outlook.com (2603:10b6:303:57::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Thu, 24 Sep
- 2026 05:36:34 +0000
-Received: from IA0PR11MB8380.namprd11.prod.outlook.com
- ([fe80::ea8e:eec4:f8d3:f95d]) by IA0PR11MB8380.namprd11.prod.outlook.com
- ([fe80::ea8e:eec4:f8d3:f95d%2]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
- 05:36:34 +0000
-Date: Thu, 24 Sep 2026 13:36:25 +0800
-From: Chao Gao <chao.gao@intel.com>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-CC: "kvm@vger.kernel.org" <kvm@vger.kernel.org>, "linux-coco@lists.linux.dev"
-	<linux-coco@lists.linux.dev>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "bp@alien8.de" <bp@alien8.de>,
-	"x86@kernel.org" <x86@kernel.org>, "kas@kernel.org" <kas@kernel.org>,
-	"hpa@zytor.com" <hpa@zytor.com>, "yilun.xu@linux.intel.com"
-	<yilun.xu@linux.intel.com>, "mingo@redhat.com" <mingo@redhat.com>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"tglx@kernel.org" <tglx@kernel.org>
-Subject: Re: [RFC PATCH v2 01/10] x86/virt/tdx: Add a helper to read a table
- of metadata fields
-Message-ID: <arS22QlRhb3nLUzm@intel.com>
-References: <20260918132946.76533-1-chao.gao@intel.com>
- <20260918132946.76533-2-chao.gao@intel.com>
- <073407d07707e1fd083f238674560c5b7eb1c4c6.camel@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <073407d07707e1fd083f238674560c5b7eb1c4c6.camel@intel.com>
-X-ClientProxiedBy: TYCP286CA0023.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:263::10) To IA0PR11MB8380.namprd11.prod.outlook.com
- (2603:10b6:208:485::21)
+	dkim=pass (2048-bit key) header.d=tomeuvizoso-net.20251104.gappssmtp.com header.i=@tomeuvizoso-net.20251104.gappssmtp.com header.b="aJ2+9FRf"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93a222edc62so173467585a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:37:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790228235; cv=none;
+        d=google.com; s=arc-20260327;
+        b=idF+LIedl+zI6h26qKS2wUOBLz9qgaVxURhOj+TY6+1GRrvy8llY7I/H1Nbi8zjfxf
+         6ooYP2c5bfbPYMJ7r2z2TmAmwL6eneNwMNwhsRi+xse7K8XdfAFGzE4VSNcAKVEb9TNJ
+         mUdNZBDcx3dyla1xC0HQNEKO0pw0s3emeVHai0XYTy7gNn9lOcyGqEWlwmDU70wA5Qfq
+         MLaOst5lCZYTBJ27QR8xLXSsNVynSgTUookOlMXplkdTcaeIWSBoUt6I8lDbfiyNjY9I
+         XkJvt1SzMeuEySSCb8/gL9Edkk9w7aJKLyrWDARtXrIu+hQCBJ3AO8NkFbU5dN9uej2G
+         1ZcA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=JbMG4zqiZ/OkaBccj6JyoRnc/aUdA2Ht5rV8ITRVvvY=;
+        fh=KMcpmhQhnUZ7OG9AogUW8sSKDyoQxo4MBVL37Qkn7Po=;
+        b=gn9nYsrFCslXUDNnITXlP0Hrlt+iJ9Iemt3C4znjpid2VYZGmM/+NbCHmwQpzKXTCD
+         rWNgiNdzM1QMIzMqwhWeX7TX3QhVbUMzTrfqfslJIWDvuRgii41SXNtFECFQGhjOYVNz
+         uu1ExRlrCN/Ju1O4i6Kmqe0TWXL+QKntW0QiM2RirqwLAhIGSfvGXu13/fmZtrYMKloa
+         os3H5PdH5fyNZnBz7lfGj3KREYvZ2quolD+hwNuKbsIEfKSz/Mmh0YfZ/ZMs0f2GJrSl
+         Pm3QRwnXIvDKMKseucMYryEmfKxZA+o5hEiRxbrI2QzdZOnEr/A1pZVRe04XtbGLHPvo
+         CUkg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tomeuvizoso-net.20251104.gappssmtp.com; s=20251104; t=1790228235; x=1790833035; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JbMG4zqiZ/OkaBccj6JyoRnc/aUdA2Ht5rV8ITRVvvY=;
+        b=aJ2+9FRfGDztrvqvN0uPlyYZL6Tl1Gq9ShADo4Z9xYdYkeMJ094YzINJGEildkGrob
+         /WCdZqtalwMAPcyvasOGUxYBMGqacKN33pv4oJE1x2stm4yMobzgGGtV4VKEGLijKJEw
+         v+iSXzKXTkI9npDoyhfkj+spPjozGm5/ybt9XWrZeDjqcBoVXe9PGoAZMdrBVr7iecI7
+         K3QhnMfSDF2aE4KrAFFKCtr6ZgBpIIL6nIPPR6tZPcfWjJnUaHGG6JKfTcqeTTXLr0Ph
+         uWMzRzDfa/Mik847S4Fq2sPfi/wZK3OHOB0V+EZy7kI7ZDxBs80B9p1BcTsPjTE45JyC
+         p4Fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790228235; x=1790833035;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JbMG4zqiZ/OkaBccj6JyoRnc/aUdA2Ht5rV8ITRVvvY=;
+        b=Rya3sc1VBEBUSHefwIQLrrzC0nhMVq/ytwAl9rl+DrQu3LKzHrCuKIt34QaQTfk8Jo
+         7dY4OrI8QQLnMbMgxUv5kL/NGvKtsNtoGNqsAGyCbIFrU9baYdcqCo/CW/2odSRuWC4i
+         giualBIwwsDB0JO7nQomfJL9XWgrVVSNbiYn/hkAsCZtXRnDklpipYQQz7bX2zhNIaBg
+         pmi3XyCh+M4mjZjQj1yV0b5BzcBmQbCyak5XXXCoXD/9dI2DZKjomiCdnCmSNX4lYmpg
+         1KqnZ8gE91tGY9lYmSC8HP4cGgP9wQAP+5Ggvn8oy+s0tWBsP0R+nqChjAl7M4vb0lqm
+         C4XQ==
+X-Forwarded-Encrypted: i=1; AKwUvByfXvJkhFgdDiGQPpx+D/0NcqiPCfF59ic1W72XQ0Ree9fCICj16ygCzL9wVGsjxx56Q+WjlGGy8jTi5XU=@vger.kernel.org
+X-Gm-Message-State: AFuF++ljKiMm19bPgc8MF4aDKT3i+NL1y8l2Qd5BYzyr+ZORL7385ZMs
+	KbiKLyeUtsjmzOdzY1/Ksr42mHCns4XRtBS58sVKAIX1982hsz7+M6YjweZCxclvhad5KvvetyB
+	YshFdRYxJh+MigoJMmK/yuDheNr6nRX6FhfL9CBE77Q==
+X-Gm-Gg: AYBFou0TpPuZhT4qZTk9wpq4QieypHXQQyg8/cDe4tda0KNuNsKBKQdHQISwsjdVpnb
+	2RZQVCX4tPO5QF3oVOT+V13AF+b6qm0rdAlohbO+Rhm6PdB7aQeyUOcbtOzLn/6/4KJS8/pRSDv
+	V3RNv6sqTXSAqEBvB+62KLXd1X9a7jEKjSfqzRSPMM08NgDS1LInTDs27PysgbWi5QUaz2ww5dU
+	xK5fq82/xxHt3fG02EDMVgvwXMDm1iYm0GbpzLZE1bpZCtcXw1p/0VoHeAyM39y6++a7UHSToII
+	PyRhEpVMlFnVR/XAmPqIM3ffs9c2XkAxI+wPFjnx9q5rVrROa4Pfwh6eGoRSpMff1A==
+X-Received: by 2002:a05:620a:454d:b0:939:7c8:78a9 with SMTP id
+ af79cd13be357-93c3624c437mr124018985a.3.1790228235521; Wed, 23 Sep 2026
+ 22:37:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR11MB8380:EE_|MW3PR11MB4681:EE_
-X-MS-Office365-Filtering-Correlation-Id: 72941fd0-ecd9-47bf-8ec2-08df19fdcb8c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|7416014|4143699003|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: mkvfgIR/aOeTZewzMhOc+dmY20pJoWyqSFNK9FOJ9haOxotOm5XEZlIL8J8E3nAVxzsYZ0XwnRE8WgzwoCNIORt3BpsR0F0GKQFbfbXMr9sWsKUOwMzQ+kW2dQgHLE+QP+lFjUw3spAXpl3DYdN8OBIro7x51FDRWTb8NJEIW7taYCOFHdIKYT88sSheVCjhjlFzuy8vndEWZKZWS2mxKeasezBKUzYc/u/KD/XVLa4ysLN8To7YAPkZpHnUmirohWlrPLti+YgnuRS650RZ9UheZIn890Y/FSrnbbmQH3ZlFVeMf76A9fLnWDAQvahfRCDBGXfHsWQWUln51MtTkNvtJp4n1RtGTLgAF5sf/oDSdaz7O6TUxBUTXb47mWhp5D5iqVq9+dD3YzRcd0du5gAUQT76hBJGZUZep4Wbb1bnNYw/6nKO/kocoTMiMjw9VfMWnBC1nUQzliGTirHcSJ/OdvdKagPSxnng8gigWerkKpYnPKjkY3LZZOWrtwYvJcwvjboz0QVM67MoV2/116ayGB6xNfuWcnKsFsNnO+t4ScKJJUzlIOxHyZBGI8vV+uhWQidb6T2exMJanBKuDQ08psIbnUnakUO0lBddn1TFvpzTO9uKUh2aPW3dJEsXLpvkJo530tSU31/C3jLnHHez+HkWDg//ndbE5+of6pA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB8380.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(7416014)(4143699003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?lhglcfs89AUYvKhqgBRTCPJ3Z164TBpcKKLUR3AwAgr/PK8MBT1M33eP2/Wj?=
- =?us-ascii?Q?J7J1HhdJWce/2zNWXeAqsY6LJjag8iIBlWKs0nj3lJfZtu6c3TVVFkvQeoeh?=
- =?us-ascii?Q?GKaAO/3LD1ITomHpqc+aVPNK/BnCc94qAYnc0oULJs59KuMoySJT8HqaBawl?=
- =?us-ascii?Q?7ig5oEoAQkvTRF7rM7afVxexQMKjUXWpVWZPp5XSttQ5qYnSUwl56e9egsMz?=
- =?us-ascii?Q?oOydCHTOk544lVQwxYzlgI4fuf2APKdso+ES5YLvOyCtIZIm+kLEJAw6HpQl?=
- =?us-ascii?Q?EbvhZh46ubJBlL3FqhDSk8Cj0CT5DBH2M6uVdamHkeZGcqLvlGb67d1ggyk4?=
- =?us-ascii?Q?aj+nlDgrALiLqYs0omU6Tc9PUENueTMSUjG7ojtU7+eS1n2FHU6QBY8LfqAY?=
- =?us-ascii?Q?Sbkl/Ki+E0/idrBYuDGRqVzU9vch3g00DrZ0g6jtWxVnsGAktHGKS+45z8f8?=
- =?us-ascii?Q?BkzRIxwBnUcqL/WZJWdiVihgqIFLCcFq9VOLUHqLK71CLv0WeywFc/McawTM?=
- =?us-ascii?Q?ug9q+X/NRB6ykqQSL+0UkS52lV1ghZxlkM3/WWZH+vtK4gLyyaC0cAxD7TBy?=
- =?us-ascii?Q?Sh0M8alcZC7c9YzcKhAhAJw5OfbnqYb6b7oI63thxgF/6tWSkmQ3CsPv0Ltb?=
- =?us-ascii?Q?4dS1Apo4m6Wx61F4tocBEJ8K0RbAuoizBJzHWCPBXJ2MT0KfX/DTTXg/dMKX?=
- =?us-ascii?Q?v56rc2Tj3C4cW4+uUn15juBIAub0VbTXesiRyaDUWxU+XDtxLV5IcuBhlNHv?=
- =?us-ascii?Q?1VKDD/sia5W0X1ZnmojoChS3K+WfOC0vwBeFtBHYHZkOURrW6viOtaPhmgNk?=
- =?us-ascii?Q?PUgCYK7plZIicOF5UgNh5fiU61AMt2iz2wzFJi+DhbPazIhVY2cA7RcOYaqG?=
- =?us-ascii?Q?TC/qCkuuAZKFxagypkcV8VjxnPUHtxMqLQDqyG7++5r/uF4lnbwtg1Xux8Kq?=
- =?us-ascii?Q?YYM1h2ScaDA6jEYursDhW1UY0Hx2UfLoYqZpna9TCHe8pc54JP5Ny3BXU2gf?=
- =?us-ascii?Q?97FDfl+xD5iInFZ+ICgPHyZ4RTE8BOP4eD1kfPNaJ4f71mKVPtWoNmjmKp9S?=
- =?us-ascii?Q?4N5zLxCjysRZdgfuhXbhBJfz4JRyyElhyQtuqplnA1mYZaRmyuriBNG3hxlA?=
- =?us-ascii?Q?ARDr7z4hChXiM7ooIjr+7JIdTMA00fyimoBpXOhXOyOSL2bK6MpmVMtUvXWf?=
- =?us-ascii?Q?Ru5NDN+vT3nlFEb9SG/EafLVHAKBenc/VuOdB93s5htfcTlbYqI2JKNiUJxt?=
- =?us-ascii?Q?ifOlKNz07xkA3s/K2J03BXBpUB3M7OWpDo4VUrM5GeMcbOvmlqT8YFClk/HH?=
- =?us-ascii?Q?f/oSpzh7zYkC5wPKn9joWOWZpbM6SFVUH0cUAhWa5j355DH5HdpkdHDnq2OV?=
- =?us-ascii?Q?QWDODCUnvucVUW+8/9SD7l+CqasTByZCNY8C4lHYJK9YQpFHeLuAnW5qaqst?=
- =?us-ascii?Q?HmywzWHk/9BxtuOZdmALyZ7kA+1bvr23PNWMB687bE+7gpKigW6CN4Y/gVp7?=
- =?us-ascii?Q?/Cgf3wmRDvxnK6/ezNR+WmbMiA6JN1R6/UmkfljmGoss382KXxfcpmwnMGYl?=
- =?us-ascii?Q?x7qMPbCKVtg/YsNnM+1E2SVIraGUrU1EvNGBtJlge+zrrjA9oFIMe1rRWj1w?=
- =?us-ascii?Q?eRfdFgkJpbWHOPi0bMjEr9fWodP6fOqSSTKwxAcgr71tqes4Fi5mM+wz2KPz?=
- =?us-ascii?Q?BrryB84IAxZz9rry4RMAnBxVfMB1rcDdGnV7fSPTMmfvjduD+vs5Iy+ABk+D?=
- =?us-ascii?Q?1ocXC3x+Bw=3D=3D?=
-X-Exchange-RoutingPolicyChecked: 4um0oXH7o5j+r9Gl8UyDqqXvCc8ywZkxUjdINfizenDMPzK69pjNkcqrQs6ktx/ifVGG6GiA6BAYTkEoDKToPQdj1jXxYF77EVYZtZaG6FtNeiHvphP5Oat3QVOfGhX+pjFrDK95Psw1Eq9jZ4WWaze8BEr/A96RHnSB98LspUr+yCZu4krt+xRJl/lEwmGja5VPIM6XLp1r8A/jDeszQA0gC778pCkxT5jaI6yXgSxbV21uzUaeRILJddcvbduU9B76syv4Ktj0/Y6A7vP27VlK2bKUCS8neIqyh0EE5eYicJNzNQuVNbFB6snsPkuofX6GpO+ZT6uaNlPpZyVmdQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72941fd0-ecd9-47bf-8ec2-08df19fdcb8c
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB8380.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 05:36:34.5369
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aMzPGJyJMDq4igpoV9+IiwUAEWJfvlON39XmmA7d4waWl02eOhvOj+HL85hMDw2kPpvfeKBlaHaStWkf0bXphA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR11MB4681
-X-OriginatorOrg: intel.com
+References: <20260922080114.44662-1-royalnet026@gmail.com> <9cc5365470490b4b66364e60fb614ccda7e86c6f.camel@ndufresne.ca>
+In-Reply-To: <9cc5365470490b4b66364e60fb614ccda7e86c6f.camel@ndufresne.ca>
+From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Date: Thu, 24 Sep 2026 07:37:04 +0200
+X-Gm-Features: AclHuK8Y0NEf5VN1Cbu5OA6iR9xp1rCRe0K2JWI2xywYRTGFTyVhElExJIQj77o
+Message-ID: <CAPsqS2SC1GvzALUdf2xsHZDpNjDO7BXrmzk19OYTF6YopQc8iw@mail.gmail.com>
+Subject: Re: [PATCH v2 00/11] accel/rocket: DVFS for the RK3588 NPU
+To: Nicolas Dufresne <nicolas@ndufresne.ca>
+Cc: Igor Paunovic <royalnet026@gmail.com>, Oded Gabbay <ogabbay@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>, Robert Foss <rfoss@kernel.org>, 
+	Sidong Yang <sidong.yang@furiosa.ai>, Diederik de Haas <diederik@cknow-tech.com>, 
+	Sebastian Reichel <sebastian.reichel@collabora.com>, Jiaxing Hu <gahing@gahingwoo.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Guangshuo Li <lgs201920130244@gmail.com>, 
+	=?UTF-8?Q?H=C3=BCseyin_BIYIK?= <boogiepop@gmx.com>, 
+	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 24, 2026 at 06:20:09AM +0800, Edgecombe, Rick P wrote:
->On Fri, 2026-09-18 at 06:29 -0700, Chao Gao wrote:
->> The metadata field readers get_tdx_sys_info_<class>() in
->> tdx_global_metadata.c were generated by an out-of-tree script. That has
->> not worked out: the JSON file they were generated from is neither stable
->> nor authoritative enough [1].  The goal now is to maintain the readers by
->> hand and to establish one standard way of adding a metadata field.
->> 
->> Take get_tdx_sys_info_version() as an example:
->> 
->>       if (!ret && !(ret = read_sys_metadata_field(0x0800000100000003, &val)))
->>               sysinfo_version->minor_version = val;
->>       if (!ret && !(ret = read_sys_metadata_field(0x0800000100000004, &val)))
->>               sysinfo_version->major_version = val;
->>       if (!ret && !(ret = read_sys_metadata_field(0x0800000100000005, &val)))
->>               sysinfo_version->update_version = val;
->> 
->> Two patterns stand out: the read-check-store sequence repeats once per
->> field, and the error of each read is chained into the reads that follow.
->> Neither is common in hand-written code.
->> 
->> Eliminate both with a loop that reads each field, stores the value into
->> its structure member, and returns on the first error.
+On Wed, Sep 23, 2026 at 9:29=E2=80=AFPM Nicolas Dufresne <nicolas@ndufresne=
+.ca> wrote:
 >
->"Prepare to eliminate both..."?
+> Le mardi 22 septembre 2026 =C3=A0 10:01 +0200, Igor Paunovic a =C3=A9crit=
+ :
+> > The rocket driver runs the NPU at whatever rate the devicetree pinned
+> > it to: 200 MHz on the RK3588, out of the 1 GHz the hardware reaches.
+> > This series adds devfreq, the OPP table and the thermal plumbing that
+> > go with it.
+> >
+> > v1: https://lore.kernel.org/r/20260904130858.27803-1-royalnet026@gmail.=
+com
+> >
+> > As Tomeu asked [1], the slot-search fix now leads the series, with the
+> > two rocket fixes this builds on and, as patch 4, 2/2 of my July
+> > lifecycle series [2], without which v2 oopsed when one core was unbound=
+,
+> > bound and unbound again. KASAN found that v1 4/7 (now 8) kept a clk
+> > handle that unbinding freed; the notes under each --- list the rest.
+>
+> In future series or update, can you use common formatting in the future, =
+I find
+> your changelog hard to read. Do something like:
+>
+>   Since v1:
+>    - Changed patch X with action Z
+>    - Fix blabla
+>    - ...
+>
+> Its actually good to be more concise in your communication, "wall of text=
+" are
+> difficult to cope with for maintainers.
 
-Yes, that makes sense since this patch doesn't convert any readers.
+I will go a bit further and recommend you to not let the LLM write any
+text at all that is to be consumed by humans. If you don't feel
+confident in your English, you can ask it to correct and improve your
+text. Or write it in your mother language and ask it to translate.
 
->> +#define TDX_SYSINFO_MAP(_field, _type, _member)			\
->> +{								\
->> +	.field_id	= TDX_MD_FIELD_ID_##_field,		\
->
->I find it a bit hard to search the code when it constructs the
->"TDX_MD_FIELD_ID_" part of the define inside the macro. And since they are all
->named "TDX_MD_FIELD_ID_FOO" it seems a bit verbose and repetitive. Can we have a
->smaller pattern such that we can use the exact macro name in TDX_SYSINFO_MAP()?
->Maybe like this:
->
->#define TDX_FIELD_MODULE_HV 0x8900000100000000ULL
->
->static const struct field_mapping handoff_mappings[] = {
->	TDX_SYSINFO_MAP_HANDOFF(TDX_FIELD_MODULE_HV, module_hv),
->};
+Otherwise, if I need to make sense of what the LLM wrote (and they
+will happily write a lot!), then I need to find big slots of time to
+go over this kind of submissions, which is difficult for me now.
 
-Looks good. Being greppable is a good property. Will do in v3.
+Regards,
+
+Tomeu
+
+> cheers,
+> Nicolas
+>
+> >
+> > Hardware constraint
+> > -------------------
+> >
+> > The three cores share one clock and one supply. The clock comes from a
+> > PVTPLL inside the NPU power islands: for a PVTPLL rate the firmware
+> > programs NPU GRF registers inside the islands, for the 200 MHz boot rat=
+e
+> > it only switches CRU selectors to GPLL (clk_npu_set_rate() in
+> > plat/rockchip/rk3588/drivers/scmi/rk3588_clk.c, TF-A v2.12.0, which
+> > Nicolas pointed me to). An island powered up while the clock is above
+> > the boot rate never acknowledges the power-on, and the next register
+> > access into it takes an asynchronous SError. Returning to the boot rate
+> > is safe at any time; raising the clock is not, so while it is above the
+> > boot rate every core is held runtime resumed and no island can
+> > transition. Unbinding any core takes devfreq down until all are bound
+> > again.
+> >
+> > The firmware accepts only the nine rates of its rk3588_npu_pvtpll_table=
+,
+> > 300 to 1000 MHz in 100 MHz steps plus 200 MHz, and refuses any other.
+> > The refusal never reaches the caller: clk_change_rate() ignores what
+> > ->set_rate() returns, so clk_set_rate() reports success and the clock
+> > stays put. Hence patch 7 names exactly those nine.
+> >
+> > The table is on all three cores with opp-shared (Nicolas's review);
+> > the one devfreq device sits on rknn_core_0, the lowest devicetree index=
+.
+> > Patch 9 explains the maximum over the cores and why runtime suspend
+> > does not call devfreq_suspend_device().
+> >
+> > Testing
+> > -------
+> >
+> > Orange Pi 5 Plus, 7.3.0-rc2 (drm-misc-next 3afbeb6b99dd) plus this
+> > series, in-tree rocket, BL31 v2.12.0-10-g70d814213: the edk2-rk3588 TF-=
+A
+> > branch with upstream d2d6928641ba, so that it reports the PVTPLL rate i=
+t
+> > measures. MobileNetV1 through Teflon, 3 x 20 s per arm, one thread
+> > pinned to one CPU, CPUs on the performance governor, a bit-exact oracle
+> > on every inference, polling_interval at the driver's 50 ms, core 0's
+> > interrupt on a CPU with its deep idle state disabled.
+> >
+> > cur_freq is only the driver's request and scmi_clk_npu on the GPLL path
+> > echoes the last accepted rate, so the CRU selector is the witness
+> > (CLKSEL_CON74 bit 0 =3D PVTPLL, CLKSEL_CON73 =3D GPLL divider), read on=
+ce a
+> > second:
+> >
+> >   200 MHz OPP, userspace     91.15 inf/s   CRU GPLL/6 =3D 198 MHz, 700 =
+mV
+> >   1000 MHz OPP, userspace   234.45 inf/s   CRU PVTPLL (BL31 1 GHz), 850=
+ mV
+> >   simple_ondemand           232.88 inf/s   OPPs 200-1000 MHz
+> >   200 MHz OPP again          90.87 inf/s   drift 0.997
+> >
+> > That is 2.57x pinned and 2.55x under the governor, 0.7 % below pinned;
+> > the oracle and the interrupts per inference were the same in all four
+> > arms.
+> >
+> > Three clients, each with its own oracle, all three cores computing
+> > together, output bit-exact and identical to a single-client control:
+> >
+> >   OPP                one client   three clients              total
+> >   900 MHz, 800 mV      234.42     199.33 + 198.95 + 199.19   597.47 inf=
+/s
+> >   1000 MHz, 850 mV     240.49     203.16 + 203.01 + 203.46   609.63 inf=
+/s
+> >
+> > After 25 s of load the governor is at the 200 MHz OPP from the first
+> > sample (0.24 s apart) through the 60 s idle window: CRU 198 MHz in all
+> > 60 one-second samples, rail 700 mV. The islands were power-cycled five
+> > times at 700 mV and powered down once more after a raise to 1000 MHz.
+> > All six bind orders give bit-exact output, with devfreq and cooling bac=
+k
+> > on rknn_core_0 after every rebind.
+> >
+> > Unbind and reload: 25 rounds of all three cores, 4 of a single core wit=
+h
+> > an inference while it was gone, 5 rmmod rounds, and 3 unbinds plus 1
+> > rmmod with the clock raised (CRU on the PVTPLL before each). Without
+> > patch 4 the single-core round oopses, as its commit message shows.
+> >
+> > On a KASAN, kmemleak and PROVE_LOCKING build of the same tree the unbin=
+d
+> > (no client submitting), reload, three-client and island tests gave no
+> > report and kmemleak nothing from this driver, and a lockdep run through
+> > the governor, cooling, three clients, and unbind and rmmod with the
+> > clock raised to the 1 GHz OPP left lockdep enabled.
+> >
+> > Build: the series was rebased onto drm-misc-next 8ef59ee79407 to send
+> > it; apart from one comment corrected in 9 (rocket_devfreq.o is
+> > byte-identical), the patches are the ones tested above. On that base,
+> > arm64, gcc 13.3: each patch that touches drivers/accel/rocket builds
+> > with W=3D1 and no warning, and sparse reports nothing in
+> > drivers/accel/rocket; 9, 10 and 11 also build with W=3D1 and no warning
+> > with CONFIG_DEVFREQ_THERMAL=3Dn. dt_binding_check at 6 and 11, and
+> > CHECK_DTBS on rk3588-orangepi-5-plus, rk3588s-orangepi-5 and
+> > rk3588-edgeble-neu6b-io at the base, 7 and 11, give no schema warning.
+> > A full Image, modules and dtbs build at 11 completes with no warning
+> > from drivers/accel/rocket. checkpatch --strict flags only the 75-column
+> > oops line in 4 and MAINTAINERS for the new files in 9, which
+> > F: drivers/accel/rocket/ covers.
+> >
+> > Two corrections to my reply of 9 September [3]: the supply could have
+> > come down to the 200 MHz voltage even had the clock change failed, sinc=
+e
+> > the refusal is not reported, so the CRU selector is the witness now; an=
+d
+> > the v1 governor arm was the governor running, not limits pinned by hand=
+.
+> >
+> > Not done
+> > --------
+> >
+> > - Unbinding a core while clients submit is still unsafe. Patch 3 notes
+> >   that an open file keeps an entity on the departed core's scheduler;
+> >   on the KASAN build (three clients running, then as root
+> >   "echo fdac0000.npu > /sys/bus/platform/drivers/rocket/unbind") that
+> >   is a use-after-free:
+> >
+> >     BUG: KASAN: slab-use-after-free in _raw_spin_lock+0xb4/0x118
+> >      drm_sched_rq_remove_entity+0x94/0x2b0 [gpu_sched]
+> >      drm_sched_entity_select_rq+0x1f4/0x698 [gpu_sched]
+> >      drm_sched_job_arm+0x50/0x258 [gpu_sched]
+> >      rocket_job_push+0x2f8/0x6b8 [rocket]
+> >      rocket_ioctl_submit+0x888/0xd28 [rocket]
+> >     Freed by: drm_sched_fini <- rocket_job_fini <- rocket_core_fini <-
+> >               rocket_remove
+> >
+> >   then a soft lockup: drm_sched_fini() frees the run queues while the
+> >   entity still points at one. drm-misc-next has the same path (read,
+> >   not run): rocket_job_open() builds the entity over every core, and
+> >   rocket_remove() ignores open files. The fixes I see are policy,
+> >   suppress_bind_attrs (undoing patch 4) or unplugging the DRM device
+> >   when any core goes. Tomeu, which would you prefer? I will write it.
+> > - Probe and remove are not serialised against open, and a file opened
+> >   while a core probes can see its scheduler uninitialised; both predate
+> >   this series.
+> > - Lifecycle 1/2 [2] (a devres leak that moves the accel minor up after
+> >   every full unbind and rebind, invisible to kmemleak) builds on
+> >   Guangshuo Li's "accel/rocket: clear rdev on device init failure" [4],
+> >   which is not in drm-misc-next. Sashiko's other pre-existing findings
+> >   on the standalone slot-search patch, which I agreed with [5], stand
+> >   unless patch 4 covers them.
+> > - Not exercised: a devicetree without the OPP table or without
+> >   assigned-clock-rates (code-read only), throttling at 85 degrees (not
+> >   reachable here), system suspend (s2idle does not resume on this board=
+,
+> >   for reasons outside the NPU), kexec from a raised clock, and any othe=
+r
+> >   board. No milliwatt figure, no energy model.
+> >
+> > Routing
+> > -------
+> >
+> > Patches 1-4 are fixes with Cc: stable and 9 builds on 1, 2 and 4, so th=
+e
+> > simplest route is all but the two dts patches through drm-misc-next. Th=
+e
+> > binding (6) must land before those (7 and 11, Heiko's tree), which I ca=
+n
+> > resend once the rest is in. 1-3 supersede their standalone postings
+> > (links under each ---); 5 is also 01/14 of Jiaxing Hu's RK3576 series,
+> > and whichever lands first, the other drops it. I have not rebased onto
+> > that series.
+> >
+> > Questions
+> > ---------
+> >
+> > Q1. DT maintainers: is opp-shared on all three cores the right
+> >     description of one clock and one supply? v2 leaves opp-suspend out;
+> >     Nicolas found it "not 100% fit" for 200 MHz but not unfit either,
+> >     and asked for your view [6].
+> > Q2. Maximum over the cores, or a summed busy count? And no OPP table
+> >     means no devfreq and no error, as in panfrost and lima: the policy
+> >     you want?
+> > Q3. assigned-clock-rates stays on all three nodes. Jiaxing reports that
+> >     on the RK3576 it hangs the board before the console when set on the
+> >     SCMI clock, and that the vendor driver never writes that rate from
+> >     DT [7]. I have not booted this board without it. Keep it, or drop i=
+t
+> >     in a patch on top?
+> >
+> > Nicolas also floated the component framework; I have not tried it.
+> >
+> > Credits
+> > -------
+> >
+> > Nicolas Dufresne: review, opp-shared, the TF-A pointer, and a proof of
+> > concept with the same rates and voltages. Tomeu Vizoso agreed to the
+> > full-range table [8]. Jiaxing Hu: the RK3576 multi-core corruption the
+> > three-client test answers, a test and a review. Sidong Yang: the report
+> > behind patch 3 and a test.
+> >
+> > Jonas Karlman pointed me at his GPU approach, a .config_clks() that
+> > checks pm_runtime_suspended() [9][10], and warned that "just reading
+> > clk_summary to read SCMI clock rate can issue SError or a freeze" [11].
+> > From the code, not a test: ->get_cur_freq() returns the last request,
+> > probe reads the boot rate with the domain on, and with the in-tree
+> > devicetree every set_rate that reaches the firmware, re-read included,
+> > runs with the cores held.
+> >
+> > H=C3=BCseyin BIYIK wrote TF-A commit d2d6928641ba, which makes BL31 rep=
+ort
+> > the PVTPLL rate it measures rather than the one asked for, and guessed
+> > early that the clock framework ignores what SCMI answers [12]; for a
+> > refused set_rate it does.
+> >
+> > The Assisted-by: LLM tags are Claude (Fable 5.1 and Opus 5; the v1
+> > cover named only Opus 5, though Fable 5.1 worked on v1 too). We wrote
+> > the code and these messages together, including the v3 changes to patch
+> > 4; it also found the silent refusal with me in the clock, OPP and TF-A
+> > code, wrote and adversarially reviewed the test scripts, and analysed
+> > the crash patch 4 fixes and the one under Not done. I threw out plenty
+> > of what it proposed. The board, every boot and measurement, the decisio=
+n
+> > to send this and the responsibility for it are mine.
+> >
+> > [1] https://lore.kernel.org/r/CAPsqS2QXQda2ftbEJb_-Qeva9ay4+4ysdpUtj8jA=
+vbyAsYiAJw@mail.gmail.com
+> > [2] https://lore.kernel.org/r/20260731064933.12548-1-royalnet026@gmail.=
+com
+> > [3] https://lore.kernel.org/r/20260909091825.10838-1-royalnet026@gmail.=
+com
+> > [4] https://lore.kernel.org/r/20260708062845.716487-1-lgs201920130244@g=
+mail.com
+> > [5] https://lore.kernel.org/r/20260904135938.8757-1-royalnet026@gmail.c=
+om
+> > [6] https://lore.kernel.org/r/9af28de2a07f7965300b898994481ccf194a30da.=
+camel@ndufresne.ca
+> > [7] https://lore.kernel.org/r/20260904110853.85150-1-gahing@gahingwoo.c=
+om
+> > [8] https://lore.kernel.org/r/CAPsqS2RRUyG1vz5Nm7990yd0hcKR5E-SWhbt0ish=
+aVYvCqQftw@mail.gmail.com
+> > [9] https://lore.kernel.org/r/ad1e526e-a4cf-4c34-88ff-1884ef2f3dfe@kwib=
+oo.se
+> > [10] https://github.com/Kwiboo/linux-rockchip/commits/next-20260619-rk3=
+5xx-scmi-gpu-clk/
+> > [11] https://lore.kernel.org/r/82c8b17e-7215-45ea-84d1-9991ba6fb541@kwi=
+boo.se
+> > [12] https://lore.kernel.org/r/20260903185147.49411-1-royalnet026@gmail=
+.com
+> >
+> > Igor Paunovic (11):
+> >   accel/rocket: search every core slot when a core is removed
+> >   accel/rocket: number the cores by devicetree position, not bind order
+> >   accel/rocket: search every core slot when looking up a scheduler
+> >   accel/rocket: keep core slots stable across unbind and rebind
+> >   accel/rocket: request the core clocks by name
+> >   dt-bindings: npu: rockchip: allow DVFS and thermal properties
+> >   arm64: dts: rockchip: rk3588: add an OPP table for the NPU
+> >   accel/rocket: restore the NPU clock boot rate before powering the
+> >     cores down
+> >   accel/rocket: add devfreq support
+> >   accel/rocket: register a devfreq cooling device
+> >   arm64: dts: rockchip: rk3588: add passive cooling to the NPU thermal
+> >     zone
+> >
+> >  .../npu/rockchip,rk3588-rknn-core.yaml        |  10 +
+> >  arch/arm64/boot/dts/rockchip/rk3588-base.dtsi |  17 +-
+> >  arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi  |  54 ++
+> >  drivers/accel/rocket/Kconfig                  |   2 +
+> >  drivers/accel/rocket/Makefile                 |   1 +
+> >  drivers/accel/rocket/rocket_core.c            |  14 +
+> >  drivers/accel/rocket/rocket_core.h            |  16 +
+> >  drivers/accel/rocket/rocket_devfreq.c         | 525 ++++++++++++++++++
+> >  drivers/accel/rocket/rocket_devfreq.h         |  67 +++
+> >  drivers/accel/rocket/rocket_device.c          |   2 +
+> >  drivers/accel/rocket/rocket_device.h          |  21 +
+> >  drivers/accel/rocket/rocket_drv.c             | 192 ++++++-
+> >  drivers/accel/rocket/rocket_job.c             |  47 +-
+> >  13 files changed, 945 insertions(+), 23 deletions(-)
+> >  create mode 100644 drivers/accel/rocket/rocket_devfreq.c
+> >  create mode 100644 drivers/accel/rocket/rocket_devfreq.h
+> >
+> >
+> > base-commit: 8ef59ee794076e2b58cff357b12de2ba5d441271
