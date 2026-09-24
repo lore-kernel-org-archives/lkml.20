@@ -1,67 +1,63 @@
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC8147A88C
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:53:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E8EC3932F9
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:53:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790276011; cv=none; b=DZCOz5m9yzMq3Qwo6wNo1XuIoK6XkWzyMYAwzuccLKkSb7JK2mSJAMq4Itny++ID4Q5yC+m8rTF+38ThhdP9kNBFt4hwaKly5Mhfg49KWdQdqj68xHSrRCXH/FuR7qvsAskBcgXf8HYprXgX1GIBeSGGg7VxhHEkXOrJRUj0Rxs=
+	t=1790276007; cv=none; b=oGw2LqiHa3+CgKRNzgoLrIXb4RiwbOjwHC9y/7x0qXh7HaGpHSu2nVvNI4IAD8Z+74o/KqOdGbLlY1PV11l4lKiCalj7Y9ibH9FqUap72xG9AdT8ToGLRqEH4CaVhZ/y7+F/OS2ep2cBHTqT0WTpLbOPgIGuWnFzHNyN0JAQ/Rc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790276011; c=relaxed/simple;
-	bh=VoZCJqAcdKh52NkheVcuBG0U5oqfe1VfRozFWjwc7Cs=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=u/hoo+SUR3MaOZxVy6JX3X0txowJId6dkWmmf2MGWLdZmWxd5P5FLyvnnIUZetTAwEdIjhoTK9EOEceRO4pK9VxtNEVIt+9Br6YXHeuxoLtMK/nmcvj++MYwWcLlLCiZYi+jlV+2oha8z0g/16dAVvbdXkGbq1bI1OMrRHjoSVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YnrnkSLz; arc=none smtp.client-ip=209.85.215.197
+	s=arc-20240116; t=1790276007; c=relaxed/simple;
+	bh=mFCx9SaOa1DLsa1592HwIjCSf09qCUhGsgx0oBbvdOw=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=jDqikSO991BL/JUWrAqD8emJxRfq5tArV70rrDOiE1r9wzOFLAPvbXEtpzJ4Fg+TDZiAjpBl2uoPEQHC6irbsRL4N9lf5GhiVv6HoJHY5Uqb6GKI2vr8wWruzA0blVIxFg9tV0pY/P9472j0x5yvHRaS0gDpaLfpfojry/LFFu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=i35oZ9RX; arc=none smtp.client-ip=209.85.214.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YnrnkSLz"
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1a439db36so49371a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:53:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="i35oZ9RX"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2df375fb9b2so853835ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:53:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790276001; x=1790880801; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Je8Zbtzi9TVkfc9qirZSoich4vSt9tMeItwKk7qkL9I=;
-        b=YnrnkSLzlwQzc/WuYhYu8syJggVenAl2zVWT2eQDIJn+bsrHeMNWJC2sUBXG/0drMZ
-         nirBKwIre3I6PMaDDzeIwmgyhQ9YMLrpMg1JCV110pGigW04Et/Af7CJgDWDyNE+EPQo
-         Pcs+PeObgnJ27MJuJccRuePvLB8wgBLg/kxBS1EldFO2dbb5lIARO/ccnL6zKQGVa6/k
-         dtVVPO1ijAPkJha9MAPNIX1UO9mrlAqs7M33sX3xJ/j5mApG0hD6Vebs88ojf4l7Az2D
-         hmvfihOgLAQz7k7eZNb+nNjr7J/df3FZcm8lkTsLIkKMC15Lly9eJFOysYeGoM2UYVJy
-         xJbw==
+        d=google.com; s=20251104; t=1790275999; x=1790880799; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hj7GgxU5UFXG75lKf//AJJLWhX6V1Phtf+qJfz4/aGM=;
+        b=i35oZ9RXdTTD5i+NoF/IBxjzPRpMxGFkpSwlc80nPq5/PgezGIx8br+h5aifaFvzbP
+         +hO1gw3k4yYIw9mVsaw+i/KaGpV7oEGqRhObrEwQb+t7HJdvqDxxLQpI4IIoT+ITroa6
+         9/Cxh5N1H7T8iLkW+z7FKxLLnmVC5Ps+nhkTZo0tIIegetXejg7PBHp50CNPeW7kPM9b
+         FJQRN3Hp5GISadLvNA0UuquY7oSCg2nGeEWPD0WaixTWihe6CEZ9iEreIUI1A83JOkfw
+         5934gTeN0I13amwIsa1EueFvtotWQIWbIKyHNk2w99PUbo2Cfd2WLCVkmkB4EzmIs07P
+         o+ng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790276001; x=1790880801;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Je8Zbtzi9TVkfc9qirZSoich4vSt9tMeItwKk7qkL9I=;
-        b=MCmQEAyBife7LOHqj7RqbEZz4nfUCuTUIFcU+c0t3liPQDQ7KIKuV+67sjRpMqbilA
-         gYnxwLQa9L082ICduK2Lm/x3rKzGIRX0C4MHz1vltuhchDFKu8djC/iojCoZuVJsiRQp
-         k7AxAiuRNTfeJRW8FAy4fMTEvEs1+9sdzldBBZMuECh54XpZJ+7lzkeyf4O2tNj74Mo2
-         tLqOrEddkW6hFJGEZGM068wrK9Rbf/zP14Yh2y7P4xapqvitsc4u5B4/Hj6WCiIQywfE
-         Mmo4RUvrkqHDog38QLD4FbkXTqa0KjC6ysU34OGQLozV36ZwiZegcaLO5fKBYg0yVbwX
-         9shQ==
-X-Forwarded-Encrypted: i=1; AKwUvByxmBXYSG5LL4CcgsYI7bYuP40FXNo2M5ArJwXHI3s7AeiqOK4xbF8FCNImnQHZLEzdKhQXOySCBToneoM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nNNXEmV7ya0FeAoaV2vZ8WyJibDdZ7o3yDR5feZMsRoLcLu3nx
-	i0ndHogWeL2VhJhd4iVURrCL9rOnaXsyUxSc6VFM7RWoFLoOpvvYYJ2i4O/5QBrm5ZTRsHGe/sy
-	1IfYTwA2NXetojlsgOykVTyHb4w==
-X-Received: from pffy18.prod.google.com ([2002:aa7:93d2:0:b0:872:cf86:5268])
+        d=1e100.net; s=20260707; t=1790275999; x=1790880799;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hj7GgxU5UFXG75lKf//AJJLWhX6V1Phtf+qJfz4/aGM=;
+        b=YHX8LTga44GKuTkSUzSab3jrzyiJV3piWbwBrNZdEpvqnPBYWMP4ZTzqeIYpMqgd3e
+         +G+mInm7V51L6uAjISlGHk6SFdRxCKTWmksOuFwOcavIms7bk8Y+glPchNtvKcbix6Dj
+         Om03svdZpPVoH3cOrdIr7t7EWBSSDRIAOp7pU0WmLDrJFzSmlT5bcs6PwP+d1guowxNs
+         CFflkI/fawBZ5mhm9xH1k6fLg9rKzDzIkR/8xWRHUebmnaKg2ajVXC/o8JXTerag41FH
+         ZVEszqKBDXQivs3A1Q7APa99dyBvBrrAs66CETGCOCR6qGGHAY7Vbv+zYz4atbU4U9nr
+         5eAw==
+X-Forwarded-Encrypted: i=1; AKwUvByfdao9WiYJ/INvJ3LCqaYPIUE29FHTDh4bJ2TdRV4BpvNNI5OoTqGQh0RNflk/cy4WygswkK6T7O63YrE=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8UjyGFlmVHCz7PQ9o3BOlfimQiz1uXvUXMNicGW28erYBt1uW
+	mBbcpbC2bsW/tllmaD0WtBSbu1EnbsSgGcSlmqZHh+lOcr5UprGfRWqHMpz2y76TjhKtlyHOUwZ
+	UmrPB/JDcb2VZWFiGWGKF7mwUng==
+X-Received: from plop21.prod.google.com ([2002:a17:902:8a95:b0:2df:73ba:2523])
  (user=hramamurthy job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a20:a109:b0:3dd:a197:7366 with SMTP id adf61e73a8af0-3de0e8bc7d7mr3170154637.63.1790276000334;
- Thu, 24 Sep 2026 11:53:20 -0700 (PDT)
-Date: Thu, 24 Sep 2026 18:53:06 +0000
-In-Reply-To: <20260924185316.2831077-1-hramamurthy@google.com>
+ 2002:a17:903:2b0c:b0:2dd:ad73:c988 with SMTP id d9443c01a7336-2df7dc4be2cmr28095365ad.32.1790275998691;
+ Thu, 24 Sep 2026 11:53:18 -0700 (PDT)
+Date: Thu, 24 Sep 2026 18:53:04 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260924185316.2831077-1-hramamurthy@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260924185316.2831077-3-hramamurthy@google.com>
-Subject: [PATCH net-next v8 02/12] gve: introduce control plane operations structure
+Message-ID: <20260924185316.2831077-1-hramamurthy@google.com>
+Subject: [PATCH net-next v8 00/12] gve: AdminQ mode related refactors
 From: Harshitha Ramamurthy <hramamurthy@google.com>
 To: netdev@vger.kernel.org
 Cc: joshwash@google.com, hramamurthy@google.com, andrew+netdev@lunn.ch, 
@@ -74,210 +70,130 @@ Cc: joshwash@google.com, hramamurthy@google.com, andrew+netdev@lunn.ch,
 	przemyslaw.kitszel@intel.com
 Content-Type: text/plain; charset="UTF-8"
 
-To abstract out the difference in implementation of control
-plane operations between the existing Adminq ABI and the upcoming
-Mailbox ABI, introduce a new gve_ctrl_ops structure which will
-contain the basic operations. At probe, these ops will be set based
-on the ABI and the corresponding ops will be called in relevant
-places.
+This series is preparing the driver for the addition of a new control
+plane mode(MailboxQ) by commonizing and reusing as much code as possible.
+MailboxQ is a new control plane infrastructure which uses mailbox queues.
+This is a new control plane to communicate with the device when the driver
+is running on bare-metal instances as well as newer versions of the device.
 
-As of this patch, only Adminq ops are set. In future patches,
-corresponding ops will be set for the new mailbox mode.
+This series contains 2 main changes to the gve driver's existing control
+plane(AdminQ):
+1) refactor some initialization/teardown path methods to make it work for
+   both control planes.
+2) add gve_ctrl_ops structure to the driver for various control plane
+   operations
 
-Implement a ctrl op to map/unmap the doorbell bar. Since this
-functionality has moved to a control op, call this op after control
-ops are set for AdminQ mode.
+The refactors are mainly around the init, reset and recover paths so that
+functionalities could be moved into the control ops like 'set_num_queues',
+'set_num_ntfy_blks' etc.
 
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Reviewed-by: Jordan Rhee <jordanrhee@google.com>
-Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
-Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
----
-v6:
-- plumb through map_db_bar error instead of overwriting it
+This patch series only sets the control ops for AdminQ mode. This is
+intended as a preparation for adding MailboxQ mode in upcoming series
+which will add the new control plane infrastructure and then introduce
+the corresponding control ops for MailboxQ mode.
 
- drivers/net/ethernet/google/gve/gve.h        | 11 +++++++++
- drivers/net/ethernet/google/gve/gve_adminq.c | 21 +++++++++++++++++
- drivers/net/ethernet/google/gve/gve_adminq.h |  2 ++
- drivers/net/ethernet/google/gve/gve_main.c   | 34 +++++++++++++++-------------
- 4 files changed, 52 insertions(+), 16 deletions(-)
+The entire list of future patches can be found here for reference:
+https://github.com/hramamurthy12/linux/commits/gve-mailbox-queues/
 
-diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
-index 021adb9108df..56148ea3cfbf 100644
---- a/drivers/net/ethernet/google/gve/gve.h
-+++ b/drivers/net/ethernet/google/gve/gve.h
-@@ -825,6 +825,16 @@ struct gve_device_info {
- 	bool cache_rss_config;
- };
- 
-+/**
-+ * struct gve_ctrl_ops - Control plane operations structure
-+ * @map_db_bar: Maps the doorbell BAR for the device and store in @priv.
-+ * @unmap_db_bar: Unmaps the doorbell BAR previously mapped by @map_db_bar.
-+ */
-+struct gve_ctrl_ops {
-+	int (*map_db_bar)(struct gve_priv *priv);
-+	void (*unmap_db_bar)(struct gve_priv *priv);
-+};
-+
- struct gve_priv {
- 	struct net_device *dev;
- 	struct gve_tx_ring *tx; /* array of tx_cfg.num_queues */
-@@ -958,6 +968,7 @@ struct gve_priv {
- 	dma_addr_t nic_ts_report_bus;
- 	u64 last_sync_nic_counter; /* Clock counter from last NIC TS report */
- 	struct gve_device_info device_info;
-+	const struct gve_ctrl_ops *ctrl_ops;
- };
- 
- enum gve_service_task_flags_bit {
-diff --git a/drivers/net/ethernet/google/gve/gve_adminq.c b/drivers/net/ethernet/google/gve/gve_adminq.c
-index 512349c5517f..08d8e49d563e 100644
---- a/drivers/net/ethernet/google/gve/gve_adminq.c
-+++ b/drivers/net/ethernet/google/gve/gve_adminq.c
-@@ -1637,3 +1637,24 @@ void gve_set_num_queues(struct gve_priv *priv)
- 						device_info->default_rx_queues,
- 						priv->rx_cfg.num_queues);
- }
-+
-+int gve_adminq_map_db_bar(struct gve_priv *priv)
-+{
-+	struct pci_dev *pdev = priv->pdev;
-+	void __iomem *db_bar;
-+
-+	db_bar = pci_iomap(pdev, GVE_DOORBELL_BAR, 0);
-+	if (!db_bar) {
-+		dev_err(&pdev->dev, "Failed to map doorbell bar!\n");
-+		return -ENOMEM;
-+	}
-+	priv->db_bar2 = db_bar;
-+	return 0;
-+}
-+
-+void gve_adminq_unmap_db_bar(struct gve_priv *priv)
-+{
-+	struct pci_dev *pdev = priv->pdev;
-+
-+	pci_iounmap(pdev, priv->db_bar2);
-+}
-diff --git a/drivers/net/ethernet/google/gve/gve_adminq.h b/drivers/net/ethernet/google/gve/gve_adminq.h
-index a17af755b454..93d3cabb67f1 100644
---- a/drivers/net/ethernet/google/gve/gve_adminq.h
-+++ b/drivers/net/ethernet/google/gve/gve_adminq.h
-@@ -658,4 +658,6 @@ int gve_adminq_get_ptype_map_dqo(struct gve_priv *priv,
- 				 struct gve_ptype_lut *ptype_lut);
- int gve_set_num_ntfy_blks(struct gve_priv *priv);
- void gve_set_num_queues(struct gve_priv *priv);
-+int gve_adminq_map_db_bar(struct gve_priv *priv);
-+void gve_adminq_unmap_db_bar(struct gve_priv *priv);
- #endif /* _GVE_ADMINQ_H */
-diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
-index d3882de584e3..d721347e54b4 100644
---- a/drivers/net/ethernet/google/gve/gve_main.c
-+++ b/drivers/net/ethernet/google/gve/gve_main.c
-@@ -2460,6 +2460,11 @@ static void gve_set_buf_sizes(struct gve_priv *priv)
- 		priv->header_buf_size = device_info->header_buf_size;
- }
- 
-+static const struct gve_ctrl_ops gve_adminq_ops = {
-+	.map_db_bar		= gve_adminq_map_db_bar,
-+	.unmap_db_bar		= gve_adminq_unmap_db_bar,
-+};
-+
- static int gve_init_priv(struct gve_priv *priv, bool skip_describe_device)
- {
- 	struct gve_device_info *device_info = &priv->device_info;
-@@ -2861,7 +2866,6 @@ static int gve_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- {
- 	int max_tx_queues, max_rx_queues;
- 	struct net_device *dev;
--	__be32 __iomem *db_bar;
- 	struct gve_registers __iomem *reg_bar;
- 	struct gve_priv *priv;
- 	int err;
-@@ -2889,13 +2893,6 @@ static int gve_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 		goto abort_with_pci_region;
- 	}
- 
--	db_bar = pci_iomap(pdev, GVE_DOORBELL_BAR, 0);
--	if (!db_bar) {
--		dev_err(&pdev->dev, "Failed to map doorbell bar!\n");
--		err = -ENOMEM;
--		goto abort_with_reg_bar;
--	}
--
- 	gve_write_version(&reg_bar->driver_version);
- 	/* Get max queues to alloc etherdev */
- 	max_tx_queues = ioread32be(&reg_bar->max_tx_queues);
-@@ -2905,7 +2902,7 @@ static int gve_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	if (!dev) {
- 		dev_err(&pdev->dev, "could not allocate netdev\n");
- 		err = -ENOMEM;
--		goto abort_with_db_bar;
-+		goto abort_with_reg_bar;
- 	}
- 	SET_NETDEV_DEV(dev, &pdev->dev);
- 	pci_set_drvdata(pdev, dev);
-@@ -2937,19 +2934,25 @@ static int gve_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	priv->pdev = pdev;
- 	priv->msg_enable = DEFAULT_MSG_LEVEL;
- 	priv->reg_bar0 = reg_bar;
--	priv->db_bar2 = db_bar;
- 	priv->service_task_flags = 0x0;
- 	priv->state_flags = 0x0;
- 	priv->ethtool_flags = 0x0;
- 	priv->rx_cfg.packet_buffer_size = GVE_DEFAULT_RX_BUFFER_SIZE;
- 	priv->max_rx_buffer_size = GVE_DEFAULT_RX_BUFFER_SIZE;
- 
-+	/* Set adminq ctrl ops */
-+	priv->ctrl_ops = &gve_adminq_ops;
-+
-+	err = priv->ctrl_ops->map_db_bar(priv);
-+	if (err)
-+		goto abort_with_netdev;
-+
- 	gve_set_probe_in_progress(priv);
- 	priv->gve_wq = alloc_ordered_workqueue("gve", 0);
- 	if (!priv->gve_wq) {
- 		dev_err(&pdev->dev, "Could not allocate workqueue");
- 		err = -ENOMEM;
--		goto abort_with_netdev;
-+		goto abort_with_unmap_db_bar;
- 	}
- 	INIT_WORK(&priv->service_task, gve_service_task);
- 	INIT_WORK(&priv->stats_report_task, gve_stats_report_task);
-@@ -2979,12 +2982,12 @@ abort_with_gve_init:
- abort_with_wq:
- 	destroy_workqueue(priv->gve_wq);
- 
-+abort_with_unmap_db_bar:
-+	priv->ctrl_ops->unmap_db_bar(priv);
-+
- abort_with_netdev:
- 	free_netdev(dev);
- 
--abort_with_db_bar:
--	pci_iounmap(pdev, db_bar);
--
- abort_with_reg_bar:
- 	pci_iounmap(pdev, reg_bar);
- 
-@@ -3000,14 +3003,13 @@ static void gve_remove(struct pci_dev *pdev)
- {
- 	struct net_device *netdev = pci_get_drvdata(pdev);
- 	struct gve_priv *priv = netdev_priv(netdev);
--	__be32 __iomem *db_bar = priv->db_bar2;
- 	void __iomem *reg_bar = priv->reg_bar0;
- 
- 	unregister_netdev(netdev);
- 	gve_teardown_priv_resources(priv);
- 	destroy_workqueue(priv->gve_wq);
-+	priv->ctrl_ops->unmap_db_bar(priv);
- 	free_netdev(netdev);
--	pci_iounmap(pdev, db_bar);
- 	pci_iounmap(pdev, reg_bar);
- 	pci_release_regions(pdev);
- 	pci_disable_device(pdev);
+Changes in v8:
+- Patch 6(Sashiko):
+    - call gve_queues_stop() directly in gve_queues_start() to handle XDP
+      info unregistration
+    - drop gve_queues_mem_remove() from gve_queues_start() and leave it to
+      the caller; this moves a few function definitions around to avoid
+      forward declarations
+    - revert the gve_mgmnt_intr() behavior change from v7
+    - handle the TOCTOU when checking for a pending reset
+    - record all configurations in priv before sending an AQ command that
+      can result in a reset
+    - update the commit description regarding teardown-related resets
+- Patch 8(Sashiko):
+    - gate mgmt IRQ and notify block teardown on different conditions
+    - move gve_teardown_notify_blocks() from gve_reset_device() to
+      gve_teardown_device(), and tear down notify blocks as part of the
+      device reset
+    - don't set block->irq when tearing down notify blocks; instead guard
+      the disable_irq() call in gve_remove_napi() on whether the IRQ was
+      requested
+- v7: https://lore.kernel.org/netdev/20260916165533.2187434-1-hramamurthy@google.com/
+
+Changes in v7:
+- All changes are in patch 6(Sashiko):
+    - Return IRQ_HANDLED instead of IRQ_NONE in gve_mgmnt_intr()
+    - disable service task instead of stats report task for gve_probe() error
+    - cancel stats report in gve_free_stats_report()
+    - extract gve_teardown_control_plane_resouces() and gve_adminq_free() into
+      new gve_reset_device() to ensure the device reset is triggered before
+      stopping queues
+    - don't call gve_queues_stop() in the gve_close() error path since the
+      gve_reset() takes care of that.
+- v6: https://lore.kernel.org/netdev/20260909191136.3811892-1-hramamurthy@google.com/
+
+Changes in v6:
+- update commit message to be more consistent with code (patch 1,9 Sashiko)
+- call out MTU validation change (patch 1, Sashiko)
+- A few other Sashiko related fixes (error propagation in patch 2, drop double
+  logging in patch 5, drop unintentional type conversion in patch 11)
+- v5: https://lore.kernel.org/netdev/20260903215606.31633-1-hramamurthy@google.com/
+
+Changes in v5:
+- This series contains 12 patches since 3 patches from v4 were applied
+- Picked up Przemek Kitszel's Reviewed-by tag
+- Honor device provided default no. of Qs and max rx buffer size correctly (patch 1, Sashiko)
+- drop unnecessary header files and __maybe_unused tag (patch 4, Sashiko)
+- fix workqueue disable count, destroy rings before stopping Qs, stop queues in error path
+  in gve_close, preserve ordering of gve_turndown->gve_destroy_rings->gve_queues_stop
+  during close and reset (patch 6, Sashiko)
+- drop double logging in all paths for queue creation/destruction (patch 11, Sashiko)
+- v4: https://lore.kernel.org/netdev/20260814021406.3044324-1-hramamurthy@google.com/
+
+Changes in v4:
+- Reduce code churn by placing new functions directly in gve_adminq.c, introducing final tab spacing
+  and using local variable (Przemek Kitszel)
+- Fix kdoc formatting and drop spurious management interrupt(patch 9)
+- Propagate release_db_resources naming change (patch 12)
+- Remove double logging in destroy queues path (patch 14)
+- v3: https://lore.kernel.org/netdev/20260803184630.3813311-1-hramamurthy@google.com/
+
+Changes in v3:
+- Fix driver compatibility verification in the reset and recovery paths (patches 2, 8).
+- Mark gve_adminq_get_device_properties() with __maybe_unused ahead of its usage (patch 7).
+- Refine error handling and resource cleanup in reset, probe, and queue creation paths (patches 8, 9, 11, 14).
+- Keep IRQ doorbell allocation/release in control plane resource helpers (patch 12).
+- Minor fixes: fix TOCTOU issue for link speed, correct kdoc comments, and remove redundant teardown calls (patches 4, 11, 15).
+- v2: https://lore.kernel.org/netdev/20260602235900.3050782-1-hramamurthy@google.com/
+
+Changes in v2:
+- Rebased against latest net-next to resolve apply failure for patch 5
+- Fixed a few typos in commit messages of patch 9 and 14
+- Fixed a kdoc warning in patch 9
+- v1: https://lore.kernel.org/netdev/20260601175437.3767283-1-hramamurthy@google.com/
+
+Harshitha Ramamurthy (6):
+  gve: add struct gve_device_info to hold device properties
+  gve: introduce control plane operations structure
+  gve: introduce ctrl ops to set vectors and Qs
+  gve: introduce gve_adminq_get_device_properties()
+  gve: refactor gve_init_priv for reset path
+  gve: add ctrl ops for queue operations
+
+Joshua Washington (6):
+  gve: simplify reset logic
+  gve: add gve_ctrl_ops for gve initialization/teardown sequences
+  gve: split up notify block allocation and setup paths
+  gve: introduce new methods to handle IRQ doorbells
+  gve: setup and teardown management interrupts
+  gve: add link status/speed ctrl ops
+
+ drivers/net/ethernet/google/gve/gve.h           |   87 +-
+ drivers/net/ethernet/google/gve/gve_adminq.c    |  376 ++++++--
+ drivers/net/ethernet/google/gve/gve_adminq.h    |   30 +-
+ drivers/net/ethernet/google/gve/gve_ethtool.c   |    5 +-
+ drivers/net/ethernet/google/gve/gve_flow_rule.c |   15 +-
+ drivers/net/ethernet/google/gve/gve_main.c      | 1067 ++++++++++++-----------
+ drivers/net/ethernet/google/gve/gve_utils.c     |    4 +-
+ 7 files changed, 972 insertions(+), 612 deletions(-)
+
 -- 
 2.56.0.rc1.310.g51773c2048-goog
 
