@@ -1,115 +1,143 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 244503B42FF
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:35:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79E29353A8F
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:36:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790220938; cv=none; b=DDfj4YkmdOT0PebB15T1vHAC28vGU+Mm3vNvgV7ZC9nI4UnkZ/tNsHcKSU2JWbyeKTPjIVQIXDixfU640ebCISiykxIWRfHFBg+sMwA988wcKbiKxp9ojn0Cz8P+wPtraIFKOFUNBZJVukIPjfdNsKyRyZ1P1ogI1pBFr9IH6YE=
+	t=1790220970; cv=none; b=jDOBOnttAPLmxK4JBPu8XdhdDREjvedkTdgEKvgcUV1zXrpc3xJ0YTm65vs/vC1xhFHUmMWpqkZQDq1cvrxH39JHvY665DEMUjadVBozMXmMmCaHUFgg2yqqR2Lxbz5VoPfuvcaImF0PiJiecARNEM6auj+eHvf5YPchorw0LYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790220938; c=relaxed/simple;
-	bh=jZHSDEh4pomPPj3OIXeAbJfJH7enS0na4CjRth76QfM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oHVmRLMgVpzPVFw3ZrxzS1UIU4jSMu6EzcPSrNzXwRsaiLf6aw3RDfgyNeeTN+MAqaD88nxPZ7sNMjHbxP9+KPUofY1UUYfpzt0dqYOY/KOTpiJltlMlIDIhYkYokha6OMCvaHrzshYV1ZbHDAbjsttKN6tSczlf3z4Fl8hvGUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PtdOGXFH; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790220970; c=relaxed/simple;
+	bh=sJZTiRE4OUMgIDk5R/0YM1dl/ks9KGppBoMMxq9hWO4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=h32yNaK3K6JbG/sPJGg4Ha4S2mxInAnRMuXQWvlSPv49oFVp1N9f9GZCJyZKYMCMiHpxf6MvxAT+u11ytsES0L0fm8D2vIfuUzTXiNOQkVMhz7mhrfJgTedm1kWRhWx7ckO7kLmeX5SjDBAvePmECRkIQZqv/14LqesxyJnuFbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=nLm1iL6D; arc=none smtp.client-ip=115.124.30.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PtdOGXFH"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-39b910bdf2eso861232a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:35:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790220936; x=1790825736; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=M3/VJqOwQaoke0L+Lcb1yhy6DiyT8sFQFdjYIeTLVRI=;
-        b=PtdOGXFHNIp8f+O7G1boALtTarLMmOiSlWUfx+Vq0qPd8rFJ6qQfEWAOYOCQ6T/PtA
-         MPxfu3pEz0d02NyiDYknlLw3e53xqn8sHryk4S7cLhG/Z9MNQz27bX4gCE5OCHLy/7LF
-         CWKUFxeXJmxPcc//J8XN5pLuR+Fitls1NVcpbswmy5pOtvw5o4ZUgZe+InCZNg7v/h7C
-         GL6uPL2We9ei8YmW4LvrsS/5dYsCdEma0uSxFDDLj8jTIWryVdwxl1vDSrrzBQtRzofl
-         Y0cVusmv5tHwfmLAN0gvGyKNDEZAjkez0/JEssjhYUDHUfuj97Ufk370vLZr3gciyqWq
-         y/rA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790220936; x=1790825736;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=M3/VJqOwQaoke0L+Lcb1yhy6DiyT8sFQFdjYIeTLVRI=;
-        b=aXboMePwRD7VPdLEKFYIj5v6B7cdLORYFUz9+GYmgmKzyKH3ufib63OjPcy7tNgGgF
-         bA31buuYyIBiLEx5fAlItjq8YOWj16i0pgv5oaJ0rcPWbPbw7E6XzBibNrHSjw3fYiGA
-         n9fxhVmZ4PGbcWnAX9hisPpBjsp2dVBwP+K0XsQEHfCspumnNwWOLhwLUjFn9CIpDZhB
-         vZXqzJh3dGtFAlnoz0wuDON94bOswzhFqvmfvU93UXl+ZmF5cilap1oRQx1Kx8q2EXu8
-         cYlKQdovoF/WFttxt/6H1Yl0+9Snhlz46nCDt4wtH1kAeJKSaTOtOniCYdPskhZQfTsg
-         m3hQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxQWX6GY9mP3Pu2SE/96ChR7i6nPW/DlvRqWCIfN4Cgl3i2AY2spH+qHAlO28dSILkB1icQUk7u+mGJpHw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mwXiA+u6OdIW1+bZ9h44+srdeO8a5h7VQfVAVW7iemQggt1hVV
-	olgvjaY6+JILBHvTJd+2o+lWQE6VevZUJxQWhDrMK5F3ytOxpH4uosZM
-X-Gm-Gg: AYBFou2Kd7tpocPXVJqKFqgs8Fak1ZQL/J2GtvFmiEn8Vsu3vus/j3TkLTZQMOuZSy1
-	rURh+IDOG+1oLdbC/skgke5VFJWw0J1/wmN+81WyyB0d6jV0vKCrvSrGhvHGVt54Qy74mNhE6W8
-	ccWimK1uhSN8EwulvNUweOWzAN4SusDFRBo8/PVDCNtGX+q3Q1CdW3BNC73xrgHFhLBRDTLmB8Z
-	PBpfy6x5QdlwGTGz6nyXt8/XlyQEpSA54dOkkP7RtI5X3OvLSeMHBkR6QU+HoLtLAwabK2g5UVT
-	tr77k4cybp9NNBYBgQvM8BB84bXMaYtVHVfMnTIXi6f0/vJe7UwRhWGbItEsQpWQshhjoUBZQ22
-	30el652rIBvPLEu4S29a153ovltPySEFsMVR04Z03DIHVnWxX3ximq2TMs9Qooi3C1B8Zm5FGKG
-	q+GG1k1AhfYpbMDqyy3vCrSl0bvjiL4GxdEJXvn2DmFad/tx7WpLFa0wRliwr9XB2o5FDkk/qU+
-	glk5asnW4Yde/QYJx9jDazfXWJswHAdAH33fAacICAReR+Ul9ynXtRk1tRgeM1GIb/EkiPMZhpu
-	OF+wnIqoeNbkeQozf+Yg3BV/pfv8XKS82M/k4OWlUjPssZcyiNC+5BlTSMY=
-X-Received: by 2002:a17:90b:1d46:b0:39e:6c6a:208d with SMTP id 98e67ed59e1d1-3a09896ab28mr995148a91.46.1790220936315;
-        Wed, 23 Sep 2026 20:35:36 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a097663e1dsm2158159a91.7.2026.09.23.20.35.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 20:35:35 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Theodore Ts'o <tytso@mit.edu>,
-	workflows@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] docs: submitting-patches: mention the branch in T: entries
-Date: Thu, 24 Sep 2026 11:35:29 +0800
-Message-ID: <e592d82c3a9fed3300488fa65380ab055852c984.1790220653.git.matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <64b0be79c535bb9545f9f81a5044146a8726c761.1790220653.git.matthias.goergens@gmail.com>
-References: <64b0be79c535bb9545f9f81a5044146a8726c761.1790220653.git.matthias.goergens@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="nLm1iL6D"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1790220959; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=9RKSlysD+0ZWwxjfgD/8VADDTDaH0BRY2XHrTBmcZlc=;
+	b=nLm1iL6DFV84z/uF4enlJc04kix8W5lar+9Oj+T4EKbjtIfc13L3ZSkbNGHFaeE8We4JNEGFpggTN00QODbzYh4BSh4HDXhTfruyJXWygIKt7tFnH5mgB3S4xFRIC05hcrUQE/t+GxmsWm9WdNd4FyBICq9ry7msyr7ICTfUXyk=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=kanie@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0XBYWSto_1790220957;
+Received: from 30.178.84.73(mailfrom:kanie@linux.alibaba.com fp:SMTPD_---0XBYWSto_1790220957 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 24 Sep 2026 11:35:58 +0800
+Message-ID: <e5c16b71-1ee8-46e6-a100-c49ce81a80e7@linux.alibaba.com>
+Date: Thu, 24 Sep 2026 11:35:57 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND] checkpatch: don't flag ACQUIRE_ERR() assignments
+ in if conditions
+To: Alison Schofield <alison.schofield@intel.com>
+Cc: Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>,
+ Jonathan Cameron <jic23@kernel.org>, linux-kernel@vger.kernel.org
+References: <20260916020921.3480730-1-kanie@linux.alibaba.com>
+ <arMQGUpW2snww9-a@aschofie-mobl2.lan>
+From: Guixin Liu <kanie@linux.alibaba.com>
+In-Reply-To: <arMQGUpW2snww9-a@aschofie-mobl2.lan>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-A git T: entry in MAINTAINERS may name a branch after the repository
-URL, and where it does, that branch rather than the repository's HEAD
-is the one to prepare patches against.  Say so where contributors are
-sent to the T: entry.
 
-Suggested-by: Theodore Ts'o <tytso@mit.edu>
-Link: https://lore.kernel.org/all/arSMwd1bGO1vrif-@mit.edu/
-Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
----
- Documentation/process/submitting-patches.rst | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/process/submitting-patches.rst b/Documentation/process/submitting-patches.rst
-index 7ae79452e1b4..2936388dcaee 100644
---- a/Documentation/process/submitting-patches.rst
-+++ b/Documentation/process/submitting-patches.rst
-@@ -37,8 +37,9 @@ which can be grabbed with::
- Note, however, that you may not want to develop against the mainline tree
- directly.  Most subsystem maintainers run their own trees and want to see
- patches prepared against those trees.  See the **T:** entry for the subsystem
--in the MAINTAINERS file to find that tree, or simply ask the maintainer if
--the tree is not listed there.
-+in the MAINTAINERS file to find that tree, and the branch to work against if
-+the entry names one, or simply ask the maintainer if the tree is not listed
-+there.
- 
- .. _describe_changes:
- 
--- 
-2.55.0
+在 2026/9/23 07:32, Alison Schofield 写道:
+> On Wed, Sep 16, 2026 at 10:09:21AM +0800, Guixin Liu wrote:
+>> ACQUIRE_ERR() and its wrappers, PM_RUNTIME_ACQUIRE_ERR() and
+>> IIO_DEV_ACQUIRE_FAILED(), report whether a conditional cleanup.h guard
+>> was acquired, and drivers consume the result directly in an if
+>> condition:
+>>
+>> 	if ((rc = ACQUIRE_ERR(mutex_intr, &lock)))
+>> 		return rc;
+>>
+>> That combined form is the established style at the 49 in-tree call
+>> sites under drivers/cxl and drivers/pci/tsm.c, so ASSIGN_IN_IF fires
+>> there only as a false positive, and every patch touching those lines
+>> carries noise that reviewers have to wave off manually.
+>>
+>> Skip the check when the assigned expression is a call to a macro from
+>> that family, matched by the *_ACQUIRE_ERR() / *_ACQUIRE_FAILED() naming
+>> convention of its wrappers. Plain assignments and near-miss identifiers
+>> still get flagged.
+> Hi Guixin,
+>
+> Glad to see you picking this up!
+>
+> I tried to address the same checkpatch false positive last year. Joe Perches
+> gave some useful feedback on my v1, including a suggestion to use checkpatch's
+> $Lval, and I incorporated that into v2 along with some test cases. That may
+> be useful for your next version.
+>
+> More inline -
+Yes, got that, thanks.
+>
+>> Signed-off-by: Guixin Liu <kanie@linux.alibaba.com>
+>> ---
+>> Discussion leading to this patch, where the false positive showed up on
+>> a cxl patch and covering the wrapper macros was requested as well:
+>>
+>> https://lore.kernel.org/linux-cxl/20260910094017.4032170-3-kanie@linux.alibaba.com/
+>>
+>>  scripts/checkpatch.pl | 7 ++++++-
+>>  1 file changed, 6 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
+>> index 8a7787d228a6..fbc500bcfaa1 100755
+>> --- a/scripts/checkpatch.pl
+>> +++ b/scripts/checkpatch.pl
+>> @@ -5777,7 +5777,12 @@ sub process {
+>>  			my ($s, $c) = ($stat, $cond);
+>>  			my $fixed_assign_in_if = 0;
+>>  
+>> -			if ($c =~ /\bif\s*\(.*[^<>!=]=[^=].*/s) {
+>> +			# ACQUIRE_ERR() and its wrappers, e.g. PM_RUNTIME_ACQUIRE_ERR()
+>> +			# and IIO_DEV_ACQUIRE_FAILED(), are intended to be evaluated in
+>> +			# an if condition, with the error assigned in the condition:
+>> +			#	if ((rc = ACQUIRE_ERR(name, &lock)))
+>> +			if ($c =~ /\bif\s*\(.*[^<>!=]=[^=].*/s &&
+>> +			    $c !~ /=\s*\w*ACQUIRE_(?:ERR|FAILED)\s*\(/) {
+> What happens if there is also an unrelated assignment in the condition? For example:
+> 	if ((rc = regular_function()) || (ret = ACQUIRE_ERR(lock_type, &lock)))
+>
+> It looks like the ACQUIRE_ERR() match suppresses ASSIGN_IN_IF for the whole condition,
+> including the unrelated assignment.
+>
+> Could you use $Lval, as Joe suggested on my v1, to make this more precise?
+OK, changed in v2, thanks.
+> I also suggest running this against a small test program with the expected-pass cases,
+> ordinary assignments, and mixed cases like the one above. Feel free to reuse or extend
+> the test cases from my v2 [1].
+Sure, I will try to test as much as possible.
+>
+> Could you also Cc linux-cxl on the next version? There are several users of this form
+> there, so it may help get some review and testing tags on the patch.
+OK, will cc linux-cxl in v2, thanks.
+
+Best Regards,
+Guixin Liu
+>
+> -- Alison
+>
+>
+> [1] https://lore.kernel.org/linux-cxl/20250815010645.2980846-1-alison.schofield@intel.com/
+>
+>
+>
+>
+>>  				if (ERROR("ASSIGN_IN_IF",
+>>  					  "do not use assignment in if condition\n" . $herecurr) &&
+>>  				    $fix && $perl_version_ok) {
+>>
+>> base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+>> -- 
+>> 2.43.7
+>>
 
