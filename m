@@ -1,56 +1,56 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86FA335E1D1
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:53:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDAEB4B338B
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:53:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790276028; cv=none; b=UVcdHT24OjE7Vk5UGEGNH2iMzgHzzJgoBGkfk9X8mp22n+Q016JKP8nIaNJ7FfswrKmVde6MzOV8Vu+raKisIlYJ1WAPfOtqIl2NvPGPyc2PXwlK/ERHvLK3oCjePMp0hxP7U40QJW0zzp/+iWQdFT0fPNs9qBbv2eQ54s7is94=
+	t=1790276018; cv=none; b=hidZeDFxO9RtZLX6Hfnk8p4AbKF6cGDcJ88Gwz3RreCKZ3NN+X25QNEane4j23AEcLwWWm69KSKANBhRTaGgWAYIeubD91u0S33PtM4ehqmBjbdcA7YY1TpXNoAt0BXKIeDFyiGVc2kK73bj/bNUe9Fm4PpQVvPjRI5N1F0vLLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790276028; c=relaxed/simple;
-	bh=v4lj/oNYIff71693rCfldaoukS8Xeu7M79m8AUE/FN8=;
+	s=arc-20240116; t=1790276018; c=relaxed/simple;
+	bh=TQwyhL1TSxdImMvbYWtZZvf/pJ2xISIHXxSldxcO8DU=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=bPivFSPnpkSOmNa66A4Q0J6uhNyYdUklWo3r3CAMohRJt4XA2jgZnbPO6KfpFBmwrHydmG1hd/iUg0T8I66d5yT2/OperNR8Sg1yvrK6eDbWYAP60CLo22Iw8qbZji58HK9R/4Bxq04UvA8t8NjoxgX2ij/yh4T2EW3sDNLYOhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=p6PYXyGr; arc=none smtp.client-ip=209.85.215.200
+	 To:Cc:Content-Type; b=HbFCrRL2eONdDEmE+6RBjZPEW22Fxz2jASvK2FZFHue81ucSfet6ikz+tAnaZbAHVqxz7FC2ckdFRtfzzHDOhvUqc6ccQgketYxPWPQ0AivLv0xFmKToy7FHo9AdaNQzl6XskziUj8XefmQbFzMU09cWalnJY8hrTyYyrv3smRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eHCYL6ct; arc=none smtp.client-ip=209.85.214.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="p6PYXyGr"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc1b8088203so49497a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:53:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eHCYL6ct"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2df375fb9b2so854275ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:53:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790276016; x=1790880816; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790276004; x=1790880804; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CrYtTrpIBi155IqjERdC4I2LntOtJMD6hquHz7MlpCc=;
-        b=p6PYXyGrI4Q2GmF1ClMm/L9h1XGpDWldUZeNdJHEQFdJecmS+arJBLfWbF1nLAWYzk
-         5LPXagx67fOo55MxYmMzSQpwRlm6eLeEuquFzK19DX8Jz7KDFqQLck40UBDEzTU7oBdY
-         bYWPXrcOruwE6Tnj1nEjx3GF5oYKtOrMWg4rgiAOQP0+o13xl+efxtT2hc5Gslqifl7u
-         ZkT8MYk3L7VDg7Qu4FxWcyMdLmwEeh5pMsnqIdpWEvn3B6SBf0thYqhgRce0LJkYWipi
-         9eoxAen6gmiMRW/PZrAUJD+DrLeE0kzYiHavYqCk5xAfWEo2+v62HcoO1PTFgk7vZmZQ
-         eQFg==
+        bh=tJE4BQxaNY3bJZ2JgUl11yNBO9kROJSHBx+EsePy8k4=;
+        b=eHCYL6ct9B1uI2r5soE5mRV1uzzvwApIZ6h4XSRLk1oB2Kr07KU7mH8aT1EC7QItG0
+         kbLb4FUdqWPTrnSWTh1VTzpiU243yH0qk2N5xMj6zwQnedxiYmBERpsS5ljhRe5434/f
+         AB/Olh00onGPvfKQCIGYtOsvwHkEkkwSjFytam8qogStNo84HzVn9YPv+t7cAZjNkyv1
+         A5XhBVApdAOl7i7aUF/nYpi8nWrWii5pkzCSXrZRqZtNqgrLZA9rMzUtolk+zJxTrbbP
+         OBA22fRZypeguhmFLp8xnEjdiXOZRa9oqOKWQV4pzyOzvt9pojFycWE+bi35i3PlugtI
+         dZTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790276016; x=1790880816;
+        d=1e100.net; s=20260707; t=1790276004; x=1790880804;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CrYtTrpIBi155IqjERdC4I2LntOtJMD6hquHz7MlpCc=;
-        b=EaL8QOtrJKBT2k9RgC2N6GRaFMnqnfJgjtwj8jXjqYAB6V4jn+ygzarxJx+2bV8Lwn
-         qwMJzzPCrrNhc3e6Nhjo/BogUlRG9w7WLLc6mEpeEBvmnz3Zt2J2n0xm85LMOPx1eYTa
-         aSUQWa/3fwYEeUjV4xbatqMRggsm8J7ky821NLTLdEemMEm4/Rj2bfhG1mOQB1pee18u
-         VnzjNtEsGJkXyIOzh0HYWsNK3HZPdIyHh+WRjilC7eixFtw6G6qkUqpyoaYKQDmdc7k7
-         W5xUKK5HzAcfXDQc83rw1ctC4vpol8Hsfp0GFS2yFHoTgFgLEoMsUrsuWr2ICCJ4C38h
-         wv/A==
-X-Forwarded-Encrypted: i=1; AKwUvBwRA2hrxcE/TPmIrla3TfjPG0PVYXC0TXf+awAWU6GghNrTjfs+rV9KM9r2eVYa4eyCkaPH2orOFLDfHkU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nNPpoci/xOse402lENX943zIWauCx3qNJwIDmb70NPEC6GDp3F
-	xbfJqs2zblSK4deei0z5ZM7zHTTRCPQszXIPCfyHh1XUyt7tLrjiT3Ys4xFwl5wMg3RPFejVidP
-	iNQat9DGNvWgBtaV1gcztYk2Eog==
-X-Received: from pgbcv2.prod.google.com ([2002:a05:6a02:4202:b0:cc7:50b1:eedc])
+        bh=tJE4BQxaNY3bJZ2JgUl11yNBO9kROJSHBx+EsePy8k4=;
+        b=HrxhhRwoMU12KxWtx1tax0rsoV775q3hKIHPEJQSnAWWdAneUre1DZQ68PudEVIpQJ
+         FkC1PIzrzX4IWOAVSyjnhER0yWGo8XYipylCop26dL9a0y4ll81oAr0jrJjpnbtxsOBE
+         8qEChqQC7L6RXDTVioVBAQDJJpNdgAEoVLt9o0ZVILFxtDDeZ1zv3P7v45OgyR86EbNT
+         fvC74ZXyUTCEgyMGFbfarsE8t/plQofsUAoQMXLNRkZru54lnoRLPEy0MHy/EwQVRor7
+         8ZaQ5dq9laDb7UacabPs3PAJgE6Jc9Vh5RqvzoXZdJPdCrgpE7XH+MVxfanRI+VY46Ii
+         wK+A==
+X-Forwarded-Encrypted: i=1; AKwUvBwlJO+YLK9OSAGOPc+/ft8x89deBrdzuhrAHbPhUv5IvDVtjDJJbmA9lzJ3lGIAqe8be6//JH9MnGYrj/Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++n6A1Egb//t5PfcTuNrT/PoJfUTYTAtZoJhN6XBVuK5+mT7AoGh
+	IBCMC2/lOrbKOQV/VLUZ5cctQXQSbyAYsV/0X6bGIlbm0mQ1v7ci29jmMVSJpbuyZtLvyj8WOd1
+	Qo4tZoqRYZhmnnqrUT2Pkh57TRA==
+X-Received: from pgc19.prod.google.com ([2002:a05:6a02:2f93:b0:cc7:6275:7743])
  (user=hramamurthy job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a20:9145:b0:3dd:85a9:55a1 with SMTP id adf61e73a8af0-3de0e89ed89mr3199142637.35.1790276015317;
- Thu, 24 Sep 2026 11:53:35 -0700 (PDT)
-Date: Thu, 24 Sep 2026 18:53:16 +0000
+ 2002:a17:903:b86:b0:2dd:ad73:c98a with SMTP id d9443c01a7336-2df7deb8438mr30619875ad.34.1790276003583;
+ Thu, 24 Sep 2026 11:53:23 -0700 (PDT)
+Date: Thu, 24 Sep 2026 18:53:10 +0000
 In-Reply-To: <20260924185316.2831077-1-hramamurthy@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260924185316.2831077-1-hramamurthy@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260924185316.2831077-13-hramamurthy@google.com>
-Subject: [PATCH net-next v8 12/12] gve: add link status/speed ctrl ops
+Message-ID: <20260924185316.2831077-7-hramamurthy@google.com>
+Subject: [PATCH net-next v8 06/12] gve: simplify reset logic
 From: Harshitha Ramamurthy <hramamurthy@google.com>
 To: netdev@vger.kernel.org
 Cc: joshwash@google.com, hramamurthy@google.com, andrew+netdev@lunn.ch, 
@@ -76,13 +76,39 @@ Content-Type: text/plain; charset="UTF-8"
 
 From: Joshua Washington <joshwash@google.com>
 
-Refactor link status check to use a control plane op. Introduce
-new op for retrieving the link status in AQ mode. This op reads
-the link status from the device status register and stores the
-value in priv.
+Current GVE reset logic is quite complex, with a number of methods with
+similar names and functionalities. This complexity has allowed a number
+of bugs to enter the reset/recovery path, including the potential for
+reset loops if an operation fails during teardown.
 
-Also add an op for retrieving link speed in AQ mode which calls into
-gve_adminq_report_link_speed.
+Simplify the reset path by doing the following:
+1) Removing recursive resets. Recursive resets have two major issues.
+   First, there is the potential for stack overflows if resets are
+   invoked too many times in a row. Second, long recursive calls mean
+   that GVE never gives up the RTNL lock, or at the very least holds it
+   for too long. If a reset must occur anywhere during the
+   reset/recovery path, it should be scheduled as a separate task.
+2) Removing resets during the teardown portion of reset. This is partly
+   covered by removing recursive resets, but the primary goal in this
+   case is to allow the driver to complete teardown in a more direct
+   manner. Before this patch, gve_close() when called as part of
+   gve_shutdown, could end up triggering a hardware reset, then attempt
+   to close again. In such a case, destroying hardware queues would
+   inevitably fail, causing a loop. gve_close() is no longer called
+   directly in gve_reset() breaking any possibility of this loop.
+3) Decompose allocation/de-allocation and setup/teardown. Performing
+   allocation and setup for each control plane system (RSS, ptype map,
+   etc) leaves many more error conditions to handle, causing teardown in
+   the case of failures to be much more complex than they need to be.
+   This will also be useful to better align a major behavioral change
+   in mailbox mode, which will use separate response buffers instead to
+   get data from the device instead of a pre-allocated shared memory
+   region.
+
+With the new reset functionality, shared resources between the device
+and driver are not freed until after the hardware reset has completed
+in the event that `deconfigure_device_resources` fails, meaning that the
+device could potentially still be holding on to shared memory.
 
 Reviewed-by: Willem de Bruijn <willemb@google.com>
 Reviewed-by: Jordan Rhee <jordanrhee@google.com>
@@ -90,181 +116,1013 @@ Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
 Signed-off-by: Joshua Washington <joshwash@google.com>
 Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
 ---
-v3:
-  - Fix kdoc typo ("set link status" -> "set link speed")
-  - Copy link status into local variable instead of reading twice to
-    prevent TOCTOU issue
+v8:
+- call gve_queues_stop() directly in gve_queues_start to handle XDP info
+  unregistration
+- remove gve_queues_mem_remove() from gve_queues_start(); depend on
+  caller to call instead. This involves moving function definitions
+  around to avoid forward declaration.
+- update commit description regarding teardown-related resets
+- revert gve_mgmt_intr behavior
+- handle TOCTOU when checking for reset
+- record all configurations in priv before sending an AQ command that
+  can result in reset
 
- drivers/net/ethernet/google/gve/gve.h         |  5 +++++
- drivers/net/ethernet/google/gve/gve_adminq.c  | 10 ++++++++++
- drivers/net/ethernet/google/gve/gve_adminq.h  |  1 +
- drivers/net/ethernet/google/gve/gve_ethtool.c |  3 +--
- drivers/net/ethernet/google/gve/gve_main.c    | 26 ++++++++++++++++----------
- 5 files changed, 33 insertions(+), 12 deletions(-)
+v7:
+- Return IRQ_HANDLED instead of IRQ_NONE in gve_mgmnt_intr()
+- disable service task instead of stats report task for gve_probe() error
+- cancel stats report in gve_free_stats_report()
+- extract gve_teardown_control_plane_resouces() and gve_adminq_free() into
+  new function gve_reset_device() to ensure the device reset is triggered before
+  stopping queues
+- don't call gve_queues_stop() in the gve_close() error path since the
+  gve_reset() takes care of that.
+
+v5:
+- fix workqueue disable count imbalance in reset and suspend path (Sashiko)
+- destroy rings before stopping queues (Sashiko)
+- ensure to call gve_queues_stop in error path in gve_close()
+- pull out gve_turndown out of gve_queues_stop so the ordering of
+  gve_turndown(stop NAPIs) -> gve_destroy_rings -> gve_queues_stop(free rings) can be preserved
+
+v4:
+  - fix kdoc formatting for gve_teardown_control_plane_resources
+  - ignore management interrupt if device is not okay
+
+v3:
+ - only reset when failing to program flow rules as ethtool op
+ - don't attempt to teardown rings in reset path if AQ is not allocated
+ - fix work queue semantics related to management IRQ handler
+
+v2:
+  - Fixed typos in commit message (recursive, preempt)
+  - Fixed a kdoc warning
+
+ drivers/net/ethernet/google/gve/gve.h           |   2 +-
+ drivers/net/ethernet/google/gve/gve_adminq.c    |   9 +-
+ drivers/net/ethernet/google/gve/gve_adminq.h    |   1 -
+ drivers/net/ethernet/google/gve/gve_ethtool.c   |   2 +-
+ drivers/net/ethernet/google/gve/gve_flow_rule.c |  15 +-
+ drivers/net/ethernet/google/gve/gve_main.c      | 523 +++++++++++++-----------
+ 6 files changed, 291 insertions(+), 261 deletions(-)
 
 diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
-index 00966b6a730f..b7ce6e8632db 100644
+index 48cc8a6be186..026d685ecaee 100644
 --- a/drivers/net/ethernet/google/gve/gve.h
 +++ b/drivers/net/ethernet/google/gve/gve.h
-@@ -845,6 +845,8 @@ struct gve_device_info {
-  * @reset_flow_rules: Flush all flow rules from device
-  * @create_queues: Sends commands to the device to create TX/RX queues.
-  * @destroy_queues: Sends commands to the device to destroy TX/RX queues.
-+ * @report_link_status: Set link status into @priv->link_up
-+ * @report_link_speed: Set link speed into @priv->link_speed
-  */
- struct gve_ctrl_ops {
- 	int (*map_db_bar)(struct gve_priv *priv);
-@@ -865,6 +867,8 @@ struct gve_ctrl_ops {
- 	int (*reset_flow_rules)(struct gve_priv *priv);
- 	int (*create_queues)(struct gve_priv *priv);
- 	int (*destroy_queues)(struct gve_priv *priv);
-+	int (*report_link_status)(struct gve_priv *priv);
-+	int (*report_link_speed)(struct gve_priv *priv);
- };
+@@ -1348,7 +1348,7 @@ struct page_pool *gve_rx_create_page_pool(struct gve_priv *priv,
  
- struct gve_priv {
-@@ -966,6 +970,7 @@ struct gve_priv {
- 
- 	/* Gvnic device link speed from hypervisor. */
- 	u64 link_speed;
-+	bool link_up;
- 	bool up_before_suspend; /* True if dev was up before suspend */
- 
- 	bool mgmt_irq_requested;
+ /* Reset */
+ void gve_schedule_reset(struct gve_priv *priv);
+-int gve_reset(struct gve_priv *priv, bool attempt_teardown);
++int gve_reset(struct gve_priv *priv, bool skip_queue_setup);
+ void gve_get_curr_alloc_cfgs(struct gve_priv *priv,
+ 			     struct gve_tx_alloc_rings_cfg *tx_alloc_cfg,
+ 			     struct gve_rx_alloc_rings_cfg *rx_alloc_cfg);
 diff --git a/drivers/net/ethernet/google/gve/gve_adminq.c b/drivers/net/ethernet/google/gve/gve_adminq.c
-index 54f235ea27c1..8b215fca9c1b 100644
+index a62cb7a921d0..901673d2e264 100644
 --- a/drivers/net/ethernet/google/gve/gve_adminq.c
 +++ b/drivers/net/ethernet/google/gve/gve_adminq.c
-@@ -1837,3 +1837,13 @@ int gve_adminq_create_queues(struct gve_priv *priv)
+@@ -365,7 +365,7 @@ int gve_adminq_init(struct gve_priv *priv)
+ 	return gve_adminq_alloc(priv);
+ }
+ 
+-void gve_adminq_release(struct gve_priv *priv)
++static void gve_adminq_release(struct gve_priv *priv)
+ {
+ 	int i = 0;
+ 
+@@ -394,7 +394,6 @@ void gve_adminq_release(struct gve_priv *priv)
+ 	}
+ 	gve_clear_device_rings_ok(priv);
+ 	gve_clear_device_resources_ok(priv);
+-	gve_clear_admin_queue_ok(priv);
+ }
+ 
+ void gve_adminq_free(struct gve_priv *priv)
+@@ -1377,12 +1376,8 @@ gve_adminq_configure_flow_rule(struct gve_priv *priv,
+ 			sizeof(struct gve_adminq_configure_flow_rule),
+ 			flow_rule_cmd);
+ 
+-	if (err == -ETIME) {
+-		dev_err(&priv->pdev->dev, "Timeout to configure the flow rule, trigger reset");
+-		gve_reset(priv, true);
+-	} else if (!err) {
++	if (!err)
+ 		priv->flow_rules_cache.rules_cache_synced = false;
+-	}
  
  	return err;
  }
-+
-+int gve_adminq_report_link_status(struct gve_priv *priv)
-+{
-+	u32 status;
-+
-+	status = ioread32be(&priv->reg_bar0->device_status);
-+	WRITE_ONCE(priv->link_up,
-+		   !!(GVE_DEVICE_STATUS_LINK_STATUS_MASK & status));
-+	return 0;
-+}
 diff --git a/drivers/net/ethernet/google/gve/gve_adminq.h b/drivers/net/ethernet/google/gve/gve_adminq.h
-index d696e4932a8b..8daac5fd685a 100644
+index 78eee3b5cb7f..fe1e8868cdfe 100644
 --- a/drivers/net/ethernet/google/gve/gve_adminq.h
 +++ b/drivers/net/ethernet/google/gve/gve_adminq.h
-@@ -643,6 +643,7 @@ int gve_adminq_report_stats(struct gve_priv *priv, u64 stats_report_len,
- 			    dma_addr_t stats_report_addr, u64 interval);
- int gve_adminq_verify_driver_compatibility(struct gve_priv *priv);
- int gve_adminq_get_device_properties(struct gve_priv *priv);
-+int gve_adminq_report_link_status(struct gve_priv *priv);
- int gve_adminq_report_link_speed(struct gve_priv *priv);
- int gve_adminq_add_flow_rule(struct gve_priv *priv, struct gve_adminq_flow_rule *rule, u32 loc);
- int gve_adminq_del_flow_rule(struct gve_priv *priv, u32 loc);
+@@ -621,7 +621,6 @@ static_assert(sizeof(union gve_adminq_command) == 64);
+ 
+ int gve_adminq_init(struct gve_priv *priv);
+ void gve_adminq_free(struct gve_priv *priv);
+-void gve_adminq_release(struct gve_priv *priv);
+ int gve_adminq_describe_device(struct gve_priv *priv);
+ int gve_adminq_configure_device_resources(struct gve_priv *priv,
+ 					  dma_addr_t counter_array_bus_addr,
 diff --git a/drivers/net/ethernet/google/gve/gve_ethtool.c b/drivers/net/ethernet/google/gve/gve_ethtool.c
-index dd1c44fedc77..a3220c651438 100644
+index 8199738ba979..dd1c44fedc77 100644
 --- a/drivers/net/ethernet/google/gve/gve_ethtool.c
 +++ b/drivers/net/ethernet/google/gve/gve_ethtool.c
-@@ -749,12 +749,11 @@ static int gve_get_link_ksettings(struct net_device *netdev,
- 	int err = 0;
+@@ -651,7 +651,7 @@ static int gve_user_reset(struct net_device *netdev, u32 *flags)
  
- 	if (priv->link_speed == 0)
--		err = gve_adminq_report_link_speed(priv);
-+		err = priv->ctrl_ops->report_link_speed(priv);
+ 	if (*flags == ETH_RESET_ALL) {
+ 		*flags = 0;
+-		return gve_reset(priv, true);
++		return gve_reset(priv, false);
+ 	}
  
- 	cmd->base.speed = priv->link_speed;
+ 	return -EOPNOTSUPP;
+diff --git a/drivers/net/ethernet/google/gve/gve_flow_rule.c b/drivers/net/ethernet/google/gve/gve_flow_rule.c
+index 2c80cda28ef3..fae552f4ad6f 100644
+--- a/drivers/net/ethernet/google/gve/gve_flow_rule.c
++++ b/drivers/net/ethernet/google/gve/gve_flow_rule.c
+@@ -278,6 +278,11 @@ int gve_add_flow_rule(struct gve_priv *priv, struct ethtool_rxnfc *cmd)
+ 		goto out;
  
- 	cmd->base.duplex = DUPLEX_FULL;
--
- 	return err;
- }
- 
-diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
-index 38c964ac0e3a..d66dcee58f6a 100644
---- a/drivers/net/ethernet/google/gve/gve_main.c
-+++ b/drivers/net/ethernet/google/gve/gve_main.c
-@@ -1508,15 +1508,18 @@ reset:
- 	return err;
- }
- 
--static void gve_handle_link_status(struct gve_priv *priv, bool link_status)
-+static void gve_handle_link_status(struct gve_priv *priv)
- {
-+	bool link_up;
-+
- 	if (!gve_get_napi_enabled(priv))
- 		return;
- 
--	if (link_status == netif_carrier_ok(priv->dev))
-+	link_up = READ_ONCE(priv->link_up);
-+	if (link_up == netif_carrier_ok(priv->dev))
- 		return;
- 
--	if (link_status) {
-+	if (link_up) {
- 		netdev_info(priv->dev, "Device link is up.\n");
- 		netif_carrier_on(priv->dev);
- 	} else {
-@@ -1543,7 +1546,6 @@ static int gve_set_xdp(struct gve_priv *priv, struct bpf_prog *prog,
- {
- 	struct bpf_prog *old_prog;
- 	int err = 0;
--	u32 status;
- 
- 	old_prog = READ_ONCE(priv->xdp_prog);
- 	if (!netif_running(priv->dev)) {
-@@ -1570,8 +1572,8 @@ static int gve_set_xdp(struct gve_priv *priv, struct bpf_prog *prog,
- 		bpf_prog_put(old_prog);
+ 	err = gve_adminq_add_flow_rule(priv, rule, fsp->location);
++	if (err == -ETIME) {
++		dev_err(&priv->pdev->dev,
++			"Timeout to add flow rule, trigger reset.");
++		gve_reset(priv, false);
++	}
  
  out:
--	status = ioread32be(&priv->reg_bar0->device_status);
--	gve_handle_link_status(priv, GVE_DEVICE_STATUS_LINK_STATUS_MASK & status);
-+	priv->ctrl_ops->report_link_status(priv);
-+	gve_handle_link_status(priv);
+ 	kvfree(rule);
+@@ -290,9 +295,17 @@ out:
+ int gve_del_flow_rule(struct gve_priv *priv, struct ethtool_rxnfc *cmd)
+ {
+ 	struct ethtool_rx_flow_spec *fsp = (struct ethtool_rx_flow_spec *)&cmd->fs;
++	int err;
+ 
+ 	if (!priv->max_flow_rules)
+ 		return -EOPNOTSUPP;
+ 
+-	return gve_adminq_del_flow_rule(priv, fsp->location);
++	err = gve_adminq_del_flow_rule(priv, fsp->location);
++	if (err == -ETIME) {
++		dev_err(&priv->pdev->dev,
++			"Timeout to delete flow rule, trigger reset.");
++		gve_reset(priv, false);
++	}
++
++	return err;
+ }
+diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
+index 2fe280cf7e68..07135c52a707 100644
+--- a/drivers/net/ethernet/google/gve/gve_main.c
++++ b/drivers/net/ethernet/google/gve/gve_main.c
+@@ -261,6 +261,7 @@ static void gve_free_stats_report(struct gve_priv *priv)
+ 		return;
+ 
+ 	timer_delete_sync(&priv->stats_report_timer);
++	cancel_work_sync(&priv->stats_report_task);
+ 	dma_free_coherent(&priv->pdev->dev, priv->stats_report_len,
+ 			  priv->stats_report, priv->stats_report_bus);
+ 	priv->stats_report = NULL;
+@@ -590,7 +591,79 @@ static void gve_free_notify_blocks(struct gve_priv *priv)
+ 	priv->msix_vectors = NULL;
+ }
+ 
+-static int gve_setup_device_resources(struct gve_priv *priv)
++static void gve_tx_get_curr_alloc_cfg(struct gve_priv *priv,
++				      struct gve_tx_alloc_rings_cfg *cfg)
++{
++	cfg->qcfg = &priv->tx_cfg;
++	cfg->raw_addressing = !gve_is_qpl(priv);
++	cfg->ring_size = priv->tx_desc_cnt;
++	cfg->pages_per_qpl = priv->tx_pages_per_qpl;
++	cfg->num_xdp_rings = cfg->qcfg->num_xdp_queues;
++	cfg->tx = priv->tx;
++}
++
++static void gve_rx_get_curr_alloc_cfg(struct gve_priv *priv,
++				      struct gve_rx_alloc_rings_cfg *cfg)
++{
++	cfg->qcfg_rx = &priv->rx_cfg;
++	cfg->qcfg_tx = &priv->tx_cfg;
++	cfg->raw_addressing = !gve_is_qpl(priv);
++	cfg->enable_header_split = priv->header_split_enabled;
++	cfg->ring_size = priv->rx_desc_cnt;
++	cfg->pages_per_qpl = priv->rx_pages_per_qpl;
++	cfg->packet_buffer_size = priv->rx_cfg.packet_buffer_size;
++	cfg->rx = priv->rx;
++	cfg->xdp = !!cfg->qcfg_tx->num_xdp_queues;
++}
++
++void gve_get_curr_alloc_cfgs(struct gve_priv *priv,
++			     struct gve_tx_alloc_rings_cfg *tx_alloc_cfg,
++			     struct gve_rx_alloc_rings_cfg *rx_alloc_cfg)
++{
++	gve_tx_get_curr_alloc_cfg(priv, tx_alloc_cfg);
++	gve_rx_get_curr_alloc_cfg(priv, rx_alloc_cfg);
++}
++
++static void gve_queues_mem_free(struct gve_priv *priv,
++				struct gve_tx_alloc_rings_cfg *tx_cfg,
++				struct gve_rx_alloc_rings_cfg *rx_cfg)
++{
++	if (gve_is_gqi(priv)) {
++		gve_tx_free_rings_gqi(priv, tx_cfg);
++		gve_rx_free_rings_gqi(priv, rx_cfg);
++	} else {
++		gve_tx_free_rings_dqo(priv, tx_cfg);
++		gve_rx_free_rings_dqo(priv, rx_cfg);
++	}
++}
++
++static void gve_queues_mem_remove(struct gve_priv *priv)
++{
++	struct gve_tx_alloc_rings_cfg tx_alloc_cfg = {0};
++	struct gve_rx_alloc_rings_cfg rx_alloc_cfg = {0};
++
++	gve_get_curr_alloc_cfgs(priv, &tx_alloc_cfg, &rx_alloc_cfg);
++	gve_queues_mem_free(priv, &tx_alloc_cfg, &rx_alloc_cfg);
++	priv->tx = NULL;
++	priv->rx = NULL;
++}
++
++static void gve_free_control_plane_resources(struct gve_priv *priv)
++{
++	bitmap_free(priv->xsk_pools);
++	priv->xsk_pools = NULL;
++
++	kvfree(priv->ptype_lut_dqo);
++	priv->ptype_lut_dqo = NULL;
++
++	gve_free_stats_report(priv);
++	gve_free_notify_blocks(priv);
++	gve_free_counter_array(priv);
++	gve_free_rss_config_cache(priv);
++	gve_free_flow_rule_caches(priv);
++}
++
++static int gve_alloc_control_plane_resources(struct gve_priv *priv)
+ {
+ 	int err;
+ 
+@@ -599,16 +672,42 @@ static int gve_setup_device_resources(struct gve_priv *priv)
+ 		return err;
+ 	err = gve_alloc_rss_config_cache(priv);
+ 	if (err)
+-		goto abort_with_flow_rule_caches;
++		goto abort;
+ 	err = gve_alloc_counter_array(priv);
+ 	if (err)
+-		goto abort_with_rss_config_cache;
++		goto abort;
+ 	err = gve_alloc_notify_blocks(priv);
+ 	if (err)
+-		goto abort_with_counter;
++		goto abort;
+ 	err = gve_alloc_stats_report(priv);
+ 	if (err)
+-		goto abort_with_ntfy_blocks;
++		goto abort;
++
++	if (!gve_is_gqi(priv)) {
++		priv->ptype_lut_dqo = kvzalloc_obj(*priv->ptype_lut_dqo,
++						   GFP_KERNEL);
++		if (!priv->ptype_lut_dqo) {
++			err = -ENOMEM;
++			goto abort;
++		}
++	}
++
++	priv->xsk_pools = bitmap_zalloc(priv->rx_cfg.max_queues, GFP_KERNEL);
++	if (!priv->xsk_pools) {
++		err = -ENOMEM;
++		goto abort;
++	}
++
++	return 0;
++abort:
++	gve_free_control_plane_resources(priv);
++	return err;
++}
++
++static int gve_setup_control_plane_resources(struct gve_priv *priv)
++{
++	int err = 0;
++
+ 	err = gve_adminq_configure_device_resources(priv,
+ 						    priv->counter_array_bus,
+ 						    priv->num_event_counters,
+@@ -618,20 +717,15 @@ static int gve_setup_device_resources(struct gve_priv *priv)
+ 		dev_err(&priv->pdev->dev,
+ 			"could not setup device_resources: err=%d\n", err);
+ 		err = -ENXIO;
+-		goto abort_with_stats_report;
++		return err;
+ 	}
+ 
+ 	if (!gve_is_gqi(priv)) {
+-		priv->ptype_lut_dqo = kvzalloc_obj(*priv->ptype_lut_dqo);
+-		if (!priv->ptype_lut_dqo) {
+-			err = -ENOMEM;
+-			goto abort_with_stats_report;
+-		}
+ 		err = gve_adminq_get_ptype_map_dqo(priv, priv->ptype_lut_dqo);
+ 		if (err) {
+ 			dev_err(&priv->pdev->dev,
+ 				"Failed to get ptype map: err=%d\n", err);
+-			goto abort_with_ptype_lut;
++			goto deconfigure_device;
+ 		}
+ 	}
+ 
+@@ -646,7 +740,7 @@ static int gve_setup_device_resources(struct gve_priv *priv)
+ 	err = gve_init_rss_config(priv, priv->rx_cfg.num_queues);
+ 	if (err) {
+ 		dev_err(&priv->pdev->dev, "Failed to init RSS config");
+-		goto abort_with_clock;
++		goto teardown_clock;
+ 	}
+ 
+ 	err = gve_adminq_report_stats(priv, priv->stats_report_len,
+@@ -658,67 +752,77 @@ static int gve_setup_device_resources(struct gve_priv *priv)
+ 	gve_set_device_resources_ok(priv);
+ 	return 0;
+ 
+-abort_with_clock:
++teardown_clock:
+ 	gve_teardown_clock(priv);
+-abort_with_ptype_lut:
+-	kvfree(priv->ptype_lut_dqo);
+-	priv->ptype_lut_dqo = NULL;
+-abort_with_stats_report:
+-	gve_free_stats_report(priv);
+-abort_with_ntfy_blocks:
+-	gve_free_notify_blocks(priv);
+-abort_with_counter:
+-	gve_free_counter_array(priv);
+-abort_with_rss_config_cache:
+-	gve_free_rss_config_cache(priv);
+-abort_with_flow_rule_caches:
+-	gve_free_flow_rule_caches(priv);
+-
++deconfigure_device:
++	gve_adminq_deconfigure_device_resources(priv);
  	return err;
  }
  
-@@ -2002,11 +2004,11 @@ static void gve_turnup(struct gve_priv *priv)
- 
- static void gve_turnup_and_check_status(struct gve_priv *priv)
+-static void gve_trigger_reset(struct gve_priv *priv);
+-
+-static void gve_teardown_device_resources(struct gve_priv *priv)
++/**
++ * gve_teardown_control_plane_resources() - Request the device to release any
++ * shared allocated resources.
++ *
++ * @priv: Pointer to the GVE private device data structure.
++ *
++ * If any part of the teardown step fails, the failure is documented, but is
++ * otherwise ignored. It is expected that a device reset is triggered
++ * immediately after tearing down device resources, which would clear any
++ * lingering state on the device.
++ */
++static void gve_teardown_control_plane_resources(struct gve_priv *priv)
  {
--	u32 status;
-+	const struct gve_ctrl_ops *ops = priv->ctrl_ops;
+ 	int err;
  
- 	gve_turnup(priv);
--	status = ioread32be(&priv->reg_bar0->device_status);
--	gve_handle_link_status(priv, GVE_DEVICE_STATUS_LINK_STATUS_MASK & status);
-+	ops->report_link_status(priv);
-+	gve_handle_link_status(priv);
+ 	/* Tell device its resources are being freed */
+ 	if (gve_get_device_resources_ok(priv)) {
+ 		err = gve_flow_rules_reset(priv);
+-		if (err) {
++		if (err)
+ 			dev_err(&priv->pdev->dev,
+ 				"Failed to reset flow rules: err=%d\n", err);
+-			gve_trigger_reset(priv);
+-		}
+ 		/* detach the stats report */
+ 		err = gve_adminq_report_stats(priv, 0, 0x0, GVE_STATS_REPORT_TIMER_PERIOD);
+-		if (err) {
++		if (err)
+ 			dev_err(&priv->pdev->dev,
+ 				"Failed to detach stats report: err=%d\n", err);
+-			gve_trigger_reset(priv);
+-		}
++		gve_teardown_clock(priv);
+ 		err = gve_adminq_deconfigure_device_resources(priv);
+-		if (err) {
++		if (err)
+ 			dev_err(&priv->pdev->dev,
+ 				"Could not deconfigure device resources: err=%d\n",
+ 				err);
+-			gve_trigger_reset(priv);
+-		}
+ 	}
+ 
+-	kvfree(priv->ptype_lut_dqo);
+-	priv->ptype_lut_dqo = NULL;
+-
+-	gve_free_flow_rule_caches(priv);
+-	gve_free_rss_config_cache(priv);
+-	gve_free_counter_array(priv);
+-	gve_free_notify_blocks(priv);
+-	gve_free_stats_report(priv);
+-	gve_teardown_clock(priv);
+ 	gve_clear_device_resources_ok(priv);
  }
  
- static struct gve_notify_block *gve_get_tx_notify_block(struct gve_priv *priv,
-@@ -2334,12 +2336,14 @@ static void gve_service_task(struct work_struct *work)
++/**
++ * gve_reset_device() - Reset the device
++ *
++ * @priv: Pointer to the GVE private device data structure.
++ *
++ * Once this returns, the device is guaranteed not to access any memory it
++ * shares with the driver, so it is safe for the caller to recycle it. Device
++ * commands in gve_teardown_control_plane_resources() can fail, in which case
++ * the hardware reset triggered by gve_adminq_free() is the only such
++ * guarantee.
++ */
++static void gve_reset_device(struct gve_priv *priv)
++{
++	gve_teardown_control_plane_resources(priv);
++	gve_adminq_free(priv);
++}
++
++static void gve_teardown_device(struct gve_priv *priv)
++{
++	gve_reset_device(priv);
++	/* Free any resources shared with the device only after we have a
++	 * guarantee that the device will not try to access such resources.
++	 */
++	gve_free_control_plane_resources(priv);
++	gve_queues_mem_remove(priv);
++}
++
+ static int gve_unregister_qpl(struct gve_priv *priv,
+ 			      struct gve_queue_page_list *qpl)
  {
- 	struct gve_priv *priv = container_of(work, struct gve_priv,
- 					     service_task);
-+	const struct gve_ctrl_ops *ops = priv->ctrl_ops;
- 	u32 status = ioread32be(&priv->reg_bar0->device_status);
- 
- 	gve_handle_status(priv, status);
- 
- 	gve_handle_reset(priv);
--	gve_handle_link_status(priv, GVE_DEVICE_STATUS_LINK_STATUS_MASK & status);
-+	ops->report_link_status(priv);
-+	gve_handle_link_status(priv);
+@@ -916,17 +1020,6 @@ static void gve_init_sync_stats(struct gve_priv *priv)
+ 		u64_stats_init(&priv->rx[i].statss);
  }
  
- static void gve_set_netdev_xdp_features(struct gve_priv *priv)
-@@ -2466,6 +2470,8 @@ static const struct gve_ctrl_ops gve_adminq_ops = {
- 	.teardown_mgmt_irq	= gve_adminq_teardown_mgmt_irq,
- 	.create_queues		= gve_adminq_create_queues,
- 	.destroy_queues		= gve_adminq_destroy_queues,
-+	.report_link_status	= gve_adminq_report_link_status,
-+	.report_link_speed	= gve_adminq_report_link_speed,
- };
+-static void gve_tx_get_curr_alloc_cfg(struct gve_priv *priv,
+-				      struct gve_tx_alloc_rings_cfg *cfg)
+-{
+-	cfg->qcfg = &priv->tx_cfg;
+-	cfg->raw_addressing = !gve_is_qpl(priv);
+-	cfg->ring_size = priv->tx_desc_cnt;
+-	cfg->pages_per_qpl = priv->tx_pages_per_qpl;
+-	cfg->num_xdp_rings = cfg->qcfg->num_xdp_queues;
+-	cfg->tx = priv->tx;
+-}
+-
+ static void gve_tx_stop_rings(struct gve_priv *priv, int num_rings)
+ {
+ 	int i;
+@@ -1044,19 +1137,6 @@ static int gve_destroy_rings(struct gve_priv *priv)
+ 	return 0;
+ }
  
- static int gve_init_priv(struct gve_priv *priv)
+-static void gve_queues_mem_free(struct gve_priv *priv,
+-				struct gve_tx_alloc_rings_cfg *tx_cfg,
+-				struct gve_rx_alloc_rings_cfg *rx_cfg)
+-{
+-	if (gve_is_gqi(priv)) {
+-		gve_tx_free_rings_gqi(priv, tx_cfg);
+-		gve_rx_free_rings_gqi(priv, rx_cfg);
+-	} else {
+-		gve_tx_free_rings_dqo(priv, tx_cfg);
+-		gve_rx_free_rings_dqo(priv, rx_cfg);
+-	}
+-}
+-
+ int gve_alloc_page(struct gve_priv *priv, struct device *dev,
+ 		   struct page **page, dma_addr_t *dma,
+ 		   enum dma_data_direction dir, gfp_t gfp_flags)
+@@ -1157,8 +1237,6 @@ void gve_schedule_reset(struct gve_priv *priv)
+ 	queue_work(priv->gve_wq, &priv->service_task);
+ }
+ 
+-static void gve_reset_and_teardown(struct gve_priv *priv, bool was_up);
+-static int gve_reset_recovery(struct gve_priv *priv, bool was_up);
+ static void gve_turndown(struct gve_priv *priv);
+ static void gve_turnup(struct gve_priv *priv);
+ 
+@@ -1269,37 +1347,16 @@ err:
+ 	return err;
+ }
+ 
+-
+ static void gve_drain_page_cache(struct gve_priv *priv)
+ {
+ 	int i;
+ 
++	if (!priv->rx)
++		return;
+ 	for (i = 0; i < priv->rx_cfg.num_queues; i++)
+ 		page_frag_cache_drain(&priv->rx[i].page_cache);
+ }
+ 
+-static void gve_rx_get_curr_alloc_cfg(struct gve_priv *priv,
+-				      struct gve_rx_alloc_rings_cfg *cfg)
+-{
+-	cfg->qcfg_rx = &priv->rx_cfg;
+-	cfg->qcfg_tx = &priv->tx_cfg;
+-	cfg->raw_addressing = !gve_is_qpl(priv);
+-	cfg->enable_header_split = priv->header_split_enabled;
+-	cfg->ring_size = priv->rx_desc_cnt;
+-	cfg->pages_per_qpl = priv->rx_pages_per_qpl;
+-	cfg->packet_buffer_size = priv->rx_cfg.packet_buffer_size;
+-	cfg->rx = priv->rx;
+-	cfg->xdp = !!cfg->qcfg_tx->num_xdp_queues;
+-}
+-
+-void gve_get_curr_alloc_cfgs(struct gve_priv *priv,
+-			     struct gve_tx_alloc_rings_cfg *tx_alloc_cfg,
+-			     struct gve_rx_alloc_rings_cfg *rx_alloc_cfg)
+-{
+-	gve_tx_get_curr_alloc_cfg(priv, tx_alloc_cfg);
+-	gve_rx_get_curr_alloc_cfg(priv, rx_alloc_cfg);
+-}
+-
+ static void gve_rx_start_ring(struct gve_priv *priv, int i)
+ {
+ 	if (gve_is_gqi(priv))
+@@ -1335,15 +1392,16 @@ static void gve_rx_stop_rings(struct gve_priv *priv, int num_rings)
+ 		gve_rx_stop_ring(priv, i);
+ }
+ 
+-static void gve_queues_mem_remove(struct gve_priv *priv)
++static void gve_queues_stop(struct gve_priv *priv)
+ {
+-	struct gve_tx_alloc_rings_cfg tx_alloc_cfg = {0};
+-	struct gve_rx_alloc_rings_cfg rx_alloc_cfg = {0};
++	gve_unreg_xdp_info(priv);
++	gve_drain_page_cache(priv);
+ 
+-	gve_get_curr_alloc_cfgs(priv, &tx_alloc_cfg, &rx_alloc_cfg);
+-	gve_queues_mem_free(priv, &tx_alloc_cfg, &rx_alloc_cfg);
+-	priv->tx = NULL;
+-	priv->rx = NULL;
++	timer_delete_sync(&priv->stats_report_timer);
++	cancel_work_sync(&priv->stats_report_task);
++
++	gve_tx_stop_rings(priv, gve_num_tx_queues(priv));
++	gve_rx_stop_rings(priv, priv->rx_cfg.num_queues);
+ }
+ 
+ /* The passed-in queue memory is stored into priv and the queues are made live.
+@@ -1368,6 +1426,8 @@ static int gve_queues_start(struct gve_priv *priv,
+ 	priv->rx_desc_cnt = rx_alloc_cfg->ring_size;
+ 	priv->tx_pages_per_qpl = tx_alloc_cfg->pages_per_qpl;
+ 	priv->rx_pages_per_qpl = rx_alloc_cfg->pages_per_qpl;
++	priv->header_split_enabled = rx_alloc_cfg->enable_header_split;
++	priv->rx_cfg.packet_buffer_size = rx_alloc_cfg->packet_buffer_size;
+ 
+ 	gve_tx_start_rings(priv, gve_num_tx_queues(priv));
+ 	gve_rx_start_rings(priv, rx_alloc_cfg->qcfg_rx->num_queues);
+@@ -1375,14 +1435,14 @@ static int gve_queues_start(struct gve_priv *priv,
+ 
+ 	err = netif_set_real_num_tx_queues(dev, priv->tx_cfg.num_queues);
+ 	if (err)
+-		goto stop_and_free_rings;
++		goto stop_rings;
+ 	err = netif_set_real_num_rx_queues(dev, priv->rx_cfg.num_queues);
+ 	if (err)
+-		goto stop_and_free_rings;
++		goto stop_rings;
+ 
+ 	err = gve_reg_xdp_info(priv, dev);
+ 	if (err)
+-		goto stop_and_free_rings;
++		goto stop_rings;
+ 
+ 	if (rx_alloc_cfg->reset_rss) {
+ 		err = gve_init_rss_config(priv, priv->rx_cfg.num_queues);
+@@ -1394,9 +1454,6 @@ static int gve_queues_start(struct gve_priv *priv,
+ 	if (err)
+ 		goto reset;
+ 
+-	priv->header_split_enabled = rx_alloc_cfg->enable_header_split;
+-	priv->rx_cfg.packet_buffer_size = rx_alloc_cfg->packet_buffer_size;
+-
+ 	err = gve_create_rings(priv);
+ 	if (err)
+ 		goto reset;
+@@ -1415,16 +1472,14 @@ static int gve_queues_start(struct gve_priv *priv,
+ 
+ reset:
+ 	if (gve_get_reset_in_progress(priv))
+-		goto stop_and_free_rings;
+-	gve_reset_and_teardown(priv, true);
+-	/* if this fails there is nothing we can do so just ignore the return */
+-	gve_reset_recovery(priv, false);
+-	/* return the original error */
+-	return err;
+-stop_and_free_rings:
+-	gve_tx_stop_rings(priv, gve_num_tx_queues(priv));
+-	gve_rx_stop_rings(priv, priv->rx_cfg.num_queues);
+-	gve_queues_mem_remove(priv);
++		goto stop_rings;
++
++	/* Attempt to reset. If reset is successful, gve_queues_start was
++	 * successful with the new config.
++	 */
++	return gve_reset(priv, false);
++stop_rings:
++	gve_queues_stop(priv);
+ 	return err;
+ }
+ 
+@@ -1435,70 +1490,55 @@ static int gve_open(struct net_device *dev)
+ 	struct gve_priv *priv = netdev_priv(dev);
+ 	int err;
+ 
++	if (!gve_get_device_resources_ok(priv)) {
++		dev_err(&priv->pdev->dev,
++			"Attempting to open netdev without resources. Device must be reset.");
++		return -ENODEV;
++	}
++
+ 	gve_get_curr_alloc_cfgs(priv, &tx_alloc_cfg, &rx_alloc_cfg);
+ 
+ 	err = gve_queues_mem_alloc(priv, &tx_alloc_cfg, &rx_alloc_cfg);
+ 	if (err)
+ 		return err;
+ 
+-	/* No need to free on error: ownership of resources is lost after
+-	 * calling gve_queues_start.
+-	 */
+ 	err = gve_queues_start(priv, &tx_alloc_cfg, &rx_alloc_cfg);
+-	if (err)
++	if (err) {
++		gve_queues_mem_remove(priv);
+ 		return err;
++	}
+ 
+ 	return 0;
+ }
+ 
+-static int gve_queues_stop(struct gve_priv *priv)
++static int gve_close(struct net_device *dev)
+ {
++	struct gve_priv *priv = netdev_priv(dev);
+ 	int err;
+ 
+-	netif_carrier_off(priv->dev);
++	gve_turndown(priv);
++
++	/* Surrender to reset if the queue destroying adminq cmds fail. Reset
++	 * will not re-enable the interface.
++	 */
+ 	if (gve_get_device_rings_ok(priv)) {
+-		gve_turndown(priv);
+-		gve_drain_page_cache(priv);
++		gve_clear_device_rings_ok(priv);
+ 		err = gve_destroy_rings(priv);
+ 		if (err)
+-			goto err;
++			goto reset;
+ 		err = gve_unregister_qpls(priv);
+ 		if (err)
+-			goto err;
+-		gve_clear_device_rings_ok(priv);
++			goto reset;
+ 	}
+-	timer_delete_sync(&priv->stats_report_timer);
+-
+-	gve_unreg_xdp_info(priv);
+-
+-	gve_tx_stop_rings(priv, gve_num_tx_queues(priv));
+-	gve_rx_stop_rings(priv, priv->rx_cfg.num_queues);
+ 
++	gve_queues_stop(priv);
++	gve_queues_mem_remove(priv);
+ 	priv->interface_down_cnt++;
+ 	return 0;
+ 
+-err:
+-	/* This must have been called from a reset due to the rtnl lock
+-	 * so just return at this point.
+-	 */
+-	if (gve_get_reset_in_progress(priv))
+-		return err;
+-	/* Otherwise reset before returning */
+-	gve_reset_and_teardown(priv, true);
+-	return gve_reset_recovery(priv, false);
+-}
+-
+-static int gve_close(struct net_device *dev)
+-{
+-	struct gve_priv *priv = netdev_priv(dev);
+-	int err;
+-
+-	err = gve_queues_stop(priv);
+-	if (err)
+-		return err;
+-
+-	gve_queues_mem_remove(priv);
+-	return 0;
++reset:
++	err = gve_reset(priv, true);
++	return err;
+ }
+ 
+ static void gve_handle_link_status(struct gve_priv *priv, bool link_status)
+@@ -1833,9 +1873,7 @@ int gve_adjust_config(struct gve_priv *priv,
+ 	if (err) {
+ 		netif_err(priv, drv, priv->dev,
+ 			  "Adjust config failed to start new queues, !!! DISABLING ALL QUEUES !!!\n");
+-		/* No need to free on error: ownership of resources is lost after
+-		 * calling gve_queues_start.
+-		 */
++		gve_queues_mem_remove(priv);
+ 		gve_turndown(priv);
+ 		return err;
+ 	}
+@@ -2149,8 +2187,11 @@ static int gve_set_features(struct net_device *netdev,
+ 	}
+ 	if ((netdev->features & NETIF_F_NTUPLE) && !(features & NETIF_F_NTUPLE)) {
+ 		err = gve_flow_rules_reset(priv);
+-		if (err)
++		if (err) {
++			if (err == -ETIME)
++				gve_schedule_reset(priv);
+ 			goto revert_features;
++		}
+ 	}
+ 
+ 	return 0;
+@@ -2235,7 +2276,8 @@ static void gve_handle_reset(struct gve_priv *priv)
+ 	if (gve_get_do_reset(priv)) {
+ 		rtnl_lock();
+ 		netdev_lock(priv->dev);
+-		gve_reset(priv, false);
++		if (gve_get_do_reset(priv))
++			gve_reset(priv, false);
+ 		netdev_unlock(priv->dev);
+ 		rtnl_unlock();
+ 	}
+@@ -2421,25 +2463,17 @@ static int gve_setup_device(struct gve_priv *priv)
+ 
+ 	priv->num_registered_pages = 0;
+ 
+-	priv->xsk_pools = bitmap_zalloc(priv->rx_cfg.max_queues, GFP_KERNEL);
+-	if (!priv->xsk_pools) {
+-		err = -ENOMEM;
+-		goto err;
+-	}
+-
+ 	gve_set_netdev_xdp_features(priv);
+ 	if (!gve_is_gqi(priv))
+ 		priv->dev->xdp_metadata_ops = &gve_xdp_metadata_ops;
+ 
+-	err = gve_setup_device_resources(priv);
++	err = gve_alloc_control_plane_resources(priv);
+ 	if (err)
+-		goto err_free_xsk_bitmap;
+-
++		goto err;
++	err = gve_setup_control_plane_resources(priv);
++	if (err)
++		goto err;
+ 	return 0;
+-
+-err_free_xsk_bitmap:
+-	bitmap_free(priv->xsk_pools);
+-	priv->xsk_pools = NULL;
+ err:
+ 	return err;
+ }
+@@ -2514,30 +2548,7 @@ static int gve_init_priv(struct gve_priv *priv)
+ 	return 0;
+ }
+ 
+-static void gve_teardown_priv_resources(struct gve_priv *priv)
+-{
+-	gve_teardown_device_resources(priv);
+-	gve_adminq_free(priv);
+-	bitmap_free(priv->xsk_pools);
+-	priv->xsk_pools = NULL;
+-}
+-
+-static void gve_trigger_reset(struct gve_priv *priv)
+-{
+-	/* Reset the device by releasing the AQ */
+-	gve_adminq_release(priv);
+-}
+-
+-static void gve_reset_and_teardown(struct gve_priv *priv, bool was_up)
+-{
+-	gve_trigger_reset(priv);
+-	/* With the reset having already happened, close cannot fail */
+-	if (was_up)
+-		gve_close(priv->dev);
+-	gve_teardown_priv_resources(priv);
+-}
+-
+-static int gve_reset_recovery(struct gve_priv *priv, bool was_up)
++static int gve_recover(struct gve_priv *priv, bool setup_queues)
+ {
+ 	int err;
+ 
+@@ -2545,62 +2556,76 @@ static int gve_reset_recovery(struct gve_priv *priv, bool was_up)
+ 	if (err) {
+ 		dev_err(&priv->pdev->dev,
+ 			"Failed to alloc admin queue: err=%d\n", err);
+-		goto err;
++		goto teardown_device;
+ 	}
+ 
+ 	err = gve_adminq_verify_driver_compatibility(priv);
+ 	if (err) {
+ 		dev_err(&priv->pdev->dev,
+ 			"Could not verify driver compatibility: err=%d\n", err);
+-		goto err_free_adminq;
++		goto teardown_device;
+ 	}
+ 
+ 	err = gve_setup_device(priv);
+ 	if (err)
+-		goto err_free_adminq;
+-	if (was_up) {
+-		err = gve_open(priv->dev);
++		goto teardown_device;
++
++	if (setup_queues) {
++		struct gve_tx_alloc_rings_cfg tx_alloc_cfg = {0};
++		struct gve_rx_alloc_rings_cfg rx_alloc_cfg = {0};
++
++		gve_get_curr_alloc_cfgs(priv, &tx_alloc_cfg, &rx_alloc_cfg);
++
++		err = gve_queues_mem_alloc(priv, &tx_alloc_cfg, &rx_alloc_cfg);
+ 		if (err)
+-			return err;
++			goto teardown_device;
++
++		err = gve_queues_start(priv, &tx_alloc_cfg, &rx_alloc_cfg);
++		if (err)
++			goto teardown_device;
+ 	}
++
+ 	return 0;
+ 
+-err_free_adminq:
+-	gve_adminq_free(priv);
+-err:
+-	dev_err(&priv->pdev->dev, "Reset failed! !!! DISABLING ALL QUEUES !!!\n");
+-	gve_turndown(priv);
++teardown_device:
++	dev_err(&priv->pdev->dev, "Recover failed! !!! DISABLING ALL QUEUES !!!\n");
++	gve_teardown_device(priv);
+ 	return err;
+ }
+ 
+-int gve_reset(struct gve_priv *priv, bool attempt_teardown)
++int gve_reset(struct gve_priv *priv, bool skip_queue_setup)
+ {
+ 	bool was_up = netif_running(priv->dev);
+ 	int err;
+ 
++	if (gve_get_reset_in_progress(priv))
++		return 0;
++
+ 	dev_info(&priv->pdev->dev, "Performing reset\n");
+ 	gve_clear_do_reset(priv);
+ 	gve_set_reset_in_progress(priv);
+-	/* If we aren't attempting to teardown normally, just go turndown and
+-	 * reset right away.
+-	 */
+-	if (!attempt_teardown) {
++
++	if (was_up) {
+ 		gve_turndown(priv);
+-		gve_reset_and_teardown(priv, was_up);
+-	} else {
+-		/* Otherwise attempt to close normally */
+-		if (was_up) {
+-			err = gve_close(priv->dev);
+-			/* If that fails reset as we did above */
+-			if (err)
+-				gve_reset_and_teardown(priv, was_up);
++		if (gve_get_device_rings_ok(priv)) {
++			gve_clear_device_rings_ok(priv);
++			gve_destroy_rings(priv);
++			gve_unregister_qpls(priv);
+ 		}
+-		/* Clean up any remaining resources */
+-		gve_teardown_priv_resources(priv);
+ 	}
+ 
+-	/* Set it all back up */
+-	err = gve_reset_recovery(priv, was_up);
++	disable_work(&priv->service_task);
++	gve_reset_device(priv);
++	gve_queues_stop(priv);
++	gve_queues_mem_remove(priv);
++	gve_free_control_plane_resources(priv);
++
++	enable_work(&priv->service_task);
++	err = gve_recover(priv, was_up && !skip_queue_setup);
++	if (err)
++		dev_info(&priv->pdev->dev,
++			 "Failed to recover in reset: %d\n", err);
++
+ 	gve_clear_reset_in_progress(priv);
+ 	priv->reset_cnt++;
+ 	priv->interface_up_cnt = 0;
+@@ -2927,7 +2952,7 @@ static int gve_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	if (err) {
+ 		dev_err(&priv->pdev->dev,
+ 			"Could not setup device: err=%d\n", err);
+-		goto abort_with_wq;
++		goto abort_teardown_device;
+ 	}
+ 
+ 	if (!gve_is_gqi(priv) && !gve_is_qpl(priv))
+@@ -2935,7 +2960,7 @@ static int gve_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 
+ 	err = register_netdev(dev);
+ 	if (err)
+-		goto abort_with_gve_init;
++		goto abort_teardown_device;
+ 
+ 	dev_info(&pdev->dev, "GVE version %s\n", gve_version_str);
+ 	dev_info(&pdev->dev, "GVE queue format %d\n", (int)priv->queue_format);
+@@ -2943,8 +2968,9 @@ static int gve_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	queue_work(priv->gve_wq, &priv->service_task);
+ 	return 0;
+ 
+-abort_with_gve_init:
+-	gve_teardown_priv_resources(priv);
++abort_teardown_device:
++	disable_work_sync(&priv->service_task);
++	gve_teardown_device(priv);
+ 
+ abort_with_wq:
+ 	destroy_workqueue(priv->gve_wq);
+@@ -2976,7 +3002,8 @@ static void gve_remove(struct pci_dev *pdev)
+ 	void __iomem *reg_bar = priv->reg_bar0;
+ 
+ 	unregister_netdev(netdev);
+-	gve_teardown_priv_resources(priv);
++	disable_work_sync(&priv->service_task);
++	gve_teardown_device(priv);
+ 	destroy_workqueue(priv->gve_wq);
+ 	priv->ctrl_ops->unmap_db_bar(priv);
+ 	free_netdev(netdev);
+@@ -2992,16 +3019,13 @@ static void gve_shutdown(struct pci_dev *pdev)
+ 	bool was_up = netif_running(priv->dev);
+ 
+ 	netif_device_detach(netdev);
++	disable_work_sync(&priv->service_task);
+ 
+ 	rtnl_lock();
+ 	netdev_lock(netdev);
+-	if (was_up && gve_close(priv->dev)) {
+-		/* If the dev was up, attempt to close, if close fails, reset */
+-		gve_reset_and_teardown(priv, was_up);
+-	} else {
+-		/* If the dev wasn't up or close worked, finish tearing down */
+-		gve_teardown_priv_resources(priv);
+-	}
++	if (was_up)
++		gve_close(priv->dev);
++	gve_teardown_device(priv);
+ 	netdev_unlock(netdev);
+ 	rtnl_unlock();
+ }
+@@ -3013,16 +3037,14 @@ static int gve_suspend(struct device *dev)
+ 	struct gve_priv *priv = netdev_priv(netdev);
+ 	bool was_up = netif_running(priv->dev);
+ 
++	disable_work_sync(&priv->service_task);
++
+ 	priv->suspend_cnt++;
+ 	rtnl_lock();
+ 	netdev_lock(netdev);
+-	if (was_up && gve_close(priv->dev)) {
+-		/* If the dev was up, attempt to close, if close fails, reset */
+-		gve_reset_and_teardown(priv, was_up);
+-	} else {
+-		/* If the dev wasn't up or close worked, finish tearing down */
+-		gve_teardown_priv_resources(priv);
+-	}
++	if (was_up)
++		gve_close(priv->dev);
++	gve_teardown_device(priv);
+ 	priv->up_before_suspend = was_up;
+ 	netdev_unlock(netdev);
+ 	rtnl_unlock();
+@@ -3039,7 +3061,8 @@ static int gve_resume(struct device *dev)
+ 	priv->resume_cnt++;
+ 	rtnl_lock();
+ 	netdev_lock(netdev);
+-	err = gve_reset_recovery(priv, priv->up_before_suspend);
++	enable_work(&priv->service_task);
++	err = gve_recover(priv, priv->up_before_suspend);
+ 	netdev_unlock(netdev);
+ 	rtnl_unlock();
+ 	return err;
 -- 
 2.56.0.rc1.310.g51773c2048-goog
 
