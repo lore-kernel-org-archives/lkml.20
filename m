@@ -1,50 +1,33 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B32DC395AEB;
-	Thu, 24 Sep 2026 14:33:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893C13CB2E9;
+	Thu, 24 Sep 2026 14:34:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790260431; cv=none; b=Cbzm+8NDnyF2XixKGRNA5r57TlnLHC1ECubu9X+guWvRkC5m8degdU+sT3oW/3WLa58Rl4INOtLvGVYkT70Vnw2PUkTFranIP05nEHumIW4jVZbKC2ahl13cSSc5FfVAk1jriBAftETDN2J6bQQkeAY7zduJ0gX31sxiJ1yXuvE=
+	t=1790260453; cv=none; b=Jp4cPnmlG+4AeU3aHlMQIQvr1MFUR2L7pv9Lbnd5jtKDM2levQTn+F6R8e6SArWIYHavNWYkd8YIzMGt/uJBEaQfdIPzwG0upbqchRij4Ws4WfIVGayJjJR87bJG9url61HOsixMFptBDfYz+Kxg3E+YQPdKWqkA6nC9AJjXkys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790260431; c=relaxed/simple;
-	bh=DyxDCEi9+1AJB21eu9ItPvdi6EOS6JTY8Okuas5+SIo=;
+	s=arc-20240116; t=1790260453; c=relaxed/simple;
+	bh=7jT32T51qObWY1wqjMDG5dVQft2v5PNq7oRvCSDGF3A=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=X6aPcE5hGfDkOnMvzFOOBWNs/Vd8bbuUHjkKsLN4EsrmnjegfFg2BTEk34wLqaAAf92rUmW+tE7Xs4HpCYKdbgqeNDv42fIynbjUl0uf/rHKceDGthotToQYjlo/bCJlz/MWC4lPY224Jeu3211LRStY/4xQbiyF0R+0EbEoDgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BVFtuEiI; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 In-Reply-To:Content-Type; b=HNlhlqqMxe1b48tQkME1xu/nCQrn9LNZ3ElrOiYXmd+wg2ds8qEgWV3Wz+d6dff7yTnTAmcdVyg1a1NdKAQUfqe2RrjTV9gQbGFw8PmtclOh/++RNPD0GNi9p+QmelhqAdX4uoThhF7Bo1j9UO2AiQ4/0lu1dIkEG8/nJhLlnmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fAWWQW+Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BVFtuEiI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790260429; x=1821796429;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=DyxDCEi9+1AJB21eu9ItPvdi6EOS6JTY8Okuas5+SIo=;
-  b=BVFtuEiIQHJVWHNt70jdkkYyUrI7YviB4Jqp1s2LeQTLaXCFi0j4jXpE
-   jyWd9U0t5uAAW24NZgsdGmU3HgMQ4yDmZfOFWS4B2LeK/K3rbkj99eHsT
-   /Qn6IyCp/VDI98u+NiBze8DHihFtHRtgYJqrr50ek8B103NsNSxAlAlC9
-   ofQbIQq/c0qPC8lYVvMXsmYW+B6TaUJ/UGA6DmGuhc6ZlYaXmCbktlcJL
-   ln/ylnnWbU7vjlXjEWokQ9UVHuPjbLUxogWbnjLjlV1hR0thDxO0b98xH
-   xENebb2pr6bvaZ3NIie+gprNpoT/DSg0YJVXAHbJ2pgIRYyudE0AJaHAY
-   w==;
-X-CSE-ConnectionGUID: 0zQyZNM7QRixDfVU4RCUtw==
-X-CSE-MsgGUID: ssP7IiezRXmlXLW7is6fdA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="101206122"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="101206122"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 07:33:48 -0700
-X-CSE-ConnectionGUID: OT9dqVleTx+JMEwaxx1mJA==
-X-CSE-MsgGUID: jPALc3JzQSeqfhWll2Fedg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="273615642"
-Received: from xiaoyaol-hp-g830.ccr.corp.intel.com (HELO [10.124.240.119]) ([10.124.240.119])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 07:33:45 -0700
-Message-ID: <de109514-91b8-49a6-bbbe-c1f7f1ee407f@intel.com>
-Date: Thu, 24 Sep 2026 22:33:43 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fAWWQW+Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 540A11F00899;
+	Thu, 24 Sep 2026 14:34:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790260451;
+	bh=5s/G29r5xlQqoidU08e1WfbzuhCV/MEnckaYH46M6N4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fAWWQW+Y+CK3KEpZnau1N5gWdiMD5xMnDis+H57BJy3MqgvUHH0XsZQk4NWb8zNNk
+	 f3SDtdDFKtuMQ5MA0WwSbrS6KAn2N74/Z13FOIFHz5d3nF7ShGg9HI/QvHTWv70K7c
+	 KPT+cvyOZ9HYFuABx/SF3GmfHk/ciVcwh9LPb9joqlpBoW2UegkoDDKLO95vgbr3ll
+	 FN3hfCKgVv7ucxPdDlyuKuuKPMafYDGmB6Wmlwelp5VgqMqKAgaMF0kEQJHKsAVv2n
+	 oFXv3CqbdOGk9GJ52+JsBnl6NedYm4nQUAVFUzLCjLl8P8fTDQUvy+lNvRLn5S8HMY
+	 JM/hjbJV4adBA==
+Message-ID: <54f42979-fc19-44ff-bd11-cb43f13bcd32@kernel.org>
+Date: Thu, 24 Sep 2026 16:34:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,78 +35,201 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/4] KVM: TDX: Track configurable CPUID bits allowed by
- KVM
-To: Binbin Wu <binbin.wu@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, seanjc@google.com,
- pbonzini@redhat.com, dave.hansen@linux.intel.com, andrew.cooper3@citrix.com,
- nik.borisov@suse.com, kas@kernel.org, rick.p.edgecombe@intel.com,
- chao.gao@intel.com, tony.lindgren@linux.intel.com, kishen.maloor@intel.com,
- dedekind1@gmail.com
-References: <20260917072548.2314491-1-binbin.wu@linux.intel.com>
- <20260917072548.2314491-2-binbin.wu@linux.intel.com>
- <39047bbc-757d-4131-a25c-5a7743fd591a@intel.com>
- <062f5365-7eb5-4e04-9c84-f5ecd566f019@linux.intel.com>
- <eca53031-fd47-4471-9d05-d73295a0f57e@intel.com>
- <8bcba51e-2a3b-44b8-89cd-aebfd1e50cfd@linux.intel.com>
+Subject: Re: [PATCH 1/2] mm: page_alloc: do not give all non-blocking requests
+ reserve access
 Content-Language: en-US
-From: Xiaoyao Li <xiaoyao.li@intel.com>
-In-Reply-To: <8bcba51e-2a3b-44b8-89cd-aebfd1e50cfd@linux.intel.com>
+To: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Matthew Wilcox <willy@infradead.org>, Matt Fleming
+ <matt@readmodwrite.com>, Salvatore Dipietro <dipiets@amazon.it>,
+ akpm@linux-foundation.org, abuehaze@amazon.com, alisaidi@amazon.com,
+ blakgeof@amazon.com, brauner@kernel.org, brendan.jackman@linux.dev,
+ david@redhat.com, dgc@kernel.org, dipietro.salvatore@gmail.com,
+ djwong@kernel.org, hch@infradead.org, hch@lst.de,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, linux-xfs@vger.kernel.org, mhocko@suse.com,
+ ritesh.list@gmail.com, rvvandan@amazon.com, stable@vger.kernel.org,
+ surenb@google.com, ziy@nvidia.com
+References: <20260910114602.926944-1-dipiets@amazon.it>
+ <aqQlUr-1h07G8JWM@cmpxchg.org>
+ <8d6a8a63-4adc-458a-b548-a47bf5ff8eb7@kernel.org>
+ <aqq8pWI0u1IZNWHT@cmpxchg.org>
+ <9f415dc7-adad-4161-b20d-7c3173f50ff3@kernel.org>
+ <arFBJdYaRx_iJNDA@cmpxchg.org> <arFBWvzXPYrKuIYi@cmpxchg.org>
+ <arFFKGrpPwtTkoCi@casper.infradead.org> <arFUPOi6gadAvD3E@cmpxchg.org>
+ <c4a6d3db-8b57-400d-a377-a7acbf45d3ba@kernel.org>
+ <arKI_AwXQxicc_iH@cmpxchg.org>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <arKI_AwXQxicc_iH@cmpxchg.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/24/2026 7:41 PM, Binbin Wu wrote:
->> After some search, I find that X86_FEATURE_CID (CPUID.0x1:ECX[10]) is related to
->> MSR_IA32_MISC_ENABLE[24], which seems to be a model specific bit.
->>
->> And on SDM, vol3. 14.5.6 L1 Data Cache Context Mode
->>
->>   L1 data cache context mode is a feature of processors based on the Intel
->>   NetBurst microarchitecture that support Intel Hyper-Threading Technology.
->>   When CPUID.01H:ECX[10] =1, the processor supports setting L1 data cache
->>   context mode using the L1 data cache context mode flag (IA32_MISC_ENABLE[bit
->>   24]). Selectable modes are adaptive mode (default) and shared mode.
->>
->> CPUID.0x1:ECX[10] is 0 on SPR and EMR (I didn't check more). It looks this CPUID
->> bit will not show up on any TDX capable CPUs. I think we can report it to TDX
->> architects and just make the bit fixed0 as a spec fix?
-> I think we can confirm with the TDX module team. If it will never show up on TDX
-> capable CPUs, then this is similar to PREFETCHWT1. 
+On 9/22/26 15:56, Johannes Weiner wrote:
+> On Tue, Sep 22, 2026 at 01:52:41PM +0200, Vlastimil Babka (SUSE) wrote:
+>> 
+>> 
+>> On 9/21/26 5:58 PM, Johannes Weiner wrote:
+>> > On Mon, Sep 21, 2026 at 03:54:32PM +0100, Matthew Wilcox wrote:
+>> >> On Mon, Sep 21, 2026 at 10:38:18AM -0400, Johannes Weiner wrote:
+>> >>> +++ b/mm/page_alloc.c
+>> >>> @@ -3246,7 +3246,9 @@ struct page *rmqueue_buddy(struct zone *preferred_zone, struct zone *zone,
+>> >>>  			 * reserves as failing now is worse than failing a
+>> >>>  			 * high-order atomic allocation in the future.
+>> >>>  			 */
+>> >>> -			if (!page && (alloc_flags & (ALLOC_OOM|ALLOC_NON_BLOCK)))
+>> >>> +			if (!page &&
+>> >>> +			    ((alloc_flags & ALLOC_OOM) ||
+>> >>> +			     (alloc_flags & ALLOC_MASK_ATOMIC) == ALLOC_MASK_ATOMIC))
+>> >>>  				page = __rmqueue_smallest(zone, order, MIGRATE_HIGHATOMIC);
+>> >>
+>> >> Would this be slightly neater?
+>> >>
+>> >> static inline bool may_access_reserves(unsigned int alloc_flags)
+>> >> {
+>> >> 	if (alloc_flags & ALLOC_OOM)
+>> >> 		return true;
+>> >> 	if (alloc_flags & (ALLOC_NON_BLOCK | ALLOC_MIN_RESERVE)) ==
+>> >> 	    (ALLOC_NON_BLOCK | ALLOC_MIN_RESERVE)
+>> >> 		return true;
+>> >> 	return false;
+>> >> }
+>> 
+>> I think it should be named e.g. may_access_highatomic_reserves() as
+>> may_access_reserves() is rather generic and would seem to imply an
+>> ALLOC_RESERVES match (see 2/2).
 > 
-> But I am not sure we want new fixed-0 bits.
-
-Leave it as current "Configured & Native" is also OK. Since no TDX capable CPU
-has this bit as 1, it's effectively a fixed-0 bit.
-
->> For X86_FEATURE_PBE (CPUID.0x1:EDX[31]), it's related to bit 10 of MSR
->> IA32_MISC_ENABLE. The CPUID is 1 on SPR and EMR. But bit 10 of MSR
->> IA32_MISC_ENABLE is always 0 and setting bit 10 to 1 fails. It seems though
->> CPUID.0x1:EDX[31] is set to 1, but it's not related to bit 10 of MSR
->> IA32_MISC_ENABLE?
-> In the ISE (319433-062, table 1-6), it says:
->   PBE:
->   Pending Break Enable. The processor supports the use of the FERR#/PBE# pin
->   when the processor is in the stop-clock state (STPCLK# is asserted) to signal
->   the processor that an interrupt is pending and that the processor should
->   return to normal operation to handle the interrupt. Bit 10 (PBE enable) in the
->   IA32_MISC_ENABLE MSR enables this capability.
+> Note that it doesn't actually check ALLOC_HIGHATOMIC itself. It's just
+> the hail-mary AFTER trying the primary migratetype. So the name still
+> doesn't look right, and rmqueue_buddy() reads kind of awkardly:
 > 
-> TDX module doesn't allow IA32_MISC_ENABLE[10] to be 1 is since it's reserved
-> TDCS.TD_CTLS.REDUCE_VE is set, so my understanding was the CPUID bit should be 0. 
+> if (alloc_flags & ALLOC_HIGHATOMIC)
+> 	page = __rmqueue_smallest(..., MIGRATE_HIGHATOMIC);
+> if (!page) {
+> 	page = __rmqueue(..., migratetype, ...);
 > 
-> It seems bit 10 is phased out in IA32_MISC_ENABLE on modern processors like SPR
-> and EMR, since the bit 10 is reserved in "IA-32 Architectural MSRs" table. But
-> somehow, CPUID still reports PBE as supported.
+> 	/* Allow OOM and order-0 atomic */
+> 	if (!page && may_access_highatomic_reserve())
+> 		page = __rmqueue_smallest(..., MIGRATE_HIGHATOMIC);
+> }
+> 
+> It would have to be may_access_highatomic_reserve_as_last_resort() or
+> something?
+> 
+> Hm, this is a mess. Looking closer, I think there is more breakage,
+> name aside.
+> 
+> You suggest in 2/2 to use the same helper in unusable_free. But I
+> think that's broken. My 2/2 does not look like the full fix either:
+> 
+> The fundamental problem is including the highatomics reserves in the
+> watermark check for any allocations that first prefer a different
+> migratetype - "regular memory". Any time we do this, we allow those
+> allocations to draw down regular memory to 0 based on the presence of
+> the highatomic reserves. And when reclaim, swap etc. come along there
+> is nothing left for them. ALLOC_NO_WATERMARKS e.g. permits ignoring
+> the wmarks but doesn't grant access to highatomic *freelists*.
 
-yeah. arch/x86/include/asm/msr-index.h divides the bits of MSR IA32_MISC_ENABLE
-into two groups: architectural and model-specific. Bit 10 falls into model-specific.
+Hmm yes, we'd have to be nuanced about which freelists we allow allocating
+from depending on their particular watermarks. I.e. if we passed the
+watermark checks only thanks to zone->nr_free_highatomic, we would have to
+try those first. I assume it would be complicated and perhaps with perf
+impact. But maybe if we managed to keep this complexity outside of fastpath
+attempts?
 
-Maybe we can ask internally why CPUID still reports 1.
+The CMA handling had a similar issue and now we have that balancing
+heuristic since 16867664936e ("mm,page_alloc,cma: conditionally prefer cma
+pageblocks for movable allocations")
 
-> I don't know why the CPUID is disconnected with the MSR.
-> But this bit is present on the host, I think we can add it to the allowlist.
+> So I think there are two choices:
+> 
+> (1) Let *everything* with some sort of reserve access fall back to
+> highatomic, or
+> 
+> (2) Only allow ALLOC_HIGHATOMIC to include highatomic reserves in
+> their watermarks check. With limited opportunistic fallback to the
+> highatomics *freelists*, like the order-0 atomics above.
+> 
+> My intuition is that (1) might weaken the highatomic reserves to the
+> point of uselessness, and we should probably go with (2):
 
-I have opposite opinion. Since 1) this feature is related to hardware processor
-PIN, 2) KVM never advertise it to normal VMs, and 3) no usage in kernel for this
-feature. I think no TD relies on it and don't allow it should be OK.
+I think the goal of commit 281dd25c1a01 ("mm/page_alloc: let GFP_ATOMIC
+order-0 allocs access highatomic reserves") would be defeated with (2). The
+order-0 atomic fallback to MIGRATE_HIGHATOMIC freelists would be there, but
+the watermark check would never let such allocation through anymore, if
+there wasn't a free page on the regular freelists? So it would become (some
+races aside maybe) a dead code?
 
+I guess your current patches are a compromise that can work, as patch 2/2
+improves the current worse-than-(1) state to exclude the plain non-block
+allocations.
+
+> watermarks:
+> if (alloc_flags & ALLOC_HIGHATOMIC)
+> 	unusable_free += zone->nr_free_highatomic
+> 
+> freelists:
+> if (alloc_flags & ALLOC_HIGHATOMIC)
+> 	page = __rmqueue_smallest(..., MIGRATE_HIGHATOMIC);
+> if (!page) {
+> 	page = __rmqueue(..., migratetype, ...);
+> 	/* Opportunistic fallback for order-0 atomics */
+> 	if (!page && opportunistic_highatomic_fallback())
+> 		page = __rmqueue_smallest(..., MIGRATE_HIGHATOMIC);
+> }
+> 
+>> > I tend to be hesitant with single-use abstractions, but no objection
+>> > if people think this is better.
+>> 
+>> True but single-use ALLOC_MASK_ATOMIC is also not that great, and the
+>> usage makes the code hard to decipher. And see my reply to 2/2.
+> 
+> There is one small upside, which is that it pairs with the
+> ALLOC_HIGHATOMIC check that precedes it. The comment says "order-0
+> atomics" get a hail mary, but there is no order check. That order-0
+> comes out of the sequence of events here: we first check highatomic,
+> which is order > 0 && atomic. If that, and the native type, fail, we
+> do the hail mary for atomic, which must be by definition order-0.
+> 
+> If you abstract that privilege into a generic "can access highatomic
+> reserves" without an order check, it tempts refactors that cause bugs
+> like the above.
+
+Ack.
