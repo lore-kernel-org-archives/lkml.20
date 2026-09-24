@@ -1,189 +1,121 @@
-Received: from mta1.migadu.com (out-230.mta1.migadu.com [95.215.58.230])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F4746D2C3
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:53:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.230
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790268819; cv=none; b=JeWoCAe26+dP0KCOfh6/O+95r7IhjZ/NyUEpm+2uoMAY6qJh7TbhUjB/nkw2PtD2nwM+KvaAcbyS0TXWJ4McHBylqYwMY7/TV3nbpIzo5jsEXadzaX0ccFjG16nN4WNE75H5P+bBRf7JK6kVXmr/Q0r9p2j7pbIHjaLrA2FwZh0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790268819; c=relaxed/simple;
-	bh=sTkfV67kIp5uBT8Ri+KeF3tgtgkH8GrCjUJD4r1bRyY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TackZDYB4OTWk+x195d2oEkLFLiOvn6vL5wgJ0VrztWaCj59Op1WgRujiUKN392SdvodfaMH4F674Ezi0f9j3CojzTBygClR+sFU/G6SM/Qu2GMjTidwbpKKOWKqpl9gOEyxzAievCAd3uQ0XT3ngdF5Nt5FfVlVPjZbfJosKts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gAwEko12; arc=none smtp.client-ip=95.215.58.230
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F784A1E02
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:54:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790268870; cv=pass; b=mV+qS2Ba/CocwPyzhgidGlgCw8jz36sdyt3AEMYNEp7lpTx7iu/hnyW1ake1GLAhZoYPR9kRsIUEe/lR0z2z++LBsmfYMHGDRDPk3yGRREn2SJPyWy3cfqFrWMnq9koqI9DogXrU4xa4ucqj/jvcgUKPMqGPpSVmK/flqlFKLdY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790268870; c=relaxed/simple;
+	bh=SJEi33YUftvD9/5Co30bt3uO1e7e42WDDs94MAuYOW8=;
+	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DrD2qT9WOZizO/EbHrQ4QBlMdCFE9r1WA+E5NWSS6zkQCH8KA16eArpR8BZA9waUOUxblYNn4szHxqDpYjU1JOqLPD5fk5s/NeIjUztdBhTfQ+VjBoXLcGX7Mn+9R7XmVPqHwKbuCZH+E/0n83SQNvsqYI8A2dTlw8NadCeUZR4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fCzmDRD9; arc=pass smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gAwEko12"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=sTkfV67kIp5uBT8Ri+KeF3tgtgkH8GrCjUJD4r1bRyY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790268812; v=1; x=1790873612;
- b=gAwEko12ns2zdsqAf3PMpRHTH0wDCwQTvV0XLjMJ/ODZdW8yas/l0ynTWXZ5G1kiK/pF8718
- sLmUN/iDprqBcB0TpWUvHkOK6X6Sfa86I45Qbfg3Eu8i4+WhVexWvEcOMtDOjSVfbmzQU89cbbe
- ZfJejZiH8MIUxZt6rMTQuXmI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6c5f37816937d026;
-	Thu, 24 Sep 2026 16:53:32 +0000
-X-Mizu-Trace-ID: 6c5f37816937d026
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>
-Cc: James Morse <james.morse@arm.com>,
-	Ben Horgan <ben.horgan@arm.com>,
-	Xi Ruoyao <xry111@xry111.site>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Gavin Shan <gshan@redhat.com>,
-	Yuan Yao <yaoyuan@linux.alibaba.com>,
-	Fuad Tabba <tabba@google.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4] KVM: arm64: Trap guest MPAM accesses whenever MPAM is implemented
-Date: Thu, 24 Sep 2026 17:53:29 +0100
-Message-Id: <20260924165329.1684155-1-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fCzmDRD9"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc9b6eeso970616d6.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:54:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790268867; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PIwNpSO7WjjAe4PyLrPD7z7BE8s4oSKNyCZ/q3GZuesu72zuqFEMwgBBkvoyY6N9SY
+         lcGKz86eaTg72wtu4PkK9nmZaoAspb09QYoQO+B3VlQn9Ke8KQku4UWTkojt+ZrD6Ug3
+         MUHZqBhla7l7hT3h7MwOslmuNKj2qS0nWFeQ4jwdrywwfaiJjGt95S3uOQD6WWvaK5X3
+         Y8UznshTe3zdL/L+9xwSbqbcEgHuYsvUYqkEa/3O6hMDMG5+EbREPy3mTmYfsDqfrkaH
+         GAt3RTtRqZwdTCY8n6GnPpEvJP2ucYAIYMP9uwH8eumaplwx+exetwqWbZPFIsy3cVls
+         UKdg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=SRzB483sqbAKuTAx4LCeSM1Mzl5jx5qk7J2a1wveDuo=;
+        fh=XiXZJ43lhNjvY2uDYFB19fNnS6CI4816HAUN/EqUAcM=;
+        b=SfiNhLqtodCxlvf5l0D1HwEtw+x1/vHux0m9Pdozk6o6C6N26c33GL+HC85uXdBXMW
+         GwHlEyoi/KKliU+5u25/6pGSkAfxXy/zdj/JVvfkwdORnxcwhsUkO+ySFAZRX1ZVgTGI
+         QLtpCcNmpHsUjGo5fOeTsfB3GiUfgaqlfWdSKEcgQcppYUlYTRaxvEEWLRLV3x07cIBx
+         fy4WIMAmUmxZiObYQlbMlkY/rGl8rHeBIrlVK9xYjB6wTSTNTUHWeJMt4B3Fd+WW5Eia
+         3H5CtTv1qrQFV6THXnqY/BY44LmT17tgbMW+vo8W8A+vqc6+fqOd0i6x8cT6Lk76wrP6
+         uI7Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790268867; x=1790873667; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SRzB483sqbAKuTAx4LCeSM1Mzl5jx5qk7J2a1wveDuo=;
+        b=fCzmDRD9iG0zjqlsCpLSWhbs5G6oTJu08ECjsuE2JME37i6eAEP+frWVPPGBgI2x0i
+         7WBn/+L5IXtRtM2+Wtb9pggiY9p85ApVHcVJ9MJorsYR6Y2/cE2lm8+pBfdtssyUb0F3
+         mhyHMUHrLE/7yGvGX7tk5NC89ldEJoSwv4iUFOYJeSflll/pISZ32qdZpHYMbeq7sbQq
+         4OoZwERLmur7J9BKl5ETlyF9/IeWPkjgKF4O8yxfy51ruTE4cs+glqBS5pd97d7sBTMu
+         VOzqh/wcO0nA46C7o7J0TUiM0M2tsezudh+TAyIIY7/vBVipYwfMbIYiJ6iUVQAu3mzA
+         rJrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790268867; x=1790873667;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SRzB483sqbAKuTAx4LCeSM1Mzl5jx5qk7J2a1wveDuo=;
+        b=0S2whIrF/cDq0fad5M+rX64r5uvQ9gJeddudsR3NoD5AChsmLqg/FPKn1Hbbiz05BQ
+         q0LANV5NSC4sBWjTxDTOE88n+y1+3VUzOUmPch9uxA2bFhZNENCgxHkBkz5yO4xCYKf6
+         qYWVtZZ0xHFjVaUKlOqbGP3Yo11jjs3O03Qm/1U0PNExnq9vcb4GC9UXvV6l/57H9yWW
+         TJZVmT5kMfNcUyMTSHzW82hvZClD1pZJ0X9TW7D/kaW9WB1+5EcQakYD9qvNRlUapH6l
+         DUAI9qXUJOkEJ+zdU9U+dOaP+TMhMxXJOvaSzSOiAX3cEiUeCbZMWG7z79+nwZbdp9iy
+         5WFg==
+X-Forwarded-Encrypted: i=1; AKwUvBy3ihCiKUcy5tom+G6g2Bq3KrSm8vPWk4yfa9aW5ihm3CB1TCi62ajkQvuPCwM9E/X64K/vZJdaqU4bthQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nkXc6JDwqjVpb7+qN29US2es0p6+O1RzQ4tnRfcMOWpfZrl/Wh
+	kRfI2FMh6QVpjIg0ZZ3H6ofB+ffffIog92hVmys0c1x1ENbHR52vyhGkiQG02Mek0J22yKLmBef
+	/emRfJ5wyF7qTN0wWbdH5mftuCnK0nDav3K4kz2cJ
+X-Gm-Gg: AYBFou19q+bxcge9eK4nL1AHVTp1WdaWMldt2Bj1XJQD3lwXNzgm/FhAaH3gr4ZZb6y
+	4um6RjZqu2jWrB3pmy85DQbysi+7SMCXX5b/1Cp9J6L6XZQuDOHozKvYsAWI6LYra7P44jVRA57
+	DjUyG+GFPU2VZCC9kGXKP9Ivu+VCGNN/skuuPbW5Y7mg8hMYusnYAHTljq1qXm/u7BJWrdcgLzy
+	ga+s5m8fVk2ttOZLF1HGcykvYuD6Qumbin46mSZ+nmtkQAE0tSTfbGpcVgTgz7/MB0o8UIZMqaP
+	2gfcegxf+pozgTBJwCl8CbHABNLCxQZ3Enrd7Umq8sRfA7SonCItYnNhozzfT5GmcIl+E4IBLMS
+	Lgz231GdE2kEjCFz9GXa5WF/6da5Tcl+AnXvMOIM+xQ==
+X-Received: by 2002:a05:6214:2f0d:b0:912:4310:e5a6 with SMTP id
+ 6a1803df08f44-91421dd71a6mr32010576d6.35.1790268866884; Thu, 24 Sep 2026
+ 09:54:26 -0700 (PDT)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 24 Sep 2026 09:54:26 -0700
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 24 Sep 2026 09:54:26 -0700
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <20260922001332.1121266-6-seanjc@google.com>
+References: <20260922001332.1121266-1-seanjc@google.com> <20260922001332.1121266-6-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Thu, 24 Sep 2026 09:54:26 -0700
+X-Gm-Features: AclHuK9ZdoJEhArxkHYbmu4oWdkXl-wU9D8WNCFmEXCzdl3KIg6_0c7Gxq6koEo
+Message-ID: <CAEvNRgFs0aqwGDbJdTmqmS2nKw1xmeka_TucjDqpdHZr8N+sqw@mail.gmail.com>
+Subject: Re: [PATCH v5 5/6] KVM: guest_memfd: Establish memslot<=>guest_memfd
+ bindings *after* memslot is ready
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Stefan Teodorescu <fane@google.com>, Dennis Tighe <dtighe@google.com>, 
+	Sashiko Bot <sashiko-bot@kernel.org>, Yan Zhao <yan.y.zhao@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 
-finalise_el2_state() clears the EL2 MPAM traps on every CPU whose ID
-registers, with the arm64.nompam override applied, advertise MPAM.
-KVM sets the traps again on guest entry, but only when the ARM64_MPAM
-capability is set, and that capability also requires
-MPAM1_EL1.MPAMEN. MPAMEN is writable only at the highest implemented
-exception level. Without EL3 that is MPAM2_EL2.MPAMEN, which the
-kernel does not set, so ARM64_MPAM is never set either and the traps
-stay clear. A guest on such a machine can access MPAM0_EL1,
-MPAM1_EL1, MPAMSM_EL1 and MPAMIDR_EL1 while its ID_AA64PFR0_EL1.MPAM
-reads 0.
+Sean Christopherson <seanjc@google.com> writes:
 
-Set the traps under the condition finalise_el2_state() clears them:
-record per CPU whether its ID registers, with the override applied,
-advertise MPAM, and whether MPAMIDR_EL1.HAS_HCR is set, since
-MPAMHCR_EL2 is UNDEFINED without it. MPAMEN does not appear in the
-conditions that trap an MPAM register access to EL2, so the traps
-take effect whether or not it is set.
+> Wait to bind a memslot to a guest_memfd instance until *after* the memslot
+> is fully prepared, as creating the binding in guest_memfd will effectively
+> expose the memslot to readers.  As pointed out by Sashiko, binding the
+> memslot before it's ready to be exposed to the rest of the world can break
+> various memslot assumption and rules.  E.g. x86 could observe a NULL rmap
+> pointer if a PUNCH_HOLE hit the guest_memfd after the binding was created,
+> but before KVM made it through kvm_prepare_memory_region().
+>
+> Fixes: a7800aa80ea4 ("KVM: Add KVM_CREATE_GUEST_MEMFD ioctl() for guest-specific backing memory")
+> Cc: stable@vger.kernel.org
+> Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/all/20260826170551.BEF801F000E9@smtp.kernel.org
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
 
-Fixes: 31ff96c38ea3 ("KVM: arm64: Fix missing traps of guest accesses to the MPAM registers")
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
+Hope you consider my suggestion on [4/6]. Either way,
 
-Notes:
-    Changes since v3:
-     - MPAMIDR_EL1.HAS_HCR probed once at CPU init into a second flag,
-       HAS_MPAM_HCR, instead of read on every guest entry and exit (Marc).
-     - A comment on why the ID registers are read through
-       __read_sysreg_by_encoding() (Marc).
-     - Commit message reworded around MPAMEN being writable only at the
-       highest implemented exception level (Ben).
-     - Ben's Reviewed-by dropped, since the MPAMHCR_EL2 test changed.
-    
-    Based on Linux 7.3-rc1 (cee9395acd80).
-    
-    v3: https://lore.kernel.org/all/20260911104715.307500-1-fuad.tabba@linux.dev/
-    v2: https://lore.kernel.org/all/20260908145651.2828597-1-fuad.tabba@linux.dev/
-    v1: https://lore.kernel.org/all/20260903160819.831518-1-fuad.tabba@linux.dev/
-
- arch/arm64/include/asm/kvm_host.h       |  2 ++
- arch/arm64/kvm/arm.c                    | 13 +++++++++++++
- arch/arm64/kvm/hyp/include/hyp/switch.h | 13 ++++++++-----
- 3 files changed, 23 insertions(+), 5 deletions(-)
-
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index 27fe0cd5b2d7a..3f5b347093fe8 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -755,6 +755,8 @@ struct kvm_host_data {
- #define KVM_HOST_DATA_FLAG_VCPU_IN_HYP_CONTEXT		4
- #define KVM_HOST_DATA_FLAG_L1_VNCR_MAPPED		5
- #define KVM_HOST_DATA_FLAG_HAS_BRBE			6
-+#define KVM_HOST_DATA_FLAG_HAS_MPAM			7
-+#define KVM_HOST_DATA_FLAG_HAS_MPAM_HCR			8
- 	unsigned long flags;
- 
- 	struct kvm_cpu_context host_ctxt;
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 8b080804bc90b..9677d234e17b1 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -2281,9 +2281,22 @@ static void cpu_set_hyp_vector(void)
- 
- static void cpu_hyp_init_context(void)
- {
-+	u64 pfr0 = __read_sysreg_by_encoding(SYS_ID_AA64PFR0_EL1);
-+	u64 pfr1 = __read_sysreg_by_encoding(SYS_ID_AA64PFR1_EL1);
-+
- 	kvm_init_host_cpu_context(host_data_ptr(host_ctxt));
- 	kvm_init_host_debug_data();
- 
-+	/*
-+	 * The ID registers are read above with the arm64.nompam override
-+	 * applied, as finalise_el2_state() reads them.
-+	 */
-+	if (id_aa64pfr0_mpam(pfr0) || id_aa64pfr1_mpamfrac(pfr1)) {
-+		host_data_set_flag(HAS_MPAM);
-+		if (read_sysreg_s(SYS_MPAMIDR_EL1) & MPAMIDR_EL1_HAS_HCR)
-+			host_data_set_flag(HAS_MPAM_HCR);
-+	}
-+
- 	if (!is_kernel_in_hyp_mode())
- 		cpu_init_hyp_mode();
- }
-diff --git a/arch/arm64/kvm/hyp/include/hyp/switch.h b/arch/arm64/kvm/hyp/include/hyp/switch.h
-index 1ce7130e25490..c7adf8c206d84 100644
---- a/arch/arm64/kvm/hyp/include/hyp/switch.h
-+++ b/arch/arm64/kvm/hyp/include/hyp/switch.h
-@@ -298,14 +298,17 @@ static inline void  __activate_traps_mpam(struct kvm_vcpu *vcpu)
- 	u64 clr = MPAM2_EL2_EnMPAMSM;
- 	u64 set = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1;
- 
--	if (!system_supports_mpam())
-+	if (!host_data_test_flag(HAS_MPAM))
- 		return;
- 
- 	/* trap guest access to MPAMIDR_EL1 */
--	if (system_supports_mpam_hcr()) {
-+	if (host_data_test_flag(HAS_MPAM_HCR)) {
- 		write_sysreg_s(MPAMHCR_EL2_TRAP_MPAMIDR_EL1, SYS_MPAMHCR_EL2);
- 	} else {
--		/* From v1.1 TIDR can trap MPAMIDR, set it unconditionally */
-+		/*
-+		 * TIDR is RES0 without MPAMIDR_EL1.HAS_TIDR, which MPAM v1.0
-+		 * prohibits: such a PE without HAS_HCR can't trap MPAMIDR_EL1.
-+		 */
- 		set |= MPAM2_EL2_TIDR;
- 	}
- 
-@@ -317,12 +320,12 @@ static inline void __deactivate_traps_mpam(void)
- 	u64 clr = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1 | MPAM2_EL2_TIDR;
- 	u64 set = MPAM2_EL2_EnMPAMSM;
- 
--	if (!system_supports_mpam())
-+	if (!host_data_test_flag(HAS_MPAM))
- 		return;
- 
- 	sysreg_clear_set_s(SYS_MPAM2_EL2, clr, set);
- 
--	if (system_supports_mpam_hcr())
-+	if (host_data_test_flag(HAS_MPAM_HCR))
- 		write_sysreg_s(MPAMHCR_HOST_FLAGS, SYS_MPAMHCR_EL2);
- }
- 
-
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
--- 
-2.39.5
-
+Reviewed-by: Ackerley Tng <ackerleytng@google.com>
