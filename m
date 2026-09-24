@@ -1,211 +1,142 @@
-Received: from mail-vs2-f24.google.com (mail-vs2-f24.google.com [74.125.227.24])
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB9B4D8DA0
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:53:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2484DB553
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:53:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790283220; cv=none; b=qBEy2mbvcy+rKwE94Z23fxO0daE0uSmaWVHWomlHlnMFjjosT0gDCgjk8r18oqRBH/lEYDZJj/hQ7wJleek7A55c9qLA/DsJSuQYgIyi6S7zUj5dAxfZ5S2E1xJZM52pwCCrt97xHvLmPn6/RiKPkZPtGTJyasVi0E5fjILdeUk=
+	t=1790283222; cv=none; b=pyLlcDE3zdR60d34+rl/x18eehu+gAwQAPELg6eeY74EN9BhROXx8eHeFepImC7sSUPhShGFX+txaDQzyoObydY2dwY4748H0WWjrv9ea4dy3LuLj6mmfevPtDY4YZouKR8Yg/64/mBi+AawK2wDEJ5i29+kDMwtk2LVwvdQV9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790283220; c=relaxed/simple;
-	bh=snibvCpdyLK47vJrQTZF6lHl0KzyTNPWkHV3xq/eSbI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=W4xvsyIk42Gwsy1EvNHn2ZVFdrIP74ZkJf1mfsfKRYycpCoo0lxYX2plgtIRDbTg0KEqolpOduiAQ0cSCZTIeOGNJL14yOYGuyMFI14usXbebGaVadWro2JUhqT4ymImzPrVsP6Luhs898hfop6tTO96xG0zThnl94EkXXGs5zs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mJS73yWH; arc=none smtp.client-ip=74.125.227.24
+	s=arc-20240116; t=1790283222; c=relaxed/simple;
+	bh=YXZNt7FoFx2gvLvRF36mGXyBk/084QFiboasIv3H5kY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tpLUvywbnNlY6GEi7pUGDkq+yrhJvXgC8COtUqybGwRjClvYlCkG5cI2Xq8mkF1s6KrZZ025d6+cQHVB1+NwpHaIssuY9DV4MSWB4mL3HwU6fEJl7gsOjVDm5Q8LbLXp8eaaJlKm2tZUs07C4YIjJ38XnUlAfojixyUxMMwdQs0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RD3CSAA5; arc=none smtp.client-ip=74.125.225.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mJS73yWH"
-Received: by mail-vs2-f24.google.com with SMTP id 71dfb90a1353d-5c97b28165bso156762e0c.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:53:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RD3CSAA5"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48877902c99so160815f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:53:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790283217; x=1790888017; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2OL9DBw0DPlzOjqc4PYZYVQ5oXPU82nMigXCHy4HrZU=;
-        b=mJS73yWHXVZsYkmZDzgkgXGDgXKn9wHQb/qb8Yju8CP7ZH1Cg8ZcErenhEZhiprMT1
-         mt/dAJc7cXpXxNcpOQdH1TXplW8WPlSf0qGJgpG6qD3oFlLPsyDZKk1estJuJLeJ3y0B
-         BuxG8CXllq/L/ry4GrdjPDJ4dBp1U6asn8M/DKCAWDn7Gb7IuZRnasmErTR3pGoJC+H/
-         ZwF4TmCk4ZHvXzyaX+fkw9SOkRsAaNvEU767R9pHrt4i6VTligo+ME/P2/Fn97IRIPv7
-         mCxLhnBnxcCE3afKfCkLPz0P9afDwkIp2jdwgu9LGOY/rQ0IK4kzF/lFu2CBhkFFZ7cb
-         Rrng==
+        d=gmail.com; s=20251104; t=1790283218; x=1790888018; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FKIBJvMX0GJgTDoKadjpCO9qp4INYSWWQBf64XMtjRA=;
+        b=RD3CSAA5nLiCPIcb4MmVu08BLSj3qVk5Y2GsjKvGNoY82+Ty6LIRGZPByhtDRfQKrf
+         2jSwhEOj7isTHpihIXH8evAbOSX/dwLP/474b1zfl8KLfRjMdRbb9CdyBl8fkD3gDtJs
+         g4mJot687X/lNaqJ/PXisGx4lLRHa9rxerEIKdK9j+G4KM1kvjCRAtbNrMry7WmQwMtI
+         Hmi7hvrypUvb3c14bowbS6CViMCsD2W2cEwbqEw53h9z4sEstt87FZh22986EOoIf/l6
+         GuKmqTeN4RJ678N60sYVLVu7Wq+IrDTJ/fp+EzDLEH7M0Kru4oSsx3qH2XpzwCrC9ASF
+         3XiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790283217; x=1790888017;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790283218; x=1790888018;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2OL9DBw0DPlzOjqc4PYZYVQ5oXPU82nMigXCHy4HrZU=;
-        b=ZiPvgWtMKAG/cnwWQ7AZSenaf7m3zut+BdfRlAGVLMG9y7JPxHP5+rOMeZjqxY7DLT
-         nksOssRihDQnmzqaH9mYuuarn6RL8wPdA2ZadtOM1i5SM/6z98bi/ALTs/0i44a7hA9J
-         QxKnjMsA0fgttwfguXITAihWFfCSrffGdMynYWuRU7rpPTjzwTLD2iy8A3q/B2wrXVdu
-         SMX8brksedzhnJDspNYReAi2xZSW+oJR+BBdfuhB7ipmEJrIu6XMl7wrOj2eywdN9qsK
-         kbObs4S5+QBzwh9SNDuJxRsfJgfpRYF4alqviqGxIjEDzdYmtkj3ya/sAt9h4wusMehB
-         RJPw==
-X-Forwarded-Encrypted: i=1; AKwUvBzbMAeb52V90fzL/qWv1A6K4jEt+7LhEbhMs8NAPGkasuvkMcOuOQhxav9dMU0ZcwaPdkiW6Lk739uMDzQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mEcBHMvaO30IXhtm4QKFoxONOjaBhzDhd2pJ4ih72alzTc5NeU
-	RiD0pJVqLbn6dxVUkpc6Q5CZ8szA3FegQHLoEff0hEiwudJP7k1hFXPgtjw1vzy/xVviyA==
-X-Gm-Gg: AYBFou3YYPAh0kMWo+ZkIUTWxmo430grCjGS1sM/qyFwmAf0Tryct5di4lEF8MlawMr
-	L67aHqFsOtk4RRTAqEcqU7Wsbav7g33/KxeVueOPR3nPvItRP0bDwyE6NmNwzQ1SG10Sq2VXTRD
-	2h7TIRFHq9KzkKkmRKLoEmqgyveLTGUaolLaqG8FtiFTCGHdxWu8u1rfV97vAowIsVrXUEPP4S2
-	irW9by09PkzXD59wyDzGD48XIEhhEupIQCprQMur7ImRpzCz0aW/PgJXKADTZvCBCMTKIXFJToa
-	E53c0gT0mQS9EBIbwy/eTd9urhTQvAOlY47VUq5Jorfvtjbg10MeCG0arHeVc14na0BZyg3HBnf
-	EyoqqU+St15V4WJHrvVpGJHurEHdKY8fECBgPhHuKbnsAD0Zuc2AuO+3/bCyIVTLKcr7JiKXjCg
-	XCjp2rSd8+bu1rrWU0X3nTkbKaWGNVO4KKF+6uKtnInK2mHIHcXPk60NmeHwhpga+88s+K3i+vZ
-	+n0gRjfrdcM9nmxbERdHmS9qeUcFVcol46Bk8aVD+l1uf5zKDo+8eux5Pr3ThTA1dw=
-X-Received: by 2002:a05:6122:338c:b0:5c8:46f3:8d26 with SMTP id 71dfb90a1353d-5cb09affa37mr2266475e0c.8.1790283216931;
-        Thu, 24 Sep 2026 13:53:36 -0700 (PDT)
-Received: from [192.168.1.23] ([138.122.221.5])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cc65d665c4sm605001e0c.16.2026.09.24.13.53.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 13:53:36 -0700 (PDT)
-Message-ID: <c183f03c-86c7-4302-8390-9a75a7cbe0da@gmail.com>
-Date: Thu, 24 Sep 2026 17:53:32 -0300
+        bh=FKIBJvMX0GJgTDoKadjpCO9qp4INYSWWQBf64XMtjRA=;
+        b=AsxhpbPvMD1ZtzRDQ4mVy1QnvapQp43SDHjxB0Xii8o6R0mKnHbD0DJ73KILHj8TS+
+         oWdWqwgDMv180qf4rHssm0/VumSPBGCH5txLqn2M7IlUkmRRXWasaPu3YZdMWH9Ae4lU
+         WPIle3KVeBD7yNDLR0JyZz20T8RI6qJqn9Fy7u760D+/bUTXQs0gateU306e1U/KFEMY
+         sPhnVqJmLuw4TX9z4ktljnSaKrQGiLIx3b8JOYFYRV0+uK+yI6G2Y9SOTlHiWm/WYxuf
+         MwolfjYNXid4nFCUlpz1hGfeB8qyyCtLJ51NydURmMTMVn6Z5+gZMB9FDQ2cDmpXUvPY
+         hTiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxDoPmDX22NJVza7ICJb1LlrFDkxiqGb9sucxYlF/uTM6U0GHMSTEBElDvaTVfS50kizQV9EzJznHsM8XE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nUS5gzlimNWi/3sGJpjihk+9Uoao4KktvuBCvaMtDuUc6XAFbC
+	fJIkdozcQfBHxjQBdYhb+eQFLCstLJd+Mt57v2t0euzbwaRIUOPoTheI
+X-Gm-Gg: AYBFou2UgjvXLO7EYv/R3uZHCeNsLfnYPQ+yFtG1DU+TlCTKV1Bnq2VWVtATl2BehVq
+	bLZ3NV9sanst67vHbKIdGzeA5O9od0tTCLGC7kOgt6Ktwxgi1zRDQVuQHTeolVnclBs5i5juha+
+	x7MhLaJBYY+B4/jY2p5hvaLT6tnSt+7vtpRHyqmCuqW+vHO+VzcrMg7E8XRl3TjzM7czk+f02aE
+	LZgOTrmxwewad/t7M8p0OSS2cxhfDJDC0GzFifu7N7O4YX/JB9LXNHLXDeFbC2+tpgMX5mqf0WH
+	T+7fNsnClDTHHRol3hhglRQ4ZhyAuzILcSmk3nmBiYwxbehvbeahhNvaEqUbCdvsd7eEbmOBkzv
+	kIDnSM1Q7mfBUiTTx6TUXMV0aab7dOCdIvXkPoXiUG7egmV02KQxOzQbqIZguqzII5mTb0jUDi0
+	VVKPZJ9/0gF9FHTSjQLg7wKLpzm/UHrEMYvetmxdxUaxQ1hpiteC5At/7biqdXa23q3oVLP5ijy
+	bhR+KVZ5++PdC1Cqw6T
+X-Received: by 2002:a05:6000:1886:b0:486:e8fa:f9b7 with SMTP id ffacd0b85a97d-488716c12f0mr6527375f8f.13.1790283217820;
+        Thu, 24 Sep 2026 13:53:37 -0700 (PDT)
+Received: from cfarm424.jing.rocks (cfarm424.jing.rocks. [2600:3c18:e002:2e11::c424])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30bcc4sm1691360f8f.1.2026.09.24.13.53.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 13:53:37 -0700 (PDT)
+From: Ridham Khurana <khurana.ridham222@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Christian Lamparter <chunkeey@googlemail.com>,
+	Alexander Sverdlin <alexander.sverdlin@gmail.com>,
+	Nikita Shubin <nikita.shubin@maquefel.me>,
+	Shuah Khan <shuah@kernel.org>,
+	Jori Koolstra <jkoolstra@xs4all.nl>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	linux-kernel-mentees@lists.linux.dev,
+	Ridham Khurana <khurana.ridham222@gmail.com>
+Subject: [PATCH] hwmon: (lm70) Fix rounding of negative temperatures
+Date: Thu, 24 Sep 2026 20:53:23 +0000
+Message-ID: <20260924205326.1739229-1-khurana.ridham222@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] hfs: handle extent B-tree write errors
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Yangtao Li <frank.li@vivo.com>, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <c569d5f8ee542e5c86a7e4dee23df99f4ec0becd.camel@dubeyko.com>
- <20260924001623.1765392-1-davyfelipe34@gmail.com>
- <9c9fe0c7660ff1cf4fe81bb3b2c907555d8add4e.camel@dubeyko.com>
-Content-Language: en-US
-From: Davy Felipe <davyfelipe34@gmail.com>
-In-Reply-To: <9c9fe0c7660ff1cf4fe81bb3b2c907555d8add4e.camel@dubeyko.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Thanks, that makes sense. Sorry, I missed that point in the previous
-revision.
+temp1_input_show() drops the low bits of the temperature register by
+dividing the raw value (raw / 32 on the LM70). These bits are not part
+of the temperature: the LM70, LM71, LM74 and TMP122/TMP124 always
+return some of them as 1, and the TMP125 fills them with copies of the
+temperature LSB. Division rounds toward zero, so a negative temperature
+with any of these bits set is reported one LSB too high.
 
-Using struct hfs_find_data *fd will make the helper interface shorter
-and also allow the validation to stay in one place.
+For example, the TMP122 returns 0xffff for -0.0625 degrees C, which the
+driver reports as 0. The LM70 returns 0xf39f for -25 degrees C, which
+the driver reports as -24750.
 
-I’ll update the helper to validate the bnode/tree pointers, the entry
-offset and length, and compare fd->entrylength against the expected size
-passed by the caller. Then the extent path can simply call it with
-sizeof(hfs_extent_rec).
+Use an arithmetic right shift instead, which drops the low bits and
+rounds down. tmp421 had a similar problem with negative values, fixed
+by commit 724e8af85854 ("hwmon: (tmp421) fix rounding for negative
+values").
 
-I’ll send an updated revision.
+Fixes: e1a8e913f97e ("[PATCH] lm70: New hardware monitoring driver")
+Fixes: a86e94dc946d ("hwmon: (lm70) Add support for LM71 and LM74")
+Fixes: cd929672a9ef ("hwmon: (lm70) Add ti,tmp125 support")
+Signed-off-by: Ridham Khurana <khurana.ridham222@gmail.com>
+---
+Build-tested on arm64 and arm (ep93xx_defconfig) with CONFIG_SENSORS_LM70=m. Tested in QEMU (arm64 and arm) with a stub SPI controller returning the datasheet register values; not tested on hardware.
 
-Thanks,
-Davy Felipe
+ drivers/hwmon/lm70.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Em 24/09/2026 16:23, Viacheslav Dubeyko escreveu:
-> On Wed, 2026-09-23 at 21:16 -0300, Davy Felipe wrote:
->> hfs_brec_insert() may fail while inserting a new extent record, but
->> __hfs_ext_write_extent() currently ignores its return value and
->> clears
->> HFS_FLG_EXT_DIRTY and HFS_FLG_EXT_NEW as if the insertion had
->> succeeded.
->>
->> Propagate errors returned by hfs_brec_insert() and only clear the
->> extent flags after a successful insertion.
->>
->> When updating an existing extent record, hfs_bnode_write() returns
->> void. Validate the extent record size and use a reusable B-tree node
->> range helper to reject invalid write parameters before calling
->> hfs_bnode_write(). This prevents an invalid update from being treated
->> as successful and avoids clearing HFS_FLG_EXT_DIRTY in that case.
->>
->> Negative-path testing in QEMU confirmed that an insertion error is
->> propagated to the caller. Testing the existing-record path also
->> confirmed that invalid write parameters are rejected before
->> HFS_FLG_EXT_DIRTY is cleared.
->>
->> Signed-off-by: Davy Felipe <davyfelipe34@gmail.com>
->>
->> Sorry, I missed your suggestion about factoring the validation into a
->> reusable helper in v3. This revision addresses it.
->>
->> Changes in v4:
->> - Factor B-tree node range validation into a reusable helper, as
->>   suggested by Viacheslav Dubeyko.
->> - Keep the extent-record size check local to the extent write path.
->> - Preserve the error propagation and validation behavior from v3.
->>
->> ---
->>  fs/hfs/btree.h  |  7 +++++++
->>  fs/hfs/extent.c | 12 ++++++++++--
->>  2 files changed, 17 insertions(+), 2 deletions(-)
->>
->> diff --git a/fs/hfs/btree.h b/fs/hfs/btree.h
->> index b4c3f2a31471..576412e6901e 100644
->> --- a/fs/hfs/btree.h
->> +++ b/fs/hfs/btree.h
->> @@ -84,6 +84,13 @@ struct hfs_find_data {
->>  	int entryoffset, entrylength;
->>  };
->>  
->> +static inline bool hfs_bnode_is_valid_range(struct hfs_bnode *node,
->> +					    int off, int len)
-> 
-> You can use struct hfs_find_data *fd. It can make argument list
-> shorter. We need to find the node before read/write. So, I think we
-> should have hfs_find_data available.
-> 
->> +{
->> +	return off >= 0 && len > 0 &&
->> +	       (u64)off + len <= node->tree->node_size;
-> 
-> Maybe, it makes sense to check that node->tree pointers are valid?
-> 
->> +}
->> +
->>  
->>  /* btree.c */
->>  extern struct hfs_btree *hfs_btree_open(struct super_block *sb, u32
->> id,
->> diff --git a/fs/hfs/extent.c b/fs/hfs/extent.c
->> index f066a99a863b..ece782205b47 100644
->> --- a/fs/hfs/extent.c
->> +++ b/fs/hfs/extent.c
->> @@ -121,12 +121,20 @@ static int __hfs_ext_write_extent(struct inode
->> *inode, struct hfs_find_data *fd)
->>  		res = hfs_bmap_reserve(fd->tree, fd->tree->depth +
->> 1);
->>  		if (res)
->>  			return res;
->> -		hfs_brec_insert(fd, HFS_I(inode)->cached_extents,
->> sizeof(hfs_extent_rec));
->> +		res = hfs_brec_insert(fd, HFS_I(inode)-
->>> cached_extents,
->> +				      sizeof(hfs_extent_rec));
->> +		if (res)
->> +			return res;
->>  		HFS_I(inode)->flags &=
->> ~(HFS_FLG_EXT_DIRTY|HFS_FLG_EXT_NEW);
->>  	} else {
->>  		if (res)
->>  			return res;
->> -		hfs_bnode_write(fd->bnode, HFS_I(inode)-
->>> cached_extents, fd->entryoffset, fd->entrylength);
->> +		if (fd->entrylength != sizeof(hfs_extent_rec) ||
->> +		    !hfs_bnode_is_valid_range(fd->bnode, fd-
->>> entryoffset,
->> +					      fd->entrylength))
-> 
-> I think we can share with hfs_bnode_is_valid_range() expected size
-> sizeof(hfs_extent_rec) and hfs_bnode_is_valid_range() will be able to
-> check the fd->entrylength. What do you think?
-> 
-> Thanks,
-> Slava.
-> 
->> +			return -EIO;
->> +		hfs_bnode_write(fd->bnode, HFS_I(inode)-
->>> cached_extents,
->> +				fd->entryoffset, fd->entrylength);
->>  		HFS_I(inode)->flags &= ~HFS_FLG_EXT_DIRTY;
->>  	}
->>  	return 0;
+diff --git a/drivers/hwmon/lm70.c b/drivers/hwmon/lm70.c
+index 8b525725fef4..b29bac7a4cc1 100644
+--- a/drivers/hwmon/lm70.c
++++ b/drivers/hwmon/lm70.c
+@@ -96,21 +96,21 @@ static ssize_t temp1_input_show(struct device *dev,
+ 	 */
+ 	switch (p_lm70->chip) {
+ 	case LM70_CHIP_LM70:
+-		val = ((int)raw / 32) * 250;
++		val = ((int)raw >> 5) * 250;
+ 		break;
+ 
+ 	case LM70_CHIP_TMP121:
+ 	case LM70_CHIP_TMP122:
+ 	case LM70_CHIP_LM74:
+-		val = ((int)raw / 8) * 625 / 10;
++		val = ((int)raw >> 3) * 625 / 10;
+ 		break;
+ 
+ 	case LM70_CHIP_LM71:
+-		val = ((int)raw / 4) * 3125 / 100;
++		val = ((int)raw >> 2) * 3125 / 100;
+ 		break;
+ 
+ 	case LM70_CHIP_TMP125:
+-		val = (sign_extend32(raw, 14) / 32) * 250;
++		val = (sign_extend32(raw, 14) >> 5) * 250;
+ 		break;
+ 	}
+ 
+-- 
+2.47.3
 
