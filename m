@@ -1,85 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-127.mta0.migadu.com [91.218.175.127])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 123A440F73E
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:25:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04B32339847
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:25:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.127
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790234703; cv=none; b=LWrJr0K+lPE3eQK0V5IMF03oHYeks2JsEv+JSe3acJUmsinXhFNH1XoNY5K+4QbYybzmN+ayscMltYH8I+3i7B6CtS4J3MLfUIVqaTfNzVENV6e2b0xFzn0Koj8eLXRWhZmffT3YxUb1Jzo5rasal94CD/N1QWgv4XYoODPOPTA=
+	t=1790234731; cv=none; b=JNSi3hKyHXVVqAr5TtU96Mw6rYlsJV2x05OL8cihxlK/ukIuoh+ajoxTgfC1JHEQDmYbqBUBmX8CWgxOWS/0+Sc7KgVfFx/xFcLeiWxw4yqkYrS5B0N4nF5hCY00ddXm3YAdotNQBd5HO7SuhKjAb405gV947yr7ZWoKc32+Umc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790234703; c=relaxed/simple;
-	bh=01/R82TeHhROgNQF3uy3h/i3EyxG+iwb6k0Ax46Jn+M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=B4/vC5XbGL/tnkR4ccmtLiwTQf4nx6qVL0OlLrL/dPWpYFqzb/FJM6zRIX04vC6wJ+Z/OTAeEUE4qGootnx0gI17fCEiYef3IiaxbLiBMo0zxULf5yQXCqAjMtDZu10FfHpM5AVzxKUQQedq4qW1Bdo59Cc5MBCN/gARjtdi1FU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DRYwzdPx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790234731; c=relaxed/simple;
+	bh=kpxnQ+T5dm8y5ACvCTrDn+fdvTMPwnbCt6gITaWVTuo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mM3a6MU8VCCMEehbVktNqco+RFk6wn66yiIuM4R1Er4h6ApqKBqN1N8LaIk6dHkcFZGbRAOc2zhHL779y4xJMHiL0z4mn1YfRP61frXqfKWtoMIspXL5NX6lzIgiL9vHEF6gkVV5lGXCSiIWryXfv5mrplw0HsmiViC/oSR44AM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=CgI9gkLc; arc=none smtp.client-ip=91.218.175.127
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DRYwzdPx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A86D61F00893
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:25:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790234701;
-	bh=yQMowPqgZdYNrkxP5ST5mspk24n+HmmxbCYkp3Xwb+g=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=DRYwzdPxcjVuRm0sA8dWvayidva3Tx1Lk8Cn0hL8kg19nijQYTNvLg9cnHtMt/mSX
-	 Tg2XuuxGHvh3gvvKg/M1nyunPuYdFSfkj5Q4IiquD67wXsa8o76ul/QcH4+51CQxZF
-	 d1PRPA2H5/2JqCy86RY0DkHbSoyZq9HhjSKf5ryF3/6b+12htCNDMUFjqTafM7n1k5
-	 N5myq2v8nLHwHMSmxRWkejUZj3VqfGt/boP/A5kRCPXnpZuLl6Em3bS+/lcEsD4mnJ
-	 g7pDzqLETXCn1cC6OrAY/GvvkO1EjPJPd2FL1ZvIsReeSFIdvSu7d/JMVV5EsaKpFL
-	 e8AtL53VayGiQ==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f17450so1689239e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:25:01 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwVcLNpNKdKb9odltHS2e8irLAdCMkLt7dC8UqRKZM3gm9p8/ayIqljMhB8zALuEXqHt4Y7Z0UveVmyoTE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJvN7cDc+Z3mNE9uuZ0hsutCF92H3mCbjr6YoZwPQijY+lxrIU
-	jPd7QPkyTkYNIgGscmplHQJC/PMF9mng4l7zk9kt/rrf0KYD41bdMjH7wIZgsHkfHjZQKq3Cu2T
-	e17AY4Ww+982BfNyBRi6FEYGN3AB5sec=
-X-Received: by 2002:a05:6512:3088:b0:5b8:d9b9:957e with SMTP id
- 2adb3069b0e04-5b8e0a06c9dmr374427e87.43.1790234700381; Thu, 24 Sep 2026
- 00:25:00 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="CgI9gkLc"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=kpxnQ+T5dm8y5ACvCTrDn+fdvTMPwnbCt6gITaWVTuo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790234727; v=1; x=1790839527;
+ b=CgI9gkLc/iUOp/vNl43a5zALFl5gqayyW7Mnev/BKjuSih+qXHd0/K0IFPjQhK8SvKYNmPTz
+ gN3cw7niaYiwfqk0ZBTx26qMAF39/PSvqXzxNh4z8VELhDJl/W4fmYKdCWooawvZdlgMatbVEFD
+ W73R0Uzk2ZUiy1P2zD48AT54=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 61f703b09c6c258b;
+	Thu, 24 Sep 2026 07:25:07 +0000
+X-Mizu-Trace-ID: 61f703b09c6c258b
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <5ded31ca-fabf-4492-ab5f-75cf43118714@linux.dev>
+Date: Thu, 24 Sep 2026 08:25:02 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921232551.3129244-1-robh@kernel.org> <CAMuHMdV7D4RZ6zA_0jBqnCz8gee2=9bbNAXETbbNQxANhJ5pZg@mail.gmail.com>
-In-Reply-To: <CAMuHMdV7D4RZ6zA_0jBqnCz8gee2=9bbNAXETbbNQxANhJ5pZg@mail.gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 24 Sep 2026 09:24:48 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmvZAen+p_Z-aVSqUnXMChAa7qbNvgv=mEQr9tFMiJFwQ@mail.gmail.com>
-X-Gm-Features: AclHuK8D-TL2v0xIAyyD3bDWuJmwCU-eoWhxt_gfs4heZf_y_vgN3oOcLkjTEXw
-Message-ID: <CAD++jLmvZAen+p_Z-aVSqUnXMChAa7qbNvgv=mEQr9tFMiJFwQ@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: pinctrl: renesas: Allow power-source
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: "Rob Herring (Arm)" <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, linux-renesas-soc@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 7/9] iomap: reject atomic writes in
+ iomap_file_buffered_write()
+To: Tal Zussman <tz2294@columbia.edu>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>,
+ Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+ Luis Chamberlain <mcgrof@kernel.org>, Hannes Reinecke <hare@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Christian Brauner <brauner@kernel.org>, "Darrick J. Wong"
+ <djwong@kernel.org>, Keith Busch <kbusch@kernel.org>,
+ "Martin K. Petersen" <mkp@kernel.org>
+Cc: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org
+References: <20260923-blkdev-fixes-v5-0-89e60d66eb38@columbia.edu>
+ <20260923-blkdev-fixes-v5-7-89e60d66eb38@columbia.edu>
+Content-Language: en-US
+From: John Garry <john.garry@linux.dev>
+In-Reply-To: <20260923-blkdev-fixes-v5-7-89e60d66eb38@columbia.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 22, 2026 at 3:19=E2=80=AFPM Geert Uytterhoeven <geert@linux-m68=
-k.org> wrote:
+On 9/24/26 00:56, Tal Zussman wrote:
+> Buffered atomic writes are not currently supported. The page cache
+> writes folios back independently, so it cannot guarantee that a range is
+> written atomically. iomap_file_buffered_write() does not check for
+> IOCB_ATOMIC, so a direct write that falls back to it would complete an
+> atomic write without atomicity. While no such case currently exists,
+> fail IOCB_ATOMIC writes with -EOPNOTSUPP, so that a future fallback
+> cannot complete an atomic write non-atomically.
+> 
+> Suggested-by: John Garry <john.garry@linux.dev>
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 
-> > +        power-source:
-> > +          description: I/O voltage in millivolts.
-> > +          enum: [ 1800, 3300 ]
-(...)
-> drivers/pinctrl/renesas/pinctrl-rzv2m.c does not implement support
-> for PIN_CONFIG_POWER_SOURCE yet.  So I'd rather not advertise the
-> power-source property in the DT bindings until the driver is fixed.
+Reviewed-by: John Garry <john.garry@linux.dev>
 
-The DT bindings are used by U-Boot and BSD too, what if
-their drivers use it?
+> ---
+>   fs/iomap/buffered-io.c | 4 ++++
+>   1 file changed, 4 insertions(+)
+> 
+> diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
+> index 0a5ebfda90f1..e6654cfe1cbf 100644
+> --- a/fs/iomap/buffered-io.c
+> +++ b/fs/iomap/buffered-io.c
+> @@ -1304,6 +1304,10 @@ iomap_file_buffered_write(struct kiocb *iocb, struct iov_iter *i,
+>   	};
+>   	ssize_t ret;
+>   
+> +	/* Buffered atomic writes are not supported */
+> +	if (iocb->ki_flags & IOCB_ATOMIC)
+> +		return -EOPNOTSUPP;
+> +
+>   	if (iocb->ki_flags & IOCB_NOWAIT)
+>   		iter.flags |= IOMAP_NOWAIT;
+>   	if (iocb->ki_flags & IOCB_DONTCACHE)
+> 
 
-It's a bit confusing but we're essentially maintaining the bindings
-for those other projects as well, and it's why, for a good reason,
-DT maintainers originally wanted to split out the bindings to a
-separate repo. (This didn't happen because nobody wants the
-job of driving and maintaining that, binding maintainers have
-enough trouble as it is.)
-
-I'd say just apply the patch.
-
-Yours,
-Linus Walleij
