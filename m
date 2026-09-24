@@ -1,58 +1,35 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 387274AA1CD;
-	Thu, 24 Sep 2026 17:31:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9586C4AD7FE;
+	Thu, 24 Sep 2026 17:31:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790271087; cv=none; b=iYRN/d5O51PuQ4QHAlvAa4249busy5JXjux2ypdtxPJpVY2+B7iyrq0WrDrvzzBNUnsbgXq9N0nQrIrT2A7XmlujMZ4L5/UQBEa/B5NQ7M6zyCvEz0O3gGi1XdPhkKiLijtIoOgF+8kGQgUDXCm5+6URefbOSsGRWK0Yf6kGvpo=
+	t=1790271089; cv=none; b=XEj6309KulVv/SCXmLr0dHgoyQ+xYkyQkl3wvRlnkX7lQMN9lkQXDSZZ8uJA9ZdZpNE6vjlF7wx15FndDvBO63RVKiH2YFfsqyhoZ7iJaet0TBLGSy86vvHTYmovXqrrgGMW6IuzrkngjxJLxZvyycutSgvFX9np/R0KhMvOMj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790271087; c=relaxed/simple;
-	bh=9n3d9RPjx63gyvP/MxGCnZNS6Xgi+vkKKx2xFkXhSBM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DcjGzLDC1oqzWsg7Up3pRh61LKgELKWlJ/S6T8BtGZa/zb60OqzpU5GepVETHCOcukhc0Uv01qKr3s4jnkWjFSk4lWyNduR+nLjk9Kqren+xJnpAfVBnbNYSII7V6BoK5Kz1xjrifYLRHUax9id0aM1/aWr7EZK28Mq2HBsSG/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=cLFT/ZR4; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1790271089; c=relaxed/simple;
+	bh=p9ZmUGtZrrE2iXRki3h88NeWe3LCz0pKx2ehoj1MQro=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=uqluvv6swYRNbHleuTgLObLO+3JYdzccTwPq2B8stWnrjicvIMNbGc9NKxSzst1R35eeDBCzowfUqWj13EKh5a7GxClYaqsP4aKexWNpomu1zuwLrlrLbbH5E6/wyfxuaAj1zEZP4f599bwJp/NTsx1HLo2IV2jtkELoDy8ww1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kFJ6qKpb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="cLFT/ZR4"
-Received: from CPC-mawas-YGKSX.localdomain (unknown [70.37.26.38])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 5B4B320B7167;
-	Thu, 24 Sep 2026 10:30:36 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 5B4B320B7167
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1790271036;
-	bh=DSqMVA3ep4LNU62i5WksiRt76ZGPG4kkSp1Jt+5qCWY=;
-	h=From:To:Cc:Subject:Date:From;
-	b=cLFT/ZR4NYqGWmTZKw3ueF/zCdb/SmaF01+RmEB1KNu/3Nbi0QcQ1LJIf7cFw9Tec
-	 GMbYVZIoV0h2XCW7o6m8lJRigiCpTB5eCtEF+tnQPE+ClE+ChEFZbFjbqwefyYThwe
-	 cVziDnUO3c+vJ2Z1UOYypL02YzYkJRYQ++Tx1gJ8=
-From: Manish Awasthi <mawasthi@linux.microsoft.com>
-To: kys@microsoft.com,
-	haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	longli@microsoft.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	kotaranov@microsoft.com
-Cc: horms@kernel.org,
-	linux-hyperv@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	bpf@vger.kernel.org,
-	nipun.gupta@amd.com,
-	nikhil.agarwal@amd.com,
-	gargaditya@linux.microsoft.com,
-	ernis@linux.microsoft.com,
-	kees@kernel.org,
-	paulros@microsoft.com,
-	mawasthi@microsoft.com
-Subject: [PATCH net-next 0/4] net: mana: Add support for the CDX bus
-Date: Thu, 24 Sep 2026 17:30:50 +0000
-Message-ID: <20260924173054.589291-1-mawasthi@linux.microsoft.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kFJ6qKpb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C7EF1F00893;
+	Thu, 24 Sep 2026 17:31:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790271088;
+	bh=kKpEA4ZPnZmLYqk1f/RKbe5kuhGWjOaRK5RvklV0zEM=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=kFJ6qKpby7HHI2Kz9duCs07w63gwz6v43jCON6/FzziI+gGBUV3FRBrZWdsP+bWth
+	 8FesBk5iDOLX8vKT4z2sYbzCaOst+7ZP3FLcKaZL6l5XmcDxCgLqfhx143VDGH2aCd
+	 lXrbzKkgExkpZ0WkRqoid4gI3tJiU2W4g6lWMzGTMd1yyj9IVif7Jphn+Q6PmkNO9v
+	 bTMNcMnM7NngWGRYNegKT8ZoKM/FAlydChLWNUniK1b3WMPCa63rLTddVQhdHnwu00
+	 vouZbiffjxqGtf9R6T8d1NmWfcLbA+FoLx9wMeeEPybNfR2BI7i2489c+bm+Jc3JqZ
+	 ya1GQGh3G4ImA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56A603A566DB;
+	Thu, 24 Sep 2026 17:30:18 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -60,45 +37,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] tipc: Fix a data race on mon->peer_cnt in
+ mon_timeout()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179027101689.1669750.10034423915812616755.git-patchwork-notify@kernel.org>
+Date: Thu, 24 Sep 2026 17:30:16 +0000
+References: <20260922080909.21123-1-ginger.jzllee@gmail.com>
+In-Reply-To: <20260922080909.21123-1-ginger.jzllee@gmail.com>
+To: Ginger Li <ginger.jzllee@gmail.com>
+Cc: jmaloy@redhat.com, tung.quang.nguyen@est.tech, netdev@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org
 
-This series adds CDX bus support to the MANA driver.
+Hello:
 
-The shared GDMA and Ethernet code currently builds together with the PCI
-transport. To add another bus without duplicating the driver or adding
-configuration checks throughout the shared code, this series separates the
-bus-specific operations and builds each transport independently.
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Patch 1 introduces gdma_bus_ops and routes bus-specific interrupt, reset,
-service, and setup operations through it.
+On Tue, 22 Sep 2026 16:09:09 +0800 you wrote:
+> mon_timeout() evaluates dom_size(mon->peer_cnt) before it takes mon->lock,
+> while mon->peer_cnt is updated under that lock by tipc_mon_add_peer() and
+> tipc_mon_remove_peer().  The value can therefore be stale, and the decision
+> whether the local domain has to be recomputed can be based on an outdated
+> member count.
+> 
+> Read mon->peer_cnt inside the write_lock_bh(&mon->lock) protected region.
+> 
+> [...]
 
-Patch 2 moves the PCI-specific code from gdma_main.c into gdma_pci.c
-without changing PCI behavior.
+Here is the summary with links:
+  - [net] tipc: Fix a data race on mon->peer_cnt in mon_timeout()
+    https://git.kernel.org/netdev/net/c/8e1937fed673
 
-Patch 3 builds the shared code as gdma_core.ko and the PCI transport as
-mana.ko. The PCI module keeps its existing name, device table, and
-mana.eth/mana.rdma auxiliary-device identities.
-
-Patch 4 adds the CDX transport as mana_cdx.ko for device ID 0x00C2.
-
-Manish Awasthi (4):
-  net: mana: Introduce gdma_bus_ops for bus-specific operations
-  net: mana: Move PCI transport code into gdma_pci.c
-  net: mana: Build the PCI transport as a separate module
-  net: mana: Add support for CDX device ID 0x00C2
-
- drivers/net/ethernet/microsoft/Kconfig        |   26 +-
- drivers/net/ethernet/microsoft/Makefile       |    2 +-
- drivers/net/ethernet/microsoft/mana/Makefile  |    9 +-
- .../net/ethernet/microsoft/mana/gdma_cdx.c    |  340 ++++++
- .../net/ethernet/microsoft/mana/gdma_main.c   | 1063 +++--------------
- .../net/ethernet/microsoft/mana/gdma_pci.c    |  917 ++++++++++++++
- drivers/net/ethernet/microsoft/mana/mana_en.c |   18 +-
- include/net/mana/gdma.h                       |  106 +-
- 8 files changed, 1552 insertions(+), 929 deletions(-)
- create mode 100644 drivers/net/ethernet/microsoft/mana/gdma_cdx.c
- create mode 100644 drivers/net/ethernet/microsoft/mana/gdma_pci.c
-
-
-base-commit: 87b80c2f6b05cad9f0ff9136709c62a0f59923e3
+You are awesome, thank you!
 -- 
-2.54.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
