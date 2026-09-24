@@ -1,32 +1,87 @@
-Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 933B231E845;
-	Thu, 24 Sep 2026 09:30:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843D230FC26
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:30:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790242230; cv=none; b=er7OQXIpG9NCFN7ftCu6fduL/eQFNBYCClkj0r4oaPqrAstJ3mCwKyBCz4b9Mb2lML1empDRxKWdnxZCUBcy7YmnLMmBkk9Bgi4aXsATapRdaPG7KoKKgo5j5nTnmS/R+ThJx+Uwi93YjnUZIVGaKPG2YnjVUe5hyqvBwhaDVFw=
+	t=1790242238; cv=none; b=nPYARAKPaJG9Na9oh6RQSOMooM8Y9XTv+HfAjudXuLym2689+X0jCFogbS7vASxJoyyVBera4jejiHwCWSmLgMYTihrWs9bbou41JTzQKABYlTWUENkx592SJPv3qzv98VUepCHri47xeieenNfDMRuNOLLATMFcCjdqYPxMN2w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790242230; c=relaxed/simple;
-	bh=AmMOufot/EQcpimbkb40vwUejbzA8+jbVq+UyHnkD3I=;
+	s=arc-20240116; t=1790242238; c=relaxed/simple;
+	bh=OGeIwVwDe8oME1g5NKc/KR/rvF0BXlH+bMB1IT3yRkg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R75e5xWc8dRZatOQ854gtvWkYUr0FWxRhTVciUQMJCauGKC1Ipxsv5YOZxnwkW1CnOWfR24dwKQCnrdzh29tJ3FT9eQmcfazllc0bJde47JYBKLM9SlpLbahJdiwt+dqDEwXCJ3H3QJhh5cvU94MJ8ba5rQOlLKmfCVRxTMzew8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=SQp4t2Zu; arc=none smtp.client-ip=115.124.30.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	 In-Reply-To:Content-Type; b=JxB+3+1i8NIh4uKoQeeGDRA32SW1Vog1BdcHH0EE7VwAu54mxsR9HIWtPjwXuw0HQjbnVCyBSlwzMPm4EDN8eLFASES3wJZtFuMRNQaCnNLSo7bVK14X9cTtXTcvwCHR5xv5vp3bVDWpbw4oRah4uZCpCVCPVsyhoQAU7pvOQaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=F6FjQAd5; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=eWJJ5226; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="SQp4t2Zu"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1790242215; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=hGFp7vyDRjGA66l3w0r/DNC8ixnBictg/opoX+xyIPw=;
-	b=SQp4t2Zudwwu+YdEaSUQ/qQ55o+ciB2EWhwu8ejYnakt2HO9oYUY7FP7LPUTiW5jiz5eeSI+NUOS5lFCjeYwc9n6mQ9rPubN64mNvS7lLq35ZmoMo+QP5WUCUeW6k9oIBj7tHtjx0fqhZvwiUPwso6dOKuMBJ/QfM4j8FwIJAOg=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0XBZH3vE_1790242212;
-Received: from 30.74.144.118(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XBZH3vE_1790242212 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 24 Sep 2026 17:30:13 +0800
-Message-ID: <61f8a9af-7cdc-4979-bcc0-bcc932f7301f@linux.alibaba.com>
-Date: Thu, 24 Sep 2026 17:30:12 +0800
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="F6FjQAd5";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="eWJJ5226"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790242235;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mTrjsIWcICpVWaDL+QIPC/Do7s36dFqemExsR7yHAPE=;
+	b=F6FjQAd5QyNw5jnu/fE+3Yvo97mfMc076r+4dd7jeIz2ypIPuLyhLb0Gvj7Q+xrbYcXgWS
+	RmybaSAju2HZvJDCzj+Ls4LT50aAy3b8wRl4t2CH1kC88G61Bd41tGwqXMBC9iHqDuChen
+	PkcX8Trpwz2s4eHphfioTxDM2UmDc5o=
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
+ [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-336--TojluxPNIGxLCp8ngLbWQ-1; Thu, 24 Sep 2026 05:30:33 -0400
+X-MC-Unique: -TojluxPNIGxLCp8ngLbWQ-1
+X-Mimecast-MFC-AGG-ID: -TojluxPNIGxLCp8ngLbWQ_1790242232
+Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c293743f5cdso208768966b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:30:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790242232; x=1790847032; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mTrjsIWcICpVWaDL+QIPC/Do7s36dFqemExsR7yHAPE=;
+        b=eWJJ522627IaLcthjkZHs7nISpUNmQ2UKNlOytSMp9olzcw9hWWnC7toUmuWSpXRGr
+         8DkQnM99Nuin45EED7TEG7Rs2QjO7u876dQq8Nsh39+TlQM2UOLj81CpI0htaNIU57eS
+         loSyWILpkjYE9eXyyJP+0f2ZJYfEJcTPi6MqPho+WWM7DaFhbkpomLz8opldi6vgHi1n
+         WNO+ovbjpZwak04gRdzl1WfZPG2nfcDu/XDqibXf5Ya/VlsqT6rVRb3fsPGhsW5c4+PX
+         U9ypNNTtREMoJ9LDuxSowj+eWQ+r0DGlhZWSeidnotVDjZCHGyv922k6+UZ9cXrsODim
+         7ZpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790242232; x=1790847032;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mTrjsIWcICpVWaDL+QIPC/Do7s36dFqemExsR7yHAPE=;
+        b=ntqJO+dgwmp4+ROZlLM3xWdO4yz0r4fEqYlMMkAS7qHMXC8UUgNqNCCkvRM3Iwgyru
+         6sFx4qttbn37QS52JmII8gZL4vkqKDzCk1cGKUEfqVYy75hYrSqa3Nu6yPlnLeehLyNS
+         smUKN04fDUyZzPEqz+UfCvOkHBzIFS6rULwL4aO/UvOcopZjPHARI6uGagRJ6XVywJOa
+         Huc+39cxtTmQIH1Ei5Ut//oQR7PCekXubD3UOsd0unjeGx5SqOkp3mwBzA+855pO+AOm
+         D97jYE9eou8AWJCMeQIOE6NxfCdmPPLve4E+DtvPD5l9tHECMUxaJGXsjRTS7CQXet+C
+         9ScQ==
+X-Forwarded-Encrypted: i=1; AKwUvByDtdZgOtVO7XkdRkCrmKKqGw1G+1jnZnn9HSCr8x3Dm/4HeVtj01tufTmbAF+eiaX/DkukdRxBlKdutmY=@vger.kernel.org
+X-Gm-Message-State: AFuF++maRkuqjBpfKUU2NS4Yc/arjOKfW22JIoiyKQwrwL+rDDe+lhK/
+	U87KRrxbxUqdDSkDQdWWfdRTuv2zdG8JGFQwu5GxKW50HnKrHh9y25A9ZQ9R8qQ0qgWyS93RgY2
+	5+3aJqUpVsuFJY3gMRf+E6GehiGNsc25nldt7OxaFMsDTQCskErn/3LySDoxkncZD+w==
+X-Gm-Gg: AYBFou2TRSUfLDnkGJfIF7bODe9Ma8eypmtUo0TcARwsS2HvLjzBdFA2dTvrsM0pFTe
+	oYZhMJSH5Aufy6JqSg8EghOszlqB3hQ7cMBWAQTuuhylpUL8zrqiWoM3J9B/e2rqAoQ9og+8oc2
+	6Dql9Hco48spXGjNN4tKGqr4JtdrHKNZ/FI9R1XqTquHn3Miwefht3TpgL+K6f0MaKSGfgsoYse
+	VUzhbFUOk9pbkkcPUEQGT9RpJsPHTI6cDXgGgeD8ex37V2YZcxeQQzaz0DNGkApB3KcM+qNZOhd
+	M+1aFFZprvzjSizNXzeHKqsTp3p8brM1OKT6Ubwo5neJLL3yKuwuwtILiqSb8xyMiAgN9OUuPwL
+	fjUT0gsv0qgMZNxS1WBtKRNaWXhKBGzYsl1Hc7x/q26pX7ql/Sps+4XCH4OSBF3WZH2TVyRugGg
+	==
+X-Received: by 2002:a17:907:1999:b0:c29:45ad:7af7 with SMTP id a640c23a62f3a-c2ac256d4damr160715666b.30.1790242232108;
+        Thu, 24 Sep 2026 02:30:32 -0700 (PDT)
+X-Received: by 2002:a17:907:1999:b0:c29:45ad:7af7 with SMTP id a640c23a62f3a-c2ac256d4damr160713466b.30.1790242231685;
+        Thu, 24 Sep 2026 02:30:31 -0700 (PDT)
+Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae6ecd17sm269433866b.63.2026.09.24.02.30.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 02:30:31 -0700 (PDT)
+Message-ID: <a7148410-7e21-42cf-939c-e24537fdf031@redhat.com>
+Date: Thu, 24 Sep 2026 11:30:29 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -34,139 +89,87 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG] shmem: FALLOC_FL_PUNCH_HOLE vs fault-around race corrupts
- page cache / rss counters
-To: Pedro Falcato <pfalcato@suse.de>, Ayush Ranjan <ayushr@modal.com>
-Cc: Hugh Dickins <hughd@google.com>, Matthew Wilcox <willy@infradead.org>,
- Andrew Morton <akpm@linux-foundation.org>, Jan Kara <jack@suse.cz>,
- David Hildenbrand <david@kernel.org>, Gregory Price <gourry@gourry.net>,
- linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260924061708.1645968-1-ayushr@modal.com>
- <arTdLsBENhrpOyk-@pedro-suse.tail5790ac.ts.net>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <arTdLsBENhrpOyk-@pedro-suse.tail5790ac.ts.net>
+Subject: Re: [PATCH net-next v2] net: phy: refuse to attach a PHY whose driver
+ is being unbound
+To: Aleksei Sviridkin <f@lex.la>, netdev@vger.kernel.org
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ linux-kernel@vger.kernel.org, maxime.chevallier@bootlin.com
+References: <20260919015340.499675-1-f@lex.la>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20260919015340.499675-1-f@lex.la>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
+On 9/19/26 03:53, Aleksei Sviridkin wrote:
+> phy_remove() clears phydev->drv as its last act; the driver core clears
+> d->driver only afterwards, in device_unbind_cleanup(). An attach entering
+> that window still sees d->driver, so it skips the genphy substitution and
+> then dereferences the NULL phydev->drv.
+> 
+> Unbinding a PHY driver under an attached consumer crashes in real life.
+> The board that showed it is an MT7981 whose copper PHY driver needs
+> firmware from the rootfs, so the driver arrives after DSA has attached
+> the PHY. I was testing how a port copes with that driver coming and
+> going, on an OpenWrt 6.18 kernel with the distro's backports, local
+> patches and the series under test. Racing a sysfs unbind against port
+> teardown and bring-up oopsed twice: once in the state machine, and once
+> inside a live phy_attach_direct() where phy_init_hw() had already
+> entered the driver's config_init(). The second came after a
+> one-line NULL check at the state-machine site let the run continue, with
+> nothing added to widen the window. Both have this root. Neither is this
+> dereference: in one the driver went away under a port close, in the other
+> mid-attach, and in neither was phydev->drv already NULL when an attach
+> started. That window is the narrow member of the family, and reaching it on
+> demand needed a 200 ms msleep() at the end of phy_remove().
+> 
+> Refuse the attach rather than let it complete on a driverless PHY, with
+> -EBUSY, which this function already returns when the PHY is attached
+> elsewhere. Without phylink the netdev would come up on a PHY that never ran
+> config_init. Under phylink it does not get that far: phylink_bringup_phy()
+> dereferences phy->drv->name as soon as the attach returns.
+> 
+> The mid-attach case needs serialisation rather than a NULL test.
+> phy_init_hw() tests phydev->drv once on entry and then dereferences it
+> several more times, and it calls the driver's own config_init(), which is
+> where one of those oopses landed, on a dereference made by driver code that
+> no test in phylib can reach. The device lock is not available either:
+> phy_attach_direct() runs under rtnl from ndo_open, while phy_remove() runs
+> under the device lock and calls sfp_bus_del_upstream(), which takes rtnl
+> for a PHY with an SFP bus.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Aleksei Sviridkin <f@lex.la>
+> ---
+> 
+> Notes:
+>      v1: https://lore.kernel.org/netdev/20260914204200.2743251-1-f@lex.la/
+>      
+>      v2:
+>      - Said in the commit message where this was seen. The site in
+>        phy_attach_direct() was found by reading the unbind path, but the race it
+>        belongs to was not theoretical: it took the same board down twice with no
+>        instrumentation in the kernel, while a sysfs unbind of the PHY driver was
+>        raced against port teardown and bring-up. v1 opened with "found by
+>        reading, not from a crash report", which was true of the site and
+>        misleading about the race; that line is gone. The second of those two
+>        came after the state-machine site had been given a local NULL test so the
+>        run could continue, so the kernel that produced it carried that one extra
+>        check; nothing was added to widen the window in either. The traces were
+>        read at the time and the dumps were not preserved.
 
+I read the above as you observed the addressed race without additional delays
+in a real-life usage. That means target should be net.
 
-On 9/24/26 4:34 PM, Pedro Falcato wrote:
-> (please use the email I actually use for work, thanks; not sure how
-> you got to that one)
-> 
-> Hi,
-> 
-> On Thu, Sep 24, 2026 at 06:16:21AM +0000, Ayush Ranjan wrote:
->> Hi,
->>
->> We are seeing shmem/tmpfs page cache corruption on production hosts
->> running a workload that punches holes in a memfd (hole-punch based
->> memory reclaim) while other threads and forked children fault the
->> same MAP_SHARED mapping. The kernel taints but does not oops:
->>
->>    BUG: Bad page cache in process ...  pfn:...
->>    page dumped because: still mapped when deleted
->>    ...
->>    dentry name(?): "memfd:..."
->>
->> and, more frequently, a paired rss-counter imbalance when the mm is
->> torn down, always exactly one PMD-order folio (512 pages):
->>
->>    BUG: Bad rss-counter state mm:... type:MM_FILEPAGES  val:-512
->>    BUG: Bad rss-counter state mm:... type:MM_SHMEMPAGES val:512
->>
->> Seen on 6.12 and 6.18, x86_64, bare metal and VM, with
->> /sys/kernel/mm/transparent_hugepage/shmem_enabled = always.
->>
->> This looks like the same corruption Gregory reported in March, which
->> as far as I can tell stalled without a fix; that report needed ~100
->> ballooning VMs to reproduce:
-> 
-> Well, I thought (from the lack of replies) that it was probably a bug on
-> their side. Perhaps that's not true :/
-> 
->>
->>    https://patchew.org/linux/20260326162611.693539-1-gourry@gourry.net/
->>
->> The reproducer at the end of this mail trips it with a single memfd,
->> no VMs or ballooning, within a few minutes on a large machine, so
->> hopefully it makes the race easier to confirm (and to test a fix
->> against).
->>
->> Here is my best understanding of the race -- corrections welcome:
->>
->> shmem guards faults against an in-progress hole punch with
->> inode->i_private: shmem_fault() -> shmem_falloc_wait() waits while
->> shmem_fallocate(PUNCH_HOLE) holds i_private. But shmem's .map_pages
->> is the generic filemap_map_pages() (shmem_vm_ops /
->> shmem_anon_vm_ops), which does not consult i_private and does not
->> take invalidate_lock, and shmem does not use invalidate_lock to
->> serialize faults against truncation the way regular filesystems do --
->> the i_private + waitq scheme stands in for it, but only shmem_fault()
->> participates in that scheme.
->>
->> So while shmem_fallocate(PUNCH_HOLE) is between
->> unmap_mapping_range() and shmem_truncate_range(), a concurrent
->> fault-around can (re-)install PTEs for folios that are about to be
->> truncated:
->>
->>    - filemap_map_pages() samples mm_counter_file(folio) once per batch
->>      and applies it with add_mm_counter() after mapping; if the
->>      folio's swapbacked state changes while it is concurrently torn
-> 
-> But that cannot happen? We hold the folio lock in filemap_map_pages().
-> The folio (naturally) cannot be torn down while we have the folio lock.
-> 
->>      down, the map-time counter (MM_FILEPAGES) and the zap-time
->>      counter (MM_SHMEMPAGES) disagree by exactly one folio -- the
->>      +/-512 imbalance above.
->>
->>    - a folio re-mapped in this window (by fault-around directly, or
->>      via a child VMA whose PTEs copy_page_range() installs after
->>      unmap_mapping_range() has already walked the i_mmap tree -- the
->>      dup_mmap() variant discussed in the earlier thread) can be
->>      deleted from the page cache while still mapped -> "still mapped
->>      when deleted".
-> 
-> No, I don't think this paragraph is true. Page cache truncation (via
-> truncate, or fallocate PUNCH_HOLE) takes the folio lock for each folio
-> that is about to be truncated out. Mapping folios takes the folio lock
-> as well, except in the fork() case where a myriad of weird interval tree
-> + PTE lock interactions make it safe (AIUI).
+More importantly if you observe and address a crash you should include the
+relevant stack trace in the commit message.
 
-Agree.
+Also I think that the sashiko feedback is relevant: you should attempt to close
+the wider race, with proper locking. I read last part of the commit message as
+a pre-existing lock inversion (RTNL should not be acquired under the device lock,
+only vice-versa) prevents the more straight-forward fix. You should
+provably investigate solving such lock inversion.
 
-However, I did previously fix a race between filemap_map_pages() and 
-truncation that caused incorrect folio mappings, and I believe this race 
-also exists in shmem. Ayush, could you check whether that fix is present 
-in your kernel?
+/P
 
-f58df566524e ("mm: filemap: fix nr_pages calculation overflow in 
-filemap_map_pages()")
-
->> Reproducer
->> ----------
->>
->> The race is on PMD-order folios, so khugepaged needs to scan
->> aggressively (with the default 10s scan interval the punched ranges
->> are not re-collapsed fast enough to reproduce quickly):
->>
->>    echo always > /sys/kernel/mm/transparent_hugepage/shmem_enabled
->>    cd /sys/kernel/mm/transparent_hugepage/khugepaged
->>    echo 1    > scan_sleep_millisecs
->>    echo 4096 > pages_to_scan
->>    echo 511  > max_ptes_none
->>
->>    cc -O2 -pthread -o repro repro_shmem_punch_race.c
->>    for i in $(seq $(( $(nproc) / 3 ))); do ./repro 60 & done; wait
->>    # watch: dmesg -w
->>
->> On a 112-CPU host this trips within ~2-5 minutes; this capture is
->> from 6.12.0-204.92.4.4.3.el9uek.x86_64:
-> 
-> Awesome that you have a reproducer! Have you reproduced this on a mainline
-> kernel? Enterprise kernels are not supported upstream.
-
-I've been trying to reproduce the issue on v7.3.0-rc1 for half an hour 
-now with Ayush's reproducer, but haven't been able to trigger it.
