@@ -1,228 +1,277 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012015.outbound.protection.outlook.com [52.101.66.15])
+Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2294E3115A2;
-	Thu, 24 Sep 2026 14:19:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790259568; cv=fail; b=Vvjm1v9xCQXXEQt3Vru74w4+AsWA4sYzzguSANenjIQYyeLcNWz+ZETbodQudDacqjRHohHIMsUdNPwIDh6thRwQqFO2LjyqJVThLzhhp80/roBRTGQt7qWG+S2gTobYSTBE/HYX5CVkh9SoRVbVnqDQyxawrI7Zp1lB+zPHdHA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790259568; c=relaxed/simple;
-	bh=5UGLlK8fXPwSSOb/NxaqTnkiRsj26daXLDtIboWsL5s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=jHp6ipOf7IYjiM9MRFucQA2lZpHrOvHkzOJBx90uNrd8q6H5YgbvYQaWotDlsuXyA/TXMkncXLNQdhAtKZHYFdUkBmVYT0SE8lxUluCuTFYKsqafINZUMYs1UXQ+NKpzNSdvBhbMwI0j274uQ8b5ANR0TgK4BvUz+sOWKxusmXk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=vSnyfEKD; arc=fail smtp.client-ip=52.101.66.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7346B1C5D72
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:19:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790259576; cv=none; b=uW07J08POIEXf0znVQ1jayUYOhznTZqsP2HSNgB2VhCHXAVFqJQyGTYpAdFHgjmbCMEi9VFQ1uZEDkHrhmqS8I+U4XAlaCiMWMe+X/sJEKR7H384hgkrY4MGBXnFj8guiMIMfqlbMfTzom0YPAB/sX67/vn3ILG88sGmBrSuXYA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790259576; c=relaxed/simple;
+	bh=na/PllBO1PEw5xOQonuWkXy0NMRh9QaBT8ZExDsUw5Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=av8qa5Hqgzyk7sIRHBPbuIGYA8AesGK+Va3uynOr7po6+phH7ks7UYHPBt/wz7eWi2mqnBRnuC5bh759GwEhRERNRbEexGwaJXD/W+7mp0ttQqusJ9o3PvrKLgvdUnK3QA1zqaLytzqg/YUhirY4O8t83RBDqj/Hy3GPo0tmPKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=MEHybnod; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=pJYL5aAD; arc=none smtp.client-ip=202.12.124.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="vSnyfEKD"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=phDJBHWso4mUGlbfGwiVuWL3zMiaT9U30swvd1xQWufjIjNx7o56Vv2X15XzJ48dolzHDgMHMbarv7UYQKbBYnq10NZEVSvPyJBDsJKjmDMiCXDjOKz3NPHtuzAsPBIkOao5Stun3y63t7K2fkVrRXVH0155d4LHQn67QowTSKaFh5Dap3y6hj48AEV5tBz8lQFSUvivnrTxBLkP6trIMFPypmQUspb/zah7h0snIqY9+ePxjnkRevFeayqVNe7koXxnr19TKe68/5pccdrWrqoN0tOlWSn/5snFUWvHGaoNnizIoEk3JYym8pst/DIiy1ZCN/UhxCw4Hz5tVAw8Mg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AerwPDO6NKHjqzStHYHRD0omEp3+3gp4i+3PR+nyn3o=;
- b=vh/YA2GXlJGphujQxFMtOxjrue+hC5WVu1RDYv0QBhRMaDRs05kP7XyH4aAQvRFZKRMRKRRvkFmY7ANg/tw7Ix2o+P2n1t2asX799/vvaSTV7VswGDgfBQqJwhIHwr2ETTKuxzVcevbw48izSi8w+gmcrYoP4xzD9+GCTl1xtzl1wO3uOurjwi3QdUjM66YwAWDKjTCsPMh8pA7qYGyvob/RLnapEwyzAPUYEzdVVo7/poSsyfNqH4+9G444U8vLuuIk+QznlT6jjwljcNp2ZY0oA2+7iE2h0e9R8rnjEs+f4+/6qgkTu9DQS9TeVl8wWVFCcnfZDfWVSDzIxTeWww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AerwPDO6NKHjqzStHYHRD0omEp3+3gp4i+3PR+nyn3o=;
- b=vSnyfEKDI+0cxiItwfoXK+6Egv2enJ6aXQTlCbkpL7wGs4k42XfFZJ/xTDmJ3I45PYPKBrO1X3kc2Mj/VmZ6Ljwr2Bbcc6mF3rE2fOuC6YXONcHftHkCo53/EET1+zNiLrwFd+J6esMmwQTlWzH5F+34eANPziSQwqGA24dakGJtUp3a7ji/Ke4iAvJjDHd8fi3eSXrDaHqJfHeEmmdSyPo9RzkgfUT9NpC3bcuxfKXwRXpAWzswfp4/toN5h0RLxNPt/kjJHCU6Ot+hJy7BTPdbEj0uhTYceuW+GRND/DNx8OXbEug6HYDfrD1nJjQol4igoAsx8k3ZzenyXs5MvA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by MIWPR04MB011266.eurprd04.prod.outlook.com (2603:10a6:290:e9::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
- 2026 14:19:21 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
- 14:19:21 +0000
-Date: Thu, 24 Sep 2026 09:19:12 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-Cc: nicolas.dufresne@collabora.com, p.zabel@pengutronix.de,
-	mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de,
-	kernel@pengutronix.de, festevam@gmail.com,
-	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	kernel@collabora.com
-Subject: Re: [PATCH v3 3/3] media: verisilicon: Remove useless internal fields
-Message-ID: <arUxYI0DP-nwjmg1@SMW015318>
-References: <20260924130453.196299-1-benjamin.gaignard@collabora.com>
- <20260924130453.196299-4-benjamin.gaignard@collabora.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924130453.196299-4-benjamin.gaignard@collabora.com>
-X-ClientProxiedBy: PH7P220CA0067.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:32c::9) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="MEHybnod";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="pJYL5aAD"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 005ED7A00CA;
+	Thu, 24 Sep 2026 10:19:32 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Thu, 24 Sep 2026 10:19:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1790259572; x=
+	1790345972; bh=McYcr38jGkYoq6hJYVs/3wa8SJ7PvSHzvJ4tlA7QJEU=; b=M
+	EHybnodPAi0vyHE4w1u+WjjsefaBd5sAenXno6pdWVaFhV+DidxRXQauuafeNv89
+	xdg7bimN1AygAFhhu1GpzojLVPbQrcGID0Al5GDakS/iriSXM5hrnjuKUDg4vx6H
+	hSMOI5pXbXx8Xl14WKFAd4ge4M2GC/IbHr6XqYtzWV2oB85fNYMVtkmXjQiV6gTG
+	SdF9SJNSXYHTey+6GExEWAL/dXz+YwpJhtKxhXSu871GXntOJVdiZ6MdqL9p/Q6g
+	9Rg4gXPQLsnxZ74g6JXDoITXKQnkKnxcbSw77zhy1/2JQwhEcBzoEsn6LfRb//bH
+	wgcxa/YIiqSTzUPYpIlQw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1790259572; x=1790345972; bh=McYcr38jGkYoq6hJYVs/3wa8SJ7PvSHzvJ4
+	tlA7QJEU=; b=pJYL5aADr7ST8ElOgPGfLyuRO+xqRDha5E1QkCuycDE/h4URjj8
+	W3EmkWuUyMmo5EvoaTTTmqR8BZ6DYaDFljEq2Qf058iHMT6v/uJEfhRYSPOdp2Qy
+	NdrybLoGL8ehBLDzLKF9NDJIzNjcQCmB6D+5c8p2UJ72ieFxoJWvIJc10SFxTKBp
+	4DyUBNdQLaUDj0NMazSrpVa/pHNnBpW5BxfQPftWX46QfvVPc4rfOT1k+APihSCg
+	eJRaSc8jzTy/EMzM0+zN/Qcucrr4aQKgVWAsALAQ70NXJxLDDwPCubGA6PdqOa+T
+	xu+zOlUn9N9vQQYPNQT8O/ysajbpyB5dRHg==
+X-ME-Sender: <xms:czG1auR58td8xtILAxWYdDiCaqKMel9Ik7cxovJ8dnAaQIM2MHRQTQ>
+    <xme:czG1ahZ5kC94CPb_syoHqMNYcw5FG27mTD1SD-8_xs9d1r7xARKphYPV1qmP1pYNk
+    FrE1WF_UDQBOXYRibI2OJIabXMjtUrCd0SbI_m9CV2qE4-deAPlad2gSg>
+X-ME-Received: <xmr:czG1ajPkzZB5us_Gl0maUdvtMVGux_5uprOkfjffDZx0Khn4ZXRmJjR3Xh8>
+X-ME-Proxy-Cause: dmFkZTFUWZumAd0xpsnSEp5napptMkaBEDQBlJcKnhY8V8OVhpHPmRT+v7DP9/F5PdmAr7
+    TYY47q7uxRPI74Vh0dDckmkyW74thi5bYOR8UXGK5D9E8A/wZ6IJqTCMFvp0pDqVVI9IF1
+    ids8NGZob+fMMzrhBfCbZrbgvSuiwl4z9Gi6qZz8M54k5J/4XvizD9rLBT4sy7crZ6W9Ct
+    0uXzn5tb6N7qM2T+oS8sku9r/Ms+Gf9lT8JNHd3aiMZFRcqGcVhNrV3QMcBtrWfSObbddQ
+    wW4CNC0DRtMIUgDKYVjm6GxRbbUhDiLdMsdGfOindIzRWwsu1vvIHG3+6CDnWvFfBB9KtO
+    U9DP603j56jfQ2Bzx8bxndqlejYd+2JxadDm+BfELtpOKt3iDs8g3Z+eptGPxZlwnYm6m/
+    xRmWHLBi39KTpxH3W8OKIXZGb37ej9hrelkaPbSHnRUeLTtMVi63brE9WlxHUCZsW0oviY
+    19cCSfwVzDKaPcg403dlKebUm9iQbFmJlo2vPeZAaHCmy3Rdhc8VUqFe9m+ZBzWwCBL83T
+    OYLpaldJQ5TcUO1dM2IK+hhqTY4Rweqj6hA/qSFd77KnSzTqlVmTw3/7Ca6ls61P/6OPxO
+    g8OpfG4Hgt7s1A62dPLlHfw3rdTkWz6D4ov+bDzZb8UmBl3aaLe83cwoeZJg
+X-ME-Proxy: <xmx:czG1aiPI2w2IQJkwaLEFhA5biMsjXi1VWOtqS6xrczCwaGAiYnSzgw>
+    <xmx:czG1avNgj0CeVDoHH46feo0sumKo05KNvYFl47VbB3oWe7YWh6neRg>
+    <xmx:czG1amYaukv4x-KQTuyPXuxMXhAWggXU91-y3cJwwAlJfWGU47khOw>
+    <xmx:czG1algs20Y-L23Bxs0NY7TYfVEnAxthVckdAT27O_nBpavnPZYwfA>
+    <xmx:dDG1apXiRxco3WCoKuBJ-I2kLSVSWCWtAXV63EL5RKyC1PHCnF5bOq42>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 24 Sep 2026 10:19:31 -0400 (EDT)
+Date: Thu, 24 Sep 2026 15:19:30 +0100
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	kernel-team@meta.com, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>
+Subject: Re: [PATCH v3 08/12] mm/collapse: separate scanning a PTE table from
+ collapsing it
+Message-ID: <arUrhkCjop-htTZh@thinkstation>
+References: <20260916093145.4022188-1-kirill@shutemov.name>
+ <20260916093145.4022188-9-kirill@shutemov.name>
+ <ebf8972a-0c92-41c4-9f42-22ffb820d07a@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MIWPR04MB011266:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0687a3b2-cd38-46c3-d3ca-08df1a46d3e7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|366016|23010399003|7416014|376014|4143699003|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	lxNKsUGatlPwgxlJH88pLfWzTxYKxlfvPl9VPlAwUG2u7Io77/RVm5A/SvVNa7aZm5QkSTT/THkshN1BeI3A22fAB4Rw4VxFpayPOFhBQSvLggtdETkJvKEMb9KjrZrOay1NjqNF6nHmBxK7hp/QlAoufxNbSc10sDW/PT5C763soWcMYdIlixPLpGYzATtQDLHM4nKMXZ1W0wd7jNLx1FNDXc3dPyEqFR4hUHFPXl5xRWxriEd9V7te2zSwgXmagRanIMyhHy3ccvPQzXwjUyfKqF4KMBk9p2sVqbClgrRbhuGDvKsgmaDd66zjfhk37R+M22o9l4BTUt6xyBiuD5WAFrJkuzWHfOgG9+B8Mj1bNldO9Prc1+Y7hV8wvrFeVV6cy0kJCbCfRm64tXnpEHMFy2VQAD6IfoZe6S9dt/giJOPnZYoTv2+WSqso5142ALporiG2laK4tq+UsfU9jxUL1aM2XWBfdWfHNOpxLKGlbBZ15xpPIlbK1mhGB0S2M6G4/rt8ZzqLN2r8K71beFCndj8PdA6YC7Eit7kB11q5gEXlCj0TMEOaTSLABPtsPIGzXutP8KnE8b9aKbeO+NC+4eycUm84wSUqLWiTed+v1Sgk4HwrRdv6BxMstjZKmMduXhjksmfCOjRQbRX4VE036v25wnvZR4uVOcoRC8A=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(366016)(23010399003)(7416014)(376014)(4143699003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?CDmLQqGB6lWxxI0peOyX++pNo+jUL0R4bKKpejCRz982hJ9kp05Ds3E95yLL?=
- =?us-ascii?Q?Peer0bkttoHwkmmI+czC3f6zlgai6kqhK8YsyxfMdDjzn/y2ei64FnTxZoUO?=
- =?us-ascii?Q?PSqzrNjJgTwhl6sGXTf6Ioy0/6sjc8NQDAIDorVlaui9bjgI5Pyv2gyHsO3g?=
- =?us-ascii?Q?/aua9XTx9Dtr8PObkAYwPQBwnxvzsVH+b6HYBOYhzL2Xqi+lIa71kK+Xkpwc?=
- =?us-ascii?Q?+TXoD/7PoRsQnvMh/A8+AOAeDdTOlHXqEH/3/GDYTHWRNnf2XreS+wog69He?=
- =?us-ascii?Q?nXxdMOaC9MhiEp8adhwV1XIHH8KMadmFqOucIL7/9s0WhwI5JEwi32ebOH3G?=
- =?us-ascii?Q?GZ7uZt7rYogE9t3HwsyfWMP0xlc2x1zrhLmbuuGaKK0efXCUUTvzVmBv9lD+?=
- =?us-ascii?Q?em60RVFG6wKyGQSKjFn4KYirX1IN3GHTtQPzGIgC3AL4cYzyX+q0x+N0hQhg?=
- =?us-ascii?Q?as6A8bDD8Fe7P30ADuySW4TkGpvJBYNl03VTop/byCXkU5zBy42zPLIwqW0t?=
- =?us-ascii?Q?niVUvKuHK12shEk61XVGpR7RCqN5FSgYpkm9fPEcRQyz7l3HJ3K+czf/6Kxp?=
- =?us-ascii?Q?0gr1arPE7etikKPIQaxP9+X+WkWST5xAN7yA72JFTpt/x701EMGSjBcEVtfO?=
- =?us-ascii?Q?9v5RGlV7oni2+gJS+Xf34A50eNwU0vtpMbs9cfnKkadZ0o3KNvPYiFTr8i77?=
- =?us-ascii?Q?UNlIPFDRgPOTC9Tn3JF3VhN3BZvKoMC5kZnJMuSkLaT5JwVgYbMTsAJIkrdd?=
- =?us-ascii?Q?Teg2E+IvALZWNGRXEyaoc0RpRZkg3/bghIBZL8yXWy2PIRihzCQXW613yH2/?=
- =?us-ascii?Q?eoXJsDCizjaGwg5lSAj3pNrAWR2R+0YrRtnHZDROi70D/VoOjvQLjreUv2Ib?=
- =?us-ascii?Q?sNa44cfbgAOR28253kIjNL/SbXMfuJIpbyn34BS9qKLxSRloUoPZqYj9vtDm?=
- =?us-ascii?Q?vgTkOlo6fPWde5NzgCjeBzbvKbiLsxA67U+TGmx3Vw5vaivo7fQ2W6/ENyDv?=
- =?us-ascii?Q?0iotodPTZc9LpqrWpkhBDt0uVowUkqoUoNKmhAtz4bgxmOnhrhM3uZ5hWIB6?=
- =?us-ascii?Q?k8LhX1AdmtLp+Hp/V5gN0y1DkfgYYG1ZhawHRg7BjVGOWprZHWuvfZRAJzNr?=
- =?us-ascii?Q?JVV+YfLZW7nRYbpAeWkhvMfenVxmXTvI9YOcY4/IdXbxRD++nAq1ke7w1RF1?=
- =?us-ascii?Q?Lm9RC1VZBZomOnnx/wqi3rFDN/YmeeYiADljxlqVrEk/QD0D/PSX8C9j48DJ?=
- =?us-ascii?Q?sgBoqh17sAOVKPtxqWGJxs1I9vkGDUafyB9mCW+mVb+7/P55PAxkjHS0pAy+?=
- =?us-ascii?Q?TD48CWRsuNWPkQ5TLK4e/iuYTINtXDqU4hI8I0PeUCHDfZ/WvPoEnyH/4YFJ?=
- =?us-ascii?Q?N1tWKyfAPgUa2EQ39er7o3R121fDhu76a7fKL9/PViv3Dxrwbr45PsUn2URi?=
- =?us-ascii?Q?vMVv3Y5+uSSffPQDaGnVS69d5D9eDgXXFQnr7c3KidTAnaKAgorgaE0a7tgW?=
- =?us-ascii?Q?sly8iSF52EUfmobJFxR39paEKQj9R6L21k7KF/cY6PVxNRGZGgb42/0extVG?=
- =?us-ascii?Q?VDjWGH9v9ZRJtjgLjgQ/Lt9dewkbNJmGdPqaY/WaSUnfwMv4DKpZ/3yW9GSY?=
- =?us-ascii?Q?Dt3eZzVEqKnf1zJpBPYEdexasYFcYSUmeXUG0QJzFm8xfHfup15ffUzlXbUi?=
- =?us-ascii?Q?hE0gPEUJbMqXaum+qLAEj6uGn6lJXy7i2OuUP4P+kw1nMd57z26casVVfM6z?=
- =?us-ascii?Q?5G3dlc15wplz0/eMauOk3dpKXsZaaA9QOhiBd22IOOp+Rkm7JiWK?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0687a3b2-cd38-46c3-d3ca-08df1a46d3e7
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 14:19:21.6497
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gErx+kKJo77Wy5sXGOBjWGoVnmD2kUpJUgG3v/IpnB0sANX9vBGqmlYu4fQCj5ZjL9jp8GRCHxZSIFejszLbmXMAUHAxWqoxn72uUEeQOs1azBdLGY0blFZIxhYye/Pa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MIWPR04MB011266
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ebf8972a-0c92-41c4-9f42-22ffb820d07a@kernel.org>
 
-On Thu, Sep 24, 2026 at 03:04:53PM +0200, Benjamin Gaignard wrote:
-> No more variants are using multiple registers regions.
-> Remove the useless fields and simplify driver code.
->
-> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-> ---
->  drivers/media/platform/verisilicon/hantro.h   |  9 ++-------
->  .../media/platform/verisilicon/hantro_drv.c   | 20 +++++--------------
->  2 files changed, 7 insertions(+), 22 deletions(-)
->
-> diff --git a/drivers/media/platform/verisilicon/hantro.h b/drivers/media/platform/verisilicon/hantro.h
-> index 0353de154a1e..ca03bc690fbf 100644
-> --- a/drivers/media/platform/verisilicon/hantro.h
-> +++ b/drivers/media/platform/verisilicon/hantro.h
-> @@ -72,8 +72,6 @@ struct hantro_irq {
->   * @num_irqs:			number of irqs in the array
->   * @clk_names:			array of clock names
->   * @num_clocks:			number of clocks in the array
-> - * @reg_names:			array of register range names
-> - * @num_regs:			number of register range names in the array
->   * @double_buffer:		core needs double buffering
->   * @legacy_regs:		core uses legacy register set
->   * @late_postproc:		postproc must be set up at the end of the job
-> @@ -97,8 +95,6 @@ struct hantro_variant {
->  	int num_irqs;
->  	const char * const *clk_names;
->  	int num_clocks;
-> -	const char * const *reg_names;
-> -	int num_regs;
->  	unsigned int double_buffer : 1;
->  	unsigned int legacy_regs : 1;
->  	unsigned int late_postproc : 1;
-> @@ -184,7 +180,7 @@ hantro_vdev_to_func(struct video_device *vdev)
->   *			dev_ macros.
->   * @clocks:		Array of clock handles.
->   * @resets:		Array of reset handles.
-> - * @reg_bases:		Mapped addresses of VPU registers.
-> + * @reg_base:		Mapped address of VPU registers.
->   * @enc_base:		Mapped address of VPU encoder register for convenience.
->   * @dec_base:		Mapped address of VPU decoder register for convenience.
->   * @ctrl_base:		Mapped address of VPU control block.
-> @@ -204,10 +200,9 @@ struct hantro_dev {
->  	struct device *dev;
->  	struct clk_bulk_data *clocks;
->  	struct reset_control *resets;
-> -	void __iomem **reg_bases;
-> +	void __iomem *reg_base;
->  	void __iomem *enc_base;
->  	void __iomem *dec_base;
-> -	void __iomem *ctrl_base;
->
->  	struct mutex vpu_mutex;	/* video_device lock */
->  	spinlock_t irqlock;
-> diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
-> index 12c804dcc669..6e3a24156a69 100644
-> --- a/drivers/media/platform/verisilicon/hantro_drv.c
-> +++ b/drivers/media/platform/verisilicon/hantro_drv.c
-> @@ -1080,7 +1080,6 @@ static int hantro_probe(struct platform_device *pdev)
->  {
->  	const struct of_device_id *match;
->  	struct hantro_dev *vpu;
-> -	int num_bases;
->  	int i, ret;
->
->  	vpu = devm_kzalloc(&pdev->dev, sizeof(*vpu), GFP_KERNEL);
-> @@ -1128,21 +1127,12 @@ static int hantro_probe(struct platform_device *pdev)
->  	if (IS_ERR(vpu->resets))
->  		return PTR_ERR(vpu->resets);
->
-> -	num_bases = vpu->variant->num_regs ?: 1;
-> -	vpu->reg_bases = devm_kcalloc(&pdev->dev, num_bases,
-> -				      sizeof(*vpu->reg_bases), GFP_KERNEL);
-> -	if (!vpu->reg_bases)
-> -		return -ENOMEM;
-> +	vpu->reg_base = devm_platform_ioremap_resource(pdev, 0);
+On Wed, Sep 23, 2026 at 03:04:05PM +0200, David Hildenbrand (Arm) wrote:
+> On 9/16/26 11:31, Kiryl Shutsemau wrote:
+> > From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> > 
+> > A collapse is two jobs.  One reads a PTE table under mmap_lock and decides
+> > whether the range is worth collapsing.  The other allocates, isolates,
+> > copies and flushes, and wants the lock given up first.
+> > 
+> > collapse_single_pmd() did both, so the boundary between them was somewhere
+> > in the middle of a function.
+> > 
+> > Give each half its own function:
+> > 
+> >   - collapse_scan_pmd() scans one table and only reads.  The anonymous
+> >     scan that used to carry that name keeps its body as
+> >     collapse_scan_anon_pmd(), and collapse_scan_pmd() is now the entry
+> >     that picks the anonymous or the file side.
+> > 
+> >   - collapse_run_pmd() does the collapse the scan asked for, and is
+> >     handed what the scan returned.  SCAN_SUCCEED means there is
+> >     something to collapse.  SCAN_PTE_MAPPED_HUGEPAGE means the page
+> >     cache already holds the PMD folio and only the PTE table is left to
+> >     retract.  Both are work for the run; anything else is why there is
+> >     nothing to do.
+> 
+> Makes sense.
+> 
+> The naming is a bit suboptimal and inconsistent.
+> 
+> collapse_single_pmd
+> -> collapse_scan_pmd()
+> -> collapse_run_pmd()
+> 
+> Maybe it would be clearer:
+> 
+> collapse_pmd() ["single" is rather useless]
+> -> collapse_scan_pmd()
+> -> collapse_scanned_pmd()
 
-Please descript reg_bases -> reg_base change in commit message, it is not
-simpile remove.
+Yes, the naming is awkward.
 
-Frank
+The problem is that collapse_ is the prefix of everything in the
+interface, so it cannot double as the verb: collapse_pmd() says what the
+function is about, not what it does, and collapse_scanned_pmd() has no
+verb at all.
 
-> +	if (IS_ERR(vpu->reg_base))
-> +		return PTR_ERR(vpu->reg_base);
->
-> -	for (i = 0; i < num_bases; i++) {
-> -		vpu->reg_bases[i] = vpu->variant->reg_names ?
-> -		      devm_platform_ioremap_resource_byname(pdev, vpu->variant->reg_names[i]) :
-> -		      devm_platform_ioremap_resource(pdev, 0);
-> -		if (IS_ERR(vpu->reg_bases[i]))
-> -			return PTR_ERR(vpu->reg_bases[i]);
-> -	}
-> -	vpu->enc_base = vpu->reg_bases[0] + vpu->variant->enc_offset;
-> -	vpu->dec_base = vpu->reg_bases[0] + vpu->variant->dec_offset;
-> +	vpu->enc_base = vpu->reg_base + vpu->variant->enc_offset;
-> +	vpu->dec_base = vpu->reg_base + vpu->variant->dec_offset;
->
->  	/**
->  	 * TODO: Eventually allow taking advantage of full 64-bit address space.
-> --
-> 2.53.0
->
->
+Each name needs one after the prefix, hence scan and run. I don't
+particularly like it, but it seems better than scan and scanned, no?
+
+collapse_single_pmd() itself goes away in the next patch. You asked
+there why; I will answer there.
+
+> > What the scan found and the run needs travels in collapse_control.  For
+> > an anonymous table that is the orders and the referenced and swapped-out
+> > counts, which mthp_collapse() and collapse_huge_page() now read from
+> > there instead of taking as arguments.  For a file it is the file itself
+> > and the offset in it.
+> > 
+> > The file side moves with the anonymous one.  collapse_scan_file() used to
+> > run with mmap_lock already given up, and called collapse_file() itself
+> > when the page cache looked worth it.  It now runs under the lock like the
+> > anonymous scan and only reads; the run does the collapse.
+> 
+> So we add more locking to the file path to merge both paths cleanly? Or did I
+> misunderstand that paragraph?
+
+The lock is held over the scan now, but it is taken fewer times. The
+current code drops mmap_lock before the file scan, before it knows if
+there is anything to collapse. Most scans find nothing, and each of them
+pays the cost of unlock and relock for nothing.
+
+Dropping the lock only after a scan found work mirrors the anonymous
+side, with the same batching shape.
+
+> What do you mean with "and only reads"?
+
+That it no longer calls collapse_file(). The scan looks at the page
+cache and says whether there is work; collapse_file() is the run's job.
+
+I will drop the wording. It does not help.
+
+> >  A file
+> > collapse works on the page cache and never sees a VMA, so the scan takes
+> > the file reference while it still has one and the run gives it back.
+> > 
+> > That changes what a refused file table costs khugepaged.  Every file
+> > table it scanned used to end its pass over that mm, because the lock had
+> > been dropped to scan it; now only a table it goes on to collapse does.
+> 
+> The last sentence makes no sense. At least to me :)
+
+It is also wrong, so I will rewrite it.
+
+Before this patch collapse_single_pmd() set lock_dropped for every file
+table, refused or not, and collapse_scan_mm_slot() bailed out on it.
+
+The mm slot stays, so the next call comes back to the same mm at the
+saved address, but every file table cost an unlock, a trip through
+khugepaged_do_scan(), a relock and a VMA lookup.
+
+Now only a table that gets collapsed pays that.
+
+> > Two things on the file side stop being rescanned.  When the page cache
+> > already holds the PMD folio, the scan says so and the run goes straight
+> > to retracting the PTE table.  A run that refuses dirty pages and may
+> > write them back retries collapse_file() alone.  The checks the scan makes
+> > ahead of it are ones collapse_file() repeats under the page cache lock.
+> 
+> Is there any way we could move these changes into separate patches? These
+> changes are bit squeezed into the last part of this description. And having to
+> much happening at once makes this rather hard to grasp.
+
+Ack.
+
+> > Tracing changes with it.  mm_khugepaged_scan_pmd and
+> > mm_khugepaged_scan_file used to fire after the collapse, so for an
+> > accepted table their status field carried what the collapse made of it.
+> > They now fire before it and read SCAN_SUCCEED for an accepted table.  What
+> > the collapse then made of it is for mm_collapse_huge_page and
+> > mm_khugepaged_collapse_file to report.
+> > 
+> > Assisted-by: LLM
+> > Reviewed-by: Zi Yan <ziy@nvidia.com>
+> > Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> > ---
+> >  mm/collapse.h   |  14 ++++
+> >  mm/khugepaged.c | 166 +++++++++++++++++++++++++++++++++---------------
+> >  2 files changed, 130 insertions(+), 50 deletions(-)
+> 
+> [...]
+> 
+> > -/*
+> > - * Try to collapse a single PMD starting at a PMD aligned addr, and return
+> > - * the results.
+> > - */
+> > -static enum scan_result collapse_single_pmd(unsigned long addr,
+> > -		struct vm_area_struct *vma, bool *lock_dropped,
+> > -		struct collapse_control *cc)
+> > +static void collapse_control_init(struct collapse_control *cc)
+> > +{
+> > +	cc->progress = 0;
+> > +	cc->scan_file = NULL;
+> > +}
+> > +
+> > +/* A scan that took a file reference should have been run */
+> > +static void collapse_put_scan_file(struct collapse_control *cc)
+> > +{
+> > +	if (WARN_ON_ONCE(cc->scan_file)) {
+> > +		fput(cc->scan_file);
+> > +		cc->scan_file = NULL;
+> > +	}
+> 
+> See below regarding _release: having _put functions that are not supposed to put
+> anything except with BUG is akward.
+> 
+> > +}
+> > +
+> > +static void collapse_control_release(struct collapse_control *cc)
+> > +{
+> > +	collapse_put_scan_file(cc);
+> > +}
+> 
+> Do we really have to introduce collapse_control_release() just to perform some
+> safety checks for BUGs? I'd rather keep the collapse interface minimal and not
+> introduce _release semantics when there is actually nothing to be released?
+> 
+> Or will you add more into _release in later patches in this series?
+
+Not in this series.
+
+The engine I have on top of it gives both a job.
+
+I will drop it from this series and add it with the engine. The shape
+might change by the time the engine is posted.
+
+The check at the top of collapse_scan_pmd() stays, open-coded: a scan
+that found work on a file table holds a reference, and the next scan is
+where one that was never run gets caught.
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
