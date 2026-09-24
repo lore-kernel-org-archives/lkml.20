@@ -1,408 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D15AE4BC018
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:49:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790275772; cv=none; b=Q8X0qLkZCzpIujLv2JATFhT7Qm6nd6cZJaB1TmhN0keHxIV5Hgqo2R0+Wpk8AeG+pFnLOK2xOdE2EmPVZhc6mmGZ0EOLjVAvyRvFhD8TMGz07xhdO3CBADGShwmWzpVjlh+/L6dfnrUCUwVFcGExLWZbVtPbviOngPFfjTMJTEs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790275772; c=relaxed/simple;
-	bh=WPc4v+CUBA/eXKETbJwVQHejN7tYFix4XNKmEQpj3LA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Sl/8ew3XSBUGhJNNMACuj7+6RkWRscJMLB0+I+PevJuUIRf51xQEHKzvCTOHGe877+lzqygRGuPeAQk9/imylI2lGRj8mGZKfnquo9mQwMRuwkEJTUPpZKQ7wqMman/YqnY0Q/fAhln6/nm1xHDUv3R73fJkBFpyLgTa6q1gfxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MkzA4Aw+; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A93F2D8DC4
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:50:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.179
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790275811; cv=pass; b=gfAmUQTFLU1yQa1fkvK/MNbtQBeAwKqDTXM4Y6IszxM/+q18eHZga60//fzdos4EMVLpSiQL1HnoJTyi0f3PgeDmgc4qSEl/pNkqOJcSb27bSmBpH2Aw1tBwvIP0As7lZTah/zszTUL44vpseaW8UbaoxsFhj18kV07HsfgRZaE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790275811; c=relaxed/simple;
+	bh=ovV3+8HhIOogBXh04yQPFlm05GeVlvyXWO/9SfNBaaI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZafhaRT1YplkQUGfpvBhUcyOB6ojbP55rogPeXMHBaKrKnbjOlKonxCkRbNYDGi2cjKXUcO8jBhPqHk1hJp0iXyl4QL744n8A9bFvXiLFoNcCZ0+I2+35C4KvYfTO4DpMz1khm0Y1ABDSQDVP06tGRU8B5T5AsVaCvaDVvxPGAA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GIq8vZW8; arc=pass smtp.client-ip=209.85.160.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MkzA4Aw+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C13E41F00893;
-	Thu, 24 Sep 2026 18:49:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790275761;
-	bh=iVk+J+6paKfWpDyMf+0qbJj+JcumdT6cHUdD/JaU5MU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MkzA4Aw+cQHzFciygv95Z/EZT6W6NoJYoXb74juTqpXbV+B6umLRdm7RaOmMP2+jn
-	 FOtnGi3WgylnfImvI8URJnAHEzLgLQEhfW+xBEMZ2sO94rNeJ/FMYhHkKcfvJQ1sE7
-	 eL7I8pSoRTcvy31Scc4P9/3XGh7hG1KjZgbwhgQxa8l5FHt1UQKhpZlimXvwAcf0SU
-	 fNF4ClO/wkyJeKKJjhmEcPisE0m2uOWKFbe4fZR1BSOMU1XKGLtMw+b2m2AnvUpAnR
-	 QdgMjkyC3rE3ob8Whzq+OUaLrBgpgwOaSe0/jaaz+H8++6TGtxSevOHwgbGFwU6pl+
-	 GCOCNZkYZZjsA==
-Message-ID: <82738d2b-9c2c-474e-b90a-60a1140b5bd6@kernel.org>
-Date: Thu, 24 Sep 2026 20:46:06 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GIq8vZW8"
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-53113d72966so33151cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:50:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790275803; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Vq+lwvzIkzj7Op9dqNxWeqXLLsAzwQndPDe90zPbwrIUh7sLbCYRpUVZwYvpSl4Bsr
+         C3SQXBEN8wKc20mIxVLlKe5h4AvDmscSYuYqYfoz3y9ROZdbshtmgtHaC1UzdQx3EKiQ
+         bCHcRVSYH1VTqzLrx0fPTJVeVGgiqY9qSABXoRusTvQCS9iwU8Dyl179nlwemsl2xB/l
+         cyURVmwmEXtBzieXxjKhtqMW+McVPJH+JWVrQtTzjRqPAeDmGtj66sOmFLwhPonG3boW
+         o3XomhD/6ZNryvIfr3ph3jEEflciSp2wo4L9BI1yYBw/YMP6aP7gnDsvC3m1TL0ZqWKi
+         C9Sg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ovV3+8HhIOogBXh04yQPFlm05GeVlvyXWO/9SfNBaaI=;
+        fh=fbGd3cSA4u7TxpsYEsQWOwtHdOuRqA7Ahd/Dd7I3SJ8=;
+        b=AvZO7lME/ybNErTbyVPzd9rR+0SOEJw+NnBzitau40WSV1BOPOlL4/hjIvD1LfyTc5
+         NT4yG/CYfn5Ce+CErgsLrIlkLOrQrNi0+KqUorr4apnszKTHMUf/g9GNdJ4BSRMKDoQe
+         l5EvgxRcGuOQ5zMu0ZnSIESdcrPwXCkSSORyJTWKbL2s2nVNWCOumvagJAhdDjSOHygv
+         P2rIz+ExTj6solG/kNXlhLSEh0Af0GjFhTwgIGd54dLxmL6dhCY2ltAqkk4NcRX5R2Ko
+         6f+xuNzFgmdu1tTWIYbwcHAAOwru7dtgwtVadJ8DsQvmd/w8/lyWEyi1NsN8kxk81aVf
+         4ONA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790275803; x=1790880603; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ovV3+8HhIOogBXh04yQPFlm05GeVlvyXWO/9SfNBaaI=;
+        b=GIq8vZW8vAAe4PbsY8eSdwj1L2pi00Yiy7APVT4FO4Kvrr7MmSSSyK5AosdEvC48BI
+         PLRi3mpAtmEIQT6HkiBOQBFj1djYb+pOZxWYC7vkxRD6rVcZnxfJ0/9E5on8bU2sUdT3
+         9WlIpbNvt5wKnPJ+A/1pMipXLRKyQ3tIr1hrHzZ7qBcciklV+HS08pulcubmBpd+g+tS
+         /7t3iWc20ly6kkYxCZxGR+5TOyftl+YKc4OjE/Npk2JzTOkkstsq05ei6pNA5ZJI/nvS
+         gIvd/pAZ4YUd7nyuM+t3AfYjoi1CjQQRPDe6KtXsWi2z34U3hMBJzzsDJiZOa2nsqcky
+         /Evw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790275803; x=1790880603;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ovV3+8HhIOogBXh04yQPFlm05GeVlvyXWO/9SfNBaaI=;
+        b=aCV6tk4GKrZcHzODt/mUiFrTYdqNruakPqN97M9UH1kNDUSqxUe6uGtjUwzeS/Qg2o
+         zd7joyDVnVU7HqOge8iNmj9pP0+NykPtJsZoGx97S7Jat1xDPo7VQb1XqmeATzknaIU/
+         tVE2Vs8wXUorsRx6XLumaJYfjppi3BuKoNSYd1igfIcFDiCIkRNrmkl+739xxeopdrxW
+         hUTXQbHI0DP+4zAgiHJzWQ/wSc1J6Ca65WPGTfxDOEutptv9P/fGwCKHibjdpnbeZQ0E
+         X4uawmM+vP0rniVJdu52ud49S06tsKIcKZqKdnKwX0iIBAYBonFRbWfZwP1PidkJzAKP
+         kpKw==
+X-Forwarded-Encrypted: i=1; AKwUvBydbMarP+xa1gTocIDgwVfGsJmFlZRHq58H2GqHM1CiViaXssb1fYprSzJrOaCc0soiNZsPsQxEXpUEA4k=@vger.kernel.org
+X-Gm-Message-State: AFuF++nMznkCIGoY5JwiCVxawmP+/j/Jwk6mIFqZ4k0KmtGf8RKWLW4f
+	orCw+Z2VwWQftrD7aPZfH8ljGQ71tm3ulmCcCFUOcwmhb00BC+jwMj0PBT0SlEXyemTUrjBWKzG
+	E/8zPRzzo5Km4vvbOB1FsdT11S4tDUVXhciWKcBCf
+X-Gm-Gg: AYBFou2/ncrQSYmvpyPZyM1K7vqY9hhLC4Kgf+XqLlT4S+fz3wjZKnQhnJ1a+Ls55bL
+	LaJlf8Avkf/wIcyzzz6m7N1F6/EefHMTbKqJHlE0PSEC1rdoLOGSXY8WB6h5o+Ld4mipAtzH0Y1
+	ryJpmCjAnXpC4vMdaW/mlTLJdtD3X18NCUDvQf2q4Rb4XUdXgHYXGjamC1wX70UXw48I5eeu0Lg
+	qWNiCk7J/agX2Du/6X4UIi0V506Hvzh16dwnc9CM3796iWTr6QYkMexvPAhG+NLns9XINKSgtoS
+	mJ+ZiNGwqps8vO3XuSqshaFomXG3NR22ILAIxxjIND14Lmufza4k
+X-Received: by 2002:ac8:5a47:0:b0:52f:9ed4:8d75 with SMTP id
+ d75a77b69052e-5330b91b69amr764001cf.15.1790275801917; Thu, 24 Sep 2026
+ 11:50:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] mm/memory: reuse 16 PTEs of an exclusive large
- folio on a write fault
-To: Yuan-Hao Hsu <aa9736195201@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, liam@infradead.org,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Barry Song <baohua@kernel.org>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260918064238.868-1-aa9736195201@gmail.com>
- <20260919073134.639-1-aa9736195201@gmail.com>
- <20260919073134.639-2-aa9736195201@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260919073134.639-2-aa9736195201@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260921-iommu_contig_hint-v5-1-e7fbd1c3774d@oss.qualcomm.com> <20260924001502.GO1540250@ziepe.ca>
+In-Reply-To: <20260924001502.GO1540250@ziepe.ca>
+From: Daniel Mentz <danielmentz@google.com>
+Date: Thu, 24 Sep 2026 11:49:50 -0700
+X-Gm-Features: AclHuK8NxjjK4LAAInZh9B-AiWvxMmczV1znpTfWeKjoAyhZX_I7iFt3P7YZv3g
+Message-ID: <CAE2F3rCVh0CmW6+a__PcCrBgsMJVompKJX_qYBdQ=exj3bYtCg@mail.gmail.com>
+Subject: Re: [PATCH v5] iommu/io-pgtable-arm: Add support for contiguous hint bit
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, linux-arm-msm@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Prakash Gupta <prakash.gupta@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/19/26 09:31, Yuan-Hao Hsu wrote:
-> fork() maps the anonymous pages of the parent read-only and clears
-> PageAnonExclusive on them.  Once the child has exec'ed or exited, the
-> parent's write fault takes the reuse path of do_wp_page():
-> wp_can_reuse_anon_folio() finds that all references to the folio come
-> from this MM, the page is marked exclusive again and its PTE is made
-> writable.
-> 
-> For a large folio that check is about the folio and holds for every
-> page of it, but only the page that faulted is marked exclusive and
-> made writable.  Each other page takes a write fault of its own and
-> takes the large mapcount lock to find out the same thing again: 16
-> faults for a 64K folio.  The same THP mapped by a PMD is reused by one
-> fault in do_huge_pmd_wp_page(), and do_swap_page() maps all PTEs of an
-> exclusive large folio writable at once.
-> 
-> Barry proposed reusing the whole mTHP from one fault in 2024 [1].  The
-> reservations then were the latency of the individual write fault and
-> how far to go around the faulting PTE: a contpte-sized block was fine,
-> anything bigger not yet convincing (David's replies, linked below).
-> Commit 1da190f4d0a6 ("mm: Copy-on-Write (COW) reuse support for
-> PTE-mapped THP") then added the per-folio check and left faulting
-> around for later.
+On Wed, Sep 23, 2026 at 5:15=E2=80=AFPM Jason Gunthorpe <jgg@ziepe.ca> wrot=
+e:
+>
+> On Mon, Sep 21, 2026 at 04:44:07PM +0530, Vijayanand Jitta wrote:
+> > From: Prakash Gupta <prakash.gupta@oss.qualcomm.com>
+> >
+> > Add support for the contiguous hint (CONT) bit in ARM LPAE page tables.
+> > When a set of consecutive PTEs map a naturally aligned contiguous block=
+ of
+> > memory, set CONT on every descriptor in that group so the hardware can
+> > combine translations and improve TLB reach.
+> >
+> > Advertise the supported CONT group sizes in pgsize_bitmap. Callers sele=
+ct
+> > those sizes through the normal page-size selection path; io-pgtable-arm
+> > then installs the corresponding tagged descriptors directly. A partial
+> > unmap of a tagged CONT group is rejected before modifying any descripto=
+r,
+> > so a rejected request cannot leave the group partly unmapped.
+> >
+> > The IO_PGTABLE_QUIRK_ARM_NO_CONT_HINT quirk allows SMMU drivers to disa=
+ble
+> > CONT support for hardware with implementation-specific errata.
+>
+> smmuv3 has this errata, it must be disabled there too. I didn't notice
+> it in this patch?
 
-I'm fine with the original idea of limiting this to reasonable chunk
-sizes, reducing the work we do in a single page fault.
+SMMU is an architecture specification. I am not aware of errors in
+this architecture specification that would preclude the usage of the
+contiguous bit. I understand that Arm MMU-700 has the following
+erratum
 
-The patch needs work. I disagree with various decisions
-either you or the LLM came up with like
+3777127 Under invalidation in TBU possible when using contiguous page
+table entries
 
-* Uglifying do_wp_page
-* Not handling unshare
-* Calling wp_reuse_large_anon_folio() to do some batching to then call 
-  wp_reuse_page in same page fault
-* Batching multiple pieces in a loop
-* Using can_change_pte_writable()
+The recommended workaround is described as
 
-I tried to see how to implement it cleaner. I think we should definitely
-start with:
+"Ensure that contiguous page tables are removed using a single range
+invalidation. Arm recommends using range invalidations to remove
+contiguous entries anyway for performance reasons."
 
-From 3d16faebcbbd1b970edb51ef2f710ca51e9709af Mon Sep 17 00:00:00 2001
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 24 Sep 2026 19:43:15 +0200
-Subject: [PATCH 1/2] mm/memory: factor out anon reuse logic into
- wp_try_reuse_anon_page()
+and I believe we are already doing this.
 
-Let's move the core logic from do_wp_page() into
-wp_try_reuse_anon_page() to prepare for further changes.
-
-No functional change intended.
-
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/memory.c | 45 +++++++++++++++++++++++++++++----------------
- 1 file changed, 29 insertions(+), 16 deletions(-)
-
-diff --git a/mm/memory.c b/mm/memory.c
-index 338fce99e7119..67fcf67bc64fd 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -4414,6 +4414,34 @@ static bool wp_can_reuse_anon_folio(struct folio *folio,
- 	return true;
- }
- 
-+static bool wp_try_reuse_anon_page(struct vm_fault *vmf, struct folio *folio)
-+	__cond_releases(true, vmf->ptl)
-+{
-+	const bool unshare = vmf->flags & FAULT_FLAG_UNSHARE;
-+
-+	VM_WARN_ON_ONCE(!folio_test_anon(folio));
-+
-+	/*
-+	 * Private mapping: create an exclusive anonymous page copy if reuse
-+	 * is impossible. We might miss VM_WRITE for FOLL_FORCE handling.
-+	 *
-+	 * If we encounter a page that is marked exclusive, we must reuse
-+	 * the page without further checks.
-+	 */
-+	if (!PageAnonExclusive(vmf->page)) {
-+		if (!wp_can_reuse_anon_folio(folio, vmf->vma))
-+			return false;
-+		SetPageAnonExclusive(vmf->page);
-+	}
-+
-+	if (unlikely(unshare)) {
-+		pte_unmap_unlock(vmf->pte, vmf->ptl);
-+		return true;
-+	}
-+	wp_page_reuse(vmf, folio);
-+	return true;
-+}
-+
- /*
-  * This routine handles present pages, when
-  * * users try to write to a shared page (FAULT_FLAG_WRITE)
-@@ -4499,24 +4527,9 @@ static vm_fault_t do_wp_page(struct vm_fault *vmf)
- 		return wp_page_shared(vmf, folio);
- 	}
- 
--	/*
--	 * Private mapping: create an exclusive anonymous page copy if reuse
--	 * is impossible. We might miss VM_WRITE for FOLL_FORCE handling.
--	 *
--	 * If we encounter a page that is marked exclusive, we must reuse
--	 * the page without further checks.
--	 */
- 	if (folio && folio_test_anon(folio) &&
--	    (PageAnonExclusive(vmf->page) || wp_can_reuse_anon_folio(folio, vma))) {
--		if (!PageAnonExclusive(vmf->page))
--			SetPageAnonExclusive(vmf->page);
--		if (unlikely(unshare)) {
--			pte_unmap_unlock(vmf->pte, vmf->ptl);
--			return 0;
--		}
--		wp_page_reuse(vmf, folio);
-+	    wp_try_reuse_anon_page(vmf, folio))
- 		return 0;
--	}
- 	/*
- 	 * Ok, we need to copy. Oh, well..
- 	 */
--- 
-2.43.0
-
-
-And the maybe go into this direction, where we really only try to
-batch exactly once, and include in that patch out PTE of interest. IOW, optimize
-for the common case and also take care of unsharing.
-
-
-Some things I am not sure about
-* Hardcoding WP_REUSE_MAX_NR_PTES, likely should be determine differently.
-* Marking all 16 PTEs young+dirty. It's somewhat the same thing as we do in
-  map_anon_folio_pte_pf(). On arm64 it's already fuzzy with cont-pte. With
-  transparent coalescing we'd actually allow it directly. So it does feel like the right thing.
-
-I also wonder whether some part of the function could be factored out as helpers for
-other code to use in the future. I also suspect that there are more cleanups to be had.
-
-Long story short, needs more work, but I am out of time.
-
-Entirely untested:
-
-
-From 1db2c61661cc854eabb8619a2717d1ddf43a95f5 Mon Sep 17 00:00:00 2001
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 24 Sep 2026 20:03:01 +0200
-Subject: [PATCH 2/2] mm/memory: reuse 16 PTEs of an exclusive large folio on a
- write fault
-
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/memory.c | 120 +++++++++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 115 insertions(+), 5 deletions(-)
-
-diff --git a/mm/memory.c b/mm/memory.c
-index 67fcf67bc64fd..dab2a274783bf 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -4414,10 +4414,78 @@ static bool wp_can_reuse_anon_folio(struct folio *folio,
- 	return true;
- }
- 
-+#define WP_REUSE_MAX_NR_PTES	16
-+
-+static unsigned int wp_anon_folio_pte_batch(struct vm_fault *vmf,
-+		struct folio *folio, unsigned long *addr, struct page **page,
-+		pte_t *pte, pte_t **ptep)
-+{
-+	/* modify_prot_start_ptes() needs most PTE bits to match. */
-+	const fpb_t flags = FPB_RESPECT_WRITE | FPB_RESPECT_SOFT_DIRTY;
-+	struct vm_area_struct *vma = vmf->vma;
-+	unsigned long batch_start_addr, batch_size, folio_idx, nr_before;
-+	unsigned int batch_nr_pages;
-+	pte_t *batch_start_ptep;
-+	pte_t batch_start_pte, expected_pte;
-+
-+	if (!IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) ||
-+	    !folio_test_large(folio))
-+		return 1;
-+
-+	/*
-+	 * We'll try batching in a naturally aligned block surrounding our
-+	 * faulting PTE.
-+	 */
-+	batch_nr_pages = min(folio_large_nr_pages(folio), WP_REUSE_MAX_NR_PTES);
-+	batch_size = batch_nr_pages << PAGE_SHIFT;
-+	batch_start_addr = ALIGN_DOWN(*addr, batch_size);
-+	folio_idx = folio_page_idx(folio, *page);
-+	nr_before = (*addr - batch_start_addr) >> PAGE_SHIFT;
-+
-+	/* Stay within the folio. */
-+	if (nr_before > folio_idx ||
-+	    folio_idx - nr_before + batch_nr_pages > folio_large_nr_pages(folio))
-+		return 1;
-+
-+	/* Stay within the VMA. */
-+	if (batch_start_addr < vma->vm_start ||
-+	    batch_start_addr + batch_size > vma->vm_end)
-+		return 1;
-+
-+	batch_start_ptep = *ptep - nr_before;
-+	batch_start_pte = ptep_get(batch_start_ptep);
-+
-+	expected_pte = pte_advance_pfn(batch_start_pte, nr_before);
-+	if (!pte_same(__pte_batch_clear_ignored(expected_pte, flags),
-+		      __pte_batch_clear_ignored(*pte, flags)))
-+		return 1;
-+
-+	if (folio_pte_batch_flags(folio, NULL, batch_start_ptep,
-+				  &batch_start_pte, batch_nr_pages,
-+				  flags) != batch_nr_pages)
-+		return 1;
-+
-+	/*
-+	 * Our faulting PTE is guaranteed to be part of the batch, and all
-+	 * PTE bits are compatible.
-+	 */
-+	*addr = batch_start_addr;
-+	*page = *page - nr_before;
-+	*pte = batch_start_pte;
-+	*ptep = batch_start_ptep;
-+	return batch_nr_pages;
-+}
-+
- static bool wp_try_reuse_anon_page(struct vm_fault *vmf, struct folio *folio)
- 	__cond_releases(true, vmf->ptl)
- {
- 	const bool unshare = vmf->flags & FAULT_FLAG_UNSHARE;
-+	struct vm_area_struct *vma = vmf->vma;
-+	unsigned long addr = vmf->address;
-+	struct page *page = vmf->page;
-+	pte_t new_pte, pte = vmf->orig_pte;
-+	pte_t *ptep = vmf->pte;
-+	unsigned int i, nr = 1;
- 
- 	VM_WARN_ON_ONCE(!folio_test_anon(folio));
- 
-@@ -4426,14 +4494,56 @@ static bool wp_try_reuse_anon_page(struct vm_fault *vmf, struct folio *folio)
- 	 * is impossible. We might miss VM_WRITE for FOLL_FORCE handling.
- 	 *
- 	 * If we encounter a page that is marked exclusive, we must reuse
--	 * the page without further checks.
-+	 * the page without further checks. Don't process more than a single
-+	 * PTE in that case.
- 	 */
--	if (!PageAnonExclusive(vmf->page)) {
--		if (!wp_can_reuse_anon_folio(folio, vmf->vma))
--			return false;
--		SetPageAnonExclusive(vmf->page);
-+	if (PageAnonExclusive(page))
-+		goto reuse_single_page;
-+
-+	if (!wp_can_reuse_anon_folio(folio, vma))
-+		return false;
-+
-+	/* We can use any folio page that is mapped in this page table. */
-+	nr = wp_anon_folio_pte_batch(vmf, folio, &addr, &page, &pte, &ptep);
-+	if (nr == 1) {
-+		SetPageAnonExclusive(page);
-+		goto reuse_single_page;
- 	}
- 
-+	for (i = 0; i < nr; i++)
-+		if (!PageAnonExclusive(page + i))
-+			SetPageAnonExclusive(page + i);
-+
-+	/* Careful: don't mark unrelated PTEs soft-dirty by batching. */
-+	if (unlikely(pte_needs_soft_dirty_wp(vma, pte)))
-+		goto reuse_single_page;
-+
-+	if (unlikely(unshare)) {
-+		pte_unmap_unlock(vmf->pte, vmf->ptl);
-+		return true;
-+	}
-+
-+	/* See wp_page_reuse() */
-+	folio_xchg_last_cpupid(folio, (1 << LAST_CPUPID_SHIFT) - 1);
-+
-+	for (i = 0; i < nr; i++)
-+		flush_cache_page(vma, addr + (i << PAGE_SHIFT), pte_pfn(pte) + i);
-+
-+	pte = modify_prot_start_ptes(vma, addr, ptep, nr);
-+	new_pte = maybe_mkwrite(pte_mkdirty(pte_mkyoung(pte)), vmf->vma);
-+	modify_prot_commit_ptes(vma, addr, ptep, pte, new_pte, nr);
-+
-+	/* Remove stale read-only TLB entry for the faulting PTE only. */
-+	flush_tlb_fix_spurious_fault(vma, vmf->address, vmf->pte);
-+
-+	/* But update the MMU cache of all changed PTEs. */
-+	update_mmu_cache_range(vmf, vma, addr, ptep, nr);
-+
-+	pte_unmap_unlock(vmf->pte, vmf->ptl);
-+	count_vm_event(PGREUSE);
-+	return true;
-+
-+reuse_single_page:
- 	if (unlikely(unshare)) {
- 		pte_unmap_unlock(vmf->pte, vmf->ptl);
- 		return true;
--- 
-2.43.0
-
-
-
--- 
-Cheers,
-
-David
+Which specific implementations of SMMUv3 do you have in mind that have
+errata precluding the usage of the contiguous bit?
