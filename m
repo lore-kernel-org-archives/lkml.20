@@ -1,120 +1,130 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA8794A4845;
-	Thu, 24 Sep 2026 15:34:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4924A2A63
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:35:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.157.23.187
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790264097; cv=none; b=j/nCiipZ7IVS8V4YxfbK0M9QnE1Npkmg95COUivtpuJhUuFTkm0gsbpbc8gblP/TJhCGt3/OLIpxRVyMW6LWy62McQ2GOC3lpoyz7KmiHG3z4lys07zhTxVZNtVGvX4qtcYJHvvaexjt/fObdvBl/ahvJc+YoqGmKgzi1Sz9Hs4=
+	t=1790264156; cv=none; b=MzkAmqfiEsArAyuZXHqLJM+jgvFAA43B3ErQzTNl5fn0YL7y6TEYwr5ZnbM7pCZZYDwzBOkuh8uuUNcI29vY7uOn3OuU1MauVztts3bDpWcKBpYHGEJHrnpmTXmN7IBC2N16Gn3Wt0ZOCRgUM5U8/508IPbHf0T3R4SRlIHwYiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790264097; c=relaxed/simple;
-	bh=N2lMsQN+Q9B3c/mexXo/EjWoXwkG5tKsC1BO8LC9Gak=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YGTqOJRtTNOkJAvkAbSRPl+7iCRLVntHklziCLmx4AeQws6+eCJguoAowbmGq4mOSiAGENCtb7dRccgTdLK/XwaU6kUkVGlRI+nw79755CANTfD0hCy3eM2dByNcm3zTRkzrlViyMuw86ftFcCoW45VuE+O+CeW2Ovxvd1mZ2BA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=rebIgi4Q; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790264156; c=relaxed/simple;
+	bh=cmIetmbN8vQUyssS1uWTX+84U3HXuV8PEmJZ/GW1fAk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=c2Tr1Pd3KogT8VOc0tDqPkjZ/aniCwm98K+Q7KXtk2l1ewRSj+zirtAOWZ1o2VqYuQnfwgdJ6CFqS8kzaTwnzDc7T7frFhW6S1id1ce13TJCu5DlMthVDyXCHb/ni3T5D7UW/xfEZng6w2rZMxDa+39FYiGBkibAGY5C6FaZEi8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com; spf=pass smtp.mailfrom=paragon-software.com; dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b=fwEl9esU; arc=none smtp.client-ip=35.157.23.187
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="rebIgi4Q"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OC6OH72028482;
-	Thu, 24 Sep 2026 15:34:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:sender:subject:to; s=pp1; bh=Hhcn1wqW+PXZeuaGIXenud0
-	1JesMRLgOsjsw1J/Yf34=; b=rebIgi4Qi+hedacVno3SgnY6O4TFQ7HqW22MNwr
-	C/hfOQqbh6nuK6vPpc16Cgu6z8z3xlrwQoJEML0xWuahnF5w+NbADb36ewtvHfoR
-	osRAPZqpJ+foh8xjz8l6No5EXjaLfTM4oFYDKMSRSZbTeux6OPDUI0U0Reftz7rQ
-	uNyjLsA9rWqMN3pNgXTo+y+gnGg9fdnBVevvR3cXYZ7oGycqYFq9csdgvS8DtHNU
-	hKtJxONHdnFaxlRGK+zfx2W5V9LFCuP9M6S34cedmCT4viFGB44KEjUqq9bKP86S
-	9SNUCcH4dm76dU+Nnj75vJxGnhgF9mqkRaY3FBqnbW1gkHQ==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske1sbeq-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 24 Sep 2026 15:34:53 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68OENonc905538;
-	Thu, 24 Sep 2026 15:34:52 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gvu7eap6t-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 24 Sep 2026 15:34:52 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68OFYnSD43450794
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 24 Sep 2026 15:34:49 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3EA322004D;
-	Thu, 24 Sep 2026 15:34:49 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2DF7620043;
-	Thu, 24 Sep 2026 15:34:49 +0000 (GMT)
-Received: from vela (unknown [9.224.91.188])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Thu, 24 Sep 2026 15:34:49 +0000 (GMT)
-Received: from brueckner by vela with local (Exim 4.99.5)
-	(envelope-from <brueckner@linux.ibm.com>)
-	id 1x9lTE-00000009JWw-40H9;
-	Thu, 24 Sep 2026 17:34:48 +0200
-Date: Thu, 24 Sep 2026 17:34:48 +0200
-From: Hendrik Brueckner <brueckner@linux.ibm.com>
-To: Maximilian Immanuel Brandtner <maxbr@linux.ibm.com>
-Cc: oberpar@linux.ibm.com, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org, hca@linux.ibm.com, gor@linux.ibm.com,
-        agordeev@linux.ibm.com, borntraeger@linux.ibm.com, svens@linux.ibm.com,
-        brueckner@linux.ibm.com, mjrosato@linux.ibm.com, farman@linux.ibm.com,
-        maximilian.immanuel.brandtner@protonmail.com
-Subject: Re: [PATCH v3 2/2] s390/sclp: Implement resize for sclp-vt220 console
-Message-ID: <arVDGCASlgATCE67@linux.ibm.com>
-References: <20260924104732.1978942-1-maxbr@linux.ibm.com>
- <20260924104732.1978942-3-maxbr@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b="fwEl9esU"
+Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
+	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id 39C6C1D78;
+	Thu, 24 Sep 2026 15:36:47 +0000 (UTC)
+Authentication-Results: relayaws-01.paragon-software.com;
+	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=fwEl9esU;
+	dkim-atps=neutral
+Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
+	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id 106971D70;
+	Thu, 24 Sep 2026 15:35:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=paragon-software.com; s=mail; t=1790264153;
+	bh=IPR6Hc7UqWCCEIoOfqPbgJRHAJ4iq6EhBhn0pzNUKRI=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To;
+	b=fwEl9esU9DF85pEME3VY82TAdo3tQApisXQC7ToJ1u3hMwN74VP+odnxOjPVIvBxJ
+	 w5mLf8GD9xba5kQtZyHAJupCON2hK0JCDCLGUeR8Ta6pQcrZadNFOh3G0zxQ/TmcNd
+	 LEMcLOv1GqQinyBuo/odP5GRIc3ynMH5iOoLlNE4=
+Received: from [192.168.95.128] (172.30.20.214) by
+ vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.7; Thu, 24 Sep 2026 18:35:52 +0300
+Message-ID: <d676f554-5352-4a2e-897f-971cedf6cf67@paragon-software.com>
+Date: Thu, 24 Sep 2026 17:35:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924104732.1978942-3-maxbr@linux.ibm.com>
-Sender: Hendrik Brueckner <brueckner@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: vRdlQni7PfDZId8IyKup-VqrvUlaJvnN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA2MiBTYWx0ZWRfX1UWHrQYB4HOw
- W6ifyGxEp+T6jvpnM7OGAxhD49I9u+JuCyKHVniGMoN9NGUzzim7MSauHkayzTsGfCFAHriJ6d2
- yQmsau24Wf3I1EKz1Lw0cBbz0uqugpXifBzS8h1VV6JzWVP4XWxmeQ1TMjMqiKKldwu6b8HFGrN
- V1vs/BTrw9qYgP/KmBn4+WcHctUWRVsApnXOnzWBGJZuMiqOeF7IE7lbyJK6oPcsCwefFQpitfM
- 6z+Jb43jdQ95hVnWM/IytpQs4pFONwUestmVHJbomlhN1gVGTbc6/mv1zvGo77uzxC5MpVzUFVZ
- vU2Fshcz/tMxvkdHL1cbBOF7Ln2TbXbdo1P/YJkzHBs2YgalRxc+6k2b2HmFxHZ2PKpI+JdL7QN
- 5PLp95zIbokuMUcW4GznOnejHLxYBJgjD0S+DHFjk0DQTtpEUk15I0H/t/yM6UcbjdrEjVQJcKp
- uCSSsFvzShvRirQSfWA==
-X-Authority-Analysis: v=2.4 cv=O/KsLx9W c=1 sm=1 tr=0 ts=6ab5431e cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8
- a=zBLIaIyO4mf18BS1cK4A:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA2MiBTYWx0ZWRfXwmPa0VIIGUOq
- K+P3K3b/OcJkJksZleoBCN1NICDHQGTACtMfbS9VOy4olMwUUDx/VDc/+I1sm6TIRYk4L2W4sJQ
- qhwpUH2vamjQU6t8wv+Kis1L9RY0FqA=
-X-Proofpoint-GUID: BLb1vemlKXc6X5gBwQdvZXYirNYn4Wwo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 phishscore=0 impostorscore=0 suspectscore=0
- bulkscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240062
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ntfs3: fix resident attribute handling in run load paths
+To: Yi Xie <xieyi@kylinos.cn>, <linkinjeon@kernel.org>
+CC: <ntfs3@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+References: <20260707021444.57163-1-xieyi@kylinos.cn>
+Content-Language: en-US
+From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+In-Reply-To: <20260707021444.57163-1-xieyi@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: vdlg-exch-02.paragon-software.com (172.30.1.105) To
+ vdlg-exch-02.paragon-software.com (172.30.1.105)
 
-On Thu, Sep 24, 2026 at 12:47:32PM +0200, Maximilian Immanuel Brandtner wrote:
-> Add support for sclp vt220 resize events to enable host-initiated
-> terminal resizing when using the sclp-vt220 console.
-> 
-> This allows QEMU to dynamically resize the console. On older kernel
-> versions, these events are safely ignored as the kernel drops events
-> with undefined tty codes.
-> 
-> Signed-off-by: Maximilian Immanuel Brandtner <maxbr@linux.ibm.com>
+On 7/7/26 04:14, Yi Xie wrote:
 
-Reviewed-by: Hendrik Brueckner <brueckner@linux.ibm.com>
+> [You don't often get email from xieyi@kylinos.cn. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> Don't dereference nres unless attr->non_res is set.  ni_find_attr() can
+> succeed with a resident record on a corrupted image, and run_unpack_ex()
+> would mis-parse it as mapping pairs.
+>
+> Fix attr_load_runs(), attr_load_runs_vcn() and attr_set_size().
+>
+> Fixes: 5ec75546dc71 ("ntfs: fix WARN_ON for resident attribute in ntfs_map_runlist_nolock()")
+> Signed-off-by: Yi Xie <xieyi@kylinos.cn>
+> ---
+>   fs/ntfs3/attrib.c | 18 +++++++++++++++---
+>   1 file changed, 15 insertions(+), 3 deletions(-)
+>
+> diff --git a/fs/ntfs3/attrib.c b/fs/ntfs3/attrib.c
+> index c621a4c582f9..248a6d68eac3 100644
+> --- a/fs/ntfs3/attrib.c
+> +++ b/fs/ntfs3/attrib.c
+> @@ -61,11 +61,16 @@ static int attr_load_runs(struct ATTRIB *attr, struct ntfs_inode *ni,
+>                            struct runs_tree *run, const CLST *vcn)
+>   {
+>          int err;
+> -       CLST svcn = le64_to_cpu(attr->nres.svcn);
+> -       CLST evcn = le64_to_cpu(attr->nres.evcn);
+> +       CLST svcn, evcn;
+>          u32 asize;
+>          u16 run_off;
+>
+> +       if (!attr->non_res)
+> +               return -EIO;
+> +
+> +       svcn = le64_to_cpu(attr->nres.svcn);
+> +       evcn = le64_to_cpu(attr->nres.evcn);
+> +
+>          if (svcn >= evcn + 1 || run_is_mapped_full(run, svcn, evcn))
+>                  return 0;
+>
+> @@ -555,6 +560,10 @@ int attr_set_size_ex(struct ntfs_inode *ni, enum ATTR_TYPE type,
+>                  }
+>
+>   next_le_1:
+> +               if (!attr->non_res) {
+> +                       err = -EIO;
+> +                       goto out;
+> +               }
+>                  svcn = le64_to_cpu(attr->nres.svcn);
+>                  evcn = le64_to_cpu(attr->nres.evcn);
+>          }
+> @@ -1444,6 +1453,9 @@ int attr_load_runs_vcn(struct ntfs_inode *ni, enum ATTR_TYPE type,
+>                  return -ENOENT;
+>          }
+>
+> +       if (!attr->non_res)
+> +               return -EIO;
+> +
+>          svcn = le64_to_cpu(attr->nres.svcn);
+>          evcn = le64_to_cpu(attr->nres.evcn);
+>
+> --
+> 2.34.1
+
+Hello,
+
+Sorry for the delay.
+Your patch was applied, thanks.
+
+Regards,
+Konstantin
+
