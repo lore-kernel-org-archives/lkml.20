@@ -1,261 +1,301 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 652B120C029;
-	Thu, 24 Sep 2026 00:31:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790209919; cv=fail; b=HlCl5tZ+pH2Er3MrhoQqUKDBTcWHovjnSlUr90QbSLb83wkFLGSN5Kb+9ksFW+mvEP7kBmcHaq1OcFIo9qegI7OESkkMBOFXUNS/6hTvE/iqXow1gdQUzLXp54AfyXHSoUJLYDLcOla16B3cMoVhB6Iqbn5Tf90G9G64K3OEaMY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790209919; c=relaxed/simple;
-	bh=/ErERva0+C7dSzfYHvo/d19fmf8xNQJuggNnsoOASJM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=pisZ3jlO5qZuvvlRnV8ryowPD3t+7BOpajwEjH++bBd32VkXs0DHt4XWs9GxQuqD0S01QNxYpvl6x0qDNGNgVmLfUjsZlirvj+6dtX5FwFTqGXxselVJGfxyBziEE96g6O9eIXLRtxZFPvtIDn/uq7LnfQ8q73Q1trgct66jU0Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=V9c/jts1; arc=fail smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E2DB2E414;
+	Thu, 24 Sep 2026 00:34:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790210052; cv=none; b=aTjfiWDLD1drjBCcxYCBxCq794LGNd/dQzR4Ru+caYgxUQ2GDRmfc7V61XyeR0HUYheUX4m3cyrjyt73wzeuH5fO6YQihkYS9lSw1gBSwCmQ9ciJB+S3gmH0sJQlyK8kCkQbnpRjVG6vKBEcLaaejGP1LHZHK9mEBxLeQR+ceU0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790210052; c=relaxed/simple;
+	bh=fJpqPkPGdJWO+jzQcQFK8FwtiLPDE18+d9kYIYwNstQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fwh4JyTRQaeD+e24cLRCAW1BVSdKefWLQlbqHmrNLdzjNMgsHZO3KFMV9NnvXv28IZBFwR1+4TisVT7h4msalyjHcF/ol/fvay1LvNrPLfJLnPsypdeL38BvPzP+4FMhsvEdTFvYG6lMYEWyClB8zePcxgl2adkQ88BGSSCssXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G0Fj8TvY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="V9c/jts1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790209918; x=1821745918;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=/ErERva0+C7dSzfYHvo/d19fmf8xNQJuggNnsoOASJM=;
-  b=V9c/jts1RbTFAHlGsIPb3B/557cDUMUWF0/mepgyV1vrEK7XmvZUaCLZ
-   b1nds4FEYvRuZyMnyqkq3A2YYOGZR+RxNclSvm0gz7QqsHG1QugJArCm3
-   GIPhJkreihjnDoSzm0UJ3j4uxoyIJU0vyyw2YYW3f/sVuiR7sVderrf+d
-   thid0db7EVY0EIUgIpFO5h0GDnHBLyN4stonBnmPPsfbHWdmSkW2gmFZ+
-   ciJGdaqiaxz02P4RysPQ9n/NFyp+NOn+DkrJxQr5kgJPBpxuCl+yhmWY6
-   a8pou2xfD8ivL3Dt4vYSGReOY7SRF88Uan0hu2psyNsNklDFxaGRbYgIb
-   A==;
-X-CSE-ConnectionGUID: fKQ31IVPTKKyATN/vP6S9w==
-X-CSE-MsgGUID: VqenLvzrTaekoc8CFNcKDA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="91069872"
-X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="91069872"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 17:31:57 -0700
-X-CSE-ConnectionGUID: tfsajkUSRbiiVE3jDAhvTg==
-X-CSE-MsgGUID: qyeaPpsPRj+g5sCP7MnDpg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="273032264"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 17:31:56 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 23 Sep 2026 17:31:53 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Wed, 23 Sep 2026 17:31:53 -0700
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.30) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 23 Sep 2026 17:31:53 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=J81AhXV5WemugTF7akNi97J5antoq4Cx+Lt4tko1adYQPAnnBrrvtkDdpoZWfBRKi5kzMRgCWSixpcmgDLLuOtCUMPNxXLDh0OKPdS3xAOLJzbcxJoNSlqdh6q8FxY4Mi+gtCQmYK3KRG5JW5GnSWupc1WgnJ4uAjAYaiEfhupzue+HziK66qUFrcMjSDLvHIo/Zb8wxy6X3oyeFe+quVCh0nbQ4ZLOi7e1ETxwQiqOG4ixMo/qu8pO0qMELoHgPJ7KLr1oJ7nbIGMAK1s0OzqIRAr5oetVXtqENy3XJ3HAiBVon45juRQXkdg7qt5Ew617cESxHDMf1ZeLu4EQ3SQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/ErERva0+C7dSzfYHvo/d19fmf8xNQJuggNnsoOASJM=;
- b=BuOXE5S97qBCFY5TRq+TvRbVi8C9JEzMwZINBh/4ptESCjG4TtQqKg12zKwX0iFyUEc36nHZ05a6p81Dkpf0Fm0p6q+rYKiem+7aaqOg2ovQVibQPmNW6KoGyOgjOe1MRoSOUaBd1f1KEiS+KzkrWwtINpVYMa89fMq60jxyjxmZ6sXlZdyPy1bJeHzFrhahcj2iQ7jMmEz7BtI5KSrp90LmwniPW76HLjsdub+rL1noXytuKhSjxDkQ0OHbJ6eyXnkME4ovQjZIFy1WhRnclAQiipbaaHxRewxGkiaFZSDfkUHZJRtzJw/ujaC0mFg5Cm9zo/kb+vZCSKp/Eumdrw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from PH7PR11MB6771.namprd11.prod.outlook.com (2603:10b6:510:1b5::20)
- by MN7PR11MB913619.namprd11.prod.outlook.com (2603:10b6:208:639::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Thu, 24 Sep
- 2026 00:31:45 +0000
-Received: from PH7PR11MB6771.namprd11.prod.outlook.com
- ([fe80::effa:162e:c9c9:a1b4]) by PH7PR11MB6771.namprd11.prod.outlook.com
- ([fe80::effa:162e:c9c9:a1b4%4]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
- 00:31:45 +0000
-From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-To: "seanjc@google.com" <seanjc@google.com>
-CC: "jthoughton@google.com" <jthoughton@google.com>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "kas@kernel.org"
-	<kas@kernel.org>, "binbin.wu@linux.intel.com" <binbin.wu@linux.intel.com>,
-	"Li, Xiaoyao" <xiaoyao.li@intel.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "Zhao, Yan Y" <yan.y.zhao@intel.com>,
-	"x86@kernel.org" <x86@kernel.org>, "pbonzini@redhat.com"
-	<pbonzini@redhat.com>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"ackerleytng@google.com" <ackerleytng@google.com>, "Annapurve, Vishal"
-	<vannapurve@google.com>
-Subject: Re: [PATCH] KVM: TDX: Synthesize SHUTDOWN instead of returning -EIO
- on unhandled EPT violation
-Thread-Topic: [PATCH] KVM: TDX: Synthesize SHUTDOWN instead of returning -EIO
- on unhandled EPT violation
-Thread-Index: AQHdS3lOpZpjMUNuZ0SBG1w9Qe9I/7bcz94AgAAF+QCAAAtbgA==
-Date: Thu, 24 Sep 2026 00:31:45 +0000
-Message-ID: <43c29df1dd1e332305bbd31db0ece7c8cb791299.camel@intel.com>
-References: <20260923163315.1580860-1-seanjc@google.com>
-	 <8c9922a47e3044683322a5a8755fccca1a1a129a.camel@intel.com>
-	 <arRl6HECqNVOL_cH@google.com>
-In-Reply-To: <arRl6HECqNVOL_cH@google.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.44.4-0ubuntu2.1 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR11MB6771:EE_|MN7PR11MB913619:EE_
-x-ms-office365-filtering-correlation-id: f31833ed-de53-470a-c628-08df19d336a3
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|7416014|23010399003|376014|1800799024|18002099003|22082099003|38070700021|56012099006|11063799006|10067099003|4143699003;
-x-microsoft-antispam-message-info: +PLdGNH78TqktV4bdZavA5ONytCHWceXFKeP7N9yY7L1c0dqjl09v9iqOMWU/IhhjAUQ0dt5LBKybSrKAQkK/ouWyyJLEHdoArbybGuVXl4xHIAzoHxfTzGud2vGsnn9loqZ9ooKjjV6DwiJcO9tUeWuXpLEOLTQtqxjC8bUtCKoyXHWDaERe2NCIVDthmt+L/m88eJT3VqpLxYWbhVh/w6XzxHCJ23FWVfdGo/qsShdyXcHbB0VgrqUVQj23dTs4Q3NLdPz9WL/BOM2IXNeWLjMxXG9BLIE2rp3TupWma5J6UhyvnWp2Tt2GKXa69jEa5ByuNdfT9OvBFbLwBEqy8819kzWXIzJjEgxoCCwCAVwgTrAq5TrZveNl5kPhT5FjlWjRFM8wcsxn44e9kryRxcUdZkXqQ1uxVSQ1R60eSKi5IZqEj25BY8i5+vw5rsoLG6ii/9nA0fLFOH4Ddgy2uSRYHqm1M3VelFpqb4XUA14wu1adF8RMs3MyIB3Xjf2Pa+PGBYs2BEj4tgtWSIByWtRJavwNSHEKMEqmeWybaAdgZ+ttAnXomwJzP457OGRvqTFP01uha87IBpMWoTEIa55liF9B/HQLHJC10lNgV/mCaTEtWpDKqndzlPxwKTR4TNnYwC90/lgmUle6RfIWC2pbBU4ZDGI8hbnpLuF50DzDYw/uof7PosbjbaQZLoJOuBpYl1ZbRky/jmjFGufvEty3qw071ughXS7Be1Yx0A=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6771.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(23010399003)(376014)(1800799024)(18002099003)(22082099003)(38070700021)(56012099006)(11063799006)(10067099003)(4143699003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Q1NJMUpyd1hRTnh0dGNFVWkvc2UwTVk5RHQ0ZzVZRFdKbUYxY2Q3ZUFHN3Ez?=
- =?utf-8?B?U25ydlNMaWp6RE5OQXpBTjRkV1NWMTRKeDhzdWo5M0h0bWh1WFVSRVkycFdG?=
- =?utf-8?B?T0dyQTVoK0kyVkFGUE03eGszQk9qcFUrZE9sY3hIeC9ZTmpGQTNxcU9Hdm9B?=
- =?utf-8?B?NlhLMTc0aG5GY20vQWliNU9yMURkNWxYMVZ2eC85OVFrcUx3QnlIVy91cHZH?=
- =?utf-8?B?NWxCbFpCdm1VTFNjdzVIcWZPNXhhV1IxVGxoS1RVcjl2aHUxZkJyN21oekdQ?=
- =?utf-8?B?MXFHaktDa2JVRE9pK2M4aHJDMW81cXdhVkJFVTYrQldOd3dOcUM0YkplYkVU?=
- =?utf-8?B?M200SzBxUDdTSll0M0NKQmZCbVRycUdCZ05XaDdDS3lyUzBzR0c2aEE5V2tE?=
- =?utf-8?B?cGVxeEs2Z3VsRFhZeDhnUm1zMGdocXhtMk0zMFZscGxGclhXR2Ezcm9uTzY4?=
- =?utf-8?B?MXlSN0s3enl3d3I4c2JHclRMTTBEYndadVZtR1AyNkxIZWdkUjlzRnkwd3Rq?=
- =?utf-8?B?cXhNcVA3YUZiZUM5bzJBRUorK3dWRVVCN3lPeitWUGNuNldTdHY5VUV5dUVJ?=
- =?utf-8?B?TUQ2cVMyTUxCL3VqK05ZbDJmdmJuWTlzRStMMUNJaG5KSWNmSFRuakVJZ2lP?=
- =?utf-8?B?Mkd1Z3dMb2ZkMnI1KzBxVS9id1dxSjNwTFJCaTU4M0lrLzBJNUF2RGR6TGpq?=
- =?utf-8?B?bkV2aFpXVDVha3d2cktlSWdVclVSS1ZtYUorRXdKNHBzb3RxbjVLYU95cDJl?=
- =?utf-8?B?VWZmdGtnbHNnUFgzSHJzK1J5MDdZK2hkUEpMcEpJSVd0TE41N0lDY2tHYjZj?=
- =?utf-8?B?NXlQWVE2eEF2UmZCTEhEeTZkQ1pTYmhPa3BFdkFhZGpIT0VzK2VYdm5laUEz?=
- =?utf-8?B?QTREK2YyTCtvejUxYmFrYnZDYUNSUk80WTA3ZGp0ZXVKWlpURUJKNkQxUUx1?=
- =?utf-8?B?K1prSFNCR2s0alZPRjJzeXIvRkhsUHhyS0ltWnhhKy9JY21wRU1RS2hwdmMz?=
- =?utf-8?B?TWI2T3V4cWZWQW05dHc1TDZoN2lEMEdBWVhUMmt2bitiV0lBWnYyN0RiNHpz?=
- =?utf-8?B?a1Nvb21mRXpTQTZ6L0ZVV1JaWUdPZE5pYjd0NlFYRkVWMFEwSjlKYXJJMkpF?=
- =?utf-8?B?UU1SM21GMS8wNGhkOTVOaGhoa2xqc01STEZvU1VUU1NQSzIzdjdCNEh6dHhG?=
- =?utf-8?B?VEpkcXYzOUMyTkJtODJNVFRxSUtsWnNvMXRPWXk0RU9QVVlnNXRVUERSZ0VZ?=
- =?utf-8?B?aVlvNUZPYjZlQ3BISk9jU3h4Rm1IanZqMEU1Rm0wUHh6bUpoZjF3Mm1uZ2U2?=
- =?utf-8?B?N200dXRaTGFXS2x5VnhsdG5zSGlZc3JJcjJJWHN3MlMwc0pXOElMdjIwQTRT?=
- =?utf-8?B?YUc1cncxazQvWk02M3N1MGFwVVc2cmZxRmluR3FlZlk0TitCRkJQbnk3ZEM0?=
- =?utf-8?B?cnpCdG5peVFUdmJ0djd0V1l4VUk5WUQ4c2k1ZzkvR3h3dDU5a015SlVLYTlm?=
- =?utf-8?B?dFdyL0xDUXlVbnptYWovY1BON1ZLNEhVanhIS3djeTRJbEZSOTUybjRFNkdk?=
- =?utf-8?B?UW9zc3hkOXFmR0lCSU1CdWR5eHpnU3AxVkxUMGxpeDFLTVgrTUpkOVlmcTRO?=
- =?utf-8?B?Z0RkaVJOb0N2L1M3cGlydEhEU3NiU250a0F2YUtkb2J3Q3M5TUI5NUV2cmpD?=
- =?utf-8?B?akt2Mjg3SzROSVBleC95cWY2YjcxaUt0cE02SjBBMzd3RlFWWXV1dkdZeloy?=
- =?utf-8?B?ZWFjSWpXcUJCQy8xZXJBVGZpSy93QTh4OFpQaUVzL3ZxMVpJUU84WERxVVls?=
- =?utf-8?B?YkFrR1hFc2RibDZLaHFKOFJOdkY0Mk8xVG94aG9UQ0RkM1Q5bHlCYTN2VUl4?=
- =?utf-8?B?eEtHRzMxWE5IdmVxQWJlN3ZyTUpjRDJZTUh2Y2hvREtoamo1ZHZDMXArWkxZ?=
- =?utf-8?B?aGFrTit3MEdrZ3RhTTVPTWJvbHBTVitvaWRYNEU5ZzRYeHRTNHgvR0Vkd3Vs?=
- =?utf-8?B?OVZ6UW9QdzVCTHdzcU9rU3Z5Y2k3UEFRcFlXQkNqcHNvMUpqbUE5WGZYaXkr?=
- =?utf-8?B?UWF0UXFtRlRMNVN3cDFpVWR5TEpONjBBMU1vRmhyTFArYkg0bjVqKzR1NE9x?=
- =?utf-8?B?NEkxandJVVljTzQwTUh1S3R6d3lFM1ltMmFXbWltRmVrdEVZWEdpNzQ1Vll4?=
- =?utf-8?B?QUI1SEp0WjlDWU9GMXQwMFIwRzAvSFBsTlphbVNXZmROUlhJWXkwaTFyZFkz?=
- =?utf-8?B?aVRNWVNjOU9UTG9YUlBPQk9Gc082VjEyaGdadkt6RjRBcnkxVzM4NkFpOUlK?=
- =?utf-8?B?V3pobmpYbFdhN1VLam8xUmMycU05MWFjY3dwaDRsQXFzdVFSTlkra3NLWDdx?=
- =?utf-8?Q?os+4KiyhHQFKvSJg=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <83C29A9C74A603469BE59C05AAF31ECC@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G0Fj8TvY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D54591F000FF;
+	Thu, 24 Sep 2026 00:34:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790210050;
+	bh=cZ2u//Ub7Lj9Mfqfe41PUDqETTf11U6Wlj8knN4gPzk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=G0Fj8TvY6vg0OYdlxl1S63FHUxziF3PrAl27oYa0J/cWvtSD/QbDt2oQQYjNzJASH
+	 msFRnBWEgf0R1PNZ7I0qVskNmT7GYv/YOnMQ6ODl0b3q1JViuvWtia6FllC07vNcex
+	 Wp4ZMO07OSx+Deb+JsJoKmS5J0ZGKcHkDygXwGVMOlEn1DTY/KdeZwIBv8bMG5f3cg
+	 e65D30kOCjpILzq3JDfI7ws1rugJJckfMUVcMViUu4kmYfyH3bHR5QwDe2t34GjkRg
+	 LpwbhTBArwPmAAQjK397utZ9K3DI4md1B5JbZG1zWNaYja9eaMfimeYQ9SlDMragOd
+	 lpWMJTHmQw5xA==
+Date: Thu, 24 Sep 2026 10:34:01 +1000
+From: Dave Chinner <dgc@kernel.org>
+To: Brian Foster <bfoster@redhat.com>
+Cc: MingTao Huang <1037827920@qq.com>, Carlos Maiolino <cem@kernel.org>,
+	Dave Chinner <dchinner@redhat.com>,
+	"Darrick J . Wong" <djwong@kernel.org>,
+	Chandan Babu R <chandanbabu@kernel.org>, linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	MingTao Huang <mintaohuang@tencent.com>
+Subject: Re: [PATCH] xfs: fix skipped flushing items not counted in
+ xfsaild_push()
+Message-ID: <arRv-SRK0nHHGBxM@dread>
+References: <tencent_F801A9436DFB447AAFEC63D3E615B8052405@qq.com>
+ <arL9Xrmf5Q7wd3T4@dread>
+ <arPXwKnDMVMj-oMK@bfoster>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: oEep2k7exx9q97cRbcjatbBggaFh4fWEus6bivWit6v+pS/RKO0cybWbZ6sbN+Xxq6qJ2a3MfAOIrV2GucAUQ32kyBs0+B/5FDe9bo07JSq2owae+F+BeMv9o9kDHFxFE6XbKSqOrhC1/p8OTMSItF0sqp8rQndur0p6ekshct+lqlELNLus5tOubYQTSCSidd3Fn4l7OD4g1YAtvwZ6DKnCfVb03wTsc7v5RhJICQv7m3T7GiIidKwzfqdOjKo1YnVI1GzKRMrAvd7nkF1A+bSb+fEuh9BUVB4KNlvCoHVFfu33gfAA0g15QtgEFltXvY5XWxEMwtA6pN6mGbxGmQ==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6771.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f31833ed-de53-470a-c628-08df19d336a3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2026 00:31:45.4984
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /c0QZWqENVnfdDFuxcPBYql4HtklMk+CwfYYTUVJhsNf2SjlPzAlVuHTlt0LXQrZrb7EhP3XZZ0Jott5Af3xO/Q5gQ6v8qL/qTtXoO/yZrA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN7PR11MB913619
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arPXwKnDMVMj-oMK@bfoster>
 
-T24gV2VkLCAyMDI2LTA5LTIzIGF0IDE2OjUxIC0wNzAwLCBTZWFuIENocmlzdG9waGVyc29uIHdy
-b3RlOg0KPiBPbiBXZWQsIFNlcCAyMywgMjAyNiwgUmljayBQIEVkZ2Vjb21iZSB3cm90ZToNCj4g
-PiBPbiBXZWQsIDIwMjYtMDktMjMgYXQgMDk6MzMgLTA3MDAsIFNlYW4gQ2hyaXN0b3BoZXJzb24g
-d3JvdGU6DQo+ID4gPiBTeW50aGVzaXplIGEgdHJpcGxlIGZhdWx0LCBpLmUuIGV4aXQgdG8gdXNl
-cnNwYWNlIHdpdGggS1ZNX0VYSVRfU0hVVERPV04sDQo+ID4gPiBpbnN0ZWFkIG9mIHJldHVybmlu
-ZyAtRUlPIGZyb20gS1ZNX1JVTiBpZiBLVk0gZW5jb3VudGVycyBhbiBFUFQgVmlvbGF0aW9uDQo+
-ID4gPiBkdWUgdG8gYSBndWVzdCBhY2Nlc3MgdG8gYSBwZW5kaW5nIHBhZ2UuwqAgUmV0dXJuaW5n
-IC1FSU8gaW1wbGllcyBLVk0gaXMNCj4gPiA+IGJ1Z2d5LCBhbmQgbW9zdCBWTU1zIHdpbGwgcmVz
-cG9uZCBieSBjb21wbGV0ZWx5IHRlcm1pbmF0aW5nIHRoZSBWTSwgdmVyc3VzDQo+ID4gPiByZWJv
-b3RpbmcgdGhlIFZNIGluIHJlc3BvbnNlIHRvIEtWTV9FWElUX1NIVVRET1dOLsKgIEkuZS4gZ2l2
-ZSB0aGUgVk1NIHRoZQ0KPiA+ID4gb3B0aW9uIG9mIHRyeWluZyB0byBrZWVwIHRoZSBWTSAoZnJv
-bSB0aGUgZW5kIHVzZXIncyBwZXJzcGVjdGl2ZSkgYWxpdmUuDQo+ID4gDQo+ID4gV2h5IG5vdCBq
-dXN0IHJldHVybiBLVk1fRVhJVF9TSFVURE9XTiBkaXJlY3RseSB3aGVuIHRoZSBwZW5kaW5nIGVw
-dCB2aW9sYXRpb24gaXMNCj4gPiBkZXRlY3RlZD8gVGhlIHN5bnRoZXRpYyB0cmlwbGUgZmF1bHQg
-bWFrZXMgaXQgaGFyZGVyIHRvIHRyYWNlIHdoYXQgaXMgaGFwcGVuaW5nLg0KPiA+IEkgZ3Vlc3Mg
-dGhlcmUgaXMgc29tZSBjZW50cmFsaXphdGlvbiwgYnV0IGhhcmRlciB0byB0cmFjZS4NCj4gDQo+
-IEJlY2F1c2UgaXQgZGlkbid0IGV2ZW4gY3Jvc3MgbXkgbWluZCB0aGF0IHRoYXQncyBvbiBvcHRp
-b24uICA6LSkgIFRoaXMgd291bGQgYmUNCj4gYSBncmVhdCBvcHBvcnR1bml0eSB0byBkbyBzb21l
-IGNlbnRyYWxpemF0aW9uLCBlLmcuIGRvIHRoZSBiZWxvdywgYW5kIHRoZW4gdXNlDQo+IGt2bV9w
-cmVwYXJlX3NodXRkb3duX2V4aXQoKSBmb3IgdGhpcyBjYXNlIGFzIHdlbGwuDQoNCkFoISBPay4g
-V2VsbCwgeWVhIHRoZW4uIEknZCB0aGluayBpdCB3b3VsZCBiZSBiZXR0ZXIgdG8gZG8gaXQgdGhh
-dCB3YXkuIENsZWFuIHVwDQpzZWVtcyByZWFzb25hYmxlIHRvIG1lIGV4Y2VwdC4uLg0KDQo+IA0K
-PiBkaWZmIC0tZ2l0IGFyY2gveDg2L2t2bS9zdm0vc3ZtLmMgYXJjaC94ODYva3ZtL3N2bS9zdm0u
-Yw0KPiBpbmRleCBmNWFhM2Q3ZDNhMTAuLjM0ZTViYzI4MzQ3OSAxMDA2NDQNCj4gLS0tIGFyY2gv
-eDg2L2t2bS9zdm0vc3ZtLmMNCj4gKysrIGFyY2gveDg2L2t2bS9zdm0vc3ZtLmMNCj4gQEAgLTIx
-NjQsNyArMjE2NCw2IEBAIHN0YXRpYyBpbnQgbWNfaW50ZXJjZXB0aW9uKHN0cnVjdCBrdm1fdmNw
-dSAqdmNwdSkNCj4gIA0KPiAgc3RhdGljIGludCBzaHV0ZG93bl9pbnRlcmNlcHRpb24oc3RydWN0
-IGt2bV92Y3B1ICp2Y3B1KQ0KPiAgew0KPiAtICAgICAgIHN0cnVjdCBrdm1fcnVuICprdm1fcnVu
-ID0gdmNwdS0+cnVuOw0KPiAgICAgICAgIHN0cnVjdCB2Y3B1X3N2bSAqc3ZtID0gdG9fc3ZtKHZj
-cHUpOw0KPiAgDQo+ICANCj4gQEAgLTIxODgsNyArMjE4Nyw3IEBAIHN0YXRpYyBpbnQgc2h1dGRv
-d25faW50ZXJjZXB0aW9uKHN0cnVjdCBrdm1fdmNwdSAqdmNwdSkNCj4gICAgICAgICAgICAgICAg
-IGt2bV92Y3B1X3Jlc2V0KHZjcHUsIHRydWUpOw0KPiAgICAgICAgIH0NCj4gIA0KPiAtICAgICAg
-IGt2bV9ydW4tPmV4aXRfcmVhc29uID0gS1ZNX0VYSVRfU0hVVERPV047DQo+ICsgICAgICAga3Zt
-X3ByZXBhcmVfc2h1dGRvd25fZXhpdCh2Y3B1KTsNCg0KVGhpcyBwYXRoIGdyb3dzIGEgdmNwdS0+
-bW1pb19uZWVkZWQgPSBmYWxzZS4gSXQgcHJvYmFibHkgaXMgb2ssIGJ1dCBhIGZ1bmN0aW9uYWwN
-CmNoYW5nZS4NCg0KPiAgICAgICAgIHJldHVybiAwOw0KPiAgfQ0KPiAgDQo+IGRpZmYgLS1naXQg
-YXJjaC94ODYva3ZtL3ZteC90ZHguYyBhcmNoL3g4Ni9rdm0vdm14L3RkeC5jDQo+IGluZGV4IDcx
-NzNlZjNmYzM5OC4uMGZhYTdjZmQwNDMzIDEwMDY0NA0KPiAtLS0gYXJjaC94ODYva3ZtL3ZteC90
-ZHguYw0KPiArKysgYXJjaC94ODYva3ZtL3ZteC90ZHguYw0KPiBAQCAtMjA5MSw4ICsyMDkxLDcg
-QEAgaW50IHRkeF9oYW5kbGVfZXhpdChzdHJ1Y3Qga3ZtX3ZjcHUgKnZjcHUsIGZhc3RwYXRoX3Qg
-ZmFzdHBhdGgpDQo+ICANCj4gICAgICAgICBzd2l0Y2ggKGV4aXRfcmVhc29uLmJhc2ljKSB7DQo+
-ICAgICAgICAgY2FzZSBFWElUX1JFQVNPTl9UUklQTEVfRkFVTFQ6DQo+IC0gICAgICAgICAgICAg
-ICB2Y3B1LT5ydW4tPmV4aXRfcmVhc29uID0gS1ZNX0VYSVRfU0hVVERPV047DQo+IC0gICAgICAg
-ICAgICAgICB2Y3B1LT5tbWlvX25lZWRlZCA9IDA7DQo+ICsgICAgICAgICAgICAgICBrdm1fcHJl
-cGFyZV9zaHV0ZG93bl9leGl0KHZjcHUpOw0KPiAgICAgICAgICAgICAgICAgcmV0dXJuIDA7DQo+
-ICAgICAgICAgY2FzZSBFWElUX1JFQVNPTl9FWENFUFRJT05fTk1JOg0KPiAgICAgICAgICAgICAg
-ICAgcmV0dXJuIHRkeF9oYW5kbGVfZXhjZXB0aW9uX25taSh2Y3B1KTsNCj4gZGlmZiAtLWdpdCBh
-cmNoL3g4Ni9rdm0vdm14L3ZteC5jIGFyY2gveDg2L2t2bS92bXgvdm14LmMNCj4gaW5kZXggZThh
-ZjVlNTdlMWNjLi41NDExZWI3ZjNmMjYgMTAwNjQ0DQo+IC0tLSBhcmNoL3g4Ni9rdm0vdm14L3Zt
-eC5jDQo+ICsrKyBhcmNoL3g4Ni9rdm0vdm14L3ZteC5jDQo+IEBAIC01NTg3LDggKzU1ODcsNyBA
-QCBzdGF0aWMgX19hbHdheXNfaW5saW5lIGludCBoYW5kbGVfZXh0ZXJuYWxfaW50ZXJydXB0KHN0
-cnVjdCBrdm1fdmNwdSAqdmNwdSkNCj4gIA0KPiAgc3RhdGljIGludCBoYW5kbGVfdHJpcGxlX2Zh
-dWx0KHN0cnVjdCBrdm1fdmNwdSAqdmNwdSkNCj4gIHsNCj4gLSAgICAgICB2Y3B1LT5ydW4tPmV4
-aXRfcmVhc29uID0gS1ZNX0VYSVRfU0hVVERPV047DQo+IC0gICAgICAgdmNwdS0+bW1pb19uZWVk
-ZWQgPSAwOw0KPiArICAgICAgIGt2bV9wcmVwYXJlX3NodXRkb3duX2V4aXQodmNwdSk7DQo+ICAg
-ICAgICAgcmV0dXJuIDA7DQo+ICB9DQo+ICANCj4gZGlmZiAtLWdpdCBhcmNoL3g4Ni9rdm0veDg2
-LmMgYXJjaC94ODYva3ZtL3g4Ni5jDQo+IGluZGV4IDE3MDVlN2JlNDZlYy4uZTQzM2FhN2VlNjAz
-IDEwMDY0NA0KPiAtLS0gYXJjaC94ODYva3ZtL3g4Ni5jDQo+ICsrKyBhcmNoL3g4Ni9rdm0veDg2
-LmMNCj4gQEAgLTgwODIsOCArODA4Miw3IEBAIHN0YXRpYyBpbnQgdmNwdV9lbnRlcl9ndWVzdChz
-dHJ1Y3Qga3ZtX3ZjcHUgKnZjcHUpDQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-a3ZtX25lc3RlZF9jYWxsKHRyaXBsZV9mYXVsdCkodmNwdSk7DQo+ICANCj4gICAgICAgICAgICAg
-ICAgICAgICAgICAgaWYgKGt2bV9jaGVja19yZXF1ZXN0KEtWTV9SRVFfVFJJUExFX0ZBVUxULCB2
-Y3B1KSkgew0KPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZjcHUtPnJ1bi0+ZXhp
-dF9yZWFzb24gPSBLVk1fRVhJVF9TSFVURE9XTjsNCj4gLSAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICB2Y3B1LT5tbWlvX25lZWRlZCA9IDA7DQo+ICsgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAga3ZtX3ByZXBhcmVfc2h1dGRvd25fZXhpdCh2Y3B1KTsNCj4gICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICByID0gMDsNCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBnb3RvIG91dDsNCj4gICAgICAgICAgICAgICAgICAgICAgICAgfQ0KPiBkaWZmIC0tZ2l0
-IGluY2x1ZGUvbGludXgva3ZtX2hvc3QuaCBpbmNsdWRlL2xpbnV4L2t2bV9ob3N0LmgNCj4gaW5k
-ZXggMjg0ZmM3ZDY4YzYwLi5kMTMzYWQzMzc3NmIgMTAwNjQ0DQo+IC0tLSBpbmNsdWRlL2xpbnV4
-L2t2bV9ob3N0LmgNCj4gKysrIGluY2x1ZGUvbGludXgva3ZtX2hvc3QuaA0KPiBAQCAtMjUyMyw2
-ICsyNTIzLDEyIEBAIHN0YXRpYyBpbmxpbmUgdm9pZCBrdm1fYWNjb3VudF9wZ3RhYmxlX3BhZ2Vz
-KHZvaWQgKnZpcnQsIGludCBucikNCj4gIC8qIE1heCBudW1iZXIgb2YgZW50cmllcyBhbGxvd2Vk
-IGZvciBlYWNoIGt2bSBkaXJ0eSByaW5nICovDQo+ICAjZGVmaW5lICBLVk1fRElSVFlfUklOR19N
-QVhfRU5UUklFUyAgNjU1MzYNCj4gIA0KPiArc3RhdGljIGlubGluZSB2b2lkIGt2bV9wcmVwYXJl
-X3NodXRkb3duX2V4aXQoc3RydWN0IGt2bV92Y3B1ICp2Y3B1KQ0KPiArew0KPiArICAgICAgIHZj
-cHUtPnJ1bi0+ZXhpdF9yZWFzb24gPSBLVk1fRVhJVF9TSFVURE9XTjsNCj4gKyAgICAgICB2Y3B1
-LT5tbWlvX25lZWRlZCA9IGZhbHNlOw0KPiArfQ0KPiArDQo+ICBzdGF0aWMgaW5saW5lIHZvaWQg
-a3ZtX3ByZXBhcmVfbWVtb3J5X2ZhdWx0X2V4aXQoc3RydWN0IGt2bV92Y3B1ICp2Y3B1LA0KPiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZ3BhX3QgZ3Bh
-LCBncGFfdCBzaXplLA0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgYm9vbCBpc193cml0ZSwgYm9vbCBpc19leGVjLA0KPiANCg0K
+On Wed, Sep 23, 2026 at 09:44:32AM -0400, Brian Foster wrote:
+> On Wed, Sep 23, 2026 at 08:12:46AM +1000, Dave Chinner wrote:
+> > On Tue, Sep 22, 2026 at 04:14:29PM +0800, MingTao Huang wrote:
+> > > From: MingTao Huang <mintaohuang@tencent.com>
+> > > 
+> > > Commit f3f7ae68a4ea ("xfs: skip flushing log items during push")
+> > > introduced a fast path in xfsaild_push() that uses
+> > > test_bit(XFS_LI_FLUSHING) to skip log items already being
+> > > flushed.  However, the fast path jumps directly to the
+> > > next_item label, bypassing flushing++, count++, and the
+> > > ail_last_pushed_lsn update.  This causes three problems:
+
+[....]
+
+> > >    letting the loop scan an order of magnitude more items per round.
+> > >    Each cluster flush adds a buffer to ail_buf_list, and the resulting
+> > >    oversized list causes xfs_buf_delwri_submit_nowait() -- which runs
+> > >    list_sort() plus per-buffer trylock and IO submission -- to take so
+> > >    long that the watchdog fires.
+> > 
+> > How? count bounds the delwri list to 1000 buffers at most. That's
+> > very intentional, and the number is based on benchmarking results.
+> > 
+> 
+> I'm confused by some of the reasoning here. Maybe I'm missing something,
+> but that count check looks like it only limits the current pass.  The
+> flushing value is basically just input into the thread throttling (i.e.
+> schedule timeout) behavior.
+
+It's much more complex than that.
+
+The count bounds the number of buffers we can add to the list each
+pass.  We also submit the entire list for IO once per pass, hence we
+fill and drain the list once per pass. Hence in normal
+circumstances, the AIL buffer list should never grow very much
+beyond 1000 buffers.
+
+Further, using xfs_buf_delwri_submit_nowait() doesn't mean that it
+won't block, it just won't wait for IO completion.  We can still
+block on IO submission when the request queue fills up.  i.e. the
+AIL push algorithm is designed to throttle writeback processing at
+IO submission time, not via the higher level backoff loops.
+
+If the disk is really that fast, then all the items in FLUSHING
+state should be completing -really fast- and being removed from the
+AIL just as fast. Hence we should not be spinning on the same items
+over and over again if we are never blocking in delwri buffer
+submission. If we are spinning on the same items, that implies a
+problem with IO completion (ie not removing flushing items), not the
+AIL push algorithm.
+
+The AIl control loop is also intended to sleep unconditionally when
+it reaches the target LSN. Therefore, not sleeping for a long time
+implies that the target is continually being moved forward faster
+than the AIL can push items to the disk. This also implies that the
+disk is sufficiently fast or has sufficiently deep request queues
+that it never blocks on IO submission.
+
+Spinning without AIL level backoff or IO submission blocking
+occuring therefore implies journal reservations must be full (i.e.
+lots of userspace modifcation concurrency on a small journal) or we
+are under severe memory pressure triggering repeated full AIL
+pushes.  These are really the only two ways to guarantee the push
+target always keeps ahead of the aild pushing and so keeps it
+permanently busy.
+
+Hence my request for details about the workload, fs geometry, etc,
+so I have some idea of how we are getting into this state in the
+first place.
+
+> So ISTM that if the majority of the AIL is
+> flushing, we'd historically want to schedule out and wait for I/O to
+> complete, whereas what this patch describes is a scenario where we now
+> spin around until enough items clear off the list in that particular
+> situation.
+
+We will only "spin" if pushing is not making progress. If IO is
+being submitted, the the LI_FLUSHING state is transient, and the
+items will be removed from the AIL when the IO completes. We skip
+over them because waiting on LI_FLUSHING items when we are not yet
+at the push target LSN means leaving the disk idle when we could be
+pushing more writeback to it. i.e. we take longer to submit all the
+items we need to get to the target and so end up with lower disk
+utilisation, longer journal reservation latency and lower
+performance/throughput.
+
+i.e. we only want to throttle processing on IO submission,
+not on the number of items we have flushed to IO buffers. Only when
+we hit AIL congestion do we want to back off at the AIL level.
+
+> Prior to the optimization in ~2024, it looks like we'd account all these
+> flushing items and back off.
+
+Yes, that was broken behaviour, and not what I'd originally intended
+for the flush accounting. That commit was when I realised that I'd
+overlooked the fact that ITEM_FLUSHING was reporting two completely
+different things for inode items. i.e. I realised that the
+predominant behaviour being accounted was not the feedback metric
+the control loop was designed to use.
+
+The control loop attempts to maximise speed and efficiency of
+IO submission - it is not intended to maximise/optimise the number
+of items that get processed. Inodes reporting ITEM_FLUSHING when
+XFS_IFLUSHING was set was essentially just counting the number of
+inodes we attempt to push, and had nothing correlation to IO
+submission behaviour.
+
+When the inode is first pushed to the cluster buffer it has
+XFS_IFLUSHING set, and if the buffer is successfully queued, it
+returns ITEM_SUCCESS. However, if the buffer was already queued (i.e some
+other inode has already been pushed to it this cycle), then it will
+return ITEM_FLUSHING.
+
+This ITEM_FLUSHING return value indicates that newly dirty inodes
+have entered the AIL between when the inode cluster buffer was first
+flushed and queued in this processing loop (and returned
+ITEM_SUCESS) and now.
+
+IOWs, ITEM_FLUSHING is supposed to be an indication that the the
+item is under active modification (i.e. that it has been flushed
+multiple times this processing loop), and so there is active
+access/modification vs writeback contention on the item.
+
+The other case that inode item push returns ITEM_FLUSHING is if the
+inode already has XFS_IFLUSHING set on it. This indicates that the
+inode has already been flushed to the cluster buffer via a another
+inode push on the same cluster buffer, but by itself it tells us
+-nothing- about whether that inode is being actively modified.
+
+That is because xfs_iflush_cluster() gathers all inodes in the
+buffer, regardless of where they are in the AIL. So may be older,
+some newer, and so encountering a XFS_IFLUSHING inode carries no
+signal about whether it is being actively modified, nor does it tell
+us that the queued cluster buffer has been updated whilst it was
+already queued.
+
+Hence, from the POV of the AIL control loop, this latter
+ITEM_FLUSHING metric is pure noise. We did not queue new IO, we did
+not update a buffer already queued for IO, and we do not know if the
+item has been recently modified, yet we still accounted it as
+"flushing".
+
+Hence the LI_FLUSHING tag: it separates the signal the control loop
+wants (how many objects we pushed multiple times in this processing
+loop) from the noise (how many inodes we've encountered that are
+already either queued for submission, under IO or queued for
+completion processing from the current and/or any previous
+processing loop iteration).
+
+IOWs, the AIL push loop backoffs are not really about waiting for IO
+completion - IO completion occurs as a side effect of backing off.
+The purpose is to reduce the amount of unnecessary writeback and log
+forces we do for objects in the AIL that are under active
+modification.
+
+By allowing time for such objects to be relogged and moved forward
+in the AIL instead of written back, we minimise the amount of
+repeated metadata IO we will need to reach the target LSN. Relogging
+is far more IO efficient (sequential journal IO) that metadata
+writeback (random small write IO), and this is one of the key IO
+optimisations the back-offs are trying to achieve.
+
+TL;DR: the flush backoff is supposed to address the case where the
+AIL is contending with active modifications to items that need
+writeback. It backs off to allow the IO to complete and allow the
+actively modified objects to be relogged and moved well away from
+the current LSN the AIL is processing. This avoids repeated
+mod->journal->writeback->mod->journal->writeback... cycles,
+encouraging mod->journal->mod->journal->... behaviour instead.
+
+> Also FWIW, looking back at that commit it
+> doesn't say anything about bounding I/O (not to say this isn't a natural
+> side effect of xfaild throttling).
+
+It's not a side effect of xfsaild throttling. It's a natural
+behaviour from the 1:1 "fill queue, drain queue" IO processing loop.
+I thought that was obvious from the "block on IO submission" part of
+the commit message and never needed more explanation, but I guess it
+wasn't.
+
+> That commit seems mainly focused on
+> reducing ->iop_push() call overhead and the implementation only focuses
+> on inode items, so altogether this strikes me as more of an (perfectly
+> valid) optimization than fundamental behavior change in how the
+> processing thread or ail accounting should work.
+
+Commit messages can never tell the whole story. They have to walk a
+line between describing the problem being solved and reviewers
+needing to understand all the subtle intricacies of how a tiny tweak
+fixes a problem with a complex algorithm....
+
+Reading that commit message back now, the iop_push() cpu consumption
+was the measurable symptom that exposed the issue (i.e excessive CPU
+usage processing a million 'no-op' ITEM_FLUSHING pushes every
+second). However, the second half of the commit message is all about
+how the LI_FLUSHING accounting change exposed other mitigations we'd
+made to handle the noise the inode flushing accounting generated,
+and why they weren't necessary anymore.
+
+> > > We hit this as a soft lockup during stress testing on an internal
+> > > kernel that includes commit f3f7ae68a4ea ("xfs: skip flushing log
+> > > items during push").  The xfsaild kthread was stuck for
+> > > 22 seconds inside xfs_buf_delwri_submit_nowait(), called from
+> > > xfsaild_push(), processing an excessively large ail_buf_list:
+> > 
+> > Tell me how the delwri list got so long that it gets stuck inside
+> > xfs_buf_delwri_submit_nowait(). Whatever caused that is the bug that
+> > we need to understand and fix - changing accounting to make gross
+> > behavioural changes that result in exceedingly inefficient CPU usage
+> > and break IO optimisations is not the way to address a list length
+> > that has apparently excceeded the bounds built into the code...
+> > 
+> 
+> I think the presumption being made here is that the list is growing
+> excessively because xfsaild is failing to back off when the majority of
+> (inode) items on the list are in the flushing state.
+
+I don't want to presume anything.
+
+i.e. I don't know how the problem manifests yet, and the proposed
+solution is not viable. We need to find the root cause of the issue
+before going any further.
+
+> I guess it would be interesting to know how long the buf list actually
+> is, and whether the soft lockup warning is purely due to buf list size,
+> or more of a combination of ail list size/state, buf list size, and
+> xfsaild thread spinning behavior (we also changed the default timeout to
+> 0).
+
+Yes.
+
+> More of a side note to the discussion and related to the actual patch...
+> if we did go with something like this ISTM to make more sense to let
+> xfsaild_push_item() detect and return the flushing state (i.e. similar
+> to how we handle failed state) so the accounting all exists in one
+> place, rather than duplicating it for the optimization. Just my .02.
+
+I'm not sure it does - see my comment above about ITEM_FLUSHING
+being returned by inode items meaning two very different things, and
+LI_FLUSHING being used to remove the noisy/useless one from the
+control loop.
+
+Cheers,
+
+Dave.
+-- 
+Dave Chinner
+dgc@kernel.org
