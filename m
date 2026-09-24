@@ -1,229 +1,155 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86AB132E12E
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:20:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36E89451985;
+	Thu, 24 Sep 2026 18:21:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790274049; cv=none; b=S4pvieHE34xyVSt7mEMd9G59cbLpx89uR/PO5OBvBrIqnOBY7pdCHUNHCNKLhSOjt5D/ECz7YOkF8Lb5cSC+C6q2Sz94YUu431dTMESyU8THXdLTRIdYvSOmlimN+ExBGeEYLpmlxcRd00YmupYkY1mt2sKEPmJzgwkkuBa3w9o=
+	t=1790274097; cv=none; b=pkvKjpJYEdh5ZqmnY9ndyTfm7LjI7ogl3ALlF/2AHZwmMmFfuY3H9quc7RwAJATdaL/FGMeyLEdAr48OBYCvxgJ4ksOgmYXXN4l9y1lelZ404FMUHEn1BNYrakqQxo5m2MsQ2W6Cs6iT+inH6RZC0pZz/yUkIQ9uQ5MS079Unts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790274049; c=relaxed/simple;
-	bh=N1eKbuuNutpyxPSc7VRBvykLDhMhLYtgUA0eiR+gO2o=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Cof64A0BLT4BXsP4eRCvc8ucqzXXgXyviGwmLrMpgqT+X4mpWPfyyB+pr/ZzM+A3oGETSSJ32yRk/TlohjRp4vYll6evPr2mI1MCozFddYZMhaodAuxC1mWRstP+ZbBoLNm3fc+TrGE1G0ft8LuoRcIWX6YdWa1JZainXfWm8/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=AxXWLWGr; arc=none smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1790274097; c=relaxed/simple;
+	bh=3vQfs+MJVZojtRezzkjvgqdfKW9p+z7Hr79oq2FwNj0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Zx80dHi0+3oSONq/mUaUe2+lBf8iVJxQHfdJHS4UucMedIUU6mlVQOqWxKVh9vfg3d6t+KN+zPHN+k7mQNFcnynY6rE5ngDb9hAyeMszA8OpPCDSs1DsTLs5VIOYMXuoDQfmwaMdp7jGEWz18l6t/LBPhoRxUkYrjHU6iG/sTG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Id4FD2aW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="AxXWLWGr"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4aaf2ecfso246487d50.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:20:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1790274045; x=1790878845; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4ddGw+SxvwjLwG9r/atoe7LBsu7awTG97BNAfuxMXGI=;
-        b=AxXWLWGrC+4vt8T/1hf5GOzrtYbSMoFtgCrwjxFcR9mGW8xwrNLCN8UKuAwPcBEB9c
-         6i7mtFYN80ASdiZKRTZ590UU/0MHbZrnHup0Yreq9Qq5M3iB5OWtC8HJugEZaZnTlfCX
-         EV7vnlny7XuvA8XKnlE5Eqo7C/qpJOIm/z1enGDHf5+3gea4cJhLl6Xeed1CRv69x32z
-         +wMXRVUBMuRxDb8k7kjQsn2aZm6m8rE1b2/hsBGW8CjRuH01ff0KCu5JGpkvGBpMaNw8
-         zS0xgUj0c5vtuGvpbodJXRy2TLh39nIen6v1u9tUoFGnUNWsHKvgy7zKOA6FCRiK/ScJ
-         IEVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790274045; x=1790878845;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=4ddGw+SxvwjLwG9r/atoe7LBsu7awTG97BNAfuxMXGI=;
-        b=macO52HgoIpQkIlxfSnvC5GfPPM2XjRdR1c5v1GuwjHRrpc6mpCaLfhY/iuBsqDR+Q
-         NYk2ZbTe5o4+r9/tYxNB+K06YFXGfZzw8RxOYfrdlYJq9TtIlog1ZacL+iQN+vH8Uari
-         YPBTAJ4M4T4iXu+Uh5RhaAfTJKV6LvLhk46DSbHfWR63R5iXo5xb9s3v1PezXQcU/SiD
-         CYqVoSNWMhW+eet8mhNnRtOCqexy7mGynj/d4Sd5cC9OnSI2lpNmnKmdLER2O7pC49we
-         ZSIaHbEgc08beufqPVJmQvChmeVinzzEaFWNQXkyVmUjnYIlQoPLiWcXqoFkEkJlJMl0
-         MT/Q==
-X-Forwarded-Encrypted: i=1; AKwUvByvnytjD7x/PJVKqDwFzlHIMXoVHUVL7qB9fJ8ik5y/thCTRyTVQMfvplgybt/EVU237gA7KCaQB9BvxRU=@vger.kernel.org
-X-Gm-Message-State: AFuF++noapWBEarukyS+X8XTI9ZB2EU6PH+rgIEc04tuG57AQfGavqwE
-	NWUQmofGl+nVLFYE4Y2hoIWpJumh6EIc9LSiFg9wo3A3IGEFhNamVcTmBBgCgLyDRik=
-X-Gm-Gg: AYBFou1wXFocXtv7Fhrs2fldVnlhakzgSt2eQCgjjSVoH4+4HqxsZyQ8a3wFy+hynna
-	dnkzH5gNS/IIo3DF3RJh2y4fzJMmqkxdpCKyhv7K/HrkvDt6shyQkRE8HYzNaByXlL381uhkxA7
-	bEaF32Y5T9iOwboR5ke1EXSN3pusS1Ac7Eu+1CbHLAYS+kbA9ciuBMeGZqPSnduhV8RKkz9DFUA
-	Yev6YTSvRA/o381lL6kwWAl/gDsgCbbyvZ34qmfmrKshESOaIdguVkmb7bMLRAyCvx1IqJXf/DJ
-	UAtMpMM344/JUv3JJH6DTkiI3g5Xb3TYeSzM4TY3kZUSmKzijPtLnmfq6/dhAu+qSKLIp/prZVt
-	e/mQb5bT8lDUh9Ha6tRokuRoHTSE/v/JJTPPt+ewxM8XNQh/1mlK9i/bApddZ1TJCWe6hUEgSDF
-	GmnCLX/vw8lqG88MI2z7ZInCC6ntUIHziUSZtB28hkT0dJP34YwxMl959b0euv1i3MXKcdBar/9
-	32i2G0+1euqqvl9ihO/ETfz8GE/YZw+pRYN8MaWHq2VU6twY/CCLJbkjAEecUCkFOfUr0NnRZV7
-	fLgBqU03Y+2ao5NBqW02AgzOKxn8GrVUNNvH/ozBgRKtQQWqtI6pz4j6HRB1fG6B
-X-Received: by 2002:a05:690e:dc2:b0:672:f1e7:d232 with SMTP id 956f58d0204a3-672f1e807a4mr1788819d50.26.1790274045311;
-        Thu, 24 Sep 2026 11:20:45 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:4935:3bd4:e0b7:fd95? ([2600:1700:6476:1430:4935:3bd4:e0b7:fd95])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-672d9089322sm2428882d50.21.2026.09.24.11.20.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 11:20:44 -0700 (PDT)
-Message-ID: <a5d4902ff3ad297e2e30c4a0b41ae99d8b40a07d.camel@dubeyko.com>
-Subject: Re: [PATCH] nilfs2: fix deadlock between nilfs_evict_inode() and
- find_inode()
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Cc: linux-nilfs <linux-nilfs@vger.kernel.org>, LKML
-	 <linux-kernel@vger.kernel.org>, 
-	syzbot+6646318bbcf419411bc5@syzkaller.appspotmail.com, 
-	syzkaller-bugs@googlegroups.com
-Date: Thu, 24 Sep 2026 11:20:41 -0700
-In-Reply-To: <20260923164345.18456-1-konishi.ryusuke@gmail.com>
-References: <20260923164345.18456-1-konishi.ryusuke@gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Id4FD2aW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8286E1F000FF;
+	Thu, 24 Sep 2026 18:21:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790274095;
+	bh=as++lK9Ubt084phj5j3py44mUhF1vpdCd0H/wffxLBw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Id4FD2aWUapkdbS43kuphJFx/6Fj30M6DkcJhTsBr+zNB8N9UrLQ9sD24crzctCwL
+	 zlJxJmdszw0lpMEZGN0HUfkwLYL+6dOha7HEDgfsjYSF7+UBePs7xVvBTYwUMv/f4D
+	 5gRoD4uvEX1jsAHwCa8iMuZxwie7nYpnu3bt2SKL0xFlMFuWAM37TnZBTePXps7VhT
+	 9KTweJYvINpRFEpw3ze9AEWjbWxhfKv8MU3cbGfhsYR/Mhst2DQ+gVwFG6DinRe2no
+	 L5rR8HrcdNpgDYBY8aKDur5j7kws+bf6NO0TC/tYT0tbmKE5JoWIB4ZrchlMXS/q18
+	 FZbj5P8AVECpw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 08/14] coresight: etm4x: exclude ss_status from
+ drvdata->config
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yeoreum Yun" <yeoreum.yun@arm.com>
+Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20260924-separate_etm_cfg_v2-v12-8-a2b41d2f7c2b@arm.com>
+References: <20260924-separate_etm_cfg_v2-v12-0-a2b41d2f7c2b@arm.com>
+ <20260924-separate_etm_cfg_v2-v12-8-a2b41d2f7c2b@arm.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+Date: Thu, 24 Sep 2026 18:21:35 +0000
+Message-Id: <20260924182135.8286E1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-On Thu, 2026-09-24 at 01:41 +0900, Ryusuke Konishi wrote:
-> Syzbot reported a deadlock between nilfs_evict_inode(), executed via
-> an asynchronous workqueue (kworker) as:
->=20
-> =C2=A0 process_one_work()
-> =C2=A0=C2=A0=C2=A0 process_scheduled_works()
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nilfs_iput_work_func()
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nilfs_dispose_list()
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 iput()
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 iput_f=
-inal()
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 evict()
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 s_op->evict_inode()
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nilfs_evict_inode()
->=20
-> and find_inode(), called via
->=20
-> =C2=A0 nilfs_mkdir()
-> =C2=A0=C2=A0=C2=A0 nilfs_new_inode()
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nilfs_insert_inode_locked()
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 insert_inode_locked4()
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 inode_insert5()
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 find_i=
-node()
->=20
-> When an inode is deleted (i_nlink =3D=3D 0), nilfs_evict_inode() clears
-> its
-> ifile bitmap entry and then synchronously triggers the log writer via
-> nilfs_transaction_commit() if IS_SYNC(inode) is true.
->=20
-> If a concurrent directory creation via nilfs_new_inode() attempts to
-> allocate the same newly freed inode number, however, find_inode()
-> called
-> just before inserting it into the inode hash, blocks waiting for the
-> old
-> inode's evict() to complete.
->=20
-> Meanwhile, the synchronous log writer invoked from
-> nilfs_evict_inode()
-> tries to acquire a write lock on 'ns_segctor_sem' which is read
-> locked
-> by the caller of nilfs_new_inode() (in this case, nilfs_mkdir()),
-> resulting in a deadlock.
->=20
-> The synchronous log writer invocation from nilfs_evict_inode() is a
-> legacy artifact; it is no longer necessary because the call itself
-> (triggered by iput()) is now handled asynchronously with a kworker
-> if i_nlink =3D=3D 0.=C2=A0 It merely increases the risk of deadlock.
->=20
-> Fix this deadlock by removing the synchronous log writer trigger from
-> nilfs_evict_inode().
->=20
-> Reported-by: syzbot+6646318bbcf419411bc5@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D6646318bbcf419411bc5
-> Fixes: 7ef3ff2fea8b ("nilfs2: fix deadlock of segment constructor
-> over I_SYNC flag")
-> Tested-by: syzbot+6646318bbcf419411bc5@syzkaller.appspotmail.com
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-> ---
-> Hi Viacheslav,
->=20
-> Please apply this bug fix.
->=20
-> This fixes a deadlock issue that had been reported by syzbot but
-> remained unresolved for over a year.
->=20
-> Thanks,
-> Ryusuke Konishi
->=20
-> =C2=A0fs/nilfs2/inode.c | 6 ------
-> =C2=A01 file changed, 6 deletions(-)
->=20
-> diff --git a/fs/nilfs2/inode.c b/fs/nilfs2/inode.c
-> index 64437aed8390..33490e8063eb 100644
-> --- a/fs/nilfs2/inode.c
-> +++ b/fs/nilfs2/inode.c
-> @@ -895,13 +895,7 @@ void nilfs_evict_inode(struct inode *inode)
-> =C2=A0
-> =C2=A0	nilfs_clear_inode(inode);
-> =C2=A0
-> -	if (IS_SYNC(inode))
-> -		nilfs_set_transaction_flag(NILFS_TI_SYNC);
-> =C2=A0	nilfs_transaction_commit(sb);
-> -	/*
-> -	 * May construct a logical segment and may fail in sync
-> mode.
-> -	 * But delete_inode has no return value.
-> -	 */
-> =C2=A0}
-> =C2=A0
-> =C2=A0int nilfs_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] coresight: etm4x: patch fails to preserve perf single-shot clear=
+ing behavior
+- [Medium] coresight: etm4x: data race on drvdata->ss_status during sysfs u=
+pdate
+--
 
-Applied.
+commit 9755069e34bb3af0812d8f23f42579079827c7ca
+Author: Yeoreum Yun <yeoreum.yun@arm.com>
 
-Thanks,
-Slava.
+coresight: etm4x: exclude ss_status from drvdata->config
+
+The patch moves ss_status out of drvdata->config and into drvdata directly.
+It aims to separate configuration from reset and restore states, while
+intentionally preserving existing single-shot clearing behavior.
+
+> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers=
+/hwtracing/coresight/coresight-etm4x-core.c
+> --- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+[ ... ]
+> @@ -572,11 +572,11 @@ static int etm4_enable_hw(struct etmv4_drvdata *drv=
+data)
+>  		etm4x_relaxed_write32(csa, config->res_ctrl[i], TRCRSCTLRn(i));
+> =20
+>  	for (i =3D 0; i < caps->nr_ss_cmp; i++) {
+> -		/* always clear status bit on restart if using single-shot */
+> +		/* always clear status and pending bits on restart if using single-sho=
+t */
+>  		if (config->ss_ctrl[i] || config->ss_pe_cmp[i])
+> -			config->ss_status[i] &=3D ~TRCSSCSRn_STATUS;
+> +			drvdata->ss_status[i] &=3D ~(TRCSSCSRn_STATUS | TRCSSCSRn_PENDING);
+
+[Severity: Medium]
+Is it safe to perform a lockless read-modify-write on drvdata->ss_status
+here? This can race with or interrupt sysfs stores.
+
+>  		etm4x_relaxed_write32(csa, config->ss_ctrl[i], TRCSSCCRn(i));
+> -		etm4x_relaxed_write32(csa, config->ss_status[i], TRCSSCSRn(i));
+> +		etm4x_relaxed_write32(csa, drvdata->ss_status[i], TRCSSCSRn(i));
+
+[Severity: Medium]
+Does this change preserve the previous behavior for perf sessions as
+intended?
+
+When a perf session starts, the configuration is zero-initialized. Before
+this patch, the code skipped the bit clearing (since config->ss_ctrl[i]
+and ss_pe_cmp[i] were 0) but still wrote config->ss_status[i] to
+TRCSSCSRn(i). Because ss_status was zero-initialized, this wrote 0 and
+effectively cleared the bits.
+
+Now, it writes drvdata->ss_status[i], which might retain previous hardware
+state (potentially 1s). Doesn't this leave the bits uncleared and alter the
+hardware state configuration instead of preserving it?
+
+>  		if (etm4x_sspcicrn_present(drvdata, i))
+>  			etm4x_relaxed_write32(csa, config->ss_pe_cmp[i], TRCSSPCICRn(i));
+>  	}
+[ ... ]
+> @@ -1078,7 +1078,7 @@ static void etm4_disable_hw(struct etmv4_drvdata *d=
+rvdata)
+> =20
+>  	/* read the status of the single shot comparators */
+>  	for (i =3D 0; i < caps->nr_ss_cmp; i++) {
+> -		config->ss_status[i] =3D
+> +		drvdata->ss_status[i] =3D
+>  			etm4x_relaxed_read32(csa, TRCSSCSRn(i));
+
+[Severity: Medium]
+Can this lockless write in hardirq context race with the RMW sysfs stores,
+leading to torn updates on drvdata->ss_status?
+
+>  	}
+> =20
+[ ... ]
+> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c b/driver=
+s/hwtracing/coresight/coresight-etm4x-sysfs.c
+> --- a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+[ ... ]
+> @@ -1835,8 +1835,8 @@ static ssize_t sshot_ctrl_store(struct device *dev,
+>  	raw_spin_lock(&drvdata->spinlock);
+>  	idx =3D config->ss_idx;
+>  	config->ss_ctrl[idx] =3D FIELD_PREP(TRCSSCCRn_SAC_ARC_RST_MASK, val);
+> -	/* must clear bit 31 in related status register on programming */
+> -	config->ss_status[idx] &=3D ~TRCSSCSRn_STATUS;
+> +	/* must clear bit 31 and 30 in related status register on programming */
+> +	drvdata->ss_status[idx] &=3D ~(TRCSSCSRn_STATUS | TRCSSCSRn_PENDING);
+
+[Severity: Medium]
+Can this read-modify-write be interrupted by the hardware PMU path?
+
+If a user writes to the sshot_ctrl or sshot_pe_ctrl sysfs node concurrently
+with a perf session stopping (e.g. during a task context switch),
+etm4_disable_hw() can trigger in interrupt context.
+
+Because the sysfs path uses raw_spin_lock() rather than an IRQ-safe variant,
+the PMU interrupt can preempt this sequence. Won't this lead to lost updates
+or corrupted hardware status capability bits when the sysfs thread resumes?
+
+>  	raw_spin_unlock(&drvdata->spinlock);
+>  	return size;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-separate_e=
+tm_cfg_v2-v12-0-a2b41d2f7c2b@arm.com?part=3D8
