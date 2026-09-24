@@ -1,208 +1,92 @@
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A559248BD39
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:41:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E19A386C22
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:42:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790286109; cv=none; b=eUNo9FxZ3RUZ+r2cMHDVEb25JYXoom2dE6cvQ82t7r3L88aRagCEE+9IHHV5FFsh370uA1VQpo98stayZOEsBXJf/hu8fOO+omBiW5Y4oV1JHAVSvVlK9mglcLjM+FWnFqMNXfdDskrweyn7UE1bg/twip79mFCqNOb6ihNahUc=
+	t=1790286133; cv=none; b=mVnHBy2+5M4EhSu7+1qZ9HpWc3YXjEKDt9rYzNHgrCxUtOYKuQrY6Gffz6AO3ZBOi5i1HL8R8Hzs0BtdU3hK/OfeCovzG7BCKD1Z53s007+c4KLwizejjQS61dNgGRKa5U7i4T+7fjCLfgO5Hb6H9umLT3GGS6ynJbGMkdqAw+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790286109; c=relaxed/simple;
-	bh=mB1lKnqG8AuGXcQNR1csYPfP5+PMcGwbkZuQoheHxxI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eedMTOx0G0smfX2rxkWwE/wJjzliRUbr+r63GutZzqlXMCLE1Wo+62sr9m6xVcDsjzxgvSQr587NDrE4SCoQt8cDwwFkJhIUV2hc/XbBGeS4IrzWWCDtZ0XjHBi3y2//du8KsxGHY2QfonReLTEiA9sBTrKvnEiF4V/nrCI3XPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QXY1w3wp; arc=none smtp.client-ip=74.125.228.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790286133; c=relaxed/simple;
+	bh=5OFBOpX56t/OqLwV1/ojP078ggg3tH36DZ2K6YbDqyw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U5kwquM19t8IQ16eYXfIfuRoqjjwrRwBvdAICDlNoAJCni18k/hkc4KNQlIMklXYGslxZ7rQ2zOhI6M6Lo6oe6DW/rPfUe5aOXJGFRTw4bOvXBXCJnpJOEB6GHwcCU0eYTNSAh71E4Mld5qPMlszTV1aKZFpNMoDR9zj+GDtlVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PE3kqFyt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QXY1w3wp"
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a99c5de614so392051a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:41:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790286106; x=1790890906; darn=vger.kernel.org;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UHm5NRcTpn9N2haWjZVbXQGdMzSK/m+AUPZA427MG1U=;
-        b=QXY1w3wpQwAgbhTjT5CCS5WpabOu/IWI7Gi+tnfYOvUfqj2xVt/9nkrv4Z1Z3Tn96a
-         ij8r44H+q//06756dO6hWo2eMOr0ebIYX7g+ApoF0Zpl23UI1t1oBMk1BbAvdES0mJtd
-         6UMPAehliIhjk6eSFS7pcql6rzHmFafYr/w+T5G54uUzD5UvP+yzQrnxMXFIn0hS2NWp
-         hZEPWg7q5idUr3zvY3roUyKerQ4rTc4ARXJ+1QTq0yoGAxQIHO1Uedm5E6rv0TcJEN7f
-         JSTn1YcRm+HKg8HrpJ6HFmSy8U2pRess2ym2xsPdL/LhYM32Vjri+oNvYeCHl5HxLZmH
-         t0Lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790286106; x=1790890906;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UHm5NRcTpn9N2haWjZVbXQGdMzSK/m+AUPZA427MG1U=;
-        b=fLqOWF/VU5BFxSsXxSnS1LYR6Y9EclzrzndhInectaGpowI6M75JTRN04hxCia1kKq
-         Pl5jsRe0AISSYyDnfjgr/KLB23H6KzdofX5D5mSequFvI/5ZNAZTOcYSOybry9dpcw0w
-         ICwIpVe9HlSOnojlM0fd3ras0stmCC+pxJLSzZrSPFj6PPex3FTCCI4PSNx3R4pBUR8x
-         8jMvZEOMF2yN4ZE3kEvtSna4FjqHBT6NjigJZu3NnKbFqa+MI61gCCU69CJMFqIxWX5X
-         t1+hCvATJ7G45c0hRrYONS/P9I1jQpR9EBviT0M84jtdmRhVUyvHfdCFfWhV4/GuyVJ9
-         sSaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzLKjMEnzFwXdpBhwNhgxU7nyvI3Oh1jKKjOCQdqmsuU4UkKVerSAIyDrI6/k8A5GuzOIWstwxIxOuHMv4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKeMWplw04GvR5Ion+qsEEBJTR4CWrVF9kmE3UVrk9Hej9iVT5
-	pUsaQBmlkDBR9MZjq+rTm+CR9ewRP4z3g/Bb+ofM46kjZb4WuX1JcY4s
-X-Gm-Gg: AYBFou2TEEkfQGuHw8jqoKCVWDTAm819hvEXivdjHYdkHixJZcWvEf2ONl1w7wYh2++
-	eigNM59ZC5WAvfuW9O2cmaTALAA9zhXPedCHsPQ9+KZzSD9D6ZZASNd0K2Qcoamx2+9vdPEhjDa
-	4KeZurNrnG4BotN+0LHjo4xG7ftYyQibSiJvVmT0MneZHwWn3tOHp/JDXiGQXJEj3VRp7fJ8qSH
-	TI4qNoMxzz9R7tHMUfpFKfbeyfQHHVmyw+866Wh3mI+LJ8cM+cvzuFcYgH+z6ahv3zZaxX5KGwK
-	dcWAbi5pGLY34VooHmZGeASm8M7cwHcklaQK9+4bpOpe9p3qIzSwipavlLV0xoEtKmc+Q8HiMxN
-	VzEHtb9zbQ7flFuEKLLEhYDOlS79K8heE/1qtRQXIPrVhxSh3a4zgN1O+i4w7nDOk2qJ8Y0HgrT
-	DTXJ6A8zp1To6UO8cbyAKe//kpOSlWhYmYL+COlm5ohIDbzteB0v6gJfCpenCvFVNCyUhNoA2q9
-	7AYDEiO0PUGpWKcuSAqQJTDyeVKe4PFech/nb0ek7oOZQoNZOA4Pg==
-X-Received: by 2002:a17:907:9285:b0:c29:f742:c532 with SMTP id a640c23a62f3a-c2ac246a374mr326439066b.40.1790286105689;
-        Thu, 24 Sep 2026 14:41:45 -0700 (PDT)
-Received: from fedora.localnet (81-224-151-184-no600.tbcn.telia.com. [81.224.151.184])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae678ec74sm19676366b.4.2026.09.24.14.41.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 14:41:44 -0700 (PDT)
-From: Erik =?UTF-8?B?SMOla2Fuc3Nvbg==?= <erikhakan@gmail.com>
-To: Oleksandr Natalenko <oleksandr@natalenko.name>
-Cc: Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>,
- Filipe =?UTF-8?B?TGHDrW5z?= <lains@riseup.net>,
- Bastien Nocera <hadess@hadess.net>, Rafael Passos <rafael@rcpassos.me>,
- =?UTF-8?B?R3LDqWdvaXJl?= Stein <greyxor@protonmail.com>,
- Alexey Zagorodnikov <xglooom@gmail.com>,
- Roman Stingler <roman.stingler@gmail.com>,
- Lovekesh Solanki <lovekeshsolanki00@gmail.com>,
- =?UTF-8?B?S2F0ZcWZaW5hIE1lZHbEm2RvdsOh?= <k8ie@mcld.eu>,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] HID: logitech-hidpp: fix Bolt hi-res wheel handling
-Date: Thu, 24 Sep 2026 23:41:41 +0200
-Message-ID: <r8QjhQUkS86zOaJsxE4nUw@gmail.com>
-In-Reply-To: <xpFXjeFKTb2mOjg5M5iN0g@natalenko.name>
-References:
- <20260922-feature-bolt-fix-v1-0-63b0fa8da0d3@gmail.com>
- <97b3c67c-03ea-4ae6-ba64-afcdbbd8f36b@gmail.com>
- <xpFXjeFKTb2mOjg5M5iN0g@natalenko.name>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PE3kqFyt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAF311F000FF;
+	Thu, 24 Sep 2026 21:42:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790286128;
+	bh=Ug3ScdpomRG8LtDGbnmPFJyb8UrlDiWfAF9PQCYpaoM=;
+	h=From:To:Cc:Subject:Date;
+	b=PE3kqFyt/AkRfVMEle9sWlY3GPFZe3QWQbQ6JStoVI2rLVdhLqYI5YRJmZmDjm2Or
+	 DlyslEyWVolMLMsirB8N2Mgiuzk0aVAzKKnjdh88+Ol0EzDD+Stu1hrj/w0oDY4+EY
+	 xdBdYs7pZBe+NDGg0yaiBlq5ijHnbjukY4X/PUnA8Rl1NgghN9JhukRP9A0suTu+Gp
+	 0xF6dQp+A942VNVC4gHxJl9QLsbmb+mqcHFv6HTDQzQswti/XwA2ITETI+9K66YJpz
+	 mE+VZ144slgpS9TDqOSMHaP7gGkgw+WTHtPWvg7BRVg/fbc5z3iNuWj2iagTxUmNVx
+	 slFyN/eWgDh5Q==
+From: Thorsten Blum <blum@kernel.org>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Damon Ding <damon.ding@rock-chips.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Thorsten Blum <blum@kernel.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/bridge: analogix_dp: Use str_supported_unsupported() helper
+Date: Thu, 24 Sep 2026 23:41:35 +0200
+Message-ID: <20260924214136.137531-3-blum@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1266; i=blum@kernel.org; h=from:subject; bh=5OFBOpX56t/OqLwV1/ojP078ggg3tH36DZ2K6YbDqyw=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFlbZwrErNN8XGp9yOvXib3Tj16tnnz71ZmYnolPNLx2L zHavV6iqaOUhUGMi0FWTJHlwawfM3xLayo3mUTshJnDygQyhIGLUwAmkpDCyLBEx+MX+wLZFodF R05UvtZ5p5Z7UH7z3+yKmHD3tjsrekoZ/tdNvD/9Y+vbvcaf2FbaMqzsSCyUdQjQ7MxesvDw5Rs i/DwA
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
-Hi again!
+Replace hard-coded strings with the str_supported_unsupported() helper.
+This unifies the output and helps the linker with deduplication, which
+can result in a smaller binary.
 
-I have some semi-good news regarding both the quirks, the conflict with user-
-space setting in Solaar, and regarding being able to separate reports by 
-device, so e.g. different capability mice can be used simultaneously.
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+ drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Long text with background and description first, so scroll down for the actual 
-solution. :) 
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 30c0c0b41d5a..ff4d2dd0a749 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -19,6 +19,7 @@
+ #include <linux/of.h>
+ #include <linux/phy/phy.h>
+ #include <linux/platform_device.h>
++#include <linux/string_choices.h>
+ 
+ #include <drm/bridge/analogix_dp.h>
+ #include <drm/display/drm_dp_aux_bus.h>
+@@ -746,7 +747,7 @@ static int analogix_dp_fast_link_train_detection(struct analogix_dp_device *dp)
+ 	}
+ 	dp->fast_train_enable = !!(spread & DP_NO_AUX_HANDSHAKE_LINK_TRAINING);
+ 	dev_dbg(dp->dev, "fast link training %s\n",
+-		dp->fast_train_enable ? "supported" : "unsupported");
++		str_supported_unsupported(dp->fast_train_enable));
+ 	return 0;
+ }
+ 
 
-In an effort to figure out if we could have separation of events by device, I 
-tried digging into whether I could force the Bolt receiver into DJ mode, 
-similar to what is done for Unifying devices, and I investigated how it's done 
-for my Lightspeed device, given that it's treated differently from regular 
-Unifying devices in code.
-Some looking at the HID++ protocols that are available online, as well as some 
-probing of the USB interfaces revealed that the Lightspeed receiver does 
-indeed support DJ, but unfortunately the Bolt receiver does not.
-At least it does not support the same command as Unifying and Lightspeed 
-receivers and no digging online or by probing hardware revealed anything.
-
-However, when digging around I realized that the Lightspeed receiver is NOT 
-put into DJ mode, but still all three interfaces are claimed by the DJ driver, 
-yet the mouse works as it should. With tshark capture of wire data I saw that 
-for Lightspeed, mouse events come as regular native HID, not as HID++ 
-reports., i.e. the DJ mode is not used. And frankly, since the Lightspeed 
-supports at most 1 mouse and 1 keyboard, separating devices are not necessary, 
-except for the HID++ report on device status, such as battery and connection 
-status, and those are sent on HID++ regardless of mode.
-
-But previously, the theory has been that generic HID reports can't go through 
-the DJ driver, but obviously it works for Lightspeed but not Bolt mice. 
-Although keyboard does work. So I investigated some more and it turns out that 
-when the DJ driver creates a virtual HID device it sends a descriptor on to 
-the HID core, and this descriptor describes a bunch of stuff, including the 
-size of the mouse movement reports. This descriptor is different for different 
-receivers, and the default one has a movement report size of 12 bits. However, 
-when inspecting the real Bolt descriptor (the same one read by the native HID 
-when we do NOT let DJ claim the mouse and keyboard interfaces), I saw that the 
-real report is 16 bits. Same as most relatively modern receivers.
-
-So, I now *strongly* suspect that the reports of overly sensitive or phantom 
-moves, and possibly scrolls, are the result of the HID layer trying to 
-interpret a 16-bit report as 12 bits.
-Without a Bolt mouse I can't verify of course, so I'll need some help with 
-that.
-
-During my digging, I *also* realized that HID++ reports already carry a device 
-index, thus making every report that comes through HID++ separable by device, 
-as well as the fact that for the existing 0x2121 (High resolution scroll over 
-HID++) functionality, there was a bug, and scrolling seems to not have worked 
-for any mouse over HID++, regardless of receiver type.
-
-So, to the solution then:
-
-I'm currently working on a new version of the patch which will align the Bolt 
-receiver much closer to how other receivers work, most close to the Lightspeed 
-receiver, by letting the DJ driver claim all three interfaces again, but fixing 
-the device descriptor, which should let the mouse movement work as intended.
-This also means that scrolling, whether high or low resolution, should work as 
-intended even when use_hidpp=0.
-I'm also improving the 0x2121 handling so that the existing bug that would 
-break scrolling for any existing mouse using `use_hidpp=1`, as well as 
-retaining the improvement to respect user settings in Solaar. Also, the 0x2121 
-protocol notes that the scroll invert setting only affects events sent through 
-native HID, not diverted, so I will also fix that so inversion will work 
-regardless of diversion.
-I.e. now scrolling should work as intended regardless of `use_hidpp` and 
-`high_resolution`, and there will be no more conflict between kernel and user-
-space settings in Solaar or elsewhere!
-
-However, as noted, only HID++ reports carry a device index. Thus, regular 
-mouse and keyboard reports that will still go through interface 0 and 1 will 
-be indistinguishable between devices, but for special keyboard keys (volume, 
-brightness, screenshot, etc.) as well as scroll events when `use_hidpp=1`. 
-I.e. for the reports that actually matter, distinction will be possible!
-
-tl;dr:
-I'm writing a new patch that I'm pretty confident will work without quirky 
-workarounds, it aligns better with existing receivers and thus less complex 
-code, while also improving 0x2121 scrolling for all mice and getting rid of 
-the conflict with Solaar.
-
-Patch should be coming within the next few days.
-
-Oleksandr Natalenko wrote:
-> 
-> You are right, the "Scroll Wheel Diversion" diversion switch was off for me.
-> I've enabled it along with "Scroll Wheel Resolution", and the scrolling
-> stays normal and survives both resume and device switching.
-
-Great, then I'm even more confident in my new patch. With it, it should work 
-with Scroll Wheel Diversion on or off!
-
-> 
-> Somewhat unrelated note: if I enable "Thumb Wheel Diversion", the thumb
-> wheel stops working altogether. It's probably not supported by the driver
-> at all in HID++ mode?
-> 
-
-Correct, the driver does not implement 0x2150 (Thumbwheel) in HID++ at all. 
-However, since we're interested in diverting through HID++ for device 
-separation purposes, I'm looking into implementing 0x2150 too to enable that 
-diversion for that too.
-And while reading the protocol there, I noticed that it also supports touch 
-events on the thumbwheel. There's three different statuses, single_tap, proxy, 
-and touch. Touch is continuous touch, single_tap is tap, and proxy is whether 
-a finger is in close proximity but not quite touching. 
-Does your mouse by any chance support that? If so, can you tell if it sends a 
-button event on tap or touch when in non-diverted mode? Or possibly if it does 
-so in Windows. I don't know what I should map those events to really :) 
-
-Benjamin Tissoires wrote:
-> Bolt in kernel was adding in 7.3, so I'm going to revert it now, and
-> we'll have to have a fully working plan for an eventual inclusion in a
-> future kernel version.
-
-
-
+base-commit: 5383cf280ef4f00b15f1d9e2a2886d0d02c0118b
