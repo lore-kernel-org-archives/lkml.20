@@ -1,193 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A84B4AA402;
-	Thu, 24 Sep 2026 17:29:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4674BA1EF
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:29:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790270996; cv=none; b=f6vUVTpqUbxQpSfHAiAGEIdpn2hxlkCfhq1wbqwCnhR6mk+oUv/eclzTA/9nknBKJBQOWB5VQfVA6zoOgURcq3pAjdVrI7MIV6JqInlmJnJFM5SJBop1FSxmYEIbDvVHTZgnEmbk44HGMqZ467yY/xAXPcMwazCchiN8quZJVHM=
+	t=1790270997; cv=none; b=YS96ksf16H0tbfQ6gaR3eCex9/NQuGocXQj8IyLxWrHxNl1yisK0gWPK9NeFw9Rfi6BBZG29puX+14ZkvY4HVdyLUSUurijpW8UbeYo+69wjONcHUH++feHXEunlsQ5qH8ula9ol2lwB5hQEzlVihlbzfnU8id8hc+l7Ar51QWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790270996; c=relaxed/simple;
-	bh=ti7W10/PMgF3rzwzjA+tM3Mit/c6YQHhH3CQul23C9g=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=hvFK44yyBmju04PnrA59+YdqRkjDUmBxzak01LKnNoKICDa+4rf7YClf+K5rS8HvWW+KZo6sHTQdZyTfb/ko0VAFFCHsd2wf9//PSzUCWnC+QJh9rVrPXxeQ+jWNdGQyfxziYxv3zE0liC9BG0HIIj5oPzKKhq2BEBTpErHG+r0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gMGzmzXo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790270997; c=relaxed/simple;
+	bh=nnUUo2nDrt4wu97RgkFtWXJy9n8reFZKLjMwmibE8s8=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=nHDqiO6onVH1IDEmj1rp9EngUgGcCm9q5EVjEtwoC8bAY3y+GoGedj8tHm5RgaPztHobYK9P6B9+GZhjmMlkKicWo4aBHNANRWm9auA28Ax2xH34JlcyuBcgnGSqa5PvL9A01YUBEJGH6F2WTxiX9OV2g0MZBJitysO1qLgg9P8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=enjakVuv; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gMGzmzXo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 136C41F00A14;
-	Thu, 24 Sep 2026 17:29:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790270991;
-	bh=AWuJrElzdRJtzg/vX5ScZLxe4h+n9U+xf8t1nAlCZMg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=gMGzmzXoLmhIeKSmlKQOMJitwLIDOTiQ4qPXyuYhth9qiLWkbDIhbwQ7EUUeYwgIt
-	 iTLOgiN4vk8m2aOvauF3ioaL8x2frx42ObpX5ct/NWHsUizBBMq3YimmbflOAPb8IJ
-	 gcFRsBA87733MHmblVJbd/hIm9ubVK5fjHN4+/YKosvRjLi33CPDEj9hD4sDStir6c
-	 w4eYLZAgRoUP/wmrk3VxwNH+oZuJSETDSXZpoUYi5Q9ujlZCT7pY7KTmC9gZMaBZyl
-	 1fFmvqfzSq6Vp+NYPrUdXGhbb5q8KVFVU8Cxt6zM/flwCJMOtR4ObgXPcB8Z+CWxki
-	 nV0i4imar+o9w==
-Subject:
- Re: [PATCH net v2 1/2] net: ngbe: propagate resume errors to the PM core
-From: netdev-bot+sashiko@kernel.org
-To: zhangyunfei1@kylinos.cn
-Cc: netdev@vger.kernel.org, jiawenwu@trustnetic.com, mengyuanlou@net-swift.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, aleksandr.loktionov@intel.com,
- leitao@debian.org, weirongguang@kylinos.cn, u.kleine-koenig@baylibre.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Thu, 24 Sep 2026 17:29:50 +0000
-Message-ID: <179027099059.2160803.11768054293846758522@kernel.org>
-In-Reply-To: <20260922100836.1147718-2-zhangyunfei1@kylinos.cn>
-References: <20260922100836.1147718-2-zhangyunfei1@kylinos.cn>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="enjakVuv"
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b26d8d2498so197088b6e.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:29:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790270992; x=1790875792; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T/mgSrJpw3YOisDXCB5xsNmyqp3J9irft+yFn98nNFU=;
+        b=enjakVuvME8xVU1Q7Xxex8qtvPu5IofJvZQ2bMtODvalydublbJ46CTRu0uiME0Qte
+         Ioj6OF0d8Wy04gX5BlzlhJeOCVVvxtRB3huRkwGV5KqNXxx+I7S6+F73LjfTpKe234YS
+         DBHLXdKe5qzm8f9H0+VSSju2/PIl4vvQiiSSfHCpW2yDAGeNo1kG02goCQWmgwKuHH+l
+         KkB7Elj5542vyW7dpUnz4YrH2Hk0OvV6dUSOqQqrNr08zkgfOaIz56ezxkuZ2F+asv3I
+         6SNVIjAnANBv2RiGypy9bLdmkvx08NmDMzcJL3lEs2FAIVVafzGwcgM5vpzfIsKTIOYr
+         Uj3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790270992; x=1790875792;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=T/mgSrJpw3YOisDXCB5xsNmyqp3J9irft+yFn98nNFU=;
+        b=nv/K0u2rF2lVEsHOCIZfA5ZdRdz0RRJo3xlcLrnjbJG4fn7RZ6YRYZYbOXMtVagklo
+         VgEPJIRbsAgx1gvqhrw5fMmky+R/HXNWGaVYIcxeyXhys8LkM6LpYwuTCBaHxyXqTJh6
+         PIy9dXWbUuEubP6Gw8TXC+ZIz+2sxtVrW1K9IVSoWfCBi6M16aj2XGKQtrupuGcGtRsy
+         CgIIUjfDtW/S5J1iik6hoGsrVQ9TK2xnyqIsKQ4+GP1JrTAMvA0kTHyJmBvUPOA+CShk
+         N7Xt5ZvdTxBa0bAZHf6EXMFG0IGXU7+8JYmCTktKHA4lHv99jWX3ucXDCVREt+wF1nAP
+         72wQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx2/gYGOG1PujE32hkDOoiy7gfoYnp4dNsjyjuBxRUhQdoZG1rtUc7SO1pFiTPv1B4C6S0PLEVpBLHJEoc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kE//K3ztjGLp6d75Km42kbNW+E25u0KgEikmau6AoTbKkb3050
+	lAuTAh6hMkroJBgJGXeXkQ6p16DpSBEDcLjZaV85nBhXvDSMVnd/3GlzRzUKjoetxlppYrp/SY4
+	mGsEfptODXkqWk1gWgr1xKnOB0g==
+X-Received: from jahf8.prod.google.com ([2002:a05:6638:8a48:b0:5f3:a70c:f5ab])
+ (user=coltonlewis job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6808:1921:b0:4d5:291b:b84f with SMTP id 5614622812f47-4d72ef591admr3194424b6e.53.1790270991307;
+ Thu, 24 Sep 2026 10:29:51 -0700 (PDT)
+Date: Thu, 24 Sep 2026 17:29:20 +0000
+In-Reply-To: <20260924172928.2110956-1-coltonlewis@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+References: <20260924172928.2110956-1-coltonlewis@google.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260924172928.2110956-15-coltonlewis@google.com>
+Subject: [PATCH v9 14/22] perf: Add perf_pmu_resched_update()
+From: Colton Lewis <coltonlewis@google.com>
+To: kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Oliver Upton <oliver.upton@linux.dev>, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Fuad Tabba <fuad.tabba@linux.dev>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	James Clark <james.clark@linaro.org>, Robin Murphy <robin.murphy@arm.com>, 
+	Zide Chen <zide.chen@intel.com>, Alexandru Elisei <alexandru.elisei@arm.com>, 
+	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>, Mingwei Zhang <mizhang@google.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Russell King <linux@armlinux.org.uk>, Shuah Khan <shuah@kernel.org>, 
+	linux-perf-users@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Colton Lewis <coltonlewis@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+To modify PMU guest counter reservations dynamically, the per-CPU
+available counter mask must be updated while host perf events are
+temporarily scheduled out.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+Introduce perf_pmu_resched_update() to update PMU state while holding
+cpuctx->ctx.lock in between scheduling perf events out and scheduling
+them back in. It accepts a callback invoked between ctx_sched_out() and
+perf_event_sched_in(), accomplishing atomic counter mask updates with
+minimal perf API expansion.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Refactor ctx_resched() into __ctx_resched() to invoke the callback at
+the appropriate point.
 
-- [High] The newly added early return `err = ngbe_reset_hw(wx); if (err)
-  return err;` in ngbe_resume()…
+Signed-off-by: Colton Lewis <coltonlewis@google.com>
+---
+ include/linux/perf_event.h |  3 +++
+ kernel/events/core.c       | 31 ++++++++++++++++++++++++++++---
+ 2 files changed, 31 insertions(+), 3 deletions(-)
 
---
-
-net: ngbe: propagate resume errors to the PM core
-
-ngbe_resume() used a u32 err and always returned 0, so resume failures
-were never reported.  The patch changes err to int, propagates the
-wx_init_interrupt_scheme()/ngbe_open() error, and adds a new early
-return when ngbe_reset_hw() fails.
-
-> diff --git a/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c b/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
-> index 855dc963c610c..e8cabcc84a414 100644
-> --- a/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
-> +++ b/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
-> @@ -954,7 +954,7 @@ static int ngbe_resume(struct pci_dev *pdev)
->  {
->  	struct net_device *netdev;
->  	struct wx *wx;
-> -	u32 err;
-> +	int err;
->  
->  	wx = pci_get_drvdata(pdev);
->  	netdev = wx->netdev;
-> @@ -968,7 +968,9 @@ static int ngbe_resume(struct pci_dev *pdev)
->  	pci_set_master(pdev);
->  	device_wakeup_disable(&pdev->dev);
->  
-> -	ngbe_reset_hw(wx);
-> +	err = ngbe_reset_hw(wx);
-> +	if (err)
-> +		return err;
-
-[Severity: High]
-Can this new bail-out leave the driver state claiming resources it no
-longer owns?
-
-The suspend side calls ngbe_close() directly rather than dev_close():
-
-drivers/net/ethernet/wangxun/ngbe/ngbe_main.c:ngbe_dev_shutdown() {
-	...
-	if (netif_running(netdev))
-		ngbe_close(netdev);
-	wx_clear_interrupt_scheme(wx);
-	...
-}
-
-So __LINK_STATE_START is never cleared and netif_running(netdev) stays
-true, while wx_clear_interrupt_scheme() zeroes wx->num_tx_queues /
-num_rx_queues / num_q_vectors, NULLs wx->tx_ring[]/rx_ring[] in
-wx_free_q_vector(), and calls pci_free_irq_vectors() so
-pdev->msix_enabled and msi_enabled become false.
-
-Returning here skips wx_init_interrupt_scheme(), so none of that is
-rebuilt.  ngbe_close()'s only idempotency guard is WX_STATE_RES_FREED,
-and that bit is set only by ngbe_down_suspend() (the PCIe error
-recovery path), not by ngbe_dev_shutdown():
-
-drivers/net/ethernet/wangxun/ngbe/ngbe_main.c:ngbe_close() {
-	if (test_bit(WX_STATE_RES_FREED, wx->state))
-		goto out;
-
-	wx_ptp_stop(wx);
-	ngbe_down(wx);
-	wx_free_irq(wx);
-	...
-}
-
-Does that mean the next ndo_stop - "ip link set <dev> down", a second
-ngbe_dev_shutdown() (netif_running() is still true), or
-unregister_netdev() from ngbe_remove() on rmmod - re-runs the full
-teardown on already-freed state and hits the unbalanced free_irq()
-here?
-
-drivers/net/ethernet/wangxun/libwx/wx_lib.c:wx_free_irq() {
-	...
-	if (!(pdev->msix_enabled)) {
-		if (!wx->misc_irq_domain)
-			free_irq(pdev->irq, wx);
-		return;
-	}
-	...
-}
-
-With msix_enabled false and wx->misc_irq_domain never set on ngbe (only
-txgbe sets it), free_irq(pdev->irq, wx) is issued for an IRQ that has no
-registered action, which gives the "Trying to free already-free IRQ"
-WARN, or a panic with panic_on_warn.
-
-Separately, ngbe_set_ringparam() is gated on netif_running() only, not
-netif_device_present():
-
-drivers/net/ethernet/wangxun/ngbe/ngbe_ethtool.c:ngbe_set_ringparam() {
-	...
-	if (!netif_running(wx->netdev)) {
-	...
-}
-
-After the failed resume it takes the "running" branch and drives
-ngbe_down()/ngbe_up() with zero q_vectors and no IRQ vectors, and
-ngbe_up_complete() clears WX_STATE_DOWN and restarts the tx queues of a
-detached netdev whose tx_ring[] entries are NULL and whose
-wx->num_tx_queues is 0, which wx_xmit_frame() then uses in
-r_idx % wx->num_tx_queues.
-
-Would it be better to leave a consistent representation before
-returning, for example mirroring ngbe_down_suspend() by setting
-WX_STATE_RES_FREED, or keeping the interrupt scheme initialised, or
-marking the interface down, so the second close is a no-op?
-
-ngbe_reset_hw() can fail through wx_stop_adapter() ->
-wx_disable_pcie_master() returning -ETIMEDOUT, or through the
-read_poll_timeout() on 0x10028, so this is reachable on a hardware or
-timing fault and the follow-up ifdown/rmmod is an ordinary operation
-once the NIC looks dead.
-
-The same double-teardown hazard already exists on the pre-existing
-wx_init_interrupt_scheme()/ngbe_open() failure paths below, but this
-patch adds a new route into it.  The only follow-up patch found, "net:
-ngbe: clear DRV_LOAD bit when ngbe_open() fails", touches ngbe_open()
-only and leaves ngbe_resume() unchanged.
-
->  	rtnl_lock();
->  	err = wx_init_interrupt_scheme(wx);
->  	if (!err && netif_running(netdev))
-
-[ ... ]
-
+diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
+index 5842552294c19..32e3c0d365963 100644
+--- a/include/linux/perf_event.h
++++ b/include/linux/perf_event.h
+@@ -1242,6 +1242,9 @@ extern int perf_event_task_disable(void);
+ extern int perf_event_task_enable(void);
+ 
+ extern void perf_pmu_resched(struct pmu *pmu);
++extern void perf_pmu_resched_update(struct pmu *pmu,
++				    void (*update)(struct pmu *, void *),
++				    void *data);
+ 
+ extern int perf_event_refresh(struct perf_event *event, int refresh);
+ extern void perf_event_update_userpage(struct perf_event *event);
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index db7b76d6b68aa..06d1128d194fa 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -2991,9 +2991,10 @@ static void perf_event_sched_in(struct perf_cpu_context *cpuctx,
+  * event_type is a bit mask of the types of events involved. For CPU events,
+  * event_type is only either EVENT_PINNED or EVENT_FLEXIBLE.
+  */
+-static void ctx_resched(struct perf_cpu_context *cpuctx,
+-			struct perf_event_context *task_ctx,
+-			struct pmu *pmu, enum event_type_t event_type)
++static void __ctx_resched(struct perf_cpu_context *cpuctx,
++			  struct perf_event_context *task_ctx,
++			  struct pmu *pmu, enum event_type_t event_type,
++			  void (*update)(struct pmu *, void *), void *data)
+ {
+ 	bool cpu_event = !!(event_type & EVENT_CPU);
+ 	struct perf_event_pmu_context *epc;
+@@ -3029,6 +3030,9 @@ static void ctx_resched(struct perf_cpu_context *cpuctx,
+ 	else if (event_type & EVENT_PINNED)
+ 		ctx_sched_out(&cpuctx->ctx, pmu, EVENT_FLEXIBLE);
+ 
++	if (update)
++		update(pmu, data);
++
+ 	perf_event_sched_in(cpuctx, task_ctx, pmu, 0);
+ 
+ 	for_each_epc(epc, &cpuctx->ctx, pmu, 0)
+@@ -3040,6 +3044,27 @@ static void ctx_resched(struct perf_cpu_context *cpuctx,
+ 	}
+ }
+ 
++static void ctx_resched(struct perf_cpu_context *cpuctx,
++			struct perf_event_context *task_ctx,
++			struct pmu *pmu, enum event_type_t event_type)
++{
++	__ctx_resched(cpuctx, task_ctx, pmu, event_type, NULL, NULL);
++}
++
++void perf_pmu_resched_update(struct pmu *pmu, void (*update)(struct pmu *, void *), void *data)
++{
++	struct perf_cpu_context *cpuctx = this_cpu_ptr(&perf_cpu_context);
++	struct perf_event_context *task_ctx = cpuctx->task_ctx;
++	unsigned long flags;
++
++	local_irq_save(flags);
++	perf_ctx_lock(cpuctx, task_ctx);
++	__ctx_resched(cpuctx, task_ctx, pmu, EVENT_ALL|EVENT_CPU, update, data);
++	perf_ctx_unlock(cpuctx, task_ctx);
++	local_irq_restore(flags);
++}
++EXPORT_SYMBOL_GPL(perf_pmu_resched_update);
++
+ void perf_pmu_resched(struct pmu *pmu)
+ {
+ 	struct perf_cpu_context *cpuctx = this_cpu_ptr(&perf_cpu_context);
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922100836.1147718-1-zhangyunfei1%40kylinos.cn
+2.56.0.rc1.310.g51773c2048-goog
+
