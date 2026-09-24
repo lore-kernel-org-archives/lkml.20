@@ -1,150 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B65046D090
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EFBB471258
 	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:23:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790249030; cv=none; b=mfNzZTGU3BNGPiVUwfH/xoe9sSDPY7Ge56bklnzG9X0/MVREGrbRkOGXb4yvg37LQc/ftqL7um8LlpKV0gwWTRS8BsA6oMwSF1JS1UXyZ73ro0BaeOgel/oX3t4hlnuw7Jzu0ssArYJWV15xO1m+GAl5yJwnvR0JcVNF4szbGjM=
+	t=1790249031; cv=none; b=OUoJ4D9zG5V8jC2QyzJldBMo7qExPxjwKHIFZLfWMeh6pMSuJlymjDYgdBl5igJ59JTZTKRNj/3UZ6YLGCADevklimSk4FZMle7onXI86QwkozQCd2GBwun8Ceig7JY4WMO9CmuzSI6mURU8aE9NJfSnXRpKGHruPGmeS6OpMbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790249030; c=relaxed/simple;
-	bh=OjkUmDAD4oz+xbzZpBjuR9oWr5XlqS+v3UAsqgqWTLU=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=ZtQ5g6grTjpS2aVUE1E/5l4BtWj9g57Cnag5Sms/HVvLNF4+JaPYfLCTVLcoXsGN2DHYc2ifsD+d/k6wXOLPuXNkJ4AOFiKDIhAZYA5GHqwyYLFKaVfFk4mpZESfZXs4R85AOK8Rv0dcgwY/wWwt+Vlvq62416exoVJ1U8WZ0uY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B4E+CWfB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790249031; c=relaxed/simple;
+	bh=gWeyuG+w8bqJGqJ78i+dxr6OjbBp/qhzFx2elgd5rgc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=p3yUsbYTByYIbbuDCATAe96rgABSRHo52/4TjWuVrYFxGLIxt8v8/a88B/Ld/pIIuy52G7D3nAwxGZbOqj6TnOIr+Q7XhEduA7MsFZExPuZRwX5GcBAccmX8AKPG4tZOM3KyPz57UatdSyI95NOSbPAcn+o9JXE9HXDg/MxlwPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=paJVeMxI; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B4E+CWfB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CAB41F000FF
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:23:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790249029;
-	bh=CTU8Ogs42D+dXZMfPUs99jOT2Cxtsrhzqaj0v6zLINg=;
-	h=From:Date:Subject:To:Cc;
-	b=B4E+CWfBXgRV9MSkJ7xnY0CqF4p85wE8OCoXJ98nmNpMzcJCwh7ys3JzYiqA5kiG6
-	 pOWSeR2zRkaC3If/whLu1VXG89eQQouZGhtgD72VVqExu0TK5r0gBSeyw9GOFMARHk
-	 tdCkJ+prmtuOOQpu7rQ8a4lEZk9XOb1/0HJbtBItz8A0UrdVtSWh6r7dIw3t405JIb
-	 UEwmsxpE+aptDEOvalt6eHqB3EgCBSelVsQ1O0PlS2xC3YqktK43qnfdvq/InLcVtj
-	 sBJKuLWs3DwfggvpjcMOMeMTElF60JWP8jUyfx45HouxF3oqZU8j6jsMQYlnp2Yn1y
-	 oZxyJLeymiRbw==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f13d7aso2469063e87.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="paJVeMxI"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398beb616f5so780798a91.1
         for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:23:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy5BqBIKE4mnDUHEBILlavEMUcolMICIPrl3jwAkkuhU/INYK42nm3OFGIqZlRG2zuMIhUXAgLTTpCZLWI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mPmq31+rYtXJ4LifyDT02N0eDBNya/cuutm+yjikSlkEnYwcD3
-	1ejU5pIU4rbnUBhOivvDO36q94tsNPTc/xHfZZh4as4h6pAbwlx4AlGD1b/DOLXBR5m/h+j84JK
-	EJHsnZRtQyfxvINQDy7EmhDah1m+9dZo=
-X-Received: by 2002:a05:6512:3f06:b0:5b6:1a7c:27 with SMTP id
- 2adb3069b0e04-5b8df06f8e1mr816426e87.42.1790249027932; Thu, 24 Sep 2026
- 04:23:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790249029; x=1790853829; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KXQnRB/nHO1IWYbvBq2662vmfOoejPsA25AzXQKF5g8=;
+        b=paJVeMxILrCS+tGmVi3PfkloVez4y8QtNa4z1WfuJh2Pp+VpvjuwStzGK4PhmIOi7v
+         9Ey4JRStKLnNbX/V7sPPBF5tJ72Qo49KNqZhv35IhYdFFSLFCNrH3XoPGP1bLKmhIoiX
+         rMiDNxHwwvX+2vQJICAVMyNK4NL/afAW60g8vEZGI1WtQ3rn78OAjQxPE7fp8g4Gsp6O
+         vGfzw+7jJEN8ZlF23t8IdpplNLxTky2iuk9GemN1enzzyoeXFApL0nYvI354ytCGtCIO
+         wGhvXE0MrQ9iEK9RFhZdSqv/nTs92jcvEHbtTzkrgCO+Vnfk3/dp3LbpjKyisaXqkUuH
+         5nKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790249029; x=1790853829;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KXQnRB/nHO1IWYbvBq2662vmfOoejPsA25AzXQKF5g8=;
+        b=F+NtwSb7m+HIFszdhIe5PJfJOvlFJbDNWvsd3hnD6jqD9EvoD8OtrzoOi1vMP6BLEZ
+         AvEp2kU6pOFw3F2qgk9Oryo/bPgGYmpC4IaINLjkr4deNhUOf6mLESdJKNcgZK1iV51t
+         RyMdYEOGehmhHv8OMcrSz5XxHHOTaKWQ+zpofeWt/zt6KqobefG4sELp083bQ/inrgbM
+         fz2QtVDGvIdDL2hH5onjoKDZMye1upj2eLqDXHcCiiA8r/M9rO9cz1HZ60NuEIKniFBB
+         psTSL5YALkj7lzJIBquE+XErgYCod4RuGCNC9oJOB/MgIk5up94rGDtaK9k1THpTyFDh
+         31iw==
+X-Forwarded-Encrypted: i=1; AKwUvBy3gdcKFpRyDD2+yYYT/aiwHq1BUfzv3FZNwbZ6Xt7l1ZfmCRDGle4NFbkUmO33Wg8r6EO8q42E7qGOKJ8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mqRoXD85YKCzZVJy578jZLdEH7Xa9YSOpJ+UFKIbw1XH+Iha1H
+	/XVqO+m61ucHYLmYqtE/mRsQDyU49JocdoJV7TBMyZCTkQiC/5LOhrUV
+X-Gm-Gg: AYBFou0UYfCn5OeS5Z9VblcoBXqEzMMUO7f4MV3m/doF2JFwX708Qbq+em4vYulkrsY
+	PQ7GbjIpChMRgHz+j1HCFiMvK8Dx1uSONGS0qzaTseT3J915z8yyHz3DEfpKFLlfx3LF3IguSDj
+	dEoraElGXC/D6AfXFHG23ClAcvQLUo7c7etLvJuUM2rqIhyAgA9hSj1EejyWZ+qkxQAxG3mibNQ
+	V1DVMtcdW6sCI5OkIIY9MmVXQCbgHJeduqFruE60Hk30rvpBOVQiQqDNHqYqTLtNWSYlD9h9cDq
+	1EAJUmKPro1l6jYQKanUpaRcSqHa7ZFS1VjdXadI36eRuU8yTWi560iEBUFqRueCWYeV1SSjowj
+	64MUV3Kj4gU8ebKg4h/k2Z5tay+lToUFad7UG7p0JhLfWkRQrMN3McCf9Drz6hPM93nLXlyxryv
+	PotCiJiKIJRQZYek/DSOfw2pTyGr4BnuFWh3Qb9UF4mBnpvMEiUEezdg==
+X-Received: by 2002:a17:90b:2e03:b0:39d:e1da:81e5 with SMTP id 98e67ed59e1d1-3a09864ac91mr1422278a91.11.1790249029396;
+        Thu, 24 Sep 2026 04:23:49 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0813318c1sm3586800a91.4.2026.09.24.04.23.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 04:23:48 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: broonie@kernel.org,
+	heiko@sntech.de,
+	william.zhang@broadcom.com,
+	kursad.oney@broadcom.com,
+	jonas.gorski@gmail.com
+Cc: linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linusw@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	jon.lin@rock-chips.com,
+	bcm-kernel-feedback-list@broadcom.com,
+	noltari@gmail.com,
+	lgs201920130244@gmail.com
+Subject: [PATCH 2/3] spi: rockchip-sfc: Clean up runtime PM on remove
+Date: Thu, 24 Sep 2026 19:23:28 +0800
+Message-ID: <20260924112329.1566051-3-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260924112329.1566051-1-lgs201920130244@gmail.com>
+References: <20260924112329.1566051-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 24 Sep 2026 13:23:36 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmSO0q+PnZRo2cOE02P6sQubU0ZYvgrx2sskm1Py-aQcA@mail.gmail.com>
-X-Gm-Features: AclHuK9_TBH5d_zYCtFMkyhTuN0r2OWG1lnmkelwMJd_YLu1Ajk2Ug68WJDjqqU
-Message-ID: <CAD++jLmSO0q+PnZRo2cOE02P6sQubU0ZYvgrx2sskm1Py-aQcA@mail.gmail.com>
-Subject: [GIT PULL] Pin control fixes for the v7.3 series
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Linux pin control <linux-gpio@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, "hpp.iscas" <hppiscas@163.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Linus,
+rockchip_sfc_probe() enables runtime PM and autosuspend before registering
+the controller. After a successful probe, rockchip_sfc_remove() tears down
+the controller and clocks without undoing that runtime PM setup.
 
-here are some pin control fixes for v7.3. I guess I should have
-sent some earlier but I was procrastinating.
+The probe error path resumes the device, drops the temporary usage count,
+disables runtime PM, marks the device suspended, and stops using
+autosuspend before disabling the clocks. The remove path lacks this
+matching cleanup.
 
-The serialization patch is the only one which is not a driver fix,
-but that one is really important.
+Mirror the existing error-path sequence in rockchip_sfc_remove() before
+disabling the clocks.
 
-I noticed now that one of the Qualcomm fixes seems to have a
-weird name as committer (or maybe people are actually named
-"hpp iscas" all lowercase, I don't know), it's just a oneliner but if
-that's a problem  then tell me and I'll send a new pull request
-with that patch dropped.
+Fixes: 8011709906d0 ("spi: rockchip-sfc: Support pm ops")
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/spi/spi-rockchip-sfc.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Please pull them in!
+diff --git a/drivers/spi/spi-rockchip-sfc.c b/drivers/spi/spi-rockchip-sfc.c
+index 662a994da60b..6e1c7d6318bb 100644
+--- a/drivers/spi/spi-rockchip-sfc.c
++++ b/drivers/spi/spi-rockchip-sfc.c
+@@ -747,6 +747,12 @@ static void rockchip_sfc_remove(struct platform_device *pdev)
+ 			 DMA_BIDIRECTIONAL);
+ 	free_pages((unsigned long)sfc->buffer, get_order(sfc->max_iosize));
+ 
++	pm_runtime_get_sync(&pdev->dev);
++	pm_runtime_put_noidle(&pdev->dev);
++	pm_runtime_disable(&pdev->dev);
++	pm_runtime_set_suspended(&pdev->dev);
++	pm_runtime_dont_use_autosuspend(&pdev->dev);
++
+ 	clk_disable_unprepare(sfc->clk);
+ 	clk_disable_unprepare(sfc->hclk);
+ }
+-- 
+2.43.0
 
-Yours,
-Linus Walleij
-
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
-
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-pinctrl.git
-tags/pinctrl-v7.3-2
-
-for you to fetch changes up to ae2c5bf969573708cd5b6bb6393631255d83c3fe:
-
-  pinctrl: tegra238: Fix register bank for AON pin groups (2026-09-21
-00:06:32 +0200)
-
-----------------------------------------------------------------
-Pin control fixes for the v7.3 series:
-
-- Serialize the calls to pinctrl_generic_dt_nod_to_map()
-
-- Fix a typo in S4 group in the Meson driver.
-
-- Fix bank width and regmap usage in the MPFS-SSIO driver.
-
-- Data register output latch behavior and voltage encoding
-  fixes in the Sunxi driver.
-
-- Free the IRQ domain on the error path in the single driver.
-
-- Fix some QUP1 SE2/SE3 groups and a missing OF module
-  alias in the Qualcomm drivers.
-
-- Fix up the register banks for AON (I guess always-on)
-  pins in the Tegra238 driver.
-
-Signed-off-by: Linus Walleij <linusw@kernel.org>
-
-----------------------------------------------------------------
-Andre Przywara (1):
-      pinctrl: sunxi: A523: fix voltage withstand encoding
-
-Conor Dooley (2):
-      pinctrl: mpfs-mssio: fix width of unused bank voltage setting
-      pinctrl: mpfs-mssio: use correct regmap function to set bank voltage
-
-Ilya Titov (1):
-      pinctrl: sunxi: keep a shadow copy of the data register output latches
-
-Myeonghun Pak (1):
-      pinctrl: single: free the IRQ on domain creation failure
-
-Prathamesh Shete (1):
-      pinctrl: tegra238: Fix register bank for AON pin groups
-
-Sarah Emery (1):
-      pinctrl: generic: serialise pinctrl_generic_dt_node_to_map()
-
-Sean Anderson (1):
-      pinctrl: meson: Fix typo in s4 group name
-
-Shawn Guo (1):
-      pinctrl: qcom: nord: Split QUP1 SE2/SE3 into lane-pair functions
-
-hpp.iscas (1):
-      pinctrl: qcom: ipq5210: Publish the OF module alias
-
- .../bindings/pinctrl/qcom,nord-tlmm.yaml           |   7 +-
- drivers/pinctrl/meson/pinctrl-meson-s4.c           |   2 +-
- drivers/pinctrl/microchip/pinctrl-mpfs-mssio.c     |   6 +-
- drivers/pinctrl/pinctrl-generic.c                  |   4 +
- drivers/pinctrl/pinctrl-single.c                   |   3 +-
- drivers/pinctrl/qcom/pinctrl-ipq5210.c             |   1 +
- drivers/pinctrl/qcom/pinctrl-nord.c                |  34 ++--
- drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c      |   2 +-
- drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c        |   2 +-
- drivers/pinctrl/sunxi/pinctrl-sunxi.c              |  82 +++++++--
- drivers/pinctrl/sunxi/pinctrl-sunxi.h              |   9 +
- drivers/pinctrl/tegra/pinctrl-tegra238.c           | 204 ++++++++++-----------
- 12 files changed, 218 insertions(+), 138 deletions(-)
