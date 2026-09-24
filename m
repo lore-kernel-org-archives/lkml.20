@@ -1,174 +1,83 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011036.outbound.protection.outlook.com [40.107.130.36])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76544B488E;
-	Thu, 24 Sep 2026 20:33:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.36
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790282005; cv=fail; b=sWHCCbySDxSVf+yKqhRksrUDsYEHhHI1QZRElJAOGU6of5xc0IXbop7gy1sF9Nn2kn6qDCDSPQNnrHfPNg/z8WgU4r5cJdFheOjBZmNMaI5Vpc0QbauzOA/cxjoR/dSRv19qtZv86glVvi1qIRzWbdqaZYvAhk2kNoeQguCgq4c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790282005; c=relaxed/simple;
-	bh=SeipQGURTzkt3wabQiu64FZZXWuPUMKB0R6fjBbWkjE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=OprqRrFrQc50ujO6ZByfIXrSzI8UMUsVnB7d7kB71KKUfywqCDdwZMIxLrw17NVZPU6aiMrtiAOPHa3ru+G1x10qeYxnEJxAd+O9qeDGr9uTrrFOeS28SHPcDompJI0r2jHBo7TPP6Imjc6kMfGYZEhyN388R2mfY16FeppXZ7o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=nv/GTYPk; arc=fail smtp.client-ip=40.107.130.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="nv/GTYPk"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vNSKz7c/C/prAGa2+DCm/17N7m+iWAjv1cArJttT9qv0oP1+yGa01TPYk9eFhvY4s1NiMCnMmBP8Ox0h6dfHNX02bvi/uwt4lFwpeOLhdvz2nmvJOzKiMLJ4NeZgAOG22zn2Txg2NiEPjwlWBMtyilv+7hdmZFZ9FFdY99bKhGCw2TDtP6Tw91o+fV71OxyUCLJpGJf9A5uSW3ZkqiEDZFI4CeeKyCwvDaFU9J7h08A7+yaojGEvgxQaeXg6GSb3dAgAww/+VKQQxod45++6ItnB94ZcgwlFvXccY+2OFSJsjO3hgCbic0p2Iv4b4rW5qat3DahWf+XydpyvFJo0Mw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+I3cAZbub3xas+hAqNKn7vdTuIOrLOZLXBLTFNPVikE=;
- b=d2DhHNhjQf6IBQSGt4Yz2WXS7Y1I2c1FlJhtJE7zB1Umnwt6epRWXdkuTcOr32j0nZdfrAu7ufW8jqARTEKg2u/zLO/wLbW1ZGZe8ICoQNkK4zkYrSMjiBWBL3oGaveMwa9XXr5Hu3THIfR+36or+HH0ZHIs2gBbLhJDtuxDD9vYj0ew/rmtMyhIFPvGsQYB0pFh1VovJics8iILG8/1CJCGFvq5q1LaBUblHhVb7lEt9g2JfsTL5EikHV3Hw19ssdCN17DQ5c0OAs22tT62MSAsP4A7I0seRAX6qk5MmqKPnqrFmst2GyeZK1odnhHtkG7S9cZfDcGo5SxbYvu9mQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+I3cAZbub3xas+hAqNKn7vdTuIOrLOZLXBLTFNPVikE=;
- b=nv/GTYPkKpezN9ZBd+FVceiiFI3M0FqT5eIMj8EZ1lEd+7W54FOCdGUYx+AVE5U7js/pdpaJSAZYjTB8vgfetUEz5LzDts9U3P/nfI5uB244zfjbHIBswzGri+QPU6LYhfHJ1SnF4UqH4nkpMCd1AB+jSduOJL8X55ou1D6N9nGqGXmBoTAUFoPCeveZdUgREqzB2O2ECJdqB1TM87c09zNv22HeFCmrwIolnCd+RDlClWLeR3HRSYdYOmsqxipVN8sVMkt7Ot1vgKMatEC1zmX/E0sRDpS+QNfsoz/mYLzYtwNDskiQi+J2Rbg2WnfcGH5nBmOewmN3W60uONgEAg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS5PR04MB10020.eurprd04.prod.outlook.com (2603:10a6:20b:682::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
- 2026 20:33:18 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
- 20:33:18 +0000
-Date: Thu, 24 Sep 2026 16:33:10 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH 3/3] dmaengine: imx-sdma: Use __assign_bit() for
- ownership configuration
-Message-ID: <arWJBi8iHhaeNfcr@lizhi-Precision-Tower-5810>
-References: <20260903-dma-mask-v1-0-211ffd12c236@nxp.com>
- <20260903-dma-mask-v1-3-211ffd12c236@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903-dma-mask-v1-3-211ffd12c236@nxp.com>
-X-ClientProxiedBy: PH7P220CA0112.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:32d::33) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7314B488E
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:33:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790282021; cv=none; b=WTKM076VFnkBNTenI7X244gOX3fR8RS5xxNyLZDFnaAmnhYpPgy4z6RUbFuUVL9RMBrix0H1TqXqO19KcRa7EfbB95NxVUGwCmebwYXc3wy3+jFPTVZ4MabrldZSDt1G/rnisJ8L5s7+d/sCp0Btun7WRoQ5Lt7TOkQAetlb6nE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790282021; c=relaxed/simple;
+	bh=+LWMpVDJCBv0mY2C+Cv+xISsIRikgwrzii9RdCeBPPE=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=pNLQnq38e/HhVzk6DLC3TiM3YOtUTTnhd9qGyzw5TQJXuu48BzvSATCZgAKx24ObUR/pTuYWzhEr0iB9wKqDMP0L3exg9RbBZ8sBCpYcqt7Dyjjcv2cIEb/mcZ13IjYGzg/gNTNFLRJj9TW1bwSjGIa4ant4rzm0cO+R2JvEef8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b38ea4c6acso320214b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:33:37 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790282015; x=1790886815;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LeKL1ad9pwK0vdcdTA189C5fGN6dgfKZOU147YvNcBc=;
+        b=kHsE2JvbqbpzHdEhNzG+bx8B24/B5zWOZTCDtHzsSJOQu4QELn6bw+2rk6zMqH8Wqq
+         EMfJ3zSTXAFJvkpMYBYl6l3BCztHhOa5pVfoZAB0621WqEXjengQyAYz/DctYkJ4c+17
+         S38L2QiHtajIgTWY12P4IijjIfVs5W/hx8EdfebgRJxv47Y65Xo3D3VRNJb1+XGYk2Jc
+         IBQYtZCjl9fWQalAZUZpRaexoAg7VzJXAQaufaJLEPv6DH8CQY02SfnO5Xm1WxQqS8rI
+         3wXwH0WjQeEUpFJ0MUxFfH6lZXYZ72BDsi6yQQqnT28SthhaZhvKixdJulqST+xG0uqr
+         R7cg==
+X-Forwarded-Encrypted: i=1; AKwUvBxERgsvQOqlGP6YB4zWP5s7H4WGDCg0ElODpkSd5SgDTp+3pbFzjHtanZJu/zqhqC2LcVbezU06xD6FP4U=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzWX2d27Go7GvaNUAmkxX2eeNEssN+39oCXge3NuoXyro34A5/
+	MufrZcbLziLh0b/CtQU5QfRQ//N8dSWs0MM1s/7J5NsQHbv8KG44U12gI0KA2mXtM4bjHgvuQUo
+	Mr9pQTd6jHMMO10+sUvh8vXAGe7nLRhzcvjAMCDKFFtOs8jqOv5BQ45sMXZw=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS5PR04MB10020:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1aea806c-1952-4ec3-5034-08df1a7b1154
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|19092799006|376014|1800799024|22082099003|18002099003|10067099003|4143699003|3023799007|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	P/RBBTrLRH8CWlBfJ00Vf3DUDrak60uOhwCWMCfZeKAj5vhnqjNGqg3ImsOibGbkG6E3f60zah861WMZ3dLDOdFtpH/C2KMI5FLFSbpHttEco7nrfsKkwRwFQ3gerhYwUTq5tkVbI/fr0alFUjFe68r/Xi6ACcG9Acdf+Fn19R4bVXhK/vCx1ax2nN8VBcliwdFmTc1fhsrBg9uZyJZPTep/11SwhpfjLJU8zvApHzVnluVAJGaizeSHym2DiodMVoAN2Fqx0VVq5nU1W4UW4g5qFhYvl+uKL0XyJmKYxLg0lujaJaFnJ6jmpzm7ulQGgOw1QBhcUyqBFFUndCaCE+Y8AcMsq0hk0f2FwR7EYVgOdVG7p56AVbP//Cqe4JkqM6t9jlYADYDvjmYE+O8iOGd+cbyWyEuLSkSO4KzIgKjVqbJpu3rEJZaO6luGntguuKsdtNVYSeTBDpiC5Ea4AP5xvkvYG+VpdNzHNV/dbDcT+JoFRwtJNQSno5400AOSghQUT0Pb2c4AysTUKUdJbKVIJt5KZwAFPLJ1uIrSDYPyZQzLdEgTFPQvuf86dUBrcIznFEziTb9LvJT2Uwbz/7Y91NxIB8boDTWNuMfiH6VC+xzWi+H4GV+n+Z98FOwAdwntLiNdlcIP4SHd10fHXueImTE08HLVf1LIXEtaOQY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(19092799006)(376014)(1800799024)(22082099003)(18002099003)(10067099003)(4143699003)(3023799007)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?3/s/bA1TGsDuUXmwoP7r3/mStMGY3JgKh29ff+l3/4ZHaMY9LEg3YLFxvSw6?=
- =?us-ascii?Q?qgPRofR9S/Xy3q4SdNyJ/oKwGSYsKuWxh7WswwuISoXWdZx/ChQdJCA71p0+?=
- =?us-ascii?Q?tz3EY0k0T7gsV7AkSvvlp9ufTjnwpCfIMS3Fcj/lgCp7wFWJzRNavKkTtrx6?=
- =?us-ascii?Q?CcqOpBgU6nIN4xeiKPkuU7wwkhBT1kYksqJ5jiaAmHWTQndQLbq5QjwAajfV?=
- =?us-ascii?Q?Oc4QyZMxJa8bqKUSGGI/UsJiPAbPTZKSp0G8/2SYyFJ91wvN+3ihxY8468vV?=
- =?us-ascii?Q?6M2wf7gt/+olpiiaN1+ZDtR2LjRRZDKHq2rCNviLbHG3Zp4iy/8tRjFo58vx?=
- =?us-ascii?Q?IBYfGdWqMnuIjVItjNFgHtLdcx/BIFjFaPq6MZ9E2lcMgs4iOXfbqG95apuz?=
- =?us-ascii?Q?1rg54nqac+X2QieGWaZKxE212JOlIwMRj0Ln+pebUN6c6VjS0HleOFxy5iTu?=
- =?us-ascii?Q?silbvxcvEHygSYjTLO1OVx5y0w5h+818aQRqVs4X8Zqe2ayFZOF3SJGfIxsA?=
- =?us-ascii?Q?gyoex5Yg1gNh4mhgL6zMkwI3DYcLaw58R328VKXCRyhhIt1DTE3FcGAcW7bL?=
- =?us-ascii?Q?pKdBzAm7OR8BiQs5EzIaQm29c9RAYNWCcPpWsBbhS2JLWOXF+HPPFJJkJl3Q?=
- =?us-ascii?Q?h1PGmxiJCRe5cFLGsbNjO9q01POqHVydAEdaTkuPUYYAacd2B/hSNHMpxJEo?=
- =?us-ascii?Q?gyAL07QbqPKobzxNqBrr2RCWAMJtAPVnLCFNMb6T9n8ZhTLTvNuskZ/3ejy4?=
- =?us-ascii?Q?98AZTi21U/radPCURR/KU8UsPFfiqXv1fRt64YVn6ZJ0Lz5ReoAuzK+7zx7X?=
- =?us-ascii?Q?xMzRjpqgAgK+OXJoKDS6WuGvSvP9XHbL4VaFaOF8nqIbuodZ7oxuCXx0AxN9?=
- =?us-ascii?Q?WIzO4WE5yyk9Ky8VLO6nelMaW6ufxoEgddy95imdcA3Jz63sTMsxglIVtNLX?=
- =?us-ascii?Q?aruuFkrp+q/Rp6xIix/3kUrZBArJtPVtpujTWW2VEEXGgvFJkEk3mPizEVkT?=
- =?us-ascii?Q?a9SsLHWh/N61RXOkS4nD8XYv/AtFVFVN1qUS8qDQ4MhKTcXSrFGLQnlGBPz1?=
- =?us-ascii?Q?+d4bqDueo3jDM0aP+pWKH65706kwex6zjzAlilyx241yLuG2YSH9XUIGKvG1?=
- =?us-ascii?Q?oTczOj29XYo53jqRvUejNepSlrDXzgCQ1/XGPAJhJW6L2P34R5lCkWHGKnzJ?=
- =?us-ascii?Q?+mUO3J/fCixVEufsNDtWhw3rOty7HPG8ImOIE+WZcct71QoVUiGdn04yxY+8?=
- =?us-ascii?Q?uz6nhWEMj2XOVD1SySlv6Ydc2gMqH6RAiG7nBIeMZ6Olg1il3yC4NavwA8dv?=
- =?us-ascii?Q?l6yR35QZEtJkbFlVbQe+QKmPu9/1Kjt5bkc8PtwXen9qYaVgyCemRlAM/Hgb?=
- =?us-ascii?Q?uw3A/xgs3prswRFDy5sJOnwNojiEg/SES/8ao7BM8bNld45Uf565wvaYZQU7?=
- =?us-ascii?Q?gBj+JFxM8b3Yzt4mGc5S0yV6tYYSZFAhq9ch8xf/f8pyYL/zCXUwaPa0+hrf?=
- =?us-ascii?Q?GTVFfLkBItxza7oYY8LZoHAeP8dveBb3bERl6UgL9F7ZLAQchB6q+vVTFW+v?=
- =?us-ascii?Q?R/hMN5jOTvdD3WjlWXOXIjjXvVEr1byMW/hvqrCKVorr+SKyMEu542jHLING?=
- =?us-ascii?Q?45tA/3ugQ7FkwcERj3fberqD6JR29vyTvlxgzMT/6QmoG7SHs23hLGXqjR5d?=
- =?us-ascii?Q?JogkhgcinrjmdDAkXGNP20asALWg3+OGP0tKJlcgF6CWK6P5TxnKj0PpYiUE?=
- =?us-ascii?Q?KexX2amvguxCc2eq9tww9GGxIooHorrLmJ1uBYUeoGZ+GDXOjhgH?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1aea806c-1952-4ec3-5034-08df1a7b1154
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 20:33:18.5751
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QXSjYJ2aT0d34VYohyQEkqDlqJ2lgNo4WMr7R+6Jk+QjDIn/eiIoUMBrI9KdZ9EfshsmqcZaDlriO11OzfleF0CGCG2f9p3RuF8mrLAmgltxumUksV4yzDu3g0B28VrE
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS5PR04MB10020
+X-Received: by 2002:a05:6808:2394:b0:4d6:48c4:a811 with SMTP id
+ 5614622812f47-4d72a34c720mr3838302b6e.5.1790282014882; Thu, 24 Sep 2026
+ 13:33:34 -0700 (PDT)
+Date: Thu, 24 Sep 2026 13:33:34 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab5891e.80e1c6cc.1e8e5f.0018.GAE@google.com>
+Subject: [syzbot] Monthly afs report (Sep 2026)
+From: syzbot <syzbot+lista6027574116cc8814ce8@syzkaller.appspotmail.com>
+To: linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Sep 03, 2026 at 10:16:14PM +0800, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
->
-> Replace the if/else pairs of __set_bit()/__clear_bit() in
-> sdma_config_ownership() with __assign_bit(), which does exactly the
-> same conditional set-or-clear in a single call.
->
-> No functional change.
->
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
+Hello afs maintainers/developers,
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+This is a 31-day syzbot report for the afs subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/afs
 
->  drivers/dma/imx-sdma.c | 17 +++--------------
->  1 file changed, 3 insertions(+), 14 deletions(-)
->
-> diff --git a/drivers/dma/imx-sdma.c b/drivers/dma/imx-sdma.c
-> index 63261ab6402b9..da565409beaaa 100644
-> --- a/drivers/dma/imx-sdma.c
-> +++ b/drivers/dma/imx-sdma.c
-> @@ -710,20 +710,9 @@ static int sdma_config_ownership(struct sdma_channel *sdmac,
->  	mcu = readl_relaxed(sdma->regs + SDMA_H_HOSTOVR);
->  	dsp = readl_relaxed(sdma->regs + SDMA_H_DSPOVR);
->
-> -	if (dsp_override)
-> -		__clear_bit(channel, &dsp);
-> -	else
-> -		__set_bit(channel, &dsp);
-> -
-> -	if (event_override)
-> -		__clear_bit(channel, &evt);
-> -	else
-> -		__set_bit(channel, &evt);
-> -
-> -	if (mcu_override)
-> -		__clear_bit(channel, &mcu);
-> -	else
-> -		__set_bit(channel, &mcu);
-> +	__assign_bit(channel, &dsp, !dsp_override);
-> +	__assign_bit(channel, &evt, !event_override);
-> +	__assign_bit(channel, &mcu, !mcu_override);
->
->  	writel_relaxed(evt, sdma->regs + SDMA_H_EVTOVR);
->  	writel_relaxed(mcu, sdma->regs + SDMA_H_HOSTOVR);
->
-> --
-> 2.34.1
->
+During the period, 1 new issues were detected and 0 were fixed.
+In total, 8 issues are still open and 52 have already been fixed.
+
+Some of the still happening issues:
+
+Ref Crashes Repro Title
+<1> 126     No    INFO: task hung in rxrpc_destroy_all_calls (4)
+                  https://syzkaller.appspot.com/bug?extid=1c21ab751f6531a595d6
+<2> 22      Yes   KASAN: slab-use-after-free Read in rxrpc_destroy_all_peers
+                  https://syzkaller.appspot.com/bug?extid=c876adfab6362679008c
+<3> 28      Yes   kernel BUG in rxrpc_destroy_all_connections (2)
+                  https://syzkaller.appspot.com/bug?extid=89001660f14fb7684c83
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
+
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
