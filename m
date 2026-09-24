@@ -1,106 +1,141 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89FFE26AE5
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:27:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C66C3313534;
+	Thu, 24 Sep 2026 02:27:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790216831; cv=none; b=OKSWDd/RsUYYQ8znr2ioj+3JBz5aviTZS7+Tge1Yxb6VkECCDXURgvv9mY6fZ0EwtbiEEZNU26Hxp2HO2Tisfz6nuTA3FMnjN45lu1QAT3AKpjO7qqf1tWnb45Gg0zqF1yQQkUB8bywK3LDGkLsygykBQYaDIxNiNI7sWTjUFMg=
+	t=1790216866; cv=none; b=BvOKNz+fCPh9tK+GiK2nyOEzjdVZafoXicQ8Zy101RMOTepd1PCHoXtrbm5AaWs6glE4F10wW/YjLZ5cyMOu/odk6jl22T+CWTcIGuWU/5IS/Mi6UmLO78JC17rKcGFdogIWhAIGQ2mi1ATZjzyRmOBrUqAml9pqVmaRSi2BlEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790216831; c=relaxed/simple;
-	bh=jghUrPhO0/eKHEsDwAOn23sfmynn5HkbDMwfkI4rZL4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qs8yo6JtUhwmoU+rZCiILyBu6utMP5inbzl+st14xFb/xwBrAbITNZnE3/zVE9d3bh7IvrQiAFRRlDcb5kC4dbJYVA6Ou+N1VNWnNTOM3g0UG6osUHnYdjTBl10kyAPCsEvyipXp1SUJbOat1mZBjedZV/1oyX5UnjxU2sHUZbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=pdA3Yg/X; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790216866; c=relaxed/simple;
+	bh=hsuXllKvImQEzRfzGy1c1wYRlNuqbsjrtmwuFSuIVWQ=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Zz84FQbDI8J/wFLod5BqUT6Tgr61M98haB35Q09+K+aUpHLAu001tUrik1v/k4w6et1aihX/pIPLlZvq09ihQlVgYbLj73k9ml+uZWG64yRCgLAipATS4UHnx/ECIH166c6TxI+q4HHrd8yhZ3omTC5gXVrWxKqtnnqKdwPSQPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hqxpJsrt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="pdA3Yg/X"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=kj4UYJOSYvHDeh2Q35xJ8AqHB1NDHgMUkTPqHJ9dGBc=;
-	b=pdA3Yg/XOWYZzcg4G3hZSaI6I8FSKQHPi3uOc2wkJyF3Pk1GxJijcSX1C2w1eL
-	T74sa5+/PVpHypm0EZpw5NV2A6m6XFMbbwNHnFHsvYXuS3HHB9YrRQ2EePYKhrnO
-	9ars+snSLL3nb3jqBS3ws7FT7ZRo9oGt2gX78d5i8+MsI=
-Received: from [IPV6:2409:8900:1eb0:45e:3c13:fdf5:6f81:b37a] (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3V21tirRqv7zMAQ--.1437S2;
-	Thu, 24 Sep 2026 10:26:54 +0800 (CST)
-Message-ID: <4fcb44c4-2008-4c07-b32a-b8a3e324a7ac@163.com>
-Date: Thu, 24 Sep 2026 10:26:53 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hqxpJsrt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAB441F000FF;
+	Thu, 24 Sep 2026 02:27:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790216865;
+	bh=jdvXpwdRjUiK72rN48SRFhz2V6UO/PayiAohFZTENl8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=hqxpJsrts5tIuGDScjhABTrVXhCp+Tl+7+3J4tu2vqwwtGnfu3XPekjkz8kO5f4xQ
+	 HdtA13/9wYpxusy8FxgbaYfAn3w78XYIl711UteRFmysvLxe3WoT4GkLUPaOzk0VDj
+	 3q19JtSVd0S/JBDanBZHodXgTJ97Jc8KggmGy+ZN6FT7JLidk/RsPbkd81vaxvZvZs
+	 KJQIRqxrPZjcj9c9OmcVVfTNZl/h6lFvCqHycoggmyACVkiQoMMg+3t4ioUOaqQ5hv
+	 55JmujW7wxo+EqY+8ddsuLXNJqbjYtJpDtbp0B7jbJYYaEGNaviEAsEJFCF1VG1LlX
+	 gMSZZacxHowmQ==
+Subject: Re: [PATCH] net: phy: mxl-gpy: add 2.5G for MXL68211C
+From: netdev-bot+sashiko@kernel.org
+To: rouven.czerwinski@linaro.org
+Cc: lxu@maxlinear.com, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, daniel@makrotopia.org,
+ maxime.chevallier@bootlin.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Thu, 24 Sep 2026 02:27:44 +0000
+Message-ID: <179021686449.2160803.8908232708246171616@kernel.org>
+In-Reply-To: <20260922-mainline-rouven-mxl2g5-v1-1-a0ed53631a5f@linaro.org>
+References: <20260922-mainline-rouven-mxl2g5-v1-1-a0ed53631a5f@linaro.org>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 4/4] ntfs: account for direct MFT bitmap cluster
- allocation
-To: Xuewen Wang <wangxuewen@kylinos.cn>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- Baolin Liu <liubaolin@kylinos.cn>
-References: <20260924014514.1678828-1-wangxuewen@kylinos.cn>
- <20260924014514.1678828-5-wangxuewen@kylinos.cn>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260924014514.1678828-5-wangxuewen@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3V21tirRqv7zMAQ--.1437S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tFW8Ww1fWr45Wr1rGry8Krg_yoW8CFWfpr
-	Zxtrn2ka1DAr42gwnI9w1DJ3W0g3saga1UKF4Sgr1fXFs3t3WvgwnIk3W8Xw18trWrJF1v
-	vF15Wa43u3W5Z3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zR-zV5UUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwg6FUGq0im4XdQAA3B
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-在 2026/9/24 09:45, Xuewen Wang 写道:
-> The MFT bitmap extension fast path sets $Bitmap directly, bypassing
-> ntfs_cluster_alloc() and its free_clusters and lcn_empty_bits_per_page
-> updates. Successful extensions overreport free space, and rollback adds
-> back counts that were never deducted.
-> 
-> Update both counts under lcnbmp_lock and the bitmap folio lock. Require
-> a nonzero page count and space remaining after delayed-allocation
-> reservations; otherwise use the regular allocator. The page check also
-> prevents underflow when the initial scan recorded zero after a read error.
-> 
-> Fixes: 6251f0b0de7d ("ntfs: update super block operations")
-> Suggested-by: Baolin Liu <liubaolin@kylinos.cn>
-> Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
-> Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
-> ---
->   fs/ntfs/mft.c | 10 +++++++++-
->   1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
-> index 489a5935202c..e01e367a588d 100644
-> --- a/fs/ntfs/mft.c
-> +++ b/fs/ntfs/mft.c
-> @@ -1404,10 +1404,18 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
->   	folio_lock(folio);
->   	b = (u8 *)kmap_local_folio(folio, 0) + (ll & ~PAGE_MASK);
->   	tb = 1 << (lcn & 7ull);
-> -	if (*b != 0xff && !(*b & tb)) {
-> +	/*
-> +	 * A page skipped by the initial scan has no free bits recorded.
-> +	 * Honor that and the space reserved for delayed allocation.
-> +	 */
-> +	if (*b != 0xff && !(*b & tb) &&
-> +	    vol->lcn_empty_bits_per_page[ll >> PAGE_SHIFT] &&
-> +	    ntfs_available_clusters_count(vol, 1) > 0) {
->   		/* Next cluster is free, allocate it. */
->   		*b |= tb;
->   		folio_mark_dirty(folio);
-> +		ntfs_dec_free_clusters(vol, 1);
-> +		ntfs_set_lcn_empty_bits(vol, ll >> PAGE_SHIFT, 1, 1);
->   		folio_unlock(folio);
->   		kunmap_local(b);
->   		folio_put(folio);
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Looks good to me.
+- [Medium] Missing `Fixes:` tag — a user-visible bug fix is submitted as
+  a net-next feature.
+- [Low] Commit message names the wrong part number: the subject ("net:
+  phy: mxl-gpy: add 2.5G for MXL68211C") and the body sentence ("the…
 
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+--
 
+net: phy: mxl-gpy: add 2.5G for MXL68211C
+
+This switches the MxL86211C phy_driver entry from gpy_config_init() to
+gpy21x_config_init(), so that PHY_INTERFACE_MODE_2500BASEX and
+PHY_INTERFACE_MODE_SGMII get advertised in phydev->possible_interfaces.
+The changelog reports that 2.5G then negotiates against a Mikrotik
+CRS310-G+2S+IN.
+
+> net: phy: mxl-gpy: add 2.5G for MXL68211C
+
+[Severity: Low]
+The subject says "MXL68211C", and the body repeats it in "the 2.5G speed
+indication is the same between GPY211 & MXL68211C", while the first body
+sentence and the code use MXL86211C.
+
+The driver only knows the latter spelling:
+
+drivers/net/phy/mxl-gpy.c:
+	#define PHY_ID_MXL86211C	0xC1335400
+	...
+		.name		= "Maxlinear Ethernet MxL86211C",
+
+Could the digits be un-transposed in the subject and in that sentence on a
+resend?
+
+> diff --git a/drivers/net/phy/mxl-gpy.c b/drivers/net/phy/mxl-gpy.c
+> index 0da2d4e9d8548..089a1a9e5bc61 100644
+> --- a/drivers/net/phy/mxl-gpy.c
+> +++ b/drivers/net/phy/mxl-gpy.c
+> @@ -1405,7 +1405,7 @@ static struct phy_driver gpy_drivers[] = {
+>  		PHY_ID_MATCH_MODEL(PHY_ID_MXL86211C),
+>  		.name		= "Maxlinear Ethernet MxL86211C",
+>  		.get_features	= genphy_c45_pma_read_abilities,
+> -		.config_init	= gpy_config_init,
+> +		.config_init	= gpy21x_config_init,
+
+[Severity: Medium]
+Should this carry a Fixes: tag rather than going in as a feature?
+
+The only functional delta is the possible_interfaces advertisement:
+
+drivers/net/phy/mxl-gpy.c:
+	static int gpy21x_config_init(struct phy_device *phydev)
+	{
+		__set_bit(PHY_INTERFACE_MODE_2500BASEX, phydev->possible_interfaces);
+		__set_bit(PHY_INTERFACE_MODE_SGMII, phydev->possible_interfaces);
+
+		return gpy_config_init(phydev);
+	}
+
+git blame shows the MxL86211C entry, including .config_init =
+gpy_config_init, came in with:
+
+9d844da693d6d0 ("net: phy: mxl-gpy: add support for MxL86211C")
+
+and every other GPY21x entry (GPY211B/C, GPY212B/C, GPY215B/C) already uses
+gpy21x_config_init. Together with the changelog note that 2.5G only
+negotiates "with this change", that reads like the original entry was
+incomplete rather than an intentional 1G restriction.
+
+Would it make sense to add:
+
+	Fixes: 9d844da693d6 ("net: phy: mxl-gpy: add support for MxL86211C")
+
+so that boards with this PHY, which are limited to 1G on released kernels,
+get the fix through stable?
+
+>  		.probe		= gpy_probe,
+>  		.inband_caps	= gpy_inband_caps,
+>  		.config_inband	= gpy_config_inband,
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922-mainline-rouven-mxl2g5-v1-1-a0ed53631a5f%40linaro.org
