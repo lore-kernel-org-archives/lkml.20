@@ -1,57 +1,57 @@
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C5B40F749
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:04:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB17F3A782D
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:04:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790269447; cv=none; b=Qwp3gzYHlCcCPIf6VwEdwwTG8vHTJbxvl4vtW3xI4Rs2bnPwzgkXTykGpHIbfGe1Yej5fdBjdBYHx7Mxgfx+cSPr9Fzv7ULGI0zlTyjDuHp7yxyOjY9DwlCQHO4GM27TF5FhRIBkat4+D4W9FuqOsrlDg0gcfN0n/xq5ZKjljKM=
+	t=1790269459; cv=none; b=eTDaH3uaWbWyGcxwP2OxVmqCARYynaOqGUidvhXml3V5MTbEL6+TKB9g6U0f2/mXGBdjKJ8urcDeQ5aCtzHCqDKWtqq7g8K1TJOPdNKJFHY2IYUsLOdd1oL7zY6g9jYhb67ZAErWQghWtywNLxIsgY7VJLzjxG/293ef7lnymgs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790269447; c=relaxed/simple;
-	bh=5NmY56k3QCWHRS+9mMcOx8xHTzgVxcRhdTbbUHYDB08=;
+	s=arc-20240116; t=1790269459; c=relaxed/simple;
+	bh=PH/MK75mh9EoGDiRTj6r7NBtQYqEEt1b45imvPHB0TQ=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=c9Q4bPKViqeVI0AoRkuMlP/uZ4v75lKMF3YN4EwzoBL/n0rXD7UwDicosfmXhqo7a88RK7ucQQdVZ6yitlXwusTHmGwacGvnoAObECTY7hMIj7HKDXTerXUAFrxx+FtdoTOI9mZVMzr16P/vti0Eg8wVJf/TsM3HEs4NcUhmB9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YCkW3Has; arc=none smtp.client-ip=74.125.82.198
+	 To:Cc:Content-Type; b=BmCY/YfvGzq7eOTqsseq7FXkSZNoEMhfNwGeK2ujsU/ZEJoUkhR6EkGM2mWYahSSZGznUpAW8cI3dSHI+iQXicuxlL2Di/2iWT2pYHD8tZ4nA1u52Ls69AzQXSs0N3j3uUYJTgOhf0tE31mxNgo+vVAMI1TL5/UZf49bNrrwa24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dxMCK8NP; arc=none smtp.client-ip=74.125.82.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YCkW3Has"
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3284bbaa89dso3249969eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:04:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dxMCK8NP"
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-334f782d1abso1298702eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:04:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790269444; x=1790874244; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790269456; x=1790874256; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:from:subject
          :message-id:references:mime-version:in-reply-to:date:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=8Eey3rbwq9lfFSIjQSnHq3wKThZ7U6KjaV4Lu200cqM=;
-        b=YCkW3HasN2vDyGkozPp6EdKiReiL142bXFlgActUXws8k0RoEAHQtHo4JxC8blW3+e
-         Nq7qKDLoT4uXQ6tjWaaDQSb7is4BKadnABKa2uaW25+QNxavCS0hZY+kZVpIANhiedBh
-         AFGOXkCeSC2vY2QeOwv/+ZIIAmd7bfRPdaP95N/Dd8s+DV4b4Hhx2h9VJadOVT17nrQL
-         IUkKoTJIObo7gdPQHbNgsKFZE237GSl0ApJvGa5gymE8CKAapOB+Y2J912zKQUmgBQvn
-         ReTCuFW2sEsGMdB7ZUIKFNYLJFgP9lPm+uHWDgnvYE1GWMwn6gEMhbdjiNb4A/zm2iXE
-         6GNg==
+        bh=GfWTVgSIJlb1FgS8OnOV/UO7fQGgzevTJ3j+SCzXphI=;
+        b=dxMCK8NPmrEacVdN5gUZo2VhPUuhYyBpaSG1F18CNoXmssIzawapzI+nPSCLjm8ArA
+         oFtglSdvkm+kil26rydP4nxhyOsxw1FJ4Ugc4PVmXL8Mll1SCjiyOzjjOmbF3X69lFQF
+         cQbCOsbtciSfDXeD+8WCjOimUb3rWUJnB30VWxwDtv8VK0gzlfoIxPu0imZ5gb0I9AnK
+         KeWMAJfCJ2udgsfa1KKnFZWj7SJuBn0ymD0aVvdJGz3/Jz1bDezWY6Tqf5ezjBgEp5r4
+         qJINuIJozPTDo/FiLBGziJFp0YEkWmxHjUxe5LeuZsAs7KDY2iI+H8cBj5k1hEWyW3Hw
+         H41A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790269444; x=1790874244;
+        d=1e100.net; s=20260707; t=1790269456; x=1790874256;
         h=content-transfer-encoding:content-type:cc:to:from:subject
          :message-id:references:mime-version:in-reply-to:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8Eey3rbwq9lfFSIjQSnHq3wKThZ7U6KjaV4Lu200cqM=;
-        b=ONyEZHJ+/d59Vuhi89qsme0AfguescrWM0Bo2FQsbU8aLEPBXaN3fgD8tN8JR4XXyG
-         ZR2gEaCpUav1lpctF9DnS0EbUVikUvO7KphTa3uzuUI9C/0VwZEaJt1adIrBfr7BnZKn
-         aJJmVmOCAvQHeCIvV46wIvuVl2iWaMFhI9f0dJuGFe7glCp3ESmYCWj/kq1MfdgOR7kn
-         8BSdFnBisXsF/W/8V8T+2R2eGEo3st6ZvuxrAhHtIzyD8c98P/Epndi8cmU8LuOwtwVv
-         67yB4+g5Nv472jUJjvfTZLF47drSovuz/fhHbhAgW3n0tGrp8qoebxxiBijGlMkgtX1F
-         pFBg==
-X-Forwarded-Encrypted: i=1; AKwUvBz+WK16lU5vA0c/hO/Vhh9K4+b1dY1s2izAI7jZZJ/J/jIiiBUcwMeqMgdX4OD+M0zsR4pxro4EkyYkzjo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kVSCqT7zPFkSoyJvg53q14bR1rlDA4UGQtdX163o0J/plhSPS0
-	ak+mXQ7oBA7Ir4PIkDLJMVeMkZ5K+2z93HvOuYRWa1Z/2LAeqyHOYGj0xlJS0+gAfX4feWR0kkZ
-	KBCJIBjQmew==
-X-Received: from dyckg24.prod.google.com ([2002:a05:7301:d198:b0:33b:beb3:6c8c])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:829b:10b0:33b:e21e:4a3a
- with SMTP id 5a478bee46e88-3400439b178mr3198555eec.40.1790269443943; Thu, 24
- Sep 2026 10:04:03 -0700 (PDT)
-Date: Thu, 24 Sep 2026 10:03:23 -0700
+        bh=GfWTVgSIJlb1FgS8OnOV/UO7fQGgzevTJ3j+SCzXphI=;
+        b=cYXk8HsV/ZZJFE42EnbCv2yQ2lEtEM9h61gBva85ahNTPdYr4vW5381sbGYkjrvmph
+         7/6dDt8f4Nb0ercddaj741bpkYMwjVen3I7B74itYhzmYCjiVkb1tJLmnusTyYRnOm57
+         SwTWIqenTLV2ISj6dbz4Ae6duddUa4T9DRiJU6ENJ/v2SwsUoiEY7CvfT8F/uit0noM+
+         FwDBcGw4aTz80I3COGo4xyTSR6cX1VkHeB3rlt24kmd4xSu7iS2vn/sXyLwd/EYp9QRG
+         AdNuG6Xt77uYz+4kka0ScjXM4hLO6pJrYkrSGdEe+rEyFEamjYhlFbdfkqgDRAbcGJ+J
+         h5Vw==
+X-Forwarded-Encrypted: i=1; AKwUvBwy/9HpykYCf9n3dAeIrBllI05ju0FKpZCDcvJzmDFxNGY4mlysIqeHBaLk1syNaT+3jbf6GRCNFZnDY+c=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmR5G+tOqIVnCA9j+wrpbgDB/7TwIHgSfJ/8BKgxN/LiVzmexI
+	7bbAgFlaB9sczP2eWrqCYq5E+4eV7OsBwfilgQjcyDgo2lHY7xFSsYu2QZlAuj9M8dnJSpI85Uw
+	oa4Y5ssMTjQ==
+X-Received: from dlx15.prod.google.com ([2002:a05:7022:8f:b0:144:e53d:6fa6])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:818e:b0:327:affc:b506
+ with SMTP id 5a478bee46e88-34004e839e1mr3541996eec.15.1790269456065; Thu, 24
+ Sep 2026 10:04:16 -0700 (PDT)
+Date: Thu, 24 Sep 2026 10:03:27 -0700
 In-Reply-To: <20260924170346.3872848-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,9 +61,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260924053645.3555041-1-irogers@google.com> <20260924170346.3872848-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260924170346.3872848-4-irogers@google.com>
-Subject: [PATCH v2 03/26] perf vendor events intel: Update arrowlake events
- from 1.20 to 1.21
+Message-ID: <20260924170346.3872848-8-irogers@google.com>
+Subject: [PATCH v2 07/26] perf vendor events intel: Update graniterapids
+ events from 1.20 to 1.21
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, dapeng1.mi@linux.intel.com, 
 	namhyung@kernel.org, edward.baker@intel.com, perry.taylor@intel.com, 
@@ -77,96 +77,57 @@ Content-Transfer-Encoding: quoted-printable
 
 The updated events were published in:
 
-  https://github.com/intel/perfmon/commit/335239ef9a63a3a6e198233678f898761=
-cba38aa
+  https://github.com/intel/perfmon/commit/8732d043b432e9d04086a07feb23d9df7=
+0a10f17
 
-Fix umask encoding when UMaskExt is used.
+Fix wrong encoding of UMaskExt.
 
-Fixes: ba56a910635a ("perf vendor events: Add Arrowlake events/metrics")
+Fixes: 917f63ad7580 ("perf vendor events: Update graniterapids events and a=
+dd counter information")
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- .../pmu-events/arch/x86/arrowlake/cache.json  |  1 +
- .../pmu-events/arch/x86/arrowlake/other.json  | 19 +++++++++++++++++++
- .../arch/x86/arrowlake/pipeline.json          | 10 ++++++----
- tools/perf/pmu-events/arch/x86/mapfile.csv    |  2 +-
- 4 files changed, 27 insertions(+), 5 deletions(-)
+ .../pmu-events/arch/x86/graniterapids/other.json  |  9 +++++++++
+ .../arch/x86/graniterapids/pipeline.json          |  6 +++---
+ .../arch/x86/graniterapids/uncore-cache.json      | 15 +++++++++++++++
+ .../x86/graniterapids/uncore-interconnect.json    |  2 ++
+ .../arch/x86/graniterapids/uncore-io.json         | 12 ++++++++++++
+ tools/perf/pmu-events/arch/x86/mapfile.csv        |  2 +-
+ 6 files changed, 42 insertions(+), 4 deletions(-)
 
-diff --git a/tools/perf/pmu-events/arch/x86/arrowlake/cache.json b/tools/pe=
-rf/pmu-events/arch/x86/arrowlake/cache.json
-index 142f62c59531..7fc4d136706d 100644
---- a/tools/perf/pmu-events/arch/x86/arrowlake/cache.json
-+++ b/tools/perf/pmu-events/arch/x86/arrowlake/cache.json
-@@ -1107,6 +1107,7 @@
-         "EventName": "MEM_LOAD_RETIRED.L1_HIT_L1",
-         "PublicDescription": "Counts retired load instructions with at lea=
-st one uop that hit in the Level 1 of the L1 data cache. Available PDIST co=
-unters: 0,1",
-         "SampleAfterValue": "1000003",
-+        "UMask": "0x100",
-         "Unit": "cpu_core"
-     },
-     {
-diff --git a/tools/perf/pmu-events/arch/x86/arrowlake/other.json b/tools/pe=
-rf/pmu-events/arch/x86/arrowlake/other.json
-index c8feed3a99a6..96086e257a6a 100644
---- a/tools/perf/pmu-events/arch/x86/arrowlake/other.json
-+++ b/tools/perf/pmu-events/arch/x86/arrowlake/other.json
-@@ -101,6 +101,25 @@
-         "UMask": "0x10",
-         "Unit": "cpu_atom"
+diff --git a/tools/perf/pmu-events/arch/x86/graniterapids/other.json b/tool=
+s/perf/pmu-events/arch/x86/graniterapids/other.json
+index c0747750b1a8..9173b9e3df9a 100644
+--- a/tools/perf/pmu-events/arch/x86/graniterapids/other.json
++++ b/tools/perf/pmu-events/arch/x86/graniterapids/other.json
+@@ -41,6 +41,15 @@
+         "SampleAfterValue": "203",
+         "UMask": "0x1"
      },
 +    {
-+        "BriefDescription": "Counts the number of LBR entries recorded. Re=
-quires LBRs to be enabled in IA32_LBR_CTL. [This event is alias to MISC_RET=
-IRED.LBR_INSERTS]",
++        "BriefDescription": "Increments whenever there is an update to the=
+ LBR array. [This event is alias to MISC_RETIRED.LBR_INSERTS]",
 +        "Counter": "0,1,2,3,4,5,6,7",
-+        "EventCode": "0xe4",
++        "EventCode": "0xcc",
 +        "EventName": "LBR_INSERTS.ANY",
-+        "SampleAfterValue": "1000003",
-+        "UMask": "0x1",
-+        "Unit": "cpu_atom"
-+    },
-+    {
-+        "BriefDescription": "LBR record is inserted [This event is alias t=
-o MISC_RETIRED.LBR_INSERTS]",
-+        "Counter": "0,1,2,3,4,5,6,7,8,9",
-+        "EventCode": "0xe4",
-+        "EventName": "LBR_INSERTS.ANY",
-+        "PublicDescription": "LBR record is inserted [This event is alias =
-to MISC_RETIRED.LBR_INSERTS] Available PDIST counters: 0,1",
-+        "SampleAfterValue": "1000003",
-+        "UMask": "0x1",
-+        "Unit": "cpu_core"
++        "PublicDescription": "Increments when an entry is added to the Las=
+t Branch Record (LBR) array (or removed from the array in case of RETURNs i=
+n call stack mode). The event requires LBR enable via IA32_DEBUGCTL MSR and=
+ branch type selection via MSR_LBR_SELECT. [This event is alias to MISC_RET=
+IRED.LBR_INSERTS]",
++        "SampleAfterValue": "100003",
++        "UMask": "0x20"
 +    },
      {
-         "BriefDescription": "This event is deprecated. [This event is alia=
-s to MISC_RETIRED.LBR_INSERTS]",
+         "BriefDescription": "Counts streaming stores that have any type of=
+ response.",
+         "Counter": "0,1,2,3",
+diff --git a/tools/perf/pmu-events/arch/x86/graniterapids/pipeline.json b/t=
+ools/perf/pmu-events/arch/x86/graniterapids/pipeline.json
+index afc77bdeb600..e7be30ceb46d 100644
+--- a/tools/perf/pmu-events/arch/x86/graniterapids/pipeline.json
++++ b/tools/perf/pmu-events/arch/x86/graniterapids/pipeline.json
+@@ -559,7 +559,7 @@
          "Counter": "0,1,2,3,4,5,6,7",
-diff --git a/tools/perf/pmu-events/arch/x86/arrowlake/pipeline.json b/tools=
-/perf/pmu-events/arch/x86/arrowlake/pipeline.json
-index 1f1b5a88216a..4533ca6e1461 100644
---- a/tools/perf/pmu-events/arch/x86/arrowlake/pipeline.json
-+++ b/tools/perf/pmu-events/arch/x86/arrowlake/pipeline.json
-@@ -209,6 +209,7 @@
-         "EventName": "BR_INST_RETIRED.COND_TAKEN_FWD",
-         "PublicDescription": "Counts taken forward conditional branch inst=
-ructions retired. Available PDIST counters: 0,1",
-         "SampleAfterValue": "400009",
-+        "UMask": "0x100",
-         "Unit": "cpu_core"
-     },
-     {
-@@ -627,6 +628,7 @@
-         "EventName": "BR_MISP_RETIRED.COND_TAKEN_FWD",
-         "PublicDescription": "Counts taken forward conditional mispredicte=
-d branch instructions retired. Available PDIST counters: 0,1",
-         "SampleAfterValue": "400009",
-+        "UMask": "0x100",
-         "Unit": "cpu_core"
-     },
-     {
-@@ -1238,7 +1240,7 @@
-         "Counter": "0,1,2,3,4,5,6,7,8,9",
          "EventCode": "0xc0",
          "EventName": "INST_RETIRED.REP_ITERATION",
 -        "PublicDescription": "Number of iterations of Repeat (REP) string =
@@ -176,7 +137,7 @@ ition prefix, REP, that allows their architectural execution to be repeated=
  a number of times as specified by the RCX register. Note: Since the number=
  of iterations within a REP instruction can be significantly affected by fa=
 st strings, this event may vary run to run and not match the architectural =
-number of iterations (specified by RCX) Available PDIST counters: 0,1",
+number of iterations (specified by RCX)",
 +        "PublicDescription": "Number of iterations of Repeat (REP) string =
 retired instructions such as MOVS, CMPS, and SCAS. Each has a byte, word, a=
 nd doubleword version and string instructions can be repeated using a repet=
@@ -184,54 +145,157 @@ ition prefix, REP, that allows their architectural execution to be repeated=
  a number of times as specified by the RCX register. Note: Since the number=
  of iterations within a REP instruction can be significantly affected by fa=
 st strings, this event may vary from run to run and not match the architect=
-ural number of iterations (specified by RCX). Available PDIST counters: 0,1=
-",
+ural number of iterations (specified by RCX).",
          "SampleAfterValue": "2000003",
-         "UMask": "0x8",
-         "Unit": "cpu_core"
-@@ -1931,7 +1933,7 @@
-         "Unit": "cpu_core"
+         "UMask": "0x8"
+     },
+@@ -780,11 +780,11 @@
+         "UMask": "0x20"
      },
      {
--        "BriefDescription": "Counts the number of LBR entries recorded. Re=
-quires LBRs to be enabled in IA32_LBR_CTL.",
-+        "BriefDescription": "Counts the number of LBR entries recorded. Re=
-quires LBRs to be enabled in IA32_LBR_CTL.  [This event is alias to LBR_INS=
-ERTS.ANY]",
+-        "BriefDescription": "Increments whenever there is an update to the=
+ LBR array.",
++        "BriefDescription": "Increments whenever there is an update to the=
+ LBR array. [This event is alias to LBR_INSERTS.ANY]",
          "Counter": "0,1,2,3,4,5,6,7",
-         "EventCode": "0xe4",
+         "EventCode": "0xcc",
          "EventName": "MISC_RETIRED.LBR_INSERTS",
-@@ -1940,11 +1942,11 @@
-         "Unit": "cpu_atom"
+-        "PublicDescription": "Increments when an entry is added to the Las=
+t Branch Record (LBR) array (or removed from the array in case of RETURNs i=
+n call stack mode). The event requires LBR enable via IA32_DEBUGCTL MSR and=
+ branch type selection via MSR_LBR_SELECT.",
++        "PublicDescription": "Increments when an entry is added to the Las=
+t Branch Record (LBR) array (or removed from the array in case of RETURNs i=
+n call stack mode). The event requires LBR enable via IA32_DEBUGCTL MSR and=
+ branch type selection via MSR_LBR_SELECT. [This event is alias to LBR_INSE=
+RTS.ANY]",
+         "SampleAfterValue": "100003",
+         "UMask": "0x20"
+     },
+diff --git a/tools/perf/pmu-events/arch/x86/graniterapids/uncore-cache.json=
+ b/tools/perf/pmu-events/arch/x86/graniterapids/uncore-cache.json
+index 721fc42797b1..899f4534db74 100644
+--- a/tools/perf/pmu-events/arch/x86/graniterapids/uncore-cache.json
++++ b/tools/perf/pmu-events/arch/x86/graniterapids/uncore-cache.json
+@@ -664,6 +664,16 @@
+         "UMask": "0x10",
+         "Unit": "CHA"
+     },
++    {
++        "BriefDescription": "UNC_CHA_PIPE_REJECT2.ANYQ_TOPA_MATCH",
++        "Counter": "0,1,2,3",
++        "EventCode": "0x72",
++        "EventName": "UNC_CHA_PIPE_REJECT2.ANYQ_TOPA_MATCH",
++        "Experimental": "1",
++        "PerPkg": "1",
++        "UMask": "0x20007f",
++        "Unit": "CHA"
++    },
+     {
+         "BriefDescription": "UNC_CHA_REMOTE_SF.ALLOC_EXCLUSIVE",
+         "Counter": "0,1,2,3",
+@@ -701,6 +711,7 @@
+         "EventName": "UNC_CHA_REMOTE_SF.DIRBACKED_ONLY",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0x4000",
+         "Unit": "CHA"
      },
      {
--        "BriefDescription": "LBR record is inserted",
-+        "BriefDescription": "LBR record is inserted [This event is alias t=
-o LBR_INSERTS.ANY]",
-         "Counter": "0,1,2,3,4,5,6,7,8,9",
-         "EventCode": "0xe4",
-         "EventName": "MISC_RETIRED.LBR_INSERTS",
--        "PublicDescription": "LBR record is inserted Available PDIST count=
-ers: 0,1",
-+        "PublicDescription": "LBR record is inserted [This event is alias =
-to LBR_INSERTS.ANY] Available PDIST counters: 0,1",
-         "SampleAfterValue": "1000003",
+@@ -730,6 +741,7 @@
+         "EventName": "UNC_CHA_REMOTE_SF.INCLUSIVE_ONLY",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0x2000",
+         "Unit": "CHA"
+     },
+     {
+@@ -748,6 +760,7 @@
+         "EventName": "UNC_CHA_REMOTE_SF.UPDATE_EXCLUSIVE",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0x100",
+         "Unit": "CHA"
+     },
+     {
+@@ -767,6 +780,7 @@
+         "EventName": "UNC_CHA_REMOTE_SF.VICTIM_EXCLUSIVE",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0x400",
+         "Unit": "CHA"
+     },
+     {
+@@ -776,6 +790,7 @@
+         "EventName": "UNC_CHA_REMOTE_SF.VICTIM_SHARED",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0x200",
+         "Unit": "CHA"
+     },
+     {
+diff --git a/tools/perf/pmu-events/arch/x86/graniterapids/uncore-interconne=
+ct.json b/tools/perf/pmu-events/arch/x86/graniterapids/uncore-interconnect.=
+json
+index 9f0c4c7198b0..4dbf9b8481cd 100644
+--- a/tools/perf/pmu-events/arch/x86/graniterapids/uncore-interconnect.json
++++ b/tools/perf/pmu-events/arch/x86/graniterapids/uncore-interconnect.json
+@@ -513,6 +513,7 @@
+         "EventName": "UNC_B2CMI_IMC_WRITES.NI",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0x300",
+         "Unit": "B2CMI"
+     },
+     {
+@@ -522,6 +523,7 @@
+         "EventName": "UNC_B2CMI_IMC_WRITES.NI_MISS",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0x500",
+         "Unit": "B2CMI"
+     },
+     {
+diff --git a/tools/perf/pmu-events/arch/x86/graniterapids/uncore-io.json b/=
+tools/perf/pmu-events/arch/x86/graniterapids/uncore-io.json
+index 2ea2637df3fb..0e56bbed4d65 100644
+--- a/tools/perf/pmu-events/arch/x86/graniterapids/uncore-io.json
++++ b/tools/perf/pmu-events/arch/x86/graniterapids/uncore-io.json
+@@ -652,6 +652,18 @@
          "UMask": "0x1",
-         "Unit": "cpu_core"
+         "Unit": "IIO"
+     },
++    {
++        "BriefDescription": "Data requested of the CPU : Card reading from=
+ another Card (same or different stack)",
++        "Counter": "0,1",
++        "EventCode": "0x83",
++        "EventName": "UNC_IIO_DATA_REQ_OF_CPU.PEER_READ.ALL_PARTS",
++        "Experimental": "1",
++        "FCMask": "0x07",
++        "PerPkg": "1",
++        "PortMask": "0x0FF",
++        "UMask": "0x8",
++        "Unit": "IIO"
++    },
+     {
+         "BriefDescription": "Data requested of the CPU : Card reading from=
+ another Card (same or different stack)",
+         "Counter": "0,1",
 diff --git a/tools/perf/pmu-events/arch/x86/mapfile.csv b/tools/perf/pmu-ev=
 ents/arch/x86/mapfile.csv
-index 748d1ee1605c..27eaf934b925 100644
+index 3753ff64835e..3e9a86ca18ac 100644
 --- a/tools/perf/pmu-events/arch/x86/mapfile.csv
 +++ b/tools/perf/pmu-events/arch/x86/mapfile.csv
-@@ -1,7 +1,7 @@
- Family-model,Version,Filename,EventType
- GenuineIntel-6-(97|9A|B7|BA|BF),v1.41,alderlake,core
- GenuineIntel-6-BE,v1.41,alderlaken,core
--GenuineIntel-6-C[56],v1.20,arrowlake,core
-+GenuineIntel-6-C[56],v1.21,arrowlake,core
- GenuineIntel-6-(1C|26|27|35|36),v5,bonnell,core
- GenuineIntel-6-(3D|47),v30,broadwell,core
- GenuineIntel-6-56,v12,broadwellde,core
+@@ -13,7 +13,7 @@ GenuineIntel-6-CF,v1.25,emeraldrapids,core
+ GenuineIntel-6-5[CF],v13,goldmont,core
+ GenuineIntel-6-7A,v1.01,goldmontplus,core
+ GenuineIntel-6-B6,v1.13,grandridge,core
+-GenuineIntel-6-A[DE],v1.20,graniterapids,core
++GenuineIntel-6-A[DE],v1.21,graniterapids,core
+ GenuineIntel-6-(3C|45|46),v36,haswell,core
+ GenuineIntel-6-3F,v29,haswellx,core
+ GenuineIntel-6-7[DE],v1.24,icelake,core
 --=20
 2.56.0.rc1.315.gc6ed9934b7-goog
 
