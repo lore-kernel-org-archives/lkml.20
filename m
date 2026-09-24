@@ -1,278 +1,105 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC11335AC34
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:28:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B6B23CF218;
+	Thu, 24 Sep 2026 08:28:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790238486; cv=none; b=ongoDYshMmyYlI+s43LW79ZcBzDwjUfWf/cgqye4Yv9HVxShBeAtLs0q74UzGq1JkdKc0PedUl/cI8Hur35aozmCCClswjB6+AQPPtPzFXE48nNj0ifTAHz8mEj1hLnbd0sKO/82BZ0iLzmeNGnLrEDmu/xMAr7wEq6Excy2k34=
+	t=1790238495; cv=none; b=M1oUGs8mSfldJwQC12q2GlPjv5yGgQHKtAKdndtoJeNj91uIml5q/EGN2gmKTI1SIg+H4pc1abWeZSZL7iaXLXGYooVfQbEUNeJtFQA+0+1DKJ8haeKWYSNZrMQgrgV0vyx/VVYqhnWi24fP5xRwu1TvKO9kRk/2l+r8KT5fpog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790238486; c=relaxed/simple;
-	bh=KwcK5xgPqiIzsIdZYwj+iTwLj1QDZWahTspRdU2yLkw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lUNrtKDJ3Tr2Dt4R1SuIGn0j3/GVR9DqSQdZq//vdoOzzDk5/PgjrEmMUmxjAJ923wB5bwW/hhludrLCS23pU4VC0uJ8G6Nzws8CQ8HvJHLpLT8hJRhb6aRkqMcUhEKJ89iZaXLtJzIaQ6mjZdp3KFiqEafX3knJa84Rs3rYyEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=kBJ3uuVk; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790238495; c=relaxed/simple;
+	bh=WQD6DJ9hn20A4LJfFdIJHvCjUt0Ry1c58LGa64z0pak=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZWuG6EdPmctEa0yVxyk1B+smU/4gRqMva9AgpfQubp7OVDqqUregZ4y7NlNPwMVxG+kq0mpHdphfFRswa34lGIkUkgrvcsk29tWVriQjeRueK8tBl/f5h9KdFibQrPRCcCVEI1c08i3nrYqVy02oxxF8CLfgoZczCMhelvCQfho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AkMJC5JA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="kBJ3uuVk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=mihx/T4hDNaaTgoju8xfzL5c8ChT4gZv0yw0Iy7hzj4=;
-	b=kBJ3uuVk7qPt73DvNfl9W8Tovxc05tQYlYDAVAtmMFjKnAC4V4XlvFYCmVr6M9
-	RsrJrrJBHxzZBC/KNGqH7ypzjZgv1Rfd40aE0Vy33OK1fHou4L/A4c6nSJqnSSuR
-	+loScpCXc2aumD8sPXUN58UqGYhFcfRyGclM3miGcDdlY=
-Received: from [IPV6:2409:8900:1eb0:45e:3c13:fdf5:6f81:b37a] (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wDnr6fx3rRqFo8PAg--.38281S2;
-	Thu, 24 Sep 2026 16:27:30 +0800 (CST)
-Message-ID: <e71aaf63-433e-45bf-a22c-b48f7ab3c4d8@163.com>
-Date: Thu, 24 Sep 2026 16:27:28 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AkMJC5JA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 922081F000FF;
+	Thu, 24 Sep 2026 08:28:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790238494;
+	bh=GsmgnhaFqTMEMgV8Zn0uR04tPAkg7R3E1Z3BnGPBPGU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AkMJC5JAXk/pX/+kR1K2A+X2qR9dHg/cylkIMUSRwxnRpKTJ8o90TZd6MY9zQFCgt
+	 OqAf46Hj4z8Mm/IgP1xpEh9SMBAnhYIqehxrr1GWRYnLDX5YCkgJDQLpAhF7xz8y+p
+	 WB6yMcowxeNwJSKaCYZk2KnXTLf6vcUYIc8o/MXvCU/4SHrXx7guEr5MWwkscKgopx
+	 WwInTzGX2U50sJSoJ/pD7y/ZcejotJCWowo8ra/iIr7o6GyeHHr3t9tt2la+h/6Hu6
+	 YzO1iqOvVMXiO5kuKSXZ5sITsGtan+25tRvkmvx82GrE3OpJFbPXDsN2aQojmTeehj
+	 KpCOSPkuwbljg==
+Date: Thu, 24 Sep 2026 09:28:02 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Mark Rutland <mark.rutland@arm.com>, Randy Dunlap <rdunlap@infradead.org>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
+	David Hildenbrand <david@kernel.org>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Sven Schnelle <svens@linux.ibm.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, 
+	kvm@vger.kernel.org, linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	Jack Thomson <jackabt@amazon.com>, Jack Thomson <jackabt.amazon@gmail.com>, 
+	Alexandru Elisei <alexandru.elisei@arm.com>, Vincent Donnefort <vdonnefort@google.com>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Sean Christopherson <seanjc@google.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, Leo Soares Passos <Leo.Bras@arm.com>, 
+	Wei-Lin Chang <weilin.chang@arm.com>, linux-s390@vger.kernel.org
+Subject: Re: [PATCH v4 13/14] KVM: selftests: Add option for different
+ backing in pre-fault tests
+Message-ID: <arTe9AprfA3CVs9Y@gremlin>
+References: <20260923-kvm-arm-prefault-v4-0-d4b0b4dfa8c3@kernel.org>
+ <20260923-kvm-arm-prefault-v4-13-d4b0b4dfa8c3@kernel.org>
+ <CA+EHjTyPyy-Z=HAMOz6pUHrz_X4O+Lx3cQ6Ay_Wt+tnc1WDU_w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ntfs: exclude DOS aliases from VFS link count
-To: Michael Woolweaver <michael@woolweaver.bid>,
- Namjae Jeon <linkinjeon@kernel.org>, Hyunchul Lee <hyc.lee@gmail.com>
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20260924041720.16477-1-michael@woolweaver.bid>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260924041720.16477-1-michael@woolweaver.bid>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnr6fx3rRqFo8PAg--.38281S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3WF4ktw4fXw4xWw4rAw17trb_yoW3CFWrpF
-	ZxC3sxtrZ3Xr12g3s3tw4DZa4S9r1Fkr4UXr9rGw13Aa1Fqwn2gFy8KrW0vr1SyrZ8Jw1q
-	qF4Yg3y7CayDXFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zR-18dUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwRO7hmq03vPwwAAA3s
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+EHjTyPyy-Z=HAMOz6pUHrz_X4O+Lx3cQ6Ay_Wt+tnc1WDU_w@mail.gmail.com>
 
+On Thu, Sep 24, 2026 at 07:08:52AM +0100, Fuad Tabba wrote:
+> Hi Lorenzo,
+>
+> On Wed, 23 Sep 2026 16:15:56 +0100, "Lorenzo Stoakes (ARM)"
+> <ljs@kernel.org> wrote:
+> [...]
+> > diff --git a/tools/testing/selftests/kvm/pre_fault_memory_test.c b/tools/testing/selftests/kvm/pre_fault_memory_test.c
+> [...]
+> > @@ -189,24 +195,28 @@ static void __test_pre_fault_memory(enum vm_guest_mode guest_mode, void *arg)
+> [...]
+> >          test_config.test_size = align_up(TEST_BASE_SIZE + test_config.page_size,
+> > -                                         host_page_size);
+> > +                                         mem_page_size);
+> >          test_config.test_num_pages = vm_calc_num_guest_pages(vm->mode, test_config.test_size);
+>
+> With -s anonymous_hugetlb_1gb, test_size becomes 1G and setup aborts
+> on 4K guest modes, as memslot 0 has no room for the page tables that
+> map it:
+>
+>      No guest physical page available, min_gpa: 0x180000 page_size:
+> 0x1000 memslot: 0
+>
+> As a followup, could you compute test_num_pages before creating the VM
+> and pass it as extra_mem_pages, as arm64/sea_to_user.c does?
 
+Ack, can look into that and send a follow up patch after!
 
-在 2026/9/24 12:17, Michael Woolweaver 写道:
-> NTFS counts each $FILE_NAME attribute in the MFT record link_count.
-> A file with separate Win32 and DOS 8.3 names therefore has a link_count
-> of two even though the DOS name is an alias and does not represent a
-> separate VFS hard link.
-> 
-> ntfs_read_locked_inode() copies the MFT link_count directly to i_nlink,
-> causing stat() to report an extra hard link for files with a separate
-> DOS alias.
-> 
-> The same distinction is needed when unlinking. ntfs_delete() removes
-> both the DOS and Win32 $FILE_NAME attributes, decrementing the on-disk
-> link_count for each, but it must decrement the VFS link count only for
-> the Win32 name. Otherwise a real hard link can reach i_nlink zero while
-> another VFS-visible name still exists.
-> 
-> Count non-DOS $FILE_NAME attributes when initializing i_nlink, while
-> still verifying that the MFT link_count matches the total number of
-> name attributes. Do not drop i_nlink when ntfs_delete() removes a DOS
-> alias.
-> 
-> This was reproduced with a file containing separate Win32 and DOS
-> names. Its MFT link_count was 2 while stat() incorrectly reported 2
-> links. With the fix, stat() reports 1.
-> 
-> After adding a real POSIX hard link, the MFT contained three
-> $FILE_NAME attributes while the VFS correctly reported two links.
-> Removing the Win32/DOS pair left the POSIX hard link with both the MFT
-> link_count and VFS i_nlink equal to 1.
-> 
-> The fix was runtime-tested with fs/ntfs on a disposable NTFS image and
-> compile-tested on ntfs-next with W=1. checkpatch.pl reports no issues.
-> 
-> Fixes: 1e9ea7e04472 ("Revert "fs: Remove NTFS classic"")
-> Assisted-by: LLM
-> Signed-off-by: Michael Woolweaver <michael@woolweaver.bid>
-> ---
->   fs/ntfs/inode.c | 77 +++++++++++++++++++++++++++++++++++++++++++++++++
->   fs/ntfs/namei.c |  5 +++-
->   2 files changed, 81 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
-> index 9583b2c6c7a2..74a0d9d1e82b 100644
-> --- a/fs/ntfs/inode.c
-> +++ b/fs/ntfs/inode.c
-> @@ -621,6 +621,67 @@ static int ntfs_is_extended_system_file(struct ntfs_attr_search_ctx *ctx)
->   	return 0;	/* NO, it is not an extended system file. */
->   }
->   
-> +/*
-> + * ntfs_count_vfs_links - count VFS-visible hard links
-> + * @ctx: initialized attribute search context
-> + *
-> + * The MFT link count counts all $FILE_NAME attributes.  A separate DOS 8.3
-> + * name therefore contributes to the on-disk count even though it is an alias
-> + * for its Win32 name and does not represent another VFS hard link.
-> + *
-> + * Return the number of VFS-visible links or -errno on error.
-> + */
-> +static int ntfs_count_vfs_links(struct ntfs_attr_search_ctx *ctx)
-> +{
-> +	unsigned int expected, names = 0, links = 0;
-> +	int err;
-> +
-> +	expected = le16_to_cpu(ctx->mrec->link_count);
-> +	ntfs_attr_reinit_search_ctx(ctx);
-> +
-> +	while (!(err = ntfs_attr_lookup(AT_FILE_NAME, NULL, 0, 0, 0, NULL, 0,
-> +					ctx))) {
-> +		struct attr_record *attr = ctx->attr;
-> +		struct file_name_attr *fn;
-> +		u32 attr_len, value_len;
-> +		u16 value_off;
-> +
-> +		if (unlikely(attr->non_resident))
-> +			goto corrupt;
-Hi Michael,
-   This check appears redundant.
-   Both lookup paths used by ntfs_attr_lookup(), ntfs_attr_find() and 
-ntfs_external_attr_find(), call ntfs_attr_value_is_valid() before 
-returning a matching attribute. That function checks 
-ntfs_attr_type_is_resident_only(), which already includes AT_FILE_NAME.
+>
+> Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-   A non-resident $FILE_NAME would therefore be rejected by the lookup 
-before entering this loop body.
-   Could we remove this duplicate check to simplify the code?
+Thanks!
 
-Thanks,
-Baolin.
+>
+> Cheers,
+> /fuad
 
-> +
-> +		attr_len = le32_to_cpu(attr->length);
-> +		value_len = le32_to_cpu(attr->data.resident.value_length);
-> +		value_off = le16_to_cpu(attr->data.resident.value_offset);
-> +
-> +		if (unlikely(value_off > attr_len ||
-> +			     value_len > attr_len - value_off ||
-> +			     value_len < offsetof(struct file_name_attr, file_name)))
-> +			goto corrupt;
-
-Hi Michael,
-    These bounds and minimum-length checks are also covered by 
-ntfs_attr_value_is_valid().
-
-   For the first two conditions, ntfs_resident_attr_value_get() already 
-checks that value->len <= attr_len and value_offset <= attr_len - 
-value->len, ensuring that the value fits entirely within the attribute. 
-This covers the same bounds, with the subtraction arranged differently.
-   For the third condition, ntfs_resident_attr_min_value_length() 
-returns offsetof(struct file_name_attr, file_name) + sizeof(__le16) for 
-AT_FILE_NAME, which is stricter than the check here.
-
-   None of these conditions can therefore hold after a successful 
-lookup. Could we remove these duplicate checks to simplify the code?
-
-Thanks,
-Baolin.
-
-> +
-> +		fn = (struct file_name_attr *)((u8 *)attr + value_off);
-> +		names++;
-> +		if (fn->file_name_type != FILE_NAME_DOS)
-> +			links++;
-> +	}
-> +
-> +	if (unlikely(err != -ENOENT))
-> +		return err;
-> +
-> +	if (unlikely(names != expected || !links)) {
-> +		ntfs_error(ctx->ntfs_ino->vol->sb,
-> +			   "Inode link count doesn't match file name attributes. You should run chkdsk.");
-> +		return -EIO;
-> +	}
-
-Hi Michael,
-    This condition indicates filesystem metadata corruption: either the 
-number of name attributes does not match the on-disk link count, or 
-there are no names contributing to the VFS link count.
-    Could we return -EFSCORRUPTED instead of -EIO to describe the error 
-more accurately?
-
-Thanks,
-Baolin.
-
-> +
-> +	ntfs_attr_reinit_search_ctx(ctx);
-> +	return links;
-> +
-> +corrupt:
-> +	ntfs_error(ctx->ntfs_ino->vol->sb,
-> +		   "Corrupt file name attribute. You should run chkdsk.");
-> +	return -EIO;
-
-Hi Michael,
-   Both checks that jump to corrupt appear to be covered by the 
-underlying validation and can be removed.
-   If you agree with those changes, the corrupt: label and its 
-associated error handling can also be dropped.
-
-Thanks,
-Baolin.
-
-> +}
-> +
->   static struct lock_class_key ntfs_dir_inval_lock_key;
->   
->   void ntfs_set_vfs_operations(struct inode *inode, mode_t mode, dev_t dev)
-> @@ -872,6 +933,22 @@ static int ntfs_read_locked_inode(struct inode *vi)
->   		}
->   	}
->   skip_attr_list_load:
-> +	/*
-> +	 * The MFT link count includes separate DOS 8.3 aliases.  Once the
-> +	 * attribute list is available, derive the VFS link count from the
-> +	 * $FILE_NAME namespaces instead.
-> +	 */
-> +	if (!(m->flags & MFT_RECORD_IS_DIRECTORY) && vi->i_ino != FILE_MFT) {
-> +		int nr_links;
-> +
-> +		nr_links = ntfs_count_vfs_links(ctx);
-> +		if (unlikely(nr_links < 0)) {
-> +			err = nr_links;
-> +			goto unm_err_out;
-> +		}
-> +		set_nlink(vi, nr_links);
-> +	}
-> +
->   	err = ntfs_attr_lookup(AT_EA_INFORMATION, NULL, 0, 0, 0, NULL, 0, ctx);
->   	if (!err) {
->   		NInoSetHasEA(ni);
-> diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
-> index 75e201096525..891ee697c0d2 100644
-> --- a/fs/ntfs/namei.c
-> +++ b/fs/ntfs/namei.c
-> @@ -829,6 +829,7 @@ static int ntfs_delete(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
->   	struct file_name_attr *fn = NULL;
->   	bool looking_for_dos_name = false, looking_for_win32_name = false;
->   	bool case_sensitive_match = true;
-> +	bool is_dos_name;
->   	int err = 0;
->   	struct mft_record *ni_mrec;
->   	struct super_block *sb;
-> @@ -932,6 +933,8 @@ static int ntfs_delete(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
->   	if (err)
->   		goto err_out;
->   
-> +	is_dos_name = fn->file_name_type == FILE_NAME_DOS;
-> +
->   	err = ntfs_index_remove(dir_ni, fn, le32_to_cpu(actx->attr->data.resident.value_length));
->   	if (err)
->   		goto err_out;
-> @@ -942,7 +945,7 @@ static int ntfs_delete(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
->   
->   	ni_mrec = actx->base_mrec ? actx->base_mrec : actx->mrec;
->   	ni_mrec->link_count = cpu_to_le16(le16_to_cpu(ni_mrec->link_count) - 1);
-> -	if (!S_ISDIR(VFS_I(ni)->i_mode))
-> +	if (!S_ISDIR(VFS_I(ni)->i_mode) && !is_dos_name)
->   		drop_nlink(VFS_I(ni));
->   
->   	mark_mft_record_dirty(ni);
-> 
-> base-commit: 401898d748fcc8e19ceea1a37ed0de9075fe9ff2
-
+--
+Cheers, Lorenzo
