@@ -1,214 +1,161 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BE8E404BC4;
-	Thu, 24 Sep 2026 08:23:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.135.77
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790238211; cv=fail; b=L404/BvSt/DuPdkgBtQLKc3Ytq1kVKi8S5L1iGIh12hdlrfi1Sp5WDcEEAuk3aWOvzLO+GlpyQSs9c0UpipFrAwsavAtPmTtnuOAXY7fF70nOBnDuDdRceU+ZcX3GYp8YJFOnumb+xIa7Z2ht3VbOwXOFHkQmzPniqFklrIPTM4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790238211; c=relaxed/simple;
-	bh=UJ1RmfJA3+/MX7tadNlBDlHoimExAYrYwH/DJjaZTZ8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=QlCNZe3dwQjz8uVeb3EwLq+kYRGyF7xxVcihXlJUKVY+/3N3yy4xQEvFYwI8fzymWxNtJe1hjZG19aH3D5Cdi+876TMxaU5ZOi/gxCD2OgKeHy9PkWD6SwMIv8vyvkFCqkVV/X6qPmhhWYkvl1ObzK+Ei83fy3vwPRaMjUI76bE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=DI8qR/+2; arc=fail smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1190D432BD6;
+	Thu, 24 Sep 2026 08:23:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790238217; cv=none; b=gH4cNIr1+b/0jCrXjVIAa3zt5n7dgDnmT1obH9O+qULy8SS36IUQT/aXb0rxcx71I8XkzNwZ3xpLJ9n+AoDC6++HFd0fuIqLmT2CjWWWCdl0pIgD0rGt0I3Hl707ZX9wDn2TjTc+ju1O1tox2rcAiK710uq5fymqjYSJlaA9ahw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790238217; c=relaxed/simple;
+	bh=pq3ootEcRNlE5VmwPiLsqT1U3a54cF5U18IpkqaJGsg=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=ShNI0QI8mkDWTZum884RpKT0V14T2kTLtkZIpqdTnrubHdj6YbjBcF6jbczYCVd/a9wZKZ2QzCPfr35lKXpr0bLv8JyDpwODWqKjwX8AAWZGXreW4Q3qrLhaEhqTqePxuKy64Njs7CJ/gLbgFncXVTsh9W9CuXP3OA7JMJXetss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c0kukZOv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="DI8qR/+2"
-Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5e48J3875472;
-	Thu, 24 Sep 2026 04:23:27 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=X9UCI
-	aVHy7n4H/pCziPfapMNrQOyx0c9jnAJXwVqSI0=; b=DI8qR/+2nkX6SX+/2Httu
-	UkIApBEa3BUiC7ZASxpeOs8RgwMnnQqNI8lJAT4OONjyN8iVf6GzEdp8lq5ANXL7
-	UNaszdVJB4QSGYKcJUIpMpP+HVoKo3d4NE3FMyVUYwfC0muC05ItQKgCBJMcLr2m
-	nN/uQwrv2zH0y01jHUsOkMVR7TBs/nT/S5JArEAKHMQ8raojoLgzDm4m5a2sBkE1
-	FA1/xHeC9hkbr5dTEnqUH+NLDku9XkafQwENidGv9Hn8O7o0I8RDAWFgqv+dMPry
-	4yWxNtXsBxM0Zu/Tm9F8UF8wHKOsmifXWIBwWwcdJNnWmi8mEGe+PRK3bchimHnh
-	w==
-Received: from sn4pr2101cu001.outbound.protection.outlook.com (mail-southcentralusazon11012017.outbound.protection.outlook.com [40.93.195.17])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4gvmpk3qgt-2
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 24 Sep 2026 04:23:26 -0400 (EDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YnzUQ+rBWLgf5954DGnXOaD4AxL82Oc6p5yJ9CV3qLQ0SvxaXf/8hd7uuJC6mJntwQM2RJTSF3ajFHLfA8DfkvMRyrvIxaZouQsET5QfiPPh5NCsMHrsXcfjiitO+MPL3bkV7INBdZUM/CU5gDuoIgD/SAOfyLYzdudxZwE4Hae04Juaw/HAB8smMjwbLzMFAZVGqe/zN+hU9tifirQ3tC9ADHIgzoW0e8cyhlY+Ej4gcDOv2Aavp7fJUj0EMAUpWNzNzMTpL8RMClNjdRF2XT10uDsucWinlv2sxAHwDfxhlrhnHzkD/9eA07UTf1vZCNvV52Mj4JupAx1/G+4eug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X9UCIaVHy7n4H/pCziPfapMNrQOyx0c9jnAJXwVqSI0=;
- b=JziECCgzr+/mXiVd5JSu5c0S/2gzL5Hcz3MLeGwv64ax6/HNFBaVol3f/N8Ri6M3elaLt5oiEgjpPNrtA8CM45D6y0Dqie6JW4/FNUoD8yZME7BCeYB4WzVCpHflJlZm1IeV+s0n+cMHTmD7TuYZAgmV/MC7ll/OGXntZgi6zpW9A9xlNlqEGljJ1GQENZVZGOk0Mr7EE2aUJbP3qhfczYAvecGr+BtOkq2+EeLNbd/kiFj5ZkwxyDzGHsPF9S6Gr599pKEi5GOfT3RydOjpJ1MeT3dGHifD3rS4LuA5eVMQF323/4fMBKFd9ITn8zAI5eAeNEuYVzQOYQ+mLRgP2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
- dkim=pass header.d=analog.com; arc=none
-Received: from SJ0PR03MB5469.namprd03.prod.outlook.com (2603:10b6:a03:28a::17)
- by SJ2PR03MB7041.namprd03.prod.outlook.com (2603:10b6:a03:4f9::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
- 2026 08:23:23 +0000
-Received: from SJ0PR03MB5469.namprd03.prod.outlook.com
- ([fe80::2a19:76b2:e731:8c5a]) by SJ0PR03MB5469.namprd03.prod.outlook.com
- ([fe80::2a19:76b2:e731:8c5a%6]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
- 08:23:23 +0000
-Date: Thu, 24 Sep 2026 09:24:33 +0100
-From: Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>
-To: Jinseob Kim <kimjinseob88@gmail.com>
-Cc: jic23@kernel.org, dlechner@baylibre.com, andy@kernel.org,
-        linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: buffer: serialize buffer teardown with mode claims
-Message-ID: <arTeK0QadzWkI6jH@nsa>
-References: <20260921062421.64647-1-kimjinseob88@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260921062421.64647-1-kimjinseob88@gmail.com>
-X-ClientProxiedBy: MR1P264CA0132.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:51::7) To SJ0PR03MB5469.namprd03.prod.outlook.com
- (2603:10b6:a03:28a::17)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c0kukZOv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 118F01F000FF;
+	Thu, 24 Sep 2026 08:23:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790238214;
+	bh=0R3Mxbv3vdpxWcQQoOquOV4kjUr9blHIMswP0RJ/a58=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=c0kukZOvskiiPKmmSymm5exGovbxASfO3P63WOJaDq/7+wmrV4idTAKOlrVmL4xN4
+	 thZhxpzmIjjAwFxvHbiHWAqru4ohnWveaTrWJyxrS2Id+CwDvgf0KtS7VxJHgkfAig
+	 TZYtCREuDyZscaRuJLQBbtu0HTT/cF1pVzCEznuPsgcRrAtTcy8jI7TZGjJ4gRACY5
+	 IvcHdXa7ZYtYhNVVzBa9Ur3F47IB6i+61dq0IaetRo1/ZGQYGl94/bhZvWeWKKHR67
+	 B5ucLA7oYVY3YaziIhN9haJQsP2PImSZeY92OJlMMnJf/H+LcRG8KqA0CJ5iYeoOjE
+	 aCNu5pfjCvRSA==
+Message-ID: <eee40025-da99-48df-8687-5d93c99037e4@kernel.org>
+Date: Thu, 24 Sep 2026 10:23:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB5469:EE_|SJ2PR03MB7041:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8e065b8a-a42f-45dc-a428-08df1a1518e9
-X-LD-Processed: eaa689b4-8f87-40e0-9c6f-7228de4d754a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|6133799003|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
- 8CQgAl1+tOKfCcJnT3dFocba83kZkIq75VWwtKZUw5UARvmVb0yj85CJxyrKg3+JTuh0HvxvWK4e06rom6ng14tB7nOk0fP242u8KIyEq7vX1EbeKORjyvYERuHjZtP8eWAcGSG/ueFUcuZZuhQewMVcC4u8S2WAmXJgFBehC1EEhnSpit02EkgQpLOJzO0V+yB4j8X1hEOVfb5Wyk8dWYTgNT4V1DhqWNRK0g6S56rbgKUJahy1RQ+2N9I2k/6nASWLSRmkRIYcwYXuSoCRkoJykPudZtmyXeUz6DqCM19cyYgKfjAM2EUAgBxasPpxFrUEEVcZ45eHv3ZE64PB9aA9x6vmBwfYyVIB6/U0bO1Ev4Rh4KeH/1P/K+wWyosN8sWqVeZUEox2sirCDQWGg+rl+82dWI/gsbfS/pk3kBtvCsntdfljEZZhJs/BqPDJ8OGMX7xMgLVJHTL4lIrKeUUaVTT5F9v6EQVTmARBJb3uOpMTA1HvAYFn75FXvvvlRmbRH0SoeGcFL4CcSPij9NklkYqgT9G+Eurcz74iNRpVR1ecIncNfGseZSS8Y1GNpT3/5SMp941TH3stha2vl/TEj/TivPyivqO7gsHy7XvhLxn5sjN4fWUCSzhGNBLcS/xnBDw6Kp4WGRKopxARwNy1GuPfX+onsvfUT1PaLSI=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5469.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?QUVyMlowZnZyVldCUm9BcUdTZzhZeTZnYTF4VnRnRlhMWlBVcWszT09YQ21i?=
- =?utf-8?B?T1pDaEdMUWtuV2xVN08zaXk5UytWZGNiMmM1U2IvZ1AwdmoxdHdIaGM4bXVz?=
- =?utf-8?B?MWhSU1V3S2xpZlRUWjRBMVZjd3ZMNUsxNkJDQ3BiUVN3OTVPblB6dTBBM2RG?=
- =?utf-8?B?MlRoMWxsQW5UTFN0cmNlMmdmaW5KVjZuRFlyTUkwbUNoSjY4VWx3dFpWdHdR?=
- =?utf-8?B?WHhINmsxY0o2cy9JdzU3WkNPdndBdjVkcDRsSHJBMlRzYnR1UmhTb3NvNlY5?=
- =?utf-8?B?bHdYN0VsTnN0Z1NVSVFhaEMzREF1a2kxRHN3b2NBK1h1bnlJZlpXeFE2bGdU?=
- =?utf-8?B?NkZOVG1OWDdNR2RWcnQ0K0ZzU01pQXZ1bVBZMDR3eC9HUE5XT3FkVGdWQzF0?=
- =?utf-8?B?Z0xXbFRQRWc3ZlNMcHdXeXR4M2Z6Z25hVUlvcnlLNEM5MTVDcVA4VHV6ZWR6?=
- =?utf-8?B?ZHJ6ci90VE1MNHNhMWFQK0hlcXVZMUEwTkEzL2RrTXAvcmVPL3cwbWVlWURE?=
- =?utf-8?B?Tm02MVZJaU1aNmZtYjJ3ajFwa2hTdmN0dzVlbkx6STJzcjFXNnZkWWI3Ry91?=
- =?utf-8?B?c093QXhrZlhjQTFKT0ttSnYzWk8zNGlBU08rRFhlODlCT3BWYitsV0NpMURP?=
- =?utf-8?B?dFJqc2dvR2kzdngwaTBKci9Ed0VGUmFlaXRzcm9IcG5ORVBrV0NycUtOVWha?=
- =?utf-8?B?aXdCZEJHOWNDRXQ0N2w5c1dLVWZnT3EzTGdmY3dsUXZsd0lyZVVFdGRydVhF?=
- =?utf-8?B?a3BBd1hTaWhoVlZFdFhDbWhuUEZ2NmppTXhKNVlpOWVuWnlrYytEWis3YTFJ?=
- =?utf-8?B?d2VTNUFzNjd0aWxtdVphUDNDOC9ickl4ZmJuNUgyQTVPUXNPUkZDbTdTTTUz?=
- =?utf-8?B?cjdSaWNsbmRQOGVZYzM3eFNqcDYwaWROanNGVkxpT0xTOWd1Mkozcmtzem1u?=
- =?utf-8?B?dk80K0JJdm1SdWNqVGRzL1cwbk0rMERycmVweTcrdnRLVDE3dkVYR0U4RHNN?=
- =?utf-8?B?d3FUb1N4MnpJd2x4bkFsdXFvejcyYjZSU0FPK1ArRnp1OVI2bEZNNjA5bk5x?=
- =?utf-8?B?K2lML2ZIR0lSZDZIczRVTmlWVkNTc2hvd0Ezd1FBbllKUUhualVJTktRMHZU?=
- =?utf-8?B?WHlKS0cwRkRjcDFFUUl5VzVWUGNVWTVkRFczZmc0M3JxQXBVSVdlVjVXT3ZJ?=
- =?utf-8?B?MVg4QmR5Nk05TitISmRONExMT2MvdkRHdlBoOTRTQk5LL0s0SnFEV05SRmtw?=
- =?utf-8?B?and0UGp0dklIRkRoOWNrOHJCNTJnSW5OMjR1TERQWUp0cWFVRnNRSVhHRWhV?=
- =?utf-8?B?WXRWUjdEb091ckpMNG53ZlFDQ1ViMDdFU1o2MzljVmJwb1d4aHl0empIODh4?=
- =?utf-8?B?UmlJS2NYckJDaDlTU3Urb2lKSktBbkNsVzVFVGdYRTl1a1oraC9qWnlWUmNW?=
- =?utf-8?B?MldIK1RRaER3aDA2YVEvMWZiWWcxMStkTCtQZ1dzYlVsUytUNHZRMkhOdXpV?=
- =?utf-8?B?bTJMdkZmR1cvcmMvZWNVUUNWQTdKbi91V0hqOWNlZFZwa3d3R0FjWVdIamdI?=
- =?utf-8?B?b2tVSThsb1ozWkI5M1JHUnplZXFmU2JzZVl6UVVLa01qM2FmcS9UUDBOQi9q?=
- =?utf-8?B?eVJpN2ZqQVp0Wko3MGxIRU9SQjIrRjZXdjVnVWVUOHVtci9ER1B4SjdDeCs5?=
- =?utf-8?B?N2dnUkg1WTcxSHJPS1NrdkNTUVZmSi95ckpkYm40Q0NsUDArVjNZZXVqS0Rw?=
- =?utf-8?B?NE5vL3MzbjNEZGpVdTMxL3lyZDNzUWh6UGNjWENwM0hhSGVUb3YySElFMEZN?=
- =?utf-8?B?Z0NkSURvbGRNUnhYbm1GN3hjRnRqMVdMZ1EyVTA1M1piVmRHNmUrc082em0y?=
- =?utf-8?B?UDZyTzE4NFMxdVV4NDJmQ0hmSnB6WkYyek81MGduK01RQVlTZkxnemVxTGMw?=
- =?utf-8?B?a3FQUlNqbFMvbmVIbXd2YzlQcmZjR094aDNKUFQ3eWxUbUtNR0MzTGJSVG1M?=
- =?utf-8?B?SFdYajhuZmRWWTdLS3dwK1BEQXlzR3ZzR0xUSG12VWRiUVhqdmxGY2dEbThu?=
- =?utf-8?B?S21wejhHMENIbFUySXQ1M1RVZ3V6VW1vakZZZnZlZzV1ZmU2K1NJWXk0b3pO?=
- =?utf-8?B?YmtHWUpLTE8rallmU0RxNytOLzBnc1RNSWx0R1lWcXBqejNrM2lLemZMNnJ3?=
- =?utf-8?B?S3NVOVBLYS8wanFOVmtHRFpQc29RVlk5dU1QTFRYM2x2U2tLcXY1VHBYUWJs?=
- =?utf-8?B?eEhjaHFjYXNmQ2hNZEVWYW04aGNyQWdub0pEVDJ4b29YMURuakJUM1MzUEdJ?=
- =?utf-8?B?Z2NlakczNk0wWlVpcnpFWjVPMjljMkovYXNDN0RCQ0REaHRZakRsdz09?=
-X-Exchange-RoutingPolicyChecked:
-	NHiis1Ioe1bUWMByv+KkhyTAFgzo8cxyjsBXA0SUp+2Qp5tp44eBcKlNIBbgOSd2ZO2bjML2ehUCGpLNXmMUeS7mCA2PkmKwz3wM53b4lx1TZMWrMVeyXqKbaFj1k6SWdYyBimIUcmnlJI7NY4HdnWooJk6DA2J71cZXOb4ociF8KmDtEpgztVB0x0H+VFXvOUcouz0eTlWNUmpVsqbJZEz808GPKZysaT/Ztet/MWx4KLh5pXh8F2RFHShYvmHN1kgACKkzQIwjTzibYN4Ar06YeH1bMMa7Cx1w0t6GVCK1+3HVVoxaWuR9OqCQuMsj93oW8vH+ednqwH/JdPxY/A==
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e065b8a-a42f-45dc-a428-08df1a1518e9
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5469.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 08:23:22.9821
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SmDv6wofecMj0OywegqPgTRiSeBmz8CHbhk4C6NPKUUoG9R7qEuPjK0gGoAuSI1XFWDQmNERDtJOVrCAkgw3nA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR03MB7041
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAzNSBTYWx0ZWRfX2/2N1sGgzcZh
- PFGd/TfDjSJ0uLF9n7TSXERbbtq5CrSP9FSblPs9kNeZnByqR2DgS29J1zPj89Km4pDycDiMHmg
- U7lcmgewQ2ZahF6BrTSGHUuAzZs3OvlzJIWZnLdovYygu6gwfnua
-X-Authority-Analysis: v=2.4 cv=HIlWhYtv c=1 sm=1 tr=0 ts=6ab4ddfe cx=c_pps
- a=mbkJAKHg+hX/fqCzz7NXWQ==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
- a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
- a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=M51BFTxLslgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22 a=Z0pTeXoby7EwIRygza74:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=gAnH3GRIAAAA:8 a=OlHv5hcoteOcDT8xsDcA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: gLUIsmlM7g3xrvpTZSn7VSVq_ZLJ0WRs
-X-Proofpoint-GUID: gLUIsmlM7g3xrvpTZSn7VSVq_ZLJ0WRs
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAzNSBTYWx0ZWRfXzCZ/XwyYxeW0
- J57G8HEf6Zmpf6l5nc5wtDP2qF2JJAKlNwn14Hz9Wt5GrBi2Ti9qOahd47OfmC4v+CiiJVpF/b6
- LTp87GdH8pXILCYGfIx2RRcDhTmALoL4/oILZVRmyXtESGtsFzZINGrABY6XcM+CXjCSfsyJAeG
- yUOxVjvvnjd/F/iKQW9mxTJnjwU616uOiqbXoHdh0FyKlx0lH96QRQvTVpnz5d/Yc4AqDeYvBvA
- cSo/XXuyWb0nFkdZc0ViVLJlIhXfSxDsC9ah+pkeWmO+yBICS2Y6ZvyHXcRbT+oSG/Fp3stu+Un
- v5rIigmlro1AstwfpM7Uko/69feOVMsiTxILJ3nbhe/Zp1D6weeAzfAdBuOOg7znAV2kG9lYgEJ
- JdZ5PP7pHje/JlH4k+H1AniKhTbAn7TczhGntcvX1WV6OTDo6djMJQOnie72qNViDdvHXkxEYKV
- gwkSQ4NC7JIr0k8gdqg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 clxscore=1011 suspectscore=0
- priorityscore=1501 phishscore=0 adultscore=0 malwarescore=0 bulkscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609240035
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] MAINTAINERS: document the branch in git T: entries
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Matthias Goergens <matthias.goergens@gmail.com>,
+ Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Theodore Ts'o <tytso@mit.edu>,
+ workflows@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <64b0be79c535bb9545f9f81a5044146a8726c761.1790220653.git.matthias.goergens@gmail.com>
+ <2c05bf39-7e04-4cc7-9926-3cbf673865b5@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <2c05bf39-7e04-4cc7-9926-3cbf673865b5@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 21, 2026 at 03:24:21PM +0900, Jinseob Kim wrote:
-> Buffer-mode claims hold mlock to guarantee that the device remains in
-> buffer mode until the claim is released. Normal buffer updates take
-> info_exist_lock followed by mlock in iio_update_buffers().
+On 24/09/2026 10:22, Krzysztof Kozlowski wrote:
+> On 24/09/2026 05:35, Matthias Goergens wrote:
+>> T: entries have named a branch after the repository URL since commit
+>> a1aa5a770dc3 ("MAINTAINERS: update hwmon subsystem git trees"), and
+>> 109 of the 846 git T: lines do so today.  Commit 083bf9c56d06
+>> ("get_maintainer: add more --self-test options") taught
+>> get_maintainer.pl to parse that optional branch and check it with git
+>> ls-remote.  The preamble, however, still describes T: as it did after
+>> commit 50306fb5398f ("[PATCH] Clarify T: field in MAINTAINERS"), as
+>> "tree type and location", and does not mention the branch.
+>>
+>> Documentation/process/submitting-patches.rst sends contributors to the
+>> T: entry to find the tree to prepare patches against.  When
+>> development happens on a branch other than the repository's HEAD, a
+>> branch-less entry points them at the wrong tree; on 2026-09-24, 173 of
+>> the 273 repositories named without a branch had a HEAD that mainline
+>> already contained.
+>>
+>> Document the existing practice and say when to name a branch.
+>>
+>> Suggested-by: Theodore Ts'o <tytso@mit.edu>
+>> Link: https://lore.kernel.org/all/arSMwd1bGO1vrif-@mit.edu/
+>> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+>> ---
+>> Ted, as I said in my reply on the ext4 patch
+>> (https://lore.kernel.org/all/20260924033200.3615554-1-matthias.goergens@gmail.com/),
+>> I'm sending only a few of the per-tree T: patches for now, and would
+>> value your view before sending the rest.
+>>
+>>  MAINTAINERS | 2 ++
+>>  1 file changed, 2 insertions(+)
+>>
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index cc3cae2e378b..6edc17d66b44 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -30,6 +30,8 @@ Descriptions of section entries and preferred order
+>>         See Documentation/maintainer/maintainer-entry-profile.rst for details.
+>>  	T: *SCM* tree type and location.
+>>  	   Type is one of: git, hg, quilt, stgit, topgit
+>> +	   A git entry may name a branch after the URL; name one when
+>> +	   development does not happen on the repository's HEAD.
 > 
-> However, iio_device_unregister() disables and deactivates all buffers
-> without taking mlock. This can invalidate buffer state, including
-> active_scan_mask, while a buffer-mode claim is held.
+> What is repository's HEAD? The one ref in remotes/origin/HEAD? Pointing
+> almost always to the master branch? I think no one works on master
+> branch, because that mirrors origin/master. So basically this would
+> expect EVERY tree entry to be renamed... and then - which branch - since
+> almost all of us have more than one (at least fixes and for-next).
+> Basically the DEFAULT is that you do not work on master.
 > 
-> Take mlock in iio_disable_all_buffers() so that unregister honors the
-> mode-claim lifetime guarantee. The info_exist_lock -> mlock ordering
-> matches iio_update_buffers().
+> If you disagree, please point me where is the HEAD:
+> https://web.git.kernel.org/pub/scm/linux/kernel/git/krzk/linux.git/
+> (and all branches are active, meaning nothing is stalled or some wip-dev
+> work)
 > 
-> Fixes: 0a8565425afd ("iio: core: introduce iio_device_{claim|release}_buffer_mode() APIs")
-> Suggested-by: Jonathan Cameron <jic23@kernel.org>
-> Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
-> ---
+> I don't think this change in that form and naming is useful for developers.
+> 
+> What contributors need is the branch feeding next, because this is the
+> base for them.
+> 
 
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
+Also, people could explain their branches in ABOUT page...
+https://web.git.kernel.org/pub/scm/linux/kernel/git/krzk/linux.git/about/
 
->  drivers/iio/industrialio-buffer.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/iio/industrialio-buffer.c b/drivers/iio/industrialio-buffer.c
-> index 2c9ec93dff47..d60bad5492e7 100644
-> --- a/drivers/iio/industrialio-buffer.c
-> +++ b/drivers/iio/industrialio-buffer.c
-> @@ -1377,6 +1377,10 @@ EXPORT_SYMBOL_GPL(iio_update_buffers);
->  
->  void iio_disable_all_buffers(struct iio_dev *indio_dev)
->  {
-> +	struct iio_dev_opaque *iio_dev_opaque = to_iio_dev_opaque(indio_dev);
-> +
-> +	guard(mutex)(&iio_dev_opaque->mlock);
-> +
->  	iio_disable_buffers(indio_dev);
->  	iio_buffer_deactivate_all(indio_dev);
->  }
-> 
-> base-commit: dceba8e581e3e8f475da0efbd7a73f3d9524ddd2
-> -- 
-> 2.43.0
-> 
+Best regards,
+Krzysztof
