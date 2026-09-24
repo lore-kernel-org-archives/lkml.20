@@ -1,64 +1,64 @@
-Received: from mail-oo2-f40.google.com (mail-oo2-f40.google.com [74.125.231.168])
+Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0EA48422B
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:10:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE246485936
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:10:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790251807; cv=none; b=qastOI6ZfMZ4jmrYNyvHOgAPMcs80Y2MhBEJce0TshWyfp9WRkA1/PxSgq/3KbCUsyaMPnc2/swoBQ1ykK42uVNZlENQFRxdrD0wfo5EXfvATyocu4ZJvvDuixmvroSfGL8PRwTEE95wLnnWgphqPdk4muc8QxafxUL2KrpiL6Y=
+	t=1790251810; cv=none; b=QXw3b+K9M8cDnWHmLfHytkpHV1DfUSxdvxglw1ZuEQVSBghKLBlcQ4kdcqje9bhjCA5cYhM0Mio8OfCXb9JpVnZzHDVenBC9GQAUclxZiJjBnFHWXnGSe780frCnWFYbvM12ZE7mPqKdL+0I0beY94FuLFQVJAHm4ZsRsJdas5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790251807; c=relaxed/simple;
-	bh=M6bUUW+Us8s4tlnoGjcgnGEWGKM+cZZ+vYh/2H6Y2aI=;
+	s=arc-20240116; t=1790251810; c=relaxed/simple;
+	bh=eUWJsg1zsooAzgeGfXboVcrvWw1eYTP66U9U6sf0dKU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=md6y5BnYOXOWoKQusyKw0rFPAAj34ofSYPkP/9asIa32KQPbl/NDDLpLVSL8HuLZDrQ05jllYGOrmMe/9d1cco4fBIjAOUCyVBjSXcYtYeyCnJqFhOPUk4z3wrsbrAwHtFnvOvafWNCAD4waG5/OB/FYgHyXNgzLBrJY1KciBZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fA3AHtI4; arc=none smtp.client-ip=74.125.231.168
+	 MIME-Version; b=DwFFJQZBk7OyfikGar3cod5QXTzToNQpbHSns2usgeQmSQwkzH+hamPfS1gbhV+6OUQyB85ZXpNIGiTfA7Wg4gqRGUC4HMZTTzqZbGvzl06m3dOIcIzC9ng6VCXrZG6qcznSTqCyaLNf+VV7lIxF53nHcI3q5pHurMqlolpXG5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NoQ5Oomr; arc=none smtp.client-ip=74.125.231.167
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fA3AHtI4"
-Received: by mail-oo2-f40.google.com with SMTP id 006d021491bc7-6c2613d8157so1060565eaf.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:10:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NoQ5Oomr"
+Received: by mail-oo2-f39.google.com with SMTP id 006d021491bc7-6bd42f1c01cso1134252eaf.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:10:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790251804; x=1790856604; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790251807; x=1790856607; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+reEzqlDosNphymAGhKvKF7gaiTMd0YIMHTRa4Wete0=;
-        b=fA3AHtI48mzNg3SrkvBXLIltTFaVElackw79mHdjWQNWk9Cx+pGoxSUZwFJKXa17qo
-         s4k9qdxoRTfecuHh7IEcI436d+kh/XnOCAB2PLUO5rAOGacGXRhjD4dC8Kfesyi6uUfW
-         VSI0MykFFQHX0aJz5HZX1VD/zAjF9LjQ5V68uV4oLH1JF+wY0qpCS5ucyeEhvZ+IQaEZ
-         wAPTRdz8QfKLzqq82Ad2XuepVOpODljuZHrWsXISGStPPIF7R61ZuvqszMPAZpSMa00m
-         pyF5GwT+RD5lCb6YBEFIopxSHrf99a3Db0D2Nanr2bqiB3pOgQrMKxguofXqGWewg00d
-         19pQ==
+        bh=ax0qVloBz/Ob0q1phBWfblEo0M91ubq93T1eoxfqLyQ=;
+        b=NoQ5Oomrxv9m8QIPWmmIjfAWgy4WwnLz0cXIfO+h/er4WLkWm+9JqTOzqyKBDdPh8B
+         cGh3PuhbX/sB0t1nTFXEBS/swnpnKwCJGTyioY4bUwUqs477FvUdWROEBYq8KdHs7Gtw
+         5vKV7EFHxjuYy8GlJaWHH+JURLA9tnEbepFNXGd70XeKZSzNSzYNVAto15HZ3Rp8EkT5
+         d/8bddadpkgrVBpVFf/tSXK1E50QBjeP/HuddcwnAyBnDAtVszIUTocXhJ8e3o0I3VZK
+         q3VNmAWdy7dn/SGyQ03GX3nM6Hm2QIdDeIxM+hg1LEMJlj0dnWoMyBYnhJQCqqghQdt3
+         yhSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790251804; x=1790856604;
+        d=1e100.net; s=20260707; t=1790251807; x=1790856607;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+reEzqlDosNphymAGhKvKF7gaiTMd0YIMHTRa4Wete0=;
-        b=SX6bCgG8YyzRBj6kCsw6YZ9RX6H80M2CH3oV7Hc+SYhd5gOj2kPyyANRRFVdWAtbEY
-         vUrzs2J7+nXrKY+t7C1RbvHrVMY333d4q3uh4aekRw72VpVZ02H4OwQ38kyhyyt14cwM
-         px3NMOW9zCByKzycZEwbYJFyKgkx07gfRgnjZ4yqZEvIEal2CkJHnCLmjOZMMYltYqXS
-         sNfxOhHMdBL4fMHcfDb/DdM6fe3WE0i0qKcOMXGag9Nxk44dti/Isa179dNO+pd/c8XS
-         Zpf5pUTHma0yRuudlbzMXVxWGEjDwEE57r4ZQIpzQ9qCYWXYSRM46H/bOH3VHvT36vN1
-         LpmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx/KC2feivwjZJl3DE8PVNXTZSWN8XIbZU0daR2txaDXkUlW8i4MHLSui4uQsQvdgxZlnsqZWMr8ZsMaXg=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5L3qk1D0cGvgbSxLkVSDj3aijb/E4czmUOrNgR1xP2/CUOxnp
-	aEdrpTWY1Z5eORG7uWYFh8P21ae7M854D7obTWGknG2EDeTXDrdhjR81
-X-Gm-Gg: AYBFou1/+UWaGazw/MZYbZIJzbDRHjSmjSXWcOIWlkwB20Xi7HumUjw4I3jC7RaPbVD
-	mTnM6QQ7rgX4oPKbbqM1OZvkcI2lOoXl2sVZUZvUiDhcKO1pKrjjHQ6HgL6D9/sXDhQYNKpQKsB
-	cF8fNFEkZmCrpgir+7DY0Iwf/iK+KSabyPAi4vo1LHyNz5eW4he2C9i3j15z77pZCOSLgogrTpM
-	STs264MJWCoSvMwECvcvqkAYpM/V5KUMluWmlftD1vFBxrEEO2+t1lIzIubxf063BqqnasA0mcV
-	sGZuamDqb65YfTgF6f4hcRlOP9F2IgmSzJ28HXjx5q5XIQxgsGYPfqlWaFjTegUvdx9pjG6LymP
-	n9z1m2pEF4beuUmMhiNwI0kbVh97TjTRHtvduDsPdo9rd0XQ95jWTqiOkpjJZYOqoFgrZdaPf/1
-	hHtwsQwt05t3u+TxPyO0BMsMt5CmJRM2+PfVnrLnnVBn+5f2haPyFCyqeBzAe7PXcJjgHkN8vG/
-	7owbhIJmtMGosnXKHXcS5CR9mVgQRyAs+6sB4hH
-X-Received: by 2002:a05:6820:221e:b0:6cf:c878:2b1c with SMTP id 006d021491bc7-6d43f89b70cmr2173148eaf.33.1790251804550;
-        Thu, 24 Sep 2026 05:10:04 -0700 (PDT)
+        bh=ax0qVloBz/Ob0q1phBWfblEo0M91ubq93T1eoxfqLyQ=;
+        b=GSBzd3fKJWHwKF4LSPVxn20viX8sfBKMJszAKtZOiSfxdPWHan/0yq9pF2MiuVo/GQ
+         fBKlkOGpaPjMQqgT+xDDhUZtCNyhPmeR8yU5H7cr5x7lemELcpknL5dF1D3zpotmIztQ
+         xrN6z+iXczSNDBVzsIzwwYH8Iii4ErDZKCBQEccoyy5+U7abDjsU7wctvmqkH08BFnEf
+         aPPXNqYyfmlT9i9Jg8dZF8UkyZHty1f6Ii9kXbQHpls9ENZeb31U+99L6dZT6DlmS/QC
+         L/z8v1lz7mVf3J/X0KeuowlsldjAJKYhvs2LWe8dlJfwtCuQrOziOOaUQVhd2d+JgKuX
+         cMmA==
+X-Forwarded-Encrypted: i=1; AKwUvBx3gAeVJmrariiAjAiq470Y5MJWWkmwHaK3z4qGmHgEz2wi8QLKHwqKI+HxyIkohwg/2Fl8MgxyPIIig5g=@vger.kernel.org
+X-Gm-Message-State: AFuF++nzSA9xAQm6GY/Zldt4oRB1OBHLbo/i0UOFtm7DPZAn5SIEoylZ
+	b3K63dq5sBmEpqN6bWvlNp1cu2UvF/GuohgE1v83ZDQ32KZI9t+T43Vb
+X-Gm-Gg: AYBFou2VPgelAKkMnkN4ycgX8DG4TvaiCISFhJH9i3rMAk3CjXhtmbAn6h2HaeQYAKE
+	QjosFWZJhRblg+c8SsWGENQ9NcDPrcwmsPF0Z2p8pJZAxBegEeOeEacAhzXJNc6bJrAAFzfHu8l
+	Q2xzvK/Q2mivrMvUk8EK1aQ570fOggrpH8yRnNLNGpoHcu73UxZOna/XmEN7fDXsRwldPz0aoFR
+	0JVYR9yOwrlzMrtngOVcvvb9iW//zq8O9IKhnZP/yu1uE0641IRv2hiLypymW+2K/gso9gwI6Dn
+	GYeN2IDPYDKn4qgywCIHHfRLXYDnRNFdmu4yIRf7LngJ6pw2gxQcIi1Jg8cRlAK3AB9PLJ+nVBN
+	FIaUEMkVrSAEbivC6xVphl7b3uqJgbfaln8NdUt7IGHtzG4xyWLXF3JDT3mDQ8Q2nSGpDeQpyha
+	RKyhNul/+GfUzg4HcdzU6dE4Ob5ChHUMw5cRTnLi1iB9giJUiasMe3T4Zwr1762iz+7oyCrkk1g
+	wSUk1iT9Dz7TL5wlSBc3+6MUeq34jwITr9ZdHBP
+X-Received: by 2002:a4a:e90c:0:b0:6c9:d43e:a703 with SMTP id 006d021491bc7-6d43f4bf666mr2265425eaf.33.1790251807333;
+        Thu, 24 Sep 2026 05:10:07 -0700 (PDT)
 Received: from archlinux.lan ([136.34.156.120])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d2ce763f94sm5018070eaf.8.2026.09.24.05.10.01
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d2ce763f94sm5018070eaf.8.2026.09.24.05.10.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 05:10:03 -0700 (PDT)
+        Thu, 24 Sep 2026 05:10:05 -0700 (PDT)
 From: Danish Khateeb <danishkhateeb03@gmail.com>
 To: Willy Tarreau <w@1wt.eu>,
 	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>
@@ -66,9 +66,9 @@ Cc: Shuah Khan <shuah@kernel.org>,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Danish Khateeb <danishkhateeb03@gmail.com>
-Subject: [PATCH 1/2] tools/nolibc: fix verrx() and errx() message formatting
-Date: Thu, 24 Sep 2026 07:09:57 -0500
-Message-ID: <20260924120958.23698-2-danishkhateeb03@gmail.com>
+Subject: [PATCH 2/2] selftests/nolibc: add a test for errx()
+Date: Thu, 24 Sep 2026 07:09:58 -0500
+Message-ID: <20260924120958.23698-3-danishkhateeb03@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260924120958.23698-1-danishkhateeb03@gmail.com>
 References: <20260924120958.23698-1-danishkhateeb03@gmail.com>
@@ -80,46 +80,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-verrx() passes its va_list to warnx() instead of vwarnx(). warnx() is
-variadic, so it takes the va_list as its first and only argument, and
-the conversions in the format string print the va_list itself and then
-whatever is left in the following argument slots. On x86_64, for
-instance,
+nolibc-test does not call any of the err.h functions, so nothing
+noticed that verrx(), and errx() through it, printed their messages
+with the wrong arguments, or crashed.
 
-	errx(1, "int args: %d %d %d", 1, 2, 3);
+Add a test that calls errx() in a child with stderr redirected to a
+pipe, and checks the exit status and the message.
 
-prints something like "int args: -1699009032 1 2", where the first
-number comes from the address of the va_list and changes from run to
-run, and
-
-	errx(1, "%d %s", 1234, "foo");
-
-crashes with SIGSEGV, as "%s" takes a leftover argument slot for the
-string. errx() goes through verrx(), so every message with arguments
-printed by either of them is wrong.
-
-Call vwarnx(), as verr() calls vwarn().
-
-Fixes: 9da0f529c089 ("tools/nolibc: add err.h")
 Assisted-by: LLM
 Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
 ---
- tools/include/nolibc/err.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tools/testing/selftests/nolibc/nolibc-test.c | 47 ++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
 
-diff --git a/tools/include/nolibc/err.h b/tools/include/nolibc/err.h
-index e22ae87a7289..61978d537ed8 100644
---- a/tools/include/nolibc/err.h
-+++ b/tools/include/nolibc/err.h
-@@ -60,7 +60,7 @@ void verr(int eval, const char *fmt, va_list args)
- static __attribute__((noreturn, unused))
- void verrx(int eval, const char *fmt, va_list args)
- {
--	warnx(fmt, args);
-+	vwarnx(fmt, args);
- 	exit(eval);
+diff --git a/tools/testing/selftests/nolibc/nolibc-test.c b/tools/testing/selftests/nolibc/nolibc-test.c
+index 37c11a7fce23..1447c2e39af5 100644
+--- a/tools/testing/selftests/nolibc/nolibc-test.c
++++ b/tools/testing/selftests/nolibc/nolibc-test.c
+@@ -32,6 +32,7 @@
+ #include <sys/utsname.h>
+ #include <sys/wait.h>
+ #include <dirent.h>
++#include <err.h>
+ #include <errno.h>
+ #include <fcntl.h>
+ #include <poll.h>
+@@ -2223,6 +2224,51 @@ int test_asprintf(void)
+ 	return 0;
  }
  
++int test_errx(void)
++{
++	char buf[100], expected[100];
++	int pipefd[2], status;
++	ssize_t len;
++	pid_t pid;
++
++	if (pipe(pipefd) == -1)
++		return 1;
++
++	/* flush the printf buffer to avoid child flush it */
++	fflush(stdout);
++	fflush(stderr);
++
++	pid = fork();
++	if (pid == -1) {
++		close(pipefd[0]);
++		close(pipefd[1]);
++		return 2;
++	}
++
++	if (pid == 0) {
++		dup2(pipefd[1], STDERR_FILENO);
++		errx(42, "%d %s", 1234, "foo");
++	}
++
++	close(pipefd[1]);
++	pid = waitpid(pid, &status, 0);
++	len = read(pipefd[0], buf, sizeof(buf) - 1);
++	close(pipefd[0]);
++
++	if (pid == -1 || !WIFEXITED(status) || WEXITSTATUS(status) != 42)
++		return 3;
++
++	if (len == -1)
++		return 4;
++	buf[len] = 0;
++
++	snprintf(expected, sizeof(expected), "%s: 1234 foo\n", program_invocation_short_name);
++	if (strcmp(buf, expected) != 0)
++		return 5;
++
++	return 0;
++}
++
+ static int run_printf(int min, int max)
+ {
+ 	int test;
+@@ -2287,6 +2333,7 @@ static int run_printf(int min, int max)
+ 		CASE_TEST(scanf);        EXPECT_ZR(1, test_scanf()); break;
+ 		CASE_TEST(printf_error); EXPECT_ZR(1, test_printf_error()); break;
+ 		CASE_TEST(asprintf);     EXPECT_ZR(1, test_asprintf()); break;
++		CASE_TEST(errx);         EXPECT_ZR(1, test_errx()); break;
+ 		case __LINE__:
+ 			return ret; /* must be last */
+ 		/* note: do not set any defaults so as to permit holes above */
 -- 
 2.55.0
 
