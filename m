@@ -1,167 +1,149 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0DF4A440D
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:57:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790265474; cv=none; b=CICkEHJgVQsLcBWTXnu7llLNxaO1qwDjCqiRZuJRr7CwmLX2spXz4VCBjbJhwaSaoEnWI2r2SNvKuYCTVQspU18kSkGTRAfrL5EVtaxiWGPtnEBw21K8BYe2FKLx+M/smjzYH70mH4Av/F7K8sXrEVhQcCDwKq52GnZYUzptkzE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790265474; c=relaxed/simple;
-	bh=xR/QhuyOoQlYEjf/95BpSbBuYdVgGL9SPrwUiXWXyVs=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Z1R6yXxUCDBTqcXcgKLDnHRCLrK2RzjlYY5NLfBs/mTAJXvlvic0KUHcWQk1+Kg0v7UPwbKxXMeUoCDSFYhON86hA4B0/7Iz0cMnGt6Exygpq6x+zPWNt4ecKfex8sXMtv6cVfCA36jCUzyU/ytxmJUu7Z4Ms++/mCs21iFdH6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=g5Nlr6dY; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3752E49B5AC
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:58:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790265485; cv=pass; b=EBVaIhfJbf/T2cD++VgfVtH8w+EKRiGKRAwh4VM6ZzLAsYc1i6KHjrak9j/hdA86IB0NuLDEcW720oqc/KqdoFvryCZlyPE+KDdpb4lG5DfMyqxbP5kMVwpOPcdmUTdpzcAO5n0EXsR4uBBD96CuvXTdRk3IstZgsUrc+Lm5yXY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790265485; c=relaxed/simple;
+	bh=aTXLg8x+ijWpjN+mBSvI6GmUxmNxYOYtzc/2ohe0fAE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BQ3WtpPg2B2l72CR4QlL9TNieTlaiLtJecF/JJepoLptdEA1ayggTtnN6xsHyA47VqySjsXUpjCxLVifoLzNtjP8KbywZgysZ18xNNw7WGK9r853j5XBj9snXsVz//fQ5l4XNSd/twu/s4rQvc4H1p7wG972kKgoFF0t3JmjHT4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V6SlN+FZ; arc=pass smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="g5Nlr6dY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790265472; x=1821801472;
-  h=message-id:date:mime-version:subject:from:to:cc:
-   references:in-reply-to:content-transfer-encoding;
-  bh=xR/QhuyOoQlYEjf/95BpSbBuYdVgGL9SPrwUiXWXyVs=;
-  b=g5Nlr6dYa3ikAnwockw6K5dRgVH3TP39cSqhKWFsskmRNa+gePmVbQD/
-   Uv6wBb3HgW8/QSxvBCgwTPj7JoaofeHYflSE18PggcI5JYhxz7tv93QYx
-   nyH9dLfYNMB4ZIiMUenlNzYWn6deZbYRZ4aZ0nysw9IAvwdTyMmBwn9pg
-   gbeB0Dx4u0idQp/915jVHn4PrvAVucLsEGHC/qZ76S7ROv6xBToF6FLVm
-   oLBONUro5ab+h8H4bLi2EG4Vt9J+S207DVnYqu6fqxf0LQewNAbPQcfei
-   wA+vB45qGMQ2an4QJE0E0NizIq8JQZjFrtFlwVjoXVu4+OIUDX1vTyUGz
-   w==;
-X-CSE-ConnectionGUID: +L5xHoV1RKehWa4GtR1bNw==
-X-CSE-MsgGUID: KoNA4dThQFSLNCqQzPpAjw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="91062021"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="91062021"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 08:57:51 -0700
-X-CSE-ConnectionGUID: H5mDk8OiTzq9ChT9VrOY/g==
-X-CSE-MsgGUID: KoAO9j/mRqqKbBoYgokpeg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="278803108"
-Received: from dwoodwor-mobl2.amr.corp.intel.com (HELO [10.125.110.186]) ([10.125.110.186])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 08:57:50 -0700
-Message-ID: <879429f5-b209-49ef-be1c-184eb7d5783b@intel.com>
-Date: Thu, 24 Sep 2026 08:57:49 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V6SlN+FZ"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-86868f7707dso24080b3a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:58:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790265483; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Irm/78cx+4zZLii1615FtRX+7TYTRwdShik/oRvUlEDKjCvquKVDsDcl+rCERfPtVI
+         y1I7hhkmHGRxM6crEFNqDoT/KZGpMGoCFZENQVJPl6Kqbop4oA+X+jNUTtw+8J588aXV
+         Y4bXPUSWqevcLb8wWU2GhA59UpQ0LYMs36ExV9WWv3/Ls0h4+TPay6vHnwlei8UEKzRF
+         GuTMZ1LQS9xQLAZJ9X6jJdaaKDESYb8MkJmKB/4oU0oTum704ylTHxQEjQGOoC46Nq6k
+         nyADXZF/F1lzgGTmzj6iRzb1Ai3xRbVH+y4FRI+GEbnB5NcN7Irh23l4p5qS86lz1WUs
+         GTrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cDpTNZVHqrO0WKs3SLOrqTa6JLMU8MhI0fa0CuoT9rQ=;
+        fh=+A4Cu5Bwl5BFq2Ko1Z9UeROk7dPI/elMe4cy09SjNGY=;
+        b=Z3SuGhLy8xyZ54TKOql/stUTl4cJL6rpbmqC9SSDgwr9l3+BmVEEESb6lBKy/2zAz4
+         KJ3DBf3WM2+nfJAcC6T89+AMvCNBmhNzT1T7MoQRpGCLvQd8WYPweics4mVqqHJoYan/
+         VpNANfyBG4aN6HIWFDeMIscjaLiysSrmwMhELrqmUnt8WdwfjV6YMy/cWKAgQ3FaWw8L
+         R4py2qhwl96nHCC63tbKfyOgNvlZ7SGiDyiRRbaHzeC5tZ2c2FjU3qaBAuwTrB5eOhJR
+         vYc/3jsjA9jGoWDDRCkcaOQei3kNBAkU6airCLdUmISiUMgXyf+j1+KhAiD7L/1ERiRC
+         J1Cg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790265483; x=1790870283; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cDpTNZVHqrO0WKs3SLOrqTa6JLMU8MhI0fa0CuoT9rQ=;
+        b=V6SlN+FZskFlaOD6hMecJC3AJ4RKU8crIGJEkE6V0P5JIo+8a3L6V6HcGUjzkK1wFy
+         X5TPdmWNSY85PTHIl39bKzrccghH+yeOXfhGkLtB6FsxNs2mHPBlIuZw4q9cmDuynZMU
+         VvMRUopRQ47tzw9eE5Y4BA3UOgBd1otead9OBfED17Gls1HnMlADOtRGdiUNxKlpxtb0
+         hXCqVGKPWRO86F/BY71y/A1+4oqeLLajXGgzRfj6WxiUw+MnZYX1IadDyutY+aH98vXv
+         Adkiav9jLbZlAClDfJ+jbtkJu5Nzsyp5EhqYsQBTRFqGai4RSk91S0ELoqpO63UTPhti
+         cYYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790265483; x=1790870283;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cDpTNZVHqrO0WKs3SLOrqTa6JLMU8MhI0fa0CuoT9rQ=;
+        b=kNdAQA+TnEM8vae1IoAZ6C46tyS8ba3lDsFN2RClLD4BZOc9LooACveDyPH6EwCiyP
+         +/t44wmxLGRgRpovylzkwOMe9WDqWrKabnXQBMW+lyBxHxm57yqvhcMsSaetE/aIi2cQ
+         c4Yo8bqpJqHyjUrUSCh802nBSqIy8dj0l7nqChnf88Co8fMVTC3zeK/e6WpaahSFh3WW
+         M8Kq5o4uI9y5i51x25chLM4KKjf9dGZkmFZUuSaDsaYsW1BnI0P31hWTzg4BUim8rAuM
+         uC+baJpW81F64QLxgEPYksaG+YiL+dqyPBnZ2iF2ZrDx2CxZgRf6zJPxSt1wvIJj/cWU
+         R9/A==
+X-Forwarded-Encrypted: i=1; AKwUvBz0K7M84XJCL3Dyxl8DB0J68dc/7JWWBtZSOpNyzd6CSovrjYmAzsJIYSPlqWBM8g5K/PPPiVhfkd5Adxc=@vger.kernel.org
+X-Gm-Message-State: AFuF++my9lu6HBkeDFtyTHV9xKU1mS7ZBt4WZlp7wBlgt4ilaV8RQBRA
+	U1nRhQoT4wiS8x1aN3ERmtSW6PWfddZ6Oc58URJMqDgCfa7ypz43OyGSZN6+GM23eGlatiGlbjr
+	pJzYXXYzcdpSpEp020s5Ed2VqFfERnHE=
+X-Gm-Gg: AYBFou2xG6I38g7xcdGSzqmSwV5IsTaQf9dzMAVyhDbEmLbqN4tk3yG+k7WcK+IJFN4
+	pXCuLpsepwqlpn0i20vTy8zI8Uh3Zg6FzuNzbZBAy6wWQyryHDPgA7IhhjUV/gHcHQaeHq869qJ
+	vNC2xmewwjk7T6YnKOPiievL8et6lYLQG4IXc09WdCGmprKvI928J+4oF/lN4B0XkiHty4MbToV
+	HJGZkkpo0gABTLnHlVqbJQflsCBAnDJO84JDHvEY5deipG/CTk/pJ3hsXCcVFXFPiDR43HeQZRl
+	osuTocDxrLxtzrXqGNONZeqL4jTcgNAn8cOL5C8Ckm3ug87p1KN+NMAShUSSAFb505R+kHsZpAx
+	+lw82mQyNEy5oDz1hDWkHsnAisCo2gpFF3SAcF9jCeQ==
+X-Received: by 2002:a05:6a20:4388:b0:3dd:cc61:c0df with SMTP id
+ adf61e73a8af0-3de0e899e4emr2697830637.25.1790265483478; Thu, 24 Sep 2026
+ 08:58:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/14] NTB: ntb_transport: Prepare remote RX info
- accesses for MW teardown
-From: Dave Jiang <dave.jiang@intel.com>
-To: Koichiro Den <den@valinux.co.jp>, Jon Mason <jdmason@kudzu.us>,
- Allen Hubbe <allenbh@gmail.com>
-Cc: Frank Li <Frank.Li@kernel.org>, Logan Gunthorpe <logang@deltatee.com>,
- fuyuanli <fuyuanli0722@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Nicholas Bellinger <nab@linux-iscsi.org>,
- Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260910040836.3792333-1-den@valinux.co.jp>
- <20260910040836.3792333-12-den@valinux.co.jp>
- <11a47b77-b140-46df-bee6-3484e18ad62e@intel.com>
-Content-Language: en-US
-In-Reply-To: <11a47b77-b140-46df-bee6-3484e18ad62e@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260828141240.2391915-1-qiwenjie@xiaomi.com>
+In-Reply-To: <20260828141240.2391915-1-qiwenjie@xiaomi.com>
+From: Daeho Jeong <daeho43@gmail.com>
+Date: Thu, 24 Sep 2026 08:57:49 -0700
+X-Gm-Features: AclHuK989g8w5jlc0v8XBTZNQE2OwIfTRkHZBKYmw-nwjYIpnh-4i8jQ3FcXQYc
+Message-ID: <CACOAw_xmQcAwcXowkv99XOV3X-6Gtis6Hu2NWNs1zQCfe6iiWw@mail.gmail.com>
+Subject: Re: [f2fs-dev] [PATCH 1/2] f2fs: flush SIT journal during filesystem resize
+To: Wenjie Qi <qwjhust@gmail.com>
+Cc: jaegeuk@kernel.org, chao@kernel.org, daehojeong@google.com, 
+	linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
+	qiwenjie@xiaomi.com, sunqiuyang@huawei.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, Aug 28, 2026 at 7:15=E2=80=AFAM Wenjie Qi <qwjhust@gmail.com> wrote=
+:
+>
+> During a filesystem resize, SBI_IS_RESIZEFS prevents new SIT entries
+> from being added to the journal and forces existing entries to the SIT
+> area. However, f2fs_flush_sit_entries() returns early when there are no
+> new dirty sentries, leaving existing journal entries behind.
+>
+> After the main area shrinks, a later checkpoint can access a journal
+> entry whose segment number is outside the new geometry and trigger
+> f2fs_bug_on().
+>
+> Only take the zero-dirty fast path when entries may be written back to
+> the journal. This lets resize drain existing entries through
+> remove_sits_in_journal() even when there are no new dirty sentries.
+>
+> Fixes: 04f0b2eaa3b3 ("f2fs: ioctl for removing a range from F2FS")
+> Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
+> ---
+>  fs/f2fs/segment.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+> index 1e7e745be71d..9f9ce25dd07e 100644
+> --- a/fs/f2fs/segment.c
+> +++ b/fs/f2fs/segment.c
+> @@ -4816,7 +4816,7 @@ void f2fs_flush_sit_entries(struct f2fs_sb_info *sb=
+i, struct cp_control *cpc)
+>
+>         down_write(&sit_i->sentry_lock);
+>
+> -       if (!sit_i->dirty_sentries)
+> +       if (!sit_i->dirty_sentries && to_journal)
+>                 goto out;
+>
+>         /*
+> --
+> 2.43.0
+>
 
+Reviewed-by: Daeho Jeong <daehojeong@google.com>
 
-On 9/24/26 8:56 AM, Dave Jiang wrote:
-> 
-> 
-> On 9/9/26 9:08 PM, Koichiro Den wrote:
->> The next patch clears remote_rx_info when freeing its MW.
->> ntb_transport_tx_free_entry() and debugfs stats reads can run during
->> link cleanup, so make them handle a NULL pointer.
->>
->> The pointer is accessed locklessly. Use READ_ONCE() and WRITE_ONCE()
->> to prevent compiler-induced tearing, and retain the read value so
->> the NULL check and dereference use the same pointer.
->>
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> 
-> Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+Thanks,
 
-Probably should take a look at the sashiko raised issue.
-
-> 
->> ---
->> Changes in v2:
->>   - No changes.
->>
->>  drivers/ntb/ntb_transport.c | 22 +++++++++++++++++-----
->>  1 file changed, 17 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
->> index 7ccba2c04f54..b949f36a4f2d 100644
->> --- a/drivers/ntb/ntb_transport.c
->> +++ b/drivers/ntb/ntb_transport.c
->> @@ -489,6 +489,7 @@ EXPORT_SYMBOL_GPL(ntb_transport_unregister_client);
->>  static int ntb_qp_debugfs_stats_show(struct seq_file *s, void *v)
->>  {
->>  	struct ntb_transport_qp *qp = s->private;
->> +	struct ntb_rx_info *remote_rx_info;
->>  
->>  	if (!qp || !qp->link_is_up)
->>  		return 0;
->> @@ -516,7 +517,9 @@ static int ntb_qp_debugfs_stats_show(struct seq_file *s, void *v)
->>  	seq_printf(s, "tx_err_no_buf - %llu\n", qp->tx_err_no_buf);
->>  	seq_printf(s, "tx_mw - \t0x%p\n", qp->tx_mw);
->>  	seq_printf(s, "tx_index (H) - \t%u\n", qp->tx_index);
->> -	seq_printf(s, "RRI (T) - \t%u\n", qp->remote_rx_info->entry);
->> +	remote_rx_info = READ_ONCE(qp->remote_rx_info);
->> +	if (remote_rx_info)
->> +		seq_printf(s, "RRI (T) - \t%u\n", remote_rx_info->entry);
->>  	seq_printf(s, "tx_max_entry - \t%u\n", qp->tx_max_entry);
->>  	seq_printf(s, "free tx - \t%u\n", ntb_transport_tx_free_entry(qp));
->>  	seq_putc(s, '\n');
->> @@ -611,7 +614,7 @@ static int ntb_transport_setup_qp_mw(struct ntb_transport_ctx *nt,
->>  	qp->rx_buff = mw->virt_addr + rx_size * (qp_num / mw_count);
->>  	rx_size -= sizeof(struct ntb_rx_info);
->>  
->> -	qp->remote_rx_info = qp->rx_buff + rx_size;
->> +	WRITE_ONCE(qp->remote_rx_info, qp->rx_buff + rx_size);
->>  
->>  	/* Due to housekeeping, there must be atleast 2 buffs */
->>  	qp->rx_max_frame = min(transport_mtu, rx_size / 2);
->> @@ -934,9 +937,12 @@ static void ntb_qp_link_context_reset(struct ntb_transport_qp *qp)
->>  
->>  static void ntb_qp_link_down_reset(struct ntb_transport_qp *qp)
->>  {
->> +	struct ntb_rx_info *remote_rx_info;
->> +
->>  	ntb_qp_link_context_reset(qp);
->> -	if (qp->remote_rx_info)
->> -		qp->remote_rx_info->entry = qp->rx_max_entry - 1;
->> +	remote_rx_info = READ_ONCE(qp->remote_rx_info);
->> +	if (remote_rx_info)
->> +		remote_rx_info->entry = qp->rx_max_entry - 1;
->>  }
->>  
->>  static void ntb_transport_schedule_qp_link(struct ntb_transport_qp *qp,
->> @@ -2558,8 +2564,14 @@ EXPORT_SYMBOL_GPL(ntb_transport_max_size);
->>  
->>  unsigned int ntb_transport_tx_free_entry(struct ntb_transport_qp *qp)
->>  {
->> +	struct ntb_rx_info *remote_rx_info = READ_ONCE(qp->remote_rx_info);
->>  	unsigned int head = qp->tx_index;
->> -	unsigned int tail = qp->remote_rx_info->entry;
->> +	unsigned int tail;
->> +
->> +	if (!remote_rx_info)
->> +		return 0;
->> +
->> +	tail = remote_rx_info->entry;
->>  
->>  	return tail >= head ? tail - head : qp->tx_max_entry + tail - head;
->>  }
-> 
-
+>
+>
+> _______________________________________________
+> Linux-f2fs-devel mailing list
+> Linux-f2fs-devel@lists.sourceforge.net
+> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
