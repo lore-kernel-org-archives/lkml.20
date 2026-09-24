@@ -1,82 +1,88 @@
-Received: from mx4.wp.pl (mx4.wp.pl [212.77.101.12])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06B135C1B2
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:43:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.77.101.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E15113BBA1A
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:45:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790275435; cv=none; b=FA1Pv8z9tcpJJl9G9THwFnfF7faXpVU+/SgKmnKB74BXSqyGQqy2zbWUhm4MxpmegLY9EAZJVyNLl015kMCN7G6rwOS4NjbP6+o0GkjnoCB4oaDfdEmcN7l+ShV+q6FJinOQ8Cd0VP6QgLbor8BqbjNw3JeNSFJEt0qJM3hw3Uw=
+	t=1790275562; cv=none; b=ErAv+EBrxEf9nfk/UT5/gJp7eBbnmfM5hmjfVbD1fkQ+DZ8A3OKcfOPjLa+Eg4TaFSvPas6o+0gIzDHFbMnp9WGniVM/BD1rxqheU4pZVlcQrSqQ9TZ45BomJWBhBc62Ae37BFrUkOiyA1geUv+jBkkWYth2XLJhdxvn3xquvIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790275435; c=relaxed/simple;
-	bh=Hjx/sgWEVYh1okXrYg2KqiJ/ZTSCZPFWtVGIwsEMAYg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GHJzAZKv0xAMwPsRWwfrpDicIRVbYL/lWaKGheKvozoheurv3BlYZYd//5fHK8nFWtlEoKAeqMTjJfFjhyoPc3JTHqGtqxAd/oZW1ar4y5LIYNfBvAqRIOph/tZqmE/yCvJhuKcd2S+EN/0f/jM2wMsLd7aISMgDSeM+MtTYnw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl; spf=pass smtp.mailfrom=wp.pl; dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b=BZBwKGEu; arc=none smtp.client-ip=212.77.101.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
+	s=arc-20240116; t=1790275562; c=relaxed/simple;
+	bh=dmvalwRzgd31HZbVS0ohNNLBmDO5DXkzoU3ybtLzdU4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=quGZFq1xPIjILxPZIvP0zWVS9ju7oovjXNcSG/Hp9dCrmo4Qll3zGQzr11tQyoak2/npgpvfVv1tgiJpMBh4iuE77qtT4KLE7RisKzQNFVNcVtEalLcpI37uzwlNixA/tyffhwMc9NGPr2v9V/rIWlokt4NPXIXpVLU6SeppKhc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=d+XDhMiK; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b="BZBwKGEu"
-Received: (wp-smtpd smtp.wp.pl 8094 invoked from network); 24 Sep 2026 20:43:36 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=20241105;
-          t=1790275416; bh=Hjx/sgWEVYh1okXrYg2KqiJ/ZTSCZPFWtVGIwsEMAYg=;
-          h=Subject:To:Cc:From;
-          b=BZBwKGEuYq/514zPgVEURzzakm+CWJbmVMiCnjcYp0ZEix8PaE0kvM4Y5Fg8pn4i1
-           RV58E9Mg0urwJgRJh/XCa42WLz4x5bAHtFxatKCXY3z9Tfdxmuc4U5EUZr6QmN4XsJ
-           iuIfU/qKUFvnewDVL9wBMYrxBtKwCQPMvAzuW+bd86zhzFAkhX0Sgd50pxGYIQKxVS
-           7mthz86NMZGafW0d4J/bJYQ1vUffsSWkDzGawAn4F8SqdAZ6qoandfu7mUbhIRBhak
-           1xTjs55jCermmKwk7PTeWlPby/cLAZHJlwCcH9asZ/NqB2Kr9BAbLkVUg+2Qm/LkRZ
-           cnD0p9IDin0Ew==
-Received: from [192.168.3.224] (83.5.247.11.ipv4.supernova.orange.pl [83.5.247.11])
-          (envelope-sender <olek2@wp.pl>)
-          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
-          for <andrew@lunn.ch>; 24 Sep 2026 20:43:36 +0200
-Message-ID: <faa87607-4be0-49f6-aafc-a37b3d9a237b@wp.pl>
-Date: Thu, 24 Sep 2026 20:43:36 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="d+XDhMiK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790275554; x=1821811554;
+  h=from:to:cc:in-reply-to:references:subject:message-id:
+   date:mime-version:content-transfer-encoding;
+  bh=dmvalwRzgd31HZbVS0ohNNLBmDO5DXkzoU3ybtLzdU4=;
+  b=d+XDhMiKHRgbjIrz0PVb2ozmLG00qHBtuvsJSlm7f2VTORBPA3CTKQ2X
+   r8r2QP5Kx6E237IX3YwVmnrVaI7U3J/Jz1K/6Dw1/9RWULdkkO0dPilZt
+   0GRJM0wzowEBazpEuEUQaQqiQ3O/aRPioelPvnzCyokQ5V7FXz97sCzvx
+   ZwvZAA/aNOoHXjeB0Ib0hiwcBPfXU2SbbwQWmCWVoG3tR5Xh5NCn4eCfh
+   K0uoO//WIkoPeSxNiueEtpJk2H012fPgD8CLxR14d/3ThD+/wugw9BO11
+   KwueiVBIQ2DVosK4ZuKr5Bsngkdtda6YpsxrE9nDe44nArAa8J5P4q8tJ
+   Q==;
+X-CSE-ConnectionGUID: w7mVTLuiSLqJWrMRX4xXqQ==
+X-CSE-MsgGUID: gZ2HJHaFRZSYvRkSQCUZAw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="91078248"
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="91078248"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 11:45:44 -0700
+X-CSE-ConnectionGUID: bIySOvI4R8a6OE9QNtinDA==
+X-CSE-MsgGUID: ugA9mTRDSz6u/tqyW4VW8A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="273610081"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa007.fm.intel.com with ESMTP; 24 Sep 2026 11:45:42 -0700
+Received: from black.igk.intel.com (localhost [IPv6:::1])
+	by black.igk.intel.com (Postfix) with ESMTP id 76F4B98;
+	Thu, 24 Sep 2026 20:45:41 +0200 (CEST)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Willy Tarreau <willy@haproxy.com>, 
+ Ksenija Stanojevic <ksenija.stanojevic@gmail.com>, 
+ Andy Shevchenko <andy@kernel.org>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, Kees Cook <kees@kernel.org>, 
+ Peng Fan <peng.fan@nxp.com>, Miles Krause <mileskrause5200@gmail.com>, 
+ "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: linux-kernel@vger.kernel.org
+In-Reply-To: <20260918141557.3022820-1-peng.fan@oss.nxp.com>
+References: <20260918141557.3022820-1-peng.fan@oss.nxp.com>
+Subject: Re: [PATCH] auxdisplay: panel: use assign_bit() where applicable
+Message-Id: <179027554147.857045.3111226948470767362.b4-ty@b4>
+Date: Thu, 24 Sep 2026 20:45:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2] net: phy: marvell: add support for PHY LEDs
- polarity modes
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260923204614.471409-1-olek2@wp.pl>
- <ac224909-5f7d-447e-a0f9-be0d1565a700@lunn.ch>
- <a174b2c7-3778-4f8c-be5a-2bd94bfe09ed@wp.pl>
- <c9c0e770-6bea-4acb-aca2-ac56f044ddef@lunn.ch>
-Content-Language: pl
-From: Aleksander Jan Bajkowski <olek2@wp.pl>
-In-Reply-To: <c9c0e770-6bea-4acb-aca2-ac56f044ddef@lunn.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-WP-MailID: 978138af27d019b3689ac8b2779759ca
-X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
-X-WP-SPAM: NO 0000001 [AdLs]                               
+X-Mailer: b4 0.16.0
 
-Hi Andrew,
 
-On 24/09/2026 00:54, Andrew Lunn wrote:
->> The number of LEDs depends on the PHY variant:
->> 88E1112 -> 4
->> 88E1116R -> 3
->> 88E1240 -> 4
->> 88E1318S -> 3
->> 88E1510 -> 3
->> 88E1545 -> 4
->> 88E1548P -> 4
-> Ah, i had a quick look at the current code, and all the functions have
-> a switch statement with case 0, 1, 2. So i assumed that all PHYs have
-> the same number of LEDs.
->
-> So any PHY which does have 4 is currently not supported?
-Correct. Although some PHY variants support 4 LEDs, only three can be
-configured via the LED API. The fourth LED can only be configured via
-the 'marvell,reg-init' property.
+On Fri, 18 Sep 2026 22:15:53 +0800, Peng Fan (OSS) wrote:
+> Convert open-coded if/else with set_bit/clear_bit to the assign_bit API.
+
+Applied, thanks!
+
+[1/1] auxdisplay: panel: use assign_bit() where applicable
+      commit: ce7b04fb41e7dc1ab83732cbfde1cac860add7a8
 
 Best regards,
-Aleksander
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
+
+
