@@ -1,263 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A7213DA5A6;
-	Thu, 24 Sep 2026 05:26:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790227577; cv=none; b=RzkRcqWtCE9eiMEwZIeF/g3sGAZqyMu/rAFBPLIUmOTZl6EraVt1g5Q+yeNrW0n0LtVjHozWX3zR4qf4H74Tpe7Oedqf21HelyCa5oXWozwEt15NkIoUybViqfO+NeMiiTyYde5/fRqPa4OojlbAq6NWiIVvMr3qa1/zqYQdg84=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790227577; c=relaxed/simple;
-	bh=MOKgxvK2GbhIjjjrUaXgUWYu0O0lvw7UNyE/oPgUvnM=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=LkjDBUixXqWxzvUWrnuWQhVKGe6C2Z8L0wPlrcTXRN1PbX8sm2H7N6AK5v634Hajlwq2f1bhl94dw6OzGD0jKDtm6Aun9rygTQWpzA9paWlFMJh2H41Kes99R6FKAJzxkuny165+Vj5yKJzqu3FkGUrFdWdrRjeDF1pYsIFE9xQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jbXQqI/y; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFE59221FD4
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:30:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790227839; cv=pass; b=R7bzKlehYwAmZ4X6PwpgPN5SihTLKOpKEr5kG+miPzbJHY+Xdt62HGu88TAlz6synx1s/IToA6qQfELZj2CO1hVAo7LeH36RDvFk09qcERfbiesOQ9eV+wjsQGn15UsumgixHCGLIARe3BuRnImDI6+2aMJUJUOWfNc2q/stTYA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790227839; c=relaxed/simple;
+	bh=Y6lfdMzfxBrctx+JVGwRqRWinjsXPeJStQCGnizzDN0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WqcFRFEiRSeR+hhRWs/mBIGyrytWrUim4L2JaaLydNr0UrlT4ZordGnc8QxsmAMySyICN9saW9foqRyRbsiVqnD/LxMVR1fc2YGMtEENrejT/bW5j+knbp+CuPwu46wY5l9TMVRIbYLyJ+N/ZLPw7Syp4c8/WaTIGjx5RNyu6I4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=ifYHo7Oq; arc=pass smtp.client-ip=74.125.229.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jbXQqI/y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1261D1F00893;
-	Thu, 24 Sep 2026 05:26:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790227575;
-	bh=xj4V+fXnbcxjErRUl+dCGZWJvwjDZHZzoGy9OkhOG5c=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jbXQqI/y/urPczlU4Oa2VCznyxNw/OUiTntcne14N7fAaQYCEwxWhnU+jJvXDGjqM
-	 hFXfJVYNp+ia7Z9XmoRt5D/a3sn3kud3Coz50zerA908aTebEP06d4/oBJDki4Gfdj
-	 8tXbuM+eEPmr4VwE97IXLYa8MsOV4tul2qacLMP0QBmdsl3qO8mC2soLazSI0D3cf/
-	 z0RXxRdeCyDrL0HU28zyxKPUeHU8MKWoNXs9yEm0bDE1xBe6rodq3dOO+hZm6flawJ
-	 jP1XtmNrRLj9oMksHrrkzqjqOyWqqXNkN6rJDynOnBEUmcdSFKUTRWLiYjGiDkjufV
-	 rzm/fDZ5VN3Dg==
-Subject: Re: [PATCH v2 4/4] wifi: ath12k: Connect to the QMI server belonging
- to the device owned by this driver
-From: netdev-bot+sashiko@kernel.org
-To: manivannan.sadhasivam@oss.qualcomm.com
-Cc: mani@kernel.org, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, jjohnson@kernel.org,
- linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org,
- ath11k@lists.infradead.org, ath12k@lists.infradead.org, andersson@kernel.org,
- christopher.lew@oss.qualcomm.com, deepak.singh@oss.qualcomm.com,
- raj.bhagat@oss.qualcomm.com, juha-matti.tilli@iki.fi,
- jeff.hugo@oss.qualcomm.com
-Date: Thu, 24 Sep 2026 05:26:13 +0000
-Message-ID: <179022757362.2160803.12263317870884528935@kernel.org>
-In-Reply-To: <20260921-qrtr-multi-ep-v2-4-27dd80d841a0@oss.qualcomm.com>
-References: <20260921-qrtr-multi-ep-v2-4-27dd80d841a0@oss.qualcomm.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="ifYHo7Oq"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-328664ef791so1126033eec.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:30:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790227837; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IPgYwyF2OsbTUG5kOzS7kRtCgnvtLAKV9esyiqliuax18tw4qvtc5B1aXI9JsItK6k
+         tB4JYnGUZ3KK7Z2sreydMTefgeig8gfMMblLNNu51GSh8cWvAdKSaEtKXxZqgP0lpEoR
+         v3hc3HXSNY+1y3ozNyLR681jMn5V2IcbUWIqUFhH1MRsIDJritwwjB9wEsmtsKdx/xKM
+         kEHE587NKmd0pIHNmZrdxcL+TIyLJR4Zk2pRvHSQvPBWnISi0YUcW0VDM2BXkLTN70L3
+         VmBSUKPY9Q2rDPTUGyA6MU05iCbJELcDegXmENM25/nIwCHnKMvZ9PK9hApM2MsRQ2U6
+         BIag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=g/rW7+9DYBHHx7/UU3/p+sXhhnDN4m/dqMHLzOkRYuw=;
+        fh=+uSwHk3UmfUciZterQiM69yvf6gn6Chmp53qnoUsq04=;
+        b=lLGBRukjriNpAGXBQvcNStER2V5CrvDEbxudfIhSFt9GAlxC+s0ybVOb2M4wYSXZtA
+         PzUYwjVc+veFikpZgEax/KW5sUSEG2jNeQFm9Ox59SYgbpbadaJhyGQj1qtgn/IB4i5w
+         RfjJ+h+rbOmvN+Zta5XMYvbKKTuOt9TcEsOmYxg7RV4F3uvhbj6gsYIpJliQZFR0bI1a
+         Q5TgAMzpturfdtlwgY797xWhOwKNF6Bij3vz9Rq2GBqe+mscvvsipqJbZSIES3Bii8wj
+         Ta4WwNoq0x85RpmKE8nOhgZIEUpd/1XRyZcwYfA9g9qEUkdXkIMxQWyNs8mTEGWigGI3
+         OwSQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amarulasolutions.com; s=google; t=1790227837; x=1790832637; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=g/rW7+9DYBHHx7/UU3/p+sXhhnDN4m/dqMHLzOkRYuw=;
+        b=ifYHo7Oq6uFAkFywUqKOjS0eehgIpuWxPWbkGAO6yM26P79mFbG6w6hF428mk8XBmi
+         awriAvFYV+D5ry4KB0sm++jGiU+Rq5xvct1QU9DLWoIvCooPZ1ZPsF9zRW5fmHS+SKu2
+         dj6M8z4uRbS7SEkpSXOjg96rY9q4nFwUFnrFM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790227837; x=1790832637;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=g/rW7+9DYBHHx7/UU3/p+sXhhnDN4m/dqMHLzOkRYuw=;
+        b=MT069BVYIEfFVEMGdhAyWsaNZcD0GQqGYhELPdbW7S0m6ZQCWBQJg4nnE/cRKB5L2r
+         aZNDtTD1BYpLFgcGbOOq2JfMS5fe6abM6Hx+LxMyX0oXYquzVyQ/xPitsjkgijHymoum
+         v/cIX0PX79/IhaMDewZAv9GKYWGmn+E9ENUBc3Wr01gWaFOQAaFsmOwBP61uL6fw2rHO
+         Q/MwpicmUm19RKYhDC3pv0vX0KKVDHyV6mWDiDRyPHkog0Hac93KJAlWFJSdBYxZbfhg
+         0TzvdhsUtgv17MiXoOPUPKzyG9eqwnGOY+5SAckpg97lVB5p2wZy33E1CqKMMTJ0J+BZ
+         tv2A==
+X-Forwarded-Encrypted: i=1; AKwUvBxPblG8rq5qCOiPfTsyOFdfQeYvvqpiQgf8o7yImKzbANYxOyN+690TnWMLTAkE4j13NDf3UiAVLrAeoro=@vger.kernel.org
+X-Gm-Message-State: AFuF++lj5y0O5+HUHiXeM6r3KvzDk23Wn6VQ+c/OVJSh8+XIhATWtsv3
+	8x/8ifWoDqWfrTxFnTGc93IBBmeEPCe5Fwr5l3RpfMVfKSh1dQRH6IwSeu/brwSA2cBalXPr/9Z
+	jH+xlASMfvaHBEzI5NFd6TLArJ2A0is5bm8ihMDTApQ==
+X-Gm-Gg: AYBFou3b1t0n8TG6kX6FVIkmkZ+csvhbLjC/+n194mASlpNsWanSMG4E3wGenEBSJLd
+	KJXJFggDTOghHWYfs9WyDzZKnXVI6vZs9hUF7LfK54pHUfhgCSOIXfO8dFv/rUXtrj+uabJs4XU
+	oHTOUg0Uc+YBkd/vzI2vxC/RAf9fmQYTh8uSF6i4uneUVmU/jE432xVeSVupi3t+NYwqoo40CVg
+	rknhOXCwo1Zfz5hazvmIgIoaJ/xn2vrlFVWmytdX0978J2yBWpQkh3xsXPMzgphl9qywjZ6qMMy
+	+/P6Rj5odUtcUAc8kTdzQGxkEM+/2vyolmTM4yH9NmJgvGgZQFTus4r1hGIR6Mh06gfRq2+0NuB
+	OQqreVoe0gg==
+X-Received: by 2002:a05:7300:8d14:b0:33b:e264:362a with SMTP id
+ 5a478bee46e88-34004a89a19mr1123625eec.13.1790227832039; Wed, 23 Sep 2026
+ 22:30:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260522101653.2565125-1-paulk@sys-base.io> <ad9788bba0851dcb86c22f40c2562f2a57ac8e6c.camel@collabora.com>
+ <CAOf5uwktfp0a3Vi5Jd8Zw5knGMHd_FH=iusRX1NgHYC4VSuzBA@mail.gmail.com> <arQxC3DmDyVIGdqq@collins>
+In-Reply-To: <arQxC3DmDyVIGdqq@collins>
+From: Michael Nazzareno Trimarchi <michael@amarulasolutions.com>
+Date: Thu, 24 Sep 2026 07:30:20 +0200
+X-Gm-Features: AclHuK9fIcxWA7Sv69t_uK1zMqbihMAU90hONvsInRjWG6YY9lFMwau8XYvA7qg
+Message-ID: <CAOf5uw=SeHZSnYjPOptAGYwPkQc7L7gDpOrDWJH3UF0r1qdrtg@mail.gmail.com>
+Subject: Re: [PATCH 00/14] media: Add V4L2 H.264 stateless encode and VC8000E support
+To: Paul Kocialkowski <paulk@sys-base.io>
+Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>, devicetree <devicetree@vger.kernel.org>, 
+	"open list:FREESCALE IMX / MXC FEC DRIVER" <imx@lists.linux.dev>, 
+	linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, LKML <linux-kernel@vger.kernel.org>, 
+	linux-media <linux-media@vger.kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Hans Verkuil <hverkuil@kernel.org>, Marco Felsch <m.felsch@pengutronix.de>, 
+	Michael Tretter <m.tretter@pengutronix.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Hi Paul
 
-Critical: 0 · High: 1 · Medium: 0 (1) · Low: 1
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+On Wed, Sep 23, 2026 at 10:05=E2=80=AFPM Paul Kocialkowski <paulk@sys-base.=
+io> wrote:
+>
+> Hi Michael,
+>
+> Le Wed 23 Sep 26, 14:10, Michael Nazzareno Trimarchi a =C3=A9crit :
+> > I tested on px30 and achieved working H.264 encoding with some small ch=
+anges
+>
+> That is a bit surprising, the Rockchip PX30 should come with a Hantro H1
+> (using a modified register layout) while this driver is for the
+> Hantro VC8000E, which is a newer generation with very different registers=
+.
+>
+> Maybe you ended up using CPU-based decoding when testing?
 
-- [High] Incomplete node-id filtering in ath12k_qmi_ops_new_server(): the
-  foreign device's WLFW server is "skipped" by returning 0, which the…
-- [Low] Concern as filed: the patch lacks a Fixes: tag and silently
-  depends on a QRTR change that registers MHI endpoints with…
+Using
+>
+> All the best,
+>
+> Paul
+>
+> --
+> Paul Kocialkowski,
+>
+> Independent contractor - sys-base - https://www.sys-base.io/
+> Free software developer - https://www.paulk.fr/
+>
+> Expert in multimedia, graphics and embedded hardware support with Linux.
 
-Pre-existing issues:
-- [Medium] Pre-existing resource leak (unrelated to this patch's change):
-  ath12k_qmi_init_service()…
+I have added your patch to gstreamer
 
---
+v4l2codecs: add the stateless H.264 and VP8 encoder elements
 
-wifi: ath12k: Connect to the QMI server belonging to the device owned by this driver
+Backport of the encoder work from the branch v4l2codecs/h264enc of
+https://github.com/paulkocialkowski/gstreamer (commit f59de5779ef1, based
+on release 1.26.0) onto the gstreamer1.0-plugins-bad 1.28.5 this build
+uses.
 
-This adds a get_qrtr_node_id() HIF callback that returns the QRTR node id
-derived from the MHI controller index, and uses it in
-ath12k_qmi_ops_new_server() so a device only connects to the WLFW server
-running on its own node. A node id of zero keeps the previous behaviour for
-transports that do not assign one.
+Generate the right element and encode stream:
 
-> diff --git a/drivers/net/wireless/ath/ath12k/pci.c b/drivers/net/wireless/ath/ath12k/pci.c
-> index 6441927b53822..2b1b122bbb3ba 100644
-> --- a/drivers/net/wireless/ath/ath12k/pci.c
-> +++ b/drivers/net/wireless/ath/ath12k/pci.c
+gst-launch-1.0 videotestsrc num-buffers=3D100 !
+video/x-raw,width=3D720,height=3D576 !  v4l2slh264enc ! h264parse !
+matroskamux ! filesink location=3D/tmp/t2.mkv
 
-[ ... ]
+And playback over Wayland.
 
-> @@ -1491,6 +1492,13 @@ static int ath12k_pci_panic_handler(struct ath12k_base *ab)
->  	return NOTIFY_OK;
->  }
->  
-> +static int ath12k_pci_get_qrtr_node_id(struct ath12k_base *ab)
-> +{
-> +	struct ath12k_pci *ab_pci = ath12k_pci_priv(ab);
-> +
-> +	return qrtr_host_node_id(ab_pci->mhi_ctrl->index);
-> +}
+Solve some problem. I have implemented:
 
-[Severity: Low]
-This isn't a bug, but could the commit message name the prerequisite change
-this depends on?
+const struct hantro_variant px30_vpu_variant =3D {
+        .enc_offset =3D 0x0,
+        .enc_fmts =3D rockchip_vpu_enc_fmts,
+        .num_enc_fmts =3D ARRAY_SIZE(rockchip_vpu_enc_fmts),
+        .dec_offset =3D 0x400,
+        .dec_fmts =3D rockchip_vdpu2_dec_fmts,
+        .num_dec_fmts =3D ARRAY_SIZE(rockchip_vdpu2_dec_fmts),
+        .codec =3D HANTRO_JPEG_ENCODER | HANTRO_H264_ENCODER |
+                 HANTRO_MPEG2_DECODER | HANTRO_VP8_DECODER |
+                 HANTRO_H264_DECODER,
+        .codec_ops =3D px30_vpu_codec_ops,
+        .irqs =3D rockchip_vpu2_irqs,
+        .num_irqs =3D ARRAY_SIZE(rockchip_vpu2_irqs),
+        .init =3D rk3036_vpu_hw_init,
+        .clk_names =3D rockchip_vpu_clk_names,
+        .num_clocks =3D ARRAY_SIZE(rockchip_vpu_clk_names)
+};
 
-On PCIe this helper always returns a non-zero id
-(QRTR_NODE_HOST_BASE + index), so the new filter in
-ath12k_qmi_ops_new_server() is unconditionally active, and it only matches
-because net/qrtr/mhi.c now registers endpoints with the same id:
+I have advertised the:
 
-net/qrtr/mhi.c:qcom_mhi_qrtr_probe() {
-	rc = qrtr_endpoint_register(&qdev->ep,
-				    qrtr_host_node_id(mhi_dev->mhi_cntrl->index));
-}
+       {
+                .fourcc =3D V4L2_PIX_FMT_H264_SLICE,
+                .codec_mode =3D HANTRO_MODE_H264_ENC,
+                .max_depth =3D 2,
+                .header_size =3D H264_ENC_HEADER_SIZE,
+                .frmsize =3D {
+                        .min_width =3D FMT_MIN_WIDTH,
+                        .max_width =3D FMT_FHD_WIDTH,
+                        .step_width =3D MB_DIM,
+                        .min_height =3D FMT_MIN_HEIGHT,
+                        .max_height =3D FMT_FHD_HEIGHT,
+                        .step_height =3D MB_DIM,
+                },
+        },
 
-That registration comes from "net: qrtr: Assign unique node id for MHI
-endpoints" in this same series, and the message only says "But now, QRTR
-provides each MHI endpoint a unique node id". Without the QRTR patch, this
-helper returns an id that matches no advertised server and every WLFW
-server would be skipped, so spelling out the ordering requirement (and that
-this must not be backported alone) would help future backporters.
+Create the rockchip_vpu_hw_h264_enc.c. I need to test this on rk3399
 
-[ ... ]
+I have a small change only in the common part. Hope that it's a bit clear.
 
-> diff --git a/drivers/net/wireless/ath/ath12k/qmi.c b/drivers/net/wireless/ath/ath12k/qmi.c
-> index 280e50a1f31d8..22b8cbbbf4f45 100644
-> --- a/drivers/net/wireless/ath/ath12k/qmi.c
-> +++ b/drivers/net/wireless/ath/ath12k/qmi.c
-
-[ ... ]
-
-> @@ -3940,8 +3941,18 @@ static int ath12k_qmi_ops_new_server(struct qmi_handle *qmi_hdl,
->  	struct ath12k_qmi *qmi = container_of(qmi_hdl, struct ath12k_qmi, handle);
->  	struct ath12k_base *ab = qmi->ab;
->  	struct sockaddr_qrtr *sq = &qmi->sq;
-> +	int node_id;
->  	int ret;
->  
-> +	/* Identical devices advertise the same QMI services, so connect only to
-> +	 * the QMI server on this device's node. A node id of 0 means the
-> +	 * transport has not assigned a unique node id, so accept the server
-> +	 * unfiltered.
-> +	 */
-> +	node_id = ath12k_hif_get_qrtr_node_id(ab);
-> +	if (node_id && service->node != node_id)
-> +		return 0;
-> +
-
-[Severity: High]
-Should this return a negative errno instead of 0 for the foreign node?
-
-The QMI core only discards the service when new_server() returns negative:
-
-drivers/soc/qcom/qmi_interface.c:qmi_recv_new_server() {
-	ret = ops->new_server(qmi, svc);
-	if (ret < 0)
-		kfree(svc);
-	else
-		list_add(&svc->list_node, &qmi->lookup_results);
-}
-
-With "return 0", the other device's server stays recorded in
-qmi->lookup_results on this device's handle, even though this device never
-connected to it.
-
-The teardown half of the lifecycle has no node id check. When the peer
-device's firmware dies or the peer is unbound, net/qrtr/ns.c:server_del()
-notifies every lookup matching service and instance, with no node
-filtering:
-
-net/qrtr/ns.c:server_del() {
-	list_for_each(li, &qrtr_ns.lookups) {
-		lookup = container_of(li, struct qrtr_lookup, li);
-		if (lookup->service && lookup->service != srv->service)
-			continue;
-		if (lookup->instance && lookup->instance != srv->instance)
-			continue;
-
-		lookup_notify(&lookup->sq, srv, false);
-	}
-}
-
-qmi_recv_del_server() then finds the retained foreign entry (also reached
-with node/port == -1 from qmi_handle_net_reset() and qmi_handle_release())
-and calls into the driver:
-
-drivers/net/wireless/ath/ath12k/qmi.c:ath12k_qmi_ops_del_server() {
-	ath12k_dbg(ab, ATH12K_DBG_QMI, "qmi wifi fw del server\n");
-	ath12k_qmi_driver_event_post(qmi, ATH12K_QMI_EVENT_SERVER_EXIT, NULL);
-}
-
-so this healthy device gets a SERVER_EXIT with no matching ARRIVE:
-
-drivers/net/wireless/ath/ath12k/qmi.c:ath12k_qmi_driver_event_work() {
-		case ATH12K_QMI_EVENT_SERVER_EXIT:
-			set_bit(ATH12K_FLAG_CRASH_FLUSH, &ab->dev_flags);
-}
-
-Can that latch the healthy device into the crash-flush state permanently?
-ATH12K_FLAG_CRASH_FLUSH makes ath12k_dp_tx() and management TX return
--ESHUTDOWN, and ath12k_wmi_cmd_send()/ath12k_ce_send() fail the same way:
-
-drivers/net/wireless/ath/ath12k/wifi7/dp_tx.c:ath12k_dp_tx() {
-	if (test_bit(ATH12K_FLAG_CRASH_FLUSH, &ab->dev_flags))
-		return -ESHUTDOWN;
-}
-
-The bit is only cleared on this device's own FW_READY or core start, and
-neither happens because this device's firmware never crashed.
-
-Would returning a negative errno (so the core never records the foreign
-service) plus the same node id check in ath12k_qmi_ops_del_server() cover
-both halves?
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but while looking at the QMI
-handle lifecycle in the same file: does ath12k_qmi_init_service() leak the
-QMI handle on its two failure paths after qmi_handle_init() succeeded?
-
-drivers/net/wireless/ath/ath12k/qmi.c:ath12k_qmi_init_service() {
-	ab->qmi.event_wq = alloc_ordered_workqueue("ath12k_qmi_driver_event", 0);
-	if (!ab->qmi.event_wq) {
-		ath12k_err(ab, "failed to allocate workqueue\n");
-		return -EFAULT;
-	}
-	...
-	if (ret < 0) {
-		ath12k_warn(ab, "failed to add qmi lookup\n");
-		destroy_workqueue(ab->qmi.event_wq);
-		return ret;
-	}
-}
-
-Neither path calls qmi_handle_release(), so qmi->recv_buf, the
-"qmi_msg_handler" workqueue and the kernel QRTR socket created by
-qmi_handle_init() stay allocated.
-
-ath12k_core_soc_create() returns before its err_qmi_deinit label, and the
-unwind loop in ath12k_core_hw_group_create() skips the device that just
-failed:
-
-drivers/net/wireless/ath/ath12k/core.c:ath12k_core_hw_group_create() {
-destroy:
-	for (i--; i >= 0; i--) {
-		ab = ag->ab[i];
-		...
-		ath12k_core_soc_destroy(ab);
-}
-
-Probe then reaches ath12k_core_free() which kfree()s ab, while the leaked
-socket still holds sk->sk_user_data pointing at &ab->qmi:
-
-drivers/soc/qcom/qmi_interface.c:qmi_sock_create() {
-	sock->sk->sk_user_data = qmi;
-	sock->sk->sk_data_ready = qmi_data_ready;
-}
-
-Both paths require an allocation failure at probe time, so this is a cold
-path only.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260921-qrtr-multi-ep-v2-0-27dd80d841a0%40oss.qualcomm.com
+Michael
