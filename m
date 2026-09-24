@@ -1,310 +1,236 @@
-Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A6D47ECDF;
-	Thu, 24 Sep 2026 12:12:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.238.174.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A283B387590
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:14:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790251947; cv=none; b=Ic87/js17qAq+UvAm3wfBnW8UBIWnlIJViqqqSQaXPJu9I14ss5sb+zKmqJMWC8eyrb3mR+bHZO1vM6/ppVfbaq4/fzmOrzvkwLitxKeTh1cgIP7kGmpZdsiXcaLhZJ6SNXZUNU8983TcQmaxKdZ6ReJOdAMSxErLM+zh0bkyYI=
+	t=1790252047; cv=none; b=g6172YQPbuE6uwXhISf88KpGJnf9OKdMm24ykqljhq0WYE10N3fTT2PDE243/8RHWyZq3cBi83WnYxJjwsV4tQzZ2mHQu6tno3Yr4mo87qmmnsMY0OxZ915shALZ80gU+gPx4UxuFmHVr7XYjBjngYp4TLpphNxvBdn69Ky1Vtc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790251947; c=relaxed/simple;
-	bh=vAy2pvXTH6ZIFeMujx6Ru6kRQxkhNMs2yIOwyR+G0/I=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=i3+kE99g0JrxyeXS+qDZRf/wkO8cJ9+LVtk79gT9W+9Bff4y8hqRZ0cqaeyiiXjwygZyP82ptT7SaIMDZ1RCIgaHnbWmyircjBF6BzBPQu//VgxVYzdnT2AEqhFAPa+IpgHNMbCh2XI/IWC6kgbllnKT5JRRR96rtaV6IgjYmN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg; spf=pass smtp.mailfrom=ssi.bg; dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b=puobdpe8; arc=none smtp.client-ip=193.238.174.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
+	s=arc-20240116; t=1790252047; c=relaxed/simple;
+	bh=otGD8El/usb5+EdYLvRCSLCI0HhgOOwUewbzGHi4nw4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rKMIHvp6Tun1jFOQ2Knk1MOR6NY+nZYBDQS8hJtX3C4S2PuWHRKQ3NFtsnJC0SKsjqufkxk+xQW3j0ySDg6SEkrGvDUjVeOl4pi+aCm6sLbmF/8fDVmqD6lsi4V0fINeWF1WIdvuAZfPmvnZf6ytAbwqnx5OVEF1P9aVdwlPwiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pTu+qwoD; arc=none smtp.client-ip=74.125.230.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b="puobdpe8"
-Received: from mx.ssi.bg (localhost [127.0.0.1])
-	by mx.ssi.bg (Potsfix) with ESMTP id 17A15213B3;
-	Thu, 24 Sep 2026 15:12:09 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
-	:content-type:content-type:date:from:from:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
-	 bh=maFDGWCxqU67IjjROICrZqAghus8taCEGoRg6hRMkns=; b=puobdpe8BwGj
-	Lu3/XCVpBKcRE6ldG8n9Owg1jGv+lL22Lbpy17smNonYGEBKwiqqUFZ6teYuQRcs
-	BlgeYC9ganRBrjIVICSqiayfDccHP5MDGzCYAaYdsogEDjv3aCAsXhF3OPl0wD4N
-	nkuaYVE30caMNFdqKdw89mrnk4oLcU/B0Wlg2UXPGlX/tp5LdF9r5nxqYGoRIHlq
-	05vU9fOc7i6L4GxBhlOy2rpqPfq5IBCwcT2Gd/R2vEVCvYZ1CtWHJoG4to2UYFpd
-	iZxXlP5hS+VRods6TRyhQyKYVCHUoCrrWBA4ertaHwH4PKvm1HSNJFLVH43u682F
-	q8xPaqcRe6uK1c6NnU01s3T4Rex4AEPm2bIyvJ2bIciVYg0l+EaLweXcfLazJSat
-	dZJAn4K0aAAcBkiEGm5yf9ZMnZK0lvvU2IFwKLiE0X7WdTQTaPAqybgoVWaCMAcx
-	HOQ9RmSHXkvnsP0q5VoytghriPekfJrGeAazZjTYTl1CkiWX5gHrq1Kwa33GEFKA
-	ptIfw32PnBz+yjw0Jc0zIPA9+R6MNh3sQbnaYbRAmrasdfIhmCbQbHi8He88WBGN
-	nppnTNvVc69I2in5PSb7LIq6qodciPE9OJj7q7FoLFOaSEW5UoP5Me8PDfORCbkM
-	yPhMmSr7lmrZIbqSWlTS0j5EaLFYTKM=
-Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
-	by mx.ssi.bg (Potsfix) with ESMTPS;
-	Thu, 24 Sep 2026 15:12:08 +0300 (EEST)
-Received: from ja.ssi.bg (unknown [213.16.62.126])
-	by box.ssi.bg (Potsfix) with ESMTPSA id 3102060507;
-	Thu, 24 Sep 2026 15:12:11 +0300 (EEST)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 68OCBtMb048998;
-	Thu, 24 Sep 2026 15:11:56 +0300
-Date: Thu, 24 Sep 2026 15:11:55 +0300 (EEST)
-From: Julian Anastasov <ja@ssi.bg>
-To: Zihan Xi <zihanx@nebusec.ai>
-cc: netfilter-devel@vger.kernel.org, netdev@vger.kernel.org,
-        lvs-devel@vger.kernel.org, coreteam@netfilter.org,
-        linux-kernel@vger.kernel.org, horms@verge.net.au, pablo@netfilter.org,
-        fw@strlen.de, phil@nwl.cc, davem@davemloft.net, edumazet@google.com,
-        kuba@kernel.org, pabeni@redhat.com
-Subject: Re: [PATCH nf v4 1/3] ipvs: wait the running timer cb on conn
- deletion
-In-Reply-To: <dfc9f33299baa890537aacdc3082c85e1a6eccc9.1790146910.git.zihanx@nebusec.ai>
-Message-ID: <5afea8e9-5250-8ee4-e1ea-4e16289f4447@ssi.bg>
-References: <cover.1790146910.git.zihanx@nebusec.ai> <dfc9f33299baa890537aacdc3082c85e1a6eccc9.1790146910.git.zihanx@nebusec.ai>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pTu+qwoD"
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff17443dso20788371fa.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:14:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790252043; x=1790856843; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rhr+KJXZzXoDkRQD5ZZRVZfYL8tC8NnQwJ47gS6L1EQ=;
+        b=pTu+qwoDcb3s9ihKFMqI7NQwOEHuFvOgNt7q+p5D/awpOw5+FjgkvdixZVTTLXU0PF
+         s88/18pigY/hzhXLLrYcXOYfG0pCf5yfkiyhaOorgFVae6OyxtA46VfatZz9gVjZ9kg1
+         0CTb4JIL1kShApBn82ezMjYSZXrafXw1gCsUfo1KfZ+A9ADhs3h/aiBf/6qrhW5wCc1d
+         5vWFJR65yTGqRFcLVs+85xlr01Nota2p0ZWGSeoa697oC4AZ3ArhGfG6UM5uEo9JkgaB
+         nxi2NCfs2NE8XksrTnEMIq8peRXVaDWk20NOGdZZVRw0h5IOqScWcc/IOWyRi+2CNb7v
+         1xVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790252043; x=1790856843;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rhr+KJXZzXoDkRQD5ZZRVZfYL8tC8NnQwJ47gS6L1EQ=;
+        b=qnaT+zbHFqbjJkMm5n2oZevzC1oJdgLKcEAlC60iSQ095VyqJzwxZwtSCxwcE4QsVe
+         jwS32D67YuWrBh3s8i4iq6APl9gnuSoqrsZi3JyrX29hfDbDvQ5TB/d6d5ntvlGQHsL0
+         mC/CYF587+yqWszO85juyTYZ0bcprFh6LszTKVq78vNmL/GuC3nJrkW7rhoxc7LGSSNw
+         tKx8G0hH3XPDoIasj6cGvjtHip7NCgYdEAAlJ6wLEozBwFPQUXCrNxN5a0V55MSLckZm
+         TmPPfTcfBWVsBxht2dm7IYckPsbwkp4wIi33jfRynHbfct5sNkoE9vayKt1/b+dBHk+b
+         hJew==
+X-Forwarded-Encrypted: i=1; AKwUvBy68cx7jEvSARJfPd3xhMe18HPXydflhdsVWvO++s6sZISppdRt8yv/9DohSEg6GJHrpXnQQVuocsZDJyA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nA4ObvlzFWpn7ri73XI+HUOlG7gSLbKLRHSJk6VEggRMZFGBSF
+	uSxYvRPNiLY6fxO9pFH+kxenYzQ7Ye2g/gFGHp2YR0m0eXDPN2aWzI8E
+X-Gm-Gg: AYBFou2IxpbcR7NBejHDTtFFN5tDk7QnOq+QIn8AeSEaQpxExccoqDSXYlEVyTUlbAL
+	FBMkUmWyQ2rPJstT9kqxGdLcpCJVqXymqfk+boFveZipGFYj8DDSUGXzn6OAGXz64kiT2rBOi90
+	2DNPhFQZmMzY49iijm004iILW7nuaRr1NvpMPk/bO4sCw+MJhWBDC0NFOCfTqWwqHlzuzPLYCbl
+	AJQAd5PnEMn60sw5cEho7pzorRw1jJtpOhgyU2yIBQ/TBoIZIWXn/Izn7lh3WS4yyh79w1pvAHd
+	fcaC5KpiY0STbI2nsrNvVF4sPey+YsI9ZErlFdtWbKhb9Otx/Eu4PEhiDGjihfH0YYOW2/gIMwY
+	rpewD9Mtx4RlHCQQihTb3X9h5r3rnV+6qCm59jqUsc0CLpYaWiZsdca+gSkiH8GgFUNO4fHf0oR
+	edlZCdruavt+rNl9h+dpb+pI7Hp2eFV0sDDi2bjxQtEAvD6vLkRo0VR5udxn9XfeoyK5lsSh6k5
+	zI8ZnGpxkXfBdrxH+aL/ypZhG07mHDc2nHTc35UQi64b7r0rYg9ApY=
+X-Received: by 2002:a05:651c:2107:b0:3a5:d0ad:7df2 with SMTP id 38308e7fff4ca-3a63c06d2d1mr5437961fa.6.1790252042323;
+        Thu, 24 Sep 2026 05:14:02 -0700 (PDT)
+Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a63bf2c113sm7362221fa.11.2026.09.24.05.14.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 05:14:01 -0700 (PDT)
+Message-ID: <8a08809f-a276-4c5b-9734-1bb6aca4f51c@gmail.com>
+Date: Thu, 24 Sep 2026 15:14:00 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v15 4/6] reboot: extend psc_reason with power-on and reset
+ causes
+To: Faruque Ansari <faruque.ansari@oss.qualcomm.com>,
+ Sebastian Reichel <sre@kernel.org>, Benson Leung <bleung@chromium.org>,
+ Tzung-Bi Shih <tzungbi@kernel.org>, Guenter Roeck <groeck@chromium.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Oleksij Rempel <o.rempel@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
+ avaneesh.dwivedi@oss.qualcomm.com,
+ Umang Chheda <umang.chheda@oss.qualcomm.com>
+References: <20260924-pscrr-framework-v15-0-7af87107e0d3@oss.qualcomm.com>
+ <20260924-pscrr-framework-v15-4-7af87107e0d3@oss.qualcomm.com>
+Content-Language: en-US, en-AU, en-GB, en-BW
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+In-Reply-To: <20260924-pscrr-framework-v15-4-7af87107e0d3@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-
-	Hello,
-
-On Wed, 23 Sep 2026, Zihan Xi wrote:
-
-> From: Julian Anastasov <ja@ssi.bg>
+On 24/09/2026 10:08, Faruque Ansari wrote:
+> psc_reason covered only the protection reasons. Extend it to mirror the
+> full POWER_ON_REASON_* vocabulary - power-on, watchdog, software,
+> external, RTC, reset button, CPU clock and crystal failures - so a
+> provider can report why the system last powered on, not only why it was
+> shut down. New values are appended to keep the existing numeric ABI.
 > 
-> Sashiko reports for problem when deleting connections.
+> Co-developed-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+> Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
 > 
-> If connection timer expires, its callback can not be
-> concurrently running but if connection is deleted
-> the callback can be running on another CPU even
-> after all references are released. Before now we
-> continued with the connection freeing, risking the
-> callback to access the deleted connection after it
-> is freed. As ip_vs_conn_del*() run under RCU lock
-> there is no risk accessing a freed connection by
-> concurrent timer callback as Sashiko warns, may
-> be only if our timer expires and we try to delete
-> the cp->control chain.
-> 
-> Fix that by failing the ip_vs_conn_unlink() call after
-> refcnt is restored to 1 allowing the timer callback
-> to be scheduled for new execution which should happen
-> after the detected running callback finishes.
-> 
-> One of two things can happen when we detect the
-> running callback:
-> 
-> 1. the concurrent timer callback can see refcnt 0 and
-> do nothing, so we will schedule new timer callback to
-> expire the connection after the running one finishes
-> 
-> 2. the concurrent timer callback can see refcnt 1 and
-> to expire the connection as usually, in this case we
-> will see refcnt 0 and will do nothing
-> 
-> Add explicit rcu_read_lock() while deleting the cp->control
-> chain to protect from concurrent timer callback for ct to
-> expire it before us.
-> 
-> During such races, try to keep 0 in cp->timeout as it is
-> a request for deleting our cp->control chain immediately.
-> 
-> Link: https://sashiko.dev/#/patchset/cover.1789435989.git.zihanx%40nebusec.ai
-> Fixes: f9200a52eedf ("ipvs: avoid expiring many connections from timer")
-> Signed-off-by: Julian Anastasov <ja@ssi.bg>
-
-	Sashiko reports for refcount problem:
-
-https://sashiko.dev/#/patchset/cover.1790146910.git.zihanx%40nebusec.ai
-
-	Will send new version...
-
-pw-bot: changes-requested
-
+> changes v15:
+> - add a static_assert() tying ARRAY_SIZE(psc_reason_descs) to
+>    PSCR_REASON_COUNT, so a future enum addition without a matching
+>    table entry fails the build instead of silently reading a hole
+>    (Matti Vaittinen)
+> - Add Reviewed-by tags from Matti Vaittinen.
+> changes v12:
+> - new patch
 > ---
->  net/netfilter/ipvs/ip_vs_conn.c | 103 +++++++++++++++++---------------
->  1 file changed, 54 insertions(+), 49 deletions(-)
+>   include/linux/reboot.h | 28 ++++++++++++++++++++++++++++
+>   kernel/reboot.c        | 12 ++++++++++++
+>   2 files changed, 40 insertions(+)
 > 
-> diff --git a/net/netfilter/ipvs/ip_vs_conn.c b/net/netfilter/ipvs/ip_vs_conn.c
-> index 6fa3e1dc534c3..32cfc02aa2912 100644
-> --- a/net/netfilter/ipvs/ip_vs_conn.c
-> +++ b/net/netfilter/ipvs/ip_vs_conn.c
-> @@ -313,17 +313,34 @@ static inline int ip_vs_conn_hash(struct ip_vs_conn *cp)
->  /* Try to unlink ip_vs_conn from conn_tab.
->   * returns bool success.
->   */
-> -static inline bool ip_vs_conn_unlink(struct ip_vs_conn *cp)
-> +static inline bool ip_vs_conn_unlink(struct ip_vs_conn *cp, bool my_cb)
->  {
->  	struct netns_ipvs *ipvs = cp->ipvs;
->  	struct hlist_bl_head *head, *head2;
->  	u32 hash_key, hash_key2;
->  	struct ip_vs_rht *t;
-> -	bool ret = false;
->  	bool use2;
->  
-> +	if (!refcount_dec_if_one(&cp->refcnt))
-> +		return false;
-> +
->  	if (cp->flags & IP_VS_CONN_F_ONE_PACKET)
-> -		return refcount_dec_if_one(&cp->refcnt);
-> +		return true;
-> +
-> +	/* Revalidate after conn is excluded from traffic:
-> +	 * - not controlling other conns
-> +	 * - no pending/running timer callback
-> +	 *
-> +	 * And the winner is ...
-> +	 */
-> +	if (atomic_read(&cp->n_control) ||
-> +	    (!timer_delete(&cp->timer) && !my_cb)) {
-> +		/* Not me? Give the timer callback another chance, even
-> +		 * if one is concurrently running during the conn deletion.
-> +		 */
-> +		refcount_inc(&cp->refcnt);
-> +		return false;
-> +	}
->  
->  	rcu_read_lock();
->  	local_bh_disable();
-> @@ -337,15 +354,11 @@ static inline bool ip_vs_conn_unlink(struct ip_vs_conn *cp)
->  		      false /* new_hash2 */, &head, &head2);
->  
->  	if (cp->flags & IP_VS_CONN_F_HASHED) {
-> -		/* Decrease refcnt and unlink conn only if we are last user */
-> -		if (use2 == ip_vs_conn_use_hash2(cp) &&
-> -		    refcount_dec_if_one(&cp->refcnt)) {
-> -			hlist_bl_del_rcu(&cp->hn0.node);
-> -			if (use2)
-> -				hlist_bl_del_rcu(&cp->hn1.node);
-> -			cp->flags &= ~IP_VS_CONN_F_HASHED;
-> -			ret = true;
-> -		}
-> +		/* Unlink conn as we are the last user */
-> +		hlist_bl_del_rcu(&cp->hn0.node);
-> +		if (use2)
-> +			hlist_bl_del_rcu(&cp->hn1.node);
-> +		cp->flags &= ~IP_VS_CONN_F_HASHED;
->  	}
->  
->  	conn_tab_unlock(head, head2);
-> @@ -353,7 +366,7 @@ static inline bool ip_vs_conn_unlink(struct ip_vs_conn *cp)
->  	local_bh_enable();
->  	rcu_read_unlock();
->  
-> -	return ret;
-> +	return true;
->  }
->  
->  
-> @@ -1319,34 +1332,29 @@ static void ip_vs_conn_rcu_free(struct rcu_head *head)
->  	kmem_cache_free(ip_vs_conn_cachep, cp);
->  }
->  
-> -/* Try to delete connection while not holding reference */
-> +/* Try to delete connection while not holding reference.
-> + * It can be called concurrently and always under RCU lock.
-> + */
->  static void ip_vs_conn_del(struct ip_vs_conn *cp)
->  {
-> -	if (timer_delete(&cp->timer)) {
-> -		/* Drop cp->control chain too */
-> -		if (cp->control)
-> -			cp->timeout = 0;
-> -		ip_vs_conn_expire(&cp->timer);
-> -	}
-> -}
-> +	struct timer_list *t = (void *)((unsigned long)(&cp->timer) | 1UL);
->  
-> -/* Try to delete connection while holding reference */
-> -static void ip_vs_conn_del_put(struct ip_vs_conn *cp)
-> -{
-> -	if (timer_delete(&cp->timer)) {
-> -		/* Drop cp->control chain too */
-> -		if (cp->control)
-> -			cp->timeout = 0;
-> -		__ip_vs_conn_put(cp);
-> -		ip_vs_conn_expire(&cp->timer);
-> -	} else {
-> -		__ip_vs_conn_put(cp);
-> -	}
-> +	/* Drop cp->control chain too */
-> +	if (cp->control)
-> +		cp->timeout = 0;
-> +	ip_vs_conn_expire(t);
->  }
->  
-> +/* Connection is removed in the following steps:
-> + * - timer expires or connection is deleted
-> + * - there should be no more references (n_control>0 and refcnt>1)
-> + * - there should be no pending timer or a running timer callback (on deletion)
-> + */
->  static void ip_vs_conn_expire(struct timer_list *t)
->  {
-> -	struct ip_vs_conn *cp = timer_container_of(cp, t, timer);
-> +	bool my_cb = !((unsigned long)t & 1);
-> +	struct timer_list *t2 = (void *)((unsigned long)t & ~1UL);
-> +	struct ip_vs_conn *cp = timer_container_of(cp, t2, timer);
->  	struct netns_ipvs *ipvs = cp->ipvs;
->  
->  	/*
-> @@ -1356,26 +1364,21 @@ static void ip_vs_conn_expire(struct timer_list *t)
->  		goto expire_later;
->  
->  	/* Unlink conn if not referenced anymore */
-> -	if (likely(ip_vs_conn_unlink(cp))) {
-> +	if (likely(ip_vs_conn_unlink(cp, my_cb))) {
->  		struct ip_vs_conn *ct = cp->control;
->  
-> -		/* delete the timer if it is activated by other users */
-> -		timer_delete(&cp->timer);
-> -
->  		/* does anybody control me? */
->  		if (ct) {
-> -			bool has_ref = !cp->timeout && __ip_vs_conn_get(ct);
-> -
-> +			rcu_read_lock();
->  			ip_vs_control_del(cp);
->  			/* Drop CTL or non-assured TPL if not used anymore */
-> -			if (has_ref && !atomic_read(&ct->n_control) &&
-> +			if (!cp->timeout && !atomic_read(&ct->n_control) &&
->  			    (!(ct->flags & IP_VS_CONN_F_TEMPLATE) ||
->  			     !(ct->state & IP_VS_CTPL_S_ASSURED))) {
->  				IP_VS_DBG(4, "drop controlling connection\n");
-> -				ip_vs_conn_del_put(ct);
-> -			} else if (has_ref) {
-> -				__ip_vs_conn_put(ct);
-> +				ip_vs_conn_del(ct);
->  			}
-> +			rcu_read_unlock();
->  		}
->  
->  		if ((cp->flags & IP_VS_CONN_F_NFCT) &&
-> @@ -1410,13 +1413,15 @@ static void ip_vs_conn_expire(struct timer_list *t)
->  		  refcount_read(&cp->refcnt),
->  		  atomic_read(&cp->n_control));
->  
-> -	refcount_inc(&cp->refcnt);
-> -	cp->timeout = 60*HZ;
-> +	if (__ip_vs_conn_get(cp)) {
-> +		if (cp->timeout || atomic_read(&cp->n_control))
-> +			cp->timeout = 60 * HZ;
->  
-> -	if (ipvs->sync_state & IP_VS_STATE_MASTER)
-> -		ip_vs_sync_conn(ipvs, cp, sysctl_sync_threshold(ipvs));
-> +		if (ipvs->sync_state & IP_VS_STATE_MASTER)
-> +			ip_vs_sync_conn(ipvs, cp, sysctl_sync_threshold(ipvs));
->  
-> -	__ip_vs_conn_put_timer(cp);
-> +		__ip_vs_conn_put_timer(cp);
-> +	}
->  }
->  
->  /* Modify timer, so that it expires as soon as possible.
-> -- 
-> 2.43.0
+> diff --git a/include/linux/reboot.h b/include/linux/reboot.h
+> index 4c5327dd7645..13f004ad1066 100644
+> --- a/include/linux/reboot.h
+> +++ b/include/linux/reboot.h
+> @@ -225,9 +225,28 @@ extern void orderly_reboot(void);
+>    *	management errors, or an unrecoverable hardware fault requiring
+>    *	immediate response.
+>    *
+> + * @PSCR_POWER_ON: Regular cold power-on (e.g. via a PMIC power-on request).
+> + *
+> + * @PSCR_WATCHDOG: Reset caused by a watchdog timeout.
+> + *
+> + * @PSCR_SOFTWARE: Software-initiated reset or reboot.
+> + *
+> + * @PSCR_EXTERNAL: Reset asserted through an external pin or reset input.
+> + *
+> + * @PSCR_RTC: Wake-up or power-on triggered by the RTC.
+> + *
+> + * @PSCR_RESET_BUTTON: Reset triggered by a user reset button.
+> + *
+> + * @PSCR_CPU_CLK_FAIL: Reset caused by a CPU clock failure.
+> + *
+> + * @PSCR_XTAL_FAIL: Reset caused by a crystal oscillator failure.
+> + *
+>    * @PSCR_REASON_COUNT: Number of defined power state change reasons. This
+>    *	value is useful for range checking and potential future extensions
+>    *	while maintaining compatibility.
+> + *
+> + * The reasons mirror the POWER_ON_REASON_* strings in
+> + * <linux/power/power_on_reason.h>; keep the two in sync when extending.
+>    */
+>   enum psc_reason {
+>   	PSCR_UNKNOWN,
+> @@ -236,6 +255,15 @@ enum psc_reason {
+>   	PSCR_REGULATOR_FAILURE,
+>   	PSCR_OVER_TEMPERATURE,
+>   	PSCR_EC_PANIC,
+> +	/* Append new reasons here; the numeric order is ABI. */
+> +	PSCR_POWER_ON,
+> +	PSCR_WATCHDOG,
+> +	PSCR_SOFTWARE,
+> +	PSCR_EXTERNAL,
+> +	PSCR_RTC,
+> +	PSCR_RESET_BUTTON,
+> +	PSCR_CPU_CLK_FAIL,
+> +	PSCR_XTAL_FAIL,
+>   
+>   	/* Number of reasons */
+>   	PSCR_REASON_COUNT,
+> diff --git a/kernel/reboot.c b/kernel/reboot.c
+> index e53fb31bad06..7094c7a8f315 100644
+> --- a/kernel/reboot.c
+> +++ b/kernel/reboot.c
+> @@ -7,7 +7,9 @@
+>   
+>   #define pr_fmt(fmt)	"reboot: " fmt
+>   
+> +#include <linux/array_size.h>
+>   #include <linux/atomic.h>
+> +#include <linux/build_bug.h>
+>   #include <linux/ctype.h>
+>   #include <linux/export.h>
+>   #include <linux/kexec.h>
+> @@ -1102,7 +1104,17 @@ static const struct psc_reason_desc psc_reason_descs[] = {
+>   	[PSCR_REGULATOR_FAILURE] = { "regulator-failure", POWER_ON_REASON_REGULATOR_FAILURE },
+>   	[PSCR_OVER_TEMPERATURE]	 = { "over-temperature",  POWER_ON_REASON_OVER_TEMPERATURE },
+>   	[PSCR_EC_PANIC]		 = { "ec-panic",	  POWER_ON_REASON_EC_PANIC },
+> +	[PSCR_POWER_ON]		 = { "power-on",	  POWER_ON_REASON_REGULAR },
+> +	[PSCR_WATCHDOG]		 = { "watchdog",	  POWER_ON_REASON_WATCHDOG },
+> +	[PSCR_SOFTWARE]		 = { "software",	  POWER_ON_REASON_SOFTWARE },
+> +	[PSCR_EXTERNAL]		 = { "external",	  POWER_ON_REASON_EXTERNAL },
+> +	[PSCR_RTC]		 = { "rtc",		  POWER_ON_REASON_RTC },
+> +	[PSCR_RESET_BUTTON]	 = { "reset-button",	  POWER_ON_REASON_RST_BTN },
+> +	[PSCR_CPU_CLK_FAIL]	 = { "cpu-clock-failure", POWER_ON_REASON_CPU_CLK_FAIL },
+> +	[PSCR_XTAL_FAIL]	 = { "crystal-failure",	  POWER_ON_REASON_XTAL_FAIL },
+>   };
+> +static_assert(ARRAY_SIZE(psc_reason_descs) == PSCR_REASON_COUNT,
+> +	      "psc_reason_descs[] must have an entry for every psc_reason");
 
-Regards
+Thanks Faruque. This is better than nothing, but if I read it right, it 
+won't still catch missing initializations when last item is initialized 
+(but not all items). Eg:
 
---
-Julian Anastasov <ja@ssi.bg>
+enum {
+	PSCR_REGULATOR_FAILURE,
+	PSCR_OVER_TEMPERATURE,
+	PSCR_EC_PANIC,
+	...
+	PSCR_REASON_COUNT
+};
 
+static const struct psc_reason_desc psc_reason_descs[] = {
+	[ PSCR_REASON_COUNT - 1] = { "foo", BAR }
+};
+
+static_assert(ARRAY_SIZE(psc_reason_descs) == PSCR_REASON_COUNT,
+	      "psc_reason_descs[] must have an entry for every psc_reason");
+
+would pass the check, but accessors would crash to uninitialized 
+entries. Hence, I would still prefer the run-time NULL checks.
+
+Oh, and I just noticed there is comma following the 'PSCR_REASON_COUNT' 
+in the enum. Since 'PSCR_REASON_COUNT' should always be kept as the last 
+enum value, the comma should be omitted.
+
+Other than this - I like the changes you implemented this series. Won't 
+reply to other patches, but I think this is a very nice series!
+
+Yours,
+	-- Matti
+
+-- 
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
+
+~~ When things go utterly wrong vim users can always type :help! ~~
