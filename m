@@ -1,207 +1,89 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 152C63E3D80
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:46:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A9536A37F;
+	Thu, 24 Sep 2026 16:47:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790268416; cv=none; b=Upyht3muJk5lAqNKLbk5M0Dxw0rclxes0bCF6PWN0rz7Rx6qcmwZe3LB4Magd/CkcGs97Tv373XAVDkxKeGaGrJRREaaOQFT6Hw6lU3+mzZvhwqtn3UIrvCT57lzZlwss5ETj2oUJ9Oa6zlHXXh+Q0YwhQjdUCbqZODDh0kebSA=
+	t=1790268455; cv=none; b=NZ3V4D2145E7tfEBtBKSQ5MRK2cjpQJjGG6ngPFXZ/mMK5XWceQixV30lwPAkjqKOxFoHRzp8SlzLNkPc3MhywAdv8dKT1lMysyrKaRM89uP9YQRSa3mPhWwfxj6AI97craRfyr5DCkhkniWrZ310TlZEYIiIVRpTUsF5kZoCs8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790268416; c=relaxed/simple;
-	bh=9G3OJlObGx9Foxnt3wkRhqkCJY2ck3HdrIFqFbEZ+vY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KVfis7vLxDFMrxuybz2rHedmxLiXdmu8dVB6YhevF7+MUJ4/QvbpU40AiD4ksrj0z6/2Gk3KYJTBfXXp7FEYqHmmLIgDccRRTBgHRDLgueLbAtLHSqQk9l6sdAvPeXIKkNeaLX/HI1J0+I/xjSyRtd1S3s0LIyLJFB0JiKityuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e0m+1y7N; arc=none smtp.client-ip=74.125.227.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790268455; c=relaxed/simple;
+	bh=lYyah1hDuQZOEsTqm+q31m9h+3STEU5oM5cnqNTIbJU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=soluZqBEr/zhfjLCy7rauoFtTx3gkR5LG7qdLWqw0GqKQUP2rvGyKPLsBugVame/0IseVX+kuHPNqetZmnuAx/1w3tm8GV63qhsrk63aq0FAZhM2j4bY9m4u/3mGlgbaW6feJgf7FSNk5ZpCyorviW2LoyA4pxkQeYf/GZnZ3zE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QcQIFSt7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e0m+1y7N"
-Received: by mail-pj2-f42.google.com with SMTP id d9443c01a7336-2df4c9d14b8so8083735ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:46:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790268413; x=1790873213; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=7UxPkbr3pw7/EMgMfuUOgi5E5rPkq0lQ/KwSa5X8KYI=;
-        b=e0m+1y7NGoeoU9CgHc+ykxO9paJsMPasCxAmNzr+l7wcFGqvH0o02fkSxGG5NZizyE
-         /oMExbLc16gM4rdG6yZCuNd25AqbKtV1dG//knZrQE0EwR4KCN+/q7rn3J+4FlQmNVOg
-         OWqFgoE/4aJp6jykwbNGHt3yKVjV8BH0PAYMPvztJTIXsQXsW5Xk18ZZfqVA8CB+wCRg
-         bS/YdqkZsPCvjrF+8MxXJjQjWaut42t1PRHZgyInqDujvNKWoEFde7SikLZb66tsAV02
-         Ipv8kl93d55bCF0OUlZ+ZVl60sK4OvgEpLphjx9+YnTydPwyKV3Q/CQ8LK7+plhq8731
-         icKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790268413; x=1790873213;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7UxPkbr3pw7/EMgMfuUOgi5E5rPkq0lQ/KwSa5X8KYI=;
-        b=szG4K9Dftm98wWpO7lmLeObs5riVE70nd5D7dumMW7WmBKXLu+hAhCpRo/KBAJc/cW
-         y7ChywaxsovXTbHWeSsmxYMlJg5Lggpn9AIAxZcHY0pmVCaGwagl9vyZdy12ULVLkqCH
-         nCUnpylhwRoOA/e6iajCATRVcNHInzQIiXUiOElKRWJPSM8zdkZoTNqBbGaSwnKG7vjn
-         8TnqQuxJGnNpYuij2dWJjn1kkkZSEm7TRcPSNeHYq47yLyLYzJS4hWfFEQ6pGsPG16U3
-         7iBvJDjsAtpfZMk0RfRJ0DMCPXK1Pm5vRpe4Ub51WH54MkGhyGxi/IIUcsD/dpQC0Mqv
-         3/Vg==
-X-Forwarded-Encrypted: i=1; AKwUvByrGj/5JncsWN970lEqP7KJPWdLrBvACAcaNe/KJHqxIx0z0HZSgA4JHx09U8/rd5YusVlMLaljEaVuQ6I=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0pQB8ezT31xCC0ZhVpB9HM1E81hTx34fJmH3kY7+mk8NW6HEB
-	Su9N1wGiXBIQ0kw2X0qaD1TcjmM1iz8ZML7Cj1YElJkRQbmZ7ndusivx
-X-Gm-Gg: AYBFou0hOGWdoKK3MkuIB9/BdpeKy5jvtE2nl475pnYljHQcBp4JaUYLfi50BqE3SdQ
-	MX56qqQ006WKFleRuql3zGtXvhB4NPuB7pvqaq0mJWoITpEG9ytOeCNXoh3Q5lzg6tiwPMcIg6R
-	nqXHcyy/OiLVwN9tLWqF2r1hHKlDvo2AdjxsZRYesktUMGMIPIIWcNeSbeMzi/9IxUwztsOgAXE
-	H/cKCSYh5wnKTCejo167+ywjkTsgEH9LUa2fcqk6P/QMUS5pqvkPHPeCbcoIT4GoxaWOcBBv9IO
-	9xsLkpL/O9LgLr88ZEadqsIG4pBdpqnp5KDu1q0nIg8AAZ2uYHdutaRXn8i6fU7rSASgY7n0kfX
-	XSn2scsxva1FzxhFlOfQ/F2sJ0NvkuLEwdQjAN04S6igz8FiW2iittZO7ZElRQVN2/Jl4L4gLjY
-	1lzeR7Tn9aauZCXFQbGMuKrrJdjqYWaujPRMuOIvDactEcY/kiHrf1HODDYr4LE8yG6Q3W1My9y
-	w9JTvv/TfyKZFltpxDOkpk=
-X-Received: by 2002:a17:903:46ce:b0:2dd:ad73:5b5a with SMTP id d9443c01a7336-2df7e26cfc2mr18250965ad.21.1790268413371;
-        Thu, 24 Sep 2026 09:46:53 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5dd166sm30573655ad.54.2026.09.24.09.46.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 09:46:52 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Thu, 24 Sep 2026 09:46:51 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Jean Delvare <jdelvare@suse.com>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] hwmon: (lm75) add MAX31875 support
-Message-ID: <29aade07-55a9-4d32-92e1-c7f410982f29@roeck-us.net>
-References: <20260924084121.82-1-johnerasmusmari.geronimo@analog.com>
- <20260924084121.82-4-johnerasmusmari.geronimo@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QcQIFSt7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 298021F000FF;
+	Thu, 24 Sep 2026 16:47:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790268454;
+	bh=JxHQ5khFYb09ykclMWE/AKm/CGVEPpleCd+ucxmPXQk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=QcQIFSt7l8g7QdaBXdJF3SxjnGyiUxvAds3cuZOLBUk8UeglKgaeDYYXT0EUrJbDg
+	 fViUeQKh9hUa6Ak8ysvU0CuoplWdU/5aq8FqTxdfErGO3ak2fMGM6xiI4LcHauNIxj
+	 tP6LOZTjRGYvdKejkaU98bieQT5RZmZ/D0fNtaEOzWcvzpLZDn3sdnm1KI3KNQI0k1
+	 ngL9iatwu7EWW2aeaPJ9XkhQsjGtD8/Fn6DeLJVWAAWsiRxsrYzwmFVJ5eh0SWkA9C
+	 +lrtefIx089beHN1EsZoc9VrxO1b3T3PnLahoFR0jniErWghbjs++ICfgFywM3j7wi
+	 KfJh4B8g8z1vw==
+From: Mark Brown <broonie@kernel.org>
+To: Frank Li <Frank.Li@nxp.com>, "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: imx@lists.linux.dev, linux-spi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
+In-Reply-To: <20260916-spi-dma-v1-1-2b30657d373d@nxp.com>
+References: <20260916-spi-dma-v1-1-2b30657d373d@nxp.com>
+Subject: Re: [PATCH] spi: use dmaengine_get_dma_device() for DMA mapping
+Message-Id: <179026829086.149798.15115655452552448631.b4-ty@b4>
+Date: Thu, 24 Sep 2026 17:44:50 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924084121.82-4-johnerasmusmari.geronimo@analog.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1118; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=lYyah1hDuQZOEsTqm+q31m9h+3STEU5oM5cnqNTIbJU=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqtVQirb9ifQFsihKFH9arGDlW4Uo/yNa33ZEvU
+ xa1cvnsdX2JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarVUIgAKCRAk1otyXVSH
+ 0BwTCACCpw3pLwe0RMw1kJmhl0161LU+D51ddxeVSu+8vT2r7fhkeSWwf2mYt0/vgeuun1N9MSN
+ uXpiSxjOMW9Np34XvpDO8ucConLURd37CjEEemGW3XE40Azgrkw2rTBIJsJprVQE3wsqFMPSrAt
+ JuYuiwPSFP9zfLIf4UxPR8pkailbLx4FtXjHVAcMWUeHPhQBSLB9IdEMysJZl3m3JSL0QOBV3R2
+ zePsc5FxgU2Xlru/vw4aEdsZSp9yAX+l9WVVuj6hDNudtXY8vQtD3C+QUjU4Kp1oPfeyFcyqo1k
+ zEPNL+7j4nakl5u0HvE9mustzCTi1qZK3wzQwI1dKjQEJWKK
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Thu, Sep 24, 2026 at 04:41:21PM +0800, John Erasmus Mari Geronimo wrote:
-> Add support for the Maxim MAX31875 I2C temperature sensor by
-> extending the lm75 driver. The MAX31875 features a 16-bit
-> configuration register, configurable resolution (8, 9, 10, or
-> 12 bits), and selectable conversion rates (125ms, 250ms, 1s, 4s).
-> 
-> Suggested-by: Guenter Roeck <linux@roeck-us.net>
-> Signed-off-by: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
-> ---
->  drivers/hwmon/Kconfig |  2 +-
->  drivers/hwmon/lm75.c  | 25 +++++++++++++++++++++++++
->  2 files changed, 26 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-> index e4c4f2b09732d..c68b6c3c2f866 100644
-> --- a/drivers/hwmon/Kconfig
-> +++ b/drivers/hwmon/Kconfig
-> @@ -1525,7 +1525,7 @@ config SENSORS_LM75
->  	  If you say yes here you get support for one common type of
->  	  temperature sensor chip, with models including:
->  
-> -		- Analog Devices ADT75
-> +		- Analog Devices ADT75, MAX31875
->  		- Atmel (now Microchip) AT30TS74
->  		- Dallas Semiconductor DS75, DS1775 and DS7505
->  		- Global Mixed-mode Technology (GMT) G751
-> diff --git a/drivers/hwmon/lm75.c b/drivers/hwmon/lm75.c
-> index 104149a03bad0..886f83c8b0420 100644
-> --- a/drivers/hwmon/lm75.c
-> +++ b/drivers/hwmon/lm75.c
-> @@ -39,6 +39,7 @@ enum lm75_type {		/* keep sorted in alphabetical order */
->  	max6625,
->  	max6626,
->  	max31725,
-> +	max31875,
->  	mcp980x,
->  	p3t1750,
->  	p3t1755,
-> @@ -223,6 +224,15 @@ static const struct lm75_params device_params[] = {
->  		.default_resolution = 16,
->  		.default_sample_time = MSEC_PER_SEC / 20,
->  	},
-> +	[max31875] = {
-> +		.config_reg_16bits = true,
-> +		.default_resolution = 10,
-> +		.resolutions = (u8 []) {8, 9, 10, 12 },
+On Wed, 16 Sep 2026 23:30:55 +0800, Peng Fan (OSS) wrote:
+> spi: use dmaengine_get_dma_device() for DMA mapping
 
-This isn't how resolutions vs. sample time is supposed to be handled.
-For most of the lm75 compatible chips, the sample time is associated
-with the resolution: Changing the sample time changes the resolution.
-This is not the case here: the chip has separate configuration register
-bits for sample time and resolution, and the resolution does not change
-automatically if the sample time changes.  The above associates
-8/9/10/12 bit resolution with the 125/250/1000/4000 sample times,
-which is wrong. Instead, .resolutions should not be set at all,
-reflecting the default 10 bit resolution.
+Applied to
 
-> +		.default_sample_time = 4000,
-> +		.num_sample_times = 4,
-> +		.sample_times = (unsigned int []){ 125, 250, 1000, 4000 },
-> +		.alarm = true,
-> +	},
->  	[tcn75] = {
->  		.default_resolution = 9,
->  		.default_sample_time = MSEC_PER_SEC / 18,
-> @@ -421,6 +431,9 @@ static int lm75_read(struct device *dev, enum hwmon_sensor_types type,
->  			case tmp112:
->  				*val = !!(regval & BIT(13)) == !!(regval & BIT(2));
->  				break;
-> +			case max31875:
-> +				*val = (regval >> 7) & 0x1;
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
 
-Please use
-				*val = !!(regval & BIT(7));
-to match the rest of the code. 
+Thanks!
+
+[1/1] spi: use dmaengine_get_dma_device() for DMA mapping
+      https://git.kernel.org/broonie/spi/c/cb5a15943d7d
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-Guenter
+Mark
 
-> +				break;
->  			default:
->  				return -EINVAL;
->  			}
-> @@ -495,6 +508,13 @@ static int lm75_update_interval(struct device *dev, long val)
->  			return err;
->  		data->sample_time = data->params->sample_times[index];
->  		break;
-> +	case max31875:
-> +		err = regmap_update_bits(data->regmap, LM75_REG_CONF,
-> +					 0x0600, (3 - index) << 9);
-> +		if (err < 0)
-> +			return err;
-> +		data->sample_time = data->params->sample_times[index];
-> +		break;
->  	case pct2075:
->  		err = regmap_write(data->regmap, PCT2075_REG_IDLE, index + 1);
->  		if (err)
-> @@ -848,6 +868,7 @@ static const struct i2c_device_id lm75_i2c_ids[] = {
->  	{ .name = "max6626", .driver_data = max6626 },
->  	{ .name = "max31725", .driver_data = max31725 },
->  	{ .name = "max31726", .driver_data = max31725 },
-> +	{ .name = "max31875", .driver_data = max31875 },
->  	{ .name = "mcp980x", .driver_data = mcp980x },
->  	{ .name = "p3t1750", .driver_data = p3t1750 },
->  	{ .name = "p3t1755", .driver_data = p3t1755 },
-> @@ -905,6 +926,10 @@ static const struct of_device_id lm75_of_match[] = {
->  		.compatible = "adi,adt75",
->  		.data = (void *)adt75
->  	},
-> +	{
-> +		.compatible = "adi,max31875",
-> +		.data = (void *)max31875
-> +	},
->  	{
->  		.compatible = "ams,as6200",
->  		.data = (void *)as6200
-> -- 
-> 2.34.1
-> 
-> 
