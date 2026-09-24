@@ -1,71 +1,71 @@
-Received: from mail-oa2-f35.google.com (mail-oa2-f35.google.com [74.125.231.99])
+Received: from mail-oo2-f38.google.com (mail-oo2-f38.google.com [74.125.231.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABDB94C8FFE
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:44:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4C94C4F6C
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:44:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790271885; cv=none; b=p8Xy8noRx1hqVrO0XsoNonNYQDLFB+Aotg+Dfm28Q8NKYr56AloIcbbkeZwRm2zDm+1Rd/2sn7etofYn8hXpCve+5frJ0LY+9q2AUPhwfSrj0SaKl+CEim0hKCokaZW3coFX5NDznao6kY/6NTJmkSwxP2MWev5YOyBnL9KrfN8=
+	t=1790271885; cv=none; b=u1lcrunD14hpAotJBH5b+gEVh6J10cUVm3Q2zQA/AMkoJf/vHD2WtcRG6B9ARjdlhsSKzAtLI9qeXUClv4dsBWcHWdNCyKUFT6ILhd9ona0CwFHndh5m1csiIiw7tYCzPm+GAl/zg8cOXEtLQGARF+s/gxRnCYcqRXYb/pP/wkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790271885; c=relaxed/simple;
-	bh=X9s3Sgeg+Qz0CBFuoc06D8CjvCY8qzDKaEoRAYjmcpw=;
+	bh=9y7gP0E989+z+b6dO4rwjqqTQszRjM8bqv4dlkXEiJ4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gCr5mSXHloOhtPV9aW6/iPgAL3nm6nnKvHUdiISojYLEXBroWx41RyGfDgb0esV3nTnIthjdeZjzqCsyjJrEXXtnbIDMGagMmXCk+yy+9WtTtOh8ik5jQWfs3c76u4K5opsX9CK7f+pVi67y1S/YjzREnXvcy6puCbpORbJAGEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tAddMsfA; arc=none smtp.client-ip=74.125.231.99
+	 In-Reply-To:To:Cc; b=I+C3G26kECiXFKwrKO3gYW0OR9j6gwA+Vd0U5GK0E3Vdf+eE/HjHadxL6Pr+alV1ppri+BAck4N3r39z+N+A3YelMg30+xmDxG3b3g1v9bmaPwP4TjH/bN6CQsEOxkRi28zrL22S+WHZUC2Nqj97rbhcQMPoLT74c7VKE4dis6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=le+dwArn; arc=none smtp.client-ip=74.125.231.166
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tAddMsfA"
-Received: by mail-oa2-f35.google.com with SMTP id 586e51a60fabf-48f0056ef38so213322fac.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:44:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="le+dwArn"
+Received: by mail-oo2-f38.google.com with SMTP id 46e09a7af769-80a71781323so26849a34.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:44:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790271882; x=1790876682; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790271881; x=1790876681; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+nf39wGs2BpcRYOj5iRc1ngLTSaY62SScC50mxJXgkk=;
-        b=tAddMsfAAU1PPSw2FJQfGPBb6Odv8qU2IKRwBjYnrPB0HnuQSHGIFmXGFcmg0mOXfE
-         Lj9erZWNm1FweaStbmSK/flb2iww+b99ydbn6LxUBQ2EutWHbHmQtpfWrwqkE5XfjdEv
-         h047eG/FIiYj7C5Z7I/Nyx1+PRu+/eFlhU0wB7A6ynDkBEsIV7FoovsW5R/jBrbHJcgL
-         1VmBQyiDbJpsthEqGLgVCxP9ACEgkmqkQ5aBxWe46E8Rd6xU0y38x9WHJi2hPpliUkbW
-         2boKDXlzJa5SOWq6rElGvDWg1KmFdyjwYJhku/NAD0Gct9ZW8EoseK7oeisVbdlfn5+B
-         alqg==
+        bh=TtZyr7zD7XzEr4nEzXsxfa6vCpDgYRfpwe/x6NfV/Lc=;
+        b=le+dwArnfPKq6sIKep8+Py2fv/NciejnoOzeaF2N/61B3uyf7e5WqIXLJWK8J0YT65
+         pyUCG8T7rgVk/ubpf4E9jWfxZZ6g9lpfR1rlHoEWcfZtvH4wALnT4B17Emp2jl3jLYGh
+         OHaHvlKjLFVUh57XdXtDNhoneWN8PqRgUzmwlAqpgoSdMGrlVOx+RJkYj2zU8TdMvfy2
+         +vF/0NGnSzARZwHl5yXrLFsd62cXxrS7oxlozlg6dpJxdO4R3JBKbXn6Z4VQPh/3/GT7
+         8ZC91EmihFabca0u6sJMeYnyOjfFg75awsIWcFs2iqdPOnE1U0IsDTXHY8rIgibySqD7
+         04Hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790271882; x=1790876682;
+        d=1e100.net; s=20260707; t=1790271881; x=1790876681;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+nf39wGs2BpcRYOj5iRc1ngLTSaY62SScC50mxJXgkk=;
-        b=MHrZTFmvl/XjGYxfn7bg1+cRJim4XzJgEAItGoNX6c3HmChMCR2t9ry4Rh4Bmm8xK6
-         Vlo3hcR0zlhfCocXqa4w9NjpelOT04rfwMzlkZfya8vfcCFnP0eJjuRWlvQ/jXpyGOcN
-         E76One/as7CFmCjwLpdsqFtl0K8SOpNBnkiwH1Q/dtQlJjCSzJS7m/xUsLXywoZh8HxV
-         LhusnBMf7rFK9go9UrkyECFUVYTOy/pWa5BsycoZISyI7BQrToWgpJm1JJUfl98Wmexi
-         yaib8B6vTvIKuDqjFoDfbYSSFkdL0Vd+bHog316ixBfVZhoNHWH50pe0QbOfBBv1UZLG
-         rZVw==
-X-Forwarded-Encrypted: i=1; AKwUvBzZdUMn54tFvBXPs3UCl0TTHqyM4ttH4ToweeP254N6raQweTGbmSSVlh997/0wTBUPBWfCx+rwdTC58Zw=@vger.kernel.org
-X-Gm-Message-State: AFuF++m9qxgdovJnwYF2WslmWubbHMNGhf4mW3CaaGu+UGI20L1P50JF
-	b7pk/p4MCMSKClshlLL4iSnUzSKH8u5RzdlcZqsvIGjZRRUl6kXWVrPL
-X-Gm-Gg: AYBFou0oZXiQqLgXZFl15ttm1KRbSltYjXlSxBWWRQWZ2YQbI65uxICo5cGs+GjjkVg
-	qdk6IKZUYlbfmb1/eKoU0WDfd+gERici8iRgaVQ+yEg10ZY5jeBb0makeiQ3LZShu+lDNXH1RkA
-	OfCalFI8jX0LHVoVL3sLLqs8jwbCcn9I250jOy0e5o+eWnjo7nFjE9DfS24vXw//EF47BdZXp4V
-	4HvYKIGIlUD8Xam02x/haO9U/J49QkNdIMDK2goiX4KvtmZ5SMApIEihcD4rLqieo7SmFG05qoq
-	8BkiRnECWduoKmD7yiso4XI3oznro3kxilM56e7MXcPTQgb/W4hkKVgMX68SEeUd9X8MfPaofsp
-	pi83o3vpf3nRCAft4IR78+Lv4aEqKZvOaRhVPk14oO4kW7jQHy0Hn/B4y36SKKpWEp57o24EEMk
-	ay6VrTHI9XOoRoXTBzQR7NFYRoPIVrCg0XNWJBJQDiPl/0yCxvjLbcL6XYPOYRztL2CgnVt8m+X
-	kuVEGnHKA814qyt5I2nSotKLHh75tnMydaqQQpy+GmLomGosRZXN+hRdqqbboOYxTA0J4mUP0Vt
-	BzljnnCD/ZpcJGyDdi97hGNm6SBYA/BdYf7zALNUGz0+DRYdZrGUNt6OUCGnTJgI0M5DiqDA8OY
-	uygZPXKeJ356Wgc2FX7QDHg==
-X-Received: by 2002:a05:6871:3a27:b0:479:a30d:60e5 with SMTP id 586e51a60fabf-491e91f05e0mr3134003fac.37.1790271882396;
-        Thu, 24 Sep 2026 10:44:42 -0700 (PDT)
+        bh=TtZyr7zD7XzEr4nEzXsxfa6vCpDgYRfpwe/x6NfV/Lc=;
+        b=LtbRRw/3HrFAJbE2bgeLZij4Rj6UkLaDfZ1GJZOFq8G7n8h/tWoS/nAMbd5+oXS0qo
+         K+moE6PAiL89MtLhUw9VK8gK6UAE/CmGXqxNHdgHHVCr/bzHgIs/xnWPW3T0Mzs0m1MI
+         PTsmIkPyT2tayEHVDBghvifruGaF3l3WMlC5NEC5UqEEkGW0aQ1xji1yNWJ6ZAqQvFt5
+         uLy1kIsvgF3cOQJkO+RqmMgFlhkNVrkOvR3TC6DUC2tqrW42yxJsvVjZxAS3LVVrdGo3
+         2rrEshPnmMB+ioIMZRDsmfIYsgp1Px2WL0QsjafoprzH6BiIylRxU9IIUYezXqx9RrO1
+         k3ww==
+X-Forwarded-Encrypted: i=1; AKwUvBywv4aroHQ3wGGDrYM6DaEltCeo2MHHTYq2peoj7a3quv7nByqOzVnAGqX4MzlDA8nRECCtLeONf7o7Has=@vger.kernel.org
+X-Gm-Message-State: AFuF++kXHDE40Le3EPj/Owu4xoxxvYbHvLLbcORsb8LJ8FS5bhzRWE4o
+	6z9ca+cd/FOSQFwlnvfROT6m0+fw3GHbXsSpCu5BkzQQ7Ljsl+w+BZAU
+X-Gm-Gg: AYBFou25sZDQaO1+AD4NKfSOoJobAu3pqYcnNjRY2YQlAKNNTs5vpI3wDfMALXIe9V2
+	368MUhOZgrJVeINVeYbm9kiTsSPlFJaEeAv3wM1FM7HIGmoApat9MQSi2Djnp0E8VdjlIZyrgl7
+	rD52QQbvw0JZ9hWQNFii65s8WcJSwDxL5/6a78O0BoBe+9mVqiBr19BanUhRaSeZGq+2CxcqW3U
+	j96CTl9vwS/cCaoU8qZPpjlQ3Ytz53VWkJnFP/Pmf8IlwerSaEYv38dTRD0WKx9cWelUlUJDcLZ
+	3oX3QBCa7AO+2UmaN7y9mtGC0wGzwmowIS/YOHwzU1CrgWHJYoSS3u9WDwJ2YSUl1NCZX9Te74D
+	GCmh40eLA3IpAKONe43NBWA/JvlHEEmBiQ/h2HmW0kv3kLHdpCd4ayXj5oqKqLqaGZyyCaCYlas
+	IMlgTeRgYc8Q1Rhh4jbM3OxhPQpgYMkOhpBpk9bI9GliU6zww2JhHji0WtGZ9XJymIMpC75sZmh
+	gBbJNaUOO75iIUouno6lyz7vRUFnZcZc80S/GgIj5ydfr+oA1CXJBTyAioyFkuk5BhTOIX3jHSj
+	iVCgqq0bjTpnL0c1qP4KwvJvDzE8R922KEBbMMuBgTuY72s92TEHqWFinMVs796D6hLTzPopagH
+	eSquCYPQa1BlFozcrWjq7/g==
+X-Received: by 2002:a05:6820:1ca6:b0:6aa:da04:b56f with SMTP id 006d021491bc7-6d43f2c7551mr2947931eaf.3.1790271880781;
+        Thu, 24 Sep 2026 10:44:40 -0700 (PDT)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-491e8f8d14asm3027802fac.0.2026.09.24.10.44.40
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-491e8f8d14asm3027802fac.0.2026.09.24.10.44.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 10:44:41 -0700 (PDT)
+        Thu, 24 Sep 2026 10:44:40 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Thu, 24 Sep 2026 11:44:34 -0600
-Subject: [PATCH net v3 04/10] net: stmmac: leave the datapath running for
- normal-size MTU changes
+Date: Thu, 24 Sep 2026 11:44:33 -0600
+Subject: [PATCH net v3 03/10] net: stmmac: keep datapath state coherent
+ after reinitialization failure
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,7 +74,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-submit-stmmac-reset-fixes-v1-v3-4-c031e3f3a282@gmail.com>
+Message-Id: <20260924-submit-stmmac-reset-fixes-v1-v3-3-c031e3f3a282@gmail.com>
 References: <20260924-submit-stmmac-reset-fixes-v1-v3-0-c031e3f3a282@gmail.com>
 In-Reply-To: <20260924-submit-stmmac-reset-fixes-v1-v3-0-c031e3f3a282@gmail.com>
 To: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, 
@@ -110,44 +110,583 @@ Cc: Richard Genoud <richard.genoud@bootlin.com>,
  Ding Hui <dinghui1111@163.com>, James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-Changing an MTU at or below ETH_DATA_LEN does not change the receive
-buffer size or the MAC receive limit when the previous MTU was also in
-that range. Do not release and reopen the datapath for those changes.
+An MTU change releases the running datapath before reopening it. If the
+reopen fails, its replacement DMA resources are freed, but the netdev is
+still administratively up. A later close repeats NAPI shutdown, IRQ
+release and DMA cleanup. Hardware resume failure has a different partial
+state: suspend disabled NAPI but retained the IRQs and DMA resources, so
+ordinary close can hang in a second napi_disable().
 
-Besides avoiding unnecessary hardware resets and their failure paths,
-this keeps live AF_XDP pool bindings intact. Preparing replacement rings
-before stopping the old rings otherwise binds the pool to a temporary
-RXQ and consumes fill-ring entries while its current RXQ is still active.
-XDP already rejects jumbo MTUs, so all supported live XDP MTU changes can
-use this path without preparing replacement rings.
+Track the datapath independently of the administrative state, with three
+states describing running queues, suspended queues with resources still
+owned, and a released datapath. Separate quiescing the queues from
+releasing their resources, so close can perform only the remaining work.
+Serialize these transitions with RTNL, including suspend and resume.
 
-Keep jumbo transitions on the existing reinitialization path for now.
-The later ownership and rollback changes address that path separately.
+On a failed MTU reopen, leave the PHY attachment and runtime-PM reference
+owned until ndo_stop(), but detach the netdev so the released datapath
+cannot be used. On failed hardware resume, stop any partially initialized
+DMA and leave the retained datapath suspended and detached. Do not call
+netif_close() or change the administrative state. A later successful
+resume can retry the retained datapath; alternatively an ordinary down
+releases it, reattaches the now-down netdev, and permits a fresh open.
+
+Stop phylink directly from its suspended state during close. Do not
+restart it on failed hardware just to balance its shutdown. Preserve
+IRQ-before-final-DMA-stop ordering, and stop DMA on failed open before
+the caller frees the replacement rings, including IRQ-request failure
+after hardware setup has started DMA.
+
+Account for callers which are not excluded by netif_device_detach():
+guard descriptor readback and its queue-count snapshot with RTNL and
+resource ownership, reject TC queue reconfiguration while detached, and
+prevent deferred reset work from reopening the failed interface. Check
+availability under the TX queue lock before XDP transmission. XDP
+configuration must use the actual datapath state rather than IFF_UP.
+AF_XDP pool removal cannot be rejected: release any suspended rings before
+a socket's pool is unmapped and freed, leaving recovery to down/up.
+
+Track completion of the core sleep sequence separately from datapath
+ownership. An administratively-up interface with a failed datapath still
+needs SerDes shutdown, sleep pinctrl and PHY PM handling. Only quiesce
+queues which are actually running, and preserve the resource state so
+resume cannot restart queues whose resources were released.
+
+A platform suspend or early resume failure can leave core sleep state
+pending without a successful system resume before close. Share the
+pinctrl/PMT restoration between resume and close, without restarting the
+link or datapath. Use the installed wake state rather than a subsequently
+changed WoL setting. Retain the pending marker on restoration errors and
+retry on open after acquiring runtime PM; a successful datapath open must
+not simply discard outstanding sleep cleanup.
+
+A failed datapath cannot promise a working MAC WoL path and may have
+released its wake IRQ. Reject suspend with -EBUSY in that case, before
+changing hardware or invoking platform suspend, rather than silently
+losing the configured wake source. Ordinary down/up can recover the
+interface. PHY-only WoL does not require this MAC wake path.
+
+The platform noirq callbacks must also distinguish ownership from IFF_UP:
+XDP cleanup may already have released the PTP clock reference. Do not
+disable that reference twice or acquire a new one on resume, while still
+performing runtime-PM bus-clock transitions.
 
 Fixes: 3470079687448 ("net: ethernet: stmicro: stmmac: permit MTU change with interface up")
+Fixes: 6896c2449a18 ("net: stmmac: Check stmmac_hw_setup() in stmmac_resume()")
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h       |  13 ++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 215 ++++++++++++++++-----
+ .../net/ethernet/stmicro/stmmac/stmmac_platform.c  |  19 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c   |   8 +-
+ 4 files changed, 193 insertions(+), 62 deletions(-)
 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+index 7582fca63741..b35b554e4ab7 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -258,6 +258,15 @@ struct stmmac_msi {
+ 	char int_name_tx_irq[MTL_MAX_TX_QUEUES][IFNAMSIZ + 18];
+ };
+ 
++enum stmmac_datapath_state {
++	/* No IRQs or DMA allocations owned by a successful open. */
++	STMMAC_DATAPATH_DOWN,
++	/* Resources allocated, NAPI enabled. */
++	STMMAC_DATAPATH_RUNNING,
++	/* Resources retained, NAPI and DMA stopped; also after failed resume. */
++	STMMAC_DATAPATH_SUSPENDED,
++};
++
+ struct stmmac_priv {
+ 	/* Frequently used values are kept adjacent for cache effect */
+ 	u32 tx_coal_frames[MTL_MAX_TX_QUEUES];
+@@ -281,6 +290,10 @@ struct stmmac_priv {
+ 	struct mutex lock;
+ 
+ 	struct stmmac_dma_conf dma_conf;
++	/* IRQ/DMA ownership and NAPI state, serialized by RTNL. */
++	enum stmmac_datapath_state datapath;
++	/* Core sleep sequence completed, independently of datapath ownership. */
++	bool hw_suspended;
+ 
+ 	/* Generic channel for NAPI */
+ 	struct stmmac_channel channel[STMMAC_CH_MAX];
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 43a6154fcf6d..f7e91ae21448 100644
+index 4f3d452c3503..43a6154fcf6d 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -6223,7 +6223,12 @@ static int stmmac_change_mtu(struct net_device *dev, int new_mtu)
- 	if ((txfifosz < new_mtu) || (new_mtu > BUF_SIZE_16KiB))
+@@ -4127,6 +4127,37 @@ stmmac_setup_dma_desc(struct stmmac_priv *priv, unsigned int mtu)
+ 	return ERR_PTR(ret);
+ }
+ 
++/* Finish core sleep state even if the platform resume callback failed. */
++static int stmmac_resume_hw(struct stmmac_priv *priv)
++{
++	int ret;
++
++	if (!priv->hw_suspended)
++		return 0;
++
++	/* Use the state installed by suspend, not a subsequently changed WoL
++	 * setting. Clear PMT even when a different device caused the wakeup.
++	 */
++	if (priv->irq_wake) {
++		mutex_lock(&priv->lock);
++		stmmac_pmt(priv, priv->hw, 0);
++		mutex_unlock(&priv->lock);
++		priv->irq_wake = 0;
++	} else {
++		ret = pinctrl_pm_select_default_state(priv->device);
++		if (ret)
++			return ret;
++		if (priv->mii) {
++			ret = stmmac_mdio_reset(priv->mii);
++			if (ret)
++				return ret;
++		}
++	}
++	priv->hw_suspended = false;
++
++	return 0;
++}
++
+ /**
+  *  __stmmac_open - open entry point of the driver
+  *  @dev : pointer to the device structure.
+@@ -4181,6 +4212,7 @@ static int __stmmac_open(struct net_device *dev,
+ 	stmmac_enable_all_queues(priv);
+ 	netif_tx_start_all_queues(priv->dev);
+ 	stmmac_enable_all_dma_irq(priv);
++	priv->datapath = STMMAC_DATAPATH_RUNNING;
+ 
+ 	return 0;
+ 
+@@ -4192,6 +4224,8 @@ static int __stmmac_open(struct net_device *dev,
+ 
+ 	stmmac_release_ptp(priv);
+ init_error:
++	stmmac_stop_all_dma(priv);
++	stmmac_mac_set(priv, priv->ioaddr, false);
+ 	return ret;
+ }
+ 
+@@ -4213,6 +4247,10 @@ static int stmmac_open(struct net_device *dev)
+ 	if (ret < 0)
+ 		goto err_dma_resources;
+ 
++	ret = stmmac_resume_hw(priv);
++	if (ret)
++		goto err_runtime_pm;
++
+ 	ret = stmmac_init_phy(dev);
+ 	if (ret)
+ 		goto err_runtime_pm;
+@@ -4246,25 +4284,38 @@ static int stmmac_open(struct net_device *dev)
+ 	return ret;
+ }
+ 
+-static void __stmmac_release(struct net_device *dev)
++/* Quiesce NAPI and transmit queues without releasing their resources. */
++static void stmmac_quiesce(struct stmmac_priv *priv)
+ {
+-	struct stmmac_priv *priv = netdev_priv(dev);
+ 	u8 chan;
+ 
+-	/* Stop and disconnect the PHY */
+-	phylink_stop(priv->phylink);
+-
+ 	stmmac_disable_all_queues(priv);
+ 
+ 	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
+ 		hrtimer_cancel(&priv->dma_conf.tx_queue[chan].txtimer);
+ 
+-	netif_tx_disable(dev);
++	netif_tx_disable(priv->dev);
++}
++
++static void __stmmac_release(struct net_device *dev)
++{
++	struct stmmac_priv *priv = netdev_priv(dev);
++
++	/* A failed MTU reopen has already released the data path. */
++	if (priv->datapath == STMMAC_DATAPATH_DOWN)
++		return;
++
++	phylink_stop(priv->phylink);
++
++	/* Suspend retains the resources, but has already stopped activity. */
++	if (priv->datapath == STMMAC_DATAPATH_RUNNING)
++		stmmac_quiesce(priv);
++	priv->datapath = STMMAC_DATAPATH_DOWN;
+ 
+ 	/* Free the IRQ lines */
+ 	stmmac_free_irq(dev, REQ_IRQ_ERR_ALL, 0);
+ 
+-	/* Stop TX/RX DMA and clear the descriptors */
++	/* Stop TX/RX DMA after draining IRQ handlers which can restart it. */
+ 	stmmac_stop_all_dma(priv);
+ 
+ 	/* Release and free the Rx/Tx resources */
+@@ -4285,6 +4336,15 @@ static void __stmmac_release(struct net_device *dev)
+ static int stmmac_release(struct net_device *dev)
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
++	int ret;
++
++	/* Resume may have failed before restoring pins or disabling MAC wake.
++	 * Complete that cleanup without restarting the link or the datapath.
++	 * If it fails, keep hw_suspended set so a fresh open can retry it.
++	 */
++	ret = stmmac_resume_hw(priv);
++	if (ret)
++		netdev_err(dev, "failed to restore hardware sleep state: %d\n", ret);
+ 
+ 	/* If the PHY or MAC has WoL enabled, then the PHY will not be
+ 	 * suspended when phylink_stop() is called below. Set the PHY
+@@ -4298,6 +4358,8 @@ static int stmmac_release(struct net_device *dev)
+ 	stmmac_legacy_serdes_power_down(priv);
+ 	phylink_disconnect_phy(priv->phylink);
+ 	pm_runtime_put(priv->device);
++	/* Allow a fresh open after a failed MTU reopen or resume. */
++	netif_device_attach(dev);
+ 
+ 	return 0;
+ }
+@@ -6177,6 +6239,11 @@ static int stmmac_change_mtu(struct net_device *dev, int new_mtu)
+ 		if (ret) {
+ 			free_dma_desc_resources(priv, dma_conf);
+ 			kfree(dma_conf);
++			/*
++			 * Keep the administrative state and PHY/PM ownership until
++			 * ndo_stop(), but prevent use of the released data path.
++			 */
++			netif_device_detach(dev);
+ 			netdev_err(priv->dev, "failed reopening the interface after MTU change\n");
+ 			return ret;
+ 		}
+@@ -6425,6 +6492,8 @@ static int stmmac_setup_tc_block_cb(enum tc_setup_type type, void *type_data,
+ 
+ 	if (!tc_cls_can_offload_and_chain0(priv->dev, type_data))
+ 		return ret;
++	if (!netif_device_present(priv->dev))
++		return -ENETDOWN;
+ 
+ 	__stmmac_disable_all_queues(priv);
+ 
+@@ -6542,12 +6611,14 @@ static int stmmac_rings_status_show(struct seq_file *seq, void *v)
+ {
+ 	struct net_device *dev = seq->private;
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+-	u8 rx_count = priv->plat->rx_queues_to_use;
+-	u8 tx_count = priv->plat->tx_queues_to_use;
+-	u8 queue;
++	u8 rx_count, tx_count, queue;
+ 
+-	if ((dev->flags & IFF_UP) == 0)
+-		return 0;
++	rtnl_lock();
++	if (priv->datapath == STMMAC_DATAPATH_DOWN)
++		goto out_unlock;
++
++	rx_count = priv->plat->rx_queues_to_use;
++	tx_count = priv->plat->tx_queues_to_use;
+ 
+ 	for (queue = 0; queue < rx_count; queue++) {
+ 		struct stmmac_rx_queue *rx_q = &priv->dma_conf.rx_queue[queue];
+@@ -6581,6 +6652,8 @@ static int stmmac_rings_status_show(struct seq_file *seq, void *v)
+ 		}
+ 	}
+ 
++out_unlock:
++	rtnl_unlock();
+ 	return 0;
+ }
+ DEFINE_SHOW_ATTRIBUTE(stmmac_rings_status);
+@@ -6962,6 +7035,18 @@ static int stmmac_bpf(struct net_device *dev, struct netdev_bpf *bpf)
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+ 
++	if (bpf->command != XDP_SETUP_PROG &&
++	    bpf->command != XDP_SETUP_XSK_POOL)
++		return -EOPNOTSUPP;
++
++	/*
++	 * Pool removal must succeed even after a failed resume. Release the
++	 * suspended rings before their pool or XDP buffer layout can change.
++	 * Leave the interface detached until it is closed and reopened.
++	 */
++	if (priv->datapath == STMMAC_DATAPATH_SUSPENDED)
++		__stmmac_release(dev);
++
+ 	switch (bpf->command) {
+ 	case XDP_SETUP_PROG:
+ 		return stmmac_xdp_set_prog(priv, bpf->prog, bpf->extack);
+@@ -6992,6 +7077,10 @@ static int stmmac_xdp_xmit(struct net_device *dev, int num_frames,
+ 	nq = netdev_get_tx_queue(priv->dev, queue);
+ 
+ 	__netif_tx_lock(nq, cpu);
++	if (unlikely(!netif_device_present(dev) || netif_tx_queue_stopped(nq))) {
++		__netif_tx_unlock(nq);
++		return -ENETDOWN;
++	}
+ 	/* Avoids TX time-out as we are sharing with slow path */
+ 	txq_trans_cond_update(nq);
+ 
+@@ -7364,6 +7453,9 @@ static void stmmac_reset_subtask(struct stmmac_priv *priv)
+ 	netdev_err(priv->dev, "Reset adapter.\n");
+ 
+ 	rtnl_lock();
++	if (!netif_device_present(priv->dev))
++		goto out_unlock;
++
+ 	netif_trans_update(priv->dev);
+ 	while (test_and_set_bit(STMMAC_RESETING, &priv->state))
+ 		usleep_range(1000, 2000);
+@@ -7373,6 +7465,7 @@ static void stmmac_reset_subtask(struct stmmac_priv *priv)
+ 	dev_open(priv->dev, NULL);
+ 	clear_bit(STMMAC_DOWN, &priv->state);
+ 	clear_bit(STMMAC_RESETING, &priv->state);
++out_unlock:
+ 	rtnl_unlock();
+ }
+ 
+@@ -8193,34 +8286,41 @@ EXPORT_SYMBOL_GPL(stmmac_dvr_remove);
+ /**
+  * stmmac_suspend - suspend callback
+  * @dev: device pointer
+- * Description: this is the function to suspend the device and it is called
+- * by the platform driver to stop the network queue, release the resources,
+- * program the PMT register (for WoL), clean and release driver resources.
++ * Description: stop network activity and program hardware for system sleep,
++ * preserving any datapath resources still owned for resume or close.
+  */
+ int stmmac_suspend(struct device *dev)
+ {
+ 	struct net_device *ndev = dev_get_drvdata(dev);
+ 	struct stmmac_priv *priv = netdev_priv(ndev);
+-	u8 chan;
+ 
+-	if (!ndev || !netif_running(ndev))
++	rtnl_lock();
++	if (!netif_running(ndev) || priv->hw_suspended) {
++		rtnl_unlock();
+ 		goto suspend_bsp;
++	}
++
++	/* A failed datapath cannot provide a working MAC wake path. It may
++	 * even have released its wake IRQ. Do not silently suspend without WoL.
++	 */
++	if (priv->wolopts && priv->datapath != STMMAC_DATAPATH_RUNNING) {
++		netdev_err(ndev, "cannot suspend failed datapath with MAC WoL enabled\n");
++		rtnl_unlock();
++		return -EBUSY;
++	}
+ 
+ 	mutex_lock(&priv->lock);
+ 
+ 	netif_device_detach(ndev);
+ 
+-	stmmac_disable_all_queues(priv);
+-
+-	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
+-		hrtimer_cancel(&priv->dma_conf.tx_queue[chan].txtimer);
++	if (priv->datapath == STMMAC_DATAPATH_RUNNING)
++		stmmac_quiesce(priv);
+ 
+ 	if (priv->eee_sw_timer_en) {
+ 		priv->tx_path_in_lpi_mode = false;
+ 		timer_delete_sync(&priv->eee_ctrl_timer);
+ 	}
+ 
+-	/* Stop TX/RX DMA */
+ 	stmmac_stop_all_dma(priv);
+ 
+ 	stmmac_legacy_serdes_power_down(priv);
+@@ -8236,12 +8336,14 @@ int stmmac_suspend(struct device *dev)
+ 
+ 	mutex_unlock(&priv->lock);
+ 
+-	rtnl_lock();
+ 	phylink_suspend(priv->phylink, !!priv->wolopts);
+-	rtnl_unlock();
++	if (priv->datapath == STMMAC_DATAPATH_RUNNING)
++		priv->datapath = STMMAC_DATAPATH_SUSPENDED;
++	priv->hw_suspended = true;
+ 
+ 	if (stmmac_fpe_supported(priv))
+ 		ethtool_mmsv_stop(&priv->fpe_cfg.mmsv);
++	rtnl_unlock();
+ 
+ suspend_bsp:
+ 	if (priv->plat->suspend)
+@@ -8305,35 +8407,35 @@ int stmmac_resume(struct device *dev)
+ 			return ret;
+ 	}
+ 
+-	if (!netif_running(ndev))
+-		return 0;
++	rtnl_lock();
++	if (!netif_running(ndev)) {
++		ret = 0;
++		goto out_unlock;
++	}
+ 
+-	/* Power Down bit, into the PM register, is cleared
+-	 * automatically as soon as a magic packet or a Wake-up frame
+-	 * is received. Anyway, it's better to manually clear
+-	 * this bit because it can generate problems while resuming
+-	 * from another devices (e.g. serial console).
+-	 */
+-	if (priv->wolopts) {
+-		mutex_lock(&priv->lock);
+-		stmmac_pmt(priv, priv->hw, 0);
+-		mutex_unlock(&priv->lock);
+-		priv->irq_wake = 0;
+-	} else {
+-		pinctrl_pm_select_default_state(priv->device);
+-		/* reset the phy so that it's ready */
+-		if (priv->mii)
+-			stmmac_mdio_reset(priv->mii);
++	if (priv->hw_suspended) {
++		ret = stmmac_resume_hw(priv);
++		if (ret)
++			goto out_unlock;
++
++		/* Terminate PM speed control without restarting a datapath
++		 * whose IRQs or rings were released before system sleep.
++		 */
++		if (priv->datapath != STMMAC_DATAPATH_SUSPENDED)
++			phylink_stop(priv->phylink);
++	}
++
++	if (priv->datapath != STMMAC_DATAPATH_SUSPENDED) {
++		ret = 0;
++		goto out_unlock;
+ 	}
+ 
+ 	if (!(priv->plat->flags & STMMAC_FLAG_SERDES_UP_AFTER_PHY_LINKUP)) {
+ 		ret = stmmac_legacy_serdes_power_up(priv);
+ 		if (ret < 0)
+-			return ret;
++			goto out_unlock;
+ 	}
+ 
+-	rtnl_lock();
+-
+ 	/* Prepare the PHY to resume, ensuring that its clocks which are
+ 	 * necessary for the MAC DMA reset to complete are running
+ 	 */
+@@ -8349,10 +8451,7 @@ int stmmac_resume(struct device *dev)
+ 	ret = stmmac_hw_setup(ndev);
+ 	if (ret < 0) {
+ 		netdev_err(priv->dev, "%s: Hw setup failed\n", __func__);
+-		stmmac_legacy_serdes_power_down(priv);
+-		mutex_unlock(&priv->lock);
+-		rtnl_unlock();
+-		return ret;
++		goto error_stop_dma;
+ 	}
+ 
+ 	stmmac_init_timestamping(priv);
+@@ -8374,11 +8473,25 @@ int stmmac_resume(struct device *dev)
+ 	 * workqueue thread, which will race with initialisation.
+ 	 */
+ 	phylink_resume(priv->phylink);
+-	rtnl_unlock();
+-
++	priv->datapath = STMMAC_DATAPATH_RUNNING;
+ 	netif_device_attach(ndev);
++	rtnl_unlock();
+ 
+ 	return 0;
++
++error_stop_dma:
++	stmmac_stop_all_dma(priv);
++	stmmac_mac_set(priv, priv->ioaddr, false);
++	stmmac_legacy_serdes_power_down(priv);
++	mutex_unlock(&priv->lock);
++	/*
++	 * Keep the suspended data path detached. A later resume may retry, or
++	 * ndo_stop() can release its resources without disabling NAPI again.
++	 */
++out_unlock:
++	rtnl_unlock();
++
++	return ret;
+ }
+ EXPORT_SYMBOL_GPL(stmmac_resume);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index 6128ed1bd521..9bd622517389 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -958,8 +958,9 @@ static int __maybe_unused stmmac_pltfr_noirq_suspend(struct device *dev)
+ 		return 0;
+ 
+ 	if (!priv->wolopts) {
+-		/* Disable clock in case of PWM is off */
+-		clk_disable_unprepare(priv->plat->clk_ptp_ref);
++		/* A detached datapath may already have released its PTP clock. */
++		if (priv->datapath != STMMAC_DATAPATH_DOWN)
++			clk_disable_unprepare(priv->plat->clk_ptp_ref);
+ 
+ 		ret = pm_runtime_force_suspend(dev);
+ 		if (ret)
+@@ -984,12 +985,14 @@ static int __maybe_unused stmmac_pltfr_noirq_resume(struct device *dev)
+ 		if (ret)
+ 			return ret;
+ 
+-		ret = clk_prepare_enable(priv->plat->clk_ptp_ref);
+-		if (ret < 0) {
+-			netdev_warn(priv->dev,
+-				    "failed to enable PTP reference clock: %pe\n",
+-				    ERR_PTR(ret));
+-			return ret;
++		if (priv->datapath != STMMAC_DATAPATH_DOWN) {
++			ret = clk_prepare_enable(priv->plat->clk_ptp_ref);
++			if (ret < 0) {
++				netdev_warn(priv->dev,
++					    "failed to enable PTP reference clock: %pe\n",
++					    ERR_PTR(ret));
++				return ret;
++			}
+ 		}
+ 	}
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c
+index d7e4db7224b0..909219775507 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c
+@@ -31,7 +31,8 @@ static int stmmac_xdp_enable_pool(struct stmmac_priv *priv,
+ 		return err;
+ 	}
+ 
+-	need_update = netif_running(priv->dev) && stmmac_xdp_is_enabled(priv);
++	need_update = priv->datapath == STMMAC_DATAPATH_RUNNING &&
++		      stmmac_xdp_is_enabled(priv);
+ 
+ 	if (need_update) {
+ 		napi_disable(&ch->rx_napi);
+@@ -69,7 +70,8 @@ static int stmmac_xdp_disable_pool(struct stmmac_priv *priv, u16 queue)
+ 	if (!pool)
  		return -EINVAL;
  
--	if (netif_running(dev)) {
-+	/* Normal-size frames use the same buffers and MAC receive limits.
-+	 * In particular, do not disturb a live AF_XDP pool: XDP does not
-+	 * support jumbo frames, so it never needs the ring replacement below.
-+	 */
-+	if (netif_running(dev) &&
-+	    (dev->mtu > ETH_DATA_LEN || mtu > ETH_DATA_LEN)) {
- 		netdev_dbg(priv->dev, "restarting interface to change its MTU\n");
- 		/* Try to allocate the new DMA conf with the new mtu */
- 		dma_conf = stmmac_setup_dma_desc(priv, mtu);
+-	need_update = netif_running(priv->dev) && stmmac_xdp_is_enabled(priv);
++	need_update = priv->datapath == STMMAC_DATAPATH_RUNNING &&
++		      stmmac_xdp_is_enabled(priv);
+ 
+ 	if (need_update) {
+ 		napi_disable(&ch->rxtx_napi);
+@@ -107,7 +109,7 @@ int stmmac_xdp_set_prog(struct stmmac_priv *priv, struct bpf_prog *prog,
+ 	bool need_update;
+ 	bool if_running;
+ 
+-	if_running = netif_running(dev);
++	if_running = priv->datapath == STMMAC_DATAPATH_RUNNING;
+ 
+ 	if (prog && dev->mtu > ETH_DATA_LEN) {
+ 		/* For now, the driver doesn't support XDP functionality with
 
 -- 
 2.53.0
