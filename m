@@ -1,44 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7433EB7E9;
-	Fri, 25 Sep 2026 17:10:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881A83EB0E3;
+	Fri, 25 Sep 2026 17:10:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790356239; cv=none; b=gjn56EtlMz8XTCe1fgb+8kas5+9evNvgBRW1hKBqvBkaNUI9qgNkOk014KoomZW5IoAnwiRVJz/t8IZhD9OAgRT+kxHEhHyS4rukUDemUlW2Fw9UYCjAaOMf0MvpKxQTDEb6vETW4YEChnRuCWAip90bn/S6DLWdmll0bQxpRKc=
+	t=1790356256; cv=none; b=KbRbVcKbseayIvoeODUK7nds2UXL3WPNmXa/pt27y2A4erdZ1jZ/fGMCxaASxmMvpqD3wyaZBo9oyqw1JR9o6pGShLP8eMOMKWdXrJV6lEmdWBxkiAVRHChReyvNF+muetrFFNUZodpCLEm4+RMiVnDGaJjfJbzcTuRIu5oOrFc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790356239; c=relaxed/simple;
-	bh=Ygqvb0nlPaV2Tf1xs/WFIsuhcdBhupvBv4nz9MxBXLM=;
+	s=arc-20240116; t=1790356256; c=relaxed/simple;
+	bh=btAJTGQM17nfINWzcM50CcOirwQ19hxLz8BOtzLcA/4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Ft4LoZNPGEcAWbgwrKbh7bmyr8KXs+LygLbwGa9+9vxMwVfkszvEYaIHw/YJSfeoCWABV08YsF871nlJNXofS+fNaYBlrHFXIvY+DyYESMRYtmhaq8A3CiIOhP41TCi37ZG2wHMuVE6aO70YYrJHbAm84w3un79l70k0L4/qsLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JgjFgC2H; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=jioYejq1YyrGMWqsKXTdTgklb9Gh5G6+GnbTWzBMBUlpPiSnqPh+dMmHfc+8PeEbpILxUnaTe8YlclyfcHlm36ScRZqANHgxU+e5prsuo3Fl+qDeqkNZ32/fTZgKXJdKQ7evVziEi7mL6NiQzd5W5p0lim6b/K5JThoK09ydi0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lIC+TS1r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JgjFgC2H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FC601F00898;
-	Fri, 25 Sep 2026 17:10:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lIC+TS1r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBBE51F00893;
+	Fri, 25 Sep 2026 17:10:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790356229;
-	bh=a947lQXWFeadyoA8ZzQD//GcVJNTHZjVpoL9FHAmVxs=;
+	s=k20260515; t=1790356235;
+	bh=ZY+JAmDmWtIQ8nQAOLoeWreSqeSKKZ9GlEGYCiTzBVw=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=JgjFgC2HUqN2PMD4+bvirjfcFsiUzN39k6I60NkYatuLekMqxaF9EsIiz+C8VBkt+
-	 gxiXaP5cKcNuCn4JhNZ9htRAUNaO2PvWAaZE0vQDTFm4v6k67usU/mDV917Kn7zz01
-	 S7i+tUVdMOwsQPWRItY3E/YA5sFE5jvlmHD8WKAny+qYbsP6d5MS4dq94gsMcEuPw7
-	 E6M/M/0oos84V3FRZorLESVuMISKyAlADDWe89u1x5sz7L5vcjAwQodnBmTJT1C9rV
-	 YQyDH4s1FfmjxziNdhmGFnRbms1aZC3HVrZ9RCoeFTKR/Ho+M0LhtTvQr62s1oi2Gg
-	 oR0lQASVozmKw==
+	b=lIC+TS1r64GhqZtFkfmCigk1hjosRIX061L6K5cF+BPEwCRYpjdqz4Ln0COS4tOPS
+	 94wL7/3xYqFbYeHI87Z8kZfD1UvrnFqJxNz60hux26d0t1TUq9E9uLsGaRRJJStXrp
+	 4zRbds65I03aBTW2g/q2PiMln3Js9V7iGbDcnMCjEuOOZ5QoyXByz9K53bvXBt8q8t
+	 JrfzR0VSRzK42JJAgmbvvQgyeuYucCfB36XtpIdDADgBLe7V9Bp03bvZev+Gkap+Dy
+	 CJ/Fr1jXZcH6ZDtQioEZ3eBQ6k3VvjSiy+EViVUmOgkZCER58IUfh3gyQf9Bpux1r/
+	 Ho7EjK6pp9kPA==
 From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>, 
- Fabio Estevam <festevam@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>, 
- Shengjiu Wang <shengjiu.wang@gmail.com>, phucduc.bui@gmail.com
-Cc: linuxppc-dev@lists.ozlabs.org, linux-sound@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260917121136.32527-1-phucduc.bui@gmail.com>
-References: <20260917121136.32527-1-phucduc.bui@gmail.com>
-Subject: Re: [PATCH] ASoC: fsl_asrc_m2m: fix pm_runtime usage counter leak
- on error
-Message-Id: <179029056919.149798.2550909245601802568.b4-ty@b4>
-Date: Thu, 24 Sep 2026 23:56:09 +0100
+To: David Rhodes <david.rhodes@cirrus.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+ "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>, 
+ linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+In-Reply-To: <20260924083420.461715-1-peng.fan@oss.nxp.com>
+References: <20260924083420.461715-1-peng.fan@oss.nxp.com>
+Subject: Re: [PATCH] ASoC: use regmap_assign_bits() for conditional
+ set/clear
+Message-Id: <179029244481.149798.12087901953016730058.b4-ty@b4>
+Date: Fri, 25 Sep 2026 00:27:24 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,20 +52,20 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1151; i=broonie@kernel.org;
- h=from:subject:message-id; bh=Ygqvb0nlPaV2Tf1xs/WFIsuhcdBhupvBv4nz9MxBXLM=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqtqsBpL0yr2I9clwK5nMo5F794PRyhj5Ua/Pbt
- 1Q7dQ9nrNCJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCararAQAKCRAk1otyXVSH
- 0CWmB/9jIMqCR7aRiebLCWUIMbe5eD8fiaUTAANBQCOUYWiCn+butoMhZ0tyJiLpJu+m135EaPl
- axwFLp/zKBFgI0Sp2aP/PIVF0rxjvjfCJVhh19i4hh1CxKML1dUYUlal2SmyY9JA6AthEzLki1e
- HjwlFKE1MKJZnCPjNTJ+08dIpvTAxxvII5biSU5UAiEo4/6lM2UT6W3DRqapieQnnteZnS0b2fs
- 0Tf4iJYIt3OH3WIjwXQ20hzrMlDCyf0t9O8X46svIISDe25yzlju/gYNZTmDqnBtAjx3Jrhwzwx
- c8Bu2WcEb+2AnptGzWj5oOmPFFHBtm8WzmIDP94gvuZN8EkG
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1132; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=btAJTGQM17nfINWzcM50CcOirwQ19hxLz8BOtzLcA/4=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqtqsGQa3KIOzA11v0aMkbM/3taweh3nHNDOqXK
+ AAibBZBC0SJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCararBgAKCRAk1otyXVSH
+ 0N4wB/97dJj9Hb3yE5W3Pex5aZp39b0z9qdn81f1AIzfdST/6WhThVQiD4g6s8ASSEuZVonETLW
+ y+6NKn2YLYrx4NOLTIkB9C+aPVQnX9DR5ImwcbskduGdmau5yhY6+PoLs8m2/h7WHqCVZbbSWm/
+ cofCyi3KOsmAO2IhDSMHqe/7PW+NOyQnsed8VYpyzAgZAT9lhbD3Pmafc7E8iewke8OKw5be+Yi
+ OqT/PNwBAIwMCl/SYUAfQD2TS4Frk2LNncRRd8xgw2KcFDMAoS9vxTDMO/yDNHeUa8RtaWLdoyq
+ 9Efk4Cu4eYqbHcWiXY8ztpQwzngPTY0WjSvF061FZZIzKXw6
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Thu, 17 Sep 2026 19:11:36 +0700, phucduc.bui@gmail.com wrote:
-> ASoC: fsl_asrc_m2m: fix pm_runtime usage counter leak on error
+On Thu, 24 Sep 2026 16:34:12 +0800, Peng Fan (OSS) wrote:
+> ASoC: use regmap_assign_bits() for conditional set/clear
 
 Applied to
 
@@ -69,8 +73,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl_asrc_m2m: fix pm_runtime usage counter leak on error
-      https://git.kernel.org/broonie/sound/c/5626653a4bdf
+[1/1] ASoC: use regmap_assign_bits() for conditional set/clear
+      https://git.kernel.org/broonie/sound/c/286ece639c37
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
