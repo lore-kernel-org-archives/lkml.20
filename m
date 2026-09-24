@@ -1,451 +1,151 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC4354A9D4A
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:32:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58331456DE0
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:33:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790267557; cv=none; b=dibWu5A53FRa7AVWGD87SulIrenkVBOeM0jOt4VzrNnbTmwUopHZOMVfrSqcDx4zxy1usi58OD4mr66aoCVRgvrjU/dZNlRh/gp/n3Y/YMJMBiodLTMuXwHLNdYl3O9qpBbvqOd4MP4DtA261d1zvQb5FMrY6sLXEy+REUNxhvs=
+	t=1790267581; cv=none; b=CtTNyV7rRaau27rpY02omGzmKzhh1fLglGXSd3CGS88ieIc0EKAfH2yk/T/PnVyObw+nP+hpti3mpbMRkGnN5Uv25+tFnRYteb1sMf9Z5cd3FSZaGVyMVFVa1g+UZQOYCxH7diyycuIlCfNx0EZAeLQNaNIwnsB1rU5PC2E/fAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790267557; c=relaxed/simple;
-	bh=QKqK1SED9TptquiMTz8o6iZFWqc1IryB3SoRM75XzX8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HkD5xL2cVub+ZnYUeoIUTn3C96JJr5bWf4TwF4oyHeaBfK/ze3ezDEWxx89G8z8+MXmC50rKUYFvq6z0yy9RpCU4g9kh8NghvuMsBEi+IWFw4t9CJkscGp75vswGmVq0IhY35NgIRN8o1oVASspgqv6fe7ERHgj559PAcA/wq6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=PBvZraeb; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	s=arc-20240116; t=1790267581; c=relaxed/simple;
+	bh=6jk4WNq35FvtRPXwxvwFFQkIMdTLJNaw0ZthxIMDruE=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=LDpOOc7Q5IoNGMUgXYc6kteRoaQOqdyIq8tGEiJJf12H/v8LBKZmA2FcTJum+mpDQELqcSbHMQTDHO0eb0M5y+YP3pc+JwdbjUSoRZ7xriuvaxacCqfjV49vZGeESHsX4qk93yZZb6DXEdQSoABnsMXcC/10acwbE9zBqqr2xmY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Liz9XyzJ; arc=none smtp.client-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="PBvZraeb"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db1ca069c8so12355825ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:32:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Liz9XyzJ"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39b77130a7fso63669a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:33:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1790267555; x=1790872355; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=I6+HJ+r+UptjiSYMsQZ7F0EyXLti6EdIuXZaMaexHnY=;
-        b=PBvZraebqGE3zm1+ACk/qywFTCYltCibeQFmvZWXv+uH31/vqAbvX6T78fisI8oH7h
-         rQtbIUssL87exwt7DUQ1YMwyVsz+HVLbqKCeaDprxfRGmpIXFTl9qJzve3nRMsVCGo/5
-         ZJeEkNjRD3r38pAveUgnm9DHZRd9ZtUK46zZ2baSCXS9B9gyxCMdxpvNck49rUJPn/az
-         YuLANk/LNeAfMf4La4mzS7Q4hE+etLVegTJ7Q0RSDKrvMHa9nEuEIS25VeZoUTay5Lau
-         YHwIgy+NMKS/6raVXq6blGA0bxgn1vCxNDWXyZL4Y0OUqW3ybb3t/quSWqndvDjZQkux
-         AiYg==
+        d=google.com; s=20251104; t=1790267580; x=1790872380; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4FrL8f+6ILVgPFeXZ79NGmNXRfQTnNh/rpX573POM54=;
+        b=Liz9XyzJXHDZLtyzO+Ji1OVq/7HSs0ajW1gz5T6luK7zemEnHnhchgrDr6ZzxcSePt
+         4qmTTUFQuQmy4/tX/7B3kCzQucc85DWhXjlj3XAJ5A+mMoOJZgrF0c2xl6N99gtwIMtZ
+         6w7xdUdJvrCY0eBzNbGoGknJLOw1w0yuMIPrW7zhcxGX31zja3ofXdwzzX1kwKC8NsYg
+         ELqfBmHK+uL2xCFxgrnPL1e6rto9WptOqJ4jSLSwhus5kus4NqtjrUt9uZ8/Dd451Lk4
+         LzKIf+XxmieZ5GkffQrZ9hxBAD754W2rnWMqN7LZzkffZHvYa/9DrX9jGqWqe74RogEA
+         L1SQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790267555; x=1790872355;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=I6+HJ+r+UptjiSYMsQZ7F0EyXLti6EdIuXZaMaexHnY=;
-        b=Ud30+vDrDy+NHyi33BSMT0LP35M+Ibf1KzfUnDEdF5rumJb7vu2jF/g7BiG9Kytlci
-         R6glPsOuZDRitodhBwIyVXQ120oKhsPRJ4RQo4/hqqxdE3eAwv49l9HX95HiHNJc/Skm
-         DMAPBcayhNzAjb4MTYtfJSa+iVl+rc87KuaNXoBBIBk7JeEZpgAg1qBQdyhtzp/1e4xS
-         UaV3sDW/e4nI2mQ/88/8wmkSg/AOfAgb47yzcNQEC87+WkcQ3dtfZOu4a/8SzyPH3TE0
-         kT3PnSbMX2ma3nrbsuzjc1yJKwCQ9BMZ5oCXuYNlMWXGF3TmNxP0PhPNsPIjQpOQaX95
-         AcSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwbDqAu5hU6V4Vkqfo3La0r8ho1rRXH/wEH/AfSbQYpntUZyoc1K0HFHh7uT9zgAVS5yCOdGYldf9KkyTc=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5F344rND/202BISDCsKveTAfejD4MeAHczY1rToi8NVuzy3Pa
-	DFHzN2MJY+FhRHEh5jDsl/kZFjn+8LtKUdr3CnU3FR5+VFmzXQPImpaUvS4kx88tdlPT9VUzrBg
-	FCRwYZHiB
-X-Gm-Gg: AYBFou1ykwe+mL6PhJ27LrLLQeN5KF4s/xyWBGKwWeItzWkt7ONQs7G7kj5j+yxCZA/
-	hyqOe/h9oA5O24xaifnxdEINzd656GD0IFgFeT1r1omxGGZzVbsOVotd81EoAh0Tvf4+XZek5iw
-	yrL/08SonxowmUTIDZmLeRfmOBUPcpMFXZo3nULU2cJeip/JIgQp4NkAfH0kp2zh1ZMc/+ZgotS
-	16KOKVH5tvUhCC4g+7aiyBThCXEj4lnmD4g8cN3tyzE2wWNJvKt3hMQt4+3sDsILPuUAvIOmhZh
-	C5yMYEagTya9nw0kkIJmppXWsLzWPgYuOnPhamvodY9G7Ik1iX1VW3wMdktcq7vwe/JuCxtHgHC
-	yS/E2tbzLr7iWF/NmH0mXduA9DFuqTznd10O1pLT2a35FMPXBud6xAlwruUuOiqzx4cIrsFvyGi
-	rymXmku0aMc0xCdtlB40+hlXphjtvWpK9fEvkovv3PwwE6J5MvgqROpSnedlseQsuU7R5hnhpZ4
-	AJKc9aP5mjSl0Fj4dpNkKXpYpCqtg==
-X-Received: by 2002:a17:902:f54a:b0:2dd:c100:b2cc with SMTP id d9443c01a7336-2df7dd61e8amr25516075ad.55.1790267554822;
-        Thu, 24 Sep 2026 09:32:34 -0700 (PDT)
-Received: from 954df21a5119.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5eea15sm30365205ad.64.2026.09.24.09.32.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 09:32:33 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: netdev@vger.kernel.org
-Cc: zihanx@nebusec.ai,
-	linux-kernel@vger.kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	stable@vger.kernel.org,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>
-Subject: [PATCH net v12 1/1] llc: fix listener child socket leaks
-Date: Thu, 24 Sep 2026 16:32:11 +0000
-Message-ID: <2af9949fc349d17b53db432893abb4d2e97932ce.1790255682.git.zihanx@nebusec.ai>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1790255682.git.zihanx@nebusec.ai>
-References: <cover.1790255682.git.zihanx@nebusec.ai>
+        d=1e100.net; s=20260707; t=1790267580; x=1790872380;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4FrL8f+6ILVgPFeXZ79NGmNXRfQTnNh/rpX573POM54=;
+        b=EA+cggYs7bGdRwKzh48B/T/WTXRcGjWdgOHw5FwfTejwlMs18546tD/2Yc0l0NuIlN
+         V9vnpyS45izVQXi36kKbxzBb1P8b+5ngBkluTWyknK2ny8ynQbyg2z+6W/BF2PoX2YCL
+         Bp1xlReSwCpD/hRslVUhdSomqGm8CFwiGxjZpK2patFSS/Xz+XbJPxO/WkprgTjS7OWp
+         j/IhcIdB7XVNCitV/p5CCYcDjjPbNlVRGMW5iHA5jT+Cjek66qdgK4hsen+sVijG8mO/
+         d6U37Z9n/uDjOIdcXm3uwL9e6UnZrD8JdSajDrvXmlWZsvEdWEEvZB9o7L1Md5tojLxh
+         6z9g==
+X-Forwarded-Encrypted: i=1; AKwUvBzOSfJfZq6pIl1/WD1Wvwzyhu1YfGPfU9i7Kqgzds4R+N/L46LdxL1lKx4Od3KAZFmWm4D46Iw0KcHxj0g=@vger.kernel.org
+X-Gm-Message-State: AFuF++lz3mjb2MGJxjpXpyjCocidJO+wPNFOlJNUhG606RoknLqXLX9i
+	zcIAdr7NRNKxE+EI1LBBxkKjSvpY6Db49OO9UEr+gAHhVPQqUjXELizklZzDn0GIGBTIIK1Tjn3
+	UTHRFzw==
+X-Received: from pgdu19.prod.google.com ([2002:a05:6a02:2f53:b0:cc7:5e81:4448])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2250:b0:39e:4c7f:8b1b
+ with SMTP id 98e67ed59e1d1-3a098e37392mr2572091a91.32.1790267579477; Thu, 24
+ Sep 2026 09:32:59 -0700 (PDT)
+Date: Thu, 24 Sep 2026 09:32:58 -0700
+In-Reply-To: <20260922071945.693714-2-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260922071945.693714-1-fuad.tabba@linux.dev> <20260922071945.693714-2-fuad.tabba@linux.dev>
+Message-ID: <arVQutV75u2gGVr4@google.com>
+Subject: Re: [PATCH v2 1/2] KVM: selftests: Fix arm64 sysreg header dependencies
+From: Sean Christopherson <seanjc@google.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>, 
+	Oliver Upton <oupton@kernel.org>, Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	"Michal =?utf-8?Q?Koutn=C3=BD?=" <mkoutny@suse.com>, James Houghton <jthoughton@google.com>, Will Deacon <will@kernel.org>, 
+	Fuad Tabba <tabba@google.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
+	cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-LLC listener processing could retain child sockets and their SAP and
-netdevice references when passive-open setup did not complete, potentially
-exhausting kernel resources.
+On Tue, Sep 22, 2026, Fuad Tabba wrote:
+> The rule generating the arm64 sysreg header targets the generated
+> directory, and its only prerequisite is tools/arch/arm64/tools/*,
+> which expands to the inner Makefile. An existing directory looks up
+> to date, so an incremental build never regenerates sysreg-defs.h for
+> a change to the sysreg table. A selftest referencing a register added
+> to the table since then fails with undeclared SYS_* identifiers. Clean
+> builds are unaffected.
+> 
+> Always recurse into tools/arch/arm64/tools, whose Makefile already
+> tracks the generator's inputs, and target the header rather than its
+> directory. The recursion leaves the header untouched when nothing
+> changed, so the dependents rebuild only when the header does.
+> 
+> Fixes: 70c7b704ca725 ("KVM: selftests: Avoid using forced target for generating arm64 headers")
+> Link: https://lore.kernel.org/r/arGRhHgP_izSwW4T@kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+>  tools/testing/selftests/kvm/Makefile.kvm | 16 +++++++++++-----
+>  1 file changed, 11 insertions(+), 5 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
+> index 96bab7002d39e..81dca3dbc16b4 100644
+> --- a/tools/testing/selftests/kvm/Makefile.kvm
+> +++ b/tools/testing/selftests/kvm/Makefile.kvm
+> @@ -303,10 +303,16 @@ arm64_hdr_outdir := $(tools_dir)/
+>  endif
+>  
+>  GEN_HDRS := $(arm64_hdr_outdir)arch/arm64/include/generated/
+> +GEN_SYSREG_DEFS := $(GEN_HDRS)asm/sysreg-defs.h
+>  CFLAGS += -I$(GEN_HDRS)
+>  
+> -$(GEN_HDRS): $(wildcard $(arm64_tools_dir)/*)
+> +# The inner Makefile tracks the generator's inputs and leaves the header
+> +# untouched when nothing changed, so dependents rebuild only when it does.
+> +$(GEN_SYSREG_DEFS): FORCE
+>  	$(MAKE) -C $(arm64_tools_dir) OUTPUT=$(arm64_hdr_outdir)
+> +
+> +FORCE:
+> +.PHONY: FORCE
+>  endif
 
-Tie unaccepted-child cleanup to the connection indication and handle
-failure and listener-teardown paths. Account pending indications against
-the accept backlog, and retain the receive device while deferred packets
-are processed.
+Definitely doesn't have to be now, but at some point should we split out some of
+this arch-specific sub-Makefiles?  It's nice not having to hunt around to figure
+out which tests are supported by which arch, but the amount of arch specific goo
+we're accruing is getting unwieldy.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
----
-changes in v12:
-  - Order llc_conn_handler() locals in reverse Christmas tree order.
-  - Limit child creation to SABME; preserve listener-side DM responses for
-    DISC and other P=1 commands.
-  - Hold skb->dev through backlog processing and drop ownerless deferred
-    SABMEs if the listener leaves TCP_LISTEN before drain.
-  - Keep accept-queue accounting and release unaccepted children on
-    failure and teardown.
-  - v11 Link:
-    https://lore.kernel.org/all/cover.1790062133.git.zihanx@nebusec.ai/
-
-changes in v11:
-  - Defer listener child creation until backlog admission and disable
-    bottom halves while publishing and processing a new child.
-  - v10 Link:
-    https://lore.kernel.org/all/cover.1789824800.git.zihanx@nebusec.ai/
-
-changes in v10:
-  - Complete SABME failure and teardown cleanup, count indications against
-    the accept backlog, and serialize child publication and lookup.
-  - v9 Link:
-    https://lore.kernel.org/all/cover.1789216793.git.zihanx@nebusec.ai/
-
-changes in v9:
-  - Narrow the fix to non-SABME listener leaks; preserve the SABME child
-    lifecycle and handle DISC/P=1 commands with listener-side DM replies.
-  - v8 Link:
-    https://lore.kernel.org/all/abc8b115321dbd417b8491d9e51f1988998ff50e.1788707641.git.zihanx@nebusec.ai/
-
-changes in v8:
-  - Correct queued-child reference handling and prevent stale or released
-    children from reaching accept and backlog state-machine paths.
-  - v7 Link:
-    https://lore.kernel.org/all/cover.1788414881.git.zihanx@nebusec.ai/
-
-changes in v7:
-  - Drop the overlapping LLC state-bound patch and keep the listener leak
-    fix, with child teardown and reproducer/crash evidence updates.
-  - v6 Link:
-    https://lore.kernel.org/all/cover.1787752861.git.zihanx@nebusec.ai/
-
-changes in v6:
-  - Track pending-child references across accept, receive, backlog and
-    listener close paths.
-  - v5 Link:
-    https://lore.kernel.org/all/20260822082354.3109-1-zihanx@nebusec.ai/
-
-changes in v5:
-  - Reclaim pending children on listener-state/close paths and split the
-    LLC_CONN_OUT_OF_SVC state-bound change into a separate patch.
-  - v4 Link:
-    https://lore.kernel.org/all/20260814185843.4748-1-zihanx@nebusec.ai/
-
-changes in v4:
-  - Introduce SABME-only child creation, listener DM replies and serialized
-    rollback/close cleanup for unaccepted children.
-  - v3 Link:
-    https://lore.kernel.org/all/20260805175945.10698-1-zihanx@nebusec.ai/
-
-changes in v3:
-  - Remove an unused local and rebase the patch.
-  - v2 Link:
-    https://lore.kernel.org/all/cover.1785386749.git.zihanx@nebusec.ai/
-
-changes in v2:
-  - Preserve SAP tuple matching while tracking pending children and
-    reclaiming them on failure/drop paths; correct Fixes attribution.
-  - v1 Link:
-    https://lore.kernel.org/all/cover.1784725007.git.zihanx@nebusec.ai/
----
-
- net/llc/llc_conn.c | 175 +++++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 163 insertions(+), 12 deletions(-)
-
-diff --git a/net/llc/llc_conn.c b/net/llc/llc_conn.c
-index 260460d50f54c..77044720f12ff 100644
---- a/net/llc/llc_conn.c
-+++ b/net/llc/llc_conn.c
-@@ -32,6 +32,7 @@ static int llc_exec_conn_trans_actions(struct sock *sk,
- 				       struct sk_buff *ev);
- static const struct llc_conn_state_trans *llc_qualify_conn_ev(struct sock *sk,
- 							      struct sk_buff *skb);
-+static void __llc_sk_free(struct sock *sk, bool sync);
- 
- /* Offset table on connection states transition diagram */
- static int llc_offset_table[NBR_CONN_STATES][NBR_CONN_EV];
-@@ -90,6 +91,8 @@ int llc_conn_state_process(struct sock *sk, struct sk_buff *skb)
- 		 */
- 		skb_get(skb);
- 		skb_queue_tail(&sk->sk_receive_queue, skb);
-+		if (sk->sk_state == TCP_LISTEN)
-+			sk_acceptq_added(sk);
- 		sk->sk_state_change(sk);
- 		break;
- 	case LLC_DISC_PRIM:
-@@ -765,14 +768,124 @@ static struct sock *llc_create_incoming_sock(struct sock *sk,
- 	memcpy(&newllc->laddr, daddr, sizeof(newllc->laddr));
- 	memcpy(&newllc->daddr, saddr, sizeof(newllc->daddr));
- 	newllc->dev = dev;
--	dev_hold(dev);
-+	netdev_hold(dev, &newllc->dev_tracker, GFP_ATOMIC);
-+	/* Serialize packets that can find the child after it is hashed. */
-+	bh_lock_sock_nested(newsk);
- 	llc_sap_add_socket(llc->sap, newsk);
- out:
- 	return newsk;
- }
- 
-+static bool llc_sk_unhashed(const struct sock *sk)
-+{
-+	return hlist_nulls_unhashed_lockless(&sk->sk_nulls_node);
-+}
-+
-+static void llc_free_incoming_sock(struct sock *sk, bool bh_locked)
-+{
-+	struct llc_sock *llc = llc_sk(sk);
-+	struct llc_sap *sap = llc->sap;
-+	struct net_device *dev = llc->dev;
-+
-+	if (!bh_locked) {
-+		local_bh_disable();
-+		bh_lock_sock_nested(sk);
-+	}
-+	llc->state = LLC_CONN_OUT_OF_SVC;
-+	/* Keep both objects alive through timer teardown. */
-+	llc_sap_hold(sap);
-+	netdev_hold(dev, NULL, GFP_ATOMIC);
-+	llc_sap_remove_socket(sap, sk);
-+	bh_unlock_sock(sk);
-+	if (!bh_locked)
-+		local_bh_enable();
-+	netdev_put(dev, &llc->dev_tracker);
-+	sock_orphan(sk);
-+	/* Initial SABME setup arms no timers before it can fail. */
-+	__llc_sk_free(sk, !bh_locked);
-+	netdev_put(dev, NULL);
-+	llc_sap_put(sap);
-+}
-+
-+static void llc_conn_ind_rfree(struct sk_buff *skb)
-+{
-+	struct sock *sk = skb->sk;
-+
-+	sock_rfree(skb);
-+	if (!sk->sk_socket)
-+		llc_free_incoming_sock(sk, false);
-+}
-+
-+static void llc_conn_send_dm_rsp(struct llc_sap *sap, struct sk_buff *skb,
-+				 const struct llc_addr *saddr, u8 f_bit)
-+{
-+	struct sk_buff *nskb;
-+	int rc;
-+
-+	nskb = llc_alloc_frame(NULL, skb->dev, LLC_PDU_TYPE_U, 0);
-+	if (!nskb)
-+		return;
-+
-+	llc_pdu_header_init(nskb, LLC_PDU_TYPE_U, sap->laddr.lsap,
-+			    saddr->lsap, LLC_PDU_RSP);
-+	llc_pdu_init_as_dm_rsp(nskb, f_bit);
-+	rc = llc_mac_hdr_init(nskb, skb->dev->dev_addr, saddr->mac);
-+	if (unlikely(rc))
-+		kfree_skb(nskb);
-+	else
-+		dev_queue_xmit(nskb);
-+}
-+
-+static void llc_listener_send_dm(struct llc_sap *sap, struct sock *sk,
-+				 struct sk_buff *skb, const struct llc_addr *saddr)
-+{
-+	if (!llc_conn_ev_rx_disc_cmd_pbit_set_x(sk, skb)) {
-+		u8 f_bit;
-+
-+		llc_pdu_decode_pf_bit(skb, &f_bit);
-+		llc_conn_send_dm_rsp(sap, skb, saddr, f_bit);
-+	} else if (!llc_conn_ev_rx_xxx_cmd_pbit_set_1(sk, skb)) {
-+		llc_conn_send_dm_rsp(sap, skb, saddr, 1);
-+	}
-+}
-+
-+static int llc_conn_rcv_sabme(struct sock *sk, struct sk_buff *skb,
-+			      struct llc_addr *saddr,
-+			      struct llc_addr *daddr)
-+{
-+	struct sock *newsk;
-+	int rc;
-+
-+	if (sk_acceptq_is_full(sk))
-+		goto drop;
-+
-+	local_bh_disable();
-+	newsk = llc_create_incoming_sock(sk, skb->dev, saddr, daddr);
-+	if (!newsk) {
-+		local_bh_enable();
-+		goto drop;
-+	}
-+	skb_set_owner_r(skb, newsk);
-+	rc = llc_conn_rcv(sk, skb);
-+	if (unlikely(rc || llc_sk(newsk)->state != LLC_CONN_STATE_NORMAL)) {
-+		if (!rc)
-+			rc = -EINVAL;
-+		llc_free_incoming_sock(newsk, true);
-+	} else {
-+		/* The indication owns the child until accept() grafts it. */
-+		skb->destructor = llc_conn_ind_rfree;
-+		bh_unlock_sock(newsk);
-+	}
-+	local_bh_enable();
-+	return rc;
-+drop:
-+	kfree_skb(skb);
-+	return 0;
-+}
-+
- void llc_conn_handler(struct llc_sap *sap, struct sk_buff *skb)
- {
-+	struct net_device *backlog_dev = NULL;
- 	struct llc_addr saddr, daddr;
- 	struct sock *sk;
- 
-@@ -786,6 +899,10 @@ void llc_conn_handler(struct llc_sap *sap, struct sk_buff *skb)
- 		goto drop;
- 
- 	bh_lock_sock(sk);
-+	if (unlikely(llc_sk_unhashed(sk)))
-+		goto drop_unlock;
-+	if (unlikely(llc_sk(sk)->state == LLC_CONN_OUT_OF_SVC))
-+		goto drop_unlock;
- 	/*
- 	 * This has to be done here and not at the upper layer ->accept
- 	 * method because of the way the PROCOM state machine works:
-@@ -795,11 +912,14 @@ void llc_conn_handler(struct llc_sap *sap, struct sk_buff *skb)
- 	 * in the newly created struct sock private area. -acme
- 	 */
- 	if (unlikely(sk->sk_state == TCP_LISTEN)) {
--		struct sock *newsk = llc_create_incoming_sock(sk, skb->dev,
--							      &saddr, &daddr);
--		if (!newsk)
-+		if (llc_conn_ev_rx_sabme_cmd_pbit_set_x(sk, skb)) {
-+			llc_listener_send_dm(sap, sk, skb, &saddr);
- 			goto drop_unlock;
--		skb_set_owner_r(skb, newsk);
-+		}
-+		if (!sock_owned_by_user(sk)) {
-+			llc_conn_rcv_sabme(sk, skb, &saddr, &daddr);
-+			goto out;
-+		}
- 	} else {
- 		/*
- 		 * Can't be skb_set_owner_r, this will be done at the
-@@ -813,13 +933,16 @@ void llc_conn_handler(struct llc_sap *sap, struct sk_buff *skb)
- 		skb->sk = sk;
- 		skb->destructor = sock_efree;
- 	}
--	if (!sock_owned_by_user(sk))
--		llc_conn_rcv(sk, skb);
--	else {
-+	if (sock_owned_by_user(sk)) {
- 		dprintk("%s: adding to backlog...\n", __func__);
- 		llc_set_backlog_type(skb, LLC_PACKET);
-+		/* The backlog can outlive the RCU protection of skb->dev. */
-+		backlog_dev = skb->dev;
-+		netdev_hold(backlog_dev, NULL, GFP_ATOMIC);
- 		if (sk_add_backlog(sk, skb, READ_ONCE(sk->sk_rcvbuf)))
- 			goto drop_unlock;
-+	} else {
-+		llc_conn_rcv(sk, skb);
- 	}
- out:
- 	bh_unlock_sock(sk);
-@@ -830,6 +953,7 @@ void llc_conn_handler(struct llc_sap *sap, struct sk_buff *skb)
- 	return;
- drop_unlock:
- 	kfree_skb(skb);
-+	netdev_put(backlog_dev, NULL);
- 	goto out;
- }
- 
-@@ -852,12 +976,33 @@ static int llc_backlog_rcv(struct sock *sk, struct sk_buff *skb)
- {
- 	int rc = 0;
- 	struct llc_sock *llc = llc_sk(sk);
-+	struct net_device *dev = NULL;
- 
- 	if (likely(llc_backlog_type(skb) == LLC_PACKET)) {
--		if (likely(llc->state > 1)) /* not closed */
--			rc = llc_conn_rcv(sk, skb);
--		else
-+		/* Drop the reference acquired before the skb entered the backlog. */
-+		dev = skb->dev;
-+		if (unlikely(sk->sk_state == TCP_LISTEN)) {
-+			struct llc_addr saddr, daddr;
-+
-+			if (llc_sk_unhashed(sk) ||
-+			    llc->state == LLC_CONN_OUT_OF_SVC)
-+				goto out_kfree_skb;
-+			if (llc_conn_ev_rx_sabme_cmd_pbit_set_x(sk, skb)) {
-+				llc_pdu_decode_sa(skb, saddr.mac);
-+				llc_pdu_decode_ssap(skb, &saddr.lsap);
-+				llc_listener_send_dm(llc->sap, sk, skb, &saddr);
-+				goto out_kfree_skb;
-+			}
-+			llc_pdu_decode_sa(skb, saddr.mac);
-+			llc_pdu_decode_ssap(skb, &saddr.lsap);
-+			llc_pdu_decode_da(skb, daddr.mac);
-+			llc_pdu_decode_dsap(skb, &daddr.lsap);
-+			rc = llc_conn_rcv_sabme(sk, skb, &saddr, &daddr);
-+			goto out;
-+		} else if (unlikely(llc->state <= 1 || !skb->sk)) {
- 			goto out_kfree_skb;
-+		}
-+		rc = llc_conn_rcv(sk, skb);
- 	} else if (llc_backlog_type(skb) == LLC_EVENT) {
- 		/* timer expiration event */
- 		if (likely(llc->state > 1))  /* not closed */
-@@ -869,6 +1014,7 @@ static int llc_backlog_rcv(struct sock *sk, struct sk_buff *skb)
- 		goto out_kfree_skb;
- 	}
- out:
-+	netdev_put(dev, NULL);
- 	return rc;
- out_kfree_skb:
- 	kfree_skb(skb);
-@@ -964,12 +1110,17 @@ void llc_sk_stop_all_timers(struct sock *sk, bool sync)
-  *	Frees a LLC socket
-  */
- void llc_sk_free(struct sock *sk)
-+{
-+	__llc_sk_free(sk, true);
-+}
-+
-+static void __llc_sk_free(struct sock *sk, bool sync)
- {
- 	struct llc_sock *llc = llc_sk(sk);
- 
- 	llc->state = LLC_CONN_OUT_OF_SVC;
- 	/* Stop all (possibly) running timers */
--	llc_sk_stop_all_timers(sk, true);
-+	llc_sk_stop_all_timers(sk, sync);
- #ifdef DEBUG_LLC_CONN_ALLOC
- 	printk(KERN_INFO "%s: unackq=%d, txq=%d\n", __func__,
- 		skb_queue_len(&llc->pdu_unack_q),
--- 
-2.43.0
-
+>  no-pie-option := $(call try-run, echo 'int main(void) { return 0; }' | \
+> @@ -359,10 +365,10 @@ EXTRA_CLEAN += $(GEN_HDRS) \
+>  	       $(TEST_GEN_OBJ) \
+>  	       cscope.*
+>  
+> -$(LIBKVM_C_OBJ): $(OUTPUT)/%.o: %.c $(GEN_HDRS)
+> +$(LIBKVM_C_OBJ): $(OUTPUT)/%.o: %.c $(GEN_SYSREG_DEFS)
+>  	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
+>  
+> -$(LIBKVM_S_OBJ): $(OUTPUT)/%.o: %.S $(GEN_HDRS)
+> +$(LIBKVM_S_OBJ): $(OUTPUT)/%.o: %.S $(GEN_SYSREG_DEFS)
+>  	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
+>  
+>  # Compile the string overrides as freestanding to prevent the compiler from
+> @@ -372,10 +378,10 @@ $(LIBKVM_STRING_OBJ): $(OUTPUT)/%.o: %.c
+>  	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c -ffreestanding $< -o $@
+>  
+>  $(shell mkdir -p $(sort $(dir $(TEST_GEN_PROGS))))
+> -$(SPLIT_TEST_GEN_OBJ): $(GEN_HDRS)
+> +$(SPLIT_TEST_GEN_OBJ): $(GEN_SYSREG_DEFS)
+>  $(TEST_GEN_PROGS): $(LIBKVM_OBJS)
+>  $(TEST_GEN_PROGS_EXTENDED): $(LIBKVM_OBJS)
+> -$(TEST_GEN_OBJ): $(GEN_HDRS)
+> +$(TEST_GEN_OBJ): $(GEN_SYSREG_DEFS)
+>  
+>  cscope: include_paths = $(LINUX_TOOL_INCLUDE) $(LINUX_HDR_PATH) include lib ..
+>  cscope:
+> -- 
+> 2.39.5
+> 
