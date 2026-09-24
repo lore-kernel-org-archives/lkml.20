@@ -1,262 +1,168 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012005.outbound.protection.outlook.com [40.107.209.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f8.google.com (mail-oo2-f8.google.com [74.125.231.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78C0342C4F7;
-	Thu, 24 Sep 2026 20:34:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.5
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790282081; cv=fail; b=gsv71lDQC38XdgijJzygZgml4V59F4jsOBWaPtNxZE5Sl/vAS5k+agg/NDxWJzgyxeO1uUvLQOyPQ2pZUtdkFIjplqD4v81r7uCj0ryZwX9NCyB61SSw/67M+iaKYynN+XNijkT+LlY0EzUWgVkmYIG5FW53kzwlENrjlAzSn5o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790282081; c=relaxed/simple;
-	bh=Rgk/xbvZLolHJDEfh/OfxcYD0TL4f125Cnw9LyiZ5MU=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=V2FGdV2EZiHTN6Ab9HrPT0Azel/wz8u7y8bHd2PFeHSwHTs7SaDl/jsJjiGwnfTVzInkyfQHGIJbcfRaQ0J7A7G8j1i/axJtLetTrp9vLXMLCmRJxRomiJzm+WyxgqjFyGknaFkGM4xykNgmQpCMVQ9l1pbPAx/O6PzkbdiPuYc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=3Thkac5U; arc=fail smtp.client-ip=40.107.209.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1AE4423783
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:35:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.136
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790282116; cv=none; b=rGl4aiZ0my6gzRHB6VeBWYIOw0kw3s/68HwVGmezb8u8jQP22tYyRwR/L7x8gjZ9HosQq2996baDIdDQG+JBvP2x50eG9fF6SbZJPNft22kY0lL8fYF8CUxQqJeJEoryxFokmZBTysINyC4J4qzaCkQfOUJYt2IDcvBU1DjzYSI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790282116; c=relaxed/simple;
+	bh=8g4cY0GEAIASt26IdZp/Z/yDTTQdKOaRlsmSarqsPM0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=D0Tslp1+oxGOoxjGR9LvfiT5cvpzywYrFXCGuVzkuQBSC0jU9hDszpN76Ug6JTPB+MrflTsPGIKWGPhYGqBwtbu4tk+a9byIo6UlzkQfEQW3IxIlqD1ktIaGgfUnEAHGOIpQuu2NxGNg4totjHVdywqjx4t7E0rmjqxnIIwmEHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=NIIEza2M; arc=none smtp.client-ip=74.125.231.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="3Thkac5U"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JVy5IkH+vEoo9rBjC2ukKjn+cUh63S463HQREFOOk6o+Ql/FANr7my3OSNMQbDYnE7xNV4/1I3wVCbmWbF6NZYpo/J+Z9Wu+0hFot6s2IKtueHtBvtE5B47NXUqBxOEGDSV/fUuwWefP2y05wh0Z39/8HI/thPMv4W4MmyPO9bW+AE9NMA+Dbz56W6JssPm2093atj1CBCBaY+k3NZrDNYo4jPWEEj2c1rhMoKtyTek7Q3X1t9CaVjmxNOKx+k2d8GLv5CpY9EdoYGj0TIlgpLQlN45USScf7v63F8/3fFjEyJYpUCC3a7LjwhHILh14dnXt3QqLfsY3flGhYnyi8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Lokh5C2Gpc1F/DsUewbixJ+4NIw3Xs1x+HHyTa8+J0g=;
- b=MU//LBUuIU3qpLB95AhOHBbM8sQOfY08TgR2ZxNV0k0gukNCNuYkWNPuLt3uNy/VXnA0A97y8rN+JkxElzeaYjUFz6l6Hb+jx1KcnT2VWEUlppndvuwF/3SkZGAZ85UbVS5m6kxJs/stHnunqEvcpEdFNZL46nRNsRjRr6nepfgHIxntdqR+dSzNGqPwllE7tu1XZXuu9g6qXpwxgo15KPHOf6c5hBZtX6REQXEK3u4JxM8wgXiifRJIxiX3HY8NbCIymHeZUwOJiAKXIgyVacaS/YarR08bEbnSYTXC2yPD+Xk/vmzqaqfH0Gaw+LuyGCvBmXWXMxZVaZDrjU/WtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Lokh5C2Gpc1F/DsUewbixJ+4NIw3Xs1x+HHyTa8+J0g=;
- b=3Thkac5UPnsehWXJTGyEztgwFRM4z/RwPyEFY6su8XeXBQzQ/3Q3HYOKMgJaQ+lQyQwOZU7IE0qzDcJBEnJoY8SW2u7ASnU0Q3rZn2axkg9rmHpPCTs/q2tX/IE95kfmd2kOdC67KLB5QuvOQ3/cuS6o6Yx69fn58Gx7bqpzsz0=
-Received: from PH7PR10CA0013.namprd10.prod.outlook.com (2603:10b6:510:23d::9)
- by BN7PPF34483F4BA.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6cb) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
- 2026 20:34:28 +0000
-Received: from SJ1PEPF000023D7.namprd21.prod.outlook.com
- (2603:10b6:510:23d:cafe::ac) by PH7PR10CA0013.outlook.office365.com
- (2603:10b6:510:23d::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Thu,
- 24 Sep 2026 20:34:28 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000023D7.mail.protection.outlook.com (10.167.244.72) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.5 via Frontend Transport; Thu, 24 Sep 2026 20:34:28 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
- 2026 15:34:26 -0500
-Received: from xsjtanmays50.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Thu, 24 Sep 2026 15:34:26 -0500
-From: Tanmay Shah <tanmay.shah@amd.com>
-To: <andersson@kernel.org>, <mathieu.poirier@linaro.org>
-CC: <linux-remoteproc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	"Tanmay Shah" <tanmay.shah@amd.com>
-Subject: [PATCH] remoteproc: xlnx: reset virtio status during attach
-Date: Thu, 24 Sep 2026 13:34:09 -0700
-Message-ID: <20260924203409.2484068-1-tanmay.shah@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="NIIEza2M"
+Received: by mail-oo2-f8.google.com with SMTP id 006d021491bc7-6b1b1ca0f3aso81593eaf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:35:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloudflare.com; s=google09082023; t=1790282111; x=1790886911; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=jtPtVAhGj5L/ftRMmfjzkjCBRemFey9PZR0QsKZACbA=;
+        b=NIIEza2MbDFB4Qcb7Aok1ZkvJJQomnQci6TvawJ2pIsF+QtFl0LBTWaY+I2qutAT5V
+         7GJVUO6hf+g2e9A8dxlHaSGPoaGKHzsO7PJn74HUtTGNmhNFs/pM7R8T59Go785nPoo4
+         ku3xPMueRXb7BXmBBogDsl87knxVtv++s5yR3kFR434v+HVVeGfIjoCWmF9FyUq8igwc
+         qyTY92TnCh6wMU7hqBZfp6BA6mwlGoHPoSVzZIcLFjbqWUCT+6Se18oBGxnkhhNxF/oT
+         wPJv4POPQPmW/qNA1HtsovoWTFticsrDbxbLAqtEIRLQSxDjKg6aN5b+HFQe4HmwU6oa
+         xBLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790282111; x=1790886911;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jtPtVAhGj5L/ftRMmfjzkjCBRemFey9PZR0QsKZACbA=;
+        b=puEuclazcTpdG2YzzeM5gaA/P7Vt6vbeiWvBptNgJKV6/mGO6qFdfHb1NGV81Knm+S
+         aZkCOsgDW26IHE7is8uh9If+WDaYiVPndIJNzss/T2AS/7Re5xED8PGqBf6RBaiuhW0k
+         H6fx9iZcFM1hCf1tjtYUMann+dZP9wHQAOAmetOmSw96eU/X6EizgUIyRN0L+mtNnVPB
+         2GL+91hst3vELALXILBr3zpTbQ8xl9wq2AJE0aUv86KtwU0arRulOuzd/MkheoYTSL+G
+         AIrFQzWdAya0e5IQ1hbnyWZup8hHdonU4iHwfTCiu6A7cgyr6Q6G/rV/c/9PmOhb7J8o
+         Ojgw==
+X-Forwarded-Encrypted: i=1; AKwUvBwebZ9ZrkVIFvM4OPOqFcvRCvxuUzEYkz74I0ktR/lb+S8fkZ+4SVgYdbJtFYPf9ZTd+1Fvqbuh5ZFZ42s=@vger.kernel.org
+X-Gm-Message-State: AFuF++mOV+HjmmCCY5ZbYGs1S5MpjIIAALvDDB+psz9cTdUxoRb6jLCJ
+	fUbLt84GTRwgs2wUpWtw9lhZsCLqTjzHZaVUpCh2UPab2w2ErhpR4L/7Ct8J2oAk7pM=
+X-Gm-Gg: AYBFou0Hal9UqPDlcns52pu6T9VvSZVwq/u8c+aZvKWePjRCDyl8x8SF3vBJZriluLN
+	GoaHTX6Lns4fTMKc1h0JSh6xcgCKT0FycjQcCMjkfROsj2PKMEvLl9g4FfMdR8Kv6zFVoQEK0uQ
+	WDwyP57ZWkXxiibBIeVQtM4A4vnVhjXGd0yjx1Bl1nAJLqPg55qFjmBolXEAUd0KDiHFTb3hDs+
+	YuELfdbxUi2f0omnDkwprZq3xAyfJhBZii25hjsAmJNry04L8UDnP9uv/WjMLMpdPweCCCqX/FV
+	YAG8ADipVAJOWCrtXghmG27gTgsuNmjmd1DQDxav9kngI6iUU02OKePE1w6JZ32bvT9ENDPQFYX
+	05Y6cCt0ODeTY5v83RtetJHVLYYgSyukgB1mVqLLQ3Gole2ltnuYexuhrWvjzw3cbfEJdT1kIqu
+	EhtOGPx7QspRsncLpDMJIC+WMg55XfRkxVkDjiQqM2wxCDn/8vj2eeK4FK
+X-Received: by 2002:a4a:ee17:0:b0:6c1:c628:b0bf with SMTP id 006d021491bc7-6d43e22b55amr3510704eaf.13.1790282110894;
+        Thu, 24 Sep 2026 13:35:10 -0700 (PDT)
+Received: from [127.0.1.1] ([2a09:bac6:947f:1cd2::2df:f])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-49335011458sm254515fac.4.2026.09.24.13.35.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 13:35:09 -0700 (PDT)
+From: Frederick Lawler <fred@cloudflare.com>
+Subject: [PATCH v4 0/2] integrity: Return error codes in audit messages
+Date: Thu, 24 Sep 2026 15:34:57 -0500
+Message-Id: <20260924-report-hash-error-v4-0-196ca6350619@cloudflare.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D7:EE_|BN7PPF34483F4BA:EE_
-X-MS-Office365-Filtering-Correlation-Id: 53646586-53ac-40ff-fc00-08df1a7b3b16
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|82310400026|1800799024|36860700016|11063799006|6133799003|10067099003|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	w/PLHz3J64OCE9vxrVhkxxvrHaC/2TQdVabp8ngL4V8EFwfGRmYMWK5Cs5l+nR73lVkyXRZJRov7DwoSB22CqCq+xeP3GCEkqoOGymqra/ZIDsDxEnNtOzOqabCTwcRg9klzPoyG/6JbhH9NnWaUGi+bNwO8x3Mfi4+433cUrBgUmN9/XJbvNhapwkVzMAhYq+fgQOUuF5MpKWx3KGEvGRb1AkyZiJ3Y3hnMiCfsayJSB6VKWLyjroeDyoUl9A9mrdHJyK2wPJkGDo1jXJ1hl7g7RYMjXjaTj8O9z/BW3mgzspXbEMRbhMuvMn6Ua5raysBptLxN7pzXbhJKCZgFYiDNJ1TUFlDspH0eluK9jHXR++kuwkdWkgK7mlgt0gsDAc1Za30oK2+oMzToYBhi7obpj/LaGS9AAFDvgcwRamGHqvDlXzEc6nD9Ffk4pR6TK+nJw3Ap7p2G/HcKDtevsv1Xa4qclz4HE7QkCkYDOEzgyPiXnyFXHdWswU/qweUNBqKl9sIyL+nFx/+nKA0qy10qQEdkfY3MsBRkdQuUQ84jvMPlDzSTS+R7rVwxIcNmyQCpGwKdxgAaudobI2Z8ipWl5HNRIoffSjGvC8pBDN0/wAQw/F1rZuEa/d4cNnFZzKkq9VyTg6uAJJ+XnEKLKC7JvIAXAow/yw8iKJIwexhn8a3y5+nhotZxE1ePsYKhYGJfzGXkVGVH6OTHRXUKuQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(82310400026)(1800799024)(36860700016)(11063799006)(6133799003)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Z8T2hkcswf9foCh5gotgBOzGMXWambYfos07OVhY5lAy9Ls/unyFPzGwb1VNErZEAZmAT8U5uFWj2fBbaYAxWmtNhcKJcvdYfqZ/O7aky8ylkxy2o/JgggNDLn58E98/3vSD6iXjEagmxS5cBbP8G6iuMxb3XFfDrppLKocCJUJASq1E3z+B9qqq6u3adhvMnOmWS1fYapZKK7BerOD3B7R5d04ROu2yByaJ+mL1/Ax7smb2XgToAPHjRYAZdd9iSO28PYRwAVN7k5bQsnvQ0RF0SQKRiHH8UnZJE8zEZX+0wG0l2luuGBz9vg328YGcL3mX5rLl68KPB0U4/3OHlhkknaisvYixaj8VtBPy7UTZ17AWPuS2KCYDJkeT0+75jOscgp8ONFNOu/eGn1piyXwFWmeu7L1FLFhPjgqKpeqsdFP7JZm5PLebt3zDdA+m
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 20:34:28.3294
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 53646586-53ac-40ff-fc00-08df1a7b3b16
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000023D7.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF34483F4BA
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHGJtWoC/33OwW7CMAzG8VdBOc9T4qTtwmnvgXao0i80EpDKY
+ RUT6rsTuDCJiuPfkn/2VRVIQlHbzVUJ5lRSPtVwHxsVxv60B6WhtmLNre5MS4Ipy5nGvowEkSz
+ UsLZDG9HCQdW9SRDT5WHufmqPqZyz/D1OzOY+fafNhgz1wXj+MsYw3Hc45N8hHnrBZ8hHdSdn/
+ sdwt8YwabIa1rvYsIthlbFPxq9/YyvTWTSDb+AR8cIsy3IDxssk7EUBAAA=
+X-Change-ID: 20260716-report-hash-error-5203d6fe6e4e
+To: Mimi Zohar <zohar@linux.ibm.com>, 
+ Roberto Sassu <roberto.sassu@huawei.com>, 
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
+ Eric Snowberg <eric.snowberg@oracle.com>, Paul Moore <paul@paul-moore.com>, 
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>
+Cc: linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, kernel-team@cloudflare.com, 
+ Enrico Bravi <enrico.bravi@polito.it>, 
+ Frederick Lawler <fred@cloudflare.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2917; i=fred@cloudflare.com;
+ h=from:subject:message-id; bh=8g4cY0GEAIASt26IdZp/Z/yDTTQdKOaRlsmSarqsPM0=;
+ b=owEBbQKS/ZANAwAKAasltHYDktNtAcsmYgBqtYl7E0fQR4bfIoYoTSoTazCh+HWvNVUVV7Hiu
+ F6o+KPD1nqJAjMEAAEKAB0WIQTLNBqMVmu1PHvjOe2rJbR2A5LTbQUCarWJewAKCRCrJbR2A5LT
+ beupD/9934eZj90NBW1yC/eCPrwdE6pXH87jV5eJ0oB8HRzR6BvUBdtxH+7I8/gZ0RZ8eMFdcDy
+ gg2xQt0C+lz8Jsq1zrSjVgmQAQf7tOfDuZjVlgPgUnrvDTAMC2M3XOTXVtUrAspEb0i4bVGim6H
+ sx1eK3cSfaEbLeHTyd9kbiIJj2VGgb9dgyY5SFZx9PXgWW9Lda54elf2NLia8Ean2l8Y+DRdh4C
+ bb05Do+pXKLEwlepv3JuQAYFpOMYuUGRxDjuIG/1wb60BqQDT0QUlEEIMD2p6Mv1iSrTCUd6RJK
+ h6xZ7IXdtrMBQAjP78RMcE98CBh6ZfwHIdGM5K53Ho5cUySPgSv6/zQe1Q/BBKqkmZ8jbSVafqO
+ ELNMmP5/MJ/lOhBURfq/4YUDw5eu0OehrIh/wKEDuG8unnTKQq1dMti9Yy24KcNTAxCOL7IvYg3
+ 8UrdvjVknh1aJUZTu/JzmpgDNboSJEKLnbiaPcZ2m9F9FL2/Gf0cXuOMadUUF16abD6kl0Jq5d+
+ QYSvhMed7CmTz8hUQP8sthqsT+qotRPUD8+YR8wIQOCmc2CVBUFFlWIyefgbRk1cx13NUxLG0m8
+ 5zxAQ8c/sKGgNaOP5iOI37qKmo+sP2eI+fjM1Gf3sIrfOrLRu/MS2T08OUs2zQ5zWqQmTspjVnr
+ BedLz5KMXAQdlwg==
+X-Developer-Key: i=fred@cloudflare.com; a=openpgp;
+ fpr=CB341A8C566BB53C7BE339EDAB25B4760392D36D
 
-On AMD-Xilinx platforms cortex-A and cortex-R can be configured as
-separate subsystems. In this case, both cores can boot independent of
-each other. This is platform management firmware configuration to manage
-cores. In such a configuration, if Linux went through an uncontrolled
-reboot during active rpmsg communication, then during next boot it can
-find rpmsg virtio status not in the reset state. In such case it is
-important to reset the virtio status during attach callback and wait
-for the remote to handle virtio device reset. After reset, the remote
-is expected to generate the notification to the host or the host will
-eventually timeout and continue the normal boot flow.
+Commit 2f845882ecd2 ("integrity: Add errno field in audit message")
+introduced an audit log function that can take an error code. It is
+wrapped by integrity_audit_msg() that implicitly sets the error code
+argument to zero. The problem is that there are uses of integrity_audit_msg()
+such as ima_collect_measurement() that hide the failure cause for
+the message.
 
-Assisted-by: LLM
-Signed-off-by: Tanmay Shah <tanmay.shah@amd.com>
+This series aims to clarify error reasons for failures, by exposing
+error codes to the audit message.
+
+We do this by first by extending integrity_audit_msg() to take a
+errno parameter and pass that through integrity_audit_message(). Update
+call sites, and finally replace integrity_audit_message()
+with integrity_audit_msg() and remove integrity_audit_message().
+
+Signed-off-by: Frederick Lawler <fred@cloudflare.com>
 ---
- drivers/remoteproc/xlnx_r5_remoteproc.c | 74 +++++++++++++++++++++++++
- 1 file changed, 74 insertions(+)
+Changes in v4:
+- Various patch/cover letter message changes.
+- Fixes uses of return code for ima_appraise_measurement() to
+  conditionally use rc as error code if rc < 0.
+- Conditionally return -EINVAL for ima_release_policy() suggested by
+  Enrico.
+- Use -EACESS for ima_write_policy() since that would be the actual
+  failure for the function. Suggested by Enrico.
+- Link to v3: https://lore.kernel.org/r/20260916-report-hash-error-v3-0-73e5d95e9efe@cloudflare.com
 
-diff --git a/drivers/remoteproc/xlnx_r5_remoteproc.c b/drivers/remoteproc/xlnx_r5_remoteproc.c
-index 630621288430..6e7e2a5ea83c 100644
---- a/drivers/remoteproc/xlnx_r5_remoteproc.c
-+++ b/drivers/remoteproc/xlnx_r5_remoteproc.c
-@@ -6,6 +6,7 @@
- 
- #include <linux/dma-mapping.h>
- #include <linux/firmware/xlnx-zynqmp.h>
-+#include <linux/jiffies.h>
- #include <linux/kernel.h>
- #include <linux/mailbox_client.h>
- #include <linux/mailbox/zynqmp-ipi-message.h>
-@@ -15,6 +16,7 @@
- #include <linux/of_reserved_mem.h>
- #include <linux/platform_device.h>
- #include <linux/remoteproc.h>
-+#include <linux/wait.h>
- 
- #include "remoteproc_internal.h"
- 
-@@ -33,6 +35,8 @@
- #define RSC_TBL_XLNX_MAGIC	((uint32_t)'x' << 24 | (uint32_t)'a' << 16 | \
- 				 (uint32_t)'m' << 8 | (uint32_t)'p')
- 
-+#define RPROC_ATTACH_TIMEOUT_US (1000 * 1000)
-+
- /*
-  * settings for RPU cluster mode which
-  * reflects possible values of xlnx,cluster-mode dt-property
-@@ -167,6 +171,9 @@ struct xlnx_rproc_crash_report {
-  * @rsc_tbl_size: resource table size retrieved from remote
-  * @pm_domain_id: RPU CPU power domain id
-  * @ipi: pointer to mailbox information
-+ * @attach_wq: wait queue for attach-time vdev reset acknowledgment
-+ * @waiting_for_attach_ack: whether attach is waiting for remote interrupt
-+ * @attach_ack: remote interrupt observed while attach wait is active
-  */
- struct zynqmp_r5_core {
- 	struct xlnx_rproc_crash_report *crash_report;
-@@ -181,6 +188,9 @@ struct zynqmp_r5_core {
- 	u32 rsc_tbl_size;
- 	u32 pm_domain_id;
- 	struct mbox_info *ipi;
-+	wait_queue_head_t attach_wq;
-+	bool waiting_for_attach_ack;
-+	bool attach_ack;
- };
- 
- /**
-@@ -270,10 +280,17 @@ static void handle_event_notified(struct work_struct *work)
- static void zynqmp_r5_mb_rx_cb(struct mbox_client *cl, void *msg)
- {
- 	struct zynqmp_ipi_message *ipi_msg, *buf_msg;
-+	struct zynqmp_r5_core *r5_core;
- 	struct mbox_info *ipi;
- 	size_t len;
- 
- 	ipi = container_of(cl, struct mbox_info, mbox_cl);
-+	r5_core = ipi->r5_core;
-+
-+	if (r5_core && READ_ONCE(r5_core->waiting_for_attach_ack)) {
-+		WRITE_ONCE(r5_core->attach_ack, true);
-+		wake_up(&r5_core->attach_wq);
-+	}
- 
- 	/* copy data from ipi buffer to r5_core if IPI is buffered. */
- 	ipi_msg = (struct zynqmp_ipi_message *)msg;
-@@ -820,6 +837,62 @@ static int zynqmp_r5_get_rsc_table_va(struct zynqmp_r5_core *r5_core)
- 
- static int zynqmp_r5_attach(struct rproc *rproc)
- {
-+	struct zynqmp_r5_core *r5_core = rproc->priv;
-+	struct device *dev = &rproc->dev;
-+	bool wait_for_remote = false;
-+	struct fw_rsc_vdev *rsc;
-+	struct fw_rsc_hdr *hdr;
-+	int i, offset, avail;
-+	long time_left;
-+
-+	if (!rproc->table_ptr)
-+		goto attach_success;
-+
-+	for (i = 0; i < rproc->table_ptr->num; i++) {
-+		offset = rproc->table_ptr->offset[i];
-+		hdr = (void *)rproc->table_ptr + offset;
-+		avail = rproc->table_sz - offset - sizeof(*hdr);
-+		rsc = (void *)hdr + sizeof(*hdr);
-+
-+		/* make sure table isn't truncated */
-+		if (avail < 0) {
-+			dev_err(dev, "rsc table is truncated\n");
-+			return -EINVAL;
-+		}
-+
-+		if (hdr->type != RSC_VDEV)
-+			continue;
-+
-+		/*
-+		 * reset vdev status, in case previous run didn't leave it in
-+		 * a clean state.
-+		 */
-+		if (rsc->status) {
-+			rsc->status = 0;
-+			wait_for_remote = true;
-+			break;
-+		}
-+	}
-+
-+	if (wait_for_remote) {
-+		WRITE_ONCE(r5_core->attach_ack, false);
-+		WRITE_ONCE(r5_core->waiting_for_attach_ack, true);
-+	}
-+
-+	/* kick remote to notify about attach */
-+	rproc->ops->kick(rproc, 0);
-+
-+	if (wait_for_remote) {
-+		time_left = wait_event_timeout(r5_core->attach_wq,
-+					       READ_ONCE(r5_core->attach_ack),
-+					       usecs_to_jiffies(RPROC_ATTACH_TIMEOUT_US));
-+		WRITE_ONCE(r5_core->waiting_for_attach_ack, false);
-+
-+		if (!time_left)
-+			dev_warn(dev, "timeout waiting for remote vdev reset ack\n");
-+	}
-+
-+attach_success:
- 	dev_dbg(&rproc->dev, "rproc %d attached\n", rproc->index);
- 
- 	return 0;
-@@ -920,6 +993,7 @@ static struct zynqmp_r5_core *zynqmp_r5_alloc_rproc_core(struct device *cdev)
- 	r5_core = r5_rproc->priv;
- 	r5_core->dev = cdev;
- 	r5_core->np = dev_of_node(cdev);
-+	init_waitqueue_head(&r5_core->attach_wq);
- 	if (!r5_core->np) {
- 		dev_err(cdev, "can't get device node for r5 core\n");
- 		ret = -EINVAL;
+Changes in v3:
+- Condense series to two commits.
+- Reduce review churn by adding error code to integrity_audit_msg().
+- ima_write_policy() to report -EINVAL instead of result.
+- Link to v2: https://lore.kernel.org/r/20260727-report-hash-error-v2-0-30e394f524fc@cloudflare.com
 
-base-commit: 5f639b3018c0026a5341949724b4b921cf3a3d5d
+Changes in v2:
+- Changes from v1 are now reflected in patch 3.
+- Replace all instances of integrity_audit_msg().
+- Convert to patch series.
+- Link to v1: https://lore.kernel.org/r/20260716-report-hash-error-v1-1-ac19281112e4@cloudflare.com
+
+---
+Frederick Lawler (2):
+      integrity: Report error code in integrity_audit_msg() call sites
+      integrity: Replace integrity_audit_message() with integrity_audit_msg()
+
+ security/integrity/evm/evm_main.c         |  9 +++++----
+ security/integrity/ima/ima_api.c          |  8 ++++----
+ security/integrity/ima/ima_appraise.c     |  6 +++---
+ security/integrity/ima/ima_fs.c           |  7 ++++---
+ security/integrity/ima/ima_init.c         |  2 +-
+ security/integrity/ima/ima_main.c         | 13 +++++++------
+ security/integrity/ima/ima_policy.c       | 11 ++++++-----
+ security/integrity/ima/ima_queue.c        |  2 +-
+ security/integrity/ima/ima_queue_keys.c   |  8 ++++----
+ security/integrity/ima/ima_template_lib.c |  2 +-
+ security/integrity/integrity.h            | 18 +++---------------
+ security/integrity/integrity_audit.c      | 12 ++----------
+ 12 files changed, 41 insertions(+), 57 deletions(-)
+---
+base-commit: 6903878d4654bdef4e08e38cdf1ae306ce7de5f9
+change-id: 20260716-report-hash-error-5203d6fe6e4e
+
+Best regards,
 -- 
-2.43.0
+Frederick Lawler <fred@cloudflare.com>
 
