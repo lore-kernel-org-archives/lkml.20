@@ -1,256 +1,184 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8027242903B;
-	Thu, 24 Sep 2026 09:22:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790241758; cv=fail; b=ZNdNaM4SwNj5uvBbjHWAUZ1hA99bgwolu7uXa+itH9UYiQk76d8jpmZKA4cB3mN26ulsFdCJr4ej9b+ZAU27NUT9S8t9aTFZRHO6qWemBrkqtVkICL1EXfTiHEuYoqlB/05hexrLiN7/CYF8HhVyYy0wIonbzpTDZUlUiB+RkSE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790241758; c=relaxed/simple;
-	bh=LHpUSNv7mUQpi8ChUes7kZEwSAdfsw3Gfk8OlpDQsyg=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=vCFAMmrgOtTter7pKAT5TwmEH2mZL0adR5m0IARb2equTjAqa6EAyVifqdTtrMVIChoAgs653HlMEFLn0lUvKv+hUVH/WOHl1Tg4wjW75RX2zRMM7s2iiNGA1RqixdepgQbC3kiGrkBSJG0hzrRNky+YEYx3KEpzuhldX6Xpj/Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OpTlj6mi; arc=fail smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C77C7449B3B
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:23:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790241797; cv=none; b=gTEOJiA3f8OYI4Jd/hj/AfpMgphnqcp+ENn8o9Psycgvjmk8NVFonyEv9ZMf6WepA5pBwsOYitnKbE9c+Y1FPvjCzcyyeEFajwMbt9IP/2Znagz7d7W7OSH2GMLHuVQxhyssD4jtpADJhlr9EriyjvVb75JUpQv1avK6hg/YgrM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790241797; c=relaxed/simple;
+	bh=JPetP2Z7gxwCfIfjyw7nBBtyy1O/JrS80AC6dx7KIYI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pjnjq2I65Io26//ZVwgdcwK78/wtWxZNI4VAiWk+4RhXHYQo7TC5hzOVB1XPzcKPjb5SJCGO3qXH5s5f7sp0qv0OeSGJiCEwBntCC7lxMsbtx7lyslQRAThR9/pOTMWycNI4Rqc8DFL7kq5J6ZrRocCGJhOUezvyIGAVjKPS18w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iH8aoV5T; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OpTlj6mi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790241755; x=1821777755;
-  h=date:from:to:cc:subject:message-id:reply-to:references:
-   in-reply-to:mime-version;
-  bh=LHpUSNv7mUQpi8ChUes7kZEwSAdfsw3Gfk8OlpDQsyg=;
-  b=OpTlj6miLC1guABEVIX41lnoZyYovBSxja6ESy4vD2HY1lbiPXrDAWC0
-   pwX2LU+PhwTXZpUPyT+CdrGwfbBAhq99IMpguZR+fxhsiqbjumn0OLCgx
-   +tCN+LNGiJtPM0GSy7aHH03FAKL2scXWFD590I/SUeH/miq/liw14r0rn
-   E2t5qQA5xe3SMXvqGLOC0siDGNHByflrl36Yl0aiH9zGSyuM0RJSGcAoT
-   gk12knHjFY5GueWTn+NCv7AYWHwotAqHKxHv7KBIsEATZy8aH6RcVbFir
-   tPsb1OhrcDRwmytl3jYFBJeLWOSN9Ksydex+8x1oEpUaQRiXANSBeRjNa
-   Q==;
-X-CSE-ConnectionGUID: QucbRAnhTZ2rk+ER00y92A==
-X-CSE-MsgGUID: gXNbTwnBSFiqiAr6ybVdXQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="107391675"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="107391675"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 02:22:32 -0700
-X-CSE-ConnectionGUID: Ug2QXdCvTjCBfvaJUxeP7A==
-X-CSE-MsgGUID: E+A6ct+/QZGlEeTth2lerw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="277136484"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 02:22:32 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 24 Sep 2026 02:22:31 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Thu, 24 Sep 2026 02:22:31 -0700
-Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.22) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 24 Sep 2026 02:22:31 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WL/UkLRIz8QaQeqsBv+mcLs1ISB4P/WhaQyUPV8T5FLOdYwK8E0de5xooiFZtsijeGDbatfTXraBPUQ+htUwQ0NrheNd1/FMBR8HzGJm5WOpQfbdv2YXx3scnttrhD7OUKAlNQ9Thij6tNy4MQc6+T0z3jmhM/NT1IVJivIVQUvnRH+P3OOfwnh7fBgjk4j/dzy0MOtRBrZfNSOrzsHrX3Swcd41bvf/ZU2hIg+gwu/GMyNwp7FOuffv8yYNzhc0VpylpaPKJcA8vc92Z8UCUK57F31h/Ed9yLxa6I6OdqfcLNkDlFr/gbPmuokHCOrDdKKLiFs+Kc2SxecY2UZmNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dQSaE+kWt5zJxAvYokS6LRe6DXS5tPL5NmvO8YGCdMY=;
- b=n3Wt2SA1DkuoDFNUxlyqWRc/WLK1oI8TtqqXpnME6SXKEYpAXNIFpzM+98bmi/jZZyZkq+kz0EAlnJIKJZexmj4NUAYsE/3LdGtFt8B6Bxk/G0dALys6YUWnp9mgLrGT4kVqgF4dmDGr6L0zvClUb2cjCUDDI7RktMmgpE/RL4UEPWv0khnRpbJbD2tZCXuYipBzWgRVfF42JogUxeQ/+FBa1Wm94i5U0yNQI1m1VZ2vtGlm9yIDqnJH4V8dwynipp8kjQFgQJAc8EiZ/eRs//1lFrm6vWP+VVVd+FMtX3+GQJtzo5gvMVmPBItzGhJbRVqxdDt3klNemoKKIwkmvg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DSVPR11MB9579.namprd11.prod.outlook.com (2603:10b6:8:383::17)
- by DS0PR11MB7903.namprd11.prod.outlook.com (2603:10b6:8:f7::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
- 2026 09:22:28 +0000
-Received: from DSVPR11MB9579.namprd11.prod.outlook.com
- ([fe80::ab5f:5d0f:fb90:9d]) by DSVPR11MB9579.namprd11.prod.outlook.com
- ([fe80::ab5f:5d0f:fb90:9d%3]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
- 09:22:28 +0000
-Date: Thu, 24 Sep 2026 17:21:53 +0800
-From: Yan Zhao <yan.y.zhao@intel.com>
-To: Sean Christopherson <seanjc@google.com>
-CC: Paolo Bonzini <pbonzini@redhat.com>, David Hildenbrand <david@kernel.org>,
-	<kvm@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Stefan Teodorescu
-	<fane@google.com>, Dennis Tighe <dtighe@google.com>, Sashiko Bot
-	<sashiko-bot@kernel.org>, Ackerley Tng <ackerleytng@google.com>
-Subject: Re: [PATCH v5 6/6] KVM: guest_memfd: Drop superfluous WRITE_ONCE()
- when binding a memslot
-Message-ID: <arTrsZGayO7U0Jjv@yzhao56-desk.sh.intel.com>
-Reply-To: Yan Zhao <yan.y.zhao@intel.com>
-References: <20260922001332.1121266-1-seanjc@google.com>
- <20260922001332.1121266-7-seanjc@google.com>
- <arJsKA8MkSdpQxNm@yzhao56-desk.sh.intel.com>
- <arKG2UnTWySdOAkc@google.com>
- <arNa66B3tmJc7Kbd@yzhao56-desk.sh.intel.com>
- <arPhfHnMNbvthwGu@google.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <arPhfHnMNbvthwGu@google.com>
-X-ClientProxiedBy: TY4PR01CA0044.jpnprd01.prod.outlook.com
- (2603:1096:405:372::17) To DSVPR11MB9579.namprd11.prod.outlook.com
- (2603:10b6:8:383::17)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iH8aoV5T"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843f22dcb8so1428514f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:23:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790241791; x=1790846591; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7QZ8HgImhCopDFDWHquBQ0HUnxqZBWvfTbRoX5PG3mc=;
+        b=iH8aoV5TUGHTRhODPDTzcxMz+y1m5XLEhP1tBk/TGDEcrq6tigvtdapzq8On9Yo4Tm
+         afpR1w7Vqps2HcM5y3en1fNOM4ACOd7rbnrja3firQkLPm1zGGoc493ONcps8pg6XkL0
+         6RGIsL/MC7unsz8yCvPYG9OUR9ykXgIw864EQrkp59m8YUcxsKhI2oEEujoUpEHLGgRy
+         I76g/eWdAbPcfkK6LV4zMRDG0OSs+MgHZeNmevc94MxN5KApNfPScnQa3J1JzslYUJAv
+         INVmsvhr+z37bsqjgqRg8J3Xuq/fAYJ33zH8GgNJYKDwTQd8ZbyNFGwVAAvL/0uAibPR
+         0uDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790241791; x=1790846591;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7QZ8HgImhCopDFDWHquBQ0HUnxqZBWvfTbRoX5PG3mc=;
+        b=Gl4TvXQU7VSX5nRwcrGJtLJMV2CgXAQ4D94ZvXr5ohhPyriTlfMsCGQc6Yv6XNfuvu
+         K/k8oYqe+Ex8Y+0aMCURcN6ZzXI38Gep9UVQtJ7lOg3Td0EvKUavHK4xPi/FaS3nG4je
+         OZfrg3TKBgTm4hXoZ74N2Nxlvd0TxB+1SdZx35xAmYnczlUoPnp3NUM5rF61rdw+BvfY
+         MA5vTIs4EKhHpEg7TIHdI5dJx9e5n0ivmrLjtFiu6EY109Aq2cu3p5SZtbWG1TdE0+sD
+         CPqB51enoUl8kQEQwzGWTf+XI5LcaMz+uW/sL5ckKyOTzr9QWFukL/3edqzlIBf85XUb
+         acHw==
+X-Forwarded-Encrypted: i=1; AKwUvBysflubyWLSrTzbIhnh75AJT3lLHLON2C0sFqfoNspVHnmAkQq2ZrxNuNN8hFn4Ws0Uio/QwgUHGnMnCsI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kkjKYwc1BkL9IvR4CpsIYn4HOoR1YB8E56t6CnBeZ/sFMQ3eJ2
+	I8qx+x8Ueo1YSqzXkwhFKNQaoxAZGOigDHm5ckkisWMJelHndu9YIA3b
+X-Gm-Gg: AYBFou2YOGyN+62O8+858/ORbDSIlwRCi7hEHIeeL00OQz/ZyZ6TKGVdjMEKEfTMQ+4
+	sd7mfHdNic1JfepyokNbX2vnvyH1lqC3g6fL0IsD+ntHaQr6P28ZFltHg4r4UI2A8sDrmdawURS
+	hr2Z1R9hr36MKIbEclYHhSCRVQ5ZHSM51zhwrsfUv5VgkGoc3QjssA79N7268HNcsKMGehwJUnJ
+	8QxX/aI5YeE9I44QPuBtn0iueWPYgaCKmDa0hftjCi+c3n5AJGk6SyJ1i+TjofhDeNC2DrWYC53
+	WUs8+CaWNxAZW+duhTEA8k1Yl/EclELwzvKHj7gqRlhXG8dKaLqzz6Q/HShnRrHxgTuQQa5DIpZ
+	Fed3RDscymZZsJJkKgWsoK0m3UPP6DmER1MATgza97Keqp9JtewJQdgiNh53AfPYgyp66mNFRmv
+	U/Tq/1IFGonA5oDOHjwVSVkOdeH5XLnxIBcLbmohyur6TGu+e8RXbJvyk90S1fQFJ8lC5UcS33j
+	HtL4dJuWz/LS9ZT+iHr/Db3iUv894jlNpQ7yLFlzCYKAmkj7kQivfyIn85zKgjfUWe3P7tp
+X-Received: by 2002:a05:6000:2c07:b0:486:fa7b:d3aa with SMTP id ffacd0b85a97d-4887172d776mr3144237f8f.23.1790241791054;
+        Thu, 24 Sep 2026 02:23:11 -0700 (PDT)
+Received: from localhost ([188.234.148.119])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488684862a3sm12164848f8f.7.2026.09.24.02.23.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 02:23:10 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Vishal Moola <vishal.moola@gmail.com>,
+	Ingo Molnar <mingo@kernel.org>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	x86@kernel.org,
+	linux-mm@kvack.org,
+	regressions@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH v2] mm: don't schedule deferred kernel page table freeing while booting
+Date: Thu, 24 Sep 2026 14:23:07 +0500
+Message-ID: <20260924092307.22813-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DSVPR11MB9579:EE_|DS0PR11MB7903:EE_
-X-MS-Office365-Filtering-Correlation-Id: c41e8852-b7a2-4679-01ce-08df1a1d5a68
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|11063799006|6133799003|10067099003|56012099006|5023799004|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 4e9wRHqnGRn6YYwcymlZt2Sn8Fpdbxn/lIpv2nDXxy67nKidMqZefZIoSgjVJQAOGgPDeg0d5ekRtixbrH7ilr2TTcmCA4YKTOXRaKwkyNuorSmJPfqPIlJKZMlmozCL7//ZpU+DGDBIjnYEUnfyo/4bpNuWFu8Cp4XPOtcHBvUBZbhUQil6UGhCS8P/7tj/C41Xk9M93WpPaRjulN5Jbt4w66Yosz6X6zQo45sdV9p9GV8x9WD85iMLqbz/8lhxqj7T6Ys+1b0WUE1GDulaOMJn5Cg5iT2V8sHxfzOTAdnam2lo2JsOxAuwiPu7kJTnxC2rlAFJ/dhekA40mY/a3q50aG3stBlT7X/EBkKQEbOHwB6Dl90valz0V4tI0z20SUhbckZuz+s7V3z5WpLwMNqt3na/xioSgGyktcFC59ISqwOd1A4G8880bs04+ja39MxnydFbibItV383aPf2wTZYEIOcRoLp8waUX6qu8CMdsPF5hKbNy8oGAepkTninQ5JlFKIiIKIZkbMEKQX94nwx4qSEGGFYC0AaGY0YfsoXn+MkLXJMlU+uWkEiE9yUiI/6RVgDDBTDEIo3MfWDgZAktO1M1TMajigE3uEjem94ujEp3bLeKr9624MAvM9bXKFUeBsT2XomoMBLlWxoMyk6En+Klnu8OqpkD1fZ8dg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DSVPR11MB9579.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(11063799006)(6133799003)(10067099003)(56012099006)(5023799004)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?FVqBDmPCyM9CEq2gTdFVvqHh2nBsXzYLiEp8f9KIUxVjIfWEEPMq9Hq8PAgy?=
- =?us-ascii?Q?wdi6c+xnVZVg7Tk78Xi42/KZclHiQELDYU6z+4NCipQBehbqk/WrvsXzVN+Q?=
- =?us-ascii?Q?B9chTmrfn5ezAmMKNJhsfdxEA0r77Q2RWbTHNGa6aShhOrUlzaJwkQ1McumA?=
- =?us-ascii?Q?PWNE1tmhMtFOJKkvTEoXqsD67ISuz5VPjAHzD3Q2iFTkTzNzd4qhA8F7Uy+6?=
- =?us-ascii?Q?BLZMVXI12YvAD+ZT5/jI2KYVby6gmaDcD1BtDpGofAslBkTJFbx8r+8JAiJj?=
- =?us-ascii?Q?d7kVPalziDsxXb7n5Ff2iMoLW/txlKPXkcu8qO7z9qidmvwqmLL9LLMW3UhZ?=
- =?us-ascii?Q?yinYBWFuLf9LPBq4MJZ40jn7C7pLLuwnNT4nCZNpQTjEXNeS/OyhB59Aqms1?=
- =?us-ascii?Q?lQOX4/jH12tETEX4v55rbgkqouS1Boe2ioF2DJOH9oSjfy3u04d2g500eyId?=
- =?us-ascii?Q?pykbHx6bi5w7Ur8zxztH64sJpJ/YnFPyEAWd9nBS+RXJX+rrEGlKMa9XXmdj?=
- =?us-ascii?Q?luK5NHeZFGpytVwsnI94PtJfQpM4Ly1x4yOi4OVARuttFxyns4Zh9vJnIaom?=
- =?us-ascii?Q?t6mlzt09kpgXvYX+GOKQ7ecKjGRkyPT5l94BfTCIg2ks+fCJApo5ifeIPMZd?=
- =?us-ascii?Q?VEMtaemv4STYaePd1JuFTEYdI+CXUoxW7pCYTMlqUwPF/p8SfS9PtjezhOO5?=
- =?us-ascii?Q?Daqkl5AE208a5SEYE+W75qYjmv3gpj/g1Vucd0HN/TbkBTvXX0YlOf2m0M4i?=
- =?us-ascii?Q?yu810WhwVpqt/eNc1I0KxmYKQhyNBP+IP3ngJQNUcWfYK5ehvS6ZgUV5YbYr?=
- =?us-ascii?Q?2vw6bLQFxyv9Pcz7v3KB9ZYBJlQ4dz96xsN5vGI3FuL8yPExTCPOzzHomi+0?=
- =?us-ascii?Q?ps3kSE4w6k7kG0C94btP6v2ENq3Za64RrVmk3pb9LxGBpKqQSmFcavZbtcMh?=
- =?us-ascii?Q?ZnYAy5rZjRjATqkipcaT9g+VrPc3gQpr38grGCY8bxhoj59zXIJfmqirIJ2u?=
- =?us-ascii?Q?iyG9jYEOntPHWu/y5iF11t9CvSULpvhDAa6cuIwH5EZ6LWDg7k+juHHoRLpO?=
- =?us-ascii?Q?geuWdeglFAnwhkS+KpkT5aZivx+HD1mjUWsq/79/Fd/WZuk110QJBYmZQ7GI?=
- =?us-ascii?Q?lo0HJJDPrrFlVvM3Rq2g2XqZTPpucQZf+PBVFYzol146xjmDkf1X9wLjISNo?=
- =?us-ascii?Q?MlQiSNvRwsqdMeYbZ/lRCam/Lj8UuXq3Qir1nfyp35lKKk2HqIWUSFgWpT5B?=
- =?us-ascii?Q?qqR6QmobyESAY28+8FuDvWHwk3xZYmO85uV5nug5IxjV+yfcnulLe/8UZNAy?=
- =?us-ascii?Q?8sBDu/SSzo94LJ+hGkfGe4CsW1Pu9kurjGyqAiwsl0nTDMi93jecJYBG5qUC?=
- =?us-ascii?Q?LtFMuvyzH3XuVdiyPt1PPCcR5a3cildHUs4rK5e6w9EayHFCjPj0gdwkYtE/?=
- =?us-ascii?Q?qKPMgSnFlenPAeWnqQkRU0h710CVAe0IcxVvnwxPWTSwsYyaaj+04d/nEPVu?=
- =?us-ascii?Q?ButjdvHYEB7yZqcM5ImFAhVa82rWrX3vCWDU05sCldRAoHQDty6siuzrew0q?=
- =?us-ascii?Q?breg/Yn7mBjpwHTD3t95+51iAqsgOiJaD9++TQkp2WLN0QiLus/3qBP5Qpoz?=
- =?us-ascii?Q?3uEKFzV6SDDHLhzoVDmjF08TlYT/Nl6xHAo9x6XmHYYyFpgF1mGa2LB248Sh?=
- =?us-ascii?Q?/JqhfdhhZb0zX55iLPqrUqYsxD/CU2f6Z8XfxA24mDaiTgaCQeHEjb2SlbEV?=
- =?us-ascii?Q?chHUGt9mzw=3D=3D?=
-X-Exchange-RoutingPolicyChecked: ljY1HywyXlghvYKHJGC6Usiz9Bxhbj+zhB5nZM4zplZ+MSnoG3XR1NcNo9nhat/GAhUIBm50VyaYOpqXFNAGdDXHZUmTbSgetJsf44iCJKztElLr0sTmP+tCORc/CjUbVrydiVH8F3ROnhLBzgNtBm5n/xM8oQA318gz1Qmupq8RSIqeAGF78u3ZngkgZsOKu0FgvxY/zgvcyPqfTSfHYUXGDjr4srgOCqzB47fMaux7B8pTU1Os65koM4jthNi//sCRdx6NGIymVQyiQPyeDLVIyhP/5KLms1aWqIu1pLNRsKasD4g6Lo1WY10i74sfAEnu1heiuYBn5Q7EWRsD2g==
-X-MS-Exchange-CrossTenant-Network-Message-Id: c41e8852-b7a2-4679-01ce-08df1a1d5a68
-X-MS-Exchange-CrossTenant-AuthSource: DSVPR11MB9579.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 09:22:28.4163
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CECcusC5pxpfUhDH7zT6AOD/urztPbWgnmc696kGoT23JS+RdL1fpoxM3bhDKKO3hL5DxKq3pB54fZcpJ9ZY0w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7903
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 23, 2026 at 07:26:04AM -0700, Sean Christopherson wrote:
-> On Wed, Sep 23, 2026, Yan Zhao wrote:
-> > On Tue, Sep 22, 2026 at 06:47:05AM -0700, Sean Christopherson wrote:
-> > > On Tue, Sep 22, 2026, Yan Zhao wrote:
-> > > > The WRITE_ONCE() in kvm_gmem_unbind() and kvm_gmem_release() are also invoked
-> > > > when the memslot is inactive and unreachable -- are they also superfluous?
-> > > 
-> > > The WRITE_ONCE() in release() is necessary, because the file could be freed/released
-> > > while it is still attached to a memslot.
-> > Ah, release() can occur on an active memslot, so WRITE_ONCE() is needed to 
-> > ensure the READ_ONCE() in get_file_active() works correctly.
-> 
-> Yep.
-> 
-> > > I _think_ the one in unbind() is now superfluous after 0ee2c883b62d ("KVM:
-> > > guest_memfd: take the invalidate lock when unbinding a dying file"), but that one
-> > > needs more analysis.
-> > Hmm, the line "CLASS(gmem_get_file, file)(slot)" in kvm_gmem_get_pfn() is not
-> > protected by the invalidate lock.
-> 
-> CLASS(gmem_get_file) can never be protected by the invalidate lock.  Or rather,
-> doing CLASS(gmem_get_file) while holding the invalidate lock is nonsensical,
-> because taking the lock requires a reference to the inode, and if you have a
-> (stable) reference to the inode, there's no reason to get a reference to a file.
-Yes, I mentioned that with the hope of proving that the invalidate lock does not
-make unbind() safer about dropping WRITE_ONCE(). :)
+Booting with a boot-time function tracer and a filter, for example
 
+  ftrace=function ftrace_filter=pud_free_pmd_page
 
-> > It should be superfluous even before commit 0ee2c883b62d, since "the caller is
-> > responsible for ensuring the slot is unreachable before unbinding" ?
-> 
-> Yes, I just haven't spent enough time thinking about it to be 100% confident :-)
-> 
-> > > > Do we need the READ_ONCE() in __kvm_gmem_get_pfn(), considering that other slot
-> > > > fields (e.g., slot->gmem.pgoff) are read without READ_ONCE()?
-> > > 
-> > > Yes, it's needed, because of the aforementioned release().  The other slot fields
-> > > are only ever modified when the slot is inactive, i.e. unreachable.  That's why
-> > > I think the unbind() WRITE_ONCE() is unnecessary; KVM should only unbind when the
-> > > slot is inactive.
-> > Maybe the READ_ONCE() in __kvm_gmem_get_pfn() is not necessary?
-> > When __kvm_gmem_get_pfn() is invoked, a file refcount must have been taken, so a
-> > concurent release() is not possible.
-> 
-> No?  KVM doesn't hold a reference to the file.  Oooh, you're not talking about a
-> long-term reference, you're talking about the reference acquired by kvm_gmem_get_file().
-> 
-> Oh, duh.  That READ_ONCE() is purely for a sanity check.
-> 
-> 	struct file *slot_file = READ_ONCE(slot->gmem.file);
-> 
-> 	...
-> 
-> 	if (file != slot_file) {
-> 		WARN_ON_ONCE(slot_file);
-> 		return ERR_PTR(-EFAULT);
-> 	}
-> 
-> So it's not strictly necessary, but since the entire point is to verify the slot
-> pointer hasn't been clobbered, we do want the READ_ONCE() to guarantee the check
-> is actually performed as intended.
-Makes sense!
+panics on 7.3-rc4 as soon as the tracer starts:
 
-> But given that it should be impossible for release() to run concurrently (see
-> above), and should be impossible for kvm_gmem_unbind() to run on a live memslot,
-> then I'm pretty sure we can do this:
-> 
-> diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-> index a13445c26d9d..1aeffb5bd2b0 100644
-> --- a/virt/kvm/guest_memfd.c
-> +++ b/virt/kvm/guest_memfd.c
-> @@ -1130,14 +1130,11 @@ static struct folio *__kvm_gmem_get_pfn(struct file *file,
->  					pgoff_t index, kvm_pfn_t *pfn,
->  					int *max_order)
->  {
-> -	struct file *slot_file = READ_ONCE(slot->gmem.file);
->  	struct gmem_file *f = file->private_data;
->  	struct folio *folio;
->  
-> -	if (file != slot_file) {
-> -		WARN_ON_ONCE(slot_file);
-> +	if (WARN_ON_ONCE(file != READ_ONCE(slot->gmem.file)))
->  		return ERR_PTR(-EFAULT);
-> -	}
->  
->  	if (xa_load(&f->bindings, index) != slot) {
->  		WARN_ON_ONCE(xa_load(&f->bindings, index));
->
-LGTM.
+  [   23.531178] Starting tracer 'function'
+  [   23.675800] Oops: general protection fault, probably for non-canonical address 0xdffffc0000000038: 0000 [#1] SMP KASAN NOPTI
+  [   23.819917] KASAN: null-ptr-deref in range [0x00000000000001c0-0x00000000000001c7]
+  [   23.964025] CPU: 0 UID: 0 PID: 0 Comm: swapper Not tainted 7.3.0-rc4-fe2ec83746e5-with-fixes-v2+ #195 PREEMPT(undef)
+  [   24.252248] RIP: 0010:__queue_work+0xab/0xf00
+  [   25.981629] Call Trace:
+  [   26.125727]  <TASK>
+  [   26.413912]  ? pagetable_free_kernel+0x20/0x120
+  [   26.990283]  queue_work_on+0x97/0xf0
+  [   27.134382]  __cpa_collapse_large_pages+0x501/0x6f0
+  [   27.566662]  cpa_flush+0x394/0x620
+  [   27.998953]  change_page_attr_set_clr+0x321/0x4a0
+  [   29.151729]  set_memory_rox+0xa2/0xf0
+  [   29.584018]  create_trampoline+0x431/0x6f0
+  ...
+  [   44.343347] Kernel panic - not syncing: Attempted to kill the idle task!
 
-> Or just drop the check entirely?   But I think it's worth keeping the check,
-> especially since __kvm_gmem_get_pfn() will run under the invalidate lock once
-> in-place conversion lands (see "KVM: guest_memfd: Introduce per-gmem attributes,
-> use to guard user mappings").  At that point, the check would actually provide
-> meaningful protection against KVM bugs.
-I see. Thanks for the explanation!
+The boot-time tracer is started from early_trace_init(), which runs
+before workqueue_init_early().  Making its trampoline read-only splits a
+large page, and CPA collapses it again right away.  The split table has
+been a kernel page table since commit 9e4a3ec3411b
+("x86/mm/pat: Allocate split page tables as kernel page tables"), so the
+collapse frees it through pagetable_free_kernel(), which queues work on
+system_percpu_wq - still NULL at that point.  That commit is correct in
+itself; it only lets CPA reach pagetable_free_kernel() before the
+workqueue that function relies on exists.
+
+Keep putting the table on the list, but don't schedule the work while
+the system is still booting.  The next kernel page table freed after
+boot schedules it, and the work then frees the early table too, after
+the same IOMMU flush as any other.  If no kernel page table is freed
+after boot, the ones freed during boot stay on the list.
+
+Fixes: 9e4a3ec3411b ("x86/mm/pat: Allocate split page tables as kernel page tables")
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Link: https://lore.kernel.org/20260924064321.23787-1-mikhail.v.gavrilov@gmail.com
+---
+v2:
+ - Keep the table on the list and only skip scheduling the work while
+   booting, instead of freeing it directly (David Hildenbrand)
+ - Say that 9e4a3ec3411b is correct in itself and only exposes the
+   problem (Lorenzo Stoakes)
+v1: https://lore.kernel.org/20260924064321.23787-1-mikhail.v.gavrilov@gmail.com
+
+Tested on a Ryzen 9 7950X with a Radeon RX 7900 XTX, lockdep and KASAN
+enabled, on 7.3-rc4 (fe2ec83746e5) with the same unrelated local
+changes as noted for v1, booting with
+
+  ftrace=function ftrace_filter=pud_free_pmd_page,pagetable_free_kernel,kernel_pgtable_work_func
+
+The boot that panicked without the fix completes.  The table freed
+while the tracer installs itself does not show up in the trace, since
+the tracer is not live yet at that point, but the first kernel page
+table freed after boot does: systemd-modules-load freeing one from
+__cpa_collapse_large_pages() schedules the work, and
+kernel_pgtable_work_func() runs 0.8 ms later and drains the list.  From
+then on every pagetable_free_kernel() in the trace (660 entries, none
+lost) is followed by a work run within a few milliseconds.  So on this
+box the early tables wait until the first module is loaded, and no
+separate drain is needed.
+
+ mm/pgtable-generic.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/mm/pgtable-generic.c b/mm/pgtable-generic.c
+index b91b1a98029c..f7f504f57914 100644
+--- a/mm/pgtable-generic.c
++++ b/mm/pgtable-generic.c
+@@ -444,6 +444,12 @@ void pagetable_free_kernel(struct ptdesc *pt)
+ 	list_add(&pt->pt_list, &kernel_pgtable_work.list);
+ 	spin_unlock(&kernel_pgtable_work.lock);
+ 
+-	schedule_work(&kernel_pgtable_work.work);
++	/*
++	 * The workqueue may not exist yet while the system is booting.
++	 * The next kernel page table freed after boot schedules the work,
++	 * which then frees this one as well.
++	 */
++	if (system_state != SYSTEM_BOOTING)
++		schedule_work(&kernel_pgtable_work.work);
+ }
+ #endif
+-- 
+2.55.0
 
