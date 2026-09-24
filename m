@@ -1,155 +1,163 @@
-Received: from mail-wr2-f41.google.com (mail-wr2-f41.google.com [74.125.225.105])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69A683F54C6
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:33:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.105
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790246012; cv=pass; b=RoUEnOKLsr4LhUOJ8ZL5/+dFe+awNu9MKRbe66mLkGnrQhMxd8u0I/D6uFXiIJ7Z20uoAzBepJAlkMcFoV2+iNzBvTgbw4x36+R7emnj7KJh9tTJMRfyNyT9pUiM2Jr4yq9sp475LKASy6egRWGyOvEVtyWMoNTZd13346y9NYY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790246012; c=relaxed/simple;
-	bh=TjBwBAVtLQJ10cPrfbNdj5ZS+FgVnFhStUQ45fL6gTE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GIaHEMWgXMmv3CTczXDvzilDfEl7XPxBbcnZcrHA/heD+vGz2ynb+ikSnHgFotK0Rw7sTyx/sylfhn6OJAjkoTrCbyyZUmZ2yX3Hc1w5S/h+yWqzZo6qQgULMBU7LMyYgp3DW2IaaTItfNVZSTr8FXnCBiZIa1Pt8iBGL0pPQFg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Srq02qpN; arc=pass smtp.client-ip=74.125.225.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F091B437472;
+	Thu, 24 Sep 2026 10:34:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790246077; cv=none; b=SUktGZEnLuACzvEJfPFVqEmvCfDJrtr6BnxsvLNK1YVBOTmhGsUfwZdTxUGQ6nWW33k/VDsLSnzgfr5pvWOSLRgq5eTuHiW6WmqTXEnfbwDX+YuVF9AcOfD76wL9w03MCRPJ86TCl5N7/h0P0AveB621Dv9sxXpiBcbBiEXLJug=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790246077; c=relaxed/simple;
+	bh=N2l6r0cOEWQcHFZ8LcTLMFDpM9/zGx7ZzJvtj9HaNOU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=RfjS8svqM1Dpv0+IJ0PbNx7hqgB7kCasHAS5llxN5WsT1sCpZ/5LWGg8jRPZieBLobDtd+KxbvcPk6+nLmBmCwXTfcCk4AdL13UTW2aI7BslDcz0MNEoszVoDHfSQIr1m3yclhGNNpWvXJ1wNwmoFmakdVWJfac7il38rv0f6Fw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SE6JRfs/; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Srq02qpN"
-Received: by mail-wr2-f41.google.com with SMTP id ffacd0b85a97d-4834977ae75so1345062f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:33:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790246008; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hZzfdrZ4e2n3kXXGsjGFfc/Yp2aeZvu2YQ6xVKYJHBySF8/R4uj0tDUsa+K56CmCwt
-         WuuVrykklFmzl7F1B0pc9nM3obXnaq+xuQ4pwiiFgbJUuxQOd0Invu7i39BSJS+DJOEB
-         IVeo0TkQFWPG/BPr9sUXt0lUDMuM5+eDsnwH8Yon31ijsagU1hn8gR1a9J4ssKiNpIcD
-         S+CFbglwzapyez+nni0WbZxy37LyRlj737UtedWD1WOgkIRLlgD37EU/t8YVjI5GTXAd
-         o0YWLaFMZ0shCxK6Y0WdvI1kiF1xkwEB2gRkeOHnv1o7PTZgde9A/CrBZEq2+EOdjl1s
-         qQzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=B2Y2KJCyXfWZMz2HsqnglDrl7rh38AmDRqjeiA7oS9M=;
-        fh=k4/ZFMlz83gedjRA3MkipqcBfXbegaEDtMGDf4YBoGw=;
-        b=XAmxtDQ5GwXuDpQiwDKSbU/BGszCk9vBAUs05BES5bvtoRGmJYNVZ4XbAq9oIgSTer
-         Agfe5adMk9tOMgu+nMWf0X3J5X/vTJTG50ZeuwiM2RavtequNs13KmP+GLgzUTvdSxOE
-         tnaj/UCk2XFlfd39F/5jhcRZfrifxDkvn68dqDO+Hk4MSYJ++FI4th+L8+FIyNAWlnKm
-         T2mfoGriSuBda5/Y5vHaqBOvUgSLbeW9Da7JX8uMFhWf/zNyv8a8OcUxWxBxi3O++fIP
-         frhQia/h2DaQcNujPlb1z2iTOo45gpX9b9OnOUrhXdP2twRnw+8+IZdN1pz+IeMZupQL
-         qtrg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790246008; x=1790850808; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=B2Y2KJCyXfWZMz2HsqnglDrl7rh38AmDRqjeiA7oS9M=;
-        b=Srq02qpNlN8a178XnoLBNZzvBaSb7c1UuU4vi4BAsYEUvbF0chwKQ6VoUqJhUtbMcn
-         wImqVxp3mNwn1CcqISmOEfRg2qJjxVFmUvRNQNvsFGNOmhuLP6XNqU8z4gIeiDsE7bxT
-         oAP0CGwY2GCA5NDqTsxHKDjCL53wx19E2G4laYGBjQyPmK+jAUEIEeezwSdWv1j9TRmw
-         ZWHLsRLHgvNologue4tARw2iUkwYrAufsNPQCiwteEJXl1Z0Et2yCuqQgKjhT5517No4
-         R+eKkGpjMp5KF3vw4xpuY+zCIcdpjiewE97JxenacSzE9+jIWlIq6faA4Oii/DGRbaZk
-         WwhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790246008; x=1790850808;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B2Y2KJCyXfWZMz2HsqnglDrl7rh38AmDRqjeiA7oS9M=;
-        b=kwplJkxXSSBzzAZHggbIMRdKYxkMx97cOJxnemeO5qYu+LQhM5KCxfKjIBYwyNWAqP
-         n1wSNMSuCx4GxnOXNDnS5D5jxfXDc/aFvkdoN5sUaxf3mLpVljAQJTzWXck2+F/A1H0j
-         T8XMlhUvqi76GgX7M6DIrIzJnn/ly89mi7p+2Fhws71f75oeS8DQPZTRZzKuNeHZHE4w
-         qx8e3ZsTvPf2LTjfkm9AwQY5Rp7LCskjjyFDfobniHuOBUFnLF6Z8U/AuhKBPw3Lpf3L
-         T/9mP7C2ZO811HJI/wBjHG0qRs96luEJZjOTbJAza8NDB2o/syXk4rzl67oegN+cYyKl
-         nQAw==
-X-Forwarded-Encrypted: i=1; AKwUvByEDDdQ3UEkG90ESzCCyuetC9w6ORGVPGqs+dOokvXGzCy9xF4QJhJcjrxng4DSok3yGdEIiUD9XhVfKUU=@vger.kernel.org
-X-Gm-Message-State: AFuF++ntuS5OI0VjXoxhOeR8qPt3larBSLy9rCRuJ8RF+rvdXNnorCY9
-	QK3YxXP4zgwnFupMtXnYe94dGQq1YtuARaKJlxVgGMT4o/EeW6M6xAk02f3IjwYy8Vm2VJ/ZVXu
-	cUMIHRJquYRfCODkXecEkpCxdtYrWof6qxbwwBCXB
-X-Gm-Gg: AYBFou3Wnm1sOUjxImE/OsCMQYqUXojinDJmj+EoXG+Tqgr6X6Ib07KLefQp2xUYMHz
-	9l1uffVz9fcCAZKtbqTLd7ikXrfUuklnJZVLRDyc9rkScZWMt4UQQqWltqZ6FNwcqLZj8C6ktc8
-	CSbGBEPgHzcqqOQLHNUMAIMLJo+A4QytxJzC/orkhbhzydlfO7bUAtUFGhW6QEuVY+stflQePjo
-	JSHi8kV+WQCvQ3/w2AkEnCfnS5YVtNAIjmnCp8K/WGNjepoAZurhgvdQhSZxW7jJrkJJN4xHulN
-	wtNmWqKr1QSGCgPf4vH8DmJfwRI0Ih6BhJEYcvc9XMmmFH5xfCZFKppbM5sGBduzHOLi1KM4ZNA
-	83OEowtsF740YQchzgIEf6V0egngP9WKLMTTzRABBBIY7oD5vLLeg
-X-Received: by 2002:a05:6000:4a0a:b0:487:1084:10f7 with SMTP id
- ffacd0b85a97d-488716a5f1amr3158902f8f.28.1790246007990; Thu, 24 Sep 2026
- 03:33:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SE6JRfs/"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OA5Lsc1175616;
+	Thu, 24 Sep 2026 10:34:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=ZZnMrO7aHOO2jruA9T+2Gn
+	1sViU9nh5E9eCSpq2a5vk=; b=SE6JRfs/EdHmiNEmKeFIhunzGHGpCSE8wIjiSk
+	T+VKIBv1kjlpUqkecsFc+P+/9ctY3XIsyw2rjZwPY0ARgS4Df5nk3IRnINJNpFj7
+	pi7snGbyPYqMJROg1QQOYgGv3ii+svMqUOiLVfDIeQqgo+7NgUnFTj6pxIt0LaxZ
+	Z/Ldflw/OtaXJNakk3xppkwNbkp8qLSAi/elGHfDFK+p1KXmd7GbNMzrnTdZb0d+
+	4HSOF/M22H+SEnv3QPN9qRR40nl7U6Qo72qPSXfBIoICN8L+tGPqHelGApqOvj7e
+	za7GkFUUkbq8uNRo++58/ZrO3J5bw2ZwVQZPT8bhSO7Ll12g==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw1t7r3br-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 10:33:59 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 68OAXu8I2494666;
+	Thu, 24 Sep 2026 10:33:56 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-arpisain-hyd.qualcomm.com [10.147.248.17])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 68OAXtkT2494659
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 10:33:55 +0000 (GMT)
+Received: from hu-arpisain-hyd.qualcomm.com (localhost [127.0.0.1])
+	by hu-devc-hyd-u22-c.qualcomm.com (Postfix) with ESMTP id BFFC463A;
+	Thu, 24 Sep 2026 16:03:54 +0530 (+0530)
+From: Arpit Saini <arpit.saini@oss.qualcomm.com>
+Date: Thu, 24 Sep 2026 16:03:46 +0530
+Subject: [PATCH] drm/bridge: anx7625: Fix register access in low-power mode
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923-b4-gpu_info_intobytes-v1-1-bb2173f91e11@collabora.com>
-In-Reply-To: <20260923-b4-gpu_info_intobytes-v1-1-bb2173f91e11@collabora.com>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Thu, 24 Sep 2026 12:33:15 +0200
-X-Gm-Features: AclHuK804AwDAE6HGEoAUsZfzHXQ3A-22uNDOLxivpJVZwrsF_RPFfFu1xUpH0s
-Message-ID: <CAH5fLgg9xCmiN=MdNpxCLOO5zByVxrPNxhqCeiEQNpb-U2AooQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/tyr: safely write GpuInfo to userspace
-To: Deborah Brouwer <deborah.brouwer@collabora.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Miguel Ojeda <ojeda@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260924-latest_tag-v1-1-7150d373f042@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAIn8tGoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSyMT3ZzEktTikviSxHRdA4vUxORU05QUC4NEJaCGgqLUtMwKsGHRsbW
+ 1ALtePDVcAAAA
+X-Change-ID: 20260924-latest_tag-08eace5dd80a
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Robert Foss <rfoss@kernel.org>,
+        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+        Jonas Karlman <jonas@kwiboo.se>,
+        Jernej Skrabec <jernej.skrabec@gmail.com>,
+        Luca Ceresoli <luca.ceresoli@bootlin.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Xin Ji <xji@analogixsemi.com>,
+        Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: linux-arm-msm@vger.kernel.org, ayushi.makhija@oss.qualcomm.com,
+        rajeevny@qti.qualcomm.com, dri-devel@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, arpit.saini@oss.qualcomm.com,
+        Salendarsingh Gaud <sgaud@qti.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790246034; l=1817;
+ i=arpit.saini@oss.qualcomm.com; h=from:subject:message-id;
+ bh=N2l6r0cOEWQcHFZ8LcTLMFDpM9/zGx7ZzJvtj9HaNOU=;
+ b=njF75fOau/EXPNPMKYdnbjZtzK1ZrjBoTzsX8dvCtyPuEJUNYO9gM2GOt83uskicQNA9He1Zz
+ 3c/dHzqWC6CBdSi9hhLQHShoGXRXuvF/NwquIOC28fK1nY0WujjeNwK
+X-Developer-Key: i=arpit.saini@oss.qualcomm.com; a=ed25519;
+ pk=OGOh7FGwrnkILHNlcTTABbBMQxxo319duzbTg0YPDAc=
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: ruGxyRo_qcHgjlck7joT9CeM2Gz7DEeW
+X-Authority-Analysis: v=2.4 cv=U/MHnuru c=1 sm=1 tr=0 ts=6ab4fc97 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=-5D3cT9HNYT4-cb-j94A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA0MyBTYWx0ZWRfX+f9r3xwfd7Wr
+ EwbZJOjZF9LfaQGad6WCfatiA8xkn557m98fMfrxn2xkhkbhRztoPz/CqgI6wN7D0X/elqYBRy7
+ J5QxLw0kRwE1xis3B9uhPxAbAiuYeMPl9I7nMmEydPD+Zz/WwODAy4dHvYfUj3iF03S/pg/8sOX
+ /NZeHHIBJcCsLmrzom6+d7uqT9LSTENw1pPGJw+NJEE14XO1VBgo7DGo2tD1gga9b0fuHfsxJlu
+ pkpEQXgekrVzdT4YWtjE01WyrboYDOjUuGeCoIfkT3jcx9ah6SeHrjbltE7fwJExnudOXegw1uo
+ 0/Ltm4DvotyofircKHEnIhgUJpGJz/jDO/mHfiW3I+q0sV84SslSLgUh5P+4lNq1uz3ZFDdCshF
+ JBdJEyqIy+awmgpznVY1T9ZYHtOqtEkXjFQD02bvg4aXfKjbkRh1ai4rfBh5+k2A7swb/CxzaOe
+ tNchtfiHVdIYiiJdRKg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA0MyBTYWx0ZWRfX4zAiGRSTYhws
+ 18sKSPjzcI015lOICR4IIYcDqWKUCcnG/P0SSpByqDDQjg6cAtVQDQUrPCN/11p+bZzB9OjDTta
+ 28WsoyGl/tmeSJqy9Vn7MD5LB9A9a5U=
+X-Proofpoint-ORIG-GUID: ruGxyRo_qcHgjlck7joT9CeM2Gz7DEeW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 lowpriorityscore=0 suspectscore=0 adultscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1011 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240043
 
-On Thu, Sep 24, 2026 at 2:21=E2=80=AFAM Deborah Brouwer
-<deborah.brouwer@collabora.com> wrote:
->
-> Tyr creates the struct drm_panthor_gpu_info from the Panthor UAPI
-> bindings. It initializes this struct by querying the gpu and then writes
-> the struct into userspace memory faithfully byte-by-byte.
->
-> Currently, the struct drm_panthor_gpu_info does not have any implicit
-> padding, but if implicit padding were added in the future Rust does not
-> guarantee that it would be initialized. Then when Tyr writes the struct
-> back to userspace it could expose uninitialized kernel memory.
->
-> Tyr implements the unsafe trait AsBytes for GpuInfo whereby the developer
-> guarantees that struct drm_panthor_gpu_info does not include implicit
-> padding, pointers, or interior mutability. This allows Tyr to safely copy
-> the struct into userspace memory. However, relying on the unsafe trait
-> AsBytes is fragile because if the Panthor UAPI changes, the SAFETY
-> guarantees may no longer be accurate.
->
-> Instead, use the macros provided by the zerocopy crate to safely derive
-> the traits IntoBytes and Immutable for struct drm_panthor_gpu_info. This
-> will cause a compile error if the Panthor UAPI changes in a way that the
-> traits IntoBytes or Immutable can no longer be implemented.
->
-> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+The INTERFACE_CHANGE_INT_MASK register was accessed outside the
+Type-C initialization path added for minimal Type-C support.
 
-I checked it myself and per-type declarations are indeed needed. We
-can't use most_traits for everything yet.
+On platforms without Type-C support, this causes the driver to access
+the RX-P0 I2C client while the ANX7625 is in its low-power configuration.
+The access fails during probe and results in errors such as:
 
-> diff --git a/rust/bindgen_parameters b/rust/bindgen_parameters
-> index 8402b0c93545..65d913181eec 100644
-> --- a/rust/bindgen_parameters
-> +++ b/rust/bindgen_parameters
-> @@ -71,3 +71,7 @@
->  # Structs should implement `Zeroable` when all of their fields do.
->  --with-derive-custom-struct .*=3DMaybeZeroable
->  --with-derive-custom-union .*=3DMaybeZeroable
-> +
-> +# `drm_panthor_gpu_info` is copied byte-for-byte to userspace.
-> +--with-derive-custom-struct '^drm_panthor_gpu_info$'=3DIntoBytes
-> +--with-derive-custom-struct '^drm_panthor_gpu_info$'=3DImmutable
+[drm:i2c_access_workaround.isra.0 [anx7625]] *ERROR* fail to access i2c id=3f :39
+[drm:anx7625_i2c_probe [anx7625]] *ERROR* fail to write i2c id=3f :43
 
-For this case, I think we should just do:
+Keep the interrupt-mask update within the low-power-mode check block.
 
---with-derive-custom-struct
-'^drm_panthor_gpu_info$'=3Dzerocopy_derive::most_traits
+Fixes: f81455b2d332 ("drm: bridge: anx7625: implement minimal Type-C support")
+Reported-by: Salendarsingh Gaud <sgaud@qti.qualcomm.com>
+Signed-off-by: Arpit Saini <arpit.saini@oss.qualcomm.com>
+---
+ drivers/gpu/drm/bridge/analogix/anx7625.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-That will automatically give us these two traits.
+diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c b/drivers/gpu/drm/bridge/analogix/anx7625.c
+index c3af88e14f8b..00f2132c7c47 100644
+--- a/drivers/gpu/drm/bridge/analogix/anx7625.c
++++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
+@@ -2930,11 +2930,11 @@ static int anx7625_i2c_probe(struct i2c_client *client)
+ 
+ 		pm_runtime_get_sync(dev);
+ 		_anx7625_hpd_polling(platform, 5000 * 100);
+-	}
+ 
+-	if (platform->pdata.intp_irq)
+-		anx7625_reg_write(platform, platform->i2c.rx_p0_client,
+-				  INTERFACE_CHANGE_INT_MASK, 0);
++		if (platform->pdata.intp_irq)
++			anx7625_reg_write(platform, platform->i2c.rx_p0_client,
++					  INTERFACE_CHANGE_INT_MASK, 0);
++	}
+ 
+ 	/* After getting runtime handle */
+ 	ret = anx7625_typec_register(platform);
 
-Alice
+---
+base-commit: 3d7783543c2646af69ad65825e810060494bea21
+change-id: 20260924-latest_tag-08eace5dd80a
+
+Best regards,
+-- 
+Arpit Saini <arpit.saini@oss.qualcomm.com>
+
