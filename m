@@ -1,24 +1,24 @@
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C18A139768F;
-	Thu, 24 Sep 2026 13:44:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D11BE481657;
+	Thu, 24 Sep 2026 13:44:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790257458; cv=pass; b=sAWg/na7TYaqsYdMw/iCmpxZL4VcgXn4vApCz4XIA/wLq+xlWryiUVfmdbYY6oaAGHC8lYnfzsSA9sYgIDjyatOkvviUnaBCV9Ca5k//L/6vRriSLsoNv9z5Pb37U9ylTuftpAJHzQdHbROd18M2jbHbTK4Dciq+6RPaqINc2NQ=
+	t=1790257459; cv=pass; b=jL18LNfBhV/6HrNv3hKmPWqh6j48k5c5ch5Hm6KQWs1m37riSs6ba43IUs7ptnINY6F9N5ADyAZ/cNgjbCh/dMFvOwNdBxg0WYpfmmKintK2j5kgDr8cz5sN6lDOJb3ecFQtwwF7ZGXrh301Q14fPDn6Hd1hYlgJwl9L1L7iCP8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790257458; c=relaxed/simple;
-	bh=aLJdTcfY1SJeao33nULpegw/broOjWVZMJ2Yyqfb+BE=;
+	s=arc-20240116; t=1790257459; c=relaxed/simple;
+	bh=e1lyzIN2yK38kMVVEnZr4CyFEuSoy1/+Xx5TAndcZZA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cZuUWemj1rzNkmiq7m5bfKuq2Pa+GY3H0bs90DdrA+OkewKQloAkVlcpdiLI8yBCugTBrGkO3GXMw0dUw22Uzj7KRpgfg3SueofgfrWDc1fFUvFSWoOAPNElgIKXUfDLDkDRnfV9FTFn8mVf4R79bf3d+wr7jNrwaMlwPEGu/Vk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=ZnvYhXn+; arc=pass smtp.client-ip=185.203.200.13
+	 In-Reply-To:To:Cc; b=GfEJHxWUsrcZePSknyc0WxqhdXB/Jhu1p8ZGH0i/Tqngpwgl7VXBJ8tFVX5yaTckubGQjjLRMx+4lWOjhIYRvlsPD6NNVGUYJp6U1Vh05YXkR3PD4ZFJPKokdgVlxHvleJGGpPRj+jaDIPgSmkKRNq2wTzUj8cX2srVzV62l4L0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=YcJNw/ib; arc=pass smtp.client-ip=185.203.200.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="ZnvYhXn+"
-Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.4.pengutronix.de [10.17.1.12])
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="YcJNw/ib"
+Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.pengutronix.de [IPv6:2a0a:edc0:0:1101:1d::ac])
 	(Authenticated sender: relay-from-dude04.red.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C7AE3202136;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C872A202139;
 	Thu, 24 Sep 2026 15:44:07 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1790257447;
@@ -26,40 +26,40 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5m4dO0JnHDZwqU78fXcDoZdrLvSPchXUhEENin9s9QI=;
-	b=ZnvYhXn+UAo9D9zE5B5rMZAa85AK74OkLG8aBWVrO7MDCQZ3vRooKNJiTiWaOe1aWdDoSM
-	fpVnLdUnI92lZKTSLFro+KUEOekQJZf3hZvk06aD1tbP9fc9ZhIVbDRpnb1oHVkUkesrK1
-	DlGUmKwmd6irj4ACnvly8X0PmrZzTjnKpUPlKqU7sTG/cu0ASTEyHINQLRkeXZBsIYbe3Y
-	ekGqn3+cgG0OmtXCQvKvd9/M3JG92As32MjLLp1vyTfOGQBY28WjtB7r+lro2LwWgVhwK5
-	OQYrdyUrIeETR2k1VdxEHXfJcNEjjDeLRwu8HDlTJ9ARHd5YTw8dx6drbogr9Q==
+	bh=5VKvwYgTV+3klTNx4TKLlBFDJQwc6zphT2d4plwh8xg=;
+	b=YcJNw/ib/qJWFsPWYn8ISHj6gx47mbRJOs3LuGkPfjmY8YKMmTAJNkYpwDEZzOZxQUtYtK
+	0yEaae2ixVuSbK2636Ixl0jMghKuEuokoNgrlGv4bInQ/clXiXFDeSCtyYHUhM40MeKo0W
+	JA9bt71Qf3gnn4Qk79Fe8jv1KUTuqE/Rc8O8hud2u0DMEreY2z+x0lW+2fUmFf3YY5vmu/
+	sbV7FI0t7ChJN0wl+zb2eNi0KWjvT4mj0bNrezln/yHqJ5qCuLPBpjlMX8DwQgOCXx+Dlx
+	HQi9doIjXZ+INwOVrj+MMrHKS1OK43vzEtYAstm+I/nu2bV7ir5NOBcGYdHvIA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1790257447;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5m4dO0JnHDZwqU78fXcDoZdrLvSPchXUhEENin9s9QI=;
-	b=WZIVEJeJoQ5v8xKMAFPEj64BUC8ml67Ac17ivX68YJuWQT7akSypOFBZF7lc//ZB/GCdZ0
-	ZzMA4jPY1scaydhIaA+fxUj4bLphvczRVb2N/j9aKIX4HIUpHH7xZjFlFlMuq0LrcuuBFf
-	QDZgzpLYz3S79SE9VJU6VUWwlGpOqtqd2jShVi5x4Ls70Le08rT25ErvANlNKQJSl3vvQ4
-	mlH0BSEZ1dVj844BgPWfe63o4uZ/2WTCLjuPv4cyAX5NIsReQHjz67l3ev/VyDbP7RI+mJ
-	iMxnAKBDOg4wsXPOXhuQlvISjgzgnMs9yTIo7iT/qOGbMkWNFRq4tNUG/o465g==
+	bh=5VKvwYgTV+3klTNx4TKLlBFDJQwc6zphT2d4plwh8xg=;
+	b=Qs26ka44TG3udFP5MGuo/LJ24TCnN5Vt0VCPVRLm7SMRCEyjCERmDBqLxEbOEpMGKL0pw6
+	qTpMACDufVZuZ5v9tDKQZo4zsSmjU+veKWogVSnsCh/K+Fy/LESCu8t0JkRHUkpFKe6Bsy
+	zkTcCQURvrV/XjMbEJT8xkc/5ChDeSmcPyP8VNWofUAy4ALivhhhKpWvZ8bAKxzP2hYkNn
+	ml3jwRCPPC9bvodQ8oXwoT0Z0rn1WMYmN8+/2xUL4jCVC0XkOvujOp4mmua5PDJFtJecKz
+	QgXvpA2zR2aAilSx0rmdrn34ncjRV8xJ874rc9xuroS3ZnH0mzOaiaWEIq8b6Q==
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790257447; a=rsa-sha256;
 	cv=none;
-	b=UM6MBHxt2srIJ3lkl38Vghm3pzsOy6FJiH469NC3L2AEDpbRc6HQVQDkobknCphzcDaI30
-	PTlemSH38gHHL1Im9Qz9gj3fKNECbVs6kcqySo5zLgOIeY0aReo24lej0v8gzisCXKdeIK
-	+W1HAco9z8cAvMXkD53i4oGJylBezPUPninT3IsELnJfWY9XU1jmUQMV0ekjVfB8eJtSGC
-	Wkely3NQB10rS2uxh1bu+vWaCSm58Va6fSTnYGDq3ahE5hVLuMwmCzGy3HIMBvPtsYgEUV
-	3Kex7J6FvVQhjA5onMjyQZL23vD0KhcEwFme5TNBrZQhM+0aU7Cs+WtHXn82bQ==
+	b=FTpslgkUua0eYiUAlZqrJVhIbRhfIDJ6857j5iUCN/o3XHX9T4SVZEsfSMLnvoYsA6gxGn
+	0+sESXD5++f0WbvCtuO2qHdeO2fbW6vVMsKj+OqAh9p3yqokWQvWKIa6D/+xTt/YHx0YMb
+	ImU81VZky5rNcZAYbEnbYnsbKn8knj63EdiZ3t7lzgIfMpt2rNMIVE7+7eZwTeWY8fCeZu
+	DbDAMTQ7vW8RkBHG96B4H3E40ggLgnPzkXutJOqbuuaTBdp4OWX2cB97CX4uXXsUwsvRg2
+	fRsZgNMml5ejyK5/sO5XpN/QMrs0AiZWRBZqAiqeqCvKXUHG3etK521oR6tTpw==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-dude04.red.stw.pengutronix.de smtp.mailfrom=jre@pengutronix.de
 Received: from dude04.red.stw.pengutronix.de (localhost [IPv6:::1])
-	by dude04.red.stw.pengutronix.de (Postfix) with ESMTP id 954FD381110;
+	by dude04.red.stw.pengutronix.de (Postfix) with ESMTP id 94E83380A10;
 	Thu, 24 Sep 2026 15:44:07 +0200 (CEST)
 From: Jonas Rebmann <jre@pengutronix.de>
-Date: Thu, 24 Sep 2026 15:43:56 +0200
-Subject: [PATCH v7 06/13] spi: spidev_test: always compare loopback data
+Date: Thu, 24 Sep 2026 15:43:54 +0200
+Subject: [PATCH v7 04/13] spi: spidev_test: allow zero-length transfers
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -68,7 +68,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-spi-sun4i-spidev_test-v7-6-126e31a07fdc@pengutronix.de>
+Message-Id: <20260924-spi-sun4i-spidev_test-v7-4-126e31a07fdc@pengutronix.de>
 References: <20260924-spi-sun4i-spidev_test-v7-0-126e31a07fdc@pengutronix.de>
 In-Reply-To: <20260924-spi-sun4i-spidev_test-v7-0-126e31a07fdc@pengutronix.de>
 To: Mark Brown <broonie@kernel.org>
@@ -76,61 +76,58 @@ Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
  Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
  Jonas Rebmann <jre@pengutronix.de>
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1356; i=jre@pengutronix.de;
- h=from:subject:message-id; bh=aLJdTcfY1SJeao33nULpegw/broOjWVZMJ2Yyqfb+BE=;
- b=owGbwMvMwCV2ZcYT3onnbjcwnlZLYsjaqqkc/CB7bp3OFr1pG9nurdH5olIy4YdOaouM5Nu0h
- Xtf1zeVdJSyMIhxMciKKbLEqskpCBn7XzertIuFmcPKBDKEgYtTACaiv4SR4SDrbYY14ZdFMyqT
- Xv6eIZZ/4t0xRo5nbyS38Ma/OXzkVCPDP80NUr4bbsg9e138cu+Bo7eFslJ42pK3prH+cl7yy8F
- /OicA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1433; i=jre@pengutronix.de;
+ h=from:subject:message-id; bh=e1lyzIN2yK38kMVVEnZr4CyFEuSoy1/+Xx5TAndcZZA=;
+ b=owGbwMvMwCV2ZcYT3onnbjcwnlZLYsjaqqn07KxttFn6Z8cJJ1Q+KJ+eInnq6cLrbal7I1c4S
+ Gx9debsmY5SFgYxLgZZMUWWWDU5BSFj/+tmlXaxMHNYmUCGMHBxCsBEDM0ZGVakTamTXd1d0hy6
+ PrjhLodWyxZdgZT9ywt6k4++errk9hpGho/5qqZOZgdFS979PP+86bDI68nnYq1YXp95cMPi87R
+ X+WwA
 X-Developer-Key: i=jre@pengutronix.de; a=openpgp;
  fpr=0B7B750D5D3CD21B3B130DE8B61515E135CD49B5
 
-In loopback mode, spidev_test verifies that the received data matches
-the sent data. However this test was only performed when random data was
-transferred using the -S switch. Always perform the test by moving it
-from transfer_buf() to transfer().
+SPI drivers may in fact handle zero-length transfers. The behavior so
+far was that such transfers would be executed but then result in the
+"can't send spi message" error message because the spi_sync() call
+returning 0 would be treated as an error while really it simply
+indicates that zero bytes were successfully transferred in a message.
+
+Don't treat a return value of zero as indication of an error.
+
+Update hex_dump() to work with empty buffers now printing e.g.
+
+  TX | __ ||
+
+Now including a trailing newline.
 
 Signed-off-by: Jonas Rebmann <jre@pengutronix.de>
 ---
- tools/spi/spidev_test.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ tools/spi/spidev_test.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/tools/spi/spidev_test.c b/tools/spi/spidev_test.c
-index 97d09bf4dafb..e46eaef4d2ab 100644
+index 36292d868d69..908ed038889b 100644
 --- a/tools/spi/spidev_test.c
 +++ b/tools/spi/spidev_test.c
-@@ -173,6 +173,15 @@ static void transfer(int fd, uint8_t const *tx, uint8_t const *rx, size_t len)
+@@ -68,6 +68,10 @@ static void hex_dump(const void *src, size_t length, size_t line_size,
+ 	unsigned char c;
+ 
+ 	printf("%s | ", prefix);
++
++	if (length == 0)
++		printf("__ ||\n");
++
+ 	while (length-- > 0) {
+ 		printf("%02X ", *address++);
+ 		if (!(++i % line_size) || (length == 0 && i % line_size)) {
+@@ -149,7 +153,7 @@ static void transfer(int fd, uint8_t const *tx, uint8_t const *rx, size_t len)
+ 	}
+ 
+ 	ret = ioctl(fd, SPI_IOC_MESSAGE(1), &tr);
+-	if (ret < 1)
++	if (ret < 0)
+ 		pabort("can't send spi message");
  
  	if (verbose)
- 		hex_dump(rx, len, 32, "RX");
-+
-+	if (mode & SPI_LOOP) {
-+		if (memcmp(tx, rx, len)) {
-+			fprintf(stderr, "transfer error !\n");
-+			hex_dump(tx, len, 32, "TX");
-+			hex_dump(rx, len, 32, "RX");
-+			exit(1);
-+		}
-+	}
- }
- 
- static void print_usage(const char *prog)
-@@ -435,15 +444,6 @@ static void transfer_buf(int fd, int len)
- 	_write_count += len;
- 	_read_count += len;
- 
--	if (mode & SPI_LOOP) {
--		if (memcmp(tx, rx, len)) {
--			fprintf(stderr, "transfer error !\n");
--			hex_dump(tx, len, 32, "TX");
--			hex_dump(rx, len, 32, "RX");
--			exit(1);
--		}
--	}
--
- 	free(rx);
- 	free(tx);
- }
 
 -- 
 2.56.0.rc0.108.gf0ef1b96a0
