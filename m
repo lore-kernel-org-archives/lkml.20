@@ -1,317 +1,167 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11022098.outbound.protection.outlook.com [40.107.209.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8B9F478870
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:26:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7775C35C1B2;
+	Thu, 24 Sep 2026 12:26:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.98
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790252785; cv=pass; b=rfxxFR+uR+UuEoXQI++ihCoscosZSIRCb96Wr8wAyv4YAYG1YXAUpPSGjlhsA6rLVKRFhf/C9C2vfzz7RrLHu7iskoW2oNU/SANV+iqUdJZWC3aCy7clHNatRloYQ4I+sKpG5G0DvSYJMoVCdjuGCqkgyVPyCG+8QR96p06kgcI=
+	t=1790252805; cv=fail; b=U2Yum2kgEamndEEB4xyZ8GV5tWLhlmb4/6mNoAoN9J8w1N05JUZrj9LY2q/GyyeHH2Xey5E9/OVd8tg/4PwEthETng+7Cy/xOeLTZ0M5QZelSvXOsEF+h63YwP9hb3y7GIIEXdCuiZegry4Oaq2rBW6Ytllh15XH0coJeDTRt28=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790252785; c=relaxed/simple;
-	bh=9vSyr3e26Qz/fAvJZ42PLSKkIjr0FOmX+AK8aedKEO4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LwFsWOutvDPcFLTtTlaGpLCu6h/iPFToEf9JGU7EF9DdelTxKNh+M+Ssmy6hrV5aAPYgrEu1sReo+aWBzPqbopO6jO2E/ENolj/rBrE1wfPRp3Par5gKF8jIqWvHruok1sU+uzhMPbP7mgqgX0qrNPz3U/+eSh3ypE28K/68rks=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jq0LWYru; arc=pass smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790252805; c=relaxed/simple;
+	bh=E4duF26uw45GQXW4vGK1Hb04SfZgqVMZl9LIADehhAo=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=W2y8hqUxAvXxEgd/wel9e0XCrsaTNAbZa1m8dssY04KwXSFL6eU6j8FmhFWBuIOjrdTLa86JzOddcjMpb+DjSZ9K+RYxxJPOakGIkHgrN04/keuv2joM1w3KhARhoupm6hVVoX0c9CA0RsrC2tNs8cDTrv2nPNo7tyaOWjpezEk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lieber.org; spf=pass smtp.mailfrom=lieber.org; dkim=pass (2048-bit key) header.d=lieber.org header.i=@lieber.org header.b=mmDE5I3T; arc=fail smtp.client-ip=40.107.209.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lieber.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lieber.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jq0LWYru"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48877902c99so83525f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:26:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790252781; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WdS4W91OIZjx6568c+Ssp+lUILRTpUrvhOndzxG3EdEPzY6faqNFt6r5J1/bB6F5Dn
-         v88cWosyKzr6THicfvuqrOtxowto8Fu0pKVgAm+IDdiBEZBqMi7ff86ZF2/WFIYbSyfL
-         bMyFK0Zek8iSLzZx7prF+fWIwTSnL/7CPrtmtRxrUfMA9s+GbV3LU9XNDKhKGEsRAUSx
-         SkM3qACtvLpWDLCSSt4BEkGfnLBONhY2MLVjGxm7ibGHbW8BRlZ14PsTNMzMXbPE0fYO
-         ug90JtyvyeIHK/Pbi7uwec1Zj6O6J6yNZvX9Ku6Yg0fHN1jFEkiKYJ5iTcxB2slcwsPs
-         Z/GQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=44/rB8ZswRc008KoGmaclPt6xvztpmvmKKTq9AsEafQ=;
-        fh=PzQ6MAfclORPRvQ9GdEBrdtzWb6NqN3DA8plNK0020o=;
-        b=Svbr0gfuWjLYQ94capoZzBfSBjgq6g8I+jN/JZJZKTulwn6HGjr0MgrM3VsElbU5on
-         2InkEPt+/4bxqRh72g126x2utT9ABqVNP7GbQ2dIgeYvyJ7HV0R6z7ugVQqKuDlIFtoH
-         H3Q7uIaR/g3cuMu3zQJ3frmxXY1LYvkHB1jwx0N91kVQdNXRghqre1loiWEVrrVqidBl
-         7Z+3j1TXwJgwuDFm7XKnDKqpFlAbstmX/g39U7eZuP6EQllAnBGzqmNQnwUYP85Zqvta
-         dHmmCgXUm4V3rSiszLUbTjkxSMJ5tZAQio3+TUB2FfH0lyz7EdO2DPF7JEDoczQWFHli
-         pjAA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790252781; x=1790857581; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=44/rB8ZswRc008KoGmaclPt6xvztpmvmKKTq9AsEafQ=;
-        b=jq0LWYrur3pxZgTwnaZPgTj6hdlIygHkwAAmz4wRVGVxadRYqMhDqvDKbg1fxuzHnU
-         rV2FvybfnMZDhNySDh1KOIT1iqRC31HHpLeGcBdqRBAo6R1bX128VKkXJC4lHvu94vnF
-         5DZ82qRc9dtzPA71B4oZ7lZ2Dlwjuvke94wvfbiisoEXClVFTC31i6ZMztPYh1uPAWAL
-         U3o/8nJ2HT8x23qLmwSNHNM66+7qoTWisyQpyG6h6ppsCsz+e0hEnJ8H0hqJ2h5WlzHt
-         1w1Qj9wpXkM5xCGF4vWFt2JkLePh7gkBFsMJQRhI9XgFiebH7uht4Wj4Ha+zIkuNVRrL
-         KOPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790252781; x=1790857581;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=44/rB8ZswRc008KoGmaclPt6xvztpmvmKKTq9AsEafQ=;
-        b=Ygw4He8BbzhBiQHz3Co0chGuUpSdayK97o8+2rkIFiCPUdGsesPG6lOF0wxoa62o4T
-         1uXcC+3eQq4LxQ13AKzMUI7hOWpNOFrdPMoNCYBEdGTqiabYcHpBS2nmBNAeqNkvH/Zo
-         cWaok7L3eF1Lwnnwsx1Olc5opcE0nJcVdZNF7iTbpT/3lai7ER2fM/vjjfesb6w2WcIt
-         CY8fbh5t94/bP+h5Xstt+HDjNa997i3lpu7AYX1sDuL/fuFYkKKlreHwIc2MsnP5Q6bQ
-         61G0J9QLYkUUb1jvXdYDnAU43A54bsQMyX9vWhfCFzaoDk97K/p3Li2v5mA5rAG5v+OI
-         bL1g==
-X-Forwarded-Encrypted: i=1; AKwUvBzy2v3w07pXfpUHtm0XlLDuczw5NMvjniZ7stLAyGnf7Lc7W0ldkhE1C+TuH6dyE5LykNF/hkgQBg60Zqg=@vger.kernel.org
-X-Gm-Message-State: AFuF++ngbpQAQ5lPXwNGCpoYmtW8lyrPhCx5eUdWpmEMoCO+E7WnDY9i
-	EiljX5+wDJR/g9t5IRYM0hkF2eksKyJmTHvX7fUlpURiW0Q0OJyJeCJUQ49O46fv90Dq6jiZhJL
-	oJyOEHnmh0hWffA46XC0bVz9iP2oyWivuOLBpbyo=
-X-Gm-Gg: AYBFou1QyDmGy4dxU6D2yqGjZb+HUQWTRkM4RZ4JSQu8jVrbYmUCffGpMdomd5gWCTe
-	fHMFVSX6aE7LdKNPJj4U/uaC/p0oIRQwTCOlABiTjbeThQbniXVzXnuAqLpQQl21bQfXO2oovqN
-	nP+8oohftkgw7+D1AP+Q03vuQNKgb2aj2677dogvURwiCIzIcxI5dA4GNcOmNzolrcrzrFw5LHD
-	/CF0GvO2dejgR04w8jGnnVlQAXB4AEwvts3AXj7fnpCFgLfLb4VjGaeqFLCcJcKseM6RMITcm6R
-	F7RrS46QeHJClnpL4bSJh0DbFjUuUIvZPYd61ukj2BIyLoy3k1A9thnKttpJVd3hchAj25iXXe3
-	HcUsgIh/sqRHRp2Ypggj9yZvYsYq8hKnuB4FZUEtBJDQ72PwpmPJLaE2bJ1TxNF3AxIdzVrN7GQ
-	==
-X-Received: by 2002:a05:6000:705:b0:487:bef:31cb with SMTP id
- ffacd0b85a97d-488716ca7e9mr3905909f8f.22.1790252780878; Thu, 24 Sep 2026
- 05:26:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=lieber.org header.i=@lieber.org header.b="mmDE5I3T"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XsRo9k+7Jr0COSazaFwzvjK2F+N08fVM2GSSQZmB7FGF52qcnwXwpKFlq8Z42Io96YSZ8Vfx1prwnDd4tIoe7lFfLO+GwChoNCp4rId+0Jo+rthMVlufW6r03AmxWx/CkGoNNNU2E+kQ2V7Lr0+tKKGaaXLnQmTbDhlwxlQ6iW/0o91InWcyDYL/7+cIGcAehWeVp3CWsB4QGpj67s+iGeUmUmkMMWTxE9KgsFGKvyEGSZaUf0KU0OF0CTFAr1635bpnvFCzV3jlYfvyPPQH+06yNVNFkj7gYyA1lzFFxazZjCO95z6FwUDUcae/50L7uJUiCytqRLweib/zWLTKDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mA/BU78xhBed7iNu6lEnIfOPb1U/xRiB8zzX0R65AdY=;
+ b=c5kXahrPGzizB1KdcSJfCKC7tEzGEjDZEbgfBoQ8skoTUT+vft1z77GJ+CycdArAEBoGtZvuNtVp+2VNv13lw5Hfx0Srn80n5tELNxk7pavgHMaSTow7I0TSSkW6qqYiE84yGgit9fHS4GZYoYeGh3IFUrtTMe85FzI6DQv6qen9J5t39oaiOAdsjUfn1xzDbcoY1EzSGaYXvqzpP/X5yVxrMIG6rTnb6+AaQQ+w3JwvUqSsRIzdwN1WS1ibPdBEekg/aMhberTKpGGRP6Bx4vrpfc0KmlH7Sc1+w8eb0tq1Z4Hf83g10mcdQIvzU/uH5GoI7lPA2/CFqvs6oKNvSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=lieber.org; dmarc=pass action=none header.from=lieber.org;
+ dkim=pass header.d=lieber.org; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lieber.org;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mA/BU78xhBed7iNu6lEnIfOPb1U/xRiB8zzX0R65AdY=;
+ b=mmDE5I3T7QwHoIg0q3cjqzdArMUNvtBifG0jZL6ZHCa9d4qx8G8ULwygt7+c1IqKODN5QSKsrvXclafim4AFCjiVFSy1cVncXgsVbsuPZ/wm6XH9T6fbix5H6fHBN+zOddN/h2NrWdBs4ir6EDkf0J1FIwZV+8TVrjiykWnvVmYwFU+tJzdkJRuxuuYlgMYvR118c83CpCWNGekrmBL6s7P35U8oOpVV663wPDhkhr7xjRpxFesW/Vy5qTK3gv7g01Sew+MJglZhkmifoDGd0g4wphWOHkLnNxHIrqfkI0Nd0DBH5wE10K8PMoadTKUG/kavITXhgX1Iry0GGNIiZA==
+Received: from SJ0PR15MB4696.namprd15.prod.outlook.com (2603:10b6:a03:37d::17)
+ by MW3PR15MB4009.namprd15.prod.outlook.com (2603:10b6:303:51::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 12:26:37 +0000
+Received: from SJ0PR15MB4696.namprd15.prod.outlook.com
+ ([fe80::14c7:ac20:ac6e:6f61]) by SJ0PR15MB4696.namprd15.prod.outlook.com
+ ([fe80::14c7:ac20:ac6e:6f61%5]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 12:26:37 +0000
+From: Kurt Lieber <kurt@lieber.org>
+To: Mika Westerberg <mika.westerberg@linux.intel.com>
+CC: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"andreas.noever@gmail.com" <andreas.noever@gmail.com>, "westeri@kernel.org"
+	<westeri@kernel.org>, "YehezkelShB@gmail.com" <YehezkelShB@gmail.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: [PATCH] thunderbolt: Disable CL states for the Anker Prime TB5 dock
+Thread-Topic: [PATCH] thunderbolt: Disable CL states for the Anker Prime TB5
+ dock
+Thread-Index: AQHdTB/xumZMHV37HU+Dgj/1DHc0GQ==
+Date: Thu, 24 Sep 2026 12:26:37 +0000
+Message-ID:
+ <SJ0PR15MB46960A6F15BCA58C0726C908A3812@SJ0PR15MB4696.namprd15.prod.outlook.com>
+References:
+ <SJ0PR15MB4696D491504DB667AA8E0617A3812@SJ0PR15MB4696.namprd15.prod.outlook.com>
+ <20260924073514.GM106095@black.igk.intel.com>
+ <SJ0PR15MB4696C6AB0D4FB7C86C420008A3812@SJ0PR15MB4696.namprd15.prod.outlook.com>
+ <20260924101046.GN106095@black.igk.intel.com>
+In-Reply-To: <20260924101046.GN106095@black.igk.intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=lieber.org;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ0PR15MB4696:EE_|MW3PR15MB4009:EE_
+x-ms-office365-filtering-correlation-id: 2b909b6a-6a29-43bf-1a68-08df1a371432
+x-ms-exchange-atpmessageproperties: SA
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|10070799003|10067099003|56012099006|4143699003|38070700021|7055299009|18002099003|22082099003|55112099003;
+x-microsoft-antispam-message-info:
+ 74pncuXkWRd42fDiPh7XKmBtWSMmbv7hNZRm13DJa3l80kBVRGW9Qljg5nCXzY+5QLHx+B6ydue5ro/2YTZ5XYhsreqsiF/kR5sQ+cY4sBxteRaENRkx7WQGYEub3s4fHw1oxMqvHw5fGIPh56iDRJO0h8ZFJ4/mu52/wOk6Vb/dzvNq5ZixhgR0Q4frOKmXEQ2NENMeQtsCFtVYFfYSvEsZmWj3E8MUURgBZ8GPuERlU98qvNw6nbzjY70PmQzvaJ48yxqlzyJxRxhPVZ3P/umDcPSwNof5l0MsXh1aeagDT1XZLKg05VFK/Jto31GEIl1JERTKx0oScwKfegC4mvDC+hunj+WupX2tenYbG1vnhc5F2/wJCjFYpAMHAXycFoREoyHZDbyWWu4GlVPAoWinRv03JTvA6VmV/z8RGnLUM89wV3OLSRsmB9BvQd6O+lEhq0ih/vHqjN6sCsq8RY9OgzWtzxUMMaunry3/3p/V1I/0tOz3rLzGCogXuApPWz8kIJndZ1/4zwEVxnbu9VcGJoNt6OF/wZD9AwdF1BDeGuncukP9fRkEFdSWR9PxzMkTL57RTKP4tC0YYipWKaNHtYRrsRLdjcaZw9wBhDFJ7UHIbq7w+BuMftVsspHaRGUWsQ+NAbNSpiXpFX/rtSWbmUjxNEBNw3GM8o14i+BP37dDXY7xCwnRUCnHIhmoRMwxmHvdfmTdOv+VZ+nGfVIuRID1rJMTuB4kcNaEvtC/59DNR5MBU37N6e+Z4kDG
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR15MB4696.namprd15.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(10070799003)(10067099003)(56012099006)(4143699003)(38070700021)(7055299009)(18002099003)(22082099003)(55112099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?PcdvuCcLZfEQOr2UDNrr/xjUDsgnR5+jfaOf1/upah6JtqivgEOnb6Fzev?=
+ =?iso-8859-1?Q?7SMduDdS5UjWAvZzd+ZFpoO6rUzE8j7ujMh+BeuH8r2boqM5cTfjUAhpbF?=
+ =?iso-8859-1?Q?6Q2HFt4ce87G8HxhIdQCEDeCe9Yj5XxVpbSNNcmadm9q82+LdxJTMf4M+q?=
+ =?iso-8859-1?Q?qr3lPHp6cSGjm/sgG4WozWyplR8ZoFHC9F6pMNvLnvmbHWZ2jSlchkbTU+?=
+ =?iso-8859-1?Q?LNy0sruVY9evwNQsh3NVGNTIWfUgnZEFQhkCIGnIwFfCUi9190oggVvzbA?=
+ =?iso-8859-1?Q?jiKWvjs4RCmh43QHoIrMiO1/nrpVTW91zXxVBj7gyob85X5rMXq6y+9o+2?=
+ =?iso-8859-1?Q?80oNmkQm8u1pLnI7mdFXM/taPUJTAKdh7wWFCiHuyjIZ2yvca95iQ5Ca9f?=
+ =?iso-8859-1?Q?fND1DFr7D24hz0ziSGAfc1l1g/Ez0Gm+E9cIqmvwEyq5I9keQUBGQbPJs5?=
+ =?iso-8859-1?Q?r/GLuBXHJtFmVDBtEcl/q5yXRtD+ctfdY44ZBv6C2+nUPytIPWC0MZI0bz?=
+ =?iso-8859-1?Q?2WxBu8RX3YSj7TWfR337VLkFNKjx15xSuriL1ijaXtH1zueDXPKxQ94iDA?=
+ =?iso-8859-1?Q?r+iU/6R4sGet461rJZFmcGhlnuWu1jh7cM515NWPVaTmv3gdFa+98r8Z+T?=
+ =?iso-8859-1?Q?ikdODZkVHrgZTLM+V9u/mU7x4QXtbjGJ5yukLi7L0SLDQd/aRWc+wEsqsf?=
+ =?iso-8859-1?Q?MNp79rtyYigR8F0K0V4TPVBU3R3VvzDqhct1a5NPU8CO96jH0x3VpCtJhH?=
+ =?iso-8859-1?Q?h5JkC2F7xsbno3wj2KL719AxzK1B6q929++DeagDi1Kz3C5H4RyDa5lyem?=
+ =?iso-8859-1?Q?5gYLEjUm24WK9HAVOrP0tQ4/k7dskqsbfrbxi201KDu3+SjSQNXiDwSRLD?=
+ =?iso-8859-1?Q?YFsBCBd1SrQ6YxN4Da+DZJiJv2phwFr8gTfW+uwdjnbCi7IiOU/u8DeuLl?=
+ =?iso-8859-1?Q?8HYVmwU0El2fbCj7+NXDOBnVl2Tx0af3lqDp+mhlrs/B/tSUYuRtQMP5+O?=
+ =?iso-8859-1?Q?alJZCN56kda+LxoeRHpTaTK0CXTJFc4kZgHClbwI+t1+d8GCSAwZEsk1Vd?=
+ =?iso-8859-1?Q?2CPdczl63CnMIUwwuwzjaXBpxFcT3CRbrvUyPUOCAeHCAMWhKZshc9mQg1?=
+ =?iso-8859-1?Q?OoSNkLZb0A/MQe9nFJaGNjuqup63YIx18GcQQrOON/pDmWQ+EGB96U1KKl?=
+ =?iso-8859-1?Q?daUM1T7BS2nFPnN/sTKdsPIgI1O2r2Wr2sgLd2qTWsvUy1byWtbMCemE5j?=
+ =?iso-8859-1?Q?yhQJDHi0tZ7rSeaS5+83UEDILbnw6NyH8sHG5RMwE73k+ZJfrMqi1Qt5sv?=
+ =?iso-8859-1?Q?IdyavjtdfW6mhB6/6/3BNQN+fbkzyOHqjOGR3ezNsfhbmwI3PU420C2WZx?=
+ =?iso-8859-1?Q?FlNcrm7abMXxgoSVi5mrHmFiF79E4Jp3decMVuh8L1Pyl+qSM2raWUpzpQ?=
+ =?iso-8859-1?Q?k1WJXU+57r7f+yLhe79+awaKBbrxo4/cS6OvZVyCl/kHbHzNn57GcPa3Pr?=
+ =?iso-8859-1?Q?iM7CSZbkd1zh2PGzLv1ePtQjLGvWhZ92BCJappAMWUZDhpLxr+9ku8IfZk?=
+ =?iso-8859-1?Q?R19cECb9mWO99ycZScy5icAS3aD717b2+KhlnePN93qKtLrnJSWu9/xKDM?=
+ =?iso-8859-1?Q?5+6Dr9EXnlHZ/E/+dhsOC78KL/7T6ClZoZjytuyY9/YWudT2HZkNZDACme?=
+ =?iso-8859-1?Q?sZ6d3Q2mW/ZvjZCqow+edObrlv9LQ2/65WbbiHw24PYNTlaZtYRiZLlDTs?=
+ =?iso-8859-1?Q?1CpMv/TS48TFafy9EfP428dpbeG/3fsMdA3r1aEuWCdyWuSaVaFaTCUPzQ?=
+ =?iso-8859-1?Q?ow+ScH10gN7DGoCHD6y60Ys5W+7S0LX9le6NUre4V2G9NY7P5hG7?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922144629.586997-1-claudiu.beznea@kernel.org> <20260922144629.586997-7-claudiu.beznea@kernel.org>
-In-Reply-To: <20260922144629.586997-7-claudiu.beznea@kernel.org>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Thu, 24 Sep 2026 13:25:53 +0100
-X-Gm-Features: AclHuK9gavbB6M7C_1T08SEgonhC2MdBJl0CvHQ9gIdkytsFMiv_mcHbK1pSAfU
-Message-ID: <CA+V-a8t=7PGALbP3HMTYZyzB9Vp3w=Rx41yPCc_DHR-Z9+Afig@mail.gmail.com>
-Subject: Re: [PATCH v4 6/8] PCI: rzg3s-host: Move IRQ domain setup code
-To: Claudiu Beznea <claudiu.beznea@kernel.org>
-Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org, 
-	robh@kernel.org, bhelgaas@google.com, p.zabel@pengutronix.de, 
-	claudiu.beznea@tuxon.dev, linux-pci@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: lieber.org
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR15MB4696.namprd15.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b909b6a-6a29-43bf-1a68-08df1a371432
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2026 12:26:37.4114
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 213667ce-a7c7-4f7f-ac87-9abccbddaa2f
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: tUdYwRK9Gd5sV5PMOU/N2acVQGbRpEN2Mt+glJyGBMpaOyT9jQifjZH4uO1bdCgY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR15MB4009
 
-On Tue, Sep 22, 2026 at 3:54=E2=80=AFPM Claudiu Beznea
-<claudiu.beznea@kernel.org> wrote:
->
-> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->
-> Subsequent patches add support for the event IRQ to handle link
-> up/down events. The event IRQ handler will use
-> rzg3s_pcie_set_max_link_speed(). In preparation for adding event IRQ
-> support, move the IRQ domain initialization code after
-> rzg3s_pcie_set_max_link_speed().
->
-> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-> ---
->
-> Changes in v4:
-> - none
->
-> Changes in v3:
-> - none, this patch is new
->
->  drivers/pci/controller/pcie-rzg3s-host.c | 147 +++++++++++------------
->  1 file changed, 73 insertions(+), 74 deletions(-)
->
-Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Tested-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-
-Cheers,
-Prabhakar
-
-> diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/contr=
-oller/pcie-rzg3s-host.c
-> index 40d5ef3e347e..f4b27a77a89d 100644
-> --- a/drivers/pci/controller/pcie-rzg3s-host.c
-> +++ b/drivers/pci/controller/pcie-rzg3s-host.c
-> @@ -1006,80 +1006,6 @@ static const struct irq_domain_ops rzg3s_pcie_intx=
-_domain_ops =3D {
->         .xlate =3D irq_domain_xlate_onetwocell,
->  };
->
-> -static void rzg3s_pcie_teardown_intx(struct rzg3s_pcie_host *host,
-> -                                    int count)
-> -{
-> -       while (--count >=3D 0) {
-> -               irq_set_chained_handler_and_data(host->intx_irqs[count], =
-NULL,
-> -                                                NULL);
-> -       }
-> -
-> -       if (host->intx_domain)
-> -               irq_domain_remove(host->intx_domain);
-> -}
-> -
-> -static int rzg3s_pcie_init_irqdomain(struct rzg3s_pcie_host *host)
-> -{
-> -       struct device *dev =3D host->dev;
-> -       struct platform_device *pdev =3D to_platform_device(dev);
-> -       int i, ret;
-> -
-> -       for (i =3D 0; i < PCI_NUM_INTX; i++) {
-> -               char irq_name[5] =3D {0};
-> -               int irq;
-> -
-> -               scnprintf(irq_name, ARRAY_SIZE(irq_name), "int%c", 'a' + =
-i);
-> -
-> -               irq =3D platform_get_irq_byname(pdev, irq_name);
-> -               if (irq < 0) {
-> -                       ret =3D irq;
-> -                       dev_err_probe(dev, ret,
-> -                                     "Failed to parse and map INT%c IRQ\=
-n",
-> -                                     'A' + i);
-> -                       goto teardown_intx;
-> -               }
-> -
-> -               host->intx_irqs[i] =3D irq;
-> -               irq_set_chained_handler_and_data(irq,
-> -                                                rzg3s_pcie_intx_irq_hand=
-ler,
-> -                                                host);
-> -       }
-> -
-> -       host->intx_domain =3D irq_domain_create_linear(dev_fwnode(dev),
-> -                                                    PCI_NUM_INTX,
-> -                                                    &rzg3s_pcie_intx_dom=
-ain_ops,
-> -                                                    host);
-> -       if (!host->intx_domain) {
-> -               ret =3D -EINVAL;
-> -               dev_err_probe(dev, ret,
-> -                             "Failed to add irq domain for INTx IRQs\n")=
-;
-> -               goto teardown_intx;
-> -       }
-> -       irq_domain_update_bus_token(host->intx_domain, DOMAIN_BUS_WIRED);
-> -
-> -       if (IS_ENABLED(CONFIG_PCI_MSI)) {
-> -               ret =3D rzg3s_pcie_init_msi(host);
-> -
-> -               if (ret)
-> -                       goto teardown_intx;
-> -       }
-> -
-> -       return 0;
-> -
-> -teardown_intx:
-> -       rzg3s_pcie_teardown_intx(host, i);
-> -
-> -       return ret;
-> -}
-> -
-> -static void rzg3s_pcie_teardown_irqdomain(struct rzg3s_pcie_host *host)
-> -{
-> -       if (IS_ENABLED(CONFIG_PCI_MSI))
-> -               rzg3s_pcie_teardown_msi(host);
-> -
-> -       rzg3s_pcie_teardown_intx(host, PCI_NUM_INTX);
-> -}
-> -
->  static int rzg3s_pcie_set_max_link_speed(struct rzg3s_pcie_host *host)
->  {
->         u32 remote_supported_link_speeds, max_supported_link_speeds;
-> @@ -1169,6 +1095,79 @@ static int rzg3s_pcie_set_max_link_speed(struct rz=
-g3s_pcie_host *host)
->         return ret;
->  }
->
-> +static void rzg3s_pcie_teardown_intx(struct rzg3s_pcie_host *host, int c=
-ount)
-> +{
-> +       if (host->intx_domain)
-> +               irq_domain_remove(host->intx_domain);
-> +
-> +       while (--count >=3D 0) {
-> +               irq_set_chained_handler_and_data(host->intx_irqs[count], =
-NULL,
-> +                                                NULL);
-> +       }
-> +}
-> +
-> +static int rzg3s_pcie_init_irqdomain(struct rzg3s_pcie_host *host)
-> +{
-> +       struct device *dev =3D host->dev;
-> +       struct platform_device *pdev =3D to_platform_device(dev);
-> +       int i, ret;
-> +
-> +       for (i =3D 0; i < PCI_NUM_INTX; i++) {
-> +               char irq_name[5] =3D {0};
-> +               int irq;
-> +
-> +               scnprintf(irq_name, ARRAY_SIZE(irq_name), "int%c", 'a' + =
-i);
-> +
-> +               irq =3D platform_get_irq_byname(pdev, irq_name);
-> +               if (irq < 0) {
-> +                       ret =3D irq;
-> +                       dev_err_probe(dev, ret,
-> +                                     "Failed to parse and map INT%c IRQ\=
-n",
-> +                                     'A' + i);
-> +                       goto teardown_intx;
-> +               }
-> +
-> +               host->intx_irqs[i] =3D irq;
-> +               irq_set_chained_handler_and_data(irq,
-> +                                                rzg3s_pcie_intx_irq_hand=
-ler,
-> +                                                host);
-> +       }
-> +
-> +       host->intx_domain =3D irq_domain_create_linear(dev_fwnode(dev),
-> +                                                    PCI_NUM_INTX,
-> +                                                    &rzg3s_pcie_intx_dom=
-ain_ops,
-> +                                                    host);
-> +       if (!host->intx_domain) {
-> +               ret =3D -EINVAL;
-> +               dev_err_probe(dev, ret,
-> +                             "Failed to add irq domain for INTx IRQs\n")=
-;
-> +               goto teardown_intx;
-> +       }
-> +       irq_domain_update_bus_token(host->intx_domain, DOMAIN_BUS_WIRED);
-> +
-> +       if (IS_ENABLED(CONFIG_PCI_MSI)) {
-> +               ret =3D rzg3s_pcie_init_msi(host);
-> +
-> +               if (ret)
-> +                       goto teardown_intx;
-> +       }
-> +
-> +       return 0;
-> +
-> +teardown_intx:
-> +       rzg3s_pcie_teardown_intx(host, i);
-> +
-> +       return ret;
-> +}
-> +
-> +static void rzg3s_pcie_teardown_irqdomain(struct rzg3s_pcie_host *host)
-> +{
-> +       if (IS_ENABLED(CONFIG_PCI_MSI))
-> +               rzg3s_pcie_teardown_msi(host);
-> +
-> +       rzg3s_pcie_teardown_intx(host, PCI_NUM_INTX);
-> +}
-> +
->  static int rzg3s_pcie_config_init(struct rzg3s_pcie_host *host)
->  {
->         struct pci_host_bridge *bridge =3D pci_host_bridge_from_priv(host=
-);
-> --
-> 2.43.0
->
->
+The Anker Prime TB5 dock identifies itself in the DROM as 01ea:83b5.=0A=
+Its router config space is an Intel Barlow Ridge 80G hub (8087:5786).=0A=
+The upstream lane adapter advertises CL0s, CL1, and CL2. With CLx left=0A=
+enabled, TMU uni-directional LowRes setup fails with -ENOTCONN, the USB3=0A=
+and DisplayPort tunnels are aborted, and the router reconnects in a loop.=
+=0A=
+Loading thunderbolt with clx=3D0 keeps the link up on this machine.=0A=
+=0A=
+Match the DROM id together with the Barlow Ridge hub id and disable CL=0A=
+states for this dock only. QUIRK_NO_CLX takes the same early-out as the=0A=
+module parameter, without disabling CLx for every other router.=0A=
+=0A=
+Assisted-by: LLM=0A=
+Signed-off-by: Kurt Lieber <kurt@lieber.org>=0A=
+---=0A=
+Runtime-tested on linux-omarchy 7.2.5-3 (LG Gram 17Z90S, Meteor Lake).=0A=
+Booted with thunderbolt.clx left at the default (Y). The dock came up=0A=
+once, CL0s/CL1/CL2 Enable stayed 0 while the support bits stayed 1, the=0A=
+link stayed in CL0 at 40 Gb/s, and the TMU uni-directional reconnect=0A=
+loop did not occur.=0A=
+=0A=
+ drivers/thunderbolt/quirks.c | 3 +++=0A=
+ 1 file changed, 3 insertions(+)=0A=
+=0A=
+diff --git a/drivers/thunderbolt/quirks.c b/drivers/thunderbolt/quirks.c=0A=
+--- a/drivers/thunderbolt/quirks.c=0A=
++++ b/drivers/thunderbolt/quirks.c=0A=
+@@ -116,2 +116,5 @@=0A=
+ 	{ 0x0438, 0x020b, 0x0000, 0x0000, quirk_clx_disable },=0A=
++	/* CLx is unstable on the Anker Prime TB5 dock (DROM 01ea:83b5). */=0A=
++	{ 0x8087, PCI_DEVICE_ID_INTEL_BARLOW_RIDGE_HUB_80G_BRIDGE, 0x01ea, 0x83b5=
+,=0A=
++		  quirk_clx_disable },=0A=
+ };=0A=
