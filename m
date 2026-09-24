@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9772A32A3D7
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:11:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AF983FE64A
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:11:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790223110; cv=none; b=ceRdlHcDuKyem7D+69HNQQlOIG18iKeoSmT7376RxnoKGlO15FuYq35YnQdTbUZlbRxNrFJeZUXhb/XSXJzRyUsreIWdui0CNXVi2iqxTSS621BIcdmA6ZC76ZIK830dP7v98dfs7rbJSpJQoZRG83lAgthzIZpinK9Z5PlcARw=
+	t=1790223112; cv=none; b=SSzOMou/ocqQYIFpGMd/owWjaCgfQ9HG1BpqYBi7d9Yv5/PrK8H1F4D34lw0iRXgEho9zMBjrkY0VH+NJ/sa7An2sB7Ams9UwwJYUil1PFIOUB8dJaGoR0VgZH2keGQLGq+ATS3pdkM3EcaTqwmsk4Bon/pkZihUbC1ml7rAVHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790223110; c=relaxed/simple;
-	bh=kL9skJ4gJ9Od7x1Y8ZIaXRKi3CJdApVxWMuLWYoxhaU=;
+	s=arc-20240116; t=1790223112; c=relaxed/simple;
+	bh=pPKq92HbRkxKZZOuHzLkxeV2WmkDXvV4+1Sz1TqyCUM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZQZEDbXTq0jlE48Ra3+7mySwXeuNc6io+P3qV1hvuCoAB2Ht2TrsZlrQDmP86qPNq+ug+gpQD8FkDpwKYGTTUYY4tCdAskdAbYqK4FzHmRYQP504oQUzaApy7nfCe4wG8HDKehfYmeXId3OBBElCzd34ldUA3Zx85rHQa8jBYo4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Jd+9QBSe; arc=none smtp.client-ip=192.198.163.14
+	 MIME-Version; b=EtaynBt3TU6Ne50IOzKkJzqp3JmV/NMwiR9L1CQnLelnX42VqMpW5t43ky/yxMEZWFqKmx5iIg/Sdex/z6gGLyAjrn7nxZfdHwCrO1RClyu5qEprtu0dnpyhbgsQXkutE9KBOGlgsvaPw79hyRT4ZDMfgk8Jymi4uI3mMNIkQ9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ei3ZvfAE; arc=none smtp.client-ip=192.198.163.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Jd+9QBSe"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ei3ZvfAE"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790223109; x=1821759109;
+  t=1790223110; x=1821759110;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=kL9skJ4gJ9Od7x1Y8ZIaXRKi3CJdApVxWMuLWYoxhaU=;
-  b=Jd+9QBSey5hHfZx+xqCBD2SE/i0TJ1hk8vN7FdqK6CfbyuvO7hRwGRJk
-   /Vs4NuBkQWG271hQyD9oDDGEh9fMzQ49nc258O1rgRWhoUf7i1gKHvt6j
-   gWk2yauhdencOsJyl4J1tu92vV079DcrwjDh9Y79igjVFTYPjnwKVJ9cy
-   srPztiJ0wsJY8AOkcOD5Qlk4qFRcsyDESx6dPUa8CbuCFbGd/dYwHLciW
-   j8Iy9YaN2jvGPRqI0u7WkhGrAzTYa0b5lyDZKc2XwYpTe0abZP6jDT77+
-   9/PVc9Jz1B0rpQl6ynT3ad3zdlU9xVYi1GTbKyvo43k7nQfqO3uU5wob6
-   w==;
-X-CSE-ConnectionGUID: KwFN1nPITdWzhEZmP2MfmA==
-X-CSE-MsgGUID: RXGwoFz6QKSQvUUGacLlhg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="91002565"
+  bh=pPKq92HbRkxKZZOuHzLkxeV2WmkDXvV4+1Sz1TqyCUM=;
+  b=ei3ZvfAEgmIA0zot6atZdAIASt6nLg0v7fCwoSMRD8eu6zbIsJECcS6e
+   LP5Ik6SlYpmxebWgnG3287lOFjvpMm23yRBJNXlrtx72aFdIPy26hSlpu
+   +cHX6fUMXGnHvcT81FgP1HoCW0gEwFCijYTBTxOQJolr8Kyc+RKRBTH01
+   u2aIaiOXU+pER6unZWTSX08HboaPUVYBjwXDUJImX28+m3HNQ4rErfcOH
+   wA9eY0ek3YucMikHn6fRsakARYQrOi9pnY6E6qWALQCEea1YI/yZN9URt
+   awLKxkH33JZU3wDXeNFhbRq2x4oZG80QBL4QUlHYOHPQ+efa7FfXEYyqP
+   A==;
+X-CSE-ConnectionGUID: PrjLtevUSHqu+V7ED69kHA==
+X-CSE-MsgGUID: QHGgjA/ST5OuObH6zWEalA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="91002556"
 X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="91002565"
+   d="scan'208";a="91002556"
 Received: from fmviesa011.fm.intel.com ([10.60.135.151])
   by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 21:11:48 -0700
-X-CSE-ConnectionGUID: IGlRE99KQuGb10f10ePVaQ==
-X-CSE-MsgGUID: ZM8bsu59TCeqgjHs9g3Gqg==
+X-CSE-ConnectionGUID: Ueufu4a7SyW1k5Z+Xm56Kw==
+X-CSE-MsgGUID: 4vh1aFv3RV6UapMnkpgs5w==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="5009439"
+   d="scan'208";a="5009413"
 Received: from unknown (HELO gnr-sp-2s-612.sh.intel.com) ([10.112.229.148])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 21:11:43 -0700
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 21:11:37 -0700
 From: Zhenzhong Duan <zhenzhong.duan@intel.com>
 To: x86@kernel.org,
 	linux-coco@lists.linux.dev,
@@ -67,9 +67,9 @@ Cc: dave.hansen@linux.intel.com,
 	xiaoyao.li@intel.com,
 	kevin.tian@intel.com,
 	chao.p.peng@intel.com
-Subject: [RFC PATCH 12/15] virt: tdx-guest: Support Trust Device Interface (TDI) activation
-Date: Thu, 24 Sep 2026 12:10:29 +0800
-Message-ID: <20260924041032.1096569-13-zhenzhong.duan@intel.com>
+Subject: [RFC PATCH 11/15] x86/tdx: Add TDG.TDI.START module call wrapper for TDX Connect
+Date: Thu, 24 Sep 2026 12:10:28 +0800
+Message-ID: <20260924041032.1096569-12-zhenzhong.duan@intel.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
 References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
@@ -81,125 +81,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Store the bind session ID obtained after binding the TDI which is used
-by TDG.TDI.START to verify same bind session established by host before
-activation.
+Add tdx_mcall_tdi_start() to signal that the TD is ready to start a TDI
+instance. After a successful module call, the TDX module authorizes the
+host to start the TDI with the TDH.TDI.START seamcall.
 
-Add tdx_tdi_start_dev() to signal guest readiness to the TDX module and
-issue the TDCM_OP_START_TDI hypercall for the host to complete activation.
-
-The run callback accepts private MMIO ranges, starts the TDI, and verifies
-that it reaches TDI_STATE_RUN, finally notifies DMA sub-system device's
-ready to DMA to private memory. Note that private DMA is enabled separately
-during driver attach by accepting the default DMAR entry.
+Translate TDX module return codes into Linux errno values.
 
 Signed-off-by: Zhenzhong Duan <zhenzhong.duan@intel.com>
 ---
- drivers/virt/coco/tdx-guest/connect.c | 45 ++++++++++++++++++++++++++-
- 1 file changed, 44 insertions(+), 1 deletion(-)
+ arch/x86/coco/tdx/tdx_connect.c   | 27 +++++++++++++++++++++++++++
+ arch/x86/include/asm/shared/tdx.h |  1 +
+ arch/x86/include/asm/tdx.h        |  1 +
+ 3 files changed, 29 insertions(+)
 
-diff --git a/drivers/virt/coco/tdx-guest/connect.c b/drivers/virt/coco/tdx-guest/connect.c
-index fe8d76ba6f81..a9d41fd38b64 100644
---- a/drivers/virt/coco/tdx-guest/connect.c
-+++ b/drivers/virt/coco/tdx-guest/connect.c
-@@ -130,6 +130,8 @@ DEFINE_FREE(tdx_tdcm_free, struct tdcm_ctx *,
- 
- struct tdx_devsec {
- 	struct pci_tsm_devsec pci;
-+
-+	u64 bind_session_id;
- };
- 
- static struct tdx_devsec *to_tdx_devsec(struct pci_tsm *tsm)
-@@ -202,6 +204,7 @@ enum tdi_state {
- 
- enum tdi_field_code {
- 	TDI_GET_TDISP_STATE		= 2,
-+	TDI_GET_BIND_SESSION_ID		= 5,
- };
- 
- static int tdx_tdi_read_state(struct tdx_devsec *tdevsec, u8 *state)
-@@ -302,10 +305,27 @@ static int tdx_tdi_mmio_accept(struct tdx_devsec *tdevsec)
- 	return 0;
+diff --git a/arch/x86/coco/tdx/tdx_connect.c b/arch/x86/coco/tdx/tdx_connect.c
+index 09a92fe23357..3ef10b1df401 100644
+--- a/arch/x86/coco/tdx/tdx_connect.c
++++ b/arch/x86/coco/tdx/tdx_connect.c
+@@ -109,3 +109,30 @@ int tdx_mcall_mmio_accept(u64 func_id, u64 index, u32 pg_offset, u32 page_cnt, p
+ 	return tdx_mcall_tdi_to_errno(ret);
  }
- 
-+static int tdx_tdi_start_dev(struct tdx_devsec *tdevsec)
+ EXPORT_SYMBOL_FOR_MODULES(tdx_mcall_mmio_accept, "tdx-guest");
++
++/**
++ * tdx_mcall_tdi_start() - Authorize TDX module to start the TDI instance
++ * @func_id: Function identifier specifying the TDI instance
++ * @exp_bind_session: Expected bind session ID
++ *
++ * Signal TDX module that TD is ready to start TDI. Upon success, TDX module
++ * allows host to initiate TDI via TDH.TDI.START seamcall.
++ *
++ * Return 0 on success, -ENXIO for invalid operands, -EBUSY for busy operation,
++ * -ENODEV for TDI not present or invalid metadata, or -EIO on other TDCALL failures.
++ */
++int tdx_mcall_tdi_start(u64 func_id, u64 exp_bind_session)
 +{
-+	struct pci_dev *pdev = tdevsec->pci.base_tsm.pdev;
-+	int ret;
++	struct tdx_module_args args = {
++		.rcx = func_id,
++		.rdx = exp_bind_session,
++	};
++	u64 ret;
 +
-+	ret = tdx_mcall_tdi_start(pci_dev_id(pdev), tdevsec->bind_session_id);
-+	if (ret)
-+		return ret;
++	ret = __tdcall(TDG_TDI_START, &args);
++	if (!ret)
++		return 0;
 +
-+	struct tdcm_ctx *tdcm __free(tdx_tdcm_free) = tdx_tdcm_alloc(pdev, TDCM_OP_START_TDI, 0, 0);
-+	if (IS_ERR(tdcm))
-+		return PTR_ERR(tdcm);
-+
-+	return tdx_tdcm_run(tdcm);
++	return tdx_mcall_tdi_to_errno(ret);
 +}
-+
- static struct pci_tsm *tdx_devsec_lock(struct tsm_dev *tsm_dev, struct pci_dev *pdev)
- {
- 	struct device_evidence_object *tsm_report;
- 	struct device_evidence *evidence;
-+	u64 session_id;
- 	u32 report_sz;
- 	u8 state;
- 	int ret;
-@@ -325,6 +345,12 @@ static struct pci_tsm *tdx_devsec_lock(struct tsm_dev *tsm_dev, struct pci_dev *
- 	if (IS_ERR(tdevsec_bind))
- 		return ERR_CAST(tdevsec_bind);
++EXPORT_SYMBOL_FOR_MODULES(tdx_mcall_tdi_start, "tdx-guest");
+diff --git a/arch/x86/include/asm/shared/tdx.h b/arch/x86/include/asm/shared/tdx.h
+index ce80fb2116fb..72520f09ef3f 100644
+--- a/arch/x86/include/asm/shared/tdx.h
++++ b/arch/x86/include/asm/shared/tdx.h
+@@ -21,6 +21,7 @@
+ #define TDG_VM_RD			7
+ #define TDG_VM_WR			8
+ #define TDG_TDI_READ			67
++#define TDG_TDI_START			68
+ #define TDG_MMIO_ACCEPT			71
  
-+	ret = tdx_mcall_tdi_read(pci_dev_id(pdev), TDI_GET_BIND_SESSION_ID, &session_id);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	tdevsec->bind_session_id = session_id;
-+
- 	u8 *report __free(kfree) = tdx_tdi_get_report(tdevsec, &report_sz);
- 	if (IS_ERR(report))
- 		return ERR_CAST(report);
-@@ -362,6 +388,7 @@ static void tdx_devsec_unlock(struct pci_tsm *tsm)
+ /* TDX TD attributes */
+diff --git a/arch/x86/include/asm/tdx.h b/arch/x86/include/asm/tdx.h
+index e6493f3bc0d1..787b3039ef5a 100644
+--- a/arch/x86/include/asm/tdx.h
++++ b/arch/x86/include/asm/tdx.h
+@@ -156,6 +156,7 @@ struct tdcm_rsp_check_teeio_supp {
+ u64 tdx_hcall_tdcm(u16 devid, void *buf, size_t size, u8 vector);
+ int tdx_mcall_tdi_read(u64 func_id, u64 field, u64 *value);
+ int tdx_mcall_mmio_accept(u64 func_id, u64 index, u32 pg_offset, u32 page_cnt, phys_addr_t gpa);
++int tdx_mcall_tdi_start(u64 func_id, u64 exp_bind_session);
+ #endif
  
- 	tdx_tdi_mmio_teardown(tdevsec);
- 
-+	dma_set_cc_private(&tsm->pdev->dev, false);
- 	kfree(evidence->obj[DEVICE_EVIDENCE_TYPE_REPORT].data);
- 	kfree(evidence);
- 	kfree(tdevsec);
-@@ -370,6 +397,7 @@ static void tdx_devsec_unlock(struct pci_tsm *tsm)
- static int tdx_devsec_run(struct pci_dev *pdev)
- {
- 	struct tdx_devsec *tdevsec = to_tdx_devsec(pdev->tsm);
-+	u8 state;
- 	int ret;
- 
- 	struct tdx_devsec *tdevsec_mmio __free(tdx_tdi_mmio_teardown) =
-@@ -381,7 +409,22 @@ static int tdx_devsec_run(struct pci_dev *pdev)
- 	if (ret)
- 		return ret;
- 
--	return -EOPNOTSUPP;
-+	ret = tdx_tdi_start_dev(tdevsec);
-+	if (ret)
-+		return ret;
-+
-+	ret = tdx_tdi_read_state(tdevsec, &state);
-+	if (ret)
-+		return ret;
-+
-+	if (state != TDI_STATE_RUN) {
-+		pci_err(pdev, "TDI failed to reach RUN state, current state: 0x%x\n", state);
-+		return -EIO;
-+	}
-+
-+	dma_set_cc_private(&pdev->dev, true);
-+	retain_and_null_ptr(tdevsec_mmio);
-+	return 0;
- }
- 
- static struct pci_tsm_ops tdx_devsec_ops = {
+ void __init tdx_dump_attributes(u64 td_attr);
 -- 
 2.52.0
 
