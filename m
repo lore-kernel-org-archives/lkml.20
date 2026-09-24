@@ -1,77 +1,82 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24EBA3FB055
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:35:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57CD3401A18
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:35:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790231729; cv=none; b=iZNlqyZualxZqqYXdzTpejjgMT+nPWc9pwc7mCK9Oqz2zhJJfcMyJS+N26XPZ63QAfIbqcY9Iz6HBUr9DrS3aTozmxgoORo7tT+owWB9wDgy9S5LixgOwfJ+UiDTj3DLsGmiml3XcM0xHTvkBVVpMITNAswE24oL14CMi/C3clo=
+	t=1790231729; cv=none; b=Ta6OeFcIdu2xJtae4Jw7o+upEiwn5w5TH5sdkEH6qbns2hagSxBU2StAJ2eu5yWmHmR18B3heX0nQWVxtKUGvxfbqwwkADKBjV7SwcdUeJwRYlJmHfcaIIfmyAMfpI6x2dMDy/GNcqjqZKJnpyyHPHANd/sfmmz7v5XyN1wwI5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790231729; c=relaxed/simple;
-	bh=KwdQfLFN9qP1Uy3/R/YcRZOunp2/x7+DEgYdQS30umw=;
+	bh=tJPZ6HTxNtNeAlRQ89jXZdruOuXjbaVPhr0XhYWbXqI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nVhTLr4Tl1g7Asi09YMv5hKNXIWewdtRrdA0xpwxTxvAD5FVjvz6Hm1VOiM7WvlVUxoCWnjbn6nynsavL4yQE+OtGgR/IbG38NJ/6w1Zo9dM/DSgQY2w20ZwYQiYcihk4kwgTpW7Ju3rm5Yr8rVGLzBa4ZpevSrKvEiRe2yvyCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WB/S2IO/; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=aHs4lwg5o+budELkSxYPCB7pjjQXSIKYiPBby2wgxezDNEaLWi7PQRJBUrBWyk5FVPLhxURx66wWk+rCDrPGkM7kQ9RBGx3yAc85n19XuI7qQpMRwKFu+58AIAGY1nTsQgMIeg9183/x5933JbaLVny/h/ti2+nKEH8mx3Y31Y4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai; spf=pass smtp.mailfrom=crusoe.ai; dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b=LCxbR2iD; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WB/S2IO/"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd5cf03so1240291a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:35:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b="LCxbR2iD"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e46a15703so1239817eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:35:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790231727; x=1790836527; darn=vger.kernel.org;
+        d=crusoe.ai; s=google; t=1790231727; x=1790836527; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0Lg8cX0rN3DBpAk0/WdaoBs/N2TVrxi/nNoDNY7O6wQ=;
-        b=WB/S2IO//rXoRKsFY2qtbT5OHCjIG7gIDF1KxEOzJEOlWivUzysmjEDZL5E/myYEzP
-         iOwBF0iLSus3LUQgxim59rVttHEjXpTfxH/7j9zfjEYq2D+DllREyBfROhiokJyoGgYS
-         L/hvmAZJWn4DVwHWmbiBiYpVi6wy6sMC0YJVZ4OOWAUwiE5zoNnTF+yoy9N3c2w/2zxF
-         xtoGal1OT7t1U8Es1njO+uLrowjdn3mUDIsYXyoDGwMFWj7K7ITd0mmqZlm8+qMHNjHU
-         uALXdzvD6sKn37oG58YtL74X0Fxi+KiPbrQikOMuXhpP8ejRVn7Ov/Zr51nEwGFYesc0
-         ERzQ==
+        bh=tJPZ6HTxNtNeAlRQ89jXZdruOuXjbaVPhr0XhYWbXqI=;
+        b=LCxbR2iDFF7l86qqVwIYlN9C4X6N+cUtgPm44NmKh6JiUiDST5egGksM3aEq+Tzx9P
+         hXiNcOhB9zTRSLu0/9zY6PlOML1d3idRaSWy+Mm328umXA/hX9rcY7gQ7nKUo+S9nSqD
+         7bcosLuKnhpIegFnujUpl0vZKSd0urtok2KnlwvZiVgUjhXLrY6jxpt4mrAXwbqCwtzy
+         77lLNKlQGgwDTOVCErRepkkW+eeARBrcgWrLsGWvtPZT012rlkt7QC2REN/GnSg21U1t
+         b7f8hIS2Vg4SEpYOrAdhqNyIfsj+1EgkNctgadmuVqBKhf2z2b1J3BO6dD+3MTtpx25Z
+         BYcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1790231727; x=1790836527;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0Lg8cX0rN3DBpAk0/WdaoBs/N2TVrxi/nNoDNY7O6wQ=;
-        b=XYPR6JWxdTeqJ1HB4Q0HXN7fJ7wKT+IApYwLngLQlm92c0B3d2UoCdXam8H8TbwVop
-         bnAbirkkjuIV2xL0bycc0ydeCrJ542GirZ9Blb5geBPq0A2cv1TIs0TECpoh54J3UEva
-         3OCOku3lELVR2tWlAfuBCNU1PfCfh4wshsLR6yQDp9sxGAeU4ZtLulg1axgIRjhQbdAJ
-         0V7pJQFV9y5EwCxQ3670dsFghEYawcKvM3RvyjUedn8AvDw1eOiodPl1xZEqiYk6qp5M
-         z/9dglysOxxo9mdK0FnxCW2Qf420SOWsl+hSGPOrETYOl+QZvIGdIzJhkovQZSh2jW9L
-         spMw==
-X-Forwarded-Encrypted: i=1; AKwUvBzX7bkHksgKes1825LHw8BGoP1QwQ0FCBzMQ5Ut7gxONU0q7YBBlUmHtF2hOdU1promNKw5IhtcblfofBY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mesk0sKZexRsHsvdJ459G+B927v5DMvyQ4ahnlegQrbCak4OT8
-	VxOx8vppqm81nJDCeYVDadzImoeJ8ymsGloG02JNgPw4FSa7uAF5vZec
-X-Gm-Gg: AYBFou21fQVCyr+TINEFznD4o6f2/EQWXQ/S/slb9PRaysRwwEXxxmxFjE35nYBMPiP
-	AuvUclKtw3KE2yey1XW7NeJ1JA45h7Bfz6oYxm3MOdTpkBnCAIVB5UNvYHzWdewKJNevl6ZL8w1
-	GqqUAqpCpXFfXMAAAsH1xLxs4zWJPp+o/dhZ5o0LEcam1yG59KSH+JB3ShnE3LMDtjp4nDOxIcY
-	785y0v8nBxA7bdOrG3MNgA/iViakeAiS8fR38E1xnUJiZS7WLj794nEAv+meH6CH2XSUkYGVQ/o
-	uyOLhoJKjNiqGxFr1vNi7dc7c9z8GYapymv2mvtokdUZZZvX/UslqmrO1O4sgMBqO0nLmrOm4l1
-	cnn8RZkwakDnxi7Pvz0bOEN9uocHwBjxniV2B57iCj15Od5W98bgAlWv1ZgGd+mGUAfAaWOd3bT
-	Qmuf2lZyWc1XcliohT3Ho3u+Im0oVcqfmD8AbXP9U+05iEuBe59HijqoMzwaER5T9dhyIttjpXh
-	li7+HnZnDWWQ6P7A6hSc8hkvbaUbhdY7XvMixeM6xlK3xQCeC7afsCbgRfZWo440Z5ExY+q0EF6
-	O/Ogj2cbSrQ1T5LgDJLX
-X-Received: by 2002:a17:90b:55c3:b0:39e:6a81:f34a with SMTP id 98e67ed59e1d1-3a098bb630amr1174600a91.36.1790231727242;
+        bh=tJPZ6HTxNtNeAlRQ89jXZdruOuXjbaVPhr0XhYWbXqI=;
+        b=UL3r1PZPaukjJz2vbZnKTGL0V/OOyHjrSL9QLMWJbiCCTueBbYI0w8NcL76JcjT3/f
+         KAqnx+u0U8Xt926huAvUPmYk9xvHmvttKojc8i6oyDz++oiMby5Atj1FJ3uzRGjzQyNd
+         HIgb05JTfluOzjirG9xD52g1EZqGZg/c75v3QSlHR3CRB9kE7S1HUMd2exY+36KmJyyS
+         odUE/Lr28Itmd/ayK9iWi3b0vkRuIvCAbRIIr053bwv0dgIpBSHCzTDZKrSNGmSOd11F
+         SXEPKfoyTEz6K0S8ad9l7lqAt0j35YiNs4dWKabibIDAI8taRlimCbZTAUQeQzcwfXll
+         ID/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzz2v4VS4o2T9TM82gsYPaPx09wgB7m3/JscdXp2Hnp0lnbLSTBXYIa4mvco/Z0kmY45RVGW/ZoX+1xIzs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lqtl4ro3ZityRHPvMYYKr2xqu1iwMMsEYiIMPcR6RX35ew3mc8
+	0Y+itRrfbmz4sv5bdMF16327zRGhSHzkyshFfcfHAiyYKCzKYwDdhF0WmJm/P3b2nv5pcsjoFAy
+	wDhy7Rio=
+X-Gm-Gg: AYBFou0El0CTm6kj0PE5QDhT7LL9LBShZ02J9njfGxMbwmzmnnjBUHDr2qnFfMqpU3c
+	k2CYZjOcyTS9+rIeyUsX1djU1yuyuVSEAi0TehUqQH5ZoJPZdm44vuCC881Pq54zaNjcgYChsMJ
+	K1CGji+Gc5/wUWN+tqn+rP6LgfiyUucf9FikvYbH7RRAXUyvb8JRwXNh9To/Jr0HC9raF4vJYBM
+	f1dGrA1LcJp+YaQsxJgJ0bAo2x1nOkfZ2WjemhGPfCS1dsYUrMQTdEXegwAubXLsebq+ZdIOABx
+	OgPLxKVvQ+/fhVlCJ4FbC4/oGBhUURn5MdnCUlF+vRUvaSjeQtR0KJLhQkGCdraWH+3TLP5yjXL
+	PUZsHrkWVMgj9smFPT+pEqgZgxiN4rTgJd38uzewBjA5u9GSKd1R0oMWGhWIYcSrWxTroVz+s4O
+	Whqtl4jVxxxZS4wvzZwxFt5gC896LsG5wbrseRpXMENNGqeahh+HE0hu6xHgTx+UfVzaNNAr0hE
+	TxTp35PmP1tZBrH9YBwNizEWJKai4IdHKCoR1bL3sE+O1F3
+X-Received: by 2002:a05:7301:7bc9:b0:33b:e77f:8a3c with SMTP id 5a478bee46e88-34000d3600amr1526565eec.33.1790231727245;
         Wed, 23 Sep 2026 23:35:27 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a096b8753csm3109897a91.0.2026.09.23.23.35.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+Received: from MBP-Krishna-Iyer.civet-hops.ts.net ([2601:645:c68a:b830:3831:92c7:8375:9edb])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e95c7d003sm10291658eec.9.2026.09.23.23.35.26
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
         Wed, 23 Sep 2026 23:35:26 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: axboe@kernel.dk
-Cc: io-uring@vger.kernel.org,
+From: Krishna Iyer <kiyer@crusoe.ai>
+To: kbusch@kernel.org
+Cc: hare@suse.de,
+	axboe@kernel.dk,
+	hch@lst.de,
+	sagi@grimberg.me,
+	linux-nvme@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hui Peng <benquike@gmail.com>
-Subject: [PATCH v2 0/2] io_uring: fix CQE32 and CQE_MIXED ring refill handling
-Date: Thu, 24 Sep 2026 06:35:23 +0000
-Message-ID: <20260924063525.2500081-1-benquike@gmail.com>
-X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
-In-Reply-To: <20260919203516.2581409-1-benquike@gmail.com>
-References: <20260919203516.2581409-1-benquike@gmail.com>
+	nilay@linux.ibm.com,
+	sjpark@crusoe.ai,
+	saravanand@crusoe.ai
+Subject: Re: [PATCH v3] nvme-multipath: add fail_if_no_path sysfs attribute
+Date: Wed, 23 Sep 2026 23:35:24 -0700
+Message-ID: <20260924063524.26807-1-kiyer@crusoe.ai>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <arR3zlpx3Xm2mRt-@kbusch-mbp>
+References: <20260923004959.88440-1-kiyer@crusoe.ai> <arRJLL4ki-sVQnHf@kbusch-mbp> <20260923225753.49224-1-kiyer@crusoe.ai> <arR3zlpx3Xm2mRt-@kbusch-mbp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,28 +85,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series fixes two issues in io_cqe_cache_refill() and
-io_fill_nop_cqe() for 32-byte CQEs:
+On 9/23/26 6:07 PM, Keith Busch wrote:
+> I get that failfast is at the controller scope, but that seems okay:
+> when the transport is down, every namespace behind that controller is
+> equally without a path. When the controller is live, the per-namespace
+> inaccessible case is handled separately by the ANA state, so namespace
+> heads that lose access bail and the rest can carry on.
+>
+> Is your intention to have some namespaces wait for reconnect longer than
+> others?
 
-1. Restrict skip CQE insertion at off + 1 == ctx->cq_entries to
-   IORING_SETUP_CQE_MIXED rings so pure IORING_SETUP_CQE32 rings do not
-   emit bogus IORING_CQE_F_SKIP entries.
-2. Require 3 free CQ slots in io_fill_nop_cqe() before emitting a skip
-   CQE for a 32-byte CQE wrapping across the end of an
-   IORING_SETUP_CQE_MIXED ring, preventing an orphan skip CQE when fewer
-   than 3 slots are free.
+Yes, exactly. Some namespaces should keep waiting out the reconnect
+while others should stop waiting and fail their parked I/O, decided
+by a condition only userspace can see. Here that condition is a
+killed process stuck in D state on parked I/O that nothing will ever
+consume (for us a SIGKILLed VM the host must reap), and it could be
+any consumer known to be gone. Failing that namespace lets the
+process exit, while namespaces with live users behind the same
+controllers keep queueing and carry on when paths return. A
+controller wide timeout cannot separate the two, and there is no
+duration to pick up front since the trigger is userspace observing
+the event. Reconnect itself is untouched either way. So the kernel
+provides the per namespace switch and the decision stays in
+userspace.
 
-Changes in v2:
-- Split into a 2-patch series and drop the third hunk from v1, as
-  requested by Jens Axboe.
-
-Hui Peng (2):
-  io_uring: only insert skip CQE for IORING_SETUP_CQE_MIXED
-  io_uring: require 3 free CQ slots for 32b CQE in io_fill_nop_cqe()
-
- io_uring/io_uring.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
--- 
-2.55.0.1082.g2b9226bbc0-goog
-
+Thanks,
+Krishna
