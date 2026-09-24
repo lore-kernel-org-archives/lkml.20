@@ -1,189 +1,127 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE840345CCA;
-	Thu, 24 Sep 2026 11:16:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 955433AD515
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:16:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790248571; cv=none; b=fWQfoEOwQTnOYT/BvxdKPhgb3WNbTyaIKqJpC82NKIVT3ZhjFT7mFH5aNIi7lQAWNuH1Q2PYulHPYFzBHVtxOFqcBTQTyN+v9BB1fR2J4cZ+DmaNEpfWeLQMYZ+FOG8kMk8n5zhgyuuemkCPuffDukIfOGAsSZ6PxvTS8brechA=
+	t=1790248593; cv=none; b=P0Z/P1BwUWDPMldAIW++I26MSev1rvVn/ExV+Zp0syZkyqp2d8675Suv+x80EEOChJgJea07AdTXBejtYL2i7ayVEmpz2GsGo76UHhTrOVvSNUG+INoJ5ww4F1LhVr7QmX7s0FubbIvz9XsMO1+KHti1ujM6sH23iKe0/9KNbCo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790248571; c=relaxed/simple;
-	bh=7sO2xew4LdZE0YMPbrOUBH2ya2roc+0/I1rdDvLsWGo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fTNao5sRsQbAV+Wr8GZTFHjz2Bu9lYtTxLJUfVcL5B0KssY0H/9vFCSKYWLkfUUeK2mtMWk6TCMyc0AYNcdWoDWCX4qpx2+qUhzwPo4WykiGNUATezidVm8PRIAuh/kai2PEZfp+6FXZxKoZ6GKJdE2kUV+5If9zlPqz2s+pjGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=TiyK92WB; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1790248593; c=relaxed/simple;
+	bh=FJGWHnmnuLJlBsVROinNPEPrqoUo3IhcpCsvsUGsco8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hSTlQ5c+Cd8qgdphfluu99gpdmgY12BLSCI3+eu8DvRtWIkF9Q1afXCEjBK2ggS3jWRc5BIa9JZaPBizrwNvR2E9Z5gl3DmD8NCUu0eWMsh7HYK0F9U/fTH/FzxUrr9aCfmmpvuPFDhpgHm/FUwKaDd1hbB8waZU3DM3ELnvTak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=eC2LMFB7; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=iUPeFaVl; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="TiyK92WB"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=gHiDQ7HWXcZShppku6mAcXzNHEI2Xpwr5xmcNWbMy1M=; b=TiyK92WBOnCu1fWO0Z4cSNHVSd
-	Mj8PXqr4/HhutFB2ojMrKICILUnBnS4eqhR0AMmOxXGmjL4S91AliFtOmH9Eer5YntsyAB/x4AKze
-	fjT7npvpCLhoKOtTRRGEFqlv/VLi37lyt5oAaJKmfc6RforL6bCcKz1OK121z4RkpdlZBm6gvCrtF
-	1lB1nmH9hGCAcDm6f6x5INXv/tuJtYFmT/ZvCVh6C8e0JhN+Zyey3XlE+f3D3oLXxOEPOZToiUXDi
-	KJ2TkcrnEgtVqHSSODBhH8NPCRreQWhadpv53WL0YAzTlI0/Iatayi0tl9oOR4O5GphjKwUAad29M
-	izhpZmgQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x9hQl-0000000FtJU-1am7;
-	Thu, 24 Sep 2026 11:15:59 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id F3EDA300756; Thu, 24 Sep 2026 13:15:57 +0200 (CEST)
-Date: Thu, 24 Sep 2026 13:15:57 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
-Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
-	maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
-	chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com,
-	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-	alex@ghiti.fr, hca@linux.ibm.com, gor@linux.ibm.com,
-	agordeev@linux.ibm.com, borntraeger@linux.ibm.com,
-	svens@linux.ibm.com, tglx@kernel.org, mingo@redhat.com,
-	bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org,
-	hpa@zytor.com, ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
-	bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
-	aliceryhl@google.com, tmgross@umich.edu, dakr@kernel.org,
-	daniel.almeida@collabora.com, tamird@kernel.org,
-	acourbot@nvidia.com, work@onurozkan.dev, nathan@kernel.org,
-	ndesaulniers@google.com, morbo@google.com, justinstitt@google.com,
-	jszhang@kernel.org, japo@linux.ibm.com, jpoimboe@kernel.org,
-	seanjc@google.com, pmladek@suse.com, thuth@redhat.com,
-	ynorov@nvidia.com, joelagnelf@nvidia.com, david@davidgow.net,
-	fujita.tomonori@gmail.com, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
-	rust-for-linux@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [RFC] rust: kernel: Add KUnit tests for ARCH_WARN_ASM bug table
- emission
-Message-ID: <20260924111557.GP1837346@noisy.programming.kicks-ass.net>
-References: <20260922054959.955093-2-mkchauras@gmail.com>
- <20260922064735.GS4121339@noisy.programming.kicks-ass.net>
- <arNxAn7I7NCVWmD1@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="eC2LMFB7";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="iUPeFaVl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790248588;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=l0t7HoSTYV0NRHicOnVIwfgcJA3kZ3Cdj7YgFvfak6E=;
+	b=eC2LMFB73RPE5iYXI+3VK4RzY9qfZTJsnJPckB/UFjDmRnl43nvMBfncVw/g2G4Cd8n7EN
+	tpCWZxExsi1kxF1LP3ib3/DBv3y54ORMPPopoGq11qNjn01e4Hbdr6LHiUX4MZDz315ZG5
+	G3lt1uDXYLd9y0NuOItg8Zp3VOZYj+E=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-472-4o5506EcOm-pJCwTV7OU1A-1; Thu, 24 Sep 2026 07:16:27 -0400
+X-MC-Unique: 4o5506EcOm-pJCwTV7OU1A-1
+X-Mimecast-MFC-AGG-ID: 4o5506EcOm-pJCwTV7OU1A_1790248586
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49cdc4080ddso4625215e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:16:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790248586; x=1790853386; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=l0t7HoSTYV0NRHicOnVIwfgcJA3kZ3Cdj7YgFvfak6E=;
+        b=iUPeFaVlK6831J0Zrv+5sIDBpc0in9xBM6XmsBWzJQPMtfXKZ6lXMYbLuU0Qy5+QU0
+         PrFwDIPtIb/PcQM3eajCmXbXkD6eVuMYcRtfc47oZSOJm1N03lfQRE7Bl23FzCzvhtql
+         +3w/JmltXR0ZJB7pBu2GNnY7egY6gwkScI1FpvrlS2Eiru0rwZDyZt3H3vLNTBCdd/52
+         yE2MpOxJeE8J1KoCopyf45AWvVskELeqKjHF3zrhabvFN3dX6JRFPHuKEEp+A9pvCAug
+         NbZXviipl28xlj/wIMywNaHjMQToLJRRiYnJiYnRq4DACqs5B6FTrs8ax6/OenyIqFyV
+         QT0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790248586; x=1790853386;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l0t7HoSTYV0NRHicOnVIwfgcJA3kZ3Cdj7YgFvfak6E=;
+        b=EBbKm3XGwRU+5f2BXXY5WCFYvigSg1KAt4sXed/hAlOvlrQrQeZX5AvKbAOaGwrZ3/
+         ag4ZVn8lpBFY22J3aOC7L177Fpkph6vPZlJV9PFpA0WYegt50SutpzJCHwLXGCAV6ssp
+         3g0oeQMtNlssylC1irCtHRbDZKwHZsJS54OLExqsmPSE27AwE/4zifG1ETaNEWjqF41w
+         gl3YpoOUzg6wHjtlTNoIyp/w94CZSDKlkDBGXpDFz87tvfKNNlORcCy6krhi8oPvPFku
+         /QzWhMEp12k23oB/npo/7VlHTiKwRFjG0I4ldzNucL9HX8EfIXMN0V6eakG/4ulCX3/B
+         hm4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzzFoa4v6/FyMFPcgyvk3mMBkncjcIiyACJXLc+vb+bOZPRHDObUT8wunFsyHvIgPMXkukqibJYX5l5JIs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mVABgx1vGRB8czWd3ppautU+buRUY9Eh8Zu89CPgjM2AmFyNXC
+	KFvm9s1qEjTNHZejDpRCszchg0L9twFroKihpzBw0unzpdnjNtNIEmPEgIDkIVaGqO+dUbaL8LW
+	dzaAAsiWtqi21bwgS9dREYpEFDK1qQLDjiFfgR0pUo3o+O9XwaomGxjY0Xopw8zI14A==
+X-Gm-Gg: AYBFou1K9yKrXbmLEZbG3de9me9i4Ugelg73vTLWBRtFphNmYhT7HN/UYy2Jk6aJK3W
+	v8xU7Jfend7apugFkPj8nnmOtJ2KthUjk0sDK4oRGfvNMAU65vy17xgMlt3aFVrBrqdPBCpMrV5
+	g7TC00ypx8w7LgwO4PkrK8V4PNTmhht48oSNT207C+91s5weI4SCcn+LN+TMDbHOxQSp2wNj9X8
+	gbKTCrue4aZNsjvA0xHXTthSyKKTc+lqzFig7f4mk7iRhErTGUOxfaiSw8tAv1Wu0OLidULQtfe
+	tH4zYpN0JxqOsW1grC58IUgmWBCj2/gqiG/9qk5YidsaV6SO30iNkILEPOmQCF2DHNlIBPftwM8
+	YV9p2hgUaBJZJoX+OomBiAEs3vyhxW1laXC+lFqV0kXckC1zc8KxuYScmMgK3sHXT5KCxRJLmqg
+	==
+X-Received: by 2002:a05:600c:4e53:b0:49c:e37e:4389 with SMTP id 5b1f17b1804b1-49fe66c8288mr35442985e9.4.1790248585763;
+        Thu, 24 Sep 2026 04:16:25 -0700 (PDT)
+X-Received: by 2002:a05:600c:4e53:b0:49c:e37e:4389 with SMTP id 5b1f17b1804b1-49fe66c8288mr35442695e9.4.1790248585388;
+        Thu, 24 Sep 2026 04:16:25 -0700 (PDT)
+Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe0c4b51bsm110289725e9.4.2026.09.24.04.16.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 04:16:24 -0700 (PDT)
+Message-ID: <dea7ccae-6da8-4ec0-b931-61f865b2ac84@redhat.com>
+Date: Thu, 24 Sep 2026 13:16:23 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <arNxAn7I7NCVWmD1@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ipv6: fix payload_len inflation in ip6_xmit() when
+ IPV6_RTHDRDSTOPTS is set without IPV6_RTHDR
+To: Hui Peng <benquike@gmail.com>, dsahern@kernel.org, idosch@nvidia.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org
+Cc: horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260919210620.3029622-1-benquike@gmail.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20260919210620.3029622-1-benquike@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 23, 2026 at 11:58:13AM +0530, Mukesh Kumar Chaurasiya wrote:
-> On Tue, Sep 22, 2026 at 08:47:35AM +0200, Peter Zijlstra wrote:
-> > On Tue, Sep 22, 2026 at 11:20:00AM +0530, Mukesh Kumar Chaurasiya (IBM) wrote:
-> > > Verify that the __bug_table entry emitted by ARCH_WARN_ASM has a correct
-> > > bug_addr displacement — i.e. the arch's trap label reference resolves to
-> > > the trap instruction — by calling find_bug() with the exact virtual address
-> > > of the trap, mirroring what the real trap handler does.
-> > > 
-> > > To support all architectures, each arch that implements ARCH_WARN_ASM now
-> > > defines ARCH_WARN_ASM_TRAP_LABEL, a string constant naming the local label
-> > > at which the trap instruction is placed:
-> > > 
-> > >   x86       "1"     (ud2 at label 1:)
-> > >   powerpc   "1"     (twi at label 1:)
-> > >   riscv     "1"     (ebreak at label 1:)
-> > >   arm64     "14471" (brk placed at 14471: by __BUG_ENTRY_END)
-> > >   s390      "0"     (mc at label 0:)
-> > > 
-> > > The label is used consistently: in ARCH_WARN_ASM itself, in the
-> > > bug_addr back-reference inside __BUG_ENTRY / _EMIT_BUG_ENTRY, 
-> > 
-> > 
-> > > diff --git a/arch/x86/include/asm/bug.h b/arch/x86/include/asm/bug.h
-> > > index 23ab05438269..6cca8880660e 100644
-> > > --- a/arch/x86/include/asm/bug.h
-> > > +++ b/arch/x86/include/asm/bug.h
-> > > @@ -62,8 +62,9 @@ extern void __WARN_trap(struct bug_entry *bug, ...);
-> > >  #define HAVE_ARCH_BUG_FORMAT_ARGS
-> > >  #endif
-> > >  
-> > > +#define ARCH_WARN_ASM_TRAP_LABEL "1"
-> > >  #define __BUG_ENTRY(format, file, line, flags)				\
-> > > -	"\t.long 1b - ."	"\t# bug_entry::bug_addr\n"		\
-> > > +	"\t.long " ARCH_WARN_ASM_TRAP_LABEL "b - ." "\t# bug_entry::bug_addr\n" \
-> > >  	__BUG_ENTRY_FORMAT(format)					\
-> > >  	__BUG_ENTRY_VERBOSE(file, line)					\
-> > >  	"\t.word " flags	"\t# bug_entry::flags\n"
-> > > @@ -101,7 +102,7 @@ do {									\
-> > >  	"99:\n"								\
-> > >  	"\t.string \"\"\n"						\
-> > >  	".popsection\n"							\
-> > > -	"1:\t " ASM_UD2 "\n"						\
-> > > +	ARCH_WARN_ASM_TRAP_LABEL ":\t " ASM_UD2 "\n"			\
-> > >  	_BUG_FLAGS_ASM("99b", file, line, flags, size, "")
-> > >  
-> > >  #else
-> > 
-> > Not really a fan of that. And I can't really tell what you're doing with
-> > it either. The kunit is in Rust and thus unreadable :-(
-> > 
-> > I would rather you fix up is_valid_bugaddr(), some architectures seem to
-> > have an always true stub because of the callchains always being from the
-> > break instruction.
+On 9/19/26 23:06, Hui Peng wrote:
+> When ipv6_fixup_options() was introduced to ignore destination options
+> before a routing header (opt->dst0opt) unless a routing header
+> (opt->srcrt) is also present, rawv6_sendmsg(), udpv6_sendmsg(), and
+> inet6_csk_xmit() were updated to normalize `opt` via
+> ipv6_fixup_options(), while other callers pass `np->opt` directly into
+> ip6_xmit() (such as tcp_v6_send_response(), sctp_v6_xmit(), and
+> l2tp_ip6_xmit()).
 > 
-> Hey Peter,
-> 
-> thanks for the suggestion. I will fix up the is_valid_bugaddr for
-> powerpc. I am not very good with other archs asm but i can do it for
-> ppc32 and ppc64.
+> In ip6_xmit(), ipv6_push_nfrag_opts() only pushes opt->dst0opt into the
+> packet if opt->srcrt is non-NULL. However, ip6_xmit() unconditionally
+> adds opt->opt_nflen (which still includes ipv6_optlen(opt->dst0opt) if
+> __ipv6_fixup_options() was not called by the caller) to `seg_len` and
+> writes `hdr->payload_len = htons(seg_len)`. This causes the transmitted
+> IPv6 header's payload_len to exceed the actual packet payload by
+> ipv6_optlen(opt->dst0opt), causing receivers to drop the packet as
+> truncated.
 
-Untested thingies for arm64 and s390x.
+Are there any in tree call site leading to the above? If so I think
+we are better of calling __ipv6_fixup_options() there instead of
+adding more conditionals in the fastpath.
 
-diff --git a/arch/arm64/kernel/traps.c b/arch/arm64/kernel/traps.c
-index 914282016069..3d8a969eab5f 100644
---- a/arch/arm64/kernel/traps.c
-+++ b/arch/arm64/kernel/traps.c
-@@ -987,14 +987,13 @@ void do_serror(struct pt_regs *regs, unsigned long esr)
- #ifdef CONFIG_GENERIC_BUG
- int is_valid_bugaddr(unsigned long addr)
- {
--	/*
--	 * bug_brk_handler() only called for BRK #BUG_BRK_IMM.
--	 * So the answer is trivial -- any spurious instances with no
--	 * bug table entry will be rejected by report_bug() and passed
--	 * back to the debug-monitors code and handled as a fatal
--	 * unexpected debug exception.
--	 */
--	return 1;
-+	u32 insn;
-+
-+	if (aarch64_insn_read((u32 *)addr, &insn))
-+		return 0;
-+
-+	/* Match ASM_BUG_FLAGS() / BUG() instructions. */
-+	return insn == (0xd4200000 | (BUG_BRK_IMM << 5));
- }
- #endif
- 
-diff --git a/arch/s390/kernel/traps.c b/arch/s390/kernel/traps.c
-index b6ba4465f59d..8bbb082fd5e3 100644
---- a/arch/s390/kernel/traps.c
-+++ b/arch/s390/kernel/traps.c
-@@ -26,6 +26,7 @@
- #include <linux/entry-common.h>
- #include <linux/kmsan.h>
- #include <linux/bug.h>
-+#include <linux/uaccess.h>
- #include <asm/entry-percpu.h>
- #include <asm/asm-extable.h>
- #include <asm/irqflags.h>
-@@ -55,7 +56,12 @@ static inline void __user *get_trap_ip(struct pt_regs *regs)
- #ifdef CONFIG_GENERIC_BUG
- int is_valid_bugaddr(unsigned long addr)
- {
--	return 1;
-+	u16 insn;
-+
-+	if (get_kernel_nofault(insn, (u16 *)addr))
-+		return 0;
-+
-+	return insn == 0x0001 || insn == 0x000e;
- }
- #endif
- 
+/P
+
