@@ -1,66 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28FC84CCDDF;
-	Thu, 24 Sep 2026 17:46:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30BD23E0C75
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:48:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790272008; cv=none; b=F/OPAoltJt3LkqAL2qaz2t/go7jWm2Y7j//x/6YDSegnttmaYGPY1IIce0IoQxS5PRK8sYjWcebdfcbi4Pb8ZfvvCzE8hKN/rEqNzGvFTaw17uWZ6hB/2Otg9WyVKmmpT5foOTKu48YhrbuEWqoM+SG631JbU2H7uulQTwzMNzM=
+	t=1790272087; cv=none; b=cTPJ+r7YPrKHU9mR6zg8fYKn2VZLMx8lFzT4JX/Wl38xKDlcVBLbefJl0oed2P3X8DKFXRhQQIPrypfI6NN6vu5oXaog8J2K9AC9+hcOAETGbxU42pQw2G9KfZHLuHt3i4YvLjhv1WfhpLbhDy1W7tc6BiCaz0Ou2IoGhRl80X0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790272008; c=relaxed/simple;
-	bh=NdlIP5k0zy8YqoEinakvl1zXvMFpKgO67bx90z/m6O8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Dy8rR2AbBye8zPL3RJzbgFZNgFJlPi8k7qwVD5r7PSjADPUvpuHe1jiiMU0Pc5F9krTfUeDVVWqbE2pnqt5Obd9j4a+mtF60gaUErIECdsRM1rKVN6LOSRYjjmSNCElWqB29IPbYbJOf/Zx/7PnzK0LUmW2fTV9tDNy61AegevU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bEoa+YVS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790272087; c=relaxed/simple;
+	bh=awU/+KKqsNOHwi3kVCFWiJ+VNP++NzSi5tQHgxXuuSg=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=eGoEMRqS32NxIWsJLSj08KTzR0Y2d5/tpObeO/LLITkbEFWov0Ugq5T3R8ORjo10LN9B2IMKvr0taxgznBvoYUNWLcZ2o34vKdMLgySlIznDbm2f9gTYFSmWvr0hslA5TqqK6pxFhvYlb0MyPEoTff6kI4ZbGi8fqrovnZ8WoYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cuwDHg0M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bEoa+YVS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BBF71F000FF;
-	Thu, 24 Sep 2026 17:46:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cuwDHg0M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85E091F000FF;
+	Thu, 24 Sep 2026 17:48:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790272007;
-	bh=WcyHyzV8NxmGIRpq3KuKTXbjCp/07lHrPqYcfM1X3Sk=;
+	s=k20260515; t=1790272085;
+	bh=HrDCAQV1pZi3wvTFhrBJGDrVzvo7VEXwMuFwKQsn68I=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=bEoa+YVSMGTXNxZDtl1bbWHYD2dRqYejJWhFOe/SqINwO4hzzHOEpHSD/jE6wcMiJ
-	 wFbzUvLkPTaI07L5IWwpworUtaUOEq/3QI53LYiHt4ZM/Tb0SfbyB1UY5WEOHaWJjn
-	 G3un/nB3gDnxU2hTYDEREodonMzMOFyEgR+VpikdyIdbRMgL/rGp8fnjcXZ+qmleO7
-	 Dj8t9qo+oy6GfSt7mw67ZlUYvDnXdjPlEIeBgsACKXUo46V5FBb1CgiQiyJ+jU7w1e
-	 XIAD0le3haf2dG4/EJrYf54fPu9j/egLi1kSmttOeM1gadqBIjfXnPms6I5cFii1fO
-	 +gh6RuieOOuUA==
-Date: Thu, 24 Sep 2026 10:46:45 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Sagar Taunk <sagartaunk@proton.me>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
- <horms@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
- <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?UTF-8?B?QmrDtnJu?= Roy
- Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor
- Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel
- Almeida <daniel.almeida@collabora.com>, Tamir Duberstein
- <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, Onur
- =?UTF-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Matthew Maurer
- <mmaurer@google.com>, Carlos Llamas <cmllamas@google.com>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, netdev@vger.kernel.org,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, Andrew Lunn
- <andrew@lunn.ch>
-Subject: Re: [PATCH net-next v4] rust: net: netlink: validate attribute
- length before casting to `c_int`
-Message-ID: <20260924104645.4764dbba@kernel.org>
-In-Reply-To: <20260923120504.9100-1-sagartaunk@proton.me>
-References: <20260923120504.9100-1-sagartaunk@proton.me>
+	b=cuwDHg0M0dcx8Zn4ENcoBoRVIKryfT/MqeBIfA/QVhTV75W6toAGmEqnAE3nm0ce9
+	 hn07it7qaLs/bzlXIDQbToAPmQrc+w9VI/KaODzn0tTAzXN0JJE/nd69D6gQAAoRzS
+	 C8/hXdw9LuaDKyTiQqqB9jDh5KON7/ynOg5vX56gHc4G5Q1hfe4pT5aSorJ/ZP6GKU
+	 8pNlcBBafUDjkcbWrWmGhb2ZVcQl+nHkaWrzV6+zg1E2qPFI7pdyQhcJZ21Irijzlq
+	 zIrGwNDveL0rH6dfE0qmRzA9qltaxQea62eC6nnfTuybfZbh7eJBoQHIFxhHjc4IR1
+	 ToavUt2S74D2w==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x9nYB-0000000D8pg-1TQT;
+	Thu, 24 Sep 2026 17:48:03 +0000
+Date: Thu, 24 Sep 2026 18:48:02 +0100
+Message-ID: <86o6dm4k31.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Zhu Ling <zhuling2709@phytium.com.cn>
+Cc: tglx@kernel.org,
+	radu@rendec.net,
+	zenghui.yu@linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] irqchip/gic: Fix UBSAN shift-out-of-bounds in GIC helpers
+In-Reply-To: <20260923082804.13197-1-zhuling2709@phytium.com.cn>
+References: <6b668efe-ef7a-474a-957c-893755ebba46@linux.dev>
+	<20260923082804.13197-1-zhuling2709@phytium.com.cn>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: zhuling2709@phytium.com.cn, tglx@kernel.org, radu@rendec.net, zenghui.yu@linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Wed, 23 Sep 2026 12:05:17 +0000 Sagar Taunk wrote:
-> Rebased on the upstream rust-next tree. 
+On Wed, 23 Sep 2026 09:28:04 +0100,
+Zhu Ling <zhuling2709@phytium.com.cn> wrote:
+> 
+> When running with UBSAN enabled, enabling a GPIO controller that uses a
+> GIC interrupt as its parent triggers several shift-out-of-bounds warnings:
+> 
+>   shift-out-of-bounds in drivers/irqchip/irq-gic-common.c:50:21
+>   left shift of 2 by 30 places cannot be represented in type 'int'
+> 
+> Similar reports are emitted from gic_poke_irq() and gic_peek_irq() in
+> drivers/irqchip/irq-gic-v3.c. The corresponding GICv2 helpers use the
+> same signed-shift pattern. These masks are generated by shifting signed
+> integer constants, which invokes undefined behavior when bit 31 is
+> selected.
+> 
+> Use BIT() to generate the masks with an unsigned type and make their
+> intent explicit.
+> 
+> Signed-off-by: Zhu Ling <zhuling2709@phytium.com.cn>
 
-I'm confused, you're tagging this for net-next but rebasing 
-on rust-next. This patch does not apply for us.
+Acked-by: Marc Zyngier <maz@kernel.org>
+
+	M.
+
 -- 
-pw-bot: cr
+Without deviation from the norm, progress is not possible.
