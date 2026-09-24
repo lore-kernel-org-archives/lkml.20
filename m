@@ -1,222 +1,125 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 495993563FA
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:15:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA6A266B72;
+	Thu, 24 Sep 2026 05:16:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790226961; cv=none; b=WRpFGrRF/z0FkpqQeaqIG2PMYZb7fNao4nR4W6PTNjQbxrQ5vAgyTBO5OyEjNn/qxtYxBEuCf5gpnZHFlTA8ecIfoxAHQYCRDFQzNaUrkC2bXS3+YEPxMGvsewbh4h64aHlP1mQeMY83Z96YLiSag+3jb+mQT2yiuDza0/OnAVo=
+	t=1790226971; cv=none; b=XJHG4nl4bGPvSw2faGTY2aaiUIgipqcXl335+6yYwn4wESBbjamEaVgivV60C70PoRcreEHlyOGQuVoRB8NCn4azkoj7siHQb4hzeVcx10SdpAowk9+XNqnjWKVfCcpxjt43Fv2A01gfgIwkqv5BBzY/Emi2vatELNvkCr03Unw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790226961; c=relaxed/simple;
-	bh=DiUwjLtGyhmYy8gtskynKak9GaVOE3Oh/D8/CfNFu4A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=liwk+ch2GIQiZDxAGyqLAblxg3WRDNUyCXq2rINQICzRwTmU53vYDdIuur7X/AUFO/7Z7Rpi5EFzMZnjBMwjSIvIVd2RPDqL0Y57leizhbqTLWQkokNmOvx/yyIyB/dWbyloMmpKl4/yuMg4MGRfF0KC+100DBfnimAk50srqPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=KHiCaQWY; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	s=arc-20240116; t=1790226971; c=relaxed/simple;
+	bh=ICdb5i9Y8TxqnSABRpsDpsLJCQwOj3uyC0HJJ88lcNY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iTV+B+eO67p8zUGPorRhsYMsPlzkaF7ahBCJ4FCHzwSwASdFJ+/loDhfzwdWbp6/b92jAo9kJ4p987LYUtC64yD0eSBRayAC+jwlEcByTm9Hc/igg/WYJziT5U1CrsNJXAO3z1glTpZEDNlyqvRkXTUfr4Zyd67woLaqIm6RuV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oJcpG1w5; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="KHiCaQWY"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db18fe433fso8270655ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:15:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1790226958; x=1790831758; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rJ5r4oLP0+o/ugLJvH/PI7dd/lO3F0+vOnqYVeSMnjU=;
-        b=KHiCaQWYY3PtP4O/mc1Xx3dvhwkleDRhzDMdqFDn+WspGR8kUOjUSU5zDo9bH2eaJf
-         tOdOvmuW9Abwb7nXpuw/21uBPabyBcHEVrWfnLjTtwr+5iDG+K3yRbiqcDzRe4d1K9GN
-         pLRHlkCm3F7rDUKMUxM4gxcdvm9Se5ppAJS4MbK4CJccxB5g+BGTF6T6cUg3rS3TH0px
-         pLlVtG7i7Bx9vBv3DNqKpu2PoQeypqKSF2OaegRXi+EnlkwYOEjERfPk7kwG9ScHyDgz
-         z3MBYGb9IJehNQJIGmLtmcVNDq6Cn+v7vktWPXGyc5SK0XlLqCqphvZrvcnThgdyHOAZ
-         Z+jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790226958; x=1790831758;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rJ5r4oLP0+o/ugLJvH/PI7dd/lO3F0+vOnqYVeSMnjU=;
-        b=RPDIJRCh7LgcialrcqOioZPN5t2GjwnFVlRwn6T32xs1NsZ4iJXf6qgr3EmLLteZDQ
-         uhouopAW4ulI9BEoDaeL6nNoOXsaD8AJcSRbrMIojgbOxgUMMPm1NKoYkSP0/6vFCXby
-         H6uVQ5UhhfYbvkNE7Mnhia2mIdZk15tKc1EzQdKZw2aae5zY3SG4v8M5Ekor2gqeKU1X
-         Ry7Tcgj9qgUpW4pwkrzs/ptW/nngEMEdf02mfhf1llFHrT2xdhdCnpLSZspgNkxjzfMP
-         On1E/2RFWKIoYcgEVPP7HynUCglL3kq3yNeSA/VWnR5ZmDbAwoclPHdDxjOBWwa9nTiS
-         Tvww==
-X-Gm-Message-State: AFuF++nPcNx3lT/eryhAiOpM+OQgez3NOWUxN0gKq+j7e5KNsYoF9Ou2
-	CwShit1C2uyCeTTqQR8S+5ycckA3GMHUwQgDbGlG46nKzD4pAHVdN0xwioP7Vd3FURg4
-X-Gm-Gg: AYBFou3dI53DkCinBDOOCIhLGeubzr2y2KHfPxLoW35iA1CHngGkA4Sy55GeMefX4+X
-	g8bvthuUm2kaALlVVm8AirVCa9+G80wY5opP0bVsGxdfbt/Ko+In+2HhG0blW3WjvRyODmSUgAq
-	N248+K9sUz3Rb//yYnd0H8lbEDjINUICnvelOei3XMXeabPhd0l4IVU0614lmkNk/UNwuZBnbQi
-	6LCcR/COLvFxzRihCU+EEvpbWHBhflsusKt841vOg7uEFUzTuT3DcgfdPAZ2snBadoDZ3Nsgcxo
-	GzYaomPXM2k7r5yngLtdfaUIkKr+NeRkCKy3/uYXRTY9jXFN0nQIhm3BX8W1xlihpxsO5X4trE3
-	O4Sn7TCXtPx90BdhWmVKLsWJ/l2YISWfmWmFYUhF1t4YpKKoUH6Gat1QfjKD4RA1JDkv8pcgStn
-	MSPQeMHMAjJTUDoKxsJVRNd3BQhv6Y7tqSzpcAdA3I31TkF0RaslsYZyrhWOulfjXi3jvHpq25T
-	Fb6skX4q/7LwbIyXjp62RiFYi09RQ==
-X-Received: by 2002:a17:903:b86:b0:2d9:68b7:c324 with SMTP id d9443c01a7336-2df7da426d3mr11430005ad.3.1790226958528;
-        Wed, 23 Sep 2026 22:15:58 -0700 (PDT)
-Received: from 954df21a5119.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5a7b48sm20062485ad.23.2026.09.23.22.15.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 22:15:57 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	dsahern@kernel.org,
-	idosch@nvidia.com,
-	kuniyu@google.com,
-	willemb@google.com,
-	kees@kernel.org,
-	richardbgobert@gmail.com,
-	zihanx@nebusec.ai,
-	stable@vger.kernel.org,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>
-Subject: [PATCH net v6 1/1] net: gso: limit recursive IP-in-IP segmentation
-Date: Thu, 24 Sep 2026 05:15:21 +0000
-Message-ID: <20260924051521.32568-2-zihanx@nebusec.ai>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260924051521.32568-1-zihanx@nebusec.ai>
-References: <20260924051521.32568-1-zihanx@nebusec.ai>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oJcpG1w5"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O43LhW364882;
+	Thu, 24 Sep 2026 05:16:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	iafcNu8yXs+bPIbNuDe2M/Cy42B+aT+ZoPL5h7CbL8o=; b=oJcpG1w5n9/Eucyh
+	NpXXH9cm2hvlpiCPTlx0maH1Fjc1Q/wKJfP32StlWZI6XsPkBboxOHLRFHne9xVo
+	2KeA1NigOrFIXdPPMfeoOTeiutUfwuYMKB3S3QApsB6JyOL/bDTD3y8QDOJu6zAu
+	GhldJOnszc72NUZRueeMMfWPurvUH71zRptfZKhcNhMTtacI1GaL3ERRZF4mVy2C
+	Jvt/nFGGfx9F+BpVj1nGCQ0x9cHVwuYlekUlyp6sO2eKuQMxKl5EuFcC6B8LI2Sr
+	zVzhngyp4u7d7/6gAvu6rWOZPtZptGd5nq4/O2Shd784pyduZAr7iGc0VuyrO2sE
+	JWnl7g==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvvgh86f3-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 05:16:07 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5G4d22068402;
+	Thu, 24 Sep 2026 05:16:04 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 68O5G43N2068381
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 05:16:04 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
+	id 5E70FB44; Thu, 24 Sep 2026 10:46:03 +0530 (+0530)
+Date: Thu, 24 Sep 2026 10:46:03 +0530
+From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+        Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+Subject: Re: [PATCH] arm64: dts: qcom: shikra-iqs-som: Correct PM8150 L10
+ voltage range
+Message-ID: <20260924051603.xzrmwo26vtds66o4@hu-kotarake-hyd.qualcomm.com>
+References: <20260922-fix_l10_max-v1-1-d0c99f063bf4@oss.qualcomm.com>
+ <3ae1124a-e070-4641-8a25-42cde4426f44@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <3ae1124a-e070-4641-8a25-42cde4426f44@oss.qualcomm.com>
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Authority-Analysis: v=2.4 cv=KYhHIgYD c=1 sm=1 tr=0 ts=6ab4b218 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=T0APZzI2klfUa3LYWF0A:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: et8rnWoZoWi7CxwwdJJV927Sqzq7Kp98
+X-Proofpoint-ORIG-GUID: et8rnWoZoWi7CxwwdJJV927Sqzq7Kp98
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAyMiBTYWx0ZWRfX5E9317/I4dzi
+ kUjfxWoSUe8wh7WYfGen2nYu5i40c9+Bj/4eWau2sscuRbO321cKmjpuLcrnXDkH3DQuzXuhTpf
+ DZSYY5xA3hJ8SkfqzT1msG9yP6LRQtI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAyMiBTYWx0ZWRfX/taQ4p/VIX7w
+ 5/A0cikCDY2CU+Qpk4RSRIuZ5yZihPNbGagbvZxQMTd0WiQqSuW8xX//7TpEKAOVgnyUWe5V/so
+ 5m4KVB45zUBD+mgFw9zKLSnDkUj7GtgwMAJp6ywFet6LfMCpyzytFQ8EGgXZgici8j3sQ+b6bVz
+ AlpqtqVp+aexI1TWCBd3XmNyj6pAXNHWJCir/22XiN1pnMlczum3gxwEwpjRiqO8mT/l99XA8x/
+ U7I3JjnNtQS+aTpE7d1EHUhLhZ6zuMSc7SEkTdn7kYenDLd45ggqNfl6SQ7cCAJAXOYSvGOeGpo
+ 7zbCSNRyPXpwE4+ZAUz1yfd4ZdW7tNPnr+iYTmFloJi+Pgr851bagpkDV5eNPEIiahik3qwMsZX
+ U0gyojbyOBPLOv9UeTwa9DXC0cTPh2yUjxqYphODjHSt8beCBrGe8Y9B+fJVeu2/rj8ST02dFM7
+ 3s1uZmd9+dl0cwmR+YA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_01,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0
+ clxscore=1015 spamscore=0 suspectscore=0 phishscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240022
 
-IP-in-IP GSO can re-enter inet_gso_segment() or ipv6_gso_segment()
-for each nested IP header. encap_level tracks header bytes, not callback
-depth, so a deep chain can exhaust the kernel stack. Making
-inet_gso_segment() stackable introduced unbounded IPv4 nesting; IPIP
-GSO/TSO later made the path reachable. The IPv6 stackable path was
-introduced separately and uses the same guard.
+On Tue, Sep 22, 2026 at 05:50:19PM +0200, Konrad Dybcio wrote:
+> On 9/22/26 2:39 PM, Rakesh Kota wrote:
+> > Update the PM8150 L10 regulator maximum voltage from 3.544 V to
+> > 3.3 V, matching the supported voltage range for the Shikra IQS SoM.
+> 
+> This is a good start, but please mention explicitly what
+> constitutes that range - is it e.g. because there are
+> peripherals on that rail that can only sustain 3v3?
+>
 
-Count IPv4 and IPv6 GSO handler entries in skb_gso_cb, initialized once
-per top-level GSO operation and preserved across GRE/UDP context changes.
-Use the existing IP_TUNNEL_RECURSION_LIMIT for both handlers. The first
-five entries pass, and the sixth returns -EINVAL before dispatching
-another GSO callback.
+On Shikra IQS, the L10 rail supplies the SD card’s VMMC. Its maximum
+voltage must be limited to 3.3 V because the derived VQMMC voltage on L2
+supports up to approximately 3.3 V. Allowing VMMC to reach 3.544 V can
+drive VQMMC beyond its supported range, potentially causing SD bus bit
+errors and resulting in the voltage negotiation failure:
 
-Fixes: 3347c9602955 ("ipv4: gso: make inet_gso_segment() stackable")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Closes: https://lore.kernel.org/all/cover.1790157745.git.zihanx@nebusec.ai/
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
----
-changes in v6:
-  - Use IP_TUNNEL_RECURSION_LIMIT directly for both IP GSO handler
-    checks instead of defining a duplicate GSO_RECURSION_LIMIT.
-  - Add Closes for the v5 cover letter.
-  - v5 Link: https://lore.kernel.org/all/cover.1790157745.git.zihanx@nebusec.ai/
-changes in v5:
-  - Replace the cumulative header-offset check with a shared IP GSO
-    recursion counter. Allow five handler entries and reject the sixth.
-  - Initialize the counter for each top-level GSO operation and keep it
-    across GRE/UDP context changes.
-  - v4 Link: https://lore.kernel.org/all/cover.1790041241.git.zihanx@nebusec.ai/
-changes in v4:
-  - Keep the budget check only at the two IP GSO handler entries; remove
-    the common callback wrapper and other GSO call-site checks.
-  - Reuse skb_gso_cb->mac_offset and current skb headroom as the
-    cumulative header-offset budget.
-  - v3 Link: https://lore.kernel.org/all/cover.1789802623.git.zihanx@nebusec.ai/
-changes in v3:
-  - Treat an exhausted 256-byte budget as a callback-entry failure,
-    including the zero-length check used by the common callback wrapper.
-  - v2 Link: https://lore.kernel.org/all/cover.1789618203.git.zihanx@nebusec.ai/
-changes in v2:
-  - Replace the callback counter with a cumulative 256-byte header budget
-    carried in skb_gso_cb.
-  - Apply the budget at common callback entry and across IP, GRE, UDP,
-    MPLS, NSH, ESP, and IPv6 extension dispatch, including context resets.
-  - Rebase the UDP hunk and rerun both IPv4 PoCs; use decoded crash
-    evidence from unpatched 88c17de85ddb.
-  - v1 Link: https://lore.kernel.org/all/cover.1789302084.git.zihanx@nebusec.ai/
- include/net/gso.h      | 8 ++++++++
- net/core/gso.c         | 1 +
- net/ipv4/af_inet.c     | 3 +++
- net/ipv6/ip6_offload.c | 4 ++++
- 4 files changed, 16 insertions(+)
+l2: unsupportable voltage range: 3500000-3296000uV
 
-diff --git a/include/net/gso.h b/include/net/gso.h
-index 29975440cad51..0749230d414ec 100644
---- a/include/net/gso.h
-+++ b/include/net/gso.h
-@@ -19,10 +19,18 @@ struct skb_gso_cb {
- 	int	encap_level;
- 	__wsum	csum;
- 	__u16	csum_start;
-+	/* Number of IPv4/IPv6 GSO handler entries for this packet. */
-+	u8	recursion_counter;
- };
- #define SKB_GSO_CB_OFFSET	32
- #define SKB_GSO_CB(skb) ((struct skb_gso_cb *)((skb)->cb + SKB_GSO_CB_OFFSET))
- 
-+static inline bool gso_recursion_inc_test(struct sk_buff *skb,
-+					  unsigned int limit)
-+{
-+	return ++SKB_GSO_CB(skb)->recursion_counter > limit;
-+}
-+
- static inline int skb_tnl_header_len(const struct sk_buff *inner_skb)
- {
- 	return (skb_mac_header(inner_skb) - inner_skb->head) -
-diff --git a/net/core/gso.c b/net/core/gso.c
-index bcd156372f4df..e96ef63500648 100644
---- a/net/core/gso.c
-+++ b/net/core/gso.c
-@@ -117,6 +117,7 @@ struct sk_buff *__skb_gso_segment(struct sk_buff *skb,
- 
- 	SKB_GSO_CB(skb)->mac_offset = skb_headroom(skb);
- 	SKB_GSO_CB(skb)->encap_level = 0;
-+	SKB_GSO_CB(skb)->recursion_counter = 0;
- 
- 	skb_reset_mac_header(skb);
- 	skb_reset_mac_len(skb);
-diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
-index 32d006c1a8eed..4ce38c99fef9e 100644
---- a/net/ipv4/af_inet.c
-+++ b/net/ipv4/af_inet.c
-@@ -1375,6 +1375,9 @@ struct sk_buff *inet_gso_segment(struct sk_buff *skb,
- 	int id;
- 
- 	skb_reset_network_header(skb);
-+	if (unlikely(gso_recursion_inc_test(skb,
-+					   IP_TUNNEL_RECURSION_LIMIT)))
-+		goto out;
- 	nhoff = skb_network_header(skb) - skb_mac_header(skb);
- 	if (unlikely(!pskb_may_pull(skb, sizeof(*iph))))
- 		goto out;
-diff --git a/net/ipv6/ip6_offload.c b/net/ipv6/ip6_offload.c
-index 78f50c93c536c..700f1861d8eb7 100644
---- a/net/ipv6/ip6_offload.c
-+++ b/net/ipv6/ip6_offload.c
-@@ -17,6 +17,7 @@
- #include <net/udp.h>
- #include <net/gro.h>
- #include <net/gso.h>
-+#include <net/ip_tunnels.h>
- 
- #include "ip6_offload.h"
- #include "tcpv6_offload.c"
-@@ -104,6 +105,9 @@ static struct sk_buff *ipv6_gso_segment(struct sk_buff *skb,
- 	bool gso_partial;
- 
- 	skb_reset_network_header(skb);
-+	if (unlikely(gso_recursion_inc_test(skb,
-+					   IP_TUNNEL_RECURSION_LIMIT)))
-+		goto out;
- 	nhoff = skb_network_header(skb) - skb_mac_header(skb);
- 	if (unlikely(!pskb_may_pull(skb, sizeof(*ipv6h))))
- 		goto out;
--- 
-2.43.0
+Reducing L10’s maximum voltage to 3.3 V keeps both rails within their
+supported operating ranges.
+
+regards
+Rakesh Kota
+
