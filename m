@@ -1,66 +1,75 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F5E47AF43;
-	Thu, 24 Sep 2026 11:46:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 475E43218BA;
+	Thu, 24 Sep 2026 11:46:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790250374; cv=none; b=V85U+/hMGclZYC57JcFRteKEYAjRYrPC93oV25xzsMji2f+6ZbLDAbRyr/C7VClXdEYyEmrnHSm7kz1SWv1jFTc7MsiuM8kXE3x5n8NVLQxAi05rv0EeLu2FV3wjoPKlCZTJA6HA9zFF+5maetEHM9NqO2pQOmnW02f3IbGoOsY=
+	t=1790250409; cv=none; b=q3qWXuiNB6IWI4/Ect44eKgs8iVNvS7qAvmXoZxsOFm5P8l9vyzfA9iHa07giINrnbbCg8DtL2zeVSoUfdbd/2f2trlOaw/XXdSPE/bz0Re9T3J+pKcPC/8dLj6VMYPYvnJNE2YLYxsJAF1TAktOPywcBThcO9ztBw5ESW3Cbq8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790250374; c=relaxed/simple;
-	bh=AFnevkNG9mbXzu530+ZrB1iBf6/P7l2062ql6ElxH88=;
+	s=arc-20240116; t=1790250409; c=relaxed/simple;
+	bh=nwzMs4xFWD6XOvQBWlN0Ck4M/lHKtAstP0FW+sr7FPM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VA+CHJNUOPr+TwALbjJtkLtPZhHEBaxiBg1nKI9OmDcrPMOeURclUKRAdczdJJBlhjTKt7qvKhIA1hhlokE6VTNNNOXGKW3F985xEEe8uIjJ/sZxCW/x9YgJlLQk/DcR/ZDU/NLIExY7Wr7ZQ7Zo9HQX5aBnNGrtzuo9y0NTOe4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YnKuvbEV; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=ktrP7R1ZishojgbdfkK0jzKgOtAcE9wejFksngoEiZho6VNntMbI0Fo093R/D7m+I+jJA/7yKXwtlCeJ2yoe7pB0fHrKtE7lR+DnorNjAMqWyHlEYxVVtCJGDfVCbbNi+psE9iSn+PKxxk80Ykt6JwzSBBC0rl39gmrZz9/tjrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C2ZZjtfa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YnKuvbEV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790250371; x=1821786371;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=AFnevkNG9mbXzu530+ZrB1iBf6/P7l2062ql6ElxH88=;
-  b=YnKuvbEVwfCOjmZm7tVCMRR7Psv1K4kijDOCkDHyMyYm8TjQ9+GWbSeJ
-   tQS+6txTaSCNQBdwy+BWCaT6ycKcz6/BuPcFut1jY7nbzMAzYXkfGA1OP
-   ZRpbRHQryLJ+xaC/YhmYLCcs4E198JtOH+Ktb5vx292fxT4KWvLA9E9zY
-   F6y3wX0Md+0DA165DifSZpPcQSRMOmFAcdsxVSDPzI7nISig5vsBoESKC
-   gdffMPZIIXF7O8R5tiJoatqlfld8IaJvLlbxfa1m0ByI/OVcNCC+0Q1Bl
-   jUZqPIF/OU+6iehbeSC4iOxl6vEJnmgfUyGzvmCFNDRO+FqA9LJQ/4xTN
-   w==;
-X-CSE-ConnectionGUID: V9GOE2wXS6KEg3shXbibmA==
-X-CSE-MsgGUID: ymswVtkZRuSxZR3uVffpBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="116542326"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="116542326"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 04:46:09 -0700
-X-CSE-ConnectionGUID: QDRMh5+oT4yoIdceSNE53g==
-X-CSE-MsgGUID: lMnLbZVBQziVwhQyZOmzhA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="272145249"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.155])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 04:46:07 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id CF7CF11F9B7;
-	Thu, 24 Sep 2026 14:46:05 +0300 (EEST)
-Date: Thu, 24 Sep 2026 14:46:05 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Felipe Calliari <calliarifelipe@gmail.com>
-Cc: linux-media@vger.kernel.org,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	"Sapre, Sarang" <sarang.sapre@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Tomas Moro <tmorolias@gmail.com>, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] media: ipu6: Clear the isys ISR hooks when the isys
- driver goes away
-Message-ID: <arUNfeaaokjYgP0z@kekkonen.localdomain>
-References: <20260923234224.325504-1-calliarifelipe@gmail.com>
- <20260923234224.325504-2-calliarifelipe@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C2ZZjtfa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F5711F00893;
+	Thu, 24 Sep 2026 11:46:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790250407;
+	bh=QguTDCtcZFBrUjcoOQ2Wz86gy5PkZ7tI+mbiZ0He4tw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=C2ZZjtfadKsgmmtE6a7a/Bq54lk4EKawfSp9fOl2cu1OxJtfeAZl50DrZQAZGGBYV
+	 x11u4amuSRlEw+PcWzv9b2uIzAJoz0t1WbTk6WrLJ6isNp77ImFoPnxbVQYiVswviN
+	 rr2L9J1UeDj8BTP47GVxDPUi3YrSnls7//ZTpjjqIW0fe65XpOGLw829UTOnEUI1iH
+	 ofqTi3qOH43x9adS89ocr2DYCPpWlIJd6qsGWQL7TeBxU9ZAGwcxQZy8mEIg+mzAWT
+	 34xHAECBF2C/Maw4vhQjMScryrB1cU04PF4zJ3cQ95C4SivYUw+ZYlJVJMpyKPykfR
+	 6Glmzkwvj3pPg==
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 9ACC3198003A;
+	Thu, 24 Sep 2026 07:46:44 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-09.internal (MEProxy); Thu, 24 Sep 2026 07:46:45 -0400
+X-ME-Sender: <xms:pA21agEIK5eesbtjIGqnX-aM7ZC8C_blTl-puqYKwk8m_iOWseJCZQ>
+    <xme:pA21alvOT4ahFuL-2XL2yuqzHJ-Bsph9OP4Og6KtmW8jpKMIcHN-T7VqIo9aLulli
+    jjY1ixAKeaAlgAuLwq0dmRgr2yWOKoyGLmveTVb13O1V0ZO0nMtTl-x>
+X-ME-Received: <xmr:pA21aukvAExvvwrlLlGBri3fB2aPs5LZwLRsACzItHe6UlC9tR8tgTFC-zU>
+X-ME-Proxy-Cause: dmFkZTEcOZ07bQFcLSp3gnDeHBJY9VHvfMOdJMNGSYJt1XwbpXgRVIGKMXFbu7UciwVjn7
+    7qQRY6imOe9A0uQF9KkGzivPcSBvE88LF8s6cjVFR//tBApRVM8wchvpG9D0aG59qYOdWg
+    1K3CpHwypUQyTZfdg8v1VA3R4btiCJtgPimY7Od2IngXDfvCSpXPVkiv+GTG3eXa/1jJzi
+    m/hQV9gUWY5Oudef4NizUeTrliHd+gg9W/LvmDyrn3nj3uSlbIoLre0H4E+LnJGqf4us1U
+    m/6sxg5wfzpCTJkpXblYHZQX2ezHrefd+W65EvtdTmtaj/OFGjSMFYIVVYY7yN7vhpvVTZ
+    LE2p2dn+ad3LU5nd01+WhwCfTgejYBgifVg3I9WVStJ2ynM/0uYHq2+1isB9kg0nsr50O6
+    dkK6sJv7aoQAIVcUFs/9Zh2M2UDnesHKeGlMdL11IPEmCeHojhAg3snpstIHXFQoIhdX4/
+    0oyvw3viq+OVIrCKqhOkkNetMjftR1AH+y5bst9G0Q3+D1EkdbHPpoXkIEPTsh9O2/sGAX
+    1x9AJmkdcZt7rqG0JZh2Ov+WNb0IGygL9ftwYR7ECMZBOtfS6Jgb1lLaCJemUDWqaKgMdD
+    zZjeZUeHHaMb/X8zfgWSD6PMttDA8tahXrm3jSw0q7AbyEZkJTZBgbjrEIpA
+X-ME-Proxy: <xmx:pA21agPRIEeAWCX8stX6NJUoes-llOVvwq_sV8nwR8K0B72CCxW5Gg>
+    <xmx:pA21aixQTLrGi--h997NFGngCV8i-_x1mzAzxr94OYk6Ml0PBQWvxg>
+    <xmx:pA21atvOfA4-PsRzsEknF72rnlcUB8iysI91SWAy1CoXntdNJcaD7A>
+    <xmx:pA21albaC30ooolnMbNye3oK48QFl6WoJblSJhD4mlBnW68IU7FJKQ>
+    <xmx:pA21as2tJ_NsFIGYcH1D7M_q82BkAiH4GpI8frdnuyC1DcyWxFm07gqj>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 24 Sep 2026 07:46:43 -0400 (EDT)
+Date: Thu, 24 Sep 2026 12:46:42 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: Yan Y Zhao <yan.y.zhao@intel.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, "linux-efi@vger.kernel.org" <linux-efi@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "x86@kernel.org" <x86@kernel.org>, 
+	Borislav Petkov <bp@alien8.de>
+Subject: Re: [PATCH 0/3] Move memory acceptance x86 arch code into EFI stub
+Message-ID: <arUNjv0rSaAM2xmk@thinkstation>
+References: <20260914183745.37538-5-ardb@kernel.org>
+ <af17c380c43912ce34c228e328b3937343ce2019.camel@intel.com>
+ <aqvrUeIfpE4D-Ol0@thinkstation>
+ <27b267cdaed0c46146de4af2db8362b61e0b08a3.camel@intel.com>
+ <aqyd+rhamNei92Nz@yzhao56-desk.sh.intel.com>
+ <aqzMGEVpDRPUyPUA@yzhao56-desk.sh.intel.com>
+ <aq0VWfqv2_SgOvV9@thinkstation>
+ <b9ff9e11-d7da-4e34-9744-e3adcc786276@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,167 +78,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260923234224.325504-2-calliarifelipe@gmail.com>
+In-Reply-To: <b9ff9e11-d7da-4e34-9744-e3adcc786276@app.fastmail.com>
 
-Hi Felipe,
+On Wed, Sep 23, 2026 at 04:34:47PM +0200, Ard Biesheuvel wrote:
+> 
+> 
+> On Fri, 18 Sep 2026, at 12:45, Kiryl Shutsemau wrote:
+> > On Fri, Sep 18, 2026 at 01:28:56PM +0800, Yan Zhao wrote:
+> >> On Fri, Sep 18, 2026 at 10:12:10AM +0800, Yan Zhao wrote:
+> >> > On Fri, Sep 18, 2026 at 02:29:55AM +0800, Edgecombe, Rick P wrote:
+> >> > > +Yan 
+> >> > > 
+> >> > > On Thu, 2026-09-17 at 14:32 +0100, Kiryl Shutsemau wrote:
+> >> > > > > I guess the caller could care about TDX_PAGE_ALREADY_ACCEPTED errors. But
+> >> > > > > SNP
+> >> > > > > doesn't do anything for this case. It seems like part of the problem is that
+> >> > > > > we
+> >> > > > > are passing errors back that the caller can't feasibly handle.
+> >> > > > 
+> >> > > > Maybe. I don't understand SNP model and why they don't care about errors
+> >> > > > here.
+> >> > > > 
+> >> > > > Do you have a proposal here?
+> >> > > 
+> >> > > Yan pointed out that future TDX modules will not take an S-EPT entry lock on
+> >> > > accepting a NP S-EPT entry. However, I think this won't prevent guest caused
+> >> > > busys on re-accept attempts?
+> >> > Re-accept attempts may occur due to:
+> >> > (a) two concurrent ACCEPT TDCALLs, where the one that arrives slightly later
+> >> >     returns either TDACCEPT_ALREADY_ACCEPTED or TDX_OPERAND_BUSY.
+> >> > (b) two successive ACCEPT TDCALLs on the same GPA.
+> >> > 
+> >> > Since Linux guest always invokes ACCEPT TDCALL before a memory access, and
+> >> > accept_memory() always checks the unaccepted_table->bitmap before invoking the
+> >> > ACCEPT TDCALL, case (b) should be impossible in practice, right?
+> >> > 
+> >> > Is case (a) a valid scenario, and does it actually occur in a Linux guest?
+> >> Case (a) should be prevented by the unaccepted_memory_lock in accept_memory(),
+> >> right?
+> >
+> > Right, for accept_memory().
+> >
+> > The lock itself is dropped around the TDCALL, but the range stays on
+> > accepting_list until the bits are cleared, and the overlap check is done
+> > in unit_size granularity, so a second caller for the same unit spins
+> > until the first one is done and then finds the bits clear. Both (a) and
+> > (b) are covered there.
+> >
+> > There is a second ACCEPT issuer that does not look at the bitmap at
+> > all: shared->private conversion in tdx_enc_status_changed().
+> >
+> > It does not need the bitmap because the memory came from the page
+> > allocator or memblock and got accepted before it was handed out. It also
+> > has no per-range serialization; mem_enc_lock is only taken for read. So
+> > ALREADY_ACCEPTED on that path means either the guest converted the same
+> > range twice (a double-free class of bug) or the VMM acked MapGPA(shared)
+> > but never removed the private page. Either way the page there is the one
+> > the guest accepted earlier, and the failure already comes back as -EIO
+> > rather than a panic.
+> >
+> 
+> Is there any way we could make some progress here?
+> 
+> Ultimately, the thing I am after is to get rid of the call from the
+> decompressor to EFI stub's snprintf(), which I want to remove. For
+> the time being, I am more than happy leaving the memory acceptance where
+> it is, and just dropping the call to snprintf().
 
-On Wed, Sep 23, 2026 at 08:42:23PM -0300, Felipe Calliari wrote:
-> isys_probe() points adev->auxdrv and adev->auxdrv_data at data in the
-> isys module, and the buttress interrupt handler calls the isys ISR
-> through them. Neither isys_remove() nor the probe error path clears
-> them. Once intel_ipu6_isys is unloaded, any buttress interrupt
-> dereferences memory of the unloaded module.
-> 
-> One way to hit this: the IRQ is shared, so with CONFIG_DEBUG_SHIRQ
-> free_irq() runs the handler once more. If a buttress interrupt status
-> bit is pending at that point, "rmmod intel_ipu6" after
-> "rmmod intel_ipu6_isys" oopses:
-> 
->   BUG: unable to handle page fault for address: ffffffffc8a00560
->   RIP: 0010:ipu6_buttress_isr+0x19b/0x370 [intel_ipu6]
->   Call Trace:
->    free_irq+0x16b/0x360
->    devres_release+0x37/0x80
->    devm_free_irq+0x42/0x70
->    ipu6_pci_remove+0x52/0xd0 [intel_ipu6]
-> 
-> This happened on a Samsung Galaxy Book3 Ultra. A module notifier added
-> for testing confirmed that after "rmmod intel_ipu6_isys" the hook still
-> points into the unloaded module, and that it is NULL with this change.
-> 
-> Set the hooks only after the last early return of isys_probe(). Clear
-> them on the probe error path and at the end of isys_remove(), then
-> synchronize_irq(). In the buttress handlers, read auxdrv_data once, so
-> that a hook cleared concurrently is seen as NULL rather than
-> dereferenced.
-> 
-> Fixes: f50c4ca0a820 ("media: intel/ipu6: add the main input system driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Felipe Calliari <calliarifelipe@gmail.com>
-> ---
->  drivers/media/pci/intel/ipu6/ipu6-buttress.c | 15 ++++++++-----
->  drivers/media/pci/intel/ipu6/ipu6-isys.c     | 23 +++++++++++++++++---
->  2 files changed, 30 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.c b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
-> index 105de1744..63197f746 100644
-> --- a/drivers/media/pci/intel/ipu6/ipu6-buttress.c
-> +++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
-> @@ -315,15 +315,20 @@ ipu6_buttress_ipc_send(struct ipu6_device *isp,
->  
->  static irqreturn_t ipu6_buttress_call_isr(struct ipu6_bus_device *adev)
->  {
-> +	const struct ipu6_auxdrv_data *drv_data;
->  	irqreturn_t ret = IRQ_WAKE_THREAD;
->  
-> -	if (!adev || !adev->auxdrv || !adev->auxdrv_data)
-> +	if (!adev || !READ_ONCE(adev->auxdrv))
->  		return IRQ_NONE;
->  
-> -	if (adev->auxdrv_data->isr)
-> -		ret = adev->auxdrv_data->isr(adev);
-> +	drv_data = READ_ONCE(adev->auxdrv_data);
-> +	if (!drv_data)
-> +		return IRQ_NONE;
-
-This patch looks very much LLM-generated. Are the tags in
-Documentation/process/coding-assistants.rst relevant for this?
-
-I believe you need something more elaborate to guard against unbinding the
-driver. Do note that we currently can't safely remove the ISYS driver if
-the userspace isn't guaranteed to have no file handles open to the device
-nodes related to the Media device and the related sub-device and video
-device nodes.
-
-> +
-> +	if (drv_data->isr)
-> +		ret = drv_data->isr(adev);
->  
-> -	if (ret == IRQ_WAKE_THREAD && !adev->auxdrv_data->isr_threaded)
-> +	if (ret == IRQ_WAKE_THREAD && !drv_data->isr_threaded)
->  		ret = IRQ_NONE;
->  
->  	return ret;
-> @@ -436,7 +441,7 @@ irqreturn_t ipu6_buttress_isr_threaded(int irq, void *isp_ptr)
->  	unsigned int i;
->  
->  	for (i = 0; i < ARRAY_SIZE(adev) && adev[i]; i++) {
-> -		drv_data = adev[i]->auxdrv_data;
-> +		drv_data = READ_ONCE(adev[i]->auxdrv_data);
->  		if (!drv_data)
->  			continue;
->  
-> diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-> index 08f29b678..15254e3e3 100644
-> --- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
-> +++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-> @@ -13,6 +13,7 @@
->  #include <linux/dma-mapping.h>
->  #include <linux/err.h>
->  #include <linux/firmware.h>
-> +#include <linux/interrupt.h>
->  #include <linux/io.h>
->  #include <linux/irqreturn.h>
->  #include <linux/list.h>
-> @@ -989,6 +990,18 @@ void ipu6_put_fw_msg_buf(struct ipu6_isys *isys, struct isys_fw_msgs *msg)
->  static const struct ipu6_auxdrv_data ipu6_isys_auxdrv_data;
->  static const struct ipu6_auxdrv_data ipu7_isys_auxdrv_data;
->  
-> +/*
-> + * The buttress interrupt handler calls into this driver through
-> + * adev->auxdrv_data, which points into this module. Clear it once the
-> + * device is torn down, and wait for a running handler to finish.
-> + */
-> +static void isys_unset_auxdrv(struct ipu6_bus_device *adev)
-> +{
-> +	WRITE_ONCE(adev->auxdrv, NULL);
-> +	WRITE_ONCE(adev->auxdrv_data, NULL);
-> +	synchronize_irq(adev->isp->pdev->irq);
-> +}
-> +
->  static int isys_probe(struct auxiliary_device *auxdev,
->  		      const struct auxiliary_device_id *auxdev_id)
->  {
-> @@ -1006,9 +1019,6 @@ static int isys_probe(struct auxiliary_device *auxdev,
->  	if (!isys)
->  		return -ENOMEM;
->  
-> -	adev->auxdrv_data = IS_IPU7(isp) ? &ipu7_isys_auxdrv_data :
-> -					   &ipu6_isys_auxdrv_data;
-> -	adev->auxdrv = to_auxiliary_drv(auxdev->dev.driver);
->  	isys->adev = adev;
->  	isys->pdata = adev->pdata;
->  	csi2_pdata = &isys->pdata->ipdata->csi2;
-> @@ -1037,6 +1047,10 @@ static int isys_probe(struct auxiliary_device *auxdev,
->  
->  	dev_set_drvdata(&auxdev->dev, isys);
->  
-> +	adev->auxdrv_data = IS_IPU7(isp) ? &ipu7_isys_auxdrv_data :
-> +					   &ipu6_isys_auxdrv_data;
-> +	adev->auxdrv = to_auxiliary_drv(auxdev->dev.driver);
-> +
->  	isys_stream_init(isys);
->  
->  	cpu_latency_qos_add_request(&isys->pm_qos, PM_QOS_DEFAULT_VALUE);
-> @@ -1065,6 +1079,7 @@ static int isys_probe(struct auxiliary_device *auxdev,
->  free_fw_msg_bufs:
->  	free_fw_msg_bufs(isys);
->  out_remove_pkg_dir_shared_buffer:
-> +	isys_unset_auxdrv(adev);
->  	cpu_latency_qos_remove_request(&isys->pm_qos);
->  
->  	for (i = 0; i < IPU6_ISYS_MAX_STREAMS; i++)
-> @@ -1094,6 +1109,8 @@ static void isys_remove(struct auxiliary_device *auxdev)
->  	isys_iwake_watermark_cleanup(isys);
->  	mutex_destroy(&isys->stream_mutex);
->  	mutex_destroy(&isys->mutex);
-> +
-> +	isys_unset_auxdrv(auxdev_to_adev(auxdev));
->  }
->  
->  static const struct ipu6_auxdrv_data ipu6_isys_auxdrv_data = {
+Please go ahead with the move. Rick's questions are about what
+tdx_accept_memory() should return, not about where the caller lives,
+and can be sorted out separately.
 
 -- 
-Regards,
-
-Sakari Ailus
+  Kiryl Shutsemau / Kirill A. Shutemov
