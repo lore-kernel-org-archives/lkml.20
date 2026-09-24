@@ -1,40 +1,35 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3836C4B337D;
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 84C0B4B7172;
 	Thu, 24 Sep 2026 19:11:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790277092; cv=none; b=NHGqFknBWZmoZrYJkuVsEPf9pvrtIw/GY4BkojCbb9nRtwvWrmP5yuf2Jt5E5L6VeRwWs6PQWC3+aM8rkDY00YbAKo5ixSpIoF1K4JBiQz89N68/nPxPKxP9Kjzd3KJSF9lHHywj7Xm8W7ZJbpbadgT2SYxABoQRTbI/EH8hOig=
+	t=1790277093; cv=none; b=ms1kk0qjFtF3qvv/GjsicAdV0D3Qn+amRhb8lTkclHXRwAbrfPpTZO3uIZhXnOlrKQOoCzkWpe1GDVI2qCAX84rBbwg9mJNzw7AqdTUBeXWq2XMr/BPWlDh82caCsLgHxv1uaw8Ff3atKlr18MR7wqlTIAzDdauWz26ukRANCbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790277092; c=relaxed/simple;
-	bh=BrLUtCNY4C+q23jUQaKfBakKzeVPqQzhSMf2q3+XDF8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=snomzXhuMxRl8f1TJJ7LBTkG9kxsis+cNzoAkwrGso0SeEJd+Dd79CkmI1ajeI1K2bJ0ca/b2fzCx3lfsYIGxR5QyVsHxtovBDE7jFkcyIV9xSaTi63wxJnOrHnz4n+QCNhn/tUhTVzVBcwRgUJLzWFGWgLrItOIJ/yrFCYYkwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=efznepHY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790277093; c=relaxed/simple;
+	bh=MuRaI8x6GXzrvwzPsbKH9WYnwNTgr9phZb/ghgk7nkI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=UCQzqkjCr6BB4Z2M4bvvKca/pJX3s52kJXQqZtHtWV3ddtMZwaMhNlVPguEks2PLO/X+XyAEM1TSh2FOS5AAi4XNRLHpNyk/6sxOVikdF6rJUjVnLgSI9wcKl2BK1yXGhwemSCKUbnhvfIUfUfLMaLQL305u9/A/f9vPwAofwWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=UC/myava; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="efznepHY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D1FB1F000FF;
-	Thu, 24 Sep 2026 19:11:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790277090;
-	bh=RU4yZcHPGA665sTAUwvZEqO64Z4PiN3l9rXR3QWGwNg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=efznepHY6zoypW8oMX5hZaSRddvPcKbCzWATpEfFyf5BxNMIxvLTqSLeIiFMAjhaX
-	 d84XcQF7u5ha09C0sK9VD4bKa+iAZRCXXBT9kZRzXBkKMu/3VU19E3A5LOLynAMFEf
-	 NQiPRgFIK7E5qNoBewr+wZhkXclHbnup0JcRwUM71Ueu4Yrjn2HDzUZmuG8pXQPRmw
-	 go0lpH+yo5CL3pJB0il17LmWceUuE6rsvccg/AhPuNypWqBzlGuHb1pZ772Hlnu2as
-	 UDansorX3KuCCyNdC2JVpEzFXFFskyzRg/KboIE5oF5LvfRwJgs0Xo0nFNApfYIH3b
-	 ojl1fVJV9E7zA==
-From: Mark Brown <broonie@kernel.org>
-To: Jisheng Zhang <jszhang@kernel.org>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260817151404.28324-1-jszhang@kernel.org>
-References: <20260817151404.28324-1-jszhang@kernel.org>
-Subject: Re: (subset) [PATCH 0/2] spi: dw: clean ups from "use threaded
- interrupt"
-Message-Id: <179027359714.149798.16557738915945460170.b4-ty@b4>
-Date: Thu, 24 Sep 2026 19:13:17 +0100
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="UC/myava"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0DCDF1E5E;
+	Thu, 24 Sep 2026 12:11:26 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 377863F86F;
+	Thu, 24 Sep 2026 12:11:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790277089; bh=MuRaI8x6GXzrvwzPsbKH9WYnwNTgr9phZb/ghgk7nkI=;
+	h=From:Subject:Date:To:Cc:From;
+	b=UC/myavav/0wDURi/e5uj2wHJrDw+VEwwctECMjrr5anj2mKS+Cp+xTXTVJB2nCIX
+	 3B0zs4MYI65fHMkSpfEnoIhHBpmXNcWjB+5mC30jeDF+PJVWlfd3xmoX3RzB+757Ma
+	 DD7B0O4vG2wzemfy3Pr9Etn//5k5NFWuqiWEQvBc=
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+Subject: [PATCH v8 0/4] kselftest: mm: fix some failure of
+ split_huge_page_test
+Date: Thu, 24 Sep 2026 20:11:15 +0100
+Message-Id: <20260924-fix_split-v8-0-cba7359d882a@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,60 +37,136 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1501; i=broonie@kernel.org;
- h=from:subject:message-id; bh=BrLUtCNY4C+q23jUQaKfBakKzeVPqQzhSMf2q3+XDF8=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqtXXflvBzHi5otIUuWLw10astOFCpACpZZrDSs
- GgLL4V+VEqJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarV13wAKCRAk1otyXVSH
- 0OUcB/4mIqpDEEmaIzdQlJqGJhQfVvSatRXLAR3o5ugQabWT8m4AiH6ezM3dn3uq90FPovM2CfS
- Z769syXLLweqbUKLwZywxmFUGDW2g6TD+Bo4yYj9RRdiz8/rVwlI8pn4n06pukv0CChShORWUfn
- kdnF9vKFrB3Zo4ssk353hhxckAKAQrTL8btlz4DUIB2gu9NQb9l2YryiqWNtsLXS+wjngpRoYSu
- lcg5cyvd1ARaK/sr6JgtCVHzyePQHXDofyIncorkP1vVV10Rn8lSXCvdEzKS3iVagdsC8ktCacT
- b8IJNM1hH48cyUU04+HE4ZVAahxWFplO62ENegyA498Ku+a3
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIANN1tWoC/23QTWrDMBAF4KsErasyGo3+suo9SimWLDeCJg5SM
+ C3Bd6+cTcelyzea7zHoLlquJTdxPNxFzUtpZb704J8OIp2Gy0eWZexZIKAFjyCn8vXerp/lJie
+ ioENORNGLvn+tuT8+ul7fej6Vdpvr96N6Udv0v5ZFSZBDJA3J+OTS9DLU83Oaz2LrWDR3njvdn
+ XYEiMbbgeLe0a8LgNxRd95MoAOYyUW1d4Y7x53ZHGL0Csj4mPbOMqeIO9udsnl0CrUH+HOnYw4
+ Vd667EU1OIShlAvuXdV1/ALSH+g+4AQAA
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
+ Kevin Brodsky <kevin.brodsky@arm.com>
+Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Yeoreum Yun <yeoreum.yun@arm.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4292; i=yeoreum.yun@arm.com;
+ h=from:subject:message-id; bh=MuRaI8x6GXzrvwzPsbKH9WYnwNTgr9phZb/ghgk7nkI=;
+ b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqtXXaIiT9BwKaFmYL+IRymkn1pS2cgMwCN8AJR
+ jX5E9q/5yKJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCarV12gAKCRBt1cPRWsUx
+ M9CCC/4uKyIQhnU8tD0YMdkYRstxqpebMFuqAgDJCdJplKeWGziBfSV2btEkq3l6IaJ7C3bVHnb
+ 3pDEFPHgL2O0ZT7QVQfq1qgfFJ+mf6/TiHidHnFWNwr+S77h7ltwAi3V8qzxk/x1mD2shDGGbsv
+ anYESYv4f82duEtnyksxxPfYr3596oLcHCJXnSt6tUJsOcxpuOx3Vz+4HVbw03hNErKtMFZaAJu
+ SQyqC338rRMCsFE1Evz/UI2geKUtW+V0UeednqsNO32cH0B7O0a6Q0Dw6tayJoMDRkrDKwUaHk7
+ 2TcYBZqJ4Cr5jDyWUpfhgtU2vRigVuZtxfjomXTgTsMBogNAz4AQsDj385YN7FJOBjODTovX3AE
+ WnAZ5UlSSdVRQuI8RuIDkrJeYD2xTmpmNehRhJNaFI+fFa6/7y+nyCM9BhcvlpBWrzqwlBmwLnd
+ i12uy3RllTdMYX57SEYZAR1OyuxUu39IpgcEiiqjSJtqf4BOzdFYMkKQa/RRb2kmiU1Sw=
+X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
+ fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
 
-On Mon, 17 Aug 2026 23:14:02 +0800, Jisheng Zhang wrote:
-> spi: dw: clean ups from "use threaded interrupt"
-> 
-> Two clean ups from the series "spi: dw: use threaded interrupt"
-> 
-> Hi Mark,
-> 
-> The enhanced spi mode was merged, I'm a bit concerned with potential
-> bugs with "use threaded interrupt" with it, it's better to let the
-> threaded interrupt tested with it. But I don't have available HW, so I
-> will cook new version once v7.3-rc1 is out and ask sifive people help
-> for test.
-> 
-> [...]
+split_huge_page_test can fail for the following reasons:
 
-Applied to
+  1. During the test, khugepaged may collapse previously split pages again,
+     causing intermittent failures.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
+  2. Since glibc commit 321e1fc73f (“malloc: Enable 2MB THP by default on AArch64”),
+     glibc may call madvise(MADV_HUGEPAGE) for sufficiently large allocations
+     made by memalign(). The underlying VMA may start at a different address
+     from the aligned address returned by memalign(). Moreover, a subsequent
+     madvise(MADV_HUGEPAGE) call does not split the VMA because it already
+     has the same advice.
 
-Thanks!
+     This causes the test to fail because the check_huge_xxx() helpers
+     incorrectly require the address returned by memalign() to match the
+     VMA start address reported in /proc/self/smaps.
 
-[1/2] spi: dw: use DW_SPI_ISR directly
-      https://git.kernel.org/broonie/spi/c/2f06fa7a4150
+Address these issues by applying MADV_NOHUGEPAGE after faulting in the
+huge page, preventing khugepaged from collapsing it again, and instead of
+relying on /proc/self/smaps, use /proc/self/pagemap and
+/proc/kpageflags to detect huge-page mappings and large folios:
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+  1. If hpage_size == pmd_pagesize, check PAGE_IS_HUGE instead of
+     using check_large_folios(), since only the mapping type matters.
+     This identifies PMD-mapped huge pages.
+  2. Otherwise, use check_large_folios() to detect large folios. This
+     covers mTHP cases.
+  3. Check the folio flags according to the type of huge page.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Since check_huge_shmem() was required to distinguish shmem huge pages
+because /proc/self/smaps reports them using a dedicated “ShmemPmdMapped”
+entry, as opposed to “FilePmdMapped” for file-backed huge pages.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Now that /proc/self/smaps is no longer used to detect huge pages and
+/proc/kpageflags is used instead, it is sufficient to distinguish
+ between file-backed and anonymous pages since the ShmemPmdMapped is also
+kind of file-backed.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+Therefore, remove check_huge_shmem() and use check_huge_file() instead.
 
-Thanks,
-Mark
+This patch based on mm-unstable
+
+---
+Changes in v8:
+  - add intermediate patch for __check_pmd_huge().
+  - add r-b, a-b tags.
+  - Link to v7: https://lore.kernel.org/r/20260921-fix_split-v7-0-d25ec991159f@arm.com
+
+Changes in v7:
+  - change khugepaged's check_huge() callback.
+  - Link to v6: https://lore.kernel.org/r/20260914-fix_split-v6-0-16ed7123800b@arm.com
+
+Changes in v6:
+  - drop alloc_isolated_mem() patch.
+  - remove check_huge_shmem().
+  - Link to v5: https://lore.kernel.org/r/20260907-fix_split-v5-0-822b810458bc@arm.com
+
+Changes in v5:
+  - rename madv_nohuge() to disable_khugepaged().
+  - Link to v4: https://lore.kernel.org/r/20260902-fix_split-v4-0-85f03905f7b1@arm.com
+
+Changes in v4:
+  - reparse commit message.
+  - introduce alloc_isolated_mem().
+  - make madv_nohuge() helper according to suggestion.
+  - Link to v3: https://lore.kernel.org/r/20260828-fix_split-v3-0-374022586a4b@arm.com
+
+Changes in v3:
+  - change  message in case of failure of madvise() with MADV_NOHUGEPAGE.
+  - fix collapse_single_mthp (mthp_khugepaged:anon) test case failure.
+  - Link to v2: https://lore.kernel.org/all/20260826-fix_split-v2-0-71153c7f579a@arm.com/
+
+Changes in v2:
+  - rebase to mm-unstable.
+  - add message in case of failure of madvise() with MADV_NOHUGEPAGE.
+  - fix wrong setup expected_huge in check_huge_shmem().
+  - Link to v1: https://lore.kernel.org/r/20260820-fix_split-v1-0-ab430c58c7cf@arm.com
+
+---
+Yeoreum Yun (4):
+      kselftest: mm: prevent random failure of huge page split for khugepaged
+      kselftest: mm: replace usage of /proc/self/smaps for __check_pmd_huge()
+      kselftest: mm: integrate huge page checks
+      kselftest: mm: remove check_huge_shmem()
+
+ tools/testing/selftests/mm/folio_split_race_test.c |   2 +-
+ tools/testing/selftests/mm/khugepaged.c            |  38 +-----
+ tools/testing/selftests/mm/split_huge_page_test.c  |  19 +++
+ tools/testing/selftests/mm/uffd-common.c           |   4 +-
+ tools/testing/selftests/mm/vm_util.c               | 127 ++++++++++++---------
+ tools/testing/selftests/mm/vm_util.h               |   1 -
+ 6 files changed, 102 insertions(+), 89 deletions(-)
+---
+base-commit: fff9c87241bb46aa09ed3a91d6002cba966d7776
+change-id: 20260820-fix_split-f44939ec44b8
+
+Best regards,
+-- 
+Sincerely,
+Yeoreum Yun
 
