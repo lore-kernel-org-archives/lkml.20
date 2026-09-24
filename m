@@ -1,319 +1,438 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012017.outbound.protection.outlook.com [52.101.43.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E07474457CD;
-	Thu, 24 Sep 2026 10:06:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790244371; cv=fail; b=MPoRHwAVal9euGFOtM67tg1EBD1vMR1By8YGSsztzlcpJ8uDYBI9MpOhHuFhZpd8bz2aEK5XxP5ncDWCQDWaw/zaaljXj20vLrkfmXG/PnCw/kKvNJ5maZQpGAkjsuVR48klG9npUegSJNs/fqIYHZ5GmpVxRwJ5lb9eX8ZETv8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790244371; c=relaxed/simple;
-	bh=FO/H9OWv+RbV9K9R6x5RqZJ5osn8Q0kcd66M05iiXjk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=G+UszSMZIX861N642J6+zZe2J01bMMWF2TaMVlE7emIIK1tlWhFOgjo/hWxDamMos8V3qtNSdYZpOX6hA2cB8t++u56iI/0ujXPkXnfi+f8hD3y2RjukzzCUIDCV5Klz+nKwRWfE724UN/d+tWaqsRuQAsU1ViEaxI0seqnwKUo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=0wyK87bQ; arc=fail smtp.client-ip=52.101.43.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A61043DA5C;
+	Thu, 24 Sep 2026 10:06:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790244377; cv=none; b=T5r7M3l1p0djG0KB2FIPZzmmsEPNLN/CafbP29qAsu+EtkKlsmkILuXrJV8DFGFLdBcQvTovdhtpRnDmI/h+ZqQ3Y7YVgQj9A+xMmxAa5rz2CYEOymZxXIMHtODeNSe6OXR1+orBCnBRTrMkfqri3GWhMN2Ei2l88Eb25SRDaPE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790244377; c=relaxed/simple;
+	bh=B/ilBvQaukranZL4YbLeq5rqFwWJqKrxYlAeRc3LaKE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tNO7sQ8/X/FzfeVP/JdFChXDT1Q/Z5IolbgYL1HzKoqiehf1OEeple0bzksFjbanM8UuFr6rN8TjW8Ty2WyDDaxshMOXd/g68PDZ1O4devlbUIDSHqUlVAkV4pYWBDS7OJaXTSzAv2tm09ZIJ44ytdgM2Ac8j9q2V6g+Y9FojmA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ch5tx7zD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="0wyK87bQ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=osVqeIoJT94hlVvzudcxN5Z2tSMb5d3Wajs4lplEAN6TG29HMfl+OxjJIzXkT6JSvTqIjH6MejcOBCGRvfEEaJTrMNlQ7BFGL7sTqnxs8AZD9CodQAxT0QfV6YBsbYlPkQPmRKxtytVHcnwPrEKvi6g7l8wWkzddcNES7WOC3h41prW+11BmcMEWBQeEiyHx525zhzxwYLcQIYg0dXbU4Ri9wubePXZv0MbazgBsKAJ/8TrKz91N72Dx9+Y8MOcZu3bBIQNOFg25HfOB6tg8K2zy7JWFoiSAwWYk1qMZSAtE8i6KUB3WNdme1ZDIWy/qX/8ECkcBwmBFqGvY7GU+Dw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KhyGBAL2E6EVZeenmwAj9M735izEtUgCVlFmoGEthqc=;
- b=XZdqxpbm7FvQm+iCndQB3K1RCjHGnjVdziuaJRREVcCmz3wDe1vapFJ7J7/TCch4U9sgLjctyWrRQ0X/ix5iD8b4yU4x7Jw8Dp0LxNn5XQPxVoEv0q5O6wRAnTzlYK+hboyI4NO7X1f5dpULFQnUl22WDkneCe6ehGxvmAIgWsVuI9p9JzrTEDkXXKzxWydzYG21KV0YPHijOzfbOlDZj9vwqSwsOgSKebOcdwuYdLv97j5cYlfpXj4SEx3Dztc1had+e+w74dYCJJolA35S5CdGbZzIsgXXhc4KcJ9XCowMTlqoeRDJ/Cuqkz5kpFmrGddjvu+fXL1y41Zp/qbaVw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KhyGBAL2E6EVZeenmwAj9M735izEtUgCVlFmoGEthqc=;
- b=0wyK87bQ+OauqMkk7JM55AprfrQ2MDk3DGMD0OjWdojVvNLrjfn012hCfEzVCq8FmUqVcdEJ/xSUw3+bxvhTlFcSitC87c46KaUyuPj4/pnfX5iBrKXT0BYtqNO3+Ykg9FX5FO8EgXWU4RHMyeuJDkRIkfuDiEMvXb4YGldeSv4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SN7PR12MB8147.namprd12.prod.outlook.com (2603:10b6:806:32e::5)
- by DS4PR12MB9684.namprd12.prod.outlook.com (2603:10b6:8:281::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
- 2026 10:05:54 +0000
-Received: from SN7PR12MB8147.namprd12.prod.outlook.com
- ([fe80::3923:c1a4:778b:56f2]) by SN7PR12MB8147.namprd12.prod.outlook.com
- ([fe80::3923:c1a4:778b:56f2%3]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
- 10:05:54 +0000
-Message-ID: <c5bed931-47fd-4538-8600-c40b8ba745c9@amd.com>
-Date: Thu, 24 Sep 2026 15:35:43 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2 4/8] net: xilinx: tsn: parse endpoint DMA
- channel configuration
-To: netdev-bot+sashiko@kernel.org, srinivas.neeli@amd.com
-Cc: nagadheeraj.rottela@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, richardcochran@gmail.com,
- michal.simek@amd.com, bigeasy@linutronix.de, clrkwllms@kernel.org,
- rostedt@goodmis.org, netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rt-devel@lists.linux.dev, neelisrinivas18@gmail.com, git@amd.com
-References: <20260909-patches_v2_external-v2-4-3a40babaff4c@amd.com>
- <178924537042.3125.10976584091391894658@kernel.org>
-Content-Language: en-US
-From: "Neeli, Srinivas" <srneeli@amd.com>
-In-Reply-To: <178924537042.3125.10976584091391894658@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN4P287CA0115.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:2b0::10) To SN7PR12MB8147.namprd12.prod.outlook.com
- (2603:10b6:806:32e::5)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ch5tx7zD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A26BD1F00893;
+	Thu, 24 Sep 2026 10:05:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790244367;
+	bh=6i5Bn/p9hoYkPkAS4fE0FC3u08lww1IyLVqKIgULjmw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Ch5tx7zDK2am4maKTos8NryZBOb9Q9yKA2U1aj8MpTofoC0f4brL3bAeytSaOvGYy
+	 fDsWrt8SVwJVn9N1tSC9N7RcwWe3yGqb9p6XSr09zdW6qYzPndPqljKfmUQl7WxIAO
+	 ulbER1KfvK1A+1r06J85qrf9/l7nA8SJoiENU7EMpivAr8GTvf0biNlSXhA5R8ZS1o
+	 PqzwZEI1d+rqcIXxLuUvmNB7qS+eDjNsrYtizjnVC25Jm9KuFhBltE4xoGZbO84fYQ
+	 zMCmmYyUuQTLuB4dwHz/aOgbihC2Fsm2XyqIyVf9nCSvR/8f40Pbdy6G6PuW0zk3WW
+	 sY7AF4kTeKdMw==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: linux-coco@lists.linux.dev,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Joerg Roedel <joro@8bytes.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Brian Starkey <Brian.Starkey@arm.com>,
+	John Stultz <jstultz@google.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Radu Rendec <radu@rendec.net>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	"K . Y . Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Long Li <longli@microsoft.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-media@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [RFC PATCH v8 01/14] mm: Add an allocator for CoCo shared memory
+Date: Thu, 24 Sep 2026 15:35:16 +0530
+Message-ID: <20260924100529.1398790-2-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260924100529.1398790-1-aneesh.kumar@kernel.org>
+References: <20260924100529.1398790-1-aneesh.kumar@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR12MB8147:EE_|DS4PR12MB9684:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1eea1324-2aab-48e6-f4ab-08df1a236bc0
-X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|7416014|4143699003|10067099003|56012099006|11063799006|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	yn2iI3GgI823PgzwrlEMCWpofwo1ZOfCenuRobhCeLFmpLJAGIzBn82vBZvhxaBqs2w5mMTk4V9eKkwQvDlHaf//dmeHTKtjr9ebb/yU5uUq1XRnPZFu7anJUfnN8Od0+nJyijS3GTbmuCKvJxTgjS2NxHdf6HAvuRE8D6Nb5lZCViuD6sXBt9MZd4Tuv8fEkBxUhxyeH2dkAdzr8W8RWZvwG8dXUawTv8SjTJSXh8RXhHlD3hv1IYeFd4JTinOZeJ/7aknkQCfZjp0eAuRga3qnsYEjkGrM51gSwtGw+BToXzZBxROUeso3ySvX+vdoAheT4pdjv2OfnrmO0/I8hII03Hqnidsji+F8dzcI/X9wgWH5iYi+0vML9JZTW/t8regxPPgFSjaxFiIx4L+l/7eTMJc+9bB3t6xtH95CN+nc34mnsWp2xlY6PSoiAmiR6JoR5BWCgUrAq9pwVhWqClWxN9op63mbnSCryl7mXKSX8K9n1xMlbMcgfmzEyOs2XktpR/TDoPwYcDbFWS8U+Gduy/PXvTrqfQH4rVGPC4tOBAM6aIRfaxF2PgTAo1z8WxdQqa4Qa/m5splhVAOu8i69Jcnsz9iJ+ITwta2hav9oh45w3dwJ7CP1rnQB4UgUrlENsQ8Xe/3wacN6iVSTTTebeReBsUXSz454YrW+9oE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB8147.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(7416014)(4143699003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dHZTM3pWUThOOHZaYzBaMDlYQnhhZ3RvSHBnY1JOam50bldKNDBGUFovNnhU?=
- =?utf-8?B?R3I0Yk1aTW44L1M4K3N4cndjc3NjRWNKZ1ZHSXBucGNzcjhKL0FRSTc5OURl?=
- =?utf-8?B?ZnY5ZnIrQ0d2NFVwOGxDUjlxcjgvYTBaVm9vUS9EMXdBNmdBVDFycXRnYlB0?=
- =?utf-8?B?SDFQWUVZd1RNKzd2OVpsbXZYbVhwMnFmVmk5VWtJeDdUSDkvOUpCemZvd28z?=
- =?utf-8?B?VGZiM09iSlBxRGFqN29NMFdDbUQ5b3lKL2luQ0I2MU1FSFlCVzNkQ1pPQjhI?=
- =?utf-8?B?blMzSkFBVEZJTi9Nc2tpYXZjWGNJTjNCUGtKVDNZcW9TQTFXL1JvQzkxZUZL?=
- =?utf-8?B?RGJoRkdKQWFYMTh2MHV0ZEZuWktDejBFS1RKeHBITHpURHd6TTFTVHV5L3Q2?=
- =?utf-8?B?MDV0WHp6ZTd5VjhIS3JQUnNiRW5FMDlwY3U3UWROUVZLWEZ0YVd2NnU4aUJS?=
- =?utf-8?B?dnZHbTZKU3VuZ0txVU4zR2JhYXVERFBRalBhYms0UGRZVW5MRDVIRFpFK2g0?=
- =?utf-8?B?NXZObjVKSXVPaGJYZlBLcklQaVVWaXVwUlRmbVZZUmpiYVc3eVM5QmdvREFQ?=
- =?utf-8?B?akZyejRoallFajd1ZTRqWGlKNk5vUjNEdjl0OWMrNmhzRE93QUFDWDRFUjV0?=
- =?utf-8?B?dmF0NlEzY0FwYks0SXU3dS9xNTVzZTB0MjhKWnU2Z0xIQjI3Y1Rpak1XWFVv?=
- =?utf-8?B?dXJsMVFSbjRoNkxaUlloNjdpZ0UvWXk1aTNaSHh0aXNJQk0yYjlnanVFRWdt?=
- =?utf-8?B?ZkJ0YTFCd201WGpTWVJVM2hHdTJlN0Q0OWZ0VmdyU1R3WjlCY2xnLzFxN0Ru?=
- =?utf-8?B?YjRQYlB0b0l5a0hwUXcyVGZuWmdQd1ZxRnNuV0xQQ3NZUGRrMlZWODgrMWtm?=
- =?utf-8?B?V2hua2ZPaEJSOXliZEd0YnhYb1F6c2xNRldoV2thaWlDbXRFWEcwUDZNT05J?=
- =?utf-8?B?V3pJYk1HZlFGN2Q1Zkc4VmlacUtqemZiajAydzRrQlJMS1F3L2w2Ty8vNEVJ?=
- =?utf-8?B?alRrNVZUTEVGTVh4ZitDTVM4Y240TS83WS93KytaNDF2NkdYdmxJWEZ6bHFI?=
- =?utf-8?B?b1dBaTljaHYvajI1SUZpL2Q5UmMxbE1oMWtwbVR0cUZJVm1CRGVqeHVEd2M1?=
- =?utf-8?B?bXZLYzUyWm51ZkRKSzdzQTBhRUQ2OFNFdEhzb3N2L2tDeGFaRjlLNzU0aUhT?=
- =?utf-8?B?OGF0ekdoMXZ5Tm5nRXZWQ0hIUEFSZUJZRVVmMUNaSHVUSE1UODFlQ0hKMk0r?=
- =?utf-8?B?dTkyeU43MnV5MTJaOGZ0UDg1RFNldVptVVBYeHROY1I0TFNPZGpsbzBxbmc5?=
- =?utf-8?B?dnd2SENna1NWTnNIbUZ0Y0t5N0dZdnJ3VE1maWVvL3BrSm9iTmVKVkRzNm1u?=
- =?utf-8?B?RVF6S0FqMnZSVlBJRkk0d3R6NVNIdVdJOHJZK096cnJOQWdta0t0bS9yTWtC?=
- =?utf-8?B?NkVMNDNiaExxVlZhYi83bVVzRHVRdlB6VmIzbkFtdmgzeXd1dGptY2lJRHJD?=
- =?utf-8?B?WlZwRUNNR2ltd2JabE41enJCUzBpWDJoblVuSm1nbEl0c3ZQYjFMeHRqVnlj?=
- =?utf-8?B?QzBEa0VlZkZLTjJCdm1sWnVBeS9VM3pGTUx3RDhFMW1JMm4xY2NPWFBJbkJB?=
- =?utf-8?B?OStkcitVTWtzMHZIK25lNmEzK1Nja3lYUjlZWWdONmNxYkNjaStMc2l4eGMx?=
- =?utf-8?B?SU5samZiY0VVbjVPaGRqdlRSSUlReHcvVDBkTFUyUHFXS0ZxVVhtUVJmMVdF?=
- =?utf-8?B?NDRkanZCS09rUXh5MVdRcCt3dXMrb2w3QUF3dnBtb3NFR0NZUFdjbDZaYmI4?=
- =?utf-8?B?dVlNU1VVdTEwUGZsL21FYjBVZVluL2V3OVVDdElScmhXOVpQMnh0eWtGYXdW?=
- =?utf-8?B?N1RVUU1IbndYSmwzQThDUXlpNXBFdWdKS3RWUytFaWJDL1FXQ09BSjl0a2dD?=
- =?utf-8?B?QVNLVU9LL3NJNWZicjYvSDRPZzVBV0cza1NzNVVQTFFPR2htWUF3OTdLUHJP?=
- =?utf-8?B?K3NWZWx3ZmxjRXN0Ri83RVg2WFpDL1NoNFZoZEUwSDEyemVUQTJORW9zMzE1?=
- =?utf-8?B?L1duNUpPUmZ3R0k3UEJFYmFvZC9RN3VyTmdJbXoxZnpkeW10MVNlRUNjNzl3?=
- =?utf-8?B?WmNCdmNQeU5pZXF3Q2V5Z2FTVUNEVU1Vc3FoQUpQc0NsWEZveGNFMEllMUZ3?=
- =?utf-8?B?SHdqdk0xbWUxL1RWcUdEZHd6aFZ4M0dhNkRNSjdjY0kzTUxTRjc1VkhnUk5x?=
- =?utf-8?B?TUxaRjVKczNtUFBobUNXUjNmTnlwM2FlN3RBaHdpVFJPb1gvVnVEYVBVTlEz?=
- =?utf-8?Q?6Bz2zguTFv7iwe3O80?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1eea1324-2aab-48e6-f4ab-08df1a236bc0
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB8147.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 10:05:54.7295
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aSwGdWMeErVLFOVBYryXp70tM0tW3Yfl2TJREP54Euf0IJsPQIN2HEpsgSuou69s
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9684
+Content-Transfer-Encoding: 8bit
 
-hi,
+Confidential-computing guests may require memory shared with the host to
+be aligned and transitioned in units larger than PAGE_SIZE. Several DMA
+users need struct page-backed allocations satisfying these requirements.
+Provide a common allocator instead of requiring each user to open-code
+this sequence.
 
-On 9/13/2026 2:06 AM, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider:
->
-> Critical: 0 · High: 0 · Medium: 1 · Low: 0
->
-> - [Medium] xlnx_tsn_ep_probe() and ep_parse_tx_queue_config() enforce two
->    new mandatory device-tree constraints that the in-tree binding does…
->
-> --
->
-> net: xilinx: tsn: parse endpoint DMA channel configuration
->
-> This patch counts the TX and RX MCDMA channels listed in the endpoint's
-> "dma-names" property, allocates the conduit netdev with that many hardware
-> queues, and parses the "tx-queues-config" child node to map each logical TX
-> queue to a physical DMA channel.
->
->> diff --git a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
->> index 089f17a126f5..24025b1f6e66 100644
->> --- a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
->> +++ b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
-> [ ... ]
->
->> @@ -69,15 +88,173 @@ static const struct ethtool_ops ep_ethtool_ops = {
->>   	.get_drvinfo	= ep_get_drvinfo,
->>   };
->>   
->> +/*
->> + * Parse the "tx-queues-config" child of the EP node. The logical queue
->> + * index is taken from the "queue<N>" node name, so the mapping does not
->> + * depend on the order the child nodes appear in the device tree.
->> + */
->> +static int ep_parse_tx_queue_config(struct xlnx_tsn_ep *ep,
->> +				    struct device_node *txcfg_np, u16 tx_present)
->> +{
->> +	DECLARE_BITMAP(queue_seen, TSN_MAX_TX_QUEUE) = {};
->> +	DECLARE_BITMAP(chan_seen, TSN_MAX_TX_QUEUE) = {};
->> +	unsigned int count = 0;
->> +	int ret;
->> +
->> +	for_each_child_of_node_scoped(txcfg_np, qnode) {
->> +		u32 chan, queue;
->> +
->> +		if (!str_has_prefix(qnode->name, "queue") ||
->> +		    kstrtou32(qnode->name + strlen("queue"), 10, &queue) ||
->> +		    queue >= ep->num_tx_queues)
->> +			return dev_err_probe(ep->dev, -EINVAL,
->> +					     "tx-config: invalid queue node %pOFn (have %u queues)\n",
->> +					     qnode, ep->num_tx_queues);
-> [ ... ]
->
->> +		ep->tx_dma_chan_map[queue] = chan;
->> +		count++;
->> +	}
->> +
->> +	if (count != ep->num_tx_queues)
->> +		return dev_err_probe(ep->dev, -EINVAL,
->> +				     "tx-config: described %u queues but expected %u\n",
->> +				     count, ep->num_tx_queues);
->> +
->> +	return 0;
->> +}
-> [ ... ]
->
->>   static int xlnx_tsn_ep_probe(struct platform_device *pdev)
->>   {
->> +	u32 rx_chan_num[TSN_MAX_RX_QUEUE];
->>   	struct device *dev = &pdev->dev;
->> +	struct device_node *txcfg_np;
->> +	u32 num_tx, num_rx, num_prio;
->> +	struct device_node *ip_np;
->>   	struct net_device *ndev;
->>   	struct xlnx_tsn_ep *ep;
->>   	u8 mac_addr[ETH_ALEN];
->> +	u16 tx_present = 0;
->>   	int ret;
->> +	int i;
->> +
->> +	ret = ep_count_dma_queues(dev, &num_tx, &num_rx, &tx_present, rx_chan_num);
->> +	if (ret)
->> +		return ret;
->> +
->> +	ip_np = of_get_parent(dev->of_node);
->> +	if (!ip_np)
->> +		return dev_err_probe(dev, -EINVAL, "missing parent IP node\n");
->> +
->> +	ret = of_property_read_u32(ip_np, "xlnx,num-priorities", &num_prio);
->> +	of_node_put(ip_np);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "missing xlnx,num-priorities\n");
->> +
->> +	if (num_tx != num_prio)
->> +		return dev_err_probe(dev, -EINVAL,
->> +				     "TX channel count %u must equal num-priorities %u\n",
->> +				     num_tx, num_prio);
-> [Severity: Medium]
-> Can this equality check reject device trees that the in-tree binding
-> accepts?  Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-mac.yaml
-> describes the two properties completely independently:
->
->    xlnx,num-priorities:
->      $ref: /schemas/types.yaml#/definitions/uint32
->      minimum: 2
->      maximum: 8
->
->        dma-names:
->          minItems: 2
->          maxItems: 16
->          items:
->            pattern: "^(tx|rx)_chan[0-7]$"
->
-> With that schema, dma-names = "tx_chan0", "rx_chan0" together with
-> xlnx,num-priorities = <2> validates, but xlnx_tsn_ep_probe() now fails with
-> "TX channel count 1 must equal num-priorities 2".  A 4 TX + 4 RX endpoint
-> under xlnx,num-priorities = <8> fails the same way.
->
-> The queue node checks in ep_parse_tx_queue_config() add a second constraint
-> that the schema does not express: exactly one queue<N> node per TX channel,
-> with dense indices 0..num_tx-1.  The schema has no required queue children
-> under tx-queues-config, so an empty
->
->    tx-queues-config {
->    };
->
-> is schema-valid and gets "tx-config: described 0 queues but expected N",
-> and sparse names such as queue0/queue1/queue2/queue7 with 4 TX channels get
-> "tx-config: invalid queue node queue7 (have 4 queues)".
->
-> Because the endpoint MAC is the DSA conduit referenced by
-> port@0 { ethernet = <&ep_mac>; }, a probe failure here also takes away the
-> three-port switch, not just the ep0 netdev.
->
-> Semantically these look like different things: xlnx,num-priorities is an
-> IP-wide traffic class count on the parent node, while dma-names describes
-> host-side MCDMA wiring on the endpoint node, and the binding's own example
-> uses an arbitrary queueN -> tx_chanM permutation.  num_prio is read here for
-> no other purpose than this comparison.
->
-> Should the binding encode the coupling (required queue children and a
-> dma-names/num-priorities relation), or should the driver accept every
-> topology the binding advertises?
-   The binding intentionally does not encode the coupling. 
-xlnx,num-priorities is
-   an IP-wide property on the parent node describing the number of 
-egress priority
-   queues the IP is synthesised with, while dma-names describes the host 
-MCDMA
-   wiring on the endpoint node. The equality holds in this MCDMA-only
-   configuration, where the driver sets up one MCDMA TX channel per priority
-   queue, but it is not the meaning of the property, with the time-aware and
-   per-stream schedulers a priority queue can be served without an MCDMA TX
-   channel. Encoding num_tx == num-priorities in the schema would 
-describe this
-   configuration rather than the hardware.
+Add alloc_cc_shared_pages() and its node-aware variant. The allocator
+rounds the requested size to the architecture's shared granule,
+allocates suitably aligned contiguous pages and transitions the
+complete range to shared state. It also preserves the caller's GFP
+policy.
 
-> The YAML is unchanged by this patch and by the remainder of the series, and
-> only the 8 TX / 8 RX, xlnx,num-priorities = <8> example in the binding
-> satisfies the driver, so dt_binding_check does not surface the mismatch.
->
-> Could the commit message body state these new device tree requirements?
-> Right now they appear only in the below-the-line v2 changelog:
->
->    - Require one queue node per tx_chan and num-priorities equal to the TX
->      channel count.
->
-> [ ... ]
-   v3 adds required: [queue0] under tx-queues-config, so an empty node 
-is now rejected at
-   dt_binding_check. The remaining constraint, exactly one queueN per TX 
-channel with
-   dense indices, depends on the tx_chanN count in another property, 
-which dt-schema
-  cannot express, so the driver validates it and reports it with 
-dev_err_probe().
+A private-to-shared transition may alter memory contents. Mask
+__GFP_ZERO from the underlying allocation and when requested, clear the
+complete transitioned range after cc_make_shared() succeeds.
 
-Thanks
-Srinivas Neeli
->
+Return the page and transitioned size so free_cc_shared_pages() can
+restore the complete range to private state before freeing it. If
+private state cannot be established, retain the allocation instead of
+returning a possibly shared page to the buddy allocator.
+
+Also provide the shared-granule geometry and byte-oriented transition
+helpers used by the allocator and by callers managing their own backing
+memory.
+
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+---
+ include/linux/cc_shared.h |  39 +++++++
+ mm/Makefile               |   1 +
+ mm/cc_shared.c            | 232 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 272 insertions(+)
+ create mode 100644 include/linux/cc_shared.h
+ create mode 100644 mm/cc_shared.c
+
+diff --git a/include/linux/cc_shared.h b/include/linux/cc_shared.h
+new file mode 100644
+index 000000000000..5f8db7c468c5
+--- /dev/null
++++ b/include/linux/cc_shared.h
+@@ -0,0 +1,39 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _LINUX_CC_SHARED_H
++#define _LINUX_CC_SHARED_H
++
++#include <linux/gfp_types.h>
++#include <linux/types.h>
++
++struct page;
++
++struct cc_shared_pages {
++	struct page *page;
++	size_t shared_size;
++};
++
++struct cc_shared_layout {
++	size_t requested_size;
++	size_t shared_size;
++	size_t alignment;
++};
++
++/*
++ * Architectures may override this to return the granule used for transitions
++ * between private and shared memory. The value must be a power of two and no
++ * smaller than PAGE_SIZE.
++ */
++size_t arch_cc_shared_granule_size(void);
++
++size_t cc_shared_granule_size(void);
++int cc_shared_calc_layout(size_t requested, struct cc_shared_layout *layout);
++bool cc_shared_range_valid(phys_addr_t base, size_t size);
++int cc_make_shared(void *addr, size_t size);
++int cc_make_private(void *addr, size_t size);
++int alloc_cc_shared_pages_node(int nid, gfp_t gfp,
++		size_t requested, struct cc_shared_pages *mem);
++int alloc_cc_shared_pages(gfp_t gfp,
++		size_t requested, struct cc_shared_pages *mem);
++void free_cc_shared_pages(struct cc_shared_pages *mem);
++
++#endif /* _LINUX_CC_SHARED_H */
+diff --git a/mm/Makefile b/mm/Makefile
+index e7245cb88c66..6e6544428422 100644
+--- a/mm/Makefile
++++ b/mm/Makefile
+@@ -56,6 +56,7 @@ obj-y			:= filemap.o mempool.o oom_kill.o fadvise.o \
+ 			   compaction.o show_mem.o \
+ 			   interval_tree.o list_lru.o workingset.o \
+ 			   debug.o gup.o mmap_lock.o vma_init.o $(mmu-y)
++obj-y			+= cc_shared.o
+ 
+ # Give 'page_alloc' its own module-parameter namespace
+ page-alloc-y := page_alloc.o
+diff --git a/mm/cc_shared.c b/mm/cc_shared.c
+new file mode 100644
+index 000000000000..85e16f4504b8
+--- /dev/null
++++ b/mm/cc_shared.c
+@@ -0,0 +1,232 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2026 ARM Ltd.
++ */
++#include <linux/align.h>
++#include <linux/cc_platform.h>
++#include <linux/cc_shared.h>
++#include <linux/errno.h>
++#include <linux/export.h>
++#include <linux/gfp.h>
++#include <linux/log2.h>
++#include <linux/mm.h>
++#include <linux/mem_encrypt.h>
++#include <linux/numa.h>
++#include <linux/overflow.h>
++#include <linux/set_memory.h>
++
++size_t __weak arch_cc_shared_granule_size(void)
++{
++	return PAGE_SIZE;
++}
++
++size_t cc_shared_granule_size(void)
++{
++	size_t granule = arch_cc_shared_granule_size();
++
++	if (WARN_ON_ONCE(granule < PAGE_SIZE || !is_power_of_2(granule)))
++		return PAGE_SIZE;
++
++	return granule;
++}
++EXPORT_SYMBOL_GPL(cc_shared_granule_size);
++
++int cc_shared_calc_layout(size_t requested, struct cc_shared_layout *layout)
++{
++	size_t granule, rounded;
++
++	if (!requested || !layout)
++		return -EINVAL;
++
++	granule = cc_shared_granule_size();
++	if (check_add_overflow(requested, granule - 1, &rounded))
++		return -EOVERFLOW;
++
++	rounded = ALIGN_DOWN(rounded, granule);
++	layout->requested_size = requested;
++	layout->shared_size = rounded;
++	layout->alignment = granule;
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(cc_shared_calc_layout);
++
++bool cc_shared_range_valid(phys_addr_t base, size_t size)
++{
++	size_t granule = cc_shared_granule_size();
++
++	if (!size)
++		return false;
++
++	return IS_ALIGNED(base, granule) && IS_ALIGNED(size, granule);
++}
++EXPORT_SYMBOL_GPL(cc_shared_range_valid);
++
++static int cc_validate_transition(void *addr, size_t size)
++{
++	phys_addr_t phys;
++
++	if (!addr || !size || !PAGE_ALIGNED(addr) ||
++	    !virt_addr_valid(addr))
++		return -EINVAL;
++
++	phys = page_to_phys(virt_to_page(addr));
++	if (!cc_shared_range_valid(phys, size))
++		return -EINVAL;
++
++	return 0;
++}
++
++int cc_make_shared(void *addr, size_t size)
++{
++	int ret = cc_validate_transition(addr, size);
++
++	if (ret)
++		return ret;
++
++	return set_memory_decrypted((unsigned long)addr, size >> PAGE_SHIFT);
++}
++
++int cc_make_private(void *addr, size_t size)
++{
++	int ret = cc_validate_transition(addr, size);
++
++	if (ret)
++		return ret;
++
++	return set_memory_encrypted((unsigned long)addr, size >> PAGE_SHIFT);
++}
++
++static int __alloc_cc_shared_pages_node(int nid, gfp_t gfp,
++					size_t requested,
++					struct cc_shared_pages *mem)
++{
++	struct cc_shared_layout layout;
++	struct page *page;
++	unsigned int order;
++	bool zero = gfp & __GFP_ZERO;
++	int ret;
++
++	ret = cc_shared_calc_layout(requested, &layout);
++	if (ret)
++		return ret;
++
++	order = get_order(layout.shared_size);
++	if (order > MAX_PAGE_ORDER)
++		return -EINVAL;
++
++	/*
++	 * State transitions require a linear-map address and may modify memory.
++	 * Allocate from low memory and defer requested zeroing until afterwards.
++	 */
++	gfp &= ~(__GFP_HIGHMEM | __GFP_ZERO);
++	if (nid == NUMA_NO_NODE)
++		page = alloc_pages(gfp, order);
++	else
++		page = alloc_pages_node(nid, gfp, order);
++	if (!page)
++		return -ENOMEM;
++
++	ret = cc_make_shared(page_address(page), layout.shared_size);
++	if (ret) {
++		if (!cc_make_private(page_address(page), layout.shared_size))
++			__free_pages(page, order);
++		else
++			pr_warn_ratelimited("leaking %zu bytes with uncertain shared state\n",
++					    layout.shared_size);
++		return ret;
++	}
++
++	if (zero)
++		memset(page_address(page), 0, layout.shared_size);
++
++	mem->page = page;
++	mem->shared_size = layout.shared_size;
++	return 0;
++}
++
++/**
++ * alloc_cc_shared_pages_node - allocate memory that can be shared
++ * @nid: NUMA node from which to allocate, or %NUMA_NO_NODE
++ * @gfp: allocation flags
++ * @requested: number of bytes requested; must be nonzero
++ * @mem: storage for the allocated page and the size of the shared range
++ *
++ * Allocate at least @requested bytes and make the allocation shared when
++ * memory encryption is active.  A memory-state transition requires a valid
++ * linear-map address, so such allocations never come from high memory
++ *
++ * The shared range may be rounded up to the architecture's transition
++ * granule.  On success, @mem->shared_size records the actual size that was
++ * made shared and must be retained unchanged for free_cc_shared_pages().
++ * @mem is not modified on failure.
++ *
++ * Return: 0 on success, or a negative error code on failure.
++ */
++int alloc_cc_shared_pages_node(int nid, gfp_t gfp,
++			       size_t requested,
++			       struct cc_shared_pages *mem)
++{
++	struct page *page;
++	unsigned int order;
++
++	if (!mem || !requested)
++		return -EINVAL;
++
++	if (cc_platform_has(CC_ATTR_MEM_ENCRYPT))
++		return __alloc_cc_shared_pages_node(nid, gfp, requested, mem);
++
++	order = get_order(requested);
++	if (order > MAX_PAGE_ORDER)
++		return -EINVAL;
++
++	if (nid == NUMA_NO_NODE)
++		page = alloc_pages(gfp, order);
++	else
++		page = alloc_pages_node(nid, gfp, order);
++	if (!page)
++		return -ENOMEM;
++
++	mem->page = page;
++	mem->shared_size = requested;
++	return 0;
++}
++EXPORT_SYMBOL_GPL(alloc_cc_shared_pages_node);
++
++/**
++ * alloc_cc_shared_pages - allocate memory that can be shared
++ * @gfp: allocation flags
++ * @requested: number of bytes requested; must be nonzero
++ * @mem: storage for the allocated page and the size of the shared range
++ *
++ * Equivalent to alloc_cc_shared_pages_node() with %NUMA_NO_NODE.
++ *
++ * Return: 0 on success, or a negative error code on failure.
++ */
++int alloc_cc_shared_pages(gfp_t gfp,
++			  size_t requested, struct cc_shared_pages *mem)
++{
++	return alloc_cc_shared_pages_node(NUMA_NO_NODE, gfp, requested, mem);
++}
++EXPORT_SYMBOL_GPL(alloc_cc_shared_pages);
++
++void free_cc_shared_pages(struct cc_shared_pages *mem)
++{
++	if (!mem || !mem->page)
++		return;
++
++	if (!cc_platform_has(CC_ATTR_MEM_ENCRYPT))
++		goto free_pages;
++
++	if (cc_make_private(page_address(mem->page), mem->shared_size)) {
++		pr_warn_ratelimited("leaking %zu bytes that cannot be made private\n",
++				    mem->shared_size);
++		return;
++	}
++
++free_pages:
++	__free_pages(mem->page, get_order(mem->shared_size));
++	mem->page = NULL;
++	mem->shared_size = 0;
++}
++EXPORT_SYMBOL_GPL(free_cc_shared_pages);
+-- 
+2.43.0
 
