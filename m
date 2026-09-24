@@ -1,100 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20EF53F7A9A;
-	Thu, 24 Sep 2026 20:27:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9A104CDA0A;
+	Thu, 24 Sep 2026 20:28:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790281667; cv=none; b=DobADZ04ZA5JPlhIj9+CPSJKkhDIFrca3W4L8OTiZQD2eUWdyGYaNObRmHufaqM5JpRo7AZ3eDxm9AOn9su//CLDMLKCljCKvUBq1bAjVXwfvQsWYlRIhukC41vg4o2mTPJAfM/Lch0H8L8RmwH01mRana6kdgxNcLGluAkhpYw=
+	t=1790281699; cv=none; b=iBnx2V2pu3xGmYxnK8ipQFelU2QiBn+78qtWWYcwYY/Gg5AzT4mUGhriZ6cTi2UYTkgdLCSwZY9k385J6mlPiJ22uECn2HOgKnHPuFXkke0OycJXLTP3pFU1dyxXiTUE9a0loJmaE5/Yv30lCF186F1uIJYw07F++52Pj9cdWIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790281667; c=relaxed/simple;
-	bh=lOgs1Vk36hI1sK+kfplpm6xwQ+Bq89P6PGwa3r+up3Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kXyVqsHjvSc+u1sSqi2+z+ccYAVfW1PSM/+YzYczliklHmZYbOmIZKfK8IosrlpbSyga3mUdwCeXRcxx14WXKm/r72nDR/6H/8WdXpeu2Vg7oqpve2os5RYq/a77IkCKK3edTGHUSuRnt68FZdgdJ6VE/6Na8Z9Zne/pL/oouII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n3/NWC0o; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790281699; c=relaxed/simple;
+	bh=w97EWjZesGb+3hb/Zx7HCgr5mgb4O8SmEQJDS8VlRqw=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=RzLBaRsCoQhH+NpBdz+ciYGFyJ09YjfwaHmKQIBLaLzBIReDEjORWWJ7Lzx1kmZxcDWKq6ks+7/B4sQiV4zzANns1CVdhvICKG40HUZmDl0JH1CJ8bygwBf60l1T3guWITyFUdQNE2Y2/DGJG6Px43bhv2G4MWyarrX0Ov9vJ+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cq9hMZrf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n3/NWC0o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F249E1F000FF;
-	Thu, 24 Sep 2026 20:27:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cq9hMZrf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21DD91F000FF;
+	Thu, 24 Sep 2026 20:28:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790281664;
-	bh=lOgs1Vk36hI1sK+kfplpm6xwQ+Bq89P6PGwa3r+up3Y=;
+	s=k20260515; t=1790281691;
+	bh=avFjG5EZmFqrwm1p4+gM+ZFckK2JwdC+scZyps23rJs=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=n3/NWC0oJpAPnXaeQpIxiEur660tJRMKLNqftEwy4R2Ak8sqx+Hy6SB+ZTIsA/Ryv
-	 guTZCnxYy6CVCzFbyqMyGnLtBr6BtX9T6M1oYIf/EDlW5szMPd3ToXcZEGmU+4XAtD
-	 dktekRpQ4E5XfVCM8bRBTMwmWWz39eoRHdLGFCZfHcNLsUD0yYBSmsCN4chm4TMIrn
-	 vPwiDcGvQCA7+Sp1NN5nviJe9zvhIhhJ0jdlOBDnsZpf3NCARy7hICcViAr+apAQd3
-	 uHa6vBaN3SoUX62utIl5tKaeQUe5eJc2IhNvnPlRNdJtSzEZqXDHBKijDZ0FXBEnYV
-	 LlsEngwVGXcYw==
-Date: Thu, 24 Sep 2026 13:27:43 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: davem@davemloft.net, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, pabeni@redhat.com
-Subject: Re: [GIT PULL] Networking for v7.3-rc5
-Message-ID: <20260924132743.50090cf5@kernel.org>
-In-Reply-To: <CAHk-=wiSnTE9vBZ=5_v+3EEkdazCCbBM5YABRzRHUAeRdyd4Xw@mail.gmail.com>
-References: <20260924183257.2700506-1-kuba@kernel.org>
-	<CAHk-=wiSnTE9vBZ=5_v+3EEkdazCCbBM5YABRzRHUAeRdyd4Xw@mail.gmail.com>
+	b=Cq9hMZrf00s1b6AqZjdi0M+xphvplpO9MfOok1IlGnSwLbZV9ayIds8xD6DUZyNhK
+	 ihG3/PzW1VIcrv2SrmJGjylEQZGb5RT8Bn9ZG/E2YWntUfWR1x48dpWb6WKNhcwm78
+	 Mt5krRorJPuciXv7L7H9pOUwm/5VqLS37cMpgcD43pK2jNIp4lNqXKpPLK70jy6RSw
+	 J5YcktwTTPtFPkjnZrORVx2wzI/krFj7O5JKL/pCzE+5nOaTuBF6jZAO2A8/HkZq4s
+	 2mlpsLV3yZqlU05yjHOS68T+DHUwV143/0ez2Sgb7ddfEgajnPjCfBBBsoXYyXv4zf
+	 jyF/qq3tPWPJw==
+Date: Thu, 24 Sep 2026 10:28:10 -1000
+Message-ID: <befc0a9b9998db0292c9998c639a3a9f@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Muchun Song <muchun.song@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Ingo Molnar <mingo@redhat.com>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>,
+ Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ David Dai <david.dai@linux.dev>,
+ JP Kobryn <jp.kobryn@linux.dev>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Aaron Lu <ziqianlu@bytedance.com>,
+ Daniel Jordan <daniel.m.jordan@oracle.com>,
+ Hao Lee <haolee.swjtu@gmail.com>,
+ kernel-team@meta.com,
+ cgroups@vger.kernel.org,
+ bpf@vger.kernel.org,
+ linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/7] cgroup: charge kernel work to the cgroup it
+ is done for
+In-Reply-To: <20260924184714.912181-1-shakeel.butt@linux.dev>
+References: <20260924184714.912181-1-shakeel.butt@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, 24 Sep 2026 12:04:05 -0700 Linus Torvalds wrote:
-> I'm looking at those ovpn fixes, for example, and they fix old stuff
-> and they aren't marked for stable. The ones I looked at seemed to go
-> back to ovpn being basically merged initially.
->=20
-> So they clearly aren't regression fixes. Why are they in an -rc at all th=
-en?
->=20
-> Are they actually important enough that they shouldn't just go into linux=
--next?
->=20
-> Your merge message notes don't even mention them, which to me says
-> "not important".
->=20
-> "Not a regression, not critical" should mean "next release, not rc materi=
-al".
->=20
-> Maybe it *is* important, but then it should be mentioned.
+Hello, Shakeel.
 
-Yes, ovpn stuff was definitely pushing it :/ More of a decision
-on whether I want to ship this to you today for rc5 or risk making=20
-rc6 larger.
+On Thu, Sep 24, 2026 at 11:47:04AM -0700, Shakeel Butt wrote:
+> This series lets a kernel thread say which cgroup it is working for.
+> That cgroup then sees the CPU time in its cpu.stat and the stalls in
+> its memory.pressure, and the CPU time comes out of its cpu.max quota.
+> The first user is the memcg reclaim that runs from high_work.
 
-> I've pulled this, but I really am trying to start pushing back on
-> pointless "fixes" after the merge window.
->=20
-> For post-merge-window patches, it is NOT ENOUGH to just be "a fix".
->=20
-> It needs to be a regression, or it needs to be critical. It needs to
-> be something that would merit the change being marked for stable.
->=20
-> Regressions are serious business. They break existing setups. They
-> make it painful for people to upgrade. They are critical, in other
-> words.
->=20
-> But stuff that has been broken since the first release of the code?
->=20
-> Sure, it *can* be a very important security fix. Or - more likely -
-> it's just a codepath that doesn't matter, never did, and was found by
-> some random LLM and that's the only reason it now shows up.
+This doesn't translate to net rx, which is another major source of
+displaced CPU usage. Switching membership on each packet isn't going to
+work there. Attribution can't happen that way. We'd much rather count
+per-cgroup received packets and prorate the CPU consumption. If at all
+possible, I think it'd be better to adopt an approach which can cover
+both use cases.
 
-Not gonna argue, we'll continue to adjust the filters.
+>  - The debt is capped at one period's quota, so one long piece of
+>    work cannot starve the cgroup for long. Time over the cap still
+>    shows up in cpu.stat. Writing cpu.max or cpu.max.burst clears the
+>    debt.
 
-At the same time I'm very impressed by the overall code quality these
-days. Regressions are very rare for us. Even mindless slop that people
-send is an order of magnitude better than code we used to merge 2 years
-ago. But more importantly with multiple frontier models reviewing each
-merged patch the math on the risk of regressions changes quite a bit.
+I don't like the debt capping. Having debt doesn't have to mean that
+the cgroup doesn't get any bandwidth at all. The cgroup just needs to
+be slowed down enough that the generation of new work is throttled and
+the whole thing doesn't go out of control. IO control already does
+this: when IO debt is accumulated, userspace is heavily throttled, but
+not completely stalled, until the whole cgroup's consumption comes
+under control. I don't see why the debts would need to be forgiven
+unconditionally. The cgroup can keep paying them while running at a
+minimal rate to avoid triggering stall failures, and if the situation
+doesn't resolve quickly, that will most likely trigger pressure based
+kills in any reasonable setup anyway.
 
-AFAIU the rc releases where about stabilizing the code merged during
-the merge window. If the see no bug fixes for that code because LLMs
-and CIs have beating all the bugs out of it before the merge window..
-what are the rc releases about? =F0=9F=A4=94=EF=B8=8F
+Thanks.
+
+--
+tejun
