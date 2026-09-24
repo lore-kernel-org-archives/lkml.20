@@ -1,33 +1,67 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5022550129B;
-	Thu, 24 Sep 2026 23:30:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B0FE3E7BCC
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 23:32:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790292638; cv=none; b=SspmeteQvZq4aIj3jCXpE3DUDByDRSg6o4ZXkBdNOrscFWjUP23dRJ09luAcCWTlUI3WY0FzNxXiyP39dMTIORkmA4mUqSpJL6Uif66+EM8MLa9w4BCXeeJoZkzzRzcwiVt/Lp+eoJUQ0lCNTQ0hrbFZAj/W6h/gTUQ1qKHlU1o=
+	t=1790292780; cv=none; b=IcnA77PodiINFeTzCLSKYHYPNczXJX4jRAc7PgNfvYHeGcGkQlZZ/icm50QNx69sGEjLk8fFpZUbCSyOyDGJca8A5U91Z9BQjbYGxFRcrIq9YNlS/tZGFnXbvcmnt5rr9gLg8NQEIukIsIIM+hpJbNLEakJMQknGUrDRayCIUAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790292638; c=relaxed/simple;
-	bh=o5jjLLvdLx+mHh34vmnUPVowLVRcHX+QrLaCzvpL7t8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nu1VaPgMf/sTi5SwazHcogyBCUj2AYzwKr/O4AVbardW/0KbaFBSZuTuRRhe80Wk+m2ceh/seI9y+Um80EPu4F8zcjC6DOCcRfyyA95S1zQO2UqiZMOcEnz1RtOYrCOqMw7ZIGP3MTtByheZLih7Aihsi8Fcfta0ZBVXa4f38UM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=WF54MV3R; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790292780; c=relaxed/simple;
+	bh=kTnPWWQ2BIcJljm1EN+fW/0QPHIPCTLuXWEVNgYv8HY=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=SkruJxet14mZ6xGo6Rk2zNdFTC1+7zm5swWoMDoVAN/lzrx+mNtUCMud9B5/oJdZtG8+OnY/OQEZgfSHK6bHe5/y30dU1Q48MvlF7YcDDEHYtqWCrDsCOvO+ECCSfx1WKru6rgYMCWneSRUcNo26yuGm+azDEjv8RTbiEGq12N4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=NaWDhvoR; arc=none smtp.client-ip=74.125.229.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="WF54MV3R"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 286471E5E;
-	Thu, 24 Sep 2026 16:30:31 -0700 (PDT)
-Received: from [10.57.10.88] (unknown [10.57.10.88])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 339BE3F632;
-	Thu, 24 Sep 2026 16:30:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790292634; bh=o5jjLLvdLx+mHh34vmnUPVowLVRcHX+QrLaCzvpL7t8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=WF54MV3RqxVOWL0I8myGWcAs0hbJK8pEQz6EoOmO6ClVhbMVRW7r2NvLpbYPu//JK
-	 Wp8X7oqpfqlcLy7qCXer7xKkbwVLcZU/6aGpAWEHwnrmkFf4iMTkQLvHGUTi9GyABy
-	 XzJ8SYbRVKAOstgcBy3PkFhcnFqi/TcASycuxwGU=
-Message-ID: <14c6a10d-2891-42ce-8dd8-9745be2f7347@arm.com>
-Date: Fri, 25 Sep 2026 00:30:29 +0100
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="NaWDhvoR"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-3413069aa25so161215eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:32:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1790292777; x=1790897577; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LXZmjhFB9CuarkGAqk43Kn1bH+0V6owkhXtkgSKcCIE=;
+        b=NaWDhvoRmhXhgoBA3nw2GcHWlsN2HsivhYh7p6l8U9jBBtwg5zLviEK93dTjeeK7cJ
+         qtzrFvX0hhiejFhJd3+clIkDF+l8fiILibhuNLArnJnqJLr0otmVGTvOP4mFI6bOwEIk
+         FmqE7Hp/05j8VDMvwpnRZ8XT241ctQRLmkk0uMZJ4dyn4BAO6+HHlP6ROwabjMv+pCg6
+         1KBzSqmvXDexEcWhARfHnU/z9bw+5NTWm/edlETCNm2VnMpBa+YdStIrDXnsvDPkRXFu
+         EdSlLm07IBE7TECRHFjnZVVgoETqT8oGNfD+8Fr0fRKZqMj5+YveQQ8oX8bJXtJ83DQ6
+         X4aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790292777; x=1790897577;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LXZmjhFB9CuarkGAqk43Kn1bH+0V6owkhXtkgSKcCIE=;
+        b=XKY4nHpRXXkrJO48L8Cany3/3iYy6EkDqP6PGAis7gPbQD9pSWYsskzdNH5FG1mWDd
+         o7xX8wbqajaM+pt4cK5BpTYwT4wRv7gl7ONkrVXxEr5xE79NRlPxPEU2+kINI6UDyiR7
+         71chVQIQfGg9DSueXCPwIlI1MPbLIWz1x/T0VQx75eq9NUxrca60GwODOD2O9e9FHCdM
+         0R6q75wtvdD1GHuX9CIMuhLZE6Zke//QTN6GRHGowMCQ62K6j47mcwawe2zuAokeqEu1
+         88pBosEXWecK7dqyWaYyOCm/bpPyIPsOgZODDZPkvR4ezf/Dpjz7rSoc3jLi2Tgk+WQl
+         092A==
+X-Forwarded-Encrypted: i=1; AKwUvBwAyV+mK8+cw+MJ9tXncf63cBxCOxcf3Gy56sAXxX1SE/+u+4EGzTaXnj7d+B0bd1Aki6H/G3Qyu/IL7JA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZaEJezXzX701eC/foCQBvs0zTaIyHUDkvpROIqrVLFo7MxTOB
+	NZx2X6+sQQh11MAigdCqGZw+D/f1FmdduWRaubnubNge5bJB1CjVcXUOZXru/fmKa5I=
+X-Gm-Gg: AYBFou24CDo86pbfF43B+NAu5KY13cObeAM1FoKuAaqVlrNs+WdhypudsP9KwjoJNed
+	CCUXhTY4DbyEjYd2Ybe4aoZzDJHfA0AJcvJS905/aUvE5yZJ3kgLn3iT45UPYHyMEwa3MBaZxY4
+	GIjal8RLO2gpHcExuLbkZDY56iEMVv+cKc/Vmwlngv1ynrhg2xw5E/pKSXz/Wv0Sv4/dc3rUU1D
+	kzeN7Tr3qxoH5pCrr/2aEHuLF+QL+DWk+4hTEd9Dg+7Sw6yvyYXA+KVBPFMEDTAZ+YmOAOPNowQ
+	EqkOFHLwNW74IBOvHuKRHj1tSgdaRP3KVM7VARSqjmxbj2JBtmnvUgv/U2zNdPaK6KX6RvfxUfc
+	SAi1kv30nYIjhLO0xC4p/tDkMc1YucvSukBjEsovgJ0TnD+KZRMIpD2sktUTkqFwkvopSpUDzMY
+	l7xawAnMHMIrw7GtBZISXkF32RhUYW+za6W6ZtF/pMbRbdkwl64cb9tFBEd7kmuUEBOl3GFNYvd
+	EOd6AQLfVIoPtOp2MWONLqwgegaSWdloXvQ9zw1teZ8mKjAM6/1n6A=
+X-Received: by 2002:a05:7300:c88:b0:33b:b4b8:ac57 with SMTP id 5a478bee46e88-34006772e80mr5319034eec.29.1790292777252;
+        Thu, 24 Sep 2026 16:32:57 -0700 (PDT)
+Received: from [172.16.11.208] ([4.39.28.114])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144172d8asm1607341eec.5.2026.09.24.16.32.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 16:32:56 -0700 (PDT)
+Message-ID: <39b2bee2-84d1-498b-a5e0-1f2307bd31d3@kernel.dk>
+Date: Thu, 24 Sep 2026 17:32:54 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,158 +69,78 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 6/7] firmware: arm_rmm: Ensure the RMM has GPT entries
- for memory
-Content-Language: en-GB
-To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
- sudeep.holla@arm.com
-References: <20260924135201.850038-1-suzuki.poulose@arm.com>
- <20260924135201.850038-7-suzuki.poulose@arm.com>
- <20260924143821.00003491@oss.qualcomm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20260924143821.00003491@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH] io_uring/sqpoll: pin task across task-work publication
+From: Jens Axboe <axboe@kernel.dk>
+To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260924205056.3759980-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <096d996d-3028-41ea-bf0c-f7eef1281fcb@kernel.dk>
+Content-Language: en-US
+In-Reply-To: <096d996d-3028-41ea-bf0c-f7eef1281fcb@kernel.dk>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24/09/2026 22:38, Jonathan Cameron wrote:
-> On Thu, 24 Sep 2026 14:52:00 +0100
-> Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
-> 
->> From: Steven Price <steven.price@arm.com>
+On 9/24/26 4:59 PM, Jens Axboe wrote:
+> On 9/24/26 2:50 PM, J?r?my Jean wrote:
+>> SQPOLL can consume a request immediately after mpscq_push(). If this
+>> drops the final ring reference, ctx and tctx may be freed before
+>> io_req_normal_work_add() finishes using them. KASAN reports:
 >>
->> The RMM maintains the state of all the granules in the system to make
->> sure that the host is abiding by the rules. This state can be maintained
->> at different granularity, per page (TRACKING_FINE) or per region
->> (TRACKING_COARSE or TRACKING_INTERMEDIATE). The region size depends on the
-
-...
-
+>>   BUG: KASAN: slab-use-after-free in io_req_normal_work_add+0x439/0x510
+>>   Read of size 4 at addr ff11000000ca0000 by task repro/55
+>>   (...)
+>>   BUG: KASAN: slab-use-after-free in queue_work_on+0x25/0x70
+>>   Write of size 8 at addr ff11000000c3bd00 by task repro/55
 >>
->> If the firmware requires us to manage the tracking or GPT memory,
->> deactivate the RMM and reclaim any memory donated at RMM activation.
+>> Handle SQPOLL before publication. Pin tctx->task, publish the request,
+>> then use only the pinned task so the publication tail cannot dereference
+>> freed contexts.
 >>
->> Apply the same checks when hotplugged memory is brought online.
->>
->> Signed-off-by: Steven Price <steven.price@arm.com>
->> [ Switch to RMI_GPT_L1_INFO for checking GPTs and deactivate RMM ]
->> Co-developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>> Fixes: af5d68f8892f ("io_uring/sqpoll: manage task_work privately")
 > 
-> A few trivial comments. Either way on those
-> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-
-Thank you !
+> Was going to say this isn't correct, as the mpscq is newer than that.
+> But I suppose this already existed before that, with the previous switch
+> to private task work for SQPOLL? I'll dig into that a bit...
 > 
->> ---
->>   drivers/firmware/arm_rmm/rmi.c | 218 ++++++++++++++++++++++++++++++++-
->>   include/linux/arm-rmi-cmds.h   |   2 +
->>   2 files changed, 219 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
->> index 0859f256e192b..1a8f3debd844a 100644
->> --- a/drivers/firmware/arm_rmm/rmi.c
->> +++ b/drivers/firmware/arm_rmm/rmi.c
-> 
-> 
+>> diff --git a/io_uring/tw.c b/io_uring/tw.c
+>> index f573bcc3af6a..2e37a3fd7a33 100644
+>> --- a/io_uring/tw.c
+>> +++ b/io_uring/tw.c
+>> @@ -210,6 +210,19 @@ void io_req_normal_work_add(struct io_kiocb *req)
+>>  	struct io_uring_task *tctx = req->tctx;
+>>  	struct io_ring_ctx *ctx = req->ctx;
+>>  
+>> +	/* SQPOLL may consume and retire the request immediately after push. */
+>> +	if (ctx->flags & IORING_SETUP_SQPOLL) {
+>> +		struct task_struct *task = tctx->task;
+>> +		bool first;
 >> +
->> +/*
->> + * rmi_gpt_info - Query the GPT info for the given PAR.
->> + * @start: Base of the physical address region
->> + * @end: Top of the physical address region
->> + * @out_top: Top of the physical address region for which
->> + *		the GPT @out_gpt_par_state is valid
-> 
-> wrap to 80.
-> 
-
-Ack
-
->> + * @out_gpt_par_state: State of the GPT covered by [start, out_top)
->> + */
->> +static long rmi_gpt_info(unsigned long start, unsigned long end,
->> +			 unsigned long *out_top,
->> +			 unsigned long *out_gpt_par_state)
->> +{
->> +	struct arm_smccc_1_2_regs regs = {
->> +		SMC_RMI_GPT_INFO, start, end,
->> +	};
->> +
->> +	rmi_smccc_invoke(&regs);
->> +	if (regs.a0 != RMI_SUCCESS)
->> +		return regs.a0;
->> +
->> +	if (out_top)
->> +		*out_top = regs.a1;
->> +	if (out_gpt_par_state)
->> +		*out_gpt_par_state = regs.a2;
->> +
->> +	return RMI_SUCCESS;
->> +}
->> +
->> +/*
->> + * We do not support creating L1 GPTs yet. So, make sure that
->> + * all the regions are managed by the firmware.
-> Wrap to 80 chars.
-> 
-> Not relevant to this patch, but when are you thinking we will support that?
-
-Once we have a full firmware stack that implements the L1GPT (Firme in 
-tf-a and tf-RMM) we will take it up. That won't come before the first
-drop of KVM is merged.
-
->> +
->> +static int rmi_init_metadata(void)
->> +{
->> +	phys_addr_t start, end;
->> +	struct memblock_region *r;
->> +
->> +	for_each_mem_region(r) {
->> +		int ret;
->> +
->> +		/* Firmware-reserved NOMAP regions are not usable system RAM */
->> +		if (memblock_is_nomap(r))
->> +			continue;
->> +
->> +		start = PAGE_ALIGN(r->base);
->> +		end = PAGE_ALIGN_DOWN(r->base + r->size);
-> 
-> Add a comment on why rounding down.  Doe we expect that to ever be relevant?
-
-Do we really need a comment here ? We always deal with PAGE_SIZE and if
-in the odd case this region boundary is not PAGE aligned we stick to the
-page that we can use from the region. I can stick in a comment if you
-really think so.
-
-
-...
-
->> @@ -843,9 +1049,19 @@ static int __init arm64_init_rmi(void)
-
-...
-
->> -	return ret;
->> +	ret = rmi_init_memory();
->> +	if (ret) {
->> +		/* Deactivate the RMM */
->> +		WARN_ON(rmi_sro_memxfer_cmd(sro, GFP_KERNEL, SMC_RMI_RMM_DEACTIVATE));
->> +		return ret;
+>> +		get_task_struct(task);
+>> +		first = mpscq_push(&tctx->task_list, &req->io_task_work.node);
+>> +		if (first)
+>> +			__set_notify_signal(task);
+>> +		put_task_struct(task);
+>> +		return;
 >> +	}
->> +
->> +	arm64_rmi_is_available = true;
->> +	pr_info("RMI configured\n");
 > 
-> Blank line nice for the eye to spot the return.
+> There's no point in having a 'first' variable. LLM's love bools...
+> 
+> 		if (mpscq_push(&tctx->task_list, &req->io_task_work.node))
+> 			__set_notify_signal(task);
+> 
+> would be better.
 
-Ack
+Thinking about this a bit more, I think the following fix would be
+better:
 
-Thanks for your review !
+1) Add a guard(rcu)(); in io_req_normal_work_add() at the top, which is
+how we handle this for DEFER_TASKRUN as well.
 
-Suzuki
+2) And similarly, expand the synchronize_rcu() run in
+io_ring_exit_work() to also include IORING_SETUP_SQPOLL.
+
+I think that's both a cleaner and more efficient fix, rather than fiddle
+with task_struct references.
+
+-- 
+Jens Axboe
