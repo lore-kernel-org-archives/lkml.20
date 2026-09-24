@@ -1,162 +1,65 @@
-Received: from mta1.migadu.com (out-214.mta1.migadu.com [95.215.58.214])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8614B2DF3EA
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:31:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.214
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D22022C0294;
+	Thu, 24 Sep 2026 01:31:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790213480; cv=none; b=O4T2rp7PwiFYDZJYmgHAO26PIgHG1AOJoUu/RAf+a9V9JgTif0/J+TJuYO11jta28Q/p9B+o6d4aQoWwhnF9j6/KbLwtbV6SccLKpRoSfLcpomYx0Xqpcv8D8F7mE9XobZElXF30IS/k5gNLEtFicaqivztNBJ+45AsXJXso+WU=
+	t=1790213501; cv=none; b=V8IzARtxdiVdTgQxNVJvB99heYHV0dbaCKkejO0X1TPkTOjsA7f7S61Jrh99HOj7MkCcoC0xkPQwuySXj1oVW6AONy2rNrQR6EVX5Y06rS0rBz0Unc/vfigQlFV+W3RE8a+rAVgHErkl61GRqY8jYCg5Evv2GiEKojXqQzaOTA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790213480; c=relaxed/simple;
-	bh=ag+ZUwlDzFeNvrCPxmLy3KDciZGg8ZkkgsfnAenlFAE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j8cp3g7CYIbXuFCMMXyR6rOPPMJN3erYyH+8Qeg8kQqnXeZ/DQ0DXx9Z9MwL5AB1of6N3+U2fPK6dDEi4nVZvb4zVKraCNIoZ3qIX6mw9MhsF+pYQYrDPtI1a5GWCVyj38Hf35YK2JgvjRzcFwLgGUI+zkfWiz95SWszWjfcEJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mMro5ifd; arc=none smtp.client-ip=95.215.58.214
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790213501; c=relaxed/simple;
+	bh=UDR0nbQMFET9FDQhIA8UYCdxGosvJXvtlrjnaoRB7Hs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SioJfLwE0CcdTj7C1IqTLOtM1XwBmHipdTtwkAfNlCjeqvCIt7uxFui2L9vwCfQBaihELKpst0Nu8xkLafMQDuugMyrb9U81IlB0ZYtilmEuRLFRp4MaiAKgGzdCZqv2b8mwqmBQepbdmeEJCTiNqGiNHf0quZXHqY/Uj5t2T5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AB7QuYuJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mMro5ifd"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ag+ZUwlDzFeNvrCPxmLy3KDciZGg8ZkkgsfnAenlFAE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790213474; v=1; x=1790818274;
- b=mMro5ifdbAQiIVpxbTsyzcerG1jd66OxzHyuoROc32ENXNtjB8FPYvRzp1bmv5n289aOo2qv
- ophIDmu9dX9gcEJ+NsrJY6DPp62ox4/id77PZFleePbUI+o0xtgye4W4GpAX1Qh7KSsV3r+4QwD
- ldZKsovRSG2s6IjurtpNPQKY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id b1111577bfa5aa53;
-	Thu, 24 Sep 2026 01:31:14 +0000
-X-Mizu-Trace-ID: b1111577bfa5aa53
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 24 Sep 2026 09:31:07 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Gabriel Goller <g.goller@proxmox.com>
-Cc: Andrea Mayer <andrea.mayer@uniroma2.it>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v3] net: ipv6: seg6: report lwtunnel setup
- errors via extack
-Message-ID: <arR9WwUQv5NReOyS@fedora>
-References: <20260923120228.172643-1-g.goller@proxmox.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AB7QuYuJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 776D91F000FF;
+	Thu, 24 Sep 2026 01:31:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790213500;
+	bh=QmYwkYIpNGIie6o8uVKCEr+W7CiDvTp5NNZUrL/u2Ng=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=AB7QuYuJtZ5AH2lshM2dr7dgyimicBRXA2HHtlQBp7TAGzKmn/pMcYC/+APF0qChp
+	 Pl09GRMKFwr11gkLX1PsdPEGBidf3iB46gUSe5Oy1+8qVU00Z1fpaZTLRy4PA5fGYK
+	 A/tL0Xxq6WCcXslJsOMQy7vCPCrbgDTk25LMvKGpvvJmnmkmjzGHXjyFJLSQQv7qDx
+	 G9Xc9psKiTQOyqeXdW4WUCc8fkA2ENpEhox2blP7Ovfbl27SzAToWFLbF/aGE0OKyq
+	 MkDHAPU7pabU9WAQDCIx257KTNXFD6hgP/erOSqqXlt5z3CCfZXhXagJp1KmEoUgA2
+	 w/Tdwrz8SNRVQ==
+Date: Thu, 24 Sep 2026 02:31:33 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Srirangan Madhavan <smadhavan@nvidia.com>
+Cc: Alison Schofield <alison.schofield@intel.com>, Bjorn Helgaas
+ <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>, Davidlohr Bueso
+ <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>, Vishal Verma
+ <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, Alex Williamson
+ <alex.williamson@redhat.com>, vsethi@nvidia.com, alwilliamson@nvidia.com,
+ Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>, Vishal Aslot
+ <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>, Jiandi An
+ <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v13 04/15] cxl: Move decoder declarations to shared
+ header
+Message-ID: <20260924023133.5cd3f051@jic23-hlaptop>
+In-Reply-To: <20260922083924.2451158-5-smadhavan@nvidia.com>
+References: <20260922083924.2451158-1-smadhavan@nvidia.com>
+	<20260922083924.2451158-5-smadhavan@nvidia.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923120228.172643-1-g.goller@proxmox.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Gabriel,
-On Wed, Sep 23, 2026 at 02:02:04PM +0200, Gabriel Goller wrote:
-> seg6_build_state() rejected invalid configurations with a generic -EINVAL,
-> so "ip route add ... encap seg6 ..." always reported "Invalid argument".
+On Tue, 22 Sep 2026 08:39:13 +0000
+Srirangan Madhavan <smadhavan@nvidia.com> wrote:
+
+> Move the common decoder declarations to include/cxl/cxl.h for use by
+> shared decoder settings. Preserve their layout and documentation.
 > 
-> Attach an extack message to each of them. The checks themselves and their
-> return values are unchanged.
-> 
-> Signed-off-by: Gabriel Goller <g.goller@proxmox.com>
-> ---
-> 
-> v3 (https://lore.kernel.org/all/20260922090851.38978-1-g.goller@proxmox.com/):
->  * format fix
->  * use NL_SET_ERR_MSG_ATTR
-> 
-> v2 (https://lore.kernel.org/all/20260918153544.1178884-1-g.goller@proxmox.com/):
->  * dropped tests
-> 
->  net/ipv6/seg6_iptunnel.c | 24 +++++++++++++++++++-----
->  1 file changed, 19 insertions(+), 5 deletions(-)
-> 
-> diff --git a/net/ipv6/seg6_iptunnel.c b/net/ipv6/seg6_iptunnel.c
-> index 61c6a27bf202..9f1aecc4f215 100644
-> --- a/net/ipv6/seg6_iptunnel.c
-> +++ b/net/ipv6/seg6_iptunnel.c
-> @@ -756,8 +756,11 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
->  	struct seg6_lwt *slwt;
->  	int err;
->  
-> -	if (family != AF_INET && family != AF_INET6)
-> +	if (family != AF_INET && family != AF_INET6) {
-> +		NL_SET_ERR_MSG(extack,
-> +			       "unsupported address family for SRv6 encapsulation");
->  		return -EINVAL;
-> +	}
->  
->  	err = nla_parse_nested_deprecated(tb, SEG6_IPTUNNEL_MAX, nla,
->  					  seg6_iptunnel_policy, extack);
-> @@ -765,8 +768,10 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
->  	if (err < 0)
->  		return err;
->  
-> -	if (!tb[SEG6_IPTUNNEL_SRH])
-> +	if (!tb[SEG6_IPTUNNEL_SRH]) {
-> +		NL_SET_ERR_MSG_ATTR(extack, nla, "missing SRv6 SRH attribute");
->  		return -EINVAL;
-
-My bad. NL_SET_ERR_MSG_ATTR expects the specific attr. In this error path,
-there is no tb[SEG6_IPTUNNEL_SRH]. So we can keep using NL_SET_ERR_MSG().
-
-> +	}
->  
->  	tuninfo = nla_data(tb[SEG6_IPTUNNEL_SRH]);
->  	tuninfo_len = nla_len(tb[SEG6_IPTUNNEL_SRH]);
-> @@ -776,13 +781,18 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
->  	 */
->  	min_size = sizeof(*tuninfo) + sizeof(struct ipv6_sr_hdr) +
->  		   sizeof(struct in6_addr);
-> -	if (tuninfo_len < min_size)
-> +	if (tuninfo_len < min_size) {
-> +		NL_SET_ERR_MSG(extack, "truncated SRv6 SRH attribute");
-
-And here I think we can use like
-
-	NL_SET_ERR_MSG_ATTR(extact, tb[SEG6_IPTUNNEL_SRH], "truncated ...")
-
->  		return -EINVAL;
-> +	}
->  
->  	switch (tuninfo->mode) {
->  	case SEG6_IPTUN_MODE_INLINE:
-> -		if (family != AF_INET6)
-> +		if (family != AF_INET6) {
-> +			NL_SET_ERR_MSG(extack,
-> +				       "inline mode requires an IPv6 route");
-
-Same here
-
-	NL_SET_ERR_MSG_ATTR(extact, tb[SEG6_IPTUNNEL_SRH], "inline ...")
-
->  			return -EINVAL;
-> +		}
->  
->  		if (tb[SEG6_IPTUNNEL_SRC]) {
->  			NL_SET_ERR_MSG(extack, "incompatible mode for tunsrc");
-> @@ -798,12 +808,16 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
->  	case SEG6_IPTUN_MODE_L2ENCAP_RED:
->  		break;
->  	default:
-> +		NL_SET_ERR_MSG(extack, "invalid SRv6 encapsulation mode");
-
-And here.
-
->  		return -EINVAL;
->  	}
->  
->  	/* verify that SRH is consistent */
-> -	if (!seg6_validate_srh(tuninfo->srh, tuninfo_len - sizeof(*tuninfo), false))
-> +	if (!seg6_validate_srh(tuninfo->srh, tuninfo_len - sizeof(*tuninfo),
-> +			       false)) {
-> +		NL_SET_ERR_MSG(extack, "invalid SRv6 segment routing header");
->  		return -EINVAL;
-> +	}
-
-Here.
-
-Thanks
-Hangbin
+> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
