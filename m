@@ -1,214 +1,144 @@
-Received: from mail-yx2-f36.google.com (mail-yx2-f36.google.com [74.125.224.164])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 932314AD4D7
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:38:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.164
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790278717; cv=pass; b=Ap8e5a2lLtJO7LcOsnHERS6nyQB1KwSe3P/Ku7Ze/rvqwPe224wOKy/lgOYM3NcfuaewMIBSg2t5Lz7hD6hAa5f3jjHGGXfQ0x+XYx5Z+hsGz4xrUzkq/wx0INWUEb+xLGIr6Ika9AAnkIh1y5Kx30tf+leWGNcRZnyT0GvHCfY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790278717; c=relaxed/simple;
-	bh=kRmPVZ4kecfhKStpwP/qseJ7BCFTN/An8sItpAF8EtU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AW2B0rh+9oQOFGv+KhdUVZpcEofRWWovUJvRYrQYyIuDAtsrCTWP6z6MEl6iUyaAfZN2Mq5/vW/5atAoLJyLplyBJVZK3w52G/a1ZG/g6iBez68jfx03V9Wg6EnruW0CfGssTMJwyCnDi61fRtPd3CQqhIRirnYjVVlhQJIB1mM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=fGFTbzFk; arc=pass smtp.client-ip=74.125.224.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AD174BD10B
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:39:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790278792; cv=none; b=HgC9Sq2rlNL7tqqEGqc6rYrQPKCUUR/A9vAaUGUBCAvWWRkBgCGQPV8Fo5YcZX4fjN+CaT2O2z8qwHuFugG/Zn6bRvr3K+QhBNwp91l5xtA/bb1u1VE6rfsn78ANWo6JFAMoHbfJQs7kCiQ3MWZjS7U61jET4dq++kuMGHYj5nM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790278792; c=relaxed/simple;
+	bh=cdOH0TQFx2/yle8Oxw+LbUiqtgMIOe8sbY3XW9lC+1o=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=GRy0dMvcal/93tZhLuv6oUN5v+OVHqiPdzybGcGsyfmJEQaqQCeRCvk0wzUliJMl6CjdJ5QTk+dAmS7+D0AenI1ySgIkDEe9hXAgTwOWUePQMtwOVy4ZP99/s1IL9/4+/zl+aoflmSuhUBZrPL0tDQ+jFeCYpywptxDe0W63kUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=frVh9iim; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="fGFTbzFk"
-Received: by mail-yx2-f36.google.com with SMTP id 956f58d0204a3-66e4aaf2ecfso310995d50.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:38:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790278708; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mubcY+yZggardJcv2KxSdtzwQupBuJ5DsqlfbH1jFv8WMQUVi5Cv8lUBAAillm2W8e
-         iKsKtThUURBx+rJyUsHtAc5VHusfMeSdOYdiZIkxMk0Hx1PoGLBJ6dfm2rUwBvT2Nd56
-         rUSh/Ma2XoqGMjZDBEnHyNqn0OqLEbk6LK+4Yr1wVLxIqt9c5hceoOnEKPOKR1hBa/vD
-         lUy6ZGzXx5toE+oQG4armTdOozZA1IX5Vlx0+L9u9QkKgaw3ehiTwiGLsTRjlbwewecD
-         Ot1uEUuMDk+n4VgvTAry9THWBN8whmlM+SSqatR1M/IpA8m+VhWpDVSUO0eXZTOllIp7
-         J8kA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=NVqptNo8neXdqpn4T2EkAUKxv7O1l9NSFa3yzxG78T4=;
-        fh=BrYeGFayUEqvgfeo8EqQwiRbp7XpVmYF03QufyGJ9fk=;
-        b=pGDVbqZDc1OUNGxA/8NZWfnlTO9igQrZzqEsZOuX6LgXKJrBIw9Ee9SM3hPGANswVf
-         I67ZU8mMxe8xQP5f5TIKHe63cwyEYiU+Y4evvBPgHd9hOXUb2FRqioRUx6xfLuiu66Zp
-         bs+Yf/WIb5JgFRANTmyvPq3cP3JNg5KWJ7rGtVYxclcOlaMZRbXjRx8mlIPsA45AYsaB
-         DSEhFmyU4twmJKcTAQG0+7X2K21laetBDKlKVc2RK9JBZzHSWO7YswAQbVH/24iAvJ/O
-         FzNy1f1IROcOfRF5Fa4PKWEQbRrd6UVEvFUcbn4JJMK11Fxn7nmwjSQ3U2N556kGk+8D
-         afyA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="frVh9iim"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so1314105e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:39:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1790278708; x=1790883508; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NVqptNo8neXdqpn4T2EkAUKxv7O1l9NSFa3yzxG78T4=;
-        b=fGFTbzFkD2vohgWY7lcS4JIlpogquzpzQWX9qpvL7OPbZs8Akb3FxfbeSc1MhCSPMT
-         TolFECnrfA/rzVaXnfQh8ggSJbez6gD6t1qLOYDR5JwkUmBRKEXoLbRvofqGA2rjywp7
-         Y40YHBYkP1vt8sRaywet6uEgRAMocR6pX1O44=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790278708; x=1790883508;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1790278786; x=1790883586; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NVqptNo8neXdqpn4T2EkAUKxv7O1l9NSFa3yzxG78T4=;
-        b=AQ5gqG9OGDhwj42lHV9DwO8+hhKBHIcFqTZnOh2icGvge0hG2pGqXV6C6FASB3k1Jy
-         miBggj8q8/lJNfXdmDKQO2OH/pS2O5eZHvKgEQ25hY82R0i/GI9bNw2rCasSYIjYo0Zi
-         Hx4BwfjhtmZOGE60ZVOUdz/HgjixwRCEWLiOsAfANzHN5wL9rpL0tPDmaDPNgp3jg+rn
-         GHZvjSQLjsB0twFyBlnl0Fo8wviqLsyG/281/10tkuOuoYFPVBTMZtIurYxOkgUO6AFL
-         lBdfl5QJc3YFJqMz4liwjw5HthOC9lkrOHukctxus4EyLYZtN01XAgdYDPFRoafzyPkM
-         rTew==
-X-Forwarded-Encrypted: i=1; AKwUvBzEL8Y6JZ0TeB+nOXkqDazlcA0vSgs+PD06r/xIYcLlds/l9vP62TG4wFbdg6RiqVRYzKuG8RdZdvvd2eg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mwqU4l1Lo1vDqG9dpedwWynSPyKV7M6YTDu+oVfHFYPJBxNOZ6
-	DAxEX4uDewC/PqqoYpJGoCbWZLt9olsE8VTn7JP1/f3FMINcQzg/JlX76i6WBiTUbUabPEWtlXy
-	oYN4eJPXkBnPXrOPqhjXRtbNk9inrwakqJvCYKvVqAg==
-X-Gm-Gg: AYBFou2ZZgppd2wNByyO8QTIRZL+sNQdoobUnqsUM427nmJj07GzPS0LKKbFxBw5Pvr
-	1htxHTMrJ4HK7aTUrvHS2jp9oEetAbM+3vF6X8YfVofZLn2U1kaxrpD7PVD+uJm8SzXCMI+RZqF
-	mF2136mpNigjK8Vne+a2xbSbWqvoF47FlzGevMg5fSdqrsWjiC+/RG6yDGecSpx3yBOixmbgjLr
-	Kycx6uB7Hx2a+vcGsuiU7zwi1Bl8Ci+YWuqTCW0EOpqmaXFnU/xcj2Kyvos1SwniJHpQbJVP9RG
-	4tkaUJSGeVDXkBA/aOPrWS+oONDippalj7VuU+UzKYEyQhXFW1+TNjwHbKDRa1HyJ8GEbvyTOUv
-	jpi1U8mTliA==
-X-Received: by 2002:a05:690e:d56:b0:671:4d9c:91bc with SMTP id
- 956f58d0204a3-672ed3b8549mr1938576d50.78.1790278708232; Thu, 24 Sep 2026
- 12:38:28 -0700 (PDT)
+        bh=XVpUm2vxAmiJvxOEbkoDqlOy/q982BD2NVBKlRMKmW4=;
+        b=frVh9iimoyM+By47heeVoCCgbVikqk4B1d0qmuYSynHa7ru/5U6NtvZexe1AJcJJEk
+         Jd8Y+k0nQk47kxk9hVZxKSABS0h9DuYZh3wM5li0eArSRguyxr+Ab9d5MbehncMTN8nE
+         OIBt8YEFcrWxOzkd98/LHnxABjviESgupp1eer4hGibQCpXK75wLnb7pRgozeyfbtG+S
+         n8+Kg/Zw90vFfK5kZPVLV3S4t0ZEcrmI1nMi7MU7uCoO9JCdzmPS2U1ZvJW8EGMWF/qU
+         W5Syr9YFk6QAKTht297nXJVQNIn3CsTEwH5KBkhu5Sf+ny4MBTYAh0kw1/TMiqDto+oM
+         e3FA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790278786; x=1790883586;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XVpUm2vxAmiJvxOEbkoDqlOy/q982BD2NVBKlRMKmW4=;
+        b=HMybE/yDs3ilmgRpiUf3jCHEkD8mRN4S0olnWc/FbHkZYZWCWqzaQLvF0t+AwM3yhi
+         pZgtoEg618bcTlQ/Br3A6ytLTMcy0nIKg462eThtyaXi6EFgd2y2HvFIj/EZz53rwM6h
+         hsKjWiVb8DKS0dDEdKMVUEWE9QQsAOpMb4pAljEbwGLPT6gwffXNsPmz9irSjiG15e2U
+         YZRU7FuW0KZHOo5dEKrnf/kpYKiHz7CaNzjY+sCv5tI5+h99sfNANYeDMsJj1iqoARRv
+         wWsBhXFuQlD6QHyify575jDbvPUkMKTldxn07aMPhx1Bk2+QK4Q1mST2/xCsTQJl2ahZ
+         6qdA==
+X-Forwarded-Encrypted: i=1; AKwUvBx8NQWG8LrE9iIeqrbIwW8mGlaEEesi8EVx/Ny3IYI6WgfbaCzF4Id10qINwEO1GL68xN25b7d07/ABmwU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l7+HKpXaLwrM0bLIITw6k/GM9zYyuMI7niMeqC2HNUG72MifER
+	hifhZAP3IKx7kgtePPUOqA8+6j0zW/gI87P/UoP7bVlqePyI2YnM05EY
+X-Gm-Gg: AYBFou3SLMOiHSZKNEw8IUFcFG4lW42Ael2u9ZASYS97m7RXnz3kbz7tqWwbHv39rVm
+	0X1jlTCZPRrmwIIVRdxrRlcPNC0z0Xa5q+KfUfjGnLUStSMVEptbm5bWV6VNV/0LCQBafo7FJxW
+	5LDDjk7VO3CmEYe7zfh7IiGeZLr7/bCSMAWuweoosWLdnMxWYptwiE9rdFMlHczQEYORlnOWjmU
+	xZdolv93nedcAqgLBDZPpcuw7QsLtgR7JdZkFCB7rEQmhsMMrgoJb/k59BNRYrqyiv40CY8tJwc
+	Wu/sBUPsLxcxmnXcxyS/pgW0KbNfNMAUqqDKdxDscaU6RtLEdTSyeWHITeHRxPch3ksWGwyS2Tp
+	0DHhLwDxIF0Y/7QKgtMZsFIQWKyHIgqjyvf+AFu211tktHIWxjVDKvW/VG/3n+PdgsKwAAq1DY5
+	Rfpa02MuUIiNxQUpA+Pofjp7ywzPuYQk2cK760+zBiPcoVBSRSrLHu1YTL8HhCxptWces=
+X-Received: by 2002:a05:600c:468f:b0:49c:fa20:cc02 with SMTP id 5b1f17b1804b1-49fe66f4fc6mr58492795e9.25.1790278785696;
+        Thu, 24 Sep 2026 12:39:45 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff023f12esm1758795e9.0.2026.09.24.12.39.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 12:39:44 -0700 (PDT)
+Date: Thu, 24 Sep 2026 22:39:41 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: oe-kbuild@lists.linux.dev, Arnd Bergmann <arnd@arndb.de>
+Cc: lkp@intel.com, oe-kbuild-all@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: drivers/xen/gntdev.c:817 gntdev_get_page() warn: mask and shift to
+ zero: expr='(addr & ~(~((1 << 12) - 1))) >> 12'
+Message-ID: <202609241805.VsLzGPLn-lkp@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260522101653.2565125-1-paulk@sys-base.io> <ad9788bba0851dcb86c22f40c2562f2a57ac8e6c.camel@collabora.com>
- <CAOf5uwktfp0a3Vi5Jd8Zw5knGMHd_FH=iusRX1NgHYC4VSuzBA@mail.gmail.com>
- <arQxC3DmDyVIGdqq@collins> <CAOf5uw=SeHZSnYjPOptAGYwPkQc7L7gDpOrDWJH3UF0r1qdrtg@mail.gmail.com>
- <arVnQmik-CveaAkY@collins>
-In-Reply-To: <arVnQmik-CveaAkY@collins>
-From: Michael Nazzareno Trimarchi <michael@amarulasolutions.com>
-Date: Thu, 24 Sep 2026 21:38:16 +0200
-X-Gm-Features: AclHuK_bBSWqL6tBSki95SII0DxHlrmdAk4MDI9hfl1lTZlay91QzSspJUrifKY
-Message-ID: <CAOf5uw=K5tWiodM0SEP_nFn0vBv3=YRFWrY1Bd-1jPmZtM7G4A@mail.gmail.com>
-Subject: Re: [PATCH 00/14] media: Add V4L2 H.264 stateless encode and VC8000E support
-To: Paul Kocialkowski <paulk@sys-base.io>
-Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>, devicetree <devicetree@vger.kernel.org>, 
-	"open list:FREESCALE IMX / MXC FEC DRIVER" <imx@lists.linux.dev>, 
-	linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, LKML <linux-kernel@vger.kernel.org>, 
-	linux-media <linux-media@vger.kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Marco Felsch <m.felsch@pengutronix.de>, 
-	Michael Tretter <m.tretter@pengutronix.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-HI Paul
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   62f4c998b297cf233997a2b4cd6fc2d2df0319c9
+commit: d70242427110123b65c095594eb74a703d3af156 ARM: rework ARM11 CPU selection logic
+config: arm-randconfig-r2200-20260924 (https://download.01.org/0day-ci/archive/20260924/202609241805.VsLzGPLn-lkp@intel.com/config)
+compiler: arm-linux-gnueabi-gcc (GCC) 10.5.0
+smatch: v0.5.0-9187-g5189e3fb
 
-On Thu, Sep 24, 2026 at 8:09=E2=80=AFPM Paul Kocialkowski <paulk@sys-base.i=
-o> wrote:
->
-> Hi Michael,
->
-> Le Thu 24 Sep 26, 07:30, Michael Nazzareno Trimarchi a =C3=A9crit :
-> > I have added your patch to gstreamer
-> >
-> > v4l2codecs: add the stateless H.264 and VP8 encoder elements
-> >
-> > Backport of the encoder work from the branch v4l2codecs/h264enc of
-> > https://github.com/paulkocialkowski/gstreamer (commit f59de5779ef1, bas=
-ed
-> > on release 1.26.0) onto the gstreamer1.0-plugins-bad 1.28.5 this build
-> > uses.
->
-> Yes this is the right gstreamer branch to use here.
->
-> > Generate the right element and encode stream:
-> >
-> > gst-launch-1.0 videotestsrc num-buffers=3D100 !
-> > video/x-raw,width=3D720,height=3D576 !  v4l2slh264enc ! h264parse !
-> > matroskamux ! filesink location=3D/tmp/t2.mkv
-> >
-> > And playback over Wayland.
-> >
-> > Solve some problem. I have implemented:
-> >
-> > const struct hantro_variant px30_vpu_variant =3D {
-> >         .enc_offset =3D 0x0,
-> >         .enc_fmts =3D rockchip_vpu_enc_fmts,
-> >         .num_enc_fmts =3D ARRAY_SIZE(rockchip_vpu_enc_fmts),
-> >         .dec_offset =3D 0x400,
-> >         .dec_fmts =3D rockchip_vdpu2_dec_fmts,
-> >         .num_dec_fmts =3D ARRAY_SIZE(rockchip_vdpu2_dec_fmts),
-> >         .codec =3D HANTRO_JPEG_ENCODER | HANTRO_H264_ENCODER |
-> >                  HANTRO_MPEG2_DECODER | HANTRO_VP8_DECODER |
-> >                  HANTRO_H264_DECODER,
-> >         .codec_ops =3D px30_vpu_codec_ops,
-> >         .irqs =3D rockchip_vpu2_irqs,
-> >         .num_irqs =3D ARRAY_SIZE(rockchip_vpu2_irqs),
-> >         .init =3D rk3036_vpu_hw_init,
-> >         .clk_names =3D rockchip_vpu_clk_names,
-> >         .num_clocks =3D ARRAY_SIZE(rockchip_vpu_clk_names)
-> > };
-> >
-> > I have advertised the:
-> >
-> >        {
-> >                 .fourcc =3D V4L2_PIX_FMT_H264_SLICE,
-> >                 .codec_mode =3D HANTRO_MODE_H264_ENC,
-> >                 .max_depth =3D 2,
-> >                 .header_size =3D H264_ENC_HEADER_SIZE,
-> >                 .frmsize =3D {
-> >                         .min_width =3D FMT_MIN_WIDTH,
-> >                         .max_width =3D FMT_FHD_WIDTH,
-> >                         .step_width =3D MB_DIM,
-> >                         .min_height =3D FMT_MIN_HEIGHT,
-> >                         .max_height =3D FMT_FHD_HEIGHT,
-> >                         .step_height =3D MB_DIM,
-> >                 },
-> >         },
-> >
-> > Create the rockchip_vpu_hw_h264_enc.c. I need to test this on rk3399
->
-> Then I guess this is using register configuration from the earlier H.264
-> encoding work that I've done at Bootlin, adapted for the new stateless
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: d70242427110 ("ARM: rework ARM11 CPU selection logic")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Reported-by: Dan Carpenter <error27@gmail.com>
+| Closes: https://lore.kernel.org/r/202609241805.VsLzGPLn-lkp@intel.com/
 
-I need to check mpp code too
+smatch warnings:
+drivers/xen/privcmd.c:488 privcmd_ioctl_mmap_batch() warn: potential user controlled sizeof overflow 'm.num * 8' '0-u32max * 8'
+drivers/xen/privcmd.c:495 privcmd_ioctl_mmap_batch() warn: potential user controlled sizeof overflow 'm.num * (4)' '0-u32max * 4'
 
-> encode helpers? That part is probably not quite trivial, which is why I
-> was a bit surprised.
->
+vim +817 drivers/xen/gntdev.c
+   470  static long privcmd_ioctl_mmap_batch(
+   471          struct file *file, void __user *udata, int version)
+   472  {
+   473          struct privcmd_data *data = file->private_data;
+   474          int ret;
+   475          struct privcmd_mmapbatch_v2 m;
+   476          struct mm_struct *mm = current->mm;
+   477          struct vm_area_struct *vma;
+   478          unsigned long nr_pages;
+   479          LIST_HEAD(pagelist);
+   480          struct mmap_batch_state state;
+   481  
+   482          switch (version) {
+   483          case 1:
+   484                  if (copy_from_user(&m, udata, sizeof(struct privcmd_mmapbatch)))
+   485                          return -EFAULT;
+   486                  /* Returns per-frame error in m.arr. */
+   487                  m.err = NULL;
+   488                  if (!access_ok(m.arr, m.num * sizeof(*m.arr)))
+                                              ^^^^^^^^^^^^^^^^^^^^^^
 
-I would like to clean up the patches before sending, and check all the code=
- to
-not make trivial mistakes. I'm not persistent, so if we aren't, one of
-my colleagues will take over.
+   489                          return -EFAULT;
+   490                  break;
+   491          case 2:
+   492                  if (copy_from_user(&m, udata, sizeof(struct privcmd_mmapbatch_v2)))
+   493                          return -EFAULT;
+   494                  /* Returns per-frame error code in m.err. */
+   495                  if (!access_ok(m.err, m.num * (sizeof(*m.err))))
+                                              ^^^^^^^^^^^^^^^^^^^^^^^
+These integer overflow bugs are from 2012, but I guess your patch exposed
+the arm32 build to the zero day bot.  The bugs only affect 32bit systems.
 
-> > I have a small change only in the common part. Hope that it's a bit cle=
-ar.
->
-> Yes in comparison to the register configuration code, the platform
-> changes are rather small indeed.
->
+   496                          return -EFAULT;
+   497                  break;
+   498          default:
+   499                  return -EINVAL;
+   500          }
+   501  
+   502          /* If restriction is in place, check the domid matches */
+   503          if (data->domid != DOMID_INVALID && data->domid != m.dom)
+   504                  return -EPERM;
+   505  
 
-I wrote this email to state that this change would be impossible
-without your work.
-I'm currently working on other things, but I had some spare time. Now
-apart from that,
-I would like to ask about the status of the entire proposal and uapi change=
-.
 
-Michael
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 
-> All the best,
->
-> Paul
->
-> --
-> Paul Kocialkowski,
->
-> Independent contractor - sys-base - https://www.sys-base.io/
-> Free software developer - https://www.paulk.fr/
->
-> Expert in multimedia, graphics and embedded hardware support with Linux.
