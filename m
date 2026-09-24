@@ -1,87 +1,92 @@
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61E151123F
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 23:42:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790293360; cv=none; b=Gd7/OKhAgn2ooto4dsgXjGo7Z5SyNsu8Yi3a9WycaSuxkCy1Y/0tyd+YVsogISSdhQiIlkdJJa8BZ6Za64coCn0Fj8qfAUzkH27VQL7bZ5EjZI3pmPp3m1o4xN4FGW/xGMz86JD0mfwb5b/09C2LfE7HeMn1IFIR8hDocbxqqdQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790293360; c=relaxed/simple;
-	bh=M0z1JCY0hKQ30hf6qGaQ8ZaEutPJR8AyX0o0aOQxvKA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mM4JueqgkjDcgVcBMZ2Z88SuBscDNia4NNMWp1/mAYLGfSrAB9myPPbbIlIOCVtyHUtXYJqZzWzbS3m9ETzJDfERVUY0OZVu/BuQthfXiZte5uOdKWCTZUs5fd75A+OoU5yMsynP76SQyCBDMnOUaWCptZIymb2WFhivVSx3W+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=Z8Jql7OG; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=2v4JtuK4; arc=none smtp.client-ip=148.163.135.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04C83E7BCC;
+	Thu, 24 Sep 2026 23:43:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790293389; cv=fail; b=KZl3BxPC9aVdOJByU/BNpFqOG2Vz8wSFn0FhTYjHr2yL52fLK+RMtCYVhEBSVeuQTRzP74xC8zES1N8UoOIsVCUqn8aUVgtEAchlMOw9lpMf+LS72CXFm+K8S/RTYRVtXetgaQR2hcRTxEUpSdQSzPcPAvI0qbNTzkuL+4YHD9E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790293389; c=relaxed/simple;
+	bh=1xWDnsI0dJqMkSoluqT26MUd3TVx1C+g83VlpXt9AlE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=TvPZrpiXtyBX+nD5AJhMioB79R2fF1NCpp9sN7yIHpp/hVGUxBLPBduEgVyjv9bmrqFTx6dXakw+hgcJb9YNci/DNZy3wXBT0ibBpUG3C/6mAfdtdHSP7LKtA2Y0393OlQwyKV3JqyF7gF+r4JLnPovnl3zrJpbT+i6BPLpFetg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=AEOweyJi; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=e8qfpOVR; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="Z8Jql7OG";
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="2v4JtuK4"
-Received: from pps.filterd (m0499199.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OMXn4q1045176
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:42:31 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=6TCa
-	n+7XKf8kThtM9GoM7KKJ/B7qFfiyA5H9QrhRig0=; b=Z8Jql7OGw5OdFVySuXDt
-	/AQ7UFOHDb71KWY5fsT9Ci6pbClozlBU+Fw9sWIN1rAqP9TuUIMzRtVbSiYYrHnn
-	DtVkVW7rzFSyJMPeC7/SwmNK0QHOacQ8kkMWUUMcVGZOAYLzciLdqe7qppGkoLgu
-	laERsOc4Zam4Y137bhAkDZnAL+xSoZYl/eMpouCpBADcl8dzyO2ysIqOjDcbCST9
-	YmijqkHxVk1YmyNXfmAjUP4roMsWVjCKZKx7RKIxEZtPSmnun0m8UcDKxa+XXw62
-	TezBa8qW+pAA82pCVmiEXTkd/YU54r6w+IPQaUpkk80YvOXXltbbnAgRlgMBMMKB
-	gg==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4gwbbe96v8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:42:31 -0400 (EDT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cbedbd182f5so210831a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:42:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1790293351; x=1790898151; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6TCan+7XKf8kThtM9GoM7KKJ/B7qFfiyA5H9QrhRig0=;
-        b=2v4JtuK4AuYlnhyTf+7kp4CofjhnMK/Upv6wJCZmFdqwzVwB9Xu3MBsywtVPQSJ89M
-         Lbxfb2rPs3Cc88qUxhPSh9uUIjVX/J99MbO9HcJgdISx026lu1ZEP3AjdBlJsgpmoYa6
-         DLehO/9ZB7lWWdM9jAufsDmBJeQ8DTgOSEpjkExs0oJFJ1Mp/bJq56l0MeKR1MjiHm/P
-         jFyaJQOjirCfMEfyzgMSNUDMaM+cbSBMEENudCJfDnxPR8vtiiovUIak+a0d2Rzbxs4P
-         7x78W5TBaDZT1dI4bLdA8j3QDftqB+SFq06nw+YsrhQbTlRp4Q9y2PhA1CTMHunXEdM/
-         tqrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790293351; x=1790898151;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6TCan+7XKf8kThtM9GoM7KKJ/B7qFfiyA5H9QrhRig0=;
-        b=JzVn/lLzWWC9mO2jvwO+mZavAFp5cIiDmgYFIr+MsynpT/m6FDUwqDJ3ICX/rdKDG4
-         j1wSHg6YXuVEZhqCzfHcG80C9GadK3/J/+EI7jqEKEulprhJ06b2DZvC4CbMvkbiLOWO
-         nyj2N4uADLkUoFPsFNelyqFiaG6REz4swpkx+7Mzb2dxOA+m2IPO5xYfN+mf7JZFz6iq
-         cluNQaTx1gUEM5gxo1vGNuL6dKUbCnBQyuM+Aq+Y39HbFcW4ugFNqgk4PXcFyFQIZXCC
-         DQ/Q5H/CSfltuoeA17sXbfuD6jY0OldUA2XjaiZ+z7JhbmHGK59XOhd7LR5EmPbvQbah
-         IUPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxnpxqc5fvfTxw7MmEfO11VSOjIHIVURBcGMgXcwocD4lsmYbh/0Fj1E2lIKTxEAPIF6wvKzOlHT/s8G4w=@vger.kernel.org
-X-Gm-Message-State: AFuF++lG32BGW+HjTo4FgpJ5bJPHxx4hBDIZkUkT/K22srgfPoU9g+so
-	OKSw3FK5aSTOtgCKz+FXA2bBZfzhZ0xj8Lk3AtNGmPY5AoS29Gv2QvQn8ZyL7ilcIxJt6btvUpZ
-	3sRK8b04zzEAyTlbi4YsmyhZDhtX1K0QdkTg5vBDhBJCbpaxHnzFZbU2QPQMu5A==
-X-Gm-Gg: AYBFou0LZMr0t/gYZLO45kL4uVWufwKo+1HLKLPteI+ctzbjTeuNMfzWWo1aaeli7LQ
-	4QBfBDV6QueOV2gxU65NabDedgev2iy6vSCub/H2UzjAQiWm6YU9JyDEg44cn7oVIObXI18ka2e
-	CNbw2aN1bvEhoJpNUlXk7p0aMphYXS3zvzNO+Jv1wVWefsaGNj9P3DKikBQftiRNQSz3qliEcSU
-	7kIHM9Ceof4lP5SuO6dWLny6cPI94WhywNO65kjvdBUVRD8qH9tCt4WIBPAfXVPknIfH0aUmWP0
-	Z+qZtMgR0RZwmUc0aVoNGYUwjn14JxkZkbdu0uAWlLO2taoxMkJGwhMyKkKmfSkJ/1JZTe2vF5o
-	lZox4w8GK
-X-Received: by 2002:a17:902:6b04:b0:2df:8e7d:f8f7 with SMTP id d9443c01a7336-2df8e7dfc64mr5379855ad.30.1790293351051;
-        Thu, 24 Sep 2026 16:42:31 -0700 (PDT)
-X-Received: by 2002:a17:902:6b04:b0:2df:8e7d:f8f7 with SMTP id d9443c01a7336-2df8e7dfc64mr5379735ad.30.1790293350445;
-        Thu, 24 Sep 2026 16:42:30 -0700 (PDT)
-Received: from [127.0.1.1] ([208.115.110.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df90fc2e5fsm2239605ad.5.2026.09.24.16.42.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 16:42:29 -0700 (PDT)
-From: Tal Zussman <tz2294@columbia.edu>
-Date: Thu, 24 Sep 2026 19:42:16 -0400
-Subject: [PATCH 1/2] fuse: convert fuse_add_dirent_to_cache() to use folios
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="AEOweyJi";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="e8qfpOVR"
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OMQ4Hp486013;
+	Thu, 24 Sep 2026 18:42:50 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=D6LnuUx1gmDSDZBp57639BYXzWxMieDrVVcjwc0dx
+	84=; b=AEOweyJiUIrfaSrFebZ17/Zhmnj9TJsG0vWLLagHrIzEe/PX0bA+jlp5s
+	BAiKr7Su2iasgFXMmiFtRg7Hxzn7cmAU22WgzH+bGsI4AYXyKZQTZ/oh5bb/S2Dg
+	6k7zTSku4nN1VXeb3uKkCpFAmSvO0j51d8gYHaGLdDnMxZ1AnelFAbwAkIWfJCHG
+	hdp06C8A8ap6GmqhFBuIOZebAYhptieCp9rLNCsvifdpk8z5mzSWCBc8qaIMGQ21
+	0gC41bSkmIBJvgS1TdFcjpYknP7Xo4O4N0qYsexqqUyTVK8qsHSRnCGl18iDQdzt
+	1QkKUqtfvOVQBHwiUmYAoeZiL4bRA==
+Received: from sn4pr2101cu001.outbound.protection.outlook.com (mail-southcentralusazon11012027.outbound.protection.outlook.com [40.93.195.27])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gvwm363ce-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 18:42:48 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GQ7/dxbVZ4YwJ0DRnE/99mvzJjqoZrNeJf+m2jhg1LMv9de8sB9HRhDU+Tbmhkaj5FFlNZiPM2dYGbVfQGj+Tv1Fz7zOGMYMVqx5VlC8YtZYWD4d9T7AKLr0X+Ox7p4yvw8xIFzAAavNJUeX+4MBdzjWGSRmTiaa4tQcLchukClM7+ZWVTC/SNcYMMYLfHE/hzACLB7fuB2YBeB65oCarfVj4VLK+twfHl85YkontMWIsSwmHylgIGimvmdTOAKXPrA847d6w2qwhA7OiSv1xLE0pp+n/6wDewWpHZ6nxWti0dLajyQct9X5xPFxja2fitYFrSga3rjJfgMI+dZYTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=D6LnuUx1gmDSDZBp57639BYXzWxMieDrVVcjwc0dx84=;
+ b=qJKcZSoeZDREH5T/6X0VADUQPKObD25RZqvEk9KeTT6ccOhaCoyIweGDUuC9DDhIVCA3xEI3EzjsxZP1qtlAxoUMfcRKiUJn3fLF8f3Q4HofSPuRjSrBmnV8IgpTT/8xjPpydJSYg3wjNJA8xFkqLmC3mzoDS7s9VVT4DGB5ERU+O7PAoe8ylVYH2x/MbiTRxdhBJGZWJ0K23vgbflnJ2WIIDkJlhs3LbnL/snWGPPKu2dG6nHqGi/GofFb9LU3d7LWkUf/oFfmpgwy14/CpgUlfTvBh+jWuF6hr2M1+t+qJIEvUzRzKiBS8L7HD2yl5s/ZDialMr3we5d85VLO5mw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=D6LnuUx1gmDSDZBp57639BYXzWxMieDrVVcjwc0dx84=;
+ b=e8qfpOVRtldTn16VNxsljJvFKgqLJlrEODItHfixBI3zR5xbA0VFNCOu+Jc5HAxExQaeKgXI+YlB4Aoji9AhedhaliAk1H/jwV8LsV6RG+sqwAMKKwKhSHJm1AO1pVFaaGHfP0TQnne243QDgwRo9yJR0ptXWigbdQO3lj3rY6E=
+Received: from MW4PR03CA0164.namprd03.prod.outlook.com (2603:10b6:303:8d::19)
+ by CH0PR10MB7533.namprd10.prod.outlook.com (2603:10b6:610:183::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Thu, 24 Sep
+ 2026 23:41:12 +0000
+Received: from SJ1PEPF000037A3.namprd04.prod.outlook.com
+ (2603:10b6:303:8d:cafe::60) by MW4PR03CA0164.outlook.office365.com
+ (2603:10b6:303:8d::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Thu,
+ 24 Sep 2026 23:41:11 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.21.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ SJ1PEPF000037A3.mail.protection.outlook.com (10.167.244.135) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 23:41:10 +0000
+Received: from DFLE202.ent.ti.com (10.64.6.60) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 24 Sep
+ 2026 18:40:47 -0500
+Received: from DFLE205.ent.ti.com (10.64.6.63) by DFLE202.ent.ti.com
+ (10.64.6.60) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 24 Sep
+ 2026 18:40:46 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE205.ent.ti.com
+ (10.64.6.63) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Thu, 24 Sep 2026 18:40:46 -0500
+Received: from psdkl-workstation0.dhcp.ti.com (psdkl-workstation0.dhcp.ti.com [10.24.51.24])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68ONeXkv785172;
+	Thu, 24 Sep 2026 18:40:41 -0500
+From: Aniket Limaye <a-limaye@ti.com>
+Date: Fri, 25 Sep 2026 05:10:20 +0530
+Subject: [PATCH v2 1/3] dt-bindings: i2c: dw: Add ti,tda54-i2c compatible
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,133 +95,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-fuse-readdir-folio-v1-1-8dd97e71c1cc@columbia.edu>
-References: <20260924-fuse-readdir-folio-v1-0-8dd97e71c1cc@columbia.edu>
-In-Reply-To: <20260924-fuse-readdir-folio-v1-0-8dd97e71c1cc@columbia.edu>
-To: Miklos Szeredi <miklos@szeredi.hu>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-        fuse-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
-        Tal Zussman <tz2294@columbia.edu>
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790293339; l=2662;
- i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=M0z1JCY0hKQ30hf6qGaQ8ZaEutPJR8AyX0o0aOQxvKA=;
- b=Q2uyVuqgXSmaGY/AwIsWfcmkr4r59/TP+N7CLOpgAbwLAJcTZSDnt49OaCnnPNvBzwzYwLAXa
- +NHl5pOEoNeCbkdELnpU6xPmNPwkLHVuzhOR/Qn0nPdBfHLJQcXurRm
-X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
- pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA5NiBTYWx0ZWRfX5I+Vnf74ht09
- jWRmPoKQPDelwGEWMJ+jYZs3oInrgjyvJaxx3Gqj8Jq9nR8pP9/4MTjy3akObYuokcWHZqd7oxa
- ylDX+p9356B4I6T1MbE8/06GecQZqDo4UO6uVkx6IIz6vLEIAPYSVH+SF2XIHUimcPzw1OW0B3N
- tQftJN+Y7Oo8rijkZHzPK1YvjU7wTUTWMeGy1r52489SeDDfLLu/7O7+X+iwg78zbDKUrF8rqDd
- 2gL53ILuC2ztylH1KG6AwckXrES207COEmkhyo73A0yKCUuQPeHCBX5V+UhZsjPmFmcbVobJtJN
- FnorynwDXjKoisgxR18cUW0WLk/OERg5Hn65gcVgePFRZtYioCrz4Sd2hCoY7qm7WL+JRhGpQoV
- ChgCNov6QSnNMTy1vnE5E74VkeAHVkAkYQSjaus+NqkTaq0Jr/6J0ef/kVzX34j3Z3tC/l2OpYz
- McBJFPTZxnMKAxBMBpg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA5NiBTYWx0ZWRfX9kafHwLxrd/t
- BYz1qBcj4CdPx/wECTs3JvBbnRL1wQI1L0VVtghY8tmNfwzU4xgBi7v6s5LCLbmGImoXbCyKPxH
- lqBhmY/lkpynSKOfIlXLgUo2TLofd3AydMLnuEEOANIEJDlVfnz4
-X-Authority-Analysis: v=2.4 cv=FLuOVOos c=1 sm=1 tr=0 ts=6ab5b567 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=AP5Yue2pfywxtTblp62eJQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=G--0XuH5328wxK7v7Suf:22
- a=u1sHAvkQqplEvoskXzMA:9 a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-ORIG-GUID: mW3SG2igfmhTGZqhUbkP19cbboI69fX-
-X-Proofpoint-GUID: mW3SG2igfmhTGZqhUbkP19cbboI69fX-
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11915
- signatures=596817
+Message-ID: <20260925-tda54-upstream-i2c-v2-1-261785e58493@ti.com>
+References: <20260925-tda54-upstream-i2c-v2-0-261785e58493@ti.com>
+In-Reply-To: <20260925-tda54-upstream-i2c-v2-0-261785e58493@ti.com>
+To: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Mika Westerberg <mika.westerberg@linux.intel.com>,
+        Nirujogi Pratap
+	<pratap.nirujogi@amd.com>, Bin Du <bin.du@amd.com>,
+        Andy Shevchenko
+	<andriy.shevchenko@linux.intel.com>,
+        Matthew Brost <matthew.brost@intel.com>,
+        =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+        "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
+        David Airlie <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+CC: <linux-i2c@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <vigneshr@ti.com>, <nm@ti.com>,
+        <u-kumar1@ti.com>, <lianfeng.ouyang@starfivetech.com>,
+        <Ritwick.Sharma@arm.com>, <intel-xe@lists.freedesktop.org>,
+        <dri-devel@lists.freedesktop.org>, Aniket Limaye <a-limaye@ti.com>
+X-Mailer: b4 0.14.3
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037A3:EE_|CH0PR10MB7533:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4ab64bd5-6bda-4d07-4fd6-08df1a955051
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|7416014|376014|1800799024|921020|13003099007|18002099003|22082099003|3023799007|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	/k4cB+ewoJy0sptJC7HvkEBbLhiA89qVO3GtO6mDCe8AHpbF5DgdbqK1hQ03XsfmX9n7LUY5eAyq/QLTOhowgdfPZeawAlnrK0PzkCCSA6oKxPtWPBHnahqAR+z4gbjcKUkRaa7292h79I+f37hRUw6gpHq9SJdpHOPQcmt3VrX89vsZSAgZSLi2bmYo/mb/HCCmpdgou29xUsarIH7GJEHdiWr4Yg78tznMBjz3W/gA0xMczRjhTpFSganhAWUxJ8FYNY4PNlafwJCdqsDNudK4Dl+GxLW2avKiy0rhabddYYD31Wb2hldRR9j80rX91bROtTcYafrVoeNs6xg2EJDqiW0lqPaJg1yZS25OwE+EXudzeoodrIWisLHcGLyCKUq6ML+aaOqowOymM1bWfDzX6GSjBSgPBy0QSwixzVohWHdtnxh5zJmalURO+QNB4Cb3rPUjPTpxiksoukVs+u0bCM/iuZyGjJ9aFkuk7Cf1jhIMojvTJWT+zkuvd/GhgyZg5pzPP3NP6SJcpgOKtDN/DZoj9rmDyt2+0nGJOVxb8JwfhY67w8kVwDyAB5otGYim1njlifFn9gFJm8j6gOT19un0KGvTsxghDoraWm8rbjvVYUDfFc5sc7jaTvHgJuK29SqLpOl3J0cdr0cJzbpWgKtErpYFdUcihDuqhu31Otn5Gco90LC5P7vWuBLdVDWhGjWK7GjMWu1USkl2fQ==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(7416014)(376014)(1800799024)(921020)(13003099007)(18002099003)(22082099003)(3023799007)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	D7SsqagKwGcRFCPEtK3VSQQ82yTxuEBbD8cBkRGInFdD3NTOHPaqfgoPSOJmQN5yWIW9JE99SAXenTwWPbJGYTCbmXu3Rvg34D2dbIZUhsLrDHBCgwCQx49BMunZwOfEgkuNRSH/omb6jaU/FT9WxcR/teYz2hTkOB1QQCAcWOPeJE8AkIdmZ17wC7WbzeIUwFh/Feh5pWbgtfmfOSiwyxmw+p7DSyPgMwjf1qUzYGAhbhx8T42/32caMPpqqNJi108PzfL8wp5iCSuqSWkOMwCzpjwrGzucC4z/iFm8R2SkGS9vwsEPH5aJ96qC6qe8uWX5YV3pCGGSK5yrUCuO8e70JsLpXD8AvNWPgj/UZ+2/V8KoxIey/ak1jkQCt3GPwXwd5dcmckcDSKvhagrbirk4egLuuNs2UazBeMByqIsy22zGxBmPkJrbdtuqO9dG
+X-Exchange-RoutingPolicyChecked:
+	cSI2OO/iTgXQ0PyaWWMzu8qOi3lvuzQBgCrbJPafkA0V24UqDV0smGKV5NTp62JAPyGbAoZyN3jQtdHvqGv0ZUmgo4ljgNemU532Pd1iCVdAV2umh4aC2qiNyh5uKXb6tIa7+Zjbnp+E+EZZlN+eIQPDGW0G3aiXnbq+fb5j1GwbYqT9pxE/peiojNtnp5Dcsn4a+v87lTVqTZZ+VC52etWGJ64GDLVQhNRUvqdjYetc9swuJ0K35RvCVIIl8mEnLatoGJacwDu9g7Mo7+6/aEe1TmIb2ZgaKw3xUTOyxahpO82xZly2ij93hz1tSV7WQcZv65tBoAhk6FGk/E6lAQ==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 23:41:10.8463
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ab64bd5-6bda-4d07-4fd6-08df1a955051
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000037A3.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR10MB7533
+X-Proofpoint-GUID: tuRzgsi5EwB8un4AMYBpLTvUTrXrECzf
+X-Authority-Analysis: v=2.4 cv=EvdHPicA c=1 sm=1 tr=0 ts=6ab5b578 cx=c_pps
+ a=0pMqp0B7/3h4ah4p3fuJNw==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=jwouBfj2j3NM8CExmVVE:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
+ a=sXrg0fSgDYXE2HFaoGIA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA5NiBTYWx0ZWRfXwTrqlIKh56uE
+ 1fSh25vykpIR6prLAXyHAjE9R6PfcN/IuZSBmlfT3SyXDjLG77HPJsqq4Bd6WcjY1zjnHOVf3GE
+ XQ0EPuKwg7UzQ5wXrKxY8DBHzaMC2scsUGrS6hJ2S9a4aRwHtdrFtY3jkhVI6hQeAeW8wa8iL8r
+ H6s0eR3s6fd0191Of+PNoCCg20pvbA24dNSkHfCfTzZXtk0yJKyn73h/N93AqviMIOzfSslsn5/
+ SwSN4QqbbnyPYp9G4tqvBdxOGncxov28zqY3UrIQ8m6L5YHd2Ua1tZsBMl1XqtOzYZhG4Bl94nI
+ emUPUegVd5jyvxi1+K8dnwvwc7wSnAkS9KWnTjPB4EPFBXk7WqPKDAJd4bDdp7SdmOws2G0Qtmy
+ J2YGh6w3DUqb2ImYVWTUgsOBFGmgDHt2FIBa921HeGZhjns49cC12a7EqxXGarr6D66T39KT2FL
+ oAvPKfrCDJZU8LDXfkA==
+X-Proofpoint-ORIG-GUID: tuRzgsi5EwB8un4AMYBpLTvUTrXrECzf
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA5NiBTYWx0ZWRfX7GDiTe4o+GXJ
+ hPAuy4RXuRgoAqW10j6UTfHHlhQR6wYouM0OGkOI4ocszw99SfJcjE+TQz9Un7TaXJrtmrWzE6X
+ /2M/nCC9eU0VH8jlM/QqDwAEyu0s4HI=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_06,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=10 phishscore=0 adultscore=0 suspectscore=0 malwarescore=0
- clxscore=1015 lowpriorityscore=10 priorityscore=1501 impostorscore=10
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ clxscore=1015 suspectscore=0 bulkscore=0 phishscore=0 spamscore=0
+ priorityscore=1501 adultscore=0 impostorscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
  definitions=main-2609240096
 
-Replace find_lock_page() and find_or_create_page() with
-filemap_lock_folio() and filemap_grab_folio(), and switch the remaining
-page helpers to their folio equivalents.
+Add the "ti,tda54-i2c" compatible for Synopsys Advanced I2C Controller
+(DWC_i2c) present on TDA54 SoC. Compared to the existing
+"snps,designware-i2c" (DW_apb_i2c), it broadly differs in its register
+offsets and some bit fields, requiring changes to interrupt handling,
+timing handling, etc.
 
-Each index of the readdir cache holds one page of dirents. fuse does not
-enable large folios, so these folios are always a single page.
+Unlike DW_apb_i2c, this IP has no COMP_PARAM_1 register to autodetect
+the FIFO depth from, so add snps,tx-fifo-depth and
+snps,rx-fifo-depth as required properties.
 
-Also write the dirent with folio_fill_tail() and memcpy_to_folio()
-instead of open-coding it.
+Signed-off-by: Aniket Limaye <a-limaye@ti.com>
 
-This removes two hidden calls to compound_head() and one of the last
-callers of find_lock_page().
-
-Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 ---
- fs/fuse/readdir.c | 32 ++++++++++++++++----------------
- 1 file changed, 16 insertions(+), 16 deletions(-)
 
-diff --git a/fs/fuse/readdir.c b/fs/fuse/readdir.c
-index 5ca87151d70d..e6b828eb41a5 100644
---- a/fs/fuse/readdir.c
-+++ b/fs/fuse/readdir.c
-@@ -34,11 +34,11 @@ static void fuse_add_dirent_to_cache(struct file *file,
- 	struct fuse_inode *fi = get_fuse_inode(file_inode(file));
- 	size_t reclen = FUSE_DIRENT_SIZE(dirent);
- 	pgoff_t index;
--	struct page *page;
-+	struct folio *folio;
- 	loff_t size;
- 	u64 version;
- 	unsigned int offset;
--	void *addr;
-+	size_t folio_offset;
+Changes in v2:
+- Rename snps,dwc-i2c to ti,tda54-i2c
+- Link to v1: https://lore.kernel.org/r/20260919-tda54-upstream-i2c-v1-1-b0b9f77be18b@ti.com/
+---
+ .../bindings/i2c/snps,designware-i2c.yaml          | 33 ++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml b/Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml
+index 467bdcbb8538..80a9376d6de7 100644
+--- a/Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml
++++ b/Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml
+@@ -21,12 +21,23 @@ allOf:
+       properties:
+         reg:
+           maxItems: 1
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: ti,tda54-i2c
++    then:
++      required:
++        - snps,tx-fifo-depth
++        - snps,rx-fifo-depth
  
- 	/* Dirent doesn't fit in readdir cache page?  Skip caching. */
- 	if (reclen > PAGE_SIZE)
-@@ -64,13 +64,11 @@ static void fuse_add_dirent_to_cache(struct file *file,
- 	}
- 	spin_unlock(&fi->rdc.lock);
+ properties:
+   compatible:
+     oneOf:
+       - description: Generic Synopsys DesignWare I2C controller
+         const: snps,designware-i2c
++      - description: TI TDA54 SoC I2C controller (Synopsys DWC_i2c IP)
++        const: ti,tda54-i2c
+       - description: Renesas RZ/N1D I2C controller
+         items:
+           - const: renesas,r9a06g032-i2c  # RZ/N1D
+@@ -121,6 +132,18 @@ properties:
+       low period of SCL line.
+     type: boolean
  
--	if (offset) {
--		page = find_lock_page(file->f_mapping, index);
--	} else {
--		page = find_or_create_page(file->f_mapping, index,
--					   mapping_gfp_mask(file->f_mapping));
--	}
--	if (!page)
-+	if (offset)
-+		folio = filemap_lock_folio(file->f_mapping, index);
-+	else
-+		folio = filemap_grab_folio(file->f_mapping, index);
-+	if (IS_ERR(folio))
- 		return;
++  snps,tx-fifo-depth:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      The depth of the hardware TX FIFO. Required on the ti,tda54-i2c
++      variant, where fifo depth cannot be autodetected.
++
++  snps,rx-fifo-depth:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      The depth of the hardware RX FIFO. Required on the ti,tda54-i2c
++      variant, where fifo depth cannot be autodetected.
++
+ unevaluatedProperties: false
  
- 	spin_lock(&fi->rdc.lock);
-@@ -79,19 +77,21 @@ static void fuse_add_dirent_to_cache(struct file *file,
- 	    WARN_ON(fi->rdc.pos != pos))
- 		goto unlock;
- 
--	addr = kmap_local_page(page);
-+	folio_offset = offset_in_folio(folio, (index << PAGE_SHIFT) + offset);
- 	if (!offset) {
--		clear_page(addr);
--		SetPageUptodate(page);
-+		folio_fill_tail(folio, folio_offset, (const char *)dirent,
-+				reclen);
-+		folio_mark_uptodate(folio);
-+	} else {
-+		memcpy_to_folio(folio, folio_offset, (const char *)dirent,
-+				reclen);
- 	}
--	memcpy(addr + offset, dirent, reclen);
--	kunmap_local(addr);
- 	fi->rdc.size = (index << PAGE_SHIFT) + offset + reclen;
- 	fi->rdc.pos = dirent->off;
- unlock:
- 	spin_unlock(&fi->rdc.lock);
--	unlock_page(page);
--	put_page(page);
-+	folio_unlock(folio);
-+	folio_put(folio);
- }
- 
- static void fuse_readdir_cache_end(struct file *file, loff_t pos)
+ required:
+@@ -172,4 +195,14 @@ examples:
+       interrupts = <8>;
+       clocks = <&ahb_clk>;
+     };
++  - |
++    i2c@53b00000 {
++      compatible = "ti,tda54-i2c";
++      reg = <0x53b00000 0x1000>;
++      interrupts = <166>;
++      clocks = <&sysclk>;
++      clock-frequency = <100000>;
++      snps,tx-fifo-depth = <32>;
++      snps,rx-fifo-depth = <32>;
++    };
+ ...
 
 -- 
-2.39.5
+2.53.0
 
