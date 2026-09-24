@@ -1,63 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E42B42EEB7;
-	Thu, 24 Sep 2026 22:06:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A26E640B0E2;
+	Thu, 24 Sep 2026 22:07:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790287606; cv=none; b=FK9+sdDWpeniozOrukkwbdJpINbvaMsD99kwKYKrB3bHKxo6RGtM9TduieiOoQM7NndbKTfrp56bnn0VYVIkE2NLRy4ErzDYAthwRzkPPs2WnFlQX6lg0xpCRRpugVExnKQkxAQHi79rTt1/8/nt8oBEDCwL0oPkMa6B/8p2UDM=
+	t=1790287674; cv=none; b=GFTCRL5lw5+b457dgPyUKoOQHpk1UG/B4pH2etzJglekkc3yU7FCtuvAgVj2FSk+GMhgtmYZw7o9PkH4DN+JXNDGhj188I3X6uG0SZPeH29Op4+J5Za/vQVShF+LEIkrJdJ59rHxAu/i3ao1sVXb0/K06gGV7X6Ns7/HwFBAUrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790287606; c=relaxed/simple;
-	bh=EPhgRaqsDV4gSss/ss2CBzNEgnKdVbHfnQGMLYLlwYM=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=ujWl0FGvJ6NZHmN1ZsA+4mSuqiTr0co6tG4NeefqjLI+D06VitrNL5NBJK7JkMat7XYTC871m2wmu5ku8Sqh6//wSPeOagfYxaaQQsUrxswd7MpHkAY6MdihuUa9HVhLdKlY/OEJBlR4+WgdOplcPsHmTgTql3ktey+9C5LNEeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m3EcUuu0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790287674; c=relaxed/simple;
+	bh=qiD2hUGpfqUuu9Cp/g24kjqyG+rTdlXeArfG7l6xECA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HivTMVpPv9I4LICSPYKYwEA7MbG3jwzf1LkOQJmfyEC+LyKPM2RJcW0Yb3ZxncGuQjrPW4insgQyKVXnJ/xsxmSZoF7n4fD+aIw8PndVBQ0jhc05N7/x3OlkKIYZLznqTK9Ym/5UL5Yh5w3xbpJuvc9SjfdnOSEmmePIlWCX8Bw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JOKfFYh2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m3EcUuu0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 241B11F000FF;
-	Thu, 24 Sep 2026 22:06:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JOKfFYh2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF7F31F000FF;
+	Thu, 24 Sep 2026 22:07:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790287605;
-	bh=D0l+4+6ld0nO34yGsd0N/tzBReHLnipv40+gppaW03g=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=m3EcUuu0s2iNR4KH51fsqFbZ1B8/AqdRR9J1hHy66XyzZnVL1ZfKaw46rU+7lcgij
-	 rlyQ6JfpPXcqztnGbqXbQWKM6AVcDgGsHL8xaM0JZzQ5ntkIHcJkXSA5jlSJB0g8/Y
-	 vZGe1KDDZekUgYY8ZC/ariQBq14mRXR3X0NChOgiNTGMBaYVXCJqYCPcW5Xrczf2Gi
-	 M5eznuRdZsLGW1fzyKsOrtp4ZmhksE9iXCC3g19S4lLTJuXRVHE682A8CFHAujz36D
-	 u74K3B/ON11JtEEW9i+7YEHPOQWFtnfLAN97Amrt48Lg5X9oJf6cBfo5CVcflhuIHX
-	 GLFcYV8dSh2dA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 199EF3A566ED;
-	Thu, 24 Sep 2026 22:05:35 +0000 (UTC)
-Subject: Re: [GIT PULL] sched_ext: Fixes for v7.3-rc4
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <be7ef09b8be82e9f0c5fb2bf197d7a44@kernel.org>
-References: <be7ef09b8be82e9f0c5fb2bf197d7a44@kernel.org>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <be7ef09b8be82e9f0c5fb2bf197d7a44@kernel.org>
-X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git tags/sched_ext-for-7.3-rc4-fixes
-X-PR-Tracked-Commit-Id: 4409a85735cdca5c4c400c0dad1feee091872eee
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: ee9c669f9bf5fd2c24206746ded9382fe810df89
-Message-Id: <179028753357.2222164.10658990911294213165.pr-tracker-bot@kernel.org>
-Date: Thu, 24 Sep 2026 22:05:33 +0000
-To: Tejun Heo <tj@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>, Emil Tsalapatis <emil@etsalapatis.com>, David Dai <david.dai@linux.dev>, sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+	s=k20260515; t=1790287671;
+	bh=WsKp+zJdWGrhfBDrkAc141AkuulupGxxYDeIqqqI7gg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JOKfFYh2yC4DENg4E3ZXijA2t90eDK4mwc1tms8KyXWdrWQbV3XFuq+DrKnwwmWBP
+	 0JcgJgQbzwBtJbmYoldP1SFtmdVO/QBNft0TrQCGrojzk30+E7OsmNAZwvKINBB9sQ
+	 bKNtOUVS+nLn+Gow9HLS4ObcVKPQZDWUjOepoWgezU/ygKVT+6LANkjAbmIslp6eW2
+	 O1sCHnmOWc5uaq0WfBN6KFR79BwGfEl1ulgt6XJzkDc9jSaU+eZVJVDht0PvMgHCqS
+	 QWx9GOI1BHAm8GnDqgDu8biU2T7Li/CYVOxRd84652zAhIq1Yp8GqzNf9c8mUZEN4h
+	 +5Z74VkuYSnIA==
+Date: Fri, 25 Sep 2026 00:07:48 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Cc: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>, 
+	Sagar Dharia <sdharia@codeaurora.org>, Karthikeyan Ramasubramanian <kramasub@codeaurora.org>, 
+	Stephen Boyd <swboyd@chromium.org>, Wolfram Sang <wsa@kernel.org>, 
+	Douglas Anderson <dianders@chromium.org>, Girish Mahadevan <girishm@codeaurora.org>, 
+	linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] i2c: qcom-geni: Fix hardcoded clock index in
+ SE_GENI_CLK_SEL
+Message-ID: <arWfAPy5zdG_swNo@zenone.zhora.eu>
+References: <20260921-i2c-fix-se-clk-conf-v2-1-8b5537ceff2d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921-i2c-fix-se-clk-conf-v2-1-8b5537ceff2d@oss.qualcomm.com>
 
-The pull request you sent on Thu, 24 Sep 2026 11:19:47 -1000:
+Hi Viken,
 
-> https://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git tags/sched_ext-for-7.3-rc4-fixes
+On Mon, Sep 21, 2026 at 05:17:01PM +0530, Viken Dadhaniya wrote:
+> qcom_geni_i2c_conf() writes a hardcoded 0 to SE_GENI_CLK_SEL, which
+> selects an index from the hardware clock performance table. This always
+> picks the first table entry regardless of the actual source clock
+> configuration. On platforms where the matching entry is not at index 0,
+> the wrong source clock divider is active and the I2C bus runs at an
+> incorrect frequency.
+> 
+> Use geni_se_clk_freq_match() in geni_i2c_clk_map_idx() to find the
+> performance table index for the source clock (32 MHz or 19.2 MHz). Store
+> the resolved index in a new clk_idx field in geni_i2c_dev and write it
+> to SE_GENI_CLK_SEL instead of the hardcoded 0.
+> 
+> Fixes: 37692de5d523 ("i2c: i2c-qcom-geni: Add bus driver for the Qualcomm GENI I2C controller")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/ee9c669f9bf5fd2c24206746ded9382fe810df89
+pushed to i2c/i2c-fixes.
 
-Thank you!
-
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Thanks,
+Andi
