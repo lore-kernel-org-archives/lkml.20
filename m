@@ -1,69 +1,71 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E8247F793;
-	Thu, 24 Sep 2026 13:02:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A26A2EEE73
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:03:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790254928; cv=none; b=F6GvSs/gOd04mpLMoaGw4j5HnDwO+VO/ZUKeWEU/bAzaL90cL5ThJbk343tXmNe8rLuUirqYDGKUiQeAgAHm6WzX5pFsJ2G/GIEAuO4qX7OysREHlmt6rGmMfrNANMi0LkvjRw3KiOnUeYrRLwbzHDZuqA9R/dl51HSQcIr20cs=
+	t=1790254985; cv=none; b=u9ZPke1RreH9LCumDH0aQ2/ziWS8ESmkxvaIrNM8LdpDvcCCcFvsK7gYOG8MoVvrsyKqUkHF9SVNftwk+6hFAojJ0WKXiB5BUCt+rk6UgRfPzXFQ/F1em6jSjvDvRr8eAjD8vbZOBMuDjPAL0DeMfwwSs0pgok6ZKELsvVGfjvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790254928; c=relaxed/simple;
-	bh=fH1YlHdpVzJOv1MKPYJD038MGT4z5fvT8UETPtmncrk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WpCsDM908qhTKG2PgjSbZWoOnYSY59L2oReZcM4WpOi9N+KqAPp25MSN/Y3Pxhnv04G86SmV+ocE3VZoqfkMe1rfbvDY2vUTO1sGtYOFuRy4KN+oBUWMb0yigNiAIHGHN//DiG6+wbLGfzk8vrpr+gpoOc6gU34mr7cCnR/Ni6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ONQNKred; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ONQNKred"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 213AA1F000FF;
-	Thu, 24 Sep 2026 13:02:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790254926;
-	bh=wSmjG+8ya7+DkDDhvWJ91+gvE0FCwI8vKpS9WlMFCkI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ONQNKredBEDe/8UuXV9lszmQ4agu7kTAXy7lqmtEtEMYEnHCvguflvKtlJkaljGd7
-	 gDKJleE90UOzklXylWPjrVvMYEQWpy1U2L/mmHavW2ei9lmeyv9TgS7YJzLNmbmMte
-	 pz2EJluuKS9reRJmUiKtmftckrUgMnlPHtUrrxxcJBTCwaDZeHJSYXNuNL6LFilAuT
-	 wtgJJLnm8KFisFiQ7Vh4cgiNytQxRyAEiWudCR9pJml4S/sqiopl/qBLGZAzvmA5G4
-	 sfGu9zt78mBU34LhAGswRmF4OWA6pTzEZJ2fPCTmAnLgYkyuffNJlUS0rNpNFJMtPk
-	 tvNH4vFd6/2uw==
-Date: Thu, 24 Sep 2026 15:01:55 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] dt-bindings: usb: qcom,pmic-types: make example use
- generic VBUS property
-Message-ID: <20260924-snow-goose-of-mathematics-290582@quoll>
-References: <20260920-fix-tcpm-vbus-bis-v1-0-cc9347bbe81a@oss.qualcomm.com>
- <20260920-fix-tcpm-vbus-bis-v1-2-cc9347bbe81a@oss.qualcomm.com>
+	s=arc-20240116; t=1790254985; c=relaxed/simple;
+	bh=RMQC+8a4xsIjfQw/e5f60kDmuKCY933dkgtv/Lf1nUI=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=cahJdAjkFTJdTkKG3TzOHLbAMvEmYHUSeD11ReRCCfvCDoyN0tsSjXVDnXEu6TH89Z70d77pHsbXeqGz8oZnnTnootWta1+iE2S03L0m4PWQa6vhtU788PxZZz9wk7s8LzoJOW6vxP4uhjtHmiTE+RWoXx0GQvdrBPGaE9ZFj5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7f4f0a1f4f2so3286396a34.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:03:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790254983; x=1790859783;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=m9WcNmyw1aeySJ5u4ZgwH0UAyROZ6Yu3Avo1jn+Y7f0=;
+        b=sW98sHy9uQG6d2TOT/s8vFN4g+Up0rImj/o0DLsXnKgOAg4FYjQPNR/RDgbX7mui/8
+         ESvEHKz9DB570nZLfAIqnlzcJe/NzGKDsnltmCDsBilW5ZkVb+cjIzhGR3DZDTGBZu/K
+         6bRCbh0H5eLIWYxE6T3RnRmzRkL5T+zBpBRGKVjOA0kj4lUb/MzW80IsAK7o3RWHY91m
+         8HpD/K0meR2s4XXmsy5e0vqQCJ8fqzD6ZPOzXLs95wyat9xb+tDYG/Hi9zHppc+Gm6IH
+         p7JDJz56fs4nBfgenRnlV/J7Kvw21dhl00tO1cGU9fY7WY57PIlcZsyxfFBhEjsr0L6Z
+         mWSw==
+X-Gm-Message-State: AFuF++koM2BG5rlPb4Dce3Trm/YpdgAtNVZ8Qa7TGlyZXSrIxx88sEVE
+	WItmxJRJt77J4SJrH/nIWb3T3kY5dnsD2xOOaFF/XhXWQiQEByMMLKZ3CoFGAbqsiprRXFNcpDt
+	2V63Q6BvU1FiQpPYOH5D5habrsJEzJakLuWlt2iU39P2e+8ZpdqplZne+na0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260920-fix-tcpm-vbus-bis-v1-2-cc9347bbe81a@oss.qualcomm.com>
+X-Received: by 2002:a05:6808:2228:b0:4d6:9293:9b57 with SMTP id
+ 5614622812f47-4d72f150704mr2405855b6e.63.1790254982894; Thu, 24 Sep 2026
+ 06:03:02 -0700 (PDT)
+Date: Thu, 24 Sep 2026 06:03:02 -0700
+In-Reply-To: <20260924122205.8270-1-nsvatoslav515@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab51f86.e9f5c185.9abc8.0009.GAE@google.com>
+Subject: Re: [syzbot] [f2fs?] UBSAN: shift-out-of-bounds in __f2fs_commit_super
+From: syzbot <syzbot+dfcbc1741488709db4b2@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, nsvatoslav515@gmail.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Sep 20, 2026 at 05:37:57PM +0300, Dmitry Baryshkov wrote:
-> The commit fe2195b019f6 ("dt-bindings: usb: qcom,pmic-typec: deprecate
-> device-specific VBUS") switched the schema to use generic vbus-supply
-> property, however the example continued to use the old, deprecated one.
-> Update example to use the expected style of specifying the VBUS.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+Hello,
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-The other one has a valid Sashiko comment.
+Reported-by: syzbot+dfcbc1741488709db4b2@syzkaller.appspotmail.com
+Tested-by: syzbot+dfcbc1741488709db4b2@syzkaller.appspotmail.com
 
-Best regards,
-Krzysztof
+Tested on:
 
+commit:         3d778354 Add linux-next specific files for 20260923
+git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+console output: https://syzkaller.appspot.com/x/log.txt?x=156d9c05580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=6993cf63b5648f57
+dashboard link: https://syzkaller.appspot.com/bug?extid=dfcbc1741488709db4b2
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=11938205580000
+
+Note: testing is done by a robot and is best-effort only.
