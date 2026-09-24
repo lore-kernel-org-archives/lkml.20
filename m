@@ -1,38 +1,38 @@
 Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 397FE4AF9E9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 332CE410D13
 	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:38:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790278701; cv=none; b=sN7rpBHrGxmEqoG/QYDjN9saB4+zVxjbdmFJWV0ofPzoPwMXgOF1TF2CTxlFUTK1RHSKdgFGMYcI60gI7cQfGwVzEP6JAhL1uuMcZ8XydxOtJ6KyhOgwgvMNkYleTVgRYhxsSCWKegF9Lc9A2ujoFYxkSFvqz3sassapBw+ElR4=
+	t=1790278701; cv=none; b=pp2VzcyoPxChpBB+xEv+R8xWyG3DEK0lVQ2s/DPElfaZJWO8KiBdn88MSXc/nhg4DnO9OHKNjNpTzPTggX3bkrYkeX5+9aDmUvHcqjli/Z5AEHgUoKGK+BOhISR/5/n31itBc8xPJSoUXVvRAuwKWtZo2rd7rNmyLvPqvC9bGFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790278701; c=relaxed/simple;
-	bh=51lr6ubNx6utFhicZrmamtvEzbo/BC7QBVuznV5OKBo=;
+	bh=uMVcUveh2OAO2QoYAJ+VokNTBAEHdZdPb81jIW0e1Bo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VM57UpJWY4uFQcka3h5pM/4bfMwbYyQsxwX7R8u0GpvkPYtlnmt6dquZc86dnnRs6Avq3TKs8+cu/QXCFoedEgA+0yttaDxmKyJhqPuHZGvwKH0SCyvLsFdvKjb14V/+BPTpWlI11jUu9QH5Ecn06lblKzM7ZLJtlRhIwqJ7fMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net; spf=pass smtp.mailfrom=posteo.net; dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b=ENiL8dsl; arc=none smtp.client-ip=185.67.36.66
+	 MIME-Version; b=VIQrbWmYqp6wYG3YM4sq95urWV/Ky1LZ+HLUCTmyOrDFcmoSR1WRSW9/HgkD6nOibzHMB1mHEtdNPbo+WMwfGBIUowkh/5mTP2zH/3zzYYce1nEFPfH7vrEs7hcvKGthaJ4TprXHIWoQG797jUlocxKKQBm1y13GtD3mfKiE8+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net; spf=pass smtp.mailfrom=posteo.net; dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b=fJGgdZFO; arc=none smtp.client-ip=185.67.36.66
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b="ENiL8dsl"
+	dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b="fJGgdZFO"
 Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id 1F8D7240101
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:38:11 +0200 (CEST)
+	by mout02.posteo.de (Postfix) with ESMTPS id 939C2240103
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:38:09 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
-	s=1984.8680eb; t=1790278691;
-	bh=3bfxgkZZv7yMM+bRdt2rH/UQL8vijvkbbSdEXwbHmck=;
+	s=1984.8680eb; t=1790278689;
+	bh=J4c8vhB2QZ/uc7mLHC1umMx4jF3vYPM+rU2qJrR1C7s=;
 	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:
 	 Content-Transfer-Encoding:From;
-	b=ENiL8dslnz35MtWDYG7/wqTaq7FdMZW+HfA39613OAEYm1ZDpW8WQc6uZ0HbNIeV4
-	 TF4quUqfY7gg1ke4mJBmGqrG+1gUE7Q+dRFuMYK6C0X62dt3nJ8MnSZWvV6qzN5SDv
-	 wQ9sikeSG3vt6BmFQPJgI1/Bq5cLOCbY6U4vFp2Z/v1bARFCQMdpI7QyKek5JkleC1
-	 XX4y6ssslHTtoqo7jFzronK/uzQarS+tGLEy858ARcbHBk1hKGwQQ6Qoid5adLXbQW
-	 iseTS/nI9q0WYoINZjTG9lwVNa6nmydbgtv4ln8J4dSqo4I0nc+x1VSPs0GbCh5zlS
-	 niDaJa992KeRw==
+	b=fJGgdZFOXKE30iXWtuJ0wdR9z+cGGEqY1s1/y2xJas7BJ2GF5LYFa1m9hny5jxsEq
+	 peCasXC1tL/hexMooSDvtQQCQS10g7H56RxzBPL4x9lQ07Rbuj5O7MAjndBSyZkMdV
+	 7K+04ZeoswkgFQf4Zm/lHi7fKNV078K+NXBFTsx9Xa7i7ariFUf7K8LrCa/pSqbqoj
+	 9JdpEhVWFKJHKwZXVXEmOvCWXyZi7258P1mp/EF9Vd+j3xbVINrcJzeCoBMbTYd4z/
+	 yjMCuItF5+4QgTcJwYizDLwxnFAEZcMRHEgWIZPsPbMrukcZKEG980ip2cUrVMlrcx
+	 J1FabCy6l4vGA==
 Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4hrPJK39HHz6v08;
-	Thu, 24 Sep 2026 21:38:09 +0200 (CEST)
+	by submission (posteo.de) with ESMTPSA id 4hrPJJ0Ss7z6tvk;
+	Thu, 24 Sep 2026 21:38:08 +0200 (CEST)
 From: Mateusz Nowicki <mateusz.nowicki@posteo.net>
 To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
 	Maxime Coquelin <mcoquelin.stm32@gmail.com>
@@ -46,9 +46,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Mateusz Nowicki <mateusz.nowicki@posteo.net>
-Subject: [PATCH 2/2] arm64: dts: st: fix sai3b unit address on stm32mp231
-Date: Thu, 24 Sep 2026 19:38:10 +0000
-Message-ID: <20260924193759.27881-3-mateusz.nowicki@posteo.net>
+Subject: [PATCH 1/2] arm64: dts: st: fix sai3b unit address on stm32mp251
+Date: Thu, 24 Sep 2026 19:38:09 +0000
+Message-ID: <20260924193759.27881-2-mateusz.nowicki@posteo.net>
 In-Reply-To: <20260924193759.27881-1-mateusz.nowicki@posteo.net>
 References: <20260924193759.27881-1-mateusz.nowicki@posteo.net>
 Precedence: bulk
@@ -64,17 +64,17 @@ SAI_BCR1 register in the secure alias of SAI3. The reg property of the
 node translates to the non-secure address 0x402b0024, which all other
 SAI nodes use. Fix the unit address to match.
 
-Fixes: e9b03ef21386 ("arm64: dts: st: introduce stm32mp23 SoCs family")
+Fixes: bf26d75a95f1 ("arm64: dts: st: add sai support on stm32mp251")
 Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
 ---
- arch/arm64/boot/dts/st/stm32mp231.dtsi | 2 +-
+ arch/arm64/boot/dts/st/stm32mp251.dtsi | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/dts/st/stm32mp231.dtsi
-index 0feb8943efae..7cc8d55a6c23 100644
---- a/arch/arm64/boot/dts/st/stm32mp231.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
-@@ -577,7 +577,7 @@ sai3a: audio-controller@402b0004 {
+diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+index 44938c036e30..24f834cfee85 100644
+--- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+@@ -1291,7 +1291,7 @@ sai3a: audio-controller@402b0004 {
  					status = "disabled";
  				};
  
