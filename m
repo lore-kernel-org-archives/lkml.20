@@ -1,101 +1,111 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C2A368277
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:32:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD90636F90D;
+	Thu, 24 Sep 2026 02:32:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790217143; cv=none; b=fhjMHXO+1HelzRbCXV05XIN1M9bc03YEd6TzcVWSZAlyXU6M0nGOrXdbrRDXZ4tekXLz0Ptf5D50d0Ycz46tAUDpU4EECpKMp5nxPDN4zGC4EEGLf4sjWSdAaCB72iUBVWUFoPrB/p3R2/jqY0AMBS/WtUWTgBqumd2QtIJkKss=
+	t=1790217145; cv=none; b=EXHwxneVA+kks5hn3Ohqx/3Swcok3RrI3qmHMpPdUjoO0gGXL1ml+Dh9I3EUguXrd09fVraiHzL8XnHVTDukL37Bd4ufbxo6zbZ7Z9vuxZmFbSi7jhVYWJ++IkMMd2LIE0bhdJsTJM5xtjkMjPz/Wq2AeuFMd1gLkkK/Hr/yJeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790217143; c=relaxed/simple;
-	bh=aw7qZwIXpGXOmSs1ULjd8Cr81ugs2SyoXsZIXwSlKtQ=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=kZrWo7F2K8mux3UNrWSt6ahQsQgm8Nc7uPULmUy7ePE3jpdso4Vv3qYeHABftZ4MX18lJ9tfUtUYPSmbe10iv+8Kqqzp6Z6lFUa1uWKtd2KRdleAwoWwcZ4abyiYo3nw4qVXSzb3LBaw9hiz6XtWxkFzA3l48VzjOC+vvsQFXV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Dt8pihoj; arc=none smtp.client-ip=192.198.163.5
+	s=arc-20240116; t=1790217145; c=relaxed/simple;
+	bh=FcT9a8+2Ifutp/eEWwjAZ3UYN5Zk29/z4aCva7SlL/Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TFOQJeuWcijoqwIG2CLNC1q+0ZxSZsMfzsIlI8yBfz53NzvILyHrj5wYqNWf5Y9Axk4wODKF2CnUiK+Ynk2rEvQ/Sr1lIxkKjYi6q5G7iIA0Lz7NAJhkEfwkLLrKwVKuUXal+k/D4BPm/nTz97H5FTJCz6cjxkw42OjDM1lg5jg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mdqSsK8a; arc=none smtp.client-ip=192.198.163.9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Dt8pihoj"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mdqSsK8a"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790217141; x=1821753141;
-  h=date:from:to:cc:subject:message-id;
-  bh=aw7qZwIXpGXOmSs1ULjd8Cr81ugs2SyoXsZIXwSlKtQ=;
-  b=Dt8pihojgoP+vWqzYDIpPwfWv7CqS4FQrlWIJ6XoNpGkHMUl+jzSmSTF
-   VaJ2Vn9PkerDB9Jl9Biwby6nAMg0vzxeE+hVa3gv6M5h98fwOkWh3LFxz
-   MfhOPQGSEkW14XH1mRWqDxMqKIDbqIUVaC0lLZlgimTe36LDbqgirVvZL
-   fnE2qN5OU86bx6wtQOJw1LjWti0p3GY/FUfyNJmfwkQ641KL9TgyYyNGi
-   zRL+vYpxFvIEpDwQoua7Dhj/NkTteq1TFlI4d8VppI3dcLmp+hfa3GpK8
-   eJzESWQyxf17OR4sJ6W01uPbmvPdrcpOm/PFtC7RwhebGr3QNy8MR1XeT
-   Q==;
-X-CSE-ConnectionGUID: y1cZqutpT92yCoMXIA1bbQ==
-X-CSE-MsgGUID: W6IsMekASzCmvDm/pb1w5A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="1472196"
+  t=1790217144; x=1821753144;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=FcT9a8+2Ifutp/eEWwjAZ3UYN5Zk29/z4aCva7SlL/Y=;
+  b=mdqSsK8aa+hNUnMjeKBYkVytJbyfidP5ZLrz8QVQTBCsyq7lOOGIBBw4
+   fLK24PWyB40PkSluoLdFp4dF/+UahTtZaTPaZI1xNaf0j6IcxYc4beFg+
+   Q1ipH794f7mTU1bRjd37lqINQje+nRkrfpsh2MMOCXKtOpsO13W1mQ4wD
+   mB4r2oN8806oz4ieEHYYqLWuxZuhrkw/vgEzvYFm1oObydxGnsouqd/Ln
+   0EW6I8xJdSYsumvT8pLUqqfdT/r/Y4hoLpR2qtVISG4Ty1ua+gGpi4c+y
+   AEUPIrnFcNpYBXA6qWdxQTagl/dS8mj0FxCkDI3qxhqNKJU5H24xK6iE8
+   A==;
+X-CSE-ConnectionGUID: 0SKM7UbrQOSC8dLUfgaj0A==
+X-CSE-MsgGUID: 95mvwqHTTgW2G7zyTWqXXA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="101630717"
 X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="1472196"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 19:32:21 -0700
-X-CSE-ConnectionGUID: kVvdyMzFSEyb9J6Ig6lArQ==
-X-CSE-MsgGUID: JRaLN8S1QuKMnD8eeSsDFQ==
+   d="scan'208";a="101630717"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 19:32:23 -0700
+X-CSE-ConnectionGUID: 1Wa/XYHfT9KwaHLrPbD0ug==
+X-CSE-MsgGUID: mTES//UuQ0+CVr8yLXNR8w==
 X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
+   d="scan'208";a="270381501"
 Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa003.fm.intel.com with ESMTP; 23 Sep 2026 19:32:19 -0700
+  by fmviesa009.fm.intel.com with ESMTP; 23 Sep 2026 19:32:19 -0700
 Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
 	(envelope-from <lkp@intel.com>)
-	id 1x9ZFw-00000000I78-27Ur;
+	id 1x9ZFw-00000000I74-1p1d;
 	Thu, 24 Sep 2026 02:32:16 +0000
-Date: Thu, 24 Sep 2026 10:31:35 +0800
+Date: Thu, 24 Sep 2026 10:32:07 +0800
 From: kernel test robot <lkp@intel.com>
-To: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Alexei Starovoitov <ast@kernel.org>, JP Kobryn <inwardvessel@gmail.com>
-Subject: mm/bpf_memcontrol.c:125:27: sparse: sparse: symbol
- 'bpf_mem_cgroup_memory_events' was not declared. Should it be static?
-Message-ID: <202609241059.dkB8hWSY-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+To: chipang_kao <prozac2734@gmail.com>, hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com, W_Armin@gmx.de
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	corentin.chary@gmail.com, luke@ljones.dev, denis.benato@linux.dev,
+	scardracs@disroot.org, platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org, chipang_kao <chipang_kao@asus.com>
+Subject: Re: [PATCH v3] platform/wmi: Move ASUS platform drivers from x86 to
+ wmi/asus
+Message-ID: <202609241003.pdNIa1YN-lkp@intel.com>
+References: <20260922032157.120188-1-chipang_kao@asus.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922032157.120188-1-chipang_kao@asus.com>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   fe2ec83746e501645709761605c2464a44fd2929
-commit: 99430ab8b804c26b8a0dec93fcbfe75469f3edc7 mm: introduce BPF kfuncs to access memcg statistics and events
-date:   9 months ago
-config: sparc-randconfig-r1307-20260924 (https://download.01.org/0day-ci/archive/20260924/202609241059.dkB8hWSY-lkp@intel.com/config)
-compiler: sparc-linux-gcc (GCC) 16.1.0
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260924/202609241059.dkB8hWSY-lkp@intel.com/reproduce)
+Hi chipang_kao,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on linus/master]
+[also build test ERROR on v7.3-rc4 next-20260922]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/chipang_kao/platform-wmi-Move-ASUS-platform-drivers-from-x86-to-wmi-asus/20260922-112157
+base:   linus/master
+patch link:    https://lore.kernel.org/r/20260922032157.120188-1-chipang_kao%40asus.com
+patch subject: [PATCH v3] platform/wmi: Move ASUS platform drivers from x86 to wmi/asus
+config: x86_64-rhel-9.4-rust (https://download.01.org/0day-ci/archive/20260924/202609241003.pdNIa1YN-lkp@intel.com/config)
+compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
+rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260924/202609241003.pdNIa1YN-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
-| Fixes: 99430ab8b804 ("mm: introduce BPF kfuncs to access memcg statistics and events")
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609241059.dkB8hWSY-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609241003.pdNIa1YN-lkp@intel.com/
 
-sparse warnings: (new ones prefixed by >>)
->> mm/bpf_memcontrol.c:125:27: sparse: sparse: symbol 'bpf_mem_cgroup_memory_events' was not declared. Should it be static?
-   mm/bpf_memcontrol.c:68:9: sparse: sparse: context imbalance in 'bpf_get_mem_cgroup' - different lock contexts for basic block
+All errors (new ones prefixed by >>):
 
-vim +/bpf_mem_cgroup_memory_events +125 mm/bpf_memcontrol.c
+>> drivers/platform/x86/eeepc-wmi.c:25:10: fatal error: 'asus-wmi.h' file not found
+      25 | #include "asus-wmi.h"
+         |          ^~~~~~~~~~~~
+   1 error generated.
 
-   117	
-   118	/**
-   119	 * bpf_mem_cgroup_memory_events - Read memory cgroup's memory event value
-   120	 * @memcg: memory cgroup
-   121	 * @event: memory event id
-   122	 *
-   123	 * Return: The current value of the memory event counter.
-   124	 */
- > 125	__bpf_kfunc unsigned long bpf_mem_cgroup_memory_events(struct mem_cgroup *memcg,
-   126							       enum memcg_memory_event event)
-   127	{
-   128		if (unlikely(event >= MEMCG_NR_MEMORY_EVENTS))
-   129			return (unsigned long)-1;
-   130	
-   131		return atomic_long_read(&memcg->memory_events[event]);
-   132	}
-   133	
+
+vim +25 drivers/platform/x86/eeepc-wmi.c
+
+e12e6d94db24e90 Corentin Chary 2011-02-26  24  
+e12e6d94db24e90 Corentin Chary 2011-02-26 @25  #include "asus-wmi.h"
+e12e6d94db24e90 Corentin Chary 2011-02-26  26  
 
 --
 0-DAY CI Kernel Test Service
