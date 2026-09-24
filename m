@@ -1,123 +1,211 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f24.google.com (mail-vs2-f24.google.com [74.125.227.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B77284BC010;
-	Thu, 24 Sep 2026 20:53:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB9B4D8DA0
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:53:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.24
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790283217; cv=none; b=jg9YtOrkACADWmU3LJy0+L1i419rDz4zXwdCyeoa8wdGkt7Y1XNJ8dTAOvl5ukLqdgTslAzaS9H8dwe+NROgE0uf95Vj6HX3juteQrPn2KXArchXn07VtTRxPrD6I+8BDVpwy5Ba8SpUnvnQHpG41ZQoFIIZsUx+ciP3n43ZqnA=
+	t=1790283220; cv=none; b=qBEy2mbvcy+rKwE94Z23fxO0daE0uSmaWVHWomlHlnMFjjosT0gDCgjk8r18oqRBH/lEYDZJj/hQ7wJleek7A55c9qLA/DsJSuQYgIyi6S7zUj5dAxfZ5S2E1xJZM52pwCCrt97xHvLmPn6/RiKPkZPtGTJyasVi0E5fjILdeUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790283217; c=relaxed/simple;
-	bh=PP6huQE6i0Cw71fIBSGOIjwOvUShfn7NEj4Oci31DIg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=imsDwmg3xUqMDdwt/kVqXKyT8f7DdKOARxAkg9s8dqkvEFSstmCH/ggm3TzdYC/QkOLUwVUEMeBGPgZ5oKAXX26rW7QH7OMsNGMdHSMp4xoQqID5acbXtbBppJR+efCWh+bUvrAM6e0VbiimrnZCVCj90JQ5Qe+5lxx3/uMFvl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=EgF5U1qR; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1790283220; c=relaxed/simple;
+	bh=snibvCpdyLK47vJrQTZF6lHl0KzyTNPWkHV3xq/eSbI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=W4xvsyIk42Gwsy1EvNHn2ZVFdrIP74ZkJf1mfsfKRYycpCoo0lxYX2plgtIRDbTg0KEqolpOduiAQ0cSCZTIeOGNJL14yOYGuyMFI14usXbebGaVadWro2JUhqT4ymImzPrVsP6Luhs898hfop6tTO96xG0zThnl94EkXXGs5zs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mJS73yWH; arc=none smtp.client-ip=74.125.227.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="EgF5U1qR"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=7Mf0AHVyhRsT7RC43GpKt8LCS8CINuxBAYo22Aqq6K8=; b=EgF5U1qRc+2MV/W3Ms8CKHPxEV
-	WGNiAnF4CeB8Yw8g/yB8RJ9jjWxzYHNadYPum0wUrAOOn+PQ7VFtKgvniWjqBdewJa8uNf4CLlpVk
-	YwXw6TN78MbOIhkzp5jiBQ+ZbNZNzW+o5J1f4QrF1XIe1045Z4Gdheb9r2NlV6IGPfjP9bqf0jVka
-	S1jzLyqIeuvg5fX+IxJvedw94kZrCnA8ANwcdj7+4dwRYCQibXXk3HiL/5FbvOQ/jp21VseqRIzPS
-	lm0dnD2xU0XXjorAA/6NTG9SB2kdZZbYWoYBodH/Sq+IVHPTKw35gtUIdqMQOgfYNSEICKAcnIXNG
-	kQIT+71A==;
-Received: from [151.115.150.205] (port=42744 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1x9qRc-0000000Ga2g-1VSZ;
-	Thu, 24 Sep 2026 22:53:28 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: io-uring@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Subject: [PATCH] io_uring/sqpoll: pin task across task-work publication
-Date: Thu, 24 Sep 2026 20:50:57 +0000
-Message-ID: <20260924205056.3759980-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mJS73yWH"
+Received: by mail-vs2-f24.google.com with SMTP id 71dfb90a1353d-5c97b28165bso156762e0c.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:53:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790283217; x=1790888017; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2OL9DBw0DPlzOjqc4PYZYVQ5oXPU82nMigXCHy4HrZU=;
+        b=mJS73yWHXVZsYkmZDzgkgXGDgXKn9wHQb/qb8Yju8CP7ZH1Cg8ZcErenhEZhiprMT1
+         mt/dAJc7cXpXxNcpOQdH1TXplW8WPlSf0qGJgpG6qD3oFlLPsyDZKk1estJuJLeJ3y0B
+         BuxG8CXllq/L/ry4GrdjPDJ4dBp1U6asn8M/DKCAWDn7Gb7IuZRnasmErTR3pGoJC+H/
+         ZwF4TmCk4ZHvXzyaX+fkw9SOkRsAaNvEU767R9pHrt4i6VTligo+ME/P2/Fn97IRIPv7
+         mCxLhnBnxcCE3afKfCkLPz0P9afDwkIp2jdwgu9LGOY/rQ0IK4kzF/lFu2CBhkFFZ7cb
+         Rrng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790283217; x=1790888017;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2OL9DBw0DPlzOjqc4PYZYVQ5oXPU82nMigXCHy4HrZU=;
+        b=ZiPvgWtMKAG/cnwWQ7AZSenaf7m3zut+BdfRlAGVLMG9y7JPxHP5+rOMeZjqxY7DLT
+         nksOssRihDQnmzqaH9mYuuarn6RL8wPdA2ZadtOM1i5SM/6z98bi/ALTs/0i44a7hA9J
+         QxKnjMsA0fgttwfguXITAihWFfCSrffGdMynYWuRU7rpPTjzwTLD2iy8A3q/B2wrXVdu
+         SMX8brksedzhnJDspNYReAi2xZSW+oJR+BBdfuhB7ipmEJrIu6XMl7wrOj2eywdN9qsK
+         kbObs4S5+QBzwh9SNDuJxRsfJgfpRYF4alqviqGxIjEDzdYmtkj3ya/sAt9h4wusMehB
+         RJPw==
+X-Forwarded-Encrypted: i=1; AKwUvBzbMAeb52V90fzL/qWv1A6K4jEt+7LhEbhMs8NAPGkasuvkMcOuOQhxav9dMU0ZcwaPdkiW6Lk739uMDzQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mEcBHMvaO30IXhtm4QKFoxONOjaBhzDhd2pJ4ih72alzTc5NeU
+	RiD0pJVqLbn6dxVUkpc6Q5CZ8szA3FegQHLoEff0hEiwudJP7k1hFXPgtjw1vzy/xVviyA==
+X-Gm-Gg: AYBFou3YYPAh0kMWo+ZkIUTWxmo430grCjGS1sM/qyFwmAf0Tryct5di4lEF8MlawMr
+	L67aHqFsOtk4RRTAqEcqU7Wsbav7g33/KxeVueOPR3nPvItRP0bDwyE6NmNwzQ1SG10Sq2VXTRD
+	2h7TIRFHq9KzkKkmRKLoEmqgyveLTGUaolLaqG8FtiFTCGHdxWu8u1rfV97vAowIsVrXUEPP4S2
+	irW9by09PkzXD59wyDzGD48XIEhhEupIQCprQMur7ImRpzCz0aW/PgJXKADTZvCBCMTKIXFJToa
+	E53c0gT0mQS9EBIbwy/eTd9urhTQvAOlY47VUq5Jorfvtjbg10MeCG0arHeVc14na0BZyg3HBnf
+	EyoqqU+St15V4WJHrvVpGJHurEHdKY8fECBgPhHuKbnsAD0Zuc2AuO+3/bCyIVTLKcr7JiKXjCg
+	XCjp2rSd8+bu1rrWU0X3nTkbKaWGNVO4KKF+6uKtnInK2mHIHcXPk60NmeHwhpga+88s+K3i+vZ
+	+n0gRjfrdcM9nmxbERdHmS9qeUcFVcol46Bk8aVD+l1uf5zKDo+8eux5Pr3ThTA1dw=
+X-Received: by 2002:a05:6122:338c:b0:5c8:46f3:8d26 with SMTP id 71dfb90a1353d-5cb09affa37mr2266475e0c.8.1790283216931;
+        Thu, 24 Sep 2026 13:53:36 -0700 (PDT)
+Received: from [192.168.1.23] ([138.122.221.5])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cc65d665c4sm605001e0c.16.2026.09.24.13.53.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 13:53:36 -0700 (PDT)
+Message-ID: <c183f03c-86c7-4302-8390-9a75a7cbe0da@gmail.com>
+Date: Thu, 24 Sep 2026 17:53:32 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] hfs: handle extent B-tree write errors
+To: Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Yangtao Li <frank.li@vivo.com>, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <c569d5f8ee542e5c86a7e4dee23df99f4ec0becd.camel@dubeyko.com>
+ <20260924001623.1765392-1-davyfelipe34@gmail.com>
+ <9c9fe0c7660ff1cf4fe81bb3b2c907555d8add4e.camel@dubeyko.com>
+Content-Language: en-US
+From: Davy Felipe <davyfelipe34@gmail.com>
+In-Reply-To: <9c9fe0c7660ff1cf4fe81bb3b2c907555d8add4e.camel@dubeyko.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-SQPOLL can consume a request immediately after mpscq_push(). If this
-drops the final ring reference, ctx and tctx may be freed before
-io_req_normal_work_add() finishes using them. KASAN reports:
+Thanks, that makes sense. Sorry, I missed that point in the previous
+revision.
 
-  BUG: KASAN: slab-use-after-free in io_req_normal_work_add+0x439/0x510
-  Read of size 4 at addr ff11000000ca0000 by task repro/55
-  (...)
-  BUG: KASAN: slab-use-after-free in queue_work_on+0x25/0x70
-  Write of size 8 at addr ff11000000c3bd00 by task repro/55
+Using struct hfs_find_data *fd will make the helper interface shorter
+and also allow the validation to stay in one place.
 
-Handle SQPOLL before publication. Pin tctx->task, publish the request,
-then use only the pinned task so the publication tail cannot dereference
-freed contexts.
+I’ll update the helper to validate the bnode/tree pointers, the entry
+offset and length, and compare fd->entrylength against the expected size
+passed by the caller. Then the extent path can simply call it with
+sizeof(hfs_extent_rec).
 
-Fixes: af5d68f8892f ("io_uring/sqpoll: manage task_work privately")
-Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
----
- io_uring/tw.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+I’ll send an updated revision.
 
-diff --git a/io_uring/tw.c b/io_uring/tw.c
-index f573bcc3af6a..2e37a3fd7a33 100644
---- a/io_uring/tw.c
-+++ b/io_uring/tw.c
-@@ -210,6 +210,19 @@ void io_req_normal_work_add(struct io_kiocb *req)
- 	struct io_uring_task *tctx = req->tctx;
- 	struct io_ring_ctx *ctx = req->ctx;
- 
-+	/* SQPOLL may consume and retire the request immediately after push. */
-+	if (ctx->flags & IORING_SETUP_SQPOLL) {
-+		struct task_struct *task = tctx->task;
-+		bool first;
-+
-+		get_task_struct(task);
-+		first = mpscq_push(&tctx->task_list, &req->io_task_work.node);
-+		if (first)
-+			__set_notify_signal(task);
-+		put_task_struct(task);
-+		return;
-+	}
-+
- 	/* tw run already pending, nothing else to do */
- 	if (!mpscq_push(&tctx->task_list, &req->io_task_work.node))
- 		return;
-@@ -221,12 +234,6 @@ void io_req_normal_work_add(struct io_kiocb *req)
- 	if (ctx->flags & IORING_SETUP_TASKRUN_FLAG)
- 		atomic_or(IORING_SQ_TASKRUN, &ctx->rings->sq_flags);
- 
--	/* SQPOLL doesn't need the task_work added, it'll run it itself */
--	if (ctx->flags & IORING_SETUP_SQPOLL) {
--		__set_notify_signal(tctx->task);
--		return;
--	}
--
- 	if (likely(!task_work_add(tctx->task, &tctx->task_work, ctx->notify_method)))
- 		return;
- 
--- 
-2.47.3
+Thanks,
+Davy Felipe
+
+Em 24/09/2026 16:23, Viacheslav Dubeyko escreveu:
+> On Wed, 2026-09-23 at 21:16 -0300, Davy Felipe wrote:
+>> hfs_brec_insert() may fail while inserting a new extent record, but
+>> __hfs_ext_write_extent() currently ignores its return value and
+>> clears
+>> HFS_FLG_EXT_DIRTY and HFS_FLG_EXT_NEW as if the insertion had
+>> succeeded.
+>>
+>> Propagate errors returned by hfs_brec_insert() and only clear the
+>> extent flags after a successful insertion.
+>>
+>> When updating an existing extent record, hfs_bnode_write() returns
+>> void. Validate the extent record size and use a reusable B-tree node
+>> range helper to reject invalid write parameters before calling
+>> hfs_bnode_write(). This prevents an invalid update from being treated
+>> as successful and avoids clearing HFS_FLG_EXT_DIRTY in that case.
+>>
+>> Negative-path testing in QEMU confirmed that an insertion error is
+>> propagated to the caller. Testing the existing-record path also
+>> confirmed that invalid write parameters are rejected before
+>> HFS_FLG_EXT_DIRTY is cleared.
+>>
+>> Signed-off-by: Davy Felipe <davyfelipe34@gmail.com>
+>>
+>> Sorry, I missed your suggestion about factoring the validation into a
+>> reusable helper in v3. This revision addresses it.
+>>
+>> Changes in v4:
+>> - Factor B-tree node range validation into a reusable helper, as
+>>   suggested by Viacheslav Dubeyko.
+>> - Keep the extent-record size check local to the extent write path.
+>> - Preserve the error propagation and validation behavior from v3.
+>>
+>> ---
+>>  fs/hfs/btree.h  |  7 +++++++
+>>  fs/hfs/extent.c | 12 ++++++++++--
+>>  2 files changed, 17 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/fs/hfs/btree.h b/fs/hfs/btree.h
+>> index b4c3f2a31471..576412e6901e 100644
+>> --- a/fs/hfs/btree.h
+>> +++ b/fs/hfs/btree.h
+>> @@ -84,6 +84,13 @@ struct hfs_find_data {
+>>  	int entryoffset, entrylength;
+>>  };
+>>  
+>> +static inline bool hfs_bnode_is_valid_range(struct hfs_bnode *node,
+>> +					    int off, int len)
+> 
+> You can use struct hfs_find_data *fd. It can make argument list
+> shorter. We need to find the node before read/write. So, I think we
+> should have hfs_find_data available.
+> 
+>> +{
+>> +	return off >= 0 && len > 0 &&
+>> +	       (u64)off + len <= node->tree->node_size;
+> 
+> Maybe, it makes sense to check that node->tree pointers are valid?
+> 
+>> +}
+>> +
+>>  
+>>  /* btree.c */
+>>  extern struct hfs_btree *hfs_btree_open(struct super_block *sb, u32
+>> id,
+>> diff --git a/fs/hfs/extent.c b/fs/hfs/extent.c
+>> index f066a99a863b..ece782205b47 100644
+>> --- a/fs/hfs/extent.c
+>> +++ b/fs/hfs/extent.c
+>> @@ -121,12 +121,20 @@ static int __hfs_ext_write_extent(struct inode
+>> *inode, struct hfs_find_data *fd)
+>>  		res = hfs_bmap_reserve(fd->tree, fd->tree->depth +
+>> 1);
+>>  		if (res)
+>>  			return res;
+>> -		hfs_brec_insert(fd, HFS_I(inode)->cached_extents,
+>> sizeof(hfs_extent_rec));
+>> +		res = hfs_brec_insert(fd, HFS_I(inode)-
+>>> cached_extents,
+>> +				      sizeof(hfs_extent_rec));
+>> +		if (res)
+>> +			return res;
+>>  		HFS_I(inode)->flags &=
+>> ~(HFS_FLG_EXT_DIRTY|HFS_FLG_EXT_NEW);
+>>  	} else {
+>>  		if (res)
+>>  			return res;
+>> -		hfs_bnode_write(fd->bnode, HFS_I(inode)-
+>>> cached_extents, fd->entryoffset, fd->entrylength);
+>> +		if (fd->entrylength != sizeof(hfs_extent_rec) ||
+>> +		    !hfs_bnode_is_valid_range(fd->bnode, fd-
+>>> entryoffset,
+>> +					      fd->entrylength))
+> 
+> I think we can share with hfs_bnode_is_valid_range() expected size
+> sizeof(hfs_extent_rec) and hfs_bnode_is_valid_range() will be able to
+> check the fd->entrylength. What do you think?
+> 
+> Thanks,
+> Slava.
+> 
+>> +			return -EIO;
+>> +		hfs_bnode_write(fd->bnode, HFS_I(inode)-
+>>> cached_extents,
+>> +				fd->entryoffset, fd->entrylength);
+>>  		HFS_I(inode)->flags &= ~HFS_FLG_EXT_DIRTY;
+>>  	}
+>>  	return 0;
 
