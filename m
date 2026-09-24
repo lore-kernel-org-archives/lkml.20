@@ -1,145 +1,120 @@
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58841416870
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:21:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E064F41A504
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:21:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790270465; cv=none; b=lARAvs9dmeyoUec/LuiHdWeaJt346r/6KZmUpr+OyVloRIVc7q/KAcQzC2cQetTWhlH3pOz8n+KMCcANBQ7RLFX554c4TkeS2BGAzOCFFvKVZRBvmr/mBXt+DNyBcfdBibOdH/UtSyalw5AVXELQne91YzgVWi47RsJXXdwH55E=
+	t=1790270467; cv=none; b=P2fInQj3niluAMYjW0Lr3rl+v7YAqxvNw5aBE93EB9DlRGkp/ZPoqIVbZgGk4QBneDLoDZEXoxsY3gvlr9Uj8KhgXvKVpRL3yq6t1Hj/4jV7K+kcQHjWVyeEdC4l/8QB7cj5hrX/OuXEk1DqW1PdwSIu635nLPqsxNmbEUrkAg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790270465; c=relaxed/simple;
-	bh=y91BgDbV1pmNNW7fcDmBjagCNc/lHkbbK5GTaLYoxSU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Yod+W090NIX6c+Qdq2jaXMOeHD5GPYMTmaN8m1/INzjL/3d2ZMgwUOANts7XsfqBMmFSGq8vHsWPoLCmaL2gHP4saabVptLbCe5yCsrYQpzYTEi2fful+DA/pCofQp6LP81ZEpPj1zZpaYRPo2OjzccW29tYfSNm609nLOKhDYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=khBtcY+Z; arc=none smtp.client-ip=209.85.167.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790270467; c=relaxed/simple;
+	bh=zYEK7bqTK81B9cfb1lNVZACMRyatDb4IFpKYqtTn76M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=J8wkHhooRFKkIUTI31Y7FWwZW705O+LcTscetvLGbHRgHxBWLZ+JM0oAafAimPZq/SbOGVd26pby264cNTrG8GP3GC9L1mmDpB5CppJ2VIia+ilQkcM1kWfUYa1oXIceyxIX+VxanD07I+6Gy6qKIu/HSYo48ge2HTEjaMrmCKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PSQj2I1M; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="khBtcY+Z"
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5b76694fb7aso93918e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:21:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790270460; x=1790875260; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xtw0JhXm0/tmnOTWbZH0chwtlN4HPg9BNssrfKTCcYo=;
-        b=khBtcY+ZHfKDik2xBEKBQ3MWLAWsqXwdm8/NJH6GnsmWgcLBWgV4lot3yW8ni4Rus6
-         mvdc7XgO/Q59/JhMDxIlHV7IIE0Zh0wncrGQOSCgkkuMzxnt8lDnvjMuAHVIuJTsdqSn
-         716k3gC7tdxKyTwL9X9Qc1AwE2S7iHKyaWOPLG3Hxy9klst+JpJ5ZgYVHHVHue2GnESu
-         nRYJ4/k1ry5n6go36X9dUGotcWoWo3gywIz0r8dbgwVsAAdQjMc5H3yEF1tyeJLd4DgP
-         kABrsvUPJWdl2nZja44htoYABIr5N9m7MBdxHmR+xYksJRv0sLB6crDsXAeVaIf01+uO
-         JbeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790270460; x=1790875260;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xtw0JhXm0/tmnOTWbZH0chwtlN4HPg9BNssrfKTCcYo=;
-        b=t5Ri8GFqJo8WXKQ6oSlX7IJw/DVC3UwsE3Ky8sa+wYiYZscXhBBLHE4hZV0tiHy6qr
-         X9eLQfcuOmymDdEDCpsD2KK/J7M7cPpiSDBcNEI/dtRxUSe/OMb9l7qpNXF+BUJhp2fi
-         fuypoi9zJftjyUHUYSIrKMYomYkjNwWUsEy0lYyMMvbe1d3GSmmYhWfJAYtac+AkMFEE
-         y3C1pPGGLSiGDcO9gBgNRs7HFKcNOUe5tGjjsgXTZ1cxkxYcwnnKdysC3yF9e0JnCofC
-         OrtFBc3myBStb5Gfv+daV1wREalXkt2OHI3vdJqc49mxeWmoQvhop1Npha21MXNbhXlu
-         eAYA==
-X-Forwarded-Encrypted: i=1; AKwUvBwvMJ8YP+oQR9m8eTsmSAQ6dUywgj0Cl7difujhHfZ45AuxZgC++ruuyb8O2pA4jYm8QyY1OwiAQ1EvPV4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mFanoQ4G8P99iOpADygMqNAHvIRE1rINHgxMvDitmAESKi+Gnq
-	8tFdSXAyXBmHQbkhW4sNxP081m39Gn/37rELBgESKoan3+reBGedA65Z
-X-Gm-Gg: AYBFou2wmO9nvPoH4WAPxgZKQ1o/MRJw4PDSYI456YMjh8sGxSDaDGZe6sbX2SLluAt
-	UPQjmgUOVS2F/Jirk4DRpt7nqT5QUdTc2hwMDg1fuMTA4BfYtVdRT0a+eOXYJftWhlKpjrqEIPt
-	LxhCjgXCUakK1uMnFYUZQF2ncKOtNtZPHJ7ciyCv7IyANEZXBw0AxBRfYRb7c8+LMkQ6ckEy/oU
-	3n4dhyfMSX2XBi/FzHdyvPACMSwMKSYGL5qGLO3snX3KBx9nFiqiKAGJ8jp8k5kq9gHym+qydtu
-	uuAD3tEpGbN+3SM4jTVJDhpcpszMnleeKW707szKtirABDgdO7tAT/4DvNDJ2ja7pnF5AYUj0uT
-	R5azataixQet3VY+wJ32d4dgOQioyCdjdVylGTLnD0xijmQMPcvric97Kxl6TMIFysbQGVzJqZd
-	m9Lm9leXsNwDDp0Kh+e8awkjuSvIB3zGrngFA+HDtltrzJ1X/WSH1MplnM2MWCQcjslzmPpR1r7
-	b8RqUSKDfzTEoE=
-X-Received: by 2002:ac2:4a61:0:b0:5b4:a798:2630 with SMTP id 2adb3069b0e04-5b8df0c3aa7mr845664e87.3.1790270460246;
-        Thu, 24 Sep 2026 10:21:00 -0700 (PDT)
-Received: from quietus.tail91f8a6.ts.net ([104.194.144.188])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d859505csm1611065e87.74.2026.09.24.10.20.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 10:20:59 -0700 (PDT)
-From: Ruslan Koreev <koreev.r@gmail.com>
-To: lee@kernel.org,
-	pavel@kernel.org,
-	rillian.grant@gmail.com
-Cc: linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ruslan Koreev <koreev.r@gmail.com>
-Subject: [PATCH 1/2] leds: flash: lm3643: Return to standby when the last output is switched off
-Date: Thu, 24 Sep 2026 20:20:39 +0300
-Message-ID: <20260924172040.1185688-2-koreev.r@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260924172040.1185688-1-koreev.r@gmail.com>
-References: <20260821083620.68324-1-rillian.grant@gmail.com>
- <20260924172040.1185688-1-koreev.r@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PSQj2I1M"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790270465; x=1821806465;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=zYEK7bqTK81B9cfb1lNVZACMRyatDb4IFpKYqtTn76M=;
+  b=PSQj2I1M1UparNOLfYm6/txST/zPZBgFEmpNzz4Oa2TflZcujtvWL4mK
+   UbY3YF13xkJdEECY48XMefFtgDHLTu2sgOrM6JTSPHUdcKoU93DDErZfz
+   nmcEl47uP8aF3lJ5OU3Mmb3A0oCxCBA+hPBr8g/ZAqQWdzUcZe0ncfNVH
+   2rb7d7amATVsoAlmpYuw224X29gyL+Wd3ZsRbpeepp63PzqhxvqN9W4fZ
+   dhirAzGPa4DhzKG10Jyrscu3wQanI4i/uOWMqDJTyCgtt5XgIt1PTauy7
+   zux0oVr+Cu5kQNep/R3ERYpJQQSKDPImNEnJSU77VlGQTEOHADNpGSu6H
+   Q==;
+X-CSE-ConnectionGUID: v0m7A5h7Te2ProebrhWKTw==
+X-CSE-MsgGUID: 0O5TcdiLTxy8WD7Jb7bn7w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="107437030"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="107437030"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 10:21:05 -0700
+X-CSE-ConnectionGUID: vf3yPULhQ2GSNc4Lw1fP6Q==
+X-CSE-MsgGUID: TESpmyX2RdaAm3wzd41vtA==
+X-ExtLoop1: 1
+Received: from jjgreens-desk24.amr.corp.intel.com (HELO [10.125.110.171]) ([10.125.110.171])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 10:21:03 -0700
+Message-ID: <d8b502f7-a552-4600-b348-614d1d62afa5@intel.com>
+Date: Thu, 24 Sep 2026 10:21:03 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] x86/mm: Drop the page allocation from
+ pud_free_pmd_page()
+To: Pedro Falcato <pfalcato@suse.de>,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>,
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H . Peter Anvin" <hpa@zytor.com>, Mike Rapoport <rppt@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Toshi Kani <toshi.kani@hpe.com>,
+ linux-mm@kvack.org, regressions@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260923223116.20090-1-mikhail.v.gavrilov@gmail.com>
+ <arVV9WLXQOwR8Hy8@pedro-suse.tail5790ac.ts.net>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <arVV9WLXQOwR8Hy8@pedro-suse.tail5790ac.ts.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Setting the torch brightness of an output to 0 only cleared its enable
-bit and left the mode bits at torch (or flash), so the chip kept its
-boost converter running with no output enabled. Likewise switching the
-strobe off returned early when the output's enable bit had already been
-cleared, leaving the mode bits at flash. Both were flagged by the
-Sashiko review of the RFC, which Lee Jones asked to have addressed.
+OK, I've got a version of Mikhail's fix with a changelog and comments
+I've munged a bit:
 
-Clear the mode bits together with the enable bit whenever the sibling
-output is not active, so that the chip goes back to standby when its
-last output is switched off.
+> https://git.kernel.org/pub/scm/linux/kernel/git/daveh/devel.git/log/?h=pmdfree
 
-Signed-off-by: Ruslan Koreev <koreev.r@gmail.com>
----
- drivers/leds/flash/leds-lm3643.c | 23 +++++++++++++++++------
- 1 file changed, 17 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/leds/flash/leds-lm3643.c b/drivers/leds/flash/leds-lm3643.c
-index 48e164261..bbe9358c9 100644
---- a/drivers/leds/flash/leds-lm3643.c
-+++ b/drivers/leds/flash/leds-lm3643.c
-@@ -271,9 +271,15 @@ static int lm3643_torch_set_brightness(struct led_classdev *led_cdev,
- 	    mode != LM3643_MODE_TORCH)
- 		return -EBUSY;
- 
--	if (brightness == 0)
--		return regmap_update_bits(led->regmap, LM3643_REG_ENABLE,
--				chan->enable_bit, 0);
-+	if (brightness == 0) {
-+		unsigned int mask = chan->enable_bit;
-+
-+		/* Last active output: leave torch mode, back to standby */
-+		if (!(enable & sibling_bit))
-+			mask |= LM3643_MODE_MASK;
-+
-+		return regmap_update_bits(led->regmap, LM3643_REG_ENABLE, mask, 0);
-+	}
- 
- 	ret = regmap_update_bits(led->regmap, chan->torch_br_reg, LM3643_TORCH_BR_MASK,
- 				 LM3643_TORCH_BR_CDEV_TO_CODE(brightness));
-@@ -365,11 +371,16 @@ static int lm3643_flash_strobe_set(struct led_classdev_flash *fled_cdev, bool st
- 	mode = enable_reg & LM3643_MODE_MASK;
- 
- 	if (!state) {
--		if (mode != LM3643_MODE_FLASH || !(enable_reg & chan->enable_bit))
-+		unsigned int mask = chan->enable_bit;
-+
-+		if (mode != LM3643_MODE_FLASH)
- 			return 0;
- 
--		return regmap_update_bits(led->regmap, LM3643_REG_ENABLE,
--			LM3643_MODE_MASK, LM3643_MODE_STANDBY);
-+		/* Leave flash mode once no other output is strobing */
-+		if (!(enable_reg & sibling_bit))
-+			mask |= LM3643_MODE_MASK;
-+
-+		return regmap_update_bits(led->regmap, LM3643_REG_ENABLE, mask, 0);
- 	}
- 	if ((enable_reg & sibling_bit) && mode != LM3643_MODE_STANDBY)
- 		return -EBUSY;
--- 
-2.55.0
-
+Does that look OK to everyone?
