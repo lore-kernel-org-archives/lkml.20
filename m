@@ -1,62 +1,65 @@
-Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
+Received: from pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.68.102])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0EF84119F4;
-	Thu, 24 Sep 2026 06:23:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.218.115.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94922414408;
+	Thu, 24 Sep 2026 06:23:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.68.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790231001; cv=none; b=VZBhXcqq35kntuzE+YA+CJ91rLNrAgGXMtAhnhXhPAHNtGHt99wWcsEyReZWmqFyE45jrMuh+zz7hKPZwJTnqx56Mo8U0yzChTJLIgIP7FhWhiOL6JnFyM+GHZEBZ1UXa7UlXWDK9+7YZuJGYfUwgvGJW/+5FvGpXkDl11AmvHU=
+	t=1790231002; cv=none; b=pIAWuLq21RQXXbyiq6+xYcYMgS+rpgWafOCV2cNC/DJYP9sAfZ/MSWYyIgCFhDgiL80dZ5FR7PeVRUVUMSxJjQ6Y9Bs/YEzuUmNrliuLF/pBjj6zJdIfaedshC8k4t1FMWSDk6NT5BiTaG3jo+zt5iIjMgSc6m1mk/apmQKcbyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790231001; c=relaxed/simple;
-	bh=Xwcq38e3RbilMI1gGIjkMZNrYlVq2jybpt4DjYrTQ7M=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fOBlkqc/oS7Q7dY20rJ85/KYpPzlljbU5X7S/gnzlUcPOrZMfvsvc7PSRSfymHQvcsWTiAdIxtMdLCD8f1VINd3aXsSwQcN1JPBjFxJp0z63Iyv4NdZr+I4zcnXL2BOWjK/4zVgNk0iuSV5eIFr3vJ+uncUdZkxxa2AjziXhBRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=J8quiVIb; arc=none smtp.client-ip=34.218.115.239
+	s=arc-20240116; t=1790231002; c=relaxed/simple;
+	bh=6GBlanERVLIJM9BsO08gyrthTJ1VsmMHL3tWKofFR5g=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jW+veCKcLSQuLdpXDLb/U15ZHFjOhkK3cxroWQi5zyXSjMpd5hOD6FVZvqY2mKSYGnaHq6pnQP/fzaXtUrww0Ru0v+o5hP8sII74FlCLOBo21ItROX7TxZsf/x63T2WUkHo5wmRjZ4xrsJdxmMN39JWGJp9JHxXbU6ThWTLIXzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=NUb8tY1j; arc=none smtp.client-ip=44.246.68.102
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="J8quiVIb"
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="NUb8tY1j"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1790230999; x=1821766999;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=q4ZvlragUFzYq36yGWnS3+3nrMYV6JILA5S7BMCgYF0=;
-  b=J8quiVIbmFFbj7sIfaiE44GV9N2RzPccHuJRzX626jqNqdjFZDXP+i4H
-   M82HpyOeL3MbhqqhqD+q93f7SxjZCJ2a69bNAufKWU+8+bk1wKjzbFEiZ
-   20szWpSCfck1/UOF3svZb7xsS7URlYhsI1OJsUnXUdpZMSkz+cjI16QhW
-   1IUeamXNnl0Y0fGe2EVNSRFfrz5FWqBugtxVNCK57OB5FyKn4ml6hK0Eb
-   oFBV8kWkrSvD3EzQMyzptVU5i/Gi+W5dMM6CmSBe2LEsdYiqh2rUQrzQB
-   JnIIZycUDGHwpFN6/mAKMMaCtj8kC9SMkjxifQjqTbi5WVMn7m9hxixHE
-   Q==;
-X-CSE-ConnectionGUID: XF7vMMdgTLOP0dX4dTGO+w==
-X-CSE-MsgGUID: iMMWJVtnQVWgNFWymA+A5g==
+  t=1790231001; x=1821767001;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=vsTz5PCaQL5vfDJVm7aRxZ+wwym//s+fYilKj90Bl0A=;
+  b=NUb8tY1jjCmUY6l7RRCJZU8X9PIl75uodhA1wkuSOBzex2Ir1fAZbbmY
+   JS8eqKB+r2UgQgSK/kuUkEDMr4GDwWDVYAvuk4y9te0rSkk+qJJMcxuee
+   xgInugC+5QvNupoHTEIArrbRCMRzylQCO7Xbwx9s839GJskPLQ8pQysBI
+   Wm50MJt/uIqsCII2aAt18dKNanz/Y/hEWzPYfMsPp1NpRu+42ZTFQ46tk
+   hsk3+IkD1yo3MSECkX1IJGnC9/YLLtWZBdEsf7dOZTPCe+fEzv6+Ts6Kx
+   3i4wBW8xiryqz8ZKDraZvnp2c0yjUNS1l5glQ3lvwXM8GfrPDeOCuNqGN
+   A==;
+X-CSE-ConnectionGUID: ipNPjCfSRwWnMEErxcszmw==
+X-CSE-MsgGUID: ZEELeq37SWCJ8lXuf1wQWQ==
 X-IronPort-AV: E=Sophos;i="6.27,120,1787011200"; 
-   d="scan'208";a="29296122"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 06:23:17 +0000
-Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.51:11404]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.16.27:2525] with esmtp (Farcaster)
- id 160bbd05-1c47-4d2d-a546-73bbb9c47201; Thu, 24 Sep 2026 06:23:17 +0000 (UTC)
-X-Farcaster-Flow-ID: 160bbd05-1c47-4d2d-a546-73bbb9c47201
+   d="scan'208";a="29420513"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 06:23:19 +0000
+Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.182:4714]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.45.34:2525] with esmtp (Farcaster)
+ id 3828038e-b35c-4b61-865f-3f44f483573b; Thu, 24 Sep 2026 06:23:18 +0000 (UTC)
+X-Farcaster-Flow-ID: 3828038e-b35c-4b61-865f-3f44f483573b
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ EX19MTAUWA001.ant.amazon.com (10.250.64.217) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Thu, 24 Sep 2026 06:23:16 +0000
+ Thu, 24 Sep 2026 06:23:18 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49; Thu, 24 Sep 2026
- 06:23:15 +0000
+ 06:23:16 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: Thomas Gleixner <tglx@kernel.org>, Talel Shenhar <talel@amazon.com>
 CC: Radu Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>, "Krzysztof
  Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Eliav
  Farber" <farbere@amazon.com>, <devicetree@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>
-Subject: [PATCH 0/6] irqchip/al-fic: shared parent IRQ, FIC v2/v3 and affinity
-Date: Thu, 24 Sep 2026 06:23:05 +0000
-Message-ID: <20260924062311.37308-1-farbere@amazon.com>
+Subject: [PATCH 1/6] irqchip/al-fic: use full node name and raise init log level
+Date: Thu, 24 Sep 2026 06:23:06 +0000
+Message-ID: <20260924062311.37308-2-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260924062311.37308-1-farbere@amazon.com>
+References: <20260924062311.37308-1-farbere@amazon.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -68,48 +71,81 @@ Content-Type: text/plain
 X-ClientProxiedBy: EX19D040UWB002.ant.amazon.com (10.13.138.89) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-This series extends the Amazon Annapurna Labs Fabric Interrupt Controller
-(FIC) driver to support newer hardware revisions and configurations found
-on later Annapurna Labs SoCs, plus a couple of smaller fixes.
+Use node->full_name instead of node->name in the driver's log messages
+so that they identify the specific FIC instance, e.g.:
 
-FIC v2 and later add two interrupt groups alongside the existing legacy
-group - an "error" group and a "fatal" group - each described by its own
-device tree node and matched by a distinct compatible string. On some
-platforms several FIC instances also share a single parent GIC SPI, which
-the driver did not previously support.
+  interrupt-controller@fd803000 initialized successfully in Legacy mode (parent-irq=3)
 
-The series is organised as follows:
+Raise the successful-initialization message from pr_debug to pr_info, as
+this single boot-time printout is useful when dynamic debug is not
+enabled at this stage of boot. While here, fix a small typo in the
+al_fic_wire_init() comment.
 
-  1. Use the full node name in log messages and raise the successful-init
-     message to pr_info, so each FIC instance is identifiable at boot.
-  2. Request the parent interrupt as shared (IRQF_SHARED) instead of a
-     chained handler, so multiple FIC instances can share one GIC SPI.
-  3. Extend the binding with the amazon,al-fic-error and amazon,al-fic-fatal
-     compatibles for the new groups.
-  4. Add FIC v2 support: version detection, the error/fatal groups, and a
-     mask_cache workaround for a v2 erratum where the error and fatal mask
-     registers always read back as 0.
-  5. Add FIC v3 support. v3 shares v2's group layout but fixes the mask
-     read-back erratum, so the v2 workaround is deliberately not applied.
-  6. Add an irq_set_affinity callback so drivers that call
-     irq_set_affinity() (which fails with -EINVAL when the irqchip has no
-     such callback) can probe when routed through a FIC instance.
+Signed-off-by: Eliav Farber <farbere@amazon.com>
+---
+ drivers/irqchip/irq-al-fic.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-Eliav Farber (6):
-  irqchip/al-fic: use full node name and raise init log level
-  irqchip/al-fic: switch to shared parent interrupt
-  dt-bindings: interrupt-controller: amazon,al-fic: add error/fatal
-    groups
-  irqchip/al-fic: add support for FIC v2
-  irqchip/al-fic: add support for FIC v3
-  irqchip/al-fic: add irq_set_affinity callback
-
- .../interrupt-controller/amazon,al-fic.yaml   |   5 +-
- drivers/irqchip/irq-al-fic.c                  | 176 +++++++++++++++---
- 2 files changed, 150 insertions(+), 31 deletions(-)
-
-
-base-commit: 6828157ab3e96cd1c957b78d995c5e508a2eb2c2
+diff --git a/drivers/irqchip/irq-al-fic.c b/drivers/irqchip/irq-al-fic.c
+index d10ac9b63c99..efa7f2b62d00 100644
+--- a/drivers/irqchip/irq-al-fic.c
++++ b/drivers/irqchip/irq-al-fic.c
+@@ -180,7 +180,7 @@ static int al_fic_register(struct device_node *node,
+  * @name: name of the fic
+  * @parent_irq: interrupt of parent
+  *
+- * This API will configure the fic hardware to to work in wire mode.
++ * This API will configure the fic hardware to work in wire mode.
+  * In wire mode, fic hardware is generating a wire ("wired") interrupt.
+  * Interrupt can be generated based on positive edge or level - configuration is
+  * to be determined based on connected hardware to this fic.
+@@ -216,8 +216,8 @@ static struct al_fic *al_fic_wire_init(struct device_node *node,
+ 		goto err_free;
+ 	}
+ 
+-	pr_debug("%s initialized successfully in Legacy mode (parent-irq=%u)\n",
+-		 fic->name, parent_irq);
++	pr_info("%s initialized successfully in Legacy mode (parent-irq=%u)\n",
++		fic->name, parent_irq);
+ 
+ 	return fic;
+ 
+@@ -236,30 +236,30 @@ static int __init al_fic_init_dt(struct device_node *node,
+ 
+ 	if (!parent) {
+ 		pr_err("%s: unsupported - device require a parent\n",
+-		       node->name);
++		       node->full_name);
+ 		return -EINVAL;
+ 	}
+ 
+ 	base = of_iomap(node, 0);
+ 	if (!base) {
+-		pr_err("%s: fail to map memory\n", node->name);
++		pr_err("%s: fail to map memory\n", node->full_name);
+ 		return -ENOMEM;
+ 	}
+ 
+ 	parent_irq = irq_of_parse_and_map(node, 0);
+ 	if (!parent_irq) {
+-		pr_err("%s: fail to map irq\n", node->name);
++		pr_err("%s: fail to map irq\n", node->full_name);
+ 		ret = -EINVAL;
+ 		goto err_unmap;
+ 	}
+ 
+ 	fic = al_fic_wire_init(node,
+ 			       base,
+-			       node->name,
++			       node->full_name,
+ 			       parent_irq);
+ 	if (IS_ERR(fic)) {
+ 		pr_err("%s: fail to initialize irqchip (%lu)\n",
+-		       node->name,
++		       node->full_name,
+ 		       PTR_ERR(fic));
+ 		ret = PTR_ERR(fic);
+ 		goto err_irq_dispose;
 -- 
 2.47.3
 
