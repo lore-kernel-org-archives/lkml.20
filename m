@@ -1,91 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D808D53A3B6;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE5353F6AF;
 	Thu, 24 Sep 2026 17:46:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790271973; cv=none; b=uYLOO4dmSvarkarit9tt9V2kxyr6549DaH4m4ZHK9TqJWpkSvTpapoWSOvv359GEENuhtS4aM7LjerekS85SnUNU74esu0NiYmmxF2IvZZth3Xmwym5iaOJ78GQGaf4+3yfB9n2dG8ycXGWaNlwyA1DAUV1qaBVW7l+Fg7P3cNQ=
+	t=1790271973; cv=none; b=cp0v/oDtbdoj1gFWLjg6IM5ekPCAe6OsqqbZ2nYjugkrOSsEyLKXxZCaDZhdWXvOMQb6Af0B6c5j+BceHjCrbkmkL2UXc4477s4KkZQWw0PAKiR2FNS2+x3b+W6IdNleG5yNkXDI4GHnIRpuBpqADfbSnht6JAxuyBMTDJme02w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790271973; c=relaxed/simple;
-	bh=cHnIesqzRd3SzWjC4c0j6xgj40PQm3/+Hfd6Bj+Xj/w=;
-	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=u3VGnBNHyIzOViK3M+jaz2IZ8YB4nRLZsOGUGHnBbxD6Dpqj9gSwrPmVRNufJrGkoRTNV+K7+BQ1yFLgNxvQD4WulzA3z1VITPeqfl1LpiDRzGIMmk3DTxig8XVgGv5lELLPD6ySQ8HpI7lyDche4JMSfaI9zPMSMPJKNxjgUCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ldDps6uo; arc=none smtp.client-ip=100.103.45.18
+	bh=dmv/7C03BljaSagFnU0uHhye7fUWmKJXvCB2yVLpu/w=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=mqCLezqCARCTjuzIdEbQEzaWFdINCD+LWRHFFxCqJlcjWzicYxQB13sOBo6Q4F8408jtWsaOUotTm8l0GLSj/WgsGtffvfmaxUM9qk87M22A/dCdLhaEH3UVUovGzkAPE/K9iLX1ZjQt50h7paDfD8M4QlahZqh751Y86hZXJLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EMEKR1SK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ldDps6uo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0CBE1F000FF;
-	Thu, 24 Sep 2026 17:46:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EMEKR1SK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 917571F00893;
+	Thu, 24 Sep 2026 17:46:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790271971;
-	bh=jr52o/MyKxapop4cQtK8c+3adSYTJhdKVLABlleZ+K4=;
-	h=From:To:In-Reply-To:References:Subject:Date;
-	b=ldDps6uo1ur2QkKdm3dLx9Q0sZpnHLoi8HRzYqfafXxTIjwrRjf6oNW1hxQeTltae
-	 2TyXWqeYkaJxIHqddmb3FqXy+rYBP7cgHtYmXnHJJVwxEiG7XrIzA/bF1oFaKQuIov
-	 J2g5AxW9vt7nW0RzCvXy79OpKB/Ckp17Qj0YL9YLqbjDalXWIHwe1MYuCilNGZ8Xih
-	 pSpR6LBzkiIZFdHV7nLSKB+q0U+5sPVStkjAHaQ35njnGGDSHJYFZcGoTZgiTvUAQT
-	 E/3i0cYDYH9GkbLv7x7z5ErB3sqCMOZi6BUiehZRrCE8AcszNzBLqoTSK1JpOfxgVl
-	 6OlIU7WZ5oBlw==
-From: Mark Brown <broonie@kernel.org>
-To: shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com, 
- nicoleotsuka@gmail.com, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, 
- linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- linux-kernel@vger.kernel.org, shengjiu.wang@oss.nxp.com
-In-Reply-To: <20260916094043.1496709-1-shengjiu.wang@oss.nxp.com>
-References: <20260916094043.1496709-1-shengjiu.wang@oss.nxp.com>
-Subject: Re: [PATCH] ASoC: fsl_asrc: use regmap_write_bits to update clock
- source registers
-Message-Id: <179026940256.149798.11432270140920365951.b4-ty@b4>
-Date: Thu, 24 Sep 2026 18:03:22 +0100
+	bh=bqbiuMLU9y7UrgBS5Nv/rDDBjPKYQMJhkZicLky4BVg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EMEKR1SKNbJnjVy8kB7ZLovSRhXK2QyfEbP4NOkgraYtv7Ww5q4o+7MLs3Y/G0yVN
+	 DH63vEmFybbj7IFb29JgkEUiTWczGl1/LQX/+1RJk4ucBoqEYUOG0xgI9gjXzdpRrT
+	 2X1jqTor6hhTJpQmAReiTFNh8UJPOSpYTX5g4Mldc4C3f0PiyC/Xj4PsvYk0XWA6Uh
+	 5LKFX7nRiwdzD1yM17lIT2FU+gwrBOMQQuZTSC+xbQmONTGGB+XttKvAz/8TDil3hQ
+	 mjrG5oxTjLwmljQRABaPR7tKBW2xZ77sVYIPpDE579mtxjn3a0uDY3FYEVdv3n0huM
+	 3/vQoWUrr9adA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 01/14] coresight: etm4x: read-back TRCSEQSTR at
+ disabling and prohibit modifying seq_state while enabling.
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yeoreum Yun" <yeoreum.yun@arm.com>
+Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20260924-separate_etm_cfg_v2-v12-1-a2b41d2f7c2b@arm.com>
+References: <20260924-separate_etm_cfg_v2-v12-0-a2b41d2f7c2b@arm.com>
+ <20260924-separate_etm_cfg_v2-v12-1-a2b41d2f7c2b@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 17:46:11 +0000
+Message-Id: <20260924174611.917571F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1171; i=broonie@kernel.org;
- h=from:subject:message-id; bh=cHnIesqzRd3SzWjC4c0j6xgj40PQm3/+Hfd6Bj+Xj/w=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqtWHWNnP1Di16WOvhFepRkg68S1ErVEn3Jj4E/
- EqJHFMmcPWJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarVh1gAKCRAk1otyXVSH
- 0DuVB/4rWGF+cpqbPdU+ysLLjAs4Q2D6BtM7HEAdkfFe7MJkwqLr6bt2faqf6a9fCgBOkMaPiss
- pHpHV2ObYKOCCHovB+kbIz9HSnZ/EQvrQKFkY5lwvzpoTVfHA9L1NUWVNLBIsJJYS5o/m/LMT21
- YbPxsbWU5fpMlnNQ3jFi8U7YWqmLd567UK9XlkeRSAzC7+HDuYsN8JEswwVVbNRMJ/wbtJl4K6W
- BbW/OKW0dDg7+jMryBL57PXjKgjBdOVSEyNyOdVGCDu0hy4REUBqveTo1SH0TvO3TiqWPZZCKMb
- zFLrl/WTExcRM5HjGjmfJXfuccE+1UufIba2vSsMDTZdHO57
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Wed, 16 Sep 2026 17:40:42 +0800, shengjiu.wang@oss.nxp.com wrote:
-> ASoC: fsl_asrc: use regmap_write_bits to update clock source registers
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] coresight: TOCTOU race in seq_state_store lockless mode check
+- [Low] coresight: misplaced IS_ERR_OR_NULL(drvdata) after dereference
+--
 
-Applied to
+commit fb240199cfa6db080873efbe2c007beb70c01070
+Author: Yeoreum Yun <yeoreum.yun@arm.com>
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+coresight: etm4x: read-back TRCSEQSTR at disabling and prohibit modifying s=
+eq_state while enabling.
 
-Thanks!
+TRCSEQSTR can be changed by the ETM while a session is active. Its value
+therefore needs to be preserved when a sysfs session is disabled so that
+users can read the current sequence state after the session ends.
 
-[1/1] ASoC: fsl_asrc: use regmap_write_bits to update clock source registers
-      https://git.kernel.org/broonie/sound/c/92871abc1302
+> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c b/driver=
+s/hwtracing/coresight/coresight-etm4x-sysfs.c
+> index cc6cdd3ae29d5..db3cf4ad6806c 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+> @@ -1437,6 +1437,8 @@ static ssize_t seq_state_store(struct device *dev,
+>  		return -EINVAL;
+>  	if (val >=3D drvdata->nrseqstate)
+>  		return -EINVAL;
+> +	if (IS_ERR_OR_NULL(drvdata) || coresight_get_mode(drvdata->csdev))
+> +		return -EBUSY;
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+[Severity: Low]
+Does this code introduce a regression by checking drvdata for NULL after it
+has already been dereferenced?
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Looking at seq_state_store(), drvdata is dereferenced during the check for
+val >=3D drvdata->nrseqstate before IS_ERR_OR_NULL(drvdata) is called.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+While drvdata is fundamentally guaranteed to be valid in this sysfs context,
+making the check technically dead code rather than a reachable crash, should
+the validation be moved before the dereference if it is kept?
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+> =20
+>  	config->seq_state =3D val;
 
-Thanks,
-Mark
+[Severity: Medium]
+Could this lockless mode check cause a regression?
 
+A concurrent thread could enable the trace session immediately after the
+lockless coresight_get_mode() check evaluates to disabled. This would allow
+config->seq_state to be modified while the session is actively starting or
+already active, completely defeating the patch's stated goal of prohibiting
+state modification during an active session.
+
+Should raw_spin_lock(&drvdata->spinlock) be held across both the mode check
+and the subsequent state update to prevent this regression?
+
+>  	return size;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-separate_e=
+tm_cfg_v2-v12-0-a2b41d2f7c2b@arm.com?part=3D1
