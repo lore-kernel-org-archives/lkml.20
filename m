@@ -1,242 +1,457 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC6D7429016;
-	Thu, 24 Sep 2026 07:54:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1CF62D5408
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:55:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790236491; cv=none; b=qEiSoSw8HNG4FzYBjfC7W+RVO8MZseOs6JNYE9wgXHrtLB/K/yRFiY440lmBE5zmL0KCf14YZawf7W/G6MiZSnjlikmpuwSCINIaQpbPs2E42HWX/WoeEAkzurfult+Gb3jAuUG0xKZLWmYWFGUwqiMyfl5LQFMF4Z/vvcNu/Zc=
+	t=1790236505; cv=none; b=qprauO1MyY/E5svooRqulD4s3hgnDy/mZKSr28nLq6cUpHCNv65Xxk0EY/9nXndMGk16DXrHWZCgTJtyUoroUY3JGjzwP6qVyh8H77+KIlVy6wLf122JxBC3FjDYKm96DevvMJMoIK+nw0BT+1wuiU5uj50HtPWJy96wFr2QH8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790236491; c=relaxed/simple;
-	bh=KyrlKXIQ+AoNS2GqLCuyE8jLSIGi5INXseupXmkJ52M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kewfW3D+MgPSy9pzWYmAebB4uIS7b7AnhJIeP1kihiiy/lUgA+LawFwwB344q/cqfw7a5a0v8g1paSntDICAg3IlBANXfELeN3Tf2AOcJPG+2yJTwakehigaKhWadXKvrcCPjIIyO/5fCkkXQawTNzNjOZb8QHyhd3mp0LZ7MFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=idxuYEtD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790236505; c=relaxed/simple;
+	bh=CGYd0ciqKYW9mkCJ0K1h1VaxHB5t87kWYqS7z71Sr9U=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=q/C86dwnMZ5eWUn9KBvoo05m9MJzKkIHohF667JcMwJ6L7y6qApcp0BO5LnLAhyZrUZnufYd37aC1D8mpKMWrFJ7bbzV8lCQvbXjauHWNj3M7uK0Z6V/3RP30WbQ2RgNC9p0HXw7JACELZuazCR9RJ4Wvx5OAO+7WsoKQZZ4HiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DGSYWvfe; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="idxuYEtD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD5ED1F000FF;
-	Thu, 24 Sep 2026 07:54:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790236483;
-	bh=SGTgPGlkL0aDQuqd/YX777e2j57GY3NxZGYFWV1nngQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=idxuYEtDbWYd4PdtpHMZfHKsrC7mINgMAcVFvrGYYZvaCOmioS6yvw23hHV1OYwQi
-	 nwuJDtungDJr3WrQzAGf3jdZRLgO5kMmIA/v1oaaTFItx3IQQEkyLxkFn/5+4CFWi2
-	 zQ3DJakxXgZWjKCPCuvzykTe5uJD1FqgonU/7fc47x4UO+H8agtQkq5COD2uDPzLhm
-	 bhUw+6ZmW6SSYFYNs94JUUV/IRyiAGjRMskNHtaTGqWuLxK2K21X9JUGQCg4W6mqgN
-	 a4o6SE2pxCgb9i/5alwS7OKQFRlIrLglfSeEKN5ZVQrmY9WwXaf0AiKDeNeONkoTgT
-	 8rU/qZ/30hJqQ==
-Message-ID: <d552f9e9-4ac4-41fd-92b3-d36de92d515b@kernel.org>
-Date: Thu, 24 Sep 2026 09:54:39 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DGSYWvfe"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so8860895e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:55:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790236499; x=1790841299; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Hp0vvi7Zy65i20xh/BPLreHY1HTMwGwS6+nx6gpYD9c=;
+        b=DGSYWvfe+GRjL6QLRV2x8yqL2Nevic8O/gDHOoYzvSOWAKo20C3mpCjg2xQ0CTWnVc
+         /cUTHIChr8+unr4x+6JyEP6AtZkboGKrdWW7yDYNJ0Xp9luFm6n9DxMjXgP5SaMRH7Yp
+         81dwqv+62tBHvfplOBdtpESBhBsXYSjeAu5ulhXxAzKJq/i7Njg69MRJax6xrUfsiZ7U
+         agAx0Z2uPkkB1E7Wh9+8E44FJtzm73K5WumnmQnMTBwDeZfR9P/31ofpt9601QCvVOjA
+         5YmZ5EQZpBbvtvGVeS4cuodauV1wxkBNWSy98C8KFznTYKqBnjkpZ4rMxIjspQxcVNzV
+         9Tkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790236499; x=1790841299;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Hp0vvi7Zy65i20xh/BPLreHY1HTMwGwS6+nx6gpYD9c=;
+        b=0CF1tIfRvorUg1HHAi3sy+fDDsz7S8SLF8R3Cn15GECJnL11ALleymBd34lRsPrHeK
+         9aclhX5Sh+gZU8K5gnLbfAOeL5vO30xl2KDAli2WF6mQ4Y8fc2rRV5ZBa1yu1/tL83IN
+         rIIydk0TBgnkITOZaBw0ULij9dpP5YpgddwQorBcuj7MBJQiapnoXTrpjJq8kccjlRRU
+         VdkOpffsJVH9Gt+iWy4a+BaEhvKhqaqQNHgscSI9maEhhQEkGecF/ugveMqDBjLAPRAs
+         brLLmmg135M7aeByx/YZGJkiOqgmEWIjPUACSdr3EjDAWA7b2DTqC4sX9Co8NxuBwN10
+         2YRQ==
+X-Forwarded-Encrypted: i=1; AKwUvByr6gSmpJlJAU1YDKxsdPBoGUHUXRczrF/4d1sF5N4xtbaOEMKe38yTf/n6XMG1Y0aRhR8K1WQLoaHekyw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nf4a0SGN0WzwnggKLGT63UXgPNQuxxt1E0EumaVxFxLqJ3JFY8
+	K0HqMaWZHU78kZPrDu728hIWuassXAbO371T9uQY1tQwR+t/6exd2WPG
+X-Gm-Gg: AYBFou3sBwIDjvlTHoWiiCcE3NmUtvaNS94yq8CynUbVG9ZBR3toyB5HvlTugdFYN4w
+	sXQ1etg5NDSMEwOGrZO42sv/foU+K0L5U1cjYETZLxXUSfmzn8PP3j2cDcN88mqcqKcejsyGSLJ
+	cL6G9Ruc8Uh1JlgHf3FRJIeR/C9igcDH1JKbplv28/YTwkyqXdMmeeLsebnCl5pZ39E3xvRSK8G
+	gWeChfnfURt70SSDSwb28USn0NLP9RKI9MhBd3w+opxoIqmxHDtwjUXeJyKfF3Z1hfxmT7OELuN
+	cw5ZC0lAqyLQo6xFssrw6xZxVPJjH6D4wG5s1VpUUMz9/MRChWSyRPLVXbcJfDU/Tol6tswTo91
+	ABm8YyeFrGK7Q/anw1ZO4WokqVjY9QFvyir4wnSZTCAtvAp4Gl0ftUq43XsY3Hj4LEAu3WLqDjh
+	jcRjDNCVfPyKmxv1PS0ECZmidIxoLeU36HgmzOBhvef+u1nPcVHT+m5iltkOJJnaFW9HjGTQ9Sg
+	kDkL6tgTX5wZCIf4GzQY2iRCk5zWEK44OogcOES4A98EfATU07i6bButCLIdMfVJuwDB62CC2VG
+	Itl1I8527An5jsk4xO+lCTLPbs1ExGEWFYdNKR6U6SGYZzXeeHH7/1o656bPdV0s8htadz6tKNz
+	wV2Bno035kWQWfVT0LFNmvJa/6FWr6uYfZrGuPxNX/RcXz3SgSjsLQJJk+U2Bt7R7HVBwmjpEdp
+	RWV6Tj
+X-Received: by 2002:a05:600c:6994:b0:49b:d03:8d3a with SMTP id 5b1f17b1804b1-49fe66cbb4dmr26433385e9.11.1790236499360;
+        Thu, 24 Sep 2026 00:54:59 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe0c50da7sm77327375e9.3.2026.09.24.00.54.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 00:54:59 -0700 (PDT)
+Date: Thu, 24 Sep 2026 09:54:57 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] iio: adc: add driver for the MAX34417 Four-Channel
+ High Dynamic Range Power Accumulator
+Message-ID: <20260924095457.00006ed6@gmail.com>
+In-Reply-To: <20260923-topic-sm8x50-iio-max34417-adc-v1-2-41d4ba1bfc41@linaro.org>
+References: <20260923-topic-sm8x50-iio-max34417-adc-v1-0-41d4ba1bfc41@linaro.org>
+	<20260923-topic-sm8x50-iio-max34417-adc-v1-2-41d4ba1bfc41@linaro.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bluetooth-next v5 2/3] dt-bindings: net: bluetooth: Add
- AIC8800D80
-To: Yanli Yang <yanli.yang@bedmex.com>, linux-bluetooth@vger.kernel.org
-Cc: marcel@holtmann.org, devicetree@vger.kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
- zhirunliu@aicsemi.com, dijiaxu@aicsemi.com, chunqiuliu@aicsemi.com,
- liheng.wei@bedmex.com
-References: <cover.1790235697.git.yanli.yang@bedmex.com>
- <9301ec4530a27a83602d1036d1b836b326c69b87.1790235697.git.yanli.yang@bedmex.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <9301ec4530a27a83602d1036d1b836b326c69b87.1790235697.git.yanli.yang@bedmex.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 24/09/2026 05:34, Yanli Yang wrote:
-> Describe the AIC8800D80 Bluetooth SDIO firmware-loading function and
-> UART HCI interface. Link the UART node to its SDIO firmware provider
-> with the aic,firmware-sdio phandle.
+On Wed, 23 Sep 2026 21:10:23 +0200
+Neil Armstrong <neil.armstrong@linaro.org> wrote:
+
+> The MAX34417 is a specialized current and voltage monitor used to
+> determine power consumption of portable systems. The driver support
+> getting the channels voltage and accumulated average power over an
+> I2C/SMBUS serial interface.
 > 
-> The UART interface uses H4 at 1500000 baud with hardware flow control.
-> Include an example showing both nodes and their association. Add the
-> Bluetooth binding to MAINTAINERS.
-> 
-> Signed-off-by: Zhirun Liu <zhirunliu@aicsemi.com>
-> Signed-off-by: Dijia Xu <dijiaxu@aicsemi.com>
-> Signed-off-by: Chunqiu Liu <chunqiuliu@aicsemi.com>
-> Signed-off-by: Liheng Wei <liheng.wei@bedmex.com>
-> Signed-off-by: Yanli Yang <yanli.yang@bedmex.com>
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 > ---
 
+Hi Neil,
 
-So that's v5, thus where is the changelog?
+Several comments inline.
 
-Cover letter says nothing about v1-v3, only v4. And in that v4 nothing
-about this and 1/3 patches.
+Josh
 
->  .../net/bluetooth/aic,aic8800d80-bt.yaml      | 84 +++++++++++++++++++
->  MAINTAINERS                                   | 10 +++
->  2 files changed, 94 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80-bt.yaml
+>  drivers/iio/adc/Kconfig    |  11 ++
+>  drivers/iio/adc/Makefile   |   1 +
+>  drivers/iio/adc/max34417.c | 356 +++++++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 368 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80-bt.yaml b/Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80-bt.yaml
-> new file mode 100644
-> index 000000000000..76b94fd539e7
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80-bt.yaml
-> @@ -0,0 +1,84 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/net/bluetooth/aic,aic8800d80-bt.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: AIC AIC8800D80 Bluetooth
-> +
-> +maintainers:
-> +  - Zhirun Liu <zhirunliu@aicsemi.com>
-> +  - Dijia Xu <dijiaxu@aicsemi.com>
-> +  - Chunqiu Liu <chunqiuliu@aicsemi.com>
-> +  - Liheng Wei <liheng.wei@bedmex.com>
-> +  - Yanli Yang <yanli.yang@bedmex.com>
-> +
-> +description:
-> +  The AIC8800D80 is a Wi-Fi and Bluetooth combination chip. The Bluetooth
-> +  firmware is loaded through SDIO function 1, while Bluetooth HCI traffic uses
-> +  the H4 protocol over a UART interface with hardware flow control.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - aic,aic8800d80-bt
-> +      - aic,aic8800d80-bt-sdio
+> diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+> index 415e519ad4eb..4c559bafd1ce 100644
+> --- a/drivers/iio/adc/Kconfig
+> +++ b/drivers/iio/adc/Kconfig
+> @@ -1116,6 +1116,17 @@ config MAX34408
+>  	  To compile this driver as a module, choose M here: the module will be
+>  	  called max34408.
+>  
+> +config MAX34417
+> +	tristate "Maxim max34417 ADC driver"
 
-So same feedback as last time. Same device?
+MAX34417
 
+> +	depends on I2C
+> +	select REGMAP_I2C
+> +	help
+> +	  Say yes here to build ADC support for Maxim max34417 Four-Channel High
+> +	  Dynamic Range Power Accumulator.
+> +
+> +	  To compile this driver as a module, choose M here: the module will be
+> +	  called max34417.
+> +
 
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  max-speed: false
-> +
-> +  aic,firmware-sdio:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description:
-> +      Phandle to the SDIO function used to load the Bluetooth firmware.
+...
 
-What is a SDIO function in DT? Phandles can only point to device nodes.
+> +#include <linux/bitfield.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/init.h>
+> +#include <linux/i2c.h>
+> +#include <linux/module.h>
+> +#include <linux/property.h>
+> +#include <linux/regmap.h>
+> +#include <linux/units.h>
+> +
+
++ array_size.h, bits.h, err.h, math64.h, mutex.h, property.h, regulator/consumer.h,
+sysfs.h, types.h
+
+> +#include <linux/iio/iio.h>
+> +#include <linux/iio/types.h>
+
+No need for this one, it's already in iio.h.
 
 > +
-> +required:
-> +  - compatible
+> +#define MAX34417_UPDATE_REG		0x0
+> +#define MAX34417_CONTROL_REG		0x1
+> +#define MAX34417_ACC_COUNT_REG		0x2
 > +
-> +allOf:
-> +  - $ref: bluetooth-controller.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: aic,aic8800d80-bt-sdio
-> +    then:
-> +      properties:
-> +        reg:
-> +          items:
-> +            - items:
-> +                - const: 1
-> +        aic,firmware-sdio: false
-> +      required:
-> +        - reg
-> +    else:
-> +      properties:
-> +        reg: false
-> +      required:
-> +        - aic,firmware-sdio
-> +      allOf:
-> +        - $ref: /schemas/serial/serial-peripheral-props.yaml#
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    mmc {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        bt_sdio: bluetooth@1 {
-> +            compatible = "aic,aic8800d80-bt-sdio";
-> +            reg = <1>;
-> +        };
-> +    };
-> +
-> +    serial {
-> +        uart-has-rtscts;
-> +
-> +        bluetooth {
-> +            compatible = "aic,aic8800d80-bt";
-> +            aic,firmware-sdio = <&bt_sdio>;
-> +        };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index af5a8b4b0bb5..20662fe78632 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -729,6 +729,16 @@ S:	Maintained
->  F:	drivers/scsi/aha152x*
->  F:	drivers/scsi/pcmcia/aha152x*
->  "managers" 
-> +AIC BLUETOOTH DRIVER
-> +M:	Zhirun Liu <zhirunliu@aicsemi.com>
-> +M:	Dijia Xu <dijiaxu@aicsemi.com>
-> +M:	Chunqiu Liu <chunqiuliu@aicsemi.com>
-> +M:	Liheng Wei <liheng.wei@bedmex.com>
-> +M:	Yanli Yang <yanli.yang@bedmex.com>
 
-So all these 5 people are going to provide reviews?
+...
 
-Please confirm this explicitly, so we don't get entries for, for
-example, managers which like to be notified.
+> +
+> +/**
+> + * struct max34417_data - max34417 specific data.
+> + * @regmap:	device register map.
+> + * @dev:	max34417 device.
+> + * @lock:	lock for protecting access to device hardware registers, mostly
 
+Nit-picking, but... Device, MAX34417, Lock.
 
-Best regards,
-Krzysztof
+> + *		for reading common accumulator count and control register.
+> + * @input_correction:	Correction based on the Rsense value from channel nodes.
+> + * @input_label:	Channel label from channel nodes.
+> + */
+> +struct max34417_data {
+> +	struct regmap *regmap;
+> +	struct device *dev;
+> +	struct mutex lock;
+> +	u32 input_correction[MAX34417_CHANNEL_COUNT];
+> +	const char *input_label[MAX34417_CHANNEL_COUNT];
+> +};
+> +
+> +static const struct regmap_config max34417_regmap_config = {
+> +	.reg_bits	= 8,
+> +	.val_bits	= 8,
+> +	.max_register	= MAX34417_DID_REG,
+> +};
+> +
+
+...
+
+> +static int max34417_accumulator_update(struct max34417_data *max34417)
+> +{
+> +	int rc;
+> +
+> +	rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
+> +	if (rc) {
+> +		dev_err(max34417->dev, "Error (%d) writing update register\n", rc);
+> +		return rc;
+> +	}
+> +
+> +	/* Wait for accumulator update */
+> +	usleep_range(1000, 2000);
+
+fsleep(1000) would be better.
+
+> +
+> +	return 0;
+> +}
+> +
+> +static int max34417_read_voltage(struct max34417_data *max34417,
+> +				 const struct iio_chan_spec *chan, int *val)
+> +{
+> +	uint16_t voltage;
+> +	uint8_t buf[3];
+> +	int rc;
+> +
+> +	guard(mutex)(&max34417->lock);
+> +
+> +	rc = max34417_accumulator_update(max34417);
+> +	if (rc)
+> +		return rc;
+> +
+> +	rc = regmap_noinc_read(max34417->regmap, chan->address, &buf, 3);
+> +	if (rc)
+> +		return rc;
+> +
+> +	voltage = buf[2] | ((uint64_t)buf[1] << 8);
+> +	voltage >>= 2;
+> +
+> +	*val = voltage;
+> +
+> +	return IIO_VAL_INT;
+> +}
+> +
+> +static int max34417_read_power(struct max34417_data *max34417,
+> +				 const struct iio_chan_spec *chan, int *val, int *val2)
+
+The alignment is off here. Additionally, put val and val2 on a separate line.
+
+> +{
+> +	uint32_t acc_count;
+> +	uint64_t power;
+> +	uint8_t buf[8];
+> +	int rc;
+> +
+> +	guard(mutex)(&max34417->lock);
+> +
+> +	rc = max34417_accumulator_update(max34417);
+> +	if (rc)
+> +		return rc;
+> +
+> +	rc = regmap_noinc_read(max34417->regmap, MAX34417_ACC_COUNT_REG,
+> +			       &buf, 4);
+> +	if (rc)
+> +		return rc;
+> +
+> +	acc_count = buf[3] | ((uint64_t)buf[2] << 8) | ((uint64_t)buf[1] << 16);
+
+Maybe a check that acc_count isn't zero in case of a bad read etc.?
+It could cause a divide-by-zero error later.
+
+> +
+> +	rc = regmap_noinc_read(max34417->regmap, chan->address, &buf, 8);
+> +	if (rc)
+> +		return rc;
+> +
+> +	power = buf[7];
+> +	power |= ((uint64_t)buf[6] << 8UL);
+> +	power |= ((uint64_t)buf[5] << 16UL);
+> +	power |= ((uint64_t)buf[4] << 24UL);
+> +	power |= ((uint64_t)buf[3] << 32UL);
+> +	power |= ((uint64_t)buf[2] << 40UL);
+> +	power |= ((uint64_t)buf[1] << 48UL);
+> +
+> +	power = div_u64(power, acc_count);
+> +
+> +	*val = FIELD_GET(GENMASK(31, 0), power);
+> +	*val2 = FIELD_GET(GENMASK(55, 32), power);
+
+Sashiko points out: 
+
+Will this build correctly on 32-bit architectures?
+
+Since GENMASK() operates on unsigned long, which is 32 bits wide on those
+platforms, attempting to mask bits 55..32 might result in an out-of-bounds
+shift and trigger compiler errors or warnings like BUILD_BUG_ON_ZERO. Should
+GENMASK_ULL(55, 32) be used instead?
+
+> +
+> +	return IIO_VAL_INT_64;
+> +}
+> +
+> +static int max34417_read_raw(struct iio_dev *indio_dev,
+> +			     struct iio_chan_spec const *chan,
+> +			     int *val, int *val2, long mask)
+> +{
+> +	struct max34417_data *max34417 = iio_priv(indio_dev);
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		if (chan->type == IIO_VOLTAGE)
+> +			return max34417_read_voltage(max34417, chan, val);
+> +		return -EINVAL;
+
++ Blank line.
+
+> +	case IIO_CHAN_INFO_AVERAGE_RAW:
+> +		if (chan->type == IIO_POWER)
+> +			return max34417_read_power(max34417, chan, val, val2);
+
++ Blank line.
+
+> +		return -EINVAL;
+> +	case IIO_CHAN_INFO_SCALE:
+> +		if (chan->type == IIO_VOLTAGE) {
+> +			/* Scale to mA */
+> +			*val = MAX34417_VOLTAGE_CORRECTION_SCALE * MILLI;
+> +			*val2 = MAX34417_VOLTAGE_FULL_SCALE_BITS;
+> +
+> +			return IIO_VAL_FRACTIONAL_LOG2;
+> +		} else if (chan->type == IIO_POWER) {
+> +			/* Scale to mW */
+> +			*val = max34417->input_correction[chan->channel] * MILLI;
+> +			*val2 = MAX34417_PWR_AVG_FULL_SCALE_BITS;
+> +
+> +			return IIO_VAL_FRACTIONAL_LOG2;
+> +		}
+
++ Blank line.
+
+> +		return -EINVAL;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int max34417_read_label(struct iio_dev *indio_dev,
+> +			       struct iio_chan_spec const *chan,
+> +			       char *label)
+> +{
+> +	struct max34417_data *max34417 = iio_priv(indio_dev);
+> +	const char *input_label = max34417->input_label[chan->channel];
+> +
+> +	if (chan->type == IIO_VOLTAGE) {
+> +		if (input_label)
+> +			return sysfs_emit(label, "%s-voltage\n", input_label);
+
++ Blank line.
+
+> +		return sysfs_emit(label, "channel%d-voltage\n", chan->channel);
+> +	}
+> +
+> +	if (chan->type == IIO_POWER) {
+> +		if (input_label)
+> +			return sysfs_emit(label, "%s-power\n", input_label);
+
++ Blank line.
+
+> +		return sysfs_emit(label, "channel%d-power\n", chan->channel);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct iio_info max34417_info = {
+> +	.read_raw	= max34417_read_raw,
+> +	.read_label	= max34417_read_label,
+> +};
+> +
+> +static int max34417_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct max34417_data *max34417;
+> +	struct fwnode_handle *node;
+> +	struct iio_dev *indio_dev;
+> +	struct regmap *regmap;
+> +	int rc;
+> +
+> +	regmap = devm_regmap_init_i2c(client, &max34417_regmap_config);
+> +	if (IS_ERR(regmap)) {
+> +		dev_err_probe(dev, PTR_ERR(regmap),
+> +			      "regmap_init failed\n");
+
+One line is okay.
+
+> +		return PTR_ERR(regmap);
+> +	}
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*max34417));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	/* Get and enable regulators */
+
+Redundant comment IMO.
+
+> +	rc = devm_regulator_get_enable(dev, "vdd");
+> +	if (rc)
+> +		return dev_err_probe(dev, rc, "failed to get vdd regulator\n");
+> +
+> +	rc = devm_regulator_get_enable(dev, "vio");
+> +	if (rc)
+> +		return dev_err_probe(dev, rc, "failed to get vio regulator\n");
+> +
+> +	max34417 = iio_priv(indio_dev);
+> +	max34417->regmap = regmap;
+> +	max34417->dev = dev;
+> +	mutex_init(&max34417->lock);
+> +
+> +	device_for_each_child_node(dev, node) {
+
+scoped variant would be better, Sashiko points out this could leak on early
+exit.
+
+> +		unsigned int correction;
+> +		u32 rsense, index;
+> +
+> +		if (fwnode_property_read_u32(node, "reg", &index)) {
+> +			dev_err(dev, "missing reg property of %pfwP\n", node);
+> +			return -EINVAL;
+> +		} else if (index >= MAX34417_CHANNEL_COUNT) {
+> +			dev_err(dev, "invalid reg %d of %pfwP\n", index, node);
+> +			return -EINVAL;
+> +		}
+> +
+
+Why not dev_err_probe()?
+
+> +		fwnode_property_read_string(node, "label", &max34417->input_label[index]);
+> +		if (fwnode_property_read_u32(node, "maxim,rsense-val-micro-ohms", &rsense))
+> +			rsense = MAX34417_DEFAULT_RSENSE;
+> +
+> +		/* (100 milliOhm / rsense) * MAX34417_PWR_CORRECTION_SCALE */
+> +		correction = (100 * MILLI * MAX34417_PWR_CORRECTION_SCALE) / rsense;
+> +
+> +		max34417->input_correction[index] = correction;
+> +	}
+> +
+> +	indio_dev->channels = max34417_channels;
+> +	indio_dev->num_channels = ARRAY_SIZE(max34417_channels);
+> +	indio_dev->name = "max34417";
+> +	indio_dev->info = &max34417_info;
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +
+> +	/* Set as default Manual Mode & Wide ADC */
+> +	rc = regmap_write(max34417->regmap, MAX34417_CONTROL_REG, MAX34417_DEFAULT_CMM_WIDE);
+> +	if (rc) {
+> +		dev_err(max34417->dev, "Error (%d) writing control register\n", rc);
+
+dev_err_probe()? + you can u
+
+-- 
+Kind regards,
+Joshua Crofts
