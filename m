@@ -1,92 +1,227 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E28DCA4E;
-	Thu, 24 Sep 2026 00:40:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 052782F7F00;
+	Thu, 24 Sep 2026 00:40:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790210409; cv=none; b=Dcr9EuDj8C9DChhdvKqwfNr0VRD4skm1BN0Cc2PMICXv4qSVsYxWUwmg8ksgzxj+MlhXOfIYA3Q+4x/L4jYmvzsqO9YSmsSo8bNIeO/Y5xZFrU6xT/SaqaVowk9U7j17oJZ0pe3O3sPxTEapcv5SmuHeI+OAaInXYRZF1G/XLkQ=
+	t=1790210420; cv=none; b=T9H09g/2Lqv2bcO3WimSDgjEEX1y+XRGepDtg8ThBFt1hUxK+ABy6GtVCAEb4wASre4qaDIp8LAbrLWUrhRG3KKIE2290zw2QzsqoXVwXAJYkW1H8Nn7u22LBaY+7/gnW+30PSW9NrM0Vwf1wk1gY5fC4XmhbyqyiowfNIzIi8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790210409; c=relaxed/simple;
-	bh=64uXb4X38XrSq/BVvQdzMJq2eRbmsD2MiKhrL+mD7IU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dfyHEGthn5/JVufFStkE/O5IbjumF0MhaR8QljUyxQohDjh7r2a6CfwLKgxR5G4pZqaxMumDnAP9HKvAUIP4rfyknqrwtOaJU4KYxIzOKwKj/Bv0uESnktUt7g5ItH21ikHCUMr8KbAII9nE3oVJixYfHwL4CDoLj/kJArf0VaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GsFpotYB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790210420; c=relaxed/simple;
+	bh=PCgXYv1pH2IoUq1fV221m4MwCZ45Q68sFCoZOWrcf9k=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=FwcRJ1y+jsxw6Kdsh/lBtwMELRQrjG8Fh8mbg9iWWXW8/tnwtvQsQHr7gQbhMBtgLBCkpg7fQbUs2dGbjMr+0LkJ5KprIZT1lraWjTURCGzWuCwIvpGGN5otWy5eYc0k/heeXNg/zpb6I66QsK4i9cBjOlU+t28k2+pe3bBCciQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U3E0oBpG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GsFpotYB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F17AE1F000FF;
-	Thu, 24 Sep 2026 00:40:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U3E0oBpG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28E241F000FF;
+	Thu, 24 Sep 2026 00:40:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790210408;
-	bh=I5fr4m5zV1HsbEvg5cpoj9adC8pbGMxGUDeIlmewPaA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=GsFpotYB328iRGcLSIV0KOtxbjtU0E4lZg8FC8ydEzp+mPQq/3gSTgBABICu31Irk
-	 ZlWgFeLlBRBGsl9VIq2Hnz9tjQfR6q1+1O2FwVFekMcB4AL8T6Ob3Z1SkF8ZOy/5Op
-	 7gohvq3hbSRXkhWAsr6Q+gTWuXhfL077sPNgdXD9Si5W6hzmzPpb/ilA4sQbj+N+9j
-	 A66l4Lzg3Ul7GDzMXOEUfXvFqU5PuCSs2NgfbHNl0Ev/8kW6FYlHXyuYuwIVDPk4zE
-	 IPjviNgfbKP17cxID4qPeNUb+Vn6VsCguEggqwIUC9YwNsgit84Mmw2PGD2CgbxQ7v
-	 5CViqO1tQ/EXg==
-Date: Thu, 24 Sep 2026 01:40:01 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: alistair23@gmail.com
-Cc: linux-pci@vger.kernel.org, Jonathan.Cameron@huawei.com, djbw@kernel.org,
- rust-for-linux@vger.kernel.org, lukas@wunner.de, alistair@alistair23.me,
- linux-cxl@vger.kernel.org, bhelgaas@google.com, akpm@linux-foundation.org,
- linux-kernel@vger.kernel.org, gary@garyguo.net, ojeda@kernel.org,
- benno.lossin@proton.me, a.hindborg@kernel.org, wilfred.mallawa@wdc.com,
- tmgross@umich.edu, boqun.feng@gmail.com, bjorn3_gh@protonmail.com,
- alex.gaynor@gmail.com, aliceryhl@google.com, Alistair Francis
- <alistair.francis@wdc.com>
-Subject: Re: [PATCH v3 00/21] lib: Rust implementation of SPDM
-Message-ID: <20260924014001.328ca0ef@jic23-hlaptop>
-In-Reply-To: <20260901010347.2614656-1-alistair.francis@wdc.com>
-References: <20260901010347.2614656-1-alistair.francis@wdc.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1790210418;
+	bh=iWeJIz6tY4qxHuxh3VhllSj2/KgSAcS6kffc8QbZogg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=U3E0oBpGaFb/q1tz964I0HqQfOOBXbHFr27IrpydDU/FM5y8jlL0vDqtUJOV0wvcX
+	 mYijrPPKa+/ZrSNUW0fLo6fBmz6zF5vxmK4hGHf9HWEHLKZ6wX8DN3G9BqY5AGnab7
+	 HXDKXHSOLCG4ZE/bdYaHy15RvOWm7I4IdFEoX2BpHlJ7UmdeUDH6/HqzNLrrLksjX1
+	 2keVFdP0+i/YD9fb1Bx9qojwGANM256oO/yIw7XffxZtrY988h5/bYDy4RPguvArmS
+	 L00hQ7YP/PhQvk5XjAF7UGLlxBgEONzn3TrcSA0AXL3RFkXE+JGLl9Kgl0XXH+Bmvf
+	 XhU+4H1BgnMaA==
+Subject: Re: [PATCH net-next v4] selftests: net: move log_test to lib file and
+ remove duplicate code
+From: netdev-bot+sashiko@kernel.org
+To: hangbin.liu@linux.dev
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, shuah@kernel.org, dsahern@kernel.org,
+ idosch@nvidia.com, andrea.mayer@uniroma2.it, netdev@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ liuhangbin@kylinos.cn
+Date: Thu, 24 Sep 2026 00:40:17 +0000
+Message-ID: <179021041767.2160803.17788389754543951970@kernel.org>
+In-Reply-To: <20260922-self_log_test-v4-1-4c656801f8dc@kylinos.cn>
+References: <20260922-self_log_test-v4-1-4c656801f8dc@kylinos.cn>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-> 
-> qemu-system-x86_64 \
->   -nic none \
->   -object rng-random,filename=/dev/urandom,id=rng0 \
->   -device virtio-rng-pci,rng=rng0 \
->   -drive file=deploy/images/qemux86-64/core-image-pcie-qemux86-64.rootfs.ext4,if=virtio,format=raw \
->   -usb -device usb-tablet -usb -device usb-kbd \
->   -cpu Skylake-Client \
->   -machine q35,i8042=off \
->   -smp 4 -m 2G \
->   -drive file=blknvme,if=none,id=mynvme,format=raw \
->   -device nvme,drive=mynvme,serial=deadbeef,spdm_port=2323,spdm_trans=doe \
->   -snapshot \
->   -serial mon:stdio -serial null -nographic \
->   -kernel deploy/images/qemux86-64/bzImage \
->   -append 'root=/dev/vda rw  console=ttyS0 console=ttyS1 oprofile.timer=1 tsc=reliable no_timer_check rcupdate.rcu_expedited=1 swiotlb=0 '
-> 
-Looking at this because of discussion about RCiEPs.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-For the test I'd do something more realistic and throw in a root port and put your
-device on that rather than as currently where I think it'll is presented as
-a Root Complex Integrated Endpoint.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-You don't want a particularly complex setup for this but those ones in
-the qemu tests tend to provide syntax to copy.
-I like the HMAT bios table tests
-https://elixir.bootlin.com/qemu/v11.1.1/source/tests/qtest/bios-tables-test.c#L2058
+- [Medium] Loop-variable corruption in fcnal-test.sh via bash dynamic
+  scoping: the new shared helper `log_test_expected()` in…
 
-And that suggests you want something like:
+--
 
--device pcie-root-port,chassis=1,id=pci.1"
--device nvme,drive=mynvme,serial=deadbeef,spdm_port=2323,spdm_trans=doe,bus=pci.1"
+selftests: net: move log_test to lib file and remove duplicate code
 
-Then you'll have a normal looking direct connected NVMe pcie express devices.
+This adds a shared log_test_expected() helper to
+tools/testing/selftests/net/lib.sh and replaces the near-identical
+per-script log_test() implementations in 31 net selftests with a call
+into it.  The new helper also gains PAUSE_ON_FAIL and PAUSE handling for
+scripts that previously had none.
 
-Shouldn't make any real difference in practice beyond paths changing and it
-smelling more normal for something you might want to attest!
+Link: https://lore.kernel.org/r/20260915-self_log_test-v3-1-a17728176334@kylinos.cn
+Link: https://lore.kernel.org/r/20260831-self_log_test-v2-1-eda2e8490cf9@kylinos.cn
+Link: https://lore.kernel.org/r/20260813-self_log_test-v1-1-f88b1107842e@kylinos.cn
 
+> diff --git a/tools/testing/selftests/net/fcnal-test.sh b/tools/testing/selftests/net/fcnal-test.sh
+> index 890c3f8e51bb8..a50609535fedc 100755
+> --- a/tools/testing/selftests/net/fcnal-test.sh
+> +++ b/tools/testing/selftests/net/fcnal-test.sh
+> @@ -97,34 +97,7 @@ fi
+>
+>  log_test()
+>  {
+> -	local rc=$1
+> -	local expected=$2
+> -	local msg="$3"
+> -	local ans
+> -
+> -	[ "${VERBOSE}" = "1" ] && echo
+> -
+> -	if [ ${rc} -eq ${expected} ]; then
+> -		nsuccess=$((nsuccess+1))
+> -		printf "TEST: %-70s  [ OK ]\n" "${msg}"
+> -	else
+> -		nfail=$((nfail+1))
+> -		printf "TEST: %-70s  [FAIL]\n" "${msg}"
+> -		echo "    expected rc $expected; actual rc $rc"
+> -		if [ "${PAUSE_ON_FAIL}" = "yes" ]; then
+> -			echo
+> -			echo "hit enter to continue, 'q' to quit"
+> -			read ans
+> -			[ "$ans" = "q" ] && exit 1
+> -		fi
+> -	fi
+> -
+> -	if [ "${PAUSE}" = "yes" ]; then
+> -		echo
+> -		echo "hit enter to continue, 'q' to quit"
+> -		read ans
+> -		[ "$ans" = "q" ] && exit 1
+> -	fi
+> +	log_test_expected "$1" "$2" "$3"
+>
+>  	kill_procs
+>  }
+
+[Severity: Medium]
+The old fcnal-test.sh log_test() declared "local ans" and used "read ans"
+in both pause branches.  Was that deliberate?  Many fcnal-test.sh test
+functions use "a" as their address loop variable, for example
+ipv4_ping_novrf():
+
+	local a
+	...
+	for a in ${NSB_IP} ${NSB_LO_IP}
+	do
+		log_start
+		run_cmd ping -c1 -w1 ${a}
+		log_test_addr ${a} $? 0 "ping out"
+
+		log_start
+		run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
+		log_test_addr ${a} $? 0 "ping out, device bind"
+
+The new shared helper in lib.sh reads into an undeclared "a" instead, and
+bash dynamic scoping makes that assignment land in the caller's "local a".
+The call chain is:
+
+	ipv4_ping_novrf() -> log_test_addr() -> log_test() ->
+		log_test_expected() -> read -r a
+	ipv4_ping_novrf() -> log_test_addr() -> log_test() ->
+		log_test_expected() -> pause_on_fail() -> read a
+
+Neither log_test_addr(), log_test(), log_test_expected() nor
+pause_on_fail() declares "local a".  With "-p" (PAUSE_ON_FAIL=yes) or "-P"
+(PAUSE=yes) from the fcnal-test.sh getopts handling, does pressing plain
+enter set a="" and leave the remaining subtests in the same loop iteration
+pinging no destination and logging an empty address?
+
+> diff --git a/tools/testing/selftests/net/lib.sh b/tools/testing/selftests/net/lib.sh
+> index d46d2cec89e45..f6f8b100a70c7 100644
+> --- a/tools/testing/selftests/net/lib.sh
+> +++ b/tools/testing/selftests/net/lib.sh
+> @@ -454,6 +454,39 @@ log_test_xfail()
+>  	RET=$ksft_xfail retmsg= log_test "$@"
+>  }
+>
+> +# Log test result with expected return value
+> +log_test_expected()
+> +{
+> +	local rc=$1
+> +	local expected=$2
+> +	local msg="$3"
+> +
+> +	if [ "${rc}" -eq "${expected}" ]; then
+> +		nsuccess=$((nsuccess+1))
+> +		printf "    TEST: %-60s  [ OK ]\n" "${msg}"
+> +	else
+> +		ret="$ksft_fail"
+> +		nfail=$((nfail+1))
+> +		printf "    TEST: %-60s  [FAIL]\n" "${msg}"
+> +		if [ "$VERBOSE" = "1" ]; then
+> +			echo "    rc=$rc, expected $expected"
+> +		fi
+> +
+> +		pause_on_fail
+
+[Severity: Medium]
+pause_on_fail() in lib.sh also reads without declaring the variable:
+
+	pause_on_fail()
+	{
+		if [[ $PAUSE_ON_FAIL == yes ]]; then
+			echo "Hit enter to continue, 'q' to quit"
+			read a
+			[[ $a == q ]] && exit 1
+		fi
+	}
+
+Would adding "local a" to log_test_expected() (and to pause_on_fail())
+keep the caller's "a" intact?
+
+> +	fi
+> +
+> +	if [ "${PAUSE}" = "yes" ]; then
+> +		echo
+> +		echo "hit enter to continue, 'q' to quit"
+> +		read -r a
+                     ^^^^^^^^^
+
+[Severity: Medium]
+This is the PAUSE=yes path that fcnal-test.sh reaches with "-P".  Since
+the pause fires after every test there, does every fcnal-test.sh function
+that declares "local a" lose its loop value here, including
+ipv4_ping_vrf(), the ipv4_tcp_* and ipv6_* helpers, and the netfilter_*
+helpers?
+
+> +		[ "$a" = "q" ] && exit 1
+> +	fi
+> +
+> +	[ "$VERBOSE" = "1" ] && echo
+> +
+> +	return 0
+> +}
+> +
+>  log_info()
+>  {
+>  	local msg=$1
+
+[ ... remaining per-script log_test() conversions snipped ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922-self_log_test-v4-1-4c656801f8dc%40kylinos.cn
