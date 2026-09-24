@@ -1,81 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C4AB3D967F;
-	Thu, 24 Sep 2026 18:01:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9285E3DE450;
+	Thu, 24 Sep 2026 18:01:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790272881; cv=none; b=LYC0PFGe6QMAN+brMK7v/kK+lTKLCn1sJdssu0d6/JP2dAZHI9laM1HwlDqPrFT1FmcAuGAh17qLCWEQblGyKe1eHGXxPOOK7pmQaNKd9qmzW7Cty11fXkOF82CNdYp9+mo+F0FqhkkfdhbjGNkPSOA3oUpgMOJVTiFbSbK4HOQ=
+	t=1790272907; cv=none; b=g8gQQShATuVfltPs/HKdKzz9mmVIiZh0fu1SziOgVcGVi5jux+sK3HyH1xqMyaeLK47AxLwdLe68OUvaRRC1TkiBGBYvmwFVW58Luy5MOWWjKQ6kZ+ZCjWL3c1HHV1st2fNiBxw7xolUirGlR5Hz1+jQiuZyiN6M/RzNa30vBf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790272881; c=relaxed/simple;
-	bh=lCW/CUfnoAFpPK4UKkZ3XhUHYchYHM3g9z5O6oeUFAk=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=pRYq8JHGiulwxR97aWVqeyVIoTMHIip/TcrH1vyAW/8z/F2g99TTRJjPVte4LOYCR0Jdu0rXQEUusyKz6eyCyxPskxyHbzfF1gHAOhGaoakJOY1gQCwsgmhHPTUZajrunzFtCHBOtERNKmCJ9PiBlwBC4hfJVQncOKuQQRLmZ10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iJsasJCe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790272907; c=relaxed/simple;
+	bh=9Bz+zmSclqz2/PiF27JHPe5qGo74vrDFI1ZxbBe6Hos=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PPIT1zlPMpU6nMSuByF/WyPfYy1BfKn0HNYw2hKCN6fIbtMuLbc0Pqia/qgzeS3x70sEp8krs/LSu9H5csP7YRZxiuPTHrVAPhSRXMnbxkwJPLsU566z2w6+hWX36avsClpIZ7XGgvzXZ4g3xXNTLs5tMupL2/W0+tsu5AKmDAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=Fe0nJ1Zp; arc=none smtp.client-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iJsasJCe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 329B61F00893;
-	Thu, 24 Sep 2026 18:01:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790272880;
-	bh=3b7s0TZCouRV+fANKyon2fgb5XJsJs6Z3Co+PZgaJH0=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=iJsasJCeYcma1r+urKfOz0k8MclnTql/D1yVdZRNt6KeUQFwBy4IYdzChbWGVpUgC
-	 +m1YjISlr9tTMgCG899hV+yLjNlALOFMET9kxqPlyp8wXKbEboH0D0hLqJGnosXYbD
-	 n+jvB7849l/+p3ecltU8JlbFJrJAvCEsTznzdkIrYkVmFSFW3+zX8X6NjvWAdiGHQw
-	 lwwaapzE1FapwSoJ2H2a9rQqqetku6tCKb7DziCdCP5/0fgoIePhdZOZyuQ67IggFt
-	 Ed0+3r13bhWufGoDv2dm9/Hcj8vh2KnFyrzesy4OL3D1dQNX7tEOCMK2qZXdhzhrL/
-	 6bxE/sx8eTlKQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 568C43A566DD;
-	Thu, 24 Sep 2026 18:00:10 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="Fe0nJ1Zp"
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4hrM8y6mR0z1XM5kW;
+	Thu, 24 Sep 2026 18:01:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1790272893; x=1792864894; bh=S+LCdIAUEZXHTSYTefczNZKI
+	mY/l3usWmlLwQxNDeqw=; b=Fe0nJ1ZpjxfLOfaNl1zLK8FnNJqYLLPHWBu+jhto
+	aiBiQfmuydx8e6/P1PpSoS6nXKsavJx+V1Xp2czBtHjAVQkNSV/Cz7+78wm2Sdna
+	5JMLT+8TH7yri0LORg8dG+8KjPo38UqoW7B4vkNepvHYOjE0iRjgpUVlGXfCYkLx
+	toI1nLDxfbnt6MARO/awiq7YfkRGlIV+b4u7pB9t8iN0sHzudXdhHmRBrwOjcg/9
+	kL2THEblL2gz9t2AuAdzoLTu0WlxVk7TnLEtvSTeDXrblEbwyybM04PV8lFSpQP0
+	rYq9fwdmsFuZdTvfKIQQabfS/7S6N8p4OzxAx0co1EEQ3w==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id C7_IbOr_IvQb; Thu, 24 Sep 2026 18:01:33 +0000 (UTC)
+Received: from [IPV6:2a00:79e0:2ed2:d:dc45:df52:b6ee:9465] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4hrM8p6yLHz1XM4Sx;
+	Thu, 24 Sep 2026 18:01:30 +0000 (UTC)
+Message-ID: <b6e08595-50f5-494b-ae5e-726513d8dae2@acm.org>
+Date: Thu, 24 Sep 2026 11:01:29 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] net: ethernet: stmmac: dwmac-rk: fix bulk clock
- leak
- when the PHY clock fails
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179027280889.1685480.8117520252597627875.git-patchwork-notify@kernel.org>
-Date: Thu, 24 Sep 2026 18:00:08 +0000
-References: <20260923123713.3137146-1-coiaprant@gmail.com>
-In-Reply-To: <20260923123713.3137146-1-coiaprant@gmail.com>
-To: Coia Prant <coiaprant@gmail.com>
-Cc: heiko@sntech.de, maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- sebastian.reichel@collabora.com, netdev@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, lorenzo.bianconi@oss.qualcomm.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] loop: defer the queue limits clear to a workqueue
+To: Tao Cui <cui.tao@linux.dev>, axboe@kernel.dk, hch@lst.de,
+ Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+Cc: cuitao@kylinos.cn, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260924102027.2307044-1-cui.tao@linux.dev>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20260924102027.2307044-1-cui.tao@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello:
+On 9/24/26 3:20 AM, Tao Cui wrote:
+> +	memflags = blk_mq_freeze_queue(lo->lo_queue);
+> +	mutex_lock(&lo->clear_limits_lock);
+> +	if (lo->clear_limits_gen == lo->rebind_gen) {
+> +		mode = lo->clear_limits_mode;
+> +		lo->clear_limits_mode = 0;
+> +
+> +		if (mode & FALLOC_FL_ZERO_RANGE)
+> +			lim.max_write_zeroes_sectors = 0;
+> +
+> +		if (mode & FALLOC_FL_PUNCH_HOLE) {
+> +			lim.max_hw_discard_sectors = 0;
+> +			lim.discard_granularity = 0;
+> +		}
+> +	}
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+I propose to remove the member variables clear_limits_gen and
+rebind_gen. These member variables complicate verifying correctness
+of the code and IMHO are not necessary. If loop_clear_limits() races
+with loop_clear_limits_workfn(), the work will be rescheduled and
+loop_clear_limits_workfn() will be called another time.
 
-On Wed, 23 Sep 2026 20:37:13 +0800 you wrote:
-> gmac_clk_enable() enables the bulk clocks first and then the optional
-> PHY clock. If clk_prepare_enable() on the PHY clock fails, the function
-> returns without rolling back the bulk clocks, and bsp_priv->clk_enabled
-> stays false, so the later gmac_clk_enable(bsp_priv, false) becomes a
-> no-op and the bulk clock references are leaked.
-> 
-> Add the missing clk_bulk_disable_unprepare() on that failure path.
-> 
-> [...]
+>   	queue_limits_commit_update(lo->lo_queue, &lim);
+> +	mutex_unlock(&lo->clear_limits_lock);
 
-Here is the summary with links:
-  - [net,v2] net: ethernet: stmmac: dwmac-rk: fix bulk clock leak when the PHY clock fails
-    https://git.kernel.org/netdev/net/c/8db67bb6a1ff
+Since the mutex_lock(&lo->clear_limits_lock) call occurs after
+queue_limits_start_update(), please move the
+mutex_unlock(&lo->clear_limits_lock) call above the
+queue_limits_commit_update() call. This has no impact on
+correctness nor on the lock nesting order but makes the code
+easier to follow.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Thanks,
 
-
+Bart.
