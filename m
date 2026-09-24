@@ -1,206 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FFB5450917;
-	Thu, 24 Sep 2026 20:20:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1CE049F116;
+	Thu, 24 Sep 2026 20:21:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790281261; cv=none; b=YHzfzR0kGyJ8/Me12qupIbGtaomYCGpd8Cb0I9E2zuIhdkIsfmjbVSpJwz18LrbNt5FY1S/Cq065dMexbFjmJ+DdOc5HGrAW/xtlecYghycU7pOmQrcEYMEdukQJkCLzwDo66aHA/I96qGQ8Go3p1arEmL6lfN4S8qD/C/oXVLo=
+	t=1790281277; cv=none; b=rDu7LaGZWPR3Kjk43Yejep8Di5lcyAT4WaJWe+B0DO6SNixxoM8OAJWRJldsDAemCOxaIE6q6Q5YGLgjmvIydkUZ0Yz69jXBiTw+zDcmpPYl3u1j4Wj9BbAnYwFjtSASx7ABPXCMGhIAng2+l755270vgoSllwsbQgeYUdwHdok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790281261; c=relaxed/simple;
-	bh=l2vtykl3aoKE+pW5zbclqLHP7ZLcrfk00vV5h006+cY=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=K86NAW5NuA23GUvGrmtNdXVZNYPvHw1aoMoPvz/q/Gtq4Uvcdm/lKhQRrkebe4TsOCXSqGgA/Q27zfGyHvE6i51A7ZJlrYyUIxe9ITzQ/u50uroeA7NZpfrAt+S1hIRLBdKF+0ssKvdpN7/ytUby6qRVEj9zBX0g+78r01pjzhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fuzOAFvq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790281277; c=relaxed/simple;
+	bh=slkHVK5U/MWavFpAcps1cRcNaZnjBApvcqiyIpsGwVE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=UBeieHFSgIFCAijIELTSZSh1CtgveD0potQmOspUXjTexlF9xR+BLrmywXO3QU29ng9HZb1Ub96VBIfMeAAw3hQgI32iA2WY6W6/YALeObtlACu6LX8LNSUhP6K1oSfUka+v1S4xBHv6QQ/qUp6CNOfFLa86Os+cyXgdP4BZ8qs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=Ac1QlAXs; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fuzOAFvq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D35C1F00893;
-	Thu, 24 Sep 2026 20:20:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790281258;
-	bh=yNBfd0VIQTvDvHVYOxbz0XHLadGwVlUtcbPe8QuCPrk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=fuzOAFvq+PtxAppUyNp/Es6gSCaUeyyCZ+KGHxcMOsDTX1flrvVSpJEN4pSjRaXNJ
-	 mqPMC06UYVEwlGMgFa4wNhlGlFasDozTys2J4P+kIv7zEOaGJ+jzHg9aeIVt+Sa+FS
-	 fq6lS8KALmBBqsqLtDimRW3giD9J+G+Fq+of0WHlgveifOIKFe0sO4bXeS397QwRMl
-	 uRNWF6Vk7ps68cY/jUDFhSyXODWw0sTXd33DM0UUeFYaKX4O0TvrGyRkxK5eZmeyWF
-	 Q9hlGxLfkju33jpLUZj3P7wcpiE3XKH09FjrP9Ss/1T2Lklwxr6Ud86P57m8Q3mwQl
-	 nEgr98M2bOlyg==
-Date: Thu, 24 Sep 2026 15:20:56 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
-Cc: Maciej Grochowski <Maciej.Grochowski@sony.com>,
-	Nikolas Joshua Britton <nbritton@exabit.io>,
-	Geramy Loveless <gloveless@jqluv.com>,
-	Eric Auger <eauger@redhat.com>,
-	Alexey Fomenko <alexey.fomenko@intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	"Rafael J. Wysocki" <rafael@kernel.org>
-Subject: Re: [PATCH 5/5] PCI/quirks: Avoid certain BAR 0 address with igb
-Message-ID: <20260924202056.GA2001522@bhelgaas>
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="Ac1QlAXs"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=Y5qRHSz2LIYPtpRF3z47AMREZz0w7fd5T9syEn/c6w0=; b=Ac1QlAXsMfBBT1NiFTB6Bm0q/o
+	qwm8EMX3Mhv4bNWiojSat7TYbHq7f3GgHksPHgArzS/JNIcCIc8bZ66nh7NoVJv4gyJMu8kVc0YWq
+	XSZUwdvVE46gYAZ0riMaMoBfUVuyPw0asbKKEAN77HFH+nM7pB36RYKzbgbG1rQEFI0TDfNigTWt8
+	qtFyIMUNkbk+np5OOKgBcEFWHItM3EemOATKmya4WDE4GiVO0zsNhnuxQollowvLsz9v5J+ZTLdtZ
+	EFDGUAOD/yik3+e5cL254YDUgN7zdyYFJ5ymC3ocgHwlSJqzlXUH7e5iPdub7zPtnZ3BqB2tv/uWP
+	IyjEKI6w==;
+Received: from [151.115.150.205] (port=41492 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1x9pwN-0000000G2mf-3l7m;
+	Thu, 24 Sep 2026 22:21:11 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Jon Maloy <jmaloy@redhat.com>,
+	Tung Quang Nguyen <tung.quang.nguyen@est.tech>
+Cc: netdev@vger.kernel.org,
+	tipc-discussion@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: [PATCH] tipc: prevent GCM nonce reuse on peer key changes
+Date: Thu, 24 Sep 2026 20:21:05 +0000
+Message-ID: <20260924202105.3722778-1-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260923131757.7792-6-ilpo.jarvinen@linux.intel.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-[+cc Rafael, ACPI resource question]
+TIPC can encrypt traffic between nodes using a different transmit key
+for each node. In this mode, the AES-GCM nonce for a packet sent to a
+known peer consists of a 32-bit prefix (a per-key salt XOR the peer's
+address) followed by a 64-bit counter. That counter is stored in the
+peer's RX crypto object. When the peer reports a change in which key
+it uses to receive packets, TIPC resets this counter. The sender can
+still be using the same TX key and salt, so subsequent packets reuse
+earlier nonces. This nonce reuse breaks confidentiality and exposes
+GCM's authentication key. This makes forgeries trivial: an attacker
+can exploit CTR malleability to alter captured ciphertexts and use the
+recovered authentication key to compute a valid tag for the modified
+ciphertext, under the same key and nonce.
 
-On Wed, Sep 23, 2026 at 04:17:55PM +0300, Ilpo Järvinen wrote:
-> While testing the resource placement changes, my tests hit a case where
-> igb fails to probe when BAR 0 is placed at 0x9c000000:
-> 
->    90000000-9cffffff : PCI Bus 0000:a0
->   -  90000000-902fffff : PCI Bus 0000:a1
->   -    90000000-900fffff : 0000:a1:00.0
->   -      90000000-900fffff : igb
->   -    90100000-901fffff : 0000:a1:00.0
->   -    90200000-90203fff : 0000:a1:00.0
->   -      90200000-90203fff : igb
->   +  9be00000-9c0fffff : PCI Bus 0000:a1
->   +    9be00000-9befffff : 0000:a1:00.0
->   +    9bf00000-9bf03fff : 0000:a1:00.0
->   +    9c000000-9c0fffff : 0000:a1:00.0
->      9c100000-9c17ffff : amd_iommu
->      9c180000-9c1803ff : IOAPIC 8
-> 
->   -       Region 0: Memory at 90000000 (32-bit, non-prefetchable) [size=1M]
->   -       Region 3: Memory at 90200000 (32-bit, non-prefetchable) [size=16K]
->   -       Expansion ROM at 90100000 [disabled] [size=1M]
->   +       Region 0: Memory at 9c000000 (32-bit, non-prefetchable) [size=1M]
->   +       Region 3: Memory at 9bf00000 (32-bit, non-prefetchable) [size=16K]
->   +       Expansion ROM at 9be00000 [disabled] [size=1M]
-> 
-> igb 0000:a1:00.0 0000:a1:00.0 (uninitialized): PCIe link lost
-> ------------[ cut here ]------------
-> igb: Failed to read reg 0x18!
-> WARNING: drivers/net/ethernet/intel/igb/igb_main.c:724 at igb_rd32.cold+0x3c/0x4f [igb], CPU#32: kworker/32:1/706
-> ...
->  igb_get_invariants_82575+0xff/0xf00 [igb]
->  igb_probe+0x3c8/0x1190 [igb]
->  local_pci_probe+0x3b/0x80
-> 
-> Apparently, the igb driver bails out, after its initial sanity check
-> detects an unexpected ~0 read. Hacking around the sanity check just
-> results in more failures down the road so the sanity check itself is not
-> the cause for the failure.
-> 
-> The resource placement looks valid so the actual placement patches seem
-> to work normally.
-> 
-> All other possible 1M address I could test (with a hack patch) did work.
+Use the TX key's existing aead->seqno counter instead. All encryptions
+using that key object share the same atomic counter, so concurrent
+encryptions get distinct nonce counter values. The counter survives
+key activation and peer reconnection, and peer key-status reports
+cannot reset it. This prevents those transitions from causing nonce
+reuse while the same TX key remains installed.
 
-Super weird.  Is it possible there's some other device there?  It's
-conceivable ACPI might have a _CRS method describing it.  I think
-there are ACPI devices for which we don't reserve space mentioned in
-_CRS.  Maybe Rafael knows a debug option to log everything in _CRS?
+The nonce format is unchanged, and receivers do not require consecutive
+counter values, so sharing the counter across peers remains compatible
+with existing receivers. A pre-existing check still invokes key
+revocation in the unlikely event that the counter wraps to zero.
 
-Does igb seem sensitive about this exact address on a variety of
-machines?  If so I would expect some kind of igb hardware erratum for
-it.
+Fixes: fc1b6d6de220 ("tipc: introduce TIPC encryption & authentication")
+Assisted-by: LLM
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+ net/tipc/crypto.c | 20 +++++---------------
+ 1 file changed, 5 insertions(+), 15 deletions(-)
 
-Do other non-igb devices work at that address?
+diff --git a/net/tipc/crypto.c b/net/tipc/crypto.c
+index 16f1ed1..4409bdb 100644
+--- a/net/tipc/crypto.c
++++ b/net/tipc/crypto.c
+@@ -144,7 +144,7 @@ struct tipc_tfm {
+  * @rcu: struct rcu_head
+  * @key: the aead key
+  * @gen: the key's generation
+- * @seqno: the key seqno (cluster scope)
++ * @seqno: the per-key TX nonce counter
+  * @refcnt: the key reference counter
+  */
+ struct tipc_aead {
+@@ -190,7 +190,6 @@ struct tipc_crypto_stats {
+  * @rekeying_intv: rekeying interval (in minutes)
+  * @stats: the crypto statistics
+  * @name: the crypto name
+- * @sndnxt: the per-peer sndnxt (TX)
+  * @timer1: general timer 1 (jiffies)
+  * @timer2: general timer 2 (jiffies)
+  * @working: the crypto is working or not
+@@ -219,7 +218,6 @@ struct tipc_crypto {
+ 	struct tipc_crypto_stats __percpu *stats;
+ 	char name[48];
+ 
+-	atomic64_t sndnxt ____cacheline_aligned;
+ 	unsigned long timer1;
+ 	unsigned long timer2;
+ 	union {
+@@ -1051,14 +1049,11 @@ static int tipc_ehdr_build(struct net *net, struct tipc_aead *aead,
+ 	WARN_ON(skb_headroom(skb) < ehsz);
+ 	ehdr = (struct tipc_ehdr *)skb_push(skb, ehsz);
+ 
+-	/* Obtain a seqno first:
+-	 * Use the key seqno (= cluster wise) if dest is unknown or we're in
+-	 * cluster key mode, otherwise it's better for a per-peer seqno!
++	/*
++	 * Keep the nonce unique for the lifetime of the TX key,
++	 * including key state changes and peer reconnection.
+ 	 */
+-	if (!__rx || aead->mode == CLUSTER_KEY)
+-		seqno = atomic64_inc_return(&aead->seqno);
+-	else
+-		seqno = atomic64_inc_return(&__rx->sndnxt);
++	seqno = atomic64_inc_return(&aead->seqno);
+ 
+ 	/* Revoke the key if seqno is wrapped around */
+ 	if (unlikely(!seqno))
+@@ -1237,7 +1232,6 @@ void tipc_crypto_key_flush(struct tipc_crypto *c)
+ 	tipc_crypto_key_set_state(c, 0, 0, 0);
+ 	for (k = KEY_MIN; k <= KEY_MAX; k++)
+ 		tipc_crypto_key_detach(c->aead[k], &c->lock);
+-	atomic64_set(&c->sndnxt, 0);
+ 	spin_unlock_bh(&c->lock);
+ }
+ 
+@@ -1384,8 +1378,6 @@ done:
+  * It also considers if peer has no key, then we need to make own master key
+  * (if any) taking over i.e. starting grace period and also trigger key
+  * distributing process.
+- *
+- * The "per-peer" sndnxt is also reset when the peer key has switched.
+  */
+ static void tipc_crypto_key_synch(struct tipc_crypto *rx, struct sk_buff *skb)
+ {
+@@ -1436,7 +1428,6 @@ static void tipc_crypto_key_synch(struct tipc_crypto *rx, struct sk_buff *skb)
+ 		if (cur)
+ 			tipc_aead_users_dec(tx->aead[cur], 0);
+ 
+-		atomic64_set(&rx->sndnxt, 0);
+ 		/* Mark the point TX key users changed */
+ 		tx->timer1 = jiffies;
+ 
+@@ -1501,7 +1492,6 @@ int tipc_crypto_start(struct tipc_crypto **crypto, struct net *net,
+ 	tipc_crypto_key_set_state(c, 0, 0, 0);
+ 	atomic_set(&c->key_distr, 0);
+ 	atomic_set(&c->peer_rx_active, 0);
+-	atomic64_set(&c->sndnxt, 0);
+ 	c->timer1 = jiffies;
+ 	c->timer2 = jiffies;
+ 	c->rekeying_intv = TIPC_REKEYING_INTV_DEF;
+-- 
+2.47.3
 
-> Add quirk to reshuffle igb resources, use BAR 3 to block the problematic
-> address.
-> 
-> Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-> ---
-> 
-> I know this is ugly and I don't like it either but do not know better
-> way to avoid the regression.
-> 
-> I've tried with iommu=off and that did not resolve the issue.
-> 
-> I also managed to prove igb works with the same resource layout in
-> another system. So identifying the case should probably be tightened
-> by matching with more devices than the one used by igb. This is open
-> to discussion.
-
-I guess this answers one of my questions above.
-
-> ---
->  drivers/pci/quirks.c | 56 ++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 56 insertions(+)
-> 
-> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-> index de9bbccda21f..e6f3e2ab1fd4 100644
-> --- a/drivers/pci/quirks.c
-> +++ b/drivers/pci/quirks.c
-> @@ -6288,6 +6288,62 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1536, rom_bar_overlap_defect);
->  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1537, rom_bar_overlap_defect);
->  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1538, rom_bar_overlap_defect);
->  
-> +/*
-> + * The igb driver probe (due to reads returning ~0 unexpected) when BAR 0
-> + * appears at 0x9c000000. The cause is unknown.
-
-I suppose this is missing "fails"?  "igb driver probe fails"?
-
-> + * Use BAR 3 to block 0x9c000000 address.
-> + */
-> +static void bar0_address_breakage(struct pci_dev *dev)
-> +{
-> +	struct resource *bar0 = pci_resource_n(dev, 0);
-> +	struct resource *bar3 = pci_resource_n(dev, 3);
-> +	resource_size_t broken_addr = 0x9c000000;
-> +	struct resource *res;
-> +	int i, ret;
-> +
-> +	if (bar0->start != broken_addr)
-> +		return;
-> +
-> +	/*
-> +	 * HW BAR sizes seems to vary. Exclude non-1M BAR 0 case and
-> +	 * sanity check BAR 0 & 3 before attempting this quirk.
-> +	 */
-> +	if (resource_type(bar0) != IORESOURCE_MEM ||
-> +	    resource_size(bar0) != SZ_1M ||
-> +	    resource_type(bar3) != IORESOURCE_MEM)
-> +		return;
-> +
-> +	pci_info(dev, "%pR: relocating BAR\n", bar0);
-> +
-> +	pci_dev_for_each_resource(dev, res, i) {
-> +		if (!resource_assigned(res) ||
-> +		    resource_type(res) != IORESOURCE_MEM)
-> +			continue;
-> +
-> +		pci_release_resource(dev, i);
-> +	}
-> +
-> +	resource_set_range(bar3, broken_addr, resource_size(bar3));
-> +	bar3->flags &= ~IORESOURCE_UNSET;
-> +	pci_claim_resource(dev, 3);
-> +	if (!resource_assigned(bar3)) {
-> +		bar3->flags |= IORESOURCE_UNSET;
-> +		pci_warn(dev, "resource relocation failed\n");
-> +	}
-> +
-> +	pci_dev_for_each_resource(dev, res, i) {
-> +		if (resource_assigned(res) ||
-> +		    resource_type(res) != IORESOURCE_MEM)
-> +			continue;
-> +
-> +		ret = pci_assign_resource(dev, i);
-> +		if (ret)
-> +			pci_warn(dev, "resource relocation failed\n");
-> +	}
-> +}
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, 0x1533, bar0_address_breakage);
-> +
->  #ifdef CONFIG_PCIEASPM
->  /*
->   * Several Intel DG2 graphics devices advertise that they can only tolerate
-> -- 
-> 2.47.3
-> 
