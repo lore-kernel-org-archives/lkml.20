@@ -1,142 +1,119 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A05B41C30F
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:51:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB62A3B8950
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:52:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790236308; cv=none; b=XClRSOva6qJ78J671h2VKCq39lQf+MYE0VcBRaOk9UISaOt2YT6bhu/NTQ2INJ7Bj5TqYNPS81F2Z7eTJ3agequuOeCuN0RTCXffj4Gs/b/A1RJeZErYChvYINey8yHxURNTkUuAxE4OhVpNTOl+GvhCmTz8LLbvS5o/SCf3Ouk=
+	t=1790236331; cv=none; b=Te3aZQfs+8MHZeiqZ+OCY0s/QU45yPjN5i6jF/SxaragJQ5ouJqkVCTEqikMCsEZxCvx5WkOEJOmcpOMiPOCei2qjMNDj4pw6OpokwxLDWNI0uHrD7wZhpq7IcvkcYuGR45TVsqUH1emY6+vvBwWWtNfp8mHQLL7tERfIp4W0Xc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790236308; c=relaxed/simple;
-	bh=TRhy+/I5J77Q/1YSA/sx8GUDSoNQC6h5HCw7Plj0rt4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=onwL2YqUHG610Z4bYOQHMDeKo+eiMQIZzTbVv0jeAQrGYZOwx7njKPSD5qbb3PAU7ifzKh/EmzyaraJj0v2uBho+ASLBkDSEd6e73gWXJmZwVhzXAkC8spbYRBxymg3e1+VpYsUjBJxXMkwax5pGIOZPxi5Ejalwv8iytNypP7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kvySO9zc; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790236331; c=relaxed/simple;
+	bh=Q2w6LF4/zIJhMqgnul1q5Ke3T8Fce4xJ7qGlNUdJ/6g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=e7jvHTLPl/px/aF1WgK01P+GTlin2QdbWbuyooD1KJGP7NGcRbIFpNJlP0ePNvms0FSPIzwvMp6kC0pEIwLkl2XdY3NcOlJ+QzzOK7SRL035zzA6onAGtOf6XKklLbYTfQbzZ4mDWPijJWNFQaDq7wcR1PTAiwUEXhjXRD6jJZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ptqlc8kx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kvySO9zc"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd5cf03so1278056a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:51:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790236305; x=1790841105; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9EQyRWWK5qALWLPwUJRBoHZhkD+3TF7/yRx4MDMxnNM=;
-        b=kvySO9zceooGMWylSC7lHqHR0rxQm/aJ1VGKgXt8e0Jav7K2ox9HpYaMF4Qclb0NOg
-         NNuA0WL+FfY+BBTg1eL9hcPy+GavGfTdWLOvXfgeNJDuLn7R6pwF5AP1JWxIeKwy0HGE
-         mENveACQf4p45uxtb6AcnXKcirexYkZ6Wxo+23Wo7woFyaLxskg4LGzgO/cR8BOdUcl0
-         pYVuP/27html1dJD6YyYTtJ/72epF322jl9tSQiHYJfg5PGdqaVMRte/568uMApxos6C
-         PqpP3NLkczwGMX7sJrFt2XY/+1WfCjBdMW9JsQ5yzrYLNutN5wZcsxmB4viy+GTVyhkt
-         GJCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790236305; x=1790841105;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9EQyRWWK5qALWLPwUJRBoHZhkD+3TF7/yRx4MDMxnNM=;
-        b=KzNik51t16aMsoIdpx840dBFolBddCJ5+YTmIyASWaZtNDBgb0pzSDhKxSsl443IE4
-         PXib8iR7M6Mqr73cipDW9b+y+YLX5Zt1NbvNQ1W7ukKLyb3rV4Z5dJdSyCYY2cgYdCQu
-         2CMgRMANXMliQFLx8CQEY5QZJZSO8kThNwb/1fqQj1oFyV0FTQSVOFoCFdNM6IqtvrDr
-         vzsZ69v7oPbEtJ7fq9tYaxLITSufzCpo5YNawDD98GoCfkAkmvqdDM4NUV8kgI1Knrc7
-         WQe+waz5axteuERGqosrUPI6/H12XFdIIZJWhwXc5bnaB58BJnBIRQEUmPqaYYUqoaXp
-         q4BA==
-X-Forwarded-Encrypted: i=1; AKwUvBxHMcFMZp4F2LCrbkhwYA6OSN7iEnpsqUZiVWtzwdp5dubOMbzclxqqQFLOJt+FDqbIS3W4eY+zVgMcB/g=@vger.kernel.org
-X-Gm-Message-State: AFuF++n6OVA1UejlgLgBvdnsWB0uAyTrUUiSYCvoSskMiWNwPDUJwun9
-	oBq1vRHGSa+X/2mIfC3mQmX+d1Mq7j6nKwgQt/ZwnC2M7mgKdtqN13dW
-X-Gm-Gg: AYBFou0BFrkO/BHye5H/w7YQzv8Aqku4QfuffwIufrGHbHzjf4V2mj7TYOVnXBKEdGk
-	BxLMuMDSULiZPaFavzZ4B8onF7KEJDZthjfV5KgRxTTheCyrINFdDHt2v7ytSCRHzGF2cNjb8Kl
-	vHrEzg8uxwkLaOuSHGunSufdn827rvfSoujDL9jvyblFOrO4WOwjFCc/Xp1+rdinM9pZPCb6cL0
-	nYuJ+Y24luOM83VQjIo0iSTBGyIy/6oQvJzAYbw1N7E/N11eYKjn0Voi0qOm6NXpSfaplQ6LHCx
-	gKBw1MgSCvklcqK7W5Pu9Qcg25bosMaVSRpsQqXJkaBoKqFFZJZc6CLUZoG67m7TuhSVGKqLF2N
-	t0uBVVxCGYF6isIHhxGcR63QE86v8S++dDyFgE2U9ERNndlT6UVTi9WfF/E9HZ6JAm+e44Wc+ho
-	5WM5HcIWaSuO2igi9bn58i1n7B894DYaSwSg1cDmK9Kstb2EaiILq+6++DaTeIhTRklMUOS0Eww
-	5PKvYg/lKyL1E2lfWiKH7+DsoCjYv70fAawoqSHPljwr1A7knqJrrjBhxdSuhYIl2PTJNTUQJqF
-	bKQQRzQySwQ=
-X-Received: by 2002:a17:90b:3d92:b0:39e:6c69:f474 with SMTP id 98e67ed59e1d1-3a098cf4a56mr1420939a91.51.1790236305347;
-        Thu, 24 Sep 2026 00:51:45 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0972eec92sm3540181a91.7.2026.09.24.00.51.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 00:51:44 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	dsahern@kernel.org
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	andrea.mayer@uniroma2.it,
-	hangbin.liu@linux.dev,
-	Hui Peng <benquike@gmail.com>
-Subject: [PATCH net v3] ipv6: sr: enforce exact attribute length for SEG6_ATTR_DST
-Date: Thu, 24 Sep 2026 07:51:43 +0000
-Message-ID: <20260924075143.2839886-1-benquike@gmail.com>
-X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ptqlc8kx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4E381F00899
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:52:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790236329;
+	bh=flhXc27wZ7lq+96q79C1lo9pyNK1W5OvD7SOTlgsYQY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Ptqlc8kxRS/O4MemHmjZ01Ds3sA61fs3CTI+JusAagmLQsN1Akqn2+RqNvZW8Uu1B
+	 fkVtGl19o2GvoAfTGg+wN4khUgWOJ9FZX6ktZ8KPNQnifbt782gXCEup9k83OVKU2t
+	 EPotrLbjrIE8X+v32os82VcQO6ZZF9OCqIB3J9O376A1cE7zOP/KVOHPHmH04n7+6z
+	 tdkyUv/Up2f/Iz9O8fAfZSk8Nri0naYfsAwGJoOlvBHaXT1tsMl7JNC0kw9wS2Iska
+	 V2pq+RIOw9lvDpy2GpXUcGS99+p1HdKg7KmPutL/KHb/YUGMP+2Bo5mPAMtHNBa5Oe
+	 8VnDmcBpmgBvw==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f17450so1708391e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:52:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz27Po8Ri4FV1RVeY43cpUa8aU3gjnS9+YFAqKTu0nRnrb3/+xCqYXkaVB2/shnGPwBDMxpp7C0qg53cao=@vger.kernel.org
+X-Gm-Message-State: AFuF++nR+EnznAIzVfffhLCTWjqBwrnj2azYQemvCHVsalnDGEvoeW0M
+	IU+Lt1LTgP3ymduzuROHmMlgqSTwjKtMbtfk2y/vBST9JT+JzK3c50Y//jPZi7AFI1olyUxxmUe
+	xgr8CJJdnTEDUhQMJEaQstNSaLccZzvg=
+X-Received: by 2002:a05:6512:6c8:b0:5b8:b419:b7b with SMTP id
+ 2adb3069b0e04-5b8e0a18d1cmr355916e87.49.1790236328001; Thu, 24 Sep 2026
+ 00:52:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
+ <20260916-drm-bridge-every-panel-v3-12-83afb4f1a707@bootlin.com>
+ <arInho2bsfJiCgjV@houat> <DLNCQEG62F5N.O98WAO4U2FJO@bootlin.com>
+In-Reply-To: <DLNCQEG62F5N.O98WAO4U2FJO@bootlin.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 24 Sep 2026 09:51:53 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkk-a0MrQUiaDD8OoDDoYVwBwSjFTj5ZBy=Xo7MS4+01g@mail.gmail.com>
+X-Gm-Features: AclHuK8rPixm6Txa-uGEDmLc8FjUZWkrHeBO_IgguNN-8bSfUZSDFWgY_JslL90
+Message-ID: <CAD++jLkk-a0MrQUiaDD8OoDDoYVwBwSjFTj5ZBy=Xo7MS4+01g@mail.gmail.com>
+Subject: Re: [PATCH v3 12/19] drm/mcde: dsi: don't create a panel_bridge
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Maxime Ripard <mripard@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+	Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>, 
+	Paul Kocialkowski <paulk@sys-base.io>, Inki Dae <inki.dae@samsung.com>, 
+	Jagan Teki <jagan@amarulasolutions.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Sean Paul <sean@poorly.run>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Albert Esteve <aesteve@redhat.com>, 
+	Anusha Srivatsa <asrivats@redhat.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, 
+	asahi@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
+	freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-samsung-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In seg6_genl_policy, SEG6_ATTR_DST is defined with .type = NLA_BINARY and
-.len = sizeof(struct in6_addr). For NLA_BINARY, .len only enforces the
-maximum payload length and permits shorter payloads (e.g., 0 bytes).
-When seg6_genl_set_tunsrc() copies sizeof(struct in6_addr) bytes via
-kmemdup(val, sizeof(*val), GFP_KERNEL), a short SEG6_ATTR_DST attribute
-triggers a 16-byte out-of-bounds read past skb->tail into uninitialized
-skb->head memory, which is stored in sdata->tun_src and leaked back to
-userspace via SEG6_CMD_GET_TUNSRC.
+Hi Luca,
 
-Switch SEG6_ATTR_DST in seg6_genl_policy to
-NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)) so that generic netlink
-validation rejects any attribute whose length is not exactly
-sizeof(struct in6_addr) with -ERANGE.
+sorry for my slowness!
 
-Tested in QEMU against Linux 7.3.0-rc3 by sending a SEG6_CMD_SET_TUNSRC
-Generic Netlink message with a 0-byte SEG6_ATTR_DST attribute followed
-by SEG6_CMD_GET_TUNSRC. On the unfixed kernel, SEG6_CMD_SET_TUNSRC
-succeeds (err = 0) and SEG6_CMD_GET_TUNSRC leaks 16 bytes of
-uninitialized kernel heap memory (tun_src =
-836a61ecc4d25a1042a8d60411cfb378); with this patch applied,
-SEG6_CMD_SET_TUNSRC is rejected by netlink policy validation with
--ERANGE (-34) and tun_src remains zeroed.
+On Thu, Sep 24, 2026 at 9:01=E2=80=AFAM Luca Ceresoli <luca.ceresoli@bootli=
+n.com> wrote:
+> On Tue Sep 22, 2026 at 9:09 AM CEST, Maxime Ripard wrote:
 
-Fixes: 915d7e5e5930 ("ipv6: sr: add code base for control plane support of SR-IPv6")
-Cc: stable@vger.kernel.org
-Reviewed-by: Andrea Mayer <andrea.mayer@uniroma2.it>
-Reviewed-by: Hangbin Liu <hangbin.liu@linux.dev>
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
----
-Changes in v3:
-- Add Reviewed-by tag from Andrea Mayer.
-- Send as a fresh standalone thread (no In-Reply-To header) as requested by
-  Jakub Kicinski.
+> >> -    } else if (bridge) {
+> >> +    if (!bridge) {
+> >> +            dev_err(dev, "no bridge\n");
+> >> +            return -ENODEV;
+> >> +    } else if (!drm_bridge_is_panel(bridge)) {
+> >>              /* TODO: AV8100 HDMI encoder goes here for example */
+> >>              dev_info(dev, "connected to non-panel bridge (unsupported=
+)\n");
+> >>              return -ENODEV;
+> >
+> > I wonder if we still need that branch. Every panel is a bridge now, and
+> > it looks like we don't have any specific panel handling in this driver,
+> > so I guess it supports bridges already?
+> >
+> > Linus, do you know why this condition was here in the first place?
+>
+> I had the same thought while writing the patch, but I chose to be
+> conservative.
+>
+> Linus, unless you have more info I'm going to apply the patch as
+> is. Removing this special case would be welcome as a later patch.
 
-Changes in v2:
-- Drop the redundant nla_len(info->attrs[SEG6_ATTR_DST]) !=
-  sizeof(struct in6_addr) check in seg6_genl_set_tunsrc() since
-  NLA_POLICY_EXACT_LEN() in seg6_genl_policy already enforces the exact
-  length, as pointed out by Hangbin Liu.
+I'd say go ahead as-is.
 
- net/ipv6/seg6.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+I do have the idea to code up and submit the AV8100 encoder
+and I have the hardware to test it, but every other user should
+be using panels directly, and I would be the only non-panel
+user so I can deal with it when it comes up.
 
-diff --git a/net/ipv6/seg6.c b/net/ipv6/seg6.c
-index 62a7eb779202..8c2b156c227a 100644
---- a/net/ipv6/seg6.c
-+++ b/net/ipv6/seg6.c
-@@ -138,8 +138,8 @@ void seg6_icmp_srh(struct sk_buff *skb, struct inet6_skb_parm *opt)
- static struct genl_family seg6_genl_family;
- 
- static const struct nla_policy seg6_genl_policy[SEG6_ATTR_MAX + 1] = {
--	[SEG6_ATTR_DST]				= { .type = NLA_BINARY,
--		.len = sizeof(struct in6_addr) },
-+	[SEG6_ATTR_DST]				=
-+		NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)),
- 	[SEG6_ATTR_HMACKEYID]		= { .type = NLA_U32, },
- 	[SEG6_ATTR_SECRET]			= { .type = NLA_BINARY, },
+Yours,
+Linus Walleij
