@@ -1,267 +1,282 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9B6C42252A
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:53:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790283232; cv=fail; b=ZXtwB7iKyt+XfhtY89uTZun+2x/k/iRQ3SZF8ZuqJqJeIG0nvOO7Ih1GdB8ztq39RynI8sp8LdQ+UJn8g82GCoVbytlAoeLLAm4Di7JVrQi/b4XF0hmWsL7MyEEBBoCXnPn9Ouh3/Q2nhPuBpegITHB5uUBoBWdEN0K4ZyCJ9Dk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790283232; c=relaxed/simple;
-	bh=eFqsKB7/CbzvM747icx5xKNIrP/y6qLBbSZ972FYWr8=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=KpUBYlgtsO1clgRdg5fVV6qIQV5u+N98qJugq9UM2ZtJa8Olys3XSqPoIWaqT0YUqOkt62qiIaOAzon2eeULcid9GgGwsPakxMqVLouJqR7bnOTabamTK12MjL7gE4REjM44Tg2xEs0EKnfsX1JRIMB9vKwC9cyiHjq3MLKv4dY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BOzA1DH+; arc=fail smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D032548CD59
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:54:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790283271; cv=none; b=AmwUOP+UM1oeo6Cl/yfUSZKOzSZeug+q8EtDkJ4Ktvk/1jmPLC1G2DPw/ylHqsl0DJyLmwYoYEsieZcqKpHmWqSywXEa8RPHKhG0RVbBd07jWTyYDLm6XCSBWjKRYseEZ/2vP3RJ88BuKByYIzXMweEsQZf/ZXrvupugaQVlldo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790283271; c=relaxed/simple;
+	bh=n9OW7KEXkiRgfqu0G+pIWrnWOu/6BP3T67ecthF7jdk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kWtsGdMLrFi4wC2m7Ah7RjLNoHwrBebzDmDdidbCA6oK9/BvvOMGKJCieBY775pNhiJ9yHiOZT1Iw8XZFJjFOQ0VsbPUmZhv9ngdbYF+qX2rUaZXue1Jz0k8h3aFUDV1hXdQQVIdnCnnbZgGWft2gGBA0Xn1lBhMCAzYQp68xj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fAXc3VkG; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=gjriFxqc; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BOzA1DH+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790283231; x=1821819231;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=eFqsKB7/CbzvM747icx5xKNIrP/y6qLBbSZ972FYWr8=;
-  b=BOzA1DH+im69x4ALYE0nHv2fdq3SW/+YReqC3BwJhKbVq36HNioqauL6
-   HxH+TWie2hmK/945cc0yrQSVs6e3dsM/mKfCOzkHbXrRqxmqLaTRVgei/
-   fS20O52DHpZN7xTRiOg12YUF0VCzbtrGrhn3I83R4r8/Gs/H6gq86m1Bu
-   Z68kDVKivvVf4NMkAHJaiBT95q2IYp1kA2z6HYt83er5a0askdLCfxsPA
-   1Yw31TM9qIL3KgGyzYK192HQqjmqeOZ+sdJ9Ta1XjwHhNfBNl0R7uZ2/6
-   gFsDYNTP3LGCxQ2B0/v7GrndIYTEph9yBK4BvNn9IRVKyiP3Xnb6cyqYy
-   Q==;
-X-CSE-ConnectionGUID: eYqIl3BaSV6NzbSl+NwCSw==
-X-CSE-MsgGUID: sfy9CTFbQLWmmrgTX4AYlQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="94886028"
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="94886028"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 13:53:50 -0700
-X-CSE-ConnectionGUID: tEAqtPWBS8KUx1MCuWC2OQ==
-X-CSE-MsgGUID: wk40Ds0vQTSLUXBtVu6qJA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="273346506"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 13:53:50 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 24 Sep 2026 13:53:49 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Thu, 24 Sep 2026 13:53:49 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.38) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 24 Sep 2026 13:53:49 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XmEJUqi5juSC0oyhmF7XCpJcEJn5N3MJyAyZqS5XQAqBTmWJiXgD5N6l34krTXQMnOnbGprKYWBGvDybpHFkVhKt0qyPYfNnL8ZoujLkGkj0HZEoWRoxhHdOSEfoSbCrOfgK1CdmE4LKtDAOyKwJjHoxoqVZRK3QEnqVoo3r2XLLq2JfAA6wfPZvCqVeA1JS9AqI1Bbc4mudx/xOlAVGGqShhQO/OEnJYjtAg/JVhisNmwVj2w/qVId2p32MZuvg0GPhe2qRwztPMTtZh5XZy8fk9r3kY5CH9CVal4zeeC4ATSqF8me0oRn9kdp1TIhCH+fi8WvKGWyf7gdPTQv8nQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZdGnKjNwy28SPWkLatJc861Nj2MSa2dc1wxjrklCoAM=;
- b=fjLJs/YjrNYQPAVvOZbdPkW9zLfbWmI/Km4ccl4mRSR59aGH0PC+pMvHWNL/Q4JDNtipxZUINQrbC5TOYLorGBqwsXn2KFW0CcVzVUsiRwcnWSqBkRcOOnC5Gml6VhK6/Hn1pz//1hfBeLt9LzNo85AoKP6cSY0ZwR863Cg0wniZjHviF1aOMpvwDkHqrwMBPt65KO905uXiFYvwR15sdLxN+I9lEkIjy0jbkTs7yur+qn2F8bpZi0Gaz+L1oJ4ZLTHMtG+HMoR2TgRTP03+kfkWdwiDPXkhLHzrs0f93JizdD0cuJ59AGygU/teu1Y0cJkNfYJ3r8XhNbyfYJfOwg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
- by SJ0PR11MB6624.namprd11.prod.outlook.com (2603:10b6:a03:47a::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
- 2026 20:53:46 +0000
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc%5]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
- 20:53:46 +0000
-Message-ID: <318f0347-b33f-497b-bdcc-059af788ac0a@intel.com>
-Date: Thu, 24 Sep 2026 13:53:44 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 19/25] arm,x86,fs/resctrl: Enumerate AET on every
- resctrl mount
-To: Tony Luck <tony.luck@intel.com>, Fenghua Yu <fenghuay@nvidia.com>, "Maciej
- Wieczor-Retman" <maciej.wieczor-retman@intel.com>, Peter Newman
-	<peternewman@google.com>, James Morse <james.morse@arm.com>, Babu Moger
-	<babu.moger@amd.com>, Drew Fustini <dfustini@baylibre.com>, Dave Martin
-	<Dave.Martin@arm.com>, Chen Yu <yu.c.chen@intel.com>, David E Box
-	<david.e.box@intel.com>, <x86@kernel.org>
-CC: Christoph Hellwig <hch@infradead.org>, <linux-kernel@vger.kernel.org>,
-	<patches@lists.linux.dev>
-References: <20260916231320.14502-1-tony.luck@intel.com>
- <20260916231320.14502-20-tony.luck@intel.com>
-From: Reinette Chatre <reinette.chatre@intel.com>
-Content-Language: en-US
-In-Reply-To: <20260916231320.14502-20-tony.luck@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0121.namprd04.prod.outlook.com
- (2603:10b6:303:84::6) To SJ2PR11MB8370.namprd11.prod.outlook.com
- (2603:10b6:a03:540::20)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fAXc3VkG";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="gjriFxqc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790283268;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J1Ruv7QR3JU5W4c/F55bFjGnAtccgp4onaUH4lZCnqo=;
+	b=fAXc3VkG11lHM72C0UkxvfHyQ0TPFcqhXEzOTb00/mJJ7sVBxVRbJ/+XwKpjem/IKOb/9Z
+	uQaRhFmJ4fnlRMZltEA/t9ded3Pl54RVZYVfhBT7jVatkf86ER5h2RZwGiC1ld6O7GmeF3
+	jY5E6GmjfyXpH8UjCgTusukFXkt2jWM=
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-65-qg1CRQ_yMaeF2B3qB1wu4Q-1; Thu, 24 Sep 2026 16:54:27 -0400
+X-MC-Unique: qg1CRQ_yMaeF2B3qB1wu4Q-1
+X-Mimecast-MFC-AGG-ID: qg1CRQ_yMaeF2B3qB1wu4Q_1790283267
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-530e39c5625so4695981cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:54:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790283267; x=1790888067; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=J1Ruv7QR3JU5W4c/F55bFjGnAtccgp4onaUH4lZCnqo=;
+        b=gjriFxqcIYDSE9TYydee551taNwkpTDp49LcAnplesVLuoDe8tHvyxnD9BozUKMAV1
+         CPS8pAh2LNFQugDhoYIx8R04tKeyE2V5ILT3Oo6UbUysXp777/bXAMtIlrrBbGvNermd
+         3DQew2OvQYG4a/iHUoQ3wo7853RNJikP/W6IVjxMjwO8H2ZQ9EKa6D7h7YU2cK53RIf2
+         gjeUyFngHA3R/kN4UfoG94Xin0HwgH71tRmnrOenbEG3M5XrZ6tBeJLDvjGPWTbXpWVK
+         Ui5R3rr79UVkO38tOAIW/0S0YMB/3QxOOOFj9+KP7J4s4GE9xPwDkmCkQmIHqRXGOQD1
+         4b+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790283267; x=1790888067;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=J1Ruv7QR3JU5W4c/F55bFjGnAtccgp4onaUH4lZCnqo=;
+        b=YLPdcCMP4mkis+yFq9uf4prVr3HtM2iRxcoZBwCPFmcASvyil7/mmvkk4hHCziEjEb
+         OxykKkjURpVF6AnLHj6+bRWxaksj6cLsHB6QMLRO5h1FKwrskfpWbrSgFxQtMt3XWXOQ
+         VhPkix7D+n0FDU7IL6ng/3XSrUcslg+N+r36Ia81achRG6od9RsBQTydrKAlm0NWAfBy
+         u8MOhoKa3sbLE5Fb6EVLShw7K7Iwj5o6alJaNQNozV5gGtFwvHEiAWdf0f/A6C4Z2vFK
+         FVZaoPKNTCNCoiuPbhyYZLNt5RvEZB0v3Rk/4riYELcvnJPTiOF3SU7L2g7ycECZs3NE
+         wGrA==
+X-Forwarded-Encrypted: i=1; AKwUvBxDWbqT53Uqc5pVrb50xCjpWWqKYq1i+HKw0iK/i8LNISZEN+pgXX7zYaBZvY9ylLCEwzyBXkePX4scYoI=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3P/rZfaAX3VoNpbSL8SI4EZwGfyiKK8tn5PKpulQyE2zchIYv
+	R11Py4hvYNRPTFZKYiqCQxW4PCnTtjYU1C/q99DCznx5EEJvy+7CJicfY7MGfUmeNuMEYWmEllI
+	qwNavPpTkXHMZ33mjVEa5Sdrr1n/9qSCdoIRTwUVDfJDwfeiL3DXJdx2eN65wUgiq3Q==
+X-Gm-Gg: AYBFou1uxTvj5ICuX3kJbjj1qnkMIBl+Er5H6tZhjBWvrnTNjIxfGDsbtU2ym6nMC1t
+	QUHnOxIo6/7m3UpANiodaPtQd/bZn+i5HnOV1eLoY7Wn+mnHhdFYT7MErik+Y070prBYow+QjMl
+	92/bh+UV6qLywzX/jRSVinPA//66kq6k98uAhc31yC9Pt8Y2FaYSdCYSeLJoOJc/2cn34YhIZ+1
+	1GM7KG3+SJFqjl88iP/FwBLHq92WSI7lPsSs4bAx4aGqms4sKpsQgPkHe2jIHXhoD3tWH5IABCE
+	CRe+NhZqoxv+IMe/DJ09jeLDA65tQCm/Q18sCq4FUvg+lpi3gKtb/R6lZ7NcQOdL6Y6ii4KuSvE
+	C+nidGnRsCg49nV/mrsBg9iuzobT5obb7VmY=
+X-Received: by 2002:a05:622a:1e0c:b0:530:7bd0:72a7 with SMTP id d75a77b69052e-5330b5b7abbmr8326861cf.14.1790283266688;
+        Thu, 24 Sep 2026 13:54:26 -0700 (PDT)
+X-Received: by 2002:a05:622a:1e0c:b0:530:7bd0:72a7 with SMTP id d75a77b69052e-5330b5b7abbmr8326551cf.14.1790283266190;
+        Thu, 24 Sep 2026 13:54:26 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5330bb99592sm2198971cf.4.2026.09.24.13.54.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 13:54:25 -0700 (PDT)
+Date: Thu, 24 Sep 2026 16:54:23 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Slavin Liu <bolin.liu@seu.edu.cn>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] clk: x86: fch: validate registrations and manage their
+ lifetime
+Message-ID: <arWN_5_Vkby6_dpQ@redhat.com>
+References: <20260913125239.110113-1-bolin.liu@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|SJ0PR11MB6624:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9f620025-ab97-45b7-62d7-08df1a7ded1a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|23010399003|376014|6133799003|18002099003|22082099003|3023799007|11063799006|921020|56012099006|5023799004|10067099003|4143699003;
-X-Microsoft-Antispam-Message-Info: dniDp5e62YhUBWh/d/obFtiqxGYPyJfbfOPvUIgf14VggmONlLGkxcF0Ik/IXy74cUjBb4oBHvI8GqICDu5nJWQ6bJFXfSkMCvK6//scPKwdSs3PC9L5Qxs/TZfllw1yRGMcdVTKTRvfVhS7O3qHvKwKzdwXfb6/ghmhq6ugwXtguE/LiG2kNM1BoNw3GSTeXcFJTpAWLJEO14QSyLszG9uK21RKWQRna06Pyg9R/yE9JyKO4x0fG9YI3QTjew9Gs7rspEbsNHxGpG3SCBjdJROvATYjJ2VgayTHdVEBr4WeqL4YGfmJMxNlFGRdTHNKsD1KVglnikn2sy40eYSzEQhRf0iMNjnvo6hZ+gC4kyYhSPR/qbX6HO0boiAUqPB1rR6GEDW1bb0dNc1DXtj65VFJki+6MMO8ksZEUksCbtjyYg3yiEXJKgm+VxAWiMsnGxpCaFZ2J2drK6LwRxpPEPLRnnfGZF6EgveN2bPJXQodvybWgdTp7yFtEqBZqkG5ecjISzGjNOfpfAQAI/D6M2cMZUXWwKtSTeUtsoyJenx8WC2n4AE7I+v0ORuyvbqPJOP0G0aO32jZqB8/a/cB04IS/Hb0rNdiFZh7QhFUsP0Wj8ZMsS+1GAYPaWnKDyqbpP62tTcloutvYn6kNNItxpO5pJsoPnBasGkpQfCKBrrp+vHC0xpYBmF3fHTWmPSssByxqhfhNyIUcv3Gee+jnw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(23010399003)(376014)(6133799003)(18002099003)(22082099003)(3023799007)(11063799006)(921020)(56012099006)(5023799004)(10067099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b3ZOdHhieG5CRnFNWTBXc2x6NW90NzRXUXpQZmJQMy9lRUt0U1Z5a2I0N3Rn?=
- =?utf-8?B?aGQwS1hXbUUxZmVWa3RHMFdtNmlvMXUybXNYTGhLQzNraE9TVUQvSUZZZnBs?=
- =?utf-8?B?c0JwS2FwMjdSUXd5RkVNTTFab1dETXBBcXlwMFdjNDc2YlE4OUJ6MlJwZC9G?=
- =?utf-8?B?NTFWemwyeENTanBYZ1dEKzh4N2QvM3R6VGtGYVpGMU96ajNxblFFS01JZzVz?=
- =?utf-8?B?U3hHVitjbnRWaW9aK2FTem5VS0s5bHlQbHhWT3pmTW8wcUR3OUdlem81dmRD?=
- =?utf-8?B?dTViK2xqaG9OVklPNE1QQXN6NkpwVEI5WEFodlQ0d2MwbDh2NGE3RllzSTl0?=
- =?utf-8?B?RzlLTHBZdFFYQTU0S1U5TVBkaTBDc0dVMlEwcFhKMEd5TWJpT0ZXZzJPanBW?=
- =?utf-8?B?WmdiYmUwSEg4R3pWcjh5MG10dXdRRGhGQ29mRjN4UUw5SDFLTEphNWh6ekdW?=
- =?utf-8?B?NXRmbzFLdC9IbjF4OWJoL0JmSkpjaC9CNHVlYU1XbFV1ZnRzWE1ua0ZvUTJj?=
- =?utf-8?B?b0VxQlMrcmFYL0hkQjAza25FTldHRHJMejBQT0JyenZCMXQ5d281TGFzbnFK?=
- =?utf-8?B?cVRjcU1SL3ZDVWRjTUZMVEhyMnRHcVg2UU9udXZoeXozcjRhd2tuWTZOS0lh?=
- =?utf-8?B?bVdDYmp4Mmpoc3I1bjhWYU9HdHBsUlV0bitEVWIrQlZJNGJMbURvYnZLYWdq?=
- =?utf-8?B?Q2pCL0F2dFRCU1ArbnI4OWZpQ1FxcXRxTUFkWU9GdkY4R3pXRlppb28rcGNQ?=
- =?utf-8?B?WnJPSU5SbTREZ1h1bVVSSFUvd0llV0xYVFBPTkd0VDliVFJGRGJiNlZ0Nmk1?=
- =?utf-8?B?MFZ6MmtFMUpqdFplcThqVklXWXFLVEE5WTlyajhmNnFkQStOOTQ4bHFldmZI?=
- =?utf-8?B?T1Y2SVNCMXpoSUtiTG0wSzZnQnZDb3lndSt1enkwK2d6b3FOV3pHTjF5bmc5?=
- =?utf-8?B?WHZCMTJEMEVDWnFSSzl2TnJGK0tBVlFMNWlBVnVlWmZNNGM3S3l1MHV6eFJS?=
- =?utf-8?B?aXdKZGQyM09vTDgzUzk5Si94WGRURHlmV043d2F2LzZrbmQyWWVKbGk5bndn?=
- =?utf-8?B?YlM2SjNacERSS0JmcHdyeHlNcG1sUzBKQ2hJdVBKTTVpTzN5cTF2OXNxM2VY?=
- =?utf-8?B?Vy8zRlRIRnloaW5lajEyRDdWMDlmQk16bEJ1N0lLVlpjY1NUYTIzU1M0Q1lk?=
- =?utf-8?B?bENIaFNZT3p1YnFGY0ZUc3c0M3I2Y1ozZmlublVWVlRhMkk3YUc1QTE4eWpD?=
- =?utf-8?B?SGdnVVBVNlkwbytsS284VG1vUGhhWWcxYXkzaENlS1ArYmhyOUcxYTN3Sm9l?=
- =?utf-8?B?RGM1bzR5bTdsc3hPWEVzSk5tMi9jWmNML0YrUmVjbXp2SEFIV3FqU0dLVFNI?=
- =?utf-8?B?eVlTNmNWcHIzeHdyRVdiVHdocml3TXpqMVpRZk55eVR3QXU5ZXFob2MwbHIx?=
- =?utf-8?B?WDVSdHpJNDkxNTdGS1Q3dzE5WGMwNDFnL0lGdnZkdjVMd2hNTFR6SWp0TmlY?=
- =?utf-8?B?bG9PWncrUHNWVUp6bGwrVUd4clZDYkN4aG83MGV6WEt5Lyt2akRxT0ZHZ2dT?=
- =?utf-8?B?andWeisxZjNiN2h5MUVQZmNCVzk5K3pCVjVSRkFHQ0J3Snorci9xMnN5cmNy?=
- =?utf-8?B?d1hFcEcybXAyaDZ5WGRlU0dMVFdkOVdwRDVyUCtGaXFlWVlSemVzSWRGMUtn?=
- =?utf-8?B?Mjk2SUVrb2xBVkdwTlZVRFBTc0RTZkRqbDVLdTF2MmFTOFZ6N3NENE9tVnNW?=
- =?utf-8?B?d1ZNWDlZdTZCUENzSldTTStTMCtBNlh3YWczMlNTNFEzWFMveUp3em9aSmdP?=
- =?utf-8?B?WGZ0dGN3c2hscithUTVYV0ljbi83MVZDZ01tZmQxMVdFdFZ1V29XTVF3VVJI?=
- =?utf-8?B?eWZzR2N5MnJxZ3kvL0tUb2dyY2F6M0RFbUxGODJ2OFNrUVNhTnNJaUhwbUto?=
- =?utf-8?B?dU1VelhCVU9UWDE5ODVDSHJQT3p4aFBIS2h6cHIwSUppMmlzcWwzMUJIbmR4?=
- =?utf-8?B?bWZobWNBekhMK21yU2xYR01VWU5RS3d1WWpWeHpLVThVajI4SFFTeUMxeHo2?=
- =?utf-8?B?bHZGdC9wSFpVQXhlUU9Ud1NXNXg2bFdaeU9OQkpldHczMDBkeThPQWh3MUJH?=
- =?utf-8?B?MS9yOVVGWXpRZFpLT1c4UU9KVmRncnpUNVQ0bGVOejhLNEorYTlyTmZuSnVI?=
- =?utf-8?B?SHBHQVhYengyOHRWa1VZd0NpOGNjUmJYeHR1VS9JOHhUUzZRMkRDZjZBK3ov?=
- =?utf-8?B?SEJFblg0a0JKeWVORzM3ME5Kc2VPallvcnBTK0pFcUN4T1BxR2o3cGJ0TVgy?=
- =?utf-8?B?V0s1VTV0LzBPTmM0WiswOWtldTdhWlI5VTlZUjFTU0ZmYThVQ3ZkUEV0ZjRr?=
- =?utf-8?Q?HDY9v5tcGHNCxbyI=3D?=
-X-Exchange-RoutingPolicyChecked: XWs/yFccg1vnVNlemLX08ORCoNQF2UzjdS2r/gqFQ1o9Cq0COZH1RHe7EJWEHyNWNNH8NzigUdrqT+xW0b42xphjIzeEBZwUI+DNAegZDIPTZa/Fk7vGC9Hpltt9cKowQ4NVxOLE3K8cFSJSPZhKWeim70SuJkp17yhsDZyn1iO1Sc4neeu7KWnJNo3MHmeC/0MpXscGNbhi2ucm4q6cHFoizIQMRoE1VypzHnxoVV8bEk2s82JTcisWKRSm9630oAEF1IqMj+eg46SN0z6JGB9l5hm6KVZ8khv8akKeu8JdHKTvHXWx/CUNMnkFzoVpWW6II3wEVxigqnB/Ay0Ysg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f620025-ab97-45b7-62d7-08df1a7ded1a
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 20:53:46.2310
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kgaYLG67TAREOetcAtXEGSjx6pgyuWRSsGC5dLrqBxnCWCAtO0N2bXyRDBibrnnVmywghEJ8tg8Ky9RInsnkTylRcTdnmu8PnvXMz/eETWg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB6624
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260913125239.110113-1-bolin.liu@seu.edu.cn>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-Hi Tony,
+Hi Slavin,
 
-On 9/16/26 4:13 PM, Tony Luck wrote:
-> Call resctrl_arch_pre_mount() for every mount protected by
-> resctrl_mount_lock. Add matching resctrl_arch_unmount() path for
-> architecture code to clean up on mount failure or unmount.
+On Sun, Sep 13, 2026 at 08:52:39PM +0800, Slavin Liu wrote:
+> Fixed-rate and mux registration can fail before clk_set_parent()
+> evaluates their clk members. Check each registration and the later
+> parent/clkdev operations. Use managed clock registration so every new
+> error exit unwinds only successfully registered clocks in reverse order.
+> Keep the hardware-clock array local and drop the manual remove callback
+> to avoid unregistering managed clocks twice.
 > 
-> Remove intel_aet_exit() after moving all the cleanup code into
-> intel_aet_unmount().
-
-Please do not just summarize the code changes.
-
-Please rewrite this changelog with tip required context/problem/solution,
-focus on why changes are needed without verbatim code descriptions.
-
-It does seem a stretch to claim this is a "code move" patch when
-the new unmount code does much more ... without any mention or
-explanation why :( 
-
+> Detected by static analysis and reviewed with AI-assisted source auditing.
 > 
-> Signed-off-by: Tony Luck <tony.luck@intel.com>
+> Fixes: 421bf6a1f061 ("clk: x86: Add ST oscout platform clock")
+> Assisted-by: LLM
+> Signed-off-by: Slavin Liu <bolin.liu@seu.edu.cn>
 > ---
-
-...
-
+>  drivers/clk/x86/clk-fch.c | 109 ++++++++++++++++++++++----------------
+>  1 file changed, 62 insertions(+), 47 deletions(-)
 > 
-> diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
-> index 604ab7af7c2b..5a975856f670 100644
-> --- a/include/linux/resctrl.h
-> +++ b/include/linux/resctrl.h
-> @@ -590,11 +590,17 @@ void resctrl_online_cpu(unsigned int cpu);
->  void resctrl_offline_cpu(unsigned int cpu);
+> diff --git a/drivers/clk/x86/clk-fch.c b/drivers/clk/x86/clk-fch.c
+> index cf5cd3ad4647..b66ede14fc22 100644
+> --- a/drivers/clk/x86/clk-fch.c
+> +++ b/drivers/clk/x86/clk-fch.c
+> @@ -35,7 +35,6 @@
+>  #define AMD_CPU_ID_ST                  0x1576
 >  
->  /*
-> - * Architecture hook called at beginning of first file system mount attempt.
-> - * No locks are held.
-> + * Architecture hook called at beginning of each file system mount attempt.
-> + * Called while holding resctrl_mount_lock.
-
-resctrl_mount_lock is not exposed to architectures so cannot be documented
-as being part of the API. Could this be something like:
-"Serialized against other mount and unmount attempts."?
-
->   */
->  void resctrl_arch_pre_mount(void);
+>  static const char * const clk_oscout1_parents[] = { "clk48MHz", "clk25MHz" };
+> -static struct clk_hw *hws[ST_MAX_CLKS];
 >  
-> +/*
-> + * Architecture hook called when mount fails, or on unmount.
-> + * Called while holding resctrl_mount_lock.
-
-Same comment as above.
-
-...
-
-> diff --git a/arch/x86/kernel/cpu/resctrl/intel_aet.c b/arch/x86/kernel/cpu/resctrl/intel_aet.c
-> index 32f3f30894a4..8aa2e18a6bbb 100644
-> --- a/arch/x86/kernel/cpu/resctrl/intel_aet.c
-> +++ b/arch/x86/kernel/cpu/resctrl/intel_aet.c
-..
-> -void __exit intel_aet_exit(void)
-> +void intel_aet_unmount(void)
+>  static const struct pci_device_id fch_pci_ids[] = {
+>  	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, AMD_CPU_ID_ST) },
+> @@ -44,8 +43,10 @@ static const struct pci_device_id fch_pci_ids[] = {
+>  
+>  static int fch_clk_probe(struct platform_device *pdev)
 >  {
-> +	struct rdt_resource *r = &rdt_resources_all[RDT_RESOURCE_PERF_PKG].r_resctrl;
->  	struct event_group **peg;
+> +	struct clk_hw *hws[ST_MAX_CLKS];
+>  	struct fch_clk_data *fch_data;
+>  	struct pci_dev *rdev;
+> +	int ret;
 >  
-> +	guard(mutex)(&aet_register_lock);
-> +	if (!pmt_in_use)
-> +		return;
-> +
->  	for_each_event_group(peg) {
-> -		if ((*peg)->pfg) {
-> -			intel_pmt_put_feature_group((*peg)->pfg);
-
-Previous patch added protection against pmt_telemetry module removal so still
-seeing direct calls is unexpected. Could the changes to intel_aet_exit() that
-match the intent of previous patch be moved to it so it can stop being asymmetric?
-I understand that intel_aet_exit() is not run at this point. This is where
-a comment about try_module_get() behavior on a built-in module will be helpful
-and why it has been asked for in three versions now.
-
-...
-
-> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-> index 2e9f71901f68..07fefa3c434e 100644
-> --- a/fs/resctrl/rdtgroup.c
-> +++ b/fs/resctrl/rdtgroup.c
-
-> @@ -3297,6 +3311,7 @@ static int rdt_get_tree(struct fs_context *fc)
->  	if (!ctx->kfc.new_sb_created)
->  		resctrl_unmount();
->  	kernfs_put(rdt_root_kn);
-> +
->  	return ret;
+>  	fch_data = dev_get_platdata(&pdev->dev);
+>  	if (!fch_data || !fch_data->base)
+> @@ -58,55 +59,70 @@ static int fch_clk_probe(struct platform_device *pdev)
+>  	}
 >  
->  out_mondata:
-Stray hunk.
+>  	if (pci_match_id(fch_pci_ids, rdev)) {
+> -		hws[ST_CLK_48M] = clk_hw_register_fixed_rate(NULL, "clk48MHz",
+> -			NULL, 0, 48000000);
+> -		hws[ST_CLK_25M] = clk_hw_register_fixed_rate(NULL, "clk25MHz",
+> -			NULL, 0, 25000000);
+> -
+> -		hws[ST_CLK_MUX] = clk_hw_register_mux(NULL, "oscout1_mux",
+> -			clk_oscout1_parents, ARRAY_SIZE(clk_oscout1_parents),
+> -			0, fch_data->base + CLKDRVSTR2, OSCOUT1CLK25MHZ, 3, 0,
+> -			NULL);
+> -
+> -		clk_set_parent(hws[ST_CLK_MUX]->clk, hws[ST_CLK_48M]->clk);
+> -
+> -		hws[ST_CLK_GATE] = clk_hw_register_gate(NULL, "oscout1",
+> -			"oscout1_mux", 0, fch_data->base + MISCCLKCNTL1,
+> -			OSCCLKENB, CLK_GATE_SET_TO_DISABLE, NULL);
+> -
+> -		devm_clk_hw_register_clkdev(&pdev->dev, hws[ST_CLK_GATE],
+> -					    fch_data->name, NULL);
+> +		hws[ST_CLK_48M] = devm_clk_hw_register_fixed_rate(&pdev->dev, "clk48MHz",
+> +								  NULL, 0, 48000000);
+> +		if (IS_ERR(hws[ST_CLK_48M])) {
+> +			ret = PTR_ERR(hws[ST_CLK_48M]);
+> +			goto out_put;
+> +		}
+> +		hws[ST_CLK_25M] = devm_clk_hw_register_fixed_rate(&pdev->dev, "clk25MHz",
 
-Reinette
+Should the new IS_ERR() checks be it's own separate commit with the
+Fixes tag? Then put the devm conversion in a separate commit without the
+Fixes tag? I'm just thinking about ways to make these patches smaller so
+that there's less to backport into the stable kernels.
+
+> +								  NULL, 0, 25000000);
+> +		if (IS_ERR(hws[ST_CLK_25M])) {
+> +			ret = PTR_ERR(hws[ST_CLK_25M]);
+> +			goto out_put;
+> +		}
+> +
+> +		hws[ST_CLK_MUX] =
+> +			devm_clk_hw_register_mux(&pdev->dev, "oscout1_mux",
+> +						 clk_oscout1_parents,
+> +						 ARRAY_SIZE(clk_oscout1_parents),
+> +						 0, fch_data->base + CLKDRVSTR2, OSCOUT1CLK25MHZ, 3,
+> +						 0,
+> +						 NULL);
+> +		if (IS_ERR(hws[ST_CLK_MUX])) {
+> +			ret = PTR_ERR(hws[ST_CLK_MUX]);
+> +			goto out_put;
+> +		}
+> +
+> +		ret = clk_set_parent(hws[ST_CLK_MUX]->clk, hws[ST_CLK_48M]->clk);
+> +		if (ret)
+> +			goto out_put;
+
+It's worth noting in the commit log that if clk_set_parent fails, then
+probing will fail. This is fine but it's a behavior change that's worth
+calling out.
+
+> +
+> +		hws[ST_CLK_GATE] =
+> +			devm_clk_hw_register_gate(&pdev->dev, "oscout1",
+> +						  "oscout1_mux", 0, fch_data->base + MISCCLKCNTL1,
+> +						  OSCCLKENB, CLK_GATE_SET_TO_DISABLE, NULL);
+> +		if (IS_ERR(hws[ST_CLK_GATE])) {
+> +			ret = PTR_ERR(hws[ST_CLK_GATE]);
+> +			goto out_put;
+> +		}
+> +
+> +		ret = devm_clk_hw_register_clkdev(&pdev->dev, hws[ST_CLK_GATE],
+> +						  fch_data->name, NULL);
+>  	} else {
+> -		hws[CLK_48M_FIXED] = clk_hw_register_fixed_rate(NULL, "clk48MHz",
+> -			NULL, 0, 48000000);
+> -
+> -		hws[CLK_GATE_FIXED] = clk_hw_register_gate(NULL, "oscout1",
+> -			"clk48MHz", 0, fch_data->base + MISCCLKCNTL1,
+> -			OSCCLKENB, 0, NULL);
+> -
+> -		devm_clk_hw_register_clkdev(&pdev->dev, hws[CLK_GATE_FIXED],
+> -					    fch_data->name, NULL);
+> +		hws[CLK_48M_FIXED] = devm_clk_hw_register_fixed_rate(&pdev->dev, "clk48MHz",
+> +								     NULL, 0, 48000000);
+> +		if (IS_ERR(hws[CLK_48M_FIXED])) {
+> +			ret = PTR_ERR(hws[CLK_48M_FIXED]);
+> +			goto out_put;
+> +		}
+> +
+> +		hws[CLK_GATE_FIXED] =
+> +			devm_clk_hw_register_gate(&pdev->dev, "oscout1",
+> +						  "clk48MHz", 0, fch_data->base + MISCCLKCNTL1,
+> +						  OSCCLKENB, 0, NULL);
+> +		if (IS_ERR(hws[CLK_GATE_FIXED])) {
+> +			ret = PTR_ERR(hws[CLK_GATE_FIXED]);
+> +			goto out_put;
+> +		}
+> +
+> +		ret = devm_clk_hw_register_clkdev(&pdev->dev, hws[CLK_GATE_FIXED],
+> +						  fch_data->name, NULL);
+>  	}
+>  
+> +out_put:
+>  	pci_dev_put(rdev);
+> -	return 0;
+> -}
+> -
+> -static void fch_clk_remove(struct platform_device *pdev)
+> -{
+> -	int i, clks;
+> -	struct pci_dev *rdev;
+> -
+> -	rdev = pci_get_domain_bus_and_slot(0, 0, PCI_DEVFN(0, 0));
+> -	if (!rdev)
+> -		return;
+> -
+> -	clks = pci_match_id(fch_pci_ids, rdev) ? CLK_MAX_FIXED : ST_MAX_CLKS;
+
+CLK_MAX_FIXED should be dropped now that it's unused.
+
+Brian
+
+
+> -
+> -	for (i = 0; i < clks; i++)
+> -		clk_hw_unregister(hws[i]);
+> -
+> -	pci_dev_put(rdev);
+> +	return ret;
+>  }
+>  
+>  static struct platform_driver fch_clk_driver = {
+> @@ -115,6 +131,5 @@ static struct platform_driver fch_clk_driver = {
+>  		.suppress_bind_attrs = true,
+>  	},
+>  	.probe = fch_clk_probe,
+> -	.remove = fch_clk_remove,
+>  };
+>  builtin_platform_driver(fch_clk_driver);
+
