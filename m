@@ -1,239 +1,131 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 847714A4854;
-	Thu, 24 Sep 2026 15:29:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76EB14A4EE4
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:29:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790263768; cv=none; b=uuy6lj58MylXXfcgY4q8IEmlCGyJRp0wVWaeAuYbGpDDOWdnyAmhY/mA2Pz1bmdcSL9KbAb1k6BaQ04HjqQZZaBxYRbEgl/Ky5/COy437Jp63clCGop9gEW70YfSAU9l46/uuTEd1LQEx5CCNobRYhEeyJ3q/lk13tgNcIMqm3Q=
+	t=1790263771; cv=none; b=gH+yogb1VzcbTx1MyCIPVKJhMkgkXngQcwyJVGEnPQE9tZy9FH7bhbH2lvcg+tQ7KjdQ7Gn4qjDn6sG4YkYqySJfoHgFLEO2bPe2QRLkbSVE3X1a/W/tvI9Vxf2vqxKgzX7aj0mYBGuc+utfKpZytsUGn/G2SGVXudxvy6VRG4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790263768; c=relaxed/simple;
-	bh=hiYDOsrFTqYrHghNF5qpN7Ez9iCF+l3+Mk6RkjCoBOg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jdz+otHIg9aysFNZWJSp+VWTIFBWpuJj3HfguxeFsdD/Kke7RQ2TSiwg0PuD2+FGNrLFancS4v+WTRbKGIvvRNOGU6ivP5333jEPUrvovgtJpWVyXoyl8Al3UFZLCR2yc7KmkXXynZePfSNaKP4Ee+arhbANpcFH0SE1JI9aj9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=N6p60/aj; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790263771; c=relaxed/simple;
+	bh=Kfhzpb3IDath8WiZROoZA7Fe4Lrl6ZBBQ5kG/oDRVHQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BwzUSSw1vk0kyQ0Ol684Kd/HwAqJO7zd21fwD7RVfJcm4ekKbiqulnGHE7kd0hNG9/3y3SMKI+rFsTYiOFn/1UjsmzDX2g5ZoHUPMDKVzOn6Rwh9DJe9VIDiv6tEbdWiJDLUovaEuciBHAnjl0JcV5DaPg75KvOyseJNKGd+1Is=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gsOK/vtj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="N6p60/aj"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3417C1E2F;
-	Thu, 24 Sep 2026 08:29:22 -0700 (PDT)
-Received: from e142021.arm.com (unknown [10.57.8.50])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0B95F3F86F;
-	Thu, 24 Sep 2026 08:29:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790263765; bh=hiYDOsrFTqYrHghNF5qpN7Ez9iCF+l3+Mk6RkjCoBOg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=N6p60/ajuKHsLs0uGMl2YBmLNBTH6evUyExuhPImEomU1uBi9CPKJ98/wfd37eJQl
-	 Vd/8YfVfzsr5Jx6HatviI0C4jIT5L3ePnSLg8FXrYp1rf+ie3Q+sLabA4kx1DqqwoC
-	 C8/TF7s1R/V9dz2+5wpL4ZU8Z6v4MJe8AGjVHoIo=
-From: Andre Przywara <andre.przywara@arm.com>
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	James Morse <james.morse@arm.com>,
-	Ben Horgan <ben.horgan@arm.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Fenghua Yu <fenghuay@nvidia.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
-	Ganapatrao Kulkarni <ganapatrao.kulkarni@oss.qualcomm.com>,
-	Trilok Soni <tsoni@quicinc.com>,
-	Srinivas Ramana <sramana@qti.qualcomm.com>,
-	Niyas Sait <niyas.sait@arm.com>,
-	Lee Trager <lee@trager.us>,
-	Ritwick Sharma <ritwick.sharma@arm.com>,
-	Gavin Shan <gshan@redhat.com>,
-	linux-acpi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v11 12/13] arm_mpam: change MPAM-Fb error IRQ to use a threaded IRQ handler
-Date: Thu, 24 Sep 2026 17:27:38 +0200
-Message-ID: <20260924152739.2865510-13-andre.przywara@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260924152739.2865510-1-andre.przywara@arm.com>
-References: <20260924152739.2865510-1-andre.przywara@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gsOK/vtj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B46B1F000FF;
+	Thu, 24 Sep 2026 15:29:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790263770;
+	bh=4CDD8TQ1G8oa01QCVgmfSk+fkIBvjWyhYdUITJIOzi0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gsOK/vtjVVEK91BGtbUMNOrj3Bo+ATVmhtSfHb7BmJN9Tc4DzT57CZaDbdG7mUqfm
+	 xnM8jAXmsVmO/rcuRvwTKO/TVzMCCyUEYUFsU+Usgwz3IOyfp13fpTaOFXjg9QY7fd
+	 FLqqp8Q3/3fms65qsdaX2pqAAuBBOHn3BUnnZhQlJ0QYAIQk6H3D9QeZvSamzpiPYj
+	 S7WOOuj3WuBcphT7nN9YALKjaUp8GROewIBaQLfpSxKfMrHzYluhPF73qGgdaZDWUa
+	 8Z8K5rwKHAMq3Z7h4qox4wOuuSi4/b9SAi24rXJdlttIxcFHaQwtEYa+TA5xn6D2kn
+	 IzcR2ULRKF1Ig==
+Date: Thu, 24 Sep 2026 16:29:23 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Arnd Bergmann <arnd@arndb.de>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, Lance Yang <lance.yang@linux.dev>, 
+	syzbot+c181d3198e98f8aef8b9@syzkaller.appspotmail.com
+Subject: Re: [PATCH] drivers/char/mem: mmap readonly MAP_SHARED-/dev/zero
+ correctly
+Message-ID: <arU9Z-EhEQg76CVz@gremlin>
+References: <20260924-fix-dev-zero-readonly-shared-v1-1-153c2111e323@kernel.org>
+ <2026092406-irritably-maggot-9512@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026092406-irritably-maggot-9512@gregkh>
 
-When an MPAM MSC gets into an error condition, it can trigger an error
-IRQ. We cannot really do much about those errors, but we at least query
-and log the error, then disable MPAM functionality.
+On Thu, Sep 24, 2026 at 05:08:49PM +0200, Greg Kroah-Hartman wrote:
+> On Thu, Sep 24, 2026 at 03:48:24PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > Rather surprisingly, opening /dev/zero read-only then mmap()'ing it
+> > MAP_SHARED gets you true anonymous memory (albeit in a VMA with
+> > non-NULL vma->vm_file).
+> >
+> > This is a by-product of MAP_PRIVATE-/dev/zero being how anonymous memory
+> > was mapped in Linux's distant past.
+> >
+> > It happens because mmap_zero_prepare() gates on VMA_SHARED_BIT and when
+> > mapping a read-only file MAP_SHARED, do_mmap() clears VMA_SHARED_BIT and
+> > VMA_MAYWRITE_BIT.
+> >
+> > The gating is incorrect - the (poorly named) VMA_MAYSHARE_BIT flag exists
+> > explicitly to tell you if something was originally mapped MAP_SHARED.
+> >
+> > So the fix is simple - gate on this instead.
+> >
+> > This isn't exactly a common use case, but it's unexpected behaviour which
+> > now causes an assert if CONFIG_DEBUG_VM is set.
+> >
+> > While this bug has existed since the dawn of time for linux (or at least
+> > since 2.6.12), it hasn't caused issues in the past, so while it's incorrect
+> > behaviour, it doesn't seem necessary to backport that far.
+> >
+> > The mapping is now accounted at mmap time and can fail with -ENOMEM under
+> > strict overcommit, and read faults allocate folios. However this is normal
+> > behaviour for a read-only shmem mapping.
+> >
+> > Commit 93c0c8dc87f6 ("mm/rmap: use anon pgoff to track MAP_PRIVATE
+> > file-backed anon folios") is the first patch at which the debug assert
+> > fires, so target that instead.
+> >
+> > Fixes: 93c0c8dc87f6 ("mm/rmap: use anon pgoff to track MAP_PRIVATE file-backed anon folios")
+> > Reported-by: syzbot+c181d3198e98f8aef8b9@syzkaller.appspotmail.com
+> > Closes: https://lore.kernel.org/linux-mm/6ab4ae75.80e1c6cc.1e8e5f.000d.GAE@google.com/
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+> >  drivers/char/mem.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/char/mem.c b/drivers/char/mem.c
+> > index 63253d1de5d7..5b93c92c2cf1 100644
+> > --- a/drivers/char/mem.c
+> > +++ b/drivers/char/mem.c
+> > @@ -503,7 +503,7 @@ static int mmap_zero_prepare(struct vm_area_desc *desc)
+> >  #ifndef CONFIG_MMU
+> >  	return -ENOSYS;
+> >  #endif
+> > -	if (vma_desc_test(desc, VMA_SHARED_BIT))
+> > +	if (vma_desc_test(desc, VMA_MAYSHARE_BIT))
+> >  		return shmem_zero_setup_desc(desc);
+>
+> What's the odds that something "big" actually relies on this?
 
-This error report relies on reading the MSC's error status register
-(ESR) in the current hard-IRQ handler, which is not possible for MPAM-Fb
-based MSC accesses, since they involve mailbox routines that might sleep.
-The same is true for clearing the interrupt at the source, which requires
-a (potentially sleeping) MSC access as well.
+I think it'd be fairly crazy to, unless people really care about read-faulting a
+lot of zero pages which they want to somehow not account properly.
 
-Change the error IRQ handler to be a threaded interrupt, but keep the
-handling in the hard-IRQ part for MMIO MSCs. This is needed since the
-CPU affinity check in the MSC accessors requires a non-preemptible
-context.
-When the MSC is using an MPAM-Fb based access, we push the work into the
-threaded part of the handler, where the accessors are allowed to sleep.
-Also forbid per-CPU interrupts (PPIs) for MPAM-Fb, as we cannot use a
-threaded IRQ here.
+Anything's possible but I think on this, right to take a (v. small) risk!
 
-The actual IRQ handler learns how to deal with errors. We cannot really
-handle them, but we can try our best to disable the IRQ anyway.
-Should the level IRQ line deactivation fail on the device side, we mask
-the IRQ on the irqchip level, to prevent an interrupt storm.
+>
+> I'm all for the change, but be prepared in about 5 years for people to
+> start complaining :)
+>
+> Want me to take it through my tree?
 
-Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-Reviewed-by: Gavin Shan <gshan@redhat.com>
-Reviewed-by: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
----
- drivers/resctrl/mpam_devices.c | 77 ++++++++++++++++++++++++++++------
- 1 file changed, 65 insertions(+), 12 deletions(-)
+Sure, thanks, though there will be a conflict against a patch in mm.
 
-diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-index 90161696aada0..ce20dc44d5d40 100644
---- a/drivers/resctrl/mpam_devices.c
-+++ b/drivers/resctrl/mpam_devices.c
-@@ -2721,24 +2721,42 @@ static int mpam_disable_msc_ecr(void *_msc)
- 	return __mpam_write_reg(msc, MPAMF_ECR, 0);
- }
- 
-+/*
-+ * This will run as the threaded IRQ handler part when using MPAM-Fb, but
-+ * as the sole hard-IRQ handler for MMIO based accesses.
-+ */
- static irqreturn_t __mpam_irq_handler(int irq, struct mpam_msc *msc)
- {
- 	u64 reg;
-+	int ret;
- 	u16 partid;
- 	u8 errcode, pmg, ris;
- 
--	if (WARN_ON_ONCE(!msc) ||
-+	if (WARN_ON_ONCE(!msc))
-+		return IRQ_NONE;
-+
-+	if (msc->iface == MPAM_IFACE_MMIO &&
- 	    WARN_ON_ONCE(!cpumask_test_cpu(smp_processor_id(),
- 					   &msc->accessibility)))
- 		return IRQ_NONE;
- 
--	mpam_msc_read_esr(msc, &reg);
-+	ret = mpam_msc_read_esr(msc, &reg);
-+	if (ret) {
-+		pr_err_ratelimited("unknown error irq from msc:%u\n", msc->id);
-+
-+		/* Try out best here ... */
-+		goto out_disable;
-+	}
- 
- 	errcode = FIELD_GET(MPAMF_ESR_ERRCODE, reg);
- 	if (!errcode)
- 		return IRQ_NONE;
- 
--	/* Clear level triggered irq */
-+	/*
-+	 * Clear the level triggered IRQ. If that fails, we cannot do anything
-+	 * about it, so ignore any errors. We will disable the IRQ either on
-+	 * the device side or on the irqchip level next anyway.
-+	 */
- 	mpam_msc_clear_esr(msc);
- 
- 	partid = FIELD_GET(MPAMF_ESR_PARTID_MON, reg);
-@@ -2749,16 +2767,24 @@ static irqreturn_t __mpam_irq_handler(int irq, struct mpam_msc *msc)
- 			   msc->id, mpam_errcode_names[errcode], partid, pmg,
- 			   ris);
- 
--	/* Disable this interrupt. */
--	mpam_disable_msc_ecr(msc);
-+out_disable:
-+	/*
-+	 * Disable this interrupt on the device side. If that fails, disable
-+	 * the IRQ on the irqchip level, as we must prevent further handler
-+	 * invocations. We only take the interrupt once anyway, as we
-+	 * are going to free the IRQ next, in mpam_disable().
-+	 */
-+	ret = mpam_disable_msc_ecr(msc);
-+	if (ret)
-+		disable_irq_nosync(irq);
- 
--	/* Are we racing with the thread disabling MPAM? */
-+	/* Check whether we are racing with the thread disabling MPAM. */
- 	if (!mpam_is_enabled())
- 		return IRQ_HANDLED;
- 
- 	/*
--	 * Schedule the teardown work. Don't use a threaded IRQ as we can't
--	 * unregister the interrupt from the threaded part of the handler.
-+	 * Schedule the teardown work. We have to defer it as we can't
-+	 * unregister the interrupt from the threaded part of a handler.
- 	 */
- 	mpam_disable_reason = "hardware error interrupt";
- 	schedule_work(&mpam_broken_work);
-@@ -2773,10 +2799,30 @@ static irqreturn_t mpam_ppi_handler(int irq, void *dev_id)
- 	return __mpam_irq_handler(irq, msc);
- }
- 
--static irqreturn_t mpam_spi_handler(int irq, void *dev_id)
-+/*
-+ * MMIO based MSC accesses must run in non-preemptible context, as they
-+ * might have affinity requirements to check.
-+ * MPAM-Fb based MSC accesses must NOT run in hard-IRQ context, as they
-+ * can sleep.
-+ * So split the IRQ handling up, depending on the MSC access type.
-+ */
-+static irqreturn_t mpam_shared_hard_irq(int irq, void *dev_id)
- {
- 	struct mpam_msc *msc = dev_id;
- 
-+	if (msc->iface == MPAM_IFACE_MMIO)
-+		return __mpam_irq_handler(irq, msc);
-+
-+	return IRQ_WAKE_THREAD;
-+}
-+
-+static irqreturn_t mpam_shared_thread_irq(int irq, void *dev_id)
-+{
-+	struct mpam_msc *msc = dev_id;
-+
-+	if (msc->iface == MPAM_IFACE_MMIO)
-+		return IRQ_HANDLED;
-+
- 	return __mpam_irq_handler(irq, msc);
- }
- 
-@@ -2797,6 +2843,11 @@ static int mpam_register_irqs(void)
- 		/* The MPAM spec says the interrupt can be SPI, PPI or LPI */
- 		/* We anticipate sharing the interrupt with other MSCs */
- 		if (irq_is_percpu(irq)) {
-+			if (msc->iface != MPAM_IFACE_MMIO) {
-+				dev_err(&msc->pdev->dev,
-+					"Only MMIO MSCs can use per-CPU interrupts\n");
-+				return -EINVAL;
-+			}
- 			err = request_percpu_irq(irq, &mpam_ppi_handler,
- 						 "mpam:msc:error",
- 						 msc->error_dev_id);
-@@ -2808,9 +2859,11 @@ static int mpam_register_irqs(void)
- 					       &_enable_percpu_irq, &irq,
- 					       true);
- 		} else {
--			err = devm_request_irq(&msc->pdev->dev, irq,
--					       &mpam_spi_handler, IRQF_SHARED,
--					       "mpam:msc:error", msc);
-+			err = devm_request_threaded_irq(&msc->pdev->dev, irq,
-+							&mpam_shared_hard_irq,
-+							&mpam_shared_thread_irq,
-+							IRQF_SHARED | IRQF_ONESHOT,
-+							"mpam:msc:error", msc);
- 			if (err)
- 				return err;
- 		}
--- 
-2.43.0
+Though it's really that the file is moved (to mm/), so actually should be an
+easy resolution?
 
+>
+> thanks,
+>
+> greg k-h
+
+--
+Cheers, Lorenzo
