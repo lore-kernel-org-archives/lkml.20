@@ -1,407 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82B0B37F32C;
-	Thu, 24 Sep 2026 14:01:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B63D3391505
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:01:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790258496; cv=none; b=TkNdB+3tVxRmMZenhJEDLNLgk3882dpg3RTVqX+VDN94BI1uLMp/aG2jkGUbo4Q+4kEfy6f1bTc1XuIY7iZyAWL8/dET/AuCC+mD95s60UdgEX3UIJwDkfVy9ugJzdOsniE8+G/v6dkaQa/p3k5LpDFP82j2bMI645JuwqXfGVk=
+	t=1790258506; cv=none; b=oM9VLbs3APkra8+0Sd6G4mgo7TWnWsMe49/ZMlsULCA7Dr0zLIFQwdtxw1yxTiI+ep9YeSurS0Mau2GcFOFnteV/BXI2F9yUrGVWusnD65Zz1dAk9mkxQJw37Y+mIlDjhBg/JpyPVEvqxfT0CgXp2hzVlAt7z+bmfWlJT/EbfJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790258496; c=relaxed/simple;
-	bh=em9DgVkPCPj+sczqL01kbA740Fk/3tmX3civdo0NVHg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kWhE/A2C+yEIK1IIW0AryjD52qMNSaCAGy5G2yFapT3g0zpzdEOGmfYZbM4iWNfZzn+Ufqz61hIOhHt/dsYXUM4imKsrMHvHiPdd2iwIpaz7SV4Z/scNvJiCJwKwVGqKFq+BHjOs+813RGbWJyCFFNgUy/Nf9jN2CsHPbs/5c2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oMu+7WgO; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790258506; c=relaxed/simple;
+	bh=E9JLwgOzTTYUp//gOVT2Yw38SwLKuhS7cNx4LwO6IoY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Injbx/73r/ZQ8VC0kRSqcMqDrJikIGRYzVaezS/SkI/VvPjZJvXvdwc4uMp1+aZFH77GwOwBEzprPOPGSdA+ijtHb1H/8IAxlTl8dRIDB8NFGebt9eMuXUzyP4tZG2QcqerMR1IMq8wfaOjAjN2SlYYKZcfUPoBDvJrtswkha8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=Vd1I4utP; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oMu+7WgO"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2873CC2BCFA;
-	Thu, 24 Sep 2026 14:01:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790258496;
-	bh=em9DgVkPCPj+sczqL01kbA740Fk/3tmX3civdo0NVHg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=oMu+7WgOuBkC1WfzBnvbYXKee1frzrgbknDeivi81pRiTlqTpDJII/PqinVeOuXYr
-	 WycscEvhe8XCYp8cBPodRmhyxgeCZZOrljMDbFZmzkCFl4U5g6Sgshf1OF0gLtVWrP
-	 EYcs8nah+jDfJumruhXyr9xF8pA0eRF0PPKFAKcPCQvtM/rSzW3v90WgJ3yX/37Mj6
-	 OGjoVbR6sDJGPLqvUodZveWgkFVjzmeCYFnUc4PKFepx2EY4JShjdTSlnhplOC/vie
-	 XA+t7/IhmQ0Jf5FoZapNevDhN5OaHurkMIR/ARQFveZwDXqQBZNEC5OIdDdLnw+zhG
-	 pkbh3tAQ5/9ig==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 10ED4C9830E;
-	Thu, 24 Sep 2026 14:01:36 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Thu, 24 Sep 2026 16:01:36 +0200
-Subject: [PATCH v2 08/11] drm/panel: s6e3ha8: add Samsung AMB630QY01
- (Google Pixel 3 XL) panel
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="Vd1I4utP"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887840c529so61004f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:01:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1790258502; x=1790863302; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EVHqdIp5mN/SlCXCBlhMf/YG37Cfm8kONNXB9WYe688=;
+        b=Vd1I4utPRpO5MQoYJd3BImbAbRTCvbofJtrjc4WaGK+9FanDKYNU3Ioi+4GgF0D6W2
+         Wphfxr0MdpNjLvoJfKs6P7eLeLt3pUh6UUDEFkhePlIQgI0r6dEnuNdXWTila0ss56ys
+         GNYppMAhsKa9oxQih0hAf62lPXxUbOzqpxjXvckFUMn5uOjbpxCt+GbsrXR+DrK1857M
+         ZX4IkqmRGgWeJcZbquD8b9qVG6rqHn4KQhBALdVwWSgCuIzu9D1QkPcgUcIuGGi+4zHg
+         FKs4on01N97sWB3Lffah38b9kvRGHGg10rIYtslH4mQntdasFEISpVdVwiYc41c4LYmL
+         E3jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790258502; x=1790863302;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EVHqdIp5mN/SlCXCBlhMf/YG37Cfm8kONNXB9WYe688=;
+        b=nCejtNR5NBkaWKvEpgO+QIrpBLjIX1YVE4dQ9LFdcgoQwjL8ljN+j2IYERDlu72GWN
+         EEc+z79GBzeV7JJC8AQxw+cXGUDY15bRbkDnjDdKMk1iOVUEacXViQthiNFK012NtIVH
+         HrceeVE0cN74B9PB36gVGRUJZJzz/QUiXuuBfJRJkqFI0Fh/91cHf7O2/s4JgkZRmtV+
+         ml110Zz+reTAYn9ARlsXQ6wYThiYSRvODHjSD1PQcBeQmZH0guiZt372vYFWW9H2GcPx
+         sY+cJfNZd9OhAsiRBOZ6qBXbCwVWBP8eN7JE5LWFnCJgJKwy2AKXA60fDq1nkYoIVrwo
+         BGfg==
+X-Forwarded-Encrypted: i=1; AKwUvBypG3PaPbCbceUqdWr+/IT5oNIKgBwysqtLRwzkgBIbUFDYmj/Y8mahTNZRPi+5I4DCjfTNr15+1LqF7E4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nIrkD7qf835R7EfepyXe72oL9vVILui57oboseCRaFoNqfQriy
+	Q+pCBtAClVPmTIp3NOtQOh6nqs0We46zjZlM2xo/O7O1jZw73r2l8vgf/PCwblBmFQA=
+X-Gm-Gg: AYBFou2kNHI9/mWqQdw1iBEgtwurKCKc9bQZG9YtY8XnKqnb/gXe8Yqcb8I2U717aiT
+	N/NnwfcyR/lHcFzigHtB5/x1eLd+kMS2A0aKNbGKR6kZfGQdXzwZ3+WMxA8fjpSvDpPW2C2fBj6
+	BZHejD3Aw05CVdBHQ9gmZYR43jrXIWyiovjXi0QhO/1dVtkUiPRGpt7J0n49mDzNpgoQsiy0NWq
+	2jBoGl8FZ4MWQU8zUjwF3l8e9yFiT6dDhQ9DPHfW70T9Ko5nrFQq7V0iHbGCQ8m5GFccBOKGci2
+	8ght8005HsKt5Pkn1Aqfyx818YFtbBOCMfnXGuIUN7MHH6t8+k2R+iAEwo12s3MMqfwWV4Ms6Uh
+	yF1a6qcxEFqHUr7fbSJ0Vju0IaaZSzKV7jx9/0t9DAc0sT5KVfNmDWXh9Z0KTiRLtRAGKALtWiP
+	dvkn9WP9HaBFkmTu9OgBlJHGvrlJT9PterBuviEoz0QwAnC0ratU23Mbkh8UEk0tE141XJiFJky
+	205UEcSKRgZIBiR//cg6q9FtbZaHo9H+2M5Qhd6M5YrAbvjuYCCEkcMhU3amSlYQY4gvft+T3RY
+X-Received: by 2002:a05:600c:4e8f:b0:49e:7c8c:bc77 with SMTP id 5b1f17b1804b1-49fe66d062bmr44815485e9.7.1790258501429;
+        Thu, 24 Sep 2026 07:01:41 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49febb20146sm2518575e9.2.2026.09.24.07.01.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 07:01:40 -0700 (PDT)
+Date: Thu, 24 Sep 2026 10:01:35 -0400
+From: Gregory Price <gourry@gourry.net>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org, jannh@google.com, 
+	rppt@kernel.org, surenb@google.com, mhocko@suse.com, shuah@kernel.org
+Subject: Re: [PATCH 01/10] selftests/mm: exercise MADV_COLD and MADV_PAGEOUT
+Message-ID: <arUsvfwbYjdcUp3Y@gourry-fedora-PF4VCD3F>
+References: <20260922235830.2350770-1-gourry@gourry.net>
+ <20260922235830.2350770-2-gourry@gourry.net>
+ <arPgwegm8XgbEUrO@gremlin>
+ <arPjwPwVxdvdR5S0@gourry-fedora-PF4VCD3F>
+ <arPl6UhNDbwds4uR@gremlin>
+ <e459d3c9-ad60-47bb-8b02-bed3819e8067@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-crosshatch-panel-v2-8-08d5c7bf72fc@ixit.cz>
-References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
-In-Reply-To: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
-To: Dzmitry Sankouski <dsankouski@gmail.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10392; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=Oiv3rEiE0ZOT1iffv6KA//WPhRjWXmbWai0JbL097kg=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtS09GkzFf+wCfDMM4SXVFcich0bbO/XwGcUwe
- EUtN12A6guJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarUtPQAKCRBgAj/E00kg
- ci+1D/kBhURefAbfCD2eM4lxP174o3tojHTtfZPE6e4k9Z1rW0TaMLI+421lOaBRwDvDdKcaJZW
- sJQeuwUoaA0w4n00dDHPH5S/EoJv3WtFQL7WnTVmGYlWDYDX6cf+1JydxSMKMnu5e5B3hp1VK5+
- gJuMablMI0L6fqFNY4i9p9IQhsQ4hcdF+y7jdN7O2uZG9r9uvho/fNimGI6AgoIAPsbQP4y35ew
- 8H4LZKq5JQEgzpjFdsTmrO5kjP7fauEOocUgRcCOxuu/kr0O4Bjx062S0NDUmnmbeE+3cAd37lH
- QApQhrTwuN2t0UxyH6qF6Ccp+HprNv9BBqteFWnGv0hcVivdBPz67whkCdnDtadn3ERwKpNSHQj
- hy+mr4MwLG2KdEOvsQh39Rt8KrzPtGmOC+0uvyJplKafNlEOE0V5/9DHOfkUAABQ3SV2NNiJupw
- KfdCUQjUy4LzUlD3VzMS7+UZN2ZI0wmwlxT3mgxUr3ovAjyHqqC7QCzXtBeePOrYBUvxCQjWA/p
- OER2We9cSIXlmfGezfZWwhN/ukYFnpSui/UqnXQft+p9Ng/l6WBSlrh7KggxgCfstRNqYeS1HpX
- esIl/YEDTYvjlj0tZ+XBw1jsKc4qJggfZwyp3wrZ3JvfZSnNTbA/qvaTNqiKVcdL/n5oSA65iTb
- f2xLdXwUiv6pK6w==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e459d3c9-ad60-47bb-8b02-bed3819e8067@kernel.org>
 
-From: David Heidelberg <david@ixit.cz>
+On Thu, Sep 24, 2026 at 01:32:25PM +0200, David Hildenbrand (Arm) wrote:
+> On 9/23/26 16:46, Lorenzo Stoakes (ARM) wrote:
+> >>
+> >> I'm working on a solution.  Need better hosting.
+> > 
+> > Thanks! But yeah damn indeed you do! :)
+> > 
+> > Though larger series can scare people off so maybe better to send the tests
+> > separately?
+> 
+> In any case, we have to break this down into reviewable pieces. We neglected
+> selftests for too long.
+> 
+> ... and there are some schlopped tests in there that we really shouldn't have as
+> they are way too special and hard to maintain.
+> 
+> Like this monstrosity:
+> 
+> +/*
+> + * A folio faulted on another CPU can remain in that CPU's pending LRU batch.
+> + * MADV_COLD drains only the calling CPU and must safely skip the non-LRU
+> + * folio without changing the mapping.
+> + */
+> +static void test_madvise_cold_remote_lru_batch(void)
+> +{
+>
 
-The Google Pixel 3 XL (crosshatch) uses a Samsung AMB630QY01 6.3"
-1440x2960 flexible AMOLED panel, driven by the same S6E3HA8 DDIC as
-the Galaxy S9 panel this driver already supports.
+Yeah the intent of these particular tests was to ensure I capture ever
+weird branch in the code before i went refactoring it so I ensured there
+was no loss of fidelity.
 
-The init/teardown sequences and timings are taken from the downstream
-dsi-panel-s6e3ha8-dsc-wqhd-cmd.dtsi (Google bluecross kernel). The
-downstream DSI host neither appends EOT packets nor keeps the clock
-lane in HS, so mirror that with the corresponding mode flags, and set
-the RAM window explicitly since the kernel DSI host never sends the
-column/page addresses the downstream one does.
+I think we can reasonably delete ~15-20 of these tests.  That said, the
+code itself is not schlopp, but I believe in showing the work.
 
-Unlike the S9 panel, brightness is controlled with standard DCS
-commands (10-bit), so register a backlight device for it. Brightness
-readback is intentionally not implemented: DCS reads wedge the DSI
-host command engine and take the display pipeline down with it.
-
-Cosmetics: update Copyright header and add myself.
-
-Assisted-by: LLM
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 173 +++++++++++++++++++++++++-
- 1 file changed, 168 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-index 2591b8c1a7753..e02f1d9f0dcd0 100644
---- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-+++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-@@ -1,36 +1,42 @@
- // SPDX-License-Identifier: GPL-2.0-only
--//
--// Generated with linux-mdss-dsi-panel-driver-generator from vendor device tree:
--//	Copyright (c) 2013, The Linux Foundation. All rights reserved.
--// Copyright (c) 2024 Dzmitry Sankouski <dsankouski@gmail.com>
--
-+/*
-+ * Generated with linux-mdss-dsi-panel-driver-generator from vendor device tree:
-+ *	Copyright (c) 2013, The Linux Foundation. All rights reserved.
-+ * Copyright (c) 2024 Dzmitry Sankouski <dsankouski@gmail.com>
-+ * Copyright David Heidelberg
-+ */
-+
-+#include <linux/backlight.h>
- #include <linux/delay.h>
- #include <linux/gpio/consumer.h>
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/property.h>
- #include <linux/regulator/consumer.h>
- 
-+#include <video/mipi_display.h>
-+
- #include <drm/display/drm_dsc.h>
- #include <drm/display/drm_dsc_helper.h>
- #include <drm/drm_mipi_dsi.h>
- #include <drm/drm_probe_helper.h>
- #include <drm/drm_panel.h>
- 
- #include "panel-samsung-dsi.h"
- 
- struct s6e3ha8_desc {
- 	const struct drm_panel_funcs *funcs;
- 	const struct drm_display_mode *mode;
- 	unsigned long mode_flags;
- 	const struct regulator_bulk_data *supplies;
- 	unsigned int num_supplies;
- 	bool broken_reset_polarity;
-+	bool has_backlight;
- };
- 
- struct s6e3ha8 {
- 	struct drm_panel panel;
- 	struct mipi_dsi_device *dsi;
- 	const struct s6e3ha8_desc *desc;
- 	struct drm_dsc_config dsc;
- 	struct gpio_desc *reset_gpio;
-@@ -38,16 +44,23 @@ struct s6e3ha8 {
- };
- 
- static const struct regulator_bulk_data s6e3ha8_vddr_supplies[] = {
- 	{ .supply = "vdd3" },
- 	{ .supply = "vci" },
- 	{ .supply = "vddr" },
- };
- 
-+static const struct regulator_bulk_data s6e3ha8_boost_supplies[] = {
-+	{ .supply = "vdd3" },
-+	{ .supply = "vci" },
-+	{ .supply = "vddpos" },
-+	{ .supply = "vddneg" },
-+};
-+
- static inline struct s6e3ha8 *to_s6e3ha8(struct drm_panel *panel)
- {
- 	return container_of(panel, struct s6e3ha8, panel);
- }
- 
- #define s6e3ha8_afc_off(ctx) \
- 	mipi_dsi_dcs_write_seq_multi(ctx, 0xe2, 0x00, 0x00)
- 
-@@ -72,16 +85,26 @@ static void s6e3ha8_amb577px01_wqhd_reset(struct s6e3ha8 *priv)
- 	gpiod_set_value_cansleep(priv->reset_gpio, 0);
- 	usleep_range(5000, 6000);
- 	gpiod_set_value_cansleep(priv->reset_gpio, 1);
- 	usleep_range(5000, 6000);
- 	gpiod_set_value_cansleep(priv->reset_gpio, 0);
- 	usleep_range(5000, 6000);
- }
- 
-+static void s6e3ha8_amb630qy01_reset(struct s6e3ha8 *priv)
-+{
-+	gpiod_set_value_cansleep(priv->reset_gpio, 0);
-+	usleep_range(10000, 11000);
-+	gpiod_set_value_cansleep(priv->reset_gpio, 1);
-+	usleep_range(1000, 2000);
-+	gpiod_set_value_cansleep(priv->reset_gpio, 0);
-+	usleep_range(5000, 6000);
-+}
-+
- static int s6e3ha8_amb577px01_wqhd_on(struct s6e3ha8 *priv)
- {
- 	struct mipi_dsi_device *dsi = priv->dsi;
- 	struct mipi_dsi_multi_context ctx = { .dsi = dsi };
- 
- 	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
- 
- 	samsung_dsi_test_key_on_lvl1(&ctx);
-@@ -266,16 +289,146 @@ static const struct s6e3ha8_desc s6e3ha8_amb577px01_wqhd_desc = {
- 	.mode = &s6e3ha8_amb577px01_wqhd_mode,
- 	.mode_flags = MIPI_DSI_CLOCK_NON_CONTINUOUS |
- 		MIPI_DSI_MODE_VIDEO_NO_HFP | MIPI_DSI_MODE_VIDEO_NO_HBP |
- 		MIPI_DSI_MODE_VIDEO_NO_HSA | MIPI_DSI_MODE_NO_EOT_PACKET,
- 	.supplies = s6e3ha8_vddr_supplies,
- 	.num_supplies = ARRAY_SIZE(s6e3ha8_vddr_supplies),
- };
- 
-+static int s6e3ha8_amb630qy01_prepare(struct drm_panel *panel)
-+{
-+	struct s6e3ha8 *priv = to_s6e3ha8(panel);
-+	struct mipi_dsi_multi_context ctx = { .dsi = priv->dsi };
-+	struct drm_dsc_picture_parameter_set pps;
-+	int ret;
-+
-+	ret = regulator_bulk_enable(priv->desc->num_supplies, priv->supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	s6e3ha8_amb630qy01_reset(priv);
-+
-+	mipi_dsi_compression_mode_multi(&ctx, true);
-+
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&ctx);
-+	mipi_dsi_msleep(&ctx, 120);
-+
-+	mipi_dsi_dcs_write_seq_multi(&ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x20);
-+	mipi_dsi_dcs_set_tear_on_multi(&ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
-+
-+	/*
-+	 * Unlike the downstream DSI host, the kernel one never sends the
-+	 * column/page addresses, so set the RAM window explicitly.
-+	 */
-+	mipi_dsi_dcs_set_column_address_multi(&ctx, 0, 1440 - 1);
-+	mipi_dsi_dcs_set_page_address_multi(&ctx, 0, 2960 - 1);
-+
-+	samsung_dsi_test_key_on_lvl2(&ctx);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xb9,
-+				     0x01, 0xb0, 0x81, 0x09, 0x00, 0x00, 0x00,
-+				     0x11, 0x03); /* TSP HSYNC Setting */
-+	samsung_dsi_test_key_off_lvl2(&ctx);
-+
-+	drm_dsc_pps_payload_pack(&pps, &priv->dsc);
-+	mipi_dsi_picture_parameter_set_multi(&ctx, &pps);
-+
-+	if (ctx.accum_err) {
-+		gpiod_set_value_cansleep(priv->reset_gpio, 1);
-+		regulator_bulk_disable(priv->desc->num_supplies, priv->supplies);
-+	}
-+
-+	return ctx.accum_err;
-+}
-+
-+static int s6e3ha8_amb630qy01_enable(struct drm_panel *panel)
-+{
-+	struct s6e3ha8 *priv = to_s6e3ha8(panel);
-+	struct mipi_dsi_multi_context ctx = { .dsi = priv->dsi };
-+
-+	mipi_dsi_dcs_set_display_on_multi(&ctx);
-+
-+	return ctx.accum_err;
-+}
-+
-+static int s6e3ha8_amb630qy01_disable(struct drm_panel *panel)
-+{
-+	struct s6e3ha8 *priv = to_s6e3ha8(panel);
-+	struct mipi_dsi_multi_context ctx = { .dsi = priv->dsi };
-+
-+	mipi_dsi_dcs_set_display_off_multi(&ctx);
-+	mipi_dsi_msleep(&ctx, 10);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&ctx);
-+	mipi_dsi_msleep(&ctx, 120);
-+
-+	return ctx.accum_err;
-+}
-+
-+static const struct drm_display_mode s6e3ha8_amb630qy01_mode = {
-+	.clock = (1440 + 116 + 44 + 116) * (2960 + 124 + 120 + 80) * 60 / 1000,
-+	.hdisplay = 1440,
-+	.hsync_start = 1440 + 116,
-+	.hsync_end = 1440 + 116 + 44,
-+	.htotal = 1440 + 116 + 44 + 116,
-+	.vdisplay = 2960,
-+	.vsync_start = 2960 + 124,
-+	.vsync_end = 2960 + 124 + 120,
-+	.vtotal = 2960 + 124 + 120 + 80,
-+	.width_mm = 70,
-+	.height_mm = 144,
-+};
-+
-+static const struct drm_panel_funcs s6e3ha8_amb630qy01_panel_funcs = {
-+	.prepare = s6e3ha8_amb630qy01_prepare,
-+	.unprepare = s6e3ha8_unprepare,
-+	.get_modes = s6e3ha8_get_modes,
-+	.enable = s6e3ha8_amb630qy01_enable,
-+	.disable = s6e3ha8_amb630qy01_disable,
-+};
-+
-+static const struct s6e3ha8_desc s6e3ha8_amb630qy01_desc = {
-+	.funcs = &s6e3ha8_amb630qy01_panel_funcs,
-+	.mode = &s6e3ha8_amb630qy01_mode,
-+	.mode_flags = MIPI_DSI_MODE_LPM | MIPI_DSI_CLOCK_NON_CONTINUOUS |
-+		      MIPI_DSI_MODE_NO_EOT_PACKET,
-+	.supplies = s6e3ha8_boost_supplies,
-+	.num_supplies = ARRAY_SIZE(s6e3ha8_boost_supplies),
-+	.has_backlight = true,
-+};
-+
-+static int s6e3ha8_bl_update_status(struct backlight_device *bl)
-+{
-+	struct mipi_dsi_device *dsi = bl_get_data(bl);
-+	u16 brightness = backlight_get_brightness(bl);
-+
-+	return mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-+}
-+
-+/*
-+ * No .get_brightness: DCS reads wedge the DSI host command engine and
-+ * take the whole display pipeline down with it.
-+ */
-+static const struct backlight_ops s6e3ha8_bl_ops = {
-+	.update_status = s6e3ha8_bl_update_status,
-+};
-+
-+static struct backlight_device *
-+s6e3ha8_create_backlight(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	const struct backlight_properties props = {
-+		.type = BACKLIGHT_RAW,
-+		.brightness = 512,
-+		.max_brightness = 1023,
-+	};
-+
-+	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
-+					      &s6e3ha8_bl_ops, &props);
-+}
-+
- static int s6e3ha8_probe(struct mipi_dsi_device *dsi)
- {
- 	struct device *dev = &dsi->dev;
- 	const struct s6e3ha8_desc *desc;
- 	struct s6e3ha8 *priv;
- 	int ret;
- 
- 	desc = device_get_match_data(dev);
-@@ -308,16 +461,23 @@ static int s6e3ha8_probe(struct mipi_dsi_device *dsi)
- 	mipi_dsi_set_drvdata(dsi, priv);
- 
- 	dsi->lanes = 4;
- 	dsi->format = MIPI_DSI_FMT_RGB888;
- 	dsi->mode_flags = priv->desc->mode_flags;
- 
- 	priv->panel.prepare_prev_first = true;
- 
-+	if (priv->desc->has_backlight) {
-+		priv->panel.backlight = s6e3ha8_create_backlight(dsi);
-+		if (IS_ERR(priv->panel.backlight))
-+			return dev_err_probe(dev, PTR_ERR(priv->panel.backlight),
-+					     "Failed to create backlight\n");
-+	}
-+
- 	ret = devm_drm_panel_add(dev, &priv->panel);
- 	if (ret)
- 		return ret;
- 
- 	/* This panel only supports DSC; unconditionally enable it */
- 	dsi->dsc = &priv->dsc;
- 
- 	priv->dsc.dsc_version_major = 1;
-@@ -343,16 +503,19 @@ static int s6e3ha8_probe(struct mipi_dsi_device *dsi)
- static const struct of_device_id s6e3ha8_of_match[] = {
- 	{
- 		/* deprecated */
- 		.compatible = "samsung,s6e3ha8",
- 		.data = &s6e3ha8_amb577px01_wqhd_desc_legacy,
- 	}, {
- 		.compatible = "samsung,s6e3ha8-amb577px01",
- 		.data = &s6e3ha8_amb577px01_wqhd_desc,
-+	}, {
-+		.compatible = "samsung,s6e3ha8-amb630qy01",
-+		.data = &s6e3ha8_amb630qy01_desc,
- 	},
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, s6e3ha8_of_match);
- 
- static struct mipi_dsi_driver s6e3ha8_driver = {
- 	.probe = s6e3ha8_probe,
- 	.driver = {
-
--- 
-2.55.0
-
-
+~Gregory
