@@ -1,49 +1,104 @@
-Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B355E4746B3;
-	Thu, 24 Sep 2026 11:37:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.214.250.239
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790249859; cv=none; b=ByeFvbrxuWwpLQOdfDx7hf8ey/FwHqPECAlN+FM3DIPNQAbJAnIT3HiiHlAdMMwRecUEi/gjQNpW9sAz/EJLkjSv0Sc60GyOGMjuaWERDhyJJ1v16y485lM9X8p4EwBU/R8bLPJDLA5ylBv+cMaNjkvXgGFtlbgZmdZoUuSfShk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790249859; c=relaxed/simple;
-	bh=2EznhBAf4tapLikwBNVBshdXp25sQtmOgYlIBY42W08=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JGyJSD/3apn3wMDEEBO014hjU2ObgVTw9yCudReLz3JybvGtQCn+ngzXMvkv2srSVv+tW9JNjN6u6uu8QLKFXdX6jy05F/aXeUmCieDc+SVUYdJC/sqRp08oR5AGa+wUXuAE76Lg0KEfqJjxuappxTu/bTVfaXQBzBDs9KAq6OA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org; spf=pass smtp.mailfrom=8bytes.org; arc=none smtp.client-ip=85.214.250.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
-Received: from 8bytes.org (p200300f6af404a00e4ccc4fdbbd66590.dip0.t-ipconnect.de [IPv6:2003:f6:af40:4a00:e4cc:c4fd:bbd6:6590])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.8bytes.org (Postfix) with ESMTPSA id D53671C7465;
-	Thu, 24 Sep 2026 13:37:32 +0200 (CEST)
-Date: Thu, 24 Sep 2026 13:37:31 +0200
-From: "Joerg Roedel (AMD)" <joro@8bytes.org>
-To: Janne Grunau <j@jannau.net>
-Cc: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>, 
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	iommu@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Hector Martin <marcan@marcan.st>
-Subject: Re: [PATCH v3 0/2] iommu: apple-dart: device specific DMA aperture
- support
-Message-ID: <arULHr3O14OerdLR@8bytes.org>
-References: <20260902-iommu-apple-dart-aperture-v3-0-252ce55b7001@jannau.net>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2613AF676;
+	Thu, 24 Sep 2026 11:38:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790249900; cv=none; b=IRSvguaID9VcjmAR4oA+ngg7cpIcQuBDbvyXBKGQhd1EUp3D0SxRjd0RUnSfONPx4h5LyMa6Non/h47b0yKJl+J3lIZP05tlDbyiXd2kCHlZa0AwzOmNP8Pw6Xtb1DrM8PitmJvH0eheZL+sqlDQRH6Q9rVxZPkAs90YNgTDq/s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790249900; c=relaxed/simple;
+	bh=2NruCBdLSiLMYRtOZ7Z8ixKPyzTctezlt8OCwIYZhLs=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OEOtTUEOi3Gm5/4+q2bT83Zpq6BAn0lXuHMcglDgOb72Zwudi0QBkcCuhTb5bhw1a5sUvKDr39Fcnp+rqqVPpx+Q9x+35un77adlZDpxWt//jdbPuP6Zgv30ivw7Irj4k9ohZasvy2UTwbixLRafOmrGJNPxzeVSJC36wIN0m7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=4OR+pURy; arc=none smtp.client-ip=113.46.200.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="4OR+pURy"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Hhip5diLg9l9vQeukaU5OvVWbxT9GoP0EQgST9wfSm8=;
+	b=4OR+pURyTYYPhc7zxIb4uaNVOAGDelWs0qByWGvXlFrWVvk6CP5VFxSSm9TO3q7XSGCU6Tobo
+	YLDSa5t2E/j2/Yz2VqB6eZ7sad1MBWkOUHXvX7dsZnNkmBgKPsEYtIaEgf0YPPuBNfw7RBSb5H/
+	yBbr4ZsUJ/64yolCJlEx7UY=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hrBPk4cNxzKm5t;
+	Thu, 24 Sep 2026 19:27:06 +0800 (CST)
+Received: from kwepemf200011.china.huawei.com (unknown [7.202.181.237])
+	by mail.maildlp.com (Postfix) with ESMTPS id 0472940563;
+	Thu, 24 Sep 2026 19:38:14 +0800 (CST)
+Received: from localhost.localdomain (10.50.163.32) by
+ kwepemf200011.china.huawei.com (7.202.181.237) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 24 Sep 2026 19:38:13 +0800
+From: Weili Qian <qianweili@huawei.com>
+To: <herbert@gondor.apana.org.au>
+CC: <linux-kernel@vger.kernel.org>, <linux-crypto@vger.kernel.org>,
+	<liulongfang@huawei.com>
+Subject: [PATCH 1/4] crypto: hisilicon/qm - clear runtime PM flag for non-power-manageable device
+Date: Thu, 24 Sep 2026 19:38:09 +0800
+Message-ID: <20260924113812.1110302-2-qianweili@huawei.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260924113812.1110302-1-qianweili@huawei.com>
+References: <20260924113812.1110302-1-qianweili@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902-iommu-apple-dart-aperture-v3-0-252ce55b7001@jannau.net>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemf200011.china.huawei.com (7.202.181.237)
 
-On Wed, Sep 02, 2026 at 09:18:53PM +0200, Janne Grunau wrote:
-> Janne Grunau (2):
->       dt-bindings: iommu: dart: Support specifying the DMA aperture
->       iommu: apple-dart: Support specifying the DMA aperture in the DT
+ACPI_COMPANION() may return NULL on firmware without ACPI support.
+Passing it directly to acpi_device_power_manageable() causes a NULL
+pointer dereference.
 
-Missed that there is a v3, applied this instead.
+Store the companion in a local variable and check it before use.
+When the device is not power manageable, clear QM_SUPPORT_RPM so the
+driver skips the suspend/resume path.
+
+Fixes: 3e1d2c52b2045 ("crypto: hisilicon - check _PS0 and _PR0 method")
+Signed-off-by: Weili Qian <qianweili@huawei.com>
+---
+ drivers/crypto/hisilicon/qm.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/crypto/hisilicon/qm.c b/drivers/crypto/hisilicon/qm.c
+index c01966a4a33f..4f555912f5fc 100644
+--- a/drivers/crypto/hisilicon/qm.c
++++ b/drivers/crypto/hisilicon/qm.c
+@@ -3158,6 +3158,7 @@ static int hisi_qp_memory_init(struct hisi_qm *qm, size_t dma_size, int id,
+ static void hisi_qm_pre_init(struct hisi_qm *qm)
+ {
+ 	struct pci_dev *pdev = qm->pdev;
++	struct acpi_device *adev;
+ 
+ 	if (qm->ver == QM_HW_V1)
+ 		qm->ops = &qm_hw_ops_v1;
+@@ -3173,9 +3174,16 @@ static void hisi_qm_pre_init(struct hisi_qm *qm)
+ 	mutex_init(&qm->ifc_lock);
+ 	init_rwsem(&qm->qps_lock);
+ 	qm->qp_in_used = 0;
++	/*
++	 * If the device is not power manageable, clear the flag to
++	 * avoid entering the suspend and resume process later.
++	 */
+ 	if (test_bit(QM_SUPPORT_RPM, &qm->caps)) {
+-		if (!acpi_device_power_manageable(ACPI_COMPANION(&pdev->dev)))
+-			dev_info(&pdev->dev, "_PS0 and _PR0 are not defined");
++		adev = ACPI_COMPANION(&pdev->dev);
++		if (!adev || !acpi_device_power_manageable(adev)) {
++			dev_warn(&pdev->dev, "device does not support runtime power gating\n");
++			clear_bit(QM_SUPPORT_RPM, &qm->caps);
++		}
+ 	}
+ }
+ 
+-- 
+2.43.0
+
