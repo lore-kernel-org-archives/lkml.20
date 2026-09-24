@@ -1,56 +1,80 @@
-Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DCE6240BCA1;
-	Thu, 24 Sep 2026 11:30:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.214.250.239
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790249464; cv=none; b=EJbbZyMW7uhH8bXG6QIb0cR6Hjbo6dO7Wj0QuUqeQ95esW32F/SRWeBiAg6uTW9cyXnAK9wMTiAVkA9sqiTFZeHok4t/6HZOsGJ4JOCunam42Wy2U/wsHvyEviHUcGVzWSs3evFDoCNst45C5ufSXvDeBY12DCw2uahNkpNklE8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790249464; c=relaxed/simple;
-	bh=y7gO6VrsNdoGYZk5SUzW4j4AMEsUFVWDu8Dp4AtVumU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=taSD13j4+wZqTdVndh43t8/43XKHZVD0HpGHPALpl6WzLh+pcjuo6jV11qm8/sk76bOcQ6r7UCbPwlfjgYTfXGIxxXLJxig/wSmr6eai6T2Bt6G/My+P+we9FWrj2XmkGyPZuy/lvUy1oGus8Qc0obJ3yuYlc4ZXB0mJLWhYMP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org; spf=pass smtp.mailfrom=8bytes.org; arc=none smtp.client-ip=85.214.250.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
-Received: from 8bytes.org (p200300f6af404a00e4ccc4fdbbd66590.dip0.t-ipconnect.de [IPv6:2003:f6:af40:4a00:e4cc:c4fd:bbd6:6590])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.8bytes.org (Postfix) with ESMTPSA id 1421E1C7465;
-	Thu, 24 Sep 2026 13:30:57 +0200 (CEST)
-Date: Thu, 24 Sep 2026 13:30:55 +0200
-From: "Joerg Roedel (AMD)" <joro@8bytes.org>
-To: Daniel Drake <dan@reactivated.net>
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, nick.hollinghurst@raspberrypi.com, james.quinlan@broadcom.com, 
-	Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH v3 0/5] Add support for Broadcom BCM2712 IOMMU driver
- (Raspberry Pi 5)
-Message-ID: <arUJxhEDFYSIUp4e@8bytes.org>
-References: <20260825-bcm2712-iommu-submit-v3-0-7f143e7289b6@reactivated.net>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C75478E5D;
+	Thu, 24 Sep 2026 11:31:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790249481; cv=none; b=kabC3sa0FHr7z5HQaL5ujPZ6hIILQ28JoNQSDFr6dcdVpvKTMRXHVoYE/FQApNqHu2REo7xw3tv5EFHg3BLC4PjxEsJmurHtfM1zRannH8wgCPlBf2+sLX6sMdcoZNwk93B7bP6EWeoh64bbQt5LNmWcHUnli1b7+x/q/ZWx1B8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790249481; c=relaxed/simple;
+	bh=E+YwRQF6sr061n4Twr5/dcfvdLXfKbIUI0NhnA4wN6I=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=rhbm2OUC5JFdOYmeNu5AWzIrpkt+4LrrVUnjn8XtaXbuTqQTJbuW1+Fsh9N/Z3GDPMSBOMFkhTxKzBCrnJeRZMOWvWiuugN+roYjgdbTBxqatcYUsqsKPLd+7YDOzih/b8cQxaLml3DvEzDrpwR48+pseLH73+4PnU3HH/srEGo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XrnMDLf8; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XrnMDLf8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C07B1F000FF;
+	Thu, 24 Sep 2026 11:31:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790249475;
+	bh=jVYt9LR/ACHTnteAIkp0hZOwQS1WbcUcSBVU0GujKBY=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=XrnMDLf8OJE502TZlweAxdFx62gYRVSGqBSGVIE9Nf9Y23ZoDf/P4T0A5BIgUfMLK
+	 pTxoQatjJ9GUt9atOei9veHUj2gbIDrGYRXft3IKx3hm3VG2sZr625Bd/S1PVbGm41
+	 Gw4gX/rO4Pc1fwuYP7dlGfbMy+eGfx6brqBS/burmLyYEJOq+RziXxnDxndYX63CpO
+	 cTJA7kaDFO0Tfo3/W5hBxM6bfCOf5GxapRoVmLw9Of50ouYWrZle5qVZkPkPIEcpLy
+	 BQmllia7qrppnv8F1JOB/fX/hnbvE9feJOXp9zJLZI/3p7bGDqC1wcT5klUvEbuC/P
+	 ziNGHlK5MY2XA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 8159839EB07A;
+	Thu, 24 Sep 2026 11:30:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260825-bcm2712-iommu-submit-v3-0-7f143e7289b6@reactivated.net>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2] rds: ib: Clear the sg list when mapping an MR
+ fails
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179024940440.1493433.560852484613339728.git-patchwork-notify@kernel.org>
+Date: Thu, 24 Sep 2026 11:30:04 +0000
+References: <20260922031546.3874605-1-cccccccccccc777777@gmail.com>
+In-Reply-To: <20260922031546.3874605-1-cccccccccccc777777@gmail.com>
+To: Dongliang Qin <cccccccccccc777777@gmail.com>
+Cc: netdev@vger.kernel.org, achender@kernel.org, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ linux-rdma@vger.kernel.org, rds-devel@oss.oracle.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-On Tue, Aug 25, 2026 at 09:56:03PM +0100, Daniel Drake wrote:
-> Daniel Drake (5):
->       iommu_pt: Fix test_pgsize_boundary() failure on narrow-OA formats
->       dt-bindings: iommu: Add Broadcom BCM2712 IOMMU
->       iommu/generic_pt: Add Broadcom BCM2712 page table format
->       iommu: Add Broadcom BCM2712 IOMMU driver
->       arm64: dts: broadcom: bcm2712: Add GPU IOMMU and IOMMU cache nodes
+Hello:
 
-Applied, thanks.
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-Please submit a follow-on patch adding a MAINTAINERS entry for the new IOMMU
-driver.
+On Tue, 22 Sep 2026 11:15:45 +0800 you wrote:
+> rds_ib_map_frmr() stores the caller's scatterlist in the MR before DMA
+> mapping and registration can fail. On failure, __rds_rdma_map() unpins
+> the pages and frees the scatterlist, but rds_ib_free_frmr() can still
+> return the MR to the pool with the stale pointer set.
+> 
+> This leaves the pool with a dangling scatterlist and can lead to local
+> privilege escalation. KASAN detects the resulting use-after-free when the
+> MR is later torn down:
+> 
+> [...]
+
+Here is the summary with links:
+  - [net,v2] rds: ib: Clear the sg list when mapping an MR fails
+    https://git.kernel.org/netdev/net/c/58eb1b3325ed
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
