@@ -1,240 +1,171 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32344424D41;
-	Thu, 24 Sep 2026 07:18:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F078E1FB1;
+	Thu, 24 Sep 2026 07:19:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790234332; cv=none; b=jig3smC38UGHuljNVGhHbYudrHUBoR45V/GLuYxPQformoemRqg4Jxuv/gSUf7C4xsHy5fBsNp9QEcYFGGp6GHqh73wULdVIk93Y1y8GKeU5h3WnlJ7VxIs9zNW0tJhClRi9Brir87HSo2Xu4i3eIdwJmRQIIHCm6DAb7uT+V60=
+	t=1790234372; cv=none; b=uJJTYAiVn2GHZ2v7hHStbEKAOftetc3RXXZRQRmcsU1ijDKuMU6KsB/QfxCdOwoY8OAnKsb7BMgnd46TNSfB1oDxXFyuEsINl0ODZcP5IiAzHDfHL6qaNAtgD3yVZOBhK6DwOmkjX17NDgk7nOyx5yHq3XFr/U08GODech+JUQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790234332; c=relaxed/simple;
-	bh=fioJb7wxBoSW63SsX7ZiPw2S/5owVJ2rA6inNzdM1r0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Oh2W/aSV6Aj8vjKMKpJM79oAjW5gvweBqFOMuK5/fNm1ODXZp4LdAFz0W6Ks1BXGul00VtXdpdBoRVoataTAgQy2Mb5nabfchQsBXJdZ4aGLw9hhkb3X51s/znVl4QDreMwhb3mJk5F3jrpxd0S+p/xCtLfupqV4SfjdHSYLNfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HnlzH3Uw; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790234372; c=relaxed/simple;
+	bh=E05+bHXFCopTh54aMIB75+V6H9AcsfKr0sltighp1tA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QafvEVBhxuOJX8VoLrEAtic7FjtXcE5Neb4ukFZbAwiqQBdgb/ml8LtRmXv1ZofmDZb+NQ+qlsW8JfWzwqAn5vUxm4amAjMdLG1sYscZmJsHCJspxlgeIkI1Q8UaLeuh8WYCCYQWttOtOw43VpCp5SePA0Cc0ftmlLFYinyoRDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b4iXV3Na; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HnlzH3Uw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790234325; x=1821770325;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=fioJb7wxBoSW63SsX7ZiPw2S/5owVJ2rA6inNzdM1r0=;
-  b=HnlzH3UwzLw7hMDM/fv3euxDHgwkf7lYdRyzMF09kEznVBkzNYK7gol+
-   QINfQiB9cu9KSbpWj2NR1emlpbcv6cLHW/yvvgZx+sMyPQG8b+hbB+0Q9
-   S6nU0gzIi2s9C9syi990WYJZHKHDiIH5BavHD4wUZerBr7AlvJEnRmlGa
-   sqbvurdvZtL8Pzu1M2Wk9yRHnXyXTDvX8S0vyMBZkOTC2s1wHwFss1/Lp
-   nbaw1wlq5o9uuK4mnYVhwUiROg10384HP78yNJLri79mHXjnSapHkBmb7
-   uZQ6o47uAz9EYueRzcOShB/jXDJ7ZKHFH9FKdvb8YMZzHvOfCvknVwDR6
-   A==;
-X-CSE-ConnectionGUID: fs1hCXFURtq9YFvSzYb1Gw==
-X-CSE-MsgGUID: M6APcjqLRICGbFgt+WyTiw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="101573928"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="101573928"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 00:18:42 -0700
-X-CSE-ConnectionGUID: cF/J7uvVR9yCBEAl1lquFQ==
-X-CSE-MsgGUID: km3dNwjkQlWgNuzF4KNv3w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="274123667"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa008.fm.intel.com with ESMTP; 24 Sep 2026 00:18:39 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x9dj2-00000000IMI-3TOt;
-	Thu, 24 Sep 2026 07:18:36 +0000
-Date: Thu, 24 Sep 2026 15:18:25 +0800
-From: kernel test robot <lkp@intel.com>
-To: Ratheesh Kannoth <rkannoth@marvell.com>, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, sgoutham@marvell.com,
-	Ratheesh Kannoth <rkannoth@marvell.com>
-Subject: Re: [PATCH v2 net-next] octeontx2-af: pass devlink switch id and
- cache representor map
-Message-ID: <202609241557.82GuIoAK-lkp@intel.com>
-References: <20260923045826.1774338-1-rkannoth@marvell.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b4iXV3Na"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB2501F000FF;
+	Thu, 24 Sep 2026 07:19:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790234370;
+	bh=HRGpzjaTceiGt52QZ0R/rEbnbWW0z7ilUt0hAEkQ7UI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=b4iXV3NabyOxUcBPZ8lgAovkC6m2VuuSKldwe0olRSxe98ajOQgDN/wubgMNxfblC
+	 DG06jdpCLXpNrYvcVcI+dZZACChVDXYmK7wITwUltHVKHWlavEfGXflk3uqbZcq2eS
+	 HTrLyut3xvn0gueitiwmIZtGd5Sou6IvK0NSRcicaAWLu3orguL3ENfH7fe9PEMWWm
+	 /lEADdsAFofMOWo3QvSz/XvZYt4zJXRTDfbXoj1xDlxk0nkfggUgxJTriNLZ5sKQY9
+	 BbminPUgyo9WdKHRQ69iA7zv3YRLyCg46fUZdpwDV6AIzV/yzuzwgZYJehpnaLi0Az
+	 dngTMEtU1HIog==
+Message-ID: <a4bf1f96-787d-4c1e-9bef-52ab2be570ae@kernel.org>
+Date: Thu, 24 Sep 2026 09:19:26 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923045826.1774338-1-rkannoth@marvell.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/vma: predicate setting mmap_prepare VMA fields on new
+ vma alloc
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>
+Cc: Suren Baghdasaryan <surenb@google.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260923-fix-mmap-prepare-overwrite-v1-1-3b3f1bfcdf5e@kernel.org>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260923-fix-mmap-prepare-overwrite-v1-1-3b3f1bfcdf5e@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Ratheesh,
+On 9/23/26 19:45, Lorenzo Stoakes (ARM) wrote:
+> It only makes sense to manipulate VMA fields if a new VMA was allocated,
+> rather than merged.
+> 
+> VMA merging does not compare vm_ops or vm_private_data, so a merged VMA
+> keeps its own, which is also what the legacy f_op->mmap path does since it
+> never touches an existing VMA.
+> 
+> Currently, these fields will get overwritten by whatever state is
+> established in the mmap_prepare hook, and if the VMA was merged,
+> vm_ops->mapped will not have been called, so this could destructively clear
+> existing state without replacing it with anything valid.
+> 
+> There is an implicit requirement that vm_private_data and vm_ops are
+> fungible across VMAs which means that losing the 'new' state is
+> fine.
+> 
+> However in this case the 'old' state is being overwritten by potentially
+> invalid 'new' state, so this must be rectified.
+> 
+> Additionally constify have_mmap_prepare while here.
+> 
+> All existing in-tree users either derive state for the tree or are
+> unmergeable due to VMA flags, so this has no direct impact.
+> 
+> Fixes: c84bf6dd2b83 ("mm: introduce new .mmap_prepare() file callback")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+> Note that this is cc: stable to account for any possible back-ports that could
+> break it (unlikely)
 
-kernel test robot noticed the following build errors:
+Does it mean that patches are on the way to mainline that will break it, but
+it's unlikely they will be backported? Or there are no such patches yet?
+Just curious... if it's the first case then with the amount of random stuff
+that goes to stable these days, I'd rather assume they could be backported
+at some point :)
 
-[auto build test ERROR on net-next/main]
-[also build test ERROR on linus/master v7.3-rc4 next-20260922]
-[cannot apply to linux-review/Ratheesh-Kannoth/octeontx2-af-Representor-devlink-id-and-port-mapping/20260918-103021 horms-ipvs/master]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+or out-of-tree modules which might be affected.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Ratheesh-Kannoth/octeontx2-af-pass-devlink-switch-id-and-cache-representor-map/20260923-102826
-base:   net-next/main
-patch link:    https://lore.kernel.org/r/20260923045826.1774338-1-rkannoth%40marvell.com
-patch subject: [PATCH v2 net-next] octeontx2-af: pass devlink switch id and cache representor map
-config: loongarch-allmodconfig (https://download.01.org/0day-ci/archive/20260924/202609241557.82GuIoAK-lkp@intel.com/config)
-compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260924/202609241557.82GuIoAK-lkp@intel.com/reproduce)
+That is never a concern, and even suggesting it can bring hch's wrath ;)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609241557.82GuIoAK-lkp@intel.com/
+Anyway,
 
-All error/warnings (new ones prefixed by >>):
-
->> drivers/net/ethernet/marvell/octeontx2/nic/rep.c:663:8: error: call to undeclared function 'rvu_get_rep_cnt'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     663 |         err = rvu_get_rep_cnt(priv);
-         |               ^
->> drivers/net/ethernet/marvell/octeontx2/nic/rep.c:744:12: warning: no previous prototype for function 'rvu_get_rep_cnt' [-Wmissing-prototypes]
-     744 | static int rvu_get_rep_cnt(struct otx2_nic *priv)
-         |            ^
-   drivers/net/ethernet/marvell/octeontx2/nic/rep.c:744:8: note: declare 'static' if the function is not intended to be used outside of this translation unit
-     744 | static int rvu_get_rep_cnt(struct otx2_nic *priv)
-         |        ^
-   1 warning and 1 error generated.
+Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
 
-vim +/rvu_get_rep_cnt +663 drivers/net/ethernet/marvell/octeontx2/nic/rep.c
+> ---
+>  mm/vma.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/vma.c b/mm/vma.c
+> index 9f0a0acf694a..6cde67883fb0 100644
+> --- a/mm/vma.c
+> +++ b/mm/vma.c
+> @@ -2849,7 +2849,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
+>  {
+>  	struct mm_struct *mm = current->mm;
+>  	struct vm_area_struct *vma = NULL;
+> -	bool have_mmap_prepare = file && file->f_op->mmap_prepare;
+> +	const bool have_mmap_prepare = file && file->f_op->mmap_prepare;
+>  	VMA_ITERATOR(vmi, mm, addr);
+>  	const pgoff_t anon_pgoff = addr >> PAGE_SHIFT;
+>  	MMAP_STATE(map, mm, &vmi, addr, len, pgoff, anon_pgoff, vma_flags, file);
+> @@ -2892,7 +2892,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
+>  		allocated_new = true;
+>  	}
+>  
+> -	if (have_mmap_prepare)
+> +	if (have_mmap_prepare && allocated_new)
+>  		set_vma_user_defined_fields(vma, &map);
+>  
+>  	__mmap_complete(&map, vma);
+> 
+> ---
+> base-commit: fe2ec83746e501645709761605c2464a44fd2929
+> change-id: 20260923-fix-mmap-prepare-overwrite-6304d112a4c7
+> 
+> Best regards,
 
-   654	
-   655	int rvu_rep_create(struct otx2_nic *priv, struct netlink_ext_ack *extack)
-   656	{
-   657		int rep_cnt = priv->rep_cnt;
-   658		struct net_device *ndev;
-   659		struct rep_dev *rep;
-   660		int rep_id, err;
-   661		u16 pcifunc;
-   662	
- > 663		err = rvu_get_rep_cnt(priv);
-   664		if (err)
-   665			return err;
-   666	
-   667		err = rvu_rep_rsrc_init(priv);
-   668		if (err)
-   669			return -ENOMEM;
-   670	
-   671		priv->reps = kzalloc_objs(struct rep_dev *, rep_cnt);
-   672		if (!priv->reps)
-   673			return -ENOMEM;
-   674	
-   675		for (rep_id = 0; rep_id < rep_cnt; rep_id++) {
-   676			ndev = alloc_etherdev(sizeof(*rep));
-   677			if (!ndev) {
-   678				NL_SET_ERR_MSG_FMT_MOD(extack,
-   679						       "PFVF representor:%d creation failed",
-   680						       rep_id);
-   681				err = -ENOMEM;
-   682				goto exit;
-   683			}
-   684	
-   685			rep = netdev_priv(ndev);
-   686			priv->reps[rep_id] = rep;
-   687			rep->mdev = priv;
-   688			rep->netdev = ndev;
-   689			rep->rep_id = rep_id;
-   690	
-   691			ndev->min_mtu = OTX2_MIN_MTU;
-   692			ndev->max_mtu = priv->hw.max_mtu;
-   693			ndev->netdev_ops = &rvu_rep_netdev_ops;
-   694			pcifunc = priv->rep_pf_map[rep_id];
-   695			rep->pcifunc = pcifunc;
-   696	
-   697			snprintf(ndev->name, sizeof(ndev->name), "Rpf%dvf%d",
-   698				 rvu_get_pf(priv->pdev, pcifunc),
-   699				 (pcifunc & RVU_PFVF_FUNC_MASK));
-   700	
-   701			ndev->hw_features = (NETIF_F_RXCSUM | NETIF_F_IP_CSUM |
-   702				       NETIF_F_IPV6_CSUM | NETIF_F_RXHASH |
-   703				       NETIF_F_SG | NETIF_F_TSO | NETIF_F_TSO6);
-   704	
-   705			ndev->hw_features |= NETIF_F_HW_TC;
-   706			ndev->features |= ndev->hw_features;
-   707			eth_hw_addr_random(ndev);
-   708			err = rvu_rep_devlink_port_register(rep);
-   709			if (err) {
-   710				free_netdev(ndev);
-   711				goto exit;
-   712			}
-   713	
-   714			SET_NETDEV_DEVLINK_PORT(ndev, &rep->dl_port);
-   715			err = register_netdev(ndev);
-   716			if (err) {
-   717				NL_SET_ERR_MSG_MOD(extack,
-   718						   "PFVF representor registration failed");
-   719				rvu_rep_devlink_port_unregister(rep);
-   720				free_netdev(ndev);
-   721				goto exit;
-   722			}
-   723	
-   724			INIT_DELAYED_WORK(&rep->stats_wrk, rvu_rep_get_stats);
-   725		}
-   726		err = rvu_rep_napi_init(priv, extack);
-   727		if (err)
-   728			goto exit;
-   729	
-   730		rvu_eswitch_config(priv, true);
-   731		return 0;
-   732	exit:
-   733		while (--rep_id >= 0) {
-   734			rep = priv->reps[rep_id];
-   735			unregister_netdev(rep->netdev);
-   736			rvu_rep_devlink_port_unregister(rep);
-   737			free_netdev(rep->netdev);
-   738		}
-   739		kfree(priv->reps);
-   740		rvu_rep_rsrc_free(priv);
-   741		return err;
-   742	}
-   743	
- > 744	static int rvu_get_rep_cnt(struct otx2_nic *priv)
-   745	{
-   746		struct get_rep_cnt_rsp *rsp;
-   747		struct mbox_msghdr *msghdr;
-   748		struct msg_req *req;
-   749		int err, rep;
-   750	
-   751		mutex_lock(&priv->mbox.lock);
-   752		req = otx2_mbox_alloc_msg_get_rep_cnt(&priv->mbox);
-   753		if (!req) {
-   754			mutex_unlock(&priv->mbox.lock);
-   755			return -ENOMEM;
-   756		}
-   757		err = otx2_sync_mbox_msg(&priv->mbox);
-   758		if (err)
-   759			goto exit;
-   760	
-   761		msghdr = otx2_mbox_get_rsp(&priv->mbox.mbox, 0, &req->hdr);
-   762		if (IS_ERR(msghdr)) {
-   763			err = PTR_ERR(msghdr);
-   764			goto exit;
-   765		}
-   766	
-   767		rsp = (struct get_rep_cnt_rsp *)msghdr;
-   768		priv->hw.tx_queues = rsp->rep_cnt;
-   769		priv->hw.rx_queues = rsp->rep_cnt;
-   770		priv->rep_cnt = rsp->rep_cnt;
-   771		for (rep = 0; rep < priv->rep_cnt; rep++)
-   772			priv->rep_pf_map[rep] = rsp->rep_pf_map[rep];
-   773	
-   774	exit:
-   775		mutex_unlock(&priv->mbox.lock);
-   776		return err;
-   777	}
-   778	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
