@@ -1,156 +1,264 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mta1.migadu.com (out-160.mta1.migadu.com [95.215.58.160])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4005536897C
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:51:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5B523368AC
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:51:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.160
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790257893; cv=none; b=dwzC8PfgIYV/eDYJ5dUa6NSiGaN7otfsQr7xAz49TFobcIuJf+Y49CvHcikhM+zwu6fCpFI5H8vl+4yVO84Mn07uoy5wnT9A9dD/gMw3ZXJ0cxOL8Lw/HD9EhnhathaAkk3qrvCZITSn6iQGvR+JH6tOvhVrwzATZWLoDsSAVzQ=
+	t=1790257888; cv=none; b=t67BfBsUjhYmoYEVg2fNc8KolHjcrKnRQyEZyo11tOmLURP14+XS+oIh0YfBfJlcidJYeDB1U6cVCrRYEb4z0iANEzrFAWijCrnv/hhrgL9Hkq+9BQ2WUvGemjWwReeOLDvDrDJRInDhScYNUPhsGjfCSeH2l33+rG8vZnR0SiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790257893; c=relaxed/simple;
-	bh=t5Wpp+R6LXu2QFtUVal1E1+IOI54rGsNMSUJETFP1x4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VSjSW1l3uQ8MyE2Hpdj4hqrM3489qCz7bT+dHk/FmZFPp8mt3N2v06c7TJNCz6DIPYQWghQ2wQ1gMgi6LYMdX/zZS1Q7mdQJvh0gNjUlV9BVikeKs///BFG5Vt3ymnPgkrvf9MuO9y2PfF1dVNX41mDakU5TFNHuGRhc8TJykeY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QFSdZ2hv; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790257888; c=relaxed/simple;
+	bh=sSph9Jsw8F14AbnX84MTaIdC6tQYWQmd5qT/kg2mMDo=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=kWiKFw420RXgNo2RhwAijtg7xCZAUy+7Fe/+vaoTOCyCrK4Ua/hVP9ve6AL/yNPvnwZIMxxqDaXvor82v9CxO1pFoVxC+TLa82I+3lkV3c50rSokoBWYJyfpVUgyB1QDfL0+02LF/QgKOxhn1+9s9KrqZtOSzaGPjwLMNhT/Oo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=A+kS+nYw; arc=none smtp.client-ip=95.215.58.160
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QFSdZ2hv"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c3ea1f6so1246792f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:51:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790257889; x=1790862689; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6HASGHD+lRj0S4qpBGA5C8WQuEbo4NLHpp5wcEzg5F0=;
-        b=QFSdZ2hvscJH4ULY8Q8T5gNztDEm9JUdfhufK02Xe4ufffb+HyojzEB1ymXyHQRkwF
-         eeK2IG2/tPUG7dasTVYa4kIb5b6QSAiOehTjHfHG3ik1QydUDS8SQ3RCM6eOIc9HOTpn
-         oqzhTzM0XZRF12NtZujV7o7npAvmNALwt2BiuglYtTQBuea/VgTqqeDsojFeU+CfLFml
-         /HOB3umd0cg/CnCy0e4TbTrkxqeIe1CRmdI8DcitBWb2Ac5/D70yD+AKvCw9MVLOlYer
-         MEeE/iheerP+yuRSaa+VhRLPOrA4Jir88Z2yGiUS6gZRRtFU5ztd8IvYthAfklC/p538
-         HFsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790257889; x=1790862689;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6HASGHD+lRj0S4qpBGA5C8WQuEbo4NLHpp5wcEzg5F0=;
-        b=dQPK2oC6i9aSaMisxhXeQYMMHZWzE4qnn1A12EXAdONKSpy77fQ4p0TbqfZpHjeDuI
-         OO70B7fUvDqUmWj9RZHq65YNxdZa83Ey5oXnBBzQ/jfwoEZ2jQ1rC5j6rUOr7EZvzVuK
-         Dmsfj9+oDLoi42Yww24snEeVaPax1H92D/wMoJZkkifNxfEmr6VYqDfpX5xcfxg93uD8
-         t+vj7f+3TFpLj/dOdLEfDEO7abjYbyFyFjCgmbUP2Qt3kf78G+xOh/GuYkXo4xMG/XKx
-         W0cmTMtlEnQvGJymBbapMz4gPA1CzEtrGFs4aBDYl2IPE/3AvQMgt6HSBkAJ83kEcaZj
-         60Qg==
-X-Forwarded-Encrypted: i=1; AKwUvBzHwqZ7vjsJR6eYzfmOl2IGvpdaRrtz9KCDONdbz81oxIZQeOa7mGcjYlyTKSmA1CKdkbQOOmkcyKbXl+Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++m2nXD8AX928zNCebUAEOR1b0wRG/ubSaQBdiuzfUJHIxl0wPoS
-	BMKlozoGUEaLMFfLmg/S5+EhaLJnCwdsL57eJDl60sG0uJDrYGp7GTuk
-X-Gm-Gg: AYBFou22wdLyqbqUIFIhocCPeieuo+o3juIoLsbiDqjITSjeF8MJ/tIXBduH97nl/q2
-	hNIsEclI5bqyMOQGmqjvv2oBu7xULX8aX70ddxFkiAYg25Cv04TIORHu94WypH7ivJUYtii3dta
-	u/cY6SsDY8Y7L55zcaFdXJG2Te+hz9UbBkpvGRPNHe9YTVkdqB8PRm+9achhA03EEV5mVJ8IWzD
-	wXnlrC5IOV5ctY+JrAbCN3j8e8H1HhqWxKeQu611QRmqTb431Mblsi6wjUK1x9apqbyLr0o3Zkp
-	gGMnITpsPKhI/JbW7FlldAOAskCSzMbjC51Zgxc2MJmz4ky5XOsJHji+dBiXalN3pLKn5MYvQvG
-	O0km+i8djlhyZSW+ED+T552mtbB7gwg7+YpiOx58cgvr1cL8Nd5HBycF/YZ7Htm+aARpo+1Cs/i
-	pOGE6x1Jo8LSXgnVHj9mf3SG+ybkOavuopg+pN5PRvbrzAfoTlv3IfHziB0J4lKB7KAZg2WriOq
-	nLPNKe+ebQvNOaj58VUxA0+chB0INUzodU5k7ul
-X-Received: by 2002:a05:6000:4816:b0:487:11db:9866 with SMTP id ffacd0b85a97d-488716b7ca3mr3656273f8f.57.1790257889326;
-        Thu, 24 Sep 2026 06:51:29 -0700 (PDT)
-Received: from fedora-tap.advaoptical.com ([82.166.23.19])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48868889376sm12060660f8f.33.2026.09.24.06.51.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 06:51:28 -0700 (PDT)
-From: Sagi Maimon <maimon.sagi@gmail.com>
-To: netdev@vger.kernel.org
-Cc: radhey.shyam.pandey@amd.com,
-	michal.simek@amd.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux@armlinux.org.uk,
-	daniel@iogearbox.net,
-	andybnac@gmail.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Sagi Maimon <maimon.sagi@gmail.com>
-Subject: [PATCH net v2 4/4] net: axienet: reprogram the link settings after a DMA error reset
-Date: Thu, 24 Sep 2026 16:51:16 +0300
-Message-ID: <20260924135116.185161-5-maimon.sagi@gmail.com>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <20260924135116.185161-1-maimon.sagi@gmail.com>
-References: <20260924135116.185161-1-maimon.sagi@gmail.com>
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="A+kS+nYw"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=sSph9Jsw8F14AbnX84MTaIdC6tQYWQmd5qT/kg2mMDo=;
+ c=simple/simple; d=cknow-tech.com;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790257881; v=1; x=1790862681;
+ b=A+kS+nYwX94TxKs3bBgpA7GTCH3rob7GlGN6wTJq0/ad/eIxHcjzS+UysYgPqHE/1wzVXX/V
+ p5w3giM/Pob9eoLU+4H+vX9JJB6ejVttV8RXlw1jM4sPoaI4pvHHl5gIdKwYM3LS1VuLH3PlhCJ
+ 0WkLhWS4eVUx5/uBPhN25doTKDkWGKQL5n9vyRF/7+FPAHSTEIKo0kPqQiDqoiDqLLA4KqYzuVj
+ T1aqgMHsjrMdz3sxrOwmgXV2acQuus30m4FuOv6R8xiB6CnGXlNbo5RormAGuYXjw8CBx3h240V
+ 3dO2bdg93RlKdZ1UVVGO18Njfdl5rzvG1wRTifX98/mGw==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c2b77ebc62d259c3;
+	Thu, 24 Sep 2026 13:51:21 +0000
+X-Mizu-Trace-ID: c2b77ebc62d259c3
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 24 Sep 2026 15:51:13 +0200
+Message-Id: <DLNLG9AJ5GB2.36BYH3TC0FF45@cknow-tech.com>
+Cc: <kernel@collabora.com>, <linux-kernel@vger.kernel.org>,
+ <linux-media@vger.kernel.org>, <linux-rockchip@lists.infradead.org>,
+ <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [PATCH 0/4] media: Track v4l2 buffers through an allocator
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Detlev Casanova" <detlev.casanova@collabora.com>, "Tomasz Figa"
+ <tfiga@chromium.org>, "Marek Szyprowski" <m.szyprowski@samsung.com>, "Mauro
+ Carvalho Chehab" <mchehab@kernel.org>, "Nicolas Dufresne"
+ <nicolas.dufresne@collabora.com>, "Benjamin Gaignard"
+ <benjamin.gaignard@collabora.com>, "Philipp Zabel"
+ <p.zabel@pengutronix.de>, "Heiko Stuebner" <heiko@sntech.de>, "Ezequiel
+ Garcia" <ezequiel@vanguardiasur.com.ar>, "Diederik de Haas"
+ <diederik@cknow-tech.com>
+X-Mailer: aerc 0.22.0-24-g39041fd9f179
+References: <20260916-v4l2-add-mem-tracker-v1-0-900fa45e3e6a@collabora.com>
+ <DLK6XGIB22XG.58WF7VP9L3NH@cknow-tech.com>
+ <jmuzPUMQRGeSHxc4mzcUjg@collabora.com>
+In-Reply-To: <jmuzPUMQRGeSHxc4mzcUjg@collabora.com>
 
-axienet_dma_err_handler() resets the DMA engine, which resets the AXI
-Ethernet core with it.  The handler then restores RCW1, the interrupt
-enable mask, the MAC address, the multicast filter and lp->options, but
-not the link speed field of XAE_EMMC_OFFSET, and it writes XAE_FCC with
-only XAE_FCC_FCRX_MASK, discarding whatever pause configuration had been
-negotiated.
+Hi,
 
-axienet_mac_link_up() is the only code that programs the link speed and
-the negotiated pause bits, and phylink calls it only when the link state
-changes.  Nothing about the reset is visible to phylink, so it is never
-called again: the MAC keeps its reset-default link speed while software
-still believes the negotiated one is in effect, and on a 10 or 100 Mb/s
-link frames are clocked at the wrong rate until an unrelated link flap
-happens to rerun axienet_mac_link_up().  axienet_open() avoids this only
-because it runs phylink_start() after axienet_device_reset().
-
-Tell phylink the link was lost with phylink_mac_change(), so it takes
-the link down and back up and calls axienet_mac_link_up() with the
-current settings, under its own locking.  Do it after the final
-axienet_setoptions(), which also writes XAE_FCC, so the negotiated pause
-settings are the ones left in place - the same order as in
-axienet_open().  Skip it under the same conditions as the queue wake:
-axienet_stop() stops phylink, and a resume restarts it.
-
-The link going down and up is visible, which seems right: the MAC has
-been reset.  A frame may still leave at the reset-default speed in the
-short window before phylink runs; the reset has just dropped everything
-that was in flight anyway.
-
-This was reported by the Sashiko AI review bot.
-
-Tested on an AXI Ethernet MAC behind a PCIe endpoint: traffic passes,
-including across ten down/up cycles made with traffic running, with this
-series applied.  The DMA error path itself was not exercised.
-
-Fixes: 8a3b7a252dca ("drivers/net/ethernet/xilinx: added Xilinx AXI Ethernet driver")
-Assisted-by: LLM sparse
-Signed-off-by: Sagi Maimon <maimon.sagi@gmail.com>
+On Thu Sep 24, 2026 at 2:36 PM CEST, Detlev Casanova wrote:
+> On Sunday, September 20, 2026 9:50:24=E2=80=AFa.m. Eastern Daylight Time =
+Diederik de=20
+> Haas wrote:
+>> On Wed Sep 16, 2026 at 4:25 PM CEST, Detlev Casanova wrote:
+>> > Currently, the only way to track buffers allocated by v4l2 from usespa=
+ce
+>> > is to use the subsystem available debug information (e.g.:
+>> > /sys/kernel/debug/dma_buf/bufinfo).
+>> > But that information is generic and cannot be matched to a v4l2 driver=
+ or
+>> > to a userspace application: It is merely information about the allocat=
+ion.
+>> >=20
+>> > ...
+>> >=20
+>> > Note that this depends on the ftrace support patch series[1] that
+>> > provides fd/pid info in the v4l2_fh struct.
+>> > That series is a bit old, so this is based on an older linux version, =
+but
+>> > that only changes things for the last 2 commits.
+>> >=20
+>> > A v4l2top utility[2] has been made, to be used in parallel with the
+>> > fdinfo patch series[3], to show the list of active streams with their =
+HW
+>> > and memory usage.
+>> >=20
+>> > With this, debugfs looks like this when decoding a HEVC 1080p stream w=
+ith
+>> >=20
+>> > rkvdec on rk3588:
+>> >   root # cat /sys/kernel/debug/v4l2/fdc38100.video-codec/mem
+>> >   created-by                      fd              pid             size=
+   =20
+>> >          label
+>> >   --------------------------------------------------------------------=
 ---
- drivers/net/ethernet/xilinx/xilinx_axienet_main.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+>> >   ...
+>>=20
+>> I build a kernel with your 3 patch series and I also build the v4l2top
+>> utility. Cool tool :-D
+>> Especially after I found out I should build the 'upstream' branch ;-)
+>>=20
+>> There were a couple of things I noticed:
+>> 1) With 'plain' kernel 7.3-rc3 but also with all my patches included, bu=
+t
+>>    excluding the patches from this series, I see this:
+>> ...
+>>=20
+>> Checking v4l2 debug dir again results in this:
+>> ```
+>> root@nanopc-t6-plus:~# ls -lh /sys/kernel/debug/v4l2/
+>> total 0
+>> drwxr-xr-x 2 root root 0 Sep 20 15:13 fdb60000.rga
+>> drwxr-xr-x 2 root root 0 Sep 20 15:13 fdb80000.rga
+>> drwxr-xr-x 2 root root 0 Sep 20 15:13 fdc38000.video-codec
+>> drwxr-xr-x 2 root root 0 Sep 20 15:13 fdee0000.hdmi_receiver
+>> ```
+>>=20
+>> I noticed my video-codec address was slightly different from yours.
+>
+> Yes, mine is on rk3588. A different SoC will have a different device regi=
+ster=20
+> address.
 
-diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-index f16dbfc7dc93..d53f7dc7bd22 100644
---- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-+++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-@@ -2801,8 +2801,15 @@ static void axienet_dma_err_handler(struct work_struct *work)
- 	 * device was detached for suspend: axienet_stop() and axienet_open()
- 	 * own the queue state then.
- 	 */
--	if (!READ_ONCE(lp->stopping) && netif_device_present(ndev))
-+	if (!READ_ONCE(lp->stopping) && netif_device_present(ndev)) {
-+		/* The reset also cleared the link speed and pause settings,
-+		 * which only axienet_mac_link_up() programs.  Have phylink take
-+		 * the link down and up again so that it is called.  This must
-+		 * follow the axienet_setoptions() above, which writes XAE_FCC.
-+		 */
-+		phylink_mac_change(lp->phylink, false);
- 		netif_wake_queue(ndev);
-+	}
- }
- 
- /**
--- 
-2.47.0
+That's why I noticed/mentioned it as mine is rk3588 too. Maybe this commit?
+b481c11cd20a ("arm64: dts: rockchip: Update vdec register blocks order on R=
+K3588")
+
+>> Playing a 1080p BBB x264 video with a patched ffmpeg+mpv, results in thi=
+s:
+>> ...
+>>=20
+>> And looking at the v4l2top utility, I noticed the following:
+>> 1. I see differing indications of the load while it's playing :-D
+>
+> \o/
+
+Just did another quick test (for 3.) and noticed sometimes green 'lines' an=
+d
+sometimes red 'lines'. Any significance to the color?
+There also seems to be some kind of 'delay' when stopping a video and playi=
+ng
+another one (can be the same video). It looks like it's 'flatlining' until =
+the
+line of the previous video is scrolled off ...  and then it seems to 'repai=
+nt'
+itself as the 'flatline' comes back alive :-P
+
+But this is REALLY minor and not bothersome at all.
+
+>> 2. The ``Clock rate`` is always 750.0MHz (or 786431991Hz) (expected I
+>> think?)
+>
+> Yes, the clock won't change, for now at least. Some decoders could adapt =
+their=20
+> clocks depending on the work. The frequency value will also be used to=20
+> determine exact core usage for those that expose a used cycle count after=
+ each=20
+> job (I did not implement that yet in v4l2top)
+>
+>> 3. The ``Total Memory`` is always 0B and the ``Memory usage
+>> details`` column is always empty. That's also the case when I press one =
+of
+>> the arrow keys which seems to select the entry. Am I missing sth or doin=
+g
+>> sth wrong?
+>
+> My guess would be that you didn't run it as root (this is usually needed =
+to=20
+> access the debugfs*). But if you did, we will have to dig a little.
+
+I did indeed not run it as root the first time around. But just did another
+test and with root the memory data is displayed :-)
+
+Cheers,
+  Diederik
+
+> *: Note that later, we'd like to report global memory usage through fdinf=
+o, so=20
+> that the metric is accessible as a user, with buffer details still from t=
+he=20
+> debugfs (so that'd need root access)
+>
+> Detlev.
+>
+>>=20
+>> > [1]:
+>> > https://lore.kernel.org/all/20260610-v4l2-add-ftrace-v2-0-9756edf72ac1=
+@co
+>> > llabora.com/ [2]: https://github.com/cazou/v4l2top/tree/upstream
+>> > [3]:
+>> > https://lore.kernel.org/all/20260706-v4l2-add-fdinfo-v3-0-d556568cf38e=
+@co
+>> > llabora.com/
+>> >=20
+>> > Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
+>> > ---
+>> >=20
+>> > Detlev Casanova (4):
+>> >       media: Add a v4l2 memory allocations tracker
+>> >       media: Store v4l2_fh in the vb_queue
+>> >       media: verisilicon: Switch to tracked dma allocations
+>> >       media: rkvdec: Switch to tracked dma allocations
+>> > =20
+>> >  drivers/media/common/videobuf2/Makefile            |   1 +
+>> >  drivers/media/common/videobuf2/v4l2-allocator.c    | 186
+>> >  +++++++++++++++++++++ .../media/common/videobuf2/videobuf2-dma-contig=
+.c=20
+>> >  |  27 ++-
+>> >  .../media/platform/rockchip/rkvdec/rkvdec-h264.c   |  14 +-
+>> >  .../media/platform/rockchip/rkvdec/rkvdec-hevc.c   |  14 +-
+>> >  .../media/platform/rockchip/rkvdec/rkvdec-rcb.c    |  21 ++-
+>> >  .../platform/rockchip/rkvdec/rkvdec-vdpu381-h264.c |  14 +-
+>> >  .../platform/rockchip/rkvdec/rkvdec-vdpu381-hevc.c |  14 +-
+>> >  .../platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c |  14 +-
+>> >  .../platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c |  14 +-
+>> >  .../media/platform/rockchip/rkvdec/rkvdec-vp9.c    |  33 ++--
+>> >  drivers/media/platform/rockchip/rkvdec/rkvdec.c    |   4 +
+>> >  drivers/media/platform/verisilicon/hantro.h        |   1 +
+>> >  drivers/media/platform/verisilicon/hantro_drv.c    |   4 +
+>> >  drivers/media/platform/verisilicon/hantro_h264.c   |   7 +-
+>> >  drivers/media/platform/verisilicon/hantro_hevc.c   | 100 ++++++-----
+>> >  drivers/media/platform/verisilicon/hantro_mpeg2.c  |  16 +-
+>> >  .../media/platform/verisilicon/hantro_postproc.c   |  14 +-
+>> >  drivers/media/platform/verisilicon/hantro_vp8.c    |  25 +--
+>> >  drivers/media/platform/verisilicon/hantro_vp9.c    |  34 +++-
+>> >  .../verisilicon/rockchip_vpu981_hw_av1_dec.c       | 160
+>> >  +++++++++++-------
+>> >  drivers/media/v4l2-core/v4l2-device.c              |   4 +-
+>> >  include/media/v4l2-allocator.h                     |  26 +++
+>> >  include/media/v4l2-device.h                        |   2 +
+>> >  include/media/videobuf2-core.h                     |   3 +
+>> >  25 files changed, 555 insertions(+), 197 deletions(-)
+>> >=20
+>> > ---
+>> > base-commit: 66affa37cfac0aec061cc4bcf4a065b0c52f7e19
+>> > change-id: 20260612-v4l2-add-mem-tracker-da0088c74a64
+>> > prerequisite-change-id: 20260608-v4l2-add-ftrace-aec6e7f60a6c:v2
+>> > prerequisite-patch-id: bd45b4df66799a7f9f22b49973a78d1bd3590a4a
+>> > prerequisite-patch-id: 6a5ed5615f08257cf854d441785066b5ff4d5d47
+>> > prerequisite-patch-id: 02594c869498b9e91e416d70242afbaa6b3a8d6a
+>> > prerequisite-patch-id: 9f25ec78f3b99ac1c5d42eb732f5bd9eae73fadd
+>> > prerequisite-patch-id: 4ed2c2e8c3abfa7f6328d0ea4f488ca5a3eec8fb
+>> > prerequisite-patch-id: 8787d50eb80e1a63a57a123268cade23c9e64618
+>> > prerequisite-patch-id: bfe85822378fa771f9bbc3e1e8c8ff6bce0eb7fd
+>> > prerequisite-patch-id: 784d0801da320f7b41194f4632ee422c32f1b5b8
+>> > prerequisite-patch-id: 362c8366e2efbfb5e6f1a3f71cfddbd46e8d1506
+>> >=20
+>> > Best regards,
+>> > --
+>> > Detlev Casanova <detlev.casanova@collabora.com>
+>> >=20
+>> >=20
+>> > _______________________________________________
+>> > Linux-rockchip mailing list
+>> > Linux-rockchip@lists.infradead.org
+>> > http://lists.infradead.org/mailman/listinfo/linux-rockchip
+
 
