@@ -1,42 +1,37 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F1441F5D1;
-	Thu, 24 Sep 2026 08:39:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B89E43F4B7;
+	Thu, 24 Sep 2026 08:39:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790239190; cv=none; b=oD/JywBaV894k78hwiDFh9NgeoCGoZjvuTjclbOksmSgWOeN4yyfkkqLZPEV7Vn2ABzeQx6iMagviH79I7TH5a66wv7+77fGzqlICg69BYvER4HJ2WcvQc45S7H6bY05SPjHSPJ46TSUBm8lsO0JwV4cjzukSfc9nqeScDHRvPg=
+	t=1790239190; cv=none; b=bzRVhUWcQlngxNEPN4MPhIKYpqFPiRhltsfBrcx6NkAMo0cQrP3IrWsR4AfcRATT3AYMW4lWY4F4GNun24VedMtCFxZUdualQlh0UqIyu/Lnxy96OVmw6Pyz3UW11ZSj9BLeVV8eHjTbXmhYkqYa5BqlUJAU+6MNkgil0agJCoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790239190; c=relaxed/simple;
-	bh=cYUK43iCiJs1BaFfQJGKkrofjMlF4tYb1uCWfFvnQQ0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UrX2c+AV1p8IvEmOrVsemwHaGfYBIR317nRAkdq05ts37tnYhNjS0CE3ASl7KAZd1RGWM1Oa1gxmvIeKxex1VEZNv8Mra07QaTcrWsezIKyLxUZVZPnOrOLeeuNM7+TeIFEI4moRKJKWR1EICXITk7hK7hLEC/tEo1dmf2dX4C4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=E0NkFkTj; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	bh=0Zdvv1H2vY20qgMq7ejxgwzP9h/gzw/1guKtZBvMtyI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cWeus+u5BoZl3eNOMfV1saRqx0TqhfgmHR3MNWQPERS+VDhYxm0bDVqmaUFHt+9NAtv0SxVOhgb9VTaXGsz0DjlGHn31AR3njeQcK2VdbTLs/v+V612Vqhd15JRCeGd1OxQW8FcUYtAiN6QmHqMsVAhNDKfnHnVBkfXmWNWGcDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZcN3KziG; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="E0NkFkTj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790239185;
-	bh=cYUK43iCiJs1BaFfQJGKkrofjMlF4tYb1uCWfFvnQQ0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=E0NkFkTjKqABup8bv4dOW2l0ikzso12hKqPe8u4AbHjEccje5N8kD0maFXCI0fWxy
-	 KQy9dduaDLs0yo3A+IU+wg/0axzr6qe76A+nynOw+sL5lLJxvpd+bZK6nyNTKHRIrU
-	 EwHMtUH28pFuSCqGghf4azgybLK0cpVqpTMRhBlZUlyDwtOyw/8XsEpwIrROvHPmU/
-	 lce9qoqT1MelxHSqGKRn7TzLzvJy8BQ6c3Xwe4sais7P8Rv6xI5oIfV4kjz2bZBkVH
-	 vMzHw1t16F8Kv3D5oG5c6hm5jFYvdBPe4Ku+DPYnxSXMzMgZH6XAcBjLpdG03MIxkc
-	 IuQjNAzdfw1tA==
-Received: from yukiji.home (unknown [100.64.0.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: laeyraud)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E308717E089A;
-	Thu, 24 Sep 2026 10:39:44 +0200 (CEST)
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Date: Thu, 24 Sep 2026 10:38:10 +0200
-Subject: [PATCH v3 1/4] dt-bindings: serial: mediatek,uart: Add compatible
- for MT8189 SoC
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZcN3KziG"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 31838C2BCB3;
+	Thu, 24 Sep 2026 08:39:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790239190;
+	bh=0Zdvv1H2vY20qgMq7ejxgwzP9h/gzw/1guKtZBvMtyI=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=ZcN3KziGgutG27SBVDaV0ndw5NE1mEgic1nLx0Dl2HKzZVLXipajJwr+SAE1qQhhD
+	 D6b7oSGmwYUoyuBJOSF41BbCWnAktaeBKLX5d/OOVpDNM+O9xLd92MgaU6mkfVhsf8
+	 dotZmBodZcIJzn8CX5C/tpEx//mybOTdxi1es9Ts0y3nRHzNUAlcn40TTJ6Y4wT6pU
+	 S8dF1zY3zWM1pMJ0Y0b3x7pbOhwVy/sLbgvzxLINzsRi3IH5gF6gcM6RAOejCBTm3y
+	 recbRcQLf+RoOT4EhoiM5a9+Y//VeA2QMcBHOQ8TDt/NV0sAcSHExvlO+omPBmClJU
+	 X/3vBAK0jSVYw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E054C98311;
+	Thu, 24 Sep 2026 08:39:50 +0000 (UTC)
+From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Subject: [PATCH 0/3] i2c: Add driver support Amlogic A9 I2C
+Date: Thu, 24 Sep 2026 08:39:33 +0000
+Message-Id: <20260924-a9-i2c-v1-0-b8ad9b46f4a8@amlogic.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,54 +40,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-add-mediatek-genio-520-720-evk-v3-1-2ec5c80677d4@collabora.com>
-References: <20260924-add-mediatek-genio-520-720-evk-v3-0-2ec5c80677d4@collabora.com>
-In-Reply-To: <20260924-add-mediatek-genio-520-720-evk-v3-0-2ec5c80677d4@collabora.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+X-B4-Tracking: v=1; b=H4sIAMXhtGoC/x3NwQqDMBCE4VeRPbvUrGLVVyk9xHRa9xIlERGC7
+ 27S4898MIkigiLSVCUKODTq6nOYuiK3WP8D6yc3SSN9MxrDdmQVx9J1zwEi6IeWMp5tBM/Berc
+ UnsmjMI9zL/MW8NXz//N6X9cN2hcA83cAAAA=
+X-Change-ID: 20260911-a9-i2c-24478e22e683
+To: Junyi Zhao <junyi.zhao@amlogic.com>, Andi Shyti <andi.shyti@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Sean Wang <sean.wang@mediatek.com>
-Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
- linux-serial@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+ Xianwei Zhao <xianwei.zhaol@amlogic.com>
+Cc: Junyi Zhao <junyi.zhaol@amlogic.com>, linux-i2c@vger.kernel.org, 
+ linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790239184; l=1092;
- i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=cYUK43iCiJs1BaFfQJGKkrofjMlF4tYb1uCWfFvnQQ0=;
- b=KiYuTMYZjTfU3jPelSHVM26FXdg1+kQzsEmORvAr1crEPpxvJNmNX9bR1bTGK09xy3XQrr+5J
- sQ28fMGgW09D4DSkQdcI5gsoE0Pr+Ewzkx3uAYZ9A9nZ/yqsjXl8IAd
-X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
- pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790239188; l=891;
+ i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
+ bh=0Zdvv1H2vY20qgMq7ejxgwzP9h/gzw/1guKtZBvMtyI=;
+ b=nGXvSYzZAE1DmqOkbjIhGAK1rvc731QofIqzvdiWy3K17AECnFpZbcvHNlqHn4CQZF0aDxGzi
+ Itu9wKqZKCdDQ0N0sYYTz4I8Oo9Kwc2sEXWQEtzFtzrVBw+2vOkgWbf
+X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
+ pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
+X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
+ auth_id=578
+X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Reply-To: xianwei.zhao@amlogic.com
 
-Add a compatible string for the MT8189 SoC.
-The UART IPs in this chip are fully compatible with the one found in
-MT6577 SoC.
+Add a Device Tree binding and driver for the I2C controller found on the
+Amlogic A9 SoC.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
 ---
- Documentation/devicetree/bindings/serial/mediatek,uart.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Junyi Zhao (1):
+      i2c: amlogic: Add Amlogic A9 I2C controller driver
 
-diff --git a/Documentation/devicetree/bindings/serial/mediatek,uart.yaml b/Documentation/devicetree/bindings/serial/mediatek,uart.yaml
-index 5bd8a8853ae0..3f0f4aea0a4c 100644
---- a/Documentation/devicetree/bindings/serial/mediatek,uart.yaml
-+++ b/Documentation/devicetree/bindings/serial/mediatek,uart.yaml
-@@ -47,6 +47,7 @@ properties:
-               - mediatek,mt8183-uart
-               - mediatek,mt8186-uart
-               - mediatek,mt8188-uart
-+              - mediatek,mt8189-uart
-               - mediatek,mt8192-uart
-               - mediatek,mt8195-uart
-               - mediatek,mt8365-uart
+Xianwei Zhao (2):
+      dt-bindings: i2c: add Amlogic A9 I2C controller
+      MAINTAINERS: Add an entry for Amlogic I2C driver
 
+ .../devicetree/bindings/i2c/amlogic,a9-i2c.yaml    |  61 +++
+ MAINTAINERS                                        |   8 +
+ drivers/i2c/busses/Kconfig                         |   9 +
+ drivers/i2c/busses/Makefile                        |   1 +
+ drivers/i2c/busses/i2c-amlogic-a9.c                | 504 +++++++++++++++++++++
+ 5 files changed, 583 insertions(+)
+---
+base-commit: e817a366cd24ddc8f986ef43c5d54cc3f60b0c21
+change-id: 20260911-a9-i2c-24478e22e683
+
+Best regards,
 -- 
-2.55.0
+Xianwei Zhao <xianwei.zhao@amlogic.com>
+
 
