@@ -1,123 +1,164 @@
-Received: from mta1.migadu.com (out-245.mta1.migadu.com [95.215.58.245])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0342545C6F8
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:42:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.245
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B15E4499B4;
+	Thu, 24 Sep 2026 22:43:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790289762; cv=none; b=deLOWn6uU27zGpZBn6o0eMqyJB3H5BmQPE3wTWov1RiXhUc9PV1y7Q6HCUaJgVBPrFOf4Rb3XprZJajIZDE6A2HQuJ1ga73WGXbFl3KOaPnbuirwgzrlweQ6xRHMNNAbt2lEROF6CKllvrey0Aw5xVwckhNQGVPFWl4LeDr45bc=
+	t=1790289784; cv=none; b=VujXsiv0pXQNODQbDxWNVhayA6K94tKT266buPTkKX1c4nLjrAU36chQGz13ZRTU0iZu5sqBmbss+5wjwKRtAbOPX4eCcPt5dXdiLQSFcqE7/dW+1MSko5Wbyo9J2GtodgWMQy+bFSgfnROf+YB5nmT5cgfbZkL8JaRFKwJGUhk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790289762; c=relaxed/simple;
-	bh=WRPL/H0LrA/BKC4g71mMipRThq8ER0G25bE1inVY1ww=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=E2HEbkz8N1PPwMFqYffw/5hdZowh+yR0nNqEn3QJpyf+fwX6M4xN6AXy6EQZSP2bK5KsaXepDZi4N3rNvZFkiZONOvbFPKz7tcbBRUT+HMueX6Q7uWF5FKHTna+VkZVhrJWFZi9oWC3Rc4SQs/0PB0KvTLUXBqPZukhB902j9jg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev; spf=pass smtp.mailfrom=cressey.dev; dkim=pass (2048-bit key) header.d=cressey.dev header.i=@cressey.dev header.b=i4oaVE8b; arc=none smtp.client-ip=95.215.58.245
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cressey.dev
+	s=arc-20240116; t=1790289784; c=relaxed/simple;
+	bh=5k6ew4bZKs5Kak0IIZkqP5OL1erIyyXEfACAGORomcc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hjz5GMg2hjXX+05y1BvUbd5jImmQ+BRykA7DWRse4zaspj44QlXdXHbiHoAceOZuItgPp4nvRrn5+XfiqTrKH7FlYDpeVcEExwME7IiuDilDTwDuUzpz8L01KC6I7OZveVynQz0tJ5xGxFrr9EXKDRrv3TtlneXG60yJF2NR314=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BOhQRPBJ; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cressey.dev header.i=@cressey.dev header.b="i4oaVE8b"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=WRPL/H0LrA/BKC4g71mMipRThq8ER0G25bE1inVY1ww=;
- c=simple/simple; d=cressey.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790289754; v=1; x=1790894554;
- b=i4oaVE8bLv/ED1d5Nl5Gqu9MI+WLX+yM9hlB6irQH5h+gpWw/ik7fe7+30vD9T3YemMWJxWb
- bORk3udMZd84ESjYUmqBWenEt4S1xQ4SYdoZIwD77EMkZGDqA7vLjFGK0vB2MHIlCjcaJxlBYTI
- lj7mfs2aq7frZfQIkaSRVW5LOwsU1ZPe9G2KshQFcoQNfEYUrXXpDIClBSgniXjr3hcmKT9kvV4
- Jw5uj+Xj040mmAB8BdokN8ji+b//UUFxhwLdBof+ffm8Q35QIVkOtJp84zkpGYemIWr15xQe0L+
- irH8GaS/OkZFWfHmmY4VgYlFEKUxLGo0bo34gxND++73g==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9c16178fdf9bcaa3;
-	Thu, 24 Sep 2026 22:42:34 +0000
-X-Mizu-Trace-ID: 9c16178fdf9bcaa3
-X-Migadu-Flow: FLOW_OUT
-From: Ben Cressey <ben@cressey.dev>
-Date: Thu, 24 Sep 2026 22:42:30 +0000
-Subject: [PATCH] arm64: kexec: mark machine_kexec() __nocfi
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BOhQRPBJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790289782; x=1821825782;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=5k6ew4bZKs5Kak0IIZkqP5OL1erIyyXEfACAGORomcc=;
+  b=BOhQRPBJ7shxsNBKFCiZbV8WJ3psif/tlHaGK5XGI6X3fdojQamFVFfJ
+   dW5h4NjVy2zK+CFjhidRE22fofn0khqlEJXz0BPLiprFoYUv3rwdtNJxP
+   LtNMNh/Du6Q26wKmtuMa27e73EoSSoronuvFHe0SYwBW+hEun9PWrCzOM
+   Y118UFSIatZ/bRB06JnI7yG305YLEcoP9hXACGPsRghLRvlQbj+kG8qR7
+   37BjA6KXgLzEvVutnlwbfA0ti4vZqF7veSAJEA4jOjRx36FQIBzOgX/1N
+   4wwSevAlWZ2F8TGgnVjDykJN7DiigC91F08AylAgieXonngiYNGCCM1Lb
+   w==;
+X-CSE-ConnectionGUID: E2tiyNVvRGWTUSfBd8pQfQ==
+X-CSE-MsgGUID: aRWjjuhAQD6rkx9OTsgrOw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="107459057"
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="107459057"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 15:43:01 -0700
+X-CSE-ConnectionGUID: U5Dk8CFqRMui2FINcs4gCw==
+X-CSE-MsgGUID: 0sfLiX2TT1WjCokNpBJP4Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="272276214"
+Received: from igk-lkp-server01.igk.intel.com (HELO a88263cc608e) ([10.211.93.152])
+  by orviesa010.jf.intel.com with ESMTP; 24 Sep 2026 15:42:58 -0700
+Received: from kbuild by a88263cc608e with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x9s9U-000000000Sk-1VZT;
+	Thu, 24 Sep 2026 22:42:52 +0000
+Date: Fri, 25 Sep 2026 00:42:13 +0200
+From: kernel test robot <lkp@intel.com>
+To: Coia Prant <coiaprant@gmail.com>, Heiko Stuebner <heiko@sntech.de>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: oe-kbuild-all@lists.linux.dev,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	netdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Coia Prant <coiaprant@gmail.com>
+Subject: Re: [PATCH net] net: ethernet: stmmac: dwmac-rk: fix bulk clock leak
+ when the PHY clock fails
+Message-ID: <202609250009.lQiuYnR7-lkp@intel.com>
+References: <20260919174223.2356964-1-coiaprant@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-arm64-kexec-nocfi-v1-1-bbae2e2eadc8@cressey.dev>
-X-B4-Tracking: v=1; b=H4sIAFWntWoC/2XMQQ6CMBCF4auQWTsRa63iVYyLMj5kNBbSqiEh3
- N1Wly6/ybx/poSoSHSsZop4a9IhZGxWFUnvwxWsl2wytXF1Yyz7+HCW75ggHAbplG3j4Ox2tz8
- IKO/GiE6nb/N0/jm92hvkWULlo/UJ3EYfpC+nwvVfl5blA0MBvFyeAAAA
-X-Change-ID: 20260924-arm64-kexec-nocfi-496e643578ce
-To: Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, Sami Tolvanen <samitolvanen@google.com>, 
- Kees Cook <kees@kernel.org>, David Woodhouse <dwmw@amazon.co.uk>, 
- kexec@lists.infradead.org, stable@vger.kernel.org, 
- Ben Cressey <ben@cressey.dev>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919174223.2356964-1-coiaprant@gmail.com>
 
-When the loaded image needs relocation, machine_kexec() makes an
-indirect call into the copy of arm64_relocate_new_kernel in the control
-page:
+Hi Coia,
 
-	kernel_reloc = (void *)kimage->arch.kern_reloc;
-	kernel_reloc(kimage);
+kernel test robot noticed the following build warnings:
 
-With CONFIG_CFI=y the kCFI check on this call loads a type hash from
-kern_reloc - 4. arm64_relocate_new_kernel is SYM_CODE_START and carries
-no hash. Its copy also sits at the start of the control page, which is
-all that TTBR0 maps at this point, so the load faults and the kernel
-oopses after "Bye!" instead of entering the new kernel:
+[auto build test WARNING on net/main]
 
- Unable to handle kernel paging request at virtual address 00000000544bfffc
- Internal error: Oops: 0000000096000007 [#1]  SMP
- pc : machine_kexec+0x104/0x274
- Code: d5182008 d5033fdf aa1303e0 f9418a68 (b85fc110)
+url:    https://github.com/intel-lab-lkp/linux/commits/Coia-Prant/net-ethernet-stmmac-dwmac-rk-fix-bulk-clock-leak-when-the-PHY-clock-fails/20260920-014223
+base:   net/main
+patch link:    https://lore.kernel.org/r/20260919174223.2356964-1-coiaprant%40gmail.com
+patch subject: [PATCH net] net: ethernet: stmmac: dwmac-rk: fix bulk clock leak when the PHY clock fails
+config: loongarch-allyesconfig (https://download.01.org/0day-ci/archive/20260925/202609250009.lQiuYnR7-lkp@intel.com/config)
+compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260925/202609250009.lQiuYnR7-lkp@intel.com/reproduce)
 
-b85fc110 is "ldur w16, [x8, #-4]" with x8 = kimage->arch.kern_reloc.
-The crash kernel and images loaded in place take the IND_DONE path
-through cpu_soft_restart() instead, which is SYM_TYPED_FUNC_START in
-.idmap.text and not affected.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609250009.lQiuYnR7-lkp@intel.com/
 
-arm64_relocate_new_kernel cannot be given a type hash, since the linker
-script asserts that the relocation code starts at that symbol and a
-hash would have to precede it. Mark machine_kexec() __nocfi instead, as
-commit e2f8216ca2d8 ("arm64: Set __nocfi on swsusp_arch_resume()") did
-for the same pattern on the hibernate path and commit 2114796ca041
-("x86/kexec: Mark machine_kexec() with __nocfi") did on x86.
+All warnings (new ones prefixed by >>):
 
-Fixes: efc2d0f20a9d ("arm64: kexec: keep MMU enabled during kexec relocation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ben Cressey <ben@cressey.dev>
-Assisted-by: LLM
----
-Functional check only, under QEMU TCG (-M virt,gic-version=3,its=off
--cpu max -smp 2), v7.3-rc4 defconfig plus CONFIG_CFI=y, clang 21:
-"kexec -l" or "kexec -s -l" of the same Image then "kexec -e" oopses as
-above without the patch and reaches the second kernel with it.
-"kexec -p" plus sysrq-c reaches the crash kernel either way.
----
- arch/arm64/kernel/machine_kexec.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+>> drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c:1168:5: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+    1168 |                                 return ret;
+         |                                 ^
+   drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c:1165:4: note: previous statement is here
+    1165 |                         if (ret)
+         |                         ^
+   drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c:1177:2: warning: non-void function does not return a value in all control paths [-Wreturn-type]
+    1177 |         } else {
+         |         ^
+   drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c:1177:4: error: expected identifier or '('
+    1177 |         } else {
+         |           ^
+   drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c:1189:2: error: expected identifier or '('
+    1189 |         return 0;
+         |         ^
+   drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c:1190:1: error: extraneous closing brace ('}')
+    1190 | }
+         | ^
+   2 warnings and 3 errors generated.
 
-diff --git a/arch/arm64/kernel/machine_kexec.c b/arch/arm64/kernel/machine_kexec.c
-index 8f9bc2327dc85..7d218339b84a6 100644
---- a/arch/arm64/kernel/machine_kexec.c
-+++ b/arch/arm64/kernel/machine_kexec.c
-@@ -160,7 +160,7 @@ int machine_kexec_post_load(struct kimage *kimage)
-  *
-  * Called from the core kexec code for a sys_reboot with LINUX_REBOOT_CMD_KEXEC.
-  */
--void machine_kexec(struct kimage *kimage)
-+void __nocfi machine_kexec(struct kimage *kimage)
- {
- 	bool in_kexec_crash = (kimage == kexec_crash_image);
- 	bool stuck_cpus = cpus_are_stuck_in_kernel();
 
----
-base-commit: 93f51579e7df248780214094418f205253383cc5
-change-id: 20260924-arm64-kexec-nocfi-496e643578ce
+vim +/if +1168 drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
 
+7ad269ea1a2b7d Roger Chen            2014-12-29  1152  
+7ad269ea1a2b7d Roger Chen            2014-12-29  1153  static int gmac_clk_enable(struct rk_priv_data *bsp_priv, bool enable)
+7ad269ea1a2b7d Roger Chen            2014-12-29  1154  {
+ea449f7fa0bf3f Sebastian Reichel     2023-04-07  1155  	int ret;
+7ad269ea1a2b7d Roger Chen            2014-12-29  1156  
+7ad269ea1a2b7d Roger Chen            2014-12-29  1157  	if (enable) {
+7ad269ea1a2b7d Roger Chen            2014-12-29  1158  		if (!bsp_priv->clk_enabled) {
+ea449f7fa0bf3f Sebastian Reichel     2023-04-07  1159  			ret = clk_bulk_prepare_enable(bsp_priv->num_clks,
+ea449f7fa0bf3f Sebastian Reichel     2023-04-07  1160  						      bsp_priv->clks);
+ea449f7fa0bf3f Sebastian Reichel     2023-04-07  1161  			if (ret)
+ea449f7fa0bf3f Sebastian Reichel     2023-04-07  1162  				return ret;
+7ad269ea1a2b7d Roger Chen            2014-12-29  1163  
+ea449f7fa0bf3f Sebastian Reichel     2023-04-07  1164  			ret = clk_prepare_enable(bsp_priv->clk_phy);
+ea449f7fa0bf3f Sebastian Reichel     2023-04-07  1165  			if (ret)
+cb278e6780d874 Coia Prant            2026-09-20  1166  				clk_bulk_disable_unprepare(bsp_priv->num_clks,
+cb278e6780d874 Coia Prant            2026-09-20  1167  							   bsp_priv->clks);
+ea449f7fa0bf3f Sebastian Reichel     2023-04-07 @1168  				return ret;
+cb278e6780d874 Coia Prant            2026-09-20  1169  			}
+23c94d63a7e395 David Wu              2018-06-28  1170  
+5c1fc7cb81dfed Russell King (Oracle  2026-02-04  1171) 			rk_configure_io_clksel(bsp_priv);
+5c1fc7cb81dfed Russell King (Oracle  2026-02-04  1172) 			rk_ungate_rmii_clock(bsp_priv);
+2f2b60a0ec2826 David Wu              2022-08-30  1173  
+7ad269ea1a2b7d Roger Chen            2014-12-29  1174  			mdelay(5);
+7ad269ea1a2b7d Roger Chen            2014-12-29  1175  			bsp_priv->clk_enabled = true;
+7ad269ea1a2b7d Roger Chen            2014-12-29  1176  		}
+7ad269ea1a2b7d Roger Chen            2014-12-29  1177  	} else {
+7ad269ea1a2b7d Roger Chen            2014-12-29  1178  		if (bsp_priv->clk_enabled) {
+5c1fc7cb81dfed Russell King (Oracle  2026-02-04  1179) 			rk_gate_rmii_clock(bsp_priv);
+7f864458e9a6d2 Sebastian Reichel     2025-10-14  1180  
+ea449f7fa0bf3f Sebastian Reichel     2023-04-07  1181  			clk_bulk_disable_unprepare(bsp_priv->num_clks,
+ea449f7fa0bf3f Sebastian Reichel     2023-04-07  1182  						   bsp_priv->clks);
+fecd4d7eef8b21 David Wu              2017-08-10  1183  			clk_disable_unprepare(bsp_priv->clk_phy);
+fecd4d7eef8b21 David Wu              2017-08-10  1184  
+7ad269ea1a2b7d Roger Chen            2014-12-29  1185  			bsp_priv->clk_enabled = false;
+7ad269ea1a2b7d Roger Chen            2014-12-29  1186  		}
+7ad269ea1a2b7d Roger Chen            2014-12-29  1187  	}
+7ad269ea1a2b7d Roger Chen            2014-12-29  1188  
+7ad269ea1a2b7d Roger Chen            2014-12-29  1189  	return 0;
+7ad269ea1a2b7d Roger Chen            2014-12-29  1190  }
+7ad269ea1a2b7d Roger Chen            2014-12-29  1191  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
