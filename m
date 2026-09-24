@@ -1,226 +1,181 @@
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011038.outbound.protection.outlook.com [52.101.65.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C60653CF1FA
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:14:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790216096; cv=none; b=jhiWep2JGACC8lRFQOovFBd84W5Dqw+/LF+d1jTha23YasKSqy2m2b0IIp+k5TIQezxmZ51kaD2Ly+jFISNViRfILl084K0t+ma3kQZKdEHJs3Pje4JctRTcmBCn0tYzi0uB8d45VRRVxiNgX8uXat+IzDiZgx5z/+155CXeSi0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790216096; c=relaxed/simple;
-	bh=8IrYIX+nOfcakkM7/Z3PGPHAeSZ4D2Fr5eds+h+4gc0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HWCq7rfZgNudQ3Zn4LddUE1IA7rtUy2yJIzH/bjKwpN1MgI1UID4U0ptclFxNBeGVWw465/Xn1Gr3nrAhNXqgGjAxCi4NOmeJa+fOdEwd4Q3IqCfx5pA0HV9pWpeN77TN7MVoH4CIcE2NWgR39Vyc8qau1izmufekQfsOb2E2lQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nTscs6UJ; arc=none smtp.client-ip=74.125.228.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9CB3D3301;
+	Thu, 24 Sep 2026 02:15:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.38
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790216126; cv=fail; b=cxNSyG8x9AL8ctaLVhM2NmciIy9u28aD/KZAB7Y/W4IW6qHO+bcGkvBkMHgObgGGS1f8jb2wuXdy6qY58oImDA2mMhLJG8+86BMLb5l+VSJi0NlxIZC/qyP/sk3Iw7Vjh7ykgIGe46YTso9VJuIUkoahDy7q6DFeKSueH7B68CA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790216126; c=relaxed/simple;
+	bh=DbB1OX5IfP+Aa4JJZFZeQmu0GaeD9cYFh6QIpCUPBa4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=cM7Ny3Kn5ooYGb8/bN/PQ50CunQqyQNgqeO64rJNcw71EnJ5pPkw8XhozX+RoyBk2LKj0tVCMsODKYMrs/8zPBjuQ1XXtXoOSsrAH4VAdPC+Hynf2qKLV9O0lKEFRfwTNy5uo0FvY85bRZv053eq5tWCZ9DIZZ9DAUIOTckdg30=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=P+mBGn9A; arc=fail smtp.client-ip=52.101.65.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nTscs6UJ"
-Received: by mail-pz2-f40.google.com with SMTP id d2e1a72fcca58-87ac7657a24so692711b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:14:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790216094; x=1790820894; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o9n1xLtwZfMoWvvLkdGoxwpegQEwUeD6t6y9z2tkYqM=;
-        b=nTscs6UJal3qo8jlZ2zTTe8WZasOzFHaV2rEwRy9pLIQqyE9KaHjz26JsSBJBunpoP
-         U5FLjgl33zofmViWIPxeOzDQ33n9kXaXBr94Jzfd6fD35cW0acBRkSmnCmieA4WUI6Xk
-         oEXZrqTTze5DOO1pom2qoBGyIMBoG3xBWPuoRh4FJNa3BKqi6J9r4boO0kv+oYwv879I
-         +4d0TbwyEQAuRXgRH1QmWzigRTYndIOfZe2ilH3pp356gACedvLEwxeKL1mvyYZg3CMQ
-         77o30uvFUhobzUMFtc7Vkg1ozZGJpDi2Dgcrhx7nVilbrost8F2S+yTJTlq3g25A8vpg
-         e7XQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790216094; x=1790820894;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=o9n1xLtwZfMoWvvLkdGoxwpegQEwUeD6t6y9z2tkYqM=;
-        b=m5qzRC/Dh6P6esApBI7KwauWPSa1fqhUwuqOr/mPSay35qi8YxUKBxxhUjrBR/0iHj
-         m7Yar02gI1gIg4QmpNmIiTT5gjm1WvKQS+o9dp0cCc3HfPoqJ1MIJTgp8ACJgz/Thmud
-         I3RkXfrY/2qUSMiSLiDNvOLscvLpI7efffRCml2quVXt6UNsOBy82PaXOfeWzEDDREOt
-         8qY2JU5olu3u6fuHNN5ZnpaGg9TC+m+E2P4A4gF17imZ8xbK/KDPFWa3WDIyJwy1fPTa
-         xGaXix60DW1Aem3/5k4U1f5+Er7nkJelkPiEEswJL9vo3GFz3CgnnCL/3auMdbzQzHu3
-         Cjyw==
-X-Forwarded-Encrypted: i=1; AKwUvBzv8h85mKXS3/pLQxill0UeUx1WTuWys9IrzzthIpo3j2sVLlDnwZKdq9lbI6FDh4pfAtwwt8qlf+JKeCI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mSUI0EOKD2+9+E5ieBRPT5v3qkKaMZouC6uLmseqc1VeyZjyBX
-	U/eqIwOyYn5i3NKbCZZd4qTUYnRqnuvYpHIN479b87sZpw+/2DXQZlVc
-X-Gm-Gg: AYBFou33sdaq6QA1iYr7l93Yiwm6Vv8Pc2oED0FQ/qbpbpaZyIJiu2JJhsYEWYkfFCt
-	J6IEBE1XeO6Y6uq5tK94iIXbHYCSE/cuMcbIRnrD0UsXOGGQUfnOBucmFS4DBCy8LzpEDwJCGx6
-	vUayipsLURn7YjdKZxfwFKdEswLtPOT+m7LYB0U+QbM2QuyD3ssuiIh0PufxjN+xh0/VM8qvzEJ
-	SN3mlh9CrhgOHO6oLsgVfmUIqviC0T2wWCgzedxaasPflbzOHmKJHo0DzVCZI+m3NsS4T9aO9ZR
-	3zSq/5XTEemfGLCE8rxc/BpMg08rDvLE7EbMr9M2tiRmScUfSwEdqe5eI7uJ8Xf4le7NaJP7EGM
-	YbReXrp4sJD/8qJijTm1F0O1q2vG2J6CWL4jpH50o97CFS9gpe7lKnRGFVPsVen9dxuR7Nf2TKT
-	xXocC0MkjCbQ5TXSxXVD+OyWTgg+/F+o0EcfierrFb4eBtp7I6pirfjLigQvon8RMUmBQzTDiqS
-	K1qL578tj+iS2NEnJSZeTvQzJqsIem1aluqsFBfayP/iYLhtcQ=
-X-Received: by 2002:a05:6a00:9093:b0:874:706d:9631 with SMTP id d2e1a72fcca58-87e9acf16b5mr716577b3a.35.1790216093965;
-        Wed, 23 Sep 2026 19:14:53 -0700 (PDT)
-Received: from [172.19.1.42] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1afb8e37sm2069214b3a.5.2026.09.23.19.14.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 19:14:53 -0700 (PDT)
-Message-ID: <c2fc4b72-190f-40fa-aba9-c301db42598e@gmail.com>
-Date: Thu, 24 Sep 2026 10:14:51 +0800
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="P+mBGn9A"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ls/3t/JSeW4YVSMD/MVRSQfcM3Yc17Cyh0JCkn92LsEn2RnKB8+yu7cEOcx0C4iNGnLaDRHaoSuA9XlBwfPNybEsNCJWN9WPR523yJT28Hr7E68chodJebacKA7Kt2DXGIQokgASZTPBmlzOMJfEIWo+tveE1FDFRPbpK6q5QH4L2bnSNiOYzlf7Q6lHzzshjjaZ8/pN1O4tLE5+xnczbe6DfBR+F1+/wFfOeVyhHr42EYWa6fjEQl9b+WbwApEZ87jJ4211YeI7xEe0advMZLHnngGoz20gft5v3s4Ey5kLhHaqSO/Vnx0lR155mQhVjYSlBIaxlP+Fc7+Avm262g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/7SxZfaMUcFZGp8qT/QV79t6+TbCtHEhX+9VAx/x1dk=;
+ b=WSZLvECA8nn987/GisuNwApRe/YfpO0nnZ2S+Pe+jlg8ZgPAFXdiQOj8YYR8UBA7dlWnZWaP9dxrmVqnACly4r9tl0Viz24bZi5p9NHVRCXf1Q8wIECGqs64qpsdzs+og3fzPVkRBuuZ2QN1F7sXM4LkExtbiFTS2xIxhTakziHd0yqq0phs4pfG7P0EObJ78Z+JK+tbTwpXdy3rbARgP7m6dvGkQMGzHiZytbAxYylpg80LX8ZL4jvP3Dq+Ktkp//jyD3oPuWmi2z/rtI1FZLU7m8q5nxt+xwxA404bMLaCOIUCPgnAJv9pGQXVqASxNmWT1hVLuRInXLSWKTMpFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/7SxZfaMUcFZGp8qT/QV79t6+TbCtHEhX+9VAx/x1dk=;
+ b=P+mBGn9AuRNqrGCndE3Zhj9+hKjv0UWIUm+XqPy0PLmYMUH5HjB9bWA9v0DWSinRMpTTEW9KP6h1rBMFR4M4R36gNcCfFn3pTfqd3J5HYQ3F43Ksr9HtL+C9ZQZ9f96Ijh4x0xyJ2RO6rj2rW/ngcuV9KlE5AtbU9/1GHyNlggUzxV8X+mJvHVwo8nU0+5rHQEIcKdc+PXeDb1blbtNL/Km3YJGuuvmAWVJ7GSNn3mModxb8ovrxFEGV9NSR3QOUoN7Ewva2qK95ForzMiiZPqSBexzaAZXkR6H4MIzWZCEmczTtbLLZ/zs8lbcC8haFjDn95k1wHqumd6bbeSWPXw==
+Received: from AS4PR04MB9338.eurprd04.prod.outlook.com (2603:10a6:20b:4e6::17)
+ by AS1PR04MB9698.eurprd04.prod.outlook.com (2603:10a6:20b:481::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Thu, 24 Sep
+ 2026 02:15:17 +0000
+Received: from AS4PR04MB9338.eurprd04.prod.outlook.com
+ ([fe80::7c4c:9c56:8552:f680]) by AS4PR04MB9338.eurprd04.prod.outlook.com
+ ([fe80::7c4c:9c56:8552:f680%6]) with mapi id 15.21.0428.018; Thu, 24 Sep 2026
+ 02:15:17 +0000
+From: Wei Fang <wei.fang@nxp.com>
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+CC: "andrew@lunn.ch" <andrew@lunn.ch>, Frank Li <frank.li@nxp.com>, Shenwei
+ Wang <shenwei.wang@nxp.com>, "imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, Sashiko
+	<sashiko-bot@kernel.org>
+Subject: RE: [PATCH net v2] net: fec: reject oversized fragments before
+ bounce-buffer memcpy
+Thread-Topic: [PATCH net v2] net: fec: reject oversized fragments before
+ bounce-buffer memcpy
+Thread-Index: AQHdS5tstlaag/g0dkmYtQrGXydJr7bc/JGQ
+Date: Thu, 24 Sep 2026 02:15:17 +0000
+Message-ID:
+ <AS4PR04MB9338DCEE973A1AF4F6F59AF288812@AS4PR04MB9338.eurprd04.prod.outlook.com>
+References: <20260923203738.1583735-1-qwe.aldo@gmail.com>
+In-Reply-To: <20260923203738.1583735-1-qwe.aldo@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AS4PR04MB9338:EE_|AS1PR04MB9698:EE_
+x-ms-office365-filtering-correlation-id: 4b007be0-5cc8-4814-b855-08df19e1ad67
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|376014|19092799006|366016|23010399003|38070700021|10067099003|56012099006|11063799006|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ 6/9jxG/Xq3D2EMtDRAV4snqcNE+R5aTLx7JRL5nDUZNnzLNKLpLDWNH88QHt53IScnfwO8sVZwUurUciZyMrZ1lSYMQXDLf3eEE45xuMuGsmvCTj6MkIGilkvNlDMJ2tjd47MiXglDyHtrb0KqEtaB+wDzO3Ht9G1t8aHSsCIa8gtvqnSuEkO/NKY/Uz7cOunSUQojNO196GQc0lE+zesXVCREsjsxEh/2FXKZMogYpiu19GhLiJwuVFVmTm2gStPjvEfV1JrUR+cFKS/rQeB7ZCsvXD/Zr5eAgVaN23d6aPlzwnoJBbIkUFABUlNBo4EbTT4hQc9B6ImndbeB7oCRGqtG+pFGfeSPhV6MvLwXTZffSbvBExRRmvu+e0mDMT9F2yKXG5YIn/IRWZFM5Z6yjiXuuFD8VBKdcJLxfGvhmfy0LVNPAUlThVMva2q/rDvIMkyLAsnpE6K0lcIjAtGJiEiQl8UY8A2iENZkKDeT/m8cjrHWBnMXj6m5if8fArmyPVF+v7Go63TYnapDgBAUpvCsS5k2sujA0O5DK8HtmE1U7PZVR5DwWu7oujx/J/zldMXuR07gZBsG/JbDKmS88+Jx04+1y136NftXyCHUGzgVSY+jXaoOEN/EnV5BEK/ZyyExhWPsPdA4cScivt697EAtFxCoqXB0Jw6FvVtSk=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR04MB9338.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(19092799006)(366016)(23010399003)(38070700021)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?ttTjrnFKLiA83162XoORP/aI4D2jxQhyJQXin0FhEWoq49aqT4ZxUWx9NhNQ?=
+ =?us-ascii?Q?zH+zv4P9YZekcKCoOyl/652W1uylbtffwu4ZU7Pyi/1lk42LZgHXpjpAa9Mp?=
+ =?us-ascii?Q?30BNTEduhoT4QJGsaUKr2IK86DyeLu/e7MQgApCX/Yo3lLUvKRtw1BHXOqnW?=
+ =?us-ascii?Q?Esv8ePgzblEhRbYRdopwJZcPBOqccONeez0n2qJGyiQJ7QqfwDu1kM2KeKbT?=
+ =?us-ascii?Q?OglXEaiztU5Tq+I9/t4TCUv5MJNP8mRtiXJ0LbswNlW0dGZTL1OR57+EEt5C?=
+ =?us-ascii?Q?mxEY63dF3ogWQW7AamY+B2JcFrBlkoSlODLdPnYg13GZ1lWt0MM/wIqtVWDF?=
+ =?us-ascii?Q?gnAcC+Dea3fX0SCtdpLnbEjIf2G2NObDmzmn9MhQSE38i7fldv/Ml668A9ZH?=
+ =?us-ascii?Q?qQ8kygL59rU1D2CnaEu5A+OlbDPG7GDXHcr1yqArYBEkmNMzyCpCr6CM7xRw?=
+ =?us-ascii?Q?hxSNRfomSkhQumrauUFd1be8+vqSn056yS/ijm+uufFSWQr/6twQkjyq+mjX?=
+ =?us-ascii?Q?Zx6jFgC7dXFUI/8BYrWOG4e/h86GAJjHaAFTYpgrV77vTtPVW4fAwjfZlMDx?=
+ =?us-ascii?Q?Cq0+ezqBfrzqYEdiqZXzzNHz38aroBnHBd4b3Ph8K7lnwMjJN7hhcpBGomH9?=
+ =?us-ascii?Q?Tfdc2cnbEpPQxg6M6eYJyVNYY633y1JMD4i2gj6rsvdJAzsmAKATth1zYatj?=
+ =?us-ascii?Q?eN2lXQ5IKJvOVO7Li2COOLi1uhurdVhy+vWg0SpCjnZZlgPds8/mTaSRXDT5?=
+ =?us-ascii?Q?l6sf5at1hOqyMaobKnJKTJvr1lmOGlYGK+SNUvb5/vO4LtjukjR7CS0VW9VK?=
+ =?us-ascii?Q?KGRU01d2LMd/nsfbdijAt+pNgae4UOyWqzCBFIM1xHkAGw30WBtV8MgD52wf?=
+ =?us-ascii?Q?u0e9nIezk1okeM9RHN/idqyl3ZDqmQc5xCVBm3AnLgqn8mapsSpKBLlWle/E?=
+ =?us-ascii?Q?O9aXAm/56J7s3wkfimHAujGlGq7+xw99XVE7vUdq4ZI87qoEMjVp34hEIpEz?=
+ =?us-ascii?Q?PuSXjjcOh2GaqFwW6RCnvl71jYhwJCfrrLWFbqiBqwp2bW7Qb8AWmwXCeGfV?=
+ =?us-ascii?Q?B1fWuPTGO0HIDHg1dq/h3nwYwpJBZHzR4mEnCy+l51lM2za5Mc3LAHRgmq/K?=
+ =?us-ascii?Q?979rOm/5lJauy6zr9PBweeY+xa46Cg0bSBFYS3qL7eRYC1XIWz1qefFnSPHV?=
+ =?us-ascii?Q?MkH4BPh/KJszfvc70v9wdFvjqLnS7NTqe6hMfTh39nRyK9UNyJdm6ZGB6U8T?=
+ =?us-ascii?Q?QJqHCmckTbPYvZ1s47/Ydp1m406UyOsV1ySGQ1CiQhTKankW59wvwHoMBRhA?=
+ =?us-ascii?Q?SXp8QL38bA/RU/Sb4ZhJ4+fbC8UTDr3uRZmSnjZsVIIkqKNBrw657Rjp6hNE?=
+ =?us-ascii?Q?Iuuvd+eSstHCYQkCl914JW+j+28u+9Jp5smTvQHallcWXcimVqQZk3IRFqJo?=
+ =?us-ascii?Q?Qk6mMHwrMiAIJCgQtM8vXyOQNM/3m64PdT/lb/WA6NEC/RAqwMW0igOX5XcH?=
+ =?us-ascii?Q?Yf8XMquh7fI1b5Lf1H0kI0Zm0RItrgYyafh6Uf5sRQb6b3X5P0MC460xNtsf?=
+ =?us-ascii?Q?0k7rO08fuaEdelQ5P+CcO4mmzxay+v+G8BrW1nRte1o/6okJTFsrwr8vXfAH?=
+ =?us-ascii?Q?avVFIu9dt0625L14jZeeh1ZOVfuwGR5nytEO2ct8TsNKlRF9iO45neuBI68t?=
+ =?us-ascii?Q?gSikwAkjc5Bjk5NMBigVkQhc3bdIxdHnBiDvVV2w5qPgluLG?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] spi: ma35d1: Add Nuvoton MA35D1 SPI controller
- support
-To: Mark Brown <broonie@kernel.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, cwweng@nuvoton.com
-References: <20260923041926.425551-1-cwweng.linux@gmail.com>
- <20260923041926.425551-3-cwweng.linux@gmail.com>
- <arPFHNrYR_kWl8vs@sirena.co.uk>
-Content-Language: en-US
-From: Chi-Wen Weng <cwweng.linux@gmail.com>
-In-Reply-To: <arPFHNrYR_kWl8vs@sirena.co.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9338.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b007be0-5cc8-4814-b855-08df19e1ad67
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2026 02:15:17.7297
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1ByZHVa6FLjr5UfnTYwxXzElVvQN+6OukoljMPNH1EPavMxqfGRYPAj+GSgcUi7MecNMHOS6ahy7+PiNwsSzHw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9698
 
+> fec_enet_txq_submit_frag_skb() and fec_enet_txq_submit_skb() copy
+> transmit data into a per-ring bounce buffer when the source address is
+> misaligned or the FEC_QUIRK_SWAP_FRAME quirk is active. The bounce
+> buffers are allocated as kmalloc(FEC_ENET_TX_FRSIZE) where
+> FEC_ENET_TX_FRSIZE is 2048 bytes.
+>=20
+> However, skb_frag_size() can return up to PAGE_SIZE (4096 on most
+> architectures) for scatter-gather fragments, and skb_headlen() can
+> exceed 2048 for certain GSO packets. When this happens the memcpy
+> overflows the bounce buffer by up to 2048 bytes, corrupting adjacent
+> heap objects.
+>=20
+> Add a length check before each bounce-buffer copy. If the data exceeds
+> the bounce buffer capacity, fall through to the error path rather than
+> performing the out-of-bounds write.
+>=20
+> Fixes: 6605b730c061 ("FEC: Add alignment handling for FEC driver")
+> Cc: stable@vger.kernel.org
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+> ---
+>  drivers/net/ethernet/freescale/fec_main.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>=20
+> diff --git a/drivers/net/ethernet/freescale/fec_main.c
+> b/drivers/net/ethernet/freescale/fec_main.c
+> index 794ec42..8614984 100644
+> --- a/drivers/net/ethernet/freescale/fec_main.c
+> +++ b/drivers/net/ethernet/freescale/fec_main.c
+> @@ -558,6 +558,8 @@ fec_enet_txq_submit_frag_skb(struct
+> fec_enet_priv_tx_q *txq,
+>  		index =3D fec_enet_get_bd_index(bdp, &txq->bd);
+>  		if (((unsigned long) bufaddr) & fep->tx_align ||
+>  			fep->quirks & FEC_QUIRK_SWAP_FRAME) {
+> +			if (frag_len > FEC_ENET_TX_FRSIZE)
+> +				goto dma_mapping_error;
+>  			memcpy(txq->tx_bounce[index], bufaddr, frag_len);
+>  			bufaddr =3D txq->tx_bounce[index];
+>=20
+> @@ -634,6 +636,8 @@ static int fec_enet_txq_submit_skb(struct
+> fec_enet_priv_tx_q *txq,
+>  	index =3D fec_enet_get_bd_index(bdp, &txq->bd);
+>  	if (((unsigned long) bufaddr) & fep->tx_align ||
+>  		fep->quirks & FEC_QUIRK_SWAP_FRAME) {
+> +		if (buflen > FEC_ENET_TX_FRSIZE)
+> +			goto release;
 
+Where is the 'release' label, I could not find it in latest net tree.
 
-Mark Brown 於 2026/9/23 下午 08:25 寫道:
-> On Wed, Sep 23, 2026 at 12:19:26PM +0800, Chi-Wen Weng wrote:
->> From: Chi-Wen Weng <cwweng@nuvoton.com>
->>
->> Add support for the SPI controller found in the Nuvoton MA35D1 SoC.
-> 
-> This looks pretty good, almost all of the comments below are just
-> stylistic things due to duplicating work that the core already does but
-> there's one query about possibly excessively turning the controller on
-> and off.
-> 
->> +struct nuvoton_spi {
->> +	void __iomem *regs;
->> +	struct clk *clk;
->> +	struct device *dev;
->> +
->> +	/* Protects read-modify-write accesses to the SSCTL register. */
->> +	spinlock_t ssctl_lock;
-> 
-> It's not clear what this is protecting, all the users look to be called
-> from the SPI core in a single threaded way.
-> 
->> +static int nuvoton_spi_set_speed(struct nuvoton_spi *nspi,
->> +				 struct spi_transfer *xfer, u32 speed_hz)
->> +{
->> +	unsigned long clk_rate;
->> +	unsigned int divisor;
->> +	u32 clkdiv;
->> +	int ret;
->> +
->> +	clk_rate = clk_get_rate(nspi->clk);
->> +	if (!clk_rate) {
->> +		dev_err(nspi->dev, "failed to get clock rate\n");
->> +		return -EINVAL;
->> +	}
-> 
-> You probably don't need to do this on every transfer, the driver doesn't
-> change the rate and it's not the cheapest call.
-> 
->> +static int nuvoton_spi_configure_transfer(struct nuvoton_spi *nspi,
->> +					  struct spi_device *spi,
->> +					  struct spi_transfer *xfer,
->> +					  u8 bpw)
->> +{
->> +	u32 speed_hz = xfer->speed_hz ?: spi->max_speed_hz;
-> 
-> The core will ensure the transfer has a speed set.
-> 
->> +static int nuvoton_spi_txrx(struct nuvoton_spi *nspi,
->> +			    struct spi_transfer *xfer, u8 bpw)
->> +{
->> +	unsigned int bytes_per_word;
->> +	unsigned int offset;
->> +	u32 val;
->> +	int ret;
->> +
->> +	bytes_per_word = spi_bpw_to_bytes(bpw);
->> +	if (!bytes_per_word)
->> +		return -EINVAL;
->> +
->> +	if (xfer->len % bytes_per_word)
->> +		return -EINVAL;
-> 
-> The core ensures these too.
-> 
->> +static int nuvoton_spi_transfer_one(struct spi_controller *ctlr,
->> +				    struct spi_device *spi,
->> +				    struct spi_transfer *xfer)
->> +{
->> +	struct nuvoton_spi *nspi = spi_controller_get_devdata(ctlr);
->> +	u8 bpw = xfer->bits_per_word ?: spi->bits_per_word;
->> +	int disable_ret;
->> +	int ret;
->> +
->> +	if (!xfer->len)
->> +		return 0;
->> +
->> +	if (!bpw)
->> +		bpw = NUVOTON_SPI_DEFAULT_BPW;
->> +
->> +	if (bpw < 8 || bpw > 32)
->> +		return -EINVAL;
-> 
-> Again the core is checking this stuff.
-> 
->> +	ret = nuvoton_spi_enable(nspi);
->> +	if (ret) {
->> +		dev_err(nspi->dev, "failed to enable controller\n");
->> +		goto out_disable;
->> +	}
-> 
-> Do you need to enable and disable on every transfer, or could this be
-> done once per message?  If you need to disable to reconfigure it's a bit
-> more complicated, but otherwise it's overhead to bounce the controller
-> on and off.  Potentially it might glitch the data lines.
-> 
->> +static int nuvoton_spi_probe(struct platform_device *pdev)
->> +{
-> 
->> +	ctlr->dev.of_node = dev->of_node;
-> 
-> The core does this for you.
-
-Hi Mark,
-
-Thanks for the detailed review.
-
-Regarding SPIEN, there are two hardware requirements/behaviors worth
-clarifying for the MA35D1 SPI controller:
-
-1. SPIEN must be cleared, and SPIENSTS must become 0, before modifying
-    CTL, CLKDIV, SSCTL, or FIFOCTL.
-
-2. Clearing SPIEN does not change or tristate the SPI CLK or MOSI output
-    levels. Their output levels are retained while SPIEN is cleared, so
-    disabling the controller does not introduce a signal glitch on those
-    lines.
-
-Therefore, disabling and re-enabling the controller is required when
-the transfer configuration needs to be changed. However, I agree that
-the current driver does this unconditionally for every transfer, which
-is more than necessary.
-
-I will rework this in v2 to avoid unnecessary SPIEN toggling and only
-disable the controller when required for reconfiguration, while still
-honoring the register programming requirements above.
-
-I will also address the other comments by relying on the SPI core for
-the transfer defaults and validation it already provides, caching the
-input clock rate instead of calling clk_get_rate() for every transfer,
-removing the unnecessary SSCTL locking, and dropping the explicit
-of_node assignment.
-
-Thanks,
-Chi-Wen
-
+Also, do not repost a new version within 24 hours.
+https://elixir.bootlin.com/linux/v7.3-rc3/source/Documentation/process/main=
+tainer-netdev.rst#L15
 
