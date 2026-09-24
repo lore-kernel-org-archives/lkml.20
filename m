@@ -1,180 +1,142 @@
-Received: from mail-wm2-f9.google.com (mail-wm2-f9.google.com [74.125.225.137])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FA104A3F06
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:31:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 083C14A0EF3;
+	Thu, 24 Sep 2026 15:32:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790263907; cv=none; b=lOJn21z0vMMkKjdUcaOP2NvcUc7DOalcAfKFDpgcoEhnOsRJST3VhDU+kuRChPn/RuttYFytac9v7flsiCk5l7Udj4Psoi2WN9qFaxJZ93I7zvY413f4jXmhd4n26mvVjSioGzGt5yBw1ga88JhvFev3P7ZZNOw8rUFp8+Top50=
+	t=1790263932; cv=none; b=kaDSrTf96xg5wE+Mk3x6JD2+CAFBNc6nS/LP0klyABu2T1T9NV/m9Sgrjx9LRAwTgM9r6jpQ4Ik8koQ6V1+Pzfmr5tejnKRNpTg0aAaZIpM7QIbhIqsmkHyr/k3C/w81aIF7kSEIQSDkvhof+NUoWP76sctRJiZppbeDtU3oBbg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790263907; c=relaxed/simple;
-	bh=7wA4tIZDQ1H3vJCB7dAc60HbH9dG6Y2RrMapWjovrUg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=M8dnNcT4G5Nt+EDXdiFu6DrFs+dmoNwIZrx4jxF1G3IGoqtRWthUKvAdI2lP6dMuowWGo7jj7z8btjK0atb/1OQet1DJ3/pcD8zHUV9NUG0ZXxDr7xaRDEYj4gCjWWCnUQVJdQ1op0/tIxbvXmtCSvoM9FkSE1mt87XPnhDBNnw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm2-f9.google.com with SMTP id 5b1f17b1804b1-49e6e43b9d8so6430395e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:31:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790263903; x=1790868703;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z8sKQnNLa4+czjyU7qVaxtnFrvWhIKj5DHPdLUkSR5M=;
-        b=0a2hmN4XqbpvZPnadAkpnjKMTwz/JEpzDTZRNwXRqJHuP1Za9oz6mPQXF/D9vhIBZV
-         yDDyS8d8wpeFCWg/wA5hff4ykSslyA9eN5sa0TQpR06cdBvQQhvXnx2a+91YMQHi1Hr3
-         X6zpEf2MxvZgJP3YdrSw0k/LkoejCPvw69fTJ0zDqyreul+gm0IPji4TETHcfH2IriVe
-         4zMXrg+gW/4zwZuSKxxSZ28NSYi0SZ0QpP7ucJxad0JcZanBq8ZYE3L3gHED/SqZXTGi
-         9FNi9rZdHZ0HhP6NLyIMT3LKgGzhZkudT02mwxxC79aUA6Oe2mdtrciGnzKND55RQZLD
-         jOcw==
-X-Forwarded-Encrypted: i=1; AKwUvBzeaPoOk619T+fdfOI4eS/DHEojbkCFzp3sG2gW4XcJtmMn7hf9nU/oWsI+dFpyJYC+y7ABEFl2wNPaUA0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lW2rzEraMkDKKX1QsyNPpwjZD3vgZ0lFJiqjfAv2E18CuzvFR6
-	Bu1JYTuX7hJiRdlaUoaJ7+rpioZZfWjlXkdxU2TOJF63DPyp0Lv2zVAE
-X-Gm-Gg: AYBFou3uVB5Bm/OKEEw7gk08uZgj86nyJ8b0YI5iLn5LI6xqT1BbBG5apBQe2FWI1d7
-	9dZJNPXCiX2eXkKCjDL+H888EpZY6fYt0M54sTN/7kiLv5UQsDhimQCLK80/kI8vxDtiWRCh46n
-	hzryBUvtaTL4ZhfHd9aSEQmf19xUAfD0XeXL2QVfK5eV6tqs/6BnsgrvPGxqP8RsDE7EiuTeJgb
-	BmC3rPR7cf3z+TOUtgKUUByHFuKEqFkqBql6bgd3xStAPFhYNGkIpYQ4O//caLWpuB5r7Fp2QGt
-	RG6syzxNpEftt//0iD2wrbzDgJvmGEWUROss95b7HX+ikcGS2885cSfEaPFGyl3qEgRCRtGIfuQ
-	phxUyRgD7oXgBoAUEeVhtBlfnE7tdLMyraxzcY/C8swDYKEN3fAme5js3Zfi9mz89VnMffWAEs1
-	Q0kSRjNL75HJ77GIZZROfCOhlx5qD7vasCFW3/kdo7VSPAhg5ti66E21VukX9jZonVcQAU9Bq+D
-	R99wvvg5hl0Xm7zWM2yxMGwkqYa16UaP6rF+GM8fK/3lDM=
-X-Received: by 2002:a05:600c:1906:b0:49f:bd3c:bc25 with SMTP id 5b1f17b1804b1-49fe67107d1mr49330485e9.32.1790263903010;
-        Thu, 24 Sep 2026 08:31:43 -0700 (PDT)
-Received: from [192.168.88.241] (78-80-107-225.customers.tmcz.cz. [78.80.107.225])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdf3541aesm93335605e9.0.2026.09.24.08.31.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 08:31:42 -0700 (PDT)
-Message-ID: <118612d5-8b21-4249-81e2-5dcb60a12a9d@ovn.org>
-Date: Thu, 24 Sep 2026 17:31:39 +0200
+	s=arc-20240116; t=1790263932; c=relaxed/simple;
+	bh=Q07bjrNmLd3004LYEqADn3LgL+m1IXHndxRg/zmhPoc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nZT+MU5SH/iTuenFAfytNCIIG/IZ0aqTwqJuOb9BKqUKRSY4fAzXh9tlePzz0KSeJsIFMNz73m78ThhVFejGTvtqKJ7iIO4aZ7XknCVLLuxV9HXVVFA5bQdFrTWq80nSgF9rl/rnPqdBRVOE0KdiWex/dB5VHaVVgALuALGfBAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=YzQjlSwv; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="YzQjlSwv"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OC6HwH314968;
+	Thu, 24 Sep 2026 15:31:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=VnyebmH3hj23KfTlR+0yYV0CI7rYbi
+	irwByR/BvP5+M=; b=YzQjlSwvCMlhnctkyUoJFMD152HZQshRU0r2h9IhnDr9m1
+	rJuHc8Fu0osgbgCfX2s/wAt2hsu+92ck7hpoW0vzzaDANaKRyIq9C62q1lpYePG+
+	qxzX/9ervcfMZEusIoRxuJAki+wRT0z5u/pFHfLpgIJJ8mkhX6+gMI9a/2UbUL3H
+	LCHoQ+G+2TKTkJo1vuBKrweR6YYE6PDwEGP4rcjijKMpxjdqMhR1ILXw5aE+PAIV
+	vfzq+BcyLby2WDSspxdg6/yRtQwakK7JMh3c1K6aYpyAwkSeSq4eB1A15crm+D3/
+	7s3lGN8VAphZYfCE3wmPbTUQuL0n8j4OrH7Lk+uA==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske2200c-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 15:31:44 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68OENe4G2243730;
+	Thu, 24 Sep 2026 15:31:43 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gvb6qpfmn-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 15:31:43 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68OFVesF36110630
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 24 Sep 2026 15:31:40 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3631C20049;
+	Thu, 24 Sep 2026 15:31:40 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id DA72620040;
+	Thu, 24 Sep 2026 15:31:39 +0000 (GMT)
+Received: from osiris (unknown [9.111.55.6])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Thu, 24 Sep 2026 15:31:39 +0000 (GMT)
+Date: Thu, 24 Sep 2026 17:31:38 +0200
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+        Peter Zijlstra <peterz@infradead.org>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: Re: [PATCH] s390/kprobes: Prevent kprobes on instructions with
+ exception table entry
+Message-ID: <20260924153138.18402Bb1-hca@linux.ibm.com>
+References: <20260924115725.1108581-1-hca@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 3/4] net: dropreason: use new __print_sym() in tracing
-To: Johannes Berg <johannes@sipsolutions.net>,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org
-Cc: Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Ilya Maximets <i.maximets@ovn.org>, Matthieu Baerts <matttbe@kernel.org>,
- Aaron Conole <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>,
- dev@openvswitch.org, Adrian Moreno <amorenoz@redhat.com>,
- Antoine Tenart <atenart@kernel.org>, Johannes Berg <johannes.berg@intel.com>
-References: <20260922110955.363677-6-johannes@sipsolutions.net>
- <20260922110955.363677-9-johannes@sipsolutions.net>
-Content-Language: en-US
-From: Ilya Maximets <i.maximets@ovn.org>
-Autocrypt: addr=i.maximets@ovn.org; keydata=
- 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
-In-Reply-To: <20260922110955.363677-9-johannes@sipsolutions.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924115725.1108581-1-hca@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: lNZ1LKJH6LofHFxX7brlM0RLm2t4JBMg
+X-Authority-Analysis: v=2.4 cv=EOCTQFZC c=1 sm=1 tr=0 ts=6ab54260 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=6zlbbHazvbHoJyaoz7kA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA2MiBTYWx0ZWRfX1M8hYZvqr+GC
+ GXJN038e/DsDwoLme3esTR5RVtYFCl7zcyupjtAOlO3V8/tJf15rDSMoPFxv8DM1ZyX1nXO+j6d
+ RmWG9L28qtNhVdKP+tDXRV5Rhnu1EpE=
+X-Proofpoint-GUID: lNZ1LKJH6LofHFxX7brlM0RLm2t4JBMg
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA2MiBTYWx0ZWRfXyNRg/U6olkTL
+ l/BTC77ZZ1E4L7XnshzrabFZyPWkUUqLJ19msQw2YjnM87I8j/Di7F+fsO+/K0McMDkIpUeBAEU
+ oH4I7rqEIHLPH6wNhAcnf9mZM22nvgAHtv9xNoXi9mj88l5zICDkShm1iuDBl4EZDcsY96NYAGT
+ 5EEBLJjlnKpnOLuYHAl+aJDah5DJCjdmfRYQB6ZR1GRIlfW6+PMIiwYvRbl+ZQ/pitEph9CJ/vV
+ j/o30nzabcozcuGbHsYv/yZZTFV1SqDhseOH9sv577avxDp4Jp8b+Ux49xKHBKgRBwu3PlmjdaQ
+ i0hcq+JmK34INHskqgm61JBy3rKnY7MrwJTX7hL95kjF3tCBhCJKQfNeTg8Yfm/cCwTxj0LnQIa
+ +BLoVtTqIBZ/dd3fcMxsXP9NfibIUCl+e8zLCYiL33j+Jj4Pbt0R6YWlEgOJgxGI62A6Bqtagf3
+ nEWR2dM9dHfefBnyigA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 priorityscore=1501 clxscore=1015 spamscore=0
+ adultscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240062
 
-On 9/22/26 1:08 PM, Johannes Berg wrote:
-> diff --git a/tools/testing/selftests/net/openvswitch/openvswitch.sh b/tools/testing/selftests/net/openvswitch/openvswitch.sh
-> index a31f7fb6882d..9b8edfcd2d1a 100755
-> --- a/tools/testing/selftests/net/openvswitch/openvswitch.sh
-> +++ b/tools/testing/selftests/net/openvswitch/openvswitch.sh
-> @@ -234,7 +234,7 @@ ovs_drop_reason_count()
->  	local reason=$1
+On Thu, Sep 24, 2026 at 01:57:24PM +0200, Heiko Carstens wrote:
+> The mvcos exception handler ex_handler_ua_mvcos() decodes the faulting
+> instruction, assuming it is an mvcos instruction. In case the instruction
+> is kprobed the decoded instruction is a breakpoint instruction instead,
+> which leads to incorrect instruction decoding and potential register
+> corruption.
+> 
+> Fix this by simply preventing to set a kprobe on such instructions,
+> similar like arm64 is doing it.
+> 
+> Fixes: c488f5187a24 ("s390/uaccess: Shorten raw_copy_from_user() / raw_copy_to_user() inline assemblies")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+> ---
+>  arch/s390/kernel/kprobes.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/arch/s390/kernel/kprobes.c b/arch/s390/kernel/kprobes.c
+> index c450120b4474..e806b124e4ba 100644
+> --- a/arch/s390/kernel/kprobes.c
+> +++ b/arch/s390/kernel/kprobes.c
+> @@ -85,6 +85,9 @@ static bool can_probe(unsigned long paddr)
+>  	if (!kallsyms_lookup_size_offset(paddr, NULL, &offset))
+>  		return false;
 >  
->  	local perf_output=`perf script -i ${ovs_dir}/perf.data -F trace:event,trace`
-> -	local pattern="skb:kfree_skb:.*reason: $reason"
-> +	local pattern="skb:kfree_skb:.*reason: $reason$"
->  
->  	return `echo "$perf_output" | grep "$pattern" | wc -l`
->  }
-> @@ -790,15 +790,6 @@ test_psample() {
->  # - drop packets and verify the right drop reason is reported
->  test_drop_reason() {
->  	which perf >/dev/null 2>&1 || return $ksft_skip
-> -	which pahole >/dev/null 2>&1 || return $ksft_skip
-> -
-> -	ovs_drop_subsys=$(pahole -C skb_drop_reason_subsys |
-> -			      awk '/OPENVSWITCH/ { print $3; }' |
-> -			      tr -d ,)
-> -	if [ -z "$ovs_drop_subsys" ]; then
-> -		info "failed to get OVS drop subsys ID"
-> -		return $ksft_skip
-> -	fi
->  
->  	sbx_add "test_drop_reason" || return $?
->  
-> @@ -842,7 +833,7 @@ test_drop_reason() {
->  		"in_port(2),eth(),eth_type(0x0800),ipv4(src=172.31.110.20,proto=1),icmp()" 'drop'
->  
->  	ovs_drop_record_and_run "test_drop_reason" ip netns exec client ping -c 2 172.31.110.20
-> -	ovs_drop_reason_count 0x${ovs_drop_subsys}0001 # OVS_DROP_FLOW_ACTION
-> +	ovs_drop_reason_count OVS_DROP_LAST_ACTION
->  	if [[ "$?" -ne "2" ]]; then
->  		info "Did not detect expected drops: $?"
->  		return 1
-> @@ -859,7 +850,7 @@ test_drop_reason() {
->  
->  	ovs_drop_record_and_run \
->              "test_drop_reason" ip netns exec client nc -i 1 -zuv 172.31.110.20 6000
-> -	ovs_drop_reason_count 0x${ovs_drop_subsys}0004 # OVS_DROP_EXPLICIT_ACTION_ERROR
-> +	ovs_drop_reason_count OVS_DROP_EXPLICIT_WITH_ERROR
->  	if [[ "$?" -ne "1" ]]; then
->  		info "Did not detect expected explicit error drops: $?"
->  		return 1
-> @@ -867,7 +858,7 @@ test_drop_reason() {
->  
->  	ovs_drop_record_and_run \
->              "test_drop_reason" ip netns exec client nc -i 1 -zuv 172.31.110.20 7000
-> -	ovs_drop_reason_count 0x${ovs_drop_subsys}0003 # OVS_DROP_EXPLICIT_ACTION
-> +	ovs_drop_reason_count OVS_DROP_EXPLICIT
->  	if [[ "$?" -ne "1" ]]; then
->  		info "Did not detect expected explicit drops: $?"
->  		return 1
+> +	if (s390_search_extables(paddr))
+> +		return false;
+> +
+>  	/* Decode instructions */
 
-For the test:
+FWIW, I believe x86 has a similar problem since it tries to decode the mov
+instruction of load_unaligned_zeropad() in ex_handler_zeropad() which was
+introduced with [1]. If a kprobe is placed there instruction decoding will
+fail.
 
-Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
+As far as I can tell there is nothing that prevents that a kprobe is placed
+there.
+
+[1] c4e34dd99f2e ("x86: simplify load_unaligned_zeropad() implementation")
