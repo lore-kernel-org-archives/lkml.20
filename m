@@ -1,189 +1,311 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012050.outbound.protection.outlook.com [40.107.209.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7051532C8B
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:32:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790242360; cv=none; b=ptcausjoMSWrcbm2sMC3lcRpGgLqXfAqnzKTt6E2E3n7e8HCC/pz3Q4dG6QmTquwdD4c3V6ma+lhWTBkZdrPQlqgp00fsBSVDLBC0evMyht1BTjmaBu5ebuS1GaMf6DFBxvMgmsZECZCKO5JowJlBPySCQOHGNRNJiRuQDe3/+w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790242360; c=relaxed/simple;
-	bh=rwxv8tLdSgWEik0hiYWE6kOHX12q7aE4xGYPQuj35g8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=L8CAU/gTUtIUQ9nex7WwrrX/ORQDdl9LYMPDwXyvm0xaFFi/b3/WwGig/EsmLpQHARC7fvAeK4mS33Wg6l+zZ9fUA61FY9ZIVrgsoHM9pnKFnEbbdYx+iZzkqjNmfFZ1qwwdEK/lw9Xwe7OXgCKjF2y3KQ7nSb91qRj5pNTiGxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dfjCoWHC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VHyqEEzZ; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E454E382368
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:33:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790242422; cv=fail; b=HpY9qgpTIxaA2uM3hxqdfRdAkJ7HEtKaR/guBl0TwD6fKD2pw0aV3LZL1xI3fCR/lW6gSb6Ni5AgGBYE4vU43+e7TIfTvlf64tH8lUPStp/ewv880d7+J7JOMC4J++2/BXO259N7OyTMh/OFWJ3oup6ONciHoEa87OloznE3D0M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790242422; c=relaxed/simple;
+	bh=MPY21J/gDcgOnLtF6YjdYL4/MiVzJTsYmu36oo6LB6c=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=rNi0MHbFwVO1aSixN6Qm95kBp3zClPRR6JggOeTwd+pZo/T+SR+hbZNlra5tivzSJROs80D1z+mqcv7humhi1njlAmlTpqMaM3Ux/dg4HccrkNNQXFdxRlHavH7Pp7Ra4Hi9aonyj0+nteUPtCoyhOohzIAvE2kmzHgsxKN+qbc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=eePlhzt1; arc=fail smtp.client-ip=40.107.209.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dfjCoWHC";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VHyqEEzZ"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O9PnEn1080193
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:32:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	D044GLB66qpCbxwLa31iTBfwL9c0q5C1qDPuwruympk=; b=dfjCoWHCxVPZ8bcS
-	vtMjfKASYygu+TGxtrUydJ3JY/FmhufyuSHXI5rbSYJrE7Gr6fAs1mFVsKAgrzlN
-	6ADJNfQ+T9Lsnau9TDj1O4cBZclAa9KWURGyjWWj+2SfXGDZRTh21nRtZhu6HxA2
-	tJrMcw+Aw9EtmSZagqArXZyJ1zmBIZ+w+k7KPIy4sF98Ta/rmZyXYuIWWyPWCfEl
-	h8TpPK/Ez9fggx7BLPRjOFva8UHNwoPC1g1+5OXkD2A9j42xjzygodqS672FiZuY
-	lp9MqlYtA8mtFws9pyVWvPvA/u1wvUVY8GjL4nsoW6Boid2kR2dIMIrWX5YVr1QU
-	AcfiEw==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvfmwmbhm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:32:37 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-33713e5e6daso2480243eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:32:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790242356; x=1790847156; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=D044GLB66qpCbxwLa31iTBfwL9c0q5C1qDPuwruympk=;
-        b=VHyqEEzZvPOe/q7pvji36Oe+83aFyA6rh1x5C4fOU7vIW7E/gg30PsD6M2aONcHVhL
-         gmdVyb0VC8DDJOHaCpEBvpAQzg7iTT51FjHj9j89+Uh5MUPXX/bQ3g9nDRGKctwoGchm
-         uFDS9IPD4gCEq+sFaY/3h0I0DlJeV4NkfJyPwzuViPgmhmYfGAHMlbWxLAVOqlZ8TszA
-         ZRvJMDqCrnfl5nN/bXluL6iEQW+EvUi9XtGwjRvyAHRED2MNfx4lUUMmh4O8hvCwScZ6
-         K7VnfrGHQHjZfhj7CPHMrVEqGwNBAbd+kob6GYz0hjlUAmXWWYBXdgsq1yqyZ2S8rFf0
-         WpwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790242356; x=1790847156;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D044GLB66qpCbxwLa31iTBfwL9c0q5C1qDPuwruympk=;
-        b=Lx/W51deIXALWMIeVQoCXmFtZz1J0zglHPNjRnPuN66MI7m3tzNSnwv4CjB6DUHqaL
-         Yyxan6+K14sS65ENJmHvojqJ9bD0co1fKcda/qFvPDL7//UcVQccQTDPY1CvBQ6vNuEZ
-         W6A5RjwJ7oULyJ3yCHCwX4HoeBIFUe6czxxCNyEJf0wzygiCGXAZe2lG0nMTGCrHnN9b
-         6mx6X6Jaig/XDjjOxUK8f67bQQBstpVKhxheYc1GgzGOlsSs09CUl4Ra/Mbfk32cBdFt
-         I0+Hbaq+6f+089Cn0IVtiRc9aS9YhAnJyuT3OaoPu/kmrkqIYHTTOhDKn85iw1On6Hic
-         M1Zg==
-X-Forwarded-Encrypted: i=1; AKwUvByqQdF+uuSq/QlbkJKSOqU+MpIsKaMlKnJoINy+BeviYsrRLKnFbzqX5e9bA0COWnuRH9tvb9z7T+tN5II=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJsKYka4xdu6YoACyGVh8nmH0iVDHp2KtVS04xBC1dcFKsdGSi
-	gK9Ws+rXtZZRGUwKtjsLLaQuXIbWGv22Au6vkWQeEy3mfz6rKND1vmSkicobrUT2d0I1Dn64QhD
-	XxsRqVuH4jT0C2Nd2iriVoAbFrl9wKpaTu80/X4aSGzfN6l5fcDiuafic/Yv3DQjSO5A=
-X-Gm-Gg: AYBFou0tFyyRBSfCGD5Vp/faieAT4d1InNo7ye5d23oJe/aPzSP9saKB+0NBkDebcKg
-	xJyhxKQ/GtD8gb1bQcJaY+87Io2mkNAotAjgy1gdOcNt1UVBJGhu3oxnbe/VbBk4MH5I13o9C2l
-	ONoRXJkMl6ml6d0cLe127ssUbkGzaPFWClFDzIftXEcD35WC7pk+IVgWXRwspe63Rr0HnyzGP7x
-	oz31BkJVgCengzDAmlHz4lHxCvcIJOPZZXZI/ENLnQmkLHxa3kW1P2ODdH/F/Nh7YTYG+9nb1Gn
-	OZaKb1ahTAkbfuNmr3etiL+xSio9XYKeHptDqBrOVDSndI40JUwNfmub2vOMyCkRAPTaPtheG37
-	q0ePmXY9jZUqN8DbU1cGjNIy1ajX0
-X-Received: by 2002:a05:7301:5511:b0:33c:e63:f2fc with SMTP id 5a478bee46e88-34000449db5mr1625524eec.23.1790242355947;
-        Thu, 24 Sep 2026 02:32:35 -0700 (PDT)
-X-Received: by 2002:a05:7301:5511:b0:33c:e63:f2fc with SMTP id 5a478bee46e88-34000449db5mr1625502eec.23.1790242355277;
-        Thu, 24 Sep 2026 02:32:35 -0700 (PDT)
-Received: from [10.217.216.70] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e939fdabcsm13400388eec.3.2026.09.24.02.32.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 02:32:34 -0700 (PDT)
-Message-ID: <b0a01589-a3ed-4c4c-8222-64131b0e6db1@oss.qualcomm.com>
-Date: Thu, 24 Sep 2026 15:02:18 +0530
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="eePlhzt1"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NXUqmoBmqCnyIJrFgMxTcuqPmZROdy7v7tcGmm4F/V0haDtBpK0dwiZrT3nI3Fzw7iRsKsd7OR2wxb4u4cVc2YUDK4lA59NcK8rx4U8xH9Wciv0ZtBqj1WG28mSSgcnid2dPpAtbIgjAD16OPq5MVVRLSk8mLALbdUuqT1eE7xPX5C4IYDWGlOoTdRQC5zbEhd/Mv6MeSWCaVTcem1DcDc4xJendPXZlfrWt0BHvcU2UJ9UvwRksbX9YCU9IVuqg/BqQ1dgOiT98vJh7j9Hft3Kv5QYomF+S8jMJq3+Jz7z6QyiTbqVRhyZF6IGQVWz9V+9L6bPnjPVsFmexkoTy1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NXQPfMUg+SdUIFFBM1exZDDx6eVj5aOZlkA1vmGOynw=;
+ b=uyHMxDbLxIhR5sEpHB2vYtr87To4Cv+OfD/uejArZfJvq2E0KVIKFr/3DIxruFD/vTxlvj6SGguppNqUY7M0SemgZ+zEsVEyYDqEYsuRkvokp6JixXht3U2JIx6vAneV6nB9aA3m8U8E4Ze0wIe3VBwRXgUanVV0jOXSCHimJbAJ7V4EIijhB/11oogL2PqNwwjukFyWXKqfzPe7kn0oQNEbkTcdmHmQrJ8eBxzL2RDTUMTAuG4cTd5BuRf78D19T6VwcaKEEZ6pemNNs/eq9iCcNxmzo/63gpnBS2+LXKVnOpY4Qr2kbXdYntyWxo//ticRI7kPemUMrU39RRWFow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NXQPfMUg+SdUIFFBM1exZDDx6eVj5aOZlkA1vmGOynw=;
+ b=eePlhzt1TU+JPVOPLPwbaWnWn1gyrW5UHNzqqBztAQNtTRbCsPhkU5aD2iv90k1MV50lwygDsYIguxYa0+hMCcqGmcV4Ddkzk3c5sHPObzySt0oFY76Xm2c9MwKtzaqmttq3gqkpe6Xd0T7VO6p2eQlGZDbD8jzdNCURs7o1ifA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
+ by SA1PR12MB9002.namprd12.prod.outlook.com (2603:10b6:806:38b::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 09:33:38 +0000
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f%3]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 09:33:38 +0000
+Message-ID: <38a483e3-fc0c-44f9-be08-eef3851bf38a@amd.com>
+Date: Thu, 24 Sep 2026 17:33:31 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 4/4] drm/virtio: wire blob ioctl creation to userptr
+ objects
+To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>, Ray Huang <Ray.Huang@amd.com>,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Dmitry Osipenko
+ <dmitry.osipenko@collabora.com>, David Airlie <airlied@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>
+References: <20260918095940.2253018-1-honghuan@amd.com>
+ <20260918095940.2253018-5-honghuan@amd.com>
+ <73afcd33-14a0-4c26-8cfd-1737e46463c9@rsg.ci.i.u-tokyo.ac.jp>
+Content-Language: en-US
+From: "Huang, Honglei" <honghuan@amd.com>
+In-Reply-To: <73afcd33-14a0-4c26-8cfd-1737e46463c9@rsg.ci.i.u-tokyo.ac.jp>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: TPYP295CA0026.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:7d0:a::20) To CY8PR12MB7170.namprd12.prod.outlook.com
+ (2603:10b6:930:5a::18)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] clk: qcom: smd-rpm: Skip proxy votes on clocks for
- QCM2290
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>, Georgi Djakov <djakov@kernel.org>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        Stephen Boyd <sboyd@codeaurora.org>, linux-arm-msm@vger.kernel.org,
-        linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260910-clk-smd-rpm-skip-proxy-v1-1-1cb5694a99d9@oss.qualcomm.com>
- <dab99b27-ebc2-477e-b56a-26250aceee23@oss.qualcomm.com>
- <ad4aff4f-2d66-425a-a358-6cefaaa1319e@oss.qualcomm.com>
- <bbf2e7e8-42cf-4146-a2ec-b5182a161109@oss.qualcomm.com>
-Content-Language: en-US
-From: Imran Shaik <imran.shaik@oss.qualcomm.com>
-In-Reply-To: <bbf2e7e8-42cf-4146-a2ec-b5182a161109@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAzOSBTYWx0ZWRfX9r2zeVF+J0i5
- FPU85qnqWXsEGDSZjjljgQUkY+GkqIyEF0vgkF7GisLSjGLyMMKSmFWmfnv2X+iZvciTifwINz8
- 6N3WDgXSTB00mbiLj5V0mZdosGRObzpFDHDDeL364B++xQ8rW4hcK+wQvZtcVsgJVYF8xCfgSog
- CnuYyV64t0QDcc6weKAVCG7/XXVu8XqxSbEDiE259teYQ3vynBCJxqN+Fyic7lNzBeRlvTVe6oy
- i9z1Hm4qBF5nZ6ZgdyDDnD9HnsgHoKnP85f8qCUuVQi5B8BceYnf+feIebq1wN3jsfwxWjV5PaW
- DCw/xsm2QLUu9+LXp13S0OhDLi4l0yejKDUMIn0psgeMM2azV5JNGQcQs23diMQte3BNy2wy6br
- jh6sdg260jCflq/bqDqQAizuGPhb7LsnGioNNXrX27ubCNkNeqHF/83Ze723fCl3dce2SWLeVpF
- SVczE9oWyDjbeE8XMPA==
-X-Authority-Analysis: v=2.4 cv=WK/qzXsR c=1 sm=1 tr=0 ts=6ab4ee35 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=mssyiQsI3MLSchi5Q0YA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAzOSBTYWx0ZWRfXyBMuQzV7FEca
- ilIaTZo6wQqR9xu9kARJxFLg76WmpZWmi4mjJMZ1M2MSjBlBlCHWdAWCD6IJQcYmEkiQ1TF4oMH
- 7tj/0nFzikHzpvvq7riLDu3MzMHqZ38=
-X-Proofpoint-ORIG-GUID: xn11GBKGEgJUTNUZhwfQRF4_XHVGM5am
-X-Proofpoint-GUID: xn11GBKGEgJUTNUZhwfQRF4_XHVGM5am
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 bulkscore=0 suspectscore=0 adultscore=0
- priorityscore=1501 malwarescore=0 lowpriorityscore=0 impostorscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609240039
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|SA1PR12MB9002:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7a5919fd-83b4-4aec-0c70-08df1a1ee9a6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|6133799003|18002099003|22082099003|56012099006|11063799006|10067099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	htQru202/K6Vvsjn3Msex2ABBsZX/GfvydIMjLi1Pnr6H5Bo5QttkXbQroAkR84CVW7guBFcsIYgUqS3qqFLdNHe0GnATUep1q72Rfe8lHpMhRxBM/wptDXCgzpXSZvz5P1bjcskJ23LW9G97BUTyw8rKGVylX4h9ls6XGo6BU2xikLZQs4nEMkilmyevRXJfVxbRSSGukHuFSYIxHDDL/1PlS6MWmKewl6rZdAYkJ0xwQeHWnUsBCi3pHQNIZ92EVoe1MqVGj6xS+EdRHUhOjRHBoQO8k2MaMxF8syGv+7kgbOHExi8IWvQYOn3p5W1/vRKs1Halq/tE8BlAll9CdHutn2hLM3e+LndRhX+bVh1ZS5psjNpi37UXGZiCEfhFXzpJZttpWMFEwYnEXWM0u3Bhpzwat+ELCMRg5Fn0EcigUOCYAWRsxIxFZKPcIJHwBfotZPIgiEkfF1Y7tzqe5LSp2jgcTkpORugbQDVYFDV1aNJtcU90kyNgXLv4EeE8fCjLDpZgNZtg1Wu/t8ohgNQkklHTEr3xSMhws8bxDMu7W38BW/8bKxEg3APCgM6MOlf9i/ogXVOSP+I1FFf/xmz6Sw8LVEh1c5omHdUgVo8j/z/xXgG/X1VFMHXXSrI6kEkD2EHNJc8GYuq37hXB5EO0pDgCxOYItiskzflfNU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7170.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006)(10067099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bllNbDRkT0ZJQzZlSjFldGtnRzBna1lSblZtZ1lLNFgzaWpDSnpjSkxpRm1R?=
+ =?utf-8?B?dCtjTW9PYWJwZHRaT2tTT2FvQ2k5YlgxdHRYVHRDNmZIYk9UQzY4MWFWWFVU?=
+ =?utf-8?B?T2N2bVpKRzRNQnpORkdlWU0zWEdaay9SRVQ4YUJMaXl6RG5pUVNCZWpJTnlZ?=
+ =?utf-8?B?ZWsyZjc2d24yZERraVhzaXdCZjFlTytRd2FBWC9mK3NqUitGOGtMV2VWaFJr?=
+ =?utf-8?B?cVBIaDh2dGdHSGJSUzlVaWVXY2JtaDUrTFBTQWIvMkxoZkZuZ2w0T3Mvc3FN?=
+ =?utf-8?B?dXJIUlJRLy8xV0tGaSt3b3lONFZKU0JlNDdFZW9aNTA0aFJxbE5CYmVidXVT?=
+ =?utf-8?B?Nlp5SjJyNHFvVkh6SThvOHhlNjh0VDRPeWdIdHl4WG0wNGtKRG5rRGxFZTZ1?=
+ =?utf-8?B?TXBqdVhqZWIxYWltU0gyNzRQNXovWk02bUV0VjlWRFZOV3EvbkM0QVdPeTEr?=
+ =?utf-8?B?OUhEZVpQU0p6cFROY2hDdlFOMkNtTWpTTnZJNitIT1NycEplUnFsWEFaVEJn?=
+ =?utf-8?B?SWMvaXc1RFNUb3J5enEyZXp1UE9aQUkzSHRIUlY1cG1IazNlNXJuSUJZN0x5?=
+ =?utf-8?B?amZJNUp1RnMyTlhGc280a3ZpK0lMc24vUys2bHZ6M1hOOFdYTmVVYkhLMjBy?=
+ =?utf-8?B?YzRGSytSTnk2SW4vMmw0QjRUalZmMXRXT1hmZ2NiOWJrUXFtVmt0M0RGK0ww?=
+ =?utf-8?B?ZXl1UEk0cWx2SUdkQVc5Ynpob2xUcUlYcFREN0o4ZWtQY29uMVFDMGRqZHA4?=
+ =?utf-8?B?TENOT2QzMHFCa2d3OGk5VGpVcUppRklKT0ZLblZCeDZVVUVJU2Jkem9pMTdH?=
+ =?utf-8?B?OXk5YThVRzNIQnUrNldRUkpaTzFYZ0M0UUY3eEU0VHhtemFyOXNtUUVWVHFl?=
+ =?utf-8?B?U0VmZVhOc3JPNExDN1VrcjFKVlhZLzBsemZOd2ZJbFZ6dHF1eWdTekpMSmJV?=
+ =?utf-8?B?SnB6cGo4RGhjV1VTd3hUd1ZSNmJRTjJLWnNpdUUzeGlubzFBRHc0TWpJRjZJ?=
+ =?utf-8?B?SExsMFZYQm1VNHNQUWlRY1lPUCt0aGRCdEpUWkp4V3BXNUdiNWROa0lJTm9C?=
+ =?utf-8?B?Q3FGNERMR1BSc2hLNm4wSVo1WlpwYUtZUGpLSFNvYlpzY3pTL0hCcjVnWko2?=
+ =?utf-8?B?STQxQTlnM1FzS3ZYbGE4Z0lMbHJEaG52SnVReXFCYzU1MWEyQ3VHemZlTTdh?=
+ =?utf-8?B?ODBxdit1eHBvVEx3UWJNamlDYXRMMmppaDM3ZHQzQmxQczd3VDJVa3FUeHRV?=
+ =?utf-8?B?d2tBRkpsQWU0eVAwT0kySTJYdFRlOE9teW1iRmFsSmFmNUxWYkZCQUpndzNL?=
+ =?utf-8?B?SjRNcTRqQ0U3SjEreTJOWm9QVCtiVWFQdWVGUFI0a0JpUHdieFJHYTdnZXdV?=
+ =?utf-8?B?U0RWKzV2dDRkZWtvWmFadFRYZDFnWG9uRG9kVlpXbnFnalFDamxMam9BTkpX?=
+ =?utf-8?B?NXpyekd1NDR6QWV6d25mb2d2RjIrT3NLYzZEZXBBSitXcWJzc2pSWFEvOW1k?=
+ =?utf-8?B?SGpyN2wxSkc4NlY1Z1Yza01oT1ZPZVArY2ovZTF4NitIc2Q2c3JISXVqUjEv?=
+ =?utf-8?B?VXJ0TGxySW9YTzRBa2ttT2U4VExiczB2ZFBHL3NQclBxYS9BM0l5YTFYTnNT?=
+ =?utf-8?B?aDVtaXBkekVhaWVzUi9CZkhGS2J1SzBDMXRlN1VOeU1BNVpVY3dhNDdQMEhV?=
+ =?utf-8?B?L2xYMjFJa2NEYmZmS2did2VhWG9JU1lqM250d0RRazA4ZUM1NWtDK3Bmb1ZV?=
+ =?utf-8?B?elFTT01jOG1NVUVjMURWL3hhZGg3QkVlOW1oT2ZTQk9pcmh4RmE3NkJFS01X?=
+ =?utf-8?B?TlBzUjE4QzlqcUtDNjZYMlZSS1l4akxhVDBWWGUyNHZsc2xIQWhiQlBnRnhH?=
+ =?utf-8?B?c09aYVhZN0d1VHRickxrVndFY0g2c0wzR2lKVlBCSWE1NFcxK3ZCM1lHZXda?=
+ =?utf-8?B?TzRobXozZDNrNjF2NmVCWmdzV1A1d001enlMKzQxVjNTbEU5L2hoUHpUd1Vx?=
+ =?utf-8?B?ZWtLMW84QVVKeSs0VGlxcEdGS1I3emxGTmVJQS9HOWZBK2J6SXNydnhPb3ZM?=
+ =?utf-8?B?bWplRmZ6YmVCVU1xUWNmdS9yL3BXZWJQQzFWMDJpRm9NMTRNOU1nQXIwZ3BU?=
+ =?utf-8?B?REFON250ZC80NDRObWFPZGVFcU9GOUJEWWRwcW0zSzVSblZDMEE0bUx4Mi9x?=
+ =?utf-8?B?ZzhuVldnaXRhcHhUdWd2OEg0WlR0TU9PYi9EOGtRTlFKcHdlbXA4RlZua3hx?=
+ =?utf-8?B?VXRkMTZRdTFtU3pSemMyR3dTaEl1ZTlJUjV2UjFIM1RGdUZnMHlTSmxaYWhD?=
+ =?utf-8?Q?Clv9sd5gk5ZXI/Co2Q?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a5919fd-83b4-4aec-0c70-08df1a1ee9a6
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 09:33:38.3646
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IiqN0OkeHBD4oo+otJnfwXB9NSa6IwqTw/OHT/Kk2wwu5nw0OQckLO45qMv3Xe5zVJzn6aYekP3IjGZ29uCcVg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9002
 
 
 
-On 21-09-2026 02:23 pm, Konrad Dybcio wrote:
-> On 9/16/26 1:05 PM, Imran Shaik wrote:
+On 9/19/2026 10:28 PM, Akihiko Odaki wrote:
+> On 2026/09/18 18:59, Honglei Huang wrote:
+>> Integrate userptr into the blob resource creation ioctl.
 >>
+>> - A non-zero userptr selects virtio_gpu_userptr_create()
+>> - Reject userptr unless blob_mem is VIRTGPU_BLOB_MEM_GUEST
+>> - Reject VIRTGPU_BLOB_FLAG_USE_READONLY unless the device
+>>    advertised VIRTIO_GPU_F_BLOB_READONLY
+>> - Advertise VIRTGPU_PARAM_USERPTR and VIRTGPU_PARAM_BLOB_READONLY
 >>
->> On 11-09-2026 02:36 pm, Konrad Dybcio wrote:
->>> On 9/10/26 3:44 PM, Imran Shaik wrote:
->>>> clk_smd_rpm_handoff() votes both active and sleep RPM resource states for
->>>> every clock, keeping them non-zero until a consumer takes over. If there
->>>> is no consumer, those clocks will remain active in the idle scenario as
->>>> well, and the sleep vote is never cleared, blocking XO shutdown.
->>>>
->>>> Introduce the skip_clks_handoff flag to handle this on QCM2290 clocks,
->>>> keeping other targets unaffected.
->>>>
->>>> Fixes: 00f64b58874e ("clk: qcom: Add support for SMD-RPM Clocks")
->>>> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
->>>> ---
->>>
->>> Are you booting with clk_ignore_unused?
->>>
+>> Signed-off-by: Honglei Huang <honghuan@amd.com>
+>> ---
+>>   drivers/gpu/drm/virtio/virtgpu_debugfs.c |  1 +
+>>   drivers/gpu/drm/virtio/virtgpu_ioctl.c   | 35 ++++++++++++++++++++----
+>>   drivers/gpu/drm/virtio/virtgpu_kms.c     |  8 ++++--
+>>   3 files changed, 37 insertions(+), 7 deletions(-)
 >>
->> No Konrad, clk_ignore_unused is not present.
->>
->> Irrespective of clk_ignore_unused, the proxy votes are placed to RPM
->> during handoff. If no consumer takes over, those votes remain active,
->> keeping the resource ON in idle and preventing XO shutdown.
+>> diff --git a/drivers/gpu/drm/virtio/virtgpu_debugfs.c b/drivers/gpu/ 
+>> drm/virtio/virtgpu_debugfs.c
+>> index 3a68a16b58..b8b9b40584 100644
+>> --- a/drivers/gpu/drm/virtio/virtgpu_debugfs.c
+>> +++ b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
+>> @@ -55,6 +55,7 @@ static int virtio_gpu_features(struct seq_file *m, 
+>> void *data)
+>>                   vgdev->has_resource_assign_uuid);
+>>       virtio_gpu_add_bool(m, "blob resources", vgdev->has_resource_blob);
+>> +    virtio_gpu_add_bool(m, "blob readonly", vgdev->has_blob_readonly);
+>>       virtio_gpu_add_bool(m, "context init", vgdev->has_context_init);
+>>       virtio_gpu_add_int(m, "cap sets", vgdev->num_capsets);
+>>       virtio_gpu_add_int(m, "scanouts", vgdev->num_scanouts);
+>> diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/ 
+>> virtio/virtgpu_ioctl.c
+>> index 3d8e4ccdb7..3dc058e50e 100644
+>> --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+>> +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+>> @@ -36,7 +36,10 @@
+>>   #define VIRTGPU_BLOB_FLAG_USE_MASK (VIRTGPU_BLOB_FLAG_USE_MAPPABLE | \
+>>                       VIRTGPU_BLOB_FLAG_USE_SHAREABLE | \
+>> -                    VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE)
+>> +                    VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE | \
+>> +                    VIRTGPU_BLOB_FLAG_USE_READONLY)
+>> +
+>> +#define VIRTGPU_BLOB_HINT_MASK DRM_VIRTGPU_BLOB_FLAG_HINT_DEFER_MAPPING
+>>   /* Must be called with &virtio_gpu_fpriv.struct_mutex held. */
+>>   static void virtio_gpu_create_context_locked(struct 
+>> virtio_gpu_device *vgdev,
+>> @@ -122,6 +125,12 @@ static int virtio_gpu_getparam_ioctl(struct 
+>> drm_device *dev, void *data,
+>>               return -ENOENT;
+>>           value = vgdev->blob_alignment;
+>>           break;
+>> +    case VIRTGPU_PARAM_USERPTR:
+>> +        value = 1;
+>> +        break;
+>> +    case VIRTGPU_PARAM_BLOB_READONLY:
+>> +        value = vgdev->has_blob_readonly ? 1 : 0;
+>> +        break;
+>>       default:
+>>           return -EINVAL;
+>>       }
+>> @@ -453,11 +462,23 @@ static int verify_blob(struct virtio_gpu_device 
+>> *vgdev,
+>>       if (rc_blob->blob_flags & ~VIRTGPU_BLOB_FLAG_USE_MASK)
+>>           return -EINVAL;
+>> +    if (rc_blob->blob_hints & ~VIRTGPU_BLOB_HINT_MASK)
+>> +        return -EINVAL;
+>> +
+>>       if (rc_blob->blob_flags & VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE) {
+>>           if (!vgdev->has_resource_assign_uuid)
+>>               return -EINVAL;
+>>       }
+>> +    if (rc_blob->blob_flags & VIRTGPU_BLOB_FLAG_USE_READONLY) {
+>> +        if (!vgdev->has_blob_readonly)
+>> +            return -EINVAL;
+>> +    }
+>> +
+>> +    if (rc_blob->userptr &&
+>> +        rc_blob->blob_mem != VIRTGPU_BLOB_MEM_GUEST)
+>> +        return -EINVAL;
+>> +
+>>       switch (rc_blob->blob_mem) {
+>>       case VIRTGPU_BLOB_MEM_GUEST:
+>>           *guest_blob = true;
+>> @@ -495,6 +516,7 @@ static int verify_blob(struct virtio_gpu_device 
+>> *vgdev,
+>>       params->blob = true;
+>>       params->blob_flags = rc_blob->blob_flags;
+>>       params->blob_hints = rc_blob->blob_hints;
+>> +    params->userptr = rc_blob->userptr;
+>>       if (vgdev->has_blob_alignment &&
+>>           !IS_ALIGNED(params->size, vgdev->blob_alignment))
+>> @@ -518,9 +540,10 @@ static int 
+>> virtio_gpu_resource_create_blob_ioctl(struct drm_device *dev,
+>>       struct virtio_gpu_fpriv *vfpriv = file->driver_priv;
+>>       struct drm_virtgpu_resource_create_blob *rc_blob = data;
+>> -    if (verify_blob(vgdev, vfpriv, &params, rc_blob,
+>> -            &guest_blob, &host3d_blob))
+>> -        return -EINVAL;
+>> +    ret = verify_blob(vgdev, vfpriv, &params, rc_blob,
+>> +              &guest_blob, &host3d_blob);
+>> +    if (ret)
+>> +        return ret;
+>>       if (vgdev->has_virgl_3d)
+>>           virtio_gpu_create_context(dev, file);
+>> @@ -538,7 +561,9 @@ static int 
+>> virtio_gpu_resource_create_blob_ioctl(struct drm_device *dev,
+>>                         vfpriv->ctx_id, NULL, NULL);
+>>       }
+>> -    if (guest_blob)
+>> +    if (guest_blob && params.userptr)
+>> +        ret = virtio_gpu_userptr_create(vgdev, file, &params, &bo);
+>> +    else if (guest_blob)
+>>           ret = virtio_gpu_object_create(vgdev, &params, &bo, NULL);
+>>       else if (!guest_blob && host3d_blob)
+>>           ret = virtio_gpu_vram_create(vgdev, &params, &bo);
+>> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/ 
+>> virtio/virtgpu_kms.c
+>> index 1d4d3bf46a..06c2bded49 100644
+>> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
+>> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
+>> @@ -249,15 +249,19 @@ int virtio_gpu_init(struct virtio_device *vdev, 
+>> struct drm_device *dev)
+>>           vgdev->blob_alignment = blob_alignment;
+>>       }
+>> +    if (virtio_has_feature(vgdev->vdev, VIRTIO_GPU_F_BLOB_READONLY))
 > 
-> I re-read this and yeah you're right
+> This hits BUG(). It queries queries VIRTIO_GPU_F_BLOB_READONLY, but the 
+> feature is absent from the driver’s features[]. virtio_has_feature() 
+> validates device-specific queries through 
+> virtio_check_driver_offered_feature(), which executes BUG() for an 
+> unregistered feature. This affects ordinary probe regardless of host 
+> support.
 > 
-> Is the handoff functionality necessary at all for non-icc clocks?
+> Please add the feature to the array and ensure that the patch is 
+> properly tested before submission.
 
-Actually, if any consumers surviving on these proxy votes on other
-targets as of today, removing the handoff logic could impact boot-up as
-well. Hence, introduced the skip_clk_handoff flag to maintain backward
-compatibility on other targets.
+Really thanks for the point out, we did test in previous version patch,
+but for passing AI review I have to added the VIRTIO_GPU_F_BLOB_READONLY 
+before send out, the AI review are so many, to address it I made many 
+changes, resulted in this issue being overlooked. And I have tested the 
+V9, the guest boot is OK, basic function is ok.
 
-Thanks,
-Imran
+And due to the changing for virtio gpu, many other components need to be 
+changed, need some times to give qemu/virglrender... code. We have a
+lot of parallel tasks here. But I will keep changing code until you are 
+satisfied.
 
-> I'm suspecting that this was just a port of the ancient msm-3.10
-> logic where the (modified) clock framework had a handoff mechanism
-> similar to today's sync_state, except the toning-down of these
-> clocks was never added
+Regards,
+Honglei
+
+
 > 
-> Konrad
+> Regards,
+> Akihiko Odaki
+> 
+>> +        vgdev->has_blob_readonly = true;
+>> +
+>>       DRM_INFO("features: %cvirgl %cedid %cresource_blob %chost_visible",
+>>            vgdev->has_virgl_3d    ? '+' : '-',
+>>            vgdev->has_edid        ? '+' : '-',
+>>            vgdev->has_resource_blob ? '+' : '-',
+>>            vgdev->has_host_visible ? '+' : '-');
+>> -    DRM_INFO("features: %ccontext_init %cblob_alignment\n",
+>> +    DRM_INFO("features: %ccontext_init %cblob_alignment 
+>> %cblob_readonly\n",
+>>            vgdev->has_context_init ? '+' : '-',
+>> -         vgdev->has_blob_alignment ? '+' : '-');
+>> +         vgdev->has_blob_alignment ? '+' : '-',
+>> +         vgdev->has_blob_readonly ? '+' : '-');
+>>       ret = virtio_gpu_find_vqs(vgdev);
+>>       if (ret) {
+> 
 
