@@ -1,218 +1,225 @@
-Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
+Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3674A4749DD;
-	Thu, 24 Sep 2026 10:22:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 948A5471CFE;
+	Thu, 24 Sep 2026 10:22:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790245349; cv=none; b=DmeXEwj3u/j4FypJ4BwhAhL87kP4KOb/CHtfOpwvVm4CvjZEpXSvBZIMQVgJNQ1GtHJcoif3i/2cULEEG1GKVgeNHl7cz4TdhrCe8xY2nQoVhwBcBxIweVFI+6jyfLs89aErGewtoV/6V/y7GWr5zNeFbrP34R/XSinAcs4m2os=
+	t=1790245350; cv=none; b=miBNyd5a/RfxurGhNWSbyyq2dXVn7MdTWgHuxJhODPrRxecAU29NN2m/HN0zK/mvdBK05EUEF7zP4381krG2uX1L+bLG7/T612nYGCf1AmLbK73JhyCil3FnycOR2lPrPDuXo6nRMdoaFIRRQp7yGos0+Uwbyx5gm5067JZGbkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790245349; c=relaxed/simple;
-	bh=JD32s8eD5JSHh277X1R2SZ0l+uvehg9HATseGnbtzJs=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=sryAPB1rELBDZA5+S9wmG7TvgJiQHXGa3AgvB1rmh82t09jDr1Dz5BuC2+sqz1TLkBolWDB7bJ7CUjUnvKskUnb8YLZT79crZeRrrHfbgGBKxq3hlcLhusvnkPisVRjUzuKDZiRidNFK2p6lLpbIiCn9ud/fOdOuCtzNdc0ZWrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=xrjONZAS; arc=none smtp.client-ip=113.46.200.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1790245350; c=relaxed/simple;
+	bh=S7VJI8rNqqoTZtXfNnT82b4wv6KgWc73yuntbX1kjqM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PXJw7n94/KA2Io5pSUjg5BT0on5y+zLxke9WGhEReKEN/3Itmjgi1XaRGgR1GcQs7TIGZcWxCc9FO0SvJnpF7V9sfES+iHTw7Szyige+RgErK0NJMVglgAAgaNVLYX+VOH6j4x4lyPoWuW5kt5RSPYbSFboeBg3LQCt7NO6Ojhc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=RIxqB2HR; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=SaZvD3D5; arc=none smtp.client-ip=202.12.124.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="xrjONZAS"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=yg/c5dnmZTi6xyPOZ86hk74blfRQhWYpuq7fF3Kbs7A=;
-	b=xrjONZASgZH2dB4W12aPwAUjOwKHhuoT3i4U1FLpQsZw+cPLUW1gCi4qySKYwWAnY/2fa/nMH
-	2Ic97JDw8b/I36cpUZTVgECBEPpkkhCD2kgT43L9L8RjG93PnEkKKNXn8tuIFP5pJjIu1GAV6CL
-	P/HreNo6hafJvlYVPC1YGdY=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hr8j419d9znTVd;
-	Thu, 24 Sep 2026 18:10:16 +0800 (CST)
-Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
-	by mail.maildlp.com (Postfix) with ESMTPS id EA04D40578;
-	Thu, 24 Sep 2026 18:22:19 +0800 (CST)
-Received: from octopus.huawei.com (10.67.174.191) by
- whupemk100010.china.huawei.com (7.152.184.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 24 Sep 2026 18:22:15 +0800
-From: Cai Xinchen <caixinchen1@huawei.com>
-To: <mic@digikod.net>, <gnoack@google.com>, <paul@paul-moore.com>,
-	<jmorris@namei.org>, <serge@hallyn.com>, <corbet@lwn.net>,
-	<skhan@linuxfoundation.org>
-CC: <rdunlap@infradead.org>, <gregkh@linuxfoundation.org>,
-	<rafael@kernel.org>, <dakr@kernel.org>, <dlemoal@kernel.org>, <hch@lst.de>,
-	<axboe@kernel.dk>, <viro@zeniv.linux.org.uk>, <brauner@kernel.org>,
-	<jack@suse.cz>, <dhowells@redhat.com>, <code@tyhicks.com>,
-	<linkinjeon@kernel.org>, <sj1557.seo@samsung.com>, <yuezhang.mo@sony.com>,
-	<hirofumi@mail.parknet.co.jp>, <cel@kernel.org>, <jlayton@kernel.org>,
-	<neil@brown.name>, <okorniev@redhat.com>, <Dai.Ngo@oracle.com>,
-	<tom@talpey.com>, <miklos@szeredi.hu>, <amir73il@gmail.com>,
-	<senozhatsky@chromium.org>, <chenxiaosong@chenxiaosong.com>,
-	<zohar@linux.ibm.com>, <roberto.sassu@huawei.com>,
-	<dmitry.kasatkin@gmail.com>, <eric.snowberg@oracle.com>,
-	<stephen.smalley.work@gmail.com>, <omosnacek@gmail.com>,
-	<casey@schaufler-ca.com>, <nanx95726@gmail.com>, <djwong@kernel.org>,
-	<daniel@iogearbox.net>, <linux-security-module@vger.kernel.org>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<driver-core@lists.linux.dev>, <linux-block@vger.kernel.org>,
-	<linux-fsdevel@vger.kernel.org>, <netfs@lists.linux.dev>,
-	<ecryptfs@vger.kernel.org>, <exfat@lists.linux.dev>,
-	<linux-nfs@vger.kernel.org>, <linux-unionfs@vger.kernel.org>,
-	<linux-cifs@vger.kernel.org>, <linux-integrity@vger.kernel.org>,
-	<selinux@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
-	<xiujianfeng@huawei.com>, <caixinchen1@huawei.com>, <lujialin4@huawei.com>
-Subject: [PATCH RFC -next 00/12] landlock: Add READ_METADATA and WRITE_METADATA access rights
-Date: Thu, 24 Sep 2026 18:48:19 +0800
-Message-ID: <20260924104831.1081137-1-caixinchen1@huawei.com>
-X-Mailer: git-send-email 2.18.0.huawei.25
+	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="RIxqB2HR";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="SaZvD3D5"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 43DF17A0050;
+	Thu, 24 Sep 2026 06:22:26 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Thu, 24 Sep 2026 06:22:27 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1790245346; x=
+	1790331746; bh=49B2LH0OEjwjigLeB2EyzGpXNjuF1qmoGFk9qR05DBA=; b=R
+	IxqB2HR3GiVIENBla1T4u5F0EDFAI6jyjNVcDjhgCQ3KrlCbAZ3v/fUd+Od04P2U
+	jeKXjLNiunNgFeZRhw7m6tXlYfWLpRpIxy/dE0+mZFWn5VeKTrr+JIumlMtOIa56
+	lOEMxpcO5oaa8Vu2BDA8TzzNY27wmeSYYliJ06iyPtjlNF7Srkal1cwt61Du7pS+
+	dvEZFEnFmbI9xCr44w4kCeJTzYf2j6UAA93vCiyDL/VOKQT+rhbIetK84zg4R7TG
+	5CrleGKZuXdEvOYJ0EWIMFPRRLVzL9xsytuZiNB2xmL3UCZRpRRKCIhhXytjLNqb
+	RWZrBTlJscOF4cp0Amw2g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm1; t=1790245346; x=1790331746; bh=4
+	9B2LH0OEjwjigLeB2EyzGpXNjuF1qmoGFk9qR05DBA=; b=SaZvD3D5h9s+YQ8m7
+	cTVflLlo0Q8os5V5HAlPEWNyBKLZ0UIO2VhR24tiwxWPbg3u379fPvPxQ2XGFds+
+	ryuS/sq92DcZA5f8bzqyl9q1dkmdLvhPCsQBt9DTirZKgLXCeuaALkCAE8uaXj27
+	ir1L6A1homfvb8crgmCX3rMn+M4rQfIO+Tf59REqgsXtSpzmeqJaHkWe7r2Q1f1S
+	vFORJBKEgqPVGnJKTExvioi+5oGy6Pg5a7G6sI09pNmIUQEa5IBUFqjPdB5BFf80
+	ogC0VKIEWh9iikHZI4aBB1+rPJ02Wrj6vHoBPi5nmyHNO0JlzvK/sHCOYQv2KTtN
+	1rL1A==
+X-ME-Sender: <xms:4vm0at2fqAiEjF_voPWkxQqKHGMNrQ-5K4eD_Emgqg4aa027C0RDkQ>
+    <xme:4vm0ak39_i9yBd5UuLGnRAY0WLeHeEqGqyRS_n6QykIUxSb4RlCTQ_Vr9d_1zodYK
+    BYKWOYp7mc5YJyOvf6cDCKn7jg46B2_MVYTHCdIMG0ZLU0YCrbuFVE>
+X-ME-Received: <xmr:4vm0ahtHFmT8H91ERJyV6DXBTnS4z8fx4ZtmsB_Xa5cgPO8wQWfUzHmYw25h_Xw0wvS9IOPjyw>
+X-ME-Proxy-Cause: dmFkZTFPKKwhcsF2tVcf6J1tdoJzHIGivu3GiCcgJWp0Pt/Z9Gazphq9uGNO64qgWXMd+/
+    r0Y/QC+GxAQC2Q0ieU8CUeap8kK2TKuEf79EXK3nmOyezz75bao1uY7ZOtIqBBuPshRXdM
+    IOJk66Q73oMH4TFALUk5Kcv9/tV+8zmUjNu4znwNLW6QCtNjM5T8lbyMLgXah+SwAfjMDC
+    rCr4sv174gNvDyZRPPY9GCenUHIgd5s2D05F8pDWC2YXojrrAeUc6Y5eDqXskNa/85NpzE
+    OHpcem/V6xXRehfddSOwZh22araaf502XMhjJIeZwed46ATd8n5B6uoJ2HCgVahU0f6UNP
+    1TkXNgqCi1AbBpPcJwLHekqpsHW/kLvonsHOYrxJM9r/Y5Ihp+Uwed6Cj5GKQlaNpiaNpG
+    ezXitG6vTbIPVIEahEl2r7H837aVhl9/5FepLbRyUEaEPx7T4LCVHFrnkYJEaDr79b5DEb
+    4R9+tNdQqZITD1qZMOH+zZQQiSyAew7HW2koDUhex5nTrk9ZbwJWdQ1ThUA3D5jzvkUOJv
+    URIoCxLsig/RG1sqG792Lz3HjxyeBZCekuA59ezj7LpeVXVSvKg+owZ+33odVg4QLMiEJB
+    2gJ5oMDatDmy1Fx6ww6+Tsx/RyJQITfV5/uimj2B9qAJsZ24B2/TkORKBvVQ
+X-ME-Proxy: <xmx:4vm0asY2XPKFFZvngEEuYz3SJjZL-5QopCI8W0JqZyKk7qtZmqAqeA>
+    <xmx:4vm0avIph-zRblkfHV7fYcONjF8i0bJAZKcYsq-HHejM2BEbt_A5vA>
+    <xmx:4vm0alhuxo-tOyHMW66DZJJRnun-G7bdQkEjfl1xZ5LWrQ0-RIqapA>
+    <xmx:4vm0ag8NU4HuFvjWcgKlQK09OaGNMumXEB55ITcbkQxrq_qCHOjkiw>
+    <xmx:4vm0avW_f4-tmwVY6H5Aqypm7sKmvEIGzKnK3THAi9JevaCWgc9DwVTZ>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 24 Sep 2026 06:22:17 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net,
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	ulfh@kernel.org,
+	p.zabel@pengutronix.de,
+	ogabbay@kernel.org,
+	zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com,
+	abel.vesa@oss.qualcomm.com,
+	sebastian.reichel@collabora.com,
+	sidong.yang@furiosa.ai,
+	u.kleine-koenig@baylibre.com,
+	chaoyi.chen@rock-chips.com,
+	diederik@cknow-tech.com,
+	alchark@flipper.net,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	iommu@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jiaxing Hu <gahing@gahingwoo.com>
+Subject: [PATCH v14 03/15] accel/rocket: wait for a running IRQ handler before resetting a core
+Date: Thu, 24 Sep 2026 22:21:23 +1200
+Message-ID: <20260924102135.92217-4-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260924102135.92217-1-gahing@gahingwoo.com>
+References: <20260924102135.92217-1-gahing@gahingwoo.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- whupemk100010.china.huawei.com (7.152.184.41)
+Content-Transfer-Encoding: 8bit
 
-This series adds two new Landlock filesystem access rights,
-LANDLOCK_ACCESS_FS_READ_METADATA and LANDLOCK_ACCESS_FS_WRITE_METADATA,
-which control access to file and directory metadata such as inode
-attributes (mode, ownership, timestamps), extended attributes and POSIX
-ACLs.  It picks up the work from the "landlock: add chmod and chown
-support" series [1] and follows the coarse-grained grouping discussed in
-that thread [2]: instead of separate chmod/chown rights, metadata
-operations are grouped into one read and one write right.
+drm_sched_stop() does not wait for a threaded handler that is already
+running. Call synchronize_irq() after it, outside job_lock, which the
+handler takes.
 
-Landlock evaluates access rights on a per-path basis, but the metadata
-related LSM hooks (inode_getattr, inode_setattr, inode_setxattr,
-inode_getxattr, inode_listxattr, inode_removexattr, inode_set_acl,
-inode_get_acl, inode_remove_acl) only receive the dentry of the accessed
-object.  Patches 1-7 therefore first pass struct path instead of dentry
-through the metadata-related VFS helpers and LSM hooks.  This is a pure
-refactoring with no behavior change, split so that every patch builds
-and works on its own:
+Before the sync, mask the block's interrupt and clear its raw status, so
+that an active core cannot signal a completion after it. Do that under
+job_lock, since rocket_job_hw_submit() arms the same mask under that lock,
+and only when pm_runtime_get_if_active() returns a positive count: the
+reset holds no runtime PM reference, and with the domain down a register
+access takes an async SError.
 
-  1: notify_change() and its callers
-  2: inode_setsecctx hook (must come before 3: the SELinux and Smack
-     implementations call __vfs_setxattr_locked internally)
-  3: xattr helpers, which also drops a redundant EVM xattr size sanity
-     check whose vfs_getxattr() call only has a dentry and therefore
-     cannot be migrated to the new path-based signature
-  4: POSIX ACL helpers
-  5: inode_setattr hook
-  6: inode xattr hooks
-  7: inode POSIX ACL hooks
+Igor Paunovic's induced-reset runs on RK3588, including a two-task job that
+puts hw_submit() on the IRQ thread, found no fault; as he put it, "this
+does not show the race is closed".
 
-Two deliberate scoping decisions for this refactor:
+Link: https://lore.kernel.org/all/20260819073530.6087-1-royalnet026@gmail.com/
+Link: https://lore.kernel.org/all/CAEWPSH5mxTbUkNouxm6yecMZYvDowquhvYvhaXQ8HoMtHD5U1g@mail.gmail.com/
+Link: https://lore.kernel.org/all/20260912113717.6819-1-royalnet026@gmail.com/
+Link: https://lore.kernel.org/all/20260916132824.13527-1-royalnet026@gmail.com/
+Link: https://lore.kernel.org/all/20260919103422.148834-1-royalnet026@gmail.com/
+Suggested-by: Igor Paunovic <royalnet026@gmail.com>
+Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, induced reset, JOB_TIMEOUT_MS=2
+---
+ drivers/accel/rocket/rocket_job.c | 71 +++++++++++++++++++++++++++++--
+ 1 file changed, 68 insertions(+), 3 deletions(-)
 
-- The hooks consistently take struct path rather than struct file.  The
-  VFS call sites involved (chmod(2), chown(2), utimensat(2), xattr(2)
-  and ACL syscalls) operate on paths, and several of them (lstat(2),
-  lchown(2), llistxattr(2), ...) have no struct file to begin with.
-
-- struct inode_operations->setattr still receives (idmap, dentry, attr).
-  Only the VFS boundary (notify_change()) and the LSM hook layer see the
-  path, which keeps the refactor contained to fs/attr.c and the LSM
-  infrastructure instead of touching every filesystem.
-
-Patches 8-12 then implement the new rights, their tests, the sandboxer
-sample and the documentation.  Semantics:
-
-- READ_METADATA covers stat(2) and friends, getxattr(2) and friends,
-  listxattr(2) and friends, and POSIX ACL reads.
-- WRITE_METADATA covers chmod(2), chown(2), utimensat(2), setxattr(2),
-  removexattr(2) and friends, and POSIX ACL set and remove.
-- Only explicit metadata changes requested by user space are restricted.
-  Implicit changes performed by the kernel (e.g. timestamp updates on
-  write(2), size changes on truncate(2)) are not, and neither are
-  chmod(2)/chown(2) calls that change nothing (e.g. chown(2) with
-  (-1, -1), which never reaches the hook), matching the SELinux
-  inode_setattr behavior.
-- Kernel-internal accesses performed with override_creds() (e.g.
-  overlayfs, cachefiles) and kernel threads without a Landlock domain
-  (e.g. nfsd, ksmbd) are not restricted.
-
-The Landlock ABI version is incremented from 11 to 12.
-
-The series is based on linux-next commit 5c4d4169604b ("Add linux-next
-specific files for 20260921").
-
-Testing: each patch has been built for aarch64 (gcc, -Werror) and the
-landlock selftests (445 tests, including the new ones) pass in QEMU on
-aarch64; base_test reports ABI v12.
-
-[1] https://lore.kernel.org/all/20220827111215.131442-1-xiujianfeng@huawei.com/
-[2] https://lore.kernel.org/all/abc960a1-e66e-792e-6869-cfd201c29dbe@digikod.net/
-
-Assisted-by: opencode: glm-5.3
-
-Cai Xinchen (12):
-  fs: pass struct path to notify_change()
-  LSM: pass struct path to the inode_setsecctx hook
-  fs: pass struct path to xattr helpers
-  fs: pass struct path to POSIX ACL helpers
-  LSM: pass struct path to the inode_setattr hook
-  LSM: pass struct path to the inode xattr hooks
-  LSM: pass struct path to the inode posix acl hooks
-  landlock: Add READ_METADATA and WRITE_METADATA access rights
-  landlock: Implement metadata access hooks
-  selftests/landlock: Add tests for metadata access rights
-  samples/landlock: Add metadata rights to sandboxer
-  Documentation: Update landlock doc for metadata rights
-
- Documentation/userspace-api/landlock.rst     |  11 +-
- drivers/base/devtmpfs.c                      |   6 +-
- drivers/block/zloop.c                        |   4 +-
- fs/attr.c                                    |  20 +-
- fs/cachefiles/interface.c                    |   6 +-
- fs/cachefiles/xattr.c                        |  32 +-
- fs/coredump.c                                |   2 +-
- fs/ecryptfs/inode.c                          |  34 +-
- fs/exfat/file.c                              |   3 +-
- fs/fat/file.c                                |   3 +-
- fs/inode.c                                   |   7 +-
- fs/internal.h                                |  17 +-
- fs/namei.c                                   |   7 +-
- fs/nfsd/nfs4ctl.h                            |   4 +-
- fs/nfsd/nfs4state.c                          |  14 +-
- fs/nfsd/nfs4xdr.c                            |   2 +-
- fs/nfsd/state.h                              |   2 +-
- fs/nfsd/vfs.c                                |  73 +++--
- fs/open.c                                    |  18 +-
- fs/overlayfs/copy_up.c                       |   4 +-
- fs/overlayfs/inode.c                         |   4 +-
- fs/overlayfs/overlayfs.h                     |  39 ++-
- fs/overlayfs/xattrs.c                        |  13 +-
- fs/posix_acl.c                               |  46 +--
- fs/smb/server/smb2pdu.c                      |  77 ++---
- fs/smb/server/smb_common.c                   |   2 -
- fs/smb/server/smbacl.c                       |  21 +-
- fs/smb/server/tests/smbacl_kunit.c           |   6 +-
- fs/smb/server/vfs.c                          | 111 +++----
- fs/smb/server/vfs.h                          |  39 +--
- fs/smb/server/vfs_cache.c                    |   3 +-
- fs/utimes.c                                  |   3 +-
- fs/xattr.c                                   |  96 +++---
- include/linux/fs.h                           |   6 +-
- include/linux/landlock.h                     |   4 +-
- include/linux/lsm_hook_defs.h                |  29 +-
- include/linux/posix_acl.h                    |  21 +-
- include/linux/security.h                     |  65 ++--
- include/linux/xattr.h                        |  22 +-
- include/uapi/linux/landlock.h                |  26 +-
- samples/landlock/sandboxer.c                 |  17 +-
- security/commoncap.c                         |  22 +-
- security/integrity/evm/evm_crypto.c          |   8 +-
- security/integrity/evm/evm_main.c            |  36 ++-
- security/integrity/ima/ima_appraise.c        |  17 +-
- security/landlock/fs.c                       |  86 ++++++
- security/landlock/limits.h                   |   2 +-
- security/landlock/syscalls.c                 |   2 +-
- security/security.c                          |  99 +++---
- security/selinux/hooks.c                     |  49 +--
- security/smack/smack_lsm.c                   |  62 ++--
- tools/testing/selftests/landlock/base_test.c |   2 +-
- tools/testing/selftests/landlock/fs_test.c   | 309 ++++++++++++++++++-
- 53 files changed, 999 insertions(+), 614 deletions(-)
-
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index 575945015..bcafa89ba 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -377,9 +377,74 @@ rocket_reset(struct rocket_core *core, struct drm_sched_job *bad)
+ 	drm_sched_stop(&core->sched, bad);
+ 
+ 	/*
+-	 * Remaining interrupts have been handled, but we might still have
+-	 * stuck jobs. Let's make sure the PM counters stay balanced by
+-	 * manually calling pm_runtime_put_noidle().
++	 * Mask the block before waiting. hw_submit() arms INTERRUPT_MASK on
++	 * every submit and only the hardirq clears it, so on an ordinary
++	 * timeout it is still live and a completion can arrive after the sync
++	 * returns. The next submit re-arms it, so nothing is lost here.
++	 *
++	 * Only when the device is already awake, though. This function holds no
++	 * runtime PM reference of its own: the only one in the window belongs to
++	 * in_flight_job, and the completion path may have put it and cleared the
++	 * pointer before the timeout worker got here. drm_sched_stop() above can
++	 * block for a long time, and it drops every pending job's credits, so
++	 * rocket_job_is_idle() is true and nothing keeps the core resumed. On
++	 * this hardware a register access with the domain down takes an async
++	 * SError, so a reset must not be the thing that causes one.
++	 *
++	 * Only a positive answer will do. pm_runtime_get_if_active() tests
++	 * power.disable_depth before power.runtime_status, so -EINVAL MASKS a
++	 * suspended device rather than excluding one: pm_runtime_force_suspend(),
++	 * which is this driver's own system suspend callback, disables runtime PM
++	 * first and turns the clocks off second, and rocket_core_fini() suspends
++	 * the core and disables before it cancels the timeout worker. Both leave
++	 * the domain down with -EINVAL on offer.
++	 *
++	 * The cost is the other half of that ambiguity. A core that is still up
++	 * with runtime PM disabled (pm_runtime_force_suspend() before its
++	 * callback has run, or CONFIG_PM=n under COMPILE_TEST) is left unmasked,
++	 * because writing to it would mean writing to the half that is down as
++	 * well.
++	 *
++	 * Clear the raw status along with the mask, the way the completion path
++	 * does. Masking alone leaves the DPU bit latched until
++	 * rocket_core_reset(), and the hardirq decides on raw status alone, so a
++	 * fault from the IOMMU that shares this line would wake the thread again
++	 * and what the comment below asserts would stop being true.
++	 *
++	 * UNDER job_lock, because rocket_job_hw_submit() arms this same
++	 * register and always runs under that lock. reset.pending is set here
++	 * without the lock and read there with it, so a submit that has already
++	 * passed its check can re-arm the mask after this clears it, and then
++	 * the synchronize_irq() below fences a handler that is no longer the
++	 * one that matters: the block is left running a task with its
++	 * interrupt live. rocket_job_handle_irq() avoids the same race on
++	 * OPERATION_ENABLE by making its completion writes under this lock.
++	 *
++	 * pm_runtime_get_if_active() does not invoke a callback -- it only
++	 * takes a reference on an already-active device -- and
++	 * pm_runtime_put_autosuspend() is asynchronous, so neither can re-enter
++	 * this driver's runtime PM callbacks while the lock is held.
++	 */
++	scoped_guard(mutex, &core->job_lock) {
++		if (pm_runtime_get_if_active(core->dev) > 0) {
++			rocket_pc_writel(core, INTERRUPT_MASK, 0x0);
++			rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
++			pm_runtime_put_autosuspend(core->dev);
++		}
++	}
++
++	/*
++	 * drm_sched_stop() returns without waiting for a threaded handler that
++	 * is already running, so wait for one here. This has to stay outside
++	 * job_lock: the handler takes that lock, so waiting for it while
++	 * holding it would deadlock instead of fencing anything.
++	 */
++	synchronize_irq(core->irq);
++
++	/*
++	 * No handler is running now, but we might still have stuck jobs. Let's
++	 * make sure the PM counters stay balanced by manually calling
++	 * pm_runtime_put_noidle().
+ 	 */
+ 	scoped_guard(mutex, &core->job_lock) {
+ 		if (core->in_flight_job)
 -- 
-2.18.0.huawei.25
+2.43.0
 
