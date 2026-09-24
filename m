@@ -1,261 +1,148 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B852372EF0
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:13:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE7EE381E92;
+	Thu, 24 Sep 2026 04:13:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790223207; cv=none; b=TI/eFiBJBawXdabNC8i0UeZQ1DVrkyGJ+1iMQs/OyDfw4OSa9nHtizkqzt+7UXHPHrBZYV6Tl6sD5YFX8DGSoDx3ALuw3nMN1Ax0YKvbGBO33k/N2vFwiSRjcKBCiYQgAfp3veElrg/f7t//IjK7LhyQ3AQz/F2hntMQEcoSm0o=
+	t=1790223236; cv=none; b=MU/6jf0o6m3voNMmGHxhS67mfqrJC0pjdYFVNIDay2B5kVSv2BDU4GmT1y/NOpdEUemCe09RoIyc/tdDgddaGpu0KRr8/5HntDSydT3rprJT2ZuFhcdGVqY9D0/roQKIrHG7vQKflmg9Dqpa3gyjjKDVVgaW8jpTSV4AVHEmY+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790223207; c=relaxed/simple;
-	bh=8+RdLEb/EU5kXwYDXztHKTzJVyeDHgxCzgwtiszcjes=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=L1BEKbvkqjcGMz6VMzmEsqC/GR0YTpixrx4sJ+z1PfGA/GIaNvjmtnJwJ6MlIcLx1PhVrLT75/LvVekc53QeYMoGS4CzQw7kj16xZ8gF/4bXioljIINu2SP5D6iZk8XhahKUEEjz0M3X2e/vnXHxwxND93gr4f90aHzxXUc/JuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ZjqTNrHw; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790223236; c=relaxed/simple;
+	bh=xFS2DQH8a+QkjPOVxW75pwg7w718ejXKHRThOGnb0zk=;
+	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
+	 In-Reply-To:Content-Type; b=fxfzsxbVgmMxs4GJZLGqMOT2/gcz9e5zMnsC2M+Ub/oFueh42oGtE+KJcC0t4dhNvWGVQro0URMpuF91Kgeop99TZ0gHqtta2QXOUjar76hDemwtMuvcqPSP22v4heR3rMalijt5+t+OCeyQgJ+hegSbqEKZvcnYhgJv+NBYKbk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=hisilicon.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=YDrJG1bm; arc=none smtp.client-ip=113.46.200.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=hisilicon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ZjqTNrHw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
-	Content-Type; bh=iv81RNA485adQFvrL4+HZjzDjbdgSHwKqirIAdW4HY4=;
-	b=ZjqTNrHwAlJ2M/cArk9hKPvbBufLBaJtptxYdQb7413DMPTmJwjJeoRfyEviU0
-	kuF3Wh4Sw1iOEGSb/5uIz6/8tK+l+S0QaDGZkwe9a8AsQovXL95HSAl3Oiif0x8N
-	r9T7e/mOzeJIIH7r3m4cch0AkYv/DJzJOUyYtiwsyQ3B8=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3X9Y0o7RqWqn_AQ--.41231S2;
-	Thu, 24 Sep 2026 12:12:37 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>
-Cc: Hui Su <sh_def@163.com>, Balbir Singh <balbirs@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v4] mm/migrate_device: consolidate compound folio handling
-Date: Thu, 24 Sep 2026 13:12:10 +0900
-Message-ID: <20260924041210.13d04b8be24495fc593665283d2e4453d449502f@163.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="YDrJG1bm"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=81yO6Car8MHwRf3Bvrj4RVRvosAl9GnpSah8DBIW3BA=;
+	b=YDrJG1bmelTa/8xqp49tYwTc49N49nkEI5yfp4SaDFakdoz5bMBzAdDPO2Do05y1Nnq8q3RdY
+	XavZJxvPKSi1DUB9PfwUgZ2GmK2QsgwMA9E0TJ/0h9Bgb3mxJwCeWvejuw10x/E4RNQPN/JOCBx
+	pj+gIug/GaImyUF9rQ4f6FQ=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4hr0Wj4CVgzmV98;
+	Thu, 24 Sep 2026 12:01:37 +0800 (CST)
+Received: from kwepemk200006.china.huawei.com (unknown [7.202.194.72])
+	by mail.maildlp.com (Postfix) with ESMTPS id A1B334055B;
+	Thu, 24 Sep 2026 12:13:42 +0800 (CST)
+Received: from [10.67.113.213] (10.67.113.213) by
+ kwepemk200006.china.huawei.com (7.202.194.72) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 24 Sep 2026 12:13:42 +0800
+Message-ID: <6AB4A375.2050004@hisilicon.com>
+Date: Thu, 24 Sep 2026 12:13:41 +0800
+From: Wei Xu <xuwei5@hisilicon.com>
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:24.0) Gecko/20100101 Thunderbird/24.2.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+To: Rob Herring <robh@kernel.org>, Conor Dooley <conor@kernel.org>
+CC: Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] dt-bindings: soc: hisilicon: Add HIP05 CPLD
+References: <20260921232540.3128596-1-robh@kernel.org> <20260922-cheer-reference-c31fc6fb946d@spud> <20260923150409.GD27237-robh@kernel.org>
+In-Reply-To: <20260923150409.GD27237-robh@kernel.org>
+Content-Type: text/plain; charset="ISO-8859-1"
 Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_____wD3X9Y0o7RqWqn_AQ--.41231S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3GFW3WFyDCF47Ww48uFWktFb_yoWxKFy3pF
-	40gasrJrZrWryjkr13Aa18Ar13urZ3Xa13GFZxGrn7uFZ8JFyfuw1Iq3Z5XFs8CrZ7XFyx
-	Zay7tFy7Z3WDXaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piWlk3UUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6ha9HWq0ozZl7AAA3e
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemk200006.china.huawei.com (7.202.194.72)
 
-Commit dc41e961a269 ("mm/migrate_device: avoid out-of-bounds writes for
-compound folios") added handling for compound folios that do not fit in
-the remaining PFN array.
+Hi Rob,
 
-migrate_device_range() and migrate_device_pfns() duplicate the logic for
-locking device PFNs, encoding compound folios, and handling this boundary
-condition.
+On 2026/9/23 23:04, Rob Herring wrote:
+> On Tue, Sep 22, 2026 at 07:06:02PM +0100, Conor Dooley wrote:
+>> On Mon, Sep 21, 2026 at 06:25:39PM -0500, Rob Herring (Arm) wrote:
+>>> Add schema for the hisilicon,hip05-cpld node on the HIP05 D02 board. The
+>>> node only contains the compatible string and one register window on the
+>>> local bus.
+>>>
+>>> Assisted-by: LLM
+>>
+>> Guidance to the LLM should probably include including the reason that
+>> this is being added to the commit message.
+> 
+> Not sure what you are looking for... I told it to convert all the .txt 
+> bindings to schema. Then I told it fix all the errors. Then I fixed some 
+> things throughout the 900 commit branch upstreaming things bit by bit.  
+> Then it mostly sat for a year and I told a new model to review them and 
+> fix these common problems a, b and c. Then I said fix all the 
+> dtbs_checks warnings on arm64. Then I said there's still warnings, do it 
+> again. Repeated that ~10 times. Now I'm going thru to weed out all the 
+> wrong and sometimes unnecessary changes.
+> 
+> So LLM did all the easy parts and I did everything that requires any 
+> judgement. The hardest part is typically just figuring out the 
+> correct maintainers...
+> 
+>>> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+>>> ---
+>>>  .../soc/hisilicon/hisilicon,hip05-cpld.yaml   | 35 +++++++++++++++++++
+>>>  1 file changed, 35 insertions(+)
+>>>  create mode 100644 Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml b/Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml
+>>> new file mode 100644
+>>> index 000000000000..f9d48b871a4b
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml
+>>> @@ -0,0 +1,35 @@
+>>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/soc/hisilicon/hisilicon,hip05-cpld.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: HiSilicon HIP05 CPLD registers
+>>> +
+>>> +maintainers:
+>>> +  - Wei Xu <xuwei5@hisilicon.com>
+>>> +
+>>> +properties:
+>>> +  compatible:
+>>> +    const: hisilicon,hip05-cpld
+>>> +
+>>> +  reg:
+>>> +    maxItems: 1
+>>> +
+>>> +required:
+>>> +  - compatible
+>>> +  - reg
+>>> +
+>>> +additionalProperties: false
+>>> +
+>>> +examples:
+>>> +  - |
+>>> +    local-bus {
+>>> +        #address-cells = <2>;
+>>> +        #size-cells = <1>;
+>>> +
+>>> +        cpld@100000000 {
+>>> +            compatible = "hisilicon,hip05-cpld";
+>>> +            reg = <1 0x0 0x100>;
+>>
+>> Also what's with this example? 1 0x0 0x100 should be 0x1 0x0 0x100?
+> 
+> Shrug. Sure. Honestly, I think the example can just be dropped.
+> 
+> I'm converting all the crap no one cares enough about to convert. That's 
+> pretty much all of the HiSilicon stuff. Mediatek needs some renewed 
+> public shaming too. I only care about getting arm64 down to no warnings.
 
-A compound folio cannot be represented partially for migration. Use
-WARN_ON_ONCE() when one does not fit in the remaining PFN array, while
-retaining the defensive handling: release the current folio's lock and
-reference, clear the remaining entries, and stop collecting.
+My bad for the warnings!
+Thanks for working on this schema cleanup!
 
-Move the shared collection and encoding logic into a helper so both
-interfaces handle compound folios consistently. Keep the reference,
-lock, size lookup, and PFN encoding together so cleanup acts on the folio
-whose reference and lock were acquired. Also use memset() for compound
-folio tail entries instead of open-coding the clearing loop.
+Best Regards,
+Wei
 
-If a PFN cannot be referenced or its folio cannot be locked, leave that
-source entry clear and continue at page granularity. Compound tail pages
-have a zero page->_refcount, so folio_get_nontail_page() cannot acquire
-them. They are therefore skipped one slot at a time. This preserves
-collection of later allocated pages in a device chunk containing free
-PFNs.
-
-Document that an encountered compound folio must fit entirely in the
-remaining range or PFN array.
-
-Link: https://lore.kernel.org/r/c99ca53a-73ef-4a0c-8738-eba1cc89bea2@kernel.org
-Link: https://lore.kernel.org/r/60634ab5-3fcc-42fb-8722-4ba6771acfda@kernel.org
-Suggested-by: David Hildenbrand <david@kernel.org>
-Signed-off-by: Hui Su <sh_def@163.com>
----
-Tested on x86_64 with KASAN:
-- 7/7 private-device HMM THP cases passed on the exact v4 tree.
-- Local KUnit validation covered success, get/trylock failure, and
-  truncated compound-folio paths.
-
-Changes in v4:
-- Fold migrate_device_pfn_lock() into migrate_device_collect_folio() so the
-  folio whose reference and lock are acquired is also used for size and
-  cleanup decisions.
-- When a PFN cannot be referenced or its folio cannot be locked, leave only
-  the current entry clear and continue at page granularity. Compound tails
-  have a zero page->_refcount, so folio_get_nontail_page() cannot acquire them.
-- Use WARN_ON_ONCE() with defensive cleanup when a compound folio does not
-  fit in the remaining array, as suggested by David Hildenbrand.
-- Document that a compound folio occupies consecutive page-granular entries
-  and must fit entirely in the remaining PFN array.
-
-Changes in v3:
-- Keep the source entry zero when migrate_device_pfn_lock() fails instead
-  of setting MIGRATE_PFN_COMPOUND, while still consuming and clearing all
-  slots belonging to the compound folio.
-- Use VM_WARN_ON_ONCE() for the truncated compound-folio invariant while
-  keeping defensive cleanup independent of CONFIG_DEBUG_VM, as suggested by
-  Balbir Singh.
-
-Changes in v2:
-- Fix the helper parameter indentation and keep the declaration to two
-  lines, as suggested by David Hildenbrand.
-
- mm/migrate_device.c | 92 +++++++++++++++++++++++----------------------
- 1 file changed, 48 insertions(+), 44 deletions(-)
-
-diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-index 009bfa8b212d..34d687882d85 100644
---- a/mm/migrate_device.c
-+++ b/mm/migrate_device.c
-@@ -1376,20 +1376,47 @@ void migrate_vma_finalize(struct migrate_vma *migrate)
- }
- EXPORT_SYMBOL(migrate_vma_finalize);
- 
--static unsigned long migrate_device_pfn_lock(unsigned long pfn)
-+/*
-+ * Collect a device folio into the page-granular PFN array.
-+ *
-+ * Return the number of entries consumed. Return 1 with a clear source entry
-+ * if the current PFN cannot be referenced or locked. Return 0 if a compound
-+ * folio does not fit in the remaining array and collection should stop.
-+ */
-+static unsigned int migrate_device_collect_folio(unsigned long *src_pfn,
-+		unsigned long pfn, unsigned long remaining)
- {
- 	struct folio *folio;
-+	unsigned int nr;
-+
-+	*src_pfn = 0;
- 
- 	folio = folio_get_nontail_page(pfn_to_page(pfn));
- 	if (!folio)
--		return 0;
-+		return 1;
- 
- 	if (!folio_trylock(folio)) {
- 		folio_put(folio);
-+		return 1;
-+	}
-+
-+	nr = folio_nr_pages(folio);
-+
-+	if (WARN_ON_ONCE(nr > remaining)) {
-+		folio_unlock(folio);
-+		folio_put(folio);
-+		memset(src_pfn, 0, remaining * sizeof(*src_pfn));
- 		return 0;
- 	}
- 
--	return migrate_pfn(pfn) | MIGRATE_PFN_MIGRATE;
-+	*src_pfn = migrate_pfn(pfn) | MIGRATE_PFN_MIGRATE;
-+
-+	if (nr > 1) {
-+		*src_pfn |= MIGRATE_PFN_COMPOUND;
-+		memset(src_pfn + 1, 0, (nr - 1) * sizeof(*src_pfn));
-+	}
-+
-+	return nr;
- }
- 
- /**
-@@ -1410,35 +1437,22 @@ static unsigned long migrate_device_pfn_lock(unsigned long pfn)
-  * migrating pages that aren't free before unmapping them. Drivers may then
-  * allocate destination pages and start copying data from the device to CPU
-  * memory before calling migrate_device_pages().
-+ *
-+ * A compound folio must fit entirely in the remaining range.
-  */
- int migrate_device_range(unsigned long *src_pfns, unsigned long start,
- 			unsigned long npages)
- {
--	unsigned long i, j, pfn;
-+	unsigned long i, pfn;
- 
- 	for (pfn = start, i = 0; i < npages; pfn++, i++) {
--		struct page *page = pfn_to_page(pfn);
--		struct folio *folio = page_folio(page);
--		unsigned int nr = 1;
-+		unsigned int nr;
- 
--		src_pfns[i] = migrate_device_pfn_lock(pfn);
--		nr = folio_nr_pages(folio);
--		if (nr > npages - i) {
--			if (src_pfns[i] & MIGRATE_PFN_MIGRATE) {
--				folio_unlock(folio);
--				folio_put(folio);
--			}
--			memset(&src_pfns[i], 0,
--			       (npages - i) * sizeof(*src_pfns));
-+		nr = migrate_device_collect_folio(&src_pfns[i], pfn, npages - i);
-+		if (!nr)
- 			break;
--		}
--		if (nr > 1) {
--			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
--			for (j = 1; j < nr; j++)
--				src_pfns[i+j] = 0;
--			i += j - 1;
--			pfn += j - 1;
--		}
-+		i += nr - 1;
-+		pfn += nr - 1;
- 	}
- 
- 	migrate_device_unmap(src_pfns, npages, NULL);
-@@ -1454,33 +1468,23 @@ EXPORT_SYMBOL(migrate_device_range);
-  *
-  * Similar to migrate_device_range() but supports non-contiguous pre-populated
-  * array of device pages to migrate.
-+ *
-+ * Entries for different folios may be non-contiguous, but a compound folio
-+ * must occupy consecutive page-granular entries and fit entirely in the
-+ * remaining PFN array.
-  */
- int migrate_device_pfns(unsigned long *src_pfns, unsigned long npages)
- {
--	unsigned long i, j;
-+	unsigned long i;
- 
- 	for (i = 0; i < npages; i++) {
--		struct page *page = pfn_to_page(src_pfns[i]);
--		struct folio *folio = page_folio(page);
--		unsigned int nr = 1;
-+		unsigned long pfn = src_pfns[i];
-+		unsigned int nr;
- 
--		src_pfns[i] = migrate_device_pfn_lock(src_pfns[i]);
--		nr = folio_nr_pages(folio);
--		if (nr > npages - i) {
--			if (src_pfns[i] & MIGRATE_PFN_MIGRATE) {
--				folio_unlock(folio);
--				folio_put(folio);
--			}
--			memset(&src_pfns[i], 0,
--			       (npages - i) * sizeof(*src_pfns));
-+		nr = migrate_device_collect_folio(&src_pfns[i], pfn, npages - i);
-+		if (!nr)
- 			break;
--		}
--		if (nr > 1) {
--			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
--			for (j = 1; j < nr; j++)
--				src_pfns[i+j] = 0;
--			i += j - 1;
--		}
-+		i += nr - 1;
- 	}
- 
- 	migrate_device_unmap(src_pfns, npages, NULL);
-
-base-commit: fe2ec83746e501645709761605c2464a44fd2929
--- 
-2.55.0
-
+> 
+> Rob
+> .
+> 
