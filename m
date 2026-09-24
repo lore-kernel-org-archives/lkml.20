@@ -1,146 +1,180 @@
-Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94601399D08;
-	Thu, 24 Sep 2026 05:41:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54FE33E172E;
+	Thu, 24 Sep 2026 05:41:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790228488; cv=none; b=fCcFZvlLJIbscvy5asnXn00FEQW6GJInCz3/blGk6l2Ihuc44qLAkc55CQKaaKEm7lpx5Whr4TcIvFQPAHiG0GgbLOBkl3mlu5hRhgpWZDT1QNcNONw7ceWEj4zKITxgjX1mBO397Dl0/xyJDNHG/npk7hbsTjLeFn77hRwmtWU=
+	t=1790228508; cv=none; b=oshhAco2lAZnkbuVCX3wUrnfVeCgtW6qXdZoLeUrXMaEEHQjwqw2+J78Rkcqb2NXdywft/SPplMtUJY+TKsjl6xciQxVjT5BkTg6ICrwKh2fosig4PdgploJhM9G0KOTs1IT6yGK8XbJWyKN2EugeeF2sp2d0ZrCjKU6ai45byo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790228488; c=relaxed/simple;
-	bh=SyNq6q04nR2Yz70u0MUE6hcGQXSWNYBNNhni+6wrDSg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RSGincujRWRPNOqTPDSMyq6F2h0pNGdBYwCXAhpVHxc7gwYruOuyTvUhaD6b/J+yCMFPM98FGF5E2vi2Rl+0A0iXsPtFH8gj0G1HsEVFsSIz8YBEIhN8SkPOR6xCMJN40v807ZrY55TsYlulKsxQgXCzuI0wNTcFeGJP3sbEMLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=GwuNW8dL; arc=none smtp.client-ip=115.124.30.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1790228508; c=relaxed/simple;
+	bh=qSw6Ch86PfeA7TbGfRfN9M4jHoDhQmrEEGKZK1qnJuo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z4sD+gLFcC6NuBKBlf01efMm2A1CWaEp3+TwfJ8E2efZxwX4yR0cCaqZ+fRqTxwLELVK/3lxbLDn1YKemtGJkAIeI7gTBVFMyDZaBTlWugU1inpOVXf8DU2ydrwQgivEzTUOBL3ryq6SP3bdru8jFiCjItwQhjwgzkR4d7wZsSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=bbz4wTaU; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="GwuNW8dL"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1790228480; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=P4v6cNM1orkRpHabK5BZVKKJkrk8WU5R3D6SCkcOASk=;
-	b=GwuNW8dLjVHmawULZ3imZqHM+RVksVPLqyaO2EdOrYPrsYGTNLjqW0AagzYbbBHsrjrWGJ61rzjjJa4lC1tz2+v8mZ+tGKzSjoNXWAeSb2E6maoZxgSZdOQF0QO8s9OIQ5EV0+wrDufOV5IHEUR0ibSGT5cltq8ryzuo+PM3xWg=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R751e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=jianjun.wang@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0XBYmqZp_1790228478;
-Received: from L-F9NL024XF6.hz.ali.com(mailfrom:jianjun.wang@linux.alibaba.com fp:SMTPD_---0XBYmqZp_1790228478 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 24 Sep 2026 13:41:19 +0800
-From: Jianjun Wang <jianjun.wang@linux.alibaba.com>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jianjun Wang <jianjun.wang@linux.alibaba.com>,
-	yanhui.wjj@alibaba-inc.com
-Subject: [PATCH] PCI: Keep an already-configured bridge's bus number across a rescan
-Date: Thu, 24 Sep 2026 13:41:15 +0800
-Message-ID: <20260924054115.75574-1-jianjun.wang@linux.alibaba.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="bbz4wTaU"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5bPLq1341316;
+	Thu, 24 Sep 2026 05:41:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=j3C8VT6lq/50NekSaSJTHmBeZBZscb
+	7GN4xLh4wEW5M=; b=bbz4wTaUGdrQaezWOslqPi0RfZE9FIjpiRPxchfX7J2lv2
+	GwM/6q3h9Qfl8ASF/87c3ZuIOvgRx5i5yJByI2ck9tFyywyiJgHQN6ui6MLlY4kS
+	AlZnLmJneTTyeIjZGTbobsZKqKY/1z/B8as+yq93FR9VnUB5ycUVgUXSLA5aVSx0
+	wUJUnhfx3iumwz72dGMsYX7P6bG4z68DB+bS/oqSffMzvoCvlUsqfhRfTIPmkAms
+	LgWgB1cLWQsaAUQDDfs9HiUWhBNNDDM9Iysi2nVVzVoNNpYgI99YiXk83L32IDp4
+	/tZtAZGE440SouoPmaeNCit8qXHUfOqpJyxb/7SA==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskg2q8wp-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 05:41:45 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68O2IYu61279363;
+	Thu, 24 Sep 2026 05:41:44 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbt2v58n-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 05:41:44 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68O5feWo49873192
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 24 Sep 2026 05:41:40 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 559412004B;
+	Thu, 24 Sep 2026 05:41:40 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2C0A620040;
+	Thu, 24 Sep 2026 05:41:40 +0000 (GMT)
+Received: from osiris (unknown [9.224.90.220])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Thu, 24 Sep 2026 05:41:40 +0000 (GMT)
+Date: Thu, 24 Sep 2026 07:41:38 +0200
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Nihar Panda <niharp@linux.ibm.com>
+Cc: linux-s390@vger.kernel.org, vneethv@linux.ibm.com, oberpar@linux.ibm.com,
+        linux-kernel@vger.kernel.org, gor@linux.ibm.com,
+        agordeev@linux.ibm.com, wintera@linux.ibm.com, bblock@linux.ibm.com,
+        nagamani@linux.ibm.com
+Subject: Re: [PATCH v5 1/1] s390/qdio: Ensure QDIO_IRQ_STATE_ACTIVE is set
+ only after firmware activates.
+Message-ID: <20260924054138.13740A41-hca@linux.ibm.com>
+References: <20260924050217.2583852-1-niharp@linux.ibm.com>
+ <20260924050217.2583852-2-niharp@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924050217.2583852-2-niharp@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: 3apGR39Hzi8Sd8JQPzMycQJ_zRUaGT1n
+X-Authority-Analysis: v=2.4 cv=I43w19gg c=1 sm=1 tr=0 ts=6ab4b819 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
+ a=I-6cxHlVoWN35HKNoDMA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAyNCBTYWx0ZWRfX4tDIOnoRhjfB
+ O29MLsZZbWtMPTCpRwNNT5phN0Bhc6TlrDsSMZwGc6RdDmeDeh2z+RzRAnpso72I25+OQyb6mWE
+ mnXMA1d4rEqnv38VTLZbx9kdsYWIaREcAHIRC++WMPtgcwMVom6+0d2DkK9zH5op0/F63USFFRy
+ HT+T8e/1R67coBQy+nmmkO8rSt2sDJM8hosHzssxrwkRvCIsDV89EzEb3Jp7c24tnui01SabxyK
+ xfSUKCASxNxs5hlGVuOs8EFpOGZVNi34HEbDFeVpRu1yOGNg0kP2RN41XMfhN2qQhy4hTPr02nW
+ vn229J2maH1ka+mnq0qhG1zwufNhSSiEhTTS94QsBx6F78gLjKNQWwGx0FHQ1+1Jcnr9SKxVCyW
+ 0z8qP8qpDNSMPOC/BjYTItPc54KNtKiKQ+LYM6qIkZgab2fhH1FCHcnXKCjy4MhqcnzgVIAW0FR
+ +GuWzLDWD5fMcQ5rRuQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAyNCBTYWx0ZWRfX0LWzlSupcfb1
+ W/5lwQSWFfEFGRq60WdGjHaiakvqLO3yx8IE0bQM5u2fTPK8T1uW9QV/XUtTPdLqXvQsHthuoHa
+ ZiP37AXYPV9bic7C1Y5r+kHBDWoLoYg=
+X-Proofpoint-GUID: 3apGR39Hzi8Sd8JQPzMycQJ_zRUaGT1n
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 adultscore=0 suspectscore=0 impostorscore=0
+ lowpriorityscore=0 bulkscore=0 phishscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240024
 
-When pcibios_assign_all_busses() is set, pci_scan_bridge_extend() assigns
-a bridge's secondary bus number with
+On Thu, Sep 24, 2026 at 07:01:36AM +0200, Nihar Panda wrote:
+> Set QDIO_IRQ_STATE_ACTIVE only if both the subchannel-active bit and
+> the QDIO-active bit are set in the Subchannel Status Word (SCSW).
+> 
+> The channel subsystem sets the SCSW_ACTL_SCHACT bit in scsw.actl and
+> scsw.qact = 1 in the SCHIB to indicate that the activate-QDIO-queues
+> CCW program is running and the queues are ready.
+> 
+> An interrupt-driven approach is not applicable here.
+> Using CCW_FLAG_PCI on the activate CCW generates an intermediate interrupt
+> too early, before the firmware sets qact=1.
+> Therefore, polling the SCHIB via cio_update_schib() is the only way to
+> reliably detect when the queues are ready.
+> 
+> Signed-off-by: Nihar Panda <niharp@linux.ibm.com>
+> Reviewed-by: Alexandra Winter <wintera@linux.ibm.com>
+> Reviewed-by: Benjamin Block <bblock@linux.ibm.com>
+> Reviewed-by: Nagamani PV <nagamani@linux.ibm.com>
+> ---
+>  arch/s390/include/asm/scsw.h |  4 +--
+>  drivers/s390/cio/qdio_main.c | 59 +++++++++++++++++++++++++++---------
+>  2 files changed, 47 insertions(+), 16 deletions(-)
 
-	next_busnr = max + 1;
+Unfortunately the cover letter does not mention what has changed
+compared to the previous version. Also there seems to be a confusion
+between versions. Cover-letter says v2, while the patch says v5.
 
-This works correctly during the initial enumeration: the bridges are
-visited in order, none of them has a child bus yet, and assigning max + 1
-as each one is scanned yields sensible, increasing numbers.
+In addition the code changed obviously. Is it ok to keep the Reviewed-by tags
+from above which were given to a previous version of the code?
 
-A rescan is different. Bridges that were already present still hold their
-child bus (dev->subordinate), and for_each_pci_bridge() iterates
-bus->devices, which is built with list_add_tail(). A bridge that was
-removed and is later rediscovered during the rescan is therefore appended
-to the tail of the list rather than kept in bus-number order.
+> -	/* wait for subchannel to become active */
+> -	msleep(5);
+> +	rc = -ETIMEDOUT;
+> +	timeout = jiffies + HZ;
+>  
+> -	switch (irq_ptr->state) {
+> -	case QDIO_IRQ_STATE_STOPPED:
+> -	case QDIO_IRQ_STATE_ERR:
+> -		rc = -EIO;
+> -		break;
+> -	default:
+> -		qdio_set_state(irq_ptr, QDIO_IRQ_STATE_ACTIVE);
+> -		rc = 0;
+> -	}
+> +	do {
+> +		msleep(1);
+> +		if (irq_ptr->state != QDIO_IRQ_STATE_ESTABLISHED) {
+> +			rc = -EIO;
+> +			DBF_ERROR("%4x act WS:%d", irq_ptr->schid.sch_no, irq_ptr->state);
+> +			break;
+> +		}
+> +		/* Query hardware */
+> +		spin_lock_irq(get_ccwdev_lock(cdev));
+> +		if (cio_update_schib(sch) == 0) {
+> +			if ((sch->schib.scsw.cmd.actl & SCSW_ACTL_SCHACT)
+> +					&& sch->schib.scsw.cmd.qact) {
+> +				qdio_set_state(irq_ptr, QDIO_IRQ_STATE_ACTIVE);
+> +				rc = 0;
+> +			}
+> +		}
+> +		spin_unlock_irq(get_ccwdev_lock(cdev));
+> +		if (!rc)
+> +			break;
+> +	} while (time_before(jiffies, timeout));
+> +	if (rc == -ETIMEDOUT)
+> +		DBF_ERROR("%4x act TMOUT", irq_ptr->schid.sch_no);
+>  out:
+>  	mutex_unlock(&irq_ptr->setup_mutex);
 
-This is where the positional "max + 1" breaks down. A bridge that still
-owns its old child bus can be assigned a number that another bridge is
-already using. pci_find_bus() then returns the sibling's bus, the
-"if (!child)" allocation is skipped, and the bridge takes over the
-sibling's child bus while the sibling is given a newly created one. The
-two subtrees end up swapped, and the endpoint behind the reused number is
-scanned a second time.
+As already mentioned in a previous comment: "worst case" is that this would
+timeout after waiting only 1ms (+ preemption), compared to before where there
+was a guaranteed minimum wait time of 5ms.
+Is this change intended? Could this lead to regressions?
+If this is intended it should be described.
 
-If a bridge already has a child bus, it is being rescanned rather than
-enumerated for the first time, so there is no need to renumber it; keep
-the number it already holds. Bridges without a subordinate still get
-max + 1 as before, the initial scan is unaffected because no bridge has a
-child bus yet, and platforms that do not reassign all buses take the
-preserve path earlier and never reach this code.
-
-Signed-off-by: Jianjun Wang <jianjun.wang@linux.alibaba.com>
----
-Reproduced on a QEMU RISC-V "virt" guest whose host bridge uses
-pci-host-generic, so pcibios_assign_all_busses() is effectively true.
-The machine has three PCIe root ports, each with an endpoint behind it:
-
-  -[0000:00]-+-00.0
-             +-01.0-[01]----00.0   (network controller)
-             +-02.0-[02]----00.0   (NVMe controller)
-             \-03.0-[03]----00.0   (NVMe controller)
-
-Remove the middle root port and rescan:
-
-  # echo 1 > /sys/bus/pci/devices/0000:00:02.0/remove
-  # echo 1 > /sys/bus/pci/rescan
-
-Without this patch the two lower subtrees are swapped, 00:02.0 and
-00:03.0 now point at each other's bus, and the endpoint that gets
-enumerated a second time fails to probe:
-
-  -[0000:00]-+-00.0
-             +-01.0-[01]----00.0
-             +-02.0-[03]--
-             \-03.0-[02]--+-00.0
-                          \-00.0
-
-  nvme nvme0: Duplicate cntlid 0 with nvme1, subsys ..., rejecting
-  nvme 0000:02:00.0: probe failed with error -22
-
-With the patch the already-present bridges (01 and 03) keep their bus
-numbers, only the re-added bridge gets a fresh one, the topology stays
-sane and the endpoint probes normally:
-
-  -[0000:00]-+-00.0
-             +-01.0-[01]----00.0
-             +-02.0-[04]----00.0
-             \-03.0-[03]----00.0
-
-Note the re-added bridge is numbered 04 rather than reusing the freed
-02: renumbering only ever hands out max + 1, so once the preserved
-bridges have advanced max there is no attempt to reclaim the hole. That
-is cosmetic; the numbering is valid and no longer conflicts.
-
- drivers/pci/probe.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-index 27008e2ea5af..6b418d20cde3 100644
---- a/drivers/pci/probe.c
-+++ b/drivers/pci/probe.c
-@@ -1513,6 +1513,18 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
- 		fixed_buses = pci_ea_fixed_busnrs(dev, &fixed_sec, &fixed_sub);
- 		if (fixed_buses)
- 			next_busnr = fixed_sec;
-+		else if (dev->subordinate)
-+			/*
-+			 * This bridge already has a child bus, so we are
-+			 * rescanning an already-configured bridge (e.g. after a
-+			 * sibling bridge was removed and the bus was rescanned).
-+			 * Keep its existing bus number instead of renumbering
-+			 * it: a re-added sibling is appended to the tail of the
-+			 * device list, so handing out max + 1 here would let that
-+			 * later sibling steal this bridge's number and swap the
-+			 * two subtrees.
-+			 */
-+			next_busnr = dev->subordinate->busn_res.start;
- 		else
- 			next_busnr = max + 1;
- 
--- 
-2.25.1
-
+Usually problems like this are avoided by retrying n times, instead of using a
+fixed timeout value.
