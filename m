@@ -1,65 +1,65 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B883442110
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:00:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7167938AC9A
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:00:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790244036; cv=none; b=AlRs1CfvCFp5i4e72SdL9OFLy2oLvFOIig4Wy+DWN/TRjWjBfz6fx0sAHBB36v4d+ulYA+nvEoh01bG6qQgLjVJxJXtzLSCmbdYLL2gXSNnvjvMAUe8/U0oxCE4qySMcqqW/i/NiHHaVAxF1weIv+UQbEEYM3e8SbsZXryJdNhc=
+	t=1790244036; cv=none; b=gaIoKCsTX7FM4tJap/DpULIvET1xOAWmRb+R33Que7KfkoqJ46DxQ9kI7FHToWkZHbsXoEbgP/+JAAS6Y7mqwysm+kNiYK6KdZUwadwY/GPi/OsaZTg7fr2sbLq1v5tH6umsxV0a6VfPcy8gXYiSi4kKNx5U64Ip+c8NNQmHgl4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790244036; c=relaxed/simple;
-	bh=ZooIw2NXmAULWJuKoapaauNHvCQH06h1cYnr4qHA9dg=;
+	bh=dszis8Niv47E42Xdhjmyu9YfEidDCYxTVb5wGh2KKns=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=i3nunwILYshhcZUsE80swRPVT8b0UTB8Y8CIG2N0JkoCjdw3d9VizE0UtKIBtc/+WhF1J8tiUzUH50jKfOQftOIu0TpoCtagKUp9nytn6giV2FGbaod7z9uU/VO7gVuOQn1wfZRR9anuvMXfFjTbLYHnfNmI/eNMIw21eqWjTsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CCEm/m0y; arc=none smtp.client-ip=74.125.227.140
+	 MIME-Version; b=s+4PrIgyNpHbC4KUrDemIOxPQKrWoXHqyAAma1AK7EQOAUrUPS5CCOpaA6XgJ2n7NcTjtQnI7xwarPK0foJFrYoct4XUTOpl5v6VPfkFkNt//e+DnHaafE8xzZ1lk5jvpnGR0hLfSptfpSAfuQAvV24x1V1h5WdWorFaFvjTbTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n8/nNUg6; arc=none smtp.client-ip=209.85.214.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CCEm/m0y"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747f05ffcso9712055ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:00:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n8/nNUg6"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2db710396ffso3570365ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:00:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790244022; x=1790848822; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790244023; x=1790848823; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=PNcv7R2Cv9BHSyuhVjO6vXYIN0OaNo4GYPMek76PDQ4=;
-        b=CCEm/m0y6NN65ltXor2AUDoMMW+mKUcRyiZoLyE2Qisxhoe1BpMSN/NFhNKaYN1JFh
-         Tr2fH2ykMT/hi1qOzFM3BiSzRMJfeqAFfmezmkAPcGo+FEobiPdTEuwd4Gdd97MvfD7X
-         hy7m82mbhXam6blP6/rkMBxzg8wQAqKv/sEZBe4ojlAC420HeRDNEQr4C3ro7pe0/GDp
-         sCt9+oDW+9CT1DxaFX5lY6jApIrKrtHegII6jd0x5blDvrWMpulVYiNP9mwp/ceAXW/n
-         eah4/iTGJqX33vbARG5peSTP7ffbPQvs3gfRTJWXH3sfltG0KxC2pmqne+RbbzZqdFHq
-         xDfA==
+        bh=bDu5V8VFjj7o7vcgGcrsEHmG2L9tByu/suT9MpcaWQ8=;
+        b=n8/nNUg6XPe6Nc69cIIizAbF9mdxa4Aso/uQUJpn383E0KwExDIa9qM7ZUjRsmWJPZ
+         px4jr3pGQZRuBi/ICZTpFSTGnO8JoPe2qH/jqfTBte+hRKWjfZFu0eG0Pkig6rvXkVYM
+         GVL3JVvnBGIekV9jSEzORi+nIlRBxtyw06yAz3s8KMy5L4cYkdPSA3VutElaFu4hv8dv
+         oSOo49J4TggNGgWy3PkOjOD/s1Pb3MdrqUpdcxaggYum5y7Alb+m5vaOVp70uzhGpXmU
+         sAEi4nJDSOHv/x+JB+gHWfU/aFNA+CvBdVdgYmKLFTbVhAM1QsZ+1Sp+NpLO9dJMLs6k
+         0EtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790244022; x=1790848822;
+        d=1e100.net; s=20260707; t=1790244023; x=1790848823;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PNcv7R2Cv9BHSyuhVjO6vXYIN0OaNo4GYPMek76PDQ4=;
-        b=tk3IlnVlKkkYjZgVT0IeHHn2DwkvEx45Zsai+WgdxhT4jlr79ji9knO4UfkJKaeYXI
-         9eYfXiK6K/X0gIN0Pmsf7ZIn2TNp8OtnTpPjphEJrfqPcznx7wC/icM/9Kq2MnLw8ZNY
-         JZzuzWqHEgXBlrxdCwLigXzb41cKqorV7JZ9LpGkytBc99IZm9YRaekukekJzvUQgDIQ
-         2m9d7Qizr+ZdkRWEtTiFoTnnDFVto9vyUBumWTFB4qjaq78ujT6uJSndrKHIllZZiq3F
-         f1tU6bGl5NuLH4RrvnsLt9EEVsjetbCU/yec7tZD02Uu7ggE6zYLkvS0dTadls8M9LM9
-         mUPg==
-X-Forwarded-Encrypted: i=1; AKwUvBxFMLwY0KJBvhp/NoMmavMwvGvYg+rhfOYSjZnIHj9B4TlfpUrkz3j78g5OmoSWTy/CeYXE6dy8yCGYZuY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nIs0kWVYTisIf7gH3m4Ui6KdMFOyX9zbzCtUmmZPjY/sq9zLQY
-	s/51P4QGhk9hj4YujrPqBiBqSXhheDG7SdZcRzmxcTAVBFjaX5jCGzS6
-X-Gm-Gg: AYBFou33/uV23Phic8MJb4+2UKxeVmk9lI9Dm1anNlRfeq07z9ieMWeolWEAqYr5eJk
-	mWEDs+AGkY7MnBXUuE4Mucr2JiiCMfITKc9+BJcwLZWbLcqYyKBPEpZLjVtZeyvKQmSldMwDu0s
-	2iso1xNO/ySOU8ebxzCruAUXG1uhn388qvUjABWguxPTFVxYlhOEMM57ALg/Vj5+ks55RZvtI0E
-	oOxGNe6n/D6VnjGHHWMZgyucYhcbsaM/6tSjk01cievHOADNC5xqDSUgRU5hONxsgJNHVpxblmE
-	DY7ifrTc2tDshorzgzHxZ4j92iEQde1eWX89vaRjxzPSPmNZLiFYDJKgBvAcbCj1zWNYfIkglxz
-	lh8CLORe4nL2vWbz+62rnS8jkNZIpleGdjoJulmmaaJ1K8ITsBCyMI1n/dEGATUZWwv+59vgDHg
-	IJPOz4F05vDVVeiXVVnFaXssQoYZCAZpx1xO4eZ1Y+ni0FASxP0CLKsd43T+keywdQxRIby9hvs
-	3dpgD6ITVAIFiwjMBbTILmcX/OTVcGpGGTbPbXNmbwQIbJHkbq/04X34uGRQbxoCDW1DkNZ3M8e
-	I4Zlekx/PA==
-X-Received: by 2002:a17:903:32cb:b0:2dd:c100:80b7 with SMTP id d9443c01a7336-2df7e6681c3mr18526985ad.50.1790244022009;
+        bh=bDu5V8VFjj7o7vcgGcrsEHmG2L9tByu/suT9MpcaWQ8=;
+        b=Towd+ETfm/ijCAQwv/evHC3dbnM2prg1sgX2DKXdxBDNlrEKtbwW3gPaTgeQbtHn7f
+         SJ6A5toKoq/FwYg79DAxWCeVzDb0SY4XcJzkVH0c3kZbOchUS94rHUT1OcwharY6DYzW
+         Wp8+nfDwO+v3tynhgCfZ3JibesqBctALqR7ZcOCW6iCnYGN9LoIB2WCoNFNXy7FjUQ0w
+         M6TYwNKBGc2Ib80B5nMGfrbleN39oBsWQEtPYD4Lt+NyPnmVxz8Ao7++06B9iN4oFZBV
+         PvjdCzbeT6qo5Hze1BdyKuol29ANgNnQOCzpji05zOZjlMsXhV6qQFPuiWbWUfu+zRZk
+         Eb5A==
+X-Forwarded-Encrypted: i=1; AKwUvBwnvkYajHjiBKLThpNvgzcGa8aRd+U2yG8d8tDDWMUkq7w6beU+PuBj7yMKqdt8Fktb3t1h0B3LsGWJ7No=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+cnRYEKebd8UW1cHcUmJ4dC9THntvCs/XHXMspxScThoCgvHd
+	eFJa2PqP95yYhzYAyMRwO35cu9XOT4Rs32+o+45U22IWC5qsd9u3GHQt
+X-Gm-Gg: AYBFou1y0oYVR2TuLH14srig3m3U6tE6WLZJgEewyCcA806XZO/tGsbQVi6oth58CRt
+	kWc/XYisw9ASZ3XLoga9ZFwSpliU/z2fxXRITUthVNse6dispN78xfUjsZToMtCwBq7WvtSLtHZ
+	1gHtxADU7NUr/QS19KE3CsqgSxsevfSy+/7FmNxjnn8xgk5k5fECReSg9Ad6PMoorW/Lm3rIDWE
+	DEUIgTT2xaaX2NonZqmzaxeOR/ILRQ9dsSez5lc6f7yEeWadR6+LbUpHdblO4Nzswq6mlLEiFei
+	hSbPWNAVUZlZ8KsVlk53o7RjD8r+onsI4XoJ5XqytDwwxsIMh6f2kF1Q961WVwAVFeyOk5SpKzM
+	k8IbelhxbG6rnpE+vzfDBGt2J2IETIM0HOSAHWKgutaWKwtf0jqfdavbd6bVXIi64SlFoYbQql7
+	2Z8FnvcP7Ubl6ZfaZ5CDjj62DJoqe4Acu8YqBRh4XQOm3xu0WijlUnnWqzZbWsJX1M+i47aSSfu
+	Y1CobdSCAkyfVtCdTSCWt23dfrRx4oWNlnfQ5/WHtOYV9PLJ0nRHd/y8OL6hvAi2Ff7Hp9ZgLUg
+	AAfzWq7/SQ==
+X-Received: by 2002:a17:903:17c7:b0:2d8:d4d2:d138 with SMTP id d9443c01a7336-2df7e251f68mr11229755ad.20.1790244022862;
         Thu, 24 Sep 2026 03:00:22 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a516d58sm24409255ad.11.2026.09.24.03.00.21
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a516d58sm24409255ad.11.2026.09.24.03.00.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 03:00:21 -0700 (PDT)
+        Thu, 24 Sep 2026 03:00:22 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
 To: gregkh@linuxfoundation.org,
 	arve@android.com,
@@ -71,9 +71,9 @@ Cc: maco@google.com,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Hui Peng <benquike@gmail.com>
-Subject: [PATCH v2 1/2] binder: defer fd_install() until after copy_to_user() in binder_thread_read()
-Date: Thu, 24 Sep 2026 10:00:18 +0000
-Message-ID: <20260924100019.3389555-2-benquike@gmail.com>
+Subject: [PATCH v2 2/2] binder: free transaction buffer via binder_free_buf() on read -EFAULT
+Date: Thu, 24 Sep 2026 10:00:19 +0000
+Message-ID: <20260924100019.3389555-3-benquike@gmail.com>
 X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
 In-Reply-To: <20260919213650.3316812-1-benquike@gmail.com>
 References: <20260919213650.3316812-1-benquike@gmail.com>
@@ -85,27 +85,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In binder_thread_read(), binder_apply_fd_fixups() installs translated file
-descriptors into current->files via fd_install() BEFORE put_user() and
-copy_to_user() copy the BR_TRANSACTION / BR_REPLY command to userspace.
+In binder_thread_read(), if put_user() or copy_to_user() returns -EFAULT,
+the failure paths call binder_cleanup_transaction() without setting
+t->buffer->transaction = NULL or calling binder_free_buf(proc, thread,
+buffer, true).
 
-If put_user() or copy_to_user() returns -EFAULT, any file descriptors in
-t->fd_fixups have already been installed into the recipient process's file
-descriptor table and removed from t->fd_fixups, even though the transaction
-failed and the sender receives BR_FAILED_REPLY.
+Because allow_user_free remains 0, the binder_buffer and all translated
+binder_node / binder_ref references inside it are permanently leaked. For
+oneway transactions (TF_ONE_WAY), node->has_async_transaction remains true
+forever, wedging all subsequent async transactions to that node.
 
-Split fd_install() out of binder_apply_fd_fixups() into
-binder_fd_fixups_install(t) and invoke it only after put_user() and
-copy_to_user() succeed.
+Fix this by setting buffer->transaction = NULL and calling
+binder_free_buf(proc, thread, buffer, true) on put_user() / copy_to_user()
+-EFAULT errors in binder_thread_read().
 
 Tested in QEMU against Linux 7.3.0-rc3 using a multi-process C reproducer:
-a sender thread transmits a pipe write-end FD via BINDER_TYPE_FD in a
-one-way transaction to a recipient thread whose read buffer spans an
-unmapped virtual memory page, triggering -EFAULT in copy_to_user(): on the
-unfixed kernel, the pipe write-end FD was prematurely installed into
-current->files (polling the read-end did NOT produce POLLHUP); whereas
-with this fix applied, fd_install() is deferred past copy_to_user(), so
-the FD is not installed on -EFAULT (polling the read-end produces POLLHUP).
+triggering copy_to_user() failure on a one-way transaction: on the unfixed
+kernel, binder_cleanup_transaction() leaked the transaction buffer and
+left node->has_async_transaction set to true (wedging subsequent async
+transactions); whereas with this fix applied, binder_free_buf() is called
+on -EFAULT, clearing buffer->transaction and freeing the allocation cleanly.
 
 Fixes: 44d8047f1d87 ("binder: use standard functions to allocate fds")
 Cc: stable@vger.kernel.org
@@ -114,65 +113,46 @@ Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
 Changes in v2:
-- Split out as patch 1/2 as requested by Greg Kroah-Hartman and Carlos
+- Split out as patch 2/2 as requested by Greg Kroah-Hartman and Carlos
   Llamas.
 - Added QEMU test procedure details in commit message body.
 - Added Reviewed-by tag from Carlos Llamas.
 
- drivers/android/binder.c | 22 ++++++++++++++++------
- 1 file changed, 16 insertions(+), 6 deletions(-)
+ drivers/android/binder.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/drivers/android/binder.c b/drivers/android/binder.c
-index fb9ff072bd6c..ee01e6a06631 100644
+index ee01e6a06631..efff59853752 100644
 --- a/drivers/android/binder.c
 +++ b/drivers/android/binder.c
-@@ -4705,7 +4705,7 @@ static int binder_wait_for_work(struct binder_thread *thread,
- static int binder_apply_fd_fixups(struct binder_proc *proc,
- 				  struct binder_transaction *t)
- {
--	struct binder_txn_fd_fixup *fixup, *tmp;
-+	struct binder_txn_fd_fixup *fixup;
- 	int ret = 0;
- 
- 	list_for_each_entry(fixup, &t->fd_fixups, fixup_entry) {
-@@ -4730,19 +4730,25 @@ static int binder_apply_fd_fixups(struct binder_proc *proc,
- 			goto err;
+@@ -5127,24 +5128,32 @@ static int binder_thread_read(struct binder_proc *proc,
+ 			trsize = sizeof(tr);
  		}
- 	}
--	list_for_each_entry_safe(fixup, tmp, &t->fd_fixups, fixup_entry) {
--		fd_install(fixup->target_fd, fixup->file);
--		list_del(&fixup->fixup_entry);
--		kfree(fixup);
--	}
- 
--	return ret;
-+	return 0;
- 
- err:
- 	binder_free_txn_fixups(t);
- 	return ret;
- }
- 
-+static void binder_fd_fixups_install(struct binder_transaction *t)
-+{
-+	struct binder_txn_fd_fixup *fixup, *tmp;
+ 		if (put_user(cmd, (uint32_t __user *)ptr)) {
++			struct binder_buffer *buffer = t->buffer;
 +
-+	list_for_each_entry_safe(fixup, tmp, &t->fd_fixups, fixup_entry) {
-+		fd_install(fixup->target_fd, fixup->file);
-+		list_del(&fixup->fixup_entry);
-+		kfree(fixup);
-+	}
-+}
+ 			if (t_from)
+ 				binder_thread_dec_tmpref(t_from);
+ 
++			buffer->transaction = NULL;
+ 			binder_cleanup_transaction(t, "put_user failed",
+ 						   BR_FAILED_REPLY);
++			binder_free_buf(proc, thread, buffer, true);
+ 
+ 			return -EFAULT;
+ 		}
+ 		ptr += sizeof(uint32_t);
+ 		if (copy_to_user(ptr, &tr, trsize)) {
++			struct binder_buffer *buffer = t->buffer;
 +
- static int binder_thread_read(struct binder_proc *proc,
- 			      struct binder_thread *thread,
- 			      binder_uintptr_t binder_buffer, size_t size,
-@@ -5141,6 +5147,8 @@ static int binder_thread_read(struct binder_proc *proc,
+ 			if (t_from)
+ 				binder_thread_dec_tmpref(t_from);
+ 
++			buffer->transaction = NULL;
+ 			binder_cleanup_transaction(t, "copy_to_user failed",
+ 						   BR_FAILED_REPLY);
++			binder_free_buf(proc, thread, buffer, true);
+ 
+ 			return -EFAULT;
  		}
  		ptr += trsize;
- 
-+		binder_fd_fixups_install(t);
-+
- 		trace_binder_transaction_received(t);
- 		binder_stat_br(proc, thread, cmd);
- 		binder_debug(BINDER_DEBUG_TRANSACTION,
