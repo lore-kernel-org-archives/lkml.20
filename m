@@ -1,103 +1,131 @@
-Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 233E4403138;
-	Thu, 24 Sep 2026 06:20:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.133
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CEA3E2D8DC4
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:22:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790230868; cv=none; b=Q4VDzely54G84ryLHhfu1eACbTEnIW3gYxoYiqQ4ksZcLhMrmI7F5+RfK8ib3/UkYjOjx5qlOR5o/3pAq4gTb1Plht6JtUcR6PKBbsjYfpceAvMZYnln1B41tDnPI2IcKd2BuZs6isK9JcwOJRkXnksj2OHqjFn4oRliRoKeKQ0=
+	t=1790230946; cv=none; b=sWmyUJp71zLOseLfJ6Mu/WbmPWaktAj8M/XTEtKRPC8j9jQOJWzcD0vlWCU0jI5TwiJsR60MrHp/cv7QzbtaDLXzu7RGuvWeGQBU/3ew0UXKL1Ev21hwXffnMtQHHfJcxC8zmO0na+5piFdimOSS/FVA7kOvgvXjDlGUvJjMnSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790230868; c=relaxed/simple;
-	bh=reBBHsp3dFVFx1bF+MzYdUeYyaVuB7Dha/3mQOU4WLA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=O6TT15NdDsKb8FKqhZCLx8tQXIQtfAImlb3KaijMgHeVtS4U4ZZurjqjgSQDg8U3eFlVBJvfZBAR7MjkZJNUR3PtxsGqBSMMjRDgqMwOeEdo6JpFCLwrLzGQ5H/3x+Qx5s7JuTF+uBlFf+8aGOCxQu2JWjDp8sAsHDMuiDYtxX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=ldix3Ne3; arc=none smtp.client-ip=115.124.30.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1790230946; c=relaxed/simple;
+	bh=AFiGAJeNuge1xk0RxTH5cvykdnaiOpoKLFWNCrc5VLc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Xkil70emq8qdu+g1fF33MGwoTk75KJfdl80C1LHYRunRwpv2ArnrhJ+dDmUO2Au1iYLs68veGRG9cREllmPkwcNUX4L9RyzEzNJ3O344NoIdIYe9Ct+j9F8nV09gjQZZ6Z/2scNjefv6Ikr14RsFDSIAAx3hBKteOyzuC0S+k08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=vZE1pIh7; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="ldix3Ne3"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1790230853; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	bh=UZmmCpa9iQGypCYX6K6r43HbgZn3fz9spOS64iksXTs=;
-	b=ldix3Ne3+9sO2eMsKeLXrXRkSZNYFjD96PKUARWcza4N92lo+DSuLQSGiTml6deieiKXBw5XaZpNz3WDD8pWmjiD+p37zd8RmoX5mSzYIijpLB26h8Yu4rdSkUZKmPcl6g73o1ZS3W0jDeL2WsKN8/ae78auOF0ve+cko+8lr6A=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=cp0613@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0XBYn2f4_1790230804;
-Received: from DESKTOP-S9E58SO.localdomain(mailfrom:cp0613@linux.alibaba.com fp:SMTPD_---0XBYn2f4_1790230804 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 24 Sep 2026 14:20:53 +0800
-From: Chen Pei <cp0613@linux.alibaba.com>
-To: JaeJoon Jung <rgbi3307@gmail.com>,
-	rgbi3307@nate.com
-Cc: bjorn@kernel.org,
-	bjorn.topel@gmail.com,
-	luke.r.nels@gmail.com,
-	xi.wang@gmail.com,
-	puranjay@kernel.org,
-	andrii@kernel.org,
-	daniel@iogearbox.net,
-	ast@kernel.org,
-	memxor@gmail.com,
-	pulehui@huawei.com,
-	bpf@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] riscv: net: bpf: add bpf_jit_supports_private_stack()
-Date: Thu, 24 Sep 2026 14:19:59 +0800
-Message-ID: <20260923114951-private-stack-rfc-cp0613@linux.alibaba.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="vZE1pIh7"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ED0171516;
+	Wed, 23 Sep 2026 23:22:18 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B1AEC3F86C;
+	Wed, 23 Sep 2026 23:22:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790230942; bh=AFiGAJeNuge1xk0RxTH5cvykdnaiOpoKLFWNCrc5VLc=;
+	h=From:To:Cc:Subject:Date:From;
+	b=vZE1pIh7XHDLymm0pnaCEQ9P4YoBtWgq3UdWhQgaXWkxYGUI9iq60w/hwMqzSzuT3
+	 uNDgd1m4sBRWIAiTdTyeV0brmCr/70thUna+DLivbm842BXwzpi9qwHCGu4NL9y0Ka
+	 ncU5ydpeYAf7DW5oaa5UwBsKkmuYRakvbxIv2iiM=
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Linu Cherian <linu.cherian@arm.com>,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH V3 0/4] arm64/mm: Convert pgtable READ_ONCE() as pxdp_get()
+Date: Thu, 24 Sep 2026 11:52:10 +0530
+Message-ID: <20260924062214.1635078-1-anshuman.khandual@arm.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260810031418.95364-1-rgbi3307@gmail.com>
-References: <20260810031418.95364-1-rgbi3307@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi JaeJoon,
+Route READ_ONCE() accesses on pgtable entries via level specific generic MM
+pxdp_get() helpers which platforms could then override when required. These
+accessors on arm64, will help in ensuring page table accesses are performed
+in an atomic manner while reading 128 bit page table entries later. But for
+now they just default to READ_ONCE(), thus preserving existing behaviour on
+current D64 translation a well.
 
-Thanks for the report. I have been looking at what still blocks
-sched_ext on riscv64, and the private stack is indeed an important part
-of it.
+This is similar to generic MM where all atomic accesses have already been
+converted from READ_ONCE() into pgtable level specific accessors.
 
-> $ sudo ./build/bin/scx_simple
-> libbpf: prog 'simple_dispatch': BPF program load failed: -EACCES
-> libbpf: prog 'simple_dispatch': -- BEGIN PROG LOAD LOG --
-> Private stack not supported by jit
+These are preparatory patches for D128 enablement, although standing their
+own for D64 translation as well. These patches are split from earlier D128
+V1 series. There are no functional changes here and besides mm kselftests
+do not show any regression.
 
-I don't think we can take the hook on its own, though.
+https://lore.kernel.org/linux-mm/20260729122452.3797443-1-anshuman.khandual@arm.com/
 
-The other architectures paid for this with real JIT work rather than
-with the hook alone: arm64 (6c17a882d380), x86 (7d1cd70d4b16) and
-powerpc64 (156d985123b6) each added the per-CPU allocation with
-overflow/underflow guard regions, the prologue work that puts the
-program on that stack, and the guard check plus free on the program
-free path.
+This series applies on v7.3-rc4 but after applying the following patches on
+pgtable entry print standardization posted earlier.
 
-> It seems that it should be defined in the same way in RISCV as well.
+https://lore.kernel.org/linux-mm/20260831054331.625505-1-anshuman.khandual@arm.com/
 
-Defining it the same way means that JIT work, not just the hook. With
-the hook alone the verifier would let these programs load while riscv64
-still runs them on the per-task stack and has no guard region, turning
-the clean -EACCES above into a silent stack overflow.
+https://lore.kernel.org/linux-mm/20260916044933.2689426-1-anshuman.khandual@arm.com/
 
-Going through those three commits, this is what I expect the riscv64
-side to need, and I plan to post it as an RFC series:
+These patches have been hosted here as well.
 
-  1) per-CPU private stack allocation with overflow/underflow guard
-     regions, plus the guard check and free_percpu() on program free;
-  2) pointing BPF_REG_FP (S5) at priv_sp + the program's stack size
-     while leaving SP on the kernel stack, the way arm64 does;
-  3) emitting the per-CPU lookup that produces that pointer after the
-     tail-call entry point, since RV_TAILCALL_OFFSET is a constant
-     added to the target program's bpf_func;
-  4) bpf_jit_supports_private_stack() returning true only once the
-     above is in place.
+git@git.gitlab.arm.com:linux-arm/linux-anshuman.git (arm64_pxdp_get_v3)
 
-Aiming to send RFC v1 within the next couple of weeks. JaeJoon, I hope
-we can go over the testing together once it is posted.
+Changes in V3:
 
-Thanks,
-Pei
+- Added overrides for pxdp_get() and replaced remaining READ_ONCE()
+- Updated all commit messages as required
+- Dropped previous tags
+
+Changes in V2:
+
+https://lore.kernel.org/all/20260922061638.3967467-1-anshuman.khandual@arm.com/
+
+- Rebased on v7.3-rc4 along with all latest dependencies
+- Updated commit messages per Ryan
+- Added tags from Ryan
+
+Changes in V1:
+
+https://lore.kernel.org/all/20260903060657.2717457-1-anshuman.khandual@arm.com/
+
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Linu Cherian <linu.cherian@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-mm@kvack.org
+
+Anshuman Khandual (4):
+  arm64/mm: Use pmdp_get() for PMD accesses
+  arm64/mm: Use pudp_get() for PUD accesses
+  arm64/mm: Use p4dp_get() for P4D accesses
+  arm64/mm: Use pgdp_get() for PGD accesses
+
+ arch/arm64/include/asm/pgtable.h | 40 +++++++++++++++++----
+ arch/arm64/mm/fault.c            |  8 ++---
+ arch/arm64/mm/fixmap.c           |  6 ++--
+ arch/arm64/mm/hugetlbpage.c      | 10 +++---
+ arch/arm64/mm/kasan_init.c       | 18 +++++-----
+ arch/arm64/mm/mmu.c              | 60 ++++++++++++++++----------------
+ arch/arm64/mm/pageattr.c         |  8 ++---
+ arch/arm64/mm/trans_pgd.c        | 14 ++++----
+ 8 files changed, 95 insertions(+), 69 deletions(-)
+
+-- 
+2.43.0
+
