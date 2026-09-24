@@ -1,123 +1,88 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B73374BE458;
-	Thu, 24 Sep 2026 19:44:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBE8C33A9FE;
+	Thu, 24 Sep 2026 19:45:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790279094; cv=none; b=Keag6DRGfhEcesJruka/mMwQvaNi8vh5wTr9yeu/rZerNifSdP0UhqcSTFRr+Ee7w0FwuT6bIyVKTVomS37aJ+lBUpnM7vupVdE7Quuy78bBEOEJhno2YZ7Fb5KPuYLDuqEi050+kzyVackkuZyEHW/FP4d9un4AM4EdXY4SRZI=
+	t=1790279139; cv=none; b=YPkGYZAW782Wk1cpBI+0twXjsf6nTQXEdz1s6/roJPwEUhTPdCZ/l1tsOhCbIK42zQ8/S2ZTIMJdeBJ9nO3ihyMci8Jksdp9Dq3Lv4lvzQu2ujaYWPHYbR6W/bBYdvn7lLRvlewxiazxdcaQWXRgGtB+f/+TEJ4EsR1JblJ4RTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790279094; c=relaxed/simple;
-	bh=odrTGFsDo9/VOm3I9CYUC31p3sv7iM21LI1z9mPgrow=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jLgZa4oowZS+GowYOodSVJcSpKeCSoiSLt8bDlmz6GBi6W09MKO2llApIUJABY3u5okUcf6UOhLgXbEUMHjgFW3TzchZfR/QIJozgXRu4z3tkBKcfAMGMtilHVRGtEvj1z8btPIQuiqfo4ekkM+CjftHKJNbsuBbU2PyKUJb+TI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=aATvn3V3; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1790279139; c=relaxed/simple;
+	bh=UCNSDIlulYome+vY3nf3Jy5HSzwP9j412kxfHAtL/EM=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=dDrUi/5dxkWjY2egD946aDXjp8Ru8wnExZyeS0pWEi4iGW78EpJ/f7L73F6Dlb7xZhbZ/NljPSXE2dfbXla+NCbREwoR1+DOsfDQeFLA0lJFOHzTM9bzb0MO5ZjF21SzoZqYdu9JJc6NiB+NaKfhZytmjH8iEkjhCWSV0T38j1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ae1AkLHj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="aATvn3V3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790279090;
-	bh=odrTGFsDo9/VOm3I9CYUC31p3sv7iM21LI1z9mPgrow=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=aATvn3V3gYX6FXQyrgZVlZUH0yNhVXxUANYpfa74kW5BOYGMlicj6Q0JZEvLqX/Zt
-	 ULBWHIMYfIVadIbf+5gt+yM8b0N6T4iAtOpNFMGmBLPhJ6r+spJgRFm369hUrCdE01
-	 TuqCpwm76CdolivLQgJKJMNW5KLihdJ2t5hVW7Eif6xRv0uuPZ8a0vecAeGeFilmsj
-	 syMqlLQCKdrrj8d5bdXQwfKYFIDdYvgJ9L1kfOCgUkg/bhtVqEaEquMJpFvORqbkNQ
-	 lJtfvxMWM6g/i0g23lul8GeT4i8J8YtvyJ36r665j6xhSn/m00l1JqmgEq7RIe6OPS
-	 9GY5Bv1Jnt8Sw==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8B46017E01C5;
-	Thu, 24 Sep 2026 21:44:48 +0200 (CEST)
-Message-ID: <48271d518bb25f552309de12758e9a9995905f0c.camel@collabora.com>
-Subject: Re: [PATCH 00/14] media: Add V4L2 H.264 stateless encode and
- VC8000E support
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Michael Nazzareno Trimarchi <michael@amarulasolutions.com>, Paul
- Kocialkowski <paulk@sys-base.io>
-Cc: devicetree <devicetree@vger.kernel.org>, "open list:FREESCALE IMX / MXC
- FEC DRIVER" <imx@lists.linux.dev>, linux-arm-kernel
- <linux-arm-kernel@lists.infradead.org>, LKML	
- <linux-kernel@vger.kernel.org>, linux-media <linux-media@vger.kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,  Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team	
- <kernel@pengutronix.de>, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil	
- <hverkuil@kernel.org>, Marco Felsch <m.felsch@pengutronix.de>, Michael
- Tretter	 <m.tretter@pengutronix.de>
-Date: Thu, 24 Sep 2026 15:44:46 -0400
-In-Reply-To: <CAOf5uw=K5tWiodM0SEP_nFn0vBv3=YRFWrY1Bd-1jPmZtM7G4A@mail.gmail.com>
-References: <20260522101653.2565125-1-paulk@sys-base.io>
-	 <ad9788bba0851dcb86c22f40c2562f2a57ac8e6c.camel@collabora.com>
-	 <CAOf5uwktfp0a3Vi5Jd8Zw5knGMHd_FH=iusRX1NgHYC4VSuzBA@mail.gmail.com>
-	 <arQxC3DmDyVIGdqq@collins>
-	 <CAOf5uw=SeHZSnYjPOptAGYwPkQc7L7gDpOrDWJH3UF0r1qdrtg@mail.gmail.com>
-	 <arVnQmik-CveaAkY@collins>
-	 <CAOf5uw=K5tWiodM0SEP_nFn0vBv3=YRFWrY1Bd-1jPmZtM7G4A@mail.gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-HPi1wb249tHXCTcm2PII"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ae1AkLHj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B98EF1F000FF;
+	Thu, 24 Sep 2026 19:45:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790279130;
+	bh=TaQpXeqDu4eNv4g0BmK8EJLXBcJuN1+NJessy4FiZQw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=ae1AkLHj4nD3pqfTzdsRqvo7DSQ/WXft4HC2VmExh7F4A6mrt+tJ+U2LI7wfg9VlU
+	 3cpyfiRIeEs86qh6igBtVSd5dj4FkL4ZgelVzduCvRW74Ogo091BHO3s0HPcjwSrYb
+	 JJvUR1xkwTOK4AJ7Io8Zj0zx8ISR8U8QfdoPsBMYHt+RxZMkav7TUTaQpho5vp60Us
+	 DQfDegzGUXMbAe8grpRDHz1RMDM4meb4/5hD13vKxlCIO7/oQdrG9i5CSh/+NUgoRx
+	 8Y0xpwlMGf5AZisKAhfpqz1f5fpqIK8mo6jc8XUeJxv/XxwJ3fUIAJNQu19wqA53Y6
+	 wvNkJNRGor/OA==
+Date: Thu, 24 Sep 2026 14:45:28 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Wei Huang <wei.huang2@amd.com>
+Cc: bhelgaas@google.com, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, andrew.gospodarek@broadcom.com,
+	ajit.khaparde@broadcom.com, fengchengwen@huawei.com
+Subject: Re: [PATCH 1/1] PCI/TPH: Validate the firmware Steering Tag response
+Message-ID: <20260924194528.GA1999719@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924190543.3424792-1-wei.huang2@amd.com>
 
+On Thu, Sep 24, 2026 at 02:05:43PM -0500, Wei Huang wrote:
+> TPH _DSM returns an eight-byte Steering Tag information buffer.
+> Checking only the ACPI object type allows a short firmware response
+> to be read beyond the end of its buffer.
+> 
+> For safety, require a non-NULL buffer containing the complete value
+> before copying it. Use memcpy() so that reading the response does not
+> depend on the alignment of the firmware buffer.
+> 
+> Fixes: d2e8a34876ce ("PCI/TPH: Add Steering Tag support")
+> Signed-off-by: Wei Huang <wei.huang2@amd.com>
 
---=-HPi1wb249tHXCTcm2PII
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Applied to pci/tph for v7.4, thanks!
 
-Hi,
-
-Le jeudi 24 septembre 2026 =C3=A0 21:38 +0200, Michael Nazzareno Trimarchi =
-a =C3=A9crit=C2=A0:
-> I would like to ask about the status of the entire proposal and uapi chan=
-ge.
-
-=46rom my perspective, the main part missing the the V4L2 m2m stateless encod=
-er
-spec. We made one for stateful decoder/encoder and stateless decoder, and t=
-hat
-made a huge different in interoperability.
-
-A second implementation, not just a variant of the same brand would also be
-nice.
-
-Nicolas
-
---=-HPi1wb249tHXCTcm2PII
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarV9rgAKCRDZQZRRKWBy
-9AJKAQDAVOKci/P7Qr2Z5IgnO7OXHieb8eGjiKKZ534/8y/l7wEAh6xDOGHKCKdz
-yxN04vRWtC/cp79kBk1S7uuDCQofSwY=
-=1fmE
------END PGP SIGNATURE-----
-
---=-HPi1wb249tHXCTcm2PII--
+> ---
+>  drivers/pci/tph.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/pci/tph.c b/drivers/pci/tph.c
+> index 655ffd60e62f..4d064b86befc 100644
+> --- a/drivers/pci/tph.c
+> +++ b/drivers/pci/tph.c
+> @@ -119,12 +119,14 @@ static acpi_status tph_invoke_dsm(acpi_handle handle, u32 cpu_uid,
+>  	if (!out_obj)
+>  		return AE_ERROR;
+>  
+> -	if (out_obj->type != ACPI_TYPE_BUFFER) {
+> +	if (out_obj->type != ACPI_TYPE_BUFFER ||
+> +	    out_obj->buffer.length < sizeof(st_out->value) ||
+> +	    !out_obj->buffer.pointer) {
+>  		ACPI_FREE(out_obj);
+>  		return AE_ERROR;
+>  	}
+>  
+> -	st_out->value = *((u64 *)(out_obj->buffer.pointer));
+> +	memcpy(&st_out->value, out_obj->buffer.pointer, sizeof(st_out->value));
+>  
+>  	ACPI_FREE(out_obj);
+>  
+> -- 
+> 2.55.0
+> 
