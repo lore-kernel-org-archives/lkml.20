@@ -1,155 +1,108 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2F83A1696;
-	Thu, 24 Sep 2026 15:11:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B4D149F134
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:12:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790262722; cv=none; b=fkIWSvfHhe/WOLzQ+cg+8Za4rrL6Vz6cpvFIFWJkHJ7wY6B2yeLTVf5BGkE/DlzirmXGJpYD8aiUw+O3P884JbVzv66bi66NS1vuvMnGVwQ4/8AUfs3JBIm5pq6hBEETqlwru52EaSx29xxTSIMuD6JytTilJdfTS4oYhICd6PI=
+	t=1790262747; cv=none; b=rW9m/CIuRgQQuXNafOOMaaWvS1uZRtYXFIBkoFhDTxA2L/1LpYm5JnitxpFDsDe8PO5/iMS60QFGOcM71am3jJuRFU58C3EIcOz0U3EQI7pIbkrsGpSXX0/UZe7nocB+XQf0VDCIZbYwkbpW27J8VB2b+2KzxvOgYlLJ9hDyuWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790262722; c=relaxed/simple;
-	bh=ZykuZkJ4JL+Et9AOMagm3MkYCr3EzzexzQ4kmYPzF2Q=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=kbnlbfwG8MEqZlF/kZxsTSIbCKQFTHkJEM5NoEQCLScyexJy4tAdW8grAQsnsPOTuCOn19KKMHELAJ9OwCMADAIzOPDic7IQvS8u4tGzas6SxusTzEbVifzDl7FfG+UzsCQZar01XJpFY5DdzxJcIY6kLliZXARRir//qtGdUNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=WsVmNySU; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790262747; c=relaxed/simple;
+	bh=Vt+c/g5xxiGmzWWCamOWYCXzu3vd6GOa/3OwsjwojAs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tZxPqbwJWgqPx8ntF5PnCsWLPLiSpidT/Nx85f2bn+yhuVCCuHEVKQSvefoAyUOYYen0i3QkaQReD9ohGmO+h4oxIImkGf5NDHp7eRU46/KAIp83Ena5+sEgessN7CrWAApi3K/j2wuON9ihB94D9wJlEANLJdXCfAUZCAHjXps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cGULTHjJ; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="WsVmNySU"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 46647C211E7;
-	Thu, 24 Sep 2026 15:12:43 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id ADB6C60341;
-	Thu, 24 Sep 2026 15:11:55 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3CA5F103293D8;
-	Thu, 24 Sep 2026 17:11:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790262710; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=eL6oLqTGeMgwRc+mGLllj+d8cQJlbDrWIsv/RTygnkc=;
-	b=WsVmNySUi/GaEvuAJLoHJce4dzMcNEzJ+YZ+jBptYPB3p9G0ORgDPl2fGtFTSmpt4bKhr9
-	QWYLg49IqpaynIRLGbbkKqhssfezt2yJnxtcq3DLwgIcOBkYO/cXxebSPKv+m6VJnE+D6W
-	iVKKz15yQAyEoHT3pRD2MqdftLuzPWqIePkKR04THJIVYhNT5R05aCIWQHRB1YSC4BpYyC
-	21/uUfKyUrZkNGANEg+Ci+CzUDnOT0M7FoEJfM2QQLGFW7U01pzG1LzM1yG9BE9PxF5cRN
-	pO3zr2HZZwrcN//jqo3XjqrzqIPfVbTMmYllSJ8SNwy+7g5LkVDoFiCAuujfFw==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cGULTHjJ"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3920so15299135e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:12:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790262741; x=1790867541; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1GVltwZjugbFU6GZvacC8y2lCpU5V1LZLUebStEzuzI=;
+        b=cGULTHjJyKkXrWL3YnMZuoMYFBC1kS+qXKALn74YogQCL8gxlOseB9GoxhcbzntF+e
+         Ftdydv+hmxiXPLt5OxV6sCndCvqWVkhyDqFOplxe/2ibM9VIYCdix+hI2yEMmqZIGRba
+         FWqrF1CJcpzlzUh9F4JixaulwxvbjT7BI9LrmOK5njUie/zf4+1WtYmSmojmDnqWK3WQ
+         T/g8v7vPJ0YsqiCx95/ZlKEuPJYlGa7K4i7g/r7rpS7edaDkOopgOJMXjdLleX/5ZAPK
+         P7Xg2Mz6nb+gtJXq7EXfOIrl4xR+JIdpqcQF0fIwT8DULRz1QBuEuiL6G1rP4z7Dk+ab
+         t+jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790262741; x=1790867541;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1GVltwZjugbFU6GZvacC8y2lCpU5V1LZLUebStEzuzI=;
+        b=jfbo0WNloBpaxhZkDM5k/DIEhVjd4Q5//oq5Ds5qVD6BTUVuJPr1bc6kXpAV+k18qm
+         z7OTrJfxwtOUJMS09U7YSkey5F2Fg39GDEJDWNtYWBfVgC0pFCDhvqCkGANA89Rythlb
+         YnX9xXg7aMtJQCksFbH5Ru+vlGSJopG3XHUPMy/5gpXGQO8dS+KrMer+PaPgLOwPeS1K
+         LpZnlgd1JGwVtsKEFNeWcK9h2uRHvaTg0jkXCqri7NO5DlXxFV/sb8VDmBQAXXZOyvTd
+         0tJGNRVPLG88rmWfFpYri0F140dJAF4H/K3TYnsIT5nHaz0Qf4X4UTsZYYlEff2Nx19z
+         U0Dg==
+X-Forwarded-Encrypted: i=1; AKwUvBzDF/p7l3MXyf/SK6tSHQqiWhdFbKzTvl/DS6BOXeq0f48BI5GcXYjyFZcGo04a2uhIonJwIAT/Wy/QJzI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBIbYjz7FbPjISad/sUdnK5mFjBAVcjv+EI/bHl+s8YEXARdES
+	GmzpfzYvpbmV2r3X232HXdqasoFgdtzM36vq05DkXdGz99EF5si5dWxO
+X-Gm-Gg: AYBFou38tZErYviiTS2sEnkOiU+pc3neRKmvBZ5j4ZRat/eQvuFC1dz8fGfh5TNwlkc
+	0+ijqjfWZaUQ1pyJobNeX0fOPvudFBqdOguoexoCqvNnTyjlgW00gwWbPF2LCKfnIrwdxEbgTQs
+	c0wIxaMb6rxt4rHARPUHvwKas973+EhWGPxUPQpE1Y9E1rMDyYs7yg9IL4AkfQNgx6vUiVn+vVM
+	T1zI1CX0FKHiYNMihs0hC7gXNRS8KmZmGn1JOMVU156reyC6IdE/lQIcbZf1B+LOzLAAo68vxMn
+	hyX6U+a/AXKvr0d74oMnk+JnCr3uFbTfsfl+KEEJmFQoJVbgMXfB7JYt4XXB+qsNhtaUlEpPjkV
+	eYJXp+2Zmgq52W7pYswVug3M68+C2I5UAL4d53LFZgKO6+IvN9alu715ZtiMvui4JOUbvLp3tZn
+	5lDpXsiRXGs9pJQj7Y3kPkAB63Myd0YgvcubrEZddDONW5CfmxaaJEYNT3VtbOhG5/X6uzLojMX
+	c06TFfORZ7BBooz2h7Q5uIDB+VybL1z1ehPpH/OyOav38+iqKqTS48udBpIfHJ6zr0vfHGf6Qdm
+	x90d7gseUJLINEC0UUPz+osukQlj4ARQJ0BN/nJ6uYAUrBnpGL7+PAzyxMZBd0aOIkMv1TphvrW
+	aTBvos1EdKdjwHGSYM8Y/WGAALkhRuloaiDHiRVDZ1U9OPSA6kDSZEODmfNJlBpHknwfVP8SC19
+	0Fykif
+X-Received: by 2002:a05:600c:c48e:b0:49f:ce72:dfe7 with SMTP id 5b1f17b1804b1-49fe6710a41mr44375865e9.35.1790262741344;
+        Thu, 24 Sep 2026 08:12:21 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd3d5csm72255225e9.14.2026.09.24.08.12.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 08:12:21 -0700 (PDT)
+Date: Thu, 24 Sep 2026 17:12:20 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jonathan Cameron
+ <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] iio: adc: add driver for the MAX34417 Four-Channel
+ High Dynamic Range Power Accumulator
+Message-ID: <20260924171220.00002cbc@gmail.com>
+In-Reply-To: <arUxl7QeiEzFlI7O@ashevche-desk.local>
+References: <20260923-topic-sm8x50-iio-max34417-adc-v1-0-41d4ba1bfc41@linaro.org>
+	<20260923-topic-sm8x50-iio-max34417-adc-v1-2-41d4ba1bfc41@linaro.org>
+	<20260924095457.00006ed6@gmail.com>
+	<arUxl7QeiEzFlI7O@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 24 Sep 2026 17:11:43 +0200
-Message-Id: <DLNN5W7M505X.TWFOK1HD0CQL@bootlin.com>
-Subject: Re: [PATCH net 1/3] net: macb: never give hardware a NULL RX buffer
-Cc: <conor.dooley@microchip.com>, <andrew+netdev@lunn.ch>,
- <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
- <pabeni@redhat.com>, <horms@kernel.org>, <nicolas.ferre@microchip.com>,
- <sean.anderson@linux.dev>, <atenart@kernel.org>, <linux@armlinux.org.uk>,
- <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, <nb@tipi-net.de>,
- <vladimir.kondratiev@mobileye.com>, <gregory.clement@bootlin.com>,
- <tawfik.bayouk@mobileye.com>, <thomas.petazzoni@bootlin.com>,
- <maxime.chevallier@bootlin.com>, <stable@vger.kernel.org>
-To: <netdev-bot+sashiko@kernel.org>
-From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260918-macb-close-v1-1-05e32ce98813@bootlin.com>
- <179010942002.2160803.8691011751847108495@kernel.org>
-In-Reply-To: <179010942002.2160803.8691011751847108495@kernel.org>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello netdev-bot+sashiko,
+On Thu, 24 Sep 2026 17:20:07 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-On Tue Sep 22, 2026 at 10:37 PM CEST,  wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 2 =C2=B7 Medium: 0 =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [High] gem_init_rx_ring()
->   (drivers/net/ethernet/cadence/macb_main.c:2793) now sets=E2=80=A6
-> - [High] gem_init_rx_ring() now publishes MACB_BIT(RX_USED) on every RX
->   descriptor of a queue, resets queue->rx_tail/rx_prepared_head and then=
-=E2=80=A6
->
-> --
->
-> net: macb: never give hardware a NULL RX buffer
->
-> This makes gem_init_rx_ring() set the RX_USED bit on every RX descriptor
-> before calling gem_rx_refill(), so that a refill that fails part way
-> through does not leave descriptors owned by hardware while their skb
-> pointers are still NULL.  The change affects macb_open(), macb_resume(),
-> the HRESP error recovery path and set_ringparam().
->
->> diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethe=
-rnet/cadence/macb_main.c
->> index b8234ac4b602..751fa9e68099 100644
->> --- a/drivers/net/ethernet/cadence/macb_main.c
->> +++ b/drivers/net/ethernet/cadence/macb_main.c
->> @@ -2785,9 +2785,14 @@ static int macb_alloc(struct macb *bp)
->> =20
->>  static void gem_init_rx_ring(struct macb_queue *queue)
->>  {
->> +	unsigned int i;
->> +
->>  	queue->rx_tail =3D 0;
->>  	queue->rx_prepared_head =3D 0;
->> =20
->> +	for (i =3D 0; i < queue->bp->rx_ring_size; i++)
->> +		macb_rx_desc(queue, i)->addr |=3D MACB_BIT(RX_USED);
->> +
->
-> [Severity: High]
->
-> Does RX_USED now carry two different meanings that the RX consume path
-> cannot tell apart?
->
-> gem_rx() uses RX_USED at queue->rx_tail as the only indication that
-> hardware delivered a frame, and it has no bound against
-> queue->rx_prepared_head:
+> On Thu, Sep 24, 2026 at 09:54:57AM +0200, Joshua Crofts wrote:
+> > On Wed, 23 Sep 2026 21:10:23 +0200
+> > Neil Armstrong <neil.armstrong@linaro.org> wrote:  
+> 
+> Joshua, below also something to you to pay attention to on top of the good
+> parts you covered already.
 
-Yes that is correct! We can fix that using our cursors
-rx_tail/rx_prepared_head that tell us which descriptors were
-reallocated properly.
+Thanks! Unfortunately a v2 already popped up on the list today...
 
-IE in gem_rx() we stop once `queue->rx_tail =3D=3D queue->rx_prepared_head`=
-.
-
-[...]
-
-> [Severity: High]
->
-> Is any exclusion against a running RX poll needed here now that the whole
-> ring is published as RX_USED?
->
-> macb_hresp_error_task() runs from system_bh_wq, masks queue interrupts,
-> clears RE/TE, and then calls mog_init_rings() with no napi_disable(), no
-> napi_synchronize() and no lock:
-
-This is a known race, but we won't fix it in this series. And in
-particular it is completely unrelated to this first patch.
-
-It is semi-related to the last patch that puts in place the mechanisms
-that could be reused to fix macb_hresp_error_task(). But again, not
-here, not today.
-
-[...]
-
-Thanks,
-
---
-Th=C3=A9o Lebrun, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+-- 
+Kind regards,
+Joshua Crofts
