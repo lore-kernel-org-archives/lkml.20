@@ -1,189 +1,157 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF5B45FFD0;
-	Thu, 24 Sep 2026 10:02:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A1562C027C;
+	Thu, 24 Sep 2026 10:02:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790244161; cv=none; b=OQ/Xy+4sqxqPqESmtMj3cUVVLm7YUCZJBWjpph2hl+TkiMvqwi5PKO0pT0BWjg8/i37wnMwZT7k/Y6UAcJklUdsYqBatdxiabDbS/Ytxp0ra+P41pe8dK/hLEddQzHbul3SMFsIf5j3g1YBXzYCSqiohIr7HHFmk4gNFMnzsKpc=
+	t=1790244158; cv=none; b=dpxrmuIVkN3fyddX4gobtMpXpB7Ir50OJW9f+pPbOnqGhtsN9TVhC0hWp5qYiNMrA4/57JZegGkkLGo6wuNAGHYQeb6Sv9lAcHvhL4Urfi9H/CX4nRcAbf3z6suEWNLkJnLRMZ/I078r+0iOzHzV4I/Vh7wvKieWbIkBfUGtZJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790244161; c=relaxed/simple;
-	bh=GQ48VFT/4iDnIs9T5r2L9cI3nsiDUQaqivsQUdQkZiQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rPS035sP3oFsAYqRTsGWpPlMWY5LJU2fXBk5HEz1WJmuvybqXWW+dO7aey1oGgrbwMjd2ZM9TOknfGzG3ZrMtMzWYmmAbvHjbY1kzV2Mnwr9bCaDyW2m1kfKSL4prnXnAlgTyIbfranwRQjDiSmFDC/y+TntW8VHVOEn/2fKs1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn; spf=pass smtp.mailfrom=mails.ucas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.ucas.ac.cn
-Received: from fric.. (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowABnajgg9bRqrumVCA--.9312S2;
-	Thu, 24 Sep 2026 18:02:08 +0800 (CST)
-From: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-To: mic@digikod.net,
-	gnoack@google.com,
-	paul@paul-moore.com,
-	jmorris@namei.org,
-	serge@hallyn.com
-Cc: fahimitahera@gmail.com,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] landlock: Fix domain leak on concurrent F_SETOWN and file release
-Date: Thu, 24 Sep 2026 10:02:06 +0000
-Message-Id: <20260924100206.173523-1-xujiakai24@mails.ucas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1790244158; c=relaxed/simple;
+	bh=j9bzPr8c/APpw1BFsgzCv6jQ1N1HBVG3AWZYXhTX1wU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IY1DPY4pGj+cv9anp9HBGtZKLIb1duBo4qxmvMh5NU3ptA0i4/Mdf7rle3NB9tpIElhdxURfGtK3GHBKXPWbkEvRY3VckE//VU3MteFtvmTRqO68aapMmQ+qqb3ckMa8aNTu/CLoKt5VFxwJ1nIerfpTucZDbQlIwpUMJqXXNYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=k1UDX0Sc; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=R//TPFuf; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ZrXg5bKf; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=cbf8/GAg; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="k1UDX0Sc";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="R//TPFuf";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ZrXg5bKf";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="cbf8/GAg"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 23D1820078;
+	Thu, 24 Sep 2026 10:02:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790244144; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QUgbq2oEPVNbQ4QENlBT3vH4AJoiP0XYBkZ7hOGg7tQ=;
+	b=k1UDX0ScgR177+S8gtL0B5TSSbz7rNXB6MmgYOpPi7yzJ/Y8LGibYhJg5LKbfQ1GtsSvoj
+	4X928R8jaRA8yqAZNN7PsvzB7cUNuVDfw2236IHaJDjF/MQnYZ3COWNKXGsAu65HDiWhN7
+	FjZl+UH6fv5NrFymm5kbF9zxK3wxMl0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790244144;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QUgbq2oEPVNbQ4QENlBT3vH4AJoiP0XYBkZ7hOGg7tQ=;
+	b=R//TPFuf/11ED5Xq6lKCgQ3A9LTO+78tPISpshJsvoAVDveh9LJljAKxTLCvVssswYAEiU
+	mlS4phsYpMKyNiAg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790244140; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QUgbq2oEPVNbQ4QENlBT3vH4AJoiP0XYBkZ7hOGg7tQ=;
+	b=ZrXg5bKfqAiXRfqCx17EHFgvrfQy69ONHxIU2SKZ8XNlukoLoXDmsCq0nY1OCXXXVPqW9M
+	9P5JQytZIPFB9JcVDP7AR5V7VUlYNjO1ul5Q45/+7Clq3nveUNUWVV/X71oWgsBykiV6Lp
+	eyugY02y4FWgzB1cx/YL5tqw+SjiTkw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790244140;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QUgbq2oEPVNbQ4QENlBT3vH4AJoiP0XYBkZ7hOGg7tQ=;
+	b=cbf8/GAgMko46tktgPctenXiNGV9q/ko10jXLleVD/Q179KrKPlQpgGIOi2S34m6CtYotF
+	18i2oi5EC+ZwAiAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F037313354;
+	Thu, 24 Sep 2026 10:02:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 1cr6MSv1tGrxRAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 24 Sep 2026 10:02:19 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 7B32CA132E; Thu, 24 Sep 2026 12:02:19 +0200 (CEST)
+Date: Thu, 24 Sep 2026 12:02:19 +0200
+From: Jan Kara <jack@suse.cz>
+To: Matthias Goergens <matthias.goergens@gmail.com>
+Cc: Jan Kara <jack@suse.cz>, Christian Brauner <brauner@kernel.org>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] isofs: tie the name conversion buffer to its bound
+Message-ID: <q2yv3qj5fhkg6gm2zgada2agi2vywt4g264ijw7ocpk4mxclkp@7iehjt5slo6u>
+References: <20260922155524.1993425-1-matthias.goergens@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowABnajgg9bRqrumVCA--.9312S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxtFWkXr4ktry3AFyUGry8Zrb_yoWxXr4kpF
-	WYga15Kr48JF40ka17GFs7ZFyavw4rtr47WFZ3GrWfJa4ayF18Za1xur129F45Gr4kAr4Y
-	qr1UKFZ09FWDAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28I
-	cVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx
-	0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48J
-	MxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
-	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
-	67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
-	x0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
-	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73Uj
-	IFyTuYvjxUg5r4UUUUU
-X-CM-SenderInfo: 50xmxthndljko6pdxz3voxutnvoduhdfq/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922155524.1993425-1-matthias.goergens@gmail.com>
+X-Spam-Score: -2.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TAGGED_RCPT(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
 
-The Landlock domain reference recorded by hook_file_set_fowner() was only
-dropped by hook_file_free_security(), which runs from security_file_free()
-without holding file->f_owner->lock.  hook_file_set_fowner() itself runs
-under that lock (since commit 26f204380a3c ("fs: Fix file_set_fowner LSM
-hook inconsistencies")), so the get-side and the put-side of the same
-storage slot were not mutually exclusive.
+On Tue 22-09-26 23:55:22, Matthias Goergens wrote:
+> Two cleanups around the scratch buffer isofs_readdir() and
+> isofs_lookup() hand to the name converters.  No functional change; the
+> first patch's assertions hold on the current code.
+> 
+> Found while looking at something else: get_joliet_filename() has been
+> passing PAGE_SIZE as its output bound since b2eb2e288604 shrank the
+> buffer to 1024, which is safe only because de->name_len is a single
+> byte.  That seemed worth writing down in a form the compiler checks.
 
-If the final fput()/__fput() of a file runs concurrently with an
-in-flight F_SETOWN on another CPU, the free path can drain the blob
-(dropping the previously recorded domain) before the set path stores a
-freshly acquired domain reference into it.  The new reference is then
-orphaned: hook_file_free_security() has already run, so nothing will
-ever drop it, and the whole domain (struct landlock_ruleset, its
-landlock_hierarchy and its landlock_details) leaks.  kmemleak reports
-this as a "memory leak in landlock_merge_ruleset" with the leaked
-hierarchy showing usage=1 and parent=NULL.
+Well, the buffer indeed was allocated PAGE_SIZE large but the space beyond
+offset 1024 was used for the storage of iso_directory_record loaded from
+the disk (tmpde). So the storage available for the name was only 1024 bytes
+large from the start. Only the failures would be more subtle if the
+overflow ever happened before b2eb2e288604. That being said I agree that
+get_joliet_filename() usage is outright wrong (despite being harmless) and
+making buffer size handling logic more robust is useful.
 
-Add a file_release hook, called by __fput() before
-file_f_owner_release() (i.e. while the fown_struct and its lock are
-still alive), which takes file->f_owner->lock, snapshots and clears the
-recorded fown_subject/fown_tg references, and drops them outside the
-lock.  This serializes the recorded reference lifecycle with
-hook_file_set_fowner(), closing the store-after-put window in both
-directions (the reverse interleaving would have been a double-put).
-hook_file_free_security() stays as a no-op safety net for files without
-a fown_struct.
+								Honza
 
-Cc: stable@vger.kernel.org
-Fixes: 54a6e6bbf3bef ("landlock: Add signal scoping")
-Assisted-by: OpenCode:DeepSeek-V4-Flash
-Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
----
- security/landlock/fs.c | 42 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 42 insertions(+)
-
-diff --git a/security/landlock/fs.c b/security/landlock/fs.c
-index f7e5e4ef9eac3..8261aa55b0127 100644
---- a/security/landlock/fs.c
-+++ b/security/landlock/fs.c
-@@ -1971,8 +1971,49 @@ static void hook_file_set_fowner(struct file *file)
- 	put_pid(prev_tg);
- }
- 
-+/*
-+ * Drops the Landlock references saved by hook_file_set_fowner(), in a
-+ * critical section serialized with it thanks to file->f_owner->lock, and
-+ * before file_f_owner_release() frees this lock.  Without this mutual
-+ * exclusion, a concurrent F_SETOWN could store a new domain reference into a
-+ * file being released (the last fput() made it unreachable to future F_SETOWN
-+ * users), which would then never be dropped, leaking the whole domain.
-+ */
-+static void hook_file_release(struct file *file)
-+{
-+	struct landlock_ruleset *prev_dom;
-+	struct pid *prev_tg;
-+	struct fown_struct *fown;
-+
-+	fown = file_f_owner(file);
-+	if (!fown)
-+		/* No owner was ever recorded, cf. hook_file_set_fowner(). */
-+		return;
-+
-+	/*
-+	 * __fput() calls this hook before file_f_owner_release(), so the
-+	 * fown_struct is still alive here.
-+	 */
-+	write_lock_irq(&fown->lock);
-+	prev_dom = landlock_file(file)->fown_subject.domain;
-+	prev_tg = landlock_file(file)->fown_tg;
-+	landlock_file(file)->fown_subject.domain = NULL;
-+	landlock_file(file)->fown_tg = NULL;
-+	write_unlock_irq(&fown->lock);
-+
-+	/* May be called in an RCU read-side critical section. */
-+	landlock_put_ruleset_deferred(prev_dom);
-+	put_pid(prev_tg);
-+}
-+
- static void hook_file_free_security(struct file *file)
- {
-+	/*
-+	 * hook_file_release() already dropped and cleared these references if
-+	 * they were ever recorded.  Keep a defensive cleanup for files without
-+	 * a fown_struct (e.g. never owning files), which hook_file_release()
-+	 * skips.
-+	 */
- 	put_pid(landlock_file(file)->fown_tg);
- 	landlock_put_ruleset_deferred(landlock_file(file)->fown_subject.domain);
- }
-@@ -2003,6 +2044,7 @@ static struct security_hook_list landlock_hooks[] __ro_after_init = {
- 	LSM_HOOK_INIT(file_ioctl, hook_file_ioctl),
- 	LSM_HOOK_INIT(file_ioctl_compat, hook_file_ioctl_compat),
- 	LSM_HOOK_INIT(file_set_fowner, hook_file_set_fowner),
-+	LSM_HOOK_INIT(file_release, hook_file_release),
- 	LSM_HOOK_INIT(file_free_security, hook_file_free_security),
- };
- 
+> 
+> Matthias Goergens (2):
+>   isofs: size the name conversion buffer from a named constant
+>   isofs: bound the Joliet iocharset conversion by the output buffer
+> 
+>  fs/isofs/dir.c    |  9 ++++++++-
+>  fs/isofs/isofs.h  |  9 +++++++++
+>  fs/isofs/joliet.c | 25 ++++++++++++++++++++-----
+>  fs/isofs/namei.c  |  2 +-
+>  fs/isofs/rock.c   |  3 +++
+>  5 files changed, 41 insertions(+), 7 deletions(-)
+> 
+> 
+> base-commit: 40288c9206c17eb66a603262e06a58d300d0f279
+> -- 
+> 2.55.0
+> 
 -- 
-2.34.1
-
-
-Crash report (memory_leak_in_landlock_merge_ruleset_SyzGPT_20260917_162959_7d54763d, kernel 7.2-v3, appended below for reference; everything after the "-- " signature is discarded by git am):
-
----
-BUG: memory leak
-unreferenced object 0xffff88810fd82cc0 (size 96):
-  comm "syz.1.2048", pid 20078, jiffies 4295170985
-  hex dump (first 32 bytes):
-    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-    00 08 a4 0d 81 88 ff ff 00 00 00 00 00 00 00 00  ................
-  backtrace (crc 5533466b):
-    kmemleak_alloc_recursive home/zzzrrll/tmp/kf_src/linux-7.2.3/include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook home/zzzrrll/tmp/kf_src/linux-7.2.3/mm/slub.c:4597 [inline]
-    slab_alloc_node home/zzzrrll/tmp/kf_src/linux-7.2.3/mm/slub.c:4917 [inline]
-    __do_kmalloc_node home/zzzrrll/tmp/kf_src/linux-7.2.3/mm/slub.c:5333 [inline]
-    __kmalloc_noprof+0x210/0x4d0 home/zzzrrll/tmp/kf_src/linux-7.2.3/mm/slub.c:5359
-    _kmalloc_noprof home/zzzrrll/tmp/kf_src/linux-7.2.3/include/linux/slab.h:992 [inline]
-    _kzalloc_noprof home/zzzrrll/tmp/kf_src/linux-7.2.3/include/linux/slab.h:1309 [inline]
-    create_ruleset home/zzzrrll/tmp/kf_src/linux-7.2.3/security/landlock/ruleset.c:36 [inline]
-    landlock_merge_ruleset+0x8b/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.2.3/security/landlock/ruleset.c:565
-    __do_sys_landlock_restrict_self home/zzzrrll/tmp/kf_src/linux-7.2.3/security/landlock/syscalls.c:599 [inline]
-    __se_sys_landlock_restrict_self+0x180/0x330 home/zzzrrll/tmp/kf_src/linux-7.2.3/security/landlock/syscalls.c:526
-    do_syscall_x64 home/zzzrrll/tmp/kf_src/linux-7.2.3/arch/x86/entry/syscall_64.c:63 [inline]
-    do_syscall_64+0x154/0x3b0 home/zzzrrll/tmp/kf_src/linux-7.2.3/arch/x86/entry/syscall_64.c:94
-    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-
-<<<<<<<<<<<<<<< tail report >>>>>>>>>>>>>>>
-
-
----
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
