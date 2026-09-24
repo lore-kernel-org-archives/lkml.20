@@ -1,100 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69DB3424D65;
-	Thu, 24 Sep 2026 20:09:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B50EB377AB2;
+	Thu, 24 Sep 2026 20:09:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790280578; cv=none; b=tmWgDKdzTU6a4avns1ivCtZzoKfGGeehRJY6HZewOT+brNZUoY9/UZ68YNb2T8raveO4NDgLPcrewt2TVKfEUTlkuWaEeICpibT/6S0K2k/DhHbXXgLw7gJ1lqFdrxM0ollGf0wFsEJEIrkE/5y8MoroO6uSFLRt83tvUBleoQA=
+	t=1790280582; cv=none; b=GVOqMd3V4TON7MAqAqdWdzOBUkVYGQK+93Pw3PSWocKUn1DngUx/5lfFfWuUQPhZk9WCro3qQKLxl2cJNedWxNL6v0bBN4DSKhjo0c+A0g1v5ZP5ELOtHSsKxjy2FVCle2cZvgLcmahbBGQgcpdfPmekgiawC2WUF/KKa8mMTEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790280578; c=relaxed/simple;
-	bh=xiwGboSaFFzAzwAYu4wjGf/cNiXgL4uwgNxcO2eZUeU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p3ekyZWgxrssmmX085z1SzWba6WzKe9g6FRYFeBbHiQsAUS5Ta5K/jmP43kM22+k0R9dcYMbHTQbnI+tviK1vLaP68xpTviclOuuLB6ltcjNoXR2IFOFrMEEzdfCT0H7FMeY9W0HgVFv9QXh9/qPfpcBYl30lPUDZWK2odF3CWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=THlq8f9H; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790280582; c=relaxed/simple;
+	bh=8r77lv41Y+BSsQOSrxCC0qUKAKCkhR10BAen7p3I2eA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dkBZX6XDSmO0KgXZyS4gOgt8zmu/WYkPoEzjsd1ojLWdm5qaEZCghXf0lBTtcWfhcQtzOsk1DU/KS7eKKMK9SC/uRIksXMStvpUA6RixURj0BcfHy0QH5q87mLkTwpTqpV0HjJ34FtpmUQcLDjdSx5Jx3lf+2KPmtp+N7X6Js0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mxk3tB9P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="THlq8f9H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C0CB1F000FF;
-	Thu, 24 Sep 2026 20:09:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mxk3tB9P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ED351F00893;
+	Thu, 24 Sep 2026 20:09:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790280566;
-	bh=Hs0BCzAcMdmg/2IuD/yqkyZ4uXNT7Lvbg77vbPufmLA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=THlq8f9Hl62x4ls2dnUjMGhrSNes8l8s0YvvCZd69ctiIPvfrl84s8BWLONgNX3Om
-	 Y41uD0ZJup5HtZVPKuEDfPPu16HveN65LgndtH65a4N4x9/EOZ1Kf5lgI0wpV3I13L
-	 YUeKarcmAO4vivCopo0vV7/kwtcC8YVwax3AtlZFgL9vbnOuYpf/kVujCdXf4lWWQJ
-	 VC3YYrUN6B8YbxWlIo4ZQCm2iM0DbKmp0/QE+djN2MPei5KkNPvF0XxRr4/9yZw1Wx
-	 cEjg4pJ2zeS2rxkUFCo/TzENjw9LOf5PuuOuWc/DB6GyJGA0qu2UzmZM+YvSAMRy4B
-	 NLwNNMuZei1vA==
-Date: Thu, 24 Sep 2026 22:09:22 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: Michal Simek <michal.simek@amd.com>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, Raviteja Narayanam <raviteja.narayanam@xilinx.com>, 
-	Wolfram Sang <wsa@kernel.org>, Manikanta Guntupalli <manikanta.guntupalli@amd.com>, 
-	Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>, linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v6 1/3] i2c: xiic: preserve PEC byte length in SMBus
- block read setup
-Message-ID: <arWC6PFh3YVgU1Pd@zenone.zhora.eu>
-References: <20260923-i2c-xiic-v6-0-3a15b6397f5a@nexthop.ai>
- <20260923-i2c-xiic-v6-1-3a15b6397f5a@nexthop.ai>
+	s=k20260515; t=1790280571;
+	bh=CfT0IA0fjDQQ8vfTtzX8JPsthxmsdMYwTsZjiz8d5m4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mxk3tB9PNAaPyWcQdnbt4q6+gO2YTkBKNyo237uh/6O6D/gdVCKL1PEx8eiyPLaP2
+	 fHxbP8vJLGhJoxgLkOsrtoibuvkSg7C+uzq96nppHmo/+1s8Vn6rHYQVugUAND5Gfg
+	 s9zEsjjgfvt3jHzghwXXjoc8Uv40SePyVeUpYeUR40YHx8T38l+jiOlJ+Wo7W/iCHo
+	 l6xwDSDFvZ2jzqCzoNXGU40KOuzNIv+9Bu+05Cceit0juKEFbjx4RgSSyZgdIdLZIn
+	 3WsyjnvzLaVjWVEb00bGdiWmUpmInbUa48pd9pF44K+aOqXyuDIV09Wfe9xp6QeZ6y
+	 XWpC7W54Uxsvw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/8] mtd: rawnand: qcom: make check_flash_errors() more
+ generic
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vignesh Raghavendra" <vigneshr@ti.com>, "Manivannan Sadhasivam" <mani@kernel.org>, "Gabor
+ Juhos" <j4g8y7@gmail.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Richard
+ Weinberger" <richard@nod.at>
+Cc: linux-kernel@vger.kernel.org, "Md Sadre Alam" <md.alam@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-mtd@lists.infradead.org
+In-Reply-To: <20260924-qcom_nandc-share-more-code-v1-1-f3012199b161@gmail.com>
+References: <20260924-qcom_nandc-share-more-code-v1-0-f3012199b161@gmail.com>
+ <20260924-qcom_nandc-share-more-code-v1-1-f3012199b161@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 20:09:31 +0000
+Message-Id: <20260924200931.6ED351F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923-i2c-xiic-v6-1-3a15b6397f5a@nexthop.ai>
 
-Hi Abdurraham,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] mtd: rawnand: qcom: mismatch between commit message and function=
+ prefix
+--
 
-there is still another issue here.
+commit a83607e63ec53429dc425262093eef9dee3bfd4e
+Author: Gabor Juhos <j4g8y7@gmail.com>
 
-...
+mtd: rawnand: qcom: make check_flash_errors() more generic
 
-> @@ -546,23 +552,26 @@ static void xiic_smbus_block_read_setup(struct xiic_i2c *i2c)
->  			 * Receive fifo depth should set to Rx fifo capacity minus 1
->  			 */
->  			rfd_set = IIC_RX_FIFO_DEPTH - 1;
-> -			i2c->rx_msg->len = rxmsg_len + 1;
-> -		} else if ((rxmsg_len == 1) ||
-> -			(rxmsg_len == 0)) {
-> +			i2c->rx_msg->len = rxmsg_len + 1 + pec_len;
-> +		} else if (1 + rxmsg_len + pec_len < SMBUS_BLOCK_READ_MIN_LEN) {
->  			/*
-> -			 * Minimum of 3 bytes required to exit cleanly. 1 byte
-> -			 * already received, Second byte is being received. Have
-> -			 * to set NACK in read_rx before receiving the last byte
-> +			 * The HW needs SMBUS_BLOCK_READ_MIN_LEN bytes on the
-> +			 * bus to exit cleanly: by the time the ISR reads the
-> +			 * length byte the second byte is already being clocked
-> +			 * in, too late to NACK. Pad the drain target and record
-> +			 * the real length, trimmed back on completion so the
-> +			 * PEC check sees the right byte.
->  			 */
->  			rfd_set = 0;
->  			i2c->rx_msg->len = SMBUS_BLOCK_READ_MIN_LEN;
-> +			i2c->smbus_actual_len = 1 + rxmsg_len + pec_len;
->  		} else {
->  			/*
->  			 * When Rx msg len less than Rx fifo capacity
->  			 * Receive fifo depth should set to Rx msg len minus 2
->  			 */
->  			rfd_set = rxmsg_len - 2;
+The function gets a qcom_nand_host pointer as a parameter but it is
+only used to extract the nand controller's private structure from that.
+In order to make the function more generic, change the declaration to
+get a qcom_nandc_controller pointer directly, and update the callers
+accordingly.
 
-what if rxmsg is 1? Before this could never happen because we
-were checking for rxmsg_len == 0 or 1 and we were ending up here
-for values greater than 1.
+> diff --git a/drivers/mtd/nand/raw/qcom_nandc.c b/drivers/mtd/nand/raw/qco=
+m_nandc.c
+> index d7642db2e2df1..12bfb14cd9a37 100644
+> --- a/drivers/mtd/nand/raw/qcom_nandc.c
+> +++ b/drivers/mtd/nand/raw/qcom_nandc.c
+> @@ -449,10 +449,9 @@ struct read_stats {
+>  };
+> =20
+>  /* reads back FLASH_STATUS register set by the controller */
+> -static int check_flash_errors(struct qcom_nand_host *host, int cw_cnt)
+> +static int qcom_nandc_check_flash_errors(struct qcom_nand_controller *na=
+ndc,
+> +					 int cw_cnt)
+>  {
 
-In patch 2 you fix things, but we don't want to have dependencies
-between patches.
+[Severity: Medium]
+This isn't a bug, but there is a mismatch between the commit message and
+the actual function renaming.
 
-Andi
+The commit message states the function will use the "qpic_nandc" prefix:
+"While at it, also change the function name to use a 'qpic_nandc' prefix."
 
-> -			i2c->rx_msg->len = rxmsg_len + 1;
-> +			i2c->rx_msg->len = rxmsg_len + 1 + pec_len;
->  		}
->  		xiic_setreg8(i2c, XIIC_RFD_REG_OFFSET, rfd_set);
+However, the code changes the name to qcom_nandc_check_flash_errors, using
+the "qcom_nandc" prefix instead.
+
+Could the commit message be updated to match the code, or should the
+function be named qpic_nandc_check_flash_errors?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-qcom_nandc=
+-share-more-code-v1-0-f3012199b161@gmail.com?part=3D1
