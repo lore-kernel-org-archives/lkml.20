@@ -1,335 +1,199 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F4854E7818
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:00:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790287206; cv=none; b=Jrv453+PTCwDB8QM69opQutdanowdpS54Rb/LoFK1Ke/l6zF5sQRKvme4uoOhXpQdWc7pODrxPSJrVefmekEtYUCzB21007EvaXABteoSE+EG57c13/ro7BmDQ3f/qrecN4MIBOQ5yP46EtkfCx/I/QuOVHRd0KZXxBXVMnOMEc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790287206; c=relaxed/simple;
-	bh=hNwSVB2vFVc7+4knITW8htmzGXAVBiMA8q51ZXzH8X8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ncqtkH17VWBqaaxyvMsIft7A5zgGW4PQMZbB4yqLJV5TdIPxGmbhGgmDiBDPFT0uQhKpt1aW4gvPEP1gtEDC4lwxRjyxFUijdIqu5zlcRHsTCz/O0jKphD16XQZuKrJ+wkmMHTwewoILWR3btRJa5bEy7mVe8MA4XgWgKcHHQFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=jDm8Dmbp; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81264423A79
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:00:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790287247; cv=fail; b=gu64frJKRTOymxvaXdbSZRV828Omlvr9+nhOI1O7+tpPyvLnWI8djNWHvPqKruD1x8zhGryaum7s4RyYJH7S4h06y87XcipR+7uz6ky6y2C83jjp0/ZUkDFEWw3i/eTuNtw1nFK3mhvEgl7uEQbm0r8Y3MmkKq0ZvzojOsrcyXI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790287247; c=relaxed/simple;
+	bh=kZqap5Xt7URQLjHON3ebZ2omRaPW/CIrN45pJHXWFac=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=bFzjjH5q2kFsTQfNzFcMebym1wrCrftsKPFVQSFKGp8k6rZn5qM+Mz/kRQOgHdBsQX6ZHpGPhVnb5jL5FgUfpV4ZpVbjPExTmxDSLe3+UNPCs/GasVW7D/uNuPJst6k5CqmUBV9sq/74EqC/s0wqDWorSIKsplCjFARQ0WLf5JM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jmjDxWns; arc=fail smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="jDm8Dmbp"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d391aso1985675e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:00:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1790287200; x=1790892000; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gg9yrizrMl4/k9V3nbOjH8/DtnKpdRRaKslCiuugtC8=;
-        b=jDm8Dmbp8+YdaUU+uADEpixnR7eFbwe9TUb0N/NWSIQweflZwL0QYDVDvIb2ZmKQ7u
-         XHnG6qMj1UvdER6zSHGoToamWudUhZFXulizEv2XX39W+zF1Q1GDyx65MhHKmw89Df5f
-         iZLqL7g5uVaNj3d/sgzc1td2QcCQ9jXUiTGew0dp3iS4nCr4/QJzeffODM05ahZWUX99
-         yja91dffVnTLNQSzzRsKtMu0RKFOEzspxoBCH2U3D2KQoXf+UoPvZ8a9kftVRH0AZZnO
-         dIcl4LtFao52HE0BsdbAj7Wqp9LzGWGBKAWHbvtRTl4SmVhbSR/wv20ATjHtSZVCjkTK
-         XpLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790287200; x=1790892000;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gg9yrizrMl4/k9V3nbOjH8/DtnKpdRRaKslCiuugtC8=;
-        b=OtnZWUwGFfJvuuF5BNy37YJIEkNsHFGQKREJlT2eL7P/9gOhmkOHtbg5TvCEMxfrHC
-         LSgJigsaN3/pre2x9+stpZEqOInSpynpBRVLthynEwME/Ovszx9OwlgRxe0N6k+xhg5Z
-         EGVz+kU91V9R6lE26v7+BP7hbf+6Jzt1Cl2tAVEfQe2U7fnkl/G6f9Br+8cK/KhuA80X
-         gAg+ivI9RvaaXsviIFiAxTsKodTizJDn54FY3tea+DjR8hLzNN0H6NysTxI13dvNir/A
-         gRHIrDWUDBX4LQsrHD33yu/2ic/nFJxa4fYE/rPhw650gT2cCF7uTEW9sTLK+YqalPDw
-         fdqw==
-X-Forwarded-Encrypted: i=1; AKwUvByslHIBNKtQpxTVlxiSZZiSsMg4p8xtXYnk6zQplpzucZw4CaM9XwuviLSUDBRTbNRx3TIVsVVT7m+zJIA=@vger.kernel.org
-X-Gm-Message-State: AFuF++k4jOhtViXbPAWnsHTxVIjZfXboB5Cgp9zapU5ngV2ocxTDoqec
-	b31T1EFynu9Rc5hYnceLwtzcivNej2EftwwiTG+hPLsHJKAMf7kH7+n6OJPpnO+dFl8=
-X-Gm-Gg: AYBFou1PAg6a8RK2y+65UO4XAy0cfOfzlS2QvU6wbd6YXaVsgOdytqYB0Z3+jmI8eqv
-	iljZLKIpAoyO20NNLP8nFv++5LRxffV5MtibM0PBf4O+zW3gKseQHcp9j3SUKySyP60QDRKQ9FR
-	FbR3YPjKJ47pQ73QjPiIsAh2CpMXW8x4UzXGkwFAwLLaVmhz2Z9bOLlcViauZfNmosKpIGL1WPa
-	KUShmyPlEXKY3Jxz+aiOS9NVVXVk1f10bB7bzLdsdpjRFg16hgl46NXHUxZpbDiR8gX4PmMDd6w
-	QNZBVVgGhsbkrQ1HiwBmspeZ21AKUvzEs99HfECd92qcMPafErsJPDTykvBUqLI0Ohbu5l9vw0k
-	95PV7Tmf1JHeyX0vjhJkEqEs/8B2Zku7ekHxbqX4XIitRKiroC0m4xVdgL1fGhwXi5Rsj/ZukYS
-	wtPPNSpgBM/XKtH5tfuIPI/6K6fJCYt0r1+aRn899ZdOW1rNVb6A==
-X-Received: by 2002:a05:600c:870e:b0:49f:c1a1:5222 with SMTP id 5b1f17b1804b1-49fe670b208mr67813525e9.33.1790287200360;
-        Thu, 24 Sep 2026 15:00:00 -0700 (PDT)
-Received: from remote-01 ([84.17.55.134])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a34a638sm1922324f8f.9.2026.09.24.14.59.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 14:59:59 -0700 (PDT)
-From: Aleksei Sviridkin <f@lex.la>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	netdev@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Mao Wenan <maowenan@huawei.com>,
-	Woojung Huh <woojung.huh@microchip.com>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>
-Subject: [PATCH net v3 3/4] net: phy: serialise attach and detach with PHY driver bind and unbind
-Date: Fri, 25 Sep 2026 00:59:49 +0300
-Message-ID: <20260924215951.2127682-4-f@lex.la>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260924215951.2127682-1-f@lex.la>
-References: <20260924215951.2127682-1-f@lex.la>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jmjDxWns"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790287243; x=1821823243;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=kZqap5Xt7URQLjHON3ebZ2omRaPW/CIrN45pJHXWFac=;
+  b=jmjDxWnsDxaU6D2yMiNKq2ZXuTrQiVoEtptHEN7Nqa75gu8urrkaGtvT
+   Odg4zDXqWONH5LR7lM/tgQcxY6oAoGlt/0f93ooGeKSmJ5/ptOQejuPbJ
+   vT61W2w+CSgI8siTrJDIloiPULLIJFl7mQYXACuJ8OoJnIIgId+0+fekG
+   /w1k50QSBdEhaaKlPPZQA7BZEEre/qjp2xcLfpRQl4C77dpqS1sv1Czfc
+   ANnHywc8BlIAArLwIqC1wS3enhRjbylQlkOlUoYkdYKwts9SyHF1edj6Y
+   EBDLKXh2kgvTtIMbHLW2rcukKp2tKQ4vcQDENnug7heqV4RuO9qqIKIfA
+   A==;
+X-CSE-ConnectionGUID: c9k+53QKSMyRe9jtOQvQcg==
+X-CSE-MsgGUID: d7JxsxKHQn21EE1MlpdjSw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="101653260"
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="101653260"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 15:00:41 -0700
+X-CSE-ConnectionGUID: aXGF9+uKRLiXZMSpA3G1pQ==
+X-CSE-MsgGUID: CRHVRIWxTF2bKvfiSb0Y8w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="303681001"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 15:00:40 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 24 Sep 2026 15:00:40 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 24 Sep 2026 15:00:40 -0700
+Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.37) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 24 Sep 2026 15:00:39 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=F9MR1J9WdbvUzW01C1v+hCM2w28fuWqnzcN+Xjtmd203J7Y7rlvEndbzWYUeIgBmTISbBnO41LYAfCovPeR+WZGyj7S2c0HNL8j2C5ehTvAucdUIg3hHe3xnXG05CZrS/G7SXw9B8+R7jPm+bNACD5elkpv7k6QmLNEe0ZtMNrLfGpTf++K1JQRaD41tJdwW65aOmgHtNIw4Di1eJuPXEOojrXyp/p85up5MW8V6Dtt8KCUvq20coEHtmoSXdMfIUAlZD4PZmUHU2Voj35Qs5VKf/C0TbehsTFGT63YPwrgXKxP8VFxA30XzkdFqguSExx7L1lCohxXceR8VQtoFMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PD85/KztBug7LIPrmcUivlNCa0pPN2De18lO3Qxp/qw=;
+ b=b8SFmTu/h2VDEBOIVZ8xq5rGiKGrxmkbc07A+xn3TqUb4RWEA8XJb+gRPBj80GvGrVNSn0C3D66IIT7ko3XJa6GHHf6VyHY25hFUY+Wg4s8V0hsH7+n8BpDl8CVcvHHCcj7q233/Y5LBISDtSmOnvoNgd4Q0KN8UHms6KFVjk1R+9FqXoGXbuVtYEu0ZvSmPgHWkvlBSUA+HIkQXMLXassROFf+JdbeaAWEjAl6hPLbetZqAWD9mCfHomSMFRkv+THMQ5KhT41uJSQn3KYqlGOQpuQREzS/3Zti8LTuQ6Juemr6dE7ep+EsPCK0XmlASPAxIh9k5QQtCjQlGr4L7Nw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
+ by LV3PR11MB8555.namprd11.prod.outlook.com (2603:10b6:408:1b0::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 22:00:32 +0000
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc%5]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 22:00:32 +0000
+Message-ID: <616594ee-2763-4910-92a5-beb39e12f24c@intel.com>
+Date: Thu, 24 Sep 2026 15:00:30 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/resctrl: Update documented unit for the "activity"
+ event
+To: <x86@kernel.org>, Borislav Petkov <bp@alien8.de>
+CC: <linux-kernel@vger.kernel.org>, <patches@lists.linux.dev>, Dave Martin
+	<Dave.Martin@arm.com>, Chen Yu <yu.c.chen@intel.com>, Drew Fustini
+	<dfustini@baylibre.com>, James Morse <james.morse@arm.com>, Babu Moger
+	<babu.moger@amd.com>, Peter Newman <peternewman@google.com>, "Maciej
+ Wieczor-Retman" <maciej.wieczor-retman@intel.com>, Fenghua Yu
+	<fenghuay@nvidia.com>, Tony Luck <tony.luck@intel.com>
+References: <20260915190431.18189-1-tony.luck@intel.com>
+From: Reinette Chatre <reinette.chatre@intel.com>
+Content-Language: en-US
+In-Reply-To: <20260915190431.18189-1-tony.luck@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4P221CA0028.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:303:8b::33) To SJ2PR11MB8370.namprd11.prod.outlook.com
+ (2603:10b6:a03:540::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|LV3PR11MB8555:EE_
+X-MS-Office365-Filtering-Correlation-Id: 54d32199-6072-4329-1005-08df1a8740c0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|11063799006|10067099003|56012099006|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: l3GkDwCmy6PkujdHyNPckrnbDAJzcORx1lEt3jKQkPHlPF1LndR1EJID8PuqKNEE4LdN2oeAZWSNGkrjqgj2HoBCrJhBYb+A0ogkl3aU886H/p/x2ZuSeFwPB398X5Lkx0mQ3eCml6yH4L+z+SBq+dV6bWIo4dKgbBRCV74Y9TsqhuLjZuBWgQTRQ23KprdPR4CXNfYkMngwNnXcC3pCy+E/i4FDucoed6OUI3Aoo/EeYL/7EkWXbW/FRGRCo7UloJYvtcZ79cn7l4yLAVxFF1t4jiAORq5glBW5NDKlkcaqg4rKiYygNYWI8UPrQhHTC9P9XgD8o37sYuo7Ognfb6gq2h0xZBtjQAIryx2CF7arilEnylTeGt2fJ8QRmbHRg0USPUOmVrwifY1WyrHRtMxD5GWIegA2XnR5heSx7LBa2LnBEaJeNSTu7xQDWsCT8lU8ikRrQ0aRryvc7qS2ygLc3ZLQPn0viNanitiRNWw+WY4m1S2W9iq6oPtUF6Na1dW58lrNGno/TokrAL1R4RuEBOxMCW6KqFmEgzmeJT6KvNpPpd+stP/A6EWI98P/oxKJgkQhTPsTkuyAvRYc7ISJv7amy8L/oYSsZJDpg1n9fPBnxTqxAnIY5QN1wF9N
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z0RoSU1pMExIRExYRDRpSGlZMXEvbXZUK0F0eVhWaUdkL1VvVmhobjZDRWJL?=
+ =?utf-8?B?U2ZBV00rY1JXUHU1Sm84R2xvM3lIYjI5RkJvQXYrYXZ2UENnRlNqeHZ3cHZ3?=
+ =?utf-8?B?cGxVKzFxYm9jQ0xTTW1FYWtUWUdjcmpyUTF6NWFTeEZCTDd1NG1vTmsyZWV5?=
+ =?utf-8?B?M0tONU9KRkdCN1hhZEEyWCs2T09meW9BWWJBNmRuOHVEMVBIN1ZORlowUTVn?=
+ =?utf-8?B?dXE4aHBUbDJSL1JaUnVLNmRKNHJBRFN2ZmtnNXdpVFRZb0J3U1V6Y0dYSFpu?=
+ =?utf-8?B?Vjcvc1EwaE4ydnlJUjNnOXdPR1pGbHNzT2pWWjhyVjg4cExUMHFNTXlaNzFa?=
+ =?utf-8?B?elpyV0J0OVE0Uyt2N0RINFc5WDZKWUwrMFJKOG5zQ2ZLdk5wSmdMb3RBdTg1?=
+ =?utf-8?B?MTFYWk5hcHYxcGxXSkFhYmkwQWVrdytZSkJYaFlCQVhsY1JGdlVnRExhZkJE?=
+ =?utf-8?B?b2tpT0srV0dUUlZjVXhNdzlVRFFHNEw5S0hvNUVsaG82VVRsRjB4MXhlYlJ2?=
+ =?utf-8?B?cGNSQlVDdENjTExLa3ZhaVlTK0JPb1VvTFN3T1BvQ0ZTd1BuY29RUEM3UXdR?=
+ =?utf-8?B?M05DdEFQdDU5T3J6NkExdmV5ZHdheEhPSXVzbG14NUhWdVA0Qi9wU2hTQUgv?=
+ =?utf-8?B?Y1ZaRHB3cHgzbm90MStuY3NibXhEY1FTdVY3Z3Rod2pqNktwaktwQ1AxRURt?=
+ =?utf-8?B?RitrbHhQUUViMWhYT1ZZY2t1dFNOSUgwMEdsRHREdWdNQ2IyLzhkUEhid3RL?=
+ =?utf-8?B?bUVPV1RFWVVnVEV3VUdzOGNlYTJWajIzcDdxZWtHYjRZNWVuRFZhbTlBdXoz?=
+ =?utf-8?B?K1QxMGJOZnZpYzd3ZGJjczJiVHhQNk41UUIzUDA5a3BjLzMwcUtGTUJCWjFD?=
+ =?utf-8?B?SFdDMXpiVzFOSTd5TkdXamRJOHMwT2FBSC9tMThQaWVRTGJvS3pUMWcxUXBO?=
+ =?utf-8?B?WlpwUnZpN1V3bThDWUZyT0tjcG13cmUwTGxMMTJUM2gydTZnU1BCQW12bEtM?=
+ =?utf-8?B?akJ5RVp6VlRmZkxCN3J3c0YvdjZ1dHcyMVZSOU9LZkpheDVXM3lZa2NFM0F3?=
+ =?utf-8?B?dHZVdU9wVGNQdVY2aEZEcjM0TmNhRyswMnZzTmRQNSsvQjNpc1lXTzd5cXkz?=
+ =?utf-8?B?cENMS2NnVGZFVEg2QmVXYitpU2hqQkVMQy9kUzA3K2hDbUg2bFRscXk1M0Y0?=
+ =?utf-8?B?dmM5RUU3bDhJNXk1aW9vbFVBQk40S1gwTlZrV2pUYmJ5Q1IzdE4xd2w0S0l6?=
+ =?utf-8?B?eEtnRmF0eG9VdXVpa0RzeXF2eFJYZlY1ZElqQUlCNXB5VDE0MVpadWZUZU8x?=
+ =?utf-8?B?WDlWUXpUMjljem9ZS09zUFVvbVZCS1lBY1RqNjdKaTJSYmZlQzk0enVReVNF?=
+ =?utf-8?B?Ylc1RjVVL0dVQ09manZvNG40R2lWWkszc1BmdmgxaklNaE11N2Z0c1BnamR2?=
+ =?utf-8?B?RVBvbU9iSG5BVHlJczdleW92S0Z5d3M4amNvb0c2bFRibmNIWWhCVU5hSktQ?=
+ =?utf-8?B?WUUwMmg3SG0yTEV2a3I4cmQ2R1p5eUNlN1N3VTN1SUU3cXV2VDJjTW9aRzU2?=
+ =?utf-8?B?d3FBQXVXdTdTL3NKRlkzME95RDhnRVdoeWpZZlljbUlTVmlxTTM5cG1aTFNi?=
+ =?utf-8?B?TGtCbWQwSHZSWG14bmZFVXF3c2hiaHBQWHRtbzBVYkRpV1pJekJsYnJOaWRO?=
+ =?utf-8?B?UkdwQjRtSnF0OTRadVBDMmRLVGJmbG05T1NZNEQ5N21QMGxtUzRTdzRqay9T?=
+ =?utf-8?B?Rmg1bGdEbGRTall4UkQwb3QrNnl0Y1Z4cmM5d3lHY0xyUUdYSDFpZjBqTGNJ?=
+ =?utf-8?B?Vjg2OEFGR2Z0VU5mTmRKOXdwcGN5eExFTEFLbWZMbFhWY1dvWUFiZis1YWFY?=
+ =?utf-8?B?VG9SZlh6UHhoOVNodWxwN3dnblFvcFZYVHFLY25SYW13WUZEMlg1QzUrWU5v?=
+ =?utf-8?B?dDBrM1A2bGNnOUF5TVlMWUFCTWIvZFBCdWVJN2E3NHVKclZhSzdaWHpoWHdh?=
+ =?utf-8?B?eEtvMTBKQnNhbDNxdEZXVXZEcVE0MytBd0RmS3FvTm5yZWpYZDYrRUJkNkov?=
+ =?utf-8?B?bURaeU96RENOZEl2TnRoUVZhODJBckdoZVF2TktsTDM5WFZKd1l3bVI2RHVh?=
+ =?utf-8?B?TjFZcVZEd3ZXdEI3NFhobkJsdWpTZGlZakFETmkrc0V4Q3lRSVNoemlET250?=
+ =?utf-8?B?T0ZPbDd1K2JRVHNFSUNqWXFHMGs1cU9sVnltM1dJREtoa3YwUlpPbUMxUmNl?=
+ =?utf-8?B?clNSYmxKZEk3ZWtvT3VKakdPVE5vVDIremJZd0hzTG0wOUUya1UxVTROQTRm?=
+ =?utf-8?B?TC9NVEZQak9YOVI5R2dRektPYk4zYzBCejhzN2p6V29FSTJ0ejQvSDk4VFNa?=
+ =?utf-8?Q?Jcq4k06xhKZN5CeU=3D?=
+X-Exchange-RoutingPolicyChecked: n21QmkrJukMsAmbFeIcgDXeenPhKIXpDdR2Nmbj4UE/zxKG3E/BT1cDjv0wwa7ebGFsq5CqBbCX9e09HbYogZHmKXXDh5xCn9sOrifV+spKFAEzhOIzVBLm3u4tjnvJ2tR7Twct6bWeoz3S7dHxG4OHDkC2+y/HVWNjzm2Hax5Kx5y8n1MNF3FJlUHjtEIiDZAhXlr5nlSQ14jJXCSh9MlYY8b5Zd6TmbVbJAwgyoYZ+06hfQJhC8n11vuksAuLsfzPjtAEFMetERXiNOYuWm8QhxwIstwwdKtiobOZfWay9DBiGkaCw2jKsN9TSaApr9c/aSvIR6sz+DEJlshlwEQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 54d32199-6072-4329-1005-08df1a8740c0
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 22:00:32.1104
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 11ddA7RLsKP8UL7kmD9hx/YSGjZJabQgvAkDF4r8E8dQvNWcNd3pqKF1R/9dnfmABqiTgLf1CpsmPRgfqnyO8Ngckn89DBcj9bSnNmgpFL4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR11MB8555
+X-OriginatorOrg: intel.com
 
-phy_attach_direct() reads phydev->drv and d->driver with nothing held
-against the driver core, then calls into the driver through
-phy_init_hw() and phy_resume(). An unbind that runs during an attach
-can remove the driver under it, and an attach that runs while a driver
-is still probing can call config_init before the driver's probe has
-finished.
+Dear x86 maintainers,
 
-Found on a Keenetic KN-1012 (MT7981) while testing how a port copes
-with its PHY driver coming and going, on an OpenWrt 6.18 kernel.
-Unbinding the wan PHY driver through sysfs while "ip link set wan up"
-ran oopsed on the first attempt, with nothing added to widen the
-window, inside the driver's own calibration code:
+Could you please consider this patch for inclusion?
 
-  Unable to handle kernel access to user memory outside uaccess
-  routines at virtual address 0000000000000098
-  Comm: ip
-  Call trace:
-   tx_amp_fill_result.isra.0+0x90/0x3a0 (P)
-   mt798x_phy_calibration+0x164/0x520
-   mt798x_phy_config_init+0x470/0x6f8
-   phy_init_hw+0x64/0xa0
-   phy_attach_direct+0x184/0x380
-   phylink_fwnode_phy_connect+0x198/0x27c
-   phylink_of_phy_connect+0x18/0x20
-   mtk_open+0x38/0xb70
-   __dev_open+0xf8/0x1e0
+Thank you very much.
 
-phy_remove() had cleared phydev->drv while config_init was running,
-and the driver read phydev->drv->phy_id. No NULL test in phylib reaches
-that dereference.
+Reinette
 
-The device lock cannot be taken here: attach may run under rtnl, while
-phy_probe() and phy_remove() take rtnl under the device lock, through
-the SFP bus of a PHY with a cage and through the netdev LED trigger.
-Add a per-PHY mutex and a flag saying that a driver has finished
-probing and is not being removed. The driver-core callbacks take the
-mutex only to flip the flag; attach and detach hold it while they call
-into the driver. An attach that finds a driver bound but the flag clear
-refuses with -EAGAIN.
-
-phy_remove() clears the flag before any teardown, so the rest of it can
-run without the mutex: an attach that loses the race is refused, and
-one that wins holds the mutex until it is done with the driver. The
-unbind then goes on to remove the driver from the PHY that attach just
-attached; what the consumer does with it after that is not changed
-here.
-
-Fixes: 00db8189d984 ("This patch adds a PHY Abstraction Layer to the Linux Kernel, enabling ethernet drivers to remain as ignorant as is reasonable of the connected PHY's design and operation details.")
-Assisted-by: LLM
-Signed-off-by: Aleksei Sviridkin <f@lex.la>
----
- drivers/net/phy/phy_device.c | 57 +++++++++++++++++++++++++++++++-----
- include/linux/phy.h          |  6 ++++
- 2 files changed, 56 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-index 29d65f6cfd59..1355ea78c86f 100644
---- a/drivers/net/phy/phy_device.c
-+++ b/drivers/net/phy/phy_device.c
-@@ -801,6 +801,7 @@ struct phy_device *phy_device_create(struct mii_bus *bus, int addr, u32 phy_id,
- 	dev->max_n_ports = 1;
- 
- 	mutex_init(&dev->lock);
-+	mutex_init(&dev->bind_lock);
- 	INIT_DELAYED_WORK(&dev->state_queue, phy_state_machine);
- 
- 	/* Request the appropriate module unconditionally; don't
-@@ -1729,6 +1730,8 @@ static int phy_sfp_probe(struct phy_device *phydev)
- 	return ret;
- }
- 
-+static int __phy_probe(struct device *dev);
-+
- static bool phy_drv_supports_irq(const struct phy_driver *phydrv)
- {
- 	return phydrv->config_intr && phydrv->handle_interrupt;
-@@ -1743,11 +1746,15 @@ static bool phy_drv_supports_irq(const struct phy_driver *phydrv)
-  *
-  * Description: Called by drivers to attach to a particular PHY
-  *     device. The phy_device is found, and properly hooked up
-- *     to the phy_driver.  If no driver is attached, then a
-+ *     to the phy_driver.  If no driver is bound, then a
-  *     generic driver is used.  The phy_device is given a ptr to
-  *     the attaching device, and given a callback for link status
-  *     change.  The phy_device is returned to the attaching driver.
-  *     This function takes a reference on the phy device.
-+ *
-+ * Return: 0 on success, -EAGAIN if a driver is being bound to or
-+ * unbound from the PHY, -EBUSY if the PHY is already attached, or
-+ * another negative error code.
-  */
- int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
- 		      u32 flags, phy_interface_t interface)
-@@ -1776,6 +1783,8 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
- 
- 	get_device(d);
- 
-+	mutex_lock(&phydev->bind_lock);
-+
- 	/* Assume that if there is no driver, that it doesn't
- 	 * exist, and we should use the genphy driver.
- 	 */
-@@ -1786,22 +1795,28 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
- 			d->driver = &genphy_driver.mdiodrv.driver;
- 
- 		phydev->is_genphy_driven = 1;
-+	} else if (!phydev->bound) {
-+		phydev_err(phydev, "driver is binding or unbinding\n");
-+		err = -EAGAIN;
-+		goto error_unlock;
- 	}
- 
- 	if (!try_module_get(d->driver->owner)) {
- 		phydev_err(phydev, "failed to get the device driver module\n");
- 		err = -EIO;
--		goto error_put_device;
-+		goto error_unlock;
- 	}
- 	phydev->drv_owner = d->driver->owner;
- 
- 	if (phydev->is_genphy_driven) {
--		err = d->driver->probe(d);
-+		err = __phy_probe(d);
- 		if (err >= 0)
- 			err = device_bind_driver(d);
- 
- 		if (err)
- 			goto error_module_put;
-+
-+		phydev->bound = true;
- 	}
- 
- 	phydev->phy_link_change = phy_link_change;
-@@ -1878,6 +1893,8 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
- 
- 	phy_resume(phydev);
- 
-+	mutex_unlock(&phydev->bind_lock);
-+
- 	/**
- 	 * If the external phy used by current mac interface is managed by
- 	 * another mac interface, so we should create a device link between
-@@ -1890,6 +1907,7 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
- 	return err;
- 
- error:
-+	mutex_unlock(&phydev->bind_lock);
- 	/* phy_detach() does all of the cleanup below */
- 	phy_detach(phydev);
- 	return err;
-@@ -1899,7 +1917,8 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
- 	phydev->drv_owner = NULL;
- 	phydev->is_genphy_driven = 0;
- 	d->driver = NULL;
--error_put_device:
-+error_unlock:
-+	mutex_unlock(&phydev->bind_lock);
- 	put_device(d);
- 	if (ndev_owner != bus->owner)
- 		module_put(bus->owner);
-@@ -1935,7 +1954,11 @@ void phy_detach(struct phy_device *phydev)
- 		sysfs_remove_file(&phydev->mdio.dev.kobj,
- 				  &dev_attr_phy_standalone.attr);
- 
--	phy_suspend(phydev);
-+	mutex_lock(&phydev->bind_lock);
-+	if (phydev->bound)
-+		phy_suspend(phydev);
-+	mutex_unlock(&phydev->bind_lock);
-+
- 	if (dev) {
- 		struct hwtstamp_provider *hwprov;
- 
-@@ -3678,12 +3701,12 @@ struct fwnode_handle *fwnode_get_phy_node(const struct fwnode_handle *fwnode)
- EXPORT_SYMBOL_GPL(fwnode_get_phy_node);
- 
- /**
-- * phy_probe - probe and init a PHY device
-+ * __phy_probe - probe and init a PHY device
-  * @dev: device to probe and init
-  *
-  * Take care of setting up the phy_device structure, set the state to READY.
-  */
--static int phy_probe(struct device *dev)
-+static int __phy_probe(struct device *dev)
- {
- 	struct phy_device *phydev = to_phy_device(dev);
- 	struct device_driver *drv = phydev->mdio.dev.driver;
-@@ -3827,10 +3850,30 @@ static int phy_probe(struct device *dev)
- 	return err;
- }
- 
-+static int phy_probe(struct device *dev)
-+{
-+	struct phy_device *phydev = to_phy_device(dev);
-+	int err;
-+
-+	err = __phy_probe(dev);
-+	if (err)
-+		return err;
-+
-+	mutex_lock(&phydev->bind_lock);
-+	phydev->bound = true;
-+	mutex_unlock(&phydev->bind_lock);
-+
-+	return 0;
-+}
-+
- static int phy_remove(struct device *dev)
- {
- 	struct phy_device *phydev = to_phy_device(dev);
- 
-+	mutex_lock(&phydev->bind_lock);
-+	phydev->bound = false;
-+	mutex_unlock(&phydev->bind_lock);
-+
- 	cancel_delayed_work_sync(&phydev->state_queue);
- 
- 	if (IS_ENABLED(CONFIG_PHYLIB_LEDS) && !phy_driver_is_genphy(phydev))
-diff --git a/include/linux/phy.h b/include/linux/phy.h
-index 33a207ac5c30..8903123d25c8 100644
---- a/include/linux/phy.h
-+++ b/include/linux/phy.h
-@@ -653,6 +653,8 @@ struct phy_oatc14_sqi_capability {
-  * @n_ports: Number of ports currently attached to the PHY
-  * @max_n_ports: Max number of ports this PHY can expose
-  * @lock:  Mutex for serialization access to PHY
-+ * @bind_lock: Serialises attach and detach with driver bind and unbind
-+ * @bound: A driver has finished probing and is not being removed
-  * @state_queue: Work queue for state machine
-  * @link_down_events: Number of times link was lost
-  * @shared: Pointer to private data shared by phys in one package
-@@ -784,6 +786,10 @@ struct phy_device {
- 
- 	struct mutex lock;
- 
-+	/* Serialises attach and detach with bind and unbind */
-+	struct mutex bind_lock;
-+	bool bound;
-+
- 	/* This may be modified under the rtnl lock */
- 	bool sfp_bus_attached;
- 	struct sfp_bus *sfp_bus;
--- 
-2.53.0
+On 9/15/26 12:04 PM, Tony Luck wrote:
+> The unit for the AET (Application Energy Telemetry) activity event[1] is nF, not F.
+> 
+> Fixes: a8848c4b43ad ("x86,fs/resctrl: Update documentation for telemetry events")
+> Signed-off-by: Tony Luck <tony.luck@intel.com>
+> Link: https://github.com/intel/Intel-PMT/blob/main/xml/CWF/OOBMSM/RMID-ENERGY/cwf_common.xml#L9 # [1]
+> ---
+>  Documentation/filesystems/resctrl.rst | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
+> index e4b66af55ffb..a52cd812c261 100644
+> --- a/Documentation/filesystems/resctrl.rst
+> +++ b/Documentation/filesystems/resctrl.rst
+> @@ -643,7 +643,7 @@ When monitoring is enabled all MON groups will also contain:
+>  	during execution of instructions summed across all logical CPUs on a
+>  	package for the current monitoring group.
+>  
+> -	"activity" also reports a floating point value (in Farads).  This provides
+> +	"activity" also reports a floating point value (in nanofarads).  This provides
+>  	an estimate of work done independent of the frequency that the CPUs used
+>  	for execution.
+>  
 
