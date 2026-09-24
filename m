@@ -1,160 +1,236 @@
-Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 798BB42048E;
-	Thu, 24 Sep 2026 10:22:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80D2E47255A;
+	Thu, 24 Sep 2026 10:22:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790245337; cv=none; b=F5D+213QLvhkh9QmH73FJ9tv+xUgdo/0ruE0VUcPgOsjcPzKU1Ebr3f5gYt+u4DSH/lKTLFVA2DYlf8+aeg4Qt28BHvKusxkcMsTpPkK3J/wui1JMvgee+neWN8xbOZn3Dwv9y15dT7mVJMxiHq08jcoOBQahrejNcxpdNkCIKc=
+	t=1790245342; cv=none; b=CSWHBXrJofu5Q9q6UwjWp/cjDpezTNFtn6x9iS6RFztIejDmXIfzwu5ADUJ8pgOAwH3Askao0lSNfhCf40lFKQuTgKOA3FV/t6iZV5ha0iasxyp6UbS+Bab/eQcHW+bIRLNpmNNIn3reBeHiSViTPQez8igmrHhJ/dag9+0K4NQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790245337; c=relaxed/simple;
-	bh=p7WfmYTkODHOEFl9clEJBkP3krYIo2yhpaG4jz66mME=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WwGJZBW0AmTMu574sX5CxkqO7sWPF2uMHd7Iov+sTvRPHzWSc0vqe0rftMyCUy9jPqdOVVEGc+ricPZ8RfFz5asrJtvTaAEIhliZIckUFvlePitGs7Dh7pPf9sXACsLS5vqoFl5pAhBvcU81ZcrejhwU4tuQhSngPLvSufQy4RQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=fffb6f3C; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=VB8tyHwO; arc=none smtp.client-ip=202.12.124.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
+	s=arc-20240116; t=1790245342; c=relaxed/simple;
+	bh=OEAvVEvSSYrtFac6frED2AShJLA9smPR3WlZU2YjXiA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sLk8ZWKAzosq6zgGp9i/GMBo2veFrjj6lUBk4PvN8FKoKl8p8Hzs6b8yiFAMOVFeLW3HV+Yi9ah2G5KDcSd7wpI+jUNfyTQ5RNUitkrjKAXskJ8CVgTIG7MeKFZVelWD/RSC2pu6kIBivC3TcL41GOLyytx5YNZfzODJp0QOInQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bK5oWCb3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="fffb6f3C";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="VB8tyHwO"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 06A607A0095;
-	Thu, 24 Sep 2026 06:22:14 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Thu, 24 Sep 2026 06:22:14 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1790245333; x=
-	1790331733; bh=gpp762BvRwhu+TFLXORNswWov10yfkMbGud787FoQf0=; b=f
-	ffb6f3C94LwANYV35FZ8qm8D/mav8mbwAJhplM9rabV2JVT91NLT2iNSbMJH78iO
-	bBM7lTJjf/9d0v+gq5+RKLmwZa2M972YpNInQz46tBbVDoZgEVFd5cTLqIb+qWwr
-	ywtP9q1UkK5hmzyH8VNTLaK2hV7GjTMYd6ccDOW/S9XbhA4lciwF0CQL/GKP+ycM
-	eLtrSrEuaDnYImavd0jpESvgFPmurgVmsxINmbsZxq/B1jJ7/ldQUX2WTIRt6x97
-	d2ks/W/EtjpsSOfhyThssaK+dYOCdtDON+30q7sgGRhN2GWvlD4W5Iol9lODmfOS
-	DYEYBy26YlHMX3JRZx1JQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm1; t=1790245333; x=1790331733; bh=g
-	pp762BvRwhu+TFLXORNswWov10yfkMbGud787FoQf0=; b=VB8tyHwOe7DrPeyG5
-	szZsJw4OIjJDu4FJihWnoY86bPoycfseTd4SW0BeQ0ADUSWZporS3SX/9By7aRvh
-	HRX2YjzvZb/FiJBab70qJSMXk7zxkYCUFkOwb0zeUfS581Q49wGjv1C11rcqT+xA
-	B4pX8oXj7eicWluj75Er/9/ENf8gYUtS1ttla2REc6nSTEA6l7GWl4aIOjdHLX0n
-	UfFSOyLWQ2VJlfchHumuFW1Rcu+PkFs2WRIK8hJSQXf8aOv01L29uSknODSYr3I0
-	u6oTzoT+xbWDYE/DqQSXgiFQCXFiZYe8eidP1pA1WII0isMzVmbX/gUZNmlSfnin
-	GapQA==
-X-ME-Sender: <xms:1fm0anRAqwpjjnrjt2JacYJnC4oEFlSkpQI2ucjXy7_pte3hWh9IfA>
-    <xme:1fm0ao6JytdW9884n6Y7FCoO2Wy6cMmd2EgO6gDVWCpLtFnrWHz_sVNNhEvAxg2OM
-    vajgG9aN7F2dfvki0PWTHJwaTzyzuNdsAMzaOAAke6pF7iZ_EBNjW4>
-X-ME-Received: <xmr:1fm0aqqDkMa0zfS0P6mKjPCmVSdWJuwwD9DT69bHA-hkzzQ_mnirzJHswL-e9Iw-MKa515AVFw>
-X-ME-Proxy-Cause: dmFkZTE5U9DWJ/1d8NZBV16bjZrXhnu9+RjSei8Egg+AJBodp1SsqcAZICkdFDYYk8PQ/z
-    nbl5nAv32NCM/Rvob60jzzR/sJI+sbtZKf4EXYq6NkDnWs3QsBAvLEkGDZPcVAuKZu09hj
-    kufWDx+OHd427BpEwAmDDK2HcwDl5PIVxykoKPNTzoVswPV46/qyR6Xp/JY/TaNWyTgMqq
-    yMy5OLUd6yAzE6clJlYL4qCFZSrQCDEMACpcb7vwZPjxoszy3u6FTeAITQlCqDvBOfb2xA
-    f1SHw7kF1Gfs8fOU43Noc1IHs7QEkTjIEBtZWO5SBQ25T666ulWx7WKsjltbKYna0Y/oKo
-    JPQ8pXQilrwWWeYarZXzxUVNS0M/pRyhhSA/ZhGS/PW7j4SW8pzBCqeBL0BDNss3H9rVlQ
-    GmjOBu5qLmik+D6L6Y3ZUH+gjnAUSROvWgx25huEVjbrLy73SjjLubx/JtmdnaUoE3V/ii
-    Q/YZaHvfbrS+cHiDux+ECtXWYKn/KzJ/te6vg8bwJy7dlpon6m06lEf1Rk5plm4ejhMOcS
-    6/Y4/nuw9byymDIyDoaB3tcooeOgCRXS6J0T2W9bs7Vb48CTCEppJPDrniXI2XeNmeKSgE
-    iWAjzW1xknWlW9lGrArSle1RTyotE1AZle7NbEtVheRhRJEHaA6DQrPtLiHQ
-X-ME-Proxy: <xmx:1fm0arQKgMJkcp6HFTDRZ7IcAwiaddE1CbFbA29vPpVL4uZalSZqfQ>
-    <xmx:1fm0auv0KyoRR_C2jpgPeup2larQ_VJOPHzxBMfhT-Q65SR04krzww>
-    <xmx:1fm0arNd7LRAVlzMeAew5BKssaE-xhUmhz3damoFMql9fAWiQpH8zw>
-    <xmx:1fm0aoXdSOMPakH9lSS57aGoCIbhCeayfXxbhvl_UY1GmZSCFXf1xg>
-    <xmx:1fm0auvm_zZNGUNoXtTlup2OJeTX60ihjJPwb7vufzVNu-C01glj3fKx>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 24 Sep 2026 06:22:05 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: tomeu@tomeuvizoso.net,
-	heiko@sntech.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	ulfh@kernel.org,
-	p.zabel@pengutronix.de,
-	ogabbay@kernel.org,
-	zhangqing@rock-chips.com
-Cc: royalnet026@gmail.com,
-	abel.vesa@oss.qualcomm.com,
-	sebastian.reichel@collabora.com,
-	sidong.yang@furiosa.ai,
-	u.kleine-koenig@baylibre.com,
-	chaoyi.chen@rock-chips.com,
-	diederik@cknow-tech.com,
-	alchark@flipper.net,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	iommu@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [PATCH v14 02/15] accel/rocket: take the completion register writes under job_lock
-Date: Thu, 24 Sep 2026 22:21:22 +1200
-Message-ID: <20260924102135.92217-3-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260924102135.92217-1-gahing@gahingwoo.com>
-References: <20260924102135.92217-1-gahing@gahingwoo.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bK5oWCb3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75DC61F000FF;
+	Thu, 24 Sep 2026 10:21:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790245340;
+	bh=/kufuYs8c40R6+aOEF8XLRCigB/kXlHZjyeo0hfMBwU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bK5oWCb3icJZsdzewTtJXUj2g8+OdPY584wvobmFjH9caA6XHPZPOxLC+ENgAYis7
+	 FMWfW3kg0b1pKU0W7dpIcpkH9wgepYgd+Vs0xeodvPvhS2Z2eCR6zzIfxbc+F4vYn1
+	 crr7Q7r6oewUJpom74jt6mX2gF6IAipPmH/f96jRZvGrtuVNztKClju5BP2uHo6kW6
+	 734wktJAnH1jO9c7SkfE4BGx5XUqUo3nH1YffnP3W3u3mHAJ7/dU+/pRlEDaapTJOL
+	 hEriCB9vp3MVrONwH7vOYcoqLNO15CHvH8FuBJLz8aDKeueJxc7YfwK4KfyNmRNl7E
+	 8UCm0PUzGxdsg==
+Date: Thu, 24 Sep 2026 11:21:49 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Zi Yan <ziy@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+	Paul Moore <paul@paul-moore.com>, Stephen Smalley <stephen.smalley.work@gmail.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+	Doug Gilbert <dgilbert@interlog.com>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+	Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, Juri Lelli <juri.lelli@redhat.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Marc Zyngier <maz@kernel.org>, 
+	Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+	Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, 
+	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+	Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+	linux-rdma@vger.kernel.org, selinux@vger.kernel.org, linux-sound@vger.kernel.org, 
+	bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, 
+	kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, fuse-devel@lists.linux.dev
+Subject: Re: [PATCH v3 24/40] mm/mlock: eliminate weird VMA_IO_BIT abuse and
+ simplify
+Message-ID: <arT3K71l86fUVldk@gremlin>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-24-4583d8a23bca@kernel.org>
+ <93672B94-BB0C-4713-8F8A-3619D81DB7BB@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <93672B94-BB0C-4713-8F8A-3619D81DB7BB@nvidia.com>
 
-rocket_job_handle_irq() writes OPERATION_ENABLE and INTERRUPT_CLEAR before
-taking job_lock, while rocket_job_hw_submit() writes OPERATION_ENABLE under
-it, so a completion can write its zero after a submit has written its one
-and stop a task that has just started. Move both writes inside the existing
-scoped_guard().
+On Wed, Sep 23, 2026 at 04:06:14PM -0400, Zi Yan wrote:
+> On 17 Sep 2026, at 12:22, Lorenzo Stoakes (ARM) wrote:
+>
+> > When performing mlock() or munlock() otherwise normal VMAs have VMA_IO_BIT
+> > solely to fix a race with migration which might otherwise double-count
+> > mlock VMAs.
+> >
+> > This is unnecessary - at the point of applying folio mlock state, whether
+> > setting or clearing PG_mlocked, we know whether or not we are locking.
+> >
+> > Solve this in two ways - thread a boolean through the page table walk
+> > indicating whether a lock or unlock is being performed, and run a locking
+> > walk with VMA_LOCKONFAULT_BIT set and VMA_LOCKED_BIT cleared.
+> >
+> > This state never occurs otherwise, as VMA_LOCKONFAULT_BIT always implies
+> > VMA_LOCKED_BIT. These are also always cleared together.
+> >
+> > Then, update folio_add_lru_vma() and mlock_folio() to check only for
+> > VMA_LOCKED_BIT, and update try_to_unmap_one() to check for VMA_LOCKED_MASK
+> > instead.
+> >
+> > Also remove the useless invocation of allow_mlock_munlock() which simply
+> > returns true if unlocking and instead rename it to allow_mlock() and only
+> > call it when locking.
+> >
+> > Finally, with the other mlock abuse of VMA_IO_BIT addressed, update
+> > mlock_vma_folio() and folio_add_lru_vma() to simply test for
+> > VMA_LOCKED_BIT. munlock_vma_folio() tests VMA_LOCKED_MASK instead, as an
+> > unmap racing with the locking walk must still munlock folios the walk has
+> > already counted.
+> >
+> > While here, also replace some deprecated VMA flag predicates.
+> >
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+> >  mm/folio.c    |  2 +-
+> >  mm/internal.h | 10 +++++++---
+> >  mm/mlock.c    | 51 +++++++++++++++++++--------------------------------
+> >  mm/rmap.c     |  4 +++-
+> >  4 files changed, 30 insertions(+), 37 deletions(-)
+> >
+> > diff --git a/mm/folio.c b/mm/folio.c
+> > index 47a437e0f7fd..35e242b48870 100644
+> > --- a/mm/folio.c
+> > +++ b/mm/folio.c
+> > @@ -505,7 +505,7 @@ void folio_add_lru_vma(struct folio *folio, struct vm_area_struct *vma)
+> >  {
+> >  	VM_BUG_ON_FOLIO(folio_test_lru(folio), folio);
+> >
+> > -	if (unlikely((vma->vm_flags & (VM_LOCKED | VM_SPECIAL)) == VM_LOCKED))
+> > +	if (vma_test(vma, VMA_LOCKED_BIT))
+>
+> I think it is worth documenting VMA_LOCKONFAULT_BIT alone means mlock in
+> progress, like you did in munlock_vma_folio(). Just to keep the protocol
+> explicit for all the readers.
 
-Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, induced reset, JOB_TIMEOUT_MS=2
----
- drivers/accel/rocket/rocket_job.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+Well I'm not sure it's necessary here honestly, because this never checked
+VMA_LOCKED_MASK anyway, and VMA_LOCKONFAULT_BIT never made a difference.
 
-diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index f40435505..575945015 100644
---- a/drivers/accel/rocket/rocket_job.c
-+++ b/drivers/accel/rocket/rocket_job.c
-@@ -345,10 +345,15 @@ static void rocket_job_handle_irq(struct rocket_core *core)
- {
- 	pm_runtime_mark_last_busy(core->dev);
- 
--	rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
--	rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
-+	scoped_guard(mutex, &core->job_lock) {
-+		/*
-+		 * Stopping the block belongs under the lock. hw_submit() writes
-+		 * OPERATION_ENABLE too, and outside the lock this zero can land
-+		 * after that one and stop a task that has only just started.
-+		 */
-+		rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
-+		rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
- 
--	scoped_guard(mutex, &core->job_lock)
- 		if (core->in_flight_job) {
- 			if (core->in_flight_job->next_task_idx < core->in_flight_job->task_count) {
- 				rocket_job_hw_submit(core, core->in_flight_job);
-@@ -360,6 +365,7 @@ static void rocket_job_handle_irq(struct rocket_core *core)
- 			pm_runtime_put_autosuspend(core->dev);
- 			core->in_flight_job = NULL;
- 		}
-+	}
- }
- 
- static void
--- 
-2.43.0
+So the meaning of VMA_LOCKED_BIT here is strictly 'is it locked' and it's
+correctly handled.
 
+And I fear that it becomes whack-a-mole - the neat thing about this change is
+that you no longer have to special case the stupid VM_SPECIAL thing, and can in
+fact do the 'normal' thing of _just checking_ VMA_LOCKED_BIT :)
+
+So I think it's better not to.
+
+>
+> >  		mlock_new_folio(folio);
+> >  	else
+> >  		folio_add_lru(folio);
+> > diff --git a/mm/internal.h b/mm/internal.h
+> > index b2c6c9435021..84aa3e6c8bac 100644
+> > --- a/mm/internal.h
+> > +++ b/mm/internal.h
+> > @@ -971,8 +971,7 @@ void mlock_folio(struct folio *folio);
+> >  static inline void mlock_vma_folio(struct folio *folio,
+> >  				struct vm_area_struct *vma)
+> >  {
+> > -	/* The VM_IO check prevents migration from double-counting during mlock. */
+> > -	if (unlikely((vma->vm_flags & (VM_LOCKED|VM_SPECIAL)) == VM_LOCKED))
+> > +	if (vma_test(vma, VMA_LOCKED_BIT))
+>
+> Ditto.
+
+Similar reasoning to above.
+
+>
+> >  		mlock_folio(folio);
+> >  }
+> >
+> > @@ -989,7 +988,12 @@ static inline void munlock_vma_folio(struct folio *folio,
+> >  	 * always munlock the folio and page reclaim will correct it
+> >  	 * if it's wrong.
+> >  	 */
+> > -	if (unlikely(vma->vm_flags & VM_LOCKED))
+> > +	/*
+> > +	 * VMA_LOCKONFAULT_BIT alone marks an mlock walk in progress, see
+> > +	 * mlock_vma_pages_range(). An unmap racing with the walk must still
+> > +	 * munlock folios the walk has already counted.
+> > +	 */
+
+Here it's worth mentioning, as it's specifically relying on the new
+behaviour. Although it's neatly using the VMA_LOCKED_MASK to handle both the
+locked case and the 'being locked' case :)
+
+> > +	if (unlikely(vma_test_any_mask(vma, VMA_LOCKED_MASK)))
+> >  		munlock_folio(folio);
+> >  }
+> >
+>
+> Why I am commenting in the middle of the series? Because I am taking
+> a quiz given by LLM based on this series to get myself enough background
+> knowledge to review this series. This mlock part came up at part E
+> and I only have part F left before I can do the full review. :)
+
+Thanks! :) I really appreciate you taking the time to look at this! Sorry it's
+so large.
+
+I held this series back from last cycle to help with review load, then spent
+some time fixing various AI-discovered things, and all the patches are necessary
+(well for the most part) to get where the series needs to go.
+
+I think the change is worth it though!
+
+>
+> Best Regards,
+> Yan, Zi
+
+--
+Cheers, Lorenzo
