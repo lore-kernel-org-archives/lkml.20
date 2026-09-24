@@ -1,110 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28094486E58;
-	Thu, 24 Sep 2026 13:25:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71174485CED;
+	Thu, 24 Sep 2026 13:25:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790256323; cv=none; b=OD5SEdVDuFmHlWjfcYSczkkWcnZeuEdCOcL1hp6GToXdfhMqwF8pDm1nI9isNKpk088Jgiq1UlZrFEF9HhODFd8j4f8LYzvM6/EeSHSFknjQ689xqlod8qVBltViFLRjXOBmx07pn34X/H5nO1lNw42/p7oFk/tkhldbjTNn5QE=
+	t=1790256362; cv=none; b=WFh9cyvOwcf1NyFK4t1/AgI7rHhPCIr7orGlGljm/y8nmo9K3LBLhfSN80uCTa1wTmDwPTGZs+COF5raGA0QwdC98cp8bwXLch/01C1BQAjzK6JdW74QeHG3gh8+KqAyT5RpfcA0hf08dAFRZgF4Ib3pwaBunv3VRhsgMfMv79U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790256323; c=relaxed/simple;
-	bh=+y/DElqnV4FcOVioDOH9GwNtbU9D/d/nfuapYBuGs1Q=;
+	s=arc-20240116; t=1790256362; c=relaxed/simple;
+	bh=bp/B3opL2hGi5oaUFjJUb7ESUa4Mct9dNlhgGkfh8dM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C1nrJ44wNwEOZRDt8rNiqzqoqvCx0fMx5DSB75SQbDDb2coOFnr3I1uG88Tb9Gtoz0G8cP9R562AnLKFM4nHHBGecGRhAFShx8B+8rlmeFxdyIlxqwU7PLcmlPI9pDcZt+fQX6X3M1kk5XYuHlnimR+ESutb8BZ8umHcfgPCE+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SLQSDDVN; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=KQZzhLgyBb2aADEEFuqAhCvNYWCXrdb33CnLlxgqF2E2V6fwcbJgNYMAEtfpJjeMAKGTVVC8YwN6gGXZB2VsJltZpMFP0N5S+JA3DSbhvAqCs4lQm2wqjHs+AlfQQoaLp124UxcZaAFGhxaVV0O7LjHbMZJTLz8xizPLNes8mWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Y+4qE4ib; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SLQSDDVN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA6F51F000FF;
-	Thu, 24 Sep 2026 13:25:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790256319;
-	bh=qopmzz9GVmwF6XpkNn02wcUDHn7ZmytbGUwAr4xiQnc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SLQSDDVNxICZUaXXbNRWvOV1h63/jmQAeZXJU7MrZolrgoLlCIh/YQzGaEGVsjMNy
-	 s8BJ4WC/jPCIgJtntPqSBsvYE4nD8sF7Xt3VhThpqxI7AwTKWzGcJTZ2xEAOaPDh7H
-	 fxbqWAXRQT1F86G66DlCpBNwbVebuixeqDyZdMGHHRPCU9rLke5jU8BUNtsSwwMzfW
-	 AIVFfYQ64XIdZhoSl0K8hxkGvLSO5s36X/FdGIdm6r8djVuAl/fv2YBKzVv7d///V0
-	 OMidMqfIY3bNJE/lqJe0hDjvrk1FKjQuqbHcT3js6YlRKL8wYDNKM9qjIZWVGH9tB5
-	 XaEytynbHtGAQ==
-Date: Thu, 24 Sep 2026 15:25:16 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Jacky Huang <ychuang3@nuvoton.com>, 
-	Shan-Chun Hung <schung@nuvoton.com>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
-	Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Steam Lin <STLin2@winbond.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, Jacky Huang <ychuang570808@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] clk: nuvoton: ma35d1: Add missing WDT/WWDT parent
- clocks
-Message-ID: <20260924-bald-awesome-griffin-7d1d5b@quoll>
-References: <20260921-perso-ma35d1-upstream-clk-v2-0-209fd32a8b00@bootlin.com>
- <20260921-perso-ma35d1-upstream-clk-v2-1-209fd32a8b00@bootlin.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Y+4qE4ib"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OC6RLD2028674;
+	Thu, 24 Sep 2026 13:25:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=ytVG7+Irtt0IThunmCRQ4lrMkbdDUn
+	iZXVt0a8PwRyA=; b=Y+4qE4ibCQg9wLqr6G2JqPDlZcZ8vROsyP6QRsCdLBg6QO
+	WFCODnYzUBBWQJvZsz8PyYknPuvKd6zsMx8yP4Qn/0gz1qkwWjwBNFSwQJy/XetC
+	HKz/BFoY/7Bq0QJI71jZVf3C1+WDXkFjtreaxQD/Atkkw3LruNxxY/v5eW2ep1a5
+	NJOGDnhn+8KcP24jZGxuesK/w9i4wD4aVNDU9rFbGPxJykszPNAPIn59KCPx4em4
+	srwxbGonRKue/JZVRKOnP5v5j22S5WkJNB0ajHpBbrexaOHGoKRrmLjKvAOdsaZV
+	pqDWNVkfGA+LN4jAmYBelBhiRtmgKy535x/1Bo4w==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske1rptv-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 13:25:06 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68OCHb0c2004095;
+	Thu, 24 Sep 2026 13:25:06 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbu8ww83-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 13:25:05 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68ODP3om31719804
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 24 Sep 2026 13:25:03 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BD6E42004B;
+	Thu, 24 Sep 2026 13:25:03 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7BCE520040;
+	Thu, 24 Sep 2026 13:24:59 +0000 (GMT)
+Received: from li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com (unknown [9.124.210.215])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Thu, 24 Sep 2026 13:24:59 +0000 (GMT)
+Date: Thu, 24 Sep 2026 18:54:56 +0530
+From: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+To: Zhang Yi <yi.zhang@huaweicloud.com>
+Cc: linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+        linux-kernel@vger.kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca,
+        libaokun@linux.alibaba.com, jack@suse.cz, ritesh.list@gmail.com,
+        djwong@kernel.org, hch@infradead.org, yi.zhang@huawei.com,
+        yizhang089@gmail.com, chengzhihao1@huawei.com, yangerkun@huawei.com,
+        wangkefeng.wang@huawei.com, yukuai@fnnas.com
+Subject: Re: [PATCH v6 06/31] ext4: fix orig_mlen initialization in
+ ext4_map_blocks()
+Message-ID: <arUkqF13uVsnf-41@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
+References: <20260903123543.2302999-1-yi.zhang@huaweicloud.com>
+ <20260903123543.2302999-7-yi.zhang@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260921-perso-ma35d1-upstream-clk-v2-1-209fd32a8b00@bootlin.com>
+In-Reply-To: <20260903123543.2302999-7-yi.zhang@huaweicloud.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: HVGIuphmOU1g8OyNzvGKWCyIQ_5seUzP
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA1NCBTYWx0ZWRfX2cDTi36nzR3V
+ 9scPdGmRFX5x/aRls06hw64zrfkWJe96EmRUtUGOjZyA+2MKPbGKzfzMnbawgKfA9BlqkNCF0Mx
+ Cjph4YMcxQ9SWc+UGF3qX/eAOhUurVPxXHNctd9ll0Pz2ikMz6tQZq/g93ydcuUClu4SCMiL106
+ Hb6KfMKYHDtBAiB/afU8I/qMNOFFDN3auoi+KBee3riWxQjWkt7s2Zk4ZLqJwoeWtxuQJ9aAbWb
+ my1Wruz9aj58g1U1DFiIpE1Bq1vHxMJylp+CIFE7TB2SI3pxasRWQZuv9VPluGPvqUBxVEZqiAy
+ jJzIoVOnMGallfMUM63jFQw1aGnoIZ4xeXL+fmlF1adEZaqaK37PPFpESBRtRBzsr+00kbu7vAR
+ IU4SiIxLCvq327nXraYQWEAcxs+hO95lnR3XMjQd+h1pA3CBixmctO1o429sg3gNua1YyliRsto
+ +Pp3WCar3uVeWtAcBNQ==
+X-Authority-Analysis: v=2.4 cv=O/KsLx9W c=1 sm=1 tr=0 ts=6ab524b2 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=i0EeH86SAAAA:8
+ a=VnNF1IyMAAAA:8 a=5t7rz7vW76R3pwELzq8A:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA1NCBTYWx0ZWRfXxGubl10IiHch
+ twhqQsSzIEXuYDirsGsg6HAqXvPPmT4YJTBEFT8yzn88te94zt2RxXz+NdTh95nrsiUo87hu5AL
+ aTFSQgs0BA7xwLTihjiVRoAFkNVoNnI=
+X-Proofpoint-GUID: 34ceeIGn0c0XkC4OkV9pGj7VWydg6T5V
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 phishscore=0 impostorscore=0 suspectscore=0
+ bulkscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240054
 
-On Mon, Sep 21, 2026 at 08:44:45AM +0200, Miquel Raynal wrote:
-> The WDT and WWDT muxes list PCLK3/4096 and PCLK4/4096 among their
-> possible parents, but the driver never registers the corresponding
-> clocks, so these parents could never be used.
+On Thu, Sep 03, 2026 at 08:35:18PM +0800, Zhang Yi wrote:
+> From: Zhang Yi <yi.zhang@huawei.com>
 > 
-> Add pclk3_div4096 and pclk4_div4096 as fixed factor children of pclk3
-> and pclk4 and expose them through the clock provider.
+> Save orig_mlen after clamping map->m_len to INT_MAX. Otherwise, the
+> unclamped value may be passed below, bypassing its overflow protection.
 > 
-> Reported-by: Jacky Huang <ychuang570808@gmail.com>
-> Closes: https://lore.kernel.org/linux-clk/b8a8a65b-e302-4747-bc90-4920fc48795a@gmail.com/
-> Suggested-by: Jacky Huang <ychuang570808@gmail.com>
-> Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+> Fixes: 5bb12b1837c0 ("ext4: Add support for EXT4_GET_BLOCKS_QUERY_LEAF_BLOCKS")
+> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+
+Thanks for fixing this, feel free to add:
+
+Reviewed-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+
+Regards,
+ojaswin
 > ---
->  drivers/clk/nuvoton/clk-ma35d1.c               | 2 ++
->  include/dt-bindings/clock/nuvoton,ma35d1-clk.h | 4 +++-
-
-Please do not combine patches.
-
->  2 files changed, 5 insertions(+), 1 deletion(-)
+>  fs/ext4/inode.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
-> index 9f65d0623517..9d57de6a1e56 100644
-> --- a/drivers/clk/nuvoton/clk-ma35d1.c
-> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
-> @@ -543,6 +543,8 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
->  	hws[HCLK3] = ma35d1_clk_fixed_factor(dev, "hclk3", "sysclk1_mux", 1, 2);
->  	hws[PCLK3] = ma35d1_clk_fixed_factor(dev, "pclk3", "sysclk1_mux", 1, 2);
->  	hws[PCLK4] = ma35d1_clk_fixed_factor(dev, "pclk4", "sysclk1_mux", 1, 2);
-> +	hws[PCLK3_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk3_div4096", "pclk3", 1, 4096);
-> +	hws[PCLK4_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk4_div4096", "pclk4", 1, 4096);
+> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+> index b71b1d2588ae..73af6d386985 100644
+> --- a/fs/ext4/inode.c
+> +++ b/fs/ext4/inode.c
+> @@ -703,7 +703,7 @@ int ext4_map_blocks(handle_t *handle, struct inode *inode,
+>  	struct extent_status es;
+>  	int retval;
+>  	int ret = 0;
+> -	unsigned int orig_mlen = map->m_len;
+> +	unsigned int orig_mlen;
+>  #ifdef ES_AGGRESSIVE_TEST
+>  	struct ext4_map_blocks orig_map;
 >  
->  	hws[USBPHY0] = ma35d1_clk_fixed("usbphy0", 480000000);
->  	hws[USBPHY1] = ma35d1_clk_fixed("usbphy1", 480000000);
-> diff --git a/include/dt-bindings/clock/nuvoton,ma35d1-clk.h b/include/dt-bindings/clock/nuvoton,ma35d1-clk.h
-> index ba2d70f776a6..d3fd8251c806 100644
-> --- a/include/dt-bindings/clock/nuvoton,ma35d1-clk.h
-> +++ b/include/dt-bindings/clock/nuvoton,ma35d1-clk.h
-> @@ -248,6 +248,8 @@
->  #define ADC_GATE	233
->  #define EADC_DIV	234
->  #define EADC_GATE	235
-> -#define	CLK_MAX_IDX	236
-> +#define PCLK3_DIV4096	236
-> +#define PCLK4_DIV4096	237
-> +#define	CLK_MAX_IDX	238
-
-This cannot be updated. If it has to, then not a binding and should be
-first dropped from the bindings like we did for most of the platforms
-having similar issue.
-
-Best regards,
-Krzysztof
-
+> @@ -719,6 +719,7 @@ int ext4_map_blocks(handle_t *handle, struct inode *inode,
+>  	 */
+>  	if (unlikely(map->m_len > INT_MAX))
+>  		map->m_len = INT_MAX;
+> +	orig_mlen = map->m_len;
+>  
+>  	/* We can handle the block number less than EXT_MAX_BLOCKS */
+>  	if (unlikely(map->m_lblk >= EXT_MAX_BLOCKS))
+> -- 
+> 2.52.0
+> 
