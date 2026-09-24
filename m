@@ -1,140 +1,169 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013007.outbound.protection.outlook.com [40.93.196.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 636DD47F785
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:41:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790253673; cv=none; b=AR2Xcxvw/J/ZP55MjD20uU1jjXJQG1OkXB/cY5GhQE338PMF9uoyJ41dpfnGCtzdzsUfGIEHOb3uyKMZBNetGXZxeBJPZs8b+FYlOuTSA2Uv2ydv08UuWO17o5Vut1nbSii/GPdMpG2EOD3C50ZpPCJLCVir6ib0NLvS9DD6Rms=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790253673; c=relaxed/simple;
-	bh=0lQB1A6p8+X7aK18vQ2T7xJjipK5Cs4nvBNiXn5k5hE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lNk7UoJASpkTGNzq9D5+g7AIQw9J+e/3iXyHa06dDY49YZxbbaMjkFwXJN1CdnlEnPnapG2HMnmYd1OPT+BYF1ow612/SW7mBItUqUQNGvmaz8ydJCFZ1N6iqPnwrm1s3yYsdbIuufA/nMY6+j+mmoEwMfFLJG+JQc0Ob+RJIvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Ef6uSAnN; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B41B92FE56A;
+	Thu, 24 Sep 2026 12:42:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790253736; cv=fail; b=h1vNefgaoWcOhpF2kqa0ZwF8xHb4isVCZyZ51roikJoDc4BscwOAdCgk1jhXfTrpT3IcCJZzfSdv06qis/A5OLy3n3pT/JUu9spa4Q7/p6xdy+HpClAqawHhVUrExj1OA4dDw93Aam2WQtj2avEiPqcYI1KM4ckfbQ8261zoVns=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790253736; c=relaxed/simple;
+	bh=+xCrtj66QO9rWsMqb1rbHm7jKGK/4s3TdlGuqDRcMK0=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=uBihH7jQyDeoQCbK0yYTa2f09Ni3eRYkxvUJ6V4rRb0EzMDQ5i/AcA0rXalac/CyWUPgZjyW5dlEYVv3QnmuPBeoBE5pCjlcoEKLkzmMoLbixvV+53UMcG8VllJXHnXpRzXs5Wjvr6uplQ+d98LHQrTGmYZnVk64Bi7f/GuQrvE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=jJjCF22u; arc=fail smtp.client-ip=40.93.196.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Ef6uSAnN"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so11432395e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:41:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790253666; x=1790858466; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m+K9xI1+b45+Hx50rEe06X/tskVciHAk+ndafWRnnYs=;
-        b=Ef6uSAnN1G23WQfE+lhtOb0XuJdoDKeMU3FC4unVrPCFnGpUELO7+iSnm87cFobZEQ
-         vrBJuhed/4G4BJuc07lAVQLzhND4cDXfxmJ9OU8PgNfKh7FULDp1JbDsOaSp2PEfxekW
-         0n/0dG99ZwPfrKjiFWq1jBtiVv0ApgmuqnanaA1w33mEGa12NqylqyR3Bxd9e5k15z4y
-         I9d+7CkuxmHcBF5hKJxwkmA30kNUNAalh9XMzPjiUF7t6bctA+NcRiD4d/IrdARpih+J
-         p/3cc3zmUsx/QQ+nJPxD4TsIr2kuOXEIr+ExHUkWm95kROgz/Jn20n0tZN+j3DRwxHNx
-         jfHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790253666; x=1790858466;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m+K9xI1+b45+Hx50rEe06X/tskVciHAk+ndafWRnnYs=;
-        b=NZzb5g9Rdr561AWKdT6YnzT7oSHcFf2TJnxAo6yQ56dcn/dLlLuQi8BRaJrprxU5UO
-         eya4wMoS5eo7rQrZBwBda+Uxw/T4KOM0jvKLW+oG/bW+HB8YKgoBq5uOQmKbzSO7nsMI
-         elCAoCGApIMX3WgsYkvjD677YgOtWYpzBKmfH6pw1qGVW7ulzHpRA+PkxXKLou3Z5pU9
-         tsgAtgjXFiQCVD6TdChqT/GDo7Ai6dcjXvfFIFIUkCnUroVxjyCuwk68PkbFmCuPI1kH
-         9yCEyaU/z9sVIGsPbQiy7x457ODqG+hYE7noAWwlQMDvweSc24JjhyrbNBk4OTARcq9v
-         pBvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy8y25Ba47AXrH9bDJLXh1mrariViCvsQefx3fQymMF5KR8EWTeo3NG5VUhm0T0y9h7dWLNntid4cQ2Abc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mC8wm2k8dqsy6ttKE13GxSCOow92oLBx9BxbRillmBul1bA4qA
-	DzN2Pu9OFvoDuSnGSl3BxBRVtX4L7pRCKwaPRC0/TKACm3pjCNV7Hh5rcWx2KI7u2gI=
-X-Gm-Gg: AYBFou1KsHOVDfBZfLdSyxjfwz80U11oVFKMytBEfVZOLlIztJ7UWvE0bor3Zw6bxpg
-	VNTqSBcJRYZ39Okfe+xOdyRwYC6lCwxryZTt9PAEoJxGuWC26ARndrkOwOZaspJ/JYYo/5XK9GZ
-	RJC1+pxLL7KsvZubhHmep+ZuK67hKAeLguTgknDWG8LSd2k2/B0jRPYbMHEQQxkRZ0+APhRS1av
-	hCPuTD6O/w5klkdh6FVS54srgmaMncTCYEDcfv4KInBaKHfffRgBPhqaAljN8jdPC9h90HNFkZx
-	cI1/wuAajB8PLabsWOEm+G2AQhgkeN8wPkBqc15iLlliO57SsDfI04uGGqSXzpcjjlEhmmEfvGh
-	iFCuRHosZtVv3iLS7SRbg0Jtpbti7iMm+5XosBs6a5uxcR0MJxcQxLjEPp1YPPwJJQGZGOQ47uQ
-	49520j+00t+ChTueGxsDUjwAZz3kj07crWtXfnZiBp28eCM/YI+OBow/9Mcvr/H24zieRatNT5N
-	HPHf5nOowUViZKJAZkWk1JjJhToWYsLSXM=
-X-Received: by 2002:a05:600d:8642:20b0:49f:e8bf:c38 with SMTP id 5b1f17b1804b1-49fe8bf0d97mr19384015e9.34.1790253665749;
-        Thu, 24 Sep 2026 05:41:05 -0700 (PDT)
-Received: from ?IPV6:2a07:de40:8100:0:89a9:fd0e:583d:4a53? ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cbd77bsm78152645e9.8.2026.09.24.05.41.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 05:41:05 -0700 (PDT)
-Message-ID: <f3b91a89-2733-4159-98b4-129e3127e7e4@suse.com>
-Date: Thu, 24 Sep 2026 14:41:03 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="jJjCF22u"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=l8YWbDgVPGJ6e7joaPE/GLktX6PghmUBtAqny3HSbko4y/Gi29GcD2mco9ujfxaSH0UNhWFchw/xocCFihoyiDBTLuzGqyWTy9Rw3QkRg2hE6k36YcNkEGgzerNjI1ecwLKlHHTEszWKJxXJ7L2u0i78b4WKWlQTNJXMmTiPTTpvQv5UdxLNhrr85niD7UvuXMjybOtmoPPek6x4o9bTOzKxteWuN88lL3lEwTsP9yw38GRdjBgrFT5YPV3fcJTYaiPv5gMBDzAMWbTUvm6Idz2AFJd1HiVWcQEj1dfpaGw6FaFneNsKDsqG4TLhocH7lxcS0xpnaCeJNNsZqNyDnQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pJuuMkonr8yu5W1VSdv3ft+cbnWiMd+NeijaBiM0Hfk=;
+ b=QyxqKoTDo6VbegS9Sd/ZnD+Axzwe5QO+NuffJUv4CUToIOCbpab4KObnMW1oKV7rn/pOEQX9l/KtliwAGD0m4r23NlLzmhBJBaIUeW4bgZ6zc0JbPjOsju3cgp0K95FQj3UpDIwt9VsOp05gawGLXaRSlecMh2h1AeIba5El1vGAHu1m8fLhgVed7c1uh51N/o0K72Lhoieh8yDNot8gMj2ljZK9k0X5zZ3kN63yKJTsoXoHBq3kI+gw1P0v/8MhCKTsQRA786hpys06izEaDjHeFyIJNZdyXLahOjKmtOI+fuQlpscoxid9NLobkEEAKruQ1zmDYtJJn3Gvd+hL+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pJuuMkonr8yu5W1VSdv3ft+cbnWiMd+NeijaBiM0Hfk=;
+ b=jJjCF22uq2SOb46Rk/I7+Km5neTCwQ2HYvikVOWlg2tZQRqw2VzYj85F4axwxCZfA1KkYonSuRM9TtR0XExGk5zIvma/YZx2KA87nLgm8gaIu8sxgqvVannvEnv3hTlluWxeCgz6yqt5jQIIqVB3WlsRbhHtx0nICuK8EpZe2VI=
+Received: from SJ0PR03CA0162.namprd03.prod.outlook.com (2603:10b6:a03:338::17)
+ by DM4PR12MB7527.namprd12.prod.outlook.com (2603:10b6:8:111::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 12:42:11 +0000
+Received: from SJ5PEPF00000204.namprd05.prod.outlook.com
+ (2603:10b6:a03:338:cafe::85) by SJ0PR03CA0162.outlook.office365.com
+ (2603:10b6:a03:338::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.11 via Frontend Transport; Thu,
+ 24 Sep 2026 12:42:10 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ5PEPF00000204.mail.protection.outlook.com (10.167.244.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 12:42:10 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
+ 2026 07:42:10 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
+ 2026 07:42:09 -0500
+Received: from amd-B550M-DS3H.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Thu, 24 Sep 2026 07:42:05 -0500
+From: Syed Saba Kareem <syed.sabakareem@amd.com>
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+CC: <Vijendar.Mukunda@amd.com>, <anson.tsao@amd.com>,
+	<Sunil-kumar.Dommati@amd.com>, <mario.limonciello@amd.com>, Syed Saba Kareem
+	<Syed.SabaKareem@amd.com>, kernel test robot <lkp@intel.com>, "Venkata Prasad
+ Potturu" <venkataprasad.potturu@amd.com>, Liam Girdwood
+	<lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+	<tiwai@suse.com>, Randy Dunlap <rdunlap@infradead.org>, "open list:AMD ASoC
+ DRIVERS" <linux-sound@vger.kernel.org>, open list
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH] ASoC: amd: acp: fix TAS2783 SoundWire codec unmet dependencies
+Date: Thu, 24 Sep 2026 18:11:52 +0530
+Message-ID: <20260924124205.3376083-1-syed.sabakareem@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] drivers: Replace __MODULE_STRING() with __stringify()
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, Ian Abbott
- <abbotti@mev.co.uk>, H Hartley Sweeten <hsweeten@visionengravers.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rudolf Marek <r.marek@assembler.cz>, Andi Shyti <andi.shyti@kernel.org>,
- Chris Snook <chris.snook@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- =?UTF-8?Q?Marek_Beh=C3=BAn?= <kabel@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Andreas Noever <andreas.noever@gmail.com>,
- Mika Westerberg <westeri@kernel.org>, Yehezkel Bernat
- <YehezkelShB@gmail.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Duncan Sands <duncan.sands@free.fr>,
- Chas Williams <3chas3@gmail.com>, Luis Chamberlain <mcgrof@kernel.org>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>, linux-watchdog@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-hwmon@vger.kernel.org,
- linux-i2c@vger.kernel.org, netdev@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org, linux-rtc@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-serial@vger.kernel.org,
- linux-atm-general@lists.sourceforge.net, linux-modules@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260922-module-string-v1-0-c18766690185@suse.com>
- <20260922-module-string-v1-2-c18766690185@suse.com>
- <cc03390d-8fc7-422a-bbcf-93bfbb82276f@roeck-us.net>
-Content-Language: en-US
-From: Petr Pavlu <petr.pavlu@suse.com>
-In-Reply-To: <cc03390d-8fc7-422a-bbcf-93bfbb82276f@roeck-us.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF00000204:EE_|DM4PR12MB7527:EE_
+X-MS-Office365-Filtering-Correlation-Id: 27abe038-f04b-49ea-1c69-08df1a394077
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|82310400026|376014|36860700016|13003099007|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Gg3XyppgMfxM8+N31DQEIOPMNgazQ54m9M5zSfODSt9VGstiLzeoP0NFsb8F81IIqSKrLXVW0UMAlo7eFdORIdER1CWX5g4/KVFIW6w1kDZQHupREF4HReHpT8G8HXXVxam2Q3S/Azi79wpYTudaiXR4fTGuakJxUvBcx8r5GsDg0e4bMmOOgf40Hc8kwT4CX+Objm7LvTsHcY9qNQ8F1sJ1S2F4HyoVU9lJTvX5kpoqjkf+GZwZuCZz8WZG2AqxkKS/2e+q1XC3iO/IrBdyWhZqinJNnPjLV1TqZaJFu2h2LyJHv0ySIhu4O3v75Q+h+vgR2qii0HawkFdxu9NDFVxIzbzJNDPaCJdL/tpNeKkkHog1MBnhAfx6fjErxGbJpAuWPBFo5DHBMPpPhSiK3ppisZiZnkaUGzDBkcRjQUz4BaHPpcHMLku85Vl//o6OXZBDVXXgyutsG89KYqVS+yNnoOiUcJJvYvmIGviZEfx7Z7bjy9V326FecZ/qonFzbrSU5krtglnI438XmbtJ7yYxtEJYxymW4Ozm6RGZB/FFGsll+Os9vGeznVSYHSwW3IDCrCeKH0AK787W8Q1MrwNBxGjNns+XZYV14gqxwIGRqjcOb1HW5HKfeCgEArDltcYNuOUOfhZw5r6x2bi5wg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(82310400026)(376014)(36860700016)(13003099007)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	AjG5hZ1XyXwoLT34BmBY8G/cIAYd9e7CsXZZHQA9R26A/pymzxgW1iCwm0Mfl7Rkf20+3rD8rwR1P1SPEW2HIEo4yMkkXSQvkf/tCneoTQazBmMcU1WGTNjzR1sbzcS4ScH+G+/Xut51xbE9VVBg7DsON6luV5Q/oiZXa8+w2E5Ua97suCfhOd5KN00SPefbj/cHtiro8/gDftym78VeTNUeCmkchLrmk6u6Lfb706k/hFqvM9bUEdTYZzIotFQal+uCmr3tjSfcZN49A06vna1F5uSElKanu5J7Rdot04DncznljMA0vkctlQLdnvFtjXjpH9ek/P5xr/+fj5qo3XlkT2dBfA+pAss1Sd9TV875QCJ3v2UUfeeJwkNThvpfkUOKf6tO7I5TBwTNHQQqgOlyWw9Muky3uOnuq0YRKuNorBFZ4syRwCpvz9s4I5XO
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 12:42:10.6231
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27abe038-f04b-49ea-1c69-08df1a394077
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF00000204.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7527
 
-On 9/22/26 7:21 PM, Guenter Roeck wrote:
-> On Tue, Sep 22, 2026 at 03:32:22PM +0200, Petr Pavlu wrote:
->> __MODULE_STRING() has been an alias for __stringify() since "[PATCH]
->> MODULE_PARM support for older modules" [1] in 2002-12. That change also
->> moved it to the graveyard section at the end of linux/module.h
->>
->> Replace the remaining uses of __MODULE_STRING() with __stringify() in
->> preparation for its removal.
->>
->> Link: https://git.kernel.org/tglx/history/c/136839a1b4 [1]
->> Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
->> ---
->>  drivers/comedi/comedi_fops.c                          |  5 +++--
->>  drivers/gpu/drm/drm_fb_helper.c                       |  3 ++-
->>  drivers/hwmon/fschmd.c                                |  3 ++-
->>  drivers/hwmon/nct7904.c                               |  5 +++--
->>  drivers/hwmon/sch56xx-common.c                        |  3 ++-
->>  drivers/hwmon/w83793.c                                |  5 +++--
-> 
-> I don't know how other subsystem maintainers want to handle it,
-> but please send the hwmon patches separately; I'll want to apply
-> it through the hwmon tree to avoid the potential of merge conflicts.
+From: Syed Saba Kareem <Syed.SabaKareem@amd.com>
 
-Sure, I'll do it in v2.
+SND_SOC_AMD_LEGACY_SDW_MACH unconditionally selects SND_SOC_TAS2783_SDW,
+but that codec depends on SND_SOC_SDCA and EFI in addition to SOUNDWIRE.
+An unconditional select force-enables the codec even when those
+dependencies are not met, which the kernel test robot reported as unmet
+direct dependencies when EFI=n:
 
-If other maintainers would also like changes affecting their drivers to
-be split into separate patches, please let me know.
+  WARNING: unmet direct dependencies detected for SND_SOC_TAS2783_SDW
+    Depends on [n]: SOUND [=y] && SND [=y] && SND_SOC [=y] &&
+      SOUNDWIRE [=y] && SND_SOC_SDCA [=y] && EFI [=n]
+    Selected by [y]:
+    - SND_SOC_AMD_LEGACY_SDW_MACH [=y] && ...
 
+The other SoundWire codecs selected by this machine driver only depend
+on SOUNDWIRE, which the driver already depends on, so they select
+cleanly.  SND_SOC_TAS2783_SDW is the only one that additionally needs
+the SDCA core and EFI (it reads speaker calibration data from EFI
+variables).
+
+SND_SOC_SDCA cannot simply be selected here, as that introduces a
+recursive Kconfig dependency (SOUNDWIRE depends on SND_SOC_SDCA_OPTIONAL,
+whose default pulls in SND_SOC_SDCA), and EFI is a platform feature that
+must not be selected by a driver.  Instead, guard the select with the
+missing dependencies so the codec is only (and always) built when they
+are satisfied:
+
+  select SND_SOC_TAS2783_SDW if SND_SOC_SDCA && EFI
+
+This keeps the TAS2783 SoundWire codec built together with the machine
+driver on platforms that can use it, while avoiding the unmet dependency
+when SND_SOC_SDCA or EFI is disabled.
+
+Fixes: 28114992dd2f ("ASoC: amd: acp: enable TAS2783 and add RT712-VB SoundWire machine")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202609182147.gfofWIXW-lkp@intel.com/
+Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+---
+ sound/soc/amd/acp/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/soc/amd/acp/Kconfig b/sound/soc/amd/acp/Kconfig
+index e880e44b9763..6433876430f0 100644
+--- a/sound/soc/amd/acp/Kconfig
++++ b/sound/soc/amd/acp/Kconfig
+@@ -181,7 +181,7 @@ config SND_SOC_AMD_LEGACY_SDW_MACH
+ 	select SND_SOC_RT715_SDW
+ 	select SND_SOC_RT715_SDCA_SDW
+ 	select SND_SOC_RT722_SDCA_SDW
+-	select SND_SOC_TAS2783_SDW
++	select SND_SOC_TAS2783_SDW if SND_SOC_SDCA && EFI
+ 	help
+ 	  This option enables Legacy(No DSP) sound card support for SoundWire
+ 	  enabled AMD platforms along with ACP PDM controller.
 -- 
-Thanks,
-Petr
+2.43.0
+
