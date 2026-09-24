@@ -1,147 +1,142 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07B2A43A7E9;
-	Thu, 24 Sep 2026 07:51:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A05B41C30F
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:51:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790236296; cv=none; b=doBDgEf6H0N2A1ngPIPQIDDv5c49VN5ioTKyLXSt0RJ6GP4b8TeNS4afLuvtQO0y/sRMfAzai9DLGCciRLdJEAEzGNRDivGM6rHoPD1OmznunoKKIZZGsv80jaRrWB1OF7pAvCUyul02aIo21hQOgyBRM5zmP3JTpKd1wFA29ds=
+	t=1790236308; cv=none; b=XClRSOva6qJ78J671h2VKCq39lQf+MYE0VcBRaOk9UISaOt2YT6bhu/NTQ2INJ7Bj5TqYNPS81F2Z7eTJ3agequuOeCuN0RTCXffj4Gs/b/A1RJeZErYChvYINey8yHxURNTkUuAxE4OhVpNTOl+GvhCmTz8LLbvS5o/SCf3Ouk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790236296; c=relaxed/simple;
-	bh=2Gc3xaIe85+L9ZRUEyTbQRf5F8toGHzPsdYvmEe05V4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ddg8eoqQ5vWAJrwVaAcPNHMaAJhiYWskgaXFpEcwxai7Z7RLjSYmzTiIFMxpprqmStrbe4XF60AqKDIlFIoSHeB/DGeAJU6cz411rsYYz5JbWBJ7zU7nNH+KYmAkxImQhC1pSa58IL/hcdj+zFb9ADSTePbpERIusOuo+8zWCG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=g/nraA/D; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1790236308; c=relaxed/simple;
+	bh=TRhy+/I5J77Q/1YSA/sx8GUDSoNQC6h5HCw7Plj0rt4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=onwL2YqUHG610Z4bYOQHMDeKo+eiMQIZzTbVv0jeAQrGYZOwx7njKPSD5qbb3PAU7ifzKh/EmzyaraJj0v2uBho+ASLBkDSEd6e73gWXJmZwVhzXAkC8spbYRBxymg3e1+VpYsUjBJxXMkwax5pGIOZPxi5Ejalwv8iytNypP7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kvySO9zc; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="g/nraA/D"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=qJ4xBM6zEv7n3jH3x+/IK13F+D7pCvGlbkUP3NLkJNE=; b=g/nraA/DtUUzS5WHOdLX+99sJU
-	NDuvKrlX9eiOgENS187OfhWuVHycoXRe+K3ObUJnxGoGMWE5Co7WMEpfMk/2tY2Uz90d6GOu4Kkg3
-	YrxUXFAb0lWfBPY4zu+XBgQYdXm1fpsbY+zL41gZ7AJRJrXQSF6iNhr/EgJNRdhADnzEidFb++z3h
-	8El75TkkLbdNIvL8Hha3MHUPMVa+sgMwgwJT/VQFuZuhKMCBns7IqFUZZ23mgp1CNgkW8+GJtzk99
-	MVu82mMrvbb/a9u3zjYP71bAdlAGvo8QNUY4dl7XmkhTv2Bqjs5P4igg/mXq53rCDk/JgeWYpouCM
-	eHaOTkQg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x9eEX-0000000Fg6K-3AC4;
-	Thu, 24 Sep 2026 07:51:16 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id BBE12300756; Thu, 24 Sep 2026 09:51:07 +0200 (CEST)
-Date: Thu, 24 Sep 2026 09:51:07 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	David Dai <david.dai@linux.dev>, Koba Ko <kobak@nvidia.com>,
-	Aiqun Yu <aiqun.yu@oss.qualcomm.com>, Shuah Khan <shuah@kernel.org>,
-	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 05/16] sched: Add sched_ext hooks for proxy execution
-Message-ID: <20260924075107.GC4121339@noisy.programming.kicks-ass.net>
-References: <20260922165445.943315-1-arighi@nvidia.com>
- <20260922165445.943315-6-arighi@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kvySO9zc"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd5cf03so1278056a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:51:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790236305; x=1790841105; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9EQyRWWK5qALWLPwUJRBoHZhkD+3TF7/yRx4MDMxnNM=;
+        b=kvySO9zceooGMWylSC7lHqHR0rxQm/aJ1VGKgXt8e0Jav7K2ox9HpYaMF4Qclb0NOg
+         NNuA0WL+FfY+BBTg1eL9hcPy+GavGfTdWLOvXfgeNJDuLn7R6pwF5AP1JWxIeKwy0HGE
+         mENveACQf4p45uxtb6AcnXKcirexYkZ6Wxo+23Wo7woFyaLxskg4LGzgO/cR8BOdUcl0
+         pYVuP/27html1dJD6YyYTtJ/72epF322jl9tSQiHYJfg5PGdqaVMRte/568uMApxos6C
+         PqpP3NLkczwGMX7sJrFt2XY/+1WfCjBdMW9JsQ5yzrYLNutN5wZcsxmB4viy+GTVyhkt
+         GJCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790236305; x=1790841105;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9EQyRWWK5qALWLPwUJRBoHZhkD+3TF7/yRx4MDMxnNM=;
+        b=KzNik51t16aMsoIdpx840dBFolBddCJ5+YTmIyASWaZtNDBgb0pzSDhKxSsl443IE4
+         PXib8iR7M6Mqr73cipDW9b+y+YLX5Zt1NbvNQ1W7ukKLyb3rV4Z5dJdSyCYY2cgYdCQu
+         2CMgRMANXMliQFLx8CQEY5QZJZSO8kThNwb/1fqQj1oFyV0FTQSVOFoCFdNM6IqtvrDr
+         vzsZ69v7oPbEtJ7fq9tYaxLITSufzCpo5YNawDD98GoCfkAkmvqdDM4NUV8kgI1Knrc7
+         WQe+waz5axteuERGqosrUPI6/H12XFdIIZJWhwXc5bnaB58BJnBIRQEUmPqaYYUqoaXp
+         q4BA==
+X-Forwarded-Encrypted: i=1; AKwUvBxHMcFMZp4F2LCrbkhwYA6OSN7iEnpsqUZiVWtzwdp5dubOMbzclxqqQFLOJt+FDqbIS3W4eY+zVgMcB/g=@vger.kernel.org
+X-Gm-Message-State: AFuF++n6OVA1UejlgLgBvdnsWB0uAyTrUUiSYCvoSskMiWNwPDUJwun9
+	oBq1vRHGSa+X/2mIfC3mQmX+d1Mq7j6nKwgQt/ZwnC2M7mgKdtqN13dW
+X-Gm-Gg: AYBFou0BFrkO/BHye5H/w7YQzv8Aqku4QfuffwIufrGHbHzjf4V2mj7TYOVnXBKEdGk
+	BxLMuMDSULiZPaFavzZ4B8onF7KEJDZthjfV5KgRxTTheCyrINFdDHt2v7ytSCRHzGF2cNjb8Kl
+	vHrEzg8uxwkLaOuSHGunSufdn827rvfSoujDL9jvyblFOrO4WOwjFCc/Xp1+rdinM9pZPCb6cL0
+	nYuJ+Y24luOM83VQjIo0iSTBGyIy/6oQvJzAYbw1N7E/N11eYKjn0Voi0qOm6NXpSfaplQ6LHCx
+	gKBw1MgSCvklcqK7W5Pu9Qcg25bosMaVSRpsQqXJkaBoKqFFZJZc6CLUZoG67m7TuhSVGKqLF2N
+	t0uBVVxCGYF6isIHhxGcR63QE86v8S++dDyFgE2U9ERNndlT6UVTi9WfF/E9HZ6JAm+e44Wc+ho
+	5WM5HcIWaSuO2igi9bn58i1n7B894DYaSwSg1cDmK9Kstb2EaiILq+6++DaTeIhTRklMUOS0Eww
+	5PKvYg/lKyL1E2lfWiKH7+DsoCjYv70fAawoqSHPljwr1A7knqJrrjBhxdSuhYIl2PTJNTUQJqF
+	bKQQRzQySwQ=
+X-Received: by 2002:a17:90b:3d92:b0:39e:6c69:f474 with SMTP id 98e67ed59e1d1-3a098cf4a56mr1420939a91.51.1790236305347;
+        Thu, 24 Sep 2026 00:51:45 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0972eec92sm3540181a91.7.2026.09.24.00.51.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 00:51:44 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	dsahern@kernel.org
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	andrea.mayer@uniroma2.it,
+	hangbin.liu@linux.dev,
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH net v3] ipv6: sr: enforce exact attribute length for SEG6_ATTR_DST
+Date: Thu, 24 Sep 2026 07:51:43 +0000
+Message-ID: <20260924075143.2839886-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922165445.943315-6-arighi@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 06:51:44PM +0200, Andrea Righi wrote:
-> Proxy execution splits the scheduling context (the donor) from the
-> execution context (the lock owner). sched_ext needs to observe that
-> split at three points in __schedule():
-> 
->  - whether a blocked EXT task can be retained on the runqueue as a
->    donor,
->  - when a donor's scheduling context starts driving a lock owner,
->  - after proxy resolution, when deferred reenqueue work that was blocked
->    by an active proxy relationship can be retried.
-> 
-> Introduce scx_allow_proxy_exec(), scx_proxy_donor_start() and
-> scx_proxy_reenqueue_retry(), and add their call sites in __schedule().
-> The implementations are empty here and are filled in by the sched_ext
-> changes that follow, so that all the sched core changes needed by proxy
-> execution stay together in the preparatory patches.
-> 
-> SCHED_PROXY_EXEC still depends on !SCHED_CLASS_EXT, so the new hooks are
-> inert: they are compiled out with CONFIG_SCHED_CLASS_EXT=n and
-> unreachable otherwise.
-> 
-> This is a preparatory change to support proxy execution with sched_ext.
-> No functional change.
-> 
-> Signed-off-by: Andrea Righi <arighi@nvidia.com>
-> ---
+In seg6_genl_policy, SEG6_ATTR_DST is defined with .type = NLA_BINARY and
+.len = sizeof(struct in6_addr). For NLA_BINARY, .len only enforces the
+maximum payload length and permits shorter payloads (e.g., 0 bytes).
+When seg6_genl_set_tunsrc() copies sizeof(struct in6_addr) bytes via
+kmemdup(val, sizeof(*val), GFP_KERNEL), a short SEG6_ATTR_DST attribute
+triggers a 16-byte out-of-bounds read past skb->tail into uninitialized
+skb->head memory, which is stored in sdata->tun_src and leaked back to
+userspace via SEG6_CMD_GET_TUNSRC.
 
-> @@ -7243,6 +7242,7 @@ static void __sched notrace __schedule(int sched_mode)
->  			}
->  			if (next == rq->idle) {
->  				zap_balance_callbacks(rq);
-> +				scx_proxy_reenqueue_retry(rq, next);
->  				goto keep_resched;
->  			}
->  		}
-> @@ -7263,6 +7263,8 @@ static void __sched notrace __schedule(int sched_mode)
->  			donor->sched_class->put_prev_task(rq, donor, donor);
->  			donor->sched_class->set_next_task(rq, donor, true);
->  		}
-> +		scx_proxy_donor_start(rq);
-> +		scx_proxy_reenqueue_retry(rq, next);
->  	} else {
->  		rq_set_donor(rq, next);
->  	}
+Switch SEG6_ATTR_DST in seg6_genl_policy to
+NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)) so that generic netlink
+validation rejects any attribute whose length is not exactly
+sizeof(struct in6_addr) with -ERANGE.
 
-> diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-> index f60894dbf0623..aaa6ee66917e8 100644
-> --- a/kernel/sched/ext/ext.c
-> +++ b/kernel/sched/ext/ext.c
+Tested in QEMU against Linux 7.3.0-rc3 by sending a SEG6_CMD_SET_TUNSRC
+Generic Netlink message with a 0-byte SEG6_ATTR_DST attribute followed
+by SEG6_CMD_GET_TUNSRC. On the unfixed kernel, SEG6_CMD_SET_TUNSRC
+succeeds (err = 0) and SEG6_CMD_GET_TUNSRC leaks 16 bytes of
+uninitialized kernel heap memory (tun_src =
+836a61ecc4d25a1042a8d60411cfb378); with this patch applied,
+SEG6_CMD_SET_TUNSRC is rejected by netlink policy validation with
+-ERANGE (-34) and tun_src remains zeroed.
 
-> @@ -1110,6 +1115,10 @@ static void schedule_deferred_locked(struct rq *rq)
->  	schedule_deferred(rq);
->  }
->  
-> +void scx_proxy_reenqueue_retry(struct rq *rq)
-> +{
-> +}
+Fixes: 915d7e5e5930 ("ipv6: sr: add code base for control plane support of SR-IPv6")
+Cc: stable@vger.kernel.org
+Reviewed-by: Andrea Mayer <andrea.mayer@uniroma2.it>
+Reviewed-by: Hangbin Liu <hangbin.liu@linux.dev>
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+Changes in v3:
+- Add Reviewed-by tag from Andrea Mayer.
+- Send as a fresh standalone thread (no In-Reply-To header) as requested by
+  Jakub Kicinski.
 
-Doesn't match its prototype, also, I'm a little confused about the next
-argument in the next == rq->idle case. 
+Changes in v2:
+- Drop the redundant nla_len(info->attrs[SEG6_ATTR_DST]) !=
+  sizeof(struct in6_addr) check in seg6_genl_set_tunsrc() since
+  NLA_POLICY_EXACT_LEN() in seg6_genl_policy already enforces the exact
+  length, as pointed out by Hangbin Liu.
 
-Hmm, you seem to be using the argument like:
+ net/ipv6/seg6.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-  bool proxy = next != rq->donor;
-
-And I suppose that works. But that seems to be about the tick, not
-putting current back on a dsq.
-
-> diff --git a/kernel/sched/ext/ext.h b/kernel/sched/ext/ext.h
-> index 0012f708a5504..cca3f7c97b788 100644
-> --- a/kernel/sched/ext/ext.h
-> +++ b/kernel/sched/ext/ext.h
-> @@ -20,6 +20,9 @@ void scx_rq_deactivate(struct rq *rq);
->  int scx_check_setscheduler(struct task_struct *p, int policy);
->  bool task_should_scx(int policy);
->  bool scx_allow_ttwu_queue(const struct task_struct *p);
-> +bool scx_allow_proxy_exec(const struct task_struct *p);
-> +void scx_proxy_donor_start(struct rq *rq);
-> +void scx_proxy_reenqueue_retry(struct rq *rq, struct task_struct *next);
->  void init_sched_ext_class(void);
->  void __scx_update_idle(struct rq *rq, bool idle, bool do_notify);
->  
+diff --git a/net/ipv6/seg6.c b/net/ipv6/seg6.c
+index 62a7eb779202..8c2b156c227a 100644
+--- a/net/ipv6/seg6.c
++++ b/net/ipv6/seg6.c
+@@ -138,8 +138,8 @@ void seg6_icmp_srh(struct sk_buff *skb, struct inet6_skb_parm *opt)
+ static struct genl_family seg6_genl_family;
+ 
+ static const struct nla_policy seg6_genl_policy[SEG6_ATTR_MAX + 1] = {
+-	[SEG6_ATTR_DST]				= { .type = NLA_BINARY,
+-		.len = sizeof(struct in6_addr) },
++	[SEG6_ATTR_DST]				=
++		NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)),
+ 	[SEG6_ATTR_HMACKEYID]		= { .type = NLA_U32, },
+ 	[SEG6_ATTR_SECRET]			= { .type = NLA_BINARY, },
