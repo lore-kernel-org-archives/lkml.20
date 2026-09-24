@@ -1,98 +1,82 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FB24457E53
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:26:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A8947669E
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:26:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790249199; cv=none; b=USVU/OZHU6dZOQnCt/f2unliur964jpNUccJaK9x7Rci96h8WntN2nK8cpzjVOHybtfgGn5TeNmHORNSuC2xk2eZSHcLAG2ZhSsaH3t5ebfppAMu3qpzKDAj+/VEKBU5B9PTYkj3Xpaxrq4JVfHOHWuzewawvBpVbCWWQtQ7g0A=
+	t=1790249204; cv=none; b=XDgoE90eJkTU0Csyy+qqFStfNgDQuT8tip3hFQwCbQbkixrz7/0OoYIMGi9xwuULmcZETCZb2BpZUpIafde/09nTDjAZPZlY/G1Xc1vQ31y6bo6MJNtbqYrn8H5T8P/2Gtq/OZSMP5BHtrul/wXpCTR+WAVQBI6lJmaglxXwRnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790249199; c=relaxed/simple;
-	bh=/Z4vt1sZisFgwjFGYsD9AMj45o0OCyK5HsXd0f02nLo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IpKBCYhUgL0acMQoPTmMEC1XJZAJqjCR6pSvZ6eP4puLbs3j0KtAePStOBVwhbe+sXlm7OgpAsPPIXT1jyjGmNtQVr9t07lXyRP3TI//D9+PswjjOnB8R3Htpmfa8vCg/OMMDpOHvnwXrKqOw0OK1GKRLBWzVex3z8Thwif1Z/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AkBIMPC+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HG2UBLX3; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790249204; c=relaxed/simple;
+	bh=uV91OIdoGT1hJro1OTQxii5/OoY5c2o+jAR2m75TEWs=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UaTyNCFPaYI4nrM8u7dZvQTXSiJww4jU3Zcm3UlmS47BHykI50ZdsIS3/tKv2vtCHuFxmN6rS7+4K2GNRjNHL0lG2xKkBrIgmxLsLyLsWXSwm5YNbmvql/pL8l6mYY9J7Qtpwc52OikNA0paWQpw9hKNistsVAE6WKtCvpQWauA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DafOEmt/; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AkBIMPC+";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HG2UBLX3"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O9PE401923958
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:26:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=FluhcHGj0zIp1x+edRPk4zsy
-	7sg7V/Dwe/xU2mNaGds=; b=AkBIMPC+1zH+THqOWrcUCGvrePQlvAlO4pQNpOXw
-	tkfe+wZRkODxGtd8j6PUorWR9Y1Q2sAhhEsSMGZlys5cW/2Ge8Grs/qZ3Wsh/8li
-	Xe2bTXAR64ddOMXEQvRKXTqIu/AVs1On1Ug/2hloN3MgeB4tgmWxLop8dK54UpRv
-	KPwxnC5jihh9eVK2vzorg4MFHeaf7O/qFV0v/EM/PAZ85GHtt8FY+XVJIVG8NayA
-	Hl84iiZz7t43RK6D3vfczzEma/CALHnAKk5gz27yC223Lt9e+y48tF/VttYDJeAC
-	oCXzr3b/TaTxXCDRKMuk9irJsE+3XkyHKZqjvLy0og8zTA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvx8ahby6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:26:37 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-936708f129aso303686985a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:26:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DafOEmt/"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so11029435e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:26:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790249196; x=1790853996; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790249200; x=1790854000; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=FluhcHGj0zIp1x+edRPk4zsy7sg7V/Dwe/xU2mNaGds=;
-        b=HG2UBLX34rg0fm1cCC2xEMOWPF2aMU9T1LG3VPORV9+z8wg2in/L2xK57dfOIjuYED
-         jKX37UQLuh/xjSCrgq4zU8e+dMprGJzIJUddmhfawIutSICxB4Hecz5CuFAKxvt8Crx0
-         e1ncXLwLFpAybjStOOBkU3GNtSBzm9kSXsOedgrxrn51NrFGYSPlgF3nk6KuZ+V1In5V
-         oEbq5b+txsPcTF0MIVfQgiegbHvDp6rx0kl2zpEJL2vMDFbSZyq2YRDNLRLIrr3/AoOf
-         pV9Bv7U2b3WVpFBOMiF7P89wTdGd6/s22sQ7mHv2xlLl/SDkLg1JU4xWfo7Gs2d1mAxa
-         2GVg==
+        bh=wOJC0I+fG63bz2W6Hzkg61w6664DvUwJdI07aaUCw1Y=;
+        b=DafOEmt/RUdsdfzhek29Gaoz8CEt1RMYBCAlL9jfFQ9tmoETEnKpaEQPnpM5juq4/v
+         4ftxpZmcoe9DFVsIlPkRz9JTOM9A8h5JZDuU+m7lFmHCtXjI56oX4N/l4vROJsjIqODo
+         DVfU7QMp9F5S1lSCNv5D4CUuqev7aqPQALXi0vPhoqptoVh765ExoxNJsNacJQXNzord
+         BYMHsFxxBu7l9YDvg6jM9yV9IvY86ljFoUVqwMkw3MWkChPMBOOk+TxeJ9mJUsxXQgA1
+         T34wgJnRxoHgFRfaImKAmlAf4E7IrEDWmwURADk2/re9KAkueVuikW/dhhqci9KIu3wr
+         Sd/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790249196; x=1790853996;
+        d=1e100.net; s=20260707; t=1790249200; x=1790854000;
         h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FluhcHGj0zIp1x+edRPk4zsy7sg7V/Dwe/xU2mNaGds=;
-        b=JjWPfZDf059wx9zEZV854ZBn9J2PXO+Ro8UlImbSJVuPt/YlVp/jzJE8zme1rYgi2W
-         sQCxDweb1X8mlQICoL5/j9LOFrnNpj3lrgAieghlSmYE35cRhjo5H/bRnAIF9h6CGsC7
-         HPWXruxsIA0eh7fTUoSJXvOYHY95jpahpFUcg9rnkeqfAIpLQ3G2SLAehnTM8uYPXf5Z
-         uOUVT+Bkye3yCRmrYstoOxsRZjwKyTXcN4m2sHruOzEFzIit8utrWsT0x/AtFMLRo566
-         W9m5u4An4wn16nGqz0HQL4AYUG3eXQ/6viYFH59Sw4hkTK33IuTM06VLWO/XxHqlo/fn
-         ceKA==
-X-Forwarded-Encrypted: i=1; AKwUvBxZwgM/VsnzzKqHV0E3Gn3w0mipIjPhQSuOTgg0d/N0+NXzhE6ypJDXOTTY6zuf5BdKz7J5v1Gdmp7kcBI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kCEGtepfyPhj6Ujg9E6q4B4QU1mdR4/NgRHlVdFTHWdbTI2qXC
-	WCzauT5RyTIjrI2bCXXQKAmku3t5zgq1navypyKJpK00iACa1m4ErM8BRrWD9i17woy965VnqJ+
-	Jsa6yF2q0ZnIi9Lo4Yu/N1+Ty7Tt7UigGzhw41g2GfEHti59+ULOsYed0Ata2619chaY=
-X-Gm-Gg: AYBFou2HEdg30KF9Rf/yIdVJr25kxhfnof2/I9z31+h55YJniYlz1N1H7vlAEffcsje
-	gMY/kh2yoVIl8zMlpzDP1gesAP0cLlZZSrQSYNB/cBAj/mVMETZPJTfv6vzrEzEMbFOB7XQrtXe
-	I1y8tEo2dJnAbnPlPXYk0XzheiDfn81b9dW2TrEuN7hmorRAJV6V82pdZv+ZBCdJ1uR7B59Rtd/
-	hknQWzv6nCSq0NFbMlV/UuSncPFrMC57XiGc68gKtSrQUZDH1LDxyzckvj4Bn2C2Is6Nn2T6ODN
-	KeJGmWMMRnJjfdjuh1vk4oWNet+bp5jVWBEe4dmVKofXHH3WTSpDiy67e7aXCuKXJaAPyFB14AK
-	zF3SGZOtXNtDOpU0=
-X-Received: by 2002:a05:620a:2b47:b0:93b:d79a:c45e with SMTP id af79cd13be357-93c364444a3mr217393985a.54.1790249196029;
-        Thu, 24 Sep 2026 04:26:36 -0700 (PDT)
-X-Received: by 2002:a05:620a:2b47:b0:93b:d79a:c45e with SMTP id af79cd13be357-93c364444a3mr217389385a.54.1790249195463;
-        Thu, 24 Sep 2026 04:26:35 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cbd134sm62001975e9.9.2026.09.24.04.26.33
+        bh=wOJC0I+fG63bz2W6Hzkg61w6664DvUwJdI07aaUCw1Y=;
+        b=j5ZXCdipUNlCt7jONvBghoxWEkf8EiDZFQ02XZ4Hw6QbiVrZjtTWRypTyVOGqyc8zy
+         c7sXeLJEqUrG7yZMm8O1i/Ar5F8LUyAV0wd3s/y5xkHmxPzTK98rLTQOgRyoJOYfL5IG
+         FCcWJbXuqL2l7JkLs7+FjvE+sEsSIl+d2bvwux3NH7x5eN9o/2TdH6M/n1H/bNoOMwZ0
+         Y26H/qiHvUtMEtmKL8NTrOU0jXXoLHwdMPXVl9y/rzZtINA5+KTp6dFftnTYZrwX80A6
+         a0jjkmqUllfu8ynXa2ElbzyoA3ssDJ82pyO95fAn+B5CifXBrHj6TYVhJJnlKCJDXyY/
+         tomQ==
+X-Forwarded-Encrypted: i=1; AKwUvBypwjTb804DURbxIvYaietRjaTfdx2SV11Vr5JoFdIhG9SFrFGac2hETV6jumVmW0pbs38rZJevi/+Njvk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kb6YfPJdzKwRvUw8QCMC6DOAmrJXzIP1LAbyZcTT5YooaMfWvz
+	ZY5PRfxto1Sv5GVDFEhgZNSuXKNDqXKqKbZVslBE5WPgZAYlLCUblSSQ
+X-Gm-Gg: AYBFou1EgN0txMfhlK71YuOzJit8Q3nLDF5QS8uYwoFN6qvq2//X7sPV75moWXIadnK
+	baXZwL17pzSxzGzMWg8hP6h02LcTcb2aK7m5+yXaHgkJ40G33SNBRIUXu0cd62DgPVOiZN2iTpa
+	eebdMQY3tx3z5LiEZsesNE4RF4Of4xQ/+jWScDxK/Osi3LYkptVKNjCqfEgRy1VwnrjZKM5vik7
+	nfnqE5CBGScONwPTdWfFcu0cFLE5AAYKlhzHkpjN5z1fu4Y/WOlfFrndQISGCX849Vsht6woDHF
+	njBK3EgxCtlccYWWGqn+hJvHCxYRuZT0Vn6T8s+kTNdgSL+Frfsa5lNn7auHiSynCmUjTrzy+oO
+	iuvh21WEk0NPwRqmGAyuPN9STNiTzDoWmx4Ihvh7CB+hczajH5hWjq3cWADUT4vOIP/KpgejTAZ
+	eYI9OaunX8WT8nHxIrPvPE/AsKbEAmDskG7QcJwyRYrLXyjiV+Pf1Xvx2hxEA=
+X-Received: by 2002:a05:600c:4e8b:b0:49f:ce78:356a with SMTP id 5b1f17b1804b1-49fe66fb018mr35842225e9.27.1790249199969;
+        Thu, 24 Sep 2026 04:26:39 -0700 (PDT)
+Received: from krava ([176.74.159.170])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cc90ccsm98428825e9.10.2026.09.24.04.26.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 04:26:34 -0700 (PDT)
-Date: Thu, 24 Sep 2026 14:26:32 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v2] arm64: dts: qcom: nord: Add more clock controller
- nodes
-Message-ID: <4klth6c664hafslo567luio5cx3t47moupzsowsqpcoskmqrob@35jaicyn3kbs>
-References: <20260924094448.1030807-1-shengchao.guo@oss.qualcomm.com>
+        Thu, 24 Sep 2026 04:26:38 -0700 (PDT)
+From: Jiri Olsa <olsajiri@gmail.com>
+X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
+Date: Thu, 24 Sep 2026 13:26:36 +0200
+To: bot+bpf-ci@kernel.org
+Cc: wanjay@amazon.com, bpf@vger.kernel.org, ast@kernel.org,
+	daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com,
+	memxor@gmail.com, alan.maguire@oracle.com, martin.lau@linux.dev,
+	yonghong.song@linux.dev, nathan@kernel.org, nsc@kernel.org,
+	linux-kbuild@vger.kernel.org, mcgrof@kernel.org,
+	petr.pavlu@suse.com, linux-modules@vger.kernel.org, arnd@arndb.de,
+	linux-kernel@vger.kernel.org, abuehaze@amazon.com, doebel@amazon.de,
+	jay.wang.upstream@gmail.com, martin.lau@kernel.org,
+	mason@kernel.org, ihor.solodrai@linux.dev
+Subject: Re: [PATCH bpf-next 3/6] bpf: fetch the vmlinux BTF where kernel
+ types enter a program
+Message-ID: <arUI7ORFZCegI5ep@krava>
+References: <20260923053948.30617-4-wanjay@amazon.com>
+ <39f6151d364d966f70b7802cfd4bbca15734a7945478265ecc681f1779e50abb@mail.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -101,44 +85,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260924094448.1030807-1-shengchao.guo@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA0NyBTYWx0ZWRfXwF7nP0eC8kMK
- VNMtID1nOF/EFHOx77+dc7w1xqs4BKW0Kf2KZHpYfzjKEEA30y0MYzlJXSu3CRleGCKLgDpLYdQ
- lDElzvOANWTBpxpRgc1P68AwQyXgFE0=
-X-Proofpoint-ORIG-GUID: JvA2EgtJ5MxRwMP0DYHFgzvlL1E4leT5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA0NyBTYWx0ZWRfX4AfW0gkiP4r6
- MBEUWae6Gl9pzfsMJupeObtQTnl04MvY6ZDIUuLC3hVr8NRT0s9cYcXdWQIZwqZq3Lmdfe9RZo3
- v2lLrzI1bFMvgg4OqiPQIfP8SxSTzKa5p+HJO81QlU73BR16WEH36ylpMLHCERu67LA8OGd2omL
- 7xhiS2XewWRXjAAU8VTgqXRwI3j/zr3ARU4JBcMyBruEJQafKUbzzsOnrVSx4hkzGeHGt9b/j2A
- UFVSfprUOzSrhKHZpa+UR5IaCyVmcX8yK7R7GTMvWyKyAKOhq/I1Z/fTdSZ3m5X98ZPlqGdT0/j
- JE3b6ibHy6QGEs1ITPy3Yn0YRcahcfYFv1/NKfmepMOB9fWzHYAYghFPGIAYr7xRFRI5zptIsDx
- /kJYTT48lISbSdMHLnSypHWRDXlnPUGas5EizwiNncZ9CcwfJiPgRF+ji6a69I88YFwRF1E2MUe
- qymsnl2+Zx/PsXyhYFg==
-X-Authority-Analysis: v=2.4 cv=a6SlZkSF c=1 sm=1 tr=0 ts=6ab508ed cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=NnZct687kdiKRUGfDC8A:9 a=CjuIK1q_8ugA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: JvA2EgtJ5MxRwMP0DYHFgzvlL1E4leT5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 spamscore=0 clxscore=1015 malwarescore=0
- priorityscore=1501 impostorscore=0 phishscore=0 lowpriorityscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609240047
+In-Reply-To: <39f6151d364d966f70b7802cfd4bbca15734a7945478265ecc681f1779e50abb@mail.kernel.org>
 
-On 26-09-24 17:44:48, Shawn Guo wrote:
-> From: Taniya Das <taniya.das@oss.qualcomm.com>
-> 
-> Add the GPU, camera, video, and display clock controller nodes for
-> the Qualcomm Nord SoC, along with their required dt-bindings includes.
-> 
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
-> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+On Wed, Sep 23, 2026 at 06:28:43AM +0000, bot+bpf-ci@kernel.org wrote:
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+SNIP
+
+> > diff --git a/kernel/trace/bpf_trace.c b/kernel/trace/bpf_trace.c
+> > index 195f78db9bda..c022b2877f0b 100644
+> > --- a/kernel/trace/bpf_trace.c
+> > +++ b/kernel/trace/bpf_trace.c
+> > @@ -1015,7 +1015,8 @@ static int bpf_btf_printf_prepare(struct btf_ptr *ptr, u32 btf_ptr_size,
+> >  	if (btf_ptr_size != sizeof(struct btf_ptr))
+> >  		return -EINVAL;
+> >
+> > -	*btf = bpf_get_btf_vmlinux();
+> > +	/* Called from a running program: only use the BTF if it is parsed. */
+> > +	*btf = bpf_peek_btf_vmlinux();
+> >
+> >  	if (IS_ERR_OR_NULL(*btf))
+> >  		return IS_ERR(*btf) ? PTR_ERR(*btf) : -EINVAL;
+> 
+> Swapping bpf_get_btf_vmlinux() for bpf_peek_btf_vmlinux() is correct as a
+> sleeping-in-program-context fix, but does anything in this commit arrange
+> for the BTF to have been parsed by the time bpf_snprintf_btf() or
+> bpf_seq_printf_btf() run?
+> 
+> The compensating verifier-time fetch in check_helper_call() is gated on
+> helper_uses_vmlinux_btf(), which only matches base_type(ret_type) ==
+> RET_PTR_TO_BTF_ID or base_type(arg_type[i]) == ARG_PTR_TO_BTF_ID.
+> 
+> bpf_snprintf_btf_proto and bpf_seq_printf_btf_proto contain neither: their
+> arguments are ARG_PTR_TO_MEM / ARG_CONST_SIZE / ARG_ANYTHING and the return
+> is RET_INTEGER, because the BTF type id travels inside the struct btf_ptr
+> the program passes by value rather than in a register type.
+> 
+> So helper_uses_vmlinux_btf() returns false for exactly the two helpers
+> whose runtime fetch was just weakened.
+> 
+> On a CONFIG_DEBUG_INFO_BTF=m kernel where the BTF is present but not yet
+> parsed, bpf_peek_btf_vmlinux() returns NULL and the helper returns -EINVAL.
+> A working bpf_snprintf_btf() or bpf_seq_printf_btf() call silently starts
+> failing, depending on whether unrelated activity already triggered the
+> parse.
+> 
+> The changelog frames this as behaving "as they do on a kernel without BTF",
+> but the BTF is available, just unparsed, and the previous code would have
+> produced correct output.
+> 
+> Should the fix be at verify time - teaching helper_uses_vmlinux_btf(), or
+> check_bpf_snprintf_call(), or the *_btf protos, to force the fetch? The
+> forward range 90fe51b6b36a..2f5aab95d2b8 contains no code change for this.
+
+seems valid to me, could we just check for these two print helpers in
+helper_uses_vmlinux_btf ?
+
+jirka
