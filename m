@@ -1,384 +1,274 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFD0C47F3C0;
-	Thu, 24 Sep 2026 12:59:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790254788; cv=none; b=Ed9jo44EOomTKg063Lt7yNf8L5UKrOk0eGUkHoVBI0BDkHpj563ahHzK+guO81s0fJPj7SDHSP7+4HuVSd4JSXp+8Qc84jTc9G/rUvi5t4uXRK/NAHigtHX94pCAb9wzE79+rKi92uwGbeG3s8Qf7Hy+X6lfg6DuVTbdL7jEUqc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790254788; c=relaxed/simple;
-	bh=acUL/CcC7KE1IDiRXLEfBcTJXBXILIApK2E6Dz8MP1c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=X9WvtkeMmGVvLz6zCU3WDMuNcIZB1lxUUfUbPRVfKyQbEE0Ne77c8vFqRMHaGTB7hLxMvXI1CaTC/7CUq8EqLDh85k6Qb1pO69cHpEyVsJUbE/yiupXjQ1UI6q9wvurvnlOvYVzMz4KgX5+YkSjaQzxLkYj4QFsLJkr2WQzpT3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=dBe+lS7A; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3102030F548
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:00:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790254811; cv=pass; b=BhGSiEh+bA0iEi3YuPS3fMb1+WoDbTyyC85aDa2/7hrcvHJjOYNUppMfeUfm4mO1Vbv/QJG9zMEDaLmKiqifPtD84khxOsCdSr3xvTpa7EoXXwG2hsVKDQjbgBQzIon8Sh8CSBy+bZrKkQjII7v+Hm1KMWY5tlsVKzTgP/UUeGc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790254811; c=relaxed/simple;
+	bh=Fft85CxVPSnz/lnplUZXgtIisv+sBJwICxGw7T+3TE0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jdx8AObQYyeBqdajPReZC0Kfi65+tTVB5cOGgy+MgnYz4jR/GfdND6SCNtJdp1QT2CbDktzV7K8nX++4l5mxOEwrCzxiiufkA/JE9M2b4jj7PiXodbDYlj+AmAILlE+9Cd6DDS5wwNExvoI6WDCL5UJA4+uu/GcV9D5WJRZwgC4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UswVJq7k; arc=pass smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="dBe+lS7A"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1790254785; x=1821790785;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=acUL/CcC7KE1IDiRXLEfBcTJXBXILIApK2E6Dz8MP1c=;
-  b=dBe+lS7AcfjfF6xAvu4OEO84ZT2wElSj7gmKQ3CSmI5HTeD3DAjl3ouD
-   1iGSHZ6/+F9CX1QE6QpTFBNtaE4AMuRxWBuOPDijxEyr9HCzBteZbIDbs
-   15+qB4VhbZ+hqWAkZDqWl5Nvw97XdTBqiVifuXWHSn6DrHe9KMMWV0P6v
-   aBLgUTKbwmdz3zitfGsnKk6Zx6TyXwhd67jP8fFNOOpe3E/AZf4QL5gPr
-   3lYTjHLNwmX5Eqn5xt6bsoj41qEgsm6qBtlqRzOPxIdTb2TR0fuuK8bzC
-   iDQqOpuc5EHBPKo0Aq3V9XLpLPzi1cyAPQAWj30cqxY8CKawnctqOGd+3
-   g==;
-X-CSE-ConnectionGUID: MRJLVakFQcGIU8pzXEzEKQ==
-X-CSE-MsgGUID: Tgtby6N0SoyeG7iQaS7GKw==
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="63151069"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 05:59:38 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
- chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.49; Thu, 24 Sep 2026 05:59:38 -0700
-Received: from [127.0.1.1] (10.10.85.11) by chn-vm-ex01.mchp-main.com
- (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Thu, 24 Sep 2026 05:59:35 -0700
-From: Ariana Lazar <ariana.lazar@microchip.com>
-Date: Thu, 24 Sep 2026 15:59:22 +0300
-Subject: [PATCH v8 4/5] dt-bindings: iio: dac: add support for MCP48FEB02
- SPI
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UswVJq7k"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso11483525e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:00:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790254807; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nRgH+i9J4OOnZNzS7MF7dAga/qpsvtzBBidndZ6q8pWXLR+w/rmlCUFmVh5RMdh/HX
+         LZ+l7hgKX2b0GVd7XylYP5dtDolDgWKnWJByKbe3VXLQFX8HEvBGQjqdeES47SVzZKAE
+         3UMsHhUFF9AAf852RpHPSKRqTst1fxW6rEVn/1e7XW3+P780IFMtzhMwxcu/2az0iZJo
+         lDUe+E+dCX7EIElezouPbRYf9fur4wfJ9hiRugBHGG6/MJ8pceCgqAsQ0nfR5yFLkirM
+         T6N+y+ml1l2mOlndD98GG39bZTF6UN3uz5yHG0aWgYXqFMG/fCNLUoVn0dQqr+dPVboO
+         ZH7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7OSLVS9HvHJYI6SUB/JDf6BpBvGujsk4TT0HCcRv1qs=;
+        fh=1d84iih5fUODWowogfPaS+D7jXo8S3AH6rb9QJqNR9g=;
+        b=jyiXHh0LYBYcoWdSprp6Mv2dcGzAoXcyT+hGZrROHM7ybAIDrKRyvwXUQ/6nzzsW7I
+         3KW0yohO3uTz6RTDRko0UKWcAlEExy81OfoyKgqnI7q7zd0Mhy3jtNTonyCUfVj1zjOT
+         yNcjVspT0aSmN/GLXh9xUOqSb6v60bAHCN+E2n5+67JI0M65ssZgWMmYqzaVI05GbeV7
+         FI00AEhoa9AfpW0w+G8JfPUTxYcbGOWbaqQGi6x0HQBjsd189b82ikc2IycZfyWFLdmj
+         YD2PNgAmygyo8oY4VTTpOzFFBL5Zc1KoP3MmmpqQdvKA2idHVptwBZy88827sIycbVt9
+         3jHw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790254807; x=1790859607; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7OSLVS9HvHJYI6SUB/JDf6BpBvGujsk4TT0HCcRv1qs=;
+        b=UswVJq7k8Rbd+kkGvAhOqweNCFxxyPDN06Tg5crj4CeRvm9VsyB7BRjrWXBHKMqAeP
+         kz60tJhBLB5EkWrGjzOPbtD0XUT83zo5znxaTFc1K+GxMBBdmUhGcU5pxkmCyOtaCIcY
+         DhGlcI03U0VLXuBSQ3/9vxHen/1jEqDuwusZ9DGJxUuygUcL7aTOD6rOl7ZS7YtPU7GT
+         kW9VAPAyLNLYwdKV4DuzZPWVtiPKeP5DMz7MRG2qSSAMgSGvSEY44MSQYAnuhiAUArm7
+         wFLALjasmTin8VFB/h+oDFRsbP5kPPLLt7zEOaUZSDqIt++95HH5i9zEcNfG1gqcfGfL
+         O3YA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790254807; x=1790859607;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7OSLVS9HvHJYI6SUB/JDf6BpBvGujsk4TT0HCcRv1qs=;
+        b=Vk1Tvy5fOC58TbCsMVZkhfLv6hWbHNa6fPfiVLQL6+1FqRu5jjNl0UI/iTsEbHf3H3
+         rqz+8ZtlTl86UrX8rU2nwqUSYB1aDwBr+JlMwLpK4sfeIWxUSAmjO+b+ar51HF8etR4W
+         vdkXb2BakyMZL7SCNeb9MIiYD6y0PnV3QBaULrgp42NOkbIhY4rg/pxu8QCyksA1PYCa
+         +eZd5mWih4tKeFEkJlktgXMONcgxN73/CCitqWe4ELw83Fq2yRXL9XSgqUNsxBs5eMp5
+         Ytu3eAL+FOUgyopgskitOec7jqZ/ZrG3KGtLF7WiX7gzkPxftKzdbiCv+nZsQZI1TqAC
+         yIYg==
+X-Forwarded-Encrypted: i=1; AKwUvByL4hkgCQ5FwabSiNPJffhibCQqt4frgQC+bdsCaGjjHgTRMXqikSKYrzj518IZLZ3O3SmzSljS+hAvIMo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nV0h6yiX2N0N7ukdgMVRD2Tk3LJw5yIUJWxLmH1m+13ZJVI8P3
+	4JotQLYGa+cSipbZMnLWqjXq9X2VU2VUVWO3ogJ+vgAMvxOeEvd0j5w+cZYkga93lBU3picAKCP
+	hamQV5MfbWtGcc6bVCUTU6vPKQ1IeD/o=
+X-Gm-Gg: AYBFou1Pk1m1qxdMH2izQkoDW+NevL4LQ0IHSNbDuY/ecgpUyzLTLSUqXTQqcpi+AuC
+	dKOFJ1UnOC3gFLLNUlGNhHy+8u93HimrypLZog618DtZgWSyAsv1Mo0KSZImz7wlJ39w5pIRJqE
+	bbPtoQza04yudGR62yY3naO6BDnwKbc8zmJPo7SOzAuQrVX+FO7X/gaDQFARrfDdtA3T0P37OkF
+	1OQGyvAMWgEOCOweuWW833sxXdkyToYQ+VGfPfd5Y51KYL6TA5VhrJ60Q0E7q9ZZ0LMOzxZ2Zl5
+	WwgPiI9Dn5tzh9ThPc27m95uASKxvKXcK7tOyuNt4fR0GGPzzZKzhqlOX09WhwWPEJtn55CJcsf
+	1eI1or1osnn/UCqW1uz2Ea4rwLasqrvGP4wJajtpMCnmuX0rubLqFit5YEjs2pucL5PNwSULxTB
+	wJpSjLabo9
+X-Received: by 2002:a05:600d:486:20b0:49f:e8bf:221a with SMTP id
+ 5b1f17b1804b1-49fe8bf24fbmr20880375e9.22.1790254807252; Thu, 24 Sep 2026
+ 06:00:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260924-mcp47feb02_refactor-v8-4-17dc2ce3485e@microchip.com>
-References: <20260924-mcp47feb02_refactor-v8-0-17dc2ce3485e@microchip.com>
-In-Reply-To: <20260924-mcp47feb02_refactor-v8-0-17dc2ce3485e@microchip.com>
-To: Jonathan Cameron <jic23@kernel.org>, David Lechner
-	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
- Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-CC: <linux-iio@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, Ariana Lazar <ariana.lazar@microchip.com>,
-	Jonathan Cameron <jic23@kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790254762; l=15556;
- i=ariana.lazar@microchip.com; s=20250825; h=from:subject:message-id;
- bh=acUL/CcC7KE1IDiRXLEfBcTJXBXILIApK2E6Dz8MP1c=;
- b=zHvQPF8JovlCVTfUgIeIwFYN1NqqfCXRni5hSgEzFF2FCJO9D/18bj3lBkBwT8ZTYVrPxRSVl
- qsI3LTV80b5ARiMi8lcgTM+uaLhroXXykFxNX16xv6qzvhYFLit8Wb4
-X-Developer-Key: i=ariana.lazar@microchip.com; a=ed25519;
- pk=jmvf1fSxcnzZmXfITM3L94IwutM+wqA1POQHiYyD6Dk=
+References: <20260923104054.3324830-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260923104054.3324830-5-prabhakar.mahadev-lad.rj@bp.renesas.com> <fb5f25b4-33e4-4cb1-b790-3fd078c61e5d@roeck-us.net>
+In-Reply-To: <fb5f25b4-33e4-4cb1-b790-3fd078c61e5d@roeck-us.net>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Thu, 24 Sep 2026 13:59:40 +0100
+X-Gm-Features: AclHuK_mJiW_h0plHxsrZUqtTl9fiP-i-QY5tzFIt3qEf9WQXBFyizNrQLINkmc
+Message-ID: <CA+V-a8vXd2pzw+e7GAoLTXPtSqTnij8mrT40D5zB09ToXvsqig@mail.gmail.com>
+Subject: Re: [PATCH v6 4/8] watchdog: rzv2h: Propagate WDTDCR access errors
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Wim Van Sebroeck <wim@linux-watchdog.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-watchdog@vger.kernel.org, 
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add the SPI MCP48FxBy1/2/4/8 part numbers, the spi-max-frequency property
-and a devicetree example for SPI usage to the existing binding.
+Hi Guenter,
 
-Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
----
- .../bindings/iio/dac/microchip,mcp47feb02.yaml     | 221 ++++++++++++++++-----
- 1 file changed, 173 insertions(+), 48 deletions(-)
+Thank you for the review.
 
-diff --git a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml
-index d131f136bd15161666932261bcacd6d124b23ede..a86d094f0d4b54f9d9cc39fd54222f5968714668 100644
---- a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml
-+++ b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml
-@@ -4,58 +4,92 @@
- $id: http://devicetree.org/schemas/iio/dac/microchip,mcp47feb02.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
--title: Microchip MCP47F(E/V)B(0/1/2)(1/2/4/8) DAC with I2C Interface Families
-+title: Microchip MCP4(7/8)F(E/V)B(0/1/2)(1/2/4/8) DAC with I2C/SPI Interface Families
- 
- maintainers:
-   - Ariana Lazar <ariana.lazar@microchip.com>
- 
- description: |
--  Datasheet for MCP47FEB01, MCP47FEB11, MCP47FEB21, MCP47FEB02, MCP47FEB12,
--  MCP47FEB22 can be found here:
--    https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/20005375A.pdf
--  Datasheet for MCP47FVB01, MCP47FVB11, MCP47FVB21, MCP47FVB02, MCP47FVB12,
--  MCP47FVB22 can be found here:
--    https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/20005405A.pdf
--  Datasheet for MCP47FEB04, MCP47FEB14, MCP47FEB24, MCP47FEB08, MCP47FEB18,
--  MCP47FEB28, MCP47FVB04, MCP47FVB14, MCP47FVB24, MCP47FVB08, MCP47FVB18,
--  MCP47FVB28 can be found here:
--    https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/MCP47FXBX48-Data-Sheet-DS200006368A.pdf
--
--  +------------+--------------+-------------+-------------+------------+
--  | Device     |  Resolution  |   Channels  | Vref number | Memory     |
--  |------------|--------------|-------------|-------------|------------|
--  | MCP47FEB01 |     8-bit    |      1      |      1      |   EEPROM   |
--  | MCP47FEB11 |    10-bit    |      1      |      1      |   EEPROM   |
--  | MCP47FEB21 |    12-bit    |      1      |      1      |   EEPROM   |
--  |------------|--------------|-------------|-------------|------------|
--  | MCP47FEB02 |     8-bit    |      2      |      1      |   EEPROM   |
--  | MCP47FEB12 |    10-bit    |      2      |      1      |   EEPROM   |
--  | MCP47FEB22 |    12-bit    |      2      |      1      |   EEPROM   |
--  |------------|--------------|-------------|-------------|------------|
--  | MCP47FVB01 |     8-bit    |      1      |      1      |      RAM   |
--  | MCP47FVB11 |    10-bit    |      1      |      1      |      RAM   |
--  | MCP47FVB21 |    12-bit    |      1      |      1      |      RAM   |
--  |------------|--------------|-------------|-------------|------------|
--  | MCP47FVB02 |     8-bit    |      2      |      1      |      RAM   |
--  | MCP47FVB12 |    10-bit    |      2      |      1      |      RAM   |
--  | MCP47FVB22 |    12-bit    |      2      |      1      |      RAM   |
--  |------------|--------------|-------------|-------------|------------|
--  | MCP47FVB04 |     8-bit    |      4      |      2      |      RAM   |
--  | MCP47FVB14 |    10-bit    |      4      |      2      |      RAM   |
--  | MCP47FVB24 |    12-bit    |      4      |      2      |      RAM   |
--  |------------|--------------|-------------|-------------|------------|
--  | MCP47FVB08 |     8-bit    |      8      |      2      |      RAM   |
--  | MCP47FVB18 |    10-bit    |      8      |      2      |      RAM   |
--  | MCP47FVB28 |    12-bit    |      8      |      2      |      RAM   |
--  |------------|--------------|-------------|-------------|------------|
--  | MCP47FEB04 |     8-bit    |      4      |      2      |   EEPROM   |
--  | MCP47FEB14 |    10-bit    |      4      |      2      |   EEPROM   |
--  | MCP47FEB24 |    12-bit    |      4      |      2      |   EEPROM   |
--  |------------|--------------|-------------|-------------|------------|
--  | MCP47FEB08 |     8-bit    |      8      |      2      |   EEPROM   |
--  | MCP47FEB18 |    10-bit    |      8      |      2      |   EEPROM   |
--  | MCP47FEB28 |    12-bit    |      8      |      2      |   EEPROM   |
--  +------------+--------------+-------------+-------------+------------+
-+  Datasheets for MCP47F(E/V)B(0/1/2)(1/2/4/8) DAC with I2C Interface Families:
-+   Datasheet for MCP47FEB01, MCP47FEB02, MCP47FEB11, MCP47FEB12, MCP47FEB21,
-+   MCP47FEB22 can be found here:
-+     https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/20005375A.pdf
-+   Datasheet for MCP47FVB01, MCP47FVB02, MCP47FVB11, MCP47FVB12, MCP47FVB21,
-+   MCP47FVB22 can be found here:
-+     https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/20005405A.pdf
-+   Datasheet for MCP47FEB04, MCP47FEB08, MCP47FEB14, MCP47FEB18, MCP47FEB24,
-+   MCP47FEB28, MCP47FVB04, MCP47FVB08, MCP47FVB14, MCP47FVB18, MCP47FVB24,
-+   MCP47FVB28 can be found here:
-+     https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/MCP47FXBX48-Data-Sheet-DS200006368A.pdf
-+   Datasheets for MCP48F(E/V)B(0/1/2)(1/2/4/8) DAC with SPI Interface Families:
-+   Datasheet for MCP48FEB01, MCP48FEB02, MCP48FEB11, MCP48FEB12, MCP48FEB21,
-+   MCP48FEB22 can be found here:
-+     https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/20005429B.pdf
-+   Datasheet for MCP48FVB01, MCP48FVB02, MCP48FVB11, MCP48FVB12, MCP48FVB21,
-+   MCP48FVB22 can be found here:
-+     https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/20005466A.pdf
-+   Datasheet for MCP48FEB04, MCP48FEB14, MCP48FEB24, MCP48FEB08, MCP48FEB18,
-+   MCP48FEB28, MCP48FVB04, MCP48FVB14, MCP48FVB24, MCP48FVB08, MCP48FVB18,
-+   MCP48FVB28 can be found here:
-+     https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/MCP48FXBX4-8-Family-Data-Sheet-DS20006362A.pdf
-+
-+  +------------+--------------+-------------+-------------+------------+------------+
-+  | Device     |  Resolution  |   Channels  | Vref number |   Memory   | Interface  |
-+  |------------|--------------|-------------|-------------|------------|------------|
-+  | MCP47FEB01 |              |      1      |      1      |   EEPROM   |    I2C     |
-+  | MCP47FEB02 |              |      2      |      1      |   EEPROM   |    I2C     |
-+  | MCP47FEB04 |              |      4      |      2      |   EEPROM   |    I2C     |
-+  | MCP47FEB08 |     8-bit    |      8      |      2      |   EEPROM   |    I2C     |
-+  | MCP48FEB01 |              |      1      |      1      |   EEPROM   |    SPI     |
-+  | MCP48FEB02 |              |      2      |      1      |   EEPROM   |    SPI     |
-+  | MCP48FEB04 |              |      4      |      2      |   EEPROM   |    SPI     |
-+  | MCP48FEB08 |              |      8      |      2      |   EEPROM   |    SPI     |
-+  |------------|--------------|-------------|-------------|------------|------------|
-+  | MCP47FEB11 |              |      1      |      1      |   EEPROM   |    I2C     |
-+  | MCP47FEB12 |              |      2      |      1      |   EEPROM   |    I2C     |
-+  | MCP47FEB14 |              |      4      |      2      |   EEPROM   |    I2C     |
-+  | MCP47FEB18 |    10-bit    |      8      |      2      |   EEPROM   |    I2C     |
-+  | MCP48FEB11 |              |      1      |      1      |   EEPROM   |    SPI     |
-+  | MCP48FEB12 |              |      2      |      1      |   EEPROM   |    SPI     |
-+  | MCP48FEB14 |              |      4      |      2      |   EEPROM   |    SPI     |
-+  | MCP48FEB18 |              |      8      |      2      |   EEPROM   |    SPI     |
-+  |------------|--------------|-------------|-------------|------------|------------|
-+  | MCP47FEB21 |              |      1      |      1      |   EEPROM   |    I2C     |
-+  | MCP47FEB22 |              |      2      |      1      |   EEPROM   |    I2C     |
-+  | MCP47FEB24 |              |      4      |      2      |   EEPROM   |    I2C     |
-+  | MCP47FEB28 |    12-bit    |      8      |      2      |   EEPROM   |    I2C     |
-+  | MCP48FEB21 |              |      1      |      1      |   EEPROM   |    SPI     |
-+  | MCP48FEB22 |              |      2      |      1      |   EEPROM   |    SPI     |
-+  | MCP48FEB24 |              |      4      |      2      |   EEPROM   |    SPI     |
-+  | MCP48FEB28 |              |      8      |      2      |   EEPROM   |    SPI     |
-+  |------------|--------------|-------------|-------------|------------|------------|
-+  | MCP47FVB01 |              |      1      |      1      |   RAM      |    I2C     |
-+  | MCP47FVB02 |              |      2      |      1      |   RAM      |    I2C     |
-+  | MCP47FVB04 |              |      4      |      2      |   RAM      |    I2C     |
-+  | MCP47FVB08 |     8-bit    |      8      |      2      |   RAM      |    I2C     |
-+  | MCP48FVB01 |              |      1      |      1      |   RAM      |    SPI     |
-+  | MCP48FVB02 |              |      2      |      1      |   RAM      |    SPI     |
-+  | MCP48FVB04 |              |      4      |      2      |   RAM      |    SPI     |
-+  | MCP48FVB08 |              |      8      |      2      |   RAM      |    SPI     |
-+  |------------|--------------|-------------|-------------|------------|------------|
-+  | MCP47FVB11 |              |      1      |      1      |   RAM      |    I2C     |
-+  | MCP47FVB12 |              |      2      |      1      |   RAM      |    I2C     |
-+  | MCP47FVB14 |              |      4      |      2      |   RAM      |    I2C     |
-+  | MCP47FVB18 |    10-bit    |      8      |      2      |   RAM      |    I2C     |
-+  | MCP48FVB11 |              |      1      |      1      |   RAM      |    SPI     |
-+  | MCP48FVB12 |              |      2      |      1      |   RAM      |    SPI     |
-+  | MCP48FVB14 |              |      4      |      2      |   RAM      |    SPI     |
-+  | MCP48FVB18 |              |      8      |      2      |   RAM      |    SPI     |
-+  |------------|--------------|-------------|-------------|------------|------------|
-+  | MCP47FVB21 |              |      1      |      1      |   RAM      |    I2C     |
-+  | MCP47FVB22 |              |      2      |      1      |   RAM      |    I2C     |
-+  | MCP47FVB24 |              |      4      |      2      |   RAM      |    I2C     |
-+  | MCP47FVB28 |    12-bit    |      8      |      2      |   RAM      |    I2C     |
-+  | MCP48FVB21 |              |      1      |      1      |   RAM      |    SPI     |
-+  | MCP48FVB22 |              |      2      |      1      |   RAM      |    SPI     |
-+  | MCP48FVB24 |              |      4      |      2      |   RAM      |    SPI     |
-+  | MCP48FVB28 |              |      8      |      2      |   RAM      |    SPI     |
-+  +------------+--------------+-------------+-------------+------------+------------+
- 
- properties:
-   compatible:
-@@ -84,10 +118,37 @@ properties:
-       - microchip,mcp47feb08
-       - microchip,mcp47feb18
-       - microchip,mcp47feb28
-+      - microchip,mcp48feb01
-+      - microchip,mcp48feb02
-+      - microchip,mcp48feb04
-+      - microchip,mcp48feb08
-+      - microchip,mcp48feb11
-+      - microchip,mcp48feb12
-+      - microchip,mcp48feb14
-+      - microchip,mcp48feb18
-+      - microchip,mcp48feb21
-+      - microchip,mcp48feb22
-+      - microchip,mcp48feb24
-+      - microchip,mcp48feb28
-+      - microchip,mcp48fvb01
-+      - microchip,mcp48fvb02
-+      - microchip,mcp48fvb04
-+      - microchip,mcp48fvb08
-+      - microchip,mcp48fvb11
-+      - microchip,mcp48fvb12
-+      - microchip,mcp48fvb14
-+      - microchip,mcp48fvb18
-+      - microchip,mcp48fvb21
-+      - microchip,mcp48fvb22
-+      - microchip,mcp48fvb24
-+      - microchip,mcp48fvb28
- 
-   reg:
-     maxItems: 1
- 
-+  spi-max-frequency:
-+    maximum: 10000000
-+
-   "#address-cells":
-     const: 1
- 
-@@ -178,6 +239,21 @@ required:
-   - vdd-supply
- 
- allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            pattern: "^microchip,mcp48f[ev]b[0-2][1248]$"
-+    then:
-+      $ref: /schemas/spi/spi-peripheral-props.yaml#
-+      dependencies:
-+        spi-cpha: [ spi-cpol ]
-+        spi-cpol: [ spi-cpha ]
-+    else:
-+      properties:
-+        spi-max-frequency: false
-+        spi-cpha: false
-+        spi-cpol: false
-   - if:
-       properties:
-         compatible:
-@@ -189,6 +265,12 @@ allOf:
-               - microchip,mcp47fvb01
-               - microchip,mcp47fvb11
-               - microchip,mcp47fvb21
-+              - microchip,mcp48feb01
-+              - microchip,mcp48feb11
-+              - microchip,mcp48feb21
-+              - microchip,mcp48fvb01
-+              - microchip,mcp48fvb11
-+              - microchip,mcp48fvb21
-     then:
-       properties:
-         lat1-gpios: false
-@@ -211,6 +293,12 @@ allOf:
-               - microchip,mcp47fvb02
-               - microchip,mcp47fvb12
-               - microchip,mcp47fvb22
-+              - microchip,mcp48feb02
-+              - microchip,mcp48feb12
-+              - microchip,mcp48feb22
-+              - microchip,mcp48fvb02
-+              - microchip,mcp48fvb12
-+              - microchip,mcp48fvb22
-     then:
-       properties:
-         lat1-gpios: false
-@@ -233,6 +321,12 @@ allOf:
-               - microchip,mcp47feb04
-               - microchip,mcp47feb14
-               - microchip,mcp47feb24
-+              - microchip,mcp48feb04
-+              - microchip,mcp48feb14
-+              - microchip,mcp48feb24
-+              - microchip,mcp48fvb04
-+              - microchip,mcp48fvb14
-+              - microchip,mcp48fvb24
-     then:
-       patternProperties:
-         "^channel@[0-3]$":
-@@ -251,6 +345,12 @@ allOf:
-               - microchip,mcp47feb08
-               - microchip,mcp47feb18
-               - microchip,mcp47feb28
-+              - microchip,mcp48feb08
-+              - microchip,mcp48feb18
-+              - microchip,mcp48feb28
-+              - microchip,mcp48fvb08
-+              - microchip,mcp48fvb18
-+              - microchip,mcp48fvb28
-     then:
-       patternProperties:
-         "^channel@[0-7]$":
-@@ -272,7 +372,7 @@ allOf:
-       properties:
-         microchip,vref1-buffered: false
- 
--additionalProperties: false
-+unevaluatedProperties: false
- 
- examples:
-   - |
-@@ -299,4 +399,29 @@ examples:
-             };
-         };
-     };
-+  - |
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        dac@0 {
-+          compatible = "microchip,mcp48feb02";
-+          reg = <0x0>;
-+          vdd-supply = <&vdac_vdd>;
-+          vref-supply = <&vref_reg>;
-+          spi-max-frequency = <10000000>;
-+
-+          #address-cells = <1>;
-+          #size-cells = <0>;
-+          channel@0 {
-+            reg = <0>;
-+            label = "Adjustable_voltage_ch0";
-+          };
-+
-+          channel@1 {
-+            reg = <0x1>;
-+            label = "Adjustable_voltage_ch1";
-+          };
-+        };
-+    };
- ...
+On Wed, Sep 23, 2026 at 10:17=E2=80=AFPM Guenter Roeck <linux@roeck-us.net>=
+ wrote:
+>
+> On Wed, Sep 23, 2026 at 11:40:50AM +0100, Prabhakar wrote:
+> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> >
+> > The WDTDCR helpers access the register directly using readl()/writel() =
+and
+> > therefore cannot report failures to their callers. WDTDCR is located in=
+ a
+> > shared syscon region and will be accessed through regmap in a subsequen=
+t
+> > change, where register accesses can fail.
+> >
+> > Make rzt2h_wdt_wdtdcr_count_start() and rzt2h_wdt_wdtdcr_count_stop()
+> > return an error so their callers can propagate failures.
+> >
+> > Handle these errors in the watchdog start and stop paths and unwind the
+> > resources acquired before the WDTDCR access, restoring the reset state.
+> >
+> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > ---
+> > v5->v6:
+> > - No change
+> >
+> > v4->v5:
+> > - Dropped checking rzt2h_wdt_wdtdcr_count_start() return value in
+> >   restart path.
+> >
+> > v2->v3:
+> > - New patch, split from v2 patch #1 to make thing easier to review.
+> > ---
+> >  drivers/watchdog/rzv2h_wdt.c | 35 ++++++++++++++++++++++++++---------
+> >  1 file changed, 26 insertions(+), 9 deletions(-)
+> >
+> > diff --git a/drivers/watchdog/rzv2h_wdt.c b/drivers/watchdog/rzv2h_wdt.=
+c
+> > index 9774fe8e441e..a65e5d6c48ad 100644
+> > --- a/drivers/watchdog/rzv2h_wdt.c
+> > +++ b/drivers/watchdog/rzv2h_wdt.c
+> > @@ -87,18 +87,22 @@ static int rzv2h_wdt_ping(struct watchdog_device *w=
+dev)
+> >       return 0;
+> >  }
+> >
+> > -static void rzt2h_wdt_wdtdcr_count_stop(struct rzv2h_wdt_priv *priv)
+> > +static int rzt2h_wdt_wdtdcr_count_stop(struct rzv2h_wdt_priv *priv)
+> >  {
+> >       u32 reg =3D readl(priv->wdtdcr + WDTDCR);
+> >
+> >       writel(reg | WDTDCR_WDTSTOPCTRL, priv->wdtdcr + WDTDCR);
+> > +
+> > +     return 0;
+> >  }
+> >
+> > -static void rzt2h_wdt_wdtdcr_count_start(struct rzv2h_wdt_priv *priv)
+> > +static int rzt2h_wdt_wdtdcr_count_start(struct rzv2h_wdt_priv *priv)
+> >  {
+> >       u32 reg =3D readl(priv->wdtdcr + WDTDCR);
+> >
+> >       writel(reg & ~WDTDCR_WDTSTOPCTRL, priv->wdtdcr + WDTDCR);
+> > +
+> > +     return 0;
+> >  }
+> >
+> >  static void rzv2h_wdt_setup(struct watchdog_device *wdev, u16 wdtcr)
+> > @@ -148,8 +152,14 @@ static int rzv2h_wdt_start(struct watchdog_device =
+*wdev)
+> >       rzv2h_wdt_setup(wdev, of_data->cks_max | WDTCR_RPSS_100 |
+> >                       WDTCR_RPES_0 | of_data->tops);
+> >
+> > -     if (priv->of_data->wdtdcr)
+> > -             rzt2h_wdt_wdtdcr_count_start(priv);
+> > +     if (priv->of_data->wdtdcr) {
+> > +             ret =3D rzt2h_wdt_wdtdcr_count_start(priv);
+> > +             if (ret) {
+> > +                     reset_control_assert(priv->rstc);
+>
+> It seems to me this does way more than handling the error:
+> it puts the module into reset and calls pm_runtime_put()
+> on the parent. This is a substantial functional change
+> that is not explained.
+>
+The intention was only to unwind what rzv2h_wdt_start() had already
+done before the WDTDCR access (the runtime PM get and the reset
+deassert), so that a failure would leave the module in the same state
+as before the call. I agree this should have been explained, and that
+it adds more churn than the change is worth.
 
--- 
-2.43.0
+> > +                     pm_runtime_put(wdev->parent);
+> > +                     return ret;
+> > +             }
+> > +     }
+> >
+> >       /*
+> >        * Down counting starts after writing the sequence 00h -> FFh to =
+the
+> > @@ -169,8 +179,13 @@ static int rzv2h_wdt_stop(struct watchdog_device *=
+wdev)
+> >       if (ret)
+> >               return ret;
+> >
+> > -     if (priv->of_data->wdtdcr)
+> > -             rzt2h_wdt_wdtdcr_count_stop(priv);
+> > +     if (priv->of_data->wdtdcr) {
+> > +             ret =3D rzt2h_wdt_wdtdcr_count_stop(priv);
+> > +             if (ret) {
+> > +                     reset_control_deassert(priv->rstc);
+>
+> Same here, and the logic behind taking the module out of reset
+> in the stop function and putting it into reset in the start function
+> isn't obvious to me.
+>
+Same reasoning as above.
 
+> Frankly, I think it would be much better and risk fewer problems
+> to just ignore the theoretic errors from the regmap functions.
+>
+Agreed. For the MMIO-backed regmap these accesses cannot fail in
+practice, so in the next version I'll keep
+rzt2h_wdt_wdtdcr_count_start() and rzt2h_wdt_wdtdcr_count_stop()
+returning void, drop the error unwinding from the start/stop paths,
+and ignore the return values of the regmap calls.
+
+Cheers,
+Prabhakar
+
+> > +                     return ret;
+> > +             }
+> > +     }
+> >
+> >       pm_runtime_put_sync(wdev->parent);
+> >
+> > @@ -219,8 +234,10 @@ static int rzv2h_wdt_restart(struct watchdog_devic=
+e *wdev,
+> >       rzv2h_wdt_setup(wdev, priv->of_data->cks_min | WDTCR_RPSS_25 |
+> >                       WDTCR_RPES_75 | WDTCR_TOPS_1024);
+> >
+> > -     if (priv->of_data->wdtdcr)
+> > +     if (priv->of_data->wdtdcr) {
+> > +             /* best effort, ignore ret */
+> >               rzt2h_wdt_wdtdcr_count_start(priv);
+> > +     }
+> >
+> >       rzv2h_wdt_ping(wdev);
+> >
+> > @@ -251,11 +268,11 @@ static int rzt2h_wdt_wdtdcr_init(struct platform_=
+device *pdev,
+> >       if (ret)
+> >               return ret;
+> >
+> > -     rzt2h_wdt_wdtdcr_count_stop(priv);
+> > +     ret =3D rzt2h_wdt_wdtdcr_count_stop(priv);
+> >
+> >       pm_runtime_put_sync(&pdev->dev);
+> >
+> > -     return 0;
+> > +     return ret;
+> >  }
+> >
+> >  static int rzv2h_wdt_probe(struct platform_device *pdev)
+> > --
+> > 2.55.0
+> >
