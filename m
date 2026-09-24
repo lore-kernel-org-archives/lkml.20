@@ -1,163 +1,114 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28881390981
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:25:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50B24395AD1
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:26:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790259932; cv=none; b=cpQEfJykbMNBUkoHbDytSGtTg684iFXKud23nsrNmoxXlYWtTD7XeSNjBhH1WIgydeVON5uKLXYSvbJtfERIOSpWwQdONxFAlbMAZWH5rLwUe2YgmSIR/iCaNYFIKIDbPfhe/S5DqNfO9Bt7YJpb480zFnr6PgJ97xjQr6CBZV8=
+	t=1790260018; cv=none; b=mlVaBSoQ4OHTDzbkvK6j27xWbWpnd5LXIhll5CmPZFnPIPrVQo4DJdAjRq93xuEzozl0Zvvjdp75GLV3PnhF80BzytMBYQY7hM8QCrMItQhwnfcmamGNnQ4x/OrLPGGN+kQqqpgWku7xJNkgVWBN+ztR64jcs8KllJSrNnNNTf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790259932; c=relaxed/simple;
-	bh=PCceAyxaZLKgL8goEMDQOo0fDMqrsGEIZWywwLaroIg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Bs413TvNdqRzSs5Ct1WxY5EtXBxgfGJcNFQAdV+HRCHigkIoH3SEYqo/9QfOcJgSS5BJskYMR3Mh8uYunNLpGPA/fYdOmSrBvWRVsjwNZw9RS17VKRyHtduiV2TLnSp/0OrH45/dRRiH3FmUfg8q7aWHOUoH6Lei/k6Mw06JR2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iUaJOYo0; arc=none smtp.client-ip=209.85.215.180
+	s=arc-20240116; t=1790260018; c=relaxed/simple;
+	bh=uUj/7pfRqNTrc58rMcrNWZ1ddSBdy5zDMuW/FvBckfs=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:MIME-Version; b=k5X9z6Mdr5EXl1VkDjLQIN9IoPVThAtRNWu27M38GJLGgB7bXlIl0fsn5D/mXdfbRDV+uq+XJKX/Vo3nud5GlDwFQJQrOH3bqn2eZgJfGs18wOBZdT92+viHUXn8zTbxMZQh7Sf5FklL/CPxdOF/3DwzjVkYuX+CMidc1cx2z28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NIolqGrs; arc=none smtp.client-ip=74.125.228.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iUaJOYo0"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc147d86bebso584921a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:25:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NIolqGrs"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4d04d740cso1012685a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:26:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790259930; x=1790864730; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MaWkFoUOQ+u9WS91tjqMuEOPGp9Db2ThXslkCbREcik=;
-        b=iUaJOYo047OfnqEbDRf/l0Vc+QXRDOu6pdcz7FU6JL9utiqm4seLDMg+ftiJt8tShO
-         azCo2kEEykKInL8/677EBvQFEdMyjmM9jdTI+U40gdOdhoxwzCns98K1LOOG68Tl4K/c
-         C/YPGzk75w+vf1gcgBUIwPYLa4wETVhXgVYKnYj075UsYAgxg+1oVc7llgndUyQ4OD0I
-         wjDILbkwQkJrjVVZfpq5ER/wAQp9neyhrBt57P/KP1/H0En6uLY8a/N33pq5mRtmh2zN
-         7Dm/bgj+8zOZAluO3jBCF/5nEet/FOA/pMXG6xujb9ZiC+k53cbGRPJU3fE4m99FNagj
-         Qb1Q==
+        d=gmail.com; s=20251104; t=1790260015; x=1790864815; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uUj/7pfRqNTrc58rMcrNWZ1ddSBdy5zDMuW/FvBckfs=;
+        b=NIolqGrsxUle2ezYAMv9hMr6r1HrMFs7BaRBtC3ipYoY7HBgZ0dl5O3dyIuufCKcsc
+         zDiAKTtnBYySb4q9KK2NaU+tKf+2aoTDaPDTxlUvefPLQtd6uElbnZUmXVdeFBUKbMhs
+         +Nd449TBjWDf1/DGJnyiqSSKQ1Wxc4tfjvOLxFeY4F0e4fBP5Y2Z6IDmbGCqj1626eyF
+         e7hzi6K2ygBncvU3KaZDfeOUxhpyNiDyOJRZo3/kpbL8OFquopqNJar6W4pTWc8ZM0cr
+         svwj0gNkB7LKgPXMin00R/UekUFqEiX02pEoVAdZLD6h/Pby7sgcCoQq5na0KZDl6ots
+         ktZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790259930; x=1790864730;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MaWkFoUOQ+u9WS91tjqMuEOPGp9Db2ThXslkCbREcik=;
-        b=bAHyzfUVVUx+qaU7UfleF3FB8BTptG2oxYv151gZZZmbRKm+H/Ej+DirtrcHXo3f8r
-         im3qQGqkfwedlNz+ytHi/dvpqG1x+NRLfr0uiiudovZnj5o2DN+cXOwaV7aODMPcTV31
-         3PPQLYFlEfeHQGE6xCmagLhzIougWe3kbii+/XrhJgwN5pc4OEJBtvdUWU4JZ4UrocWC
-         FulS6ULhB4poRmfNPZtunM7FmeEcJ/Vt2TI0qQnpA41EccsIJ6iPaDkMN3jQi9y+fi0O
-         zd0jbbs17rg/PAIWC5FwifN1mzGj3qNHJoRsXCUZdzJIPj+nBDPty6fbFBQqzd5SdbtI
-         DTbg==
-X-Forwarded-Encrypted: i=1; AKwUvBxeztTESK1HEB7KMnDgGXKvVCrWJ3BLbaR9UYc7LoxGHOMuAdgBBsCrnZrheLeRlWjhTSEIT5DqBti3hQ4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nZkxhLbyn6OKYtL3pot+lDJmj9LflMp9B6cmEpsBORsd+xU70i
-	bXEHuTpfuXInrdnnv9H8Ke/poNi7zomufqXWw0sv/1W2kCWeiVZCnwqa
-X-Gm-Gg: AYBFou0OVRq4eRHTGiWd0HEuIx67FqZPAnYHQTbC2+zrGKHKD/fak6C4oGGySu0ph8b
-	DHLCj1hrcTy/l7ZTwbdV2ayoA11RcSOYuR/0lL45KyqJaGy/qSpJdueHmN0s8ifuo+FVdhNhQ28
-	rpQEK/L3ysOKJFezXb/x4TWi6qqheUC1G2XB6S5u9R+xU656rlFFriBtlbNIyO6iNPrR1OHwx5t
-	isCcYRTNtOdxulJdty+R4xO++sdPzIxGvTUj5G5QGcQ/LkuUmF4AG+2DG1rd2aF81Io1mnWPwoU
-	oN5lkSxFcKl9kYT77kYEAlKzTbWToCqeTd4Q68YN2DQqDlINMduAopyXNm/xNbsq5jLRxqCxYBV
-	Lxd3ol68tsO21PpwX+oa5RRzdno0OPigXNhSioFUifNT3es1KNRYX/yQe24vviOFbuk4qjWQlwD
-	+RQFPEKIjPfEOgkqk8M2lQcFKgBFrrf7+gH52vXfRVRpfXyelLXu5ZOQ==
-X-Received: by 2002:a05:6a00:1c8a:b0:87c:f3e5:ebda with SMTP id d2e1a72fcca58-87e99e3efcemr1451856b3a.0.1790259930408;
-        Thu, 24 Sep 2026 07:25:30 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1afb99f0sm3157310b3a.6.2026.09.24.07.25.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 07:25:29 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Ulf Hansson <ulfh@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Miaoqian Lin <linmq006@gmail.com>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Dong Aisheng <aisheng.dong@nxp.com>,
-	Lucas Stach <l.stach@pengutronix.de>,
-	linux-pm@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2] pmdomain: imx: gpc: remove all initialized power domains
-Date: Thu, 24 Sep 2026 22:25:20 +0800
-Message-ID: <20260924142520.1594149-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1790260015; x=1790864815;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uUj/7pfRqNTrc58rMcrNWZ1ddSBdy5zDMuW/FvBckfs=;
+        b=e2bKCoYDFnY4avs+wiZaXrBtA4Y1X6VoN80bOQJtNssspyrKjYHR/rC+YmN6UJBQr2
+         QzXWen341Bk0FhYm/jfZ4aAfDs50vZcvD+7qLWB5plJ6XSJA8Un1ALrVkYk9vDjMi/ZD
+         pI6jEKwBILtg5Sjar64/WBQr+mnxAApGB/ggZc9X/ExB6EXTwS5Cb/E87eQXVU+UrTQ5
+         pcuS1MGgMSxO/zaoNkJzc7BcM5RB8gPU4kY0SUPcVFuYEiw/6VttM2MrnyaXgCUVdtRF
+         bWdm5PNlmtoigMrokTowscEZRW99U13rDjvfjRuzdhdPWsCfDC28rdP3R5tiEDG+jJMS
+         RdAA==
+X-Forwarded-Encrypted: i=1; AKwUvBwYMnWkfx11N7iVDd3EHNoivkFdwyhUczJSf821lHawBg2CTqt4q4ykoEMuyysLnCFI0y+K1b1MGPms3Ic=@vger.kernel.org
+X-Gm-Message-State: AFuF++m923FBdhGM4+xbd+SkfDnlavO3YrLkIdSPieVG1aCEAgiORk4v
+	vtkOG0UvftfItSyj30nOpfTwr0aG3FlsntuPzO6sHSWSTTJvWzOOGs/R
+X-Gm-Gg: AYBFou3Ysn6VbdulL29l5Bi/Mzauy7Zgofxxzy10ZBXjLBd++Eocipz+nTJKrq8DCsi
+	Bdra+Eqc96ubUgLws4jWbIxJEn5ATbpnpNfikclOBpxcVCvmI0Yq16RzQQYMYhFDqVC20PYQJVY
+	xB4y91cX1OOmV+DMhHQoUbQ+rdbBISzeGWWBcilby+7lA0uA0Vp4nvUi/cPzoh6Hx0Io06CZUBW
+	mTAiaA+9GYEeAwdPEywS87PKCR1pMQ6e1I047lKcFes/LbELWSNMjmMhAxNDJXkHhp2gUc7KoUq
+	6cszrODc0pvpWg4dNN0+84y3rM4apyUkCtk5gOQ53txThzJLVHETsi+vSImYtz4lZgu7nwpyj0D
+	hhUzGJGDRoUPI3+3tnpCXWfpTvmOko0s2130Noha8nALs85/TqoeFj2AzpFuIhvpxHj0jsEvLHh
+	i5c+ALULwOi5j7ecx31mGNUuFBvNp+fQbS+TkoILybEoHCzxGNd3d+oECljkSNuWHLEvl6fZ2Hz
+	xKlKAR3GjyN9Kbyo3VesiVxDUW+0AoHHS278LzVgY890ZZeV8e79174mDEjua75c6Sr/8nHlNzl
+	gQA=
+X-Received: by 2002:a17:903:1447:b0:2dd:ad74:ac35 with SMTP id d9443c01a7336-2df7e11ca4emr22565155ad.30.1790260014607;
+        Thu, 24 Sep 2026 07:26:54 -0700 (PDT)
+Received: from localhost ([153.61.198.244])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a517069sm28507785ad.3.2026.09.24.07.26.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 07:26:53 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 24 Sep 2026 14:26:52 +0000
+Message-Id: <DLNM7JR51QLJ.13Z4D921BZOJD@gmail.com>
+Cc: "Daniel Borkmann" <daniel@iogearbox.net>, "David S. Miller"
+ <davem@davemloft.net>, "Jakub Kicinski" <kuba@kernel.org>, "Jesper Dangaard
+ Brouer" <hawk@kernel.org>, "John Fastabend" <john.fastabend@gmail.com>,
+ "Stanislav Fomichev" <sdf@fomichev.me>, "Andrii Nakryiko"
+ <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar
+ Kartikeya Dwivedi" <memxor@gmail.com>, "Martin KaFai Lau"
+ <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong Song"
+ <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
+ Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
+ <ihor.solodrai@linux.dev>, <netdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH bpf v2] bpf: cpumap: fix use-after-free of dev_rx on
+ netdev unregister
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Jiayuan Chen" <jiayuan.chen@linux.dev>, <bpf@vger.kernel.org>
+In-Reply-To: <20260924081828.26575-1-jiayuan.chen@linux.dev>
+References: <20260924081828.26575-1-jiayuan.chen@linux.dev>
+X-Mailer: mkdraft (claude review draft; edit before sending)
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-imx_gpc_old_dt_init() initializes all power domains described by
-of_id_data->num_domains, while imx_gpc_remove() only removes the PU and
-ARM domains.
+On Thu, Sep 24, 2026 at 04:18 PM Jiayuan Chen <jiayuan.chen@linux.dev> wrote:
+> The notifier has to ask every entry, a cpumap entry is not tied to a
+> netns and any device can feed it. So an unregister anywhere drains
+> every ring in the system, once per device, with RTNL held. That is
+> bounded: qsize is capped at 16384, each entry consumes at most one
+> ring plus a GRO flush, and the kthreads do it in parallel. Those
+> frames had to be consumed anyway. Nothing changes on the hot path,
+> the kthread reads one field per batch.
 
-Use the match data to remove all initialized power domains in reverse
-order. Release the PU clocks after the PU domain is removed.
+The code is the same as in v2. Only the commit log changed.
 
-This issue was found by manual code inspection.
+The number of frames is bounded. The time is not.
+wait_event() has no timeout and sleeps with rtnl held until
+every cpumap kthread in the system gets cpu, including the ones
+with an empty ring.
+flush_all_backlogs() had the same problem. See
+commit 2de79ee27fdb ("net: try to avoid unneeded backlog flush").
+The bug needs a kthread that doesn't get cpu during unregister.
+With this patch such kthread blocks unregister of every netdev
+in every netns while rtnl is held.
 
-Fixes: 5a42d1198901 ("soc: imx: gpc: fix imx6sl gpc power domain regression")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
-v2:
-  - Check the result of device_get_match_data() before using it.
-  - Use an unsigned num_domains variable and a decrementing while loop,
-    as suggested by Andy Shevchenko.
-
- drivers/pmdomain/imx/gpc.c | 29 +++++++++++++++++------------
- 1 file changed, 17 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/pmdomain/imx/gpc.c b/drivers/pmdomain/imx/gpc.c
-index abca5f449a22..d83fb37e2297 100644
---- a/drivers/pmdomain/imx/gpc.c
-+++ b/drivers/pmdomain/imx/gpc.c
-@@ -502,7 +502,9 @@ static int imx_gpc_probe(struct platform_device *pdev)
- 
- static void imx_gpc_remove(struct platform_device *pdev)
- {
-+	const struct imx_gpc_dt_data *of_id_data;
- 	struct device_node *pgc_node;
-+	unsigned int num_domains;
- 	int ret;
- 
- 	pgc_node = of_get_child_by_name(pdev->dev.of_node, "pgc");
-@@ -519,20 +521,23 @@ static void imx_gpc_remove(struct platform_device *pdev)
- 	if (!pgc_node) {
- 		of_genpd_del_provider(pdev->dev.of_node);
- 
--		ret = pm_genpd_remove(&imx_gpc_domains[GPC_PGC_DOMAIN_PU].base);
--		if (ret) {
--			dev_err(&pdev->dev, "Failed to remove PU power domain (%pe)\n",
--				ERR_PTR(ret));
-+		of_id_data = device_get_match_data(&pdev->dev);
-+		if (!of_id_data)
- 			return;
--		}
--		imx_pgc_put_clocks(&imx_gpc_domains[GPC_PGC_DOMAIN_PU]);
- 
--		ret = pm_genpd_remove(&imx_gpc_domains[GPC_PGC_DOMAIN_ARM].base);
--		if (ret) {
--			dev_err(&pdev->dev, "Failed to remove ARM power domain (%pe)\n",
--				ERR_PTR(ret));
--			return;
--		}
-+		num_domains = of_id_data->num_domains;
-+		while (num_domains--) {
-+			ret = pm_genpd_remove(&imx_gpc_domains[num_domains].base);
-+			if (ret) {
-+				dev_err(&pdev->dev,
-+					"Failed to remove %s power domain (%pe)\n",
-+					imx_gpc_domains[num_domains].base.name,
-+					ERR_PTR(ret));
-+				return;
-+			}
-+
-+		if (num_domains == GPC_PGC_DOMAIN_PU)
-+			imx_pgc_put_clocks(&imx_gpc_domains[num_domains]);
- 	}
- 
- 	of_node_put(pgc_node);
--- 
-2.43.0
-
+pw-bot: cr
