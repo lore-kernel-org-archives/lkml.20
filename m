@@ -1,164 +1,240 @@
-Received: from mail-wr2-f10.google.com (mail-wr2-f10.google.com [74.125.225.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B18E43EC824
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:18:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32344424D41;
+	Thu, 24 Sep 2026 07:18:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790234331; cv=none; b=htDZX1X8aLO4azcN4HptHP7qSP10+cl7tJZDcAWarqMbZOyfW3VnWa9TJUeR4Q0413T4yGjkUQg6mQmkYZIKUF7MCktggwFULhIF/X4w0Y9pFR5Vj4r4DCgbLMDFmeyF9SKrSS+iHn5cjJJ/1wfwNfK9iqbOJ6OZMZyRwsI2zpA=
+	t=1790234332; cv=none; b=jig3smC38UGHuljNVGhHbYudrHUBoR45V/GLuYxPQformoemRqg4Jxuv/gSUf7C4xsHy5fBsNp9QEcYFGGp6GHqh73wULdVIk93Y1y8GKeU5h3WnlJ7VxIs9zNW0tJhClRi9Brir87HSo2Xu4i3eIdwJmRQIIHCm6DAb7uT+V60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790234331; c=relaxed/simple;
-	bh=RkQZIUAkC/CwNHAccWBmK7QrU2UwzqU4lzfZ5AArSQ0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=tYSdGb6/URLLiHPfR0Lk22aDbUGJb2meMl9SxEW4wYZCUcG52Eks/diPNhfc0AIjhladxnT1Y/gQfFCXq29vtqol+dvWF+uKbfqwN9JtLYGx1OrkP0oRgH2zTWCIpWW4nM+WsykunEF2lDk3kIeYpxm3NujDwvdyP044lCZzNZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oGp6lhUf; arc=none smtp.client-ip=74.125.225.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790234332; c=relaxed/simple;
+	bh=fioJb7wxBoSW63SsX7ZiPw2S/5owVJ2rA6inNzdM1r0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Oh2W/aSV6Aj8vjKMKpJM79oAjW5gvweBqFOMuK5/fNm1ODXZp4LdAFz0W6Ks1BXGul00VtXdpdBoRVoataTAgQy2Mb5nabfchQsBXJdZ4aGLw9hhkb3X51s/znVl4QDreMwhb3mJk5F3jrpxd0S+p/xCtLfupqV4SfjdHSYLNfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HnlzH3Uw; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oGp6lhUf"
-Received: by mail-wr2-f10.google.com with SMTP id ffacd0b85a97d-484373a2e82so922989f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:18:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790234322; x=1790839122; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=523fTptxsOAJ8wEQL/CwkuoPNTaX+slLlXT8PVpSULI=;
-        b=oGp6lhUfWvnkLvJ/MVURmlhVmC6OALMjPL+LGNxfAwbC9qlCXbRrSUzDdyqAqn/J9L
-         gmCMyGvkx4+uvATE2wOhLaY25Z0PDT/JjIvISRjXw0olQ+JxMiJcooXVf1KLKzP6n0Rf
-         fcBHr+kl1HyjajyY5VRWVRIOxc0tjdXYxx0SUppJOdy2KsfWvgzoCQFBCsDKzCGtYaL/
-         FzN9J7qrNLCOaG0ksSOW1G1hwYz673P+1mobMhbpPzlPPcqyQLvOjng/FNyDOT7SnH67
-         8ow/2hhWHqYj1tQhm2tWUylVxK+ie9chXkffpqjsHy6YqBVUuGgW3I/e6xGqA+Kv+T6g
-         SZqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790234322; x=1790839122;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=523fTptxsOAJ8wEQL/CwkuoPNTaX+slLlXT8PVpSULI=;
-        b=SxktY+PZeytH7VamcgMIgnGuW7ZlxcgE0aM/OcRfh53YWFXMGgLAiEfBUnT43sG1se
-         HJjKD7rwtWRpKF0tQIzvnfiA8QQA4hckv0XTmSiIF4LbLCPiDlIoY3ov5w5G38tXZKKl
-         r318ltaWu/uA80/tdzfA7N7uALKfqlJwOV7hJ4PckJhk+XZgvs3kPXDX6JphwdOEQlcI
-         ljBXVVPONmnyHP0kr2iK5Bk8MgZqOzFPY2vSQ7K7UHSycsJDjZC3xAIwQSHKLeVkhTQD
-         Z6x74tNnfpWqv3U+aCtjAr9KId5W3tqTxbtdX4lv/W8UMKMDneUduOvYB6VzGQrI85Tq
-         7oXw==
-X-Forwarded-Encrypted: i=1; AKwUvBxU0LhWxyNJwMNtfOhKAINmHIj96hhzriJ18ynhbUBCUfZdLakGMq8bStPUM/l9IcLkbwWSuGaOrtvd9Vk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lggTyXcHiYmRn6k896SDSgAv+6MJGcESuHpoN0ZZ3I+x51UcsV
-	qoZClcm3kLh8KVctl+TQBB66e0Szk4G9SqZEiR/A/yFKSw4uZHGrtFs2
-X-Gm-Gg: AYBFou3pM9EyGKgDfMZy1pA9oMnGcZCVo9w6p9SrtlHCnPiTODHiQYWIoORuNXo3aiS
-	7tJLaxaSFKJCvd5urE+4TS16NPDZAbL6WzzRVbdU6Fiwi6Zwq0dA+N1QVwiUDBDk38zpyQLR5Lj
-	jZc/pJ4QpXNfQo4PPmAWSVMlEicY2apJV9AEI6MFMddVXEwVyZ42g+X6p4qbFEOkfshyBRXYA2x
-	stYFtIrrMOGIwpGc39iKyOVV73WGhea9/Fr2rhK29CXFrK8+SZm2sCKnZ2iRwdFjLYsu5PeaAEY
-	//7SvBrYV1f9gDyz33hGxNGkQUwOOxZBO31RfLwB2FHiC6TWC65avC4BE21YrhpaW/70SP9WYP7
-	d3kl8O3vhum2juhCmhXEv95eH0Gp+kIfyQoGuP3/nQw1ImFqNbmPvP/hx6ayxXt5I6GsekeJEWl
-	xE4kwGqNrN1LBRn7JR2qHf7OByehmLk2osbO425AIey2tOYZnlqTUL7IShyXjy78UUD23LdyJq0
-	OlayHiF21/A+RwJ7UwLJAmy97JXMH2pQlPZ377G+lJK+QPMJZqkjzyzYY7sGUZAwlvcO3Lm3YjC
-	yyJSWVIJ0P8cd+Roz8i3O+/cQfK487nhLMkQd/gBI+2Lm3B7
-X-Received: by 2002:a05:6000:4012:b0:487:8ec:bbd2 with SMTP id ffacd0b85a97d-488716c9360mr2499338f8f.19.1790234321688;
-        Thu, 24 Sep 2026 00:18:41 -0700 (PDT)
-Received: from localhost (nat-icclus-192-26-29-3.epfl.ch. [192.26.29.3])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488682668dcsm13312703f8f.1.2026.09.24.00.18.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 00:18:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HnlzH3Uw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790234325; x=1821770325;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=fioJb7wxBoSW63SsX7ZiPw2S/5owVJ2rA6inNzdM1r0=;
+  b=HnlzH3UwzLw7hMDM/fv3euxDHgwkf7lYdRyzMF09kEznVBkzNYK7gol+
+   QINfQiB9cu9KSbpWj2NR1emlpbcv6cLHW/yvvgZx+sMyPQG8b+hbB+0Q9
+   S6nU0gzIi2s9C9syi990WYJZHKHDiIH5BavHD4wUZerBr7AlvJEnRmlGa
+   sqbvurdvZtL8Pzu1M2Wk9yRHnXyXTDvX8S0vyMBZkOTC2s1wHwFss1/Lp
+   nbaw1wlq5o9uuK4mnYVhwUiROg10384HP78yNJLri79mHXjnSapHkBmb7
+   uZQ6o47uAz9EYueRzcOShB/jXDJ7ZKHFH9FKdvb8YMZzHvOfCvknVwDR6
+   A==;
+X-CSE-ConnectionGUID: fs1hCXFURtq9YFvSzYb1Gw==
+X-CSE-MsgGUID: M6APcjqLRICGbFgt+WyTiw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="101573928"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="101573928"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 00:18:42 -0700
+X-CSE-ConnectionGUID: cF/J7uvVR9yCBEAl1lquFQ==
+X-CSE-MsgGUID: km3dNwjkQlWgNuzF4KNv3w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="274123667"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa008.fm.intel.com with ESMTP; 24 Sep 2026 00:18:39 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x9dj2-00000000IMI-3TOt;
+	Thu, 24 Sep 2026 07:18:36 +0000
+Date: Thu, 24 Sep 2026 15:18:25 +0800
+From: kernel test robot <lkp@intel.com>
+To: Ratheesh Kannoth <rkannoth@marvell.com>, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, sgoutham@marvell.com,
+	Ratheesh Kannoth <rkannoth@marvell.com>
+Subject: Re: [PATCH v2 net-next] octeontx2-af: pass devlink switch id and
+ cache representor map
+Message-ID: <202609241557.82GuIoAK-lkp@intel.com>
+References: <20260923045826.1774338-1-rkannoth@marvell.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 24 Sep 2026 09:18:40 +0200
-Message-Id: <DLND3P616VVS.RP36A73FJ1BB@gmail.com>
-Subject: Re: [PATCH bpf-next v1 0/6] bpf: Scope callback arguments to their
- frame
-From: "Kumar Kartikeya Dwivedi" <memxor@gmail.com>
-To: "Ihor Solodrai" <ihor.solodrai@linux.dev>, "Alexei Starovoitov"
- <alexei.starovoitov@gmail.com>, "Andrii Nakryiko" <andrii@kernel.org>,
- "Daniel Borkmann" <daniel@iogearbox.net>, "Eduard Zingerman"
- <eddyz87@gmail.com>
-Cc: "Amery Hung" <ameryhung@gmail.com>, "Emil Tsalapatis"
- <emil@etsalapatis.com>, "Nicholas Carlini" <npc@anthropic.com>,
- <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <kernel-team@meta.com>
-X-Mailer: aerc 0.21.0
-References: <20260922010333.1226537-1-ihor.solodrai@linux.dev>
- <DLLGYV7DI406.JRNDNAZ4S29I@gmail.com>
- <ddb3c0eb-2a95-4af8-a9b9-a0624d38a7bc@linux.dev>
-In-Reply-To: <ddb3c0eb-2a95-4af8-a9b9-a0624d38a7bc@linux.dev>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923045826.1774338-1-rkannoth@marvell.com>
 
-On Tue Sep 22, 2026 at 8:13 AM CEST, Ihor Solodrai wrote:
-> On 2026-09-21 6:55 p.m., Alexei Starovoitov wrote:
->> On Mon, Sep 21, 2026 at 06:03 PM Ihor Solodrai <ihor.solodrai@linux.dev>=
- wrote:
->>
->>> Neither has a local fix: both arguments point into a helper's own
->>> frame, with nothing longer-lived to anchor them to.
->>
->> It's the same problem as a pointer to callee's stack.
->> check_stack_write_fixed_off() deals with it like this:
->>    if (state !=3D cur && reg->type =3D=3D PTR_TO_STACK) {
->>            verbose(env, "cannot spill pointers to stack into stack frame=
- of the caller\n");
->>            return -EINVAL;
->>    }
->> CONST_PTR_TO_DYNPTR wasn't spillable before 7.3, so nothing depends
->> on parking it in the caller's frame. Reject it there too ?
->> and then no need for REF_TYPE_FRAME complexity?
->
-> If we focus on the nasty bpf_user_ringbuf_drain() bug specifically,
-> then yes, check_stack_write_fixed_off() change patches it:
->
-> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-> index d62c0f74cff5..f261423e9282 100644
-> --- a/kernel/bpf/verifier.c
-> +++ b/kernel/bpf/verifier.c
-> @@ -3668,7 +3668,8 @@ static int check_stack_write_fixed_off(struct
-> bpf_verifier_env *env,
->                          verbose(env, "invalid size of register spill\n")=
-;
->                          return -EACCES;
->                  }
-> -               if (state !=3D cur && reg->type =3D=3D PTR_TO_STACK) {
-> +               if (state !=3D cur && (reg->type =3D=3D PTR_TO_STACK ||
-> +                                    reg->type =3D=3D CONST_PTR_TO_DYNPTR=
-)) {
->                          verbose(env, "cannot spill pointers to stack
-> into stack frame of the caller\n");
->                          return -EINVAL;
->                  }
->
-> However it doesn't cover some of the new test cases:
->    - user_ringbuf_callback_park_data_slice
->    - user_ringbuf_callback_park_kfunc_slice
->    - user_ringbuf_callback_park_clone
->    - user_ringbuf_callback_park_clone_then_slice
->
-> (not counting the diag message diff)
->
-> The original suggestion that came with the bug report was a
-> cb_dynptr_id field in bpf_func_state set up in
-> set_user_ringbuf_callback_state() and read in prepare_func_exit() to
-> release it there.
->
-> The cb_dynptr_id seemed way too specific, I didn't like it. So I've
-> tried to figure out a feasible generalization of the problem, and came
-> to "verifier can't track a lifetime of a ref tied to a frame", and
-> then to this series.
->
-> I think we need to decide whether the REF_TYPE_FRAME is a useful
-> mechanism in principle, and whether it's sufficiently generic. It at
-> least covers the cases in this series and more.
->
-> For example AI also flagged for me parking the vma argument
-> (PTR_TO_BTF_ID) of the bpf_find_vma() callback. It's low severity,
-> which is why I excluded that from the series, but "reject a reg type"
-> wouldn't work there AFAIU (we would break many legitimate programs).
->
-> Opinions?
+Hi Ratheesh,
 
-Ok, I think I didn't realize the issue was broader than just CONST_PTR_TO_D=
-YNPTR
-type. In that case I think what you suggest does make sense, and might help
-generalize the behavior across different cases.
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on net-next/main]
+[also build test ERROR on linus/master v7.3-rc4 next-20260922]
+[cannot apply to linux-review/Ratheesh-Kannoth/octeontx2-af-Representor-devlink-id-and-port-mapping/20260918-103021 horms-ipvs/master]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Ratheesh-Kannoth/octeontx2-af-pass-devlink-switch-id-and-cache-representor-map/20260923-102826
+base:   net-next/main
+patch link:    https://lore.kernel.org/r/20260923045826.1774338-1-rkannoth%40marvell.com
+patch subject: [PATCH v2 net-next] octeontx2-af: pass devlink switch id and cache representor map
+config: loongarch-allmodconfig (https://download.01.org/0day-ci/archive/20260924/202609241557.82GuIoAK-lkp@intel.com/config)
+compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260924/202609241557.82GuIoAK-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609241557.82GuIoAK-lkp@intel.com/
+
+All error/warnings (new ones prefixed by >>):
+
+>> drivers/net/ethernet/marvell/octeontx2/nic/rep.c:663:8: error: call to undeclared function 'rvu_get_rep_cnt'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     663 |         err = rvu_get_rep_cnt(priv);
+         |               ^
+>> drivers/net/ethernet/marvell/octeontx2/nic/rep.c:744:12: warning: no previous prototype for function 'rvu_get_rep_cnt' [-Wmissing-prototypes]
+     744 | static int rvu_get_rep_cnt(struct otx2_nic *priv)
+         |            ^
+   drivers/net/ethernet/marvell/octeontx2/nic/rep.c:744:8: note: declare 'static' if the function is not intended to be used outside of this translation unit
+     744 | static int rvu_get_rep_cnt(struct otx2_nic *priv)
+         |        ^
+   1 warning and 1 error generated.
+
+
+vim +/rvu_get_rep_cnt +663 drivers/net/ethernet/marvell/octeontx2/nic/rep.c
+
+   654	
+   655	int rvu_rep_create(struct otx2_nic *priv, struct netlink_ext_ack *extack)
+   656	{
+   657		int rep_cnt = priv->rep_cnt;
+   658		struct net_device *ndev;
+   659		struct rep_dev *rep;
+   660		int rep_id, err;
+   661		u16 pcifunc;
+   662	
+ > 663		err = rvu_get_rep_cnt(priv);
+   664		if (err)
+   665			return err;
+   666	
+   667		err = rvu_rep_rsrc_init(priv);
+   668		if (err)
+   669			return -ENOMEM;
+   670	
+   671		priv->reps = kzalloc_objs(struct rep_dev *, rep_cnt);
+   672		if (!priv->reps)
+   673			return -ENOMEM;
+   674	
+   675		for (rep_id = 0; rep_id < rep_cnt; rep_id++) {
+   676			ndev = alloc_etherdev(sizeof(*rep));
+   677			if (!ndev) {
+   678				NL_SET_ERR_MSG_FMT_MOD(extack,
+   679						       "PFVF representor:%d creation failed",
+   680						       rep_id);
+   681				err = -ENOMEM;
+   682				goto exit;
+   683			}
+   684	
+   685			rep = netdev_priv(ndev);
+   686			priv->reps[rep_id] = rep;
+   687			rep->mdev = priv;
+   688			rep->netdev = ndev;
+   689			rep->rep_id = rep_id;
+   690	
+   691			ndev->min_mtu = OTX2_MIN_MTU;
+   692			ndev->max_mtu = priv->hw.max_mtu;
+   693			ndev->netdev_ops = &rvu_rep_netdev_ops;
+   694			pcifunc = priv->rep_pf_map[rep_id];
+   695			rep->pcifunc = pcifunc;
+   696	
+   697			snprintf(ndev->name, sizeof(ndev->name), "Rpf%dvf%d",
+   698				 rvu_get_pf(priv->pdev, pcifunc),
+   699				 (pcifunc & RVU_PFVF_FUNC_MASK));
+   700	
+   701			ndev->hw_features = (NETIF_F_RXCSUM | NETIF_F_IP_CSUM |
+   702				       NETIF_F_IPV6_CSUM | NETIF_F_RXHASH |
+   703				       NETIF_F_SG | NETIF_F_TSO | NETIF_F_TSO6);
+   704	
+   705			ndev->hw_features |= NETIF_F_HW_TC;
+   706			ndev->features |= ndev->hw_features;
+   707			eth_hw_addr_random(ndev);
+   708			err = rvu_rep_devlink_port_register(rep);
+   709			if (err) {
+   710				free_netdev(ndev);
+   711				goto exit;
+   712			}
+   713	
+   714			SET_NETDEV_DEVLINK_PORT(ndev, &rep->dl_port);
+   715			err = register_netdev(ndev);
+   716			if (err) {
+   717				NL_SET_ERR_MSG_MOD(extack,
+   718						   "PFVF representor registration failed");
+   719				rvu_rep_devlink_port_unregister(rep);
+   720				free_netdev(ndev);
+   721				goto exit;
+   722			}
+   723	
+   724			INIT_DELAYED_WORK(&rep->stats_wrk, rvu_rep_get_stats);
+   725		}
+   726		err = rvu_rep_napi_init(priv, extack);
+   727		if (err)
+   728			goto exit;
+   729	
+   730		rvu_eswitch_config(priv, true);
+   731		return 0;
+   732	exit:
+   733		while (--rep_id >= 0) {
+   734			rep = priv->reps[rep_id];
+   735			unregister_netdev(rep->netdev);
+   736			rvu_rep_devlink_port_unregister(rep);
+   737			free_netdev(rep->netdev);
+   738		}
+   739		kfree(priv->reps);
+   740		rvu_rep_rsrc_free(priv);
+   741		return err;
+   742	}
+   743	
+ > 744	static int rvu_get_rep_cnt(struct otx2_nic *priv)
+   745	{
+   746		struct get_rep_cnt_rsp *rsp;
+   747		struct mbox_msghdr *msghdr;
+   748		struct msg_req *req;
+   749		int err, rep;
+   750	
+   751		mutex_lock(&priv->mbox.lock);
+   752		req = otx2_mbox_alloc_msg_get_rep_cnt(&priv->mbox);
+   753		if (!req) {
+   754			mutex_unlock(&priv->mbox.lock);
+   755			return -ENOMEM;
+   756		}
+   757		err = otx2_sync_mbox_msg(&priv->mbox);
+   758		if (err)
+   759			goto exit;
+   760	
+   761		msghdr = otx2_mbox_get_rsp(&priv->mbox.mbox, 0, &req->hdr);
+   762		if (IS_ERR(msghdr)) {
+   763			err = PTR_ERR(msghdr);
+   764			goto exit;
+   765		}
+   766	
+   767		rsp = (struct get_rep_cnt_rsp *)msghdr;
+   768		priv->hw.tx_queues = rsp->rep_cnt;
+   769		priv->hw.rx_queues = rsp->rep_cnt;
+   770		priv->rep_cnt = rsp->rep_cnt;
+   771		for (rep = 0; rep < priv->rep_cnt; rep++)
+   772			priv->rep_pf_map[rep] = rsp->rep_pf_map[rep];
+   773	
+   774	exit:
+   775		mutex_unlock(&priv->mbox.lock);
+   776		return err;
+   777	}
+   778	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
