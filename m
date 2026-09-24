@@ -1,63 +1,63 @@
-Received: from mail-pz2-f16.google.com (mail-pz2-f16.google.com [74.125.228.16])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 575094457A9
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:22:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 028C347669E
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:22:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790248955; cv=none; b=h9Mlf7grjILGxZf3FA8V0XPWHVtLj27IKgG5Ez9VduF8PxpkTEZVqrTnWsmwhk9YP03sIfXUX7Zi19QygHfwNMFDbjjrMGbtItGBRWTpdIHH/S9g8McHAt9lxlYIucQJ0gxMY30oOtBueOuwOs2YJQy0boP0ajd3zgMAIQi21p0=
+	t=1790248959; cv=none; b=QWbfKmAgbvoVC+fNqanL3Np4jkwJWvSg1jgPmZRzhNeGJTl06DDzIEGnUNcg1aHHUKh2kTm3zwzYEuRLnhySR33ek1/ypTp5NrLud8aJgsfNNCq+pfCvXDR6qPnXFTeR/cOdwp3bMbbg3P0ZwLqHCO0e8THeOUgwqBzW9Tf+Sec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790248955; c=relaxed/simple;
-	bh=BfVg1c/eJXh5ALcTlcd7kVDGGA98KOhj6+MnEzGGN+k=;
+	s=arc-20240116; t=1790248959; c=relaxed/simple;
+	bh=F4dCyYi/FtwgrncQW5XSrTpQkmCQZWz0zvM6wVNpeuI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=anjoX2J5gZoNuynJCYEqJR2CjENbgIPW6YPq9gPRISQojyWTsnoeo76NsAtYwlgWJzPT4fR0w/u2MToygSFUiJWMqPRWZ+SKv65VVi8s6KZ6ciDvyxjfA2LskHyQpzrmIxnBd6DJNfRCnh/P8BYdjs+9naqPP5sSBuwiPjAbL0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IEsYKDAo; arc=none smtp.client-ip=74.125.228.16
+	 MIME-Version; b=mOR3sKvZWElJ5L5hG9iSVVZpFys/LP960FvX6qXjHImC5GMVu8dDSoaqffxVvVDfKl+ORDwK2sSbMdSqQvrdSPae7G89uYOeBcln/GMXAhLo4o0qVo6xFNKBY3VcgyyUcrFgrYnurokvOs9AOlo9w0h3BBLbtOUSk3DFHxpKRoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BoICp6+2; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IEsYKDAo"
-Received: by mail-pz2-f16.google.com with SMTP id 41be03b00d2f7-cc4d2fe2056so849031a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:22:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BoICp6+2"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4adso872248a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:22:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790248953; x=1790853753; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790248957; x=1790853757; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2PB2AbPNDtuoPmQm1r7uEfjoRlCCHln+KQryPky75kA=;
-        b=IEsYKDAokd5GavmL+VtxlxvGrLcNG1y/uEGip/E8ZsQ9ttesqKVZ76TFlT2WzDpRPf
-         j/RE8vXvx1CQfN4SA+TqDFFn/TCEETyxMSBN5V2HYSMwMpBCM/ypvK3yepKw0IreZ7Bm
-         mYaWqpfmhffjlqnHrEM+VBjGrmi7aw/6sRHAYkmjqMueqccJ+wpgHk5krWJr9m1Z983O
-         8PA1xmb//wMJXtmRrfvBEZvOOhWZ8MJ1BdO6IFBAMvO8oNPOFN6I7/P7DgdyH1pQMZ9e
-         X0txfc0BXBfjJkR+R0KQNuz64CEL41IxO2v1myLvWiY8ST6Ialh9BoXqiAsnsm7OAyla
-         OLAA==
+        bh=IXjS0UafrfQCypTmZOrJ1CPsA/C8kLkUtfgDDuLmlBY=;
+        b=BoICp6+2Htcn1v4h7jMTQLOQxkwaxGgojRYX9MpASz0tTZ3iVCWnmrKPYqQVG7omzD
+         jBmkDQPEbSVrSEhJkmPSNFvCFtJAZUQIWaFUQY+tNuW9ZEcfKniXfzBydIdSFdSXxKj2
+         KhPiPdIkY2fiEq3wPG3oWy8mQuR5D7nVOHOm+nmAVkrqbhcs6p1v72/ADSS93rDLmVZk
+         KZC2/oLkJrKheLXJ8wjNBJk72OPH3HHsGFkWVmLSakA0hHqT1zCIEW+bLmzz5DK/ZBpG
+         rIDWirZhtAoenid6+YFCGPq7joCWm4QaRSyV5bu+cHCjNoMgviQU0/iUIla1M+S8wsxz
+         j2Mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790248953; x=1790853753;
+        d=1e100.net; s=20260707; t=1790248957; x=1790853757;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2PB2AbPNDtuoPmQm1r7uEfjoRlCCHln+KQryPky75kA=;
-        b=gCP1vYCPsTaTfeCWtbd9JBeme0wn5Hbn5BJ6W5SBrheaeyMs7ETexbI+7iJRzMAHHs
-         NuOd++RiKww9uTYrxcWBDw3biXCr4rl7D0dDZRnSn+6e2mRCrpYFwWpb3pmU5rUz57Ts
-         GI519kFDocTLRCjl+Be43YMFX6CfVq0HQ/UUtHRSSjk+4htA8vKLWtCqLg94MbwB/6qj
-         42TC4sWiDMeeBna5xupfpWwtcaPUMJSbwkzKjfQQ6SbzG3oH2jbLmVbxnZrW8cdGOtFA
-         E7yUinAzAVL2tMjwuddbtye0KA1eyNsaDdpgkSmUpKdApsYyNlRSnX+DE1sumPkPZrKF
-         +aAg==
-X-Forwarded-Encrypted: i=1; AKwUvByh3cBwDhQOLnVYovxdZIXX5dYOYSKNa9+u1UVDRV6dYgfzzwMdkGe+ZrTWBjAzTm8MbtmAnHzMaMbls3w=@vger.kernel.org
-X-Gm-Message-State: AFuF++lXDxzFhY67SVAbenAKpgJVCU4mwBfifugWkQngs4t4bDM7DNi1
-	iCSgb7ekef23wZRE++xC1fE0GIWu9jLDDI94hFai+2vgVbYv+d5eLk6x
-X-Gm-Gg: AYBFou2CiC/zPJn8ylKR69uhtXHZGCbGYkLdDd99Vl2q9qg5v91Ng1nxAGSZL9tIbV0
-	59F8XJkJdEA4BwIQUCXSnxNRo32wZ0CCVwPP0sdAq/yTAQcjR6znhlEoxR84LJIRj8BGPWBV9pQ
-	Q76q7KNfQuQELELtRYfpjjtEZplupbAWjZH+9bZNUo/GHc+hUOEZ+nEWU/TA9vvof35BOtSVk4n
-	sorlUhkVNMAhTSHvwJKQSn8jtH2zoQxK97+Ste5wqhPHf3ql8IBgTsVW3xk3LfWhOHZ6pTAp2BL
-	xsw2ziAZLD7sFa9GAijV/1VKn1UQf16NoyhqS5wF7ByFDe8igiVSJy2xVnDuQ8+VcvCo7JoTdKV
-	A0bxTsarM1AEUK+SUxP8fhIbftAbEfXJmr3lRYTFTAzgAGkH46uyMtjjBisRWxQpgabgHxZIeo+
-	F5J+lb9EWp22UztkDxqh9uS2KYR/1uXpXXhN1Qqb6IbXpEiTTGZVy4iQ==
-X-Received: by 2002:a05:6a20:a103:b0:3dd:a195:fa18 with SMTP id adf61e73a8af0-3de0e96b06amr1996310637.61.1790248947877;
-        Thu, 24 Sep 2026 04:22:27 -0700 (PDT)
+        bh=IXjS0UafrfQCypTmZOrJ1CPsA/C8kLkUtfgDDuLmlBY=;
+        b=L2n0f2RmSWGnDUHZh/6BQmEvaxWtmx26WdGi4FZLaX8kZIvDHoSuSt0vyeSmEPSksh
+         zxvQTqJfB5YkBcDHIap042MkJtbQrGfwWts1D52Jv+bNHcXcrCXhig6iA8UFS+eUeC9Y
+         f+CFZR7NJZ/qqr18TPJw45Q9pgQ3hJ4Q9Vx+wu1iCGiFlPKKPxVKM3v6GX26dNiFiD34
+         mSOCWOjdH344PWRj85T3QdAIoGQ1CyZQGr5WDsQuSbFr+Ocx0v/RREO7R93X0VeW1q3q
+         4tHcc9L7gMi5yIS56C6dfnjP7dqVMPEqK254F/MIUp9bkCoMR1jq2E7vO4R7e18qXPBd
+         6Wfw==
+X-Forwarded-Encrypted: i=1; AKwUvBwVcVJrSHHsEVd3pgoyKpUotKbNNod+vqGVoVcAPv/X2E0qs5T4/vyHUc39uWLMDvHFAKj7cXfu/i2cD3g=@vger.kernel.org
+X-Gm-Message-State: AFuF++mXnsytqAB1WViYglF8Ahitmo3oqy92pqn7RpLlEnO9a2f7pCiW
+	kEMBHCKYxFlfOiR+jfEKplSb4HG2UkjNFVgDVcpMovCsmKCdBQzWw47p
+X-Gm-Gg: AYBFou1UD1nS/k0If6qvw9U2/lLVn5irRhWVM11hkx38PSrkmC9UOGOgbpKwe70RJLM
+	Zq1vjn+TA14ctP1Id63UBhi/MSPESpAttkfEdTCTDv1h5ltajQALnZ6aeSJIkxG4QWPYog4SPSy
+	CKSxM4p7ijuwaVcw0Pixz+LpKiVuegxD1r8KxQ6mIPUPHcRGlo/8aidfby5lL9lNxDwjMNjKD2M
+	Frhu6O7B2WVZRMRMVbP2rJ9QDGg0Ish1HW/7I34t5hZA2ewS5r5mdlEr/QDlHpLDUSlIslPOYQ2
+	/mvUi49F9nmtsadlBH3rGH3UYIXczCRF76evdwoLGCV7gxz1ON89D8FO/RHVRAtRAPn/ChI2iPa
+	O7LpTyixREzE3QuN0fHhUoweJNAln9jwsuCAzdA3uJENwgLRrBSagqDJA5D9Uqi+KSYAZfaoJR5
+	2EsuvtPMbV9ciTEjKSRXrh28wR/TT7euCYWV0dYrB/zO0oWbpLEU7t6Le/SqonXpDM
+X-Received: by 2002:a05:6a20:2450:b0:3d0:abdb:de03 with SMTP id adf61e73a8af0-3de0e6fde8fmr2226919637.2.1790248957445;
+        Thu, 24 Sep 2026 04:22:37 -0700 (PDT)
 Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f3b82aasm2569713a12.9.2026.09.24.04.22.13
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f3b82aasm2569713a12.9.2026.09.24.04.22.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 04:22:27 -0700 (PDT)
+        Thu, 24 Sep 2026 04:22:37 -0700 (PDT)
 From: Guangshuo Li <lgs201920130244@gmail.com>
 To: gregkh@linuxfoundation.org,
 	mathias.nyman@intel.com,
@@ -74,9 +74,9 @@ Cc: linux-usb@vger.kernel.org,
 	eeodqql09@gmail.com,
 	stern@rowland.harvard.edu,
 	davidm@egauge.net
-Subject: [PATCH 2/3] usb: xhci: tegra: release padctl node reference after probe
-Date: Thu, 24 Sep 2026 19:21:55 +0800
-Message-ID: <20260924112156.1564208-3-lgs201920130244@gmail.com>
+Subject: [PATCH 3/3] usb: max3421: Free transfer buffers on remove
+Date: Thu, 24 Sep 2026 19:21:56 +0800
+Message-ID: <20260924112156.1564208-4-lgs201920130244@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260924112156.1564208-1-lgs201920130244@gmail.com>
 References: <20260924112156.1564208-1-lgs201920130244@gmail.com>
@@ -88,31 +88,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tegra_xusb_probe() obtains np with of_parse_phandle(), but the successful
-path returns without the matching of_node_put(). The probe error path
-already releases the reference through the put_padctl label.
+max3421_probe() allocates max3421_hcd->tx and max3421_hcd->rx, but
+max3421_remove() does not perform the matching kfree() calls after a
+successful probe. The probe error path already releases both buffers.
 
-Release np before returning from a successful probe so the node reference
-is balanced once it is no longer needed.
+Free the TX and RX buffers in max3421_remove() after stopping the SPI
+thread and releasing the IRQ, before dropping the HCD reference.
 
-Fixes: 971ee247060d ("usb: xhci: tegra: Enable ELPG for runtime/system PM")
+Fixes: 2d53139f3162 ("Add support for using a MAX3421E chip as a host driver.")
 Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- drivers/usb/host/xhci-tegra.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/usb/host/max3421-hcd.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/usb/host/xhci-tegra.c b/drivers/usb/host/xhci-tegra.c
-index 6f235d1e117e..93e794b3343a 100644
---- a/drivers/usb/host/xhci-tegra.c
-+++ b/drivers/usb/host/xhci-tegra.c
-@@ -1951,6 +1951,7 @@ static int tegra_xusb_probe(struct platform_device *pdev)
- 		pm_runtime_enable(tegra->dev);
- 	}
+diff --git a/drivers/usb/host/max3421-hcd.c b/drivers/usb/host/max3421-hcd.c
+index 73e76d0e6973..994e8a07538d 100644
+--- a/drivers/usb/host/max3421-hcd.c
++++ b/drivers/usb/host/max3421-hcd.c
+@@ -1950,6 +1950,8 @@ max3421_remove(struct spi_device *spi)
+ 	spin_unlock_irqrestore(&max3421_hcd->lock, flags);
  
-+	of_node_put(np);
- 	return 0;
+ 	free_irq(spi->irq, hcd);
++	kfree(max3421_hcd->tx);
++	kfree(max3421_hcd->rx);
  
- remove_usb3:
+ 	usb_put_hcd(hcd);
+ }
 -- 
 2.43.0
 
