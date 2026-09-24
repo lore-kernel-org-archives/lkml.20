@@ -1,216 +1,388 @@
-Received: from mail-oi2-f41.google.com (mail-oi2-f41.google.com [74.125.231.233])
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD823A5433
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:29:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.233
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790245784; cv=pass; b=WivFKufCm0oDoP+S/E4SuFLnzcWXodCG1Tmcd72fB1IBi/x1m9wb8TG+x4t1+31NsYLaZFo8U49kiNtbnwrDJcnyEDYTqa+PqQGUnHyIfvDtKDRvQ3EUDe3aijdPn5N3CNsVHtY29Gxu15X3knLqsXIvj7Y9+0VH0b830iXdLFc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790245784; c=relaxed/simple;
-	bh=G74mpPleZBdV6sts4IWt44dv6esQXRZkYrm8knhqpvU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CFh9rXUPzjJFil76/UuRCbQqeeUCy8P5YmsHWIeTDzGtKN3lZc3GrP/1T/mbzuKHhUeIXSqeA2dmgECUNZT/QUINZSWB3M5gRqoOafS7Ly4KN6TkTTXbGVdsU4Z6zl4OzIIXcNaXHh86CmcPf6edDAL9bxha5juxM2YTfPCBiWc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xfrkL9hS; arc=pass smtp.client-ip=74.125.231.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06EE93955FE
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:30:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790245855; cv=none; b=sLwJVw78QPWtgE403IJ1OiPJhFU5OUJ+ynQojDSdFZtreEf9Zr2V0HdcJQIWJBbe8qyo9r7FTUvzhBvTMAWmtDGxplW/V3LUqSwfjRgsdqIrvRPyYnX5Tf+2Y9rViz+M04McMw66dpMkH7p3snq32XGlnyPV65nmZiogEoguvnQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790245855; c=relaxed/simple;
+	bh=X7+q633VBsOQWPfuyrYIU4KM3gkKmd4+z8AZDu05tlE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=I3AJvtO1sd/NOXKHEs2YSGiI6uNaI/SzxPhQQAk4Q+GKg6TS6I6BbRAkbmQDGgjwc1NSG1/8LQsxy1E6fWeITfom+3xkIAhjDWho2xaYZ5L5C3jooDCano1e2S/OPEFtoTDXI1IWU7bNk+KOchWwP2D2sM4a7704KCRjjYBGgPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PETSuA9R; arc=none smtp.client-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xfrkL9hS"
-Received: by mail-oi2-f41.google.com with SMTP id 46e09a7af769-805cc8b4231so1248988a34.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:29:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790245782; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sDVvD+ulHhmUHTmmOUKQmJm5f8htmfnM+a6n7x1vxSrT2+CxAZ3e+MubPYCoYJt1hB
-         c7qjUTatwAQAS7cKFl4v0NKLw/XM2mh5ChLkZCWl+AwHLWAq2edhvqUJhX/Juc7mv7j+
-         brb8OooGm+vZTVOo03ZaYwVytZHPMsVCXzgrsOkGgRqrSwpezGvf/UcFEQgsTh/YyLnm
-         y4gIw85ulRhZZoxPiFrFxq+g/COq69/tByUS4CikEM0uDnRG4OYGJm1Ddpk4XEQLUpFI
-         nRrsQZaNCH2UygnGVP7HVHoZyBgK2oET26DnPZQUsVbgwGnCusmUnK+UUYatvECtE9Js
-         qBCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Za0dWSit03gXTMmeVZPbk2nVTp5Bf9hP0g9GqMt8bYk=;
-        fh=bdLRhp6MNfaBhWVrqgkAm3dodePxLXPVjJ8vkBAKAEw=;
-        b=De5m5NK6z40NUEeVD4tbc2yNyBaz/45t0/XFvXrSf1L+1q4wcb1CDoLuHCQJllIP/x
-         c27vE4Fog9BCM4uvICoi/pM96WWIVzVXM+ldpQyTSX4PxGD8r4CKGfH4mD56P7hwgIi8
-         I2kUYyHOtwtuprW76koIM9ygnyITWv02DWMZ3uvhwjvjjN2g/r5py7vjuFwHiDqvKPze
-         PoWH8mapRJOeHMmm3hJFzABWY18PVnkoq7fu4d1vix2Xbm6aofKiEs0yO4PQuT+nj0Qk
-         WhFaK/gpIu+w/2LrDFyQO8kq+aXLVLKX1mO1fU7iQWg1NpCVKNZRleXpJ5Xj/+fn4Jps
-         m0hA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PETSuA9R"
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-3115c4451c8so551506eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:30:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790245782; x=1790850582; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Za0dWSit03gXTMmeVZPbk2nVTp5Bf9hP0g9GqMt8bYk=;
-        b=xfrkL9hSE9eu8oOoWZKYmdnYILJA8AoDP/KsJCwxKkuyrXVxsAJ2U3RkyR4Pr/VELe
-         XM8Q1T2ENKkCBmJJc+14lXogUl+Y5bzO4JSobm9l7gbEPcqXuno4GhimSpdpqPKCcEKF
-         reL8GU75MYUPLD8hjQuwj4aFt829teoZdzdRuM9HEl4bNRGU/N9fbLAFnPJ8O1aE3b29
-         zCdH2FVU9gTV23aQC5TN+6Ys0Dths0fXCDoAbOI0sDO0QPJTjvZVvgs9naJhl2Shg7Qt
-         4oXY8zPGBG3heIaLucnKQoX/zwD6lLzaHhWkfnxuNTLwAdOWyQPNu35WKulleynVXcH/
-         1I6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790245782; x=1790850582;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1790245853; x=1790850653; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Za0dWSit03gXTMmeVZPbk2nVTp5Bf9hP0g9GqMt8bYk=;
-        b=1RdMiPvRNyV3vKNMg5pl9r1QfnDSD30Gdl186qEZj8Bp4orGyawl34OwHTcHYQazV6
-         mJ0stytnY7YDbzarG6TFaeky0ducODKG/HbcFnc+nMl/0Ndb956tjUrc2r0qfbBx4Bqe
-         FqnNLRyhmDd11YXSjMIunBy00Oj7Lry+Qzf/tYdqKdUBfSAV7+cQ2Y6oXkyIC6OWqFsf
-         52zxSo57qxWW4s0Thq34wR07utBHA/92GIboawEDGAcMVbtvPvnbXN0h6YpNDTfn7sD0
-         9O2OAIS7F1HUxfHJjhDsYHR/ogsqYM7iEEzbuJokkhh06hShi3NcIRs+0MhyuzmJymQc
-         +TCg==
-X-Forwarded-Encrypted: i=1; AKwUvBwjXq17phviGSiiz9rclKbzPLnjHygxWe3zxt98oIdQUvJVgfQ8XdHMBEu62myZPXT/D00hXnQ0JUb4Les=@vger.kernel.org
-X-Gm-Message-State: AFuF++k2LPp3ocP4j6Tp26lq6y3lpECzd0coU3B5FK76nBkrSIZca/Ek
-	gvGMmBT3YO0+RhEt6bteYZyAVee1KztNI8UYEPnLtvysL/Glx30yTweWfplD4DJ+wT+/P2CxDyM
-	jlQgyxLA5CGSjvRmszKj1p1pmTj0YmnbzbcbGCvVJN6fA0REQAthMaz0=
-X-Gm-Gg: AYBFou3CAGU3+kQUTtTGP9f7xuufFGBCslQpynXDuMgB4xgYO9S42/Gt2dmhM0kLjAA
-	S4rujtPI+fzoL/EAYCJ0GZ6p8aD84oMvLx8ZhKEU0JgdaiW6mNUeOGLcEC14FJLKoeiost9DVee
-	dfmEGktVU0WMM2yDEHy6YhoezEunII4vTE04rB3BYZGtUNnY0IjG/xpU5rE7uK/UogxJsy7MvkO
-	BVn5nvCyiZ4ncibIvo89DUQYhNC0Y9C4xiZUzCIZWDXBpGEMSEVXymixcFmmUq5CbhKNifL9aHj
-	iTb+uf9CRKUreMzkPV+sgFWYJ7/Tbn3AJubCSbgoSB/5vcm2mKL6lGLjooXAErX/TmfcUqdD52/
-	CseVuEEGk362McdK1twQeZk2KUMd/21U5B8j9AwKrMA6aDHxcmBnkLL8=
-X-Received: by 2002:a05:6830:6d49:b0:814:aa56:6e89 with SMTP id
- 46e09a7af769-8177e2c4c2bmr2369455a34.0.1790245781726; Thu, 24 Sep 2026
- 03:29:41 -0700 (PDT)
+        bh=FdzUGtWjlaSHGjfiY4nzNPdRN45L8PTOa5XPHowTwqk=;
+        b=PETSuA9RWFiWy6z9JIlW1iB/pS/xscoZTY1OcqbqIzo2Pyz5Ru3KZMrdJh2RnteGyr
+         FPdFh4N5BbPe6AEzwJc40Mb038pWLy4ImF+Kx2UG3919kX0lrNlJHKrvbPo/g30S33Sp
+         c7OU2cypH3fmnz68mV6XAxTlLbEoTI8XQqpoGSpIk6aLkxbmZqe76uKSNObP8/quLjx0
+         wc1IMIWecLxv8hNI6tX2I8mZlt+dmwRRTnpGoH6GYUaptBvRnEEKJpvyUm/8ZMZv3als
+         iGp9V2NzV6cB6S2eOTGErKwEETgHXAdQkojMlqzYCArcA9HK1a/94FyvX3fNp+zjaZVZ
+         XfJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790245853; x=1790850653;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FdzUGtWjlaSHGjfiY4nzNPdRN45L8PTOa5XPHowTwqk=;
+        b=Pn8QJQSswPjczFp+QxCKxDCZycFexHko4oR32WqpIz6wktpZk1oywDqI6m+wCHsuV7
+         saMEL4rn4dHTSdZiCRZRNQpHR+jBojGosbXzKN7hI+VdiRAfZPX7J5buXhdLabemWYqe
+         bIdRwK0EA77o7cxblFQniuWs0JHzXbrTxBQpuSNZ6NnwuXl52n7fjYdX1jaMpK8GRORp
+         Cm2227R769nG2GWw5glWIqP2RDud5ztst8ffzhl2GeipxN4xMIKW7u8gWc6mFsVG8Llh
+         KwKfya809vi3QERO8v9jW+n+SBLTOpF9zSEiLOaj5HL5rHC8xjduciJlgo1Fyy7+/gQm
+         DLKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxYNzwwlWr0XiuUlbOfldZMnLHMdWHgaC9R+dOqyrbBou3BHv5RctaV8G8Wa2ugAvdWBPd8cg+0qYBzvWA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kiCeqeTjSu10fCYXdbUtBBurMJNcppkBayQXdsL14cC6CuBl3f
+	o7FewzIXwQfJljbTll1yeclRBus7NjcClzNHYSH+60t24eRfOMax68YP
+X-Gm-Gg: AYBFou13VusP/JLdSg+ZSlIn8ZotSAjhXjgMp3cly9mCLK5PnBB79tSSczXUoLqRDKW
+	q5qX2A1q8s4mjm2lbR9cgJAvz/nYl27Toxphe2XIAm5vSgE3NEOyl8NdMxQEiEwRa4IEn1f0hb0
+	MZmq5Ch0D8SnTKrhLCEL4GAczdcC0Pu/wZZcmI4vR9ghhBsUn39HXAuHrRq2e94oj83eYBlNb4d
+	KCWpvh9LdsBAPP5yJ/3gV/nabhvXPUaqYBB9VFQ1evvnteAVwCXXIDYscX+B0NsdR4Wk2ooc/Ol
+	E7HkTihgX3RdfXbr44Li4Hk2hqb1oleR/AH/ecsMM29pdl8O0OQzsNpjdwdWehGegRLtOiGyzeM
+	MZWWkzs6igtWKxzyywZ9la7jPRy/3j0c3auRdENn8y9OcIlcQtCmFhJdITzbVlYj1HcwL3wySDg
+	C5d4qqMkq/m8RQ9oYyXpusXgxAk6QMI6zkT4yx+HZHDTjlxYItoMrnlX3I0yhqo1tnYcJg2+mdw
+	9jGUa6JgNmNyCmXWbFXm/3nMz5jJi4SEuQ=
+X-Received: by 2002:a05:693c:62cd:b0:339:851c:4c1 with SMTP id 5a478bee46e88-340059652f1mr1488941eec.18.1790245852691;
+        Thu, 24 Sep 2026 03:30:52 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e972395f9sm11553369eec.30.2026.09.24.03.30.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 03:30:52 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: lee@kernel.org,
+	support.opensource@diasemi.com,
+	mazziesaccount@gmail.com,
+	andre.draszik@linaro.org
+Cc: krzk@kernel.org,
+	mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-samsung-soc@vger.kernel.org
+Subject: [PATCH v6] mfd: Fix typos in comments
+Date: Thu, 24 Sep 2026 16:00:46 +0530
+Message-ID: <20260924103046.1709181-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922-mainline-rouven-mxl2g5-v1-1-a0ed53631a5f@linaro.org> <179021686449.2160803.8908232708246171616@kernel.org>
-In-Reply-To: <179021686449.2160803.8908232708246171616@kernel.org>
-From: Rouven Czerwinski <rouven.czerwinski@linaro.org>
-Date: Thu, 24 Sep 2026 12:29:30 +0200
-X-Gm-Features: AclHuK_aOxC3J5_iCvwfOE00WCFt-0d0n6YkXEksYRBvq7Sj8b1cGea10v1asag
-Message-ID: <CAK8z29U=KG0cZKBCeRcyX7BFMFwP=nhnbkN_O3HrCxJ2NXQZvg@mail.gmail.com>
-Subject: Re: [PATCH] net: phy: mxl-gpy: add 2.5G for MXL68211C
-To: netdev-bot+sashiko@kernel.org
-Cc: lxu@maxlinear.com, andrew@lunn.ch, hkallweit1@gmail.com, 
-	linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, daniel@makrotopia.org, 
-	maxime.chevallier@bootlin.com, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Fix misspellings in comments across the MFD drivers and headers, found
+with scripts/checkpatch.pl using the list in scripts/spelling.txt.
 
-On Thu, 24 Sept 2026 at 04:27, <netdev-bot+sashiko@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 1
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] Missing `Fixes:` tag =E2=80=94 a user-visible bug fix is submi=
-tted as
->   a net-next feature.
+Only touches comments, no code changes.
 
-My guess would be that we can add this, I suspect that stable would pick up
-this patch automatically  either way.
+Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
+Reviewed-by: André Draszik <andre.draszik@linaro.org>
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+v6: also fix "Temprature mesurmants" in drivers/mfd/88pm800.c, which Lee
+    Jones asked for.  It sits in the same comment as the "defult" fix and
+    is not in scripts/spelling.txt, which is why checkpatch did not flag
+    it.  No other change; André Draszik's Reviewed-by from v5 carried
+    over.
 
-> - [Low] Commit message names the wrong part number: the subject ("net:
->   phy: mxl-gpy: add 2.5G for MXL68211C") and the body sentence ("the=E2=
-=80=A6
+v5: no change to the diff; moved the version notes below the --- where
+    they belong rather than leaving them in the commit log.
 
-I'll fix the typos in a v2.
+v4: dropped the two Acked-by tags that v3 added, keeping only Matti's
+    Reviewed-by, and dropped the Assisted-by trailer.
 
->
-> --
->
-> net: phy: mxl-gpy: add 2.5G for MXL68211C
->
-> This switches the MxL86211C phy_driver entry from gpy_config_init() to
-> gpy21x_config_init(), so that PHY_INTERFACE_MODE_2500BASEX and
-> PHY_INTERFACE_MODE_SGMII get advertised in phydev->possible_interfaces.
-> The changelog reports that 2.5G then negotiates against a Mikrotik
-> CRS310-G+2S+IN.
->
-> > net: phy: mxl-gpy: add 2.5G for MXL68211C
->
-> [Severity: Low]
-> The subject says "MXL68211C", and the body repeats it in "the 2.5G speed
-> indication is the same between GPY211 & MXL68211C", while the first body
-> sentence and the code use MXL86211C.
->
-> The driver only knows the latter spelling:
->
-> drivers/net/phy/mxl-gpy.c:
->         #define PHY_ID_MXL86211C        0xC1335400
->         ...
->                 .name           =3D "Maxlinear Ethernet MxL86211C",
->
-> Could the digits be un-transposed in the subject and in that sentence on =
-a
-> resend?
->
-> > diff --git a/drivers/net/phy/mxl-gpy.c b/drivers/net/phy/mxl-gpy.c
-> > index 0da2d4e9d8548..089a1a9e5bc61 100644
-> > --- a/drivers/net/phy/mxl-gpy.c
-> > +++ b/drivers/net/phy/mxl-gpy.c
-> > @@ -1405,7 +1405,7 @@ static struct phy_driver gpy_drivers[] =3D {
-> >               PHY_ID_MATCH_MODEL(PHY_ID_MXL86211C),
-> >               .name           =3D "Maxlinear Ethernet MxL86211C",
-> >               .get_features   =3D genphy_c45_pma_read_abilities,
-> > -             .config_init    =3D gpy_config_init,
-> > +             .config_init    =3D gpy21x_config_init,
->
-> [Severity: Medium]
-> Should this carry a Fixes: tag rather than going in as a feature?
->
-> The only functional delta is the possible_interfaces advertisement:
->
-> drivers/net/phy/mxl-gpy.c:
->         static int gpy21x_config_init(struct phy_device *phydev)
->         {
->                 __set_bit(PHY_INTERFACE_MODE_2500BASEX, phydev->possible_=
-interfaces);
->                 __set_bit(PHY_INTERFACE_MODE_SGMII, phydev->possible_inte=
-rfaces);
->
->                 return gpy_config_init(phydev);
->         }
->
-> git blame shows the MxL86211C entry, including .config_init =3D
-> gpy_config_init, came in with:
->
-> 9d844da693d6d0 ("net: phy: mxl-gpy: add support for MxL86211C")
->
-> and every other GPY21x entry (GPY211B/C, GPY212B/C, GPY215B/C) already us=
-es
-> gpy21x_config_init. Together with the changelog note that 2.5G only
-> negotiates "with this change", that reads like the original entry was
-> incomplete rather than an intentional 1G restriction.
->
-> Would it make sense to add:
->
->         Fixes: 9d844da693d6 ("net: phy: mxl-gpy: add support for MxL86211=
-C")
->
-> so that boards with this PHY, which are limited to 1G on released kernels=
-,
-> get the fix through stable?
->
-> >               .probe          =3D gpy_probe,
-> >               .inband_caps    =3D gpy_inband_caps,
-> >               .config_inband  =3D gpy_config_inband,
->
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20260922-mainline-rouven-mxl2g5-v1-1-a0ed53631a5f%40linaro.org
+v2: also corrects "wainting" and "comapletion" in
+    include/linux/mfd/si476x-core.h, which checkpatch did not flag;
+    "comapletion" sits on the same line as the "wainting" Matti asked
+    about.  Subject capitalised to match the MFD convention.
 
-pw-bot: cr
+ drivers/mfd/88pm800.c                |  4 ++--
+ drivers/mfd/kempld-core.c            |  2 +-
+ drivers/mfd/max8998.c                |  2 +-
+ drivers/mfd/rave-sp.c                |  6 +++---
+ drivers/mfd/si476x-i2c.c             |  2 +-
+ include/linux/mfd/da9063/registers.h |  2 +-
+ include/linux/mfd/db8500-prcmu.h     | 32 ++++++++++++++--------------
+ include/linux/mfd/lp8788.h           |  2 +-
+ include/linux/mfd/max8998.h          |  2 +-
+ include/linux/mfd/palmas.h           |  2 +-
+ include/linux/mfd/rohm-bd71828.h     |  2 +-
+ include/linux/mfd/samsung/core.h     |  2 +-
+ include/linux/mfd/si476x-core.h      |  4 ++--
+ include/linux/mfd/twl.h              |  2 +-
+ 14 files changed, 33 insertions(+), 33 deletions(-)
+
+diff --git a/drivers/mfd/88pm800.c b/drivers/mfd/88pm800.c
+index e9941da58b18..7f3e312b8f73 100644
+--- a/drivers/mfd/88pm800.c
++++ b/drivers/mfd/88pm800.c
+@@ -275,10 +275,10 @@ static int device_gpadc_init(struct pm80x_chip *chip,
+ 		goto out;
+ 
+ 	/*
+-	 * the defult of PM800 is GPADC operates at 100Ks/s rate
++	 * the default of PM800 is GPADC operates at 100Ks/s rate
+ 	 * and Number of GPADC slots with active current bias prior
+ 	 * to GPADC sampling = 1 slot for all GPADCs set for
+-	 * Temprature mesurmants
++	 * Temperature measurements
+ 	 */
+ 	mask = (PM800_GPADC_GP_BIAS_EN0 | PM800_GPADC_GP_BIAS_EN1 |
+ 		PM800_GPADC_GP_BIAS_EN2 | PM800_GPADC_GP_BIAS_EN3);
+diff --git a/drivers/mfd/kempld-core.c b/drivers/mfd/kempld-core.c
+index b64729918dfd..47062f876e5d 100644
+--- a/drivers/mfd/kempld-core.c
++++ b/drivers/mfd/kempld-core.c
+@@ -37,7 +37,7 @@ static void kempld_get_hardware_mutex(struct kempld_device_data *pld)
+ 
+ static void kempld_release_hardware_mutex(struct kempld_device_data *pld)
+ {
+-	/* The harware mutex is released when 1 is written to the mutex bit. */
++	/* The hardware mutex is released when 1 is written to the mutex bit. */
+ 	iowrite8(KEMPLD_MUTEX_KEY, pld->io_index);
+ }
+ 
+diff --git a/drivers/mfd/max8998.c b/drivers/mfd/max8998.c
+index eb13bbaeda55..5032eab05bb4 100644
+--- a/drivers/mfd/max8998.c
++++ b/drivers/mfd/max8998.c
+@@ -146,7 +146,7 @@ static struct max8998_platform_data *max8998_i2c_parse_dt_pdata(
+ 
+ 	/*
+ 	 * ToDo: the 'wakeup' member in the platform data is more of a linux
+-	 * specfic information. Hence, there is no binding for that yet and
++	 * specific information. Hence, there is no binding for that yet and
+ 	 * not parsed here.
+ 	 */
+ 	return pd;
+diff --git a/drivers/mfd/rave-sp.c b/drivers/mfd/rave-sp.c
+index 05d26d92df03..53c57bafea8f 100644
+--- a/drivers/mfd/rave-sp.c
++++ b/drivers/mfd/rave-sp.c
+@@ -331,7 +331,7 @@ static u8 rave_sp_reply_code(u8 command)
+ 		return command + 0x20;
+ 	case 0xE0 ... 0xEF:
+ 		/*
+-		 * Events emitted by all versions of the firmare use
++		 * Events emitted by all versions of the firmware use
+ 		 * least significant bit to get an ACK code
+ 		 */
+ 		return command | 0x01;
+@@ -544,7 +544,7 @@ static size_t rave_sp_receive_buf(struct serdev_device *serdev,
+ 				 * NOTE: The above means that only the
+ 				 * frame started by third SOF, sent
+ 				 * after this one will have a chance
+-				 * to get throught.
++				 * to get through.
+ 				 */
+ 				goto reset_framer;
+ 			case RAVE_SP_DLE:
+@@ -595,7 +595,7 @@ static size_t rave_sp_receive_buf(struct serdev_device *serdev,
+ 
+ 	/*
+ 	 * The only way to get out of the above loop and end up here
+-	 * is throught consuming all of the supplied data, so here we
++	 * is through consuming all of the supplied data, so here we
+ 	 * report that we processed it all.
+ 	 */
+ 	return size;
+diff --git a/drivers/mfd/si476x-i2c.c b/drivers/mfd/si476x-i2c.c
+index 9bce720a0a08..6351aef2d3bb 100644
+--- a/drivers/mfd/si476x-i2c.c
++++ b/drivers/mfd/si476x-i2c.c
+@@ -222,7 +222,7 @@ int si476x_core_stop(struct si476x_core *core, bool soft)
+ 	atomic_set(&core->is_alive, 0);
+ 
+ 	if (soft) {
+-		/* TODO: This probably shoud be a configurable option,
++		/* TODO: This probably should be a configurable option,
+ 		 * so it is possible to have the chips keep their
+ 		 * oscillators running
+ 		 */
+diff --git a/include/linux/mfd/da9063/registers.h b/include/linux/mfd/da9063/registers.h
+index 7b8364bd08a0..376c5d330599 100644
+--- a/include/linux/mfd/da9063/registers.h
++++ b/include/linux/mfd/da9063/registers.h
+@@ -14,7 +14,7 @@
+ #define DA9063_I2C_PAGE_SEL_SHIFT	1
+ #define	DA9063_EVENT_REG_NUM		4
+ 
+-/* Page selection I2C or SPI always in the begining of any page. */
++/* Page selection I2C or SPI always in the beginning of any page. */
+ /* Page 0 : I2C access 0x000 - 0x0FF	SPI access 0x000 - 0x07F */
+ /* Page 1 :				SPI access 0x080 - 0x0FF */
+ /* Page 2 : I2C access 0x100 - 0x1FF	SPI access 0x100 - 0x17F */
+diff --git a/include/linux/mfd/db8500-prcmu.h b/include/linux/mfd/db8500-prcmu.h
+index c939c9a1170a..87a28c4f1d81 100644
+--- a/include/linux/mfd/db8500-prcmu.h
++++ b/include/linux/mfd/db8500-prcmu.h
+@@ -337,31 +337,31 @@ enum sia_mmdsp_stat {
+  * @SYSCLKOK_ERR: The SYSCLK is not available in the given time
+  * @BOOT_ERR: Romcode has not validated the XP70 self reset in the given time
+  * @ROMCODESAVECONTEXT: The Romcode didn.t correctly save it secure context
+- * @VARMHIGHSPEEDVALTO_ERR: The ARM high speed supply value transfered
++ * @VARMHIGHSPEEDVALTO_ERR: The ARM high speed supply value transferred
+  *          through I2C has not been correctly executed in the given time
+- * @VARMHIGHSPEEDACCESS_ERR: The command value of VarmHighSpeedVal transfered
++ * @VARMHIGHSPEEDACCESS_ERR: The command value of VarmHighSpeedVal transferred
+  *             through I2C has not been correctly executed in the given time
+- * @VARMLOWSPEEDVALTO_ERR:The ARM low speed supply value transfered through
++ * @VARMLOWSPEEDVALTO_ERR:The ARM low speed supply value transferred through
+  *                     I2C has not been correctly executed in the given time
+- * @VARMLOWSPEEDACCESS_ERR: The command value of VarmLowSpeedVal transfered
++ * @VARMLOWSPEEDACCESS_ERR: The command value of VarmLowSpeedVal transferred
+  *             through I2C has not been correctly executed in the given time
+- * @VARMRETENTIONVALTO_ERR: The ARM retention supply value transfered through
++ * @VARMRETENTIONVALTO_ERR: The ARM retention supply value transferred through
+  *                     I2C has not been correctly executed in the given time
+- * @VARMRETENTIONACCESS_ERR: The command value of VarmRetentionVal transfered
++ * @VARMRETENTIONACCESS_ERR: The command value of VarmRetentionVal transferred
+  *             through I2C has not been correctly executed in the given time
+- * @VAPEHIGHSPEEDVALTO_ERR: The APE highspeed supply value transfered through
++ * @VAPEHIGHSPEEDVALTO_ERR: The APE highspeed supply value transferred through
+  *                     I2C has not been correctly executed in the given time
+- * @VSAFEHPVALTO_ERR: The SAFE high power supply value transfered through I2C
++ * @VSAFEHPVALTO_ERR: The SAFE high power supply value transferred through I2C
+  *                         has not been correctly executed in the given time
+- * @VMODSEL1VALTO_ERR: The MODEM sel1 supply value transfered through I2C has
++ * @VMODSEL1VALTO_ERR: The MODEM sel1 supply value transferred through I2C has
+  *                             not been correctly executed in the given time
+- * @VMODSEL2VALTO_ERR: The MODEM sel2 supply value transfered through I2C has
++ * @VMODSEL2VALTO_ERR: The MODEM sel2 supply value transferred through I2C has
+  *                             not been correctly executed in the given time
+- * @VARMOFFACCESS_ERR: The command value of Varm ON/OFF transfered through
++ * @VARMOFFACCESS_ERR: The command value of Varm ON/OFF transferred through
+  *                     I2C has not been correctly executed in the given time
+- * @VAPEOFFACCESS_ERR: The command value of Vape ON/OFF transfered through
++ * @VAPEOFFACCESS_ERR: The command value of Vape ON/OFF transferred through
+  *                     I2C has not been correctly executed in the given time
+- * @VARMRETACCES_ERR: The command value of Varm retention ON/OFF transfered
++ * @VARMRETACCES_ERR: The command value of Varm retention ON/OFF transferred
+  *             through I2C has not been correctly executed in the given time
+  * @CURAPPWRSTISNOTBOOT:Generated when Arm want to do power state transition
+  *             ApBoot to ApExecute but the power current state is not Apboot
+@@ -376,11 +376,11 @@ enum sia_mmdsp_stat {
+  *                    been correctly executed in the given time
+  * @ARMREGU2VALTO_ERR: The ArmRegu2 value transferred through I2C has not
+  *                    been correctly executed in the given time
+- * @VAPEREGUVALTO_ERR: The VApeRegu value transfered through I2C has not
++ * @VAPEREGUVALTO_ERR: The VApeRegu value transferred through I2C has not
+  *                    been correctly executed in the given time
+- * @VSMPS3REGUVALTO_ERR: The VSmps3Regu value transfered through I2C has not
++ * @VSMPS3REGUVALTO_ERR: The VSmps3Regu value transferred through I2C has not
+  *                      been correctly executed in the given time
+- * @VMODREGUVALTO_ERR: The VModemRegu value transfered through I2C has not
++ * @VMODREGUVALTO_ERR: The VModemRegu value transferred through I2C has not
+  *                    been correctly executed in the given time
+  */
+ enum mbox_to_arm_err {
+diff --git a/include/linux/mfd/lp8788.h b/include/linux/mfd/lp8788.h
+index fd17bec2a33e..e8c50bd38a8a 100644
+--- a/include/linux/mfd/lp8788.h
++++ b/include/linux/mfd/lp8788.h
+@@ -34,7 +34,7 @@
+ #define LP8788_ALM_IRQ		"ALARM_IRQ"
+ 
+ enum lp8788_int_id {
+-	/* interrup register 1 : Addr 00h */
++	/* interrupt register 1 : Addr 00h */
+ 	LP8788_INT_TSDL,
+ 	LP8788_INT_TSDH,
+ 	LP8788_INT_UVLO,
+diff --git a/include/linux/mfd/max8998.h b/include/linux/mfd/max8998.h
+index 5473f1983e31..ad2ad24412fb 100644
+--- a/include/linux/mfd/max8998.h
++++ b/include/linux/mfd/max8998.h
+@@ -45,7 +45,7 @@ enum {
+ /**
+  * max8998_regulator_data - regulator data
+  * @id: regulator id
+- * @initdata: regulator init data (contraints, supplies, ...)
++ * @initdata: regulator init data (constraints, supplies, ...)
+  * @reg_node: DT node of regulator (unused on non-DT platforms)
+  */
+ struct max8998_regulator_data {
+diff --git a/include/linux/mfd/palmas.h b/include/linux/mfd/palmas.h
+index dabcc0dea802..1d872363820a 100644
+--- a/include/linux/mfd/palmas.h
++++ b/include/linux/mfd/palmas.h
+@@ -251,7 +251,7 @@ enum tps65917_regulators {
+ 	TPS65917_NUM_REGS,
+ };
+ 
+-/* External controll signal name */
++/* External control signal name */
+ enum {
+ 	PALMAS_EXT_CONTROL_ENABLE1      = 0x1,
+ 	PALMAS_EXT_CONTROL_ENABLE2      = 0x2,
+diff --git a/include/linux/mfd/rohm-bd71828.h b/include/linux/mfd/rohm-bd71828.h
+index 39fe275a8117..ea9b1a8f495f 100644
+--- a/include/linux/mfd/rohm-bd71828.h
++++ b/include/linux/mfd/rohm-bd71828.h
+@@ -186,7 +186,7 @@ enum {
+ #define BD71828_REG_RTC_ALM2		0x63
+ #define BD71828_REG_RTC_START		BD71828_REG_RTC_SEC
+ 
+-/* Charger/Battey */
++/* Charger/Battery */
+ #define BD71828_REG_CHG_STATE		0x65
+ #define BD71828_REG_CHG_FULL		0xd2
+ #define BD71828_REG_CHG_EN		0x6F
+diff --git a/include/linux/mfd/samsung/core.h b/include/linux/mfd/samsung/core.h
+index 6191f409de94..e489ca0d55ed 100644
+--- a/include/linux/mfd/samsung/core.h
++++ b/include/linux/mfd/samsung/core.h
+@@ -106,7 +106,7 @@ struct sec_platform_data {
+ /**
+  * sec_regulator_data - regulator data
+  * @id: regulator id
+- * @initdata: regulator init data (contraints, supplies, ...)
++ * @initdata: regulator init data (constraints, supplies, ...)
+  */
+ struct sec_regulator_data {
+ 	int				id;
+diff --git a/include/linux/mfd/si476x-core.h b/include/linux/mfd/si476x-core.h
+index d9e3a322134c..3e924ca4db00 100644
+--- a/include/linux/mfd/si476x-core.h
++++ b/include/linux/mfd/si476x-core.h
+@@ -94,10 +94,10 @@ enum si476x_power_state {
+  * of the @rds_fifo_drainer.
+  * @rds_drainer_status_lock: Lock used to guard access to the
+  * @rds_drainer_is_working variable.
+- * @command: Wait queue for wainting on the command comapletion.
++ * @command: Wait queue for waiting on the command completion.
+  * @cts: Clear To Send flag set upon receiving first status with CTS
+  * set.
+- * @tuning: Wait queue used for wainting for tune/seek comand
++ * @tuning: Wait queue used for waiting for tune/seek command
+  * completion.
+  * @stc: Similar to @cts, but for the STC bit of the status value.
+  * @power_up_parameters: Parameters used as argument for POWER_UP
+diff --git a/include/linux/mfd/twl.h b/include/linux/mfd/twl.h
+index b31e07fa4d51..238d9dcefc35 100644
+--- a/include/linux/mfd/twl.h
++++ b/include/linux/mfd/twl.h
+@@ -739,7 +739,7 @@ int twl4030_sih_setup(struct device *dev, int module, int irq_base);
+ #define TWL4030_REG_VUSB3V1	19
+ 
+ /* TWL6030 SMPS/LDO's */
+-/* EXTERNAL dc-to-dc buck convertor controllable via SR */
++/* EXTERNAL dc-to-dc buck converter controllable via SR */
+ #define TWL6030_REG_VDD1	30
+ #define TWL6030_REG_VDD2	31
+ #define TWL6030_REG_VDD3	32
+
+base-commit: e3513583cdb959bbf1370edcbaf3c0b014077742
+-- 
+2.48.1
+
