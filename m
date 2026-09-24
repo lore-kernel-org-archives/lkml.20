@@ -1,145 +1,141 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCAC154788;
-	Thu, 24 Sep 2026 08:57:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B607440A0A;
+	Thu, 24 Sep 2026 08:57:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790240238; cv=none; b=ODb/xugGxIZfZxksoQHDXeeho465iGi5qLuf7laLSxb1t1ZmDU3AEAm8162MRqKkNIER5Cez6Po5itGxhT/ItOZkEW3uODbLQ5e3Aa9fqyQKKICsDGHI+wX8FAW5WBFNpmAFNnyMLp4LtIhSkEIJ1camKFZbIgTjTTpH/8hGjxs=
+	t=1790240253; cv=none; b=FtGh/EX9IjAvnVieWwL9SftCA/McbhWRa4iN8sk3KBbortIzwiZ/ouwd+F/4/3ovzlVshfvLmYA1nGceXqNFUpk/deCW0FJ1pSMN0dFjcmqHCWYjrOma1e6HZRLENMghM3I+UHXKj75F3G0+XUAR59nvk27SOY2ajD3yWpM9S3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790240238; c=relaxed/simple;
-	bh=QPBteaT2wrQdPY+ZLCakihBI9QeeWnZW3cDWJVTpzFk=;
+	s=arc-20240116; t=1790240253; c=relaxed/simple;
+	bh=xsiuJQwIZ5xEk8gorL2gE4ZMImjXNE15Fspti5LUvPY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qQRkowo6enDAvaeQLp4LCEZFELPT13fLz7LMTBHDppwUBtRt4NC1wmxPxHb59zYSwgitgCXU2acYUuVVSHlHD4ivaH3uPVpaDzhGs46KxHwMYa00fErKtMEaJIjbx/IfSc9jjmins+kjlTB4UarohLr5+wsiH9fzZ8A1IJ3/i10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=HlhClT23; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ZKYLHW+p; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=FETLO7NL; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=JlLUxnWv; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=tk34WMAHsFrRyDuqkbeD36b8lgmQFC7bEf1oj4Yzu503Cun+2j0TFuxdn7tsad1FSmoCVuC3sSOD1mdIEOYC77UkVMSlz5l2v3dbjHXE+gWTN1Jc4CePrvY+UysK+zEXfA6BrvdWE+dIverdSdx+88oHQWVZhowJePdr2kRRX1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y66Nn1F7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="HlhClT23";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ZKYLHW+p";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FETLO7NL";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="JlLUxnWv"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 7B81321D08;
-	Thu, 24 Sep 2026 08:57:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790240230; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uwqlBSJIrX1buXrXAy/VoI2OzAsvIjnMs2/fkp1HnME=;
-	b=HlhClT23ZavCRLFWj7jjtBgc+z2Wech+ksQ6hAJbVkeL0wqY+uva/SFPT+smyDZCJD2psW
-	c2ZFKU35XamxM5niO5Q9Yoe5b7pNgM//76UwRM6uPC/el2ErIK6p8F/4S+wkVVyog46ZgE
-	btYdw+bY4K5zgSq94TnyUm2GIl3jJCM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790240230;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uwqlBSJIrX1buXrXAy/VoI2OzAsvIjnMs2/fkp1HnME=;
-	b=ZKYLHW+pOWPcCToahvJKPP9/ilvcCQGt5OAALUW+4meVPHxFaTBYQSb9EG/jTNROw5u6yR
-	40qDbnr6nUWExSAQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=FETLO7NL;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=JlLUxnWv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790240226; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uwqlBSJIrX1buXrXAy/VoI2OzAsvIjnMs2/fkp1HnME=;
-	b=FETLO7NL1G4FjFORzNv086gVvuv7CBmUbS2OWQkV/dZOmULSdSwZKybGRi1Lwp5VsEFk+B
-	8pnkFrxXpgVAUsGo+zc260rMIAFJ9l+9wDsFNtSyoHWiI/1csE3YMSDmtm9LiwJj0fxZPh
-	IzzPjHF8OXciPKoe1JDQHVQQOIUka5M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790240226;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uwqlBSJIrX1buXrXAy/VoI2OzAsvIjnMs2/fkp1HnME=;
-	b=JlLUxnWvL3KuPPZ854fEJamunTZ0e96FZoibRt6kQgOVZZxLbiRpczvSG31E3EoZzNk72o
-	jBBFFYzITJ3YDFCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 87B4313668;
-	Thu, 24 Sep 2026 08:57:05 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id cC7UE+HltGo7eQAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Thu, 24 Sep 2026 08:57:05 +0000
-Date: Thu, 24 Sep 2026 09:57:03 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Suren Baghdasaryan <surenb@google.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/vma: predicate setting mmap_prepare VMA fields on new
- vma alloc
-Message-ID: <arTlHBgXSP64U7ky@pedro-suse.tail5790ac.ts.net>
-References: <20260923-fix-mmap-prepare-overwrite-v1-1-3b3f1bfcdf5e@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y66Nn1F7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AAFF1F00893;
+	Thu, 24 Sep 2026 08:57:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790240248;
+	bh=KsfA+7ZRfaMaOYHf9FLzqm+87QxZc0nf8pdVelteCEk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Y66Nn1F70+EOrXieRS0criFH3uxMANVUI7oanFcCoy8GmyXIy+pJT4bYVlm/thmPG
+	 N7qIdDiz1YmSsvWNdouFIMEZW4BAqVieOEmxdbjyjg8VeCwPdmNl98xvvOpohxm65Y
+	 GyNzGB6Z7BI3y56gBKntItSCJRjU51zGLLQXLvZnr16k3FQ6buDS49+J1C+07Q9T63
+	 n6nHxyci7fO61wmUlSLUGoMKJe5Tmzp5UMO6z0QysEePeglKrYmnlnSTGRtL4Xmc0R
+	 znGcbePU3j8NmjIOaR7E0m14ncuBzwafBVjkGLhSAzXI59gpYQZewywAESCZXVQDnZ
+	 5vqxv1raD/1Pw==
+Date: Thu, 24 Sep 2026 10:57:24 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+	Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>, 
+	Paul Kocialkowski <paulk@sys-base.io>, Inki Dae <inki.dae@samsung.com>, 
+	Jagan Teki <jagan@amarulasolutions.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Sean Paul <sean@poorly.run>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Albert Esteve <aesteve@redhat.com>, Anusha Srivatsa <asrivats@redhat.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
+	Ian Ray <ian.ray@gehealthcare.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-stm32@st-md-mailman.stormreply.com, asahi@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
+	freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-samsung-soc@vger.kernel.org
+Subject: Re: [PATCH v3 12/19] drm/mcde: dsi: don't create a panel_bridge
+Message-ID: <arTlpd-KAsVpj3UH@houat>
+References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
+ <20260916-drm-bridge-every-panel-v3-12-83afb4f1a707@bootlin.com>
+ <arInho2bsfJiCgjV@houat>
+ <DLNCQEG62F5N.O98WAO4U2FJO@bootlin.com>
+ <CAD++jLkk-a0MrQUiaDD8OoDDoYVwBwSjFTj5ZBy=Xo7MS4+01g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="fta6xv3zcvscpec2"
 Content-Disposition: inline
-In-Reply-To: <20260923-fix-mmap-prepare-overwrite-v1-1-3b3f1bfcdf5e@kernel.org>
-X-Spam-Score: -4.51
-X-Rspamd-Queue-Id: 7B81321D08
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[pedro-suse.tail5790ac.ts.net:mid,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
+In-Reply-To: <CAD++jLkk-a0MrQUiaDD8OoDDoYVwBwSjFTj5ZBy=Xo7MS4+01g@mail.gmail.com>
 
-On Wed, Sep 23, 2026 at 06:45:41PM +0100, Lorenzo Stoakes (ARM) wrote:
-> It only makes sense to manipulate VMA fields if a new VMA was allocated,
-> rather than merged.
-> 
-> VMA merging does not compare vm_ops or vm_private_data, so a merged VMA
-> keeps its own, which is also what the legacy f_op->mmap path does since it
-> never touches an existing VMA.
-> 
-> Currently, these fields will get overwritten by whatever state is
-> established in the mmap_prepare hook, and if the VMA was merged,
-> vm_ops->mapped will not have been called, so this could destructively clear
-> existing state without replacing it with anything valid.
-> 
-> There is an implicit requirement that vm_private_data and vm_ops are
-> fungible across VMAs which means that losing the 'new' state is
-> fine.
 
-Hmm, can you explain how this is safe? I was wondering if _any_ kind of
-mismatch should be a WARN_ON (sounds like something odd is happening if
-they don't match). But if the new state is practically discardable, that
-doesn't make sense.
+--fta6xv3zcvscpec2
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 12/19] drm/mcde: dsi: don't create a panel_bridge
+MIME-Version: 1.0
 
--- 
-Pedro
+On Thu, Sep 24, 2026 at 09:51:53AM +0200, Linus Walleij wrote:
+> Hi Luca,
+>=20
+> sorry for my slowness!
+>=20
+> On Thu, Sep 24, 2026 at 9:01=E2=80=AFAM Luca Ceresoli <luca.ceresoli@boot=
+lin.com> wrote:
+> > On Tue Sep 22, 2026 at 9:09 AM CEST, Maxime Ripard wrote:
+>=20
+> > >> -    } else if (bridge) {
+> > >> +    if (!bridge) {
+> > >> +            dev_err(dev, "no bridge\n");
+> > >> +            return -ENODEV;
+> > >> +    } else if (!drm_bridge_is_panel(bridge)) {
+> > >>              /* TODO: AV8100 HDMI encoder goes here for example */
+> > >>              dev_info(dev, "connected to non-panel bridge (unsupport=
+ed)\n");
+> > >>              return -ENODEV;
+> > >
+> > > I wonder if we still need that branch. Every panel is a bridge now, a=
+nd
+> > > it looks like we don't have any specific panel handling in this drive=
+r,
+> > > so I guess it supports bridges already?
+> > >
+> > > Linus, do you know why this condition was here in the first place?
+> >
+> > I had the same thought while writing the patch, but I chose to be
+> > conservative.
+> >
+> > Linus, unless you have more info I'm going to apply the patch as
+> > is. Removing this special case would be welcome as a later patch.
+>=20
+> I'd say go ahead as-is.
+
+I'm fine with that, but I really want this removed at some point.
+
+> I do have the idea to code up and submit the AV8100 encoder
+> and I have the hardware to test it, but every other user should
+> be using panels directly, and I would be the only non-panel
+> user so I can deal with it when it comes up.
+
+It won't change a thing. All existing "panel" users will be bridge users
+after this patch is merged. So whether you want to enable a bridge or
+not shouldn't matter, the only thing that does is whether the existing
+users would still work.
+
+Maxime
+
+--fta6xv3zcvscpec2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCarTl8wAKCRAnX84Zoj2+
+dhwWAXwI9qMs84ZRfc2g48IeAyQiE/CtbfMWnKHKCoJcY62gOn2KtPtJlfAUSVSt
+Fz2FzIoBf1P/bkrhzAS0uao6/CjJ0F2xh689BoYPK8a7rDMJeckpdh6Df4f795pW
+2kQWWS2bNQ==
+=k5VA
+-----END PGP SIGNATURE-----
+
+--fta6xv3zcvscpec2--
