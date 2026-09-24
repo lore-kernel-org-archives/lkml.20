@@ -1,116 +1,193 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76C414825A8
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:11:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9477847D477;
+	Thu, 24 Sep 2026 13:11:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790255478; cv=none; b=uIpfWanxYR+odgKPNtW5krURY5xjJ6xRlZs0cXWIBJNp1X1C5Ye4IwixsqlwaIcgrCMXdR67DAvVNtQyzBSwwh9prTgoQuvZdohaHpzb06258KAF+yrArbvBudKx0WuPbz/J/BPPgKZwjE963BiIZwUtA7NefmvIylmyPrN35LU=
+	t=1790255484; cv=none; b=k4miDLTgsdg0PM5DjkVkvC1mS1vqRPdvpvE/Eb7xAPf+PUQpdLF1NTm0piAKJv8AFGsIj34fjJhZMnQWK62oH3qFjIGrU7Z35nV/AMYwnuLFmWti+TdWqUK+CkeZ9oKDbP2icYIoruj4DoLwR95EUaPAbUaU2irW1yRZFQEtVj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790255478; c=relaxed/simple;
-	bh=me56oTO/TOBSqsm3f2x4P/XfTor+iq5IBnVYHVS2BVY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=r4AZF8uQ7w6etbhpy16s/ajLHKIx/TZE6WI/Z13aSnk4yQBnRXajoV1yIFbRQCPC+WCkeLVimPNPDP+0iOE9OD9GY0e4jcpva1vpFlQjlB7MGbFHDqaS19J1HevGXq1Q5PSbLQH5VwRwmYL9Tt/OAHCL35hzfzfMJni3PUbe0s8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=S4Xu7sOI; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790255484; c=relaxed/simple;
+	bh=e/9gnFks079cSu1f+MLquMjLMqHujT2ROPffEcmRtQE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XzTwkMqkyqmv644Hm6G6wZbEMKzoCW2zv6CRyHm/O+KuS0CsWhCiriS7CgM2BMok3j7p+l6rFMFYTZhCO+SLlhdzH2H+pjvRi7CxtJxVsSthw8qVTnDhAjIqn1J7JPM1DlNzOKnayIrMV+2PvPHstA9IXifbtlMFHQCcpHV6sgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=CqWCpPB0; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="S4Xu7sOI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790255474;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CK9h24tbKUqAp/U2G5VravT+5URHwmwyNjh2EclKSmQ=;
-	b=S4Xu7sOIghXPkM6uYreyH81h1wQ6mwaCpIW1Qkyj1kYhiUM47fodRXAl3qMtsXZ5b6fao+
-	Ptz2rlTvjYD1AZnKlKyQbZsvHlAKMkkATpHbEA/ErD4beMiyvu3JtVkuhvRT9VJwl5h0Ca
-	Vw6G32qd4M2RQLxeaSdb9LvjCwFd05A=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-500-osQ3COd8PReZyKXmPefo_Q-1; Thu,
- 24 Sep 2026 09:11:12 -0400
-X-MC-Unique: osQ3COd8PReZyKXmPefo_Q-1
-X-Mimecast-MFC-AGG-ID: osQ3COd8PReZyKXmPefo_Q_1790255471
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3746C1828ABD;
-	Thu, 24 Sep 2026 13:11:11 +0000 (UTC)
-Received: from aesteve-thinkpadp1gen8.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B03B31800586;
-	Thu, 24 Sep 2026 13:11:09 +0000 (UTC)
-From: Albert Esteve <aesteve@redhat.com>
-Date: Thu, 24 Sep 2026 15:10:38 +0200
-Subject: [PATCH v3 4/4] soc: qcom: smem: ignore multi remote host
- partitions
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="CqWCpPB0"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 389691476;
+	Thu, 24 Sep 2026 06:11:18 -0700 (PDT)
+Received: from cesw-amp-gbt-1s-m12830-01.blr.arm.com (cesw-amp-gbt-1s-m12830-01.blr.arm.com [10.164.195.33])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 91D493F86F;
+	Thu, 24 Sep 2026 06:11:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790255481; bh=e/9gnFks079cSu1f+MLquMjLMqHujT2ROPffEcmRtQE=;
+	h=From:To:Cc:Subject:Date:From;
+	b=CqWCpPB0XZVJf7lG7wEIips7LZon7+NJAG+6kS3Q8xUm9X6gBmLzS2CfeD3fgUHpA
+	 xVpOE3uyt9pMvYBmARKgZkn8wPjjvaErYbkZsv1+PHFCIauuw1iSgat/MGFhjltWgp
+	 y9WZJYU7zw8BYrHas8iZqDksMOyZR265ByGPcpPQ=
+From: Dev Jain <dev.jain@arm.com>
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	hughd@google.com,
+	chrisl@kernel.org,
+	kasong@tencent.com,
+	davem@davemloft.net,
+	andreas@gaisler.com
+Cc: Dev Jain <dev.jain@arm.com>,
+	riel@surriel.com,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	harry@kernel.org,
+	jannh@google.com,
+	lance.yang@linux.dev,
+	baolin.wang@linux.alibaba.com,
+	shikemeng@huaweicloud.com,
+	nphamcs@gmail.com,
+	baoquan.he@linux.dev,
+	baohua@kernel.org,
+	youngjun.park@lge.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	pfalcato@suse.de,
+	jgg@ziepe.ca,
+	thuth@redhat.com,
+	sparclinux@vger.kernel.org,
+	ryan.roberts@arm.com,
+	anshuman.khandual@arm.com
+Subject: [PATCH v3 0/9] Optimize anonymous swapbacked large folio unmapping
+Date: Thu, 24 Sep 2026 13:09:28 +0000
+Message-ID: <20260924131106.1730494-1-dev.jain@arm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-port-smem-v3-4-fbc2ea81a654@redhat.com>
-References: <20260924-port-smem-v3-0-fbc2ea81a654@redhat.com>
-In-Reply-To: <20260924-port-smem-v3-0-fbc2ea81a654@redhat.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Albert Esteve <aesteve@redhat.com>, 
- Tony Truong <quic_truong@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790255460; l=1357;
- i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
- bh=3ju3KHFjQna22sHC5wqI6gfy3u13jdoSmHuNzJTX+nA=;
- b=0rZdUYJc1AZKljjzwEOoHoqIefdC1AodXci5myT0K27k7nn52im+FjER1xb1rjOIGlD+PkbXy
- mSB0YZZkv0NCRH64xwdAaaa2T0wJFHLzApFOuzhKhAH8h3z5kK5NOWE
-X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
- pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Content-Transfer-Encoding: 8bit
 
-From: Tony Truong <quic_truong@oss.qualcomm.com>
+Speed up unmapping of anonymous swapbacked large folios by clearing
+the ptes, and setting swap ptes, in one go.
 
-SMEM now supports more than just 1-to-1 partitions. It is possible for
-a partition to have multiple remote host and the logic to handle that
-does not exist. For now, skip all partitions which has multiple remote
-hosts.
+The following benchmark (stolen from Barry) is used to measure the
+time taken to swapout 256M worth of memory backed by 64K large folios:
 
-Signed-off-by: Tony Truong <quic_truong@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Albert Esteve <aesteve@redhat.com>
+ #define _GNU_SOURCE
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <sys/mman.h>
+ #include <string.h>
+ #include <time.h>
+ #include <unistd.h>
+ #include <errno.h>
+
+ #define SIZE_MB 256
+ #define SIZE_BYTES (SIZE_MB * 1024 * 1024)
+
+ int main() {
+     void *addr = mmap(NULL, SIZE_BYTES, PROT_READ | PROT_WRITE,
+                       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+     if (addr == MAP_FAILED) {
+         perror("mmap failed");
+         return 1;
+     }
+
+     memset(addr, 0, SIZE_BYTES);
+
+     struct timespec start, end;
+     clock_gettime(CLOCK_MONOTONIC, &start);
+
+     if (madvise(addr, SIZE_BYTES, MADV_PAGEOUT) != 0) {
+         perror("madvise(MADV_PAGEOUT) failed");
+         munmap(addr, SIZE_BYTES);
+         return 1;
+     }
+
+     clock_gettime(CLOCK_MONOTONIC, &end);
+
+     long duration_ns = (end.tv_sec - start.tv_sec) * 1e9 +
+                        (end.tv_nsec - start.tv_nsec);
+     printf("madvise(MADV_PAGEOUT) took %ld ns (%.3f ms)\n",
+            duration_ns, duration_ns / 1e6);
+
+     munmap(addr, SIZE_BYTES);
+     return 0;
+ }
+
+Performance as measured on a Linux VM on Apple M3 (arm64):
+
+Vanilla - Mean: 37401913 ns, std dev: 12%
+Patched - Mean: 17420282 ns, std dev: 11%
+
+resulting in more than 2x speedup.
+
+No regression observed on 4K folios.
+
+Performance as measured on bare metal x86:
+
+Vanilla - mean: 54986286 ns, std dev: 1.5%
+Patched - mean: 51930795 ns, std dev: 3%
+
+I tried magnifying the difference on x86 by using 1M large folios, but
+can't spot an obvious improvement (looks like my system is too fast to
+benefit from batched atomic operations!), hinting that the benefit lies
+mainly in the reduction of ptep_get() calls and the reduction of TLB
+flushes during contpte-unfolding, on arm64.
+
+No regression is observed on 4K folios on x86 too.
+
 ---
- drivers/soc/qcom/smem.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Applies on mm-unstable.
 
-diff --git a/drivers/soc/qcom/smem.c b/drivers/soc/qcom/smem.c
-index 393257cbe5e1..a7a1840b7ff7 100644
---- a/drivers/soc/qcom/smem.c
-+++ b/drivers/soc/qcom/smem.c
-@@ -89,6 +89,9 @@
- /* Processor/host identifier for the global partition */
- #define SMEM_GLOBAL_HOST	0xfffe
- 
-+/* Processor/host identifier for multi host partition */
-+#define SMEM_MULTI_HOST		0xfffc
-+
- /* Entry range check
-  * ptr >= start : Checks if ptr is greater than the start of access region
-  * ptr + size >= ptr: Check for integer overflow (On 32bit system where ptr
-@@ -1091,6 +1094,9 @@ qcom_smem_enumerate_partitions(struct qcom_smem *smem, u16 local_host)
- 		else
- 			continue;
- 
-+		if (remote_host == SMEM_MULTI_HOST)
-+			continue;
-+
- 		if (xa_load(&smem->partitions, remote_host)) {
- 			dev_err(smem->dev, "duplicate host %u\n", remote_host);
- 			return -EINVAL;
+mm-selftests pass.
 
+This breakout patchset is the final completion of
+https://lore.kernel.org/all/20260526063635.61721-1-dev.jain@arm.com/
+
+The extra addition is the generic set_softleaf_ptes() helper.
+
+v2->v3:
+ - page_anon_exclusive_batch returns unsigned long, shift to rmap.h
+ - Drop a para in description of patch 5, use softleaf_is_swap to gate
+   pte_swp_exclusive
+ - finish_folio_unmap -> finish_folio_unmap_batch
+ - Add patch 9 to do batching for sparc
+   
+v1->v2:
+ - Add WARNs for folio span in folio_*_swap_pages
+ - Trivial changes to page_anon_exclusive_batch
+ - Add two sanity checks in patch 4
+
+Dev Jain (9):
+  mm/swapfile: add batched version of folio_dup_swap
+  mm/swapfile: add batched version of folio_put_swap
+  mm: move anon-exclusive batch helper to rmap.h
+  mm/rmap: Add batched version of folio_try_share_anon_rmap_pte
+  mm/internal: rename swap offset helpers to softleaf offset
+  mm/internal: add set_softleaf_ptes
+  mm/memory: use set_softleaf_ptes for uffd-wp markers
+  mm/rmap: batch unmap anonymous swap-backed large folios
+  mm, sparc: batch arch_unmap_one()
+
+ arch/sparc/include/asm/pgtable_64.h |  10 ++-
+ arch/sparc/kernel/adi_64.c          |  21 ++++++
+ include/linux/pgtable.h             |   6 +-
+ include/linux/rmap.h                |  73 +++++++++++++-----
+ mm/internal.h                       |  64 ++++++++++++----
+ mm/memory.c                         |  20 ++---
+ mm/mprotect.c                       |  18 +----
+ mm/rmap.c                           | 110 ++++++++++++++++++++--------
+ mm/shmem.c                          |   8 +-
+ mm/swap.h                           |  35 ++++++++-
+ mm/swapfile.c                       |  39 +++++-----
+ 11 files changed, 275 insertions(+), 129 deletions(-)
+
+
+base-commit: 8d61431ed2607386b427752505379536eb634ce8
 -- 
-2.55.0
+2.43.0
 
