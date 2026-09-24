@@ -1,166 +1,157 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5BFC3CB571
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:56:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B7344A5EC3
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:57:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790269017; cv=none; b=N5PZRL0MSGCWxSQD5HpkiWsFYV9Crc0sKwBDLiUpAR2TtZoQvbpo0S1pwRBs+vpHFvpftwoBLyzZgxvnbHpbIVLp+kSNO/S+HIrhKYe7k03re9BT7bl6uedu4bV4RvXuIi91fxu38UGgG8okOrtvKCnCKABrCE9XQ/I+CgbQHWg=
+	t=1790269024; cv=none; b=XsXbaMJBPzcE54vHTujh9/HECQyes3exKsQkWnpo+f30qPlL184aRINOu44bgiJ2JfJ+l8JiTafCT0Fsf87T3Q9WjtU/yVD6P3UnTCdVy4k4payFBnqqLzyfe+q3udOb9z2IiZLS/5Hdo9xv7RqFEwcD87qVJ0YJ2msA37gzSKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790269017; c=relaxed/simple;
-	bh=WYqlHO/zHt3Xutv1rUCfQfMjfWFxGbA6/KjnOWjFWrQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nU3kZ638kXDmz19qMQJoHZaC0PYfAdMikHOePAUfi/m7wxuOSCOmFp2lkWih8EaahGtoo85F+ZuF+MIIIqQb/vIKVB0pgfla3ty9qg5xn3qUzcrdpbZU68SBlhVi1FOH71HYFDk3oSFzPznlc08UEB9rH2Sqi+YcUDvePHXhifE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=a1xQSuLj; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1790269024; c=relaxed/simple;
+	bh=gK5nHOMyGJrSKS1lhvfTZmlBAfaksbqVK72bCY88ToA=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=b+0/SZK7DKqqqBa2pf3DYvGxdaqINMHBZ+ElYVsTiNw7xWKB6TEG6EEOaWZPiNKttldpkCfXW8hZeAivd64c1u1x1yyKUdC1aJsNis/i1Pmxx8MJ8DO4yU56h8rGNgPJOB4RRMD2KICJf7ts65EieyHsdBgxGrtBNQUCEeglOKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lb2IwhZK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="a1xQSuLj"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccd4f99dso83609a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:56:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790269015; x=1790873815; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=guLOIkoVPSN8vWBIel9PXHqx3VExrGAEcv83cGNA/Jo=;
-        b=a1xQSuLjoOkO2ZAEZH0MOvWI/GDdI3xIPFdyQolWJku5WeZ0NR6OsSYE33kyEsWAda
-         ABS+PpnD9vk6scQUj8PAqUoYhreuZ+5XvuakClTpfyRSt5FYjmnXUegK/rFOSKevkmUh
-         A7cSm1x6gjQ78uOtkyWXid6hu9ze5A9UEP9pc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790269015; x=1790873815;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=guLOIkoVPSN8vWBIel9PXHqx3VExrGAEcv83cGNA/Jo=;
-        b=Oo0fjz8wqD4nVnZZhNBd5dq00zQwT/Kg+UMVVmI6ZChDUxc0fvYUe0oFiALy3nBorX
-         MRUtCtFvykHx1ucSm49E8OIh5D8EjNVPyV+zHZqCTIP3smpfPaEEYfjPyUvf5QI2NsnI
-         CFs8htDCgjACop058J3LRFZsWrW9Saba8HFfIWdwLDrCzeeLZOViZ+WgiXJIf3WIkezG
-         GamHgHJeND+FUy2COBw8lw5H6BdbuVp5Sec8VpAowySSpFFUQOENxf14FEAnmyusYDxT
-         CUfkoQYVCd6Wh4jdGfxqRRe6pW2WxXHtcvLOSdvmKJskizsyddYQutXFi4maMNLglWna
-         /RGg==
-X-Forwarded-Encrypted: i=1; AKwUvByq8CWipY1YE/Z+fecTi3E6FhFmAkfSoKAAkd1YieeU6hs6N2VkzO60AXyZ+LB2rvHgqiFGVuyFRZV3Sok=@vger.kernel.org
-X-Gm-Message-State: AFuF++l38OBJXHPqPq12v5FXM1HYuybRwdN6zNo6pSFZucNNZITyZjdE
-	Yz+w/rNv45yQ02arYjStfGdiYfukLGNxWYz/o438AvZdtMPf5OjldAkhsWRSEsKugg==
-X-Gm-Gg: AYBFou3fkFaBQ8JNqp51jWWiDQ6qV+W/Z05heiw5I9LYLEF07U1x9H3khQoIymuaRBh
-	+OW3p/2qStd0iebh77aKn0MdRdXXsGy9zbaIUKj9cZfHN55/Ci4HDBQSruW5HmxKL1pmSaHUW4t
-	iov8UwliOUKlngFUG4BBkicesL+lqu2Iu5ytPaSNIj9+0uFDLRuKJZUNvv5mE9zf2MvsTlOEJBf
-	oWPTLu2E7au1yC5GZL8CR7WeghsEYTTTAAnQZ//pBKb9NaznXgB9KDykLOpf6anoyjqTZ4Z2HWb
-	YNdD1HCxn7Q0nwDVdb+e0KrDA9j+lGNwn3UumSpXghz76GfoW8oUNHNXce7oz3lrl0/RDJ+bWPx
-	T+WU6AyAnE7TzhSvh8tFv8fv7Sl4VVl4UtynqDd6c7838+DmDEtuuAR5B5WFkl6+oQjBBrIJYMs
-	uufB6+ly//6w5Sm/NZUhRP81oid670xltqGHb1Zi+WgQTiyyGhi2Ee1iq5/HipE5IzAcyhsW3Dl
-	xltfIodAj/KDptG5uV+M+S/ytk8iFEqj6tSlw==
-X-Received: by 2002:a17:90b:4487:b0:39e:6c69:9b95 with SMTP id 98e67ed59e1d1-3a09928d05fmr2500373a91.58.1790269015076;
-        Thu, 24 Sep 2026 09:56:55 -0700 (PDT)
-Received: from localhost ([2a00:79e0:2e7c:8:b9bb:8d53:6635:9f5f])
-        by smtp.gmail.com with UTF8SMTPSA id 41be03b00d2f7-cc78794331fsm42561a12.20.2026.09.24.09.56.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 09:56:54 -0700 (PDT)
-Date: Thu, 24 Sep 2026 09:56:52 -0700
-From: Brian Norris <briannorris@chromium.org>
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, linux-doc@vger.kernel.org,
-	linux-pm@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>,
-	Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>,
-	Doug Anderson <dianders@chromium.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/8] PM: runtime: Misc improvements to runtime_pm.rst
-Message-ID: <arVWVA3lks7SopQH@google.com>
-References: <20260923174711.1283986-1-briannorris@chromium.org>
- <20260923104031.v2.3.I383681b22c12d7caee976cb91aa90d1a94d4a591@changeid>
- <CAPx+jO_1qYnN37diVN1=PA0xGa0iSBfXD_uqgSdFpTn4t0zJiw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lb2IwhZK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBFA21F000FF;
+	Thu, 24 Sep 2026 16:57:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790269022;
+	bh=7xBAl8OyFpCzpWQlqcHmDCI/txbcQ4J/hmH1kiKvEaY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=lb2IwhZKl3Yeg+SXhYB2iUj99HHmqs/Sfds1W0AbzDT09ywvXSAV4QoWusjg1vSzD
+	 EoCqjWCP4AzLEhudLDn+Ra7lGRvIdmxlxA6OQC4NP7nkBmqJMsvLV+q2WSSUhDSJF0
+	 q1oLCEtXVO4J69vP3LebrAr9R5F9I5GGk/PEKEJLntE51J8LiW0dRv3A/gi1Yn5AOs
+	 Rgxv4G3BWQSSYuJMFMyi0tk63orh1tvb5jXcN2nFeyh26dWgYLiXbs/LfLxQPZnOV8
+	 EXBVbfnSuZI/zxEJcYuzw9yI5mBYgEvYOzJfL3a49EHHCEQnVGfg4Y4KswlG7EYRTG
+	 fUanCWbEo9Whw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x9mkm-0000000D7CV-2OdV;
+	Thu, 24 Sep 2026 16:57:00 +0000
+Date: Thu, 24 Sep 2026 17:57:00 +0100
+Message-ID: <86qzii4mg3.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Andrea della Porta <andrea.porta@suse.com>
+Cc: Will Deacon <will@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: smp: Signal EOI after handling IPI_CPU_STOP*
+In-Reply-To: <arTnfHPBf2qLDLOT@apocalypse>
+References: <20260922140109.12780-1-andrea.porta@suse.com>
+	<arPzNkDD69ZKFT99@willie-the-truck>
+	<86se2z4yje.wl-maz@kernel.org>
+	<arTnfHPBf2qLDLOT@apocalypse>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPx+jO_1qYnN37diVN1=PA0xGa0iSBfXD_uqgSdFpTn4t0zJiw@mail.gmail.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: andrea.porta@suse.com, will@kernel.org, catalin.marinas@arm.com, mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Thu, Sep 24, 2026 at 04:01:00PM +0200, Ulf Hansson wrote:
-> On Wed, Sep 23, 2026 at 7:47 PM Brian Norris <briannorris@chromium.org> wrote:
-> > diff --git a/Documentation/power/runtime_pm.rst b/Documentation/power/runtime_pm.rst
-> > index 39fdeeda7a1e..352cdaf0650d 100644
-> > --- a/Documentation/power/runtime_pm.rst
-> > +++ b/Documentation/power/runtime_pm.rst
-
-> > @@ -315,7 +319,10 @@ removal of their drivers.
-> >
-> >  Drivers in ->remove() callback should undo the runtime PM changes done
-> >  in ->probe(). Usually this means calling pm_runtime_disable(),
-> > -pm_runtime_dont_use_autosuspend() etc.
-> > +pm_runtime_dont_use_autosuspend() etc. Alternatively, drivers can use
-> > +devm_pm_runtime_enable() during probe, which automatically takes care of
-> > +calling pm_runtime_disable() and pm_runtime_dont_use_autosuspend() upon driver
-> > +detachment.
+On Thu, 24 Sep 2026 10:03:56 +0100,
+Andrea della Porta <andrea.porta@suse.com> wrote:
 > 
-> As I have stated in earlier discussions at LKML, the
-> devm_pm_runtime_enable() API is not entirely easy to use correctly by
-> drivers. It means that pm_runtime_disable() gets called at some point
-> *after* the ->remove() callback has been invoked, which can cause
-> problems, unless the driver's ->remove() callback has managed things
-> correctly.
+> Hi Will and Marc,
+> 
+> On 19:23 Wed 23 Sep     , Marc Zyngier wrote:
+> > On Wed, 23 Sep 2026 16:41:42 +0100,
+> > Will Deacon <will@kernel.org> wrote:
+> > > 
+> > > [+Marc]
+> > > 
+> > > On Tue, Sep 22, 2026 at 04:01:09PM +0200, Andrea della Porta wrote:
+> > > > On kdump/kexec, the boot CPU triggers an IPI_CPU_STOP (and subsequently
+> > > > an IPI_CPU_STOP_NMI if the first one does not respond) to the secondary
+> > > > CPUs, and the IPI handler eventually calls the firmware to shut down
+> > > > each CPU. Since the IPI is never acknowledged via EOI, the interrupt
+> > > > remains in an active state when the CPU goes idle.
+> > > > 
+> > > > In a virtualized environment, if the hypervisor does not reset the
+> > > > interrupt state, this causes the crashkernel (with cmdline option
+> > > > maxcpus > 1) to be unable to synchronize between the boot CPU and
+> > > > secondary CPUs via IPI_CALL_FUNC, leading the kernel to wait indefinitely
+> > > > for the CPUs to respond. This has been observed with the Hyper-V
+> > > > implementation.
+> > > 
+> > > Hmm, how is this different from panic()ing inside an interrupt
+> > > handler?
+> 
+> It is not, in fact I should have put the EOI in all cases, but I just
+> focused on the crash driver by IPI only. The patch should be extended
+> but from the following discussion it does not seem relevant anymore.
 
-Yeah. And I think it's rare for drivers to have done a thorough job. A
-rare exception: I found commit 2d90ecdfa326 ("ASoC: rockchip: i2s: Use
-managed hclk and runtime PM cleanup") an interesting outlier -- it adds
-an additional devres teardown to power things off afterward.
+The other problem here is that you're looking at the IPI that got you
+there. But this IPI could have a higher priority than other interrupts
+(NMI), and therefore have preempted them whilst they were active.
 
-OTOH, between v1 and v2, I chose to tweak one of the Examples to avoid
-devm, precisely because it was committing (or hinting at) these kinds of
-mistakes.
+What happens with them? You'd need to iterate over all the interrupts
+that are in progress and EOI/DIR them *in the correct order*. Which
+would be replicating the GIC state machine. You can't do that in an
+arbitrary order as that would violate the interrupt life cycle which
+on some implementations results in a terminal SError.
 
-> My point is, the above makes it sounds like it's easy to switch to the
-> devm managed version, while it certainly isn't that straight forward.
+[...]
 
-Right, I said as much in the cover letter too:
+> > >
+> > > Doesn't this hard-code the flow handler for the irqchip? It feels like it
+> > > would be better for the GIC driver to get a callback during the kexec
+> > > sequence (if it doesn't already) to prepare itself.
+> > 
+> > Yeah, that's not an acceptable approach.
+> 
+> We're in a non returning handler which is about to shutdown the CPU in a few
+> instructions, so I'm not sure how to callback into the GIC driver.
 
-(possible future work)
-<quote>
- * Adjust the way devm_pm_runtime_enable() works, specifically for
-   remove()/teardown. Currently, this is very hard to use correctly --
-   some common driver patterns may assume that a device will tear down
-   while RPM_SUSPENDED; but that's not actually guaranteed. Notably,
-   this makes some of the "Examples" section fairly tricky/subtle.
-</quote>
+I reckon crash_kexec_post_notifiers and co could be of help, and could
+be to some extent tucked away in the HV-specific code (but see below
+for my full take on this).
 
-Would this be a good moment to pass this possibility by you? What if we
-taught the teardown to force a device back to RPM_SUSPENDED? Something
-like:
+> > The other observation is that the GIC drivers already clear the active
+> > state at boot time (gic_cpu_init()). So what isn't that working?
+> > 
+> > Could it be that the hypervisor doesn't correctly handle the writes to
+> > GICR_ICACTIVER0 to nuke the active state? Because this works correctly
+> > on KVM as is.
+> 
+> That's what I suppose, but obviously I have no access to the implementation
+> so I canot add more. This is currently under investigation by the folks who
+> can, though...
 
-    static void pm_runtime_disable_action(void *data)
-    {
-            pm_runtime_dont_use_autosuspend(data);
-            pm_runtime_disable(data);
+OK. It'd be interesting to understand why the existing code fails in
+your context, and getting feedback from the HV people would help.
 
-            // New code:
-            if (pm_runtime_status_suspended(data)) {
-                    int (*callback)(struct device *);
-                    int ret;
+> 
+> So the bottom line is that we need to wait for a patch from the hypervisor 
+> vendor (and from any vendor that *could* suffer from the same issue), I guess?
 
-                    callback = GET_CALLBACK(data, runtime_suspend);
-                    ret = callback ? callback(data) : 0;
-                    if (ret)
-                            return;
+My take is that there is no point adding anything to the kernel until
+we understand exactly what is at stake. The kernel's expectation is
+that there is no difference between bare metal and virtualised, and
+that fundamental parts of the architecture (such as interrupts) should
+work as expected, no ifs, no buts.
 
-                    pm_runtime_set_suspended(data);
-            }
-    }
+If this isn't fixable, or that we don't know when this will be fixed,
+we can always add an erratum workaround. But it needs to be captured
+as such, which implies that we have the full understanding of the
+issue.
 
-> Not sure what that means for the documentation though. :-)
+Thanks,
 
-Well, I don't feel like the part you quoted is a problem. IMO, it's
-totally fair to mention relevant APIs even if they're hard to use --
-there is no part of the runtime PM that is easy to use!
+	M.
 
-But I'm definitely trying to make things easier too. Ideally, we can do
-something like the above to make it easier to use. But if we
-can't...well, I guess I can try to document pitfalls better -- possibly
-in the Examples section, or maybe an extra note in the above quoted
-area.
-
-Thanks for looking,
-Brian
+-- 
+Without deviation from the norm, progress is not possible.
