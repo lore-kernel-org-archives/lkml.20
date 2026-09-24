@@ -1,89 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA753BFE3B;
-	Thu, 24 Sep 2026 22:27:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA073BFE3B;
+	Thu, 24 Sep 2026 22:29:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790288880; cv=none; b=AHq3qBu5PsL9reZJnPB/HkAZ4UGny/DPe3MfaovuB4V4TvzfmP1EtbIue4sGXuYOqXCdRfixm6g25ay+sNGmiMMAIk3saU92xkRj9RPJwSybZKaCFCO8Es1zaojaU5YDcTfD9MhOrL/8XfhHl6Kpwlhc0YwdrIHjqzkg5ooS7yc=
+	t=1790288963; cv=none; b=I0rgtNxh6yuznoWL0wiT8qQQAl4ZZ7fsivIG7TEjmdfCkSmhUbI9gs0ozMCXu4DjmKqIHLe1fGSap2nRuAFU6G14c6+aRXHPXoSUyd0x9wWO0iEYTcFwmuEBRNeUn2ZhkTsBtx+5aMiZSA+vHzuPewyw/5wLzGKm/bgHBsXXa+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790288880; c=relaxed/simple;
-	bh=lxssIHuW6s/MZTgl178wG2Cm1Tn7qxcwdGF1fUcMX0M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DpHU7oGz6SrhaAF4D1O7S82jKlNve0UxS+YXgudwbiShB/iUo/4lxdXPiueE9G12JgNvuZXGHdNOMSaQCytq0Rk8vWLzGWM5+7r7Z2wfYk4JetkrTqiF84K6PP5gVhDvBIRr7kYHgFiwp2M2LmUprCdD2KZs+1YuWSu0vtV9OB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ewnpUaoy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790288963; c=relaxed/simple;
+	bh=G0VbTNBezTrnJ+kACz3WLvngr1Xlvbi/75cjXrI/Buc=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XH31PcodDpgClG5jqNI5AQPsbRkcEzSJWDWVRYVyA9nZ2MqwmU8iBeBNSwNcjHmu1DNwtBoyGcgLCK10i3FBMm7fbT0Csu1ZTqbEvmC445LXlv/PEWES8MYsh8FUzJn/uHIg1ihaLZl+a2pVDrWTpFnmraweEFr0O35/HFNHDKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cm9MLLdM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ewnpUaoy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 141A61F000FF;
-	Thu, 24 Sep 2026 22:27:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cm9MLLdM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0B1A1F000FF;
+	Thu, 24 Sep 2026 22:29:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790288879;
-	bh=7D6zAciElAf48e9upbEbOKRZcIwqECK/W7zcVQZfgnQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ewnpUaoyP9W7F4f9UyWCfe4p6KhvY2mEK44KcCt43uh2mgTM+11EiEOLulbfCzGUh
-	 w9bCIctsS2s74fgb0Wh0oKESqtfmIZTCp4f+ZGud4NNZwlc+muDIXG7kezl9mH2rGP
-	 VSecQ4QweG/v1POwobPBCBVxB1pgEQrSJ3xlxx+KP48VpZHb0XHSVx42UB5lVCNyVH
-	 jSdGhpykeuzWXiu+uRnX/kM9fFm1LJ1UIK0aDu3pzCMF40NZ//zHg3FqQ6M0joEuoo
-	 IJok4o8qvqEFKq0pNtUQUtJMBaa4pw5SG/PYDS2QsDqfyT48F6IhLudRHqTsG1c1K9
-	 6Zj9rVzSDrUqA==
-Date: Thu, 24 Sep 2026 23:27:54 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Cc: linux-sound@vger.kernel.org,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Yung-Chuan Liao <yung-chuan.liao@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Yauhen Kharuzhy <jekhor@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 0/2] ASoC: Intel: Add Yoga Book RT5677 support
-Message-ID: <6a07375c-a5eb-4021-b7f6-af85f02f3652@sirena.org.uk>
-References: <20260902123007.769820-1-mauriziocasciano7@gmail.com>
- <20260924215540.933043-1-mauriziocasciano7@gmail.com>
+	s=k20260515; t=1790288961;
+	bh=9lTk9HKkaCEZkNbTtcdgRDBlqeemuAp3XPisqKa2/VE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Cm9MLLdMqefLdn0f4fB3SmLd0hLcSZ+vRIzYltU3WJeSP2uQBClxrlvCK52bKVzNH
+	 RZxyrR5yNE2ldL3BfleuXHv4Eu3pJ5ywTr+S/+WBO3VYKtA2rTvgIkvPQ0M5ASmEeA
+	 Js0blZ9LHCZGaFn0ec4UZ7aBSm9u1HVOMN56H87T/HDohCipgfL2pLWzS2gr1lpV3N
+	 uhItfsNx0GBvwlGsmeeulP+Fzq2oMAxxPQDFNheAIpVyA/QcFnLpUA1+/Lybe/N3iK
+	 bH30foLXBEjjJwX669zgjgrjONlko3Ynd9Z2ECo9yJDyEZTAMPOScqprzEzFKvibL5
+	 aqFowxSQz1EWA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x9rwN-0000000DEyP-27Eo;
+	Thu, 24 Sep 2026 22:29:19 +0000
+Date: Thu, 24 Sep 2026 23:29:18 +0100
+Message-ID: <86h5je4729.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Fuad Tabba <fuad.tabba@linux.dev>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Janosch Frank <frankja@linux.ibm.com>,
+	David Hildenbrand <david@kernel.org>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Jack Thomson <jackabt@amazon.com>,
+	Jack Thomson <jackabt.amazon@gmail.com>,
+	Alexandru Elisei <alexandru.elisei@arm.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Sean Christopherson <seanjc@google.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	Leo Soares Passos <Leo.Bras@arm.com>,
+	Wei-Lin Chang <weilin.chang@arm.com>,
+	linux-s390@vger.kernel.org
+Subject: Re: [PATCH v4 01/14] KVM: Allow architectures to disallow pre-fault
+In-Reply-To: <arTdxHgk_3gGySOO@gremlin>
+References: <20260923-kvm-arm-prefault-v4-0-d4b0b4dfa8c3@kernel.org>
+	<20260923-kvm-arm-prefault-v4-1-d4b0b4dfa8c3@kernel.org>
+	<CA+EHjTzDYSuBVEc+SMdDa41sq-ET=m_oWW0gL9dYf+AumPYPUg@mail.gmail.com>
+	<arTdxHgk_3gGySOO@gremlin>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="KhHKTTBYT12xrTT8"
-Content-Disposition: inline
-In-Reply-To: <20260924215540.933043-1-mauriziocasciano7@gmail.com>
-X-Cookie: Oh, so there you are!
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: ljs@kernel.org, fuad.tabba@linux.dev, catalin.marinas@arm.com, will@kernel.org, oupton@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, pbonzini@redhat.com, corbet@lwn.net, mark.rutland@arm.com, rdunlap@infradead.org, borntraeger@linux.ibm.com, frankja@linux.ibm.com, david@kernel.org, hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com, svens@linux.ibm.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, skhan@linuxfoundation.org, shuah@kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, jackabt@amazon.com, jackabt.amazon@gmail.com, alexandru.elisei@arm.com, vdonnefort@google.com, aneesh.kumar@kernel.org, seanjc@google.com, imbrenda@linux.ibm.com, Leo.Bras@arm.com, weilin.chang@arm.com, linux-s390@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
+On Thu, 24 Sep 2026 09:22:47 +0100,
+"Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+> 
+> On Wed, Sep 23, 2026 at 07:52:27PM +0100, Fuad Tabba wrote:
+> > Hi Lorenzo,
+> >
+> > On Wed, 23 Sep 2026 16:15:44 +0100, "Lorenzo Stoakes (ARM)"
+> > <ljs@kernel.org> wrote:
+> > [...]
+> > > diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+> > [...]
+> > > +int kvm_arch_pre_fault_allowed(struct kvm_vcpu *vcpu)
+> > > +{
+> > > +        if (!vcpu->kvm->arch.pre_fault_allowed)
+> > > +                return -EOPNOTSUPP;
+> > > +
+> > > +        return 0;
+> > > +}
+> >
+> > nit: the comment above the smp_rmb() in tdx_sept_map_leaf_spte() still
+> > says pre_fault_allowed is read by kvm_arch_vcpu_pre_fault_memory(),
+> > but after this patch it's read here.
+> 
+> Ack can fix up I need to respin!
 
---KhHKTTBYT12xrTT8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I've updated the comment locally.
 
-On Thu, Sep 24, 2026 at 11:55:40PM +0200, Maurizio Casciano wrote:
+	M.
 
-> This v7 series has been pending since September 2. It restores the dual
-> SST/SOF machine entry and includes separate runtime validation for both
-> firmware paths on the YB1-X91L. The series remains unchanged.
-
-> Please let me know if any further changes or testing are needed.
-
-You have not responded to:
-
-   https://lore.kernel.org/all/aphNzNx3G4qDt9X-@sirena.org.uk/
-
---KhHKTTBYT12xrTT8
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq1o+kACgkQJNaLcl1U
-h9D0qAf+J9c7XzEZFwCneVxDY5Qx4YfrM6NqeBuvK1xA+3SVZ//S0WaW5nPuVnFD
-/FOflUhc5fL1TMiWZWtFg2+yHAcpnF4CTNeMlxDnKempFZms28WKRAm6d2hVXIxl
-a2iDECtWrrIY1eZ4PfcWjoA3+zWG9AqlRZmXAVRG1a3KW2oMZ0GtcYxhyzkXCAe7
-zjNIxfyJRJtfoBok94W/qWaZC1Toy1rb0D1Ny1JbPPNJSNqEhcdPviMPqAkFQ9qX
-LMLJYul5lz326i33Of6/MN9Mecld2QSgpdP/c8EH51vcnnNdOfhptuJXf9uiQMZu
-MrqBrfRakdLkUVNMx8qntzmDa1i9uA==
-=RiAM
------END PGP SIGNATURE-----
-
---KhHKTTBYT12xrTT8--
+-- 
+Without deviation from the norm, progress is not possible.
