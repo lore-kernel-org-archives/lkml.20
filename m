@@ -1,93 +1,97 @@
-Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 072D236A342;
-	Thu, 24 Sep 2026 14:10:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.214.250.239
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790259051; cv=none; b=HTgDyCFkXZ0xXTCI5NaSyMOqpLgbyvT1XqOqpk6e/407PSyqI8Xv9rs+rn9OJKHIsB1arOkxS49J+AEYh9vdDKAOMem2ZuJcCmcSIquGDvO0dPUpn1/LGjf+EBuRq8xKfJxwTJXT3ilD4KN2d264+bP8O32XnTytIpZf6XSLvjM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790259051; c=relaxed/simple;
-	bh=9TgDyFwJ+7DDH6AX96a9gn3Z9AGTUD/r7aNoQfYxkzw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kmXMF/VkL5ic2k8xY/pvP9AztbgccvS35Y0i7Ovdxg4WlwZeikri8kW/fayXtqfYLG3PKoMzGGaT8LQLiHzsGISLy7hI4Qt1OHiT0n0/+le2wHKoRV2WDHliasS82S9QjUrtVy/WQwR4Qo9+m9fucW0XiH3HoDWDao9kb4c/+Qw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org; spf=pass smtp.mailfrom=8bytes.org; arc=none smtp.client-ip=85.214.250.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
-Received: from 8bytes.org (p200300f6af404a00e4ccc4fdbbd66590.dip0.t-ipconnect.de [IPv6:2003:f6:af40:4a00:e4cc:c4fd:bbd6:6590])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.8bytes.org (Postfix) with ESMTPSA id 561341C7465;
-	Thu, 24 Sep 2026 16:10:47 +0200 (CEST)
-Date: Thu, 24 Sep 2026 16:10:46 +0200
-From: =?utf-8?B?SsO2cmcgUsO2ZGVs?= <joro@8bytes.org>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, 
-	Sean Christopherson <seanjc@google.com>, Tom Lendacky <thomas.lendacky@amd.com>, ashish.kalra@amd.com, 
-	michael.roth@amd.com, nsaenz@amazon.com, anelkz@amazon.de, 
-	Melody Wang <huibo.wang@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kvmarm@lists.linux.dev, loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, kvm-riscv@lists.infradead.org, x86@kernel.org, 
-	coconut-svsm@lists.linux.dev, joerg.roedel@amd.com
-Subject: Re: [PATCH 35/60] kvm: Add VCPU plane-scheduling state and helpers
-Message-ID: <arUtYyK25eKQYY7j@8bytes.org>
-References: <20260608144252.351443-1-joro@8bytes.org>
- <20260608144252.351443-36-joro@8bytes.org>
- <e7eb0dba-790a-4644-9895-5c9a7420d7fe@redhat.com>
- <aib8n5lO6HKbLC4Y@8bytes.org>
- <CABgObfbUsDeStnZF-7oyR-W-Bvd4qTMoeUwGizgn10UTdKtZ2A@mail.gmail.com>
- <aigE2EvJyZlYDz0V@8bytes.org>
- <570f82e8b8bc968a31a4ba859145f6c324e41247.camel@HansenPartnership.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7053368AC;
+	Thu, 24 Sep 2026 14:11:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790259117; cv=none; b=jSnYicQRZyPLnczsY6uNh8MP9MMDKOibB8qGHQHmZLJuqFf7naz2/o4CKjy22IRfpVaLyJtdMqu5FDVvMxsS2Cb+je9uiSwXPPwAiUriq7+saMedasn38hfBcVTSxj56e1qxLKA9hGhfkk6KBwJtgBGbq30KWar6mIWygaV1Xow=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790259117; c=relaxed/simple;
+	bh=o11sQqOBhBiL7dUkdkqcVrszuECeWz6pF1gt5PO+MCc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OIQq7qfox8/aSo75pqOHECKDHRiG1s68qHS4TiqEC/ppFrKRIevYZ5cmn88mmkBAnBuRmD3IgiPqrZEu/w0Tx46JQjC1HrJoUcyFetWwZ7p7mZoZgbhnq6BKtxsSRO0OfAMwc6+81oFahLMpnoxTpAeGVtS1qjX5JY9hi1GPUiE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MYzWjwiM; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MYzWjwiM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F037C1F000FF;
+	Thu, 24 Sep 2026 14:11:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790259115;
+	bh=o11sQqOBhBiL7dUkdkqcVrszuECeWz6pF1gt5PO+MCc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MYzWjwiM6ns0FIDA+MSL2s2S3D0Tvj55Zcr/R/MQEOg/N8QM9k7QcJ+tuQLn8SE/s
+	 c+ghYmfNlzCmyotoLaQqvgBl+lhtHCKy7kzvxnz1kvzL7G75ycvPAfur4/8ofzTuty
+	 eUgbS7i7uxEplZ7nrhjKoZ9WHUm6Mp92R+YgmNocUsIkrH2hKnwaaCHrCkE9vcZccc
+	 FeYJyiJH0e33aV0eEwiJwPz4MhXvlxSrnvdkAwrOLqshpqJ6DWIyB1VBRTFYLAB9dH
+	 yk+YciKx6/awdq/EqKE8o0fYl4XiyRie9OC7aDGTQ4RrlpT/u19KUaTBLYLC6LjoV6
+	 GX51/FzyjwbzQ==
+Date: Thu, 24 Sep 2026 15:11:44 +0100
+From: Mark Brown <broonie@kernel.org>
+To: david@ixit.cz
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	David Rhodes <drhodes@opensource.cirrus.com>,
+	Conor Dooley <conor+dt@kernel.org>, linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	patches@opensource.cirrus.com, devicetree@vger.kernel.org,
+	phone-devel@vger.kernel.org,
+	Charles Keepax <ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH v4 0/8] Speakers for Pixel 3 / 3 XL
+Message-ID: <d4816505-c2fd-4afc-8126-76843db674e7@sirena.org.uk>
+References: <20260924-pixel3-audio-v4-0-85b5d133aa5e@ixit.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="w8anuQy708O3pqY7"
+Content-Disposition: inline
+In-Reply-To: <20260924-pixel3-audio-v4-0-85b5d133aa5e@ixit.cz>
+X-Cookie: Oh, so there you are!
+
+
+--w8anuQy708O3pqY7
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <570f82e8b8bc968a31a4ba859145f6c324e41247.camel@HansenPartnership.com>
 
-Hi James,
+On Thu, Sep 24, 2026 at 03:24:05PM +0200, David Heidelberg via B4 Relay wrote:
+> This series address:
 
-On Fri, Jul 17, 2026 at 10:35:10AM -0400, James Bottomley wrote:
-> So this all depends how the planes are started.  If you're starting
-> them from an IGVM file that loads the most privileged code and then
-> runs the guest in a different plane, absolutely, it can work as you
-> describe.  However, the common use case for serviceable security
-> enclaves is you start the kernel first (necessarily in plane 0) and
-> then bring up the enclaves later which means the planes > 0 are
-> technically higher privilege since they're running hidden security
-> code.  HOWEVER, there's no reason at all to trust a security enclave
-> that's doing something like guarding private keys to be able to poke
-> anywhere it wants in the guest ... that's a security breach waiting to
-> happen, so it would really be better if the model were not
-> hierarchical, but more akin to the ability to seal planes off from each
-> other, so the kernel can start the enclave, which would then set itself
-> and the communication area up, but then the plane 0 kernel would remove
-> access to most memory from the enclave.
-> 
-> In this sealing model, there's no absolute privilege levels; each plane
-> would decide what the other planes can see of its memory space and, on
-> security grounds, we'd likely configure the enclaves to have the least
-> possible privilege.
-> 
-> Now, Windows applications expect VSM to be strictly hierarchical in
-> terms of privilege, but if we create a sealing primitive as described
-> above, we can get it to build the strict VSM privilege hierarchy in the
-> hyper-v driver.
+> Changes in v4:
+> - Rebase on top of d4d1619ebd55 ("ASoC: codecs: cs35l*: use .auto_selectable_formats") (Mark)
 
-I mostly agree with this and have to say that my statement in the cover letter
-about plane hierarchies was a bit broad.
+That's not what your b4 metadata claims:
 
-The main assumption this patch-set makes about plane 0 is that it is the plane
-which does the IRQ scheduling. Say a VM has Plane 0,1, and 2. A VCPU runs plane
-2 and KVM wants to inject an IRQ into plane 1 of that VCPU. Now KVM needs the
-VCPU to decide whether it wants to run plane 1 to handle the IRQ or continue
-with plane 2 because it currently has higher-priority work to do.
+> ---
+> base-commit: 3d7783543c2646af69ad65825e810060494bea21
+> change-id: 20260613-pixel3-audio-bdbfb49e8037
 
-This decision is made on plane 0 in this patch-set, which it needs to be for
-VMPLs. Does VSM have a similar concept for IRQ scheduling between VTLs or will
-the hypervisor take care to run a VTL when it has IRQs?
+That's yesterday's -next and while this does now apply against that it
+doesn't apply against my tree since you've also included DT changes :/
 
+--w8anuQy708O3pqY7
+Content-Type: application/pgp-signature; name="signature.asc"
 
--Joerg
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq1L58ACgkQJNaLcl1U
+h9ApTAf+Ns0DY9DchBrhJ9y5Y0/JbfVKnlVBjgF/g2HhqfSpUcAW/AlQc8P9iddN
+OlScBUNHIWAjqaoYzll5Q57vLoBgyIa0A3/cZxP+EhTrohgFDjvq4zb0AvtP2Kqm
+A2NdKRcHSAzTySkpi48EHziWGgZ7iMvjb/UkjitH2PGfTJwe730ALkGKbRrqWiZ4
+fAgY5OEgZFA8AaRupOzFwMRCnjU5ikwAqCN0lYmj+hdwBTsutUx6EzsWh9tGIKON
+9byD16LMNRGi31xa44L6uMevGch5Qh1dmCVC8OJijPeS1ts9l6j4xFXr4KTwgdGQ
+0MA5Jg0oHqmR+99PY36xkkUGSc8jKg==
+=ceyn
+-----END PGP SIGNATURE-----
+
+--w8anuQy708O3pqY7--
