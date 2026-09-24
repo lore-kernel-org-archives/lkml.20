@@ -1,82 +1,109 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A37F930C16B
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:11:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B79CB316199
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:11:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790215881; cv=none; b=pSgesP6SN40DSDrN04tACsuAIkCWT3y8n0mBWUVhLTxPgqBSa8eZPprGMs88bqOTS2yedkHDVmTYQhPiWc4yppAsQpOYto/5hPohWLDb+UfKzPYznLs5uHzvmM32KJ7sWAp4Hml/rNuyFKvqRV2FFoa6/0znm2ijWaXKgI9PSq4=
+	t=1790215892; cv=none; b=RoMqkwChvqHxV3/SBGHCDWXPQxWbhqmVE/dRBMU8og7bkMH6LniMM1Zn9/k+eQwOIKLpAr7emAYZlFnXoXaXPy7x0zW8L+sdGqkxGxmnTmW5ca+10Tn8PJ2M0YRDv7uGkOSSt51wnzHyOTRuHzXSii+ZL4Ga/lONStvMDJbZ9fA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790215881; c=relaxed/simple;
-	bh=Lcya/Ph7NNNPdpppcypcCsE8VfW6DS4oIWcucMkFKeU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hm2p/PgA954PkN3g93oknVzoJjMSn8dLcbo4KY7+ehbJwdBJX9h7kHrQlQh4Zwvd6nvUhx2xPUHyEiEAcpx5COrZhWYDii2kANDtlH3G7Fi4FbdZWmH+2Cuo3fD2ED7DkTsJz9nglTT2BnO5PQGZmkBvfarAyb4nbn+PGAreM3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=AMGfkgfG; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790215892; c=relaxed/simple;
+	bh=yOOOkANV1Q7dtjfwhXBE2Q+/IDsN7MRrDrHGTEPKcao=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FsmQjrXJpTv08nZtiNpIW0ySVUphAsFwABfiPiF3N343hU5LkySVrefLNZ44l8oh7zmjXLZse6w3jRBTY+c/CxUhRsQv4xMSYThecJkqYlyjFzUHUcyRUOHvN31bHEIJOAzYYRxNjSNBBXIUuUO8WTfbPnyUmYL1ukQQA1G3wS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MHLuvLq9; arc=none smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="AMGfkgfG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=S4QSewLEnLIPGbNR6i/Iij/uoo8De3uC7phM0IJwuos=;
-	b=AMGfkgfGzTcev4msj15i0RV2kb7rpFzqlpFed002+IMTX7UUOCGOy8P+kltHM4
-	6y4RVBw4TcMkl0NZxoE1AJzxcTckDchwqa5UNIBKJrao/nRE5LRxf7gbssBeropw
-	cARMgua6qHU8KyMRaIQhTJwx3SVZzGH5CInTpCS0FVS9s=
-Received: from [IPV6:2409:8900:1eb0:45e:3c13:fdf5:6f81:b37a] (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDHfr2lhrRqHsXJAQ--.908S2;
-	Thu, 24 Sep 2026 10:10:47 +0800 (CST)
-Message-ID: <8a52d6f6-0c16-4ae8-af98-c6eec9167e45@163.com>
-Date: Thu, 24 Sep 2026 10:10:45 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MHLuvLq9"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-86212a185dcso1161791b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:11:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790215891; x=1790820691; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Iq8037MNQEQGwbzxGy2NAvx+AO2Lmw1qhX8esmrAE00=;
+        b=MHLuvLq9/rBCSLJVbIrZP5t/XsQQvNi1TA5V585OA1QR7wUrHwmMy3qy+D/po+A8ST
+         /5a8fPFBb72SwyuVrQmGxapu1I/ERPNBk8+skc62LyF5xC2dP6C+sFs4qc2x6Bc6000u
+         MX9qDPH6fNxB5Pr2LidkkEA741QGDZfapUmbfpDwoUs3B5S9DGAWUyiIoXYv1N8fY0jF
+         jWw5y8M7D9x9A0IePefEphuibiSaQzdW0c0w/HUstBQ0GdOSABjsigKjQ+us4tRG16eM
+         4Y7/pxb0ksuQ/inEHmmiFTx/r4PJ3OUbgjU9E7vSgQmZFramxkobmyHy7KnVgTn53ApS
+         dsNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790215891; x=1790820691;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Iq8037MNQEQGwbzxGy2NAvx+AO2Lmw1qhX8esmrAE00=;
+        b=R6tXyhuCRY6QJzmXa0g/szDCiodp3i+Ozug82eLw7L9rP7h5U9wAq2GqYN8N+bmeIo
+         Avs1Ctj4dxPAwRQ76mMjqqCblAOkfCZtjNFd0Vg8FhmJgt/YpdACoCx6JmtN+5pjZHC/
+         gZRuT6z2GTtyGhKrw94i31/xSkNLi8S14QXVHKlXC2DKItFnKdafTmeDyMO3+sxsQswg
+         OgTypsKYfzdJrZyov2eNuXX7unb0OdcKT8ZixoBoV0aID2/GOMrJ0ZyHQh9RiAmi86F+
+         IPiClSNN7M2rf620/3QTTn7nHE5Jfsx8W/q4yYEcLRSZzgZXQKTGGM7dHVs0Zx7i5ukT
+         5a5w==
+X-Gm-Message-State: AFuF++n+hBMun3vGYRD/1PZVY+3WcXDhxiFpMeidkHeqMox2O0yPGb7C
+	zXFAZUuuFjvwwqOCFziOSD3S2UvTxwgRq6P5cXdXOj4QgyiwyhnedYOtNrqr3w==
+X-Gm-Gg: AYBFou3Mps8aUToXibN6zBgm8m3oR6SoFK87+K/fZfHd3ELbeB51pACCY9jO6T+Ho65
+	I2yNX9TOlOiKjTRjawona98NRc8XbaGF4SNnv8a8GwiSbkZpPxh3BbqXLp6TyO5oiteg5hXKj/7
+	gYUt0QqDkdoJhQP1JxQiWv7K8DkId9VsuJ4rP8l3RsH7F0U0YWbQZ9AylNhEPoJ/lSPDouMkQ5z
+	DCtGFn4b9OP+y6eTkYSAQBFLa+YfZwmyXqDrA6k5hzuSgTd8iljMKwoF8+ljKnHlGUD71pZ09RY
+	MJk2T6qFGoH4k0cbQd8H+pG3B0YALiVZBlIaDCZITO7Q1IJEo+toYJeeQqmbZBeH1q3C+Fn4GmF
+	KdSuHiH+1Niia0G5uEyGYOXWGEsRiOwio2Z4kJweR4RqSp8GK5yhjvIfRJOKU1qT7phjLb8SmWz
+	3ogrijmMgoxOfBrCYcv4NZ/iZSUwsWqYqkNWd2gZSqnreqIct8qPyPVvHcLNof8T1KxZDnG1yYx
+	xGBICEuvFlpMUMCOKjmt4he7sDDq6NQvSjL4L2DaF2457lJBGkCyiba+s0yIqBlnUDQgfqc/lSr
+	r5YQ3QrO1fCAI41tK9s0bGP7
+X-Received: by 2002:a05:6a20:9392:b0:3cc:ebeb:3efe with SMTP id adf61e73a8af0-3de0e6f57d1mr981300637.9.1790215890872;
+        Wed, 23 Sep 2026 19:11:30 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f3d6954sm1790647a12.16.2026.09.23.19.11.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 19:11:30 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Johan Hovold <johan@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 1/2] gnss: serial: Use pm_runtime_resume_and_get()
+Date: Thu, 24 Sep 2026 09:11:16 +0700
+Message-ID: <20260924021117.6534-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 0/4] ntfs: fix MFT bitmap extension allocation
-To: Xuewen Wang <wangxuewen@kylinos.cn>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20260924014514.1678828-1-wangxuewen@kylinos.cn>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260924014514.1678828-1-wangxuewen@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDHfr2lhrRqHsXJAQ--.908S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrZFW5Xw13AFWDKw17uryfJFb_yoWkAFbEgF
-	93t348A3srtFnYqa90yrs2yryrK3yDKF12kF1qvrs3Xa4DA3yktwsFyr15KF17CF4UCry5
-	Arn0y3WfC34xXjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xREPl1tUUUUU==
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6QeSXWq0hqel7AAA3X
 
+From: bui duc phuc <phucduc.bui@gmail.com>
 
+Replace the open-coded pm_runtime_get_sync() + pm_runtime_put_noidle()
+error handling pattern with pm_runtime_resume_and_get(), which already
+does this internally.
 
-在 2026/9/24 09:45, Xuewen Wang 写道:
-> This series fixes four bugs in the MFT bitmap extension path:
-> 
->    - The adjacent-cluster candidate can be outside the volume. Check it
->      before accessing $Bitmap and fall back to the regular allocator.
->    - The allocator can return an adjacent cluster that merges with the
->      existing run. Preserve that run when rolling back a failed extension.
->    - Rollback can wait for the initial $Bitmap scan while holding a folio
->      the scanner needs. Wait for the scan before starting the allocation.
->    - Direct allocation changes $Bitmap without updating the cached free
->      counts. Update both counts and honor per-page accounting and space
->      reserved for delayed allocation.
-> 
-> Xuewen Wang (4):
->    ntfs: bound the adjacent cluster in MFT bitmap extension
->    ntfs: fix rollback after MFT bitmap run coalescing
->    ntfs: wait for the bitmap scan before MFT bitmap extension
->    ntfs: account for direct MFT bitmap cluster allocation
-> 
->   fs/ntfs/mft.c | 26 +++++++++++++++++++++++---
->   1 file changed, 23 insertions(+), 3 deletions(-)
-> 
+No functional change.
 
-The series looks good to me.
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
+ drivers/gnss/serial.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+diff --git a/drivers/gnss/serial.c b/drivers/gnss/serial.c
+index 0e43bf6294f8..ae26b3915621 100644
+--- a/drivers/gnss/serial.c
++++ b/drivers/gnss/serial.c
+@@ -32,11 +32,9 @@ static int gnss_serial_open(struct gnss_device *gdev)
+ 	serdev_device_set_baudrate(serdev, gserial->speed);
+ 	serdev_device_set_flow_control(serdev, false);
+ 
+-	ret = pm_runtime_get_sync(&serdev->dev);
+-	if (ret < 0) {
+-		pm_runtime_put_noidle(&serdev->dev);
++	ret = pm_runtime_resume_and_get(&serdev->dev);
++	if (ret < 0)
+ 		goto err_close;
+-	}
+ 
+ 	return 0;
+ 
+-- 
+2.43.0
 
