@@ -1,133 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA073BFE3B;
-	Thu, 24 Sep 2026 22:29:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E8A2BDC0E
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:30:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790288963; cv=none; b=I0rgtNxh6yuznoWL0wiT8qQQAl4ZZ7fsivIG7TEjmdfCkSmhUbI9gs0ozMCXu4DjmKqIHLe1fGSap2nRuAFU6G14c6+aRXHPXoSUyd0x9wWO0iEYTcFwmuEBRNeUn2ZhkTsBtx+5aMiZSA+vHzuPewyw/5wLzGKm/bgHBsXXa+I=
+	t=1790289010; cv=none; b=FMo5+RogQtpmQUTqeTxjAuLToPlvCyMgg+FCEDqmYqgVGpRpbc6ubc+jHRx2DCW12kHvHH14cmNUAmzyLdKxet3hZjY48Bzeq1YbMg6yfVh5o9J/UUk9MOXwoT0k0siyNGBj+0p/i4rw+GAhxS+baCAdQM8wHNA6tseyN1AQDbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790288963; c=relaxed/simple;
-	bh=G0VbTNBezTrnJ+kACz3WLvngr1Xlvbi/75cjXrI/Buc=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XH31PcodDpgClG5jqNI5AQPsbRkcEzSJWDWVRYVyA9nZ2MqwmU8iBeBNSwNcjHmu1DNwtBoyGcgLCK10i3FBMm7fbT0Csu1ZTqbEvmC445LXlv/PEWES8MYsh8FUzJn/uHIg1ihaLZl+a2pVDrWTpFnmraweEFr0O35/HFNHDKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cm9MLLdM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790289010; c=relaxed/simple;
+	bh=fexO/BW8s5XNYmcLvHdHv5XSJ5iuP8KBdmfVxzzWQas=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=e4K+COb1J/HPVRuiYY+HqJ4tKKhJyb1q/h5aoi74iCTtvJje/vwC2YVeA4lhw29sLgM87ieIfPaY1iUEthk3xehg8FZ80ii3c93OwM2N5/iIWEQULpL7zi4ALECQMJKp7qOOmKTS21WxFk2xKNBS9KO/bVqmWC6zkj2zF5Zeyco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ajaQEzoh; arc=none smtp.client-ip=74.125.229.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cm9MLLdM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0B1A1F000FF;
-	Thu, 24 Sep 2026 22:29:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790288961;
-	bh=9lTk9HKkaCEZkNbTtcdgRDBlqeemuAp3XPisqKa2/VE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Cm9MLLdMqefLdn0f4fB3SmLd0hLcSZ+vRIzYltU3WJeSP2uQBClxrlvCK52bKVzNH
-	 RZxyrR5yNE2ldL3BfleuXHv4Eu3pJ5ywTr+S/+WBO3VYKtA2rTvgIkvPQ0M5ASmEeA
-	 Js0blZ9LHCZGaFn0ec4UZ7aBSm9u1HVOMN56H87T/HDohCipgfL2pLWzS2gr1lpV3N
-	 uhItfsNx0GBvwlGsmeeulP+Fzq2oMAxxPQDFNheAIpVyA/QcFnLpUA1+/Lybe/N3iK
-	 bH30foLXBEjjJwX669zgjgrjONlko3Ynd9Z2ECo9yJDyEZTAMPOScqprzEzFKvibL5
-	 aqFowxSQz1EWA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x9rwN-0000000DEyP-27Eo;
-	Thu, 24 Sep 2026 22:29:19 +0000
-Date: Thu, 24 Sep 2026 23:29:18 +0100
-Message-ID: <86h5je4729.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Fuad Tabba <fuad.tabba@linux.dev>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Janosch Frank <frankja@linux.ibm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Jack Thomson <jackabt@amazon.com>,
-	Jack Thomson <jackabt.amazon@gmail.com>,
-	Alexandru Elisei <alexandru.elisei@arm.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	Sean Christopherson <seanjc@google.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	Leo Soares Passos <Leo.Bras@arm.com>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	linux-s390@vger.kernel.org
-Subject: Re: [PATCH v4 01/14] KVM: Allow architectures to disallow pre-fault
-In-Reply-To: <arTdxHgk_3gGySOO@gremlin>
-References: <20260923-kvm-arm-prefault-v4-0-d4b0b4dfa8c3@kernel.org>
-	<20260923-kvm-arm-prefault-v4-1-d4b0b4dfa8c3@kernel.org>
-	<CA+EHjTzDYSuBVEc+SMdDa41sq-ET=m_oWW0gL9dYf+AumPYPUg@mail.gmail.com>
-	<arTdxHgk_3gGySOO@gremlin>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ajaQEzoh"
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd025d06so191818c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:30:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790289008; x=1790893808; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0sOEJYyO2a7X5+wDHXF372OnJ9gz01ToKiWC4Y4/oOM=;
+        b=ajaQEzohVbXcunP6C5Qwnu3QFhwTkDDyFoLxWbpOcOJ2FI/vtXAfdnu3wHVjPIeXkc
+         SHXghLws1J3kilKzaewZ7W/ewvvw9y3qohlA9PZAueVMiMprCXuv93mZNUF5PUPeL8Uq
+         rQc3/kXUMFAlW7nh2yNp1in6uELncs4jsVTcjCkeIxX7H+W2HbLemxJYFK0Iuiud6jkg
+         mrVyZtGuKduWcRbRdlhbhP6PiZHZBhLZkjVwDZSUNIreeZ1GD6QdCmezXjcqJZ2jp5yt
+         Hp2os4d47tNMG3MHlz79D6pugHs/tF+2V7WwzCjOW8AvaH/bGviooXASO0gu72HaRbbx
+         A++g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790289008; x=1790893808;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0sOEJYyO2a7X5+wDHXF372OnJ9gz01ToKiWC4Y4/oOM=;
+        b=ZXLhMXNlUb8A9+xms6kUr8NfNPWTOVM1tRJowbeC+R6rtfLXgOIumjT/yh1aR9SUFS
+         Pr1FH9YMlg+jXPmLjmRfVeT7Bul2ZFEtELzQNhfT5u2uNpvNEsOjDHOqRW5nx1tGbaR6
+         x58Rfks/qKtDf9JBlTrVgRjwD0/p2PLtqeSAwMDzZ4zauLxQ0524yfmpT7pEYTpA3C6l
+         hF80UhdxNQmSVWf1Y9/K36ZFoxCfN52r55vysAQTyF+zk5thCJXFaNoIZ7ebO/TLnfJN
+         triZyjt9BqwP+aZkwelXroEyVQMC0TmY8PeArBDMSVIm9/saxv2Z3M8y4q5eCtFK+hLW
+         azJA==
+X-Forwarded-Encrypted: i=1; AKwUvBwZ5u0QygfuNdNuw2cHjc/Q5botrnzsQBiOOeuV8OQBEcq5W46G4pr4jhb805UZ++eoC6iyi61HW7gxtoo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lWB8DGi3LGVt+H8WSJu6yKiVWHrDh2Kv4sGTz7rTfNblTlbIcO
+	z7KdK/7FNpxcMN0HZGOzORwvrA9dmARikoV9e9eggF2HQ2LtCRlKmEVR
+X-Gm-Gg: AYBFou2Get1eQnrlZ6r3+W1RwfIc+XM2UZRAihjWxyUWaD0OZo9YAAoynRi17pZk03v
+	lmXijtgBVOMS799VH3jYpHYUAwHgdVGhSqA+afMLcBG9lwC5pw29UO3Db37fe+D/rRj2/Drm+hv
+	EzGg6252F+u9yUl+TKXg/3yCvipFn0Yq8SYA4KH05+qN9dZauIxNFypRmvxU5bguFYy2IHG8VM4
+	F9X1y+UFf44O8cluE6qPdSjfIxLHKUHAVd9fQ+/WJh10ZCt8u5A45oHb6UC0GvCZi+/gsMgJshp
+	WOBqWwUctbgeXOpv0kWSKnGzESJ2fAgafAn9L0MT9yaQyBiINaWO8gi4vCq3kjMkHZ6LrAnOgf0
+	6GhaQKJ3nLmczto1NhzRd49aD6nqNSaQxfxsUT0QMyWtt310kaA2XP/nx+iY4EdNFKDUpuUQ//O
+	e/0yH6B1VM6N7H0+7TTv0sgCSWHff5WW2+qxyIkhLcvqmP5gpOfyH+eckpTGSXQFYyQTKXIsLbq
+	v9BimBB
+X-Received: by 2002:a05:7022:294:10b0:143:271a:8b82 with SMTP id a92af1059eb24-145040653ecmr2791717c88.44.1790289008088;
+        Thu, 24 Sep 2026 15:30:08 -0700 (PDT)
+Received: from maclinux ([2803:c600:9110:8ba5:43a9:9b8b:ebdc:6411])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145ac67c3f8sm1388240c88.3.2026.09.24.15.30.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 15:30:07 -0700 (PDT)
+From: =?UTF-8?q?Francisco=20Beltr=C3=A1n=20Millal=C3=A9n?= <fbeltranmillalen@gmail.com>
+To: bhelgaas@google.com,
+	linux-pci@vger.kernel.org
+Cc: stern@rowland.harvard.edu,
+	gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] PCI/PM: Do not save or restore the config space of an inaccessible device
+Date: Thu, 24 Sep 2026 19:29:53 -0300
+Message-ID: <20260924222953.26697-1-fbeltranmillalen@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260924124221.12374-1-fbeltranmillalen@gmail.com>
+References: <20260924124221.12374-1-fbeltranmillalen@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: ljs@kernel.org, fuad.tabba@linux.dev, catalin.marinas@arm.com, will@kernel.org, oupton@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, pbonzini@redhat.com, corbet@lwn.net, mark.rutland@arm.com, rdunlap@infradead.org, borntraeger@linux.ibm.com, frankja@linux.ibm.com, david@kernel.org, hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com, svens@linux.ibm.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, skhan@linuxfoundation.org, shuah@kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, jackabt@amazon.com, jackabt.amazon@gmail.com, alexandru.elisei@arm.com, vdonnefort@google.com, aneesh.kumar@kernel.org, seanjc@google.com, imbrenda@linux.ibm.com, Leo.Bras@arm.com, weilin.chang@arm.com, linux-s390@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 24 Sep 2026 09:22:47 +0100,
-"Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
-> 
-> On Wed, Sep 23, 2026 at 07:52:27PM +0100, Fuad Tabba wrote:
-> > Hi Lorenzo,
-> >
-> > On Wed, 23 Sep 2026 16:15:44 +0100, "Lorenzo Stoakes (ARM)"
-> > <ljs@kernel.org> wrote:
-> > [...]
-> > > diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-> > [...]
-> > > +int kvm_arch_pre_fault_allowed(struct kvm_vcpu *vcpu)
-> > > +{
-> > > +        if (!vcpu->kvm->arch.pre_fault_allowed)
-> > > +                return -EOPNOTSUPP;
-> > > +
-> > > +        return 0;
-> > > +}
-> >
-> > nit: the comment above the smp_rmb() in tdx_sept_map_leaf_spte() still
-> > says pre_fault_allowed is read by kvm_arch_vcpu_pre_fault_memory(),
-> > but after this patch it's read here.
-> 
-> Ack can fix up I need to respin!
+Please don't apply patches 2/4 and 3/4 as they stand: they break SR-IOV
+virtual functions.
 
-I've updated the comment locally.
+Both treat an all-ones first dword (Vendor ID and Device ID) as "device
+inaccessible", but a VF always reads 0xffff there; that is why
+pci_device_is_present() checks the PF instead.  With 2/4,
+pci_save_state() fails for every VF, from pci_bus_add_device() and from
+pci_dev_save_and_disable() before a reset, so no snapshot is ever taken
+and nothing valid is restored after the reset.  With 3/4 alone, a VF's
+config space is never restored.  The machine I tested on has no SR-IOV
+devices, so nothing there could show it.
 
-	M.
+I'll send a v2 that uses pci_device_is_present() in 2/4 and reworks 3/4
+accordingly.  Two more things it will fix:
 
--- 
-Without deviation from the norm, progress is not possible.
+- The cover letter speaks of "v2 of this work", but the earlier version
+  was only reviewed privately and never posted.  The next posting will
+  be v2, with changes listed against this one.
+
+- 1/4 says the device is left alone when pci_save_state() fails.  That
+  holds on its own, but with 2/4 applied the save fails without setting
+  state_saved, so pci_pm_suspend_noirq() calls pci_save_state() and
+  pci_prepare_to_sleep() itself afterwards.  The code in 1/4 is not
+  affected, but its description is incomplete.  Alan, I'm pointing this
+  out since you acked it with that text.
+
+The v2 will also carry the Assisted-by tag this posting was missing.
+
+Francisco
