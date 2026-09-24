@@ -1,114 +1,113 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E0F6423EA4;
-	Thu, 24 Sep 2026 16:48:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 329D545D915
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:48:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790268513; cv=none; b=JmhZmpzDgNtksT5umBNzf1wmR8Y/rHPFf7jk4MTLnmoMBlA94gIyNSiM2p4hKiyA+9CTUPJ8USN8fWGGgWyiasqDoUyj7CJM0Vq01norD1pC/HN0oAwdjsLViukJNfeex0PNihNqMJoGigUDFEqeR09bqp80/4DAaBg3qgnC02E=
+	t=1790268531; cv=none; b=PWBpt+33oOL9Le2SjmbU4G7NPAUACLH0pehstQXzZMxS+5onuIMXDxvxkvXOZNC1hzF/Ou3vZwfuEx2mgJeSimur9mT2mkAzlSnZpjNRcT5gMyrkR4+KP7hKyOOKepU5UDgwHevsSF+2EAgHxvhdX8+TWvLKfHqnOHUMZIHK9Yg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790268513; c=relaxed/simple;
-	bh=UzfMfNTQCkY4ZsxfUknTt5iuqxpYH81DBEfnWb8KHmM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SOS4assqEl1hKYyBReixMi8Mvfc1ViJKQvDSloBqfudNjcKECibFQOvMhlMRI1pMVSGFlMuBS+7afHCbNFkhQxDeCYGUgzTUR/dJOSqouU/6EJPs4BCSRj+2gbK98IT+X3XUXnP5JDP10KgV3DfHxNNsVfqv/4pFjimvicgqOpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=J7j2aFdx; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790268531; c=relaxed/simple;
+	bh=mqes7ZYrl2lYyjMcrHhRtIa50AQ5sg7+ntR+sAcUwDE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VzmOv30JvEi/60Nj4uRF+4Uf1f9xNniYpxxSDgR56MXVqoF807yM3OVauCcvYIxYSmFqa1BVemssItDzpuYUms4JJftdjfZoTpsTUmDAFuhqZ6ALXNQW4qwJ/9UYh8oUH5RjVXEaWH+GdgFU1pclAq66axbzKcLbHD+a3PudCo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Smn+UAeb; arc=none smtp.client-ip=74.125.227.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="J7j2aFdx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790268512; x=1821804512;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=UzfMfNTQCkY4ZsxfUknTt5iuqxpYH81DBEfnWb8KHmM=;
-  b=J7j2aFdxb7Ks5wY369wOpFIizEDAr7DsAnzIMyusMmOg5iHBdo2wtBZQ
-   t5+iM9AmT1GRJKX1DH8YPJto3nxpSkgDynkhym+QO35CkrH3//GGtD62k
-   pITDkPckZ9Zy1lAI62fVLDK+Ic6Y9iJrjzQvxrha5epeBXHusacvpwGLE
-   BCFz0/xSy6h49XBE5YO9GtANR/tZwkMM6RPC2BmAXL557rXs7/nDCp64H
-   uL2moewmcZaka37+FCg4hNVvl3fo1nHuyBYaTsmt+huvkQr8avXCWUhR2
-   xU4WEYk6YL1aRTgkcEnvZaqqADsxhrr9xbUP6XHqEHVbj83Es1lpDgHyS
-   A==;
-X-CSE-ConnectionGUID: 9UlSVuAuQcioLeg6yhx9pw==
-X-CSE-MsgGUID: IeYjXRW9SYyX8rcguAdDWg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="93545718"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="93545718"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 09:48:31 -0700
-X-CSE-ConnectionGUID: UaUIP5h7SI6SQYOgyvs1iw==
-X-CSE-MsgGUID: RFJxkSj4SdybwW6PyYfCDA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="300358917"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa002.fm.intel.com with ESMTP; 24 Sep 2026 09:48:28 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1003)
-	id 54CF599; Thu, 24 Sep 2026 18:48:27 +0200 (CEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v1 1/1] ASoC: sprd: Shadow errors from dma_request_chan()
-Date: Thu, 24 Sep 2026 18:48:12 +0200
-Message-ID: <20260924164812.816743-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Smn+UAeb"
+Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-398b9f722abso54379a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:48:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790268529; x=1790873329; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=N+DqoVPMC1bGDO9h3M5Mbmf5AArk4lb3H8ksC9nEumo=;
+        b=Smn+UAebUp7oCrjwzqRBg5OR3PUsU0ugFwcfVvX/wjAJg5VuoLhtWGbqerwn6fyWSO
+         QYe/TbhvaQVtW9c7CJtf3QMnM4fLktC9XcizBnEy3oCsfLeDXbunNbWB8mV9y63YQOPl
+         Pzkp1TXAyPy7rqYPJAyFTRja4QuYUOs7GDVesLi0rIv0jM9LGPId0O4axP1qySd9bkPa
+         cwwAFHBdLvJCuvzpVzV4g99X5yXSS1rUr78ApWZfaxs5R5bo80uRY7dPvtxgsk4n4XXf
+         9ZDSERliNJdVRyj9cKsdqO4EhahDI0dkMqoBb0zBPFKgF3xPUammP+/twVxknFzVpkmj
+         hoSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790268529; x=1790873329;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=N+DqoVPMC1bGDO9h3M5Mbmf5AArk4lb3H8ksC9nEumo=;
+        b=Agj9Ilx7quhwIlw7I18Xzu3FlEE1ys9OvNnVPdXaJoweOK6n9bpFs4tFJ30CrfijFW
+         ZpRQXwQZH0JSereqr8JNOz5vKsEW8tvCJ9hDSZ2RgziDqZ3JGVxu1pa8laI7jE9MxaqU
+         YIFgVUywoAbD64FCOpTBuJpE3lBLS2WhWZ9XK2OS4UlqPcav2mxPW5g1mB29o4noIIxR
+         NLqe+kKBSSqok4dz+asEHbpiTV9zNCRG8zT3NlzoGIfJVxTs0ZFafvwCX4/8H4exfPaj
+         loh9ZjC5uJP1X2gxeKkJsaCtzizHLLsRA1W8NB2tUOoQ+GzlO8bCp6PnvVO/zGX0vb1G
+         kTVw==
+X-Forwarded-Encrypted: i=1; AKwUvBw1+Lft68nmsLd7DF70b1MRadEODQzQgWYMmdZ3BEgX546qEvf6XdrkQRrWHOBa+Rv+XyFPRR83c9nnerU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mSBfmyjh+HB868tbNWKMwJeJXn6E4XLdrR4cZ2dzt0jTl81Gqd
+	HtQ7bhjqov0U/jGoFrnnOkUKyq2MPGhPhCyS21S2vDT+xTuwbNc/OtNK
+X-Gm-Gg: AYBFou0BFjJZxfTnwv/6G/G0SOJieZvjbACyfkGtmf1vJyTtAsin3iTCS57wobM2xDE
+	M6s7L1TMDVUxyTG5jpwJkyYlpw1dKle4I2Wnx1mQTjYtc0TIf5dC63tngn/HFlO0tdCxc0FmZK1
+	mJWMmO3HYFRCKgZ013G7BimPH2Hcfjpi05qJu3zqhqprXTKGqtKr+YHMBA/MfMb1XnEleP1jI+u
+	olNGi3oIfTVTkwhCA9jjZ659h8SXVlAW/vgUGCD0E5cw5t1KRYlWCmhzwlct1Ci9YIOMFcxXIIO
+	kKOYkvwU1YOm+2a1xeXKV8ccZsUUWhnwN2MyodAl/C8Vxmvqf4hnUpyy2tcjXp5chMJJqRyreWl
+	BLeSko3yMFdxk4B+KAJjY7ITP8H30K5+KGRrmw9u0W2qmbBWRTqw24hvZRAV0SEGMlEltsON2BJ
+	Fl+p6TtNuNYe/8RBM2PwS1oQJMnDben84Uc2JND9urESj9ZvAplnL3elKp3lhB9g4Y
+X-Received: by 2002:a17:90b:51c1:b0:39e:1692:34bc with SMTP id 98e67ed59e1d1-3a098ad4cd1mr2485547a91.1.1790268529341;
+        Thu, 24 Sep 2026 09:48:49 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:4::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0972eec92sm5891202a91.7.2026.09.24.09.48.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 09:48:49 -0700 (PDT)
+Date: Thu, 24 Sep 2026 09:48:42 -0700
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Pavel Begunkov <asml.silence@gmail.com>
+Cc: Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org, 
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	horms@kernel.org, hawk@kernel.org, ilias.apalodimas@linaro.org, axboe@kernel.dk, 
+	sdf@fomichev.me, bobbyeshleman@meta.com, kaiyuanz@google.com, 
+	linux-kernel@vger.kernel.org, io-uring@vger.kernel.org
+Subject: Re: [PATCH net-next 1/3] net: netmem: add net_iov_area freelist
+ helpers
+Message-ID: <arVTvlvKsBRNG2aQ@devvm7509.cco0.facebook.com>
+References: <20260922204348.717198-1-sdf@fomichev.me>
+ <20260922204348.717198-2-sdf@fomichev.me>
+ <CAHS8izPwLBCJXM_0Df8P6S-FVwAq+TaRKn3uTh1h=33Ffj8VmQ@mail.gmail.com>
+ <f566591a-cef3-459f-a39e-86addb0c5d7e@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <f566591a-cef3-459f-a39e-86addb0c5d7e@gmail.com>
 
-For some reason the SPDR PCM support code requests DMA resources
-in the IOCTL. This might lead to the Linux error codes, such as
-EPROBE_DEFER, to be leaked to the user space. Prevent that from
-happening by shadowing errors from dma_request_chan() as it was
-done previously (see Fixes tag).
+On 09/24, Pavel Begunkov wrote:
+> On 9/24/26 16:02, Mina Almasry wrote:
+> > On Tue, Sep 22, 2026 at 1:43 PM Stanislav Fomichev <sdf.kernel@gmail.com> wrote:
+> > > 
+> > > io_uring zero-copy receive and devmem both maintain a bounded LIFO for
+> > > net_iovs in a contiguous area. Store the freelist in struct net_iov_area
+> > > and provide common push and pop helpers.
+> > > 
+> > > Leave synchronization to area owners. Keep devmem's area adjacent to its
+> > 
+> > This could be a follow up change, but I think synchronization should
+> > be provided by the netmem/niov infra, rather than the area owners. TBH
+> > the infra providing an unsynchronized data structure and letting the
+> > area owner use it and shoot themselves in the foot feels error prone.
+> > For now we could use a comment.
+> 
+> I don't think we want it. The duplication is minor, but I'm not set
+> on the per area index array approach, and it'd make changing it
+> more difficult.
 
-Fixes: 08d77e31df21 ("ASoC: sprd: Replace dma_request_slave_channel() by dma_request_chan()")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/r/20260918115229.CC8AC1F000FF@smtp.kernel.org
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
- sound/soc/sprd/sprd-pcm-compress.c | 2 +-
- sound/soc/sprd/sprd-pcm-dma.c      | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Do you want me to not touch iou in this patch at all? Or are you talking
+about potential future synchronization part?
 
-diff --git a/sound/soc/sprd/sprd-pcm-compress.c b/sound/soc/sprd/sprd-pcm-compress.c
-index 0b110b72482c..d18c9a4e5a77 100644
---- a/sound/soc/sprd/sprd-pcm-compress.c
-+++ b/sound/soc/sprd/sprd-pcm-compress.c
-@@ -157,7 +157,7 @@ static int sprd_platform_compr_dma_config(struct snd_soc_component *component,
- 	chan = dma_request_chan(dev, dma_params->chan_name[channel]);
- 	if (IS_ERR(chan)) {
- 		dev_err(dev, "failed to request dma channel\n");
--		return PTR_ERR(chan);
-+		return -ENODEV;
- 	}
- 	dma->chan = chan;
- 
-diff --git a/sound/soc/sprd/sprd-pcm-dma.c b/sound/soc/sprd/sprd-pcm-dma.c
-index bc4d24e5a25d..fadaafbd807c 100644
---- a/sound/soc/sprd/sprd-pcm-dma.c
-+++ b/sound/soc/sprd/sprd-pcm-dma.c
-@@ -171,7 +171,7 @@ static int sprd_pcm_request_dma_channel(struct snd_soc_component *component,
- 			dev_err(dev, "failed to request dma channel:%s\n",
- 				dma_params->chan_name[i]);
- 			sprd_pcm_release_dma_channel(substream);
--			return PTR_ERR(chan);
-+			return -ENODEV;
- 		}
- 		data->chan = chan;
- 	}
--- 
-2.50.1
-
+I don't see how this is making changing it more difficult, the freelist is
+now behind push/pop which you can freely change, and both UAPIs benefit
+from a faster/better freelist.
