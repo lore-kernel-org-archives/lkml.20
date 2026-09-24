@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BAFF4B3374;
-	Thu, 24 Sep 2026 18:52:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE87B3BB685
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:52:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790275930; cv=none; b=ZHXoXxWlEbozc57MSLb6X6w5Emcm7ZG3xYT3GMaVQgmKLTtZeVfiaSlcQA+kzcVClzZCNvg53VVZ3YbU1TPtMo309ZWgNmRb/NRV49YnrRdjySbgQ4rRMpgLdZFVtIIQkp9qEln2hRNb7gXdxNaCCCDT/aR587G1BqpOsgotI0o=
+	t=1790275934; cv=none; b=masx1v+iUqFGSgt8iservwWrsgRExh5t7HlaRRZgGh1us7DSXcVmMpxqwa/L8eWi8qEeT0teoOiF0q5e3aMuiqpLaqFKotxLJZSVGC/+lHMA1vu4YrLqkwqy5PTniK6hn+6yp5lBg2NF/zVLH+mWQUkXfHRTgCylryeic+iC0Yg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790275930; c=relaxed/simple;
-	bh=KGfmmVISjnqynRFnA5Mg2/9tsz9MufvMZIoW6E8g71k=;
+	s=arc-20240116; t=1790275934; c=relaxed/simple;
+	bh=uB7PBE+vNmeeUB+vdMvBt2A8VZS499IMcXGUO94mTWU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uJ3FEOrjIZdNMfkeX99v3iAzIRtmuU+utLLYiGPU33juIaeZnRZOppggcj1XlKYKQq2VA4qVVGT9Qr8Xuk/vSyrJJDoDG5Z0ysHzSp0udg0oPOh1Y95Bpp2oDqk3GLMgMrT8jF8CXQXDoXltqRXw1IhhuMm6szOiXzDdI8/Cxo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gWev+vg3; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=DNWJEdPqIo3lQ4rRodUlJw1U5VLKU5tF7Ea9xKyz+wtOtoykPrNr0+oDilJtDlH3tnDA3Bu3Z4HRDbDqmKYxcwa3IdcYnUhPnsNQLNHDFrMVrpLQHXGAVDIahIlkT8DQXXL862w/idPWsE2XXolaQImdmT3tZCX5tC9GLcoUlqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hmKwra2T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gWev+vg3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23D9F1F000FF;
-	Thu, 24 Sep 2026 18:51:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hmKwra2T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50E851F00893;
+	Thu, 24 Sep 2026 18:51:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790275917;
-	bh=POlX+wONx1gCTE6Vq8TjSNhvRxCbSmUHbAHjJxxduJA=;
+	s=k20260515; t=1790275924;
+	bh=8fQuNmR+wyKKa/NE7gKqnglhXs6oXfwgf7LqT0NLqJM=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=gWev+vg3aOUbjtwtT3U2+C2VyN7eOtcfSBJs3s8YonBNI/+ZZ7xc1mf6k3ukzx0PH
-	 Nb814Zy6qTVPFJpgHeTrhLWHbWJXlGYju1D2NrpmJPctR+FCbAJDal4gVTwnWwW2xI
-	 /MFTvB3yrPrnMGBOFMN4O88mm0HjIb4cEaoDuj+UNT4EqcaMrg/MKzFJ8w/H78bLVm
-	 fw9oOITb653B8XboMh1yPGGCS3ctD7pEsjXS9288YTGJolEMdjEWCUs65za7t3JhlA
-	 tImKWiPpv8xP/PxYxxQlkz6Rpt893lRL4IjOhyugIHB+gp0xVjpO+tnRCf3dnynPqs
-	 aEjtLEJvNH9Nw==
-Message-ID: <16d3f4da-cc35-4d1a-99c2-270fad68728e@kernel.org>
-Date: Thu, 24 Sep 2026 20:47:41 +0200
+	b=hmKwra2TGt4NKXHAA/TkRcGPes5yT9c5nvFOd+aZbIBb7FPyc7k5fI9FVjH9eU4GG
+	 sODuhzOfxulRS+W1TQ3EiWAHBIdTotMlSZba1Zftbd3TRwCMVH/BoCBE0RnoxRtNik
+	 oXOPyebbT1FC9GA19P4NRoEdFGMIwEzKIX/PEN4ZgpKlbbq7Wn06FFrvEdj9QL+WWx
+	 MgKLgK3yz6RTLmkPgA8Xu6Vs+paDS02BGoGLXXkQew1Mxmq75NIxaodkh1HOvLTjr2
+	 AOtX5ao831YTZLHT9N9YMT57zQXlry8BCfVNNahANt8tvX99YtRVHO8EYnTQok5MF+
+	 50pdsWexQGSSQ==
+Message-ID: <570cf649-a8bf-4073-be71-207fbb2bef40@kernel.org>
+Date: Thu, 24 Sep 2026 20:51:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,22 +35,22 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm: don't schedule deferred kernel page table freeing
- while booting
-To: Dave Hansen <dave.hansen@intel.com>,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Dave Hansen <dave.hansen@linux.intel.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Vishal Moola <vishal.moola@gmail.com>,
- Ingo Molnar <mingo@kernel.org>, Lu Baolu <baolu.lu@linux.intel.com>,
- Jason Gunthorpe <jgg@nvidia.com>, Steven Rostedt <rostedt@goodmis.org>,
- x86@kernel.org, linux-mm@kvack.org, regressions@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260924092307.22813-1-mikhail.v.gavrilov@gmail.com>
- <6a0c2fd9-b2e1-40d2-b7a1-ba93cb3c53a3@intel.com>
+Subject: Re: [PATCH v6 3/3] mm: implement page refcount locking via dedicated
+ bit
+To: Ilya Gladyshev <ilya.gladyshev@linux.dev>, Zi Yan <ziy@nvidia.com>
+Cc: akpm@linux-foundation.org, andrew+netdev@lunn.ch, apopple@nvidia.com,
+ artem.kuzin@huawei.com, baolin.wang@linux.alibaba.com,
+ Liam.Howlett@oracle.com, edumazet@google.com, harry.yoo@oracle.com,
+ hramamurthy@google.com, ivgorbunov@me.com, joshwash@google.com,
+ kirill@shutemov.name, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ lorenzo.stoakes@oracle.com, mhocko@suse.com, muchun.song@linux.dev,
+ pfalcato@suse.de, rppt@kernel.org, surenb@google.com,
+ torvalds@linuxfoundation.org, vbabka@suse.cz, willy@infradead.org,
+ yuzhao@google.com
+References: <cover.1789239015.git.ilya.gladyshev@linux.dev>
+ <ebd6540ad89a4bb80e2a62d00901b5c827315b66.1789239015.git.ilya.gladyshev@linux.dev>
+ <DLFJL5U9DI6F.3QJP9YP0KX636@nvidia.com>
+ <56e036665dbeb0a8f51d697220d5ed84f210994c@linux.dev>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -97,37 +97,98 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <6a0c2fd9-b2e1-40d2-b7a1-ba93cb3c53a3@intel.com>
+In-Reply-To: <56e036665dbeb0a8f51d697220d5ed84f210994c@linux.dev>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/24/26 19:57, Dave Hansen wrote:
-> On 9/24/26 02:23, Mikhail Gavrilov wrote:
->> Keep putting the table on the list, but don't schedule the work while
->> the system is still booting.  The next kernel page table freed after
->> boot schedules it, and the work then frees the early table too, after
->> the same IOMMU flush as any other.  If no kernel page table is freed
->> after boot, the ones freed during boot stay on the list.
+On 9/23/26 19:34, Ilya Gladyshev wrote:
+> September 15, 2026 at 5:42 AM, "Zi Yan" <ziy@nvidia.com mailto:ziy@nvidia.com?to=%22Zi%20Yan%22%20%3Cziy%40nvidia.com%3E > wrote:
 > 
-> There seems to be an awful lot of chit chat about how and when the
-> boot-time tables might get freed. Like:
 > 
->> So on this box the early tables wait until the first module is
->> loaded, and no separate drain is needed.
-> Wouldn't a "separate drain" be all of 5 lines of code?
+>>
+>> On Sat Sep 12, 2026 at 3:50 PM EDT, Ilya Gladyshev wrote:
+>>
+>>>
+>>> The current page refcount implementation uses a single counter value
+>>>  (zero) as dead. So, to prevent incrementing a dead refcount in
+>>>  folio_try_get(), it fundamentally requires a CAS loop.
+>>>
+>>>  This CAS loop can act as a serialization point and can become a
+>>>  significant bottleneck during high-frequency file read operations
+>>>  [1][2].
+>>>
+>>>  This patch reallocates the refcount value range:
+>>>
+>>>  (1) refcount < 0 means dead refcount (uninit / frozen)
+>>>  (2) refcount = 0 allowed only as a temporary state (see below)
+>>>  (3) refcount > 0 is a regular reference count
+>>>
+>>>  In other words, refcount is now split into "dead bit" and a 31-bit
+>>>  counter.
+>>>
+>>>  Refcount decrement now works as follows:
+>>>  1. Counter decrement
+>>>  2. If it is now zero, try to put it deep inside the dead zone
+>>>  (CAS to INT_MIN). Or you can view it as "set up frozen bit and reset
+>>>  counter".
+>>>  3. This CAS can fail only if someone grabbed a reference in-between --
+>>>  that's okay, this page is their problem now.
+>>>
+>> I am not sure this works. David raised a concern on V4[1], where if a
+>> folio lands to page_frag_free()'s free_frozen_pages(), it will not be
+>> properly handled. "this page is their problem" only works if every
+>> folio/page free functions call a generic folio/page free function that
+>> checks the page type and does the proper handling.
 > 
-> /* Take care of deferred freeing from boot: */
-> static __init int free_boot_kernel_pgtables(void)
-> {
-> 	schedule_work(&kernel_pgtable_work.work);
-> }
-> late_initcall(free_boot_kernel_pgtables);
+>>> Refcount decrement now works as follows:
+>>> 1. Counter decrement
+>>> 2. If it is now zero, try to put it deep inside the dead zone
+>>>     (CAS to INT_MIN). Or you can view it as "set up frozen bit and reset
+>>>     counter".
+>>> 3. This CAS can fail only if someone grabbed a reference in-between --
+>>>     that's okay, this page is their problem now.
+>>
+>> I am not sure this works. David raised a concern on V4[1], where if a
+>> folio lands to page_frag_free()'s free_frozen_pages(), it will not be
+>> properly handled. "this page is their problem" only works if every
+>> folio/page free functions call a generic folio/page free function that
+>> checks the page type and does the proper handling.
 > 
-> Then we don't have to reason about it at all.
+> After some thinking, this scenario is indeed possible and problematic. The
+> complexity of the required setup give me hope that there are some implicit
+> barriers, however I wasn't able to find them. But I am not an mm guru,
+> so maybe I missed something :shrug:
+> 
+> -- Below is a minimal buggy scenario --
+> 
+> Thread A: network code that calls page_frag_free()
+> Thread B: calls folio_try_get(). Maybe it is the DAMON paddr scanner,
+>           maybe this folio was previously used in page cache
+>           (however this noticeably complicates the scenario)
+> Thread C: user of folio's reincarnation. It also requires destruction via
+>           folio_put() and not via free_frozen_pages() -- for example hugetlb
+>           or memcg charged folio.
+> 
+> Refcount operations as follows (FR = FROZEN):
+> 
+> A: DEC 1 -> 0  [ page_ref_dec_and_test() ]
+> B: INC 0 -> 1  [ folio_try_get() ] => success
+> B: DEC 1 -> 0  [ page_ref_dec_and_test() ]
+> B: CAS 0 -> FR [ page_ref_dec_and_test() ]
+> B: * deallocates via __folio_put() *
+> 
+> C: * re-allocates page *
+> C: DEC 1 -> 0  [ page_ref_dec_and_test() ]
+> A: CAS 0 -> FR [ page_ref_dec_and_test() ] => success
+> A: * deallocates directly via free_frozen_pages() * => BUG
+> 
+> This can be fixed with a `s/page_frag_free/folio_put/`-style patch, however
+> it seems unreasonable...
 
-Jup, that's what I hinted at in v1 and what Lorenzo replied to v2 as well.
+There needs to be a common page freeing function that dipatches stuff.
 
-(late_initcall vs. core_initcall)
+folio_put() is not the best future-proof thing, because not all pages will be
+folios sooninsh.
 
 -- 
 Cheers,
