@@ -1,56 +1,56 @@
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD5249BD92
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:58:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3C3B4A0922
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:58:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790261924; cv=none; b=Al+MF94p/apE8jXUNcEHSrqc5p7C2co1w5Fcmv8/Vu89VDXd8OxVDQJNa9sd/QS2bkqUeefFycVf1Hvj/cYcUjEVqu0nXjLK8VRflVy1+fs3RJvssi3nlZ4DIyQXo3ho3bVbF0qqMLQ6FW6R1aZ05smDJqa35Uw3RyNk3qTCiUg=
+	t=1790261926; cv=none; b=fimMFhIygNI2Fsj8Bd7oU5GWkiVV5G3AYNEa9otcwI07lXLdidOwd5nixtct6jSRIAy5E9aAuviIHHBaIxVoROvaTsteY04pH5/sWZNXIJuLLd0qt2Wn0bmcppZ5c/8aPWfYlcE+0DYVRWZUrs8KF7GyvfSODI538DCD4RgkHyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790261924; c=relaxed/simple;
-	bh=29OEV1XRj92C0jmL9xqVACrPk1/1JdAX4Z/bbOoFKsc=;
+	s=arc-20240116; t=1790261926; c=relaxed/simple;
+	bh=x7ZsEPn+08PivkGNNY7yMioERj5C50CMJucDPlVw1Bs=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=SscWMcb/y46IQvWOUl5U7PWwK93UINfllOjCC5fOE44tz6FaEwNifXANqwb94vuLjoJhYCrs0I1FlCDZwEvU9Cff01PTntuMZ+tJxPoetryjV4oQEC30qxfFap1vKogqiBVyVOUMfFzjYxp147/Y8mTtWMHHr/8a37LOIpyKpc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vxPo8PUQ; arc=none smtp.client-ip=209.85.221.71
+	 To:Cc:Content-Type; b=hjNOTfiyjHqGiF9oekCoN2EKIiiK8wdzwm0zNx+oCRBz9ml/UBHiEtmwOqF6juaAltV0DWrm3XOrCBBNxz2vDRu0F5XpPtr8jWEboYa2tI0n6Mu7eBMYIvHbclxpKbN+g+2LjC6vfthUj4GpEagcbCfdqulX0DuHsdlmyVp5+4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XKtF21sf; arc=none smtp.client-ip=209.85.128.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vxPo8PUQ"
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-4887782ab2dso215127f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:58:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XKtF21sf"
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4994d67d0e3so15030235e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:58:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790261919; x=1790866719; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790261922; x=1790866722; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/rK/bC4txKuETskqWy3KUoq+SaTW39LjoZD3qIqTAvo=;
-        b=vxPo8PUQo7VLn7zrm+rmJKXVfNvtQd4cpMA99DNWxu75AYSG6US3knq958/x4BYSc9
-         6deD50Ro1auFA/VbhrZlonvm9lX3cjXKuiNVSQfV/tCPsf+J0gdx3U74LByoqetk6qDA
-         ffdZ1Gag7coX48vYb2ivP6CFPIaijDZj25TY48O1nQHnbGFVnhkhutlNz2XYlyne5Ny9
-         OFIkfcdLdDKyEib8xsz/eltA8XXkfVVRvwEcQLLOzP+bDL6FIKrwR/3gYeF2+BWHyq75
-         Qoe+rKmy5J7/OPyzfefBso2n1SR2ynbc6jUjqLUm5soP6r/MbN1nHJrFEEEV32+5BBw1
-         ne3Q==
+        bh=Uku/5cGCHX3mD6RwBtTFznDSRiqK3GB3+4Rvtb284U8=;
+        b=XKtF21sfBfTzuICOUn3I2PpsJwnqsNzMRL3s7FB/9YLfs0NKZ80KGWwQ5uMbkFDa0T
+         4UB5IRYh+Nj6atrfvtqEARjUzGfnAYLa+3gPF8wnMntd+C0K/fsfpuz9KGLnQFacSCuw
+         1c/KX5ensylQI46ytXJ0RIZxItXXJ+7hvluRsJRTg4AF+6oW9/qDhFs0byTp7FpdtARf
+         anPw671gXrXPpTKW+mPcFYha4oZo+m848zT9PncHxnyUfWMRrNmfrU/KpZAOHvVDy364
+         5KHUAfFhgHHNwBEGUjTQCZMnB0yKq4VR2DqmQfFG4WECICHL4uvlxCcwqdU8QB2NUM3g
+         kb4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790261919; x=1790866719;
+        d=1e100.net; s=20260707; t=1790261922; x=1790866722;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/rK/bC4txKuETskqWy3KUoq+SaTW39LjoZD3qIqTAvo=;
-        b=A4s2kNhznAOtf/tVE1g/rqPWoWXRr4Ank13Ln5cUtx5Hojojr+oSEYf23IKWX4jHkl
-         Lx3T2PAVLVIeoOgpzmLGpHQSVGg+I7sm1WDEfdcSItg30yLAat7IuE9Fs0vqbaV7RJSi
-         4IEjeNm4qFObw6KmEuIyHU59bWZ1GFOS5PBp4r7lw3G+oLK4aq7yKGZ/aQ4DJ3yQCMc0
-         qOHNK0GxsXV2vTy8b6m6w2mWbDdzCo0cZjjQuYt/l4gjhvWh8IW7N2dZnYWXrvEDJwN2
-         Idg9TGvegDgpbbPZ67y/dDMX9+sC/HN9/m9evAr1SD5Gf4GiKdi4LPZPD4AMhGPzOFWk
-         tojg==
-X-Forwarded-Encrypted: i=1; AKwUvBzWUfZxnzSihnd/Gmxed0vhE+xejrWeSdVgaLGlqxotG+i0o3U6Ni/UoJc/LASofUTpvrMUtQMsX3ma/q8=@vger.kernel.org
-X-Gm-Message-State: AFuF++m0yWGHsBLGMRXVSDHVMDXDfHcStsGHHr0DioF2HU4AwyoFLJP/
-	2/vA8u+yCXJHZ3mUH5fxSLyPLgytPkOlJzNFKQpjW87tIc1skEzWoZ39dieya7VpDbYRy9Wiriy
-	yGNhvFJRkyIyxefLDoIZxAg==
-X-Received: from wrbev3.prod.google.com ([2002:a05:6000:23c3:b0:488:614b:b574])
+        bh=Uku/5cGCHX3mD6RwBtTFznDSRiqK3GB3+4Rvtb284U8=;
+        b=AooBXWAXqWbto+2uCF1jFCxQ0hEMP4KR6ph9rjN2SYNgxpVu3D6oIgIUQTINWjjR9r
+         ZRBsbRTrhS+2d8ulnnerQKd1T90CoB0VQVmMPM/fyXM7iEax8OeFwr0HFW/tP1wQzCjh
+         xqP9lR5yMoqk5gMDRKLU3j8OUcMfsKHyzVxnsZgvr0IPhMxHqdweivAn8HUpKRtCjUt6
+         gmHhugkhKqc0JzLC/ZfJ+SBlnnWA8md5kKg9baa7jZgfmGTWmiR16xv3idB1JUmPxLLg
+         hN7f3t3BtSch4bo1D9IXSSWC6kLqn6+aY6PSj7MA2PFhwmvTjeC9+1xjCvgkg8CrXhcz
+         YARA==
+X-Forwarded-Encrypted: i=1; AKwUvBzgV/Q6tzsRiecSKWYPOZwTHAoPd/RNftVwO533PrLu75ztf0URthtfxoXVDXrldnGp0J+PKqxk9cdtcS4=@vger.kernel.org
+X-Gm-Message-State: AFuF++m82tVh8opDNfbC/gTK1k1s5X+BmHhrW0mLTZ6QSBvxCmfYQdT9
+	aOLNXYMzXUKT5XBjUq4g3JOhjwRwVgkuHW7D66asSeW/2FFDF1/ZMaC/raDqzssYmgFGuCHocSb
+	2FR6zKGdgp+4C7cQmjA6kiQ==
+X-Received: from wmin24.prod.google.com ([2002:a7b:cbd8:0:b0:49f:e42a:bc6a])
  (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:4108:b0:488:78e4:5e34 with SMTP id ffacd0b85a97d-48878e460c1mr853815f8f.9.1790261919207;
- Thu, 24 Sep 2026 07:58:39 -0700 (PDT)
-Date: Thu, 24 Sep 2026 15:57:48 +0100
+ 2002:a05:600c:c48e:b0:49f:ce72:dfe7 with SMTP id 5b1f17b1804b1-49fe6710a41mr43535605e9.35.1790261921755;
+ Thu, 24 Sep 2026 07:58:41 -0700 (PDT)
+Date: Thu, 24 Sep 2026 15:57:50 +0100
 In-Reply-To: <20260924145754.1285146-1-vdonnefort@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260924145754.1285146-1-vdonnefort@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
-Message-ID: <20260924145754.1285146-15-vdonnefort@google.com>
-Subject: [PATCH v7 14/20] ring-buffer: Add kerneldoc for ring_buffer_poll_remote
+Message-ID: <20260924145754.1285146-17-vdonnefort@google.com>
+Subject: [PATCH v7 16/20] tracing/remotes: selftests: Add a test for the
+ dump_on_panic tracefs file
 From: Vincent Donnefort <vdonnefort@google.com>
 To: rostedt@goodmis.org, mhiramat@kernel.org, 
 	linux-trace-kernel@vger.kernel.org
@@ -69,35 +70,103 @@ Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com,
 	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Document ring_buffer_poll_remote().
+Exercise the newly introduced dump_on_panic tracefs file that turns on
+or off the trace remote buffer dump on system panic.
 
 Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 ---
- kernel/trace/ring_buffer.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ .../remotes/00hypervisor/dump_on_panic.tc     | 11 ++++
+ .../ftrace/test.d/remotes/dump_on_panic.tc    | 50 +++++++++++++++++++
+ .../selftests/ftrace/test.d/remotes/functions |  1 +
+ 3 files changed, 62 insertions(+)
+ create mode 100644 tools/testing/selftests/ftrace/test.d/remotes/00hypervisor/dump_on_panic.tc
+ create mode 100644 tools/testing/selftests/ftrace/test.d/remotes/dump_on_panic.tc
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index df16e05d7049..5dec079e28f1 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -6943,6 +6943,17 @@ int ring_buffer_read_remote_meta_page(struct trace_buffer *buffer, int cpu)
- 	return 0;
- }
- 
-+/**
-+ * ring_buffer_poll_remote - poll a remote ring buffer for new data
-+ * @buffer: The ring buffer
-+ * @cpu: The CPU buffer to poll (or RING_BUFFER_ALL_CPUS)
-+ *
-+ * This function polls the specified remote CPU buffer (or all of them)
-+ * by reading its meta page to update the local reader's view. If new
-+ * entries are detected, it triggers wakeups for any waiting readers.
-+ * Returns:
-+ *  0 on success, or -EINVAL if the CPU is not in the buffer's cpumask.
-+ */
- int ring_buffer_poll_remote(struct trace_buffer *buffer, int cpu)
- {
- 	struct ring_buffer_per_cpu *cpu_buffer;
+diff --git a/tools/testing/selftests/ftrace/test.d/remotes/00hypervisor/dump_on_panic.tc b/tools/testing/selftests/ftrace/test.d/remotes/00hypervisor/dump_on_panic.tc
+new file mode 100644
+index 000000000000..1b6bf21c5d9c
+--- /dev/null
++++ b/tools/testing/selftests/ftrace/test.d/remotes/00hypervisor/dump_on_panic.tc
+@@ -0,0 +1,11 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0
++# description: Test hypervisor trace dump_on_panic
++# requires: remotes/hypervisor/write_event remotes/hypervisor/dump_on_panic
++
++SOURCE_REMOTE_TEST=1
++. $TEST_DIR/remotes/dump_on_panic.tc
++
++set -e
++setup_remote "hypervisor"
++test_dump_on_panic
+diff --git a/tools/testing/selftests/ftrace/test.d/remotes/dump_on_panic.tc b/tools/testing/selftests/ftrace/test.d/remotes/dump_on_panic.tc
+new file mode 100644
+index 000000000000..ff5ca29fb1b5
+--- /dev/null
++++ b/tools/testing/selftests/ftrace/test.d/remotes/dump_on_panic.tc
+@@ -0,0 +1,50 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0
++# description: Test trace remote dump_on_panic
++# requires: remotes/test remotes/test/dump_on_panic
++
++. $TEST_DIR/remotes/functions
++
++test_dump_on_panic()
++{
++    #
++    # Toggle when the buffer is loaded
++    #
++    assert_loaded
++    echo 1 > dump_on_panic
++    echo 0 > dump_on_panic
++
++    #
++    # Toggle when the buffer is unloaded
++    #
++    echo 0 > tracing_on
++    assert_unloaded
++    echo 1 > dump_on_panic
++    echo 0 > dump_on_panic
++
++    #
++    # Load and unload buffer while dump_on_panic is enabled
++    #
++    echo 0 > tracing_on
++    assert_unloaded
++
++    echo 1 > dump_on_panic
++    echo 1 > tracing_on
++    echo 0 > tracing_on
++
++    [ -z "$TRIGGER_PANIC" ] && return
++
++    echo 1 > tracing_on
++
++    for i in $(seq 1 32); do
++        echo $i > write_event
++    done
++
++    echo c > /proc/sysrq-trigger
++}
++
++if [ -z "$SOURCE_REMOTE_TEST" ]; then
++    set -e
++    setup_remote_test
++    test_dump_on_panic
++fi
+diff --git a/tools/testing/selftests/ftrace/test.d/remotes/functions b/tools/testing/selftests/ftrace/test.d/remotes/functions
+index c368dea2ac4e..f0225af23714 100644
+--- a/tools/testing/selftests/ftrace/test.d/remotes/functions
++++ b/tools/testing/selftests/ftrace/test.d/remotes/functions
+@@ -9,6 +9,7 @@ setup_remote()
+ 	cd remotes/$name/
+ 	echo 0 > tracing_on
+ 	[ -f dmesg ] && echo 0 > dmesg
++	[ -f dump_on_panic ] && echo 0 > dump_on_panic
+ 	clear_trace
+ 	echo 7 > buffer_size_kb
+ 	echo 0 > events/enable
 -- 
 2.56.0.rc1.310.g51773c2048-goog
 
