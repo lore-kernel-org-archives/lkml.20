@@ -1,217 +1,85 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C4FD4CDA3B
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:14:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5674DF4AD
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:14:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790284460; cv=none; b=QQZ1VvFx2XnTp8c3TDjMgY2jxKMteP3nO8DrlHXwUxqHYTYPwk7dqAd/2DB5ZEEQoy0GjdkaOGhak623FYVm4o7bAZbzxqwfzsYV350NaaKP+alBIWmEx1ANtCGvbp9AwscK/wy14bj/6O4aEGbrsdRsw8otmhDG8LS8tHYUvHc=
+	t=1790284463; cv=none; b=ncHspqJ87tOCxGknTxVeSZpXBGXVyRRiJU3GgguEHHfVsZn3GpM0+hbY8P7SezOUM+eRUgh3MBwvQk4LaRhSI9F7qS6KaqVke5/yzXMh3ZTNEEb8myP2tWC6JzuYMEUUDeT9BfeRB2RlRL2aww2EMDJQhqnwHthK/xAxLVG7sDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790284460; c=relaxed/simple;
-	bh=5X3f5LMt+1ktDBnXdlEqojvUHL8tu4LtqubxC2AZFIs=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kjNn1M4dc/mtvXwcur1Uy2qX9QGgms7jxd5Yvf8Vr46URZNWgQtIkScllJJshVu2EqG2ZgYnqY3OaSZEVLEoL+2nhriux0ASKIMZel/Kvq3LZ9fqFHK2QewqZRovS3pkdkCNWBFWHlZUil35hAGoS5pUaYVJcBeld9GYHVD0AFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OANeLJyg; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790284463; c=relaxed/simple;
+	bh=tBNIAUAXiQjKtfq79vCBUb6yC/b6HS3EM09hxvB4hl8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KWfJW+4+Lotsd4QXa6KnWPQv1su6qD+gtFLU4n4DhgHQxqxHqZD7DikVL2tgMurJXw7gpd0Xv/n+YjBJ4EqPTa9Rd2M1u2dGtI+FrvDmFwacdhaRdugi2uqEb0Qc3MKylZE13yuaS92rWSPAniwPZsb0GzLqDr3WMiBuO2MB1P4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=qi1iBxsa; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OANeLJyg"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d097b4939so1650005e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:14:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790284453; x=1790889253; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UP/G1wPiXPB9Uw9yyDuA781szVvayYuXNNrSB0GIav0=;
-        b=OANeLJyggCoJL0Y0mnAzH/OJBlHW7iP/afJo20nRsWz/1BW3yqGh5JUcJnx9O9O8Rg
-         91KSA7NIdU5yad3mtyIqWrSbf7XAN4TeBZNeDh19sKLCerUBqw+pfVHuwCHl/VIo/FCb
-         xIOh/ZVdchChxCMrv/+6O2Z4LqpozdgL0WzjfjX6Ws9hIc4psc6CoxfA1NHtHSAh0auF
-         pIo6H7rdjubFqvS11fnr8cZY/3Wo3vFiJXIK1jvjbGhQRCumVP/f2elOVjU14/si/NUl
-         phdcM1q2k3YwncVnNhSytJdQJvqnZcADqZHxOu3x2gjIV8LyGxt84mslnGrljJtdwjhP
-         c4cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790284453; x=1790889253;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UP/G1wPiXPB9Uw9yyDuA781szVvayYuXNNrSB0GIav0=;
-        b=0lFT+su/7qngloO7LIsPXma9CM9fEkQQXHO1atFS9LlbAopDs60fG9HRbIIdPg8IdO
-         VhQik8zQmWZ1dTm7zP1iWwhj7AGtWgAqSPvwUAuLE6fzyZtRH0E2kQAwKsEEQMYWh8w2
-         /gsUuV3gM/SfZFxUENhvlud1PzTFMad4rDDrXXbugve4FbLnSXrLftXiUxuzdZd3VJUz
-         XiFJlSLlsn5i3+y6REeTzWxnhc0JmRX5dRUCsr/df/+HSovkz4Dal/z352HKrnW79ReA
-         nfibtdUI/EC73ygQfhildL+ChRlBhHcz6tbXWchBK8CoN3GFy7oVA/qUzfytlWts1+SB
-         Ygzw==
-X-Forwarded-Encrypted: i=1; AKwUvBwDnIsKhqC1JkIL6nsqZfFw8ioZBwsOet0qruD0HZO9KhHal1cnTfv40JDPgnVqc1uw8h9K3yK1fWvK1yY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmbsy7w+9s9wnp2ekzC42Pr0i6d90EFLpP9CwXobpGTKMkNin+
-	l90LTRx8gejX8KDDhj5snnvvFIlvUpCRqYg/ld8vLGZ8lBqy18s/hIoz
-X-Gm-Gg: AYBFou0sBNFkFEpoP5yOE0AJ7v3NyYjkJBMMVBK9F4kMCYkj6uArYc1eaaWhfkZihVH
-	vfzCz37UPx3uRInxAM8NBrSdvFmORdNIJreGkxS3gn7JlziAEg/1f/Xv0ixe3NQ0PNfMW7dekCC
-	J3Dz2I+JN2t/Ic8UBtLN/KfCQ3OGlERn2nNWx3eIsuY7ERF1Z6qGYyOvI7XNkzNTI0u1fZBtVWa
-	6trbLq06DcyYxgJUyudngRob+ijbTiqboSfi+PXPw1pn823a+Vgqy8/0+QvXZumLVq3S3Gj6Lpi
-	pN5nHdMRj8aG6qi1oQcDtlUx7wUeMOM7mHlXUhqsa6gkHWnGhxgLKSpSmzXfxUCN9F0rJcXmFKF
-	kmYerqXwXCTSHeMkaJWW44598Rmk5N/ln0Ig0+JYovU9HwpzmjJp6UV/xC1QPrKw7jSD+36hocQ
-	kZmUQ4XlztMZlKW85+hDb1tlY9l7IHKqY/AYREnOKfP5XaGHPlDSITXkKTyOVdIlsVDk4xQxYJw
-	Ga+rMsHmeJcjCo7Fu1dvMME5uKp+KMLdzA=
-X-Received: by 2002:a05:600c:3b1b:b0:49c:de80:b833 with SMTP id 5b1f17b1804b1-49fe66c8a1emr68629125e9.2.1790284453344;
-        Thu, 24 Sep 2026 14:14:13 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fef4fc959sm10167455e9.2.2026.09.24.14.14.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 14:14:12 -0700 (PDT)
-Date: Thu, 24 Sep 2026 22:14:11 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Herbert Xu
- <herbert@gondor.apana.org.au>, justinstitt@google.com,
- linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev, morbo@google.com, nathan@kernel.org,
- ndesaulniers@google.com, Thomas Graf <tgraf@suug.ch>,
- nickolay.lysenko@gmail.com, peterz@infradead.org, rostedt@goodmis.org,
- sched-ext@lists.linux.dev, tj@kernel.org
-Subject: Re: [PATCH] rhashtable: specialize default comparison for constant
- parameters
-Message-ID: <20260924221411.0fad5501@pumpkin>
-In-Reply-To: <20260924184733.2317353-1-usama.arif@linux.dev>
-References: <20260924184733.2317353-1-usama.arif@linux.dev>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="qi1iBxsa"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+	Cc:To:From:From:Reply-To; bh=EIkF23NjgV8nXYfE/L51lvBhE+rTYxH5esChBahY2vg=; b=
+	qi1iBxsayvBkDgVMT3/qHK0TXGjj1ACMfJtje+CXPnHh+x7q2Shagj48CqevCrC7zU7c8ViDvjSh7
+	I3bFDOOVtRFkSTAHI54fAq9W96sSsyDBbWUjSKaZD3+oJMNqh3aDiJu0aw4Hboh9FpfdL9ksMhGJ/
+	9mqh63piEx1ylwT8+4f0dyWKI5s346MrT1UZ4nizOFXPathcWxStXOeUZ2diZB0noxjDcM/XAhhHA
+	a6bSPhPuE1a/y5WBJIPP66EO5cqn0bNc8IBCrxHctMoazM6L7l1OyL9G5Vy/SXlRHCmNJnOJRuPEp
+	9/jeLBsCmvcLYw68cKh2nGbExN6Vps1b2A==;
+Received: from 113.red-79-144-92.dynamicip.rima-tde.net ([79.144.92.113] helo=killbill)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1x9qlg-006qf4-Gy; Thu, 24 Sep 2026 23:14:12 +0200
+From: Melissa Wen <mwen@igalia.com>
+To: airlied@gmail.com,
+	alexander.deucher@amd.com,
+	aurabindo.pillai@amd.com,
+	Aurabindo.Pillai@amd.com,
+	christian.koenig@amd.com,
+	David.Francis@amd.com,
+	harry.wentland@amd.com,
+	simona@ffwll.ch,
+	siqueira@igalia.com,
+	sunpeng.li@amd.com
+Cc: amd-gfx@lists.freedesktop.org,
+	Harry.Wentland@amd.com,
+	kernel-dev@igalia.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/8] drm/amd/display: assign missing trace entry in amdgpu_dm_dc_clocks_state
+Date: Thu, 24 Sep 2026 23:10:04 +0200
+Message-ID: <20260924211410.867686-2-mwen@igalia.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260924211410.867686-1-mwen@igalia.com>
+References: <20260924211410.867686-1-mwen@igalia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, 24 Sep 2026 11:47:33 -0700
-Usama Arif <usama.arif@linux.dev> wrote:
+disp_dpp_voltage_level_khz is declared and printed, but never assigned.
+So when using clock tracepoint the value of this clock is just garbage.
+Assign clk->disp_dpp_voltage_level_khz since this is stored in dc_clocks
+as other entries.
 
-> The inline lookup and insert helpers receive the rhashtable parameters by
-> value. With a static const parameter block, key_offset and key_len are
-> compile-time constants at the call site.
-> 
-> The default comparison throws that information away by reading both fields
-> back from ht->p. Fixed-size keys consequently load the parameters and call
-> bcmp() for every object in the bucket, even when the compiler could use
-> scalar comparisons instead.
-> 
-> The commit "sched_ext: Specialize the DSQ hashtable compare" [1] resulted
-> in a 2.9x faster DSQ lookup after replacing this path for its u64 key
-> with a scalar comparison. Doing that through obj_cmpfn requires every
-> fixed-key user to provide its own callback.
-> 
-> Pass the call-site parameters to rhashtable_compare(), as
-> rht_key_get_hash() already does. Use them when key_len is a compile-time
-> constant. Retain the ht->p path for dynamic parameter blocks. A constant
-> zero key_len continues to take the runtime length from ht->p.key_len.
-> 
-> This specializes the default comparison for all fixed-size users. With
-> Clang 22 on x86-64, bcmp() disappears from sched_ext, mac80211, NFSd,
-> TIPC, NFQUEUE, VFS superblock, pidfs, SysV IPC and hardware-breakpoint
-> table paths. The affected build_policy.o, sta_info.o and nfsd filecache.o
-> text shrinks by 512, 400 and 352 bytes respectively. Four- and eight-byte
-> keys become direct scalar comparisons; six-byte MAC addresses become a
-> four-byte and a two-byte comparison.
-> 
-> Measure the VFS case with ustat() on a mounted ramfs. This exercises
-> user_get_super() and its super_dev lookup. Across ten interleaved baseline
-> and patched VM boot pairs, with five 3 million call samples per boot, the
-> average per-boot median latency drops from 477.2 to 462.6 ns per call, or
-> 3.0%. All ten pairs improved.
-> 
-> No functional change intended.
-> 
-> [1] https://lore.kernel.org/all/20260921171928.1639407-1-usama.arif@linux.dev/
-> 
-> Suggested-by: Mykola Lysenko <nickolay.lysenko@gmail.com>
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> ---
->  include/linux/rhashtable.h | 20 +++++++++++++++-----
->  lib/rhashtable.c           |  5 +++--
->  2 files changed, 18 insertions(+), 7 deletions(-)
-> 
-> diff --git a/include/linux/rhashtable.h b/include/linux/rhashtable.h
-> index 57a2a29bef0e8..c9872965b753c 100644
-> --- a/include/linux/rhashtable.h
-> +++ b/include/linux/rhashtable.h
-> @@ -598,13 +598,23 @@ static inline void rht_assign_unlock(struct bucket_table *tbl,
->  	for (pos = list; pos && rht_entry(tpos, pos, member);		\
->  	     pos = rcu_dereference_all(pos->next))
->  
-> -static inline int rhashtable_compare(struct rhashtable_compare_arg *arg,
-> -				     const void *obj)
-> +/*
-> + * Use constant params from inlined callers to specialize memcmp(). If params
-> + * isn't constant, it must be equal to ht->p.
-> + */
-> +static __always_inline int rhashtable_compare(struct rhashtable_compare_arg *arg,
-> +					      const void *obj,
-> +					      const struct rhashtable_params params)
->  {
->  	struct rhashtable *ht = arg->ht;
->  	const char *ptr = obj;
->  
-> -	return memcmp(ptr + ht->p.key_offset, arg->key, ht->p.key_len);
-> +	if (!__builtin_constant_p(params.key_len))
-> +		return memcmp(ptr + ht->p.key_offset, arg->key,
-> +			      ht->p.key_len);
-> +
-> +	return memcmp(ptr + params.key_offset, arg->key,
-> +		      params.key_len ? : ht->p.key_len);
+Fixes: 13b5ca42ca9c ("drm/amd/display: Add tracepoint for capturing clocks state")
+Signed-off-by: Melissa Wen <mwen@igalia.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-That looks strange to me.
-If ht->p.key_len/offset can be different from params.key_len/offset I can't
-see why that shouldn't happen when params is constant.
-If ht->p is likely to be a pointer to the associated params, you are passed
-the params, they match and params is constant then you can optimise.
-But that needs the address compare in the calling code (outside any look).
-
-David 
-
->  }
->  
->  /* Internal function, do not use. */
-> @@ -632,7 +642,7 @@ static __always_inline struct rhash_head *__rhashtable_lookup(
->  		rht_for_each_rcu_from(he, __rht_ptr_rcu(bkt, freq), tbl, hash) {
->  			if (params.obj_cmpfn ?
->  			    params.obj_cmpfn(&arg, rht_obj(ht, he)) :
-> -			    rhashtable_compare(&arg, rht_obj(ht, he)))
-> +			    rhashtable_compare(&arg, rht_obj(ht, he), params))
->  				continue;
->  			return he;
->  		}
-> @@ -797,7 +807,7 @@ static __always_inline void *__rhashtable_insert_fast(
->  		if (!key ||
->  		    (params.obj_cmpfn ?
->  		     params.obj_cmpfn(&arg, rht_obj(ht, head)) :
-> -		     rhashtable_compare(&arg, rht_obj(ht, head)))) {
-> +		     rhashtable_compare(&arg, rht_obj(ht, head), params))) {
->  			pprev = &head->next;
->  			continue;
->  		}
-> diff --git a/lib/rhashtable.c b/lib/rhashtable.c
-> index 6362896e4f099..9d9f03b59c823 100644
-> --- a/lib/rhashtable.c
-> +++ b/lib/rhashtable.c
-> @@ -548,7 +548,7 @@ static void *rhashtable_lookup_one(struct rhashtable *ht,
->  		if (!key ||
->  		    (ht->p.obj_cmpfn ?
->  		     ht->p.obj_cmpfn(&arg, rht_obj(ht, head)) :
-> -		     rhashtable_compare(&arg, rht_obj(ht, head)))) {
-> +		     rhashtable_compare(&arg, rht_obj(ht, head), ht->p))) {
->  			pprev = &head->next;
->  			continue;
->  		}
-> @@ -710,7 +710,8 @@ static struct rhash_head *__rhashtable_next_in_table(
->  		rht_for_each_rcu(he, tbl, b) {
->  			bool match = params.obj_cmpfn
->  				     ? !params.obj_cmpfn(&arg, rht_obj(ht, he))
-> -				     : !rhashtable_compare(&arg, rht_obj(ht, he));
-> +				     : !rhashtable_compare(&arg, rht_obj(ht, he),
-> +						   params);
->  			if (found) {
->  				if (match)
->  					continue;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
+index f33a2c1e0da5..cc70aeb75798 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
+@@ -513,6 +513,7 @@ TRACE_EVENT(amdgpu_dm_dc_clocks_state,
+ 	    TP_fast_assign(
+ 			   __entry->dispclk_khz = clk->dispclk_khz;
+ 			   __entry->dppclk_khz = clk->dppclk_khz;
++			   __entry->disp_dpp_voltage_level_khz = clk->disp_dpp_voltage_level_khz;
+ 			   __entry->dcfclk_khz = clk->dcfclk_khz;
+ 			   __entry->socclk_khz = clk->socclk_khz;
+ 			   __entry->dcfclk_deep_sleep_khz = clk->dcfclk_deep_sleep_khz;
+-- 
+2.53.0
 
