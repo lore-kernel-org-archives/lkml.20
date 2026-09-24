@@ -1,56 +1,56 @@
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56AB4AF159
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:04:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A25714AFE05
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:04:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790269495; cv=none; b=GeauQtdZF234tCS4lp9U9AgWDrTbTBPz1/HNsDVQz24XI3xwZAXMdZSBbYP7+yBFBWxlpO0yeWDNV554Cgqzk/WpqHsDfH/HsIFTanJviIIvYRn6aXncPsyMOG06Dk2lUczSGAzl7vitGs7UbUw2gqRUSVyJiun2uWf4Oo/U7Sk=
+	t=1790269497; cv=none; b=hhqga5q39F9Fw8m0SkG3WNvO0RvUFjoc45XbecHaDP1Vj2tucBLUgQXyeNI3tG9YoCenFQ7q49020VWQAJx4HPTPKQxbZ1UolgeH6XmweKiFXf/xaWF1DVFzjevQekE7VYE1UXTpfjMLQ9MKQmgJXJUP3MEW5HuaSGf0zVnWGj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790269495; c=relaxed/simple;
-	bh=zHnRZ+fpQuVPCHcqMCSLhDrr6++nIoQY4LcK+JEb2fM=;
+	s=arc-20240116; t=1790269497; c=relaxed/simple;
+	bh=00O/XGUo+gBY8Wrh3lceAcc3am3kVkGIFmp1zBrc5ks=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ccVni7LRps4BHUqYEXqDDxZzkuayggB21DEdbx+VRtB1tq35qO6nuru6jSg4bjTEUVu2q52HQqAWYkooscZLVhJ4gpJitineFPyU6+6gD3hOX5m61SqPpHUBltRyrHycSbeugsmbgMNV7Iy+zCfZORlwLruwU3LcfC0KbLrc+dc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=elXfbYK8; arc=none smtp.client-ip=74.125.82.71
+	 To:Cc:Content-Type; b=mYx3eKCUNFt76xSiZv5Xj0Kg4KDdUMx6kErGu1ytFEI1ifoOF2/IAnzqkq3VpdhFkps+oiGoSxwvChPTDwyZt2Cva7TfxgShKeONN60g4ZRWG4rnW2MUdnnzQxtFIDBA+OPQIuJlO9SXWn0vQYPH3P4KnLftTQu+Z4lfwcoCEaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=R8v8a+vZ; arc=none smtp.client-ip=74.125.82.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="elXfbYK8"
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1437272611eso14249c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:04:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="R8v8a+vZ"
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-14371f7ba1eso39336c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:04:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790269493; x=1790874293; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790269495; x=1790874295; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ISBPYfoRX1y2wna029OoWmealtEkIJKMINn9ddsuUrQ=;
-        b=elXfbYK8SUY6ij7YiovTk+oo6/PpsrF7czUweAU8WGYoIeSA5VlNVIH66sKFKG3yax
-         bpojZmiQEZSl/AiXy5p6cJezPtZNajCc/Woqtth9pFfJbfOg2vHk/Lcib6qw1WVSmaEX
-         iou3DgEAvTxDag9sHsuMLlG5ZGMWcg75d4HDo6/e9Jk3HmrHas3pr+McyfLjLWWwItLZ
-         SCj2T1onFXSXQAeBU0C73CuKeq/FKcdv4WMlw+FyJ0rGB9wnspa+q+hR9tncE6WfBXdY
-         gncATg6nZFiWSLdN6/SGPhczCtc/0kp70qUOZwiOM8WEIoZLftIRfSa0Db7eaRJwIpWu
-         Ls4A==
+        bh=/c9r9PHvMsmrjg/Wx3rSzk0iudZgpbLaOYADILi2T0o=;
+        b=R8v8a+vZNQ3MmS1B6GSSLezDGq36Q5ugQbGjch4JkIJrf/LbAzuYirWRVh3PS6Yk+s
+         gM0da00RxwinKbYPkq3wKHSz1GUsxzg6YF+B8C70OolasX8HITvdpgnTZ9i4XjnwJrL7
+         IGUUVCI+DZA24hgllTnkS0V1SzmPcyCUqUN6vhHgCWaBbwSb46ZW/Hm8BCYhsKaC6hFR
+         c4F9dz2xfbt3/0RlJvN0GrC/4HXIn5Q9YNI0OiqHRRUW7Za8EbuAiVO4f8vQUxDkK2pv
+         /sJX31HfDqGljSzt5VuSbzj3kUz88BNPPRMPVUtNO49KklWDXAhkarJMsFBK+U2JO06h
+         naNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790269493; x=1790874293;
+        d=1e100.net; s=20260707; t=1790269495; x=1790874295;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ISBPYfoRX1y2wna029OoWmealtEkIJKMINn9ddsuUrQ=;
-        b=zpYd25QDNFjnblwX1QXxuhvLsHkL1Bvot5FW9HPr8M6GaN5oU+L2HOh/Q7P8njoQba
-         ppYbxbdTNC3VZOkhiPpdyFIDhL1ua7ZlqqGlSIpoKXv+sgAfnbs4VC7qV8xgt/nUm6il
-         jf4o96q2cM3JUJplvI9hKPMd8oyL1G/c7iWcg6WLFV92Ix4rWmtiZVMgpIZ+Lr3G95N0
-         2hPQCasSLIZ0Ai8U0AHZQbAV4hkP3MitAcY6DhLBtL6LraoZL51IkuDubQhrX3k+OZpi
-         GbKRZrO6x9hRV1BL0XReUwWHq+fhZ0tFEiyC+ALqJCtoxQ3VUBc/0i4AnOkLegn604XD
-         4z8g==
-X-Forwarded-Encrypted: i=1; AKwUvByia0w5rjGNcQIjVx5wsNQaBgSgHhuVJlK/IdK2JR+VG+Uft03vYjISx9whoZXeDHWIf0dpLA0Wp4u/lOY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMi7RF9j95U6WBjMmfYuQWp7MwxsuIHwQVYmsZX521cvBsXBqX
-	fefGkvrpIwKqVx2lO74Pb/uDl5CEh2lU4wo1Z4IuIFwNrN2NwZIbgmEFmPVX8KltwgmzIvJ54gD
-	i21mFa/8NoQ==
-X-Received: from dlag11.prod.google.com ([2002:a05:701b:250b:b0:144:d025:68b5])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4554:20b0:143:7001:7640
- with SMTP id a92af1059eb24-14503fd2247mr2519203c88.39.1790269492538; Thu, 24
- Sep 2026 10:04:52 -0700 (PDT)
-Date: Thu, 24 Sep 2026 10:03:43 -0700
+        bh=/c9r9PHvMsmrjg/Wx3rSzk0iudZgpbLaOYADILi2T0o=;
+        b=KdiMoGI5V34S19pMWsuMc8J7DFneT5aiPp5HAK/BEeAbgkuCMSIGzCs8XWJE0k3krw
+         9JPPV+CVgOO1ylJ5Wob+8IDZxWNGHhOd2bAvL/ii6KHn0/N0x1VmQ5Rxe8F/36qNeuzT
+         1vv0bPKFzWhKsnhvjkvtZ/4Dq+mhotOUmbRmsKpFoMUXkdZHFbSjFGB0gK4csDnLxOxp
+         /ThFPWHVv80kvUVvCaMk40fh6vLel9NHHcOpT7i1zbtt/sCq0BEajg39NQSSYl2qPbR4
+         Qw/kuEt3G96mEb7Ll+KEK92t39/6vJYOeX5994im05FLISrSlOxmKtNq2GOJf1dL5q7r
+         sDOA==
+X-Forwarded-Encrypted: i=1; AKwUvBx12Ia2/7pLoKUpaP6GmmyseTbCdSmP6Ums488DFFZnXDqiBD4Ojzl9B0IJXzlr8aoAH7CwxJ+P0BmBGjU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mUjrduZ+Ae/ZKq7T6iPCijI7TtF0yh6PmKZEKNYgWNGyivb27l
+	rLz2q+wi9aQfzIJYG9314recVLKO7CsHIEQEp3dK+90SV9w79o4qb3elbl6OMb0hAReScbBAja0
+	Cf8dJUfsoDQ==
+X-Received: from dlx9.prod.google.com ([2002:a05:7022:89:b0:144:dc13:586b])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:428e:20b0:143:2973:c08d
+ with SMTP id a92af1059eb24-14503fb6d74mr2514161c88.28.1790269494414; Thu, 24
+ Sep 2026 10:04:54 -0700 (PDT)
+Date: Thu, 24 Sep 2026 10:03:44 -0700
 In-Reply-To: <20260924170346.3872848-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260924053645.3555041-1-irogers@google.com> <20260924170346.3872848-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260924170346.3872848-24-irogers@google.com>
-Subject: [PATCH v2 23/26] perf vendor events intel: Fix lunarlake umask encoding.
+Message-ID: <20260924170346.3872848-25-irogers@google.com>
+Subject: [PATCH v2 24/26] perf vendor events intel: Fix sierraforest umask encoding.
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, dapeng1.mi@linux.intel.com, 
 	namhyung@kernel.org, edward.baker@intel.com, perry.taylor@intel.com, 
@@ -74,59 +74,75 @@ Content-Type: text/plain; charset="UTF-8"
 
 Fix UMaskExt that was wrongly encoded when the UMask was 0.
 
-Fixes: 23878069de30 ("perf vendor events: Update/add Lunarlake events/metrics")
+Fixes: 9626368d429a ("perf vendor events intel: Update sierraforst events to v1.01")
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/pmu-events/arch/x86/lunarlake/cache.json    | 3 +++
- tools/perf/pmu-events/arch/x86/lunarlake/pipeline.json | 2 ++
- 2 files changed, 5 insertions(+)
+ .../perf/pmu-events/arch/x86/sierraforest/uncore-cache.json  | 5 +++++
+ .../arch/x86/sierraforest/uncore-interconnect.json           | 2 ++
+ 2 files changed, 7 insertions(+)
 
-diff --git a/tools/perf/pmu-events/arch/x86/lunarlake/cache.json b/tools/perf/pmu-events/arch/x86/lunarlake/cache.json
-index 5b350233a5e1..c77040e87639 100644
---- a/tools/perf/pmu-events/arch/x86/lunarlake/cache.json
-+++ b/tools/perf/pmu-events/arch/x86/lunarlake/cache.json
-@@ -848,6 +848,7 @@
-         "EventName": "MEM_LOAD_L3_MISS_RETIRED.MEMSIDE_CACHE",
-         "PublicDescription": "Retired load instructions which data source is memory side cache. Available PDIST counters: 0,1",
-         "SampleAfterValue": "100007",
-+        "UMask": "0x100",
-         "Unit": "cpu_core"
+diff --git a/tools/perf/pmu-events/arch/x86/sierraforest/uncore-cache.json b/tools/perf/pmu-events/arch/x86/sierraforest/uncore-cache.json
+index 35b1763b0020..0b95faa5e469 100644
+--- a/tools/perf/pmu-events/arch/x86/sierraforest/uncore-cache.json
++++ b/tools/perf/pmu-events/arch/x86/sierraforest/uncore-cache.json
+@@ -701,6 +701,7 @@
+         "EventName": "UNC_CHA_REMOTE_SF.DIRBACKED_ONLY",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0x4000",
+         "Unit": "CHA"
      },
      {
-@@ -901,6 +902,7 @@
-         "EventName": "MEM_LOAD_RETIRED.L1_HIT_L1",
-         "PublicDescription": "Counts retired load instructions with at least one uop that hit in the Level 1 of the L1 data cache. Available PDIST counters: 0,1",
-         "SampleAfterValue": "1000003",
-+        "UMask": "0x100",
-         "Unit": "cpu_core"
+@@ -730,6 +731,7 @@
+         "EventName": "UNC_CHA_REMOTE_SF.INCLUSIVE_ONLY",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0x2000",
+         "Unit": "CHA"
      },
      {
-@@ -1093,6 +1095,7 @@
-         "EventCode": "0x44",
-         "EventName": "MEM_STORE_RETIRED.MEMSIDE_CACHE",
-         "SampleAfterValue": "100021",
+@@ -748,6 +750,7 @@
+         "EventName": "UNC_CHA_REMOTE_SF.UPDATE_EXCLUSIVE",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0x100",
+         "Unit": "CHA"
+     },
+     {
+@@ -767,6 +770,7 @@
+         "EventName": "UNC_CHA_REMOTE_SF.VICTIM_EXCLUSIVE",
+         "Experimental": "1",
+         "PerPkg": "1",
 +        "UMask": "0x400",
-         "Unit": "cpu_core"
+         "Unit": "CHA"
      },
      {
-diff --git a/tools/perf/pmu-events/arch/x86/lunarlake/pipeline.json b/tools/perf/pmu-events/arch/x86/lunarlake/pipeline.json
-index 8be3ea336bb8..5d8bd972d463 100644
---- a/tools/perf/pmu-events/arch/x86/lunarlake/pipeline.json
-+++ b/tools/perf/pmu-events/arch/x86/lunarlake/pipeline.json
-@@ -190,6 +190,7 @@
-         "EventName": "BR_INST_RETIRED.COND_TAKEN_FWD",
-         "PublicDescription": "Counts taken forward conditional branch instructions retired. Available PDIST counters: 0,1",
-         "SampleAfterValue": "400009",
-+        "UMask": "0x100",
-         "Unit": "cpu_core"
+@@ -776,6 +780,7 @@
+         "EventName": "UNC_CHA_REMOTE_SF.VICTIM_SHARED",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0x200",
+         "Unit": "CHA"
      },
      {
-@@ -474,6 +475,7 @@
-         "EventName": "BR_MISP_RETIRED.COND_TAKEN_FWD",
-         "PublicDescription": "Counts taken forward conditional mispredicted branch instructions retired. Available PDIST counters: 0,1",
-         "SampleAfterValue": "400009",
-+        "UMask": "0x100",
-         "Unit": "cpu_core"
+diff --git a/tools/perf/pmu-events/arch/x86/sierraforest/uncore-interconnect.json b/tools/perf/pmu-events/arch/x86/sierraforest/uncore-interconnect.json
+index 1f6e0970141a..7fa6def25379 100644
+--- a/tools/perf/pmu-events/arch/x86/sierraforest/uncore-interconnect.json
++++ b/tools/perf/pmu-events/arch/x86/sierraforest/uncore-interconnect.json
+@@ -515,6 +515,7 @@
+         "EventName": "UNC_B2CMI_IMC_WRITES.NI",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0x300",
+         "Unit": "B2CMI"
+     },
+     {
+@@ -524,6 +525,7 @@
+         "EventName": "UNC_B2CMI_IMC_WRITES.NI_MISS",
+         "Experimental": "1",
+         "PerPkg": "1",
++        "UMask": "0x500",
+         "Unit": "B2CMI"
      },
      {
 -- 
