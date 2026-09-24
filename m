@@ -1,171 +1,150 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98FF49B5AC;
-	Thu, 24 Sep 2026 16:02:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF2E49CF20
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:02:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790265738; cv=none; b=Vtfq712MxW8lbD0Kls5Dz9lGjfNvQ68eIOoxVWl/bAXOsT/zXtHbDUDc1/hnzOcZQ7TlhNwCIgll2ztpbMM7wEaQrjfiib6M1Tk9XDuwtctq32FK1sObGyMQMZILxP3h4A67etguBSoYiA2kF49OrKFK8RCRjrteCqP1wk5Uod8=
+	t=1790265748; cv=none; b=MNszK6Xh24/a5+Gw+gu2GblH2Lql/PF6wvjaLt9IadL2fnArC/+GACpPE4ooT7afSAMVyEy//dQqg7WvbVfb7pT6bLY501ZysHfX1b9vAaFKsFavDz+SbVrHE5M8OROZ4couWy3TmUellHJc+JB0945Zl/TBJb8TOj3DMNn0pVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790265738; c=relaxed/simple;
-	bh=DjhVqZRmolxMXe/O22jxIA9HdpE+eBYc7HNLxe+mVc4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tj3KG25JgrN4BT6X9UTm01Ns6Ex1W1X+ilYBL3+kxQBXBhOCwuv6l2jElPyM/rPNT55smFwizZQKayTwevIIGmqEpdT6Wo0WrHNNxdLfOEkHfK0IQY6/ogWJtqu2jsxaKFtRuRLej4pSjxDDFEXl4RTRAafPvML1VGhNNDZthtc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=wv9na7Q7; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=1LgIQVDX; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=yGr0JHiS; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=HUnJdpbW; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1790265748; c=relaxed/simple;
+	bh=TXz6OkWKCPgdfur/y51D/Sk3SIxm4t6Rb3OFK4/1Bbg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PoY/ae81jlSAqfx15ncss7N9sN0623f9xuYgV6vTywucaafaft8pTc1mA7xQDXMQqHeMjt3u9reVy5+j/rmPLsQSQnqTZl6KVD/dnO+/rzlTDVW59FiouNi5X5D2ZQY4UzVKwmG508cN9NO3rM5LKWkeEujZnojPsvKY3MFoH5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dIuqkapB; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="wv9na7Q7";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="1LgIQVDX";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="yGr0JHiS";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="HUnJdpbW"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 7B4E221F69;
-	Thu, 24 Sep 2026 16:02:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790265730; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yAD/UqgWuc95ckx5iqnRiw5fwcnpSOcEx54wjmZBMfw=;
-	b=wv9na7Q7nF7t7eGSXJcb22pn2WlqzW9P5b3tW3hwZFyqfRNxcjFS6ZqnNTYsfG5znFb3Wb
-	goEknq7trWmyWh1gSk9FBDL0hzZa+c6uEBSRRJbc5AE5f+ale9QKH9ujwrgYkZ0EnCmnFa
-	xLan6adwamVm5Q5kykPqaRDlvZQHpHU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790265730;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yAD/UqgWuc95ckx5iqnRiw5fwcnpSOcEx54wjmZBMfw=;
-	b=1LgIQVDXw0fihBd/3YTetIQiy1lcIW7xt3bnKYVBAhptzymSQwZrxWcbk1Ds5UYzC/wCf1
-	9D8UMFyHCeP+gxCw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790265726; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yAD/UqgWuc95ckx5iqnRiw5fwcnpSOcEx54wjmZBMfw=;
-	b=yGr0JHiSLpDBGMT1xZMrDvH2qpNGRwWYYZW9e03YR77dAoAG3Q/L5jR4vp6jw2ecfkWxCf
-	vNAIcGyd70tNjvNVFxUglptatzE2ZfgRTY+AgEAsL+whpHiR2KID3AlVypoaONBw2OPkWA
-	V84CYmmjspKMn3Tm06IfA92f8pPMq6o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790265726;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yAD/UqgWuc95ckx5iqnRiw5fwcnpSOcEx54wjmZBMfw=;
-	b=HUnJdpbWfauouKWiB5Ku746J8WFOuu9bOOiKjrGzWlWgGHy+8duZwOcqExZGytZChjaxyo
-	gvR8lFLQFMhxTvBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4C6CA13354;
-	Thu, 24 Sep 2026 16:02:06 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id v5tLCn5JtWp8WAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 24 Sep 2026 16:02:06 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id CF47DA132E; Thu, 24 Sep 2026 18:02:01 +0200 (CEST)
-Date: Thu, 24 Sep 2026 18:02:01 +0200
-From: Jan Kara <jack@suse.cz>
-To: Hui Peng <benquike@gmail.com>
-Cc: Theodore Ts'o <tytso@mit.edu>, 
-	Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.cz>, Baokun Li <libaokun@linux.alibaba.com>, 
-	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ext4: clear EXT4_STATE_MAY_INLINE_DATA in
- swap_inode_boot_loader()
-Message-ID: <sh4tr5poq6pf75ysixusuqzpw4aj7gy4yrh47owo6fj7sqlmb6@i27zbgsxlxcs>
-References: <20260919204812.2814531-1-benquike@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dIuqkapB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790265747; x=1821801747;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=TXz6OkWKCPgdfur/y51D/Sk3SIxm4t6Rb3OFK4/1Bbg=;
+  b=dIuqkapBJE2tFl0aNGDZ0KQiDT9Y9Cv/tTapU/9N0uQF6USydSXCfy9+
+   QoTeXXdy5pOU0790j/iJMiZES9EQ7ArIj/2bqsRLLx0ZLhQ8vYvgTqwHr
+   DLPkl3aGLa4Cy7N3iqzc5mez4vBhkgP1vcEa4eDgJcX9BkcRQuV/PnWc5
+   B8/QHMsy8dYAwGtz0IMXVhhs3KJSbzMjd5GLOOXv/wL/DVNreMF5UtcGn
+   lxU8xudqbv0smgYe0C87+WRi+zYky/mK9pHtM8L1jpacTWSe08qWOTWym
+   r01dVWY8pcTJ4ajDH64Qj9BSC+giJrV9tGMTzWPPma9XIhrrIbw2v2Nxc
+   A==;
+X-CSE-ConnectionGUID: bgriw3ITRa2hi3DbZ1Yu0w==
+X-CSE-MsgGUID: kMSgcbo/QSy+Bo3ISLwnZA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="89998943"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="89998943"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 09:02:26 -0700
+X-CSE-ConnectionGUID: w2fUz9t6RR2jXNqazIUL5A==
+X-CSE-MsgGUID: EzC0GjcmS6qW8ddq5GwR0A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="274252027"
+Received: from dwoodwor-mobl2.amr.corp.intel.com (HELO [10.125.110.186]) ([10.125.110.186])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 09:02:24 -0700
+Message-ID: <db6d83a0-1ba5-4cab-b652-d239e348942a@intel.com>
+Date: Thu, 24 Sep 2026 09:02:22 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260919204812.2814531-1-benquike@gmail.com>
-X-Spam-Level: 
-X-Spam-Score: -3.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 14/14] NTB: ntb_transport: Remove clients before
+ freeing transport resources
+To: Koichiro Den <den@valinux.co.jp>, Jon Mason <jdmason@kudzu.us>,
+ Allen Hubbe <allenbh@gmail.com>
+Cc: Frank Li <Frank.Li@kernel.org>, Logan Gunthorpe <logang@deltatee.com>,
+ fuyuanli <fuyuanli0722@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nicholas Bellinger <nab@linux-iscsi.org>,
+ Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260910040836.3792333-1-den@valinux.co.jp>
+ <20260910040836.3792333-15-den@valinux.co.jp>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <20260910040836.3792333-15-den@valinux.co.jp>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat 19-09-26 20:48:12, Hui Peng wrote:
-> swap_inode_boot_loader() (EXT4_IOC_SWAP_BOOT) checks
-> !ext4_has_inline_data(inode), but neither checks
-> ext4_has_inline_data(inode_bl) nor clears EXT4_STATE_MAY_INLINE_DATA on
-> inode and inode_bl after swapping their inode data.
+
+
+On 9/9/26 9:08 PM, Koichiro Den wrote:
+> Unbinding ntb_transport can call ntb_transport_free() while ntb_netdev
+> is still bound. The transport frees MWs and QP resources before
+> unregistering the clients, so the netdev's transmit path and timer can
+> access freed memory. Its remove callback also calls
+> ntb_transport_free_queue() on a QP whose resources have already been
+> released. This teardown order is unsafe and somewhat unintuitive.
 > 
-> When a newly created empty file (which has EXT4_STATE_MAY_INLINE_DATA
-> set in memory) is swapped with a non-empty EXT4_BOOT_LOADER_INO that
-> already has extent blocks, the target inode retains
-> EXT4_STATE_MAY_INLINE_DATA == 1 alongside extent blocks. A subsequent
-> ftruncate() + small pwrite() + fsync() dirties folio 0 while converting
-> the inode to inline data, hitting
-> BUG_ON(ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA)) in
-> ext4_writepages().
+> The crash can be reproduced with an intensive TX load, during which you
+> unbind the NTB device. The following is a KASAN report from my
+> VHOST/HOST setup using vNTB.
 > 
-> Reject inline data on inode_bl and clear EXT4_STATE_MAY_INLINE_DATA on
-> both inodes in swap_inode_boot_loader().
+>   VHOST# sudo iperf3 -ub0 -c $HOST -l 100 -P 100 &
+>   VHOST# echo $VHOST_NTB_DEV > /sys/bus/ntb/drivers/ntb_transport/unbind
 > 
-> Fixes: 67a11611e1a5 ("ext4: fix check of inode in swap_inode_boot_loader")
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
+>   ==================================================================
+>   BUG: KASAN: vmalloc-out-of-bounds in ntb_transport_tx_free_entry+0xf0
+>   ...
+>   Call trace:
+>    ...
+>    __asan_report_load4_noabort+0x1c/0x30
+>    ntb_transport_tx_free_entry+0xf0/0x130 [ntb_transport]
+>    ntb_netdev_tx_timer+0x78/0x260 [ntb_netdev]
+>    ...
+> 
+> Disable and drain transport link work first, then unregister the clients
+> so they stop using and release their QPs. After that, free any QPs left
+> over before running transport link cleanup. Disabling the work keeps
+> link events from restarting setup or cleanup during client removal.
+> 
+> Fixes: fce8a7bb5b4b ("PCI-Express Non-Transparent Bridge Support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+
 > ---
-> diff --git a/fs/ext4/ioctl.c b/fs/ext4/ioctl.c
-> --- a/fs/ext4/ioctl.c
-> +++ b/fs/ext4/ioctl.c
-> @@ -397,7 +397,7 @@ static long swap_inode_boot_loader(struct super_block *sb,
->  	if (inode->i_nlink != 1 || !S_ISREG(inode->i_mode) ||
->  	    IS_SWAPFILE(inode) || IS_ENCRYPTED(inode) ||
->  	    (EXT4_I(inode)->i_flags & EXT4_JOURNAL_DATA_FL) ||
-> -	    ext4_has_inline_data(inode)) {
-> +	    ext4_has_inline_data(inode) || ext4_has_inline_data(inode_bl)) {
->  		err = -EINVAL;
->  		goto journal_err_out;
+> Changes in v2:
+>   - New patch.
+> 
+>  drivers/ntb/ntb_transport.c | 11 ++++++-----
+>  1 file changed, 6 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
+> index c1e3a077c45e..f24555b38d1b 100644
+> --- a/drivers/ntb/ntb_transport.c
+> +++ b/drivers/ntb/ntb_transport.c
+> @@ -1487,9 +1487,11 @@ static void ntb_transport_free(struct ntb_client *self, struct ntb_dev *ndev)
+>  
+>  	debugfs_remove_recursive(nt->debugfs_node_dir);
+>  
+> -	ntb_transport_link_cleanup(nt);
+> -	cancel_work_sync(&nt->link_cleanup);
+> -	cancel_delayed_work_sync(&nt->link_work);
+> +	/* Stop transport work before clients release their QPs. */
+> +	disable_delayed_work_sync(&nt->link_work);
+> +	disable_work_sync(&nt->link_cleanup);
+> +
+> +	ntb_bus_remove(nt);
+>  
+>  	qp_bitmap_alloc = nt->qp_bitmap & ~nt->qp_bitmap_free;
+>  
+> @@ -1500,11 +1502,10 @@ static void ntb_transport_free(struct ntb_client *self, struct ntb_dev *ndev)
+>  			ntb_transport_free_queue(qp);
 >  	}
+>  
+> +	ntb_transport_link_cleanup(nt);
+>  	ntb_link_disable(ndev);
+>  	ntb_clear_ctx(ndev);
+>  
+> -	ntb_bus_remove(nt);
+> -
+>  	for (i = nt->mw_count; i--; ) {
+>  		ntb_free_mw(nt, i);
+>  		iounmap(nt->mw_vec[i].vbase);
 
-I guess instead we should add a check to check_igot_inode() that inode
-doesn't have inline data if EXT4_IGET_SPECIAL flag is set.
-
-> @@ -461,6 +461,8 @@ static long swap_inode_boot_loader(struct super_block *sb,
->  	size_bl = (qsize_t)(inode_bl->i_blocks) * (1 << 9) + inode_bl->i_bytes;
->  	diff = size - size_bl;
->  	swap_inode_data(inode, inode_bl);
-> +	ext4_clear_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA);
-> +	ext4_clear_inode_state(inode_bl, EXT4_STATE_MAY_INLINE_DATA);
-
-Please don't touch inode_bl. That one should never have
-EXT4_STATE_MAY_INLINE_DATA set (and nobody can manipulate it directly
-anyway). For 'inode' I agree it will get blocks from inode_bl so better
-just clear EXT4_STATE_MAY_INLINE_DATA.
-
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
