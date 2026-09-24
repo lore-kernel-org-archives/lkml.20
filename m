@@ -1,185 +1,340 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com [209.85.160.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C09239E60
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:36:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63BF4239E60
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:39:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790224590; cv=none; b=BmYWwCNqf+pJ61anq7euuZ8+6z1gbppFJ1sjfs9AugzEP5Tl6u0mhImJx6lc6BqgrKMRBE8dr+wAt19F2aBCLHT5pUhj1TrfOGwzBs9a2Wxx3C2Oc9Jad0Tc8plE0CmqWtWZ06JavA4pei/K1NSmfC2PAORbnJ9tJA5q1A2XQ/8=
+	t=1790224746; cv=none; b=CmWZPjqAjcWpBEjMI8BtJNzI0ajFv9/Drsxcovhmj3laYIelfkr4cStg4nVnkW8bc2Ra2m2Vn+VLaZ5ai+Er39po/q1iwqJ66+0zIre+vuPd7km/rKQPmJAtwHJ2QGqCtT7jcOJhhaVn8f3XeT7OGFHwiQO58wUlIYWHORY3LNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790224590; c=relaxed/simple;
-	bh=Bc27i9tCrUvtq5mq7VxxuLSr+v1GjaaN05bq/rkjH0w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CjdMHerQqKFjn6KEdEPEFEoUFpMU6nCH5Muo7XUqZAe1gulS0g56MdJRRwBL7YwdS8lO6fhFzYerFG0eYXPvO5E7sPKQwJ4qFx/T887t7RbGS7JMCjzydkuCa15QvVHIXvMtlE5vcuRhOV/Ykv9wTC5FA2ILxkz/y37eJQ/J5ew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=AyFjk+fo; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="AyFjk+fo"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O2Zs023958520;
-	Thu, 24 Sep 2026 04:35:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=Wkx09A
-	rgQbBrGDdby2EpT8h4/sVyyelgvk2OmocbWU0=; b=AyFjk+fo9kGjCabQqtg+mq
-	ZNEuB0W++JmMEyXsORIyA2FWma61DOwr759b0Xnx3sca8Ihy/+4/RPQ59nlWF+hu
-	GLxTjdpZC2Y9GUjod6G4Xunc6qeNtgYOqMn4Xp8kew4BE2LDJqpDejLRbtoaTm+m
-	nGRWX6kTDDSVZcAvyG6o+XyVkO4y+tBV0I2ll+0ef8njhEYxoRRPJB+2RDQ1g74I
-	IgY7h0W9zGgJzCktzH8z+JMRrUVUn19whcuUaLdbX3spQNsOzYkmKfhx9SnAjLgE
-	CUs0uXR/Kye8Gr9V6BDpO8IDh5pHdVFVHTYgNBRzdp/S3JgyMB3btoBQknqHJShg
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgqpagh-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 24 Sep 2026 04:35:56 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68O2ItGL1279566;
-	Thu, 24 Sep 2026 04:35:56 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbt2v01n-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 24 Sep 2026 04:35:56 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68O4ZqhF29557120
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 24 Sep 2026 04:35:52 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 596372004B;
-	Thu, 24 Sep 2026 04:35:52 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4601D20043;
-	Thu, 24 Sep 2026 04:35:49 +0000 (GMT)
-Received: from [9.43.57.223] (unknown [9.43.57.223])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 24 Sep 2026 04:35:49 +0000 (GMT)
-Message-ID: <280fcec1-4d39-4389-9094-74ca9e89a113@linux.ibm.com>
-Date: Thu, 24 Sep 2026 10:05:48 +0530
+	s=arc-20240116; t=1790224746; c=relaxed/simple;
+	bh=VhbdhbfB4jK4rXTMZYajcxg+rYaXHGIHLygN/VzGa3s=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=o2BWF+Wf9CBSdTZB5DfrW8iUQTypj23I9Dgg4s+Jg8Rk9zo8fE1k+tpuvaKKnjxbxJTBQbIsCWH/O/kRS+Dn2naVUosvEi0eYrYvfGNoPPmNTDTgAIoeHKedh6U+MjVgFrD5GeBidL8NOn+MlpSworBBQ7ENljupuu6X6wIBjec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-46617932071so1290335fac.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:39:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790224743; x=1790829543;
+        h=content-transfer-encoding:content-type:to:from:subject:message-id
+         :in-reply-to:date:mime-version:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ldXsmXgypLLL+wLsd1iuCDempyl4RLGRw/uTvRFLqqs=;
+        b=k7jNe1vtMaM+nyvGH8WtSyN9bP/fdq7/rno35jYB7FbCqI4bCDAxwEP14P7mnV/znA
+         bDmi3QezZLAMiap0U53f6vE2QvYGUwjIt+w5q19m1Uqn9eJxCyrom+YFqUFphyTUYbaU
+         XD0jBJ4MadeBMqGm4ACMiozjJ1ukAc4ZvgayftfHM47povxkYzCie3cmRahtw0H/eXRW
+         oHpUBTC19qBjR6dgYJgR3m0UDof+pm0oxufhCsjLx5XTeiN3xx4yTo1WLSrNLFcYLIDp
+         R9DiBwe+h1j1rSYYRCq4LVBVTjYn2VInqiI/RDObgKdKnh+Bb+Q2npFNwi2uxyBW0y/B
+         SIIQ==
+X-Gm-Message-State: AFuF++k8ADX2sjm0bKWE8HZDPzRk+MOkTavzlBVqWF4nIPi2VPzH8Or2
+	fmR512vvMEYIbQAkIxjKpVKwaDHuPKxF2A3Iw/2G/TrDR/+1Xqu3WM2aHGqzl6aEnyb7i4DxLld
+	e41KGlQnM6F6FYVSvili7UqvboXphs+N71PUnm1AeXLNEV4lnCMvYz3mPd5E=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/5] powerpc/powernv/eeh: Map VFIO EEH error injection
- to OPAL
-To: Narayana Murty N <nnmlinux@linux.ibm.com>, mahesh@linux.ibm.com,
-        maddy@linux.ibm.com, mpe@ellerman.id.au, christophe.leroy@csgroup.eu,
-        oohall@gmail.com, npiggin@gmail.com, tpearson@raptorengineering.com,
-        alex@shazbot.org
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
-        sbhat@linux.ibm.com, harshpb@linux.ibm.com
-References: <20260831065441.48654-1-nnmlinux@linux.ibm.com>
- <20260831065441.48654-6-nnmlinux@linux.ibm.com>
-Content-Language: en-US
-From: Sourabh Jain <sourabhjain@linux.ibm.com>
-In-Reply-To: <20260831065441.48654-6-nnmlinux@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=G+OJgNk5 c=1 sm=1 tr=0 ts=6ab4a8ad cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
- a=_oOO3TeDWnI9k3ZhZWQA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAyMCBTYWx0ZWRfX1lgRZ7GW4nML
- qXRKO6AAdPoJW7HPDMAYCUKgDii4lVzpKltVejRYXr9lki/Kr5kg7h2pYnYkwUaMTuYH6mcrTgq
- GdI63G5EMoMGRwLDd+eObdKcNwE+JJ+hYZKfRL2YbkQelViZMklhZaf7XM0XhN0V6rvrQQrGNJa
- qJ70vzBOrZXNxlb+q9xjG1ncwdkq1JUsfozQOuInfocVKaxsGJ1cDUv9m4RY//CR9kjGBHzI62I
- p0S4LT/3ogg9+h5AV6bcShaYZWOMR4+UY+S0iY7+3ruceHFQlbOhV4BX49hjXFLAXF3+vAYustk
- vHwPFKwueS+Ab8jneyu2XvrZKRNSfU6A2Jjmok92YgztQ0m//QUhch1HJYxCSpPsxklvqNp3U6H
- KiDwtK/5QGlUA8NHaOGmLxPbvyGZVHmAF/3v5soFFnMmt7HIyWDJCJdZHCNhSVRkSlAH2on4Q1M
- 6m487XItAxBA9FAhpbg==
-X-Proofpoint-ORIG-GUID: KKSKXQlrZ9hLoEj-CW11UcPgpE8ceegS
-X-Proofpoint-GUID: 6FQ-V5M2yOxCwgvFYQHBbImce_ba7ami
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAyMCBTYWx0ZWRfX/YiIlPNZS+Tu
- bslAgvkpBEX2LPS01akRgXSmmUy884LcW4PU27tEjAEP6fskOoQ3mBKV4MajXrL3bA+ecnMlj1h
- Op5L0rJLojs7BWor54K0RpWqXOok7aw=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_01,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
- bulkscore=0 priorityscore=1501 clxscore=1015 spamscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240020
+X-Received: by 2002:a05:6809:203:10b0:4c3:7073:8c4d with SMTP id
+ 5614622812f47-4d72aa4be39mr1140617b6e.20.1790224743287; Wed, 23 Sep 2026
+ 21:39:03 -0700 (PDT)
+Date: Wed, 23 Sep 2026 21:39:03 -0700
+In-Reply-To: <CANfDJ7J0ayM=DyztQX_CK1079M6y--j53grH3Lo-nMsvBh6Sxw@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab4a967.80e1c6cc.1e8e5f.0009.GAE@google.com>
+Subject: Re: [syzbot] [usb?] INFO: task hung in usbatm_usb_disconnect (2)
+From: syzbot <syzbot+9ca2c9f85bd8b5e46516@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
+	valigurasm@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Can you update the commit message to explain why and how this
-change is needed?
+Hello,
+
+syzbot tried to test the proposed patch but the build/boot failed:
+
+lost connection to test machine
 
 
-On 31/08/26 12:24, Narayana Murty N wrote:
-> VFIO EEH error injection exposes a generic userspace ABI.  pSeries maps
-> the generic EEH error types to RTAS ibm,errinjct encodings, while
-> PowerNV maps the same generic ABI values to OPAL-specific encodings.
->
-> Keep EEH_ERR_TYPE_32 and EEH_ERR_TYPE_64 unchanged.  The mapping is
-> internal to the platform backend.
->
-> Add a switch in pnv_eeh_err_inject() that translates:
->    EEH_ERR_TYPE_32 -> OPAL_ERR_INJECT_TYPE_IOA_BUS_ERR
->    EEH_ERR_TYPE_64 -> OPAL_ERR_INJECT_TYPE_IOA_BUS_ERR64
->
-> Return -EINVAL for unsupported error types rather than comparing
-> directly against OPAL constants.  This decouples the VFIO/EEH
-> interface from OPAL implementation details, paralleling the approach
-> used on the pSeries RTAS path.
->
-> Signed-off-by: Narayana Murty N <nnmlinux@linux.ibm.com>
-> ---
->   arch/powerpc/platforms/powernv/eeh-powernv.c | 27 +++++++++++++++-----
->   1 file changed, 21 insertions(+), 6 deletions(-)
->
-> diff --git a/arch/powerpc/platforms/powernv/eeh-powernv.c b/arch/powerpc/platforms/powernv/eeh-powernv.c
-> index db3370d1673c..53c4c05aaef2 100644
-> --- a/arch/powerpc/platforms/powernv/eeh-powernv.c
-> +++ b/arch/powerpc/platforms/powernv/eeh-powernv.c
-> @@ -1167,13 +1167,28 @@ static int pnv_eeh_err_inject(struct eeh_pe *pe, int type, int func,
->   {
->   	struct pci_controller *hose = pe->phb;
->   	struct pnv_phb *phb = hose->private_data;
-> +	int opal_type;
 
-opal_type is confusing... How about opal_err_type or just err_type?
+Warning: Permanently added '10.128.0.152' (ED25519) to the list of known ho=
+sts.
+[  104.110945][   T26] cfg80211: failed to load regulatory.db
+2026/09/24 04:37:36 parsed 1 programs
+2026/09/24 04:37:36 serving rpc on tcp://45101
+[  108.765106][ T5627] cgroup: Unknown subsys name 'net'
+[  108.845318][ T5627] cgroup: Unknown subsys name 'cpuset'
+[  108.849022][ T5627] cgroup: Unknown subsys name 'rlimit'
+Setting up swapspace version 1, size =3D 127995904 bytes
+[  110.759122][ T5627] Adding 124996k swap on ./swap-file.  Priority:0 exte=
+nts:1 across:124996k=20
+[  115.031120][ T5645] soft_limit_in_bytes is deprecated and will be remove=
+d. Writing any value to this file has no effect. Please report your usecase=
+ to linux-mm@kvack.org if you depend on this functionality.
+[  115.107820][   T63] wlan0: Created IBSS using preconfigured BSSID 50:50:=
+50:50:50:50
+[  115.107856][   T63] wlan0: Creating new IBSS network, BSSID 50:50:50:50:=
+50:50
+[  115.144771][ T5645] ebtables: xtables 32bit compat interface no longer s=
+upported in namespaces and will be removed soon.
+[  115.168053][ T5646] arp_tables: xtables 32bit compat interface no longer=
+ supported in namespaces and will be removed soon.
+[  115.168581][ T5646] ip_tables: xtables 32bit compat interface no longer =
+supported in namespaces and will be removed soon.
+[  115.197491][ T5646] ip6_tables: xtables 32bit compat interface no longer=
+ supported in namespaces and will be removed soon.
+[  115.449611][   T15] wlan1: Created IBSS using preconfigured BSSID 50:50:=
+50:50:50:50
+[  115.449637][   T15] wlan1: Creating new IBSS network, BSSID 50:50:50:50:=
+50:50
+[  115.976932][ T5664] Bluetooth: hci0: unexpected cc 0x0c03 length: 249 > =
+1
+[  115.978489][ T5664] Bluetooth: hci0: unexpected cc 0x1003 length: 249 > =
+9
+[  115.980422][ T5664] Bluetooth: hci0: unexpected cc 0x1001 length: 249 > =
+9
+[  116.010825][ T5664] Bluetooth: hci0: unexpected cc 0x0c23 length: 249 > =
+4
+[  116.012286][ T5664] Bluetooth: hci0: unexpected cc 0x0c38 length: 249 > =
+2
+[  119.679966][ T5683] bridge0: port 1(bridge_slave_0) entered blocking sta=
+te
+[  119.681240][ T5683] bridge0: port 1(bridge_slave_0) entered disabled sta=
+te
+[  119.681447][ T5683] bridge_slave_0: entered allmulticast mode
+[  119.684621][ T5683] bridge_slave_0: entered promiscuous mode
+[  119.729993][ T5683] bridge0: port 2(bridge_slave_1) entered blocking sta=
+te
+[  119.730125][ T5683] bridge0: port 2(bridge_slave_1) entered disabled sta=
+te
+[  119.730266][ T5683] bridge_slave_1: entered allmulticast mode
+[  119.737183][ T5683] bridge_slave_1: entered promiscuous mode
+[  119.792880][ T5683] bond0: (slave bond_slave_0): Enslaving as an active =
+interface with an up link
+[  119.797134][ T5683] bond0: (slave bond_slave_1): Enslaving as an active =
+interface with an up link
+[  119.857045][ T5683] team0: Port device team_slave_0 added
+[  119.860034][ T5683] team0: Port device team_slave_1 added
+[  119.908092][ T5683] batman_adv: batadv0: Adding interface: batadv_slave_=
+0
+[  119.908107][ T5683] batman_adv: batadv0: The MTU of interface batadv_sla=
+ve_0 is too small (1500) to handle the transport of batman-adv packets. Pac=
+kets going over this interface will be fragmented on layer2 which could imp=
+act the performance. Setting the MTU to 1532 would solve the problem.
+[  119.908142][ T5683] batman_adv: batadv0: Not using interface batadv_slav=
+e_0 (retrying later): interface not active
+[  119.918496][ T5683] batman_adv: batadv0: Adding interface: batadv_slave_=
+1
+[  119.918552][ T5683] batman_adv: batadv0: The MTU of interface batadv_sla=
+ve_1 is too small (1500) to handle the transport of batman-adv packets. Pac=
+kets going over this interface will be fragmented on layer2 which could imp=
+act the performance. Setting the MTU to 1532 would solve the problem.
+[  119.918620][ T5683] batman_adv: batadv0: Not using interface batadv_slav=
+e_1 (retrying later): interface not active
+[  120.065869][ T5683] hsr_slave_0: entered promiscuous mode
+[  120.067223][ T5683] hsr_slave_1: entered promiscuous mode
+[  120.309950][ T5683] netdevsim netdevsim1 netdevsim0: renamed from eth0
+[  120.331221][ T5683] 8021q: adding VLAN 0 to HW filter on device netdevsi=
+m0
+[  120.332756][ T5683] netdevsim netdevsim1 netdevsim1: renamed from eth1
+[  120.338769][ T5683] 8021q: adding VLAN 0 to HW filter on device netdevsi=
+m1
+[  120.340191][ T5683] netdevsim netdevsim1 netdevsim2: renamed from eth2
+[  120.379794][ T5683] 8021q: adding VLAN 0 to HW filter on device netdevsi=
+m2
+[  120.391372][ T5683] netdevsim netdevsim1 netdevsim3: renamed from eth3
+[  120.395616][ T5683] 8021q: adding VLAN 0 to HW filter on device netdevsi=
+m3
+[  120.522673][ T5683] 8021q: adding VLAN 0 to HW filter on device bond0
+[  120.571852][ T5683] 8021q: adding VLAN 0 to HW filter on device team0
+[  120.586140][ T1107] bridge0: port 1(bridge_slave_0) entered blocking sta=
+te
+[  120.587099][ T1107] bridge0: port 1(bridge_slave_0) entered forwarding s=
+tate
+[  120.623606][ T1107] bridge0: port 2(bridge_slave_1) entered blocking sta=
+te
+[  120.623719][ T1107] bridge0: port 2(bridge_slave_1) entered forwarding s=
+tate
+[  121.166859][ T5683] 8021q: adding VLAN 0 to HW filter on device batadv0
+[  121.225906][ T5683] veth0_vlan: entered promiscuous mode
+[  121.245659][ T5683] veth1_vlan: entered promiscuous mode
+[  121.283334][ T5683] veth0_macvtap: entered promiscuous mode
+[  121.288501][ T5683] veth1_macvtap: entered promiscuous mode
+[  121.328425][ T5683] batman_adv: batadv0: Interface activated: batadv_sla=
+ve_0
+[  121.347773][ T5683] batman_adv: batadv0: Interface activated: batadv_sla=
+ve_1
+[  121.385467][   T61] netdevsim netdevsim1 netdevsim3: set [1, 0] type 2 f=
+amily 0 port 6081 - 0
+[  121.441224][   T15] netdevsim netdevsim1 netdevsim0: set [1, 0] type 2 f=
+amily 0 port 6081 - 0
+[  121.441689][   T12] netdevsim netdevsim1 netdevsim1: set [1, 0] type 2 f=
+amily 0 port 6081 - 0
+[  121.441730][   T12] netdevsim netdevsim1 netdevsim2: set [1, 0] type 2 f=
+amily 0 port 6081 - 0
+execution of simple program fails: NOTFAIL: arptable checkpoint: getsockopt=
+(ARPT_SO_GET_ENTRIES) failed. table=3Dfilter (errno 22: Invalid argument).
+[  121.545150][   T15] netdevsim netdevsim1 netdevsim3 (unregistering): uns=
+et [1, 0] type 2 family 0 port 6081 - 0
+[  121.735392][   T15] netdevsim netdevsim1 netdevsim2 (unregistering): uns=
+et [1, 0] type 2 family 0 port 6081 - 0
+[  121.813228][   T15] netdevsim netdevsim1 netdevsim1 (unregistering): uns=
+et [1, 0] type 2 family 0 port 6081 - 0
+[  122.585900][   T15] netdevsim netdevsim1 netdevsim0 (unregistering): uns=
+et [1, 0] type 2 family 0 port 6081 - 0
+[  123.977067][   T15] bridge_slave_1: left allmulticast mode
+[  123.977125][   T15] bridge_slave_1: left promiscuous mode
+[  123.978185][   T15] bridge0: port 2(bridge_slave_1) entered disabled sta=
+te
+[  124.009571][   T15] bridge_slave_0: left allmulticast mode
+[  124.009602][   T15] bridge_slave_0: left promiscuous mode
+[  124.009818][   T15] bridge0: port 1(bridge_slave_0) entered disabled sta=
+te
+[  124.205269][   T15] bond0 (unregistering): (slave bond_slave_0): Releasi=
+ng backup interface
+[  124.208371][   T15] bond0 (unregistering): (slave bond_slave_1): Releasi=
+ng backup interface
+[  124.209896][   T15] bond0 (unregistering): Released all slaves
+[  124.322497][   T15] hsr_slave_0: left promiscuous mode
+[  124.323234][   T15] hsr_slave_1: left promiscuous mode
+[  124.324049][   T15] batman_adv: batadv0: Interface deactivated: batadv_s=
+lave_0
+[  124.324083][   T15] batman_adv: batadv0: Removing interface: batadv_slav=
+e_0
+[  124.325113][   T15] batman_adv: batadv0: Interface deactivated: batadv_s=
+lave_1
+[  124.325139][   T15] batman_adv: batadv0: Removing interface: batadv_slav=
+e_1
+[  124.335409][   T15] veth1_macvtap: left promiscuous mode
+[  124.335600][   T15] veth0_macvtap: left promiscuous mode
+[  124.335904][   T15] veth1_vlan: left promiscuous mode
+[  124.336341][   T15] veth0_vlan: left promiscuous mode
+[  124.635344][   T15] team0 (unregistering): Port device team_slave_1 remo=
+ved
+[  124.659419][   T15] team0 (unregistering): Port device team_slave_0 remo=
+ved
+[  125.298901][ T5277] 8021q: adding VLAN 0 to HW filter on device eth1
+[  125.817831][ T5277] 8021q: adding VLAN 0 to HW filter on device eth2
+[  126.281718][ T5277] 8021q: adding VLAN 0 to HW filter on device eth3
+[  126.874157][ T5277] 8021q: adding VLAN 0 to HW filter on device eth4
+[  139.942150][ T1311] ieee802154 phy0 wpan0: encryption failed: -22
+[  139.942221][ T1311] ieee802154 phy1 wpan1: encryption failed: -22
 
->   	s64 rc;
->   
-> -	if (type != OPAL_ERR_INJECT_TYPE_IOA_BUS_ERR &&
-> -	    type != OPAL_ERR_INJECT_TYPE_IOA_BUS_ERR64) {
-> -		pr_warn("%s: Invalid error type %d\n",
-> -			__func__, type);
-> -		return -ERANGE;
-> +	/*
-> +	 * VFIO EEH error injection exposes a generic userspace ABI.
-> +	 * pSeries maps the generic EEH error types to RTAS ibm,errinjct
-> +	 * encodings, while PowerNV maps the same generic ABI values to
-> +	 * OPAL-specific encodings.
-> +	 *
-> +	 * Keep EEH_ERR_TYPE_32 and EEH_ERR_TYPE_64 unchanged.  The
-> +	 * mapping is internal to the platform backend.
-> +	 */
-> +	switch (type) {
-> +	case EEH_ERR_TYPE_32:
-> +		opal_type = OPAL_ERR_INJECT_TYPE_IOA_BUS_ERR;
-> +		break;
-> +	case EEH_ERR_TYPE_64:
-> +		opal_type = OPAL_ERR_INJECT_TYPE_IOA_BUS_ERR64;
-> +		break;
-> +	default:
-> +		pr_warn("%s: Invalid error type %d\n", __func__, type);
-> +		return -EINVAL;
->   	}
->   
->   	if (func < OPAL_ERR_INJECT_FUNC_IOA_LD_MEM_ADDR ||
-> @@ -1192,7 +1207,7 @@ static int pnv_eeh_err_inject(struct eeh_pe *pe, int type, int func,
->   
->   	/* Do error injection */
->   	rc = opal_pci_err_inject(phb->opal_id, pe->addr,
-> -				 type, func, addr, mask);
-> +				 opal_type, func, addr, mask);
->   	if (rc != OPAL_SUCCESS) {
->   		pr_warn("%s: Failure %lld injecting error "
->   			"%d-%d to PHB#%x-PE#%x\n",
+
+syzkaller build log:
+go env (err=3D<nil>)
+AR=3D'ar'
+CC=3D'gcc'
+CGO_CFLAGS=3D'-O2 -g'
+CGO_CPPFLAGS=3D''
+CGO_CXXFLAGS=3D'-O2 -g'
+CGO_ENABLED=3D'1'
+CGO_FFLAGS=3D'-O2 -g'
+CGO_LDFLAGS=3D'-O2 -g'
+CXX=3D'g++'
+GCCGO=3D'gccgo'
+GO111MODULE=3D'auto'
+GOAMD64=3D'v1'
+GOARCH=3D'amd64'
+GOAUTH=3D'netrc'
+GOBIN=3D''
+GOCACHE=3D'/syzkaller/.cache/go-build'
+GOCACHEPROG=3D''
+GODEBUG=3D''
+GOENV=3D'/syzkaller/.config/go/env'
+GOEXE=3D''
+GOEXPERIMENT=3D''
+GOFIPS140=3D'off'
+GOFLAGS=3D''
+GOGCCFLAGS=3D'-fPIC -m64 -pthread -Wl,--no-gc-sections -fmessage-length=3D0=
+ -ffile-prefix-map=3D/tmp/go-build2772565244=3D/tmp/go-build -gno-record-gc=
+c-switches'
+GOHOSTARCH=3D'amd64'
+GOHOSTOS=3D'linux'
+GOINSECURE=3D''
+GOMOD=3D'/syzkaller/jobs-2/linux/gopath/src/github.com/google/syzkaller/go.=
+mod'
+GOMODCACHE=3D'/syzkaller/jobs-2/linux/gopath/pkg/mod'
+GONOPROXY=3D''
+GONOSUMDB=3D''
+GOOS=3D'linux'
+GOPATH=3D'/syzkaller/jobs-2/linux/gopath'
+GOPRIVATE=3D''
+GOPROXY=3D'https://proxy.golang.org,direct'
+GOROOT=3D'/usr/local/go'
+GOSUMDB=3D'sum.golang.org'
+GOTELEMETRY=3D'local'
+GOTELEMETRYDIR=3D'/syzkaller/.config/go/telemetry'
+GOTMPDIR=3D''
+GOTOOLCHAIN=3D'auto'
+GOTOOLDIR=3D'/usr/local/go/pkg/tool/linux_amd64'
+GOVCS=3D''
+GOVERSION=3D'go1.26.0'
+GOWORK=3D''
+PKG_CONFIG=3D'pkg-config'
+
+git status (err=3D<nil>)
+HEAD detached at 853b104bb45
+nothing to commit, working tree clean
+
+
+tput: No value for $TERM and no -T specified
+tput: No value for $TERM and no -T specified
+Makefile:31: run command via tools/syz-env for best compatibility, see:
+Makefile:32: https://github.com/google/syzkaller/blob/master/docs/contribut=
+ing.md#using-syz-env
+go list -f '{{.Stale}}' -ldflags=3D"-s -w -X github.com/google/syzkaller/pr=
+og.GitRevision=3D853b104bb454141a5b0fc0e4218ec78e9f34ffb1 -X github.com/goo=
+gle/syzkaller/prog.gitRevisionDate=3D20260918-062331"  ./sys/syz-sysgen | g=
+rep -q false || go install -ldflags=3D"-s -w -X github.com/google/syzkaller=
+/prog.GitRevision=3D853b104bb454141a5b0fc0e4218ec78e9f34ffb1 -X github.com/=
+google/syzkaller/prog.gitRevisionDate=3D20260918-062331"  ./sys/syz-sysgen
+make .descriptions
+tput: No value for $TERM and no -T specified
+tput: No value for $TERM and no -T specified
+Makefile:31: run command via tools/syz-env for best compatibility, see:
+Makefile:32: https://github.com/google/syzkaller/blob/master/docs/contribut=
+ing.md#using-syz-env
+bin/syz-sysgen
+touch .descriptions
+GOOS=3Dlinux GOARCH=3Damd64 go build -ldflags=3D"-s -w -X github.com/google=
+/syzkaller/prog.GitRevision=3D853b104bb454141a5b0fc0e4218ec78e9f34ffb1 -X g=
+ithub.com/google/syzkaller/prog.gitRevisionDate=3D20260918-062331"  -o ./bi=
+n/linux_amd64/syz-execprog github.com/google/syzkaller/tools/syz-execprog
+mkdir -p ./bin/linux_386
+x86_64-linux-gnu-g++ -o ./bin/linux_386/syz-executor executor/executor.cc \
+	-m32 -O2 -pthread -Wall -Werror -Wparentheses -Wunused-const-variable -Wfr=
+ame-larger-than=3D16384 -Wno-stringop-overflow -Wno-array-bounds -Wno-forma=
+t-overflow -Wno-unused-but-set-variable -Wno-unused-command-line-argument -=
+static-pie -std=3Dc++17 -I. -Iexecutor/_include   -DGOOS_linux=3D1 -DGOARCH=
+_386=3D1 \
+	-DHOSTGOOS_linux=3D1 -DGIT_REVISION=3D\"853b104bb454141a5b0fc0e4218ec78e9f=
+34ffb1\"
+/usr/bin/ld: /tmp/ccrvmrqk.o: in function `Connection::Connect(char const*,=
+ char const*)':
+executor.cc:(.text._ZN10Connection7ConnectEPKcS1_[_ZN10Connection7ConnectEP=
+KcS1_]+0x145): warning: Using 'gethostbyname' in statically linked applicat=
+ions requires at runtime the shared libraries from the glibc version used f=
+or linking
+./tools/check-syzos.sh 2>/dev/null
+[INFO] Unsupported architecture '386', skipping check.
+
+
+
+Tested on:
+
+commit:         62f4c998 Merge tag 'parisc-for-7.3-rc5' of git://git.k..
+git tree:       upstream
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3D9d4242cb1c54cdf=
+7
+dashboard link: https://syzkaller.appspot.com/bug?extid=3D9ca2c9f85bd8b5e46=
+516
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-=
+1~exp1~20260613092250.77), Debian LLD 22.1.8
+userspace arch: i386
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=3D1048b4055800=
+00
 
