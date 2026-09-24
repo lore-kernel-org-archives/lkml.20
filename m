@@ -1,84 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5132B4137B2;
-	Thu, 24 Sep 2026 08:04:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA881279329;
+	Thu, 24 Sep 2026 08:06:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790237096; cv=none; b=Fqm4MjFnkcNu2uC8x+VSc8oh1Arc6e/hHHH6H5zfufmr2vNj9Wlho4G2pyBi0F+0fNJlcf69YBeSWc7aGVZd84Y6maHKL01iJtx3bJ/yDXd4AtRubxDbIuiQWnyomE/LHYz20rZbRCr1ltX3yT5eh52CNU7kH/8fKTXMVFIuzhQ=
+	t=1790237166; cv=none; b=KJDHBT7tqHTYpxipAGLv/Q2itldlMDMMHnBAtQWFKIsSMOnSzK/T0+Ybzunf5IuRCbuMMO89BPHegVKl50aQTnUVGK4PfjpSpspyISNHfV98Wg9hq0emuwHfdUl6OmL6X9QH+1OX1WFmTrproIHdpfECitkVBxdvGuySEBxGtzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790237096; c=relaxed/simple;
-	bh=sKd3Ee2wwpszSTcHMWC9Vp5q123rbV4yhxViyI+qQyk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dr4aQaV2XAU37xaXBDys2Jr7FLexdHduq9T2gzA80isiskNDW6zKSN5NViVWjGCTPPgNzXhywxGEzwJerW4pjIRYpQ4XwjuQnDJk0cVhlUyexd4H7DxxU25Tlmbrn9eT+c0BeJ9eD/JYuqJlnca0a0VbT2WXNtaZbddyVAz+wfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m1AQMwAk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790237166; c=relaxed/simple;
+	bh=fMy5L3onQ/mCMbk9uvhdtszHR00Q4pNzwNngSluHJU8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CbzH2U6efl9iMVXLs22pWZGs8iFylIswIYWoEfp/TihVqLI4lr5QvHEPwDJYHb2iAx/PNulORULBz6fmg5rzdN5Ex18E8rhbZV06KlGCj39ej2qgf2GXuDeyU19aoDgpuYL6cTplIGgK+cC2yzwWix4qidWFI8A5Dy5cUwITgro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=F9wM4CdT; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m1AQMwAk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30B681F00893;
-	Thu, 24 Sep 2026 08:04:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790237094;
-	bh=sKd3Ee2wwpszSTcHMWC9Vp5q123rbV4yhxViyI+qQyk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=m1AQMwAkmdnV44EXHhXPmEuHRUG2YQ6pBh0NPzzqWXCa+/cFyzyawg/XKevzlbv1m
-	 +3Rp0+F6O6ijeb6n8JtM0GqA6NE9UmJdX4WBVfNFtHKCu8/WWYe9zkrri5aGpWdB91
-	 Gv1Jckf163saFWmT/H7ENujwc2roDsrq+Of1GozJSOsMuaW5hN5vS5i1P+S7XLUSko
-	 UKEHn43l343/dRKS1QfDrmiMFbBF3ajHWPrKPNHxVjEI7TkHccma8yk3dvE/op5miq
-	 3O0bc8I5xN+W+YP7JTlmf6Y/8sYfdqc1c5XKG5RtvseW6XcjaGXwDlNffLYl8YECKX
-	 Feyq0nHq1YPAw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] LoongArch: kdump: add arch_crash_save_vmcoreinfo()
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yangyang Lian" <lianyangyang@kylinos.cn>, "Andrew Morton" <akpm@linux-foundation.org>, "Pratyush
- Yadav" <pratyush@kernel.org>, "Pasha Tatashin" <pasha.tatashin@soleen.com>, "Huacai
- Chen" <chenhuacai@kernel.org>, "Mike Rapoport" <rppt@kernel.org>, "Baoquan
- He" <baoquan.he@linux.dev>
-Cc: "WANG Xuerui" <kernel@xen0n.name>, "Tao Cui" <cuitao@kylinos.cn>, "Dave
- Young" <ruirui.yang@linux.dev>, "George Guo" <guodongtai@kylinos.cn>, kexec@lists.infradead.org, loongarch@lists.linux.dev, "Haoran
- Jiang" <jianghaoran@kylinos.cn>, linux-kernel@vger.kernel.org
-In-Reply-To: <20260924075655.375632-1-lianyangyang@kylinos.cn>
-References: <20260923060349.146780-1-lianyangyang@kylinos.cn>
- <20260924075655.375632-1-lianyangyang@kylinos.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 08:04:53 +0000
-Message-Id: <20260924080454.30B681F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="F9wM4CdT"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=D4pwJDZWOqh/hw3D17gGVEdJvGYroglznr17ndoiVvg=; b=F9wM4CdTNbYPVU80xe6fdTWnzF
+	bvdZA245J9hWqzvUER1qYYN4LlttZZfSmKidXPwnldI4ShJmTtHG5O1WMEcPMpkvM7wlTBgZZvvWg
+	MGz0MsjR0Zx4sE5VS6JwP8pUwcH5lejuK39d9GRjOIJoskT9TP8+KoKzwR8z/6ryebh4Ux5s5huCa
+	Cvt9jmsnWd/8Co0lbE614AZEsUUYGArsEGAcQsnEdCbEitSCMQO5lgRQfRfABYhP+w72dKWzMC6OF
+	/jxTaFkxPZM3t0EN6vXHQ9rl/I7VLD1MzaRvdEoxtL0yrHT6nLx1FsC7/v5qVbg69S5rvfjxbEj8v
+	T1lu1IMA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x9eSl-0000000FhPN-1wnb;
+	Thu, 24 Sep 2026 08:05:52 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 97186300756; Thu, 24 Sep 2026 10:05:50 +0200 (CEST)
+Date: Thu, 24 Sep 2026 10:05:50 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>,
+	Paul McKenney <paulmck@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tejun Heo <tj@kernel.org>, Christian Brauner <christian@brauner.io>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/7] locking: opt-in tracking of sleeping lock holders
+Message-ID: <20260924080550.GI2009045@noisy.programming.kicks-ass.net>
+References: <cover.1790139577.git.shakeel.butt@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1790139577.git.shakeel.butt@linux.dev>
 
-> Since commit 23c85094fe18 ("proc/kcore: add vmcoreinfo note to
-> /proc/kcore") the kernel has exported the vmcoreinfo PT_NOTE on
-> /proc/kcore as wellas /proc/vmcore.
->=20
-> LoongArch does not provide arch_crash_save_vmcoreinfo(), so the
-> arch-specific values are missing from the vmcoreinfo PT_NOTE. The
-> generic exporter in kernel/vmcore_info.c already provides
-> NUMBER(VMALLOC_START), but tools like crash cannot derive the module
-> and vmemmap ranges, VA_BITS, or the KASLR offset of a LoongArch dump.
->=20
-> Since commit 18210a104bb9 ("LoongArch: Expand module virtual address
-> space to 2GB") the vmalloc and module boundaries are no longer stable
-> across kernel versions either, so vmcoreinfo is the only reliable
-> source for them.
->=20
-> Provide this function in a separate file that is built at the same time
-> as its caller in kernel/vmcore_info.c, and add a LOONGARCH64 section to
-> Documentation/admin-guide/kdump/vmcoreinfo.rst.
->=20
-> Reported-by: Haoran Jiang <jianghaoran@kylinos.cn>
-> Suggested-by: Haoran Jiang <jianghaoran@kylinos.cn>
-> Tested-by: Tao Cui <cuitao@kylinos.cn>
-> Co-developed-by: George Guo <guodongtai@kylinos.cn>
-> Signed-off-by: George Guo <guodongtai@kylinos.cn>
-> Signed-off-by: Yangyang Lian <lianyangyang@kylinos.cn>
+On Tue, Sep 22, 2026 at 10:01:17PM -0700, Shakeel Butt wrote:
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+> Shakeel Butt (7):
+>   locking: add opt-in tracking of sleeping lock holders
+>   locking/rwsem: track holders of opted-in rw_semaphores
+>   locking/mutex: track holders of opted-in mutexes
+>   locking/percpu-rwsem: track holders of opted-in percpu_rw_semaphores
+>   locking/selftests: add KUnit tests for lock holder tracking
+>   Documentation/locking: document sleeping lock holder tracking
+>   kernfs, cgroup: track holders of the cgroupfs locks
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924075655.3756=
-32-1-lianyangyang@kylinos.cn?part=3D1
-
+Not sure what's gone wrong, but I only have a partial set. If you want
+me to look at them, send me whole set.
