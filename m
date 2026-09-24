@@ -1,128 +1,109 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E0C61BD9C9;
-	Thu, 24 Sep 2026 06:44:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3251D3E63AE
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:44:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790232249; cv=none; b=gqA/9xp9i+G2bQn7u/y5mzPu3Txp2PlgqR1WMXteShYYhl9YBTn3ti8wT7DH/R5Z775Hn1/W8npOfKJ5zER6kWIujlCojPQYfdCxsPC5Jkn53wHkIr3wXJ2tQGKUXYdhkMGndyctiB2T4Vc0+ziHNZ/7/5Q5ELfcBaoRaAxngdA=
+	t=1790232278; cv=none; b=I5NdNgJXRVo30PkrcmEz48zKKIvX+gG0whq7IBTRfahBqf99HWiAUspAgcYcEWD5sELFAPfvbEMolAC+5GMN0Nj3NvpNKV9OAJ0mmK4JPMXDlTsDC6dw4LHSrC6kLugNns15LnlKyiT8fDw6RBGfTSEGIA1/SCfBSdx+UemMJc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790232249; c=relaxed/simple;
-	bh=oc1PuZ56didSF2FPZETYBwHsx2xqSZ5yvZY8vGFT8EY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=q46+pz1o1v1vYpzk1R3OCMfyAIXKhbHW8px2c9Z/AM4Ildys5DDWER0kRPvCgVthbKsIYZkPnEmckeE4T3IJsIxTSqSTugMwLjzWX/T9tH4+VWCCFNZtLI+qWkyzT7e+ht+3tSnOt/HMetbqUQVZl3oFYxmDJLtKbWlfDLs0myk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SQL8ZG0O; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790232278; c=relaxed/simple;
+	bh=s/Ov7YdUtyGGpDC5dvxjO1Xxzq1AynaHx2c5NLwCh6w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=D0Fk0IsHwmxZXmIzsDS9qe629axqcG1L6ThRlj6RFgJt3hkPv8kGqyUJVajBtc4Z7wWFwxj/T4MdZVvWdMnwt6BC1vje1jn8hgAjaJTIr8VvlfMfc3nkNNKkggh3ZwB6sTF3/iqjbFHWAXypOv5VcImRcluiiBSQhJe/qF07zfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ks3SLLu2; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SQL8ZG0O"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790232248; x=1821768248;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=oc1PuZ56didSF2FPZETYBwHsx2xqSZ5yvZY8vGFT8EY=;
-  b=SQL8ZG0OYBfrCSUGF64ZYe8+h8ZSxeyxWf3IJOz0qncx+7kGtRVMMLs6
-   A3GS1qWDbU+WF1HFrFEC5r3M4kB7GXZZG9AU1nWM6IenQOoMZSGkelb8q
-   Tv6+VCEdQ+iYCYhou4l6fOL1ooyZKPp2KDUjhGqA+yYovDviGnhoBidnd
-   mdkjgWlTnddf21Ti8AP8FnnTQucQbhtxBeh7t13ShBOrDAv0nelnvc6S3
-   jlU/VILstbCSrdKn7Teg0YaI2IgbXKbfq1sBjB9J7YYekRCTNcUr7b/RD
-   8daNHyw6iNLxvTyVW/G3UgBCduOpY1evZUHLLpVAypKAXrI/nvDQVmtBo
-   Q==;
-X-CSE-ConnectionGUID: daZlu9oBQJSmUxL/gpNacg==
-X-CSE-MsgGUID: 3HQUvithRt2XONVK5faOlA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="93884820"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="93884820"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 23:44:08 -0700
-X-CSE-ConnectionGUID: Xy/NdsjaRAm6c79+y8JZag==
-X-CSE-MsgGUID: 43RQuU5cSoCsAkxokImRAg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="5042744"
-Received: from xiaoyaol-hp-g830.ccr.corp.intel.com (HELO [10.124.240.119]) ([10.124.240.119])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 23:44:04 -0700
-Message-ID: <8c54782e-8c6c-4503-8379-d1ab4a181743@intel.com>
-Date: Thu, 24 Sep 2026 14:44:01 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ks3SLLu2"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea50db3so808389a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:44:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790232276; x=1790837076; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=plhhkjlOjAprzRnn7KgX9Cl61oB+FHlc7TB72lMWDUo=;
+        b=ks3SLLu2uNLV6R3eIPGsF/WKNqpeaK5SmpXpmvFhjrYM1FcMdFhh97XjqqQKst6+v5
+         48Rhy4okLvzX1rUDSf4IpKImW4mUifCg+imh3LhNKWnimumofx4yRWx8HCt0P99eb+Ie
+         nq0nVoWy5SL9MUppX1O6vzzcqgDg7XVP2afy/Mu0bC2vywF9BMTJUWP/JGukPwrMiiJT
+         ybLMmFXdNrPUnqEJyP7qCnf5Rf5x+Q0dm0pNOyCWGDtYqvDMCfVHt53wdDepOGXdx+we
+         1OL3v6AzFhXTPFQn7zd5uNfku08zClZc96KihIri7CMjKzefQOoRtau8imyCMBEk6zvV
+         /INA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790232276; x=1790837076;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=plhhkjlOjAprzRnn7KgX9Cl61oB+FHlc7TB72lMWDUo=;
+        b=PiI/yAFcor6DeLg4LkyNdgLbkXfKn5nNk2J7Ar5KJDsu2ipZQ6W2P63A4nKTYtNcpV
+         rHLzSppJoWHQSICR4JnqgHSpyqjswU2aFA6KcyRhrnqHbpwqTxQgzzhpPTHKJ4OW8ca8
+         AppdVcfuTd1AaFZN56HftLHTb/BgCcmBn8KMPyZErnZqNFUO+GnArzPdNnlLvhXPMJ0o
+         WbolC1yw+edk+xpvjoD0j5JFXY6EEdZ0Ir5eaR3KDiVkYtd17QhDyfhH7S+xhnZvl/bf
+         SEJAb0I5+x87AS1ulHkhf8Q6wnt2XuNE/VhEDtvNXg5njw4QwEb8nKAyZHdtA90ngKH/
+         xYBA==
+X-Forwarded-Encrypted: i=1; AKwUvBzyZkPE9Urx+549FWc9SDOxzuWkh4/EmcbvLil+bYZCuVR6HJL6Z08BY5gaLM3d/3sLxSCNevgk0K05vOY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lb9ufBBkeCP20qfR3j2PTVEYF3KPuNRRne2peACQa+piYLugej
+	YmoFV+NhYadtAxiyJBuwpD5JRT1RvQMLdlLaJxEL0xA0z6dN6I7hpsGR
+X-Gm-Gg: AYBFou1ffM10sXk1IsRSs1KORNoQL1SiPM0uHtXkK2muzlstQ9ylIcVLgVCPfjxv3vF
+	xfya9/DYtDNYau87XMPvAiceaKTnwXBSN4ad05hKNg3nVkXau04YOsxZ/TjkMRUQrOW/ixDB7Z4
+	JhWocgSTKQYxUZOZvKoMjy+HPbF62T03Br9Y4c2Tjg170lO0p7KExGP2PFlXuAzwNc4KaCu3cpG
+	OSHVyDO5D959h0hJ5zdcRSPdLw/WtKHlYEc7Swh8kNfQlIPJbJC/cHwCvs/NnLdg4q9V+R/c2uS
+	dQsIODSl2lMTZoprsAPGttOSOFcWrmVyK06lbGjIDIB1pnKK3S2dHIYmm9+tMEpMyHjKqg+cQVa
+	1cS64mWAEgVZCL7u8ALCXgDLSiOq8mcOtmqmyQzA2e1XQxlvjvH/nMKh6QFG+u38uEaCEgj/NSh
+	YUNIURoVJnhm+wGQoY11uhikH9qebMPx8xLKTyfYV19CmO3mnwM8yZkgFL1hgGdWhr/Q8KoeJsr
+	7M7ipTE18nru+l46NCkVDfpC7zgHpuwFcAk2FZA+tWKazY5efmxWlap8Bo4aCJ7avtZMf7g68Hi
+	QbyQjPyQQus=
+X-Received: by 2002:a17:90b:1b03:b0:39e:6c6a:4b67 with SMTP id 98e67ed59e1d1-3a098dfb096mr1248459a91.49.1790232276347;
+        Wed, 23 Sep 2026 23:44:36 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0972efa0bsm2960830a91.8.2026.09.23.23.44.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 23:44:36 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: jani.nikula@linux.intel.com,
+	tzimmermann@suse.de,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	airlied@gmail.com,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH v2 0/2] drm/udl: fix EDID short transfer check and probe USB cleanup
+Date: Thu, 24 Sep 2026 06:44:32 +0000
+Message-ID: <20260924064434.2541959-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
+In-Reply-To: <20260919223511.3889061-1-benquike@gmail.com>
+References: <20260919223511.3889061-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/4] KVM: TDX: Report CORE_CAPABILITIES as configurable
-To: Binbin Wu <binbin.wu@linux.intel.com>, linux-kernel@vger.kernel.org,
- kvm@vger.kernel.org
-Cc: seanjc@google.com, pbonzini@redhat.com, dave.hansen@linux.intel.com,
- andrew.cooper3@citrix.com, nik.borisov@suse.com, kas@kernel.org,
- rick.p.edgecombe@intel.com, chao.gao@intel.com,
- tony.lindgren@linux.intel.com, kishen.maloor@intel.com, dedekind1@gmail.com
-References: <20260917072548.2314491-1-binbin.wu@linux.intel.com>
- <20260917072548.2314491-3-binbin.wu@linux.intel.com>
-Content-Language: en-US
-From: Xiaoyao Li <xiaoyao.li@intel.com>
-In-Reply-To: <20260917072548.2314491-3-binbin.wu@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/17/2026 3:25 PM, Binbin Wu wrote:
-> Add CORE_CAPABILITIES (CPUID.0x7.0.EDX[30]) to KVM's allowlist of TDX
-> directly configurable CPUID feature bits, even though KVM doesn't support
-> MSR_IA32_CORE_CAPS for TDX guests, to accommodate the legacy TDX module
-> definition and userspace's stale knowledge of it.
-> 
-> Older TDX specifications define the CORE_CAPABILITIES CPUID bit as
-> fixed-1, so userspace may expect the bit to be enabled for TDs.  #VE
-> reduction turns it into a directly configurable bit, so leaving it out of
-> the allowlist would make the bit impossible to enable once KVM starts
-> validating userspace's CPUID input, i.e. would be a surprising behavior
-> change for such userspace.
-> 
-> Reporting CORE_CAPABILITIES as directly configurable also lets userspace
-> detect that the bit is no longer fixed-1, and thus correct its stale
-> knowledge.
-> 
-> Keep MSR_IA32_CORE_CAPS unsupported for TDs, as no existing TDX user needs
-> guest access to the MSR.
-> 
-> Note, CORE_CAPABILITIES is the only bit that is unsupported by KVM *and*
-> changed from fixed-1 to directly configurable by #VE reduction, and no
-> further #VE reductions are expected.
-> 
-> Signed-off-by: Binbin Wu <binbin.wu@linux.intel.com>
-> Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
+This series fixes two error-handling issues in the udl DRM driver:
 
-Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+1. Reject short USB control transfers (ret != 2) in udl_read_edid_block()
+   with -EIO so uninitialized or stale bytes from read_buff[1] are not
+   copied into the EDID buffer.
+2. Call udl_drop_usb(udl) when drm_dev_register() fails in udl_usb_probe()
+   so the allocated URB list and DMA buffers are released.
 
-> ---
-> v4:
-> - Add #VE reduction related background to the changelog. (Kishen)
-> - Add RB from Tony.
-> 
-> v3:
-> - Drop the code for MSR_IA32_CORE_CAPS access.
-> ---
->  arch/x86/kvm/vmx/tdx.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
-> index 2b51a85c998e8..b34afc52b714e 100644
-> --- a/arch/x86/kvm/vmx/tdx.c
-> +++ b/arch/x86/kvm/vmx/tdx.c
-> @@ -165,6 +165,13 @@ static void __init tdx_initialize_cpu_cfg_caps(void)
->  		TDX_CFG_F(AVX512_VP2INTERSECT),
->  		TDX_CFG_F(SERIALIZE),
->  		TDX_CFG_F(TSXLDTRK),
-> +		/*
-> +		 * KVM doesn't support MSR_IA32_CORE_CAPS, but older TDX specs
-> +		 * define this bit as fixed-1.  Report it as configurable to
-> +		 * accommodate the legacy TDX module definition, and to let
-> +		 * userspace detect that the bit is no longer fixed-1.
-> +		 */
-> +		TDX_CFG_EXTRA_F(CORE_CAPABILITIES),
->  	);
->  
->  	tdx_cpu_cfg_cap_init(CPUID_7_1_EAX,
+Changes in v2:
+- Split into two separate patches, as requested by Jani Nikula.
+
+Hui Peng (2):
+  drm/udl: reject short USB control transfers in udl_read_edid_block()
+  drm/udl: clean up USB resources if drm_dev_register() fails
+
+ drivers/gpu/drm/udl/udl_drv.c  | 4 +++-
+ drivers/gpu/drm/udl/udl_edid.c | 2 +-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+-- 
+2.55.0.1082.g2b9226bbc0-goog
 
