@@ -1,80 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6EE04A6CFE;
-	Thu, 24 Sep 2026 16:01:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from smtp.uniroma2.it (smtp-2015.uniroma2.it [160.80.4.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 11E5A4825B0;
+	Thu, 24 Sep 2026 16:01:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.80.4.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790265665; cv=none; b=YG97wuc3ypU35vWV8+iTt+XlT+FFI5Ia9t3W7a5ziaasi3dfWCoxypCCxA2ZCgIanNQLiNWvbO3QXT8jIA6Q1sMYz0qEC8g7aUDnihOG1NE+paz8dxk7L7hGxjFj0mSu4lmvMM8iVGjSyW7GwyrctHD2rDY9hGdcD7i0Ow7Pe9w=
+	t=1790265672; cv=none; b=gIo0rgXWTktq0G9Jmj8okvJXaWl3sFXp1pdf1O4isbBk8AU5+0i4DrXPBYUP/tLTITViZcVp21nvmAVYJc9m/OZmhOfIwOmDJoPPeY68rWiSakpSepNqCWsR28Z19pgvoL5ed7zbo5IfldHdQA2HANr3J0WY77Vh5RVU4pFCkII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790265665; c=relaxed/simple;
-	bh=Bo2UGHOYNYLWF9uIzmRC0ZazwugY4B830c/mPkLPNZo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=b9AmQxdH1O+RPxRkBMnmItXDkksHU8dPAd1+Qbuybfjgi9qqcZCIr/YqxoCyWUAD8pFyGxfyl/62Yoi8QZUFZWUZlQRp/hf3eG07jDcvZm+LbgYzTKmr353yiuBYkrJ45CAAtnW6FTX1mqsKuQwJkiZLTANmKrhpeZVGbZJT9Tc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EgNVmBjm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790265672; c=relaxed/simple;
+	bh=XeNHz13ULfMA2b1+O2mBPioLeq/Y4ctBbaxu6kae3XE=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=HKePSmWxvr8YGpwMzr8h6E5Cz4v/su0063arHH187mzae9fKMZlE0V7NHXXaMU9rmqDRUeCIhqL7HyAbaxOTXTzXHVtbnfB/QxI8buys44WZOYfvsehPNSCXwyxfPkiiUDZe+QnMbRwONLS94mt+wyLZnSp04IVHv/yjd70I+e8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it; spf=pass smtp.mailfrom=uniroma2.it; dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=l9StfxJN; dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=WuPPe7+i; arc=none smtp.client-ip=160.80.4.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EgNVmBjm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 292391F00893;
-	Thu, 24 Sep 2026 16:01:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790265663;
-	bh=LK4pmZuRDKEBTXXexxgFUW4f2mz0iU8rh4lCyzxrJVQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EgNVmBjmvusupVvrrpoqlf4g9GmEf99gYZclehKG69Q0l//nphw7eDfCi2b0ILgHW
-	 9nxioZdk++JKV/NRZeDmG3FYdO7MXog9FKXxX310lS3n9eosuTYTdDs1GxubQjR5IP
-	 6kGL649rwdh59IdyyCnC3jisd34b7LCAKeLT7Tn7SsY3I5qhLAiA7K2pH6z2e261hU
-	 9vKKIMmeYvpDF3EM3H8qig9/gXvGJYAvomsmJEFW+uHlT0KD25q21kC3rMCQiVAQ6f
-	 L9FA6Qb+Hc0zZlpUh67dquybwuUTj61z/9LfUe0qh5YgKdzxx8d1ZvBAoI2W72fUJe
-	 XOwv4KDvQ7Mnw==
-From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-To: =?UTF-8?q?Rafael=20J=20=2E=20Wysocki=20=E2=8F=8E?= <rafael@kernel.org>
-Cc: linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	x86@kernel.org,
-	Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH v3 3/3] cpufreq/amd-pstate: Get Highest Freq for a CPU
-Date: Thu, 24 Sep 2026 11:00:52 -0500
-Message-ID: <20260924160052.2858456-4-superm1@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260924160052.2858456-1-superm1@kernel.org>
-References: <20260924160052.2858456-1-superm1@kernel.org>
+	dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="l9StfxJN";
+	dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="WuPPe7+i"
+Received: from smtpauth-2019-1.uniroma2.it (smtpauth.uniroma2.it [160.80.5.46])
+	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 68OG0MTU021248;
+	Thu, 24 Sep 2026 18:00:27 +0200
+Received: from lubuntu-18.04 (host-95-234-228-71.retail.telecomitalia.it [95.234.228.71])
+	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id BF2171227F6;
+	Thu, 24 Sep 2026 18:00:16 +0200 (CEST)
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
+	s=ed201904; t=1790265617; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZqTQ4TKcaUuTMiORSWhLajW+Q/jdKZkfzyxyFJ9V2Ro=;
+	b=l9StfxJNNBMjtdvhJnH2tHe5LNbKHfQUm+DWsgQcWe78vDuRmSn6cdH8ireR5htvan0tuY
+	9Y2hyftPAylzEhCA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
+	t=1790265617; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZqTQ4TKcaUuTMiORSWhLajW+Q/jdKZkfzyxyFJ9V2Ro=;
+	b=WuPPe7+iAOBgsS5+95Pv6STPwgGR8VVxD7H0EJonqYlziJzH3CEswzATFzjBkdfrOi6rbt
+	G2+IkqPDTdyzt72TSj754fYMhEZHHXNIPucKNj5YvwB2EaJVGfQF7c2uQkOIoSIYNWGmWy
+	TjQ/SX7MIQZtA+x1MbugC6ldLSN9kBlzDcrwZ6XFOP/sFr1IgVs33Gzd2AKtbMxI8Wivbt
+	oiQRzUz7jlr4HzAjEHRy6onx2F655uWxrNXXpT8X86wBQgL4PdP64u8klKdlrrYDfqUXcc
+	HhlATJ/qgGPvAiWmBDDe+o2Ijg1o8dsH2H52NkW0CSRvyUqdBlv+sbFt9L9LpQ==
+Date: Thu, 24 Sep 2026 18:00:16 +0200
+From: Andrea Mayer <andrea.mayer@uniroma2.it>
+To: Hui Peng <benquike@gmail.com>
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+        pabeni@redhat.com, dsahern@kernel.org, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        hangbin.liu@linux.dev, leitao@debian.org,
+        Andrea Mayer
+ <andrea.mayer@uniroma2.it>
+Subject: Re: [PATCH net v4] ipv6: sr: enforce exact attribute length for
+ SEG6_ATTR_DST
+Message-Id: <20260924180016.f1a9947223549a9a88c9a2fe@uniroma2.it>
+In-Reply-To: <20260924093610.3286959-1-benquike@gmail.com>
+References: <20260924093610.3286959-1-benquike@gmail.com>
+X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
+X-Virus-Status: Clean
 
-From: Mario Limonciello <mario.limonciello@amd.com>
+On Thu, 24 Sep 2026 09:36:10 +0000
+Hui Peng <benquike@gmail.com> wrote:
 
-If the highest frequency is known for a CPU, use this instead of
-trying to calculate by linear interpolation.
+> In seg6_genl_policy, SEG6_ATTR_DST is defined with .type = NLA_BINARY and
+> .len = sizeof(struct in6_addr). For NLA_BINARY, .len only enforces the
+> maximum payload length and permits shorter payloads (e.g., 0 bytes).
+> When seg6_genl_set_tunsrc() copies sizeof(struct in6_addr) bytes via
+> kmemdup(val, sizeof(*val), GFP_KERNEL), a short SEG6_ATTR_DST attribute
+> triggers a 16-byte out-of-bounds read past skb->tail into uninitialized
+> skb->head memory, which is stored in sdata->tun_src and leaked back to
+> userspace via SEG6_CMD_GET_TUNSRC.
+> 
+> Switch SEG6_ATTR_DST in seg6_genl_policy to
+> NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)) so that generic netlink
+> validation rejects any attribute whose length is not exactly
+> sizeof(struct in6_addr) with -ERANGE.
+> 
+> Tested in QEMU against Linux 7.3.0-rc3 by sending a SEG6_CMD_SET_TUNSRC
+> Generic Netlink message with a 0-byte SEG6_ATTR_DST attribute followed
+> by SEG6_CMD_GET_TUNSRC. On the unfixed kernel, SEG6_CMD_SET_TUNSRC
+> succeeds (err = 0) and SEG6_CMD_GET_TUNSRC leaks 16 bytes of
+> uninitialized kernel heap memory; with this patch applied,
+> SEG6_CMD_SET_TUNSRC is rejected by netlink policy validation with
+> -ERANGE (-34) and tun_src remains zeroed.
+> 
+> Fixes: 915d7e5e5930 ("ipv6: sr: add code base for control plane support of SR-IPv6")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Andrea Mayer <andrea.mayer@uniroma2.it>
+> Reviewed-by: Hangbin Liu <hangbin.liu@linux.dev>
+> Reviewed-by: Breno Leitao <leitao@debian.org>
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+> Changes in v4:
+> - Drop raw hex memory dump string from commit message as suggested by Breno
+>   Leitao.
+> - Add Reviewed-by tag from Breno Leitao.
+> 
+> Changes in v3:
+> - Add Reviewed-by tag from Andrea Mayer.
+> - Send as a fresh standalone thread (no In-Reply-To header) as requested by
+>   Jakub Kicinski.
+> 
+> Changes in v2:
+> - Drop the redundant nla_len(info->attrs[SEG6_ATTR_DST]) !=
+>   sizeof(struct in6_addr) check in seg6_genl_set_tunsrc() since
+>   NLA_POLICY_EXACT_LEN() in seg6_genl_policy already enforces the exact
+>   length, as pointed out by Hangbin Liu.
+> 
+>  net/ipv6/seg6.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/cpufreq/amd-pstate.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+The v2 was applied to netdev/net.git (main) as commit 2d959c75c27f
+("ipv6: sr: enforce exact attribute length for SEG6_ATTR_DST"):
 
-diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
-index 496e0342c1c90..2a0cbfe21a67d 100644
---- a/drivers/cpufreq/amd-pstate.c
-+++ b/drivers/cpufreq/amd-pstate.c
-@@ -1102,8 +1102,10 @@ static int amd_pstate_init_freq(struct amd_cpudata *cpudata)
- 
- 	WRITE_ONCE(cpudata->nominal_freq, nominal_freq);
- 
--	/* max_freq is calculated according to (nominal_freq * highest_perf)/nominal_perf */
--	max_freq = perf_to_freq(perf, nominal_freq, perf.highest_perf);
-+	/* try to look up from BIOS/quirk first, fall back to (nominal_freq * highest_perf)/nominal_perf */
-+	max_freq = amd_get_max_frequency(cpudata->cpu) * 1000;
-+	if (!max_freq)
-+		max_freq = perf_to_freq(perf, nominal_freq, perf.highest_perf);
- 	WRITE_ONCE(cpudata->max_freq, max_freq);
- 
- 	lowest_nonlinear_freq = perf_to_freq(perf, nominal_freq, perf.lowest_nonlinear_perf);
--- 
-2.53.0
+https://git.kernel.org/netdev/net/c/2d959c75c27f90e9ec489d18ce5ee6b852ad4741
 
+One general note for your future postings, not about this patch which is
+already applied: please do not repost a patch less than 24 hours after
+the previous posting. See the "Resending after review" section of
+Documentation/process/maintainer-netdev.rst:
+
+https://docs.kernel.org/process/maintainer-netdev.html#resending-after-review
+
+Ciao,
+Andrea
