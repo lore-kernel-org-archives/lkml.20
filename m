@@ -1,127 +1,146 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39DD147F2DB
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:14:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 652B0483825
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:14:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790255662; cv=none; b=GiZHg+tFJnZSSolRGX6EyEnyn8sdr/k/GxirZrubtSf+2wuNxTEkgHXDnGl5ssZK1IMZXJkNrp2JnN108m7ZMewDA9GwBFbMjB8IvZs42lNv2hghThr77sFXDkvAchtveEf9eLTP8pVQ6Kb/p/KsiLxLahBAv2gxl4Tur55Vi1A=
+	t=1790255666; cv=none; b=Jb9DkmJmmhZSRXx/SmiFezV3bokByJ0D8tHToaItiQMdi/ybSkZAi9SO2ogVDpnev8GYbcaL3sTzgF+k2pQYW6Ie66KSTp3gZ+iNlLGG14LSdBdusuJMctESvpscvX7+tnSuk0On1adwkPcixr/l2nFVtw0kSWnfkvYqC6tLj30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790255662; c=relaxed/simple;
-	bh=VHHnAvsUiXyMLywhj/CdP4Gc0HCGDFaSO8mlgs/s+2s=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=d/Bfvg2NfzEqoqzdVPUGpd+aAr9ytbfGypVByQ77eh4A7UKgbngoezEOmNTCaZP6ggRhaSNcUDbE9nomaM83niIFQGID/a0nxkIxdwomIfUZlf4PaQ4y1FAFvRZbrP8sRSiQd35euYbglTZqdQZPkd/QGO3r2xF3dwu71yD7/Kg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nawamyuu; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790255666; c=relaxed/simple;
+	bh=Qfz2JBIID8kBw9YQESuE/2T4gh06WbRO5kl3dUZDXEg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=PpmhF+A+FwPOIv6Au41l1EkEg3ohYM/R0j6Kd4OKLz0fHXIJlUb6D6yAsyerLjuHG39LAxopbG8+Szn4cWO+Vjc1C/rEpTN+A96LSDrTlPpxQwFo5OWl9ckEEqExahbbv78POqMzv8AXnCMHRBqw/zLorUpQ6gfS7fAHg3BtNhA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ge/MO/zu; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nawamyuu"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so11795625e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:14:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ge/MO/zu"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so18642345e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:14:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790255659; x=1790860459; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Bq6oXmBjhmxYtZCGZMo9VNKB50nfTEO3RpL1ByCTTS8=;
-        b=Nawamyuuxp6R/ZCGhoyynPFu478UGgjbsee/zrkM4aiErpxBg8oHVk+Pfm8QerQ9a7
-         pgLFOc8I00L3bR3pB/cioBnQK7DJAqGRwPGO8c7zmXOXZu9dgSMZhRWpAUxAMmDByH8o
-         EhkhM5etZM9EobqS+tZtlI1OOkUt9QWqQsO7FGll/r6gF2/hO6urJuBWeF98/0DjsL/D
-         X+x6aUYC7d68i8ELBZQdxdpozWXBTV7Mc+Ac4mchPwrTWhL5XkxJoBpyELfZMra2ux6c
-         BBNEaSa5zlWyg/tcmL+qXd9dWrbwhN/LqRkcfguKilp77A8pjRAleW8qq5ovGopxPUIJ
-         B7og==
+        d=linaro.org; s=google; t=1790255663; x=1790860463; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=rXL5Y7/cWgIONC+kU2uQwobZC+xYrWh2x3EN+RFUQQM=;
+        b=ge/MO/zuOK7E1964ZcuVRLn8uCkCsSPFtnoGzbC0r5n6mCD7bh7CK5BO4VyvJdo8xR
+         lC7k264Gc7fTyPMkB3JacWPTHfaR4tyFHaXKoatZLIjFTRnqteFrYMlUrmut1hGeigsB
+         YzXyCuYxft2dDfV4yxWpVWyoO8FLQobgToxr4DUOTnIeNpfqJ1anca4muerA62vDP4cJ
+         z3kpY+iPYkAlTUQLHr7tt9hFL3QenW0tV/v3JIL4UxF9Q7DIHaPat4an5IL8Sv0HqYw3
+         IrdCc4NsTDFZvYPYyTFlW4DP8OM6U5HbW/ek0pVtn9oOtF9RK2laKC57mXQIFp7BzQ45
+         cPiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790255659; x=1790860459;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Bq6oXmBjhmxYtZCGZMo9VNKB50nfTEO3RpL1ByCTTS8=;
-        b=IOVtYSqLLvK5dt2rXK0lnPwWMgUVlt+hsQoM27MJxJ8njpZBDG3F6YU3poI0iRLpdZ
-         NPdiCkYUO71JDSRWKYEdkb44V02u9ectspQuBSexzx3AIyYZIUR8iywaU2rEWJ9+evfn
-         VSedvpBdW1NjcHSmeEi6v1DkiTqObwWExXPh4lrtuv3GXTA5x3TCOnRhjp6yfsdTQEuq
-         KjaGxD8EUldRt6QuuffO8KjmQwopA/KAPa/4hezXITc2PGibVTLd83txrv7vM0XLucsZ
-         NakY9lJXJghnnH+RpF4NqrV/fJ/AK5Ln31la0n4NKFTAVKeZXELmRJqXclGktSBJqOT6
-         tJDA==
-X-Forwarded-Encrypted: i=1; AKwUvBzJphYP7+1k6e0lLk3txlz6hGxGquic000d9tm/8ByM1efPuW6MDEV1numPOGOZqDftOh6sDprF4mfOlt8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lf7+zWNnTCWJD0iMn2tMOiYELUV8ztRTFdbTizcarsR2IaK3o1
-	dxr+XGf/1f35/GhG93J8gVQ7VmXdgWd+kT/fDooALqR9WyTjSVduvAY=
-X-Gm-Gg: AYBFou3Yll3k9FxVJf06+r3wWl5hQfWXEdygoIchK0yrV1KC7V/WwElnM0fLyUH8lUE
-	rGSQsYtZYUg3FZo+xid+3ND1UR7dn8GnqnXF25TvVSI/Br9eKtAkZxdsDRIdRjlpw1+kYnxFtjV
-	VLho6seCCrvjzCKkUfHvgWdS+ho5JJ3ztj5oTcOrk+Wj8dojy265jparlLZEP8GqGN+iUn12V2u
-	nRS0pAE+8FAYH1CbA+Gd2BOKKus+O9SBy1jsuW/u7UB/2XabNpa6H+81vt+S3MjL1xEk7n61m2T
-	RtzGlQOBry3kW/eyxBn9TiiE2mkOnE3IBO6FDc6ojN3V0j+trVXqCiYWELwCagiZusvvHsUikUT
-	k8DBZa99GmB7yUofUu0G87gzkWKR/KtzABtPPIrt5En/89zoZBhjKIKSdB9xQgOJTomE0sHLfk0
-	FlI4JkbWhhvC7G0tFEnrW15xlLLXkd8/S3aXJYdS3LY3NB15rUrSw5CeUzYgM11vdFzCAIbth8x
-	BgENo0hGxdxhV1V4X8G3fBC7Kh+G8LTRWsUPx2cI72ezF6nrHYFTVOFfGvIZrP/S7YKcm/Yn2jC
-	tI7iut7F9Q==
-X-Received: by 2002:a05:600c:4f10:b0:49c:dca4:94c with SMTP id 5b1f17b1804b1-49fe66d09c5mr48279855e9.13.1790255659417;
-        Thu, 24 Sep 2026 06:14:19 -0700 (PDT)
-Received: from ast-epyc5.inf.ethz.ch (ast-epyc5.inf.ethz.ch. [129.132.161.180])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe0c104a6sm123986495e9.0.2026.09.24.06.14.18
+        d=1e100.net; s=20260707; t=1790255663; x=1790860463;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=rXL5Y7/cWgIONC+kU2uQwobZC+xYrWh2x3EN+RFUQQM=;
+        b=peJC15GB3eNc+Xm8qu2BXJO1HhlSsJNmhA09UIHClZf6d/xzWNlsHQioO7wj2BXvX9
+         UasZUaIekCCK1HhwUfhnuOA1lUr9us3wIc1qnPc8DMqa+rf6f5gGiO6GyN9KWv9e5xXW
+         n4v+nBIAmbCBVWTL8GXjqjdzgDTqksYUiRbIqdvmlarpDGJhAhIow/tsjMt1A4nA14RB
+         3wnSk+iiNwkeYJhdjMycv57i71CqK1phxODs/A41cwCvKj5V6GWDTArC+iMRRyM+zv/J
+         Wy/81N2uqzezvaI7DfICl6GEK8nIVHFJK7N+k9bCYClgl9jFzi/Em09vNtUNJyKKh8Dg
+         +LVA==
+X-Forwarded-Encrypted: i=1; AKwUvBw+BIQInJXAuLKZkbUZjyaRy5CzzCCqfmQ911yJhU//kCc88XYNgGCPwBbRysq05/kaw8K5jrkdvGbtqYs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKUn2sxWmaR0QUNDoXtEaajEKDEmowtsiQBozEaoDY44413qjM
+	ic5EHwbEnOIRs/6kTcHJH/4rC9gaWjemjqfFWNZZQbpEq7vGuonYFEafchHTrZ9zQJw=
+X-Gm-Gg: AYBFou0QTt1yuESLxssNkOZAJboh+HNFSdNtcz8qDF5CFbYzMmuC4LWRTG2/6Zg4252
+	2smI+prjNwzD0JgrnrcNaqAmsU09AC1QlVTFQE9FBK918IEbV0p8Ahnkj9JxZFYFWP8Se7NgyMf
+	09eJhd0YSYj/cbLUEEjGjZ0kpXqJ/IdJEDAoRcxW2GgIGVIPu03mFdHoYHjzYp45xKFHaSMtezl
+	ucE+NqPAvuRdLrQjwESJhaqiwmMXr4sZi19DULZrvBhujC1d0m3kGPkVGCDcfutej98BgcYYvm0
+	73o65jNQ9FRwBGQ+tXJJFCzyf+xultGfDI3FtVv33oeIOx9xsCsL24uo8/8IsAbDcc2Sm6ehp1p
+	n9pKruJINZx0jnR9OeY6C7hqFBf+sJZDAXFn+KNPih1qH8hrDVtjowA6QC0WWSuQ/Y86/vCvdOK
+	a+zsIkdVO1rXm51IEDEllu8MFKXyAtbPKqkDFBJJaHsyUUpgNZ8Ln6iYx4p1US+vIfdaEproKy6
+	LxjJ/Jiz85KEPkbTAMZeA6FXIqXkA==
+X-Received: by 2002:a05:600c:83c4:b0:49f:c331:39e4 with SMTP id 5b1f17b1804b1-49fe66ca101mr38946645e9.7.1790255662495;
+        Thu, 24 Sep 2026 06:14:22 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe0c4054fsm111837945e9.3.2026.09.24.06.14.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 06:14:18 -0700 (PDT)
-From: Hao Sun <sunhao.th@gmail.com>
-To: bpf@vger.kernel.org
-Cc: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	john.fastabend@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	linux-kernel@vger.kernel.org,
-	sunhao.th@gmail.com
-Subject: [PATCH 2/2] selftests/bpf: Test non-fetch atomic on a narrow stack spill
-Date: Thu, 24 Sep 2026 15:13:42 +0200
-Message-Id: <20260924131342.934290-2-sunhao.th@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260924131342.934290-1-sunhao.th@gmail.com>
-References: <20260924131342.934290-1-sunhao.th@gmail.com>
+        Thu, 24 Sep 2026 06:14:21 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH v2 0/2] iio: adc: add support for the MAX34417 Four-Channel
+ High Dynamic Range Power Accumulator
+Date: Thu, 24 Sep 2026 15:14:14 +0200
+Message-Id: <20260924-topic-sm8x50-iio-max34417-adc-v2-0-9a0609e72f5c@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACYitWoC/42OSw6CMBRFt0I69pn+UHDkPgyDtjzgGWlJiwRD2
+ LuAG3B4kpNz78ISRsLEbtnCIk6UKPgN5CljrjO+RaB6Yya5vPBSKhjDQA5SX8w5B6IAvZmV1uI
+ KpnYgeYlFwXOlGsu2xhCxofnoP6ofp7d9ohv36G50lMYQP8eBSezev1uTAA5a1NoaYRunxf1F3
+ sRwDrFl1bquX16RXMbdAAAA
+X-Change-ID: 20260923-topic-sm8x50-iio-max34417-adc-209e880533fb
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1780;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=Qfz2JBIID8kBw9YQESuE/2T4gh06WbRO5kl3dUZDXEg=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqtSIrYW5acOXlGWUhOwpfb127DsHq3pb5yt8c7Ux+
+ knPGIk+JAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCarUiKwAKCRB33NvayMhJ0RMCEA
+ DBOwwCygGuaoOBaL4nm80ATdnNEsggnefCw7AyBbTfeClfJDziYloc2QSHJ8jkB5bw2arC1gWN7A9w
+ DpPYStCStoXNM7EX+yOD8mcQsRf5tpm10CS5WJkHp6Gdg+RdKgx7EYP1D3cC5q3DGZ3NyZf5E2Rdv9
+ +1pWyE3sT+nOHwqoGPFuT3y+JJ217ikY4MLkz5a94lMaXLseHznBt5W72fJ3gQPH+a7MymSESSmsrb
+ 33S2/5s3/xlqCBjRX2dSCjGuAorNjFIjfsiWJ+MdJuzWf3jrcMpIgeoP8id1cDalySXEkOsqpw3NOb
+ ayFaZxQfqwsHRlDz+kC1mlhRfRRmguA+XJ6MwSwZHalMXA7/1nEpVOWC+xT583kCJxids7gdzFV6eG
+ llh4cXyBiCy4yw4atU+5ug4JD8bhuMQXIkZkZ3yFgyhmOfvROsX4+Hjx2VCzykSxm5uQxdgACZFZNp
+ KGSCF2xC4l5xgRSlXI0foAfRfGYkxOXlvjrRZ6SQOmQopgEy5X9W0it+M4SOOBFk8HS3iV+IkHelWK
+ S//5LL84vg889NdJJ7ZXqXBOOAtY1FtQRiqSHCDaba/DHyygw5j+Ct4l7c5JMukl/fgVG+nthBkSQa
+ x3cLUvBDFZm5oiqes6opLfDKb12OLtKJu3QRFJD5Q4ERkS2VMLpLXnjt0wLQ==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-Spill a 32-bit scalar into an 8-byte stack slot, leaving the other half
-of the slot uninitialized, and apply a non-fetch 64-bit atomic add to the
-slot. With CAP_BPF but without CAP_PERFMON the verifier rejects it.
+The MAX34417 is a specialized current and voltage monitor used to determine
+power consumption of portable systems. The driver support getting the channel
+voltage and accumulated average power over an I2C/SMBUS serial interface.
 
-Signed-off-by: Hao Sun <sunhao.th@gmail.com>
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- .../selftests/bpf/progs/verifier_spill_fill.c   | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+Changes in v2:
+- switch to shunt-resistor-micro-ohms no more required
+- removed gpio.h from example
+- Fixed max34417->MAX34417 in Kconfig and comments
+- Added missing includes and remove unneeded
+- Fixed typos in comments
+- Switched to fsleep()
+- Better aligned max34417_read_power declararation
+- Handled 0 acc_count
+- Switched to GENMASK_ULL() for 32bits systems
+- Added missing empty lines
+- Moved the input correction into a helper
+- Set default input correction for all channels
+- Switched to dev_err_probe() to return from probe
+- Switched to device_for_each_child_node_scoped()
+- Handled invalid shunt-resistor-micro-ohms value
+- Link to v1: https://patch.msgid.link/20260923-topic-sm8x50-iio-max34417-adc-v1-0-41d4ba1bfc41@linaro.org
 
-diff --git a/tools/testing/selftests/bpf/progs/verifier_spill_fill.c b/tools/testing/selftests/bpf/progs/verifier_spill_fill.c
-index 39a1766dae3f..d9a4164b6685 100644
---- a/tools/testing/selftests/bpf/progs/verifier_spill_fill.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_spill_fill.c
-@@ -1344,6 +1344,23 @@ __naked void old_imprecise_scalar32_vs_cur_stack_misc(void)
- 	: __clobber_all);
- }
- 
-+SEC("socket")
-+__description("stack_noperfmon: reject non-fetch atomic on narrow spill")
-+__success
-+__caps_unpriv(CAP_BPF)
-+__failure_unpriv __msg_unpriv("invalid read from stack off -8+4 size 8")
-+__naked void stack_noperfmon_reject_atomic_on_narrow_spill(void)
-+{
-+	asm volatile (
-+	"r1 = 1;"
-+	"*(u32 *)(r10 - 8) = r1;"
-+	/* A non-fetch atomic reads all 8 bytes of the slot. */
-+	"lock *(u64 *)(r10 - 8) += r1;"
-+	"r0 = 0;"
-+	"exit;"
-+	::: __clobber_all);
-+}
-+
- SEC("raw_tp")
- __success
- __naked void var_off_write_over_scalar_spill(void)
--- 
-2.34.1
+---
+Neil Armstrong (2):
+      dt-bindings: iio: add: document the MAX34417 Four-Channel High Dynamic Range Power Accumulator
+      iio: adc: add driver for the MAX34417 Four-Channel High Dynamic Range Power Accumulator
+
+ .../bindings/iio/adc/maxim,max34417.yaml           | 100 ++++++
+ drivers/iio/adc/Kconfig                            |  11 +
+ drivers/iio/adc/Makefile                           |   1 +
+ drivers/iio/adc/max34417.c                         | 374 +++++++++++++++++++++
+ 4 files changed, 486 insertions(+)
+---
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+change-id: 20260923-topic-sm8x50-iio-max34417-adc-209e880533fb
+
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
 
