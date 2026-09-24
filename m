@@ -1,206 +1,226 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC69207A20
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:04:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7416415F07
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:05:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790287452; cv=pass; b=jFgfP5u5/5fncZ2SVzK3/iMDqxVU2VPEzb9nnlKettpkyWoyQ+2naxB8XlzRmxpfBTO9vo6xgJ4oN3nGFXEiEOP5B3f82QLdT1hODAPsojgB0BsOj35y2927eUtCwRmTsJ+lQIQb3fxM7DDlfgMNAFo354U/FsaJJwvwsmXMvdY=
+	t=1790287546; cv=pass; b=SUrJsHR9rG8ehTnLNhcY/ynIzRKindxIBi095GHICIykhKEDNHy1C7ey2OQ9kQNv51+s7MOsqJyKNU2BZVXVyyytiG4N2tN0WGk+KorxCkaHazeRreVA1DPnZKZBQ8fNHhxhMMRHqvGPx2flWghhH/KXqiyaUhCJxDsETyBow2Q=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790287452; c=relaxed/simple;
-	bh=UCPWykPSeFLhhECC9JKMywpS2K7qYEIBFzqJhcYbxZ8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gN+h0FwWUVhXuMXFUX5+IUByJVpEhA2A466eJB0GJgEOI0tDXbb/jrIJiAFaj3EeJ075xx+6rPq798odrmM13jLdDw4VpHPlB70yjCiO2JdLwCoe7yvZqWZ7e8efmUyWleDwmF05nn0SD2DdLkqVBgomghJ4wZ1/lMna3di3dOg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n/cVNg8J; arc=pass smtp.client-ip=74.125.228.171
+	s=arc-20240116; t=1790287546; c=relaxed/simple;
+	bh=7PPsh/wW2qYS0wehKM/K22j5ddH8fM0u5YOYLVc/dJE=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=Cze+Mn4cFL938vYP/TFDy2rAF0CnbD+vORFhzCAXZeYjrkPjWrHDftSaHAVGBV3Xxtal8WMkCBhbZDBbLq0VQg1p8Bq7GXYTWuA9v7PPZ8iFFVJN4T2FXqvjbeWD4Plgd2CPc+seadfKVzs+v2BMWwOAY7xAWn0ge6iFfVoc3Xs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FpIRWLif; arc=pass smtp.client-ip=74.125.228.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n/cVNg8J"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c254f9f0b20so35242366b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:04:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790287449; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FpIRWLif"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2940ef15c1so33691766b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:05:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790287543; cv=none;
         d=google.com; s=arc-20260327;
-        b=qTiMK7Ex9Bnku1gmRKubKG85IToGheyRKm7IlBUSFXl7ViNECmt/MhaUVQhU5z3hgi
-         oOhwQ2ClEpCBVNR7n5kp5DctN6Sv2Hv+Lcs0tIh+xyS6QiOe9lrs5kxRM+rbkFhuJvxy
-         mSR0An7yCJ3BdCyf52fK1zrTVgxw43VuxdyLFVNsqS0YGS53DpdzEcEFi2XMUeghdbi1
-         FwDzGvEyBYpLNNZ32MzJyfzuzm/wX3wpcqmOoYTMUFGjsZytlvIka46VPnBpuV8DXjT8
-         +8KZ9TnaNbBBwBqIaSKURBKt48AGaovg863ck+DhEX0Nn6R16aVyqYREEBf7eloPz7DA
-         TrSw==
+        b=pQF1w+wmFl2Tpr2FdKDEmlCnNQ6wK9NrxaUAxRVo2TrBrJ4vjzxBW37+p4jGq5miPU
+         6RGSe9/RtbPtmkLVRgKDh9lOEONVug7/jAo9yvxCgh77b/JtsOLyCwR2drBXBEIstTyE
+         zGHmoWzfdZYKhusUZtvckt52Pg8OZniYQBy8nmOsu1I9kMH2c4LknM32Sxr6Um6Fs4tX
+         Qm6ZvckTPMEP/Ka1TsOkIMKjjw8cZeDN5r6ffI9XUZKkOVNi6Al1PPLO32i9lgAhBGgf
+         xNpIFYSp4b98u2l4X94GlykdvC4CJmRmqWM3sIZqTsAHu8fLqQyucUdHYjjsYvG8oNp5
+         /8yQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Cr7dYgudHu+YtLQISezbH81OFiuDdMrq+aTJZsl4PNA=;
-        fh=/2As9PfQ/8hCAXaPBdQPnGT+tV6WuKWeLxWTIBwo4bQ=;
-        b=oyJbYdq2Uh/WnwWpskJlTTj2pkj0vOnPwQFsfXAQBQ+8DEwe8EeZ0lEO1SoltO5xeP
-         2FbSOCyZMClfoU/dJd0s4RjWDtWA8gaYUKBdWyw4Gr5lqsgmcxrPzGYmzhRv54hf3d7s
-         XzcgJKVLsVjfBOSblqUseINYLU1wvi4DhDaSlxwFTYpZEPf4Oh5I2T9TnXkxO+803o9O
-         Y/H6d1ZjCLlJcK+yDZxxcNyyTSH4NiewHTw6rESohSm/eDsmTyJSNZ58y7M37I6Wixwn
-         4Z77VazvhqElvnk99XZvKDRSiSEN8jAUGEVXckFih4pG5pHCf7gDMAuLrhl0u5SHk5CH
-         BA4Q==;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=6kv1ryWLeMdgaQcXq5k3ZZjVELOih2y5Rsy9nUxZ+Oo=;
+        fh=P7cTKF1Q4cNvQ5fYnato6FBhrPtsasHpm95zhD3Plxs=;
+        b=LxiSJRP/Us/T4qiVWf7GdZZHvAGyKT2rDoE4dCMAI0O0Dnlfj/ttCnX4nNEG9re0YG
+         9g93CJP1q3Q8jLoTUb3qLPH6YWRhEKjh5Yf51bSqtB+tRlsQFmIlfqnQo0QOiYLu12bH
+         jYVEzYV/ybwG8y5D0P5q42hnHBATpzAA0KFbxhvCV9i+cRHsu0BzY1jazXmlju4Q9fWl
+         b8pD7dQVCyBp3bC0nIozU+cP77TxcgD+ngHtpS5oYQ0kkf1SdyugV1GwjqvyDSMoeTPh
+         TZE+yDbHf1SJKli76VhWKfRlfReLYU2Z3QPp5CnSfVt2XTAWf7cMwWpW3/1DkwNBMhYZ
+         1BlA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790287449; x=1790892249; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Cr7dYgudHu+YtLQISezbH81OFiuDdMrq+aTJZsl4PNA=;
-        b=n/cVNg8J+epaVSps6OF98mAXo5jr3knHjQ9tRVUxTC2B9B2DF/M3GSwgoILbtK0UJJ
-         5djh9J0j67a5TVAiUIqIV/C1VUfz3WOqo2oy+OFAxO5vkS/B6arzzI9+NTLSxKX90Xt6
-         XCz5EkEdEs7Xa+9sG7MBGstBWay0s46s0vkOncoP2zO2QM2P8Y7kVm/zCi1NV5bnprt/
-         iGTDJQbj0i/8heqBkxyjA5XD2gYZP2mavSLM7NKnrLKz0ZJHEJTBN5c+zgP37wq1ugDm
-         VeJgRqmvETYwYVkwTMPEKm1ZhI6gDxOH6OVQrdYb0aTQMP49MSDSAvyj7mrM4DKBY8il
-         UqKQ==
+        d=gmail.com; s=20251104; t=1790287543; x=1790892343; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6kv1ryWLeMdgaQcXq5k3ZZjVELOih2y5Rsy9nUxZ+Oo=;
+        b=FpIRWLifOQ3iKnOOs7b8sMZ2HgAjhA4WBWkYE81d4ilFoVu4ymzBc4AAU3OguiSgfV
+         AkyOrV3YRKfl6u1pxGUC+dsCXWXP5toONBLAGsURWiITMVCjToWdduZvwq+XakURyytZ
+         8SbCUok13xnHJZx1tqZVM4l03RCqK3RRmXv4J/Xc0KjxCKXyjZQSOBgfa9yXOqWC/9z8
+         /kuOpYT/F1OBKcUtoxMWVcezsEqlLj3rCFRR8h7NdrO5ea3Q/HHWXg7FjFS4NUuyzG7d
+         XC2J1oQ2+e/mYjHYYpL2fPmcFNnFHvIPKQ2r5Ub1d0Soh2HsnDMs84r3F0b6AlCV1p8R
+         g1Aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790287449; x=1790892249;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Cr7dYgudHu+YtLQISezbH81OFiuDdMrq+aTJZsl4PNA=;
-        b=lmp+CUb72NdeXm0I1MSSVLNzBdsueR1856LLgrutE0Q8F5lyKqaHSNNQhdeOECWIBt
-         sFm8yD8+o8njr9gVvxdcIydkqhh43I3wjkQZTu1/+tm/03y70I2eWiNPBPFnerF7Uhlb
-         sgqltkC4M0ykG9dErM3vvss0yooc9Wv7P9x486t/0rNX6ECrwszFUxe8WtWa18Hnnb4/
-         b5F7Z8YYGRWgjvNOGj78PX+XZK1dsq9sfmJotwZ0nrK4/P1taQQdMk5NrP9D0iKoHIPi
-         Fzdf5w5pMLW2li+wg6g+xqikavYhq//GSzptg0QbfAeN0KxCFQbqPu0rq0Jzk0H8vI2r
-         S0CA==
-X-Forwarded-Encrypted: i=1; AKwUvBxTQXGSagA+J7f+/2fDZ8K7DFeYboDvvToudj3/2wF/kGO1bn2n06ar30b/64OJfFJkS46AK6LL8yALzVo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nCZnKaA+djMSIW4aq2W+qjovJ2NeRZcbeWuLlMmZF4qi4EsDQz
-	ULmbTPDi4yj9jnmiP07sutCCLMuGkSNKGhibBHaiW9NcuM1qLiWE4selLn29Ot6r/cHsCqCpxDG
-	1HVsg708sxVQJDaJeYzCDkKLnq4xiPQ==
-X-Gm-Gg: AYBFou00dpo4RW9FBtlm/xYrrWsfiKmB7ygKco8XMkhTSmZ/WidLwl0zq7nRWfsFLq3
-	jKZqusqQEP+kc/XH7/r4KKgQGug78vMgc5doCVQOCTKnIhXaC6QxM5v4FUOnYAMHz4qH7s8axAA
-	W5vl6L2Z9RsLbVQ7rDVer1WJJpzlLN/y+x4HUzCZXTeOf6BiRQmjOOaPfmQuTw9iPiHXrga3zci
-	ne+1XVmHm2GAdZh4hecc1RoAgXlDZyhkhd2FV9Y1OB7tpocPBg1f7Rt7U8jLkNG3UIJscve8RP9
-	4APrgYDAsvosk16dok0Ni8tZK2caCH5widjexKbZdfXnNSVZRVgqTpNdn6WZETbRIcZN4YSKJ/k
-	xeWTasvGoK+mt4hnYuupc7yXZ8bvb6uKgfsBqJL1qMNiB3pzsJsMm2Zij4FOMMP83gQJO
-X-Received: by 2002:a17:907:9306:b0:c29:f5d8:9c7b with SMTP id
- a640c23a62f3a-c2ac22ca80dmr360018666b.42.1790287448555; Thu, 24 Sep 2026
- 15:04:08 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790287543; x=1790892343;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6kv1ryWLeMdgaQcXq5k3ZZjVELOih2y5Rsy9nUxZ+Oo=;
+        b=KIii8QPhtQLdrjCXafwqTgk7PqySBmOFSy7iWRrQ86ZQzGHx1tKeoV9LjS8yz/wi5G
+         sdkOf7hHXOTPRrCkO+r0yYb7+7XXL1hZarWEuh51Y0QcLuV+rQHolhFiyxFBR4hm41uC
+         no3aFWSkB/plY/jOgJQ1r2nfbG6Kpj1a0oWsKBcw28395N2HZ7cqwMYQZz5pOYv+1WcU
+         Uqlpwdj8xTGZCkJj+Of1b1AGyluXuVlmzFWmX8T74zpzX7KqRVK8h+DQWkAwU/q/Mb3P
+         xhD5+RWcwncZdVT5027ZvvS2Ad22XjLVFWHmoXmwE3vpcNh5cM3hotZLalepYS6cb5DZ
+         k0eQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw97yVZbAQwdiYFa+D6XpYA7vGleIfDq0VaWBsjmSLsU+yeb5FaMaYqJARqoWoJYzrHua2GyVhaxVNyb4s=@vger.kernel.org
+X-Gm-Message-State: AFuF++k63ZbAvrjNEgUOtr9fd3vMXICeth8kt6OT5lYRbv6gNoU1mJJY
+	2nfr3CQDcTQQYyHvNE4KDD4M0UICJy8YqZMUJ3+ojElOecP4apYPSvyCP01GrNt2Uan+64qyCgS
+	RS7cgpkQkMwmxy9Ni9TuTuwN32LBeFA==
+X-Gm-Gg: AYBFou3bDXzYvZJpWQGQGesEcnLHolYvaTC/XCLkl5rY8UcIVLOpoviiUfSCleAV82y
+	UjecaW7CPGg1SEoqRdXyUoa2tJqGTloO8h0n11nYQYx4hb38CtQK/h0aiGNHaXIoeIzrWDdR3nl
+	4WoH/B4V7OEy8Hl6Bx1HjZdqawiVqD+UIboMSKSwD7C74qetk6zpMnorUej15zDaA7oDq53mzub
+	W3fLZfRA4tIHsli2oyGvz2krJecwbFdg5m1u0sybIeaGzCfaCDDD5J/JAfNrJeXGNhCHRJzaex9
+	bIZsMzzHxD8Z8e+7Ja2qY9oJAD8FdwxIgbPQsrrYVxflKD25vMy0su+OrCqnT/MmtHTYzkpyiF8
+	zr6KBE1IjckZy28/SbX/5sB92COKFclwxq7pdbItb7rZPPShlBSTGxyLOd7O91Tub
+X-Received: by 2002:a17:907:97c3:b0:c20:21be:ea75 with SMTP id
+ a640c23a62f3a-c2ac2314317mr320652666b.8.1790287543018; Thu, 24 Sep 2026
+ 15:05:43 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Thu, 24 Sep 2026 15:05:41 -0700
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Thu, 24 Sep 2026 15:05:41 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923030641.992569-1-mhun512@gmail.com> <arOc2HZm3JCf5tjJ@opensource.cirrus.com>
-In-Reply-To: <arOc2HZm3JCf5tjJ@opensource.cirrus.com>
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Thu, 24 Sep 2026 18:03:56 -0400
-X-Gm-Features: AclHuK_4Jp1hMYF-kdtO3xj5KB7MKhICx974fvLTFZOhQYR63pYwwCIBr3cBE7Q
-Message-ID: <CAGEsz8HN81_F5h3oDzJvyiF5FidOfUYGnwH+JsbLNQ6GY+_Lfw@mail.gmail.com>
-Subject: Re: [PATCH v2] ASoC: wm8962: Stop IRQ from requeuing mic_work on remove
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, patches@opensource.cirrus.com, 
+From: mhun512@gmail.com
+Date: Thu, 24 Sep 2026 15:05:41 -0700
+X-Gm-Features: AclHuK9Xiiy-R-_FFYfGSBij1yu3Nb9Lv8izicpagfcw0kj18_ng_woEl_xQff8
+Message-ID: <CAGEsz8G_s8_HRnHH8s+NvXWXV8Uz2xRDY+He9M57v_fW4H42VA@mail.gmail.com>
+Subject: [PATCH v3] ASoC: wm8962: Stop IRQ from requeuing mic_work on remove
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com
+Cc: ckeepax@opensource.cirrus.com, patches@opensource.cirrus.com, 
 	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+	stable@vger.kernel.org, ae878000@gmail.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Thanks, Charles. You're right that the jack check duplicates the
-existing IRQ mask handling.
+The WM8962 IRQ remains registered to the I2C device when an ASoC card is
+unbound. wm8962_remove() cancels mic_work, but a MICD or MICSCD interrupt
+can queue it again before the component is destroyed. The work then
+accesses the component and reports to the old jack.
 
-I'll update wm8962_mic_detect() to mask the microphone interrupts,
-wait for any running IRQ handler, and cancel mic_work before changing
-the jack pointer. I'll call it from wm8962_remove() and keep the IRQ
-registered for the other interrupt sources.
+Mask microphone interrupts in wm8962_mic_detect(), wait for a handler
+that may already have read the mask, and drain mic_work before changing
+the jack pointer. Install a new jack before unmasking the interrupts.
+Call this path from wm8962_remove() while the component is still valid.
+Leave the IRQ registered for FLL, FIFO and thermal events.
 
-I'll send v3 with these changes shortly.
+Tegra's card remove callback runs after ASoC removes the codec component
+and PCM runtimes. Drop its redundant microphone cleanup.
 
-Thanks,
-Myeonghun
+Fixes: 0512615db6db ("ASoC: wm8962: Convert interrupt handler to
+direct regmap usage")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+Changes in v3:
+- Use the existing microphone interrupt mask in wm8962_mic_detect() to
+  stop new work, then synchronize the IRQ and cancel pending work before
+  changing the jack pointer.
+- Call wm8962_mic_detect() from the codec remove callback and drop the
+  now-redundant Tegra card remove callback.
+- Keep the IRQ registered for the other interrupt sources.
 
-2026=EB=85=84 9=EC=9B=94 23=EC=9D=BC (=EC=88=98) =EC=98=A4=EC=A0=84 5:33, C=
-harles Keepax <ckeepax@opensource.cirrus.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=
-=EC=84=B1:
->
-> On Tue, Sep 22, 2026 at 11:06:41PM -0400, Myeonghun Pak wrote:
-> > --- a/sound/soc/codecs/wm8962.c
-> > +++ b/sound/soc/codecs/wm8962.c
-> > @@ -3115,7 +3115,7 @@ static void wm8962_mic_work(struct work_struct *w=
-ork)
-> >
-> >       wm8962->mic_status =3D status;
-> >
-> > -     snd_soc_jack_report(wm8962->jack, status,
-> > +     snd_soc_jack_report(READ_ONCE(wm8962->jack), status,
-> >                           SND_JACK_MICROPHONE | SND_JACK_BTN_0);
-> >
-> >       snd_soc_component_update_bits(component, WM8962_MICINT_SOURCE_POL=
-,
-> > @@ -3203,9 +3203,14 @@ static irqreturn_t wm8962_irq(int irq, void *dat=
-a)
-> >
-> >               pm_wakeup_event(dev, 300);
-> >
-> > -             queue_delayed_work(system_power_efficient_wq,
-> > -                                &wm8962->mic_work,
-> > -                                msecs_to_jiffies(250));
-> > +             /*
-> > +              * mic_work reports this jack.  Removal clears it before
-> > +              * synchronize_irq(), so do not queue once it is gone.
-> > +              */
-> > +             if (READ_ONCE(wm8962->jack))
->
-> This feels a bit like its duplicating the mask check above, I
-> think it would be nicer to ensure that works as intended than
-> adding a second layer of filtering.
->
-> > +                     queue_delayed_work(system_power_efficient_wq,
-> > +                                        &wm8962->mic_work,
-> > +                                        msecs_to_jiffies(250));
-> >       }
-> >
-> >       pm_runtime_put(dev);
-> > @@ -3232,7 +3237,7 @@ int wm8962_mic_detect(struct snd_soc_component *c=
-omponent, struct snd_soc_jack *
-> >       struct snd_soc_dapm_context *dapm =3D snd_soc_component_to_dapm(c=
-omponent);
-> >       int irq_mask, enable;
-> >
-> > -     wm8962->jack =3D jack;
-> > +     WRITE_ONCE(wm8962->jack, jack);
-> >       if (jack) {
-> >               irq_mask =3D 0;
-> >               enable =3D WM8962_MICDET_ENA;
-> > @@ -3247,7 +3252,7 @@ int wm8962_mic_detect(struct snd_soc_component *c=
-omponent, struct snd_soc_jack *
-> >                           WM8962_MICDET_ENA, enable);
-> >
-> >       /* Send an initial empty report */
-> > -     snd_soc_jack_report(wm8962->jack, 0,
-> > +     snd_soc_jack_report(jack, 0,
-> >                           SND_JACK_MICROPHONE | SND_JACK_BTN_0);
-> >
-> >       snd_soc_dapm_mutex_lock(dapm);
-> > @@ -3594,6 +3599,15 @@ static void wm8962_remove(struct snd_soc_compone=
-nt *component)
-> >  {
-> >       struct wm8962_priv *wm8962 =3D snd_soc_component_get_drvdata(comp=
-onent);
-> >
-> > +     /*
-> > +      * The IRQ stays registered for the I2C device, including across
-> > +      * card unbind.  It is the only producer of mic_work.  Clear the
-> > +      * jack first so a new handler does not queue, wait out a handler
-> > +      * that already loaded the old pointer, then drain the work.
-> > +      */
-> > +     WRITE_ONCE(wm8962->jack, NULL);
->
-> So probably calling wm8962_mic_detect() here. Although
-> granted that probably needs some small fixups as there are a
-> couple races, probably also makes sense to move the mic_work
-> sync in there too.
->
-> > +     if (wm8962->irq)
-> > +             synchronize_irq(wm8962->irq);
-> >       cancel_delayed_work_sync(&wm8962->mic_work);
-> >
-> >       wm8962_free_gpio(component);
-> > base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
-> > --
-> > 2.53.0
->
-> Thanks,
-> Charles
+Changes in v2:
+- Do not disable the IRQ from wm8962_i2c_remove(); card unbind does not
+  unbind the I2C client.
+- Keep the devm IRQ on the I2C device for FLL, FIFO and thermal events.
+
+Found by inspection; I do not have the hardware, so this is not runtime
+tested. The modified codec and Tegra objects compile, and checkpatch
+reports no errors or warnings.
+
+ sound/soc/codecs/wm8962.c      | 29 ++++++++++++++---------------
+ sound/soc/tegra/tegra_wm8962.c | 13 -------------
+ 2 files changed, 14 insertions(+), 28 deletions(-)
+
+diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
+index 8a9598161b35..7b09de65a009 100644
+--- a/sound/soc/codecs/wm8962.c
++++ b/sound/soc/codecs/wm8962.c
+@@ -3230,21 +3230,22 @@ int wm8962_mic_detect(struct snd_soc_component
+*component, struct snd_soc_jack *
+ {
+ 	struct wm8962_priv *wm8962 = snd_soc_component_get_drvdata(component);
+ 	struct snd_soc_dapm_context *dapm = snd_soc_component_to_dapm(component);
+-	int irq_mask, enable;
+-
+-	wm8962->jack = jack;
+-	if (jack) {
+-		irq_mask = 0;
+-		enable = WM8962_MICDET_ENA;
+-	} else {
+-		irq_mask = WM8962_MICD_EINT | WM8962_MICSCD_EINT;
+-		enable = 0;
+-	}
++	int mic_irq_mask = WM8962_MICD_EINT | WM8962_MICSCD_EINT;
+
++	/* Mask microphone events, then drain the IRQ and work before
+changing the jack. */
+ 	snd_soc_component_update_bits(component, WM8962_INTERRUPT_STATUS_2_MASK,
+-			    WM8962_MICD_EINT | WM8962_MICSCD_EINT, irq_mask);
++				    mic_irq_mask, mic_irq_mask);
+ 	snd_soc_component_update_bits(component, WM8962_ADDITIONAL_CONTROL_4,
+-			    WM8962_MICDET_ENA, enable);
++				    WM8962_MICDET_ENA, jack ? WM8962_MICDET_ENA : 0);
++	if (wm8962->irq)
++		synchronize_irq(wm8962->irq);
++	cancel_delayed_work_sync(&wm8962->mic_work);
++
++	wm8962->jack = jack;
++	if (jack)
++		snd_soc_component_update_bits(component,
++					      WM8962_INTERRUPT_STATUS_2_MASK,
++					      mic_irq_mask, 0);
+
+ 	/* Send an initial empty report */
+ 	snd_soc_jack_report(wm8962->jack, 0,
+@@ -3592,9 +3593,7 @@ static int wm8962_probe(struct snd_soc_component
+*component)
+
+ static void wm8962_remove(struct snd_soc_component *component)
+ {
+-	struct wm8962_priv *wm8962 = snd_soc_component_get_drvdata(component);
+-
+-	cancel_delayed_work_sync(&wm8962->mic_work);
++	wm8962_mic_detect(component, NULL);
+
+ 	wm8962_free_gpio(component);
+ 	wm8962_free_beep(component);
+diff --git a/sound/soc/tegra/tegra_wm8962.c b/sound/soc/tegra/tegra_wm8962.c
+index 31f9d9181595..a79d464b6a80 100644
+--- a/sound/soc/tegra/tegra_wm8962.c
++++ b/sound/soc/tegra/tegra_wm8962.c
+@@ -97,18 +97,6 @@ static int tegra_wm8962_init(struct snd_soc_pcm_runtime *rtd)
+ 	return 0;
+ }
+
+-static int tegra_wm8962_remove(struct snd_soc_card *card)
+-{
+-	struct snd_soc_dai_link *link = &card->dai_link[0];
+-	struct snd_soc_pcm_runtime *rtd = snd_soc_get_pcm_runtime(card, link);
+-	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
+-	struct snd_soc_component *component = codec_dai->component;
+-
+-	wm8962_mic_detect(component, NULL);
+-
+-	return 0;
+-}
+-
+ SND_SOC_DAILINK_DEFS(wm8962_hifi,
+ 	DAILINK_COMP_ARRAY(COMP_EMPTY()),
+ 	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "wm8962")),
+@@ -129,7 +117,6 @@ static struct snd_soc_card snd_soc_tegra_wm8962 = {
+ 	.owner = THIS_MODULE,
+ 	.dai_link = &tegra_wm8962_dai,
+ 	.num_links = 1,
+-	.remove = tegra_wm8962_remove,
+ 	.fully_routed = true,
+ };
+
+
+-- 
+2.53.0
