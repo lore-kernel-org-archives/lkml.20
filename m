@@ -1,183 +1,100 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 401F9449B3B
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:13:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E034E4483A3
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:13:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.180.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790241188; cv=none; b=DtJn+wMglpB5/Covw8Wbe7HzTpCADk8z62kC720IqnOcCqeiggz/GbgRsxxwOQaPgCrrClDtml9aYsOLJeysVoPwzvSouKKxoHR2v2o4uAHSIQ/HxmXblhzKnJDUGQR5hXqAREq+F/cwRoFvgByTLcsUw5dOfFdnrJoeE29pqPE=
+	t=1790241191; cv=none; b=ct8DEy0Km7Acyr+sHHdQTiacRALpaquSsYPwu3y9yfFZ/fPQL2nXVYhfUZ4nARJ41V0rhQgw+6ccVgtUqg9FOe7hjL2OOfvYV8wHFPNjCBbCju8FTbFB7j5ITl+fad4nB6RF2M3d/kgzjlqS+gaZ21CIovCVDQTET9Lng/u7PqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790241188; c=relaxed/simple;
-	bh=R2v6XIS8rFzH1++61DHzZpR8Odr/UFZzSld3CIqALtM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=khWDpDK7fewezxicY5XMZAeMeAHsYJpB7zxwQYjaRnijW0Bq0IWoxd8pfNPe5FRxrYZ9K9jnOMz5qfuhAYYOXXGZc9Q/kqMTeAVSVfY+si6XmRSe70Otmkwlz107k4BabSanHz72vMlu//Y3vNxORfao0g9K3fL/zrFUXaik48c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UYuIOpz7; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790241191; c=relaxed/simple;
+	bh=DsgX8sKYqOUQfD2GAl/9sJ/6QDlRCfoRrWzAnKZ+ssU=;
+	h=From:To:CC:In-Reply-To:References:Subject:Message-ID:Date:
+	 MIME-Version:Content-Type; b=d2szglNTGc2BEW/XTZvWeeBZ5d13CLhYE4RsMUeRInMJBiTiPmluYIC7GLiWOGG8fWKZcWvEqL6SLq8XCIRY8qMKV5XuRHSRyniJg+/ORM7IoTlSGNCHi7MFdn/LZE0LLVLHQQbfPgUezbPXmO8+nPkD0xwkxrkPq1RgG6p7ez4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=t8akxkkC; arc=none smtp.client-ip=185.132.180.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UYuIOpz7"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e620fa473so10890245e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:13:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790241183; x=1790845983; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Q3UEIk5rnMiFTRGuZ99oPenAjQD9CsZRbMnKE/eY65Q=;
-        b=UYuIOpz7j6vU2ibj8cfoBAxRZK2IAanJQ8c6r++AJPUZ3U7iw2r8DUjdaybDb1sDOb
-         h5Z78rP4R8WHZpcj5Tk+YsSPgnAGdcaPxWrRR97l634lFp2CWvK5w1FP1Q/jmlsj6nYm
-         RADQH+5FgGnJ7fe8L3BigTcEMBSm2tRPJh7gcJH36nvS6t6krVZnE8HPfMI0JCAQKUHT
-         Wkr7fCpJpW9LLeb3xhAnvSDU25WTfACbZGWP4D9cl5yvhsvPxn2KFsVVYh9C35wgWY79
-         6EPC61Tb4AkETEhvL2No1XWittJnoE5YiSHDI8y9mBOHJrHqEwF41GmQBKWj6/zz/VPX
-         d83Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790241183; x=1790845983;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Q3UEIk5rnMiFTRGuZ99oPenAjQD9CsZRbMnKE/eY65Q=;
-        b=lZmY+0X4el+ZRPEwalDX292UVU2y3kBZ8aYPijFa3OqNoiLboWPJpYiM0mHSapydfk
-         yG31ACQrojtq6vwL59q8522xJ4VZaRig9WfjwKI0S3KX9MwD+64w93AHg5g9gg89Dof8
-         ZKL6fTbuUU4BqEceEqidZj3Kw6HWVDsYBXksMTn2eMpqnsvuNsGzJkUJitCEEpSQ7hfD
-         1zyHlVCI03lHEoB2cir3bszn2fPcOb2sAvV26SGjz8c3gW6E4uuXzOG0M1I4Ea5DzZrt
-         PpLSePLFmd45mYihVCJkDkEfWk7lYvckr0eFe9Noimjx21uJYerSnko1m8gWmrWNknAi
-         gjpg==
-X-Forwarded-Encrypted: i=1; AKwUvBwf2hnuDcyt+kny9QkcEpHyDE8QaaMriHDb3Jcp2tIO7MbeN1lvp1ht9ei1Lps9uJDZeOEd6CGCWEu7zbg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kIHpbtIL2FQhebQm+KxgcuTau+JL4SZQmpbvmgcW+YrbvVZEhO
-	sKstL8x3HexI6MS4+CAuFvLp29Fx7v3WFdaat4jPeCADcXUfaaAbF62w
-X-Gm-Gg: AYBFou3Qv47FAH5fRcDoMiH1VGdEDSNHOk0Ndsml0BBoOYF1o31U0A1T4MeCcGDTmDc
-	34s0wbhks3fzgdmNJMpieqq3Ourmj+rWqspL5yQxJ5lslMMSTyeimDtkL9nJfDi+BlaXNNEdNvK
-	gCVuI/m8GtlwAuA/aXVdp1hJJ75SKMjrfG1uEztNrmAIy58rIAQebAW8tl5SUMi9Z45C9dp/EIm
-	nIT9o5lzuTKc+ZvyWOHSTEzDbELdlvdEQhzfmdj0nUM3dSM95Mfc9pwL1eKjaPB1yMNHNgsQoBI
-	97mcgBBKO8nseXdUmDmfwH4XCbg4NVCxd7R/ZISO+LISCqEnUbUchR53+EJ/V5C8b2KXktK2zFV
-	LtlG5FMwnoWWZQ/7juEfQpZS6GSEsqY33ku169j9pgjd56j9bTMBEcslkVYfyuWxD+S3jAhutVQ
-	1PfP9kw4E/aqZTRMNxfKzGvFtCKnH12DxfA27ZTa3tokRvAKufyBeOTRUtGKVOXlMmlp9lkSCTP
-	e2goknIAVMP0G97/XktcGrwlSm2+S6PfLxGTtXDoOFxS8vE9ZXoEQHoTb6eVaoWR0IpRiZjPYZ0
-	hZ6+i2UfgXHXmAk=
-X-Received: by 2002:a05:600c:a015:b0:49f:c199:e1e2 with SMTP id 5b1f17b1804b1-49fe6700006mr27711555e9.28.1790241183440;
-        Thu, 24 Sep 2026 02:13:03 -0700 (PDT)
-Received: from andreayoga.localdomain (93-42-14-189.ip84.fastwebnet.it. [93.42.14.189])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886848636asm12756677f8f.6.2026.09.24.02.13.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 02:13:03 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Christian Brauner <brauner@kernel.org>,
-	Carlos Maiolino <cem@kernel.org>,
-	"Darrick J . Wong" <djwong@kernel.org>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	Brian Foster <bfoster@redhat.com>,
-	Christoph Hellwig <hch@infradead.org>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Hannes Reinecke <hare@suse.de>,
-	Daniel Gomez <da.gomez@samsung.com>,
-	Pankaj Raghav <p.raghav@samsung.com>,
-	Dave Chinner <dchinner@redhat.com>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2 4/4] iomap: don't lose a failed direct I/O bio's error when zeroing the tail
-Date: Thu, 24 Sep 2026 11:11:54 +0200
-Message-ID: <20260924091203.198225-5-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260924091203.198225-1-parri.andrea@gmail.com>
-References: <20260924091203.198225-1-parri.andrea@gmail.com>
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="t8akxkkC"
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5d9SA4069889;
+	Thu, 24 Sep 2026 10:12:47 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=dk201812; bh=I
+	vV9nIx63x7xryW05OdL9UQj/QwWnzjmTZP5R2FSNpk=; b=t8akxkkCdXwFxbnkh
+	Gm7G4trFyK103dLz9g5EG1d2qhbWoec4xcpz7osJyKzW6yEC8Hl1F2V4ID/6Mu32
+	oiUugZd8WKl2tCzlLXnKtIBLO+osHKYTsggBVmhfRPNQAoAX9DOaGDRYWdKH1CQS
+	YzKvtE/SKqW7AxUShaO+mc6E0RahvPpOFkmg26PuvhpfFbKzNVdXwyfEBB0uqJ1F
+	Rv8bg88Oz7Ldq+GzL1JzUX3RkP856QJ4XQwin8WvwYCiwB09p8qT3I1POfTqzOE3
+	6CEyx6g41ObAv0eQD/T7NG2rkeQOwDTR9SDZyAcVfG0SHWHRB98wEG0BB06M9QDz
+	4RKXg==
+Received: from hhmail02.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4gsjftme2q-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 10:12:47 +0100 (BST)
+Received: from NP-A-BELLE.kl.imgtec.org (172.25.6.65) by
+ HHMAIL02.hh.imgtec.org (10.100.10.20) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 24 Sep 2026 10:12:47 +0100
+From: Alessio Belle <alessio.belle@imgtec.com>
+To: Luigi Santivetti <luigi.santivetti@imgtec.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Alexandru Dadu <alexandru.dadu@imgtec.com>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+        <linux-kernel@vger.kernel.org>
+In-Reply-To: <20260915-b4-do-not-map-if-structs-unnecessarily-v1-0-a0e2ccee154a@imgtec.com>
+References: <20260915-b4-do-not-map-if-structs-unnecessarily-v1-0-a0e2ccee154a@imgtec.com>
+Subject: Re: [PATCH 0/2] drm/imagination: Firmware interface cleanup
+Message-ID: <179024116716.119261.1458066617782762587.b4-ty@b4>
+Date: Thu, 24 Sep 2026 10:12:47 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Authority-Analysis: v=2.4 cv=GPKdgeNK c=1 sm=1 tr=0 ts=6ab4e98f cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=vyGa0AGpGpsA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=r_1tXGB3AAAA:8 a=2WqR7jsGcocNzpsniPgA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAzOCBTYWx0ZWRfX3BZd3CxBcLAb
+ Uk/XC7VBiqqG5kh5RsqmX3wMiBWrUmKhghRUcFC0HpBSJzslVxNSy7L0wmfpCWd5E0tYWyIHxBW
+ DSZe+KJzDvkcDjAMUHwxe8uAEZAsLUDg0+9JpCes/HNin/iYSzjbVj8KqmKJTIh/55lqq+Cv9Ut
+ rHA59PnGCuolG0VP9Vz7HXVW1h5x9AHc4iUSzM9U0G182u/7DSEQGiMvPxvPk8iFmMD79EAyVH9
+ 3rGB9QMDs3Cc+Q2U8QM8o+2G2NuEiIuymmHQL8agaTu3yA7jP2KOuYZ2vhbWyakYUcUNmPrv1xm
+ 8qs46RqfYWhQteahzJFZwEAG3SBG8o3wg8eOc0W6ewqK7nHxuaC41gpZKrYBt7qS1d/kUXHkIHV
+ oSVa8sS3ybMNf0udaoEbl6U6ufuZuIxhKaag7aeJSntjRa1Mv8Wx9xD5XS5Q0s57QsmGAs0+mzO
+ onSmTYdi6EiVDneJKeg==
+X-Proofpoint-ORIG-GUID: mGOAWd1n5ABkaW7k_bEpG3m8QV_3dxGq
+X-Proofpoint-GUID: mGOAWd1n5ABkaW7k_bEpG3m8QV_3dxGq
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAzOCBTYWx0ZWRfX4Nop44qygU1c
+ iCRCS5xTfBhIS96OcYIKI3ogXehnwHbwmkcRcHDOZTQJh6xg0h1PSa9bwpf1fCIWUqf5llx/cTS
+ QRQxeokqmP91nQ3z4+nau8+SP/wOTsM=
 
-iomap_dio_bio_iter() falls through to the sub-block tail zeroing when
-the data bio submission fails, so that the rest of the block is still
-zeroed and stale data is not exposed.  The zeroing result was assigned
-to ret, which overwrote the submission error with the successful
-zeroing result (zero) and the failed write was reported as success.
+On Tue, 15 Sep 2026 11:03:44 +0300, Alexandru Dadu wrote:
+> Series contains cleanup commits targeted to FW interface.
+>     - Firmware connection ctl moved in the same place as the other
+>       firmware ctl structures.
+>     - Remove unnecessary structure mapping.
 
-iomap_dio_zero() can only return an error from a can't-happen
-WARN_ON_ONCE() (nr_vecs exceeding BIO_MAX_VECS, which the existing
-comment there says "shall never be reached" for any in-tree
-filesystem), so it isn't a real runtime failure worth reporting to
-userspace, let alone one worth losing the actual submission error for.
-Make iomap_dio_zero() return void and drop the error handling at both
-call sites instead of threading the result through a separate
-variable.
+Applied to drm-misc-next, thanks!
 
-Fixes: 10553a91652d ("iomap: fix iomap_dio_zero() for fs bs > system page size")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
----
- fs/iomap/direct-io.c | 19 +++++++------------
- 1 file changed, 7 insertions(+), 12 deletions(-)
+[1/2] drm/imagination: Treat FW connection ctl like other interface structures
+      commit: f1db0120f15da7c6000b9f19aa9e15e6ba8afb2a
+[2/2] drm/imagination: Don't map FW interface structures unnecessarily
+      commit: c4c54ffd65555ac5316f8faf4d7dc8c815877937
 
-diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
-index 8b4039d16ce89..e00995c296c79 100644
---- a/fs/iomap/direct-io.c
-+++ b/fs/iomap/direct-io.c
-@@ -296,8 +296,9 @@ u32 iomap_finish_ioend_direct(struct iomap_ioend *ioend)
- 	return vec_count;
- }
- 
--static int iomap_dio_zero(const struct iomap_iter *iter, struct iomap_dio *dio,
--		loff_t pos, unsigned len)
-+static void iomap_dio_zero(const struct iomap_iter *iter,
-+			   struct iomap_dio *dio, loff_t pos,
-+			   unsigned int len)
- {
- 	struct inode *inode = file_inode(dio->iocb->ki_filp);
- 	struct bio *bio;
-@@ -305,14 +306,14 @@ static int iomap_dio_zero(const struct iomap_iter *iter, struct iomap_dio *dio,
- 	int nr_vecs = max(1, i_blocksize(inode) / folio_size(zero_folio));
- 
- 	if (!len)
--		return 0;
-+		return;
- 
- 	/*
- 	 * This limit shall never be reached as most filesystems have a
- 	 * maximum blocksize of 64k.
- 	 */
- 	if (WARN_ON_ONCE(nr_vecs > BIO_MAX_VECS))
--		return -EINVAL;
-+		return;
- 
- 	bio = iomap_dio_alloc_bio(iter, dio, nr_vecs,
- 				  REQ_OP_WRITE | REQ_SYNC | REQ_IDLE);
-@@ -328,8 +329,6 @@ static int iomap_dio_zero(const struct iomap_iter *iter, struct iomap_dio *dio,
- 		len -= io_len;
- 	}
- 	iomap_dio_submit_bio(iter, dio, bio, pos);
--
--	return 0;
- }
- 
- static ssize_t iomap_dio_bio_iter_one(struct iomap_iter *iter,
-@@ -541,10 +540,7 @@ static int iomap_dio_bio_iter(struct iomap_iter *iter, struct iomap_dio *dio)
- 	if (need_zeroout) {
- 		/* zero out from the start of the block to the write offset */
- 		pad = pos & (fs_block_size - 1);
--
--		ret = iomap_dio_zero(iter, dio, pos - pad, pad);
--		if (ret)
--			goto out;
-+		iomap_dio_zero(iter, dio, pos - pad, pad);
- 	}
- 
- 	do {
-@@ -582,8 +578,7 @@ static int iomap_dio_bio_iter(struct iomap_iter *iter, struct iomap_dio *dio)
- 		/* zero out from the end of the write to the end of the block */
- 		pad = pos & (fs_block_size - 1);
- 		if (pad)
--			ret = iomap_dio_zero(iter, dio, pos,
--					     fs_block_size - pad);
-+			iomap_dio_zero(iter, dio, pos, fs_block_size - pad);
- 	}
- out:
- 	/* Undo iter limitation to current extent */
+Best regards,
 -- 
-2.53.0
+Alessio Belle <alessio.belle@imgtec.com>
 
