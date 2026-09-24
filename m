@@ -1,107 +1,123 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 355BE48CD59;
-	Thu, 24 Sep 2026 20:53:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B77284BC010;
+	Thu, 24 Sep 2026 20:53:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790283199; cv=none; b=cb6tUudruxEi1FzLDkIlTV+9eHJShX5IVDCIYEGFrLwApHn/vKieEggBkbX5p+hQDcFRiaib3V5wbU9hPI9dN3jwb5X1odiOm21Ww2kntHmqnv32PAM5wmfunfW9sA9MLIrzkA2tyKygeHFpWWMj6+1RygFtp0KspxzrCutvcHM=
+	t=1790283217; cv=none; b=jg9YtOrkACADWmU3LJy0+L1i419rDz4zXwdCyeoa8wdGkt7Y1XNJ8dTAOvl5ukLqdgTslAzaS9H8dwe+NROgE0uf95Vj6HX3juteQrPn2KXArchXn07VtTRxPrD6I+8BDVpwy5Ba8SpUnvnQHpG41ZQoFIIZsUx+ciP3n43ZqnA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790283199; c=relaxed/simple;
-	bh=q7f2yxHXOO+EhXNPemNFyuYM9CjLPx5BB5xiwbdY6OM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Au7IgME0DlOHF3retiYaMzFxhNovdxY/davQNF7CrtOHMEipp4GCwdPWrlCYq/c8BFYYD++PA0nTHJxFh7iG2c/q0SAoyQZvKBlCe9AmC99mtmeG2lFgFxohImHvU7LhQzJpYRcdga/ginn4hRhbaQ+23LLecH6g42snmxKzGsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ifSiNXyS; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790283217; c=relaxed/simple;
+	bh=PP6huQE6i0Cw71fIBSGOIjwOvUShfn7NEj4Oci31DIg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=imsDwmg3xUqMDdwt/kVqXKyT8f7DdKOARxAkg9s8dqkvEFSstmCH/ggm3TzdYC/QkOLUwVUEMeBGPgZ5oKAXX26rW7QH7OMsNGMdHSMp4xoQqID5acbXtbBppJR+efCWh+bUvrAM6e0VbiimrnZCVCj90JQ5Qe+5lxx3/uMFvl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=EgF5U1qR; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ifSiNXyS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790283198; x=1821819198;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=q7f2yxHXOO+EhXNPemNFyuYM9CjLPx5BB5xiwbdY6OM=;
-  b=ifSiNXySRWiCWymlaWHGll0pKh/uX48979N8MmgRdXiv0b9MKS8+2TtC
-   Rwcn0n0C6L9j00GrjwPypkMDedp5usujbmmW97l2r92tOJTMY5YCs72Um
-   aQixVIhQM3D1Ltv7eCje/XvFC0B8kPZFAsC8L9aH6epcqvvaSp99cOJeh
-   HiANmIpkqQCOoQqEPhVXaa4yfqe87Nd35eont8Eay09y/NMeJFfMwFG0P
-   mEFv7gp3HGzHCGvqIBhboxD7fzl4DAwZD3Et9X2kcaT2KkoeuPAyAs5y1
-   bupMylb73G/7YJlf37uOi8P3wpFEe2Z6hrkQbc8i5pra97DkJeOiCEE4d
-   Q==;
-X-CSE-ConnectionGUID: afeounszQgmxgChRCq07PQ==
-X-CSE-MsgGUID: AayKgZAqRkecjf+UYh9bMg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="89931406"
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="89931406"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 13:53:18 -0700
-X-CSE-ConnectionGUID: EySsJcHbR/KjdDu1GwigVQ==
-X-CSE-MsgGUID: D0+HtdKLSYm1S8nJAIwBVQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="270620671"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.199])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 13:53:14 -0700
-Date: Thu, 24 Sep 2026 23:53:12 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Marek Vasut <marex@nabladev.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 05/14] iio: adc: stm32-adc: rework internal channels
- data
-Message-ID: <arWNuD9apkeeT2Rd@ashevche-desk.local>
-References: <20260923-adc-stm32mp25-v1-v2-0-46bc019537c6@foss.st.com>
- <20260923-adc-stm32mp25-v1-v2-5-46bc019537c6@foss.st.com>
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="EgF5U1qR"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=7Mf0AHVyhRsT7RC43GpKt8LCS8CINuxBAYo22Aqq6K8=; b=EgF5U1qRc+2MV/W3Ms8CKHPxEV
+	WGNiAnF4CeB8Yw8g/yB8RJ9jjWxzYHNadYPum0wUrAOOn+PQ7VFtKgvniWjqBdewJa8uNf4CLlpVk
+	YwXw6TN78MbOIhkzp5jiBQ+ZbNZNzW+o5J1f4QrF1XIe1045Z4Gdheb9r2NlV6IGPfjP9bqf0jVka
+	S1jzLyqIeuvg5fX+IxJvedw94kZrCnA8ANwcdj7+4dwRYCQibXXk3HiL/5FbvOQ/jp21VseqRIzPS
+	lm0dnD2xU0XXjorAA/6NTG9SB2kdZZbYWoYBodH/Sq+IVHPTKw35gtUIdqMQOgfYNSEICKAcnIXNG
+	kQIT+71A==;
+Received: from [151.115.150.205] (port=42744 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1x9qRc-0000000Ga2g-1VSZ;
+	Thu, 24 Sep 2026 22:53:28 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: io-uring@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: [PATCH] io_uring/sqpoll: pin task across task-work publication
+Date: Thu, 24 Sep 2026 20:50:57 +0000
+Message-ID: <20260924205056.3759980-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923-adc-stm32mp25-v1-v2-5-46bc019537c6@foss.st.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Wed, Sep 23, 2026 at 05:39:08PM +0200, Fabrice Gasnier wrote:
-> Diversity in internal channels data array lead to have zeroed data.
-> To facilitate addition of new internal channels, without touching
-> all array initializers, only focus on exiting channels on each
-> supported ADC variant (e.g. each SoC).
-> 
-> This also allows to get rid of static_assert() checks.
-> 
-> No functional change intended.
-> Cosmetic update: remove comma on STM32_ADC_INT_CH_NB as it should
-> always be the last element.
+SQPOLL can consume a request immediately after mpscq_push(). If this
+drops the final ring reference, ctx and tctx may be freed before
+io_req_normal_work_add() finishes using them. KASAN reports:
 
-Yes, but...
+  BUG: KASAN: slab-use-after-free in io_req_normal_work_add+0x439/0x510
+  Read of size 4 at addr ff11000000ca0000 by task repro/55
+  (...)
+  BUG: KASAN: slab-use-after-free in queue_work_on+0x25/0x70
+  Write of size 8 at addr ff11000000c3bd00 by task repro/55
 
-> -static const unsigned int stm32_adc_min_ts_h7[] = { 0, 0, 0, 4300, 9000 };
-> -static_assert(ARRAY_SIZE(stm32_adc_min_ts_h7) == STM32_ADC_INT_CH_NB);
-> +static const unsigned int stm32_adc_min_ts_h7[STM32_ADC_INT_CH_NB] = {
-> +	[STM32_ADC_INT_CH_VREFINT] = 4300,
-> +	[STM32_ADC_INT_CH_VBAT] = 9000
+Handle SQPOLL before publication. Pin tctx->task, publish the request,
+then use only the pinned task so the publication tail cannot dereference
+freed contexts.
 
-...you should have it when it's not a terminator entry. Here is the case when
-it's not a terminator, neither in other similar cases below.
+Fixes: af5d68f8892f ("io_uring/sqpoll: manage task_work privately")
+Assisted-by: LLM
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+ io_uring/tw.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
-> +};
-
+diff --git a/io_uring/tw.c b/io_uring/tw.c
+index f573bcc3af6a..2e37a3fd7a33 100644
+--- a/io_uring/tw.c
++++ b/io_uring/tw.c
+@@ -210,6 +210,19 @@ void io_req_normal_work_add(struct io_kiocb *req)
+ 	struct io_uring_task *tctx = req->tctx;
+ 	struct io_ring_ctx *ctx = req->ctx;
+ 
++	/* SQPOLL may consume and retire the request immediately after push. */
++	if (ctx->flags & IORING_SETUP_SQPOLL) {
++		struct task_struct *task = tctx->task;
++		bool first;
++
++		get_task_struct(task);
++		first = mpscq_push(&tctx->task_list, &req->io_task_work.node);
++		if (first)
++			__set_notify_signal(task);
++		put_task_struct(task);
++		return;
++	}
++
+ 	/* tw run already pending, nothing else to do */
+ 	if (!mpscq_push(&tctx->task_list, &req->io_task_work.node))
+ 		return;
+@@ -221,12 +234,6 @@ void io_req_normal_work_add(struct io_kiocb *req)
+ 	if (ctx->flags & IORING_SETUP_TASKRUN_FLAG)
+ 		atomic_or(IORING_SQ_TASKRUN, &ctx->rings->sq_flags);
+ 
+-	/* SQPOLL doesn't need the task_work added, it'll run it itself */
+-	if (ctx->flags & IORING_SETUP_SQPOLL) {
+-		__set_notify_signal(tctx->task);
+-		return;
+-	}
+-
+ 	if (likely(!task_work_add(tctx->task, &tctx->task_work, ctx->notify_method)))
+ 		return;
+ 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.47.3
 
