@@ -1,86 +1,104 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A4364A0F19;
-	Thu, 24 Sep 2026 15:18:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A993339934B
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:18:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790263089; cv=none; b=CVC94Nksi4f2jpM1Wi+lKHlVig0+rWdO1wFwMihKkyYIQ/bvcX2U1/9x6WiQRrXsh2AMpN2Lwb9LfasvAln8W2BQySGm8sT8fDykCrTGMpkQbzS6EhfVkkr2HX7dSHFjYGk1pHO/UKt7KB3DFjRgZuABheqYm7qwsttm12CjGRY=
+	t=1790263139; cv=none; b=p1RukXt+HbMMygkeMGWuJ0iuqQvCZzkDqpWsXzStM5LMRtR+SKmzPE68kjKa0cFPGU4qVnZgxuRo31ZOvaQ2PL8ZdfxR2pIwk9+993P2j/+kKGiLTsAoJLXUDuoegzzzdODVT13FwjMIA0djVHcqSU5iDKJG45Ee6Aw2cw+1tfY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790263089; c=relaxed/simple;
-	bh=dlAuDdeH7HY9CoVQifyjSIftEOhfWFw06TmkRKM+SZw=;
+	s=arc-20240116; t=1790263139; c=relaxed/simple;
+	bh=RtRCphddFy8zJQ+8c8C1JPE8grvQpuSu4FeGPB4Xko4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FsZJQbLqOy//B1kSjFQhMGK74LGlM00ZWy3yQRFdI90Gd6roh4/nbNLBEOawVJF4GRHCgG5z1jtJLewU7Ka6TzsrEIKFm9620j0VblaF+kD5qpH7KDzbs72KkQlnCbth+O+UOE8aLyVK53NS+8jPQz3BrrW6tHv+pnYh62QumoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=arTnCgIO; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=nTQ2XBu5E9IUu1qciYJ8UA8acMQKnzpxgEbI0YxWBExQumaV2DEM1Z3S+lX9UMgXeTGadX15SffO0s9cUrkPfPhsT54E+37Bi7LWvp+G1/o+nSf6RCEygwMycTjzRwjN1g9tylBQ/gxrqsFg5SoJjZdPRWUSUYhP+BIyViKw9K4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VVDH9WLs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="arTnCgIO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08A1C1F000FF;
-	Thu, 24 Sep 2026 15:18:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VVDH9WLs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E6A61F000FF;
+	Thu, 24 Sep 2026 15:18:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790263088;
-	bh=xOBRz2hFpaMmKkpFTvDfTKM7BARA0aC8rFrP1uaft04=;
+	s=k20260515; t=1790263138;
+	bh=r7s1CAgd45i1qVFJKno+reNnGoGUQMAT+I7uYiP/nks=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=arTnCgIO2VD1i3B8n6cfS7QwCEWxUv5gZE4Khm37czx0G3PEpFJG7MZDYQZKX/BCw
-	 TTXA7IG6g9ZpewReBsqBAJm0rYql2JBxzifl7USVqWaJS7o9blkrAXYmjJaI247ngT
-	 93OM1V1n20WnAimpPFGVznQ1h4413ZLuhAVasp5z1vArUQqqENTNs2tEgJIHsCiYby
-	 /HZ48MxYuCL4wvRhTAzL7BkkN74i3MoqZ9IUOhQlutK5mWWoi2YN4mNU4NOXytoLbX
-	 4UcjeTqVD+79sLmE8ycUBiH2OFzRPvgD2RiGbg79vO1WNYQLHgWNy6lElRr6qkfv8x
-	 0lYkJE4Ni/5Fg==
-Date: Thu, 24 Sep 2026 11:18:06 -0400
-From: Sasha Levin <sashal@kernel.org>
-To: Theodore Tso <tytso@mit.edu>
-Cc: corbet@lwn.net, workflows@vger.kernel.org, linux-doc@vger.kernel.org,
-	skhan@linuxfoundation.org, rdunlap@infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] docs: add AGENTS.md as a symlink to README
-Message-ID: <arU_LkBIPFqxPsOZ@laps>
-References: <20260924134945.3095661-1-sashal@kernel.org>
- <arUzB37qmq1WREh_@mit.edu>
+	b=VVDH9WLsvrmzpUg4Z+hLDHBG/pO4qlIBnTIodD5pt0BF9Re7iMX6ULoPqbHSz2RnM
+	 mymMnw1a5pmRQCiKHNjX4xaFkJd3E2HmVEGs+O7u5jfWVN5bmkH6nlOUe7THYjtE/f
+	 mL9o7Tj6iKdrgU8ZuOjyGB03amWLl/t1FrPbO9ve033yVQ+VQR2hizSLCNpgOzVIWT
+	 6XnXVTerX2Y6rVe8Mk+UHq65CpLKmamkWuT4mkfE3jZlWwLjl051pbc+nuoNQpiPAh
+	 +Z2Nny5WtQQtwJzs7+VmPoQhFBBLhVHeoXzW8TFatOOXvBDWsF+IG4mzjumIzBkQ0I
+	 foBvXytVcx/3g==
+Date: Thu, 24 Sep 2026 16:18:56 +0100
+From: Harry Yoo <harry@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Conor Dooley <conor@kernel.org>, 
+	Damien Le Moal <damien.lemoal@opensource.wdc.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 0/8] replace CONFIG_SLUB_TINY with a slab_tiny boot
+ parameter
+Message-ID: <arU956kfc1QpA7N-@thinkstation>
+References: <20260923-slub_tiny_rework-v1-0-a0e66d536eb5@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <arUzB37qmq1WREh_@mit.edu>
+In-Reply-To: <20260923-slub_tiny_rework-v1-0-a0e66d536eb5@kernel.org>
 
-On Thu, Sep 24, 2026 at 10:31:07AM -0400, Theodore Tso wrote:
->On Thu, Sep 24, 2026 at 09:49:45AM -0500, Sasha Levin wrote:
->> Most coding agents have standardized on AGENTS.md as the file they load
->> automatically from the root of a repository. README already tells AI
->> tools to read and follow Documentation/process/coding-assistants.rst,
->> but that only helps if the agent decides to read README before acting,
->> which in practice it often doesn't.
->>
->> Add a top-level AGENTS.md symlink to README, so agents load it on their
->> own and follow its pointer to the AI guidelines. This keeps a single
->> entry point for every reader, and avoids adding a separate copy of the
->> policy that could drift from the RST.
+On Wed, Sep 23, 2026 at 05:45:05PM +0200, Vlastimil Babka (SUSE) wrote:
+> To sum up, after this series:
+> 
+> - CONFIG_SLUB_TINY is a deprecated option that has no interaction with
+>   other options and only controls the default behavior.
+> 
+> - New slab_tiny boot parameter controls the functionality (and can
+>   override CONFIG_SLUB_TINY in both directions).
 >
->There's a lot of stuff in README that isn't going to be useful for to
->an AI agent.  This will resullt in an increased amount of token
->consumption, that could impact people's token budgets.  Prehaps it
+> - slab_debug=N can effectively achieve most of slab_tiny and on a
+>   per-cache basic
 
-I tried doing the math here: README is 1,265 tokens with OpenAI's o200k
-tokenizer and 2,403 with Claude's.
+Allowing "slab_tiny=0" doesn't make much sense given that
+CONFIG_SLUB_TINY is deprecated anyway. I was assuming specifying
+"slab_tiny" would enable it and not specifying it would disable it
+unless CONFIG_SLUB_TINY is set.
 
-Measuring the common CLI agents, the first request is about 14k to 15k tokens
-before it reads anything, and the one line Makefile change that I used as an
-example took between 88k and 118k input tokens per session.
+Also it's bit confusing to have multiple ways to achieve the same thing.
+Is there a reason why we can't interpret "slab_debug=N" as
+"slab_tiny_enabled = 1" internally and drop "slab_tiny" boot parameter?
 
->would be a bit more efficient if we explicitly ask the agent to read
->and follow certain process files, including coding-assistants.rst; if
->they are preparing a patch, to consult submitting-patches.rst, etc?
-
-This is sort of already what README is, no? it's just an index pointing to our
-documentation without much actual content otherwise.
-
-I suppose there are parts there that are completely irrelevant to someone using
-an AI agent, but those seem to be quite minimal. Is it worth the overhead of
-maintaining yet another doc index?
+> - the implementation is simpler with many ifdefs removed
+> 
+> [1] https://lore.kernel.org/all/CAHk-=wh-k04MsoEC0SGKff2Snm6bBF_e+0pHOKwaWv4umZ_SnQ@mail.gmail.com/
+> 
+> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> ---
+> Vlastimil Babka (SUSE) (8):
+>       mm, slab: refactor slab_min/max_order handling
+>       mm, slab: introduce slab_debug=N
+>       mm, slab: rework KMALLOC_RECLAIM handling of SLUB_TINY
+>       mm, slab: make SLUB_TINY handling dynamic for sizing decisions
+>       mm, slab: convert CONFIG_SLUB_TINY checks to kmem_cache_debug()
+>       mm, slab: remove remaining compile-time checks for CONFIG_SLUB_TINY
+>       mm, slab: add slab_tiny boot param
+>       mm, slab: deprecate CONFIG_SLUB_TINY and reduce its Kconfig effects
+> 
+>  Documentation/admin-guide/kernel-parameters.txt |   4 +
+>  Documentation/admin-guide/mm/slab.rst           |  18 ++-
+>  include/linux/slab.h                            |  17 +--
+>  lib/Kconfig.kasan                               |   2 +-
+>  mm/Kconfig                                      |  16 ++-
+>  mm/Kconfig.debug                                |   2 +-
+>  mm/slab.h                                       |  32 +++--
+>  mm/slab_common.c                                |  12 +-
+>  mm/slub.c                                       | 149 +++++++++++-------------
+>  9 files changed, 120 insertions(+), 132 deletions(-)
+> ---
+> base-commit: b4218126d498275444f315b0ed4cef6add6beabc
+> change-id: 20260911-slub_tiny_rework-8f2634dd17a7
+> 
 
 -- 
-Thanks,
-Sasha
+Cheers,
+Harry / Hyeonggon
