@@ -1,84 +1,80 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D95E4219E9
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:53:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCDF23E4115
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:53:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790232827; cv=none; b=U22A5qDxIuJ3NzUJJOxPvpZIhS7SebsI58RxcmtH8tYVrzWfz66IvpwkFtkTnyjTn5L82LYqvoNdt95HuFSxJQoweUhIHczRa8cSrxpavTuzzpV6PgaWgRV02plljv5PN8LoLbUAyDczRPYi472ZQiPaMZnYMaXgYFnueXcqaLs=
+	t=1790232829; cv=none; b=KuOXTB35les8r02gF2pKRyI7Xwf5bBl5MrEBmCH7/jjtXoDqm/S5qMEhY+ZcLKl4dH/fSfihGomcMUndrX3v54URgyy26OK5l2VirfmME+cQI0C0xi9aamSbgDhlzXzBcp6pA5RaTc5I7b9j28FpSz8ga8D0hQH7rBP9LYeaqjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790232827; c=relaxed/simple;
-	bh=Vw8DEcu9a1Jd1CJ9KWanGL9Yzn9S0TsNI8wC/ggW76Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Oo1U9LxlYQMVAVCdSOlRlUkgn8Mza4r7kxqR2YUeiF9twnfGMBsMminQOeLdsFu7Ow/D277NVxcs9dv+mUkU2rZR5Bs9V885mcp9uNxuhuUtpbhJ/XxBPaVvqkzKfxxstFBazpA5FXvG6cT0k/g2gdjNe6mZrX97whEaXKyu0Yo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QlOlxhim; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=sh1lDjT2; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1790232829; c=relaxed/simple;
+	bh=vpLmKM8mW/WIQhoWlQSZHpKZi49QkfQTNKuAD+Bpy8c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=s0StxMFbnsjPVYGpNEitRk2M2THAGpsVbdY2oWZHfEKzynX87uKW7IuaFR9K+71moDKpud5OHUuS7Oui8BVubHInqLmNbhf3OP+DCqeekAhCSeuNbMyB3jQxg/xVmA4FXTkjpfU7hjVlc/jlGiDfF/K0rOr31/vrC3my4OH3hoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OW6F1/Ok; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=YMu/o1nX; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QlOlxhim";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="sh1lDjT2"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OW6F1/Ok";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="YMu/o1nX"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790232818;
+	s=mimecast20190719; t=1790232813;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XHN2LiOQU7r0d0fe1KkDFs3khSrbeSD24b1q7hC8HmQ=;
-	b=QlOlxhimajsjWWcWqWyw17Wtiaq1cUJmGLrnaWDDpXfZGlumGLQ+ejEtaKH0IHOIQVf37f
-	X7unWH329T/dFwsv7gjc5hR6V7jfNTeXWNvXimHAwSpkSe0s4ONb0Ab1pcDYBY24Fo6JGl
-	4FAKmfM1zCt36k0Uj9xEJa2mc6fWqBc=
-Received: from mail-lj1-f199.google.com (mail-lj1-f199.google.com
- [209.85.208.199]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=18Iz/H3HTqpxzrpyaB+gzd+ZartbUyA8DZtWBuWw8Ao=;
+	b=OW6F1/OkNOpqY3N3hklJueMc+U7gIlqp5PXXFO/3gZTSH0zK0IzIP1ZvOZKFf0+n+TrJ1y
+	lm/cSvPaa+DB0X5Uw7kDjND++mjOWuVAah+vjMQ5SlG6w46zvLS0VRqUrCr5qkJnY+PYHG
+	SqPnEHihDVnMrKdL+e0xJqQZfHRYEuI=
+Received: from mail-lj1-f200.google.com (mail-lj1-f200.google.com
+ [209.85.208.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-651-Z1tPTtFkN8O2fPuWQtHWiA-1; Thu, 24 Sep 2026 02:53:37 -0400
-X-MC-Unique: Z1tPTtFkN8O2fPuWQtHWiA-1
-X-Mimecast-MFC-AGG-ID: Z1tPTtFkN8O2fPuWQtHWiA_1790232816
-Received: by mail-lj1-f199.google.com with SMTP id 38308e7fff4ca-3a592f20c7cso8787061fa.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:53:36 -0700 (PDT)
+ us-mta-112-Xya3_FqKN-G6MH-r3BhIZg-1; Thu, 24 Sep 2026 02:53:30 -0400
+X-MC-Unique: Xya3_FqKN-G6MH-r3BhIZg-1
+X-Mimecast-MFC-AGG-ID: Xya3_FqKN-G6MH-r3BhIZg_1790232809
+Received: by mail-lj1-f200.google.com with SMTP id 38308e7fff4ca-3a58e0ec77eso8205181fa.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:53:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790232815; x=1790837615; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XHN2LiOQU7r0d0fe1KkDFs3khSrbeSD24b1q7hC8HmQ=;
-        b=sh1lDjT2DjiCcdZLEUS5MgMZgWMWTEMbcl5ynWdu2bPme6JVJKfm7gr4jjRki1MGAt
-         mbXf3qqfBcmlseRyNdBrPydagG3mAG8SAZnRdQVagFw8OUfVrKjdlND+s34MehTlAEt4
-         WtSW6+oEUSv6N/aVphcDeMOWVCFlqf45Y3HaRR+zdcS2zG3f0u1TQ6gUqta5wDxfrIwq
-         70o1+TsqyFWZyrDhs0HzDzFxzy93gmPWRvETbLlc3AYoccITyWXCvodlH+dmutClBr8v
-         HQHz33JHKn0unXhSpl36Fg4eIysxSS/4Cz5FIUpBqYypXD/asAoVSF3W7eLhYg2Pkjfn
-         n+Yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790232815; x=1790837615;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=redhat.com; s=google; t=1790232809; x=1790837609; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XHN2LiOQU7r0d0fe1KkDFs3khSrbeSD24b1q7hC8HmQ=;
-        b=MMj5TtNtELtJJCIbNcWRUjkMI/p7uClnwBrld/iN4Nz7qh65hw401R4HS+4LDY/JGZ
-         R7QbgDKuxMQVUziZtAtsbPUdoRVLPSP2waaNsoYcqHcjVrQsc+qhRO73zglIt5n2XuTd
-         Cm5raY9+nPvu0qgBuM6/28MUMJq0CvhEEAl5Kmx+O/DRxSIRQ1VcJyrxEcmX4vFOW+UV
-         hE715NFdXDzq+tijbWourlxB2UsPCbwHo7elHogPTggXNKXBAWDCGGYvcDg4bGFwpSJu
-         koewyAues0kT/cMm4pBr99dA2n1jUUv0MT+TO1v/e44Y0AXCVgAJApmgAEmUKjh23vsq
-         fjqg==
-X-Forwarded-Encrypted: i=1; AKwUvBzAGyM+npn6KssxhCI4wqNTvyOERyGVJ+/AActRYdbr2rxlWfVdzDXLQOI2Wnn1FCLSYQXB+rpmWIo0VZ0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lNwK5xVKBjr2bkG782xztRPHJd8LvwXCsGH0QOJl7jXkT1YcHg
-	5zA/++6s5zVulErsZA2fSYckKWNbWVWeHK1WQtaj01l8RBPtPOOQS+JIeymASsXIQ3YO48xOpHB
-	0Zprd+rXuusZAIsbCTfQLhmII9WyCg76jmT9U+pWTQchb2pQfh8dPok/ZSmwbweQTAHkRhqSY4F
-	0=
-X-Gm-Gg: AYBFou1f+CvwoRgdW64P9a1fTz6zpnhCX15eMMQhoOB6NmryVWDpk88MXfd4PS5cwMB
-	juOBUfflbBHU2QjrjyyulsaN1eayYSkPTg9zd6xQOIWPGnoU1+203gaQFYzIgU2aObx+2eIuX+L
-	4Z41c+Mb+xfUAisDlTSOYlcC7/VdGtdaoWmZG9K5yKLYANdAiaDk/vlaAwuSkY61JdJztOUNdhT
-	CHFl6fCJvqu/W+ohWN/hRrzdj8oLKaXacoovEgUfljnKyq9jDH8TyiD3tXuIR6AW6WJRdlBFDY0
-	FGOBFul8aIDewk8U9pxqSpmh+GegmF0XCIM445NVzgEm6oDQvsX8vMugUT+CPtlHF1KyQkFESBy
-	0JcL3gwYKTTg30xhesC15
-X-Received: by 2002:a05:651c:211b:b0:3a1:980f:5907 with SMTP id 38308e7fff4ca-3a63c086e9bmr3379281fa.8.1790232815507;
-        Wed, 23 Sep 2026 23:53:35 -0700 (PDT)
-X-Received: by 2002:a05:651c:211b:b0:3a1:980f:5907 with SMTP id 38308e7fff4ca-3a63c086e9bmr3379231fa.8.1790232815017;
-        Wed, 23 Sep 2026 23:53:35 -0700 (PDT)
+        bh=18Iz/H3HTqpxzrpyaB+gzd+ZartbUyA8DZtWBuWw8Ao=;
+        b=YMu/o1nXvxppcoJz0KMuFDH02cymJCuJwJ+hhLjftADOI1Zilpm84uUpRUX2si5EXu
+         oZ1fdAva+K8IMFfCXazYG8SlAHbF8Qkc5HZRVyEF5co46smpTFw2s68IwoihZ/wTWdDV
+         nxE6FIfxPUCSP0ZrPnmpCFumh99+dh6iueGVPI6/ZlAIFYELegYB9gudWicjQqLaWMDM
+         4IujLG9wVOHO1v6bntqvg4vRGik+DKUlH9G2fdHgHrTCjGSL5Hszk17+cxfuMFEcTS7z
+         NAqqJh4FG6Hv38oZ0fa6dZ3rO7KoczS+VOR0JVRBgfEORTqqGBRCbstOKkttx2vrsagj
+         US5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790232809; x=1790837609;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=18Iz/H3HTqpxzrpyaB+gzd+ZartbUyA8DZtWBuWw8Ao=;
+        b=iOWobnLA4mc7XUdTpawkdTmBL98rLrJm8QTgLgy4JbL76HGbOIwBRfVbddsmkgjBNF
+         rRNFFVmUJ7ZtBjjKR0/nbjtreyqIIDsW5BjqfsSHvBXc9tm5Mhqf8Pna/Bob6ZbAE5AL
+         SkGdFF2/IFl8SfO3vDU16XwL+pRpNiM3reh10Fl2oKWtrD7jrKL2JrGEY9rchYu00t6x
+         X0kNbrkLRlwB8g8bZRLoqSfSt2c4LTRDxGZoqptSqSnoMq6I12HrTNWN7jA9eAFhhD7+
+         x+Pcay3Xd5uBY4Ckj32+iHHAcm4zI6uQ2gepnWVmCXnzbDARVGQo3HfWj1OjEYrEqZPO
+         gBQA==
+X-Forwarded-Encrypted: i=1; AKwUvBw3bKs7weAF3VrpGWcbSKSsU3ICmp9mbO1vB5JxHBn5jryH0sZEfqP0hk7kETyb7fc4hO2OlkrSzlHMfSU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kQ5MtdhYByslS5gu+o97msYfrPHCgbn7LbrIZGMQK/sOHXxYO3
+	MFX/R8pXC4xfMD9Y07p0fHNdALs9py9AO5pPTRQngMbcMb4D5PERNTmOzoAXmXC3gwDWUPC+t+k
+	Cn/qrcHVfPvfjzW+cZL61IM9bROzT4RuP32g0qquW8xaWsXRJ/nk10rjippY8D9wB
+X-Gm-Gg: AYBFou1tuZYWiGgRP5Ngc6HfQZMs7FCaVrKDhTO5VLvilP72BymfgMXhoLEigpRnlPG
+	hRsStusejCIxNceibddpvOqMVDevbzHNQFAYZMk79mna6Z+CJK3BQ12kSZjYKJDVBbXMpyY0ee2
+	JF9OOlOPKbmKM1oBhkoPvwgZtoVJbdJkLcyP922B4nkciUFDbEqr37zHWwRn/9jDE/03SlQqa/a
+	Y6rA+iWV/HiX4LgqDVanvFgqgLykACD2wHwOnLdSJR26G1CVcLezoZswT+lBnRAyYlwIIb2NcVq
+	vxNITmu15xrkeUZX22fx+lPuz3dffGhUnMR33k+MAGPIEemrq6Z9AaxRV3Lt3y3QqP6mG2hCnI3
+	stHK6ZyPF0aIkj7ihl8Q1
+X-Received: by 2002:a2e:bea6:0:b0:3a3:74b9:8a78 with SMTP id 38308e7fff4ca-3a63c30cd55mr3506471fa.17.1790232808475;
+        Wed, 23 Sep 2026 23:53:28 -0700 (PDT)
+X-Received: by 2002:a2e:bea6:0:b0:3a3:74b9:8a78 with SMTP id 38308e7fff4ca-3a63c30cd55mr3506391fa.17.1790232807841;
+        Wed, 23 Sep 2026 23:53:27 -0700 (PDT)
 Received: from fedora (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a63bf57909sm4803141fa.29.2026.09.23.23.53.33
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a63bf57909sm4803141fa.29.2026.09.23.23.53.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 23:53:34 -0700 (PDT)
+        Wed, 23 Sep 2026 23:53:26 -0700 (PDT)
 From: mpenttil@redhat.com
 To: linux-mm@kvack.org
 Cc: dri-devel@lists.freedesktop.org,
@@ -99,12 +95,10 @@ Cc: dri-devel@lists.freedesktop.org,
 	Mike Rapoport <rppt@kernel.org>,
 	Suren Baghdasaryan <surenb@google.com>,
 	Michal Hocko <mhocko@suse.com>
-Subject: [PATCH v15 02/11] mm: add helper to convert HMM pfn to migrate pfn
-Date: Thu, 24 Sep 2026 09:53:04 +0300
-Message-ID: <20260924065313.899730-3-mpenttil@redhat.com>
+Subject: [PATCH v15 00/11] migrate on fault for device pages
+Date: Thu, 24 Sep 2026 09:53:02 +0300
+Message-ID: <20260924065313.899730-1-mpenttil@redhat.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260924065313.899730-1-mpenttil@redhat.com>
-References: <20260924065313.899730-1-mpenttil@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -116,9 +110,139 @@ Content-Transfer-Encoding: 8bit
 
 From: Mika Penttilä <mpenttil@redhat.com>
 
-The unified HMM/migrate_device pagewalk does the "collecting"
-on the HMM side, so we need a helper to transfer pfns to the
-migrate_vma world.
+A quick respin to address Sashiko's concerns..
+
+Currently, the way device page faulting and migration works
+is not optimal, if you want to do both fault handling and
+migration at once.
+
+Being able to migrate not present pages (or pages mapped with incorrect
+permissions, eg. COW) to the GPU requires doing either of the
+following sequences:
+
+1. hmm_range_fault() - fault in non-present pages with correct permissions, etc.
+2. migrate_vma_*() - migrate the pages
+
+Or:
+
+1. migrate_vma_*() - migrate present pages
+2. If non-present pages detected by migrate_vma_*():
+   a) call hmm_range_fault() to fault pages in
+   b) call migrate_vma_*() again to migrate now present pages
+
+The problem with the first sequence is that you always have to do two
+page walks even when most of the time the pages are present or zero page
+mappings so the common case takes a performance hit.
+
+The second sequence is better for the common case, but far worse if
+pages aren't present because now you have to walk the page tables three
+times (once to find the page is not present, once so hmm_range_fault()
+can find a non-present page to fault in and once again to setup the
+migration). It is also tricky to code correctly. One page table walk
+could costs over 1000 cpu cycles on X86-64, which is a significant hit.
+
+We should be able to walk the page table once, faulting
+pages in as required and replacing them with migration entries if
+requested.
+
+Add a new flag to HMM APIs, HMM_PFN_REQ_MIGRATE,
+which tells to prepare for migration also during fault handling.
+For the migrate_vma_setup() call paths, new flags, MIGRATE_VMA_FAULT,
+and MIGRATE_VMA_WRITE are added to tell to add fault handling to migrate.
+
+An extra benefit of migrating with hmm_range_fault() path
+is the migrate_vma.vma gets populated, so no need to
+retrieve that separataly.
+
+This series avoids the problems in current collecting implementation,
+where racing MADV_DONTNEED could make the collecting arrays overflow.
+This is achieved mainly by having a rollback mechanism and
+populating the collecting array as the last step.
+
+Tested in X86-64 VM with HMM test device, passing the selftests.
+For performance, the migrate throughput tests from the selftests
+show similar numbers (within error margin) as unmodified kernel.
+Tested also rebased on the
+"Remove device private pages from physical address space" series:
+https://lore.kernel.org/linux-mm/20260130111050.53670-1-jniethe@nvidia.com/
+plus a small patch to adjust with no problems.
+
+Changes in v15:
+  - addressed Sashiko's concerns
+  - collected Balbir's ack for patch 01
+  
+Sashiko's concerns :
+https://sashiko.dev/#/patchset/20260922053421.4092027-1-mpenttil%40redhat.com
+Concerns and responses, patch numbering refers to v14 series:
+
+patch 01 mm/Kconfig: changes for migrate on fault for device pages
+  Q "Does this regression violate Kconfig dependency rules by selecting HMM_MIRROR
+  without inheriting its dependencies?"
+  A DEVICE_MIGRATION is def_bool MIGRATION && ZONE_DEVICE, and MIGRATION depends on MMU,
+  which HMM_MIRROR also depends on. DEVICE_MIGRATION is not user selectable, and nothing
+  selects it explicitly now. If some config would select it in the future, it should have MMU.
+
+patch 03 mm/hmm: preparations for HMM to participate in migration
+ Q "Is the tracked start address unconditionally overwritten on every walk restart?"
+ A yes, fixed
+ Q "Could using the owner field as an initialization flag be problematic here?"
+ A yes fixed,  range->dev_private_owner not used as sentinel anymore
+ Q "How does this API change affect hmm_range_fault_unlocked_timeout()?"
+ A migrate on fault and migrate_vma call hmm_range_fault()
+
+patch 04 mm/hmm: do the plumbing for HMM to participate in migration
+  Q "Does this mmu_notifier_invalidate_range_start() become unbalanced if the
+  fault path is interrupted?"
+  A HMM_FAULT_UNLOCKED can not happen with hmm_range_fault() + migration, however
+  made the exit path flow thru hmm_vma_post_range_fault() in these cases also
+  even though it is nop.
+  Q "Can this early return bypass the TLB flush for pages unmapped in previous
+  iterations?"
+  A yes, fixed
+
+patch 05 mm/hmm: implement folio split for migrate needs in HMM pagewalk
+  Q "Does this create a livelock under contention?"
+  Q "Will this spuriously fail migration if the folio is split concurrently?"
+  Q "Does this correctly handle cases where fault_page was a tail page?"
+  A this helper is removed in v15
+
+patch 06 mm/hmm: migrate collection in HMM pagewalk - pte level
+  Q "Does taking the reference via folio_get() before blocking on folio_lock()
+  create a livelock when multiple threads fault on the same large folio?"
+  A The ref has to be taken before dropping ptl lock. That mirrors current
+  implementation. That can be improved on with later patch if wanted
+  Q "Can this split_folio() crash if a driver mapped a raw compound page into the
+  VMA using vm_insert_page()?"
+  A The  folio is either from vm_normal_page(), or a device private/coherent page
+  Q "Does this error path unconditionally unlock a folio that the caller might hold
+  the lock for?"
+  A yes, fixed
+
+patch 07 mm/hmm: migrate collection in HMM pagewalk - pmd level
+  Q "Does this code handle non-present PMD leaf entries correctly?"
+  Q "Is this branch actually reachable for device-private PMDs?"
+  A  PMD size device pages are not present swap like entries
+
+  Q "Will this use the correct subpage for folios larger than 2MB?"
+  A only PMD sized THP pages are supported
+
+patch 08 mm/hmm: add lazy MMU mode support for migration in HMM pagewalk
+  Q Does this skip a necessary TLB flush on the error path during migration?
+  A yes, fixed, same concern as for patch 04
+
+patch 10 mm: enable device page migration from HMM pagewalk
+  Q "Does this code cause a permanent MMU notifier imbalance when args->pgmap_owner
+  is NULL?"
+  A yes, this is same concern as for patch 03. fixed
+
+patch 11 lib/test_hmm: add a new testcase for the migrate on fault
+  Q "Does skipping the page table update here leave us vulnerable to concurrently
+  unmaps during migration?"
+  Q "Can this sequence lead to a use-after-free of device pages if a concurrent
+  unmap occurs after we dropped the mutex in dmirror_range_fault()?"
+  A yes, the sequence is fixed in v15
+
+Link to v14: https://lore.kernel.org/linux-mm/20260922053421.4092027-1-mpenttil@redhat.com/
 
 Cc: David Hildenbrand <david@kernel.org>
 Cc: Jason Gunthorpe <jgg@nvidia.com>
@@ -127,172 +251,40 @@ Cc: Alistair Popple <apopple@nvidia.com>
 Cc: Balbir Singh <balbirs@nvidia.com>
 Cc: Zi Yan <ziy@nvidia.com>
 Cc: Matthew Brost <matthew.brost@intel.com>
-Suggested-by: Alistair Popple <apopple@nvidia.com>
-Signed-off-by: Mika Penttilä <mpenttil@redhat.com>
----
- include/linux/hmm.h     | 29 +++++++++++++++++-----
- include/linux/migrate.h |  3 ++-
- mm/migrate_device.c     | 55 +++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 80 insertions(+), 7 deletions(-)
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
+Cc: Vlastimil Babka <vbabka@suse.cz>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
 
-diff --git a/include/linux/hmm.h b/include/linux/hmm.h
-index 6f04e3932f5b..4f56f3419cb4 100644
---- a/include/linux/hmm.h
-+++ b/include/linux/hmm.h
-@@ -13,6 +13,8 @@
- 
- struct mmu_interval_notifier;
- 
-+struct migrate_vma;
-+
- /*
-  * On output:
-  * 0             - The page is faultable and a future call with 
-@@ -27,13 +29,22 @@ struct mmu_interval_notifier;
-  * HMM_PFN_P2PDMA_BUS - Bus mapped P2P transfer
-  * HMM_PFN_DMA_MAPPED - Flag preserved on input-to-output transformation
-  *                      to mark that page is already DMA mapped
-+ * HMM_PFN_MIGRATE    - The entry is to be migrated. Note, HMM_PFN_MIGRATE
-+ *                      alone without HMM_PFN_VALID denotes the
-+ *                      empty page.
-+ *                      This flag optionally together with HMM_PFN_COMPOUND
-+ *                      are indicators for migrate_hmm_range_setup() to
-+ *                      setup the migrate pfns.
-+ * HMM_PFN_COMPOUND   - The entry represents a > 0 order page
-  *
-  * On input:
-- * 0                 - Return the current state of the page, do not fault it.
-- * HMM_PFN_REQ_FAULT - The output must have HMM_PFN_VALID or hmm_range_fault()
-- *                     will fail
-- * HMM_PFN_REQ_WRITE - The output must have HMM_PFN_WRITE or hmm_range_fault()
-- *                     will fail. Must be combined with HMM_PFN_REQ_FAULT.
-+ * 0                   - Return the current state of the page, do not fault it.
-+ * HMM_PFN_REQ_FAULT   - The output must have HMM_PFN_VALID or hmm_range_fault()
-+ *                       will fail
-+ * HMM_PFN_REQ_WRITE   - The output must have HMM_PFN_WRITE or hmm_range_fault()
-+ *                       will fail. Must be combined with HMM_PFN_REQ_FAULT.
-+ * HMM_PFN_REQ_MIGRATE - For default_flags only, request to migrate the range,
-+ *                       according to hmm_range.migrate.flags
-  */
- enum hmm_pfn_flags {
- 	/* Output fields and flags */
-@@ -48,11 +59,15 @@ enum hmm_pfn_flags {
- 	HMM_PFN_P2PDMA     = 1UL << (BITS_PER_LONG - 5),
- 	HMM_PFN_P2PDMA_BUS = 1UL << (BITS_PER_LONG - 6),
- 
--	HMM_PFN_ORDER_SHIFT = (BITS_PER_LONG - 11),
-+	/* Migrate request */
-+	HMM_PFN_MIGRATE    = 1UL << (BITS_PER_LONG - 7),
-+	HMM_PFN_COMPOUND   = 1UL << (BITS_PER_LONG - 8),
-+	HMM_PFN_ORDER_SHIFT = (BITS_PER_LONG - 13),
- 
- 	/* Input flags */
- 	HMM_PFN_REQ_FAULT = HMM_PFN_VALID,
- 	HMM_PFN_REQ_WRITE = HMM_PFN_WRITE,
-+	HMM_PFN_REQ_MIGRATE = HMM_PFN_MIGRATE,
- 
- 	HMM_PFN_FLAGS = ~((1UL << HMM_PFN_ORDER_SHIFT) - 1),
- };
-@@ -107,6 +122,7 @@ static inline unsigned int hmm_pfn_to_map_order(unsigned long hmm_pfn)
-  * @default_flags: default flags for the range (write, read, ... see hmm doc)
-  * @pfn_flags_mask: allows to mask pfn flags so that only default_flags matter
-  * @dev_private_owner: owner of device private pages
-+ * @migrate: structure for migrating a range of a VMA
-  */
- struct hmm_range {
- 	struct mmu_interval_notifier *notifier;
-@@ -117,6 +133,7 @@ struct hmm_range {
- 	unsigned long		default_flags;
- 	unsigned long		pfn_flags_mask;
- 	void			*dev_private_owner;
-+	struct migrate_vma      *migrate;
- };
- 
- /*
-diff --git a/include/linux/migrate.h b/include/linux/migrate.h
-index 78424b3824c2..280ec9a866c7 100644
---- a/include/linux/migrate.h
-+++ b/include/linux/migrate.h
-@@ -3,6 +3,7 @@
- #define _LINUX_MIGRATE_H
- 
- #include <linux/mm.h>
-+#include <linux/hmm.h>
- #include <linux/mempolicy.h>
- #include <linux/migrate_mode.h>
- #include <linux/hugetlb.h>
-@@ -202,7 +203,7 @@ void migrate_device_pages(unsigned long *src_pfns, unsigned long *dst_pfns,
- 			unsigned long npages);
- void migrate_device_finalize(unsigned long *src_pfns,
- 			unsigned long *dst_pfns, unsigned long npages);
--
-+void migrate_hmm_range_setup(struct hmm_range *range);
- #endif /* CONFIG_MIGRATION */
- 
- #endif /* _LINUX_MIGRATE_H */
-diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-index 009bfa8b212d..43e571e82cca 100644
---- a/mm/migrate_device.c
-+++ b/mm/migrate_device.c
-@@ -1528,3 +1528,58 @@ int migrate_device_coherent_folio(struct folio *folio)
- 		return 0;
- 	return -EBUSY;
- }
-+
-+/**
-+ * migrate_hmm_range_setup() - prepare to migrate a range of memory
-+ * @range: contains pointer to struct migrate_vma to be set up.
-+ *
-+ * When collecting has been done with hmm_range_fault(), this
-+ * should be called next, and completes range->migrate by
-+ * populating migrate->src[] and migrate->dst[]
-+ * using range->hmm_pfns[].
-+ * Also, migrate->cpages and migrate->npages get initialized.
-+ * After migrate_hmm_range_setup(), range->migrate is good
-+ * for the rest of the migrate_vma_* flow.
-+ */
-+void migrate_hmm_range_setup(struct hmm_range *range)
-+{
-+	struct migrate_vma *migrate = range->migrate;
-+
-+	if (!migrate)
-+		return;
-+
-+	migrate->npages = (migrate->end - migrate->start) >> PAGE_SHIFT;
-+	migrate->cpages = 0;
-+
-+	for (unsigned long i = 0; i < migrate->npages; i++) {
-+		unsigned long pfn = range->hmm_pfns[i];
-+
-+		/*
-+		 * We are only interested in entries to be
-+		 * migrated.
-+		 */
-+		if (!(pfn & HMM_PFN_MIGRATE)) {
-+			migrate->src[i] = 0;
-+			migrate->dst[i] = 0;
-+			continue;
-+		}
-+
-+		migrate->cpages++;
-+
-+		/* HMM_PFN_MIGRATE without HMM_PFN_VALID denotes the special zero page */
-+		if (pfn & HMM_PFN_VALID)
-+			migrate->src[i] = migrate_pfn(page_to_pfn(hmm_pfn_to_page(pfn)));
-+		else
-+			migrate->src[i] = 0;
-+
-+		migrate->src[i] |= MIGRATE_PFN_MIGRATE;
-+		migrate->src[i] |= (pfn & HMM_PFN_WRITE) ? MIGRATE_PFN_WRITE : 0;
-+		migrate->src[i] |= (pfn & HMM_PFN_COMPOUND) ? MIGRATE_PFN_COMPOUND : 0;
-+		migrate->dst[i] = 0;
-+	}
-+
-+	if (migrate->cpages)
-+		migrate_vma_unmap(migrate);
-+
-+}
-+EXPORT_SYMBOL(migrate_hmm_range_setup);
+Mika Penttilä (11):
+  mm/Kconfig: changes for migrate on fault for device pages
+  mm: add helper to convert HMM pfn to migrate pfn
+  mm/hmm: preparations for HMM to participate in migration
+  mm/hmm: do the plumbing for HMM to participate in migration
+  mm/hmm: migrate collection in HMM pagewalk - pte level
+  mm/hmm: migrate collection in HMM pagewalk - pmd level
+  mm/hmm: add lazy MMU mode support for migration in HMM pagewalk
+  mm/hmm: implement rollback for device page migration in HMM pagewalk
+  mm: enable device page migration from HMM pagewalk
+  lib/test_hmm: add a new testcase for the migrate on fault
+  Documentation/mm/hmm: document migration through hmm_range_fault()
+
+ Documentation/mm/hmm.rst               |  39 +
+ include/linux/hmm.h                    |  51 +-
+ include/linux/migrate.h                |  58 +-
+ lib/test_hmm.c                         | 174 ++++-
+ lib/test_hmm_uapi.h                    |  21 +-
+ mm/Kconfig                             |   1 +
+ mm/hmm.c                               | 956 +++++++++++++++++++++++--
+ mm/migrate_device.c                    | 617 +++-------------
+ tools/testing/selftests/mm/hmm-tests.c |  54 ++
+ 9 files changed, 1352 insertions(+), 619 deletions(-)
+
+drm-tip
+base-commit: dfe5a8188de9aaddd4e46b0f2410d0bccd5c1c04
 -- 
 2.55.0
 
