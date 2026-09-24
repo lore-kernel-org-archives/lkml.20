@@ -1,170 +1,151 @@
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 317B3199EAD
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:45:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790221557; cv=pass; b=Ga7uUa/2CnfJtsxoivWMkwZfHYqIZLiwA/nJpeOGIngpFtsXkHCu5QXnP7xUoYvayHjXd2wtNbcSMEVSMQOACd/seWJMPAX3hnKzbYH273ezYiC1DccLSb2DkwnyztsKtcC4mtDEXhDTnkjDOQOso7FcMZL5qSDgGowCUJ73Z8k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790221557; c=relaxed/simple;
-	bh=agQdRyiekzKzUkD8QSfdqzYYwaY3t3skKjWl0zUZLv0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AMQMHwaiULbNONo77tpx2eCBgesfeFU1bpKnvP/3bK4H6pdoQHImdq5VroDO/wjl4e7hLQRHY25C7Ubyh5Ue4HZz9PzRvEMW8K4ceZpP9UAYthH/TfXLywFDuO+ae9qTO92nBsWpln55wY8J40Kq1pVScg5Wj7gmYYduKDSNyIE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KIJcxCxw; arc=pass smtp.client-ip=209.85.160.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 819623DB332
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:48:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790221710; cv=none; b=U4fYt/YDy4HB9D1D0+rgwpqwzb61SxabK1q2tANCTH7sKklgzurq4KnuUuuPX/59zvYc4wMNWBZbutfd8gQ60+UJIK+mvcfAEgXNb1mpTjYX1ZKGWqvIX7al0WbIXpywWMSCu9V6GY13yDMiQsPlf1zCeRvewHnv+nxlKQtOhSM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790221710; c=relaxed/simple;
+	bh=XpNk1q5111XBtD3ATUFRM0hRDnhnDffjoK5AeYZoBFE=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=InLyw10CSX5tuTD3asi3V+EGqIAo3YKpiJ26J7GizMkWd0H9K7VZaeg3t6c0l22yVxDFL+mkSCgMI/orLsXFQxZe9Avk125Fed/2iOR2hnyHg0hiZSB4AqH1HWHrYp6tn6XbNqU60+mDPtst/GAoH87G7dc+zmKMtEsBU7YQtEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HOpfPbPr; arc=none smtp.client-ip=192.198.163.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KIJcxCxw"
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-530e8c6fb80so93161cf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:45:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790221555; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PfNGOEb9U8U911zgFY4xMGlBiCMMV3xNWGMG9oJRnsC/HV9OFBrLcxuNZ27c0r9CQB
-         Gef4ISChPVt77Y1svwbfdrxLsxJ9Bt77tEc82tRDqFrUsOTfZaVWG9e+5DuQdtQX1HZl
-         3pEJ/E3Bp1T/iXXQ/d71CzXkQKFy823yPQZn/hefLsDPSeuIURj1xKLruPTIhzjZNbkD
-         42RCcboo4xZmmio9RksKxbD3svH0XFi/MtlCiNF68Zw2XK4D3MOBVxBxflmOMs2zyWjy
-         lg/y3hyYEqA75DlIEn17fepUdQ8Z3R638fr5dPtC8R8xommdPcKONhbKYO29iVuEUP1b
-         VLIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Uqt7YdPAG+fbVbfF6glhS1Jh/r4rcT3mFnxXOlmMXbw=;
-        fh=DNb25PX3Iay27A6nx9QqIySsVSrQBrVyGRXUBVsNHBA=;
-        b=nEl0QOH8FUoUM1LazDAmLSUrjEs0M4Hn2v7vMJDQgvy3rnTK03MyWFjt5TNeqfpB4T
-         18px8YjYAYq0vJFb2bD4p31VITgWJHzk6k7MkoQ0ERjFA2g9kpmA32nyjHsBoZJhz672
-         +D9JcIbVrJ4E4CX50a9sda4tfY+GB9W+QPI9r/XMtpaUxy+t/U7sXt/eM78qU+6lDOXK
-         uO88ik+NnegtMK9pwXCueCSQbV6DkNdmlb3zlNP5DSxVT2HxBTIUHpEPLYYX4/g7elku
-         HYfRVC6mcYwoFdA5eofur1HDotx5+3XuRd51pZ1F9QJNBe2V1zF5s9TlYcVcEqTSID8f
-         jAgA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790221555; x=1790826355; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Uqt7YdPAG+fbVbfF6glhS1Jh/r4rcT3mFnxXOlmMXbw=;
-        b=KIJcxCxwX37byZbH0bWJXMJxtuLma2cDJ6hsL17mF6I6+nslxOM7NG+jjwfLJQLYOE
-         ZbsOr20gEZI8p6Vm5NqLbx+QgP4qhnLB95HqFpxfCeNt+5WQP1rJv73ZQIdtoDqU0xAk
-         4uB7BJsaejDV+h3CjSpR5crm4LrIY6KgL9bEPs9hpjyvMKCeKQdZilXXYfDCum8tK+PZ
-         jwRnyv0+nd/cc/0suYtz+837Yfq5+D73dZEPv61U5e/uEBM8CUknqXgzItZySDUwI3p+
-         mRJYr075pK4VMCbIVNMjULXqxtK+MONowGmxPhxZOUMCh0YBjiY7up7tFKDaXOkz+lLq
-         C6Rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790221555; x=1790826355;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Uqt7YdPAG+fbVbfF6glhS1Jh/r4rcT3mFnxXOlmMXbw=;
-        b=oJ8vP2SfH0pfZnaE7Z0z9vmcVp+b0XPdM935d3RXeGi4gL38mdirhGJr1kkLNKZ4dg
-         bj8WXkD22dm/0Sp8iGvTsRFwiivIeuShw/sKifVPf1raDsyTdZphp7CacL0Mv7Bc97P7
-         8GUHgcpEJJSMacL4jrDpFY/Y+OL3xL0WDocxvIZhTH+1hXf6qeVARKOqvlZoChomP21F
-         lYUifokm3YATTyVJ4GX/s312sexwKQtxg+winOvUqpVrCvVpQIMVQV+aTjoQgjxou/1y
-         FpHjvp3YsloB3TwzyANpR8rO+ri05YTb5sYusBh5Wa54DbWCE4FmNAZ3dcql1wX9IXOe
-         BO/A==
-X-Forwarded-Encrypted: i=1; AKwUvBwR9hs1Pav5mVqyJMDCRtO261JZpqyZgMyJWYtUbwJsQVp1ztM5/QfXI4TCETlSsEa/Fiqjw7YEqZTTXmw=@vger.kernel.org
-X-Gm-Message-State: AFuF++m0Tm4Rk3s9ckTQPOLsaKDQof93x0M3b2HuP3fz/FWrJ4hZUreg
-	PaCkUeGLjbwCtPNQ0O2MHmLW772x59AqfVg6VrvOtAyV8us66Q/di0X4R8UX5o5IqHfjo09/1zj
-	kdyCE5ZH3RnHRdYcZNrTou561hAkTiD51NOU4jyWQ
-X-Gm-Gg: AYBFou1cclDCr+kU3F7zuy02fR4lEtHANc2DSoC5lQvjqdwFtZlWZDIhH8XWink0EQe
-	zZmCJKRliudV8Mtcd613T2N5MfaPvIEFvpiy7WfiyX7sx2neBE+hFl2/eOhzf6Ws5E2tXci9L+A
-	LfUleruI7FPuRkvmld3ysvVwgImtGZ+tYxleSy76n8TkKNwnuAL6o/F0b7YIKhsvKU+2aqwIUWG
-	6d0bLU3u3prvJ7TJd1neB5jD4QAjCu13Ubsk211CF1YxFpjP53sEx/agi30WG8n05hU6Bwykbm1
-	cJPL7dUN1zC27bZstnoVe/fj1bGc6I3lcEcA3RFIOjzdfj4PlWspOa8=
-X-Received: by 2002:a05:622a:4110:b0:531:a85:69c1 with SMTP id
- d75a77b69052e-532fea2231emr2750391cf.5.1790221554565; Wed, 23 Sep 2026
- 20:45:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HOpfPbPr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790221707; x=1821757707;
+  h=date:from:to:cc:subject:message-id;
+  bh=XpNk1q5111XBtD3ATUFRM0hRDnhnDffjoK5AeYZoBFE=;
+  b=HOpfPbPr2so1RcRG9lBuREKk5rzFUGgG6XpHCR5SMFiotCP7PvUkqk22
+   i71SCuTN9CfW7amBwdY7idPVrDIBdhOgGi60d+ueYMhYS8+5FMiP1jvWE
+   YDPdI56zzaICuRuhAw7FS0eBGvkFMGycM6sbbvdlCH6W/VQOQqtx56Znz
+   Tr/ZEUj/676hYR0O+ec2bgVPr75q5ysKTwKlTXC/enI+qFRBtQ81dvmRH
+   HmvrtxfAJ3yQKDQB0pn3qZo3sv5LUPsn68X9zWfyjmXmIYB2ckA24ZJCM
+   /Te+NwC15Ao87q+GwlrY/7tnPKgMrItEgUH/O+V2HhCWSioddIqQ9gWeN
+   Q==;
+X-CSE-ConnectionGUID: u1uRxGrbTimmDupACFLC9g==
+X-CSE-MsgGUID: khv4kAbITqyj50OkNVUzeA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="1494505"
+X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
+   d="scan'208";a="1494505"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 20:48:24 -0700
+X-CSE-ConnectionGUID: m6g9dujdQE2yCE9iA7F9Ug==
+X-CSE-MsgGUID: 6cEOReRkQIuMjqDHc/iGgQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
+   d="scan'208";a="281992716"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa005.fm.intel.com with ESMTP; 23 Sep 2026 20:48:22 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x9aRX-00000000IAi-355I;
+	Thu, 24 Sep 2026 03:48:19 +0000
+Date: Thu, 24 Sep 2026 11:47:41 +0800
+From: kernel test robot <lkp@intel.com>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Ulf Hansson <ulf.hansson@linaro.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:509:17: sparse:
+ sparse: incorrect type in assignment (different base types)
+Message-ID: <202609241102.b0Z14B7C-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260923215255.3329181-1-namhyung@kernel.org> <20260923215255.3329181-2-namhyung@kernel.org>
-In-Reply-To: <20260923215255.3329181-2-namhyung@kernel.org>
-From: Ian Rogers <irogers@google.com>
-Date: Wed, 23 Sep 2026 20:45:43 -0700
-X-Gm-Features: AclHuK_Jlv41nVnh02C2Krhs-ub1GtaU47Y_EHUe2Wi9C7qHr6XPY88shWHsO7s
-Message-ID: <CAP-5=fV1_4xC7mjmCpBarBNVd9e=ZYHAojtpK5ECuAF5u+s-Zg@mail.gmail.com>
-Subject: Re: [PATCH 2/3] perf test: Fix record tests on Intel Broadwell
-To: Namhyung Kim <namhyung@kernel.org>, Dapeng Mi <dapeng1.mi@linux.intel.com>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, 
-	LKML <linux-kernel@vger.kernel.org>, linux-perf-users@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 23, 2026 at 2:53=E2=80=AFPM Namhyung Kim <namhyung@kernel.org> =
-wrote:
->
-> I noticed it failed for leader sampling tests on Broadwell.  It's
-> because the period of groups members are a little bit different.  Maybe
-> there's an hardware issue but anyway it's close enough to treat them as
-> same.  I printed the value like below.
->
->   $ perf test record
->   ...
->   prev: 462507, curr: 462506
->   prev: 494783, curr: 494782
->   prev: 454350, curr: 454349
->   prev: 502782, curr: 502781
->   prev: 566693, curr: 566692
->   prev: 606558, curr: 606557
->   prev: 559770, curr: 559769
->   prev: 595737, curr: 595736
->   prev: 643386, curr: 643385
->   prev: 663672, curr: 663671
->   prev: 620622, curr: 620621
->   prev: 650419, curr: 650418
->   Leader sampling [Failed inconsistent cycles count]
->
-> Let's update the logic to compare values to allow 1% of errors.
->
-> Also I think it should compare only if sees the non-leader samples so
-> split the check of (($index % 2)).
->
-> Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   fe2ec83746e501645709761605c2464a44fd2929
+commit: f08e7a4e8d6ac4de677727af352ea33c6ce9f444 pmdomain: mediatek: Add support for MFlexGraphics
+date:   10 months ago
+config: sparc-randconfig-r1301-20260924 (https://download.01.org/0day-ci/archive/20260924/202609241102.b0Z14B7C-lkp@intel.com/config)
+compiler: sparc-linux-gcc (GCC) 12.5.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260924/202609241102.b0Z14B7C-lkp@intel.com/reproduce)
 
-+Dapeng Mi
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: f08e7a4e8d6a ("pmdomain: mediatek: Add support for MFlexGraphics")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609241102.b0Z14B7C-lkp@intel.com/
 
-Tested-by: Ian Rogers <irogers@google.com>
+sparse warnings: (new ones prefixed by >>)
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:418:26: sparse: sparse: incorrect type in initializer (different base types) @@     expected restricted __le32 [usertype] magic @@     got unsigned long @@
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:418:26: sparse:     expected restricted __le32 [usertype] magic
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:418:26: sparse:     got unsigned long
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:458:20: sparse: sparse: incorrect type in assignment (different base types) @@     expected restricted __le32 [usertype] magic @@     got unsigned int [usertype] ipi_magic @@
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:458:20: sparse:     expected restricted __le32 [usertype] magic
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:458:20: sparse:     got unsigned int [usertype] ipi_magic
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:472:19: sparse: sparse: restricted signed int degrades to integer
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:490:31: sparse: sparse: incorrect type in assignment (different base types) @@     expected restricted __le64 [assigned] [usertype] base @@     got unsigned int [usertype] shared_mem_phys @@
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:490:31: sparse:     expected restricted __le64 [assigned] [usertype] base
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:490:31: sparse:     got unsigned int [usertype] shared_mem_phys
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:491:31: sparse: sparse: incorrect type in assignment (different base types) @@     expected restricted __le32 [assigned] [usertype] size @@     got unsigned int shared_mem_size @@
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:491:31: sparse:     expected restricted __le32 [assigned] [usertype] size
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:491:31: sparse:     got unsigned int shared_mem_size
+>> drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:509:17: sparse: sparse: incorrect type in assignment (different base types) @@     expected restricted __le32 [usertype] cmd @@     got int @@
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:509:17: sparse:     expected restricted __le32 [usertype] cmd
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:509:17: sparse:     got int
+>> drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:510:27: sparse: sparse: incorrect type in assignment (different base types) @@     expected restricted __le32 [usertype] power_state @@     got int @@
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:510:27: sparse:     expected restricted __le32 [usertype] power_state
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:510:27: sparse:     got int
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:523:17: sparse: sparse: incorrect type in assignment (different base types) @@     expected restricted __le32 [usertype] cmd @@     got int @@
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:523:17: sparse:     expected restricted __le32 [usertype] cmd
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:523:17: sparse:     got int
+>> drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:524:38: sparse: sparse: incorrect type in assignment (different base types) @@     expected restricted signed int [usertype] gpu_oppidx @@     got unsigned int opp_idx @@
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:524:38: sparse:     expected restricted signed int [usertype] gpu_oppidx
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:524:38: sparse:     got unsigned int opp_idx
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:525:40: sparse: sparse: incorrect type in assignment (different base types) @@     expected restricted signed int [usertype] stack_oppidx @@     got unsigned int opp_idx @@
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:525:40: sparse:     expected restricted signed int [usertype] stack_oppidx
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:525:40: sparse:     got unsigned int opp_idx
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:578:42: sparse: sparse: restricted __le32 degrades to integer
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:579:44: sparse: sparse: restricted __le32 degrades to integer
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:593:44: sparse: sparse: restricted __le32 degrades to integer
+   drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c:594:46: sparse: sparse: restricted __le32 degrades to integer
 
-Thanks,
-Ian
+vim +509 drivers/pmdomain/mediatek/mtk-mfg-pmdomain.c
 
-> ---
->  tools/perf/tests/shell/record.sh | 11 +++++++----
->  1 file changed, 7 insertions(+), 4 deletions(-)
->
-> diff --git a/tools/perf/tests/shell/record.sh b/tools/perf/tests/shell/re=
-cord.sh
-> index cf8ba3d3411b0bcc..04df35b30b0c15fd 100755
-> --- a/tools/perf/tests/shell/record.sh
-> +++ b/tools/perf/tests/shell/record.sh
-> @@ -550,11 +550,14 @@ test_leader_sampling() {
->    while IFS=3D read -r line
->    do
->      cycles=3D$(echo $line | awk '{for(i=3D1;i<=3DNF;i++) if($i=3D=3D"cyc=
-les:") print $(i-1)}')
-> -    if [ $(($index%2)) -ne 0 ] && [ ${cycles}x !=3D ${prev_cycles}x ]
-> +    if [ $(($index%2)) -ne 0 ]
->      then
-> -      invalid_counts=3D$(($invalid_counts+1))
-> -    else
-> -      valid_counts=3D$(($valid_counts+1))
-> +      if (( $(bc <<< "scale=3D4; r =3D ${cycles} / ${prev_cycles}; r >=
-=3D 0.99 && r <=3D 1.01") ))
-> +      then
-> +        valid_counts=3D$(($valid_counts+1))
-> +      else
-> +        invalid_counts=3D$(($invalid_counts+1))
-> +      fi
->      fi
->      index=3D$(($index+1))
->      prev_cycles=3D$cycles
-> --
-> 2.56.0.rc1.310.g51773c2048-goog
->
+   504	
+   505	static int mtk_mfg_power_control(struct mtk_mfg *mfg, bool enabled)
+   506	{
+   507		struct mtk_mfg_ipi_msg msg = {};
+   508	
+ > 509		msg.cmd = CMD_POWER_CONTROL;
+ > 510		msg.u.power_state = enabled ? 1 : 0;
+   511	
+   512		return mtk_mfg_send_ipi(mfg, &msg);
+   513	}
+   514	
+   515	static int mtk_mfg_set_oppidx(struct mtk_mfg *mfg, unsigned int opp_idx)
+   516	{
+   517		struct mtk_mfg_ipi_msg msg = {};
+   518		int ret;
+   519	
+   520		if (opp_idx >= mfg->num_gpu_opps)
+   521			return -EINVAL;
+   522	
+   523		msg.cmd = CMD_FIX_DUAL_TARGET_OPPIDX;
+ > 524		msg.u.dual_commit.gpu_oppidx = opp_idx;
+   525		msg.u.dual_commit.stack_oppidx = opp_idx;
+   526	
+   527		ret = mtk_mfg_send_ipi(mfg, &msg);
+   528		if (ret) {
+   529			dev_err(&mfg->pdev->dev, "Failed to set OPP %u: %pe\n",
+   530				opp_idx, ERR_PTR(ret));
+   531			return ret;
+   532		}
+   533	
+   534		return 0;
+   535	}
+   536	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
