@@ -1,87 +1,110 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7362F8EBE;
-	Thu, 24 Sep 2026 11:27:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C736847604A
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:27:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790249269; cv=none; b=stmlrkeIyzs6vFdzzugPLlZY2LrFnwHCrvjpmgKERB3xVAmHJSGRYOpRrnZsUAqsekM1v63IW0TVtjN2dDjO8c6jtbWaoOxxmFi+G8Nlg+EL+2BNVMF5p5tCHTn8ILf+G79Xht/mc+J+t5gqMgKdAc9XKwMRb0Nqpnl+n9QtXlk=
+	t=1790249274; cv=none; b=hP0bpzZ7cY1vDEAludl2Nq4gs2PMlNWgaL97YgNutzYsdA7obJ1O/63JxljaId8sHvmA98FQmL/K93eb52JkUysKDHmouF58XurXblVw9WEBIwKLyR03JJTJBWcKsRu5JrZgOne8LaYRF1znPK02cb2K2+HEUf9pWvfvYilwMyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790249269; c=relaxed/simple;
-	bh=Ng7XHk3vpmGWxyiouXoCljFHBI00MSlQhcephg9jKS4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gH0rl38tAT8WwWZzINZb5oMGssfpTMh8mAlhIQJeC5yOFYxrV8qJmDB17eNA08TJyLGLMBQ+3rYr0/w49nigAaNpqY2v3dVD5tWzyBEYZ/MCGkGJDAyS4ND4ppIjd2T6/eE2iqbzJuNpHL0uS/vQOci/BWNLIi0dIgtx/MAT/lw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=h2t7rfHD; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1790249274; c=relaxed/simple;
+	bh=Lq8RP+ZiPKQYeDKKN+eGZA0tMf6NU2q7olqQBx5raOs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fAbIxzRP+y14une2Lxr7o5jb6PU/BDfHkIgZJ/zUDguCnOmZwNfLnI1cJBqlvU8InDTTgLZZvP8QpJ0MSLK9ZPX60hvuzVmPUWrqhJ2y8BRgO1K8mYJAfKYg1czPy8+ZqGEVn/SojfZxGcW16ZyGLWZBRw5GteOXhlDxw/j8XOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cKphEnv7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="h2t7rfHD"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7DD4F1049F9;
-	Thu, 24 Sep 2026 13:27:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1790249262;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=A/bkNYgnP1tyQMZCXVadG8RKvR7fukhaEYBVhethcP0=;
-	b=h2t7rfHDzZe3/1vbR4n6MtreDsBbtBTo6FV57F6VTZTmhZOUU+e+g/4ber7/xLWfcCdZpd
-	MsAvn84twcvMH+B6huqPt09LIh7b4m7z7KBQn93Xndpkaa7nbnG2bdGvu3A49OiHNID3hx
-	hiSXTAoOurxm6aVabDbtLXaakJbBZIKRfnYERmenEKBEEvY7iyBud3Na9d75sCFjQAa/WH
-	5tdS2/n5Gu2G9FloOwCHMDPAzxM2JG6QPPJ7SSd+gI0FDvTa50pXBlvpyGJO+qQhs4VUTu
-	QfemVdMM7Nv6X5egdSYcf04hXsgIWN0a2oZ4JIY2KJAWzZEQSuJYSJ99VgyeUg==
-Date: Thu, 24 Sep 2026 13:27:40 +0200
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.18 000/398] 6.18.54-rc1 review
-Message-ID: <arUJLMtVma4wwXt0@duo.ucw.cz>
-References: <20260923140643.441954610@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cKphEnv7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85CCF1F00899
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:27:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790249273;
+	bh=Lq8RP+ZiPKQYeDKKN+eGZA0tMf6NU2q7olqQBx5raOs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=cKphEnv7gLnjtnE9ZZoSpyqOTowuPK6l8IJ7TaHRqq0UpXO6CSrpeXAnEJIbFYocy
+	 5xqgVNB8AOaGwIXTqNqr9nv91gWdTk1rTg1yswAzFxINOrkprrO/JC06glkNDTpz7d
+	 Ary/a8VLiBXZT/cMF3JbBEhSpH8iOfKKEvHjRi+gZuIt3JBAX+smfzgb+astXCUzva
+	 2VaX1nZkoLc1Dz+LANQZCmT9wo2wDe7yE4IrqOTWy10jpf9ZExTZSRli3sZ41fAk1K
+	 xZ2A701TKcDhvAsSTx0NIgSfBGq0yPa++CReLfV+TvORg6SCm2Z2DHaDtf0Vw/YIP8
+	 oCTQjENl0fZVg==
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66fb93aee5eso1953947d50.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:27:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzqJUKTWOSo9Ybq1XKfLpVCxGaVi8Vnz+LoqxAg6g/vyq3t6SuG+7iDRshHtv4ZfybndzTAENy7+/annyo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMaaR2zrx65cEgapXeIeSph9udb88yH9cszuM4Zckgejmz6K+C
+	vELT1Zhl+nXIrREA5YHnib42DNOmRHksfjzHGxtuD4BHo4vYKa3CMx8jTH5vpubouHhAWMBER+m
+	E9gnO3E5rtOY4WCm99N99FNZ3/Vr4jbYsnTm8p3xuQQ==
+X-Received: by 2002:a05:690e:bc9:b0:66f:c1be:315c with SMTP id
+ 956f58d0204a3-672ed3b658cmr873163d50.51.1790249272919; Thu, 24 Sep 2026
+ 04:27:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="Tf7bFjsRjOWnN9fS"
-Content-Disposition: inline
-In-Reply-To: <20260923140643.441954610@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
+References: <aqQrPLPXHXiuKup0@linux.dev> <aqjcFb6MFNiA6n4V@fedora>
+ <aqjpYHbZ14A8xRtK@fedora> <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com>
+ <7ee199ddee81bf8026688def82f78ad9db09be9e.camel@surriel.com>
+ <CACePvbVA+DnDJprMx3qOrGb98y1ORQ-LfaENy_Btfx3uW=E4eQ@mail.gmail.com>
+ <f3ca71f1c561f28a341de0e5a1b3f24bd4da3201.camel@surriel.com>
+ <CACePvbX5Oy98DygLZjC=Z03Lqb0nk50_OEKQCT9svbQOOwwDew@mail.gmail.com>
+ <CAKEwX=Mv+tnL8K4rfPuof6mKaLQp=tqR_qjtKrtY0-5L85FLfw@mail.gmail.com>
+ <CACePvbUF2QQMh_GiCNQn-RTmZNkkLWkmaHSYzdQwv2fupjNQiw@mail.gmail.com> <arP8vXdJAL6ZJ1Os@linux.dev>
+In-Reply-To: <arP8vXdJAL6ZJ1Os@linux.dev>
+From: Chris Li <chrisl@kernel.org>
+Date: Thu, 24 Sep 2026 01:27:41 -1000
+X-Gmail-Original-Message-ID: <CACePvbV8zprLuiWMdYAOLRy=TwRx9WjSahCWySf53o0d_myJ8A@mail.gmail.com>
+X-Gm-Features: AclHuK9Zwq15Jwnk2fvcbfDpfS5y4r-YUwb8vz6DhJu53fLXl4OUnGVnT2WT3Ug
+Message-ID: <CACePvbV8zprLuiWMdYAOLRy=TwRx9WjSahCWySf53o0d_myJ8A@mail.gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Nhat Pham <nphamcs@gmail.com>, Rik van Riel <riel@surriel.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Kairui Song <kasong@tencent.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
+	David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
+	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, Sep 23, 2026 at 6:30=E2=80=AFAM Shakeel Butt <shakeel.butt@linux.de=
+v> wrote:
+>
 
---Tf7bFjsRjOWnN9fS
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> > BTW, I already shared that changing swap counter charging will break
+> > our and others' existing deployments.
+>
+> What do you mean here by "break our deployment"? We are talking about
+> memory.swap usage and limits here. Google is still on v1 and using memsw
+> usage and limit and I don't see how vswap is breaking memsw?
 
-Hi!
+Your information is no longer accurate. I got this from our internal
+AI: "While Google's internal production fleet has historically relied
+on cgroup v1, there is an active migration to cgroup v2 to align with
+the upstream Linux community. Meanwhile, in Google Cloud (especially
+Google Kubernetes Engine - GKE), cgroup v2 is already widely deployed
+and is the default for newer node pools."
 
-> This is the start of the stable review cycle for the 6.18.54 release.
-> There are 398 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+About the V1 to V2 migration, it uses the memory.current and
+memory.swap.* counter to simulate the memsw counter for providing the
+metrics singal.
 
-CIP testing did not find any problems here:
+> Are you making these false claims just to derail the conversation?
 
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-6.18.y
+You should apologize for your accusation.
 
-Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
-
-Best regards,
-                                                                Pavel
-
---Tf7bFjsRjOWnN9fS
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCarUJLAAKCRAw5/Bqldv6
-8la5AJ97GSO3ZP/hNOZWdJV1pAEOq+VRaQCgtQ60idRgWmYTmprHUudBYAhPRug=
-=FooU
------END PGP SIGNATURE-----
-
---Tf7bFjsRjOWnN9fS--
+Chris
