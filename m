@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9737D3C3F52;
-	Thu, 24 Sep 2026 14:29:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C01D23C09FB;
+	Thu, 24 Sep 2026 14:29:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790260180; cv=none; b=NN8kmaj9u6JJBNDaU5mpEb/L0kdFwLC11IQncrAq5IDu29nk+wTZO93Q1k3yc3UiyeVdWUhbNMQAKGrKauLRSTaSjc/Vk+d8sSQ5xXL6NRkfYRBQDUVnRLbi1d6J1MtgG95BXSxxmXinDlM01yoM5bF/beuY0vtXmB9/oQM2+vU=
+	t=1790260184; cv=none; b=RFigE1TfrC6iAx1Yvw3d/5TVw9AJ79qKRf0eiwAM+d/CbZDRMzDvpyq7SGi4A/qCbpoKUJDJRL7CCmoltbM4RaQvP5Pa84vuTgQUBOUnTFER4kxVMGns7RzYvlDwYoDdx+vchnTCEnKTq8T8/EVjaZkglEOs3+qMVUmFlrTTx6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790260180; c=relaxed/simple;
-	bh=Alsg20ulwtmsCK0jhUo9W/eRC7ChTneIhhQfJMr9qwk=;
+	s=arc-20240116; t=1790260184; c=relaxed/simple;
+	bh=pSFbl8N/OOWi1AcITZOxdqY+IcdG3Zzw/pGoshpdmaA=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=dtNgd+hE/hl30khazzp9XEW37ROebARjxGF+NTp07mYEnlKIFkf6AbsC4HbHaInoNtDTNKjjAIHU46ZyVekdJRTnnVqhgmto53Vzu8ZNHVOgCjBTJn1DmIzpoyDZNRc7luegMTeLoDLfX3H64UCLTcNC8skE7gWJ/yfIIoJPOxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XqDw/h6h; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=OD558Ys+BbT+e+xokz4iIj8u2i0koaPPgSTxBcejGuCAZrFAIrRhI0h/kYSlNBZb2HT7hgJMaY0f4EI9Je5UIcdEZK8f81UxMg2lI/zjM3ZRUf++BATyoLpYIt08eQYa7QLhJyfy7J4ITrGdzZQxjGhQO+fi85Ufjz8b14fzeuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZYxo78nl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XqDw/h6h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A17EC1F00898;
-	Thu, 24 Sep 2026 14:29:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZYxo78nl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFD9A1F000FF;
+	Thu, 24 Sep 2026 14:29:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790260171;
-	bh=dtaH2juMcDUMlmsf+W76NMjGYSP66ee5OVypnL95UF8=;
+	s=k20260515; t=1790260175;
+	bh=1xuELKioqPtCmJN13OOPHU7lapX/N4LY1n9BvvTZWIQ=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=XqDw/h6hGz7+CVcou53M9G0uOLCwkoTBkVMNGBXHTG/wQ+EoSBgI34cEn9Bk1/q26
-	 Zw1z9R7bQLHt3oaNSLMRHTsF8JMcR23fOKsBXXNtASY/OKsTbLLXZg5o0KKdbtwLk2
-	 Wp2f9SP77e+s2dIEmOr6IwjtSFiheM5F4Dvtxz1tTgtymce7q5dZC80BpXBI+CIb1b
-	 NbTMJ7ecEI4Gqz0U8KzH77ucCbvCUeqds7CSjA06jmFXwySeY7/M1k3DWfpdHQl10E
-	 2uO6OtNIr+joZi9kskaumCT7fBjW5lz98VdTFcAJkoG42C2HhE42+kuEpRzNveW2Bv
-	 b2wDG9vtCL5XQ==
-Subject: Re: [PATCH net-next 6/9] ptp: ocp: report fw.cpld with an empty value
- until the USERCODE is read
+	b=ZYxo78nlpVUSs33JPNGA1vyE0hthofs+S0O8hwU0m6/5TMNN3rHxxFMO94Twr0Zdg
+	 AJFsJfjpGTTVHAUmOHCVYGu5KjEaxjw7n2Tp6MF1w6mLlw/NQO1coN0SQzKGqOBP2V
+	 JM8HTGIeEeByZO/JbXgO8ezpdBCJznydgcPBwFMO5dqHQBX+JWcMj4300B9f9jfAG7
+	 D4eT0GoIYejc5HuSC2D7hIQ+6efYsCr2BVVPIRNXeLCqbUxToyOe2r8IztV0WVLeII
+	 7m2krbkJEkuY+ohVbS8DkOUFba1GzvFT12oYyL2LIKLeLKHFtYotc4fsc4IswdNF/L
+	 ycj4huDODjFcQ==
+Subject: Re: [PATCH net-next 9/9] ptp: ocp: confirm the CPLD really left
+ configuration mode after REFRESH
 From: netdev-bot+sashiko@kernel.org
 To: maimon.sagi@gmail.com
 Cc: richardcochran@gmail.com, vadim.fedorenko@linux.dev, kuba@kernel.org,
@@ -36,11 +36,11 @@ Cc: richardcochran@gmail.com, vadim.fedorenko@linux.dev, kuba@kernel.org,
  arkadiusz.kubalewski@intel.com, corbet@lwn.net, rdunlap@infradead.org,
  skhan@linuxfoundation.org, netdev@vger.kernel.org, linux-doc@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Date: Thu, 24 Sep 2026 14:29:30 +0000
-Message-ID: <179026017024.2160803.16394646149517774385@kernel.org>
-In-Reply-To: <20260922142829.57740-7-maimon.sagi@gmail.com>
-References: <20260922142829.57740-7-maimon.sagi@gmail.com>
-X-sashiko-severity: Medium
+Date: Thu, 24 Sep 2026 14:29:34 +0000
+Message-ID: <179026017445.2160803.6964997601220923867@kernel.org>
+In-Reply-To: <20260922142829.57740-10-maimon.sagi@gmail.com>
+References: <20260922142829.57740-10-maimon.sagi@gmail.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -53,7 +53,7 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Critical: 0 · High: 1 · Medium: 0 · Low: 0 (1)
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -61,100 +61,145 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] After any CPLD flash that reaches the erase step, the fw.cpld
-  running version is never published again (and, at this commit, cpld.id…
+- [High] In adva_x1_cpld_flash() (drivers/ptp/ptp_ocp.c), the new post-
+  REFRESH check sets bp->cpld_in_config_mode = true when…
+
+Pre-existing issues:
+- [Low] Documentation/ABI/testing/sysfs-timecard (lines 22-27) defines
+  the cpld_status flag "done" as "the configuration flash holds a valid…
 
 --
 
-ptp: ocp: report fw.cpld with an empty value until the USERCODE is read
+ptp: ocp: confirm the CPLD really left configuration mode after REFRESH
 
-Instead of publishing the literal string "unknown" for the fw.cpld running
-version before the CPLD USERCODE has been read, the driver now passes an
-empty value so the component name is still registered with devlink while no
-version attribute is emitted.
+The post-REFRESH status check in adva_x1_cpld_flash() now also requires
+CPLD_STATUS_ENAB to be clear, on the grounds that DONE/BUSY/ERR alone cannot
+tell a REFRESH that rebooted the part from one that was only ACKed.  When
+ENAB is still set, bp->cpld_in_config_mode is restored to true before the
+function fails with -EIO.
 
 > diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
-> index e10f6b5149c93..4ce86df6e1968 100644
+> index 4f2bf54a23c21..9c2b7403bfd05 100644
 > --- a/drivers/ptp/ptp_ocp.c
 > +++ b/drivers/ptp/ptp_ocp.c
-> @@ -2264,15 +2264,20 @@ ptp_ocp_devlink_info_get(struct devlink *devlink, struct devlink_info_req *req,
->  		/* The flashable component.  Naming it here is what lets
->  		 * "devlink dev flash ... component fw.cpld" through, as the
->  		 * core matches the name against the versions reported here,
-> -		 * so it is reported for every board that has the part and not
-> +		 * so it is named for every board that has the part and not
->  		 * only once its USERCODE has been read: a part left holding a
->  		 * bad image answers neither, and gating the component on the
->  		 * read would make that state unrecoverable.
-> +		 *
-> +		 * An empty value still registers the name with the core -
-> +		 * devlink_info_version_put() runs its version_cb before the
-> +		 * empty-value early-out - while emitting no version attribute,
-> +		 * so nothing is published until the USERCODE has been read.
->  		 */
->  		if (smp_load_acquire(&bp->cpld_usercode_ok))
->  			sprintf(buf, "0x%08x", READ_ONCE(bp->cpld_usercode));
->  		else
-> -			strscpy(buf, "unknown", sizeof(buf));
-> +			buf[0] = '\0';
+> @@ -5135,6 +5135,9 @@ static int adva_x1_cpld_flash(struct ptp_ocp *bp, struct devlink *devlink,
+>  
+>  	/* REFRESH reboots the CPLD out of configuration mode, so the exit
+>  	 * path must not send DIS_CFG afterwards even if a check below fails.
+> +	 * The ENAB test below confirms it really left; until then assume it
+> +	 * did, because sending DIS_CFG to a part that has rebooted is what
+> +	 * this flag exists to avoid.
+>  	 */
+>  	bp->cpld_in_config_mode = false;
+>  
+> @@ -5156,12 +5159,21 @@ static int adva_x1_cpld_flash(struct ptp_ocp *bp, struct devlink *devlink,
+>  	/* Require DONE set, not busy and no error code, as machxo2-spi.c does
+>  	 * after a refresh: without it a CRC or preamble error reads back as a
+>  	 * successful update.
+> +	 *
+> +	 * ENAB has to be clear too.  Those three conditions are already met
+> +	 * by the state SET_DONE leaves behind, so on their own they cannot
+> +	 * tell a REFRESH that rebooted the part from one whose frame was
+> +	 * ACKed but never latched - which leaves the part in configuration
+> +	 * mode still running the old image.  Leaving configuration mode is
+> +	 * the one thing only a REFRESH does.
+>  	 */
+>  	err = adva_x1_cpld_read_status(bp, &st);
+>  	if (err)
+>  		goto deselect;
+> +	if (st & CPLD_STATUS_ENAB)
+> +		bp->cpld_in_config_mode = true;
+>  	if (!(st & CPLD_STATUS_DONE) || (st & CPLD_STATUS_BUSY) ||
+> -	    (st & CPLD_STATUS_ERR)) {
+> +	    (st & CPLD_STATUS_ERR) || (st & CPLD_STATUS_ENAB)) {
+>  		dev_err(&bp->pdev->dev,
+>  			"CPLD refresh left status 0x%08x\n", st);
+>  		NL_SET_ERR_MSG_MOD(extack, "CPLD did not come back configured");
 
-[Severity: Medium]
-The comment says "nothing is published until the USERCODE has been read".
-After a flash, can the USERCODE ever be read again?
+[Severity: High]
+Can the restored flag actually be acted on in this call?  The ENAB-set case
+sets bp->cpld_in_config_mode = true and then leaves via goto deselect, but
+the labels at the bottom of adva_x1_cpld_flash() are ordered:
 
-adva_x1_cpld_flash() invalidates the cached identity before erasing:
+	exit_config:
+		adva_x1_cpld_exit_config(bp);
+	deselect:
+		ret = adva_x1_mux_select(bp, -1);
+		...
+		ret = adva_x1_bus_release(bp);
 
-	WRITE_ONCE(bp->cpld_id, 0);
-	WRITE_ONCE(bp->cpld_usercode_ok, false);
-	WRITE_ONCE(bp->cpld_id_tried, false);
-	bp->cpld_id_attempts = 0;
+so jumping to deselect skips adva_x1_cpld_exit_config(), which is the only
+code that issues CPLD_CMD_DIS_CFG and the only reader of the flag:
 
-but the only thing that re-reads it is ptp_ocp_cpld_work(), and that worker
-re-arms itself only while the one-shot has not settled:
+	static void adva_x1_cpld_exit_config(struct ptp_ocp *bp)
+	{
+		int err, i;
 
-	if (!READ_ONCE(bp->cpld_id_tried))
-		queue_delayed_work(system_power_efficient_wq, &bp->cpld_work,
-				   HZ);
+		if (!bp->cpld_in_config_mode)
+			return;
 
-adva_x1_cpld_read_id() sets cpld_id_tried on success, so one second after
-probe there is no pending cpld_work item left, and clearing the flag in the
-flash path has nothing to wake.  The only other queue site for bp->cpld_work
-is ptp_ocp_probe(), and no exit path of adva_x1_cpld_flash() queues it.
-
-With no further read, smp_store_release(&bp->cpld_usercode_ok, true) in
-adva_x1_cpld_read_id() never runs again, so ptp_ocp_devlink_info_get() takes
-the new else branch forever, and devlink_info_version_put() drops it:
-
-net/devlink/dev.c:devlink_info_version_put() {
-	if (req->version_cb)
-		req->version_cb(version_name, version_type,
-				req->version_cb_priv);
-
-	if (!req->msg || !*version_value)
-		return 0;
+		for (i = 0; i < CPLD_EXIT_CFG_TRIES; i++) {
+			err = adva_x1_cpld_wait_idle(bp, CPLD_ERASE_MS);
+			if (!err)
+				err = adva_x1_cpld_write(bp, CPLD_CMD_DIS_CFG);
 	...
-}
 
-Does this mean fw.cpld is silently missing from every subsequent
-"devlink dev info" after a successful flash, recoverable only by unbind and
-rebind?  At this commit cpld.id is dropped the same way, since
-adva_x1_cpld_flash() also clears bp->cpld_id.
+In the exact case this change detects - REFRESH ACKed but not latched, part
+still in transparent configuration mode running the old image - the mux
+channel, the I2C segment and cpld_lock are all released with no DIS_CFG
+attempted, even though the earlier comment in the same function says:
 
-For background: before the read was moved off the always-re-armed 1 Hz
-ptp_ocp_sync_work(), clearing cpld_id_tried did cause a re-read on the next
-tick; the commit that made the read a one-shot did not add a re-arm on the
-flash path.  Checking the end of the series (5b9611f), adva_x1_cpld_flash()
-still clears cpld_usercode_ok and cpld_id_tried and cpld_work is still
-queued only from probe and from the worker itself, so the missing fw.cpld
-version persists there; the cpld.id half is addressed by the later commit
-"ptp: ocp: drop only the USERCODE when flashing, and drop it before erasing",
-which stops clearing cpld_id.
+	/* Set before EN_CFG_TP, not after: ...
+	 * makes the exit path send DIS_CFG.  A stray DIS_CFG is harmless;
+	 * leaving config mode enabled is not.
+	 */
+	bp->cpld_in_config_mode = true;
 
-Would queueing bp->cpld_work from the flash path close this?
+The commit message says the flag is put back "so the exit path and the
+recovery at the start of the next flash can act on it".  Is the exit path
+part reachable here?  The other call site of adva_x1_cpld_exit_config() is
+the recovery at the start of the next adva_x1_cpld_flash(), so recovery only
+happens if another devlink flash of fw.cpld is issued on the same bound
+instance.
 
->  		err = devlink_info_version_running_put_ext(req, "fw.cpld", buf,
->  							   ver_type);
->  		if (err)
+Is that deferral durable?  ptp_ocp_remove() does not exit configuration
+mode, and a fresh probe zero-initialises bp->cpld_in_config_mode, so after
+rmmod, rebind or a PCI reset the knowledge that the part is still latched in
+configuration mode is gone.
+
+Would goto exit_config be the right target for the ENAB-set case?
+adva_x1_cpld_exit_config() returns immediately when the flag is clear, so the
+other post-REFRESH failure paths would be unaffected.  For comparison,
+machxo2_write_complete() retries LSC_REFRESH and always runs its cleanup;
+here neither a REFRESH retry nor DIS_CFG is attempted.
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but the new interpretation of the
+status register does not line up with what the sysfs ABI says about the same
+register.  Documentation/ABI/testing/sysfs-timecard describes cpld_status as:
+
+		==========  ================================================
+		done        the configuration flash holds a valid image and
+			    it is active
+		busy        an internal operation is in progress
+		failed      the last ISC operation failed
+		==========  ================================================
+
+and cpld_status_show() emits only those three bits:
+
+	if (st & CPLD_STATUS_DONE)
+		count += sysfs_emit_at(buf, count, "done");
+	if (st & CPLD_STATUS_BUSY)
+		count += sysfs_emit_at(buf, count, "%sbusy", count ? " " : "");
+	if (st & CPLD_STATUS_FAILED)
+		count += sysfs_emit_at(buf, count, "%sfailed",
+				       count ? " " : "");
+
+CPLD_STATUS_ENAB is never surfaced.  After the failure this patch adds (DONE
+set, ENAB set), a read of /sys/class/timecard/ocpN/cpld_status reports "done",
+which per the documented wording means the image is valid and active.  Should
+the ABI text and cpld_status_show() also learn about the configuration-mode
+bit so the state being detected here is visible?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922142829.57740-1-maimon.sagi%40gmail.com
