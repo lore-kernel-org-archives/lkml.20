@@ -1,106 +1,139 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 791EC254B03
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:35:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
+Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3705748094D;
+	Thu, 24 Sep 2026 13:35:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.214.250.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790256933; cv=none; b=rP1t26icxns13rg6PEtC3Qb9wLwIIa48/wV2JbLXoS1sg0dU4G8Bj4tNqwOy+YSAyUD6ONoJeYLUyaOG23gIXV0y2KMpl/hqvRSFJ3HNOa+jZtG5C/2IE8rxjj2cVKkL5x6bDYCDwcaVGnrS6T1Is3UfZxYl/5Vmrt+R0H/twA8=
+	t=1790256964; cv=none; b=Th7ZFLojxUgvxfhUOXjO4imzkG2YaLE5zF2Uf2kc5z2i1CZzcKWO7KmfgQwplltpVdrhA5a6Cbkw9bkZbZj1z3apRrs6Lc3jU8moFL6PHkyDwNKqJSVSNu/vUrJQniX1xvFW25tVA4ptM1WBc836Yrx/VQwY/MNakUqON+dqlI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790256933; c=relaxed/simple;
-	bh=9jHCDZ/vmqzaSvN0q5leuZpLt+Evx7ZwCRLn8CHMW/U=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=bs5q3cTY/JmcyadpDL2vCK3DNtLI2xPg9z+nGUFe9r9O64MJU4abbTX5DJDU0V5JfmfRsa5h9j47e3340lerxb+EwRK1G+y+KQgxQOOtaWJ3qe/sQzGNWr/CMh9tbnLYhSylxFfRGeOuokDn2IzR1N3SVBl+kE8dYzwMDgbg/y8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=K9YqXg6A; arc=none smtp.client-ip=74.125.229.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="K9YqXg6A"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-33bf5a1c4d9so2063909eec.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:35:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1790256926; x=1790861726; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VkdVKqAOldSUnsrajVaqKWEtpzNt/N+Ojyt/04+6CGo=;
-        b=K9YqXg6AWsJs4i0EGymekQ+8hFeQdvr84ozF3csbeaEi0UlUFQEQOX7lSeom6py/nd
-         A6PaacgABGQsBD8FNV6YJi2wqeuSNMZhWsVf3CzTYus+7wZWmMVWFzdaXC13TDfvRg55
-         cmS84RbBElPpOWn4R9EjylSvdym9uHtJ2qnrvyP8iinuYXynwP6g/NJllb0H5Ss2A7F1
-         SmVdi47z22FG2PGxHJ6Bv80ofybnli0Ho8+qbf9Qf/taUxMlaFzuLV9BPXXBvUzpLkgG
-         BpMSk6Ffwd6TR4vHAqCWjLuGQ1HXfFEJHiQGc3MKncl+UqgKub2pEErc3IZofftCsK4+
-         X/Mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790256926; x=1790861726;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VkdVKqAOldSUnsrajVaqKWEtpzNt/N+Ojyt/04+6CGo=;
-        b=jcG9GdPeFdZ/745BIrEbF6Mp2sR6Z/ZH1ecv3nquKKoFpDrqgOUtNX9uPGwrLfECrq
-         Hyj5sy8bfItx2/T/FbQ3EG9xOw/gUgqQoGuaFT0ZsTYzDFX9Ppr0fXbloy4hAYeScRvU
-         2BbEAZTi1vxR/lwYBW5FMQ/et7z773b/3ReteD8/a+4FoVrP1d/kpQsuFGILiX4DYN7Q
-         ZR8ltvc+ijD3SYneEQ3uyPU7vAIxm7OuKyqji+5ZuECyezLlkI/MY2S+yb1JpfD2vJBR
-         RMLXXqAdc0f/FdbYriWwZKjZllU9jZfUqVofheHnFMPDrr5aGFqllKI3dhZmolmrArQt
-         P3fA==
-X-Forwarded-Encrypted: i=1; AKwUvBycI7cmWa3RvQ7d4EBxVSRI7TqJnxMA0p2falYjrZtj7Gq9B/yHLxfh1iQW4FoLWw9yK3GQJsCiNyYD8dQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mMU2ZpGB88ulUFKkn47jfYjr46WRYZ+ve1KVrhW3EVrd49nYTF
-	oLDMGZcyj74g0pzULb4dWrfkSywKV2EsVSwTrhjlmj18D7DYNjd5eKW8xx8a8TRlJvQ=
-X-Gm-Gg: AYBFou1ilLzuxh7z1lVMJINS8KvxAKxzXvrgJq0U5cK2Iv8413C/xlmjUuftj3mRFAC
-	0cEFOxE0PKIvlZkkl5QgnedTP5zItrKleYMqvqKusFNAB1eweSrddOthb1QHHZSym2QiMrN0Ewh
-	9SEWGgoJe1cNzaSDJSVGbqrYoD50+tWK6IQJVwwOogLFKRVkyEbKw5KS0/6bnUbtquYuVIV3JIe
-	+RfD0nB9DsVVoxvwGEbGqFAAEZVixIO8c19CRei/CB3CyrI3vL8uZKUPE+G2GVUS1NBQL8jHxZP
-	ImVpnjMSHR8g1a5sCg7XECgcx4nQkvGxN3yONI277W6F030NKAo3VZwxyQYVi3zdtWKXsPVjSHd
-	WNJoPiq2fIKAE1oxur0zoJpvYguTgeEY2pfvmkkCKnPQnhSrZvKXFRJstplIMlefIzgv7lk14Rb
-	C0LTwisHNUCHwsuLtiFF61IGbeo67Hmfh/RIuQUEDD4EHPHjmU2BdN8hkq4hlTW7LrDN9GfhfFg
-	IG8iJJWc/Xb2PCWwSI/C9WkXYVnoRaV6jSxMq5cUDfuWFMi2n7k
-X-Received: by 2002:a05:693c:8381:20b0:33b:bd89:26d1 with SMTP id 5a478bee46e88-34004c81f1emr2342532eec.12.1790256926408;
-        Thu, 24 Sep 2026 06:35:26 -0700 (PDT)
-Received: from xps16.local ([198.8.77.157])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96952605sm14382681eec.22.2026.09.24.06.35.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 06:35:25 -0700 (PDT)
-From: Jens Axboe <axboe@kernel.dk>
-To: Philipp Reisner <philipp.reisner@linbit.com>, 
- Lars Ellenberg <lars.ellenberg@linbit.com>, 
- =?utf-8?q?Christoph_B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>, 
- Jakub Kicinski <kuba@kernel.org>, Arnd Bergmann <arnd@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, drbd-dev@lists.linbit.com, 
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260519203057.1340528-1-arnd@kernel.org>
-References: <20260519203057.1340528-1-arnd@kernel.org>
-Subject: Re: [PATCH] drbd: remove unused drbd_nl_mcgrps[] array
-Message-Id: <179025692530.320427.942841012071872902.b4-ty@b4>
-Date: Thu, 24 Sep 2026 07:35:25 -0600
+	s=arc-20240116; t=1790256964; c=relaxed/simple;
+	bh=5U72Wm7yfEWJHFOYCiJL/eGjgoxMt4uzqoM5WeTeix0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VAkxsbuMCZNof/PARubBaOUDZl5q1ZZ7jHTV7hhZt5nLxS0qpGtA2WFQN4TjIKr32FOPGZndi/5jAHeslsT/G9LJt37ElRJloZybutYVh3uTdWmgYU1e45YMMGqe/d2I5qEdEyzY+JdlhAH01qrlCdmMwCThET6GIWQW6geI65s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org; spf=pass smtp.mailfrom=8bytes.org; arc=none smtp.client-ip=85.214.250.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
+Received: from 8bytes.org (p200300f6af404a00e4ccc4fdbbd66590.dip0.t-ipconnect.de [IPv6:2003:f6:af40:4a00:e4cc:c4fd:bbd6:6590])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.8bytes.org (Postfix) with ESMTPSA id 2F7E41C7465;
+	Thu, 24 Sep 2026 15:35:55 +0200 (CEST)
+Date: Thu, 24 Sep 2026 15:35:54 +0200
+From: =?utf-8?B?SsO2cmcgUsO2ZGVs?= <joro@8bytes.org>
+To: Mukesh R <mrathor@linux.microsoft.com>
+Cc: linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	iommu@lists.linux.dev, linux-arch@vger.kernel.org, jgg@nvidia.com, 
+	jacob.pan@linux.microsoft.com, kys@microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org, 
+	decui@microsoft.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
+	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, will@kernel.org, 
+	robin.murphy@arm.com, arnd@arndb.de
+Subject: Re: [PATCH V1 3/3] x86/hyperv: Implement root VM IOMMU kernel only
+ driver
+Message-ID: <arUkaFhYGxaYwL0L@8bytes.org>
+References: <20260924020221.128762-1-mrathor@linux.microsoft.com>
+ <20260924020221.128762-4-mrathor@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924020221.128762-4-mrathor@linux.microsoft.com>
 
+On Wed, Sep 23, 2026 at 07:02:21PM -0700, Mukesh R wrote:
+> +static int hv_iommu_map_pages(struct iommu_domain *immdom, ulong iova,
+> +			      phys_addr_t paddr, size_t pgsize, size_t pgcount,
+> +			      int prot, gfp_t gfp, size_t *mapped)
+> +{
+> +	u32 map_flags;
+> +	int ret;
+> +	u64 status = 0;
+> +	ulong npages, sav_iova = iova, done = 0;
+> +	struct hv_domain *hvdom = to_hv_domain(immdom);
+> +	phys_addr_t sav_paddr = paddr;
+> +	size_t done_size, size = pgsize * pgcount;
+> +
+> +	map_flags = HV_MAP_GPA_READABLE;	/* required */
+> +	map_flags |= prot & IOMMU_WRITE ? HV_MAP_GPA_WRITABLE : 0;
+> +
+> +	npages = size >> HV_HYP_PAGE_SHIFT;
+> +	while (done < npages) {
+> +		ulong completed, remain = npages - done;
+> +
+> +		remain = min(remain, HV_MAP_DEVICE_GPA_BATCH_SIZE);
+> +
+> +		status = hv_iommu_map_pgs(hvdom, iova, paddr, remain,
+> +					  map_flags);
+> +
+> +		completed = hv_repcomp(status);
+> +		done = done + completed;
+> +		iova = iova + (completed << HV_HYP_PAGE_SHIFT);
+> +		paddr = paddr + (completed << HV_HYP_PAGE_SHIFT);
+> +
+> +		if (hv_result_needs_memory(status)) {
+> +			ret = hv_call_deposit_pages(NUMA_NO_NODE,
+> +						    hv_current_partition_id,
+> +						    256);
 
-On Tue, 19 May 2026 22:30:49 +0200, Arnd Bergmann wrote:
-> After the rework, two files have a copy of drbd_nl_mcgrps[], but one
-> of them has no references:
-> 
-> drivers/block/drbd/drbd_nl_gen.c:641:42: error: 'drbd_nl_mcgrps' defined but not used [-Werror=unused-const-variable=]
->   641 | static const struct genl_multicast_group drbd_nl_mcgrps[] = {
->       |                                          ^~~~~~~~~~~~~~
-> 
-> [...]
+hv_call_deposit_pages() can sleep and must not be called when gfp == GFP_ATOMIC.
 
-Applied, thanks!
+> +			if (ret)
+> +				break;
+> +			continue;
+> +		}
+> +		if (!hv_result_success(status))
+> +			break;
+> +	}
+> +
+> +	done_size = done << HV_HYP_PAGE_SHIFT;
+> +
+> +	if (mapped)
+> +		*mapped = done_size;
+> +
+> +	if (done_size == 0)
+> +		return hv_result_to_errno(status);
+> +
+> +	ret = hv_iommu_add_tree_mapping(hvdom, sav_iova, sav_paddr, done_size,
+> +					map_flags);
+> +	if (ret) {
+> +		size = hv_iommu_hyp_unmap_pages(immdom, sav_iova, done_size);
+> +		if (size != done_size)
+> +			WARN(1, "Failed to unmap exact sizes(%lx/%lx)\n",
+> +			     done_size, size);
+> +		if (mapped)
+> +			*mapped = done_size - size;
+> +
+> +		return ret;
+> +	}
 
-[1/1] drbd: remove unused drbd_nl_mcgrps[] array
-      commit: d431e03d831c043707e22311c4bdea1907166c34
+A general question: Why is the tree mapping added after the hypervisor mappings
+are established. It seems easier and more robust the other way around.  Same on
+the unmap path which should use strictly the reverse order.
 
-Best regards,
--- 
-Jens Axboe
+With this order, if adding a tree entry fails and the unmap only partially
+succeeds, it ends up with a partial mapping which can not be unmapped anymore
+because there is no tree entry.
 
+> +static int __init hv_iommu_init(void)
+> +{
+> +	int rc;
+> +	struct iommu_device *iommup = &hv_virt_iommu;
+> +	struct hv_output_get_iommu_capabilities caps;
+> +
+> +	if (!hv_is_hyperv_initialized())
+> +		return -ENODEV;
+> +
+> +	rc = hv_iommu_get_caps(&caps);
+> +	if (rc)
+> +		return rc;
+> +
 
+The capabilities returned need more checking. I think at least it needs a check
+for HV_IOMMU_CAP_PRESENT and that PAGE_SIZE is set in the pgsize_bitmap.
+
+> +	hv_iommu_max_iova = ((ulong)1 << caps.max_iova_width) - 1;
+
+This is undefined behavior if caps.max_iova_width == 64. Better use DMA_BIT_MASK().
 
