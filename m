@@ -1,95 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-22.mta1.migadu.com [95.215.58.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E902E5429;
-	Thu, 24 Sep 2026 19:10:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A10BE4B337D
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:11:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790277039; cv=none; b=ENaOH2WdcycMsHDcM0WMtK6YHRjPWUsmRkMQCHtLXdy3jCPllsWJ/x1niCtugB+y+gUAj+MVEIMu5AfNypU8c6/H1lu04Z2tqXLqLSgX6CnlABCV02wTpsC3aAHkSN4L+JmGBCyiL4Snj1PAeFNM4LLYEpoqAhsbjI48J2UHn24=
+	t=1790277074; cv=none; b=jXVi8ahkOroSuMJzKNtnD0PwSYUKdHvb0qFqG/Rmfqd1bUV4STV23ARp7obZbKg7EHh30GIkoM/naXKOpHLOI+xhb+T8dZFDsFFkzvAwkx//iA3HCn6vPFGyW7bKHRjHHlqVwffC+kxfl9tCKRYx0Q0NkuwWlqqPaw0ow/KOwR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790277039; c=relaxed/simple;
-	bh=aIZPoTIJNwUn7S5TKaVC3Rqsp2/vwiYPT5Zw0bholog=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OyyZ97RpENJujciu/oZ//0L16NpkIBlc1hcSflBOQBzk5sklZd6qbUdtnx+rskXkRfNFAcalF/Ecux72a7f7evDRFE49dLqdpM5kvvnXCDLHWxBA8HbmPkq5CEBBN/rPmnZogblQDxLC6cJpybXQ76eD8u8nRcWQrOYQAyH8Di8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WajlDcbt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790277074; c=relaxed/simple;
+	bh=aokq8/mgd5M7W02EfB3QkSeXjSOcvcPW/ytOsAssmRg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RbqRV/wYuxR5msfRpXFDvpSsL1NrVk6uoLAZhajemMetFg9vGMHOSLWuku8l6xU2VLzROPg5dGwus+B5Z4MbA1sKdeVvVqfPs099O6ufSr9Su1z6eUi20MKOBCvffVz5GRdLJZfAfnvQzll5ekRy1TybXeN7kzYO0h/xsRlGUnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cv37usSj; arc=none smtp.client-ip=95.215.58.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WajlDcbt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3BBF1F000FF;
-	Thu, 24 Sep 2026 19:10:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790277037;
-	bh=Kd2YCVG/DT6OoKg16iQl9WZoswB9MDypzc/aqsM6ReU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WajlDcbthQEkexNwUprP2yxNO2wt9mEX3S7zwc3uLhnwaNrXHnCd/CWoHz8xtW4po
-	 VZOa2opqqxC6xUvfzvrJMA4Q5Ryt7jy7Hsf7uXf0xVoYSrtXsZ8eSqpGClR9Sr1IjA
-	 msWNIKTHFMOeiqS1nJogKNueQ1LESMz905bnXI+vKn0Vw0+V3MhM9ULENzgH6j5Yt/
-	 dwLFeTxCjQgQtioaSmLw3vjX6YHGQgmCoHb186I/GyRcZ9Eqfe4YJ6cipMu0Bctv2T
-	 2/FO18CZM77pkDVe6N1WSc0r31+Okh9qiOx1LxYHavwwCQfG9t3lsZCBY8T13IOXGF
-	 s9odmWuDcxrNA==
-Date: Thu, 24 Sep 2026 12:10:36 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Drew Fustini <dfustini@oss.tenstorrent.com>,
-	Joel Stanley <jms@oss.tenstorrent.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
-	linux-riscv@lists.infradead.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH] clk: tenstorrent: use regmap_assign_bits() for
- conditional set/clear
-Message-ID: <arV1rOMRG6D9erK8@thelio>
-References: <20260924083439.461769-1-peng.fan@oss.nxp.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cv37usSj"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=aokq8/mgd5M7W02EfB3QkSeXjSOcvcPW/ytOsAssmRg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790277070; v=1; x=1790881870;
+ b=cv37usSjtQSsfCxoHjYH3pYe5JoWEB4Ku/EIhV7gbRNE2CpMd7YEITDzrLVD/gDnTJ05kwkn
+ H/Rcgcz59N9opFoVJGm7XCJOxSzguO0q8bzDb/rS9GtU2rFKvgyMJLRS3Y+llnyPEJnPLXDh+Rq
+ MyV8Fcrv9x32AsOvj/eKob1o=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 45bc5b5e94a1dbe1;
+	Thu, 24 Sep 2026 19:11:10 +0000
+X-Mizu-Trace-ID: 45bc5b5e94a1dbe1
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	axelrasmussen@google.com,
+	baohua@kernel.org,
+	baolin.wang@linux.alibaba.com,
+	baoquan.he@linux.dev,
+	david@kernel.org,
+	kasong@tencent.com,
+	liam@infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	ljs@kernel.org,
+	mhocko@suse.com,
+	qi.zheng@linux.dev,
+	rppt@kernel.org,
+	shakeel.butt@linux.dev,
+	surenb@google.com,
+	vbabka@kernel.org,
+	weixugc@google.com,
+	yuanchu@google.com,
+	hannes@cmpxchg.org,
+	kernel-team@meta.com
+Cc: Usama Arif <usama.arif@linux.dev>
+Subject: [PATCH] mm: remove the unused zone->unaccepted_cleanup
+Date: Thu, 24 Sep 2026 12:11:03 -0700
+Message-ID: <20260924191103.3475117-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924083439.461769-1-peng.fan@oss.nxp.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 04:34:38PM +0800, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
-> 
-> Replace if/else blocks using regmap_set_bits()/regmap_clear_bits() with
-> the simpler regmap_assign_bits() call.
-> 
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
->  drivers/clk/tenstorrent/atlantis-prcm.c | 11 +++--------
->  1 file changed, 3 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/clk/tenstorrent/atlantis-prcm.c b/drivers/clk/tenstorrent/atlantis-prcm.c
-> index 6d4386eeb7dae..854b9c48816f2 100644
-> --- a/drivers/clk/tenstorrent/atlantis-prcm.c
-> +++ b/drivers/clk/tenstorrent/atlantis-prcm.c
-> @@ -205,14 +205,9 @@ static int atlantis_clk_gate_endisable(struct clk_hw *hw, int enable)
->  {
->  	struct atlantis_clk_gate *gate = hw_to_atlantis_clk_gate(hw);
->  
-> -	if (enable)
-> -		return regmap_set_bits(gate->common.regmap,
-> -				       gate->config.reg_offset,
-> -				       gate->config.enable);
-> -	else
-> -		return regmap_clear_bits(gate->common.regmap,
-> -					 gate->config.reg_offset,
-> -					 gate->config.enable);
-> +	return regmap_assign_bits(gate->common.regmap,
-> +				  gate->config.reg_offset,
-> +				  gate->config.enable, enable);
->  }
->  
->  static int atlantis_clk_gate_enable(struct clk_hw *hw)
-> -- 
-> 2.50.1
+Commit fefc07518227 ("mm/page_alloc: fix race condition in unaccepted
+memory handling") removed the zones_with_unaccepted_pages static key and
+the work that decremented it, but left the work_struct behind in struct
+zone. Nothing uses it anymore, so let's remove it.
 
-Reviewed-by: Drew Fustini (Tenstorrent) <fustini@kernel.org>
+Signed-off-by: Usama Arif <usama.arif@linux.dev>
+---
+ include/linux/mmzone.h | 3 ---
+ 1 file changed, 3 deletions(-)
 
-I will apply this to tenstorrent-clk-for-next.
-
-Thanks,
-Drew
+diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
+index 65e2e0249b04f..e9d3845d10554 100644
+--- a/include/linux/mmzone.h
++++ b/include/linux/mmzone.h
+@@ -1100,9 +1100,6 @@ struct zone {
+ #ifdef CONFIG_UNACCEPTED_MEMORY
+ 	/* Pages to be accepted. All pages on the list are MAX_PAGE_ORDER */
+ 	struct list_head	unaccepted_pages;
+-
+-	/* To be called once the last page in the zone is accepted */
+-	struct work_struct	unaccepted_cleanup;
+ #endif
+ 
+ 	/* zone flags, see below */
+-- 
+2.53.0-Meta
 
