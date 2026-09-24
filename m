@@ -1,130 +1,118 @@
-Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28E842AF8D;
-	Thu, 24 Sep 2026 07:36:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF849434E28
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:36:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790235393; cv=none; b=Ipk/4FmIkPCL3QMQCdMmxdPhO7QbwOGyUUCnI+e0q0egobgwzKAsKWGkmn5vBQlxj/6x52dgBnEnewBORtaPZkEiU7N85PqUCLIz8j50myLyD0CfTr0bSrfNosIMsRv+hWwOZOcqkyGYPIQ/dMHJPHd4Z8IBhYgQmvs8MjtqqsQ=
+	t=1790235392; cv=none; b=fAiR4SnCPK/lQkzACUPI39DAsEzdMAZJ3K11PvxYvMxQHBJptennnL0mWsR7FjZIahbzZ/sd1ujjWei+byUstzNdAZ6fkbajz2EFJwU/cLL2FlYgZYczg/1+WlC+CV1/OxUVHT0Cl+3lEHUCdfMcOiv0JewWaucV0Zh2g87gI58=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790235393; c=relaxed/simple;
-	bh=I00N0sC6N8z/NihuWASPNcr6BoeUuPaC8rphpErkLeI=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XcuMlKG692dmTHbuxEk5M/iLZ5SDv9YY6CU1Jd77fPtkSz0o+robjZj5JWNnoLodiUiS1VUtbqIBgCW1crB8Ngv/boOGhiybAir0b5NOsCYtSCoz9sFxEY8mSL2rbQ9PfitpfXGgrbq08MupUZIeRtTfx0DDNwWc8eaDDxWI4U4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=xo4e0qcW; arc=none smtp.client-ip=113.46.200.219
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1790235392; c=relaxed/simple;
+	bh=pQGSUWP+wqeItZ/eyVbalLMbvY0OTH5QJikLeqmKP+Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=K0/kNtUWY+2r9tzYSM3KuY61vNnLWGEaEQmANTjRbevL9/adgjdpANK67Gb+PGf8UEvwiC6c/TRTHJauAZ9/hoCFK1nq1QHPR/0z80r0+VStEReHTgof2ZGjpfgdMiVlzovdij1dOXAp4xHIXyKNa71po+oc5SZmajVNh1F1C5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VUTKed+3; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="xo4e0qcW"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=AM/1COYI+X2cxZahYdg2nMaQ9CPWb/Pi9FF0HZq9dI8=;
-	b=xo4e0qcWYUKb+XSdoEELGMTI9wjW82TMlWcj31whkd2V3Qjx9MHato7sp5L3DCl4rrjFgXAk2
-	l+apV22HWtkX2LDdzIWioU1kaq2lpBRU81qUybOOqT721sSCyjyEdMe63VVppSohvA0QfMgfApF
-	wvtZ8BublnUnhUv4ijDY2XM=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4hr51N5Gw1z1prLc;
-	Thu, 24 Sep 2026 15:24:08 +0800 (CST)
-Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
-	by mail.maildlp.com (Postfix) with ESMTPS id 6D41C40537;
-	Thu, 24 Sep 2026 15:36:16 +0800 (CST)
-Received: from octopus.huawei.com (10.67.174.191) by
- whupemk100010.china.huawei.com (7.152.184.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 24 Sep 2026 15:36:14 +0800
-From: Cai Xinchen <caixinchen1@huawei.com>
-To: <tj@kernel.org>, <hannes@cmpxchg.org>, <mkoutny@suse.com>,
-	<corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
-	<edumazet@google.com>, <kuniyu@google.com>, <pabeni@redhat.com>,
-	<willemb@google.com>, <davem@davemloft.net>, <kuba@kernel.org>,
-	<horms@kernel.org>, <ncardwell@google.com>, <matttbe@kernel.org>,
-	<martineau@kernel.org>, <geliang@kernel.org>, <mhocko@kernel.org>,
-	<roman.gushchin@linux.dev>, <shakeel.butt@linux.dev>, <muchun.song@linux.dev>
-CC: <cgroups@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
-	<mptcp@lists.linux.dev>, <linux-mm@kvack.org>,
-	<linux-kselftest@vger.kernel.org>, <caixinchen1@huawei.com>,
-	<lujialin4@huawei.com>
-Subject: [PATCH RFC -next 5/5] selftests/cgroup: compare socket memory deltas in test_memcg_sock
-Date: Thu, 24 Sep 2026 16:02:19 +0800
-Message-ID: <20260924080219.1036588-6-caixinchen1@huawei.com>
-X-Mailer: git-send-email 2.18.0.huawei.25
-In-Reply-To: <20260924080219.1036588-1-caixinchen1@huawei.com>
-References: <20260924080219.1036588-1-caixinchen1@huawei.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VUTKed+3"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48436686a40so204773f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:36:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790235387; x=1790840187; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pQGSUWP+wqeItZ/eyVbalLMbvY0OTH5QJikLeqmKP+Y=;
+        b=VUTKed+3WoAJcMV+RErtML7GNT7qjE81BbvqN1ZofuG4twVgjGVxop5gpK+SgqAGUe
+         LKtKWNLiTl4aQHaoDokgbmyDPm+yNU4Qt3L/9a6AgRW3ASXvfd/M7nQeeCiXPSr8eka4
+         a0T7HapOCEi9Q+mjv6Nmf4N3Pt2IaNPnv4vPyWgRpqtwnfCnvqp5uS6qidGlOJ0RK/ql
+         Pt/SH2hOAlQ++wxOu0Sp5xDiuWsshi5DFTKDPtGSsJsUt4+piNXaHzhdW/+Eey5UfSWb
+         4N1C+Dbr7UWFz0ucjpqP7xop3AianNMpqSwuuisrfqJXJ70Rh0zish0DJVwn0CQpcyuI
+         y6rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790235387; x=1790840187;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pQGSUWP+wqeItZ/eyVbalLMbvY0OTH5QJikLeqmKP+Y=;
+        b=puU8qQ/uWcYZ8aGPabSMIsMHsOMgj9QyVPmzkE9rd2U5h5okT0DbT3KsQevsxS9UO2
+         i0s6Ne40cB3xTC5PaU6iTGAiiRF2UUr1/WINaHbgdIlojq+VTx3CkzyZylfQh7G+IrTk
+         WGImwbQ61U6ybvI/K/XXEGh62B7wMQ+qyu10sSzEKyOIDI8kdphGTzu8mN0THt5EPeRw
+         zHl+oXSVjHpQVDJqAmu9Xcow4DWpsG6uW6H+uz6Dduu5/i18kq7ktiNSmaiX1A/Z6eCL
+         3/rBgc/nuK+cs5+Zh4WMMYFaySNYyrkZBXrpKsefsGY+K8NzeX0yuoO/TNXESYh/KS7Y
+         ZSiQ==
+X-Forwarded-Encrypted: i=1; AKwUvByOvGZG9Xk+RIq08fVpU+HUeIT4a3mez4HQt3K/kClAK/AxHn0MOF6b28ydlJlNTnlvMTmxnX6pRbOFrlY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lk5oc5on27aCZcSZuhmhIyfOX5lziXPA9i/hYuZtXB75kS4jJi
+	zILkEgZu3wllPKiPBXCw4Ud+GeNSVv4UGJfpGpE0MyaTGc4/cj7jMZWt
+X-Gm-Gg: AYBFou0xufapqii9j3drKc0hFbpUXGZBPqA9HmGw3o7DvPO9mqyTf+NhxA2zFedX6wm
+	ncYeyKjYu6xfvahELwaL8drTD5P+X4mW9yV9YV/iT4UEGETezXMyx7LT41TcpPPYAVrBn5adYku
+	Jb79I9PF/nrQx/LKZdjwnjpI4riM3pCnCggLmTxE8IoEDGSay6+M+b3VKbcYngoW3PgPjWr148Q
+	4SGMmwzNUtxU+MQtPLeQdKOYFJ6Jg8zYgeiF76mnQcTWr2iZ/cCwxRsuRQ90lBN3sA6S0+XPK3s
+	mFwK5ZdSaIXb1+mWZXxU4eQG8eCkesdzpVEXjaFeuOXxzbIWyeA7s0vbYJahWxVCKSuf1hDzKD1
+	4pv8u8mKjQEG8lHI3USN05vOumGlV0ioNSmQbLtkZyHUUDdwaQn0tnhXVjpGrsr3dETj8rrydjA
+	dp+g34r36Uw6HGsg8jZnd7dj/t69swvBCwQuZjHg84kRDATs5zRQlMCJu8UjsKc/n6LqSrkEdqd
+	n2zjFkJKLIfcDQrj26odvVLN7uo3Bs4erJSSOiC43uD03oLzY66MmS/+Mhb5NPfwelFSlFQ0UeT
+	mxA=
+X-Received: by 2002:a05:6000:25ee:b0:487:342:d145 with SMTP id ffacd0b85a97d-488716c8044mr2252224f8f.2.1790235386830;
+        Thu, 24 Sep 2026 00:36:26 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B90C500C183EA9C12FF3B42.dsl.pool.telekom.hu. [2001:4c4e:1b90:c500:c183:ea9c:12ff:3b42])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886877970fsm12839361f8f.24.2026.09.24.00.36.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 00:36:26 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+	Nicolas Dufresne <nicolas@ndufresne.ca>,
+	Oded Gabbay <ogabbay@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+	Robert Foss <rfoss@kernel.org>,
+	Sidong Yang <sidong.yang@furiosa.ai>,
+	Diederik de Haas <diederik@cknow-tech.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Jiaxing Hu <gahing@gahingwoo.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	=?UTF-8?q?H=C3=BCseyin=20BIYIK?= <boogiepop@gmx.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 00/11] accel/rocket: DVFS for the RK3588 NPU
+Date: Thu, 24 Sep 2026 09:36:06 +0200
+Message-ID: <20260924073606.45849-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <CAPsqS2SC1GvzALUdf2xsHZDpNjDO7BXrmzk19OYTF6YopQc8iw@mail.gmail.com>
+References: <20260922080114.44662-1-royalnet026@gmail.com> <9cc5365470490b4b66364e60fb614ccda7e86c6f.camel@ndufresne.ca> <CAPsqS2SC1GvzALUdf2xsHZDpNjDO7BXrmzk19OYTF6YopQc8iw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- whupemk100010.china.huawei.com (7.152.184.41)
+Content-Transfer-Encoding: 8bit
 
-test_memcg_sock() baselines memory.current and then requires the
-growth of memory.current to match the absolute value of the "sock"
-counter.  That relies on "sock" being zero at the baseline: with an
-idle listener it used to be, because socket memory was only charged
-for in-flight buffers.
+On Thu, Sep 24, 2026 at 07:37:04AM +0200, Tomeu Vizoso wrote:
+> I will go a bit further and recommend you to not let the LLM write any
+> text at all that is to be consumed by humans. If you don't feel
+> confident in your English, you can ask it to correct and improve your
+> text. Or write it in your mother language and ask it to translate.
 
-With upfront budget charging, a listening socket is charged its full
-buffer budget as soon as it exists, so "sock" is non-zero at the
-baseline and the absolute comparison breaks.  Baseline the "sock"
-counter as well and compare the growth of both counters; this is valid
-under both the old and the new accounting model.
+Thank you, Tomeu and Nicolas.
 
-Assisted-by: opencode:glm-5.3
-Signed-off-by: Cai Xinchen <caixinchen1@huawei.com>
----
- .../testing/selftests/cgroup/test_memcontrol.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+Yes, it is true that reading and writing in English is hard for me
+(speaking is a little better than reading and writing). I understood
+your message, and thank you for the advice. I have already applied
+it to this reply: I wrote it in my mother language, and an LLM
+translated it into English and corrected it.
 
-diff --git a/tools/testing/selftests/cgroup/test_memcontrol.c b/tools/testing/selftests/cgroup/test_memcontrol.c
-index 3a84d068fbf3..54dae37291c3 100644
---- a/tools/testing/selftests/cgroup/test_memcontrol.c
-+++ b/tools/testing/selftests/cgroup/test_memcontrol.c
-@@ -1335,9 +1335,12 @@ static int tcp_client(const char *cgroup, unsigned short port)
- 	char servport[6];
- 	int retries = 0x10; /* nice round number */
- 	int sk, ret;
--	long allocated;
-+	long allocated, sock_pre;
- 
- 	allocated = cg_read_long(cgroup, "memory.current");
-+	sock_pre = cg_read_key_long(cgroup, "memory.stat", "sock ");
-+	if (sock_pre < 0)
-+		return KSFT_FAIL;
- 	snprintf(servport, sizeof(servport), "%hd", port);
- 	ret = getaddrinfo(server, servport, NULL, &ai);
- 	if (ret)
-@@ -1365,8 +1368,12 @@ static int tcp_client(const char *cgroup, unsigned short port)
- 		if (current < 0 || sock < 0)
- 			goto close_sk;
- 
--		/* exclude the memory not related to socket connection */
--		if (values_close(current - allocated, sock, 10)) {
-+		/* exclude the memory not related to socket connection;
-+		 * compare the growth of both counters since the baseline,
-+		 * as the listening socket may already hold socket memory
-+		 * (e.g. its pre-charged memory budget) at the baseline.
-+		 */
-+		if (values_close(current - allocated, sock - sock_pre, 10)) {
- 			ret = KSFT_PASS;
- 			break;
- 		}
-@@ -1384,8 +1391,9 @@ static int tcp_client(const char *cgroup, unsigned short port)
-  * The test forks a TCP server listens on a random port between 1000
-  * and 61000. Once it gets a client connection, it starts writing to
-  * its socket.
-- * The TCP client interleaves reads from the socket with check whether
-- * memory.current and memory.stat.sock are similar.
-+ * The TCP client interleaves reads from the socket with checking whether
-+ * the growth of memory.current and memory.stat.sock since the baseline
-+ * are similar.
-  */
- static int test_memcg_sock(const char *root)
- {
--- 
-2.18.0.huawei.25
+In future replies I will always say when an LLM or Google has
+translated my text and corrected my grammar and spelling mistakes.
 
+Thank you, and kind regards,
+Igor Paunovic
