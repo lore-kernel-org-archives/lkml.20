@@ -1,61 +1,63 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 847321A3A80
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:15:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 495993563FA
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:15:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790226936; cv=none; b=TynkNucNHz/WkqNbtZ1uYGGGIw6Dpn5ytua1AuYOeIttxOZvfBrliXH+GDmyi8VFqqBiftSGXhhNXLg5lLrPqOsl9pbgN72Tws3PqGG9uEqCAVQGuJ0tkbgkAl1SoKTu83YyIiP28qZA5TvRHKIt/9YcXZVFuITha0iaE0VsBj8=
+	t=1790226961; cv=none; b=WRpFGrRF/z0FkpqQeaqIG2PMYZb7fNao4nR4W6PTNjQbxrQ5vAgyTBO5OyEjNn/qxtYxBEuCf5gpnZHFlTA8ecIfoxAHQYCRDFQzNaUrkC2bXS3+YEPxMGvsewbh4h64aHlP1mQeMY83Z96YLiSag+3jb+mQT2yiuDza0/OnAVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790226936; c=relaxed/simple;
-	bh=ooeLktLlgv5ipoC6vY3L+P+LoVJc8wd6r9b4126KwO0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B4PE8VoDlhnpGO7KUD4s8gBMMqtySaR2u/vPH24uXjvcv0skNd6Y6VHjeV7OkYRJwICobP0m9OXwX7I0jr26DQC7Sc7MF4iLxtO3QjGMFJTxm5130oLPQ7OqDhSpe0SQGbC07vmdC8/4PyUEQpqpcMTaJuu5YVI28+RamoXPaA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=ifQN69z7; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1790226961; c=relaxed/simple;
+	bh=DiUwjLtGyhmYy8gtskynKak9GaVOE3Oh/D8/CfNFu4A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=liwk+ch2GIQiZDxAGyqLAblxg3WRDNUyCXq2rINQICzRwTmU53vYDdIuur7X/AUFO/7Z7Rpi5EFzMZnjBMwjSIvIVd2RPDqL0Y57leizhbqTLWQkokNmOvx/yyIyB/dWbyloMmpKl4/yuMg4MGRfF0KC+100DBfnimAk50srqPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=KHiCaQWY; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="ifQN69z7"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd88a115ebso10151105ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:15:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="KHiCaQWY"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db18fe433fso8270655ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:15:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1790226933; x=1790831733; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8MJJXLu5JWmqzN8gvpfOKuAAfjxmxpsaGArkxyS3jzc=;
-        b=ifQN69z7Ey8x5LGWBH6b+lkcu7IkT8vasi7lQ96+4ylwvG7wYT39elpxUI5BUAvACp
-         9Q8i3UdIUiK8qXpHQLhWJZWSxiWZE1ZJ85/bSjHEnpz9BxxM1CkLYqou91dz600h1wRK
-         vWbslCfjctjWZwgTypkKbzOHihDdGdVX1e/hGIhrxS9QBeB8L5XN3bcrtMrE6FGnyIaR
-         bBysvMfA7JbYbtHYOzksZugigpon+6a7MHoFnWV46P2sHpLdbVj6R4IScgYU32SNrxj2
-         8elHBOTOUWTKoznnEXZCumVQvtjxpsaIj7uxyimcxHzFUdPkowM1NjLuNM+AtgSD8HlM
-         Ng4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790226933; x=1790831733;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=nebusec.ai; s=google; t=1790226958; x=1790831758; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8MJJXLu5JWmqzN8gvpfOKuAAfjxmxpsaGArkxyS3jzc=;
-        b=uwYK8ft8rLg4beqPly/cK8PMlEYz5+TC1oQ3xsfrnR2fEQ7OE31DE/qwL4dadOOZWK
-         06Co62CAXJSYlaymz4e/Ogv5/Ux9fi4WurNHjbC43VES5o/bL3DVACBStmPtccySdzH3
-         7TlCcz/3aCHMpMSqCy7Lb9f6mxxnEhxP0v1RPug2B5VJxwyP0flvbT9pb3w8z3naQ7f6
-         LEre9UEZpDiTDuxeMfWWUqw29szMNDta4YRRsIOipwUulOw+WMDIGwr2y0CjPf6yJ2C8
-         6Xk2bFVTGJbUd6Y2L1UeRCogEmDPIK5Wl5xOfbbQSlpCGarH4PyLl1Z2ZG2mMqJSCa6C
-         GQ0g==
-X-Gm-Message-State: AFuF++n913xLzbnJxzL7u1aTierQDw1wEy5v1180/w03AynP9BBiBiCO
-	4r2m3naMyYpw+48vljgjJkpSvRg742WOGvAjMsMsYIENBmqWiV6lPqrqItzlUDYzLrEP
-X-Gm-Gg: AYBFou1+Oeiv08YQTJrQCE/uIsfMThSVie16bquA9FfAytxADaZvac7pHbUVSS7lR4l
-	uz5KuJeAxRrU7PAMY77SzunUGX38TCKWDzX+NQmgohwgZdh8d3xuSfj8iP4HmzjTT5LajlAhLC4
-	hLpJ8HCex3/OfiBybfPPcR1XxuR/DJCkVlw7ZDZiUsZ+RmxT1UXRajPa6QRQTk374BVhZMguss2
-	0aPbh2dt3RD9OoZQ2GaNk5BYLE2w0mjlplgBQB7MjGtKVaOG1/XMTJb4XOvRokvB+WWzYZksxdZ
-	NcFZkbYG7HmBwzcBpkfDecTHpY427KFRhQ65TxBiJIr/kZJ1BbVOWA2Kt2CIwrRazAPD16G2edh
-	3yWq0CnNYapcxtdtGyfTtTVAwk1MjuKjL33dxoILLw3BbOT8I0pkMsQOwlIhyfpVCk2THTYeJgR
-	8d3PfPP4yOeTUDEXO2a95MPZzy99oET+AMo7PVzFvc4okHxzkf4WlsBsM6JPaUNoMbsv44+Zxnh
-	Vb/YBs3k6ysi5aCNPULNXd6PpdZFA==
-X-Received: by 2002:a17:903:1447:b0:2dd:c053:ec6d with SMTP id d9443c01a7336-2df7e11d07fmr11774385ad.32.1790226933498;
-        Wed, 23 Sep 2026 22:15:33 -0700 (PDT)
+        bh=rJ5r4oLP0+o/ugLJvH/PI7dd/lO3F0+vOnqYVeSMnjU=;
+        b=KHiCaQWYY3PtP4O/mc1Xx3dvhwkleDRhzDMdqFDn+WspGR8kUOjUSU5zDo9bH2eaJf
+         tOdOvmuW9Abwb7nXpuw/21uBPabyBcHEVrWfnLjTtwr+5iDG+K3yRbiqcDzRe4d1K9GN
+         pLRHlkCm3F7rDUKMUxM4gxcdvm9Se5ppAJS4MbK4CJccxB5g+BGTF6T6cUg3rS3TH0px
+         pLlVtG7i7Bx9vBv3DNqKpu2PoQeypqKSF2OaegRXi+EnlkwYOEjERfPk7kwG9ScHyDgz
+         z3MBYGb9IJehNQJIGmLtmcVNDq6Cn+v7vktWPXGyc5SK0XlLqCqphvZrvcnThgdyHOAZ
+         Z+jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790226958; x=1790831758;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rJ5r4oLP0+o/ugLJvH/PI7dd/lO3F0+vOnqYVeSMnjU=;
+        b=RPDIJRCh7LgcialrcqOioZPN5t2GjwnFVlRwn6T32xs1NsZ4iJXf6qgr3EmLLteZDQ
+         uhouopAW4ulI9BEoDaeL6nNoOXsaD8AJcSRbrMIojgbOxgUMMPm1NKoYkSP0/6vFCXby
+         H6uVQ5UhhfYbvkNE7Mnhia2mIdZk15tKc1EzQdKZw2aae5zY3SG4v8M5Ekor2gqeKU1X
+         Ry7Tcgj9qgUpW4pwkrzs/ptW/nngEMEdf02mfhf1llFHrT2xdhdCnpLSZspgNkxjzfMP
+         On1E/2RFWKIoYcgEVPP7HynUCglL3kq3yNeSA/VWnR5ZmDbAwoclPHdDxjOBWwa9nTiS
+         Tvww==
+X-Gm-Message-State: AFuF++nPcNx3lT/eryhAiOpM+OQgez3NOWUxN0gKq+j7e5KNsYoF9Ou2
+	CwShit1C2uyCeTTqQR8S+5ycckA3GMHUwQgDbGlG46nKzD4pAHVdN0xwioP7Vd3FURg4
+X-Gm-Gg: AYBFou3dI53DkCinBDOOCIhLGeubzr2y2KHfPxLoW35iA1CHngGkA4Sy55GeMefX4+X
+	g8bvthuUm2kaALlVVm8AirVCa9+G80wY5opP0bVsGxdfbt/Ko+In+2HhG0blW3WjvRyODmSUgAq
+	N248+K9sUz3Rb//yYnd0H8lbEDjINUICnvelOei3XMXeabPhd0l4IVU0614lmkNk/UNwuZBnbQi
+	6LCcR/COLvFxzRihCU+EEvpbWHBhflsusKt841vOg7uEFUzTuT3DcgfdPAZ2snBadoDZ3Nsgcxo
+	GzYaomPXM2k7r5yngLtdfaUIkKr+NeRkCKy3/uYXRTY9jXFN0nQIhm3BX8W1xlihpxsO5X4trE3
+	O4Sn7TCXtPx90BdhWmVKLsWJ/l2YISWfmWmFYUhF1t4YpKKoUH6Gat1QfjKD4RA1JDkv8pcgStn
+	MSPQeMHMAjJTUDoKxsJVRNd3BQhv6Y7tqSzpcAdA3I31TkF0RaslsYZyrhWOulfjXi3jvHpq25T
+	Fb6skX4q/7LwbIyXjp62RiFYi09RQ==
+X-Received: by 2002:a17:903:b86:b0:2d9:68b7:c324 with SMTP id d9443c01a7336-2df7da426d3mr11430005ad.3.1790226958528;
+        Wed, 23 Sep 2026 22:15:58 -0700 (PDT)
 Received: from 954df21a5119.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5a7b48sm20062485ad.23.2026.09.23.22.15.27
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5a7b48sm20062485ad.23.2026.09.23.22.15.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 22:15:31 -0700 (PDT)
+        Wed, 23 Sep 2026 22:15:57 -0700 (PDT)
 From: Zihan Xi <zihanx@nebusec.ai>
 To: netdev@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -70,11 +72,16 @@ Cc: linux-kernel@vger.kernel.org,
 	willemb@google.com,
 	kees@kernel.org,
 	richardbgobert@gmail.com,
-	zihanx@nebusec.ai
-Subject: [PATCH net v6 0/1] net: gso: limit recursive IP-in-IP segmentation
-Date: Thu, 24 Sep 2026 05:15:20 +0000
-Message-ID: <20260924051521.32568-1-zihanx@nebusec.ai>
+	zihanx@nebusec.ai,
+	stable@vger.kernel.org,
+	Vega <vega@nebusec.ai>,
+	Luxing Yin <root@tr0jan.top>
+Subject: [PATCH net v6 1/1] net: gso: limit recursive IP-in-IP segmentation
+Date: Thu, 24 Sep 2026 05:15:21 +0000
+Message-ID: <20260924051521.32568-2-zihanx@nebusec.ai>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260924051521.32568-1-zihanx@nebusec.ai>
+References: <20260924051521.32568-1-zihanx@nebusec.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,32 +90,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Linux kernel maintainers,
+IP-in-IP GSO can re-enter inet_gso_segment() or ipv6_gso_segment()
+for each nested IP header. encap_level tracks header bytes, not callback
+depth, so a deep chain can exhaust the kernel stack. Making
+inet_gso_segment() stackable introduced unbounded IPv4 nesting; IPIP
+GSO/TSO later made the path reachable. The IPv6 stackable path was
+introduced separately and uses the same guard.
 
-This reroll uses IP_TUNNEL_RECURSION_LIMIT directly for the shared
-IPv4/IPv6 GSO recursion check and adds the requested Closes tag.
+Count IPv4 and IPv6 GSO handler entries in skb_gso_cb, initialized once
+per top-level GSO operation and preserved across GRE/UDP context changes.
+Use the existing IP_TUNNEL_RECURSION_LIMIT for both handlers. The first
+five entries pass, and the sixth returns -EINVAL before dispatching
+another GSO callback.
 
-The v5 cover letter has the bug details, PoC, and validation evidence:
-https://lore.kernel.org/all/cover.1790157745.git.zihanx@nebusec.ai/
-
-The v6 code was rebuilt and the PoC was rerun on x86_64. The BPF/veth
-path sent 65536 bytes; tracefs observed six inet_gso_segment() entries,
-with the sixth returning -EINVAL. The UID 65534 namespace-only path
-completed with depth 180, gso_size 1400, and sendmsg() returning 3676.
-No stack-guard, BUG, Oops, or panic was observed. IPv6 was build-enabled
-but was not separately exercised at runtime.
-
-Best regards,
-Zihan Xi
-
-Zihan Xi (1):
-  net: gso: limit recursive IP-in-IP segmentation
-
+Fixes: 3347c9602955 ("ipv4: gso: make inet_gso_segment() stackable")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Closes: https://lore.kernel.org/all/cover.1790157745.git.zihanx@nebusec.ai/
+Assisted-by: LLM
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+---
+changes in v6:
+  - Use IP_TUNNEL_RECURSION_LIMIT directly for both IP GSO handler
+    checks instead of defining a duplicate GSO_RECURSION_LIMIT.
+  - Add Closes for the v5 cover letter.
+  - v5 Link: https://lore.kernel.org/all/cover.1790157745.git.zihanx@nebusec.ai/
+changes in v5:
+  - Replace the cumulative header-offset check with a shared IP GSO
+    recursion counter. Allow five handler entries and reject the sixth.
+  - Initialize the counter for each top-level GSO operation and keep it
+    across GRE/UDP context changes.
+  - v4 Link: https://lore.kernel.org/all/cover.1790041241.git.zihanx@nebusec.ai/
+changes in v4:
+  - Keep the budget check only at the two IP GSO handler entries; remove
+    the common callback wrapper and other GSO call-site checks.
+  - Reuse skb_gso_cb->mac_offset and current skb headroom as the
+    cumulative header-offset budget.
+  - v3 Link: https://lore.kernel.org/all/cover.1789802623.git.zihanx@nebusec.ai/
+changes in v3:
+  - Treat an exhausted 256-byte budget as a callback-entry failure,
+    including the zero-length check used by the common callback wrapper.
+  - v2 Link: https://lore.kernel.org/all/cover.1789618203.git.zihanx@nebusec.ai/
+changes in v2:
+  - Replace the callback counter with a cumulative 256-byte header budget
+    carried in skb_gso_cb.
+  - Apply the budget at common callback entry and across IP, GRE, UDP,
+    MPLS, NSH, ESP, and IPv6 extension dispatch, including context resets.
+  - Rebase the UDP hunk and rerun both IPv4 PoCs; use decoded crash
+    evidence from unpatched 88c17de85ddb.
+  - v1 Link: https://lore.kernel.org/all/cover.1789302084.git.zihanx@nebusec.ai/
  include/net/gso.h      | 8 ++++++++
  net/core/gso.c         | 1 +
  net/ipv4/af_inet.c     | 3 +++
  net/ipv6/ip6_offload.c | 4 ++++
  4 files changed, 16 insertions(+)
 
+diff --git a/include/net/gso.h b/include/net/gso.h
+index 29975440cad51..0749230d414ec 100644
+--- a/include/net/gso.h
++++ b/include/net/gso.h
+@@ -19,10 +19,18 @@ struct skb_gso_cb {
+ 	int	encap_level;
+ 	__wsum	csum;
+ 	__u16	csum_start;
++	/* Number of IPv4/IPv6 GSO handler entries for this packet. */
++	u8	recursion_counter;
+ };
+ #define SKB_GSO_CB_OFFSET	32
+ #define SKB_GSO_CB(skb) ((struct skb_gso_cb *)((skb)->cb + SKB_GSO_CB_OFFSET))
+ 
++static inline bool gso_recursion_inc_test(struct sk_buff *skb,
++					  unsigned int limit)
++{
++	return ++SKB_GSO_CB(skb)->recursion_counter > limit;
++}
++
+ static inline int skb_tnl_header_len(const struct sk_buff *inner_skb)
+ {
+ 	return (skb_mac_header(inner_skb) - inner_skb->head) -
+diff --git a/net/core/gso.c b/net/core/gso.c
+index bcd156372f4df..e96ef63500648 100644
+--- a/net/core/gso.c
++++ b/net/core/gso.c
+@@ -117,6 +117,7 @@ struct sk_buff *__skb_gso_segment(struct sk_buff *skb,
+ 
+ 	SKB_GSO_CB(skb)->mac_offset = skb_headroom(skb);
+ 	SKB_GSO_CB(skb)->encap_level = 0;
++	SKB_GSO_CB(skb)->recursion_counter = 0;
+ 
+ 	skb_reset_mac_header(skb);
+ 	skb_reset_mac_len(skb);
+diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
+index 32d006c1a8eed..4ce38c99fef9e 100644
+--- a/net/ipv4/af_inet.c
++++ b/net/ipv4/af_inet.c
+@@ -1375,6 +1375,9 @@ struct sk_buff *inet_gso_segment(struct sk_buff *skb,
+ 	int id;
+ 
+ 	skb_reset_network_header(skb);
++	if (unlikely(gso_recursion_inc_test(skb,
++					   IP_TUNNEL_RECURSION_LIMIT)))
++		goto out;
+ 	nhoff = skb_network_header(skb) - skb_mac_header(skb);
+ 	if (unlikely(!pskb_may_pull(skb, sizeof(*iph))))
+ 		goto out;
+diff --git a/net/ipv6/ip6_offload.c b/net/ipv6/ip6_offload.c
+index 78f50c93c536c..700f1861d8eb7 100644
+--- a/net/ipv6/ip6_offload.c
++++ b/net/ipv6/ip6_offload.c
+@@ -17,6 +17,7 @@
+ #include <net/udp.h>
+ #include <net/gro.h>
+ #include <net/gso.h>
++#include <net/ip_tunnels.h>
+ 
+ #include "ip6_offload.h"
+ #include "tcpv6_offload.c"
+@@ -104,6 +105,9 @@ static struct sk_buff *ipv6_gso_segment(struct sk_buff *skb,
+ 	bool gso_partial;
+ 
+ 	skb_reset_network_header(skb);
++	if (unlikely(gso_recursion_inc_test(skb,
++					   IP_TUNNEL_RECURSION_LIMIT)))
++		goto out;
+ 	nhoff = skb_network_header(skb) - skb_mac_header(skb);
+ 	if (unlikely(!pskb_may_pull(skb, sizeof(*ipv6h))))
+ 		goto out;
 -- 
-2.25.1
+2.43.0
