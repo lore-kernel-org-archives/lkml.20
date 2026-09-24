@@ -1,35 +1,55 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 422313CF20C;
-	Thu, 24 Sep 2026 02:01:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 946C039EF27;
+	Thu, 24 Sep 2026 02:02:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790215285; cv=none; b=UjalGl65q1USfUShgqpY38SVy0SKMOxZNJZVcuBj9MdC4pq1/J20NyebyMfCgJ5BqCxFNJmK/bnWb9XcZM4XokC1DfQhE4i+dHVrKFyzsmMBIx9GaHPIZ+5pyBS9ke7Dn2qZvnXb4EXrqVMxsK04mQP8GGCP4zaUwyviKwXiQMs=
+	t=1790215379; cv=none; b=on30EgOZN5ci2TSoXA+jF949GeuCtVf/XAya3ZUxt93IusIqYQbeh063eeqPav5H6Rt34XkwUs5F/hYPQQzyYw1iqGFttN3paGm/2xligmsC4tFmglS3RPomGVJ4S1Q7GxxgJT3iTtb2XojP5dYmUbqtPZJ8fOk5lQFVrBIb6Y8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790215285; c=relaxed/simple;
-	bh=gR1OtvQIaidQ5PcbvE8GLL80OTY5WLaEfg9hnNizUss=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=LF4n31SPxUU4nrqSavA1UmBH+KJYgwIfGk1v9qZhcuEOi+MaVQqt6wHxAEIIaAwszu20hof+QwxohSdxfhAju/2EA7Id85KCyrC0mU6FOraDEVfmKhg5vEJ1dh3fxpt9XUDw9YWPVYLn2pe5bPeP2T62s7s592jD7QcVdWJ9xoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V8k/AAOW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790215379; c=relaxed/simple;
+	bh=G26jFl3qf1F6lFuNE3v/08zg4zvjxBOGCLTqu4wZQAE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=csFojg3XbOChoIkZfwQqlpWP/xE5+/Sx0Hkv1eB/w8qUIyj+GCSp6fAd//jNCADElAlkfO4klYz9NdPJoV55Hza/PFo+hqYUV1xdHtC0qDCcEnhyWy0T/3Vn2I3N05IbX0+KW3uThhcau//S9UPOMBKEVNwPTYU3U0KWG7WF/7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=Hb63onH3; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V8k/AAOW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C42F11F000FF;
-	Thu, 24 Sep 2026 02:01:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790215283;
-	bh=zMFgQZoU+cMQgG0ZwZpmuwa6cPFAqYbYoJClTqTO+1I=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=V8k/AAOWUnsBW9k6DYRK6YSV9jooly6cYLwhSGOw9VjyM/LwduQ3bNytckJPHWHWR
-	 Iwlt8qlJd8rsfcQ6Mb2jML+2V5wc/+9yS8j10LpHso4DiDW5RJl4WLvgPiQGG7LV62
-	 nfCiZi6RSV3KlNUOlEzTorOFq1CaOexTQe/1Ty9popAHmXk+Qpe+EJKauFbrZzBtG0
-	 gAm++T5fuEJSC7nB5weBpzYbQ69ewSQkR/Han3i2AjrqzRKENUvkG18h3kP36TWNEy
-	 znLMmlAHfwK1ipCiKuRawBK3+IAUifFmlkTLWNActImT9EZdzExHtII1Pb/4ErXazG
-	 yOTjQhrtNC1WA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93C1739E9611;
-	Thu, 24 Sep 2026 02:00:14 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="Hb63onH3"
+Received: from mrdev.corp.microsoft.com (192-184-212-33.fiber.dynamic.sonic.net [192.184.212.33])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 6ECEB20B7167;
+	Wed, 23 Sep 2026 19:02:08 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6ECEB20B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1790215329;
+	bh=jpg6hnv1I1BQZIEQIbPxFGR8d5ZrjHb40/ATbELpoLw=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Hb63onH3ellvYMCw1VS94xJTzYnFCU5BnhiaRvETnMJcXfxp5CJsvpiJ3U9YwxJsv
+	 9ORjtb47tilsfPB8afCRqbWqoNQ6R0711NsZ7vt4jJ/zcUIdsLW/oORceBLCOSfy9d
+	 z2LFvEjGpwLyRh1Vn7v1HO5bBt/aSuc6tNv4Cg7I=
+From: Mukesh R <mrathor@linux.microsoft.com>
+To: linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev,
+	linux-arch@vger.kernel.org
+Cc: jgg@nvidia.com,
+	jacob.pan@linux.microsoft.com,
+	kys@microsoft.com,
+	haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
+	hpa@zytor.com,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	arnd@arndb.de,
+	mrathor@linux.microsoft.com
+Subject: [PATCH V1 0/3] Hyper-V: root VM iommu kernel only driver
+Date: Wed, 23 Sep 2026 19:02:18 -0700
+Message-ID: <20260924020221.128762-1-mrathor@linux.microsoft.com>
+X-Mailer: git-send-email 2.51.2.vfs.0.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,52 +57,45 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] docs: ABI: OCP TimeCard: use literal blocks for commands
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179021521313.1274904.2314460885871180013.git-patchwork-notify@kernel.org>
-Date: Thu, 24 Sep 2026 02:00:13 +0000
-References: <20260921044830.95981-1-rdunlap@infradead.org>
-In-Reply-To: <20260921044830.95981-1-rdunlap@infradead.org>
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-kernel@vger.kernel.org, vadim.fedorenko@linux.dev,
- jonathan.lemon@gmail.com, netdev@vger.kernel.org, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- corbet@lwn.net, skhan@linuxfoundation.org, linux-doc@vger.kernel.org
 
-Hello:
+This short series introduces hyperv root VM iommu kernel only driver. This
+driver acts as liason between the hypervisor and iommu layer. Details are
+both in the actual commit and in the comments in the file implementing it.
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Thanks,
+-Mukesh
 
-On Sun, 20 Sep 2026 21:48:30 -0700 you wrote:
-> Use literal blocks for 'echo' commands to separate them from
-> the surrounding text. Otherwise the lines run together, without any
-> clear break before or after the commands.
-> 
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> ---
-> Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-> Cc: Jonathan Lemon <jonathan.lemon@gmail.com>
-> Cc: netdev@vger.kernel.org
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Eric Dumazet <edumazet@google.com>
-> Cc: Jakub Kicinski <kuba@kernel.org>
-> Cc: Paolo Abeni <pabeni@redhat.com>
-> Cc: Simon Horman <horms@kernel.org>
-> Cc: Jonathan Corbet <corbet@lwn.net>
-> Cc: Shuah Khan <skhan@linuxfoundation.org>
-> Cc: linux-doc@vger.kernel.org
-> 
-> [...]
+V0: based on upstream hyperv-next commit be0cfab740e5
 
-Here is the summary with links:
-  - docs: ABI: OCP TimeCard: use literal blocks for commands
-    https://git.kernel.org/netdev/net-next/c/dbb8d2dc0d2f
+V1:
+ - change order of lookup tree deletions to appease all AI agents,
+   carving out hv_iommu_hyp_unmap_pages() from hv_iommu_unmap_pages().
+ - change unique_id to ida subsystem management so we never ever run
+   out of domain ids.
+ - change hv_max_iova_width to hv_iommu_max_iova and generate proper
+   mask.
+ - some other minor changes.
 
-You are awesome, thank you!
+Mukesh R (3):
+  PCI: hv: Export hv_build_devid_type_pci() and change return type
+  mshv: Import data structs around device domains from hyperv headers
+  x86/hyperv: Implement root VM IOMMU kernel only driver
+
+ arch/x86/hyperv/irqdomain.c          |   9 +-
+ arch/x86/include/asm/mshyperv.h      |   6 +
+ arch/x86/kernel/pci-dma.c            |   2 +
+ drivers/iommu/Kconfig                |   1 +
+ drivers/iommu/hyperv/Kconfig         |  15 +
+ drivers/iommu/hyperv/Makefile        |   1 +
+ drivers/iommu/hyperv/hv-iommu-root.c | 656 +++++++++++++++++++++++++++
+ include/asm-generic/mshyperv.h       |   3 +
+ include/hyperv/hvgdk_mini.h          |   9 +
+ include/hyperv/hvhdk_mini.h          |  87 ++++
+ include/linux/hyperv.h               |   6 +
+ 11 files changed, 791 insertions(+), 4 deletions(-)
+ create mode 100644 drivers/iommu/hyperv/Kconfig
+ create mode 100644 drivers/iommu/hyperv/hv-iommu-root.c
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.51.2.vfs.0.1
 
