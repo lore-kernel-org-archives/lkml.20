@@ -1,103 +1,87 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 17D463DAABA
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:20:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A2B345CCA;
+	Thu, 24 Sep 2026 16:21:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790266846; cv=none; b=pQrsvTIAbz+vn7u4VwP7kncwk1CeNETjHHrp7Pwjx/wxOWsMbiReEcdAsrjIjajmQgcW6c3JsT4cyxgvELZMl0kNEu900/p5CzwT73yGQSy86YQI0GtPWu0GxRc6Q5RcenfbBYrBK6w+0JWjsC3bUgFVgT9/5565WVdAYMfEU6g=
+	t=1790266878; cv=none; b=EKJb0nn41nntrvIdE/vLaxeoe2A29mnaUmnkqJFyoJs3zge/tWxlX7jZqECvbqT7qjMKFkneWsmg1Dc1OAvAhZwZiCg771mXBRA6wMBXbWDvqXo9AiY9ffXPLZY8zIkTO5H71XZ6HqN4gbvoNuGr5FgHw3pcVAdXO9cnGjTBlD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790266846; c=relaxed/simple;
-	bh=Pe/zNtEpCcy1McYVhFRzIjTbk04DgTe7ite2+ZGUsnY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jKrYkQIk1y0alqBoOv2C16lai9/Jhkg+vdX/6qaeyyZnBVE/cpAuzWkC5JSnDULLJhF2pOI6jEy0OD2gciHf+4f0AKk3p7/gKqztuXqHi4YNNKzhPkKCGJHwhANATvy+EnMkPbaPoU8MQwF02QQo8EjpuXv2TBw7m8BZ0e4CKcw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qBhabypI; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790266878; c=relaxed/simple;
+	bh=bS0gSLPQgnjRu+NChwzGwhkPcUhKIYynyUuCSdXm8MQ=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=cKYpZLDiGcOUG8kU/9TVhcu5OPTrFJyMjs3XznXr4VXRznsS/SUvBM9ctRGWoQgsaWMEEuVWbSCu8F1/FObVNlapQlnflUAH23F/UO4qFHOok1+0ghARS6QiKsYvwBtVCo7a+g9v0PR6eziNdSuEiKGgYCjcPJ6JWAQ+1Gu4aOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WlVAKJYU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qBhabypI"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 016C3497;
-	Thu, 24 Sep 2026 09:20:41 -0700 (PDT)
-Received: from gaia.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id ECCA23F86C;
-	Thu, 24 Sep 2026 09:20:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790266844; bh=Pe/zNtEpCcy1McYVhFRzIjTbk04DgTe7ite2+ZGUsnY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=qBhabypID4ejayZoORGRa0QqVCZ74MT0qol8kkbDdKqzRo6plOuNZigFbSpt1/OV2
-	 wwHY8tQYzR4DZxbj+Rtdgx7v2O7WHekeP09NJqp38PFXbIeu73JuestUb5ihi1tuXQ
-	 esuvnghGt/9e2ulRtg10zxb/ejkCB/o1uDB8n/Ds=
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: linux-coco@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-Cc: Will Deacon <will@kernel.org>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Jeremy Linton <jeremy.linton@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Olivia Mackall <olivia@selenic.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH v13 0/8] Switch Arm SMCCC firmware services to an SMCCC bus
-Date: Thu, 24 Sep 2026 17:16:25 +0100
-Message-ID: <179026658584.3654431.7189876471375206962.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260923140405.1111554-1-aneesh.kumar@kernel.org>
-References: <20260923140405.1111554-1-aneesh.kumar@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WlVAKJYU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F3C01F000FF;
+	Thu, 24 Sep 2026 16:21:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790266877;
+	bh=t267H+Xjy70DfN6XTLGNuJg/rzEU4tIA4A29SQzOONw=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=WlVAKJYUG2h2BEfgMlJvmLiLOXQULaKIAFv1ri2EAsxSqRkwzMrkypjDnGgKtaDdT
+	 9eads90jWb6XOqr7Rt6VszN70xqoKPgdhLqs4EH7MV2J3ylXX1geSBfc/umwtqPfOs
+	 F10Z8t+TIkFACe5weI3TTYGU5kpeNH5vUbM9MEgOXYAZ98ixZ+pVBKWGlZm3pLkqlf
+	 CpOBNXHuPO84rKfj+nTuf5M0B0zfFfe9A4Q6ULM34yyelRjYXOWRypObeRoT0gVg91
+	 KyMEzF9mpxC/D2G5CIqskRoeNAU5rI+r/4aGRDuB7sByBDileFaS3svttqPMcxRA8z
+	 ptS/ABXK6R8CA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5692F3A566CE;
+	Thu, 24 Sep 2026 16:20:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2 0/2] net: dsa: mt7530: fix two crashes on driver
+ unbind
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179026680615.1636687.12670916217033906178.git-patchwork-notify@kernel.org>
+Date: Thu, 24 Sep 2026 16:20:06 +0000
+References: <20260918015020.2518315-1-f@lex.la>
+In-Reply-To: <20260918015020.2518315-1-f@lex.la>
+To: Aleksei Sviridkin <f@lex.la>
+Cc: netdev@vger.kernel.org, chester.a.unal@arinc9.com, daniel@makrotopia.org,
+ andrew@lunn.ch, olteanv@gmail.com, gerg@kernel.org, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org
 
-On Wed, 23 Sep 2026 19:33:57 +0530, Aneesh Kumar K.V (Arm) wrote:
-> As discussed here:
-> https://lore.kernel.org/all/20250728135216.48084-12-aneesh.kumar@kernel.org
+Hello:
+
+This series was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Fri, 18 Sep 2026 04:50:18 +0300 you wrote:
+> Unbinding the MT7530 driver from an MT7531 dereferences NULL in
+> regulator_disable(). On a Netcraze NC-1012 (MT7981B + MT7531, 6.18.44):
 > 
-> The earlier CCA guest support used an arm-cca-dev platform device as a pure
-> software anchor for the TSM class device. That platform device did not
-> correspond to a DT/ACPI described device, MMIO range, interrupt, or other
-> platform resource; it existed only to make the CCA guest driver bind and to
-> place the resulting TSM device in the driver model. The same pattern also
-> exists for smccc_trng. Creating separate platform devices for such
-> SMCCC-discovered features is misleading, because those features are not
-> independent platform devices.
+>   # echo mdio-bus:1f > /sys/bus/mdio_bus/drivers/mt7530-mdio/unbind
+> 
+> oopses there, and the build it was found on sets CONFIG_PANIC_ON_OOPS, so
+> the board goes down with it. Fix that and the same command gets as far as
+> mt7530_remove_common(), which disposes interrupt mappings the switch's own
+> regmap-irq chip still owns; the regmap-irq thread then faults in
+> handle_nested_irq() later in the same teardown. rmmod reaches both, since
+> mdio_module_driver() calls .remove on module exit.
 > 
 > [...]
 
-Applied to arm64 (for-next/smccc-bus), thanks!
+Here is the summary with links:
+  - [net,v2,1/2] net: dsa: mt7530: fix NULL dereference on unbind of MT7531 and MT7621
+    https://git.kernel.org/netdev/net/c/c2cdef41e0b4
+  - [net,v2,2/2] net: dsa: mt7530: leave the MDIO IRQ mappings to regmap-irq
+    https://git.kernel.org/netdev/net/c/0d80ba0a204c
 
-Greg, I think the latest addressed your concerns in the past with
-abusing the auxiliary device, so I queued them for 7.4.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-Olivia, Herbert, I assume you are ok with the hwrng changes in patch 2.
-Please let me know if there are any objections.
 
-[1/8] firmware: smccc: Add an Arm SMCCC bus
-      https://git.kernel.org/arm64/c/fe7f2a805443
-[2/8] firmware: hwrng: arm_smccc_trng: Register as an SMCCC device
-      https://git.kernel.org/arm64/c/d8263a131bb0
-[3/8] firmware: arm_rmm: Move RSI support out of arch/arm64
-      https://git.kernel.org/arm64/c/4cd849026e2c
-[4/8] arm64: realm: Move Realm memory encryption ops to RSI code
-      https://git.kernel.org/arm64/c/714153dca3a8
-[5/8] virt: coco: arm-cca-guest: Rename TSM report source file
-      https://git.kernel.org/arm64/c/07005b64d72a
-[6/8] firmware: smccc: arm-cca-guest: Bind the TSM provider to an SMCCC device
-      https://git.kernel.org/arm64/c/0d5be76b6086
-[7/8] coco: guest: arm64: Add sysfs ABI for CCA Realm guests
-      https://git.kernel.org/arm64/c/d541df166d18
-[8/8] coco: guest: arm64: Remove dummy CCA platform device
-      https://git.kernel.org/arm64/c/bce57945f5e7
