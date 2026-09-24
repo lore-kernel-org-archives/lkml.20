@@ -1,114 +1,98 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21C6737EFE2
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:00:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD0A535F161
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:01:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790269222; cv=none; b=daFnfwCd06Me/rrHB5QmUxZ0W/l9pA0RR71R4yCHzGAOaQPYMqVLWb+20tR1zzHyxfpVXQ4JkzANyX+8Ez83ZtHzGD6YIPUJU80xL8eUk5MVXIrOSmUtPi3TCaSnDGd68Eh+XgtjdKL1t9QpHEEmRcpYD6+JT8xK5sUE4nAzPzA=
+	t=1790269270; cv=none; b=NqsziwwvgrEsJyWSmbhZ8k2LUFlKMLDkBYD6AGetrjvGddpDVe+CBkijnxkG4JCxpU1595wk4jLEAqopooSOr63N+aXJsDLT7HLDeFc+Zr9QhTQpwvWhV0XY3klaLZTLcTG5FbdTlhGpZH+sASo5IeXvwemR0EWunv4aBXf0Kd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790269222; c=relaxed/simple;
-	bh=EiFAP1OZLQ6t/n6P3ebl7h7beg+6xP1eK2sTvfHoLFc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Bugo6K2/IfgJDjRAFWbsLBbA0LUUTIcubSJ5VyquRoRvVZIHRmWCYx2FuYVRUdH577TtKR/s8EgTT13JKWOAx9TSU3RBjIpl0NTKV1i/UlUaM/eDW4jOgDreBPBzMFuBc6Ne51GYZeNawVTgqa3aAs/RhA+HAm+bvFroYuCbxG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=BUzNj49u; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790269270; c=relaxed/simple;
+	bh=U8S3zEXgb8/EzEJgSl29uOk/PjIJsBgsg6IfhZVzWcQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=adZP3DCDJwUjSNqOVIo7mNG58iuHBS5CtszGQJdNEPd80NDjB3yzS9YC0m4VmARKHEA8RRmiFfQJqz72syJvJt4DB01YdfKMxR3QQaqcZAaFNNs8tNwFTIuwtkm0azkgUiQed8KYdN1RM+oQpQkWUvZ4maYtBJVU+53gvxkLcPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RGQB6/qx; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="BUzNj49u"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 847F2C211F2;
-	Thu, 24 Sep 2026 17:01:04 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C5C4060738;
-	Thu, 24 Sep 2026 17:00:16 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DBD3310328253;
-	Thu, 24 Sep 2026 19:00:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790269210; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=JdA69aMb2gXgOJuAm3klAA2htUXJ2SFBE/05Yps+PkI=;
-	b=BUzNj49uALFRrh+wUXwPBd+xXadOvLuhaJxQzws2Qz0SZBEkULNKoSlvHbnmsliUZ8TbY/
-	4YxlbJ0P3VWY2xhsoJ4v+f65ffYWYHuihjrKol1GWrmuRBNeQKO6UQTSQHO55S6Ovs0t82
-	c4iqFdRVxAc+SeYIqd6i2SPBmSKi+/cLl+R0BoZIqWQaXwK/ni1i1ywNQl+Ij3YkdAGDQ2
-	74n30RzR+7JQm6a/vzjNhazWcsk+M4js/VZ6jj8QRicav8nvZYYxQh/Px3mu0LhVGW8DOm
-	m+4gYaFu2hQ7Ai55GUvW5yp4r6xqRjYetuSrP5RLmWtFwvWEjoLQBi+x6HZgoQ==
-Message-ID: <1bd67ddc-4910-4f7f-a2fc-21d9c58cf655@bootlin.com>
-Date: Thu, 24 Sep 2026 19:00:02 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RGQB6/qx"
+Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2df8de41d5dso2047225ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:01:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790269268; x=1790874068; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=rigcNwes1J9QWwIScPgAbif0PmLq7wO30EVNxOIBrHs=;
+        b=RGQB6/qxAWEJqV/6C/ukrgmAVEs9SfqoYFSfStcJeK4QAkppndGqreWk77NvhTQcEr
+         Vd3PEtteMALCoPYCnYzMPDeCT4v61/ZEYaGTZeEnermFVAGqqHx8+kjyYbbUgFhd3MGL
+         eXBnYkYk0vstuLa7mr745a92aEsVNzTJUSLomue52tGq/mpvP4DwedxqNxgej+arrJLs
+         6EsaniikSToyx4H4EyjZiurrZFEXDm+yqm3c2uPozhXJPOX6gEWJc9QQquOORw0qCPJd
+         uVXEGpt/St/D8WMKybLs9LMF9MBYubdJBto9hyCOi7SrUB0MZ5ZgTFjgNvt6IE6O6mSC
+         CzqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790269268; x=1790874068;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rigcNwes1J9QWwIScPgAbif0PmLq7wO30EVNxOIBrHs=;
+        b=N2MSrDW1zNWzwmE812KsXb0V5wE4jN2UOpqzvRXloQHZs3sKmCemFDK+u5mbcmsWqg
+         Hk8gNImgX/cyZXD/4OADGu7i+lU+2gTBpvXcZrwWlLYEP9RSJn8b3cjhPpfH/GyCFiNe
+         fAdf625MviQ4r85CQ2VpUwMLF9fHdlV4Ic+KKg4NswTqaWZXcsM5oXRdE2qvoYpOR3oX
+         yWjEMeJkrp/a8AZO3XXLtmDFQJ7JT++7IpkDxZeiJJJ15hry4bMuSAuH4KyL9IjO28Ch
+         xJ+9ou4vJFLOzxz5OoKPrqTtUilpHLV5kFh/G9qis9WsuZ5SFRWTn41ysTx6fMVZEsfX
+         mvyg==
+X-Forwarded-Encrypted: i=1; AKwUvBygL6qR9x5jp5yfvPcJ6ffMwbAz/5lT3EcVrixe6Dam8I1Uy14usch9x/TyG6ZA+5FPVYetf6ITA+wnETY=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/GUWHrvsMHSoGyYikfO4UBo+AwauNixv22Om2QYfh0voa+MSq
+	QHOtDRhfrEfsr1qJmcKc3KeIqJOR8VTUJxi4hfnuMYWeXPB56otq9rIU
+X-Gm-Gg: AYBFou0vqXja+qebh7jRQ7LWJuVauIlYvQMNiF4a14XczTLI5v1pW+lh49oG+TeAFhH
+	Fe2YLSufKzZ8MqCtvipZbjJLjHutOetj7hpOx91pUkm3+o74pRrRbEkaD75WY1c4SaQJ8GPGBwN
+	avzkzCOSq+f4l7pZphNMxPVkIOcIv7MwDF+r9OwJx78TPdqDXDhs6rVEuhdK6TgI8GhqEHBV0r+
+	DU5s48LpM6lZQ3unbus3Irh7adsViBiHJfbT4oqq69aUy2rgrZGwczxMhd8fW2f4afbXdSrQk7+
+	fgeZBYmvZd32FpMSXEc/sjsD3oFnSjy34L9aeacVFFaehs8JSqYEK3/NxX872+xAG1SO9Y5VUKa
+	1EHS4/7EuR5vjr65ORYwOkLx1ICfpdMh5+NntuC/ljFHyQduEULWIte2bxJY1+Epi5TMXgfVNl1
+	W0WpwzRe+/sultBD97XswwtBmQUpEK7RfzgHUu7mb7g4Q8/PlOok0+2a0jap0dU0yEyA/1kJXrg
+	pdHsaFLWcT2
+X-Received: by 2002:a17:903:19ef:b0:2dd:c053:d73d with SMTP id d9443c01a7336-2df7dc38800mr26997485ad.36.1790269267985;
+        Thu, 24 Sep 2026 10:01:07 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a60c4a8sm30701835ad.79.2026.09.24.10.01.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 10:01:07 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Thu, 24 Sep 2026 10:01:06 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Eduard Zateev <hackerowskiy@gmail.com>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] hwmon: pmbus: ibm-cffps: avoid format truncation warnings
+Message-ID: <cae03929-ac61-41c0-99a2-928ef57a1223@roeck-us.net>
+References: <20260923024827.56445-1-hackerowskiy@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: configs: defconfig: Convert TISCI to modules
-To: Nishanth Menon <nm@ti.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Siddharth Vadapalli <s-vadapalli@ti.com>,
- Vignesh Raghavendra <vigneshr@ti.com>, Krzysztof Kozlowski
- <krzk@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Bjorn Andersson <andersson@kernel.org>, alexander.sverdlin@siemens.com,
- jan.kiszka@siemens.com, ayush@beagleboard.org, robertcnelson@gmail.com,
- upstream@lists.phytec.de, francesco.dolcini@toradex.com,
- leonardo.costa@toradex.com, matthias.schiffer@ew.tq-group.com,
- stefano.r@variscite.com, eblanc@baylibre.com, msp@baylibre.com,
- miquel.raynal@bootlin.com, mwalle@kernel.org
-References: <20260910134409.1713610-1-nm@ti.com>
-Content-Language: en-US
-From: Thomas Richard <thomas.richard@bootlin.com>
-In-Reply-To: <20260910134409.1713610-1-nm@ti.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923024827.56445-1-hackerowskiy@gmail.com>
 
-Hi Nishanth,
-
-On 9/10/26 3:44 PM, Nishanth Menon wrote:
-> Now that all relevant drivers have are ready, convert the
-> TISCI drivers to modules. This impacts all K3 platforms for
-> boot, recommendation (based on empirical evidence) is to use
-> deferred_probe_timeout=60 in kernel command line to allow for driver
-> probes to complete successfully based on the initrd used.
+On Wed, Sep 23, 2026 at 04:48:27AM +0200, Eduard Zateev wrote:
+> Building with W=1 reports format truncation warnings when formatting
+> the firmware version values for debugfs.
 > 
-It's maybe a bit late, but I did test your patch (linux next-20260923)
-on J7200. Indeed with default deferred_probe_timeout value I got some
-deferred probe.
+> The SMBus helpers return the byte and word values as int, so the
+> compiler cannot infer that the formatted values fit into the small
+> temporary buffers. Cast the values to u8 and u16 before formatting
+> them.
+> 
+> This avoids the -Wformat-truncation warnings while keeping the existing
+> output format unchanged.
+> 
+> Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
 
-[   16.869217] platform 2830000.serial: deferred probe pending: (reason
-unknown)
-[   16.869241] platform 24c0000.timer: deferred probe pending: (reason
-unknown)
+Applied.
 
-Using deferred_probe_timeout=60 fixes sometimes deferred probe for
-24c0000.timer, but never not for 2830000.serial.
-
-[   68.582069] platform 2830000.serial: deferred probe pending: (reason
-unknown)
-[   68.582094] platform 24c0000.timer: deferred probe pending: (reason
-unknown)
-[   68.582128] ti_sci_pm_domains
-44083000.system-controller:power-controller: sync_state() pending due to
-24c0000.timer
-[   68.582144] ti_sci_pm_domains
-44083000.system-controller:power-controller: sync_state() pending due to
-2830000.serial
-
-But switching all TISCI drivers to 'y' fixed them. Looks like an
-ordering issue.
-
-I also did test suspend-to-ram, it works as expected. Fun fact, doing a
-suspend-to-ram allows to probe these 2 missing devices during resume. I
-guess it confirms a timing/ordering issue during the boot. At the end of
-the resume, no device anymore in /sys/kernel/debug/devices_deferred.
-
-[  124.053571] Restarting tasks: Starting
-[  124.053861] Restarting tasks: Done
-[  124.053907] random: crng reseeded on system resumption
-[  124.053970] PM: suspend exit
-[  124.058833] 2830000.serial: ttyS0 MMIO:0x0000000002830000 (irq = 700,
-base_baud = 3000000) is a 8250
-
-Best Regards,
-Thomas
+Thanks,
+Guenter
