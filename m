@@ -1,61 +1,63 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3CEA45C6F9
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:22:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9833946A5F0
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:22:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790248933; cv=none; b=C77EDFCFkcbfr5jbYEztphC8+W/BmBdVc0A3AhFLoDMyq0QUygcVSOTYbuW3WGKmtICMQRWn5RR3VWieFBJZvqVgCa8YiTaHHP7cB0Mspy/pg46xD+LIpnVE3s6OTZVF8qPFoMKwNJF40udpCrhl9ELlENTv0ErnGwKLLJOGaxo=
+	t=1790248934; cv=none; b=E9if6uCrb9TGzxO3Rn0ZKc3jHlZTpb4YksS9LvCeHQAA9qKd6AhHnZiPRi00MeTAjdXXo73exCE/e8Nt/CESStB163XCizZL/SUWoFCBln2AnVqwpC6o08IqPLrMLCTJ0bNOWvvs6W2dY0ju6KvKV2dhREkY1E5v2aC8UC6ysHs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790248933; c=relaxed/simple;
-	bh=uiFHvkhXOb6IMewLT/2B7q8vIi57Er7K+/2dk+J48r0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UWEJqnC/I8mLqEzpeYCPumdHmCQZwb45w5aw82OdBM9hgoCaiasFLgUsuUMVKNZq/igy5wJSX9uGoFhEdx3E96o/Y4XatqWF2jmPbzimQBmMOIwSljrLZl/sMmqPllOvk3nw33EM/XBCo87Oq3elfyWml2fCPbEyC5AZUR12dmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QLuvllAk; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1790248934; c=relaxed/simple;
+	bh=MG2Bc3HSziZh5YSiBO1i5BIAIbO837rHWuxb349QBQs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jLKpBdHw5vBgaRcRczhS2UgG0m77f+Ko1hXDvMv439420+BYWdjh9V3puuEtFlqhBeLUgNRou5JoIaOBPVmuUf/EKTQzf2Ode05nF9hALrVUYhjRqn1uOFy9aIRDSdwy76AAEKZC+zKz2hnewuXzy5ZJeyao2ewUwgzywlERtis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R7HrVQw8; arc=none smtp.client-ip=209.85.216.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QLuvllAk"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396cccbba92so1439246a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:22:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R7HrVQw8"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-39647184c73so471946a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:22:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790248931; x=1790853731; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lySLNT3l55Z/38cmHGiYCffXCvb6f9Aj/HKyCCwn2OY=;
-        b=QLuvllAkdrWdfc0EgaUkbR3zrLFE/5VkEeNxSnl/vVGKo9aj4roUc4DZSKd9aqX4e5
-         Y3t1npmgzJdfzqeb3kg7ktNPHAGeALZuHOboswQdIAvv7RPVcwQPP0A6Fnwv6wgrUX/A
-         5MGAPEKkds+OiXhBlZyFNxMS+FSSOz4nqRpG9/6QfcM+DiKmtaVTeWLG6Clu8ijx8z1c
-         1NC05/a+m4zL7isVUfipn0b51tD7W8CWP73w63LFKqwQGRyqZdJ4tHQz2yhkYkLNQV4u
-         /Rvl9J3WqR3PJEarzUhqxuec8z8/MZTyoWY2WQtKly8iYU80SocLdTTSNxjqyhs30wvr
-         8iMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790248931; x=1790853731;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790248933; x=1790853733; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lySLNT3l55Z/38cmHGiYCffXCvb6f9Aj/HKyCCwn2OY=;
-        b=Q/5OJa2BBTLgO7OqEkqTDBqHh3BOad0orNYA1NhZsLQ99iZ0ZhtHiZbdz9mcXuBcZH
-         WUNZPWtqPY1Yr6Iwg0/Qb3p5dw4g1f4mojkNj1uQ5bdKsd18T8+FFnb96jnCEi436grj
-         pkASDkUxMsjp94gZkjkaB/Bv/VWb+eBVvnqZ6vKBEWiOFvqAY/GIpclz7PSjZEdwvIS8
-         hhTr6pw1Bbe2OpslWHhvlRq605wXLkaYdKFT9N4lo2YSCIavubTz3UAjNfpq7Pu9Npzy
-         VqeL7Z6chprk3FFhdUqvt283WcBsiRAOLsf14/Ccz+mFvoZc+75+DPHHBVrTB2stJfee
-         AUEg==
-X-Forwarded-Encrypted: i=1; AKwUvBzQpP4GT4bhw8hYVXrTLMbwVJNzGkjYkfrm1laSRBSWtczybndZZk6kbKASIv6Hncum2Z/x1aEoD3x8UvU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mp7jAYRHO4v5Hemt9i0XsbEOF8toEqO5nmnbs4wxNdKhOGa0mA
-	/HFLJ8z298wQFJawk8ZjyZrF8PwKTimaf9IE/YI4Q6JgAjSjjqczCDh0
-X-Gm-Gg: AYBFou1MfdwuQd56Y8l90ZgTxQcSqT3gcx8rpchLbZPqbTGM+GVIf4P6+wb3sgg8RNd
-	pOixvyCKleUUKR4ah6k89Y6hmmTNT3UuuEU8kOYXSEwzXzF8H3UEsIDuBbR4dzgomB59euDMB64
-	gUSe0apGlEN4dzqfC0f2cAogaKiuZZ1pKbkPZ4LI3yFa4EP5UpWhEVBt3cmhvQBDNq3D91u1tbP
-	6JVY6a2mReghyOon5ZYcMTpIxMzmuP0Eet3ii54Yy+65VLn03bSuGnS2HpkVfUVZ0FsncgUicAT
-	KYJqPtpp2CMRLRfe1pAA+qEa2rHZbOJtaKv+RBvmtR7FrbocMsKtYFXQGF+IXesfxy9xlxanjgF
-	TseYGkrb4VC48ekK+0aAlPUme8bqTAbS8dU1PUc4fxytAuuNiYbOmxedlK8sQCfQH+ZeGnQLW2Q
-	699GULE5nLBcAa0TirCWn/u26GJroudHxdzD3ndIQ4DI8GoDAwq0yWPw==
-X-Received: by 2002:a17:90b:2748:b0:3a0:7dea:6dd4 with SMTP id 98e67ed59e1d1-3a098570051mr1788571a91.7.1790248926599;
-        Thu, 24 Sep 2026 04:22:06 -0700 (PDT)
+        bh=VspQI5WMjsdSCk34l3Q9s/IcuI4zoJXws0vCPV44u/M=;
+        b=R7HrVQw8QKDQuKurTHlraUoMIIphjzb10yL/pFmxz5msgV1UGn5DeC0tL01MdlvPaz
+         GmdVcEqTCFDSGJ6B30yccueia1ZZhklDDViXztezddZmN8KWM79r+550nJM6rin3gOGn
+         G+2ijZnnWjoOk9mJEbaftBvh0QPdl+3VIpgRifdWbT2hwDY/1lV8N5daSjQQiSo/7E98
+         t8aNlRFic3jiqHJOHBvsbD2V3thFeCpHuMn+xvswaO04b8OWNXjSGx6BMTUECKFBlA87
+         xgX7iFHtapMRtx0K0tkK+EL4Yp1CGjXMffTr3a2j1+jGDyKe2CtUF3LJpNTGMBrTVZZ8
+         oLyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790248933; x=1790853733;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VspQI5WMjsdSCk34l3Q9s/IcuI4zoJXws0vCPV44u/M=;
+        b=OwSv1uh2xenQvznajd9NjuU2eg3y/pFk4bRRF4oASsBQdguTByRzLzwbQ8qbnNi2fw
+         +Hpitay16VGERK7Tn5n8Lj67W6e/dn6HnJRg+lL589UieblmqMIZbg3b25/rAAZFpHcV
+         7YQONwGH5BGD84pHZAfH37yw9nlszVjsW7TTaFYLoce0+UUlOPtFYOE3Ro6aQGuVNFjS
+         C/4RkvmhnKxBiyjDHBHd4G597fAcSEibTWcqx1YnHeIPJM+yJA6QaboomPI0g+1/F0T5
+         ujqBQ/yHj2u3/gJcwpXKg+coRndOO0zb/wmfv9DOXHsH4e9CDQA2s+qOAOH+ELgVz5t7
+         ZvZg==
+X-Forwarded-Encrypted: i=1; AKwUvBwpblK31zvtz09eS8fqnkOnxniWbuT39DUT7hzQPiND+cKlgVVBk40RYf60tYgA/pe73YXWrr5hEcLKRK4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kEz0VlSeQr/iVy4ZTVtWQsu89ImnZEXfEZGQXAXLUVlyyZ0kWA
+	ieNK1K03UKJZWYQ/DyQdJTxCjhO/Bi0sNOAxctI/43rj13SU7xSVJlRh
+X-Gm-Gg: AYBFou3Ip7abnYDqV4u/bgvBtAw64Lye1WgWZiC+9p9+LygXBDUgzC9QByvTrp+ZtNI
+	Kj/sNDs2bc85vk1thjBrSv/FeAQbNwwa/xVlSyWHL+mKNspTwpHfD3SwyOOrJvdLBrFxuGnlaeU
+	XXddX4rXLtDphpGAckA1VuCLyj/hxX2GgUX7ZBSApSwDCsJQAn9ufbQ3LST6fNwGGanUDEwx/o/
+	fdneQm5W1oT6iteJBTrXqqaxlNJXwO+24nbwRWhcrSsQ1WWfJ1zg6Jkefjsdn0Ouq1j5ijLWLc6
+	6lCFtvv6qEbNLOz2E6+2Xe0qP8QWUDDYiXEzSuyxzbPC4JPeKgHiMZeA6JJsVLwDDWWn8PtLqub
+	S++T95BfhBe/oaIlPwr0j1NAQuWYt8B41avWiHSKF0ci3DqFP2HpTmXKHtjewkDJXlzQvESdtyI
+	aIcxdRAcg6yYx+Y3FSYiLV0aFM4P5K18QXpHeM9nhAyU9xBvHU2LX4Wg==
+X-Received: by 2002:a17:90b:1a8d:b0:39e:58d8:f899 with SMTP id 98e67ed59e1d1-3a098abd80amr1586783a91.35.1790248932805;
+        Thu, 24 Sep 2026 04:22:12 -0700 (PDT)
 Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f3b82aasm2569713a12.9.2026.09.24.04.21.59
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f3b82aasm2569713a12.9.2026.09.24.04.22.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 04:22:06 -0700 (PDT)
+        Thu, 24 Sep 2026 04:22:12 -0700 (PDT)
 From: Guangshuo Li <lgs201920130244@gmail.com>
 To: gregkh@linuxfoundation.org,
 	mathias.nyman@intel.com,
@@ -72,10 +74,12 @@ Cc: linux-usb@vger.kernel.org,
 	eeodqql09@gmail.com,
 	stern@rowland.harvard.edu,
 	davidm@egauge.net
-Subject: [PATCH 0/3] usb: host: balance resource lifetimes in host drivers
-Date: Thu, 24 Sep 2026 19:21:53 +0800
-Message-ID: <20260924112156.1564208-1-lgs201920130244@gmail.com>
+Subject: [PATCH 1/3] usb: fhci: release IRQ and MMIO mappings on remove
+Date: Thu, 24 Sep 2026 19:21:54 +0800
+Message-ID: <20260924112156.1564208-2-lgs201920130244@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260924112156.1564208-1-lgs201920130244@gmail.com>
+References: <20260924112156.1564208-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,25 +88,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Several USB host drivers leave resources or references acquired in probe
-unbalanced after the successful path.
+of_fhci_probe() creates an IRQ mapping with irq_of_parse_and_map() and an
+MMIO mapping with ioremap(). The probe error path releases both mappings,
+but fhci_remove() omits the matching cleanup after a successful probe.
 
-Add the missing IRQ/MMIO, device-node, and buffer releases at the
-corresponding lifetime endpoints, using existing probe cleanup as the
-reference.
+After usb_remove_hcd(), dispose hcd->irq with irq_dispose_mapping() and
+unmap hcd->regs with iounmap() before usb_put_hcd(). This matches the
+resource release order in the probe error path.
 
-Guangshuo Li (3):
-  usb: fhci: release IRQ and MMIO mappings on remove
-  usb: xhci: tegra: release padctl node reference after probe
-  usb: max3421: Free transfer buffers on remove
+Fixes: 236dd4d18f29 ("USB: Driver for Freescale QUICC Engine USB Host Controller")
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/usb/host/fhci-hcd.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
- drivers/usb/host/fhci-hcd.c    | 2 ++
- drivers/usb/host/max3421-hcd.c | 2 ++
- drivers/usb/host/xhci-tegra.c  | 1 +
- 3 files changed, 5 insertions(+)
-
-
-base-commit: f03c39de3a1307371a4032757cd1732e91087c7d
+diff --git a/drivers/usb/host/fhci-hcd.c b/drivers/usb/host/fhci-hcd.c
+index 71e785f445a3..1c8f6317f6aa 100644
+--- a/drivers/usb/host/fhci-hcd.c
++++ b/drivers/usb/host/fhci-hcd.c
+@@ -756,12 +756,14 @@ static void fhci_remove(struct device *dev)
+ 	int j;
+ 
+ 	usb_remove_hcd(hcd);
++	irq_dispose_mapping(hcd->irq);
+ 	free_irq(fhci->timer->irq, hcd);
+ 	gtm_put_timer16(fhci->timer);
+ 	cpm_muram_free(cpm_muram_offset(fhci->pram));
+ 	for (j = 0; j < NUM_PINS; j++)
+ 		qe_pin_free(fhci->pins[j]);
+ 	fhci_dfs_destroy(fhci);
++	iounmap(hcd->regs);
+ 	usb_put_hcd(hcd);
+ }
+ 
 -- 
 2.43.0
 
