@@ -1,130 +1,351 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 067281A8F7B;
-	Thu, 24 Sep 2026 06:17:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F933E51F9
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:18:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790230649; cv=none; b=XCpXnR+i2CIym65owHspHGTN/R9ulKh4xgS7EWcqIP7MVp11vWGqv0AAaW2hOwCYFeExwMsH50AJOtlGjgA/B8FBq1rG6pc38XOhYZR1pRCBepVvSQrctVnIvoRyJiNxdwj8zS3lDa5dWK1bE2vDr0iomV15ozr+tgAvsKsLg6A=
+	t=1790230731; cv=none; b=rP/McfN7Xtz1Pbm7WQ9N4Zj73V1fMysQDiuyBL7so/XBnYFohAnVz0kp4O02zqHvdBdZJ0+i8rMUkPYDqb7zjJL577DRGk+Pi5LbuR3lPRc+yrM0dgF0aMmRPh5TRG2ak+uT7J+iqFhcnOMPplUBJ6JMwUCbCi2aFTDKNB9dsg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790230649; c=relaxed/simple;
-	bh=K5LbEpUdCRyhP6+zeqIs5CQbPD9lIcpv/WtyYozchjw=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=A/ztQIKrhs1byZYpNzEbRYoYnO/9RmU0hi5I8RTxvqdF3KLeZP71VUvfwB3Cd/6OoDuGuWkZxpCaOjvBKwLbcaPD+MiCSjfggeLaAn6nxKyLJkTih3fvYJ1i3bCJlUnvFot6DhQnmNpfqfB0AccW4ISvKPEQheAg68WPmISYTHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ye89XQ0F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790230731; c=relaxed/simple;
+	bh=b83+2lVbeQu4Jlvz4EJev7hmuGoJ+aXL0hdjrUishOs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=co/ekWlHVmRwRuvYYlWu/N3/cZ1rVfUf1C9uXPTr2URihqIC/L+I3VXk+30jn8LKuIhmqqc7JdOjq8Ms8CeRaH4WfjIKBqnRJnykO6n9UvYvt2y+cpkBqUtZTh+Vfu8r+juCuAC+U27f4hp3bDawiJkLmaYEW5ompLa8TcEnclw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=modal.com; spf=pass smtp.mailfrom=modal.com; dkim=pass (2048-bit key) header.d=modal.com header.i=@modal.com header.b=YETSht64; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=modal.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modal.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ye89XQ0F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DDA91F000FF;
-	Thu, 24 Sep 2026 06:17:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790230647;
-	bh=/UnLhQ/lvASg74cIdHap1FuwWyDeDuvmje7+NT56u4s=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=Ye89XQ0Ficz8lzEEbIXGnRn0HNZNJwzSDcwr507lgp/n1atcS/vrL2uffUhjaUz9i
-	 oqBXkQpoRJZLe7UZkWWJHC4ijRFUPN+U9WsNeuxolB7+vKUftaWo/dSj+sIL0Inuwh
-	 O9gRYAppuMPrQCW8votXBJJ1+9IuaBbma2ppNKDcwdXmmadjekViIlxmjTIiXQOBn6
-	 wbWoFB4JzzbAucvCja+M0k16eGJuUB1UQRc6pHcD1yJBtfNHCWAA0TuJS1CDODV67l
-	 Sk32lsSMWw+5kVhRUP7hwoZ/0HSieYplRrM0qYbWEzZ+eOyQ5cIWNlHFRePWnFV4TD
-	 GRJskZu0Ywccw==
-Content-Type: multipart/mixed; boundary="===============5180222862375520979=="
+	dkim=pass (2048-bit key) header.d=modal.com header.i=@modal.com header.b="YETSht64"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-86b90133ae8so921623b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:18:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=modal.com; s=google; t=1790230729; x=1790835529; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=B5AtUb4a1oAHMSq5rmzd2HgfG+8wDisV0MJ3d9oqwKk=;
+        b=YETSht64+m/B+0REPMLrLmNu50qGFwBeTd8I62ODplutwlQ/80MIASxyOcV0qmY9j3
+         ebs6B9qv8y2Ef4qkRVWaKxX56ayEeN2TKTbggoeNHMp9BT43RmyiFhKMe/1HSABg0BOq
+         R9L1RqQErBd27Th9tsz8wbBOvz5iWiX4u/vUeCh1ujtdr1KZle+oitwnubIk1KxDquPh
+         KWPac3f5K+Q9KO3UXV44Cn4yG2aiCNcGqMzia169othknhNsH0ksprIT5EqTxKmpD+hE
+         4SrZy1jXmxk2Cd5toz6i99viOULIUTMu6UUZqS5FGtG8gXNnYMWzm+mgSrNrg01jQ8WQ
+         W1pQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790230729; x=1790835529;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=B5AtUb4a1oAHMSq5rmzd2HgfG+8wDisV0MJ3d9oqwKk=;
+        b=RqDZM4R2YbpJZUIzqC4J19FOt3dOnFrT9NJqyYl6zdnTNNOhw/yKbCetn+lURVNYQZ
+         hb/hhT11Gw6CYWPdhVrscVxrYx3FVCDs9P1HPXnyLEfz+0s8skTJv4JWgJXJyUEYp2xW
+         dh0qWEXrHznYsHIA/N7uVdk7uFIUQsF5/+uhuy7C9HjyxYk9vt8A56fJvieYfMxNNqqt
+         IGk/1CUNlsllaN6V4zcUiAvsFvWJlnFAZuYPJ2MHmDz7XhewX9Y8cZDUtDAPZz6tORfg
+         hvqadXNKBX+op/cARwxqW0iFuwCxSB1nMcyhTL+m47me2M0FuQlsD0o0JaC/5GaHsdQD
+         JtIw==
+X-Forwarded-Encrypted: i=1; AKwUvBwcgDyAMyH6mr9afyeX2jihnemg91nftMdbNiP6kboCpeItj8en/U18yNMo+I0H4jOW2iTr9lGV2Fw9WIk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kT4m1yLww3x7D8o0YbXhYoljq5r0MxeiPESJacp8+HpVCNPLsG
+	3E4ls/p1FGzCrtcAD83IfneuGsNwgMsmymE1lOj+Sd4T5Ll7t32+jrKBGXpxCtkDjz4=
+X-Gm-Gg: AYBFou0JjCOpDMz0yR5qZghsORhbrT4Q7FPGAnRFWP5uQhaIKwj/2BEZrZLrxDCdsOy
+	67ausiBtbcR+yMeExH4Q2J2ghdrPqIkjJz1+v6OjNsLEFSOdyiKSTxqB9qD1gC2lc+gesAs45QI
+	SNg6s4MFM4sC8kl4ZHzGsZWx9iudsldfCBbuYICGn31ogpB2muvUcNGPXl9EF23jHccPYLHaZo+
+	9BEw6aFyN+wsqLIbcekHYqwAYZrssch8pxuKdyLNmFOWDYJK89qyRTG7YKudGNurzxFXXO/ZnQQ
+	zg9LymEGnqJ7W4JFWLk6alwS03+GyP0LAzHuVCmdMZ+Wr5N6TUugHNsVsmESmsP+gA23raOlFOF
+	v7ksFIB/5ooZSQnMFGonotV+PryJnKJi5UuAx5wX9TAfDtiZsQKIGLAEwoI0ictF/w9+Qo8iad5
+	y6tfd00wIaY5u1NyWGdbXqBnkDv0o5OzkOZlwMjliCa2XoqPDbCAtzn3TTo7xXWjckaGBnCQOgy
+	A1vFFJMYZK2IH/xoy87gN+I9lobT9WNvKLFRI8LDBH0hrrVXhhcDc+vjtHyXlD8eqE9y4mr6RLK
+	wJDJ5XXEWyzg/MndhO+YzBoQa/2ABqJBBDFyQg==
+X-Received: by 2002:a05:6a00:1da5:b0:85f:ae00:9e68 with SMTP id d2e1a72fcca58-87e99e414c3mr1186530b3a.26.1790230729239;
+        Wed, 23 Sep 2026 23:18:49 -0700 (PDT)
+Received: from devbox-ayushr-01ed.tail5292b.ts.net (ec2-44-242-192-44.us-west-2.compute.amazonaws.com. [44.242.192.44])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1dff9778sm2333101b3a.49.2026.09.23.23.18.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 23:18:48 -0700 (PDT)
+From: Ayush Ranjan <ayushr@modal.com>
+To: Hugh Dickins <hughd@google.com>,
+	Matthew Wilcox <willy@infradead.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Jan Kara <jack@suse.cz>
+Cc: Ayush Ranjan <ayushr@modal.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	David Hildenbrand <david@kernel.org>,
+	Gregory Price <gourry@gourry.net>,
+	Pedro Falcato <pedro.falcato@gmail.com>,
+	linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [BUG] shmem: FALLOC_FL_PUNCH_HOLE vs fault-around race corrupts page cache / rss counters
+Date: Thu, 24 Sep 2026 06:16:21 +0000
+Message-ID: <20260924061708.1645968-1-ayushr@modal.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <0997af18f538770e776a2e2af287ccb144450b5da0108e6bdd0d849aa90353b4@mail.kernel.org>
-In-Reply-To: <20260924054549.2271705-4-cui.tao@linux.dev>
-References: <20260924054549.2271705-4-cui.tao@linux.dev>
-Subject: Re: [RFC PATCH v7 3/4] blk-iocost: add iocost_ioc_tick tracepoint for per-period device summary
-From: bot+bpf-ci@kernel.org
-To: cui.tao@linux.dev,tj@kernel.org,josef@toxicopanda.com,axboe@kernel.dk
-Cc: cgroups@vger.kernel.org,linux-block@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,andrii@kernel.org,eddyz87@gmail.com,ast@kernel.org,daniel@iogearbox.net,linux-kselftest@vger.kernel.org,cui.tao@linux.dev,cuitao@kylinos.cn,ameryhung@gmail.com,alexei.starovoitov@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Thu, 24 Sep 2026 06:17:25 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
 
---===============5180222862375520979==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi,
 
-> diff --git a/block/blk-iocost.c b/block/blk-iocost.c
-> index 21e4f8cbd9f2..a48751b6dbdd 100644
-> --- a/block/blk-iocost.c
-> +++ b/block/blk-iocost.c
+We are seeing shmem/tmpfs page cache corruption on production hosts
+running a workload that punches holes in a memfd (hole-punch based
+memory reclaim) while other threads and forked children fault the
+same MAP_SHARED mapping. The kernel taints but does not oops:
 
-[ ... ]
+  BUG: Bad page cache in process ...  pfn:...
+  page dumped because: still mapped when deleted
+  ...
+  dentry name(?): "memfd:..."
 
-> diff --git a/include/trace/events/iocost.h b/include/trace/events/iocost.h
-> index e772b1bc60d6..32f19861a78f 100644
-> --- a/include/trace/events/iocost.h
-> +++ b/include/trace/events/iocost.h
-> @@ -178,6 +178,51 @@ TRACE_EVENT(iocost_ioc_vrate_adj,
->  	)
->  );
->
-> +/*
-> + * Periodic per-device summary, emitted once per period from the tail of
-> + * ioc_timer_fn().  Unlike the state-change events above, this fires every
-> + * period the controller is running, including steady states, and carries
-> + * the overall controller state so basic monitoring doesn't require drgn.
-> + */
-> +TRACE_EVENT(iocost_ioc_tick,
-> +
-> +	TP_PROTO(struct ioc *ioc, int nr_active, u64 usage_us_sum,
-> +		 u32 tick_period_us, u64 tick_vrate,
-> +		 int tick_busy, int tick_running, u64 tick_dur),
-> +
-> +	TP_ARGS(ioc, nr_active, usage_us_sum, tick_period_us, tick_vrate,
-> +		tick_busy, tick_running, tick_dur),
-> +
-> +	TP_STRUCT__entry (
-> +		__string(devname, ioc_name(ioc))
-> +		__field(u64, cur_period)
-> +		__field(u32, period_us)
-> +		__field(u64, vrate)
-> +		__field(int, busy_level)
-> +		__field(int, nr_active)
-> +		__field(u32, usage_pct)
-> +		__field(int, running)
-> +	),
-> +
-> +	TP_fast_assign(
-> +		__assign_str(devname);
-> +		__entry->cur_period = atomic64_read(&ioc->cur_period);
-> +		__entry->period_us = tick_period_us;
-> +		__entry->vrate = tick_vrate;
-> +		__entry->busy_level = tick_busy;
+and, more frequently, a paired rss-counter imbalance when the mm is
+torn down, always exactly one PMD-order folio (512 pages):
 
-This isn't a bug, but since the ioc pointer is already passed and
-cur_period is read from it inside TP_fast_assign, could period_us, vrate
-and busy_level also be read from ioc here?
+  BUG: Bad rss-counter state mm:... type:MM_FILEPAGES  val:-512
+  BUG: Bad rss-counter state mm:... type:MM_SHMEMPAGES val:512
 
-The neighbouring iocost_ioc_vrate_adj event reads ioc->vtime_base_rate
-and ioc->busy_level directly from the ioc pointer in its TP_fast_assign.
-Reading them directly would make this event's prototype consistent with
-that pattern.
+Seen on 6.12 and 6.18, x86_64, bare metal and VM, with
+/sys/kernel/mm/transparent_hugepage/shmem_enabled = always.
 
-> +		__entry->nr_active = nr_active;
-> +		__entry->usage_pct = tick_dur ?
-> +			div64_u64(usage_us_sum * 100, tick_dur) : 0;
-> +		__entry->running = tick_running;
-> +	),
-> +
-> +	TP_printk("[%s] period=%llu:%uus vrate=%llu busy=%d active=%d usage=%u%% running=%d",
-> +		__get_str(devname), __entry->cur_period, __entry->period_us,
-> +		__entry->vrate, __entry->busy_level, __entry->nr_active,
-> +		__entry->usage_pct, __entry->running
-> +	)
-> +);
-> +
->  TRACE_EVENT(iocost_iocg_forgive_debt,
->
->  	TP_PROTO(struct ioc_gq *iocg, const char *path, struct ioc_now *now,
+This looks like the same corruption Gregory reported in March, which
+as far as I can tell stalled without a fix; that report needed ~100
+ballooning VMs to reproduce:
 
+  https://patchew.org/linux/20260326162611.693539-1-gourry@gourry.net/
 
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+The reproducer at the end of this mail trips it with a single memfd,
+no VMs or ballooning, within a few minutes on a large machine, so
+hopefully it makes the race easier to confirm (and to test a fix
+against).
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35962141400
---===============5180222862375520979==--
+Here is my best understanding of the race -- corrections welcome:
+
+shmem guards faults against an in-progress hole punch with
+inode->i_private: shmem_fault() -> shmem_falloc_wait() waits while
+shmem_fallocate(PUNCH_HOLE) holds i_private. But shmem's .map_pages
+is the generic filemap_map_pages() (shmem_vm_ops /
+shmem_anon_vm_ops), which does not consult i_private and does not
+take invalidate_lock, and shmem does not use invalidate_lock to
+serialize faults against truncation the way regular filesystems do --
+the i_private + waitq scheme stands in for it, but only shmem_fault()
+participates in that scheme.
+
+So while shmem_fallocate(PUNCH_HOLE) is between
+unmap_mapping_range() and shmem_truncate_range(), a concurrent
+fault-around can (re-)install PTEs for folios that are about to be
+truncated:
+
+  - filemap_map_pages() samples mm_counter_file(folio) once per batch
+    and applies it with add_mm_counter() after mapping; if the
+    folio's swapbacked state changes while it is concurrently torn
+    down, the map-time counter (MM_FILEPAGES) and the zap-time
+    counter (MM_SHMEMPAGES) disagree by exactly one folio -- the
+    +/-512 imbalance above.
+
+  - a folio re-mapped in this window (by fault-around directly, or
+    via a child VMA whose PTEs copy_page_range() installs after
+    unmap_mapping_range() has already walked the i_mmap tree -- the
+    dup_mmap() variant discussed in the earlier thread) can be
+    deleted from the page cache while still mapped -> "still mapped
+    when deleted".
+
+Reproducer
+----------
+
+The race is on PMD-order folios, so khugepaged needs to scan
+aggressively (with the default 10s scan interval the punched ranges
+are not re-collapsed fast enough to reproduce quickly):
+
+  echo always > /sys/kernel/mm/transparent_hugepage/shmem_enabled
+  cd /sys/kernel/mm/transparent_hugepage/khugepaged
+  echo 1    > scan_sleep_millisecs
+  echo 4096 > pages_to_scan
+  echo 511  > max_ptes_none
+
+  cc -O2 -pthread -o repro repro_shmem_punch_race.c
+  for i in $(seq $(( $(nproc) / 3 ))); do ./repro 60 & done; wait
+  # watch: dmesg -w
+
+On a 112-CPU host this trips within ~2-5 minutes; this capture is
+from 6.12.0-204.92.4.4.3.el9uek.x86_64:
+
+  BUG: Bad rss-counter state mm:0000000078314ee0 type:MM_FILEPAGES  val:-512
+  BUG: Bad rss-counter state mm:0000000078314ee0 type:MM_SHMEMPAGES val:512
+
+The rss-counter form is the most frequent. The "still mapped when
+deleted" form is what we mostly see in production but is rarer under
+the reproducer (as in the earlier thread); I do not have a fresh
+capture of it to paste here and will follow up with a full splat if I
+catch one.
+
+For background: we originally hit this under a memfd-backed sandbox
+runtime (gVisor), which reclaims memory by punching holes in a
+MAP_SHARED memfd while it is being faulted -- hence the "memfd:..."
+dentry in the splats. The reproducer below has no such dependency: it
+only uses memfd_create + mmap(MAP_SHARED) + fallocate(PUNCH_HOLE) +
+madvise, so this appears to be a plain shmem issue rather than
+anything specific to our setup.
+
+Thanks,
+Ayush
+
+---- repro_shmem_punch_race.c ----
+
+/*
+ * Race FALLOC_FL_PUNCH_HOLE against fault-around on a MAP_SHARED
+ * memfd mapping.
+ *
+ * One memfd is mapped MAP_SHARED into the main process and several
+ * forked peer processes. All of them fault (and MADV_DONTNEED,
+ * forcing re-fault via fault-around) random windows of the file while
+ * the main process punches holes at random offsets. Short-lived
+ * fork() children exercise the dup_mmap()/copy_page_range() variant.
+ *
+ * Usage: ./repro [seconds] [file_MiB] [peers]
+ */
+
+#define _GNU_SOURCE
+#include <errno.h>
+#include <fcntl.h>
+#include <pthread.h>
+#include <stdatomic.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/mman.h>
+#include <sys/wait.h>
+#include <time.h>
+#include <unistd.h>
+#include <linux/falloc.h>
+#include <linux/memfd.h>
+
+#define PAGE 4096UL
+#define HPAGE (2UL << 20)        /* PMD-order folio */
+
+static unsigned char *map;
+static int fd;
+static size_t file_sz;
+static volatile int stop;
+static _Atomic long n_punch;
+
+static inline uint64_t xorshift(uint64_t *s) {
+	*s ^= *s << 13; *s ^= *s >> 7; *s ^= *s << 17; return *s;
+}
+static uint64_t seed(void) {
+	struct timespec t; clock_gettime(CLOCK_MONOTONIC, &t);
+	return (t.tv_nsec ^ ((uint64_t)getpid() << 20) ^ (uint64_t)pthread_self()) | 1;
+}
+
+/* Read a random ~128 KiB span (spanning several fault-around batches), then drop
+ * it so the next touch faults again through filemap_map_pages(). */
+static void *faulter(void *arg) {
+	uint64_t s = seed();
+	size_t span = 32 * PAGE;
+	while (!stop) {
+		size_t off = (xorshift(&s) % ((file_sz - span) / PAGE)) * PAGE;
+		volatile unsigned char sink = 0;
+		for (size_t o = 0; o < span; o += PAGE)
+			sink += map[off + o];
+		if (xorshift(&s) & 1)
+			madvise(map + off, span, MADV_DONTNEED);
+	}
+	return NULL;
+}
+
+/* Keep folios present for the puncher to race against. */
+static void *writer(void *arg) {
+	uint64_t s = seed();
+	size_t span = 64 * PAGE;
+	while (!stop) {
+		size_t off = (xorshift(&s) % ((file_sz - span) / PAGE)) * PAGE;
+		memset(map + off, 0x5a, span);
+	}
+	return NULL;
+}
+
+/* Punch holes at random offsets, mixing PMD-aligned and unaligned/sub-PMD
+ * ranges. */
+static void *puncher(void *arg) {
+	uint64_t s = seed();
+	while (!stop) {
+		size_t len, off;
+		if (xorshift(&s) & 1) {                    /* unaligned, 4K..2M */
+			len = ((xorshift(&s) % 512) + 1) * PAGE;
+			off = (xorshift(&s) % ((file_sz - len) / PAGE)) * PAGE;
+		} else {                                   /* PMD-aligned, 2M/4M */
+			len = ((xorshift(&s) % 2) + 1) * HPAGE;
+			off = (xorshift(&s) % ((file_sz - len) / HPAGE)) * HPAGE;
+		}
+		fallocate(fd, FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE,
+			  (off_t)off, (off_t)len);
+		atomic_fetch_add(&n_punch, 1);
+	}
+	return NULL;
+}
+
+/* dup_mmap()/copy_page_range() variant; bounded to one child per thread. */
+static void *forker(void *arg) {
+	uint64_t s = seed();
+	size_t pages = file_sz / PAGE;
+	while (!stop) {
+		pid_t p = fork();
+		if (p == 0) {
+			volatile unsigned char sink = 0;
+			for (int i = 0; i < 16; i++)
+				sink += map[(xorshift(&s) % pages) * PAGE];
+			_exit(0);
+		}
+		if (p > 0) waitpid(p, NULL, 0);
+		else usleep(200);
+	}
+	return NULL;
+}
+
+/* A peer process: maps the same memfd and faults/forks it concurrently. */
+static void peer(int secs) {
+	pthread_t th[4];
+	pthread_create(&th[0], NULL, faulter, NULL);
+	pthread_create(&th[1], NULL, faulter, NULL);
+	pthread_create(&th[2], NULL, writer,  NULL);
+	pthread_create(&th[3], NULL, forker,  NULL);
+	sleep(secs + 2);
+	_exit(0);
+}
+
+int main(int argc, char **argv) {
+	int secs  = argc > 1 ? atoi(argv[1]) : 60;
+	file_sz   = (argc > 2 ? (size_t)atol(argv[2]) : 64) << 20;
+	int peers = argc > 3 ? atoi(argv[3]) : 2;
+
+	fd = memfd_create("repro", MFD_CLOEXEC);
+	if (fd < 0) { perror("memfd_create"); return 1; }
+	if (ftruncate(fd, file_sz)) { perror("ftruncate"); return 1; }
+	map = mmap(NULL, file_sz, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+	if (map == MAP_FAILED) { perror("mmap"); return 1; }
+	madvise(map, file_sz, MADV_HUGEPAGE);   /* request PMD-order folios */
+	memset(map, 1, file_sz);
+
+	pid_t pid[64];
+	if (peers > 64) peers = 64;
+	for (int i = 0; i < peers; i++) {
+		pid[i] = fork();
+		if (pid[i] == 0) peer(secs);    /* child shares the memfd + mapping */
+	}
+
+	enum { NFAULT = 3, NFORK = 1 };
+	pthread_t th[NFAULT + NFORK + 2];
+	int n = 0;
+	for (int i = 0; i < NFAULT; i++) pthread_create(&th[n++], NULL, faulter, NULL);
+	for (int i = 0; i < NFORK;  i++) pthread_create(&th[n++], NULL, forker,  NULL);
+	pthread_create(&th[n++], NULL, writer,  NULL);
+	pthread_create(&th[n++], NULL, puncher, NULL);
+
+	sleep(secs);
+	stop = 1;
+	for (int i = 0; i < n; i++) pthread_join(th[i], NULL);
+	for (int i = 0; i < peers; i++) { kill(pid[i], SIGKILL); waitpid(pid[i], NULL, 0); }
+	while (waitpid(-1, NULL, WNOHANG) > 0) {}
+
+	fprintf(stderr, "pid %d: punches=%ld\n", getpid(), atomic_load(&n_punch));
+	munmap(map, file_sz);
+	close(fd);
+	return 0;
+}
