@@ -1,257 +1,148 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DDF684C1504;
-	Thu, 24 Sep 2026 19:11:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB74411FA4;
+	Thu, 24 Sep 2026 19:12:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790277107; cv=none; b=lz573PBo4VExdBSj5KG24jmx/IBwmEf7f9eqQLh9u6sMXqQA6ng7o/Ls7NPeEB1a7qJ/68MsWNLNmxaVGjPzNdUE8qcRfujlg89H0n8G5iYL8M19kDFPGbH2IvI8oJu77XJDTASj5WmUdoSdpsdJvJqBnTSYmspTM5HKfYC+Mwg=
+	t=1790277134; cv=none; b=AGgrWm61daSQbIDv45qGSoCL8YvoAYy5fI/Hx0PxzWeKC4+tiRBuxaM6/7s7pGr/ZEN5vQ6fKm5h/xjfFAyrg3pXNkC5yWzCURYbczF7ySO7UsD3ROpaAQQJT1SWP+jZqGB62g8+9+d8dqhWJ15bAZGjNCyT1oc5oqRlc/ECbI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790277107; c=relaxed/simple;
-	bh=g3AhOUqfUFRDC8KW+TFZcN4eqAIWIuTzDwCjFRxwO7U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bbb8lrGLgNS3ZQjXbjnTSZyJwteo9ZhVmwBJcJb7Ttr3wD0zVJOPdl6mlbFXZelUQ1xprE+eDl4Od92fbBkqS2z7KdXZYk5tc6v7Rl9muS3JASAuM6dSDty0mXyRF/yTTa4WVeY1opQ8ViTGj6YY4vZZOSrm2FiV6STIe79gHbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=eV3bZfMr; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790277134; c=relaxed/simple;
+	bh=iQAhKztCzsr8r+EhfuxBYz1DVlc+xX7Qew50BYGeSRQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XZgRRfXbL7OhxvdeMRYajRa+tTZq9x70IzYvo8YoAKQe66zacWqj1dAo3jUw1XMb2e7G6+4lS8mG5YsFZBDTLDx8Dx0CDr+d7iwM+g/dxL1deMDv8JrenXvyD/SW/lqcTtBt/C7TCz31SYLtEteXp9cRRnMBZnEKG4oaUDit9DU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HeJdmEmv; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="eV3bZfMr"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C74511EA6;
-	Thu, 24 Sep 2026 12:11:40 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EF9D63F86F;
-	Thu, 24 Sep 2026 12:11:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790277104; bh=g3AhOUqfUFRDC8KW+TFZcN4eqAIWIuTzDwCjFRxwO7U=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=eV3bZfMr8N5DtL4R4+zm/kgood6J/egHPdyIW7Mu7W7490GvTmwQv2ogFYif42fEv
-	 g7ZKemF5kKNsDqEQk4Q3xazuZ7XAcQ9Q5qtx9jMs8q1x/hQFureb93zsNsJT1DXg2q
-	 /Tq4/EZ3ptEdIYexJngZK57m3sSx0/kiWP6kp4dI=
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-Date: Thu, 24 Sep 2026 20:11:19 +0100
-Subject: [PATCH v8 4/4] kselftest: mm: remove check_huge_shmem()
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HeJdmEmv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790277133; x=1821813133;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=iQAhKztCzsr8r+EhfuxBYz1DVlc+xX7Qew50BYGeSRQ=;
+  b=HeJdmEmvlgG30AMkWQ/bZEm+4Gx+bCxZ3ZfKgyz/L1I9L7oaekwpIXxq
+   GX3jovvKLhJZP/s5KhZK6bs+97QNhpHMuVwnRjKox+bXI4KojaNbdrskR
+   J9f6x6jgTLqTgkoKxi3KxSIU8oYwpG4YqQyuV5UTJr491U5Cvu8a0aM6o
+   nTi9G3tsv8ZfcIx03fxW7WmS9s4CSE/3YDPu+1CNVpAO0qrDzah2eWJ4P
+   E07q27z1mlpgfTDX/ZQdAL9twOel3yfYHJy+MHZzsUJ6vLaLDXSjtn703
+   RhkqtK9utgv8Zc/refJVovycxeJcJ6CSLXxYP8FPiM/sFVT5KEdbOSh7A
+   g==;
+X-CSE-ConnectionGUID: 20O1bvbKRQSKlmyRbihmdg==
+X-CSE-MsgGUID: +DvwRBbCQs+Dz6GMhFUR+w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="101590821"
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="101590821"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 12:12:12 -0700
+X-CSE-ConnectionGUID: q5NBtB4OT1KsXVu0aemscw==
+X-CSE-MsgGUID: r/GMJ0xjSE6G1v1jiaUzhg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="278841646"
+Received: from jjgreens-desk24.amr.corp.intel.com (HELO [10.125.110.171]) ([10.125.110.171])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 12:12:11 -0700
+Message-ID: <2042fa92-0b33-4ce2-a288-8eebda2b7305@intel.com>
+Date: Thu, 24 Sep 2026 12:12:11 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260924-fix_split-v8-4-cba7359d882a@arm.com>
-References: <20260924-fix_split-v8-0-cba7359d882a@arm.com>
-In-Reply-To: <20260924-fix_split-v8-0-cba7359d882a@arm.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
- Kevin Brodsky <kevin.brodsky@arm.com>
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Yeoreum Yun <yeoreum.yun@arm.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7410; i=yeoreum.yun@arm.com;
- h=from:subject:message-id; bh=g3AhOUqfUFRDC8KW+TFZcN4eqAIWIuTzDwCjFRxwO7U=;
- b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqtXXdRG/ZRP34qhtVmLPDZhRSrGb+H+F+e/i8n
- jEdR9g5IeCJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCarV13QAKCRBt1cPRWsUx
- MwOYC/9vRpci1QI5FsM/WJwnN7ZWxWHc/mjdn1hZusyRlx03RGyrjLFLeQjEgzE6ZSFczbjGdOv
- gWW2P604/+MdOh1Xb6PQPZCH1O2xzql7JaE9EBlU9qRzVKCARbmyMZGZ3GaHGOF6uN7RSpNPbks
- UrxAlTSG7TuVscxbxS0c0y21c+b18Qx4p519OC60Uwh4uHQEFU4hTOODNLjBtC3XqtlK4oXHP5Q
- rTdZPM/M04KQAmbdgro6/UNnQ5I5+DspzRPdimw1yAAww72TSoZ2ZsEpqh5stJzmE+7xRZm5kaH
- Iwa7vqvF8QtftBKKsTtsqg5Ugq6dhbbmDTDqFlTSmRhH3rtcEGS2D/dtQmht8d4I0bwY07+DGY8
- EjMeJqidjTnkl5u2sJ0qVewmNAZfTQNXB8LCaYau1oLIUa7lVaYIklF9cYsw0/idXBoGa5QIoE4
- aCq8N5CTzeAthmIPJ53RO/qg/q6FoZB+ljdQf0M/XkiY17b9sA4C64kaoCs7QTcVOEdVw=
-X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
- fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 02/10] x86/virt/tdx: Convert the version metadata
+ reader
+To: Chao Gao <chao.gao@intel.com>,
+ "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+Cc: "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "bp@alien8.de" <bp@alien8.de>, "x86@kernel.org" <x86@kernel.org>,
+ "kas@kernel.org" <kas@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
+ "yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>,
+ "mingo@redhat.com" <mingo@redhat.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "tglx@kernel.org" <tglx@kernel.org>
+References: <20260918132946.76533-1-chao.gao@intel.com>
+ <20260918132946.76533-3-chao.gao@intel.com>
+ <390fc4d56769f87d91949e900262640b52b505b7.camel@intel.com>
+ <arS6D6KoPbqVBtPl@intel.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ xsFNBE6HMP0BEADIMA3XYkQfF3dwHlj58Yjsc4E5y5G67cfbt8dvaUq2fx1lR0K9h1bOI6fC
+ oAiUXvGAOxPDsB/P6UEOISPpLl5IuYsSwAeZGkdQ5g6m1xq7AlDJQZddhr/1DC/nMVa/2BoY
+ 2UnKuZuSBu7lgOE193+7Uks3416N2hTkyKUSNkduyoZ9F5twiBhxPJwPtn/wnch6n5RsoXsb
+ ygOEDxLEsSk/7eyFycjE+btUtAWZtx+HseyaGfqkZK0Z9bT1lsaHecmB203xShwCPT49Blxz
+ VOab8668QpaEOdLGhtvrVYVK7x4skyT3nGWcgDCl5/Vp3TWA4K+IofwvXzX2ON/Mj7aQwf5W
+ iC+3nWC7q0uxKwwsddJ0Nu+dpA/UORQWa1NiAftEoSpk5+nUUi0WE+5DRm0H+TXKBWMGNCFn
+ c6+EKg5zQaa8KqymHcOrSXNPmzJuXvDQ8uj2J8XuzCZfK4uy1+YdIr0yyEMI7mdh4KX50LO1
+ pmowEqDh7dLShTOif/7UtQYrzYq9cPnjU2ZW4qd5Qz2joSGTG9eCXLz5PRe5SqHxv6ljk8mb
+ ApNuY7bOXO/A7T2j5RwXIlcmssqIjBcxsRRoIbpCwWWGjkYjzYCjgsNFL6rt4OL11OUF37wL
+ QcTl7fbCGv53KfKPdYD5hcbguLKi/aCccJK18ZwNjFhqr4MliQARAQABzUVEYXZpZCBDaHJp
+ c3RvcGhlciBIYW5zZW4gKEludGVsIFdvcmsgQWRkcmVzcykgPGRhdmUuaGFuc2VuQGludGVs
+ LmNvbT7CwXgEEwECACIFAlQ+9J0CGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAAoJEGg1
+ lTBwyZKwLZUP/0dnbhDc229u2u6WtK1s1cSd9WsflGXGagkR6liJ4um3XCfYWDHvIdkHYC1t
+ MNcVHFBwmQkawxsYvgO8kXT3SaFZe4ISfB4K4CL2qp4JO+nJdlFUbZI7cz/Td9z8nHjMcWYF
+ IQuTsWOLs/LBMTs+ANumibtw6UkiGVD3dfHJAOPNApjVr+M0P/lVmTeP8w0uVcd2syiaU5jB
+ aht9CYATn+ytFGWZnBEEQFnqcibIaOrmoBLu2b3fKJEd8Jp7NHDSIdrvrMjYynmc6sZKUqH2
+ I1qOevaa8jUg7wlLJAWGfIqnu85kkqrVOkbNbk4TPub7VOqA6qG5GCNEIv6ZY7HLYd/vAkVY
+ E8Plzq/NwLAuOWxvGrOl7OPuwVeR4hBDfcrNb990MFPpjGgACzAZyjdmYoMu8j3/MAEW4P0z
+ F5+EYJAOZ+z212y1pchNNauehORXgjrNKsZwxwKpPY9qb84E3O9KYpwfATsqOoQ6tTgr+1BR
+ CCwP712H+E9U5HJ0iibN/CDZFVPL1bRerHziuwuQuvE0qWg0+0SChFe9oq0KAwEkVs6ZDMB2
+ P16MieEEQ6StQRlvy2YBv80L1TMl3T90Bo1UUn6ARXEpcbFE0/aORH/jEXcRteb+vuik5UGY
+ 5TsyLYdPur3TXm7XDBdmmyQVJjnJKYK9AQxj95KlXLVO38lczsFNBFRjzmoBEACyAxbvUEhd
+ GDGNg0JhDdezyTdN8C9BFsdxyTLnSH31NRiyp1QtuxvcqGZjb2trDVuCbIzRrgMZLVgo3upr
+ MIOx1CXEgmn23Zhh0EpdVHM8IKx9Z7V0r+rrpRWFE8/wQZngKYVi49PGoZj50ZEifEJ5qn/H
+ Nsp2+Y+bTUjDdgWMATg9DiFMyv8fvoqgNsNyrrZTnSgoLzdxr89FGHZCoSoAK8gfgFHuO54B
+ lI8QOfPDG9WDPJ66HCodjTlBEr/Cwq6GruxS5i2Y33YVqxvFvDa1tUtl+iJ2SWKS9kCai2DR
+ 3BwVONJEYSDQaven/EHMlY1q8Vln3lGPsS11vSUK3QcNJjmrgYxH5KsVsf6PNRj9mp8Z1kIG
+ qjRx08+nnyStWC0gZH6NrYyS9rpqH3j+hA2WcI7De51L4Rv9pFwzp161mvtc6eC/GxaiUGuH
+ BNAVP0PY0fqvIC68p3rLIAW3f97uv4ce2RSQ7LbsPsimOeCo/5vgS6YQsj83E+AipPr09Caj
+ 0hloj+hFoqiticNpmsxdWKoOsV0PftcQvBCCYuhKbZV9s5hjt9qn8CE86A5g5KqDf83Fxqm/
+ vXKgHNFHE5zgXGZnrmaf6resQzbvJHO0Fb0CcIohzrpPaL3YepcLDoCCgElGMGQjdCcSQ+Ci
+ FCRl0Bvyj1YZUql+ZkptgGjikQARAQABwsFfBBgBAgAJBQJUY85qAhsMAAoJEGg1lTBwyZKw
+ l4IQAIKHs/9po4spZDFyfDjunimEhVHqlUt7ggR1Hsl/tkvTSze8pI1P6dGp2XW6AnH1iayn
+ yRcoyT0ZJ+Zmm4xAH1zqKjWplzqdb/dO28qk0bPso8+1oPO8oDhLm1+tY+cOvufXkBTm+whm
+ +AyNTjaCRt6aSMnA/QHVGSJ8grrTJCoACVNhnXg/R0g90g8iV8Q+IBZyDkG0tBThaDdw1B2l
+ asInUTeb9EiVfL/Zjdg5VWiF9LL7iS+9hTeVdR09vThQ/DhVbCNxVk+DtyBHsjOKifrVsYep
+ WpRGBIAu3bK8eXtyvrw1igWTNs2wazJ71+0z2jMzbclKAyRHKU9JdN6Hkkgr2nPb561yjcB8
+ sIq1pFXKyO+nKy6SZYxOvHxCcjk2fkw6UmPU6/j/nQlj2lfOAgNVKuDLothIxzi8pndB8Jju
+ KktE5HJqUUMXePkAYIxEQ0mMc8Po7tuXdejgPMwgP7x65xtfEqI0RuzbUioFltsp1jUaRwQZ
+ MTsCeQDdjpgHsj+P2ZDeEKCbma4m6Ez/YWs4+zDm1X8uZDkZcfQlD9NldbKDJEXLIjYWo1PH
+ hYepSffIWPyvBMBTW2W5FRjJ4vLRrJSUoEfJuPQ3vW9Y73foyo/qFoURHO48AinGPZ7PC7TF
+ vUaNOTjKedrqHkaOcqB185ahG2had0xnFsDPlx5y
+In-Reply-To: <arS6D6KoPbqVBtPl@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-check_huge_shmem() was required to distinguish shmem huge pages because
-/proc/self/smaps reports them using a dedicated “ShmemPmdMapped” entry,
-as opposed to “FilePmdMapped” for file-backed huge pages.
+On 9/23/26 22:50, Chao Gao wrote:
+>>> +static int get_tdx_sys_info_version(struct tdx_sys_info_version *version)
+>>> +{
+>>> +	return read_sys_metadata_table(version_mappings, version);
+>>> +}
+>> I'm not sure we need all of these helpers that are each only called once?
+> I'd prefer to keep them, for a few reasons:
+> 
+> 1. This one is actually called twice: from get_tdx_sys_info() and from
+>    tdx_module_run_update().
 
-Now that /proc/self/smaps is no longer used to detect huge pages and
-/proc/kpageflags is used instead, it is sufficient to distinguish
-between file-backed and anonymous pages since the ShmemPmdMapped is also
-kind of file-backed.
+Neither has any real space constraints, I'll note.
 
-Therefore, remove check_huge_shmem() and use check_huge_file() instead
-and cleanup khugepaged's check_huge operation in mem_ops.
+> 2. The helper name describes what is being read better than a bare
+>    read_sys_metadata_table() call.
 
-Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
----
- tools/testing/selftests/mm/folio_split_race_test.c |  2 +-
- tools/testing/selftests/mm/khugepaged.c            | 38 ++++------------------
- tools/testing/selftests/mm/uffd-common.c           |  4 +--
- tools/testing/selftests/mm/vm_util.c               |  5 ---
- tools/testing/selftests/mm/vm_util.h               |  1 -
- 5 files changed, 9 insertions(+), 41 deletions(-)
+What part? that it comes from "sys_info" as opposed to it being
+"metadata". Meh. Why does it matter?
 
-diff --git a/tools/testing/selftests/mm/folio_split_race_test.c b/tools/testing/selftests/mm/folio_split_race_test.c
-index e4660bf89b62..1a9840b73e61 100644
---- a/tools/testing/selftests/mm/folio_split_race_test.c
-+++ b/tools/testing/selftests/mm/folio_split_race_test.c
-@@ -181,7 +181,7 @@ static uint64_t run_iteration(void)
- 	for (i = 0; i < TOTAL_PAGES; i++)
- 		fill_page(mmap_base, i);
- 
--	if (!check_huge_shmem(mmap_base, FILE_SIZE, NR_PMD_PAGE, pmd_pagesize))
-+	if (!check_huge_file(mmap_base, FILE_SIZE, NR_PMD_PAGE, pmd_pagesize))
- 		ksft_exit_fail_msg("No shmem THP is allocated\n");
- 
- 	if (pthread_barrier_init(&ctl.barrier, NULL, NUM_READER_THREADS + 1) != 0)
-diff --git a/tools/testing/selftests/mm/khugepaged.c b/tools/testing/selftests/mm/khugepaged.c
-index bdc0c7c117d9..73d6ab404430 100644
---- a/tools/testing/selftests/mm/khugepaged.c
-+++ b/tools/testing/selftests/mm/khugepaged.c
-@@ -57,7 +57,7 @@ struct mem_ops {
- 	void *(*setup_area)(int nr_hpages);
- 	void (*cleanup_area)(void *p, unsigned long size);
- 	void (*fault)(void *p, unsigned long start, unsigned long end);
--	bool (*check_huge)(void *addr, size_t len, int nr_hpages, unsigned long hpage_size);
-+	bool (*check_huge)(void *addr, size_t len, int nr_hpages, uint64_t hpage_size);
- 	const char *name;
- };
- 
-@@ -343,12 +343,6 @@ static void anon_fault(void *p, unsigned long start, unsigned long end)
- 	fill_memory(p, start, end);
- }
- 
--static bool anon_check_huge(void *addr, size_t len, int nr_hpages,
--		unsigned long hpage_size)
--{
--	return check_huge_anon(addr, len, nr_hpages, hpage_size);
--}
--
- static void *file_setup_area_common(int nr_hpages, enum file_setup_ops setup)
- {
- 	const int open_opt = setup == FILE_SETUP_READ_ONLY_FS ? O_RDONLY : O_RDWR;
-@@ -444,20 +438,6 @@ static void file_fault_write(void *p, unsigned long start, unsigned long end)
- 		ksft_exit_fail_perror("madvise(MADV_POPULATE_WRITE)");
- }
- 
--static bool file_check_huge(void *addr, size_t len, int nr_hpages,
--		unsigned long hpage_size)
--{
--	switch (finfo.type) {
--	case VMA_FILE:
--		return check_huge_file(addr, len, nr_hpages, hpage_size);
--	case VMA_SHMEM:
--		return check_huge_shmem(addr, len, nr_hpages, hpage_size);
--	default:
--		ksft_exit_fail_msg("Unknown VMA type\n");
--		return false;
--	}
--}
--
- static void *shmem_setup_area(int nr_hpages)
- {
- 	void *p;
-@@ -481,17 +461,11 @@ static void shmem_cleanup_area(void *p, unsigned long size)
- 	close(finfo.fd);
- }
- 
--static bool shmem_check_huge(void *addr, size_t len, int nr_hpages,
--		unsigned long hpage_size)
--{
--	return check_huge_shmem(addr, len, nr_hpages, hpage_size);
--}
--
- static struct mem_ops __anon_ops = {
- 	.setup_area = &anon_setup_area,
- 	.cleanup_area = &anon_cleanup_area,
- 	.fault = &anon_fault,
--	.check_huge = &anon_check_huge,
-+	.check_huge = &check_huge_anon,
- 	.name = "anon",
- };
- 
-@@ -499,7 +473,7 @@ static struct mem_ops __read_only_file_ops = {
- 	.setup_area = &file_setup_read_only_area,
- 	.cleanup_area = &file_cleanup_area,
- 	.fault = &file_fault_read,
--	.check_huge = &file_check_huge,
-+	.check_huge = &check_huge_file,
- 	.name = "file",
- };
- 
-@@ -507,7 +481,7 @@ static struct mem_ops __read_write_file_read_ops = {
- 	.setup_area = &file_setup_read_write_fs_read_area,
- 	.cleanup_area = &file_cleanup_area,
- 	.fault = &file_fault_read_and_flush,
--	.check_huge = &file_check_huge,
-+	.check_huge = &check_huge_file,
- 	.name = "file",
- };
- 
-@@ -515,7 +489,7 @@ static struct mem_ops __read_write_file_write_ops = {
- 	.setup_area = &file_setup_read_write_fs_write_area,
- 	.cleanup_area = &file_cleanup_area,
- 	.fault = &file_fault_write,
--	.check_huge = &file_check_huge,
-+	.check_huge = &check_huge_file,
- 	.name = "file",
- };
- 
-@@ -523,7 +497,7 @@ static struct mem_ops __shmem_ops = {
- 	.setup_area = &shmem_setup_area,
- 	.cleanup_area = &shmem_cleanup_area,
- 	.fault = &anon_fault,
--	.check_huge = &shmem_check_huge,
-+	.check_huge = &check_huge_file,
- 	.name = "shmem",
- };
- 
-diff --git a/tools/testing/selftests/mm/uffd-common.c b/tools/testing/selftests/mm/uffd-common.c
-index 1fb967ef4985..a76851aced4d 100644
---- a/tools/testing/selftests/mm/uffd-common.c
-+++ b/tools/testing/selftests/mm/uffd-common.c
-@@ -196,8 +196,8 @@ static void shmem_check_pmd_mapping(uffd_global_test_opts_t *gopts, void *p, int
- {
- 	size_t len = expect_nr_hpages * read_pmd_pagesize();
- 
--	if (!check_huge_shmem(gopts->area_dst_alias, len, expect_nr_hpages,
--			      read_pmd_pagesize()))
-+	if (!check_huge_file(gopts->area_dst_alias, len, expect_nr_hpages,
-+			     read_pmd_pagesize()))
- 		err("Did not find expected %d number of hugepages",
- 		    expect_nr_hpages);
- }
-diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
-index 7d23038af1df..65bc4761d1c9 100644
---- a/tools/testing/selftests/mm/vm_util.c
-+++ b/tools/testing/selftests/mm/vm_util.c
-@@ -470,11 +470,6 @@ bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
- 	return __check_huge(addr, len, nr_hpages, hpage_size, CHECK_HUGE_FILE);
- }
- 
--bool check_huge_shmem(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
--{
--	return check_huge_file(addr, len, nr_hpages, hpage_size);
--}
--
- int64_t allocate_transhuge(void *ptr, int pagemap_fd)
- {
- 	uint64_t ent[2];
-diff --git a/tools/testing/selftests/mm/vm_util.h b/tools/testing/selftests/mm/vm_util.h
-index 072a6c756c51..b5d59729d432 100644
---- a/tools/testing/selftests/mm/vm_util.h
-+++ b/tools/testing/selftests/mm/vm_util.h
-@@ -96,7 +96,6 @@ uint64_t read_pmd_pagesize(void);
- unsigned long rss_anon(void);
- bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size);
- bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size);
--bool check_huge_shmem(void *addr, size_t len, int nr_hpages, uint64_t hpage_size);
- int64_t allocate_transhuge(void *ptr, int pagemap_fd);
- int pageflags_get(unsigned long pfn, int kpageflags_fd, uint64_t *flags);
- int gather_folio_orders(char *vaddr_start, size_t len,
+> 3. Some helpers do more than read a table (see get_tdx_sys_info_td_conf()).
+>    Without per-class helpers, get_tdx_sys_info() would open-code
+>    read_sys_metadata_table() for some classes and call a helper for
+>    others, which looks inconsistent. With one helper per metadata class,
+>    every class is read the same way.
 
--- 
-2.43.0
+I value lower levels of abstraction over naming consistency.
 
+Remove the helper, please.
