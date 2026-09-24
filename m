@@ -1,172 +1,107 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51CDA472F6C
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:33:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66FC43C1F57;
+	Thu, 24 Sep 2026 11:33:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790249603; cv=none; b=F1mrEoTMkL215h9dH6Qb427LZjW6fWxiH2kFTBQH0VTPinA5bAes4vUdRFvV6qfYJLKQpPTmRM2bYOt25+TplOwi5LSvHlcTRCujBBomc+Imwp0M2D5/H+KrUVbGVNZh+dAeAYaa+Uoddh/C9RvXN811vdHiI7HV/frnkbdksy0=
+	t=1790249628; cv=none; b=RcS7zKWIHa+q8bFM+VRCaOs79FQyu4wDntKAVOCbWQynU3Qu18qKLfVTsUnFgMOrSap1+ldzwLyWlHtw7phdj43tWkqT9PoNYP+fPTiegiwXWEui3TpCdr8QWSJwgtsQORfqnLZ5S7rsNpzwvx+h39rx+bC8oCW+KKNxetN2ggs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790249603; c=relaxed/simple;
-	bh=wCnUXCK0WZO4NnQlqvBDKz+4inN5YfMZjMTHZjG1y3w=;
+	s=arc-20240116; t=1790249628; c=relaxed/simple;
+	bh=uxscIP7OJyfM7dk0uHvdNBa7BC1Q/dfRSwlbTBDVa00=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fQGQQazCOfvNs4hR8OOciLgJlgW5r54EG6dxSx7xw6cbR5a0VaNQCHLSHh3O3Flxiu9fj9D2IPhOU8Sl+sDP4D/l7Tet3cgzefQZbFNnFmRbBtt++0AS2x5bciQI3TDGEsG538LCRkIogUERhcJqK7QCPSIXQbBv8UVCJfhYLZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IsRFmiJj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MdltRVPw; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ieja47BZPwJksNxKmxLTyRc4FyskZTLHkFOnq+azVTMsnKxvuQ02zg7MyrKHuAptROk+JVZAi5ZCizDJjbi2JpQgztXQQLKjmx8kN1Th2znw9eRbXu9M4yRshp9JLd/6GdBAnOyAABEAhxcJgGyTgSf8qNLwjM1IYO0z/d4haHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fMY6S+Bn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IsRFmiJj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MdltRVPw"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O9PCRo1923942
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:33:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=XkseKV+yt4Jy0qKqCZ9EMQvZ
-	YwHKUGqrc30BMVfNwi4=; b=IsRFmiJj/bR+E/pi+HBhTPjZtcPG4aSH3W7uzcoP
-	1AkmcbvhlkMXrU9Kay6CwMrAeFLak4U+y2UmuPio/SjPY4xngSZGD2+gxEyJemzI
-	IJxDUUb0pg97yRRgsPOjhikSH6Onvg4BfV3KHlv/tWZ3OqsFS6g2/uCv1bjjFT+D
-	AySxXmdD/nMnXdNkPO0EmCRLd3I3Obagxa2F8Q5ZwOexqslBBci0YU368qbxuLni
-	eAzXLAbkdXpUX5F/D7wrCpJj8OHHBajtIXEKMvz+Kl4baXMYgNhzlkbh8Pwc3e5w
-	O72MS1DkdNb345i/I79xp9uh/sw8jNmrTNeSATwqQhrjyg==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvx8ahcks-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:33:16 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-79014f0b44cso1730664137.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:33:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790249596; x=1790854396; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XkseKV+yt4Jy0qKqCZ9EMQvZYwHKUGqrc30BMVfNwi4=;
-        b=MdltRVPwKpi7SrLkC1Vp15c3p5Qb5PXhxlSqBq/JYWwkN1xWaj7fCnucm75huW8aDD
-         QUvkn9hJjx+mxOPBGlO4Z+EwzVGcmmR3e/9234lMWe7gcVTrS8XyypcJaChAjKyehcg8
-         RA3+H+2B60dCEC1suMzQ4H+x5zb+gMTfnyaHD0+CO5S+ApxuM0iYq3w1H2LqLM0jA15A
-         LwkMRzEeSR8/Zx06pejKA8T94jXH8Bb5+wAquR+wK1R11rxCb9nz61BjV3w0mt5pKufQ
-         kW+vhHC9yjIeNRGw6TXE8siXrbaH02knIGzR0f9bCmSq1jADSanmZiQtPsl8NWU3ZckT
-         SPFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790249596; x=1790854396;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XkseKV+yt4Jy0qKqCZ9EMQvZYwHKUGqrc30BMVfNwi4=;
-        b=OFEVFHxFSb8VW4J43B3Re0oSyy4oH0e0A6KRXKB0uy95JH0EaXihXjl35bsgCU1GuO
-         p/k51CChuWf56FwGEUCS/gazlPb5/TYuqctKDC0xFCAufp2ccqwddeqGlQU9+FEIA94Q
-         hBC2KwA49vjaMjKx/79ll6KoTacaSzU5tPQdoBNGiZ8XPWY9B6KpBXCBQTmbe6zK3oI7
-         YhAH41EPekxK3fLmZJloI54se9AvXMKNKwJX9NSMhLP6YVpuORUUDlIb29eP2WBO9s3q
-         V5Nrch3xzI1bqUMp9PQiOXZu9zj9oVhX2ahIDMw6NzSSMBiJKEMdEidWjSWPVjXKZaa+
-         XfeA==
-X-Forwarded-Encrypted: i=1; AKwUvBw7RNjJF2SCoyE1xDZ0Q0BitONvoovo3bMyagU6ijJp3AHyJ1j7TqxFbhSCTQ2U8vIhyRowBcw1XcFAaQU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRyIJO0TyqjAy2JSBgyl0NiCYoYb2FC//uHjYr69FpfuPCOzZ9
-	imvNsSWFZDkoTrsxZ8XKsW+qYW+/cgP7D+VUkFJ3qvqickIM9BVhZ7UnlP3nb0D6FLhbZrYoBL9
-	jYJZUugF62+1BVaXUTpz1zwOiQJNEXaiwRs5te/1806zlTXG130pArs1R4fnzHIC0gKE=
-X-Gm-Gg: AYBFou05FemPfonzfcpEhhKsUwwqGdZ1wWVeOHAE6c1BjJAnVTQJ/NPvtad2CncmEF9
-	XGrYFGy4/n/4bT2Vaqu1E9C52VJzwE3mm66yvwmVdLbZX3qd9rA5czmJKxxt2yoAFQxgrkHeVrw
-	JT/ZVk7MZVseqcUYtU7xV6EjJ3C4X2BFISE1ednH3OMOPUs4YChrMTDLYrWFdG7ftCDvCD/IH54
-	YnSwDciZkBujg6cqRUaOdYqbumriRV0ohQKaCUgLK+cFkS2sygLuVpEaD61qJmXw8NC+uIpPcwa
-	tSB1jqaC6K3mpSHXwMYpSZeFytPVvvrWzK75w8o2Zyxx1yqDGMGrldBI0jMw4ru419d3e1bnjHs
-	gnJU++gxssJ0i8YQ=
-X-Received: by 2002:a05:6102:1489:b0:7a1:f7e2:aae2 with SMTP id ada2fe7eead31-7af1e6f380emr1107588137.20.1790249595755;
-        Thu, 24 Sep 2026 04:33:15 -0700 (PDT)
-X-Received: by 2002:a05:6102:1489:b0:7a1:f7e2:aae2 with SMTP id ada2fe7eead31-7af1e6f380emr1107577137.20.1790249595157;
-        Thu, 24 Sep 2026 04:33:15 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48868889130sm13762102f8f.37.2026.09.24.04.33.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 04:33:14 -0700 (PDT)
-Date: Thu, 24 Sep 2026 14:33:12 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
-        Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Guenter Roeck <linux@roeck-us.net>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
-        linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: glymur-zenbook-a16: Add
- Embedded Controller
-Message-ID: <mkqgu53cyajjjbrvwyqv3vukag643g7x5ypjhzh5vomrd3lsvk@yq4oely74xw6>
-References: <20260922-topic-asus_ec-v2-0-0bd923d1b853@oss.qualcomm.com>
- <20260922-topic-asus_ec-v2-3-0bd923d1b853@oss.qualcomm.com>
- <uv52rxc6llmlas45mejbeeriryiozh3v2f2itbvfzo4f2sgazm@ly37763jkftd>
- <8c9777c5-f323-406d-a996-17bd1a5b8946@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fMY6S+Bn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8353A1F000FF;
+	Thu, 24 Sep 2026 11:33:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790249621;
+	bh=gpEA6fUy3JVgcQaZHWEzheoPdnjTOP9NEnmDegJUc/o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fMY6S+Bn70Ys3Kmsb3BntrNVe8Jt8iD9l0QuJyWfPf39Oa/p2rV42aQ+VHciQV55b
+	 yM/H8rVA1JH49yS+630vMdz5/6MePkYFIM33Ng8DsGwR4xqzR87tzxusZWDX1t+ZbI
+	 iRpVpYFjEAIATE1d2j2UHD5rSUY5TXDmU4CZa5WUY4gzNRxqMbBd/QzHmLhdvnSHUX
+	 kS9XhRcRkIPRw4hOqu/hTiCNfnt+Lolhw7GfxNIFarIv+9aOJkxdIHzOIXGTsTNuvV
+	 EQKVhf1KyQtsGXTRmagzX+dSVkm3RuISQPFhKyysoFpId8elfCIUgTvhS75ci98l7m
+	 iYs8kbzCS+Zcg==
+Date: Thu, 24 Sep 2026 12:33:37 +0100
+From: Simon Horman <horms@kernel.org>
+To: netdev-bot+sashiko@kernel.org
+Cc: benquike@gmail.com, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] net: llc: clean up unaccepted child sockets in
+ llc_ui_release()
+Message-ID: <20260924113337.GD13925@horms.kernel.org>
+References: <20260919213635.3314344-1-benquike@gmail.com>
+ <179019939874.2160803.14497903403458944686@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <8c9777c5-f323-406d-a996-17bd1a5b8946@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA0NyBTYWx0ZWRfX67JAJHSHg1RA
- +bGSLOLFezSF0j+AWk4ZWiidYU/Rjw/+d6BxGwZ4Z6apfrNinS/Ol0vk3AvwVFv1QTZ6i/ZWOIr
- DjDqeyf7k4hQa+jODQJtj1bvBQQOtXs=
-X-Proofpoint-ORIG-GUID: 8OzPrIl-BKl_6UeJVVnddKz8tPU29YyF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA0NyBTYWx0ZWRfX4hbQMLTJp1ld
- T9KBVi3MX5uR/ICsxAGrFJM8o3DyT6unIszSyZQLTg3MWdpIjjFdYfHZb6RX57kVqzg+uBQPBoj
- l3yLH53gU3lnymK+UFSAjAc0js8s56wz12R9aQOSfzBMPBcOG3iyu7ol0+X7oPwFEXpMuLTyvfV
- 9SVTKed6MAhWI9LGqYjk3//3A3WYtrXQwbS/tnKsT8axOVhyoLz7fZyg7kpmFlN2IkwDRFilTuC
- jc9SGSvcct9dMQIbsFQItKPv9R5Rz6wopMoZmNcibhqNmd3Wv4o4qcNgTNDYr66P1YljPbVjWgT
- i0PJoQXj0rqMXXiePUdjrEp2bQ+irVAAVbWgbcjQEpkDv3CgqlW1K8b50hE6juktaQ97/Zdbh6t
- yvm/toAyfJtX7UeBfxUAOmzxyjmy3mgxslpnK73t/luRvkpmmJOSRAL9bJ0Fqmnny9sgfow06iQ
- PxtHfxGUKcIqxvELM+Q==
-X-Authority-Analysis: v=2.4 cv=a6SlZkSF c=1 sm=1 tr=0 ts=6ab50a7d cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=kDAAnAmS2xGMtcqLAaUA:9 a=CjuIK1q_8ugA:10
- a=ODZdjJIeia2B_SHc_B0f:22
-X-Proofpoint-GUID: 8OzPrIl-BKl_6UeJVVnddKz8tPU29YyF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 spamscore=0 clxscore=1015 malwarescore=0
- priorityscore=1501 impostorscore=0 phishscore=0 lowpriorityscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609240047
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <179019939874.2160803.14497903403458944686@kernel.org>
 
-On 26-09-23 12:04:32, Konrad Dybcio wrote:
-> On 9/22/26 10:31 PM, Abel Vesa wrote:
-> > On 26-09-22 11:33:38, Konrad Dybcio wrote:
-> >> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> >>
-> >> The Glymur-based Zenbook A16 features an Embedded Controller running
-> >> custom ASUS firmware (which is loosely based on the reference Qualcomm
-> >> Hamoa EC one with a lot of modifications). It provides keyboard
-> >> backlight control, additional temperature sensor readouts, fan speed
-> >> monitoring and a number of miscellaneous functions.
-> >>
-> >> Describe it.
-> >>
-> >> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> >> ---
-> >>  .../boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts    | 15 +++++++++++++--
-> >>  1 file changed, 13 insertions(+), 2 deletions(-)
-> >>
-> >> diff --git a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
-> >> index 40433dc2d6cf..d3356fcd25f0 100644
-> >> --- a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
-> >> +++ b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
-> >> @@ -670,8 +670,19 @@ &i2c9 {
-> >>  
-> >>  	status = "okay";
-> >>  
-> >> -	/* EC subdevice @ 0x5b */
-> > 
-> > So what is on this address then ?
+On Wed, Sep 23, 2026 at 09:36:38PM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 6 potential
+> issue(s) to consider.
 > 
-> The driver spawns a secondary i2c device there to service some
-> of the EC communication
+> Critical: 1 · High: 3 · Medium: 1 · Low: 1
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Critical] Type confusion in the new TCP_LISTEN drain loop in
+>   llc_ui_release(): the loop assumes every skb on sk->sk_receive_queue…
+> - [High] The drain of the listener's sk_receive_queue is placed at the
+>   very start of llc_ui_release() (net/llc/af_llc.c:207-225), before…
+> - [High] The new child teardown in llc_ui_release()
+>   (net/llc/af_llc.c:213-222) removes the child from the SAP hash, drops…
+> - [High] Incomplete fix: the new release-time drain can only reclaim
+>   children whose skb reached the listener's sk_receive_queue, i.e.…
+> - [Medium] Reference-tracker acquire/release mismatch: the new code
+>   releases the child's netdev reference with netdev_put(child_llc->dev,…
+> - [Low] The commit message cites a non-existent symbol: "llc_ui_release()
+>   calls skb_queue_purge(&sk->sk_receive_queue) in llc_sk_Component /…
+> 
+> --
+> 
+> net: llc: clean up unaccepted child sockets in llc_ui_release()
+> 
+> The patch adds a drain of the listener's sk_receive_queue at the top of
+> llc_ui_release() when sk_state is TCP_LISTEN.  For every queued skb it
+> takes skb->sk as an unaccepted child, removes it from its SAP, drops the
+> device reference and frees it with llc_sk_free().  A few questions about
+> the new block and the changelog below.
+> 
+> Commit message:
+> 
+> > If the listening socket is closed without calling `accept()`,
+> > `llc_ui_release()` calls `skb_queue_purge(&sk->sk_receive_queue)` in
+> > `llc_sk_Component` / `llc_sk_free()`, which frees the queued `skb`s
+> 
+> [Severity: Low]
+> Where does llc_sk_Component come from?  A grep for that string over the
+> tree at this commit returns nothing, and the only skb_queue_purge() of
+> sk->sk_receive_queue in net/llc is the one in llc_sk_free() in
+> net/llc/llc_conn.c.  Could the changelog name only the function that
+> actually exists?
 
-Thanks for clarifying.
+In this case I am just going to stop right here.
+
+It's a low severity issue. But at a minimum it seems to imply something has
+slipped through. And looking at the long list of issues flagged above,
+combined with the long list of patches from you in my inbox (~66) I don't
+think it is wise to spend more time on this one in it's current form.
+
+-- 
+pw-bot: changes-requested
