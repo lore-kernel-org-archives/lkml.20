@@ -1,85 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 491CD4AA1FB;
-	Thu, 24 Sep 2026 18:23:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656CC3932F9;
+	Thu, 24 Sep 2026 18:23:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790274182; cv=none; b=fSvBU0RzfjDo8fzcyBBNo2aAtedXTJjOvg5kgrmcD5FIj0iAWTsiIxvc3YoRW1R8dUdfCI0s50EFnnIqGjP8Opa8Uwo41RzEY4v2Gw+MLrtEUlhhVVfDwW7AFV/TEInONdjV0MWjXLjS8gzk+LPH/FHuN/spTdn5O/wXJ6BOwFI=
+	t=1790274193; cv=none; b=Y29KsjeJon78Hsj9MH1VFZIJUwXuj4S6duRDJQIz+GA9SrA9FbzX3I7ErFxE7dmIv/dodaCrkSCKAQuUqIr3Qdscc37NimLpzeZtrehfjKh0WRF3JuKTVRHjnJdpnUYehDeoYkmmvRDav5daB3ROWJuhkHB1Wkc2y3CECG38xrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790274182; c=relaxed/simple;
-	bh=OArbBLjldqjbVbBbdrPdm56RE7f3E8ZEnAwgNph3ut0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z+uwA/uj1JC/j9KYLPheNld2NB+J/87ZG33/2lITwvWXTtD4ZK5uRs8I/FjSDQKMOl6VaE6DQODlYWhqfWpIkgabDWNhsXZ9xD8VyWgw7afeH/8LcOEpNaoq97FA8VPMgi/+rzLtQ8Mya7LuzHMd18ppDBnNrXdtYzUzZyBdo8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=agYftme9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790274193; c=relaxed/simple;
+	bh=ThY+aOhqOAs0ChelKPf0sM0NHX9A6M0pDMIBNLYdFsQ=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SqYf5Rjx6k+LH4gb8ktCAPS3TccqCzwIelylb9zvKWnNo7z8bqGAAUzzwv5qiqU798+X+yJc78lWpTsGzHaMABcasrUJcmjLYLt4qNjb9sbtna9Mzrimi3tW8L8JFxS6Hg7doK5rJuQPwkGfWCLZKe8+yKxDc/DJ4jaQac8jiVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=edIIEwrW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="agYftme9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F8C91F000FF;
-	Thu, 24 Sep 2026 18:23:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="edIIEwrW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1CDA1F000FF;
+	Thu, 24 Sep 2026 18:23:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790274181;
-	bh=jgeLELIzxZ0bp9TzTWk/96zvxSQJOk3kCuECklcXCng=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=agYftme9qt93yk8XsoRWixRsLH9tG3aSJYeZ+s+rtAbGS93SnBVQHs1p/SOilNZtz
-	 /OJtgxFJVIVFnkpVJSM/cgfX14JqpoHlLIHbw7wogTDO/lxAw8z/o9aSPceiCGJfK6
-	 zzpXQ2zNZpP9MQRpkH9MwTu/WZWp10hAc4+Z9fm2sJZ+WDMhSmrtQB9oP1igactp2g
-	 9ufQrGFU0LGoCAMhXsUQDxCscdgnzm3xe6BU9j/vDHMoqhLTASqbzVFxRT8XZSHnYp
-	 Q+LTAwAJ8piVQ/9jRf85wd04XJuT+v1QzJvmQ7/0jZTifuUwIgF3Z3NCm6T/3DkUEM
-	 U7qZteZ0mIeBw==
-Date: Thu, 24 Sep 2026 19:22:58 +0100
-From: Harry Yoo <harry@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org, 
-	Pedro Falcato <pfalcato@suse.de>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	linux-hardening@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Jason Xing <kerneljasonxing@gmail.com>, =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
-	Jiayuan Chen <jiayuan.chen@linux.dev>, Willem de Bruijn <willemb@google.com>, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH v4 2/7] mm/slab: Give bucket caches the alignment of the
- caches they mirror
-Message-ID: <arViR2Miz61-3fV4@thinkstation>
-References: <20260921075811.too.775-kees@kernel.org>
- <20260921075820.1718334-2-kees@kernel.org>
- <arEdcaJz4i5HP26a@thinkstation>
- <202609211620.342AAA61@keescook>
+	s=k20260515; t=1790274192;
+	bh=1rT3iAcNKN3CIsNAZsMz38eVN8WYGGW5v5DII5ENAjk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=edIIEwrWeWggBFTvgr+bbPHwZtpX7N39My3UWMq4+1+l5NRt0zCP77Pu80O5Z9Ok2
+	 PyfgUkUTwEU+thWrqhUai0xQu+HRifkbZ7yAJn1McDoCFIFiWiEyuQTJPml6JpIn7d
+	 amqgFtOIiNI5u/q8A3a/cr3fJ/8H0PSVGAN7Jk1FdbAik4wQABSQrTon9qmS20uZKP
+	 +Ulo+sF1OxDgZLpRrMp5fdmXoHcr01h6EmfhN10/M/OUppPFNzQdB/bysfibyAR0uT
+	 8nOYSXEQRvw0yAtQ7JBgVh6s8rgfoYwX2tRloaG4ywG6iDtP7emrmF0q9b7cvC5RKD
+	 SdQkKYydlnwFA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x9o69-0000000DA1f-3uMi;
+	Thu, 24 Sep 2026 18:23:10 +0000
+Date: Thu, 24 Sep 2026 19:23:09 +0100
+Message-ID: <86ld8q4igi.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Hao Zhang <hao_zhang_kdev@163.com>
+Cc: Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] KVM: arm64: pvtime: Don't lose stolen time on failed updates
+In-Reply-To: <arD24ru13owcE1Ms@192.168.1.215>
+References: <arD24ru13owcE1Ms@192.168.1.215>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <202609211620.342AAA61@keescook>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: hao_zhang_kdev@163.com, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Mon, Sep 21, 2026 at 04:25:25PM -0700, Kees Cook wrote:
-> On Mon, Sep 21, 2026 at 02:17:21PM +0100, Harry Yoo wrote:
-> > On Mon, Sep 21, 2026 at 12:58:13AM -0700, Kees Cook wrote:
-> > >  			if (WARN_ON(!cache_name))
-> > >  				goto fail;
-> > >  			(*b)[aligned_idx] = kmem_cache_create_usercopy(cache_name, size,
-> > > -					0, flags, cache_useroffset,
-> > > +					kmalloc_caches[KMALLOC_NORMAL][idx]->align,
-> > > +					flags, cache_useroffset,
-> > >  					cache_usersize, ctor);
-> > >  			kfree(cache_name);
-> > >  			if (WARN_ON(!(*b)[aligned_idx]))
+On Mon, 21 Sep 2026 10:20:34 +0100,
+Hao Zhang <hao_zhang_kdev@163.com> wrote:
 > 
-> It looks "obviously correct", but I probably failed to correctly
-> describe it. I'm happy to do whatever here.
+> From: Hao Zhang <zhanghao1@kylinos.cn>
+> 
+> kvm_update_stolen_time() advances last_steal before checking whether
+> kvm_put_guest() successfully writes the updated value to guest memory.
+> 
+> If the write fails, the updated stolen time is not visible to the guest,
+> but the corresponding run delay has already been consumed from KVM's
+> accounting state.  A later successful update therefore starts from the
+> advanced last_steal value and permanently loses that interval.
 
-That is correct, but is there any reason why kmem_buckets users should
-not specify their own alignment requirement and inherit the alignment
-from kmalloc?
+I'm sceptical.
 
-For DMA yeah it might be confusing for every user to figure out that
-the alignment should be __kmalloc_minalign(), but otherwise there isn't
-really a good enough reason to inherit the alignment from kmalloc, no?
+A "transient" write failure means that userspace has unmapped the page
+this should have been stored to. Userspace is in charge of the VM --
+it literally is the owner.
+
+Why should we prevent it from shooting itself in the foot? Userspace
+can equally stop the vcpu from running, and this is "stolen time"
+that is not accounted for.
+
+	M.
 
 -- 
-Cheers,
-Harry / Hyeonggon
+Without deviation from the norm, progress is not possible.
