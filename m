@@ -1,120 +1,228 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 102D0472F9B;
-	Thu, 24 Sep 2026 23:25:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CFEE8473C8C;
+	Thu, 24 Sep 2026 23:27:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790292327; cv=none; b=eeL84LAhCBwsAHRUtmyZ29Li2jrzzdeGiyZ0kkXtHAFoMFku/0fP6v6ioCYWMcXN6NRuu2jRB7CvfjtXBT4R42HfK1uK0LbbKADiyDJU7znhtYscTGtQb9UymVhqSgLTRyOwTb3pZc2riS1Nk99zBx9vHHmj4dGP0UG5M9L70EQ=
+	t=1790292459; cv=none; b=OPPWeUk25KjsMkD+QHBFrIde+bzifYXxQhvDSMGThHxJMKt0CkQ/jvvp0MfIXvUYJEWKrrEnE5tw3Uu/n+W6R7/BimpTm3iA1pz/YlrjH9dc7Fr0fhNurWUno52MdryfhfZ5gQojCze2uHbvL3uaIHo2waK+puXjGnpbLKY8dBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790292327; c=relaxed/simple;
-	bh=4ofZeZsPS10nkCfHIRsXboOLeOhyBF/VHKJZ7Rw5NG8=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=Dm1QHlq2Fw8ytwhZuLBo6VIv2bsFQaqYlD2r0OnfUQ/PxlZiP08JV85wlxLXy+8I9P8BbwXrQ4nhVizVnPrjDz5qqQ4lp6SCUMZ+VlTk4CURY7N5ng/wTBv3/F08ErJoFe84LK4CJVgV9D8SI3o5y1Jd+kqaCVmLROz7Cs/zl7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lP9j5O93; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790292459; c=relaxed/simple;
+	bh=b3diYIyUxGsc2Fn2erUGeQZjsoSz+2Xj1Vx0ni3W6DY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oN1bY9Y1bFGM5Z/ImOvOWVUorhtAqw34y8gFU2vSB/INgd1A4Pa4y1iWAEPJ/WF0+3EepTPQxzVn7Uk9HVGT32EO1C//0zfsHfcYHWY/MmnJ8k7cdWzQC6cvbTVxlbMLtROsXi8OPlMXf3yf+leuzM0XacIw6epgtRCQBocIiD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=sKbbtKfJ; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lP9j5O93"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF0CA1F000FF;
-	Thu, 24 Sep 2026 23:25:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790292322;
-	bh=oiSH4uRWisdHYTr3/mGtD/pllD4YffCL5fwheMZHNIU=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=lP9j5O93+YowN/Tcd7aIj5PvNSSnjX2SiIj7OhnDjJ1Clynyctsv0jkIS280PDVb0
-	 XiAsKgY55sUL7a6XBMdJZydf5QD8nVZ1qRChXLtuxB65oXWXkMKA/TlJWODHoG98Rt
-	 orVge3h5wawvidyXkV7NkWdLz955zq+Jw+814n4xTANjgtDJ7VGwEFLKePz0T3etNv
-	 sgAK9QcHRPSzYAqSDYnbKMYjJuOeVicOzQnxU0hhR/vTSLGKLxNfcTm4AqX0kpFOmh
-	 zPAaknpUuEFBeGyV0GY/4mytOiSG9uYhbaADU89v+k8KzcehYbGezTF8Ltc4C6j+xL
-	 luNqp+Y5jrelQ==
-Content-Type: multipart/mixed; boundary="===============0374088084302990559=="
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="sKbbtKfJ"
+Received: by linux.microsoft.com (Postfix, from userid 1223)
+	id 379CC20B7167; Thu, 24 Sep 2026 16:26:47 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 379CC20B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1790292407;
+	bh=Ol4Gw21epj/8o0vv4nhFU7uulVUuXLQX34MJO4d++BM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=sKbbtKfJp0xwhazY6dZN1s6FSAhmDbLW451ldNLBpYkgVf4iN1FJt+VM8Y6mMelVu
+	 fvsVMsJolobwtOFvPAGnLafipE1deJZKFkIlT8Pnl6GDUUFSll4oiWvq3lRm/4wTMv
+	 NoJXAb4LeOHKFCTcZYfWKfAVmO54Y26EjTOYvHgs=
+Date: Thu, 24 Sep 2026 16:26:47 -0700
+From: Meagan Lloyd <meaganlloyd@linux.microsoft.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Meagan Lloyd <meaganlloyd@linux.microsoft.com>,
+	linux-i3c@lists.infradead.org, alexandre.belloni@bootlin.com,
+	vitor.soares@toradex.com, samagazaryan@google.com,
+	gregkh@linuxfoundation.org, arnd@arndb.de,
+	boris.brezillon@collabora.com,
+	oleksandr.shulzhenko.viktorovych@intel.com,
+	tgopinath@linux.microsoft.com, corbet@lwn.net,
+	skhan@linuxfoundation.org, linux@roeck-us.net, Frank.Li@nxp.com,
+	jorge.marques@analog.com, pgaj@cadence.com,
+	wsa+renesas@sang-engineering.com, tommaso.merciai.xr@bp.renesas.com,
+	nuno.sa@analog.com, Michael.Hennerich@analog.com, jic23@kernel.org,
+	dlechner@baylibre.com, andy@kernel.org, lorenzo@kernel.org,
+	enelsonmoore@gmail.com, rppt@kernel.org, pratyush@kernel.org,
+	giovanni.cabiddu@intel.com, gabewhigham@gmail.com,
+	haren@linux.ibm.com, pasha.tatashin@soleen.com,
+	jirislaby@kernel.org, adrian.ho.yin.ng@altera.com,
+	ustc.gu@gmail.com, jszhang@kernel.org, adrian.hunter@intel.com,
+	akhilrajeev@nvidia.com, tze.yee.ng@altera.com,
+	manikanta.guntupalli@amd.com, shubhrajyoti.datta@amd.com,
+	jarkko.nikula@linux.intel.com, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux@analog.com, linux-iio@vger.kernel.org, andi.shyti@kernel.org
+Subject: Re: [PATCH 3/3] i3c: add i3cdev character device module for
+ user-space access
+Message-ID: <20260924-86692413bdae0e78a12c1425@linux.microsoft.com>
+References: <20260911210935.1353126-1-meaganlloyd@linux.microsoft.com>
+ <20260911210935.1353126-4-meaganlloyd@linux.microsoft.com>
+ <aqVUyYkpKT8iX4Jz@ashevche-desk.local>
+ <20260916-454d66ca84cc91479b195aa5@linux.microsoft.com>
+ <aqt_dCazxTDR4cpk@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <e3ab0833252a329c1ede5118136e151249ea328127785dafddd328066f8d782c@mail.kernel.org>
-In-Reply-To: <20260924-b4-arm64-callops-kcfi-v2-9-587865b6d991@linux.dev>
-References: <20260924-b4-arm64-callops-kcfi-v2-9-587865b6d991@linux.dev>
-Subject: Re: [PATCH v2 9/9] arm64: ftrace: Allow CALL_OPS on kCFI kernels built with Rust
-From: bot+bpf-ci@kernel.org
-To: jose.fernandez@linux.dev,rostedt@goodmis.org,mhiramat@kernel.org,mark.rutland@arm.com,mathieu.desnoyers@efficios.com,nathan@kernel.org,nsc@kernel.org,ndesaulniers@google.com,morbo@google.com,justinstitt@google.com,catalin.marinas@arm.com,will@kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,puranjay@kernel.org,xukuohai@huaweicloud.com,ardb@kernel.org,ilias.apalodimas@linaro.org,ojeda@kernel.org,boqun@kernel.org,gary@garyguo.net,bjorn3_gh@protonmail.com,lossin@kernel.org,a.hindborg@kernel.org,aliceryhl@google.com,tmgross@umich.edu,dakr@kernel.org,daniel.almeida@collabora.com,tamird@kernel.org,acourbot@nvidia.com,work@onurozkan.dev,samitolvanen@google.com,kees@kernel.org
-Cc: leon.hwang@linux.dev,ihor.solodrai@linux.dev,jpoimboe@kernel.org,live-patching@vger.kernel.org,linux-kernel@vger.kernel.org,linux-trace-kernel@vger.kernel.org,linux-kbuild@vger.kernel.org,llvm@lists.linux.dev,linux-arm-kernel@lists.infradead.org,bpf@vger.kernel.org,linux-efi@vger.kernel.org,rust-for-linux@vger.kernel.org,ben@cressey.dev,florent.revest@linux.dev,jose.fernandez@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Thu, 24 Sep 2026 23:25:15 +0000 (UTC)
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqt_dCazxTDR4cpk@ashevche-desk.local>
 
---===============0374088084302990559==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Thu, Sep 17, 2026 at 08:49:40AM +0300, Andy Shevchenko wrote:
+> On Wed, Sep 16, 2026 at 03:57:10PM -0700, Meagan Lloyd wrote:
+> > On Sat, Sep 12, 2026 at 04:34:01PM +0300, Andy Shevchenko wrote:
+> > > On Fri, Sep 11, 2026 at 02:09:35PM -0700, Meagan Lloyd wrote:
+> > > > The i3cdev driver is a character device driver that allows user-space
+> > > > to control and interact with I3C devices.
+> > > 
+> > > > Currently, it has the ability to perform Single Data Rate (SDR)
+> > > > transfers - basic reads/writes.
+> > > > 
+> > > > With the addition of sysfs driver_override, there is now a
+> > > > straightforward and direct way to match the i3cdev driver to any i3c
+> > > > device without stepping on the toes of more specialized drivers that are
+> > > > loaded automatically.
+> > > 
+> > > Is it safe? Why on the earth do we need this? The commit message has not enough
+> > > information.
+> > 
+> > I can't see a reason that it'd be unsafe. To give additional confidence,
+> > it's already in-use in many bus_types:
+> 
+> This argument has nothing to do with i³c. Each bus is different on a physical
+> layer, electrical protocols and programming flow. Each of them has own
+> constraints.
+> 
 
-> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> index afa566e0fa86..cad2bdf3456f 100644
-> --- a/arch/arm64/Kconfig
-> +++ b/arch/arm64/Kconfig
-> @@ -282,11 +282,16 @@ config CC_HAS_PATCHABLE_FUNCTION_ENTRY_SECTION
->  	# https://github.com/llvm/llvm-project/pull/131230
->  	def_bool $(cc-option,-fpatchable-function-entry=1$(comma)1$(comma).discard.patchable_function_entries)
->
-> +config RUSTC_HAS_PATCHABLE_FUNCTION_ENTRY_SECTION
-> +	# The section argument needs Rust 1.98.0 or later:
-> +	# https://github.com/rust-lang/rust/pull/157445
-> +	def_bool $(rustc-option,-Zpatchable-function-entry=1$(comma)1$(comma).discard.patchable_function_entries)
-> +
->  config ARM64_CFI_PERMITS_CALL_OPS
->  	def_bool y
->  	depends on CFI
->  	depends on CC_HAS_PATCHABLE_FUNCTION_ENTRY_SECTION
-> -	depends on !RUST
-> +	depends on !RUST || RUSTC_HAS_PATCHABLE_FUNCTION_ENTRY_SECTION
->
->  config ARM64_FUNCTION_PREFIX_NOPS
->  	int
-> diff --git a/arch/arm64/Makefile b/arch/arm64/Makefile
-> index 653c1ed6ef38..b23430e2b856 100644
-> --- a/arch/arm64/Makefile
-> +++ b/arch/arm64/Makefile
-> @@ -152,6 +152,9 @@ ifeq ($(CONFIG_DYNAMIC_FTRACE_WITH_CALL_OPS),y)
->  			 -DCC_USING_PATCHABLE_FUNCTION_PREFIX=$(prefix_nops)
->      KBUILD_CFLAGS += $(CFI_PREFIX_CFLAGS)
->      export CFI_PREFIX_CFLAGS
-> +    # Rust functions are not patched by ftrace, but they are called indirectly
-> +    # from C and make indirect calls themselves, so they need the same prefix.
-> +    KBUILD_RUSTFLAGS += -Zpatchable-function-entry=$(prefix_nops),$(prefix_nops),.discard.patchable_function_entries
->    endif
->  else ifeq ($(CONFIG_DYNAMIC_FTRACE_WITH_ARGS),y)
->    KBUILD_CPPFLAGS += -DCC_USING_PATCHABLE_FUNCTION_ENTRY
-> diff --git a/rust/Makefile b/rust/Makefile
-> index da1a7409d984..b402ab768f72 100644
-> --- a/rust/Makefile
-> +++ b/rust/Makefile
-> @@ -511,7 +511,12 @@ endif
->  # prototypes for functions like `memcpy` -- if this flag is not passed,
->  # `bindgen`-generated prototypes use `c_ulong` or `c_uint` depending on
->  # architecture instead of generating `usize`.
-> -bindgen_c_flags_final = $(bindgen_c_flags_lto) -fno-builtin -D__BINDGEN__
-> +#
-> +# Do not pass -fpatchable-function-entry to bindgen: its libclang may not
-> +# support the section argument (Clang >= 21), and removing the flag does not
-> +# change the ABI.
-> +bindgen_c_flags_final = $(filter-out -fpatchable-function-entry=%, \
-> +	$(bindgen_c_flags_lto)) -fno-builtin -D__BINDGEN__
-                            ^^^^
+(resending as my previous reply hit a snag and is probably marked as
+spam for most people)
 
-This isn't a bug, but could the commit message mention that bindgen's C
-flags now drop -fpatchable-function-entry on all architectures, not just
-arm64 with CFI?
+My take is that if you're using the i3cdev module, it's up to the
+programmer to review schematics/datasheets to know how to program
+the hardware devices and bus (in the case of hubs) correctly.
 
-The change applies whenever any architecture passes -fpatchable-function-entry
-in CFLAGS (x86 CALL_PADDING, riscv, powerpc, loongarch, parisc, and arm64
-ftrace). The reason for filtering it out (bindgen's libclang may be older
-than the kernel's Clang and may reject the section argument) is documented
-in the code comment, but the commit message only describes the arm64 kCFI
-pieces.
+Note, this thread's driver_override approach was not favored by the i3c
+subsystem reviewers, so please continue any further discussion in the
+prevailing approach's thread:
+https://lore.kernel.org/linux-i3c/20260921230603.2518652-1-samagazaryan@google.com/T/#mb42d9b2785f8508d39eaf782b3d29189226b8029
 
+> > To answer why we need it:
+> > If we want to write i3cdev as a standard device driver, it can't
+> > actually match anything by default. This is because, some devices on the
+> > system may need specific drivers and i3cdev is generic and should
+> > technically match every device.
+> 
+> Yes, but I have seen no reason why we should expose i³c bus to the user
+> space. With i²c we already know very well that it was (and still is)
+> a bad idea. Why i³c is better (especially taking into account i²c
+> compatible mode and more complex programming flow)?
+> 
 
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+cc'ing Andi Shyti from I2C subsystem for context.
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36069841267
---===============0374088084302990559==--
+Andi, we're considering an I3C character device driver interface.
+If you have any feedback from your experience with I2C, can you
+please share it in:
+https://lore.kernel.org/linux-i3c/20260921230603.2518652-1-samagazaryan@google.com/T/#mb42d9b2785f8508d39eaf782b3d29189226b8029
+
+> > Since the driver_override is default NULL and is set via sysfs, this
+> > allows any specific drivers on boot to be loaded up and would allow
+> > explicit control on what device i3cdev gets bound to.
+> > 
+> > This was my rational. I will refine the commit message with more details.
+> 
+> Put a real life example why the exposing i³c devices into user space is
+> absolutely necessary.
+> 
+
+I'm supporting a kernel running on accelerator cards that plug into
+various server SKUs where hubs/devices along the bus are not physically
+on the card & may differ across SKUs. So, I'm looking to program hubs
+flexibly and dynamically from userspace to setup bus hardware paths.
+
+The hub drivers being posted to i3c subsystem require hard-coding in the
+devicetree to setup the ports physically according to intended
+bus/hardware design. As mentioned, these cards will not know what SKU it
+will be plugged into, so the devicetree hard-coding cannot reasonably be
+determined ahead of time. Theoretically, you may be able to add some
+bootloader support to go query SKU information from other server
+components and then populate the devicetree for the kernel, but that
+will require heavy lifting and plumbing between other server firmware
+components and the bootloader.
+
+Further replies and discussion can be routed here:
+https://lore.kernel.org/linux-i3c/20260921230603.2518652-1-samagazaryan@google.com/T/#mb42d9b2785f8508d39eaf782b3d29189226b8029
+
+Thank you,
+Meagan
+
+> > > > This is accomplished by the i3cdev driver not having any entries in
+> > > > the i3c_device_id table. After boot, simply set the driver_override
+> > > > to "i3cdev" and bind the device manually via the sysfs bind knob.
+> > > > This can also be automated with udev rules as well.
+> > > > 
+> > > > The character device interface will be exposed at: /dev/bus/i3c/<bus
+> > > > id>-<Provisional ID>
+> 
+> ...
+> 
+> > > > +	for (int i = 0; i < metadata->nxfers; i++) {
+> > > 
+> > > Why is 'i' signed?
+> 
+> > Mostly for readability and to make sure the line length on loop headers
+> > is kept below 80 chars. As a precaution, to make sure that 'i' can
+> > represent any metadata->nxfers value without overflow during loops, I
+> > check that metadata->nxfers is less than/equal to INT_MAX in
+> > get_metadata().
+> 
+> No need to add useless checks.
+> 
+> ...
+> 
+> > > > +/** + * print_i3c_err() - Prints the I3C error encountered during
+> > > > the prior + * call to the core's transfer function.  + * @i3cdev:
+> > > > i3cdev_data object + * @metadata: Kernel's copy of i3cdev_xfers
+> > > > (ioctl I3CDEV_XFER input) + * @i3c_xfers: i3c_xfer array that was
+> > > > sent to the I3C core
+> > > 
+> > > > + * Returns: void
+> > > 
+> > > Huh?! Where is this coming from?
+> > 
+> > In i3cdev_ioctl_do_xfers, if i3c_device_do_xfers failed, I wanted to
+> > print out the first I3C controller error encountered. The controller
+> > drivers can set this in the i3c_xfer.err field. Hence this function.
+> > 
+> > It's to aid debugging and provide useful error information.
+> > I can certainly refine the wording on the print_i3c_err documentation
+> > header to make this more clear.
+> 
+> My point is about kernel-doc. Why do we need the return section for void?
+> Where it comes from?
+> 
+> > > > + */
+> 
+> ...
+> 
+> > > Please, rely less on AI and more on the common sense and
+> > > proof-reading.
+> 
+> > I think I gave you the wrong impression. The new contributions in this
+> > series were written and developed by me. I used AI for quality assurance
+> > and cross-referencing. Since I incorporated some AI-flagged suggestions,
+> > I tried to acknowledge that with the Assisted-by tag.
+> 
+> I see, then there is a room to improve the code. But the main question is
+> why do we even need this whole interface to begin with?
+> 
+> -- 
+> With Best Regards,
+> Andy Shevchenko
+> 
+> 
+> 
+> -- 
+> linux-i3c mailing list
+> linux-i3c@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-i3c
