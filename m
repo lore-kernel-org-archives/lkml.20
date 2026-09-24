@@ -1,130 +1,139 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055C0348C7D;
-	Thu, 24 Sep 2026 15:44:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F12C547A88C;
+	Thu, 24 Sep 2026 15:45:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790264700; cv=none; b=Q+5s4Mmp9Rv+J+3b4G69cuweNHKz44IRqeBVcXWgN1qKyT+41yIA7JRC2ImGxYuRsEiKiREs03DEEdEdLGZYepwP/HVhVI/s5WOFN/HBHlaDY5dIanbxJC+qLO/B9Xl9CAXjQNllQax/wRzTvyNYQpTfMvg9656XaNyj7MJU9rc=
+	t=1790264715; cv=none; b=Ogi/7l2LpMkEPM9ThM4VMustPDCJCbQOMsUckCsVPwIbI3x9TA08ikYm8Srs5SfBMHH4OPNTBBLfem47wWVVRKynfoKgrYV1XOoXTGPymiRTruHTx9sIfye9NhKoDFujkIIZ7zau4pqRJpWG9anV1hirLSp+uG2NPlV7ZJAfq8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790264700; c=relaxed/simple;
-	bh=/h6FDCqEvu2VcdIuCvaYqPR84F3tAsFoiRPMwYVYuD8=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=T2c55uaJ3qezAMCtSrq4hNTLqNTvuy/ee42I9b0F8vopScB996SmcxPjubLyc29C6s6JLmUHbDxDcZ9uzHwlzkFynuWB6qROxhIQFp6GYuWygJE5KDgFIhk0x72Alz0WFX+4uJrort1IIC9lX/XluH3XiKJidBwABI5u71kbXko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=PLOicbZc; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=f05ZGD3L; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790264715; c=relaxed/simple;
+	bh=ORzadUe3/b75M1irFdR1aD+USyKSP/OkZ7rL3VEl6UQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I4kXo0C80GfFOMyEGfG/7J9tzQDxiT27/4LFxZrKpPVBL+V+DXNtwWrTuCiCHpTqPVx2Y8agmsDhJ3Y6x7FdOmD23EVe7nFalnoZpVbd6NmG8uoUL6lHKmZJJB8Ag70Oex1UXE9Nnx78Qck2kYrvs+a/447u5T1R/UGiFGL3+R4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F+4CPVvG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="PLOicbZc";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="f05ZGD3L"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790264690; bh=YebRGxiOOFdyOaA1jNvEHuU
-	n5lpo0MnD1Vo5lFRxTwk=; b=PLOicbZcRRZLFULfhrnocmrz+Ns8EE+lwePeB+YtE6knaTCjZi
-	f13trMXBWP+metR6HkrMnC4YfyT4Oi37DkgE4NWztMvvZTQAwrrx0ZoSSLdcPYR8G5Equis0zfD
-	ySIQADorhzttM/rKJCQYOlt+u2gCHCLohrIUeSo9yDLfrE9fmVxoo2p9UkvTAcxhkc7O7RZL/13
-	5D00akbfcJOgAMIkLTSYg1hLemyeeSUG7GpT7zgdVI3sfDD/c1BViUzoTnXVKiuaIm34u2aPyaA
-	Dc0r5KvkvTVVGHUcUzOJ5TKYFpX3YmEMTA3jhYp4liwseX51FbmdzvnAz6/hTKsfeKg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790264690; bh=YebRGxiOOFdyOaA1jNvEHuU
-	n5lpo0MnD1Vo5lFRxTwk=; b=f05ZGD3LEsFLDi+b5ZR+E643VUsXO6LjGwWcujHxs74btemuQi
-	TFDb1DJbTzTU+0AMx07RqY+sZOEIf+zKleBQ==;
-Date: Thu, 24 Sep 2026 16:44:52 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Sasha Levin <sashal@kernel.org>
-CC: corbet@lwn.net, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- rdunlap@infradead.org, skhan@linuxfoundation.org, workflows@vger.kernel.org
-Subject: Re: [PATCH] docs: add AGENTS.md as a symlink to README
-In-Reply-To: <arU_r7Sl3gnTX6nG@laps>
-References: <20260924134945.3095661-1-sashal@kernel.org> <C1ABA2A9-E1BD-4A89-B5BC-59C06D807D0D@mainlining.org> <arU_r7Sl3gnTX6nG@laps>
-Message-ID: <F6362B07-0832-495D-BF92-6FAF06DC5E04@mainlining.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F+4CPVvG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BA981F000FF;
+	Thu, 24 Sep 2026 15:45:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790264713;
+	bh=sG/6Fv2bcz1mAueTl+qPLK+unA1gaooKi0HCYFLNsdg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=F+4CPVvGqRU7cWG77qGDCQaRPb8xepVCbRHAvZdCvk4o3dSF91r1bTtAW0I17qb4n
+	 9om2NQ6/sdwiTQTj6MyZJEueL3EhxpOozpYEJJxZUSUqdp9g2KqralDt4l5SbkEt7Y
+	 uKLdfdoqB+GrhrOSwfY2GiXSTZqtrPb7+tf7P1lPu3iHlyC5v+A27E4pL+jRvWKShT
+	 1B2BJJohREERibFQ+Pe1wqD8isyDjeLbODb4+nvzgwhOC/S2T20nwzNMxN9TNjlB9s
+	 6mztoDYsyBJXxFLbcCbFLGQOacEy4zD+90rDZ3qJYl5OPaR8LFKVndBGyzABZLzlK/
+	 8Gi9eTh0br5xg==
+Date: Thu, 24 Sep 2026 10:45:11 -0500
+From: Rob Herring <robh@kernel.org>
+To: netdev-bot+sashiko@kernel.org
+Cc: cjd@cjdns.fr, netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, krzk+dt@kernel.org, conor+dt@kernel.org,
+	matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+	chester.a.unal@arinc9.com, daniel@makrotopia.org,
+	linux@armlinux.org.uk, arinc.unal@arinc9.com,
+	Landen.Chao@mediatek.com, dqfext@gmail.com, sean.wang@mediatek.com,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, naseefkm@gmail.com,
+	b.larsson@gmx.com
+Subject: Re: [PATCH v2 net-next 2/7] dt-bindings: net: dsa: mediatek,mt7530:
+ add passthrough mode
+Message-ID: <20260924154511.GA231859-robh@kernel.org>
+References: <20260915174643.253660-3-cjd@cjdns.fr>
+ <178967819278.22033.11186084049097912254@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <178967819278.22033.11186084049097912254@kernel.org>
 
-On 24 September 2026 16:20:15 BST, Sasha Levin <sashal@kernel.org> wrote:
->On Thu, Sep 24, 2026 at 04:08:08PM +0100, Bradley Morgan wrote:
->> On 24 September 2026 14:49:45 BST, Sasha Levin <sashal@kernel.org>
->wrote:
->>> Most coding agents have standardized on AGENTS.md as the file they load
->>> automatically from the root of a repository. README already tells AI
->>> tools to read and follow Documentation/process/coding-assistants.rst,
->>> but that only helps if the agent decides to read README before acting,
->>> which in practice it often doesn't.
->>> 
->>> Add a top-level AGENTS.md symlink to README, so agents load it on their
->>> own and follow its pointer to the AI guidelines. This keeps a single
->>> entry point for every reader, and avoids adding a separate copy of the
->>> policy that could drift from the RST.
->>> 
->>> As an example, two different agents were asked to "create a new commit
->>> renaming the release (in the Makefile) to AI Test".
->>> 
->>> Without AGENTS.md, the first agent added a Signed-off-by for the user
->on
->>> its own. It should never have done that: only the human submitter can
->>> certify the Developer Certificate of Origin, after reviewing the
->change.
->>> It also used its own attribution tag instead of Assisted-by:
->>> 
->>>> Makefile: rename release to AI Test
->>>> 
->>>> Co-Authored-By: <model name> <noreply@...>
->>>> Signed-off-by: Sasha Levin <sashal@kernel.org>
->>> 
->>> The second agent added no attribution at all:
->>> 
->>>> Rename release to AI Test
->>> 
->>> With AGENTS.md in place, neither agent added a Signed-off-by, and both
->>> used the Assisted-by tag. README itself mentions neither tag, so both
->>> agents followed its pointer to coding-assistants.rst:
->>> 
->>>> Makefile: rename release to "AI Test"
->>>> 
->>>> Change the release name from "Baby Opossum Posse" to "AI Test".
->>>> 
->>>> Assisted-by: LLM
->>> 
->>>> Makefile: rename release to AI Test
->>>> 
->>>> Assisted-by: LLM
->>> 
->>> Both agents also followed the kernel's general guidelines more closely.
->>> The second agent's subject gained the "subsystem: summary phrase" form
->>> that submitting-patches.rst asks for, instead of a bare "Rename release
->>> to AI Test", and the first agent added a body describing the change.
->>> 
->>> Assisted-by: LLM
->>> Signed-off-by: Sasha Levin <sashal@kernel.org>
->> 
->> NAK, we could add to memories that to read soandso file before every
->> patch, and then it wouldn't increase tokens then?
->
->Could you help me understand what you meant here? I'm aware some agents
->use a
->notion of "memories", but I don't think they standardized on it in any
->way, nor
->how we could incorporate them here?
->
+On Thu, Sep 17, 2026 at 08:49:52PM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider:
+> 
+> Critical: 0 · High: 0 · Medium: 0 · Low: 2
+> 
+> - [Low] The added `description` paragraph in
+>   Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml (lines…
+> - [Low] Concern (retained for policy combination, assessed as a false
+>   positive): the binding advertises a passthrough mode that…
+> 
+> --
+> 
+> dt-bindings: net: dsa: mediatek,mt7530: add passthrough mode
+> 
+> This adds a paragraph to the mediatek,mt7530 binding description explaining
+> that MT7530/MT7531 switches can be operated in a "passthrough" mode where
+> traffic moves unconditionally between the CPU port and a DSA link port to a
+> second switch. The paragraph also states that in this mode the upstream
+> switch may have no other ports or switch configuration.
+> 
+> > diff --git a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
+> > index 90b3582b76190..e29fb86934981 100644
+> > --- a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
+> > +++ b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
+> > @@ -73,6 +73,13 @@ description: |
+> >  
+> >        Check out example 7.
+> >  
+> > +  The MT7530 and MT7531 switches are capable of being operated in "passthrough"
+> > +  mode. In this mode, traffic is unconditionally passed between the CPU port
+> > +  and the DSA port which links to a second switch. To use passthrough mode, the
+> > +  upstream switch is configured with a DSA link to the downstream switch. In
+> > +  passthrough mode the upstream switch is restricted, with no other ports or
+> > +  switch configuration allowed.
+> > +
+> 
+> [Severity: Low]
+> The last sentence states a hard device tree constraint, but it only exists
+> as prose.  Should this restriction also be expressed in the
+> machine-checkable part of the schema?
 
-They use MEMORY.md sometimes.
+I don't know if that is possible.
 
+> As it stands there is no new property, no if/then under allOf, and no $defs
+> entry that limits the port set when a port carries a link phandle.  The port
+> container in this same file is permissive:
+> 
+>   patternProperties:
+>     "^(ethernet-)?ports$":
+>       type: object
+>       additionalProperties: true
+> 
+>       patternProperties:
+>         "^(ethernet-)?port@[0-6]$":
+>           type: object
+>           additionalProperties: true
+> 
+> so a device tree describing an upstream MT7530/MT7531 with a CPU port, a DSA
+> link port and extra user ports, plus gpio-controller/interrupt-controller,
+> still passes dt_binding_check.  The layout is instead rejected at probe time
+> by mt753x_check_passthrough() in drivers/net/dsa/mt7530.c, added by the
+> following patch in the series:
+> 
+> 	if (passthrough_ports > 2 ||
+> 	    (passthrough_ports == 2 && enabled_ports != 2)
+> 	) {
+> 		dev_err(dev, "Only two ports allowed in passthrough mode\n");
+> 		return -EINVAL;
+> 
+> Two smaller points on the same paragraph:
+> 
+> Every other topology description in this description block ends with a
+> pointer to a validated example ("Check out example 7." just above).  Could
+> this one gain an example too, so the passthrough layout is actually exercised
+> by dt_binding_check?
 
->And as far as I'm aware, nothing is free here - those "memories" still use
->tokens.
+We don't really want more examples if there are actual .dts files 
+upstream.
 
-Not as much.
-
-
-
->
->
-
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+Rob
