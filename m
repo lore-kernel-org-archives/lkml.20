@@ -1,56 +1,56 @@
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com [209.85.208.72])
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com [209.85.218.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A9644238A
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:56:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B45B2443AAB
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:56:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790240191; cv=none; b=JSZkWqBbYIjBvV7cDQjvTTfWjOGtkfZwTuTrte0nHsM+zhSLNJ33JuX6AjzouKY2ndbP3EFeHPtBu6edOOa+nv62DasRcLGq/Qkk4yOuY93zXlQ6HSkIyjOVBbBbEdA1tCjUrgvqgHRlXuPGYXezIvqZBLscCoevqKhs6lDt+gM=
+	t=1790240193; cv=none; b=XDVigkD57TyL97Pyy+Q6PF6twUBy2FvZ38T8Ork2HXeMexyvrHBG4iclOjq5r9bcmhVhgDpCJ2My6RDt4HVx/mur4LZTkZHMCNYlkI9NOB6QoVwGDbuBAIQkfJMGI1jI+6pHZiPhWlj5ckrjI3p1AlaXgbStgLqPHbYCPpvq3zM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790240191; c=relaxed/simple;
-	bh=Cj4FjSHKBjv54u3XmmA+qTyMekhASSwlkn3EL5F2Ass=;
+	s=arc-20240116; t=1790240193; c=relaxed/simple;
+	bh=KeDy4IrcG1e2xwDfz722ZsSdT3LmASiGfQOxY9XlU70=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=CTKBETwl7zq5e5Soc9CpFPJfpZEjw3QB1Lp4R63gMu/zOeKWDTtrDMk6DWEY7gd1KT9BOKfEOIQ/2wspOy+G9VeW55WE2XJWb/HWK7XRjrx+tyWMUfeydYuvngqkv+m1fP1yjG4ak36o3INqLeitqXqKUTiofpLL6+bQfQ0Vj4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bxaWazuW; arc=none smtp.client-ip=209.85.208.72
+	 To:Cc:Content-Type; b=QG2ym8ELnF6f3l3EXdrM47ofrYA//g8C4Z56VTWUhtoLPUpYaADEpn91EqTRmMUKisk642u3xuZrQJ98QsHrj79Np49jf4O3lrFtUUzceyIHRU7725bi63wsbYia56sfd6T5/DT+j8XBA8cXw33FqCkVw47ZQlk1L1vxGmXBlpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PJ+G4W/O; arc=none smtp.client-ip=209.85.218.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bxaWazuW"
-Received: by mail-ed1-f72.google.com with SMTP id 4fb4d7f45d1cf-6aa734a721dso2604074a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:56:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PJ+G4W/O"
+Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c29452ecadeso189080466b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:56:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790240187; x=1790844987; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790240188; x=1790844988; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jyisHEHOouXDnRhVknZZL0KL1V1yIbby3bAAKhAOqX0=;
-        b=bxaWazuW9mrwZd6IDy3qDKBCZJPyjAqzVEnTFTxZyVFXuzxRIL8Cz66jl/4c9GY5IK
-         thYuysKyxJvD+8HmXc8VVVtHKnH7i9Oe+vkfDkR4irgawp9mTHm7bkOdZxonY64ojBe9
-         WhxGFlyUXC11HE8y0ese9aqZRGJv82HuxzRK1kM544Kako7/1I7nmXMT0JwZAqvNYA+L
-         MnwknhXNdCQ6Iix1uk1NrOHLrS/FPSmtFCVJjK7ZPXYoLM9sWRD10LzS43dB3XiKjtmK
-         IGsp6DeiSusj2+4e1NSkam9CAkv3iPraClkf22ZiMOIwPY0R3HuJjv4tgiuO86FDCJdU
-         /wmg==
+        bh=/Vg0s5N/57YDwzYIoROOFrmDFDxGbcQ0sOsS1KaKDkg=;
+        b=PJ+G4W/OHiT+uKfny7mPf7qCnuwekSGprLsvb8OcKZYQdv+V0GmwzjkqR3MvweLitN
+         8hYFJfDc/g6jWJjqa0f7lhVeVgzyBg0FwbjIUrZ8HU1gvwNkHOjm9T1WE9dpejpFwF59
+         4SGZi6u8vi8axZ8j/MDxRPZa7UnN2ZWkvMWK1RTm73Emnfe82wr6yeqSzkGPjAikKkxT
+         ZvzqR9hta09LAtj81gVBGxo/AokuREqbjUYUjZMX/j8r4zlSVny/HG0C+PCWXFwVjefJ
+         zTHnIfzt+TIqgClAfSOBNVRl+Ap9R7h2t5SXFPLf2Li2INTagZrunYD7zh7IBBjyfxA2
+         DIGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790240187; x=1790844987;
+        d=1e100.net; s=20260707; t=1790240188; x=1790844988;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jyisHEHOouXDnRhVknZZL0KL1V1yIbby3bAAKhAOqX0=;
-        b=d1zZMnJLCB5U5h83gknqbjYPbRkdPFe/vmKffJ9XZ18WwIZpAYQD9uflYrGw6rIYke
-         IQ7ysVPxKuwhFv4bMdTQcGOe54Fy2HYUGSgDr5Xd+0qUhmY3iTyR35I6mTleNphb5xMw
-         nfUHuxpazTK3bxYd5w7j3cjklClRd+lhxXtpe3Ah91pQSFRy0pHLzpcY7iZgeZXdOWw7
-         XAG1i12qm76OjqRor1GYD4S1nrGj1ZiH2JR3H/T1HCWY3ImcxWHhl1y8SlDaoZZ7Ux+9
-         KdyU2sU+NSfl2+FcCi3pqW2RE4TbFgh7XW7D4kSF/04QGesKTLfuUMAOXO970QYt5vTq
-         sWdA==
-X-Gm-Message-State: AFuF++lsjJKyyBydS+nTfGwtqydUnhyHsvFeq5bG2TyGguhZ+RGtlgMn
-	hMPL0WXxKx8zlzrD3kWIzxoE9RNjXJm99wjMWz31m91a40lzsh/Q894Xs/2MiYcpwRtqrE9D27N
-	U6sMJeL1Qi8vU/ia0eWH/Zn/GMVnVE6fmkEu/DopmGyCk/R+Bv5CqDH9MI43o8jt5LMXZC81eme
-	j2tkxvfSzKyVvH8dALsEvKTaof3FBXn+NOJEprstjIUBnrF8jC3C+rT0w=
-X-Received: from edb11.prod.google.com ([2002:a05:6402:238b:b0:699:e9c8:2d72])
+        bh=/Vg0s5N/57YDwzYIoROOFrmDFDxGbcQ0sOsS1KaKDkg=;
+        b=fkQO3WYveZuecM86SIpAnALQMyz7d4B/r3pdV1JXQjLacu48OaDbvawgRY+iFvhknD
+         Rd/hk7XD56YPJ2Zb72U5xeJEjFT1WpJRTPDTr+dOUoJ/wr5qArgAcsZHcCdO6ndeYMHF
+         J7NBAEdhdlwFSnYP6OFq/oDzdQksVhsPiP8B4D9dw1yFqigglOPHHnzmEp4EHW6/TDHp
+         kyJ9K4xrjiBpWSSJTCLeKHMODHOCqUF2dPZPE5bCdZWce9tCXKBP3laHBTwY1ZxJ1dz6
+         S06+hP0aBzxZViVT64fVlWyFzGFsRyMqJe+SNYXH/uu3H++Ekpoth0FDrlYQeXYTpaQh
+         KtHg==
+X-Gm-Message-State: AFuF++nwLAQDdo6pcV+enjeotu4JZcamlBTYBxW1vNlgxtLH04Kh+X6C
+	VIvLiyfwZwwYvKF/hdJLYRoW04aWqcOdS+iD1L1VJX58jU8nB/t7GJ2dwmoRJt8EhOQZvhBhur8
+	h0qL7zJqi1ZdzbiYMYN2AcpnB8QuI+kdRD6ak0bySz2ZCmZwqsZdRMRaE/exotQDeJxoc5fflzm
+	EEl2W5S/eHqTlc4RFnHr58Y7aYqtlR6RH3xjv0wQOh/oS0X744psvXVkM=
+X-Received: from ejcgj35.prod.google.com ([2002:a17:907:7423:b0:c16:9d46:17a4])
  (user=smostafa job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:5186:b0:6aa:a7f:d584 with SMTP id 4fb4d7f45d1cf-6aac90949demr1600686a12.42.1790240186819;
- Thu, 24 Sep 2026 01:56:26 -0700 (PDT)
-Date: Thu, 24 Sep 2026 08:56:13 +0000
+ 2002:a17:907:d409:b0:c26:1648:a069 with SMTP id a640c23a62f3a-c2ac24f9cabmr130143366b.36.1790240188197;
+ Thu, 24 Sep 2026 01:56:28 -0700 (PDT)
+Date: Thu, 24 Sep 2026 08:56:14 +0000
 In-Reply-To: <20260924085616.300650-1-smostafa@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,44 +60,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260924085616.300650-1-smostafa@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260924085616.300650-3-smostafa@google.com>
-Subject: [PATCH v2 2/5] iommu/arm-smmu-v3-test: Fix arm_smmu_v3_test_debug_print_used_bits()
+Message-ID: <20260924085616.300650-4-smostafa@google.com>
+Subject: [PATCH v2 3/5] iommu/arm-smmu-v3-test: Add missing error checks for
+ inv array
 From: Mostafa Saleh <smostafa@google.com>
 To: linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
 	linux-arm-kernel@lists.infradead.org
 Cc: will@kernel.org, robin.murphy@arm.com, joro@8bytes.org, jgg@ziepe.ca, 
-	nicolinc@nvidia.com, praan@google.com, Mostafa Saleh <smostafa@google.com>, 
-	Jason Gunthorpe <jgg@nvidia.com>
+	nicolinc@nvidia.com, praan@google.com, Mostafa Saleh <smostafa@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-arm_smmu_v3_test_debug_print_used_bits() hardcodes arm_smmu_get_ste_used()
-instead of using the provided writer->ops->get_used() callback.
-This caused Context Descriptors to be incorrectly parsed as STEs.
+arm_smmu_invs_merge() and arm_smmu_invs_alloc() can return NULL or
+errors which are checked by the driver but not the test.
 
-Fixes: 56e1a4cc2588 ("iommu/arm-smmu-v3: Add unit tests for arm_smmu_write_entry")
+Add KUNIT_ASSERT_NOT_ERR_OR_NULL() after calling them to fail the
+test instead of accessing NULL or ERR pointers.
+
+Fixes: 15a2a5645ad7 ("iommu/arm-smmu-v3: Introduce a per-domain arm_smmu_invs array")
 Reported-by: Sashiko <>
-Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 Signed-off-by: Mostafa Saleh <smostafa@google.com>
 ---
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-test.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-test.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-test.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-test.c
-index add671363c82..eae08d4d77ec 100644
+index eae08d4d77ec..366dcb2b5554 100644
 --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-test.c
 +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-test.c
-@@ -125,8 +125,8 @@ arm_smmu_v3_test_debug_print_used_bits(struct arm_smmu_entry_writer *writer,
- {
- 	__le64 used_bits[NUM_ENTRY_QWORDS] = {};
+@@ -704,17 +704,20 @@ static void arm_smmu_v3_invs_test(struct kunit *test)
  
--	arm_smmu_get_ste_used(ste, used_bits);
--	pr_debug("STE used bits: ");
-+	writer->ops->get_used(ste, used_bits);
-+	pr_debug("Entry used bits: ");
- 	print_hex_dump_debug("    ", DUMP_PREFIX_NONE, 16, 8, used_bits,
- 			     sizeof(used_bits), false);
- }
+ 	/* New array */
+ 	test_a = arm_smmu_invs_alloc(0);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, test_a);
+ 	KUNIT_EXPECT_EQ(test, test_a->num_invs, 0);
+ 
+ 	/* Test1: merge invs1 (new array) */
+ 	test_b = arm_smmu_invs_merge(test_a, &invs1);
+ 	kfree(test_a);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, test_b);
+ 	arm_smmu_v3_invs_test_verify(test, test_b, ARRAY_SIZE(results1[0]), 0,
+ 				     results1[0], results1[1], results1[2]);
+ 
+ 	/* Test2: merge invs2 (new array) */
+ 	test_a = arm_smmu_invs_merge(test_b, &invs2);
+ 	kfree(test_b);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, test_a);
+ 	arm_smmu_v3_invs_test_verify(test, test_a, ARRAY_SIZE(results2[0]), 0,
+ 				     results2[0], results2[1], results2[2]);
+ 
+@@ -726,6 +729,7 @@ static void arm_smmu_v3_invs_test(struct kunit *test)
+ 	/* Test4: merge invs3 (new array) */
+ 	test_b = arm_smmu_invs_merge(test_a, &invs3);
+ 	kfree(test_a);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, test_b);
+ 	arm_smmu_v3_invs_test_verify(test, test_b, ARRAY_SIZE(results4[0]), 0,
+ 				     results4[0], results4[1], results4[2]);
+ 
+@@ -737,6 +741,7 @@ static void arm_smmu_v3_invs_test(struct kunit *test)
+ 	/* Test6: purge test_b (new array) */
+ 	test_a = arm_smmu_invs_purge(test_b);
+ 	kfree(test_b);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, test_a);
+ 	arm_smmu_v3_invs_test_verify(test, test_a, ARRAY_SIZE(results6[0]), 0,
+ 				     results6[0], results6[1], results6[2]);
+ 
+@@ -748,12 +753,14 @@ static void arm_smmu_v3_invs_test(struct kunit *test)
+ 	/* Test8: merge invs4 (new array) */
+ 	test_b = arm_smmu_invs_merge(test_a, &invs4);
+ 	kfree(test_a);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, test_b);
+ 	arm_smmu_v3_invs_test_verify(test, test_b, ARRAY_SIZE(results7[0]), 0,
+ 				     results7[0], results7[1], results7[2]);
+ 
+ 	/* Test9: merge invs5 (new array) */
+ 	test_a = arm_smmu_invs_merge(test_b, &invs5);
+ 	kfree(test_b);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, test_a);
+ 	arm_smmu_v3_invs_test_verify(test, test_a, ARRAY_SIZE(results8[0]), 0,
+ 				     results8[0], results8[1], results8[2]);
+ 
+@@ -765,6 +772,7 @@ static void arm_smmu_v3_invs_test(struct kunit *test)
+ 	/* Test11: purge test_a (new array) */
+ 	test_b = arm_smmu_invs_purge(test_a);
+ 	kfree(test_a);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, test_b);
+ 	arm_smmu_v3_invs_test_verify(test, test_b, ARRAY_SIZE(results10[0]), 0,
+ 				     results10[0], results10[1], results10[2]);
+ 
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
