@@ -1,166 +1,113 @@
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D8704CB8AC
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:30:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F298248C408
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:30:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790281821; cv=none; b=Yd2xmHeGjHPbNyXp4UGMJpi7bBvlkd7SMbIotSZ9Klwzk5L61BYQYeyfZ4/8YK5fJyzk7QhAbsubdCWzZpcgutX9KXb6E4YNWy9+BR1x3ctq5RPgqVsYoG23P4KTPpLOgyRF7dfUZ2CcbCPSi25/KErHfY3rVJfvDsUglNp4VU8=
+	t=1790281850; cv=none; b=k2/Rv1Gksn1YaYw+gk0PZ9Hd/vdstZgP4BmRHfKkc08dBP3PwHJ4lm9ed/Y7VrDL4iFqP1Vvn1rro//yBqy5wAjbA/TKAdls8UPucYX+hWJnCYO+w20f8czc7UL+2MaWspUIRYBLk2zPdKL1vev7Ec0Yjf+jU6jIZmUcOBzVLIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790281821; c=relaxed/simple;
-	bh=5DZ/nLnxCxfQO4kajog7xGVkPie0bnH1eSRCJb9Yst8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=c4rEdmfDRXmiji07G+sruOOQauPKdgqw0NwVEwKCnYKuySRFj/X6MKulcvYNl1c7jEgAebIo6B1yRMWyAMwlrayzhr1+owf1xg28PlxbdYPXjNr9Q/ACY452q6VbzzA0gu0EVGvzDALUGgO7dsytPprzSUwmL8owlupcL9dJNq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=X28JdzRv; arc=none smtp.client-ip=74.125.227.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790281850; c=relaxed/simple;
+	bh=rTGplCyBJkh2bkDYBIKlMH3wsr0SrqCVCW+QaZVCErw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EAh5k9gNAWIUmWWdqJ4haNcqHlRVQu0Jyav3Uxa9n9VSGc/s3t4SEmHdIc8ndPvs3CNk66UZRD/+BimCZIPQrxDnFiq43rF5AbLo8ewUNiOawKq+3rk6qELdI6f4gxjpLqBgSAeAZJdPDr0kaGN/G5IzAPtNX4iQA9MaVDTxv9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ar0o9bA2; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="X28JdzRv"
-Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a0af40d240so174427a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:30:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ar0o9bA2"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so2421765e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:30:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790281810; x=1790886610; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790281845; x=1790886645; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Sv+MUiOEP3/RF1kItJkpWgD1vZhiIIYN2y4NUfdViXQ=;
-        b=X28JdzRvuJKGdoQsspNlPxl6E4Gdr/oTGlM1qSXgR67Cd6dH4Sgb9yEnhg6Q7dvDz5
-         XMbsERHW1cyhVPY4eS18qlhty7t736qKvIqUyvn72FesJKUV79gU2Ssg1iKV86T6O5md
-         7fMtXcfdYZbXXLpJxq/T7e/uXpHuIgVf6uYWI9woc10rRrY3/Ge3s8kRdgOs9nTA6XTL
-         zBbxP/m7dlyxTiTAKV6OMDF55WWIPGLbh0zpUxTxvonDPFORdG6mPpTRNjitMEdFZm9r
-         v7d6nJQFqAw5PTzxSq6kYVI1ztiWEDmP/pfBNsOGIYDaHvBMZjZuIVczMxFR9jFiR0KV
-         ZhHg==
+        bh=saylt10Fw/9Bgvahm51d7jrIP+G+sTRm7c4tdEvSznw=;
+        b=Ar0o9bA2Tq67VKmBBkFaq3Ej4GkY5WNjBE0qb2kKxlPkRJQmj/bwsAltrM8Wx96dcB
+         rLkUbYLKQrfMxO7F/N8y498FXssd1UrRoWtU42OqRGt1WNjSM3ng8XOlGscFVs89DTOO
+         UzwbTt6N6FDWAFPVR39b98ELI9XTpRhX984J/Myils8DLl3V89ZV6iBgk+IxaBaM+kcW
+         8sut7p7WWB6otxH8UcbAHJQrHUVvQIJqjMUKAOe5noURgvW9yvUZ6jL8AL3SPuTzA7IL
+         ryHjVI6jGxobexyCAgtirIzWHgp5cq0iIViybJJ9SHpKmJL8LN2JwmxaeHT6uUyoLneL
+         F1XA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790281810; x=1790886610;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Sv+MUiOEP3/RF1kItJkpWgD1vZhiIIYN2y4NUfdViXQ=;
-        b=v3nfhc8HZuskUFwXdS5Ra6VeI9GsYZDWxFBUNwwDpQH/E6NRgOdJdTbOEIRgLFaQsk
-         pPdeZXpCIkJNW19GxiV1H47rB6++JjYF1Agpzi6c5Y3GEdBYC0uXjAjzK0hrU3QPjwvD
-         t/J7bcDonsWVk/yz+OTA9QGJL3V/QFUapGIU1iQnpN1iH+Y4pFAHE5nxy0Z9TYomnZ6q
-         nGMOO5uQPNe7V9KWIkj1rYYYuWI6FQD3t4/ATitpvPlemsJOukR75QNKAHbJJEI14gV1
-         1/oSKlTGpvYRciNVqng8HKTGSc1Ly7uHCod0L6yu+DYoT4ekcEAE+7ZQhsRzMUOsEQJz
-         m83A==
-X-Gm-Message-State: AFuF++nDGy/gYj/1MLFSYMc6reI+NEvVAWj8rdsKJOyc4dkclk+rqovN
-	sEQEJOVIglHv9M2XMDDuVZxmEYJShGE9xZx1bllM3GTSWRnpho5wBFKRVetl1mnfYCE=
-X-Gm-Gg: AYBFou26BWTt+8+qyesd13cUc2rQA1Geaovv2vKtB4Mkh0/b5uzEYbx25kX/lc/BCBq
-	q0sPCT7GUns+WpIjTB4MPll1vcMVnxSxoJeceK6lMDgR+tVrrp8OL4bRlHwTdEK9cJGs9GL8FoL
-	t+ALBeVqFzPV+xtSyovuhZq35x7PeEBaoVb77JkiBCzgT7xhqDnKTD6b7U7wnQYYvBbxNGt0oAt
-	5SNPYrrMFgJYeehSvPkCLaxEUA3WEN3bpzzTinECd+KusWD3ab5wHRhOshr+hcl0+LXj5oq7IEN
-	hbnxP5HJUtgROrmFLTpgVeUeixtuQoZC5UMP5HYZqrC+kbFYdEu/7kiz7gDYX+K9ylwHx0nnyRB
-	U/5XwaMhgVhBp5h1AoY35tBLrJUkWCFMDG7/DJYwnbse2CrVRDDB2B3eYD++0lGxCbf2hr4za1o
-	v8wJWfiTCcSNJugAQ8g0l5PNm82OjQFTKedGTUTAU2JS8qIn64PaPhyIZTT1UaS60XixVMIeR9J
-	9UpV6k=
-X-Received: by 2002:a17:90a:d40f:b0:3a0:42a9:9c81 with SMTP id 98e67ed59e1d1-3a0986ee06cmr3294941a91.17.1790281809938;
-        Thu, 24 Sep 2026 13:30:09 -0700 (PDT)
-Received: from localhost ([71.212.197.238])
-        by smtp.gmail.com with UTF8SMTPSA id 98e67ed59e1d1-3a0976c8f8dsm6695485a91.12.2026.09.24.13.30.09
+        d=1e100.net; s=20260707; t=1790281845; x=1790886645;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=saylt10Fw/9Bgvahm51d7jrIP+G+sTRm7c4tdEvSznw=;
+        b=pfedAxL0AinR8WnDVIiWiCqudILl/igtPW5deGC43iAicQUg3JdK3KtiHBIaaibVfu
+         iLpvnvvdQdjaPaKteMvRwhnLnox7qlvDLj8Vdiy01M0//HZfUxn2Jk5C4VvHcPjjOvID
+         SXM0Tsl/JDj7lRXEYfdTFoKS4i/dYYh2GQ5FPg78liyBdKuEhZ07VQvYWYQiyM1HaoC0
+         PMx+9vj///u6lcXuOp99JIUsf2S4YYR8JKsmGLjs4EslH4M7vOo0PtlTqWAOvOXdltnA
+         /Eiomua0U74FhDAGBVSxeipZVNwQAaFol7xLYhL1pK/yctUKEbOhWAkztWp+0cP0FiZz
+         O/cg==
+X-Forwarded-Encrypted: i=1; AKwUvBzVSrbTTj2J6ebe30MItQ5OoIbnec3z/WiD+3PxXxRNUCLQod2EPplbarvLSwaApjX/jfTRcq7iJY2Tbjw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nZ+Yk2Ma0DcrQtuHoDSQOK7olNa/7tnodFJ31Mo/BqqxYghZPP
+	gQp1Dhtnad/IudmyJwp//+wcriiAZ50E7CHpeMIzGjOF+NC4nc5npbFHyZiOJm3quMQ=
+X-Gm-Gg: AYBFou1fJaEzOrhXHXVTmV2zzfbDjoRIFkM0SyIS4D8YnOPiMn39IT79iqwBgclZRi4
+	/B/Ibx5v6KDoCZsCboqvKOcgsWqR2/Yuj54EB11GFWMxliJaxsDVenahWpD4FDL7cYJfospxg9J
+	aER4zUyrvvf/8D25OvA8lDjRa3qVkNxzkUxtoYQz6aXRiYuR24qBpXs3mM6t4dXRJfJVF2eoi5K
+	7qAPN3M1wb0lfZlbFHvAOZeir/Rqjw5ODAYHZmesH+ydD8yuhBim8xk3IWK7a6GwKIPZqC7WcP5
+	9fZIaue11kg/U8pJ2G36QKWQKYp9KgcJEzSlyranDIh37R9psDvOPbpmmj8NJdNLFboJEho00k/
+	S+rjXdiE9yRZ7ozBa1Nuvry9n89ElQslo8xp+OBjo9QTDWY0Xjzv4pPYllEDTdbQ2338arrXiE2
+	FUN4p+YQTthWNAiuYY7/YsKvmZZVrbAw+N1XzjzUitAdxnt2gSVVL1dPaYv1j/NB9KWkePsh3dV
+	OGqHg1vNDA6SMGR5y33e/XaPhx+4xlV3xOa9AUCywYofHmgG1V8o5k=
+X-Received: by 2002:a05:600c:1d28:b0:49c:fc6e:8cbd with SMTP id 5b1f17b1804b1-49fe66fc677mr69380595e9.33.1790281844999;
+        Thu, 24 Sep 2026 13:30:44 -0700 (PDT)
+Received: from andreayoga.wind3.hub ([31.189.116.68])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30c43asm1720776f8f.3.2026.09.24.13.30.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 13:30:09 -0700 (PDT)
-From: "Kevin Hilman (TI)" <khilman@baylibre.com>
-Date: Thu, 24 Sep 2026 13:29:57 -0700
-Subject: [PATCH v6 2/4] PM / QoS: add lockless read for flags
+        Thu, 24 Sep 2026 13:30:44 -0700 (PDT)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Carlos Maiolino <cem@kernel.org>,
+	Joanne Koong <joannelkoong@gmail.com>,
+	Brian Foster <bfoster@redhat.com>,
+	Christoph Hellwig <hch@infradead.org>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Hannes Reinecke <hare@suse.de>,
+	Daniel Gomez <da.gomez@samsung.com>,
+	Pankaj Raghav <p.raghav@samsung.com>,
+	Dave Chinner <dchinner@redhat.com>,
+	linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] iomap: don't resubmit an ioend after ->writeback_submit() failed
+Date: Thu, 24 Sep 2026 22:30:07 +0200
+Message-ID: <20260924203013.9967-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260924184910.GI2705364@frogsfrogsfrogs>
+References: <20260924091203.198225-1-parri.andrea@gmail.com> <20260924091203.198225-2-parri.andrea@gmail.com> <20260924184910.GI2705364@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-topic-lpm-pmdomain-device-constraints-v6-2-a69a4856252b@baylibre.com>
-References: <20260924-topic-lpm-pmdomain-device-constraints-v6-0-a69a4856252b@baylibre.com>
-In-Reply-To: <20260924-topic-lpm-pmdomain-device-constraints-v6-0-a69a4856252b@baylibre.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>, linux-pm@vger.kernel.org, 
- Ulf Hansson <ulfh@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Kendall Willis <k-willis@ti.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2506; i=khilman@baylibre.com;
- h=from:subject:message-id; bh=5DZ/nLnxCxfQO4kajog7xGVkPie0bnH1eSRCJb9Yst8=;
- b=owEBbQKS/ZANAwAIAVk3GJrT+8ZlAcsmYgBqtYhOaqDZnD+pG3K/6nVjR++x0keaZsrbzYMrY
- UYyM/bHZAmJAjMEAAEIAB0WIQR7h0YOFpJ/qfW/8QxZNxia0/vGZQUCarWITgAKCRBZNxia0/vG
- Ze3LD/4rvCrToYDOg4NocQRJjY9FXamA4TtwaNIUX1UdgVfHvj+MVDFDtbWkIW+4Uk5UjhrdWsZ
- 78Qz9t6C27Gz1au0yFeQxHYh0hTwJD8hB8xOuwVEuqRLYZ/6IhBSK4ywyp3qUzLY4y2m85qhFds
- t8M9244JvoL7Gsy/Y7G4v3cFihf0haSHFWwwUB2htRrF8nhq86mFWvkL16bq9Ekg8VMViXdyP7Z
- qlxiFzjtccIJg3TxiwvGOnu8yIznbnNa0VstOM7egDveMjDZ+s9xastv9iUEpaWB6YoRpAYyzXf
- Wtg7q0uUftXUhdqC5FbnVz2VU9JURkoFRrfrqZ8SJ5LHPvcifzfqwsHoSCK6yid+g0eSR++tJn5
- vKU/qjyAK3OUoSIh09bFZaeR+s7BNlM3+p/6Z++t7uC74bVDo7iWOaRmXD/+lUUhCZcuNeti9Ua
- S9NVMYQXwU7iV3BGE9Nfi8jmsYv7AGBeN4QoPwIfDcVecMQu8ogvoH9FP9oajs4SnyL+Ux1Ixik
- 1NZdfw2NCdl3H6O+3LixdRyMW/Jvqfw+QeKpWELvXG/OqnfGQ3lilhmLOnULcMyJAG7zD3Exa1D
- BPwYia7Q77DCewRRzsy6VuN/gkejH4K8K479T1gXp1XvIRR5KOeIoJ8E4qUI9KVRsvQsJ3K5XrU
- /zVDgMe5/4rc3kA==
-X-Developer-Key: i=khilman@baylibre.com; a=openpgp;
- fpr=7B87460E16927FA9F5BFF10C5937189AD3FBC665
+Content-Transfer-Encoding: 8bit
 
-Add a lockless read for QoS flags similar to the lockless read for
-resume latency (dev_pm_qos_raw_resume_latency) which may be called
-from atomic context (e.g. genpd governors running under a raw spinlock
-or in the syscore suspend path), where taking that sleeping lock would
-be invalid on PREEMPT_RT.
+On Thu, Sep 24, 2026 at 11:49:10AM -0700, Darrick J. Wong wrote:
+> I looked around the codebase and saw that iomap_writepages also calls
+> ->writeback_submit.  Does that need to null out wb_ctx?
+> 
+> My guess is that none of the callers do anything with wpc after
+> iomap_writepages returns so it's not harming anyone, but we should drop
+> the stale context too, right?
 
-dev_pm_qos_raw_flags() now reads dev->power.qos->flags.effective_flags
-with READ_ONCE() so also add corresponding WRITE_ONCE() to the two
-effective_flags writes, the same way pm_qos_set_value() already does
-for target_value/pm_qos_read_value().
+Your guess is right: that ->writeback_submit() call is the last thing
+iomap_writepages() does, and all of its callers (xfs, gfs2, zonefs,
+exfat, fuse, ntfs, ntfs3) have the wpc on the stack for that single
+call, so wb_ctx is never looked at again.  Christoph made the same
+point on v1 [1], and the last paragraph of the commit message now
+spells it out.
 
-Reviewed-by: Kendall Willis <k-willis@ti.com>
-Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
-Signed-off-by: Kevin Hilman (TI) <khilman@baylibre.com>
----
- include/linux/pm_qos.h | 7 +++++++
- kernel/power/qos.c     | 4 ++--
- 2 files changed, 9 insertions(+), 2 deletions(-)
+Clearing it there as well would be harmless but dead code, so I'd
+rather leave it out; happy to add it if you feel strongly about it.
 
-diff --git a/include/linux/pm_qos.h b/include/linux/pm_qos.h
-index aededda52b6b..439a9e779d81 100644
---- a/include/linux/pm_qos.h
-+++ b/include/linux/pm_qos.h
-@@ -219,6 +219,12 @@ static inline s32 dev_pm_qos_raw_resume_latency(struct device *dev)
- 		PM_QOS_RESUME_LATENCY_NO_CONSTRAINT :
- 		pm_qos_read_value(&dev->power.qos->resume_latency);
- }
-+
-+static inline s32 dev_pm_qos_raw_flags(struct device *dev)
-+{
-+	return IS_ERR_OR_NULL(dev->power.qos) ?
-+		0 : READ_ONCE(dev->power.qos->flags.effective_flags);
-+}
- #else
- static inline enum pm_qos_flags_status __dev_pm_qos_flags(struct device *dev,
- 							  s32 mask)
-@@ -300,6 +306,7 @@ static inline s32 dev_pm_qos_raw_resume_latency(struct device *dev)
- {
- 	return PM_QOS_RESUME_LATENCY_NO_CONSTRAINT;
- }
-+static inline s32 dev_pm_qos_raw_flags(struct device *dev) { return 0; }
- #endif
- 
- static inline int freq_qos_request_active(struct freq_qos_request *req)
-diff --git a/kernel/power/qos.c b/kernel/power/qos.c
-index 1944dbeb0d4c..c241da5bccf6 100644
---- a/kernel/power/qos.c
-+++ b/kernel/power/qos.c
-@@ -159,7 +159,7 @@ static void pm_qos_flags_remove_req(struct pm_qos_flags *pqf,
- 	list_for_each_entry(req, &pqf->list, node)
- 		val |= req->flags;
- 
--	pqf->effective_flags = val;
-+	WRITE_ONCE(pqf->effective_flags, val);
- }
- 
- /**
-@@ -193,7 +193,7 @@ bool pm_qos_update_flags(struct pm_qos_flags *pqf,
- 		req->flags = val;
- 		INIT_LIST_HEAD(&req->node);
- 		list_add_tail(&req->node, &pqf->list);
--		pqf->effective_flags |= val;
-+		WRITE_ONCE(pqf->effective_flags, pqf->effective_flags | val);
- 		break;
- 	default:
- 		/* no action */
+[1] https://lore.kernel.org/all/arITXTsUhrA0N-qr@infradead.org/
 
--- 
-2.47.3
-
+Thanks!
+  Andrea
