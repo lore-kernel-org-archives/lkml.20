@@ -1,218 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 338F93F7877;
-	Thu, 24 Sep 2026 16:43:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B91583CB571;
+	Thu, 24 Sep 2026 16:44:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790268208; cv=none; b=BVXZ+6uAP6y87v4iMoLJpbhMdyqau78ptafhuojCaK+OxrXUXdlT4uib3wbCAVcJanh2wOiwLGQRJ4veDUjqG4pJWZ+4UH2CA3cnhACPh2b3pt9KPkfUV5r+tkXoRIw9zeB6DbOzgX//6ZEz356LnqEjX/jrm+82C5c4llpLya4=
+	t=1790268252; cv=none; b=rtqyXLDm9HEbVASwqqREVvMcvh0EsqafgyG94/Fm9a/lpQf6wZz+MFhWQDily/33qt01M5xTCOh20dz3MHiWtjiPJ0UA+ysFbFPtsFhdEsGRYSh8KoCa1tZw2xj1kIjm7kk27C6CbNa81mlJDsoTaZWLXUEzUNRReJMBV+egq6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790268208; c=relaxed/simple;
-	bh=wdfoa2fFD1Ldu2rxTdXlcxcOl1ZtZVdRX+3itKuRkeI=;
+	s=arc-20240116; t=1790268252; c=relaxed/simple;
+	bh=GcGxAuHjegieUhml6jhBvnFuF/HH3L+FUtaOGvDFm8M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=R5T8vXxmHKDXjZj0k3YJWJC8iRIX/8jLHXXOWi1qFxj1xWfZePiq38XLnzVSVnH713ARKkbt6k7RezU3GyPGJ/aU/kk+5jywAaYk+n72yQARUYLZ9Q0pcIOFxENohZ4SJGyfYY3JMBjPYepnWGLzZnIDc52ZCDZSPm7PUkGhTZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fiY9qGl8; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=N2ai8v8RKXgXUoG+L3j1XIOl6lIlSzd82wsNBVzUOYlOKHbmII65X2mzHscOS9vaQNjUehr0q4dEwQCGbVcJDYObsSFuE4Rn/WWDMY+ZYFBnwyCWgzQ2PcyWNdYieJbuXYDCU6OQsYFYVKEANMNyNu/2N3k3aibJM4bfsQqRG2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=4HkTsIfL; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fiY9qGl8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D91FB1F000FF;
-	Thu, 24 Sep 2026 16:43:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790268207;
-	bh=eeOMAfZ7gGE2yjVP9uWGI7wCNSoOiQ6bsy6YThTfOk8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fiY9qGl8dQ1VqZKKOjzg1yEChk436T4Mvo5vuja/CbJ0f/MJ5MbERsE1DC2mqMVL7
-	 rE99QVxzvfJEzt0pPBNkEfMJQWONWzfHtD/+oGROsbUEjWEL1bAu0sqpLjKjIE0l7l
-	 cqJA7s2H1lGPaARXtW5ZFxbKYZ0mi5Q0+NygDaK926t74YMDsVdT/G4JgqPjiAu50V
-	 Ueft42wAh/M1ycBSo5lcVPkaVjqdF8V6vn5fmFpvYMogCM7Rmv3qw0XHWbKtWFuaKA
-	 evPyXfZLzOT17tMCb0aQR0R64jmZF7g6YnXfU5N+Zk0rgt/vO9RFwFyEZXq/KiXmkX
-	 kSBrKIcgidGSw==
-Date: Thu, 24 Sep 2026 17:43:22 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: add: document the MAX34417
- Four-Channel High Dynamic Range Power Accumulator
-Message-ID: <20260924-circling-punk-e75ea71e60b0@spud>
-References: <20260924-topic-sm8x50-iio-max34417-adc-v2-0-9a0609e72f5c@linaro.org>
- <20260924-topic-sm8x50-iio-max34417-adc-v2-1-9a0609e72f5c@linaro.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="4HkTsIfL"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=ahg9seQPPv3QHPFNI00LWYz0svWliPsZtiwzoOpE8Ew=; b=4H
+	kTsIfLHuWIpfSB3ipqT2ISLVJ0B1rBPYMRiJXiS6D0z68mcpwagQYyqErCt/7GAv+SpS0NPYNniBm
+	zg12SQZB/NxMLyErTwL9TwOmGy42i0aCCpt/KJHLNxZdrNfnI7V2vbvyzZR8Q01KhthvnaYoETHKC
+	//RgQhcVGfU2SfA=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x9mXw-0072Sg-LG; Thu, 24 Sep 2026 18:43:44 +0200
+Date: Thu, 24 Sep 2026 18:43:44 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: =?utf-8?B?0JbQsNC80LHQsNC60LjQtdCyINCg0LDQtNC40Lkg0KDQuNC60LDRgNC00Lg=?=
+	=?utf-8?B?0L3QvtCy0LjRhw==?= <r.zhambakiev@prosoftsystems.ru>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Denis Benato <benato.denis96@gmail.com>,
+	Jacob Keller <jacob.e.keller@intel.com>,
+	Petr Machata <petrm@nvidia.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"lvc-project@linuxtesting.org" <lvc-project@linuxtesting.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH net 1/3] net: fealnx: fix teardown order in remove
+Message-ID: <95c9fa4a-79e5-47fe-9de5-2c6cd186216d@lunn.ch>
+References: <20260924104231.110576-1-r.zhambakiev@prosoftsystems.ru>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kJO3RZKdI1PbxmPX"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260924-topic-sm8x50-iio-max34417-adc-v2-1-9a0609e72f5c@linaro.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260924104231.110576-1-r.zhambakiev@prosoftsystems.ru>
 
---kJO3RZKdI1PbxmPX
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Sep 24, 2026 at 03:14:15PM +0200, Neil Armstrong wrote:
-> Document the Maxim MAX34417 Four-Channel High Dynamic Range Power
-> Accumulator used to monitor power consumption of portable systems.
->=20
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+On Thu, Sep 24, 2026 at 10:44:21AM +0000, Жамбакиев Радий Рикардинович wrote:
+> From: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
+> 
+> fealnx_remove_one() frees the DMA rings before unregistering the
+> netdev, while the interface may still be up, which leaves a
+> window where freed memory can be accessed.
+> 
+> Call unregister_netdev() first so dev_close() stops the Tx/Rx
+> engines, deletes the timers, and frees the IRQ before the rings are
+> freed. While at it use dev_err() instead of printk() for the 
+> unknown-device case.
+> 
+> Found by Linux Verification Center (linuxtesting.org)
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
 > ---
->  .../bindings/iio/adc/maxim,max34417.yaml           | 100 +++++++++++++++=
-++++++
->  1 file changed, 100 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/iio/adc/maxim,max34417.yam=
-l b/Documentation/devicetree/bindings/iio/adc/maxim,max34417.yaml
-> new file mode 100644
-> index 000000000000..058af61cc04e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/maxim,max34417.yaml
-> @@ -0,0 +1,100 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/adc/maxim,max34417.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>  drivers/net/ethernet/fealnx.c | 29 ++++++++++++++++-------------
+>  1 file changed, 16 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/fealnx.c b/drivers/net/ethernet/fealnx.c
+> index bdc38aac5850..d7cd1644a375 100644
+> --- a/drivers/net/ethernet/fealnx.c
+> +++ b/drivers/net/ethernet/fealnx.c
+> @@ -678,20 +678,23 @@ static int fealnx_init_one(struct pci_dev *pdev,
+>  static void fealnx_remove_one(struct pci_dev *pdev)
+>  {
+>  	struct net_device *dev = pci_get_drvdata(pdev);
+> +	struct netdev_private *np;
 > +
-> +title: Maxim MAX34417 Four-Channel High Dynamic Range Power Accumulator
-> +
-> +maintainers:
-> +  - Neil Armstrong <neil.armstrong@linaro.org>
-> +
-> +description: |
-> +  The MAX34417 is a specialized current and voltage monitor used to dete=
-rmine
-> +  power consumption of portable systems. The device has a very wide dyna=
-mic
-> +  range (20,000:1) that allows for the accurate measurement of power in =
-such
-> +  systems. The device is configured and monitored with a standard I2C/SM=
-Bus
-> +  serial interface. The unidirectional current sensor offers precision
-> +  high-side operation with a low full-scale sense voltage.
-> +
-> +  Specifications about the device can be found at:
-> +  https://www.analog.com/media/en/technical-documentation/data-sheets/ma=
-x34417.pdf
-> +
-> +properties:
-> +  compatible:
-> +    const: maxim,max34417
+> +	if (!dev) {
+> +		dev_err(&pdev->dev, "remove for unknown device\n");
+> +		return;
+> +	}
 
-ADI wants people to use their prefix for newly added devices,
-particularly if their release is after the maxim purchase.
+I know you are just moving code around, but is that possible?  We try
+avoid defensive code. It is better to actually understand the code and
+stop bad things happening.
 
-> +
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 0
-> +
-> +  reg:
-> +    maxItems: 1
+     Andrew
 
-Atypical ordering, usually reg is before these cells props.
-
-> +
-> +  vdd-supply: true
-> +  vio-supply: true
-> +
-> +patternProperties:
-> +  "^channel@[0-3]$":
-> +    $ref: adc.yaml
-> +    type: object
-> +    description:
-> +      Represents the internal channels of the sensor.
-> +
-> +    properties:
-> +      reg:
-> +        items:
-> +          - minimum: 0
-> +            maximum: 3
-> +
-> +      label: true
-
-This doesn't do anything, when you have unevalatedProperties: false.
-If these are the only valid properties, use additionalProperties: false
-instead. Otherwise, you can just remove this line.
-
-> +
-> +      shunt-resistor-micro-ohms:
-> +        description:
-> +          Value in micro Ohms of the shunt resistor connected between th=
-e RS+ and RS- inputs.
-> +        minimum: 1000
-> +        maximum: 100000
-> +        default: 1000
-> +
-> +    required:
-> +      - reg
-> +
-> +    unevaluatedProperties: false
-> +
-> +required:
-> +  - compatible
-> +  - reg
-
-Typically in IIO, supplies are made required unless the device can
-operate without them.
-
-Cheers,
-Conor.
-
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        sensor@10 {
-> +              compatible =3D "maxim,max34417";
-> +              reg =3D <0x10>;
-> +
-> +              #address-cells =3D <1>;
-> +              #size-cells =3D <0>;
-> +
-> +              channel@0 {
-> +                  reg =3D <0>;
-> +                  label =3D "ch0";
-> +                  shunt-resistor-micro-ohms =3D <5000>;
-> +              };
-> +
-> +              channel@1 {
-> +                  reg =3D <1>;
-> +                  label =3D "ch1";
-> +             };
-> +
-> +              channel@2 {
-> +                  reg =3D <2>;
-> +             };
-> +        };
-> +    };
->=20
-> --=20
-> 2.34.1
->=20
-
---kJO3RZKdI1PbxmPX
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarVTKgAKCRB4tDGHoIJi
-0juJAQD+gZ7xrihX290uJSi/Goa9Sgv8OFftmneSvBsYIYzKmgEArTFrIH5WBmbD
-RBAy2vdynMSVd7ziB1yw6RtJhcSsrwo=
-=MH1t
------END PGP SIGNATURE-----
-
---kJO3RZKdI1PbxmPX--
