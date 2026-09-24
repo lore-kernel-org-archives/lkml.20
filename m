@@ -1,146 +1,76 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F4E4A2079
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:38:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 311AE4A1DEB
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:39:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790264297; cv=none; b=QGFPi0jjkdwOQQUctxJa+StOOPU7H9VG0rtIk2F6wA8VejG5y+WkdA5LgQELZtG1XEtVnfubZoHcs6RVhlkbkh7EyxTCSMGIn7tdIYgdePwoq1GdgvYwaGDsDfldE3qYWNoX1p5owqClZNrLISuL8tJpQ/FblWLvr0uVVIfTClk=
+	t=1790264377; cv=none; b=B/1L0CksrckRNaemsVRArZ/HhINmlzm+H9SAfTS+4MCoKArUH30e+4hjWFNjzMk9dJLCIXnb7fn4Jx5n+EcgfSPrNgKf80YqA5X3lorkzkVGA/ziJqrRT5bgRxjwv51LF77AQDgSnz2svX7o3Qt9XNDHoXWOzMiMHh92/3l6Ax0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790264297; c=relaxed/simple;
-	bh=ABf59hpDDrsR9POz3dbMDVuCD4YJmvllbvu3itcnvzg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gE+kxzCIvFFNaEmeZ+Q0/E7gV7MyAqu6QQXojtsA8JiYuHV36YfmREJemuCh636H3e2N+sgbjex/6/iffCus6Diy+X8CRJrhNmecqOjlskc4s67DKvNZMBe5rP3KPa9E3C55zL8jYBDcjC1GPVvqt5Hnf5TRgY4tNlvOWEjkXDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=F8Uw+YgU; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790264377; c=relaxed/simple;
+	bh=+yjZtFQ+3WurjjXxejKADaxRZkA2gvsQly6Eeh5HnCQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=G2rb+qau47TuIRMB6XEXYP2zy9c6wmXQVRF/02Jsl791EeNUvFtlF+FwH0S5EfgFfld8PdD2MDXODsJ/ll0ZbckZcE3xkMRgL6+zr7yBA7L9quZitp+Elhd7q1/ObCGn0NjDPNEzFh/fwrA4HAMQ1b4EyJtgHztgDieVywFqnUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HPY+OX1I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="F8Uw+YgU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790264295; x=1821800295;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=ABf59hpDDrsR9POz3dbMDVuCD4YJmvllbvu3itcnvzg=;
-  b=F8Uw+YgU3/un1MihME/vmDMMlTkTKXgFtycmIw3pMOYYHuPePQTBNxc9
-   R2n+P4Tb6sTFs/A81ClfeXJzpZ1mxErMBIhmeRyLwX4n0nRMEJJnwdxTu
-   K6rPYVulSiWs7ehNvHXf67FokUWFa9oVkNR77WvG0zAyqQwOWXZa3Wmp/
-   WkgbKU/twGRmEOXdKnHp2GXVGNLNsOcoz5iKg92/7q5kEDgrxRclJk64B
-   TuafF0B0+p20OYc8QOrIpD9adCQDSrabA5IEPuaReSOX381uHvs2SqoRQ
-   nCnPxtA96oc/sNb9Ls5KEbXgPXVrR4e3Tf8febhg/7sVWXiacNHd2k6wa
-   A==;
-X-CSE-ConnectionGUID: +BGADj+7S8CFD2d6rVyaZw==
-X-CSE-MsgGUID: SY5aoPzYQMCQHb72TUX52g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="89902009"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="89902009"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 08:38:15 -0700
-X-CSE-ConnectionGUID: N9ZmJd5tQXmWr1gMyvx7lg==
-X-CSE-MsgGUID: +LlJganPSxmNNsXZTpnitw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="272193250"
-Received: from dwoodwor-mobl2.amr.corp.intel.com (HELO [10.125.110.186]) ([10.125.110.186])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 08:38:14 -0700
-Message-ID: <3919542b-ffbd-46c3-b3e3-092c3b901654@intel.com>
-Date: Thu, 24 Sep 2026 08:38:13 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HPY+OX1I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A10B1F000FF;
+	Thu, 24 Sep 2026 15:39:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790264375;
+	bh=V/51A88+wcKZYh7YQiVLLkkIW6U8j3LDTQlEVBev4Eo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HPY+OX1IFUI5BVqOQkfPERmKSAn/n4y6s4BtNXRKq+mgnhKm7zWaY6EBmB9tR4a29
+	 bHEb4an9nQPrscOJq0VKAD100xzvna1ePl9GVCYhOv4K7FmSLaeCF4qvOMVrnFysha
+	 rWaH9SXY0O1+bUuDUIfMi3Wz75+mSGyeQ3djugLUJJORR09kB+mmq+tAoY4/0fG9rd
+	 drwzcZrA0CF9+lq12RQnEe1kd+9Bf8hGiJ/apsKOCspHffkVEaVnuOMgdaWSIwN25+
+	 tRAnATzo6ouSxDVx6LTlYzAMVQ3274V8vSXx/fCczcehWM+y6qiX68vMNp8UJtvAJx
+	 szcjb8uHwnGFA==
+Date: Thu, 24 Sep 2026 16:39:33 +0100
+From: Harry Yoo <harry@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Conor Dooley <conor@kernel.org>, 
+	Damien Le Moal <damien.lemoal@opensource.wdc.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Kees Cook <kees@kernel.org>
+Subject: Re: [PATCH RFC 2/8] mm, slab: introduce slab_debug=N
+Message-ID: <arVB9DuVa28Pxz-a@thinkstation>
+References: <20260923-slub_tiny_rework-v1-0-a0e66d536eb5@kernel.org>
+ <20260923-slub_tiny_rework-v1-2-a0e66d536eb5@kernel.org>
+ <arUx56ee_nkxYP_f@thinkstation>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/14] NTB: ntb_transport: Start TX offload thread
- after queue setup
-To: Koichiro Den <den@valinux.co.jp>, Jon Mason <jdmason@kudzu.us>,
- Allen Hubbe <allenbh@gmail.com>
-Cc: Frank Li <Frank.Li@kernel.org>, Logan Gunthorpe <logang@deltatee.com>,
- fuyuanli <fuyuanli0722@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Nicholas Bellinger <nab@linux-iscsi.org>,
- Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260910040836.3792333-1-den@valinux.co.jp>
- <20260910040836.3792333-3-den@valinux.co.jp>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20260910040836.3792333-3-den@valinux.co.jp>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arUx56ee_nkxYP_f@thinkstation>
 
-
-
-On 9/9/26 9:08 PM, Koichiro Den wrote:
-> ntb_transport_create_queue() starts the per-QP TX offload thread before
-> DMA mappings and queue entries are allocated. If later setup fails, the
-> error path returns the QP to the free bitmap without stopping the
-> thread. A retry can then reinitialize its waitqueue while the old thread
-> is still waiting on it.
+On Thu, Sep 24, 2026 at 03:48:43PM +0100, Harry Yoo wrote:
+> On Wed, Sep 23, 2026 at 05:45:07PM +0200, Vlastimil Babka (SUSE) wrote:
+> > Enabling slab_debug has the side-effect of disabling all percpu caching
+> > of objects (now via sheaves), which can be sometimes useful for saving
+> > memory for e.g. kdump kernels. To make this possible without the
+> > overhead (CPU or memory) of actual debugging options such as poisoning,
+> > introduce a No-op debug option that only forces the debugging slow paths
+> > and zero sheaf capacity.
 > 
-> Start the thread after queue setup.
+> Just to clarify, the intended behavior of slab_debug=- still
+> does not change, right? (the name "No-op" could be confusing here I
+> guess)
 > 
-> Fixes: 322617a06c97 ("NTB: ntb_transport: Add 'tx_memcpy_offload' module option")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> And My LLM flagged an issue here (that I reviewed)
+> 
+> Implementing it as debug flag has a few side effects:
+> 
+>   - pointer hashing will be disabled unless hash_pointers=always is
+>     specified. [+Cc: Kees]
+> 
+>   - Disable slab merging. Since this does not affect object metadata
+>     layout, this could be excluded.
 
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-
-> ---
-> Changes in v2:
->   - No changes.
-> 
-> NOTE: Originally submitted as part of the direct TX/RX series v1:
-> https://lore.kernel.org/r/20260810165136.2292436-4-den@valinux.co.jp/
-> 
->  drivers/ntb/ntb_transport.c | 28 ++++++++++++++--------------
->  1 file changed, 14 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
-> index 3389d6ca9ebd..55a20ae9a85e 100644
-> --- a/drivers/ntb/ntb_transport.c
-> +++ b/drivers/ntb/ntb_transport.c
-> @@ -2055,20 +2055,6 @@ ntb_transport_create_queue(void *data, struct device *client_dev,
->  	qp->tx_handler = handlers->tx_handler;
->  	qp->event_handler = handlers->event_handler;
->  
-> -	init_waitqueue_head(&qp->tx_offload_wq);
-> -	if (tx_memcpy_offload) {
-> -		qp->tx_offload_thread = kthread_run(ntb_tx_memcpy_kthread, qp,
-> -						    "ntb-txcpy/%s/%u",
-> -						    pci_name(ndev->pdev), qp->qp_num);
-> -		if (IS_ERR(qp->tx_offload_thread)) {
-> -			dev_warn(&nt->ndev->dev,
-> -				 "tx memcpy offload thread creation failed: %ld; falling back to inline copy\n",
-> -				 PTR_ERR(qp->tx_offload_thread));
-> -			qp->tx_offload_thread = NULL;
-> -		}
-> -	} else
-> -		qp->tx_offload_thread = NULL;
-> -
->  	dma_cap_zero(dma_mask);
->  	dma_cap_set(DMA_MEMCPY, dma_mask);
->  
-> @@ -2129,6 +2115,20 @@ ntb_transport_create_queue(void *data, struct device *client_dev,
->  			     &qp->tx_free_q);
->  	}
->  
-> +	init_waitqueue_head(&qp->tx_offload_wq);
-> +	qp->tx_offload_thread = NULL;
-> +	if (tx_memcpy_offload) {
-> +		qp->tx_offload_thread = kthread_run(ntb_tx_memcpy_kthread, qp,
-> +						    "ntb-txcpy/%s/%u",
-> +						    pci_name(ndev->pdev), qp->qp_num);
-> +		if (IS_ERR(qp->tx_offload_thread)) {
-> +			dev_warn(&nt->ndev->dev,
-> +				 "tx memcpy offload thread creation failed: %ld; falling back to inline copy\n",
-> +				 PTR_ERR(qp->tx_offload_thread));
-> +			qp->tx_offload_thread = NULL;
-> +		}
-> +	}
-> +
->  	ntb_db_clear(qp->ndev, qp_bit);
->  	ntb_db_clear_mask(qp->ndev, qp_bit);
->  
-
+excluded "from SLAB_NEVER_MERGE"
+Obviously it should be still part of SLAB_MERGE_SAME though.
