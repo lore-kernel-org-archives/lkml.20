@@ -1,209 +1,372 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 821BD3CF21C;
-	Thu, 24 Sep 2026 02:03:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C18313B6C13
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:03:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790215382; cv=none; b=VinLFdj35q97Jc8DRVKhA0v77GyR9PJ2h+lx+m9l+LM46VrFx/OmlZzM0tx3QS7t1JHzx/CNIdF4DZ+06YrtEtX++dq4yYq6uCa6QnujMWiZs8Xgm22lEh6D2asAS7ycYftLXdHB/xzMwbn7kp2JEVJvW8bWo84fIwJVPi8Ic88=
+	t=1790215389; cv=none; b=AoaHDV+9Kvb+jqrt2uCA4uzEiz6YiLVAKSH6mHXKP+5vI+ErHold5c0mZMURdo0rASPFcNWiy1mP0xtQWT70Ji2XwkPXIrX88uNXhKPpiiQWZREqj2oDLKq4n8TzF2pj6wQLH8+qj2J74hVTYKM4qohjuYdU7fYFTAkAmByJoDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790215382; c=relaxed/simple;
-	bh=Ymf/cgNOvtF8j7qbvczslQ4pKC6Lx1W98l3M/V1vP2A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JxFxd1ut2GiPsqjva4kdl5/D9wdZm0XAQSA+kjHwS+TKIrUm1Kxuqny9UvEIu2VVwVaF04H5fzcMO8KwRwew/kkNGjfrn+oqQBIPABNO+MMsXVeicPBTjrlHcYBEHSfCqbGB5X4SYeE+fgveOj8ueO+W7Cp7+MUTMO5ARpg4fII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=ssOAH753; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1790215389; c=relaxed/simple;
+	bh=hlX4pEWIoDa93Z0PteTeKbVBVhfAEdJD+lzJ1g8tlow=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=msMKJmqbqLwYJYBDgHlYhKJzps/mt2N2Q9Cf7r7dxX1omX4W5BgthQa4R6ZS8Rra4ldf4ELMFydr0bK+e5o1PbDSKeNtBAI5dfQoeAY2pHzDj5M4qiG1e0+xMwFubRpN400WRcK7tsPYl53whQN8t/bRYweC8y+h2ZfWyQr6nO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QhMpLwzM; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=MQZoOXTK; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="ssOAH753"
-Received: from mrdev.corp.microsoft.com (192-184-212-33.fiber.dynamic.sonic.net [192.184.212.33])
-	by linux.microsoft.com (Postfix) with ESMTPSA id BD38720B7169;
-	Wed, 23 Sep 2026 19:02:10 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com BD38720B7169
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1790215331;
-	bh=FUH5ngTZgAQ97CtC2m8tO43RnFT+/gvng8S29Lw4Qso=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ssOAH753tGSTRHcL+Q27ChQT8UbgpeDJAd2a9ug/C9zK2rlNrkt55bI8Ki4jKyqMf
-	 m7ZGPS21YhLn/oIouF0x+j2HwlrUGnfP6sfF6P3V/2PxsWbu49aQWAsrp4LYFfnaBv
-	 Tn776epyFZXQeZKQmNKZYgJMK3osI3Ejb0bGbAP0=
-From: Mukesh R <mrathor@linux.microsoft.com>
-To: linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev,
-	linux-arch@vger.kernel.org
-Cc: jgg@nvidia.com,
-	jacob.pan@linux.microsoft.com,
-	kys@microsoft.com,
-	haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	hpa@zytor.com,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	arnd@arndb.de,
-	mrathor@linux.microsoft.com
-Subject: [PATCH V1 2/3] mshv: Import data structs around device domains from hyperv headers
-Date: Wed, 23 Sep 2026 19:02:20 -0700
-Message-ID: <20260924020221.128762-3-mrathor@linux.microsoft.com>
-X-Mailer: git-send-email 2.51.2.vfs.0.1
-In-Reply-To: <20260924020221.128762-1-mrathor@linux.microsoft.com>
-References: <20260924020221.128762-1-mrathor@linux.microsoft.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QhMpLwzM";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="MQZoOXTK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790215384;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qHHzEr/PQ8Ota366roI4JQKjOGZB7hvFyWShQyVaC18=;
+	b=QhMpLwzMSgCShNq6iYznAdmWX02anqncIe51IIL33r758XnLSdpOzQlkkgfkZ9dQu3O10m
+	Ek3XpMZGKJQF9PCWVSodfyMy3/fzrn16KUhPLXtKaYMhh7XuPkcHL8mYJ7Odx+GrPm1teN
+	+GogyhOHxXCqXmbFBI5rlFE90XvCskE=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-436-FfJGgUbdNMyQh1MyqmlUhQ-1; Wed, 23 Sep 2026 22:03:03 -0400
+X-MC-Unique: FfJGgUbdNMyQh1MyqmlUhQ-1
+X-Mimecast-MFC-AGG-ID: FfJGgUbdNMyQh1MyqmlUhQ_1790215382
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49e6422198fso10106885e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:03:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790215382; x=1790820182; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qHHzEr/PQ8Ota366roI4JQKjOGZB7hvFyWShQyVaC18=;
+        b=MQZoOXTKF4Ri2H3lraNLrJPxQVvF5MYJixm5aslN7cdjhQzIIPTG5VCE5Up+vDnK66
+         pW9HCIgvSXMQEA87+hOOdOyH+MFc6iR9/B1kVoMEtoGI5uaoLu7kSBgAXQq/Lf3OsRct
+         BObDorUOTibCDZiktKT6HodGSCFIE7QwstBZxSa5qRn1HIYTx54h0HjQXnzcEiHuOpCt
+         9k4cw/V96jGm2nXlcOwvJ0MPE9sMaXd52cID2UWyxlf/4Jnk3i0805kLi35PerUyfhbr
+         Za2ypP32QNOLjfaEmPRL7+5bVMjozx2F3a6cIj0qLJEe2WtzgT5NwgsNR2CH8cspaSmh
+         u5jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790215382; x=1790820182;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=qHHzEr/PQ8Ota366roI4JQKjOGZB7hvFyWShQyVaC18=;
+        b=pi9v4SniLo25Mf0/jfALOJxlkVKqJfz2nv72+PnqYdnhdNxj0rexlDtV+IbdryS4fN
+         tJ7KR4aT1j1qZYbNSt7vvO5xRbMv67piziLsH8FS9SM0bq4zbsMgE3iCtz25hj3S537x
+         oukVc5TStcefIbBoGRxoCqp8c5TvqND8oRmv7b1T9/jF9FD3gy7herbIeqtglKVjHuxW
+         FFdTm9ubt79hrVCzW3/M32U5Jwf/50wbr4/X7ejYhgVMySEFpeO8RboJfbx2G/jKHENc
+         FFUhZaeisJ0n8BoqZiln1wBa2g4gXYz8nqhXlU8YqqDvbvmju/XFNFUG1NlHqrmmJyR8
+         felA==
+X-Forwarded-Encrypted: i=1; AKwUvBw1HUPeok58cBRzW7I/7faWmQWHPNS4jW/nTfqqzD1pZjzm4+WE426tEmEWh8ax/FtU9FZNp+YsaYnI5j0=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9G5fJ/XTpFQDsJqFKCJwXvpWKrX8pOGq3Ah5d6RBuOmAygQHe
+	LPKwFqwJLElVqVvIfI2Hsz5x4/TSFy+DCA/Jq90+flbte8f+gp05v84o2ZjuzgygFjuX5sTyvHU
+	b6OXrecYBFAnV483XHzZTcr8p8uU5XTSV7k+iW2NYUj4Ii7nlVIga3k/z2suieZEqDQ==
+X-Gm-Gg: AYBFou21g8SGOnoymemzAUQzCp2KXc7n2228Xw4LLLn3XZnK0pBx8TSu1rA3IDodAqy
+	vEUAuMAlllAvFx+YXVnLmqnKACCz0S3GojaFQre0F/6eHqDIQ3cdmvSUWw37otJJcv+G5Dk5DWo
+	R7aBlZ4Aphm7sZfAvVD7b1DJkhXsHFSpcroHf1nNGECYf1h2yAWszVrlPFTx6Yq6i38xBchDmzc
+	nKwilyUZCF9C0tet0XsQCFUcQFO9Q0PuMCSuM7oxbSTVFzdqFgoGFwFY0RdzQ26Vn47va0mCe6Z
+	mL1kZgURpy3L/wdWcTi/4uo/PLzdYBEYFjw1jVzt2/gGuLKaAElDTlzBaS0vGP5hDa58Suak0rh
+	x2UwfBIcE503/UFoxlFNgwB3RK6dvv1o4Hn0NrsFFxx0iDKzdPEUFj0LdlIoLJGyE7Q==
+X-Received: by 2002:a05:600c:a013:b0:49d:2555:1a6d with SMTP id 5b1f17b1804b1-49fe66f1ac3mr12576605e9.16.1790215381628;
+        Wed, 23 Sep 2026 19:03:01 -0700 (PDT)
+X-Received: by 2002:a05:600c:a013:b0:49d:2555:1a6d with SMTP id 5b1f17b1804b1-49fe66f1ac3mr12576185e9.16.1790215381049;
+        Wed, 23 Sep 2026 19:03:01 -0700 (PDT)
+Received: from redhat.com (2a02-ab04-0158-f000-2548-f3bd-8b42-b18f.dynamic.v6.chello.sk. [2a02:ab04:158:f000:2548:f3bd:8b42:b18f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cbd134sm30854095e9.9.2026.09.23.19.02.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 19:03:00 -0700 (PDT)
+Date: Wed, 23 Sep 2026 22:02:57 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Eric Dumazet <edumazet@google.com>
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	Paulos Yibelo <habte.yibelo@gmail.com>, netdev@vger.kernel.org,
+	richard@nod.at, anton.ivanov@cambridgegreys.com,
+	johannes@sipsolutions.net, jasowangio@gmail.com,
+	eperezma@redhat.com, xuanzhuo@linux.alibaba.com,
+	andrew+netdev@lunn.ch, pablo@netfilter.org, fw@strlen.de,
+	phil@nwl.cc, razor@blackwall.org, idosch@nvidia.com,
+	dsahern@kernel.org, davem@davemloft.net, kuba@kernel.org,
+	pabeni@redhat.com, horms@kernel.org, linux-um@lists.infradead.org,
+	virtualization@lists.linux.dev, netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org, bridge@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v6 1/2] net: validate virtio checksum start after
+ network header
+Message-ID: <20260923081209-mutt-send-email-mst@kernel.org>
+References: <20260922030310.8684-1-habte.yibelo@gmail.com>
+ <20260922030310.8684-2-habte.yibelo@gmail.com>
+ <willemdebruijn.kernel.259bc7096258d@gmail.com>
+ <willemdebruijn.kernel.2cdfef118aa1d@gmail.com>
+ <20260923061215-mutt-send-email-mst@kernel.org>
+ <CANn89iJaE5UarTdg6FMEp=rZ9mG3g=xrVRLyvMS5S02iE8CwGg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CANn89iJaE5UarTdg6FMEp=rZ9mG3g=xrVRLyvMS5S02iE8CwGg@mail.gmail.com>
 
-Copy/import from Hyper-V public headers, definitions and declarations that
-are related to creating iommu domains in the hypervisor, attaching devices
-to them, doing the reverse, etc.
+On Wed, Sep 23, 2026 at 12:46:42PM +0200, Eric Dumazet wrote:
+> On Wed, Sep 23, 2026 at 12:21 PM Michael S. Tsirkin <mst@redhat.com> wrote:
+> >
+> > On Tue, Sep 22, 2026 at 09:27:26PM -0400, Willem de Bruijn wrote:
+> > > Willem de Bruijn wrote:
+> > > > Paulos Yibelo wrote:
+> > > > > __virtio_net_hdr_to_skb() checks a minimum network-header length for
+> > > > > CHECKSUM_PARTIAL packets. Its checksum start is relative to skb->data,
+> > > > > but some callers have not established skb->network_header when they
+> > > > > convert the virtio header.
+> > > > >
+> > > > > Pass the data-relative L3 origin explicitly. Ethernet receive paths
+> > > > > parse the frame and nested VLAN headers without changing skb state.
+> > > > > AF_PACKET uses the frame's actual L3 origin even when the socket
+> > > > > protocol is ETH_P_IP and the raw frame carries VLAN tags. Non-Ethernet
+> > > > > AF_PACKET devices retain their established skb network offset.
+> > > > >
+> > > > > Also pass the actual L3 protocol so IPv6 packets use the 40-byte base
+> > > > > header minimum even without TCPv6 GSO. IFF_TUN obtains that protocol
+> > > > > from the packet before skb->protocol is set. Name the Ethernet parser
+> > > > > accordingly, use the same origin for tunnel validation, and propagate
+> > > > > conversion failures in UML.
+> > > > >
+> > > > > The bound remains a minimum; fragmentation paths separately validate
+> > > > > the parsed IPv4 or IPv6 header length before completing a checksum.
+> > > > >
+> > > > > Fixes: 49d14b54a527 ("net: test for not too small csum_start in virtio_net_hdr_to_skb()")
+> > > > > Fixes: a2fb4bc4e2a6 ("net: implement virtio helpers to handle UDP GSO tunneling.")
+> > > > > Reported-by: Paulos Yibelo <habte.yibelo@gmail.com>
+> > > > > Link: https://lore.kernel.org/netdev/20260920004733.6473-2-habte.yibelo@gmail.com/
+> > > > > Cc: stable@vger.kernel.org
+> > > > > Assisted-by: LLM
+> > > > > Signed-off-by: Paulos Yibelo <habte.yibelo@gmail.com>
+> > > > > ---
+> > > > >  arch/um/drivers/vector_transports.c | 13 ++++-
+> > > > >  drivers/net/tun_vnet.h              | 52 ++++++++++++++++-
+> > > > >  drivers/net/virtio_net.c            | 10 +++-
+> > > > >  include/linux/virtio_net.h          | 87 ++++++++++++++++++++++++-----
+> > > > >  net/packet/af_packet.c              | 24 +++++++-
+> > > > >  5 files changed, 163 insertions(+), 23 deletions(-)
+> > > >
+> > > > The fix may still miss the case IPv4 packets have options.
+> > > >
+> > > > This version is a very large patch.
+> > > >
+> > > > Untested shorter first suggestion by bot, which looks plausible as a
+> > > > starting point for discussion.
+> > >
+> > > Cleaned up some more:
+> > >
+> > >     diff --git a/drivers/net/tun_vnet.h b/drivers/net/tun_vnet.h
+> > >     index f4c652b1fa44..c24607af2aad 100644
+> > >     --- a/drivers/net/tun_vnet.h
+> > >     +++ b/drivers/net/tun_vnet.h
+> > >     @@ -180,6 +180,9 @@ static inline int tun_vnet_hdr_put(int sz, struct iov_iter *iter,
+> > >      static inline int tun_vnet_hdr_to_skb(unsigned int flags, struct sk_buff *skb,
+> > >                            const struct virtio_net_hdr *hdr)
+> > >      {
+> > >     +    if ((flags & TUN_TYPE_MASK) == IFF_TUN)
+> > >     +        skb_reset_network_header(skb);
+> > >     +
+> > >          return virtio_net_hdr_to_skb(skb, hdr, tun_vnet_is_little_endian(flags));
+> > >      }
+> > >
+> > >     @@ -199,6 +202,9 @@ tun_vnet_hdr_tnl_to_skb(unsigned int flags, netdev_features_t features,
+> > >                  struct sk_buff *skb,
+> > >                  const struct virtio_net_hdr_v1_hash_tunnel *hdr)
+> > >      {
+> > >     +    if ((flags & TUN_TYPE_MASK) == IFF_TUN)
+> > >     +        skb_reset_network_header(skb);
+> > >     +
+> > >
+> > >     diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
+> > >     index c381b916c1b5..02c448de0802 100644
+> > >     --- a/include/linux/virtio_net.h
+> > >     +++ b/include/linux/virtio_net.h
+> > >     @@ -48,6 +48,42 @@ static inline int virtio_net_hdr_set_proto(struct sk_buff *skb,
+> > >          return 0;
+> > >      }
+> > >
+> > >     +static inline int virtio_net_hdr_nh_min_len(const struct sk_buff *skb,
+> > >     +                        unsigned int nh_min_len)
+> > >     +{
+> > >     +    int thoff = skb_transport_offset(skb);
+> > >     +    __be16 proto;
+> > >     +    int nhoff;
+> > >     +
+> > >     +    if (skb_network_header_was_set(skb)) {
+> > >     +        nhoff = skb_network_offset(skb);
+> > >     +        proto = skb->protocol;
+> > >     +    } else {
+> > >     +        if (unlikely(thoff < ETH_HLEN))
+> > >     +            return -EINVAL;
+> > >     +        nhoff = ETH_HLEN;
+> > >     +        proto = eth_hdr(skb)->h_proto;
+> > >     +    }
+> > >     +
+> > >     +    if (eth_type_vlan(proto)) {
+> > >     +        proto = __vlan_get_protocol(skb, proto, &nhoff);
+> > >     +        if (!proto)
+> > >     +            return -EINVAL;
+> > >     +    }
+> > >     +
+> > >     +    if (proto == htons(ETH_P_IP)) {
+> > >     +        const struct iphdr *iph = (void *)(skb->data + nhoff);
+> > >     +
+> > >     +        if (unlikely(thoff < nhoff + sizeof(*iph)))
+> > >     +            return -EINVAL;
+> > >     +        nh_min_len = max_t(u32, iph->ihl * 4, sizeof(*iph));
+> > >     +    } else if (proto == htons(ETH_P_IPV6)) {
+> > >     +        nh_min_len = sizeof(struct ipv6hdr);
+> > >     +    }
+> > >     +
+> > >     +    return nhoff + nh_min_len;
+> > >     +}
+> > >     +
+> > >      static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
+> > >                            const struct virtio_net_hdr *hdr,
+> > >                            bool little_endian, u8 hdr_gso_type)
+> > >     @@ -98,13 +134,15 @@ static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
+> > >              u32 start = __virtio16_to_cpu(little_endian, hdr->csum_start);
+> > >              u32 off = __virtio16_to_cpu(little_endian, hdr->csum_offset);
+> > >              u32 needed = start + max_t(u32, thlen, off + sizeof(__sum16));
+> > >     +        int min_thoff;
+> > >
+> > >              if (!pskb_may_pull(skb, needed))
+> > >                  return -EINVAL;
+> > >
+> > >              if (!skb_partial_csum_set(skb, start, off))
+> > >                  return -EINVAL;
+> > >     -        if (skb_transport_offset(skb) < nh_min_len)
+> > >     +        min_thoff = virtio_net_hdr_nh_min_len(skb, nh_min_len);
+> > >     +        if (min_thoff < 0 || skb_transport_offset(skb) < min_thoff)
+> > >                  return -EINVAL;
+> >
+> >
+> > Certainly looks much better. But I'd like to ask, generally:
+> > doesn't the net stack need to protect against weird packets?
+> >
+> 
+> It does, but csum_start/csum_offset are not "weird packet" material,
+> they are skb metadata, not bytes on the wire.
+> 
+> For essentially every skb in the kernel, this metadata is produced by
+> the kernel itself,
+> from headers it has just built or just parsed, and the rest of the
+> stack (GSO, skb_checksum_help(),
+> fragmentation, netfilter, and every driver doing TX csum offload)
+> consumes it as an invariant.
+> The only producers of attacker/guest controlled CHECKSUM_PARTIAL metadata are
+> the virtio_net_hdr_to_skb() callers: af_packet, tun/tap, virtio_net,
+> and the UML vector driver.
+> 
+> So this is not "virtio specific validation", this is input validation
+> at the one trust boundary
+> where the invariant can be violated.
 
-Signed-off-by: Mukesh R <mrathor@linux.microsoft.com>
----
- include/hyperv/hvgdk_mini.h |  9 ++++
- include/hyperv/hvhdk_mini.h | 87 +++++++++++++++++++++++++++++++++++++
- 2 files changed, 96 insertions(+)
 
-diff --git a/include/hyperv/hvgdk_mini.h b/include/hyperv/hvgdk_mini.h
-index 6a4e8b9d570f..3b74f3c0229d 100644
---- a/include/hyperv/hvgdk_mini.h
-+++ b/include/hyperv/hvgdk_mini.h
-@@ -326,6 +326,8 @@ union hv_hypervisor_version_info {
- /* stimer Direct Mode is available */
- #define HV_STIMER_DIRECT_MODE_AVAILABLE			BIT(19)
- 
-+#define HV_DEVICE_DOMAIN_AVAILABLE			BIT(24)
-+
- /*
-  * Implementation recommendations. Indicates which behaviors the hypervisor
-  * recommends the OS implement for optimal performance.
-@@ -486,9 +488,15 @@ union hv_vp_assist_msr_contents {	 /* HV_REGISTER_VP_ASSIST_PAGE */
- #define HVCALL_GET_VP_INDEX_FROM_APIC_ID		0x009a
- #define HVCALL_FLUSH_GUEST_PHYSICAL_ADDRESS_SPACE	0x00af
- #define HVCALL_FLUSH_GUEST_PHYSICAL_ADDRESS_LIST	0x00b0
-+#define HVCALL_CREATE_DEVICE_DOMAIN                     0x00b1
-+#define HVCALL_ATTACH_DEVICE_DOMAIN                     0x00b2
-+#define HVCALL_MAP_DEVICE_GPA_PAGES                     0x00b3
-+#define HVCALL_UNMAP_DEVICE_GPA_PAGES                   0x00b4
- #define HVCALL_SIGNAL_EVENT_DIRECT			0x00c0
- #define HVCALL_POST_MESSAGE_DIRECT			0x00c1
- #define HVCALL_DISPATCH_VP				0x00c2
-+#define HVCALL_DETACH_DEVICE_DOMAIN                     0x00c4
-+#define HVCALL_DELETE_DEVICE_DOMAIN                     0x00c5
- #define HVCALL_GET_GPA_PAGES_ACCESS_STATES		0x00c9
- #define HVCALL_ACQUIRE_SPARSE_SPA_PAGE_HOST_ACCESS	0x00d7
- #define HVCALL_RELEASE_SPARSE_SPA_PAGE_HOST_ACCESS	0x00d8
-@@ -502,6 +510,7 @@ union hv_vp_assist_msr_contents {	 /* HV_REGISTER_VP_ASSIST_PAGE */
- #define HVCALL_MMIO_READ				0x0106
- #define HVCALL_MMIO_WRITE				0x0107
- #define HVCALL_DISABLE_HYP_EX                           0x010f
-+#define HVCALL_GET_IOMMU_CAPABILITIES			0x0125
- #define HVCALL_MAP_STATS_PAGE2				0x0131
- 
- /* HV_HYPERCALL_INPUT */
-diff --git a/include/hyperv/hvhdk_mini.h b/include/hyperv/hvhdk_mini.h
-index 035ba20870f7..3dbfb338bcba 100644
---- a/include/hyperv/hvhdk_mini.h
-+++ b/include/hyperv/hvhdk_mini.h
-@@ -548,4 +548,91 @@ union hv_device_id {		/* HV_DEVICE_ID */
- 	} acpi;
- } __packed;
- 
-+#define HV_DEVICE_DOMAIN_TYPE_S2  0 /* HV_DEVICE_DOMAIN_ID_TYPE_S2 */
-+#define HV_DEVICE_DOMAIN_TYPE_S1  1 /* HV_DEVICE_DOMAIN_ID_TYPE_S1 */
-+
-+#define HV_DEVICE_DOMAIN_ID_S2_DEFAULT 0
-+#define HV_DEVICE_DOMAIN_ID_S2_NULL    0xFFFFFFFFULL
-+
-+union hv_device_domain_id {
-+	u64 as_uint64;
-+	struct {
-+		u32 type : 4;
-+		u32 reserved : 28;
-+		u32 id;
-+	};
-+} __packed;
-+
-+struct hv_input_device_domain { /* HV_INPUT_DEVICE_DOMAIN */
-+	u64 partition_id;
-+	union hv_input_vtl owner_vtl;
-+	u8 padding[7];
-+	union hv_device_domain_id domain_id;
-+} __packed;
-+
-+union hv_create_device_domain_flags {	/* HV_CREATE_DEVICE_DOMAIN_FLAGS */
-+	u32 as_uint32;
-+	struct {
-+		u32 forward_progress_required : 1;
-+		u32 inherit_owning_vtl : 1;
-+		u32 reserved : 30;
-+	} __packed;
-+} __packed;
-+
-+struct hv_input_create_device_domain {	/* HV_INPUT_CREATE_DEVICE_DOMAIN */
-+	struct hv_input_device_domain device_domain;
-+	union hv_create_device_domain_flags create_device_domain_flags;
-+} __packed;
-+
-+struct hv_input_delete_device_domain {	/* HV_INPUT_DELETE_DEVICE_DOMAIN */
-+	struct hv_input_device_domain device_domain;
-+} __packed;
-+
-+struct hv_input_attach_device_domain {	/* HV_INPUT_ATTACH_DEVICE_DOMAIN */
-+	struct hv_input_device_domain device_domain;
-+	union hv_device_id device_id;
-+} __packed;
-+
-+struct hv_input_detach_device_domain {	/* HV_INPUT_DETACH_DEVICE_DOMAIN */
-+	u64 partition_id;
-+	union hv_device_id device_id;
-+} __packed;
-+
-+/* HV_INPUT_GET_IOMMU_CAPABILITIES */
-+struct hv_input_get_iommu_capabilities {
-+	u64 partition_id;
-+	u64 reserved;
-+} __packed;
-+
-+#define HV_IOMMU_CAP_PRESENT    BIT_ULL(0)
-+#define HV_IOMMU_CAP_S2         BIT_ULL(1)
-+#define HV_IOMMU_CAP_S1         BIT_ULL(2)
-+#define HV_IOMMU_CAP_S1_5LVL    BIT_ULL(3)
-+#define HV_IOMMU_CAP_PASID      BIT_ULL(4)
-+#define HV_IOMMU_CAP_ATS        BIT_ULL(5)
-+#define HV_IOMMU_CAP_PRI        BIT_ULL(6)
-+
-+struct hv_output_get_iommu_capabilities { /* HV_OUTPUT_GET_IOMMU_CAPABILITIES */
-+	u32 size;
-+	u16 reserved;
-+	u8  max_iova_width;
-+	u8  max_pasid_width;
-+	u64 iommu_cap;          /* HV_IOMMU_CAP_* above */
-+	u64 pgsize_bitmap;
-+} __packed;
-+
-+struct hv_input_map_device_gpa_pages {	/* HV_INPUT_MAP_DEVICE_GPA_PAGES */
-+	struct hv_input_device_domain device_domain;
-+	union hv_input_vtl target_vtl;
-+	u8 padding[3];
-+	u32 map_flags;
-+	u64 target_device_va_base;
-+	u64 gpa_page_list[];
-+} __packed;
-+
-+struct hv_input_unmap_device_gpa_pages {  /* HV_INPUT_UNMAP_DEVICE_GPA_PAGES */
-+	struct hv_input_device_domain device_domain;
-+	u64 target_device_va_base;
-+} __packed;
-+
- #endif /* _HV_HVHDK_MINI_H */
--- 
-2.51.2.vfs.0.1
+Thanks for the explanation Eric!
+
+> 
+> > It seems likely that not all drivers validate headers defensively,
+> > and incoming packets can easily become outgoing ones.
+> 
+> Packets coming from a real NIC are CHECKSUM_UNNECESSARY,
+> CHECKSUM_COMPLETE or CHECKSUM_NONE.
+> They do not carry a remote-provided csum_start.
+> (Remote checksum offload is the rare exception, and there the offsets
+> are computed by the stack from headers it just parsed.)
+> 
+> Incoming packets becoming outgoing ones is precisely the problem here:
+> a virtio_net RX skb with VIRTIO_NET_HDR_F_NEEDS_CSUM becomes
+> an skb that can be bridged/forwarded/fragmented and then handed to a real NIC.
+
+Well:
+
+$ git grep 'skb->csum_start\ ='
+drivers/net/ethernet/hisilicon/hns3/hns3_enet.c:        skb->csum_start = (unsigned char *)th - skb->head;
+drivers/net/ethernet/mellanox/mlx5/core/en_rx.c:        skb->csum_start = (unsigned char *)uh - skb->head;
+drivers/net/ethernet/mellanox/mlx5/core/en_rx.c:        skb->csum_start = (unsigned char *)uh - skb->head;
+drivers/net/ethernet/mellanox/mlx5/core/en_rx.c:        skb->csum_start = (unsigned char *)tcp - skb->head;
+drivers/net/ethernet/mellanox/mlx5/core/en_rx.c:        skb->csum_start = (unsigned char *)tcp - skb->head;
+drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c:         skb->csum_start = skb_transport_header(skb) - skb->head;
+
+What did I miss?
+
+> 
+> > So do we even need virtio specific validation, or is it enough to
+> > validate everything in the net stack, where we are poking at the
+> > header anyway?
+> 
+> The core stack cannot afford it.
+> 
+> 1) Drivers program skb->csum_start / skb->csum_offset straight into
+> the TX descriptor, and the NIC will happily write two bytes wherever
+> it was told, e.g. into the IP header of the frame we put on the wire.
+> Auditing/adding checks in every driver is not realistic, and drivers
+> must not pay for it.
+> 
+> 2) Catching this in the core would mean re-parsing L2/L3 in
+> dev_hard_start_xmit()
+> (or in every place that eventually looks at the transport header) for
+> the 99.99+%
+> of packets that were built by the stack and are known to be consistent.
+> That is far more expensive than one check at injection time.
+> 
+> 3) Failing at injection returns -EINVAL to the sendmsg()/writev() caller,
+> which is the correct and testable behavior. Failing later means dropping
+> the packet deep in the xmit path, usually with a splat: the commit being fixed
+> here (49d14b54a527) exists exactly because such a packet reached
+> skb_checksum_help() from ip_do_fragment() and hit the "offset (-6) >=
+> skb_headlen() (14)" WARN.
+> 
+> >
+> > Or maybe it's more a defense in depth thing?
+> >
+> > My worries:
+> > - more poking at the header, more cache misses, where we really
+> >   do not need that
+> 
+> I do not expect anything measurable.
+> 
+> af_packet and tun: we have just copied that header from user space, it is in L1.
+> virtio_net: we call eth_type_trans() right after, and GRO parses L3/L4
+> immediately.
+> 
+> The whole block is under the CHECKSUM_PARTIAL condition, where we already
+> do pskb_may_pull() and skb_partial_csum_set(), i.e. we already touch
+> this cache line.
+> Reading iph->ihl from a cache line we are about to read anyway is noise.
+> 
+> > - future protocol extensions that now will require surgery in
+> >   virtio, instead of just being passed through to the host
+> 
+> Fair, and this is an argument about how the check is written, not
+> about whether it exists.
+> The rule should be:
+> 
+> Only tighten the bound for the protocols we already parse (IPv4/IPv6),
+> and keep the existing generic minimum for anything else.
+> 
+> Then an unknown ethertype simply keeps flowing, no surgery is needed.
+> Willem's version does that. A new protocol would only be impacted if it wanted
+> csum_start to point inside what we consider the L3 header, and such a packet
+> would not survive the rest of the stack anyway.
+> 
+> So: not defense in depth, but validation at the trust boundary, where
+> it is cheapest
+> and where we can still report the error to the producer.
+> 
+> >
+> > What do others think?
+> >
+> > --
+> > MST
+> >
 
