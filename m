@@ -1,35 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E18B3B8406;
-	Thu, 24 Sep 2026 01:51:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19AF224AFA
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:52:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790214683; cv=none; b=gUCUspMw5t/JbHpBamXXhaeK6nzLOwq3fpPghjk/CjwbdzT4Qh/Knhd+BXAwoxh1fULxh+8Us+sgT8gA08+4T0j+t8J35xSxXgknH62IGjIvaH5w6UrebP2NjVBBiNP1MEkDyBNqUJw/p02HroVCRB7niENOGedN8sGYbkr6Pz4=
+	t=1790214748; cv=none; b=e0kBY3V/97s3YXGWBI8p9POazHD1DgXUx12JOFipLtNvcflUnsS9l3KU6ffIO66quq4OfpspUvnSXuO48GIhBkVGVQcx1VAdmo+jHsJJgfAj/XX8G/zEsf9VLgph7g0L5eyinKbuSeg85XNw+l92XT74ThE4e7nutDSFfqgp0uI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790214683; c=relaxed/simple;
-	bh=9T/COWxcSeehihYLn+1YXqagT4+Og1lOsmkp8L4GAqg=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=U9EKHCuCCBMiiALsESh3V0gMMc8K0XK2B9jDmRv8wWe+LhyealuQ5t065HvgdFV/mlXeim07S/ParOtZ7PQPOwYZnHQ6Nj1PhgLhT66+rSQv1E5+CIV6OyxL1ZAt80VfFU3TV1mE2T18OPifbfGt6z7grlIVSpOUwN7tB18ZotQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GcwLIV9e; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790214748; c=relaxed/simple;
+	bh=2AN5JDexXR0M5Ug219+5M3aW0kSIne4l8lhwTAqdt58=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jZZqbhVc4tot2dG0F4786e19mDndVBg9pMFVzrwh2ReI2CSPZvJOHqsNKkOROGq6zwv+UZC9mCdNUXa115N85qhqt2bp+vMXx8SVB9z0tJ004YyqKSaR1DOxsfoxLqLAy9dZG1RaBHAYXWTv4Yg38MLSU6TmsrWXYn7cBTXILvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FKJkSc4p; arc=none smtp.client-ip=74.125.231.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GcwLIV9e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C37111F00893;
-	Thu, 24 Sep 2026 01:51:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790214678;
-	bh=sHjop9h1tJbP3cnMjOYvnPxAkLglYFO8URcVR/Y7jhY=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=GcwLIV9eeg8mu6CsV/8uCo3/gNCDSyOB4HHsk7AJZreAnrAZ6hw+hEIj3zm4s+xjJ
-	 F4w2Fo9b19nU10NVPvmmNfDEUFto+Ba0lk92apsapf6VN0sl9VfDSNjiJGm5D28Hdj
-	 PNhsqpV/tpyaHcmDS8ceDcBm973vuUf6uKUa9eQKtuV6GVTLcYOyQ6jIwMrzKRtPZW
-	 s7kF50erGRy8adci2MOkXJBl0jCM2Vs4KM0Nbwyc0f65+qy2Y6A629/raNRxROyz0G
-	 ro+HniJU6f/6qGS/kzvA0QgU5UwXyom2CcCjvxWb8VRIebUiKv/+T2X8ueHxCTNy7R
-	 ZDRtDYjJfsVGw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93C6739E9611;
-	Thu, 24 Sep 2026 01:50:09 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FKJkSc4p"
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-469fdb78b1cso883597fac.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:52:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790214745; x=1790819545; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=t12Cm9dzTRFqVp9C1qDd5ZGEFH0SLV6oC9VZTij9C0k=;
+        b=FKJkSc4pf2h9W646Wn4nJIa1ZNJUnAs/RtmGaWSQmd3D6wdGiGXQxA/fF9v4z8RL6N
+         q6E3h4qrcbKsk/W20sJw0Od6cncOpaXBZh2DFZtv2js/0zvobPDXn9hg0uT43wdegWjE
+         sinyWFjGHsQ8lhl4mUI/ICtFXPiUyg7hDvBudBfyVKyGq/U3TKbYb/Zb6xCs04Wx2dz3
+         QNKWOIh7ciP9lz+B/HC9QlFz27vz83Tfv0ID45YjrMr8BYE84sPwa0AcE6+iGk2YK1rq
+         x+v/8G1fwsGUMRk/oNoyv1cfVYHOkZQK8ptEJFrxSIt2EB7K13XSQYjGbH6cWThfo08t
+         sONg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790214745; x=1790819545;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=t12Cm9dzTRFqVp9C1qDd5ZGEFH0SLV6oC9VZTij9C0k=;
+        b=eXgu2Q7k7hRHO+kiWIP2WfNaA/Xd6a0fvN8zJMM6Y7iQCoglZ1+7SLWNTr5gUmVo3x
+         +cXsJOpPNpLDC71nRFTgUwzjCtDwfaJGLiKTyz7m+5SGmIxLn0pDGUNzVKYBMcKIIUAj
+         oz8Tav1VoPOCDxxsxldMCBbff35Mj1HHnn6ERfEXb3HWA7Mj8o44mwt5VQruNli6W5zn
+         cubw3AYOJc7ITjgo19BRXaL33M+HxhiiOW8PqeJL2CcklCEkS28CO37SJC86geRuwWYD
+         69TIWO3fs3g2F1TYZZiq4yMCW6zghIuPMAl1EaD2g3nlY2oM23KZqPbxNMTjyifkoN9o
+         nabA==
+X-Forwarded-Encrypted: i=1; AKwUvByTvJ9FksBNNZhfJA7tPj9T3h7maGSG7n0GYjUTOZOJ2gVlJHvmYHkAHH5Y9VNJ70OFTb+QfopJxjkHYUA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lSqlZF870HiDbDMN1wXSPa+9MGRvQAYqmhbaedqfWjfJC/FyaJ
+	648j2bNTwBpYaaCkk/oxk37jYMXlKphhBe7MmN6YgUCmawqM8pSKFcXf
+X-Gm-Gg: AYBFou2gLASqReO4d2kaRVOTqsEaafFiRGA1ZfFzE0gHXp99fvZPIMO9ufkPqBa+oF8
+	NX/Q/jTLB/DUggXsJHOxgT2XYUIxKduPi6x3qBbH7ei+X2PVFf7UdYv6munisPZfWF3bxiHET0R
+	ClV7uqLn1S1R9z8dNWSkujo3fCBAkN73INviQGFNGdxoj0BXVTxN1jHUbYQ2lmND0wEb669p/cd
+	kQ+Qdt8t+4BtKzVPwBylRlH5QAZgwFgW+YLhRBf2AJDB/Tdt9VoPZHRc3KsRdWo0UObomq2Gnzz
+	xi1VF4boGWAS/sT8AsQWTjnsfb0ieCW7v8EMjlLmB6rQW2lDZPog0ju11LU+7a6qYOZjKleiEUd
+	GwHdkEvpi6sLGtH2McFJKl/eg9RDi3++izgrkgFAtMioVUJFZm4tZF8kU0Xjm1B3fpV3WNqEvU5
+	1/abh92sb0JRYZl/jUmUd2f1YE0P0+0OGdXnyOPJIvZYE2cxfEQEqTTIsNBM+r7b2nXiYG4eoVr
+	YOPFUHJBQWGhBr4VSNdwWeOwnvl7qzt6nZ0FTCS
+X-Received: by 2002:a05:6870:ad0f:b0:491:47e1:6283 with SMTP id 586e51a60fabf-491e59d1afdmr1152781fac.27.1790214745549;
+        Wed, 23 Sep 2026 18:52:25 -0700 (PDT)
+Received: from archlinux.lan ([136.34.156.120])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-491ed1ebc62sm1057379fac.3.2026.09.23.18.52.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 18:52:24 -0700 (PDT)
+From: Danish Khateeb <danishkhateeb03@gmail.com>
+To: Willy Tarreau <w@1wt.eu>,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Cc: Shuah Khan <shuah@kernel.org>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Benjamin Berg <benjamin.berg@intel.com>,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Danish Khateeb <danishkhateeb03@gmail.com>
+Subject: [PATCH 0/3] tools/nolibc: fix readdir_r() and the FD_* macros on 64-bit
+Date: Wed, 23 Sep 2026 20:52:19 -0500
+Message-ID: <20260924015222.31693-1-danishkhateeb03@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,48 +77,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] net: dsa: mv88e6xxx: 88E6191X and 88E6193X have no
- PTP
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179021460814.1272040.10325459981937055395.git-patchwork-notify@kernel.org>
-Date: Thu, 24 Sep 2026 01:50:08 +0000
-References: <20260921-send-net-v2-1-031ad720f140@studio.unibo.it>
-In-Reply-To: <20260921-send-net-v2-1-031ad720f140@studio.unibo.it>
-To: =?utf-8?q?Nicol=C3=B2_Giuliani_-_nicolo=2Egiuliani6=40studio=2Eunibo=2Eit_?=@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org,
-	=?utf-8?q?=3Cnicolo=2Egiuliani6=40studio=2Eunibo=2Eit=3E?=@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org
-Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- richardcochran@gmail.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
 
-Hello:
+Two bugs that only show up on 64-bit architectures:
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+- readdir_r() truncates the directory offset to an int. On ext4 it
+  fails within the first few entries of almost every directory (since
+  v6.19), or returns the next-to-last entry twice and never the last
+  one (v6.15 to v6.18). Patch 1.
 
-On Mon, 21 Sep 2026 05:56:29 +0200 you wrote:
-> From: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
-> 
-> The 88E6191X and 88E6193X are 6393 family devices that share
-> mv88e6393x_ops with the 88E6393X and are marked as ptp_support. Marvell's
-> UMSD driver describes both as parts without AVB (88E6193X: "BGA package -
-> No AVB, No Routing, No Cut-through"), and the register access confirms it
-> on an 88E6193X: the whole indirect AVB register space behind Global 2
-> registers 0x16 and 0x17 reads zero, for every port, block and address,
-> with the 6390 and with the 6352 command encoding. Writes to the TAI
-> registers, including the clock period register and the TAI global
-> configuration register, read back as zero.
-> 
-> [...]
+- FD_SET(), FD_CLR() and FD_ISSET() build their masks from an int, so
+  they use the wrong bits for fds 31-63 of each 64-bit word, and
+  select() on fd 40 fails with EBADF. Patch 2, with tests in patch 3.
 
-Here is the summary with links:
-  - [net,v2] net: dsa: mv88e6xxx: 88E6191X and 88E6193X have no PTP
-    https://git.kernel.org/netdev/net/c/6b491af01aa5
+There is no selftest for patch 1: it needs a directory with large
+offsets, and nolibc-test only lists /proc/self, whose offsets are
+small. I tested it with a small program that lists a directory with
+readdir_r() instead.
 
-You are awesome, thank you!
+The series applies to nolibc/for-next f2212892b6a0 and is independent
+of my WIFSIGNALED() series [1]; the two merge cleanly.
+
+Testing, with GCC 16.2, on x86_64 and i386 natively and on arm, arm64
+and sparc64 under qemu-user:
+
+- nolibc-test, all tests: no failures before or after the series. The
+  only difference is the two new tests, which pass. They also pass
+  against glibc (make libc-test).
+
+- On x86_64 without patch 2, fd_set and select_high_fd fail (select()
+  returns EBADF). With the default UBSan flags the run stops with
+  SIGILL at fd_set instead.
+
+- The readdir_r() program, on ext4, on x86_64, arm64 and sparc64:
+  before, it fails on /etc after 4 of 213 entries, /usr/include after
+  1 of 1454 and /usr/lib after 2 of 6186. After, it lists as many
+  entries as glibc, and on x86_64 the same names. A native i386 build
+  was already correct. The arm build failed too, but only because
+  under qemu-user the kernel sees a 64-bit process and hands it
+  64-bit offsets.
+
+- Built for x86_64 against nolibc from before commit 4ada5679f18d, the
+  same program lists a directory holding "..", "code" and "." as "..",
+  "code", "code".
+
+[1] https://lore.kernel.org/all/20260923205622.1123270-1-danishkhateeb03@gmail.com/
+
+Danish Khateeb (3):
+  tools/nolibc: fix readdir_r() with 64-bit directory offsets
+  tools/nolibc: fix FD_SET(), FD_CLR() and FD_ISSET() on 64-bit
+  selftests/nolibc: test the FD_* macros and select() on a high fd
+
+ tools/include/nolibc/dirent.h                |  7 +--
+ tools/include/nolibc/sys/select.h            |  6 +--
+ tools/testing/selftests/nolibc/nolibc-test.c | 54 ++++++++++++++++++++
+ 3 files changed, 61 insertions(+), 6 deletions(-)
+
+
+base-commit: f2212892b6a0c2adab438783e9fa8093c90786d7
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.55.0
 
