@@ -1,145 +1,275 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC51437451
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:34:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD4BD2DF138
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:34:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790256896; cv=none; b=ARKsAW8GnC/wNSEMCObQqQn2VEBuV02o8ZshpkM9J97x9kJO0Iqpi57Gkk0lShEXl8G2wukUW1hh1BpFJtkExO+xoC9OBZJjPd+QAtz1KwKJO8HcGgoIr0t2EmVbkb6X17iJPm0GKXiHLusUD+xW06bQHncpMSyUrWf6z3o4S7Q=
+	t=1790256900; cv=none; b=j0XOFopdFklfsdDsy9piZk/r1UQCl7FoCL6jVSYQ+z+4qYoC+2o+7XZSMCf+jn5SQ57ObMn+jBSEUbvpy8eUNc/f6E9Q0WHp3iJRTgd1lGgqfP61M4fbShfc1tFwJQgTBKMoXEJQL8TcElOvU+TMC9MrpH3oEbTpom+vcK6qyZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790256896; c=relaxed/simple;
-	bh=Zw0pIP5eSJI28ZqgOlOYqy4ScF2vOQAnlGs6UoZ0oSM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EKeQdKs+U9OymXQKTwQ9qrWb3ls0yjxI586WHXIeC9nXXQ8QKMdt20afsgYbFC4Z4kpWdJTfa9py8DjwU9LI09zmsS0v/7myXOC35DwrG7C5YW8zUq0+OCJrOm2wqxyPomKsBm+AbM9rPoWiTbmpXYs+3IZzUCGnCkzwoI2DZ/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZB4v8vx9; arc=none smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790256900; c=relaxed/simple;
+	bh=ffbSbK4j9Zjfrw2PrH/jOjNOFVOpEbu4V5aVJMXprJg=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=QwHcWH80EtCCZDRGOKrP/Ic1FkJ+WandKD5A/XWTH9TVTQ5dsOudTS4m/NjG2Sn+ov+Dy+kaBaZ6kEtFplDgLHPCCfEPfqHr7iGZLnzW5P85dENpSaOwQytmdDqYVXaIROTmFzXVTl9k6GwEb31xVZnrGm9wpb7/jCuq3c3p3ik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=f7caBHsX; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZB4v8vx9"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-8631d0023daso1099343b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:34:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="f7caBHsX"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1ca5b0d6so14065495e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:34:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790256879; x=1790861679; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wOCGbQf6XP96p7s0OjDQYdkOZWkG2NUg2kYXrHgNtio=;
-        b=ZB4v8vx9T5Ii0v14xNQJRScTrcNU9LVmZ0nw6SPPjOVeoti7wLSSwUAVTTzlE+Ds0j
-         W1B6bPIpTw9gwbXk5IXO1TYW7FkufQpfMeeugX5AXc+lvJnMadq0Jp1LoRqmoXhUkkMh
-         CguJyjIb86z6F5SpgL1+OHdcYXAYNQSNunHeStRoNZFoiwqXCON+/u9acwcOSfTFQA2T
-         ik8wgcoDHGEjUixaY6aGHTXzUVryzdnD/gtQM+YgCkeN0GicqMnxzYVVl36tUE0SFuME
-         TNh36Hu+C6tvjFVQh15p5EsJcCXw8Fwxnt8R+rUq4EBHAf3ZoHD+HHogoL9txBITgep+
-         KMgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790256879; x=1790861679;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1790256890; x=1790861690; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wOCGbQf6XP96p7s0OjDQYdkOZWkG2NUg2kYXrHgNtio=;
-        b=k+08ADxvC/hLJCARynU2ceQ+G0WFCYsSXvQnoxstiycnvojFoREpX3O5LbGKjZ0BM8
-         Berh/InPQP37vJLKsKgV3UTZ9Tv0c8pryg22BRZzibjBQldtY+llKROJUx8gHVw1mu6w
-         vPr7gbxxRMB6JmpHPkfTvFJoJ6WEb0PVKqm6DFAF4wJjP9zMql9ocIVMMDHzH2da824/
-         1gi6LZQMYVgdJ/al4pmv3jtLmyVEyyX+rpYnJBclTscjKl6po3hWX8fkXeRwjpRclwDL
-         kUy2edySlmpGtL4BySMlUJA1SW/tzruM9ybHfh9FiIZtAz2xlor+agpMieD6Weq9fpl6
-         zrng==
-X-Forwarded-Encrypted: i=1; AKwUvBxrVdiYGpKdb3Sbgo7aowzaJSsvaHuzX0Tymvd5f7JUODpLsQQXW0bKrvZQlLEBYL7zFeKReZ83Vyw/xXs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lPk2BKLmoEHBojw9Jbcw3FmoGhh4tLQ4hCpoCNaMAu9ZcfXWC7
-	q6QzBcx/WkY2U7I+HXWXc6xww/XZ59MXsAs31h+gHsiLIDXi8rGE0f7f
-X-Gm-Gg: AYBFou2P9iSeXsDQspuo2go5d7V/oxu5Y9TzkZ76oy46DQ2U5nRJX0xCszKNTWaXGh2
-	F6B+Vlk3fLF1VBBywbfN/xsDyWqjHW4NJ08cid9P58EMnCSyQIxpGtbGvZE6jMxOX7d3kdWtyLU
-	FFPWvrT5QTIcc2gZEg28DEEA2uNkwf5MExyxuLcw81ievLq1gkKXgKZVKoIzDJMp3GIg8fhMTCg
-	yl9f4FktkqGo7phhotAsImyGPHO3WkOo7EpPSbH4KfKXgEkxYohGbRKS06rTuU8R/1Dr3YjL1Wu
-	ItRAMXIdWDi1+3a7dSVeDWDeGz75f4ujbrtGyrHXM3s8+db/k0/5FgF5PjFa+rOOq0upWQFasy8
-	ZUR/IYBWDCpZI9mmi0MgHnWpFyE0GnO0r8R8+AgTJZ6ZkZ99Zd8Le5razBTxg4bXAFA5QPSXHyE
-	Ys59ZSP7O3yTDTW6mVm61K1PNgkThLS4lTu0THdNIac02Vmk8jCNmE1g==
-X-Received: by 2002:a05:6a00:1302:b0:878:3783:8a4e with SMTP id d2e1a72fcca58-87e9be76a5amr2245806b3a.54.1790256878537;
-        Thu, 24 Sep 2026 06:34:38 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1e0f4fbbsm3024366b3a.52.2026.09.24.06.34.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 06:34:38 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Hannes Reinecke <hare@suse.de>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	James Bottomley <James.Bottomley@suse.de>,
-	Joe Eykholt <jeykholt@cisco.com>,
-	Robert Love <robert.w.love@intel.com>,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] scsi: libfc: fix directory server rport memory leak
-Date: Thu, 24 Sep 2026 21:34:29 +0800
-Message-ID: <20260924133429.1587511-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=t6AkLGE1oPn+7n3tb70RelMorb35N4qf1Ykw3uaiHDk=;
+        b=f7caBHsXdNziJtjfOLO59VP+9TscQ2uHrDYVxwkh8RV93cjNeXpqXsk09POytzprVE
+         ha5S7xG3kaUtomoBReQAHO88vXgbCt/Pv3lsL1g0JjQvApbuk/L/1YhbnlDCDrs2kNH/
+         a6LkIqXGlQsAFTr4tICl8i8JhTtZFTj591HUxCeDQqWNZBUDSucuKfF+1KFC/Ee/mBtn
+         d77Zcf4l1Kw+ZyuuZsKCfoUcEtgTpTLLpn4BbSbqJFjv6gjImvVsYeFX0k3ngmxIri2/
+         JDcEt+Usj3Ytic0wgesgu0OJhV0BNbKub8xy9cwFmxnu9DoNLS1eDGVPesE8PDQkgQ72
+         ruww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790256890; x=1790861690;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=t6AkLGE1oPn+7n3tb70RelMorb35N4qf1Ykw3uaiHDk=;
+        b=peeN3TlBH+e6WmCaDMaMA66PNO/oFBreNkUcoBD9upIlPITfbU8cleYhFVQpqrkHRd
+         XDSTFJG7m22R2c7C9hFpDkacap4jKfdFFKKhL+FnVd9rFsGW4rQuItrkxfGPUvPEIhjB
+         SIMli54NRVzEz8sYmdbg17t/g3Pf11Oe3Pqj1yMngp/DTWRr7enG9JHQXCP/7EqdxsC2
+         SVmqqlGsSYeHwNfBZFlm/1WIuW1rO7BkQNlW3E9spSsvhM9+m6J1hmmAO+h90YetcLXP
+         Z1P3s+7Y626S3v8I9wscQUbVWVJHoj6mSJ5Xtz0j7ch4dv6P9KilE+MMF9LgZ0yBLpHp
+         cG7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxMq1N3D27/lT99CPHyxFRHexpCSS7eWNctw9fxISQOnFYVOM3VOJs/yFs2QkxFhcASHIT5bQvPz8CcIR4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lrGuAwynsZux0FfHfzEMS75NQHJKqHQeuY0u2ohMBDacJQ+9gR
+	Cwr69GdF92IZ31duflspAtehZl1//6avl5OC0GJ0C0rEKgpBbjMLv0Iut4tUQzx7Rgs=
+X-Gm-Gg: AYBFou166c9+QjzyVn8IhalFW69SxqhcOWn+E+n3lxpmY/EV7Qtb01HZ3uBeebRLTcy
+	+NI4ngUOIzElXP962D8LOfazA13jxfHlu6yrz/X+DvNUeE5EFGTSzG/Zk+Fe5gveg4dRoxq49wn
+	pFQ5p2s6ikiuc78CViE1+5nADJpmrN64e4yl4m92+Xj9d2QTsKh/SWMegWcZ6kRpL4L+HTErHld
+	ML8OF+GCz2fuBsD/KsBc3m5APltq2OAXSbCqaSxoFK2/aiIwWnVVlwF+BhmuJXp6WLXtTS8iL4R
+	wcOnbAZd6y6+HE/ZAnJbUc4PXn4ZjgMcYSKXSzKTSPbtZAuriW6tgnNjx8k2az7B7Mh1ch5BxTn
+	fOAGkoRdLySU9Gewqz309R6nYGwYgUEI4o9w4bueyvmqUsUpLcYMyHvsfyMt8AC2DgDUZ9fqK/C
+	LxPBydm2tjISgf8Pi7lDGaMG2d4IIlcWa5vSgCzuC2MO1rEgeP2BKdsaURxnXTaFYEjYIOjd+Ov
+	wOsqjkMO2eVJ/5g1Pt7Trd1lLXy4cGbZnS2WgWplp6KVqEkOm0EDA==
+X-Received: by 2002:a05:600c:a010:b0:49e:79c5:ee93 with SMTP id 5b1f17b1804b1-49fe66b422emr43419115e9.8.1790256890140;
+        Thu, 24 Sep 2026 06:34:50 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a? ([2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe0c4054fsm112926555e9.3.2026.09.24.06.34.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 06:34:49 -0700 (PDT)
+Message-ID: <898ff24b-8462-48b0-87ed-ba76f2608dd0@linaro.org>
+Date: Thu, 24 Sep 2026 15:34:48 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 5/9] drm/panel: novatek-nt36672a: Combine two init
+ callbacks into one
+To: Alexey Minnekhanov <alexeymin@minlexx.ru>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: David Heidelberg <david@ixit.cz>, Joel Selvaraj <foss@joelselvaraj.com>,
+ Chintan Patel <chintanlike@gmail.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ phone-devel@vger.kernel.org
+References: <20260917-nt36672a-panels-v2-0-f8de8be5b86f@minlexx.ru>
+ <20260917-nt36672a-panels-v2-5-f8de8be5b86f@minlexx.ru>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260917-nt36672a-panels-v2-5-f8de8be5b86f@minlexx.ru>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-fc_rport_create() does not add FC_FID_DIR_SERV rports to
-lport->disc.rports. If fc_frame_alloc() fails in
-fc_rport_recv_plogi_req() after creating a directory server rport, its
-initial reference is not released through the normal rport teardown
-path.
+On 9/17/26 18:43, Alexey Minnekhanov wrote:
+> The split between .send_init_cmds_1 and _cmds_2 is completely artificial
+> and unnecessary. Two command sets are split in between by the sequence:
+>   - exit_sleep_mode
+>   - delay
+>   - set_display_on
+> 
+> But not every panel driver follows this "split" in their init sequence.
+> Some may have different delay timer, or put exit_sleep_mode/display_on
+> commands into other places in the sequence.
+> 
+> In order to make this driver more extensible, combine two init functions
+> into one by puting exit_sleep_mode/delay/display_on in the middle,
+> followed by commands from cmds_2. As part of this step, also move the
+> tianma-beryllium specific deinit sequence with its delays from
+> nt36672a_panel_unprepare() to tianma_fhd_video_send_deinit_cmds(), so
+> that each panel model can have its deinit sequence with its own delays.
+> 
+> No functional change - full init sequence with all the delays for the
+> tianma_fhd_video panel is kept the same in the end.
+> 
+> Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
+> 
+> ---
+> v2: move tianma_fhd deinit commands into its own deinit function
+>      (set_display_off, msleep, enter_sleep_mode, msleep)
+> ---
+>   drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 61 ++++++++++----------------
+>   1 file changed, 23 insertions(+), 38 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> index 73bec4f47ec60..a445c8067aa5f 100644
+> --- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> @@ -51,8 +51,7 @@ struct nt36672a_panel_desc {
+>   	enum mipi_dsi_pixel_format format;
+>   	unsigned int lanes;
+>   
+> -	void (*send_init_cmds_1)(struct mipi_dsi_multi_context *dsi_ctx);
+> -	void (*send_init_cmds_2)(struct mipi_dsi_multi_context *dsi_ctx);
+> +	void (*send_init_cmds)(struct mipi_dsi_multi_context *dsi_ctx);
+>   	void (*send_deinit_cmds)(struct mipi_dsi_multi_context *dsi_ctx);
+>   };
+>   
+> @@ -92,20 +91,6 @@ static int nt36672a_panel_unprepare(struct drm_panel *panel)
+>   	if (pinfo->desc->send_deinit_cmds)
+>   		pinfo->desc->send_deinit_cmds(&dsi_ctx);
+>   
+> -	/* Reset error to continue with display off even if send_cmds failed */
+> -	dsi_ctx.accum_err = 0;
+> -	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> -	/* Reset error to continue power-down even if display off failed */
+> -	dsi_ctx.accum_err = 0;
+> -
+> -	/* 120ms delay required here as per DCS spec */
+> -	msleep(120);
+> -
+> -	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+> -
+> -	/* 0x3C = 60ms delay */
+> -	msleep(60);
+> -
+>   	nt36672a_panel_power_off(panel);
+>   
+>   	return 0;
+> @@ -140,22 +125,9 @@ static int nt36672a_panel_prepare(struct drm_panel *panel)
+>   
+>   	dsi_ctx.accum_err = nt36672a_panel_power_on(pinfo);
+>   
+> -	/* send first part of init cmds */
+> -	if (pinfo->desc->send_init_cmds_1)
+> -		pinfo->desc->send_init_cmds_1(&dsi_ctx);
+> -
+> -	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+> -
+> -	/* 0x46 = 70 ms delay */
+> -	mipi_dsi_msleep(&dsi_ctx, 70);
+> -
+> -	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> -
+> -	/* Send rest of the init cmds */
+> -	if (pinfo->desc->send_init_cmds_2)
+> -		pinfo->desc->send_init_cmds_2(&dsi_ctx);
+> -
+> -	mipi_dsi_msleep(&dsi_ctx, 120);
+> +	/* send init cmds */
+> +	if (pinfo->desc->send_init_cmds)
+> +		pinfo->desc->send_init_cmds(&dsi_ctx);
+>   
+>   	if (dsi_ctx.accum_err < 0)
+>   		gpiod_set_value(pinfo->reset_gpio, 0);
+> @@ -192,7 +164,7 @@ static const struct drm_panel_funcs panel_funcs = {
+>   	.get_modes = nt36672a_panel_get_modes,
+>   };
+>   
+> -static void tianma_fhd_video_send_init_cmds_1(struct mipi_dsi_multi_context *dsi_ctx)
+> +static void tianma_fhd_video_send_init_cmds(struct mipi_dsi_multi_context *dsi_ctx)
+>   {
+>   	u8 reg;
+>   
+> @@ -352,15 +324,19 @@ static void tianma_fhd_video_send_init_cmds_1(struct mipi_dsi_multi_context *dsi
+>   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x51, 0xff);
+>   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x24);
+>   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x55, 0x00);
+> -}
+>   
+> -static void tianma_fhd_video_send_init_cmds_2(struct mipi_dsi_multi_context *dsi_ctx)
+> -{
+> +	mipi_dsi_dcs_exit_sleep_mode_multi(dsi_ctx);
+> +	/* 0x46 = 70 ms delay */
+> +	mipi_dsi_msleep(dsi_ctx, 70);
+> +	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
+> +
+>   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x24);
+>   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
+>   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc3, 0x01);
+>   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc4, 0x54);
+>   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x10);
+> +
+> +	mipi_dsi_msleep(dsi_ctx, 120);
+>   }
+>   
+>   static void tianma_fhd_video_send_deinit_cmds(struct mipi_dsi_multi_context *dsi_ctx)
+> @@ -369,6 +345,16 @@ static void tianma_fhd_video_send_deinit_cmds(struct mipi_dsi_multi_context *dsi
+>   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
+>   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc3, 0x01);
+>   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x10);
+> +
+> +	/* Reset error to continue with display off even if send_cmds failed */
+> +	dsi_ctx->accum_err = 0;
+> +	mipi_dsi_dcs_set_display_off_multi(dsi_ctx);
+> +	/* Reset error to continue power-down even if display off failed */
+> +	dsi_ctx->accum_err = 0;
+> +	/* 120ms delay required here as per DCS spec */
+> +	msleep(120);
+> +	mipi_dsi_dcs_enter_sleep_mode_multi(dsi_ctx);
+> +	msleep(60); /* 0x3C = 60ms delay */
+>   }
+>   
+>   static const struct drm_display_mode tianma_fhd_video_panel_default_mode = {
+> @@ -399,8 +385,7 @@ static const struct nt36672a_panel_desc tianma_fhd_video_panel_desc = {
+>   			| MIPI_DSI_MODE_VIDEO_BURST,
+>   	.format = MIPI_DSI_FMT_RGB888,
+>   	.lanes = 4,
+> -	.send_init_cmds_1 = tianma_fhd_video_send_init_cmds_1,
+> -	.send_init_cmds_2 = tianma_fhd_video_send_init_cmds_2,
+> +	.send_init_cmds = tianma_fhd_video_send_init_cmds,
+>   	.send_deinit_cmds = tianma_fhd_video_send_deinit_cmds,
+>   };
+>   
+> 
 
-Normal rports are added to lport->disc.rports and removed from the list
-before their initial reference is dropped. The directory server rport
-bypasses both operations.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Add directory server rports to lport->disc.rports and use the existing
-list removal path when they are deleted. Keep the existing directory
-server callback and retry behavior unchanged.
-
-The issue was identified by a static analysis tool I developed and
-confirmed by manual review.
-
-Fixes: 3ac6f98f4113 ("[SCSI] libfc: correctly handle incoming PLOGI request.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
-v2:
-  - Add directory server rports to the discovery rport list and use the
-    existing teardown path, as suggested by Hannes Reinecke.
-  - Preserve the existing LLDD callback and retry behavior for directory
-    server rports.
-
- drivers/scsi/libfc/fc_rport.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/scsi/libfc/fc_rport.c b/drivers/scsi/libfc/fc_rport.c
-index c25979d96808..eac3fde1246a 100644
---- a/drivers/scsi/libfc/fc_rport.c
-+++ b/drivers/scsi/libfc/fc_rport.c
-@@ -160,10 +160,9 @@ struct fc_rport_priv *fc_rport_create(struct fc_lport *lport, u32 port_id)
- 	rdata->maxframe_size = FC_MIN_MAX_PAYLOAD;
- 	INIT_DELAYED_WORK(&rdata->retry_work, fc_rport_timeout);
- 	INIT_WORK(&rdata->event_work, fc_rport_work);
--	if (port_id != FC_FID_DIR_SERV) {
-+	if (port_id != FC_FID_DIR_SERV)
- 		rdata->lld_event_callback = lport->tt.rport_event_callback;
--		list_add_rcu(&rdata->peers, &lport->disc.rports);
--	}
-+	list_add_rcu(&rdata->peers, &lport->disc.rports);
- 	return rdata;
- }
- EXPORT_SYMBOL(fc_rport_create);
-@@ -363,11 +362,8 @@ static void fc_rport_work(struct work_struct *work)
- 
- 		mutex_lock(&rdata->rp_mutex);
- 		if (rdata->rp_state == RPORT_ST_DELETE) {
--			if (port_id == FC_FID_DIR_SERV) {
--				rdata->event = RPORT_EV_NONE;
--				mutex_unlock(&rdata->rp_mutex);
--				kref_put(&rdata->kref, fc_rport_destroy);
--			} else if ((rdata->flags & FC_RP_STARTED) &&
-+			if (port_id != FC_FID_DIR_SERV &&
-+			    (rdata->flags & FC_RP_STARTED) &&
- 				   rdata->major_retries <
- 				   lport->max_rport_retry_count) {
- 				rdata->major_retries++;
--- 
-2.43.0
-
+Thanks,
+Neil
