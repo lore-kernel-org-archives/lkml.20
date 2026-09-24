@@ -1,38 +1,59 @@
-Received: from mail.avm.de (mail.avm.de [212.42.244.119])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9595B3E51D2;
-	Thu, 24 Sep 2026 10:57:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABEE71A6814
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:57:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790247447; cv=none; b=b/ESpPPD4p4aVh3obybnc3hU0JxBXsRROSaR8WyRHfwBvhy/vmFfGBLU/Mq9tUQGUpMEihtWn3TL7aDKRFZ4DpdDPC/QF+RhsHmD96G4bqTJs3rg/AwJ6lFBKcCiom5dm0FujQ3ewrDt4n8cUS3+ay30vipdEnoNrRu9Rvfi9bc=
+	t=1790247461; cv=none; b=tlJPhRXqtt0MBdjVPVuQoGsrDiwgvCYO7SEwSFALF7QYIkR6PkHMIiY5sFWpFpG2C35/xHwh7JbPyHiypAzGkOsJzNU3ucYb5VimzG7nc3jOWPRXhDFkeINyLCKAINmUvrMxrKlIW9bIL3ZBOeAdpT1IzvbLG64Gi2qMaTmDnwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790247447; c=relaxed/simple;
-	bh=TedKenYBLBIChQl/W9Dc29bs904Civh+Evv8ETUl2Yo=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=bcmu8aKcgT0bem7IF3+c7YSNVyEOn4kYlPczRvallOuh9FfdBd6p2fisJO5Q/4uMQ5sGmARtUtytnfxbS3/ntDUlEFQ9Q/ZRnTamvQ61g0Q3qyvBD1AEgbmbFUhc0+6jncDbmNJbiK9rghDfFgElLzQPP+z8ojb8gQFqxOT8VFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=h7iD0psN; arc=none smtp.client-ip=212.42.244.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
+	s=arc-20240116; t=1790247461; c=relaxed/simple;
+	bh=oOUCZZILsk0hUqiQcuS3HTKlqRWnJnpcIygspyaY3fg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=U/dc5Q8TsWPHPSouvt7AesbO12NcmdvQJe/u63CD8OFqOEhG8yUNzyoj2KsCzA018t9O2mI0LSxim9dTQmYNXPc9QyCyFk1bWelczszv4cYKjd4vL6q9aeYqao3kl14wPnItW+SRUi4nIqZIa4w8bWbFmu550vX0Tw7eSeqsz+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=TQ5jjoRE; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="h7iD0psN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
-	t=1790247434; bh=TedKenYBLBIChQl/W9Dc29bs904Civh+Evv8ETUl2Yo=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date:From;
-	b=h7iD0psNBFaAhRTF7DezTTvWqO86PTsr/aKQhQiBEhCQmbzuK5euLOv5Y56RUF3C1
-	 YHm3XWH7Er9uVtdkWHzuxtstds3cjts3wyaEVshiABXS8ebPpiiarzq3EPwfeOEX9L
-	 Uw4dsbmFQLFGmx+oKsn80wXfhpV4MIGtUZuTAlxVgKJNZPCnaujKzam2khBP/7mAJ5
-	 2DkNORM9wDqn9jm8XVKAzNRBUb6ReWNAaLXFKpcfYQ+ZTI8WtaOXr7p7iQ6LamamNJ
-	 0x8oi3lTBxTYaVmayP9iZ5Jj7Y6fjK/JyeFiV0NJBwWgNy/puuca+TO3wjgh96Nl64
-	 UbnLfIpInQTVQ==
-Received: from [2001:bf0:244:244::78] (helo=mail.avm.de)
-	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
-	(envelope-from <n.schier@fritz.com>)
-	id 6ab5020a-03d5-7f0000032729-7f000001ca02-1
-	for <multiple-recipients>; Thu, 24 Sep 2026 12:57:14 +0200
-Received: from mail-auth.fritz.com (unknown [IPv6:2001:bf0:244:244::78])
-	by mail.avm.de (Postfix) with ESMTPS;
-	Thu, 24 Sep 2026 12:57:14 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="TQ5jjoRE"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5cXRn1181139;
+	Thu, 24 Sep 2026 10:57:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pp1; bh=0xwzu+veZri83zkDBLfszqSKll3o
+	YYnhUkQxu8kB9BI=; b=TQ5jjoREWzuewzt6hEW+0ekG+QqtolDGzDks9K1oeepr
+	E+gt7MsP9Sc2p/KfsgGm9nROEEUqNrgrqsJF/Z3KkN7jXMAYhWdIrMJMluY1ntCo
+	VWjDGWJ5Feg+wMBvzBam7TlUomJC5saNP2C2lMoGvDV/vrwu51/Tg6cYPNDEoLw8
+	4lmNav3YTCnTNyqLRlbPEJOr2I/Co3RR8il1xXxbyYCfF06q3J6KoE8dS3JjVdk/
+	Vi1LF4+CDATu6o14V8OldkGfY2fqjJxxwsSUntwBS7JCLrZ9BQ8iclOTi1nO9DK1
+	RDjMf+YOPYvSUAIqSzP7mSla3U4p1oDRRSEBL3lJAg==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske1qw47-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 10:57:27 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68OAB0RS1497550;
+	Thu, 24 Sep 2026 10:57:26 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbu8w63h-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 10:57:26 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68OAvMwn41615704
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 24 Sep 2026 10:57:22 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7272020043;
+	Thu, 24 Sep 2026 10:57:22 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5224E20040;
+	Thu, 24 Sep 2026 10:57:22 +0000 (GMT)
+Received: from [127.0.1.1] (unknown [9.87.85.9])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 24 Sep 2026 10:57:22 +0000 (GMT)
+From: Steffen Eiden <seiden@linux.ibm.com>
+Date: Thu, 24 Sep 2026 12:57:18 +0200
+Subject: [PATCH] arm64: Use proper include variant
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,111 +62,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 2/2] kconfig: error on reverse range
-From: Nicolas Schier <n.schier@fritz.com>
-To: Julian Braha <julianbraha@gmail.com>
-Cc: nathan@kernel.org, nsc@kernel.org, n.schier@fritz.com, 
- grahamr@qti.qualcomm.com, rdunlap@infradead.org, nico@fluxnic.net, 
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260922163749.2031594-3-julianbraha@gmail.com>
-References: <20260922163749.2031594-1-julianbraha@gmail.com>
- <20260922163749.2031594-3-julianbraha@gmail.com>
-Date: Thu, 24 Sep 2026 12:57:06 +0200
-Message-Id: <179024742687.3875862.11053097465052610200.b4-review@b4>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2864; i=n.schier@fritz.com;
- h=from:subject:message-id; bh=TedKenYBLBIChQl/W9Dc29bs904Civh+Evv8ETUl2Yo=;
- b=owEBbQKS/ZANAwAIAYjGvJyImm24AcsmYgBqtQIJQK3vLPV17JCodxHxYpuYABe4DvWZnqxZO
- xU6AkRaZneJAjMEAAEIAB0WIQQO/4WJ63TpgecLpGmIxryciJptuAUCarUCCQAKCRCIxryciJpt
- uOKBD/wNJfWGdrdapYBhMXafYUUPST1aWReCOdMaoDrbGQgfegbg5aXqCWS0gCW14DkP5SDhRsE
- MNcySar/g2T8i4CynfGZ20RxZ/W5sAwguo7VwYwJI1shQQR5nyllZVN+2LbOj9p74G3mEJL7t/K
- EoQpkvI2iWnT8V09t8SswPrK8lGNzgZtw12zWYgj+0jlTbhWZNUn5vaUDg+lkQbjqFuOitNY3xM
- zCCQ19uluDdXnFPp+pLW7xTYFhwiazLzGYBhoKVpLyuc79thv97hJfrEhKXL2Z79MuGIiLotujV
- mU8nckuNlEzXa5sVSk4GV0/33GdacqaH71iWBKG5bHPtdcCUU0MWUB3AvMq2Kv3moUoJMrD3WCa
- AQoaTzDScXk0o+/byU7FjVsQ/jfPWVhBZBWZlwWaZquIuNn08Al2/PAeq0yF9kidSSWpaLXmyat
- WMxU0UnCma8v4hE0HNkGL5SkZu3nnJ3K+oRdWB1TPw2g2SAza86nMdrn2A+W0xTbE/RYOCps1nw
- XSCvoRgScAEN2eoxBn1oyZKC0ekPHd0tKqfBotpCpeegNzNWq7EgKhQmhcKjOkSQ2KzhrlXl2Ul
- P5x9tMXtFW/bz4wSvKRHkmre0kVMughZ4tu8aAV7FC4tJEtMLU02Q4LAxM4sNMje9T5CEw+KzVB
- tSCEOqYSuwdAI6A==
-X-Developer-Key: i=n.schier@fritz.com; a=openpgp;
- fpr=7CF67EF8868721AFE53D73FDBDE3A6CC4E333CC8
-X-purgate-ID: 149429::1790247434-7FFD5EF9-2CF265FE/0/0
-X-purgate-type: clean
-X-purgate-size: 2866
-X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
-X-purgate: clean
-X-pfmilter: host: postfix-mx-02  mail-id: 4ECE7A086F  external: no
+Message-Id: <20260924-syreg-incl-v1-1-a3097a8ccc74@linux.ibm.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSyMT3eLKotR03cy85BzdNCOjFAtTU9MUUzMjJaCGgqLUtMwKsGHRsbW
+ 1AGbY9hZcAAAA
+X-Change-ID: 20260924-syreg-incl-f22d8555d562
+To: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+        Mark Rutland <mark.rutland@arm.com>
+Cc: Steffen Eiden <seiden@linux.ibm.com>,
+        Andreas Grapentin <gra@linux.ibm.com>,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        Marc Zyngier <maz@kernel.org>
+X-Mailer: b4 0.14.3
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: 8fjyX0uZLGl1K7oeBokdNDTmPasOnjHY
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA0NCBTYWx0ZWRfXwaKhA1bqkxLG
+ bfWqS+n5lRrSmdiBEvs0mymLmd7YFKD7KW2HT1sFbdfwmpVd4K6nve8ubCMmNknaK1krVh04rhI
+ iq6Gr9/Pxubkk76ruk6a5vdnB88esWsOXwl7A4wbkTVxihWxMz2Mds4Xv3YiG2+H5xmOPOwu2Xh
+ ViE0ljtOVTeZWy9kTWRLWCIDEqzWmKPc6elzfCFxsmB32VgRUfszAnzuqqJWPBCqH8OL6p+whT1
+ gMRwh6bDdXawbUEUYGMYYRd3AMx8h+8SjaS6hH+37KqR14D91FGs4CBOzE20DYNI9ICBngil/e9
+ d05CpPC0LXs1D9o3eLzvCyG5xix9izv15gLbPVoP4btr3Yd2OsloiWYF40PoLV2pmsW+mbclg4j
+ E9FppZV4eCZ3IBIvDFnMz4mo0PlamSJVVamgO1yvsG6xuosOBeeVcZfiqRdtqgH3BUDToov3gCK
+ 1C9L96TZXWyzx/ytkVQ==
+X-Authority-Analysis: v=2.4 cv=O/KsLx9W c=1 sm=1 tr=0 ts=6ab50217 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=tLPIyUJEGWpIbh5-gX0A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA0NCBTYWx0ZWRfX/Jzc70eXVoYJ
+ rheCu1KwzLrbF9mN1OpD1eLgbdktDvPkftC8eBVa3FmiRD9C4+EYFhv3bofsURqZEm0CgpHZmpu
+ 4htuJjozUFa0yyuJCDzEXMNW3Z513Jw=
+X-Proofpoint-GUID: 8fjyX0uZLGl1K7oeBokdNDTmPasOnjHY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 phishscore=0 impostorscore=0 suspectscore=0
+ bulkscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240044
 
-> As discussed on kconfirm v4 [1], it was decided to move checks directly
-> into the kconfig interpreter once where are no findings from kconfirm.
+Use <> for including the sysreg header as it is not discoverable from
+the current directory.
 
-s/where/there/
+Acked-by: Marc Zyngier <maz@kernel.org>
+Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+---
+This is just a spin off from [1]. There is no in-series dependency for
+this patch and it fixes a minor issue. Using " for the include file does
+not break anything (now) but it is not right as well. For [1] we need
+this to correctly transform the includes to a new path for the
+s390-generated version of this file.
 
-> This "reverse range" currently has no findings across the tree, so let's
-> add the check.
-> 
-> Currently, if a reverse range is attempted, such as:
-> 
->     config EXAMPLE
->         int "Reverse range example"
->         range 2 1
-> 
-> then the value of the option defaults to its "lower" limit of 2. If the
-> option is visible in the frontend, then the user gets trapped in the value
-> selection interface, since there is no value that is actually valid for
-> the user to set.
-> 
-> Note that this only checks ranges that use constant values. Statically
-> checking ranges using symbols would require SAT solving, or similar.
-> 
-> Link: https://lore.kernel.org/all/20260904220559.GB2787252@ax162/ [1]
-> Assisted-by: LLM
-> Signed-off-by: Julian Braha <julianbraha@gmail.com>
->
-> diff --git a/scripts/kconfig/menu.c b/scripts/kconfig/menu.c
-> index 118af2dde722..cc335f6db257 100644
-> --- a/scripts/kconfig/menu.c
-> +++ b/scripts/kconfig/menu.c
-> @@ -274,9 +274,9 @@ static int menu_validate_number(struct symbol *sym, struct symbol *sym2,
->  static int sym_check_prop(struct symbol *sym)
->  {
->  	struct property *prop;
-> -	struct symbol *sym2;
-> +	struct symbol *sym2, *lower, *upper;
->  	char *use;
-> -	int errors = 0;
-> +	int errors = 0, numeric_errors = 0;
->  
->  	for (prop = sym->prop; prop; prop = prop->next) {
->  		switch (prop->type) {
-> @@ -325,8 +325,22 @@ static int sym_check_prop(struct symbol *sym)
->  			if (sym->type != S_INT && sym->type != S_HEX)
->  				prop_warn(prop, "range is only allowed "
->  						"for int or hex symbols");
-> -			errors += menu_validate_number(sym, prop->expr->left.sym, prop);
-> -			errors += menu_validate_number(sym, prop->expr->right.sym, prop);
-> +			lower = prop->expr->left.sym;
-> +			upper = prop->expr->right.sym;
-> +			numeric_errors += menu_validate_number(sym, lower, prop);
-> +			numeric_errors += menu_validate_number(sym, upper, prop);
-> +			errors += numeric_errors;
-> +			if (numeric_errors || lower->type != S_UNKNOWN || upper->type != S_UNKNOWN)
-> +				break;
-> +
-> +			if ((sym->type == S_INT &&
-> +				strtoll(lower->name, NULL, 10) > strtoll(upper->name, NULL, 10)) ||
-> +				(sym->type == S_HEX &&
-> +				strtoull(lower->name, NULL, 16) > strtoull(upper->name, NULL, 16))) {
-> +				prop_err(prop, "range lower limit '%s' is greater than upper limit '%s'",
-> +					lower->name, upper->name);
-> +				errors++;
-> +			}
+	Steffen
 
-Thanks, looks good to me.  I don't like that we do these strto{u,}ll()
-conversions everywhere repeated.  But I think it's ok for now.
+[1] https://lore.kernel.org/all/20260918133107.1042730-1-seiden@linux.ibm.com/
+---
+ arch/arm64/include/asm/sysreg.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Tested-by: Nicolas Schier <n.schier@fritz.com>
-Reviewed-by: Nicolas Schier <n.schier@fritz.com>
+diff --git a/arch/arm64/include/asm/sysreg.h b/arch/arm64/include/asm/sysreg.h
+index 7aa08d59d494..4bfdac9401bd 100644
+--- a/arch/arm64/include/asm/sysreg.h
++++ b/arch/arm64/include/asm/sysreg.h
+@@ -173,7 +173,7 @@
+  * come from here. The header relies on the definition of sys_reg()
+  * earlier in this file.
+  */
+-#include "asm/sysreg-defs.h"
++#include <asm/sysreg-defs.h>
+ 
+ /*
+  * System registers, organised loosely by encoding but grouped together
 
--- 
-Nicolas
+
 
