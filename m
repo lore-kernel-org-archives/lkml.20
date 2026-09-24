@@ -1,45 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DD0A4AE118;
-	Thu, 24 Sep 2026 17:07:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 666ED4BD0F1;
+	Thu, 24 Sep 2026 17:07:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790269666; cv=none; b=X50TI3rojIsj72whneXpqE4rZqdTnd1DRp2DiWmYzPFGhFCaFK6khRdq1k9BOzOSozMQ384KupxlAblfxUNcthT7+y5LRqGv3WtqVCjTl9FiV5NbOG+KvN1/N5LSs7qNJd0h1MryqvlYqxzY49c2xOzRNroykL9cjpAbm3Pj1nk=
+	t=1790269669; cv=none; b=V8Joa358LKaM/UOqIS62ZyxMXp8qwIdlmeCKSgMzHTl4gcpCsveKsyV9kuxs0ELlGGB7gep19p7PiViage8+PboACnThajyMwBtWHAIcx9551JhFgGPo2U98LOxcbQc2BDob+OzK5bunJkFq89CDuulWZmxPyPaVW8jiGPqHYPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790269666; c=relaxed/simple;
-	bh=vOq3xe4MG1BKcoVZ3OcuQIYEvHWE0uiP8NMf4rtLrkk=;
+	s=arc-20240116; t=1790269669; c=relaxed/simple;
+	bh=AiH9cFIWHVD4prFhgPMfQvZab9ExT+8eOmoaNVDyePc=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jAHEjfF0DoaHRW0lvQcOjj4fyVIxZRHu3yzfvvSb9O7hT1XkqhHqBppju02gopn/JxQ+DSmqFN8cJMinj4lr78GmY4p4LCEEADDQzqGUqWG+mximB8Py+SwqC1Hi0sBKOpST+m8/ErWlGrKCtOFN71sguOA7VMRD6+h1jHHmZnM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hc3QNZor; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=SLFkukAFx0nLFdyehIvXszl2wZ6x5ajHidXgadiafAoMFDTYxgKKG29M5iC71lXGfDa4sRj6eWnpZkWIE+Ftt2oKo8PIJIbz00gXQvI3HNNwUabsVsgP0A7xHr8AgcZvQc4xDbTOw6bpsX2YUb5AR90lxpdt6AMfcMBU50FnXRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PZxQlQQ/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hc3QNZor"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75E6F1F00893;
-	Thu, 24 Sep 2026 17:07:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PZxQlQQ/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AA7D1F000FF;
+	Thu, 24 Sep 2026 17:07:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790269665;
-	bh=IV6B/wUnI1gyMzArud/n/k1lcIgRff+c6noLd0k+RNg=;
+	s=k20260515; t=1790269668;
+	bh=wyXJMtH/Jv3R/bYoJWwyQ2UaEckkFA30XCVmg+XBN9w=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Hc3QNZorh5eWjtRmKSpvtxiK0EnjYQvYLPXkjrAHai0L8o8reoZJQK34ppr1oB8ya
-	 XTyA05wBtBJ0MuFH3FRy2IaIhl+rWQXeVt4UKUvr2g7zGBvppwtvNuQaB0h9oCcQNf
-	 xM6aii7piHLzSxArBX/LAw1iAgJtbYq/u1281CUeeL71CdEUeFjN1fh3VwaJAmsxZw
-	 GarQUzTFYelmV3BwKeMq4RASXg8wQnxj/GyAuEuyGeJg4uY0qZRdRGuTvPU9xYg3Ub
-	 xs3wuMsDcUMeQfiqehoU4EB0KjAWhDYV/CBvbJJnqfuY58HBiZhGRw/gCEJMe5/MN0
-	 CrCM0Co6X4qkQ==
-Subject: Re: [PATCH net 12/12] net: systemport: Complete resource teardown
- even on DMA disable timeout
+	b=PZxQlQQ/+32WyfDs0krI7ByxXyrs6vgH6PP5AT1MfNKqosty+amp+3zJ9O564XwVN
+	 11myADxx0F6Ugz7Ae/FeoI9sG5u1cdevLUdyZw5Xm56TXe09IIwU8P4G69juiNG0Az
+	 KvPStqoYssP5lfrpGxYBOUd+3HAIPTdCXgjDKxaDfPTw7KNl3vpX/RzWzAHCamJBAI
+	 oiyk8Dy1cAV2KLEs5uo8e89brETfLNhnaBDaS0tvCs1MQs28w7nHFCNReWF5BuRwbY
+	 xHRd8Xs0m/qauzUuIUKG7PzZe2trz4Vm8Ey4l3NPGna+WYgllupvkL/9A3LkwL4850
+	 EEtREpSldYlUg==
+Subject: Re: [PATCH net-next v2 1/6] bnge: Extract bnapi allocation and
+ cleanup into helpers
 From: netdev-bot+sashiko@kernel.org
-To: florian.fainelli@broadcom.com
-Cc: netdev@vger.kernel.org, opendmb@gmail.com,
- bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- zakkemble@gmail.com, horms@kernel.org, ryotkkr98@gmail.com,
- linux-kernel@vger.kernel.org, nb@tipi-net.de
-Date: Thu, 24 Sep 2026 17:07:44 +0000
-Message-ID: <179026966403.2160803.13897466632342473108@kernel.org>
-In-Reply-To: <20260921231305.394773-13-florian.fainelli@broadcom.com>
-References: <20260921231305.394773-13-florian.fainelli@broadcom.com>
-X-sashiko-severity: High
+To: bhargava.marreddy@broadcom.com
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, andrew+netdev@lunn.ch, horms@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
+ vsrama-krishna.nemani@broadcom.com, vikas.gupta@broadcom.com,
+ dharmender.garg@broadcom.com
+Date: Thu, 24 Sep 2026 17:07:47 +0000
+Message-ID: <179026966721.2160803.3672240762098051468@kernel.org>
+In-Reply-To: <20260922052904.59237-2-bhargava.marreddy@broadcom.com>
+References: <20260922052904.59237-2-bhargava.marreddy@broadcom.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -49,10 +50,10 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 1 (1) · Low: 0
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -60,171 +61,123 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] bcm_sysport_stop() now unmaps and frees the RX/TX DMA buffers
-  even when the DMA engines are known to be still running.
-- [Medium] The unconditional teardown path now reaches
-  clk_disable_unprepare(priv->clk)…
-
-Pre-existing issues:
-- [Medium] The same early-return-on-DMA-disable-timeout pattern remains
-  in bcm_sysport_suspend(): 'ret = rdma_enable_set(priv, 0); if (ret) {…
+- [Medium] The commit message describes the three new NULL guards as
+  preparatory hardening ("add NULL guards for rx_ring and tx_ring in…
 
 --
 
-net: systemport: Complete resource teardown even on DMA disable timeout
+bnge: Extract bnapi allocation and cleanup into helpers
 
-bcm_sysport_stop() used to return early when tdma_enable_set() or
-rdma_enable_set() timed out, which left the rings, interrupts, PHY and
-clock in place because ndo_stop() return values are ignored. The patch
-turns both early returns into plain error prints so the rest of the
-teardown always runs.
+This moves the bn->bnapi allocation and free code out of
+bnge_alloc_core()/bnge_free_core() into bnge_alloc_bnapi_mem() and
+bnge_free_bnapi_mem(), and adds NULL checks for bn->rx_ring and
+bn->tx_ring in the ring cleanup helpers.
 
-A few questions on the new flow.
-
-> diff --git a/drivers/net/ethernet/broadcom/bcmsysport.c b/drivers/net/ethernet/broadcom/bcmsysport.c
-> index e5bb7fa84fda5..2b064da4eb7c0 100644
-> --- a/drivers/net/ethernet/broadcom/bcmsysport.c
-> +++ b/drivers/net/ethernet/broadcom/bcmsysport.c
-> @@ -2088,19 +2088,15 @@ static int bcm_sysport_stop(struct net_device *dev)
->  	umac_enable_set(priv, CMD_RX_EN, 0);
+> diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+> index a4288f0258f87..c1810a3098883 100644
+> --- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+> +++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+> @@ -825,6 +825,9 @@ static void bnge_free_tpa_info(struct bnge_net *bn)
+>  	struct bnge_dev *bd = bn->bd;
+>  	int i, j;
 >  
->  	ret = tdma_enable_set(priv, 0);
-> -	if (ret) {
-> +	if (ret)
->  		netdev_err(dev, "timeout disabling TDMA\n");
-> -		return ret;
-> -	}
+> +	if (!bn->rx_ring)
+> +		return;
+> +
+>  	for (i = 0; i < bd->rx_nr_rings; i++) {
+>  		struct bnge_rx_ring_info *rxr = &bn->rx_ring[i];
 >  
->  	/* Wait for a maximum packet size to be drained */
->  	usleep_range(2000, 3000);
+> @@ -881,6 +884,9 @@ static void bnge_free_rx_rings(struct bnge_net *bn)
+>  	struct bnge_dev *bd = bn->bd;
+>  	int i;
 >  
->  	ret = rdma_enable_set(priv, 0);
-> -	if (ret) {
-> +	if (ret)
->  		netdev_err(dev, "timeout disabling RDMA\n");
-> -		return ret;
-> -	}
-
-[Severity: High]
-Can the device still DMA into the freed RX buffers here?
-
-rdma_enable_set() only returns -ETIMEDOUT after polling RDMA_STATUS for
-roughly a second without ever seeing RDMA_DISABLED, so the error return is
-evidence that the engine has not quiesced. With the return gone,
-bcm_sysport_stop() continues into:
-
-	/* Free RX/TX rings SW structures */
-	for (i = 0; i < dev->num_tx_queues; i++)
-		bcm_sysport_fini_tx_ring(priv, i);
-	bcm_sysport_fini_rx_ring(priv);
-
-and bcm_sysport_fini_rx_ring() only warns about exactly this state before
-releasing everything:
-
-	/* Caller should ensure RDMA is disabled */
-	reg = rdma_readl(priv, RDMA_STATUS);
-	if (!(reg & RDMA_DISABLED))
-		netdev_warn(priv->netdev, "RDMA not stopped!\n");
-
-	if (!priv->rx_cbs)
-		return;
-
-	for (i = 0; i < priv->num_rx_bds; i++) {
-		cb = &priv->rx_cbs[i];
-		if (dma_unmap_addr(cb, dma_addr))
-			dma_unmap_single(&priv->pdev->dev,
-					 dma_unmap_addr(cb, dma_addr),
-					 RX_BUF_LENGTH, DMA_FROM_DEVICE);
-		bcm_sysport_free_cb(cb);
-	}
-
-	kfree(priv->rx_cbs);
-
-bcm_sysport_fini_tx_ring() has the same "TDMA not stopped!" warning followed
-by bcm_sysport_tx_clean() and kfree(ring->cbs).
-
-umac_enable_set(priv, CMD_RX_EN, 0) stops the UniMAC, not the RDMA/TDMA
-descriptor engines, and bcm_sysport_stop() does no TOPCTRL flush and no
-block reset, unlike bcm_sysport_suspend() which writes RX_FLUSH/TX_FLUSH.
-Would it be better to force the block quiescent on the timeout path first,
-for example via topctrl_flush() and/or a block reset, before unmapping and
-freeing the buffers? Alternatively, release the IRQs, PHY and clock while
-keeping the DMA-mapped buffers owned by the driver, so the engine cannot
-write into memory that has been returned to the allocator.
-
+> +	if (!bn->rx_ring)
+> +		return;
+> +
+>  	bnge_free_tpa_info(bn);
+>  	for (i = 0; i < bd->rx_nr_rings; i++) {
+>  		struct bnge_rx_ring_info *rxr = &bn->rx_ring[i];
+> @@ -1024,6 +1030,9 @@ static void bnge_free_tx_rings(struct bnge_net *bn)
+>  	struct bnge_dev *bd = bn->bd;
+>  	int i;
 >  
->  	/* Disable UniMAC TX */
->  	umac_enable_set(priv, CMD_TX_EN, 0);
+> +	if (!bn->tx_ring)
+> +		return;
+> +
 
 [Severity: Medium]
-The commit message says "If the interface was subsequently brought up again,
-request_irq() and PHY connection would fail or leak", which suggests the
-interface is usable again after the fix. Does the re-open path actually
-resynchronize the engines?
+Are these three new NULL checks really just preparation, or do they fix a
+reachable NULL pointer dereference that exists today?
 
-bcm_sysport_stop() now reaches clk_disable_unprepare(priv->clk) with
-RDMA_EN/TDMA_EN never acknowledged as cleared, and no state is recorded to
-say the DMA was stuck. On the next open, umac_reset() returns immediately
-for priv->is_lite and otherwise only pulses CMD_SW_RESET, and
-topctrl_flush() only pulses RX_FLUSH/TX_FLUSH; neither clears RDMA_EN or
-TDMA_EN. bcm_sysport_init_rx_ring() then does:
+The commit message says only:
 
-	/* Initialize HW, ensure RDMA is disabled */
-	reg = rdma_readl(priv, RDMA_STATUS);
-	if (!(reg & RDMA_DISABLED))
-		rdma_enable_set(priv, 0);
+    Prepare the driver to move bnapi allocation out of the open/close path,
+    and add NULL guards for rx_ring and tx_ring in core driver cleanup paths.
 
-	rdma_writel(priv, 0, RDMA_WRITE_PTR_LO);
-	rdma_writel(priv, 0, RDMA_WRITE_PTR_HI);
-	rdma_writel(priv, 0, RDMA_PROD_INDEX);
-	rdma_writel(priv, 0, RDMA_CONS_INDEX);
+Before this patch, bnge_alloc_core() allocates bn->bnapi, then bn->rx_ring,
+then bn->tx_ring, and every failure goes to err_free_core: which calls
+bnge_free_core(). bnge_free_core() unconditionally calls
+bnge_free_tx_rings() and bnge_free_rx_rings(), so if the bn->rx_ring
+allocation fails both pointers are still NULL:
 
-The rdma_enable_set() result is ignored and the pointer registers are zeroed
-along with priv->rx_c_index and priv->rx_read_ptr, so if the engine is still
-live its write pointer keeps advancing from the old position and the
-software bookkeeping diverges from the hardware ring.
-bcm_sysport_init_tx_ring() never samples TDMA_STATUS before rewriting
-TDMA_DESC_RING_HEAD_TAIL_PTR/COUNT/PROD_CONS_INDEX, and bcm_sysport_open()
-follows with:
+drivers/net/ethernet/broadcom/bnge/bnge_netdev.c:bnge_free_tx_rings() {
+	for (i = 0; i < bd->tx_nr_rings; i++) {
+		struct bnge_tx_ring_info *txr = &bn->tx_ring[i];
+		...
+		bnge_free_ring(bd, &ring->ring_mem);
+}
 
-	/* Initialize linked-list */
-	tdma_writel(priv, TDMA_LL_RAM_INIT_BUSY, TDMA_STATUS);
+and bnge_free_ring() dereferences that near-NULL address right away:
 
-Also, the later rdma_enable_set(priv, 1)/tdma_enable_set(priv, 1) in open()
-return 0 immediately when the engine is already enabled, so open() reports
-success on stale hardware state. Would recording a "DMA stuck" condition in
-stop() and forcing a block reset on the next open make the re-open claim in
-the commit message hold?
+drivers/net/ethernet/broadcom/bnge/bnge_rmem.c:bnge_free_ring() {
+	if (!rmem->pg_arr)
+		goto skip_pages;
 
-[Severity: Medium]
-This is a pre-existing issue and not introduced by this patch, but should
-bcm_sysport_suspend() be converted the same way for consistency? It still
-has both early returns:
+The rx side looks the same: bnge_free_rx_rings() -> bnge_free_tpa_info()
+reads rxr->rx_tpa_idx_map, and bnge_free_rx_rings() itself calls
+page_pool_destroy(rxr->page_pool), both off a NULL bn->rx_ring.
 
-	ret = rdma_enable_set(priv, 0);
-	if (ret) {
-		netdev_err(dev, "RDMA timeout!\n");
-		return ret;
-	}
-	...
-	ret = tdma_enable_set(priv, 0);
-	if (ret) {
-		netdev_err(dev, "TDMA timeout!\n");
-		return ret;
-	}
+Since bnge_alloc_core() runs from the ndo_open path, an allocation failure
+during "ip link set dev ethX up" would oops instead of returning -ENOMEM.
+git blame points the affected loops at commit 0259379037cab9 ("bng_en: Add
+initial support for RX and TX rings"). Would it make sense to split these
+guards into their own patch with a Fixes: 0259379037cab9 tag, so it can be
+picked up for stable? No commit in this series (10cfa109c8..63494c308b19)
+carries such a tag or mentions the crash.
 
-Both return before bcm_sysport_fini_tx_ring()/bcm_sysport_fini_rx_ring() and
-before clk_disable_unprepare(priv->clk), while netif_device_detach(),
-bcm_sysport_netif_stop() and phy_suspend() have already run and are not
-undone. On a DMA timeout the suspend is aborted with the interface detached
-(so netif_device_present() is false and a later open returns -ENODEV), the
-PHY suspended, the ring cb arrays and their mapped SKBs still allocated, and
-a clk prepare/enable reference still held.
+Note that bnge_free_rx_ring_pair_bufs() already had the same
+if (!bn->rx_ring) return; check, which suggests the guard is functional
+rather than cosmetic.
 
-After this patch the driver handles the same hardware failure in two
-different ways, and the suspend path additionally flushes RX via
-topctrl_writel(RX_FLUSH, RX_FLUSH_CNTL) and disables RDMA before TDMA,
-which stop() does not. Is the divergence intentional?
+>  	for (i = 0; i < bd->tx_nr_rings; i++) {
+>  		struct bnge_tx_ring_info *txr = &bn->tx_ring[i];
+>  		struct bnge_ring_struct *ring;
+
+[ ... ]
+
+> @@ -1241,6 +1254,19 @@ static int bnge_alloc_core(struct bnge_net *bn)
+>  		nqr->ring_struct.ring_mem.flags = BNGE_RMEM_RING_PTE_FLAG;
+>  	}
+>  
+> +	return 0;
+> +}
+> +
+> +static int bnge_alloc_core(struct bnge_net *bn)
+> +{
+> +	struct bnge_dev *bd = bn->bd;
+> +	int i, j, rc;
+> +
+> +	rc = bnge_alloc_bnapi_mem(bn);
+> +	if (rc)
+> +		return rc;
+> +
+> +	rc = -ENOMEM;
+>  	bn->rx_ring = kzalloc_objs(struct bnge_rx_ring_info, bd->rx_nr_rings);
+>  	if (!bn->rx_ring)
+>  		goto err_free_core;
+
+This is the branch that reaches bnge_free_core() with both bn->rx_ring and
+bn->tx_ring still NULL.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260921231305.394773-1-florian.fainelli%40broadcom.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922052904.59237-1-bhargava.marreddy%40broadcom.com
