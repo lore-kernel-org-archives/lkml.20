@@ -1,80 +1,131 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6407841441C;
-	Thu, 24 Sep 2026 19:19:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D0F38411FA4;
+	Thu, 24 Sep 2026 19:19:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790277573; cv=none; b=oFp3WkhCNP1pm2/UQPwu4SYjrEfe6jKXiXxqwkkW2lwnGP0jyvZEZyw1C/fSalwecxqq3C3apdCeW8ahkB9A7mXaGO2BM8BogSNiqTsXKI/waaqLqZt0vnrEfHoqXKdQb4Tem0ePlAW40V3xIh72DERNMN/9UFOHeWbIGeTwec4=
+	t=1790277578; cv=none; b=Z3oL9JaAXR2BF3QoK64SvV0Bs1oi2+MAzWBcJYOJjhv/y3pYNlQ2ghxFL2XbBVb6AVaKXYPtMrSNDqcpEOR00StIqLuZXHgvjyyk24v3DkLXjtAvFDLmqf0p3ul4riMmA954beosamgj4o+TYQAk12tcyHO0c3QL5mM73/l68uI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790277573; c=relaxed/simple;
-	bh=P7xtI4Hbsog84LYM0yXS0wv2ggHG4xWSucQQC7Ido2U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OaDOkPws/uy70DNh5q2kbGYGPz3W6oAp72ghjG3xAm5FUUr/8yZzgayM9ZwQ5riRT75iyQgAXyhw/Xx0dTh528pkAmK/Soh0xCTRp09yeyiEGdUS5ljQ7oHeZMfi4z0be4nbFmSqgPKkrbBd8y4YHRJH2c4e79/jMH8ikfkluwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=xnpD2gGc; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790277578; c=relaxed/simple;
+	bh=SPHdUpVeDbmm/rG8+ZCd1nYzkslIBC/it2Ku7nwg6TU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=t0pltzG4NRIsMHn1xotS4o5TE5xsROXQBNL4FnKepBnrfH57M2WYH1SyqtXszT0UDWWesJz8PBGmNt/PMyj/vcJnXY3NZPlkooL6Hvlxk6D9qkgNdiXQOgwWYHprdzIAUgCFM2J52VXQYEZW0fDBrPe1JEGT4W+6ijZi59k4aEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=c80mv6+O; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="xnpD2gGc"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=aR00lvR/9mHZfHucYZIWDLJfDI8am5BoeFpz5I8+J/w=; b=xnpD2gGchuhD/Wl6N4UKwp0z4q
-	ordZv1s4/msxqCgaRWLfdA26TXCnUj/vM/ODefOzSL2xRvikCX0lFHxAjSxVsBuT52Mk1UHDPzMW7
-	aTGXIG3ps9SKKJkGPh/EVJ0tQY4/vzIKWd3bY9NyYMcps5DgRr56VCd7e4uSOcc3hmWE=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x9oyG-0074I0-MC; Thu, 24 Sep 2026 21:19:04 +0200
-Date: Thu, 24 Sep 2026 21:19:04 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Sagar Taunk <sagartaunk@proton.me>
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Matthew Maurer <mmaurer@google.com>,
-	Carlos Llamas <cmllamas@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	netdev@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v4] rust: net: netlink: validate attribute
- length before casting to `c_int`
-Message-ID: <88add083-f2c3-4eac-abc6-e37e40846a9e@lunn.ch>
-References: <20260923120504.9100-1-sagartaunk@proton.me>
- <20260924104645.4764dbba@kernel.org>
- <pg6AgjGkbepQeI2FIcnGmFk79uPhI0wShhVJVNbvrLkULQtO4jco6gm4xKaLiGFV9UVZBVK_h-sDlHtVip5s34SkCRyDoE47V9Zse9GsLAg=@proton.me>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="c80mv6+O"
+Received: from [100.65.224.201] (unknown [20.236.11.42])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 571A420B7168;
+	Thu, 24 Sep 2026 12:18:41 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 571A420B7168
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1790277521;
+	bh=ra1ZNTMf+H3FfJz20jyeMOD8jL+yQijcig4CEZNAk8A=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=c80mv6+ODE+85dIyYOpEix/sjPmj98S4Dh769y2PxC6UWPp/UmuOsd+aWej3hT+nc
+	 q7JyQtXp5OvWznsptqEsf0oApOhiHTXFctO6EKw7Dsh6/puIpWBDOc136XP00eO4GL
+	 d4Smno7vz+Npa1M7T2lOJpBsKdL2jo5ZXGXNH5No=
+Message-ID: <06f970fe-ae23-4b5d-87fc-f2751bacc8bf@linux.microsoft.com>
+Date: Thu, 24 Sep 2026 12:19:32 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <pg6AgjGkbepQeI2FIcnGmFk79uPhI0wShhVJVNbvrLkULQtO4jco6gm4xKaLiGFV9UVZBVK_h-sDlHtVip5s34SkCRyDoE47V9Zse9GsLAg=@proton.me>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mshv_vtl: Check per-CPU register page before mmap
+To: Michael Kelley <mhklinux@outlook.com>,
+ "kys@microsoft.com" <kys@microsoft.com>,
+ "haiyangz@microsoft.com" <haiyangz@microsoft.com>,
+ "wei.liu@kernel.org" <wei.liu@kernel.org>,
+ "decui@microsoft.com" <decui@microsoft.com>
+Cc: "ssengar@linux.microsoft.com" <ssengar@linux.microsoft.com>,
+ "namjain@linux.microsoft.com" <namjain@linux.microsoft.com>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+References: <20260911175146.1370148-1-hargar@linux.microsoft.com>
+ <SN6PR02MB4157E82658A24F00691EEC8BD4832@SN6PR02MB4157.namprd02.prod.outlook.com>
+Content-Language: en-US
+From: Hardik Garg <hargar@linux.microsoft.com>
+In-Reply-To: <SN6PR02MB4157E82658A24F00691EEC8BD4832@SN6PR02MB4157.namprd02.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 24, 2026 at 06:02:24PM +0000, Sagar Taunk wrote:
-> Sorry, my last patch was based on the rust-next tree so I thought it was not applying because I commited this on top of that so I just removed that and rebased on rust-next again. 
-> 
-> Am I supposed to rebase on this one? 
-> `https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git/`
 
-There is some documentation here:
+On 9/21/2026 5:14 PM, Michael Kelley wrote:
+> From: Hardik Garg <hargar@linux.microsoft.com>
+>> Register-page setup is optional for each CPU. If allocation or
+>> registration fails, mshv_vtl_configure_reg_page() warns and leaves that
+>> CPU's reg_page NULL, but initial context setup continues successfully.
+>> Meanwhile, successful setup on another CPU sets the global
+>> mshv_has_reg_page flag.
+>>
+>> mshv_vtl_fault() checks this global flag before selecting the requested
+>> CPU's register page. With mixed setup results across online CPUs, the
+>> check passes even for a CPU with no register page, reaching
+>> get_page(NULL) when userspace faults in that mapping.
+> I'm a bit late in reviewing this because I was travelling all last week.
+>
+> This patch seems like it is just papering over the real problem, which
+> is that a global variable like mshv_has_reg_page can't represent the
+> status of an operation that may succeed or fail on a per-cpu basis.
+> I pointed this out (as did Sashiko) in review comments back in
+> April [1].
+>
+> The only other place mshv_has_reg_page is used is in 
+> mshv_ioctl_check_extensions() where its value is returned from an
+> ioctl() system call made by user space. That's a questionable practice
+> since ioctl() usually returns 0 on success, though the man page for
+> ioctl() does admit that some ioctls use the return value as an output
+> parameter and return a non-negative value on success. But even
+> then, a single value can't accurately reflect the status of an
+> operation that may succeed or fail on a per-cpu basis. User
+> space would presumably have a similar problem to what is
+> being fixed by this patch.
+>
+> Is there any reason that the real problem couldn't be fixed
+> instead of doing this fix on top of something that is fundamentally
+> broken?
+>
+> Michael
+>
+> [1] https://lore.kernel.org/linux-hyperv/SN6PR02MB4157CF364DA2C0CC657A6DCBD450A@SN6PR02MB4157.namprd02.prod.outlook.com/
 
-https://www.kernel.org/doc/html/latest/process/maintainer-netdev.html
+Hi Michael,
+Thanks for the feedback and for pointing me to your April review.
+After going through it, I understand that the NULL check only addresses
+the immediate fault, while the global capability still misrepresents
+per-CPU availability.
 
-which explains the two trees netdev has.
+I'll work on addressing the underlying issue and send a proposed fix
+soon.
 
-      Andrew
+Thanks,
+Hardik
+
+>> Check the selected per-CPU register page before taking its reference and
+>> return VM_FAULT_SIGBUS if it is absent.
+>>
+>> Fixes: 7bfe3b8ea6e3 ("Drivers: hv: Introduce mshv_vtl driver")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Hardik Garg <hargar@linux.microsoft.com>
+>> ---
+>>  drivers/hv/mshv_vtl_main.c | 3 +++
+>>  1 file changed, 3 insertions(+)
+>>
+>> diff --git a/drivers/hv/mshv_vtl_main.c b/drivers/hv/mshv_vtl_main.c
+>> index fc993560a45c..3296ab5c0243 100644
+>> --- a/drivers/hv/mshv_vtl_main.c
+>> +++ b/drivers/hv/mshv_vtl_main.c
+>> @@ -912,6 +912,9 @@ static vm_fault_t mshv_vtl_fault(struct vm_fault *vmf)
+>>  		return VM_FAULT_NOPAGE;
+>>  	}
+>>
+>> +	if (!page)
+>> +		return VM_FAULT_SIGBUS;
+>> +
+>>  	get_page(page);
+>>  	vmf->page = page;
+>>
