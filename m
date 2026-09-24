@@ -1,289 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F583CB2E9;
-	Thu, 24 Sep 2026 14:34:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E40392C4C
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:37:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790260457; cv=none; b=KwaA+pyvbywvK1nBNp57RfBPEawkIacdoAXQWzTf3/R0g3rWWcPxIuaTsqeRy1fEXgMcA6QI4gehR+vAPc2yBNPAZHv5wOd3Sv6GFVElQVWIwBsLEXte7lbJq+tcWok9/d5ODe9ucZNSw20YvVVVOPQNqKaLzSGTwwTXOrm2r88=
+	t=1790260633; cv=none; b=WhbXe+ULL446eXqwci6sNf7YRB3FE3O7LrTJzyVUto0cvq5CpvG1auU3ivYSvD0yoj+mYNQ8dcfV3/ZueLVLr7rFkrN5b+ZqweO3vCjngV51hAxQK2m7evsWavWEcQ8MSu9lRW2FVNPIWBsn/6FJq8N0HBzJCR5IRLgokM/RnpY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790260457; c=relaxed/simple;
-	bh=mnIQb1Yug/ZKrL0ezOFkoOsvh5aZpqvlnrOmEwE7vMc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mOmOCp1N2njpoI/se1ahKXeupnnjqdIC/iY3k8dkk+mODrlZ2WXVQSJKSc//DeSKsjWdOpiwjbZG46A7tKgJeRJe8xUI89Gk15pGJMbjcV2vkmj2bH8ykqaeFVM58EkHpGEGfX0Phro/oxk6K+O+vckg3m0oscgttEhV3fJbefw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BUQuNLEj; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BUQuNLEj"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 73F88C2BCFA;
-	Thu, 24 Sep 2026 14:34:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790260457;
-	bh=mnIQb1Yug/ZKrL0ezOFkoOsvh5aZpqvlnrOmEwE7vMc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=BUQuNLEjdS+A/0jwdXmAQxlT5AGxt2pSfN9b3gxQZr5jQXl9A0UYcfediuHE7aIYn
-	 v1kQI+LQnHHleeZhgN1iU40kIIcc9MWfAQ8rCQSSZnC+ZQ9uDeiGuZynLmceERlS9R
-	 IHclrcnt0FHaoTdpIKwkCp/FL5SY4FP1QKUK4hUwJi4HSBJG835iJkZurI1/lO/gFb
-	 NtuUpglV/8670O1W2xiRt+LP9F7Zj/Alzo0AeZpC6eQDkbz2ebGcCqvfMInQeV6R4f
-	 HnyEAc404yrE3AhDR3y1B1apTlkLF7CmU+g3obbt33igI4IDfuVpbIyPuJgF57g2hQ
-	 hGn9Og9Y3r3LQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5324FC98315;
-	Thu, 24 Sep 2026 14:34:17 +0000 (UTC)
-From: Joel Granados <joel.granados@kernel.org>
-Date: Thu, 24 Sep 2026 16:34:09 +0200
-Subject: [PATCH RFC 1/4] sysctl: add a registration context to
- ctl_table_header
+	s=arc-20240116; t=1790260633; c=relaxed/simple;
+	bh=ou0O4CuNX5ILgN31NAiaI6c7dWhPnAdBnqJ3tLGKyPE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AlRm/+jPeBWoZqp/8w1qAqLmw9HIEdSdEKSkBB3FwJn2iVDDSMlnwqffkiyPVO8A8R59Q0P9u2vthOM5E8gTKJE1pv+sTAIBFXMFM8b5fHVyCVaSE0ig40wB/PeOyHnfiSemGPMQ7ibs+UUvsF9vAu6zWX/BZVcKzTdkVjIPd3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 682cd574b82511f19a56ed5b684f684d-20260924
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:0e115794-e25a-4d1b-bb3b-98435fd13a3e,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:d00b7c7931d244afe033524368d1898f,BulkI
+	D:nil,BulkQuantity:0,SF:102|865|898,TC:nil,Content:0|15|50|99,EDM:-3,IP:ni
+	l,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES
+	:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 682cd574b82511f19a56ed5b684f684d-20260924
+X-User: liwanwu@kylinos.cn
+Received: from kylinos.cn [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <liwanwu@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 452790152; Thu, 24 Sep 2026 22:37:02 +0800
+From: Wanwu Li <liwanwu@kylinos.cn>
+To: Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>
+Cc: sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Wanwu Li <liwanwu@kylinos.cn>
+Subject: [PATCH 0/3] tools/sched_ext: Fix three example scheduler bugs
+Date: Thu, 24 Sep 2026 22:36:56 +0800
+Message-Id: <20260924143659.268595-1-liwanwu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-lklm-sysctl-headerctx-template-v1-1-b25e51c66ba7@kernel.org>
-References: <20260924-lklm-sysctl-headerctx-template-v1-0-b25e51c66ba7@kernel.org>
-In-Reply-To: <20260924-lklm-sysctl-headerctx-template-v1-0-b25e51c66ba7@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Ryan Roberts <ryan.roberts@arm.com>, Serge Hallyn <serge@hallyn.com>, 
- "Eric W . Biederman" <ebiederm@xmission.com>, 
- Alexey Gladkov <legion@kernel.org>, 
- Joel Granados <joel.granados@kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8723;
- i=joel.granados@kernel.org; h=from:subject:message-id;
- bh=mnIQb1Yug/ZKrL0ezOFkoOsvh5aZpqvlnrOmEwE7vMc=;
- b=owJ4nAHtARL+kA0DAAoBupfNUreWQU8ByyZiAGq1NORtLkytfrO8kdQmGphH+AeiVJ9pb10K0
- ZQZxK0Hura+fokBswQAAQoAHRYhBK5HCVcl5jElzssnkLqXzVK3lkFPBQJqtTTkAAoJELqXzVK3
- lkFP0TYL/jDhyu7JScUlj8eRfIz1Fb7pZXIKigFdfWXdIsC/g+G99++mhoy4kWLiyGF5h9aBjdz
- gnK3fWpq1u5M9cvk3SoZ2l0ooIEpel8IOwSDh+6V/06OmGgCRG23+9dFjGGziBg+ehofIe8urRB
- OqrMAZjl4RJQWtsrfSSadnXZxGhdA0q1mxkMKh5+LjgtDSo1lK8Y61XqtRAoY0xnCuKI5jdaOHu
- bI5LCEFHbn5MDtF9gM/oiu5JD2/VN+HloYk95ZpvDSGY1SkxpRKOakUHibfYQwSN3PoZtmNStZd
- moWdCLuojvtxEHRd0L/mPi8wal9jmTeOFPKnSr+B7vjLDg55GdRzITnw8TE7Q0yIxT6GRy/L6Zv
- qRrdTgMGfR4SsxD4dyM2n9DJs87JsMfN8GCJR9+O9VkkZ6qtVxg8e9oXGO26yCquLrMwIANL8Sk
- SROpD0gw5Js0EkvVkyfuTP6j+Dnuto2nm5IeltUI3ncE8tGecqv8B1IEQT3w9uE1LdiLqb3OAo7
- yY=
-X-Developer-Key: i=joel.granados@kernel.org; a=openpgp;
- fpr=F1F8E46D30F0F6C4A45FF4465895FAAC338C6E77
-X-Endpoint-Received: by B4 Relay for joel.granados@kernel.org/default with
- auth_id=239
+Content-Transfer-Encoding: 8bit
 
-The sysctl context holds a pointer where the actual data (per-namespace
-or per-device) is located. When an entry is marked CTL_TABLE_F_CTX_DATA
-it is replaced just before calling proc_handler. Add flags to
-each ctl_table entry to pass along CTL_TABLE_F_CTX_DATA.
+Patch 1 fixes scx_userland, where the BPF component never increments
+nr_queued although both its declaration comment and the NOTE in
+userland_update_idle() say it does.  As a result the "wake the
+user-space scheduler when a CPU goes idle" decision silently degrades
+to nr_scheduled alone and tasks sitting in the enqueued map are
+invisible to it.
 
-SYSCTL_CTX() builds the context and fails the build unless the instance
-and the template point at the same type.
+Patches 2 and 3 fix two related queue-lifetime bugs in scx_pair, which
+has no .dequeue and no .cgroup_move callback and therefore leaves stale
+pids in the per-cgroup FIFOs:
 
-This is a prep commit, no functional changes intended.
+ - pair_cgroup_exit() releases a queue slot without draining it.  The
+   next cgroup inheriting the slot starts with a stale non-zero
+   cgrp_q_len, so its first enqueue never sees the 0 -> 1 transition
+   and its cgid is never queued on top_q: the cgroup starves for the
+   lifetime of the scheduler.
 
-Signed-off-by: Joel Granados <joel.granados@kernel.org>
----
- fs/proc/proc_sysctl.c  | 29 ++++++++++++++++++++++----
- include/linux/sysctl.h | 55 ++++++++++++++++++++++++++++++++++++++++++++++++--
- 2 files changed, 78 insertions(+), 6 deletions(-)
+ - try_dispatch() trusts a pid popped from a cgroup's FIFO.  If the
+   task migrated to another cgroup between enqueue and dispatch, it is
+   dispatched under the old cgroup's context, violating the core
+   "paired CPUs only run tasks from the same cgroup" invariant.
 
-diff --git a/fs/proc/proc_sysctl.c b/fs/proc/proc_sysctl.c
-index 04a382178c657b5af201a838fa15703d9eea9c7b..fe32337892f9badc897a29e9176e66790003fb05 100644
---- a/fs/proc/proc_sysctl.c
-+++ b/fs/proc/proc_sysctl.c
-@@ -1143,10 +1143,18 @@ static int sysctl_check_table_array(const char *path, const struct ctl_table *ta
- static int sysctl_check_table(const char *path, struct ctl_table_header *header)
- {
- 	const struct ctl_table *entry;
-+	u8 flagged = 0;
- 	int err = 0;
- 	list_for_each_table_entry(entry, header) {
- 		if (!entry->procname)
- 			err |= sysctl_err(path, entry, "procname is null");
-+		if (entry->flags & CTL_TABLE_F_CTX_DATA) {
-+			if (!entry->data)
-+				err |= sysctl_err(path, entry, "No data to resolve");
-+			if (!header->ctx.inst || !header->ctx.tmpl)
-+				err |= sysctl_err(path, entry, "No context to resolve against");
-+		}
-+		flagged |= entry->flags & CTL_TABLE_F_CTX;
- 		if ((entry->proc_handler == proc_dostring) ||
- 		    (entry->proc_handler == proc_dobool) ||
- 		    (entry->proc_handler == proc_dointvec) ||
-@@ -1173,6 +1181,12 @@ static int sysctl_check_table(const char *path, struct ctl_table_header *header)
- 			err |= sysctl_err(path, entry, "bogus .mode 0%o",
- 				entry->mode);
- 	}
-+	/* A context nobody resolves against is a forgotten flag. */
-+	if (!flagged && (header->ctx.inst || header->ctx.tmpl)) {
-+		pr_err("sysctl table check failed: %s context given but no entry is flagged\n",
-+		       path);
-+		err = -EINVAL;
-+	}
- 	return err;
- }
- 
-@@ -1324,7 +1338,7 @@ static struct ctl_dir *sysctl_mkdir_p(struct ctl_dir *dir, const char *path)
- }
- 
- /**
-- * __register_sysctl_table - register a leaf sysctl table
-+ * __register_sysctl_table_ctx - register a leaf sysctl table
-  * @set: Sysctl tree to register on
-  * @path: The path to the directory the sysctl table is in.
-  *
-@@ -1333,6 +1347,9 @@ static struct ctl_dir *sysctl_mkdir_p(struct ctl_dir *dir, const char *path)
-  *         be a global or dynamically allocated by the caller and free'd later
-  *         after sysctl unregistration.
-  * @table_size : The number of elements in table
-+ * @ctx: instances that entries flagged CTL_TABLE_F_CTX_* resolve against, see
-+ *       struct sysctl_context.  Copied, so it may be on stack.  %NULL when no
-+ *       entry is flagged.
-  *
-  * Register a sysctl table hierarchy. @table should be a filled in ctl_table
-  * array.
-@@ -1343,6 +1360,7 @@ static struct ctl_dir *sysctl_mkdir_p(struct ctl_dir *dir, const char *path)
-  * data     - a pointer to data for use by proc_handler
-  * maxlen   - the maximum size in bytes of the data
-  * mode     - the file permissions for the /proc/sys file
-+ * flags    - CTL_TABLE_F_* bits naming members to resolve against @ctx
-  * type     - Defines the target type (described in struct definition)
-  * proc_handler - the text handler routine (described below)
-  *
-@@ -1366,9 +1384,10 @@ static struct ctl_dir *sysctl_mkdir_p(struct ctl_dir *dir, const char *path)
-  * This routine returns %NULL on a failure to register, and a pointer
-  * to the table header on success.
-  */
--struct ctl_table_header *__register_sysctl_table(
-+struct ctl_table_header *__register_sysctl_table_ctx(
- 	struct ctl_table_set *set,
--	const char *path, const struct ctl_table *table, size_t table_size)
-+	const char *path, const struct ctl_table *table, size_t table_size,
-+	const struct sysctl_context *ctx)
- {
- 	struct ctl_table_root *root = set->dir.header.root;
- 	struct ctl_table_header *header;
-@@ -1382,6 +1401,8 @@ struct ctl_table_header *__register_sysctl_table(
- 
- 	node = (struct ctl_node *)(header + 1);
- 	init_header(header, root, set, node, table, table_size);
-+	if (ctx)
-+		header->ctx = *ctx;
- 	if (sysctl_check_table(path, header))
- 		goto fail;
- 
-@@ -1427,7 +1448,7 @@ struct ctl_table_header *__register_sysctl_table(
-  * Register a sysctl table. @table should be a filled in ctl_table
-  * array. A completely 0 filled entry terminates the table.
-  *
-- * See __register_sysctl_table for more details.
-+ * See __register_sysctl_table_ctx for more details.
-  */
- struct ctl_table_header *register_sysctl_sz(const char *path, const struct ctl_table *table,
- 					    size_t table_size)
-diff --git a/include/linux/sysctl.h b/include/linux/sysctl.h
-index e5d7226ab6f5af34a33829883ad5d1b405e19c86..b2c57c530bdc9b3542375b761fec3e02ab38bc7f 100644
---- a/include/linux/sysctl.h
-+++ b/include/linux/sysctl.h
-@@ -22,6 +22,8 @@
- #ifndef _LINUX_SYSCTL_H
- #define _LINUX_SYSCTL_H
- 
-+#include <linux/bits.h>
-+#include <linux/build_bug.h>
- #include <linux/list.h>
- #include <linux/rcupdate.h>
- #include <linux/wait.h>
-@@ -224,12 +226,50 @@ struct ctl_table {
- 	void *data;
- 	int maxlen;
- 	umode_t mode;
-+	u8 flags;			/* CTL_TABLE_F_* */
- 	proc_handler *proc_handler;	/* Callback for text formatting */
- 	struct ctl_table_poll *poll;
- 	void *extra1;
- 	void *extra2;
- } __randomize_layout;
- 
-+/*
-+ * ctl_table::flags.  Resolve the corresponding member against the
-+ * registration context instead of using it as it stands.
-+ */
-+#define CTL_TABLE_F_CTX_DATA	BIT(0)
-+#define CTL_TABLE_F_CTX		CTL_TABLE_F_CTX_DATA
-+
-+/**
-+ * struct sysctl_context - ctl_table specific context
-+ * @inst: entry location
-+ * @tmpl: struct template (used to calculate offset into @inst)
-+ *
-+ * @inst/@tmpl pair is used to overlay the ctl_table entry before calling
-+ * proc_handler. This is relevant when struct members (like ->data) are
-+ * somewhere different than the const static ctl_table array (think
-+ * namespaces).  Build it with SYSCTL_CTX() so the compiler checks that
-+ * both point at the same type.
-+ */
-+struct sysctl_context {
-+	void *inst;
-+	const void *tmpl;
-+};
-+
-+/**
-+ * SYSCTL_CTX - build a struct sysctl_context
-+ * @_inst: the instance this registration describes
-+ * @_tmpl: the instance the table's data members name
-+ *
-+ * Fails to build unless @_inst and @_tmpl point at the same type.
-+ */
-+#define SYSCTL_CTX(_inst, _tmpl)					\
-+	((struct sysctl_context){					\
-+		.inst = (_inst) +					\
-+			BUILD_BUG_ON_ZERO(!__same_type(*(_inst), *(_tmpl))), \
-+		.tmpl = (_tmpl),					\
-+	})
-+
- struct ctl_node {
- 	struct rb_node node;
- 	struct ctl_table_header *header;
-@@ -244,6 +284,7 @@ struct ctl_node {
-  *         something is removed from inodes
-  * @nreg: When nreg drops to 0 the ctl_table_header will be unregistered.
-  * @rcu: Delays the freeing of the inode. Introduced with "unfuck proc_sysctl ->d_compare()"
-+ * @ctx: instances given to __register_sysctl_table_ctx(), see struct sysctl_context
-  *
-  * @type: Enumeration to differentiate between ctl target types:
-  * type.SYSCTL_TABLE_TYPE_DEFAULT: ctl target with no special considerations
-@@ -268,6 +309,7 @@ struct ctl_table_header {
- 	struct ctl_dir *parent;
- 	struct ctl_node *node;
- 	struct hlist_head inodes; /* head for proc_inode->sysctl_inodes */
-+	struct sysctl_context ctx;
- 	enum {
- 		SYSCTL_TABLE_TYPE_DEFAULT,
- 		SYSCTL_TABLE_TYPE_PERMANENTLY_EMPTY,
-@@ -305,9 +347,18 @@ extern void setup_sysctl_set(struct ctl_table_set *p,
- 	int (*is_seen)(struct ctl_table_set *));
- extern void retire_sysctl_set(struct ctl_table_set *set);
- 
--struct ctl_table_header *__register_sysctl_table(
-+struct ctl_table_header *__register_sysctl_table_ctx(
- 	struct ctl_table_set *set,
--	const char *path, const struct ctl_table *table, size_t table_size);
-+	const char *path, const struct ctl_table *table, size_t table_size,
-+	const struct sysctl_context *ctx);
-+
-+static inline struct ctl_table_header *__register_sysctl_table(
-+	struct ctl_table_set *set,
-+	const char *path, const struct ctl_table *table, size_t table_size)
-+{
-+	return __register_sysctl_table_ctx(set, path, table, table_size, NULL);
-+}
-+
- struct ctl_table_header *register_sysctl_sz(const char *path, const struct ctl_table *table,
- 					    size_t table_size);
- void unregister_sysctl_table(struct ctl_table_header * table);
+Wanwu Li (3):
+  tools/sched_ext: Increment nr_queued when a task is queued to user
+    space
+  tools/sched_ext: scx_pair: Drain task queue on cgroup exit
+  tools/sched_ext: scx_pair: Verify task cgroup before dispatch
+
+ tools/sched_ext/scx_pair.bpf.c     | 47 ++++++++++++++++++++++++++++++++++++++
+ tools/sched_ext/scx_userland.bpf.c |  1 +
+ 2 files changed, 48 insertions(+)
 
 -- 
-2.50.1
-
-
+2.25.1
