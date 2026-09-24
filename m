@@ -1,172 +1,106 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-ej2-f32.google.com (mail-ej2-f32.google.com [74.125.228.160])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556154DD6F5
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:48:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790286518; cv=pass; b=pscrfrTiSXgEPvKyouXce8RndguM+YkDCsFhhpZY60rCrnLNagmFkhS+FUOIy1iIXUXWSHTJCVkmPh2OCyCNOcpebWRyLM2PQMaQyWMNjWQ+oLUJny8SHE2s9fyRE2H1phgHhaUIeaX/tgYyO04AQqhEiT91/ocqVSG7+NWxqA0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790286518; c=relaxed/simple;
-	bh=rZERshdcV0tFUZGMj08I8XPWDI+kU48UpwOPfgc8PK8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mMD0aStxn4HmPM8yqHmWrujhyAdnw/Zd+Nfzp76s3ZASbbqr9kGrDGd3m/jenbij9RojzpqPXkVfD3fSrMGtZfOI1f0f0E/lkIa44V+iPF5SiViiaZ/L1v0SP00g2ULJnCDzoOS3IEO0MEMkI8jG5X4a3dlnV2uzYP/+aQWWY54=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IlbGNRs5; arc=pass smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C34D4D2EF8
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:48:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.160
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790286538; cv=none; b=XGmY2SlHBK3wPnsl8eH/H1vomDXCqlRq3iT75dX3TVKJPveDwOOHGWQBzFuF2N2scQe/Vb4Nx8ojIYC6vZV4Jjli9SurWQLmh1/eAaRFCRApiP441OVPlMBRsrvpGHmBXy/BeERBOZ4+lDkmGc5anwSdgtiT/ZUt8RUVsXAkvTM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790286538; c=relaxed/simple;
+	bh=+bTnSt3emqvX/u3TSnqSXB2cSUSvItl6IDfwbhpwNPw=;
+	h=Message-ID:Date:MIME-Version:From:To:Subject:References:
+	 In-Reply-To:Content-Type; b=GUQ3KkRzEbPnbPOFPiteHN4Ygk/ZPdFfaj7i0VS7v/xEA3jYnfqIyhUpIfeHDwpeATHj7B4jxkSK0CeWPpbYpk3gegOt1xkS3P+Ck0ULHpiwCdqhVflXXaigShdHm89EN4c5cXQMPnWLCVsTAsisqhkjwMdOv1RZqKbbQMv67qg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KiwYNDA3; arc=none smtp.client-ip=74.125.228.160
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IlbGNRs5"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469d20963so188784b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:48:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790286513; cv=none;
-        d=google.com; s=arc-20260327;
-        b=s3g3eMnHrxeqCU4z2JIN9ftfaxtlvTmbnebkeSinvoxGHXeBb0hhzuhi476Y53bgpQ
-         55e9D+SPjevdtqwWIcOjfUKhhYlOCz0HqUMpq754md+TwcTLBGuTrAYAIDhhDyrn7Lwj
-         tydUbWJJcVLDLDI8t145okGtqU4DeC+2oLAaIRsFjoX2GwfW+JmPMyWX33o1QPJ7uMkt
-         poM91jGP+h91sGxExO5BCiusUZcwB7jmPjm9my9+tnHRhHzqrsY3XENfsrwc4+P/JG3E
-         lbeaaC7nL1gAatsWmbEJk3Hi23pbIYiN42Or2tOsyzUKiyQCrZ3MV0DY1N7ijjcNZmjB
-         ff3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rZERshdcV0tFUZGMj08I8XPWDI+kU48UpwOPfgc8PK8=;
-        fh=IyJs8BnFqmE/CSTzxRIRm80cwwQnL1wEj1HFVeWuPj4=;
-        b=dzgz0lFv2TNzX3twnPHTCDSylFytUPm44oQDmBriEF2hwGSx6c5YOWJiit8tucQ+zF
-         YFYMtyWqX/wKQajWTGZxE0DlGKRHkp4dueHj2tL5po4cuiiLkT2UhE3w7vvc4vopyEqA
-         QaQUrFX6kYYfpd+6jqEWzrWQFix2DPiEA0lglM/yZ99Hs/EZz8Ptg3ENigH+ONXVH8rl
-         KIs4IWIm564v6o8TLAsKcjXW5M4+iq/F0LXwpiHPrSCL1yLNim5wu8AhJR/Wui4IgVOj
-         //691rJMmLElmV2dATA8kbhk1rHeq7L1wPK7+ukyjKm0XgrsQLWDba16oaa5h9AnGA2a
-         NDFw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KiwYNDA3"
+Received: by mail-ej2-f32.google.com with SMTP id a640c23a62f3a-c254f55efebso42329366b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:48:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790286513; x=1790891313; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rZERshdcV0tFUZGMj08I8XPWDI+kU48UpwOPfgc8PK8=;
-        b=IlbGNRs5xvgzMAn2viM87IliW3aKCTY4fZihT5eOns56NYXkcgrOIpiLqaBj3eQbeR
-         Mmjv72v4/Tv3qvfNZ79K5ECJw0Ci9oEmSQyHiLWerbMGD7AOQtfbhhb9mqmRSE8kF+9R
-         w/eUhV+66z+lmnG8KvqUHwYSUan6nLkuWFgaxZNFFtP5mEWCOVPFrkCwIdSfIjyvH7ep
-         3U5qCoMyAOw1zgVMAJZEmINrfTq38jjm+gQB/NApOMB/JwXiPcjXXEeozb4nkTAZE33x
-         LsSAqppgbBJhSs6ZkjO280zeZi60qyFk4+Yl1nX7jKAOH8t8rAzIzAugWBSRL4yspbP9
-         Kn2Q==
+        d=gmail.com; s=20251104; t=1790286536; x=1790891336; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:references
+         :subject:to:from:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=V2P12fpVrgq7wOLuxL2hcnHvjU6EVrhPKd2g6E7O5Ns=;
+        b=KiwYNDA3WkcJoKyhl6bBpGQ/+hENvzHJMlcsjB3J8iFlJ1jFu2e4Vjf/umHEm7a8iM
+         oYR0R2EXDPngKjnE6ChSyIkH6Um4xT+0XZTlcy0u2SNDuMIMtr6wS3Md8NubIzLulRlB
+         d9lwjdOpM0BUD9TDJpU2b37hIRRPhNIVCY9DIACA75h4Atu1iHuLj26IgFQ5XOlaj98m
+         m8EZxmvgLbbnQIShulLc194vVSy7mNCRoDBKjlKzmsbtpV48dfgvn/GaYMXy6xaE3MqU
+         3rJBr0WQI7UaXCbMudtjfnTwJkUqFXPA4m2Tg/8qVnlKa8AJrUOvE4ya4fGrg9LnPS+b
+         +LQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790286513; x=1790891313;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790286536; x=1790891336;
+        h=content-transfer-encoding:content-type:in-reply-to:references
+         :subject:to:from:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rZERshdcV0tFUZGMj08I8XPWDI+kU48UpwOPfgc8PK8=;
-        b=MOaE+WoPthgewgkehSDV90ThsEn6ppyyWzjL/4GCRlN5XxxtlPZH3RwrGo7ssM8PN/
-         sSNy4bUW+KcY8WfooYhI9MJOsJHR+5ott8St8NKWm0OareIMj0cFpB/3k65Tp4BIA92d
-         E0dJRGZb/TBdBxooqHXswxnMTpZzGOOyGKxAFcoiKGgPAP1rJY9sTSA1OZnBMf1Or1ga
-         UNWxp0KWQQDB1ZE5L51q/MhM29rQOFzOoe3bGLsBCQ97dRKz6GDTVt+25cinoscGE2MH
-         DG1TvNdpK2Smpio2CJRpsVjIuZoPaJ0Hz5xn6Adtq6f4ctPkh8bjFhk7bmO495NR+4xX
-         du0w==
-X-Forwarded-Encrypted: i=1; AKwUvBzV7plgg0Xiyq6Tvb0YqsaxD8HGUEC9niRy5QhT/2A50zXJnCgj1sV5XU6KTaxvnnt+PS4qZLwBw4AITh8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTqbT55WPMX/03/s6T9f3Zgyw5uaiPEZTCINqnCWKvaleiOrE6
-	HotAezGGqRmtHwTN42cDwew0LlHHf3GAym9SvpbF8EScce3UgbAekvbMU+oSzyyc4gJuq4NqPDg
-	xV4AYayjWpg62hzV/7UZ+xNy2q+1vP1o=
-X-Gm-Gg: AYBFou2hzvyPMseW+I4CXu2LVzOm8u9lP93xP990SjgMrVuV3Ds7D8hdO5ktE5/kbdA
-	vGaK8pV5mVp51JnqCiV7llsdlUWxIN+fqzjyY+PrwrJZmI6nBGiuhuZ2HbsvFUFOBz0Yc5TBhXG
-	oAAdasi15FnVocADh8+3vp8Jch5z2CCUBO1ciEmbF5QU56jRJnDiXcSq9BCdTjIon3k0o0mwgCJ
-	t+rVBAIcoIS59Z+WWb31Lls/wt0mB7X0mZUhXkBI8a0CPHs+ip1HeIafctnGcqL4dpna84yLlVy
-	P+vBWuTqje7uE1JcFjyAObBsoeN+vsoKEvl5sZ/8y2s4p5O2kBkgbxuoDPzec+LlD2G0m0oQNvQ
-	/IrW987x1vWm8hNnPqyRnx6hB0di5ZeKTqaPKs7c+XkgzbIaPvu2sQCKwM9X8mp6GTSuSzzD6CA
-	==
-X-Received: by 2002:a05:6a00:1c8e:b0:871:c970:cf37 with SMTP id
- d2e1a72fcca58-87e9b79bdb6mr3208088b3a.24.1790286513363; Thu, 24 Sep 2026
- 14:48:33 -0700 (PDT)
+        bh=V2P12fpVrgq7wOLuxL2hcnHvjU6EVrhPKd2g6E7O5Ns=;
+        b=hTPG6wvDuvOSijsRsDxWlOSpi6QslAl+ko12CewNDyC4nrbn5JQ97wGjvJ3ml+Hww3
+         PAYtW6IcDZLsh8dYDHjsfTiiN0MR74p5V0TXdmCjeOGil3ayVjovvG2peKWwi6T9Oef/
+         m1bCOsZeGjer8n5DiqogLvPuIquQnVNkCzJugEMOW8Jr58GwhxxIYSImr1KzfAk/BRb2
+         lWZjNT2D68x5RHudvEWRVy8V5JIydOARv1yC7eurawzTt0iDZTZW/0TyEXGS8+rY6tbL
+         MVzHxt7+qQkXgv8EsZDLA16eYHsvtoxdIJIG/yNTl1AGSgqOZu3Gf4G3OZndzi5GEV/l
+         wPlg==
+X-Forwarded-Encrypted: i=1; AKwUvBz2YZJCb+EYBngFl/DxUxiSSeCFwVkF2VNoZ5UniXehPc2NsbS826w0cPGwa+A0xqMXtPXUeTpS22jsW9k=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8bLvVxgf1Rm94p59RdhpaJ+VnjAhlc7FgvkPrkpbKJQfD42hg
+	pMOTmI9qE9GuAvXr/GA0X0zf6ADbXeliDM+/+kLvymQCmI0z065n8U3fToy2wAmV074=
+X-Gm-Gg: AYBFou2uyKY78pH/zcxJRQVkh7aDlnZCro+alsG9yjVfYukKs3ztVOyArFB9yHgME3C
+	zk2V0JUFG2lxzwnOa7gDFQrWsJ3jXbrY9w/vh5WHUOpHvbu9gQr4MpbVxqKdI7ozgMhVWGo84H2
+	aYdk2Bp0qsRl6PBfmM3miXec0FCY+lz3nWsm1EZHx2US7+PTJKvNIn6QHoGkObHD9eUAFrvvPJ9
+	TZ+GA9FwcR9bhMxwaWt2YWPttBPu/aW4OQypkOmkyYgsGOZ6alXPElyWU2/yu83yCZ9RsjUkkqA
+	9gjvonrze7dtJCK+o0J214SuTNRLkuQjuYg9sYyqDJEL/BB2tVWDGmDdGms6q+BhZNXjGss7T0O
+	Vjq+nyZvfkHBJaTSIezNHkwogEih3V4kLdV+gLcagKEYCwa3rxJCRdf86CsQkDXO5SbVheX8ZOC
+	TDq3AkWzSh9o/fAa2IeS+hPbBPCuA921B6HJMh+cNlZzvQ3Bs1EwxEJib/Y0SXf5KEzi++RqF0V
+	+5xEyHA2w7N9OQGZx0AlCQ0nk8WqUctMDQsZEMXgxQ=
+X-Received: by 2002:a17:907:9447:b0:c26:2eee:ffc7 with SMTP id a640c23a62f3a-c2ac250ec3emr317347066b.35.1790286535550;
+        Thu, 24 Sep 2026 14:48:55 -0700 (PDT)
+Received: from [192.168.86.89] (81-224-151-184-no600.tbcn.telia.com. [81.224.151.184])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae678ec74sm20420166b.4.2026.09.24.14.48.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 14:48:55 -0700 (PDT)
+Message-ID: <6432e712-cafd-42bc-9adb-5e620e57ccb8@gmail.com>
+Date: Thu, 24 Sep 2026 23:48:54 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914115607.350097-1-imbigking12@gmail.com> <c28917c2-4715-4c70-a2d3-582ca641e1d6@huawei.com>
-In-Reply-To: <c28917c2-4715-4c70-a2d3-582ca641e1d6@huawei.com>
-From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Date: Thu, 24 Sep 2026 14:48:21 -0700
-X-Gm-Features: AclHuK-NmUD52AXBMVMmQy8Gn29BL7Vr649cjcXJIdr9GevbBkjrs5JhZeSwUK0
-Message-ID: <CAADnVQLGWcdi+G-cWkxLCtY-Q3iQ4TJKPcL4i35+c2e_snSUWg@mail.gmail.com>
-Subject: Re: [PATCH] riscv: patch: fix handling of bpf-jit execmem addresses
-To: Pu Lehui <pulehui@huawei.com>
-Cc: Wei-Jie Hung <imbigking12@gmail.com>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Mike Rapoport <rppt@kernel.org>, Xiaofeng Yuan <xiaofengmian@163.com>, 
-	Klara Modin <klara@kasm.eu>, linux-riscv <linux-riscv@lists.infradead.org>, 
-	bpf <bpf@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: erikhakan@gmail.com
+To: =?UTF-8?Q?Erik_H=C3=A5kansson?= <erikhakan@gmail.com>,
+ Oleksandr Natalenko <oleksandr@natalenko.name>,
+ Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>,
+ =?UTF-8?Q?Filipe_La=C3=ADns?= <lains@riseup.net>,
+ Bastien Nocera <hadess@hadess.net>, Rafael Passos <rafael@rcpassos.me>,
+ =?UTF-8?Q?Gr=C3=A9goire_Stein?= <greyxor@protonmail.com>,
+ Alexey Zagorodnikov <xglooom@gmail.com>,
+ Roman Stingler <roman.stingler@gmail.com>,
+ Lovekesh Solanki <lovekeshsolanki00@gmail.com>,
+ =?UTF-8?B?S2F0ZcWZaW5hIE1lZHbEm2RvdsOh?= <k8ie@mcld.eu>,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] HID: logitech-hidpp: fix Bolt hi-res wheel handling
+References: <20260922-feature-bolt-fix-v1-0-63b0fa8da0d3@gmail.com>
+ <97b3c67c-03ea-4ae6-ba64-afcdbbd8f36b@gmail.com>
+ <xpFXjeFKTb2mOjg5M5iN0g@natalenko.name> <r8QjhQUkS86zOaJsxE4nUw@gmail.com>
+In-Reply-To: <r8QjhQUkS86zOaJsxE4nUw@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 17, 2026 at 6:32=E2=80=AFPM Pu Lehui <pulehui@huawei.com> wrote=
-:
->
->
-> On 2026/9/14 19:56, Wei-Jie Hung wrote:
-> > Commit 8718e5a3090b ("riscv: patch: skip fixmap mapping when kernel tex=
-t
-> > is already writable") gated the core_kernel_text() branch of patch_map(=
-)
-> > on CONFIG_STRICT_KERNEL_RWX, and explicitly left the vmalloc branch
-> > unchanged. That branch has a separate problem.
-> >
-> > That branch only creates a temporary writable fixmap alias when
-> > CONFIG_STRICT_MODULE_RWX is enabled, and otherwise assumes the target i=
-s
-> > directly writable and returns the address unchanged. That assumption no
-> > longer holds: bpf_prog_pack_alloc calls set_memory_rox() on every pack
-> > unconditionally in alloc_new_pack(), independently of any
-> > CONFIG_STRICT_*_RWX option, so BPF text in the vmalloc area is read-onl=
-y
-> > regardless of what CONFIG_STRICT_MODULE_RWX says.
-> >
-> > With CONFIG_STRICT_MODULE_RWX=3Dn, patch_map() returns the read-only
-> > address directly, the subsequent copy_to_kernel_nofault() takes a
-> > page fault and returns -EFAULT. bpf_arch_text_copy() turns that into
-> > -EINVAL, which propagates through bpf_jit_binary_pack_finalize() to the
-> > WARN_ON() in bpf_int_jit_compile() and leaves the program un-JITed.
-> >
-> > Note that BPF cannot be fixed the way kprobes was in
-> > commit bdc46e507b59 ("riscv: mm: make EXECMEM_KPROBES writable without
-> > CONFIG_STRICT_MODULE_RWX"). EXECMEM_BPF is already PAGE_KERNEL, i.e.
-> > writable at allocation time; the read-only mapping is established
-> > afterwards by generic code in alloc_new_pack(), which arch code cannot
-> > influence. The only place this can be handled is patch_map().
-> >
-> > This is the same problem that was fixed on arm64 by commit b1480ed230ac
-> > ("arm64: patching: fix handling of execmem addresses"), and the fix is
-> > the same: CONFIG_EXECMEM is what actually tracks whether the vmalloc
-> > area can hold executable memory that needs a temporary alias to be
-> > written. CONFIG_BPF_JIT, CONFIG_KPROBES and CONFIG_MODULES all select
-> > it.
-> >
-> > Note that this is not limited to CONFIG_MODULES=3Dn. Unlike arm64, risc=
-v
-> > selects CONFIG_ARCH_OPTIONAL_KERNEL_RWX, so CONFIG_STRICT_MODULE_RWX ca=
-n
-> > be disabled with CONFIG_MODULES=3Dy as well, and the bug is reachable i=
-n
-> > that configuration too.
-> >
-> > The !CONFIG_MMU build is unaffected: it has its own __patch_insn_set()
-> > and __patch_insn_write() implementations and never calls patch_map().
-> >
-> > Fixes: 2c9e5d4a0082 ("bpf: remove CONFIG_BPF_JIT dependency on CONFIG_M=
-ODULES of")
-> > Signed-off-by: Wei-Jie Hung <imbigking12@gmail.com>
-> > ---
-> > Based on riscv/fixes (b94cec5761d2).
+My mail got cut off for some reason, maybe Gmail thought I wrote too much :)
+I'll repeat the end here.
 
-Not clear what tree this patch suppose to go to.
-If it's bpf-next then pls respin with correct subj,
+Benjamin Tissoires wrote:
+> Bolt in kernel was adding in 7.3, so I'm going to revert it now, and
+> we'll have to have a fully working plan for an eventual inclusion in a
+> future kernel version.
 
-pw-bot: cr
+Since I'm completely new to kernel development, I don't know the proper
+etiquette here. :) Do I submit the new patch mentioned above as a series 
+with the old reverted commit first and the new commit on top of that, or do
+I submit it as an entirely new patch?
 
->
-> Reviewed-by: Pu Lehui <pulehui@huawei.com>
-> Tested-by: Pu Lehui <pulehui@huawei.com>
-
-and keep tags.
-Thanks everyone.
+Cheers!
+Erik
