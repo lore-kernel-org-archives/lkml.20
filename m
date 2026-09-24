@@ -1,30 +1,30 @@
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2A7EC51C04E;
-	Thu, 24 Sep 2026 17:31:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C2034B0CA4;
+	Thu, 24 Sep 2026 17:31:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790271103; cv=none; b=gLIIasEBqMlt55BUeiwZrJAdPl6oueyZxoCX9UHJc4RHy03F0MNfNsEg51QuEpa9Yt/vkOrBdX+m3wN8TU2psXt28Hn5N4cA6pMGizhlTTA2D1c5n7S17heDrUAsec0GwMEzPN/7aXma3uQH/F/0pqHuVLel5GYt7XT+kzVe5v0=
+	t=1790271100; cv=none; b=J7mpc0ZoDmdLb9+q6rIRrlgvc9oOkMsYtYyPhqPBMZsYZspjsCK0PQnOZLe0E0Phy0/O6tK9CP118eQ13S8C/sm3tPFjsxYvgIg658bRK7O0qZsJHzpsKYywHP7j+k2RpeziE0falkLPV5F8hOI8Cd3OhzuB0QZOXUUjimpHFvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790271103; c=relaxed/simple;
-	bh=HCJr9ywfnyuFa2f4PznihLPwS7Wv27iECo9BmFoKNEE=;
+	s=arc-20240116; t=1790271100; c=relaxed/simple;
+	bh=QL/D5ygxlCclW8x3KhB96LZx9YV6oLeuC3kpU9Q4eZ4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hDeTTEA0a/sIpx5OlQkOjXWtdLStWWPOw9yB2KxWc8vbuC+Os9HpVa2MMRVMbj2GfOa3N4bfkiP1YTw+2AcfnRT2HjYPeSh4MnRsowp7Pwj3oF8IOTwyXk07y1dH7OmC/CTd3YoSBqi+x8I5+/xfB/OPHRj6QogLKf9yrjpbLBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=FUTC6UoZ; arc=none smtp.client-ip=13.77.154.182
+	 MIME-Version; b=bkLyWWjMhbhCW9Dl4r/Q07Deo1vmwz7mHNmgv3cZMkhUOB5HSFrj9oQ+UGbK3JB5LqGIcqUXhYARpcW24kTyGzyREAnVUzQtU3bDYx64bnlgmkBK2TRzwKKKLg6BGu7X9li72AWIgVNhtTmECAuaa+5luLfFOXDQsLkGFxZy32c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=fVzT5JXw; arc=none smtp.client-ip=13.77.154.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="FUTC6UoZ"
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="fVzT5JXw"
 Received: from CPC-mawas-YGKSX.localdomain (unknown [70.37.26.38])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 33EA820B7169;
-	Thu, 24 Sep 2026 10:30:51 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 33EA820B7169
+	by linux.microsoft.com (Postfix) with ESMTPSA id E9E0920B7167;
+	Thu, 24 Sep 2026 10:30:45 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com E9E0920B7167
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1790271051;
-	bh=jSoWeMh1TG73DB7ZmwJ7G7GJXYotzMz9IN4qQOOC0Xk=;
+	s=default; t=1790271046;
+	bh=DsGpwDPl5pOjktdq5OjuX/IfqKXWvbjh4QCl+R9NIQ4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=FUTC6UoZ86ZOjkW1neA0X4xnFBgx4oqpSPQcr1YIXgixHJ7nsVy2TRldt7IdwT/IF
-	 x59CRNFEO1cx//NEMkOYxSvfXKukAj+Fv0FU0nhDOMSjMschD8mPkqkS24SzKqcJ4J
-	 4DrUMu+dlsTihTddPIVUqHB1TNh8z4Yqgm3oyvrA=
+	b=fVzT5JXwwLmugLcvg/VtkzXruj00GOJpATqvojFKKKPyxgGXxhvt71EtbVQ9TXi0Y
+	 1QbqabxryDemRNcIqnsG6ePee89VClLj0MjBlTfswh3aqTW0e3Mdk3J78ihUHQ3S7M
+	 ntN1dCUBgE0C+PovRwuiRojafVZRQCiKUFrOvjRQ=
 From: Manish Awasthi <mawasthi@linux.microsoft.com>
 To: kys@microsoft.com,
 	haiyangz@microsoft.com,
@@ -50,9 +50,9 @@ Cc: horms@kernel.org,
 	kees@kernel.org,
 	paulros@microsoft.com,
 	mawasthi@microsoft.com
-Subject: [PATCH net-next 4/4] net: mana: Add support for CDX device ID 0x00C2
-Date: Thu, 24 Sep 2026 17:30:54 +0000
-Message-ID: <20260924173054.589291-5-mawasthi@linux.microsoft.com>
+Subject: [PATCH net-next 2/4] net: mana: Move PCI transport code into gdma_pci.c
+Date: Thu, 24 Sep 2026 17:30:52 +0000
+Message-ID: <20260924173054.589291-3-mawasthi@linux.microsoft.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260924173054.589291-1-mawasthi@linux.microsoft.com>
 References: <20260924173054.589291-1-mawasthi@linux.microsoft.com>
@@ -64,198 +64,1528 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the CDX transport as mana_cdx.ko for device ID 0x00C2, using the shared
-gdma_core.ko. Allocate interrupts at probe, limit queues to available
-vectors, use 32-bit DMA, and keep CDX auxiliary devices separate from PCI.
+Move PCI transport code and driver callbacks from gdma_main.c into
+gdma_pci.c. Keep shared IRQ bookkeeping in the core and update build
+wiring.
 
 Signed-off-by: Manish Awasthi <mawasthi@linux.microsoft.com>
 ---
- drivers/net/ethernet/microsoft/Kconfig        |  14 +
- drivers/net/ethernet/microsoft/mana/Makefile  |   3 +
- .../net/ethernet/microsoft/mana/gdma_cdx.c    | 340 ++++++++++++++++++
- .../net/ethernet/microsoft/mana/gdma_pci.c    |   1 +
- drivers/net/ethernet/microsoft/mana/mana_en.c |   5 +-
- include/net/mana/gdma.h                       |   4 +
- 6 files changed, 365 insertions(+), 2 deletions(-)
- create mode 100644 drivers/net/ethernet/microsoft/mana/gdma_cdx.c
+ drivers/net/ethernet/microsoft/mana/Makefile  |   3 +-
+ .../net/ethernet/microsoft/mana/gdma_main.c   | 899 -----------------
+ .../net/ethernet/microsoft/mana/gdma_pci.c    | 909 ++++++++++++++++++
+ include/net/mana/gdma.h                       |   3 +
+ 4 files changed, 914 insertions(+), 900 deletions(-)
+ create mode 100644 drivers/net/ethernet/microsoft/mana/gdma_pci.c
 
-diff --git a/drivers/net/ethernet/microsoft/Kconfig b/drivers/net/ethernet/microsoft/Kconfig
-index ee5bc1c1bf59..7e4b77f7f29c 100644
---- a/drivers/net/ethernet/microsoft/Kconfig
-+++ b/drivers/net/ethernet/microsoft/Kconfig
-@@ -35,4 +35,18 @@ config MICROSOFT_MANA
- 	  To compile this driver as a module, choose M here.
- 	  The module will be called mana.
- 
-+config MICROSOFT_MANA_CDX
-+	tristate "Microsoft Azure Network Adapter (MANA) support for the CDX bus"
-+	depends on CDX_BUS
-+	depends on GENERIC_MSI_IRQ
-+	depends on 64BIT && !CPU_BIG_ENDIAN
-+	select MICROSOFT_GDMA_CORE
-+	help
-+	  This driver supports the Microsoft Azure Network Adapter (MANA) on
-+	  systems where it is integrated into the SoC and presented on the CDX
-+	  bus rather than discovered over PCI.
-+
-+	  To compile this driver as a module, choose M here.
-+	  The module will be called mana_cdx.
-+
- endif #NET_VENDOR_MICROSOFT
 diff --git a/drivers/net/ethernet/microsoft/mana/Makefile b/drivers/net/ethernet/microsoft/mana/Makefile
-index 72c03fb6e441..64926015f734 100644
+index e16a4221f571..6705bf65c92c 100644
 --- a/drivers/net/ethernet/microsoft/mana/Makefile
 +++ b/drivers/net/ethernet/microsoft/mana/Makefile
-@@ -8,3 +8,6 @@ gdma_core-y := gdma_main.o shm_channel.o hw_channel.o mana_en.o mana_ethtool.o \
+@@ -3,4 +3,5 @@
+ # Makefile for the Microsoft Azure Network Adapter driver
  
  obj-$(CONFIG_MICROSOFT_MANA) += mana.o
- mana-y := gdma_pci.o
-+
-+obj-$(CONFIG_MICROSOFT_MANA_CDX) += mana_cdx.o
-+mana_cdx-y := gdma_cdx.o
-diff --git a/drivers/net/ethernet/microsoft/mana/gdma_cdx.c b/drivers/net/ethernet/microsoft/mana/gdma_cdx.c
+-mana-objs := gdma_main.o shm_channel.o hw_channel.o mana_en.o mana_ethtool.o mana_bpf.o
++mana-y := gdma_main.o shm_channel.o hw_channel.o mana_en.o mana_ethtool.o mana_bpf.o \
++	  gdma_pci.o
+diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+index b076760b2dc5..531170e58a62 100644
+--- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
++++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+@@ -2,10 +2,7 @@
+ /* Copyright (c) 2021, Microsoft Corporation. */
+ 
+ #include <linux/bitfield.h>
+-#include <linux/cpumask.h>
+ #include <linux/debugfs.h>
+-#include <linux/delay.h>
+-#include <linux/list.h>
+ #include <linux/module.h>
+ #include <linux/sizes.h>
+ #include <linux/utsname.h>
+@@ -13,11 +10,7 @@
+ #include <linux/msi.h>
+ #include <linux/irqdomain.h>
+ #include <linux/export.h>
+-#include <linux/pci.h>
+-#include <linux/slab.h>
+-#include <linux/topology.h>
+ #include <linux/uaccess.h>
+-#include <linux/xarray.h>
+ 
+ #include <net/mana/mana.h>
+ #include <net/mana/hw_channel.h>
+@@ -2013,898 +2006,6 @@ void mana_gd_cleanup(struct gdma_context *gc)
+ 	dev_dbg(gc->dev, "mana gdma cleanup successful\n");
+ }
+ 
+-struct mana_dev_recovery {
+-	struct list_head list;
+-	struct pci_dev *pdev;
+-	enum gdma_eqe_type type;
+-};
+-
+-static struct mana_dev_recovery_work {
+-	struct list_head dev_list;
+-	struct delayed_work work;
+-
+-	/* Lock for dev_list above */
+-	spinlock_t lock;
+-} mana_dev_recovery_work;
+-
+-static int mana_gd_suspend(struct pci_dev *pdev, pm_message_t state);
+-static int mana_gd_resume(struct pci_dev *pdev);
+-
+-#define MANA_SERVICE_PERIOD 10
+-
+-static void mana_serv_rescan(struct pci_dev *pdev)
+-{
+-	struct pci_bus *parent;
+-
+-	pci_lock_rescan_remove();
+-
+-	parent = pdev->bus;
+-	if (!parent) {
+-		dev_err(&pdev->dev, "MANA service: no parent bus\n");
+-		goto out;
+-	}
+-
+-	pci_stop_and_remove_bus_device(pdev);
+-	pci_rescan_bus(parent);
+-
+-out:
+-	pci_unlock_rescan_remove();
+-}
+-
+-static void mana_serv_fpga(struct pci_dev *pdev)
+-{
+-	struct pci_bus *bus, *parent;
+-
+-	pci_lock_rescan_remove();
+-
+-	bus = pdev->bus;
+-	if (!bus) {
+-		dev_err(&pdev->dev, "MANA service: no bus\n");
+-		goto out;
+-	}
+-
+-	parent = bus->parent;
+-	if (!parent) {
+-		dev_err(&pdev->dev, "MANA service: no parent bus\n");
+-		goto out;
+-	}
+-
+-	pci_stop_and_remove_bus_device(bus->self);
+-
+-	msleep(MANA_SERVICE_PERIOD * 1000);
+-
+-	pci_rescan_bus(parent);
+-
+-out:
+-	pci_unlock_rescan_remove();
+-}
+-
+-static void mana_serv_reset(struct pci_dev *pdev)
+-{
+-	struct gdma_context *gc = pci_get_drvdata(pdev);
+-	struct hw_channel_context *hwc;
+-	int ret;
+-
+-	if (!gc) {
+-		/* Perform PCI rescan on device if GC is not set up */
+-		dev_err(&pdev->dev, "MANA service: GC not setup, rescanning\n");
+-		mana_serv_rescan(pdev);
+-		return;
+-	}
+-
+-	hwc = gc->hwc.driver_data;
+-	if (!hwc) {
+-		dev_err(&pdev->dev, "MANA service: no HWC\n");
+-		goto out;
+-	}
+-
+-	/* HWC is not responding in this case, so don't wait */
+-	hwc->hwc_timeout = 0;
+-
+-	dev_info(&pdev->dev, "MANA reset cycle start\n");
+-
+-	mana_gd_suspend(pdev, PMSG_SUSPEND);
+-
+-	msleep(MANA_SERVICE_PERIOD * 1000);
+-
+-	ret = mana_gd_resume(pdev);
+-	if (ret == -ETIMEDOUT || ret == -EPROTO) {
+-		/* Perform PCI rescan on device if we failed on HWC */
+-		dev_err(&pdev->dev, "MANA service: resume failed, rescanning\n");
+-		mana_serv_rescan(pdev);
+-		return;
+-	}
+-
+-	if (ret)
+-		dev_info(&pdev->dev, "MANA reset cycle failed err %d\n", ret);
+-	else
+-		dev_info(&pdev->dev, "MANA reset cycle completed\n");
+-
+-out:
+-	clear_bit(GC_IN_SERVICE, &gc->flags);
+-}
+-
+-static void mana_do_service(enum gdma_eqe_type type, struct pci_dev *pdev)
+-{
+-	switch (type) {
+-	case GDMA_EQE_HWC_FPGA_RECONFIG:
+-		mana_serv_fpga(pdev);
+-		break;
+-
+-	case GDMA_EQE_HWC_RESET_REQUEST:
+-		mana_serv_reset(pdev);
+-		break;
+-
+-	default:
+-		dev_err(&pdev->dev, "MANA service: unknown type %d\n", type);
+-		break;
+-	}
+-}
+-
+-static void mana_recovery_delayed_func(struct work_struct *w)
+-{
+-	struct mana_dev_recovery_work *work;
+-	struct mana_dev_recovery *dev;
+-	unsigned long flags;
+-
+-	work = container_of(w, struct mana_dev_recovery_work, work.work);
+-
+-	spin_lock_irqsave(&work->lock, flags);
+-
+-	while (!list_empty(&work->dev_list)) {
+-		dev = list_first_entry(&work->dev_list,
+-				       struct mana_dev_recovery, list);
+-		list_del(&dev->list);
+-		spin_unlock_irqrestore(&work->lock, flags);
+-
+-		mana_do_service(dev->type, dev->pdev);
+-		pci_dev_put(dev->pdev);
+-		kfree(dev);
+-
+-		spin_lock_irqsave(&work->lock, flags);
+-	}
+-
+-	spin_unlock_irqrestore(&work->lock, flags);
+-}
+-
+-static void mana_serv_func(struct work_struct *w)
+-{
+-	struct mana_serv_work *mns_wk;
+-	struct pci_dev *pdev;
+-
+-	mns_wk = container_of(w, struct mana_serv_work, serv_work);
+-	pdev = mns_wk->pdev;
+-
+-	if (pdev)
+-		mana_do_service(mns_wk->type, pdev);
+-
+-	pci_dev_put(pdev);
+-	kfree(mns_wk);
+-	module_put(THIS_MODULE);
+-}
+-
+-static int mana_pci_schedule_serv_work(struct gdma_context *gc,
+-				       enum gdma_eqe_type type)
+-{
+-	struct mana_serv_work *mns_wk;
+-
+-	if (test_and_set_bit(GC_IN_SERVICE, &gc->flags)) {
+-		dev_info(gc->dev, "Already in service\n");
+-		return -EBUSY;
+-	}
+-
+-	if (!try_module_get(THIS_MODULE)) {
+-		dev_info(gc->dev, "Module is unloading\n");
+-		clear_bit(GC_IN_SERVICE, &gc->flags);
+-		return -ENODEV;
+-	}
+-
+-	mns_wk = kzalloc(sizeof(*mns_wk), GFP_ATOMIC);
+-	if (!mns_wk) {
+-		module_put(THIS_MODULE);
+-		clear_bit(GC_IN_SERVICE, &gc->flags);
+-		return -ENOMEM;
+-	}
+-
+-	dev_info(gc->dev, "Start MANA service type:%d\n", type);
+-	mns_wk->pdev = to_pci_dev(gc->dev);
+-	mns_wk->type = type;
+-	pci_dev_get(mns_wk->pdev);
+-	INIT_WORK(&mns_wk->serv_work, mana_serv_func);
+-	schedule_work(&mns_wk->serv_work);
+-	return 0;
+-}
+-
+-static bool mana_pci_msix_can_alloc_dyn(struct gdma_context *gc)
+-{
+-	return pci_msix_can_alloc_dyn(to_pci_dev(gc->dev));
+-}
+-
+-static int mana_pci_msix_virq(struct gdma_context *gc, int msi)
+-{
+-	return pci_irq_vector(to_pci_dev(gc->dev), msi);
+-}
+-
+-static int mana_pci_msix_alloc_at(struct gdma_context *gc, int *msi)
+-{
+-	struct msi_map irq_map;
+-
+-	irq_map = pci_msix_alloc_irq_at(to_pci_dev(gc->dev), *msi, NULL);
+-	if (!irq_map.virq)
+-		return irq_map.index;
+-
+-	*msi = irq_map.index;
+-	return irq_map.virq;
+-}
+-
+-static void mana_pci_msix_free(struct gdma_context *gc, int msi, int irq)
+-{
+-	struct msi_map irq_map = { .virq = irq, .index = msi };
+-
+-	pci_msix_free_irq(to_pci_dev(gc->dev), irq_map);
+-}
+-
+-static int mana_pci_msix_vec_count(struct gdma_context *gc)
+-{
+-	return pci_msix_vec_count(to_pci_dev(gc->dev));
+-}
+-
+-static int mana_pci_dev_reset(struct gdma_context *gc)
+-{
+-	return pcie_flr(to_pci_dev(gc->dev));
+-}
+-
+-/*
+- * Spread on CPUs with the following heuristics:
+- *
+- * 1. No more than one IRQ per CPU, if possible;
+- * 2. NUMA locality is the second priority;
+- * 3. Sibling dislocality is the last priority.
+- *
+- * Let's consider this topology:
+- *
+- * Node            0               1
+- * Core        0       1       2       3
+- * CPU       0   1   2   3   4   5   6   7
+- *
+- * The most performant IRQ distribution based on the above topology
+- * and heuristics may look like this:
+- *
+- * IRQ     Nodes   Cores   CPUs
+- * 0       1       0       0-1
+- * 1       1       1       2-3
+- * 2       1       0       0-1
+- * 3       1       1       2-3
+- * 4       2       2       4-5
+- * 5       2       3       6-7
+- * 6       2       2       4-5
+- * 7       2       3       6-7
+- *
+- * The heuristics is implemented as follows.
+- *
+- * The outer for_each() loop resets the 'weight' to the actual number
+- * of CPUs in the hop. Then inner for_each() loop decrements it by the
+- * number of sibling groups (cores) while assigning first set of IRQs
+- * to each group. IRQs 0 and 1 above are distributed this way.
+- *
+- * Now, because NUMA locality is more important, we should walk the
+- * same set of siblings and assign 2nd set of IRQs (2 and 3), and it's
+- * implemented by the medium while() loop. We do like this unless the
+- * number of IRQs assigned on this hop will not become equal to number
+- * of CPUs in the hop (weight == 0). Then we switch to the next hop and
+- * do the same thing.
+- */
+-
+-static int mana_irq_setup_numa_aware(unsigned int *irqs, unsigned int len,
+-				     int node, bool skip_first_cpu)
+-{
+-	const struct cpumask *next, *prev = cpu_none_mask;
+-	cpumask_var_t cpus __free(free_cpumask_var);
+-	int cpu, weight;
+-
+-	if (!alloc_cpumask_var(&cpus, GFP_KERNEL))
+-		return -ENOMEM;
+-
+-	rcu_read_lock();
+-	for_each_numa_hop_mask(next, node) {
+-		weight = cpumask_weight_andnot(next, prev);
+-		while (weight > 0) {
+-			cpumask_andnot(cpus, next, prev);
+-			for_each_cpu(cpu, cpus) {
+-				cpumask_andnot(cpus, cpus, topology_sibling_cpumask(cpu));
+-				--weight;
+-
+-				if (unlikely(skip_first_cpu)) {
+-					skip_first_cpu = false;
+-					continue;
+-				}
+-
+-				if (len-- == 0)
+-					goto done;
+-
+-				irq_set_affinity_and_hint(*irqs++, topology_sibling_cpumask(cpu));
+-			}
+-		}
+-		prev = next;
+-	}
+-done:
+-	rcu_read_unlock();
+-	return 0;
+-}
+-
+-/* must be called with cpus_read_lock() held */
+-static void mana_irq_setup_linear(unsigned int *irqs, unsigned int len)
+-{
+-	int cpu;
+-
+-	for_each_online_cpu(cpu) {
+-		if (len == 0)
+-			break;
+-
+-		irq_set_affinity_and_hint(*irqs++, cpumask_of(cpu));
+-		len--;
+-	}
+-}
+-
+-static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
+-{
+-	struct gdma_context *gc = pci_get_drvdata(pdev);
+-	struct gdma_irq_context *gic;
+-	int *irqs, err, i, msi;
+-
+-	irqs = kmalloc_objs(int, nvec);
+-	if (!irqs)
+-		return -ENOMEM;
+-
+-	/*
+-	 * In this function, num_msix_usable = HWC IRQ + Queue IRQ.
+-	 * nvec is only Queue IRQ (HWC already setup).
+-	 * While processing the next pci irq vector, we start with index 1,
+-	 * as IRQ vector at index 0 is already processed for HWC.
+-	 * However, the population of irqs array starts with index 0, to be
+-	 * further used in mana_irq_setup_numa_aware()
+-	 */
+-	for (i = 1; i <= nvec; i++) {
+-		msi = i;
+-		gic = mana_gd_get_gic(gc, false, &msi);
+-		if (IS_ERR(gic)) {
+-			err = PTR_ERR(gic);
+-			goto free_irq;
+-		}
+-
+-		irqs[i - 1] = gic->irq;
+-	}
+-
+-	/*
+-	 * When calling mana_irq_setup_numa_aware() for dynamically added IRQs,
+-	 * if number of CPUs is more than or equal to allocated MSI-X, we need to
+-	 * skip the first CPU sibling group since they are already affinitized to
+-	 * HWC IRQ
+-	 */
+-	cpus_read_lock();
+-	if (gc->num_msix_usable <= num_online_cpus()) {
+-		err = mana_irq_setup_numa_aware(irqs, nvec, gc->numa_node,
+-						true);
+-		if (err) {
+-			cpus_read_unlock();
+-			goto free_irq;
+-		}
+-	} else {
+-		/*
+-		 * When num_msix_usable are more than num_online_cpus, our
+-		 * queue IRQs should be equal to num of online vCPUs.
+-		 * We try to make sure queue IRQs spread across all vCPUs.
+-		 * In such a case NUMA or CPU core affinity does not matter.
+-		 * Note: in this case the total mana IRQ should always be
+-		 * num_online_cpus + 1. The first HWC IRQ is already handled
+-		 * in HWC setup calls
+-		 * However, if CPUs went offline since num_msix_usable was
+-		 * computed, queue IRQs will be more than num_online_cpus().
+-		 * In such cases remaining extra IRQs will retain their default
+-		 * affinity.
+-		 */
+-		int first_unassigned = num_online_cpus();
+-
+-		if (nvec > first_unassigned) {
+-			char buf[32];
+-
+-			if (first_unassigned == nvec - 1)
+-				snprintf(buf, sizeof(buf), "%d",
+-					 first_unassigned);
+-			else
+-				snprintf(buf, sizeof(buf), "%d-%d",
+-					 first_unassigned, nvec - 1);
+-
+-			dev_dbg(&pdev->dev,
+-				"MANA IRQ indices #%s will retain the default CPU affinity\n",
+-				buf);
+-		}
+-
+-		mana_irq_setup_linear(irqs, nvec);
+-	}
+-
+-	cpus_read_unlock();
+-	kfree(irqs);
+-	return 0;
+-
+-free_irq:
+-	for (i -= 1; i > 0; i--)
+-		mana_gd_put_gic(gc, false, i);
+-	kfree(irqs);
+-	return err;
+-}
+-
+-static int mana_gd_setup_irqs(struct pci_dev *pdev, int nvec)
+-{
+-	struct gdma_context *gc = pci_get_drvdata(pdev);
+-	struct gdma_irq_context *gic;
+-	int *irqs, *start_irqs;
+-	unsigned int cpu;
+-	int err, i, msi;
+-
+-	irqs = kmalloc_objs(int, nvec);
+-	if (!irqs)
+-		return -ENOMEM;
+-
+-	start_irqs = irqs;
+-
+-	for (i = 0; i < nvec; i++) {
+-		msi = i;
+-		gic = mana_gd_get_gic(gc, false, &msi);
+-		if (IS_ERR(gic)) {
+-			err = PTR_ERR(gic);
+-			goto free_irq;
+-		}
+-
+-		irqs[i] = gic->irq;
+-	}
+-
+-	/* If number of IRQ is one extra than number of online CPUs,
+-	 * then we need to assign IRQ0 (hwc irq) and IRQ1 to
+-	 * same CPU.
+-	 * Else we will use different CPUs for IRQ0 and IRQ1.
+-	 * Also we are using cpumask_local_spread instead of
+-	 * cpumask_first for the node, because the node can be
+-	 * mem only.
+-	 */
+-	cpus_read_lock();
+-	if (nvec > num_online_cpus()) {
+-		cpu = cpumask_local_spread(0, gc->numa_node);
+-		irq_set_affinity_and_hint(irqs[0], cpumask_of(cpu));
+-		irqs++;
+-		nvec -= 1;
+-	}
+-
+-	err = mana_irq_setup_numa_aware(irqs, nvec, gc->numa_node, false);
+-	if (err) {
+-		cpus_read_unlock();
+-		goto free_irq;
+-	}
+-
+-	cpus_read_unlock();
+-	kfree(start_irqs);
+-	return 0;
+-
+-free_irq:
+-	for (i -= 1; i >= 0; i--)
+-		mana_gd_put_gic(gc, false, i);
+-
+-	kfree(start_irqs);
+-	return err;
+-}
+-
+-static int mana_gd_setup_hwc_irqs(struct pci_dev *pdev)
+-{
+-	struct gdma_context *gc = pci_get_drvdata(pdev);
+-	unsigned int max_irqs, min_irqs;
+-	int nvec, err;
+-
+-	if (pci_msix_can_alloc_dyn(pdev)) {
+-		max_irqs = 1;
+-		min_irqs = 1;
+-	} else {
+-		/* Need 1 interrupt for HWC */
+-		max_irqs = min(num_online_cpus(), MANA_MAX_NUM_QUEUES) + 1;
+-		min_irqs = 2;
+-		gc->msi_sharing = true;
+-	}
+-
+-	nvec = pci_alloc_irq_vectors(pdev, min_irqs, max_irqs, PCI_IRQ_MSIX);
+-	if (nvec < 0)
+-		return nvec;
+-
+-	err = mana_gd_setup_irqs(pdev, nvec);
+-	if (err) {
+-		pci_free_irq_vectors(pdev);
+-		return err;
+-	}
+-
+-	gc->num_msix_usable = nvec;
+-	gc->max_num_msix = nvec;
+-
+-	return 0;
+-}
+-
+-static int mana_gd_setup_remaining_irqs(struct pci_dev *pdev)
+-{
+-	struct gdma_context *gc = pci_get_drvdata(pdev);
+-	struct msi_map irq_map;
+-	int max_irqs, i, err;
+-
+-	if (!pci_msix_can_alloc_dyn(pdev))
+-		/* remain irqs are already allocated with HWC IRQ */
+-		return 0;
+-
+-	/* allocate only remaining IRQs*/
+-	max_irqs = gc->num_msix_usable - 1;
+-
+-	for (i = 1; i <= max_irqs; i++) {
+-		irq_map = pci_msix_alloc_irq_at(pdev, i, NULL);
+-		if (!irq_map.virq) {
+-			err = irq_map.index;
+-			/* caller will handle cleaning up all allocated
+-			 * irqs, after HWC is destroyed
+-			 */
+-			return err;
+-		}
+-	}
+-
+-	err = mana_gd_setup_dyn_irqs(pdev, max_irqs);
+-	if (err)
+-		return err;
+-
+-	gc->max_num_msix = gc->max_num_msix + max_irqs;
+-
+-	return 0;
+-}
+-
+-static void mana_gd_remove_irqs(struct pci_dev *pdev)
+-{
+-	struct gdma_context *gc = pci_get_drvdata(pdev);
+-	int i;
+-
+-	if (gc->max_num_msix < 1)
+-		return;
+-
+-	for (i = 0; i < gc->max_num_msix; i++) {
+-		if (!xa_load(&gc->irq_contexts, i))
+-			continue;
+-
+-		mana_gd_put_gic(gc, false, i);
+-	}
+-
+-	WARN_ON(!xa_empty(&gc->irq_contexts));
+-
+-	pci_free_irq_vectors(pdev);
+-
+-	bitmap_free(gc->msi_bitmap);
+-	gc->msi_bitmap = NULL;
+-	gc->max_num_msix = 0;
+-	gc->num_msix_usable = 0;
+-}
+-
+-static int mana_pci_setup_hwc_irqs(struct gdma_context *gc)
+-{
+-	return mana_gd_setup_hwc_irqs(to_pci_dev(gc->dev));
+-}
+-
+-static int mana_pci_setup_remaining_irqs(struct gdma_context *gc)
+-{
+-	int err;
+-
+-	err = mana_gd_setup_remaining_irqs(to_pci_dev(gc->dev));
+-	if (err) {
+-		dev_err(gc->dev, "Failed to setup remaining IRQs: %d", err);
+-		return err;
+-	}
+-
+-	if (!gc->msi_sharing) {
+-		gc->msi_bitmap = bitmap_zalloc(gc->num_msix_usable, GFP_KERNEL);
+-		if (!gc->msi_bitmap)
+-			return -ENOMEM;
+-		/* Set bit for HWC */
+-		set_bit(0, gc->msi_bitmap);
+-	}
+-
+-	return 0;
+-}
+-
+-static void mana_pci_remove_irqs(struct gdma_context *gc)
+-{
+-	mana_gd_remove_irqs(to_pci_dev(gc->dev));
+-}
+-
+-static const struct gdma_bus_ops mana_pci_bus_ops = {
+-	.bus_name		= "pci",
+-	.msix_can_alloc_dyn	= mana_pci_msix_can_alloc_dyn,
+-	.msix_virq		= mana_pci_msix_virq,
+-	.msix_alloc_at		= mana_pci_msix_alloc_at,
+-	.msix_free		= mana_pci_msix_free,
+-	.msix_vec_count		= mana_pci_msix_vec_count,
+-	.setup_hwc_irqs		= mana_pci_setup_hwc_irqs,
+-	.setup_remaining_irqs	= mana_pci_setup_remaining_irqs,
+-	.remove_irqs		= mana_pci_remove_irqs,
+-	.dev_reset		= mana_pci_dev_reset,
+-	.schedule_serv_work	= mana_pci_schedule_serv_work,
+-	.drv_cap_flags1		= GDMA_DRV_CAP_FLAGS1_PCI,
+-};
+-
+-static bool mana_is_pf(unsigned short dev_id)
+-{
+-	return dev_id == MANA_PF_DEVICE_ID || dev_id == MANA_PF2_DEVICE_ID;
+-}
+-
+-static int mana_gd_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+-{
+-	struct gdma_context *gc;
+-	void __iomem *bar0_va;
+-	int bar = 0;
+-	int err;
+-
+-	/* Each port has 2 CQs, each CQ has at most 1 EQE at a time */
+-	BUILD_BUG_ON(2 * MAX_PORTS_IN_MANA_DEV * GDMA_EQE_SIZE > EQ_SIZE);
+-
+-	err = pci_enable_device(pdev);
+-	if (err) {
+-		dev_err(&pdev->dev, "Failed to enable pci device (err=%d)\n", err);
+-		return -ENXIO;
+-	}
+-
+-	pci_set_master(pdev);
+-
+-	err = pci_request_regions(pdev, "mana");
+-	if (err)
+-		goto disable_dev;
+-
+-	err = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(64));
+-	if (err) {
+-		dev_err(&pdev->dev, "DMA set mask failed: %d\n", err);
+-		goto release_region;
+-	}
+-	dma_set_max_seg_size(&pdev->dev, UINT_MAX);
+-
+-	err = -ENOMEM;
+-	gc = vzalloc(sizeof(*gc));
+-	if (!gc)
+-		goto release_region;
+-
+-	mutex_init(&gc->eq_test_event_mutex);
+-	mutex_init(&gc->gic_mutex);
+-	pci_set_drvdata(pdev, gc);
+-	gc->bar0_pa = pci_resource_start(pdev, 0);
+-	gc->bar0_size = pci_resource_len(pdev, 0);
+-
+-	bar0_va = pci_iomap(pdev, bar, 0);
+-	if (!bar0_va)
+-		goto free_gc;
+-
+-	gc->numa_node = dev_to_node(&pdev->dev);
+-	gc->is_pf = mana_is_pf(pdev->device);
+-	gc->is_pf2 = (pdev->device == MANA_PF2_DEVICE_ID);
+-
+-	gc->bar0_va = bar0_va;
+-	gc->dev = &pdev->dev;
+-	gc->bus_ops = &mana_pci_bus_ops;
+-	xa_init(&gc->irq_contexts);
+-
+-	err = mana_gd_setup(gc);
+-	if (err)
+-		goto unmap_bar;
+-
+-	err = mana_probe(&gc->mana, false);
+-	if (err)
+-		goto cleanup_gd;
+-
+-	err = mana_rdma_probe(&gc->mana_ib);
+-	if (err)
+-		goto cleanup_mana;
+-
+-	/*
+-	 * If a hardware reset event has occurred over HWC during probe,
+-	 * rollback and perform hardware reset procedure.
+-	 */
+-	if (test_and_set_bit(GC_PROBE_SUCCEEDED, &gc->flags)) {
+-		err = -EPROTO;
+-		goto cleanup_mana_rdma;
+-	}
+-
+-	return 0;
+-
+-cleanup_mana_rdma:
+-	mana_rdma_remove(&gc->mana_ib);
+-cleanup_mana:
+-	mana_remove(&gc->mana, false);
+-cleanup_gd:
+-	mana_gd_cleanup(gc);
+-unmap_bar:
+-	xa_destroy(&gc->irq_contexts);
+-	pci_iounmap(pdev, bar0_va);
+-free_gc:
+-	pci_set_drvdata(pdev, NULL);
+-	vfree(gc);
+-release_region:
+-	pci_release_regions(pdev);
+-disable_dev:
+-	pci_disable_device(pdev);
+-	dev_err(&pdev->dev, "gdma probe failed: err = %d\n", err);
+-
+-	/*
+-	 * Hardware could be in recovery mode and the HWC returns TIMEDOUT or
+-	 * EPROTO from mana_gd_setup(), mana_probe() or mana_rdma_probe(), or
+-	 * we received a hardware reset event over HWC interrupt. In this case,
+-	 * perform the device recovery procedure after MANA_SERVICE_PERIOD
+-	 * seconds.
+-	 */
+-	if (err == -ETIMEDOUT || err == -EPROTO) {
+-		struct mana_dev_recovery *dev;
+-		unsigned long flags;
+-
+-		dev_info(&pdev->dev, "Start MANA recovery mode\n");
+-
+-		dev = kzalloc_obj(*dev);
+-		if (!dev)
+-			return err;
+-
+-		dev->pdev = pci_dev_get(pdev);
+-		dev->type = GDMA_EQE_HWC_RESET_REQUEST;
+-
+-		spin_lock_irqsave(&mana_dev_recovery_work.lock, flags);
+-		list_add_tail(&dev->list, &mana_dev_recovery_work.dev_list);
+-		spin_unlock_irqrestore(&mana_dev_recovery_work.lock, flags);
+-
+-		schedule_delayed_work(&mana_dev_recovery_work.work,
+-				      secs_to_jiffies(MANA_SERVICE_PERIOD));
+-	}
+-
+-	return err;
+-}
+-
+-static void mana_gd_remove(struct pci_dev *pdev)
+-{
+-	struct gdma_context *gc = pci_get_drvdata(pdev);
+-
+-	pci_disable_sriov(pdev);
+-
+-	mana_rdma_remove(&gc->mana_ib);
+-	mana_remove(&gc->mana, false);
+-
+-	mana_gd_cleanup(gc);
+-
+-	xa_destroy(&gc->irq_contexts);
+-
+-	pci_iounmap(pdev, gc->bar0_va);
+-
+-	vfree(gc);
+-
+-	pci_release_regions(pdev);
+-	pci_disable_device(pdev);
+-
+-	dev_dbg(&pdev->dev, "mana gdma remove successful\n");
+-}
+-
+-/* The 'state' parameter is not used. */
+-static int mana_gd_suspend(struct pci_dev *pdev, pm_message_t state)
+-{
+-	struct gdma_context *gc = pci_get_drvdata(pdev);
+-
+-	mana_rdma_remove(&gc->mana_ib);
+-	mana_remove(&gc->mana, true);
+-
+-	mana_gd_cleanup(gc);
+-
+-	return 0;
+-}
+-
+-static int mana_gd_resume(struct pci_dev *pdev)
+-{
+-	struct gdma_context *gc = pci_get_drvdata(pdev);
+-	int err;
+-
+-	err = mana_gd_setup(gc);
+-	if (err)
+-		return err;
+-
+-	err = mana_probe(&gc->mana, true);
+-	if (err)
+-		goto cleanup_gd;
+-
+-	err = mana_rdma_probe(&gc->mana_ib);
+-	if (err)
+-		mana_rdma_remove(&gc->mana_ib);
+-
+-	return err;
+-
+-cleanup_gd:
+-	mana_gd_cleanup(gc);
+-	return err;
+-}
+-
+-/* Quiesce the device for kexec. This is also called upon reboot/shutdown. */
+-static void mana_gd_shutdown(struct pci_dev *pdev)
+-{
+-	struct gdma_context *gc = pci_get_drvdata(pdev);
+-
+-	dev_info(&pdev->dev, "Shutdown was called\n");
+-
+-	mana_rdma_remove(&gc->mana_ib);
+-	mana_remove(&gc->mana, true);
+-
+-	mana_gd_cleanup(gc);
+-
+-	pci_disable_device(pdev);
+-}
+-
+-static int mana_sriov_configure(struct pci_dev *pdev, int numvfs)
+-{
+-	int err = 0;
+-
+-	dev_info(&pdev->dev, "Requested num VFs: %d\n", numvfs);
+-
+-	if (numvfs > 0) {
+-		err = pci_enable_sriov(pdev, numvfs);
+-	} else {
+-		if (pci_vfs_assigned(pdev)) {
+-			dev_warn(&pdev->dev,
+-				 "Cannot disable SR-IOV while VFs are assigned\n");
+-			return -EPERM;
+-		}
+-
+-		pci_disable_sriov(pdev);
+-	}
+-
+-	return err ? err : numvfs;
+-}
+-
+-static const struct pci_device_id mana_id_table[] = {
+-	{ PCI_DEVICE(PCI_VENDOR_ID_MICROSOFT, MANA_PF_DEVICE_ID) },
+-	{ PCI_DEVICE(PCI_VENDOR_ID_MICROSOFT, MANA_PF2_DEVICE_ID) },
+-	{ PCI_DEVICE(PCI_VENDOR_ID_MICROSOFT, MANA_VF_DEVICE_ID) },
+-	{ }
+-};
+-
+-static struct pci_driver mana_driver = {
+-	.name		= "mana",
+-	.id_table	= mana_id_table,
+-	.probe		= mana_gd_probe,
+-	.remove		= mana_gd_remove,
+-	.suspend	= mana_gd_suspend,
+-	.resume		= mana_gd_resume,
+-	.shutdown	= mana_gd_shutdown,
+-	.sriov_configure = mana_sriov_configure,
+-};
+-
+-MODULE_DEVICE_TABLE(pci, mana_id_table);
+-
+-static int mana_pci_driver_register(void)
+-{
+-	INIT_LIST_HEAD(&mana_dev_recovery_work.dev_list);
+-	spin_lock_init(&mana_dev_recovery_work.lock);
+-	INIT_DELAYED_WORK(&mana_dev_recovery_work.work,
+-			  mana_recovery_delayed_func);
+-
+-	return pci_register_driver(&mana_driver);
+-}
+-
+-static void mana_pci_driver_unregister(void)
+-{
+-	struct mana_dev_recovery *dev;
+-	unsigned long flags;
+-
+-	disable_delayed_work_sync(&mana_dev_recovery_work.work);
+-
+-	spin_lock_irqsave(&mana_dev_recovery_work.lock, flags);
+-	while (!list_empty(&mana_dev_recovery_work.dev_list)) {
+-		dev = list_first_entry(&mana_dev_recovery_work.dev_list,
+-				       struct mana_dev_recovery, list);
+-		list_del(&dev->list);
+-		pci_dev_put(dev->pdev);
+-		kfree(dev);
+-	}
+-	spin_unlock_irqrestore(&mana_dev_recovery_work.lock, flags);
+-
+-	pci_unregister_driver(&mana_driver);
+-}
+-
+ static int __init mana_driver_init(void)
+ {
+ 	int err;
+diff --git a/drivers/net/ethernet/microsoft/mana/gdma_pci.c b/drivers/net/ethernet/microsoft/mana/gdma_pci.c
 new file mode 100644
-index 000000000000..0d01e3d2f0d9
+index 000000000000..4f6a77f55e5a
 --- /dev/null
-+++ b/drivers/net/ethernet/microsoft/mana/gdma_cdx.c
-@@ -0,0 +1,340 @@
++++ b/drivers/net/ethernet/microsoft/mana/gdma_pci.c
+@@ -0,0 +1,909 @@
 +// SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
 +/* Copyright (c) 2025, Microsoft Corporation. */
-+#include <linux/module.h>
++
 +#include <linux/bitmap.h>
-+#include <linux/cdx/cdx_bus.h>
++#include <linux/cpumask.h>
++#include <linux/debugfs.h>
++#include <linux/delay.h>
++#include <linux/list.h>
++#include <linux/module.h>
 +#include <linux/msi.h>
++#include <linux/pci.h>
++#include <linux/slab.h>
++#include <linux/topology.h>
 +#include <linux/xarray.h>
 +
 +#include <net/mana/mana.h>
++#include <net/mana/hw_channel.h>
 +
-+#define MANA_CDX_GDMA_REGS_SIZE	(GDMA_REG_SHM_OFFSET + sizeof(u64))
++struct mana_dev_recovery {
++	struct list_head list;
++	struct pci_dev *pdev;
++	enum gdma_eqe_type type;
++};
 +
-+static int mana_cdx_msix_virq(struct gdma_context *gc, int msi)
++static struct mana_dev_recovery_work {
++	struct list_head dev_list;
++	struct delayed_work work;
++
++	/* Lock for dev_list above */
++	spinlock_t lock;
++} mana_dev_recovery_work;
++
++static int mana_gd_suspend(struct pci_dev *pdev, pm_message_t state);
++static int mana_gd_resume(struct pci_dev *pdev);
++
++#define MANA_SERVICE_PERIOD 10
++
++static void mana_serv_rescan(struct pci_dev *pdev)
 +{
-+	unsigned int virq = msi_get_virq(gc->dev, msi);
++	struct pci_bus *parent;
 +
-+	/* CDX allocates its whole vector pool in mana_cdx_setup_hwc_irqs(),
-+	 * so a vector with no Linux IRQ was never part of that pool.
-+	 */
-+	return virq ? virq : -EINVAL;
++	pci_lock_rescan_remove();
++
++	parent = pdev->bus;
++	if (!parent) {
++		dev_err(&pdev->dev, "MANA service: no parent bus\n");
++		goto out;
++	}
++
++	pci_stop_and_remove_bus_device(pdev);
++	pci_rescan_bus(parent);
++
++out:
++	pci_unlock_rescan_remove();
 +}
 +
-+static int mana_cdx_dev_reset(struct gdma_context *gc)
++static void mana_serv_fpga(struct pci_dev *pdev)
 +{
-+	return cdx_dev_reset(gc->dev);
++	struct pci_bus *bus, *parent;
++
++	pci_lock_rescan_remove();
++
++	bus = pdev->bus;
++	if (!bus) {
++		dev_err(&pdev->dev, "MANA service: no bus\n");
++		goto out;
++	}
++
++	parent = bus->parent;
++	if (!parent) {
++		dev_err(&pdev->dev, "MANA service: no parent bus\n");
++		goto out;
++	}
++
++	pci_stop_and_remove_bus_device(bus->self);
++
++	msleep(MANA_SERVICE_PERIOD * 1000);
++
++	pci_rescan_bus(parent);
++
++out:
++	pci_unlock_rescan_remove();
 +}
 +
-+static int mana_cdx_setup_hwc_irqs(struct gdma_context *gc)
++static void mana_serv_reset(struct pci_dev *pdev)
 +{
-+	struct cdx_device *cdx_dev = to_cdx_device(gc->dev);
++	struct gdma_context *gc = pci_get_drvdata(pdev);
++	struct hw_channel_context *hwc;
++	int ret;
++
++	if (!gc) {
++		/* Perform PCI rescan on device if GC is not set up */
++		dev_err(&pdev->dev, "MANA service: GC not setup, rescanning\n");
++		mana_serv_rescan(pdev);
++		return;
++	}
++
++	hwc = gc->hwc.driver_data;
++	if (!hwc) {
++		dev_err(&pdev->dev, "MANA service: no HWC\n");
++		goto out;
++	}
++
++	/* HWC is not responding in this case, so don't wait */
++	hwc->hwc_timeout = 0;
++
++	dev_info(&pdev->dev, "MANA reset cycle start\n");
++
++	mana_gd_suspend(pdev, PMSG_SUSPEND);
++
++	msleep(MANA_SERVICE_PERIOD * 1000);
++
++	ret = mana_gd_resume(pdev);
++	if (ret == -ETIMEDOUT || ret == -EPROTO) {
++		/* Perform PCI rescan on device if we failed on HWC */
++		dev_err(&pdev->dev, "MANA service: resume failed, rescanning\n");
++		mana_serv_rescan(pdev);
++		return;
++	}
++
++	if (ret)
++		dev_info(&pdev->dev, "MANA reset cycle failed err %d\n", ret);
++	else
++		dev_info(&pdev->dev, "MANA reset cycle completed\n");
++
++out:
++	clear_bit(GC_IN_SERVICE, &gc->flags);
++}
++
++static void mana_do_service(enum gdma_eqe_type type, struct pci_dev *pdev)
++{
++	switch (type) {
++	case GDMA_EQE_HWC_FPGA_RECONFIG:
++		mana_serv_fpga(pdev);
++		break;
++
++	case GDMA_EQE_HWC_RESET_REQUEST:
++		mana_serv_reset(pdev);
++		break;
++
++	default:
++		dev_err(&pdev->dev, "MANA service: unknown type %d\n", type);
++		break;
++	}
++}
++
++static void mana_recovery_delayed_func(struct work_struct *w)
++{
++	struct mana_dev_recovery_work *work;
++	struct mana_dev_recovery *dev;
++	unsigned long flags;
++
++	work = container_of(w, struct mana_dev_recovery_work, work.work);
++
++	spin_lock_irqsave(&work->lock, flags);
++
++	while (!list_empty(&work->dev_list)) {
++		dev = list_first_entry(&work->dev_list,
++				       struct mana_dev_recovery, list);
++		list_del(&dev->list);
++		spin_unlock_irqrestore(&work->lock, flags);
++
++		mana_do_service(dev->type, dev->pdev);
++		pci_dev_put(dev->pdev);
++		kfree(dev);
++
++		spin_lock_irqsave(&work->lock, flags);
++	}
++
++	spin_unlock_irqrestore(&work->lock, flags);
++}
++
++static void mana_serv_func(struct work_struct *w)
++{
++	struct mana_serv_work *mns_wk;
++	struct pci_dev *pdev;
++
++	mns_wk = container_of(w, struct mana_serv_work, serv_work);
++	pdev = mns_wk->pdev;
++
++	if (pdev)
++		mana_do_service(mns_wk->type, pdev);
++
++	pci_dev_put(pdev);
++	kfree(mns_wk);
++	module_put(THIS_MODULE);
++}
++
++static int mana_pci_schedule_serv_work(struct gdma_context *gc,
++				       enum gdma_eqe_type type)
++{
++	struct mana_serv_work *mns_wk;
++
++	if (test_and_set_bit(GC_IN_SERVICE, &gc->flags)) {
++		dev_info(gc->dev, "Already in service\n");
++		return -EBUSY;
++	}
++
++	if (!try_module_get(THIS_MODULE)) {
++		dev_info(gc->dev, "Module is unloading\n");
++		clear_bit(GC_IN_SERVICE, &gc->flags);
++		return -ENODEV;
++	}
++
++	mns_wk = kzalloc(sizeof(*mns_wk), GFP_ATOMIC);
++	if (!mns_wk) {
++		module_put(THIS_MODULE);
++		clear_bit(GC_IN_SERVICE, &gc->flags);
++		return -ENOMEM;
++	}
++
++	dev_info(gc->dev, "Start MANA service type:%d\n", type);
++	mns_wk->pdev = to_pci_dev(gc->dev);
++	mns_wk->type = type;
++	pci_dev_get(mns_wk->pdev);
++	INIT_WORK(&mns_wk->serv_work, mana_serv_func);
++	schedule_work(&mns_wk->serv_work);
++	return 0;
++}
++
++static bool mana_pci_msix_can_alloc_dyn(struct gdma_context *gc)
++{
++	return pci_msix_can_alloc_dyn(to_pci_dev(gc->dev));
++}
++
++static int mana_pci_msix_virq(struct gdma_context *gc, int msi)
++{
++	return pci_irq_vector(to_pci_dev(gc->dev), msi);
++}
++
++static int mana_pci_msix_alloc_at(struct gdma_context *gc, int *msi)
++{
++	struct msi_map irq_map;
++
++	irq_map = pci_msix_alloc_irq_at(to_pci_dev(gc->dev), *msi, NULL);
++	if (!irq_map.virq)
++		return irq_map.index;
++
++	*msi = irq_map.index;
++	return irq_map.virq;
++}
++
++static void mana_pci_msix_free(struct gdma_context *gc, int msi, int irq)
++{
++	struct msi_map irq_map = { .virq = irq, .index = msi };
++
++	pci_msix_free_irq(to_pci_dev(gc->dev), irq_map);
++}
++
++static int mana_pci_msix_vec_count(struct gdma_context *gc)
++{
++	return pci_msix_vec_count(to_pci_dev(gc->dev));
++}
++
++static int mana_pci_dev_reset(struct gdma_context *gc)
++{
++	return pcie_flr(to_pci_dev(gc->dev));
++}
++
++/*
++ * Spread on CPUs with the following heuristics:
++ *
++ * 1. No more than one IRQ per CPU, if possible;
++ * 2. NUMA locality is the second priority;
++ * 3. Sibling dislocality is the last priority.
++ *
++ * Let's consider this topology:
++ *
++ * Node            0               1
++ * Core        0       1       2       3
++ * CPU       0   1   2   3   4   5   6   7
++ *
++ * The most performant IRQ distribution based on the above topology
++ * and heuristics may look like this:
++ *
++ * IRQ     Nodes   Cores   CPUs
++ * 0       1       0       0-1
++ * 1       1       1       2-3
++ * 2       1       0       0-1
++ * 3       1       1       2-3
++ * 4       2       2       4-5
++ * 5       2       3       6-7
++ * 6       2       2       4-5
++ * 7       2       3       6-7
++ *
++ * The heuristics is implemented as follows.
++ *
++ * The outer for_each() loop resets the 'weight' to the actual number
++ * of CPUs in the hop. Then inner for_each() loop decrements it by the
++ * number of sibling groups (cores) while assigning first set of IRQs
++ * to each group. IRQs 0 and 1 above are distributed this way.
++ *
++ * Now, because NUMA locality is more important, we should walk the
++ * same set of siblings and assign 2nd set of IRQs (2 and 3), and it's
++ * implemented by the medium while() loop. We do like this unless the
++ * number of IRQs assigned on this hop will not become equal to number
++ * of CPUs in the hop (weight == 0). Then we switch to the next hop and
++ * do the same thing.
++ */
++
++static int mana_irq_setup_numa_aware(unsigned int *irqs, unsigned int len,
++				     int node, bool skip_first_cpu)
++{
++	const struct cpumask *next, *prev = cpu_none_mask;
++	cpumask_var_t cpus __free(free_cpumask_var);
++	int cpu, weight;
++
++	if (!alloc_cpumask_var(&cpus, GFP_KERNEL))
++		return -ENOMEM;
++
++	rcu_read_lock();
++	for_each_numa_hop_mask(next, node) {
++		weight = cpumask_weight_andnot(next, prev);
++		while (weight > 0) {
++			cpumask_andnot(cpus, next, prev);
++			for_each_cpu(cpu, cpus) {
++				cpumask_andnot(cpus, cpus, topology_sibling_cpumask(cpu));
++				--weight;
++
++				if (unlikely(skip_first_cpu)) {
++					skip_first_cpu = false;
++					continue;
++				}
++
++				if (len-- == 0)
++					goto done;
++
++				irq_set_affinity_and_hint(*irqs++, topology_sibling_cpumask(cpu));
++			}
++		}
++		prev = next;
++	}
++done:
++	rcu_read_unlock();
++	return 0;
++}
++
++/* must be called with cpus_read_lock() held */
++static void mana_irq_setup_linear(unsigned int *irqs, unsigned int len)
++{
++	int cpu;
++
++	for_each_online_cpu(cpu) {
++		if (len == 0)
++			break;
++
++		irq_set_affinity_and_hint(*irqs++, cpumask_of(cpu));
++		len--;
++	}
++}
++
++static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
++{
++	struct gdma_context *gc = pci_get_drvdata(pdev);
 +	struct gdma_irq_context *gic;
-+	unsigned int max_irqs;
-+	int nvec;
-+	int err, i = 0, j;
++	int *irqs, err, i, msi;
 +
-+	max_irqs = cdx_dev->num_msi;
++	irqs = kmalloc_objs(int, nvec);
++	if (!irqs)
++		return -ENOMEM;
 +
-+	/* Need 1 IRQ for HWC and at least 1 for the data path queues */
-+	if (max_irqs < 2) {
-+		dev_err(&cdx_dev->dev, "Not enough MSI vectors: %u\n",
-+			max_irqs);
-+		return -ENOSPC;
-+	}
-+
-+	/* Constrain the device to 32-bit DMA addresses, for both the MSI
-+	 * doorbells and the data path buffers, and never widen it afterwards.
-+	 *
-+	 * The MSI doorbell address has to land within the low 4GB. The data
-+	 * path carries a second constraint: the device does not perform
-+	 * writes to the final page of the 48-bit IOVA window, and
-+	 * iommu_dma_alloc_iova() allocates downwards from the top of that
-+	 * window, so the first queue created lands on the unusable page and
-+	 * its event queue stalls permanently. PCI devices are shielded from
-+	 * this by the low-4GB first attempt in iommu_dma_alloc_iova(), but
-+	 * that attempt is gated on dev_is_pci() and CDX devices do not
-+	 * qualify.
++	/*
++	 * In this function, num_msix_usable = HWC IRQ + Queue IRQ.
++	 * nvec is only Queue IRQ (HWC already setup).
++	 * While processing the next pci irq vector, we start with index 1,
++	 * as IRQ vector at index 0 is already processed for HWC.
++	 * However, the population of irqs array starts with index 0, to be
++	 * further used in mana_irq_setup_numa_aware()
 +	 */
-+	err = dma_set_mask_and_coherent(gc->dev, DMA_BIT_MASK(32));
-+	if (err) {
-+		dev_err(&cdx_dev->dev, "Failed to set 32-bit DMA mask\n");
-+		return err;
-+	}
-+
-+	/* The PCI path also calls dma_set_max_seg_size(), but that is
-+	 * deliberately omitted here: the CDX core does not attach a
-+	 * dma_parms to the device, so the helper would only WARN, and MANA
-+	 * never builds scatter-gather lists, so the limit is never read.
-+	 */
-+
-+	err = cdx_enable_msi(cdx_dev);
-+	if (err) {
-+		dev_err(&cdx_dev->dev, "Failed to enable MSI\n");
-+		return err;
-+	}
-+
-+	err = msi_domain_alloc_irqs(gc->dev, MSI_DEFAULT_DOMAIN, max_irqs);
-+	if (err) {
-+		dev_err(&cdx_dev->dev, "Failed to alloc MSI IRQs\n");
-+		cdx_disable_msi(cdx_dev);
-+		return err;
-+	}
-+
-+	nvec = max_irqs;
-+
-+	xa_init(&gc->irq_contexts);
-+
-+	/* No IRQ affinity hint is applied here. The PCI transport spreads its
-+	 * vectors over the NUMA node local to the device; the CDX platforms
-+	 * this driver targets are single-node, so there is nothing to spread
-+	 * over. Affinity management can be added when a multi-node CDX host
-+	 * exists to validate it against.
-+	 */
-+	for (i = 0; i < nvec; i++) {
-+		int msi = i;
-+
++	for (i = 1; i <= nvec; i++) {
++		msi = i;
 +		gic = mana_gd_get_gic(gc, false, &msi);
 +		if (IS_ERR(gic)) {
 +			err = PTR_ERR(gic);
 +			goto free_irq;
 +		}
++
++		irqs[i - 1] = gic->irq;
 +	}
 +
-+	gc->max_num_msix = nvec;
-+	gc->num_msix_usable = nvec;
-+
-+	/* CDX sizes its MSI pool at probe time and cannot grow it later, so
-+	 * never share vectors: vector 0 is reserved for the HWC and each of
-+	 * the remaining nvec - 1 vectors backs exactly one EQ. That bounds
-+	 * the queue count at nvec - 1 and guarantees the HWC vector is never
-+	 * handed out to a data queue.
++	/*
++	 * When calling mana_irq_setup_numa_aware() for dynamically added IRQs,
++	 * if number of CPUs is more than or equal to allocated MSI-X, we need to
++	 * skip the first CPU sibling group since they are already affinitized to
++	 * HWC IRQ
 +	 */
-+	gc->msi_sharing = false;
++	cpus_read_lock();
++	if (gc->num_msix_usable <= num_online_cpus()) {
++		err = mana_irq_setup_numa_aware(irqs, nvec, gc->numa_node,
++						true);
++		if (err) {
++			cpus_read_unlock();
++			goto free_irq;
++		}
++	} else {
++		/*
++		 * When num_msix_usable are more than num_online_cpus, our
++		 * queue IRQs should be equal to num of online vCPUs.
++		 * We try to make sure queue IRQs spread across all vCPUs.
++		 * In such a case NUMA or CPU core affinity does not matter.
++		 * Note: in this case the total mana IRQ should always be
++		 * num_online_cpus + 1. The first HWC IRQ is already handled
++		 * in HWC setup calls
++		 * However, if CPUs went offline since num_msix_usable was
++		 * computed, queue IRQs will be more than num_online_cpus().
++		 * In such cases remaining extra IRQs will retain their default
++		 * affinity.
++		 */
++		int first_unassigned = num_online_cpus();
 +
-+	gc->msi_bitmap = bitmap_zalloc(nvec, GFP_KERNEL);
-+	if (!gc->msi_bitmap) {
-+		err = -ENOMEM;
-+		goto free_irq;
++		if (nvec > first_unassigned) {
++			char buf[32];
++
++			if (first_unassigned == nvec - 1)
++				snprintf(buf, sizeof(buf), "%d",
++					 first_unassigned);
++			else
++				snprintf(buf, sizeof(buf), "%d-%d",
++					 first_unassigned, nvec - 1);
++
++			dev_dbg(&pdev->dev,
++				"MANA IRQ indices #%s will retain the default CPU affinity\n",
++				buf);
++		}
++
++		mana_irq_setup_linear(irqs, nvec);
 +	}
 +
-+	/* Reserve the HWC vector */
-+	set_bit(0, gc->msi_bitmap);
-+
++	cpus_read_unlock();
++	kfree(irqs);
 +	return 0;
 +
 +free_irq:
-+	for (j = i - 1; j >= 0; j--)
-+		mana_gd_put_gic(gc, false, j);
-+
-+	xa_destroy(&gc->irq_contexts);
-+	msi_domain_free_irqs_all(gc->dev, MSI_DEFAULT_DOMAIN);
-+	cdx_disable_msi(cdx_dev);
++	for (i -= 1; i > 0; i--)
++		mana_gd_put_gic(gc, false, i);
++	kfree(irqs);
 +	return err;
 +}
 +
-+static void mana_cdx_remove_irqs(struct gdma_context *gc)
++static int mana_gd_setup_irqs(struct pci_dev *pdev, int nvec)
 +{
-+	struct cdx_device *cdx_dev = to_cdx_device(gc->dev);
++	struct gdma_context *gc = pci_get_drvdata(pdev);
++	struct gdma_irq_context *gic;
++	int *irqs, *start_irqs;
++	unsigned int cpu;
++	int err, i, msi;
++
++	irqs = kmalloc_objs(int, nvec);
++	if (!irqs)
++		return -ENOMEM;
++
++	start_irqs = irqs;
++
++	for (i = 0; i < nvec; i++) {
++		msi = i;
++		gic = mana_gd_get_gic(gc, false, &msi);
++		if (IS_ERR(gic)) {
++			err = PTR_ERR(gic);
++			goto free_irq;
++		}
++
++		irqs[i] = gic->irq;
++	}
++
++	/* If number of IRQ is one extra than number of online CPUs,
++	 * then we need to assign IRQ0 (hwc irq) and IRQ1 to
++	 * same CPU.
++	 * Else we will use different CPUs for IRQ0 and IRQ1.
++	 * Also we are using cpumask_local_spread instead of
++	 * cpumask_first for the node, because the node can be
++	 * mem only.
++	 */
++	cpus_read_lock();
++	if (nvec > num_online_cpus()) {
++		cpu = cpumask_local_spread(0, gc->numa_node);
++		irq_set_affinity_and_hint(irqs[0], cpumask_of(cpu));
++		irqs++;
++		nvec -= 1;
++	}
++
++	err = mana_irq_setup_numa_aware(irqs, nvec, gc->numa_node, false);
++	if (err) {
++		cpus_read_unlock();
++		goto free_irq;
++	}
++
++	cpus_read_unlock();
++	kfree(start_irqs);
++	return 0;
++
++free_irq:
++	for (i -= 1; i >= 0; i--)
++		mana_gd_put_gic(gc, false, i);
++
++	kfree(start_irqs);
++	return err;
++}
++
++static int mana_gd_setup_hwc_irqs(struct pci_dev *pdev)
++{
++	struct gdma_context *gc = pci_get_drvdata(pdev);
++	unsigned int max_irqs, min_irqs;
++	int nvec, err;
++
++	if (pci_msix_can_alloc_dyn(pdev)) {
++		max_irqs = 1;
++		min_irqs = 1;
++	} else {
++		/* Need 1 interrupt for HWC */
++		max_irqs = min(num_online_cpus(), MANA_MAX_NUM_QUEUES) + 1;
++		min_irqs = 2;
++		gc->msi_sharing = true;
++	}
++
++	nvec = pci_alloc_irq_vectors(pdev, min_irqs, max_irqs, PCI_IRQ_MSIX);
++	if (nvec < 0)
++		return nvec;
++
++	err = mana_gd_setup_irqs(pdev, nvec);
++	if (err) {
++		pci_free_irq_vectors(pdev);
++		return err;
++	}
++
++	gc->num_msix_usable = nvec;
++	gc->max_num_msix = nvec;
++
++	return 0;
++}
++
++static int mana_gd_setup_remaining_irqs(struct pci_dev *pdev)
++{
++	struct gdma_context *gc = pci_get_drvdata(pdev);
++	struct msi_map irq_map;
++	int max_irqs, i, err;
++
++	if (!pci_msix_can_alloc_dyn(pdev))
++		/* remain irqs are already allocated with HWC IRQ */
++		return 0;
++
++	/* allocate only remaining IRQs*/
++	max_irqs = gc->num_msix_usable - 1;
++
++	for (i = 1; i <= max_irqs; i++) {
++		irq_map = pci_msix_alloc_irq_at(pdev, i, NULL);
++		if (!irq_map.virq) {
++			err = irq_map.index;
++			/* caller will handle cleaning up all allocated
++			 * irqs, after HWC is destroyed
++			 */
++			return err;
++		}
++	}
++
++	err = mana_gd_setup_dyn_irqs(pdev, max_irqs);
++	if (err)
++		return err;
++
++	gc->max_num_msix = gc->max_num_msix + max_irqs;
++
++	return 0;
++}
++
++static void mana_gd_remove_irqs(struct pci_dev *pdev)
++{
++	struct gdma_context *gc = pci_get_drvdata(pdev);
 +	int i;
 +
 +	if (gc->max_num_msix < 1)
@@ -270,9 +1600,7 @@ index 000000000000..0d01e3d2f0d9
 +
 +	WARN_ON(!xa_empty(&gc->irq_contexts));
 +
-+	xa_destroy(&gc->irq_contexts);
-+	msi_domain_free_irqs_all(gc->dev, MSI_DEFAULT_DOMAIN);
-+	cdx_disable_msi(cdx_dev);
++	pci_free_irq_vectors(pdev);
 +
 +	bitmap_free(gc->msi_bitmap);
 +	gc->msi_bitmap = NULL;
@@ -280,93 +1608,109 @@ index 000000000000..0d01e3d2f0d9
 +	gc->num_msix_usable = 0;
 +}
 +
-+static int mana_cdx_setup_remaining_irqs(struct gdma_context *gc)
++static int mana_pci_setup_hwc_irqs(struct gdma_context *gc)
 +{
-+	unsigned int max_queues_vport;
++	return mana_gd_setup_hwc_irqs(to_pci_dev(gc->dev));
++}
 +
-+	/* mana_gd_query_max_resources() may turn MSI sharing back on and round
-+	 * the per-vPort queue count up to MANA_DEF_NUM_QUEUES. CDX sizes its
-+	 * vector pool at probe time and cannot grow it later, and the HWC
-+	 * vector must stay private, so give every vPort a private slice of the
-+	 * remaining vectors instead. gc->max_num_queues is already capped at
-+	 * num_msix_usable - 1 by the core.
-+	 */
-+	gc->msi_sharing = false;
-+	max_queues_vport = (gc->num_msix_usable - 1) / gc->num_ports;
-+	if (!max_queues_vport) {
-+		dev_err(gc->dev, "%u MSI vectors cannot serve %u vPorts\n",
-+			gc->num_msix_usable, gc->num_ports);
-+		return -ENOSPC;
++static int mana_pci_setup_remaining_irqs(struct gdma_context *gc)
++{
++	int err;
++
++	err = mana_gd_setup_remaining_irqs(to_pci_dev(gc->dev));
++	if (err) {
++		dev_err(gc->dev, "Failed to setup remaining IRQs: %d", err);
++		return err;
 +	}
 +
-+	gc->max_num_queues_vport = min(gc->max_num_queues, max_queues_vport);
-+
-+	dev_dbg(gc->dev, "%u MSI vectors, %u vPorts, %u queues, no MSI sharing\n",
-+		gc->num_msix_usable, gc->num_ports, gc->max_num_queues_vport);
++	if (!gc->msi_sharing) {
++		gc->msi_bitmap = bitmap_zalloc(gc->num_msix_usable, GFP_KERNEL);
++		if (!gc->msi_bitmap)
++			return -ENOMEM;
++		/* Set bit for HWC */
++		set_bit(0, gc->msi_bitmap);
++	}
 +
 +	return 0;
 +}
 +
-+static const struct gdma_bus_ops mana_cdx_bus_ops = {
-+	.bus_name		= "cdx",
-+	.adev_prefix		= "mana_cdx",
-+	.msix_virq		= mana_cdx_msix_virq,
-+	.setup_hwc_irqs		= mana_cdx_setup_hwc_irqs,
-+	.setup_remaining_irqs	= mana_cdx_setup_remaining_irqs,
-+	.remove_irqs		= mana_cdx_remove_irqs,
-+	.dev_reset		= mana_cdx_dev_reset,
++static void mana_pci_remove_irqs(struct gdma_context *gc)
++{
++	mana_gd_remove_irqs(to_pci_dev(gc->dev));
++}
++
++static const struct gdma_bus_ops mana_pci_bus_ops = {
++	.bus_name		= "pci",
++	.msix_can_alloc_dyn	= mana_pci_msix_can_alloc_dyn,
++	.msix_virq		= mana_pci_msix_virq,
++	.msix_alloc_at		= mana_pci_msix_alloc_at,
++	.msix_free		= mana_pci_msix_free,
++	.msix_vec_count		= mana_pci_msix_vec_count,
++	.setup_hwc_irqs		= mana_pci_setup_hwc_irqs,
++	.setup_remaining_irqs	= mana_pci_setup_remaining_irqs,
++	.remove_irqs		= mana_pci_remove_irqs,
++	.dev_reset		= mana_pci_dev_reset,
++	.schedule_serv_work	= mana_pci_schedule_serv_work,
++	.drv_cap_flags1		= GDMA_DRV_CAP_FLAGS1_PCI,
 +};
 +
-+static int mana_cdx_gd_probe(struct cdx_device *cdx_dev)
++static bool mana_is_pf(unsigned short dev_id)
++{
++	return dev_id == MANA_PF_DEVICE_ID || dev_id == MANA_PF2_DEVICE_ID;
++}
++
++static int mana_gd_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
 +{
 +	struct gdma_context *gc;
 +	void __iomem *bar0_va;
++	int bar = 0;
 +	int err;
 +
 +	/* Each port has 2 CQs, each CQ has at most 1 EQE at a time */
 +	BUILD_BUG_ON(2 * MAX_PORTS_IN_MANA_DEV * GDMA_EQE_SIZE > EQ_SIZE);
 +
-+	err = cdx_dev_reset(&cdx_dev->dev);
-+	if (err)
-+		return err;
-+
-+	err = cdx_set_master(cdx_dev);
-+	if (err)
-+		return err;
-+
-+	gc = vzalloc(sizeof(*gc));
-+	if (!gc) {
-+		err = -ENOMEM;
-+		goto clear_master;
++	err = pci_enable_device(pdev);
++	if (err) {
++		dev_err(&pdev->dev, "Failed to enable pci device (err=%d)\n", err);
++		return -ENXIO;
 +	}
++
++	pci_set_master(pdev);
++
++	err = pci_request_regions(pdev, "mana");
++	if (err)
++		goto disable_dev;
++
++	err = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(64));
++	if (err) {
++		dev_err(&pdev->dev, "DMA set mask failed: %d\n", err);
++		goto release_region;
++	}
++	dma_set_max_seg_size(&pdev->dev, UINT_MAX);
++
++	err = -ENOMEM;
++	gc = vzalloc(sizeof(*gc));
++	if (!gc)
++		goto release_region;
 +
 +	mutex_init(&gc->eq_test_event_mutex);
 +	mutex_init(&gc->gic_mutex);
-+	dev_set_drvdata(&cdx_dev->dev, gc);
-+	gc->bar0_pa = cdx_resource_start(cdx_dev, 0);
-+	gc->bar0_size = cdx_resource_len(cdx_dev, 0);
-+	if (gc->bar0_size < MANA_CDX_GDMA_REGS_SIZE) {
-+		dev_err(&cdx_dev->dev, "BAR0 size %#llx is too small\n",
-+			(u64)gc->bar0_size);
-+		err = -EINVAL;
-+		goto free_gc;
-+	}
++	pci_set_drvdata(pdev, gc);
++	gc->bar0_pa = pci_resource_start(pdev, 0);
++	gc->bar0_size = pci_resource_len(pdev, 0);
 +
-+	bar0_va = ioremap(gc->bar0_pa, gc->bar0_size);
-+	if (!bar0_va) {
-+		err = -ENOMEM;
++	bar0_va = pci_iomap(pdev, bar, 0);
++	if (!bar0_va)
 +		goto free_gc;
-+	}
 +
-+	gc->numa_node = dev_to_node(&cdx_dev->dev);
++	gc->numa_node = dev_to_node(&pdev->dev);
++	gc->is_pf = mana_is_pf(pdev->device);
++	gc->is_pf2 = (pdev->device == MANA_PF2_DEVICE_ID);
++
 +	gc->bar0_va = bar0_va;
-+	gc->dev = &cdx_dev->dev;
-+	gc->bus_ops = &mana_cdx_bus_ops;
-+
-+	/* gc->is_pf is intentionally left clear: this device uses the VF
-+	 * register layout, and the vPort and MAC filter registration that
-+	 * is_pf selects is not required on this bus.
-+	 */
++	gc->dev = &pdev->dev;
++	gc->bus_ops = &mana_pci_bus_ops;
++	xa_init(&gc->irq_contexts);
 +
 +	err = mana_gd_setup(gc);
 +	if (err)
@@ -378,143 +1722,224 @@ index 000000000000..0d01e3d2f0d9
 +
 +	err = mana_rdma_probe(&gc->mana_ib);
 +	if (err)
-+		goto remove_mana;
++		goto cleanup_mana;
 +
-+	/* If a hardware reset event arrived over HWC during probe, roll back:
-+	 * the device state the rest of probe observed is no longer valid.
++	/*
++	 * If a hardware reset event has occurred over HWC during probe,
++	 * rollback and perform hardware reset procedure.
 +	 */
 +	if (test_and_set_bit(GC_PROBE_SUCCEEDED, &gc->flags)) {
 +		err = -EPROTO;
-+		goto remove_rdma;
++		goto cleanup_mana_rdma;
 +	}
 +
 +	return 0;
 +
-+remove_rdma:
++cleanup_mana_rdma:
 +	mana_rdma_remove(&gc->mana_ib);
-+remove_mana:
++cleanup_mana:
 +	mana_remove(&gc->mana, false);
 +cleanup_gd:
 +	mana_gd_cleanup(gc);
 +unmap_bar:
-+	iounmap(bar0_va);
++	xa_destroy(&gc->irq_contexts);
++	pci_iounmap(pdev, bar0_va);
 +free_gc:
-+	dev_set_drvdata(&cdx_dev->dev, NULL);
++	pci_set_drvdata(pdev, NULL);
 +	vfree(gc);
-+clear_master:
-+	cdx_clear_master(cdx_dev);
++release_region:
++	pci_release_regions(pdev);
++disable_dev:
++	pci_disable_device(pdev);
++	dev_err(&pdev->dev, "gdma probe failed: err = %d\n", err);
++
++	/*
++	 * Hardware could be in recovery mode and the HWC returns TIMEDOUT or
++	 * EPROTO from mana_gd_setup(), mana_probe() or mana_rdma_probe(), or
++	 * we received a hardware reset event over HWC interrupt. In this case,
++	 * perform the device recovery procedure after MANA_SERVICE_PERIOD
++	 * seconds.
++	 */
++	if (err == -ETIMEDOUT || err == -EPROTO) {
++		struct mana_dev_recovery *dev;
++		unsigned long flags;
++
++		dev_info(&pdev->dev, "Start MANA recovery mode\n");
++
++		dev = kzalloc_obj(*dev);
++		if (!dev)
++			return err;
++
++		dev->pdev = pci_dev_get(pdev);
++		dev->type = GDMA_EQE_HWC_RESET_REQUEST;
++
++		spin_lock_irqsave(&mana_dev_recovery_work.lock, flags);
++		list_add_tail(&dev->list, &mana_dev_recovery_work.dev_list);
++		spin_unlock_irqrestore(&mana_dev_recovery_work.lock, flags);
++
++		schedule_delayed_work(&mana_dev_recovery_work.work,
++				      secs_to_jiffies(MANA_SERVICE_PERIOD));
++	}
++
 +	return err;
 +}
 +
-+static int mana_cdx_gd_remove(struct cdx_device *cdx_dev)
++static void mana_gd_remove(struct pci_dev *pdev)
 +{
-+	struct gdma_context *gc = dev_get_drvdata(&cdx_dev->dev);
++	struct gdma_context *gc = pci_get_drvdata(pdev);
++
++	pci_disable_sriov(pdev);
 +
 +	mana_rdma_remove(&gc->mana_ib);
 +	mana_remove(&gc->mana, false);
 +
 +	mana_gd_cleanup(gc);
-+	cdx_clear_master(cdx_dev);
 +
-+	iounmap(gc->bar0_va);
++	xa_destroy(&gc->irq_contexts);
 +
-+	dev_set_drvdata(&cdx_dev->dev, NULL);
++	pci_iounmap(pdev, gc->bar0_va);
++
 +	vfree(gc);
-+	return 0;
++
++	pci_release_regions(pdev);
++	pci_disable_device(pdev);
++
++	dev_dbg(&pdev->dev, "mana gdma remove successful\n");
 +}
 +
-+/* Quiesce the device for kexec. This is also called upon reboot/shutdown. */
-+static void mana_cdx_gd_shutdown(struct cdx_device *cdx_dev)
++/* The 'state' parameter is not used. */
++static int mana_gd_suspend(struct pci_dev *pdev, pm_message_t state)
 +{
-+	struct gdma_context *gc = dev_get_drvdata(&cdx_dev->dev);
++	struct gdma_context *gc = pci_get_drvdata(pdev);
 +
 +	mana_rdma_remove(&gc->mana_ib);
 +	mana_remove(&gc->mana, true);
 +
 +	mana_gd_cleanup(gc);
-+	cdx_clear_master(cdx_dev);
++
++	return 0;
 +}
 +
-+#define CDX_VENDOR_ID_MICROSOFT 0x1414
-+static const struct cdx_device_id mana_cdx_table[] = {
-+	{ CDX_DEVICE(CDX_VENDOR_ID_MICROSOFT, MANA_CDX_DEVICE_ID) },
-+	{}
++static int mana_gd_resume(struct pci_dev *pdev)
++{
++	struct gdma_context *gc = pci_get_drvdata(pdev);
++	int err;
++
++	err = mana_gd_setup(gc);
++	if (err)
++		return err;
++
++	err = mana_probe(&gc->mana, true);
++	if (err)
++		goto cleanup_gd;
++
++	err = mana_rdma_probe(&gc->mana_ib);
++	if (err)
++		mana_rdma_remove(&gc->mana_ib);
++
++	return err;
++
++cleanup_gd:
++	mana_gd_cleanup(gc);
++	return err;
++}
++
++/* Quiesce the device for kexec. This is also called upon reboot/shutdown. */
++static void mana_gd_shutdown(struct pci_dev *pdev)
++{
++	struct gdma_context *gc = pci_get_drvdata(pdev);
++
++	dev_info(&pdev->dev, "Shutdown was called\n");
++
++	mana_rdma_remove(&gc->mana_ib);
++	mana_remove(&gc->mana, true);
++
++	mana_gd_cleanup(gc);
++
++	pci_disable_device(pdev);
++}
++
++static int mana_sriov_configure(struct pci_dev *pdev, int numvfs)
++{
++	int err = 0;
++
++	dev_info(&pdev->dev, "Requested num VFs: %d\n", numvfs);
++
++	if (numvfs > 0) {
++		err = pci_enable_sriov(pdev, numvfs);
++	} else {
++		if (pci_vfs_assigned(pdev)) {
++			dev_warn(&pdev->dev,
++				 "Cannot disable SR-IOV while VFs are assigned\n");
++			return -EPERM;
++		}
++
++		pci_disable_sriov(pdev);
++	}
++
++	return err ? err : numvfs;
++}
++
++static const struct pci_device_id mana_id_table[] = {
++	{ PCI_DEVICE(PCI_VENDOR_ID_MICROSOFT, MANA_PF_DEVICE_ID) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_MICROSOFT, MANA_PF2_DEVICE_ID) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_MICROSOFT, MANA_VF_DEVICE_ID) },
++	{ }
 +};
 +
-+MODULE_DEVICE_TABLE(cdx, mana_cdx_table);
-+
-+static struct cdx_driver gdma_cdx_driver = {
-+	.match_id_table	= mana_cdx_table,
-+	.probe		= mana_cdx_gd_probe,
-+	.remove		= mana_cdx_gd_remove,
-+	.shutdown	= mana_cdx_gd_shutdown,
-+	.driver	= {
-+		.name	= "mana_cdx",
-+	},
++static struct pci_driver mana_driver = {
++	.name		= "mana",
++	.id_table	= mana_id_table,
++	.probe		= mana_gd_probe,
++	.remove		= mana_gd_remove,
++	.suspend	= mana_gd_suspend,
++	.resume		= mana_gd_resume,
++	.shutdown	= mana_gd_shutdown,
++	.sriov_configure = mana_sriov_configure,
 +};
 +
-+module_driver(gdma_cdx_driver, cdx_driver_register, cdx_driver_unregister);
++MODULE_DEVICE_TABLE(pci, mana_id_table);
 +
-+MODULE_LICENSE("Dual BSD/GPL");
-+MODULE_DESCRIPTION("Microsoft Azure Network Adapter driver for the CDX bus");
-+MODULE_IMPORT_NS("CDX_BUS");
-+MODULE_IMPORT_NS("NET_MANA");
-diff --git a/drivers/net/ethernet/microsoft/mana/gdma_pci.c b/drivers/net/ethernet/microsoft/mana/gdma_pci.c
-index 92a1e66e18b7..ed8925296c8a 100644
---- a/drivers/net/ethernet/microsoft/mana/gdma_pci.c
-+++ b/drivers/net/ethernet/microsoft/mana/gdma_pci.c
-@@ -619,6 +619,7 @@ static void mana_pci_remove_irqs(struct gdma_context *gc)
- 
- static const struct gdma_bus_ops mana_pci_bus_ops = {
- 	.bus_name		= "pci",
-+	.adev_prefix		= "mana",
- 	.msix_can_alloc_dyn	= mana_pci_msix_can_alloc_dyn,
- 	.msix_virq		= mana_pci_msix_virq,
- 	.msix_alloc_at		= mana_pci_msix_alloc_at,
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-index 16a9d192c099..2ba48a1c4b15 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-@@ -3957,8 +3957,9 @@ static int add_adev(struct gdma_dev *gd, const char *name)
- 
- 	/* madev is owned by the auxiliary device */
- 	madev = NULL;
--	/* Keep the established mana.{eth,rdma} auxiliary match names. */
--	ret = __auxiliary_device_add(adev, "mana");
-+	/* Keep match names independent of the common module's name. */
-+	ret = __auxiliary_device_add(adev,
-+				     gd->gdma_context->bus_ops->adev_prefix);
- 	if (ret)
- 		goto add_fail;
- 
++int mana_pci_driver_register(void)
++{
++	INIT_LIST_HEAD(&mana_dev_recovery_work.dev_list);
++	spin_lock_init(&mana_dev_recovery_work.lock);
++	INIT_DELAYED_WORK(&mana_dev_recovery_work.work,
++			  mana_recovery_delayed_func);
++
++	return pci_register_driver(&mana_driver);
++}
++
++void mana_pci_driver_unregister(void)
++{
++	struct mana_dev_recovery *dev;
++	unsigned long flags;
++
++	disable_delayed_work_sync(&mana_dev_recovery_work.work);
++
++	spin_lock_irqsave(&mana_dev_recovery_work.lock, flags);
++	while (!list_empty(&mana_dev_recovery_work.dev_list)) {
++		dev = list_first_entry(&mana_dev_recovery_work.dev_list,
++				       struct mana_dev_recovery, list);
++		list_del(&dev->list);
++		pci_dev_put(dev->pdev);
++		kfree(dev);
++	}
++	spin_unlock_irqrestore(&mana_dev_recovery_work.lock, flags);
++
++	pci_unregister_driver(&mana_driver);
++}
 diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h
-index cdec5558304f..c610fc1067e0 100644
+index cdec5558304f..238ff8b9f067 100644
 --- a/include/net/mana/gdma.h
 +++ b/include/net/mana/gdma.h
-@@ -432,6 +432,7 @@ struct gdma_context;
-  * instance in gdma_context.bus_ops at probe time.
-  *
-  * @bus_name: Bus token used to build the per-vector IRQ names.
-+ * @adev_prefix: Prefix used for auxiliary-device match names.
-  * @msix_can_alloc_dyn: True if the bus can allocate MSI-X vectors after
-  *	probe time. Buses that size their vector pool at probe and cannot
-  *	grow it later leave this NULL.
-@@ -459,6 +460,7 @@ struct gdma_context;
-  */
- struct gdma_bus_ops {
- 	const char *bus_name;
-+	const char *adev_prefix;
- 	bool (*msix_can_alloc_dyn)(struct gdma_context *gc);
- 	int (*msix_virq)(struct gdma_context *gc, int msi);
- 	int (*msix_alloc_at)(struct gdma_context *gc, int *msi);
-@@ -684,6 +686,8 @@ struct gdma_eqe {
- #define MANA_PF2_DEVICE_ID 0x00C1
- #define MANA_VF_DEVICE_ID 0x00BA
+@@ -1175,4 +1175,7 @@ int mana_gd_query_device_cfg(struct gdma_context *gc, u32 proto_major_ver,
+ 			     u16 *max_num_vports, u8 *bm_hostmode);
+ int mana_gd_dev_reset(struct gdma_context *gc);
  
-+#define MANA_CDX_DEVICE_ID 0x00C2
++int mana_pci_driver_register(void);
++void mana_pci_driver_unregister(void);
 +
- struct gdma_posted_wqe_info {
- 	u32 wqe_size_in_bu;
- };
+ #endif /* _GDMA_H */
 -- 
 2.54.0
