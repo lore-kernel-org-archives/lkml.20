@@ -1,193 +1,230 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD1635677C;
-	Thu, 24 Sep 2026 09:31:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1359232C8B;
+	Thu, 24 Sep 2026 09:31:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790242284; cv=none; b=iMqmHgEGKoqRZ9yB7kQHVxJIpQH+wfdnc6lbk8oqW9ZUQpU8I5H5oPzQTCJvxxRXFshr9beQPGj3B+XFWpmN7MEpcJ+8kXUqS3uLAejv3fWn8MBmywBPchU9qktYcQ1WrHwiTAwT5rLYefFiWEs8jArfv2Bczy8tSdumpo/tx84=
+	t=1790242309; cv=none; b=KqDQG0PKJaAmGGWePaWMgwUN+GmYe4N6/mHOMOx+s1cm4xsCZOUUPvzvR9r3YCBk/PaPikHrPUkbcaCYDqqJmIDK7q9jraAjXg2ZYLnlTueqp9cPrZmN1flE1mX/2RMkg83QfLTKuuMfG19wp4jOOMdBWSGOnGIfyfD3d2fQvVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790242284; c=relaxed/simple;
-	bh=3016/YcUrafmSJfnVIIyNUFVP7OY0QoPQKi4VrtHhdc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KOjqat7oLnA/Q7Pk/LTrUZ6P7Q8tcaWDnVhGh5eoAfJuFXjLWpT+Zm3lOdWNLAFMKltKStOi9sGdMrpR0GoOWGYR0pGq6hlgM+UmWqaEnAEJq0xUYp4qF6IKlNtMk65r4GVkDvQoeq6+9vXeJvYhRmnXGqnbNxGZymRYASU2+74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EZmbNWDr; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EZmbNWDr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B9CC1F000FF;
-	Thu, 24 Sep 2026 09:31:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790242282;
-	bh=NeTuCFcemX/adNl5XbtKYCBGxqR8ivj2ssA68DygpBo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EZmbNWDrJtzCFAJtM9thEalDnEZjbzv/YFJ6VRB0CFMs6afx6LFyjqWeB9uvZu9Qj
-	 x81U9J6SOwj+0cLIr/MZhV0koClWIOxcD5o/aYGCmtyDTOVlrSVvKX6ZfcZBj68e6K
-	 vYdqUfgrFK//iQz1ODBsg0qkf5SSSUOk+wALZMA2yrtTuYJTmKd2zxd3tMMblpobmo
-	 OPdWy5LyVA52bNPo6ohdMZWzXomoavKccUxrgflAMfYVBRrOQO6rK1bHxObbSADG3d
-	 kdoP8cjsGmQto1i2Tuxf28J9IBuOzTTBvd4L9nigmzb2llrZgIVXCPzl22BDUyAmMY
-	 BBCYQ4gHnz+VQ==
-Date: Thu, 24 Sep 2026 10:31:15 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	"Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Vishal Moola <vishal.moola@gmail.com>, 
-	Ingo Molnar <mingo@kernel.org>, Lu Baolu <baolu.lu@linux.intel.com>, 
-	Jason Gunthorpe <jgg@nvidia.com>, Steven Rostedt <rostedt@goodmis.org>, x86@kernel.org, 
-	linux-mm@kvack.org, regressions@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] mm: don't schedule deferred kernel page table freeing
- while booting
-Message-ID: <arTtl-7Nl5Ie0SEs@gremlin>
-References: <20260924092307.22813-1-mikhail.v.gavrilov@gmail.com>
+	s=arc-20240116; t=1790242309; c=relaxed/simple;
+	bh=Eii8pIapq3+IVKHeZMnWF/ITHh8UnbjO9k7WQIJ1NC4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tqbWunvGgsx/RY93jTdtPbSE2oKnU9ynI6XUNcGPzMwgiANzyd8UROIhjeCZTmJm2XDaV8Ov4vGkTO30gGZfnraMeESV1j/1uOdK5YEguhXQFj9Ww1miB9fRMxsUxa23VAk0nslHWi20s+7KnLXrjJiKhxl76TnBrtUR8o1vMY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=none smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.198])
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hr7r35d2TzKHMdk;
+	Thu, 24 Sep 2026 17:31:15 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id 10A5D40574;
+	Thu, 24 Sep 2026 17:31:43 +0800 (CST)
+Received: from [10.174.178.176] (unknown [10.174.178.176])
+	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgBXdCf87bRq9wz3BQ--.25718S3;
+	Thu, 24 Sep 2026 17:31:42 +0800 (CST)
+Message-ID: <5a454f2a-8ae2-491d-b903-750c945cfb9d@huaweicloud.com>
+Date: Thu, 24 Sep 2026 17:31:40 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924092307.22813-1-mikhail.v.gavrilov@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/4] mm/truncate: align truncation boundaries to
+ mapping minimum folio order
+To: linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, jack@suse.cz,
+ bfoster@redhat.com, ziy@nvidia.com
+Cc: linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org,
+ akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+ liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
+ mhocko@suse.com, hughd@google.com, baolin.wang@linux.alibaba.com,
+ willy@infradead.org, joannelkoong@gmail.com, djwong@kernel.org,
+ yi.zhang@huawei.com, yizhang089@gmail.com, yangerkun@huawei.com,
+ chengzhihao1@huawei.com, wangkefeng.wang@huawei.com, yukuai@fnnas.com
+References: <20260922110703.468389-1-yi.zhang@huaweicloud.com>
+ <20260922110703.468389-2-yi.zhang@huaweicloud.com>
+Content-Language: en-US
+From: Zhang Yi <yi.zhang@huaweicloud.com>
+In-Reply-To: <20260922110703.468389-2-yi.zhang@huaweicloud.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:gCh0CgBXdCf87bRq9wz3BQ--.25718S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxKF13Kr15CrW8WF4kKr4UArb_yoWxWw1kpF
+	WUKrnayrW8Wr47Cr4kua1kZr1rW3ykXa1UAFyxGr9ayrnYga42kry2g3W09ay8Kwn7AF1F
+	qF4jvFWq9a1qyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x
+	0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
+	6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
+	Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS
+	14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
+	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWr
+	XwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
+	0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
+	Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0
+	4xRDUUUUU==
+X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
 
-I know I said go ahead so it's my fault not yours, but in general please don't
-respin so fast :P
 
-I made a suggestion on the other thread which this has now raced. See below!
 
-On Thu, Sep 24, 2026 at 02:23:07PM +0500, Mikhail Gavrilov wrote:
-> Booting with a boot-time function tracer and a filter, for example
->
->   ftrace=function ftrace_filter=pud_free_pmd_page
->
-> panics on 7.3-rc4 as soon as the tracer starts:
->
->   [   23.531178] Starting tracer 'function'
->   [   23.675800] Oops: general protection fault, probably for non-canonical address 0xdffffc0000000038: 0000 [#1] SMP KASAN NOPTI
->   [   23.819917] KASAN: null-ptr-deref in range [0x00000000000001c0-0x00000000000001c7]
->   [   23.964025] CPU: 0 UID: 0 PID: 0 Comm: swapper Not tainted 7.3.0-rc4-fe2ec83746e5-with-fixes-v2+ #195 PREEMPT(undef)
->   [   24.252248] RIP: 0010:__queue_work+0xab/0xf00
->   [   25.981629] Call Trace:
->   [   26.125727]  <TASK>
->   [   26.413912]  ? pagetable_free_kernel+0x20/0x120
->   [   26.990283]  queue_work_on+0x97/0xf0
->   [   27.134382]  __cpa_collapse_large_pages+0x501/0x6f0
->   [   27.566662]  cpa_flush+0x394/0x620
->   [   27.998953]  change_page_attr_set_clr+0x321/0x4a0
->   [   29.151729]  set_memory_rox+0xa2/0xf0
->   [   29.584018]  create_trampoline+0x431/0x6f0
->   ...
->   [   44.343347] Kernel panic - not syncing: Attempted to kill the idle task!
->
-> The boot-time tracer is started from early_trace_init(), which runs
-> before workqueue_init_early().  Making its trampoline read-only splits a
-> large page, and CPA collapses it again right away.  The split table has
-> been a kernel page table since commit 9e4a3ec3411b
-> ("x86/mm/pat: Allocate split page tables as kernel page tables"), so the
-> collapse frees it through pagetable_free_kernel(), which queues work on
-> system_percpu_wq - still NULL at that point.  That commit is correct in
-> itself; it only lets CPA reach pagetable_free_kernel() before the
-> workqueue that function relies on exists.
->
-> Keep putting the table on the list, but don't schedule the work while
-> the system is still booting.  The next kernel page table freed after
-> boot schedules it, and the work then frees the early table too, after
-> the same IOMMU flush as any other.  If no kernel page table is freed
-> after boot, the ones freed during boot stay on the list.
->
-> Fixes: 9e4a3ec3411b ("x86/mm/pat: Allocate split page tables as kernel page tables")
-> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-> Link: https://lore.kernel.org/20260924064321.23787-1-mikhail.v.gavrilov@gmail.com
+On 9/22/2026 7:07 PM, Zhang Yi wrote:
+> From: Zhang Yi <yi.zhang@huawei.com>
+> 
+> When the mapping has a non-zero minimum folio order (min_order),
+> folio_split() in truncate_inode_partial_folio() stops at min_order
+> instead of order 0, so the sub-folio containing a split point stays
+> aligned to 1 << min_order rather than to a single page. The original
+> boundaries in truncate_inode_pages_range() were based on page
+> granularity, so either boundary could land inside the min_order chunk at
+> its edge, and the truncation loop would drop that whole chunk, valid
+> out-of-range tail included.
+> 
+> For example, a 64K (order-4) folio with min_order = 2 (16K) punched from
+> offset 0 to 36K:
+> 
+>   split @p0 -> [p0-p3, p4-p7, p8-p15]         # non-uniform, min_order
+>   folio2 = p8-p15           # straddles: p8 in range, p9-p15 tail valid
+>   2nd split of folio2 -> [p8-p11, p12-p15]    # success
+>   end(old) = p9                               # BUG: p9 inside [p8-p11]
+>   loop truncates ... p8-p11               # p9-p11's valid tail is lost
+> 
+> It has gone unnoticed so far for two reasons. A non-zero min_order is
+> only used by filesystems with a block or sector size larger than the
+> page size, and those either always write back the affected range before
+> punching a hole or truncating, or they carry filesystem private data on
+> dirty folios (e.g. buffer_head), which makes filemap_release_folio()
+> fail and folio_split() abort with -EBUSY, so the folio is never split
+> and the old start/end boundaries remain valid. The bug only becomes
+> reachable on paths that truncate dirty large folios without prior
+> writeback and without filesystem private data, such as the upcoming ext4
+> iomap buffered I/O path.
+> 
+> Align both start (rounded up) and end (rounded down) to the mapping
+> minimum folio order so they always fall on a folio boundary.
+> 
+> Reported-by: Joanne Koong <joannelkoong@gmail.com>
+> Link: https://lore.kernel.org/linux-mm/CAJnrk1bQYUe6+1ryyJur5EEnZYrC+_5AYsy=OWzVRgD4202y1g@mail.gmail.com/
+> Fixes: e220917fa5077 ("mm: split a folio in minimum folio order chunks")
+> Suggested-by: Zi Yan <ziy@nvidia.com>
+> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
 > ---
-> v2:
->  - Keep the table on the list and only skip scheduling the work while
->    booting, instead of freeing it directly (David Hildenbrand)
->  - Say that 9e4a3ec3411b is correct in itself and only exposes the
->    problem (Lorenzo Stoakes)
-> v1: https://lore.kernel.org/20260924064321.23787-1-mikhail.v.gavrilov@gmail.com
->
-> Tested on a Ryzen 9 7950X with a Radeon RX 7900 XTX, lockdep and KASAN
-> enabled, on 7.3-rc4 (fe2ec83746e5) with the same unrelated local
-> changes as noted for v1, booting with
->
->   ftrace=function ftrace_filter=pud_free_pmd_page,pagetable_free_kernel,kernel_pgtable_work_func
->
-> The boot that panicked without the fix completes.  The table freed
-> while the tracer installs itself does not show up in the trace, since
-> the tracer is not live yet at that point, but the first kernel page
-> table freed after boot does: systemd-modules-load freeing one from
-> __cpa_collapse_large_pages() schedules the work, and
-> kernel_pgtable_work_func() runs 0.8 ms later and drains the list.  From
-> then on every pagetable_free_kernel() in the trace (660 entries, none
-> lost) is followed by a work run within a few milliseconds.  So on this
-> box the early tables wait until the first module is loaded, and no
-> separate drain is needed.
->
->  mm/pgtable-generic.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
->
-> diff --git a/mm/pgtable-generic.c b/mm/pgtable-generic.c
-> index b91b1a98029c..f7f504f57914 100644
-> --- a/mm/pgtable-generic.c
-> +++ b/mm/pgtable-generic.c
-> @@ -444,6 +444,12 @@ void pagetable_free_kernel(struct ptdesc *pt)
->  	list_add(&pt->pt_list, &kernel_pgtable_work.list);
->  	spin_unlock(&kernel_pgtable_work.lock);
->
-> -	schedule_work(&kernel_pgtable_work.work);
-> +	/*
-> +	 * The workqueue may not exist yet while the system is booting.
-> +	 * The next kernel page table freed after boot schedules the work,
-> +	 * which then frees this one as well.
-> +	 */
-> +	if (system_state != SYSTEM_BOOTING)
-> +		schedule_work(&kernel_pgtable_work.work);
->  }
->  #endif
-> --
-> 2.55.0
->
+>  mm/truncate.c | 18 ++++++++++++------
+>  1 file changed, 12 insertions(+), 6 deletions(-)
+> 
+> diff --git a/mm/truncate.c b/mm/truncate.c
+> index b58ba940be47..f9625bb4916f 100644
+> --- a/mm/truncate.c
+> +++ b/mm/truncate.c
+> @@ -345,9 +345,11 @@ long mapping_evict_folio(struct address_space *mapping, struct folio *folio)
+>   * @lstart: offset from which to truncate
+>   * @lend: offset to which to truncate (inclusive)
+>   *
+> - * Truncate the page cache, removing the pages that are between
+> - * specified offsets (and zeroing out partial pages
+> - * if lstart or lend + 1 is not page aligned).
+> + * Truncate the page cache, removing the folios that are between specified
+> + * offsets (and zeroing out partial folios if lstart or lend + 1 is not
+> + * folio aligned).  For mappings with a non-zero minimum folio order, the
+> + * boundaries are aligned inwards to 1 << min_order so the edge sub-folio
+> + * straddling the range is kept.
+>   *
+>   * Truncate takes two passes - the first pass is nonblocking.  It will not
+>   * block on page locks and it will not block on writeback.  The second pass
+> @@ -374,14 +376,14 @@ void truncate_inode_pages_range(struct address_space *mapping,
+>  	int		i;
+>  	struct folio	*folio;
+>  	bool		same_folio;
+> +	pgoff_t		min_nrpages = mapping_min_folio_nrpages(mapping);
+>  
+>  	if (mapping_empty(mapping))
+>  		return;
+>  
+>  	/*
+> -	 * 'start' and 'end' always covers the range of pages to be fully
+> -	 * truncated. Partial pages are covered with 'partial_start' at the
+> -	 * start of the range and 'partial_end' at the end of the range.
+> +	 * 'start' and 'end' always covers the range of folios to be fully
+> +	 * truncated, with both boundaries aligned inwards to 1 << min_order.
+>  	 * Note that 'end' is exclusive while 'lend' is inclusive.
+>  	 */
+>  	start = (lstart + PAGE_SIZE - 1) >> PAGE_SHIFT;
+> @@ -395,6 +397,10 @@ void truncate_inode_pages_range(struct address_space *mapping,
+>  	else
+>  		end = (lend + 1) >> PAGE_SHIFT;
+>  
+> +	start = round_up(start, min_nrpages);
+> +	if (end != (pgoff_t)-1)
+> +		end = round_down(end, min_nrpages);
+> +
+Hi, all
 
-Maybe we want to ensure the drain? Like below:
+The sashiko pointed out an issue on this patch:
 
-diff --git a/mm/pgtable-generic.c b/mm/pgtable-generic.c
-index f3754cefb19e..67f286169632 100644
---- a/mm/pgtable-generic.c
-+++ b/mm/pgtable-generic.c
-@@ -457,12 +457,29 @@ static void kernel_pgtable_work_func(struct work_struct *work)
- 		__pagetable_free(pt);
- }
+> [Severity: Critical]
+> Can this integer overflow on 32-bit architectures?
+>
+> In truncate_inode_pages_range(), pgoff_t is a 32-bit integer on 32-bit
+> systems. If a hole punch or truncate operation occurs at an offset near
+> MAX_LFS_FILESIZE, the start page index will be close to 0xFFFFFFFF.
+>
+> When min_nrpages > 1 (e.g., on filesystems supporting min_order > 0 like
+> Ext4 with bigalloc), rounding up this index wraps it to 0.
+>
+> Would this wrap-around cause the entire page cache for the file to be
+> truncated instead of just the intended tail, leading to data loss?
 
-+static void schedule_kernel_pgtable_free(void)
-+{
-+	schedule_work(&kernel_pgtable_work.work);
-+}
-+
- void pagetable_free_kernel(struct ptdesc *pt)
- {
- 	spin_lock(&kernel_pgtable_work.lock);
- 	list_add(&pt->pt_list, &kernel_pgtable_work.list);
- 	spin_unlock(&kernel_pgtable_work.lock);
 
--	schedule_work(&kernel_pgtable_work.work);
-+	/* No workqueues exist yet. */
-+	if (system_state != SYSTEM_BOOTING)
-+		schedule_kernel_pgtable_free();
- }
-+
-+static int kernel_pgtable_drain_early(void)
-+{
-+	/* Drain any early kernel page table frees. */
-+	schedule_kernel_pgtable_free();
-+	return 0;
-+}
-+
-+core_initcall(kernel_pgtable_drain_early);
-+
- #endif
+This is a pre-existing issue, and it is not specific to the truncate
+path.
 
---
-Cheers, Lorenzo
+On 32-bit systems, for a mapping with a non-zero minimum folio order,
+the last min_order-aligned block of a file of MAX_LFS_FILESIZE is also
+the last block of the page index space, so the folio covering it ends at
+or past the last representable page index.  All places that do offset
+calculations on such end folios carry an overflow risk, e.g.,
+folio_next_index() wraps to 0 for that folio, and the values derived
+from it are wrong.
+
+For example, on a 32-bit environment I create an ext4 filesystem with a
+16KB blocksize, where the maximum file size is 0xFFFFFFFF000
+(MAX_LFS_FILESIZE). If we run:
+
+ xfs_io -f -c "pwrite -b 0x10000 0xFFFFFFFC000 0x3000" /mnt/foo
+
+The last folio starts at 0xFFFFFFFC000, but its length is 0x4000,
+so calling folio_next_index() on it will overflow, leading to
+unpredictable errors.
+
+
+I think the root cause is that sb->s_maxbytes is set to
+MAX_LFS_FILESIZE, which on 32-bit is (loff_t)ULONG_MAX << PAGE_SHIFT.  A
+folio is at least min_order pages and min_order aligned, so the file
+must have at most ULONG_MAX + 1 - (1 << min_order) pages for the last
+folio's next index to stay representable.
+
+I suppose filesystems that use a non-zero minimum folio order should cap
+sb->s_maxbytes instead of using MAX_LFS_FILESIZE directly, something
+like this:
+
+static inline loff_t max_lfs_filesize(unsigned int min_order)
+{
+#if BITS_PER_LONG == 32
+	return ((loff_t)ULONG_MAX + 1 - (1UL << min_order)) << PAGE_SHIFT;
+#else
+    return MAX_LFS_FILESIZE;
+#endif
+}
+
+Any thoughts?
+
+Besides, I understand that since this is a pre-existing issue, it
+shouldn't block the merging of this series?
+
+Thanks,
+Yi.
+
+
