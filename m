@@ -1,70 +1,71 @@
-Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+Received: from mail-oo2-f40.google.com (mail-oo2-f40.google.com [74.125.231.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD94E4A8A13
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:44:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F57E4C10FB
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:44:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790271879; cv=none; b=sSFrwm9LrBkEl7iki2ZVPfbTCQN31XRTuGO1KddH2jrA7pAfSYtjamiyMlM8LngfC4+N63vyFIH9NumulizFjB5x+6d8MN+GwZipZIAmDESmvUQ59xLkUa4dag3Ntop0gDViRS33MP4KYzayL63VMP8pKwPVuyZnbxPE1pCpFBM=
+	t=1790271882; cv=none; b=CxiLHXIyxjVu5QrwDLqhTT/J8SeYszcvPyMQ/jn/DKRs3JDVENaGdbBT2wu1rR2RFL7DrgxOu+UEKjTAdFUCjbC9NEj3YC2XRLNmyYsEBkl61zWmwvDi4JF9ua0M4Mah4LqZ/6vukaP1/b/YK2AUncJ579J7O9VvkK51FDTLuKE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790271879; c=relaxed/simple;
-	bh=7XmKKcJx3+9gJOrs3+82dw4o/KYQ1Xfg/FTkZC0fgig=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=hUr2YZlpgvrjomBUmaHdbVxerXr00IEOoCjojU5e5Hu9gZ6c5YfnaGyvGyz/u2G95gZ6dN3UXt3xTGAR4jZge9ktuBDysw0BluwhoQI+E/LFccDOwDdGJw9p13Mu01Q5Nd5jOxr1tEh0YVxx1KRYNf9qVaH6dccpf9nh3OIM6bI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=azfct/tU; arc=none smtp.client-ip=209.85.161.48
+	s=arc-20240116; t=1790271882; c=relaxed/simple;
+	bh=EId7v+8XiBo2FxyZ2w4d0mqcmBRsGz4tp4tug+vwTNU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=QKpZXLgmH0lVXLG1wHVVEadoEhxINtE4ldk5h/Bh/kj9mAEQU0g4uN48qObNQ97Rm8Xhh0HYkiW4fks1xxJVUEquq/dFhhlULFL/5ZEVBNFzxWYq3btnrif0PxshzWoQ2QhHLJUQ/sXwDTVGxQgt7X1CmzK2UVjWAAv5QCpT6QM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AFK0Boqp; arc=none smtp.client-ip=74.125.231.168
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="azfct/tU"
-Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6c8f6a53fabso1008740eaf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:44:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AFK0Boqp"
+Received: by mail-oo2-f40.google.com with SMTP id 006d021491bc7-6c2613d8157so64335eaf.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:44:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790271875; x=1790876675; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=m/yuadhswZztFZIXp8O1C3rG4scLLGx4YqdmEAm1GxE=;
-        b=azfct/tUP8UKAlCNTtkHerRTzmzo5baoL+tG/sYCUY6g3BgLF3Clq1k8S/J0OnM79i
-         iA5zlArFpHfJg2fZBM6kbhKV1g4MEMrcg9Ci2Ku9tjwM7KsB07t26p1kFvjOYe39kFrZ
-         2N+TA8azK463/mWRZoIaYT6VRshc6PdvN2FfY4JbEPNNOBcQa6Bli+k4SktM3VQVCzSH
-         SFnjfYDgqFsfg2MEqcu6VbHxkl2vSNM5fmy8XTTdHjx/4XGX0KIY1jMuS7Ys+XP6yjzi
-         F7c3iy5cdNkDWiQFQyUHKJGhMkt9+hnuY9m2wzrZPVawc0X35wGRya8y0mLRJSXYW2qG
-         czwg==
+        d=gmail.com; s=20251104; t=1790271879; x=1790876679; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OEghkHUpo4gQbia4h9dJFITq6F4ApiAV1KakWPfNYGM=;
+        b=AFK0BoqpBF757nntZz8wzfEi2PMvUXoMJCuiPRud8Y8aciXxs+u2c7UfdsMKh9G/OE
+         QM6W2snWp8pY8pnpACaX9pd4lfKayjwTTkBP+1Jo3sxyVOoxfT9ZzNI9wVtuu5cKOa9e
+         2ry6kUKAlptiYw3rL7h9WgZW2223wSTGSpfy/6vPB4Xn+DIRHYBO1FlRpHHI1ud6Raim
+         +aUtHpGL7N8quAZlY68c8b1XB5rc/PRHfFs03iCDwWdXHDtLhisEt1VLPcju+vZ8Dl+4
+         9PIUoJTsmHSJbce3a0UPkfWjjHqgIWnsEL9j4ZR4SXbrnEC4nX52ig7frbJC4+rD1pRs
+         R3jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790271875; x=1790876675;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=m/yuadhswZztFZIXp8O1C3rG4scLLGx4YqdmEAm1GxE=;
-        b=0WnhcWx0fNlCs7VPWvmheRTzBeytX7mRUVE7z10AARFfGZy0v+LHmYIqDUhvLflpbO
-         u2MYoQmxtuPqVsXVEQ+zDjdAnYg6PspFMaMvsddRT7LzWK6MEcjE8xrX1kQQ2te1zulF
-         yljw+hvCYnyAg48lbr/QrQUuClICCfpXj+Nho4hmex58EJBO3bq8yHDPa3NfkXcwDlxf
-         jtmDS1ST3v1reYrBKWa6uNJslEP2DRtH8IQDngiSszYU5citVQ2+c7cCX2DgMZsAiehc
-         9Yqt8AF1f93FzzQzwwuyfOurNz8hF5otRDcdQ+MSMdZueYc8OxcQyzEKReGNqnJwNeme
-         /P2w==
-X-Forwarded-Encrypted: i=1; AKwUvBxW0zoKkpMznG0WTfMf1308/0HmBYLEu44YWVp9rbcmDV4CHD5D/fK75oEeDDKFXpm8Q5T7fEY0BoBVLJM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmDTiy95KfjZycLMagnuvqPINmH6WKaqljVRAhbRJH48jKPNTj
-	A4ZQMNdWWcJYYCqCyAcW3AbSW6Xf4jMhpGk599+/kagUNpJu82IW/jeM
-X-Gm-Gg: AYBFou1hSgIdxLcFI6BqMmX8zgrq7+6htt15DKNaSfwJjZokCbFXU8qQKB6RB7aSLEo
-	4rCVrX+yExV+8DYCXNBdBfLOXO1hdkjM4PBaYLr87jL2CdIgx9jdhgclKTTUeq1xva+Wyco6Vt5
-	VXou64MyUGXE8uqeNN/yt+c92OGRz5PROs42ufKEp5u51XsewIqf/yKy8IcPUwGnON7JvYiol0M
-	S8Fiz8LDlGTJydQNg6r2RCwGqEPFqmUefPBbPQYG9HYULqcaYxvAsEA0yS454ZhZQZ4PuWmXNP6
-	UBVeAdd6gKByI9U9VySBA4hzS97jGaVF9ddGMfW+RCtIo+D7oyLqIAhjVfSTaAGZZTDFm6mDzK3
-	7RErK+al6kNDkpPQY1hvodv2Y41gTsF7j88CzWif8Ylb3k4GIBLO6jhfifJQGZJ95h+8jehpHC+
-	Fr0zmde4XQ05hMbdHqP8RiK+SRFWZF5LtAumCMBPVVHkc5AplPbW4sZODYyKkRryhxyeFirkH/E
-	quGRktOOZlg+ArabjaMWh0paLlrO/Zhkgqf+aqF7bU7O/MROIyZHnaO2HT8gyEEDdXNE1E5cGfH
-	eUhxYwuhUmxAS6n6Vz+EaJcQpkcrphds74XzgylHOeJ1l5jAsWDD4OJ55kb0uxsuNDmQFLe+iex
-	BYr/8awooH/fijUklLue4TU5PIk1Xw0Oj
-X-Received: by 2002:a05:6820:162a:b0:6b1:9b72:213c with SMTP id 006d021491bc7-6d43eedd850mr2506187eaf.3.1790271875445;
-        Thu, 24 Sep 2026 10:44:35 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790271879; x=1790876679;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OEghkHUpo4gQbia4h9dJFITq6F4ApiAV1KakWPfNYGM=;
+        b=Ix6U+NsGWT4prcVOmcqNcK40SBZAydSLt4g6Kpb9zX22QI8CVjquaUgw/qardkYV7j
+         JR/wjfeZnsaC+5pGlLtKIFM8aG6+HSL5noUZL5zlKHmPDkWKSGQli6gsiV+oky0H0tOW
+         LeiW9pSqcxk4/jEpCgk2uOFf0u681sUzAQcoZ/4Z2jzq+6tld5kCpwaQvTG+hvH4m7Bn
+         OmoKi4fsZq0juC39+pfoRMkAXKZLnRT73ZYHKldJFDXrfwHntkEucOERmwaWuWywZleJ
+         NB07qUtPTWhUAgDxti8zdB7NdXKOViwaEUz6Up7QAMpjvUhnLp2fYu21qFpYvZdtBx7P
+         xg8Q==
+X-Forwarded-Encrypted: i=1; AKwUvByBWdUB2APGKGRDLR+KF/Y/Xyrb+GBqClofgXtWqsgiG2PndiEfdjUl4DUhk6QMDajw0AMO+DKK5lOrOiM=@vger.kernel.org
+X-Gm-Message-State: AFuF++miJUhQyN9WyNl3aA226XkFeQ8UsejKiujRL+4sZ2+8tiMawyV/
+	QehQphSvkZBN35ICFvfMgiI2e5kkw5CZ54B4QjlnUFPs7RSNnn+Dhh8g
+X-Gm-Gg: AYBFou0GaUrY+PIPuxhZZeBlxKneY7jzspNzTWduHMiCT9ar5Zyi3CR4AAQNzlKFlf4
+	OlSJKvc8ZwReL7oBX6JmJVrjLuYi6wkmWejEQDDS9nBv8JAmbqgrvoo1s4YOMcxr6Nfjkh51h6L
+	yHMe0O8/NGteHaAk84z2g+xEVCIN6hZziORjsxUJB9cbivkP6oqnQoR+/hzVs0xjreEhfNjESpZ
+	CgPyYoiornXhSNWeM/f1KAmHbQqsTEGZb+bTDhVOdLXyemNl75b0O5l/DlGgP6S4zJcmV2B9Qvu
+	aURIbiMBmAaq9a6k//AzXtsvLAz7f5tArXAJW5Z5+n9ldRW3b64mcKT9O4Hp9DDiCdM/wLeCIBt
+	1jnZHXue0vNLa0eUJYSd4swy4ipO8TDH0JstuIHwhnlZgtjk0xVhtbdKJ+l0+V3TdPf+gX0OQsU
+	7BF/zEfyE+qGRDQ0lmogXT99R+huYcEwCFq9QlRZ9qSUhmJl73yBRBmcp5oLqi0O0z7H+1amVYF
+	CHEN83G+BrIxXPPTDknFK4j5u8Oqs+h+th/iF4YG+yz1xyPghKEZXc9ekkjbmQgG1jVuStasc06
+	kKkDvhMnnqwlw1SLXHqwQC7wrhubaYWcw3Bcuax65p3T5rMmLID4uVbiwaKNyZav59cwhNLbXLh
+	joHPDxOhng7e9xqzo0NhSxQ==
+X-Received: by 2002:a05:6820:c96:b0:6cd:3fdb:fa65 with SMTP id 006d021491bc7-6d441c7d08amr2671632eaf.80.1790271878870;
+        Thu, 24 Sep 2026 10:44:38 -0700 (PDT)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-491e8f8d14asm3027802fac.0.2026.09.24.10.44.33
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-491e8f8d14asm3027802fac.0.2026.09.24.10.44.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 10:44:34 -0700 (PDT)
+        Thu, 24 Sep 2026 10:44:38 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Subject: [PATCH net v3 00/10] net: stmmac: preserve datapath state across
- MTU and resume failures
-Date: Thu, 24 Sep 2026 11:44:30 -0600
-Message-Id: <20260924-submit-stmmac-reset-fixes-v1-v3-0-c031e3f3a282@gmail.com>
+Date: Thu, 24 Sep 2026 11:44:32 -0600
+Subject: [PATCH net v3 02/10] net: phylink: allow stopping a suspended
+ instance
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,11 +74,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43OwQ6CMAwG4FchPTuzFQLMk+9hPIxRZcaB2eaiI
- by7Y164adJL2z9fO4MnZ8jDoZjBUTTeTGNqyl0BelDjlZjpUw/IseYSBfPPzprAfLBWaebIU2A
- X8yLPomCNlm0nsUepJCTi4SjvknCCkQKcv8OE3EiHFV5jg/Fhcu/8RBQ5/N+9VJy1jaqoKgUR5
- 8erVea+15PNpyJuMfyBYcJ6iZSyHUlZb7FlWT6VZXt+LAEAAA==
-X-Change-ID: 20260921-submit-stmmac-reset-fixes-v1-7c98b92d29a9
+Message-Id: <20260924-submit-stmmac-reset-fixes-v1-v3-2-c031e3f3a282@gmail.com>
+References: <20260924-submit-stmmac-reset-fixes-v1-v3-0-c031e3f3a282@gmail.com>
+In-Reply-To: <20260924-submit-stmmac-reset-fixes-v1-v3-0-c031e3f3a282@gmail.com>
 To: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, 
  Heiner Kallweit <hkallweit1@gmail.com>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
@@ -111,193 +110,162 @@ Cc: Richard Genoud <richard.genoud@bootlin.com>,
  Ding Hui <dinghui1111@163.com>, James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-Keep the stmmac datapath coherent after failed MTU changes or hardware
-resume without changing the interface's administrative state. Retain the
-working MTU configuration for rollback, and allow ordinary down/up recovery
-when hardware cannot be restored.
+If a network driver's system resume fails before phylink_resume(), the
+network device can remain administratively up with phylink suspended.
+Closing the interface then needs to terminate that suspended instance.
+Calling phylink_resume() merely to make phylink_stop() work is not a safe
+substitute: resume reconfigures the MAC and restarts link resolution,
+although the driver has not successfully restored the MAC.
 
-The ten patches separate ownership and recovery fixes from the MTU
-transaction:
+This is a missing suspend-to-stop transition, independent of the reason
+hardware restoration failed. No MAC recovery policy belongs in phylink;
+the driver still decides whether to retry resume or wait for an ordinary
+administrative down/up cycle.
 
-  1. Correct the WoL/safety IRQ unwind order after failed IRQ registration.
-  2. Allow phylink_stop() to finish a suspended instance, restoring PHY
-     advertisement reduced by suspend without restarting the failed MAC.
-  3. Track datapath ownership separately from administrative and hardware
-     sleep state. Close and PM perform only the work still outstanding.
-  4. Leave normal-size MTU changes running, including supported AF_XDP MTUs.
-  5. Make partial DMA allocation unwind complete and leave freed queues empty.
-  6. Keep DMA configurations at stable addresses, use persistent IRQ
-     contexts, and drain timer producers before the final cancellation.
-  7. Track live XDP release/reopen and propagate program-attach failures.
-  8. Use that tracked restart for AF_XDP pool changes, handling failures
-     without leaving NAPI active over missing buffers or unmapping live pools.
-  9. Retain PHY and runtime-PM ownership during ethtool ring/channel reopening.
- 10. Retain rings and IRQ registrations across jumbo MTU replacement,
-     restoring the old MTU and rings if hardware setup fails.
+Without MAC Wake-on-LAN, phylink_suspend() has already called
+phylink_stop(). Do not repeat PHY, SFP and PCS shutdown. However,
+phylink_prepare_resume() may have powered that stopped PHY back up to
+provide the receive clock for MAC reset. Suspend it again if WoL permits,
+without repeating phy_stop() on a PHY which is already halted.
 
-The ownership states remain distinct: DOWN has no datapath allocations;
-RUNNING has active queues; SUSPENDED retains rings and IRQs; HALTED retains
-rings but has released IRQs after failed MTU rollback. Collapsing the last
-two states would make close free IRQs which it no longer owns.
+With MAC Wake-on-LAN, suspend deliberately
+defers mac_link_down() and sets PHYLINK_DISABLE_MAC_WOL. Finish that
+deferred link-down, drain resolution work and clear the WoL disable bit
+while retaining PHYLINK_DISABLE_STOPPED. Otherwise a subsequent start
+cannot resolve the link.
 
-Jumbo rollback allocates no new buffers or IRQ registrations. RX holes are
-filled before reset without changing the old descriptors; descriptors are
-rebuilt or retired only after reset succeeds. If rollback also fails, the
-interface remains detached until down/up recovery. This cannot guarantee
-recovery from indefinitely failing hardware.
+Also undo PHY speed control performed by phylink_suspend(). As Andrew
+Lunn pointed out, phylink_start() does not restore the advertised speeds
+that phylink_resume() normally restores. Track suspend-owned speed control
+and restore the saved advertisement from either resume or suspended stop,
+including when PHY shutdown has already completed.
 
-Failed interfaces still receive hardware/PHY sleep handling. A failed
-datapath with MAC WoL configured rejects suspend with -EBUSY because its
-wake path is unusable; PHY-only WoL is not rejected. Timestamp filters and
-PHC registration survive an MTU change, but continuous PHC time across the
-hardware reset is not preserved.
+An explicit driver speed-down request, such as stmmac's close-time power
+saving, must remain in effect until its matching speed-up. Restore any
+suspend-owned reduction before applying that request, so it cannot save
+the reduced advertisement over the original one. The following stop must
+not undo the driver's new reduction.
 
-Live XDP and ethtool failures leave the administratively-up interface
-detached for ordinary down/up recovery. Program attachment failures return
-an error without consuming the proposed program. BPF-link and XSK-pool
-removal still complete if their datapath restart fails, so teardown can
-release the program or pool safely. AF_XDP pool reconfiguration now pauses
-all queues and link resolution while rebuilding the rings; this trades
-reconfiguration latency for one consistent ownership and failure path.
+Document that a suspended instance can be stopped directly. This neither
+resumes the PHY nor reconfigures or brings up the MAC.
 
+Fixes: f97493657c63 ("net: phylink: add suspend/resume support")
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
-Changes in v3:
-- Snapshot debugfs queue counts under RTNL with the descriptor ownership
-  check, so a reader blocked behind channel shrink uses the new topology.
-- Complete pending core sleep state during close and retry restoration on
-  open after runtime-PM acquisition. Use the installed wake state rather
-  than mutable WoL settings, and retain the pending marker if restoration
-  fails.
-- Put the independent IRQ unwind fix first, ahead of the ownership changes.
-- Correct the WoL/safety IRQ unwind order, fixing a repeated safety IRQ
-  free and a leaked WoL handler.
-- Account for live XDP release/reopen in datapath ownership. Stop DMA on
-  late IRQ failure, propagate program-attach errors without losing program
-  references, and allow BPF-link removal to complete after restart failure.
-- Replace the void AF_XDP queue-enable helpers with the tracked XDP restart.
-  Unmap a removed pool only after freeing its rings, undo failed pool
-  attachment, and preserve TBS configuration while rebuilding the channels.
-- Keep PHY/PM ownership across ethtool ring/channel changes, restoring the
-  old configuration after failed reopening and leaving the interface
-  detached for down/up recovery without a second runtime-PM put.
-  Explicitly disable the MAC during release even when link resolution has
-  not reached mac_link_up().
-- Split the MTU work into normal-size MTU handling, allocation unwind,
-  stable DMA/IRQ ownership (including timer lifetime), and the retained-ring
-  transaction. Keep the ownership change and its open/error-path adaptations
-  in the same patch.
-- Restore the PHY advertisement reduced by phylink_suspend() when stopping
-  a suspended instance, without restarting or reconfiguring the MAC, in
-  response to Andrew Lunn.
-- Keep suspend-owned PHY speed control separate from explicit driver
-  speed-down requests, so close-time power saving does not overwrite the
-  original advertisement and remains effective until the matching speed-up.
-- Suspend a stopped PHY powered back up by phylink_prepare_resume() when
-  stopping after a failed MAC resume, without repeating phy_stop().
-- Add a separate MTU transaction patch retaining old DMA resources and IRQ
-  registrations until replacement succeeds, following Andrew Lunn's request
-  to keep the old setup for failure recovery.
-- Keep DMA configuration objects at stable addresses and use persistent
-  channel objects for per-queue interrupt contexts.
-- Drain transmitters and post-completion NAPI poll tails before cancelling
-  TX timers.
-- Avoid resetting normal-size MTU changes, including all supported AF_XDP
-  MTUs, and stop rebinding live pools through temporary RXQ objects.
-- Program the new MAC receive limit before activation and restore the old
-  MTU on failure; refill old RX buffer holes before reset so rollback does
-  not require allocation.
-- Preserve coalescing, TBS state, PHC registration and timestamp filters;
-  leave a failed rollback detached with old rings retained for close.
-- Harden partial-allocation unwind.
-- Separate core sleep completion from datapath ownership so failed MTU and
-  resume paths still receive hardware PM handling, without disabling NAPI
-  twice or restarting released queues. Address the skipped-suspend issue
-  reported by Sashiko; reject an unusable MAC WoL path with -EBUSY.
-- Balance platform noirq PTP clock handling against resources still owned
-  after detached XDP cleanup.
-- Link to v2: https://patch.msgid.link/20260922-submit-stmmac-reset-fixes-v1-v2-0-d92e609be996@gmail.com
+ drivers/net/phy/phylink.c | 51 ++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 48 insertions(+), 3 deletions(-)
 
-Changes in v2:
-- Drop forced netif_close() and retain the interface's administrative state,
-  as requested by Maxime Chevallier.
-- Separate queue quiescence from resource release and use explicit datapath
-  state instead of a napi_disabled argument to the release helper.
-- Handle repeated suspend/resume after failure, preserve PHY/PM ownership
-  until ordinary close, and allow a fresh down/up recovery.
-- Check XDP/AF_XDP cleanup, descriptor readback and asynchronous reset work
-  while the netdev is administratively up but unavailable.
-- Explain the generic phylink suspend-to-stop transition and why restarting
-  phylink after a failed MAC resume is not a valid substitute, in response
-  to Andrew Lunn.
-- Combine the two stmmac error-path fixes so every user of the new state
-  has consistent resource and NAPI lifetime handling in one patch.
-- Link to v1: https://patch.msgid.link/20260921-submit-stmmac-reset-fixes-v1-v1-0-87a4e431ee00@gmail.com
+diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+index 1bbcf46c8356..b7d30ca34031 100644
+--- a/drivers/net/phy/phylink.c
++++ b/drivers/net/phy/phylink.c
+@@ -78,6 +78,7 @@ struct phylink {
+ 
+ 	bool link_failed;
+ 	bool suspend_link_up;
++	bool suspend_speed_down;
+ 	bool force_major_config;
+ 	bool major_config_failed;
+ 	bool mac_supports_eee_ops;
+@@ -2498,6 +2499,14 @@ void phylink_start(struct phylink *pl)
+ }
+ EXPORT_SYMBOL_GPL(phylink_start);
+ 
++static void phylink_restore_suspend_speed(struct phylink *pl)
++{
++	if (pl->suspend_speed_down) {
++		phylink_speed_up(pl);
++		pl->suspend_speed_down = false;
++	}
++}
++
+ /**
+  * phylink_stop() - stop a phylink instance
+  * @pl: a pointer to a &struct phylink returned from phylink_create()
+@@ -2509,11 +2518,30 @@ EXPORT_SYMBOL_GPL(phylink_start);
+  *
+  * This will synchronously bring down the link if the link is not already
+  * down (in other words, it will trigger a mac_link_down() method call.)
++ * A suspended instance may be stopped without first calling phylink_resume().
++ * In particular, closing a device after a failed resume must not restart the
++ * link or reconfigure the MAC just to finish shutting it down.
++ * Any PHY advertisement reduced by phylink_suspend() is restored as part
++ * of this transition.
++ * If phylink_prepare_resume() powered up an already stopped PHY, suspend
++ * it again when Wake-on-LAN permits.
+  */
+ void phylink_stop(struct phylink *pl)
+ {
+ 	ASSERT_RTNL();
+ 
++	/* Also undo PHY speed control when terminating a suspended instance. */
++	phylink_restore_suspend_speed(pl);
++
++	if (test_bit(PHYLINK_DISABLE_STOPPED, &pl->phylink_disable_state)) {
++		/* A failed MAC resume may have called phylink_prepare_resume()
++		 * and powered the stopped PHY back up to supply its RX clock.
++		 */
++		if (pl->phydev)
++			phy_suspend(pl->phydev);
++		return;
++	}
++
+ 	if (pl->sfp_bus)
+ 		sfp_upstream_stop(pl->sfp_bus);
+ 	if (pl->phydev)
+@@ -2526,6 +2554,16 @@ void phylink_stop(struct phylink *pl)
+ 
+ 	phylink_run_resolve_and_disable(pl, PHYLINK_DISABLE_STOPPED);
+ 
++	if (test_bit(PHYLINK_DISABLE_MAC_WOL, &pl->phylink_disable_state)) {
++		/* Finish the link-down deferred by MAC WoL, without restarting. */
++		flush_work(&pl->resolve);
++		mutex_lock(&pl->state_mutex);
++		if (pl->suspend_link_up)
++			phylink_link_down(pl);
++		__clear_bit(PHYLINK_DISABLE_MAC_WOL, &pl->phylink_disable_state);
++		mutex_unlock(&pl->state_mutex);
++	}
++
+ 	pl->pcs_state = PCS_STATE_DOWN;
+ 
+ 	phylink_pcs_disable(pl->pcs);
+@@ -2657,8 +2695,10 @@ void phylink_suspend(struct phylink *pl, bool mac_wol)
+ 		phylink_stop(pl);
+ 	}
+ 
+-	if (phylink_phy_pm_speed_ctrl(pl))
++	if (phylink_phy_pm_speed_ctrl(pl)) {
+ 		phylink_speed_down(pl, false);
++		pl->suspend_speed_down = true;
++	}
+ }
+ EXPORT_SYMBOL_GPL(phylink_suspend);
+ 
+@@ -2698,8 +2738,7 @@ void phylink_resume(struct phylink *pl)
+ {
+ 	ASSERT_RTNL();
+ 
+-	if (phylink_phy_pm_speed_ctrl(pl))
+-		phylink_speed_up(pl);
++	phylink_restore_suspend_speed(pl);
+ 
+ 	if (test_bit(PHYLINK_DISABLE_MAC_WOL, &pl->phylink_disable_state)) {
+ 		/* Wake-on-Lan enabled, MAC handling */
+@@ -3616,6 +3655,12 @@ int phylink_speed_down(struct phylink *pl, bool sync)
+ 
+ 	ASSERT_RTNL();
+ 
++	/* An explicit request takes over from suspend-time speed control.
++	 * Restore the original advertisement before saving it again, so a
++	 * repeated speed-down cannot replace it with the reduced advertisement.
++	 */
++	phylink_restore_suspend_speed(pl);
++
+ 	if (!pl->sfp_bus && pl->phydev)
+ 		ret = phy_speed_down(pl->phydev, sync);
+ 
 
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>
-To: "David S. Miller" <davem@davemloft.net>
-To: Eric Dumazet <edumazet@google.com>
-To: Jakub Kicinski <kuba@kernel.org>
-To: Paolo Abeni <pabeni@redhat.com>
-To: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>
-To: Serge Semin <fancer.lancer@gmail.com>
-To: Suraj Jaiswal <quic_jsuraj@quicinc.com>
-To: Russell King <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>
-To: Heiner Kallweit <hkallweit1@gmail.com>
-To: Joakim Zhang <qiangqing.zhang@nxp.com>
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Alexei Starovoitov <ast@kernel.org>
-To: Daniel Borkmann <daniel@iogearbox.net>
-To: Jesper Dangaard Brouer <hawk@kernel.org>
-To: John Fastabend <john.fastabend@gmail.com>
-To: Stanislav Fomichev <sdf@fomichev.me>
-To: Richard Cochran <richardcochran@gmail.com>
-To: Christian Marangi <ansuelsmth@gmail.com>
-To: Tiezhu Yang <yangtiezhu@loongson.cn>
-To: Huacai Chen <chenhuacai@kernel.org>
-To: Joao Pinto <Joao.Pinto@synopsys.com>
-To: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: Ong Boon Leong <boon.leong.ong@intel.com>
-To: Voon Weifeng <weifeng.voon@intel.com>
-To: "Song, Yoong Siang" <yoong.siang.song@intel.com>
-Cc: netdev@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: bpf@vger.kernel.org
-
----
-James Hilliard (10):
-      net: stmmac: unwind the WoL IRQ after a safety IRQ request failure
-      net: phylink: allow stopping a suspended instance
-      net: stmmac: keep datapath state coherent after reinitialization failure
-      net: stmmac: leave the datapath running for normal-size MTU changes
-      net: stmmac: unwind partially allocated DMA configurations
-      net: stmmac: keep DMA configurations at stable addresses
-      net: stmmac: account for failed live XDP reopening
-      net: stmmac: use the tracked datapath restart for XSK pool changes
-      net: stmmac: retain PHY and PM ownership during ethtool reopening
-      net: stmmac: retain DMA resources across MTU changes
-
- drivers/net/ethernet/stmicro/stmmac/chain_mode.c   |    6 +-
- drivers/net/ethernet/stmicro/stmmac/ring_mode.c    |    4 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac.h       |   21 +-
- .../net/ethernet/stmicro/stmmac/stmmac_ethtool.c   |    4 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 1036 +++++++++++++-------
- .../net/ethernet/stmicro/stmmac/stmmac_platform.c  |   19 +-
- .../net/ethernet/stmicro/stmmac/stmmac_selftests.c |    8 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c    |    6 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c   |   83 +-
- drivers/net/phy/phylink.c                          |   51 +-
- 10 files changed, 815 insertions(+), 423 deletions(-)
----
-base-commit: 8e1937fed6738460554ec123c64839e2445e7d53
-change-id: 20260921-submit-stmmac-reset-fixes-v1-7c98b92d29a9
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+-- 
+2.53.0
 
