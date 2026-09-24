@@ -1,89 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-52.mta0.migadu.com [91.218.175.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 723104AA58E;
-	Thu, 24 Sep 2026 18:17:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93AD4AAC50
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:19:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790273869; cv=none; b=XrJN/DTmb2TJPkzz3gePibfDQJ9mdbDVWcupQM7zrVeWSDqvj1S4DmVBSdhW7jtiDARqJ31VZqbmWJ54Z7aM99b2Rbnf7hg+1hTxl5/nW8pC8LGhm1oMFdFaveAH4l+ymF18ClT09NFKv/UHbwr+ZtgyUDAqO1hpsnbO4COI7K0=
+	t=1790273965; cv=none; b=rSyAMDVegf8seVDGl7Ygkjp4ME9lHu8kHi17krp0eh4jbDz5llUYhyW+Edg7i9rMaZ4sC1CzBJYlOy8zT+WcrEhOzasJcKV47bkP3vx8/B7rXQsVDSfNwBozUAuB920N60V95Gl/aezDSFOVy3+0XHX/EtggqpsElP3dd7c3SW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790273869; c=relaxed/simple;
-	bh=Q2fxuKurFXQih0iiPwngj7pvtHiZ6idUejyYBXZJ05g=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=p1rcy9B4eXzr55iPB6a/kRgDFImT9TUsbyZDjg9xAKVfRRjy46NsWWfOSo2v2KhDZqOv4F+KgZZXuOKywkAMYDuqNU+p5ImNQWZg02gOKtG2iO8i0A0a9xR8DK6+NPzpicVaIITyMQwFGs46daevLLAGIvWpYsm+5WkJTSbVRsU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VZLkyqYN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790273965; c=relaxed/simple;
+	bh=IvUR2431T4OLwHWTHJUJSLYNuzeAJuOHiFRGzJguyA8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nQ6eQg5lDnZRqC+sqkCoXzCmDjtY/ONX+BH4CmqYYn+TsY3YgDMH36z6DCGmj7Pg+J1L5FxaY292ftGFc4BgmvSNqWwo8XX812vHIS3icH5/B4prpY8SmEafcsnDeXE5FYuvvA8CJ+gQHwCbYKRAfXwro8He7sRhwwrdG14jG28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JK2VMlCz; arc=none smtp.client-ip=91.218.175.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VZLkyqYN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 907191F000FF;
-	Thu, 24 Sep 2026 18:17:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790273866;
-	bh=xdeuR2BjInsKEFRWSDa4uTBw+SSZywIiz5uJRWZbRiA=;
-	h=Date:From:To:Cc:Subject;
-	b=VZLkyqYN9voPDno+JPIaIXxuNlSUEKt4bsP8Fqv5PaCQI56RudBNJjTUiUoL8ip1F
-	 odlWlhW9wF2hdTgu1IcJhuwnqw48t1nrYhUcloVc6BWXQZtexlBdgp/9+tBeRx7D2E
-	 NWQxoi0JM8xznHuyRsyliKeeLaUeUH2Owtu29vpean4H/L7X4u4xh2sx/l38L0KU1T
-	 NuBEvotJMS4hdcl7SbOZwLF1AZkA9raKawJK1VVc/nf6uXlDyaznpAmesVWlvjcKxI
-	 fjd/JvgiTgDw8OZSs1H8/Pst8adm0ASiZvSeGRLEBHjev3ER3bGc6KipE8RdfXz+Hw
-	 KV+fswPubawmg==
-Date: Thu, 24 Sep 2026 19:17:42 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Armin Wolf <W_Armin@gmx.de>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: build failure after merge of the pagemap-headers tree
-Message-ID: <arVpRvAzgfZkSHDF@sirena.org.uk>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JK2VMlCz"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=IvUR2431T4OLwHWTHJUJSLYNuzeAJuOHiFRGzJguyA8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790273961; v=1; x=1790878761;
+ b=JK2VMlCzlWD7pG4XUcQz3UmmSvPMinHkMCt3G4tpJF1SDG0LmasM+K9jZhtyqATA5haK589a
+ uE2WO6jtPmVC5WBB86qPhROFjqHjHx/NaplC/vz2Ap1EY3sLeyHlkQ+yMSfw6qTuIpEzIKfJsg0
+ HyCkNBRjB8RwfY1+ZRGwUIoM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 83c7589b2e139cce;
+	Thu, 24 Sep 2026 18:19:21 +0000
+X-Mizu-Trace-ID: 83c7589b2e139cce
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5b8c42da963so1341e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:19:20 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxVVJUmpObqS25jr3i4vf3V5B0ebZ1pNq8Oe/ZoC8WhwSvCoHpGoFgHtJKA1lCEx7OAkSNWTRTwjcvIRLc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mOzSMD85/mf84owCgPYjlc2OQND5Lu6eZUAe7D3erYaJCM3Kb8
+	/asCYlA69H7JaOV6nFsWOXCDekei/XiYTYMeRmRWDUge/JQGSZ9U08Ozd3xqMf2U9qlR+dJcz54
+	DGi65BpNYm5AiB+fGfaEWOyxGop/GG08U89P5gy32
+X-Received: by 2002:a05:6512:3ca9:b0:5b8:e262:d32e with SMTP id
+ 2adb3069b0e04-5b8e57821dcmr16882e87.1.1790273959309; Thu, 24 Sep 2026
+ 11:19:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260922071945.693714-1-fuad.tabba@linux.dev> <20260922071945.693714-2-fuad.tabba@linux.dev>
+ <arVQutV75u2gGVr4@google.com>
+In-Reply-To: <arVQutV75u2gGVr4@google.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Thu, 24 Sep 2026 19:18:43 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTz=n2Tnq73amL3cok0=_vn-cigesdd1r-emt=+__Xatog@mail.gmail.com>
+X-Gm-Features: AclHuK8gQuMnh5G0uSWpcfUI1aukInqrdbq0WmB1N5HLh0hWNnycc7FfERA0vUQ
+Message-ID: <CA+EHjTz=n2Tnq73amL3cok0=_vn-cigesdd1r-emt=+__Xatog@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] KVM: selftests: Fix arm64 sysreg header dependencies
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>, 
+	Oliver Upton <oupton@kernel.org>, Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	James Houghton <jthoughton@google.com>, Will Deacon <will@kernel.org>, kvm@vger.kernel.org, 
+	kvmarm@lists.linux.dev, cgroups@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi all,
+Hi Sean,
 
-After merging the pagemap-headers tree, today's linux-next build
-(powerpc ppc4xx_defconfig) failed like this:
+On Thu, 24 Sep 2026 17:32:58 +0100, Sean Christopherson
+<seanjc@google.com> wrote:
+[...]
+> Definitely doesn't have to be now, but at some point should we split out some of
+> this arch-specific sub-Makefiles?  It's nice not having to hunt around to figure
+> out which tests are supported by which arch, but the amount of arch specific goo
+> we're accruing is getting unwieldy.
 
-In file included from /tmp/next/build/include/linux/preempt.h:11,
-                 from /tmp/next/build/include/linux/alloc_tag.h:11,
-                 from /tmp/next/build/include/linux/percpu.h:5,
-                 from /tmp/next/build/arch/powerpc/include/asm/time.h:14,
-                 from /tmp/next/build/arch/powerpc/platforms/44x/sam440ep.c:21:
-/tmp/next/build/include/linux/acpi.h: In function '__free_acpi_object_free':
-/tmp/next/build/include/linux/cleanup.h:211:92: error: suggest braces around empty body in an 'if' statement [-Werror=empty-body]
-  211 |         static __always_inline void __free_##_name(void *p) { _type _T = *(_type *)p; _free; }
-      |                                                                                            ^
-/tmp/next/build/include/linux/acpi.h:31:1: note: in expansion of macro 'DEFINE_FREE'
-   31 | DEFINE_FREE(acpi_object_free, union acpi_object *, if (_T) ACPI_FREE(_T));
-      | ^~~~~~~~~~~
-cc1: all warnings being treated as errors
-make[6]: *** [/tmp/next/build/scripts/Makefile.build:290: arch/powerpc/platforms/44x/sam440ep.o] Error 1
-make[6]: *** Waiting for unfinished jobs....
-In file included from /tmp/next/build/include/linux/preempt.h:11,
-                 from /tmp/next/build/include/linux/sched.h:15,
-                 from /tmp/next/build/include/linux/ratelimit.h:6,
-                 from /tmp/next/build/include/linux/dev_printk.h:16,
-                 from /tmp/next/build/include/linux/device.h:15,
-                 from /tmp/next/build/include/linux/platform_device.h:13,
-                 from /tmp/next/build/arch/powerpc/platforms/44x/warp.c:11:
-/tmp/next/build/include/linux/acpi.h: In function '__free_acpi_object_free':
-/tmp/next/build/include/linux/cleanup.h:211:92: error: suggest braces around empty body in an 'if' statement [-Werror=empty-body]
-  211 |         static __always_inline void __free_##_name(void *p) { _type _T = *(_type *)p; _free; }
-      |                                                                                            ^
-/tmp/next/build/include/linux/acpi.h:31:1: note: in expansion of macro 'DEFINE_FREE'
-   31 | DEFINE_FREE(acpi_object_free, union acpi_object *, if (_T) ACPI_FREE(_T));
-      | ^~~~~~~~~~~
-cc1: all warnings being treated as errors
+I think so. I'd keep the test lists where they are and move the
+per-arch build logic (the ifeq ($(ARCH),...) blocks) into arch-specific
+sub-Makefiles. I could send that as a follow-up once this patch lands.
 
-Caused by commit
-
-   f54586fcd661e (ACPI: fan: Use __free() to simplify AML error handling)
-
-(it was also causing lots of warnings in other GCC configurations but
-didn't trip -Werror in allmodconfig since it doesn't seem to upset
-clang.).  I have reverted that commit for today.
+Cheers,
+/fuad
