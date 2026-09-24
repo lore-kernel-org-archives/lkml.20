@@ -1,246 +1,303 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62598403E9C;
-	Thu, 24 Sep 2026 07:10:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24E442586E;
+	Thu, 24 Sep 2026 07:10:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790233842; cv=none; b=Jov601CN/7c0VwaaxHD3Sn5/rTqdqdVb3SFvIxJTt8gqIgbRBUnQENieVGmKZE5bKbQX4VjF8dLLW0gVaMQa9a+jnr4pLR74+1hST3TJ4KGC7z+2KSwCqx06MAuAn2t5QzfLuIydIEK/gKsHOERgZrgCN/gbA6e+c3f7s3w8n3E=
+	t=1790233847; cv=none; b=T8iyhDiGDO4unaK8blZpa2YSIYywTL8aqvddOXs81IMAEQj9zPZJ79IoOk76X6QN5uRqvftjZUEwtkidnyQUuJVD+f0bwys1C4lm1qsVG2OxHBadocfr8r5E72WSwEA0XDoXIwh8VUwPZr7n0hV6I6f/7yelG/SV5lEkjKoVzZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790233842; c=relaxed/simple;
-	bh=GE9Etz3nrK1hgTXn6h2zh+nhRClWZeQsaq05EJ81p2o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hvFb/O8Tktoq9Y2O57byUXCT6LPjo57+Cpo+hLqaNLv1HSEnz9Np/zdWJVxQUMxtzbZloCBxltVix5BQ/gYLDlNaY++J1XHnDEgIi+4pDHwYK94vdIwHsjlXuXsq6kL30UsyTvHCn30IBg+tWyn0CIQMHo93uUhxR6C6K/t0THM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=c+QUtNXg; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790233847; c=relaxed/simple;
+	bh=UyjFFOIrgFI8xVAwiUJ08110T6a6WRSRh6ivMlZFL5Q=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=ZmKA4h2Cy1vyt/uMlpHhH4Dl3F+bxibeBR1+QZdrDTFmvj3WTMYgZs5R7FFT0hJHEfRlsHzhWBlcn/Fi3+mfmoIDqGuZX+qHaZfMYz5rasVkqv+K9dc9NO98Db0tfnVmgwYs2RsY5vPPV2iJy0mvBdRyV9CP3/UNOYv0Y7Y8zRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ZiruNqzU; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="c+QUtNXg"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5eBhn2420912;
-	Thu, 24 Sep 2026 07:10:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	8jfvoyBZDtOopgWjSNBCJpymZ2L0+OaAARK9dBmV1PM=; b=c+QUtNXg+KFoZ6cG
-	QW7/33Jn8BZMXdu20CIU8tfH1WyieYPgq30eZE0TnHDL0UsPVGeOm8j7mSmsudQH
-	rpPbxDH2EaAmVnwTrwXu7nPplAnvaZEfwBU1LDJhdjEa/stlJrh2M4oMFYq8R/kg
-	iV6slGWlF2GrSe1Si6SofxPZk2iE1YAJM6z0Fns6ZH5SE4H+OIjKqDDJ33lNv68g
-	qEGFiWZYQebhsR19mD4AK0mV0tYEB2X7uGs+rO+p/UBFNuKZCVKBPWVlmhqBFTMx
-	LQjb22myXr2aIwrUKme/Iun/7ZhkFQMMvhszm6lfovUSLMm0RIEZFeNZb9zS1uPm
-	fxzlFw==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvstuh770-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 24 Sep 2026 07:10:06 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 68O7A29O2215881;
-	Thu, 24 Sep 2026 07:10:04 GMT
-Received: from hu-ffaruque-hyd.qualcomm.com (hu-ffaruque-hyd.qualcomm.com [10.147.245.31])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 68O7A0Cp2215790;
-	Thu, 24 Sep 2026 07:10:04 +0000 (GMT)
-From: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
-Date: Thu, 24 Sep 2026 12:38:47 +0530
-Subject: [PATCH v15 6/6] Documentation: Add sysfs documentation for PSCRR
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ZiruNqzU"
+Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E78EDC48;
+	Thu, 24 Sep 2026 09:08:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790233723;
+	bh=UyjFFOIrgFI8xVAwiUJ08110T6a6WRSRh6ivMlZFL5Q=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=ZiruNqzUAKqrNhYJlP9VSamq0SOPmZCHtnxQzd+tBuYIzD4w7/MElK2tjJAorE+fy
+	 CPz+FYTPWKWR5t3mYh0psH3rsI9iwls3eV7KQvOrQP2Ni7LWTvnz46Sl5wWhcK3IiE
+	 Rn17qhL62fvtzGgPG/bwGpu9UblJtP5/NWKjwq2I=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-pscrr-framework-v15-6-7af87107e0d3@oss.qualcomm.com>
-References: <20260924-pscrr-framework-v15-0-7af87107e0d3@oss.qualcomm.com>
-In-Reply-To: <20260924-pscrr-framework-v15-0-7af87107e0d3@oss.qualcomm.com>
-To: Sebastian Reichel <sre@kernel.org>, Benson Leung <bleung@chromium.org>,
-        Tzung-Bi Shih <tzungbi@kernel.org>,
-        Guenter Roeck <groeck@chromium.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Matti Vaittinen <mazziesaccount@gmail.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Oleksij Rempel <o.rempel@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>
-Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
-        avaneesh.dwivedi@oss.qualcomm.com,
-        Umang Chheda <umang.chheda@oss.qualcomm.com>,
-        Faruque Ansari <faruque.ansari@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAzMCBTYWx0ZWRfX53G1W4MidM8K
- cJk6hwBxC7V4mcHIhIDO4KNWAZOTLrs1kNUQkWADt3JtP0bxwTML0f7xDisKwobw2Aic8V1KdwL
- TnlhUj58/JXzzBqxSbWwTYAQEOIFQSo=
-X-Proofpoint-ORIG-GUID: JoPi0IoZ0-gNgsWkqziHotmHoZwuVr0V
-X-Proofpoint-GUID: JoPi0IoZ0-gNgsWkqziHotmHoZwuVr0V
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAzMCBTYWx0ZWRfX2zPlr4o+Q4jr
- 7c8e1VhAJqcrWz6RZteBvspCAF4YpsMLLlZ/8kkkVop0H/Ilk5ey2tPgBXkbCPnblbAkHcikPAX
- tYWE/co9wyS60u5nj6Gaq6nVjCJzyN6kqlslkaPOgHevRVI166GXTC5blAdBTw2PzngxWmKc2iF
- QLKLRcQTSlJ8lVs+ql/GGdLrxdeZFNcg6AsRyM08lbLufFj287/zYHPxDwB4SNKxaVUaRyUSoPj
- 9x2321k8rJyrAndGNraYr09ENxmvoKQeF2OSpGBISPjGAzdS077/IDpKusK+B2IP7P7QaH3pt7j
- Cgb0FlsH+tWP7sbLNc/3PxEOwzB3lq2IFQT4w75AvM2D3U/S4xb+M10aTdjpxBiQjR5vRo0e7a7
- tgiovaUCWXpy3g3+pu7Lj+k1nOefcRthdc412mLlqiWhr6wf79x8xZ4YaVkV2LL92/XQIRyL58J
- YD+8tyY6BxfH5ph8wEw==
-X-Authority-Analysis: v=2.4 cv=cKp1IVeN c=1 sm=1 tr=0 ts=6ab4cccf cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=pGLkceISAAAA:8
- a=EUspDBNiAAAA:8 a=eG3WmpGALsbKIvMRAg8A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 impostorscore=0 suspectscore=0 adultscore=0
- priorityscore=1501 bulkscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240030
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <arDZoulyKIzVj-73@francesco-nb>
+References: <20260910-verdin-imx8mp-hmp-camera-ready-v1-0-3c9349ecdb9f@toradex.com> <20260910-verdin-imx8mp-hmp-camera-ready-v1-3-3c9349ecdb9f@toradex.com> <aqLaLmz7n31P6igy@SMW015318> <prwghb3ftrz5xd3hapxtlv2o2gm5xmuapnpz2h7fqulf75phqz@lk4yiaepormb> <aqLif2zrrsbYd5sM@SMW015318> <aqLk5UAv-j39Jxd3@francesco-nb> <20260918192447.GB1465432-robh@kernel.org> <178981707848.1761404.17065871878122418287@ping.linuxembedded.co.uk> <arDZoulyKIzVj-73@francesco-nb>
+Subject: Re: [PATCH 3/6] dt-bindings: connector: Add Toradex camera connector
+From: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: Rob Herring <robh@kernel.org>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Frank Li <Frank.li@oss.nxp.com>, Ernest Van Hoecke <ernestvanhoecke@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+To: Francesco Dolcini <francesco.dolcini@toradex.com>
+Date: Thu, 24 Sep 2026 08:10:27 +0100
+Message-ID: <179023382707.1723501.12070631258057963152@ping.linuxembedded.co.uk>
+User-Agent: alot/0.9.1
 
-Document the Power State Change Reasons Recording (PSCRR) sysfs interface
-under /sys/kernel/pscrr/: the per-provider directories and their name,
-device, reason, caps, supported_reasons and record_policy attributes,
-including the stable reason token values.
+Hi Francesco,
 
-Co-developed-by: Oleksij Rempel <o.rempel@pengutronix.de>
-Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
-Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+Quoting Francesco Dolcini (2026-09-21 08:15:46)
+> Hello Kieran,
+>=20
+> On Sat, Sep 19, 2026 at 12:24:38PM +0100, Kieran Bingham wrote:
+> > Quoting Rob Herring (2026-09-18 20:24:47)
+> > > On Thu, Sep 10, 2026 at 07:12:05PM +0200, Francesco Dolcini wrote:
+> > > > On Thu, Sep 10, 2026 at 12:01:51PM -0500, Frank Li wrote:
+> > > > > On Thu, Sep 10, 2026 at 06:39:30PM +0200, Ernest Van Hoecke wrote:
+> > > > > > Hi Frank,
+> > > > > >
+> > > > > > Thanks for reviewing this so quickly.
+> > > > > >
+> > > > > > On Thu, Sep 10, 2026 at 11:26:22AM -0500, Frank Li wrote:
+> > > > > > > On Thu, Sep 10, 2026 at 05:37:59PM +0200, Ernest Van Hoecke w=
+rote:
+> > > > > > > > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > > > > > > >
+> > > > > > > > Toradex boards route the sideband signals of their 24-pin c=
+amera
+> > > > > > > > connectors to different GPIO controllers. Camera overlays w=
+hich name
+> > > > > > > > those controllers directly must therefore be duplicated for=
+ each host
+> > > > > > > > board.
+> > > > > > > >
+> > > > > > > > Describe reset, power-down, detection and power-control as
+> > > > > > > > connector-local GPIO functions. This lets an accessory over=
+lay remain
+> > > > > > > > independent of the host wiring. MIPI CSI-2, I2C, clocks and=
+ supplies
+> > > > > > > > remain described separately because the GPIO nexus does not=
+ abstract
+> > > > > > > > them.
 
-Changes v15:
-- Add Reviewed-by tags from Matti Vaittinen.
-changes v12:
-- rewrite for the per-provider interface (providerN/ directories with
-  caps, supported_reasons and record_policy)
-- rename the file to sysfs-kernel-pscrr to match the sysfs path
-- refresh KernelVersion/Date
-- drop Reviewed-by: Matti Vaittinen; the documentation was rewritten
-changes v8:
-- simplify and clarify example sysfs value comments
-- add note that not all values are meaningful on every system
-changes v7:
-- document expected values
----
- Documentation/ABI/testing/sysfs-kernel-pscrr | 108 +++++++++++++++++++++++++++
- 1 file changed, 108 insertions(+)
+Will it be possible to extend this to add the mapping for MIPI data and
+clock lanes and regulator supplies?
 
-diff --git a/Documentation/ABI/testing/sysfs-kernel-pscrr b/Documentation/ABI/testing/sysfs-kernel-pscrr
-new file mode 100644
-index 000000000000..63aa411b7362
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-kernel-pscrr
-@@ -0,0 +1,108 @@
-+What:		/sys/kernel/pscrr/
-+Date:		July 2026
-+KernelVersion:	7.2
-+Contact:	Oleksij Rempel <o.rempel@pengutronix.de>
-+Description:
-+		Root directory of the Power State Change Reason Recording
-+		(PSCRR) framework. It contains one subdirectory per registered
-+		reason provider, named providerN (N is an arbitrary, stable
-+		index assigned at registration).
-+
-+		A provider is either a hardware reason source (a PMIC, SoC
-+		reset controller or watchdog exposing a reset cause) or a
-+		recorder that persists the current reason across a power cycle
-+		(e.g. an NVMEM or RTC scratch cell). The set of reasons is
-+		deliberately not collapsed to a single "winning" cause, since
-+		resets are often multi-causal.
-+
-+What:		/sys/kernel/pscrr/providerN/name
-+Date:		July 2026
-+KernelVersion:	7.2
-+Contact:	Oleksij Rempel <o.rempel@pengutronix.de>
-+Description:
-+		(RO) Human-readable label identifying the provider, e.g.
-+		"pca9450" or "nvmem".
-+
-+What:		/sys/kernel/pscrr/providerN/device
-+Date:		July 2026
-+KernelVersion:	7.2
-+Contact:	Oleksij Rempel <o.rempel@pengutronix.de>
-+Description:
-+		Symbolic link to the backing struct device of the provider.
-+		Present only for providers that are bound to a device.
-+
-+What:		/sys/kernel/pscrr/providerN/reason
-+Date:		July 2026
-+KernelVersion:	7.2
-+Contact:	Oleksij Rempel <o.rempel@pengutronix.de>
-+Description:
-+		The set of power state change reasons observed by this
-+		provider, as a space-separated list of reason tokens (an
-+		empty line means no reason is recorded).
-+
-+		The attribute is writable only for providers that can record
-+		a reason; for a pure hardware source it is read-only. A write
-+		records one reason and accepts either a reason token or its
-+		decimal index. The tokens and their stable numeric values are:
-+
-+		==  =================  ============================================
-+		0   unknown            Unknown or unspecified reason
-+		1   under-voltage      Supply voltage dropped below a safe level
-+		2   over-current       Excessive current draw / possible short
-+		3   regulator-failure  Voltage regulator failure
-+		4   over-temperature   Unsafe temperature detected
-+		5   ec-panic           Embedded controller (EC) panic
-+		6   power-on           Regular cold power-on
-+		7   watchdog           Watchdog timeout
-+		8   software           Software-initiated reset or reboot
-+		9   external           External reset input asserted
-+		10  rtc                RTC-triggered wake-up or power-on
-+		11  reset-button       User reset button
-+		12  cpu-clock-failure  CPU clock failure
-+		13  crystal-failure    Crystal oscillator failure
-+		==  =================  ============================================
-+
-+		The numeric order is stable ABI: new reasons are only ever
-+		appended. A provider may support only a subset of these; see
-+		"supported_reasons".
-+
-+What:		/sys/kernel/pscrr/providerN/caps
-+Date:		July 2026
-+KernelVersion:	7.2
-+Contact:	Oleksij Rempel <o.rempel@pengutronix.de>
-+Description:
-+		(RO) Space-separated list of the provider's non-default
-+		capabilities. Being readable and storing a single reason are
-+		the defaults and are not listed. Currently defined:
-+
-+		========  ==============================================
-+		writable  the provider can record a reason (see "reason"
-+		          and "record_policy")
-+		========  ==============================================
-+
-+		An empty line therefore denotes a read-only, single-slot
-+		provider.
-+
-+What:		/sys/kernel/pscrr/providerN/supported_reasons
-+Date:		July 2026
-+KernelVersion:	7.2
-+Contact:	Oleksij Rempel <o.rempel@pengutronix.de>
-+Description:
-+		(RO) Space-separated list of the reason tokens (see "reason")
-+		this provider is able to report or record. A provider that
-+		supports every reason lists them all.
-+
-+What:		/sys/kernel/pscrr/providerN/record_policy
-+Date:		July 2026
-+KernelVersion:	7.2
-+Contact:	Oleksij Rempel <o.rempel@pengutronix.de>
-+Description:
-+		(RW) Policy used when more than one reason is recorded during a
-+		single power cycle. Present only for providers that can record
-+		(see "caps"). Valid values are:
-+
-+		=====  =================================================
-+		first  keep the first reason recorded this cycle (the
-+		       root cause); this is the default
-+		last   overwrite with the most recently recorded reason
-+		=====  =================================================
+I.e. does this do anything that would push us down a hole that stops us
+mapping those signals?
 
--- 
-2.34.1
+What do we need to do next to be able to map I2C/CSI/Regulators through
+a 'nexus' ?
 
+
+> > > > > > > >
+> > > > > > > > Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.=
+com>
+> > > > > > > > ---
+> > > > > > > >  .../connector/toradex,camera-connector.yaml        | 86 ++=
+++++++++++++++++++++
+> > > > > > > >  1 file changed, 86 insertions(+)
+> > > > > > > >
+> > > > > > > > diff --git a/Documentation/devicetree/bindings/connector/to=
+radex,camera-connector.yaml b/Documentation/devicetree/bindings/connector/t=
+oradex,camera-connector.yaml
+> > > > > > > > new file mode 100644
+> > > > > > > > index 000000000000..06e6836e1aa6
+> > > > > > > > --- /dev/null
+> > > > > > > > +++ b/Documentation/devicetree/bindings/connector/toradex,c=
+amera-connector.yaml
+> > > > > > > > @@ -0,0 +1,86 @@
+> > > > > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > > > > > > +%YAML 1.2
+> > > > > > > > +---
+> > > > > > > > +$id: http://devicetree.org/schemas/connector/toradex,camer=
+a-connector.yaml#
+> > > > > > > > +$schema: http://devicetree.org/meta-schemas/base.yaml#
+> > > > > > > > +
+> > > > > > > > +title: Toradex camera connector GPIO nexus
+> > > > > > > > +
+> > > > > > > > +maintainers:
+> > > > > > > > +  - Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > > > > > > > +  - Toradex Linux BSP Team <linux-bsp@toradex.com>
+> > > > > > > > +
+> > > > > > > > +description: |
+> > > > > > > > +  Toradex boards provide 24-pin camera connectors carrying=
+ MIPI CSI-2, I2C,
+> > > > > > > > +  clock, power, and sideband GPIO signals. This binding de=
+scribes the sideband
+> > > > > > > > +  signals as a GPIO nexus. The other connector resources r=
+emain described by
+> > > > > > > > +  the surrounding board device tree.
+> > > > > > > > +
+> > > > > > > > +  The nexus exposes connector-local GPIO function numbers =
+to camera overlays
+> > > > > > > > +  and maps the functions wired by a carrier board to their=
+ GPIO controllers.
+> > > > > > > > +  GPIO specifiers contain a function number followed by st=
+andard GPIO flags.
+> > > > > > > > +  A board may omit functions which it does not wire.
+> > > > > > > > +
+> > > > > > > > +  The function numbers are:
+> > > > > > > > +    - 0: Camera reset, connector pin 11
+> > > > > > > > +    - 1: Camera power-down, connector pin 22
+> > > > > > > > +    - 2: Camera identification, connector pin 23
+> > > > > > > > +    - 3: Camera power control, connector pin 24
+> > > > > > > > +
+> > > > > > > > +properties:
+> > > > > > > > +  compatible:
+> > > > > > > > +    const: toradex,camera-connector
+> > > > > > >
+> > > > > > > Name is too generally, suggest use board name, we got similar=
+ comments at
+> > > > > > >
+> > > > > > > https://lore.kernel.org/imx/20260629074734.3643227-2-chancel.=
+liu@oss.nxp.com/
+> > > > > >
+> > > > > > I saw that and it made me reconsider this name.
+> > > > > >
+> > > > > > However, I believe that in our case it is specific enough. It i=
+s really
+> > > > > > the same on all our carrier boards, and Toradex specific. It's =
+also only
+> > > > > > for cameras, which is more defined than just "io". Curious to s=
+ee if
+> > > > > > others agree or if we should come up with a name for this.
+> > > > >=20
+> > > > > If some days later, you update hardware connector to 30pin from 2=
+4pins.
+> > > >=20
+> > > > That connector is there since years, not days.
+> > > >=20
+> > > > We have multiple cameras, designed to mate with it.
+> > > >=20
+> > > > If tomorrow we will define a new camera connector (that is absolute=
+ly
+> > > > possible), the new connector will get its name, maybe
+> > > > toradex,camera-connector-v2, or toradex,camera-connector-22pin or
+> > > > whatever that connector would be named, not just in the DT, but als=
+o as
+> > > > a product and on the actual HW.
+> > >=20
+> >=20
+> > Diving in because, cameras :D
+> >=20
+> >=20
+> > > I for one hate 'v2' naming.
+> > >=20
+> >=20
+> > Me too. I wouldn't ever call it v2, but a future
+> > toradex,camera-connector-24pin might be appropriate.
+> >=20
+> > Note that I specifically said 24 as an example because there is already
+> > a 22 pin Raspberry Pi connector.
+> >=20
+> > If Toradex were to produce boards with a 22 pin connector, I would
+> > anticipate it to be the same pinout as the Raspberry Pi connector.
+> >=20
+> > Raspberry Pi camera connectors have already somewhat become a defacto
+> > standard (albeit for both positives and negatives there).
+> >=20
+> > So I would imagine if a 22 pin layout were ever made it would be
+> > compatible with RPi 22. And if Toradex ever make a 22 pin connector
+> > which is not RPi compatible ... well I might scream into the void ;-)
+> > but then it would have a toradex prefix I guess!
+> >=20
+> >=20
+> > Equally we have other vendors who have 30 pin connectors (There are
+> > quite a few, so I have myself a research project to go find out how
+> > {in,}compatible they all are here ...)
+> >=20
+> > So, I would imagine if we're giong to name connectors we should set out
+> > an expectation to start with
+> >=20
+> >   toradex,camera-connector-30pin
+> >   raspberrypi,camera-connector-15pin
+> >   raspberrypi,camera-connector-22pin
+> >=20
+> > And if Toradex were to make a *different* 22 pin connector then it would
+> > be:
+> >=20
+> >   toradex,camera-connector-22pin,
+> >=20
+> > But if it's RPi layout, then it would be defined as such.
+> >=20
+> >=20
+> > All that to say - I think Toradex certainly warrant a specific
+> >=20
+> >   toradex,camera-connector
+> >=20
+> > But I think specifiying the pin count already could be useful (but not
+> > essential).
+>=20
+> As Toradex, this is how this connector is called, and there is no plan
+> to design a new one. If you want a full descriptive name you can call it
+> "Toradex MIPI CSI-2 Camera Connector".
+
+I don't think a full description is the issue here, as it's related
+to the compatible string which can't have spaces.
+
+In case it wasn't clear - I think toradex,camera-connector is adequate!
+
+It's just that I am 95% certain there will be a future update required
+when another connector appears, and if that happens I think it should be
+called something more specific than '-v2'. So the bike-shed becomes -
+how does that impact to the current name.
+
+I say this explicitly because I wouldn't call the 15 pin RPi connector
+'v1' and the 22 pin 'v2'.
+
+If a new connector is designed, then I expect it will serve new
+requirements.
+
+> I see no evidence that we are going to have a connector with a different
+> amount of pins anytime, if we would redesign the connector today it will
+
+I can imagine some connector updates might happen if(ahem, when?) MIPI
+C-PHY gains any popularity on industrial / SBCs / SoMs. Perhaps even
+sooner now that you have Qualcomm SoMs on the Aquila IQ-8275 SoMs.
+
+There's always a 'v2' somewhere ;-)
+
+
+> likely have the same pin count but 1v8 logic instead of 3v3, and your
+> proposal would not help.
+
+Ohhh camera connectors really are cursed aren't they :=3D)
+
+Voltage changes indeed might be an interesting adaption, though we don't
+specify them now anyway, and I think that's more of a property of the
+configuration rather than the 'routing' ? It will be interesting to see
+what happens there though.
+
+We only have 'purposes' to the pins at the moment I think?
+
+Its specifying the pin routing I'm concerned about at the moment, which
+is I guess why a 'pin count' is an easy refernce to that ?
+
+=20
+> A little bit more data on what we have today, the connector is a 24-pin
+> 0.5mm pitch FFC/FPC, it goes back to 2017 and it never changed after
+
+Ohhh sorry, I got it wrong, I misread the earlier discussion in this
+thread and thought Toradex was 30 pin ... I got the order the wrong way
+around!
+
+There are so many variations of CSI2 camera connector from different
+vendors, and I'm trying to look at the big picture of how we can
+identify and map them.
+
+Ultimately, pin pitch is irrelevant to the DT. I wonder if voltage is
+the same, as that will be dealt with by the hardware. We definitely need
+to model "These signals need to go to that controller".
+
+
+> that. It is currently implemented in Apalis, Verdin, Aquila, SMARC and
+> OSM Toradex Carrier boards.
+
+
+Absolutely, and that re-usable connector is a great thing, in an area
+with no standardisation, and why I really want to see overlays
+abstracted to be able to convey that usefully.
+
+--
+Kieran
