@@ -1,205 +1,206 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61755490BEC
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:45:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790257523; cv=pass; b=Y6Nldn8PQi0sof0AMrY3dUJaIT8gcOp9EXyt67u7U+tU06PUntMC6OeKXmH08tckcSoQXDlZ+U7e2aRKRY0cAzhct8mfQQlHtoEqe0LQjbibKdp++LDbgdvXZ07JoY8z/t6pR6OCgc8p6VURB+cXiXopjDbR2QfVo8KDT8N7K4c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790257523; c=relaxed/simple;
-	bh=jZQJkk3KHNIcE56oWvAfHwi1YqZoDB4/A8UkPIGIqKc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=M51VKvw9drydJ9EV33QtUltU/GRP9Wewghcs9EHWvHOGsQaijJVqfblrgVD0ui50yyUQnEvJFbg7k6YRam+M0c6Ww4XsHTznx6gSMOi2bgy4kNDMHC5ZxPwHpAuwoZi6ma+T06Kk18i82MlIHnt5eJympcIfec446+U8B6+p3+M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AkFm5kJP; arc=pass smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA86D3002CF
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:49:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790257752; cv=none; b=p22gGz1OzvZ/1PS9XHk7Q9QZ8Ydnw+m44FQ6W0SECvx3zN/I/Sp5fhDnt89SvVCDrcptuKC3oO2sUPxDBM0NHAXU0Yd/WPHim2o6YIoHLtYw67xB3T3swvTvbCJZKpn067Z6R8nhih3qPaKskWKXBPzqRQFlYGSsRM8ZXSxsV+c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790257752; c=relaxed/simple;
+	bh=u1b4T6xgCH3mgByw4ciO20/BUXumR4YjM6XojB1QxQM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T+FAaoQd0VoR5WamQJTUUm3+5bPAKOtVM8iI+aYaIp5V4RnuoQwJItd7Se+r03hNVEZdG+P+Bi4z11USPACpjKkCZ2IsvQBwsCCfxmNLl+OHMiblQK5ZpFDjIqRPcrqdCYRM/qUzRaMvDt9WWO7DuV72ds9loc2vmFMY0oQ/Yws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=KlLDLx/c; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=sNoFqRa0; arc=none smtp.client-ip=202.12.124.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AkFm5kJP"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-670fee39d73so2238681d50.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:45:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790257515; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lAyjMpz9gddLLvAA0xOObbZQlmXLyXCP/Q0uQ9ypjs8qrbPdfQdjq0bF784vZrt7f+
-         +wrYfprh+Eui0bnqW0cjFYVWAQyzVBbOfyJWQTaaPzi/T33ynRTsB7Gxa6huQXGLUylL
-         xtwxuUR3DyrLAXjirMBfpJdr67nR4yFwjj5GgCgxy3BTYjzxBI2UcXAe07c+P5G+vCzu
-         ZUboPa2Wwm2VKhgI6An0QQbVAZz1v2YjY8AdJhbn4SMKo0o5+u7behVrdDgyGbpz52vU
-         m/dh2KofdPQhPjMSg09xW+5lYXkcfVDmZX23b97dwYDBqJYZLDNUQlKlKOUnLii7oLWX
-         59ew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=FNNubV5ejx2bLbWQoB8ueW+/fkh0ACbiMkvSyTP+9DI=;
-        fh=6d/sfe081E76Pas9muexKGK8gz+hiYKrwdOUnBWyzBo=;
-        b=r8B1UC0YuXWXVKuUUrNa+aUCMph8o7EHu67w6IV81QUeFHmICk72KXOt8cDcVtt0ON
-         sd0lKrizXaLN1eITCHxGFXpFf9lITTGEsi4VqfZjCpA1vtOKgNa7hHrthUbX/E+A5ViG
-         QdyMrP9JSxo0jOmZ7VSx0gtHWWbZiDLmWU6yusiyKeMJlsdjtfa6YQDtf6ZjPQ20KSFt
-         viBhiVLZlpGtgvMMOWHIf5RRVgmsAuDX8QOLtwuiMGq42ss9X0YwhcE9dO1RSH/B7CzX
-         aIoBvsO9IgpI094QC30qFdkjlHeQi0Dgpbb8eEdwvQCNdz/mk/BBF66JxnPWzw2H5pSv
-         1qZw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790257515; x=1790862315; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FNNubV5ejx2bLbWQoB8ueW+/fkh0ACbiMkvSyTP+9DI=;
-        b=AkFm5kJPBWhEpym/Od1w9XRnCnR2bocmI+klD0GK7b8Ymlb9HOoL+GMivc3IJ2AE6X
-         yRt/DNeQika1XXDo/czBrYXzdZb6HDOgQR10fHCltgK+GmHC9QQFH/rkjoIPLSgTxcq2
-         K9WCyA2S0TswE4QOnbm8M8Jd2gcFpzFgRPW5jxL27QWTt3m3ukGYrd0mlTzVimC0spcf
-         zf/yxUrJSqwBwpTSfjKDSDqb8KSKNhGIxG/jjBNKJVfEdflNU1zW7taNbJxwXq1bVd5I
-         M/DF7KvXoJu7JFf2Knd2ebcNlDeD8eIM8pcFVLnun4yvyE8Qu27ajYBQl4Nv6Vm7HwNB
-         gYpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790257515; x=1790862315;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=FNNubV5ejx2bLbWQoB8ueW+/fkh0ACbiMkvSyTP+9DI=;
-        b=bOmIlvC77WpUGIkXwYh17BFDb8fO1bteleVCSetA6e4Yjuv33Xk+YKBlhxajegUjiq
-         MnYB6yWhncheM7fU6yqS5ykulgq65O7aHebDowfT3uWXWx/dgHZgg0oB/ZWqq9PbQ28O
-         Ng7Lv6ZohK3z6FKXHl3EaEORzgYjM46PRHNR/3Y96jTk338T8X3XtuY7PWy3UhvX6Yzn
-         zl4kM9tK3Py4SpLXOfbEZ6gmsLdDFc8ngoCrYwnZX66Z113ZiMNKZ+p0TJhlfhjrDf+l
-         4Y4sR0ySprttaoh2EDHHQt3b084Gux5nGb2f+FR6aVC7eDXdr6f9rOoMtmyqNuvs3Mv1
-         nb5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwA9eq9Gd+DYUv5Ffcu4HcxfE5mAC4OPP0T5/KXhwLIwsNyE+EjZdErWFRj1/jGrevBw1NRC0DgduyxeS8=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2ER5Nj5kqbfzv3KHbz3nwKQSnIt/GaXoy0P0cc2nvFGUKyvUC
-	7Mn9FTJpDDVhKp8/6NckD0NqVl+JwoVmEe29M2wfQNgfG6jv3FWdhuy6gY+BwBxlNPb4ZS4cbgS
-	7UMWiRk4kGCYcRr324+8NQlTaVvO505U=
-X-Gm-Gg: AYBFou2CyMoklUmt9SKh8MxAcmLnobV3PwX2N5JFTGAPjjVdnN1Mh0UEmtfKzN77SVS
-	qtjId0atCdHdwZMpK9AkdwgQdzyUW5x7FF3XCdZo5Uy2wyBSeGiM2p6WpfY15gNUqzAUX/FKcWk
-	c3c93dmdEAEJyicfSqfL8BlHSJoumbA4twhYwNLtwZrWDC7PyfHhhAkoa35zd++jSM2PL20d8FT
-	1GObQseOUSJMePSbfe5BUZfHWWqf22OtjvvFeh+E7EDOh8veaPQoNElGKkNu6tuy1jvzuyy5bd4
-	DVI8qMHa/t8Gc+1V1/njU3wjuriI0kciLf+k+YLLOSLfxpDZfGdlI0tZxA==
-X-Received: by 2002:a05:690e:118e:b0:672:d609:6bfe with SMTP id
- 956f58d0204a3-672ed32167bmr1527450d50.39.1790257515508; Thu, 24 Sep 2026
- 06:45:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="KlLDLx/c";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="sNoFqRa0"
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfout.stl.internal (Postfix) with ESMTP id 021FE1D000A9;
+	Thu, 24 Sep 2026 09:49:08 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-10.internal (MEProxy); Thu, 24 Sep 2026 09:49:09 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1790257748; x=
+	1790344148; bh=VxubDCMimHQWV4U5vlu/eXk+mNGTkF4qp8DTiFv5xy8=; b=K
+	lLDLx/c/VQBykNZjaB9yWxhaXwngnJGlUCjOcfrQ1n2yk/0JmYdBkz2N49EhXfin
+	xoiT6uvexYHqGrFz/I17vWZlcHDayffTu1XUWz0guVJ823zRUqQ9PYRl1pkW2Gf7
+	jd3EqSfnL3/OgrYoI1AYyLH55sPNXTIZQX1PhKf0PcPoC95Q1qkT8+I3R9sq/Alg
+	x9psJegKTzqLufhpbNGy6uMsra2pgnKJxYmwy9Bc9YhJbRP0aEv4p1Jz25EAUbLl
+	5KxE2F9049gpZ9/EJV2YlxmHr7aMru5cjjw+SPpIQh4i6RdQTp/p0xgSLBpYYSg6
+	D2TzCNxJ3SDcXeuwkafug==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1790257748; x=1790344148; bh=VxubDCMimHQWV4U5vlu/eXk+mNGTkF4qp8D
+	TiFv5xy8=; b=sNoFqRa0LZd2RdcS9wyhws8zjYUBe82sDzmwye5yzbvB7iyIBdU
+	kvNvAR1nm4ZpWm4mDidIDiNWUDlLHCMFt83EvuuC12ERUX8WV5atRnqa6ujscHo1
+	F7pZeLnW4W+BU6Ih5N61r6F2tdixkHaDcFwdRCe8KGOPFmNmJAlNuM74dmP5cXoU
+	QB1dN+e+ozM23IcvWEst31EtPObCSwdx4PQ27/J6h2hfiyUlkmkTutkhTIFqxgUV
+	Xx58y3z6nuySF1/dHzdOjbsEV846IGnYSNp/+XXN2CfXp28oWJhhJxvpTdBz/N+W
+	yMXpp6DM6wV+NxGSW8zAEIefMer1Zlb0+LA==
+X-ME-Sender: <xms:Uyq1alJJFePU2J9lMkTkocu53B_TZLZQm0r4i-2Y8aWIXKlwld1cIg>
+    <xme:Uyq1auyeJ9HP6PX3kQfNv-mgvHpFaf2kQtlGw3QQbXoJF1_aeXSB7X__TJju0Xqf6
+    rB5AUBAdbtw6y1eQHhdQdXVoar_AKcBhS-AjG_CpM0uX8FfSi72yrV_>
+X-ME-Received: <xmr:Uyq1alFEb58FhTR1JmsF-dQoc_Yq6iI5GAkg-nI8n2VBGDsOHHfWfLRGJLo>
+X-ME-Proxy-Cause: dmFkZTG3YGxO9W0mzHNwF9Y5CKWnPkGQyWa550BUS+S62HTmLWg1YjjTjJC6Z3zL8E+9ws
+    ACtwAJWI0ONvH87yRA4Cj5fY3m7CA2kRQUbgqRQm8v73NyB3368cDbCbad192qblN5sJB4
+    ChR4nZLGh+b1YKI5sh5eNYLDYXuyqCGpLHJQ9IRyUsZZdxsp843Gr4U6Tz8FQjzMgyAvS7
+    yu9JYx9E0yAMAXcHxswYezuBxfJHR+BffOoZRKuTtzxgZDRnQw7Sxlg4nNRVRRwCQNLrp1
+    kSWQ17aEeMfY2DkAXv7GZOUd37EBu007cxR5FcZrZ1E0LmyJjXEAmTsSs732zO9EqIgKrm
+    kaMIxSCKB09lJ53cWjNlWFSv0phUM8xx2qLhrRplpKg/k50aUah1LiPqD5wMkG1PoBh1dg
+    ZjiwlDIonXNpBO5QkuwCb+deo1Jw0EEaIj16OFlPu92ya8huWR6EjmLPSC6cARDtaVTtJt
+    g+3R93A5jhnZCrXMdoIko5jrF9jhN58og7lEv3ey4083+s56zLu34NdaXkZYWYwIcgk5T+
+    b/m+OUQQVXPUJsKHsQptxOchoS4i5YgKCB0YkKLfwvpN+WFpb8G9yCIQAxAxZlAFp++Q4M
+    eHPn69ZCtR2wQO9LQnn/LmfrBi05yQitHZuyxiIiUWPcYdIbQQH5aW4xr7oA
+X-ME-Proxy: <xmx:Uyq1aumolOTs1D2HxPu95h8NMAKQY2CNiZT2lLT1DzNWPOiFOIAKxw>
+    <xmx:Uyq1akH5wLHApYnavw8j8T0q62Mxi4BRoZdRNUoQJtGkm72bsyioJw>
+    <xmx:Uyq1apwHlhiFbk-3Pj_mbCyw5srezlM2fDbC1LlaYWcRNr8S3BHY4w>
+    <xmx:Uyq1alawZZn9PHt2xDcLS2V66x79eOPykh2ls4AP1FtjKPS0_Tg_2w>
+    <xmx:VCq1atPdZUi-hXJhe5aqb5betmTExulnvbbCQpBFEwbcz0ytT1GSJXl->
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 24 Sep 2026 09:49:06 -0400 (EDT)
+Date: Thu, 24 Sep 2026 14:49:05 +0100
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	kernel-team@meta.com, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>
+Subject: Re: [PATCH v3 05/12] mm/collapse: state what a collapse may do in
+ the policy
+Message-ID: <arUVpLSG3Xj560m5@thinkstation>
+References: <20260916093145.4022188-1-kirill@shutemov.name>
+ <20260916093145.4022188-6-kirill@shutemov.name>
+ <2add40dc-6541-41e3-8233-521cce7e0d33@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921073847.63505-1-lgs201920130244@gmail.com>
- <dd60ce64-4af1-479e-99d3-1787a06da882@intel.com> <CANUHTR9F+D1C49MLiiy5z1snyKtbBtdU1cnuhsgr0cysp+yOcQ@mail.gmail.com>
- <af20eb97-2fca-4ab9-9759-90b210b34802@intel.com>
-In-Reply-To: <af20eb97-2fca-4ab9-9759-90b210b34802@intel.com>
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Thu, 24 Sep 2026 21:45:05 +0800
-X-Gm-Features: AclHuK-k2HlTZ7P5DTUJL2j0cqyTUAaIHPGi3MajOMUrhuB7BSfKPVp4d38KpIc
-Message-ID: <CANUHTR99pQfVVjNiQbVFQ9y9EAgTgxu6WbdSAcMxpWHJJuTJJg@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: Intel: SST: fix platform device leak on probe failure
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: stable@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>, 
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
-	Bard Liao <yung-chuan.liao@linux.intel.com>, 
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Mark Brown <broonie@kernel.org>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Thorsten Blum <thorsten.blum@linux.dev>, 
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2add40dc-6541-41e3-8233-521cce7e0d33@kernel.org>
 
-Hi Czarek,
-
-Thanks for the clarification.
-
-On Wed, 23 Sept 2026 at 16:15, Cezary Rojewski
-<cezary.rojewski@intel.com> wrote:
->
-> On 9/22/2026 10:17 AM, Guangshuo Li wrote:
-> > Hi Czarek,
-> >
-> > Thanks for the review.
->
-> >>> @@ -361,15 +362,21 @@ static int sst_acpi_probe(struct platform_device *pdev)
-> >>>
-> >>>       ret = sst_platform_get_resources(ctx);
-> >>>       if (ret)
-> >>> -             return ret;
-> >>> +             goto err_unregister_mdev;
-> >>>
-> >>>       ret = sst_context_init(ctx);
-> >>>       if (ret < 0)
-> >>> -             return ret;
-> >>> +             goto err_unregister_mdev;
-> >>>
-> >>>       sst_configure_runtime_pm(ctx);
-> >>>       platform_set_drvdata(pdev, ctx);
-> >>>       return ret;
-> >>> +
-> >>> +err_unregister_mdev:
-> >>> +     platform_device_unregister(mdev);
-> >>> +err_unregister_plat_dev:
-> >>> +     platform_device_unregister(plat_dev);
-> >>> +     return ret;
-> >>>  }
-> >>
-> >> Looks like sst_acpi_remove() does not unregister the devices either.
-> >> That could be fixed by enlisting devm_add_action_or_reset() in
-> >> sst_acpi_probe() without altering sst_acpi_remove() at all.
-> >>
-> >> Would you mind sending a separate patch updating the function so both
-> >> the error path and the driver-unload clean up the device objects?
-> >>
-> >>
-> >> Kind regards,
-> >> Czarek
-> >
-> > I'll update the title to:
-> >
-> > ASoC: Intel: atom: Fix platform device leak on probe failure
-> >
-> > and trim the commit message as suggested, including the
-> > s/machine drivers/machine board/ change. I'll also add your Reviewed-by.
-> >
-> > For the separate cleanup patch, do you mean something like this?
-> >
-> > +static void sst_unregister_platform_device(void *data)
-> > +{
-> > +        platform_device_unregister(data);
-> > +}
+On Wed, Sep 23, 2026 at 02:24:04PM +0200, David Hildenbrand (Arm) wrote:
+> > +/* What a collapse is allowed to do, decided by the caller that asks for it */
+> > +struct collapse_policy {
+> > +	/* Limits, stated per PMD; HPAGE_PMD_NR means "no limit" */
+> > +	unsigned int max_ptes_none;
+> > +	unsigned int max_ptes_swap;
+> > +	unsigned int max_ptes_shared;
 > > +
-> >         plat_dev = platform_device_register_data(...);
-> >         if (IS_ERR(plat_dev))
-> >                 return PTR_ERR(plat_dev);
-> > +
-> > +       ret = devm_add_action_or_reset(dev, sst_unregister_platform_device,
-> > +                                      plat_dev);
-> > +       if (ret)
-> > +               return ret;
-> >
-> >         ...
-> >
-> >         mdev = platform_device_register_data(...);
-> >         if (IS_ERR(mdev))
-> >                 return PTR_ERR(mdev);
-> > +
-> > +       ret = devm_add_action_or_reset(dev, sst_unregister_platform_device,
-> > +                                      mdev);
-> > +       if (ret)
-> > +               return ret;
-> >
-> > This would let devres clean up both devices on later probe failure and on
-> > driver unload, so the explicit unregister error paths from the first patch
-> > would no longer be needed after this patch.
-> >
-> > Would this be what you had in mind? If so, I'll follow Krzysztof's
-> > suggestion, organize the related changes into a proper patch series,
-> > and send a two-patch v2.
->
-> I do not mind either approach. There are two problems here:
->         1) leak on probe() failure
->         2) leak on driver remove()
->
-> So, two patches-approach IMHO is perfectly fine. And yes, enlisting
-> devm_add_action_or_reset() closes both 1) and 2) in one go.
->
-> Kind regards,
-> Czarek
+> > +	/* Take no swapped-out or shared PTE into a sub-PMD collapse */
+> > +	bool strict_sub_pmd;
+> 
+> Reading this variable name without the documentation I have no idea what it
+> means. It looks like the wrong abstraction.
+> 
+> Maybe you instead want to split max_ptes_swap and shared to a PMD and non-PMD case?
+> 
+> I am also confused why you use "strict_sub_pmd" in the collapse_max_ptes_none()
+> handler below? Something seems odd, as it doesn't amtch the description here.
 
-I'll use devm_add_action_or_reset() to handle both the probe failure and
-driver removal cases, and send the updated change in v2.
+The comment undersells it.
 
-Thanks,
-Guangshuo
+The flag stands in for every sub-PMD rule khugepaged applies and
+MADV_COLLAPSE does not: no swapped-out PTE, no shared PTE, and
+max_ptes_none scaled to the order.
+
+Before this patch all three helpers tested is_khugepaged and then
+is_pmd_order; the flag replaced the first test in each. Which makes it
+is_khugepaged under another name, so you are right that it is the wrong
+abstraction.
+
+Splitting the limits works. Two sets of counts, one per order class:
+
+	struct collapse_limits {
+		unsigned int max_ptes_none;
+		unsigned int max_ptes_swap;
+		unsigned int max_ptes_shared;
+	};
+
+	struct collapse_policy {
+		struct collapse_limits pmd;
+		struct collapse_limits sub_pmd;
+		...
+	};
+
+For swap and shared the sub-PMD value is a count: 0 for khugepaged, no
+limit for MADV_COLLAPSE.
+
+For none it is the knob value, and the helper keeps today's rule: 511
+means all but one PTE of the window, anything else means none.
+
+	static unsigned int collapse_max_ptes_none(struct collapse_control *cc,
+			struct vm_area_struct *vma, unsigned int order)
+	{
+		unsigned int max_ptes_none;
+
+		if (vma && userfaultfd_armed(vma))
+			return 0;
+		if (is_pmd_order(order))
+			return cc->policy.pmd.max_ptes_none;
+
+		/* Below PMD order: all but one PTE of the window, or none */
+		max_ptes_none = cc->policy.sub_pmd.max_ptes_none;
+		if (max_ptes_none == COLLAPSE_MAX_PTES_LIMIT)
+			return (1 << order) - 1;
+		return 0;
+	}
+
+Only the warning for other knob values moves to where khugepaged fills
+its policy. MADV_COLLAPSE never reads sub_pmd: it collapses to PMD order
+only. Nothing is scaled, so the creep question is untouched.
+
+> > +
+> > +	/* Leave clean lazyfree folios to reclaim rather than collapse them */
+> > +	bool skip_lazyfree;
+> > +
+> > +	/* Refuse a range with no sign of use */
+> > +	bool require_referenced;
+> > +
+> > +	/* Map the PMD over a file collapse instead of leaving it to a fault */
+> > +	bool install_pmd;
+> 
+> Confusing.
+> 
+> If some of these policies are anon-/ file-specific, the name should indicate
+> that, so there is less head scratching.
+
+install_pmd and writeback_dirty are read only on the file side,
+skip_lazyfree and require_referenced only on the anonymous side.
+
+I will prefix them.
+
+> > +/* MADV_COLLAPSE was asked for explicitly, so it is not held to those */
+> > +static void collapse_policy_forced(struct collapse_policy *p)
+> 
+> Why are we not calling this collapse_policy_madvise to match its description here?
+
+Will do.
+
+> > @@ -2943,6 +2952,9 @@ static void khugepaged_do_scan(struct collapse_control *cc)
+> >  
+> >  	lru_add_drain_all();
+> >  
+> > +	/* One policy for the whole pass, so every table is treated the same */
+> 
+> just drop that comment.
+
+Ack.
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
