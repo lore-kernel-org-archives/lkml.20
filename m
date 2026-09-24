@@ -1,284 +1,253 @@
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
+Received: from mta0.migadu.com (out-196.mta0.migadu.com [91.218.175.196])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4A34854ED
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:21:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790263300; cv=pass; b=L/j3riTjPUESzpzldJauQ4fBa322J/yH3sbHtpk89tGRn6D8dckotRTrcF/a6DSQm1ZIBw+fl5FXXAsgGrmxZv9Uofia66MwSH8VNvT/P8XPiNu715pSiHuTEYiKWA3O1yDYpCQJsVZzSEu3w21rYRwnEBin4T+BWuV1pP9yZa0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790263300; c=relaxed/simple;
-	bh=1PezfFvCvwXvJ3mJWEDIGf5AAICgiWnymZnxH0N/8F8=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50B494A1DEC
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:21:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.196
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790263305; cv=none; b=VhTwPSZJgqfZviPJ2neIJQxzWh+pt0NcdwIhC699DemSvkN3RQOBh8pPUqoc6HI4Ts1p226eg+pqr7VFdGtDK43wgcON4jUdKORpNEoH5muGB/3EAHInEzJYjUoEqu6+b8AiqjLgBuQQ3McQ3r2si7bOVX/guT5gsKwT2FDE/aw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790263305; c=relaxed/simple;
+	bh=AvUxZyX/tO3G52TZtdDe5cDkHKT09asHJ5InA7+aTqk=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UF/oTkLjCvRy5bF6sHYYg3J/zp+r4Yg/UPP9qLZPpk/SXLvQ8X2zB8EpSbvLgAdqZ6xqdT1D8ZjYyXPV2LB4JCIUxfF2LGV6eOZbhwAycxCu+gzlAoYh4I4n2r5AopYbZe3NJWCi9FbQ/3ypkbs7cDz6GGcIESmVlyprNPGnw58=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ozHZIVYd; arc=pass smtp.client-ip=74.125.229.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=SPrQ3S9p4S7yu+Gyg7DoQDhKq58C8b4ZdyDxtgZv+u5atNAzqMCGGuYNnjLWtaKd8ybPsZGzUm9amJIVkU85RFDz/rYF7AjEpEQc9AF3hy5jsdcDci2FcbT5ufY1hqmJyRdLCyRxsaJQa13la6UPzD/mOyC3Jc6VMirt1PsxJD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Zw8M073H; arc=none smtp.client-ip=91.218.175.196
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ozHZIVYd"
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-341107ec0a9so38056eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:21:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790263298; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GYDai9WoxCwBfDMiLuX/qdJ8X/Kwnm5BolwyosGh7yyw7ZovP0N3300UhuyTKdJXbS
-         l/DcqNvHSg6h3MimyLemEDrc+xzhlLRMjQMzJtMAk6MkfkxlBqE5FUgKt8R7S4+Mvr3X
-         K8NhNzUnS7Jlc3rR/fsPoYE84r0y+ga6ICt4jvz05WMug0Ctsgd2Dbx+54F8mzUDHmED
-         4KrYJ8CuTL2mI4FxKHTBKy+SGKU87K6Zyf2SlJgZzEeAfAxj2R/BqfyCePGRG0tMtbIy
-         sSXyaMig7bwVx1ITiBN1eIBTCCtVcPlbdlAzpE6shXh0wZLaowelxENixO8zNyA0xmld
-         tNiA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1HbT6s9c6aFM0LJbQwaDMayMtoWgK4wRQAnAVfXVUqE=;
-        fh=86HVmpgY2DtBrNnK4bAdOckwB/9r37ALwSdTjgeq714=;
-        b=SFcm2nS6Vh2fQ6OyTAwwFP8nwgDw89Ecf8pJjTjhnIIgYuLQxbLHazOw2Y0c4Sna30
-         DnOjMBxV/A1NDsjbZh+0H5pdXDyNrjVf0FzQtPK+fp/6ssDTVumviwWOKPgZ3E889x4U
-         u8BzNzZY9Ko6HmA+JXDQg7S1xqclAnEsSwBOzYqyoS9+hXpngOc3e4aGHiglAAF5feKs
-         IbFYbe8j4K3Iv6BiMkjsy5b0PMM4zPbK6aFbcaWWrc3qvNY1tfBJO1oGFm2tG3gVv9/b
-         2V2nzAI48tJ22SLukguakCETZ5v+L0HhNfMgwKtHKwSIrAYHv2qnN32RH7cb34ac9pPB
-         IhSw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790263298; x=1790868098; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1HbT6s9c6aFM0LJbQwaDMayMtoWgK4wRQAnAVfXVUqE=;
-        b=ozHZIVYdBmfIA0o585X/4cHlmrYuCLnycm1oJxUwmi2jSwCmxarQxmrxHcZOzwk3Qp
-         qIRfQZ/kNjyGuRxPUIhGAUNQHms8Z5Cuan3SICo0HTg1E6cWHgeatfuS97gr1aEwTxVM
-         RGfiRyEnLe3u2XNLTD73ZqnhcrXjiS1fbiqTjAJ1LGZvPce0k4M90U25sl4h9kCK6x/F
-         Pa2nCjphud4PYZebZjDXV1ezrIh1nsZV2DCyOcqg+tGtM28u8jLbRaw/mNJ5C/j8SL9T
-         sEs89xFdcyV44SuaUxwb/FLDDSRa6NaXjnVnWUxwQXK6mETnvKoqX1fNWzmho1J0mMR6
-         nttQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790263298; x=1790868098;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1HbT6s9c6aFM0LJbQwaDMayMtoWgK4wRQAnAVfXVUqE=;
-        b=vlDksoH89noKgkEWv4hg4vggn2IvpPFpCZXxThNa5BUlk0XPY34v28WFKM7ANKj4tK
-         eyMWxU/LszUlgTI8ZWO5w2XEWoWjw2gIjirgEB8nQqbF4DkpSUVsmIYr9Zsu+8DAKsgI
-         ULpUCvrGNTPmxwUePlHeJ0j12NAtzd3Zoyh38k2hJd36/Bdb0LHzpFYkKv5kfksfZSaP
-         3Xbz3U4bS26a7PH2pysuc1NWIIpAaWqP/X9GgvAQCgxgBLlMck4h96MYHlEuq0EXvTnV
-         o8N2zAzuiwOFYV2+S1DNIFF6HMPP6ttBMJZXuE0E5XfDZnz/jMQdiLChGOrbwmdD5aCr
-         xijw==
-X-Forwarded-Encrypted: i=1; AKwUvBziy25pPB8pBNV1Wv65tf5rNc01IJE/gH5rKMhSb+E2zhfgsH4hetuy18CHKAETUCyaAvneWJ9H8sFyez0=@vger.kernel.org
-X-Gm-Message-State: AFuF++muEMc2DQRNrBhHRXTMKtOvYL4MqjEC0lR9cPxo5Isn7+z3qJgL
-	fHEdR2ivnovd8QRnjjUtQznmn1VYYXOSWpiXnfvnfNQaJmuaQd48Pf62SUCzgQdxKFPaTlHoHBe
-	PsGmOFWt4512kqTgwu7/KnKNbPpNKerM=
-X-Gm-Gg: AYBFou3OmLV1gADZALHmSdAKyJ1vbjNMdLSwHV0LvpnnC6ry6XcrhLbSHZbpsRcwowL
-	7Vpmu5fsWkOkfm0F1WGhlhdixDX7K+Du6QXd3QnUnxYG54IykFsBVghQPkayOL1sKIdvJTOVtUX
-	WcdQ/VHHEVBNqtLTYjN9/q40W1FjDovgq3/0lL4HJ7IPqM2WuCEUWx8XgqvEm+NjNu/6cZ3602m
-	wTr7EfYDB0r+gS71NJSZGfopq9AScP2/ozTrQO6BgMqg6bhOEqXKlLHdWaJquehl5iys5225Pz3
-	A6HuSMO+sal2PvN0SvIllgYVJ6LyvZ0thU1CI/7lPvmx5DS4+eivDdCcM0PJ8V/RfClBonMe5+M
-	wVwDhF+2gd1OOxU/ijC5n7z5rNhGPCKGUITH1N68guV94Pwl6ijWT
-X-Received: by 2002:a05:701b:4510:10b0:139:81c6:67a1 with SMTP id
- a92af1059eb24-1450405cf58mr3632727c88.1.1790263297559; Thu, 24 Sep 2026
- 08:21:37 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Zw8M073H"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=AvUxZyX/tO3G52TZtdDe5cDkHKT09asHJ5InA7+aTqk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790263299; v=1; x=1790868099;
+ b=Zw8M073H7aniGH3/9Qz3P+rY8GoYS9SPcmtY22bsXRnwkP2KSkx4F1q8h2hWUMXks2lY8+UK
+ KuuhgJsxfngYgmEq01Gj70Hn2opZjice59cKNJ7kGVy2h0+XfANCBO8lXx+qOE0wxsDipQZakKp
+ c2+EsQtpbMVPEUVqspy5NyXI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3c2f176828594185;
+	Thu, 24 Sep 2026 15:21:39 +0000
+X-Mizu-Trace-ID: 3c2f176828594185
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b8c42da963so10930e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:21:39 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx6cV2sqReT7bpgRoq/a0FZVXBMQ11Zwl7QjRkuJ4jZt4X+xIMluHM0aINwOJEPfkP1DJ9fN5/jBGYClt8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mXyBQGWHod+B0a5AIElIxEUrs8yIQNq8863kaTECmk2EhIXHmw
+	wMoNgoLDYpdUmaSDX9LFJW0FO3ZZ0UI4bNC84elDOZmOwfcnincf2+qnlwpTGPoN9y0sQkU4pio
+	sRkJnTXlqSkCuEJ+Sd7RGBxzvoAfDR+oVa1M+reOB
+X-Received: by 2002:a05:6512:238b:b0:5b8:d830:be30 with SMTP id
+ 2adb3069b0e04-5b8dda259a4mr187251e87.16.1790263298205; Thu, 24 Sep 2026
+ 08:21:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924132952.25054-1-fbeltranmillalen@gmail.com> <9c2ce6d3-46ea-4a69-a227-a5431c3447a6@amd.com>
-In-Reply-To: <9c2ce6d3-46ea-4a69-a227-a5431c3447a6@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 24 Sep 2026 11:21:25 -0400
-X-Gm-Features: AclHuK939X-LsDc1Mw-gpXK0-LhWwyhpUJXbBj2XeAIu67VCJD_e4BSptwVLNXw
-Message-ID: <CADnq5_PsKKiOXPuH9c8n0u8viyg0u3rTeDnPoeDBk11MP4V_hg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/gmc_v8_0: restore the FB location after a re-POST
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: =?UTF-8?Q?Francisco_Beltr=C3=A1n_Millal=C3=A9n?= <fbeltranmillalen@gmail.com>, 
-	alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, airlied@gmail.com, 
-	simona@ffwll.ch, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
+References: <20260914113338.159227-1-fuad.tabba@linux.dev> <20260914113338.159227-11-fuad.tabba@linux.dev>
+ <arK1tHUEJsCQEKzn@google.com> <CA+EHjTx+foVF4CRU5D8bQv8bAqDphMN12UrV+_doUryn2ow6bg@mail.gmail.com>
+ <arTfjgvZIhmXLrw1@willie-the-truck> <CA+EHjTxe0JE-tCX4YcEEafdnxjuZLj3EBucZfZF0HCP2PQAekg@mail.gmail.com>
+ <arUUCFHamX1nOrB1@willie-the-truck>
+In-Reply-To: <arUUCFHamX1nOrB1@willie-the-truck>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Thu, 24 Sep 2026 16:21:01 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTyWDvVc4B0mF8+N3QJ=gVPGEY-pxPGZWuTLK6Y=PZnF1w@mail.gmail.com>
+X-Gm-Features: AclHuK-Tr-CYuhyqLL3dKaG6eneOkpkAbwBzpQx--EX-XebKJ0QSmyPMwRUhQwc
+Message-ID: <CA+EHjTyWDvVc4B0mF8+N3QJ=gVPGEY-pxPGZWuTLK6Y=PZnF1w@mail.gmail.com>
+Subject: Re: [PATCH v3 10/18] KVM: arm64: Handle PSCI calls for protected VMs
+ at EL2
+To: Will Deacon <will@kernel.org>
+Cc: Vincent Donnefort <vdonnefort@google.com>, maz@kernel.org, oupton@kernel.org, 
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, catalin.marinas@arm.com, joey.gouly@arm.com, 
+	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, 
+	mark.rutland@arm.com, steven.price@arm.com, qperret@google.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 24, 2026 at 11:06=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> On 9/24/26 15:29, Francisco Beltr=C3=A1n Millal=C3=A9n wrote:
-> > On a MacBookPro14,3 (Radeon Pro 560, POLARIS11) amdgpu has never recove=
-red
-> > from an ASIC reset: five attempts recorded, zero successes.  Since susp=
-end
-> > to RAM goes through a reset, S3 fails the same way, and as the internal
-> > panel hangs off the AMD GPU the machine comes back blind.
-> >
-> > The failure looks like VRAM going write-only-dead: writes are silently
-> > dropped while reads still work, the driver reports success at every ste=
-p,
-> > and then it hands the SMU a pointer to a table that was never written:
-> >
-> >   amdgpu_device_asic_init()  -> 0          (reports success)
-> >   gmc_v8_0_hw_init()         -> 0          (reports success)
-> >   memcpy_toio()                             (write silently discarded)
-> >   send_msg(0x251, ...)                      (SMU parses garbage)
-> >   smu7_check_fw_load_finish() -> -EINVAL -> black screen
-> >
-> > It is not VRAM dying.  It is the framebuffer moving.
-> >
-> > On this machine the Apple firmware places VRAM at MC address 0 on a col=
-d
-> > boot, and gmc_v8_0_vram_gtt_location() reads MC_VM_FB_LOCATION once, at
-> > init, to derive vram_start.  A re-POST -- which is what an ASIC reset a=
-nd
-> > an S3 resume both trigger -- lets the VBIOS put the framebuffer back at
-> > its own default instead, 0xf400_0000 here:
-> >
-> >   cold boot:   MC_VM_FB_LOCATION =3D 0x007f0000
-> >   after reset: MC_VM_FB_LOCATION =3D 0xf47ff400
->
-> Mhm, interesting I'm really wondering where those values come from.
->
-> >
-> > gmc_v8_0_mc_program() programs the system aperture from the stale
-> > vram_start, but only writes MC_VM_FB_LOCATION and HDP_NONSURFACE_BASE
-> > under SR-IOV; on bare metal it trusts whatever the VBIOS left behind.
-> > While the MC is still in pass-through everything appears to work, so th=
-e
-> > mismatch goes unnoticed.  Then gmc_v8_0_gart_enable() sets ENABLE_L1_TL=
-B,
-> > SYSTEM_ACCESS_MODE=3D3 and ENABLE_ADVANCED_DRIVER_MODEL, the MC starts
-> > checking the system aperture, and every access lands outside it -- whic=
-h
-> > is why reads return data written before the reset, from a different
-> > physical place than the writes are going to.
-> >
-> > Write the framebuffer location back when it does not match the one the
-> > driver is working with, which is what the SR-IOV path already does.  Th=
-e
-> > comparison keeps this a no-op on machines where the VBIOS restores the
-> > same location, so nothing changes for them.
->
-> That is still a rather bad idea for multiple reasons.
->
-> You often run into suspend/resume and random memory corruption issues whe=
-n stuff like that is done and we never fully implemented blocking VRAM acce=
-ss during a runtime ASIC reset.
->
-> I think the more defensive approach is to do an ASIC reset on driver load=
- and use the values the AtomBIOS init function comes up with.
->
-> @Alex what's your take here?
+Hi Will,
 
-Sounds like crazy Mac specific behavior.  The asic_init bios table has
-to reprogram the FB aperture otherwise the pre-OS environment won't
-work.  Moreover, at some point, these registers became privileged such
-that only firmware can program them.  I agree that running asic_init
-on boot for Macs would make sense.  I think we already have a similar
-workaround for some other mac models, probably to work around a
-similar issue:
-https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/comm=
-it/?id=3Da5be7ad8f5f0e067613e9197638f216f46252946
-Maybe add your device to that existing quirk or make the quirk generic
-for all VI boards with apple ssids?
-
-Alex
-
-
+On Thu, 24 Sep 2026 13:14:00 +0100, Will Deacon <will@kernel.org> wrote:
+[...]
+> > It's not publishing data, it's handing reset_state back.
 >
-> Regards,
-> Christian.
+> What's the difference? The usual pattern for acquire/release is:
 >
-> >
-> > This runs after the VGA aperture has been locked out and with the displ=
-ay
-> > suspended, so the MC does not need to be stopped; only CPU access throu=
-gh
-> > the BAR could land while the FB and HDP bases disagree, so BIF_FB_EN is
-> > cleared around the update and re-enabled below.
-> >
-> > With this the GPU survives resets and S3: the machine has since complet=
-ed
-> > twelve suspend/resume cycles in a single boot without a failure, and th=
-e
-> > restore is visible on each resume:
-> >
-> >   amdgpu 0000:01:00.0: amdgpu: FB location 0xf47ff400 does not match
-> >   vram_start, restoring 0x007f0000
-> >
-> > To be precise about what those cycles prove: the kernel they were run o=
-n
-> > also carries unrelated local patches for this machine's Thunderbolt
-> > controller, which fails separately.  This patch is the one that brings =
-the
-> > display back -- without it the GPU never recovered from a reset at all.
-> >
-> > Tested on 6.18.49 on a MacBookPro14,3.  I have no other smu7 hardware, =
-so
-> > this is only known to matter on machines whose firmware boots the GPU a=
-t a
-> > different framebuffer location than the VBIOS default; elsewhere the ne=
-w
-> > branch does nothing.
-> >
-> > Signed-off-by: Francisco Beltr=C3=A1n Millal=C3=A9n <fbeltranmillalen@g=
-mail.com>
-> > ---
-> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> > @@ -472,14 +472,42 @@
-> >         WREG32(mmMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR,
-> >                adev->mem_scratch.gpu_addr >> 12);
-> >
-> > +       tmp =3D ((adev->gmc.vram_end >> 24) & 0xFFFF) << 16;
-> > +       tmp |=3D ((adev->gmc.vram_start >> 24) & 0xFFFF);
-> > +
-> >         if (amdgpu_sriov_vf(adev)) {
-> > -               tmp =3D ((adev->gmc.vram_end >> 24) & 0xFFFF) << 16;
-> > -               tmp |=3D ((adev->gmc.vram_start >> 24) & 0xFFFF);
-> >                 WREG32(mmMC_VM_FB_LOCATION, tmp);
-> >                 /* XXX double check these! */
-> >                 WREG32(mmHDP_NONSURFACE_BASE, (adev->gmc.vram_start >> =
-8));
-> >                 WREG32(mmHDP_NONSURFACE_INFO, (2 << 7) | (1 << 30));
-> >                 WREG32(mmHDP_NONSURFACE_SIZE, 0x3FFFFFFF);
-> > +       } else {
-> > +               u32 fb_loc =3D RREG32(mmMC_VM_FB_LOCATION);
-> > +
-> > +               /*
-> > +                * On bare metal vram_start is the FB base found at ini=
-t (see
-> > +                * gmc_v8_0_vram_gtt_location()).  Normally the VBIOS p=
-ut it
-> > +                * there and a later re-POST puts it back in the same p=
-lace.
-> > +                * On MacBookPros with switchable graphics VRAM is at 0=
- at boot
-> > +                * instead, and a re-POST (S3 resume, ASIC reset) moves=
- it to
-> > +                * the VBIOS default, away from the addresses the drive=
-r
-> > +                * already uses.  Move it back.
-> > +                *
-> > +                * This only happens after a re-POST: the display is su=
-spended
-> > +                * and the VGA aperture has been locked out above, so t=
-here is
-> > +                * no need to stop the MC.  Only CPU access through the=
- BAR
-> > +                * could land while the FB and HDP bases disagree, so b=
-lock it
-> > +                * here; BIF_FB_EN is enabled again below.
-> > +                */
-> > +               if (REG_GET_FIELD(fb_loc, MC_VM_FB_LOCATION, FB_BASE) !=
-=3D
-> > +                   REG_GET_FIELD(tmp, MC_VM_FB_LOCATION, FB_BASE)) {
-> > +                       dev_info(adev->dev,
-> > +                                "FB location 0x%08x does not match vra=
-m_start, restoring 0x%08x\n",
-> > +                                fb_loc, tmp);
-> > +                       WREG32(mmBIF_FB_EN, 0);
-> > +                       WREG32(mmMC_VM_FB_LOCATION, tmp);
-> > +                       WREG32(mmHDP_NONSURFACE_BASE, (adev->gmc.vram_s=
-tart >> 8));
-> > +               }
-> >         }
-> >
-> >         WREG32(mmMC_VM_AGP_BASE, 0);
+> <write data>
+> <store-release flag>
 >
+> on one CPU and then on another:
+>
+> <load-acquire flag>     // If this reads from the release above...
+> <read data>             // ... then this is guaranteed to read the written data
+>
+> That's a message-passing shape and you would normally say that the first
+> CPU (the producer) is publishing the data to the other CPU (the consumer).
+>
+> Is this what is happening with the 'reset_state' (data) and the
+> 'power_state' (flag)? If not, then what is the shape?
+
+I don't think so, it's the other direction. That pattern is the pair
+on reset_state.reset, and it isn't in question. The pair on
+power_state, as I see it, runs the other way: the target's last
+accesses to reset_state are its reads of the payload and its clear of
+the flag in pkvm_reset_vcpu(), and the next CPU_ON's accesses are
+stores. Release on OFF, acquire on the cmpxchg: unlock then lock, with
+power_state as the lock word. The winner takes it with the cmpxchg,
+hands it to the target through reset, and the target gives it up at
+CPU_OFF. Nothing is published. What I was after is the winner's stores
+being ordered after the target's reads and its clear.
+
+> > The CPU_ON winner writes reset_state.{pc, r0, be}, then reset_state.reset
+> > with a release. The target reads them and clears reset in pkvm_reset_vcpu()
+> > on its next run
+>
+> By 'next run' you mean, at EL2 on the entry path into the guest following
+> a successful CPU_ON operation?
+
+Yes. The target's first __kvm_vcpu_run hypercall after the host's
+kvm_psci_vcpu_on() has woken it. handle___kvm_vcpu_run() reads
+power_state as ON_PENDING and calls pkvm_reset_vcpu() before entering
+the guest.
+
+> > and its CPU_OFF hands reset_state on to the next
+> > CPU_ON. The release on OFF orders those reads and that clear before
+> > OFF, and an acquire on the winner's cmpxchg orders its writes after
+> > it: release on the way out, acquire on the way in, like a lock.
+>
+> That doesn't make sense to me, sorry. You're saying that the release
+> store in the EL2 CPU_OFF hypercall handler is ordering stores that were
+> made during the initial CPU_ON handling on that vCPU? Since then, we've
+> been in and out of the guest. We really shouldn't need extra barriers to
+> create order there.
+
+The target's own accesses at its reset, its reads of the payload and
+its clear of the flag. You're right that the hardware orders them:
+__kvm_vcpu_run() runs dsb(nsh) before it restores the guest's state,
+and since R24234 the NSH is only a TLBI/IC scope, so that DSB orders
+the target's accesses before OFF for every PE. My reasoning for the
+release and the acquire was that the protocol shouldn't rest on a
+barrier that is there for the translation regime, that nothing
+documents as ordering EL2 state for other CPUs, and that the LKMM,
+having no dsb(), can't see: under the model the target's accesses and
+the next winner's are unordered without them. Would you rather rely on
+the world switch and say so at that dsb(nsh)?
+
+> > Without the release, the target's clear of reset can become visible
+> > after the next winner's reset = true, and the target's next
+> > pkvm_reset_vcpu() then reads a clear flag and returns -ECANCELED,
+> > leaving the vCPU stuck at ON_PENDING.
+>
+> This needs a litmus test because I can't see it myself. As above,
+> CPU_OFF does not clear the reset state, so it's bizarre to put the
+> release there.
+
+I'd actually done that earlier.
+
+The flag, under the LKMM (herd7 7.58 with mainline's tools/memory-model):
+
+        C CPU_OFF-flag
+
+        (*
+         * P0, the target: its reset clears reset_state.reset, its
+         * CPU_OFF stores power_state = OFF. P1, the next CPU_ON:
+         * cmpxchg(OFF -> ON_PENDING), then a release of reset.
+         * OFF=0 ON=1 ON_PENDING=2.
+         *)
+
+        {
+                power_state = 1;
+                reset = 1;
+        }
+
+        P0(int *power_state, int *reset)
+        {
+                *reset = 0;
+                WRITE_ONCE(*power_state, 0);
+        }
+
+        P1(int *power_state, int *reset)
+        {
+                int r1;
+
+                r1 = cmpxchg_relaxed(power_state, 0, 2);
+                if (r1 == 0)
+                        smp_store_release(reset, 1);
+        }
+
+        exists (1:r1=0 /\ reset=0)
+
+As written: Sometimes, and a data race. With smp_store_release() for
+the OFF store: Never. CPU_OFF doesn't touch reset_state, but its OFF
+store is what a CPU_ON takes with the cmpxchg, so it seemed to me the
+store the target's accesses should be ordered before.
+
+> > and in pvm_psci_vcpu_on():
+> >
+> >         /*
+> >          * vCPUs race to power on the same target. The acquire pairs with the
+> >          * release of OFF in pvm_psci_vcpu_off(): the target's accesses to
+> >          * reset_state in pkvm_reset_vcpu() precede the writes below.
+> >          */
+> >         power_state = cmpxchg_acquire(&target->power_state,
+> >                                       PSCI_0_2_AFFINITY_LEVEL_OFF,
+> >                                       PSCI_0_2_AFFINITY_LEVEL_ON_PENDING);
+>
+> This confused me more :( Why are you talking about accesses preceding an
+> acquire? An acquire only orders later accesses.
+
+Agreed, it reads as if the acquire ordered earlier accesses. For v4:
+
+        /*
+         * vCPUs race to power on the same target. The acquire orders the
+         * writes below after the cmpxchg's read of OFF, and with the release
+         * of OFF in pvm_psci_vcpu_off() that puts them after the target's
+         * reads and clear of reset_state in pkvm_reset_vcpu().
+         */
+
+> I really think we need some litmus tests to understand the general ordering
+> problems we have here before adding the memory barriers.
+
+The other direction, the payload:
+
+        C CPU_ON-payload
+
+        (*
+         * P0, the target: its reset reads reset_state.pc, its CPU_OFF
+         * stores OFF with a release. P1, the next CPU_ON:
+         * cmpxchg(OFF -> ON_PENDING), then a plain store to pc.
+         * OFF=0 ON=1 ON_PENDING=2.
+         *)
+
+        {
+                power_state = 1;
+                pc = 0;
+        }
+
+        P0(int *power_state, int *pc)
+        {
+                int r0;
+
+                r0 = *pc;
+                smp_store_release(power_state, 0);
+        }
+
+        P1(int *power_state, int *pc)
+        {
+                int r1;
+
+                r1 = cmpxchg_relaxed(power_state, 0, 2);
+                if (r1 == 0)
+                        *pc = 1;
+        }
+
+        exists (1:r1=0 /\ 0:r0=1)
+
+As written: Sometimes, and a data race. With cmpxchg_acquire(): Never.
+Those two are what's behind the release (v3) and the acquire (v4). The
+rollback's ON_PENDING -> OFF cmpxchg in handle_pvm_entry_hvc64() has
+the same pattern on the source side, so v4 makes it a release too.
+
+My head is spinning now :)
+
+Cheers,
+/fuad
