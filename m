@@ -1,107 +1,66 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE5353F6AF;
-	Thu, 24 Sep 2026 17:46:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28FC84CCDDF;
+	Thu, 24 Sep 2026 17:46:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790271973; cv=none; b=cp0v/oDtbdoj1gFWLjg6IM5ekPCAe6OsqqbZ2nYjugkrOSsEyLKXxZCaDZhdWXvOMQb6Af0B6c5j+BceHjCrbkmkL2UXc4477s4KkZQWw0PAKiR2FNS2+x3b+W6IdNleG5yNkXDI4GHnIRpuBpqADfbSnht6JAxuyBMTDJme02w=
+	t=1790272008; cv=none; b=F/OPAoltJt3LkqAL2qaz2t/go7jWm2Y7j//x/6YDSegnttmaYGPY1IIce0IoQxS5PRK8sYjWcebdfcbi4Pb8ZfvvCzE8hKN/rEqNzGvFTaw17uWZ6hB/2Otg9WyVKmmpT5foOTKu48YhrbuEWqoM+SG631JbU2H7uulQTwzMNzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790271973; c=relaxed/simple;
-	bh=dmv/7C03BljaSagFnU0uHhye7fUWmKJXvCB2yVLpu/w=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mqCLezqCARCTjuzIdEbQEzaWFdINCD+LWRHFFxCqJlcjWzicYxQB13sOBo6Q4F8408jtWsaOUotTm8l0GLSj/WgsGtffvfmaxUM9qk87M22A/dCdLhaEH3UVUovGzkAPE/K9iLX1ZjQt50h7paDfD8M4QlahZqh751Y86hZXJLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EMEKR1SK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790272008; c=relaxed/simple;
+	bh=NdlIP5k0zy8YqoEinakvl1zXvMFpKgO67bx90z/m6O8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Dy8rR2AbBye8zPL3RJzbgFZNgFJlPi8k7qwVD5r7PSjADPUvpuHe1jiiMU0Pc5F9krTfUeDVVWqbE2pnqt5Obd9j4a+mtF60gaUErIECdsRM1rKVN6LOSRYjjmSNCElWqB29IPbYbJOf/Zx/7PnzK0LUmW2fTV9tDNy61AegevU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bEoa+YVS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EMEKR1SK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 917571F00893;
-	Thu, 24 Sep 2026 17:46:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bEoa+YVS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BBF71F000FF;
+	Thu, 24 Sep 2026 17:46:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790271971;
-	bh=bqbiuMLU9y7UrgBS5Nv/rDDBjPKYQMJhkZicLky4BVg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EMEKR1SKNbJnjVy8kB7ZLovSRhXK2QyfEbP4NOkgraYtv7Ww5q4o+7MLs3Y/G0yVN
-	 DH63vEmFybbj7IFb29JgkEUiTWczGl1/LQX/+1RJk4ucBoqEYUOG0xgI9gjXzdpRrT
-	 2X1jqTor6hhTJpQmAReiTFNh8UJPOSpYTX5g4Mldc4C3f0PiyC/Xj4PsvYk0XWA6Uh
-	 5LKFX7nRiwdzD1yM17lIT2FU+gwrBOMQQuZTSC+xbQmONTGGB+XttKvAz/8TDil3hQ
-	 mjrG5oxTjLwmljQRABaPR7tKBW2xZ77sVYIPpDE579mtxjn3a0uDY3FYEVdv3n0huM
-	 3/vQoWUrr9adA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 01/14] coresight: etm4x: read-back TRCSEQSTR at
- disabling and prohibit modifying seq_state while enabling.
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yeoreum Yun" <yeoreum.yun@arm.com>
-Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20260924-separate_etm_cfg_v2-v12-1-a2b41d2f7c2b@arm.com>
-References: <20260924-separate_etm_cfg_v2-v12-0-a2b41d2f7c2b@arm.com>
- <20260924-separate_etm_cfg_v2-v12-1-a2b41d2f7c2b@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 17:46:11 +0000
-Message-Id: <20260924174611.917571F00893@smtp.kernel.org>
+	s=k20260515; t=1790272007;
+	bh=WcyHyzV8NxmGIRpq3KuKTXbjCp/07lHrPqYcfM1X3Sk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=bEoa+YVSMGTXNxZDtl1bbWHYD2dRqYejJWhFOe/SqINwO4hzzHOEpHSD/jE6wcMiJ
+	 wFbzUvLkPTaI07L5IWwpworUtaUOEq/3QI53LYiHt4ZM/Tb0SfbyB1UY5WEOHaWJjn
+	 G3un/nB3gDnxU2hTYDEREodonMzMOFyEgR+VpikdyIdbRMgL/rGp8fnjcXZ+qmleO7
+	 Dj8t9qo+oy6GfSt7mw67ZlUYvDnXdjPlEIeBgsACKXUo46V5FBb1CgiQiyJ+jU7w1e
+	 XIAD0le3haf2dG4/EJrYf54fPu9j/egLi1kSmttOeM1gadqBIjfXnPms6I5cFii1fO
+	 +gh6RuieOOuUA==
+Date: Thu, 24 Sep 2026 10:46:45 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Sagar Taunk <sagartaunk@proton.me>
+Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+ <horms@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
+ <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?UTF-8?B?QmrDtnJu?= Roy
+ Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor
+ Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel
+ Almeida <daniel.almeida@collabora.com>, Tamir Duberstein
+ <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, Onur
+ =?UTF-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Matthew Maurer
+ <mmaurer@google.com>, Carlos Llamas <cmllamas@google.com>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, netdev@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, Andrew Lunn
+ <andrew@lunn.ch>
+Subject: Re: [PATCH net-next v4] rust: net: netlink: validate attribute
+ length before casting to `c_int`
+Message-ID: <20260924104645.4764dbba@kernel.org>
+In-Reply-To: <20260923120504.9100-1-sagartaunk@proton.me>
+References: <20260923120504.9100-1-sagartaunk@proton.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] coresight: TOCTOU race in seq_state_store lockless mode check
-- [Low] coresight: misplaced IS_ERR_OR_NULL(drvdata) after dereference
---
+On Wed, 23 Sep 2026 12:05:17 +0000 Sagar Taunk wrote:
+> Rebased on the upstream rust-next tree. 
 
-commit fb240199cfa6db080873efbe2c007beb70c01070
-Author: Yeoreum Yun <yeoreum.yun@arm.com>
-
-coresight: etm4x: read-back TRCSEQSTR at disabling and prohibit modifying s=
-eq_state while enabling.
-
-TRCSEQSTR can be changed by the ETM while a session is active. Its value
-therefore needs to be preserved when a sysfs session is disabled so that
-users can read the current sequence state after the session ends.
-
-> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c b/driver=
-s/hwtracing/coresight/coresight-etm4x-sysfs.c
-> index cc6cdd3ae29d5..db3cf4ad6806c 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
-> @@ -1437,6 +1437,8 @@ static ssize_t seq_state_store(struct device *dev,
->  		return -EINVAL;
->  	if (val >=3D drvdata->nrseqstate)
->  		return -EINVAL;
-> +	if (IS_ERR_OR_NULL(drvdata) || coresight_get_mode(drvdata->csdev))
-> +		return -EBUSY;
-
-[Severity: Low]
-Does this code introduce a regression by checking drvdata for NULL after it
-has already been dereferenced?
-
-Looking at seq_state_store(), drvdata is dereferenced during the check for
-val >=3D drvdata->nrseqstate before IS_ERR_OR_NULL(drvdata) is called.
-
-While drvdata is fundamentally guaranteed to be valid in this sysfs context,
-making the check technically dead code rather than a reachable crash, should
-the validation be moved before the dereference if it is kept?
-
-> =20
->  	config->seq_state =3D val;
-
-[Severity: Medium]
-Could this lockless mode check cause a regression?
-
-A concurrent thread could enable the trace session immediately after the
-lockless coresight_get_mode() check evaluates to disabled. This would allow
-config->seq_state to be modified while the session is actively starting or
-already active, completely defeating the patch's stated goal of prohibiting
-state modification during an active session.
-
-Should raw_spin_lock(&drvdata->spinlock) be held across both the mode check
-and the subsequent state update to prevent this regression?
-
->  	return size;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-separate_e=
-tm_cfg_v2-v12-0-a2b41d2f7c2b@arm.com?part=3D1
+I'm confused, you're tagging this for net-next but rebasing 
+on rust-next. This patch does not apply for us.
+-- 
+pw-bot: cr
