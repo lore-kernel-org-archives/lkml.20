@@ -1,158 +1,89 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from avas.easytechitalia.it (avas.easytechitalia.it [213.217.29.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A1F83515ED
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:52:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790257979; cv=pass; b=dgz1LAIWQo9XDjwR3M8sJRRtpOcjqwvKrnoNscUvx8qYh01CIDgJD/ESH5sPmxeqR5IyfgPnM6/ebDrNZR2+Ark3WhPl1Abw4lKueuNKEH8aCJc9hnuAQTxAKOOg10J+jBt2vs/cuaQXPnWbBAIf0uzrTtTAE9fPMlnTnFyk+2Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790257979; c=relaxed/simple;
-	bh=QoUAEYmTjcom/GYw9KMesKKHysm5dGsVufGYG8k4VHI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h7uD7ygHlLbPul7KspqaQKpFZ+ct0SgLMTFUufC/dlQi5mNX2HLDW19qyLcoJ7YQWbEC6BVW8VzhOZrEkws2gtTb/CLiPUFDrj0+8k2pVowLI+/vy4dQ2yZ/fP8akxOeRJpsNzk254xf7BI/R5Rf3qXE60ZJtThhK8LG1oHHLcs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=okzYmvPA; arc=pass smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B3DF2E7384
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:54:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.217.29.81
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790258048; cv=none; b=c8LgTnqbWOw/L7a676hPEiO+jRMhT9FmeiyLKZqSRllDmWrcBTgq3gGCT4ULEfDWHXAz+JJXvFAXOy4anjggBTXAisNa8zrwZWW8UlnIuJpFz+PI3gM/R0/XC9GmzTkP/FPVquX7mEGhHcpnENojpGPnvmrM0d8n7S4ugBDwZJs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790258048; c=relaxed/simple;
+	bh=w59vAarjQED26OtWYRcJPUeriJuNUEo1SNn3fTDv4sU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ad1NxT1hDTaFeX8wYK+9yVac5KuxaiV3bl4RVbqCALUuse9b8UxKgZHHkGtnZEMRs6YbX7zIvHYk4nNa8AnqSYto8fuO90KTKS/qc/Gz2PAHPLFAT1NortLom/C0cqyV2BgtywPLOuvEyGT7xchN3rPTovbqVKDrpodTx4hTpTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mtsistemi.it; spf=pass smtp.mailfrom=mtsistemi.it; dkim=fail (0-bit key) header.d=mtsistemi.it header.i=@mtsistemi.it header.b=XHluIrHn reason="key not found in DNS"; arc=none smtp.client-ip=213.217.29.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mtsistemi.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mtsistemi.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="okzYmvPA"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66fb93aee5eso2173916d50.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:52:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790257977; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YL9grr37SLxEc7IV84vn6ZcQn93C04zaPxDgnYcmQnhadQ01AHCbPgTCe0JKgNMiC/
-         /XfPuDruEV61ycvXeXV0LNz0hOVHaSYweAYsMjhrA08+n/SM5TVLPdypvc4BvcaqM8pL
-         P90ubK91/6XUaInALXUgTo2pXzwRlkfhdp0sGXgvHH8QeeuTPMBVXyYNqowK89ENBinj
-         NBDyczikxPaLPWMoAtgHN2NYu4yToXJ5fFGm7MkXI7KVKbkDat0AsPMp8psQjz5SUE+r
-         UWxeR5QdcWT3qvdpdy9N2CXD7hfr/Lhcq55KeNFMqkWg2XrAm6TWBL9ysIZ4LxgM4Fez
-         HPUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=nWToiZ/0mvm/+JbzSK7npOR4gXzr5F7+OnypdaZRifc=;
-        fh=VddJ9xdbUSgjfdrsXbgJH5ESU0z5nYHmh7Yx8gQNJDM=;
-        b=Vwt+Ucfua2DZRHdf2vMaePi+g4UI3cyOc7u1hup5ie2xYRGFGHyK29x2+gymWvZwrD
-         lZrBe3kCl8KmLKFOJB3kMiVDcpy4Ji3OfWOamfW0c7EJuJDCveb7TbLnmsmYTxPYiByb
-         HHt+Qq3HGvrpD6j07VHxouAT8vpXxaJ8UIB6bJIZxlt75e0c3mMto9CYdwtXfKJkGWni
-         4fjwRJ/kS7d76S8HMQYTBDtwe9HnBRiK5Y8xGbJ1o4w9zLseEpFFo3wK7i546cp+cezJ
-         idDh+eQoH230qAWyRFkVLNLCi3V+x5w0yuaRNmArqpRAa9JidLIP+baOFb0lMskgqozH
-         z02Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790257977; x=1790862777; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nWToiZ/0mvm/+JbzSK7npOR4gXzr5F7+OnypdaZRifc=;
-        b=okzYmvPAdFwte5RiXCjZPKI3wRK7XZ1K/axg1eTutifrX6fBR3oMBUqDvU8Die3E2C
-         uc/dZv9pYWcz4Qcw1kDs1koxSQHhU5YCCMailImMaciVKjn1vGYh1ebbEcuFfrUfwEt+
-         GLDwsOnMQWugbQqOk5B/o6wcRNflh4xaSlC86VzLycBdUEcixERGE4NW0+u4zODoebsg
-         s/wAsoDSzLXvbbI/B48tsKZAnXFuhu4QLu1ubcAImBHL2XaS+ElbcyGPLaHsoTj8sENh
-         bRjrF+ymlIIhACBSUBAUoaX7OHqy7ud03MGTrOQkJpy/g+lAqMT1+7VpgV3j0i+gDwZI
-         dbZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790257977; x=1790862777;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=nWToiZ/0mvm/+JbzSK7npOR4gXzr5F7+OnypdaZRifc=;
-        b=ztZ6hR2TkXY7Ncw9EHjtl3LT+cSPcSKO08zldSSsfrAQiUkTpXDsDUxDdwsYBvY3d3
-         f9WJOnKcPGyj8qWScw86pEfEtHgPD6QLUhYxA4fx+REE8fKTCEhBzztrbqPEJ+BTsY3L
-         hya9hthAlbSQnAo9BlBuwfINd/jwfLI/GLBh4mPCnyfZxAzNVizauPEU48kbzacqmiME
-         FdaRDvsAtjrCxUd102BhWa0JGzeI+B+yHSlBKWXIPc0BeiE87JMEUoiuB66yfqmHVm1A
-         HR1yJMM398bXHHxblsY78WUE2d9XXrn2Run0erLzdoMC4/Q2+W/OIHJx18/LYEMttMaE
-         j4iw==
-X-Forwarded-Encrypted: i=1; AKwUvBzCILNJVxhqmY4K63lWO/CN8zvxTECFYLmM6Dae43cqdrOpDAPLbUwX29F12Qf8TsMbxvAQOg1BAO0URM0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mkm7zIEMIddyxQl4+iqtjwnawQpZa+0PiX6ptLxGHZ9u+u5gey
-	pjUJzRJgd4CRUD7JDF3L/TXXq6b2XX6BWGkaNj2F2mr6cKXNgTfzjuVe/Gjz4Shy/1mBmnmcTM1
-	+ExNLx7eLvX3KlTfxH3RXfN+wo/XWIa0=
-X-Gm-Gg: AYBFou2h0cXmOhjeUtQ8fd6bWn1Lma0I691d+zCUaBn2/h9MoVs6AQ/sNOHm+LzGaic
-	DoNQoQBG1lOy+HgX+k6Cg+FgjvRZMxipOvhJHpPdcr0AUx4y/hAuxO2fF1PLnUI5d34bLjso06Y
-	lUDGz2xfmFPP0oASNcCbGyYvM3MN0LyrQOiTCbQca+dz8rcBayhM/46Twq715S1Hn1qN1ztIGQU
-	N5X0+nGF2Zq74hljbqg2c/n57gFIQHlbA/xMUkE6PJUE2CXue2Z+XyXUbDEOlGKJJSNA8/zjn7a
-	heBf3lck4OWF8LX/2tifVrwjf/XeajOF38uXB4/Oio0/CQETv2qZ+NYbvHZ1f/p82HgV
-X-Received: by 2002:a05:690e:1186:b0:672:9f72:7c04 with SMTP id
- 956f58d0204a3-672ed4db57cmr1036006d50.102.1790257977028; Thu, 24 Sep 2026
- 06:52:57 -0700 (PDT)
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=mtsistemi.it header.i=@mtsistemi.it header.b="XHluIrHn"
+X-Envelope-From: <info@mtsistemi.it>
+Received: from ngmx.easytechitalia.it (unknown [185.76.140.216])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by avas.easytechitalia.it (Postfix) with ESMTPS id 4hrFg26cXBzGnv7;
+	Thu, 24 Sep 2026 15:53:50 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by ngmx.easytechitalia.it (Postfix) with ESMTP id 6E93517C481;
+	Thu, 24 Sep 2026 15:52:04 +0200 (CEST)
+Received: from ngmx.easytechitalia.it ([127.0.0.1])
+ by localhost (ngmx.easytechitalia.it [127.0.0.1]) (amavis, port 10032)
+ with ESMTP id FHEFsjg1oR3b; Thu, 24 Sep 2026 15:52:03 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by ngmx.easytechitalia.it (Postfix) with ESMTP id 177CC17DC3B;
+	Thu, 24 Sep 2026 15:52:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 ngmx.easytechitalia.it 177CC17DC3B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mtsistemi.it;
+	s=AD82E3E6-03E3-11EF-83D2-AF8217D6D3C6; t=1790257923;
+	bh=w59vAarjQED26OtWYRcJPUeriJuNUEo1SNn3fTDv4sU=;
+	h=From:To:Date:Message-ID:MIME-Version;
+	b=XHluIrHnAQJjPoWHr+LStiD30Lc8FD5rm7DaGoJztA//c5ZxQMLd19dSevvCE3wTt
+	 2/QVrdbEQUC9y7VS6jg93tiDpF+Z2ZexHPuc53DzwxsvfeRYEIkGvH08zzCF65f4FU
+	 wvMZumHugfP4fpiRblqbRpqaTE/YQJ+CM4XJdRppjhD9nlphwQRv1qmQch1uDDwh7L
+	 IMxELcDSDEO5BxbpkniS+TfbmQY+SBAVmzW6EaADgJLaeFlB8pR3xw/vAHTde5NGz3
+	 XtgFb9C3KafRS6hRxLZTGunUFKtf4E7WpIowa7dV8ybxwErr6CD0M+cV0t9v71gNod
+	 s2kHHSFoJtB+w==
+X-Virus-Scanned: amavis at ngmx.easytechitalia.it
+Received: from ngmx.easytechitalia.it ([127.0.0.1])
+ by localhost (ngmx.easytechitalia.it [127.0.0.1]) (amavis, port 10026)
+ with ESMTP id TsJJSNHAAwj2; Thu, 24 Sep 2026 15:52:03 +0200 (CEST)
+Received: from [192.168.56.1] (93-38-124-109.ip70.fastwebnet.it [93.38.124.109])
+	by ngmx.easytechitalia.it (Postfix) with ESMTPSA id B20CD17C481;
+	Thu, 24 Sep 2026 15:52:02 +0200 (CEST)
+From: Mattia Tadini <info@mtsistemi.it>
+To: Tom Lendacky <thomas.lendacky@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/3] crypto: ccp - two PSP init fixes, and the AMD BC-250
+Date: Thu, 24 Sep 2026 15:53:48 +0200
+Message-ID: <17902580289.11296.7403498173307596661@mtsistemi.it>
+In-Reply-To: <0902307a-52d2-41c9-9552-289d05c05153@amd.com>
+References: <178984289056.12336.17662860552012704364@mtsistemi.it>
+ <10469a97-1e55-438b-a9cc-7a7cf650c104@amd.com>
+ <179007151736.36856.17325391038801459309@mtsistemi.it>
+ <99667c45-b44b-4378-9d92-7fd9eb64ff16@amd.com>
+ <0902307a-52d2-41c9-9552-289d05c05153@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921081542.210151-1-lgs201920130244@gmail.com> <c03262f2-419d-45c8-9b29-f3bfe6680744@kernel.org>
-In-Reply-To: <c03262f2-419d-45c8-9b29-f3bfe6680744@kernel.org>
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Thu, 24 Sep 2026 21:52:47 +0800
-X-Gm-Features: AclHuK_HbB37PieMjxtn1FtalUB9H4Cp6DfldwgllWBkEcccv9StBhgni5Up5C4
-Message-ID: <CANUHTR8xJ9DGMyadCuhGo1Hw30+VSn0Ko4O3uyR=ofC4OfW2+g@mail.gmail.com>
-Subject: Re: [PATCH] media: rtl28xxu: fix SDR platform device leak
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Antti Palosaari <crope@iki.fi>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-Easytech-Libra-ESVA-Information: Please contact Easytech S.r.l. for more information
+X-Easytech-Libra-ESVA-ID: 4hrFg26cXBzGnv7
+X-Easytech-Libra-ESVA: No virus found
+X-Easytech-Libra-ESVA-From: info@mtsistemi.it
+X-Easytech-Libra-ESVA-Watermark: 1790862832.75239@MmQpJ95n2/K83gQad8cFKg
 
-Hi Hans,
+On 9/22/26 09:42, Tom Lendacky wrote:
+> My take is to just drop it.
 
-On Wed, 23 Sept 2026 at 16:49, Hans Verkuil <hverkuil+cisco@kernel.org> wrote:
->
-> On 21/09/2026 10:15, Guangshuo Li wrote:
-> > rtl2832u_tuner_attach() registers an rtl2832_sdr platform device, but
-> > if registration succeeds without a bound driver, it breaks out without
-> > unregistering the device.
-> >
-> > dev->platform_device_sdr is assigned only after a driver is bound, so
-> > rtl28xxu_tuner_detach() cannot unregister the unbound device later.
-> > This leaves the registered platform device and its associated resources
-> > allocated.
-> >
-> > Split the registration failure and driver binding checks. Unregister
-> > the successfully registered platform device when no driver is bound
-> > before leaving the switch.
-> >
-> > The issue was identified by a static analysis tool I developed and
-> > confirmed by manual review.
-> >
-> > Fixes: a2f7f220df5e ("[media] rtl28xxu: switch SDR module to platform driver")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> > ---
-> >  drivers/media/usb/dvb-usb-v2/rtl28xxu.c | 6 +++++-
-> >  1 file changed, 5 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/media/usb/dvb-usb-v2/rtl28xxu.c b/drivers/media/usb/dvb-usb-v2/rtl28xxu.c
-> > index 487c6ab784ab..3603d0cf638b 100644
-> > --- a/drivers/media/usb/dvb-usb-v2/rtl28xxu.c
-> > +++ b/drivers/media/usb/dvb-usb-v2/rtl28xxu.c
-> > @@ -1391,8 +1391,12 @@ static int rtl2832u_tuner_attach(struct dvb_usb_adapter *adap)
-> >                                                    "rtl2832_sdr",
-> >                                                    PLATFORM_DEVID_AUTO,
-> >                                                    &pdata, sizeof(pdata));
-> > -             if (IS_ERR(pdev) || pdev->dev.driver == NULL)
-> > +             if (IS_ERR(pdev))
-> >                       break;
-> > +             if (!pdev->dev.driver) {
-> > +                     platform_device_unregister(pdev);
-> > +                     break;
-> > +             }
->
-> Looking at other drivers, I think this is incomplete.
->
-> drivers/media/usb/dvb-usb-v2/zd1301.c, line 142, does it correct. Note the
-> try_module_get() call that is missing in rtl28xxu.c.
->
-> Regards,
->
->         Hans
->
-> >               dev->platform_device_sdr = pdev;
-> >               break;
-> >       default:
->
+Understood, I'm dropping the series.
 
-Thanks for pointing that out. I'll follow the zd1301.c pattern, add the
-missing try_module_get()/module_put() pair, and include it in v2.
+Thanks to both of you for the time and for the careful review.
 
-Thanks,
-Guangshuo
+Mattia
