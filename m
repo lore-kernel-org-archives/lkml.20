@@ -1,69 +1,43 @@
-Received: from mta0.migadu.com (out-7.mta0.migadu.com [91.218.175.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD25F48424E
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:15:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CB834825B9;
+	Thu, 24 Sep 2026 13:15:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790255734; cv=none; b=KP4AlePIjHeCzH8M89MRwwNIQdLXiGAiyi0iC9AYIq2UiPQJixFJqptkj6hvUITgLS2yE/9N0LFszKodQS60ocQ5IVRUQ2eOxa11eUdlHfwPnk/m+UVD8gVE1jfX/0Bz7l701SSfKjDL+wPPAJPnKCL+ddJZLLGaOXA9m8tGfOM=
+	t=1790255752; cv=none; b=tXwMvSIyt0XCfzLLz7EqcY9U/hFGGYDDM8ap4f/l4V8KvVeoQ4q5hOV+kX/tn7BosFJ1cSS2A8UIi0nqtcInHp/yUoJtRjDGrkrVK3KBE8TnXKixmwZRWAyY1PpiniGOqghL44vrEf9e9aeNDsqyR6DHQ+7Wx04ECzyI/8MfzYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790255734; c=relaxed/simple;
-	bh=VAqY47MliHFwSb5df7rFV+UkhNv2LqwPUXS4WaUskXI=;
+	s=arc-20240116; t=1790255752; c=relaxed/simple;
+	bh=lbrItzVA4bp1fgKgg0QejZBF2JzYbnWSqrdz3LbXqs8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BGIcS1iu2H3LRkMVh/oyuosOwvOXsa0OXaNanlHzOq+DfDMldpX+JRdTQmKF4EwOy8eS5JZeiZ2/IeMViaMIkUpEM0gL3EvcqDW5TOJb6XRVl3O6oZguHRUgyRyrjTAD6RnakyIeDvvCAh//ixnUUmLQsBOb/+Qgv9bmnuPpTJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Q/MlswJ3; arc=none smtp.client-ip=91.218.175.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=lXWbPSa5xkjA2y5aper7FGOKdqYLjQv+eB2Yty55HX/AGqfYJPqnEjIfEwlIV3mPQsKNH52L6DlRDZ3PQbsdObfJpXv2/H8u+zXdT0qtN8jLERBDHkcXIv0j2S2PJuqH/0mMDYeuhBYgLEn3bxKikBIgK0g78kKWRp9NEd9yvpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h4ydg2YJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Q/MlswJ3"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=VAqY47MliHFwSb5df7rFV+UkhNv2LqwPUXS4WaUskXI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790255729; v=1; x=1790860529;
- b=Q/MlswJ3E6lYNWfz6+0G+LQQKNGmbkg5FUehv60tWlpTYbOYWDIwchm6Yk4J9WVp/YAg3HuS
- 0fe20OgOBNCZOSuyK3sRZmDfWduxSuMICexS9RzuUcBZ+91TRQR+dsC7LAA6vB5nQeh5ICd9ggo
- DdUH8zOXr2l3JGrbDNMHTNCM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 15fed9b4dac8ae4f;
-	Thu, 24 Sep 2026 13:15:21 +0000
-X-Mizu-Trace-ID: 15fed9b4dac8ae4f
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 24 Sep 2026 06:15:07 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Chris Li <chrisl@kernel.org>
-Cc: Nhat Pham <nphamcs@gmail.com>, Rik van Riel <riel@surriel.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Kairui Song <kasong@tencent.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
-	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Kunwu Chan <kunwu.chan@linux.dev>, Meta kernel team <kernel-team@meta.com>, 
-	Linux Memory Management List <linux-mm@kvack.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
-	linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-Message-ID: <20260924125040.GA25882@shakeel.butt@linux.dev>
-References: <aqjpYHbZ14A8xRtK@fedora>
- <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com>
- <7ee199ddee81bf8026688def82f78ad9db09be9e.camel@surriel.com>
- <CACePvbVA+DnDJprMx3qOrGb98y1ORQ-LfaENy_Btfx3uW=E4eQ@mail.gmail.com>
- <f3ca71f1c561f28a341de0e5a1b3f24bd4da3201.camel@surriel.com>
- <CACePvbX5Oy98DygLZjC=Z03Lqb0nk50_OEKQCT9svbQOOwwDew@mail.gmail.com>
- <CAKEwX=Mv+tnL8K4rfPuof6mKaLQp=tqR_qjtKrtY0-5L85FLfw@mail.gmail.com>
- <CACePvbUF2QQMh_GiCNQn-RTmZNkkLWkmaHSYzdQwv2fupjNQiw@mail.gmail.com>
- <arP8vXdJAL6ZJ1Os@linux.dev>
- <CACePvbV8zprLuiWMdYAOLRy=TwRx9WjSahCWySf53o0d_myJ8A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h4ydg2YJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C96C1F000FF;
+	Thu, 24 Sep 2026 13:15:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790255750;
+	bh=hMidZAi/lkVTYdE4CaWIwRpCbA7uNkOiClBSJMQKjbM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=h4ydg2YJoRFeMuS1nHBcEzHcYbknpqacxVnxqqGZm+gINrHzxk4X9IAEAK5GGYScG
+	 JHkpTgleM376u/iC9M714sJeuedOnIzFubzF8W6yhEMZ+OKFmtPVpXsAUcdM6MGL+v
+	 eVJcINuBcp816bJhfOVDo/Bl36+3Mpz3dBRlL4ucJdcX7nYfVGhToAuz2b3vneq6r5
+	 DH7+WHVy7FVHanWgJjLUzG4aePGwtmC66fj+eDecVdsdVkL7nyhyIvRympFXzHgDIt
+	 r/47Zaf4H9VCxAF65nmGmneJkpFjPLYb5TV/IkSGCCsj1qlirNBlMgb6/KkFSzcEKY
+	 392RPHFezEKZA==
+Date: Thu, 24 Sep 2026 15:15:45 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+	Gregory Clement <gregory.clement@bootlin.com>, Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 2/3] dt-bindings: arm: marvell: Add Sophos XGS 107w NPU
+Message-ID: <20260924-great-aloof-pheasant-cdac27@quoll>
+References: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>
+ <20260921-send-dt-v2-2-fb6b81002ad7@studio.unibo.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,58 +46,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACePvbV8zprLuiWMdYAOLRy=TwRx9WjSahCWySf53o0d_myJ8A@mail.gmail.com>
+In-Reply-To: <20260921-send-dt-v2-2-fb6b81002ad7@studio.unibo.it>
 
-On Thu, Sep 24, 2026 at 01:27:41AM -1000, Chris Li wrote:
-> On Wed, Sep 23, 2026 at 6:30 AM Shakeel Butt <shakeel.butt@linux.dev> wrote:
-> >
+On Mon, Sep 21, 2026 at 02:26:42AM +0200, Nicolo Giuliani wrote:
+> The Sophos XGS 87/107 desktop firewalls combine an AMD x86 host with a
+> separate network processing unit (NPU). The NPU is a Marvell Armada CN9130
+> SoC with its own eMMC and SPI NOR flash, connected to the x86 host over
+> PCIe. It serves the front panel ports through a Marvell 88E6193X switch.
 > 
-> > > BTW, I already shared that changing swap counter charging will break
-> > > our and others' existing deployments.
-> >
-> > What do you mean here by "break our deployment"? We are talking about
-> > memory.swap usage and limits here. Google is still on v1 and using memsw
-> > usage and limit and I don't see how vswap is breaking memsw?
+> Document the compatible string of the NPU board, with the CN9130 SoC
+> compatibles as fallbacks.
 > 
-> Your information is no longer accurate. I got this from our internal
-> AI: "While Google's internal production fleet has historically relied
-> on cgroup v1, there is an active migration to cgroup v2 to align with
-> the upstream Linux community. Meanwhile, in Google Cloud (especially
-> Google Kubernetes Engine - GKE), cgroup v2 is already widely deployed
-> and is the default for newer node pools."
-
-So, using AI to provide more vague statements. Let me help in providing
-more clear statements:
-
-1. Google shared borg is still on v1.
-2. Google cloud (GCE) is still on v1.
-3. GKE running on VMs is on v2.
-
-Another very vague statement is "active migration". This migration plan
-has been active since 2018 [1].
-
-[1] https://lpc.events/event/2/contributions/204/attachments/143/378/LPC2018-cgroup-v2.pdf
-
+> Assisted-by: LLM
+> Signed-off-by: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+> ---
+>  Documentation/devicetree/bindings/arm/marvell/armada-7k-8k.yaml | 7 +++++++
+> 1 file changed, 7 insertions(+)
 > 
-> About the V1 to V2 migration, it uses the memory.current and
-> memory.swap.* counter to simulate the memsw counter for providing the
-> metrics singal.
 
-What does metrics signal mean here? From [2] it seems like there is
-intention to propose addition of memsw to v2 and from my last
-conversation with Sweet Tea, he was interested in exploring BPF to
-provide memsw semantics.
+I don't know which fallbacks are right, why cn9130 sometimes has,
+sometimes does not, I guess Marvell maintainers will sort it out:
 
-[2] https://lore.kernel.org/all/7a5619a6d27119fcf566e43563a72396@dorminy.me/
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-> 
-> > Are you making these false claims just to derail the conversation?
-> 
-> You should apologize for your accusation.
-
-I am actually more convinced that you just want to derail the
-conversation by providing AI generated vague statements. However I
-accept that there are parts in Google like GKE which are on v2. The good
-thing is that vswap is opt-in, so GKE can just not use it.
+Best regards,
+Krzysztof
 
