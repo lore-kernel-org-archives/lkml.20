@@ -1,89 +1,286 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D7A247D440
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:06:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D830447D444
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:07:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790251592; cv=none; b=ofUpVequpSiwAzMBm40JmWS4vFc1Dm9Blc1j0/Aw00yqmNShGzR8pYti55v90/GwkrlKbe4nVO3mDfHIFRaxuk7k6xDHfLYtMIdf76T/wOElm6MG1BG6jOFIkd5baQDlCMLX39tbOHh9CVjnLK1uUPRxZjwMAtcB4ZKKDEShPlo=
+	t=1790251639; cv=none; b=iPizdr324jr6QmryW+mQSRfJwOAni5ygVnOQe/hOJaf0uzAUGJOBB2xsQNE6HScWPqPDRSg2gbeDVjL4aiUX1nx90gk6VZbMAT9LvtdwafzYd4lUqTgYJ7mx4m8WlyAiFKTBTYIT3/zF/ZwMrzr2du5GIpQFYoBIlYX6Gyvr40o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790251592; c=relaxed/simple;
-	bh=AMda9b2M0HE7bDg1/E+8Yg0zmUKaV5CLAKi97xEwv68=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sSp2/JbZtzLe8h20I2P4AF0Pn9tYtGiNk5KWO3NeNceJfNn55FrLQHw1jgxjsrTQrzOJ6xoHJ6oy4aneQkfrnEDqPU8DGJnltn9nBFAdVuo+iXQjYkX44ec06IfWAg4Td3CY/9yEAU7O9m1Fgoq4FikqU2cNr6SUeHs5kOp0+gg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AN2eipIw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790251639; c=relaxed/simple;
+	bh=xmHibZql2cbCfwH2tMq2yYIoAv+AaWfRsZ3z/d04h8E=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ETPTztG+6wBOVQy1YRYRrQrNki/ca1EEpScGM6MA77SYjrjl4gu2QIAA2jOXC9+IOPIZWZYzXXnq4pgOVQAKHk4Fcf8TNU89Dp7Dl1z38cayggbO0PK+k+CyZjQRI+fZatUoe3iOTEP/CP2qXpyfFGnyP2sVeir4oa2Qx3eGfZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JKRj8kNF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KmJQUxty; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AN2eipIw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03C8A1F00899
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:06:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790251591;
-	bh=AMda9b2M0HE7bDg1/E+8Yg0zmUKaV5CLAKi97xEwv68=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=AN2eipIwmtVZ4M5Ny3OwliN67dMXjEm7YmJn4+ad6DexfVZp3CDJtiYnaoFksqodn
-	 mwZ1b4SVH63NPUXV2EYeIbJRRnrYEqDgJ1aM+hTpYkpLxQ5NV73qb7D1u2ByBnsLeP
-	 Zl/DJDHTqT6OiaH1vubVrlpERsPaD3Mgx1WPdPuV2fXw3E7nHMRQJbcEbRckmRj7yG
-	 gAfxCXLubigONN5I0PrBpD2HatKrJBxPWMsz/eb3BPSEVakQ0QFCs7J7hyRnjtVFT/
-	 4LqPzByO1QeWXrKGOuxdQ7j+UV3m6HYuvu8nlQbIgjj6b8xSrvdI9ggm13W8104LNs
-	 lIZXxp6e0q25g==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f15b79so1814288e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:06:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxHNXM/iSXWzrZMbFn/xtq9JU9rTMftHyTlRfwgdKre841FGPH1h1MN9BdTeN9clBA4nv/nezjgCi5V6g0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lyVOqieg0W7M1anAhhlEQqFNjMPzyNhngozupj5r186PjRAaT0
-	AwaVptv52h18S09bWgbuWZlIo08h9rJ6da6ack/BFChwc4TEzSKDyYsCWy0rAep2EtehptxBUTC
-	ZOQ+0/NQq8ssJSr8lFUl12RhsmOa5X46toSiZmN1QuA==
-X-Received: by 2002:a05:6512:1192:b0:5b6:423:9fa7 with SMTP id
- 2adb3069b0e04-5b8df1f3ec5mr826739e87.31.1790251589716; Thu, 24 Sep 2026
- 05:06:29 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 24 Sep 2026 05:06:28 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 24 Sep 2026 05:06:28 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260921-axiado-ax3000-sgpio-controller-v4-0-79c444be7faf@axiado.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JKRj8kNF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KmJQUxty"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OC4kVM2385674
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:07:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=xIO/96kxFY93eeioOz2tQv
+	G4gc22b+Gs1oDe6SCgnn8=; b=JKRj8kNFlPLT6e0Vo2mn3+2wllvZRruzGLnXuT
+	HqSLSv+88Abz4PGpNnlyEBReIsGfH47dnpDJ4rRNmMCOaeV+Cba4/aRI2Y2hrypz
+	ufBaoByUy0lEyc3gBAxm8m66jlf5mckcHAMvd1J64GB3Wn0o2to6W7r07sXKCnVh
+	y/j5TsT4UIpF09jNeOYKNRsCwT/DRNuEQtQbSjySwwd0EW1pB9X4TXltTmTNmdbL
+	I9xpIRkkbDXyn2imSSN59rx/RglvueHcvNnYb5rb4lYxpxEQDgyOeLLg759Xyja9
+	Onqr8ZccvHyAiZ3xZNczno1RU77JNO1PXt5Ojq+nSiiT8HMw==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvsfgtcj1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:07:16 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-78a6d5cc851so549435137.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:07:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790251636; x=1790856436; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=xIO/96kxFY93eeioOz2tQvG4gc22b+Gs1oDe6SCgnn8=;
+        b=KmJQUxtyNJQke7JIY+YRKEyqSFH0sL72MPZ/T+/YR5w6NyL3anZ8UjtvL2NS8WgXid
+         LsuxMnb8IoSRAHvv8rSkoKSTrJjjkjtXWKsS4hmhx6cu3j/51Bgx0wQiNxTPN83ilI5P
+         suStIXeeGZ6/XPJAa87dTS7X/s2PqKzAU5Entm4HrVYB4JX8iNHuNZYjbkA7QeEeKwDD
+         uLNwEN6MEHVOEhCV1qn8ZzA4bXHe5Qu/R/64iA4HpCaqIcf4epdEoA7QS7g7x37u9pzm
+         6o0oyTCICB5BQHYQDWKtmDWGjd7m4Snv3XnXildybGlQZTmdp2VfvMZpS0yUNxrX5Kgw
+         yERQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790251636; x=1790856436;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xIO/96kxFY93eeioOz2tQvG4gc22b+Gs1oDe6SCgnn8=;
+        b=F/hsAiIrgMknd3Tq+PDx+J3T/Z1lhlrn6e62vVAWIuv/R4UNa/4jJeFcRdDeTEnlu7
+         M3ZNqFsOEu2p0fPAbo0Q87aQkXce3BKsxcoxW0FiJJCvbD5SSAqYTR8ZKGRK665LtQNm
+         ZNCVioYH16qgSm8PYBGZKdsvg65czwUaA3A4knh3AvelBA6cV5STpw6WaMlyLwLBsWa3
+         /W2lQTN6Bh8k4wKvmd7/fZB1faLaus/G2bw8zOsELdWbZ7bPNzTuM8HuyiTFMiTddhU5
+         Vcwbsk5Mst4fRWlDnMI+KOn1bPQh6qNgoiFNmBnYZDMRnoIKiG0oSPDe94m8S1rpBffX
+         hSCg==
+X-Forwarded-Encrypted: i=1; AKwUvBxmErJtKtknlpKE9w0VREIxuj6GZcIJrHLR+uMDeFeT/CP2hNtTvFJlWGN2lfBYZini2REU5YvjmG6B3JI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mdbfx1oLb4EoBvpAk1s6Ayllip7NS0ErWlEkmtZwHBD8PVn1G5
+	JuZJJdMtxCeWVwyKvrVbuHGgcvpJ47jB2e14su49BoNiObmyLVvJ2tVGBaFtL/mXi+0laQMgaJ9
+	8vsUygeGv4QHVkp3wQQSMTE82Uhrb9pn3SnYesIEKqXolYetpdZz7kGVPSOXZj1TZcek=
+X-Gm-Gg: AYBFou1s8JGyrVtIB8XaHypnR1MpMig1uy9UpLzMLqpiiqSwXORhNmSnpytyVrjd1jX
+	WusSLq4ZDOQJeppbFlo86b2VBDBkwt1VjhQi/M2b3DJ17dJlLivjUehNbg9fzqsSD1N0fbmdov1
+	7792oIXOxHot610zY+ZlUODc1rCKJI385usUgDhV/t5gcIqv+cMQDEmjv2v0V2cXYMU4uATutRI
+	FonMc67gKUsqKu5Qsz7HqX0gKO/nNmhERLH4K99nNFUx65mc7TqegyfJXuGxmv3vJfXQKjkC4Dj
+	Ysv2vvpTEhOBb6qc7B/qeDhfH4diJk3GgVf7thDriIfCbB37V5amxC/LlkUBlApFQVtzVTwQIK+
+	9QhtDGfA0
+X-Received: by 2002:a05:6102:5792:b0:7a7:195a:1b2b with SMTP id ada2fe7eead31-7af1f815d47mr917067137.37.1790251635700;
+        Thu, 24 Sep 2026 05:07:15 -0700 (PDT)
+X-Received: by 2002:a05:6102:5792:b0:7a7:195a:1b2b with SMTP id ada2fe7eead31-7af1f815d47mr917051137.37.1790251635032;
+        Thu, 24 Sep 2026 05:07:15 -0700 (PDT)
+Received: from [127.0.1.1] ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe667ae2fsm61376605e9.13.2026.09.24.05.07.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 05:07:14 -0700 (PDT)
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: [PATCH v2 00/48] clk: qcom: Use common probe data for always-on
+ clocks
+Date: Thu, 24 Sep 2026 15:06:12 +0300
+Message-Id: <20260924-clk-qcom-rework-legacy-always-on-clocks-v2-0-1479443ee016@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921-axiado-ax3000-sgpio-controller-v4-0-79c444be7faf@axiado.com>
-Date: Thu, 24 Sep 2026 05:06:28 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Mdx6zH16Ej-7EDVw0cKix7+h2tOxSL8pc1PiXhptA_R-A@mail.gmail.com>
-X-Gm-Features: AclHuK_9ekJ2IaIbciUj6wKN51mS4Pn8kPTOGKYEK1UcTaHgO2MIe0OH-x_Yx30
-Message-ID: <CAMRc=Mdx6zH16Ej-7EDVw0cKix7+h2tOxSL8pc1PiXhptA_R-A@mail.gmail.com>
-Subject: Re: [PATCH v4 0/2] gpio: Add support for Axiado AX3005 SGPIO controller
-To: Petar Stepanovic <pstepanovic@axiado.com>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	openbmc@lists.ozlabs.org, Conor Dooley <conor.dooley@microchip.com>, 
-	Tzu-Hao Wei <twei@axiado.com>, Swark Yang <syang@axiado.com>, 
-	Prasad Bolisetty <pbolisetty@axiado.com>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Harshit Shah <hshah@axiado.com>, SriNavmani A <srinavmani@axiado.com>, 
-	Karthikeyan Mitran <kmitran@axiado.com>, Michael Walle <mwalle@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADQStWoC/5WQwW6DMBBEfwX53I2wa1zCqf9R5WCchbgQHLxAg
+ iL+vQvkUKmnXlY70mjm7T4FYfRIokieIuLkyYeOhXpLhLvYrkbwZ9ZCpcqkR2nAtQ30Llwh4j3
+ EBlqsrZvBtnc7E4SODcE1BHmJJs1zU+VaC067Raz8Y2v6Ou2axvIb3bDGvxwR+5ERht0mSksI3
+ HX1Q5F0+Bhgx1Dv4jcf4/6hq53jhYzMgGvB3UYiqLvgIFQVISd9KKOl1UcldTEpsTJdPA0hzts
+ zJrkh/PvuSUIKKrNKY5ZWubKfgejQj7ZdDznwEKdlWX4AvA98WHkBAAA=
+X-Change-ID: 20260916-clk-qcom-rework-legacy-always-on-clocks-8be60886f844
+To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.16-dev-0e65f
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8396;
+ i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
+ bh=xmHibZql2cbCfwH2tMq2yYIoAv+AaWfRsZ3z/d04h8E=;
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBqtRJBa8+YPMjQGnKwd/hszH4rAxb8eYPDSM1V2
+ 0YXuPen4SCJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCarUSQQAKCRAbX0TJAJUV
+ VsWAD/0UK271cWx/6D4GajvrSdg0q8YU5EXbZ/KQFXHvRjZnlqNDbXpyx1NSv7tPq7s1r5up7I5
+ sZXBBKokV1peeLVVwAwxsYgBxldSF+54SL2VX6wXKivQB4Ivd/9F8pdtYa2AgUCNv0zyu4M671t
+ baxmbt6gcawLz13Fy0mWaaRIobjzDCkFf8ziBILwpUeU15JiOG7tamD7Rduikz5mXKoi2OXm6Be
+ BNUo/grjUiJNOZtYPsDtkiSTHfPlcfHzU0fTgkA4B9Y5IWK+2x/Et2DWuM3BSK+rZQP2M4wtMLc
+ lYTX38OCidtFeZF1AldwVkmzItwiSawyhJB62VtjdArNFBgaXVpOUHvymAy86qU0k5/eDWKqjhI
+ cKnr0SmZVtJpSpSxvQzE8mW8FCnwI0aEYjPSr8i+2113nGC+413Wd8hQY3MGc4gievBFdvDVB+b
+ wKhs6ow7l+KeI52lQSvYtvzwtpyiyPtvtqah5n9lkTxhykVBn8lC0RoYJAG/s4s2n54uBXwyUbd
+ snd7lp38tS8CEH8SAK+gLmJQCQ3dmY6c4bpj8N7uU+dmHldsW7HEYOMI4H4yWcE5HFD8fIyxHnR
+ T8bWy7xaHoMAKHV7uM6a8HbBoP0f9kirprIzZF0PsHUDMC66VDlekkobfgRLYSBWOBHHEJDMnjb
+ hMjGOIEZaozX4fg==
+X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
+ fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
+X-Authority-Analysis: v=2.4 cv=YfoodARf c=1 sm=1 tr=0 ts=6ab51274 cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=R4yQLYBIWIdZ3r_OYs8A:9 a=QEXdDO2ut3YA:10
+ a=gYDTvv6II1OnSo0itH1n:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: squZ7hMxhecDWEMgBqodMyCMopEPSXls
+X-Proofpoint-GUID: squZ7hMxhecDWEMgBqodMyCMopEPSXls
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA1MCBTYWx0ZWRfX+hOwYzcTTTcL
+ dykVeFMHeBc96TR/YeyuFzeDWSLX2uDN/iRg1ZBzPE3QUVtugaA7EWwAK/OWYawnwF+GoQjR95G
+ DEF74Fy2ifqz2AnE24Xqfver875siF8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA1MCBTYWx0ZWRfX5pydpyz25RXU
+ IUlaAtXI0uKEwNOcULGyuP3Qf4+SlfnjN9xzGxuAGU0nYaiB7pc/f6C8FLaqWefDG3CbRNufzhH
+ 6yEPua+Dcdn4GHQ9bdJVnsAemxBmOaBT1jQpifDUgogeZj12VwTmiByhhzACOozXY5gClJypFIf
+ HC2H4snW6tyGLxj2MnFVJscCFB/WQp4e7pRK05Og7BTtaxuz15U/aTanNgpfC3azjCLe9bnclQl
+ uyBw6i+IVY0hfd8fnuEA2Wvc/jkp6T3AT1F4h2oE+PRCk6BERVGuzbfA+iFp1By2tlClhHEtTLf
+ oOtwMXnK0MEEpyzadt8e21r+M0MB5+b1iZWLC2DbF5BRSlfZyhEmIqw6emsf5sxhagAjuuvRoaU
+ WQimS503SqnGRT2Enyck0MhpiyTB/DC4+gT+jvqAypSH81KXpNpP79RwNo7SqQdto5mHLq6XOYl
+ LMYYHS1DVGimJFHashw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015 lowpriorityscore=0 spamscore=0
+ priorityscore=1501 phishscore=0 adultscore=0 malwarescore=0 bulkscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609240050
 
-On Mon, 21 Sep 2026 09:20:21 +0200, Petar Stepanovic
-<pstepanovic@axiado.com> said:
-> Each SGPIO position provides one input GPIO and one output GPIO with
-> fixed directions, along with interrupt support for input GPIOs.
->
-> This series adds support for the SGPIO controller found on the Axiado
-> AX3005 SoC.
->
-> The series includes:
-> - Devicetree binding documentation
-> - GPIO driver implementation
->
-> The driver uses gpio-regmap for GPIO operations and provides
-> controller-specific interrupt handling.
->
-> Tested on Axiado AX3005 platforms.
->
+Many Qualcomm clock controller drivers still enable always-on branches
+with individual qcom_branch_set_clk_en() calls in their probe functions.
+The common probe code already supports describing these register offsets
+through the clk_cbcrs and num_clk_cbcrs fields of qcom_cc_driver_data.
 
-The series looks good to me so if there are no objections I'll queue it for
-v7.4 in the next days.
+Convert the remaining users of these direct calls to per-controller
+critical_cbcrs arrays. This centralizes branch enable handling in the
+common probe path and makes the always-on register lists easier to review
+alongside the other controller data.
 
-Bart
+For GCC drivers, also describe DFS RCGs through the common driver data and
+move auxiliary register programming into clk_regs_configure callbacks
+where appropriate. Drivers whose initialization is fully covered by the
+common path can then use qcom_cc_probe() directly. Keep device-specific
+setup in the remaining probe functions, including the separate CBCR lists
+needed by the SA8775P/QCS8300 camera and SM8350/SC8280XP video variants.
+
+Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+---
+Changes in v2:
+- Rebased on next-20260923.
+- Picked up Konrad's R-b tag for the entire series.
+- Use the common alpha PLL configuration handling for GCC SM6375.
+- Use regmap_set_bits() for the GPLL0 active-input configuration on SM8250.
+- Link to v1: https://patch.msgid.link/20260916-clk-qcom-rework-legacy-always-on-clocks-v1-0-25a24e50f82a@oss.qualcomm.com
+
+---
+Abel Vesa (48):
+      clk: qcom: camcc-sa8775p: Use common probe handling for always-on clocks
+      clk: qcom: camcc-sc8280xp: Use common probe handling for always-on clocks
+      clk: qcom: camcc-sm7150: Use common probe handling for always-on clocks
+      clk: qcom: camcc-sm8150: Use common probe handling for always-on clocks
+      clk: qcom: dispcc-sc7280: Use common probe handling for always-on clocks
+      clk: qcom: dispcc-sc8280xp: Use common probe handling for always-on clocks
+      clk: qcom: dispcc-sm4450: Use common probe handling for always-on clocks
+      clk: qcom: dispcc-sm6115: Use common probe handling for always-on clocks
+      clk: qcom: dispcc-sm7150: Use common probe handling for always-on clocks
+      clk: qcom: dispcc-sm8250: Use common probe handling for always-on clocks
+      clk: qcom: dispcc-sm8550: Use common probe handling for always-on clocks
+      clk: qcom: dispcc-sm8750: Use common probe handling for always-on clocks
+      clk: qcom: dispcc-x1e80100: Use common probe handling for always-on clocks
+      clk: qcom: dispcc0-sa8775p: Use common probe handling for always-on clocks
+      clk: qcom: dispcc1-sa8775p: Use common probe handling for always-on clocks
+      clk: qcom: gcc-qcs615: Use common clock controller probe data
+      clk: qcom: gcc-qcs8300: Use common clock controller probe data
+      clk: qcom: gcc-sa8775p: Use common clock controller probe data
+      clk: qcom: gcc-sar2130p: Use common clock controller probe data
+      clk: qcom: gcc-sc7180: Use common clock controller probe data
+      clk: qcom: gcc-sc7280: Use common clock controller probe data
+      clk: qcom: gcc-sc8280xp: Use common clock controller probe data
+      clk: qcom: gcc-sdx55: Use common clock controller probe data
+      clk: qcom: gcc-sdx65: Use common clock controller probe data
+      clk: qcom: gcc-sdx75: Use common clock controller probe data
+      clk: qcom: gcc-sm4450: Use common clock controller probe data
+      clk: qcom: gcc-sm6375: Use common clock controller probe data
+      clk: qcom: gcc-sm7150: Use common clock controller probe data
+      clk: qcom: gcc-sm8250: Use common clock controller probe data
+      clk: qcom: gcc-sm8350: Use common clock controller probe data
+      clk: qcom: gcc-sm8450: Use common clock controller probe data
+      clk: qcom: gcc-sm8550: Use common clock controller probe data
+      clk: qcom: gcc-sm8650: Use common clock controller probe data
+      clk: qcom: gcc-sm8750: Use common clock controller probe data
+      clk: qcom: gcc-x1e80100: Use common clock controller probe data
+      clk: qcom: gpucc-sar2130p: Use common probe handling for always-on clocks
+      clk: qcom: gpucc-sc7280: Use common probe handling for always-on clocks
+      clk: qcom: gpucc-sc8280xp: Use common probe handling for always-on clocks
+      clk: qcom: gpucc-sm4450: Use common probe handling for always-on clocks
+      clk: qcom: gpucc-sm8550: Use common probe handling for always-on clocks
+      clk: qcom: gpucc-x1e80100: Use common probe handling for always-on clocks
+      clk: qcom: gpucc-x1p42100: Use common probe handling for always-on clocks
+      clk: qcom: lpasscorecc-sc7180: Use common probe handling for always-on clocks
+      clk: qcom: videocc-sa8775p: Use common probe handling for always-on clocks
+      clk: qcom: videocc-sm6350: Use common probe handling for always-on clocks
+      clk: qcom: videocc-sm7150: Use common probe handling for always-on clocks
+      clk: qcom: videocc-sm8250: Use common probe handling for always-on clocks
+      clk: qcom: videocc-sm8350: Use common probe handling for always-on clocks
+
+ drivers/clk/qcom/camcc-sa8775p.c      | 36 ++++++++++++-----
+ drivers/clk/qcom/camcc-sc8280xp.c     | 13 ++++--
+ drivers/clk/qcom/camcc-sm7150.c       | 13 ++++--
+ drivers/clk/qcom/camcc-sm8150.c       | 13 ++++--
+ drivers/clk/qcom/dispcc-sc7280.c      | 13 ++++--
+ drivers/clk/qcom/dispcc-sc8280xp.c    | 18 ++++++---
+ drivers/clk/qcom/dispcc-sm4450.c      | 15 +++++--
+ drivers/clk/qcom/dispcc-sm6115.c      | 13 ++++--
+ drivers/clk/qcom/dispcc-sm7150.c      | 13 ++++--
+ drivers/clk/qcom/dispcc-sm8250.c      | 13 ++++--
+ drivers/clk/qcom/dispcc-sm8550.c      | 13 ++++--
+ drivers/clk/qcom/dispcc-sm8750.c      | 19 ++++++---
+ drivers/clk/qcom/dispcc-x1e80100.c    | 15 +++++--
+ drivers/clk/qcom/dispcc0-sa8775p.c    | 15 +++++--
+ drivers/clk/qcom/dispcc1-sa8775p.c    | 15 +++++--
+ drivers/clk/qcom/gcc-qcs615.c         | 57 +++++++++++++-------------
+ drivers/clk/qcom/gcc-qcs8300.c        | 51 +++++++++++------------
+ drivers/clk/qcom/gcc-sa8775p.c        | 55 ++++++++++++-------------
+ drivers/clk/qcom/gcc-sar2130p.c       | 45 +++++++++++----------
+ drivers/clk/qcom/gcc-sc7180.c         | 60 +++++++++++++--------------
+ drivers/clk/qcom/gcc-sc7280.c         | 54 +++++++++++++------------
+ drivers/clk/qcom/gcc-sc8280xp.c       | 35 +++++++++-------
+ drivers/clk/qcom/gcc-sdx55.c          | 31 ++++++++------
+ drivers/clk/qcom/gcc-sdx65.c          | 31 ++++++++------
+ drivers/clk/qcom/gcc-sdx75.c          | 31 +++++++-------
+ drivers/clk/qcom/gcc-sm4450.c         | 64 ++++++++++++++++-------------
+ drivers/clk/qcom/gcc-sm6375.c         | 46 +++++++++++----------
+ drivers/clk/qcom/gcc-sm7150.c         | 60 +++++++++++++--------------
+ drivers/clk/qcom/gcc-sm8250.c         | 57 +++++++++++++-------------
+ drivers/clk/qcom/gcc-sm8350.c         | 52 ++++++++++++------------
+ drivers/clk/qcom/gcc-sm8450.c         | 51 +++++++++++------------
+ drivers/clk/qcom/gcc-sm8550.c         | 57 +++++++++++++-------------
+ drivers/clk/qcom/gcc-sm8650.c         | 59 ++++++++++++++-------------
+ drivers/clk/qcom/gcc-sm8750.c         | 76 +++++++++++++++--------------------
+ drivers/clk/qcom/gcc-x1e80100.c       | 61 ++++++++++++++--------------
+ drivers/clk/qcom/gpucc-sar2130p.c     | 13 ++++--
+ drivers/clk/qcom/gpucc-sc7280.c       | 22 +++++++---
+ drivers/clk/qcom/gpucc-sc8280xp.c     | 15 +++++--
+ drivers/clk/qcom/gpucc-sm4450.c       | 17 +++++---
+ drivers/clk/qcom/gpucc-sm8550.c       | 15 +++++--
+ drivers/clk/qcom/gpucc-x1e80100.c     | 13 ++++--
+ drivers/clk/qcom/gpucc-x1p42100.c     | 17 +++++---
+ drivers/clk/qcom/lpasscorecc-sc7180.c | 31 +++++++++-----
+ drivers/clk/qcom/videocc-sa8775p.c    | 17 +++++---
+ drivers/clk/qcom/videocc-sm6350.c     | 13 ++++--
+ drivers/clk/qcom/videocc-sm7150.c     | 13 ++++--
+ drivers/clk/qcom/videocc-sm8250.c     | 15 +++++--
+ drivers/clk/qcom/videocc-sm8350.c     | 31 ++++++++++----
+ 48 files changed, 873 insertions(+), 629 deletions(-)
+---
+base-commit: 4d7e75152b01862a4ec598435d79a81c4b254dd6
+change-id: 20260916-clk-qcom-rework-legacy-always-on-clocks-8be60886f844
+prerequisite-change-id: 20260916-clk-qcom-gcc-qcs615-fix-cpuss-gnoc-offset-272641a49214:v2
+prerequisite-patch-id: eb58e7f69eb18fb6f7d490e8094d8a3f2c0d0b2f
+
+Best regards,
+--  
+Abel Vesa <abel.vesa@oss.qualcomm.com>
+
