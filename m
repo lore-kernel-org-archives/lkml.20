@@ -1,68 +1,67 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C9E41D4F1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AD634BC007
 	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:30:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790281821; cv=none; b=kYJnbNW7EANGuTE+t8fmm3WlaqLcuXE9kO3/w/sTVMWzjc36b98x+NTEMJtgvXU2gfKK0fzZMM7pFH6yGq8JvOJdqkzhrP1Sd9FkHLhLawaN9IufE2YtOWfVHV8rmO5E0cQzgt0lCEiE6cQiRzeOxPEze0tqtYEYfMLJiGWBG+8=
+	t=1790281821; cv=none; b=jCaEogq5WM+oDoF2/w4AP/yodF/HgTgvh5C2MFWXYJtyGTGykH62oMQkt11svEGoF+3wCivyG3t8MO2iM/7nj7v6hdWqYDDSZXt2v5sCBL0Ewfc/B4qm1Osek+dVbDCSSk/F9W3ycrVc2xYFrOhTqCXfC4aLTNoWPU176tknHGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790281821; c=relaxed/simple;
-	bh=fxB9/+5eO6XoZVLEUDljaQutKEB1CcmARzOpNjDG6Ew=;
+	bh=y9WUYmjiye06xVLv8oTcIaVbAEDADxGs04QKHSw49AM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=iHgLwqHL/jPjOURNbMdLJgVsRvwNx3OqY1Tfv9WhHjBTGgYZBMd8+bNqiwqqQ+qMBjKsBvgQjBjh7F8PxJjbTaAT4uHH7+vep8Xi6kCt29wCHv1SQCcr5qersGckf8ownZOCA3pIbWxmTujNQt1X8kvAzRr+HXkEcpSBDAWquPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=aC3ms5zR; arc=none smtp.client-ip=74.125.227.141
+	 In-Reply-To:To:Cc; b=PGahpdPolYwEcB2Fgx3n7NmkRFERcGTwNdKCfJmEwI8Gctt0M0pRqQK5uheEEfbmT4flZteAbeqJRnOvZr+g4e35kGiWjG0R5byqzmxIibIqODIi64De0COb7yuL4HRCZg4SaTWmSvCbk9aZWp9a1qqt+jdlKtPefmwdgxz55oM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Avdq+uWr; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="aC3ms5zR"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccdaea75so119150a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:30:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Avdq+uWr"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747f01363so914665ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:30:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790281812; x=1790886612; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1790281811; x=1790886611; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VtYe1mtbd6bH9b/KMUQTjop2olezXt+Q+N71ctrgkH4=;
-        b=aC3ms5zRHP7B2AUCo1PjLhmb2qBbesZZiH47YFv+ylr/DwbOOYOhQFOIem8SqDajiX
-         yEWFfaZZGRfLs/FHJWUm1t5iN80Qy6SVQmcTQyDxcYl6PPoAv/fEGJVQalzZMq/gIAXw
-         v5XnQbnQ9YP/6OE495H4Qra0lJbkmzeoTcRgxKEqS2rC/A3mADazzF0OUunyNpSqcAIn
-         yb+s/7b0LmjQXYluCeay4I9WxlHZfZZv1mC1nG4B3DuwqRAWf2dzPMUGx4wzsXgS1uqA
-         0k+MyMraAd/0f9vU7bwtQD3G2N19bj5xS10QzlnuVMH9FO6MOcXihZWTHbe33VKd/bF0
-         P+kA==
+        bh=GjFM95nzoBopbHKT7ySWE4QE4ldDwC98rFYcBccdX/g=;
+        b=Avdq+uWrSLTJueqiW/FolrcYOtB9y9bygXQHy10LwbPw6t9uzO8auN7Zt8BfUPCtMw
+         tgdK8+mLFFpJm6cQ/YBLRzM8McwPI/kTwUsJAFdGNXCjrAp53IHEPQCB9CLTL4nIky0V
+         4KtGgYAtqRgCmkH4Oy6nAS6AqV0bGf/FbyERzK6u2CXD0jmEOONJFNCmSWz62yGoU2Q9
+         uvBgnaJorlSQHnOxkx1BJfHA/2ucSJUNW4TUteZBBeAHvJU9PRzP9XqQcbNNgqvUfXRl
+         RbD32P4dgLt9hzdC371/nzsQBwZ671Hf7c1Gwn/9lWORkG72DNWEEfBo1Y4M0ksV5s/g
+         shJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790281812; x=1790886612;
+        d=1e100.net; s=20260707; t=1790281811; x=1790886611;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VtYe1mtbd6bH9b/KMUQTjop2olezXt+Q+N71ctrgkH4=;
-        b=B3gVZkQ4IR2QDcCoIp2GBKaFL2VSHuGnVxfMQm5s515qFWE3gHRvKeBoHPcBLzQAin
-         AFKJEeUl+KzHnqLMDWxADv8MVGIe6fqTJSqGcL9DEfjkEzkHRSc0VyG0c5sSfmu/ko29
-         zXBrtdEryZY0gSID5XWuqv82iBfAGokRLrPg39F4QSeTYsEKHqWnqeGKJGCKveiU2ZY+
-         gbhZ900ZBn1KNnroOoGKA7n+aziVFwZYSxmzQ2SzlHgUUaCcobdG+RBxk699Cnwrqlpl
-         5TnQEwmN2RVPiYZT56+e0yF73loK3/3UKJ8dggwMvZkoddCJO1X4bUx4pSs5Fq/zFCp0
-         Xd8g==
-X-Gm-Message-State: AFuF++n9lW9ae1OoPkhOptMMnPCDkHPbMfo3HQTcqFi5pYDAHgrgC+Gx
-	WBUDAkDPp3FrNzGCMN6b6RvNN2zFDERwN8QXyAYhiEBtz2mk/D9Le31Z7xM5vSim93E=
-X-Gm-Gg: AYBFou3aLDQf/wy9l209U8PYLvCAwqQ8jV/o6WhpN8EPjEK0O6EqvcCbBtJurLF0qpf
-	Nlo1fFK+Vw3qtlJNYYz5DsMBwCRi/6mUsWDnNT0MDPVI/IjJXDmz6Fk2nVGnVAKcFuzD7GfauGJ
-	9QtpDdrT1dZwXQDivz2/RTqVpW0TcAT5A0b3Cx2KvcE5MfiAWGfi7AFviNdHhcjuPigCnbwGBec
-	EkfQSUOx9QO691LR6VBascl53l1yYEJzW2jm8PujnjoE/Z72IAU1EgjUziuSob91wFConD7/DWR
-	Dr0VTyJ/t3I+R6LH6RikDq7EiEi4GeYGjolrZuOvCc3s7dlVISpnWbMLDuT6cm8udH4QHI7cO/Q
-	xv6Mu8VP8AuCxSVPh8TAATUTrSuqvHaNtNKSTCLB0Qzc9HGi41TjzqUiIsgZkfXtFz4b/mRK6aN
-	deadn8fW8oa947Dm7ntvCzdVk4sfsmjTXgQCqvk+Za6CDP4sB8QzylGjvqWKgx59z9fIZTSwmLQ
-	/4puw==
-X-Received: by 2002:a17:90b:2e03:b0:39d:e1da:81e5 with SMTP id 98e67ed59e1d1-3a09864ac91mr2524573a91.11.1790281811835;
-        Thu, 24 Sep 2026 13:30:11 -0700 (PDT)
+        bh=GjFM95nzoBopbHKT7ySWE4QE4ldDwC98rFYcBccdX/g=;
+        b=dIXQR7vYGWrxz9sRTk44TlutlKcdVb826D01VbvsQsCWRv2EiWAPBb/oWkHRcqu4/Q
+         +pAG/8oL06c3f2NHg++1r5k0rqOrJeWHnNtTuKdqqOyCvJ1+AqyLqAvCPy4W6DUJwG59
+         BjLiSK8/51C1TD+LNtZB6CXii6kuNZ9qTvRx2FU3Xif8uJZgq1I6OEcrETfaHRD92kjF
+         v0XUvNPOVXg/t5lSgvlsCZ7f7Mn2DCbMtz4UrJUgzCYZ/DWvc6/k30MKYjNsqjcvsZQr
+         Ddl+/XtI69pANTDDnN2ruwu6HA/29Z/07QmObB1saiyEcNOKlGMFi8rXw4PRuXsOgUQz
+         08tA==
+X-Gm-Message-State: AFuF++lIyIwHhhQXFmqALOJwGa7SyyPHCbDPPK5b0zTeIqo+vGZtaSot
+	o2GjOWL9L2bFMpZDylBcr3zCfpRDW82yj+e/MawCERtu/vKjZm4U2zPXzqd51RiCUxq62Xi8lvr
+	JBTXj
+X-Gm-Gg: AYBFou2pv0X0Xw8QYDm4XUA6OaqYCgC8fhf1xx7Lj0g1IuodJRVbdAWs5Rg7iMH9X1c
+	ZGL1WniEIWViORYj7ukgXy2QDi9unIh6QlbzxBQX+p2Ct9zdYm3V+y6mkFccH+jrmttz7fXHeSz
+	VvekMs/y2UJmK/AYwBYa4oQ7JoktHrU69tMcU/fFkulp0p9pITgjLFtCm1eIKBDH5g7PRDgbp+f
+	MjHvs/MyXqZhIKJyDuHDDwwt9kq3eZ3Jzuk5upatBML9yYDf/anoucNvEyKeSePura+AYEdZHAG
+	fsAr+KKkIczDoU9x32GtQGcK1Lep9+fi9H5aa1wH+MIIl2mHnK2YmZwQuNa89MxQ2CcQCslmvpL
+	CXejInEdryolpE5ODlc8sLGgpyoas2Fg23M+CJkFK2QH4PYlmin3+Iq3GkG7LNSTkGewCIwRqXW
+	NH7utPJk6Wx64W9j2HIPdK4utX5KTM5t2JsRduFjRik7Ntq8lJUXFPojuBX3m/7kvPJD8=
+X-Received: by 2002:a17:902:f707:b0:2dd:c100:9439 with SMTP id d9443c01a7336-2df7e65c38dmr29472265ad.55.1790281810795;
+        Thu, 24 Sep 2026 13:30:10 -0700 (PDT)
 Received: from localhost ([71.212.197.238])
-        by smtp.gmail.com with UTF8SMTPSA id 98e67ed59e1d1-3a0b99e5220sm314936a91.16.2026.09.24.13.30.11
+        by smtp.gmail.com with UTF8SMTPSA id d9443c01a7336-2df90fbc951sm1354305ad.8.2026.09.24.13.30.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 13:30:11 -0700 (PDT)
+        Thu, 24 Sep 2026 13:30:10 -0700 (PDT)
 From: "Kevin Hilman (TI)" <khilman@baylibre.com>
-Date: Thu, 24 Sep 2026 13:29:59 -0700
-Subject: [PATCH v6 4/4] pmdomain: add support system-wide resume latency
- constraints
+Date: Thu, 24 Sep 2026 13:29:58 -0700
+Subject: [PATCH v6 3/4] pmdomain: core: add genpd_for_each_child() helper
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,121 +70,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-topic-lpm-pmdomain-device-constraints-v6-4-a69a4856252b@baylibre.com>
+Message-Id: <20260924-topic-lpm-pmdomain-device-constraints-v6-3-a69a4856252b@baylibre.com>
 References: <20260924-topic-lpm-pmdomain-device-constraints-v6-0-a69a4856252b@baylibre.com>
 In-Reply-To: <20260924-topic-lpm-pmdomain-device-constraints-v6-0-a69a4856252b@baylibre.com>
 To: "Rafael J. Wysocki" <rafael@kernel.org>, linux-pm@vger.kernel.org, 
  Ulf Hansson <ulfh@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
- Kendall Willis <k-willis@ti.com>
+Cc: linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3127; i=khilman@baylibre.com;
- h=from:subject:message-id; bh=fxB9/+5eO6XoZVLEUDljaQutKEB1CcmARzOpNjDG6Ew=;
- b=owEBbQKS/ZANAwAIAVk3GJrT+8ZlAcsmYgBqtYhO/pBs+HJDx0CB6GxV7vuaRHLxW8Ie1Uk00
- mUuwyb/tf2JAjMEAAEIAB0WIQR7h0YOFpJ/qfW/8QxZNxia0/vGZQUCarWITgAKCRBZNxia0/vG
- ZXXqD/4yQNgnHK20pgLFU9A+2dkachcRKhy7BmE6C0dKG/2Ga8ieae1CF8vwiSc6iRznzP69n/w
- du5dDMcMZqlFpJPLZJTBcrvrb4bl1PHhCIfTU1Bze7ksdUf9ah4wJgwSuURcJI/G6YP77AXdPdo
- BjjJsZTNiS0Zq/k8DIWuSDfZMwDb4Mz3j6sUTbeUtd4LkSPd8QJy3rANQLKLadsIZvExvtlUhMn
- pnILxbXPmhDZOGV23PGbtRETXlnBFYvSK0khqodnYQj2gs89CK+H8B7R6y5jIfkAdb54ZGRvExY
- YwRlZPVSN8KAKSG1y1u/RGP8g9be6nKVexPa+b1Iq55oN3ak1zKftF1q8u9YWgvSaxAdf7LIY7S
- iFCbq7LLedAaTJPmCSmQGN+4XlsejTBR5RstVwq42xlaAt74Bfkre8VIipO3hLe2x7uDtaKALIX
- +6OEjhl657e80fKJB3EwEVKW931qh5cY7KuDgwvUBk682PNggIOLRUICA4tZgVG6/FtjF0ebvZO
- n5mSz0zKEeiOqoykoTZSzuEGFuebgY2go8xfIT30V3lrfbdXZp4e+rY5/rfk3aZfkzVrS+Big55
- TdvElL0pfrVzBt9hKBSCOK7SCQxIr3MOcpJfGiSOUx+gWb2YPoO97VaCywQ14wZxCUb5QxZ9urF
- svtb5dOTJBfDCfg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3702; i=khilman@baylibre.com;
+ h=from:subject:message-id; bh=y9WUYmjiye06xVLv8oTcIaVbAEDADxGs04QKHSw49AM=;
+ b=owEBbQKS/ZANAwAIAVk3GJrT+8ZlAcsmYgBqtYhOyQ2PiteWewCyn13JlLBbX4dgmDi/FKVuo
+ 1z9RKoVNpuJAjMEAAEIAB0WIQR7h0YOFpJ/qfW/8QxZNxia0/vGZQUCarWITgAKCRBZNxia0/vG
+ ZYL5EACh7BjxR0UyJ+Tg9XHjSKNWdiiSyz010AV5JrIB4l1zjX8CLUGPdA3rpLq4WGQcAMSIrAP
+ ceQDE7GVFWo8cfZ6tIOIbrZHIax8N8/ezBttFZs7PQPk7pDQyrG4uci4oI/neFk0DC6U/VB+SuE
+ OT8eAZdhJ7fLjnPC5/+83nvCmtAag47i4OBrF6/MpjCQL2jgjDQgrthpkSJLLpALOk6eMNDc+5+
+ 6A71JjCr+CXOeWNJFsozny75+ZEFmnnQPeLuKi7anvnwz1HsPXKQytJLu9U7G6RK9mPEv3ic4ao
+ JFa2qN0aZflPpaN0HWt5pNVIVq1RiVdloa36CndUOogZ1PqtZlS1f1+IjuuZQDrMxgNnvm6dxMj
+ s91mfLpxRKeIUOmVprDQ6zmqSJ5FAPlCj2M5qYd+1umR3rQAuP4ud2vG0SyhdoI672kaT4Hh+0K
+ B8IHaCG8HpRFJMmowBit1tlMsIWQ1KZIjxGekQF5FqNTRc6ARl10f27kaJ7EcaPccjLh4RJAvW5
+ jDlaRqV1Y5Nm57OnQVHg0ebovLSlirmHBajcu0rFJbt07hrMuArMs+fZbYjAO7l/0CJZZ3ErQIG
+ GPMNZGwmD/XpYirAVlWdXFMZthars1crmPOm0EX2nrmg7A80BWP6781shKYzpwsp4Hu5a+q3PYy
+ pyX/9NQe0cP2Ajw==
 X-Developer-Key: i=khilman@baylibre.com; a=openpgp;
  fpr=7B87460E16927FA9F5BFF10C5937189AD3FBC665
 
-In addition to checking for CPU latency constraints when checking if
-OK to power down a domain, also check for QoS latency constraints in
-all devices of a domain and use that in determining the final latency
-constraint to use for the domain.
+Add a new internal helper function genpd_for_each_child() that recursively
+iterates over all devices in a PM domain and its child domains (subdomains).
+This helper is useful for governors and other core PM domain code that needs
+to examine or apply operations to all devices within a domain hierarchy.
 
-Since cpu_system_power_down_ok() is used for system-wide suspend, the
-per-device constratints are only relevant if the LATENCY_SYS QoS flag
-is set.
+The function takes a callback that is invoked for each device, and supports
+early termination if the callback returns a non-zero value.
+
+The helper is defined in a new internal header drivers/pmdomain/core.h and
+implemented in drivers/pmdomain/core.c, making it available to other PM
+domain subsystem components.
+
+The first user of this helper is the cpu_system_power_down_ok() governor
+function, which uses it to check device QoS latency constraints across the
+entire domain hierarchy.
 
 Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Reviewed-by: Kendall Willis <k-willis@ti.com>
 Signed-off-by: Kevin Hilman (TI) <khilman@baylibre.com>
 ---
- drivers/pmdomain/governor.c | 45 +++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 45 insertions(+)
+ drivers/pmdomain/core.c | 45 +++++++++++++++++++++++++++++++++++++++++++++
+ drivers/pmdomain/core.h | 18 ++++++++++++++++++
+ 2 files changed, 63 insertions(+)
 
-diff --git a/drivers/pmdomain/governor.c b/drivers/pmdomain/governor.c
-index 96737abbb496..38bba24ec26e 100644
---- a/drivers/pmdomain/governor.c
-+++ b/drivers/pmdomain/governor.c
-@@ -13,6 +13,8 @@
- #include <linux/cpumask.h>
- #include <linux/ktime.h>
+diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
+index 842c4169e290..ff27369d9a97 100644
+--- a/drivers/pmdomain/core.c
++++ b/drivers/pmdomain/core.c
+@@ -24,6 +24,8 @@
+ #include <linux/cpu.h>
+ #include <linux/debugfs.h>
  
 +#include "core.h"
 +
- static int dev_update_qos_constraint(struct device *dev, void *data)
- {
- 	s64 *constraint_ns_p = data;
-@@ -425,17 +427,60 @@ static bool cpu_power_down_ok(struct dev_pm_domain *pd)
- 	return true;
+ /* Provides a unique ID for each genpd device */
+ static DEFINE_IDA(genpd_ida);
+ 
+@@ -276,6 +278,49 @@ static void genpd_sd_counter_inc(struct generic_pm_domain *genpd)
+ 	smp_mb__after_atomic();
  }
  
 +/**
-+ * check_device_qos_latency - Callback to check device QoS latency constraints
-+ * @dev: Device to check
-+ * @data: Pointer to s32 variable holding minimum latency found so far
++ * genpd_for_each_child - Recursively iterate over all devices
++ *                        in a PM domain and its subdomains.
++ * @genpd: PM domain to iterate over.
++ * @fn: Callback function to invoke for each device.
++ * @data: Data to pass to the callback function.
 + *
-+ * This callback checks if the device has a system-wide resume latency QoS
-+ * constraint and updates the minimum latency if this device has a stricter
-+ * constraint.
++ * This function recursively walks through all devices in the given PM domain
++ * and all devices in its child PM domains (subdomains). For each device found,
++ * the callback function @fn is invoked with the device and @data as arguments.
 + *
-+ * The system-wide flag is checked first so that devices that have not opted
-+ * in only incur a single lockless read.
++ * Note: this function is inteded for use by the core and governors,
++ * not for pmdomain providers.
 + *
-+ * Returns: 0 to continue iteration.
++ * Returns: 0 on success, or the first non-zero value returned by @fn.
 + */
-+static int check_device_qos_latency(struct device *dev, void *data)
++int genpd_for_each_child(struct generic_pm_domain *genpd,
++			 int (*fn)(struct device *dev, void *data),
++			 void *data)
 +{
-+	s32 *min_dev_latency = data;
-+	s32 dev_latency;
++	struct pm_domain_data *pdd;
++	struct gpd_link *link;
++	int ret;
 +
-+	if (!(dev_pm_qos_raw_flags(dev) & PM_QOS_FLAG_LATENCY_SYS))
-+		return 0;
++	/* First, iterate over all devices in this domain */
++	list_for_each_entry(pdd, &genpd->dev_list, list_node) {
++		ret = fn(pdd->dev, data);
++		if (ret)
++			return ret;
++	}
 +
-+	dev_latency = dev_pm_qos_raw_resume_latency(dev);
-+	if (dev_latency != PM_QOS_RESUME_LATENCY_NO_CONSTRAINT) {
-+		if (dev_latency < *min_dev_latency)
-+			*min_dev_latency = dev_latency;
++	/* Then, recursively iterate over all child domains (subdomains) */
++	list_for_each_entry(link, &genpd->parent_links, parent_node) {
++		struct generic_pm_domain *child_pd = link->child;
++
++		ret = genpd_for_each_child(child_pd, fn, data);
++		if (ret)
++			return ret;
 +	}
 +
 +	return 0;
 +}
 +
- static bool cpu_system_power_down_ok(struct dev_pm_domain *pd)
- {
- 	s64 constraint_ns = cpu_wakeup_latency_qos_limit() * NSEC_PER_USEC;
- 	struct generic_pm_domain *genpd = pd_to_genpd(pd);
- 	int state_idx = genpd->state_count - 1;
-+	s32 min_dev_latency = PM_QOS_RESUME_LATENCY_NO_CONSTRAINT;
-+	s64 min_dev_latency_ns;
+ #ifdef CONFIG_DEBUG_FS
+ static struct dentry *genpd_debugfs_dir;
  
- 	if (!(genpd->flags & GENPD_FLAG_CPU_DOMAIN)) {
- 		genpd->state_idx = state_idx;
- 		return true;
- 	}
- 
-+	genpd_for_each_child(genpd, check_device_qos_latency,
-+			     &min_dev_latency);
+diff --git a/drivers/pmdomain/core.h b/drivers/pmdomain/core.h
+new file mode 100644
+index 000000000000..d1df535a834a
+--- /dev/null
++++ b/drivers/pmdomain/core.h
+@@ -0,0 +1,18 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Internal header for PM domain core
++ *
++ * Copyright (C) 2026 Kevin Hilman <khilman@baylibre.com>, Texas Instruments
++ */
 +
-+	/* If device latency < CPU wakeup latency, use it instead */
-+	if (min_dev_latency != PM_QOS_RESUME_LATENCY_NO_CONSTRAINT) {
-+		min_dev_latency_ns = (s64)min_dev_latency * NSEC_PER_USEC;
-+		if (min_dev_latency_ns < constraint_ns)
-+			constraint_ns = min_dev_latency_ns;
-+	}
++#ifndef __PM_DOMAIN_CORE_H__
++#define __PM_DOMAIN_CORE_H__
 +
- 	/* Find the deepest state for the latency constraint. */
- 	while (state_idx >= 0) {
- 		s64 latency_ns = genpd->states[state_idx].power_off_latency_ns +
++struct device;
++struct generic_pm_domain;
++
++int genpd_for_each_child(struct generic_pm_domain *genpd,
++			 int (*fn)(struct device *dev, void *data),
++			 void *data);
++
++#endif /* __PM_DOMAIN_CORE_H__ */
 
 -- 
 2.47.3
