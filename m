@@ -1,69 +1,72 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A4E37F8DC;
-	Thu, 24 Sep 2026 14:16:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CB7938D404;
+	Thu, 24 Sep 2026 14:16:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790259393; cv=none; b=Fl7v9S2AoGFgtWk4lnBqKn2nnLtzUf6gfbnth1bgScWDGC/8NIY4GD4J7INPt6+vgMG7Y1PulCpT98mCHQ3pbgZrO46y3WZB+/txufg2cYvq6NyXRkam7sibyuGzso8BGJD474GKdPwMW7J0Ix4FxrwQ8CL1X/3QA/6vs0PeEEk=
+	t=1790259399; cv=none; b=qLwuzJhKI25wUvqk7KC6GtgWNjq+fGKVC9zxlyglx9fPtsv2x6dQUXaquP9r87lOgCPWJ6jNMDSbWwxAsRUJgzG2Gi8kqg9JnWA5J0zR4eTMWmkIuwCAxz4YtxsN7gDezLrS2PZeC9mS2wveGLbZKC0kZD5ErmyXMXJ8+ZpjXOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790259393; c=relaxed/simple;
-	bh=mZZ6qpu7H8MObiOXtAL8mvcjirC/qntGFwdz5Y346Mo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=g8rq7nTUlRTHUgWvbbg4uTM2ujR62XDvUXu6yiyyPD9g7l/hFmHDErEBM0bqukkMROfZVhijoT6DgzfOCqDYIoLEAOu9YR7xSAFnS+tQF482dhMRvKkXFVsHvpJhObrVIQltAGcDdtmMQIMRqDTlsQqn5rHKeczOAacAWWA3Jhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XuS25CDT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790259399; c=relaxed/simple;
+	bh=ngZfYK94JjIgjmJTzq7A7UXNR3eejMz7MSsks3/S9+o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fKcY/27TCxaF0d87Jv6HF126UUzIzYQ5e3AtYdYPoVlZH+w8/AOl06ySEUknSM8GShRJcVM/nEn35LRil+cLR3JuvW04kc4gYEZLBUUmZQynR8hY/pgGDYdStb5GkWQWCxek5CEYT57YV9UvdBr16JdPjYqnwW042bzw/zuq5es=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DelI1lat; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XuS25CDT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C35B1F000FF;
-	Thu, 24 Sep 2026 14:16:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790259392;
-	bh=4I2Uczjs36quEFEOlB6alCHCdbRcfKOEZRzz1zHWB8U=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=XuS25CDTKlPqvb/NishbYJphykh/SL0ITs7qOY2DBLB36kENOFqqSRMziMKCxNLMr
-	 ciRIocUfSoZv2yf+xEeSmApwXDmB1ysp4CWnTjDCP+gbe492QkffxMKNsNr4ILFwVr
-	 h1w+fXI3Ly6UGIEm4Et5rdBUDShZP50drB8xv+qiWN6ngvnDwtvYZ/7DhKbENcT4pj
-	 Pg4bBS5hn33BJL4zRxDQqmoJAOG98iaCf/p9n4imrHffSTGXyxfMa2f75DiAhwWCiv
-	 3MKeHJh4jBtkvANtoZ3fkPg5jWgIro7OfiMgz+ncGY3XxK6gI/rhTMl+R+DDUH1s0w
-	 yrr9B1SWomKmA==
-From: Lee Jones <lee@kernel.org>
-To: Lee Jones <lee@kernel.org>, Myeonghun Pak <mhun512@gmail.com>
-Cc: Support Opensource <support.opensource@diasemi.com>, 
- linux-kernel@vger.kernel.org, mfd@lists.linux.dev, 
- Ijae Kim <ae878000@gmail.com>
-In-Reply-To: <20260923021936.957065-1-mhun512@gmail.com>
-References: <20260923021936.957065-1-mhun512@gmail.com>
-Subject: Re: (subset) [PATCH v2] mfd: da9150: Balance IRQ wake on teardown
-Message-Id: <179025939080.628281.10940598071478534866.b4-ty@b4>
-Date: Thu, 24 Sep 2026 15:16:30 +0100
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DelI1lat"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB1291F000FF;
+	Thu, 24 Sep 2026 14:16:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790259397;
+	bh=7x2oCQZdB1pEZJ9BKZqGBbpuzlB6uHWWh3FaM74ud3s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DelI1latDOPYEd1hv+WzOAa4FUG4CCHu7FlqzIMVlwqJSZZAWrXy2gCaLeb0CVJZF
+	 CGmv/ZseFEqoHE30P1DURV/12b7HQK4r0+1F3PCpjn41nlhVxfqRry20jW9Vzj7YMQ
+	 hl8sb0m4Rl+Tiww8YIktsOGx0SMFDKYeZmPipKZE=
+Date: Thu, 24 Sep 2026 16:16:15 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Hannes Reinecke <hare@suse.de>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	James Bottomley <James.Bottomley@suse.de>,
+	Joe Eykholt <jeykholt@cisco.com>,
+	Robert Love <robert.w.love@intel.com>, linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] scsi: libfc: fix directory server rport memory leak
+Message-ID: <2026092455-country-unreached-47eb@gregkh>
+References: <20260924133429.1587511-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924133429.1587511-1-lgs201920130244@gmail.com>
 
-On Tue, 22 Sep 2026 22:19:36 -0400, Myeonghun Pak wrote:
-> DA9150 enables IRQ wake after registering its regmap IRQ chip, but does not
-> disable it on a later probe failure or driver removal. This leaves the wake
-> depth elevated after the handler is removed, and repeated bind attempts can
-> accumulate the imbalance.
+On Thu, Sep 24, 2026 at 09:34:29PM +0800, Guangshuo Li wrote:
+> fc_rport_create() does not add FC_FID_DIR_SERV rports to
+> lport->disc.rports. If fc_frame_alloc() fails in
+> fc_rport_recv_plogi_req() after creating a directory server rport, its
+> initial reference is not released through the normal rport teardown
+> path.
 > 
-> Remember whether enabling IRQ wake succeeded and balance only a successful
-> call. Remove MFD children first so their nested IRQ users are gone, then
-> disable wake before removing the regmap IRQ chip. Preserve the existing
-> non-fatal behavior when IRQ wake cannot be enabled.
+> Normal rports are added to lport->disc.rports and removed from the list
+> before their initial reference is dropped. The directory server rport
+> bypasses both operations.
 > 
-> [...]
+> Add directory server rports to lport->disc.rports and use the existing
+> list removal path when they are deleted. Keep the existing directory
+> server callback and retry behavior unchanged.
+> 
+> The issue was identified by a static analysis tool I developed and
+> confirmed by manual review.
 
-Applied, thanks!
+Great, please document that as is asked for in the kernel documentation
+in the changelog here please.
 
-[1/1] mfd: da9150: Balance IRQ wake on teardown
-      commit: ef464f82f3aecad4071af71074b2ceb77ffbb609
+thanks,
 
---
-Lee Jones [李琼斯]
-
+greg k-h
