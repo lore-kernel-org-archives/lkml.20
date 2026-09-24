@@ -1,262 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34AA831578E;
-	Thu, 24 Sep 2026 01:59:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5551E39EF27;
+	Thu, 24 Sep 2026 01:59:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790215148; cv=none; b=pVno7pPYSzZa6KBBJYXRVRol6wt2T0ETbdqMXeje9jKpDA+45HLR2cmk81uhSY71MHRZ1jLZOQYrRJWlOvnOzhyaKgtbeIhQBBMyqlqvF9By4UgZF49PRAgWPkINpwbAwMfLsFrKsubnolmTCulKc0fXBI+xuNihgnFqCxveeTA=
+	t=1790215164; cv=none; b=BCa4IX3FaC9FzEn5nKNzNyw3ycq1xtjahNpVrDhB+gUTyZZqZuTKS/bO7Yy5TOtGdvc1lWhlWd4b1DmCRnxPDvo82LcUfuYXOJdwzFoTaq9wRyP68Ckkq1DWSZXGEB9OBOkUUGZYL5GZeIXtg/YWpmJZp8DW9+GMhahfiq06BAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790215148; c=relaxed/simple;
-	bh=ng3NjO7xLm02YelMfX/Z3DVR/wZvosLB8vx7H8B7APE=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=mzj8ILm3/7TQAVZkg195ViztCdiLI1NllDo6PDd/5WsXoJX2ekkEInSsKB4BCwg8z7HXnJY/f4Nm+kPKWAjZ3NHc0/PkSMNtuy6JWpzqCWgnOZdO9jRKxJQB2yIEn9/JSJzxxtogfOpiU6YOYi6tG2av0N9n/HgNpz0Eb1CaCZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XHQa58Pe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790215164; c=relaxed/simple;
+	bh=TVRHx69X6GgaWbqjZ2+lVCyhOHXTPChxXHtl2drbFCo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JlQ5PAZSocDbf+Sf866jegFIGm8DX1I2qlrjQJK1uGcfeqgyofNidzWn/7HtO65cHcsmHKIJ+m0rJbEvb+ag+C8LnHIH5o3QK99d/SghnuBcZStA4qi0Fl22ugT8Qfcy4w2IB5vUAgKBMRUkxPXK9F8IEJBKqIN5W7RLMX3MOx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RtaDkNMX; arc=none smtp.client-ip=192.198.163.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XHQa58Pe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 203841F000FF;
-	Thu, 24 Sep 2026 01:59:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790215146;
-	bh=l8JNnc2oBRcvuUjWimJY2wugiW93wv8FZSUibAK5Phg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=XHQa58PeyX8/BRNnOdBaAr3/5o09RQbpSO/tChP123Ks/PUMsaH4iQd8UGDBkl28r
-	 ug+H7f3sBf0pzPCLtiI0LBtnnEO5Kd4j/+Hg5U5gW6cX1vsG9xgqeXL2eUxy6xFkLe
-	 vYxYcisqVQf0HUL3ujE/+DtDDTDUQ3UtldTgaYDU6ULFvK3X3iAlj+TZRD3AhqOAVB
-	 AI+jr8FyMNCOxZqON8WVX57YQZhWvRR4UwdcW7rH1iNOATnFZdISTsJeNF9cAMr7Ql
-	 34csEuFuTXQMuqq6lxLEMU1r8dVpmsF1MbQwbCt37aQCRN9NXdfExZAgrxEJK9ovyc
-	 9YBA+bkzONCgg==
-Subject:
- Re: [PATCH net v3] sctp: carry peer capabilities across an INIT collision
-From: netdev-bot+sashiko@kernel.org
-To: wbriggs@cellusys.com
-Cc: marcelo.leitner@gmail.com, lucien.xin@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- linux-sctp@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Thu, 24 Sep 2026 01:59:05 +0000
-Message-ID: <179021514567.2160803.16218616091479610626@kernel.org>
-In-Reply-To: <20260921135733.577647-1-wbriggs@cellusys.com>
-References: <20260921135733.577647-1-wbriggs@cellusys.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RtaDkNMX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790215162; x=1821751162;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=TVRHx69X6GgaWbqjZ2+lVCyhOHXTPChxXHtl2drbFCo=;
+  b=RtaDkNMXRyzvDygZvFMMF51BWBrN/TjdlKViZ60Ed94awQku0q1IoV4N
+   ZdPNvsinT03lY+VwAYtVuHg6lOlqJTRxpD/zQlYFPdU984b6zjghzXwNS
+   D6BXjOk+Jez2iKgO98wmzEZ4zjr6HDLpZOo+BBvPXurE9jN8+1CMB65bP
+   mERZcEnI7Q42ei7m30EBSj/qH8gDTYiorvoq8JC6xKhmTihDrZPM8UPZn
+   2568ojmllrxon4vshgWVJ+seLtRKnH2tXJGfKdNvgE0vuUQSOZyr553A5
+   tjvQtyE/opoTc8kfv8uImUDNlOKMEGJ/MayHc0gr/39zsacSb7lLcqATv
+   g==;
+X-CSE-ConnectionGUID: e+/DFed1QZKLSx3fkYq8tw==
+X-CSE-MsgGUID: ksXSoSxUTzCZ1nAQyJ4Cvw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="1481852"
+X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
+   d="scan'208";a="1481852"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 18:59:21 -0700
+X-CSE-ConnectionGUID: Jes9aVRwRbKu33hMBXvTtQ==
+X-CSE-MsgGUID: swjtQWWdTBCYYc/QOcedFA==
+X-ExtLoop1: 1
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa003.fm.intel.com with ESMTP; 23 Sep 2026 18:59:18 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x9Yjz-00000000I5c-0xf8;
+	Thu, 24 Sep 2026 01:59:15 +0000
+Date: Thu, 24 Sep 2026 09:58:21 +0800
+From: kernel test robot <lkp@intel.com>
+To: chipang_kao <prozac2734@gmail.com>, hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com, W_Armin@gmx.de
+Cc: oe-kbuild-all@lists.linux.dev, corentin.chary@gmail.com,
+	luke@ljones.dev, denis.benato@linux.dev, scardracs@disroot.org,
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+	chipang_kao <chipang_kao@asus.com>
+Subject: Re: [PATCH v3] platform/wmi: Move ASUS platform drivers from x86 to
+ wmi/asus
+Message-ID: <202609240939.vOix0FZl-lkp@intel.com>
+References: <20260922032157.120188-1-chipang_kao@asus.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922032157.120188-1-chipang_kao@asus.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Hi chipang_kao,
 
-Critical: 0 · High: 2 · Medium: 0 (1) · Low: 0
+kernel test robot noticed the following build errors:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+[auto build test ERROR on linus/master]
+[also build test ERROR on v7.3-rc4 next-20260922]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-- [High] sctp_assoc_update() (net/sctp/associola.c:1114) now copies
-  new->peer.intl_capable into the surviving association but never re-…
-- [High] sctp_assoc_update() now enables peer.asconf_capable
-  (net/sctp/associola.c:1112) and peer.reconf_capable (associola.c:1113)…
+url:    https://github.com/intel-lab-lkp/linux/commits/chipang_kao/platform-wmi-Move-ASUS-platform-drivers-from-x86-to-wmi-asus/20260922-112157
+base:   linus/master
+patch link:    https://lore.kernel.org/r/20260922032157.120188-1-chipang_kao%40asus.com
+patch subject: [PATCH v3] platform/wmi: Move ASUS platform drivers from x86 to wmi/asus
+config: x86_64-rhel-9.4 (https://download.01.org/0day-ci/archive/20260924/202609240939.vOix0FZl-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260924/202609240939.vOix0FZl-lkp@intel.com/reproduce)
 
-Pre-existing issues:
-- [Medium] The collision merge still does not carry
-  asoc->peer.adaptation_ind.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609240939.vOix0FZl-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/platform/x86/eeepc-wmi.c:25:10: fatal error: asus-wmi.h: No such file or directory
+      25 | #include "asus-wmi.h"
+         |          ^~~~~~~~~~~~
+   compilation terminated.
+
+
+vim +25 drivers/platform/x86/eeepc-wmi.c
+
+e12e6d94db24e9 Corentin Chary 2011-02-26  24  
+e12e6d94db24e9 Corentin Chary 2011-02-26 @25  #include "asus-wmi.h"
+e12e6d94db24e9 Corentin Chary 2011-02-26  26  
 
 --
-
-sctp: carry peer capabilities across an INIT collision
-
-sctp_assoc_update() folds a temporary association into an existing one when
-an INIT collision is resolved, and today it only copies asoc->c, peer.rwnd,
-peer.sack_needed, peer.auth_capable and peer.i.  This patch extends the copy
-block with prsctp_capable, ecn_capable, asconf_capable, reconf_capable,
-intl_capable, ipv4_address and ipv6_address so the surviving association
-reflects what the peer advertised in the colliding INIT.
-
-A few questions about the state that is derived from those bits but is not
-refreshed by the merge.
-
-> diff --git a/net/sctp/associola.c b/net/sctp/associola.c
-> index 4521be3bd85aa..0bd0a662b5463 100644
-> --- a/net/sctp/associola.c
-> +++ b/net/sctp/associola.c
-> @@ -1107,6 +1107,13 @@ int sctp_assoc_update(struct sctp_association *asoc,
->  	asoc->peer.rwnd = new->peer.rwnd;
->  	asoc->peer.sack_needed = new->peer.sack_needed;
->  	asoc->peer.auth_capable = new->peer.auth_capable;
-> +	asoc->peer.prsctp_capable = new->peer.prsctp_capable;
-> +	asoc->peer.ecn_capable = new->peer.ecn_capable;
-> +	asoc->peer.asconf_capable = new->peer.asconf_capable;
-> +	asoc->peer.reconf_capable = new->peer.reconf_capable;
-
-[Severity: High]
-
-Turning these two bits on lets the surviving association accept inbound
-ASCONF and RE-CONFIG, but the receive-side sequence counters those features
-compare against are still the survivor's own.
-
-Both are derived from the peer's Initial TSN in sctp_process_init(), which in
-a collision runs on the temporary association only:
-
-net/sctp/sm_make_chunk.c:sctp_process_init() {
-	...
-	asoc->strreset_inseq = asoc->peer.i.initial_tsn;
-	...
-	asoc->peer.addip_serial = asoc->peer.i.initial_tsn - 1;
-}
-
-sctp_assoc_update() copies asoc->peer.i but leaves peer.addip_serial and
-strreset_inseq untouched, so a COOKIE_WAIT survivor keeps zero for both.
-
-Can the peer's ASCONF then never be processed?  sctp_sf_do_asconf() now
-clears the capability gate and reaches:
-
-net/sctp/sm_statefuns.c:sctp_sf_do_asconf() {
-	...
-	if (serial == asoc->peer.addip_serial + 1) {
-	...
-	} else if (serial < asoc->peer.addip_serial + 1) {
-	...
-	} else {
-		/* discarded */
-	}
-}
-
-With the peer's serial equal to its Initial TSN and peer.addip_serial at 0,
-neither arm matches and the chunk lands in the final else, so no ASCONF-ACK
-is sent.  Does the peer then retransmit until its T4 limit and give up on
-ASCONF entirely?
-
-The RE-CONFIG side has the same shape.  sctp_process_strreset_outreq(), and
-equally the inreq/tsnreq/addstrm_out/addstrm_in handlers, validate against
-the stale strreset_inseq:
-
-net/sctp/stream.c:sctp_process_strreset_outreq() {
-	...
-	if (TSN_lt(asoc->strreset_inseq, request_seq) ||
-	    TSN_lt(request_seq, asoc->strreset_inseq - 2)) {
-		result = SCTP_STRRESET_ERR_BAD_SEQNO;
-		goto err;
-	}
-}
-
-The testing notes describe ASCONF and RE-CONFIG appearing on the wire, which
-exercises the outbound counters (addip_serial and strreset_outseq, both set
-locally from asoc->c.initial_tsn).  Was the inbound direction tested too?
-
-Should the merge also carry strreset_inseq and peer.addip_serial, or
-re-derive them from new->peer.i.initial_tsn the way sctp_process_init() does?
-
-> +	asoc->peer.intl_capable = new->peer.intl_capable;
-
-[Severity: High]
-
-This bit selects the chunk operation set, and the merge copies the bit
-without re-selecting it.  The only place asoc->stream.si is derived from it
-is sctp_stream_interleave_init(), reached from sctp_stream_init():
-
-net/sctp/stream_interleave.c:sctp_stream_interleave_init() {
-	...
-	stream->si = asoc->peer.intl_capable ? &sctp_stream_interleave_1
-					     : &sctp_stream_interleave_0;
-}
-
-In a collision that ran on the temporary association.  Neither branch of
-sctp_assoc_update() refreshes it on the survivor: sctp_stream_update() copies
-out/in/outcnt/incnt and leaves stream->si alone, sctp_stream_clear() only
-zeroes mid/mid_uo, and the COOKIE_ECHOED case calls neither.  asoc->frag_point
-is not recomputed either, although normal negotiation pairs the two:
-
-net/sctp/sm_make_chunk.c:sctp_process_init() {
-	...
-	if (sctp_stream_init(&asoc->stream, ...))
-		goto clean_up;
-
-	/* Update frag_point when stream_interleave may get changed. */
-	sctp_assoc_update_frag_point(asoc);
-}
-
-So after the merge peer.intl_capable is 1 while stream.si is still
-&sctp_stream_interleave_0.  The INIT-ACK extension list is built from
-peer.intl_capable, so the peer is told I-DATA is in use.  What happens when
-it sends one?
-
-net/sctp/sm_statefuns.c:sctp_eat_data() {
-	...
-	if (!asoc->stream.si->validate_data(chunk))
-		return SCTP_IERROR_PROTO_VIOLATION;
-}
-
-sctp_validate_data() returns false for anything that is not SCTP_CID_DATA,
-and the callers turn SCTP_IERROR_PROTO_VIOLATION into
-sctp_sf_abort_violation().  Can a peer that legitimately follows the
-negotiated extension abort the association this way?
-
-There is a second effect in the send path, which branches directly on the
-bit rather than on stream.si:
-
-net/sctp/stream_sched.c:sctp_sched_dequeue_done() {
-	...
-	if (!list_is_last(&ch->frag_list, &ch->msg->chunks) &&
-	    !q->asoc->peer.intl_capable) {
-		/* pin stream.out_curr */
-	}
-}
-
-With the bit set but plain DATA chunks being dequeued, stream.out_curr is no
-longer pinned mid-message.  Can the PRIO/RR schedulers then interleave
-fragments of different streams on the wire?  Before this patch the survivor
-kept intl_capable at 0 and the pin was taken.
-
-The reverse case looks reachable too: a restart where the new INIT no longer
-advertises I-DATA now clears the bit while stream.si stays
-&sctp_stream_interleave_1, leaving I-DATA and I-FORWARD-TSN installed for a
-peer that did not negotiate them.
-
-Would calling sctp_stream_interleave_init() and sctp_assoc_update_frag_point()
-on the surviving association after the copy address both directions?
-
-> +	asoc->peer.ipv4_address = new->peer.ipv4_address;
-> +	asoc->peer.ipv6_address = new->peer.ipv6_address;
->  	asoc->peer.i = new->peer.i;
-
-[Severity: Medium]
-
-This is a pre-existing issue and not introduced by this patch, but since the
-copy block is being extended: peer.adaptation_ind is still not carried.
-
-sctp_process_param() records the peer's Adaptation Layer Indication on the
-association it is processing, which in a collision is the temporary one:
-
-net/sctp/sm_make_chunk.c:sctp_process_param() {
-	...
-	case SCTP_PARAM_ADAPTATION_LAYER_IND:
-		asoc->peer.adaptation_ind = ntohl(param.aind->adaptation_ind);
-}
-
-and the completion path reads the survivor's copy right after the merge:
-
-net/sctp/sm_statefuns.c:sctp_sf_do_dupcook_b() {
-	...
-	if (asoc->peer.adaptation_ind)
-		sctp_add_cmd_sf(commands, SCTP_CMD_ADAPTATION_IND, SCTP_NULL());
-}
-
-For a COOKIE_WAIT survivor the field is still 0, so is the
-SCTP_ADAPTATION_INDICATION notification dropped even though the peer asked
-for it, and on a restart is an older non-zero value reported instead of the
-new one?  asoc->c = new->c does update c.adaptation_ind, but nothing copies
-that into peer.adaptation_ind after the merge.
-
-Note this field is a separate __u32 rather than part of the bitfield block
-the changelog calls "the rest of the block", so it is outside what the patch
-sets out to fix.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260921135733.577647-1-wbriggs%40cellusys.com
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
