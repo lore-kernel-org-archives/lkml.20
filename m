@@ -1,227 +1,125 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9677D407CF1
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:00:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC9936C0D6
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:01:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790240420; cv=none; b=EKWNZaMMdS9xxP2HTIk0Ov18V1/Xg2j+jxtv0WD4vJF5knuBWp7+FDb3bXpC9iaeb6qNtlQTAh7wyJlhOSnWb1mEsnO/1EBuawnprxLN3TLLWmFSRP9rT/a20JbHg6hshjgxHQAhlvGE68uUo3rkSRr5d0RyUtXun6FAZMDNW8M=
+	t=1790240473; cv=none; b=e0/FGmus3BbktEnLeyqIXEeaXN8R/yYADjRkR2V3yV9RsFJ1XYyTcCb8fjjM/Jq9es13PVZmnn5V60v7Ogt/GyAcPWBlyJbwk/ra/uooTA0/9A+iQFn0dJQLeDBaNotYvuwq68fnJJQscUGQmPIOfYcGWpOqufvKMbMsDDMACxI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790240420; c=relaxed/simple;
-	bh=BdJXDvaKOh5OFt5dORHMsd035xcZfYc4LlAUx/3VIZw=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XatRtVwXcd7U3OP7YtnUqkwBsuMprhG1PkfHEUuPc7sdCqdMjuBH2pxUZb+9c3KqThvEgWQqtbC+CRsK7glxmPB48vgFjmdm6TgADanNbw7haekqrzACXh91ncytaornpGQpdslBEb82tXdzMEOxeCJe1pzycH5K9j8NedNIX6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=GFucZx6S; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1790240473; c=relaxed/simple;
+	bh=VwobRVpYjANaRMwKe1VS/B+7A4faDHmtP7SCe6Ik4Cs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LXSmrcUhVa1S5Jq2xd/iWVaT34gCI+KjMMDq2ILhzerhjx2OCkEa0zZkXzb37EM3SlhdP0cJQAFzVRbjqdSDJvTKIIR68+0EMWmlnjx7ZmQqTyGe3/jjgPOjlCZYSvzdQEIkc17ZjwkFTOmKzTPjqes5FE79Hv2YoCUyjfXmfO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=jlMwOUoj; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="GFucZx6S"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4834977ae75so1277364f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:00:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="jlMwOUoj"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a996c8adf3so3103903a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:01:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790240416; x=1790845216; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3mz1zAfbdgLMlTpPSTC2s+r3ackw98q6OqF4ufc8tI0=;
-        b=GFucZx6S8kj3Y4uK/vJbi4AP8CETI6TW7ZR4mHOtKMgw2tG/Ycn4pHuln1cAQP4Av9
-         GNaVcPeQt3YjRes9XGgrr3mt6y52aY00yHbHyQxCLwPq0Mfv0sWCyx0Nd+SjLfet1o2i
-         OhCBrduqDdyMsP3BrPd2XcnA5OGkoD9t4KO4eqZaRLwifTjNZfVn5BSK+FRC5uiKZer9
-         6JNBW52hwR6nrvRMjDfgtqXLZFXP6kkIokbell07RzooMOStwSTHL7Z+7zUWCR7uvpA5
-         veeQUV5Xkf5UuvgjzKAtaCt9Pp1iqVForb5e3mP0oUYNaU8u/rDnqj189PPLl972fzZE
-         c0hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790240416; x=1790845216;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=fairphone.com; s=fair; t=1790240470; x=1790845270; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3mz1zAfbdgLMlTpPSTC2s+r3ackw98q6OqF4ufc8tI0=;
-        b=0lnOKX/+VsWMjnp7lhPz3Umly1jLUalVc4ep18Vc18miUU+VBz0055L97uQzlYwiVo
-         ZPb0K1sgLgohaDqlG6ARCKpjNUbwYJHf9lkpBqITM3RyDzhDkuwJjWE9EPihAX3bJziu
-         3ga0/g+5z9YKgVyQC7fr5lCrMqEJQ350H7BgmWjZhMCYRq9k6+bqKegQhR/1iEKSBCV0
-         XllXsp5MLk/onXWafZIHJHt0P/qSPBOkof5/+fsPD9ze4NsGoSHacHej1VO2ti4Xbjad
-         8jJKCsl9qyygTcMB5xCo8RU6IIKn7VGlFUAIlhHfmAMhwj/AmelNdzxEvS8MxeDzbJRZ
-         m+mg==
-X-Forwarded-Encrypted: i=1; AKwUvBxQ8lZR3rg4yWYmGh69NLz4yujpQR07Sp3ITuKOBi7cQ4uRJGlrjhxOBHwa3qium+eYf4YE3Y7y4Oky54M=@vger.kernel.org
-X-Gm-Message-State: AFuF++ksciePcR86Z5wfr1HvbJDd0/6jXnCNsBoVMCTlN2cMGJ01zsrS
-	/c/GCNfpXqRyRnRgcZ0bYlRx+bpmCwwjKBODaF2Bpe0BsLyojQz6ZrnMRcVNlLg7MTw=
-X-Gm-Gg: AYBFou2bnh1P1+Imhrzl8eeLaoOr9N52wNGq04dxl7SabknVaX4kTQ1x844O+0hZMlv
-	9dY4+dnz4i25bARyCX2+dDr8iMu0+XAnZue48KbRvXXCfICMgIP7UzI0b/qH3s3nGtqLxuQIAPA
-	CTeONG808CPHaQfH3HRfrSaklMtGdkQMISUs7HhxfdZj2JRV6nx6QFDdxsyOO7DONQ/my7855ZN
-	5zZphJtDG2Eg+E8q7ufuUwBuZooow8iDt+yT/6GuPmL4HT3OPseQCmvVgI3yjgPzhBlwwbwbnTd
-	HESQu2QuMYvxGvco9bbqLwKB0nZNSNo4Z5Bas4t3KYwSN18dHUU+8AG5gIfPQz7O9S82sMTGqAi
-	ivlevL5UZaIRLkdYP31oJri3Oz5r6iF0DfwxW1t6fvazsNVqJs5Oz+cPHkuOLbLQBoCNufh6rEN
-	o45jswrrPY3Ewv5y0aPw+GDTcvglO+8lYijI8MBZ7f14V0FrSOyl+ruL82mpf84c/FryGA6Pc=
-X-Received: by 2002:a05:6000:40e1:b0:487:62d:37d9 with SMTP id ffacd0b85a97d-488716a5e3amr2905347f8f.27.1790240415781;
-        Thu, 24 Sep 2026 02:00:15 -0700 (PDT)
-Received: from localhost ([195.94.147.179])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488682676c7sm12445415f8f.3.2026.09.24.02.00.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 02:00:15 -0700 (PDT)
-From: Andrea della Porta <andrea.porta@suse.com>
-X-Google-Original-From: Andrea della Porta <aporta@suse.de>
-Date: Thu, 24 Sep 2026 11:03:56 +0200
-To: Marc Zyngier <maz@kernel.org>
-Cc: Andrea della Porta <andrea.porta@suse.com>,
-	Will Deacon <will@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: smp: Signal EOI after handling IPI_CPU_STOP*
-Message-ID: <arTnfHPBf2qLDLOT@apocalypse>
-References: <20260922140109.12780-1-andrea.porta@suse.com>
- <arPzNkDD69ZKFT99@willie-the-truck>
- <86se2z4yje.wl-maz@kernel.org>
+        bh=VV2A/h1hdmSjmCuEGrBZoGbpIoorMrIlLJZkmtVMN8E=;
+        b=jlMwOUojVDcAAfPez3FOQ/jbGNvuWPUs+W1SJft2w2awaQ2CNY8uLxCjyZMj1rFkBT
+         KEk37cB/YHKgE37QYai33SUmCdPEC2HW0oLgtFhEOHMzd8mNJV0gFzcl3BzBE3/cz1Uy
+         rffwurd/UnhBQ4EwG8cvuVTJlPxZ6QjK+y8tiSTBQu2EL3n5UP+Ob6voSiTJXI1hIVXn
+         1eeRexy7zHnZ5SyJMQ6jPdnGV7/rxwUqCCV2jZ2L51vay5s2U2cJDw/oZMYhCd8KkNSL
+         LAWIm7Xba9gAAhpfBUBF+WEoKoa8l1Kso8KX69XL0jxS6Zu6Bpy95Il1lNMbOF6Eot4X
+         z+tA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790240470; x=1790845270;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VV2A/h1hdmSjmCuEGrBZoGbpIoorMrIlLJZkmtVMN8E=;
+        b=or+qiz20XnOYyyfo1d2/EeMvB7yQtMEnoy1Z4mJnDeV3Co+jJTGMT+CKASpSY1hZAs
+         GIvrIb/SFY0OQTjSETeEntdegGkfz1Ww3FGrxolLLwrtWaV428KuGmoTjr/tE6tGATLG
+         kgsmEWd8sunxHJQghKXUdR0RW8ffC70l48NNd/Ex8+KiE2tU5G5bfaIICgvfr2Z7HKFc
+         aSv5lsDrhZsh4dMYfzb4nBH85fHQvgySgkPeBMfyQpb3QMoemjzMvoFivTm7g2IW6EX3
+         WL1wK8sRvfGc9ExUkuyu9qmC97mp4K2cTjDDc3sn6w43udVmrJPIs0F8FvOJcqWMw0XJ
+         E0Iw==
+X-Forwarded-Encrypted: i=1; AKwUvBxYkM8vJi8ZQLi8guyhFutMtQ+QHCGnzrVA4CwFoKzkDJvrYF1dS3+DrYlRRzmpDqgDw+SICw0o/KLhW/o=@vger.kernel.org
+X-Gm-Message-State: AFuF++mB600p+N5ApcZAQqPmU39mEGvLyhS9NwvuhVZ8Wcz8qmN9Z8Re
+	Sw1NKPH8bOidJjYOgOt23zNWlvcBld7XyDdW7HVES2Bym/hyDcdjacU4sAcHr9jyMIw=
+X-Gm-Gg: AYBFou01zz1046Lzey83KiR7WgPMiSYhMRGSvDUABbcu1QbinfqO9HVPl5BhtlFchMz
+	2qaX6uw6QMPwUxFrZeajdkJtio88fV1zEBqQ7SKILheCaDk4ZyeOitkR1UAHlarKDoMPJ2saP86
+	zxcQyjeU52+MJ8Nu37XvyOfRQPOAM34UXpeSJPsGSiz3qwBSwGutE6uK6FT7Xut6wE+GlSIQU23
+	bsgrpjK+A4xkoOsnzJV34LRocn3nch/MxmBK4lZI4JJ5KOyAvvtSEpuUsjPq1j+UcB4aeFqRlB8
+	jY1CAUgGKp4qiQlZHngzpB3aS2U+YidP/qT6kFlywAkZl8DGXfxDZd3m0txc+LC2Abew1QB9Zq5
+	TaYG8PrBiCcl8KJPWIDGsDdKh9vuOz/7u7l39mHdLUk2r4DvDBxqHTscrA4MQAWfFyIuXe7BXLg
+	d+BZN8CotweC0lyioGDnIA1ZGBSCJw8eEy15L7T+mJWoDq3NSpxN87/hifAXLiLJgp00r428UZh
+	7bbMRUB20xyGrH3j8luVyObvdX6xgoVslq4ND3fs+J8gVzWKGHFck4K
+X-Received: by 2002:a17:907:96a2:b0:c29:f5d8:9c7e with SMTP id a640c23a62f3a-c2ac22cb906mr148643166b.45.1790240469960;
+        Thu, 24 Sep 2026 02:01:09 -0700 (PDT)
+Received: from [172.16.220.225] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae5c6f5asm273374466b.15.2026.09.24.02.01.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 02:01:09 -0700 (PDT)
+Message-ID: <7827fbba-b8e7-43f9-ae80-caea7f191d2d@fairphone.com>
+Date: Thu, 24 Sep 2026 11:01:08 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <86se2z4yje.wl-maz@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] AW8695 haptic driver.
+To: Val Packett <val@packett.cool>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <20260914-aw8695_haptic_fp4_driver-v1-0-156f7549149a@fairphone.com>
+ <c49fe267-7da4-4b34-8dbd-3536a327423c@packett.cool>
+Content-Language: en-US
+From: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+In-Reply-To: <c49fe267-7da4-4b34-8dbd-3536a327423c@packett.cool>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Will and Marc,
-
-On 19:23 Wed 23 Sep     , Marc Zyngier wrote:
-> On Wed, 23 Sep 2026 16:41:42 +0100,
-> Will Deacon <will@kernel.org> wrote:
-> > 
-> > [+Marc]
-> > 
-> > On Tue, Sep 22, 2026 at 04:01:09PM +0200, Andrea della Porta wrote:
-> > > On kdump/kexec, the boot CPU triggers an IPI_CPU_STOP (and subsequently
-> > > an IPI_CPU_STOP_NMI if the first one does not respond) to the secondary
-> > > CPUs, and the IPI handler eventually calls the firmware to shut down
-> > > each CPU. Since the IPI is never acknowledged via EOI, the interrupt
-> > > remains in an active state when the CPU goes idle.
-> > > 
-> > > In a virtualized environment, if the hypervisor does not reset the
-> > > interrupt state, this causes the crashkernel (with cmdline option
-> > > maxcpus > 1) to be unable to synchronize between the boot CPU and
-> > > secondary CPUs via IPI_CALL_FUNC, leading the kernel to wait indefinitely
-> > > for the CPUs to respond. This has been observed with the Hyper-V
-> > > implementation.
-> > 
-> > Hmm, how is this different from panic()ing inside an interrupt
-> > handler?
-
-It is not, in fact I should have put the EOI in all cases, but I just
-focused on the crash driver by IPI only. The patch should be extended
-but from the following discussion it does not seem relevant anymore.
-
+Hi Val,
+On 9/15/26 06:14, Val Packett wrote:
 > 
-> Also, what is the architectural requirement for the hypervisor to do
-> *anything* on the state of the interrupts? This doesn't happen on HW,
-> and there is no reason to impose this on a hypervisor either.
+> On 9/14/26 11:37 AM, Griffin Kroah-Hartman wrote:
+>> Clean-up of the aw8695 haptic driver patchset that was sent in 2022.
+>> Variables dependant on devicetree have been hardcoded, and unnecessary
+>> functions have been removed.
+>> [..]
 > 
-> The expectations are that the guest kernel should reset the interrupt
-> state on boot, and it feels that this is missing somehow, see below.
-
-Ack.
-
+> This looks similar to aw86927.c just with a somewhat different register 
+> layout, but there's even the same waveform and so on.
 > 
-> > 
-> > > Both the Linux kernel and the Hyper-V firmware appear to violate the
-> > > PSCI specification:
-> > > 
-> > > - The PSCI spec states that the OS kernel must migrate any interrupt away
-> > > from the CPU that is about to be shut down via CPU_OFF, which by extension
-> > > implies that no active interrupts are allowed. The kernel does not
-> > > currently do this in the kdump crash path.
-> 
-> No. This is strictly about affinity, nothing else. It is there so that
-> global devices can continue to have their interrupts handled. This
-> evidently can't affect CPU-local interrupts.
+> Could it be better / worth it to do everything in one driver (aw86927.c) 
+> and only have different register accessors per model but shared "logic" 
+> overall? Or would that make testing too annoying?
 
-Noted.
+You're totally right with the similarities, and the original idea was to
+add on to the '27s driver, unfortunately the register layouts are too 
+different for it to be worth it.
 
-> 
-> > > 
-> > > - The PSCI spec also states that the PSCI firmware must reset the CPU
-> > > registers to their default values when turning on a CPU via the CPU_ON
-> > > command.
-> 
-> CPU registers. Not external peripherals such as the GIC.
+> FWIW I've been trying to bring up aw86224 which has even fewer (but 
+> still *some*) differences to aw86927, so I'm potentially interested in 
+> having a unified base to add it to (when I figure out why it's stuck in 
+> overvoltage protection or whatever it was..)
 
-True. Those are distributor related.
+After a brief glance at the register layout for the aw86224, it totally 
+seems compatible with the aw86927, lots of shared registers, so I 
+definitely think that your approach is the way to go there.
 
-> 
-> > > 
-> > > Fixing this on the kernel side has the advantage of being
-> > > hypervisor-agnostic.
-> > > 
-> > > Signal EOI at the end of the crash handler to prevent the subsequent
-> > > crashkernel from hanging.
-> > > 
-> > > Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
-> > > ---
-> > >  arch/arm64/kernel/smp.c | 22 ++++++++++++++++++++++
-> > >  1 file changed, 22 insertions(+)
-> > > 
-> > > diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
-> > > index a61dc3016a117..cc7f3261fe537 100644
-> > > --- a/arch/arm64/kernel/smp.c
-> > > +++ b/arch/arm64/kernel/smp.c
-> > > @@ -988,6 +988,27 @@ void kgdb_roundup_cpus(void)
-> > >  }
-> > >  #endif
-> > >  
-> > > +static void ipi_eoi(int ipinr)
-> > > +{
-> > > +	unsigned int cpu = smp_processor_id();
-> > > +	struct irq_desc *desc;
-> > > +	struct irq_chip *chip;
-> > > +	struct irq_data *d;
-> > > +
-> > > +	if (ipinr >= MAX_IPI)
-> > > +		return;
-> > > +
-> > > +	desc = get_ipi_desc(cpu, ipinr);
-> > > +
-> > > +	if (desc) {
-> > > +		chip = irq_desc_get_chip(desc);
-> > > +		d = irq_desc_get_irq_data(desc);
-> > > +
-> > > +		if (chip && chip->irq_eoi)
-> > > +			chip->irq_eoi(d);
-> > > +	}
-> > > +}
-> > 
-> > Doesn't this hard-code the flow handler for the irqchip? It feels like it
-> > would be better for the GIC driver to get a callback during the kexec
-> > sequence (if it doesn't already) to prepare itself.
-> 
-> Yeah, that's not an acceptable approach.
-
-We're in a non returning handler which is about to shutdown the CPU in a few
-instructions, so I'm not sure how to callback into the GIC driver.
-
-> 
-> The other observation is that the GIC drivers already clear the active
-> state at boot time (gic_cpu_init()). So what isn't that working?
-> 
-> Could it be that the hypervisor doesn't correctly handle the writes to
-> GICR_ICACTIVER0 to nuke the active state? Because this works correctly
-> on KVM as is.
-
-That's what I suppose, but obviously I have no access to the implementation
-so I canot add more. This is currently under investigation by the folks who
-can, though...
-
-So the bottom line is that we need to wait for a patch from the hypervisor 
-vendor (and from any vendor that *could* suffer from the same issue), I guess?
-
-Many thanks,
-Andrea
-
-> 
 > Thanks,
-> 
-> 	M.
-> 
-> 
-> -- 
-> Without deviation from the norm, progress is not possible.
+> ~val
+
+Good luck with the aw869224!
+
+Best,
+Griffin
