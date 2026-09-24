@@ -1,107 +1,203 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66FC43C1F57;
-	Thu, 24 Sep 2026 11:33:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D85CE44065A
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:33:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790249628; cv=none; b=RcS7zKWIHa+q8bFM+VRCaOs79FQyu4wDntKAVOCbWQynU3Qu18qKLfVTsUnFgMOrSap1+ldzwLyWlHtw7phdj43tWkqT9PoNYP+fPTiegiwXWEui3TpCdr8QWSJwgtsQORfqnLZ5S7rsNpzwvx+h39rx+bC8oCW+KKNxetN2ggs=
+	t=1790249637; cv=none; b=ItE/rSFIhuYsorkyxk8FXuDF2lbY69iAEHMGFlGtq9KnW552Kjq/1BNmpFI1VNd8Q6utaFoltKqd81Yr9EKZsdKwf4H4TTu3eDlA3Pn3lZdvGiS6ifT7AcjqWjvwcSRLURpoR2RpkKPISqw07dF1fy8k05I3kAtfVH7m+mhf/i8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790249628; c=relaxed/simple;
-	bh=uxscIP7OJyfM7dk0uHvdNBa7BC1Q/dfRSwlbTBDVa00=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ieja47BZPwJksNxKmxLTyRc4FyskZTLHkFOnq+azVTMsnKxvuQ02zg7MyrKHuAptROk+JVZAi5ZCizDJjbi2JpQgztXQQLKjmx8kN1Th2znw9eRbXu9M4yRshp9JLd/6GdBAnOyAABEAhxcJgGyTgSf8qNLwjM1IYO0z/d4haHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fMY6S+Bn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790249637; c=relaxed/simple;
+	bh=xz9dxi3INaU36pJpNlvgHWawp1/NGShtakUc/gOosvI=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=DCyn9bbCSN5hlNmLUCBoEp/Oy2Yfn61/fN1AfAP7z/ztd2iMTa1j1V3UklxZ63YzO8UrIWy1rvt7qhm7m1a1W2Is231Ax6wEI+S04ko6lr7k/S0c/6Bo/CPPzJYCKGRPNhMuggYenJPyKsDihHtdImLW/0rT3ZEQv/8gQvVpUFY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SXymEBl5; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fMY6S+Bn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8353A1F000FF;
-	Thu, 24 Sep 2026 11:33:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790249621;
-	bh=gpEA6fUy3JVgcQaZHWEzheoPdnjTOP9NEnmDegJUc/o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fMY6S+Bn70Ys3Kmsb3BntrNVe8Jt8iD9l0QuJyWfPf39Oa/p2rV42aQ+VHciQV55b
-	 yM/H8rVA1JH49yS+630vMdz5/6MePkYFIM33Ng8DsGwR4xqzR87tzxusZWDX1t+ZbI
-	 iRpVpYFjEAIATE1d2j2UHD5rSUY5TXDmU4CZa5WUY4gzNRxqMbBd/QzHmLhdvnSHUX
-	 kS9XhRcRkIPRw4hOqu/hTiCNfnt+Lolhw7GfxNIFarIv+9aOJkxdIHzOIXGTsTNuvV
-	 EQKVhf1KyQtsGXTRmagzX+dSVkm3RuISQPFhKyysoFpId8elfCIUgTvhS75ci98l7m
-	 iYs8kbzCS+Zcg==
-Date: Thu, 24 Sep 2026 12:33:37 +0100
-From: Simon Horman <horms@kernel.org>
-To: netdev-bot+sashiko@kernel.org
-Cc: benquike@gmail.com, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] net: llc: clean up unaccepted child sockets in
- llc_ui_release()
-Message-ID: <20260924113337.GD13925@horms.kernel.org>
-References: <20260919213635.3314344-1-benquike@gmail.com>
- <179019939874.2160803.14497903403458944686@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SXymEBl5"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71cdb22bso14344565e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:33:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790249629; x=1790854429; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3Q9bv5GdJS4737ZoflJrDPxuZu2bDsMMhiRIqFZTTwg=;
+        b=SXymEBl5mkPDEqgdQD/07QFHI0ZqPsCFqzb4iA5SKwEteGdbc2X/C2MmvL+1lAxMwk
+         t2d3xfRNKBFgj9tVTj0vaeMz0rSaz0Pslg9jBlbOa1dHa6l2TG9xLST2nf4Fct/RWStT
+         vu5aTEMuZORu837Nn8PwyBmjG/NVbStka4rT1oZe/NL9dvasP/oPH39rGOocvfEseruu
+         CqV3DSNOl7AGNoRnZ6Dtf1ikNL3PJcTGhTEQ3F8+s2YKjAbHtWpdCMUKdfsn3lhz5bFf
+         +NdTDymd1Pw38BQKAKESu6r/jnb1j6f1pe4cu2UfejymWwk08Zm7WSOPjcSl8bmptUjP
+         xsHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790249629; x=1790854429;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3Q9bv5GdJS4737ZoflJrDPxuZu2bDsMMhiRIqFZTTwg=;
+        b=BES8xJllExbRkqJQ00g+4Zam+vjjNF0hq1QF4sRbj39U831tiZ2CQO5KUgTgg6dpga
+         OW2Sfys0f8GiuHUPtA0pCra6gGFg1c/08fRB7Tdfq1pXG+CbZGtq/bHEJFqc9nKX9sae
+         h30L1MioUOF0PzP9nGd49KCNqUMzAbFxwApi6lMKLz7SodTgiQt1SJdIOsMORGpXGp2E
+         qK3t7LagVyBfMoHVMR3SV23HgZWOPwfhVB2e1LfePOT0UssP+stkWJoR75gHZKRJADzI
+         BOUsnpum/aKFfHI2eb0VKAZ86dnnP+AaVPkx3JgZ/J21mw2CI/zKTANpJNtLwr1qhW/d
+         t7Hw==
+X-Forwarded-Encrypted: i=1; AKwUvBw6rXbXjMh+vzGSthbRM1aI7HH6uhxS/3Dr2ZxWRbIAnitTB5MrC+A4eWgn2PxdVklqhH4DvhlqMMPduP0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mZyO2BTYNhjrMRTxMTMqrr9Q45cheqwJdgbDWJ+V5eMmdfx9U0
+	7FNIx+5qrIo9E8yrtxBfyp8GyISxRzw7nN9GhFGQWi3q5sYtSw9jVdD6
+X-Gm-Gg: AYBFou3zztmboW9MuroRZVbxvt+s3lNBfmrTvIQHS5XBjdf16k76jALzAynvhc17UXQ
+	0vyjaMzrGiuIqOPiTi5/ZXO2+Bi3hV55B8etUN7Ze7z04Aq4kcHobpYEvlQK5npxjkBdMmL9gSi
+	P34O4PTD9TOBcGhDpDOiZuGTdBIMZAktbVixYpofJ0IT3f9Y5VJz1NNqiaqOfwNLJGuYk32U3Va
+	0LCH2j7GVuuA7ngJKnGJgXXgCJcNwiMNBxtjF7HefHqKZmFnAWgbZ88lbJJDLIRcrVsq9rtrx5m
+	cwHw9uFRK5AWDAP5wZH8ITCpEa8QOuRo2BbsVX1qNYEjN8KowU/bOXZj6UNMRuOWXrQ0Z9SIB/n
+	29MM7YoqOQb7XiHj2OUmEPWWNwENzPLkednNrsllyDuRarsobZxQWo+yDDYg8k6LzPjqUWVfoLo
+	v11AWIsDGmeZQ4ca3YEL0vuGSWrWpbsxMIiJ7oDj+bZI6ducxzEwG8DSvDwJfR6+3nNrk5CpDEG
+	RYRmwiaY21bM31dsCfD3fbPyNL9sOPewjE60g==
+X-Received: by 2002:a05:600c:4594:b0:49e:6249:268b with SMTP id 5b1f17b1804b1-49fe6707f69mr40469475e9.32.1790249629279;
+        Thu, 24 Sep 2026 04:33:49 -0700 (PDT)
+Received: from [192.168.20.170] (5403F394.catv.pool.telekom.hu. [84.3.243.148])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488682668dcsm15098556f8f.1.2026.09.24.04.33.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 04:33:48 -0700 (PDT)
+Message-ID: <f2ccd6b6-e5a2-4d36-a12c-124638c31280@gmail.com>
+Date: Thu, 24 Sep 2026 13:33:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+From: Gabor Juhos <j4g8y7@gmail.com>
+Subject: Re: [PATCH] clk: qcom: gcc-ipq5018: mark 'gpll0_main' clock as
+ critical
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>,
+ Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
+ Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>,
+ Sricharan Ramabadhran <quic_srichara@quicinc.com>
+Cc: Stanislaw Pal <kuncy7@gmail.com>, Mieczyslaw Nalewaj <namiltd@yahoo.com>,
+ Jie Luo <jie.luo@oss.qualcomm.com>, Georg Seema <georgseema@gmail.com>,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260918-ipq5018-mark-gpll0_main-critical-v1-1-fbe8f27a0106@gmail.com>
+ <e16cf23c-82aa-465b-81b2-6240f4a0f4d9@oss.qualcomm.com>
+Content-Language: hu
+In-Reply-To: <e16cf23c-82aa-465b-81b2-6240f4a0f4d9@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <179019939874.2160803.14497903403458944686@kernel.org>
 
-On Wed, Sep 23, 2026 at 09:36:38PM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 6 potential
-> issue(s) to consider.
-> 
-> Critical: 1 · High: 3 · Medium: 1 · Low: 1
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Critical] Type confusion in the new TCP_LISTEN drain loop in
->   llc_ui_release(): the loop assumes every skb on sk->sk_receive_queue…
-> - [High] The drain of the listener's sk_receive_queue is placed at the
->   very start of llc_ui_release() (net/llc/af_llc.c:207-225), before…
-> - [High] The new child teardown in llc_ui_release()
->   (net/llc/af_llc.c:213-222) removes the child from the SAP hash, drops…
-> - [High] Incomplete fix: the new release-time drain can only reclaim
->   children whose skb reached the listener's sk_receive_queue, i.e.…
-> - [Medium] Reference-tracker acquire/release mismatch: the new code
->   releases the child's netdev reference with netdev_put(child_llc->dev,…
-> - [Low] The commit message cites a non-existent symbol: "llc_ui_release()
->   calls skb_queue_purge(&sk->sk_receive_queue) in llc_sk_Component /…
-> 
-> --
-> 
-> net: llc: clean up unaccepted child sockets in llc_ui_release()
-> 
-> The patch adds a drain of the listener's sk_receive_queue at the top of
-> llc_ui_release() when sk_state is TCP_LISTEN.  For every queued skb it
-> takes skb->sk as an unaccepted child, removes it from its SAP, drops the
-> device reference and frees it with llc_sk_free().  A few questions about
-> the new block and the changelog below.
-> 
-> Commit message:
-> 
-> > If the listening socket is closed without calling `accept()`,
-> > `llc_ui_release()` calls `skb_queue_purge(&sk->sk_receive_queue)` in
-> > `llc_sk_Component` / `llc_sk_free()`, which frees the queued `skb`s
-> 
-> [Severity: Low]
-> Where does llc_sk_Component come from?  A grep for that string over the
-> tree at this commit returns nothing, and the only skb_queue_purge() of
-> sk->sk_receive_queue in net/llc is the one in llc_sk_free() in
-> net/llc/llc_conn.c.  Could the changelog name only the function that
-> actually exists?
+Hi Konrad,
 
-In this case I am just going to stop right here.
+2026. 09. 23. 15:32 keltezéssel, Konrad Dybcio írta:
+> On 9/18/26 11:27 AM, Gabor Juhos wrote:
+>> On IPQ5018, the APCS core clock feeds the CPUs. It can use
+>> different clocks as its parent, but during system boot it
+>> utilizes GPLL0.
+>>
+>> Under some cicumstances, the 'gpll0_main' clock is getting
+>> disabled during kernel start which results in a system hang
+>> then the hardware watchdog restarts the board after a while.
+>>
+>> This can happen when a driver gets a clock in its probe function,
+>> then releases it either directly or by devres cleanup on probe
+>> failure.
+>>
+>> For example, since v6.18 the kernel often fails to boot on the
+>> TP-Link Archer AX55 v1 board by using the in-tree dts. In the
+>> failing configuration, the 'ipq-cmn-pll' driver is built into
+>> the kernel and the problem is caused by the pm_runtim_put()
+>> call in the ipq_cmn_pll_clk_probe() function. Due to this call,
+>> runtime pm disables the 'gcc_cmn_blk_ahb_clk' clock asynchronously
+>> which results in disabling 'gpll0_main' as well.
+>>
+>> Mark the clock as critical in order to avoid such hangs.
+>>
+>> Cc: stable@vger.kernel.org
+>> Fixes: e3fdbef1bab8 ("clk: qcom: Add Global Clock controller (GCC) driver for IPQ5018")
+>> Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
+>> ---
+>> Note:
+>> There is a patch [1] awaiting upstream which intends to solve the
+>> problem in the case of the 'ipq-cmn-pll' driver. However the same
+>> hang can be reproduced with several other drivers by triggering a
+>> probe failure in them.
+>>
+>> The actual patch aims to solve the root cause.
+> 
+> This is a good workaround. Ideally, we would resolve why this
+> happens in the first place.
+> 
+> At a glance, we have the CPUs consuming
+> &apcs_glb APCS_ALIAS0_CORE_CLK
+> 
+> which takes XO/GPLL0/A53PLL as parents.
+> 
+> GPLL0 is a child of GPLL0_MAIN, so this should never be gated in
+> practice. devlink and probe deferrals should make sure you always
+> get a valid clock handle for the cpufreq driver..
 
-It's a low severity issue. But at a minimum it seems to imply something has
-slipped through. And looking at the long list of issues flagged above,
-combined with the long list of patches from you in my inbox (~66) I don't
-think it is wise to spend more time on this one in it's current form.
+Yes, the cpufreq driver gets a valid clock handle. However the hang happens
+early, when the 'apcs_alias0_core' clock is not registered yet. So CCF does not
+know that the clock (hence the CPU) is a consumer of GPLL0.
 
--- 
-pw-bot: changes-requested
+The reason behind the late registration of the 'apcs_alias0_core' clock is that
+probing of the 'mailbox@b111000' device is deferred probably because it requires
+the '&a53pll' and the '&gcc GPLL0' clocks. This can be easily seen by enabling
+debug in 'drivers/base/dd.c':
+
+...[    0.627289] platform b111000.mailbox: bus: 'platform':
+__driver_probe_device: matched device with driver qcom_apcs_ipc
+[    0.627535] platform b111000.mailbox: Added to deferred list
+...
+[    0.967199] platform 9b000.clock-controller: bus: 'platform':
+__driver_probe_device: matched device with driver ipq_cmn_pll
+[    0.974373] platform 9b000.clock-controller: bus: 'platform': really_probe:
+probing driver ipq_cmn_pll with device
+...
+### without the patch, the hang happens here ###...
+[    2.272775] platform b111000.mailbox: Retrying from deferred list
+[    2.280683] platform b111000.mailbox: bus: 'platform': __driver_probe_device:
+matched device with driver qcom_apcs_ipc
+[    2.286054] platform b111000.mailbox: bus: 'platform': really_probe: probing
+driver qcom_apcs_ipc with device
+[    2.301354] platform qcom,apss-ipq6018-clk.0.auto: bus: 'platform':
+__driver_probe_device: matched device with driver qcom,apss-ipq6018-clk
+[    2.306621] platform qcom,apss-ipq6018-clk.0.auto: bus: 'platform':
+really_probe: probing driver qcom,apss-ipq6018-clk with device
+[    2.323267] qcom,apss-ipq6018-clk qcom,apss-ipq6018-clk.0.auto: driver:
+'qcom,apss-ipq6018-clk': driver_bound: bound to device
+[    2.332307] qcom,apss-ipq6018-clk qcom,apss-ipq6018-clk.0.auto: bus:
+'platform': really_probe: bound device to driver qcom,apss-ipq6018-clk
+[    2.342573] qcom_apcs_ipc b111000.mailbox: driver: 'qcom_apcs_ipc':
+driver_bound: bound to device
+[    2.355998] qcom_apcs_ipc b111000.mailbox: bus: 'platform': really_probe:
+bound device to driver qcom_apcs_ipc
+Now that the 'apcs_alias0_core' clock is registered, the cpufreq driver can
+switch the clock's parent from GPLL0 to A53PLL:
+
+[    2.427166] platform cpufreq-dt: Retrying from deferred list
+[    2.437131] platform cpufreq-dt: bus: 'platform': __driver_probe_device:
+matched device with driver cpufreq-dt
+[    2.442776] platform cpufreq-dt: bus: 'platform': really_probe: probing
+driver cpufreq-dt with device
+[    2.461285] cpufreq: cpufreq_policy_online: CPU0: Running at unlisted initial
+frequency: 799999 kHz, changing to: 800000 kHz
+[    2.479751] cpufreq-dt cpufreq-dt: driver: 'cpufreq-dt': driver_bound: bound
+to device
+[    2.481435] cpufreq-dt cpufreq-dt: bus: 'platform': really_probe: bound
+device to driver cpufreq-dt
+
+I have not found a better solution which prevents 'gpll0_main' from being
+disabled until the 'apcs_alias0_core' clock gets registered.
+
+On the vast majority of the boards, one or more consumers of the PLL are always
+active during runtime, so in practice it always runs anyway.
+
+Regards,
+Gabor
