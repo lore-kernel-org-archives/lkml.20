@@ -1,147 +1,251 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14220388866
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:31:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE4D635677C
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:32:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790242320; cv=none; b=r6gw25VTQY0+0aeGmbAwzJ7xvCwk+lwgmbpLICMzZy6+qRrjJvLoDSadUloEzmmD4sderm2eVPUJXxDISCXDAsRUlCmcZoD5ZmZ8SBGWFn/KZ0JHwjQ1OWBwa3XQxg9RFuJ1Ko3yq+YrcGUbAeD5m5FLyIFn0W+LmTg3n9nFdZE=
+	t=1790242344; cv=none; b=CJu8Ggfheq83NCj3F0VP9aHKGZbKSdo3AZYWhfMsUXa7PTRyNCzsGM6ewHPXrTETz0XUXpVFlAzBGrRN5TL30ZN5/MkZYxvR9i4DdtCS61fDU68AdxOz5zwcsf+mOQ3xwX9+vP8Yqqc1CTqyyeG+wargH5gwC/jHOVU8kMLa20Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790242320; c=relaxed/simple;
-	bh=nzvl7mqCF4ztoD1AQhrEHtx+ggc5PpKtO7mNFBUOwCs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iQw6hKCfOp3hZ1PaN5Y0x2vCJYzJ2jvBDjiljhB0jXUFsq8pN7JGUXB2zk7PRhsXubCiwBk2Y7puz5DnU/7Rv0Wn8h3addN0U91bYdhvReHyHfJb6wRU0FEvKLyZy9/qAGrR9b1df+suwJZiLYDljAaMBPzEj60ukwD3wVfdeiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f47e3Cim; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790242344; c=relaxed/simple;
+	bh=EtgmPf0YD4JWmvmkDlXpwIpNbP+mzzcg4V9Fbz1+j7k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=ZCPhE3aLU6292OdS1Uwyeo8qz6exXk9BrJ6H1Ow689ctZxNBRWN9LRLNwn47dK4Opje+5mR1azoENTXrNaLDdLBqdEeVkRhEvGY2QpjsGV/LIahFFL7SZnmm+CwM3eYuhuzGHL0M6e+KhcU4F+LKxrb9DbyA9V8e9oUoNBNcTTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=l+Vdvivn; arc=none smtp.client-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f47e3Cim"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c294496989aso233613066b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:31:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790242317; x=1790847117; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IVufKMPB9vejpNzxTLukLIifCoBhEi//kGkahD5KaUo=;
-        b=f47e3Cimiq/4GG/lBAVvrd1xly4gsc9O4dK5YuRxulEjBDmz6olRWnVL0TveIpkiFi
-         uvz9xeCMA/3K7vbu4v8AkF2hbW22qq03Z1KfDkRBCz3oirpIYrLJ5Eq9hlHH0/Xdd6Am
-         3ZqWTqIJGfI8CznfuuD4iMZhodEHg1gqpWSdKBKURrElNF3CArEFI51tvz+2ULuz4R/L
-         /Wl20E2CvTIOGWZZUEEJAjFbrW6q8rKCxTw2goPBhAEWE6qHH3oCYtOE+r4UGkxwHeDa
-         yEx5wECT6uohnRGbonOnbM2ctn+iJeYV3ur8BsFYaYNDdchZfsDgLtqYGiXc/Wpw7ga0
-         +NbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790242317; x=1790847117;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IVufKMPB9vejpNzxTLukLIifCoBhEi//kGkahD5KaUo=;
-        b=gTifKvex47aZa65KeaRKaZltLQlUNu3hdTvRbCLzqL+UNqgDeGJjSVTc0+XW9VlJJL
-         vNMlYUXosAiFYhxL1ElI+OqTs/y+AuEQy9b2EIHC4lz/E+8OqaOh/TEzGTXT576dXEwS
-         B3KHbj+ZH9UAdSnX9n0rKbRfH8j9vF9VJuayxaLyUrgGPPmRtv84j+ipWyM+2M/HokmJ
-         FPvP0G4T4CdLQQVbPyz5edn9MZH3rfSW/JMJ2BUlg1Tms3EtwZv1fzxWy1dI1CzOUcLh
-         /BAdngCOXq/VnTacz7uwJYqOd1c/ExeGXH57u23qQZqP0XJVzDtrDFydgiNKMhrf5eEZ
-         2Cjw==
-X-Forwarded-Encrypted: i=1; AKwUvBztzHm8OaTU8gP3JGLiciRsJv2/6DRDrwJX0pd+IGxanD42xJRbVx/5Lnq+LXNOWGZawxMXfdJnk9czYNA=@vger.kernel.org
-X-Gm-Message-State: AFuF++ly7J42xsarqb2O33vEirKxfU6YBL4kJ3BzrFZbfQBdbOpr3w8Y
-	jh1gNpXbRgENqxfRnLkL/9TcMRCHl0wTfNJuxEYgcJM5rPmo91eXRH9e
-X-Gm-Gg: AYBFou1SnsBSM5rbLyNyOthniuJ01ZMFyjBT29BlmRg1+Lk5pHzYHhiX/q9XVr5O2XT
-	l8YUx0I325xQWIBn3oeEzOK4YxjxS2Tnxjzc8Iz2P9RfpHYslKnVy/Qu3YZRDHF4OWQflny6jI4
-	80b8DiWJ2KsuytB5ew/dIOu4b7fV6ptkXo6Lgr2gV9RImZYtUyrXtkajJxUa4C2AyyErfZmrOhH
-	sN+62WRBIg3/VyD9hjknHuffcrAFCPuMN+TWmYx5qovkXGNHsEl8HvrysP4LrKqQ9Eb1tBpqYc1
-	hsYDZRXsB9ZZJ1ZTxdXFVrrUF7FUFLuxOZmY1AlDGfUGCXh7KaLIoS5V6NY5NwsTmL0ydMSXA3U
-	lyGHAOIHn8yTpFlhXApLEhWJXGVEpyb0HE6X495I/xCG19R0xIkEKQpikI25wbPloivU/j9vdSs
-	m3RN3Y2CE5C5w48oS4ynQCT2Dh+6DSjuCL5b095oV1aXukC8ondJTfFz75y76NKkl88A+081CfQ
-	2ZcNcMPOqFCzOzf/XctHtEJI65ycs0cx9ednNhH4KpPG0/XmTpz3C6x8g/7K6dx0NLqoLzmYl6Q
-	3xs8
-X-Received: by 2002:a17:907:9812:b0:c26:1648:a06e with SMTP id a640c23a62f3a-c2ac253f94cmr137512666b.41.1790242317135;
-        Thu, 24 Sep 2026 02:31:57 -0700 (PDT)
-Received: from andreayoga.localdomain (93-42-14-189.ip84.fastwebnet.it. [93.42.14.189])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae675d59sm270080366b.42.2026.09.24.02.31.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 02:31:55 -0700 (PDT)
-Date: Thu, 24 Sep 2026 11:31:50 +0200
-From: Andrea Parri <parri.andrea@gmail.com>
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	"Paul E . McKenney" <paulmck@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>, Boqun Feng <boqun@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Puranjay Mohan <puranjay@kernel.org>, rcu@vger.kernel.org,
-	bpf@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] kprobes: Make optprobe optimizer multi-generational and
- asynchronous
-Message-ID: <arTuBodyGqQ0mErI@andreayoga.localdomain>
-References: <20260923164510.f3bbddefea4423f8f1bfecb8@kernel.org>
- <179017148080.466588.9116221556625712980.stgit@devnote2>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="l+Vdvivn"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=cMX/+oSPzTvNY1c3CJzYQL8oSLhnLgll20elCaYZ7Rc=;
+	b=l+VdvivnO83mL++6AFuZROEKnnmLey08tbQ49CIjMIGd9UTcBF9rGAKx2iKU6PvNzD76E/jS/
+	T+fe2ZtvAe0usuT9Cbk2DculvYYCNrlrqsu4owBKLGfa4HyzgebfEDapBYnfm0G45yFdWkN+0fK
+	csSx95YhI6DtOKGXuFjtTCE=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4hr7bN5srSzpStW;
+	Thu, 24 Sep 2026 17:20:16 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 971DE40537;
+	Thu, 24 Sep 2026 17:32:16 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 24 Sep 2026 17:32:15 +0800
+Message-ID: <927d57a4-64ab-4420-9485-5336f2ec3fd5@huawei.com>
+Date: Thu, 24 Sep 2026 17:32:14 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179017148080.466588.9116221556625712980.stgit@devnote2>
-
-Hi Masami,
-
-> -	/* Step 5: Kick optimizer again if needed. But if there is a flush requested, */
-> -	if (completion_done(&optimizer_completion))
-> -		complete(&optimizer_completion);
-> +	/* Step 2: Dispatch waiting room generation if allowed */
-> +	optprobe_dispatch_generation();
->  
-> -	if (!list_empty(&optimizing_list) || !list_empty(&unoptimizing_list))
-> -		kick_kprobe_optimizer();	/*normal kick*/
-> +	/* Step 3: Check completion if flush was requested */
-> +	if (!optprobe_optimizer_busy()) {
-> +		if (optprobe_flush_requested) {
-> +			optprobe_flush_requested = false;
-> +			complete_all(&optimizer_completion);
-> +		}
-
-Removing the completion_done() check also fixes a hang in the current
-code: completion_done() is only true once the completion has been
-completed, so complete() is never called while a flusher waits.  For
-example, "echo 0 > /proc/sys/debug/kprobes-optimization" with an
-optimized kprobe never returns.  I posted a fix for that separately [1].
-
-[...]
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v19 00/14] arm64: entry: Convert to Generic Entry
+To: Kees Cook <kees@kernel.org>
+CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<oleg@redhat.com>, <luto@amacapital.net>, <wad@chromium.org>,
+	<peterz@infradead.org>, <ada.coupriediaz@arm.com>, <linusw@kernel.org>,
+	<yeoreum.yun@arm.com>, <kevin.brodsky@arm.com>, <anshuman.khandual@arm.com>,
+	<james.morse@arm.com>, <thuth@redhat.com>, <vladimir.murzin@arm.com>,
+	<tglx@kernel.org>, <broonie@kernel.org>, <liqiang01@kylinos.cn>,
+	<ryan.roberts@arm.com>, <pengcan@kylinos.cn>, <kmehltretter@gmail.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20260922035510.1090299-1-ruanjinjie@huawei.com>
+ <202609221129.B5E13A7@keescook>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <202609221129.B5E13A7@keescook>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
 
-> -	while (!list_empty(&optimizing_list) || !list_empty(&unoptimizing_list)) {
-> +	while (optprobe_optimizer_busy()) {
->  		init_completion(&optimizer_completion);
 
-This part is still racy, though.  The flusher drops kprobe_mutex while
-it sleeps, and the sysctl handler and the debugfs "enabled" file do not
-otherwise serialize against each other.  A second flusher can then run
-init_completion() on the wait queue the first one is sleeping on: the
-first waiter is dropped from the queue, and complete_all() wakes only
-the second one.
+在 2026/9/23 2:29, Kees Cook 写道:
+> On Tue, Sep 22, 2026 at 11:54:56AM +0800, Jinjie Ruan wrote:
+>> This series converts arm64 to the generic entry infrastructure.
+> 
+> With my trusty LLM driving a bunch of orchestration, I gave this
+> a fairly wide before/after run under qemu-system-aarch64, trying
+> to cover things beyond the ptrace/breakpoints/abi/fp/vDSO list in
+> the cover letter. But since this is all emulated, it's mainly basic
+> correctness coverage, without any meaningful concurrency coverage. I
+> just wanted to find stuff that maybe hadn't been exercised yet.
+> 
+> tl;dr: the only behavioral difference I could find anywhere is what
+> patch 1 fixed, and I found no meaningful regressions.
+> 
+> Setup: the series applies cleanly to v7.3-rc2 (I only noticed later
+> the series was actually based on -rc4), so "base" is v7.3-rc2 and
+> "patched" is the same tree plus the 14 patches, with each pair built
+> from the same config with GCC 16.1.0. The guest was QEMU 11.1.0:
+> 
+>   -M virt,gic-version=max,mte=on -cpu max,pauth-impdef=on -smp 4
+> 
+> I used four kernel configs, each built for both base and patched:
+> 
+>   plain    defconfig + SECCOMP, USER_NS, AUDITSYSCALL, KUNIT_ALL_TESTS
+>   lockdep  plain + PROVE_LOCKING, TRACE_IRQFLAGS, PROVE_RCU,
+>              DEBUG_ATOMIC_SLEEP, DEBUG_PREEMPT
+>   hooks    lockdep + the options that add work to syscall entry/exit:
+>              FTRACE_SYSCALLS, KSTACK_ERASE, LKDTM, NO_HZ_FULL,
+>              CONTEXT_TRACKING_USER (booted nohz_full=2-3)
+>   rt       hooks + PREEMPT_RT
+> 
+> and ran userspace tests from both an AArch64 and an AArch32 (armhf)
+> userspace, since the latter takes the is_compat_task() side of
+> ptrace_save_reg() and the cover letter didn't mentioned COMPAT.
+> 
+> Results were identical on base and patched (pass/fail/skip):
+> 
+>   seccomp_bpf                   98/1/12 (AArch64), 94/2/15 (AArch32)
+>   ptrace selftests              get/set_syscall_info, peeksiginfo,
+>                                 vmaccess: no change
+>   breakpoint_test_arm64         213/0/0
+>   rseq basic, percpu_ops        pass
+>   KUnit (KUNIT_ALL_TESTS)       ~1500 results, no change
+>   MTE selftests                 117/0/0 (but see below)
+>   strace 6.18 test suite        81/6/0 (ptrace/seccomp tests)
+>   audit (a0 filter)             pass
+>   syscall tracepoints           pass (argument recorded correctly)
+>   lkdtm KSTACK_ERASE            pass
+>   lkdtm stack-entropy.sh        7 bits
+>   lockdep/RCU                   0 splats in lockdep, hooks, and rt
+> 
+> The only delta I could find was the expected one:
+> 
+>   sysemu_singlestep (new test)  FAIL on base, pass on patched
+> 
+> So patch 1 fixes the described bug, but it had no in-tree test, so I
+> wrote one. I'll send that separately.
+> 
+> Various things I noticed along the way:
+> 
+> - The set of traceable symbols on the syscall path changes:
+> 
+>     removed: syscall_trace_enter, syscall_trace_exit,
+>              el0_svc_common.constprop.0
+>     added:   trace_syscall_enter, trace_syscall_exit,
+>              syscall_enter_audit
+> 
+>   These aren't ABI, and the new names are the same ones x86,
+>   riscv, loongarch, and s390 already expose, so this is really an
+>   improvement. But it might be worth a sentence in the cover letter,
+>   since patch 13's "[Compatibility]" note could be read as "nothing
+>   observable changes", which isn't _strictly_ true. :)
+> 
+> - Syscall-path stack use grows by 48 bytes. Base do_el0_svc() has a
+>   16-byte frame and calls el0_svc_common() with a 48-byte frame; with
+>   patch 14 inlining it (plus the __always_inline generic enter/exit
+>   helpers), do_el0_svc() grows from 48 to 808 bytes and 1 to 13 calls,
+>   with a single 112-byte frame: 112 - 64 = 48. lkdtm KSTACK_ERASE with
+>   randomize_kstack_offset=off confirms exactly that at runtime (2288 vs
+>   2336 bytes, ten samples, no variance), on both userspaces and in
+>   both the hooks and rt configs. It's small, but it's not mentioned as
+>   a (minor) trade-off for patch 14's ~1% speedup. Other size deltas:
+>   .text +12K, ptrace.o -3.6K, and +3.1K of shared
+>   kernel/entry/syscall-common.o (all seems expected/unremarkable).
+> 
+> - Patch 14 also moves that inlined code into .noinstr.text (+896
+>   bytes). Since arm64 doesn't have objtool noinstr validation like x86,
+>   I checked the images directly: no calls from .noinstr.text to
+>   instrumentation outside the noinstr range, and no __mcount_loc entry
+>   falls inside it, on either kernel. But we don't seem to have anything
+>   that will continue to enforce this?
+> 
+> - CONFIG_DEBUG_RSEQ "depends on ... && !GENERIC_ENTRY", so patch 13
+>   makes it unselectable on arm64 and rseq_syscall() becomes the no-op
+>   stub. Patches 5 and 9 carefully reposition that call, and then patch
+>   13 removes its effect. Not a bug (generic entry does the equivalent
+>   via rseq_debug_enabled, and I can see __rseq_debug_syscall_return()
+>   called from the new do_el0_svc()), but patch 5 reads like a
+>   standalone fix that disappears eight patches later, so a note in the
+>   cover letter might help make sense of this?
+> 
+> - The cover letter includes the gvisor SUD numbers, but SUD needs
+>   ARCH_SUPPORTS_SYSCALL_USER_DISPATCH (as well as GENERIC_ENTRY),
+>   and with the SUD patch dropped in v18, arm64 doesn't select it,
+>   so CONFIG_SYSCALL_USER_DISPATCH can't be enabled yet. (rseq slice
+>   extension is similarly blocked on HAVE_GENERIC_TIF_BITS.) A reader
+>   could take those numbers as something this series delivers.
+> 
+> - arm64 defconfig has FTRACE_SYSCALLS=n, which means
+>   SYSCALL_WORK_SYSCALL_TRACEPOINT can never be set and the tracepoint
+>   paths touched by patches 2, 3, and 9 aren't even built. So anyone
+>   testing with defconfig isn't exercising those; you may want to test
+>   with it enabled. (Also, compat tasks never hit syscall tracepoints
+>   on arm64 at all, due to ARCH_TRACE_IGNORE_COMPAT_SYSCALLS, so that
+>   path can only be covered by native tasks, but that's unchanged by
+>   the series.)
+> 
+> - I verified that the entry work ordering is unchanged. It looks
+>   correct to me: arm64 did ptrace, seccomp, tracepoint, audit; generic
+>   entry does the same. (It also checks SUD and rseq-slice before those,
+>   but neither can be enabled on arm64 yet.)
+> 
+> Suggestions:
+> 
+> - rr: Since you have real hardware, could you also run the rr test
+>   suite? rr has been the most sensitive ptrace user I've encountered,
+>   and it depends on exactly the syscall-stop and single-step behavior
+>   this series touches. I couldn't run it: QEMU's TCG PMU exposes PMUv3
+>   but only counts CPU_CYCLES (BR_RETIRED always reads 0, on every
+>   CPU model I tried), so rr aborts in check_working_counters(). If
+>   you do, note that you'll need "proc_mem.force_override=always" (or
+>   CONFIG_PROC_MEM_ALWAYS_FORCE=y), or three rr tests fail for unrelated
+>   reasons (rr-debugger/rr#4093). Build and test instructions are here:
+>   https://github.com/rr-debugger/rr/wiki/Building-And-Installing#tests
 
-With this patch the window is wider, since kprobe_mutex is released
-while the Tasks RCU grace period runs and optprobe_optimizer_busy()
-stays true until the generation is finalized.
+Hi Kees,
 
-The fix in [1] replaces the completion with a counter of optimizer
-passes, bumped at the end of each pass and signalled with
-wake_up_var_locked(), both under kprobe_mutex; the flusher samples the
-count and waits with wait_var_event_mutex() until it changes.
-Something similar should fit here, with the counter bumped at the end
-of each kprobe_optimizer() call and the flusher re-checking
-optprobe_optimizer_busy() under kprobe_mutex as it does now.
+Thank you for your detailed testing.
 
-[1] https://lore.kernel.org/all/20260924092142.199198-1-parri.andrea@gmail.com/
+I tested the rr test cases on a Kunpeng HIP09 (with minor adaptations,
+since Kunpeng CPUs aren't supported by default), and the results showed
+no regressions.
 
-Thanks,
-  Andrea
+|               |    7.3-rc4 baseline     |   Patched                 |
+
+|  ------------ |------------------------ | ------------------------- |
+|   result      |  87% passed, 190 failed |   88% passed, 186 failed  |
+
+
+| Failure Mode   | 7.3-rc4 baseline |   Patched  |
+| ------------   | ---------------- | ---------- |
+| TICK_MISMATCH  |         76       |   74       |
+| TIMEOUT        |         68       |   65       |
+| GDB_SCRIPT     |         34       |   37       |
+| PERF_EVENT_OPEN|         3        |   2        |
+|   OVERSHOOT    |         1        |   0        |
+|    OTHER       |         8        |   8        |
+| -------------- |  --------------- | ---------- |
+|  Total         |      190         |   186      |
+
+> 
+> - MTE: I didn't see MTE in the cover letter's test list, and it seems
+>   relevant since patch 13 puts _TIF_MTE_ASYNC_FAULT into
+>   ARCH_EXIT_TO_USER_MODE_WORK, so an async tag check fault lands
+>   on the reworked exit path. The MTE selftests showed no differences,
+>   but a third of them don't actually run for me under QEMU, so they'd
+>   be worth running on your hardware. (Testing MTE under QEMU saw
+
+Turns out our arm64 machines don't support MTE; I was testing it on QEMU.
+
+>   check_mmap_options hang at test 5, the first test with tag checking
+>   on, and check_child_memory never produces output, on both base and
+>   patched, so only 117 of the 183 planned MTE tests ran. But this is,
+>   of course, a QEMU/selftest issue unrelated to the generic entry.)
+> 
+> So, for the series:
+> 
+> Tested-by: Kees Cook <kees@kernel.org>
+> 
+> -Kees
+> 
+
+-- 
+Best regards,
+Jinjie
+
