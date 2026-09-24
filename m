@@ -1,138 +1,159 @@
-Received: from prime.voidband.net (prime.voidband.net [199.247.17.104])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35F9481FAA;
-	Thu, 24 Sep 2026 21:57:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.247.17.104
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A3E4E7818
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:59:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790287046; cv=none; b=AHE1oz5y2cx60ApWKXQFNlh3aEDfM8f6q8bYVRy+eSmwydNCFafbpIFpp0i4ajOS3GvzmSvylopChbDNaWEAfZJWg9BxFige3EA9YRefuZAxTqw1lOc8dUnVIJw7PMaskG8JMLV1zvbwGM3bKL0vPu0pvxSoqDwfSG44sipnj8M=
+	t=1790287157; cv=none; b=V6xg4jIpofgWAZBSCfbl8AU6JMPI31vntakVYXypu+Bq3pfyutWMRJgnkqEBYv3oDinezdiU54n73l9MyLzuQquvLmyMFPDfv5CrX0RVuguy1IOWdNDrrGwiyaS8uS4nNWRvKWXDI31l2S4BlqmlqJZyrzIzcQQ5kd2+LbL9Q+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790287046; c=relaxed/simple;
-	bh=mb0dS2aAlvxEe9DxkZfnWEsGBjD9zKulYwTsTGHmrNo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=l2ja+CbaEZvNXFju8CU5WC6iNFKe37LTmoH+Uq/eUOml5zZ8V5crPjthKxwhL265b3CtSTq++YmEKvxrg0U6G3uyvI/umzjRtgoes4OsdiQLIpdjPQISmkT6kiiH099WhFg6pTRP0Nky34KPm3x48s2UsS7pyApkGL3Q6RqNhSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=natalenko.name; spf=pass smtp.mailfrom=natalenko.name; dkim=pass (1024-bit key) header.d=natalenko.name header.i=@natalenko.name header.b=OT/m0RKS; arc=none smtp.client-ip=199.247.17.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=natalenko.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=natalenko.name
+	s=arc-20240116; t=1790287157; c=relaxed/simple;
+	bh=jdOnvM7WMqeUpU7l2mytGEp4oxIHLj8qtVUlj6NmVsE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g0XQHieqlySGW3ewV1p7l4SLwhq4eSkXShm0airvAP70eJzRSf2JPHxnJYXtvYQ0UYHIVxbPOOV5eO+7KbK1Fi8erM1rN7yM6ikL7EeZxze0wzK1iklfjXytzwrbwdiERCeaQaVsZAMKxglppMLMA2yANNj35zp4JRnzJqJfKQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=vPEiD9ry; arc=none smtp.client-ip=74.125.227.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=natalenko.name header.i=@natalenko.name header.b="OT/m0RKS"
-Received: from spock.localnet (unknown [212.20.115.26])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by prime.voidband.net (Postfix) with ESMTPSA id 8835E635B041;
-	Thu, 24 Sep 2026 23:57:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=natalenko.name;
-	s=dkim-20170712; t=1790287040;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mb0dS2aAlvxEe9DxkZfnWEsGBjD9zKulYwTsTGHmrNo=;
-	b=OT/m0RKSwTPExefhcLdd3GpmQAlAVRy/qt2wqy3wGw1vuh7KaSG8YIMfEVU3Ralmi17VKN
-	ZWDgbImr75QlZu9ldAdxp+aETEeDqItGxU4LpaQ2Uo6NQB1DuNpbuaj29C2LFb4fgvdCq7
-	xPi7QYyd3j/SGvFbcWDpzDT4ltoX4sw=
-From: Oleksandr Natalenko <oleksandr@natalenko.name>
-To: Erik =?UTF-8?B?SMOla2Fuc3Nvbg==?= <erikhakan@gmail.com>
-Cc: Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>,
- Filipe =?UTF-8?B?TGHDrW5z?= <lains@riseup.net>,
- Bastien Nocera <hadess@hadess.net>, Rafael Passos <rafael@rcpassos.me>,
- =?UTF-8?B?R3LDqWdvaXJl?= Stein <greyxor@protonmail.com>,
- Alexey Zagorodnikov <xglooom@gmail.com>,
- Roman Stingler <roman.stingler@gmail.com>,
- Lovekesh Solanki <lovekeshsolanki00@gmail.com>,
- =?UTF-8?B?S2F0ZcWZaW5hIE1lZHbEm2RvdsOh?= <k8ie@mcld.eu>,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] HID: logitech-hidpp: fix Bolt hi-res wheel handling
-Date: Thu, 24 Sep 2026 23:57:05 +0200
-Message-ID: <6UWkRWWaSvGIWNWwY_bPDw@natalenko.name>
-In-Reply-To: <r8QjhQUkS86zOaJsxE4nUw@gmail.com>
-References:
- <20260922-feature-bolt-fix-v1-0-63b0fa8da0d3@gmail.com>
- <xpFXjeFKTb2mOjg5M5iN0g@natalenko.name> <r8QjhQUkS86zOaJsxE4nUw@gmail.com>
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="vPEiD9ry"
+Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a0bcdf41a3so12571a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:59:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1790287154; x=1790891954; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bbmWMvcZGPaQES2g8FHXYoBiPxQtaNORw16tr7nwuuw=;
+        b=vPEiD9ryapYVAbcs8kdk/aarwnWZDJyTINZAS9v17BANQiOuYq1oHVyJBCxjEAkD7W
+         OctHq3duc79f++pDhRki9fmBx8iaZqo7WTEO3/KRGGQo6+bxo/NBJz7x9mDaDx9yeSkm
+         H+ok/Eqr1G1IAHpAGCOJjW0tBbSC6GZQ4faR6VgM1LIofN1MXaQ2GrHLhpxb84L3erPF
+         MKZKqlLcvnbE9KVPFO5CWFiC3ortqSZHI1Hj3EY76mwz0EQDeYKZlJcdkfMa+9Tj7hHN
+         d8re22ksBgofM9DHjvonMZM1H/MckT642VKR5gjzZ82kbtpL4sunMCl1BfUBlHuqr/JA
+         83ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790287154; x=1790891954;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=bbmWMvcZGPaQES2g8FHXYoBiPxQtaNORw16tr7nwuuw=;
+        b=QCDYfmxVP52tMrdlVng2cUAeyS3p6C+aqFKnwUnKTpgxG8dUJ5eUK7VE0jcXet0D6K
+         7nqQMnBum99BG5VTHUsxgRc6vPVgl/3C3t1Rv8KbfDuOZGiK1UNYfk17/1dWFlOshGIv
+         fpG5EqfqpHxfbl7xtFz+2AfLt0Wkg71HVt7xuTqRqzF/kw0YEHdWsfWDlDN9WaHFJsik
+         rfpiCdZRlkuivOLi+pZa5cUP7tgkzBDtRkfmutY0DILxlhNPsoHN9t5GWJbKNouhMPoE
+         7tIto3GfSjvN62kcOTn1i2LxGbn3GnUZDTJjptAkPqXE6ZTazinG9/LuyzKUTH4gUvZX
+         p4SA==
+X-Forwarded-Encrypted: i=1; AKwUvBy4nmhE1GlneGNhrc22TNZKaihN0CTccuowq6lS5dIzW7iFMx+V6khA0XH+On8qpE10awP+ZWIDmVCsgOM=@vger.kernel.org
+X-Gm-Message-State: AFuF++ljW4UnXMwiEhiD7z3+0wSvha45f+FIDcxvN8HhlY8JsN2t1stc
+	yZJKSbnnXa2FKrWq8qdCchj+BptyQO355oURoZaFsFxkxWeKEt5cLALUzSD0A0qJOVQ=
+X-Gm-Gg: AYBFou1NN9DFPy9TzBzpsa77Nkq0PjNl38Ofbh8ISecCisYWWZ4Zr+sthUNSwpYB58U
+	VMNzbJyohZbVYYfiETobsXWFq3KT4owrzwMjJMQSNsnMSKGV5dsT06s9qYclwR1MG1SNKQub+w9
+	LSboebtK561GFi8avDg7ZX+vveo12i1mx1LMDUUol4jnJLuXpYRP/Wi6qawArlT52+Ut2lKQCbO
+	zZPxjqAjL7d7TP9gPn5VAbGIQ69xvYk69zvk+a6ehkRBLYg/3V2/tnG9ZqVHoRtRNNxhapv2imS
+	iqYn2UXfTyNmXKnQ+BgSXAknWWw7Axagn+GIujgp6b4WdUZkeyf8eA8dP2gYWQ17dryw5KZSzBm
+	vABRuJpkc7pYlm9LtSEg4ckDDl6ZDnFq5lfaEOAiDWeo7Qb3ntlt59fPnWiWIy9IQCdu6aySdfm
+	PF1SblFgAfIbyz7Mg06Q23r3BHJCY4PRebD5OkyZyxulktcd+DsHpOf6udGsiW+DqhDAeYSZwG8
+	zmcgoinPTUAjO+5UcAky7A=
+X-Received: by 2002:a17:90b:35c3:b0:3a0:bcc8:1546 with SMTP id 98e67ed59e1d1-3a0bcc815f2mr76894a91.64.1790287153608;
+        Thu, 24 Sep 2026 14:59:13 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:59::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9481e17sm582065a91.8.2026.09.24.14.59.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 14:59:13 -0700 (PDT)
+Date: Thu, 24 Sep 2026 14:59:12 -0700
+From: Joe Damato <joe@dama.to>
+To: hengyul@cs.unc.edu
+Cc: brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz,
+	jirislaby@kernel.org, sdf@fomichev.me, edumazet@google.com,
+	kuba@kernel.org, davem@davemloft.net, pabeni@redhat.com,
+	horms@kernel.org, shuah@kernel.org, linux-fsdevel@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] eventpoll: return -ENOIOCTLCMD for unknown ioctl commands
+Message-ID: <arWdMDek0iv0obDy@devvm20253.cco0.facebook.com>
+Mail-Followup-To: Joe Damato <joe@dama.to>, hengyul@cs.unc.edu,
+	brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz,
+	jirislaby@kernel.org, sdf@fomichev.me, edumazet@google.com,
+	kuba@kernel.org, davem@davemloft.net, pabeni@redhat.com,
+	horms@kernel.org, shuah@kernel.org, linux-fsdevel@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+References: <20260924185747.2166326-1-hengyul@cs.unc.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPartqIbnON6XS4aix-Z4XEL3zw";
- micalg="pgp-sha512"; protocol="application/pgp-signature"
-x-ms-reactions: disallow
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924185747.2166326-1-hengyul@cs.unc.edu>
 
---nextPartqIbnON6XS4aix-Z4XEL3zw
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Oleksandr Natalenko <oleksandr@natalenko.name>
-To: Erik =?UTF-8?B?SMOla2Fuc3Nvbg==?= <erikhakan@gmail.com>
-Subject: Re: [PATCH 0/2] HID: logitech-hidpp: fix Bolt hi-res wheel handling
-Date: Thu, 24 Sep 2026 23:57:05 +0200
-Message-ID: <6UWkRWWaSvGIWNWwY_bPDw@natalenko.name>
-In-Reply-To: <r8QjhQUkS86zOaJsxE4nUw@gmail.com>
-MIME-Version: 1.0
+On Thu, Sep 24, 2026 at 02:57:47PM -0400, hengyul@cs.unc.edu wrote:
+> From: Hengyu Liang <hengyul@cs.unc.edu>
+> 
+> Before commit 18e2bf0edf4d ("eventpoll: Add epoll ioctl for
+> epoll_params"), epoll files had no ioctl handler, so ioctl() on an epoll
+> file descriptor failed with ENOTTY. That commit introduced the
+> EPIOCSPARAMS and EPIOCGPARAMS commands, but ep_eventpoll_ioctl() returns
+> -EINVAL for any other command, so since v6.9 every other ioctl() on an
+> epoll file descriptor fails with EINVAL instead of ENOTTY.
+> 
+> Documentation/driver-api/ioctl.rst says that an ioctl handler must
+> return -ENOTTY or -ENOIOCTLCMD for an unknown command, and that
+> returning -EINVAL there is wrong. Returning -ENOIOCTLCMD was also the
+> intent of the original series, whose changelog since v3 [1] says "when
+> an unknown ioctl is received, -ENOIOCTLCMD is returned instead of
+> -EINVAL as the ioctl documentation requires", and ep_eventpoll_bp_ioctl()
+> does return -ENOIOCTLCMD for unknown commands. However,
+> ep_eventpoll_ioctl() only passes EPIOCSPARAMS and EPIOCGPARAMS to it and
+> handles all other commands in its own default case, which returns
+> -EINVAL, so that path is never reached.
+> 
+> This is visible to userspace. For example, isatty(), ttyname() and
+> tcgetattr() on an epoll file descriptor set errno to EINVAL, while they
+> set ENOTTY for any other file descriptor that does not refer to a
+> terminal, as they also did for epoll file descriptors before v6.9.
+> 
+> Return -ENOIOCTLCMD from the default case, which the VFS turns into
+> -ENOTTY, and update the epoll_busy_poll selftest, which expected EINVAL
+> for an unknown command.
+> 
+> [1] https://lore.kernel.org/r/20240125225704.12781-1-jdamato@fastly.com
+> 
+> Fixes: 18e2bf0edf4d ("eventpoll: Add epoll ioctl for epoll_params")
+> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+> ---
+>  fs/eventpoll.c                                | 2 +-
+>  tools/testing/selftests/net/epoll_busy_poll.c | 4 ++--
+>  2 files changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/eventpoll.c b/fs/eventpoll.c
+> index e0c4bf88a838..adf30b720b13 100644
+> --- a/fs/eventpoll.c
+> +++ b/fs/eventpoll.c
+> @@ -1264,7 +1264,7 @@ static long ep_eventpoll_ioctl(struct file *file, unsigned int cmd,
+>  		ret = ep_eventpoll_bp_ioctl(file, cmd, arg);
+>  		break;
+>  	default:
+> -		ret = -EINVAL;
+> +		ret = -ENOIOCTLCMD;
+>  		break;
+>  	}
 
-Hello.
+I think based on the documentation this is probably right, but I am now
+wondering why both ep_eventpoll_ioctl and ep_eventpoll_bp_ioctl need to
+exist.
 
-On =C4=8Dtvrtek 24. z=C3=A1=C5=99=C3=AD 2026 23:41:41, st=C5=99edoevropsk=
-=C3=BD letn=C3=AD =C4=8Das Erik H=C3=A5kansson wrote:
-> > Somewhat unrelated note: if I enable "Thumb Wheel Diversion", the thumb
-> > wheel stops working altogether. It's probably not supported by the driv=
-er
-> > at all in HID++ mode?
-> >=20
->=20
-> Correct, the driver does not implement 0x2150 (Thumbwheel) in HID++ at al=
-l.=20
-> However, since we're interested in diverting through HID++ for device=20
-> separation purposes, I'm looking into implementing 0x2150 too to enable t=
-hat=20
-> diversion for that too.
-> And while reading the protocol there, I noticed that it also supports tou=
-ch=20
-> events on the thumbwheel. There's three different statuses, single_tap, p=
-roxy,=20
-> and touch. Touch is continuous touch, single_tap is tap, and proxy is whe=
-ther=20
-> a finger is in close proximity but not quite touching.=20
-> Does your mouse by any chance support that? If so, can you tell if it sen=
-ds a=20
-> button event on tap or touch when in non-diverted mode? Or possibly if it=
- does=20
-> so in Windows. I don't know what I should map those events to really :)=20
+Maybe when I first implemented this I thought it made sense to factor
+out the busy poll ioctls into their own function, but in retrospect maybe it's
+cleaner to just collapse the ioctl function into a single one instead of
+having two layers?
 
-No idea TBH. The mouse is this one:
+In other words, maybe:
+  - delete ep_eventpoll_ioctl
+  - add the is_file_epoll check to ep_eventpoll_bp_ioctl
+  - rename ep_eventpoll_bp_ioctl to ep_eventpoll_ioctl
+  - fix the test (as you did in this version of the patch)
 
-https://www.logitech.com/en-us/shop/p/mx-master-4
-
-I haven't seen proximity mentioned anywhere is specs. But I can try to snif=
-f for these events, just let me know how.
-
-Thanks.
-
-=2D-=20
-Oleksandr Natalenko, MSE
---nextPartqIbnON6XS4aix-Z4XEL3zw
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEZUOOw5ESFLHZZtOKil/iNcg8M0sFAmq1nLEACgkQil/iNcg8
-M0u/KBAApwD2JK7tRdFXMBJ0XCIfuTsgYgviDdF1TjrS4go8D5R/lLSjPHnTlCUk
-ViTdO6rxcAQ+DxIHIhpGZWc4qU3rTY23vaXk72ezosggyBCzWmlu9Ucj0Zz/JlkV
-MbkvrZ8VnwY8faWuYMKatG+nmu1D6IWEaNtGKsRNuXhejra6BrplRSMguOcv8ujL
-VFBeGRM6J8rUV4TNPSi/VmJp4ATsO3/J8btlotqM/CajnQqADnN52v0pLHLi1QHO
-saUded2ZyzXyKZtB0SDsmjvLN2pAcPvRiwA35yad8GDvEe13RFkbW9X15zX1rWn1
-KnKvmtehKzTt+L6mLl1LuGTvUBjxVUwzBdxvSIEqSP/j/ctX0Qci/ikskU8eUkLS
-JWzaJYaZ8f2FxipFFWqgMekN+lGd/nmW/O02JuFLnQ73sK65nHJyGpXCVP8VZvHL
-LMJyajm4YUmj6tUSwsbfMPGcBNTSMJojGejUfhLPxAeh4RLftgIGomiNvGcPDSkL
-pbfnvBn/3EQi0Zykk7tkdMJ1F7A649kITnE6FY5aalVTLG3Z5rSpUUAMf88iAWP+
-w4VSPR8WvKFf0/yUUBBfeg8I90lv2B+2R9IznH231aEQEW5dj3vAmSCW3H8M0M+H
-YsnweT0fXXMiCtW4y5xEn+nT0tWl6gDPuINimreCucGCN8VUBGA=
-=LUIy
------END PGP SIGNATURE-----
-
---nextPartqIbnON6XS4aix-Z4XEL3zw--
-
-
-
+Would result in a cleaner fewer helpers / cleaner code ?
