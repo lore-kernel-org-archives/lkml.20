@@ -1,95 +1,95 @@
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC2893AEF51
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:45:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 317B3199EAD
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:45:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.170
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790221513; cv=pass; b=PRIsxzKEzF3WqhhVv0k2Kg7FPu0HUTTFpBxzeFCVXQBtlJHgVDWSIVaA8oqxrkOdO7YmHQGm7+e6gSejkRc13CVJD4jk/07s52VMCZCwmfSaAQIfOIdMFmygLN1K7Gb39U3q4HIaVv5zM5pqiP7hLl5mHf2jMazdsWkCrxyh/Bo=
+	t=1790221557; cv=pass; b=Ga7uUa/2CnfJtsxoivWMkwZfHYqIZLiwA/nJpeOGIngpFtsXkHCu5QXnP7xUoYvayHjXd2wtNbcSMEVSMQOACd/seWJMPAX3hnKzbYH273ezYiC1DccLSb2DkwnyztsKtcC4mtDEXhDTnkjDOQOso7FcMZL5qSDgGowCUJ73Z8k=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790221513; c=relaxed/simple;
-	bh=cblw2L3Lly1bfOrTwtv9wwW6sp0Yy1Z8DPipd+koq/4=;
+	s=arc-20240116; t=1790221557; c=relaxed/simple;
+	bh=agQdRyiekzKzUkD8QSfdqzYYwaY3t3skKjWl0zUZLv0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZhEZCH0lNrg215504AOWZQJjSp19BAQS+uImEPiQDhrqnSF9xv0Q0+8txfI4yafm73q8dROb/ItCYfuTwIhbXbQAkhOaijL243KGYMTNOgK3ypCe+2wAi6wpw1XLxNNoMBOJufaq1O8fqVlhkF88+AOJsM021BerlytxojdJEJw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Rkzqr21B; arc=pass smtp.client-ip=209.85.160.175
+	 To:Cc:Content-Type; b=AMQMHwaiULbNONo77tpx2eCBgesfeFU1bpKnvP/3bK4H6pdoQHImdq5VroDO/wjl4e7hLQRHY25C7Ubyh5Ue4HZz9PzRvEMW8K4ceZpP9UAYthH/TfXLywFDuO+ae9qTO92nBsWpln55wY8J40Kq1pVScg5Wj7gmYYduKDSNyIE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KIJcxCxw; arc=pass smtp.client-ip=209.85.160.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Rkzqr21B"
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-532e9ad9a1eso92291cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:45:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790221511; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KIJcxCxw"
+Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-530e8c6fb80so93161cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:45:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790221555; cv=none;
         d=google.com; s=arc-20260327;
-        b=AIzJTvWyYmA+fjKrBjaMUZ0F09XCBlBXABCsGLcRFcaSGlY8yIH3KvjTkmR71Gj2D0
-         GF78jncdbn1WT3DvANJ3Q4f2fxxGTtsIoU4icdXKBpxsarRnE8mcU1anEOcK9Ws+d072
-         gei0j0OzZ+vaHn1xhOB9YA/emt0rm5eFh/0OZV/ghtAyl0NnJNkthUGGSupcK5GOZlAG
-         tBd9GRWOtxWeHcwdNqi4v+le1NYHy1kfmuqG0hKy7znYPv0OpReu0WTYMzMZ/cPG8LCi
-         2GH3V4wMzvKo1sG+FhLGtSMF2PtEGoGDD/MA17qn6PHUk22v7jTxILol0ArsauPhDXmx
-         4SjQ==
+        b=PfNGOEb9U8U911zgFY4xMGlBiCMMV3xNWGMG9oJRnsC/HV9OFBrLcxuNZ27c0r9CQB
+         Gef4ISChPVt77Y1svwbfdrxLsxJ9Bt77tEc82tRDqFrUsOTfZaVWG9e+5DuQdtQX1HZl
+         3pEJ/E3Bp1T/iXXQ/d71CzXkQKFy823yPQZn/hefLsDPSeuIURj1xKLruPTIhzjZNbkD
+         42RCcboo4xZmmio9RksKxbD3svH0XFi/MtlCiNF68Zw2XK4D3MOBVxBxflmOMs2zyWjy
+         lg/y3hyYEqA75DlIEn17fepUdQ8Z3R638fr5dPtC8R8xommdPcKONhbKYO29iVuEUP1b
+         VLIg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=ahhn9Ixub6HpvaUVFMs+V5RjUmob1chtIW49SrIC0gw=;
-        fh=GZjtVylvzqRJtxB1loFdTZVszkMyKlnhG2MIybiSOgQ=;
-        b=qIjIB4Ua/Z4x4U3vYEqsTfF/YurjOpGLusbulWlAOmPY1TLhQmp8041awv32c5l7Yv
-         OZgaZJXr1wt6N6FiiqeHVxG2G5wfDgVeKYqpSElRg/HJiRJVa9Iu5YAZ3pYiqetcef10
-         N5wRhQMdkUknqjbLluOHA/FodP+bPMQayAk2oDT1hpHc6mhJc64i7cXLvuw9n6Tym7Wq
-         Ns6vWhybcW3sMOcPuzcUXw1AEn6IxCWiqGju4wFco+jzCLaMRQVy+ABA3Ao5fydQ7mmo
-         sT5XCBRTmbYqOmcci47Sfg9tmtsd96wf2z++cAEli3SZvMSyP2MBOqC/hFGnkTA3QcKk
-         VjkA==;
+        bh=Uqt7YdPAG+fbVbfF6glhS1Jh/r4rcT3mFnxXOlmMXbw=;
+        fh=DNb25PX3Iay27A6nx9QqIySsVSrQBrVyGRXUBVsNHBA=;
+        b=nEl0QOH8FUoUM1LazDAmLSUrjEs0M4Hn2v7vMJDQgvy3rnTK03MyWFjt5TNeqfpB4T
+         18px8YjYAYq0vJFb2bD4p31VITgWJHzk6k7MkoQ0ERjFA2g9kpmA32nyjHsBoZJhz672
+         +D9JcIbVrJ4E4CX50a9sda4tfY+GB9W+QPI9r/XMtpaUxy+t/U7sXt/eM78qU+6lDOXK
+         uO88ik+NnegtMK9pwXCueCSQbV6DkNdmlb3zlNP5DSxVT2HxBTIUHpEPLYYX4/g7elku
+         HYfRVC6mcYwoFdA5eofur1HDotx5+3XuRd51pZ1F9QJNBe2V1zF5s9TlYcVcEqTSID8f
+         jAgA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790221511; x=1790826311; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790221555; x=1790826355; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ahhn9Ixub6HpvaUVFMs+V5RjUmob1chtIW49SrIC0gw=;
-        b=Rkzqr21BXUEH41KA1oJGegWvKIAiaehvy0nLj+ForWDheLmbjjuE36xIzMidJqX3/C
-         zfgq39FgCFKXIKMaDhScnWwNR8zLHWi/vX7qAsYAvp+/Ihss/rtrtAnogkvJUekEeTn3
-         C9QNTO/iUJzBthjaN35c0urvJLyZ4nE35Ul80pfKi7DpJQwKX4GLuT5p1bffSefU9RkJ
-         AeqJRC8g20Ullm4E50z24JDHzHNAf1yh2nSyT37jBdqT7p9z9TDOxQR/rbO21XV7jcf4
-         UTuj2rKqg4qiFqGwPCTGSpP1VRoMmfOriQYoqegHB2whPXz1i986KqZrFAUM/CTNHnyd
-         aXRQ==
+        bh=Uqt7YdPAG+fbVbfF6glhS1Jh/r4rcT3mFnxXOlmMXbw=;
+        b=KIJcxCxwX37byZbH0bWJXMJxtuLma2cDJ6hsL17mF6I6+nslxOM7NG+jjwfLJQLYOE
+         ZbsOr20gEZI8p6Vm5NqLbx+QgP4qhnLB95HqFpxfCeNt+5WQP1rJv73ZQIdtoDqU0xAk
+         4uB7BJsaejDV+h3CjSpR5crm4LrIY6KgL9bEPs9hpjyvMKCeKQdZilXXYfDCum8tK+PZ
+         jwRnyv0+nd/cc/0suYtz+837Yfq5+D73dZEPv61U5e/uEBM8CUknqXgzItZySDUwI3p+
+         mRJYr075pK4VMCbIVNMjULXqxtK+MONowGmxPhxZOUMCh0YBjiY7up7tFKDaXOkz+lLq
+         C6Rg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790221511; x=1790826311;
+        d=1e100.net; s=20260707; t=1790221555; x=1790826355;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ahhn9Ixub6HpvaUVFMs+V5RjUmob1chtIW49SrIC0gw=;
-        b=2y9sWj9d0lNH+yQDyS0DZr2k9KWbhho4sHRe3vF496alRbDzIDNuTrM+/Hx+6s7Zpd
-         61wiKfLuHcPE0euKeZcO3cyUNRpG3ZI6MMaC9ymqtQHU5EbKsuYQO1p/nHld98hRS9jL
-         oEbTjuP6HYI+/1OLi5agVitzOgasakr+9aB2E1KanCkUZB6xjv2/tcNlxDtDuPiNKOG1
-         pEtFJ0CbDRqv6kZ2djdjeK49ujZkDgOVXR2efWBjvPKl1ybY4Dq+7m1YgIOx+1RQLhwj
-         ZxPyyGRdpsK0vLL8GmkL0zWhdP/Np0gVQwzKxkdOJ8PNNfpEQvbimVdsj8SsJ+3ufVLO
-         ulbA==
-X-Forwarded-Encrypted: i=1; AKwUvBzIEZw37M7RrjTJmTDYfP4/b5gCwPI1WqN2sSwUuM7b9hnGKqhWyDlAIwoyVoXunuoOkD4rp1ToZYijMX4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYKesn0dCt01iy560wtfRlifD8b/1bdy5X/wWwAVTTI4UDlXcT
-	PUfvvgbE4GK8cKM5Ss1lks7UfJkGxiIe2Mq+p/w9XNTfGh6qPUensuScKvFO13aH4cdS5VRA2AG
-	AmkcCqyLWKSH9Q+UO/vja5T7MFPEh8f4DwlMmduif
-X-Gm-Gg: AYBFou1KWtZlSI0it4j3E9fVC/ZcIXN4oWqHX2gZop5bvfEFZu2ipgBegUqixFa/rtC
-	3OCYmEV1WiUawB5yDhCLDKARbX8SNqV2kIKiYIwCv0z9Zs1RFdB+YjxGnSBBIxjiF27glSgazM5
-	CVdqMoRq9v4uffoECbvHIufnmmBCoDtoxFyCf8cHFjbp5gKSLX0fmurqAh8g0mDnTbkVe6Bm2d7
-	uy96bTxswlG3gty9bBkiv8pujQbiTRTZPXa72GEqAyhrBY9HdIZ4vozM/y31//m6EfZeK+emev9
-	fbHToIuiiRuvg8Nwsl+CeOxf7zxJgJ8sA6DKYxKHJ/fsGtfNBMweDac=
-X-Received: by 2002:ac8:5907:0:b0:532:ad75:e432 with SMTP id
- d75a77b69052e-532fea67702mr2347951cf.8.1790221509874; Wed, 23 Sep 2026
- 20:45:09 -0700 (PDT)
+        bh=Uqt7YdPAG+fbVbfF6glhS1Jh/r4rcT3mFnxXOlmMXbw=;
+        b=oJ8vP2SfH0pfZnaE7Z0z9vmcVp+b0XPdM935d3RXeGi4gL38mdirhGJr1kkLNKZ4dg
+         bj8WXkD22dm/0Sp8iGvTsRFwiivIeuShw/sKifVPf1raDsyTdZphp7CacL0Mv7Bc97P7
+         8GUHgcpEJJSMacL4jrDpFY/Y+OL3xL0WDocxvIZhTH+1hXf6qeVARKOqvlZoChomP21F
+         lYUifokm3YATTyVJ4GX/s312sexwKQtxg+winOvUqpVrCvVpQIMVQV+aTjoQgjxou/1y
+         FpHjvp3YsloB3TwzyANpR8rO+ri05YTb5sYusBh5Wa54DbWCE4FmNAZ3dcql1wX9IXOe
+         BO/A==
+X-Forwarded-Encrypted: i=1; AKwUvBwR9hs1Pav5mVqyJMDCRtO261JZpqyZgMyJWYtUbwJsQVp1ztM5/QfXI4TCETlSsEa/Fiqjw7YEqZTTXmw=@vger.kernel.org
+X-Gm-Message-State: AFuF++m0Tm4Rk3s9ckTQPOLsaKDQof93x0M3b2HuP3fz/FWrJ4hZUreg
+	PaCkUeGLjbwCtPNQ0O2MHmLW772x59AqfVg6VrvOtAyV8us66Q/di0X4R8UX5o5IqHfjo09/1zj
+	kdyCE5ZH3RnHRdYcZNrTou561hAkTiD51NOU4jyWQ
+X-Gm-Gg: AYBFou1cclDCr+kU3F7zuy02fR4lEtHANc2DSoC5lQvjqdwFtZlWZDIhH8XWink0EQe
+	zZmCJKRliudV8Mtcd613T2N5MfaPvIEFvpiy7WfiyX7sx2neBE+hFl2/eOhzf6Ws5E2tXci9L+A
+	LfUleruI7FPuRkvmld3ysvVwgImtGZ+tYxleSy76n8TkKNwnuAL6o/F0b7YIKhsvKU+2aqwIUWG
+	6d0bLU3u3prvJ7TJd1neB5jD4QAjCu13Ubsk211CF1YxFpjP53sEx/agi30WG8n05hU6Bwykbm1
+	cJPL7dUN1zC27bZstnoVe/fj1bGc6I3lcEcA3RFIOjzdfj4PlWspOa8=
+X-Received: by 2002:a05:622a:4110:b0:531:a85:69c1 with SMTP id
+ d75a77b69052e-532fea2231emr2750391cf.5.1790221554565; Wed, 23 Sep 2026
+ 20:45:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923215255.3329181-1-namhyung@kernel.org> <20260923215255.3329181-3-namhyung@kernel.org>
-In-Reply-To: <20260923215255.3329181-3-namhyung@kernel.org>
+References: <20260923215255.3329181-1-namhyung@kernel.org> <20260923215255.3329181-2-namhyung@kernel.org>
+In-Reply-To: <20260923215255.3329181-2-namhyung@kernel.org>
 From: Ian Rogers <irogers@google.com>
-Date: Wed, 23 Sep 2026 20:44:57 -0700
-X-Gm-Features: AclHuK9-SW3SsPxggKRW-bBT7Xws5jnPdZXD9H9xBhIitaeMKg6WFdky4YeB22w
-Message-ID: <CAP-5=fWX_LY-0de0=LPc2wPpvu7L70LL1zh0aocxGLopbWMqfQ@mail.gmail.com>
-Subject: Re: [PATCH 3/3] perf test: Fix record tests on hybrid machines
-To: Namhyung Kim <namhyung@kernel.org>
+Date: Wed, 23 Sep 2026 20:45:43 -0700
+X-Gm-Features: AclHuK_Jlv41nVnh02C2Krhs-ub1GtaU47Y_EHUe2Wi9C7qHr6XPY88shWHsO7s
+Message-ID: <CAP-5=fV1_4xC7mjmCpBarBNVd9e=ZYHAojtpK5ECuAF5u+s-Zg@mail.gmail.com>
+Subject: Re: [PATCH 2/3] perf test: Fix record tests on Intel Broadwell
+To: Namhyung Kim <namhyung@kernel.org>, Dapeng Mi <dapeng1.mi@linux.intel.com>
 Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
 	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
 	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, 
@@ -97,52 +97,38 @@ Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 23, 2026 at 2:52=E2=80=AFPM Namhyung Kim <namhyung@kernel.org> =
+On Wed, Sep 23, 2026 at 2:53=E2=80=AFPM Namhyung Kim <namhyung@kernel.org> =
 wrote:
 >
-> Currently the leader sampling test looks for "cycles:" string to match
-> the event and retrieve the value before the event name.  But it won't
-> work on hybrid systems as the event name is different like below.
+> I noticed it failed for leader sampling tests on Broadwell.  It's
+> because the period of groups members are a little bit different.  Maybe
+> there's an hardware issue but anyway it's close enough to treat them as
+> same.  I printed the value like below.
 >
->   $ perf script | grep -m 10 brstack
->       perf 3322152 1873980.978431:     625379 cpu_atom/cycles/:      5582=
-00cc40cf brstack_bench+0x31 (/home/namhyung/project/linux/tools/perf/perf)
->       perf 3322152 1873980.978431:     625379 cpu_atom/cycles/:      5582=
-00cc40cf brstack_bench+0x31 (/home/namhyung/project/linux/tools/perf/perf)
->       perf 3322152 1873980.978598:     612177 cpu_atom/cycles/:      5582=
-00cc4082 brstack_foo+0x17 (/home/namhyung/project/linux/tools/perf/perf)
->       perf 3322152 1873980.978598:     612177 cpu_atom/cycles/:      5582=
-00cc4082 brstack_foo+0x17 (/home/namhyung/project/linux/tools/perf/perf)
->       perf 3322152 1873980.978762:     591859 cpu_atom/cycles/:      5582=
-00cc403d brstack_bar+0x0 (/home/namhyung/project/linux/tools/perf/perf)
->       perf 3322152 1873980.978762:     591859 cpu_atom/cycles/:      5582=
-00cc403d brstack_bar+0x0 (/home/namhyung/project/linux/tools/perf/perf)
->       perf 3322152 1873980.978948:     628505 cpu_atom/cycles/:      5582=
-00cc403e brstack_bar+0x1 (/home/namhyung/project/linux/tools/perf/perf)
->       perf 3322152 1873980.978948:     628505 cpu_atom/cycles/:      5582=
-00cc403e brstack_bar+0x1 (/home/namhyung/project/linux/tools/perf/perf)
->       perf 3322152 1873980.979146:     669816 cpu_atom/cycles/:      5582=
-00cc40e5 brstack_bench+0x47 (/home/namhyung/project/linux/tools/perf/perf)
->       perf 3322152 1873980.979146:     669816 cpu_atom/cycles/:      5582=
-00cc40e5 brstack_bench+0x47 (/home/namhyung/project/linux/tools/perf/perf)
+>   $ perf test record
+>   ...
+>   prev: 462507, curr: 462506
+>   prev: 494783, curr: 494782
+>   prev: 454350, curr: 454349
+>   prev: 502782, curr: 502781
+>   prev: 566693, curr: 566692
+>   prev: 606558, curr: 606557
+>   prev: 559770, curr: 559769
+>   prev: 595737, curr: 595736
+>   prev: 643386, curr: 643385
+>   prev: 663672, curr: 663671
+>   prev: 620622, curr: 620621
+>   prev: 650419, curr: 650418
+>   Leader sampling [Failed inconsistent cycles count]
 >
-> But we can control the output format of perf script using -F option.  So
-> we knows where the period is in the output.  To filter by symbol name,
-> "ip" and "sym" fields are required as well.
+> Let's update the logic to compare values to allow 1% of errors.
 >
->   $ perf script -F period,ip,sym | grep -m 10 brstack
->       625379      558200cc40cf brstack_bench
->       625379      558200cc40cf brstack_bench
->       612177      558200cc4082 brstack_foo
->       612177      558200cc4082 brstack_foo
->       591859      558200cc403d brstack_bar
->       591859      558200cc403d brstack_bar
->       628505      558200cc403e brstack_bar
->       628505      558200cc403e brstack_bar
->       669816      558200cc40e5 brstack_bench
->       669816      558200cc40e5 brstack_bench
+> Also I think it should compare only if sees the non-leader samples so
+> split the check of (($index % 2)).
 >
 > Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+
++Dapeng Mi
 
 Tested-by: Ian Rogers <irogers@google.com>
 
@@ -150,37 +136,35 @@ Thanks,
 Ian
 
 > ---
->  tools/perf/tests/shell/record.sh | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  tools/perf/tests/shell/record.sh | 11 +++++++----
+>  1 file changed, 7 insertions(+), 4 deletions(-)
 >
 > diff --git a/tools/perf/tests/shell/record.sh b/tools/perf/tests/shell/re=
 cord.sh
-> index 04df35b30b0c15fd..fa8d17e389a0116d 100755
+> index cf8ba3d3411b0bcc..04df35b30b0c15fd 100755
 > --- a/tools/perf/tests/shell/record.sh
 > +++ b/tools/perf/tests/shell/record.sh
-> @@ -537,7 +537,7 @@ test_leader_sampling() {
->      err=3D1
->      return
->    fi
-> -  perf script -i "${perfdata}" | grep brstack > $script_output
-> +  perf script -i "${perfdata}" -F period,ip,sym | grep brstack > $script=
-_output
->    # Check if the two instruction counts are equal in each record.
->    # However, the throttling code doesn't consider event grouping. During=
- throttling, only the
->    # leader is stopped, causing the slave's counts significantly higher. =
-To temporarily solve this,
-> @@ -549,7 +549,7 @@ test_leader_sampling() {
->    tolerance_rate=3D0.8
+> @@ -550,11 +550,14 @@ test_leader_sampling() {
 >    while IFS=3D read -r line
 >    do
-> -    cycles=3D$(echo $line | awk '{for(i=3D1;i<=3DNF;i++) if($i=3D=3D"cyc=
+>      cycles=3D$(echo $line | awk '{for(i=3D1;i<=3DNF;i++) if($i=3D=3D"cyc=
 les:") print $(i-1)}')
-> +    cycles=3D$(echo $line | awk '{ print $1 }')
->      if [ $(($index%2)) -ne 0 ]
+> -    if [ $(($index%2)) -ne 0 ] && [ ${cycles}x !=3D ${prev_cycles}x ]
+> +    if [ $(($index%2)) -ne 0 ]
 >      then
->        if (( $(bc <<< "scale=3D4; r =3D ${cycles} / ${prev_cycles}; r >=
+> -      invalid_counts=3D$(($invalid_counts+1))
+> -    else
+> -      valid_counts=3D$(($valid_counts+1))
+> +      if (( $(bc <<< "scale=3D4; r =3D ${cycles} / ${prev_cycles}; r >=
 =3D 0.99 && r <=3D 1.01") ))
+> +      then
+> +        valid_counts=3D$(($valid_counts+1))
+> +      else
+> +        invalid_counts=3D$(($invalid_counts+1))
+> +      fi
+>      fi
+>      index=3D$(($index+1))
+>      prev_cycles=3D$cycles
 > --
 > 2.56.0.rc1.310.g51773c2048-goog
 >
