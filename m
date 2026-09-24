@@ -1,129 +1,100 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mta0.migadu.com (out-229.mta0.migadu.com [91.218.175.229])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 000EC2E975E;
-	Thu, 24 Sep 2026 09:15:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C755448BAA
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:16:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.229
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790241321; cv=none; b=JUoGM/QKxzz0GrKzXImQg9t2VXCouyMoCvJdRqo9EldJMjX3fj9gvL1YeWImsKg67//NC6pbDskbAldEwJ8KwvUrinnZCfPywuYV6D9GOlX3q3hXWB5hVCDLEUAA8fSrhB9V0poENWqY8tuLcvPJ5uhsVEwJ3DW+zUsRsCJaykw=
+	t=1790241366; cv=none; b=mDLla5EOZ8F823ZHHngaiYNRyP8nmvZ3erzrNNixv4zPGU8BxzCw6kdReYGHB++H2OMMLk4QFVvchmCD4H97jSZ/hW7JbLSUZ5iEvdJJ3LWTn8humbCI1ONLZz58TQCA+Eqlhj3flSrPZe1amYEf5uvXBHAlGDiMCR/zlfl6+Lo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790241321; c=relaxed/simple;
-	bh=+PUubzI0fINoPw/KkQuegrOikmDbuEY/nHkZdFX5NZw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bUEzF6XbQ1rm9BjQ1TrfWNKeDVY4N1JLJQL7G0COmo8ZLTuIntoIqf8+QeuVNey+WVAtIGUw/CVl3IU42gTZzzVQ6f42eFH9wMVfTd6/iod729gzEJ4qUiRrZ0KYUiCAWl/3OSIgUenb8FPWToji9ygleAPcy9XgqmUpYXe/NB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id E01EC20052;
-	Thu, 24 Sep 2026 09:15:17 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A9FE313668;
-	Thu, 24 Sep 2026 09:15:17 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id ycF/ISXqtGqqDgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 24 Sep 2026 09:15:17 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 3AAA4A132E; Thu, 24 Sep 2026 11:15:09 +0200 (CEST)
-Date: Thu, 24 Sep 2026 11:15:09 +0200
-From: Jan Kara <jack@suse.cz>
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Ayush Ranjan <ayushr@modal.com>, Hugh Dickins <hughd@google.com>, 
-	Matthew Wilcox <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Jan Kara <jack@suse.cz>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	David Hildenbrand <david@kernel.org>, Gregory Price <gourry@gourry.net>, linux-mm@kvack.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [BUG] shmem: FALLOC_FL_PUNCH_HOLE vs fault-around race corrupts
- page cache / rss counters
-Message-ID: <uf7lys6izqrxjsp3tstqxmdok5yy3w52d3bnpkfzyjm7uiyqzr@ickbg3ocvcji>
-References: <20260924061708.1645968-1-ayushr@modal.com>
- <arTdLsBENhrpOyk-@pedro-suse.tail5790ac.ts.net>
+	s=arc-20240116; t=1790241366; c=relaxed/simple;
+	bh=j4fPj55lYae/y5tdy10+TEYjmKUlPO6ycJwyC1KIIrk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j3QdU0x6WXfPaQXySDGfmfrOLC1DUo6McOSlMw55aSwssDvEQIFiEMejUmlQHWN83tTLKT6HBulfnFPsNipKVBgiOI1/5XUqddbY8KsNdIRuDd22FoT/PowlGq0HiMfurqf7xhsP9wWc+2W23bpzu/nEkcLWrmS9NJ0e7HALU84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=CYg4F3NV; arc=none smtp.client-ip=91.218.175.229
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="CYg4F3NV"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=j4fPj55lYae/y5tdy10+TEYjmKUlPO6ycJwyC1KIIrk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790241358; v=1; x=1790846158;
+ b=CYg4F3NVjRUy+Uarg7Z3sd/kZP/B1vMlwY7W2HiSAebBQaJyDSF/yv8LTgvWuySZFAIJkZ2M
+ /5zaJjkc0LoGES7o224ea6ZGYbi9pUwDu7kbD5Iwg5bRqrUnbcWYkmazmEdby4uRylDUaO+/S8L
+ YydK10YoBooNN86ZUPNvNdbA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 26b6c31f36dc8543;
+	Thu, 24 Sep 2026 09:15:57 +0000
+X-Mizu-Trace-ID: 26b6c31f36dc8543
+X-Migadu-Flow: FLOW_OUT
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+To: Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: [PATCH] cgroup/pids: Restore pids.events notifications in local mode
+Date: Thu, 24 Sep 2026 17:15:36 +0800
+Message-ID: <20260924091536.63572-1-guopeng.zhang@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arTdLsBENhrpOyk-@pedro-suse.tail5790ac.ts.net>
-X-Rspamd-Pre-Result: action=no action;
-	module=replies;
-	Message is reply to one we originated
-X-Rspamd-Queue-Id: E01EC20052
-X-Rspamd-Pre-Result: action=no action;
-	module=replies;
-	Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -4.00
-X-Spam-Level: 
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
+Content-Transfer-Encoding: 8bit
 
-On Thu 24-09-26 09:34:24, Pedro Falcato wrote:
-> On Thu, Sep 24, 2026 at 06:16:21AM +0000, Ayush Ranjan wrote:
-> > Here is my best understanding of the race -- corrections welcome:
-> > 
-> > shmem guards faults against an in-progress hole punch with
-> > inode->i_private: shmem_fault() -> shmem_falloc_wait() waits while
-> > shmem_fallocate(PUNCH_HOLE) holds i_private. But shmem's .map_pages
-> > is the generic filemap_map_pages() (shmem_vm_ops /
-> > shmem_anon_vm_ops), which does not consult i_private and does not
-> > take invalidate_lock, and shmem does not use invalidate_lock to
-> > serialize faults against truncation the way regular filesystems do --
-> > the i_private + waitq scheme stands in for it, but only shmem_fault()
-> > participates in that scheme.
-> > 
-> > So while shmem_fallocate(PUNCH_HOLE) is between
-> > unmap_mapping_range() and shmem_truncate_range(), a concurrent
-> > fault-around can (re-)install PTEs for folios that are about to be
-> > truncated:
-> > 
-> >   - filemap_map_pages() samples mm_counter_file(folio) once per batch
-> >     and applies it with add_mm_counter() after mapping; if the
-> >     folio's swapbacked state changes while it is concurrently torn
-> 
-> But that cannot happen? We hold the folio lock in filemap_map_pages().
-> The folio (naturally) cannot be torn down while we have the folio lock.
-> 
-> >     down, the map-time counter (MM_FILEPAGES) and the zap-time
-> >     counter (MM_SHMEMPAGES) disagree by exactly one folio -- the
-> >     +/-512 imbalance above.
-> > 
-> >   - a folio re-mapped in this window (by fault-around directly, or
-> >     via a child VMA whose PTEs copy_page_range() installs after
-> >     unmap_mapping_range() has already walked the i_mmap tree -- the
-> >     dup_mmap() variant discussed in the earlier thread) can be
-> >     deleted from the page cache while still mapped -> "still mapped
-> >     when deleted".
-> 
-> No, I don't think this paragraph is true. Page cache truncation (via
-> truncate, or fallocate PUNCH_HOLE) takes the folio lock for each folio
-> that is about to be truncated out. Mapping folios takes the folio lock
-> as well, except in the fork() case where a myriad of weird interval tree
-> + PTE lock interactions make it safe (AIUI).
+From: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
-Can this be perhaps somehow related to the fixes in partial large folio
-truncation Zhang Yi is working on, possibly even the tmpfs bug in handling
-of folio split I've found [1]? It seems large folios are used here so that
-matches, I just don't immediately see how those bugs would lead to the
-errors reported here...
+A fork rejected by the pids controller increments the counter reported by
+pids.events. When local event accounting is selected, however, pids_event()
+returns after notifying only events_local_file, leaving pids.events pollers
+asleep.
 
-								Honza
+On legacy hierarchies, pids.events.local does not exist. With
+pids_localevents, pids.events reports the same local counter. In both
+cases, pids.events changes without generating a notification.
 
-[1] https://lore.kernel.org/all/5pthbyxtn7q6xi4fmkofvksmcjzfnujcw2g4fxmxjzfin5pbgf@zui3vcimb4cv
+This can be reproduced with a pids_localevents mount:
 
+    mkdir /tmp/test
+    mount -t cgroup2 -o pids_localevents none /tmp/test
+    mkdir /tmp/test/t
+    echo 1 > /tmp/test/t/pids.max
+    cat /tmp/test/t/pids.events                 # max 0
+    timeout 3 inotifywait -e modify /tmp/test/t/pids.events &
+    sh -c 'echo $$ > /tmp/test/t/cgroup.procs; (true &)' 2>/dev/null
+    wait
+    cat /tmp/test/t/pids.events                 # max 1
+
+Without this patch, inotifywait times out without reporting an event.
+Notify pids.events before returning from the local event path.
+
+Fixes: 3f26a885a068 ("cgroup/pids: Add pids.events.local")
+Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+---
+ kernel/cgroup/pids.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/kernel/cgroup/pids.c b/kernel/cgroup/pids.c
+index ecbb839d2acb..8444e270554a 100644
+--- a/kernel/cgroup/pids.c
++++ b/kernel/cgroup/pids.c
+@@ -253,6 +253,11 @@ static void pids_event(struct pids_cgroup *pids_forking,
+ 	}
+ 	if (!cgroup_subsys_on_dfl(pids_cgrp_subsys) ||
+ 	    cgrp_dfl_root.flags & CGRP_ROOT_PIDS_LOCAL_EVENTS) {
++		/*
++		 * pids.events reports the local counter on legacy hierarchies and
++		 * when pids_localevents is enabled.
++		 */
++		cgroup_file_notify(&p->events_file);
+ 		cgroup_file_notify(&p->events_local_file);
+ 		return;
+ 	}
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.43.0
+
