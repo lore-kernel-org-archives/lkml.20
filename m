@@ -1,80 +1,229 @@
-Received: from mta0.migadu.com (out-52.mta0.migadu.com [91.218.175.52])
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93AD4AAC50
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:19:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86AB132E12E
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:20:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790273965; cv=none; b=rSyAMDVegf8seVDGl7Ygkjp4ME9lHu8kHi17krp0eh4jbDz5llUYhyW+Edg7i9rMaZ4sC1CzBJYlOy8zT+WcrEhOzasJcKV47bkP3vx8/B7rXQsVDSfNwBozUAuB920N60V95Gl/aezDSFOVy3+0XHX/EtggqpsElP3dd7c3SW0=
+	t=1790274049; cv=none; b=S4pvieHE34xyVSt7mEMd9G59cbLpx89uR/PO5OBvBrIqnOBY7pdCHUNHCNKLhSOjt5D/ECz7YOkF8Lb5cSC+C6q2Sz94YUu431dTMESyU8THXdLTRIdYvSOmlimN+ExBGeEYLpmlxcRd00YmupYkY1mt2sKEPmJzgwkkuBa3w9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790273965; c=relaxed/simple;
-	bh=IvUR2431T4OLwHWTHJUJSLYNuzeAJuOHiFRGzJguyA8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nQ6eQg5lDnZRqC+sqkCoXzCmDjtY/ONX+BH4CmqYYn+TsY3YgDMH36z6DCGmj7Pg+J1L5FxaY292ftGFc4BgmvSNqWwo8XX812vHIS3icH5/B4prpY8SmEafcsnDeXE5FYuvvA8CJ+gQHwCbYKRAfXwro8He7sRhwwrdG14jG28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JK2VMlCz; arc=none smtp.client-ip=91.218.175.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790274049; c=relaxed/simple;
+	bh=N1eKbuuNutpyxPSc7VRBvykLDhMhLYtgUA0eiR+gO2o=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Cof64A0BLT4BXsP4eRCvc8ucqzXXgXyviGwmLrMpgqT+X4mpWPfyyB+pr/ZzM+A3oGETSSJ32yRk/TlohjRp4vYll6evPr2mI1MCozFddYZMhaodAuxC1mWRstP+ZbBoLNm3fc+TrGE1G0ft8LuoRcIWX6YdWa1JZainXfWm8/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=AxXWLWGr; arc=none smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JK2VMlCz"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=IvUR2431T4OLwHWTHJUJSLYNuzeAJuOHiFRGzJguyA8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790273961; v=1; x=1790878761;
- b=JK2VMlCzlWD7pG4XUcQz3UmmSvPMinHkMCt3G4tpJF1SDG0LmasM+K9jZhtyqATA5haK589a
- uE2WO6jtPmVC5WBB86qPhROFjqHjHx/NaplC/vz2Ap1EY3sLeyHlkQ+yMSfw6qTuIpEzIKfJsg0
- HyCkNBRjB8RwfY1+ZRGwUIoM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 83c7589b2e139cce;
-	Thu, 24 Sep 2026 18:19:21 +0000
-X-Mizu-Trace-ID: 83c7589b2e139cce
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5b8c42da963so1341e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:19:20 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxVVJUmpObqS25jr3i4vf3V5B0ebZ1pNq8Oe/ZoC8WhwSvCoHpGoFgHtJKA1lCEx7OAkSNWTRTwjcvIRLc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mOzSMD85/mf84owCgPYjlc2OQND5Lu6eZUAe7D3erYaJCM3Kb8
-	/asCYlA69H7JaOV6nFsWOXCDekei/XiYTYMeRmRWDUge/JQGSZ9U08Ozd3xqMf2U9qlR+dJcz54
-	DGi65BpNYm5AiB+fGfaEWOyxGop/GG08U89P5gy32
-X-Received: by 2002:a05:6512:3ca9:b0:5b8:e262:d32e with SMTP id
- 2adb3069b0e04-5b8e57821dcmr16882e87.1.1790273959309; Thu, 24 Sep 2026
- 11:19:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="AxXWLWGr"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4aaf2ecfso246487d50.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:20:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1790274045; x=1790878845; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4ddGw+SxvwjLwG9r/atoe7LBsu7awTG97BNAfuxMXGI=;
+        b=AxXWLWGrC+4vt8T/1hf5GOzrtYbSMoFtgCrwjxFcR9mGW8xwrNLCN8UKuAwPcBEB9c
+         6i7mtFYN80ASdiZKRTZ590UU/0MHbZrnHup0Yreq9Qq5M3iB5OWtC8HJugEZaZnTlfCX
+         EV7vnlny7XuvA8XKnlE5Eqo7C/qpJOIm/z1enGDHf5+3gea4cJhLl6Xeed1CRv69x32z
+         +wMXRVUBMuRxDb8k7kjQsn2aZm6m8rE1b2/hsBGW8CjRuH01ff0KCu5JGpkvGBpMaNw8
+         zS0xgUj0c5vtuGvpbodJXRy2TLh39nIen6v1u9tUoFGnUNWsHKvgy7zKOA6FCRiK/ScJ
+         IEVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790274045; x=1790878845;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=4ddGw+SxvwjLwG9r/atoe7LBsu7awTG97BNAfuxMXGI=;
+        b=macO52HgoIpQkIlxfSnvC5GfPPM2XjRdR1c5v1GuwjHRrpc6mpCaLfhY/iuBsqDR+Q
+         NYk2ZbTe5o4+r9/tYxNB+K06YFXGfZzw8RxOYfrdlYJq9TtIlog1ZacL+iQN+vH8Uari
+         YPBTAJ4M4T4iXu+Uh5RhaAfTJKV6LvLhk46DSbHfWR63R5iXo5xb9s3v1PezXQcU/SiD
+         CYqVoSNWMhW+eet8mhNnRtOCqexy7mGynj/d4Sd5cC9OnSI2lpNmnKmdLER2O7pC49we
+         ZSIaHbEgc08beufqPVJmQvChmeVinzzEaFWNQXkyVmUjnYIlQoPLiWcXqoFkEkJlJMl0
+         MT/Q==
+X-Forwarded-Encrypted: i=1; AKwUvByvnytjD7x/PJVKqDwFzlHIMXoVHUVL7qB9fJ8ik5y/thCTRyTVQMfvplgybt/EVU237gA7KCaQB9BvxRU=@vger.kernel.org
+X-Gm-Message-State: AFuF++noapWBEarukyS+X8XTI9ZB2EU6PH+rgIEc04tuG57AQfGavqwE
+	NWUQmofGl+nVLFYE4Y2hoIWpJumh6EIc9LSiFg9wo3A3IGEFhNamVcTmBBgCgLyDRik=
+X-Gm-Gg: AYBFou1wXFocXtv7Fhrs2fldVnlhakzgSt2eQCgjjSVoH4+4HqxsZyQ8a3wFy+hynna
+	dnkzH5gNS/IIo3DF3RJh2y4fzJMmqkxdpCKyhv7K/HrkvDt6shyQkRE8HYzNaByXlL381uhkxA7
+	bEaF32Y5T9iOwboR5ke1EXSN3pusS1Ac7Eu+1CbHLAYS+kbA9ciuBMeGZqPSnduhV8RKkz9DFUA
+	Yev6YTSvRA/o381lL6kwWAl/gDsgCbbyvZ34qmfmrKshESOaIdguVkmb7bMLRAyCvx1IqJXf/DJ
+	UAtMpMM344/JUv3JJH6DTkiI3g5Xb3TYeSzM4TY3kZUSmKzijPtLnmfq6/dhAu+qSKLIp/prZVt
+	e/mQb5bT8lDUh9Ha6tRokuRoHTSE/v/JJTPPt+ewxM8XNQh/1mlK9i/bApddZ1TJCWe6hUEgSDF
+	GmnCLX/vw8lqG88MI2z7ZInCC6ntUIHziUSZtB28hkT0dJP34YwxMl959b0euv1i3MXKcdBar/9
+	32i2G0+1euqqvl9ihO/ETfz8GE/YZw+pRYN8MaWHq2VU6twY/CCLJbkjAEecUCkFOfUr0NnRZV7
+	fLgBqU03Y+2ao5NBqW02AgzOKxn8GrVUNNvH/ozBgRKtQQWqtI6pz4j6HRB1fG6B
+X-Received: by 2002:a05:690e:dc2:b0:672:f1e7:d232 with SMTP id 956f58d0204a3-672f1e807a4mr1788819d50.26.1790274045311;
+        Thu, 24 Sep 2026 11:20:45 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:4935:3bd4:e0b7:fd95? ([2600:1700:6476:1430:4935:3bd4:e0b7:fd95])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-672d9089322sm2428882d50.21.2026.09.24.11.20.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 11:20:44 -0700 (PDT)
+Message-ID: <a5d4902ff3ad297e2e30c4a0b41ae99d8b40a07d.camel@dubeyko.com>
+Subject: Re: [PATCH] nilfs2: fix deadlock between nilfs_evict_inode() and
+ find_inode()
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Cc: linux-nilfs <linux-nilfs@vger.kernel.org>, LKML
+	 <linux-kernel@vger.kernel.org>, 
+	syzbot+6646318bbcf419411bc5@syzkaller.appspotmail.com, 
+	syzkaller-bugs@googlegroups.com
+Date: Thu, 24 Sep 2026 11:20:41 -0700
+In-Reply-To: <20260923164345.18456-1-konishi.ryusuke@gmail.com>
+References: <20260923164345.18456-1-konishi.ryusuke@gmail.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922071945.693714-1-fuad.tabba@linux.dev> <20260922071945.693714-2-fuad.tabba@linux.dev>
- <arVQutV75u2gGVr4@google.com>
-In-Reply-To: <arVQutV75u2gGVr4@google.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Thu, 24 Sep 2026 19:18:43 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTz=n2Tnq73amL3cok0=_vn-cigesdd1r-emt=+__Xatog@mail.gmail.com>
-X-Gm-Features: AclHuK8gQuMnh5G0uSWpcfUI1aukInqrdbq0WmB1N5HLh0hWNnycc7FfERA0vUQ
-Message-ID: <CA+EHjTz=n2Tnq73amL3cok0=_vn-cigesdd1r-emt=+__Xatog@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] KVM: selftests: Fix arm64 sysreg header dependencies
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>, 
-	Oliver Upton <oupton@kernel.org>, Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	James Houghton <jthoughton@google.com>, Will Deacon <will@kernel.org>, kvm@vger.kernel.org, 
-	kvmarm@lists.linux.dev, cgroups@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Sean,
+On Thu, 2026-09-24 at 01:41 +0900, Ryusuke Konishi wrote:
+> Syzbot reported a deadlock between nilfs_evict_inode(), executed via
+> an asynchronous workqueue (kworker) as:
+>=20
+> =C2=A0 process_one_work()
+> =C2=A0=C2=A0=C2=A0 process_scheduled_works()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nilfs_iput_work_func()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nilfs_dispose_list()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 iput()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 iput_f=
+inal()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 evict()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 s_op->evict_inode()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nilfs_evict_inode()
+>=20
+> and find_inode(), called via
+>=20
+> =C2=A0 nilfs_mkdir()
+> =C2=A0=C2=A0=C2=A0 nilfs_new_inode()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nilfs_insert_inode_locked()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 insert_inode_locked4()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 inode_insert5()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 find_i=
+node()
+>=20
+> When an inode is deleted (i_nlink =3D=3D 0), nilfs_evict_inode() clears
+> its
+> ifile bitmap entry and then synchronously triggers the log writer via
+> nilfs_transaction_commit() if IS_SYNC(inode) is true.
+>=20
+> If a concurrent directory creation via nilfs_new_inode() attempts to
+> allocate the same newly freed inode number, however, find_inode()
+> called
+> just before inserting it into the inode hash, blocks waiting for the
+> old
+> inode's evict() to complete.
+>=20
+> Meanwhile, the synchronous log writer invoked from
+> nilfs_evict_inode()
+> tries to acquire a write lock on 'ns_segctor_sem' which is read
+> locked
+> by the caller of nilfs_new_inode() (in this case, nilfs_mkdir()),
+> resulting in a deadlock.
+>=20
+> The synchronous log writer invocation from nilfs_evict_inode() is a
+> legacy artifact; it is no longer necessary because the call itself
+> (triggered by iput()) is now handled asynchronously with a kworker
+> if i_nlink =3D=3D 0.=C2=A0 It merely increases the risk of deadlock.
+>=20
+> Fix this deadlock by removing the synchronous log writer trigger from
+> nilfs_evict_inode().
+>=20
+> Reported-by: syzbot+6646318bbcf419411bc5@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D6646318bbcf419411bc5
+> Fixes: 7ef3ff2fea8b ("nilfs2: fix deadlock of segment constructor
+> over I_SYNC flag")
+> Tested-by: syzbot+6646318bbcf419411bc5@syzkaller.appspotmail.com
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+> ---
+> Hi Viacheslav,
+>=20
+> Please apply this bug fix.
+>=20
+> This fixes a deadlock issue that had been reported by syzbot but
+> remained unresolved for over a year.
+>=20
+> Thanks,
+> Ryusuke Konishi
+>=20
+> =C2=A0fs/nilfs2/inode.c | 6 ------
+> =C2=A01 file changed, 6 deletions(-)
+>=20
+> diff --git a/fs/nilfs2/inode.c b/fs/nilfs2/inode.c
+> index 64437aed8390..33490e8063eb 100644
+> --- a/fs/nilfs2/inode.c
+> +++ b/fs/nilfs2/inode.c
+> @@ -895,13 +895,7 @@ void nilfs_evict_inode(struct inode *inode)
+> =C2=A0
+> =C2=A0	nilfs_clear_inode(inode);
+> =C2=A0
+> -	if (IS_SYNC(inode))
+> -		nilfs_set_transaction_flag(NILFS_TI_SYNC);
+> =C2=A0	nilfs_transaction_commit(sb);
+> -	/*
+> -	 * May construct a logical segment and may fail in sync
+> mode.
+> -	 * But delete_inode has no return value.
+> -	 */
+> =C2=A0}
+> =C2=A0
+> =C2=A0int nilfs_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
 
-On Thu, 24 Sep 2026 17:32:58 +0100, Sean Christopherson
-<seanjc@google.com> wrote:
-[...]
-> Definitely doesn't have to be now, but at some point should we split out some of
-> this arch-specific sub-Makefiles?  It's nice not having to hunt around to figure
-> out which tests are supported by which arch, but the amount of arch specific goo
-> we're accruing is getting unwieldy.
+Applied.
 
-I think so. I'd keep the test lists where they are and move the
-per-arch build logic (the ifeq ($(ARCH),...) blocks) into arch-specific
-sub-Makefiles. I could send that as a follow-up once this patch lands.
-
-Cheers,
-/fuad
+Thanks,
+Slava.
