@@ -1,76 +1,76 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0AFE3ABD96;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B72377EC7;
 	Thu, 24 Sep 2026 12:40:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790253655; cv=none; b=Hz2ejI2sn+S4b8nKU5zHPOuVL4BoB7238LRRXOsSpVB9hF/7P9M5a0+mg5N+JEf2XwG+2yH6HoPkqeTdy36kHAP9mpbdg+nc7yJtJgdedoIhyuNN66NsC2YtODjS1rNIPUEst/5S9o3lAeBP3c9VNz+dXygVgz0tmFwDSAEyyi8=
+	t=1790253656; cv=none; b=SoPq7AUuGwiP0+JWBjL9tXv5WSJt0yYy54Y8kX0pXT7C4mPdKm42uzH7y08TIXUcf0FrPaIKmA/+ldKLLNcNTho51N00/YDLHRmPkDxp7Pco2+cA+4UnbHlX5IJpFmEYJ669xm61SZynmomqpOp3xZKuMJT9TF89awvlG23VKvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790253655; c=relaxed/simple;
-	bh=4s6QAGOSw02obaoUejOkLC5JwzN47+Sds/ZrPWOhowY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SIYAlXYHSqFm4gHjYNonasaUUwKqOt69H4XT2FE29AKxYR402Qbtz9FQ0RapJev1GbPnAAA3yRH3n6JPC8UhOPZC3FD7eqQTvO7j2a8Y/G/dLemh3liyJ0e+jW7yNto6BwamgZJVGq5T3eGi6pq2gucm3Sfv00vPzrMtV4wQO5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=xcjT4bKS; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1790253656; c=relaxed/simple;
+	bh=ZcNh+l6SeSrEevzUyaiIbHJKDijrGi3F9DOB0SBLJpQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ptMOMmF6xAJ2N1jcI4IEOdL38V6cw/pDgLCrIFCg5/XCKJkJ9AQ55G1o0FHvB0qIEB4DEmyXO04RtY2PYztlf11kc2cxzL9eKf/dyrU/QMfziIOmdektC1Zn1hmOqqN9N0EtMOMynLUOuhmUnYRtSJMIGnYfUmJilRZx9y0rf98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=eEpIPmlD; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="xcjT4bKS"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=Content-Transfer-Encoding:MIME-Version:
-	Message-ID:Date:Subject:Cc:To:From:Content-Type:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-To:Resent-Cc:
-	Resent-Message-ID:In-Reply-To:References;
-	bh=4s6QAGOSw02obaoUejOkLC5JwzN47+Sds/ZrPWOhowY=; t=1790253654; x=1791463254; 
-	b=xcjT4bKSZPusZnkeafvQfeysOmh+9FFTNCsPzBDP5s5XMHe7KpkmYf6gZwkTAeUJ64CQKlz/xmz
-	rityTms73GO+V9xIR4d6W3NIKBpZjJNCBhE5kKjSCJloornyrZLwfN1/m+JThtsuF2IS9xUVfghyP
-	DVe3wWqp4sjSFIrggFHYeaxqE766y81Ep33lb15WjMFe5Phm6JkO2NQZK9rOvlYGr+hTo/WkSjO1n
-	p2nzNVlIfw/oP5ON3UnWDwwwhKvgKXPYgAkCL3pOS1pTRTF+1EqXxnEVIYP57n56C1qimPE3SdiZn
-	u96wckIx1FMf7RcRZnrnkjvJcrj0D9Jp9j0A==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1x9ikq-000000092x8-32Wu;
-	Thu, 24 Sep 2026 14:40:48 +0200
-From: Johannes Berg <johannes@sipsolutions.net>
-To: linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-um@lists.infradead.org,
-	linux-s390@vger.kernel.org
-Cc: Heiko Carstens <hca@linux.ibm.com>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>
-Subject: [PATCH 0/4] ORC unwinder cleanup & UML support
-Date: Thu, 24 Sep 2026 14:35:49 +0200
-Message-ID: <20260924124039.1621965-6-johannes@sipsolutions.net>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="eEpIPmlD"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=LlhL8lPQK+mGmThvRzcBFWd03/EYCS0ROgcvO+lg6ns=; b=eEpIPmlDWOZam71wIcPWwH/Ioz
+	eo5DxMECgO/mlGeLs861lSC0kURUaOMryIZVvkatNfERA1W5avV/zuuPs4N1UW7n9eXUEsiJ/lhTN
+	yHa8qqjgAawkok0KNH0/I2quTGeu2QdlYVO8+6ZpDh3Poqa49od5rLEnxgCcHVjF1s4M=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x9iks-006zVy-Nh; Thu, 24 Sep 2026 14:40:50 +0200
+Date: Thu, 24 Sep 2026 14:40:50 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Aldo Ariel <qwe.aldo@gmail.com>
+Cc: wei.fang@nxp.com, frank.li@nxp.com, shenwei.wang@nxp.com,
+	imx@lists.linux.dev, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH net v2] net: fec: reject oversized fragments before
+ bounce-buffer memcpy
+Message-ID: <a230cd62-db31-4128-acfa-93501d30aa39@lunn.ch>
+References: <20260923203738.1583735-1-qwe.aldo@gmail.com>
+ <f3c05fe4-b90a-484b-8b3f-0cf0b101a20a@lunn.ch>
+ <CAP48Hfto4qc285B3Jw7ZRuC-wGf57JOBPZOdrrAt-aDfGcas8Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAP48Hfto4qc285B3Jw7ZRuC-wGf57JOBPZOdrrAt-aDfGcas8Q@mail.gmail.com>
 
-Since UML is pretty much "just x86" I'd figured for years it
-should be "simple" to add ORC unwinder support. It's not quite
-as simple as I thought, but I managed - though to not have to
-copy/paste _quite_ as much code, this series first cleans up
-the already common code between x86 and loongarch.
+On Wed, Sep 23, 2026 at 06:22:01PM -0300, Aldo Ariel wrote:
+> Hi Andrew,
+> 
+> PKT_MAXBUF_SIZE = round_down(2048 - 64, 64) = 1984
+> max_mtu (non-jumbo) = 1984 - VLAN_ETH_HLEN - ETH_FCS_LEN = 1962
+> 
+> So for standard MTU, max_mtu < FEC_ENET_TX_FRSIZE and individual
+> fragments should not exceed the bounce buffer.
+> 
+> However, when the device supports jumbo frames,
+> max_buf_size = MAX_JUMBO_BUF_SIZE (~16256) and max_mtu reaches ~16234.
+> Scatter-gather fragments in that case can exceed FEC_ENET_TX_FRSIZE
+> while still needing the bounce path for alignment or byte-swap.
+> 
+> Should I respin with a check only for the jumbo path, or is the
+> unconditional guard acceptable?
 
-Most of the code is indeed copy/paste, but with adjustments
-that are not really abstractable for making common code.
+Can bounce buffers and jumbo be used at the same time?
 
-It touches s390 because I thought we could end up with some
-compilation errors from s390 unnecessarily (and accidentally?)
-declaring unwind_module_init(), maybe it's not needed since
-the new orc.h isn't included anywhere it could conflict.
+How is the scatter-gather size determined? Maybe the better fix is to
+set the fragment size based on the size of the bounce buffer when it
+is in use?
 
-Works for x86 and um, builds for loongarch (but I don't see
-a reason it wouldn't work).
-
-No idea how we'd merge this and if the MAINTAINER entry is
-really where it should be, but I'm also not in a hurry :)
-
-johannes
-
+	Andrew
