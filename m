@@ -1,171 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F078E1FB1;
-	Thu, 24 Sep 2026 07:19:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A174A3905E3
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:19:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790234372; cv=none; b=uJJTYAiVn2GHZ2v7hHStbEKAOftetc3RXXZRQRmcsU1ijDKuMU6KsB/QfxCdOwoY8OAnKsb7BMgnd46TNSfB1oDxXFyuEsINl0ODZcP5IiAzHDfHL6qaNAtgD3yVZOBhK6DwOmkjX17NDgk7nOyx5yHq3XFr/U08GODech+JUQE=
+	t=1790234375; cv=none; b=TFm4f0m+28/RV6Y+ukLH1cq54xWtAXGtlkMN9h24BKSP4ygzNYUJzTvHq8b0G9/sF0QFc1oiDrseQ0wdpibuNmAnzvjjfvnrpnsuW1meHnXZVXqAO2JtXd0uoN21Nk/36YoQOQTn3v4+oTEMrzAGSqbEErCFlhyXrGeKiLeU6HM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790234372; c=relaxed/simple;
-	bh=E05+bHXFCopTh54aMIB75+V6H9AcsfKr0sltighp1tA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QafvEVBhxuOJX8VoLrEAtic7FjtXcE5Neb4ukFZbAwiqQBdgb/ml8LtRmXv1ZofmDZb+NQ+qlsW8JfWzwqAn5vUxm4amAjMdLG1sYscZmJsHCJspxlgeIkI1Q8UaLeuh8WYCCYQWttOtOw43VpCp5SePA0Cc0ftmlLFYinyoRDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b4iXV3Na; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790234375; c=relaxed/simple;
+	bh=446Ipwf87TsFSy7IXoMB/p1qBMbO9KZb0MU0f8j6sDI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tP26/5RwBwJmVeR2RhCZIyXWBohCTG/pQC5g0boCCK2wdP4Lkig9ErdFOSQ7W1WsAEUkQZRyKnurjrzqIyYfR9Zr8V1Y4XDlIY2n95cK5U9Aqiel+qtNWb3rw8ICTJWHbmniWh4aVKrHWL7gMC5d5+7eUHOEwaRy/D6AdoKtQUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=SRMTvyWy; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b4iXV3Na"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB2501F000FF;
-	Thu, 24 Sep 2026 07:19:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790234370;
-	bh=HRGpzjaTceiGt52QZ0R/rEbnbWW0z7ilUt0hAEkQ7UI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=b4iXV3NabyOxUcBPZ8lgAovkC6m2VuuSKldwe0olRSxe98ajOQgDN/wubgMNxfblC
-	 DG06jdpCLXpNrYvcVcI+dZZACChVDXYmK7wITwUltHVKHWlavEfGXflk3uqbZcq2eS
-	 HTrLyut3xvn0gueitiwmIZtGd5Sou6IvK0NSRcicaAWLu3orguL3ENfH7fe9PEMWWm
-	 /lEADdsAFofMOWo3QvSz/XvZYt4zJXRTDfbXoj1xDlxk0nkfggUgxJTriNLZ5sKQY9
-	 BbminPUgyo9WdKHRQ69iA7zv3YRLyCg46fUZdpwDV6AIzV/yzuzwgZYJehpnaLi0Az
-	 dngTMEtU1HIog==
-Message-ID: <a4bf1f96-787d-4c1e-9bef-52ab2be570ae@kernel.org>
-Date: Thu, 24 Sep 2026 09:19:26 +0200
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="SRMTvyWy"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea34f01so1043252a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:19:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790234373; x=1790839173; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4xkM0YegMLjtxLCx2J8zlo1pNEp/XjEQu6zvYI3W5I8=;
+        b=SRMTvyWy7YtO1nQAH3UNDo1R2XBvvAaJYGTbN7dF770VovKr8N6RbisLtsakB7IjyM
+         0ZEHUieNk4xBgp9v1saOmHc1fSDtAs2maxkPPZuC8Mmm3W6x4poCsE2GChqlq5bKxihG
+         U+fAEGx+Rmm/rDhsWruc9wWUkg2sU88wi6wG0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790234373; x=1790839173;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4xkM0YegMLjtxLCx2J8zlo1pNEp/XjEQu6zvYI3W5I8=;
+        b=JzMj4PHyEsaGedNuy9BCXUND/Yimr51xkWJCmyVKOQy/VZ1qjdRYt0hOIpU7BCw05l
+         XE4nchuDGVjIWDKEhzKpO5treMPVKRdOfp5Tyuv7YXCTpFzpUSZlteihTIpV2wvCVwFA
+         5L5GEbd2vghlo89d3yTAg1BQWtXewt+I1uozJddJDeOts7Vh5hvscpJ4B9IjXhADytFV
+         JVrU7R8F5kKGQuLDvu1hEvyiAQnB+rVocCasfwb/fCUsYWUuoF5+7DU1FeVgMjbmhAl6
+         nYEYvoqTxexskSV9rAhM29v0XeIm1476oWGsKPBfeB1r9JeA1LDw9Tv6WbyIGyqH3fJ0
+         pmdw==
+X-Forwarded-Encrypted: i=1; AKwUvBylERY51DuyIrNdeJLV3fPmUqhVpvrMurNwdLlR/UU4FlCjFUMqhhpvvIdqDVVtztmapER+vxNpH2obX0U=@vger.kernel.org
+X-Gm-Message-State: AFuF++mDpiE51NWmTkZHC7EBrQKGEQqbdB37PL84kBLdUWHyiiB7/eJn
+	dtl7dZz4wHkQCjeF4xohAjsb2um3o2TNYbHGZMCP3AULT6c+NqSEts58udnqlblXvSyohTAaY53
+	u1h0=
+X-Gm-Gg: AYBFou1I31f48zp3J72CAisYJzSYlYza556wI99mdhLj8B8UbsXNQcfMO7NktjKDhPc
+	6hSItxEsKX10+6HVNs5Xc7kt/u0NI53MatN3t3FsrtzIRZPJrHSe654hNo5KaQpltUOjQiyHNsh
+	gEdYNvN/RiAs5lDkNE/Z/Wq2pNmD2hXJUdHU1Q+/8vwboqzcyN341AsCdTJ9QYVpYqGb/ImMzvW
+	7bgyAWaTB1n08zUm1kiaQ2YV3Od4T3qYcpNIjIsyrHFDlIQTbngfeIibvLIMdw9tGer5ZJLw4C3
+	sxu6FVKbccCQhh2v13meLmvCLhEiy7/EWIhbUPhenyoLvRhfRIXPDWtxdled7RWPleOgwYg1VAj
+	/rGBGoSb2Q2/367ztPMkuE3kJTyOpCny6UaE1IM5BTg6zRQV3CREQBt/xUPb0iixTRj2ZPleomP
+	FeJhQ2/zUe9HBg31UpjT8267nbKnszaG7ejFwn4h6MiQ1vKyLy+F0m7PBOl9es8tbiy8+gyyOAr
+	f2xJLw9uBs76BV5Y5X1vYa3CUiXaFKnqkeshg==
+X-Received: by 2002:a17:90b:2586:b0:39e:6c69:9b9a with SMTP id 98e67ed59e1d1-3a0992907f3mr1367873a91.63.1790234372913;
+        Thu, 24 Sep 2026 00:19:32 -0700 (PDT)
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com. [74.125.229.140])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a60c674sm21870255ad.81.2026.09.24.00.19.31
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 00:19:31 -0700 (PDT)
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd05d97cso2538298c88.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:19:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxRTS+jB4WZT/zeN1TkRwZxhGLchLljIRKzhykKQHu9hz7INq/JPJO0otS239JxV39QcuJTGwvh57Inz7k=@vger.kernel.org
+X-Received: by 2002:a05:701b:42d2:10b0:144:ee9d:eb1e with SMTP id
+ a92af1059eb24-14503fefb78mr1363373c88.32.1790234370314; Thu, 24 Sep 2026
+ 00:19:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/vma: predicate setting mmap_prepare VMA fields on new
- vma alloc
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>
-Cc: Suren Baghdasaryan <surenb@google.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260923-fix-mmap-prepare-overwrite-v1-1-3b3f1bfcdf5e@kernel.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20260923-fix-mmap-prepare-overwrite-v1-1-3b3f1bfcdf5e@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260914-unqual-v2-0-60a1407a0cd4@chromium.org>
+ <20260914-unqual-v2-2-60a1407a0cd4@chromium.org> <CANiDSCt9nOM8OWY21Q=ei5dmOK2O+DB1aYdd9NrbLt3e+pJPUg@mail.gmail.com>
+ <20260923162234.394061af@pumpkin>
+In-Reply-To: <20260923162234.394061af@pumpkin>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Thu, 24 Sep 2026 09:19:16 +0200
+X-Gmail-Original-Message-ID: <CANiDSCvqC_Kn20zOA+dQBmppi4KAO5g_4a_s-opkDa+CT=0YWQ@mail.gmail.com>
+X-Gm-Features: AclHuK_SrtWB6lKxAhVFq8ggHS9u7GJrFjbjjhd0mGu4HfjYL_fmoNQVtNq9Hqc
+Message-ID: <CANiDSCvqC_Kn20zOA+dQBmppi4KAO5g_4a_s-opkDa+CT=0YWQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] x86/uaccess: Drop the address space qualifier from put_user()
+To: David Laight <david.laight.linux@gmail.com>
+Cc: x86@kernel.org, Thomas Gleixner <tglx@kernel.org>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	"H. Peter Anvin" <hpa@zytor.com>, "Peter Zijlstra (Intel)" <peterz@infradead.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/23/26 19:45, Lorenzo Stoakes (ARM) wrote:
-> It only makes sense to manipulate VMA fields if a new VMA was allocated,
-> rather than merged.
-> 
-> VMA merging does not compare vm_ops or vm_private_data, so a merged VMA
-> keeps its own, which is also what the legacy f_op->mmap path does since it
-> never touches an existing VMA.
-> 
-> Currently, these fields will get overwritten by whatever state is
-> established in the mmap_prepare hook, and if the VMA was merged,
-> vm_ops->mapped will not have been called, so this could destructively clear
-> existing state without replacing it with anything valid.
-> 
-> There is an implicit requirement that vm_private_data and vm_ops are
-> fungible across VMAs which means that losing the 'new' state is
-> fine.
-> 
-> However in this case the 'old' state is being overwritten by potentially
-> invalid 'new' state, so this must be rectified.
-> 
-> Additionally constify have_mmap_prepare while here.
-> 
-> All existing in-tree users either derive state for the tree or are
-> unmergeable due to VMA flags, so this has no direct impact.
-> 
-> Fixes: c84bf6dd2b83 ("mm: introduce new .mmap_prepare() file callback")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
-> Note that this is cc: stable to account for any possible back-ports that could
-> break it (unlikely)
+Hi David
 
-Does it mean that patches are on the way to mainline that will break it, but
-it's unlikely they will be backported? Or there are no such patches yet?
-Just curious... if it's the first case then with the amount of random stuff
-that goes to stable these days, I'd rather assume they could be backported
-at some point :)
+On Wed, 23 Sept 2026 at 17:22, David Laight
+<david.laight.linux@gmail.com> wrote:
+>
+> On Wed, 23 Sep 2026 13:08:20 +0200
+> Ricardo Ribalda <ribalda@chromium.org> wrote:
+>
+> > Friendly ping?
+> >
+> > On Mon, 14 Sept 2026 at 15:53, Ricardo Ribalda <ribalda@chromium.org> wrote:
+> > >
+> > > __typeof__() preserves every qualifier, the address space included.
+> > >
+> > > When we do __typeof(*__user *int), we are declaring a __user integer,
+> > > which is pretty much meaningless. A value in a register or in the stack
+> > > does not live in the user address space.
+>
+> Doesn't that mean it is a smatch bug - so should be fixed there.
 
-or out-of-tree modules which might be affected.
+I don't think it is a Smatch bug: __typeof__() preserves all
+qualifiers including address spaces. Smatch is just enforcing that
+more strictly now.
 
-That is never a concern, and even suggesting it can bring hch's wrath ;)
+I'd prefer that developers explicitly say when they are crossing the
+address space boundaries, and TYPEOF_UNQUAL() seems to be the right
+macro, which also Dan recommended.
 
-Anyway,
+>
+> Somewhere in the middle of this there ought to checks that the value
+> is the correct type (eg pointer v integer) and that, for put_user(),
+> the destination pointer isn't const.
+> Using:
+>         auto __x = 0 ? *ptr : x;
+> can be more succinct than other versions - might not help here.
+>
+> David
+>
+> > >
+> > > This annotation did not trigger any error until a recent version of
+> > > smatch[1] started caring. And as a result of that now we have tens of
+> > > warnings like:
+> > >
+> > >   drivers/media/usb/uvc/uvc_v4l2.c:1112:13: warning: incorrect type in argument 2 (different address spaces)
+> > >   drivers/media/usb/uvc/uvc_v4l2.c:1112:13:    expected void const *from
+> > >   drivers/media/usb/uvc/uvc_v4l2.c:1112:13:    got unsigned int __user *
+> > >
+> > > Instead of __typeof__() use TYPEOF_UNQUAL(). It maps to
+> > > __typeof_unqual__() in recent compilers, so the address space annotation
+> > > is gone.
+> > >
+> > > [1] https://github.com/error27/smatch/commit/e53027a4e816a772403baafa83c09e4a94c1cb8f
+> > >
+> > > Suggested-by: Dan Carpenter <dan.carpenter@linaro.org>
+> > > Link: https://lore.kernel.org/r/20260825-unqual-v1-2-7024fb81b4f9@chromium.org
+> > > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> > > ---
+> > >  arch/x86/include/asm/uaccess.h | 4 ++--
+> > >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > >
+> > > diff --git a/arch/x86/include/asm/uaccess.h b/arch/x86/include/asm/uaccess.h
+> > > index 3a0dd3c2b233..4e576c0b9131 100644
+> > > --- a/arch/x86/include/asm/uaccess.h
+> > > +++ b/arch/x86/include/asm/uaccess.h
+> > > @@ -172,7 +172,7 @@ extern void __put_user_nocheck_8(void);
+> > >         int __ret_pu;                                                   \
+> > >         void __user *__ptr_pu;                                          \
+> > >         register __typeof__(*(ptr)) __val_pu asm("%"_ASM_AX);           \
+> > > -       __typeof__(*(ptr)) __x = (x); /* eval x once */                 \
+> > > +       TYPEOF_UNQUAL(*(ptr)) __x = (x); /* eval x once */              \
+> > >         __typeof__(ptr) __ptr = (ptr); /* eval ptr once */              \
+> > >         __chk_user_ptr(__ptr);                                          \
+> > >         __ptr_pu = __ptr;                                               \
+> > > @@ -231,7 +231,7 @@ extern void __put_user_nocheck_8(void);
+> > >
+> > >  #define __put_user_size(x, ptr, size, label)                           \
+> > >  do {                                                                   \
+> > > -       __typeof__(*(ptr)) __x = (x); /* eval x once */                 \
+> > > +       TYPEOF_UNQUAL(*(ptr)) __x = (x); /* eval x once */              \
+> > >         __typeof__(ptr) __ptr = (ptr); /* eval ptr once */              \
+> > >         __chk_user_ptr(__ptr);                                          \
+> > >         switch (size) {                                                 \
+> > >
+> > > --
+> > > 2.55.0.1007.g17ff1f9808-goog
+> > >
+> >
+> >
+>
 
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-
-> ---
->  mm/vma.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/mm/vma.c b/mm/vma.c
-> index 9f0a0acf694a..6cde67883fb0 100644
-> --- a/mm/vma.c
-> +++ b/mm/vma.c
-> @@ -2849,7 +2849,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
->  {
->  	struct mm_struct *mm = current->mm;
->  	struct vm_area_struct *vma = NULL;
-> -	bool have_mmap_prepare = file && file->f_op->mmap_prepare;
-> +	const bool have_mmap_prepare = file && file->f_op->mmap_prepare;
->  	VMA_ITERATOR(vmi, mm, addr);
->  	const pgoff_t anon_pgoff = addr >> PAGE_SHIFT;
->  	MMAP_STATE(map, mm, &vmi, addr, len, pgoff, anon_pgoff, vma_flags, file);
-> @@ -2892,7 +2892,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
->  		allocated_new = true;
->  	}
->  
-> -	if (have_mmap_prepare)
-> +	if (have_mmap_prepare && allocated_new)
->  		set_vma_user_defined_fields(vma, &map);
->  
->  	__mmap_complete(&map, vma);
-> 
-> ---
-> base-commit: fe2ec83746e501645709761605c2464a44fd2929
-> change-id: 20260923-fix-mmap-prepare-overwrite-6304d112a4c7
-> 
-> Best regards,
-
+-- 
+Ricardo Ribalda
