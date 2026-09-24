@@ -1,90 +1,84 @@
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548354EFFD2
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:55:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D5C64F85A7
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:55:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790286905; cv=none; b=ehnNbrkqUnMh0k/9P9IviyVXOtyvo8770U1f2WBjw+28Pdx2cPCPlL3fmbAXDcAjo4imMFZq51t1W7jCqVk7RJkXsCdn6Z59/TReVNYDuW6d1Kbj/1i+8HAXafTM3cB0v7kr7yoGYx+N1NgJ9YkMpao9bfC0E3UQezGGq3mzBPU=
+	t=1790286909; cv=none; b=eqMTDKddg+ojRGz6TuGWnhXLLU4yRItXbAY2t/R9ayVV/5U+AKKLFNMtTSOvE7+iBplnJ8aXAwewI536qUO1GpPGsDLaAN9HksgwtZ45HWUQpTlkNPeuhEBCqWDpESYoU8ipyMBGvGDDGDsuhumkSigf/jfMZvkQNf+CoDQMKG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790286905; c=relaxed/simple;
-	bh=wANjnZ6VjHCT3Et5duiCN/uEpRPHOryOydD78oDxXhg=;
+	s=arc-20240116; t=1790286909; c=relaxed/simple;
+	bh=2ZGU//KYiJQWmwlH/Q/XMroPyMM9p/vhyZIryzwt08k=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Tsjeb6dIHSO0Ub0h7FfTK8nTZt9d/rqVjwmDuYV8cGzuH8aAttragaPe55Bq6REwqVUxIG3KQjYsairJB8FpYqmR8dbwrkSG+xz8sEwjuRxDf6Tvm5eLRT9Y0YcMa3ytlIaHr6xdFOKsqniOp6rdd+sc1SL2x3a9qoyvm2dBMgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=isFqEYi1; arc=none smtp.client-ip=209.85.216.72
+	 To:Cc:Content-Type; b=UCVsIjHfa4PTkGCNbWYjGlKe1LgPDGcGGZMSGCWP1opy11UXFl/dKgbm+AOKmDpSpt+8ElEWW1WjPaQ3Kwjt9YYv/jH6fFI1ZbDeH3NASSMJ4kzpXER9GFpgviMu5JiE8/s3lTqHRmBjOLBsh+DBD7WNfTC9T9af+FsI1ntt9/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=N7SmX7Ha; arc=none smtp.client-ip=209.85.215.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="isFqEYi1"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3968bb86fb7so308240a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:55:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="N7SmX7Ha"
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc4afc810bfso921783a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:55:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790286904; x=1790891704; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790286908; x=1790891708; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Dc/37vZOnRoLP9xi4DdWqpUDaxAkc6wukk/aoyxwa2M=;
-        b=isFqEYi1TPI4ecFAPQDGSUMnnaJrjULGOQ4xwfRz+TtEmr84ule3MtyLnFmY3tvkEN
-         /cA08WXePcHHcXZUV9fHXOqaIAAE6e3HxO3bYtubBFGq1phfe5noMQNgepo/fgH97Az+
-         UIisC0yDGQfQG/0mvTz4qMj8dM/0LUZGUi90lUduF6OghmEZO7UYEQ7iEobaQMphC9Sg
-         8CDNlaWq7fh04glEgb4rpfVXkEYdLK3g+04SLkLm0uVPAx5QETq2cTg2cBq/e5HWSCL5
-         DdoZqIB4fZFjxOCg7pljUTwRCXDFz9PY3kUgXVXUpDwHRQu4926NELv0a8Vs9Vy03uPx
-         99Qg==
+        bh=ktQrlSrVcwbzp91Jk2Fph37MAeo4cET8GqvsyuC/rgg=;
+        b=N7SmX7Ha1WERzalru5YR7fFMl17+Jms8HJsHaZfOY5IReSBvCqy1J1vsi+Uk3cWI0J
+         uosg4BEASWn+blNCbkFmIUApTz27jDIoLl+XMxQc2VoqGzLZQgld+TNCHVPKtGDn7IKQ
+         rLmZcfnfEGN5QNrHI0wu5OcYcBnsieaszhvHACDW+B2MK74lWgBBtbn7LULHvsV4Ku9t
+         MOUNSA8lVWXQGA43mdUBTn1kIXixQ5CDmgmHzIIQe/cFnixZ4I25duAJmiBCBcqg1Ofj
+         1+/czSQr9MIs7jyetefKsXhI4vJjIs6NC51DCPj5pJdWgSrMPP5sY+u/K0DhH6C0pRlQ
+         QTQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790286904; x=1790891704;
+        d=1e100.net; s=20260707; t=1790286908; x=1790891708;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Dc/37vZOnRoLP9xi4DdWqpUDaxAkc6wukk/aoyxwa2M=;
-        b=xNjT+u11mijq0ZrK6mk+EJHUaGdtvWK9KHmDOE3PE+/HkKMCnsVfeiKD6a18/DqieE
-         Tq+l93FtLJiJ9R+mHBv4tR5Ak1eicymxV1oXrMcohTdFNpkm6qaNqUK7wRGZovozHEJp
-         YqiTcollTEPu66E2ZWLUWSo7M7db8udkKojwZNc9jNImCXPpY6FdKUKSjeeFAaJOAyMR
-         TFxWWq0ziqSIUsZtYfCxflbOQcNafVRbovEvrsO/uN1NB0ioBZ/zDsZ6St97mAGcr6B+
-         wSLLiYLe3i8C5YCxpRkBbpvq8urfEhbHT2w0Nsv9H5FtZ6xBzQkztX1cx8G3egImU5mt
-         GXAw==
-X-Forwarded-Encrypted: i=1; AKwUvBzzwU4SgFR1XF7uBPflfqWAvxzMkyTe2y352HFRfy1r5/vGggIcRHDS3gBHy7QKFLeePHcP3wWTokbXLEE=@vger.kernel.org
-X-Gm-Message-State: AFuF++me8MCXR+aN3CN/V/svZX+yHWvzfZjlQEQxqL/WiBiuo779+XZN
-	1+tiiK6+TVFmBKhTKG8kvFrnspQIMAisx4Uv5pk/8PpxYbIVutBwZj7PzpUycICErXoPZ0rT6Yo
-	c8ywb3g==
-X-Received: from pjre4.prod.google.com ([2002:a17:90a:b384:b0:3a0:618b:a5ab])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3b8f:b0:39e:6c69:f478
- with SMTP id 98e67ed59e1d1-3a098cf4ef8mr3712540a91.55.1790286903417; Thu, 24
- Sep 2026 14:55:03 -0700 (PDT)
-Date: Thu, 24 Sep 2026 14:52:05 -0700
-In-Reply-To: <20260921235656.1107929-1-seanjc@google.com>
+        bh=ktQrlSrVcwbzp91Jk2Fph37MAeo4cET8GqvsyuC/rgg=;
+        b=Y8VMrXitctxatFEvVsrg/wyTaz6XZTfuq4VQgAlM/ZodWVGQvPjjWs+OO7Vl8+VoYK
+         +fSCBbZLMc4shp00hmjP9Azwxi92AUFwCYqUBKiuAxOtzOSDhyzVsVc7tvxnCcPr/mC9
+         rjZDn1mNrt8tlxuRiFLlO/ta1B2mKQLez+LbI5l/ddLgrusiin/05zMZ1Fme7npO2HpJ
+         ZR7fAPJ/thKz2x815e8y8B/e5OiGxc4ScdmWvgrXfpQnQ9pAYZXYEptUopcneeaAXhBN
+         qVKiHbmHBILm99gpe0LBUbF99XJjSQAaqL8mFSue8PYnJKpnbemIOKiKyA1bqiwT7umN
+         e5WA==
+X-Forwarded-Encrypted: i=1; AKwUvByAZ44ZEpcIzvlGr8vRMB6pa9/YcMPRmelklqUVujXripnzOqo7o6h66bSnP3MXyK+1Bjamn6i0ULGW+3U=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhPqtMPbQ1pJEkM20pCZ0DgmQfoXqRBxsR+hhfkMNFrw1ppDbU
+	0oEm68o3el+orHCUmAdgwqkfoH/pQ7DitrjItGtg6Arb6A15t55P2WqeXPX2ioaX19Mt98e/jdV
+	2iqLObg==
+X-Received: from plar20.prod.google.com ([2002:a17:902:c7d4:b0:2dd:4a8d:e22b])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:b0d:b0:2d8:d4d2:d13a
+ with SMTP id d9443c01a7336-2df7e251e68mr21560155ad.22.1790286907302; Thu, 24
+ Sep 2026 14:55:07 -0700 (PDT)
+Date: Thu, 24 Sep 2026 14:52:07 -0700
+In-Reply-To: <20260922000152.1113202-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260921235656.1107929-1-seanjc@google.com>
+References: <20260922000152.1113202-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <179028366129.2006410.7179106384799013251.b4-ty@b4>
-Subject: Re: [PATCH] KVM: VMX: Formally define KVM's "0xdead" exit reason used
- for failed VM-Enter
+Message-ID: <179028365423.2005474.7634424655738990561.b4-ty@b4>
+Subject: Re: [PATCH] KVM: VMX: Move bus lock handler from main.c => common.h
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Xiaoyao Li <xiaoyao.li@intel.com>, Yan Zhao <yan.y.zhao@intel.com>, 
-	Binbin Wu <binbin.wu@linux.intel.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="utf-8"
 
-On Mon, 21 Sep 2026 16:56:55 -0700, Sean Christopherson wrote:
-> Add EXIT_REASON_UNDEFINED to track KVM's magic "0xdead" value that's used
-> to stuff the exit reason on a failed VM-Enter so that the magic can be
-> reused by TDX, and to make it more obvious that it's an arbitrary, KVM-
-> defined value (though the whole "dead" thing makes it pretty darn obvious).
+On Mon, 21 Sep 2026 17:01:52 -0700, Sean Christopherson wrote:
+> Move the bus lock VM-Exit handler, which is basically a one-liner, from
+> main.c to vmx.h now that to_vt() is usable in common.h.
 > 
-> Opportunistically add a compile-time assert to ensure the KVM-defined exit
-> reason never collides with a "real" exit reason.
+> No functional change intended.
 > 
-> [...]
+> 
 
 Applied to kvm-x86 vmx, thanks!
 
-[1/1] KVM: VMX: Formally define KVM's "0xdead" exit reason used for failed VM-Enter
-      https://github.com/kvm-x86/linux/commit/d85f7dc8cf3c
+[1/1] KVM: VMX: Move bus lock handler from main.c => common.h
+      https://github.com/kvm-x86/linux/commit/6088c9a22012
 
 --
 https://github.com/kvm-x86/linux/tree/next
