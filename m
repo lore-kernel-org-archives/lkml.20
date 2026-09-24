@@ -1,51 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57A13B2D0D;
-	Thu, 24 Sep 2026 22:02:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C45B36654F
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:02:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790287352; cv=none; b=kP49xv6Bo76f6iCCE08TaNy0N1hpWE8bywVoRFkxOqwOLpencVPgC6FZ094tQOCqmoqlIHsEXJzVlVfmGK73yuhzmGu0pEuG/apIW2w9nS62Y6jGTuY5xvbmYsbqi5joVvWXY66QR53dJpPyYt4BoGYPvhDK4T1GonP5um9h6Ns=
+	t=1790287362; cv=none; b=SC8rgd99bjOnrX5jyKRPFjY0qz/nTZ0pEHkWECagyvBM8zqtS1UtDND9B13s4QJeYqQbpr98u7So3adLlgXxCKYi9kHJnIHuYrI0scpz4WnF5crO0KChxzJGENxKz/IeYhiQcezJdmXyL2aRbHk5djb5mdZvWjz7CXzopJkvOzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790287352; c=relaxed/simple;
-	bh=cs9vSIWZW8SFBxF07yRNavclLZFeXUxNKOcdDvezVNY=;
+	s=arc-20240116; t=1790287362; c=relaxed/simple;
+	bh=q9Q38rfwg+ndLuv/SnmRyYC3yPpGM/HR1YdJVhzn990=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rfO6UcChgyu/UIydqU5raA3dSmXM/4hdVdmQNun3j9v6Jy7i76lsKmhwZs0uQmNstsO7FUNaIJRM8+q4Zaep2tFZ/c/HRVj5cBXwNchK9QDN2AXQvq6q3I4pYiUzQFWJKOmKo9abP1GS0ufmIhUVVgg5doxfOFcX3SIVjj14ous=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N2PXSnK9; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=dvD2glxBn23weP40NQxYvs0CM3b60Ycoq6pkMexAsKp7KI+lGmDHPonX46GjxO5JwIgO8psqMpe5DYP7b3C7Gm4oIXlVQE8JxA7hmaj3sswFKZtiZxBy5+kTuxOOAV6yjEKViUHASMTaFqwCpACGXEsg4GlW8+H4Ir6V/K7RaWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bqI+X8F/; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N2PXSnK9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F10E1F000FF;
-	Thu, 24 Sep 2026 22:02:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790287350;
-	bh=bSzKOZUy8NaRjE8fxyAW+EMiV46+2afh1kAtlwVP6oc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=N2PXSnK94vokQlGTISS32DQpbhFuKRTsJ9hFv22AeukwR4JVqjV/owNwuRPG7oZoq
-	 9drLo5LgzoM2rfzeGe+gLz+3lrfIA3JBl1PhCKX7XXmiz0/ex7sBy1zyxw8MiY8GHE
-	 v0N/RMxlx+yqBjX4lbf6VzkJpcmtmVIjgr/NhXF0d/RWmfirLYJLzRkmWFE1f3rSVt
-	 BqKPhkitWyzhTmvjJW9sRn00txkCJI0X0ONUFCTSlTgFTXSHMRV05M4DYQRzKyOp8r
-	 3e91QJYKcam0XM03HO3/EgOf5yNNEJ+uLG4MGR1lFtOJuUkVrJ3XtjDYUvF4t8x5Hy
-	 jd8i0HrbwkV/g==
-Date: Thu, 24 Sep 2026 17:02:28 -0500
-From: Rob Herring <robh@kernel.org>
-To: Markus Probst <markus.probst@posteo.de>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <uwe@kleine-koenig.org>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Michael Langer <michael.brainbug.langer@googlemail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Linus Walleij <linusw@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 1/6] dt-bindings: rtc: Add pinctrl for S35390A
-Message-ID: <20260924220228.GA1895971-robh@kernel.org>
-References: <20260916-rtc_s35390a_int1-v9-0-b2567a3e4959@posteo.de>
- <20260916-rtc_s35390a_int1-v9-1-b2567a3e4959@posteo.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bqI+X8F/"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b91369d18so2096405e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:02:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790287360; x=1790892160; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FxovyPH3Np+Hc1hy5wmf+7gNJx0ZGtqWMTp+L5wj2dg=;
+        b=bqI+X8F/fyJDveM3Xvepmg2A9EfwVsQcJ1tL21cPB+8suevU2IfBnNyqKB63QKmqPG
+         iLjKYCKMVM1zMS1PLI7dzQHRAEcItMoo96aiZGb73XJB3ihyEZhIeqFtJeCEzFgpx5QZ
+         MPEnClbBcDLU+G/UBXYK100F/hlfxSe4otpLOnv2e+3nc4iMme40+I2g0oC3+OZJfdj3
+         +ccUm1b71WPlsGsnnlvSxx1iiicJbbfk6MUAWN2192laisQfrTGus5VZdH5eVXYa7V4B
+         1e56AjdsYqxgDu7jLDYAv3uXGMIuOOXeptGcxlZE4Zr9f1ZCyLX844us/fn0LgGdKB73
+         5VfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790287360; x=1790892160;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FxovyPH3Np+Hc1hy5wmf+7gNJx0ZGtqWMTp+L5wj2dg=;
+        b=k6lX3OXrCr/TlRsA8cN9NP/PikbMr6htwM/SXff9rnJLODynI2FaZB5QOEyl5SzdAe
+         OADkQ+LVOAArII/3tjjN7pgsoFRMhj8NEMyY1bR5BNU4ZyfEHR+YOgF0TY62zI3j/9f+
+         98yZP/AeqWYOBtaRuWYQ3AMNnReHSVwIugPqFEkbXP4QTJAwekR0JW1677k6GWXDscTW
+         4+V4LnTuPmrkfUPaL7QyzVFzAToMqOZL7dwGza7iQvIif8L/NxRS4daJ+sA3/K4y36Ns
+         LuU5u+avrO9m38dzvrJ4TzqyX1ieOEL7WcpXoTVnTVYFw/lo0xb+axN+5K6kXlNN+Yb/
+         OFQA==
+X-Forwarded-Encrypted: i=1; AKwUvBwQGh1wjyiMQvia27Ns5eg4ynZuf23E4NwBczi1uZpMcxt/O4voXINeeErJ7pjOnYxIy80ahS2sCXj0t1c=@vger.kernel.org
+X-Gm-Message-State: AFuF++lcG9EqC9A4fDeop/QQrG5xzMsUHaS7Pbza3Q4tkGZ+eiIUbfR3
+	KGacwyORR1FUQkKrD2uwGnvoT0vu0cmxgEd9+xZq3Vno7wDP4ciF1+TD
+X-Gm-Gg: AYBFou1m1/JThBXc1rp4506UCyf0fdyUtiFZRisIiafy1QWW0ul4igVyoo62+2vIaUR
+	uuaVQzJjE6rTxFuoIdjajv3LaZs/7KGu4vHNOeqRAipePQiS64wk7M5sPWeHkbH1CsWgDzRPOnh
+	mouovDoH+KDbE1u38c9cC6Nm7e2geVSmqwP8vyee1+p1n14hYje89MJpOlwoHgSHPdVHRYxd8D6
+	qIFOxFKAEYA960yp7Aj+rFdMIVLDsZx3S34W6vU58+6GeBFbK8MqZCOnCZqc458H3LgsuZ087yl
+	23zdCbxSP+4cU6gP/oUmjDqV8VC437aOfgl9URi/w+JiBdWrVb34z1ahFNgfkIym/8ValWOhXcb
+	XfuFdsVLRgcLNZwASujSEkwohl4gEtYILeRKqBXVv5hJyV68dnbZKsHHp2ey5sfJ8ONV2B9lhwW
+	5rAUDOsTn//JeOy0s6vH0ZecS7mL71OdET1Jd58Jitb2kDGsviubokleZD2NY=
+X-Received: by 2002:a05:600c:698e:b0:49c:fc6e:a3dc with SMTP id 5b1f17b1804b1-49fe66f1491mr70434555e9.27.1790287359476;
+        Thu, 24 Sep 2026 15:02:39 -0700 (PDT)
+Received: from gmail.com ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5dfa6a7sm154421105e9.12.2026.09.24.15.02.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 15:02:36 -0700 (PDT)
+Date: Fri, 25 Sep 2026 00:02:34 +0200
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+To: Chang Yu <marcus.yu.56@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Shi Hao <i.shihao.999@gmail.com>, Joshua Crofts <joshua.crofts1@gmail.com>, 
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/2] iio: light: add AS7343 multi-spectral sensor
+ driver
+Message-ID: <arWccqy8YlLJxeWA@gmail.com>
+References: <20260919235145.48273-1-marcus.yu.56@gmail.com>
+ <20260919235145.48273-3-marcus.yu.56@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,174 +81,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260916-rtc_s35390a_int1-v9-1-b2567a3e4959@posteo.de>
+In-Reply-To: <20260919235145.48273-3-marcus.yu.56@gmail.com>
 
-On Wed, Sep 16, 2026 at 04:00:36PM +0000, Markus Probst wrote:
-> Synology NAS devices use the output pin for interrupt signal 1 to wake up
-> the system.
-> 
-> Move devicetree bindings for sii,s35390a into its own file.
-> Add necessary properties to configure the individual pins via pinctrl,
-> which allows the interrupt signal 1 to be used for wakeup alarm.
-> 
-> Signed-off-by: Markus Probst <markus.probst@posteo.de>
-> ---
->  .../devicetree/bindings/rtc/sii,s35390a.yaml       | 121 +++++++++++++++++++++
->  .../devicetree/bindings/rtc/trivial-rtc.yaml       |   3 -
->  2 files changed, 121 insertions(+), 3 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml b/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml
-> new file mode 100644
-> index 000000000000..f3bf5900fb3c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml
-> @@ -0,0 +1,121 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/rtc/sii,s35390a.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+On Sat, Sep 19, 2026 at 04:51:45PM -0700, Chang Yu wrote:
+> +static int as7343_read_raw(struct iio_dev *indio_dev,
+> +			   struct iio_chan_spec const *chan,
+> +			   int *val, int *val2, long mask)
+> +{
+> +	struct as7343_data *data = iio_priv(indio_dev);
+> +	struct regmap *map = data->regmap;
+> +	struct device *dev = regmap_get_device(map);
+> +	unsigned int unused;
+> +	__le16 result;
+> +	int ret;
 > +
-> +title: S-35390A 2-WIRE REAL-TIME CLOCK
+> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
+> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +	if (ret)
+> +		return ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW: {
+> +		/* Wait until integration time passes for all 3 cycles. */
+> +		msleep(160);
 
-Drop the all caps.
+three integration periods hardcoded next to a hardcoded integration
+time, so nothing keeps them in sync. make ATIME/ASTEP writable and the
+fixed wait no longer covers a readout. as73211, which this is based on,
+computes the timeout and polls NDATA. STATUS2 (0x90) bit 6 is AVALID is
+defined and never read, does it cover all three cycles? the datasheet
+does not say.
 
 > +
-> +maintainers:
-> +  - Markus Probst <markus.probst@posteo.de>
+> +		/*
+> +		 * Reading ASTATUS latches all data registers to this read.
+> +		 * We don't care about the returned saturation/gain status for
+> +		 * now.
+> +		 */
+> +		guard(mutex)(&data->mutex);
 > +
-> +description:
-> +  The S-35390A is a CMOS 2-wire real-time clock IC which operates with the
-> +  very low current consumption in the wide range of operation voltage.
+> +		ret = regmap_read(map, AS7343_ASTATUS_REG, &unused);
+> +		if (ret)
+> +			return ret;
 > +
-> +allOf:
-> +  - $ref: rtc.yaml#
+> +		ret = regmap_bulk_read(map, chan->address,
+> +				       &result, sizeof(result));
+> +		if (ret)
+> +			return ret;
 > +
-> +properties:
-> +  compatible:
-> +    const: sii,s35390a
+> +		*val = le16_to_cpu(result);
+> +		return IIO_VAL_INT;
+> +	}
 > +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    minItems: 1
-> +    maxItems: 2
-> +    description: Supports up to 2 interrupt lines via the INT1 and INT2 pins.
-> +
-> +  interrupt-names:
-> +    minItems: 1
-> +    maxItems: 2
-> +    items:
-> +      enum:
-> +        - int1
-> +        - int2
-> +
-> +  wakeup-parent: true
-> +
-> +  wakeup-source: true
-> +
-> +  "#clock-cells":
-> +    const: 1
-> +
-> +patternProperties:
-> +  "^pins":
-> +    type: object
-> +    additionalProperties: false
-> +
-> +    patternProperties:
-> +      "-pins$":
-> +        type: object
-> +        additionalProperties: false
-> +
-> +        allOf:
-
-Don't need allOf.
-
-> +          - $ref: /schemas/pinctrl/pinmux-node.yaml#
-> +
-> +        properties:
-> +          pins:
-> +            minItems: 1
-> +            items:
-> +              enum:
-> +                - int1
-> +                - int2
-> +
-> +          function:
-> +            description: |
-> +              Pin function:
-> +              - ignore:  Preserve the previous state.
-> +              - disable: Disable pin output.
-> +              - wakeup:  Output wakes up the system.
-> +              - clock:   Output clock pulse.
-> +              - pmin1:   Minute periodical output with 50% duty.
-> +              - pmin2:   Minute periodical output L for 7.81 ms.
-> +                         Can only be used with pin int1.
-> +            enum:
-> +              - ignore
-> +              - disable
-> +              - wakeup
-> +              - clock
-> +              - pmin1
-> +              - pmin2
-> +
-> +        required:
-> +          - pins
-> +          - function
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        rtc@30 {
-> +            compatible = "sii,s35390a";
-> +            reg = <0x30>;
-> +            pinctrl-0 = <&rtc_pins_default>;
-> +            pinctrl-names = "default";
-> +
-> +            interrupt-names = "int1";
-> +            interrupts = <23>;
-> +
-> +            rtc_pins_default: pins {
-> +              int1-pins {
-> +                pins = "int1";
-> +                function = "wakeup";
-> +              };
-> +              int2-pins {
-> +                pins = "int2";
-> +                function = "disable";
-> +              };
-> +            };
-> +        };
-> +    };
-> diff --git a/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml b/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml
-> index f4d0eed98a08..7b3f682ef4d5 100644
-> --- a/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml
-> +++ b/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml
-> @@ -81,8 +81,6 @@ properties:
->        - ricoh,rv5c386
->        # I2C bus SERIAL INTERFACE REAL-TIME CLOCK IC
->        - ricoh,rv5c387a
-> -      # 2-wire CMOS real-time clock
-> -      - sii,s35390a
->        # ST SPEAr Real-time Clock
->        - st,spear600-rtc
->        # VIA/Wondermedia VT8500 Real-time Clock
-> @@ -105,5 +103,4 @@ required:
->    - reg
->  
->  additionalProperties: false
-> -
-
-Unrelated change. Drop.
-
-Rob
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+--
+cheers, jose a. p-a
