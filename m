@@ -1,197 +1,144 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED7B347FB17;
-	Thu, 24 Sep 2026 13:23:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5417484246
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:23:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790256187; cv=none; b=o6z5+TxYSSitjTLRPMXxqe1innxJ/5b+mufvJvrhBlC1+ZvYVFaJQ1kdHOkX0cZwzKZSxn2fwoao5FA6wCL3sFg6sxLF5VjVFZ0XGaFj50uvSZBNpWFss3tRd60r2h2yB3y0Sxwa85cSPmqJwP92hfyhjKBRyGbe0Z/MJs6RIBE=
+	t=1790256237; cv=none; b=IKZkDJ0FzktTrOPjgP3D0pQwp/EnL4dgPtB9qZWqlhnjoAhJcONmHm7EnHgLmfsklYHLt5UNvMEqnmeHctLQQaeVE/o94tRTWOZLnvF1gmTbq3OyN7UqzXP8RyD+VLdabXeOTS4U3NELbxqtgiqLfyQBZKdSJsY2qoesadSuieI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790256187; c=relaxed/simple;
-	bh=QOH4xBl/CkYL2rclp5PVIoSCYiuxsQInpcawsiffP8k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HwZzrvzC0+Q/lPLCn1MD2sG6jfkzh6sB/2E8qXD34mDw8yxpVXcxZ+yC6l4B6XNZbo4j+Gr7EdXs3YTRPilYBfGEk6SAa4hMBtT4OE/uXFQsE+9qatEeBSV/tT2cjyiKe0+FU1qMYDO53HDj614PiGWjQ3jIBfx3IGN1pK2HV88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ep339rKL; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790256237; c=relaxed/simple;
+	bh=QQy5B36lU1X5v9eQWk5be9ZcLvThEHoip2L8mmPKWys=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GT1BuEO6e6I89kR89FW+nfvQL3CFlC8bdLUTgKpdcgvxz+x3yUqiikPVoQHN0giaODskEWRQT3KPqaa1sUgXDeIVkg2RHukSeMAFrJPs+jbBsqaCZIAld3fA/lU4BGepP4iUrdyRaQuJOeR96XLwlJW4Lu9aoL3KLpxrxZ5JDO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SRK8wSwG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jmX6MPlB; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ep339rKL"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OC6BfS2183157;
-	Thu, 24 Sep 2026 13:22:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=Zb5TauC0/1EmZZ5+gHx+JlMdrwywUA
-	qna/NOKIkopo0=; b=ep339rKLtGttWLzyIjTde1Xn151NfClCRjbtMX5jUMSTwe
-	9aQbdEllJ6seeudBEH/fD/6cGXrzJO2zI/MgueE5DgArWt14qqncrfr+M4CO8fof
-	3Qv8noHUD3BpQTX931zeoUD9vZBtyDjVYHjkTg+fOPZVjcxTKWxLx3NLBfwiHC8l
-	gAfTbGiuB4GJx7IKLzJHkR7vUd3FvWq4nufRes19psl2fuEXvCOM6OWivYA2lYIS
-	2uXOYsXTeR5J85klIHR371qnBdkq1WYN3R+yBV4Q3CpdCKVNoqQkRzfeuuh9Le9M
-	prWmZEVY+HXPhso7bbJ3wrLDJzojTauJEOf/0FGQ==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgsh9d1-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 24 Sep 2026 13:22:12 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68OCHXPm2061440;
-	Thu, 24 Sep 2026 13:22:12 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gvb8jx18t-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 24 Sep 2026 13:22:12 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68ODMArl43450786
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 24 Sep 2026 13:22:10 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4CFE220043;
-	Thu, 24 Sep 2026 13:22:10 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 629CA20040;
-	Thu, 24 Sep 2026 13:22:06 +0000 (GMT)
-Received: from li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com (unknown [9.124.210.215])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Thu, 24 Sep 2026 13:22:06 +0000 (GMT)
-Date: Thu, 24 Sep 2026 18:52:03 +0530
-From: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-To: Zhang Yi <yi.zhang@huaweicloud.com>
-Cc: linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        linux-kernel@vger.kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca,
-        libaokun@linux.alibaba.com, jack@suse.cz, ritesh.list@gmail.com,
-        djwong@kernel.org, hch@infradead.org, yi.zhang@huawei.com,
-        yizhang089@gmail.com, chengzhihao1@huawei.com, yangerkun@huawei.com,
-        wangkefeng.wang@huawei.com, yukuai@fnnas.com
-Subject: Re: [PATCH v6 05/31] ext4: recheck extent status tree before block
- allocation
-Message-ID: <arUj-7QI2U12y1i-@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
-References: <20260903123543.2302999-1-yi.zhang@huaweicloud.com>
- <20260903123543.2302999-6-yi.zhang@huaweicloud.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SRK8wSwG";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jmX6MPlB"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OC4WLB2749207
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:23:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	iTfiqMKgpe/SdIDwUiMICvSbmpu0rp/xu4YDBLENRUQ=; b=SRK8wSwGlqXbZqtB
+	KPcdW2oYhDIhiV5ufq/o9bWhM1eJbYN9uBD7oeHWEBN6nRCHYrjxmwTmuf4CwoPO
+	U19jMxUwAiTVw8454KzQU24L8h6gkCRwuv2UcyrawCTSossOCL/UprHO1MuuWSrE
+	ceSQVCBYYj4Zoo9/KXKBD1u5iydXCOwW389af3Kr4BvHT+sTmNNUbcTtHtTLR77R
+	vPcBemKAmZibb37N21800aPUglLfEPns2YIgiK26robp4H7FtTWmsxKEVVF8aMco
+	sE3xrEtrKeHj/y1bQx7LYRjTZO+qPCkxj0re5yWSNkHY2Drq7forz90wCFnQbiLk
+	2OZN1Q==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw1s90r6y-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:23:44 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-78580a6b2fbso687124137.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:23:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790256219; x=1790861019; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iTfiqMKgpe/SdIDwUiMICvSbmpu0rp/xu4YDBLENRUQ=;
+        b=jmX6MPlBYFbgSnslMFj29MJw7idbuC72k1uWXTOuFOEpqXCWREwYxQBoabnHbPJ/p3
+         5fVqvsxkw0E61Seo0HsbwCEH+XMc8/kvlpDoN4xWIq0ImorGYCykdJovXIv++RLoAkjF
+         vt56BlSRzx36C/t4UU5T6XG1LKdPrvzVJZZaGfs5j0hB6bXRE043HFTgOnnZZz9EGyct
+         Qu+C2cAOw3QRzPJcLCKsMDUiQatSWbodjHSfYaIcNeIz07Xx35anobL2NgJsagoiofdh
+         pmKyqikLu73DNm4BlJSwTK7bK+jtTxUDbU+9YHCyduHSAa+ovsldT3KNFEBLvcfYYoQR
+         UE4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790256219; x=1790861019;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iTfiqMKgpe/SdIDwUiMICvSbmpu0rp/xu4YDBLENRUQ=;
+        b=0426XF/BxjfjXfBMXdJsiOA9Fq3r9aRCe+lVyLODBgnSboUSscLxqRPYvBxY1sBMM0
+         Jg+Rvt+PFrs4pn8/2nMmITdBuhnLcOrI6JOAHAqtIlrxuFgYUZHxxhxi1kUcEMOGaZDm
+         VmAXs/Mf2ZdPUvb2aVs0+VnkLVRrgW5d9un4AoIbt3Bq7BSjKjqN67OJYzp8GBKqRzPh
+         2EaLvT7eY8vVoDbKNWquYoEkDEb29v5qKR/cU5mk8ptkSk9ffUNikMU8SHQbbVlU03eN
+         NLML3OLnjmeQdqmG2zCu8DUuBfI7lELX8BZ9V0GnI1JV4lvSsIGDFCQLNfSFu8cv/YOQ
+         ocMw==
+X-Forwarded-Encrypted: i=1; AKwUvBz3Jpsw9Bp9EpD3cyQS7oJj03rwBG5e0mzExDQ3oC7NnR3YuNhY4vGxtlkszZRWq5Mkr9IjmCcaBzEIt9M=@vger.kernel.org
+X-Gm-Message-State: AFuF++mUwrlq+Ia/dfzxEr/ddOktnDQXOQXuM6KoxJV4wK4ht995Yydt
+	eU2rUTYXjjL3mHvopTsOIA0siiT+iJnJ2RXvVR39weryHkUa7uj/QcVWlqpzlX3SLmT8idkIIK0
+	k6HPrL8FaJ2aS42ORQcWYc5GQZQWM+hli5kmmlI9AxStBuIT2kEXgwHv8O9sA9bTc3eE=
+X-Gm-Gg: AYBFou2DV6fR6YfVaPM2GJxctzMsaqH/Hf5OM4pdAwmPlxn9h9jU0603oRRk+jyIx3A
+	BuvVeaS/dbkfG9a75JPU6GYI0p+Q0ZcbVkdLpM1yuhBjBVINgFMwBQz6jTM0smgTM0QAhPZHbqM
+	7HhQ85coGUY668NCtYLYvzFilMlg+AhrHaMwxwPKQB9nvcPww7+qwFqO/ljSSgQAjIGG8tIJWSh
+	A00ywCdj20cSidc2SRNSUDRWonq8B3BUe4SZMUqMaQlh6W+jy75lcK92Wt+q+24VyQwM5kNl3CK
+	MXIJIrl+H/0m4J3AMnDtDQv9ApVItJynNd2xBerrSbTKtuTnTYSbOZuXhnJzVn1Q3KfxsSdprti
+	ixDqZEL6h415X/2HgB6RIZgX19+j41wj3q2o2gY7ordgCfMIxiQXbsjVe
+X-Received: by 2002:a05:6102:3913:b0:7a1:f980:e932 with SMTP id ada2fe7eead31-7af1cba300fmr1048821137.14.1790256219147;
+        Thu, 24 Sep 2026 06:23:39 -0700 (PDT)
+X-Received: by 2002:a05:6102:3913:b0:7a1:f980:e932 with SMTP id ada2fe7eead31-7af1cba300fmr1048810137.14.1790256218594;
+        Thu, 24 Sep 2026 06:23:38 -0700 (PDT)
+Received: from ?IPV6:2a05:6e02:1041:c10:31:4ba7:4aae:40b2? ([2a05:6e02:1041:c10:31:4ba7:4aae:40b2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd4c8dsm88794545e9.3.2026.09.24.06.23.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 06:23:37 -0700 (PDT)
+Message-ID: <3b4b7e2d-8f0e-49bf-a456-d14d8a0f7b76@oss.qualcomm.com>
+Date: Thu, 24 Sep 2026 15:23:37 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903123543.2302999-6-yi.zhang@huaweicloud.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=V/XoQuni c=1 sm=1 tr=0 ts=6ab52405 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=i0EeH86SAAAA:8 a=VnNF1IyMAAAA:8 a=lrqsI6jtUP4MPYQepmEA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: f7eDj3y-0gQI_LJNo4BSzLK_mYSDq_qf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA1NCBTYWx0ZWRfXzTPVi+Yhq4H5
- y3wEJboMGV4gJVZZpR7Hll/7oz2noBJeEvu4afm/lugah0qd4lK8L7TY4gkoSPMStKdVYIcM7kl
- KSIwjcfH/T3EDtgOHpx+QBDNNT3cmZ15GHHEF44hgFCKe3HRw3Viy+5lUYJbpTF7NXa1NxSexkt
- 3oH4bNmLd62ZJcre+9s1CsezRjmqnxLNAH2wU6yckbAszDGL66QHzKSJP+WNjYLcxLu7t6dhw9X
- oy4yaJXHnSl3I2jPIkBweTccXSmbWurtMLa2o/t6zy4ySaKu+g14HtmYW6iHhVF4olFsKcWMQlD
- D6OpDlFY2yBJxdyiyWwJmudVmXxJTAI6cZfHa2zWW8S4GRSLA/zD0kjiJEosv7rRvHsTZCW5aAf
- 62imDpyCBK2pyQFl1FXvG7Y25ndkRQ4Fk1jlr9QgWT5ayWwJql5quSPlgbVpwKuQoL19rRPp+f2
- BJqNEVY4kdkAnlupjUg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA1NCBTYWx0ZWRfXzKrw+O33+7rZ
- 5p4h3U3AQpyt/ybngYJqwaSW8gikQUVLelTBToWMbeqPYNJQCh/vYZVMCR5Q9Uez8ujaY1E4TyG
- Mm12BCW7n3Kl0ZochvMhlsQhjb6Kgfc=
-X-Proofpoint-GUID: z8ZTS9vpD2r7ZfSulbtVvTqzHQDd0aOJ
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: defconfig: Enable Qualcomm SPMI PMIC Thermal
+ Monitor ADC5 Gen
+To: Hans de Goede <johannes.goede@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Arnd Bergmann <arnd@arndb.de>
+Cc: linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260924130659.8841-1-johannes.goede@oss.qualcomm.com>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <20260924130659.8841-1-johannes.goede@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA1NSBTYWx0ZWRfX2Lq3yAIBBiu5
+ g9Y/cbi5NWJqpc28CH9BFjFHderua4OMECgNiiWew4c5tswcyphG4fiyGEa5SDm2pBNznyDte3z
+ NqrTINOJF6c7KrezWDjN0k1zINq//Z8HL0YlPDjDGxGatwhVALgk4bU2uAur2w8byAxQu+ktha7
+ Ar3P1anK/MIOhwxcainPlm0l2GBOMIltLMnFPbfSwthpM6Eim6uZ4HxCZg3k3XGDHOZt031ZC/D
+ vd7iCfqsgeL6nvWdm3GPVkgvr9i62jLgxVXSHrKBzuZZZVa8iZC407LatwrSmvQihiZWfudvizF
+ VqQ+jmqmUnSpE5vz5lAx9Okv9uHW0Gu2pQqp5fdZaH8yCRaddfGdhknPMwM1Zh5IxpK9p03XOEG
+ yI6d+6B8PUwb2VEDpem/dep4dWvp9R9JkFQ2l8c9u9Nwl8sPw8caIKRioB57F2/yq7hGZD2OjH0
+ IGPsmz0VzpndmHuOX/Q==
+X-Authority-Analysis: v=2.4 cv=VPxIDNPX c=1 sm=1 tr=0 ts=6ab52460 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=j3MtvZii-MdXzgGxfbUA:9 a=QEXdDO2ut3YA:10 a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA1NSBTYWx0ZWRfX3QQA1trXQ+gc
+ Tds3sJy2UCxRwiHAMIfdeo3yTo4GDjvDXs28wwO+1++9sBXzf0lSfDpikQR7uolv35G4x9rUkh0
+ SMde1Mf2w1DCGEmb0EBtmKAIzsYW+Bk=
+X-Proofpoint-ORIG-GUID: Cf8VzKIg2YDiLxBHEmn92tS7PmXZWKYH
+X-Proofpoint-GUID: Cf8VzKIg2YDiLxBHEmn92tS7PmXZWKYH
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-24_03,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 malwarescore=0 clxscore=1015 phishscore=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240054
+ phishscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501
+ adultscore=0 clxscore=1015 bulkscore=0 suspectscore=0 impostorscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609240055
 
-On Thu, Sep 03, 2026 at 08:35:17PM +0800, Zhang Yi wrote:
-> From: Zhang Yi <yi.zhang@huawei.com>
+On 9/24/26 15:06, Hans de Goede wrote:
+> Enable Qualcomm SPMI PMIC Thermal Monitor ADC5 Gen driver, this is
+> necessary for thermal management on Hamoa laptops.
 > 
-> After acquiring i_data_sem in write mode, recheck that the mapping
-> found via the extent status tree or disk query has not changed. A
-> racing truncate may have trimmed the extent between the earlier lookup
-> and the write lock acquisition, since writeback does not hold i_rwsem
-> or the folio locks covering the full extent. This could cause
-> ext4_map_create_blocks() to allocate blocks beyond the truncated range,
-> potentially leading to quota leaks in the upcomming iomap buffered
-> writeback path since the iomap writeback infrastructure caches extents
-> beyond the folio range.
-> 
-> Therefore, if we find a valid extent and the sequence number has
-> changed, retry the entire lookup to obtain the correct trimmed mapping.
-> 
-> Suggested-by: Jan Kara <jack@suse.cz>
-> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+> Suggested-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+> Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
 > ---
->  fs/ext4/inode.c | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
-> 
-> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-> index 84991fe99071..b71b1d2588ae 100644
-> --- a/fs/ext4/inode.c
-> +++ b/fs/ext4/inode.c
-> @@ -734,6 +734,7 @@ int ext4_map_blocks(handle_t *handle, struct inode *inode,
->  	else
->  		ext4_check_map_extents_env(inode);
->  
-> +create_retry:
->  	/* Lookup extent status tree firstly */
->  	if (ext4_es_lookup_extent(inode, map->m_lblk, NULL, &es, &map->m_seq)) {
->  		if (ext4_es_is_written(&es) || ext4_es_is_unwritten(&es)) {
-> @@ -784,6 +785,8 @@ int ext4_map_blocks(handle_t *handle, struct inode *inode,
->  	down_read(&EXT4_I(inode)->i_data_sem);
->  	retval = ext4_map_query_blocks(handle, inode, map, flags);
->  	up_read((&EXT4_I(inode)->i_data_sem));
-> +	if (retval < 0)
-> +		return retval;
+Thanks for sending the change
 
-Hey Zhang, I think there's a slight change in behavior that we return if
-the query fails now. Earlier we would have still tried the create_blocks
-call and, in case of transient errors like ENOMEM, might have suceeded.
-I don't think it's that big of a deal though. 
-
-Rest looks fine and I agree with your reply to Sashiko, I think we
-can tweak those things if we ever encounter a livelock.
-
-Feel free to add:
-
-Reviewed-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-
-Also, if you don't mind can you add
-
-Link: https://lore.kernel.org/linux-ext4/b0781809-4759-4e12-be17-71555b764f48@gmail.com/
-
-(or the call trace) to the next version as it explains the issue pretty well.
-Looking at these things later takes some time to recall everything and
-such traces help a lot.
-
-Regards,
-ojaswin
-
->  
->  found:
->  	if (retval > 0 && map->m_flags & EXT4_MAP_MAPPED) {
-> @@ -820,6 +823,19 @@ int ext4_map_blocks(handle_t *handle, struct inode *inode,
->  	 * with create == 1 flag.
->  	 */
->  	down_write(&EXT4_I(inode)->i_data_sem);
-> +
-> +	/*
-> +	 * Check the validity of the mapping found via the extent status
-> +	 * tree or the disk query. A racing truncate may have changed the
-> +	 * extent, since writeback does not hold i_rwsem or the folio locks
-> +	 * covering the full extent.
-> +	 */
-> +	if (map->m_seq != READ_ONCE(EXT4_I(inode)->i_es_seq)) {
-> +		up_write(&EXT4_I(inode)->i_data_sem);
-> +		map->m_flags = 0;
-> +		map->m_len = orig_mlen;
-> +		goto create_retry;
-> +	}
->  	retval = ext4_map_create_blocks(handle, inode, map, flags);
->  	up_write((&EXT4_I(inode)->i_data_sem));
->  
-> -- 
-> 2.52.0
-> 
+Acked-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
