@@ -1,76 +1,75 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-ed2-f34.google.com (mail-ed2-f34.google.com [74.125.228.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3751E4078E0
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:26:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7799240F744
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:26:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790267195; cv=none; b=sgDfeFznbYAEwjtNWYicApAIxcp448YoXHpNyD0EI5XYjuDRsz/8oQHwrhHnpPAQSksFENUYtp0mZxkB2zGWbEsgOtICiQpUN6C+5eLrnhvTxtzNlNaIkxWWWy702h8x9y5VR0/qZBQ8SM5dPtcMFeiNGcENTrrqPviH3JpDSCk=
+	t=1790267204; cv=none; b=pwR6vCcs8czVJ2dEq8yU0Gjjo6Ri/f8/rVwOz8rGsjgynyBGsvlM131HwOPYHgaIqvC53DUNC6YDZdCEEvo0oNyOY+MtoAHIbMsZHrc6+u7Oa4wxJy0GvSdTtL6iDcWOqrtEixz8hXhIyLXvbdG9nvagRSRVF8sKY9Gr2qU6nLA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790267195; c=relaxed/simple;
-	bh=ACEGPt0xRwLMJvrhI2+ev2/k5NDL3JfS2F0kF1tJoMc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=hQuzUbxaCwUnm4LrL9l26yN0ckQk/N6QoHzs3/zx1iQmdewXLtsF0LEngDhs2DZEFTT2+dZBfNp9TOQpmHb9uAmacIvqiLm4m7HJFE9o9WtP7Wuawys3Na5Kr9IIp3utAq1Uz6ML5Ecy9/qB2Opoor1YNfSxMZC3gVmBtQ0Hrh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P+wqBodz; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1790267204; c=relaxed/simple;
+	bh=0hae1Dy1qPgAAn48he+OQyElqT4viRMRexAgzDHsvDg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YWsE759+6NMyaddhnqmb01JIbuG7TdtWFvCunSn+H9dd5he7cRJIs5QaTQvDFP5nuN6GM//l7HBUOEVlvkBgS8Mi+2iAciDr49geofauOtOO08PCgJKO/g4jO7VrW40nEFv5f6dwFWTXf/I7hGzzBwrpk01PW4osqsw04ygYw/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lUNpWuLt; arc=none smtp.client-ip=74.125.228.98
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P+wqBodz"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e2406so139025e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:26:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lUNpWuLt"
+Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6aae359e2c0so41862a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:26:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790267192; x=1790871992; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AWSaSv8m1xTsAwBFAkhn0LN3Bdbe0QujogDORt/K2BA=;
-        b=P+wqBodz2TKOVi+Gn15mdInCC3yhyT9Ugrh0zkAQmrA7GbXAoZaNG+pL8BIWVMxyuM
-         HZnJrPWGvJVqRiXnK2vQiFdntoNplJ476NgJqC8JLW+dnCV/+zhVy8uZH1VqalWSdrZ5
-         GDZW9bKAqMia9+jLNtYgOW8+lmreECNODcCoxdz+Hc5++kWgEZtPou2CrnkgxoBhQtyq
-         il1sCClRsT1aPQlBQ7SQ0jpCBl8rso/ehs4QQu8PMh1iNxlhqLVvd909FssGo+q4Ujq+
-         ON0rWrrStpiP4qKSS7u6o4TA3j/dSrqknaPhjJeAV6into6j2BZVHX8tpZr0Vsx/26bx
-         ufMw==
+        d=gmail.com; s=20251104; t=1790267201; x=1790872001; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xceFEZdQPKnCO9ajfrPlU5eXhjLvd87vwHrqSGkOcL8=;
+        b=lUNpWuLtg2h7Je+6HVFTFtJDgGMYRP1OtbqME9c28nBuJBOjzbIqWGwZsOmKkOO9iK
+         ttwsNCu6L0lVC8IoNV95zPQyHZ9gZi+rT294W5TWQ2xcSho/eKfMb4tPMfwaTV4DY2D4
+         QHAWrdOGIbjSEwA3Mq3hWKK2q/S+60iHk8ebInNqfhX1aaqgHOH1KOs8wISEz9tc8gel
+         6u2m8NQdfNx/tpdNfN66plk0/RBCW0ltOpc2WTkEusbjLfPCvZg9tUysfemDO68dcrIJ
+         cT69yydVc49z0DZwf8OSpEOjMiFpr3q8yWyyZ1c9c0zCQBGmj/DGpKoLTzAWpZwz4A99
+         yYCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790267192; x=1790871992;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AWSaSv8m1xTsAwBFAkhn0LN3Bdbe0QujogDORt/K2BA=;
-        b=gJfgnGDJW2hBBBlhzK2FBQ9OQ6B4Q2c35tDsdkenZV+PhQ4Z+THhQv1+ewMkmoUUx0
-         qBT1BGPRNQl2xv5+67+SNtetQjQTD3P3qJLWxA2scSi0IdquStAIOvlPreLtzPQj/DdH
-         rWnAIW1nyCcaiwsu/Tbu/vWuNPQuxGO6PMFAAH94B3iXjvN+N4IaIIl1e5U4M8wluTXA
-         PTJ+z3XlPFBlz0EJGcCimeBxN/q700rGDgyzBHraNnC8O7ZdEH1V4CBzZk1DZLCuTo3C
-         jojLLRIWUqcPgvIhAWiuHkgx1csd0BhUKzlVIJtHJL0loy28xUUJ3tQeerKwUAReGQeV
-         MTKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz3QXcCamfTfytDATRWgOm4waFSngXyQ8WLSIP/0rm6kfRJthYI1SmDLYyUFFEHvT1VtCuPQZK7V43Tcj0=@vger.kernel.org
-X-Gm-Message-State: AFuF++maUYtc6NrHQuPouNoTOKKU0qG5UaTxcffedw0po/9zi5vjuGTq
-	qnm1ZEvHdvNM2lZyF5mfqjBg+MFY5d7yhuRaaMpaI2hv7cSE2wZc5Aiu
-X-Gm-Gg: AYBFou2sE9HN7UyQvUAZdSW7hZtfF0OyliE+ibS7eITFvGxs8oGnrVuWxU1WkXnzazZ
-	Pn4tohbuudaPFV3FE0gTO37BTTVkQRQQROGlPfgY+0QRt5VwQRVI4nwus8yDUNBcYHt1yqN3qHW
-	qBDPatbzW2c70Iw3cfi0T44xscYVV1TN8sluKyH/etpa8EEI2F/+B1ZslZtn2RLE/uxw+pnDla9
-	/Viqqta7PyfPP4SpoQyIJkKjNM8/8ae27UB/aIKoBqQqooW6RV2l/4+YikI9J06aLgJbgt3pt89
-	6wG1D3KT1V16kmEQ9VVpCzj9yVHHlhW/MPnitWBpAHuuJ92l7VOl2OdoaiLOsMO75oWypom7zgq
-	NjVQO3diW60e3YEo/s+Y+20H7NRrA++CJln/3fG8hsfVELcdlTiwd3D9bFnkXWpDAGvl0zZ/DT6
-	SmhcHrnrTZuLmTWZygqQ40jkfUY8Zv3g4FFboUzmVuI0rEtjbDGrNtJe/9Le7ALozEfGbW6VZ9P
-	Z72F1GyViWvHpO5K5ZmP400hQjboKpildnrgKNbF5Ljjp0Q0FL3
-X-Received: by 2002:a05:600c:4e8f:b0:49e:7c8c:bc77 with SMTP id 5b1f17b1804b1-49fe66d062bmr53610055e9.7.1790267192082;
-        Thu, 24 Sep 2026 09:26:32 -0700 (PDT)
-Received: from ptb-02009389.paris.inria.fr (wifi-pro-83-031.paris.inria.fr. [128.93.83.31])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe2730da9sm72242425e9.4.2026.09.24.09.26.30
+        d=1e100.net; s=20260707; t=1790267201; x=1790872001;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xceFEZdQPKnCO9ajfrPlU5eXhjLvd87vwHrqSGkOcL8=;
+        b=UUUW61y9JMBqFGDbGyRPjUdVPV69dkGVJ+o3oG3xp4EgMRQYm5//dq2sIxO9rzcoJm
+         v/BMBSB6knplNcrNU0qCZOxaVSi7BCoOz4xsPYzM1pGdaNzTBfTU+aJL1JsdhFx+AJOy
+         JyvtbbJl6WiRRSltb+WsEQFikR7WHqs6+7p5anEaD+dwhmdVCX7F1F0nr8RbDZHSevEp
+         YrwjtVnPwV0amrxb/Gt+Oaev3ovmWUjNxKG7rGoqN9F9zf4kXWJ8Dq3xOEU9/vCc//Q4
+         HTUyDX623kjAT3+LhyD9h6IWofdD9By97Mw4OrfN/ChR4O/bNso/+8n5TyM6GLYcHMPU
+         lSvw==
+X-Forwarded-Encrypted: i=1; AKwUvBwYvUn+BCY2rNgtY3LYfZMd5XBdujDjCbbLqOu8XKfr5uywYYUxy+KgeflPU27j78cdvUnfWQaDP5948lI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mhCKCVQAVVYxOYYPIM3qDwhATiLOIYus+F3idM/d05GD7pK9WR
+	tY+6pq9zsXVUOTKqGZlEx5Dwvcof6kG/GGdoQnITCt8SN4V9hgpGbQarDmCa8VH0
+X-Gm-Gg: AYBFou0/4icrnXNT7+aOgoYuHbRZcBLW8w630K18X0sX2+5XHCeRhQXR46z59FFxQ5d
+	H2ilrYebCEmG/Y14EAorA4BqEvHIS8+w6egFzK+KUOt44jxPxp/1qSSxwELUBt1Z2uN5QULKi21
+	sCnblxSm5HofpPjdIBeW14LhjCU2ttw2jkMqajjZO5P/CpVsizwJNlY8HslhNA61b7QIelqntC/
+	T8YddkTpSdtw0EefLieqJnLvkhfjJtVzZzrma525kr25Mjwwtbb/NCJpUG3oMNDFkTqCWA6lxzA
+	8FU/3fQcrCREsu2Uot0MZHSKM25wiBdMKmiPXJgnA4vsxeYHgzF3VVIKBxTOv2HO8ih/PFyE1dj
+	kFlsGtY5OsmOFFSo/tHiP5rZ4Ucb8FFWpT+Sf2nCaQtA16A0BKNzl8h8JgxQvuW9RRDKRhuloqv
+	qXbc/KKYpf7AgjU6i/8whxBtApnvYyRyCKnFvyjbXU/TPtsjyIhibKfLE+x45liDTt8qXcscwfo
+	SuqFAuT4QxkiNSA
+X-Received: by 2002:a05:6402:518d:b0:6aa:b226:e69a with SMTP id 4fb4d7f45d1cf-6aac9106dfbmr2938246a12.36.1790267200508;
+        Thu, 24 Sep 2026 09:26:40 -0700 (PDT)
+Received: from localhost.localdomain ([94.240.182.136])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aab386e7c8sm3932223a12.5.2026.09.24.09.26.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 09:26:30 -0700 (PDT)
-From: Ella Ma <alansnape3058@gmail.com>
-To: Julia.Lawall@inria.fr,
-	nicolas.palix@imag.fr
-Cc: alansnape3058@gmail.com,
+        Thu, 24 Sep 2026 09:26:40 -0700 (PDT)
+From: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+To: song@kernel.org,
+	yukuai@fygo.io
+Cc: magiclinan@didiglobal.com,
+	xiao@kernel.org,
+	linux-raid@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	cocci@inria.fr
-Subject: [PATCH v2] coccinelle: free: add a checker for `__cleanup(kfree)` usage
-Date: Thu, 24 Sep 2026 18:25:22 +0200
-Message-Id: <20260924162522.912050-1-alansnape3058@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260831134336.45540-1-alansnape3058@gmail.com>
-References: <20260831134336.45540-1-alansnape3058@gmail.com>
+	Svyatoslav Nikolenko <nsvatoslav515@gmail.com>,
+	syzbot+75d7e96ad03ac2dbbd9f@syzkaller.appspotmail.com
+Subject: [PATCH] md/raid5-ppl: check for NULL ppl_conf in ppl_write_stripe_run()
+Date: Thu, 24 Sep 2026 19:26:10 +0300
+Message-ID: <20260924162610.10056-1-nsvatoslav515@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,154 +78,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Using __cleanup(kfree) will pass the stack address of the annotated
-local variable to kfree functions. This will lead to invalid
-deallocation issues. Inspired by CVE-2026-45959 and similar bugs
-recently detected.
+Syzbot reported a general protection fault
+due to a NULL pointer dereference in ppl_write_stripe_run().
 
-Signed-off-by: Ella Ma <alansnape3058@gmail.com>
+When a RAID 5 array operates without Partial Parity Log (PPL) enabled or
+before its initialization, conf->log_private remains NULL.
+ppl_write_stripe_run() assigns ppl_conf = conf->log_private and
+immediately attempts to access ppl_conf->count in the loop header.
+This triggers a NULL pointer dereference.
+
+Fix this by returning early
+from ppl_write_stripe_run() if ppl_conf is NULL.
+
+Tested-by: syzbot+75d7e96ad03ac2dbbd9f@syzkaller.appspotmail.com
+Reported-by: syzbot+75d7e96ad03ac2dbbd9f@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=75d7e96ad03ac2dbbd9f
+Fixes: 3418d036c81d ("raid5-ppl: Partial Parity Log write logging implementation")
+Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
 ---
+ drivers/md/raid5-ppl.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Changes in v2:
-- Add virtual rules `report` and `org` as suggested by Sashiko
-- Remove `kvfree_sensitive` from rule `cleanup` as suggested by Sashiko
-- Add `free_percpu` to rule `free`
-- Add `kfree_const` to rule `cleanup`
-
-Currently, the five functions in the `free` rule are all the functions
-of `void (*)(const? void *)` type with a `DEFINE_FREE` definition in the
-code base. So I adopted all of them.
-Function `kfree_const` is added as it is of the kfree family and used
-more frequently than other kfree-family functions (even more frequently
-than some of those having a `DEFINE_FREE` definition).
-https://elixir.bootlin.com/linux/v7.3-rc3/A/ident/kfree_const
-(found in 64 files in v7.3-rc3).
-
-This cocci script can report the bug fixed in
-https://lore.kernel.org/lkml/20260617142632.3298984-1-vulab@iscas.ac.cn/
-
- scripts/coccinelle/free/cleanup-free.cocci | 112 +++++++++++++++++++++
- 1 file changed, 112 insertions(+)
- create mode 100644 scripts/coccinelle/free/cleanup-free.cocci
-
-diff --git a/scripts/coccinelle/free/cleanup-free.cocci b/scripts/coccinelle/free/cleanup-free.cocci
-new file mode 100644
-index 000000000000..63216ec5d865
---- /dev/null
-+++ b/scripts/coccinelle/free/cleanup-free.cocci
-@@ -0,0 +1,112 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+///
-+/// Find __cleanup(kfree)
-+/// Using __cleanup(kfree) will pass the stack address of the annotated
-+/// local variable to kfree, causing an invalid free.
-+/// I.e., `T v __cleanup(kfree);` --> `kfree(&v);`
-+/// Such usage is impossible to be correct.
-+///
-+// Confidence: High
-+// Copyright: (C) 2026 Ella Ma
-+// Options: --no-includes --include-headers
+diff --git a/drivers/md/raid5-ppl.c b/drivers/md/raid5-ppl.c
+index 7f8a9d3fd578..e54ed4e44b0f 100644
+--- a/drivers/md/raid5-ppl.c
++++ b/drivers/md/raid5-ppl.c
+@@ -535,6 +535,9 @@ void ppl_write_stripe_run(struct r5conf *conf)
+ 	struct ppl_log *log;
+ 	int i;
+ 
++	if (!ppl_conf)
++		return;
 +
-+virtual report
-+virtual org
-+
-+// Suggesting using __free for the functions with a DEFINE_FREE definition.
-+// Update this list when new DEFINE_FREE definitions are added.
-+@free@
-+attribute name __cleanup;
-+symbol kfree, kfree_sensitive, kvfree, kvfree_atomic, free_percpu;
-+type T;
-+identifier v, n;
-+position p;
-+@@
-+
-+(
-+  T v __cleanup@p(
-+(
-+  n
-+&
-+(
-+  kfree \| kfree_sensitive \| kvfree \| kvfree_atomic \| free_percpu
-+)
-+)
-+  );
-+|
-+  T v __cleanup@p(
-+(
-+  n
-+&
-+(
-+  kfree \| kfree_sensitive \| kvfree \| kvfree_atomic \| free_percpu
-+)
-+)
-+  ) = ...;
-+)
-+
-+@script:python depends on report@
-+p << free.p;
-+n << free.n;
-+@@
-+
-+coccilib.report.print_report(
-+  p[0], f"ERROR: found `__cleanup({n})', do you mean `__free({n})'?")
-+
-+@script:python depends on org@
-+p << free.p;
-+n << free.n;
-+@@
-+
-+coccilib.org.print_todo(
-+  p[0], f"ERROR: found `__cleanup({n})', do you mean `__free({n})'?")
-+
-+
-+// Reporting __cleanup usage for the functions without a DEFINE_FREE definition.
-+// The following list only contains frequently used functions. Supplement it if
-+// necessary.
-+@cleanup@
-+attribute name __cleanup;
-+symbol vfree, vfree_atomic, kfree_const;
-+type T;
-+identifier v, n;
-+position p;
-+@@
-+
-+(
-+  T v __cleanup@p(
-+(
-+  n
-+&
-+(
-+  vfree \| vfree_atomic \| kfree_const
-+)
-+)
-+  );
-+|
-+  T v __cleanup@p(
-+(
-+  n
-+&
-+(
-+  vfree \| vfree_atomic \| kfree_const
-+)
-+)
-+  ) = ...;
-+)
-+
-+@script:python depends on report@
-+p << cleanup.p;
-+n << cleanup.n;
-+@@
-+
-+coccilib.report.print_report(
-+  p[0], f"ERROR: `__cleanup({n})' will free the annotated variable, rather than its pointee")
-+
-+@script:python depends on org@
-+p << cleanup.p;
-+n << cleanup.n;
-+@@
-+
-+coccilib.org.print_todo(
-+  p[0], f"ERROR: `__cleanup({n})' will free the annotated variable, rather than its pointee")
+ 	for (i = 0; i < ppl_conf->count; i++) {
+ 		log = &ppl_conf->child_logs[i];
+ 
 -- 
-2.34.1
+2.47.3
 
