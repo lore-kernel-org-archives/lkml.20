@@ -1,155 +1,130 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 78F2F47ECD3;
-	Thu, 24 Sep 2026 12:47:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4FFF36F915;
+	Thu, 24 Sep 2026 12:48:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790254030; cv=none; b=W8e7lxRBYr8BY8iecVla91iFu/edlWzCyFyyzF9dj8k7t2EUKNJ9xY5AFGHVQdqqlz6psU8w+13Vo7cKzoOtQE3FYwtt62k9LGRHhcn4Ej1wIl7D0f5tQVwnCRl2AWoKUqNKUhEkBDjp0y06xwakWR+rDhP+6yAfNo1Osdi1Ubw=
+	t=1790254123; cv=none; b=FATD8kZXggiVkxeUuR5/hmaljVkYT8YA4zXf9p0KQu0k0vD4Ld1BranmkSVmLd9Zd1sU0FtSrmZy1tDlzdycIk1pbj7MJziT1haZMjmzBJ/+2eIjE2aG8j/mxDpRcHfJ1u4+HLJV0Gk89KUVqo/CU14QvXaYDdl8C/imyRA3EIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790254030; c=relaxed/simple;
-	bh=aLsBzLjrp1DcDn6DWeVaafFM2AupnjMYo0e+qs0lkyk=;
+	s=arc-20240116; t=1790254123; c=relaxed/simple;
+	bh=QAvvvOmCiR8qD9VPLgV0GwDdY7KJ+eLaVUxtZKe9dvU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sSjwz2TngtWLulBU+R9kztt81/A5H21r1/vF/KIxTEvQzR8aOWAU6EBZ/5SuZ2rh/I25wDuz//eWras/MgSUM0+ShGA3KXpuc8baBxZ8BWR8YxI4k1dLGhoVSZx4rqdJf9QgEXSh8UhwrsKp/fjkf+pm6KCDHaeCPCCfbAbUJ+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qS3yws8A; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=W0wClB3L487KMWGUeI9vD/G8Cc4GQdHN/9Z2DqusRUdxoeuaBFkftUcAB8ZCJ4FqLJa2aW2sQ1GhpFzlOpKZEDEUuFcWiIhs17EoAW90I5dk/1KJrTiQ5ej4xsDtFWgq3Ge+SgFqVmF1R3MFZKvRebodfitZGcSbHQemxOnenuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=qQ2Hjj2w; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qS3yws8A"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 57DFE1570;
-	Thu, 24 Sep 2026 05:47:04 -0700 (PDT)
-Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3F7A03F86C;
-	Thu, 24 Sep 2026 05:47:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790254027; bh=aLsBzLjrp1DcDn6DWeVaafFM2AupnjMYo0e+qs0lkyk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qS3yws8ARWxyQ1+ftpRPaMpKdtTTqu44bLMcI+dQ5YtFKmjLG0C1X4YEq9s7GpDps
-	 QgQoCK7B8qUrIu+1Q7wIkRxMaXhUEFpkXZltly9wUzAAbIRJPgRBC8r5ZJRrcXrM5P
-	 giKPrhw3skc7Z/BVVwLCIIOEY3xT3cPCUtPBhDbQ=
-Date: Thu, 24 Sep 2026 13:46:59 +0100
-From: Mark Rutland <mark.rutland@arm.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>, catalin.marinas@arm.com,
-	will@kernel.org, maddy@linux.ibm.com, mpe@ellerman.id.au,
-	npiggin@gmail.com, chleroy@kernel.org, ritesh.list@gmail.com,
-	sshegde@linux.ibm.com, pjw@kernel.org, palmer@dabbelt.com,
-	aou@eecs.berkeley.edu, alex@ghiti.fr, hca@linux.ibm.com,
-	gor@linux.ibm.com, agordeev@linux.ibm.com,
-	borntraeger@linux.ibm.com, svens@linux.ibm.com, tglx@kernel.org,
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
-	x86@kernel.org, hpa@zytor.com, ojeda@kernel.org, boqun@kernel.org,
-	gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
-	a.hindborg@kernel.org, aliceryhl@google.com, tmgross@umich.edu,
-	dakr@kernel.org, daniel.almeida@collabora.com, tamird@kernel.org,
-	acourbot@nvidia.com, work@onurozkan.dev, nathan@kernel.org,
-	ndesaulniers@google.com, morbo@google.com, justinstitt@google.com,
-	jszhang@kernel.org, japo@linux.ibm.com, jpoimboe@kernel.org,
-	seanjc@google.com, pmladek@suse.com, thuth@redhat.com,
-	ynorov@nvidia.com, joelagnelf@nvidia.com, david@davidgow.net,
-	fujita.tomonori@gmail.com, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
-	rust-for-linux@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [RFC] rust: kernel: Add KUnit tests for ARCH_WARN_ASM bug table
- emission
-Message-ID: <arUbw_TIA0Uj7oXT@J2N7QTR9R3>
-References: <20260922054959.955093-2-mkchauras@gmail.com>
- <20260922064735.GS4121339@noisy.programming.kicks-ass.net>
- <arNxAn7I7NCVWmD1@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
- <20260924111557.GP1837346@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="qQ2Hjj2w"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OC6g4C2028850;
+	Thu, 24 Sep 2026 12:48:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=o0m4kYRv5wALhCfiAK1Pey/HeIsY/7
+	BvuyIbFNmvVsg=; b=qQ2Hjj2wU+T+jQ2mTdxTjuFtVpGtfWmsD7QYDUoeQ4ubdx
+	xdXm0UPp3XRQRDNKxpaK1j19TLttT1lVedzb8W87bA000uF6Rz1iWnmz3LZUpgCq
+	IVa7Tu3/yN78Xsc1Hiouu51SIOURWgeU95Lc2DkNPSxnjEoJgWiRWwxMjzCSoxdd
+	o11TcXIn1uv8mcF2gHTDOkcL9TV99/l2COJCr44evImCahLxtMEjKslu2S+4rgHe
+	2/8jzehwulxGhsuaNsRtUmAxTPc+zMDBB4v5eRI1IOrPOcjNRapMGENVBBK8qH2e
+	bReLBU0q4cATeR2guJtDf0X3TJOxOXD66SANMEaA==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske1rfc4-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 12:48:23 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68OCHUT92060452;
+	Thu, 24 Sep 2026 12:48:22 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gvb6qnt96-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 12:48:22 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68OCmK8045941090
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 24 Sep 2026 12:48:21 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D5AF92004B;
+	Thu, 24 Sep 2026 12:48:20 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id AE86420040;
+	Thu, 24 Sep 2026 12:48:20 +0000 (GMT)
+Received: from osiris (unknown [9.224.90.220])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Thu, 24 Sep 2026 12:48:20 +0000 (GMT)
+Date: Thu, 24 Sep 2026 14:48:19 +0200
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
+        linux-um@lists.infradead.org, linux-s390@vger.kernel.org,
+        Huacai Chen <chenhuacai@kernel.org>,
+        Josh Poimboeuf <jpoimboe@kernel.org>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Johannes Berg <johannes.berg@intel.com>
+Subject: Re: [PATCH 1/4] s390: remove unwind_module_init()
+Message-ID: <20260924124819.13740Cdf-hca@linux.ibm.com>
+References: <20260924124039.1621965-6-johannes@sipsolutions.net>
+ <20260924144039.4af0d88b163a.I91f8c59a12ad3d5fe67d50aa3b0434d666ffc9f8@changeid>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260924111557.GP1837346@noisy.programming.kicks-ass.net>
+In-Reply-To: <20260924144039.4af0d88b163a.I91f8c59a12ad3d5fe67d50aa3b0434d666ffc9f8@changeid>
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: WJNZQMETORnTgCCwmirSHN5QHnf5fLl4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA1MiBTYWx0ZWRfXxNLqobSNdxpd
+ I6r97ViBB0WlbXEAvgScardNjmnxkgDd+HM066h1sbWWhoEzdXTXRjXsgnjzTY6PYU2ctlUMCPr
+ xVQG7ogdMc2acOch0yL9Nn0xMRVicMcr1T0PpdwJPSkEFRauRswt6JHm3D9aMCSIHCwabW/Cc7x
+ UHZojJ4gnoPLJHB2BZp9i5O0lf9u/TY27id8onKUzJRrxWt1O8AX+oKVT8Z8tjmKLi6QVhzhpW+
+ iRRJScrs6OSqJtvK1lGT0ZTnqal0Ge7IEnjfrdAZ3YV4nrtVImwVlXHDRilrDVnnSjhBAkk6Cq6
+ PRHf/dmrgIlwjRQuxAmKpU+6/8s/PZr76RF/1sQIAJSkf9pna0O23Q69gOz63g1EoeEY7/Zz5Fz
+ 96k+DEzBHfUPdKRJVrDYcanmy2aS9J03tflzpbD2+M9aM0GSTBjN5XTvGq3omU13QTuIfjK8Vf/
+ mTZQM5ln2P2UV/VjyEA==
+X-Authority-Analysis: v=2.4 cv=O/KsLx9W c=1 sm=1 tr=0 ts=6ab51c17 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=QyXUC8HyAAAA:8
+ a=VnNF1IyMAAAA:8 a=Kv2GCGW8xjvUN6ocNewA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA1MiBTYWx0ZWRfX0XqNPV2Gthkn
+ Gk4bzlxiWAdOJUbLnjHSoyOF/4Xgtwga3JaQ56xrPJobHZOzZ7of+K0VrCnGOxMOGVx3DG1xC3k
+ n+3StKlMeIztxo4/+1G++5zySygRSUk=
+X-Proofpoint-GUID: WJNZQMETORnTgCCwmirSHN5QHnf5fLl4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 malwarescore=0 phishscore=0 impostorscore=0 suspectscore=0
+ bulkscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240052
 
-On Thu, Sep 24, 2026 at 01:15:57PM +0200, Peter Zijlstra wrote:
-> On Wed, Sep 23, 2026 at 11:58:13AM +0530, Mukesh Kumar Chaurasiya wrote:
-> > On Tue, Sep 22, 2026 at 08:47:35AM +0200, Peter Zijlstra wrote:
-> > > On Tue, Sep 22, 2026 at 11:20:00AM +0530, Mukesh Kumar Chaurasiya (IBM) wrote:
-> > > > Verify that the __bug_table entry emitted by ARCH_WARN_ASM has a correct
-> > > > bug_addr displacement — i.e. the arch's trap label reference resolves to
-> > > > the trap instruction — by calling find_bug() with the exact virtual address
-> > > > of the trap, mirroring what the real trap handler does.
-> > > > 
-> > > > To support all architectures, each arch that implements ARCH_WARN_ASM now
-> > > > defines ARCH_WARN_ASM_TRAP_LABEL, a string constant naming the local label
-> > > > at which the trap instruction is placed:
-> > > > 
-> > > >   x86       "1"     (ud2 at label 1:)
-> > > >   powerpc   "1"     (twi at label 1:)
-> > > >   riscv     "1"     (ebreak at label 1:)
-> > > >   arm64     "14471" (brk placed at 14471: by __BUG_ENTRY_END)
-> > > >   s390      "0"     (mc at label 0:)
-> > > > 
-> > > > The label is used consistently: in ARCH_WARN_ASM itself, in the
-> > > > bug_addr back-reference inside __BUG_ENTRY / _EMIT_BUG_ENTRY, 
-
-> > > Not really a fan of that. And I can't really tell what you're doing with
-> > > it either. The kunit is in Rust and thus unreadable :-(
-> > > 
-> > > I would rather you fix up is_valid_bugaddr(), some architectures seem to
-> > > have an always true stub because of the callchains always being from the
-> > > break instruction.
-> > 
-> > Hey Peter,
-> > 
-> > thanks for the suggestion. I will fix up the is_valid_bugaddr for
-> > powerpc. I am not very good with other archs asm but i can do it for
-> > ppc32 and ppc64.
+On Thu, Sep 24, 2026 at 02:35:50PM +0200, Johannes Berg wrote:
+> From: Johannes Berg <johannes.berg@intel.com>
 > 
-> Untested thingies for arm64 and s390x.
+> This is dead code, but will likely conflict with
+> the ORC unwinder unification.
 > 
-> diff --git a/arch/arm64/kernel/traps.c b/arch/arm64/kernel/traps.c
-> index 914282016069..3d8a969eab5f 100644
-> --- a/arch/arm64/kernel/traps.c
-> +++ b/arch/arm64/kernel/traps.c
-> @@ -987,14 +987,13 @@ void do_serror(struct pt_regs *regs, unsigned long esr)
->  #ifdef CONFIG_GENERIC_BUG
->  int is_valid_bugaddr(unsigned long addr)
->  {
-> -	/*
-> -	 * bug_brk_handler() only called for BRK #BUG_BRK_IMM.
-> -	 * So the answer is trivial -- any spurious instances with no
-> -	 * bug table entry will be rejected by report_bug() and passed
-> -	 * back to the debug-monitors code and handled as a fatal
-> -	 * unexpected debug exception.
-> -	 */
-> -	return 1;
-> +	u32 insn;
-> +
-> +	if (aarch64_insn_read((u32 *)addr, &insn))
-> +		return 0;
-> +
-> +	/* Match ASM_BUG_FLAGS() / BUG() instructions. */
-> +	return insn == (0xd4200000 | (BUG_BRK_IMM << 5));
->  }
->  #endif
+> Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+> ---
+>  arch/s390/include/asm/unwind.h | 3 ---
+>  1 file changed, 3 deletions(-)
+> 
+> diff --git a/arch/s390/include/asm/unwind.h b/arch/s390/include/asm/unwind.h
+> index b8ecf04e3468..021056d5982c 100644
+> --- a/arch/s390/include/asm/unwind.h
+> +++ b/arch/s390/include/asm/unwind.h
+> @@ -91,8 +91,5 @@ static inline struct pt_regs *unwind_get_entry_regs(struct unwind_state *state)
+>  	     unwind_next_frame(state))
+>  
+>  static inline void unwind_init(void) {}
+> -static inline void unwind_module_init(struct module *mod, void *orc_ip,
+> -				      size_t orc_ip_size, void *orc,
+> -				      size_t orc_size) {}
 
-What problem is this trying to solve?
+This probably went upstream by mistake a couple of years ago.
 
-Mukesh's original patch seems to be trying to check whether we compiled
-things correctly (such that the bug_table entry points at the expected
-insturction), and I don't think that warrants a runtime check, but (as
-per my reply to him) I don't understand why that's a thing to check in
-the first place.
-
-On arm64 we only call is_valid_bugaddr() under do_el1_brk64() ->
-call_el1_break_hook() -> bug_brk_handler(). We only call
-bug_brk_handler() when HW has taken a BRK exception with the BUG_BRK_IMM
-immediate, and that can only be triggered by executing the right
-instruction (BRK #BUG_BRK_IMM), which we ONLY use for BUG(). and WARN().
-
-So I don't see why any change is necessary here.
-
-If the HW has somehow taken a BRK exception from any other instruction
-(which would presumably be a HW bug), there won't be a bug_table entry,
-and so __report_bug() will fail to find an entry, and will return
-BUG_TRAP_TYPE_NONE, same as for the !is_valid_bugaddr() case.
-
-Mark.  
+Acked-by: Heiko Carstens <hca@linux.ibm.com>
