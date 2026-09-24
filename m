@@ -1,80 +1,72 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013007.outbound.protection.outlook.com [40.93.196.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B41B92FE56A;
-	Thu, 24 Sep 2026 12:42:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790253736; cv=fail; b=h1vNefgaoWcOhpF2kqa0ZwF8xHb4isVCZyZ51roikJoDc4BscwOAdCgk1jhXfTrpT3IcCJZzfSdv06qis/A5OLy3n3pT/JUu9spa4Q7/p6xdy+HpClAqawHhVUrExj1OA4dDw93Aam2WQtj2avEiPqcYI1KM4ckfbQ8261zoVns=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790253736; c=relaxed/simple;
-	bh=+xCrtj66QO9rWsMqb1rbHm7jKGK/4s3TdlGuqDRcMK0=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=uBihH7jQyDeoQCbK0yYTa2f09Ni3eRYkxvUJ6V4rRb0EzMDQ5i/AcA0rXalac/CyWUPgZjyW5dlEYVv3QnmuPBeoBE5pCjlcoEKLkzmMoLbixvV+53UMcG8VllJXHnXpRzXs5Wjvr6uplQ+d98LHQrTGmYZnVk64Bi7f/GuQrvE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=jJjCF22u; arc=fail smtp.client-ip=40.93.196.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 501E164A8D
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:42:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790253768; cv=none; b=kqld7fGjPv/7ASgSJBTjDHcUvCiXF4V1uTEiwu51Ae8zJZwOvclqRmZcxMXqwI2BugRD63ILMpORS3m7z8DVMeddv7w4l2qsTEfMdy7cTi8is7fGA2oBKXV6FE2HZqEVLiSpZZsqW7Fx2nURjARC2686+YD7nIxmcEWGXfMJ6cQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790253768; c=relaxed/simple;
+	bh=wLX5ACO76CYyjqvPrTUiakOoVRgLxi+/VLgc570FxQw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m7iCE4SpHAmv+tMi7ubbgXeiPwawdHhAJnowRdcRBa65gySAzqgpTl47AdSUOqCikB1TQu/SZu+Txna3UVPLUeNQLrnP/8ptRFB6W1KZcaIVBAa1nHEFV8udKMJ07J8QTVLZgRDp38u2n3ojeZSwPMuQV013WZ6iMAzMqYuIDUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=giAW6efS; arc=none smtp.client-ip=74.125.229.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="jJjCF22u"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=l8YWbDgVPGJ6e7joaPE/GLktX6PghmUBtAqny3HSbko4y/Gi29GcD2mco9ujfxaSH0UNhWFchw/xocCFihoyiDBTLuzGqyWTy9Rw3QkRg2hE6k36YcNkEGgzerNjI1ecwLKlHHTEszWKJxXJ7L2u0i78b4WKWlQTNJXMmTiPTTpvQv5UdxLNhrr85niD7UvuXMjybOtmoPPek6x4o9bTOzKxteWuN88lL3lEwTsP9yw38GRdjBgrFT5YPV3fcJTYaiPv5gMBDzAMWbTUvm6Idz2AFJd1HiVWcQEj1dfpaGw6FaFneNsKDsqG4TLhocH7lxcS0xpnaCeJNNsZqNyDnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pJuuMkonr8yu5W1VSdv3ft+cbnWiMd+NeijaBiM0Hfk=;
- b=QyxqKoTDo6VbegS9Sd/ZnD+Axzwe5QO+NuffJUv4CUToIOCbpab4KObnMW1oKV7rn/pOEQX9l/KtliwAGD0m4r23NlLzmhBJBaIUeW4bgZ6zc0JbPjOsju3cgp0K95FQj3UpDIwt9VsOp05gawGLXaRSlecMh2h1AeIba5El1vGAHu1m8fLhgVed7c1uh51N/o0K72Lhoieh8yDNot8gMj2ljZK9k0X5zZ3kN63yKJTsoXoHBq3kI+gw1P0v/8MhCKTsQRA786hpys06izEaDjHeFyIJNZdyXLahOjKmtOI+fuQlpscoxid9NLobkEEAKruQ1zmDYtJJn3Gvd+hL+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pJuuMkonr8yu5W1VSdv3ft+cbnWiMd+NeijaBiM0Hfk=;
- b=jJjCF22uq2SOb46Rk/I7+Km5neTCwQ2HYvikVOWlg2tZQRqw2VzYj85F4axwxCZfA1KkYonSuRM9TtR0XExGk5zIvma/YZx2KA87nLgm8gaIu8sxgqvVannvEnv3hTlluWxeCgz6yqt5jQIIqVB3WlsRbhHtx0nICuK8EpZe2VI=
-Received: from SJ0PR03CA0162.namprd03.prod.outlook.com (2603:10b6:a03:338::17)
- by DM4PR12MB7527.namprd12.prod.outlook.com (2603:10b6:8:111::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
- 2026 12:42:11 +0000
-Received: from SJ5PEPF00000204.namprd05.prod.outlook.com
- (2603:10b6:a03:338:cafe::85) by SJ0PR03CA0162.outlook.office365.com
- (2603:10b6:a03:338::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.11 via Frontend Transport; Thu,
- 24 Sep 2026 12:42:10 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ5PEPF00000204.mail.protection.outlook.com (10.167.244.37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 12:42:10 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
- 2026 07:42:10 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
- 2026 07:42:09 -0500
-Received: from amd-B550M-DS3H.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Thu, 24 Sep 2026 07:42:05 -0500
-From: Syed Saba Kareem <syed.sabakareem@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-CC: <Vijendar.Mukunda@amd.com>, <anson.tsao@amd.com>,
-	<Sunil-kumar.Dommati@amd.com>, <mario.limonciello@amd.com>, Syed Saba Kareem
-	<Syed.SabaKareem@amd.com>, kernel test robot <lkp@intel.com>, "Venkata Prasad
- Potturu" <venkataprasad.potturu@amd.com>, Liam Girdwood
-	<lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
-	<tiwai@suse.com>, Randy Dunlap <rdunlap@infradead.org>, "open list:AMD ASoC
- DRIVERS" <linux-sound@vger.kernel.org>, open list
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH] ASoC: amd: acp: fix TAS2783 SoundWire codec unmet dependencies
-Date: Thu, 24 Sep 2026 18:11:52 +0530
-Message-ID: <20260924124205.3376083-1-syed.sabakareem@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="giAW6efS"
+Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144d60be6b0so991680c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:42:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790253766; x=1790858566; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kwZSkoonyIIiM74/8ebCFVKSM2BQQiG3RNHpeccfAIo=;
+        b=giAW6efSlTWo/0be2oUH2Rx2a8pOYgAjqskmFa6kYaluzpIK4fLPSMpMKbMrJVNXOq
+         Lino9QgrYzLM7tClqz2CMlxNgy+iDmJ+AVktKHlTJwGPQuSpL9dX588tualy9Rp/yWyW
+         xYlLwSztK1UF0sEci2HngwapUTHjnyUJaIfzzb7KIQaOHzYMHoL9N8Oi/zA99vfl2Cs2
+         iEF690f/01D22xKaPUVvnsRpDIEgw8U9ANCd4FVz6xmqWoTGZlAGTwK47Ylm/K46Va7p
+         Q2U27EIXoQ1CspQJ/qlhcmcOoyxlZqnA6ie6v0zPK9aZxqrAvKgTN39hoH8ZsGLejFRi
+         v2jA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790253766; x=1790858566;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kwZSkoonyIIiM74/8ebCFVKSM2BQQiG3RNHpeccfAIo=;
+        b=hm0znnOLOMf1hFs9BDPYD+V/uwizwvf7wWsNyt9GKQ1/Ffsma8w2hXYxHQ/DDJEFxR
+         hxa442AwIRPI2V1I6L60Spw9upCxjiaBVfGGvfIUSCcWcYs2K6g0ylmfLxr6FS5pJJgY
+         D1hW3T+fzO3Ac4F242fi2XXok6vnwZZ6uv0NP/QKoKy868x9/WMwC0sN9VlCuV6UlwvL
+         VL//QOQPPUZk+iBRTpCnqe7q3jSJNqvAMwZj4mFdOsrPx59xPx48sBVMc2hDlenK7s84
+         8+2rY9PscqmEbflj7dw0GBOEg9Z1dEUmfj3FBcxwtfKa24mHra2trFUdy309ZZ+8yA0N
+         OCLg==
+X-Forwarded-Encrypted: i=1; AKwUvBx5bcaRw0Y/KCJEB1zwpOFLPZX30RYm6Zck5K6OYvr8pI7PnRSZVMNtYdlOxefq4EoOe4aN2BpnQXf6sIY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lCcjB1Oo/d3OzcCRjkh/xmKl2er+ctPaKAEvNHLEMTlDYbfcsP
+	3GFuLAU2nJu1m9vj5Ym8Wrlor1bytkEuqYXj7HbVRZXvObRpb+/ts0Un
+X-Gm-Gg: AYBFou3cmKlc+WdoG+iUXSjWTypN8OYSjZcVSfVltJ1sx2Ec9O3FK3vYixbGUtUcrTA
+	4tIV3WwBZmbxLaXN4tgxbRZkCNh3N6TU4VhGaP42rHd/8Byx+MD+k+C9UW/wSKHU2YlZmKe/QVi
+	FmyPiys0C7YYfWRdipQsoVSVe1PI3J//dZt6gO3GBcRKcPnsPYUb5UKlK67VZA2MS7Nt6RvzRLV
+	LxkRWKJ/8qsvslRVV30Ixt4TZ1tL2JuvsGqchBDebC6DiSaBEWTVZv7qcA1NXds+bVkNvG0Dh5z
+	uY+lVlb0MFAeaMMYVZOBu8eWWU698z/Q2TeY4CvCPuin0oYLAjTc4uPZxFocTbJHiMawO3AMu/a
+	GFaA2FPJZ7yKlZUF0CNYBeazwmuE1blhn2ia4sBO9K23Ng8BxfElOQC0ecRhdzgvTF44dMQTv9H
+	HqNQfBOAt4/RFXnaedFhFlX0EpY06sP3YBMr0RnNv99sqRfA0QHLMoPaMil3g6sXd5CMe4hT1Mz
+	buPIFoM
+X-Received: by 2002:a05:701b:4554:20b0:144:ed03:7c31 with SMTP id a92af1059eb24-145040379c7mr1651998c88.10.1790253766240;
+        Thu, 24 Sep 2026 05:42:46 -0700 (PDT)
+Received: from maclinux ([2803:c600:9110:8ba5:43a9:9b8b:ebdc:6411])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f986e465sm13466113c88.9.2026.09.24.05.42.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 05:42:45 -0700 (PDT)
+From: =?UTF-8?q?Francisco=20Beltr=C3=A1n=20Millal=C3=A9n?= <fbeltranmillalen@gmail.com>
+To: bhelgaas@google.com,
+	linux-pci@vger.kernel.org
+Cc: gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/4] PCI/PM: Do not save or restore the config space of an inaccessible device
+Date: Thu, 24 Sep 2026 09:42:17 -0300
+Message-ID: <20260924124221.12374-1-fbeltranmillalen@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,88 +74,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000204:EE_|DM4PR12MB7527:EE_
-X-MS-Office365-Filtering-Correlation-Id: 27abe038-f04b-49ea-1c69-08df1a394077
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|82310400026|376014|36860700016|13003099007|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	Gg3XyppgMfxM8+N31DQEIOPMNgazQ54m9M5zSfODSt9VGstiLzeoP0NFsb8F81IIqSKrLXVW0UMAlo7eFdORIdER1CWX5g4/KVFIW6w1kDZQHupREF4HReHpT8G8HXXVxam2Q3S/Azi79wpYTudaiXR4fTGuakJxUvBcx8r5GsDg0e4bMmOOgf40Hc8kwT4CX+Objm7LvTsHcY9qNQ8F1sJ1S2F4HyoVU9lJTvX5kpoqjkf+GZwZuCZz8WZG2AqxkKS/2e+q1XC3iO/IrBdyWhZqinJNnPjLV1TqZaJFu2h2LyJHv0ySIhu4O3v75Q+h+vgR2qii0HawkFdxu9NDFVxIzbzJNDPaCJdL/tpNeKkkHog1MBnhAfx6fjErxGbJpAuWPBFo5DHBMPpPhSiK3ppisZiZnkaUGzDBkcRjQUz4BaHPpcHMLku85Vl//o6OXZBDVXXgyutsG89KYqVS+yNnoOiUcJJvYvmIGviZEfx7Z7bjy9V326FecZ/qonFzbrSU5krtglnI438XmbtJ7yYxtEJYxymW4Ozm6RGZB/FFGsll+Os9vGeznVSYHSwW3IDCrCeKH0AK787W8Q1MrwNBxGjNns+XZYV14gqxwIGRqjcOb1HW5HKfeCgEArDltcYNuOUOfhZw5r6x2bi5wg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(82310400026)(376014)(36860700016)(13003099007)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	AjG5hZ1XyXwoLT34BmBY8G/cIAYd9e7CsXZZHQA9R26A/pymzxgW1iCwm0Mfl7Rkf20+3rD8rwR1P1SPEW2HIEo4yMkkXSQvkf/tCneoTQazBmMcU1WGTNjzR1sbzcS4ScH+G+/Xut51xbE9VVBg7DsON6luV5Q/oiZXa8+w2E5Ua97suCfhOd5KN00SPefbj/cHtiro8/gDftym78VeTNUeCmkchLrmk6u6Lfb706k/hFqvM9bUEdTYZzIotFQal+uCmr3tjSfcZN49A06vna1F5uSElKanu5J7Rdot04DncznljMA0vkctlQLdnvFtjXjpH9ek/P5xr/+fj5qo3XlkT2dBfA+pAss1Sd9TV875QCJ3v2UUfeeJwkNThvpfkUOKf6tO7I5TBwTNHQQqgOlyWw9Muky3uOnuq0YRKuNorBFZ4syRwCpvz9s4I5XO
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 12:42:10.6231
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 27abe038-f04b-49ea-1c69-08df1a394077
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF00000204.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7527
 
-From: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+When a PCI device becomes inaccessible while the system is suspending,
+pci_save_state() happily stores 0xFFFFFFFF into all 16 dwords of the
+saved config space, and pci_restore_state() writes that back on resume --
+to a device that by then *is* responding again.
 
-SND_SOC_AMD_LEGACY_SDW_MACH unconditionally selects SND_SOC_TAS2783_SDW,
-but that codec depends on SND_SOC_SDCA and EFI in addition to SOUNDWIRE.
-An unconditional select force-enables the codec even when those
-dependencies are not met, which the kernel test robot reported as unmet
-direct dependencies when EFI=n:
+On a MacBookPro14,3 (Intel Alpine Ridge Thunderbolt 3) this is not
+theoretical.  The upstream bridge of the Thunderbolt switch stops
+responding during suspend, and on resume the restore leaves it with:
 
-  WARNING: unmet direct dependencies detected for SND_SOC_TAS2783_SDW
-    Depends on [n]: SOUND [=y] && SND [=y] && SND_SOC [=y] &&
-      SOUNDWIRE [=y] && SND_SOC_SDCA [=y] && EFI [=n]
-    Selected by [y]:
-    - SND_SOC_AMD_LEGACY_SDW_MACH [=y] && ...
+  - the Secondary Bus Reset bit asserted (0xFF contains
+    PCI_BRIDGE_CTL_BUS_RESET),
+  - primary/secondary/subordinate bus numbers set to ff/ff/ff,
+  - the link retrained down from 8 GT/s to 2.5 GT/s.
 
-The other SoundWire codecs selected by this machine driver only depend
-on SOUNDWIRE, which the driver already depends on, so they select
-cleanly.  SND_SOC_TAS2783_SDW is the only one that additionally needs
-the SDCA core and EFI (it reads speaker calibration data from EFI
-variables).
+The visible effect is a 65-second resume while the kernel waits for
+devices that can no longer be reached, followed by the removal of both
+xHCI controllers: every USB-C port on the machine is gone until reboot.
 
-SND_SOC_SDCA cannot simply be selected here, as that introduces a
-recursive Kconfig dependency (SOUNDWIRE depends on SND_SOC_SDCA_OPTIONAL,
-whose default pulls in SND_SOC_SDCA), and EFI is a platform feature that
-must not be selected by a driver.  Instead, guard the select with the
-missing dependencies so the codec is only (and always) built when they
-are satisfied:
+The series makes the save path refuse to snapshot a device that is not
+there, the restore path refuse to write back a snapshot that is all
+ones, and teaches one more caller not to mistake an absent device for a
+working link.
 
-  select SND_SOC_TAS2783_SDW if SND_SOC_SDCA && EFI
+Patch 1 makes the USB PCI HCD honour the pci_save_state() return value,
+which it currently ignores.  It is a fix in its own right --
+pci_save_state() can already fail today -- and it is placed first so
+that no patch in the series introduces an error condition before its
+caller knows how to handle it.
 
-This keeps the TAS2783 SoundWire codec built together with the machine
-driver on platforms that can use it, while avoiding the unmet dependency
-when SND_SOC_SDCA or EFI is disabled.
+Measured on the affected machine, comparing the same suspend/resume
+cycle with and without the series:
 
-Fixes: 28114992dd2f ("ASoC: amd: acp: enable TAS2783 and add RT712-VB SoundWire machine")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202609182147.gfofWIXW-lkp@intel.com/
-Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
----
- sound/soc/amd/acp/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+  - resume time for the affected bridge: 65 s -> 1 s;
+  - the bridge keeps its bus numbers (04/05/79) and its 8 GT/s link,
+    with no Secondary Bus Reset asserted;
+  - the xHCI behind it survives the cycle: 1 of 2 controllers instead of
+    0 of 2, and 4 USB buses instead of 2.
 
-diff --git a/sound/soc/amd/acp/Kconfig b/sound/soc/amd/acp/Kconfig
-index e880e44b9763..6433876430f0 100644
---- a/sound/soc/amd/acp/Kconfig
-+++ b/sound/soc/amd/acp/Kconfig
-@@ -181,7 +181,7 @@ config SND_SOC_AMD_LEGACY_SDW_MACH
- 	select SND_SOC_RT715_SDW
- 	select SND_SOC_RT715_SDCA_SDW
- 	select SND_SOC_RT722_SDCA_SDW
--	select SND_SOC_TAS2783_SDW
-+	select SND_SOC_TAS2783_SDW if SND_SOC_SDCA && EFI
- 	help
- 	  This option enables Legacy(No DSP) sound card support for SoundWire
- 	  enabled AMD platforms along with ACP PDM controller.
--- 
-2.43.0
+v2 of this work fixes two defects found in review of v1: a
+pci_WARN_ONCE() that the first version could trigger in
+pci_pm_suspend_noirq(), and a partially written snapshot -- v1 could
+leave dev->saved_config_space half updated if the device disappeared
+while it was being read.  v2 reads into a temporary buffer and only
+commits it after re-checking that the device is still there.  Both were
+verified on hardware: the warning count went from 1 and 1 to 0 and 0,
+and the per-device resume timings are unchanged to within 0.01%.
 
+Tested on 6.18.49 on the machine described above.  I do not have other
+affected hardware, so wider testing of the PCI core changes would be
+welcome.
