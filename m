@@ -1,75 +1,157 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F370A4A4EF0;
-	Thu, 24 Sep 2026 15:32:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E50AD4A4985;
+	Thu, 24 Sep 2026 15:32:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790263949; cv=none; b=C0hM2L/E45CGwgb8wjnWsy7hR28yFxwEGJHk2Al6xTZMK6kPvgZhK836BLmaQqJur/1B+OkMJhIvioEZTRmkcCTzeWnCZopNMNYqeCqxiuxEomu7l3K0MLoCMV1C4uyXQRETLSxWQ22jIP0ioA4RV6Afnwyo4+mugkb/Bf0wRCc=
+	t=1790263958; cv=none; b=ZoLfXmOQVF2hcPN0QTbo4sDDsmI974oxSBwZI4D1+COF4RDlPDgW7R7qQDZFGX6afPtwOb/eYWmZrAPPlXEKF7RRK5tMaDYLZ1NNOxGfsnm115CqPPySvCpZ8Yl7eEOCnezaLAw7i1lwllzqH2Mnwfk5NfMCoe6qvu7TEd2N2I4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790263949; c=relaxed/simple;
-	bh=1LRDUbfHc19bILPUL/IhQhXeaKwHiT6RMVWSh5qizks=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ueo4n25Kvxau6pOaNSXNDYQnlSGUM2WRU1JBXy69+x8YGByAfOvmVvbRpaOSs3BnpbTmMzdG/+5HKwJAYjj3vIQ3MutT34ACV0IFb7OqVsifY77VasjXX9IBQpT+9pPPLaJR6jO+IbKkJ4miQS1rbDUdNdFWg751C6XzKrFKcCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=1/5Mo9rJ; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790263958; c=relaxed/simple;
+	bh=RSDNtHrnL48+9T76NsiydnP9X1Kiq4Yc/BlNcsoLJ+U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=m9YCteCQ0dRRipeTdSbX+4LzbnbwJExN8HtzT1irVf3y3p/jlUZySuxSKlIgxPso+CDEld87XisMuUkleOpXFsno4+bjvSGEqD1sX4nNw6hWImMxeOzbLSeufeTjojDnnlE4rtyXyUEdVdHj6L4ijGOez9kedeoOLci7Ilu2jEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hg4n58kr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="1/5Mo9rJ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=plTJLDQAj0hnOAP6k8YFwOtFx4DzooHoww6QY6cF8GY=; b=1/5Mo9rJduTh85VwjBBLPiX2IV
-	vO6IGHH1qxwqvx04BHbCeT3uncW3G7XghEMFlRJM9i2esW5O7tSQsVMA5fP1FEQ1I3xstcYs3zRyR
-	pyJ3Yzoum9KIGcGnG/n8jWoxaZ/KL2Yp1h3ridhhghiK4kxiFDjE+kCJAqpXxXc9kRSE=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x9lQd-0071eP-NQ; Thu, 24 Sep 2026 17:32:07 +0200
-Date: Thu, 24 Sep 2026 17:32:07 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Kyle Switch <kyle.switch@motor-comm.com>
-Cc: olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, mmyangfl@gmail.com,
-	horms@kernel.org, linux@armlinux.org.uk, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com,
-	wei.zhang@gl-inet.com, sijia.huang@gl-inet.com
-Subject: Re: [PATCH net-next v9 2/7] net: dsa: motorcomm: use max_ports in
- series for port bounds checking
-Message-ID: <e5a632a4-053a-4f5f-a8e1-6aa1641571f9@lunn.ch>
-References: <20260924094146.4128703-1-kyle.switch@motor-comm.com>
- <20260924094146.4128703-3-kyle.switch@motor-comm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hg4n58kr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 081C01F000FF;
+	Thu, 24 Sep 2026 15:32:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790263956;
+	bh=Tp54T1Ky+sYrkKZngcDc+33ltudUbUl+mxqhtBF8KeU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Hg4n58kr9CttSBeBe2vfr/Et9VbEL8MqbZpXHJ0iiBzc4hhByg3+16A1POnInnQX8
+	 cJHOIa1g0xiybET9Pia85SthvEICDSRl9C4Zdda37DziAECqHjqCaHArGGnIAkEvOa
+	 faZ0d1SEgd5dl33T2wObXW0Oy1bulzKVIEs3gav9zbV4S8vJ36EFduALALooYn+hoS
+	 PucgzMknkfWIgwVRs8uYRuCn+/KhnIfZ8S22nrjXbCDtJJGfkBo0B4sXzPcbZyzHSo
+	 0OTJIUlfRNtv51E8vmwaRvxToByyj8dMObojWQzSnCKgp87UE7EwMf9Yepur01Rnkk
+	 CiGTvFVGMNtgQ==
+Message-ID: <e7f48cc6-be21-4ab1-91a0-df0e3a6ec0b5@kernel.org>
+Date: Thu, 24 Sep 2026 17:32:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924094146.4128703-3-kyle.switch@motor-comm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/7] mm: allow shared folios to be promoted to a fast
+ tier
+To: Gregory Price <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
+ vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
+ mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
+ vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+ bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+ kprateek.nayak@amd.com, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
+ nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
+ baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev,
+ kas@kernel.org, matthew.brost@intel.com, joshua.hahnjy@gmail.com,
+ rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com,
+ apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, hannes@cmpxchg.org,
+ shy828301@gmail.com, raghavendra.kt@amd.com, stable@vger.kernel.org
+References: <20260922182928.2199090-1-gourry@gourry.net>
+ <20260922182928.2199090-3-gourry@gourry.net>
+ <f0cd5c54-deca-42e7-bc85-1838dfa917f3@kernel.org>
+ <arUtcPIw_FaUSPv4@gourry-fedora-PF4VCD3F>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <arUtcPIw_FaUSPv4@gourry-fedora-PF4VCD3F>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 24, 2026 at 05:41:41PM +0800, Kyle Switch wrote:
-> Replace the hardcoded YT921X_PORT_NUM macro with the per-series
-> max_ports field in port validation. This removes family-specific
-> constants from the common code path and simplifies adding new
-> switch families with different port counts.
+On 9/24/26 16:07, Gregory Price wrote:
+> On Thu, Sep 24, 2026 at 01:59:15PM +0200, David Hildenbrand (Arm) wrote:
+>> I wonder if a better name would just make the comment above (about memory
+>> tiering) implicit and make more sense of the sysctl_numa_balancing_mode &
+>> NUMA_BALANCING_MEMORY_TIERING) check.
+>>
+>> 	folio_promotable()
+>>
+>> 	folio_is_promotable()
+>>
+>> 	folio_numa_promotable()
+>>
+>> etc.
+>>
+>> because that seems to be what we really test with both things combined.
+>>
 > 
-> No functional change for existing YT921X devices.
+> maybe:  folio_numab_promotable() ?
+
+Works for me if "numab" means numa balancing :)
+
 > 
-> Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
+>>> -		if ((vma->vm_flags & VM_EXEC) && folio_maybe_mapped_shared(folio))
+>>> +		if ((vma->vm_flags & VM_EXEC) &&
+>>> +		    folio_maybe_mapped_shared(folio) &&
+>>> +		    (!folio_in_lowtier(folio) || !node_is_toptier(node)))
+>>>  			return -EACCES;
+>>>  
+>>>  		/*
+>>
+>> Sashiko has some comment about anonymous shared COW folios. I think it has a
+>> point, but didn't look too closely.
+>>
+> 
+> its tl;dr:
+> 
+> `skipping this check means those folios could end up freely migrating east-west
+>  between slow tiers`
+> 
+> Which cannot happen (we only migrate to top tier, numab will never
+> migrate *to* a slow tier).
+> 
+> basically false-positive
 
+False-positive? From Sashiko? I am shocked!
 
-For version 8 i gave a Reviewed-by: Andrew Lunn <andrew@lunn.ch>. You
-are supposed to add this here. That then tells me i don't need to look
-at it again, and it helpers those Maintainers who do the actual merge
-decide if the patchset is ready.
+-- 
+Cheers,
 
-b4 will append these for you.
-
-    Andrew
-
----
-pw-bot: cr
+David
