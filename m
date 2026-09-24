@@ -1,252 +1,177 @@
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com [209.85.221.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D3F4A0F07
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:58:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.69
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790261929; cv=none; b=RP57Xlvr5iVcDJc23Rtqzxyv5tNyLT4vtPiYlYuu8WxYQsi7Dd/RGzTix39ty8q/M/8Ik3zs3jJkJXhUUzeaCJk5cyZlaqNu2a53m+c8bKRpFVSopPZpSS0eS8d37GRP90naOs66+6YwEpvUT5S/78pvefSVm6n3TpIMKS3NYwA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790261929; c=relaxed/simple;
-	bh=Jrp7mt6cQSQ3EkaTbrA76OUMeNLl2/PHGv5RXvN55+4=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=co9VUtEZNCYmTPdiWWKVaJnD9p6CF+wVdfemDE/zGMWlV9GqdLWxmwmI+ga5u/9LOKaOFXxa6ZKMtKWoDHV/RG+4lI5u+u2BIvbckHwQiEwalqucUwXtKWYJfv/NwL6tRUw9s6nJ80C8WYm3d5hEpfpUd0WXT/8FvszJAOxoqDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=B+w7Itjk; arc=none smtp.client-ip=209.85.221.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9467486B8C
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:00:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790262049; cv=pass; b=FSQqlQ6JaMvIShvwbzJMHecAQHFwgsSkRHdVboE4l1/+0kNkowwr/VcVF6YbBXrnBrw5MBFIJUWWN9jXAV5y87OroSgdRFEE7oKdNWQmmCFkIeXARCl1qrV1Ewhlwu+MopQXv15ERnQUOVtp+w7i4ESa+u+j0QN1N1PPfd60A/E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790262049; c=relaxed/simple;
+	bh=iuUfA02SH2tSSicml2K0I3xqm9pZO7ThoY25b+dKE6c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FvNwy/EfOF85U8O/VeEu6otbvFDAGzLvmiWc8rvokR7lUTtJjBV35Z+gbGp1TdPMFGzBm3QXF31mFMG5VgP4ynr2z/sD4wNCkF4yDshXLZd3semGUuhJx2MgB2Ot+o7Msg5lJBTiMgJ9VpmjySmtPGqHogsKdqo9mb8RCKeIatY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WF48CgyE; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=MVDl+InI; arc=pass smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="B+w7Itjk"
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-4886af459afso1292068f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:58:47 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WF48CgyE";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="MVDl+InI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790262043;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YKTy1DV5Z8HP/0nQigR4wkQdWVD6m+LzXDtQhSwKE3c=;
+	b=WF48CgyE55dtiKGZFTTd4Yx5uK+BVFW3hOpZHlI9D/q72DJQAVRzV/Cm7s5F8jWRVLHZvx
+	/Ap7nhVtdZcJYP2ZjR2MyuCIMvbOu8T80OcagizcnHIXoYokifPQtMdRnw47OoOC7PW/I4
+	0/Vr2GhBrk4PMRRpdHqaULN36KVRH14=
+Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com
+ [209.85.128.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-518-30kTJAC6PsaTqmTOcK6pVw-1; Thu, 24 Sep 2026 11:00:41 -0400
+X-MC-Unique: 30kTJAC6PsaTqmTOcK6pVw-1
+X-Mimecast-MFC-AGG-ID: 30kTJAC6PsaTqmTOcK6pVw_1790262040
+Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-87014338e7aso20650277b3.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:00:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790262040; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GGEmTmpymmO5r0vCkZoprllox+tOA+Ti1kZWz0o7fu2RPsm/BzH+O8UgADrDu3br0V
+         MBCPVuULnAg/SQ8RMNHVm9YyQMC+ucAzAlErKMd+z6Of0WAD4Rk6xvn1FtYykzJ7Bsfj
+         W7ZE6m1gHNIgwVGqI6ACi+CI/ag4adj3y1Us+n46ymO/uMt9LgRCpg5tGkSS3hUXfS86
+         DGKKG1CoR3XdhdWso8nMxdPUjhVFomHgDn9FiJN4O0qUUCj6wgvUR0drpN4pK/BNNaxb
+         38xdsUueN+EcSQE5Zs/TBcv+GC2zR07Vc97fHHm5RBS0dhLxaxmbbmj2WC/OPFkdII5q
+         eOdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YKTy1DV5Z8HP/0nQigR4wkQdWVD6m+LzXDtQhSwKE3c=;
+        fh=O7UDueJSILnX9Y7cduVb07RcBqdpp9UEY0BeuyIMBwk=;
+        b=Eh8k6IsdkpGbN/Tpo+ziC0XL3gusqXDpwaSSbu+9AfIlDcZUzb1winRVJgkdyljXST
+         zfr87tnKWUWjZJQBuforZuT7D3yv7ZY2tgyKsvK/fOCbz5M9XOJeqlflco8vb8PveKRk
+         6zkGwYrjWi45JAXrLGHwERlyQit1mTNke23laM7a3g/Kwvy3z/mQ3E8oZgWQv/9iOhBA
+         ysDlmh+LpeYkqDhCq16mLnu5ml2O0jSIXAiM5/3GiuF0YtfCpplrcERA9PuYeD0z+G7j
+         hqymcpoi2elCvaFgR7m11FD9UKbsaw81fu1BNa+4rEkf3OaRxdIiERzqxI7K+CdZa+mv
+         9X5g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790261924; x=1790866724; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GSVp2wd2bElbaVHZ4PZQs4KwrjTqCz18IG8mqkgeKvc=;
-        b=B+w7ItjktoYHM6m8cA4oa//tTiFen4fgn6uUFGJx+Nrt+LH7lAATI2IilVEFF3lAvS
-         StUG0ly5LdkyafYMPfrEHeCMzgAddzTswz2S0fqge716Y9oBQD6eNwo4TNq6LtQPvfdI
-         w3pUQg9VOlvs8knqRH8hhB82Y9FVEuICTfDdyadhBIytPvNzb2I4ENtE++Scir88DgCv
-         hV92Jhp0AP5ujO70DPdY1/55paYZ8uPyZjgxva2rGLNaJsM4IYubL/i7+klxQSYddVOm
-         JuaufW6d27qQhbtyoxXt0EUGRpDQMxT6p4dTFFOALragppUZfH9tRy8xf/UpPkPysGmS
-         /6Ew==
+        d=redhat.com; s=google; t=1790262040; x=1790866840; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YKTy1DV5Z8HP/0nQigR4wkQdWVD6m+LzXDtQhSwKE3c=;
+        b=MVDl+InINlRiSWNoJ+zSo3dPDLpLFAx8rHOQcJPrFcrb0dFjn331QV2IRGTQ7mSLf2
+         FzOGnMoq9jW909FTyZADgpBVLgDHXWeUVGIDkPw+aeVry1O2IqecYbQhdHv53moD09Gd
+         M6/R10IHRh/oSqPNOZRSalRoelc2p/FUbgk8NWsvk10oj8K0P0i/+6Kb2SJNz7+VGtS3
+         EHiUnog1bSJUloT5Ezfcd6Fbhr/4NApXO579lYUqr0j5S8iaQ1FgRSVlUokp15A2kalc
+         H92GZLmjxY5Dvm/8H/oqzwnBKNx9aSsXGI80NbQvadYeVqffYhdBjfmMsucgQUH6nslq
+         hc9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790261924; x=1790866724;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GSVp2wd2bElbaVHZ4PZQs4KwrjTqCz18IG8mqkgeKvc=;
-        b=BwvnANyK46Jd9aQ9JCqnoEpWr99thNeeLe99LhE6arRnLTbFSX/Rk9W0Ii3MIDeV4L
-         MIzHy9GHVSsSsobFzh51lYrL9qrVDp9BjQcmqoqUqCQ29HietnG886owij6Cg/Qn1kDL
-         pcgvxEEiyohPpDkNZTKOfVkjXSPcP2SEB38H6RIr1hUQ/Z4w1WwQi7WDy+j+VQ+MY/Nf
-         oKOZtlhODbk2MZ/X3pNZ3HXDDtd7cilaYYXJnLdiJN+XJ8EuGovSQV+mAmt+GtpcIH4a
-         4ZBaIVbXNNEbcekO/BI/MeZv1ei2ibpSjwWtsEn0mfsyejVGX+miCiAQRty9I6W+WwJg
-         mgjw==
-X-Forwarded-Encrypted: i=1; AKwUvBxPpcdxbSmKGbobQotgQCr/clni+HHtyuIzw6psZfKWiKrDlbwdM5hYvoxfRpDFT3q4vFbWUIe0hiCLmGk=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7MEVZgHcW668diVBDc2smHW8LIrZrKpzW6rPTjH/HRMChnBZL
-	k6A7Yx2aVWyBRGsUeXmsQfLlbjIPzYXMs9CsliU5hao/fNJ1DOC4GpvXdvrvPFC5Njpo0z78jAZ
-	RRVCrZZH0JzAu98PkdMSqfA==
-X-Received: from wraj5.prod.google.com ([2002:a5d:4525:0:b0:487:2ee:a313])
- (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:2088:b0:487:27f6:a4e9 with SMTP id ffacd0b85a97d-488716c3819mr4666334f8f.57.1790261924227;
- Thu, 24 Sep 2026 07:58:44 -0700 (PDT)
-Date: Thu, 24 Sep 2026 15:57:52 +0100
-In-Reply-To: <20260924145754.1285146-1-vdonnefort@google.com>
+        d=1e100.net; s=20260707; t=1790262040; x=1790866840;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YKTy1DV5Z8HP/0nQigR4wkQdWVD6m+LzXDtQhSwKE3c=;
+        b=dLevV7gB35o180YSlTthgWallpyzEKVFkNpsEaaXYH9e9KXhdn3PdsxOQTJ957ZCX0
+         mtPkMhRH+zuHPRlE6Pq6sp1nhPpVee1fhhxXCidVQrDVZw23vMRf+mXD5IJnO64vdeZS
+         atjXD+KDmGXdoiDhU/kPQ+SUe8E/ObRXG6oXHVWwchilEvhWRDPeLhjv/5y9CLOYjlNQ
+         EyHRiwhECiGWfuXlev9x7bgOq3Rgf0/gzQ55lKNAeY2ttcOPyIc3c3vORpaSsa8BmxM8
+         iNAAG4JcouTbzTUlbacPDRPK62QXkCqK04Fc0bId2/dWuFBvz02wJBHqjsn6a+/MzvfU
+         5KxA==
+X-Forwarded-Encrypted: i=1; AKwUvBxlWHMv2wFA/fX+YvqDAGGNX1NfMD2h9S8ydqjWHdPstzAFrSsRTSURSt6zb+u+ocb4jmaMKQvwmyCnUi8=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9sa8pLANE5rUokpnSRNZW2sM29JpCT7GHI/icTVUhKYaIIcBd
+	0ZU3L3f6HfhEPv4VnZ5cQ9KSE5JtgOkSBswHFdy1Ern3p9EHxkIB+BlWlEoNZPaFTPcveZnARHW
+	q1yAiqlF6siy62jJIf8hB1xDn0wubQby7KEpS4+J+NIxc1hecZBEs6fGHpk7nmnaUE2leDilHRD
+	nC6+Y8hT8r01x9LDS9O+6RXlkbJ4I5owV61pBmj2ai
+X-Gm-Gg: AYBFou1iBEoCst6yEPlyxEMjegyPcIdjyLM4rsiqHfCAT21xvNqiOesC6DiGTBQp6nK
+	33JqgDBHDSopkf9oKql7KZYbtrwei9/gL//ItsQXWUQ22PRMOx8Fjh0K5WY+vEH+aOWnUKarWlW
+	Rx6sq5uPme+n+ypeEvkE/ML5XG2qbpchxo9HIZCN1NgtgnhgnIHuAUBA==
+X-Received: by 2002:a05:690c:f04:b0:8a4:af43:6941 with SMTP id 00721157ae682-8a64e5d7328mr16132117b3.20.1790262039528;
+        Thu, 24 Sep 2026 08:00:39 -0700 (PDT)
+X-Received: by 2002:a05:690c:f04:b0:8a4:af43:6941 with SMTP id
+ 00721157ae682-8a64e5d7328mr16131377b3.20.1790262038827; Thu, 24 Sep 2026
+ 08:00:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260924145754.1285146-1-vdonnefort@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
-Message-ID: <20260924145754.1285146-19-vdonnefort@google.com>
-Subject: [PATCH v7 18/20] tracing/remotes: Add trace_remote cmdline options
-From: Vincent Donnefort <vdonnefort@google.com>
-To: rostedt@goodmis.org, mhiramat@kernel.org, 
-	linux-trace-kernel@vger.kernel.org
-Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
-	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
+MIME-Version: 1.0
+References: <20260914-scm-device-api-v1-0-3573e2596c51@redhat.com>
+ <EKwbCgCnxbNX4p95qJ3xoytzeNBBLc2L_HOVWr-S-y8n7pNOIToj37TyoXRcLyIK1gjq_IvbreQ331gw6jIK9Q==@protonmail.internalid>
+ <20260914-scm-device-api-v1-1-3573e2596c51@redhat.com> <b1340496-1ff3-4ad7-87c3-36d2162efbfa@kernel.org>
+In-Reply-To: <b1340496-1ff3-4ad7-87c3-36d2162efbfa@kernel.org>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Thu, 24 Sep 2026 17:00:27 +0200
+X-Gm-Features: AclHuK_S1nrFMWot6v8DC6klfULfaNk07isgmJtfP7BYAekyrR84kzWx2Uw9qhE
+Message-ID: <CADSE00JhFYhDV2cuVxZwVTX6LTe8zH0-BR=-Fhv+6UXeFxq_Zw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] firmware: qcom: scm: pass qcom_scm to internal helpers
+To: "Bryan O'Donoghue" <bod@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Russell King <linux@armlinux.org.uk>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Christian Loehle <christian.loehle@arm.com>, Maximilian Luz <luzmaximilian@gmail.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>, 
+	Sean Paul <sean@poorly.run>, Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Marijn Suijten <marijn.suijten@somainline.org>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
+	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jeff Johnson <jjohnson@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, 
+	Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>, Jens Wiklander <jenswi@kernel.org>, 
+	Sumit Garg <sumit.garg@kernel.org>, Amit Kucheria <amitk@kernel.org>, 
+	Thara Gopinath <thara.gopinath@gmail.com>, Zhang Rui <rui.zhang@intel.com>, 
+	Lukasz Luba <lukasz.luba@arm.com>, Brian Norris <briannorris@chromium.org>, 
+	Govind Singh <govinds@codeaurora.org>, Niklas Cassel <niklas.cassel@linaro.org>, 
+	Kalle Valo <kvalo@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	freedreno@lists.freedesktop.org, iommu@lists.linux.dev, 
+	linux-media@vger.kernel.org, linux-wireless@vger.kernel.org, 
+	ath10k@lists.infradead.org, linux-gpio@vger.kernel.org, 
+	linux-remoteproc@vger.kernel.org, op-tee@lists.trustedfirmware.org, 
+	Maxime Ripard <mripard@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Following the same format as trace_instance, add a cmdline to configure
-a trace remote on registration:
+On Wed, Sep 23, 2026 at 11:00=E2=80=AFPM Bryan O'Donoghue <bod@kernel.org> =
+wrote:
+>
+> On 14/09/2026 13:41, Albert Esteve wrote:
+> >   int qcom_scm_pas_auth_and_reset(u32 pas_id)
+> >   {
+> > -     return __qcom_scm_pas_auth_and_reset(__scm->dev, pas_id);
+> > +     struct qcom_scm *scm =3D __scm;
+> > +
+> > +     return __qcom_scm_pas_auth_and_reset(scm->dev, pas_id);
+> >   }
+> >   EXPORT_SYMBOL_GPL(qcom_scm_pas_auth_and_reset);
+>
+> Why make this change at all though ?
+>
+> It takes a pointer to the file static _scm
+>
+> The reset of the patch looks straight-forward to me but this change
+> caught my eye.
 
-  trace_remote=<remote>^<opt1>^<opt2>,<evt1>,<evt2>
+Yeah, this change isn't useful. I aimed to avoid passing __scm to
+function calls but it does nothing in this patch, it'd be better to
+change it directly in the next patch that changes the signature.
 
-Enabling events automatically turns on tracing.
+BR,
+Albert
 
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
----
- kernel/trace/trace_remote.c | 137 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 137 insertions(+)
-
-diff --git a/kernel/trace/trace_remote.c b/kernel/trace/trace_remote.c
-index b2547eb117f8..de41f36e9a0e 100644
---- a/kernel/trace/trace_remote.c
-+++ b/kernel/trace/trace_remote.c
-@@ -14,6 +14,8 @@
- #include <linux/trace_seq.h>
- #include <linux/types.h>
- 
-+#include <asm/setup.h>
-+
- #include "trace.h"
- 
- #define TRACEFS_DIR		"remotes"
-@@ -1173,6 +1175,128 @@ static int poll_ms_show(struct seq_file *s, void *unused)
- }
- DEFINE_TRACE_REMOTE_ATTRIBUTE(poll_ms);
- 
-+static char trace_remote_cmdline[COMMAND_LINE_SIZE];
-+
-+static int __init set_trace_remote_cmdline(char *str)
-+{
-+	trace_append_boot_param(trace_remote_cmdline, str, '\t', COMMAND_LINE_SIZE);
-+	return 1;
-+}
-+__setup("trace_remote=", set_trace_remote_cmdline);
-+
-+static bool trace_remote_apply_cmdline_opts(struct trace_remote *remote, char *cmdline)
-+{
-+	bool dmesg_on = false;
-+	char *opt;
-+
-+	while ((opt = strsep(&cmdline, "^"))) {
-+		if (!*opt)
-+			continue;
-+
-+		if (!strcmp(opt, "dump_on_panic")) {
-+			WRITE_ONCE(remote->panic_on, true);
-+		} else if (!strcmp(opt, "dmesg")) {
-+			dmesg_on = true;
-+		} else if (!strncmp(opt, "buf_size=", 9)) {
-+			WRITE_ONCE(remote->trace_buffer_size, memparse(opt + 9, NULL));
-+		} else if (!strncmp(opt, "poll=", 5)) {
-+			unsigned int poll_ms;
-+
-+			if (!kstrtouint(opt + 5, 10, &poll_ms) && poll_ms > 0)
-+				remote->poll_ms = poll_ms;
-+			else
-+				pr_warn("Invalid trace remote poll '%s'\n", opt);
-+		} else {
-+			pr_warn("Unknown trace remote option '%s'\n", opt);
-+		}
-+	}
-+
-+	return dmesg_on;
-+}
-+
-+static struct remote_event *
-+trace_remote_find_event_by_name(struct trace_remote *remote, const char *name);
-+
-+static int
-+trace_remote_enable_event(struct trace_remote *remote, struct remote_event *evt, bool enable);
-+
-+static bool trace_remote_apply_cmdline_events(struct trace_remote *remote, char *cmdline)
-+{
-+	bool tracing_on = false;
-+	char *token;
-+
-+	while ((token = strsep(&cmdline, ","))) {
-+		struct remote_event *evt;
-+		int ret;
-+
-+		if (!*token)
-+			continue;
-+
-+		evt = trace_remote_find_event_by_name(remote, token);
-+		if (!evt) {
-+			pr_warn("trace remote event '%s' not found\n", token);
-+			continue;
-+		}
-+
-+		ret = trace_remote_enable_event(remote, evt, true);
-+		if (ret)
-+			pr_warn("Failed to enable trace remote event '%s' (%d)\n", token, ret);
-+		else
-+			tracing_on = true;
-+	}
-+
-+	return tracing_on;
-+}
-+
-+static void trace_remote_apply_cmdline(const char *name, struct trace_remote *remote)
-+{
-+	char *cmdline __free(kfree) = NULL;
-+	char *events_cmdline = NULL;
-+	char *opts_cmdline = NULL;
-+	bool tracing_on = false;
-+	bool dmesg_on = false;
-+	char *curr, *next;
-+	int ret;
-+
-+	if (!trace_remote_cmdline[0])
-+		return;
-+
-+	cmdline = kstrdup(trace_remote_cmdline, GFP_KERNEL);
-+	if (!cmdline)
-+		return;
-+
-+	guard(mutex)(&remote->lock);
-+
-+	next = cmdline;
-+	while ((curr = strsep(&next, "\t"))) {
-+		char *token = strsep(&curr, ",");
-+		char *rname = strsep(&token, "^");
-+
-+		if (strcmp(rname, name))
-+			continue;
-+
-+		opts_cmdline = token;
-+		events_cmdline = curr;
-+
-+		if (opts_cmdline)
-+			dmesg_on |= trace_remote_apply_cmdline_opts(remote, opts_cmdline);
-+		if (events_cmdline)
-+			tracing_on |= trace_remote_apply_cmdline_events(remote, events_cmdline);
-+	}
-+
-+	if (dmesg_on) {
-+		ret = trace_remote_enable_dmesg(remote, true);
-+		if (ret)
-+			pr_warn("Failed to enable trace remote dmesg (%d)\n", ret);
-+	}
-+
-+	if (tracing_on) {
-+		ret = trace_remote_enable_tracing(remote);
-+		if (ret)
-+			pr_warn("Failed to enable trace remote tracing (%d)\n", ret);
-+	}
-+}
-+
- static int trace_remote_init_tracefs(const char *name, struct trace_remote *remote)
- {
- 	struct dentry *remote_d, *percpu_d, *d;
-@@ -1349,6 +1473,7 @@ int trace_remote_register(const char *name, struct trace_remote_callbacks *cbs,
- 	}
- 
- 	list_add(&remote->node, &trace_remotes);
-+	trace_remote_apply_cmdline(name, remote);
- 	retain_and_null_ptr(remote);
- 
- 	return 0;
-@@ -1836,3 +1961,15 @@ static struct remote_event *trace_remote_find_event(struct trace_remote *remote,
- 	return bsearch((const void *)(unsigned long)id, remote->events, remote->nr_events,
- 		       sizeof(*remote->events), __cmp_events);
- }
-+
-+static struct remote_event *
-+trace_remote_find_event_by_name(struct trace_remote *remote, const char *name)
-+{
-+	int i;
-+
-+	for (i = 0; i < remote->nr_events; i++) {
-+		if (!strcmp(remote->events[i].name, name))
-+			return &remote->events[i];
-+	}
-+	return NULL;
-+}
--- 
-2.56.0.rc1.310.g51773c2048-goog
+>
+> ---
+> bod
+>
 
