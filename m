@@ -1,55 +1,55 @@
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5E5F309EE9
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:16:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43303403E97
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:16:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790223373; cv=none; b=aoxZIGTcdBoSkHAntjtjoaq2s0tmvFVry5HZvpELB+nUBV3703XwOPa8xavNP/MUBmbpghj02aPqzgVoEE5k9k1hlUA9NTYiUnkOkESwUssnMnuPq+dS6cf/qynq9MpL36ePJ50CjLO4LPWw4wbz8LM5F8n95wvtmj9Yszpi45M=
+	t=1790223378; cv=none; b=iVn835doUHGKOVsFXg8a4S4VDOyR1TsR2vFXhMPI+dnSoeJ1FDIkqf01nyg0YaoogNOjbVat9ktYTGXAoO7klw7a1zJeuRF0GhNeq8U7ZGn3rhb76yaEuQ2ddoz9dnUxBr9y6nQOLSuLF5JpzGArkhnL1j3DCi756tnD4kfbZMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790223373; c=relaxed/simple;
-	bh=zpTsHsdhvX0iPTlbayTEc1FmShanIfURQhpU//AP8tI=;
+	s=arc-20240116; t=1790223378; c=relaxed/simple;
+	bh=GW++IQkN3swJonF+Ux3M4S61EH1JXfeg3xTVbZ1j010=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=gy7eQCGb5/C9qT5uSeQYnZh4iSVH3/8EEuL0ev4+DxvzVqwVVk6j3JjNMiWl3Icm14TmCt0fbsikbx08QaLK8J9B144ydy2F4d/uY7oRvzvA1lsZi7mZbYdDRg7EcqAom8QO1izvjYGShMhMRPTc0ehmkAFqPtz2UosVeMMsyls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--avagin.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=glsg9Y19; arc=none smtp.client-ip=209.85.210.72
+	 To:Cc:Content-Type; b=ph+33zhTvyVj1kGMdhU1wiATtALW9+MBb0B1lE2LgPKB8u8ECmFbIIdqrY47AjR5tAIHFUuqqq8uCebMn7A88GUoic4B+exERZvrwJRobbIkDymP6dsMYzDPHFRluk9Whn2dJ+JoXkvOBBtOKHonHUDB8oWlJkUfLrCtL+JIrUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--avagin.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NN9EqCVL; arc=none smtp.client-ip=209.85.167.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--avagin.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="glsg9Y19"
-Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7f4e8568ccdso2955844a34.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:16:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NN9EqCVL"
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4c307941971so2581356b6e.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:16:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790223369; x=1790828169; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790223371; x=1790828171; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xcw9Mgm3kBNox5yRvORKHD3/cac/jIReOJZK/oYGkSs=;
-        b=glsg9Y195zjeGCb8DMlENcEhBDvZPWwjh3d4V2Vr5Ts4s/87yFFw92UGTYHkCJc4GO
-         pCZVJCHiP0Kd1rM4Jj9JzJtmpf363NZsUM3LKxl64PLNplnL7HFDkRLfHpOpPO241rLU
-         CsxAA5OxoDEykw1Oigvzyb6jn8Pq+68Qqu5SAXnZVCFF4gLLll+V0uITwwnXRFAeku8n
-         dcJkOmHfzXzi1ugHpj5CyQyqkvT+AdT13Ewf6pKeedtprEti2L0WeW30QN7k39sPqfSR
-         GdRKIi5qh3+/KTxUaXBB2lExezaJ7ZKBo1VfbU1OEx4jgSFG82J7C8s5dQa4GmuSofaV
-         57LA==
+        bh=FLDrAGg7xWWuICM8+UcK0lvwffhpOIQZdOjs40Fvj3s=;
+        b=NN9EqCVLzfjeLgGrieIf2R0Z2ThHNMUFZ/EjArJGFMBHFUOW5eWXDLYh0eskE35bhR
+         VVOfGkiBOFlf9NTSaW6U57naKQ4zaWK0N6mfQTPMYMsxzjZaUSHFAmG69SKa6U7rWllj
+         HzZcLZizY8D669OuFGe3V92pcnKS/Sn4FC7pi7ElYqEinqPAOOLvzzv8VYDfk1gYS4T8
+         FpKPMEvyMOGjJ6UPdrtxc6zVv/dubMhXfx2Tk3PHXIdZPoJ+17nGxBiwzlD7ccQT7G0c
+         QCaLYDsvPFu+zU/27ebEqD1WtRplJx9GF5w1I//8Nt5fAyd3HCMXhXn2Hin2oqXKY5Zk
+         zDmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790223369; x=1790828169;
+        d=1e100.net; s=20260707; t=1790223371; x=1790828171;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xcw9Mgm3kBNox5yRvORKHD3/cac/jIReOJZK/oYGkSs=;
-        b=0Ax7+hvS0icQxUU4hNTLbxlGfml7tWQJwZxMmmCDVx3bmExVVIkSgDwvbqVESDklqo
-         5p2jcQSQ3us+sOEipUM73QtVcilCbv2O6sQhIB11Omx4Pqbz9vity/9qZiKnnUhZfLte
-         IBxyf3DSmeBvmnNVPH9FRTXa4Xcx07HWs1XTZrHAJBQCItDr34RpcOw/no7NHENZcGkr
-         YokKhdi0zzapBMkCeIRX+ULY+Iiuv9JGPw9/g06stTWEhSjh8MvOiM3Aq+S4TM3oUExv
-         5LoZFaR01bcGamGQybS6JbI/uvPwygdUEhozdM9X6VXzDryQtraHJT0ikmM8EqVEYBDy
-         6AHw==
-X-Gm-Message-State: AFuF++nOHG9avQEyxIRWYsqP5ExGN6kxbhG3b7+9GLc4k6lMMgZGsN7R
-	5yYc9c2I+Zzd0/45zn8CE0bUZw0AHvIAVxjbkSdYs86X22nC6nTjqt1DmZke/QcFee0Qdx8mera
-	do1UPag==
-X-Received: from ioxv7.prod.google.com ([2002:a05:6602:587:b0:9c3:8639:712f])
- (user=avagin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6808:238e:b0:4d6:9153:2965
- with SMTP id 5614622812f47-4d72b63ec49mr1377005b6e.54.1790223368785; Wed, 23
- Sep 2026 21:16:08 -0700 (PDT)
-Date: Thu, 24 Sep 2026 04:15:59 +0000
+        bh=FLDrAGg7xWWuICM8+UcK0lvwffhpOIQZdOjs40Fvj3s=;
+        b=JnZa9cFscK8AexQEdoblZ15bumzGP+8c6ECQrSLaUSvweIGP8tho8AeQW8WH0Pb4DA
+         3SXVp0jZLCuBPoiR8xs462nYcShaRjtgyoSKx+HUSBW/XGZZS3Aa9JmGDlQTybbu8VBU
+         WFsLEXfh+fKH/rI09HkWW1J5QntZHjFpPLyHuaphlz+bIKyx7egogUV7luliqOZiyRIL
+         yckq7RVMAZFigy5fOo/Uiolf1vqbywK3S92MHDds2IbGGvt9OE6e4pZvydCviytjR/+1
+         vF6jjmzx1neguWlfGnPm7V1gSyMninyGeutcXZpxTgmmSAkwzQs5Zg9fDgrS5vP8X2zx
+         fIRQ==
+X-Gm-Message-State: AFuF++lcaBnQ92eSx4q6dTB3uILQkx3zNVqeLkz7/refhcW67tlXAFbC
+	Xsr7SpRVA4AVVXx40lTTRtrSZOfn+kHkFjgPJqanjV9wOfcCYwoQauDIeTpYWqzXuEu1t8ttFqM
+	iDEDXCg==
+X-Received: from iofh3.prod.google.com ([2002:a05:6602:6fc3:b0:9c4:a4f8:640])
+ (user=avagin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6808:250b:b0:4c4:a240:9c3a
+ with SMTP id 5614622812f47-4d72c0429famr1389700b6e.4.1790223371033; Wed, 23
+ Sep 2026 21:16:11 -0700 (PDT)
+Date: Thu, 24 Sep 2026 04:16:01 +0000
 In-Reply-To: <20260924041604.3209659-1-avagin@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -59,8 +59,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260924041604.3209659-1-avagin@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
-Message-ID: <20260924041604.3209659-4-avagin@google.com>
-Subject: [PATCH 3/7] x86/fpu: Extract restore_from_ia32_fxstate() and clean up fpu__restore_sig()
+Message-ID: <20260924041604.3209659-6-avagin@google.com>
+Subject: [PATCH 5/7] x86/fpu: Fix potential underflow in xstate_calculate_size()
 From: Andrei Vagin <avagin@google.com>
 To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
 	"Chang S. Bae" <chang.seok.bae@intel.com>
@@ -70,122 +70,49 @@ Cc: linux-kernel@vger.kernel.org, criu@lists.linux.dev,
 	"H. Peter Anvin" <hpa@zytor.com>
 Content-Type: text/plain; charset="UTF-8"
 
-When restoring an FPU signal frame for a 32-bit or IA32-compat task on
-FXSR-enabled systems, a legacy 32-bit FP frame is present alongside the
-FX/XSAVE frame. Because the legacy FP frame duplicates the FP state
-portion of the FX/XSAVE frame, for backward compatibility it is treated
-as the source of truth, and its state is folded into the FX/XSAVE state
-before restoring the registers.
+xstate_calculate_size() calculates the size required for a given set of
+xfeatures. It determines the topmost feature by finding the most
+significant bit in xfeatures using fls64(xfeatures) - 1.
 
-Currently, most of __fpu_restore_sig() is dedicated to handling this
-32-bit legacy/compat fpstate, while the native direct restore path lives
-in restore_fpregs_from_user(). Having the compat handling intermixed
-with the main signal restoration flow makes it tricky to quickly see
-what code is doing what.
+If xfeatures is 0, fls64(0) returns 0, and topmost becomes -1.
+Previously, topmost was unsigned int, so -1 underflowed to UINT_MAX.
+This caused the subsequent check `topmost <= XFEATURE_SSE` to fail, and
+the code proceeded to access xstate arrays using topmost (UINT_MAX) as
+an index, leading to an out-of-bounds access.
 
-Extract the 32-bit legacy/compat FPU restore handling into a separate
-helper function, restore_from_ia32_fxstate(), and inline the remainder
-of __fpu_restore_sig() directly into fpu__restore_sig().
+Fix this by checking if xfeatures only contains legacy features (FP/SSE)
+or is empty (!(xfeatures & ~XFEATURE_MASK_FPSSE)) before calculating
+topmost.
 
+Fixes: d6d6d50f1e80 ("x86/fpu/xstate: Consolidate size calculations")
 Reviewed-by: Alexander Mikhalitsyn <alexander@mihalicyn.com>
 Reviewed-by: Chang S. Bae <chang.seok.bae@intel.com>
 Signed-off-by: Andrei Vagin <avagin@google.com>
 ---
- arch/x86/kernel/fpu/signal.c | 56 +++++++++++++++++++++---------------
- 1 file changed, 33 insertions(+), 23 deletions(-)
+ arch/x86/kernel/fpu/xstate.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/arch/x86/kernel/fpu/signal.c b/arch/x86/kernel/fpu/signal.c
-index cd7db6dc819b..b9dcd0cd0e41 100644
---- a/arch/x86/kernel/fpu/signal.c
-+++ b/arch/x86/kernel/fpu/signal.c
-@@ -325,32 +325,26 @@ static bool restore_fpregs_from_user(void __user *buf, u64 xrestore_mask, bool f
- 	return true;
- }
+diff --git a/arch/x86/kernel/fpu/xstate.c b/arch/x86/kernel/fpu/xstate.c
+index 3e7f5fb5bfaf..362df13a88cf 100644
+--- a/arch/x86/kernel/fpu/xstate.c
++++ b/arch/x86/kernel/fpu/xstate.c
+@@ -589,12 +589,13 @@ static bool __init check_xstate_against_struct(int nr)
  
--static bool __fpu_restore_sig(void __user *buf_f, void __user *buf_fx,
--			      bool ia32_fxstate)
-+/*
-+ * Restore FPU state from a signal frame when a legacy 32-bit FP frame
-+ * (buf_f) is present.
-+ *
-+ * The legacy FP frame duplicates the FP state portion of the FX/XSAVE
-+ * frame (buf_fx). For backward compatibility, the legacy FP frame is
-+ * treated as the source of truth, and its state is folded into the
-+ * FX/XSAVE state before restoring the registers.
-+ */
-+static bool restore_from_ia32_fxstate(void __user *buf_f, void __user *buf_fx,
-+				      u64 xrestore_mask, bool fx_only)
+ unsigned int xstate_calculate_size(u64 xfeatures, bool compacted)
  {
- 	struct task_struct *tsk = current;
- 	struct fpu *fpu = x86_task_fpu(tsk);
- 	struct user_i387_ia32_struct env;
--	bool success, fx_only = false;
- 	union fpregs_state *fpregs;
--	u64 xrestore_mask = 0;
--
--	if (use_xsave()) {
--		struct _fpx_sw_bytes fx_sw_user;
--
--		if (!check_xstate_in_sigframe(buf_fx, &fx_sw_user))
--			return false;
--
--		fx_only = !fx_sw_user.magic1;
--		xrestore_mask = fx_sw_user.xfeatures;
--	} else {
--		xrestore_mask = XFEATURE_MASK_FPSSE;
--	}
-+	bool success;
+-	unsigned int topmost = fls64(xfeatures) -  1;
+-	unsigned int offset, i;
++	unsigned int topmost, offset, i;
  
--	if (likely(!ia32_fxstate)) {
--		/* Restore the FPU registers directly from user memory. */
--		return restore_fpregs_from_user(buf_fx, xrestore_mask, fx_only);
--	}
-+	if (!IS_ENABLED(CONFIG_X86_32) && !IS_ENABLED(CONFIG_IA32_EMULATION))
-+		return false;
+-	if (topmost <= XFEATURE_SSE)
++	if (!(xfeatures & ~XFEATURE_MASK_FPSSE))
+ 		return sizeof(struct xregs_state);
  
- 	/*
- 	 * Copy the legacy state because the FP portion of the FX frame has
-@@ -450,10 +444,11 @@ static inline unsigned int xstate_sigframe_size(struct fpstate *fpstate)
- bool fpu__restore_sig(void __user *buf, int ia32_frame)
- {
- 	struct fpu *fpu = x86_task_fpu(current);
--	void __user *buf_fx = buf;
-+	bool success = false, fx_only = false;
- 	bool ia32_fxstate = false;
--	bool success = false;
-+	void __user *buf_fx = buf;
- 	unsigned int size;
-+	u64 xrestore_mask;
- 
- 	if (unlikely(!buf)) {
- 		fpu__clear_user_states(fpu);
-@@ -482,10 +477,25 @@ bool fpu__restore_sig(void __user *buf, int ia32_frame)
- 		success = !fpregs_soft_set(current, NULL, 0,
- 					   sizeof(struct user_i387_ia32_struct),
- 					   NULL, buf);
-+		goto out;
-+	}
++	topmost = fls64(xfeatures) -  1;
 +
-+	if (use_xsave()) {
-+		struct _fpx_sw_bytes fx_sw_user;
-+
-+		if (!check_xstate_in_sigframe(buf_fx, &fx_sw_user))
-+			goto out;
-+
-+		fx_only = !fx_sw_user.magic1;
-+		xrestore_mask = fx_sw_user.xfeatures;
+ 	if (compacted) {
+ 		offset = xfeature_get_offset(xfeatures, topmost);
  	} else {
--		success = __fpu_restore_sig(buf, buf_fx, ia32_fxstate);
-+		xrestore_mask = XFEATURE_MASK_FPSSE;
- 	}
- 
-+	if (ia32_fxstate)
-+		success = restore_from_ia32_fxstate(buf, buf_fx, xrestore_mask, fx_only);
-+	else
-+		success = restore_fpregs_from_user(buf_fx, xrestore_mask, fx_only);
- out:
- 	if (unlikely(!success))
- 		fpu__clear_user_states(fpu);
 -- 
 2.56.0.rc1.310.g51773c2048-goog
 
