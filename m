@@ -1,74 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CAD93EB815;
-	Thu, 24 Sep 2026 16:57:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD0284AA035;
+	Thu, 24 Sep 2026 16:57:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790269065; cv=none; b=il2BcwepytLH/xXNQ170A3Yo2Zrolebq5o1xoBHCRExETQS26bWDa/eM362yRQO0UKZaiU0vfizPC6mnRAjoDWqkDuD/Yn2LZofCmE9UuM3g2NxqFpNKFof/RUAShteSED4KvubkMIBntecDxGj9b9+cC6bGFjPyIl5QeThYkII=
+	t=1790269079; cv=none; b=uNmdqzwzf4To++rR1uvmycNXZmVlf2xIak+ievDT4/3Fq/YFEgB/fQMol6eRubEQZCESCkIaOuCcrhb83AxTv8l7/RzA6FP+nL0r2CgKPkYVHV13QmJJPer/7HRpsB6CMYSvNxsMk3+daPWzq4hsfSu8ZyOPVgiV2D2UJgg/FrY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790269065; c=relaxed/simple;
-	bh=4V4BDFsXbEB+ePKn1yzWbTUywZsaTwyKCNi6fRC7wjQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q6l353CP/CK8JifxzX+nDb27TTA9PNa0gTSARaG5fWZbjtM//tN+/4plV1MyL7WaXnarxeAiEBo9JTZTMLVja9dbvlV5ytw+4h3NZYQqI/GreNr32IHH708de5GJs0dhZqoMOC5sE592YuR4Y9ZGgR0EV2niAhcPvacPzjTQ08w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QVRoLyjU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790269079; c=relaxed/simple;
+	bh=1kaLkFxrgcauaJ9CU9EUWzsWBhexjjiTY5Agq+l/Jng=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=cQwtg3r2/py1NPPTeCt0x5ZghTLbLBmI2+sowDf4x6bomyvM4y7b+njCgbt3Pper1ouS4Mx9MuVSulLZvhcGNyZu4Cwb1yWu86iwOjb7j5SknY32NoGUUbqwiy9asf3jrzDSQYwZ+QNhR3JsNx+mZGhWTLpj2dvSf4a+++FQO1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WEFrT61o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QVRoLyjU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6177C1F000FF;
-	Thu, 24 Sep 2026 16:57:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WEFrT61o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30E9D1F00899;
+	Thu, 24 Sep 2026 16:57:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790269063;
-	bh=4V4BDFsXbEB+ePKn1yzWbTUywZsaTwyKCNi6fRC7wjQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QVRoLyjUh8MH90p4hL4NdWuJhlYjdsiYiWJMZM2ludCZfLQWLBHZpx6tcyElzxPSp
-	 K6y3STZ3OpfLfiPceQnRyVvVPDIQaJwdC3bph4yfODa6X6nrrmz3LOg18XdIzG+K1m
-	 gO7WAfWKebxNFxeNBcZOQFRKVleBjUHQRaUJVl4jsUTayGMQWbJTAreTawxGG2mdS+
-	 cjlQTAzGNkznPBraakLIVNgAgWoPiitLj17rJ1jLrsuEfMZmN8nCgiDo6GjIH6S950
-	 hXKRUNr3ItTZ4tDMJE90NRIfKJrpZ+OBPbv4zx5hyEWfohrV1AuExXaC882aFg5vQl
-	 o8pj9cCfX7oiw==
-Date: Thu, 24 Sep 2026 17:57:39 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Arthur Crepin Leblond <arthur@marmottus.net>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v11 2/3] dt-bindings: net: wiznet,w5100: add
- link status interrupt
-Message-ID: <20260924-clothing-eggshell-53bbf1f99802@spud>
-References: <20260924-wiznet-link-gpio-v11-0-42a332517b30@marmottus.net>
- <20260924-wiznet-link-gpio-v11-2-42a332517b30@marmottus.net>
+	s=k20260515; t=1790269077;
+	bh=1kaLkFxrgcauaJ9CU9EUWzsWBhexjjiTY5Agq+l/Jng=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=WEFrT61ojUTqGGhXUPJcusVLhUxf92U513U6uMx54tpISVIodsKxYflfnTonJ9bcB
+	 GtpiHbEbOou7ovC3rqn/qsiJJt4lS5scavQdmxyrPm6M+DiMA1DkfPrX67YG2lCshI
+	 UQPQmdvuc4CiFslNVu5eJIQSHqOeFzTlFdAAAFEK0pqu6j2d00RkiisAD8v2oqEurp
+	 oU5gzAVhPO3ohicjqw+BOUngKsBX05UlTb5BxQlfbZU1wuFSU1WQ6qDhUbBOEYur2h
+	 pP/JnQYCsxHJm/Z96xoQ4dfGG2Rufds1CbWBuDKBsFPq11NB3cACfyTthqFWxP+oqT
+	 JuMGYPq0CXDZg==
+Date: Thu, 24 Sep 2026 06:57:56 -1000
+Message-ID: <6ae9d2d1972afdedf0117ec01aba783f@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: arighi@nvidia.com,
+	bpf@vger.kernel.org,
+	bsegall@google.com,
+	changwoo@igalia.com,
+	dietmar.eggemann@arm.com,
+	etsal@meta.com,
+	juri.lelli@redhat.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	mgorman@suse.de,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	rostedt@goodmis.org,
+	sched-ext@lists.linux.dev,
+	vincent.guittot@linaro.org,
+	void@manifault.com,
+	vschneid@redhat.com,
+	yphbchou0911@gmail.com
+Subject: Re: [PATCH] sched_ext: Place dsq_vtime next to dsq_priq
+In-Reply-To: <20260924161446.3039726-1-usama.arif@linux.dev>
+References: <20260924161446.3039726-1-usama.arif@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="LvFBeGzzjRwWAouD"
-Content-Disposition: inline
-In-Reply-To: <20260924-wiznet-link-gpio-v11-2-42a332517b30@marmottus.net>
 
---LvFBeGzzjRwWAouD
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Hello,
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+On Thu, Sep 24, 2026 at 09:14:46AM -0700, Usama Arif wrote:
+> scx_dispatch_enqueue() calls rb_add() for a vtime-ordered DSQ while
+> holding dsq->lock. At each level of the descent, scx_dsq_priq_less()
+> loads the visited task's dsq_vtime, and that comparison selects rb_left
+> or rb_right from the same task's dsq_priq. In the x86-64 benchmark
+> configuration, these accesses fell on different 64-byte cache lines
+> before this change, so a cold visited task could require a second cache
+> line fill on the dependent descent path.
 
---LvFBeGzzjRwWAouD
-Content-Type: application/pgp-signature; name=signature.asc
+Applied to sched_ext/for-7.4.
 
------BEGIN PGP SIGNATURE-----
+Thanks.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarVWgwAKCRB4tDGHoIJi
-0mn/AQCqQyoD4d4WnEQ1RKyXr1n0QkTi449rlUoLmkbCoszkkAD8CnTsaQBrrRwd
-ahrFhwSvgaGZUcCED+szBmesMbjUkAQ=
-=GGnR
------END PGP SIGNATURE-----
-
---LvFBeGzzjRwWAouD--
+--
+tejun
