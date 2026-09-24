@@ -1,130 +1,160 @@
-Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4924A2A63
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:35:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.157.23.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96B794A2066
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:35:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790264156; cv=none; b=MzkAmqfiEsArAyuZXHqLJM+jgvFAA43B3ErQzTNl5fn0YL7y6TEYwr5ZnbM7pCZZYDwzBOkuh8uuUNcI29vY7uOn3OuU1MauVztts3bDpWcKBpYHGEJHrnpmTXmN7IBC2N16Gn3Wt0ZOCRgUM5U8/508IPbHf0T3R4SRlIHwYiU=
+	t=1790264161; cv=none; b=qJUlRQDkKiHqPpLa+xsAVbcbdDIBcPYtmIlVLa8s8/BAGRgsvp3Rp3P1MHfm0D00IoxsabNd584y8wFK31VDFmYCGfZ12KGn++Yh3DC2s/sBrc52koHTvLi1Ez2mhAQESV82UyeIyxD+mRM1o53Ht5C/xrOjCCl+cYFh66SRwGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790264156; c=relaxed/simple;
-	bh=cmIetmbN8vQUyssS1uWTX+84U3HXuV8PEmJZ/GW1fAk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=c2Tr1Pd3KogT8VOc0tDqPkjZ/aniCwm98K+Q7KXtk2l1ewRSj+zirtAOWZ1o2VqYuQnfwgdJ6CFqS8kzaTwnzDc7T7frFhW6S1id1ce13TJCu5DlMthVDyXCHb/ni3T5D7UW/xfEZng6w2rZMxDa+39FYiGBkibAGY5C6FaZEi8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com; spf=pass smtp.mailfrom=paragon-software.com; dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b=fwEl9esU; arc=none smtp.client-ip=35.157.23.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
+	s=arc-20240116; t=1790264161; c=relaxed/simple;
+	bh=mlv69x0N9i4qbZQg/+geRiZh4d5nOSPd9+CjaCFBgHQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GdqZ44VBly93j35yNGLLW1/B6TQz+vFuyIYOskPAinYD2QEbHgbt03hB7IIh/5ucpP/bJFt01YKB8DY55+ZXqALF+Ae7LrEyveiZCJD+8nGMflbwwEiiayq4ll52YhobJ56gDNokw842/ruu0fzdh3my+GIJtrRd/IbJFyIjU0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UxNoOsVr; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b="fwEl9esU"
-Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
-	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id 39C6C1D78;
-	Thu, 24 Sep 2026 15:36:47 +0000 (UTC)
-Authentication-Results: relayaws-01.paragon-software.com;
-	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=fwEl9esU;
-	dkim-atps=neutral
-Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
-	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id 106971D70;
-	Thu, 24 Sep 2026 15:35:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UxNoOsVr"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-39b350c69b4so6392a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:35:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=paragon-software.com; s=mail; t=1790264153;
-	bh=IPR6Hc7UqWCCEIoOfqPbgJRHAJ4iq6EhBhn0pzNUKRI=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To;
-	b=fwEl9esU9DF85pEME3VY82TAdo3tQApisXQC7ToJ1u3hMwN74VP+odnxOjPVIvBxJ
-	 w5mLf8GD9xba5kQtZyHAJupCON2hK0JCDCLGUeR8Ta6pQcrZadNFOh3G0zxQ/TmcNd
-	 LEMcLOv1GqQinyBuo/odP5GRIc3ynMH5iOoLlNE4=
-Received: from [192.168.95.128] (172.30.20.214) by
- vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Thu, 24 Sep 2026 18:35:52 +0300
-Message-ID: <d676f554-5352-4a2e-897f-971cedf6cf67@paragon-software.com>
-Date: Thu, 24 Sep 2026 17:35:50 +0200
+        d=gmail.com; s=20251104; t=1790264158; x=1790868958; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Bocc4bE8/VVKEqsS/hQwZ3tENRkWoxkRCCfn1+gpxLY=;
+        b=UxNoOsVrTZo2QwhmlXTHAh9DqiL6PqtLFSYxK2nuX+1fl1STOaKD0tZiBSLS3ovE6M
+         JbC53Dy3G2msqJNPVmQRpaI+1TDmReBp5mTX7DIIvRhO3Y4kBm9kgZwuHNk9BuTz+Ybh
+         TxcPD/ZgQHGfZks60MtaDn5QgzhzdGB7sxm6EV04vyeqnMCSZTU7PrMZ9bXWm0aAVKxZ
+         rA5RAjN6KhfVnggxk9787zvAztVorRFy8Av1j0qyfnPuzEjBrZc4Z9Wl5gkD+esTWZjR
+         W/JKKeuZrl3wonnmX7+RKi66E5SJeniAqptkUGcRF2eX1Rtm9/f/588ngyk/j+a8U2hN
+         kcmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790264158; x=1790868958;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Bocc4bE8/VVKEqsS/hQwZ3tENRkWoxkRCCfn1+gpxLY=;
+        b=QhjB4/m6rvhmubrBXfS2RS+SsU4MifiNHnUWD9+AjsEL3/w2oq0cocQKFehKA/M1v6
+         gTJ+wAmdJKFKAnIbLxSzwsiyYr0+btKRc7FHf3ug6+CfF3ovmrYmf0bDfzEBU1Yg/RA3
+         nqwKshuRGsQMgANRIIMCirWNdbMmwwKySQZ7mN1c+zPUl9bc333zgED+FsgiW+405Jc9
+         UcXZTCMZwIn5AocUS+iU8q9O9hcTB3cyKNMgnFmQaz6bPOgqhoH3xM+MvmqUP4hr1+XP
+         UqpVcmfEGP5uUpO+NXjwltAkZByT+FlzNCI2dKlerFhqMh67928BiKyUy7zI3+svgjcv
+         LRAQ==
+X-Gm-Message-State: AFuF++lkZpRcyfwNu08tiLJzGM79gC9PURAFMrEuQFEfQh9BEI0RqP1G
+	rJzkIv2Up2s95XsIAW1NfHJE2DHAqvO2L7ZINpZ7UsSgkZbtmFbnF5grnXy+DQ==
+X-Gm-Gg: AYBFou19h6w0F+MMFh+24pHkoysXLea4pSgmsQcy73KIH0EI2abSF8LIfhMxFeBT9wr
+	7NtJNhVlKuVVgSohDDLFMQ/YSizP9FbvdzPDPOGEQ6mt3isbgjhxZqeu4F0Pybr6cOej4pX23kY
+	+x/yH9BI1/43Ki1Zd+kc3jF1Gym0/WohPJ0dTFo0mR9QAvG/HlOUZIkGOa/FiqAH3W10vWWAOEd
+	7LiHKT87jjqXBqh/9KwQw8fA0TwvKAms3wbltEQHAvGnHgFhMMMz0qjmpSokxXEPL/NWwYvyvy4
+	9EmdywiixkomY9qK+HfFR2LrYcqKUWGYpb4ug3F+KKxyjlWRuCnAz9G4FStnO623SI9Wdi9m69w
+	BicuE1sbdohvGD4Fls/oSuvuA6N2khA6UjIU68IDFx0ChknL6vt/i/31pnCMx57GCBoiXMVw/95
+	cgXJA3zLvGvg89EntyYzGbW8IVIdXsCV8KaP1YNim5NyD8ut2ugoBK23AQrCr/lWFGyKbOrZ63K
+	7qi8uvaDg==
+X-Received: by 2002:a17:90b:48d1:b0:3a0:3881:ead0 with SMTP id 98e67ed59e1d1-3a09855f5f7mr2595289a91.11.1790264158560;
+        Thu, 24 Sep 2026 08:35:58 -0700 (PDT)
+Received: from Modern-15.. ([223.225.63.228])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0972b11d4sm5979066a91.4.2026.09.24.08.35.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 08:35:58 -0700 (PDT)
+From: mathura kumar <mathura.kumar.tech@gmail.com>
+To: brauner@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	corbet@lwn.net,
+	mathura.kumar.tech@gmail.com
+Subject: [PATCH v4 0/4] Add two new system call mq_recvmmsg() and mq_sendmmsg() to posix ipc mqueue
+Date: Thu, 24 Sep 2026 21:04:58 +0530
+Message-ID: <20260924153505.620772-1-mathura.kumar.tech@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ntfs3: fix resident attribute handling in run load paths
-To: Yi Xie <xieyi@kylinos.cn>, <linkinjeon@kernel.org>
-CC: <ntfs3@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-References: <20260707021444.57163-1-xieyi@kylinos.cn>
-Content-Language: en-US
-From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-In-Reply-To: <20260707021444.57163-1-xieyi@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: vdlg-exch-02.paragon-software.com (172.30.1.105) To
- vdlg-exch-02.paragon-software.com (172.30.1.105)
+Content-Transfer-Encoding: 8bit
 
-On 7/7/26 04:14, Yi Xie wrote:
 
-> [You don't often get email from xieyi@kylinos.cn. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->
-> Don't dereference nres unless attr->non_res is set.  ni_find_attr() can
-> succeed with a resident record on a corrupted image, and run_unpack_ex()
-> would mis-parse it as mapping pairs.
->
-> Fix attr_load_runs(), attr_load_runs_vcn() and attr_set_size().
->
-> Fixes: 5ec75546dc71 ("ntfs: fix WARN_ON for resident attribute in ntfs_map_runlist_nolock()")
-> Signed-off-by: Yi Xie <xieyi@kylinos.cn>
-> ---
->   fs/ntfs3/attrib.c | 18 +++++++++++++++---
->   1 file changed, 15 insertions(+), 3 deletions(-)
->
-> diff --git a/fs/ntfs3/attrib.c b/fs/ntfs3/attrib.c
-> index c621a4c582f9..248a6d68eac3 100644
-> --- a/fs/ntfs3/attrib.c
-> +++ b/fs/ntfs3/attrib.c
-> @@ -61,11 +61,16 @@ static int attr_load_runs(struct ATTRIB *attr, struct ntfs_inode *ni,
->                            struct runs_tree *run, const CLST *vcn)
->   {
->          int err;
-> -       CLST svcn = le64_to_cpu(attr->nres.svcn);
-> -       CLST evcn = le64_to_cpu(attr->nres.evcn);
-> +       CLST svcn, evcn;
->          u32 asize;
->          u16 run_off;
->
-> +       if (!attr->non_res)
-> +               return -EIO;
-> +
-> +       svcn = le64_to_cpu(attr->nres.svcn);
-> +       evcn = le64_to_cpu(attr->nres.evcn);
-> +
->          if (svcn >= evcn + 1 || run_is_mapped_full(run, svcn, evcn))
->                  return 0;
->
-> @@ -555,6 +560,10 @@ int attr_set_size_ex(struct ntfs_inode *ni, enum ATTR_TYPE type,
->                  }
->
->   next_le_1:
-> +               if (!attr->non_res) {
-> +                       err = -EIO;
-> +                       goto out;
-> +               }
->                  svcn = le64_to_cpu(attr->nres.svcn);
->                  evcn = le64_to_cpu(attr->nres.evcn);
->          }
-> @@ -1444,6 +1453,9 @@ int attr_load_runs_vcn(struct ntfs_inode *ni, enum ATTR_TYPE type,
->                  return -ENOENT;
->          }
->
-> +       if (!attr->non_res)
-> +               return -EIO;
-> +
->          svcn = le64_to_cpu(attr->nres.svcn);
->          evcn = le64_to_cpu(attr->nres.evcn);
->
-> --
-> 2.34.1
 
-Hello,
+Patch series overview:
 
-Sorry for the delay.
-Your patch was applied, thanks.
+  1. Add New system call mq_recvmmsg(), mq_sendmmsg() and handler implementation.
+  2. Add system call number in all most common architectures.
+  3. Add entries in performance tools.
+  4. Prepared Documentation and test.
 
-Regards,
-Konstantin
+  I am still awaiting the full review for v3. However, I have incorporated the
+  minor feedback suggested so far and wanted to share this updated version.
+
+
+change since v3:
+
+ - error handling improved for backward compatibility
+ - edge cases in augmentation has been handled properly
+ - documentation formating fixed and improved
+ - syscall number order corrected in arch/microblaze/kernel/syscalls/syscall.tbl
+
+ - v3 Link: https://lore.kernel.org/all/20260816153811.1085261-1-mathura.kumar.tech@gmail.com/
+
+
+mathura kumar (4):
+  IPC: Added two new system call mq_recvmmsg() and  mq_sendmmsg()
+  IPC: Added system call entry in all of most common  architectures
+  IPC: Added system call entry in performance tool
+  Test: Added self-testing and documentation
+
+ Documentation/userspace-api/index.rst         |   2 +
+ Documentation/userspace-api/mq_recvmmsg.rst   | 207 ++++++
+ Documentation/userspace-api/mq_sendmmsg.rst   | 171 +++++
+ arch/alpha/kernel/syscalls/syscall.tbl        |   2 +
+ arch/arm/tools/syscall.tbl                    |   2 +
+ arch/arm64/tools/syscall_32.tbl               |   3 +
+ arch/m68k/kernel/syscalls/syscall.tbl         |   2 +
+ arch/microblaze/kernel/syscalls/syscall.tbl   |   2 +
+ arch/mips/kernel/syscalls/syscall_n32.tbl     |   2 +
+ arch/mips/kernel/syscalls/syscall_n64.tbl     |   3 +
+ arch/mips/kernel/syscalls/syscall_o32.tbl     |   2 +
+ arch/parisc/kernel/syscalls/syscall.tbl       |   2 +
+ arch/powerpc/kernel/syscalls/syscall.tbl      |   2 +
+ arch/s390/kernel/syscalls/syscall.tbl         |   3 +
+ arch/sh/kernel/syscalls/syscall.tbl           |   2 +
+ arch/sparc/kernel/syscalls/syscall.tbl        |   3 +
+ arch/x86/entry/syscalls/syscall_32.tbl        |   2 +
+ arch/x86/entry/syscalls/syscall_64.tbl        |   3 +-
+ arch/xtensa/kernel/syscalls/syscall.tbl       |   2 +
+ include/linux/compat.h                        |  12 +-
+ include/linux/syscalls.h                      |   9 +
+ include/uapi/asm-generic/unistd.h             |   9 +-
+ include/uapi/linux/mqueue.h                   |  27 +-
+ ipc/mqueue.c                                  | 595 +++++++++++++++++-
+ ipc/msg.c                                     |   2 +-
+ ipc/msgutil.c                                 |  45 +-
+ ipc/util.h                                    |   3 +-
+ kernel/sys_ni.c                               |   6 +
+ scripts/syscall.tbl                           |   2 +
+ tools/include/uapi/asm-generic/unistd.h       |   8 +-
+ .../arch/alpha/entry/syscalls/syscall.tbl     |   4 +
+ .../perf/arch/arm/entry/syscalls/syscall.tbl  |   3 +
+ .../arch/arm64/entry/syscalls/syscall_32.tbl  |   3 +
+ .../arch/mips/entry/syscalls/syscall_n64.tbl  |   2 +
+ .../arch/parisc/entry/syscalls/syscall.tbl    |   3 +
+ .../arch/powerpc/entry/syscalls/syscall.tbl   |   3 +
+ .../perf/arch/s390/entry/syscalls/syscall.tbl |   2 +
+ tools/perf/arch/sh/entry/syscalls/syscall.tbl |   2 +
+ .../arch/sparc/entry/syscalls/syscall.tbl     |   2 +
+ .../arch/x86/entry/syscalls/syscall_32.tbl    |   2 +
+ .../arch/x86/entry/syscalls/syscall_64.tbl    |   2 +
+ .../arch/xtensa/entry/syscalls/syscall.tbl    |   2 +
+ tools/scripts/syscall.tbl                     |   2 +
+ tools/testing/selftests/ipc/Makefile          |   2 +-
+ tools/testing/selftests/ipc/mq_recvmmsg.c     | 392 ++++++++++++
+ tools/testing/selftests/ipc/mq_sendmmsg.c     | 360 +++++++++++
+ 46 files changed, 1855 insertions(+), 66 deletions(-)
+ create mode 100644 Documentation/userspace-api/mq_recvmmsg.rst
+ create mode 100644 Documentation/userspace-api/mq_sendmmsg.rst
+ create mode 100644 tools/testing/selftests/ipc/mq_recvmmsg.c
+ create mode 100644 tools/testing/selftests/ipc/mq_sendmmsg.c
+
+-- 
+2.43.0
 
