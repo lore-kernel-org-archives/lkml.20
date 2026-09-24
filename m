@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D8147C101;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8158347F2D0;
 	Thu, 24 Sep 2026 12:46:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790254011; cv=none; b=nBtQgO4qBswOa69AAFD7id9nb6VMJBJ3QZe+n/DO9Pq1+w5JiypXQ9b2ediIiCA+ENEu0bTuD1zzan5KRMQ943sKKZ3O/0QUAW+qI08Vyo0AajawyGIyE18FtUFEY9EMp25edk5Dgf5UOO9R4wROfpHZonlIhBq6NvaCyeLFMX8=
+	t=1790254011; cv=none; b=WMB4l2X4TLuux+RwdfJBUVaCN0/wl6dapOYMjXiva0lkItIGPqlHvHncB3FZUeuplxnUE7SYs+tXQbaDetkkscLSan1GMemHD5y5gMs15NotlaPp+1t2dzk2ekZWwFZjVWTh+TTHSvdVqV9+erY1g0B3d6c5Lgq+H2AerhINax8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790254011; c=relaxed/simple;
-	bh=R5AK2QICtOTN1KE3jNy1ekwQ51VmTvUU6GrRIZTbMC8=;
+	bh=NXY2VtXdHHWDm2uYX1AHzsYINWPs87ztTHrId+T8b/M=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZnrEYbmghCu0IcrxrprxMHLt3bYKpaKLkoa5xcg+u4MQEwMUox3kFvnU7zTL4qjfnOzqF7X7FPOiSbELcaTl2M+P4rRyo7ZqCdNXC4cidGYWa5a3mqzBwxs+h66IOGAvoistnBFvXkQ8PlxgcYvqWAeY42aAMI5JJsMzxSQAqH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gOwyfC0l; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=Hrobt5n9TTq/qVgDbJ28G9K33VtrJ1Ol/5ra8QPKvNjVL/iD2cfxDL4NZxtmiCE3wHxcN733EstAT0VBH1pX8Xn7uQa57saXG1YVn0vdxvb/azowJl7FWEVW1GcBkBaY+keJT+wmrYcbkvrvbhVoT0LNPcFwLWSHVd0xm4XwiRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KNja/QbT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gOwyfC0l"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D9F81C2BCFF;
-	Thu, 24 Sep 2026 12:46:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KNja/QbT"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0691FC4AF50;
+	Thu, 24 Sep 2026 12:46:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790254010;
-	bh=R5AK2QICtOTN1KE3jNy1ekwQ51VmTvUU6GrRIZTbMC8=;
+	s=k20201202; t=1790254011;
+	bh=NXY2VtXdHHWDm2uYX1AHzsYINWPs87ztTHrId+T8b/M=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=gOwyfC0lsjupo91voAI5VtD1WM8wGCzGa2ztXVSk9cY4sPRbOI20lCGBOfNxHXh9h
-	 KGxUfvN9cduY6gu+fqxRIcYChoXedmtnbKKgp3+ZfswDb/tNL5NaIeg0HXRQI7uvIn
-	 HiN9GhOw93jFlW/cRIwPiCwnvGv3g7A4N2YhNZG8qdfvuHb2UQEQXAcAn2YAPrFkfR
-	 5tbj489m8k5Plh5sV76jqS92nwylLs69uaDvhUIL9WsjXsn/1E+LvbrfUB20ZZWBHg
-	 TnYcAXkpSjEQzQ0t3XBf9sV63MJxRS5IG8NdS5S1MV8DYyPY0ql8CtazrAXgp2aaMP
-	 vsSxwxLFMxVnA==
+	b=KNja/QbTcr638hXkcROY12x7DO85KEz15t05+TNdjWcT7SDM4u9BgPORhNR3xJVga
+	 6rd61oB4u4JR0U/vDuGf6yhrGEL+PwbO49EIPBl2NuPupeMl4JXvgGEdakYwjoiKH7
+	 zYJKIyfLZQOSTCvlQV87mlAmqI6E0hB4DwRJI/GyU+a8NEPhPf5LFQVx0wygK1bxzr
+	 UHPq3vu25JQ76ZLlOZpT5x9UccoLFVcQHqs6gLb71EjB1ZULzuNtQl33t7xrzhnzIY
+	 5eQ1V3mS5kwiv8+b+hPrYizeMQC1vZOBVbz7aI1bjivCYAhKTUgyfkfKtTELtEPXpR
+	 jJAq+xhBd4+qQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C32D4C98320;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E4A61C9831E;
 	Thu, 24 Sep 2026 12:46:50 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Thu, 24 Sep 2026 14:46:49 +0200
-Subject: [PATCH v3 5/8] ASoC: cs35l36: Implement set_tdm_slot to program RX
- and TX slots
+Date: Thu, 24 Sep 2026 14:46:51 +0200
+Subject: [PATCH v3 7/8] slimbus: qcom-ngd-ctrl: Remove data channels on
+ stream disable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-pixel3-audio-v3-5-5d06460fc8a9@ixit.cz>
+Message-Id: <20260924-pixel3-audio-v3-7-5d06460fc8a9@ixit.cz>
 References: <20260924-pixel3-audio-v3-0-5d06460fc8a9@ixit.cz>
 In-Reply-To: <20260924-pixel3-audio-v3-0-5d06460fc8a9@ixit.cz>
 To: Srinivas Kandagatla <srini@kernel.org>, 
@@ -57,24 +57,23 @@ To: Srinivas Kandagatla <srini@kernel.org>,
 Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org, patches@opensource.cirrus.com, 
  devicetree@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>, 
- Charles Keepax <ckeepax@opensource.cirrus.com>
+ David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3051; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4926; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=4aMW5UlnmrycKDIcE7Iq0+kPJ4NO4a3bzJ1FVay6EJk=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtRu42tV1rep3s6ImG2fVirxZ3Gx4OI7aRFbR3
- 8U3JUCRs6aJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarUbuAAKCRBgAj/E00kg
- coiOEACdetkw25DOualfXLziwt9fCaRs8bnMHwq3GAOHCqcFmcVqFirvqrEhT+u34nN6SoBrS5h
- Cp05OWXNgsnS3SBbUxWH4Bj01u3my6GLcOU7H/lMGVfxs1I4K41KBdJucBoBjk/huvzaVqKBnOS
- fpiRvWTugzUHu9D2M3WSXHjmH18iRpfmtvZj0KTfH36MU6fdbySMlXX1Fwr958UVf699wkub9Gu
- 8O2c7cx6t8MREFnC/gEvr7GrNQsNgaqDUbKSYy8vlC3ghw9Ijb3weQgev92VMwbUWeaVOtOFUh7
- X21SZzgYGSSfZtK4ge5GUndDUUk0ZJEz0oK4NMPu7Oo/3OAPMIIWs6PodbRVhLK+Jkgl8R0C4IF
- e9ZjZ+i0Z07V5sIdeA6k5J7pxXLAQ3g4HjyKDun+Jdim/aUzWE1GW1FNXquq9ZpRVRGMOEiCARI
- 06PpLXPg5QoDY+dQvx4UTUMZS56A69jZY0+RTYZPYEmwsoEh7vNP1AS1Um2bbpGf6WG7T5y6NrI
- c1/yS2Cqo5pEmjYc1dgNmdjD1+3RTMuxg5SIak1+t+KuO91VFYG7oZcJTKl0dV0yTEo9qvpSKem
- xB8Ct6783afbMNqHMbgZXFvNmtfjsXHeT/3Jv6MTWnBy72hapU1MVkbT2habTEGSqmjFgvpZs4M
- JuK9rvXtglGPGxg==
+ bh=L1zZgtGEouYGzKgRZLVxO9EXpSlpZurV4JACrcU/HQI=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtRu4+QTbcZHOnBlR7xwF3SE+KknAz7FJPPKFE
+ DXTWA8J8gyJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarUbuAAKCRBgAj/E00kg
+ cvR6EADED+5bZiFOKpq2r2N3R48F7+/fGlxFAbHT0knkdDqR8M1/+BYdFeSgGH/N+/oK3toPvpd
+ dUam1+CHPv9dUUaG6CuwkiTqIDw23wJgbLtapXV9KqfZw2MhBGV3CjLHkibk8cHTI4UeqqS7UFh
+ 3kGdppFpGBs0npR7RuaOHU7h3vbsyBuAe/thGXEpBMdt342zzSHmKz53cj1nk9Fg4Pp0kQKjj2l
+ 1lB/G/q+2sotI+yy581UFKk1M8BNT7kDUw5DrY8kSc48JEltllGeSPRMUAbMZHUvJN+Xb78/G5T
+ NWMtDMjDrGEU4E4I04WvMF31sWrIQch4UNqpf4zE/I07EiQK1yppGD/Wz1gtEEuhld2hEphgjWo
+ RUetDmnq3Msge3zXOrSgwVhGQcud18JFUsKM1RIq/HiCvwTXCR+hwHQsIMqfKHP2/yYbDQUpkRe
+ 5IWtQz9hKJYaRHir2aWBhdWUzd0L0xnC+oNNFU2VbABpBBzehKn54Y7bW0OGP0qwa0sJcvVdEFT
+ B2PaTwUeorUmH5u5Yj3rL/Y4v+76K5l5QtFLmjH0Foo+HOYImzKQQ9Q+odBP6BqbfppcKkB61oS
+ hs9hwfRddV32TcC7eRVVCEduKTP6xFRrVsbVwAbYZ4NbgX0tT/s3wmUa4PTzBmNBDLzVb0l2lI0
+ xhQok0HIde1YI6A==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -83,95 +82,147 @@ Reply-To: david@ixit.cz
 
 From: David Heidelberg <david@ixit.cz>
 
-Program the ASP RX and TX slot registers from the TDM masks passed by
-the machine driver. Each set bit in a mask names a slot; codec channels
-are assigned to those slots in order, ASPRX1 taking the first RX slot
-and ASPTX1..TX8 the first eight TX slots, with a warning if the mask
-names more slots than the device has channels.
+qcom_slim_ngd_xfer_msg() silently returns success for every core
+reconfiguration message, so the generic channel removal done by
+slim_stream_disable() never reaches the ADSP SLIMbus master. The
+master therefore keeps the channels of a closed stream. When the next
+stream defines the same channel numbers again, the WCD9340 capture
+completes without any error but records only zeros; removing the
+channels explicitly when the stream is disabled makes it work again.
 
-Passing slots == 0 or an empty mask restores the hardware defaults,
-ASPRX1 in slot 0 and ASPTX1..TX8 in slots 0..7.
+Implement the disable_stream controller op with the sequence the
+downstream NGD driver sends for channel removal, CHAN_CTRL(REMOVE)
+listing the stream's channels followed by RECONFIG_NOW. Like
+downstream, treat -EREMOTEIO from the removal as success: it means the
+controller is being restarted and the channels are gone anyway.
 
-This lets a machine driver with several amplifiers on one bus, such as
-sdm845 with two CS35L36, put each amplifier on its own RX slot and keep
-their TX slots from colliding.
+Based on work done by Casey Tunturi.
 
-Assisted-by: Claude:claude-4.6-opus
-Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Assisted-by: Claude:claude-fable-5-1
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- sound/soc/codecs/cs35l36.c | 44 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 44 insertions(+)
+ drivers/slimbus/qcom-ngd-ctrl.c | 81 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 81 insertions(+)
 
-diff --git a/sound/soc/codecs/cs35l36.c b/sound/soc/codecs/cs35l36.c
-index 89645327945f1..4d35ca6291548 100644
---- a/sound/soc/codecs/cs35l36.c
-+++ b/sound/soc/codecs/cs35l36.c
-@@ -942,20 +942,64 @@ static const struct cs35l36_pll_config *cs35l36_get_clk_config(
- 	for (i = 0; i < ARRAY_SIZE(cs35l36_pll_sysclk); i++) {
- 		if (cs35l36_pll_sysclk[i].freq == freq)
- 			return &cs35l36_pll_sysclk[i];
+diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
+index 934c44c5bc1a9..c91f55036dd55 100644
+--- a/drivers/slimbus/qcom-ngd-ctrl.c
++++ b/drivers/slimbus/qcom-ngd-ctrl.c
+@@ -1080,16 +1080,96 @@ static int qcom_slim_ngd_enable_stream(struct slim_stream_runtime *rt)
+ 		slim_free_txn_tid(ctrl, &txn);
+ 		dev_err(&sdev->dev, "TX timed out:MC:0x%x,mt:0x%x", txn.mc,
+ 				txn.mt);
  	}
  
- 	return NULL;
+ 	return ret;
  }
  
-+static void cs35l36_mask_to_slots(struct cs35l36_private *cs35l36,
-+				  unsigned long mask, unsigned int base_reg,
-+				  unsigned int nchan)
++/* CHAN_CTRL operation, bits [7:6] of the first payload byte */
++#define SLIM_USR_CHAN_CTRL_REMOVE	2
++
++static int qcom_slim_ngd_disable_stream(struct slim_stream_runtime *rt)
 +{
-+	unsigned int chan = 0, shift;
-+	int slot;
++	struct slim_device *sdev = rt->dev;
++	struct slim_controller *ctrl = sdev->ctrl;
++	struct slim_val_inf msg =  {0};
++	u8 wbuf[SLIM_MSGQ_BUF_LEN];
++	u8 rbuf[SLIM_MSGQ_BUF_LEN];
++	struct slim_msg_txn txn = {0,};
++	int i, ret;
 +
-+	/* Two 6-bit slot fields per register, at bits 0 and 16 */
-+	for_each_set_bit(slot, &mask, BITS_PER_TYPE(mask)) {
-+		if (chan == nchan) {
-+			dev_warn(cs35l36->dev,
-+				 "Too many slots in TDM mask: %lx\n", mask);
-+			return;
-+		}
++	txn.mt = SLIM_MSG_MT_DEST_REFERRED_USER;
++	txn.dt = SLIM_MSG_DEST_LOGICALADDR;
++	txn.la = SLIM_LA_MGR;
++	txn.ec = 0;
++	txn.msg = &msg;
++	txn.msg->num_bytes = 0;
++	txn.msg->wbuf = wbuf;
++	txn.msg->rbuf = rbuf;
 +
-+		shift = (chan % 2) * CS35L36_ASP_TX2_SLOT_SHIFT;
-+		regmap_update_bits(cs35l36->regmap, base_reg + (chan / 2) * 4,
-+				   CS35L36_ASP_RX1_SLOT_MASK << shift,
-+				   slot << shift);
-+		chan++;
++	/*
++	 * The NGD drops the core reconfiguration messages that
++	 * slim_stream_disable() uses to remove channels, so ask the master
++	 * to remove them the way the downstream NGD driver does:
++	 * CHAN_CTRL(REMOVE) listing every channel, then RECONFIG_NOW.
++	 * Without this the master keeps the channels active and a later
++	 * DEF_ACT_CHAN with the same channel numbers is a no-op, so the
++	 * data path is never re-armed and a reopened stream moves no data.
++	 */
++	/* 5-bit client number, operation in bits [7:6] */
++	wbuf[txn.msg->num_bytes++] = (SLIM_USR_CHAN_CTRL_REMOVE << 6) |
++				     (sdev->laddr & 0x1f);
++
++	ret = slim_alloc_txn_tid(ctrl, &txn);
++	if (ret) {
++		dev_err(&sdev->dev, "Fail to allocate TID\n");
++		return ret;
 +	}
++	wbuf[txn.msg->num_bytes++] = txn.tid;
++
++	for (i = 0; i < rt->num_ports; i++)
++		wbuf[txn.msg->num_bytes++] = rt->ports[i].ch.id;
++
++	txn.mc = SLIM_USR_MC_CHAN_CTRL;
++	txn.rl = txn.msg->num_bytes + 4;
++	ret = qcom_slim_ngd_xfer_msg_sync(ctrl, &txn);
++	if (ret) {
++		slim_free_txn_tid(ctrl, &txn);
++		/* Controller restarting, the channels are gone anyway */
++		if (ret == -EREMOTEIO)
++			return 0;
++		dev_err(&sdev->dev, "TX timed out:MC:0x%x,mt:0x%x", txn.mc,
++				txn.mt);
++		return ret;
++	}
++
++	txn.mc = SLIM_USR_MC_RECONFIG_NOW;
++	txn.msg->num_bytes = 2;
++	wbuf[1] = sdev->laddr;
++	txn.rl = txn.msg->num_bytes + 4;
++
++	ret = slim_alloc_txn_tid(ctrl, &txn);
++	if (ret) {
++		dev_err(ctrl->dev, "Fail to allocate TID\n");
++		return ret;
++	}
++
++	wbuf[0] = txn.tid;
++	ret = qcom_slim_ngd_xfer_msg_sync(ctrl, &txn);
++	if (ret) {
++		slim_free_txn_tid(ctrl, &txn);
++		dev_err(&sdev->dev, "TX timed out:MC:0x%x,mt:0x%x", txn.mc,
++				txn.mt);
++	}
++
++	return ret;
 +}
 +
-+static int cs35l36_set_tdm_slot(struct snd_soc_dai *dai,
-+				unsigned int tx_mask, unsigned int rx_mask,
-+				int slots, int slot_width)
-+{
-+	struct cs35l36_private *cs35l36 =
-+			snd_soc_component_get_drvdata(dai->component);
-+
-+	/* Note: rx/tx is from point of view of the CPU end */
-+	if (!slots || !rx_mask)
-+		rx_mask = BIT(0);		/* ASPRX1 in slot 0 */
-+
-+	if (!slots || !tx_mask)
-+		tx_mask = GENMASK(7, 0);	/* ASPTX1..8 in slots 0..7 */
-+
-+	cs35l36_mask_to_slots(cs35l36, rx_mask, CS35L36_ASP_RX1_SLOT, 1);
-+	cs35l36_mask_to_slots(cs35l36, tx_mask, CS35L36_ASP_TX1_TX2_SLOT, 8);
-+
-+	return 0;
-+}
-+
- static const struct snd_soc_dai_ops cs35l36_ops = {
- 	.set_fmt = cs35l36_set_dai_fmt,
- 	.hw_params = cs35l36_pcm_hw_params,
- 	.set_sysclk = cs35l36_dai_set_sysclk,
-+	.set_tdm_slot = cs35l36_set_tdm_slot,
- };
+ static int qcom_slim_ngd_get_laddr(struct slim_controller *ctrl,
+ 				   struct slim_eaddr *ea, u8 *laddr)
+ {
+ 	struct slim_val_inf msg =  {0};
+ 	u8 failed_ea[6] = {0, 0, 0, 0, 0, 0};
+ 	struct slim_msg_txn txn;
+ 	u8 wbuf[10] = {0};
+ 	u8 rbuf[10] = {0};
+@@ -1619,16 +1699,17 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
+ 	ctrl->framer.rootfreq = SLIM_ROOT_FREQ >> 3;
+ 	ctrl->framer.superfreq =
+ 		ctrl->framer.rootfreq / SLIM_CL_PER_SUPERFRAME_DIV8;
  
- #define CS35L36_RATES (		    \
- 	SNDRV_PCM_RATE_8000_48000 | \
- 	SNDRV_PCM_RATE_12000 |	    \
- 	SNDRV_PCM_RATE_24000 |	    \
- 	SNDRV_PCM_RATE_88200 |	    \
- 	SNDRV_PCM_RATE_96000 |	    \
+ 	ctrl->ctrl.a_framer = &ctrl->framer;
+ 	ctrl->ctrl.clkgear = SLIM_MAX_CLK_GEAR;
+ 	ctrl->ctrl.get_laddr = qcom_slim_ngd_get_laddr;
+ 	ctrl->ctrl.enable_stream = qcom_slim_ngd_enable_stream;
++	ctrl->ctrl.disable_stream = qcom_slim_ngd_disable_stream;
+ 	ctrl->ctrl.xfer_msg = qcom_slim_ngd_xfer_msg;
+ 	ctrl->ctrl.wakeup = NULL;
+ 	ctrl->state = QCOM_SLIM_NGD_CTRL_DOWN;
+ 
+ 	mutex_init(&ctrl->tx_lock);
+ 	mutex_init(&ctrl->ssr_lock);
+ 	spin_lock_init(&ctrl->tx_buf_lock);
+ 	init_completion(&ctrl->reconf);
 
 -- 
 2.55.0
