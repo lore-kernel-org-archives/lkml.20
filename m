@@ -1,180 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-7.mta0.migadu.com [91.218.175.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 457ED485CD9;
-	Thu, 24 Sep 2026 13:15:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD25F48424E
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:15:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790255712; cv=none; b=iAmLo72yKROJ4vrChZUvXU36GIIxsIeqaoPelonzEDpIzdckecDizmnS2qVYwRWv9aVNIwFF552BfH/JtgYBxF1xQ+USO6r4dCkrXIqBd7pX5+pPu9KgXhf5+OoARpVwVRTvrQjXzDUF7vaA+1x2WNNVe/CkrSoSkfhAuQ6oJO4=
+	t=1790255734; cv=none; b=KP4AlePIjHeCzH8M89MRwwNIQdLXiGAiyi0iC9AYIq2UiPQJixFJqptkj6hvUITgLS2yE/9N0LFszKodQS60ocQ5IVRUQ2eOxa11eUdlHfwPnk/m+UVD8gVE1jfX/0Bz7l701SSfKjDL+wPPAJPnKCL+ddJZLLGaOXA9m8tGfOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790255712; c=relaxed/simple;
-	bh=D457ys11xA+Le0Bhlr+wB2HNGwzEv3sC1dSac0Zdjt4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Voos2aBKfoXv90MHj/FnH9dGh/E+kSXbdn4xfCYJcWqKAgmB9UVfCLyVFtkqzFZlrXfbNPwFhioU0ZjRHwRO1AYkTQ5YCSgA9J9oAXROHi7V1sc0gSouC3zR/oqWyXfBhRjQA1DseX21p61kGC/KrKdoUREsP0RxPO+ehmXDG9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MknJNTL+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790255734; c=relaxed/simple;
+	bh=VAqY47MliHFwSb5df7rFV+UkhNv2LqwPUXS4WaUskXI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BGIcS1iu2H3LRkMVh/oyuosOwvOXsa0OXaNanlHzOq+DfDMldpX+JRdTQmKF4EwOy8eS5JZeiZ2/IeMViaMIkUpEM0gL3EvcqDW5TOJb6XRVl3O6oZguHRUgyRyrjTAD6RnakyIeDvvCAh//ixnUUmLQsBOb/+Qgv9bmnuPpTJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Q/MlswJ3; arc=none smtp.client-ip=91.218.175.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MknJNTL+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F5D01F00898;
-	Thu, 24 Sep 2026 13:15:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790255710;
-	bh=g9sRmXVB5ciON2DlzFeWlXKs+NJaQal3k3zArRH8QwU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=MknJNTL+2cYW1awLN5iHOZzIwVl3HMofmCuvvXv42pCL6KN40bt6VJlpa2ah/CrPo
-	 awPieqoav0DBseHr72acR8qdZvgMWE9Vmq8YEslLPWxmkkvh3H/a7FJ/M0YsS6KKRo
-	 tG8VBIJP9Vka/QGOxBw6+ht+j8raJwksoA7BMI232x2yiswncjnq17hQ0Mh62+/A4b
-	 dIMnsYL0aKoDXrIsPYZ+cYtncVMGOuw3WOmbY5E7XnLoNnJL5vpu+nEnAeM8s1NBoq
-	 +pZaJ9+3DthAfQzHatu08aVPgNrR+FLmu5revb5NU7D9uBmAcNgl5kvewqn2BJGLSL
-	 aBck0OuPPr+jg==
-Subject: Re: [PATCH net v3 7/8] vsock: handle listen() racing connect()
-From: netdev-bot+sashiko@kernel.org
-To: mhal@rbox.co
-Cc: stefanha@redhat.com, sgarzare@redhat.com, mst@redhat.com,
- jasowangio@gmail.com, eperezma@redhat.com, davem@davemloft.net,
- xuanzhuo@linux.alibaba.com, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, kvm@vger.kernel.org,
- virtualization@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, imv4bel@gmail.com
-Date: Thu, 24 Sep 2026 13:15:08 +0000
-Message-ID: <179025570873.2160803.3404632155755678732@kernel.org>
-In-Reply-To: <20260922-vsock-connect-reset-closing-v3-7-78907b8200d4@rbox.co>
-References: <20260922-vsock-connect-reset-closing-v3-7-78907b8200d4@rbox.co>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Q/MlswJ3"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=VAqY47MliHFwSb5df7rFV+UkhNv2LqwPUXS4WaUskXI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790255729; v=1; x=1790860529;
+ b=Q/MlswJ3E6lYNWfz6+0G+LQQKNGmbkg5FUehv60tWlpTYbOYWDIwchm6Yk4J9WVp/YAg3HuS
+ 0fe20OgOBNCZOSuyK3sRZmDfWduxSuMICexS9RzuUcBZ+91TRQR+dsC7LAA6vB5nQeh5ICd9ggo
+ DdUH8zOXr2l3JGrbDNMHTNCM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 15fed9b4dac8ae4f;
+	Thu, 24 Sep 2026 13:15:21 +0000
+X-Mizu-Trace-ID: 15fed9b4dac8ae4f
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 24 Sep 2026 06:15:07 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Chris Li <chrisl@kernel.org>
+Cc: Nhat Pham <nphamcs@gmail.com>, Rik van Riel <riel@surriel.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Kairui Song <kasong@tencent.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
+	David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
+	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Kunwu Chan <kunwu.chan@linux.dev>, Meta kernel team <kernel-team@meta.com>, 
+	Linux Memory Management List <linux-mm@kvack.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+	linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+Message-ID: <20260924125040.GA25882@shakeel.butt@linux.dev>
+References: <aqjpYHbZ14A8xRtK@fedora>
+ <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com>
+ <7ee199ddee81bf8026688def82f78ad9db09be9e.camel@surriel.com>
+ <CACePvbVA+DnDJprMx3qOrGb98y1ORQ-LfaENy_Btfx3uW=E4eQ@mail.gmail.com>
+ <f3ca71f1c561f28a341de0e5a1b3f24bd4da3201.camel@surriel.com>
+ <CACePvbX5Oy98DygLZjC=Z03Lqb0nk50_OEKQCT9svbQOOwwDew@mail.gmail.com>
+ <CAKEwX=Mv+tnL8K4rfPuof6mKaLQp=tqR_qjtKrtY0-5L85FLfw@mail.gmail.com>
+ <CACePvbUF2QQMh_GiCNQn-RTmZNkkLWkmaHSYzdQwv2fupjNQiw@mail.gmail.com>
+ <arP8vXdJAL6ZJ1Os@linux.dev>
+ <CACePvbV8zprLuiWMdYAOLRy=TwRx9WjSahCWySf53o0d_myJ8A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CACePvbV8zprLuiWMdYAOLRy=TwRx9WjSahCWySf53o0d_myJ8A@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Thu, Sep 24, 2026 at 01:27:41AM -1000, Chris Li wrote:
+> On Wed, Sep 23, 2026 at 6:30 AM Shakeel Butt <shakeel.butt@linux.dev> wrote:
+> >
+> 
+> > > BTW, I already shared that changing swap counter charging will break
+> > > our and others' existing deployments.
+> >
+> > What do you mean here by "break our deployment"? We are talking about
+> > memory.swap usage and limits here. Google is still on v1 and using memsw
+> > usage and limit and I don't see how vswap is breaking memsw?
+> 
+> Your information is no longer accurate. I got this from our internal
+> AI: "While Google's internal production fleet has historically relied
+> on cgroup v1, there is an active migration to cgroup v2 to align with
+> the upstream Linux community. Meanwhile, in Google Cloud (especially
+> Google Kubernetes Engine - GKE), cgroup v2 is already widely deployed
+> and is the default for newer node pools."
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+So, using AI to provide more vague statements. Let me help in providing
+more clear statements:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+1. Google shared borg is still on v1.
+2. Google cloud (GCE) is still on v1.
+3. GKE running on VMs is on v2.
 
-- [Medium] The commit message states the goal is to 'let connect() time
-  out, but don't reset the socket', implying the pre-patch code resets a…
-- [Low] The patch fixes a user-visible, unprivileged-reachable defect
-  that exists in released kernels but carries no `Fixes:` tag and no…
+Another very vague statement is "active migration". This migration plan
+has been active since 2018 [1].
 
---
+[1] https://lpc.events/event/2/contributions/204/attachments/143/378/LPC2018-cgroup-v2.pdf
 
-vsock: handle listen() racing connect()
+> 
+> About the V1 to V2 migration, it uses the memory.current and
+> memory.swap.* counter to simulate the memsw counter for providing the
+> metrics singal.
 
-This adds an early return to vsock_unconnected_reset() so that a socket
-which a racing listen() has moved to TCP_LISTEN is left alone. A blocking
-connect() that was sleeping in schedule_timeout() then returns its error
-without demoting the listener.
+What does metrics signal mean here? From [2] it seems like there is
+intention to propose addition of memsw to v2 and from my last
+conversation with Sweet Tea, he was interested in exploring BPF to
+provide memsw semantics.
 
-> diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
-> index 5a2d7e10ecb88..56c5959424564 100644
-> --- a/net/vmw_vsock/af_vsock.c
-> +++ b/net/vmw_vsock/af_vsock.c
-> @@ -1663,6 +1663,13 @@ static void vsock_unconnected_reset(struct sock *sk)
->  
->  	sock_owned_by_me(sk);
->  
-> +	/*
-> +	 * listen() can race connect() on schedule_timeout().
-> +	 * Don't reset TCP_LISTEN.
-> +	 */
-> +	if (sk->sk_state == TCP_LISTEN)
-> +		return;
-> +
+[2] https://lore.kernel.org/all/7a5619a6d27119fcf566e43563a72396@dorminy.me/
 
-[Severity: Medium]
-The changelog says the intent is to "let connect() time out, but don't
-reset the socket", which reads as though the code just before this patch
-resets a TCP_LISTEN socket.
+> 
+> > Are you making these false claims just to derail the conversation?
+> 
+> You should apologize for your accusation.
 
-Is that still true with the immediate parent ("vsock: handle socket
-bricking due to transport event") applied?  In that tree the race
-described in the changelog reaches the checks already present in
-vsock_unconnected_reset():
+I am actually more convinced that you just want to derail the
+conversation by providing AI generated vague statements. However I
+accept that there are parts in Google like GKE which are on v2. The good
+thing is that vswap is opt-in, so GKE can just not use it.
 
-net/vmw_vsock/af_vsock.c:vsock_unconnected_reset() {
-	...
-	if (WARN_ON_ONCE(vsk->peer_shutdown) ||
-	    WARN_ON_ONCE(sock_flag(sk, SOCK_DONE)) ||
-	    WARN_ON_ONCE(sk->sk_state != TCP_SYN_SENT &&
-			 sk->sk_state != TCP_CLOSE))
-		return;
-	...
-}
-
-With sk_state == TCP_LISTEN and sk->sk_socket->state == SS_UNCONNECTED,
-the SS_CONNECTED/SS_DISCONNECTING guard does not fire, peer_shutdown is
-zero and SOCK_DONE is unset, so control reaches the third WARN_ON_ONCE
-and returns without resetting anything.
-
-That makes the pre-patch symptom at this point of the series a
-userspace-triggerable splat from vsock_connect()'s out_reset: path rather
-than a lost listener, and a splat is fatal with panic_on_warn.  The
-window covers the commits from "vsock: do not preserve transport
-assignment" through "vsock: handle socket bricking due to transport
-event", so a bisect or a partial backport can land on it.
-
-Would it make sense to squash this TCP_LISTEN check into the commit that
-introduced that WARN_ON_ONCE, or otherwise mention the warning in the
-changelog?
-
-[Severity: Low]
-Should this patch carry a Fixes: tag?  The sibling fixes in the same
-series carry Fixes: d021c344051a ("VSOCK: Introduce VM Sockets"), while
-this one has only a Signed-off-by.
-
-Released kernels appear to hit the same race without this guard.  At the
-pre-series baseline, vsock_connect() writes the state back unconditionally
-with no sk_state test:
-
-net/vmw_vsock/af_vsock.c:vsock_connect() {
-	...
-	err = sock_error(sk);
-	if (err) {
-		sk->sk_state = TCP_CLOSE;
-		sock->state = SS_UNCONNECTED;
-	}
-	...
-}
-
-and vsock_listen() only requires SS_UNCONNECTED plus a bound address
-before flipping the state:
-
-net/vmw_vsock/af_vsock.c:vsock_listen() {
-	...
-	if (sock->state != SS_UNCONNECTED) {
-		err = -EINVAL;
-		goto out;
-	}
-	...
-	if (!vsock_addr_bound(&vsk->local_addr)) {
-		err = -EINVAL;
-		goto out;
-	}
-
-	sk->sk_max_ack_backlog = backlog;
-	sk->sk_state = TCP_LISTEN;
-	...
-}
-
-So on a stable tree, two threads sharing one fd (non-blocking connect()
-arming vsock_connect_timeout(), blocking connect() sleeping in
-schedule_timeout(), then listen()) can end up with the listener demoted
-to TCP_CLOSE/SS_UNCONNECTED and accept() returning -EINVAL.  Without a
-Fixes: or Cc: stable trailer, is there anything to signal that to
-backporters?
-
->  	/*
->  	 * Transport events are serviced by resetting each connected socket to
->  	 * TCP_CLOSE. The reset is done under vsock_table_lock but without
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922-vsock-connect-reset-closing-v3-0-78907b8200d4%40rbox.co
