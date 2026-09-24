@@ -1,16 +1,16 @@
 Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA8134B04AC
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:40:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A078A477E51
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:40:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790275231; cv=none; b=gQBYVlqyRg76NKE7A36gU+ue3fn7LfQzssPZ3U3klgTQM+aFKdi5BPhae5sWSBftdHsVX9pMf1v19SIXBhHRNYwQwvxwcC76WFIyRA94I7h8lQsioBRjMsbi+KkvOvOkzdO97jAgEaY2eECTIFwndEliADN49Et7WbYFWNpwNxM=
+	t=1790275231; cv=none; b=uLM3xyWPEjieFJzJhsF0QHiwkS2/eKIFWOtxhvML+nvWGs1hK8anCPTvbUKmZJpK+egAzA7fm3nfDCmK0yjfvkHRoGO7nBNbRkiETCiLi5CGmCnXmpRzfAhSSKq0tP1JeeBXkLNS5npmdfWUHOYJuQjJGlrAcMTl71gxNrAFwq4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790275231; c=relaxed/simple;
-	bh=dOmD2HcEYDfBbriQyzwgyVcLFk+dDtHgZ5UxVJcVwpE=;
+	bh=d9MuZyyLSLcdIoM47CDB63qprl+1fFFPHmGIBwxSUAs=;
 	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eH5DhuWOz2sCykiwf4Qqs4ff3fGuNR3iPHc9DFg7jQhyw05xZ6PmwzHxYmKHDN190wB0n14aG4JqU+YEQCHfaDgV9Dkwn7Q5rK7//tSkvhrsnhq6PDymdV4yqX8tVUPFFRmtmAsxpiXTgIDDq5tcimhKA5TY2TZmc5XMGfL3mxc=
+	 Content-Type:Content-Disposition:In-Reply-To; b=jIIelqO9FCOGEzwsSecX/s9vfbBuRIQ5P1z6r7y/er620E7R4Nu7HA0btLkg+ddndzCpRlPfix7CIPoxGBmrBMzTjXqLjcm2Jnchl37jVPJPJOUCLmMvt0dxpP6c5rPagJrORQH8ziCz7hJP/faK7lMthsiKM1GZQvnV5AoF6hg=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
@@ -18,9 +18,9 @@ Received: from local
 	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
 	 (Exim 4.100)
 	(envelope-from <daniel@makrotopia.org>)
-	id 1x9oMa-000000007Gh-3ehi;
-	Thu, 24 Sep 2026 18:40:08 +0000
-Date: Thu, 24 Sep 2026 19:40:05 +0100
+	id 1x9oMp-000000007Hb-0xP5;
+	Thu, 24 Sep 2026 18:40:23 +0000
+Date: Thu, 24 Sep 2026 19:40:20 +0100
 From: Daniel Golle <daniel@makrotopia.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
@@ -41,9 +41,9 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org
-Subject: [PATCH v7 01/14] drm/bridge: it6505: quiesce event sources and work
- on remove()
-Message-ID: <6f2f7bd3e6b259266bde53b3396a1ef87633bc85.1790275151.git.daniel@makrotopia.org>
+Subject: [PATCH v7 03/14] drm/bridge: it6505: balance and disable runtime PM
+ on remove
+Message-ID: <08ed0db0bebf3b1d91cd75f4746d4d611c1870bf.1790275151.git.daniel@makrotopia.org>
 References: <cover.1790275151.git.daniel@makrotopia.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -55,111 +55,40 @@ Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <cover.1790275151.git.daniel@makrotopia.org>
 
-struct it6505 is freed by devres right after remove() returns, but
-remove() cancels none of the driver's work items, so link_works,
-hdcp_wait_ksv_list, hdcp_work and extcon_wq can still run afterwards
-and dereference freed memory. Cancelling alone would not be enough:
-the threaded IRQ and the extcon notifier stay live until devres
-teardown and can requeue the works.
+Runtime PM is enabled in probe but never disabled on remove, so
+rebinding the driver warns "Unbalanced pm_runtime_enable!". The
+extcon work also holds a usage reference while a display is
+connected, which unbinding leaks; the count survives in struct
+device, so after a rebind the device never runtime-suspends again.
 
-Unregister the extcon notifier and disable the IRQ first, then cancel
-all work. Make it6505_remove_notifier_module() idempotent, tracking
-the registration in a flag under extcon_lock, as both .detach() and
-remove() call it now. The notifier_call pointer is left intact:
-extcon traverses its raw notifier chain without holding a lock, so a
-traversal racing with the unregistration may still invoke the
-callback. Also initialise extcon_wq in probe: cancel_work_sync() on a
-never-initialised work item trips WARN_ON(!work->func).
+Drop the usage reference held for a connected display and disable
+runtime PM in remove().
 
-Fixes: b5c84a9edcd4 ("drm/bridge: add it6505 driver")
+Fixes: 10517777d302 ("drm/bridge: it6505: Adapt runtime power management framework")
 Signed-off-by: Daniel Golle <daniel@makrotopia.org>
 ---
 v7: no changes
 
-v6: track registration in a flag instead of clearing notifier_call,
-    which an unlocked chain traversal racing the unregistration
-    could have called as NULL
+v6: no changes
 
-v5: serialise notifier registration state with extcon_lock
+v5: also drop the usage ref held for a connected display; retitled
 
-v4:
- * quiesce event sources before cancelling work; retitled
- * initialise extcon_wq in probe to avoid WARN_ON(!work->func)
-
-v3: new patch
+v4: new patch
 ---
- drivers/gpu/drm/bridge/ite-it6505.c | 27 +++++++++++++++++++++------
- 1 file changed, 21 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/bridge/ite-it6505.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
-index e136ac71edbb..e980cc6d5760 100644
+index 52d7d818a5ea..9c4aae383c1c 100644
 --- a/drivers/gpu/drm/bridge/ite-it6505.c
 +++ b/drivers/gpu/drm/bridge/ite-it6505.c
-@@ -443,6 +443,7 @@ struct it6505 {
- 	struct drm_display_mode source_output_mode;
- 	struct drm_display_mode video_info;
- 	struct notifier_block event_nb;
-+	bool extcon_registered;
- 	struct extcon_dev *extcon;
- 	struct work_struct extcon_wq;
- 	int extcon_state;
-@@ -2934,11 +2935,15 @@ static int it6505_use_notifier_module(struct it6505 *it6505)
- 	int ret;
- 	struct device *dev = it6505->dev;
- 
-+	mutex_lock(&it6505->extcon_lock);
- 	it6505->event_nb.notifier_call = it6505_extcon_notifier;
--	INIT_WORK(&it6505->extcon_wq, it6505_extcon_work);
- 	ret = devm_extcon_register_notifier(it6505->dev,
- 					    it6505->extcon, EXTCON_DISP_DP,
- 					    &it6505->event_nb);
-+	if (!ret)
-+		it6505->extcon_registered = true;
-+	mutex_unlock(&it6505->extcon_lock);
-+
- 	if (ret) {
- 		dev_err(dev, "failed to register notifier for DP");
- 		return ret;
-@@ -2951,13 +2956,16 @@ static int it6505_use_notifier_module(struct it6505 *it6505)
- 
- static void it6505_remove_notifier_module(struct it6505 *it6505)
- {
--	if (it6505->extcon) {
--		devm_extcon_unregister_notifier(it6505->dev,
--						it6505->extcon,	EXTCON_DISP_DP,
-+	mutex_lock(&it6505->extcon_lock);
-+	if (it6505->extcon && it6505->extcon_registered) {
-+		devm_extcon_unregister_notifier(it6505->dev, it6505->extcon,
-+						EXTCON_DISP_DP,
- 						&it6505->event_nb);
--
--		flush_work(&it6505->extcon_wq);
-+		it6505->extcon_registered = false;
- 	}
-+	mutex_unlock(&it6505->extcon_lock);
-+
-+	flush_work(&it6505->extcon_wq);
- }
- 
- static void __maybe_unused it6505_delayed_audio(struct work_struct *work)
-@@ -3613,6 +3621,7 @@ static int it6505_i2c_probe(struct i2c_client *client)
- 	INIT_WORK(&it6505->link_works, it6505_link_training_work);
- 	INIT_WORK(&it6505->hdcp_wait_ksv_list, it6505_hdcp_wait_ksv_list);
- 	INIT_DELAYED_WORK(&it6505->hdcp_work, it6505_hdcp_work);
-+	INIT_WORK(&it6505->extcon_wq, it6505_extcon_work);
- 	init_completion(&it6505->extcon_completion);
- 	memset(it6505->dpcd, 0, sizeof(it6505->dpcd));
- 	it6505->powered = false;
-@@ -3645,6 +3654,12 @@ static void it6505_i2c_remove(struct i2c_client *client)
- 	drm_bridge_remove(&it6505->bridge);
- 	drm_dp_aux_unregister(&it6505->aux);
- 	it6505_debugfs_remove(it6505);
-+	it6505_remove_notifier_module(it6505);
-+	disable_irq(it6505->irq);
-+	cancel_work_sync(&it6505->link_works);
-+	cancel_work_sync(&it6505->hdcp_wait_ksv_list);
-+	cancel_delayed_work_sync(&it6505->hdcp_work);
-+	cancel_work_sync(&it6505->extcon_wq);
+@@ -3663,6 +3663,9 @@ static void it6505_i2c_remove(struct i2c_client *client)
+ 	cancel_work_sync(&it6505->hdcp_wait_ksv_list);
+ 	cancel_delayed_work_sync(&it6505->hdcp_work);
+ 	cancel_work_sync(&it6505->extcon_wq);
++	if (it6505->extcon_state)
++		pm_runtime_put_sync(&client->dev);
++	pm_runtime_disable(&client->dev);
  	it6505_poweroff(it6505);
  	it6505_remove_edid(it6505);
  }
