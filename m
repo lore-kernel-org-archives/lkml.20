@@ -1,179 +1,143 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75A52116F4
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 23:51:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0B5041A92A
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 23:51:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790293884; cv=none; b=swqJNvMwjg8MXBrRLVItpbC6bCY8IiiXuay8IhzymPs6o40jHwpTHwoqbJetZbEJpBJPnPkmOWEQ5qLq+LGPRJdIBBhNvWasbtYvaG5unc5qKNL+pQ3pMKNyIBPSjDd4qWDs1BkIPIUE2WSkG/2UKoza6Et+6DcZUCuzp2K12s0=
+	t=1790293917; cv=none; b=tRoFFDr44pAivvaNjTz41gK7tanEZQ/NtQA+qdUrkA1jqQJPiTSrjGWIagiXMj98MhTNVcyg9GMSsFFAZaKmY6tbXIbROFTLq9HKPwA1G4Pq00tem2r4iybWyPEvfIbCSraI7ZskcP06eSr0G7ZjC/a9OZCnW66df5tuT6lSehA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790293884; c=relaxed/simple;
-	bh=6L0NjeLbJplSZvx4toERpzY9L3Q5skU0+h9MTU7MozA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=u+zpelL1nw3+BT+R8HWuIzGJNtPJKxOuWaJV1F4d8eO9fpDwCOJavopoXilXl+1f3uH7Bbe6vWUXYHSWvQZf0DBxj2PPYLjdnCtet6DtvIc5cZT1EJEuPKa3aSr6V2LNa34NEluGxopN7/dtegzPl0DciYMOq0YvMhf2Htn6RGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gfkJlidC; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790293917; c=relaxed/simple;
+	bh=6Uq6wuyjUbyExy01Se/2Jy1Aqebw97lxp1LfmLrA5bs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UGOWwxqgyqysx6qnTcoUSL/Rf26NZ4r61OkKdM7TZ+RI3xNj2lc2mMLXokZweiod82g0C1wfyjGhRq07A0narrxZMNcAVI/NA7bzdgNC1n3tT+DowNz7/Y2+3YiYQL6zXn8K7P6vjfRu0mCdl0ltRtn5ehKfdd4G0T1W4PiSIkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VTKqj2o2; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gfkJlidC"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4c08393b0so116622a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:51:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790293882; x=1790898682; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n7h+VVCSvpCLVVej2FOvVs0E08BhObs9j96BCD16kt4=;
-        b=gfkJlidCy/lUQ2oTTUgIRNBe/ph+Vd9+6G1w2nTqB+cx9PzcQ94CcYTSjq4Rr/JN7B
-         SZOzGn6ZCTH7Cw2WT2RRPBpaplC3ub+I1o0C0cB9Fyx0fabb8gSbnqMxuEuPb1jJGijY
-         ZMQPFAxAkTUNi9Nny1Xs4QXIjkd0LJFYk6Yu6aa/nWqic4jHjec+P8j02Aekbr+6A5tS
-         AbyOnbvcZyIEwN/OKSIwt1C7HM49jv1M0Lih81983bYAyCbwbuDNkMH3m24HOUw+rRr/
-         7Po6whY/CLUJe7tFDFltqqsHmzk7R3LIVNS1l6TtYMI4lICffIIHhuLUU7wcd330TX8M
-         RYeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790293882; x=1790898682;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n7h+VVCSvpCLVVej2FOvVs0E08BhObs9j96BCD16kt4=;
-        b=FrHeAcGULQ7b3nv7d8EVc+j7la2zymdLF35JlKfifbi5Tgf4lKWy7Ch16gs4YkXsgt
-         1jMjbHClS5WEy4SzvzJKKg4vedVIh3d229Rr/LV/SDy7gpIRKmnvHHqKMTomtpWlEg6S
-         VSoP8//X8vTFTa/V6KCSRUQfGMcGSy2CM7DzOQij8qY74xdbRwlFsP+GwT1JiEMcP1vg
-         FgfxhZCrz5l1sMULt/JpqHovffICl6J4gHDvGlD++nef5rMEjEewgTEjIjmOSTdmGCKk
-         kYN0vjGLyGDvf2dcJqwHNFNWqN+NfvfOOYjqBOTkWXwCZ9AQZ5icUBeueOJeN6ccjfuU
-         HcGg==
-X-Forwarded-Encrypted: i=1; AKwUvBwbd12AwQf5/t0VC/bKGanf6NW8yCfwXuC+wr9D+mv1cVCnUMjf38Slh1Iz0uKh32ZJJ8VanLwhd3Hl49M=@vger.kernel.org
-X-Gm-Message-State: AFuF++l1oE80694MDtg61LfF3AwG4uBiRWLAaa9NTB9zbMbLRQJom9jt
-	e8BTrTQo42CCm5p9A7N0sK+QlB9eYuh9QVsmmZj4rbe/IEcuSxZWfSc+
-X-Gm-Gg: AYBFou1vMeRgSImgIsms6GGeXXP5tQ/IQMaiIOXvkwPrBRFiYp5mzJ4TzaUwhCscOUJ
-	yAENAaFXpKFwycO7y0lTOA0eLvnv5+JX2CHtjSR8gIU1fiLt8zeNFS351NHS1kXg+lwFf2gck3U
-	gR5D3TLO6OnvWhXfDozrWaFXwNVPyesBGWglf8qbhbVphmiXjntN4oiQ+VmUOImAlh4QSg9iIr0
-	uYwaAazcJGCo+Pw6DgV7OxWCqpTDFOaQL4Y18kbKZ7ujACwRjDHfNjyPPZUN8KoKtLFpmCsSIuT
-	l7o55e4k/VXZ7Hux586wk5ajZYhUlFUWm9lRY3Yaa2b9keXr6cBOVtEaYasOALXGifXXpR7svDX
-	d1MQ4lp2GLLFSoKd898+MbqK/KsWD460UqcIfWISKyl1UlTGD2pS+aoJJijesfs6Lw+ktSQwSui
-	u/8H2IGbxVn3mgpSIg0vZt1F+ePFDs0zyrbFA0fYyU4JnJx7Noj2qd8xoKLzfVLaZieBSjESCnC
-	OfXtJZZ12Y6pbM/faPWZnP401z5ZuFwto6z9L9vJshCBU99oUehtnJMD/L4WZ2ziOynkTU3QGKB
-	+j4IXD5KOqINHLfZxDLNBtxaOC7E3wIv7cX8QO0Aq7+WbYJi
-X-Received: by 2002:a17:90b:1a8e:b0:39d:eda6:8a0b with SMTP id 98e67ed59e1d1-3a098cd4453mr3505870a91.21.1790293881852;
-        Thu, 24 Sep 2026 16:51:21 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9357f64sm959429a91.3.2026.09.24.16.51.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 16:51:21 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-crypto@vger.kernel.org
-Cc: Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv2] crypto: talitos: fix probe IRQ ordering
-Date: Thu, 24 Sep 2026 16:51:19 -0700
-Message-ID: <20260924235119.141323-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VTKqj2o2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790293915; x=1821829915;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=6Uq6wuyjUbyExy01Se/2Jy1Aqebw97lxp1LfmLrA5bs=;
+  b=VTKqj2o2w86rXHs3iaJwyGiFABb89Pgfhtknjo/6ekuyOEbWWuxwmFb0
+   PSd61mfz9nRY9mmZPeyTzcwMshwRzop+vGb1gH2yL/0/Uhcx+sjXoe3G2
+   RvkO3k+Gn0O22v05Yyi54iDOhPq5tlQh24hevN/hpJUdOIUOZNmPherGk
+   Z5rL3/UtdOlN5pizr6gtfrSkg1JxHxN2EN1lZvcu37tKU1wXvKv6JBQCV
+   Um2oSx/1d9thNSfNaPAjqzl5Da2A6ZFr+CyQAODEYnbsyo716UPmlPnkW
+   cbxdFGZrmcHgQfdNQXoX7c1v52B7QNl8QaGXsUUU8SJ02k52lD2HoRFlj
+   A==;
+X-CSE-ConnectionGUID: arVyRrqBSxqtNULqxMA4WA==
+X-CSE-MsgGUID: /jZcPkylRJ2q15FF8NXe+A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="90300919"
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="90300919"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 16:51:54 -0700
+X-CSE-ConnectionGUID: ou+D2gJoThGs7F3ndWMy0g==
+X-CSE-MsgGUID: RB+w73acSbe8Xm7tGfItiQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="272762319"
+Received: from ssimmeri-mobl2.amr.corp.intel.com (HELO [10.125.110.219]) ([10.125.110.219])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 16:51:53 -0700
+Message-ID: <67a44daf-feb7-4760-9b68-bfea176b4ab4@intel.com>
+Date: Thu, 24 Sep 2026 16:51:53 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] x86/mm: Drop the page allocation from
+ pud_free_pmd_page()
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Cc: Pedro Falcato <pfalcato@suse.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski
+ <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H . Peter Anvin" <hpa@zytor.com>, Mike Rapoport <rppt@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Toshi Kani <toshi.kani@hpe.com>,
+ linux-mm@kvack.org, regressions@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <d8b502f7-a552-4600-b348-614d1d62afa5@intel.com>
+ <20260924203915.189167-1-mikhail.v.gavrilov@gmail.com>
+Content-Language: en-US
+From: Dave Hansen <dave.hansen@intel.com>
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <20260924203915.189167-1-mikhail.v.gavrilov@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The talitos interrupt handlers schedule priv->done_task[] via
-tasklet_schedule().  In probe(), talitos_probe_irq() ran before
-tasklet_init(), so an interrupt arriving during that window (a shared
-IRQ, or a completion pending from an earlier transmission) would
-schedule an uninitialized tasklet.
+On 9/24/26 13:39, Mikhail Gavrilov wrote:
+> On 9/24/26 10:21, Dave Hansen wrote:
+>> OK, I've got a version of Mikhail's fix with a changelog and comments
+>> I've munged a bit:
+>>
+>>> https://git.kernel.org/pub/scm/linux/kernel/git/daveh/devel.git/log/?h=pmdfree
+>>
+>> Does that look OK to everyone?
+> 
+> Looks good to me, thanks.  The code is v2 with your comments and the
+> declarations reordered, so the testing done for v2 still applies.
+> 
+> Two small things, both optional:
+> 
+>  - "The new mmap_read_lock() is held over a GFP_KERNEL allocation":
+>    the lock held over the allocation is the same init_mm lock, but
+>    taken in vmap_try_huge_pud(), not the new one in CPA.  Maybe "The
+>    huge vmap code holds the same lock over a GFP_KERNEL allocation,
+>    which is a no-no now that reclaim can take it."
+> 
+>  - The kernel-doc lost its "Return:" line while the function still
+>    returns int, so kernel-doc -Wreturn will complain about it.
 
-Resolve the IRQ numbers before the tasklet_init() calls so the
-done_task[] selection can see the secondary IRQ, and only request the
-IRQs after the channel fifos are allocated and the device is
-initialized.  Every structure the handlers touch is then fully set up
-before interrupts are enabled.  This matches remove(), which frees the
-IRQs before killing the tasklets.
+Thanks for those! I've integrated them.
 
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v2: reshuffle code to avoid NULL derefs
- drivers/crypto/talitos.c | 33 +++++++++++++++++++++++----------
- 1 file changed, 23 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/crypto/talitos.c b/drivers/crypto/talitos.c
-index 41a87d7c30a0..b9dfa2b7ccbb 100644
---- a/drivers/crypto/talitos.c
-+++ b/drivers/crypto/talitos.c
-@@ -3346,28 +3346,36 @@ static struct talitos_crypto_alg *talitos_alg_alloc(struct device *dev,
- 	return t_alg;
- }
- 
--static int talitos_probe_irq(struct platform_device *ofdev)
-+static int talitos_get_irqs(struct platform_device *ofdev)
- {
- 	struct device *dev = &ofdev->dev;
- 	struct talitos_private *priv = dev_get_drvdata(dev);
--	int err;
--	bool is_sec1 = has_ftr_sec1(priv);
- 
- 	priv->irq[0] = platform_get_irq(ofdev, 0);
- 	if (priv->irq[0] < 0)
- 		return priv->irq[0];
- 
-+	priv->irq[1] = platform_get_irq_optional(ofdev, 1);
-+	if (priv->irq[1] == -EPROBE_DEFER)
-+		return priv->irq[1];
-+
-+	return 0;
-+}
-+
-+static int talitos_probe_irq(struct platform_device *ofdev)
-+{
-+	struct device *dev = &ofdev->dev;
-+	struct talitos_private *priv = dev_get_drvdata(dev);
-+	int err;
-+	bool is_sec1 = has_ftr_sec1(priv);
-+
- 	if (is_sec1) {
- 		err = request_irq(priv->irq[0], talitos1_interrupt_4ch, 0,
- 				  dev_driver_string(dev), priv);
- 		goto primary_out;
- 	}
- 
--	priv->irq[1] = platform_get_irq_optional(ofdev, 1);
--	if (priv->irq[1] == -EPROBE_DEFER)
--		return priv->irq[1];
--
--	/* get the primary irq line */
-+	/* single (or primary) irq line */
- 	if (priv->irq[1] < 0) {
- 		err = request_irq(priv->irq[0], talitos2_interrupt_4ch, 0,
- 				  dev_driver_string(dev), priv);
-@@ -3379,7 +3387,7 @@ static int talitos_probe_irq(struct platform_device *ofdev)
- 	if (err)
- 		goto primary_out;
- 
--	/* get the secondary irq line */
-+	/* secondary irq line */
- 	err = request_irq(priv->irq[1], talitos2_interrupt_ch1_3, 0,
- 			  dev_driver_string(dev), priv);
- 	if (err) {
-@@ -3481,7 +3489,7 @@ static int talitos_probe(struct platform_device *ofdev)
- 		stride = TALITOS2_CH_STRIDE;
- 	}
- 
--	err = talitos_probe_irq(ofdev);
-+	err = talitos_get_irqs(ofdev);
- 	if (err)
- 		goto err_out;
- 
-@@ -3540,6 +3548,11 @@ static int talitos_probe(struct platform_device *ofdev)
- 		goto err_out;
- 	}
- 
-+	/* enable interrupts once the channel fifos and tasklets are set up */
-+	err = talitos_probe_irq(ofdev);
-+	if (err)
-+		goto err_out;
-+
- 	/* register the RNG, if available */
- 	if (hw_supports(dev, DESC_HDR_SEL0_RNG)) {
- 		err = talitos_register_rng(dev);
--- 
-2.55.0
-
+I think we'll hold on to this fix until early next week and then queue
+it in the x86/urgent pile.
