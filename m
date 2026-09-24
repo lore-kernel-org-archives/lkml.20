@@ -1,164 +1,179 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E53A8411FB0
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:21:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18EB0411FB0;
+	Thu, 24 Sep 2026 08:21:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790238066; cv=none; b=WjXwIv+Z1Zat/2V5p/mFAeDH6Lzgz3Uiuh6WHWPlvdA470An+CgGDlfs1krU51J8ISRpxHyneDyCJJYtdJs2+D0Ls5AUsB4jC/P10FJiPfx/sl7TH18HqtTK1HRe10aOhFqLr39csNn1jAzD8cMLMXMZVLYog68jlfzY047UdGk=
+	t=1790238111; cv=none; b=CNX2lInRLb6RXUmwy+INDvcNq2vs/JxVe0TEYlZ3PFvYHKuMsNN7SkcDGSvlknuY6tPM/jLeQC9pPlhjsaGS4xXzYcs2gso2UmIHcTP0q8fDNpCFLUr93SIoH1537qqoy5f1HFfKSVj4EjRmpms6wkiEVgV+5jMfX0d6I93vbsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790238066; c=relaxed/simple;
-	bh=xLKwIgImHArSoDRxKNReWtyWPgR8tM7wwg9leeIrudk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eMspFohrd/hZqDXPgpe7xjKnAa1rQoZoGdSR3E0/NUEAo6lM5h0c6jd8fXHPHH9fCK6GxBoTLmVmMECwmHZlFSuyTu/VmFKOAL+QcGla2qOVaLFFreYBXyP+R9b2brrQ82G6N2xn/uRflajMywao69PFNdnshYyzy1IaXbfpTJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KjOQhQ35; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790238111; c=relaxed/simple;
+	bh=xGGn5F7O8CViwRoXOfN0Ai1sVBly8TVv9MIYxQ2a/h8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=a1RqdcHQ5oMM6AMC/0Jj2SJO6Kr85mlANXm+ox6kkLNGm6nr2riy1BWauNkVhQ+7g2Qw70pcGVR/GMb0qZsx1W1TJ3N01s72+Xjxetyi89HssvqXp5I/3iti06zYw3wuc7HkWPGcgW+RA/oXIWBHm9VRKua8OW4dqwtj+IvJMJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=ZGwerb3v; arc=none smtp.client-ip=67.231.156.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KjOQhQ35"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49e6425f96eso32305e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:21:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790238063; x=1790842863; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TBbUmiE2dRkBbSKytOyHEBRYcqAsz7TnE/aajFa/CtM=;
-        b=KjOQhQ352OkWxgPfQc3zytooDLLUAm0PwR+GQQN4Wc4TRHnEZ4u83QRhEe0Xu8jpj1
-         z1tILVY7BIDm8CTFHX5JHQEq8l5cZcFEoZ5wTyVHbK0tPjaZ96BESEV/RlgxQ9slqaLi
-         WK95fe5FqOEDSd4clYWH9Iu5a422idA5w3NK/0wPPSF79rLVcNskZMRwOj+rxs3zxtZH
-         k7wjyArp8IjE/uzz4VqJtkdS7VslJDmTrDzvFbFoHA2eZ2Uk3grG6WpdDcJ9BOErfem9
-         RWvyqNq2Bx87CyOZmjHHxD3pqkgyjJjrAjlMNwcigxFpzNAXzA/PcsOX1cEirDCpL9L3
-         ur5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790238063; x=1790842863;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TBbUmiE2dRkBbSKytOyHEBRYcqAsz7TnE/aajFa/CtM=;
-        b=gLcPKMoz8X3WTwSXqs33b8z60FuITH7pjeDgBQKE04hW3eBr8OfvWFxSELEvKVkYSR
-         /C0tz2/MeWXoF5OcnXslmJjtCZttyhi1qHuojld1fD3WkrMFiDnBra+N8Dkx0ZzNbkNE
-         p02HqXwrGIgI5N2cla7Q7u3NPFvU3OygmEVhi9PekMH8HPoLLDDyYmMLfDpZghnMWK2J
-         K2Iwgcm3PCqKeyPPYxfj1BVb9QHIz/LXU44c8faaQU7aba4FxnDHBCn5HRO16in5PyKE
-         bV6NNqIt/95WPvQCsZzgE/SA08y44p7uZOUFdn/NAMTCaQUhFaL9HHSd0K20O/AT3eak
-         SGXg==
-X-Forwarded-Encrypted: i=1; AKwUvByuBn35OieJyscFcslBT3/a30aZRC2oR84HgJ+MXdcVA5UQOweQeBnHb+QPfJiKKjm8kJxf4nE0j1zv9oY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nolAcuZ26BwVtYGXXnb+gbAemk+asrGewnxdqEW1H4WsDypPLz
-	p1QjFD9Ft8+22JFtKduYfqbPrTsajKcfxUL/akPkYN78KpI7UNFrqqZ1A1BDCcTSiw==
-X-Gm-Gg: AYBFou2UNjNXOrQEe7wEkCia8h0FL7HiCxwvoafK8LvMVrthGQamPKAc6L17j1GdiO3
-	AXSXeANPjc0SS/Jm1yef+5WnVlzaYbKs7LxazUi+HlT2oKk69X44vEKIfsrDUFhAz3fTbp1v8mV
-	O4V/jEDww2HFYIYGKOWC+BMPpOHAfhUizUPV+UvCAbjSTm3WsvEphe1bVpWD/dZ3pP/zxW4UBcm
-	5MAITJJoEsJEyJKGrG1SWWsRzzR2wrOEzr9gtxVAupJc+PYhg1l4YZZuZnY6E4+zvuQ3vS/4d0+
-	JNKUOyltoROn1A/gpKnehF4DaNJZoiShFENg6nspUtzF9fRPGbsl9/8bkOy/msET36noF+qh+sV
-	A8eADkggsOzU3vfsNfsOBYhk9+XaJvS3JyYoIZHjQYPv+vSA4ldmdRv4NwaYNmDaoLuEn3C73Th
-	lguJbl6s+KlqNKxLvJYgtAtY7oCKs4wjkIome7JzQFNR4zpPu4JDcLZ7YVxIB211hoT3Od22jqT
-	pXe0sytkfNrhyAOLeLsL9eBbJyQSl08+T324UIk
-X-Received: by 2002:a7b:c4cb:0:b0:49f:c839:28be with SMTP id 5b1f17b1804b1-49fe5996dc6mr523225e9.3.1790238062399;
-        Thu, 24 Sep 2026 01:21:02 -0700 (PDT)
-Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886876c119sm14042034f8f.15.2026.09.24.01.21.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 01:21:01 -0700 (PDT)
-Date: Thu, 24 Sep 2026 08:20:58 +0000
-From: Mostafa Saleh <smostafa@google.com>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Joerg Roedel <joro@8bytes.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>, Pranjal Shrivastava <praan@google.com>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org,
-	linux-pci@vger.kernel.org, linux-cxl@vger.kernel.org,
-	vsethi@nvidia.com, Shuai Xue <xueshuai@linux.alibaba.com>
-Subject: Re: [PATCH v6 06/17] iommu/arm-smmu-v3: Don't rb_erase() a
- never-inserted stream node
-Message-ID: <arTdal7U8eK9Z_7j@google.com>
-References: <cover.1790188510.git.nicolinc@nvidia.com>
- <76c5f9dde30269995ef842a12a3a5e1ebaa3e6df.1790188510.git.nicolinc@nvidia.com>
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="ZGwerb3v"
+Received: from pps.filterd (m0431383.ppops.net [127.0.0.1])
+	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5eEst3974386;
+	Thu, 24 Sep 2026 01:21:40 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pfpt0220; bh=Qy1hHJrKVfVdVbJyKoTwRa+
+	M6OdPX+7JBQ+sgIiyphs=; b=ZGwerb3vWcrA5kAZ6Pii1DsJEpwD179hyICAcWn
+	WucmWRumdwKCdcdr8yrKk5ev+k6Odni+PLVRqoRDg5QnpsSr7vlenRzR1deOdC6v
+	pIBXV74/QDx3HU5p6ONN2vGDLq+9rdM2ku9sy98ro/hqsQC7Kh3FKRqSRT97h0Wj
+	yCOesXHRZ9yOAKtNkXEvrBjHSjjYc206XnAIUtMcfSsNJfmcD2HDqbgQ3cjn4pe9
+	gX8YJctQh8fqpFaRtQro8T3fNJTkri18a57n87dBtH9ichu2L3BAuQzKXsY/UclX
+	5TlCyv1yCxnJWUlLFMOvoOW3KzKFv0KNFi0XcdsePvzHMzg==
+Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
+	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4gvksntx0e-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 01:21:40 -0700 (PDT)
+Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
+ DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Thu, 24 Sep 2026 01:21:39 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
+ (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Thu, 24 Sep 2026 01:21:39 -0700
+Received: from rkannoth-OptiPlex-7090.. (unknown [10.28.36.165])
+	by maili.marvell.com (Postfix) with ESMTP id 10A883F7051;
+	Thu, 24 Sep 2026 01:21:35 -0700 (PDT)
+From: Ratheesh Kannoth <rkannoth@marvell.com>
+To: <davem@davemloft.net>, <linux-kernel@vger.kernel.org>,
+        <netdev@vger.kernel.org>, <sgoutham@marvell.com>
+CC: <andrew+netdev@lunn.ch>, <edumazet@google.com>, <kuba@kernel.org>,
+        <pabeni@redhat.com>, Ratheesh Kannoth <rkannoth@marvell.com>
+Subject: [PATCH net] octeontx2-af: fix partial NIX Tx scheduler queue allocation
+Date: Thu, 24 Sep 2026 13:51:28 +0530
+Message-ID: <20260924082128.1944674-1-rkannoth@marvell.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <76c5f9dde30269995ef842a12a3a5e1ebaa3e6df.1790188510.git.nicolinc@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAzNCBTYWx0ZWRfX/wK1NXpom/Uw
+ G7tqAid9Xg3/UIitDfCYZEZfTOePMpu+CU75+zEPgVfie6VEyHLdzd9+qRXdqgJ2obosDeoVIYD
+ wkieXHQNcQSsYIOqY4O/kmEEmotEMwI=
+X-Authority-Analysis: v=2.4 cv=fcI4WEQF c=1 sm=1 tr=0 ts=6ab4dd94 cx=c_pps
+ a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
+ a=qit2iCtTFQkLgVSMPQTB:22 a=M5GUcnROAAAA:8 a=rHSzDqYvqVz94caIL9AA:9
+ a=OBjm3rFKGHvpk9ecZwUJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAzNCBTYWx0ZWRfX+z/HY24uV5po
+ izIf48BTCWcx5ciMqWSDLzTmvYmdQQd1+q5iXVDyYfF4p5zlm9a5wiKnjHBlHfvBWd1xyqQA8dD
+ 8aZR282VQbJ5JsgNBTzjKAFPY9Yzia5OhCe2v4uK8K54H+ZDHn8/gFv51Osppu/3ej/h26Y9yPm
+ hylHjsXjU3RJRSOoKJLbdW6Cce9JvRiil/XdElxr8k/uKlkz+HP+wfgoo1ESKUGWs1YxJPW3kbk
+ Pqo2F9jhLDWHW1M/i6IZi1sdhQJxihZTPav3c0qmOKzdLWyiUx2TzyBk5fUi4HmMYinRdiVNp0Z
+ fUKIsgbSdw86MMk/M1+GJ3qXhdzIR+0LT1YLr6ahv9+lekzoKG6sId7XHCjisqSBGaTyQO9ICEF
+ SLvigt/oAXpl4CdTmUtSSOzJBb5f9uuD2NLAmcqi05Bc47NT0HTaXGWn+2BiwB5Qk27ibEoAtQ4
+ YccQLDZcbVlL+H/MxDg==
+X-Proofpoint-GUID: 5NvPiPMXVyDUl27eX1fYUT7fuYrMpx-l
+X-Proofpoint-ORIG-GUID: 5NvPiPMXVyDUl27eX1fYUT7fuYrMpx-l
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
 
-On Wed, Sep 23, 2026 at 01:11:25PM -0700, Nicolin Chen wrote:
-> arm_smmu_insert_master() skips inserting a stream whose StreamID duplicates
-> one the same master already owns (bridged PCI devices can present duplicate
-> IDs), leaving that master->streams[i].node zeroed and unlinked from the
-> smmu->streams rb-tree.
-> 
-> Both the insert error-rollback loop and arm_smmu_remove_master() then call
-> rb_erase() on every master->streams[i].node unconditionally. rb_erase() on
-> a zeroed node sees a NULL parent, treats the node as the tree root and sets
-> root->rb_node = NULL, silently emptying the whole SID tree and breaking SID
-> lookups (and DMA) for every other master on the SMMU.
-> 
-> Mark each node with RB_CLEAR_NODE() after sort_nonatomic() reorders the
-> array, since sorting relocates the entries and would leave the earlier
-> self-referential RB_CLEAR_NODE() pointer stale. An un-inserted node then
-> stays RB_EMPTY_NODE() and is skipped in both erase loops; inserted nodes
-> are linked by rb_find_add() and erased as before.
-> 
-> Fixes: b00d24997a11 ("iommu/arm-smmu-v3: Fix iommu_device_probe bug due to duplicated stream ids")
-> Assisted-by: LLM
-> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+nix_txsch_alloc() could return success after allocating fewer Tx
+scheduler queues than requested, or after failing to allocate a
+queue under the fixed topology mapping. Propagate allocation
+failures to the mailbox handler and roll back any partially
+allocated queue indices on error.
 
-Reviewed-by: Mostafa Saleh <smostafa@google.com>
+Fixes: 5d9b976d4480 ("octeontx2-af: Support fixed transmit scheduler topology")
+Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
+---
+ .../ethernet/marvell/octeontx2/af/rvu_nix.c   | 33 +++++++++++++++----
+ 1 file changed, 26 insertions(+), 7 deletions(-)
 
-Thanks,
-Mostafa
+diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
+index 153eb57bad06..28e70bae51ca 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
++++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
+@@ -2195,12 +2195,14 @@ static int nix_check_txschq_alloc_req(struct rvu *rvu, int lvl, u16 pcifunc,
+ 	return 0;
+ }
+ 
+-static void nix_txsch_alloc(struct rvu *rvu, struct nix_txsch *txsch,
+-			    struct nix_txsch_alloc_rsp *rsp,
+-			    int lvl, int start, int end)
++static int nix_txsch_alloc(struct rvu *rvu, struct nix_txsch *txsch,
++			   struct nix_txsch_alloc_rsp *rsp,
++			   int lvl, int start, int end)
+ {
++	int want_contig = rsp->schq_contig[lvl];
+ 	struct rvu_hwinfo *hw = rvu->hw;
+ 	u16 pcifunc = rsp->hdr.pcifunc;
++	int want = rsp->schq[lvl];
+ 	int idx, schq;
+ 
+ 	/* For traffic aggregating levels, queue alloc is based
+@@ -2221,7 +2223,7 @@ static void nix_txsch_alloc(struct rvu *rvu, struct nix_txsch *txsch,
+ 			rsp->schq[lvl] = 1;
+ 			rsp->schq_list[lvl][0] = start;
+ 		}
+-		return;
++		return 0;
+ 	}
+ 
+ 	/* Adjust the queue request count if HW supports
+@@ -2233,7 +2235,7 @@ static void nix_txsch_alloc(struct rvu *rvu, struct nix_txsch *txsch,
+ 		if (idx >= (end - start) || test_bit(schq, txsch->schq.bmap)) {
+ 			rsp->schq_contig[lvl] = 0;
+ 			rsp->schq[lvl] = 0;
+-			return;
++			return -ENOMEM;
+ 		}
+ 
+ 		if (rsp->schq_contig[lvl]) {
+@@ -2246,7 +2248,7 @@ static void nix_txsch_alloc(struct rvu *rvu, struct nix_txsch *txsch,
+ 			set_bit(schq, txsch->schq.bmap);
+ 			rsp->schq_list[lvl][0] = schq;
+ 		}
+-		return;
++		return 0;
+ 	}
+ 
+ 	/* Allocate contiguous queue indices requesty first */
+@@ -2277,6 +2279,22 @@ static void nix_txsch_alloc(struct rvu *rvu, struct nix_txsch *txsch,
+ 		/* Update how many were allocated */
+ 		rsp->schq[lvl] = idx;
+ 	}
++
++	if ((want_contig && !rsp->schq_contig[lvl]) || (want && !rsp->schq[lvl]))
++		goto err;
++
++	return 0;
++
++err:
++	for (idx = 0; idx < rsp->schq_contig[lvl]; idx++)
++		clear_bit(rsp->schq_contig_list[lvl][idx], txsch->schq.bmap);
++
++	for (idx = 0; idx < rsp->schq[lvl]; idx++)
++		clear_bit(rsp->schq_list[lvl][idx], txsch->schq.bmap);
++
++	rsp->schq_contig[lvl] = 0;
++	rsp->schq[lvl] = 0;
++	return -ENOMEM;
+ }
+ 
+ int rvu_mbox_handler_nix_txsch_alloc(struct rvu *rvu,
+@@ -2335,7 +2353,8 @@ int rvu_mbox_handler_nix_txsch_alloc(struct rvu *rvu,
+ 			end = txsch->schq.max;
+ 		}
+ 
+-		nix_txsch_alloc(rvu, txsch, rsp, lvl, start, end);
++		if (nix_txsch_alloc(rvu, txsch, rsp, lvl, start, end))
++			goto err;
+ 
+ 		/* Reset queue config */
+ 		for (idx = 0; idx < req->schq_contig[lvl]; idx++) {
+-- 
+2.43.0
 
-> ---
->  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 14 ++++++++++++--
->  1 file changed, 12 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> index 5732f3ba0122d..082da3dc09e56 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> @@ -4122,6 +4122,13 @@ static int arm_smmu_insert_master(struct arm_smmu_device *smmu,
->  	     sizeof(master->streams[0]), arm_smmu_stream_id_cmp,
->  	     NULL);
->  
-> +	/*
-> +	 * Clear after sorting: RB_CLEAR_NODE() records the node's own address,
-> +	 * which sort_nonatomic() invalidates by relocating the entries.
-> +	 */
-> +	for (i = 0; i < fwspec->num_ids; i++)
-> +		RB_CLEAR_NODE(&master->streams[i].node);
-> +
->  	mutex_lock(&smmu->streams_mutex);
->  	for (i = 0; i < fwspec->num_ids; i++) {
->  		struct arm_smmu_stream *new_stream = &master->streams[i];
-> @@ -4154,7 +4161,9 @@ static int arm_smmu_insert_master(struct arm_smmu_device *smmu,
->  
->  	if (ret) {
->  		for (i--; i >= 0; i--)
-> -			rb_erase(&master->streams[i].node, &smmu->streams);
-> +			if (!RB_EMPTY_NODE(&master->streams[i].node))
-> +				rb_erase(&master->streams[i].node,
-> +					 &smmu->streams);
->  		kfree(master->streams);
->  		kfree(master->build_invs);
->  	}
-> @@ -4174,7 +4183,8 @@ static void arm_smmu_remove_master(struct arm_smmu_master *master)
->  
->  	mutex_lock(&smmu->streams_mutex);
->  	for (i = 0; i < fwspec->num_ids; i++)
-> -		rb_erase(&master->streams[i].node, &smmu->streams);
-> +		if (!RB_EMPTY_NODE(&master->streams[i].node))
-> +			rb_erase(&master->streams[i].node, &smmu->streams);
->  	mutex_unlock(&smmu->streams_mutex);
->  
->  	kfree(master->streams);
-> -- 
-> 2.43.0
-> 
