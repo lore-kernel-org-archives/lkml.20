@@ -1,130 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B65A6409266
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:51:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72DE04A64EF
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:51:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790265099; cv=none; b=FqRon4XqqZZSNEzzvba1Pb6BZwFllvD9S8XI3qJUAfaDIcuw7HHY0UJVXIg6ZabpuL9labSFPE8Cnke3/rCwyI16K+I4DGJdqJFYRgIMVBoCQ0phmrXgf0DzxdODGLD1hYACSquMTB/ux9ITOz97rxk7kPYBYa2R1SgpF5GCVrw=
+	t=1790265107; cv=none; b=onBC7WL6SOYxdKTgzFLaezLiP47iQwFBibqvYpbTdYePkucYN2FTgFPhOdV6At/zoIX7ZldWPy0Dh6SIRddo1qOBtNIijm4/VJqNd2D7oFD7H6YNpgsOFXaNuuIfpLm3hw521yOGGykiyqrrtkMKIXIaaNx3VEeZ5YgsCAQfuII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790265099; c=relaxed/simple;
-	bh=aaLN0Tp58ClV6eLTUeZnNxWyO00enm3cqXjj6dwZpyw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h2NUlrKsGLlRXz+NICIcUqsaYo2uPbH8apVeFEhBHzz10BxGMX5vh1jmeP9+zsR7RJp4zhxgBu3VC8JwpxH9nsHDyPxouNQBq6tNHkyPjgi0NQwIwYk/mm+mHnejDff1a4zwohXwfuX/EKas7OJOdgTWaX/bTdxoScl/1Q6ebOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=I2TLD0XV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790265107; c=relaxed/simple;
+	bh=2Bf0mnwdyo39EE6DxuV6NPKmxRXCmQpodPDRGJilOXY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dl62WSBkrWWsd4KWvb6OxsLGA4yVdGn8MjTNtrEHStrr/A6iACCu678JZvS3/8h1bIR4j24VrN+J/0Euh7ode6Kvjf41lPC0ac2/V8WBFr/DUOcemCKDuT0NJRZ+FKi7uiERN4zXH6mWApdsSo6OrgNwDvPzz6O3XxgS8L6KHYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=l6E/ZFPx; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="I2TLD0XV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 585F11F00893;
-	Thu, 24 Sep 2026 15:51:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790265097;
-	bh=I1SyC9FPSl1SxWObKcKKHtxFd39BYxlX2zBFyTHCl90=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=I2TLD0XVn7SQ741gpQ1gNMfipLrznoSoXQo3p1M9Vtf6mj66Nzyg1wy4x3diSNy1K
-	 CbybYAHyfSMXesoua+5B+LM3eDBXvTTAEFljsDSs1x30/sIEfF3YQHLAE2MdJWI+EZ
-	 wciMGkvDJb3QgDaxmqm4QZN5l9aB6//t0WJowSWA=
-Date: Thu, 24 Sep 2026 17:42:08 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Arnd Bergmann <arnd@arndb.de>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	Lance Yang <lance.yang@linux.dev>,
-	syzbot+c181d3198e98f8aef8b9@syzkaller.appspotmail.com
-Subject: Re: [PATCH] drivers/char/mem: mmap readonly MAP_SHARED-/dev/zero
- correctly
-Message-ID: <2026092448-urgency-landless-f79c@gregkh>
-References: <20260924-fix-dev-zero-readonly-shared-v1-1-153c2111e323@kernel.org>
- <2026092406-irritably-maggot-9512@gregkh>
- <arU9Z-EhEQg76CVz@gremlin>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="l6E/ZFPx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790265106; x=1821801106;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=2Bf0mnwdyo39EE6DxuV6NPKmxRXCmQpodPDRGJilOXY=;
+  b=l6E/ZFPxAOT9Cq0QUAqXne21/zQ0XgEFz5Qj28D8dX/yJCZyAl4nOyVD
+   NLIWqkeV4IKzsPpHVP3ZQ+XH0O6HoqW3C91KQ2V9nrBf8H0BEZHl1NhRA
+   nBQJqgCNQM16m6U8b8Pfz2aAmAYD9TZ+K3/EpQBuOfwNg3aCdwAU9ZHRG
+   wg26Wt2djS22XESCoqiXV0LrxvzR2RpyFnBO2TrT0Tuhv2pKKJd3o4MvV
+   hFDcxZRwfoKztvQY8GD2NgH47dRqczrZ/rkt2ODJebYczj4mSDfJvXymI
+   JQQKrNJv3O1Qdz2ryX/tVt0he/SqPS5p4vxF4vDZioORN+IAC2Q5OlWk2
+   w==;
+X-CSE-ConnectionGUID: AXpcLOTDRmqacih2/NwA8A==
+X-CSE-MsgGUID: j2tVCAgsQ4CBLxHx1np5RA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="102401297"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="102401297"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 08:51:45 -0700
+X-CSE-ConnectionGUID: kXNk3BixQg2FEKMjVKajOA==
+X-CSE-MsgGUID: vkNNc1nRSACqZq3MM8Y9BQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="277454720"
+Received: from dwoodwor-mobl2.amr.corp.intel.com (HELO [10.125.110.186]) ([10.125.110.186])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 08:51:44 -0700
+Message-ID: <6a0db9eb-c1b4-4545-8b12-2dd8326d664b@intel.com>
+Date: Thu, 24 Sep 2026 08:51:42 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arU9Z-EhEQg76CVz@gremlin>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 09/14] NTB: ntb_transport: Drain RX tasklets during
+ link cleanup
+To: Koichiro Den <den@valinux.co.jp>, Jon Mason <jdmason@kudzu.us>,
+ Allen Hubbe <allenbh@gmail.com>
+Cc: Frank Li <Frank.Li@kernel.org>, Logan Gunthorpe <logang@deltatee.com>,
+ fuyuanli <fuyuanli0722@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nicholas Bellinger <nab@linux-iscsi.org>,
+ Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260910040836.3792333-1-den@valinux.co.jp>
+ <20260910040836.3792333-10-den@valinux.co.jp>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <20260910040836.3792333-10-den@valinux.co.jp>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 24, 2026 at 04:29:23PM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Thu, Sep 24, 2026 at 05:08:49PM +0200, Greg Kroah-Hartman wrote:
-> > On Thu, Sep 24, 2026 at 03:48:24PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > > Rather surprisingly, opening /dev/zero read-only then mmap()'ing it
-> > > MAP_SHARED gets you true anonymous memory (albeit in a VMA with
-> > > non-NULL vma->vm_file).
-> > >
-> > > This is a by-product of MAP_PRIVATE-/dev/zero being how anonymous memory
-> > > was mapped in Linux's distant past.
-> > >
-> > > It happens because mmap_zero_prepare() gates on VMA_SHARED_BIT and when
-> > > mapping a read-only file MAP_SHARED, do_mmap() clears VMA_SHARED_BIT and
-> > > VMA_MAYWRITE_BIT.
-> > >
-> > > The gating is incorrect - the (poorly named) VMA_MAYSHARE_BIT flag exists
-> > > explicitly to tell you if something was originally mapped MAP_SHARED.
-> > >
-> > > So the fix is simple - gate on this instead.
-> > >
-> > > This isn't exactly a common use case, but it's unexpected behaviour which
-> > > now causes an assert if CONFIG_DEBUG_VM is set.
-> > >
-> > > While this bug has existed since the dawn of time for linux (or at least
-> > > since 2.6.12), it hasn't caused issues in the past, so while it's incorrect
-> > > behaviour, it doesn't seem necessary to backport that far.
-> > >
-> > > The mapping is now accounted at mmap time and can fail with -ENOMEM under
-> > > strict overcommit, and read faults allocate folios. However this is normal
-> > > behaviour for a read-only shmem mapping.
-> > >
-> > > Commit 93c0c8dc87f6 ("mm/rmap: use anon pgoff to track MAP_PRIVATE
-> > > file-backed anon folios") is the first patch at which the debug assert
-> > > fires, so target that instead.
-> > >
-> > > Fixes: 93c0c8dc87f6 ("mm/rmap: use anon pgoff to track MAP_PRIVATE file-backed anon folios")
-> > > Reported-by: syzbot+c181d3198e98f8aef8b9@syzkaller.appspotmail.com
-> > > Closes: https://lore.kernel.org/linux-mm/6ab4ae75.80e1c6cc.1e8e5f.000d.GAE@google.com/
-> > > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > > ---
-> > >  drivers/char/mem.c | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/char/mem.c b/drivers/char/mem.c
-> > > index 63253d1de5d7..5b93c92c2cf1 100644
-> > > --- a/drivers/char/mem.c
-> > > +++ b/drivers/char/mem.c
-> > > @@ -503,7 +503,7 @@ static int mmap_zero_prepare(struct vm_area_desc *desc)
-> > >  #ifndef CONFIG_MMU
-> > >  	return -ENOSYS;
-> > >  #endif
-> > > -	if (vma_desc_test(desc, VMA_SHARED_BIT))
-> > > +	if (vma_desc_test(desc, VMA_MAYSHARE_BIT))
-> > >  		return shmem_zero_setup_desc(desc);
-> >
-> > What's the odds that something "big" actually relies on this?
-> 
-> I think it'd be fairly crazy to, unless people really care about read-faulting a
-> lot of zero pages which they want to somehow not account properly.
-> 
-> Anything's possible but I think on this, right to take a (v. small) risk!
-> 
-> >
-> > I'm all for the change, but be prepared in about 5 years for people to
-> > start complaining :)
-> >
-> > Want me to take it through my tree?
-> 
-> Sure, thanks, though there will be a conflict against a patch in mm.
-> 
-> Though it's really that the file is moved (to mm/), so actually should be an
-> easy resolution?
 
-No problem, you can take it if that makes it easier:
 
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+On 9/9/26 9:08 PM, Koichiro Den wrote:
+> ntb_qp_link_cleanup() cancels QP link work but does not wait for the RX
+> tasklet. The tasklet can still be processing the ring while cleanup
+> resets the QP, and transport link cleanup can free the MW before the
+> tasklet finishes.
+> 
+> Clear active under rx_sched_lock and drain the tasklet before resetting
+> the QP. Temporarily disable QP link work so a concurrent client link-up
+> request cannot reactivate RX during cleanup, then re-enable it for the
+> existing link setup paths.
+> 
+> This does not drain RX DMA transfers or their completion callbacks.
+
+Is this something that we should handle?
+
+DJ
+
+> 
+> Fixes: 9143595a7e05 ("NTB: ntb_transport: Free MWs in ntb_transport_link_cleanup()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> ---
+> Changes in v2:
+>   - No changes.
+> 
+>  drivers/ntb/ntb_transport.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
+> index 45d4365becac..36797ea3ff45 100644
+> --- a/drivers/ntb/ntb_transport.c
+> +++ b/drivers/ntb/ntb_transport.c
+> @@ -956,11 +956,16 @@ static void ntb_qp_link_cleanup(struct ntb_transport_qp *qp)
+>  
+>  	dev_info(&pdev->dev, "qp %d: Link Cleanup\n", qp->qp_num);
+>  
+> -	cancel_delayed_work_sync(&qp->link_work);
+> +	disable_delayed_work_sync(&qp->link_work);
+> +	ntb_transport_set_qp_active(qp, false);
+> +	tasklet_kill(&qp->rxc_db_work);
+> +
+>  	ntb_qp_link_down_reset(qp);
+>  
+>  	if (qp->event_handler)
+>  		qp->event_handler(qp->cb_data, qp->link_is_up);
+> +
+> +	enable_delayed_work(&qp->link_work);
+>  }
+>  
+>  static void ntb_qp_link_cleanup_work(struct work_struct *work)
+
