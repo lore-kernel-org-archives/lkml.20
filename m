@@ -1,248 +1,107 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010068.outbound.protection.outlook.com [52.101.85.68])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B243335674E
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:34:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.68
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790231648; cv=fail; b=erjq3prsOsk/nt75xvdSceYRi1dwa5c+3fVBtMx3HcH3YVP8FJmgiUGJrttPtWOga3jvwG0GhsQiJAQgGW4rJQwihP3KPPSN6NLGnXWQZYjbC6QoM8/b0BHKIdBeTXwsh9BEBQmo/lQZQsvywg2Gu1wrCpesaWZVT3l2a1a6fE8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790231648; c=relaxed/simple;
-	bh=2f/p4QNy8IUw6bMBWbhDHAzp4GPPMojxRh3rXRgcIEw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=dAw+7mnxh/iQRNNknC9qMD5aYViueJUnb6HypnrudnRH+f/ZKPo55Qrb1xXkzO4HG9gtwgWJl6XIKB84ws/RYajbWymPqWxky+v4o/Tg9MjEU24MFzM1kwYg6odDOrV275iqixLHUJBS5aD0t+HzFgF5b5j5cp+Ht73zu/Okrg8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=1PrFq0ZC; arc=fail smtp.client-ip=52.101.85.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24EBA3FB055
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:35:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790231729; cv=none; b=iZNlqyZualxZqqYXdzTpejjgMT+nPWc9pwc7mCK9Oqz2zhJJfcMyJS+N26XPZ63QAfIbqcY9Iz6HBUr9DrS3aTozmxgoORo7tT+owWB9wDgy9S5LixgOwfJ+UiDTj3DLsGmiml3XcM0xHTvkBVVpMITNAswE24oL14CMi/C3clo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790231729; c=relaxed/simple;
+	bh=KwdQfLFN9qP1Uy3/R/YcRZOunp2/x7+DEgYdQS30umw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nVhTLr4Tl1g7Asi09YMv5hKNXIWewdtRrdA0xpwxTxvAD5FVjvz6Hm1VOiM7WvlVUxoCWnjbn6nynsavL4yQE+OtGgR/IbG38NJ/6w1Zo9dM/DSgQY2w20ZwYQiYcihk4kwgTpW7Ju3rm5Yr8rVGLzBa4ZpevSrKvEiRe2yvyCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WB/S2IO/; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="1PrFq0ZC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qxnu3cP+48TUYf3e15hQJtxnnUViis4IOG8mzzdTLOJ4+xnUGcxsrzWrXbXvFbqj5/cI5OuTsFoskdrNOrj5lchylNC8NwgylSliiw/nxZlLJiHI0kn1sdRuxA2GnQm0VGn1Wzkhk2h74HImKHIsQPjiDz5xtuLIkPipCkVc4vDUnIyah8VOIxleQ6QL463IXYxR/coRUvAgzJPUrmpzt/PvlzRLSu+KMODQJBhRHiPglzZpZ6CJXGcUtGPLm/JIXqiFBwqGay9n9etM7lpD20X2IUKZhfdQR3qHd2oitOYRGdQ1pXolZ8vxPCcahtBDS2ecWa5I5YTT46Q5ysQQ2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Rs9glKE/E/uZ4cc8ih2YoPEtsOZEoucC7qzwfJpfqIg=;
- b=bktdGgoCFrsfmafejwlMfGerccA3XbaaSXkpUz/hfTo1quZqCYUlC5ggNvHgmYOu2GfqafvB/tLbVtD60JXFLjAVwe9wzEDKuGGXX20WIeiiDBxhhkQaoom9jmOL5Cv+FOGlWjp3XfGC80Wg4JlV5tvUiQ48ur73QuTmlx7Rqkmz2/HOxSTZ73vhYTBICzCGSd3gCJyp9VxJgopEP/iErcGbAvQOHadJlZmqCFpOixwHVb1FklcVjJy942WZkWYczwOfiGVRorKsAS/8zNFqQkqgPNM9EYAW9AO1+6whKEo2Zeo0az5NYbwC/Uk1o1qVtIhqMuNJCshsk7t2Zk/rEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rs9glKE/E/uZ4cc8ih2YoPEtsOZEoucC7qzwfJpfqIg=;
- b=1PrFq0ZCg2kPDYSkNVGQVQInQnyIso6natR7C9LlSO1QQEm8Wja1lytj2JBRw/+6B/my5VDFOKHLmNY+Y4nmu1zOnqgeuGlBehEjwiq9gy/Gm1OxKHbc6gBLk3jht6fvs/OJ1FDroPNb1h/Od1p4QGrwOlUhxzeFlBOFhTZCOYc=
-Received: from BN9PR03CA0730.namprd03.prod.outlook.com (2603:10b6:408:110::15)
- by SA3PR12MB834210.namprd12.prod.outlook.com (2603:10b6:806:517::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
- 2026 06:34:02 +0000
-Received: from BN3PEPF0000B36F.namprd21.prod.outlook.com
- (2603:10b6:408:110:cafe::25) by BN9PR03CA0730.outlook.office365.com
- (2603:10b6:408:110::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Thu,
- 24 Sep 2026 06:34:02 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B36F.mail.protection.outlook.com (10.167.243.166) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.5 via Frontend Transport; Thu, 24 Sep 2026 06:34:02 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
- 2026 01:34:01 -0500
-Received: from [192.168.0.152] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Thu, 24 Sep 2026 01:33:53 -0500
-Message-ID: <22734e84-84ee-492f-9083-9e3034664a9b@amd.com>
-Date: Thu, 24 Sep 2026 12:03:47 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WB/S2IO/"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd5cf03so1240291a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:35:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790231727; x=1790836527; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0Lg8cX0rN3DBpAk0/WdaoBs/N2TVrxi/nNoDNY7O6wQ=;
+        b=WB/S2IO//rXoRKsFY2qtbT5OHCjIG7gIDF1KxEOzJEOlWivUzysmjEDZL5E/myYEzP
+         iOwBF0iLSus3LUQgxim59rVttHEjXpTfxH/7j9zfjEYq2D+DllREyBfROhiokJyoGgYS
+         L/hvmAZJWn4DVwHWmbiBiYpVi6wy6sMC0YJVZ4OOWAUwiE5zoNnTF+yoy9N3c2w/2zxF
+         xtoGal1OT7t1U8Es1njO+uLrowjdn3mUDIsYXyoDGwMFWj7K7ITd0mmqZlm8+qMHNjHU
+         uALXdzvD6sKn37oG58YtL74X0Fxi+KiPbrQikOMuXhpP8ejRVn7Ov/Zr51nEwGFYesc0
+         ERzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790231727; x=1790836527;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0Lg8cX0rN3DBpAk0/WdaoBs/N2TVrxi/nNoDNY7O6wQ=;
+        b=XYPR6JWxdTeqJ1HB4Q0HXN7fJ7wKT+IApYwLngLQlm92c0B3d2UoCdXam8H8TbwVop
+         bnAbirkkjuIV2xL0bycc0ydeCrJ542GirZ9Blb5geBPq0A2cv1TIs0TECpoh54J3UEva
+         3OCOku3lELVR2tWlAfuBCNU1PfCfh4wshsLR6yQDp9sxGAeU4ZtLulg1axgIRjhQbdAJ
+         0V7pJQFV9y5EwCxQ3670dsFghEYawcKvM3RvyjUedn8AvDw1eOiodPl1xZEqiYk6qp5M
+         z/9dglysOxxo9mdK0FnxCW2Qf420SOWsl+hSGPOrETYOl+QZvIGdIzJhkovQZSh2jW9L
+         spMw==
+X-Forwarded-Encrypted: i=1; AKwUvBzX7bkHksgKes1825LHw8BGoP1QwQ0FCBzMQ5Ut7gxONU0q7YBBlUmHtF2hOdU1promNKw5IhtcblfofBY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mesk0sKZexRsHsvdJ459G+B927v5DMvyQ4ahnlegQrbCak4OT8
+	VxOx8vppqm81nJDCeYVDadzImoeJ8ymsGloG02JNgPw4FSa7uAF5vZec
+X-Gm-Gg: AYBFou21fQVCyr+TINEFznD4o6f2/EQWXQ/S/slb9PRaysRwwEXxxmxFjE35nYBMPiP
+	AuvUclKtw3KE2yey1XW7NeJ1JA45h7Bfz6oYxm3MOdTpkBnCAIVB5UNvYHzWdewKJNevl6ZL8w1
+	GqqUAqpCpXFfXMAAAsH1xLxs4zWJPp+o/dhZ5o0LEcam1yG59KSH+JB3ShnE3LMDtjp4nDOxIcY
+	785y0v8nBxA7bdOrG3MNgA/iViakeAiS8fR38E1xnUJiZS7WLj794nEAv+meH6CH2XSUkYGVQ/o
+	uyOLhoJKjNiqGxFr1vNi7dc7c9z8GYapymv2mvtokdUZZZvX/UslqmrO1O4sgMBqO0nLmrOm4l1
+	cnn8RZkwakDnxi7Pvz0bOEN9uocHwBjxniV2B57iCj15Od5W98bgAlWv1ZgGd+mGUAfAaWOd3bT
+	Qmuf2lZyWc1XcliohT3Ho3u+Im0oVcqfmD8AbXP9U+05iEuBe59HijqoMzwaER5T9dhyIttjpXh
+	li7+HnZnDWWQ6P7A6hSc8hkvbaUbhdY7XvMixeM6xlK3xQCeC7afsCbgRfZWo440Z5ExY+q0EF6
+	O/Ogj2cbSrQ1T5LgDJLX
+X-Received: by 2002:a17:90b:55c3:b0:39e:6a81:f34a with SMTP id 98e67ed59e1d1-3a098bb630amr1174600a91.36.1790231727242;
+        Wed, 23 Sep 2026 23:35:27 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a096b8753csm3109897a91.0.2026.09.23.23.35.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 23:35:26 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: axboe@kernel.dk
+Cc: io-uring@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH v2 0/2] io_uring: fix CQE32 and CQE_MIXED ring refill handling
+Date: Thu, 24 Sep 2026 06:35:23 +0000
+Message-ID: <20260924063525.2500081-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
+In-Reply-To: <20260919203516.2581409-1-benquike@gmail.com>
+References: <20260919203516.2581409-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v0 0/3] pghot: x86: IBS Memory Profiler for hot page
- promotion
-To: <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>
-CC: <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>,
-	<xin@zytor.com>, <luto@kernel.org>, <peterz@infradead.org>,
-	<Jonathan.Cameron@huawei.com>, <gourry@gourry.net>, <rientjes@google.com>,
-	<sj@kernel.org>, <weixugc@google.com>, <willy@infradead.org>,
-	<ying.huang@linux.alibaba.com>, <ziy@nvidia.com>, <dave@stgolabs.net>,
-	<nifan.cxl@gmail.com>, <xuezhengchu@huawei.com>, <yiannis@zptcorp.com>,
-	<akpm@linux-foundation.org>, <david@kernel.org>, <byungchul@sk.com>,
-	<kinseyho@google.com>, <joshua.hahnjy@gmail.com>, <yuanchu@google.com>,
-	<balbirs@nvidia.com>, <shivankg@amd.com>, <donettom@linux.ibm.com>,
-	<linyongting@bytedance.com>
-References: <20260924062206.319314-1-bharata@amd.com>
-Content-Language: en-US
-From: Bharata B Rao <bharata@amd.com>
-In-Reply-To: <20260924062206.319314-1-bharata@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36F:EE_|SA3PR12MB834210:EE_
-X-MS-Office365-Filtering-Correlation-Id: 110a341c-2f29-455c-9761-08df1a05d2db
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|82310400026|23010399003|36860700016|6133799003|10067099003|11063799006|5023799004|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	EhteMQs3v8GTrfSuCfmu135eyYlrLy+TNbNSXWgwSPrfiqGrMnyomo71sZt+/haZwqXpd43oaI/SH88UnzrtUaVH32aNezMq8+WJyTdYOV1RXTkLSzffgc4rsFZ8rytMV+oo6mKNC6p7XRWW3dyiC+dXQeQA2mx7SNvtA5gHuncShUq85jDM1niC2l0x+8vCbDjTzUuHhg4mRr0ZKzY8Y95fV1RI0jHe3DcHAzhiciR0OJAnxM2sI1R3ki8sa6HyA+MminJd9oBBr/H6pYq3pfKMapI/j2AmF0qq69uLarv60ZnGqpSjm7Z7Kw/ipguYqT/TDYmUU3UVbcxnOPcHmXsnt6zdn84TJkyzBvxcql+JooTxZ+r9JQEv9r5FQEd1y/a+U8qJ4WKfSWJ/gzrnXEckm5t84SXcLjQcSY2WIJCF9cAJe0rZNYHwRJZAG2QGvYLZZ+MFgFCwuDU4/1R84Zqp7NeTtCnq7kQUoNxPr4zrYsuSzk4/2qCqUXiHf+Xxw/RfjIZgszoMpVU/IqsGIDWGy/jHZHWzZXj8uUxyQyBFxVPgAaanYRoLuyqKb1UcIXkf55mb6UlSnYDV1irGUxkmLgM9l0i+Id0de2N0rlSrbFeKjFbR5pDL67ijC0GHvI0uriQ8d4hJuBDJK0yb4h6jjzCxbBpucJMxVWX92yxb3CklICF1JNWtnuieZpvUdl0/zgPwslONna1J1SuzEw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(6133799003)(10067099003)(11063799006)(5023799004)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	XWUwoGOSNHGkOmyyWn6KCLFy3YHvSUQlZ+e12+WqGlDGEn0bRHGSbjIjPW4CaEihtwj3BgAKsENOuFv8LGYXqAy1Xvrw4VCcFXJ4J8WO7c6H6RuWp223xZBOVt6dfKkoHgxYS1+eBSj1ycypcJh1BH19FS9ZdQUe09KG+3g4BtTFdL9skQEMx1i56HI1PAXZLkO+XjccEhOl4HSd/UVvt6jloaQcYHeSyhBtlZqWE4qNxJ8ET2ZzECIad02YfL87BNqPiu8LGZ6Maq5qKPcgtDK/VR+0+VO8eDBS9/HYKbFvRzDTCn5/lMs+1hwruOMdNxbSalJpGEnDsqrrwS7vDC0XOYLwFtCYu6bKTsctunIL/Fo8qYV2yVOlAATMqEXwigEACJj8/yOnCVwleWqRA7xPRG2wkKlvFia3aGfjn6ScCDFSaFEIyXuYHsLRB+Ua
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 06:34:02.4274
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 110a341c-2f29-455c-9761-08df1a05d2db
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B36F.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB834210
+Content-Transfer-Encoding: 8bit
 
-On 24-Sep-26 11:52 AM, Bharata B Rao wrote:
-> 
-> Detailed per-benchmark tables (throughput/latency + vmstat and pghot
-> promotion counters) are posted as replies to this thread.
-======================================================================
-Tiered-memory promotion: baseline vs NUMA-balancing vs DAMON vs pghot
-hwhints (IBS) - multithreaded runs
-======================================================================
+This series fixes two issues in io_cqe_cache_refill() and
+io_fill_nop_cqe() for 32-byte CQEs:
 
-Runs taken on one machine, same workload and sizes.  This is a self-contained
-comparison of four ways to promote a hot working set from a slow (CXL) tier
-to a fast (DRAM) tier:
+1. Restrict skip CQE insertion at off + 1 == ctx->cq_entries to
+   IORING_SETUP_CQE_MIXED rings so pure IORING_SETUP_CQE32 rings do not
+   emit bogus IORING_CQE_F_SKIP entries.
+2. Require 3 free CQ slots in io_fill_nop_cqe() before emitting a skip
+   CQE for a 32-byte CQE wrapping across the end of an
+   IORING_SETUP_CQE_MIXED ring, preventing an orphan skip CQE when fewer
+   than 3 slots are free.
 
-  - baseline        : no promotion.
-  - NUMAB2          : the kernel's NUMA-balancing tier promotion
-                      (numa_balancing=2), driven by NUMA hint faults.
-  - DAMON fine+quota: in-kernel access monitor with a migrate_hot
-                      scheme (paddr), driven by the kdamond thread.
-  - pghot hwhints   : per-PFN hotness from the IBS Memory Profiler
-                      (hardware sampling), promoted by the kmigrated
-                      thread; shown at two IBS sample periods.
+Changes in v2:
+- Split into a 2-patch series and drop the third hunk from v1, as
+  requested by Jens Axboe.
 
-Machine / topology
-------------------
-- 256 CPUs, 792 GB RAM.
-- NUMA: node 0, node 1 = DRAM (fast tier); node 2 = CXL (slow tier,
-  256 GB).  Promotion target = node 0; cold data starts on node 2.
-- Kernels: base = 7.3.0-rc2-base+ (baseline, NUMAB2, DAMON);
-           pghot = 7.3.0-rc2-pghot+ (pghot hwhints).
+Hui Peng (2):
+  io_uring: only insert skip CQE for IORING_SETUP_CQE_MIXED
+  io_uring: require 3 free CQ slots for 32b CQE in io_fill_nop_cqe()
 
-Workload
---------
-- 64-thread pointer chase, 64 GB total buffer, 16 GB hot set, 240 s
-  timed phase.  Buffer relocated to node 2 before the timed phase;
-  worker threads bound to node 0.  "hot set" = 16 GB;
-  over = (node0 - 16 GB) / 16 GB.
+ io_uring/io_uring.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-Configurations
---------------
-- baseline : numa_balancing=0, no promotion.
-- NUMAB2   : numa_balancing=2 (tier promotion via hint faults).
-- DAMON    : sysfs defaults (sample 5ms, aggr 100ms, update 60s) +
-             migrate_hot (paddr, nr_accesses>=1) + max_nr_regions=
-             100000 (min default 10) + quota 128 MiB/1000 ms with
-             nr_accesses weighting (hottest first).
-- hwhints  : IBS Memory Profiler as the sole hotness source
-             (numa_balancing=0), pghot_freq_threshold=1, IBS
-             l3miss-only=1; IBS sample period 10000 and 5008.
+-- 
+2.55.0.1082.g2b9226bbc0-goog
 
-Metric notes
-------------
-- lat  : steady access latency, ns/access, mean of last 25% of samples
-         (lower is better).
-- node0: end-of-run placement on node 0 (numastat -p).
-- promoted: bytes migrated to the fast tier (DAMON scheme sz_applied;
-         NUMAB2/pghot pgpromote_success).
-- CPU  : cumulative cputime over the 240 s run of the single promoter/
-         monitor thread - kd = kdamond (DAMON), km = kmigrated (pghot).
-         NUMAB2 has no single promoter thread; its cost is distributed
-         across the application threads (scanning + hint faults).
-- over:  The "over" column is measured against the 16 GB HOT SET, not
-         against B0: over = (node0 - 16 GB) / 16 GB.  B0 promotes
-         nothing, so its node0 is 0.0 and its over is n/a.
-
-
-Table.  Multithreaded results (64 GB total / 16 GB hot)
-------------------------------------------------------
-id   config              kern   lat  node0  over   promoted  promoter
-                                (ns) (GB)             (GB)   CPU
----  ------------------  -----  ---  -----  -----  --------  ----------
-B0   baseline            base   320   0.0     -        -     -
-N2   NUMAB2              base   143  16.0    0%     ~14.6*   distributed
-D3   DAMON fine+quota    base   119  23.9  +49%      24.7    kd 13s(5%)
-H10  hwhints IBS p10000  pghot  215   4.9  -69%       4.9    km 20s(8%)
-H5   hwhints IBS p5008   pghot   92  11.6  -27%      12.0    km 38s(16%)
-
-* N2 pgpromote_success over the timed window is ~14.6 GB; some
-  promotion happens during the load phase before the vmstat baseline,
-  so the reliable figure is the placement: node 0 = 16.0 GB (exact).
-
-Supporting counters
--------------------
-- N2 : numa_hint_faults 3.73M, numa_pte_updates 12.9M.
-- D3 : sz_applied 24.7 GB, qt_exceeds 229, regions settled ~21-71.
-- H10: hwhint_total_events 1.40M, pgpromote_success 1.29M.
-- H5 : hwhint_total_events 5.91M, pgpromote_success 3.15M.
-
-Findings
---------
-1. Accuracy (placement):
-   - NUMAB2 places exactly the 16 GB hot set (0% over).
-   - DAMON over-promotes (+49%, 23.9 GB): a coarse-then-quota scheme
-     bounds volume but still moves ~1.5x the hot set.
-   - hwhints under-promotes within 240 s (-69% at p10000, -27% at
-     p5008) because hardware sampling observes only a fraction of
-     accesses; it had not fully converged at 240 s.
-
-2. IBS sample period is the coverage knob.  10000 -> 5008 roughly
-   tripled events (1.40M -> 5.91M), nearly tripled placement (4.9 ->
-   11.6 GB) and cut latency 215 -> 92 ns.  period=10000 under-samples
-   this workload.
-
-3. Latency does not track placement linearly:
-   - hwhints p5008 reaches the lowest latency (92 ns) with only 11.6 GB
-     on node 0 - IBS targets the hottest pages, so its smaller
-     placement is well-chosen.
-   - DAMON needs 23.9 GB to reach 119 ns.
-   - NUMAB2 places the exact 16 GB but its steady latency (143 ns) is
-     higher than its own first interval (119 ns): numa_balancing keeps
-     scanning and faulting the workload's pages after promotion, an
-     ongoing per-access tax (12.9M pte updates, 3.73M hint faults).
-
-4. Promoter CPU:
-   - DAMON kdamond and pghot kmigrated are both out-of-band and cheap
-     here (kd 13 s; km 20-38 s over 240 s, i.e. ~8-16% of one core).
-   - NUMAB2's cost is not a single thread; it is paid by the workload
-     threads via scanning and hint-fault handling.
-
-Caveats
--------
-- Two kernels: base (B0/N2/D3) and pghot (H10/H5).  No separate
-  no-promotion baseline was taken on the pghot kernel in this set, so
-  cross-kernel absolute latency should be read with that in mind;
-  placement / over-promotion is the primary accuracy metric.
-- The CPU column is the concentrated promoter/monitor thread only.  It
-  excludes distributed costs: NUMAB2's scanning + hint-fault handling,
-  and IBS interrupt/sample handling for hwhints.
-- Latency is not isolated to a single cause (bandwidth, working set,
-  selection quality all plausible); placement is the primary accuracy
-  metric and latency is supporting.
-- hwhints coverage is still ~27% under the 16 GB hot set at 240 s
-  (p5008); it was still climbing at the end of the run.
