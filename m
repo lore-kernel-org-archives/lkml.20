@@ -1,144 +1,119 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AD174BD10B
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:39:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD32541D22D
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:40:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790278792; cv=none; b=HgC9Sq2rlNL7tqqEGqc6rYrQPKCUUR/A9vAaUGUBCAvWWRkBgCGQPV8Fo5YcZX4fjN+CaT2O2z8qwHuFugG/Zn6bRvr3K+QhBNwp91l5xtA/bb1u1VE6rfsn78ANWo6JFAMoHbfJQs7kCiQ3MWZjS7U61jET4dq++kuMGHYj5nM=
+	t=1790278827; cv=none; b=OBMK5nPwBVzFKx+9ErzDwOYbZwk5fHJ9gJ7mde/QDevTlEfsrrR25JhX9XLdqYWINAn6IeMpAFm/G18XnmoMS1fuvqs0gVSaiin3X3CCEd/Fn5dOuqND3ysaon7Isuxr2N1AeoGD9A3HihSICsRxLhJE7jNHX082xyNvnY7JqeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790278792; c=relaxed/simple;
-	bh=cdOH0TQFx2/yle8Oxw+LbUiqtgMIOe8sbY3XW9lC+1o=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=GRy0dMvcal/93tZhLuv6oUN5v+OVHqiPdzybGcGsyfmJEQaqQCeRCvk0wzUliJMl6CjdJ5QTk+dAmS7+D0AenI1ySgIkDEe9hXAgTwOWUePQMtwOVy4ZP99/s1IL9/4+/zl+aoflmSuhUBZrPL0tDQ+jFeCYpywptxDe0W63kUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=frVh9iim; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790278827; c=relaxed/simple;
+	bh=v2mr3yEeVPCA53lv8cWAiEEbb7C20MRdeH9IJtvRkCE=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=agFYtnWKMh7CiTO5XVsaDQpOdoEOvNIZckuuiGLt/MVoJrfFXUHHiMrE204K6Tgm2dzKOBAmFJVhxwDqFNcrOyRSKz4T+WU7Ue/TQG27/ju7g9IABvyQFUs8HeQHAM3kphHrnBClR6v9+YEOVcPhrtZvxIpzcCr9gnl5Cixwdow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eq/9jZfy; arc=none smtp.client-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="frVh9iim"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so1314105e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:39:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eq/9jZfy"
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39e18af9f48so203339a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:40:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790278786; x=1790883586; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1790278825; x=1790883625; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XVpUm2vxAmiJvxOEbkoDqlOy/q982BD2NVBKlRMKmW4=;
-        b=frVh9iimoyM+By47heeVoCCgbVikqk4B1d0qmuYSynHa7ru/5U6NtvZexe1AJcJJEk
-         Jd8Y+k0nQk47kxk9hVZxKSABS0h9DuYZh3wM5li0eArSRguyxr+Ab9d5MbehncMTN8nE
-         OIBt8YEFcrWxOzkd98/LHnxABjviESgupp1eer4hGibQCpXK75wLnb7pRgozeyfbtG+S
-         n8+Kg/Zw90vFfK5kZPVLV3S4t0ZEcrmI1nMi7MU7uCoO9JCdzmPS2U1ZvJW8EGMWF/qU
-         W5Syr9YFk6QAKTht297nXJVQNIn3CsTEwH5KBkhu5Sf+ny4MBTYAh0kw1/TMiqDto+oM
-         e3FA==
+        bh=gTjGHblkjZzhraXaqnhHaeUgHULa4Gd97a7Hy/6dpCQ=;
+        b=eq/9jZfySlVnBTKdp7AW6n2nnS4sv5A75EMdwNbY4hKF1ehvXzsAwVb8px8ardvgDY
+         +Y3pQuZ8A/hzP9tCIbNf4j8U1fadQhiN3U3GETy3Smwf18PRJ/IF7DyTa22wVtb1Vp+g
+         75/mdTLRcO3OSA4CXxxAUp5UIvAy4B1LewgtN8YlRoZfAJCkOU9xrLTajkSy+VZUTi6e
+         SFPL1NSjC0JprnhkFGPidMNrO+siuoOvoYQsVZ0Hh5WCSOoxzt6ebWImKijqdXeihd1x
+         OxdPF1By1T16yNQbEAqEwyanFq/U3iDJVBVQsrLt93SVGbWRLdIHpIA6+dfK+S5ScE7Z
+         TvLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790278786; x=1790883586;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790278825; x=1790883625;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XVpUm2vxAmiJvxOEbkoDqlOy/q982BD2NVBKlRMKmW4=;
-        b=HMybE/yDs3ilmgRpiUf3jCHEkD8mRN4S0olnWc/FbHkZYZWCWqzaQLvF0t+AwM3yhi
-         pZgtoEg618bcTlQ/Br3A6ytLTMcy0nIKg462eThtyaXi6EFgd2y2HvFIj/EZz53rwM6h
-         hsKjWiVb8DKS0dDEdKMVUEWE9QQsAOpMb4pAljEbwGLPT6gwffXNsPmz9irSjiG15e2U
-         YZRU7FuW0KZHOo5dEKrnf/kpYKiHz7CaNzjY+sCv5tI5+h99sfNANYeDMsJj1iqoARRv
-         wWsBhXFuQlD6QHyify575jDbvPUkMKTldxn07aMPhx1Bk2+QK4Q1mST2/xCsTQJl2ahZ
-         6qdA==
-X-Forwarded-Encrypted: i=1; AKwUvBx8NQWG8LrE9iIeqrbIwW8mGlaEEesi8EVx/Ny3IYI6WgfbaCzF4Id10qINwEO1GL68xN25b7d07/ABmwU=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7+HKpXaLwrM0bLIITw6k/GM9zYyuMI7niMeqC2HNUG72MifER
-	hifhZAP3IKx7kgtePPUOqA8+6j0zW/gI87P/UoP7bVlqePyI2YnM05EY
-X-Gm-Gg: AYBFou3SLMOiHSZKNEw8IUFcFG4lW42Ael2u9ZASYS97m7RXnz3kbz7tqWwbHv39rVm
-	0X1jlTCZPRrmwIIVRdxrRlcPNC0z0Xa5q+KfUfjGnLUStSMVEptbm5bWV6VNV/0LCQBafo7FJxW
-	5LDDjk7VO3CmEYe7zfh7IiGeZLr7/bCSMAWuweoosWLdnMxWYptwiE9rdFMlHczQEYORlnOWjmU
-	xZdolv93nedcAqgLBDZPpcuw7QsLtgR7JdZkFCB7rEQmhsMMrgoJb/k59BNRYrqyiv40CY8tJwc
-	Wu/sBUPsLxcxmnXcxyS/pgW0KbNfNMAUqqDKdxDscaU6RtLEdTSyeWHITeHRxPch3ksWGwyS2Tp
-	0DHhLwDxIF0Y/7QKgtMZsFIQWKyHIgqjyvf+AFu211tktHIWxjVDKvW/VG/3n+PdgsKwAAq1DY5
-	Rfpa02MuUIiNxQUpA+Pofjp7ywzPuYQk2cK760+zBiPcoVBSRSrLHu1YTL8HhCxptWces=
-X-Received: by 2002:a05:600c:468f:b0:49c:fa20:cc02 with SMTP id 5b1f17b1804b1-49fe66f4fc6mr58492795e9.25.1790278785696;
-        Thu, 24 Sep 2026 12:39:45 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff023f12esm1758795e9.0.2026.09.24.12.39.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 12:39:44 -0700 (PDT)
-Date: Thu, 24 Sep 2026 22:39:41 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: oe-kbuild@lists.linux.dev, Arnd Bergmann <arnd@arndb.de>
-Cc: lkp@intel.com, oe-kbuild-all@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: drivers/xen/gntdev.c:817 gntdev_get_page() warn: mask and shift to
- zero: expr='(addr & ~(~((1 << 12) - 1))) >> 12'
-Message-ID: <202609241805.VsLzGPLn-lkp@intel.com>
+        bh=gTjGHblkjZzhraXaqnhHaeUgHULa4Gd97a7Hy/6dpCQ=;
+        b=CqpxV/lsUSI7zyVFNSHOx+wuSfqZdEtZWIUh3I7Fs+mGtoNSa8icT3mnjpshTtkzMX
+         sYQx7Rdeca2KhN0tanIdiU2tz4VCi7qs6GhSzoYK6dVwR3uIBIZflbsPTt8GOXQB5gSm
+         G62uuGpNQYMA2NvXwzqPFjtshsbGSukLBZ1RQacSP/ays2Xri0riA9oaw//XwKgzLpMU
+         45q29xvU8pw8J6wUvbaF1vLvrypaKAHWTKAFu4nJhPGYNKv/ena26xaXG8IiXU/T/fT9
+         TOJHUFJAcsMw7Wi14AEi6DuPZRGgBM8QoY4swMmSDYeMqEsWxUswbzn5vHpdXhUNHCYX
+         kcUA==
+X-Forwarded-Encrypted: i=1; AKwUvBz8zPaSI6inWgRDnJLPgNDwKoamAbQR5ua5mpWadIuxIM4D0s802/j4LDT5+yt3kWWLB7LUkQfNs3ZfHdI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kjnW7hJMcKqGTePWZNdwNTbXZW0bFhlTYFLQaC0qO6jB5KXEjf
+	LPQuHX+lgRSaOcPkpDZPBfw4r8lR3V4khU33rpkYmvQ6qd3ge1QWKKJjrmcJ5cmn1zE7tTolNJT
+	AmiWaLA==
+X-Received: from pjbem2.prod.google.com ([2002:a17:90b:142:b0:3a0:6f00:2a50])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2f84:b0:39e:3221:aff5
+ with SMTP id 98e67ed59e1d1-3a098608b12mr1720472a91.9.1790278824909; Thu, 24
+ Sep 2026 12:40:24 -0700 (PDT)
+Date: Thu, 24 Sep 2026 12:40:24 -0700
+In-Reply-To: <arV6iiz4kB8LrByl@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Mime-Version: 1.0
+References: <20260922001332.1121266-1-seanjc@google.com> <20260922001332.1121266-5-seanjc@google.com>
+ <CAEvNRgH6w_a9+2rOr6r+47JqWc+-8cHq=c7r76nYG2i5deOxSg@mail.gmail.com>
+ <arV4SS8FHwd6Qjs1@google.com> <arV6iiz4kB8LrByl@google.com>
+Message-ID: <arV8qBw-aC5f2nUX@google.com>
+Subject: Re: [PATCH v5 4/6] KVM: guest_memfd: Split bind() into
+ prepare()+commit() phases
+From: Sean Christopherson <seanjc@google.com>
+To: Ackerley Tng <ackerleytng@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Stefan Teodorescu <fane@google.com>, 
+	Dennis Tighe <dtighe@google.com>, Sashiko Bot <sashiko-bot@kernel.org>, 
+	Yan Zhao <yan.y.zhao@intel.com>
+Content-Type: text/plain; charset="us-ascii"
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   62f4c998b297cf233997a2b4cd6fc2d2df0319c9
-commit: d70242427110123b65c095594eb74a703d3af156 ARM: rework ARM11 CPU selection logic
-config: arm-randconfig-r2200-20260924 (https://download.01.org/0day-ci/archive/20260924/202609241805.VsLzGPLn-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 10.5.0
-smatch: v0.5.0-9187-g5189e3fb
+On Thu, Sep 24, 2026, Sean Christopherson wrote:
+> On Thu, Sep 24, 2026, Sean Christopherson wrote:
+> > On Thu, Sep 24, 2026, Ackerley Tng wrote:
+> > But after fiddling with this for an hour or so, I realized that if we fully commit
+> > to configuring new.gmem in kvm_set_memory_region(), then we can move the prepare()
+> > call into kvm_prepare_memory_region() without needing to plumb extra parameters,
+> > and make the gmem stuff look a lot more like the rest of the memslot code.  E.g.
+> > 
+> > 	if (mem->flags & KVM_MEM_GUEST_MEMFD) {
+> > #ifdef CONFIG_KVM_GUEST_MEMFD
+> > 		new->gmem.file = fget(mem->guest_memfd);
+> > 		if (!new->gmem.file) {
+> > 			r = -EBADF;
+> > 			goto out;
+> > 		}
+> > 
+> > 		new->gmem.pgoff = mem->guest_memfd_offset >> PAGE_SHIFT;
+> > #endif
+> > 	}
+> > 
+> > 	r = kvm_set_memslot(kvm, old, new, change);
+> > 
+> > 	/*
+> > 	 * Drop the reference to the gmem file, even on success.  The file pins
+> > 	 * KVM, not the other way 'round.  Active bindings are invalidated if
+> > 	 * the file is closed before memslots are destroyed.
+> > 	 */
+> > #ifdef CONFIG_KVM_GUEST_MEMFD
+> > 	if (new->gmem.file)
+> > 		fput(new->gmem.file);
+> > #endif
+> > 
+> > Not being able to get rid of the #ifdefs is a shame, but from a control flow
+> > perspective, this feels more right than anything else.  Full diff (not fully
+> > tested, and would need to be split into 3+ patches):
+> 
+> Actually, plumbing in @old and @change can wait.  As much as I want to make the
+> calls match the other prepare()+commit() hooks, @old and @change aren't needed
+> until flags-only updates come along, and adding them at that time provide a better
+> git history as the additional plumbing will directly precede their usage (or maybe
+> even be in the same patch).
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: d70242427110 ("ARM: rework ARM11 CPU selection logic")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Reported-by: Dan Carpenter <error27@gmail.com>
-| Closes: https://lore.kernel.org/r/202609241805.VsLzGPLn-lkp@intel.com/
-
-smatch warnings:
-drivers/xen/privcmd.c:488 privcmd_ioctl_mmap_batch() warn: potential user controlled sizeof overflow 'm.num * 8' '0-u32max * 8'
-drivers/xen/privcmd.c:495 privcmd_ioctl_mmap_batch() warn: potential user controlled sizeof overflow 'm.num * (4)' '0-u32max * 4'
-
-vim +817 drivers/xen/gntdev.c
-   470  static long privcmd_ioctl_mmap_batch(
-   471          struct file *file, void __user *udata, int version)
-   472  {
-   473          struct privcmd_data *data = file->private_data;
-   474          int ret;
-   475          struct privcmd_mmapbatch_v2 m;
-   476          struct mm_struct *mm = current->mm;
-   477          struct vm_area_struct *vma;
-   478          unsigned long nr_pages;
-   479          LIST_HEAD(pagelist);
-   480          struct mmap_batch_state state;
-   481  
-   482          switch (version) {
-   483          case 1:
-   484                  if (copy_from_user(&m, udata, sizeof(struct privcmd_mmapbatch)))
-   485                          return -EFAULT;
-   486                  /* Returns per-frame error in m.arr. */
-   487                  m.err = NULL;
-   488                  if (!access_ok(m.arr, m.num * sizeof(*m.arr)))
-                                              ^^^^^^^^^^^^^^^^^^^^^^
-
-   489                          return -EFAULT;
-   490                  break;
-   491          case 2:
-   492                  if (copy_from_user(&m, udata, sizeof(struct privcmd_mmapbatch_v2)))
-   493                          return -EFAULT;
-   494                  /* Returns per-frame error code in m.err. */
-   495                  if (!access_ok(m.err, m.num * (sizeof(*m.err))))
-                                              ^^^^^^^^^^^^^^^^^^^^^^^
-These integer overflow bugs are from 2012, but I guess your patch exposed
-the arm32 build to the zero day bot.  The bugs only affect 32bit systems.
-
-   496                          return -EFAULT;
-   497                  break;
-   498          default:
-   499                  return -EINVAL;
-   500          }
-   501  
-   502          /* If restriction is in place, check the domid matches */
-   503          if (data->domid != DOMID_INVALID && data->domid != m.dom)
-   504                  return -EPERM;
-   505  
-
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
+Aaaaand talking to myself again.  I take this back.  Plumbing in @change is
+desirable, otherwise both kvm_set_memory_region() and kvm_prepare_memory_region()
+need to check KVM_MR_CREATE, which is ugly and unnecessarily fragile.
