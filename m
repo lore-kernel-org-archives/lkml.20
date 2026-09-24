@@ -1,82 +1,105 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C14283142
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:55:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 936B7349CDD
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:59:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790258158; cv=none; b=jFnIowLlndj2VK81+2AnDqqr8Hi01raoyLF3IPDKmOWxhVUpNfwcPIn1J7rjDKeU+xDeH2mLUFV7l34WEJZhmCYqdI17Y8OPlIYcKXiKFHPwNR53ySk+83uxIhQsMwnZngS1AEDVJcB+GAm81q/ye1kEClDsbllvRPMVkEDNW74=
+	t=1790258371; cv=none; b=Rh7yH6hYS+1T4FRiShQHnwqp2th4K+k6M0eYZWW23hNEQoNg48ZbQauw93W4qSs5sSoctV5PVPpZVvxwDfiPfCfg7o7AkmkpfL/n+yy801taiO33b0s/ImDmOKq7eqdkF4wZl1JcFH0UJpxnrBZhCJ+nSrzX2tgAA8aLCerW/e0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790258158; c=relaxed/simple;
-	bh=7CDtzh4z0CdqypNI8DxFycAekERpE8E986pd4O2J03c=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=VSwPxwXwgEAweU3ddD6ROWsUSPg1GHU2ixi2ALW8rEOWakendGbWqxgpr+0S0/+l/oBWz1SVqrLgviLxNU81PgeM5NvlNwpTmVq59ArVKvqyehNeAVmNrMy5dCGFoKZsamdL6iW2Sz+A8+Kv0HIU5d5rFcvn265pkpseKabU8fE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Dtsew/BA; arc=none smtp.client-ip=209.85.214.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790258371; c=relaxed/simple;
+	bh=JpqOeur7GpbN7ezXANNXc+iz0nVAxCGXy8kfPhgmAqs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=o178nrhIkBeK9EL6U3leA5i041b4Zoe81W/ineH0EYe9Ctm3G7AJhVXJOweZMwZj2NpFjEuFCgHjBdRGkBzrb3IS6FmnsloopDfd57MDTE5hdUesCXGN6p+2f6UnCdM0C8xGxMBqAxtrxEtgI078fBy4zdZ38bXvJQA/hqRJO8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xkylD8iy; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Dtsew/BA"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d959904658so21029145ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:55:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xkylD8iy"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350faaso1390147f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:59:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790258157; x=1790862957; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KkxGGQAcZQfF96GEV0BfePCSivvqi5OVjJFPctkp1vk=;
-        b=Dtsew/BAybhEnBj1Xfr6KxnBoUkxE3RqZnR+j+XUDFeedIEhQjuO0jRqMq1mQfP6eL
-         VAqQomKNPRt3a2zFVvxRHkHLYh2aYDn/rzLRSIHSIFcr3j6dxtYDtFBnqOd6w19AJ9Qy
-         m27kn3ZvG7L8P0TnbL/2GzXFNl7fwEm/u0mEwaLStWDzzGe72paUgVcU2qWmqiCzULZA
-         5/0UDyUQ2AvMQKyStb6CyBnJlLidDpv5o+C/MC7NTZRceVvIEXB3onCBY8fFouLPfWPF
-         CZXk0pliSpIw/sC7CZnfY4rSFvxVHTm8kz3vbq3DHH8cgZOEtzdwNCpRaZHx+IybnCvk
-         agsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790258157; x=1790862957;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1790258368; x=1790863168; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KkxGGQAcZQfF96GEV0BfePCSivvqi5OVjJFPctkp1vk=;
-        b=Bj59LlnMUuPWsvYKLGu99DMrdlDC05WZJy9bK3aMA1UqURQH++bnIp9/m5Hrjc4FA0
-         uPm2Hti5h8Q8CDsc2T9hq3IWCZHEAoUCiuZ88QuRCQJPJ06X96grd8ijogzCCs0+5t75
-         B5216zlinDL7YiJTqtI7wZm/FfU/a/DxBPDba6H8DQlUB2U37Q4VCANw0su2fb7ZPL6R
-         r+iNIht8yDSFpOOnMHi2kKmh7d8tiro8x5Rls9M2xsAR8OBM0qll/sVn4mkPvIYy5Wh9
-         QI/ma9vTKavYF2YFXOV2nMxXPjj5pdPz5aAG3tGWIS/1bYenuTzkaWy0ze+yaZGLVleY
-         fQJw==
-X-Forwarded-Encrypted: i=1; AKwUvBy3TCgkIAVndXJncPrhISKM3/HCXqwJ9udBfts43t5S2qPMaPgrYNRkAXJ1+tU7e7NMC6vwX9YV6EhBUHo=@vger.kernel.org
-X-Gm-Message-State: AFuF++m7ZIYn7hDdwrlAwPMQgJZa6NlU1+CUaZ5almqhm4w7/i8OsmPv
-	HK1XDWFnRzlt6Kk3XlvNAkEia1vUf5MQaDEamzf1WoxKuvev9sEOFMfAund8nvBEexB2nOticLV
-	c/oqkZw==
-X-Received: from plbm10.prod.google.com ([2002:a17:902:d18a:b0:2df:69be:94b6])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:2310:b0:2dd:ad73:5b74
- with SMTP id d9443c01a7336-2df7dc36d85mr22967295ad.36.1790258156375; Thu, 24
- Sep 2026 06:55:56 -0700 (PDT)
-Date: Thu, 24 Sep 2026 06:55:55 -0700
-In-Reply-To: <arUGoepfp97GY8aK@blrnaveerao1>
+        bh=LRDlFyxUk3KppsRNFoYPmaT40+fQeOq7faNwXvSK4kA=;
+        b=xkylD8iy+rfMATOyklNh+KekcA/IpTEDD0jhfZWX3dDtgSLyMYN+wt/DGsIiLPJelP
+         1RmaS7GVLF+rzxKhCYBvAKj6UqMaLkY2ZP0fveenlk/tmzbl/yXt67lTvj7tkXiG0u0L
+         ZmtZFHpeXHwey/G6XHgvCZdinJLyoZfEu8DM6HZgHNhmtDd6kzBVTZuqhacbYCK1plIK
+         7P3S0fNOtT5xLMjqjJn9rsCX1i3wi5Pb707SvSlQz5OnItYanyEvW9fdYOAgv8DBEMxg
+         y0UrQpR7+FDrMT547mpVSseDYhpTbaLBeRFDdaXL0O2lrP/11Ct1mKrtrv6KKSwomMMk
+         uZGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790258368; x=1790863168;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LRDlFyxUk3KppsRNFoYPmaT40+fQeOq7faNwXvSK4kA=;
+        b=wXu9aZVHt+yR3bBG4RRTIm6eAfpCNj9ce997GPs0webafHS+wk6e6YfBip/rv4Y+sE
+         07QC2FEGXzDwLzcyXDOWW5ygE8g6BhvENguyLKnenFpsSDa/SOwIJqIkc20z4gUK32xM
+         gKYDOhL0lS9/aky6NC7m9+9qkCP61ax5aiCfxc9Q1+LM/Sw/NhOdunQtpespe8oTs+Mt
+         jg10mD/66h7rGI9UGVC6PQHSakQAchedWc0yXFSQx5/C56VhD0fp2IRhANLkACsxlwyQ
+         nF/cs6Mal0Pkfem9lyrnGFyqXOywJGzWeaFXLAic0CLgL1rXJNOZG84edetr8yblXsJy
+         zo3Q==
+X-Forwarded-Encrypted: i=1; AKwUvByo9HivR2JS9rACFlavBW+/+m4ftq/PzLWHoLOgLUjhRBNYGS2bBhaAJO+6xaAKNY7paYddVXS9MSnwGW0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mvL6YI6xx28aIEIQsTthU+3N5yzMjcwpCe8oCchmFV1MvOhQbi
+	RrQhd3CZ2LLJ5jVc9J8twj7D5cH8XKyCooYhX6igffYqe0MtMQDwTxOdQ2MS4kkUM9g=
+X-Gm-Gg: AYBFou3p5Zpqwf+aicUchy9bGp9IEw8LSNh+FtA7kUBCGTCUrZ5oFKK7hP+KCJBxnMh
+	QWYpAfYPpdYBeicUIPX4ZbAEumHN1J2htOU1ec19MkkDrNRaSeXrY3PnAEulN0DrDPs5oFjtnZH
+	8J/jmTziO1cVhbr2ic2EqKW3sCsn0lTy5gIAGSXTWSPinCkuMRPQ/ahj1k2wY3eMsoETByDKRRt
+	I7/PEoXv31zVDi1owXlAsR4HI7qPCC4f14vnM74SUSmo1IluyRRaZrOlOaE7GtrLoKeGHmPbk+f
+	WBBxJzMndkNz9w5wZrNxSmbGONMkszPWchnOByufQAPIL/vwG824OsRtpSrNlPWTKg4DoeYSeZJ
+	46sdeIhInWtZAE5auHzrkkJcezTjy2AV5CQZIuoPQR3mY08nmRR2N1yRS3Qbj4e6DXpIq1UtbZI
+	tVwUWFo3VFA1UgVfprmfiVkvzM4XGxFL76/Kk4f2RFpFPmC2fvpiQoSQicGBQ1bJOLJQ+5kAMiQ
+	BRAveIMBN2qutx79QcZ
+X-Received: by 2002:a05:600c:a00d:b0:49f:ce73:7ab with SMTP id 5b1f17b1804b1-49fe6708b23mr50754095e9.34.1790258367671;
+        Thu, 24 Sep 2026 06:59:27 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886876c500sm15799213f8f.19.2026.09.24.06.59.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 06:59:27 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Joel Selvaraj <foss@joelselvaraj.com>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sam Ravnborg <sam@ravnborg.org>, Marco Mattiolo <marco.mattiolo@hotmail.it>, 
+ Linus Walleij <linusw@kernel.org>, David Heidelberg <david@ixit.cz>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, Casey Connolly <casey.connolly@linaro.org>, 
+ stable@vger.kernel.org
+In-Reply-To: <20260908-ebbg-ft8719-fixups-v2-0-5454ae1f5581@ixit.cz>
+References: <20260908-ebbg-ft8719-fixups-v2-0-5454ae1f5581@ixit.cz>
+Subject: Re: [PATCH v2 0/3] Xiaomi Poco F1 (ebbg display variant) fixes
+Message-Id: <179025836659.3234093.17562514637378483936.b4-ty@b4>
+Date: Thu, 24 Sep 2026 15:59:26 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260923155108.1550622-1-seanjc@google.com> <20260923155108.1550622-4-seanjc@google.com>
- <arUGoepfp97GY8aK@blrnaveerao1>
-Message-ID: <arUr6xuC2d7A_ZI7@google.com>
-Subject: Re: [PATCH v2 3/3] KVM: SVM: Clear AVIC Physical ID table entry if
- vCPU creation fails
-From: Sean Christopherson <seanjc@google.com>
-To: Naveen N Rao <naveen@kernel.org>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Atish Patra <atishp@meta.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.1
 
-On Thu, Sep 24, 2026, Naveen N Rao wrote:
-> On Wed, Sep 23, 2026 at 08:51:08AM -0700, Sean Christopherson wrote:
-> > From: Naveen N Rao <naveen@kernel.org>
-> 
-> Nit: I noticed this because I thought I had fixed it, but the From: tag 
-> above does not seem to carry (AMD) attribution even though the patch I 
-> posted seems to have the correct form. I checked 'b4 am' and that seems 
-> to be doing the right thing too. Anything I'm missing?
+Hi,
 
-Nope, the problem was on my end.  I was running an older version of b4, and it
-was dropping the "(AMD)" part.  I'll manually fixup this one when applying.
+On Tue, 08 Sep 2026 14:45:01 +0200, David Heidelberg wrote:
+> Been broken in mainline for some time.
+
+Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
+
+[1/3] drm/panel: ebbg-ft8719: Set prepare_prev_first
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/4eeeac9d7c3600a6cae75b2a7bc9c5b67530923c
+[2/3] drm/panel: ebbg-ft8719: Fix the MODULE_LICENSE() string
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/b1885bd1c985999b8a5393f2e23eea8dde3109a9
+[3/3] drm/panel: ebbg-ft8719: Split initialization into enable/disable fn
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/012dc8a8e5b6bca57ef7bb62d6015faff7690e0a
+
+-- 
+Neil
+
