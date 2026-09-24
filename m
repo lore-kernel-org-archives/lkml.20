@@ -1,81 +1,79 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02A04486436;
-	Thu, 24 Sep 2026 16:50:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B1B749E5C2;
+	Thu, 24 Sep 2026 16:51:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790268657; cv=none; b=grpOIFCukoD0Kfgra3yRvdX9ojI2bHGgBHMKlIQ7iWTesEDCJRRTphjGf4XehlVin8HTX0sCHK75SNYAblGvLq8Wun7ZrMnDKlX0u1YU4xeH3baQOWCZzRbxzQP3mVRXs4eEwq776hKcq5ne/Xa0Kf9EsR4zbjEyfQ23vQOh/wU=
+	t=1790268681; cv=none; b=KhaJOyL0Rlc+i5Y4umLOksCx9W96+EUdICzvQ7raX0lp8HFkLjgJnKUvq2XTjsiR+Y/Hb1GQh6fNiCG6E6HJA9us0gRgJuMpcEd2CyuA0WR8ShwwyBb13DghebcOXwfQLJNFJiXr7Wn5zWuf/tMFnfLGkz6LbZKEOZzoa24l0vw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790268657; c=relaxed/simple;
-	bh=OlFoWh+rqFJObhbPkokAKVpDfMDKAyT9eixk5CzAgms=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ltR9T2rnwGFH4HcgeI9YnOFZ2EpJjOrukLypKrAB90SucL2YZP3rTt2rU1Eo+xcCXD914IJMJFug98Y2RvWlD+wEb4+jvPIq8n/Fko/3rEjM2SXYr1m/jLd9mqKT0lBt01aUlYoSAMRXPfwd4qb2CgJmBOjheqe911bWBUq6cLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=3Di4o9un; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790268681; c=relaxed/simple;
+	bh=vrh6u0XHEI7xjUi0d0k6wrotFUcQcnO7/DRhqsNTfog=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=t1YnQDIBhTitSK3ugjtgq7xDQceYBsWG/D3KJaQ66BMt5sDWkx+5NbCrsn1pkr8RGEeNIVAiglbOGkByjiEkcj8+HlveizthLv6YTQ6z2kIi8mb/2O2qZ0SDX/2dWqgV2k9R+ME0nAyFjTXD1uIAVBIdLQ/F64H0XDWiTvw4oz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IoAxh6b0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="3Di4o9un"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=N79et7AdBLbnk95bbO75NtebdQjiOKQmwtR8vmsPlWQ=; b=3D
-	i4o9un+8ccs8K6Fpxdiyj3JZHTnxlMDZbXsXgAQY1KUkDV31lxr8+XhO3H82CUVJfY6pI8SftsEGt
-	gfgWBrkuDZE753deAZVoQnK028ZtHFzvZDvdK6kf1LmpvHuiGiw2m6aWor0/Yy/StxH/gc4hWfKHK
-	wt/aR4XpxRsRStk=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x9meh-0072Wr-Bv; Thu, 24 Sep 2026 18:50:43 +0200
-Date: Thu, 24 Sep 2026 18:50:43 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: =?utf-8?B?0JbQsNC80LHQsNC60LjQtdCyINCg0LDQtNC40Lkg0KDQuNC60LDRgNC00Lg=?=
-	=?utf-8?B?0L3QvtCy0LjRhw==?= <r.zhambakiev@prosoftsystems.ru>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Denis Benato <benato.denis96@gmail.com>,
-	Jacob Keller <jacob.e.keller@intel.com>,
-	Petr Machata <petrm@nvidia.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"lvc-project@linuxtesting.org" <lvc-project@linuxtesting.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH net 3/3] net: fealnx: allocate the card index from an IDA
-Message-ID: <d5a25a0f-67a9-4431-9fa4-24e29730cb26@lunn.ch>
-References: <20260924104231.110576-1-r.zhambakiev@prosoftsystems.ru>
- <20260924104231.110576-3-r.zhambakiev@prosoftsystems.ru>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IoAxh6b0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 278F81F000FF;
+	Thu, 24 Sep 2026 16:51:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790268680;
+	bh=sIJjjJZg4BSGa0jI4YLtKZ0rTNKCQwcMD/DWqSQdRe0=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=IoAxh6b0IahGnOKMLdkWU/sm0A27m1bnYSzTy/hn9lEFwoaZ13rNY11v/z9HuS120
+	 AsoWEbuU/hSXbJ3zQJ9dwb1TGZmZj7FtpnOMHyLnv7//bn1zic+ctxMGGF4C0b4xgQ
+	 3d1b73K0Pox7LzazxoQXno6Ts7hHVhjn/Q/f0qVKcbBNz7iYCOqP7i4pYTh5YSmF12
+	 ANc6pZcdlEVjPH7LAQPorlUoqr/Cj4bvNBwWtEzdfF0bz/j2wZXQP2zULUbsc0kV88
+	 tqwJo/bsYHhicR2RN3qOLcBInuEbSppiEA2vanhGl4OHPn3qE1QgmMaCxP5gx2SiX0
+	 XfDTVguE/iPqw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 568153A566CE;
+	Thu, 24 Sep 2026 16:50:10 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260924104231.110576-3-r.zhambakiev@prosoftsystems.ru>
+Subject: Re: [PATCH net v3] net: phylink: record the PHY only once bringup
+ cannot
+ fail
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179026860889.1650423.15381201853782128326.git-patchwork-notify@kernel.org>
+Date: Thu, 24 Sep 2026 16:50:08 +0000
+References: <20260920222044.1752860-1-f@lex.la>
+In-Reply-To: <20260920222044.1752860-1-f@lex.la>
+To: Aleksei Sviridkin <f@lex.la>
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, linux@armlinux.org.uk,
+ andrew+netdev@lunn.ch, hkallweit1@gmail.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ linux-kernel@vger.kernel.org
 
-On Thu, Sep 24, 2026 at 10:44:25AM +0000, Жамбакиев Радий Рикардинович wrote:
-> From: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
+Hello:
+
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Mon, 21 Sep 2026 01:20:44 +0300 you wrote:
+> phylink_bringup_phy() stores the PHY in pl->phydev before its last
+> fallible step: on a MAC whose phylink ops implement LPI,
+> phy_eee_rx_clock_stop() can fail with a real MDIO error. The callers
+> unwind with phy_detach(), which knows nothing about pl->phydev, so a
+> pointer to a PHY that is no longer attached outlives the failed
+> connect.
 > 
-> card_idx is a static counter that is incremented on every probe.
-> It can overflow and wrap to a negative value, which then indexes
-> options[] and full_duplex[] out of bounds. Large values also no
-> longer fit in the 12-byte boardname[] buffer.
+> [...]
 
-Seems very theoretical. For something which is never going to happen,
-please keep it KISS:
+Here is the summary with links:
+  - [net,v3] net: phylink: record the PHY only once bringup cannot fail
+    https://git.kernel.org/netdev/net/c/a940003f44e7
 
-	if (card_idx > 100000) {
-      		dev_error(..., "Please stop doing that!");
-		return -ENODEV;
-	 }
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-    Andrew
 
----
-pw-bot: cr
