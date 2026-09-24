@@ -1,49 +1,87 @@
-Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F1BED40A936;
-	Thu, 24 Sep 2026 11:18:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.214.250.239
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790248708; cv=none; b=lQjIk9rRiYqrM1BLw4qyqWzaZAxRal/I5OJVf/oeXPshePI6obmlFC/G1IBHo22gjFH5kLNDSAvYy2IvaAsKQ2+FhU9X0J21NQcAvtetNyUsKXTViLijBBQa5gWkjnXisvnc1MPSR7nxq96Dh+BwqM0eaRFBFJPQ9fEihH79W1k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790248708; c=relaxed/simple;
-	bh=ZMMAM39BWNk7yMnZdN2azby1KqpgjDTo4lFsVmtZV58=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=seEElpbKfcpGdqIiFw54CMRR9tBGHHJNwfhV/l+VVQckDWbJMlwL4EEa964ip91LhHu95nRMnsX13CiElrja05YZ9VOcXyPDeRueo20hVKuKnfMM9CAmvoxt9jftKoOO0tMkay3Lo90Mc/y7Ab/LGICEh+5aoUFiBksh/N5QRRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org; spf=pass smtp.mailfrom=8bytes.org; arc=none smtp.client-ip=85.214.250.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
-Received: from 8bytes.org (p200300f6af404a00e4ccc4fdbbd66590.dip0.t-ipconnect.de [IPv6:2003:f6:af40:4a00:e4cc:c4fd:bbd6:6590])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.8bytes.org (Postfix) with ESMTPSA id B33E11C7465;
-	Thu, 24 Sep 2026 13:18:25 +0200 (CEST)
-Date: Thu, 24 Sep 2026 13:18:24 +0200
-From: "Joerg Roedel (AMD)" <joro@8bytes.org>
-To: markuss.broks@gmail.com
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/4] IOMMU driver improvements for modern Exynos SysMMUs
-Message-ID: <arUG8gG8Fx3es8Hj@8bytes.org>
-References: <20260820-exynos-iommu-fixes-v1-0-6bbcd673bb15@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB5913AD50F
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:18:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790248725; cv=none; b=cfrVgptllpenlwyy0HAUo4BX6RNmI8pyjv9laU160UGRSaELKgJNyFfr89Jsn00x92iJTQaZOv1Z5pezy7buJk7BOfroXw5uQUzg846Fi0t6TrQlpxptFq5OvN2V4o8Xwbo6YHBMyDmRwLQh1yxx5FxTkmVGQZ44yfh+zmRnQSw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790248725; c=relaxed/simple;
+	bh=lcdubPlHtoDIjRt+QuMoY5OpbtDK10iEJXOyO3ON3QE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gcEHTw3bzxEA4OHZ82eHhhp3m9hqhLFdITQkFL3HwS68+Z6GnOc9tknDIhlUMA+Epl0KrqRQN4Mx9jvh0w89s56ZQ9WwKxWcbhIsdIPhUEJyCWTs8kcla+moy+jHrLYCg1hU42ud8wmhVPVo6MFbsEnWL3kJVZp9N4IusVDKQps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FahPZOSY; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FahPZOSY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F87A1F00893
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:18:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790248724;
+	bh=OcTJOje/LLFPmLDozu5uW9vUgvKXaCAXc1Kv5yqHgEY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=FahPZOSY9crA1L+tZ2mcaAeDcUpaVGBCPpXYVBau2ivxRn0VSwlZaQ/9gDHL6isyo
+	 dU/hrwWQogLUh46GOB0l8pbm37WFKh/u53rxqteIRdgYJ9Sibmp2OrZrkSEGmNARVQ
+	 5t9dHojCWb5g86m0Wlb0DFCKJIe955akV/gjUgTufTAC0Y0f95s1XFRTKZwz+BBn4o
+	 iZcV2DA7KMCZEmCY5R0llJSGGyjq0PybsyKQkWg4mPltKPSuIfVq5kIGdolFOPkE6S
+	 GviMJA8uT5IZNY41uZSKBS2nJq3wtP7QenLDNWiCypFaK89NzVbIrEL11GnWB9yyS/
+	 T1nP3nz/i1Sew==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5b5f21afe8cso893713e87.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:18:44 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwUmEUp0KlB5gFctr0uFLiaXjS0zZJDQ4u5SXEfumIWGdcUUIEXrCEbzT2y+DFiysw9ABReRVBXQmux+Bk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZfjQPwAYUu0+TrAGDDLwn+SAGb0rP0WGEPxmdAjUyJCH95m2F
+	Z90xZ7R/Z0gD1xwx03CrdZzLHbCCXbmVcrmtmaLF8bok5yJ+kCIkPkt9mZ875mRs6oa2tUPTd0H
+	gwfpRV31IBFwyynHgjuQsVbSHmAa57ro=
+X-Received: by 2002:a05:6512:378c:20b0:5b8:c15a:6ce3 with SMTP id
+ 2adb3069b0e04-5b8df1f2b2bmr492740e87.29.1790248718275; Thu, 24 Sep 2026
+ 04:18:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260820-exynos-iommu-fixes-v1-0-6bbcd673bb15@gmail.com>
+References: <20260924065514.3678640-1-mehmet.fide@gmail.com>
+In-Reply-To: <20260924065514.3678640-1-mehmet.fide@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 24 Sep 2026 13:18:25 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmth4fewBX7FCEJooDuwHWtGv+XvvQas6Y5iStpTwAy9Q@mail.gmail.com>
+X-Gm-Features: AclHuK95jx6rtMJfElg8F2gKY3_L62ve5zcmLjc1yqjBoxFNa2u9t59lm0nJBi8
+Message-ID: <CAD++jLmth4fewBX7FCEJooDuwHWtGv+XvvQas6Y5iStpTwAy9Q@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: include linux/errno.h in consumer.h for ENOTSUPP
+To: Mehmet Fide <mehmet.fide@gmail.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Haibo Chen <haibo.chen@nxp.com>, 
+	kernel test robot <lkp@intel.com>, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 20, 2026 at 10:12:04PM +0300, Markuss Broks via B4 Relay wrote:
-> Markuss Broks (4):
->       iommu/exynos: detect SysMMUs without BLOCK mode
->       iommu/exynos: fix the enable sequence for no-block SysMMUs
->       iommu/exynos: fix TLB invalidation for no-block SysMMUs
->       iommu/exynos: decode the v7 fault transaction info
+On Thu, Sep 24, 2026 at 8:55=E2=80=AFAM Mehmet Fide <mehmet.fide@gmail.com>=
+ wrote:
 
-Applied, thanks.
+> From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+>
+> The CONFIG_PINCTRL=3Dn stubs of pinctrl_gpio_get_config() and
+> pinctrl_gpio_set_config() return -ENOTSUPP, but the header only pulls in
+> linux/err.h, which provides asm/errno.h and not the kernel-internal
+> ENOTSUPP from linux/errno.h. A translation unit that includes
+> pinctrl/consumer.h before anything else fails to build:
+>
+>   include/linux/pinctrl/consumer.h:110:10: error: use of undeclared ident=
+ifier 'ENOTSUPP'
+>
+> Include linux/errno.h explicitly.
+>
+> Fixes: b44aec87658e ("pinctrl: make the CONFIG_PINCTRL=3Dn gpio config st=
+ubs return -ENOTSUPP")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202609240855.U59akHDO-lkp@i=
+ntel.com/
+> Closes: https://lore.kernel.org/oe-kbuild-all/202609241240.61Hz5rix-lkp@i=
+ntel.com/
+> Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
+
+Patch applied!
+
+Yours,
+Linus Walleij
