@@ -1,133 +1,109 @@
-Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C46EE3BB115;
-	Thu, 24 Sep 2026 03:39:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF2622A80D
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:40:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790221176; cv=none; b=gVLZ8i81lvtSfrQHwngqlcz+YXzR8XGrby2oYMpHkLcf3MkypNxTkBZtuavmMMB0Km7xSRJjyGZFhtPeTPfCcMF5qJZElkhe8iCOKDc8C+uIf5SiAy1HMoumhIxLVZPxBN2DMfmkoy30Os0BB4013ggMr5OZACzjq55dYXrqFZg=
+	t=1790221257; cv=none; b=onXBoM6o6dOqU86j0kbYdBmnVw4wm6Ekk4lcQuhiakn4NWFr5m5tRQfT3epy4FTY9mwcz73TY0sS5s7lG4YrdwJUTs+1LV93CoopzHgvUQ6mFFKyInGhjkRCyaHzx6kNhm2niQl3gangdwosOo+TTwYsliV7P+vN85a+M96obNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790221176; c=relaxed/simple;
-	bh=VqK+6laanjrz1rxv2yQMX25No3H4+MG+ucA252qDvnw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TrBrnndWqIYt5wZlzMK9PeiaPqKAC+ol5WcqktrVlTrqWHMQJfSjE0MXrdrwMX9/5hhLpePL5hzHYFAEtQ34osvP1UzW85U6uft68RHG8glLOj/9XfzbYkZ7F8W8Jrmf6k++g1N+GJ3SZYF3OjCsWOT+BEXm3LWIHfQKW1kcqU8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=tz34fzE5; arc=none smtp.client-ip=115.124.30.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="tz34fzE5"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1790221169; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=x5UQzPD0SWBkAXpHucjkoYsBGLd0sRwE9DOzhDz+9zw=;
-	b=tz34fzE5djs3wmU2KlX9zBP/HfqYIGn7UxRCLewVT33WIhGxu7yRAz9Rkd4/Vv4AoZNU/XaWvocPdjcZt36O+RG9LzAmUPZDBuOiyuKUkym2wr5i6RhX97XLXQuHRTTQjEMf3mMuJZrUdvJlcD1g5Uwj+jsnY7963hHa1Kgzg6Y=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=kanie@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XBYNdiX_1790221168;
-Received: from localhost(mailfrom:kanie@linux.alibaba.com fp:SMTPD_---0XBYNdiX_1790221168 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 24 Sep 2026 11:39:29 +0800
-From: Guixin Liu <kanie@linux.alibaba.com>
-To: Andy Whitcroft <apw@canonical.com>,
-	Joe Perches <joe@perches.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Alison Schofield <alison.schofield@intel.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-cxl@vger.kernel.org
-Subject: [PATCH v2] checkpatch: don't flag ACQUIRE_ERR() assignments in if conditions
-Date: Thu, 24 Sep 2026 11:39:23 +0800
-Message-ID: <20260924033923.4140210-1-kanie@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
+	s=arc-20240116; t=1790221257; c=relaxed/simple;
+	bh=Ay8INYvsU0bSbcMMTTZT5WdCmBRX5P6jvM2EkZI7hZk=;
+	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type; b=Vwk1Nilznwuiu/dX6ry2TVh6FV4VtubXebrlgxwAeVB7S8hG7talR0Yd47ze99RVY4jmhLrlb+8gTfkKLyclxNPNvoQi+3iH/kIqu+madRKQcxsNiLEJv7tZMWmveGGtf+sC4XKbKHMCir95FBDJKYd3Z8DtqV4vEwPRLRYAFjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hr03n4DKpz8XrrJ;
+	Thu, 24 Sep 2026 11:40:53 +0800 (CST)
+Received: from xaxapp05.zte.com.cn ([10.99.98.109])
+	by mse-fl1.zte.com.cn with SMTP id 68O3ekJR063160;
+	Thu, 24 Sep 2026 11:40:46 +0800 (+08)
+	(envelope-from xu.xin16@zte.com.cn)
+Received: from mapi (xaxapp04[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Thu, 24 Sep 2026 11:40:48 +0800 (CST)
+X-Zmail-TransId: 2afb6ab49bc0afc-d0621
+X-Mailer: Zmail v1.0
+Message-ID: <202609241140480776ICmMIKoP7Sa8CiYKlmUF@zte.com.cn>
+In-Reply-To: <fd88104a-982a-4c73-9a5f-8c67ded3d5ca@huawei.com>
+References: 20260913121716693wiN5osmShywgtitghSm7G@zte.com.cn,a19a0c1d-d2bf-4c40-9308-e815f925f87a@huawei.com,fd88104a-982a-4c73-9a5f-8c67ded3d5ca@huawei.com
+Date: Thu, 24 Sep 2026 11:40:48 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+From: <xu.xin16@zte.com.cn>
+To: <tujinjiang@huawei.com>
+Cc: <akpm@linux-foundation.org>, <david@kernel.org>, <liam@infradead.org>,
+        <surenb@google.com>, <rppt@kernel.org>, <ziy@nvidia.com>,
+        <baolin.wang@linux.alibaba.com>, <nico.pache@linux.dev>,
+        <dev.jain@arm.com>, <baohua@kernel.org>, <lance.yang@linux.dev>,
+        <chengming.zhou@linux.dev>, <usama.arif@linux.dev>,
+        <gourry@gourry.net>, <harry@kernel.org>, <vbabka@kernel.org>,
+        <peterz@infradead.org>, <borntraeger@linux.ibm.com>,
+        <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>
+Subject: =?UTF-8?B?UmU6IFtQQVRDSCAwLzRdIG1tL2tzbTogdXNlIHBlci1WTUEgbG9ja2luZyBmb3IgZmluZF9tZXJnZWFibGVfdm1hKCk=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 68O3ekJR063160
+X-TLS: YES
+X-ENVELOPE-SENDER: xu.xin16@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Thu, 24 Sep 2026 11:40:53 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AB49BC5.000/4hr03n4DKpz8XrrJ
 
-ACQUIRE_ERR() and its wrappers, PM_RUNTIME_ACQUIRE_ERR() and
-IIO_DEV_ACQUIRE_FAILED(), report whether a conditional cleanup.h guard
-was acquired, and drivers consume the result directly in an if
-condition:
+>>> A possible approach to restore the necessary guarantee is to pin 
+>>> mm_users while
+>>> ksmd is walking the page tables:
+>>>
+>>> Before scanning a given mm, try to take a reference with 
+>>> mmget_not_zero(mm).
+>>> If it fails, the mm is exiting, so we skip it.
+>>>
+>>> Hold that reference for the entire duration of scanning that mm (not 
+>>> per-VMA),
+>>> and drop it with mmput() when done.
+>>>
+>>> On the fallback path where we need to acquire mmap_read_lock(), drop 
+>>> the mm_users
+>>> reference before waiting, to avoid delaying an exiting mm.
+>>
+>> We should avoid holding mm_users ref too long. Otherwise, when the 
+>> task being scanned
+>> by ksmd is OOM-skilled, even though the victim task has responsed 
+>> SIGKILL signal and
+>> exited, the mmaps aren't released due to mm_user > 0.
+>
+>In this case, we have to relying on OOM reaper to work. But it need to wait OOM_REAPER_DELAY
+>(2s) to response.
 
-	if ((rc = ACQUIRE_ERR(mutex_intr, &lock)))
-		return rc;
+It shouldn't be too long if holding mm_users only during ksmd accesses mm's pagetable.
+Essentially, the delayed time of releasing mmap has no difference to the original approach by
+mmap_write_lock.
 
-That combined form is the established style at the 49 in-tree call
-sites under drivers/cxl and drivers/pci/tsm.c, so ASSIGN_IN_IF fires
-there only as a false positive, and every patch touching those lines
-carries noise that reviewers have to wave off manually.
+Or If we want to keep the code simpler, we can consider the other way to keep serialization
+and synchronization between __ksm_exit() and ksmd thread, that is: Adding vma_start_write()
+for each vma? like:
 
-Skip the check only when every assignment in the condition assigns the
-result of such a call, matched by the *_ACQUIRE_ERR() /
-*_ACQUIRE_FAILED() naming convention of its wrappers. Plain
-assignments, mixed conditions and near-miss identifiers still get
-flagged.
-
-Suggested-by: Alison Schofield <alison.schofield@intel.com>
-Cc: linux-cxl@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Guixin Liu <kanie@linux.alibaba.com>
-
----
-Changes since v1 [1]:
-
-- Check each assignment in the condition instead of the condition as a
-  whole, so a mixed condition such as
-  "if ((rc = regular_function()) || (ret = ACQUIRE_ERR(...)))" keeps
-  getting flagged (Alison Schofield).
-- Match the assigned-to expression with $Lval, as Joe Perches
-  suggested on Alison's earlier attempt at this exception [2].
-- Cc linux-cxl, where most users of this form live.
-
-Two deviations from [2]: the assigned expression capture excludes '=',
-so an '==' comparison in a mixed condition is not mistaken for a bad
-assignment, and the check requires an assignment the $Lval match can
-see, so compound assignments like '+=', which it cannot see, are not
-silently allowed.
-
-Testing: ran checkpatch on a test file with the allowed forms (bare
-macro and both wrappers, member and array element lhs, multiple
-ACQUIRE family assignments in one condition, an '==' comparison
-alongside, no spaces around '=') and with 14 cases that must still
-trigger (plain assignments, near-miss identifiers, arithmetic on the
-call result, ACQUIRE_ERR in a comment, indirect assignment, mixed
-conditions in both orders). All allowed forms pass, all 14 still
-trigger. The 49 in-tree call sites under drivers/cxl and
-drivers/pci/tsm.c no longer report ASSIGN_IN_IF, and checkpatch output
-is unchanged for fs/namei.c, kernel/sched/core.c, mm/vmscan.c and
-net/core/dev.c.
-
-[1] https://lore.kernel.org/all/20260916020921.3480730-1-kanie@linux.alibaba.com/
-[2] https://lore.kernel.org/linux-cxl/20250815010645.2980846-1-alison.schofield@intel.com/
----
- scripts/checkpatch.pl | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
-index 8a7787d228a6..eee06ac6737f 100755
---- a/scripts/checkpatch.pl
-+++ b/scripts/checkpatch.pl
-@@ -5777,7 +5777,21 @@ sub process {
- 			my ($s, $c) = ($stat, $cond);
- 			my $fixed_assign_in_if = 0;
- 
-+			# ACQUIRE_ERR() and its wrappers, e.g. PM_RUNTIME_ACQUIRE_ERR()
-+			# and IIO_DEV_ACQUIRE_FAILED(), are meant to be evaluated in an
-+			# if condition, with the error assigned in the condition:
-+			#	if ((rc = ACQUIRE_ERR(name, &lock)))
-+			# Allow that only when every assignment in the condition assigns
-+			# the result of such a call, so that a mixed condition keeps
-+			# getting flagged:
-+			#	if ((rc = regular_function()) || (ret = ACQUIRE_ERR(name, &lock)))
-+			my $assign_in_if = 0;
- 			if ($c =~ /\bif\s*\(.*[^<>!=]=[^=].*/s) {
-+				my $has_assignment = $c =~ /\b$Lval\s*=\s*[^,)&|=]+/;
-+				my $has_other_assignment = $c =~ /\b$Lval\s*=\s*(?!\s*\w*ACQUIRE_(?:ERR|FAILED)\s*\()[^,)&|=]+/;
-+				$assign_in_if = !$has_assignment || $has_other_assignment;
-+			}
-+			if ($assign_in_if) {
- 				if (ERROR("ASSIGN_IN_IF",
- 					  "do not use assignment in if condition\n" . $herecurr) &&
- 				    $fix && $perl_version_ok) {
--- 
-2.43.7
-
+diff --git a/mm/ksm.c b/mm/ksm.c
+index 624f37975e12..1f11646bb00d 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -3129,6 +3129,10 @@ void __ksm_exit(struct mm_struct *mm)
+                mmdrop(mm);
+        } else if (mm_slot) {
+                mmap_write_lock(mm);
++               VMA_ITERATOR(vmi, mm, 0);
++               for_each_vma(vmi, vma)
++                       vma_start_write(vma);
++
+                mmap_write_unlock(mm);
+        }
