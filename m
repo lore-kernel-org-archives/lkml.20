@@ -1,187 +1,146 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65417415F31
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:10:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE30247AF4D
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:11:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790255453; cv=none; b=QmWVYxlXBkxRdBK4tn/QHDFWgEGpsQ5iAjNdBA6Dh/5oeTxDuDSXp0aiOsnRZme4XEcOyrxrLYns8p0vjEyAPgVeXduQDG4yWPkf3Mu4Oass5vgZQwALB0L1Vf5uWspDMJO5zpJXygGT1MiZ9gI4RAnj8u3KKw8QVMg1chUc3zU=
+	t=1790255469; cv=none; b=tAse3mo4qQf4cmdZVF5ITEAamQA6oUswC0YUMts65Wthzs8p/r5xXHgurnvHOsOkuO4j1IG7LwskiktTYXKXZaZRYbo+SQfoiCs3r7kdCAeAfsRCq7Rz8NDOqS9Y2W+M8EYitTCbVDN+A6OHwqUSg3o72EVD4ZzjNO5rm84P03M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790255453; c=relaxed/simple;
-	bh=LEbGtS8WmyppljlUHIFZla0GOEs+0aoAt5wsCaKPPSo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QWCDhcvs14XU++fX9zGpvNY82108q+os3CKCmqIqbuKbCll7lnQ0SE5gdsIJZiOmIcnyMMnd87uHzdhxpIhbdFsnEXNaCsaTY98OeYh5W2fc/+JLsf8OTNVaRDkBSkhUrBXRhBmyLPewk/Dc4TZWHURlSTfr6y0HZWT1NrtNua8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jwUievlG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CHnjgurO; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790255469; c=relaxed/simple;
+	bh=RpE473KszzH17HYgMUb8LduON/1ifwDjCRqC7DttZcc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=HjT5rdzu3VPpmCUlKBJ65FZU9PDcfvX96ZCGk5whqNlqqehsRfuWymGUfC5ce1K4JnRWyH11G1DmxXk0DBwgv3u3myJqIbcWlHtofnR0/Z47FXV6FpmJjJjLkjhhrs0806vq66HPqKD7+vfKQCnnRawgjvbiNRArd4XXJ0DcUJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TiDYRlCp; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jwUievlG";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CHnjgurO"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OC4cYJ2594214
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:10:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=arsILVgrBpwLtL9SX7rYgMeh
-	d4uTdc54DY2C8hwmI+8=; b=jwUievlGRJPT2B4zZGab/WCKi2OT7Vehn+3TYe93
-	/tCcrjNO3mf+qBgO6UZB8lExboU8y+akqZJYQAIvnYGYJ//fPQy6+E5oMb1i+6sk
-	ExIESb5mzM7nt1QvBfTmDkKzhE9GHQDgTEje79BXwnr/9R2pc7I3aC0+m7/KhQYm
-	OHFBx0WNijI7NsTr4ucNfNtVWQAUQUitGvQQCmFHlmsCbqTFkhLd6A+bVdZv2XLE
-	TPnny9J+SdZZ9NYk+ATorfEijLsdrKGtS65RPrgHo6etrH+dorWVXlKIYfMXyGVe
-	fkIbLSnVjiev+XTmR4azzeL+F4ICEct0onh+aMC10bEnDw==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw1tjgnua-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:10:51 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-980682ebf05so284286241.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:10:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790255450; x=1790860250; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=arsILVgrBpwLtL9SX7rYgMehd4uTdc54DY2C8hwmI+8=;
-        b=CHnjgurO1GHj0sJX2N/asu2Bpu1bYjl94dXIlOe45mIAuUZ606lOQNOWlzVqTsDSeL
-         9ZQJffbwzO+lkO+TLmYiQSOyF9QjxUxgLjJXDsYqs9H1F4/cV2jGdjWihx0WqDEmgJaw
-         yiYv+Oo4eQbxDaILYqANPqcpm8xYgbAQmw/H33VJP/LyjbEbzHH/ijJsLiv6Lpm+ZBgr
-         KwOTLb14jjtj08GkxgTe/6FBB2xGYlQW431u//8S/JUK2PBmJQVbo49H+W6n/xGXiTX4
-         5SL436OrODVFm73MN7Y9Qopb/vd3fBWB+FQMEJVti7fruJSOgVpng/pJ9yVxJWL8RRve
-         X5jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790255450; x=1790860250;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=arsILVgrBpwLtL9SX7rYgMehd4uTdc54DY2C8hwmI+8=;
-        b=LjTPtJtH1A63ZAh4sGiT5Bdo7LCWejyqTvr0+8bVf/B2Xp51/OwpOl+0xKFzVYlN3q
-         +9kVacqeQf2VWEJWWP6wlDoy9Uav3qgSNddobI96C47gXZE+++BjQ/NfR7fuQP2XUW5w
-         G/n+sec8So7fDnO/YS9OzwLJbNe9Rnuq+fnEsKSMMozgtygGw4wP2a/AJDXlDX1AnhPm
-         UDG2CiO56fQDkI64qBMJQrROCfFRq6gDQAa/3LY/KFYuZgMAM6H3fk6ZZr1PBejA8Uvw
-         1BYCRE/wSQZjfdWY31nq1Iq8yolYmxW8r0RJecKSe2wC06K7gjQHHdPu9gdiO5Owolho
-         mi0A==
-X-Forwarded-Encrypted: i=1; AKwUvBxnfKxS9kv7KztI+rbE05iDJDLqW1JhmDUm73fCNOiGqUQmDRFJBX94e1LiCa8C30hBAT7gY/tLXQTC9Pk=@vger.kernel.org
-X-Gm-Message-State: AFuF++m/ZxXcltKNBpbYcO5dpIdaoQpP4Z/LoB685RV0pDoCjOT4BqAx
-	tFfALex0jZMrvHbquzSuUEXg/TI26geJUPJ+v0J3K3kdk/fk5v752eApl82X4cd7ykFBwo3TZjl
-	pzCUNqLw/kKsrHKhcn+O0SoCHU0QJaxb+VMDlIJnzt1ZY3yLLZWlF3JRmy44kIzsYb2A=
-X-Gm-Gg: AYBFou2oZrLFpezzD7ry/Uux92iBZcCUkFleyf00GauCMyaYNXhb8mTElI9A4TKD4jl
-	bakhYtuPNxlqhxUT54KpXuFJk4qQ/XNNfrfEoqa3A2SWVdH83wOYUdtgHweupkFp4bsFj8xH5bw
-	zOSpDB2yjrEVymvw6HL5qz4xWVzF0YuFdi6o9mCwgZ2ETmAQATwkH1JZdmnNtGgDSTS1h8Ng1BZ
-	Rf9ONBwvpAOEJtDMVvsv+1vnLsscR8V7nibZJPQPsSvAYV8ZGAVsVqE9+F/bBzg8OsqL0fsI6sa
-	ea+uq2+ctuAXQJkk/f6E65pqkqbFQ9WOgAR6DK9P1nry0jPRZ/Vk2D+KwD0Z1w0Y6o+2vNH/KSa
-	VjwB899zdnr4dkw==
-X-Received: by 2002:a05:6102:5801:b0:785:c39b:6a1 with SMTP id ada2fe7eead31-7af1c99cf51mr986824137.6.1790255450141;
-        Thu, 24 Sep 2026 06:10:50 -0700 (PDT)
-X-Received: by 2002:a05:6102:5801:b0:785:c39b:6a1 with SMTP id ada2fe7eead31-7af1c99cf51mr986806137.6.1790255449373;
-        Thu, 24 Sep 2026 06:10:49 -0700 (PDT)
-Received: from localhost ([188.216.77.92])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdf99df60sm107231235e9.1.2026.09.24.06.10.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 06:10:48 -0700 (PDT)
-Date: Thu, 24 Sep 2026 15:10:47 +0200
-From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, maxime.chevallier@bootlin.com,
-        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org, sashiko-bot@kernel.org
-Subject: Re: [PATCH] net: stmmac: guard FCS stripping against runt frames
-Message-ID: <arUhV90af6coj2IK@lore-desk>
-References: <20260923162339.1375698-1-qwe.aldo@gmail.com>
- <arQ4dVkI9llhXCDx@lore-desk>
- <78724445-4c69-44fb-b82a-1f9275e37e9e@lunn.ch>
- <arTX2kNFGXLg7vdn@lore-desk>
- <8b3d8225-0d86-4e73-86c8-b7f644faef56@lunn.ch>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TiDYRlCp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790255466;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=wGd/N7e0wZbIXsO++vGg001i2u9cJCsA0SFI/XMX5f0=;
+	b=TiDYRlCpbft74gOW8YqeLcvJ0FIHLt6hKscVfmilk8C3SHpSbyaYEp1Bl+sBkng5CQRnX4
+	sZ+E/HP4nJODiRx3LwsIHfqReIgO3oeteKVP6KTqjlG8ovUxcp0U6+NrUzCRWpvMcc6slg
+	/5qBTWHq923/Eovx4bFJciK+zpU/rfo=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-49-49qdQ0b-PkGh4ytzlUmRVA-1; Thu,
+ 24 Sep 2026 09:11:04 -0400
+X-MC-Unique: 49qdQ0b-PkGh4ytzlUmRVA-1
+X-Mimecast-MFC-AGG-ID: 49qdQ0b-PkGh4ytzlUmRVA_1790255463
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DCEDB195DE22;
+	Thu, 24 Sep 2026 13:11:02 +0000 (UTC)
+Received: from aesteve-thinkpadp1gen8.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B7E68180049F;
+	Thu, 24 Sep 2026 13:11:00 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Subject: [PATCH v3 0/4] Add automotive SMEM hardening for Qualcomm
+ platforms
+Date: Thu, 24 Sep 2026 15:10:34 +0200
+Message-Id: <20260924-port-smem-v3-0-fbc2ea81a654@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xhGvZqQR+CkuDMS6"
-Content-Disposition: inline
-In-Reply-To: <8b3d8225-0d86-4e73-86c8-b7f644faef56@lunn.ch>
-X-Proofpoint-ORIG-GUID: TXYQvaH3q-cWC-YRsK3XmOFjZNCogYWt
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA1NCBTYWx0ZWRfX2tXIjtaZL6HV
- tqHz1zBaA4dqhgtbFg18d2xwRwa0Yl1fHcTWSvXwmX5T4KO3868UPYgjRS5sho8/ynanG4g1Em2
- B8i9wWeDo0O12XBBL+yKZKGVOm/1/MR9wsYpOwzLjE3l7hCAv2xNupNz1IAVapbVpwdD/8qviAG
- hplAEV+HEW7/tHf1tkdNYPMYJySjEkqZLKHqLrLOy7ecutKzSg2axqKblGuEA1dVkgb4o6KRG5X
- Rgy7N/L7zdVWyF3zXG/x1ISxkFU/VBr7yJxr5PpbKwr75nqcD0P8TkSZV+fXy/9QnluR6Zsh5kS
- TlAJ7qHZ5MyGWWO9AXAZ37AQBZrbi8vS3T5+U+Z81XDN/4eRuSggAPR///s+kkwrnITkLV6Uhsw
- x4XDdlx1dKxDF98qgLEDlcDCk2LBkfKEurWY3veKdtPcbGrQ2B75ClfyZKXdml+tnl3uYCLWauR
- UXym5VPdEKDtAUlGyAg==
-X-Authority-Analysis: v=2.4 cv=cK11IVeN c=1 sm=1 tr=0 ts=6ab5215b cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=8V8mYWrpQfyZ0I-j8N8A:9
- a=CjuIK1q_8ugA:10 a=zS1Ju1pEN-1IdQOvjlkA:9 a=1WsBpfsz9X-RYQiigVTh:22
-X-Proofpoint-GUID: TXYQvaH3q-cWC-YRsK3XmOFjZNCogYWt
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA1NCBTYWx0ZWRfX9Njc4aSg9UDB
- 1DOXwZS9Z2dyzwdaGJwLrKNka4M/KU5AeP+CfLacq/biWcKTZ5e8sL3BFFVaoYqM28BatBSXXvr
- w7tkKsBYkbZOeYVZQrWJ7Ck0OQplKys=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- impostorscore=0 spamscore=0 malwarescore=0 phishscore=0 adultscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609240054
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1WMQQ7CIBQFr9KwFgMUBFx5D+OiwK9l0dIAIZqmd
+ 5c2JtblvLyZBSWIHhK6NguKUHzyYarQnhpkh256AvauMmKEXYiiGs8hZpxGGLEUVFkpreZUoPq
+ fI/T+tbfuj8qDTznE954udFu/FUYOlUIxwY7qjoteqNb0twhu6PLZhhFtmcJ+qib8qLKqGsO1d
+ K61XJk/dV3XD4BM57TeAAAA
+X-Change-ID: 20260819-port-smem-7518c77c9415
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Albert Esteve <aesteve@redhat.com>, 
+ Sarannya S <quic_sarannya@oss.qualcomm.com>, 
+ Pranav Mahesh Phansalkar <quic_pphansal@oss.qualcomm.com>, 
+ Sudeepgoud Patil <quic_sudeepgo@oss.qualcomm.com>, 
+ Tony Truong <quic_truong@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790255460; l=2638;
+ i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
+ bh=RpE473KszzH17HYgMUb8LduON/1ifwDjCRqC7DttZcc=;
+ b=bE5ZoPo5xrvZVwx3zLVrDc64TpTQw4dYhpM8zpMny0FF5UtmrF/JLu9UmZUktgsoIWricpLNZ
+ t2szL1VjO6AA3ZrL2e19dGU1SUIebQGC11VZbpS4wHsixTDQaNP35Gm
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
---xhGvZqQR+CkuDMS6
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The Qualcomm SMEM driver manages shared memory partitions used for
+inter-processor communication on Qualcomm SoCs, including the
+automotive SA8775P platform. Vendor trees carry additional validation
+and partition-enumeration logic that is not yet present in master.
 
-> On Thu, Sep 24, 2026 at 09:57:14AM +0200, Lorenzo Bianconi wrote:
-> > > > > @@ -5808,10 +5809,10 @@ static int stmmac_rx(struct stmmac_priv *=
-priv, int limit, u32 queue)
-> > > > > =20
-> > > > >  		/* ACS is disabled; strip manually. */
-> > > > >  		if (likely(!(status & rx_not_ls))) {
-> > > > > -			if (buf2_len) {
-> > > > > +			if (buf2_len >=3D ETH_FCS_LEN) {
-> > > >=20
-> > > > I do not think this approach is correct since, at least theoretical=
-ly, the FCS can be
-> > > > splitted between buf1 and buf2.
-> > >=20
-> > > We are talking about runt frames here, so less than 64 bytes in
-> > > size. Can such a frame be split over two buffers? What is the minimum
-> > > size of the first buffer?
-> >=20
-> > Why are talking just about runt frames?  According to my understanding,
-> > this codebase (at least the one in stmmac_rx()) is executed on all
-> > 'last fragments'. Am I missing something?
->=20
-> That the patch subject is wrong?
->=20
-> [PATCH] net: stmmac: guard FCS stripping against runt frames
+Patch 1 adds IN_PARTITION_RANGE() for pointer+size checks against a region.
 
-ack, I missed the subject, but I think it is wrong, the issue is not just on
-runt frames.
+Patch 2 adds bounds checks when walking private uncached and cached
+entry lists.
 
-Regards,
-Lorenzo
+Patch 3 validates item payload size and pointer once a matching entry is
+found.
 
->=20
-> I suspect this is an AI generated bug report, a minimal fix has been
-> proposed, but no actual thought applied to the situation, such as does
-> the hardware even allow it to happen, does it apply to more complex
-> situations, such as fragmentation etc. The usual AI problems....
->=20
-> 	Andrew
+Patch 4 skips multi-remote-host partitions during enumeration. SMEM
+now supports partitions involving more than one remote host, but the
+driver does not implement that case yet.
 
---xhGvZqQR+CkuDMS6
-Content-Type: application/pgp-signature; name=signature.asc
+The first three patches split the original vendor boundary-check change
+so each class of condition can be reviewed on its own. All four are
+based on public vendor patches from Qualcomm [1][2]. Adapted for
+master. In particular:
 
------BEGIN PGP SIGNATURE-----
+ - Dropped the xarray partition rework, which is already present in
+   master (79602b750b96c, "soc: qcom: smem: Switch partitions to
+   xarray")
 
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCarUhVwAKCRA6cBh0uS2t
-rMCYAQCnZVdVYwp4BlPYl2ifvd+7xlnUC2ADvKHkMNQ/jXTGOQEAubiTI6IBnWJJ
-sv5VixPu2WCzvQQZjYfHjmwu4kWZRQw=
-=IjrR
------END PGP SIGNATURE-----
+Built on master (Linux 7.3-rc4), and tested (prior to rebase, with
+Linux 7.2.0-rc6+) on Qualcomm SA8775P Ride V3 board. SMEM platform device
+binds and initializes successfully.
 
---xhGvZqQR+CkuDMS6--
+[1] https://git.codelinaro.org/clo/la/kernel/qcom/-/commit/3e521f2641c8f01f00fd74a088206942ce23d6d4
+[2] https://git.codelinaro.org/clo/la/kernel/qcom/-/commit/842dd28b0276b3824a607e067b3c20e266bcf230
+
+Signed-off-by: Albert Esteve <aesteve@redhat.com>
+---
+Changes in v3:
+- Rebased to v7.3-rc4
+- Split the overflow/boundary patch into helper, list-walk, and payload
+  validation patches
+- Fixed qcom_smem_get_private() while loop condition
+- Fixed indentations
+- Link to v2: https://lore.kernel.org/r/20260904-port-smem-v2-0-bb497dd3c48b@redhat.com
+
+Changes in v2:
+- Update patch 1 authorship to Sarannya
+- Update all emails from @quicinc.com to @oss.qualcomm.com
+- Make smem.c copyright yearless
+- Link to v1: https://lore.kernel.org/r/20260820-port-smem-v1-0-d19a45f583bf@redhat.com
+
+---
+Sarannya S (3):
+      soc: qcom: smem: add IN_PARTITION_RANGE helper
+      soc: qcom: smem: validate private entry list walks
+      soc: qcom: smem: validate private item payloads
+
+Tony Truong (1):
+      soc: qcom: smem: ignore multi remote host partitions
+
+ drivers/soc/qcom/smem.c | 107 ++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 76 insertions(+), 31 deletions(-)
+---
+base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
+change-id: 20260819-port-smem-7518c77c9415
+
+Best regards,
+-- 
+Albert Esteve <aesteve@redhat.com>
+
