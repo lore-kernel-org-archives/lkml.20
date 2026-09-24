@@ -1,141 +1,128 @@
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 808032931DC;
-	Thu, 24 Sep 2026 16:28:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61A684248CE
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:28:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790267288; cv=none; b=omVRPqxtX7FauluHM14Bm4FYZC/aErNNHQx4He1kIj5Na9u+Fyg/0gv7bYp3CyRs+pQo1OBPvr47Mlf3yxnqQJD7VfHpdOzb6pGYgUqoDdG9NpkyLEHlzTYYX0BTye8S67IiEe3IEd4We0qjuioECc7RJ4tIy7l5WBEtSkw8teM=
+	t=1790267325; cv=none; b=HsGVeSQ2bIuvKpvJgvbmSQIAZYDcS3XgvdiM0PWZcDMSxsIK+zIZ3A/jWMFFUick9D2F724ZyZP8LPXuDNSsYrTeI53G+ALNVTolXCN+xrCMgM0NHAlW+Z9wCmQcWn50JlfS6fi+HZSEsc5g3iBPjFUUjADTxcSOY3xVyUYZJ5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790267288; c=relaxed/simple;
-	bh=pPSoOJugKNMAyKKJahZhyIvwFGHuI3CFaDyU+NXn17s=;
+	s=arc-20240116; t=1790267325; c=relaxed/simple;
+	bh=cxP7WPgYOcsOzTkYzBVH75a7X8pFNombS5dd5Fs4gFs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gJ0szAvBLd4pOBJl/jSRPa2z5B3PQHOuf3ixvpq2UEkFCjePJQpamzaSt0PbJEmRrd9tkzkxVqa5RK0AYFZSEkgKtGpkqi3GMs1ttU3rroKmTOWZbpyrY6QgO3lzcwu1WhksS+EmNZbqhu6TbzNdXVruBS0FqlKhJfn/KiEwITA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=p1cBsPdV; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=s7Dr8VSK; arc=none smtp.client-ip=103.168.172.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=JrDtIRmLt010AihtoIiBAX3mMG5ULF3xcvIIJjHDJXcu7iDCrducIdIXPSaulsylo4gkjzVDVJ1uTJ4/mbbSmeQoEAJBbNyM/XOn15tjLYQ7Alb5frn5QzcC5GcyvrDDaXPwWL6bsxTkOf/Z66aQnQMbIwPmEiCNOU73RfmOIrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=UFJomPNn; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="p1cBsPdV";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="s7Dr8VSK"
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfout.phl.internal (Postfix) with ESMTP id 8D506EC0193;
-	Thu, 24 Sep 2026 12:28:04 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-10.internal (MEProxy); Thu, 24 Sep 2026 12:28:04 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
-	 h=cc:cc:content-transfer-encoding:content-type:content-type
-	:date:date:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=fm2;
-	 t=1790267284; x=1790353684; bh=KqdYesQ6ptmwwm6LSTY7gkDMoNj3LuVL
-	leOnwtbIWNw=; b=p1cBsPdVAAMbEgRrDByVPARx8QpIXl04otq+DI79FYW7gONT
-	aiH7em4hLoPp9Lpf/IHSXAjnPIj9ruCkRA2pqSQyhhKmIUhLLuBjsTvkGpTvt1E/
-	rT3NX2SWrQGxsZlklphTSGi/SGFldL3YS1DHrCAoX/CQzyydXe4OZ5BsfsI3eoAb
-	FZyUjZ8BZK65i2gtKGtv9zbxrFUi1byHSlWbAQZPQnrhbXNF78bDISHf2ftVp48H
-	0hKZ8mCM7KnYgT5EF6DZXaWA/9tCABRRv9TAwIRKUHgoeAQ3NmlMbFM7VU0peNqk
-	tZoVHq0AqNetpaxTSTMb7Ui27zQQNcTnv32EkA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790267284; x=
-	1790353684; bh=KqdYesQ6ptmwwm6LSTY7gkDMoNj3LuVLleOnwtbIWNw=; b=s
-	7Dr8VSK8CoOZyA0tyLSh5vtTbpugYujbsSsdoC0eBLiKKnpGkvHxRQgdNB6857t3
-	999t4VrG11YIJRvN2zMrSzxwSAHRrtpsfmvGYyrR7PORUzqZeSojawDqZVPB8MVE
-	OkYBzN93BYZC8vrgVS4q1F9AXV4J57N6Mnh6KoajL/34koLJUYzMwLqbqOixvIRl
-	T8IDoW0dpfg4LXUuCp1yeA+CM76xjKKDx6y2nmrQ0idWoNKOjMYKqMlgnek/S1/3
-	FsLDfxaeyS8d6M3QJHNNCoFm42oVY4tNnuBif1HYcSZ54eooBLuJSeSeXysE6z6c
-	1yWb6T7c62ydIRDzyvmmA==
-X-ME-Sender: <xms:kU-1aj3nO_23x2rRayjyGwocQi_6N-XLfRXy-WkbxaoKqq2af5LRAg>
-    <xme:kU-1amrW-ZiIDroa5ZAnL9UfSYJGusCVlpgYOatA1ZaiwBqsa3zSWeRacSiU6bEuN
-    Ko2dnNjcRcFTUDM3cAFUDQRAfWM-b28vzFiXCsbt0xsY6kTLaq7c1_8>
-X-ME-Received: <xmr:kU-1ahAHnG_12bkfxOxqISvjXQZEbf-1-mBNzT1h5q017TduZ3J3464Y1d8Q>
-X-ME-Proxy-Cause: dmFkZTFhwHdmJGobszBA7IYHVtW/Mv9QjKEIbTDExmIxLOju3KJrRvwbAl93Bb6DUPRVop
-    zs5H+zaLlFGLsWP4MGhJHRz67kX04BLfitMOO2bB8li1TppLwKc1VJSEycz8hbnOToc2ax
-    Ly0ufPR9EcaRbFGjwN7Z3s7abet1nWe5thBG2qJ2cafBGe+oq7wsup6wVi5t4D4+uUCQkz
-    IO+aS2MPdkr95qz27OU/3nAb1nVlKVmLeG/kXCm9w/kIriZinfHwIwn3E/xrCPP0KseIqw
-    b4McqlLWjl0XTjesFGs8VNc30T8Pd5XXshkyq0fUPaIiaa3MujgVHc8QPJTAbykY6QVgLT
-    /mLY2hBIO0U/xdfgCFYJHc/bnxHJ2WkKmHchQgpyyLYbiOt1h2Oikjy5cYLH9DtECJ/saf
-    jf6ODutWAeQyIHu/Oqhw7W31KhnGGXR6mVJox8V4YY9ZPXLiWmWsybdQONa3Xkh5HcrHOO
-    k1mHCjzv4Gl3YSC3IJq6O3K5b9duo0ParS6eFSRDY3RgruMVlcf2PlWIG0sP2JF/0g9wuT
-    O+0SxYYP8hWdaEVLMarEn7YJxKfWvHbB7E61PndaMRku2kPmHkT/KMZhFfWU5KrjeYn+lN
-    II5897zYql+pUY2uqULXfd5s1bTT2sP4yAHuVFewnzgESYVmjWBS37V4ZZLg
-X-ME-Proxy: <xmx:kU-1avryQlnjdEqIdAUxtadPiauBCzfeqBAmWpSRrxGj6IBnPEiE8w>
-    <xmx:kU-1akAle3lnew9yuyIaFlVONZKqPubQ2d5IdrevyTM_ybjPLF-1uA>
-    <xmx:kU-1aiX8rOCMKXN7Iwb6TgO0skRuhblEwJZxdGvXlsShj6tIGXfndQ>
-    <xmx:kU-1auC9s7eeGQjc2XnO3-Kyc4Bss_tlLYGankW-Fxwu3-puoFHYuQ>
-    <xmx:lE-1aop1iFmnFGFbrcivC25eahUXYCDIUymm5n6jD_11UPeOU94_ELuq>
-Feedback-ID: i934648bf:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 24 Sep 2026 12:28:00 -0400 (EDT)
-Date: Thu, 24 Sep 2026 18:27:58 +0200
-From: Sabrina Dubroca <sd@queasysnail.net>
-To: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-Cc: Jaeyoung Chung <jjy600901@snu.ac.kr>, horms@kernel.org,
-	linux-kernel@vger.kernel.org, eulgyukim@snu.ac.kr,
-	davem@davemloft.net, edumazet@google.com,
-	herbert@gondor.apana.org.au, kuba@kernel.org,
-	netdev@vger.kernel.org, pabeni@redhat.com,
-	steffen.klassert@secunet.com, zylzyl2333@gmail.com
-Subject: Re: [BUG] general protection fault in espintcp_sendmsg
-Message-ID: <arVPjqf1LPVKWRK0@krikkit>
-References: <20260819155349.3555804-1-jjy600901@snu.ac.kr>
- <15476f67-1484-4af8-bc5e-ce32fb24607f@linux.dev>
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="UFJomPNn"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910cadeb0so155187685a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:28:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1790267322; x=1790872122; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vqnXyJFHA3jgUbjUAmybKoPJLc3QQSs1Be5SK9r4kic=;
+        b=UFJomPNnGedUDMzL2JQqGfxFciFScmgvYi8OT5578HM7jjlXiRFqp4W076XAxgcQS6
+         sHmK7pqVepM5TXUhqfO212jzkiCmPyyc40itZGUwyoSqYJPCXGDcnFT0bB0VQISK6H14
+         jOIjLv2sD3bWyw3jHjrYUfvblbcmDXlQG9TpyAx4//15+DKMQXryA0EQLlaW6ybs6nIx
+         aZJT93gsAfx79F07VydGRbK8Hct2hvTYHAA3e4vLlFqWIAJd1w+WQH1ec32IRxE9YrBA
+         YzUpGnG1XfSpt6+aFRRlsYM9m0iqHeklawXLZE3mMLPqCqk+MZSbDnY1kLpHNNMMWSFF
+         06/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790267322; x=1790872122;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vqnXyJFHA3jgUbjUAmybKoPJLc3QQSs1Be5SK9r4kic=;
+        b=le9Dbkor6AbcnBs2KoFCEqfN7xRNG637/8/n1Nj1XOQLOFAq3E+V479C5tk4k+0SYi
+         /HOAYzCvjNn1SIPypmV/TXo69n45cNiR2nvX5MyvduhTej69NGOtJIJmMbiJX/AMsVGP
+         jf1y7/nLA1DptkvBQVK5Uwyq2CxlCNO6oabSkv3yjblHfRRF96kfD1NoYukQm4umDShN
+         YLk8ZuBHQQqE1dzCAiHt+reiCBv4muwYR+bnTn+rXurq7QSPyJZf86aPpyk1wTwBmQR1
+         iYyt8gOOPRGeFfr6P1Gy/fzEv/741dCeHBAKHRfZ9h+dO8GXbDnouwVBSnAH7jF1WciB
+         Qduw==
+X-Forwarded-Encrypted: i=1; AKwUvBwHehkjDg3hROMRtBjsHI4g/aUn6oletqc58fb0flRERo4Rz5l1eRmCi84elZk6b+iiW0YXgvk6T/n7ZUA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kufKoUoq3SlLoA6TLw5+X7dBM31fF6uio3Xins/JsNuRnSEO19
+	m9+9ZHgAIZyyutxNXr7Yr1JJHlId/Q/V5Lw2fZR70zSoRcgrDbrUUMhJVxde7vlpX4o=
+X-Gm-Gg: AYBFou3F7c6j4wFsrYdro0FXosRgHJbJ3rjf27GFMAaOGHetbebFNIBIyiGkxCV6UM/
+	r/WZ++yF5TK/z7MfMz4bAWCcaPuXFBjy3XTc/ux6w1lPFGT97xTtvt2JEmta/BTIkPvOFXXRU5X
+	UZn53ndknEVcRLCVB199l4fJasut8kVjfiMsOcTNLrCOUI3dMWzcDxYWWyJ0ZvcYKokgSGOSRH8
+	f1KzwIGUySJuTpXC27dJ5CYuJyOzHUHuYe2dR32ZGespvhUW029qsy/XUelAPx6661YjS3WqJVX
+	jNycTtgSLs91+N3kLELWSMcwfPQBDQiazbIikFDaDynZANQ0k6kOznemNF8GJhPEItj6PWIRolT
+	r8XoqY4P7q7LwW9BKPVSbjwdG2bds82XKUVdzmcoj2pmcZJZ07JiTiWRfFgYpxcSn3AK+6bcr+g
+	bPxwZwiGlfGWl9j0ocUeNjPggRLHjgdVG8Xw8l8z8vYxFYQuvGoeLijQIPXK1PkwveN8XKOV25R
+	IkbqBaA8RURj0MWj614+aS8qKu/GuKzUB1rELVLl7zI2bsy2f67/BU=
+X-Received: by 2002:a05:620a:31a4:b0:930:9585:e08e with SMTP id af79cd13be357-93c362b2742mr373053185a.10.1790267322126;
+        Thu, 24 Sep 2026 09:28:42 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c248223dbsm499338585a.10.2026.09.24.09.28.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 09:28:41 -0700 (PDT)
+Date: Thu, 24 Sep 2026 12:28:39 -0400
+From: Gregory Price <gourry@gourry.net>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Marc Zyngier <maz@kernel.org>, 
+	Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+	Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+	Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH v3 01/40] mm/vma: fix mmap_prepare file handling, remove
+ file_doesnt_need_get
+Message-ID: <arVOW_frpIU_JbbP@gourry-fedora-PF4VCD3F>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-1-4583d8a23bca@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <15476f67-1484-4af8-bc5e-ce32fb24607f@linux.dev>
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-1-4583d8a23bca@kernel.org>
 
-2026-08-20, 16:22:19 +0800, Xuanqiang Luo wrote:
-> Hi Jaeyoung,
-> 
-> 在 2026/8/19 23:53, Jaeyoung Chung 写道:
-> > Hello,
-> > 
-> > We found a "general protection fault in espintcp_sendmsg" on Linux v7.2.
-> > The issue was found by our own race fuzzer. We have not analyzed the root
-> > cause, so we do not have a proposed fix to offer.
-> > 
-> > To reproduce the race reliably, we applied the delay patch below to the
-> > kernel and ran the C reproducer as root inside an x86_64 QEMU guest. The
-> > crash log we observed, the delay patch and the reproducer are all included
-> > below.
-> > 
-> > The following kernel config options are required to reproduce the issue:
-> > 	CONFIG_XFRM=y
-> > 	CONFIG_XFRM_USER=y
-> > 	CONFIG_INET_ESP=y
-> > 	CONFIG_INET_ESPINTCP=y
-> > 	CONFIG_KASAN=y
-> > 
-> > We hope this report is useful. Please let us know if any further
-> > information would help.
-> > 
-> > Reported-by: Eulgyu Kim <eulgyukim@snu.ac.kr>
-> > Reported-by: Jaeyoung Chung <jjy600901@snu.ac.kr>
-> 
-> Thanks for the report.
-> 
-> I suspect the issue you reproduced is the same race that Yilin Zhu
-> attempted to address a few months ago:
-> 
-> https://lore.kernel.org/all/c30b645074a1b379e0f7fe297f917c66137d9964.1778464688.git.zylzyl2333@gmail.com/
-> 
-> I have added Yilin and Sabrina back to Cc. Sabrina reviewed that patch,
-> but as far as I can tell, no revised version was posted afterwards. I
-> do not know the current status of that work.
+On Thu, Sep 17, 2026 at 05:22:10PM +0100, Lorenzo Stoakes (ARM) wrote:
+> +static void put_map(struct mmap_state *map)
+> +{
+...
+> +	if (map->vm_file && !map_same_file(map))
+> +		fput(map->vm_file);
+...
+> diff --git a/mm/vma.h b/mm/vma.h
+> index e97bd2dfa786..f15faa83f3d6 100644
+> --- a/mm/vma.h
+> +++ b/mm/vma.h
+> @@ -394,8 +394,10 @@ static inline void compat_set_vma_from_desc(struct vm_area_struct *vma,
+>  
+> +	if (desc->vm_file != vma->vm_file) {
+> +		fput(vma->vm_file);
 
-Thanks. I made some comments on the patch and never got an answer or a
-v2. I'll take over and add some tags for the reporters/authors of v1
-and of this thread.
 
-I should be able to send it either tonight or tomorrow.
+Sashiko pointed out that this could be null if the vma is "anonymized".
 
--- 
-Sabrina
+Previously we'd discussed that anonymizing a file folio is more of a
+wart than a feature, and IIRC you intended to remove that (i think?)
+when you removed zero-file mapping "anonymization" so some of this VMA
+stuff could be detangled.
+
+If this is an intermediate state, do we still need to manage this NULL
+scenario, and when we drop the anonymization mechanism we add a WARN()
+that says someone is being naughty?
+
+~Gregory
