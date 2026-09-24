@@ -1,213 +1,153 @@
-Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
+Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A2E47798A;
-	Thu, 24 Sep 2026 10:22:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A7F13F39ED;
+	Thu, 24 Sep 2026 10:22:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790245358; cv=none; b=GU8tCY87XwKF37fiORPkaLm8kk+UziTIpwCNlrabkfF/WieJuTpnsEF35fIJU+NknPsyTXMtNnd83N29V3P5OkZQzQUY8/6NyXuumBjmlt7sz9xgcOfdCpkISdVpK8lFKMfYrtB+RADlNeBMFUp797reBoPStjv6y9lUflYB49Q=
+	t=1790245361; cv=none; b=YiNYAf87CIhIVoaeQKmPpD6rbhrBigsfFjGAKCMFfHALZH9k5yVLBDeZS7sW/4XIRfbt/XnAOd9Af0/FwvA1kEj9aWZAMXciKsYnorJTds32Y+NNXhRPA0vVTemXtdkVO9sAN3qh4RlndihHnZQvgLwJzK+U+AzxpsZJK5DQCj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790245358; c=relaxed/simple;
-	bh=xMvFOKaxRGN6FGa6PSSXKKHP5V98CEeeE7KMOo+FrJw=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pIgxLG1clqBRQN2aid8gSA+HrO8tjxMkP0eRn/QToRonYDc+ZCS3oVfoR4WJwLihQnNhB6Z8FLInKyRC+9mcUM2TWXfEV31P88SYwrZqtb8zSQlB4zRS7yVztVgo7yTxaFuZePjEYGF820vBnI2W+Z6911+3jHH97H+gLpsNYvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=RG4Fy1P9; arc=none smtp.client-ip=113.46.200.219
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1790245361; c=relaxed/simple;
+	bh=lDruGgZYhg9fDThbcSRA/nI0fInXa+tw2rpCg6ELs8c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DudHJ4fYJlCdTUHMuiNryalmss17kCwrhAVky/MN6VWdhdjm07ewJSQoQlEcxF/FFxT02w+x3pXQsN4NddPr0zDgM78kZmORxMgB9OMuXG+C5gaDgwzppah2X5pw+rDLlN4Z5fdo28t4J7RMkD7KHMcT8WO3MY2TdWTckiRp5+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=iKRjkWo0; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=rKBbM6F7; arc=none smtp.client-ip=202.12.124.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="RG4Fy1P9"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=scpxykvaJ6IR0KlcEgHZABm57FbZxqSwIYwnIN+9DX4=;
-	b=RG4Fy1P9Pg5DYIVbIy0nl2VdXcQNa74ATc2Jcd+Zs88h1LrMMcvA69omrEFDvLsYjwCEQ1r/C
-	Reu8+9doJVu3Ipnjl7gGbys5Q9k2e27W6y4afo7ii1c3JwpUPsLCo/L7Icpyvfl4U7+ZJcHeLQM
-	DjZh8YvQO/MuLdRvgOB/00E=
-Received: from mail.maildlp.com (unknown [172.19.162.140])
-	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4hr8jD6QrRz1prM0;
-	Thu, 24 Sep 2026 18:10:24 +0800 (CST)
-Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
-	by mail.maildlp.com (Postfix) with ESMTPS id A27C2202E6;
-	Thu, 24 Sep 2026 18:22:32 +0800 (CST)
-Received: from octopus.huawei.com (10.67.174.191) by
- whupemk100010.china.huawei.com (7.152.184.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 24 Sep 2026 18:22:28 +0800
-From: Cai Xinchen <caixinchen1@huawei.com>
-To: <mic@digikod.net>, <gnoack@google.com>, <paul@paul-moore.com>,
-	<jmorris@namei.org>, <serge@hallyn.com>, <corbet@lwn.net>,
-	<skhan@linuxfoundation.org>
-CC: <rdunlap@infradead.org>, <gregkh@linuxfoundation.org>,
-	<rafael@kernel.org>, <dakr@kernel.org>, <dlemoal@kernel.org>, <hch@lst.de>,
-	<axboe@kernel.dk>, <viro@zeniv.linux.org.uk>, <brauner@kernel.org>,
-	<jack@suse.cz>, <dhowells@redhat.com>, <code@tyhicks.com>,
-	<linkinjeon@kernel.org>, <sj1557.seo@samsung.com>, <yuezhang.mo@sony.com>,
-	<hirofumi@mail.parknet.co.jp>, <cel@kernel.org>, <jlayton@kernel.org>,
-	<neil@brown.name>, <okorniev@redhat.com>, <Dai.Ngo@oracle.com>,
-	<tom@talpey.com>, <miklos@szeredi.hu>, <amir73il@gmail.com>,
-	<senozhatsky@chromium.org>, <chenxiaosong@chenxiaosong.com>,
-	<zohar@linux.ibm.com>, <roberto.sassu@huawei.com>,
-	<dmitry.kasatkin@gmail.com>, <eric.snowberg@oracle.com>,
-	<stephen.smalley.work@gmail.com>, <omosnacek@gmail.com>,
-	<casey@schaufler-ca.com>, <nanx95726@gmail.com>, <djwong@kernel.org>,
-	<daniel@iogearbox.net>, <linux-security-module@vger.kernel.org>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<driver-core@lists.linux.dev>, <linux-block@vger.kernel.org>,
-	<linux-fsdevel@vger.kernel.org>, <netfs@lists.linux.dev>,
-	<ecryptfs@vger.kernel.org>, <exfat@lists.linux.dev>,
-	<linux-nfs@vger.kernel.org>, <linux-unionfs@vger.kernel.org>,
-	<linux-cifs@vger.kernel.org>, <linux-integrity@vger.kernel.org>,
-	<selinux@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
-	<xiujianfeng@huawei.com>, <caixinchen1@huawei.com>, <lujialin4@huawei.com>
-Subject: [PATCH RFC -next 02/12] LSM: pass struct path to the inode_setsecctx hook
-Date: Thu, 24 Sep 2026 18:48:21 +0800
-Message-ID: <20260924104831.1081137-3-caixinchen1@huawei.com>
-X-Mailer: git-send-email 2.18.0.huawei.25
-In-Reply-To: <20260924104831.1081137-1-caixinchen1@huawei.com>
-References: <20260924104831.1081137-1-caixinchen1@huawei.com>
+	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="iKRjkWo0";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="rKBbM6F7"
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id EC7037A0097;
+	Thu, 24 Sep 2026 06:22:38 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-10.internal (MEProxy); Thu, 24 Sep 2026 06:22:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1790245358; x=
+	1790331758; bh=xwpW92JGbEzXtzwYPFYrQF6TWGLrLwKH/MCyMXFaCU8=; b=i
+	KRjkWo0fW5wJBDAJ26EFKPqaupuLhWwlyEAh6yGlvgXhTNrLs3QfPFp9GzADgP7d
+	tMeSIkXK1cUuAQ5j6WKWDXiMy3EJmAqoNKh7UfIZnbf1Dx/ywPfS0I1vebiQ7Ykf
+	TlBJ8i63t97D3vtHGu4MyE2YybcN3PkkrSnRFZcO/2AeZ0SO5jvxyr/ugVJwfh2N
+	/S8V+3pzzcGPPORIDdhv9oOPiMZeJ4Z14LNG3wRRVuavRWCQYumVRweMyG6CcdPt
+	dgZnD9rrZfXjUEVy+3GVQ1qtDAVFPb0NlxW+BS9uL9ZB/NiR79fnDGVytzRomWjw
+	ApIeDGCiLGRJHF9lIZD9w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm1; t=1790245358; x=1790331758; bh=x
+	wpW92JGbEzXtzwYPFYrQF6TWGLrLwKH/MCyMXFaCU8=; b=rKBbM6F77hg3Jixhu
+	7s6xll6/mF+CoYskvl+D7MHPAY16IEZ/oIxEPvn9cihzfbNhucmMprG3S/aIDXU3
+	4T8dL1gNiCWpdzqOAEkZMXx9OhPyzlNrAbHTs0qX2yAyfqTYXnU06IiGD+IqPkOc
+	N5AqkU1s7tW48rfPfFJQUhY29Kz+f8Qshr943lX19xzo44JiiPX15xnxuKI/aGS7
+	OqWfq0D54ajx9o+fbY98z2IYZq6A4itBV5rIYafvhSfB79tXdyFHUn5yGnfFwNCi
+	tqSc60VYH35gbk5hbpAon2cGUFaRebZ6rKRiO1+xFVmdgoyoYsC4BVqTkuBQa7Ap
+	a4NQg==
+X-ME-Sender: <xms:7vm0ajqypYjs1_SHtrwYMYMg6C3qW8-wbm7xvsxkMoQjB3Fe_kdjXA>
+    <xme:7vm0atzeLBQPhr3LnnXkOBmkxcbsBO9dOYtpRJTdK30esdiYcnle463RspiukqnmC
+    FhHfq28uhQGYUA1tzPUrlc_7p_uMf-jQ4fRLMB947w_aMETGV0KjlPa>
+X-ME-Received: <xmr:7vm0auDp-hwRDeHOFFHu5D1bKtEDh-P2frTWb4lSfmmWmGTEifNfM2egXmxggzbxiYPikdR2SQ>
+X-ME-Proxy-Cause: dmFkZTFPKKwhcsF2tVcf6J1tdoJzHIGivu3GiCcgJWp0Pt/Z9Gazphq9uGNO64qgWXMd+/
+    r0Y/QC+GxAQC2Q0ieU8CUeap8kK2TKuEf79EXK3nmOyezz75bao1uY7ZOtIqBBuPshRXdM
+    IOJk66Q73oMH4TFALUk5Kcv9/tV+8zmUjNu4znwNLW6QCtNjM5T8lbyMLgXah+SwAfjMDC
+    rCr4sv174gNvDyZRPPY9GCenUHIgd5s2D05F8pDWC2YXojrrAeUc6Y5eDqXskNa/85NpzE
+    OHpcem/V6xXRehfddSOwZh22araaf502XMhjJIeZwed46ATd8n5B6uoJ2HCgVahU0f6Ubx
+    whOd0LNLSHUROlH4FTlLbnthylfxgk4+mepJQxd//EfYV7H0rGj84bHGsG3HqTfH26PlDV
+    p9WVw8dzguo/vs0BUEY4seVr3h+rhzz4IDrGMOhC6/1H0RGIduPbKa/H7DChraU+mcz/+a
+    RRUGFPwgcmu3/KgXtsSvkPwHyqj/+GFAFbb7QUq/ZfPnw7HRClQCc9nXnwD+Z2lGc1x0EI
+    z8/Rbeyusuzyo8J6+7Ng9j+3UxsFx1ncudZdx3y/jheQ4PVwT9kR2XqGmKBcYJ8sUJn1Uw
+    8aQZXpbU77T4y6kJaeAGWhhyGYHEd7oCCD3edeTFmhtdpnRy7t4C9uCDXhWw
+X-ME-Proxy: <xmx:7vm0arITajPw14F_qSRjMzotAm8wIDrgGeCLgd65ZxLhvd22a_GiiA>
+    <xmx:7vm0ahH9DRBYT5HGfcWQZ038BTIk9lmQ5G58aQi0oZm8iM86dRhTJw>
+    <xmx:7vm0auH5gyDgI7SQYKOC3Q92qcj6ihtVCvs6Baiz9p2TV8gTxkQghw>
+    <xmx:7vm0ahuxj8f5z8DcRftU3KU_pJqCB60hwldsjG0wEh3WSQsDML_jnw>
+    <xmx:7vm0aqyXPJ0VgDOq7V3faO8HVaVyvhj1TLPlP2JwwVKDMP0xeXZgPf9j>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 24 Sep 2026 06:22:29 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net,
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	ulfh@kernel.org,
+	p.zabel@pengutronix.de,
+	ogabbay@kernel.org,
+	zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com,
+	abel.vesa@oss.qualcomm.com,
+	sebastian.reichel@collabora.com,
+	sidong.yang@furiosa.ai,
+	u.kleine-koenig@baylibre.com,
+	chaoyi.chen@rock-chips.com,
+	diederik@cknow-tech.com,
+	alchark@flipper.net,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	iommu@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jiaxing Hu <gahing@gahingwoo.com>
+Subject: [PATCH v14 04/15] accel/rocket: let the core suspend after a reset
+Date: Thu, 24 Sep 2026 22:21:24 +1200
+Message-ID: <20260924102135.92217-5-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260924102135.92217-1-gahing@gahingwoo.com>
+References: <20260924102135.92217-1-gahing@gahingwoo.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- whupemk100010.china.huawei.com (7.152.184.41)
+Content-Transfer-Encoding: 8bit
 
-The inode_setsecctx hook and its security_inode_setsecctx() caller
-in fs/nfsd operate on a dentry even though both have a struct path
-available.  The SELinux and Smack implementations write the label
-through __vfs_setxattr_locked(), whose idmap argument they hardcode
-to &nop_mnt_idmap.
+rocket_reset() drops the in-flight job's runtime PM reference with
+pm_runtime_put_noidle(), which requests nothing, so the core does not
+suspend until something else asks and its power domain does not cycle. On
+RK3576 the domain's power-on resets the NPU bus interface; without it the
+IOMMU stops answering and the job after a timeout fails.
 
-Switch the hook to take a const struct path so that the upcoming
-conversion of the xattr helpers to struct path can be reflected
-directly in the implementations.  For now the implementations keep
-passing &nop_mnt_idmap together with path->dentry to
-__vfs_setxattr_locked(), preserving the current behavior; they will
-be switched to pass the path itself once the xattr helpers take one.
+Use pm_runtime_put_autosuspend(), as the completion path does. On a ROCK 4D
+the job after a timeout goes from 0 to 128 of 128 channels correct.
 
-Assisted-by: opencode: glm-5.3
-Signed-off-by: Cai Xinchen <caixinchen1@huawei.com>
+Link: https://lore.kernel.org/all/20260819073530.6087-1-royalnet026@gmail.com/
+Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, induced reset, JOB_TIMEOUT_MS=2
 ---
- fs/nfsd/vfs.c                 | 2 +-
- include/linux/lsm_hook_defs.h | 2 +-
- include/linux/security.h      | 4 ++--
- security/security.c           | 6 +++---
- security/selinux/hooks.c      | 6 +++---
- security/smack/smack_lsm.c    | 6 +++---
- 6 files changed, 13 insertions(+), 13 deletions(-)
+ drivers/accel/rocket/rocket_job.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
-index ed8e04cc794e..922337083fe9 100644
---- a/fs/nfsd/vfs.c
-+++ b/fs/nfsd/vfs.c
-@@ -625,7 +625,7 @@ nfsd_setattr(struct svc_rqst *rqstp, struct svc_fh *fhp,
- 			break;
- 	}
- 	if (attr->na_seclabel && attr->na_seclabel->len)
--		attr->na_labelerr = security_inode_setsecctx(dentry,
-+		attr->na_labelerr = security_inode_setsecctx(&path,
- 			attr->na_seclabel->data, attr->na_seclabel->len);
- 	if (IS_ENABLED(CONFIG_FS_POSIX_ACL) && attr->na_dpacl) {
- 		if (!S_ISDIR(inode->i_mode))
-diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
-index f4939137e66b..b22f7928523e 100644
---- a/include/linux/lsm_hook_defs.h
-+++ b/include/linux/lsm_hook_defs.h
-@@ -314,7 +314,7 @@ LSM_HOOK(int, 0, secctx_to_secid, const char *secdata, u32 seclen, u32 *secid)
- LSM_HOOK(void, LSM_RET_VOID, release_secctx, struct lsm_context *cp)
- LSM_HOOK(void, LSM_RET_VOID, inode_invalidate_secctx, struct inode *inode)
- LSM_HOOK(int, 0, inode_notifysecctx, struct inode *inode, void *ctx, u32 ctxlen)
--LSM_HOOK(int, 0, inode_setsecctx, struct dentry *dentry, void *ctx, u32 ctxlen)
-+LSM_HOOK(int, 0, inode_setsecctx, const struct path *path, void *ctx, u32 ctxlen)
- LSM_HOOK(int, -EOPNOTSUPP, inode_getsecctx, struct inode *inode,
- 	 struct lsm_context *cp)
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index bcafa89ba..996890025 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -443,12 +443,12 @@ rocket_reset(struct rocket_core *core, struct drm_sched_job *bad)
  
-diff --git a/include/linux/security.h b/include/linux/security.h
-index e3c8b4479a0a..6ac9fb634017 100644
---- a/include/linux/security.h
-+++ b/include/linux/security.h
-@@ -589,7 +589,7 @@ int security_secctx_to_secid(const char *secdata, u32 seclen, u32 *secid);
- void security_release_secctx(struct lsm_context *cp);
- void security_inode_invalidate_secctx(struct inode *inode);
- int security_inode_notifysecctx(struct inode *inode, void *ctx, u32 ctxlen);
--int security_inode_setsecctx(struct dentry *dentry, void *ctx, u32 ctxlen);
-+int security_inode_setsecctx(const struct path *path, void *ctx, u32 ctxlen);
- int security_inode_getsecctx(struct inode *inode, struct lsm_context *cp);
- int security_locked_down(enum lockdown_reason what);
- int lsm_fill_user_ctx(struct lsm_ctx __user *uctx, u32 *uctx_len,
-@@ -1637,7 +1637,7 @@ static inline int security_inode_notifysecctx(struct inode *inode, void *ctx, u3
- {
- 	return -EOPNOTSUPP;
- }
--static inline int security_inode_setsecctx(struct dentry *dentry, void *ctx, u32 ctxlen)
-+static inline int security_inode_setsecctx(const struct path *path, void *ctx, u32 ctxlen)
- {
- 	return -EOPNOTSUPP;
- }
-diff --git a/security/security.c b/security/security.c
-index bf0ec31f1047..de3ed5c18802 100644
---- a/security/security.c
-+++ b/security/security.c
-@@ -4134,7 +4134,7 @@ EXPORT_SYMBOL(security_inode_notifysecctx);
+ 	/*
+ 	 * No handler is running now, but we might still have stuck jobs. Let's
+-	 * make sure the PM counters stay balanced by manually calling
+-	 * pm_runtime_put_noidle().
++	 * make sure the PM counters stay balanced by putting the reference the
++	 * job took, and request idle while doing it so the core can suspend.
+ 	 */
+ 	scoped_guard(mutex, &core->job_lock) {
+ 		if (core->in_flight_job)
+-			pm_runtime_put_noidle(core->dev);
++			pm_runtime_put_autosuspend(core->dev);
  
- /**
-  * security_inode_setsecctx() - Change the security label of an inode
-- * @dentry: inode
-+ * @path: inode
-  * @ctx: secctx
-  * @ctxlen: length of secctx
-  *
-@@ -4148,9 +4148,9 @@ EXPORT_SYMBOL(security_inode_notifysecctx);
-  *
-  * Return: Returns 0 on success, error on failure.
-  */
--int security_inode_setsecctx(struct dentry *dentry, void *ctx, u32 ctxlen)
-+int security_inode_setsecctx(const struct path *path, void *ctx, u32 ctxlen)
- {
--	return call_int_hook(inode_setsecctx, dentry, ctx, ctxlen);
-+	return call_int_hook(inode_setsecctx, path, ctx, ctxlen);
- }
- EXPORT_SYMBOL(security_inode_setsecctx);
+ 		iommu_detach_group(NULL, core->iommu_group);
  
-diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index f2394cf6646e..8af024fe4fb5 100644
---- a/security/selinux/hooks.c
-+++ b/security/selinux/hooks.c
-@@ -7166,10 +7166,10 @@ static int selinux_inode_notifysecctx(struct inode *inode, void *ctx, u32 ctxlen
- /*
-  *	called with inode->i_mutex locked
-  */
--static int selinux_inode_setsecctx(struct dentry *dentry, void *ctx, u32 ctxlen)
-+static int selinux_inode_setsecctx(const struct path *path, void *ctx, u32 ctxlen)
- {
--	return __vfs_setxattr_locked(&nop_mnt_idmap, dentry, XATTR_NAME_SELINUX,
--				     ctx, ctxlen, 0, NULL);
-+	return __vfs_setxattr_locked(&nop_mnt_idmap, path->dentry,
-+				     XATTR_NAME_SELINUX, ctx, ctxlen, 0, NULL);
- }
- 
- static int selinux_inode_getsecctx(struct inode *inode, struct lsm_context *cp)
-diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
-index 4439821a5e57..d9e9f4a52567 100644
---- a/security/smack/smack_lsm.c
-+++ b/security/smack/smack_lsm.c
-@@ -4978,10 +4978,10 @@ static int smack_inode_notifysecctx(struct inode *inode, void *ctx, u32 ctxlen)
- 				       ctxlen, 0);
- }
- 
--static int smack_inode_setsecctx(struct dentry *dentry, void *ctx, u32 ctxlen)
-+static int smack_inode_setsecctx(const struct path *path, void *ctx, u32 ctxlen)
- {
--	return __vfs_setxattr_locked(&nop_mnt_idmap, dentry, XATTR_NAME_SMACK,
--				     ctx, ctxlen, 0, NULL);
-+	return __vfs_setxattr_locked(&nop_mnt_idmap, path->dentry,
-+				     XATTR_NAME_SMACK, ctx, ctxlen, 0, NULL);
- }
- 
- static int smack_inode_getsecctx(struct inode *inode, struct lsm_context *cp)
 -- 
-2.18.0.huawei.25
+2.43.0
 
