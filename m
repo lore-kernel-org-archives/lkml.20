@@ -1,362 +1,186 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E543372ED0;
-	Thu, 24 Sep 2026 12:36:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790253420; cv=pass; b=Za+isNx18Q4QcLp4g9CKlVWP0lUYKpk+4IG7NkeC2t6Tyr+I05u+AvnvQYzDu0jNrAl/rV6CWKrHpa1Lw5tc6unOQQD0rz0FkV+QPXYmwJFxQ7hjAlRWVKLIMtDGTcGPJpnFMk36UqYV50O8AUdZT8JYklTMayLLiSgFdtdEGKg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790253420; c=relaxed/simple;
-	bh=xzUol5ikhcfHZeeR2q20FVZeYh3BGyPUFgQL8aLKm2A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EQwUi1FP8R08hSWA5PNW4Hb82FU1/gr3JmYi93LgRawiz4vNy37J1aHQicTT9BPZ1PXpgWoPFkJg3a+Lxh67YBUmqu+eQV48VbMH3WzVhIcSRFOalyccXttCIy8qO9QpQqWY0Qj3qshz15TzjxXXqZ1rCU3MQeyLoXE95p9hcmI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b=LHVNlk3j; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BBF83B52E7
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:37:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790253425; cv=none; b=B4QGMkSfWo9FfGSOzUOSXXhj1MYdhdwRD2+28YM6CicHnBEqU+RytMNncnFTjTlDHjm2ZUce308lHSssNmLVP3E5DHb5h32DvRgoEnb/CPwkP1n62jMp7b2qgJ0egbJnM3usUHVEXc/vlncnC8/W+JBu2OBfy/icBw/Zc15qaSI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790253425; c=relaxed/simple;
+	bh=uTofbiv5PGwwQfTIX8LTF3s7MEFpysPum854bwqS22U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BTmK+C8ELoZD+Vl+oA6Fb9hL8GPgv7OlWZ1pXfncoGB6BZXDpsc5nNuxumMkHkKtnDWJAS50PtfVijcAmFIAqgta1Qp99KsLxlElVMCapQoLd15G+uD5QYs9K3hacZbk4JAM0L1wt2ycYH8F9wJZt1YDUbglgefIq1iUulvGZ6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=XLAZIvFE; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b="LHVNlk3j"
-ARC-Seal: i=1; a=rsa-sha256; t=1790253395; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=XHVZvKE+IgFaJn7qjYthBHmxN+Iohax5UB4CnGEp4BYMTCnTLV0Lc6oOJygpNVzbnFz0wbu5Z7cFfgwNtm5FNxCo8OlMbKIwLE2MU6bQHgtwjrnb+CApzx01I2k521r0sxb9j96sUMdje30KJLm5Vk4CSSVoLIe3xBvKWX6D1sc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790253395; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=OV+WKAnJJAziMnvnnktDB9mgyWSpWiiufh8J8gCcPuM=; 
-	b=Uhv3RpeF34/PDDrzjvw8wBXSDOuGknensayir0WVaEdGY5YAE73WIP9po/M2hvC4PZjEcLOnY43dgvTOM5qegoEMmxL3f612IFTEU37xcCmhUiy+sg+VZm3aaFQNfjJ6QRmDg6qWiWMpAavz55XwzWDSTkdM0XbCefzMiuzxI2A=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=detlev.casanova@collabora.com;
-	dmarc=pass header.from=<detlev.casanova@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790253395;
-	s=zohomail; d=collabora.com; i=detlev.casanova@collabora.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
-	bh=OV+WKAnJJAziMnvnnktDB9mgyWSpWiiufh8J8gCcPuM=;
-	b=LHVNlk3jSC6gA7aakza5ZfADkKhSGfV451XAigklp/jrx531C9LC0ijbYYYsFDU9
-	MDQDgtDl0RiLJAHgF02Ua/WCsTxKIo1ouhcaXU68ZqVM6nl39Fz7GWG9/512Rm2i/Dk
-	fScaTpowMm4qqHQ0iMq211asJ69ExxzSuklKYIyw=
-Received: by smtp.zohomail.com with SMTPS id 1790253393785375.45950290690473;
-	Thu, 24 Sep 2026 05:36:33 -0700 (PDT)
-From: Detlev Casanova <detlev.casanova@collabora.com>
-To: Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Heiko Stuebner <heiko@sntech.de>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Diederik de Haas <diederik@cknow-tech.com>
-Cc: kernel@collabora.com, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 0/4] media: Track v4l2 buffers through an allocator
-Date: Thu, 24 Sep 2026 08:36:15 -0400
-Message-ID: <jmuzPUMQRGeSHxc4mzcUjg@collabora.com>
-In-Reply-To: <DLK6XGIB22XG.58WF7VP9L3NH@cknow-tech.com>
-References:
- <20260916-v4l2-add-mem-tracker-v1-0-900fa45e3e6a@collabora.com>
- <DLK6XGIB22XG.58WF7VP9L3NH@cknow-tech.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="XLAZIvFE"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f705536so371176666b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:37:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790253422; x=1790858222; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8WR8pmB+jYgHS1HBlWGZgS/Xwn9pj8L3GvfaFa/VtnY=;
+        b=XLAZIvFE1qHixlDUIbqNszybFfVEegD6sECtis0RfGvLXrtsEm/UhvfJwW77voeZCq
+         iiFy9ft39yQoQsZADgO5JVsJz/aGso7ayBUHziyYpIGVYebDLF+LFAWRG+lwerOm5e7O
+         UK2mATxJV1jxpKhfTLoieNjnLJfPOqmArUBLw6j/cFZpTEOOVcCFkcOgjM2LwtY3cdr0
+         qETRRgZ7I2piujtBSHtyDnRmc67NlSSfcSzmPPLmWy+iqqv8qME2MEEuksM7/TTP1Cjw
+         coq4i7RUbBFs5TputOhvC5N8p2AxX3rc/YdrLU3B1Cl2IZc7TMin8XnqyqpIo4dmY6LS
+         Ux6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790253422; x=1790858222;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8WR8pmB+jYgHS1HBlWGZgS/Xwn9pj8L3GvfaFa/VtnY=;
+        b=UQH7JmD8qJq0lh2S1+SdsjMJ0yWbxRVn+xXsQ8VSgKhki4iW50Dz8egJfXLinJjoF0
+         TnsjM84RWJ4kM38I9nwUMPJisjc5A619D3wHvrWnrAOpG7vdwZLXXQaxnLcD5Eh+VI18
+         jYB7PqpnrcQ6BxQSrgBBLxxvE/WJir4DtTvhgS+wq7c5cIVFpylhH6CHAsZ0UTXhASOm
+         /5u8pOmRNvSyT1Va7AryQ3Gh1ev/Yx8oMfM+GF6k1KGyumxpgFy1BBC80lG1H82YzNnw
+         MSJeF97WUzAskecJq6EzQn3IeLP5oiWcyTziHnwn/vAQHslS3hRzgkrd5a8+f8QZcziM
+         gi7g==
+X-Forwarded-Encrypted: i=1; AKwUvBxN1KlviLZMr67xehoE9mob6MEeZ/eW0rgkQIaFMgQpfgRMPhLyrD5RrNryIf/zDjDiHhdLK4ezymL9fvE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lb52/Wd1Y1jmIOQ1LNsU54pr4qwa41s7EeUVEGaOxJNMtZvNmO
+	M7g2EcciEkXfEXJfTxlh7LZAG7mnHSVXNkCelB8CEPTgXphnaT9fhxsWnZbQqf9eGG0=
+X-Gm-Gg: AYBFou0RszJ/CWqXRW3Ma6P2q7GgUXEK/0fYPOGROjI50dUBlBBoYgTEyFp53j6/SeB
+	4uDxhf1wOHOYhEKWSO28Re5tpsQFLLQHF5HDsKD5Y5QL4HpEZEZDH3oLzotPTfci9VzZM5wFQmA
+	yDj41YpEqa1isLt8Jx5QPSxfK+KopDDA0PY13KwNPpiAYASexn9vP7yfNdwEbxP3scdqyN6mg+H
+	8UumXuS+DmHTL5g/26cfCYATa/ZS3H3RMQZ3gg6bE1zJCjMXHJxrp98vf25qZHvMTawZLvbty2S
+	xKuOQlzICNnTSnbxtwiHxuFtvUMpreGKTj5lpgucENizMsrGruoDepWzejI0YwBuNXuOA3apkin
+	TD9RRXXoIJV0f0+p9AQgcpPk74c0f5cZaTg4kGqiCxiBqC/Q1KBCTaWV4ydURMCx2YRNZ/5rH4N
+	aUVMz7GKb5Qss7No/sU/hgdbnkpJG+orSgMoMxQHHz6cck1ixhD6asILRHRzbCGf0Vm2mgI9Gl5
+	l99ra5ueIKC
+X-Received: by 2002:a17:907:1ca2:b0:c29:6de8:d143 with SMTP id a640c23a62f3a-c2ac23d7742mr209160366b.19.1790253421677;
+        Thu, 24 Sep 2026 05:37:01 -0700 (PDT)
+Received: from [192.168.0.167] ([78.152.210.157])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aab386e5b9sm3701581a12.8.2026.09.24.05.37.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 05:37:01 -0700 (PDT)
+Message-ID: <bbf66d18-0587-41d1-a902-32686f66fa76@linaro.org>
+Date: Thu, 24 Sep 2026 13:36:58 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-ZohoMailClient: External
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 02/19] media: iris: Add Gen2 firmware autodetect and
+ fallback
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+References: <20260731-iris-ar50lt-v9-0-d71a782001c0@oss.qualcomm.com>
+ <20260731-iris-ar50lt-v9-2-d71a782001c0@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20260731-iris-ar50lt-v9-2-d71a782001c0@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Diederik,
+On 31/07/2026 00:48, Dmitry Baryshkov wrote:
+> +
+> +/*
+> + * Detect the firmware generation and publish the descriptor. Run only after
+> + * qcom_mdt_load() has succeeded, so the driver commits to a HFI generation
+> + * only for a firmware image that has actually been loaded.
+> + *
+> + * The generation is detected from the loaded image (@data / @size point at the
+> + * reserved memory region populated by qcom_mdt_load()) rather than from the
+> + * request_firmware() blob: for a split .mdt the latter holds only the ELF
+> + * headers, while QC_IMAGE_VERSION_STRING lives in the .bNN data segments.
+> + *
+> + * The descriptor and firmware data are published exactly once, before any
+> + * session exists, so the lockless readers in the ioctl paths never observe a
+> + * reassignment. Later bring-ups reuse the already published descriptor.
+> + */
+> +static void iris_detect_firmware(struct iris_core *core, const char *fw_name,
+> +				 const u8 *data, size_t size,
+> +				 const struct iris_firmware_desc *desc)
+> +{
+> +	if (core->iris_firmware_desc)
+> +		return;
+> +
+> +	/*
+> +	 * With a DT firmware-name override on a dual-generation platform the
+> +	 * image on disk decides the generation, so inspect it and switch to the
+> +	 * Gen1 descriptor when a Gen1 image was loaded.
+> +	 */
+> +	if (desc == core->iris_platform_data->firmware_desc_gen2 &&
+> +	    core->iris_platform_data->firmware_desc_gen1 &&
+> +	    of_property_present(dev_of_node(core->dev), "firmware-name") &&
+> +	    !iris_detect_gen2_from_fwdata(data, size)) {
+> +		dev_info(core->dev, "Gen1 FW detected in %s\n", fw_name);
+> +		desc = core->iris_platform_data->firmware_desc_gen1;
+> +	}
+> +
+> +	/* Publish iris_firmware_data first, then iris_firmware_desc (the guard). */
+> +	core->iris_firmware_data = desc->firmware_data;
+> +	core->iris_firmware_desc = desc;
+> +}
+> +
 
-Thank you for testing !
+In function ‘iris_detect_firmware’,
+     inlined from ‘iris_load_fw_to_memory’ at 
+drivers/media/platform/qcom/iris/iris_firmware.c:216:3:
+drivers/media/platform/qcom/iris/iris_firmware.c:161:12: warning: ‘desc’ 
+may be used uninitialized [-Wmaybe-uninitialized]
+   161 |         if (desc == core->iris_platform_data->firmware_desc_gen2 &&
+       |            ^
+drivers/media/platform/qcom/iris/iris_firmware.c: In function 
+‘iris_load_fw_to_memory’:
+drivers/media/platform/qcom/iris/iris_firmware.c:176:42: note: ‘desc’ 
+was declared here
+   176 |         const struct iris_firmware_desc *desc;
+       |                                          ^~~~
+In function ‘iris_detect_firmware’,
+     inlined from ‘iris_load_fw_to_memory’ at 
+drivers/media/platform/qcom/iris/iris_firmware.c:216:3:
+drivers/media/platform/qcom/iris/iris_firmware.c:170:40: warning: ‘desc’ 
+may be used uninitialized [-Wmaybe-uninitialized]
+   170 |         core->iris_firmware_data = desc->firmware_data;
+       |                                    ~~~~^~~~~~~~~~~~~~~
+drivers/media/platform/qcom/iris/iris_firmware.c: In function 
+‘iris_load_fw_to_memory’:
+drivers/media/platform/qcom/iris/iris_firmware.c:176:42: note: ‘desc’ 
+was declared here
+   176 |         const struct iris_firmware_desc *desc;
+       |                                          ^~~~
+. "$TS_DIR"/lib/common-end.sh
+#!/bin/sh
+# Copyright 2024 Google LLC
 
+Proposed fix
 
-On Sunday, September 20, 2026 9:50:24=E2=80=AFa.m. Eastern Daylight Time Di=
-ederik de=20
-Haas wrote:
-> Hi Detlev,
->=20
-> On Wed Sep 16, 2026 at 4:25 PM CEST, Detlev Casanova wrote:
-> > Hello,
-> >=20
-> > Currently, the only way to track buffers allocated by v4l2 from usespace
-> > is to use the subsystem available debug information (e.g.:
-> > /sys/kernel/debug/dma_buf/bufinfo).
-> > But that information is generic and cannot be matched to a v4l2 driver =
-or
-> > to a userspace application: It is merely information about the allocati=
-on.
-> >=20
-> > Other types of allocations require the developper to find where they are
-> > exposed and how to link them to their test.
-> >=20
-> > This can become hard to track when mutliple drivers are working at the
-> > same time.
-> >=20
-> > To improve that, add a small wrapper around buffer allocations to keep
-> > track of them at the video device level so that we can add debug
-> > information to them like a name, userspace pid/fd that did the
-> > allocation,... and expose them to userspace via a debugfs entry.
-> >=20
-> > It currently only supports DMA buffer allocations and adds support for
-> > VB2 allocations too.
-> > Other kind of memory tracking can be added later.
-> > The verisilicon and rkvdec drivers have been ported to use the tracked
-> > dma alloactions.
-> >=20
-> > Note that this depends on the ftrace support patch series[1] that
-> > provides fd/pid info in the v4l2_fh struct.
-> > That series is a bit old, so this is based on an older linux version, b=
-ut
-> > that only changes things for the last 2 commits.
-> >=20
-> > A v4l2top utility[2] has been made, to be used in parallel with the
-> > fdinfo patch series[3], to show the list of active streams with their HW
-> > and memory usage.
-> >=20
-> > With this, debugfs looks like this when decoding a HEVC 1080p stream wi=
-th
-> >=20
-> > rkvdec on rk3588:
-> >   root # cat /sys/kernel/debug/v4l2/fdc38100.video-codec/mem
-> >   created-by                      fd              pid             size =
-  =20
-> >          label
-> >   ---------------------------------------------------------------------=
-=2D-
-> >   -------------- gst-launch-1.0                  7               635   =
-  =20
-> >         39184           vdpu381-hevc-priv-tbl gst-launch-1.0           =
- =20
-> >       7               635             4177920       =20
-> >   cap-00000000ac34392e-7 gst-launch-1.0                  7             =
-=20
-> >   635             4177920         cap-00000000ac34392e-6 gst-launch-1.0=
- =20
-> >                  7               635             4177920       =20
-> >   cap-00000000ac34392e-5 gst-launch-1.0                  7             =
-=20
-> >   635             4177920         cap-00000000ac34392e-4 gst-launch-1.0=
- =20
-> >                  7               635             4177920       =20
-> >   cap-00000000ac34392e-3 gst-launch-1.0                  7             =
-=20
-> >   635             4177920         cap-00000000ac34392e-2 gst-launch-1.0=
- =20
-> >                  7               635             4177920       =20
-> >   cap-00000000ac34392e-1 gst-launch-1.0                  7             =
-=20
-> >   635             4177920         cap-00000000ac34392e-0 gst-launch-1.0=
- =20
-> >                  7               635             3133440       =20
-> >   out-000000005c0230f6-1 gst-launch-1.0                  7             =
-=20
-> >   635             3133440         out-000000005c0230f6-0
-> >   =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >   =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D Total size: 39729424
->=20
-> I build a kernel with your 3 patch series and I also build the v4l2top
-> utility. Cool tool :-D
-> Especially after I found out I should build the 'upstream' branch ;-)
->=20
-> There were a couple of things I noticed:
-> 1) With 'plain' kernel 7.3-rc3 but also with all my patches included, but
->    excluding the patches from this series, I see this:
->=20
-> ```
-> root@nanopc-t6-plus:~# ls -lh /sys/kernel/debug/v4l2/
-> total 0
-> drwxr-xr-x 3 root root 0 Sep 20 15:10 fdee0000.hdmi_receiver
-> ```
->=20
-> Which is presumably the reason that with a kernel which also includes this
-> patch series, I get the following kernel error:
-> ``[   10.849405] debugfs: 'v4l2' already exists in '/'``
->=20
-> I don't think this should generate an error/warning/info message at all,
-> but just silently dealt with.
+╰─$ git diff
+diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c 
+b/drivers/media/platform/qcom/iris/iris_firmware.c
+index dfc4c184646c6..39558a300d38c 100644
+--- a/drivers/media/platform/qcom/iris/iris_firmware.c
++++ b/drivers/media/platform/qcom/iris/iris_firmware.c
+@@ -153,6 +153,9 @@ static void iris_detect_firmware(struct iris_core 
+*core, const char *fw_name,
+        if (core->iris_firmware_desc)
+                return;
 
-Indeed, that is something I will fix in the next version.
-
->=20
-> Checking v4l2 debug dir again results in this:
-> ```
-> root@nanopc-t6-plus:~# ls -lh /sys/kernel/debug/v4l2/
-> total 0
-> drwxr-xr-x 2 root root 0 Sep 20 15:13 fdb60000.rga
-> drwxr-xr-x 2 root root 0 Sep 20 15:13 fdb80000.rga
-> drwxr-xr-x 2 root root 0 Sep 20 15:13 fdc38000.video-codec
-> drwxr-xr-x 2 root root 0 Sep 20 15:13 fdee0000.hdmi_receiver
-> ```
->=20
-> I noticed my video-codec address was slightly different from yours.
-
-Yes, mine is on rk3588. A different SoC will have a different device regist=
-er=20
-address.
-
-> Playing a 1080p BBB x264 video with a patched ffmpeg+mpv, results in this:
-> ```
-> root@nanopc-t6-plus:~# cat /sys/kernel/debug/v4l2/fdc38000.video-codec/mem
-> created-by                      fd              pid             size     =
-  =20
->    label
-> -------------------------------------------------------------------------=
-=2D-
-> ---------- mpv                             26              2027          =
-=20
-> 4177920         cap-00000000205a3b3a-10 mpv                             2=
-6=20
->             2027            4177920         cap-00000000205a3b3a-9 mpv   =
- =20
->                        26              2027            4177920       =20
-> cap-00000000205a3b3a-8 mpv                             26              20=
-27
->            16736           vdpu381-h264-priv-tbl mpv                     =
- =20
->      26              2027            3133440         out-0000000079002cb1=
-=2D3
-> mpv                             26              2027            3133440  =
- =20
->     out-0000000079002cb1-2 mpv                             26            =
-=20
-> 2027            3133440         out-0000000079002cb1-1 mpv               =
- =20
->            26              2027            3133440       =20
-> out-0000000079002cb1-0 mpv                             26              20=
-27
->            4177920         cap-00000000205a3b3a-7 mpv                    =
- =20
->       26              2027            4177920       =20
-> cap-00000000205a3b3a-6 mpv                             26              20=
-27
->            4177920         cap-00000000205a3b3a-5 mpv                    =
- =20
->       26              2027            4177920       =20
-> cap-00000000205a3b3a-4 mpv                             26              20=
-27
->            4177920         cap-00000000205a3b3a-3 mpv                    =
- =20
->       26              2027            4177920       =20
-> cap-00000000205a3b3a-2 mpv                             26              20=
-27
->            4177920         cap-00000000205a3b3a-1 mpv                    =
- =20
->       26              2027            4177920       =20
-> cap-00000000205a3b3a-0
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D Total size: 58507616
-> ```
->=20
-> And looking at the v4l2top utility, I noticed the following:
-> 1. I see differing indications of the load while it's playing :-D
-
-\o/
-
-> 2. The ``Clock rate`` is always 750.0MHz (or 786431991Hz) (expected I
-> think?)
-
-Yes, the clock won't change, for now at least. Some decoders could adapt th=
-eir=20
-clocks depending on the work. The frequency value will also be used to=20
-determine exact core usage for those that expose a used cycle count after e=
-ach=20
-job (I did not implement that yet in v4l2top)
-
-> 3. The ``Total Memory`` is always 0B and the ``Memory usage
-> details`` column is always empty. That's also the case when I press one of
-> the arrow keys which seems to select the entry. Am I missing sth or doing
-> sth wrong?
-
-My guess would be that you didn't run it as root (this is usually needed to=
-=20
-access the debugfs*). But if you did, we will have to dig a little.
-
-*: Note that later, we'd like to report global memory usage through fdinfo,=
- so=20
-that the metric is accessible as a user, with buffer details still from the=
-=20
-debugfs (so that'd need root access)
-
-Detlev.
-
->=20
-> > [1]:
-> > https://lore.kernel.org/all/20260610-v4l2-add-ftrace-v2-0-9756edf72ac1@=
-co
-> > llabora.com/ [2]: https://github.com/cazou/v4l2top/tree/upstream
-> > [3]:
-> > https://lore.kernel.org/all/20260706-v4l2-add-fdinfo-v3-0-d556568cf38e@=
-co
-> > llabora.com/
-> >=20
-> > Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
-> > ---
-> >=20
-> > Detlev Casanova (4):
-> >       media: Add a v4l2 memory allocations tracker
-> >       media: Store v4l2_fh in the vb_queue
-> >       media: verisilicon: Switch to tracked dma allocations
-> >       media: rkvdec: Switch to tracked dma allocations
-> > =20
-> >  drivers/media/common/videobuf2/Makefile            |   1 +
-> >  drivers/media/common/videobuf2/v4l2-allocator.c    | 186
-> >  +++++++++++++++++++++ .../media/common/videobuf2/videobuf2-dma-contig.=
-c=20
-> >  |  27 ++-
-> >  .../media/platform/rockchip/rkvdec/rkvdec-h264.c   |  14 +-
-> >  .../media/platform/rockchip/rkvdec/rkvdec-hevc.c   |  14 +-
-> >  .../media/platform/rockchip/rkvdec/rkvdec-rcb.c    |  21 ++-
-> >  .../platform/rockchip/rkvdec/rkvdec-vdpu381-h264.c |  14 +-
-> >  .../platform/rockchip/rkvdec/rkvdec-vdpu381-hevc.c |  14 +-
-> >  .../platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c |  14 +-
-> >  .../platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c |  14 +-
-> >  .../media/platform/rockchip/rkvdec/rkvdec-vp9.c    |  33 ++--
-> >  drivers/media/platform/rockchip/rkvdec/rkvdec.c    |   4 +
-> >  drivers/media/platform/verisilicon/hantro.h        |   1 +
-> >  drivers/media/platform/verisilicon/hantro_drv.c    |   4 +
-> >  drivers/media/platform/verisilicon/hantro_h264.c   |   7 +-
-> >  drivers/media/platform/verisilicon/hantro_hevc.c   | 100 ++++++-----
-> >  drivers/media/platform/verisilicon/hantro_mpeg2.c  |  16 +-
-> >  .../media/platform/verisilicon/hantro_postproc.c   |  14 +-
-> >  drivers/media/platform/verisilicon/hantro_vp8.c    |  25 +--
-> >  drivers/media/platform/verisilicon/hantro_vp9.c    |  34 +++-
-> >  .../verisilicon/rockchip_vpu981_hw_av1_dec.c       | 160
-> >  +++++++++++-------
-> >  drivers/media/v4l2-core/v4l2-device.c              |   4 +-
-> >  include/media/v4l2-allocator.h                     |  26 +++
-> >  include/media/v4l2-device.h                        |   2 +
-> >  include/media/videobuf2-core.h                     |   3 +
-> >  25 files changed, 555 insertions(+), 197 deletions(-)
-> >=20
-> > ---
-> > base-commit: 66affa37cfac0aec061cc4bcf4a065b0c52f7e19
-> > change-id: 20260612-v4l2-add-mem-tracker-da0088c74a64
-> > prerequisite-change-id: 20260608-v4l2-add-ftrace-aec6e7f60a6c:v2
-> > prerequisite-patch-id: bd45b4df66799a7f9f22b49973a78d1bd3590a4a
-> > prerequisite-patch-id: 6a5ed5615f08257cf854d441785066b5ff4d5d47
-> > prerequisite-patch-id: 02594c869498b9e91e416d70242afbaa6b3a8d6a
-> > prerequisite-patch-id: 9f25ec78f3b99ac1c5d42eb732f5bd9eae73fadd
-> > prerequisite-patch-id: 4ed2c2e8c3abfa7f6328d0ea4f488ca5a3eec8fb
-> > prerequisite-patch-id: 8787d50eb80e1a63a57a123268cade23c9e64618
-> > prerequisite-patch-id: bfe85822378fa771f9bbc3e1e8c8ff6bce0eb7fd
-> > prerequisite-patch-id: 784d0801da320f7b41194f4632ee422c32f1b5b8
-> > prerequisite-patch-id: 362c8366e2efbfb5e6f1a3f71cfddbd46e8d1506
-> >=20
-> > Best regards,
-> > --
-> > Detlev Casanova <detlev.casanova@collabora.com>
-> >=20
-> >=20
-> > _______________________________________________
-> > Linux-rockchip mailing list
-> > Linux-rockchip@lists.infradead.org
-> > http://lists.infradead.org/mailman/listinfo/linux-rockchip
-
-
-
++      if (!desc)
++              return;
++
+        /*
+         * With a DT firmware-name override on a dual-generation 
+platform the
+         * image on disk decides the generation, so inspect it and 
+switch to the
 
