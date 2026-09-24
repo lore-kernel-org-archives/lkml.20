@@ -1,37 +1,37 @@
 Received: from smtp1.iinet.com (smtp1.iinet.com [52.129.46.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6322F30568F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 633613D411A;
 	Thu, 24 Sep 2026 23:16:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.129.46.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790291809; cv=none; b=pNy54PIFOLtgfQV5sg6K31qGoQ7e1Vwl+3silSqnhGtIAlJBJVuUfWW45RwL9rNTLKIKgbTL7Zrb2xOicYdBMS1s0rezCEeSLpqnJclXPNbZeSIViy5Iuf1mbJg+Utzy3HgazUu0i+NDiQKtpySc2AtIh7eIboD1cXesieJOzzk=
+	t=1790291810; cv=none; b=eDSPXinco0XzdGY2n2CMuGyzDEqsod2CzpBDnhFiIKg/45Zt9P+Bsz+CfjjdV2UPy6sBvtJvmGAkJMVVKBhHVouFMjBN4svVsXwQHYl5ZR2bBVJBGXLtlfSyPz1rX4l15LIde1Ongjz551PHkpp8Hxg0Tu7Ot0jh4A7BCTnIjgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790291809; c=relaxed/simple;
-	bh=7LTqjk3uxJTjNzmikCt5mXePqXbrDjVUPoae0utVOwQ=;
+	s=arc-20240116; t=1790291810; c=relaxed/simple;
+	bh=mLOobzZw9ri5z9DfyH0H77hni9eiuLnPcW8hgcMAARs=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=gaLle4III3FlU0IGb/QhcomyF3CaT5FK4aDrBiTi3v5vL+9ifm6SU2wolH1kdIxk6SUyNToARYatPQ1KvCmzOnFbVtQV8Iy0edu75tX84lLCxt/7ueI6Tt8KelLr1sQW6ILzYdoNcn3ctzu6L+HazcPH4MIrq6yNoQUKpP8ZYQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nwlink.com; spf=pass smtp.mailfrom=nwlink.com; dkim=pass (2048-bit key) header.d=nwlink.com header.i=@nwlink.com header.b=YzjvRYR7; arc=none smtp.client-ip=52.129.46.35
+	 MIME-Version; b=CATqisJhIh/1OEahc/L5ATHZ5g/J3J7q7p22sDrlgI97JxVHQvj93Z8iBNgbSZOhZumc1EnHwEJsTtAbkWgWUGq5E0HCdPaKv6I8R0AmYiVcDdaxw536lDcMxRNPFuJeMDem9JyaTfKSr8+Z3s/zfb99Iesy0zbU+6H7lF39p6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nwlink.com; spf=pass smtp.mailfrom=nwlink.com; dkim=pass (2048-bit key) header.d=nwlink.com header.i=@nwlink.com header.b=DvSsALrw; arc=none smtp.client-ip=52.129.46.35
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nwlink.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nwlink.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nwlink.com header.i=@nwlink.com header.b="YzjvRYR7"
+	dkim=pass (2048-bit key) header.d=nwlink.com header.i=@nwlink.com header.b="DvSsALrw"
 Received: from porter.hsd1.wa.comcast.net (c-98-203-133-45.hsd1.wa.comcast.net [98.203.133.45])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kaf@nwlink.com)
-	by smtp1.iinet.com (Postfix) with ESMTPSA id D579CC00AF2;
-	Thu, 24 Sep 2026 15:51:00 -0700 (PDT)
+	by smtp1.iinet.com (Postfix) with ESMTPSA id 251ACC00BE6;
+	Thu, 24 Sep 2026 15:51:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nwlink.com; s=mail;
-	t=1790290261; bh=PosOUH3trIezg1gBhfLev8E24opIGobPdCiOHbf//8A=;
+	t=1790290262; bh=lduHQheDCz3i8FFYU7NtHJXTKQv57F6ZVQOT2STr+XA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=YzjvRYR7MULMy9EKnH73Lim8/462S6KB0hnsyGH344rllbrSMZ3nVChOEYYn1Q0o6
-	 TXg+wz06lEiU2oqnJfv3foQqIs78qzrYcSmyhyDeSXzjJRK8LQ9pGxAX8pUhSuA8Pa
-	 Oih8GmMaaix7lOMiYAEBBJ1LRr1SggceVENyZTI/iCm7KuKIUpbOHObrRZNk2JHuS8
-	 xTGS365o62gGzWHcvR4TRFgrEjF7BdlPkt6OZcnlAuEbjfAdXmFO63PYHYx6wlA9MG
-	 HffR5/2RRP03xf7hbmEYaPK2l9YVFeIbxa0AMDRHgy0FILpsAIB2Pysvu9Tidf2tRE
-	 HxHTW1vOk3YEQ==
+	b=DvSsALrwHekUSnXYrSBt+9wJxix33aARt5z0ZPvH1hdB6irbDP91TB9LQDqvEvd+R
+	 Gziqv8VxwRjsAZGhao329rQ7XNirSNMu+m2zyG0Zv0pd931/cguh6FKR2oPV4eEjD4
+	 B3WNSwgWmsJwP1Nl8JG7vSbBqiWQeQvzkKqWS8p14sUGh1snOZKbBf429ldXr7MFqb
+	 JHErU5HBxZ3SP8ZHIleA7mcLvegFFsIAAz++d77lh7pKf4MMUvZ6DhD049gM4axML1
+	 8mcB4Lbi42bRVeunlHOygr7qPCuC63GPJE97E6xeexG2g1nOS6UT0yn94Tph1Xe55x
+	 DVuG2B9aOCUCg==
 From: Kyle Farrell <kaf@nwlink.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	linux-usb@vger.kernel.org
@@ -40,9 +40,9 @@ Cc: Jonathan Corbet <corbet@lwn.net>,
 	linux-kernel@vger.kernel.org,
 	linux-doc@vger.kernel.org,
 	Kyle Farrell <kaf@nwlink.com>
-Subject: [PATCH v2 1/2] usb: gadget: u_audio: pass channel counts explicitly
-Date: Thu, 24 Sep 2026 15:50:49 -0700
-Message-Id: <20260924225050.2837727-2-kaf@nwlink.com>
+Subject: [PATCH v2 2/2] usb: gadget: f_uac2: allow explicit channel count independent of channel mask
+Date: Thu, 24 Sep 2026 15:50:50 -0700
+Message-Id: <20260924225050.2837727-3-kaf@nwlink.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260924225050.2837727-1-kaf@nwlink.com>
 References: <20260924225050.2837727-1-kaf@nwlink.com>
@@ -54,192 +54,330 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-u_audio currently derives the channel count from the channel mask in
-struct uac_params in several places.  Instead, pass the resolved count
-explicitly, so the shared audio implementation does not depend on how
-an individual USB audio function represents its channel configuration.
+The UAC2 gadget driver currently derives bNrChannels from the number
+of set bits in bmChannelConfig. Since the bmChannelConfig
+channel-location bitmap provides only 27 predefined channel locations,
+this limits playback and capture streams to 27 channels. UAC2 permits
+bNrChannels values up to 255, independent of bmChannelConfig.
 
-Initialize the new channel count fields from the existing channel masks.
-This preserves generated descriptors and makes no change to user-visible
-behavior.
+Add ConfigFS p_channels and c_channels attributes to configure the
+playback and capture channel counts explicitly.  Preserve the existing
+p_chmask and c_chmask interface and semantics. The default value of
+zero for p_channels and c_channels continues to derive the channel count
+from the corresponding p_chmask and c_chmask.
+
+When an explicit channel count and a nonzero channel mask are both
+specified, require the number of set bits in the mask to match the
+channel count. Partial channel-location assignments permitted by UAC2
+are therefore not supported. Additionally, reject Feature Unit
+configurations whose descriptor length would exceed the one-byte
+bLength field.
 
 Assisted-by: LLM
 Signed-off-by: Kyle Farrell <kaf@nwlink.com>
 ---
- drivers/usb/gadget/function/f_uac1.c  |  2 ++
- drivers/usb/gadget/function/f_uac2.c  |  2 ++
- drivers/usb/gadget/function/u_audio.c | 32 ++++++++++++---------------
- drivers/usb/gadget/function/u_audio.h |  2 ++
- 4 files changed, 20 insertions(+), 18 deletions(-)
+ .../ABI/testing/configfs-usb-gadget-uac2      | 18 ++++-
+ Documentation/usb/gadget-testing.rst          | 18 ++++-
+ drivers/usb/gadget/function/f_uac2.c          | 71 +++++++++++++------
+ drivers/usb/gadget/function/u_uac2.h          |  4 ++
+ 4 files changed, 87 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/usb/gadget/function/f_uac1.c b/drivers/usb/gadget/function/f_uac1.c
-index 7a81cd176abd..17f856b96d2a 100644
---- a/drivers/usb/gadget/function/f_uac1.c
-+++ b/drivers/usb/gadget/function/f_uac1.c
-@@ -1448,6 +1448,7 @@ static int f_audio_bind(struct usb_configuration *c, struct usb_function *f)
- 	audio->out_ep_maxpsize = le16_to_cpu(as_out_ep_desc.wMaxPacketSize);
- 	audio->in_ep_maxpsize = le16_to_cpu(as_in_ep_desc.wMaxPacketSize);
- 	audio->params.c_chmask = audio_opts->c_chmask;
-+	audio->params.c_channels = num_channels(audio_opts->c_chmask);
- 	memcpy(audio->params.c_srates, audio_opts->c_srates,
- 			sizeof(audio->params.c_srates));
- 	audio->params.c_ssize = audio_opts->c_ssize;
-@@ -1461,6 +1462,7 @@ static int f_audio_bind(struct usb_configuration *c, struct usb_function *f)
- 		audio->params.p_fu.volume_res = audio_opts->p_volume_res;
- 	}
- 	audio->params.p_chmask = audio_opts->p_chmask;
-+	audio->params.p_channels = num_channels(audio_opts->p_chmask);
- 	memcpy(audio->params.p_srates, audio_opts->p_srates,
- 			sizeof(audio->params.p_srates));
- 	audio->params.p_ssize = audio_opts->p_ssize;
+diff --git a/Documentation/ABI/testing/configfs-usb-gadget-uac2 b/Documentation/ABI/testing/configfs-usb-gadget-uac2
+index 133e995c3e92..8e264843e492 100644
+--- a/Documentation/ABI/testing/configfs-usb-gadget-uac2
++++ b/Documentation/ABI/testing/configfs-usb-gadget-uac2
+@@ -5,7 +5,14 @@ Description:
+ 		The attributes:
+ 
+ 		=====================	=======================================
+-		c_chmask		capture channel mask
++		c_chmask		capture channel-location mask. The number of
++					capture channels is derived from the number of
++					set bits unless c_channels is specified.
++		c_channels		explicit capture channel count. A value of 0
++					derives the channel count from c_chmask. When
++					nonzero, c_chmask specifies channel locations
++					and may be 0. If both c_channels and c_chmask
++					are nonzero, the values must agree.
+ 		c_srate			list of capture sampling rates (comma-separated)
+ 		c_ssize			capture sample size (bytes)
+ 		c_hs_bint		capture bInterval for HS/SS (1-4: fixed, 0: auto)
+@@ -20,7 +27,14 @@ Description:
+ 		c_volume_res		capture volume control resolution
+ 					(in 1/256 dB)
+ 		fb_max			maximum extra bandwidth in async mode
+-		p_chmask		playback channel mask
++		p_chmask		playback channel-location mask. The number of
++					playback channels is derived from the number of
++					set bits unless p_channels is specified.
++		p_channels		explicit playback channel count. A value of 0
++					derives the channel count from p_chmask. When
++					nonzero, p_chmask specifies channel locations
++					and may be 0. If both p_channels and p_chmask
++					are nonzero, the values must agree.
+ 		p_srate			list of playback sampling rates (comma-separated)
+ 		p_ssize			playback sample size (bytes)
+ 		p_hs_bint		playback bInterval for HS/SS (1-4: fixed, 0: auto)
+diff --git a/Documentation/usb/gadget-testing.rst b/Documentation/usb/gadget-testing.rst
+index 4921e5307d49..c050218291d1 100644
+--- a/Documentation/usb/gadget-testing.rst
++++ b/Documentation/usb/gadget-testing.rst
+@@ -741,7 +741,14 @@ The function name to use when creating the function directory is "uac2".
+ The uac2 function provides these attributes in its function directory:
+ 
+ 	================ ====================================================
+-	c_chmask         capture channel mask
++	c_chmask         capture channel-location mask. The number of
++			 capture channels is derived from the number of
++			 set bits unless c_channels is specified.
++	c_channels	 explicit capture channel count. A value of 0
++			 derives the channel count from c_chmask. When
++			 nonzero, c_chmask specifies channel locations
++			 and may be 0. If both c_channels and c_chmask
++			 are nonzero, the values must agree.
+ 	c_srate          list of capture sampling rates (comma-separated)
+ 	c_ssize          capture sample size (bytes)
+ 	c_sync           capture synchronization type (async/adaptive)
+@@ -752,7 +759,14 @@ The uac2 function provides these attributes in its function directory:
+ 	c_volume_res     capture volume control resolution (in 1/256 dB)
+ 	c_hs_bint        capture bInterval for HS/SS (1-4: fixed, 0: auto)
+ 	fb_max           maximum extra bandwidth in async mode
+-	p_chmask         playback channel mask
++	p_chmask         playback channel-location mask. The number of
++			 playback channels is derived from the number of
++			 set bits unless p_channels is specified.
++	p_channels	 explicit playback channel count. A value of 0
++			 derives the channel count from p_chmask. When
++			 nonzero, p_chmask specifies channel locations
++			 and may be 0. If both p_channels and p_chmask
++			 are nonzero, the values must agree.
+ 	p_srate          list of playback sampling rates (comma-separated)
+ 	p_ssize          playback sample size (bytes)
+ 	p_mute_present   playback mute control enable
 diff --git a/drivers/usb/gadget/function/f_uac2.c b/drivers/usb/gadget/function/f_uac2.c
-index d8cf710085a0..46255ad0a9cf 100644
+index 46255ad0a9cf..c7801bb8765e 100644
 --- a/drivers/usb/gadget/function/f_uac2.c
 +++ b/drivers/usb/gadget/function/f_uac2.c
-@@ -1308,6 +1308,7 @@ afunc_bind(struct usb_configuration *cfg, struct usb_function *fn)
+@@ -50,8 +50,17 @@
+ #define UNFLW_CTRL	8
+ #define OVFLW_CTRL	10
+ 
+-#define EPIN_EN(_opts) ((_opts)->p_chmask != 0)
+-#define EPOUT_EN(_opts) ((_opts)->c_chmask != 0)
++static unsigned int uac2_num_channels(bool is_playback,
++				      const struct f_uac2_opts *opts)
++{
++	u8 channels = is_playback ? opts->p_channels : opts->c_channels;
++	u32 chmask = is_playback ? opts->p_chmask : opts->c_chmask;
++
++	return channels ? channels : num_channels(chmask);
++}
++
++#define EPIN_EN(_opts) (uac2_num_channels(true, (_opts)) != 0)
++#define EPOUT_EN(_opts) (uac2_num_channels(false, (_opts)) != 0)
+ #define FUIN_EN(_opts) (EPIN_EN(_opts) \
+ 				&& ((_opts)->p_mute_present \
+ 				|| (_opts)->p_volume_present))
+@@ -671,15 +680,16 @@ static int get_max_srate(const int *srates)
+ static int get_max_bw_for_bint(const struct f_uac2_opts *uac2_opts,
+ 	u8 bint, unsigned int factor, bool is_playback)
+ {
+-	int chmask, srate, ssize;
++	unsigned int channels;
++	int srate, ssize;
+ 	u16 max_size_bw;
+ 
+ 	if (is_playback) {
+-		chmask = uac2_opts->p_chmask;
++		channels = uac2_num_channels(true, uac2_opts);
+ 		srate = get_max_srate(uac2_opts->p_srates);
+ 		ssize = uac2_opts->p_ssize;
+ 	} else {
+-		chmask = uac2_opts->c_chmask;
++		channels = uac2_num_channels(false, uac2_opts);
+ 		srate = get_max_srate(uac2_opts->c_srates);
+ 		ssize = uac2_opts->c_ssize;
+ 	}
+@@ -689,11 +699,11 @@ static int get_max_bw_for_bint(const struct f_uac2_opts *uac2_opts,
+ 		// Win10 requires max packet size + 1 frame
+ 		srate = srate * (1000 + uac2_opts->fb_max) / 1000;
+ 		// updated srate is always bigger, therefore DIV_ROUND_UP always yields +1
+-		max_size_bw = num_channels(chmask) * ssize *
++		max_size_bw = channels * ssize *
+ 			(DIV_ROUND_UP(srate, factor / (1 << (bint - 1))));
+ 	} else {
+ 		// adding 1 frame provision for Win10
+-		max_size_bw = num_channels(chmask) * ssize *
++		max_size_bw = channels * ssize *
+ 			(DIV_ROUND_UP(srate, factor / (1 << (bint - 1))) + 1);
+ 	}
+ 	return max_size_bw;
+@@ -764,10 +774,11 @@ static int set_ep_max_packet_size_bint(struct device *dev, const struct f_uac2_o
+ 	return 0;
+ }
+ 
+-static struct uac2_feature_unit_descriptor *build_fu_desc(int chmask)
++static struct uac2_feature_unit_descriptor *build_fu_desc(bool is_playback,
++							  const struct f_uac2_opts *opts)
+ {
+ 	struct uac2_feature_unit_descriptor *fu_desc;
+-	int channels = num_channels(chmask);
++	unsigned int channels = uac2_num_channels(is_playback, opts);
+ 	int fu_desc_size = UAC2_DT_FEATURE_UNIT_SIZE(channels);
+ 
+ 	fu_desc = kzalloc(fu_desc_size, GFP_KERNEL);
+@@ -976,13 +987,27 @@ static int afunc_validate_opts(struct g_audio *agdev, struct device *dev)
+ {
+ 	struct f_uac2_opts *opts = g_audio_to_uac2_opts(agdev);
+ 	const char *msg = NULL;
++	unsigned int p_channels = uac2_num_channels(true, opts);
++	unsigned int c_channels = uac2_num_channels(false, opts);
+ 
+-	if (!opts->p_chmask && !opts->c_chmask)
+-		msg = "no playback and capture channels";
+-	else if (opts->p_chmask & ~UAC2_CHANNEL_MASK)
++	if (opts->p_chmask & ~UAC2_CHANNEL_MASK)
+ 		msg = "unsupported playback channels mask";
+ 	else if (opts->c_chmask & ~UAC2_CHANNEL_MASK)
+ 		msg = "unsupported capture channels mask";
++	else if (!p_channels && !c_channels)
++		msg = "no playback and capture channels";
++	else if (opts->p_channels && opts->p_chmask &&
++		 opts->p_channels != num_channels(opts->p_chmask))
++		msg = "playback channel count does not match channel mask";
++	else if (opts->c_channels && opts->c_chmask &&
++		 opts->c_channels != num_channels(opts->c_chmask))
++		msg = "capture channel count does not match channel mask";
++	else if (FUIN_EN(opts) &&
++		 UAC2_DT_FEATURE_UNIT_SIZE(p_channels) > U8_MAX)
++		msg = "too many playback channels for feature unit descriptor";
++	else if (FUOUT_EN(opts) &&
++		 UAC2_DT_FEATURE_UNIT_SIZE(c_channels) > U8_MAX)
++		msg = "too many capture channels for feature unit descriptor";
+ 	else if ((opts->p_ssize < 1) || (opts->p_ssize > 4))
+ 		msg = "incorrect playback sample size";
+ 	else if ((opts->c_ssize < 1) || (opts->c_ssize > 4))
+@@ -1059,12 +1084,12 @@ afunc_bind(struct usb_configuration *cfg, struct usb_function *fn)
+ 		return PTR_ERR(us);
+ 
+ 	if (FUOUT_EN(uac2_opts)) {
+-		out_feature_unit_desc = build_fu_desc(uac2_opts->c_chmask);
++		out_feature_unit_desc = build_fu_desc(false, uac2_opts);
+ 		if (!out_feature_unit_desc)
+ 			return -ENOMEM;
+ 	}
+ 	if (FUIN_EN(uac2_opts)) {
+-		in_feature_unit_desc = build_fu_desc(uac2_opts->p_chmask);
++		in_feature_unit_desc = build_fu_desc(true, uac2_opts);
+ 		if (!in_feature_unit_desc) {
+ 			ret = -ENOMEM;
+ 			goto err_free_fu;
+@@ -1099,13 +1124,13 @@ afunc_bind(struct usb_configuration *cfg, struct usb_function *fn)
+ 
+ 
+ 	/* Initialize the configurable parameters */
+-	usb_out_it_desc.bNrChannels = num_channels(uac2_opts->c_chmask);
++	usb_out_it_desc.bNrChannels = uac2_num_channels(false, uac2_opts);
+ 	usb_out_it_desc.bmChannelConfig = cpu_to_le32(uac2_opts->c_chmask);
+-	io_in_it_desc.bNrChannels = num_channels(uac2_opts->p_chmask);
++	io_in_it_desc.bNrChannels = uac2_num_channels(true, uac2_opts);
+ 	io_in_it_desc.bmChannelConfig = cpu_to_le32(uac2_opts->p_chmask);
+-	as_out_hdr_desc.bNrChannels = num_channels(uac2_opts->c_chmask);
++	as_out_hdr_desc.bNrChannels = uac2_num_channels(false, uac2_opts);
+ 	as_out_hdr_desc.bmChannelConfig = cpu_to_le32(uac2_opts->c_chmask);
+-	as_in_hdr_desc.bNrChannels = num_channels(uac2_opts->p_chmask);
++	as_in_hdr_desc.bNrChannels = uac2_num_channels(true, uac2_opts);
+ 	as_in_hdr_desc.bmChannelConfig = cpu_to_le32(uac2_opts->p_chmask);
+ 	as_out_fmt1_desc.bSubslotSize = uac2_opts->c_ssize;
+ 	as_out_fmt1_desc.bBitResolution = uac2_opts->c_ssize * 8;
+@@ -1308,7 +1333,7 @@ afunc_bind(struct usb_configuration *cfg, struct usb_function *fn)
  	agdev->gadget = gadget;
  
  	agdev->params.p_chmask = uac2_opts->p_chmask;
-+	agdev->params.p_channels = num_channels(uac2_opts->p_chmask);
+-	agdev->params.p_channels = num_channels(uac2_opts->p_chmask);
++	agdev->params.p_channels = uac2_num_channels(true, uac2_opts);
  	memcpy(agdev->params.p_srates, uac2_opts->p_srates,
  			sizeof(agdev->params.p_srates));
  	agdev->params.p_ssize = uac2_opts->p_ssize;
-@@ -1320,6 +1321,7 @@ afunc_bind(struct usb_configuration *cfg, struct usb_function *fn)
+@@ -1321,7 +1346,7 @@ afunc_bind(struct usb_configuration *cfg, struct usb_function *fn)
  		agdev->params.p_fu.volume_res = uac2_opts->p_volume_res;
  	}
  	agdev->params.c_chmask = uac2_opts->c_chmask;
-+	agdev->params.c_channels = num_channels(uac2_opts->c_chmask);
+-	agdev->params.c_channels = num_channels(uac2_opts->c_chmask);
++	agdev->params.c_channels = uac2_num_channels(false, uac2_opts);
  	memcpy(agdev->params.c_srates, uac2_opts->c_srates,
  			sizeof(agdev->params.c_srates));
  	agdev->params.c_ssize = uac2_opts->c_ssize;
-diff --git a/drivers/usb/gadget/function/u_audio.c b/drivers/usb/gadget/function/u_audio.c
-index f0ee83abcebc..de0622ee72ab 100644
---- a/drivers/usb/gadget/function/u_audio.c
-+++ b/drivers/usb/gadget/function/u_audio.c
-@@ -390,25 +390,22 @@ static int uac_pcm_open(struct snd_pcm_substream *substream)
- 	struct uac_params *params;
- 	struct uac_rtd_params *prm;
- 	int p_ssize, c_ssize;
--	int p_chmask, c_chmask;
+@@ -2091,10 +2116,12 @@ end:									\
+ CONFIGFS_ATTR(f_uac2_opts_, name)
  
- 	audio_dev = uac->audio_dev;
- 	params = &audio_dev->params;
- 	p_ssize = params->p_ssize;
- 	c_ssize = params->c_ssize;
--	p_chmask = params->p_chmask;
--	c_chmask = params->c_chmask;
- 	uac->p_residue_mil = 0;
+ UAC2_ATTRIBUTE(u32, p_chmask);
++UAC2_ATTRIBUTE(u8, p_channels);
+ UAC2_RATE_ATTRIBUTE(p_srate);
+ UAC2_ATTRIBUTE(u32, p_ssize);
+ UAC2_ATTRIBUTE(u8, p_hs_bint);
+ UAC2_ATTRIBUTE(u32, c_chmask);
++UAC2_ATTRIBUTE(u8, c_channels);
+ UAC2_RATE_ATTRIBUTE(c_srate);
+ UAC2_ATTRIBUTE_SYNC(c_sync);
+ UAC2_ATTRIBUTE(u32, c_ssize);
+@@ -2134,10 +2161,12 @@ UAC2_ATTRIBUTE(s16, c_terminal_type);
  
- 	runtime->hw = uac_pcm_hardware;
+ static struct configfs_attribute *f_uac2_attrs[] = {
+ 	&f_uac2_opts_attr_p_chmask,
++	&f_uac2_opts_attr_p_channels,
+ 	&f_uac2_opts_attr_p_srate,
+ 	&f_uac2_opts_attr_p_ssize,
+ 	&f_uac2_opts_attr_p_hs_bint,
+ 	&f_uac2_opts_attr_c_chmask,
++	&f_uac2_opts_attr_c_channels,
+ 	&f_uac2_opts_attr_c_srate,
+ 	&f_uac2_opts_attr_c_ssize,
+ 	&f_uac2_opts_attr_c_hs_bint,
+@@ -2207,10 +2236,12 @@ static struct usb_function_instance *afunc_alloc_inst(void)
+ 				    &f_uac2_func_type);
  
- 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
- 		runtime->hw.formats = uac_ssize_to_fmt(p_ssize);
--		runtime->hw.channels_min = num_channels(p_chmask);
-+		runtime->hw.channels_min = params->p_channels;
- 		prm = &uac->p_prm;
- 	} else {
- 		runtime->hw.formats = uac_ssize_to_fmt(c_ssize);
--		runtime->hw.channels_min = num_channels(c_chmask);
-+		runtime->hw.channels_min = params->c_channels;
- 		prm = &uac->c_prm;
- 	}
+ 	opts->p_chmask = UAC2_DEF_PCHMASK;
++	opts->p_channels = UAC2_DEF_PCHANNELS;
+ 	opts->p_srates[0] = UAC2_DEF_PSRATE;
+ 	opts->p_ssize = UAC2_DEF_PSSIZE;
+ 	opts->p_hs_bint = UAC2_DEF_PHSBINT;
+ 	opts->c_chmask = UAC2_DEF_CCHMASK;
++	opts->c_channels = UAC2_DEF_CCHANNELS;
+ 	opts->c_srates[0] = UAC2_DEF_CSRATE;
+ 	opts->c_ssize = UAC2_DEF_CSSIZE;
+ 	opts->c_hs_bint = UAC2_DEF_CHSBINT;
+diff --git a/drivers/usb/gadget/function/u_uac2.h b/drivers/usb/gadget/function/u_uac2.h
+index 0df808289ded..bacd841c9df6 100644
+--- a/drivers/usb/gadget/function/u_uac2.h
++++ b/drivers/usb/gadget/function/u_uac2.h
+@@ -17,10 +17,12 @@
+ #include "uac_common.h"
  
-@@ -736,8 +733,7 @@ int u_audio_start_playback(struct g_audio *audio_dev)
- 		factor = 8000;
+ #define UAC2_DEF_PCHMASK 0x3
++#define UAC2_DEF_PCHANNELS 0  /* 0 = derive from p_chmask */
+ #define UAC2_DEF_PSRATE 48000
+ #define UAC2_DEF_PSSIZE 2
+ #define UAC2_DEF_PHSBINT 0
+ #define UAC2_DEF_CCHMASK 0x3
++#define UAC2_DEF_CCHANNELS 0  /* 0 = derive from c_chmask */
+ #define UAC2_DEF_CSRATE 64000
+ #define UAC2_DEF_CSSIZE 2
+ #define UAC2_DEF_CHSBINT 0
+@@ -46,11 +48,13 @@ struct f_uac2_opts {
+ 	int				p_srates[UAC_MAX_RATES];
+ 	int				p_ssize;
+ 	u8				p_hs_bint;
++	u8				p_channels;
+ 	int				c_chmask;
+ 	int				c_srates[UAC_MAX_RATES];
+ 	int				c_ssize;
+ 	int				c_sync;
+ 	u8				c_hs_bint;
++	u8				c_channels;
  
- 	/* pre-compute some values for iso_complete() */
--	uac->p_framesize = params->p_ssize *
--			    num_channels(params->p_chmask);
-+	uac->p_framesize = params->p_ssize * params->p_channels;
- 	uac->p_interval = factor / (1 << (ep_desc->bInterval - 1));
- 	p_pktsize = min_t(unsigned int,
- 				uac->p_framesize *
-@@ -1205,7 +1201,7 @@ int g_audio_setup(struct g_audio *g_audio, const char *pcm_name,
- 	struct snd_pcm *pcm;
- 	struct snd_kcontrol *kctl;
- 	struct uac_params *params;
--	int p_chmask, c_chmask;
-+	unsigned int p_channels, c_channels;
- 	int i, err;
- 
- 	if (!g_audio)
-@@ -1218,10 +1214,10 @@ int g_audio_setup(struct g_audio *g_audio, const char *pcm_name,
- 	uac->audio_dev = g_audio;
- 
- 	params = &g_audio->params;
--	p_chmask = params->p_chmask;
--	c_chmask = params->c_chmask;
-+	p_channels = params->p_channels;
-+	c_channels = params->c_channels;
- 
--	if (c_chmask) {
-+	if (c_channels) {
- 		struct uac_rtd_params *prm = &uac->c_prm;
- 
- 		spin_lock_init(&prm->lock);
-@@ -1245,7 +1241,7 @@ int g_audio_setup(struct g_audio *g_audio, const char *pcm_name,
- 		}
- 	}
- 
--	if (p_chmask) {
-+	if (p_channels) {
- 		struct uac_rtd_params *prm = &uac->p_prm;
- 
- 		spin_lock_init(&prm->lock);
-@@ -1284,7 +1280,7 @@ int g_audio_setup(struct g_audio *g_audio, const char *pcm_name,
- 	 * Create a substream only for non-zero channel streams
- 	 */
- 	err = snd_pcm_new(uac->card, pcm_name, 0,
--			       p_chmask ? 1 : 0, c_chmask ? 1 : 0, &pcm);
-+			       p_channels ? 1 : 0, c_channels ? 1 : 0, &pcm);
- 	if (err < 0)
- 		goto snd_fail;
- 
-@@ -1299,12 +1295,12 @@ int g_audio_setup(struct g_audio *g_audio, const char *pcm_name,
- 	 * Create mixer and controls
- 	 * Create only if it's required on USB side
- 	 */
--	if ((c_chmask && g_audio->in_ep_fback)
--			|| (p_chmask && params->p_fu.id)
--			|| (c_chmask && params->c_fu.id))
-+	if ((c_channels && g_audio->in_ep_fback)
-+			|| (p_channels && params->p_fu.id)
-+			|| (c_channels && params->c_fu.id))
- 		strscpy(card->mixername, card_name);
- 
--	if (c_chmask && g_audio->in_ep_fback) {
-+	if (c_channels && g_audio->in_ep_fback) {
- 		kctl = snd_ctl_new1(&u_audio_controls[UAC_FBACK_CTRL],
- 				    &uac->c_prm);
- 		if (!kctl) {
-@@ -1320,7 +1316,7 @@ int g_audio_setup(struct g_audio *g_audio, const char *pcm_name,
- 			goto snd_fail;
- 	}
- 
--	if (p_chmask) {
-+	if (p_channels) {
- 		kctl = snd_ctl_new1(&u_audio_controls[UAC_P_PITCH_CTRL],
- 				    &uac->p_prm);
- 		if (!kctl) {
-diff --git a/drivers/usb/gadget/function/u_audio.h b/drivers/usb/gadget/function/u_audio.h
-index 9512b8fccfaa..46e1d6b5ca4e 100644
---- a/drivers/usb/gadget/function/u_audio.h
-+++ b/drivers/usb/gadget/function/u_audio.h
-@@ -41,12 +41,14 @@ struct uac_fu_params {
- struct uac_params {
- 	/* playback */
- 	int p_chmask;	/* channel mask */
-+	unsigned int p_channels;	/* resolved number of channels */
- 	int p_srates[UAC_MAX_RATES];	/* available rates in Hz (0 terminated list) */
- 	int p_ssize;	/* sample size */
- 	struct uac_fu_params p_fu;	/* Feature Unit parameters */
- 
- 	/* capture */
- 	int c_chmask;	/* channel mask */
-+	unsigned int c_channels;	/* resolved number of channels */
- 	int c_srates[UAC_MAX_RATES];	/* available rates in Hz (0 terminated list) */
- 	int c_ssize;	/* sample size */
- 	struct uac_fu_params c_fu;	/* Feature Unit parameters */
+ 	bool			p_mute_present;
+ 	bool			p_volume_present;
 -- 
 2.34.1
 
