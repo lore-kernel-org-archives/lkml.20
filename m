@@ -1,127 +1,90 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 839C6386453
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:03:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 225172EEE73
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:04:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790258587; cv=none; b=ii2ztyQ8SvT0ydFukzHO4zGmud5SfQPkn+1XqJgC0U+M8YPqzQmuurhPPg1W0bFeH55PhRptydzGfAteABhQbeFRjpfZjpzcIa23ovo+bsFEGCyxScu7ZYcfDcOZeS/kM6vErtrtbIXGE56NkJHXQEkVawA9l2JGv0USscYa4Ls=
+	t=1790258651; cv=none; b=jAQt7+yn58OrYpN0fjqw0dbwUE7+dZk0o2PRLoqZi6ZqEPXUyy1BifOaHy4wHb5L0vlmYru3XuNqw/pTPqEoYWG3Z3kLWRNjzcHHB9uxxs1774K81ybO8OyrTaae+iRCTzSbCex3/2R6yw2MnAe6ZwW4kW5kRUW2HoSbFrIMKd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790258587; c=relaxed/simple;
-	bh=vgPaatv/nuuMB3kArXx0HJa/hPvxZmi/7qbO2VHTEFQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Kbq9aNYbPSyW8LMrVbquXn8/xtKox2Dt+kLGGnB86rdPStf1omZVDcUuaZVddsuPsOgHut4aSUCOHjUY8FIrEoPjdZApmeLJ0bKlKqCtCfdJP+eayw2CAarWcTRp0BBBNH6hQscBJHvB+iPaTQhlARwZnwalZEmRHymI5xUR4Ws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gs3elWvW; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790258651; c=relaxed/simple;
+	bh=Jx/FoS3YQ3sSRmpcfu8IXCU6XB27SkLhCaIXwR6fTF8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=f5XeFBfNSXj5VGNoq0zpFgDzhxh2ak0AiXfIuYEZZKb+hCpCVQF0fcJcpw51VHqcBaDelK7ldsfPofnQOf1UoSxXEOx2vCz5KIXjbxtdCCAqrhY4uIop1K4tGUqNJHIEQy9Q+rGyXCERXppYSMIzx2eB+ZE50kVbvXYrh63gThQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=QugIOZP/; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gs3elWvW"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887635e952so179184f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:03:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790258585; x=1790863385; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=esKDI064jHsR20UuoDXImNuPdjmJM/k8p4cbmXH1qsk=;
-        b=Gs3elWvWKeRY0J20jtnX6+M3qmB7nrZ4L+y3R3RS5wU1TlH0JuMe/HeYnT0Co60uId
-         Qn0durQopaYBC9mBGoP9CZQuAoFZzJbV/Jmw5CnBWbD7RqRL4iKgtjQTw6k/6I0yJ63D
-         tobNWffexYOrQYfaVxhOEE+8lQNcbRvohb9VHxsHVCfRive+RSOsKwvx1NeVone8U/Sl
-         V21W5V9y3vm3WRkcCuB4gQc+p4QgsZK7P8z2iHSc6iMPL9PmoijeDEDEZiEVzRQgd/HK
-         cmAWr0l6F5ZC+axDkyw8Rpd2as/yMUVEuK/3DwAaVT/+dmk1o/NGvSIjRmnZZCFGBydZ
-         lihQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790258585; x=1790863385;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=esKDI064jHsR20UuoDXImNuPdjmJM/k8p4cbmXH1qsk=;
-        b=VEPbChbg0b5ua3xJhBeaO/6kgwC7L22EX6m4yAPQrDUx9udjhYv8dMXGKcIsoH/MEZ
-         dsgH2BlUA0yzjKahhCgqp9BU27OhXL+DM/trMDEJjgyjN4QsNWQ/gs+G4uVsAra8ApNl
-         nX2cgs3IySiCC2oPGFqWr3ArWV5wNDoualfQOnKcnRwj8cvoYz5eIbNL6G4qOxHxZdzy
-         NZse+YI4a+B7ThcVcjaAIY0+sYh3WzrVuEnVK5YZyBUa1pAeF1uYOXuStQiaEX05E+Fs
-         mvmvownT83MZZIF+lfrmB3ljoikycQ/A4QTKC0hWUtnjp1Iaqcef7WknRE5JGhkedI7b
-         KY6g==
-X-Forwarded-Encrypted: i=1; AKwUvBx3A333xJECTup1zBydewX1T13bn2jeOPIf+BpJm9y/ayUem2v0t+p9IpTmtyWHziAfK3bacrUgWxbYNh4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfzMvSGOFUhY8OWjRR4P+at8HxFv149jqqktpilauhb0c4ixbL
-	19Qc72R4e1bc7YJrF4eaOwBsdT+M0xemlJB1tRlTrjoQUylz7cArBgYo
-X-Gm-Gg: AYBFou0PWsLXfbwS8taHfWRmkNI9JwCxpAChVzlqUb5Iutl0I5GR1t81PLo/6Q8OuYM
-	FHmWRZn8LAglQgnq0ifLU09YPo+hLZ6XQ3TI42XUrvo0s20l3mYKAuq6P6u7x4nmgURyKp4y7P9
-	moASUjgwJc6lZZEFO8yjyIeZoLAbcJkIHa8BtE+OwhBFMZt8CQRU50ytrSSHfaKAIVZBHIXMwZ9
-	ovz/mSbVXUBo0P52NXOPUQJx/YlOg3e/mCICGGyymuOyKbgMYKdYDs/COTUqOfZQgF9M54GyWuN
-	MWn/eFlzRG8mD42l316K1u/2nrHohVu/tlDdl3U/Xr6XDMszuAI5CPBA/QDRXLNbyyPC30hoyu/
-	VKIGPDD5gazmLGjDs7OBwkxFxdN+3CsXHNm4QzuwQBT8Zhyj//oAX/7VvTrFeC9v7smpMlzajJ5
-	pHa1kwYNKejf4ApfGNrO9nWUWyfdo/Eo/y77Lg55iqkxzhAQJvCfZBS+MCR7qiD/Jp3ZmmlGNvM
-	6IjzNbSjVlcWwaf6sTD4yH97UfkV8bdGsQ/u1JCoALNQEIs35WbbsMLJ/0mIJvz92jpY8COaOsn
-	dA==
-X-Received: by 2002:a05:6000:26d3:b0:486:fed6:d7e with SMTP id ffacd0b85a97d-488716d3d3fmr4957139f8f.22.1790258584350;
-        Thu, 24 Sep 2026 07:03:04 -0700 (PDT)
-Received: from localhost.localdomain (host86-148-231-190.range86-148.btcentralplus.com. [86.148.231.190])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886877a247sm15542626f8f.28.2026.09.24.07.02.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 07:03:00 -0700 (PDT)
-From: Areeb Ul Haq Mirza <auhmirza02@gmail.com>
-To: Robert Jarzmik <robert.jarzmik@free.fr>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Areeb Ul Haq Mirza <auhmirza02@gmail.com>
-Subject: [PATCH] gpio: pxa: stop reading gpio_chip::base in direction callbacks
-Date: Thu, 24 Sep 2026 15:02:42 +0100
-Message-ID: <20260924140242.126159-1-auhmirza02@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="QugIOZP/"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 63427C211ED;
+	Thu, 24 Sep 2026 14:04:55 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E0E0160341;
+	Thu, 24 Sep 2026 14:04:07 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E4DF610328D17;
+	Thu, 24 Sep 2026 16:03:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790258642; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=ihni7hhtCrz44oxSik4WfQd3qi/mucvdq3PDuzw6vGs=;
+	b=QugIOZP/X+VQ1P8ND6584ZIN7DkI7/Eqb7iXWwDZHA/TcNLZy4RGDKJnBgZq7N5d8f4/5f
+	y2IKyUruGCk8cczG8bHeg2I191/icbBDRd4xCBlBt1iAdv1sIYNQlWVGU0kGuJKme2RfJM
+	byuF4PWBHBPucKrHmwVQ4nY0KjXBlF7WVI1UzJAr0xQJsjfkZ+R6JMdpjsiAzZE+MG1zu6
+	9CFRoaF5gXgj5Yw+n1qqvF5mAXaxIJSFY/S7KxFiFLj135fwMMUSV2vL9+ju2vYTKGGl7p
+	krljcxGEXZCwW49Huk8vPa9p36eo/QSpB1kSbfo0epAuMOQ3VQFv39yP8YYRXA==
+Message-ID: <c0528db8-9627-4533-b636-a7b37186c165@bootlin.com>
+Date: Thu, 24 Sep 2026 16:03:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 2/3] selftests: drv-net: pause: Validate the
+ pause autonegotiation with a partner
+To: Andrew Lunn <andrew@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
+ davem@davemloft.net, Eric Dumazet <edumazet@google.com>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Russell King <linux@armlinux.org.uk>, Heiner Kallweit
+ <hkallweit1@gmail.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Florian Fainelli <f.fainelli@gmail.com>, thomas.petazzoni@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org
+References: <20260920164732.349744-1-maxime.chevallier@bootlin.com>
+ <20260920164732.349744-4-maxime.chevallier@bootlin.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260920164732.349744-4-maxime.chevallier@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-__gpio_is_inverted() identifies GPIO86-89 on PXA26x by comparing its
-argument against hardware line numbers, and its other callers pass the
-hardware index from irqd_to_hwirq(). The direction_input() and
-direction_output() callbacks instead pass chip->base + offset.
+Hi,
 
-Pass the offset directly, which is the same conversion that commit
-566e684e70cb ("gpio: pxa: use new pinctrl GPIO helpers") made for the
-pinctrl calls in these functions.
+On 9/20/26 18:47, Maxime Chevallier (Netdev Foundation) wrote:
+> Pause autonegotiation behaves differently than the regular link params
+> autonegotiation, in that the user intention may differ from the
+> negotiated pause parameters.
+> 
+> Introduce a test that validates we're correctly resolving pause
+> parameters according to 802.3.
+> 
+> The validation is done based on what the local interface reports in
+> terms of advertised and lp_advertised linkmodes.
+> 
+> If the remote can express what it sees in terms of its own advertised
+> and lp_advertised modes, validate the autoneg results on the peer as
+> well.
+> 
+> Signed-off-by: Maxime Chevallier (Netdev Foundation) <maxime.chevallier@bootlin.com>
+Dammit, this patch is duplicate, stale one from 2 format-patch sessions in
+the same -o folder :(
 
-No functional change: the driver never sets chip->base, which stays
-zero because struct pxa_gpio_chip is allocated with devm_kzalloc().
-This removes a dependency on gpio_chip::base,
-as tracked in drivers/gpio/TODO.
+sorry about that :(
 
-Signed-off-by: Areeb Ul Haq Mirza <auhmirza02@gmail.com>
----
-Compile-tested only (arm64, COMPILE_TEST, W=1 and sparse clean).
-
- drivers/gpio/gpio-pxa.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpio/gpio-pxa.c b/drivers/gpio/gpio-pxa.c
-index 2b5da973f51f..3ff21e899278 100644
---- a/drivers/gpio/gpio-pxa.c
-+++ b/drivers/gpio/gpio-pxa.c
-@@ -268,7 +268,7 @@ static int pxa_gpio_direction_input(struct gpio_chip *chip, unsigned offset)
- 	spin_lock_irqsave(&gpio_lock, flags);
- 
- 	value = readl_relaxed(base + GPDR_OFFSET);
--	if (__gpio_is_inverted(chip->base + offset))
-+	if (__gpio_is_inverted(offset))
- 		value |= mask;
- 	else
- 		value &= ~mask;
-@@ -297,7 +297,7 @@ static int pxa_gpio_direction_output(struct gpio_chip *chip,
- 	spin_lock_irqsave(&gpio_lock, flags);
- 
- 	tmp = readl_relaxed(base + GPDR_OFFSET);
--	if (__gpio_is_inverted(chip->base + offset))
-+	if (__gpio_is_inverted(offset))
- 		tmp &= ~mask;
- 	else
- 		tmp |= mask;
-
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
--- 
-2.43.0
-
+Maxime
