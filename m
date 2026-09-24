@@ -1,56 +1,56 @@
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1040D3F86FB
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:37:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5E5732B133
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:37:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790228283; cv=none; b=gfO+3nJntDMnYnTM1iaKqD5cvFCAGGgdB3njI94BxR7+y8/i1k9b6hnor9bEKL45gv0VzgZhNsI7QpzjAimnYh4v/eYphdjjZC0m8v1OXzMYA+RFPV8y/GTRd7gVeO045Kqii50yYJJ8s1Uj0FX/oCrdabrCTymauGKnkt1hc7U=
+	t=1790228280; cv=none; b=BsHq/OtADZ0l3ZVLWJWOoxmgnpGB19Z7R3acSToyQMUYQ+3CD6Chj+y9QFd92YdFLgw0x0SjDbWtx0n3qP+9aFxiTxoFlLvYfrHY0aG1hbWlekaebqlwuh3eS6CbQWrs70wSWFWv4WwnCyzDtQ0FgceL6vOoeuNqoB/gaxC3xPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790228283; c=relaxed/simple;
-	bh=irTzU0Lwbfu8mZUQvgu8/gN8APK9/RAgMgQm0o31+JM=;
+	s=arc-20240116; t=1790228280; c=relaxed/simple;
+	bh=EaocGedhmHE/qTnkmPB8mWGtIcjMADem/92XEqNCn54=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Content-Type; b=Jda97MGp+oX1gsrDzPgcCu0uW1aKQ94Ye/DbUPVng4UZlcqwj2skHyUGmd9gVm9ZYBUZYC8edZfEaXbdyi5BC2I6PdhUjI/2rNjpXd6+Vu4J0yNccJHLNezuhRUswxRCQR014c5StuJ2CgOo9eoVfoQ+zowTn0thfWc3emqvBOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fG+D/y6K; arc=none smtp.client-ip=74.125.82.70
+	 To:Content-Type; b=L9+hSh7DSDf0iDTXUgT1VDJegic6suzc/k7VM+5UZmC8/ZxHMabOG6RQnoYMXq03AW6Xr7i0DNyFpsr7MtYacEMrLFoBYvJsKAwEBYwnm5g2AsC66ifpfhW07eAnIH18EpUE1rLBle5+2j/9Cwib4b61m0iubd2x0jZWJXI3KAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jyKLjvV8; arc=none smtp.client-ip=74.125.82.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fG+D/y6K"
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1383723dfddso3383439c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:37:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jyKLjvV8"
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1416f32fe11so2296317c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:37:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790228278; x=1790833078; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790228275; x=1790833075; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:to:from:subject:message-id
          :references:mime-version:in-reply-to:date:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Q3wY9f2BiM8ctX++yyiyeBB3mUrtrBlYPM7oAod7QxA=;
-        b=fG+D/y6K/01wC3W4NLMmTFHv/YoW1MoE7O/d5fY2jO0OBnP/NPIBvVZAhLk5cnxjRH
-         tERqaJSnzI1VN/2L2ZqSKDaLn5DZ6MdnSCmHy1+t9FaK0tXuCKOI57zucIUA/SddNvXq
-         V/31NFU35QjmQJ+Rifr62s8WBOzTbB5C9/VCOD1ewgTydrnBXkDIbJtySEBEM7CavBfV
-         D8otNywgCXZO7b5UgXTk2iT+FUHpmW7NF4xoR+dUP+W/6bDlz1VFSK93Q9oSE0gBSjLe
-         tJ3gBRchPD7s1BkrPnsJbExV/BKLUp2fh+VygJBYfqN63S054lrNhKCmKRHMkr+9lJ3F
-         JWzw==
+        bh=Qrt5btML/MFxKgb9ZINbZPwMQhumeDEOzekDkh5vca0=;
+        b=jyKLjvV8g/OLdW/HEWH13EEc8CqNXIV9GI1pVit7NnO9yMr0bGChOhkk4xVnNOa0N+
+         /pLBYZTSzfdP3K+attfexZ1/c/9jBF5LkZbLYMPeI2eMLNHekg38C46yjEDo4za6NdrW
+         egr9GQ0+OOB8m/ZiTwvGrOjtcpdqpmcFixkd5I0bahm2klFyDzztcZ42nRUfxX4dc5+Z
+         1vOYCqbY5Ya1uWRlfdwwqpkR5R7EYoAXcyG5v+Bvjlscz1uJxBVQXYYZdh6+YTsaKmkM
+         g/U45Uc28k5iOHZGjemAMm9ifTIpdxDV4GyCcfc2Z5mqWkbq2tpCVN3jTXW2t20o7zmj
+         xQsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790228278; x=1790833078;
+        d=1e100.net; s=20260707; t=1790228275; x=1790833075;
         h=content-transfer-encoding:content-type:to:from:subject:message-id
          :references:mime-version:in-reply-to:date:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=Q3wY9f2BiM8ctX++yyiyeBB3mUrtrBlYPM7oAod7QxA=;
-        b=jz5KA8ncaLG4KCsHRSck0hski7PXGSKpQVZKhMkZu4lIftUelRSb/arwIStt8ub1lL
-         iyCIr8m+vSa55PJ5GEw0zYpuA/YX5AdJc9wKsAE6uJsnss9quo1YfbFhh+SCPgbUv/Gy
-         zxtA44+mhi9jWmPgA06V0A7VsbCE8UpStNleufWKdrzRVLWDVcY+vSJ2dnq+fPqZpB6O
-         J4QE40cRrs+mWJS01cHdd8jnxxKO1KWdn6sr/czTXuMqCWoh3G+enuwcdVqoEHoibzoB
-         vFCzrTPX0UleNb9LvAFCGFpAQWm/3b6oOwSGHqlnF7S+QvLN5QEijsI2fFoZYu2EtdSp
-         Uilg==
-X-Forwarded-Encrypted: i=1; AKwUvBzjriD4tYMxmr9xSHjC1U/tc1znyzR98J45KE8ieJ6NVLqW5nzZDnD4MM5W9U0vkKSxHhxfjpP953Qwzjs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lj8wRKYiiC0TjQLmwHhbD/YA4NJtYwKZCYa65pRp9y8u/NaS0q
-	qclxVdWLxNM2VsNgxHBrFe/dqaktRUdYdO/GBSStUb1QXSjEluTcf1ohqL4FT1NzBAKWcf/YaAV
-	Ej3ZWrrqt2w==
-X-Received: from dlbpt9.prod.google.com ([2002:a05:7022:e809:b0:144:bfb6:b5b2])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:231a:b0:145:77f:293e
- with SMTP id a92af1059eb24-145077f2a8emr206703c88.39.1790228277339; Wed, 23
- Sep 2026 22:37:57 -0700 (PDT)
-Date: Wed, 23 Sep 2026 22:36:26 -0700
+        bh=Qrt5btML/MFxKgb9ZINbZPwMQhumeDEOzekDkh5vca0=;
+        b=Bi/UzVYPI3I8+0ofTGoZtS9zHp4JCnEgz8RadFAs78FZc47uZuHCO0u0dF9o6aSTDQ
+         vC6h40feS8d+1Um54CI8nqqGqYvaeXT5rZTuLQtkpBVTe0Cwa4ERXfsonWfElL2hvZ3S
+         gw9U1bOXiOSx19LRKxlLafBQnOckHN86vUu9JO5ULIrGHRl64v+Jz+1XCzAaHKkMpVVK
+         yM0B3UC8NSQICPfiychG/zjIEaGkmxlPcv5m2k7IFCo1mQQSFWgugrEO0bhntoEmFjaR
+         ZqhlVTOlc7E1CBoHuD+ZevIoDvIa2MRWDFUFlra7CM1Ku2DfJ5HiJSB4OXgj0nMGeu7V
+         SZFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzMk6fCnTKWi6r4idttksVhMdxU2qSWJuFg8LqolFY0/YnrDHPzP1wTgtsEopjCrJHQ0U89/31Q8gS0DZU=@vger.kernel.org
+X-Gm-Message-State: AFuF++myLavD6T+hm5UH3gZxPV2ByuUHS0UE9mylfi2Fbs2y3Li1usiJ
+	HeOoUKCG80aOvXKEhlHOpyHfPUrBWzfuD1z2rRvsUL6xjpJOFQErDjuVLygiOPYYkt4U1f/uK0s
+	DhF+Sk2cqDg==
+X-Received: from dlev19.prod.google.com ([2002:a05:701b:4653:b0:144:ce33:3556])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:eb47:10b0:144:f480:3541
+ with SMTP id a92af1059eb24-14503fe8205mr1086221c88.21.1790228275176; Wed, 23
+ Sep 2026 22:37:55 -0700 (PDT)
+Date: Wed, 23 Sep 2026 22:36:25 -0700
 In-Reply-To: <20260924053645.3555041-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260924053645.3555041-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
-Message-ID: <20260924053645.3555041-3-irogers@google.com>
-Subject: [PATCH v1 02/21] perf vendor events intel: Update alderlaken events
+Message-ID: <20260924053645.3555041-2-irogers@google.com>
+Subject: [PATCH v1 01/21] perf vendor events intel: Update alderlake events
  from 1.40 to 1.41
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
@@ -81,15 +81,18 @@ The updated events were published in:
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/pmu-events/arch/x86/alderlaken/cache.json | 4 ++--
- tools/perf/pmu-events/arch/x86/mapfile.csv           | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ tools/perf/pmu-events/arch/x86/alderlake/cache.json |  4 ++--
+ .../perf/pmu-events/arch/x86/alderlake/memory.json  | 13 +++++++++++++
+ tools/perf/pmu-events/arch/x86/alderlake/other.json | 10 ++++++++++
+ .../pmu-events/arch/x86/alderlake/pipeline.json     |  6 +++---
+ tools/perf/pmu-events/arch/x86/mapfile.csv          |  2 +-
+ 5 files changed, 29 insertions(+), 6 deletions(-)
 
-diff --git a/tools/perf/pmu-events/arch/x86/alderlaken/cache.json b/tools/p=
-erf/pmu-events/arch/x86/alderlaken/cache.json
-index b39c73614b86..38851c1580c1 100644
---- a/tools/perf/pmu-events/arch/x86/alderlaken/cache.json
-+++ b/tools/perf/pmu-events/arch/x86/alderlaken/cache.json
+diff --git a/tools/perf/pmu-events/arch/x86/alderlake/cache.json b/tools/pe=
+rf/pmu-events/arch/x86/alderlake/cache.json
+index 6c09da7b69e8..b804fe0a4156 100644
+--- a/tools/perf/pmu-events/arch/x86/alderlake/cache.json
++++ b/tools/perf/pmu-events/arch/x86/alderlake/cache.json
 @@ -4,7 +4,7 @@
          "Counter": "0,1,2,3,4,5",
          "EventCode": "0x31",
@@ -114,10 +117,10 @@ re fairness between cores, or to delay a cores dirty eviction when the addr=
 ess conflicts with incoming external snoops. (Note that L2 prefetcher reque=
 sts that are dropped are not counted by this event). Counts on a per core b=
 asis.",
-         "SampleAfterValue": "200003"
+         "SampleAfterValue": "200003",
+         "Unit": "cpu_atom"
      },
-     {
-@@ -12,7 +12,7 @@
+@@ -135,7 +135,7 @@
          "Counter": "0,1,2,3,4,5",
          "EventCode": "0x30",
          "EventName": "L2_REJECT_XQ.ANY",
@@ -131,22 +134,129 @@ nsactions that the External Queue (XQ) rejects due to a full or near full c=
 ondition, which likely indicates back pressure from the IDI link. The XQ ma=
 y reject transactions from the L2Q (non-cacheable requests), BBL (L2 misses=
 ) and WOB (L2 write-back victims).",
-         "SampleAfterValue": "200003"
+         "SampleAfterValue": "200003",
+         "Unit": "cpu_atom"
+     },
+diff --git a/tools/perf/pmu-events/arch/x86/alderlake/memory.json b/tools/p=
+erf/pmu-events/arch/x86/alderlake/memory.json
+index f482c06ac728..70e3c9a1f740 100644
+--- a/tools/perf/pmu-events/arch/x86/alderlake/memory.json
++++ b/tools/perf/pmu-events/arch/x86/alderlake/memory.json
+@@ -228,6 +228,19 @@
+         "UMask": "0x1",
+         "Unit": "cpu_core"
+     },
++    {
++        "BriefDescription": "Counts randomly selected loads when the laten=
+cy from first dispatch to completion is greater than 2048 cycles.",
++        "Counter": "1,2,3,4,5,6,7",
++        "Data_LA": "1",
++        "EventCode": "0xcd",
++        "EventName": "MEM_TRANS_RETIRED.LOAD_LATENCY_GT_2048",
++        "MSRIndex": "0x3F6",
++        "MSRValue": "0x800",
++        "PublicDescription": "Counts randomly selected loads when the late=
+ncy from first dispatch to completion is greater than 2048 cycles.  Reporte=
+d latency may be longer than just the memory latency.",
++        "SampleAfterValue": "23",
++        "UMask": "0x1",
++        "Unit": "cpu_core"
++    },
+     {
+         "BriefDescription": "Counts randomly selected loads when the laten=
+cy from first dispatch to completion is greater than 256 cycles.",
+         "Counter": "1,2,3,4,5,6,7",
+diff --git a/tools/perf/pmu-events/arch/x86/alderlake/other.json b/tools/pe=
+rf/pmu-events/arch/x86/alderlake/other.json
+index af46cde26b54..c530f05e09d6 100644
+--- a/tools/perf/pmu-events/arch/x86/alderlake/other.json
++++ b/tools/perf/pmu-events/arch/x86/alderlake/other.json
+@@ -55,6 +55,16 @@
+         "UMask": "0x1",
+         "Unit": "cpu_atom"
+     },
++    {
++        "BriefDescription": "Increments whenever there is an update to the=
+ LBR array. [This event is alias to MISC_RETIRED.LBR_INSERTS]",
++        "Counter": "0,1,2,3,4,5,6,7",
++        "EventCode": "0xcc",
++        "EventName": "LBR_INSERTS.ANY",
++        "PublicDescription": "Increments when an entry is added to the Las=
+t Branch Record (LBR) array (or removed from the array in case of RETURNs i=
+n call stack mode). The event requires LBR enable via IA32_DEBUGCTL MSR and=
+ branch type selection via MSR_LBR_SELECT. [This event is alias to MISC_RET=
+IRED.LBR_INSERTS]",
++        "SampleAfterValue": "100003",
++        "UMask": "0x20",
++        "Unit": "cpu_core"
++    },
+     {
+         "BriefDescription": "Counts streaming stores which modify a full 6=
+4 byte cacheline that have any type of response.",
+         "Counter": "0,1,2,3,4,5",
+diff --git a/tools/perf/pmu-events/arch/x86/alderlake/pipeline.json b/tools=
+/perf/pmu-events/arch/x86/alderlake/pipeline.json
+index eb840066a5a7..1b9482b02bc5 100644
+--- a/tools/perf/pmu-events/arch/x86/alderlake/pipeline.json
++++ b/tools/perf/pmu-events/arch/x86/alderlake/pipeline.json
+@@ -988,7 +988,7 @@
+         "Counter": "0,1,2,3,4,5,6,7",
+         "EventCode": "0xc0",
+         "EventName": "INST_RETIRED.REP_ITERATION",
+-        "PublicDescription": "Number of iterations of Repeat (REP) string =
+retired instructions such as MOVS, CMPS, and SCAS. Each has a byte, word, a=
+nd doubleword version and string instructions can be repeated using a repet=
+ition prefix, REP, that allows their architectural execution to be repeated=
+ a number of times as specified by the RCX register. Note: Since the number=
+ of iterations within a REP instruction can be significantly affected by fa=
+st strings, this event may vary run to run and not match the architectural =
+number of iterations (specified by RCX)",
++        "PublicDescription": "Number of iterations of Repeat (REP) string =
+retired instructions such as MOVS, CMPS, and SCAS. Each has a byte, word, a=
+nd doubleword version and string instructions can be repeated using a repet=
+ition prefix, REP, that allows their architectural execution to be repeated=
+ a number of times as specified by the RCX register. Note: Since the number=
+ of iterations within a REP instruction can be significantly affected by fa=
+st strings, this event may vary from run to run and not match the architect=
+ural number of iterations (specified by RCX).",
+         "SampleAfterValue": "2000003",
+         "UMask": "0x8",
+         "Unit": "cpu_core"
+@@ -1327,11 +1327,11 @@
+         "Unit": "cpu_atom"
      },
      {
+-        "BriefDescription": "Increments whenever there is an update to the=
+ LBR array.",
++        "BriefDescription": "Increments whenever there is an update to the=
+ LBR array. [This event is alias to LBR_INSERTS.ANY]",
+         "Counter": "0,1,2,3,4,5,6,7",
+         "EventCode": "0xcc",
+         "EventName": "MISC_RETIRED.LBR_INSERTS",
+-        "PublicDescription": "Increments when an entry is added to the Las=
+t Branch Record (LBR) array (or removed from the array in case of RETURNs i=
+n call stack mode). The event requires LBR enable via IA32_DEBUGCTL MSR and=
+ branch type selection via MSR_LBR_SELECT.",
++        "PublicDescription": "Increments when an entry is added to the Las=
+t Branch Record (LBR) array (or removed from the array in case of RETURNs i=
+n call stack mode). The event requires LBR enable via IA32_DEBUGCTL MSR and=
+ branch type selection via MSR_LBR_SELECT. [This event is alias to LBR_INSE=
+RTS.ANY]",
+         "SampleAfterValue": "100003",
+         "UMask": "0x20",
+         "Unit": "cpu_core"
 diff --git a/tools/perf/pmu-events/arch/x86/mapfile.csv b/tools/perf/pmu-ev=
 ents/arch/x86/mapfile.csv
-index 866b5fba7124..748d1ee1605c 100644
+index e5d90825041b..866b5fba7124 100644
 --- a/tools/perf/pmu-events/arch/x86/mapfile.csv
 +++ b/tools/perf/pmu-events/arch/x86/mapfile.csv
-@@ -1,6 +1,6 @@
+@@ -1,5 +1,5 @@
  Family-model,Version,Filename,EventType
- GenuineIntel-6-(97|9A|B7|BA|BF),v1.41,alderlake,core
--GenuineIntel-6-BE,v1.40,alderlaken,core
-+GenuineIntel-6-BE,v1.41,alderlaken,core
+-GenuineIntel-6-(97|9A|B7|BA|BF),v1.40,alderlake,core
++GenuineIntel-6-(97|9A|B7|BA|BF),v1.41,alderlake,core
+ GenuineIntel-6-BE,v1.40,alderlaken,core
  GenuineIntel-6-C[56],v1.20,arrowlake,core
  GenuineIntel-6-(1C|26|27|35|36),v5,bonnell,core
- GenuineIntel-6-(3D|47),v30,broadwell,core
 --=20
 2.56.0.rc1.310.g51773c2048-goog
 
