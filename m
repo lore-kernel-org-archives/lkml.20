@@ -1,65 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D22022C0294;
-	Thu, 24 Sep 2026 01:31:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40FDF3242BD;
+	Thu, 24 Sep 2026 01:31:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790213501; cv=none; b=V8IzARtxdiVdTgQxNVJvB99heYHV0dbaCKkejO0X1TPkTOjsA7f7S61Jrh99HOj7MkCcoC0xkPQwuySXj1oVW6AONy2rNrQR6EVX5Y06rS0rBz0Unc/vfigQlFV+W3RE8a+rAVgHErkl61GRqY8jYCg5Evv2GiEKojXqQzaOTA0=
+	t=1790213508; cv=none; b=pNxUm9Zqs+Tc84LXNBJsNilNrRGwPYYb2AnJb2cV+/bROyM1QaRiKzPfIPKMm1uAPCPqzxhJpApiVuUD+zny0Y0eWRR2MnfvrvF7TD2m/IJIqEij2aVib+HkJ3wxHC5gZX1xOZzSBQ3YJAKMHdIXpf9QsKpzqS3U0srwt+/asNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790213501; c=relaxed/simple;
-	bh=UDR0nbQMFET9FDQhIA8UYCdxGosvJXvtlrjnaoRB7Hs=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SioJfLwE0CcdTj7C1IqTLOtM1XwBmHipdTtwkAfNlCjeqvCIt7uxFui2L9vwCfQBaihELKpst0Nu8xkLafMQDuugMyrb9U81IlB0ZYtilmEuRLFRp4MaiAKgGzdCZqv2b8mwqmBQepbdmeEJCTiNqGiNHf0quZXHqY/Uj5t2T5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AB7QuYuJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790213508; c=relaxed/simple;
+	bh=AfbUml1zJZuQ7JQDHXkKhPCakS6f3z7l1oMwGfmQH8w=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=CwDghJxuCRqqHtlL8oaxydnHvommFG5ZAyZ3f9nBXJngqJ2k8hMTIYzdefvlz3Ujsj3y8IJz+8/ZwiEBvUjS53FBQTxxI2RfxbR3uJokKoONP+Vb3bKLTuCTd55WNTDoLMC/y/zy+faMlkSYRPjL60VbWdFzCMWArNsS/+fRUFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CgtzvATJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AB7QuYuJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 776D91F000FF;
-	Thu, 24 Sep 2026 01:31:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CgtzvATJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9E9F1F000FF;
+	Thu, 24 Sep 2026 01:31:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790213500;
-	bh=QmYwkYIpNGIie6o8uVKCEr+W7CiDvTp5NNZUrL/u2Ng=;
+	s=k20260515; t=1790213506;
+	bh=VuGY/Y4MYw5Lk44aMfqov/6Tvy5hvDKuLf8QBS3Ct+E=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=AB7QuYuJtZ5AH2lshM2dr7dgyimicBRXA2HHtlQBp7TAGzKmn/pMcYC/+APF0qChp
-	 Pl09GRMKFwr11gkLX1PsdPEGBidf3iB46gUSe5Oy1+8qVU00Z1fpaZTLRy4PA5fGYK
-	 A/tL0Xxq6WCcXslJsOMQy7vCPCrbgDTk25LMvKGpvvJmnmkmjzGHXjyFJLSQQv7qDx
-	 G9Xc9psKiTQOyqeXdW4WUCc8fkA2ENpEhox2blP7Ovfbl27SzAToWFLbF/aGE0OKyq
-	 MkDHAPU7pabU9WAQDCIx257KTNXFD6hgP/erOSqqXlt5z3CCfZXhXagJp1KmEoUgA2
-	 w/Tdwrz8SNRVQ==
-Date: Thu, 24 Sep 2026 02:31:33 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Srirangan Madhavan <smadhavan@nvidia.com>
-Cc: Alison Schofield <alison.schofield@intel.com>, Bjorn Helgaas
- <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>, Davidlohr Bueso
- <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>, Vishal Verma
- <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, Alex Williamson
- <alex.williamson@redhat.com>, vsethi@nvidia.com, alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>, Vishal Aslot
- <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>, Jiandi An
- <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v13 04/15] cxl: Move decoder declarations to shared
- header
-Message-ID: <20260924023133.5cd3f051@jic23-hlaptop>
-In-Reply-To: <20260922083924.2451158-5-smadhavan@nvidia.com>
-References: <20260922083924.2451158-1-smadhavan@nvidia.com>
-	<20260922083924.2451158-5-smadhavan@nvidia.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	b=CgtzvATJ8hrijhakctAOEKQonRdEqfGNIX4T10dnY0tszwSl7UtIb3O90PE1k3h9+
+	 vpIxzLi0tlhs632g8SGvZe7MTRl5MHgEVYwmT9qjrPnIx3OEziMQngAfZsR9+iscEx
+	 KilQmaZxjVBCNJiQrTNUzkalNR3kZMVBRavdIksd7xZqvZT4IPaiM+GmZ1aQCK1vr8
+	 xu/0mBkSfGgcZR3b02udLurUOwa3SpvZNn3/hy+XtBLego51MSNVNQuUWxsDjRWMZ/
+	 DImLrOAVfaOoIA0HjrjG7m2iB2VeVERW5rZSQXdA3IUJUerm2mO7cpjcz2y2HDwJwr
+	 BZ7d2NmoFfJog==
+Date: Thu, 24 Sep 2026 10:31:40 +0900
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, "Masami Hiramatsu (Google)"
+ <mhiramat@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, Ingo Molnar
+ <mingo@kernel.org>, Jinchao Wang <wangjinchao600@gmail.com>, Mathieu
+ Desnoyers <mathieu.desnoyers@efficios.com>, Thomas Gleixner
+ <tglx@linutronix.de>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+ <dave.hansen@linux.intel.com>, "H . Peter Anvin" <hpa@zytor.com>, Alexander
+ Shishkin <alexander.shishkin@linux.intel.com>, Ian Rogers
+ <irogers@google.com>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, x86@kernel.org, Paolo Bonzini
+ <pbonzini@redhat.com>, kvm@vger.kernel.org
+Subject: Re: [PATCH v17 02/13] perf/x86, KVM: Prevent host debug register
+ leak into guest OS on NMI
+Message-Id: <20260924103140.0a40bb18812cbb913be5e662@kernel.org>
+In-Reply-To: <arPjK1-PVp_UqAsQ@google.com>
+References: <179005108298.388919.4535333252892590932.stgit@devnote2>
+	<179005110742.388919.1509641807739909065.stgit@devnote2>
+	<20260923085139.GV776954@noisy.programming.kicks-ass.net>
+	<arPjK1-PVp_UqAsQ@google.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Tue, 22 Sep 2026 08:39:13 +0000
-Srirangan Madhavan <smadhavan@nvidia.com> wrote:
+On Wed, 23 Sep 2026 07:33:15 -0700
+Sean Christopherson <seanjc@google.com> wrote:
 
-> Move the common decoder declarations to include/cxl/cxl.h for use by
-> shared decoder settings. Preserve their layout and documentation.
+> On Wed, Sep 23, 2026, Peter Zijlstra wrote:
+> > On Tue, Sep 22, 2026 at 01:25:07PM +0900, Masami Hiramatsu (Google) wrote:
+> > > From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> > > 
+> > > When KVM enters a guest OS, host hardware breakpoints are disabled
+> > > before running the guest. However, an NMI can occur while executing
+> > > in guest mode or during guest transition, where
+> > > arch_install_hw_breakpoint() can be invoked from NMI context.
+> > 
+> > How? AFAICT perf doesn't do that. arch_install_hw_breakpoint() is called
+> > through pmu::add() which is strictly IPI context.
 > 
-> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+> I assume it's:
+> 
+>   kgdb_nmi_handler()
+>   |
+>   -> kgdb_nmicallin()
+>      |
+>      -> kgdb_cpu_enter()
+>         |
+>         -> arch_kgdb_ops.correct_hw_break()
+>            |
+>            -> kgdb_correct_hw_break()
+>               |
+>               -> arch_install_hw_breakpoint()
+
+Yes, it is done by KGDB. perf has no problem with it.
+
+Thank you,
+
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
