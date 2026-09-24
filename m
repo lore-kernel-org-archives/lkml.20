@@ -1,108 +1,129 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A12139A7FD
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:52:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37F383D9674
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:55:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790221975; cv=none; b=QKlaanCyfRBZ5903SKGEn00TpuJ2jtbeBPwvFEsK+R1ZI7MoM/ZjvtbiFxgpbjrm+t3sXGYZyavSGrBqNRHC96Be8uZ57+xo1J0uRv9j9VJXO9e5gcjkGv4eGaqWD92JSu8t6lNz7oscXcHxadEJ9XJ7O+2dekw00RE9f6pvOug=
+	t=1790222155; cv=none; b=B2OeGS+XZy9AbEBqj0moWKBD3ZLJeSW+k/X/99EFDTaK0Th9GuUkbvq36K0EV55H6UbFHB4PJ29U80tGvrzpGRIem6ft2r16hgXDaYvA0OgoUfaFxYhOsH2doDR9FN+nHPVXyiFw/er6yFUiiOeeL4wy9EYWopaEQY8Ko4Q/kT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790221975; c=relaxed/simple;
-	bh=HMrOM7vzfWJDRkwcvRQsGWRYxRgpYk4wHHutCRIrF7U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=k8Mh7PLk2K0OwP3SsfXZLYiRIqQoPzwyy9L5Lr+4x8A75S6aij/YqsHUA/aAQUVDwEcmE2iJ+8+vnzmMObojOInGWvZTii0X6m5zhdYGOqJHaQguTIqCELR7uSPGQ8de55YwH3HnXpD4QP6BuCVXUQw5h8owtq2Jc1JxaIoblYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r6RTkER6; arc=none smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790222155; c=relaxed/simple;
+	bh=lzlSPTzlh/Y5qjIW/JUnZhJwQdNHGCW9Q33UHnVlrS4=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=EeNtubtKF0jVWXQgs14MB0+dmYyXF5+wf/hSzjwmGtmbiALKMygeuEsJlcHvq4fWXC+NIZxcA1P+1kstX/+fpYmU48imYB76tM4sbhrF8ieg9uMrkxXJ4b+c7dft001FwuhUes3Mt9jniUZCu4VF288bZQv/WPRmEpbxncP15cg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=W2biRSuj; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r6RTkER6"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85a4329731cso921338b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:52:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790221974; x=1790826774; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HMrOM7vzfWJDRkwcvRQsGWRYxRgpYk4wHHutCRIrF7U=;
-        b=r6RTkER65DkdVDU+m71cGC9zKz73ZIaQmzXXBNYaSwqRWVqrUyxIIlNlyIihMNzgzX
-         vyLK21nSegDRxG6IBtVEfyw2F8CkHH8QjUrFm4105D9SfE8iMV6+HP8H6u5rdAvcmgla
-         D3zn6ekwcJGij2we/lm3e/lOFttEWX2SCFEMPo9GO3qIEKE30aqR4EUy1ULJeooAYBtG
-         62aiTGrfpafRExZnFt+MGAZVlFhF/xLCvzQi0AthKxlcTcnXeFku2SyoGRZMeNcrY6kk
-         Gykl9k62wQTPhnszJqTCRztbbyV/67zybzN3pXGYnCzIQg6F5CHlq/XD92Yrib6Y/pQm
-         ffrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790221974; x=1790826774;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HMrOM7vzfWJDRkwcvRQsGWRYxRgpYk4wHHutCRIrF7U=;
-        b=ss9Qcyfi468j+UWPuFH44ZGRe9DMIMnAXM9VeVd11d8vPBYXiEQ3nFcI3Ru2uDtIpa
-         XkJD+9DqP4N1wFZo2xcU+n51LjaqxZjiDPMKBlJ/WwC7Z8vZeHBte9Gi1CJJld6FueL7
-         iaoZnDpUPPOtZJwQeqtXXz8zFLO+lECtp65fR4uDH7JNG4r+Uim3lzTnRcippPeSX0JZ
-         AFss+X12lze5wbSIuyY/E+iwgMBx3N+KWfw6nNCfsHidyDi/xC/t6f9Jxr8EaxsT/FO0
-         lCYseNTPXmJLY38woJuODo4fWKyzxwh0nZ+2AdIBoB/bQcriQznhsN/+48SAei5aPpVf
-         1wcg==
-X-Forwarded-Encrypted: i=1; AKwUvBwlS0xi6QT8ptgsU+VxxkQUTVeVuBPw2Bm3/5gq0lZpmSAyUV6jsUUj3wakSAiefbyr7ruoe7d5I98rLxc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mktyQIJTGPJK0SGsdRYCXANnWtbJxMfCglSn1FDN9MxKKUE3aA
-	JZc5JffMgMAWvHKbdFvN5f7B6ZXP6KCs16+ncgn6dckR5AmjK/Oattv2rsT2oYfJ
-X-Gm-Gg: AYBFou3hy4v2sBI8LzTT8MLU/pGmDreh2ig5X9CnfnUEivgfTgWZ3nueplLcNP0fyBI
-	6HBblU5eaHqUB7AUsaPRhYrUyCs42IDDcn8DVwms3VMxRJSgN+T7xLvgxYeOFBpC8dBtA5xdXx9
-	QbdBHtx2EVw20nr93DTwJ5nIOZjw4AexFftlLljXxPru8ykS2ISNGl7iVuwNNd9zB+4iLwIF5qv
-	jct47DCxoJzXh4oVGxbJq2f65um106nP9rCttjISe0OttBFiy8LGsoL7d7+t/k90mDE3ZnOd6kY
-	DkD1O8JIZElKqTW/HsC73wagQ6K4oOxx1RJrtH9mavtK9gZRq5+iWpV3KbDl2q4DktPu5jF/xL+
-	OmXxS4x3xWrWlaDQJWdD17tDVQXN6vgflp1g+q+tyKmS61kRvuQMSRuH5i3uij5GPwhMIictvzN
-	6EKfbT/iBYhAeVCnbFN8XdKGfMvNdBNnoyWYrZOnUbuL3Li03imbA9MpovaGS66uPBKyEKEGrCO
-	132X1NbBYx0eV+CUJ/4mqtIq7uvYqcot74=
-X-Received: by 2002:a05:6a00:6c88:b0:868:f29f:67c9 with SMTP id d2e1a72fcca58-87e9899515bmr958238b3a.9.1790221973831;
-        Wed, 23 Sep 2026 20:52:53 -0700 (PDT)
-Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1cfbcc08sm2188359b3a.15.2026.09.23.20.52.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 20:52:53 -0700 (PDT)
-From: Wenjie Qi <qwjhust@gmail.com>
-X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
-To: jaegeuk@kernel.org,
-	chao@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	qiwenjie@xiaomi.com,
-	qwjhust@gmail.com,
-	Daeho Jeong <daeho43@gmail.com>,
-	Daeho Jeong <daehojeong@google.com>,
-	Qiuyang Sun <sunqiuyang@huawei.com>
-Subject: Re: [f2fs-dev] [PATCH v2 0/2] f2fs: fix online resize state
-Date: Thu, 24 Sep 2026 11:52:46 +0800
-Message-ID: <20260924035246.3604446-1-qiwenjie@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260829060524.2656620-1-qiwenjie@xiaomi.com>
-References: <20260829060524.2656620-1-qiwenjie@xiaomi.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="W2biRSuj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790222154; x=1821758154;
+  h=date:from:to:cc:subject:message-id:mime-version:
+   in-reply-to;
+  bh=lzlSPTzlh/Y5qjIW/JUnZhJwQdNHGCW9Q33UHnVlrS4=;
+  b=W2biRSuj0u0nLtSGbtgkJqnpQCC4qvP1RgqKXMPsphx4A4wzc+AFYpfv
+   xlc2x8BuS3siwN4u5dxsFgMu+RganXeFo1gBT/1+I4qcolXCbZrOTyYCF
+   vQuw/Ifp2mEPWLu6swYn8lLpNbkiBppGESv93SwSDeTJ4wP6oDYdTCpxM
+   KCu7YMIG3YTt92PGHL5NOOLFjEByYvTpcz4P/nXz1YMwCBzoktp2XzWIb
+   Gcv9IVcWKOdmL4FAVR+RlyAt2hHF51mxX1En5rCjyAy9EtllJnBnC4Gu8
+   kJS9bFDV3YTN05g3d3o2yfxZ/v0lFDnzNMG0AqTozqTb16vj4NdN4HjqS
+   w==;
+X-CSE-ConnectionGUID: hH+g2/hZSiO8CL1CtCnhFA==
+X-CSE-MsgGUID: NSlT9OYHRiWmwjpTkPaYmQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="91087211"
+X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
+   d="scan'208";a="91087211"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 20:55:53 -0700
+X-CSE-ConnectionGUID: 6IppWfUsRoKkrEUti05hiA==
+X-CSE-MsgGUID: FU/g7o9gQVqhsp1vb3mJVg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
+   d="scan'208";a="273381451"
+Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 20:55:50 -0700
+Date: Thu, 24 Sep 2026 11:55:47 +0800
+From: kernel test robot <yi1.lai@intel.com>
+To: "Harry Yoo (Meta)" <harry@kernel.org>
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com, Hyunwoo Kim <imv4bel@gmail.com>,
+	linux-mm@kvack.org, Vlastimil Babka <vbabka@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	linux-kernel@vger.kernel.org, yi1.lai@intel.com
+Subject: Re: [PATCH v3] mm/slab: take n->list_lock in
+ __slab_try_return_freelist() to avoid race
+Message-ID: <202609240534.9fe4984a-lkp@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903-slab-fix-aba-v3-1-b44cb6badd54@kernel.org>
 
-Hi Jaegeuk and Chao,
 
-Just a gentle ping on this series.
+Hello,
 
-On Fri, Aug 29, 2026 at 02:05:22PM +0800, Wenjie Qi wrote:
-> Online filesystem shrink changes both persistent SIT state and the
-> in-memory geometry used by pinned allocation. Two stale-state paths can
-> leave old information active after the main area is reduced.
->
-> Patch 1 makes the resize checkpoint drain existing SIT journal entries
-> through the normal SIT-area write path even when there are no newly
-> dirty sentries. Patch 2 refreshes the pinned allocation boundary after
-> every geometry change and rejects a shrink that conflicts with the
-> configured resizable tail.
+kernel test robot noticed a 2.3% regression of stress-ng.pagemove.page_remaps_per_sec on:
 
-Patch 2/2 has received Daeho's Reviewed-by after the concurrent-remount
-rationale and test were clarified.
 
-Please let me know if another revision or additional testing is needed.
+commit: 710555228bde64392410a9e8959d0324c1a0a598 ("[PATCH v3] mm/slab: take n->list_lock in __slab_try_return_freelist() to avoid race")
+url: https://github.com/intel-lab-lkp/linux/commits/Harry-Yoo-Meta/mm-slab-take-n-list_lock-in-__slab_try_return_freelist-to-avoid-race/20260903-153226
+patch link: https://lore.kernel.org/all/20260903-slab-fix-aba-v3-1-b44cb6badd54@kernel.org/
+patch subject: [PATCH v3] mm/slab: take n->list_lock in __slab_try_return_freelist() to avoid race
 
-Thanks,
-Wenjie
+testcase: stress-ng
+config: x86_64-rhel-9.4
+compiler: gcc-14
+test machine: 192 threads 2 sockets Intel(R) Xeon(R) 6740E  CPU @ 2.4GHz (Sierra Forest) with 256G memory
+parameters:
+
+	nr_threads: 100%
+	testtime: 60s
+	test: pagemove
+	cpufreq_governor: performance
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <yi1.lai@intel.com>
+| Closes: https://lore.kernel.org/oe-lkp/202609240534.9fe4984a-lkp@intel.com
+
+
+Details are as below:
+-------------------------------------------------------------------------------------------------->
+
+
+The kernel config and materials to reproduce are available at:
+https://download.01.org/0day-ci/archive/20260924/202609240534.9fe4984a-lkp@intel.com
+
+=========================================================================================
+compiler/cpufreq_governor/kconfig/nr_threads/rootfs/tbox_group/test/testcase/testtime:
+  gcc-14/performance/x86_64-rhel-9.4/100%/debian-13-x86_64-20250902.cgz/igk-srf-2sp3/pagemove/stress-ng/60s
+
+commit: 
+  v7.3-rc1
+  710555228b ("[PATCH v3] mm/slab: take n->list_lock in __slab_try_return_freelist() to avoid race")
+
+        v7.3-rc1 710555228bde64392410a9e8959
+---------------- --------------------------- 
+         %stddev     %change         %stddev
+             \          |                \  
+  74699042            -2.5%   72797565        stress-ng.pagemove.ops
+   1245981            -2.5%    1214288        stress-ng.pagemove.ops_per_sec
+    291125            -2.3%     284309        stress-ng.pagemove.page_remaps_per_sec
+
+
+Disclaimer:
+Results have been estimated based on internal Intel analysis and are provided
+for informational purposes only. Any difference in system hardware or software
+design or configuration may affect actual performance.
+
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
+
