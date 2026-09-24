@@ -1,59 +1,57 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-102.mta1.migadu.com [95.215.58.102])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BEC347F78C;
-	Thu, 24 Sep 2026 13:05:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8398481AB0
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:05:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790255106; cv=none; b=plC4EtBrar5YemFJ/fM3yuup8P/g90BYZ0wnDlRUgo7D1XJlWHtftHmhbps5LKt6DkZjmHDVDtzV+rvKntBdbE6JLkV5oLLfLmOrr5WTfh3cDYd6KWtWOpkHhhSRD66ecR65j81+HuFueixV++BuCpPo7SkIY7J4RRaYs6oNnr0=
+	t=1790255115; cv=none; b=NkQrYiCFpLZvWnzqeaSOFWRlKi43r3WK8f6DMM536xUHRGJrWGNMLhVcdbrXynyOjVc6ljTkb0nCsk2IzeBKXgpVpsjVdfFNMuOIwAbrCREbSaOekTjjDoC/BiD+HDuaJTrgSmpIoAlfM9fxvyBKpTyJAMaT/224vNHTvkEyqRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790255106; c=relaxed/simple;
-	bh=hekwDVgDeqSsXzkW28xH+CwqFTcrEVPALo/c+0dpGxU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k1wczVU5H8u+R8vrLPoBU8+MTp35SpYFfe30/i5Z6rsogke09wCM9tyWHiuxRfqq46tOnRsIVmTbswcb6E+A8vVN+xR/+u5DQ5aU7mxgK2NfMRDSjrKvnqKLpQmzs/jAgMjruuZPLyNDDufg3gNHXRi8EWNJWdgDyCBmRxN+pyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=ndsuxRr2; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1790255115; c=relaxed/simple;
+	bh=EMai31/qqyf5QaAObsfQuiXXHW9sYpANFB9S/2uRX4k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RRJmoitpean2muSxEsvlPqhgjZlFh5gKaozd36NBGnXRdquZszMDoV9k30iSiNVe6VpwkOKaCMUPnN3laMv09QTpnj48Is5CISHvF+U+sNbuophnu+HXntn+HqSPht3Cbdjv7IK4BcXOFUo7xUB679tMb7Qs12IpR+cir+iYxVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mkCkuYGM; arc=none smtp.client-ip=95.215.58.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="ndsuxRr2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790255100;
-	bh=hekwDVgDeqSsXzkW28xH+CwqFTcrEVPALo/c+0dpGxU=;
-	h=From:To:Cc:Subject:Date:From;
-	b=ndsuxRr2YWH8zsx6KOWlqkSGf9p1DLaJPgazqUo83kX+5GJR0Do4ctrJhznpiq/lq
-	 CX2/YSnLXFwAE/c2N9Ssitf7tcPIh0Tcv6PG7pycNh1FrHP5C97C2bQ9jf5KKw2ThV
-	 jhaIaWfPCzdOsWdyyYFfUybGGkxu72Am8hEP0l0H5IG3nUAOXzaA1mBdZTWTDQaFan
-	 uevpZMQTjpLNZnqnItyjeAbtKGQTDbLCWdTO4S9bCzn2xyNA/5saegfV9AmHEt+/oO
-	 jgDMi3j0HORmVHrgXk+NMXwNnscjsfGNstzO4AacQPGj9emrKZXPeA0LS33OqPr/u+
-	 EFyv5D4bpHuSg==
-Received: from benjamin-XPS-13-9310 (unknown [100.64.1.43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: benjamin.gaignard)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id B435017E04DD;
-	Thu, 24 Sep 2026 15:04:59 +0200 (CEST)
-From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-To: nicolas.dufresne@collabora.com,
-	benjamin.gaignard@collabora.com,
-	p.zabel@pengutronix.de,
-	mchehab@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	Frank.Li@nxp.com,
-	s.hauer@pengutronix.de,
-	kernel@pengutronix.de,
-	festevam@gmail.com
-Cc: linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mkCkuYGM"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=EMai31/qqyf5QaAObsfQuiXXHW9sYpANFB9S/2uRX4k=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790255109; v=1; x=1790859909;
+ b=mkCkuYGMw0hlF+hv9Ba1o9s6HEWicOsanHVNFOe5vReSLmLeecqmXxQHJ0phmbWltYopcIrJ
+ FrBOOLTIAOJxWT3YCSXaM09fQkSs+PgycAwzqgXZOjUbb1aEK/AhoFvHMWzV9yR3//eVf+m1ZGX
+ VJrsS8zh+u/bxZlrNk/EA5BE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id a8de4e7e9e9a9053;
+	Thu, 24 Sep 2026 13:05:08 +0000
+X-Mizu-Trace-ID: a8de4e7e9e9a9053
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: arighi@nvidia.com,
+	bpf@vger.kernel.org,
+	bsegall@google.com,
+	changwoo@igalia.com,
+	dietmar.eggemann@arm.com,
+	etsal@meta.com,
+	juri.lelli@redhat.com,
+	kprateek.nayak@amd.com,
 	linux-kernel@vger.kernel.org,
-	kernel@collabora.com
-Subject: [PATCH v3 0/3] Remove unused variant and code clean up
-Date: Thu, 24 Sep 2026 15:04:50 +0200
-Message-ID: <20260924130453.196299-1-benjamin.gaignard@collabora.com>
+	mgorman@suse.de,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	rostedt@goodmis.org,
+	sched-ext@lists.linux.dev,
+	tj@kernel.org,
+	vincent.guittot@linaro.org,
+	void@manifault.com,
+	vschneid@redhat.com,
+	yphbchou0911@gmail.com
+Cc: Usama Arif <usama.arif@linux.dev>
+Subject: [PATCH v2] sched_ext: Update scx_dispatch_dequeue() comments
+Date: Thu, 24 Sep 2026 06:05:03 -0700
+Message-ID: <20260924130503.853919-1-usama.arif@linux.dev>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -63,29 +61,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-"nxp,imx8mq-vpu" variant has been tagged as deprecated since 4 years
-now. This series remove it and make some context's fields useless so
-remove them too.
+Remote consumption now reaches the !dsq branch with holding_cpu set,
+just like dispatch_to_local_dsq(). Clearing holding_cpu in this branch
+also tells dispatch_to_local_dsq() that it lost to a dequeue. The
+dsq-present branch races with unlink_dsq_and_switch_rq_lock(), not
+dispatch_to_local_dsq().
 
-changes in v3:
-- remove more dead code
+Update both comments to describe the current transfer paths and race
+semantics. No functional change.
 
-changes in v2:
-- have a separate patch for documentation
-- fix dt-bindings
-- rebased on v7.3-rc1
+Suggested-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Usama Arif <usama.arif@linux.dev>
+---
+v1 -> v2: (Tejun)
+- Name dispatch_to_local_dsq() in the comments and commit description.
+- Explain that clearing holding_cpu tells dispatch_to_local_dsq() that it
+  lost to a dequeue.
+- Rewrap both comments to 80 columns.
+---
+ kernel/sched/ext/ext.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-Benjamin Gaignard (3):
-  media: verisilicon: Remove deprecated variant
-  media: dt-bindings: media: nxp, imx8mq-vpu: Remove nxp,imx8mq-vpu
-  media: verisilicon: Remove useless internal fields
-
- .../bindings/media/nxp,imx8mq-vpu.yaml        |  10 +-
- drivers/media/platform/verisilicon/hantro.h   |   9 +-
- .../media/platform/verisilicon/hantro_drv.c   |  30 +----
- .../media/platform/verisilicon/imx8m_vpu_hw.c | 105 ------------------
- 4 files changed, 11 insertions(+), 143 deletions(-)
-
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 911bb6d433ba7..d01f44839da32 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -1821,10 +1821,10 @@ void scx_dispatch_dequeue(struct rq *rq, struct task_struct *p)
+ 			list_del_init(&p->scx.dsq_list.node);
+ 
+ 		/*
+-		 * When dispatching directly from the BPF scheduler to a local
+-		 * DSQ, the task isn't associated with any DSQ but
+-		 * @p->scx.holding_cpu may be set under the protection of
+-		 * %SCX_OPSS_DISPATCHING.
++		 * When dispatch_to_local_dsq() or remote consumption moves a
++		 * task to a local DSQ, the task isn't associated with any DSQ
++		 * but @p->scx.holding_cpu may be set. Clearing holding_cpu
++		 * tells dispatch_to_local_dsq() that it lost to a dequeue.
+ 		 */
+ 		if (p->scx.holding_cpu >= 0)
+ 			p->scx.holding_cpu = -1;
+@@ -1844,10 +1844,10 @@ void scx_dispatch_dequeue(struct rq *rq, struct task_struct *p)
+ 		scx_task_unlink_from_dsq(p, dsq);
+ 	} else {
+ 		/*
+-		 * We're racing against dispatch_to_local_dsq() which already
+-		 * removed @p from @dsq and set @p->scx.holding_cpu. Clear the
+-		 * holding_cpu which tells dispatch_to_local_dsq() that it lost
+-		 * the race.
++		 * We're racing against unlink_dsq_and_switch_rq_lock(),
++		 * which already removed @p from @dsq and set
++		 * @p->scx.holding_cpu. Clear holding_cpu to tell
++		 * unlink_dsq_and_switch_rq_lock() that it lost the race.
+ 		 */
+ 		WARN_ON_ONCE(!list_empty(&p->scx.dsq_list.node));
+ 		p->scx.holding_cpu = -1;
 -- 
-2.53.0
+2.53.0-Meta
 
