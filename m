@@ -1,557 +1,194 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013067.outbound.protection.outlook.com [40.93.196.67])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE0E2DF134;
-	Thu, 24 Sep 2026 06:44:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790232287; cv=none; b=b5OjB67XtqMfaeLtWQtJ06/3ujUjYMMZYvqnNIuKm3N8nXkoYJiS8YSvaILmcZ3uXxBWbU8Vqo3VGvOGeojslRLq53Q7Op85p9EXG0TIBymX2Sno/UxMmRUlosqG0R8AKw5K79wEN1sKqIIUUvi+R7/N3jQeqzkf+5onTQWt+mw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790232287; c=relaxed/simple;
-	bh=2Vrpx6FQAADF/hE/WYTXvOWwXq1Uw5H2lTs2DXRwbU8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Uw5qFdwgh4mhSd2u0u6ZJ2GVM0e4aDkUS0VkbC1IBeypn6cT0BUjcEUTxvy0G6jf0yQytJjOFmUmL+AE/7bm4WRqaMyXlk/ni4F0z0yDDfq9HSh76rvxm6xofqVb5KBXB2rS0wM2KaykHASq3eDDYNLGO4M5ixR/NbkbQuV1u/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BzhrPapE; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F9FA370ACC;
+	Thu, 24 Sep 2026 06:45:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.67
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790232361; cv=fail; b=BbQxptduz2F8UDZbDuFAUfah3GaWb+yH6yxuiCwpDkJ8n0qjELG2YWE50CSo0NY1h05dxl5odklxA8+9jWgg5LuId+7JB8510F4WBezudAqZpFtWBJV+GyPAn/qwP5lOqn2FGYf2nd+FwqYVsZP/0/rMiYyPVX/J0AuGM9769u0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790232361; c=relaxed/simple;
+	bh=i5QG9nuJ3lfL7TOeSBQr6zRBmci5R7PiBTAwNti8osM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 Content-Type:MIME-Version; b=IcBrvPYAQysI9oV2jmZR0y2WCPIs7hTKVIN54cnbW21i9I5lu6tShPdvoiRfq4ow0CeNEXuNq3oWds+DsJt2soMFDqZkyZqt5zmhlGY43j5X2SelgVstsVG4cNirxlaJrIvGg/TLOpjftfvSa6kqHww5FiOwzuwBpWeChp1RBcE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=StkWSi05; arc=fail smtp.client-ip=40.93.196.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BzhrPapE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48E431F000FF;
-	Thu, 24 Sep 2026 06:44:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790232284;
-	bh=ul5MT4Ptf1Xsxe5EqArkMJQ3+Cs5LMxQSlU1qr/Xp18=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BzhrPapEUG/Rt7LJUP+Vxpnbb/F3Cipw1zjcQI3Wgk6ldvQk5012Y4y81sFQm7RF+
-	 KngZFOoij8NpwxQaPSVZVrCWnPHKynkpAjBqG7rrh/kH2qy0/vWOrUAcIdXEQGI8+X
-	 R3hW+k0LROazxZq5lTviIJ66zA69YzCFektqF3ohV0DlwIX7SBcXgfYcae7oPfZQ3l
-	 pH1vF2YhBAP9SeD/nkaJOso+3yVx9KROqd5o3ZJTOVkQiGB0v4Iprkclnnm4gglKiC
-	 IloY5fT4kV4XqJaEG6pbYHUAH0oezBe++Lx1pQ3PsMFe6U5tG5EvCHqtm5Kri/Z+AB
-	 sfRG7vkgsstOw==
-Date: Wed, 23 Sep 2026 23:44:42 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: acme@kernel.org, howardchu95@gmail.com, adrian.hunter@intel.com,
-	james.clark@linaro.org, jolsa@kernel.org,
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
-	mingo@redhat.com, peterz@infradead.org
-Subject: Re: [PATCH v5 07/23] perf trace: Skip internal tracepoint fields in
- formatting and beauty map
-Message-ID: <arTG2hd1H2ZH4Nl0@z2>
-References: <cover.1790145937.git.irogers@google.com>
- <4315f435177b66e0b25ca9b74a89cc2f51d3801d.1790145937.git.irogers@google.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="StkWSi05"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BNTrZYDOGIx/UxYjRhtgBiAboA3CIHU9iN1lS/7uyRrKr8ztqutHHLX7v4q6oyxr32IYZ9AHvhSa8R6fbAGFMKQsNc1Q2SzIDxVVlxjiJZy/KMaj+X2hkOSiyem6K9FAqF0IDHtiD6t/u505Y0oLJ8FG7x2bp7W9DYY40xnA6i03l/GoTdaw5CP55Xlw+MRjpm0ZocKCoCINXUIzfOEpTp7xeVTh8sQ5mUxJbmfW49bL/BddX+uWqzTRsFZii5us9XLa1Hr3JGXoBx9nTKYqRrIkgpDmoFOK3TPUWysSNJfYF3NBVY4mqu3PuyuTWctYsETAfwKJEO7bO3zOxYbwOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pux10LlETLszwSf1Y6MVAh3Fvixzs5T8niWGfHPGaP8=;
+ b=Auj/DAoy3kXR66KZPNBmMjTRxu5WNYR7QDfG//alrsT6EBzP4Wgt0warHPVCt+v+VC6TBQslqiITzIegzcnTNOedM6XFX0lN2xHJteisSQ1pgCfBlfq2VDHHymQbtaYJcM/OjD7xdZkTTY1NX6jlzyfzYhmCZRKXK/TfAgAa3b9mhdB7qeXoDU+ZQJNnfr1Bf+TbSDI6f3o9W18vPLAfOCXapqqNWax+HWavWOyERbVWuWue7YVmVvYXnLACpNiuqphwJdlRYn+SCUzOKDdP1zHzyNJVTbSWCbQ1BFLabXcp4Qxw6a2f4sJA4PcCgsCecf+7JYhTTtLdj/Ct3is68Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pux10LlETLszwSf1Y6MVAh3Fvixzs5T8niWGfHPGaP8=;
+ b=StkWSi05T7vNT7gX8cV1yBGseBdFMdj/hG1ClkiIRO1DoCCWXPG0ZWxPZdvH72V06IUk6Dwz644Ti1kS0E4diiWIjfQzCyIxHXVbEwcpdoPxnZuM6B2IUnNjW8x0108QJSnuCM4tXaDv5uvGkE1Tk0yFEauso5bb1aKFDxNma8G5bIbyAorp8YimNffnlZW+JajjZbqFsEU/uZXTktLWZQmw6ORs2ADU/JEJyXqJFz+D0uwIbUN5poqjHdiYxhxCBlgrrhA7jUC2YEtb2zyBC4jk2T/YRa8LxG0M15RJoG01M/zeTeN1EC+7J0xq1eXpGY38CJX3+3rz2uKNHbfKNQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB4914.namprd12.prod.outlook.com (2603:10b6:208:1c4::16)
+ by SA1PR12MB9514.namprd12.prod.outlook.com (2603:10b6:806:458::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 06:45:55 +0000
+Received: from BL0PR12MB4914.namprd12.prod.outlook.com
+ ([fe80::4921:cbe6:78cd:b445]) by BL0PR12MB4914.namprd12.prod.outlook.com
+ ([fe80::4921:cbe6:78cd:b445%4]) with mapi id 15.21.0428.015; Thu, 24 Sep 2026
+ 06:45:55 +0000
+Date: Thu, 24 Sep 2026 01:45:51 -0500 (CDT)
+From: Vidith Madhu <vmadhu@nvidia.com>
+To: Leo Li <sunpeng.li@amd.com>
+cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+    "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, 
+    Daniel Stone <daniels@collabora.com>, 
+    Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+    Maxime Ripard <mripard@kernel.org>, 
+    Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+    Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+    Andrzej Hajda <andrzej.hajda@intel.com>, 
+    Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+    Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+    Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+    Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+    Sandy Huang <hjc@rock-chips.com>, 
+    =?ISO-8859-15?Q?Heiko_St=FCbner?= <heiko@sntech.de>, 
+    Andy Yan <andy.yan@rock-chips.com>, dri-devel@lists.freedesktop.org, 
+    linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+    linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+    kernel@collabora.com, Derek Foreman <derek.foreman@collabora.com>, 
+    wayland-devel@lists.freedesktop.org
+Subject: Re: [PATCH RFC 03/25] drm/atomic-helper: Set mode_changed on
+ vrr_enabled change
+In-Reply-To: <75b82a61-fe82-4597-bfb5-3c717fbb0dda@amd.com>
+Message-ID: <7d5d4ae5-0f48-7c91-2675-8ae6e20fa5ef@nvidia.com>
+References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com> <20260921-vrr-limiter-uapi-v1-3-2fcd7d011646@collabora.com> <75b82a61-fe82-4597-bfb5-3c717fbb0dda@amd.com>
+Content-Type: text/plain; charset=US-ASCII
+X-ClientProxiedBy: BN9PR03CA0174.namprd03.prod.outlook.com
+ (2603:10b6:408:f4::29) To BL0PR12MB4914.namprd12.prod.outlook.com
+ (2603:10b6:208:1c4::16)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <4315f435177b66e0b25ca9b74a89cc2f51d3801d.1790145937.git.irogers@google.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4914:EE_|SA1PR12MB9514:EE_
+X-MS-Office365-Filtering-Correlation-Id: 55832ba3-0a7f-4fdf-8b6e-08df1a077af8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	xon87r0cUfVNI8nhR/C5EB3qVujKWq1qHdaL0dw7cXGSnmgbCsXBi/DmdasaqcM+OuyA2MnZb5HhE9xJzZ17W+SebvSdY/mc+cYklDGQQicmr2UK6pKxRpRO8Z25VsXFMGW3I1e0Uey+S/vepLTaZAvBirFZy2MEMXWJEqzAAHiPIOZp8sAEmnAsGHyQFFxT4B1tE1uA9dgzB/8v7RtEecITSw9yaOfzyvalVxgYurVyCLoz3VcawCjufhXbu2k+w4Hv8nILiiMxefemqOIWFVLpm05hTxghPByOO/YQ3tfb95zFkX3TdBh1ZN4GOmfL2ejavfFl2J6dpoD+gZogMkiDgmitKJOHYVQCScYpAsEDEhjcRoYDRvh1kyCs7t+v4ECwi1BLxhj8mH0Ff0PtB0hora5Gn/HH/GnpdLS++odIp7FjYV4k11ZpKJIgELDz7FKmtM2LigfA2N22DLlA2krsWR3+s1CkiaQ3dKzHerS3RgXEe1WyXcPXj9bmJ+0/rQfOBj1cXfRvw/IwE65FrnpP28Vf06f/smA5IPxymSnl2QP71AuIboxwelzjJ10BfApBLJuxYJxU88HTNrsCVxoDbJONpHQewvyKG/K6vAMpPELmFvLyesrM4OxTK9RLro8gnXU+OC/mXPA2pZJsuikucH1uxIqd599MXzm4GiM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB4914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?NCBrF8GlyoxNOcuWpX9zvCxKIbQpKmUcOvbM7I9CRTHUJwslz8SW4lcxVHsH?=
+ =?us-ascii?Q?uks+poJssqCNXVgQVhGsy8VsdnqXxvXAWsHsDYGzGFZQdJsj6XetVwIQs5Dg?=
+ =?us-ascii?Q?7mBAjmkpdbjeUtwXjrih6SMF0Wyztk4q34XOVX0kL9UD0sBUNujcNANuHSSO?=
+ =?us-ascii?Q?w7kUnB2tCABoMmYY9jCgd86Fzsjj3GB0S2aMp2GvIKiO6b8Bo8qcFQEdJiWW?=
+ =?us-ascii?Q?fkswCMWYv0ndueStJOCQaZl9aPHiP68eSUf5b+V/GNB/i9dwtmOgSW7eyYP5?=
+ =?us-ascii?Q?qCjQ5LcKudHLiWqoBo8KAC4gH0QVo+f0ZzV34hqf32foYKAoUsx2/8M0v/QB?=
+ =?us-ascii?Q?MgyAiOXHCKkAOjWIYQY7xlZNiYpbEHMlYrbzYYf3TgnoarXjaCu67hle0Qks?=
+ =?us-ascii?Q?htNdTepiSRX+7nwf8NF44XO9FK8e0IxTSmgdUnX32GFdGsUhujV+7+cHfPpb?=
+ =?us-ascii?Q?mCUBEa9FAH3E5HBQqUib+W92cKbeYWoxmHu02OvSUVAKbToxyXi0BxtlYR37?=
+ =?us-ascii?Q?HwSNs9xvB28DrgiOnB5TZwa/Oj9k0nd6rIvdiQuVXe5ULm+HLQ6RHt88Lxb1?=
+ =?us-ascii?Q?ZVsVSe3EhXgf+Frx9lMTObw7jieb59u9rtqlDLMHIUXv9DSx1fUQGaWblxGC?=
+ =?us-ascii?Q?7GykdFmpscH+tFQTHp23LKsqGOer9zRoFMi8H4YOEJZWe9p5I2+TmcW9OtzT?=
+ =?us-ascii?Q?rKLkwFCs4vwmjijASAo0tM9cUD8hihyoYH1Pkha+mkDM0qIWTGej7I0h92np?=
+ =?us-ascii?Q?XQaZTtPdBsaDpy+y/5Q1T5ddYRyk/HUPI8LHho4rAaxfbJ10YJgvibsFL90J?=
+ =?us-ascii?Q?4dnZryoiAxmN6tJ67QBz5CXkbi6JYtNVz96HlHj7bCXFh5it+1sH8ZY9Gddn?=
+ =?us-ascii?Q?6xkHmkt8++zQGDJFAPnJyOG+o8u/1Ne1gn4AK6t6ap/avi2wQELKFdxI9BYh?=
+ =?us-ascii?Q?fWAONeHqwMfHbMfd1SiLv9Xf0HALDSrNg20vY1YpBkOYwd0EYXWquVGmtfF1?=
+ =?us-ascii?Q?+xTt05XXrU91q4VIl2ZwB6qvRt/Q04F1QE42gPwJKbYr6NQtsinnMaZOUGQs?=
+ =?us-ascii?Q?b/RKKkPTxS3tUZytffk0bmMEhfYfiCS7ZUjvB+kkxEkDxXkpy8SAV1SgBRwg?=
+ =?us-ascii?Q?ImNpLbgTWYGlP+v9jh9jw55E/Wlf9kjmK15qB6wCXPixqgpgvnWpmUsSkGVk?=
+ =?us-ascii?Q?i8jgL8fbyknvjFPOWTwZ8favaOZW9GHggmznDxY6qr7aOuofZ17jFzpZSNNw?=
+ =?us-ascii?Q?uABCoU9kvf3ZI+fjX97+wXgMjDqm5a1bNkco+QpQGuGg0g6TY9ZZ8NSvho65?=
+ =?us-ascii?Q?cDlgeuh0TuRqwu3UGQod7bLQER4I1920kYnm6u6qWBi3TCkmKg13HYnazh24?=
+ =?us-ascii?Q?LAbdLekL/Eq61R9c5eeOJXl9tW6GTbQU9npvre7V8a4vFAdThBBedl4vLODi?=
+ =?us-ascii?Q?Zpa+4Ej8RWXXiZXJPViyS1F6vEDIT2unrWRp+xtxt6VhCbNbuU8554wbQxw2?=
+ =?us-ascii?Q?vNIkpBFOaok8f+BqV8Z5nM6jPXfvd2uBnC0o8X1Za9M+Z8X4Bc7dwl6uD5qQ?=
+ =?us-ascii?Q?7HkhQJ5id84FA/n6TFgQxIF9HgV+cL6NhQcxXn2kSksLLX2DwXfBZ/8rFXDo?=
+ =?us-ascii?Q?9BTU0D9wq+xNXSo+2ai2EcCvZmQsU74fewNmLvuepEPe18AkDjdAq9hqsG/B?=
+ =?us-ascii?Q?f62rwgZcppoHJiEJ5D4mOmLnIP1Vm5OxN+Q68cHudipjahGrxSnEoRV7l6Zb?=
+ =?us-ascii?Q?I7maMd5Ikg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 55832ba3-0a7f-4fdf-8b6e-08df1a077af8
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 06:45:55.3066
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aOPjNIoaoy+gTBa2gdJOIEKzW0fAwWKkCHJ+gt1Q918nnXfzFx+UMZhrGNrmT9jpRaWmADB5SSwClJ2Qa69pBA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9514
 
-On Wed, Sep 23, 2026 at 12:13:47AM -0700, Ian Rogers wrote:
-> Linux 6.19+ added __data_loc char[] internal fields for string
-> arguments in syscalls:sys_enter_<name> tracepoints (e.g.,
-> __data_loc_oldname in sys_enter_renameat2). While is_internal_field()
-> was added to detect them, several places did not properly account for
-> them:
+
+
+On Mon, 21 Sep 2026, Leo Li wrote:
+
+> Hi Nicholas,
 > 
-> 1. In syscall_arg_fmt__init_array(), when an internal field was
->    skipped, the arg pointer was still incremented, causing the
->    subsequent argument formatters to be mismatched. Leaving the slot out
->    is only right for syscall tracepoints, where syscall__scnprintf_args()
->    indexes the array the same packed way and sc->nr_args is counted to
->    match. Every other tracepoint reaches the array through
->    trace__fprintf_tp_fields(), which advances the field list and the
->    array in lockstep, and for those a __data_loc char[] is an ordinary
->    dynamic string to be shown rather than something the kernel appended
->    to a syscall behind perf's back. Add a skip_internal argument so that
->    each caller gets the layout it indexes.
-> 2. In syscall__scnprintf_args(), internal fields were not skipped,
->    causing spurious trailing arguments like ", 0, 16" to be formatted
->    and printed.
-> 3. In trace__bpf_sys_enter_beauty_map(), internal fields were not
->    skipped, offsetting beauty array argument indices and breaking string
->    and buffer augmentation.
-> 4. In trace__find_usable_bpf_prog_entry(), candidate pointer checks
->    matched on internal pointer fields, breaking signature compatibility
->    matching between syscalls for augmenter sharing. Introduce
->    next_user_arg() and advance both cursors with it, so that the two
->    argument lists are always compared at a real argument and the walk
->    ends when one syscall runs out of arguments rather than when one
->    happens to have trailing internal fields.
-> 5. syscall__augmented_args() computed the augmented payload as
->    sample->raw_size - sc->args_size for any sys_enter style sample.
->    sc->args_size deliberately stops at the last non-internal field, so
->    on 6.19+ a native syscalls:sys_enter_<name> record leaves the
->    __data_loc words and their string payloads in the remainder. Those
->    bytes are not a struct augmented_arg, so
->    syscall_arg__scnprintf_augmented_string() read a bogus length and
->    walked arg->augmented.args out of bounds. This is reachable from
->    trace__event_handler(), which calls trace__fprintf_sys_enter() for
->    any evsel whose tracepoint name starts with "sys_enter_".
-> 6. In syscall__read_info(), syscall__alloc_arg_fmts() was called before
->    checking and dropping the leading __syscall_nr (or nr) field, using
->    nr_fields - 1 unconditionally. If a tracepoint format lacks that
->    leading field, the allocated arg_fmt array is one entry too small and
->    syscall_arg_fmt__init_array() writes one entry past the end of the
->    heap buffer. Drop __syscall_nr/nr first and size the allocation from
->    the remaining fields.
+> Thanks for sending this out. I'm looking into an amdgpu implementation
+> and had some comments along the way. Will reply inline on respective
+> patches.
 > 
-> Update these functions to check and skip is_internal_field() so that
-> arguments are correctly formatted and beauty map entries match the
-> expected syscall signatures, restrict syscall__augmented_args() to the
-> __augmented_syscalls__ bpf-output evsel, and size arg_fmt after dropping
-> the syscall number field.
+> On 2026-09-21 11:51, Nicolas Frattaroli wrote:
+> > A change in whether VRR is enabled or not on a CRTC will be of interest
+> > to any VRR implementation, as they may need to recalculate certain
+> > internal state in response. So far, this was handled ad-hoc in the
+> > drivers that implement VRR.
+> > 
+> > Handle this in the common DRM atomic core by setting the mode_changed
+> > flag when this occurs. The rationale for using mode_changed is that VRR
+> > is deeply intertwined with the current mode with regards to its timing.
+> > Consequently, any component that cares about a mode change is likely
+> > also going to care about VRR being enabled/disabled.
+> > 
+> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > ---
+> >  drivers/gpu/drm/drm_atomic_helper.c | 6 ++++++
+> >  1 file changed, 6 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+> > index 9d006f98413a..0664d5779282 100644
+> > --- a/drivers/gpu/drm/drm_atomic_helper.c
+> > +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> > @@ -694,6 +694,12 @@ drm_atomic_helper_check_modeset(struct drm_device *dev,
+> >  			new_crtc_state->active_changed = true;
+> >  		}
+> >  
+> > +		if (old_crtc_state->vrr_enabled != new_crtc_state->vrr_enabled) {
+> > +			drm_dbg_atomic(dev, "[CRTC:%d:%s] VRR changed\n",
+> > +				       crtc->base.id, crtc->name);
+> > +			new_crtc_state->mode_changed = true;
+> > +		}
+> > +
 > 
-> Publish sc->args only once that allocation has succeeded. sc->name is
-> set earlier in syscall__read_info(), and a later call takes a syscall
-> with a name to have been read already and returns it as it stands, so
-> a syscall left with arguments and no arg_fmt to describe them would be
-> printed by walking the arguments and indexing an array that was never
-> allocated.
+> I don't think this is the case for all hardware, at least not for amdgpu.
+> The parts in HW that adjust vtotal can be programmed without requiring
+> bandwidth recalculations or reprogramming of pipes. 
 > 
-> Assisted-by: Antigravity:gemini-3.1-pro
-> Signed-off-by: Ian Rogers <irogers@google.com>
-> ---
->  tools/perf/builtin-trace.c | 194 ++++++++++++++++++++++++++++---------
->  1 file changed, 148 insertions(+), 46 deletions(-)
+> - Leo
+
+This is also the case for NVIDIA, it would be unfortunate if changes to 
+vrr_enabled require allow_modeset=TRUE.
+
 > 
-> diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
-> index f90c6bb4d8b4..6ffd4a0718ca 100644
-> --- a/tools/perf/builtin-trace.c
-> +++ b/tools/perf/builtin-trace.c
-> @@ -2276,22 +2276,40 @@ static bool field_is_ptr_sized(const struct tep_format_field *field)
->  	return field->size == ptr_size || field->size == sizeof(u64);
->  }
->  
-> +/*
-> + * @skip_internal: whether an internal field is left out of the array rather
-> + * than given a slot of its own.
-> + *
-> + * Syscall tracepoints want it left out, as syscall__scnprintf_args() walks the
-> + * array with an index that skips internal fields too and sc->nr_args is counted
-> + * the same way.
-> + *
-> + * Other tracepoints do not: trace__fprintf_tp_fields() advances the field list
-> + * and this array in lockstep, so every field needs a slot or the fields after
-> + * an internal one are formatted with the wrong entry. For them a
-> + * __data_loc char[] is also an ordinary dynamic string to be shown, rather than
-> + * something the kernel appended to a syscall tracepoint behind perf's back.
-> + */
-
-Isn't it only called for syscall tracepoints?
-
-
->  static struct tep_format_field *
->  syscall_arg_fmt__init_array(struct syscall_arg_fmt *arg, struct tep_format_field *field,
-> -			    bool *use_btf)
-> +			    bool *use_btf, bool skip_internal)
->  {
->  	struct tep_format_field *last_field = NULL;
->  	int len;
->  
-> -	for (; field; field = field->next, ++arg) {
-> -		/* assume it's the last argument */
-> -		if (is_internal_field(field))
-> +	for (; field; field = field->next) {
-> +		if (is_internal_field(field)) {
-> +			if (!skip_internal)
-> +				++arg;
->  			continue;
-
-If so, it'd be much simpler if we do s/continue/break/ instead. :)
-
-
-> +		}
->  
->  		last_field = field;
->  
-> -		if (arg->scnprintf)
-> +		if (arg->scnprintf) {
-> +			++arg;
->  			continue;
-> +		}
->  
->  		len = strlen(field->name);
->  
-> @@ -2348,6 +2366,7 @@ syscall_arg_fmt__init_array(struct syscall_arg_fmt *arg, struct tep_format_field
->  				}
->  			}
->  		}
-> +		++arg;
->  	}
->  
->  	return last_field;
-> @@ -2356,7 +2375,8 @@ syscall_arg_fmt__init_array(struct syscall_arg_fmt *arg, struct tep_format_field
->  static int syscall__set_arg_fmts(struct syscall *sc)
->  {
->  	struct tep_format_field *last_field = syscall_arg_fmt__init_array(sc->arg_fmt, sc->args,
-> -									  &sc->use_btf);
-> +									  &sc->use_btf,
-> +									  /*skip_internal=*/true);
->  
->  	if (last_field)
->  		sc->args_size = last_field->offset + last_field->size;
-> @@ -2368,7 +2388,8 @@ static int syscall__read_info(struct syscall *sc, struct trace *trace)
->  {
->  	char tp_name[128];
->  	const char *name;
-> -	struct tep_format_field *field;
-> +	struct tep_format_field *args, *field;
-> +	int nr_args;
->  	int err;
->  
->  	if (sc->nonexistent)
-> @@ -2407,24 +2428,35 @@ static int syscall__read_info(struct syscall *sc, struct trace *trace)
->  		return err;
->  	}
->  
-> -	/*
-> -	 * The tracepoint format contains __syscall_nr field, so it's one more
-> -	 * than the actual number of syscall arguments.
-> -	 */
-> -	if (syscall__alloc_arg_fmts(sc, sc->tp_format->format.nr_fields - 1))
-> -		return -ENOMEM;
-> -
-> -	sc->args = sc->tp_format->format.fields;
-> +	args = sc->tp_format->format.fields;
-> +	nr_args = sc->tp_format->format.nr_fields;
->  	/*
->  	 * We need to check and discard the first variable '__syscall_nr'
->  	 * or 'nr' that mean the syscall number. It is needless here.
->  	 * So drop '__syscall_nr' or 'nr' field but does not exist on older kernels.
-> +	 *
-> +	 * Do this before allocating, and size the array from what is left, so
-> +	 * that a format without the field does not leave
-> +	 * syscall_arg_fmt__init_array() walking one entry past the end.
->  	 */
-> -	if (sc->args && (!strcmp(sc->args->name, "__syscall_nr") || !strcmp(sc->args->name, "nr"))) {
-> -		sc->args = sc->args->next;
-> -		--sc->nr_args;
-> +	if (args && (!strcmp(args->name, "__syscall_nr") || !strcmp(args->name, "nr"))) {
-> +		args = args->next;
-> +		--nr_args;
->  	}
->  
-> +	if (syscall__alloc_arg_fmts(sc, nr_args))
-> +		return -ENOMEM;
-> +
-> +	/*
-> +	 * Only now that there is an arg_fmt for each of them are the arguments
-> +	 * published. sc->name was set above, so a later syscall__read_info()
-> +	 * takes this syscall to be read already and returns it as it stands;
-> +	 * were sc->args set with sc->arg_fmt still NULL, the printing of that
-> +	 * syscall would walk the arguments and index an array that does not
-> +	 * exist.
-> +	 */
-> +	sc->args = args;
-> +
-
-I think it's better to split this change.  It looks independent to the
-skip-internal-fields.
-
->  	field = sc->args;
->  	while (field) {
->  		if (is_internal_field(field))
-> @@ -2452,7 +2484,8 @@ static int evsel__init_tp_arg_scnprintf(struct evsel *evsel, bool *use_btf)
->  		const struct tep_event *tp_format = evsel__tp_format(evsel);
->  
->  		if (tp_format) {
-> -			syscall_arg_fmt__init_array(fmt, tp_format->format.fields, use_btf);
-> +			syscall_arg_fmt__init_array(fmt, tp_format->format.fields, use_btf,
-> +						    /*skip_internal=*/false);
->  			return 0;
->  		}
->  	}
-> @@ -2642,10 +2675,16 @@ static size_t syscall__scnprintf_args(struct syscall *sc, char *bf, size_t size,
->  	if (sc->args != NULL) {
->  		struct tep_format_field *field;
->  
-> -		for (field = sc->args; field;
-> -		     field = field->next, ++arg.idx, bit <<= 1) {
-> -			if (arg.mask & bit)
-> +		for (field = sc->args; field; field = field->next) {
-> +			/* Skip internal fields so they are not printed as spurious arguments */
-> +			if (is_internal_field(field))
-> +				continue;
-
-Similarly, it can stop when it's an internal field or arg.idx equals to
-sc->nr_args.
-
-
-> +
-> +			if (arg.mask & bit) {
-> +				++arg.idx;
-> +				bit <<= 1;
->  				continue;
-> +			}
->  
->  			arg.fmt = &sc->arg_fmt[arg.idx];
->  			val = syscall_arg__val(&arg, arg.idx);
-> @@ -2664,8 +2703,11 @@ static size_t syscall__scnprintf_args(struct syscall *sc, char *bf, size_t size,
->  			 */
->  			if (val == 0 && !trace->show_zeros &&
->  			    !(sc->arg_fmt && sc->arg_fmt[arg.idx].show_zero) &&
-> -			    !(sc->arg_fmt && sc->arg_fmt[arg.idx].strtoul == STUL_BTF_TYPE))
-> +			    !(sc->arg_fmt && sc->arg_fmt[arg.idx].strtoul == STUL_BTF_TYPE)) {
-> +				++arg.idx;
-> +				bit <<= 1;
->  				continue;
-> +			}
->  
->  			printed += scnprintf(bf + printed, size - printed, "%s", printed ? ", " : "");
->  
-> @@ -2680,12 +2722,16 @@ static size_t syscall__scnprintf_args(struct syscall *sc, char *bf, size_t size,
->  								   size - printed, val, field->type);
->  				if (btf_printed) {
->  					printed += btf_printed;
-> +					++arg.idx;
-> +					bit <<= 1;
->  					continue;
->  				}
->  			}
->  
->  			printed += syscall_arg_fmt__scnprintf_val(&sc->arg_fmt[arg.idx],
->  								  bf + printed, size - printed, &arg, val);
-> +			++arg.idx;
-> +			bit <<= 1;
->  		}
->  	} else if (IS_ERR(sc->tp_format)) {
->  		/*
-> @@ -2946,7 +2992,9 @@ static int trace__fprintf_sample(struct trace *trace, struct perf_sample *sample
->  	return printed;
->  }
->  
-> -static void *syscall__augmented_args(struct syscall *sc, struct perf_sample *sample, int *augmented_args_size, int raw_augmented_args_size)
-> +static void *syscall__augmented_args(struct trace *trace, struct syscall *sc,
-> +				     struct perf_sample *sample,
-> +				     int *augmented_args_size, int raw_augmented_args_size)
->  {
->  	/*
->  	 * For now with BPF raw_augmented we hook into raw_syscalls:sys_enter
-> @@ -2964,6 +3012,24 @@ static void *syscall__augmented_args(struct syscall *sc, struct perf_sample *sam
->  	 */
->  	int args_size = raw_augmented_args_size ?: sc->args_size;
->  
-> +	/*
-> +	 * Augmented arguments are a perf trace specific payload, they are only
-> +	 * ever appended to samples emitted by the BPF __augmented_syscalls__
-> +	 * bpf-output event.
-> +	 *
-> +	 * Native syscalls:sys_enter_NAME tracepoints may also carry trailing
-> +	 * data of their own: since Linux 6.19 they append __data_loc char[]
-> +	 * fields plus the string payloads they point at. Those bytes are not a
-> +	 * struct augmented_arg, so treating them as one would make
-> +	 * syscall_arg__scnprintf_augmented_string() read a bogus length and
-> +	 * walk arg->augmented.args far out of bounds.
-> +	 *
-> +	 * So only look for augmented arguments on the event that can actually
-> +	 * produce them.
-> +	 */
-> +	if (sample->evsel != trace->syscalls.events.bpf_output)
-> +		return NULL;
-> +
->  	*augmented_args_size = sample->raw_size - args_size;
->  	if (*augmented_args_size > 0) {
->  		static uintptr_t argbuf[1024]; /* assuming single-threaded */
-> @@ -3022,17 +3088,13 @@ static int trace__sys_enter(struct trace *trace,
->  	if (!(trace->duration_filter || trace->summary_only || trace->min_stack))
->  		trace__printf_interrupted_entry(trace);
->  	/*
-> -	 * If this is raw_syscalls.sys_enter, then it always comes with the 6 possible
-> -	 * arguments, even if the syscall being handled, say "openat", uses only 4 arguments
-> -	 * this breaks syscall__augmented_args() check for augmented args, as we calculate
-> -	 * syscall->args_size using each syscalls:sys_enter_NAME tracefs format file,
-> -	 * so when handling, say the openat syscall, we end up getting 6 args for the
-> -	 * raw_syscalls:sys_enter event, when we expected just 4, we end up mistakenly
-> -	 * thinking that the extra 2 u64 args are the augmented filename, so just check
-> -	 * here and avoid using augmented syscalls when the evsel is the raw_syscalls one.
-> +	 * syscall__augmented_args() only returns a payload for the BPF
-> +	 * __augmented_syscalls__ event, so raw_syscalls:sys_enter (which always
-> +	 * carries all 6 possible arguments rather than sc->args_size worth) and
-> +	 * the native syscalls:sys_enter_NAME tracepoints are both handled there.
->  	 */
-> -	if (evsel != trace->syscalls.events.sys_enter)
-> -		augmented_args = syscall__augmented_args(sc, sample, &augmented_args_size, trace->raw_augmented_syscalls_args_size);
-
-Looks like an independent fix too.
-
-
-> +	augmented_args = syscall__augmented_args(trace, sc, sample, &augmented_args_size,
-> +						 trace->raw_augmented_syscalls_args_size);
->  	ttrace->entry_time = sample->time;
->  	ttrace->entry_cpu = sample->cpu;
->  	msg = ttrace->entry_str;
-> @@ -3077,7 +3139,7 @@ static int trace__fprintf_sys_enter(struct trace *trace, struct perf_sample *sam
->  	struct syscall *sc;
->  	char msg[1024];
->  	void *args, *augmented_args = NULL;
-> -	int augmented_args_size, e_machine;
-> +	int augmented_args_size = 0, e_machine;
->  	size_t printed = 0;
->  
->  
-> @@ -3095,7 +3157,8 @@ static int trace__fprintf_sys_enter(struct trace *trace, struct perf_sample *sam
->  		goto out_put;
->  
->  	args = perf_evsel__sc_tp_ptr(args, sample);
-> -	augmented_args = syscall__augmented_args(sc, sample, &augmented_args_size, trace->raw_augmented_syscalls_args_size);
-> +	augmented_args = syscall__augmented_args(trace, sc, sample, &augmented_args_size,
-> +						 trace->raw_augmented_syscalls_args_size);
->  	printed += syscall__scnprintf_args(sc, msg, sizeof(msg), args, augmented_args, augmented_args_size, trace, thread);
->  	fprintf(trace->output, "%.*s", (int)printed, msg);
->  	err = 0;
-> @@ -4127,10 +4190,16 @@ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, i
->  	if (trace->btf == NULL)
->  		return -1;
->  
-> -	for (i = 0, field = sc->args; field; ++i, field = field->next) {
-> +	for (i = 0, field = sc->args; field; field = field->next) {
-> +		/* Skip internal fields to keep beauty array index aligned with syscall arguments */
-> +		if (is_internal_field(field))
-> +			continue;
-
-Ditto.  Please just break.
-
-
-> +
->  		// XXX We're only collecting pointer payloads _from_ user space
-> -		if (!sc->arg_fmt[i].from_user)
-> +		if (!sc->arg_fmt[i].from_user) {
-> +			++i;
->  			continue;
-> +		}
->  
->  		struct_offset = strstr(field->type, "struct ");
->  		if (struct_offset == NULL)
-> @@ -4149,8 +4218,10 @@ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, i
->  			name[cnt] = '\0';
->  
->  			/* cache struct's btf_type and type_id */
-> -			if (syscall_arg_fmt__cache_btf_struct(&sc->arg_fmt[i], trace->btf, name))
-> +			if (syscall_arg_fmt__cache_btf_struct(&sc->arg_fmt[i], trace->btf, name)) {
-> +				++i;
->  				continue;
-> +			}
->  
->  			bt = sc->arg_fmt[i].type;
->  			beauty_array[i] = bt->size;
-> @@ -4176,7 +4247,9 @@ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, i
->  			struct tep_format_field *field_tmp;
->  
->  			/* find the size of the buffer that appears in pairs with buf */
-> -			for (j = 0, field_tmp = sc->args; field_tmp; ++j, field_tmp = field_tmp->next) {
-> +			for (j = 0, field_tmp = sc->args; field_tmp; field_tmp = field_tmp->next) {
-> +				if (is_internal_field(field_tmp))
-> +					continue;
->  				if (!(field_tmp->flags & TEP_FIELD_IS_POINTER) && /* only integers */
->  				    (strstr(field_tmp->name, "count") ||
->  				     strstr(field_tmp->name, "siz") ||  /* size, bufsiz */
-> @@ -4186,8 +4259,10 @@ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, i
->  					can_augment = true;
->  					break;
->  				}
-> +				++j;
->  			}
->  		}
-> +		++i;
->  	}
->  
->  	if (can_augment)
-> @@ -4196,6 +4271,19 @@ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, i
->  	return -1;
->  }
->  
-> +/*
-> + * Advance to the first field that is a real syscall argument, so that callers
-> + * walking two argument lists in step never have to reason about internal
-> + * fields appearing in one list but not the other.
-> + */
-> +static struct tep_format_field *next_user_arg(struct tep_format_field *field)
-> +{
-> +	while (field && is_internal_field(field))
-> +		field = field->next;
-> +
-> +	return field;
-> +}
-
-I don't think it's necessary.  The internal arguments come at the end.
-Just stopping at an internal field or counting number of args would be
-simpler.
-
-Thanks,
-Namhyung
-
-
-> +
->  static struct bpf_program *trace__find_usable_bpf_prog_entry(struct trace *trace,
->  							     struct syscall *sc)
->  {
-> @@ -4203,7 +4291,7 @@ static struct bpf_program *trace__find_usable_bpf_prog_entry(struct trace *trace
->  	/*
->  	 * We're only interested in syscalls that have a pointer:
->  	 */
-> -	for (field = sc->args; field; field = field->next) {
-> +	for (field = next_user_arg(sc->args); field; field = next_user_arg(field->next)) {
->  		if (field->flags & TEP_FIELD_IS_POINTER)
->  			goto try_to_find_pair;
->  	}
-> @@ -4221,21 +4309,31 @@ static struct bpf_program *trace__find_usable_bpf_prog_entry(struct trace *trace
->  		    pair->bpf_prog.sys_enter == unaugmented_prog)
->  			continue;
->  
-> -		for (field = sc->args, candidate_field = pair->args;
-> -		     field && candidate_field; field = field->next, candidate_field = candidate_field->next) {
-> +		/*
-> +		 * Both cursors only ever point at real arguments, so the loop
-> +		 * ends when one of the two syscalls runs out of them, rather
-> +		 * than when one happens to have trailing internal fields.
-> +		 */
-> +		field = next_user_arg(sc->args);
-> +		candidate_field = next_user_arg(pair->args);
-> +		while (field && candidate_field) {
->  			bool is_pointer = field->flags & TEP_FIELD_IS_POINTER,
->  			     candidate_is_pointer = candidate_field->flags & TEP_FIELD_IS_POINTER;
->  
->  			if (is_pointer) {
-> -			       if (!candidate_is_pointer) {
-> +				if (!candidate_is_pointer) {
->  					// The candidate just doesn't copies our pointer arg, might copy other pointers we want.
-> +					field = next_user_arg(field->next);
-> +					candidate_field = next_user_arg(candidate_field->next);
->  					continue;
-> -			       }
-> +				}
->  			} else {
->  				if (candidate_is_pointer) {
->  					// The candidate might copy a pointer we don't have, skip it.
->  					goto next_candidate;
->  				}
-> +				field = next_user_arg(field->next);
-> +				candidate_field = next_user_arg(candidate_field->next);
->  				continue;
->  			}
->  
-> @@ -4256,6 +4354,8 @@ static struct bpf_program *trace__find_usable_bpf_prog_entry(struct trace *trace
->  				goto next_candidate;
->  
->  			is_candidate = true;
-> +			field = next_user_arg(field->next);
-> +			candidate_field = next_user_arg(candidate_field->next);
->  		}
->  
->  		if (!is_candidate)
-> @@ -4267,7 +4367,9 @@ static struct bpf_program *trace__find_usable_bpf_prog_entry(struct trace *trace
->  		 * more than what is common to the two syscalls.
->  		 */
->  		if (candidate_field) {
-> -			for (candidate_field = candidate_field->next; candidate_field; candidate_field = candidate_field->next)
-> +			candidate_field = next_user_arg(candidate_field->next);
-> +			for (; candidate_field;
-> +			     candidate_field = next_user_arg(candidate_field->next))
->  				if (candidate_field->flags & TEP_FIELD_IS_POINTER)
->  					goto next_candidate;
->  		}
-> -- 
-> 2.56.0.rc1.315.gc6ed9934b7-goog
+> >  		if (new_crtc_state->enable != has_connectors) {
+> >  			drm_dbg_atomic(dev, "[CRTC:%d:%s] enabled/connectors mismatch (%d/%d)\n",
+> >  				       crtc->base.id, crtc->name,
+> > 
+> 
 > 
