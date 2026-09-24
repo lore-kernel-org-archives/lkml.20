@@ -1,329 +1,173 @@
-Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E93E43DE456
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:08:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7019433A9FE;
+	Thu, 24 Sep 2026 18:09:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790273312; cv=none; b=gLy1LbRqvde8VO3qoUVgluDSdJ3mI+jM/GepKFkmZkOF8ALxn2ktcczqVXdJEJo+//33ji+Tijhxgk4it8atmF1a0PFD/wN0srX25yq52uhdLSQvobn/pfHojJNRIiegpRHxKYnOgczOMijLGQWqiKugpBByTJP7bp9YvEPAtYI=
+	t=1790273367; cv=none; b=Pt3Zs6n16G9UrB9OuV+QM43kR0Ci7r27acTPiNLvvxftuALRzTE7LLbLP3Beb/gkPX9op8xiimQis6Y6k9Q+8CzQfXDLUe2Epr8RK5oavlqGqEbO0+9xnLQHNdETW1BqXz/K+21mmeyvi1rJiWKjrf/knZliUPbmlWwLC8vc0MU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790273312; c=relaxed/simple;
-	bh=y2dgIzI1jEhhQaqgsHE6s3vNWuiQDPJuqsgcNFyJFwY=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=QvH7Mm4TaPl37Ukzeo+iyCghh5UIV/lzz6AfP+wc1x/p07/vKAwMJ+sG+R83TKvPMlbRzXT/yr1L7sRs6Keb347jU5HoCLY+XaRH3gFugdDC+A9wz5coHBUDFg1k6t19WpwmzKg0xrNOfbE4yt7f+oVYxt/dgN9MxNs2K23Ng18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IGgPP33X; arc=none smtp.client-ip=74.125.230.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IGgPP33X"
-Received: by mail-qk2-f42.google.com with SMTP id d75a77b69052e-530fa0716f6so1241601cf.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:08:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790273310; x=1790878110; darn=vger.kernel.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=TCtgp1UKc8IZvUhq6/TBhiCnYxTAzLL9cCbNh4j7qwQ=;
-        b=IGgPP33XzsKRX5R6HwLiXmCdje7ym6EqcDboIgChOOof5ce6/v0ywXjumw3pDwmR+d
-         ps8b5rpfay7AgMdtgsYiQ7BdPrzn+zd4p9egszJ/seHObMztEdBqlIImpw/g+OEGo6Yq
-         UcM1DLSrLJw5DGMc+d3evigP7evVA6ul7zv7Jd2R8iJd+G7efRohQsRYHGN1K5ic1ZD5
-         sqjUBg2NI3+X72uRR4HxoykA4R7t72tjIqWhxkQQF65JIGw+A/VA2bEK1N3D5I0sDY6K
-         wqs+amSYk1x/bclP12TQEC2NID+XMotrLSatvP+2NH/sJ0S05DHUO7Q2HhHO2Cm3vrQU
-         dQ7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790273310; x=1790878110;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TCtgp1UKc8IZvUhq6/TBhiCnYxTAzLL9cCbNh4j7qwQ=;
-        b=ptpF4kVT8Ap4I7maTXNaZDewwAbWnyw3xK+WVHIDkNHA06qZohcNwA73Ueih57m4yW
-         BjN1tFcNKSRdaRffjHsOBWCVwHSAe7IekIiIYYZTGt6Zqr1HipHlRDdQPdB+syAxKvAh
-         i2+XjXqjLD1o2PtM0C91GWAz3mDVE6iYXGdSFRWCMzPvmcC9mtcgWLQ2gJVl+E0PGjHa
-         nRzbtZBujuHoSawK9qMXeo3mYYNHu7EBM4rVbuDfI++7sS3HjRCn4k9jP+1lTgmRAj1J
-         bQwnxghrMk2fuT9P1GnyFnQqLYrjt4WwYIZ732fwaeyyHCWU8E2+fccMjqd8SNlLqY0Q
-         K+Kg==
-X-Forwarded-Encrypted: i=1; AKwUvBwa7DpDgtJnek+E4ZJ+C0lK8884DtNt0SiQ5z0582rwU0wGdWnV7VWamay94cDFuey8gdzGOG8B1g+H11I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lez/DSxOyTzmy2PwZnkre1LSasWp2j6ishQ4uNEi2+gPV97HGL
-	ydWMhIiY8oWKeoXBtE4dXDIZGLthMuy7k3PNp2Cj3fS8g8CRqaN3NMcQ
-X-Gm-Gg: AYBFou2hkmXvFbGtZzM1eVnaEHlD6cfIUukE6O1EXZpISJH4BZzdPu15GEskrKxmKjM
-	UBwQKplOJ/ggdA47tWrJwnL9VizcBxdAVGQf4P+E5GK9iFsl/4s0FcLvatpC9nYT8LUlhW+d9gd
-	r78lZeIs0tBlAF7BcuniyiscS4zQw854LGKk2WJ1eHiZ62tdodL8ZKonJqfsNLvREjYgAQpcb8+
-	FRDlO9T4Zlvu3bkB5zemw2IEEm+QiiK3NwgahGphNAp39+sFz3AuiAHzlpQVw4E+9Wd1Ue7qHEt
-	08VcqeqEsRuzH5uNry4G/ogwvuYIur1ad2/MI3m6lbMmQZDJJNHFTNWBW4hoFLh8cqOcDrLgxql
-	eqA79Lee02/r2vUiRNyKVM6u8E3oTgIUZb7lQpx9NKKmKs1qc5ktjs39+mh0wBCOCg/XF4VuXhN
-	m2TcouiuEdY8S5E1H5W9vwtVa1SXgdCphLSauzFWPbzwbC7BrfYXYEnpaVKg5F4czEK+OjrX4K7
-	gc=
-X-Received: by 2002:a05:622a:4819:b0:532:9e96:5773 with SMTP id d75a77b69052e-5330b68c45bmr730231cf.37.1790273309616;
-        Thu, 24 Sep 2026 11:08:29 -0700 (PDT)
-Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532ead2226bsm47703031cf.0.2026.09.24.11.08.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 11:08:29 -0700 (PDT)
+	s=arc-20240116; t=1790273367; c=relaxed/simple;
+	bh=DVbq6piq7V6+Q/cQjhHZNalbSD7sLko8WTH7pDEBt3I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sIrndBh6AT4Fprth0JmQm85Ugf2d94aWoOn+yuzgJweFBwHmz2Dqvr98AW5LSYjTLurwLAm5YeXtOqVp796cDdnJFCx4EiD+E6ZmRZVEKGcBPQY0ibDLikm4KpElYhbGSyHulwHrfOTYxz6+GK4WjpsK2imrda1HCbL0m/Q8ewA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+	by leonov.paulk.fr (Postfix) with ESMTPS id 06A4C3700EDB;
+	Thu, 24 Sep 2026 18:09:11 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+	id F0D92B64BC9; Thu, 24 Sep 2026 18:09:09 +0000 (UTC)
+X-Spam-Level: 
+Received: from collins (unknown [192.168.1.1])
+	by laika.paulk.fr (Postfix) with ESMTPSA id 6C623B64BC9;
+	Thu, 24 Sep 2026 18:09:08 +0000 (UTC)
+Date: Thu, 24 Sep 2026 20:09:06 +0200
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: Michael Nazzareno Trimarchi <michael@amarulasolutions.com>
+Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	devicetree <devicetree@vger.kernel.org>,
+	"open list:FREESCALE IMX / MXC FEC DRIVER" <imx@lists.linux.dev>,
+	linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	linux-media <linux-media@vger.kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Marco Felsch <m.felsch@pengutronix.de>,
+	Michael Tretter <m.tretter@pengutronix.de>
+Subject: Re: [PATCH 00/14] media: Add V4L2 H.264 stateless encode and VC8000E
+ support
+Message-ID: <arVnQmik-CveaAkY@collins>
+References: <20260522101653.2565125-1-paulk@sys-base.io>
+ <ad9788bba0851dcb86c22f40c2562f2a57ac8e6c.camel@collabora.com>
+ <CAOf5uwktfp0a3Vi5Jd8Zw5knGMHd_FH=iusRX1NgHYC4VSuzBA@mail.gmail.com>
+ <arQxC3DmDyVIGdqq@collins>
+ <CAOf5uw=SeHZSnYjPOptAGYwPkQc7L7gDpOrDWJH3UF0r1qdrtg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="CZn6uW8WXhqK4f0/"
+Content-Disposition: inline
+In-Reply-To: <CAOf5uw=SeHZSnYjPOptAGYwPkQc7L7gDpOrDWJH3UF0r1qdrtg@mail.gmail.com>
+
+--CZn6uW8WXhqK4f0/
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 24 Sep 2026 14:08:28 -0400
-Message-Id: <DLNQX7U9QRFW.2G0KYKS5W3X3H@gmail.com>
-To: <netdev-bot+sashiko@kernel.org>, <daniel.zahka@gmail.com>
-Cc: <alexanderduyck@fb.com>, <kuba@kernel.org>, <kernel-team@meta.com>,
- <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
- <pabeni@redhat.com>, <ast@kernel.org>, <daniel@iogearbox.net>,
- <hawk@kernel.org>, <john.fastabend@gmail.com>, <sdf@fomichev.me>,
- <dimitri.daskalakis1@gmail.com>, <mohsin.bashr@gmail.com>,
- <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
- <bpf@vger.kernel.org>
-Subject: Re: [PATCH net-next 6/8] eth: mpnic: add a netdevice and basic Tx
- handling
-From: "Daniel Zahka" <daniel.zahka@gmail.com>
-X-Mailer: aerc 0.21.0-threadmapfix
-References: <20260922-linux-mpnic-v1-6-236844f53072@gmail.com>
- <179021553756.2160803.6381610175873058359@kernel.org>
-In-Reply-To: <179021553756.2160803.6381610175873058359@kernel.org>
 
-On Wed Sep 23, 2026 at 10:05 PM EDT, netdev-bot+sashiko wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 3 =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] mpnic_open() (drivers/net/ethernet/meta/mpnic/mpnic_netdev.c)
->   can succeed and show a dead device as up.
-> - [Medium] The new ndo_stop, mpnic_stop() in
->   drivers/net/ethernet/meta/mpnic/mpnic_netdev.c, reclaims DMA memory=E2=
-=80=A6
-> - [Medium] No TX traffic or drops are ever accounted.
->
-> --
->
-> eth: mpnic: add a netdevice and basic Tx handling
->
-> This patch registers a netdev for the mpnic driver and adds ndo_open and
-> ndo_stop. It also adds a basic transmit path that builds one metadata
-> descriptor plus address/length descriptors per skb, defers doorbells for
-> xmit_more bursts, and flushes the deferred doorbell when a packet is
-> dropped. mpnic_mmio_err() now detaches the netdev when MMIO fails.
->
->> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c b/drivers/ne=
-t/ethernet/meta/mpnic/mpnic_netdev.c
->> new file mode 100644
->> index 0000000000000..62dc9018f2f8c
->> --- /dev/null
->> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
->> @@ -0,0 +1,176 @@
->
-> [ ... ]
->
->> +static int mpnic_open(struct net_device *netdev)
->> +{
->> +	struct mpnic_net *mpn =3D netdev_priv(netdev);
->> +	int err;
->> +
->> +	err =3D mpnic_alloc_napi_vectors(mpn);
->> +	if (err)
->> +		return err;
->> +
->> +	err =3D mpnic_alloc_resources(mpn);
->> +	if (err)
->> +		goto err_free_napi_vectors;
->> +
->> +	err =3D mpnic_set_netif_queues(mpn);
->> +	if (err)
->> +		goto err_free_resources;
->> +
->> +	mpnic_enable(mpn);
->> +	mpnic_napi_enable(mpn);
->> +
->> +	netif_tx_wake_all_queues(netdev);
->> +	netif_carrier_on(netdev);
->> +
->> +	return 0;
->
-> [Severity: Medium]
-> Can mpnic_open() return success for a device that has just been
-> detached?
->
-> mpnic_enable() and mpnic_napi_enable() both end with mpnic_wrfl(), which
-> is mpnic_rd64(mpd, MPNIC_BDQ_SPARE). If that read returns all ones, the
-> confirmation read is skipped because reg =3D=3D MPNIC_BDQ_SPARE. As a res=
-ult,
-> mpnic_mmio_err() runs. With this patch that handler now does:
->
-> 	/* Tell the stack the device has lost its PCIe link */
-> 	if (mpd->netdev)
-> 		netif_device_detach(mpd->netdev);
->
-> __dev_open() has already set __LINK_STATE_START before calling ndo_open.
-> netif_running() is therefore true, and the detach stops all tx queues.
-> mpnic_open() then continues without checking anything:
->
-> mpnic_open()
->     mpnic_enable()
->         mpnic_wrfl()->mpnic_rd64()->mpnic_mmio_err()
->             netif_device_detach()->netif_tx_stop_all_queues()
->     mpnic_napi_enable()
->     netif_tx_wake_all_queues()
->     netif_carrier_on()
->     return 0
->
-> netif_tx_wake_queue() does not check whether the device is present. So
-> the queues are awake again, carrier is on and IFF_UP gets set, while
-> __LINK_STATE_PRESENT is clear and uc_addr0 is NULL.
->
-> mpnic_xmit_frame() doesn't check presence either. It keeps filling
-> descriptors and calling writeq() on the cached ring->doorbell. No
-> completions come back, and dev_watchdog skips non-present devices, so no
-> tx timeout fires either.
->
-> Would it make sense to check mpnic_present() or netif_device_present()
-> after the enable steps, and unwind if the check fails?
->
+Hi Michael,
 
-I don't think so. Losing the device here should be benign, and will
-require a reset, or the device to be re probed.
+Le Thu 24 Sep 26, 07:30, Michael Nazzareno Trimarchi a =C3=A9crit :
+> I have added your patch to gstreamer
+>=20
+> v4l2codecs: add the stateless H.264 and VP8 encoder elements
+>=20
+> Backport of the encoder work from the branch v4l2codecs/h264enc of
+> https://github.com/paulkocialkowski/gstreamer (commit f59de5779ef1, based
+> on release 1.26.0) onto the gstreamer1.0-plugins-bad 1.28.5 this build
+> uses.
 
->> +
->> +err_free_resources:
->> +	mpnic_free_resources(mpn);
->> +err_free_napi_vectors:
->> +	mpnic_free_napi_vectors(mpn);
->> +	return err;
->> +}
->> +
->> +static int mpnic_stop(struct net_device *netdev)
->> +{
->> +	struct mpnic_net *mpn =3D netdev_priv(netdev);
->> +
->> +	netif_carrier_off(netdev);
->> +
->> +	mpnic_napi_disable(mpn);
->> +	netif_tx_disable(netdev);
->> +
->> +	mpnic_disable(mpn);
->> +	mpnic_wait_all_queues_idle(mpn->mpd);
->> +	mpnic_flush(mpn);
->> +
->> +	mpnic_reset_netif_queues(mpn);
->> +	mpnic_free_resources(mpn);
->> +	mpnic_free_napi_vectors(mpn);
->
-> [Severity: Medium]
-> What happens here if mpnic_wait_all_queues_idle() times out? It returns
-> void and only logs the failure:
->
-> mpnic_wait_all_queues_idle() {
->     ...
-> 	err =3D read_poll_timeout(mpnic_non_idle_queues, non_idle_bitmap,
-> 				!non_idle_bitmap, 20, 500000, false, mpd,
-> 				queues, ARRAY_SIZE(queues));
-> 	if (err)
-> 		mpnic_idle_dump(mpd, queues, ARRAY_SIZE(queues),
-> 				non_idle_bitmap, err);
-> }
->
-> mpnic_stop() then always carries on with:
->
-> mpnic_flush()
->     mpnic_clean_twq0(nv, 0, &qt->sub0, true, qt->sub0.tail)
->         unmaps and frees every outstanding skb
-> mpnic_free_resources()->mpnic_free_ring_resources()
->     dma_free_coherent() on the TWQ and TCQ rings
->
-> If a Tx block (TWQ/TQS/TDE/TCQ) is still busy after 500 ms, can the
-> device read from unmapped skb pages or write completions into freed
-> coherent memory? The TCQ is only disabled by writing TCQ_CTL =3D 0.
->
-> This path has no fallback: no flush retry, no function reset, no clearing
-> of bus mastering. For comparison, fbnic calls fbnic_tx_flush() and polls
-> again before giving up.
->
-> A related case: if an earlier MMIO failure already cleared uc_addr0,
-> mpnic_disable() skips all its writes, and mpnic_rd64() returns ~0 for
-> every idle register. Does the wait then report idle straight away, so
-> the rings are freed even though the queues were never disabled?
->
+Yes this is the right gstreamer branch to use here.
 
-This was addressed in prior patch.
+> Generate the right element and encode stream:
+>=20
+> gst-launch-1.0 videotestsrc num-buffers=3D100 !
+> video/x-raw,width=3D720,height=3D576 !  v4l2slh264enc ! h264parse !
+> matroskamux ! filesink location=3D/tmp/t2.mkv
+>=20
+> And playback over Wayland.
+>=20
+> Solve some problem. I have implemented:
+>=20
+> const struct hantro_variant px30_vpu_variant =3D {
+>         .enc_offset =3D 0x0,
+>         .enc_fmts =3D rockchip_vpu_enc_fmts,
+>         .num_enc_fmts =3D ARRAY_SIZE(rockchip_vpu_enc_fmts),
+>         .dec_offset =3D 0x400,
+>         .dec_fmts =3D rockchip_vdpu2_dec_fmts,
+>         .num_dec_fmts =3D ARRAY_SIZE(rockchip_vdpu2_dec_fmts),
+>         .codec =3D HANTRO_JPEG_ENCODER | HANTRO_H264_ENCODER |
+>                  HANTRO_MPEG2_DECODER | HANTRO_VP8_DECODER |
+>                  HANTRO_H264_DECODER,
+>         .codec_ops =3D px30_vpu_codec_ops,
+>         .irqs =3D rockchip_vpu2_irqs,
+>         .num_irqs =3D ARRAY_SIZE(rockchip_vpu2_irqs),
+>         .init =3D rk3036_vpu_hw_init,
+>         .clk_names =3D rockchip_vpu_clk_names,
+>         .num_clocks =3D ARRAY_SIZE(rockchip_vpu_clk_names)
+> };
+>=20
+> I have advertised the:
+>=20
+>        {
+>                 .fourcc =3D V4L2_PIX_FMT_H264_SLICE,
+>                 .codec_mode =3D HANTRO_MODE_H264_ENC,
+>                 .max_depth =3D 2,
+>                 .header_size =3D H264_ENC_HEADER_SIZE,
+>                 .frmsize =3D {
+>                         .min_width =3D FMT_MIN_WIDTH,
+>                         .max_width =3D FMT_FHD_WIDTH,
+>                         .step_width =3D MB_DIM,
+>                         .min_height =3D FMT_MIN_HEIGHT,
+>                         .max_height =3D FMT_FHD_HEIGHT,
+>                         .step_height =3D MB_DIM,
+>                 },
+>         },
+>=20
+> Create the rockchip_vpu_hw_h264_enc.c. I need to test this on rk3399
 
->> +
->> +	return 0;
->> +}
->
-> [ ... ]
->
->> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c b/drivers/net/=
-ethernet/meta/mpnic/mpnic_txrx.c
->> index cb4d1427434c9..f4ad8caf6ce66 100644
->> --- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
->> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
->
-> [ ... ]
->
->> +static netdev_tx_t mpnic_xmit_frame_ring(struct sk_buff *skb,
->> +					 struct mpnic_ring *ring)
->> +{
->> +	__le64 *meta =3D &ring->desc[ring->tail];
->> +	u32 tail =3D ring->tail;
->> +
->> +	if (skb_put_padto(skb, MPNIC_MIN_FRAME_LEN))
->> +		goto err_drop;
->
-> [ ... ]
->
->> +	if (mpnic_tx_map(ring, skb, meta))
->> +		goto err_free;
->> +
->> +	return NETDEV_TX_OK;
->> +
->> +err_free:
->> +	dev_kfree_skb_any(skb);
->> +	ring->tx_buf[tail] =3D NULL;
->> +	ring->tail =3D tail;
->> +err_drop:
->> +	mpnic_tx_flush_doorbell(ring);
->> +
->> +	return NETDEV_TX_OK;
->> +}
->
-> [Severity: Medium]
-> Are these drops counted anywhere?
->
-> Both drop paths return NETDEV_TX_OK without calling
-> dev_core_stats_tx_dropped_inc() or updating any other counter:
+Then I guess this is using register configuration from the earlier H.264
+encoding work that I've done at Bootlin, adapted for the new stateless
+encode helpers? That part is probably not quite trivial, which is why I
+was a bit surprised.
 
-doesn't sound like dev_core_stats_tx_dropped_inc() is supposed to be
-used in drivers.
+> I have a small change only in the common part. Hope that it's a bit clear.
 
->
->   - err_drop, when skb_put_padto() fails
->   - err_free, when mpnic_tx_map() fails on a DMA mapping error or an
->     oversized head or fragment
->
-> The only trace is the rate-limited netdev_err() on the DMA path.
->
-> There is also no stats path in general. mpnic_netdev_ops has no
-> .ndo_get_stats64 or .ndo_get_stats, and netdev->stats is never updated.
-> mpnic_clean_twq0() passes its totals only to BQL, through
-> netif_txq_completed_wake().
->
-> Won't ip -s link then show tx_packets, tx_bytes and tx_dropped as 0 on an
-> interface that is transmitting and dropping packets?
->
-> The struct net_device_ops statistics comment in include/linux/netdevice.h
-> says drivers must implement one of the supported statistics mechanisms.
-> This still seems to be the case at the end of the series.
+Yes in comparison to the register configuration code, the platform
+changes are rather small indeed.
 
-Stats are planned as the next series.
+All the best,
+
+Paul
+
+--=20
+Paul Kocialkowski,
+
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
+
+Expert in multimedia, graphics and embedded hardware support with Linux.
+
+--CZn6uW8WXhqK4f0/
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmq1Z0IACgkQhP3B6o/u
+lQyEpQ/+IyLXFwk9YODr0WJI5I/wgdBuKj8S2gQmK7H45sYlvZfEDYQ+j4AV9wyl
+cOncZklhJzTNhVkAUthAjhHyJTl0PDAwk/Smf/zc6dd72xWf77NAK0QlvBRFDQqS
+kATP5MQfhKYXxnmPe5Aqbkb3xRSrxqjgnm8JbA7d/mh0R0ms8D07ekMxVHTSNJqe
+Kad2GX8HvnJDM+ETEQYFm4wr4PUVMW/LMEB9yE6sFjw4wdvFw0AQaJn9GIOenIJL
+S5OklJjNSg/FwO9qyLdYP+hoWn3DIxW3fHBotVZqlttgJSkCjG0SnCZbhKRhKyAu
+mmRjQhQ1m1LjvPxcNsIdgP4kUoSgP6239nLbapUvYnnbl1lNh0jDQYNuWBIKs1FU
+cn80fGsJxqYO3spl3pw1rCm5u+5mfAOz4rTquUfqVSWn44N5uSyjMMAHkddTUh1U
+JisiR3msNZLvStkbK0syAbQnhGXpyQC8grMremDf+jGXuYYySRv3vkPK7i/S+HfT
+zD3PCw3oriPh7b13A/d2CT1lW51sqkwKQacPEuKFqLm++hRJX4t65byE3OhhNpaI
+NXggjvgwk1c9EZ31GVuK/fyGoQvnWk0eUuRVCMs04gVpPX0G54tEG/DQtqyjjD4Q
+hCgzC339OPU4ma6H13w94ODFw4iNvUgBRZpffBAAOPyYpuzDujA=
+=YnXV
+-----END PGP SIGNATURE-----
+
+--CZn6uW8WXhqK4f0/--
