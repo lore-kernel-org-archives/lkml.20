@@ -1,60 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5B6B33F589;
-	Thu, 24 Sep 2026 22:06:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E42B42EEB7;
+	Thu, 24 Sep 2026 22:06:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790287604; cv=none; b=dohz0N+dUxFm+ruGrltagFsVF8dM3Ad9AH7aCt0kpihkTFsfSYDqc1DfNktt0mdF+Ik/vaUtKhNrfnC70PGYReAgglF9wJbaeXJoWaFYjBxHrWU2ENrTwUX8uesdy2hU5kAp2jcvbiJ9Oi8/qsx8gysXHCCP1griNTTjHL6C2ec=
+	t=1790287606; cv=none; b=FK9+sdDWpeniozOrukkwbdJpINbvaMsD99kwKYKrB3bHKxo6RGtM9TduieiOoQM7NndbKTfrp56bnn0VYVIkE2NLRy4ErzDYAthwRzkPPs2WnFlQX6lg0xpCRRpugVExnKQkxAQHi79rTt1/8/nt8oBEDCwL0oPkMa6B/8p2UDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790287604; c=relaxed/simple;
-	bh=eSPLFPgnwRu+0e9m0JOs2YSbpl+0ZiL+fU0ezr93Sg0=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=F+lezl1EoYp36qhSqo7t4jjiIvBtnzaK9trIQdxS6yhqtV6TSykAfpvtXiymxLrveHYmgCMIdAC/Nj4Hzvp1x9wQiLcDK9DWoHKQLdEow8gqf3DutmR7Lzr+8lNpoyonmm8AULjQg2sTqK3eL/093srrUHt72UC5Bxs2b/7C/RQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jI1oc+Nf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790287606; c=relaxed/simple;
+	bh=EPhgRaqsDV4gSss/ss2CBzNEgnKdVbHfnQGMLYLlwYM=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=ujWl0FGvJ6NZHmN1ZsA+4mSuqiTr0co6tG4NeefqjLI+D06VitrNL5NBJK7JkMat7XYTC871m2wmu5ku8Sqh6//wSPeOagfYxaaQQsUrxswd7MpHkAY6MdihuUa9HVhLdKlY/OEJBlR4+WgdOplcPsHmTgTql3ktey+9C5LNEeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m3EcUuu0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jI1oc+Nf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62ECB1F000FF;
-	Thu, 24 Sep 2026 22:06:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m3EcUuu0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 241B11F000FF;
+	Thu, 24 Sep 2026 22:06:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790287603;
-	bh=HggRw1poduf0XmZkohzTTrwUy7OtNHSQLMRD+1D6A5M=;
+	s=k20260515; t=1790287605;
+	bh=D0l+4+6ld0nO34yGsd0N/tzBReHLnipv40+gppaW03g=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=jI1oc+NfP6dHvTwVl32+SZxlOtkQEQBJm+EwfXVtzGnJzjYrS1/7RiQgOpJEj/K1g
-	 9ufghsq4Ci7dBSlTd/CTucwEW7mvm6Iz+qdSoUuTGyxbHkQkb2pnYRaXHwO+GNeyx2
-	 01NwCwatDph+18bgBzBEEw6kg6UKbfuoEWU+azh12K2c/7ncxwQGFQs8Mn8B8/1dfa
-	 jAVsoT/HFCaUnAB65KTFI5fV+98QlP7reTx5o943b15wBnyB6tIOuXka3FxluIsWO3
-	 MIz/QLZhbJoU0jEtmcno7jHbY4apMztcIrZ0JUkefT5qokByPUeHvMyvxwHbOlHwwQ
-	 e9APCisk05Gig==
+	b=m3EcUuu0s2iNR4KH51fsqFbZ1B8/AqdRR9J1hHy66XyzZnVL1ZfKaw46rU+7lcgij
+	 rlyQ6JfpPXcqztnGbqXbQWKM6AVcDgGsHL8xaM0JZzQ5ntkIHcJkXSA5jlSJB0g8/Y
+	 vZGe1KDDZekUgYY8ZC/ariQBq14mRXR3X0NChOgiNTGMBaYVXCJqYCPcW5Xrczf2Gi
+	 M5eznuRdZsLGW1fzyKsOrtp4ZmhksE9iXCC3g19S4lLTJuXRVHE682A8CFHAujz36D
+	 u74K3B/ON11JtEEW9i+7YEHPOQWFtnfLAN97Amrt48Lg5X9oJf6cBfo5CVcflhuIHX
+	 GLFcYV8dSh2dA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56C953A566ED;
-	Thu, 24 Sep 2026 22:05:33 +0000 (UTC)
-Subject: Re: [GIT PULL] cgroup: Fixes for v7.3-rc4
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 199EF3A566ED;
+	Thu, 24 Sep 2026 22:05:35 +0000 (UTC)
+Subject: Re: [GIT PULL] sched_ext: Fixes for v7.3-rc4
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <1e7eeebbabc3a9404fbea6928722474a@kernel.org>
-References: <1e7eeebbabc3a9404fbea6928722474a@kernel.org>
+In-Reply-To: <be7ef09b8be82e9f0c5fb2bf197d7a44@kernel.org>
+References: <be7ef09b8be82e9f0c5fb2bf197d7a44@kernel.org>
 X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <1e7eeebbabc3a9404fbea6928722474a@kernel.org>
-X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/tj/cgroup.git tags/cgroup-for-7.3-rc4-fixes
-X-PR-Tracked-Commit-Id: 1765a153d985c231357145e26798f9408db10e42
+X-PR-Tracked-Message-Id: <be7ef09b8be82e9f0c5fb2bf197d7a44@kernel.org>
+X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git tags/sched_ext-for-7.3-rc4-fixes
+X-PR-Tracked-Commit-Id: 4409a85735cdca5c4c400c0dad1feee091872eee
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: e8dfd03a1c51c4e84fbf2e5ef5cd7d33cc8b7578
-Message-Id: <179028753185.2222164.17918567933132947756.pr-tracker-bot@kernel.org>
-Date: Thu, 24 Sep 2026 22:05:31 +0000
+X-PR-Merge-Commit-Id: ee9c669f9bf5fd2c24206746ded9382fe810df89
+Message-Id: <179028753357.2222164.10658990911294213165.pr-tracker-bot@kernel.org>
+Date: Thu, 24 Sep 2026 22:05:33 +0000
 To: Tejun Heo <tj@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, Michal Koutny <mkoutny@suse.com>, Waiman Long <longman@redhat.com>, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>, Emil Tsalapatis <emil@etsalapatis.com>, David Dai <david.dai@linux.dev>, sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
-The pull request you sent on Thu, 24 Sep 2026 11:19:27 -1000:
+The pull request you sent on Thu, 24 Sep 2026 11:19:47 -1000:
 
-> https://git.kernel.org/pub/scm/linux/kernel/git/tj/cgroup.git tags/cgroup-for-7.3-rc4-fixes
+> https://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git tags/sched_ext-for-7.3-rc4-fixes
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/e8dfd03a1c51c4e84fbf2e5ef5cd7d33cc8b7578
+https://git.kernel.org/torvalds/c/ee9c669f9bf5fd2c24206746ded9382fe810df89
 
 Thank you!
 
