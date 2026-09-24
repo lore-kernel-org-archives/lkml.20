@@ -1,239 +1,147 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6545447D474
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:21:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790252492; cv=pass; b=Yy+hPiyWIhuDLTcalGXdvCCrwX1LiwjCUMGmPcDKz7vdu99/+FvLzRfmAMSHwLiMH10bHpYYGw/kMkKyTvoZCx3ZzGMt5EzQqOGsJxR6hyYpL6BLAlWylzCFMrv+DpW/zp/6VfLoDpEpYqbpyk0csk/df35WeWaHDSy/ncH1oJE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790252492; c=relaxed/simple;
-	bh=xeNd5Z4KutAQUnG4imh+PXHxOYvDguVwzRBnlJk6ubU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tUI4gWtws9GqLUL+/k2P+kW7FBWFiyeHjYlk9opI5e9xD64tsWZCQXfLtgBSb76FkPEUAKxHYALYXaUNHWRaDvH7UCoVIDyobpkLqAqMimrvnyx2/OJnpTHUTu9T4mZxlbl16q2zQix1LcJSKTtWFiz7HgjDEMDC9nvnbFxSeRU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zg1veJnj; arc=pass smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED6D747D44E;
+	Thu, 24 Sep 2026 12:21:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790252498; cv=none; b=okjua3YPdY0BmuIRa8vZpbUhbLklKWXTwV89CtPhKUrlv2Uv5RwVoX+zcisl0lPbcTGUk5ey5mfvgs3sl3fxcOf2KR9AmF4RYnqlrstxgT0aOhZfqPDWpmOJGu1gbhhjXjqNwlxYXKJyDYEA+Xtap2XE5N0Vsh2ZdUXi7PhxG0Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790252498; c=relaxed/simple;
+	bh=rTdcO7n0+nshxu9CDu/EDryDUt+kuTOvFiqhnTEqJCg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nnHc/7k8vkAp5hJOoThodNMgab+t/n8cDMIH9wlZtrjcGaa7Br5As2NLhObEtM0kJzOX9h5z30xuyuAPjPIEEGClGHt/fHtvqsusL0vA9SdvMonn8Xa/hBYqja79OpQFc8FcQbpMFfcYJQfF+au/Si6UV6rMigxARXiQYsq4V8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=RCb6mJCl; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zg1veJnj"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f88so1393624f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:21:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790252489; cv=none;
-        d=google.com; s=arc-20260327;
-        b=J+eLWJZoFTCucsNtEeUp3GODpOFFpE7kAvUTmqBUm/azmM1LIdg1MiuxkPr/DM4z1/
-         BRfqQjWuNUabVk8E4kebHVoA+uStMnbb6J/uCT0CphK/l1+2SDp8rwIUun/2TwGtLV5D
-         5auHICBjfLuB+RR1TQEZPjxQOiziqtrkeA0h6ZdA02O4ROVoWd1qBezThp5J2gQJR5ol
-         CSK26O9pqUQXFjbHa833Bh7Hb2eY2XkGZHu485FN/bfS5bUdVOJBXg+Aj918GaHzgAQ2
-         Zrb62sEZv0Y2e2OzrYHQsr+UtbGNOQUAaWthmIccwbMtIuaHPTFXU9p9YEGdMEATJ9Lw
-         FVoQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qM5+SKQmy+vgU7/eLGaFkuMRmst60I3hKbtua8AJCxc=;
-        fh=7UUzOfDX4uRcM6kWcy7rySvFKoHNVjeqcD+fINlNTy0=;
-        b=r8XaTMQ3L1CkPsZhGChPEALqXQWoXEtXQSHm/sDUadLBZVkG29tz4qDPgjGobkVQL5
-         6axTnS5j84VSIertGX5NO1gFFazxxFT0kcmZlrlllQBwahoq6Ad6riAsN28rcZq5mxLy
-         HSxs3X5Muu/MzMlmTlpFgW3ZrmSadFypLSL6NMBb3lZY1bXJ1HgHGk+sO9O/8lfgN71w
-         QoXCg2g6K+ig7VWzM5DCum9oej1nkFYBmuBiHFa92O7CkS3W6RUivzADwA7iLc/8nEFv
-         VosaugQH3ZCcgxOydT/IEuq2YPInp1j9ZdopXPh1iZQSG21IJRWzXTvfVuYoQRLx2Bp1
-         OQ5A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790252489; x=1790857289; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qM5+SKQmy+vgU7/eLGaFkuMRmst60I3hKbtua8AJCxc=;
-        b=Zg1veJnjezsEgJvBYZtGGJ+l1w5aCC3xIToB28sSyDZ6qrclGyHkZ/BkblIybs6Oj/
-         BD2FsYhT2bQjZPGYAlSMUEO2ZmURV/2oDLLt6w81DWQhjVCb4v7QpXEkQ6o7M885RfWP
-         7ljUhNqdYxe9qSuExVXISLn1DhufuDrJnEDeaqB2umhgQ+ptjrPERmzMHPTw+tOwibIR
-         XBzoKX4HNqPmr1U5KUQySm+vmRKMN3qTTyIPSYkNouwVHhun86IqAoW+tlV50p3LxKLS
-         WM0M1FZKknIkHkwklcNTP5tAfG4XJf0pwha3/Cse40U9S1KCrJgw8/1XnUGmnJq0jiQS
-         mOZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790252489; x=1790857289;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qM5+SKQmy+vgU7/eLGaFkuMRmst60I3hKbtua8AJCxc=;
-        b=V6Ty9w7lJh+qHfUCJvYi4S0mnLmxnrFNHSYOAKonZtx7tpOt7G/veoPB/oi4LLIk/Q
-         z7J0NHdNT1uflJ1XXvPZbeHfKW7TYXSCfZCYcCCXxmztzFfxTXuHkvRYmf8juo8isjx2
-         oZkgc5dz7wFvAd+whacQZChvYUr6qlMI4yA/AnKOVRHmqtLzwqR8Ogf8LzTHtXg889WK
-         DO/ZuB1jWsqWeTka12bbni7q45AF3u+Ms58X9fbL1WG+ABKEWGrj07RFnyqNqzQIvmlU
-         XcH7Gd7rxw1Rn50R+l/ns5fqIPSbM6+euCyfnXSQPQzrTvYOvUuDxe4uKpeZ7NaYwSeV
-         7ArA==
-X-Forwarded-Encrypted: i=1; AKwUvBxjG90gHGBDA6HxtmYxlg38i1MUziWF/sBwWy2EHqSXeIzWG+9DsYwbSVGm3EP4sSRqwGhWIJTAEgDtNV8=@vger.kernel.org
-X-Gm-Message-State: AFuF++m9QZ0EYYl4epmccHDNwqgTsjqI2l8AdE7Q0FbXSuaBKG/ISuWc
-	zpttitVWWEbUcG5bS1jy25YKQXM+LWlaf+gB4qfnftb4/o8p9M94ZpQWMqnwDX0bi2HQ6QyDWc8
-	4IbjA2VnQ1B86c1tV3jSNj5ueoh/K5LU=
-X-Gm-Gg: AYBFou2xC1tQ8HVhnoauy07FS/Pl/0JdhVaxDny3ppmgOrPblMW9LwjdqvZFvTMXwJ/
-	iRXz1dGu+EmbLRqYJ8BDOt8ByKNgwdHtOereA+RgwBJppTHQ5p3lsa5eTyjp6GSKLXcTHZof/a3
-	Pcg11ZfhSnL15pbBBzYnAACRPxAQYdGswRDPzVVAb1dn9WOMIfallP/3kNCD4HbNpFH2aAbtfmD
-	Wc3RQE+HF5fi/r26HtT47lDOL4GKE45vGcIvcFs9ErtH0/immGpmQz9yn27EE6b1E2usCdWCA26
-	cIYBr8VpoyufrMoO4TxppfI8BEgNf0+6xSsB+745vEK/owzxr4qxYUjkOqXu8/jTTg4Oowtzai6
-	YlaSyF3xPiLUYXelN/kdYbazBMBv932+pL8R4v7L8rdqnEIJCOq1a0A==
-X-Received: by 2002:a05:6000:41ee:b0:487:71a:be5e with SMTP id
- ffacd0b85a97d-48871751e7emr3952817f8f.28.1790252488589; Thu, 24 Sep 2026
- 05:21:28 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="RCb6mJCl"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8687A152B;
+	Thu, 24 Sep 2026 05:21:32 -0700 (PDT)
+Received: from [10.57.83.110] (unknown [10.57.83.110])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id ABA9B3F86C;
+	Thu, 24 Sep 2026 05:21:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790252496; bh=rTdcO7n0+nshxu9CDu/EDryDUt+kuTOvFiqhnTEqJCg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=RCb6mJClIL5UcTql5vFcsex7DxOdojrWEOrsuD+03U/8LnEkoU4WGd4NklebN4L/q
+	 i8SAcsH8Z8iDp7GOdFsb2I3V0awYWc2PApLoDAD0UXrSVigZDqp90z2XYQLFkm59o6
+	 Z+aW0c6kZeCZ6al02l/F0iQ5og5z9BpTFQcoNTnk=
+Message-ID: <7a600128-bf10-4966-8c08-129eeec3fb91@arm.com>
+Date: Thu, 24 Sep 2026 13:21:29 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922144629.586997-1-claudiu.beznea@kernel.org> <20260922144629.586997-3-claudiu.beznea@kernel.org>
-In-Reply-To: <20260922144629.586997-3-claudiu.beznea@kernel.org>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Thu, 24 Sep 2026 13:21:01 +0100
-X-Gm-Features: AclHuK_X7dFqx5_PZTR1oHZdsVG_VtavdMBztYLyOGLheA-ut1aT-qqdUnVWM6M
-Message-ID: <CA+V-a8tnpOF8gEjMcz8+sg7c2ec-uAncRK01NWcsL4A-TM-bSQ@mail.gmail.com>
-Subject: Re: [PATCH v4 2/8] PCI: rzg3s-host: Fix runtime PM handling in the
- NOIRQ suspend/resume phase
-To: Claudiu Beznea <claudiu.beznea@kernel.org>
-Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org, 
-	robh@kernel.org, bhelgaas@google.com, p.zabel@pengutronix.de, 
-	claudiu.beznea@tuxon.dev, linux-pci@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/6] arm64: use hw_pte_val for HW PTE atomics
+To: Muhammad Usama Anjum <usama.anjum@arm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ Alexander Potapenko <glider@google.com>,
+ Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>,
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-efi@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org
+References: <20260922-pte0_arm-v2-0-a3f1ddff0a8a@arm.com>
+ <20260922-pte0_arm-v2-2-a3f1ddff0a8a@arm.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260922-pte0_arm-v2-2-a3f1ddff0a8a@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 22, 2026 at 3:57=E2=80=AFPM Claudiu Beznea
-<claudiu.beznea@kernel.org> wrote:
->
-> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->
-> The runtime PM documentation states the following:
-> - During system suspend, pm_runtime_get_noresume() is called for every
->   device right before executing the subsystem-level .prepare() callback
->   (in device_prepare()). In addition, the PM core disables runtime PM for
->   every device right before executing the subsystem-level .suspend_late()
->   callback (in device_suspend_late()).
-> - During system resume, pm_runtime_enable() is called for every device
->   right after executing the subsystem-level .resume_early() callback (in
->   device_resume_early()), and pm_runtime_put() is called right after
->   executing the subsystem-level .complete() callback (in
->   device_complete()).
->
-> The driver's .suspend_noirq() callback is invoked after .suspend_late(),
-> while .resume_noirq() is invoked before .resume_early().
->
-> If:
-> - the device is not part of the wake-up path, and
-> - its runtime PM status is not RPM_SUSPENDED,
-> the generic power domain .suspend_noirq()/.resume_noirq() callbacks
-> (genpd_suspend_noirq()/genpd_resume_noirq()) invoke the driver's
-> .suspend_noirq()/.resume_noirq() callbacks and call
-> genpd_stop_dev()/genpd_start_dev() before and after them, respectively.
->
-> Calling genpd_stop_dev()/genpd_start_dev() allows devices whose power is
-> controlled by generic power domains to be powered off and on during
-> system suspend and resume, even though their runtime PM usage count does
-> not reach zero.
->
-> Since the runtime PM usage count is incremented in device_prepare() and
-> decremented in device_complete(), runtime PM operations performed from
-> the driver's .suspend_noirq()/.resume_noirq() callbacks are no-ops. The
-> actual power transitions are handled by the generic power domain
-> .suspend_noirq()/.resume_noirq() callbacks.
->
-> Moreover, attempting to runtime resume a device while runtime PM is
-> disabled may return -EACCES. This may cause system resume to fail when
-> resuming after a failed Root Port reset, as described in a subsequent
-> patch adding hot-plug support.
->
-> Remove the runtime PM calls from the driver's
-> .suspend_noirq()/.resume_noirq() callbacks and rely on the generic power
-> domain callbacks to power the device off and on.
->
-> Fixes: 7ef502fb35b2 ("PCI: Add Renesas RZ/G3S host controller driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+On 22/09/2026 18:31, Muhammad Usama Anjum wrote:
+> The low-level atomic PTE update paths take the address of
+> pte_val(*ptep). That assumes HW PTE storage can be passed directly to
+> the SW PTE value accessor and no longer type-checks when hw_pte_t is
+> distinct.
+> 
+> Use hw_pte_val() for the lvalues passed to compare-exchange and exchange
+> operations. The atomic operations and their ordering are unchanged.
+> 
+> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+
+Reviewed-by: Ryan Roberts <ryan.roberts@arm.com>
+
 > ---
->
-> Changes in v4:
-> - simplified the comments in rzg3s_pcie_suspend_noirq()/rzg3s_pcie_resume=
-_noirq()
->
-> Changes in v3:
-> - none, this patch is new
->
->  drivers/pci/controller/pcie-rzg3s-host.c | 22 ++++++++++------------
->  1 file changed, 10 insertions(+), 12 deletions(-)
->
-Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Tested-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> Chagnes in v2:
+> - Remove comment change
+> - Move hw_pte_val() to generic series
+> ---
+>  arch/arm64/include/asm/pgtable.h | 10 +++++-----
+>  arch/arm64/mm/fault.c            |  2 +-
+>  2 files changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
+> index 652ce413be389..4768ec59de555 100644
+> --- a/arch/arm64/include/asm/pgtable.h
+> +++ b/arch/arm64/include/asm/pgtable.h
+> @@ -1303,7 +1303,7 @@ static inline bool __ptep_test_and_clear_young(struct vm_area_struct *vma,
+>  	do {
+>  		old_pte = pte;
+>  		pte = pte_mkold(pte);
+> -		pte_val(pte) = cmpxchg_relaxed(&pte_val(*ptep),
+> +		pte_val(pte) = cmpxchg_relaxed(&hw_pte_val(*ptep),
+>  					       pte_val(old_pte), pte_val(pte));
+>  	} while (pte_val(pte) != pte_val(old_pte));
+>  
+> @@ -1346,7 +1346,7 @@ static inline pte_t __ptep_get_and_clear_anysz(struct mm_struct *mm,
+>  					       hw_pte_t *ptep,
+>  					       unsigned long pgsize)
+>  {
+> -	pte_t pte = __pte(xchg_relaxed(&pte_val(*ptep), 0));
+> +	pte_t pte = __pte(xchg_relaxed(&hw_pte_val(*ptep), 0));
+>  
+>  	switch (pgsize) {
+>  	case PAGE_SIZE:
+> @@ -1422,7 +1422,7 @@ static inline void ___ptep_set_wrprotect(struct mm_struct *mm,
+>  	do {
+>  		old_pte = pte;
+>  		pte = pte_wrprotect(pte);
+> -		pte_val(pte) = cmpxchg_relaxed(&pte_val(*ptep),
+> +		pte_val(pte) = cmpxchg_relaxed(&hw_pte_val(*ptep),
+>  					       pte_val(old_pte), pte_val(pte));
+>  	} while (pte_val(pte) != pte_val(old_pte));
+>  }
+> @@ -1460,7 +1460,7 @@ static inline void __clear_young_dirty_pte(struct vm_area_struct *vma,
+>  		if (flags & CYDP_CLEAR_DIRTY)
+>  			pte = pte_mkclean(pte);
+>  
+> -		pte_val(pte) = cmpxchg_relaxed(&pte_val(*ptep),
+> +		pte_val(pte) = cmpxchg_relaxed(&hw_pte_val(*ptep),
+>  					       pte_val(old_pte), pte_val(pte));
+>  	} while (pte_val(pte) != pte_val(old_pte));
+>  }
+> @@ -1830,7 +1830,7 @@ static inline bool ptep_try_set(hw_pte_t *ptep, pte_t new_pte)
+>  {
+>  	pteval_t old = 0;
+>  
+> -	if (!try_cmpxchg(&pte_val(*ptep), &old, pte_val(new_pte)))
+> +	if (!try_cmpxchg(&hw_pte_val(*ptep), &old, pte_val(new_pte)))
+>  		return false;
+>  
+>  	/*
+> diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
+> index b77f4be88e3ea..3322f4e7174dc 100644
+> --- a/arch/arm64/mm/fault.c
+> +++ b/arch/arm64/mm/fault.c
+> @@ -235,7 +235,7 @@ int __ptep_set_access_flags_anysz(struct vm_area_struct *vma,
+>  		pteval ^= PTE_RDONLY;
+>  		pteval |= pte_val(entry);
+>  		pteval ^= PTE_RDONLY;
+> -		pteval = cmpxchg_relaxed(&pte_val(*ptep), old_pteval, pteval);
+> +		pteval = cmpxchg_relaxed(&hw_pte_val(*ptep), old_pteval, pteval);
+>  	} while (pteval != old_pteval);
+>  
+>  	/*
+> 
 
-Cheers,
-Prabhakar
-
-> diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/contr=
-oller/pcie-rzg3s-host.c
-> index e1105b1f2652..0ef49bb5ab1a 100644
-> --- a/drivers/pci/controller/pcie-rzg3s-host.c
-> +++ b/drivers/pci/controller/pcie-rzg3s-host.c
-> @@ -1961,19 +1961,18 @@ static int rzg3s_pcie_suspend_noirq(struct device=
- *dev)
->         if (ret)
->                 goto config_reinit;
->
-> -       ret =3D pm_runtime_put_sync(dev);
-> -       if (ret)
-> -               goto power_resets_restore;
-> +       /*
-> +        * Since the power domain's genpd_suspend_noirq() will disable cl=
-ocks,
-> +        * there is no need to manually invoke runtime PM API here.
-> +        */
->
->         ret =3D rzg3s_sysc_config_func(sysc, RZG3S_SYSC_FUNC_ID_RST_RSM_B=
-, 0);
->         if (ret)
-> -               goto rpm_resume;
-> +               goto power_resets_restore;
->
->         return 0;
->
->         /* Restore the previous state if any error happens */
-> -rpm_resume:
-> -       pm_runtime_resume_and_get(dev);
->  power_resets_restore:
->         reset_control_bulk_deassert(data->num_power_resets,
->                                     host->power_resets);
-> @@ -2011,13 +2010,14 @@ static int rzg3s_pcie_resume_noirq(struct device =
-*dev)
->                         goto assert_rst_rsm_b;
->         }
->
-> -       ret =3D pm_runtime_resume_and_get(dev);
-> -       if (ret)
-> -               goto assert_rst_rsm_b;
-> +       /*
-> +        * Since the power domain's genpd_resume_noirq() will enable cloc=
-ks,
-> +        * there is no need to manually invoke runtime PM API here.
-> +        */
->
->         ret =3D rzg3s_pcie_power_resets_deassert(host);
->         if (ret)
-> -               goto rpm_put;
-> +               goto assert_rst_rsm_b;
->
->         ret =3D rzg3s_pcie_host_setup(host, rzg3s_pcie_msi_hw_setup,
->                                     rzg3s_pcie_msi_hw_teardown);
-> @@ -2033,8 +2033,6 @@ static int rzg3s_pcie_resume_noirq(struct device *d=
-ev)
->  assert_power_resets:
->         reset_control_bulk_assert(data->num_power_resets,
->                                   host->power_resets);
-> -rpm_put:
-> -       pm_runtime_put_sync(dev);
->  assert_rst_rsm_b:
->         rzg3s_sysc_config_func(sysc, RZG3S_SYSC_FUNC_ID_RST_RSM_B, 0);
->         return ret;
-> --
-> 2.43.0
->
->
