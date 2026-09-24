@@ -1,72 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-31.mta0.migadu.com [91.218.175.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DDD9442385;
-	Thu, 24 Sep 2026 22:36:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48906440632
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:36:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.31
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790289409; cv=none; b=DJLfwkwSxoYdQD28gz1moADL53dTgw3e5KIiDQYnOcB0yMi9AgKxoddFXvap7UsfuXZEa47ZJSXvZNukpqkLe+SvI2ix/1lbRY/SEhd7uk6kEZlPqgB/mAYUCnJxtCE8o9EkghZ0f2VSXi5gYjheapG+MOpIcYuxXOVy42dOzLM=
+	t=1790289410; cv=none; b=rNMcPvGEqAadCk0yumGjKOT+yAuhuZ5weMIywBjHy78kC96zqDjMluLefGhRr11x1qQvhUqZQuD0vx2CLLvoYCH1gdtF/Z7yztcsjcHlYLqrWW8sUeG+bFl4zJWTnMF43D00KTS4s3LHXU++/5ouvNBpe/tqN2hdK9Y5RVQ8SrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790289409; c=relaxed/simple;
-	bh=1wmX4rp8dbQalKgfoYF2kUKKu5XPfwP/gP2gXlSUrog=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=SJbIslGfqehgLDGC7nXOWf3VEuDFTA/faKJ/7NNwo6Hw/5XNOIKGyECEXYjzDVDDA0GFxZT5lVt62ek83mu0F1n9pJpInNPxkAqEdMNDh16Mor+bhK9vJF23AfyvpFHGbr1t7S9+jdrtsDznLvl3zRVZepR80GbhIAAsgKHRkYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NMoeOI8A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790289410; c=relaxed/simple;
+	bh=kvklvMQb5bIcpXnAuNRAqEBY7d8GE0zlY/tQCrHSqxg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=oc8fwEPwZKXXNGfMbOotJ3okK3Y9mDifwuHsxNDbhBhILXZ4XZL4mBSk6Hg4UyBr1JhhLiL45c/ILgPnbC+opyMhfvP55Yg4oazUd0GR1ex4OBZac9Hlyr0PRKurr3yPzLVat/K/VeMguTcXCclYxb3DdaDfN4ZG7stSf3nMba0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=KqrZAsZ3; arc=none smtp.client-ip=91.218.175.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NMoeOI8A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 063F71F000FF;
-	Thu, 24 Sep 2026 22:36:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790289408;
-	bh=oP/zxzF7zYNaQTJI7+MbpMn4XM//3Jpa5qEvLqTdNPU=;
-	h=Date:From:To:Cc:Subject;
-	b=NMoeOI8AtN+NYS8sImy/69uLAceoi5SEgy2znPjzlUeVQGoZhslSPgunAR6gi2O+m
-	 8dYQB8C/AwRtYBLHuyVQH/BGh1G6UZKwEZPFPcitPfCtkvyP+hzDbCpZSWfqaLf1NV
-	 uSbEJJR5VN4TTsSui3xMCTwA3CqZI6YKz9WsZbn4T1LVbUNU+4bGyqCKCkm0bW65tE
-	 yqo9Q8FoDpvEYWJo9ycY7z4W8FZSsV7kT5aGKKqIaa8riyS1ToGYrWldaFV+0qakHz
-	 XySI+xeF8n9DF0dNoDmMeyqdwW5tUI4e2vJMPf+LhujQYLJdYHQaO2uGgYbFcrgisd
-	 p9YrYqWLZevZQ==
-Date: Thu, 24 Sep 2026 23:36:44 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Arnaldo Carvalho de Melo <arnaldo.melo@gmail.com>,
-	Namhyung Kim <namhyung@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
-Subject: Missing signoff in the perf tree
-Message-ID: <arWl_CVE0g8dSTSU@sirena.org.uk>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="KqrZAsZ3"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=kvklvMQb5bIcpXnAuNRAqEBY7d8GE0zlY/tQCrHSqxg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790289406; v=1; x=1790894206;
+ b=KqrZAsZ3GkIUJfeBg37N2oappBHp7z1XSnGbX5m/UfSQE9Acya1iCfOm7w5+x6YXud5REi3p
+ 35T5a6xYk1LQgdTRMgKNdzDXGc09v65ClUZkcxCh0MM4VfZT8phh6xjjsVLtA5KjWsMmR16h4zP
+ aWrreiOHkqkOJcEa9gVtsqhM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2f823245de1bd7fb;
+	Thu, 24 Sep 2026 22:36:45 +0000
+X-Mizu-Trace-ID: 2f823245de1bd7fb
+X-Migadu-Flow: FLOW_OUT
+From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+Date: Thu, 24 Sep 2026 22:35:47 +0000
+Subject: [PATCH v2 3/9] scripts/sorttable: Make the arm64 before_func
+ offset configurable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="NWV7WeiHSCOmpR2R"
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260924-b4-arm64-callops-kcfi-v2-3-587865b6d991@linux.dev>
+References: <20260924-b4-arm64-callops-kcfi-v2-0-587865b6d991@linux.dev>
+In-Reply-To: <20260924-b4-arm64-callops-kcfi-v2-0-587865b6d991@linux.dev>
+To: Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Puranjay Mohan <puranjay@kernel.org>, Xu Kuohai <xukuohai@huaweicloud.com>, 
+ Ard Biesheuvel <ardb@kernel.org>, 
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Sami Tolvanen <samitolvanen@google.com>, Kees Cook <kees@kernel.org>
+Cc: Leon Hwang <leon.hwang@linux.dev>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Josh Poimboeuf <jpoimboe@kernel.org>, live-patching@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+ linux-kbuild@vger.kernel.org, llvm@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org, 
+ linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ Ben Cressey <ben@cressey.dev>, 
+ "Florent Revest (Anthropic)" <florent.revest@linux.dev>, 
+ "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+X-Mailer: b4 0.15.2
 
+sorttable hardcodes before_func to 8 bytes on arm64 (two prefix NOPs).
+Make it configurable from CONFIG_ARM64_FUNCTION_PREFIX_NOPS instead.
+kCFI kernels with CALL_OPS need three NOPs. The symbol does not exist
+yet, so no functional change.
 
---NWV7WeiHSCOmpR2R
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Reviewed-by: Ben Cressey <ben@cressey.dev>
+Reviewed-by: Florent Revest (Anthropic) <florent.revest@linux.dev>
+Assisted-by: LLM
+Signed-off-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
+---
+ scripts/Makefile    | 4 ++++
+ scripts/sorttable.c | 7 ++++++-
+ 2 files changed, 10 insertions(+), 1 deletion(-)
 
-Commit
+diff --git a/scripts/Makefile b/scripts/Makefile
+index 3434a82a119f0..daad9b9540b8d 100644
+--- a/scripts/Makefile
++++ b/scripts/Makefile
+@@ -51,6 +51,10 @@ endif
+ 
+ ifdef CONFIG_BUILDTIME_MCOUNT_SORT
+ HOSTCFLAGS_sorttable.o += -DMCOUNT_SORT_ENABLED
++# 0 or unset (no prefix NOPs) leaves sorttable's built-in default in place.
++ifneq ($(filter-out 0,$(CONFIG_ARM64_FUNCTION_PREFIX_NOPS)),)
++HOSTCFLAGS_sorttable.o += -DFUNCTION_PREFIX_BYTES=$(shell expr 4 \* $(CONFIG_ARM64_FUNCTION_PREFIX_NOPS))
++endif
+ endif
+ 
+ # The following programs are only built on demand
+diff --git a/scripts/sorttable.c b/scripts/sorttable.c
+index d8dc2a1b7c312..925382bb23dcc 100644
+--- a/scripts/sorttable.c
++++ b/scripts/sorttable.c
+@@ -281,6 +281,11 @@ static int add_field(uint64_t addr, uint64_t size)
+ /* Used for when mcount/fentry is before the function entry */
+ static int before_func;
+ 
++/* How far before the function entry a patchable entry may be recorded */
++#ifndef FUNCTION_PREFIX_BYTES
++#define FUNCTION_PREFIX_BYTES	8
++#endif
++
+ /* Only return match if the address lies inside the function size */
+ static int cmp_func_addr(const void *K, const void *A)
+ {
+@@ -899,7 +904,7 @@ static int do_file(char const *const fname, void *addr)
+ 		/* fallthrough */
+ 	case EM_RISCV:
+ 		/* arm64 and RISC-V place patchable entries before the function. */
+-		before_func = 8;
++		before_func = FUNCTION_PREFIX_BYTES;
+ #else
+ 	case EM_AARCH64:
+ 	case EM_RISCV:
 
-  4c09f6c47b769 ("perf annotate: Fix NULL pointer dereference in loongarch_call__parse")
+-- 
+2.52.0
 
-is missing a Signed-off-by from its author
-
---NWV7WeiHSCOmpR2R
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq1pfsACgkQJNaLcl1U
-h9B3ogf/T+qa6GFbWwTt/2i2tNnJ56TuCw3ilf9G3OBYNZfnu50KTXTC40iq+SoL
-wdkJM8NdTEG/VoFJkCniwODGOtY3qRjL8ScLdVmxW0vOueuhdSF28Y810HCz0ZGH
-MwpzlNsPxlz7hGt9+AdxY09flhNIO40uNliLvHQ1UR5hcYb75DCvEWz5XOBHGQ8/
-Zo6+OrdA6fdVUx3HyGUL2S4FhKMiQ9zbstqjOXXQxJ8dzbGThLpny+v86oUPh5At
-L6pgyZxsmY9uBvjzSJ75W2KOUnHXRUOXYdMr7QVQqLj4n8SihtJuojaPInTPktDI
-swgJmUjB7JZx3OHKyrkcVwvirYgTow==
-=GHuI
------END PGP SIGNATURE-----
-
---NWV7WeiHSCOmpR2R--
