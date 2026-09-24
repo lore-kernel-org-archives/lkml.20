@@ -1,119 +1,137 @@
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+Received: from mail-wr2-f36.google.com (mail-wr2-f36.google.com [74.125.225.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD32541D22D
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:40:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790278827; cv=none; b=OBMK5nPwBVzFKx+9ErzDwOYbZwk5fHJ9gJ7mde/QDevTlEfsrrR25JhX9XLdqYWINAn6IeMpAFm/G18XnmoMS1fuvqs0gVSaiin3X3CCEd/Fn5dOuqND3ysaon7Isuxr2N1AeoGD9A3HihSICsRxLhJE7jNHX082xyNvnY7JqeE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790278827; c=relaxed/simple;
-	bh=v2mr3yEeVPCA53lv8cWAiEEbb7C20MRdeH9IJtvRkCE=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=agFYtnWKMh7CiTO5XVsaDQpOdoEOvNIZckuuiGLt/MVoJrfFXUHHiMrE204K6Tgm2dzKOBAmFJVhxwDqFNcrOyRSKz4T+WU7Ue/TQG27/ju7g9IABvyQFUs8HeQHAM3kphHrnBClR6v9+YEOVcPhrtZvxIpzcCr9gnl5Cixwdow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eq/9jZfy; arc=none smtp.client-ip=209.85.216.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7CFD4C10FB
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:41:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.100
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790278881; cv=pass; b=MOX7I2yj1Y8t0hOlpjK8AA4Arvhuv1tmfcvkvfkX+cHcmfvFOjOkiaOU8ODHyKQag+Mc8qncd/Bwa9N1AmNAk8LgWLcyD+OfMNkFnjmn1xw+BH2agUNJrKi1EXKlZzmxpHOHFvUX2aYzJOzWJGb6sfQc8+QTbiVj67iCg3GnY34=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790278881; c=relaxed/simple;
+	bh=bgEUev2/WA/xtTv6tfLEW2vV4/QUHdZ+xHOitzvHWxk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ERs18ppP6qCrFR29I7NQXOrpP5DW0MZq32vwVfED/Y8neePBB6CElAT5UP6QU3aSXnQDYjRw6qGmn/vGhH2Ly/pm04kGDXiEZHWVTvspa8Y+1bYv9irByXfkcvcK26eAQL5PJU1Ka6EOU40pu1cX3S+/e8lWPFsbP5T/5Y4hF1Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=WmMn9C+o; arc=pass smtp.client-ip=74.125.225.100
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eq/9jZfy"
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39e18af9f48so203339a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:40:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="WmMn9C+o"
+Received: by mail-wr2-f36.google.com with SMTP id ffacd0b85a97d-4843c3ee4cfso78149f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:41:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790278869; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Rv9p3dzNVGf/xlJ0eOTd/G00QsiQwVuF0uiVs9dMaR8oS25KUAPpmAfV8RuhUNCwut
+         93/Hd9/IPN6QsJUTKSh4D5K87GpSYuDxEakQbsiulxDuxX1B7DDi/yEo1+HdGWrdlJRr
+         d6oNeN0kcB17fuOGfUeq6RjdnR9tN48/s8Uerq+n7Unp/iStpLxj/xZwRQDMf6/vD0Ax
+         FRW8w/rnH1cJ6XsYHOeIW9Mk8/NsHf+Q8wcJXHjLqcoOKcTmJ+egnV5ZIjdTebx0WVF4
+         2kIK8JD7+ubEmsCZlu3EVnVHWr+w+ps9YWRLaHVAzIZnWECFgQT9x9sOYR2dlJYOwrkZ
+         h12Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=h41Xw1fnsOQR0sx8RF3G8IgCDeEFjEbkE/RdEqTN4CI=;
+        fh=keucbURrh2i8VGsmvJnmCpqX1cD0EspwmzfPsqUlqrw=;
+        b=qIjAgdmGCf8xTwU4QAGFxGTufQmrEOAeUC9716Vmh8B7ssx2MjsEj1MgDtNx4IaTlG
+         OqkOZqMxzw6f0UFahh3UKtm1k3n1k5aZ9Oh4Qgwzwhafaupp4Z0owoY9vZ+63Ew0FYyE
+         y86OJRelNqOtxzy8IBpiuMwNBY8AkVLBKKZWgNni89gsYvzyhSrQsw+LVc8MGznb3oU3
+         ETlFQhWuFDMXd22A9Kd6sKPHgdhwcEtZs1QIE+3Bg6PQBnDfOrYdB903atDGfxypGUu3
+         YWg7KnC0Y6x7g+PpaAfmQc3KSVWnQT8EjVAZLXCiaUrdLVRuOcwMah4eIlIR3QgoKVmL
+         Sd3w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790278825; x=1790883625; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gTjGHblkjZzhraXaqnhHaeUgHULa4Gd97a7Hy/6dpCQ=;
-        b=eq/9jZfySlVnBTKdp7AW6n2nnS4sv5A75EMdwNbY4hKF1ehvXzsAwVb8px8ardvgDY
-         +Y3pQuZ8A/hzP9tCIbNf4j8U1fadQhiN3U3GETy3Smwf18PRJ/IF7DyTa22wVtb1Vp+g
-         75/mdTLRcO3OSA4CXxxAUp5UIvAy4B1LewgtN8YlRoZfAJCkOU9xrLTajkSy+VZUTi6e
-         SFPL1NSjC0JprnhkFGPidMNrO+siuoOvoYQsVZ0Hh5WCSOoxzt6ebWImKijqdXeihd1x
-         OxdPF1By1T16yNQbEAqEwyanFq/U3iDJVBVQsrLt93SVGbWRLdIHpIA6+dfK+S5ScE7Z
-         TvLA==
+        d=google.com; s=20251104; t=1790278869; x=1790883669; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=h41Xw1fnsOQR0sx8RF3G8IgCDeEFjEbkE/RdEqTN4CI=;
+        b=WmMn9C+oxJ61uKuUc3cMxu9RZF2rwLj8bUxNBvv3JbD//ikt0RfQrk1gBdMaM00Dw6
+         OvaNe/i62s1Nim6rBQTMbOu3W4+dxXRBRZz0sUNY//4u4HGCeQJNB9c/j2SbE8pLOCEy
+         rb73INsv8mgsp3pIn+LaxkroNcIsyRPIR4HytzA8k9lycLOaFIE+azyy+hIeh3cxeTFD
+         K1PtPh6pJM0jEAc4siKsJQwsn5lvuE7FY6IjWvcBjnRVk9cDKXBvNAgwzy/GZeul0EqB
+         pywIg+8S7m1ALnyKiQSBbSQB7vLmfMNc4AAn5B6rWg12PvJ/HJac3LRqc3ctqvgd2U+v
+         ILkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790278825; x=1790883625;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gTjGHblkjZzhraXaqnhHaeUgHULa4Gd97a7Hy/6dpCQ=;
-        b=CqpxV/lsUSI7zyVFNSHOx+wuSfqZdEtZWIUh3I7Fs+mGtoNSa8icT3mnjpshTtkzMX
-         sYQx7Rdeca2KhN0tanIdiU2tz4VCi7qs6GhSzoYK6dVwR3uIBIZflbsPTt8GOXQB5gSm
-         G62uuGpNQYMA2NvXwzqPFjtshsbGSukLBZ1RQacSP/ays2Xri0riA9oaw//XwKgzLpMU
-         45q29xvU8pw8J6wUvbaF1vLvrypaKAHWTKAFu4nJhPGYNKv/ena26xaXG8IiXU/T/fT9
-         TOJHUFJAcsMw7Wi14AEi6DuPZRGgBM8QoY4swMmSDYeMqEsWxUswbzn5vHpdXhUNHCYX
-         kcUA==
-X-Forwarded-Encrypted: i=1; AKwUvBz8zPaSI6inWgRDnJLPgNDwKoamAbQR5ua5mpWadIuxIM4D0s802/j4LDT5+yt3kWWLB7LUkQfNs3ZfHdI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kjnW7hJMcKqGTePWZNdwNTbXZW0bFhlTYFLQaC0qO6jB5KXEjf
-	LPQuHX+lgRSaOcPkpDZPBfw4r8lR3V4khU33rpkYmvQ6qd3ge1QWKKJjrmcJ5cmn1zE7tTolNJT
-	AmiWaLA==
-X-Received: from pjbem2.prod.google.com ([2002:a17:90b:142:b0:3a0:6f00:2a50])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2f84:b0:39e:3221:aff5
- with SMTP id 98e67ed59e1d1-3a098608b12mr1720472a91.9.1790278824909; Thu, 24
- Sep 2026 12:40:24 -0700 (PDT)
-Date: Thu, 24 Sep 2026 12:40:24 -0700
-In-Reply-To: <arV6iiz4kB8LrByl@google.com>
+        d=1e100.net; s=20260707; t=1790278869; x=1790883669;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=h41Xw1fnsOQR0sx8RF3G8IgCDeEFjEbkE/RdEqTN4CI=;
+        b=f7VYpxonXLwPqC0O8jDiN0FnMsPZ9fMmB00O+ZsPPvZ6eZ6+VCRO2H3abQ3QG5qn+L
+         n0clo8fgKtCILB76NZz9yNot+Um3G9AOh0ZLZ3YUTm5MfOmQr1ZDtZ7Fm5mgGgjsrYEo
+         Ah++ihqhtNvIz1S0bhKUKU+nnruVdkw4ntQXWpSVrbYZi9kATZP/+7GYqe+yLpMWgPuX
+         knIGbslegARtzPPbfFs3QZ1gmdhya77SfE4n4HF2rg4sh4jhGzFmPJX8HfSqhjl27S/U
+         K/zNYKW3LtfLl3cAkl3QDCOF/ccWLWvlxjcPARHLbvIOIYGRPCgkBGJhle31334qHF1i
+         vokA==
+X-Forwarded-Encrypted: i=1; AKwUvBwHWsn9yIrGPpkW0U5uurADLJlfpHWVTt1FD48faChaeZ62U8jX44TqmqibNpXAIjR1iuVu/+no/92tk60=@vger.kernel.org
+X-Gm-Message-State: AFuF++kgfgMIJyS6XJk+/JvZ2Pk+VdRi7ElAqmGW0uH0u05MhjmxCEjw
+	lJ9+QV2tnQAWiy0XZ6L/yJEraykSoCIQFopFNkwdju38TWJNdHtlQdkdqD3nUW4hrCnOFuHeM2E
+	Qyk6GzkiB6P0J+pMVRKjJmYSlnLyuUYOdmwUubyrORTrk/3L+wSjthBGuKg==
+X-Gm-Gg: AYBFou1/faBrAuXWbTJ4oOkRh2JXPPgE+d16gSvEOM0bODNdBBAGaFDjgedPTg/LC7P
+	e0sbzbfl/PlgdbM0CISv5xpe0mVI8PSSg05sojb5zsTU7q7ew0a3CHyFCgcaoDoo/6xX3Opsa3g
+	UebcDKRYEgPcOLhzb3TD9WCYQ1AjdkmpsO0XNBZJo13Nx8u2P681r7msAVf8N/A6K96fO2nBrFS
+	Vhhgb/oXbDAs0HXSLtvCWMDaaYilcBHCQo8ZK0H1Gn1icCO0nXF9Obxf5GA+wbcn9HjNcl9ZiwS
+	sdIA+iieeBYW/B4O1f1ETv9g4lqyR+A55s7EigbylMRst8K8hMBnAMVTnMt9ujqwjD5iKfpnedc
+	WWqdrtlCeJhvMrN2q1SODeW0gd73iKPSh8CIPxdlVjxG+mGat/qCjYGxGFzk28yWAdPK/iM7aKv
+	NyNqB9daU+WSsdsBU8oQ==
+X-Received: by 2002:a05:6000:2004:b0:487:ffe:7219 with SMTP id
+ ffacd0b85a97d-488716f4324mr6632733f8f.27.1790278868680; Thu, 24 Sep 2026
+ 12:41:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260922001332.1121266-1-seanjc@google.com> <20260922001332.1121266-5-seanjc@google.com>
- <CAEvNRgH6w_a9+2rOr6r+47JqWc+-8cHq=c7r76nYG2i5deOxSg@mail.gmail.com>
- <arV4SS8FHwd6Qjs1@google.com> <arV6iiz4kB8LrByl@google.com>
-Message-ID: <arV8qBw-aC5f2nUX@google.com>
-Subject: Re: [PATCH v5 4/6] KVM: guest_memfd: Split bind() into
- prepare()+commit() phases
-From: Sean Christopherson <seanjc@google.com>
-To: Ackerley Tng <ackerleytng@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Stefan Teodorescu <fane@google.com>, 
-	Dennis Tighe <dtighe@google.com>, Sashiko Bot <sashiko-bot@kernel.org>, 
-	Yan Zhao <yan.y.zhao@intel.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+References: <20260917015237.2462954-1-eva.kurchatova@virtuozzo.com>
+In-Reply-To: <20260917015237.2462954-1-eva.kurchatova@virtuozzo.com>
+From: John Stultz <jstultz@google.com>
+Date: Thu, 24 Sep 2026 12:40:56 -0700
+X-Gm-Features: AclHuK_afT3ctq6aSy0pVcz1YzUDdQbAo-wmNktAE4b7mg6mDhHhkzG2dA3w-_w
+Message-ID: <CANDhNCrE3dkrE_251o52z=igoOFOhwg=u0284-DVYJABBBLPvA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] selftests: timers: count what tick is worth in the
+ drift estimate
+To: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>, Frederic Weisbecker <frederic@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Miroslav Lichvar <mlichvar@redhat.com>, Shuah Khan <shuah@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 24, 2026, Sean Christopherson wrote:
-> On Thu, Sep 24, 2026, Sean Christopherson wrote:
-> > On Thu, Sep 24, 2026, Ackerley Tng wrote:
-> > But after fiddling with this for an hour or so, I realized that if we fully commit
-> > to configuring new.gmem in kvm_set_memory_region(), then we can move the prepare()
-> > call into kvm_prepare_memory_region() without needing to plumb extra parameters,
-> > and make the gmem stuff look a lot more like the rest of the memslot code.  E.g.
-> > 
-> > 	if (mem->flags & KVM_MEM_GUEST_MEMFD) {
-> > #ifdef CONFIG_KVM_GUEST_MEMFD
-> > 		new->gmem.file = fget(mem->guest_memfd);
-> > 		if (!new->gmem.file) {
-> > 			r = -EBADF;
-> > 			goto out;
-> > 		}
-> > 
-> > 		new->gmem.pgoff = mem->guest_memfd_offset >> PAGE_SHIFT;
-> > #endif
-> > 	}
-> > 
-> > 	r = kvm_set_memslot(kvm, old, new, change);
-> > 
-> > 	/*
-> > 	 * Drop the reference to the gmem file, even on success.  The file pins
-> > 	 * KVM, not the other way 'round.  Active bindings are invalidated if
-> > 	 * the file is closed before memslots are destroyed.
-> > 	 */
-> > #ifdef CONFIG_KVM_GUEST_MEMFD
-> > 	if (new->gmem.file)
-> > 		fput(new->gmem.file);
-> > #endif
-> > 
-> > Not being able to get rid of the #ifdefs is a shame, but from a control flow
-> > perspective, this feels more right than anything else.  Full diff (not fully
-> > tested, and would need to be split into 3+ patches):
-> 
-> Actually, plumbing in @old and @change can wait.  As much as I want to make the
-> calls match the other prepare()+commit() hooks, @old and @change aren't needed
-> until flags-only updates come along, and adding them at that time provide a better
-> git history as the additional plumbing will directly precede their usage (or maybe
-> even be in the same patch).
+On Wed, Sep 16, 2026 at 6:52=E2=80=AFPM Eva Kurchatova
+<eva.kurchatova@virtuozzo.com> wrote:
+>
+> raw_skew measures the drift between CLOCK_MONOTONIC and
+> CLOCK_MONOTONIC_RAW and compares it against the adjustment adjtimex()
+> reports, but for the latter it reads only tx.freq. The kernel takes
+> the tick value into the adjustment as well, worth a microsecond of the
+> tick length per unit, a hundred ppm each, and a time synchronisation
+> daemon does put the coarse part of its correction there.  Where it
+> does, the two numbers cannot meet:
+>
+>   # Estimating clock drift: -51.724(est) 48.277(act)    [FAILED]
+>
+> On the machine measured, chronyd held freq at 48.278 ppm with tick at
+> 9999, so the correction really applied is -51.722 ppm, which is what
+> the clocks show. The skip for an externally adjusted clock does not
+> catch this: the clock is steady, the offset is zero, and neither freq
+> nor tick moves during the run.
+>
+> Count what tick is worth alongside freq. On the same machine:
+>
+>   # Estimating clock drift: -51.724(est) -51.723(act)   [OK]
+>
+> Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
 
-Aaaaand talking to myself again.  I take this back.  Plumbing in @change is
-desirable, otherwise both kvm_set_memory_region() and kvm_prepare_memory_region()
-need to check KVM_MR_CREATE, which is ugly and unnecessarily fragile.
+I've not closely reviewed the math, but it looks roughly ok to me.
+
+I was going to object that I thought we nulled out the other adjtime
+values before testing, but I must be recalling a different test
+(adjtick.c I think).
+
+Acked-by: John Stultz <jstultz@google.com>
+
+Thanks for fixing this!
+-john
