@@ -1,98 +1,208 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD0A535F161
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:01:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E235C389106;
+	Thu, 24 Sep 2026 17:01:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790269270; cv=none; b=NqsziwwvgrEsJyWSmbhZ8k2LUFlKMLDkBYD6AGetrjvGddpDVe+CBkijnxkG4JCxpU1595wk4jLEAqopooSOr63N+aXJsDLT7HLDeFc+Zr9QhTQpwvWhV0XY3klaLZTLcTG5FbdTlhGpZH+sASo5IeXvwemR0EWunv4aBXf0Kd8=
+	t=1790269272; cv=none; b=TUIngXqO/b/tBQvaNOpU9P00FuBzjoM97aGUxwRP7bjgSPuB2Gyz8wGqDreA8F4AYdJNotnYZkCXji/+w2YoAkIW8BBLQtN2+tt9HV9BKspqXI9lOpf4SWb0WoZ1zCalVAw1iYwIwUvKSEBk/o8N+EZeaDqSHAPB2Te/aZ5FOtk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790269270; c=relaxed/simple;
-	bh=U8S3zEXgb8/EzEJgSl29uOk/PjIJsBgsg6IfhZVzWcQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=adZP3DCDJwUjSNqOVIo7mNG58iuHBS5CtszGQJdNEPd80NDjB3yzS9YC0m4VmARKHEA8RRmiFfQJqz72syJvJt4DB01YdfKMxR3QQaqcZAaFNNs8tNwFTIuwtkm0azkgUiQed8KYdN1RM+oQpQkWUvZ4maYtBJVU+53gvxkLcPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RGQB6/qx; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790269272; c=relaxed/simple;
+	bh=Z6QzJKP3pf8IWxcTxVLAMkJMrnXGMTEb6PJxP0Kxoc8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=my6zrVATUd2wtI61mDfa1rakLWzWuuq82FQJgilN9CCJS+GrDVBUIUcVPRzN7GN1rMi+ZU7cELTDjtYwQKXfG6FbEAiSU9KZsQ0iUT8/KxofzfPHb6lbSbPAZqg29YcxI+2lFqNH5SaIvd10YLKwmYpojMeUTrzNZKAkUMU0eXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YHQnmLUI; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RGQB6/qx"
-Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2df8de41d5dso2047225ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:01:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790269268; x=1790874068; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=rigcNwes1J9QWwIScPgAbif0PmLq7wO30EVNxOIBrHs=;
-        b=RGQB6/qxAWEJqV/6C/ukrgmAVEs9SfqoYFSfStcJeK4QAkppndGqreWk77NvhTQcEr
-         Vd3PEtteMALCoPYCnYzMPDeCT4v61/ZEYaGTZeEnermFVAGqqHx8+kjyYbbUgFhd3MGL
-         eXBnYkYk0vstuLa7mr745a92aEsVNzTJUSLomue52tGq/mpvP4DwedxqNxgej+arrJLs
-         6EsaniikSToyx4H4EyjZiurrZFEXDm+yqm3c2uPozhXJPOX6gEWJc9QQquOORw0qCPJd
-         uVXEGpt/St/D8WMKybLs9LMF9MBYubdJBto9hyCOi7SrUB0MZ5ZgTFjgNvt6IE6O6mSC
-         CzqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790269268; x=1790874068;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rigcNwes1J9QWwIScPgAbif0PmLq7wO30EVNxOIBrHs=;
-        b=N2MSrDW1zNWzwmE812KsXb0V5wE4jN2UOpqzvRXloQHZs3sKmCemFDK+u5mbcmsWqg
-         Hk8gNImgX/cyZXD/4OADGu7i+lU+2gTBpvXcZrwWlLYEP9RSJn8b3cjhPpfH/GyCFiNe
-         fAdf625MviQ4r85CQ2VpUwMLF9fHdlV4Ic+KKg4NswTqaWZXcsM5oXRdE2qvoYpOR3oX
-         yWjEMeJkrp/a8AZO3XXLtmDFQJ7JT++7IpkDxZeiJJJ15hry4bMuSAuH4KyL9IjO28Ch
-         xJ+9ou4vJFLOzxz5OoKPrqTtUilpHLV5kFh/G9qis9WsuZ5SFRWTn41ysTx6fMVZEsfX
-         mvyg==
-X-Forwarded-Encrypted: i=1; AKwUvBygL6qR9x5jp5yfvPcJ6ffMwbAz/5lT3EcVrixe6Dam8I1Uy14usch9x/TyG6ZA+5FPVYetf6ITA+wnETY=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/GUWHrvsMHSoGyYikfO4UBo+AwauNixv22Om2QYfh0voa+MSq
-	QHOtDRhfrEfsr1qJmcKc3KeIqJOR8VTUJxi4hfnuMYWeXPB56otq9rIU
-X-Gm-Gg: AYBFou0vqXja+qebh7jRQ7LWJuVauIlYvQMNiF4a14XczTLI5v1pW+lh49oG+TeAFhH
-	Fe2YLSufKzZ8MqCtvipZbjJLjHutOetj7hpOx91pUkm3+o74pRrRbEkaD75WY1c4SaQJ8GPGBwN
-	avzkzCOSq+f4l7pZphNMxPVkIOcIv7MwDF+r9OwJx78TPdqDXDhs6rVEuhdK6TgI8GhqEHBV0r+
-	DU5s48LpM6lZQ3unbus3Irh7adsViBiHJfbT4oqq69aUy2rgrZGwczxMhd8fW2f4afbXdSrQk7+
-	fgeZBYmvZd32FpMSXEc/sjsD3oFnSjy34L9aeacVFFaehs8JSqYEK3/NxX872+xAG1SO9Y5VUKa
-	1EHS4/7EuR5vjr65ORYwOkLx1ICfpdMh5+NntuC/ljFHyQduEULWIte2bxJY1+Epi5TMXgfVNl1
-	W0WpwzRe+/sultBD97XswwtBmQUpEK7RfzgHUu7mb7g4Q8/PlOok0+2a0jap0dU0yEyA/1kJXrg
-	pdHsaFLWcT2
-X-Received: by 2002:a17:903:19ef:b0:2dd:c053:d73d with SMTP id d9443c01a7336-2df7dc38800mr26997485ad.36.1790269267985;
-        Thu, 24 Sep 2026 10:01:07 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a60c4a8sm30701835ad.79.2026.09.24.10.01.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 10:01:07 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Thu, 24 Sep 2026 10:01:06 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Eduard Zateev <hackerowskiy@gmail.com>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] hwmon: pmbus: ibm-cffps: avoid format truncation warnings
-Message-ID: <cae03929-ac61-41c0-99a2-928ef57a1223@roeck-us.net>
-References: <20260923024827.56445-1-hackerowskiy@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YHQnmLUI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790269271; x=1821805271;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=Z6QzJKP3pf8IWxcTxVLAMkJMrnXGMTEb6PJxP0Kxoc8=;
+  b=YHQnmLUI6WyunnTSt7hxXGovyALoONwhjMe4gLhsqw86QTBSYHJcjVOA
+   DXVjr0ptkXJMJNuwaQ9u7TasN8ljFEknuMqnKpOQus2uOHFOUqKgmaJRO
+   K2h/MZsxghPsWNMr0aBqSQFgvEFhTemd23sbJfPjdexzWqxVXXFsESL7G
+   FNlbY/jFSSKau+yGD3i8le6uVdEZQ7MRZU20/IdiGD6NKKsD5Z3+H6vB2
+   LPLiR9AipDpmvJLCUEzoVOxReqkkx37fWMUMMW53RwnuNt9jzdnjWr9Dr
+   z4+6gY/HmNocdECDIE6+x+zrEqSoVwJGQriV9ra9rcMTyWB9NIi9xWsLh
+   A==;
+X-CSE-ConnectionGUID: 1PM15BBNSiqW7RFmHpAB2Q==
+X-CSE-MsgGUID: 9wkbh4e2RoKrJpAyj8zW0g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="89955649"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="89955649"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 10:01:10 -0700
+X-CSE-ConnectionGUID: rYbqzNeMQw+Buo+qxqTRoA==
+X-CSE-MsgGUID: +kJVQkejSSy80t7V6GLx2g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="273301655"
+Received: from dwoodwor-mobl2.amr.corp.intel.com (HELO [10.125.110.186]) ([10.125.110.186])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 10:01:08 -0700
+Message-ID: <a8498db1-b400-4fd9-a9c8-dbf8a3d14dbb@intel.com>
+Date: Thu, 24 Sep 2026 10:01:07 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923024827.56445-1-hackerowskiy@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 02/15] cxl: Share CXL port upstream PCI device lookup
+To: Srirangan Madhavan <smadhavan@nvidia.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Davidlohr Bueso <dave@stgolabs.net>,
+ Ira Weiny <ira.weiny@intel.com>, Jonathan Cameron <jic23@kernel.org>,
+ Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
+ alwilliamson@nvidia.com,
+ Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
+ Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
+ Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-tegra@vger.kernel.org
+References: <20260922083924.2451158-1-smadhavan@nvidia.com>
+ <20260922083924.2451158-3-smadhavan@nvidia.com>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <20260922083924.2451158-3-smadhavan@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 23, 2026 at 04:48:27AM +0200, Eduard Zateev wrote:
-> Building with W=1 reports format truncation warnings when formatting
-> the firmware version values for debugfs.
-> 
-> The SMBus helpers return the byte and word values as int, so the
-> compiler cannot infer that the formatted values fit into the small
-> temporary buffers. Cast the values to u8 and u16 before formatting
-> them.
-> 
-> This avoids the -Wformat-truncation warnings while keeping the existing
-> output format unchanged.
-> 
-> Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
 
-Applied.
 
-Thanks,
-Guenter
+On 9/22/26 1:39 AM, Srirangan Madhavan wrote:
+> read_cdat_data() resolves a CXL port's upstream device to its backing PCI
+> device. HDM cache updates need the same mapping.
+> 
+> Factor the lookup into cxl_port_get_uport_pci_dev() and return a referenced
+> PCI device to make caller ownership explicit.
+> 
+> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
+
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+
+> ---
+>  drivers/cxl/core/core.h |  1 +
+>  drivers/cxl/core/pci.c  | 23 ++++++-----------------
+>  drivers/cxl/core/port.c | 26 ++++++++++++++++++++++++++
+>  3 files changed, 33 insertions(+), 17 deletions(-)
+> 
+> diff --git a/drivers/cxl/core/core.h b/drivers/cxl/core/core.h
+> index 35eaf636adc9..983d7690c3a5 100644
+> --- a/drivers/cxl/core/core.h
+> +++ b/drivers/cxl/core/core.h
+> @@ -157,6 +157,7 @@ long cxl_pci_get_latency(struct pci_dev *pdev);
+>  int cxl_pci_get_bandwidth(struct pci_dev *pdev, struct access_coordinate *c);
+>  int cxl_port_get_switch_dport_bandwidth(struct cxl_port *port,
+>  					struct access_coordinate *c);
+> +struct pci_dev *cxl_port_get_uport_pci_dev(struct cxl_port *port);
+>  
+>  static inline struct device *port_to_host(struct cxl_port *port)
+>  {
+> diff --git a/drivers/cxl/core/pci.c b/drivers/cxl/core/pci.c
+> index 9d807c1a002c..bf7fc77626d9 100644
+> --- a/drivers/cxl/core/pci.c
+> +++ b/drivers/cxl/core/pci.c
+> @@ -564,26 +564,13 @@ static unsigned char cdat_checksum(void *buf, size_t size)
+>   */
+>  void read_cdat_data(struct cxl_port *port)
+>  {
+> -	struct device *uport = port->uport_dev;
+> +	struct pci_dev *pdev = cxl_port_get_uport_pci_dev(port);
+>  	struct device *dev = &port->dev;
+>  	struct pci_doe_mb *doe_mb;
+> -	struct pci_dev *pdev = NULL;
+> -	struct cxl_memdev *cxlmd;
+>  	struct cdat_doe_rsp *buf;
+>  	size_t table_length, length;
+>  	int rc;
+>  
+> -	if (is_cxl_memdev(uport)) {
+> -		struct device *host;
+> -
+> -		cxlmd = to_cxl_memdev(uport);
+> -		host = cxlmd->dev.parent;
+> -		if (dev_is_pci(host))
+> -			pdev = to_pci_dev(host);
+> -	} else if (dev_is_pci(uport)) {
+> -		pdev = to_pci_dev(uport);
+> -	}
+> -
+>  	if (!pdev)
+>  		return;
+>  
+> @@ -591,14 +578,14 @@ void read_cdat_data(struct cxl_port *port)
+>  				      CXL_DOE_PROTOCOL_TABLE_ACCESS);
+>  	if (!doe_mb) {
+>  		dev_dbg(dev, "No CDAT mailbox\n");
+> -		return;
+> +		goto out;
+>  	}
+>  
+>  	port->cdat_available = true;
+>  
+>  	if (cxl_cdat_get_length(dev, doe_mb, &length)) {
+>  		dev_dbg(dev, "No CDAT length\n");
+> -		return;
+> +		goto out;
+>  	}
+>  
+>  	/*
+> @@ -625,11 +612,13 @@ void read_cdat_data(struct cxl_port *port)
+>  	port->cdat.table = buf->data;
+>  	port->cdat.length = length;
+>  
+> -	return;
+> +	goto out;
+>  err:
+>  	/* Don't leave table data allocated on error */
+>  	devm_kfree(dev, buf);
+>  	dev_err(dev, "Failed to read/validate CDAT.\n");
+> +out:
+> +	pci_dev_put(pdev);
+>  }
+>  EXPORT_SYMBOL_NS_GPL(read_cdat_data, "CXL");
+>  
+> diff --git a/drivers/cxl/core/port.c b/drivers/cxl/core/port.c
+> index 625e4aa427db..5dc2815d82d8 100644
+> --- a/drivers/cxl/core/port.c
+> +++ b/drivers/cxl/core/port.c
+> @@ -34,6 +34,32 @@
+>  static DEFINE_IDA(cxl_port_ida);
+>  static DEFINE_XARRAY(cxl_root_buses);
+>  
+> +/**
+> + * cxl_port_get_uport_pci_dev - get the PCI device for a port's upstream device
+> + * @port: CXL port to map to a PCI device
+> + *
+> + * Return: A referenced PCI device, or NULL if the upstream device is not PCI.
+> + * The caller must release the returned reference with pci_dev_put().
+> + */
+> +struct pci_dev *cxl_port_get_uport_pci_dev(struct cxl_port *port)
+> +{
+> +	struct device *uport = port->uport_dev;
+> +	struct device *host;
+> +
+> +	if (is_cxl_memdev(uport)) {
+> +		struct cxl_memdev *cxlmd = to_cxl_memdev(uport);
+> +
+> +		host = cxlmd->dev.parent;
+> +	} else {
+> +		host = uport;
+> +	}
+> +
+> +	if (!host || !dev_is_pci(host))
+> +		return NULL;
+> +
+> +	return pci_dev_get(to_pci_dev(host));
+> +}
+> +
+>  /*
+>   * The terminal device in PCI is NULL and @platform_bus
+>   * for platform devices (for cxl_test)
+
