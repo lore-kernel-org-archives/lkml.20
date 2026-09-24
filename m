@@ -1,116 +1,110 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A04483825
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:37:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 759403F86E6;
+	Thu, 24 Sep 2026 13:41:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790257088; cv=none; b=ut6gBHyEFktdoTWRHd/j5bubJLK+7C00dcf3bM+usnLmlQ3ehWIFNdwIC4DiGbbJD/2naDt8qvx3qzKBLP7RBh3MsHFgmEGRiKjF+rXvW0X+xIqN5siYqpVEM0uiu0GPCp5oYw8sHsInICfZVfIpX9XjeBDEGUuy7H8+atObWCo=
+	t=1790257282; cv=none; b=GQA2QCFCAd/M37ivDutI2hj6eyjdA4EMUbyuoXmceTdSxM5e14gxA7nGKRi5bGAkQ+NjjN1//jvI+lPsgr71NznpXvWoLcS8/pZIE2Kem3QzkZO3qcVOUCq1VxADbaDXJKAM8PPEKrU8KhXqt3aWBBecezH1egj2terz7cJI454=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790257088; c=relaxed/simple;
-	bh=DW0RaEM8QlMWcBagrLSGUEQ2XGP/uCyKVGPiORf8YYg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XRngFVCPF77K9r0Cr1Tg38BDUHYBfIpedz6pyZXREdGEYNv7iiaTBxXc70/F/jC4D4Sh966VICH1OBjxJgGahRD10EqlTnTie/d28pzaFa0uD4Te+2jNt6cZ3nMURuQPZ2tLmgWUopb6jrJapmkK56gkjW6XxNPgB9sGjRYmgz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hZFoPD8f; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790257282; c=relaxed/simple;
+	bh=PFdeZvRwJ03GC0MI8yKsz1xucQfg/jVwJ3DLdZiHs5E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fnNNCVIozBALftiy5KJorGlLShX2dMfm14Fu14Rsy96fabZagj/AhJYNfV4uMsF/6Qw1mCSJFS/3eQSF/R0727UVJDhhGVQIs+9d5mwyvv0qzwYZfI0W8jAbUiC/+bcXZPjgXV/hyVsIpTYRbwLrvsFjNrA6kjgNj2hZZ9VoFM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=n74Qdsmr; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hZFoPD8f"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912e2406so10344205e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:37:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790257072; x=1790861872; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3gTj4dxjCy6zhrK/mNMo01nqIzFYfn+n6Nf0sCRFv4c=;
-        b=hZFoPD8fvahyA8OpFJZdJza5/O8xvXLTwwv1sehDxHi777N+uBzVqNTgBB3rex0BYC
-         VkAo89z16Ez2cJZ6eTHSzY7sNVKV+daC3mLBHjKCV240ZrODZ7ObzeeSyTjzFcRUf16O
-         EnHGrLCxkfWMkhxuQzwaMOLUJjVHX29lcJjOcdmmdc8V08VRrlLzcLTP81TtpSg5ahm/
-         D8Dlz9Y5AYtfNURYVNlHb25+TslPXLlZX5bG9sW0Gpk+kxB9Tf4TNFPKFG9MRw1JzytQ
-         2SBy7izCdFFQUpt5TBs1m+pvGq8I8+YXYVSAPSYwP16xrCDdx1h+ywKvia/aXtgYhYhy
-         OdSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790257072; x=1790861872;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3gTj4dxjCy6zhrK/mNMo01nqIzFYfn+n6Nf0sCRFv4c=;
-        b=RSe6fQEXrd/+G0dREbt927+tUp+5nPwGnkI85BczpV7Zey5GwYKWAAgyF2QfVTPm8P
-         9hSGgfZ2pqnNSYCXSVBatLhtm/UaJ+gd10WWSf27VneGyEBtm2qnrMb1o6dRKh8yqWY0
-         aF54CAyqBddR5sJmNKm2itQ9ZnIgSEmJLvigtQX7Xg7dHw7xxdqZ2FyJCzkMBwuieEwV
-         f+wCvdJpyxlPVF2qTu0WfQ63+BE70sZJmB5LcGQ/8Al1JZ3tCjQLw2SlQj6ya1U4oQOU
-         VNJUFGnZrqHKbBO8xghg08ZXdx9/tMWeIBN84v81F1HADexkVIdsrfpuaIdH7UeQ71bU
-         FaWA==
-X-Forwarded-Encrypted: i=1; AKwUvBw/N8uSgNNmTPyHe9ahMrIxwdLCjG6P2YG1DPDhIJ4PyjRbAiBIvtLCznnRewACgBaIluHHc/A4gNKQhF4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwGtZbHGevZOUCn/owSRyqXg0aD2IAorRPBjB9EMo7Jvji26nJ
-	fud4D/y4A/hCCoE87lns0Em/8ZwXL/673sSTfcLJTzDiz581pUZpoR93JJ30RRp5
-X-Gm-Gg: AYBFou3lwzLpwZr79Zc0LVQscBsPwyUAx96gaaN0NvIN9yPssa6Wvo0anB1bFTUim0d
-	nfOuZAglmNVpJKLpmiH1h7Ckoy7mO5b5MDUw//T6dqCzviRnCiatdzvjgk5Nw2uA/W9Zsb4QDdA
-	bo/iwoiTsLWXfH4ofmffkbIM2s1nqm0wKKysvyT9f2v1PiTCPK2V3m549Zau8rSG28/+fiu2eXm
-	lxfKj7vgRfUWZemTqb1cWfSutEH/B3Sk7LFNxLdRgdyYlEdRiDpY1U6Ut/HxP4MKWopDOWomiPM
-	b+AyB35KyiEV8vL5TPjPZrlaam41kwyxhIcQKRmDEv5lW0BFjG5yynFbnaT7tU3A/AYE50CRsY9
-	ecRe8bE4n9w0VMY7j6gzmZ1ygr74GXITJtDne3xTa7PeeJ1EXDYIL6MATOzgWEnolXIdaLuMexI
-	CeFIfbtvuYh1t55Ijdxf0/UpCOQCkAa5U48VeFLMJI5y+STW1WfSLcgzjAZUpXa31vk0M9/OMwf
-	xLzOoeDXcjXXcS+
-X-Received: by 2002:a05:600c:3513:b0:49e:6836:5386 with SMTP id 5b1f17b1804b1-49fe66ca6f5mr47506875e9.0.1790257072144;
-        Thu, 24 Sep 2026 06:37:52 -0700 (PDT)
-Received: from localhost.localdomain ([94.240.182.136])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5b9f253sm77377825e9.1.2026.09.24.06.37.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 06:37:51 -0700 (PDT)
-From: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
-To: jaegeuk@kernel.org,
-	chao@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Svyatoslav Nikolenko <nsvatoslav515@gmail.com>,
-	syzbot+dfcbc1741488709db4b2@syzkaller.appspotmail.com
-Subject: [PATCH] f2fs: check log_blocksize bounds in __f2fs_commit_super
-Date: Thu, 24 Sep 2026 16:37:25 +0300
-Message-ID: <20260924133726.2250-1-nsvatoslav515@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="n74Qdsmr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790257279; x=1821793279;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=PFdeZvRwJ03GC0MI8yKsz1xucQfg/jVwJ3DLdZiHs5E=;
+  b=n74Qdsmr9telr3TDhy8D7HPXx+onMyprrFIl8dI5YHywNPMzXo8vFbLj
+   XlKrjYSJ3LRWzIBUNvUkEjS6ZzK6YiPOflHgM7S5Qzw1B7wcGVfc5WLxF
+   gdDMhX0oEJ8wAJGWV6AJhj2ht4eMpruwNEsKQPSWgpIiIVCNrmaUtLB/H
+   Wo6kfdqBSxO8hPHkDv/75QQuMDBeZMs1YvAfs7pLDP6KwAZ7RhGHH7mAo
+   hzTpIzRJauM8qvv3vZ5ShL2FZi2eBosKvac4VJ1Ys87oIAGNS2EIanLSa
+   V3fOzZ2M97T/CCANmLg6wANWZZZGWf+HkV++BOUv817bCqrUAw4QEUCcZ
+   g==;
+X-CSE-ConnectionGUID: O8U3n5HtRmqI8PQuaHMgEg==
+X-CSE-MsgGUID: COcbSJOBQcmTS/9sBC6xUQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="93526124"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="93526124"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 06:41:16 -0700
+X-CSE-ConnectionGUID: knjfqmmySg2aLKvheaeQwA==
+X-CSE-MsgGUID: rRbQ4xjGQI6NLFU44M0APg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="311944280"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa001.jf.intel.com with ESMTP; 24 Sep 2026 06:41:14 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id CFF7F99; Thu, 24 Sep 2026 15:41:13 +0200 (CEST)
+Date: Thu, 24 Sep 2026 15:41:13 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mfd: intel-lpss: fix iDMA device leak on probe failure
+Message-ID: <20260924134113.GQ106095@black.igk.intel.com>
+References: <20260921104058.353748-1-lgs201920130244@gmail.com>
+ <20260921110512.GS106095@black.igk.intel.com>
+ <CANUHTR9gA-mKn8Y496Pty4_Fhu3BSSyhXWrmiod1WvuVdQjkag@mail.gmail.com>
+ <arJ0pDlXpdlsF0sT@ashevche-desk.local>
+ <20260922123315.GF106095@black.igk.intel.com>
+ <CANUHTR_Su1KxOeB2fJDwzVeyW4WpnWuzTYm=6Yz4z12Pr6GugQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CANUHTR_Su1KxOeB2fJDwzVeyW4WpnWuzTYm=6Yz4z12Pr6GugQ@mail.gmail.com>
 
-Syzbot reported a shift-out-of-bounds panic in SECTOR_FROM_BLOCK() during
-superblock writeback via __f2fs_commit_super().
+On Thu, Sep 24, 2026 at 08:00:29PM +0800, Guangshuo Li wrote:
+> Thanks Andy and Mika.
+> 
+> On Tue, 22 Sept 2026 at 20:33, Mika Westerberg
+> <mika.westerberg@linux.intel.com> wrote:
+> >
+> > On Tue, Sep 22, 2026 at 03:29:24PM +0300, Andy Shevchenko wrote:
+> > > On Tue, Sep 22, 2026 at 03:59:32PM +0800, Guangshuo Li wrote:
+> > > > On Mon, 21 Sept 2026 at 19:05, Mika Westerberg
+> > > > <mika.westerberg@linux.intel.com> wrote:
+> > > > > On Mon, Sep 21, 2026 at 06:40:58PM +0800, Guangshuo Li wrote:
+> > >
+> > > > > I think this could use devm_mfd_add_devices() instead.
+> > > > >
+> > > > > > The issue was identified by a static analysis tool I developed and
+> > > > > > confirmed by manual review.
+> > >
+> > > > Do you mean converting both MFD registrations to devm_mfd_add_devices()
+> > > > and dropping the explicit mfd_remove_devices() from the remove path, like
+> > > > this?
+> > >
+> > > Won't work properly. The rule of thumb, it should be no 'goto' after devm_*() call.
+> >
+> > hmm, isn't the unwind done in driver core and has nothing to do with goto?
+> > Maybe things have changed since I last time looked? ;-)
+> 
+> devm_mfd_add_devices() would remove the children when the parent
+> device's devres is released after probe returns an error. However, the
+> current error path tears down the debugfs, LTR, clock, and IDA state
+> before returning, while intel_lpss_remove() removes the MFD children
+> before those resources.
+> 
+> Given that ordering, would keeping mfd_add_devices() and adding
+> mfd_remove_devices() at err_remove_ltr, as in the original patch, be
+> preferable here?
 
-When mounting a corrupted filesystem image where log_blocksize is set to 0,
-f2fs attempts to perform recovery or commit the superblock status.
-SECTOR_FROM_BLOCK() relies on F2FS_LOG_SECTORS_PER_BLOCK(sbi), which evaluates
-to (sbi->log_blocksize - 9). When log_blocksize is 0, this calculates 0 - 9 = -9,
-causing an unsigned underflow (4294967287) and triggering a UBSAN shift
-out-of-bounds error when shifting sector addresses.
+Yes I agree,
 
-Fix this by validating sbi->log_blocksize at the top of __f2fs_commit_super()
-and returning -EFSCORRUPTED if it is less than 9 (the minimum valid sector shift exponent).
-
-Reported-by: syzbot+dfcbc1741488709db4b2@syzkaller.appspotmail.com
-Tested-by: syzbot+dfcbc1741488709db4b2@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=dfcbc1741488709db4b2
-Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
----
- fs/f2fs/super.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 6a2f09c61dcd..b6b32bcbc126 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -3934,6 +3934,9 @@ static int __f2fs_commit_super(struct f2fs_sb_info *sbi, struct folio *folio,
- 	blk_opf_t opf = REQ_OP_WRITE | REQ_SYNC | REQ_PREFLUSH | REQ_FUA;
- 	int ret;
- 
-+	if (unlikely(sbi->log_blocksize < 9))
-+		return -EFSCORRUPTED;
-+
- 	folio_lock(folio);
- 	folio_wait_writeback(folio);
- 	if (update)
--- 
-2.47.3
-
+Acked-by: Mika Westerberg <mika.westerberg@linux.intel.com>
