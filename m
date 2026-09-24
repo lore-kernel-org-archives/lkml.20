@@ -1,137 +1,153 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A781C3BCD21;
-	Thu, 24 Sep 2026 22:49:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF8A53E0749;
+	Thu, 24 Sep 2026 22:49:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790290167; cv=none; b=rcUjzp104oBkY7aj/cSeWvMWyCc+YM7Q1/niX/3iVuhrldtt825tvDkskQ4boETgLgH6JDa7aPfh61KwG/GiQ+nZWpQIh6ruYCsG8D8c2u8VEkmgJCPNKI29e/1dgFDMTenNKc2CZKFqHjJMrQLZqYNuLmRozIUh4J790OjNJIk=
+	t=1790290186; cv=none; b=LRYRrU1F4tt8uysCXbtx8AZAHbW3yHQDGsAZ1fZZH5mW26cu7kvHskryzz8dZTSWFk/7QK6+3A6CjOrxSjjLBXoyzIy2Iy4DcX9Gc4hm4nItpX33DWkHAEIPss3qh52hf+9PjGL/LgOWSaM0bfJrlwc7uCeU+xRlWgpFN8Vo0bk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790290167; c=relaxed/simple;
-	bh=es2JFGtR/yGRJZPfDOKoMKeZJ3W57laY+q8VEqDYDKk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=czfkl0g3Kiw7ICwHTo0exAqXNKtflO+B3V3Si8VHArcDY6exkn3gACCkmipuDIpza0wtdXk+jNxCL3CR8ZyFkiV9Ywojxz19NiVqO+1V3AcXZRHDD4bjLZ6UApfydosUZcsIoUYJdeZ1kYJnx+gRzcOZ4fgWpxqpDZx66dJ6C8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=EgkJpaNp; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790290186; c=relaxed/simple;
+	bh=X4N46zTnr8zPk2L5jVsXS384xSnr2JuLk2Bx7PaxCXc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Klrv/NMibaFXnQNPcpC7e+qse6R+wFLj4RNNzfLqg0wsxDFzTfr6M3b5TGvsiQX7rg7Gza7br7gi5+3vFu+/NWf8uBJHT9OJImv7SbX4+rDRft499ijxQ4FyT5mg2jqreTFTirKUWeJdiKP1wn3snyDlIatxHmCBtpcjHpCybC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G8VZZiY8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="EgkJpaNp"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8A19B1E5E;
-	Thu, 24 Sep 2026 15:49:21 -0700 (PDT)
-Received: from [10.57.10.88] (unknown [10.57.10.88])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A2E7A3F86F;
-	Thu, 24 Sep 2026 15:49:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790290165; bh=es2JFGtR/yGRJZPfDOKoMKeZJ3W57laY+q8VEqDYDKk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=EgkJpaNpSmKXCQ7tSyUqJJ7TLOE57d/HFEXpQhNyzI0wo5deOqfhQRez3T70N3pTT
-	 Bix9JXOFUrFnJqAyocfD2lZW/1u7kChbRXcFip0wNl3WwyEsoQQLRce9coPL6yn+pv
-	 PAC8ZXm7duNeciCJy6fg7vaGlHZ3BNokFcM/J0kU=
-Message-ID: <f317970f-a114-4353-a253-174fa449dde1@arm.com>
-Date: Thu, 24 Sep 2026 23:49:18 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G8VZZiY8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3B131F000FF;
+	Thu, 24 Sep 2026 22:49:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790290184;
+	bh=SBnRjlZiMD6GNwF5HV2vUPlpIGI4oceGD3wHaGXf4Lw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=G8VZZiY8GSq6qLx3F0yb/nl8UQ8v87ci1lltEYNHB/PoOGluwTgcQg+opo/BMMeIW
+	 /HkO/pQC+NIW0XMN1GmfL217dv7ldbMpHIdaYrQ0YR5MTaQtnV1gi5up+S4rraA4vt
+	 RM2Ja5SG0sr8YyhFsWCv+x8U6+F5pfHApqOl8HV1G/cLTl+A5xG5YQ6ueX2YhzP2Sr
+	 cuAQeKmM1WagS68C9s7YWtP37hYwDlSxPsswUvuetWWEDuw1NimqLQTsxs1/R0ej2E
+	 Hz2zNpJbBrRfn4mf8/WAaDHtLH5m4MXNPQulxmXUYkVeR036WV+eJzILpDvwbwjjWX
+	 REks5oJyrbM0A==
+Date: Thu, 24 Sep 2026 15:49:42 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: acme@kernel.org, howardchu95@gmail.com, adrian.hunter@intel.com,
+	james.clark@linaro.org, jolsa@kernel.org,
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+	mingo@redhat.com, peterz@infradead.org
+Subject: Re: [PATCH v5 11/23] perf trace: Do not set unaugmented BPF program
+ on sys_exit map
+Message-ID: <arWpBizG27rMsHmZ@google.com>
+References: <cover.1790145937.git.irogers@google.com>
+ <42dc47785bdb78054500591b193a1cb653ef39b7.1790145937.git.irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 1/7] firmware: arm_rmm: Add SMC definitions for
- calling the RMM
-Content-Language: en-GB
-To: Ackerley Tng <ackerleytng@google.com>, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- gshan@redhat.com, joey.gouly@arm.com, tabba@google.com,
- yuzenghui@huawei.com, linux-coco@lists.linux.dev,
- gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
- alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
- lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com,
- jonathan.cameron@oss.qualcomm.com
-References: <20260924135201.850038-1-suzuki.poulose@arm.com>
- <20260924135201.850038-2-suzuki.poulose@arm.com>
- <CAEvNRgH8Hwt6_VaFxJVvytZ4La1R7bUN2emc37_fWecF9j2-YA@mail.gmail.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <CAEvNRgH8Hwt6_VaFxJVvytZ4La1R7bUN2emc37_fWecF9j2-YA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <42dc47785bdb78054500591b193a1cb653ef39b7.1790145937.git.irogers@google.com>
 
-On 24/09/2026 18:05, Ackerley Tng wrote:
-> Suzuki K Poulose <suzuki.poulose@arm.com> writes:
+On Wed, Sep 23, 2026 at 12:13:51AM -0700, Ian Rogers wrote:
+> In trace__init_syscalls_bpf_prog_array_maps(), the BPF program array map
+> for sys_exit (syscalls_sys_exit) was populated with the result of
+> trace__bpf_prog_sys_exit_fd().
 > 
->>
->> [...snip...]
->>
->> +
->> +/*
->> + * Note many of these fields are smaller than u64 but all fields have u64
->> + * alignment, so use u64 to ensure correct alignment.
->> + */
->> +struct rmm_config {
->> +	union { /* 0x0 */
->> +		struct {
->> +			u64 tracking_region_size;
->> +			u64 rmi_granule_size;
->> +		};
->> +		u8 sizer[SZ_4K];
->> +	};
->> +};
->> +
->> +static_assert(sizeof(struct rmm_config) == SZ_4K);
-
-...
-
->> +struct realm_params {
->> +	union { /* 0x0 */
->> +		struct {
->> +			u64 flags0;
->> +			u64 s2sz;
->> +			u64 sve_vl;
->> +			u64 num_bps;
->> +			u64 num_wps;
->> +			u64 pmu_num_ctrs;
->> +			u64 hash_algo;
->> +			u64 num_aux_planes;
->> +		};
->> +		u8 padding0[0x400];
+> When a syscall had no specific exit augmenter,
+> trace__find_syscall_bpf_prog() fell back to unaugmented_prog
+> (syscall_unaugmented). However, syscall_unaugmented is a sys_enter
+> program that outputs enter arguments to __augmented_syscalls__.
 > 
-> The union + sizer concept is cool. Technically this one isn't a padding,
-> it's also a sizer? (same for the other structs below.
+> As a consequence, when an unaugmented syscall exited, sys_exit
+> tail-called syscall_unaugmented, which interpreted the exit arguments as
+> enter arguments and emitted a duplicate, corrupt sys_enter event into
+> __augmented_syscalls__ right as the syscall completed.
 
-Yep, you're right. I have changed all in the file to sizer.
+Do you have a reproducer of this problem?  I've never seen this before.
+IIRC there's no augmentation at exit, then do we need to keep the tail
+call?
+
+Thanks,
+Namhyung
 
 > 
->> +	};
-
-...
-
->> +};
->> +
->> +static_assert(sizeof(struct realm_params) == SZ_4K);
->> +
+> Fix this by:
+> 1. Returning NULL from trace__find_syscall_bpf_prog() when looking up exit
+>    augmenters and none is found.
+> 2. Returning -1 from trace__bpf_prog_sys_exit_fd() when no exit program
+>    is present.
+> 3. Only updating map_exit_fd when prog_fd >= 0.
+> 4. Clearing err = 0 when trace__bpf_sys_enter_beauty_map() returns
+>    non-zero (indicating the syscall has no augmentable pointer arguments)
+>    before continuing the loop, so a trailing run of such syscalls (e.g.
+>    'perf trace -e close') does not leave err non-zero on return and abort
+>    the session.
 > 
-> Does declaring this struct as packed matter? I guess the static_assert()
-> has the same effect.
+> Assisted-by: Antigravity:gemini-3.1-pro
+> Signed-off-by: Ian Rogers <irogers@google.com>
+> ---
+>  tools/perf/builtin-trace.c | 28 ++++++++++++++++++++++------
+>  1 file changed, 22 insertions(+), 6 deletions(-)
 > 
-
-I guess it doesn't, the fields are naturally aligned for the offset.
-That said, I have added static_assert() for starting offsets for a
-a group of related fields to match the spec.
-
-e.g;
-
-static_assert(offsetof(struct realm_params, rpv) == 0x400);
-static_assert(offsetof(struct realm_params, rtt_base) == 0x808);
-static_assert(offsetof(struct realm_params, aux_rtt_base) == 0xf80);
-
-
-
-Thanks for the review !
-
-Suzuki
-
->>
->> [...snip...]
->>
-
+> diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
+> index aa2d64eb56bd..0ae14ecd9f00 100644
+> --- a/tools/perf/builtin-trace.c
+> +++ b/tools/perf/builtin-trace.c
+> @@ -4176,7 +4176,12 @@ static struct bpf_program *trace__find_syscall_bpf_prog(struct trace *trace __ma
+>  	pr_debug("Couldn't find BPF prog \"%s\" to associate with syscalls:sys_%s_%s, not augmenting it\n",
+>  		 prog_name, type, sc->name);
+>  out_unaugmented:
+> -	return unaugmented_prog;
+> +	/*
+> +	 * Do not set unaugmented_prog for exit: syscall_unaugmented is a
+> +	 * sys_enter program that outputs enter arguments. Exit without a
+> +	 * specialized return augmenter returns 1 directly from sys_exit.
+> +	 */
+> +	return !strcmp(type, "exit") ? NULL : unaugmented_prog;
+>  }
+>  
+>  static void trace__init_syscall_bpf_progs(struct trace *trace, int e_machine, int id)
+> @@ -4199,7 +4204,7 @@ static int trace__bpf_prog_sys_enter_fd(struct trace *trace, int e_machine, int
+>  static int trace__bpf_prog_sys_exit_fd(struct trace *trace, int e_machine, int id)
+>  {
+>  	struct syscall *sc = trace__syscall_info(trace, NULL, e_machine, id);
+> -	return sc ? bpf_program__fd(sc->bpf_prog.sys_exit) : bpf_program__fd(unaugmented_prog);
+> +	return sc && sc->bpf_prog.sys_exit ? bpf_program__fd(sc->bpf_prog.sys_exit) : -1;
+>  }
+>  
+>  static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, int key, unsigned int *beauty_array)
+> @@ -4454,16 +4459,27 @@ static int trace__init_syscalls_bpf_prog_array_maps(struct trace *trace, int e_m
+>  		err = bpf_map_update_elem(map_enter_fd, &key, &prog_fd, BPF_ANY);
+>  		if (err)
+>  			break;
+> +		/* Only update the exit prog array map if an exit augmenter exists */
+>  		prog_fd = trace__bpf_prog_sys_exit_fd(trace, e_machine, key);
+> -		err = bpf_map_update_elem(map_exit_fd, &key, &prog_fd, BPF_ANY);
+> -		if (err)
+> -			break;
+> +		if (prog_fd >= 0) {
+> +			err = bpf_map_update_elem(map_exit_fd, &key, &prog_fd, BPF_ANY);
+> +			if (err)
+> +				break;
+> +		}
+>  
+>  		/* use beauty_map to tell BPF how many bytes to collect, set beauty_map's value here */
+>  		memset(beauty_array, 0, sizeof(beauty_array));
+>  		err = trace__bpf_sys_enter_beauty_map(trace, e_machine, key, (unsigned int *)beauty_array);
+> -		if (err)
+> +		if (err) {
+> +			/*
+> +			 * Not a failure: the syscall just has no augmentable
+> +			 * arguments. Clear err, or a trailing run of such
+> +			 * syscalls, e.g. all of them for 'perf trace -e close',
+> +			 * would leave it set on return and abort the session.
+> +			 */
+> +			err = 0;
+>  			continue;
+> +		}
+>  		err = bpf_map_update_elem(beauty_map_fd, &key, beauty_array, BPF_ANY);
+>  		if (err)
+>  			break;
+> -- 
+> 2.56.0.rc1.315.gc6ed9934b7-goog
+> 
