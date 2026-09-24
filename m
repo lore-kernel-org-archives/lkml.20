@@ -1,125 +1,170 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC9936C0D6
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:01:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50CD83F6C24
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:01:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790240473; cv=none; b=e0/FGmus3BbktEnLeyqIXEeaXN8R/yYADjRkR2V3yV9RsFJ1XYyTcCb8fjjM/Jq9es13PVZmnn5V60v7Ogt/GyAcPWBlyJbwk/ra/uooTA0/9A+iQFn0dJQLeDBaNotYvuwq68fnJJQscUGQmPIOfYcGWpOqufvKMbMsDDMACxI=
+	t=1790240498; cv=none; b=UU71z4m0OEqpo8DblT2nKzkpbyLEJJPEWz0Dhu+V8kCSq9Rgz785dG1vZlHQaf9SjReJ2LH2B9rzii6m2xiiqidAsZrPYA44QziJJ6iyZbzfN9LQmVH92m615NNMrCRZsjqX59kHb4FeXkP1I4ZkIYazC6RgLyvXYX2oQl1IVFI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790240473; c=relaxed/simple;
-	bh=VwobRVpYjANaRMwKe1VS/B+7A4faDHmtP7SCe6Ik4Cs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LXSmrcUhVa1S5Jq2xd/iWVaT34gCI+KjMMDq2ILhzerhjx2OCkEa0zZkXzb37EM3SlhdP0cJQAFzVRbjqdSDJvTKIIR68+0EMWmlnjx7ZmQqTyGe3/jjgPOjlCZYSvzdQEIkc17ZjwkFTOmKzTPjqes5FE79Hv2YoCUyjfXmfO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=jlMwOUoj; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1790240498; c=relaxed/simple;
+	bh=L5ZqUyzrf4+2nFL11gRp7aQvV9wnEqTL5bER3fteVEQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LZyFICLX8uBokU8l4ugJ+US7029M86Y6K4AVlmHIio6MzMfOIRoo5rsb1TU40/XndOhZydfaGZRLjdCRfPkCnBCPI+bvuy91h460NZ8Fw7nfXqwbKIYkCXL5xMqfQL0gnO2MdEfL8TI4DPiqgCNO7v35wMjrA9Kn/Y19t9NoX70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=P7Dc3lHh; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="jlMwOUoj"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a996c8adf3so3103903a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:01:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1790240470; x=1790845270; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VV2A/h1hdmSjmCuEGrBZoGbpIoorMrIlLJZkmtVMN8E=;
-        b=jlMwOUojVDcAAfPez3FOQ/jbGNvuWPUs+W1SJft2w2awaQ2CNY8uLxCjyZMj1rFkBT
-         KEk37cB/YHKgE37QYai33SUmCdPEC2HW0oLgtFhEOHMzd8mNJV0gFzcl3BzBE3/cz1Uy
-         rffwurd/UnhBQ4EwG8cvuVTJlPxZ6QjK+y8tiSTBQu2EL3n5UP+Ob6voSiTJXI1hIVXn
-         1eeRexy7zHnZ5SyJMQ6jPdnGV7/rxwUqCCV2jZ2L51vay5s2U2cJDw/oZMYhCd8KkNSL
-         LAWIm7Xba9gAAhpfBUBF+WEoKoa8l1Kso8KX69XL0jxS6Zu6Bpy95Il1lNMbOF6Eot4X
-         z+tA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790240470; x=1790845270;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VV2A/h1hdmSjmCuEGrBZoGbpIoorMrIlLJZkmtVMN8E=;
-        b=or+qiz20XnOYyyfo1d2/EeMvB7yQtMEnoy1Z4mJnDeV3Co+jJTGMT+CKASpSY1hZAs
-         GIvrIb/SFY0OQTjSETeEntdegGkfz1Ww3FGrxolLLwrtWaV428KuGmoTjr/tE6tGATLG
-         kgsmEWd8sunxHJQghKXUdR0RW8ffC70l48NNd/Ex8+KiE2tU5G5bfaIICgvfr2Z7HKFc
-         aSv5lsDrhZsh4dMYfzb4nBH85fHQvgySgkPeBMfyQpb3QMoemjzMvoFivTm7g2IW6EX3
-         WL1wK8sRvfGc9ExUkuyu9qmC97mp4K2cTjDDc3sn6w43udVmrJPIs0F8FvOJcqWMw0XJ
-         E0Iw==
-X-Forwarded-Encrypted: i=1; AKwUvBxYkM8vJi8ZQLi8guyhFutMtQ+QHCGnzrVA4CwFoKzkDJvrYF1dS3+DrYlRRzmpDqgDw+SICw0o/KLhW/o=@vger.kernel.org
-X-Gm-Message-State: AFuF++mB600p+N5ApcZAQqPmU39mEGvLyhS9NwvuhVZ8Wcz8qmN9Z8Re
-	Sw1NKPH8bOidJjYOgOt23zNWlvcBld7XyDdW7HVES2Bym/hyDcdjacU4sAcHr9jyMIw=
-X-Gm-Gg: AYBFou01zz1046Lzey83KiR7WgPMiSYhMRGSvDUABbcu1QbinfqO9HVPl5BhtlFchMz
-	2qaX6uw6QMPwUxFrZeajdkJtio88fV1zEBqQ7SKILheCaDk4ZyeOitkR1UAHlarKDoMPJ2saP86
-	zxcQyjeU52+MJ8Nu37XvyOfRQPOAM34UXpeSJPsGSiz3qwBSwGutE6uK6FT7Xut6wE+GlSIQU23
-	bsgrpjK+A4xkoOsnzJV34LRocn3nch/MxmBK4lZI4JJ5KOyAvvtSEpuUsjPq1j+UcB4aeFqRlB8
-	jY1CAUgGKp4qiQlZHngzpB3aS2U+YidP/qT6kFlywAkZl8DGXfxDZd3m0txc+LC2Abew1QB9Zq5
-	TaYG8PrBiCcl8KJPWIDGsDdKh9vuOz/7u7l39mHdLUk2r4DvDBxqHTscrA4MQAWfFyIuXe7BXLg
-	d+BZN8CotweC0lyioGDnIA1ZGBSCJw8eEy15L7T+mJWoDq3NSpxN87/hifAXLiLJgp00r428UZh
-	7bbMRUB20xyGrH3j8luVyObvdX6xgoVslq4ND3fs+J8gVzWKGHFck4K
-X-Received: by 2002:a17:907:96a2:b0:c29:f5d8:9c7e with SMTP id a640c23a62f3a-c2ac22cb906mr148643166b.45.1790240469960;
-        Thu, 24 Sep 2026 02:01:09 -0700 (PDT)
-Received: from [172.16.220.225] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae5c6f5asm273374466b.15.2026.09.24.02.01.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 02:01:09 -0700 (PDT)
-Message-ID: <7827fbba-b8e7-43f9-ae80-caea7f191d2d@fairphone.com>
-Date: Thu, 24 Sep 2026 11:01:08 +0200
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="P7Dc3lHh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=qm
+	i3FHcbWjT1HDcn/gcvvyRGjaouytMYXJtS2GuTjXA=; b=P7Dc3lHhehjERVQMWX
+	dF3znFXcLEexbKPSOGwAKbxHQs00aXrJJyQ8Z+ZG7KU9/5Ha+prS9FwTFDr1bu6V
+	QqjE6hfpba2lB1bRRWNnjy+Wftp/sFftUL57KzBriwUgH1+QHL3FiJNGWS9uirg2
+	BqNF/GccW++jmZ1kYMacEMq9Q=
+Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3H73Q5rRqL6EhAg--.34883S7;
+	Thu, 24 Sep 2026 17:01:16 +0800 (CST)
+From: Baolin Liu <liubaolin12138@163.com>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Baolin Liu <liubaolin@kylinos.cn>
+Subject: [PATCH v3 5/6] ntfs: report MFT writeback errors to fsnotify
+Date: Thu, 24 Sep 2026 17:01:01 +0800
+Message-ID: <20260924090102.2865942-6-liubaolin12138@163.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260924090102.2865942-1-liubaolin12138@163.com>
+References: <20260924090102.2865942-1-liubaolin12138@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] AW8695 haptic driver.
-To: Val Packett <val@packett.cool>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20260914-aw8695_haptic_fp4_driver-v1-0-156f7549149a@fairphone.com>
- <c49fe267-7da4-4b34-8dbd-3536a327423c@packett.cool>
-Content-Language: en-US
-From: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-In-Reply-To: <c49fe267-7da4-4b34-8dbd-3536a327423c@packett.cool>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3H73Q5rRqL6EhAg--.34883S7
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZw1kJF4kKrWrJrWfAF4UXFb_yoW5Kw45pF
+	Z8G3s3KrWDtr47Kwn7trW2v3Wa934xKa17CrykG3WI9wn8Kr1jqa10grWSgFWFkr93J3y8
+	Ja1qkrZ8CF1UAr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jcrc-UUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6Ry4g2q05tz3VwAA3K
 
-Hi Val,
-On 9/15/26 06:14, Val Packett wrote:
-> 
-> On 9/14/26 11:37 AM, Griffin Kroah-Hartman wrote:
->> Clean-up of the aw8695 haptic driver patchset that was sent in 2022.
->> Variables dependant on devicetree have been hardcoded, and unnecessary
->> functions have been removed.
->> [..]
-> 
-> This looks similar to aw86927.c just with a somewhat different register 
-> layout, but there's even the same waveform and so on.
-> 
-> Could it be better / worth it to do everything in one driver (aw86927.c) 
-> and only have different register accessors per model but shared "logic" 
-> overall? Or would that make testing too annoying?
+From: Baolin Liu <liubaolin@kylinos.cn>
 
-You're totally right with the similarities, and the original idea was to
-add on to the '27s driver, unfortunately the register layouts are too 
-different for it to be worth it.
+MFT writeback failures need to reach filesystem health monitors as well
+as the kernel log and mapping error state.
 
-> FWIW I've been trying to bring up aw86224 which has even fewer (but 
-> still *some*) differences to aw86927, so I'm potentially interested in 
-> having a unified base to add it to (when I figure out why it's stuck in 
-> overvoltage protection or whatever it was..)
+Report device errors from the existing parent BIO completion callback for
+both synchronous and asynchronous writes, before ending folio writeback.
+The generic fserror code queues notification work and takes its own inode
+reference, so no additional NTFS completion work is needed.
 
-After a brief glance at the register layout for the aw86224, it totally 
-seems compatible with the aw86927, lots of shared registers, so I 
-definitely think that your approach is the way to go there.
+Report mirror and preparation failures where they are detected, including
+failures that occur before a BIO can be submitted. Keep these reports
+together with completion reporting so errors retained in the write context
+still mark the volume and notify userspace independently of device errors.
+Preserve the retry handling for allocation failures in MFT write
+preparation.
 
-> Thanks,
-> ~val
+Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
+---
+ fs/ntfs/mft.c | 34 ++++++++++++++++++++++++----------
+ 1 file changed, 24 insertions(+), 10 deletions(-)
 
-Good luck with the aw869224!
+diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
+index a1b1c080b256..6a202ffc513a 100644
+--- a/fs/ntfs/mft.c
++++ b/fs/ntfs/mft.c
+@@ -481,9 +481,11 @@ static void ntfs_mft_end_io(struct bio *bio)
+ 		err = blk_status_to_errno(bio->bi_status);
+ 	else
+ 		err = ctx->error;
++	/* Report device errors from both synchronous and asynchronous writes. */
++	if (bio->bi_status)
++		ntfs_report_file_metadata_error(ctx->mapping->host, err);
+ 	if (err) {
+ 		mapping_set_error(ctx->mapping, err);
+-		NVolSetErrors(ctx->vol);
+ 		ntfs_error(ctx->vol->sb, "I/O error while writing MFT: %d",
+ 			   err);
+ 	}
+@@ -544,22 +546,24 @@ static int ntfs_sync_mft_mirror_unit(struct ntfs_volume *vol,
+ 	u64 mirror_size;
+ 	unsigned int mirror_ofs;
+ 	u8 *src, *dst;
+-	int err;
++	int err = -EIO;
+ 
+ 	if (unlikely(!vol->mftmirr_ino))
+-		return -EIO;
++		goto out_report;
+ 
+ 	mirror_size = (u64)vol->mftmirr_size * vol->mft_record_size;
+ 	if (mirror_file_ofs >= mirror_size ||
+ 	    unit->len > mirror_size - mirror_file_ofs)
+-		return -EIO;
++		goto out_report;
+ 	if (unit->folio_ofs + unit->len > folio_size(source))
+-		return -EIO;
++		goto out_report;
+ 
+ 	mirror = read_mapping_folio(vol->mftmirr_ino->i_mapping,
+ 				    mirror_file_ofs >> PAGE_SHIFT, NULL);
+-	if (IS_ERR(mirror))
+-		return PTR_ERR(mirror);
++	if (IS_ERR(mirror)) {
++		err = PTR_ERR(mirror);
++		goto out_report;
++	}
+ 
+ 	folio_lock(mirror);
+ 	if (folio_test_writeback(mirror))
+@@ -598,6 +602,9 @@ static int ntfs_sync_mft_mirror_unit(struct ntfs_volume *vol,
+ out_unlock:
+ 	folio_unlock(mirror);
+ 	folio_put(mirror);
++out_report:
++	if (err)
++		ntfs_report_metadata_error(vol, err);
+ 	return err;
+ }
+ 
+@@ -815,8 +822,14 @@ int write_mft_record_nolock(struct ntfs_inode *ni, struct mft_record *m, int syn
+ 		mark_mft_record_dirty(ni);
+ 		if (!sync)
+ 			err = 0;
+-	} else
+-		NVolSetErrors(vol);
++	} else {
++		struct ntfs_inode *base_ni = ni;
++
++		if (ni->nr_extents < 0)
++			base_ni = ni->ext.base_ntfs_ino;
++		mapping_set_error(folio->mapping, err);
++		ntfs_report_file_metadata_error(VFS_I(base_ni), err);
++	}
+ 	return err;
+ }
+ 
+@@ -3188,7 +3201,7 @@ static void ntfs_mft_write_error(struct ntfs_volume *vol,
+ 				 struct address_space *mapping, int err)
+ {
+ 	mapping_set_error(mapping, err);
+-	NVolSetErrors(vol);
++	ntfs_report_file_metadata_error(mapping->host, err);
+ 	ntfs_error(vol->sb, "Error while writing MFT folio: %d", err);
+ }
+ 
+@@ -3346,6 +3359,7 @@ static int ntfs_write_mft_block(struct folio *folio, struct writeback_control *w
+ 						ctx->error = -EIO;
+ 					redirty = true;
+ 					err = -EIO;
++					ntfs_mft_write_error(vol, mapping, err);
+ 					break;
+ 				}
+ 			}
+-- 
+2.51.0
 
-Best,
-Griffin
