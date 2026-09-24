@@ -1,150 +1,163 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91D2A391517;
-	Thu, 24 Sep 2026 11:43:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F367347AF43;
+	Thu, 24 Sep 2026 11:45:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790250213; cv=none; b=VLe+Ega615vhdsFKsfOt8Nx7bc+i3q5YbfQKJdA5ZL6tB/rz3TuW1xB9PKHrvE85SXPu9gigw+RwuiFjI85ejjY8YprwzYh6EK1JeUIYFVsxLOmEnkS3OF/INTFjpGcUWBj3El2Y4p/pMS9t9XnusrjBehkuSv1wzDqJoMcppCY=
+	t=1790250340; cv=none; b=blQqbUOrix8DqMqmw2BgXBQnQpIoKMPQHSlHKxnVjc+QdAvV+jxAIEdjE0qeNwVPNTpRrgb15bi9YktZ0cwkKJD/PgvI/j41XE5z8yRPvCSii7tzBxZOvZfdQlUhPR33la1/1uhdqmXfWtUVPGB7UQ3Yv518sjPOH2n3bcUV4Ug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790250213; c=relaxed/simple;
-	bh=cAwZ+ZQMBB/nL3QgioPnI88TyuDdMW1BnM09HqAisL0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BWIwry6YfNfDfr14lesnDORzjaOzVT+y/98eFzdCz8eV0othIGLbb5UuMnsD5zCcozxBFad0LRacHbMcmtCXF/hM6cSlnzFuv7sxex16bofb20JiWniS2yKePPTihHD86vTO1DMfZwQBa9rzSIc1dyAL6bImBHAXPSi9EVRKjh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=C8A3n+Rv; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790250340; c=relaxed/simple;
+	bh=AfT59Od6cpigTuyqrFPVAjt/13SRyxzmj25qAssqnkc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DcfleGBrOG/7FnKKXcTGWfUD1QrfZrp+9+6Kwkp8mX3GLwKRwp35xDCpJqaMEbMribf0COQa5lIG53K5wb4JcWIOE4ukqazhmvsPPrxjVAe9RSOwF7/Ls0POlOd5FtKbA4eHg0oPWuLVGEZI3LGVKg8p9UGXi6oSzTK1VkM7c1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KdwNkU7f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="C8A3n+Rv"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5bpeL1179971;
-	Thu, 24 Sep 2026 11:42:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=we0jkvkUU8b/DdDap1KvhZSR7n4MtY
-	LdoWpJ1NLsn64=; b=C8A3n+RvjbHH/lOBdbUmEZvfUCvzcM0gWVtXA2O2HZUHcW
-	U68+n1cfQVxo12f6Qf9Iph2ljk/RZlIygq2O3WErlKC+ZQkR9qtbqlP6dffpGk2a
-	FvyAtASORqi0u8vrWhg4LpXV0gwVlNh8Wlmdh8sefZdevto4uKSeqobnNpiy7RFF
-	WiKqY56YsbT3Tqi90IH48KhkIaD0YTr2qyYbWx4HXZuxwDSeHNASGz+J01Rnp0XQ
-	0827fI7r+AsK68hUAeVU8w6+WBbYPtpnSq+y/TMmToBnDc5hc/ntf9V6wXH/63oI
-	4IrtPdrqkHzfL83fZXuCt9zmfPSSfuixEN5n+2aQ==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske1r3j4-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 24 Sep 2026 11:42:41 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68OAA5Ds1555028;
-	Thu, 24 Sep 2026 11:42:40 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gvb8jwh5e-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 24 Sep 2026 11:42:40 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68OBgcaI48234956
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 24 Sep 2026 11:42:38 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5A9D620040;
-	Thu, 24 Sep 2026 11:42:38 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 71E5B2005A;
-	Thu, 24 Sep 2026 11:42:34 +0000 (GMT)
-Received: from li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com (unknown [9.124.210.215])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Thu, 24 Sep 2026 11:42:34 +0000 (GMT)
-Date: Thu, 24 Sep 2026 17:12:31 +0530
-From: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-To: Zhang Yi <yi.zhang@huaweicloud.com>
-Cc: linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        linux-kernel@vger.kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca,
-        libaokun@linux.alibaba.com, jack@suse.cz, ritesh.list@gmail.com,
-        djwong@kernel.org, hch@infradead.org, yi.zhang@huawei.com,
-        yizhang089@gmail.com, chengzhihao1@huawei.com, yangerkun@huawei.com,
-        wangkefeng.wang@huawei.com, yukuai@fnnas.com
-Subject: Re: [PATCH v6 04/31] ext4: set EXT4_MAP_NEW flag for delayed
- allocated blocks
-Message-ID: <arUMp4UYXgPnVckT@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
-References: <20260903123543.2302999-1-yi.zhang@huaweicloud.com>
- <20260903123543.2302999-5-yi.zhang@huaweicloud.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KdwNkU7f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ECCD1F000FF;
+	Thu, 24 Sep 2026 11:45:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790250338;
+	bh=Ut9ev3kcVAVJgTSu6Nya3iZ8tPXCf/WJooMYCLWxpmc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=KdwNkU7fC6p0Z59UnOOrZ+WsPDyul3+LLEPMes+3vg5gSqGpqOqfqPPBPE9YzyTuF
+	 /018svbY8qU6R1mD4AnHJxcclHWaMtJy+gUt2A76XGdAFY6hkgoWizcuorVSRo9+1D
+	 /4f17Se+WFFTeKj9FC98wFEHSscQW9SqAfxrjJwcHWugVTm8IYI/5YYq7AE/5cfWbv
+	 4Z+jRp4DQgh6dFQ5zDVau5e4hmGygo8Iux/hs88ZDKQmRQcE5p44zFcRF7xQQPBg2e
+	 GiDlK+bxXiK7eJKPt1Qd2iO8UhOqLlY4NyvKoJcKshBL/sdXRZeDiNgzj2O5K5VimK
+	 hPCmiNk3Yawuw==
+Message-ID: <8699eba1-21cd-420e-a992-51a90ba62b71@kernel.org>
+Date: Thu, 24 Sep 2026 13:45:24 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903123543.2302999-5-yi.zhang@huaweicloud.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: u6IeIG8v7wD-fpNEEgEeHlPQIqQ62hos
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA0OCBTYWx0ZWRfX6uIoi0m5mY+2
- oZX0/IkhVbaZM0imsaS90GFS5sFQxz9CiLJGu0vs4X1Mn2LP2zTSuUoJ8fbWx1NifdJGi16Kpwb
- YxdPaId/q7UIDAa/fPCChMAftY13SIVR4tsKSDIUmOwpztgPJsdQ3iAdJljZMJkqkhexK2/dvlC
- x8h4I89fWbbROvHnP2/cs9/f6j+n9RQP4c8RDfM6IJf3zR0Tlcdvg2M9kFgW0Ra5fVPIe9nxN/s
- LYYGM1y0Ab4m1art4WCzynkkSLk6tW0wzsJ2Y8lOGmrVbvCHGAlFgC5Qk8/CunNONM0X3k1DsZl
- leIlo+RLLFbriQ+eV38LhWQ//K/mFPHHs2b+8+yQpcSX6ssJVoEA736jFFuAZ7nVMN2V7tIkBYm
- FIiVjhikVi7WRziPaWHGYfsTv0GhwuuhtFHB3DbHmKHB9Oh5c8dtN9+eJeTE/cZfjlALUQ6316Y
- X+FuK4j16vPLORbYTJQ==
-X-Authority-Analysis: v=2.4 cv=O/KsLx9W c=1 sm=1 tr=0 ts=6ab50cb1 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
- a=AiHppB-aAAAA:8 a=i0EeH86SAAAA:8 a=VnNF1IyMAAAA:8 a=7t1WT2wCRtn_2FsIMTsA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA0OCBTYWx0ZWRfX7hSXUTkMfUut
- Zhi9PhAzVN4K1QfEcF5xJfgdxb4RKYXbfQFdPin7xeHMuaHcx36JTzgFn39s2hdYNOsysPoIhbX
- uznlV9S145+Ldhas5wbtE1fRyQ6bEm0=
-X-Proofpoint-GUID: EqZRLwrqbjO5jhUOpkVHRFM8yPfFmO0H
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 malwarescore=0 phishscore=0 impostorscore=0 suspectscore=0
- bulkscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240048
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/7] mm: support promotion-only NUMA hinting scans
+To: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
+ vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
+ mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
+ vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+ bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+ kprateek.nayak@amd.com, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
+ nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
+ baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev,
+ kas@kernel.org, matthew.brost@intel.com, joshua.hahnjy@gmail.com,
+ rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com,
+ apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, hannes@cmpxchg.org,
+ shy828301@gmail.com, raghavendra.kt@amd.com, stable@vger.kernel.org
+References: <20260922182928.2199090-1-gourry@gourry.net>
+ <20260922182928.2199090-2-gourry@gourry.net>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260922182928.2199090-2-gourry@gourry.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 03, 2026 at 08:35:16PM +0800, Zhang Yi wrote:
-> From: Zhang Yi <yi.zhang@huawei.com>
+On 9/22/26 20:29, Gregory Price wrote:
+> From: "Gregory Price (Meta)" <gourry@gourry.net>
 > 
-> Set EXT4_MAP_NEW in ext4_da_map_blocks() to properly indicate that a
-> new delayed allocation block has been inserted, allowing callers to
-> distinguish newly created delayed extents from existing ones.
+> folio_can_map_prot_numa() derives folio eligibility from the global
+> balancing mode. The mode (normal, tiering, or combined) describes
+> which balancing mechanisms are enabled (placement vs promotion).
 > 
-> Currently, the buffer_head caller, ext4_da_get_block_prep(), does not
-> consume this flag. It intercepts EXT4_MAP_DELAYED and returns early, and
-> unconditionally calls set_buffer_new(bh) so EXT4_MAP_NEW is not used.
-> The flag is prepared for the iomap buffered I/O path added later.
+> The global setting itself cannot describe the intent of an individual
+> protection walk because normal-mode tempers its scanning activity based
+> on a number of heuristics (read-only VMAs, activeness of VMA, etc).
 > 
-> Reported-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-> Link: https://lore.kernel.org/linux-ext4/cc05c17d-163e-4251-b2c9-aa3a6f9555d7@huaweicloud.com/
-> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+> In tiering or combined mode, applying these normal-mode optimizations
+> to an entire VMA is incorrect and breaks tiering.
+> 
+>  - Opting VMAs out of scanning because they became inactive obviously
+>    breaks tiering - because the intent is to identify when a VMA
+>    becomes active.  Applying it in tiering modes causes
+
+Incomplete sentence.
+
+> 
+>  - Opting Read-only file VMAs out of scanning is just incorrect for
+>    tiering modes because its intent is to prevent bouncing between
+>    sockets (east-west), while tiering controls tier migration
+>    (north-south).  The result is hot read-only files can overload
+>    lower tier bandwidth.
+> 
+> Add MM_CP_PROT_NUMA_PROMO_ONLY and let task_numa_work() select the type
+> of walk. Build the change-protection flags there and pass them unchanged
+> through change_prot_numa() so its PTE/PMD paths use the same decision.
+> 
+> Have folio_can_map_prot_numa() derive the single-threaded private state at
+> the point of use instead of adding another precomputed boolean to the
+> protection-walk interface. This keeps the interface focused on scan intent
+> and avoids plumbing VMA-derived state beside cp_flags.
+> 
+> The tradeoff for the cleaner interface is an atomic mm_users read for each
+> folio, rather than once per PTE range. Check the promotion-only top-tier
+> exclusion bit first as a mild optimization.
+> 
+> The scan-intent interface is required by the following memory-tiering
+> fixes and must accompany them when backported.
+> 
+> Fixes: c574bbe91703 ("NUMA balancing: optimize page placement for memory tiering system")
+> Cc: stable@vger.kernel.org
+> Suggested-by: David Hildenbrand <david@kernel.org>
+> Link: https://lore.kernel.org/r/4d2853c9-edf4-4685-b186-7214ed6abd84@kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 > ---
->  fs/ext4/inode.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-> index 4fc0d331c49d..84991fe99071 100644
-> --- a/fs/ext4/inode.c
-> +++ b/fs/ext4/inode.c
-> @@ -1990,7 +1990,7 @@ static int ext4_da_map_blocks(struct inode *inode, struct ext4_map_blocks *map)
->  		}
->  	}
->  
-> -	map->m_flags |= EXT4_MAP_DELAYED;
-> +	map->m_flags |= EXT4_MAP_DELAYED | EXT4_MAP_NEW;
 
-Looks good, feel free to add:
+LGTM
 
-Reviewed-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Regards,
-ojaswin
+-- 
+Cheers,
 
->  	retval = ext4_insert_delayed_blocks(inode, map->m_lblk, map->m_len);
->  	if (!retval)
->  		map->m_seq = READ_ONCE(EXT4_I(inode)->i_es_seq);
-> -- 
-> 2.52.0
-> 
+David
