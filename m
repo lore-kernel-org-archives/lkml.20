@@ -1,279 +1,238 @@
-Received: from sender6-of-o54.zoho.com (sender6-of-o54.zoho.com [165.173.180.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FEB9363C60;
-	Thu, 24 Sep 2026 13:51:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790257897; cv=pass; b=Ib+milg/CTV1SD26vOLe1dx9bKFzjMBmoJR7fsJbGuPQ0aRzBM+qu3laQ8P0fIg4FxZBBnnIgfHoQDuczFx6SKDs6mu8I0vXZUGo1aQOWGD3wdZWi/2U0f+cWdtoVbeu9XTDuxMMeT6pvMDhXzmvfjymEdW5HLiSLbQFVfVEZwA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790257897; c=relaxed/simple;
-	bh=9jAAzu7L0V4Hl0qdlVZ+whEkE+bLweLZhkFpmH6ZgdA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cWV7A4sop/faC2qIm8OriTy5cwiHjmSMmhvPblwPJoKWNt8sn3lpuUijiEOXIjs1mZd3JdTC3rYup7rV3xXzivDYJBGN5Kngo3M2NjcZ7aEL33jtR2GFt2A3VIuomLZ1gTaGh02jWuaLChQae05YoeWP9+0mD8nWc1P7g6HnKXo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=anirudhrb.com; spf=pass smtp.mailfrom=anirudhrb.com; dkim=pass (1024-bit key) header.d=anirudhrb.com header.i=anirudh@anirudhrb.com header.b=eASH3Dyc; arc=pass smtp.client-ip=165.173.180.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=anirudhrb.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=anirudhrb.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BFADA280331;
+	Thu, 24 Sep 2026 13:52:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790257940; cv=none; b=ezOMO8SQEIOVyHAV5nPUp/OeiCEIOEpqT2w+wEstsFY06V7mwfrOOKIyZAohYXWow+8XT2B5pJExJVVuOl2mkN/Vd+hzP9bJIZZ+EOY1X8i3hzhD927L/wlMYKkUTkc2Gxot3LMFQysF1JWaKU4KF1uePZlkoy4MMg77npfl8c8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790257940; c=relaxed/simple;
+	bh=uJinfSKhjBhTbQZkzVsB00hQiK0IF1cSRioYhd1P8XE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k2m+jIa9DbRYdUXRKTKF8g5qWvmULn3X2cjgtGUwqAByjIFUeKx9oNS3xZmppIgFurfUOgUjEQq+Qina0RORsWzMjxleawvf17UvjKeXpN1WFMc280b1FzqfSzqAeOeEcdPklvS1h1MNgU2Q6dj0tfKYR8O0Ljgw/fcQjgnCB74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=YAEriwf6; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=anirudhrb.com header.i=anirudh@anirudhrb.com header.b="eASH3Dyc"
-ARC-Seal: i=1; a=rsa-sha256; t=1790257880; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=RFKin86g6YNcdDjG5B8xDXfnwI9u5RxfnOGduSugOsUM2fcREBR/IWN2Kd0XHu870QVWcCekeZEIM9LDRchHFgVFxn6GcF5ixdum9PGzlfM0HECo1Wu4CCGuoIBenPVXFfaZvwrhpOE/9zbu7DaqJphAtGgc2ccgSGsZ2K59w08=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790257880; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=7AgugibO/MEoHQ8Kikz2u61NnM8OGtvR9wPH8In7gDU=; 
-	b=DE9gLtJmKU8qQY6+4BqiOWEM5UDb0mgoko/iDW5Vrt0keEcJqVxD6Ps725Sgv2w0ILsAdORysUwv+fHdfA+Wp2jWOlPGa4LRKFn7cvo6ol8DuHARuKBFPJlsCPYN2c0HoWlyKKnuAdDtEi4uPGeQRU1O0JYLsTRj2xqXG3+2Ax4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=anirudhrb.com;
-	spf=pass  smtp.mailfrom=anirudh@anirudhrb.com;
-	dmarc=pass header.from=<anirudh@anirudhrb.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790257880;
-	s=zoho; d=anirudhrb.com; i=anirudh@anirudhrb.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=7AgugibO/MEoHQ8Kikz2u61NnM8OGtvR9wPH8In7gDU=;
-	b=eASH3DycQVpf7S4eUIcpJ2wkCZUAZL0W8yws7/JEHRGeY0pU5+CL5bGK+LRp+Xv0
-	6dbp88Uay3W5vrCXXA3lFEQJLLiQMTxV/KVgdvHPorp+AzCkqUtAhbMhYL67y9LJgY4
-	AsM05uZlAdq7JLP+0/7SlbTnBCsjtC3focg/rjgE=
-Received: by smtp.zohomail.com with SMTPS id 1790257876818699.7771668051361;
-	Thu, 24 Sep 2026 06:51:16 -0700 (PDT)
-Date: Thu, 24 Sep 2026 13:51:10 +0000
-From: Anirudh Rayabharam <anirudh@anirudhrb.com>
-To: Magnus Kulke <magnuskulke@linux.microsoft.com>
-Cc: linux-hyperv@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
-	Souradeep Chakrabarti <schakrabarti@microsoft.com>,
-	Wei Liu <liuwe@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Dexuan Cui <decui@microsoft.com>,
-	Magnus Kulke <magnuskulke@microsoft.com>,
-	Long Li <longli@microsoft.com>, linux-arch@vger.kernel.org,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Anirudh Rayabharam <Anirudh.Rayabharam@microsoft.com>,
-	Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
-	Wei Liu <wei.liu@kernel.org>
-Subject: Re: [PATCH v3] drivers/hv: remove deposited pages from direct map
-Message-ID: <20260924-outrageous-nebulous-spaniel-7bf6f7@anirudhrb>
-References: <20260917201052.2123701-1-magnuskulke@linux.microsoft.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="YAEriwf6"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9CFBF1476;
+	Thu, 24 Sep 2026 06:52:14 -0700 (PDT)
+Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id BFCEE3F86F;
+	Thu, 24 Sep 2026 06:52:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790257938; bh=uJinfSKhjBhTbQZkzVsB00hQiK0IF1cSRioYhd1P8XE=;
+	h=From:To:Cc:Subject:Date:From;
+	b=YAEriwf6NBxWTskNi1o28aWpwUOi+CxVstUPJj4OXmyAHoWhUl1tusZywsdNISASq
+	 P5xeJB0cvASHHF/Z4wrLyDfQMTLVNMG5nxZEaKOkoBk7vRv7TETzPk5LH7mXptQDXW
+	 31r8cnIUQn+0dyppVqWixiaD225pU3D3+CGVkSTY=
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+To: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev
+Cc: maz@kernel.org,
+	will@kernel.org,
+	catalin.marinas@arm.com,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	steven.price@arm.com,
+	aneesh.kumar@kernel.org,
+	oupton@kernel.org,
+	gshan@redhat.com,
+	joey.gouly@arm.com,
+	tabba@google.com,
+	yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com,
+	alpergun@google.com,
+	fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org,
+	enju.kohei@fujitsu.com,
+	sudeep.holla@arm.com,
+	jonathan.cameron@oss.qualcomm.com,
+	Suzuki K Poulose <suzuki.poulose@arm.com>
+Subject: [PATCH v19 0/7] firmware: arm_rmm: Add RMM v2.0 base RMI support
+Date: Thu, 24 Sep 2026 14:51:54 +0100
+Message-ID: <20260924135201.850038-1-suzuki.poulose@arm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917201052.2123701-1-magnuskulke@linux.microsoft.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.230.26
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 17, 2026 at 10:10:52PM +0200, Magnus Kulke wrote:
-> hv_call_deposit_pages() donates pages (deposit) to hypervisor for L2
-> guest on L1VH systems via HVCALL_DEPOSIT_MEMORY. The hypervisor takes
-> ownership of those pages and per contract revokes root partition
-> access to them, raising a #GP on access from the L1VH root partition.
-> 
-> However, the pages remain mapped in the kernel direct map, so kernel
-> code may still access them even though the hypervisor has revoked
-> access.
-> 
-> Helpers such as "load_unaligned_zeropad()" deliberately read past the
-> end of a buffer and across page boundaries. A read into an unmapped
-> page is tolerated and triggers a #PF, for which the kernel executed
-> a fixup in the exception table.
-> 
-> If such a call steps into a page that has been deposited, the access
-> raises a #GP by the hypervisor from which the above handler cannot
-> recover and the kernel panics:
-> 
->   Oops: general protection fault, maybe for address 0xff1100941a3dfffc
->   RIP: 0010:csum_partial+0xe5/0x110
-> 
-> This condition will appear on L1VH system that have created L2
-> partitions (and hence deposited pages) and exercise networking code
-> paths such as csum_partial() can trigger this condition when a buffer
-> ends close to a page boundary (e.g fffc in the above example).
-> 
-> The fix is to remove the deposited pages from the direct map before
-> they are passed to the hypervisor, and restore them when the hypervisor
-> returns them again.
-> 
-> We want to avoid flushing the TLB in the loop, so we use the _noflush()
-> variant of set_direct_map_valid() when marking a deposited page invalid
-> and flush the affected page ranges in one go ourselves. In the opposite
-> direction this is not required:
-> 
->   > If a paging-structure entry is modified to change the P flag from
->   > 0 to 1, no invalidation is necessary. This is because no TLB entry
->   > or paging-structure cache entry is created with information from a
->   > paging-structure entry in which the P flag is 0.
-> 
-> (Intel SDM Vol. 3, 4.10.4.3)
-> 
-> Signed-off-by: Magnus Kulke <magnuskulke@linux.microsoft.com>
-> ---
-> Changes since v2:
-> - Checkpatch format fix
-> 
-> Changes since RFC:
-> - Handle direct-map restoration failures without returning unmapped
->   pages to the allocator.
-> - Move freeing of withdrawn pages into the restoration helper.
-> ---
->  drivers/hv/hv_proc.c           | 77 +++++++++++++++++++++++++++++++++-
->  drivers/hv/mshv_root_hv_call.c |  4 +-
->  include/asm-generic/mshyperv.h |  4 ++
->  3 files changed, 81 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/hv/hv_proc.c b/drivers/hv/hv_proc.c
-> index 57b2c64197cb..2a392b45205d 100644
-> --- a/drivers/hv/hv_proc.c
-> +++ b/drivers/hv/hv_proc.c
-> @@ -7,7 +7,9 @@
->  #include <linux/cpuhotplug.h>
->  #include <linux/minmax.h>
->  #include <linux/export.h>
-> +#include <linux/set_memory.h>
->  #include <asm/mshyperv.h>
-> +#include <asm/tlbflush.h>
->  
->  /*
->   * See struct hv_deposit_memory. The first u64 is partition ID, the rest
-> @@ -15,6 +17,35 @@
->   */
->  #define HV_DEPOSIT_MAX (HV_HYP_PAGE_SIZE / sizeof(u64) - 1)
->  
-> +/*
-> + * Add or remove a set of physically contiguous page runs from the kernel
-> + * direct map. Once a page has been deposited the hypervisor owns it and
-> + * revokes root partition access to it.
-> + */
-> +static int hv_deposit_update_direct_map(struct page **pages, int *counts,
-> +					int num_allocations, bool valid)
-> +{
-> +	int i, err, ret = 0;
-> +
-> +	for (i = 0; i < num_allocations; ++i) {
-> +		err = set_direct_map_valid_noflush(pages[i], counts[i], valid);
+This series adds the generic firmware layer for talking to the Realm
+Management Monitor (RMM), as specified by the RMM v2.0-bet3
+specification[1]. It is the first part of the Arm CCA host support that
+was previously posted as part of the larger KVM series.
 
-On arm64 can_set_direct_map() can return false making the
-set_direct_map_valid_noflush() call a no-op.
+The split allows this RMM support to be used as a base for other work,
+including Aneesh's PCI IDE support with Arm CCA RMM as the TSM,
+ without depending on the KVM Realm support that will follow as separate
+ series. (See more on that below)
 
-	bool can_set_direct_map(void)
-	{
-		/*
-		 * rodata_full, DEBUG_PAGEALLOC and a Realm guest all require linear
-		 * map to be mapped at page granularity, so that it is possible to
-		 * protect/unprotect single pages.
-		 *
-		 * KFENCE pool requires page-granular mapping if initialized late.
-		 *
-		 * Realms need to make pages shared/protected at page granularity.
-		 */
-		return rodata_full || debug_pagealloc_enabled() ||
-			arm64_kfence_can_set_direct_map() || is_realm_world();
-	}
+The series adds:
 
-So, there could be some scenarios where this patch doesn't solve the
-problem. It is definitely an improvement over what's currently in the
-tree though.
+ * The RMI SMC definitions and direct-call wrappers.
 
-> +		if (err && !ret)
-> +			ret = err;
-> +	}
-> +
-> +	if (valid)
-> +		return ret;
-> +
-> +	for (i = 0; i < num_allocations; ++i) {
-> +		unsigned long addr = (unsigned long)page_address(pages[i]);
-> +		unsigned long size = (unsigned long)counts[i] << PAGE_SHIFT;
-> +
-> +		flush_tlb_kernel_range(addr, addr + size);
-> +	}
-> +
-> +	return ret;
-> +}
-> +
->  /* Deposits exact number of pages. Must be called with interrupts enabled.  */
->  int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
->  {
-> @@ -72,6 +103,10 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
->  	}
->  	num_allocations = i;
->  
-> +	ret = hv_deposit_update_direct_map(pages, counts, num_allocations, false);
-> +	if (ret)
-> +		goto err_restore_direct_map;
-> +
->  	local_irq_save(flags);
->  
->  	input_page = *this_cpu_ptr(hyperv_pcpu_input_arg);
-> @@ -90,12 +125,23 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
->  	if (!hv_result_success(status)) {
->  		hv_status_err(status, "\n");
->  		ret = hv_result_to_errno(status);
-> -		goto err_free_allocations;
-> +		goto err_restore_direct_map;
->  	}
->  
->  	ret = 0;
->  	goto free_buf;
->  
-> +err_restore_direct_map:
-> +	/*
-> +	 * We don't want to return pages to the allocator if weren't able to
-> +	 * mark them valid in the direct map.
-> +	 */
-> +	if (hv_deposit_update_direct_map(pages, counts, num_allocations, true)) {
-> +		WARN(1, "leaking %d page block(s) that could not be set to valid\n",
-> +		     num_allocations);
-> +		goto free_buf;
-> +	}
-> +
->  err_free_allocations:
->  	for (i = 0; i < num_allocations; ++i) {
->  		base_pfn = page_to_pfn(pages[i]);
-> @@ -110,6 +156,35 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
->  }
->  EXPORT_SYMBOL_GPL(hv_call_deposit_pages);
->  
-> +/*
-> + * Put withdrawn pages back in the direct map. Counterpart to the direct map
-> + * removal done by hv_call_deposit_pages().
-> + */
-> +void hv_restore_withdrawn_pages(const u64 *pfns, int count)
-> +{
-> +	int i, ret = 0;
-> +	struct page *page;
-> +
-> +	for (i = 0; i < count; ++i) {
-> +		page = pfn_to_page(pfns[i]);
-> +		ret = set_direct_map_valid_noflush(page, 1, true);
+ * RMM discovery and version checks during firmware init.
 
-Should we batch this? (i.e. collect a batch of contiguous PFNs and restore them
-at once)
+ * RMM host configuration, including the host page size.
 
-> +		/*
-> +		 * HV_DEPOSIT_MAX is capped at 511, so a deposit range cannot cover
-> +		 * a 2MiB page, so deposited pages are of 4k granularity and cannot
-> +		 * be collapses into a 2MiB page, which would require an allocation
+ * Stateful RMI Operation (SRO) infrastructure for commands which the RMM
+   can complete across multiple SMC calls while requesting or returning
+   memory to the host.
 
-511 is the limit for one deposit call. But after multiple deposit calls,
-a deposited range can cover a 2 MiB page.
+ * Verification that granule tracking is available at fine granularity.
+   Fine-grained tracking allows each granule in the system to be tracked
+   independently, which is required before individual granules can be
+   delegated. A future series will add support for dynamically supplying
+   memory to the RMM for this tracking.
 
-> +		 * and can potentially fail.
+ * Support for fully firmware-managed systems, where the Granule Protection
+   Tables for memory regions are allocated and managed by firmware. RMM v2.0
+   also allows dynamic GPT creation on demand; support for that will be added
+   in a later series.
 
-It is unclear to me what requires an allocation and can potentially
-fail. Could you please clarify?
+ * Wrappers for the RMI commands that are used for managing the "Realm VM"
+   lifecycle. This is added in to make it easier for the on-going KVM support
+   to evolve in parallel pieces.
 
-> +		 *
-> +		 * Should it fail anyway we leak the page, if we would hand it
-> +		 * back to the allocator we would introduce faults into random other
-> +		 * parts.
+If the platform firmware cannot manage the granule tracking or the GPTs, we
+bail out and deactivate the RMM, reclaiming any memory that we have donated.
 
-I agree this is what we should do. I just don't understand what the
-first part of this comment block is talking about.
+The RMM v2.0 spec introduces Stateful RMI Operations (SROs), which allow
+the RMM to complete an operation over several SMC calls while requesting
+or returning memory to the host. This allows interrupts to be handled in
+the middle of an operation and lets the RMM dynamically allocate memory
+for internal tracking purposes. For example, RMI_REC_CREATE no longer
+needs auxiliary granules to be provided up front, and can instead
+request memory during the operation.
 
-Thanks,
-Anirudh.
+This series applies on v7.3-rc2 and a branch is available at [2]. The KVM
+CCA support that builds on this series is available at [3] as an integration
+branch. The KVM support depends on guest-memfd-in-place conversion support v13
+from Ackerley [4], we plan to split that into parts, which apply cleanly on
+v7.3-rcx without any dependency and is in progress. This will be made available
+as soon as it is ready. Until then [3] shows how this base series enables KVM
+CCA support. You may find the tf-RMM [5] and kvmtool support [6] below.
+
+[1] RMM spec : https://support.arm.com/documentation/den0137/2-0bet3/
+[2] This series: https://gitlab.arm.com/linux-arm/linux-cca.git cca/cca-host/fw_rmm/v19
+[3] KVM CCA v17 integration branch: https://gitlab.arm.com/linux-arm/linux-cca.git cca/cca/cca-host/kvm-v20/integration
+[4] Gmem inplace conversion https://github.com/googleprodkernel/linux-cc/tree/guest_memfd-inplace-conversion-v13
+[5] TF-RMM https://git.trustedfirmware.org/TF-RMM/tf-rmm.git main (commit: 134266ae)
+[6] kvmtool https://gitlab.arm.com/linux-arm/kvmtool-cca.git tag:cca-kvm-v20 (Also cca/kvm-v18)
+
+Known issues: RMMv2.0 spec.
+ * RmiOpMemDonateReq:count (Uint14) is incompatible with RmiAddrRangeDesc4KB
+  (Uint10) and RmiAddrRangeDesc16KB (Uint12). i.e., a larger contiguous request
+  may not be satisfiable by the host. This is resolved in the RMM spec, by clamping
+  the upper limit on the number to match the RmiAddrRangeDesc* and will be published
+  in the next release.
+ * RMM to clarify the scenarios that triggers the RMI_BLOCKED and the
+   recommendations to limit the cases.
+
+Changes since v18:
+ - Use _ULL version for masks spanning beyond 32bits
+ - Add GENMASK, FIELD_* friends for RMI_ABI_VERSION_*
+ - Consistent naming for masks and order the fields by MSB to LSB (missed out
+   ones.
+ - Rename RMI_RETURN_ => RMI_RESULT, RMI_RETURN_INDEX => RMI_RESULT_DATA_LEVEL
+   and add relevant Rmi types for clear indication on what they represent.
+ - Read and cache all implemented RmiFeatureRegisters (5), use ARRAY_SIZE()
+   droping the macro for the number of registers.
+ - Fold sinlge caller rmi calls to the caller (rmi_features)
+ - Drop "default y" from Kconfig
+ - Don't loop forever with RMI_BLOCKED, instead retry once and return to the
+   caller.
+ - Move rmi_config_set closer to rmi_configure.
+ - Use __free() cleanup for rmm_config object
+ - SRO: Clamp the mem donate request count to RMI_MAX_ADDR_LIST (the max we can
+   hold in the struct sro, to prevent overflows in handling non_contig requests
+ - Donate gathered memory when sro list runs out of space for non_contig case
+   and donate the rest in the next iteration
+ - Fix handling of buggy RMM for rmi_delegate_range()
+ - Add comments for the exported interfaces rmi_delegate_range(), rmi_undelegate_range()
+ - Move rmi_granule_{,un}delegate_range() closer to their callers
+ - Clarify the requirements for rmi_granule_delegate_range()
+ - Fix return result to -ENXIO if the MEM_OP is unknown
+ - Handle unsupported RMI_OP_MEM_CONDITIONAL, bail out early
+ - Rename "out" lable to mem_donate, where the actual donation happens
+ - Switch to use readable loop construct in donate_noncontig, add comments
+   to explain what we do.
+ - Add comment, make the code reader friendly for caching the entries not
+   consumed by RMM.
+ - Add documentatoin for rmi_sro_execute()
+ - Avoid mixing gotos with __free cleanups for arm64_init_rmi()
+ - Convert the remaining nested if for results to early return based.
+ - Pass out_top for RMI_ERROR_RTT in rmi_rtt_destroy() [ This boosts the
+   Realm tear down ]
+
+Changes since v17:
+ - All RMIs are now issued using smccc-v1.2 helpers as mandated by the RMM
+ - Add a helper function to reclaim an RmiAddrRange entry, which may be partially
+   consumed. Used by rmi_sro_free and by rmi_sro_donate_*contig to reclaim
+   partially consumed granules.
+ - Move all RMI wrappers that are used only by rmi.c out of the arm-rmi-cmds.h
+ - Rename macros, varibles to match RMM spec
+ - Handle buggy RMM cases and sanitise the output values
+ - Change sro_state.addr_count to int, giving us better handling of overflows
+   and RMM bugs.
+ - Avoid splling literal pools on stack for sro initialisation.
+ - Print error messages for critical failures during RMM init
+ - Use scope based cleanup for SRO object
+ - Prevent overflow for donated_granules output from buggy RMM
+ - Handle corrupted addr_count in the sro
+ - Handle buggy RMM when the out_top is not changed with RMI_SUCCESS
+   for delegate/undelegate range calls
+ - Rename free_delegated_page => rmi_free_delegated_page
+ - Rename donate_req_to_unit_size => donate_req_to_block_size
+ - Introduce rmi_addr_block_size_to_bytes() helper to convert a RmiAddrBlockSize
+   encoding used in RMI_DONATE_REQ and RMI_ADDR_RANGE Descriptors, replaces
+   donate_req_to_unit_size(). Matches the RMM spec.
+ - Rename unit_size => block_size_fld, unit_size_bytes => block_size etc.
+ - Explicitly check for MEM_CONTIG/CAN_CANCEL fields to match the RMM spec values.
+ - Rename free_delegated_page => rmi_free_delegated_page()
+ - Drop RMI_BUSY, RMI_BLOCKED checks from rmi_*delegate_range as they are already
+   handled by the rmi_smccc_invoke() used by the SRO.
+ - Ensure RMI_OP_RECLAIM output is valid before consumption
+ - Use GENMASK()/BIT() for masks consistently for RMI SMCCC defintions
+ - Rename RMI_{ADDR_RANGE, DONATE}_SIZE => RMI_{*}_BLOCK_SIZE
+ - Reorder the definitions for MSB to LSB
+ - Add definions for RMI_OP_MEM_*CONTIG and RMI_OP_CAN*_CANCEL
+
+
+
+Steven Price (6):
+  firmware: arm_rmm: Add SMC definitions for calling the RMM
+  firmware: arm_rmm: Check for RMI support at init
+  firmware: arm_rmm: Add support for SRO
+  firmware: arm_rmm: Activate the RMM
+  firmware: arm_rmm: Ensure the RMM has GPT entries for memory
+  firmware: arm_rmm: Add wrappers for Realm related RMI commands
+
+Suzuki K Poulose (1):
+  firmware: arm_rmm: Configure the RMM with the host's page size
+
+ arch/arm64/Kconfig                |    1 +
+ arch/arm64/kernel/cpufeature.c    |    1 +
+ drivers/firmware/Kconfig          |    1 +
+ drivers/firmware/Makefile         |    1 +
+ drivers/firmware/arm_rmm/Kconfig  |   25 +
+ drivers/firmware/arm_rmm/Makefile |    2 +
+ drivers/firmware/arm_rmm/rmi.c    | 1072 +++++++++++++++++++++++++++++
+ include/linux/arm-rmi-cmds.h      |  558 +++++++++++++++
+ include/linux/arm-smccc-rmi.h     |  505 ++++++++++++++
+ 9 files changed, 2166 insertions(+)
+ create mode 100644 drivers/firmware/arm_rmm/Kconfig
+ create mode 100644 drivers/firmware/arm_rmm/Makefile
+ create mode 100644 drivers/firmware/arm_rmm/rmi.c
+ create mode 100644 include/linux/arm-rmi-cmds.h
+ create mode 100644 include/linux/arm-smccc-rmi.h
+
+-- 
+2.43.0
 
