@@ -1,133 +1,128 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E66549CF2D
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:30:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 378E54C900E
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:30:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790281852; cv=none; b=dIMXodo7UP42XYLOvbB4p9TjyjrD6EmfKEPvZR80nTm1h129fqdRaCs9LpHLJRCpqD2gF4ycdsGKW+1KeFR66h/Bii1IRRUj/2Bf0mw0XLJduW0BTRczYlO4ofAIiRWIgtk2aOaI8+PjpjVUparT0DgDg7+JHw2fi+GiCgXZN9Y=
+	t=1790281863; cv=none; b=ma6VWZhAv5R5Z+RY1g3TPQPUA8EjUNW/g8SJrP6ZY2/NDY8HzTtTbP39KOejGqAUkSWXuutAgerT2eMZmuQ+J2DP0wM/kkG8Aep3+mejDzlqAIynNdR7YUeJeu0jkg+3WP2dtj3YSGnXqB20PrkPJzg5LWaSZREmjIKqjCMnu5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790281852; c=relaxed/simple;
-	bh=P5Ft9dr+LBOSEEDPSbCudgRMxke72Gt5Qr6Xn7/TvZ8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Qs9tvvY9l6xfAhucNIbATl5I/jUQcqiscPQDQo0LKyIQ/IjHY0KpkEid6kCNtZVOVieLSDbLF7+8ui1JMqfb0lQLiMvpc74IsC5aIhlox+H5UGcQg1/tL+aDhLQIuyZHzFvpFn1qvMJJNdB1oApB6De06OKmKVCKkx9/bgeudxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RTSIFR2l; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790281863; c=relaxed/simple;
+	bh=PekNXqpQuo/zZFg9m9bOrzS1roiCSB3HCwK/G0VKP+Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=q2I+0O1WyaXDCQ6L4KTjZyB9CXOr27S6fkvgHWXuKZvp0RwiM+as378+GzZWZIbSedSPRCSmOS+aYc1F11LPoni8YJ1zQHhuJC4ltVFAPwFba2bMdoJYgIKE/JYdeNEcFUgsbVUusfIu9ELKAMfkSgdmVJeoTWnWcmIRB+BY5P8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dwzxLk1z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RTSIFR2l"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d8239so1883955e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:30:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790281846; x=1790886646; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b3c90xok/6YjBzo9H+uGtCHNhEBukv6txB+RoRb7X78=;
-        b=RTSIFR2lvUk3esGyEIqohsSLFAIJ0oyPvX/MvoTKst+zc/GxI6DmO6yxeiHiCpx6kO
-         HiUFqFxo9SwNMEvw+4TNeQ0mTlXzEAIDT3LGSMBD//O7UCtWuazV+Z9fvirtePVnD1Zv
-         fI1Mxq33mcwq5e5KjvNDuJkAUXHPUevXIpKLVmaMET4VoTWuenvoi872Z9Vl+h7dy96q
-         VYeOhz6w1cIINBnCeAQq8SjedoI/oNApn73oTR/Yc7XD1Artk+VtomAH3dcwSUuGIxlY
-         sF3zvAWRkwJ7GgtkZ844JjR0hl23A60zTuGfCHT6h1gbyDsEyfZzC9o2kGAWoAyayjyn
-         AVIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790281846; x=1790886646;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b3c90xok/6YjBzo9H+uGtCHNhEBukv6txB+RoRb7X78=;
-        b=RQYkiFKJ1WjqU4DjgTX+hina37iGvC8EvWVryzL/FN5mecr9XDRK68XlO0RvV3pZsW
-         Anr2E/lN1lUMPH88MEQafbKPr1wMrzGpbk9qrTYFQzeAt17IrnL8Fjb0QJjIL+7oTTRE
-         2jsXouBednQA2KUjIjFrtA3z25e9ZU73RrkY/NKwK4HWEN3UGBtcZW81m07Wtp21kyvj
-         oLxrA3PoOeAsCPYi66tNzsI6kaNt9TyBQO9hcZKbBo7z+0nkyOyWR3fk0G1oFua4r6fX
-         qGNhrXFHW38MEZvXg493Czosr03XPtCiE8iFnIDoY1Yz+J4euofDb794M/1Qviw8yxVy
-         PcpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwvEdrWYJLAtIYmW+bmyj+rsu/fiOQVtpwu58GM5oNQ7lkW+YSfoDKXa2g3iHOzSAJum0pegvj3Nav8tGk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mQTa6FuuW9NKbqrqFL7/E6pWlrtPmgfuJO1/fe8ChDVNOTambP
-	qW8rO759AWbjN+khfGYhdI3d6vuGUHqpa0M/Oa51WQ9BUMhfSe++AgyB
-X-Gm-Gg: AYBFou2fZk/q8tnXwpwRm73FF2j8N1X6B4gTn5DU6RE9wDEIMY6I3rFLQYwHwrQn0Xv
-	Lk/4WveaMao6p4UV+OdJziTlDDIGszq/anbYtHkd8NzO+Awp6H5ueFaPCQ8wxguwv457gRzwvl/
-	n6B5FzhxbiPyZ5QTzprHxXj2UOgjaQ8VYxQ1LuIdPJDdrS96TN/GbPCKY2TnzWJk8lqGPVf6NiP
-	oGRuwCXiCEvuHBPERQJJED9j5DmrXK2XXSOsgko1muSWsqevEJZ/f/HXHirA8D4fHtt0BkWapaQ
-	AKWN3+YmvEqPFL7UcGX12gPSCnhmLqOvzaEzvUNJfOwqtfR/st0J8EllFNiOgkseRH0adoQGLn0
-	H5+gux4M0bGL/43zQOehmuNR4rYqfZuHFuSMmAMt+gvrgapBM1ynRP6bW31iI+FOpebokz0s9EF
-	bvjUxxfwISkltBCXzwXh5P9SjatsL3POR2dLNTFNOHM/v8nSmkBmpU4NWUhCVETCSPx9a8YCgWP
-	DqyYf43sWq6tEz4z9oKvVQXJ9TNA6pPAJLlX2Dfprb3
-X-Received: by 2002:a05:600c:8718:b0:49c:fa21:1c84 with SMTP id 5b1f17b1804b1-49fe7bba7e7mr53535645e9.25.1790281846574;
-        Thu, 24 Sep 2026 13:30:46 -0700 (PDT)
-Received: from andreayoga.wind3.hub ([31.189.116.68])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30c43asm1720776f8f.3.2026.09.24.13.30.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 13:30:46 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: "Darrick J. Wong" <djwong@kernel.org>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Carlos Maiolino <cem@kernel.org>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	Brian Foster <bfoster@redhat.com>,
-	Christoph Hellwig <hch@infradead.org>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Hannes Reinecke <hare@suse.de>,
-	Daniel Gomez <da.gomez@samsung.com>,
-	Pankaj Raghav <p.raghav@samsung.com>,
-	Dave Chinner <dchinner@redhat.com>,
-	linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] iomap: don't lose a failed direct I/O bio's error when zeroing the tail
-Date: Thu, 24 Sep 2026 22:30:08 +0200
-Message-ID: <20260924203013.9967-2-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260924185317.GK2705364@frogsfrogsfrogs>
-References: <20260924091203.198225-1-parri.andrea@gmail.com> <20260924091203.198225-5-parri.andrea@gmail.com> <20260924185317.GK2705364@frogsfrogsfrogs>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dwzxLk1z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 952081F00893;
+	Thu, 24 Sep 2026 20:30:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790281858;
+	bh=7QesB3wn8+yidQJfEr/89OKxUr18TgMww+mIYXxRsD0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=dwzxLk1zFjuelEjbXSV1QpGBOpalmXXXwREbsm4ynBL02XEnvhS+KtKgYliWpRGdq
+	 xBQBouEEARo9WI4lxyUPxdSIRjVbsoh1q5EAZ9CBIKQhDe+Mby8nwQ5C2Eu/ce0aoc
+	 N+JA+6L+tfIdMTfLyYzFQ7q1e/Ps2Ep6SBrGQnibpWm2SOA6kXu4Y4soAANgI80KXo
+	 NJkETdjZz+7xtcfrV2SlITh2YXd6ikHSVLj12W51FQdPpBw2NAe2OdRyOGp45+S0V9
+	 QB66EBYVDUQ7hHgPuC5DX76C5hjnZkNIVbZeCevhtJo4smCmvP2ySX/ueDGXTw+bod
+	 x/L7WQo+UxuOw==
+Message-ID: <4842e76f-c30b-4204-922c-ecdd02d627dc@kernel.org>
+Date: Thu, 24 Sep 2026 22:30:47 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND v7 13/29] mm: zswap: reject high-order swap cache
+ allocations backed by zswap
+To: Usama Arif <usama.arif@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, chrisl@kernel.org,
+ kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org
+Cc: ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>,
+ willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
+ riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org,
+ baohua@kernel.org, dev.jain@arm.com, baolin.wang@linux.alibaba.com,
+ Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>,
+ lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com,
+ shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
+ luizcap@redhat.com, kernel-team@meta.com
+References: <20260914122950.3283997-1-usama.arif@linux.dev>
+ <20260914122950.3283997-14-usama.arif@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260914122950.3283997-14-usama.arif@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 24, 2026 at 11:53:17AM -0700, Darrick J. Wong wrote:
-> > Cc: stable@vger.kernel.org
+On 9/14/26 14:28, Usama Arif wrote:
+> zswap stores swapped-out pages one at a time, so a range of swap slots can
+> be split between zswap entries and the backing device. A high-order
+> swap-cache folio over such a range cannot be read back in one go: the disk
+> read would return stale or zero data for every slot zswap owns.
 > 
-> Cc: <stable@vger.kernel.org> # v6.12
-
-Fixed for v3.
-
-> > @@ -582,8 +578,7 @@ static int iomap_dio_bio_iter(struct iomap_iter *iter, struct iomap_dio *dio)
-> >  		/* zero out from the end of the write to the end of the block */
-> >  		pad = pos & (fs_block_size - 1);
-> >  		if (pad)
-> > -			ret = iomap_dio_zero(iter, dio, pos,
-> > -					     fs_block_size - pad);
-> > +			iomap_dio_zero(iter, dio, pos, fs_block_size - pad);
+> Reject that in __swap_cache_alloc(). Do the check after the folio is in the
+> swap cache: from that point zswap can neither start storing nor start
+> writing back any slot in the range, so the answer is stable. Callers
+> already fall back to order-0, which zswap_load() handles per page.
 > 
-> I think this is the original cause of the bug, right?  We might have
-> already had a nonzero ret, and the assignment here blows that away.
-> Right?
+> Export zswap_is_present() for the PMD-order swap-in users added later.
+> 
+> Co-developed-by: Alexandre Ghiti <alex@ghiti.fr>
+> Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> ---
 
-Right.  When iomap_dio_bio_iter_one() fails we break out of the loop
-with ret < 0 and fall through to the tail zeroing, and this assignment
-replaced that error with iomap_dio_zero()'s 0.
+For 10:30pm that is way over my head to review. I'll rest assured that zswap
+folks have that under control.
 
-> If the answer to that is yes, then
-> Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+-- 
+Cheers,
 
-Thanks, picked up for v3.
-
-> (I should probably whine about how changing the function signature of
-> iomap_dio_zero should be a separate patch to make it more obvious what's
-> the actual fix...)
-
-Fair point.  FWIW, before 10553a91652d iomap_dio_zero() returned void
-and neither call site touched ret; that commit made it return int and
-added both "ret = iomap_dio_zero(...)" assignments.  So the signature
-change here is really undoing the part of 10553a91652d that introduced
-the bug, and keeping it in one patch makes the stable backport
-self-contained.  If you'd still prefer a one-line fix followed by the
-void conversion, I'm happy to split it.
-
-Thanks!
-  Andrea
+David
