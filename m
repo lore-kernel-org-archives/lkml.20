@@ -1,113 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B172849CF4A;
-	Thu, 24 Sep 2026 15:20:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E53913B6BF4;
+	Thu, 24 Sep 2026 15:20:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790263218; cv=none; b=c9YECACiwEQm5u/jcZWtqAmdt4fsU0zjzxrw1UaTPhQ2cn/fl0ii/Ag+vN3svN9M96VklNBA/0V2RifUr1QzgDFPC5VuJGXsl1dWezhx+jDsUOVGMGXHpMMNCab41oX3bQLxpxh2KNx2HeCBIUvTgcWKV0bjfXPyYprSqNv6vXI=
+	t=1790263225; cv=none; b=oSO43zI4y9GiHEMNYFx4IZNK48wT4Hk2YD6645p1UpE6RHISxNPVyUSjyhj3aQfT7utDTp6IOurFpSPR9pCgcRsNsD0w++LagD3TlbftEhjq9vAkHc4+F51Xa4JqviKAxjYeO1DhFfPzVPKUFZQqCF5hLTyWA9b0onS2HlWmWUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790263218; c=relaxed/simple;
-	bh=wxEuJMVBoZbga0STtRr92plLtm8vInH3FruD1jhYEKc=;
+	s=arc-20240116; t=1790263225; c=relaxed/simple;
+	bh=wffpEIqy82bE5dzisHggBxNd87Jfutu0YdK5t6eDMKs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D1gaKHNt8ZDabBpJ95NYPyzOfuLWa+IJkijOwSLo9nM258MH4B4Y5jbu5DiB5lQek3c+YOg3mP+l1KiqC8Fbi4t052aeRuMi/AIWGPq9DsE+/fqYtVnvXTPEXLrgwPM58iiwoVvuBlGGuhc67l9xho36jqTfAil4R4lVckfhqhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZYKsiDRj; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=XdTzPOzjgTWZ//QloI+KzEGGC0WJAPFPfB0GGcaqalWkRgZdiRfTHTTa1y3gCc5ksIJz+ChV8kDWYxi1XY6hkOQIC66aJGH8j4ZHd0qLPHKqQrJC8x93lBUYkMbHpBunVtXv7yRrQiAtH8o9DBYnilY75ltmEuRrZvTyBlAraV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PO8EWjgv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZYKsiDRj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A09A1F00893;
-	Thu, 24 Sep 2026 15:20:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PO8EWjgv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4492A1F000FF;
+	Thu, 24 Sep 2026 15:20:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790263217;
-	bh=1TonUH49EnMB6u8c5h2Nyyz7RxZIjpN24Wb4b73V2aA=;
+	s=k20260515; t=1790263224;
+	bh=z0AuueoF+EwbWJC1cvePLMQBYiLt2erxfL4Qv+G2e2M=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZYKsiDRjSINDvO2HkBvOdZh3eV1kfCLgy1Yf3Tmsf2ocaM3IyMleG1PCydVJD2+Gm
-	 ZR4pq7/p86HNVIuvjU+qpH98naiOfC0zJQ+yNZ7Xf3vMrL6Zt2kypbV9JyfYY9W/5i
-	 EsnuJfH8XbG0dyKriiAgOsCf+mt6EQve6eIeKG56vpCe/LlNmroA5yAlEiGgGxzIy7
-	 xYZ3lWpm6ff6+xq3ER8P06CgLRluEYnHIX1ylQq0Nn7dqplnLgXn5kzv3nVphn+H0o
-	 7ZFSX628FOmj1DEM6fwNqXYCX6vaEq3DLc5FEw0OKc3JvgibnHsIoe3vpYIr3NInaA
-	 QyPjRZaKTZPYg==
-Date: Thu, 24 Sep 2026 11:20:15 -0400
-From: Sasha Levin <sashal@kernel.org>
-To: Bradley Morgan <brads@mainlining.org>
-Cc: corbet@lwn.net, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	rdunlap@infradead.org, skhan@linuxfoundation.org,
-	workflows@vger.kernel.org
-Subject: Re: [PATCH] docs: add AGENTS.md as a symlink to README
-Message-ID: <arU_r7Sl3gnTX6nG@laps>
-References: <20260924134945.3095661-1-sashal@kernel.org>
- <C1ABA2A9-E1BD-4A89-B5BC-59C06D807D0D@mainlining.org>
+	b=PO8EWjgvZqlB6qVZrDlURrWOYYJIr0ucntqQHxLVuKEice/dYl0Y8Rs/2h1WKzBxz
+	 RkWyDGc4Qedt2hPfgZbGikYJ8RxxeN5NDcF5XhuzeZ4OqIVuNsp8Irb14Nnd/HrraZ
+	 FDxThFEFeUwLml2Oq/gEOgMg3V0UGRFaBrfDk2FLB8PArM2ASE1KexHl7BKM3A8Nkm
+	 FZuO7D0Lp7XNs7vnNsBifmGxa89ZxykJdcFzfdrTfHss5g8EhVvZzKLQ59k5nEQ11s
+	 CC+qzReAKcy3WXYlkOATtBFCF6c8tkoKSmiaQPPBDXBqmA0NqX3NsYFBlvlje1IWx5
+	 cw1DHSaPN/oLg==
+Date: Thu, 24 Sep 2026 16:20:20 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Damien Le Moal <dlemoal@kernel.org>
+Cc: "Martin K. Petersen" <martin.petersen@oracle.com>,
+	Hui Peng <benquike@gmail.com>, Niklas Cassel <cassel@kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: build failure after merge of the scsi-mkp tree
+Message-ID: <4b5d60b4-fc28-4399-acca-dbb697a1763d@sirena.org.uk>
+References: <arKETtHsac_ZwVc4@sirena.co.uk>
+ <ebce4bc6-b210-4e07-ab6e-25f1b2b13a8a@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="QKDsrnozF8yLWLh2"
 Content-Disposition: inline
-In-Reply-To: <C1ABA2A9-E1BD-4A89-B5BC-59C06D807D0D@mainlining.org>
+In-Reply-To: <ebce4bc6-b210-4e07-ab6e-25f1b2b13a8a@kernel.org>
+X-Cookie: Oh, so there you are!
 
-On Thu, Sep 24, 2026 at 04:08:08PM +0100, Bradley Morgan wrote:
->On 24 September 2026 14:49:45 BST, Sasha Levin <sashal@kernel.org> wrote:
->>Most coding agents have standardized on AGENTS.md as the file they load
->>automatically from the root of a repository. README already tells AI
->>tools to read and follow Documentation/process/coding-assistants.rst,
->>but that only helps if the agent decides to read README before acting,
->>which in practice it often doesn't.
->>
->>Add a top-level AGENTS.md symlink to README, so agents load it on their
->>own and follow its pointer to the AI guidelines. This keeps a single
->>entry point for every reader, and avoids adding a separate copy of the
->>policy that could drift from the RST.
->>
->>As an example, two different agents were asked to "create a new commit
->>renaming the release (in the Makefile) to AI Test".
->>
->>Without AGENTS.md, the first agent added a Signed-off-by for the user on
->>its own. It should never have done that: only the human submitter can
->>certify the Developer Certificate of Origin, after reviewing the change.
->>It also used its own attribution tag instead of Assisted-by:
->>
->>> Makefile: rename release to AI Test
->>>
->>> Co-Authored-By: <model name> <noreply@...>
->>> Signed-off-by: Sasha Levin <sashal@kernel.org>
->>
->>The second agent added no attribution at all:
->>
->>> Rename release to AI Test
->>
->>With AGENTS.md in place, neither agent added a Signed-off-by, and both
->>used the Assisted-by tag. README itself mentions neither tag, so both
->>agents followed its pointer to coding-assistants.rst:
->>
->>> Makefile: rename release to "AI Test"
->>>
->>> Change the release name from "Baby Opossum Posse" to "AI Test".
->>>
->>> Assisted-by: LLM
->>
->>> Makefile: rename release to AI Test
->>>
->>> Assisted-by: LLM
->>
->>Both agents also followed the kernel's general guidelines more closely.
->>The second agent's subject gained the "subsystem: summary phrase" form
->>that submitting-patches.rst asks for, instead of a bare "Rename release
->>to AI Test", and the first agent added a body describing the change.
->>
->>Assisted-by: LLM
->>Signed-off-by: Sasha Levin <sashal@kernel.org>
->
->NAK, we could add to memories that to read soandso file before every
->patch, and then it wouldn't increase tokens then?
 
-Could you help me understand what you meant here? I'm aware some agents use a
-notion of "memories", but I don't think they standardized on it in any way, nor
-how we could incorporate them here?
+--QKDsrnozF8yLWLh2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-And as far as I'm aware, nothing is free here - those "memories" still use
-tokens.
+On Wed, Sep 23, 2026 at 02:42:15PM +0900, Damien Le Moal wrote:
+> On 9/22/26 22:36, Mark Brown wrote:
 
--- 
-Thanks,
-Sasha
+> >  		if (!dev->multi_count) {
+> > -			ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND, 0, 0);
+> > +			ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND, 0);
+
+> This should be:
+> 			ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND,
+> 					   NO_ADDITIONAL_SENSE_INFORMATION);
+
+That should be updated today (without the line wrap since I hand edited
+the patch).
+
+--QKDsrnozF8yLWLh2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq1P7MACgkQJNaLcl1U
+h9B2Xwf/ZDbmh9n04lorPotBpnuPxcBDwDXTIBgDaYO1rA8Lc7f6E4SGpxP13Sl+
+4eb6QbwB9VQTknCg6C2mLsDIP3tMF2ynUCrqv+lQ8OhCPVruJZIJkXwW9n1zWcBd
+7kSOZWRLtTvJWtfhgCDW0Eb5ujZHa5++p7AXrVsXUy4O0RCEVhnUbUPX7L0cn99C
+yI8rt+j5lA7R+3mESWM8WBzwa+N/Ugx72FwWGKPQLbDLxqfqYoZD/8QDb6ESUZzX
+DnqA9sSzpXUrtcT3emzbKthHSQDtmR4pNc7k77SU3qTjNbn9eHitIsx03+PmWrA6
+bi3H2DbUJZTDEIG3N/ucikOJxOkeWw==
+=7gSn
+-----END PGP SIGNATURE-----
+
+--QKDsrnozF8yLWLh2--
