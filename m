@@ -1,127 +1,76 @@
-Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D9BA4A2E00
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:52:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3EBA4BE445;
+	Thu, 24 Sep 2026 17:52:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790272325; cv=none; b=I48sFUYXn93lC63mJlvUWUWl8JRBHNNo4uQm7hX1rkvgq0ozJF5ZTUWjZlcTTnGUJH5J6LwQdZK/br15zY/zENtVZnEUNyU14XGUDLZJWCUBhr/bxYzNqNOFYabXBA4NUX+uQPypBJTSjROi9xpsI8OMpPxafRzDV187+lbl9Vk=
+	t=1790272360; cv=none; b=Ge7ZeZh/iItA8Ml5fxYy0FXmvKtgjltsdpWRUxDwYs1U4Z1zoCzhHJMeOpBCl1EexM6izpyhGelK1W6QpwEirvuqEn2Vf/drOX/umz3h6XFm1zQoqb+pDp8Z7jSzyzdmlxhiHyghIegN7h2BmVSQNqIeIiGlY27GlpZ/916UY1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790272325; c=relaxed/simple;
-	bh=lqKZKprNseAnNL68Qm48AJ7YdmaWNYaS2rikkdTye3w=;
+	s=arc-20240116; t=1790272360; c=relaxed/simple;
+	bh=i79k6U+L9XmNQXwPW5KS9Z6Gcg7+vpVg8bBwYfD4V3I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fqj4SNg43vnrtuNdsMrbCWu/d/3ZOo+MB4Uxgnf5khIhmd2365Ima98YOkB4PPLfpOdKX9sMTIKGC6csU4JNJonQOaQWwDluculjtHvuOzyRc9vZCinX2pStt8Ulvjw2zdeQr+WEiWKB2PklrJgw76BsyaYsAvXFicp+NG0dvAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com; spf=pass smtp.mailfrom=tenstorrent.com; dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b=W3UYRyOC; arc=none smtp.client-ip=74.125.224.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=kq43BWg08oJp9XfcxWiPgCE94PlR/VJ5nT+vmyNhoePUvVfy2R45u544sPRZTkbD2uL+B9ldir+CvIgC36HztD80BGsGfiaDAo06YEFDRbnj1RyO6PIbhZToJ15QAS2VOFzMC5F2hsghYU3Q63ic3W1pYP+RlaSZdmPE059IJQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fdeJWJra; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b="W3UYRyOC"
-Received: by mail-yx2-f42.google.com with SMTP id 00721157ae682-895fd505832so810167b3.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:52:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tenstorrent.com; s=google; t=1790272322; x=1790877122; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=l5iUQbHVoGs8+CjCsGk4c/TY+BmqzXWWcR0ocJIehM8=;
-        b=W3UYRyOCCUlfR0V5biCtyvIzeSt5vDf1cLOJTqVxGVFnoVgrKUzh/iTPbVYY2E4iH+
-         c1LBhX5O3jOWkQOlEV5j5QP8UVBsmxWRkNtS9FEyzRD2XoCHUoGD3ivl7qlXxll0sunT
-         TIo9VkdQAIysfSjAy3fS2M2VoSjjIPO4lnc+x208YFjFIM4hqA5NekPSSLvmguQKflih
-         hwb+1R1HhyaljVZMoxX6YheUdVBGODPCpBJKxyaw9yD2pe1qRaCbT3x37MY6Z32+7w7R
-         I4N8gNPnWdlYNDqbJ03bC391I/zY5+CS5HKdRx4wr3pR0BhARyfU596xwnWVbhDLlEFF
-         cW8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790272322; x=1790877122;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l5iUQbHVoGs8+CjCsGk4c/TY+BmqzXWWcR0ocJIehM8=;
-        b=bd1WczpGe03W/7ZdInVPRFAPSIEKFS1JQDX0pzPQ2J6EHTaUK1MpGuvkDcu+EvwVrP
-         eFTrHBiqadISHCo85LfR6E82GQ8xTAjrm6h2QzEde1cD84vd2b9oMNHpjYmqIc6V0lO8
-         6SCBZT2aW92XUCkgrN+GJib+8JX0wGnO6VR2rPI190YzWLbAGa+Z9XrPQ1MVuqSLbNKM
-         bb1+oYxrrNA53gy+bIBOq7W2BzFpd5Pf70TSGtLOyQr+Tpo9YV7B8j1Zwbi/mLuDq1AB
-         +ewNLzkWpyDtFDeEizjitc/pKnaYRYCwghwW9PUQjq97yNY+b/UeP0nImXfYkd91Z8qy
-         ySjw==
-X-Forwarded-Encrypted: i=1; AKwUvBxq0iDBCxE/ol/hdlKgZIV9+Z0BdXLHF+Ya3NyAJC1bPszzgCKc3izZghNZWK+UBWf0iDE9ANVPENbF+KE=@vger.kernel.org
-X-Gm-Message-State: AFuF++meRFgaOlqZKeFHE+fa6ROaR0d6QWOuRvK/0j1gCxU141z1gVsd
-	nUO/XiHaAU9kvMBqaDZSuKrjW70nXmlLMTyYrIDF18NNR1elFo7bnlwY9i2j1f2goSs=
-X-Gm-Gg: AYBFou3cwJOmolmk/nS+4tfOf/DEDm/h2f981rLQPSaSitxzdd5jOIOxZMl6oiTK8aW
-	3bnK/KyS8gOun15WF7hsCTbCocKEHfX85WkidYQEdJhztNVpxyzV6K83x6ixYk4VkAtxuC3kSmI
-	GWqvkE5GTm1fd6PmWeEJWROuv/Fl0IKbd738N57YHGdjU9vBp7EPR5aWsCMtZOZp+xVsLbFrmer
-	w/3AZusovuSMmliXHLj7gyg0gNcSNm1uXVjJKkLsxd3odn0tUsBpQ4/kSqx0mPSUZ0PjQgxOM13
-	kiORVtn2KRm/nn7puV8tMX0dtG51SZVl8E5f7/ynrfKBZCbphHuEzbts5qniJv+Kex6Wn1NAx7H
-	hGpR1FCpXuL8sBQf2B0LZCBupRtuL/7mrMmHGY5riRobGSWBlTg/Bh51qChrP9kR7THeaXqTSoI
-	UplUWhQqonKvt9VlBMRRPUQ9fHzIIYsZiZD/1tdarVaI/vzeBsvt0N1G/LIXfDCC73+3wjbyEtI
-	OphDgb0v4tLpvLPojq0npSXVoehfXdeVTuRsl/qSE4ek6N7
-X-Received: by 2002:a05:690c:312:b0:882:27d8:8ca6 with SMTP id 00721157ae682-8a64d9f08b4mr26331337b3.53.1790272321920;
-        Thu, 24 Sep 2026 10:52:01 -0700 (PDT)
-Received: from toolbox ([12.55.13.134])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a86106b298sm165627b3.46.2026.09.24.10.52.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 10:52:01 -0700 (PDT)
-Date: Thu, 24 Sep 2026 12:51:42 -0500
-From: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Drew Fustini <dfustini@oss.tenstorrent.com>, 
-	Joel Stanley <jms@oss.tenstorrent.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>, linux-riscv@lists.infradead.org, 
-	linux-clk@vger.kernel.org
-Subject: Re: [PATCH] clk: tenstorrent: use regmap_assign_bits() for
- conditional set/clear
-Message-ID: <lv37wl3d5oonioc562vl25hs5yfytqpi3qlmxk6c27tmjbvqrb@msrlsxkbisji>
-References: <20260924083439.461769-1-peng.fan@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fdeJWJra"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B21411F000FF;
+	Thu, 24 Sep 2026 17:52:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790272359;
+	bh=OkINFXz6xU9yuLQmb4zwHMO7aBPdxp0jx9EEkqHt9EU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fdeJWJraazo3+tmMym7ePO7SizkG/sOfxnWmtT8TjIt/bkM76s0R9z9vaZ3Aq6jfY
+	 +r69vLk04mNwATu/OP4nQLS8lbf+eVCQWZrkSz0nhcJIhwB8B0ToLfquWj6nGkNRQW
+	 gpQwJQ3uuWOkKQKcjDecJSWg8MAcYPG2cyFpHH9idKSc4KnUu2QFBaNjZFzKgh2QTK
+	 /e8/6jHkcF8dBMSO9mxqYop+N4iah5xUCcX6pFqoQ5xo04D/rmkcUvxAhXIa1nIEgd
+	 r9BMBGdIg6/sg+7zqTKxjzxiKEJh4mZ/+ylL1FG8IA12QRMRl6llO1gx1Zmt7H/3rq
+	 z3XwVAik2cPLQ==
+Date: Thu, 24 Sep 2026 19:52:36 +0200
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: WANG Rui <wangrui@loongson.cn>, Jianping Liu <frankljpliu@gmail.com>,
+	peterz@infradead.org, mingo@redhat.com, namhyung@kernel.org,
+	wangming01@loongson.cn, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Jianping Liu <frankjpliu@tencent.com>
+Subject: Re: [PATCH v2] perf annotate: Fix NULL pointer dereference in
+ loongarch_call__parse
+Message-ID: <arVjZFD8-amR8qFm@x2>
+References: <20260423103530.3938202-1-frankljpliu@gmail.com>
+ <CAHirt9hJ5tTnWhYFZM6TvaTyDxGcRa=zeta8iv0DqqxgfKUQFA@mail.gmail.com>
+ <CAP-5=fX37WjSviuitD8vintyY+EERwB-GMPpitarBqPFk49A3Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260924083439.461769-1-peng.fan@oss.nxp.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAP-5=fX37WjSviuitD8vintyY+EERwB-GMPpitarBqPFk49A3Q@mail.gmail.com>
 
-Hi,
+On Tue, Sep 15, 2026 at 03:47:38PM -0700, Ian Rogers wrote:
+> On Mon, Apr 27, 2026 at 8:53 PM WANG Rui <wangrui@loongson.cn> wrote:
+> > On Thu, Apr 23, 2026 at 6:35 PM Jianping Liu <frankljpliu@gmail.com> wrote:
+> > > Rather than aborting parse with -1 (which would clear dl->ins.ops and
+> > > lose the is_call attribute, preventing the TUI from drawing branch
+> > > arrows and navigating the call), follow the same pattern as the generic
+> > > call__parse() in util/disasm.c: when the symbol name is absent, jump to
+> > > the address-based symbol lookup so that ops->target.sym can still be
+> > > resolved via maps__find_ams() using the already-parsed target address.
+> > > This preserves is_call semantics and keeps TUI navigation working.
 
-On Thu, Sep 24, 2026 at 04:34:38PM +0800, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
-> 
-> Replace if/else blocks using regmap_set_bits()/regmap_clear_bits() with
-> the simpler regmap_assign_bits() call.
-> 
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
->  drivers/clk/tenstorrent/atlantis-prcm.c | 11 +++--------
->  1 file changed, 3 insertions(+), 8 deletions(-)
+> > > - Link to v1: https://lore.kernel.org/all/20260423053102.3717015-1-frankljpliu@gmail.com/
 
-Thanks for the fix.
+> > > Fixes: 4ca0d340ce20 ("perf annotate: Fix instruction association and parsing for LoongArch")
+> > > Signed-off-by: Jianping Liu <frankjpliu@tencent.com>
+> > > Reviewed-by: Ming Wang <wangming01@loongson.cn>
 
-Reviewed-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+> > Tested-by: WANG Rui <wangrui@loongson.cn>
+ 
+> Acked-by: Ian Rogers <irogers@google.com>
 
-> 
-> diff --git a/drivers/clk/tenstorrent/atlantis-prcm.c b/drivers/clk/tenstorrent/atlantis-prcm.c
-> index 6d4386eeb7dae..854b9c48816f2 100644
-> --- a/drivers/clk/tenstorrent/atlantis-prcm.c
-> +++ b/drivers/clk/tenstorrent/atlantis-prcm.c
-> @@ -205,14 +205,9 @@ static int atlantis_clk_gate_endisable(struct clk_hw *hw, int enable)
->  {
->  	struct atlantis_clk_gate *gate = hw_to_atlantis_clk_gate(hw);
->  
-> -	if (enable)
-> -		return regmap_set_bits(gate->common.regmap,
-> -				       gate->config.reg_offset,
-> -				       gate->config.enable);
-> -	else
-> -		return regmap_clear_bits(gate->common.regmap,
-> -					 gate->config.reg_offset,
-> -					 gate->config.enable);
-> +	return regmap_assign_bits(gate->common.regmap,
-> +				  gate->config.reg_offset,
-> +				  gate->config.enable, enable);
->  }
->  
->  static int atlantis_clk_gate_enable(struct clk_hw *hw)
-> -- 
-> 2.50.1
-> 
+Thanks, applied to perf-tools-next, for v7.4.
+
+- Arnaldo
