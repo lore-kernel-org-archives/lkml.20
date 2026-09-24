@@ -1,203 +1,238 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D85CE44065A
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:33:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75CEB479893;
+	Thu, 24 Sep 2026 11:34:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790249637; cv=none; b=ItE/rSFIhuYsorkyxk8FXuDF2lbY69iAEHMGFlGtq9KnW552Kjq/1BNmpFI1VNd8Q6utaFoltKqd81Yr9EKZsdKwf4H4TTu3eDlA3Pn3lZdvGiS6ifT7AcjqWjvwcSRLURpoR2RpkKPISqw07dF1fy8k05I3kAtfVH7m+mhf/i8=
+	t=1790249676; cv=none; b=UdfyhGSOU4ImaAGS5euix7rccKpfyTMOTamJGdO181L/bUdVsvuaWBvuCIGGNJCTOUZJNnJSTpl/WYaPNWT5OELquDDfbadRrebdqIEMp8fx7jHTNz4oygavcH30/45pDNc1+3qmr0HwuhVO/eugpmFblEJKgCAyLVKHi/xJllI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790249637; c=relaxed/simple;
-	bh=xz9dxi3INaU36pJpNlvgHWawp1/NGShtakUc/gOosvI=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=DCyn9bbCSN5hlNmLUCBoEp/Oy2Yfn61/fN1AfAP7z/ztd2iMTa1j1V3UklxZ63YzO8UrIWy1rvt7qhm7m1a1W2Is231Ax6wEI+S04ko6lr7k/S0c/6Bo/CPPzJYCKGRPNhMuggYenJPyKsDihHtdImLW/0rT3ZEQv/8gQvVpUFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SXymEBl5; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790249676; c=relaxed/simple;
+	bh=U/5jxIvqAMJSzYIFoerpkjY38kslGt38ihMa4APLokI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=C8AEjFELmZj6PC7nBgnQ6X8Ji1MQFv1Ky5YDevHf2lSOullmZbU3gfqQ0SqvVcYIhBAaHwQkG33TZQkp7KushqwRMby2/x+EsRGXW1Gc9KDQyj7iQOjZ1LAEX3qDWpbRS0kFjAcQfQS6rvK7cXjkiIov9vNNiKVGfBoA1Dq6yTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=E247WkLQ; arc=none smtp.client-ip=65.21.61.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SXymEBl5"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71cdb22bso14344565e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:33:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790249629; x=1790854429; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3Q9bv5GdJS4737ZoflJrDPxuZu2bDsMMhiRIqFZTTwg=;
-        b=SXymEBl5mkPDEqgdQD/07QFHI0ZqPsCFqzb4iA5SKwEteGdbc2X/C2MmvL+1lAxMwk
-         t2d3xfRNKBFgj9tVTj0vaeMz0rSaz0Pslg9jBlbOa1dHa6l2TG9xLST2nf4Fct/RWStT
-         vu5aTEMuZORu837Nn8PwyBmjG/NVbStka4rT1oZe/NL9dvasP/oPH39rGOocvfEseruu
-         CqV3DSNOl7AGNoRnZ6Dtf1ikNL3PJcTGhTEQ3F8+s2YKjAbHtWpdCMUKdfsn3lhz5bFf
-         +NdTDymd1Pw38BQKAKESu6r/jnb1j6f1pe4cu2UfejymWwk08Zm7WSOPjcSl8bmptUjP
-         xsHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790249629; x=1790854429;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3Q9bv5GdJS4737ZoflJrDPxuZu2bDsMMhiRIqFZTTwg=;
-        b=BES8xJllExbRkqJQ00g+4Zam+vjjNF0hq1QF4sRbj39U831tiZ2CQO5KUgTgg6dpga
-         OW2Sfys0f8GiuHUPtA0pCra6gGFg1c/08fRB7Tdfq1pXG+CbZGtq/bHEJFqc9nKX9sae
-         h30L1MioUOF0PzP9nGd49KCNqUMzAbFxwApi6lMKLz7SodTgiQt1SJdIOsMORGpXGp2E
-         qK3t7LagVyBfMoHVMR3SV23HgZWOPwfhVB2e1LfePOT0UssP+stkWJoR75gHZKRJADzI
-         BOUsnpum/aKFfHI2eb0VKAZ86dnnP+AaVPkx3JgZ/J21mw2CI/zKTANpJNtLwr1qhW/d
-         t7Hw==
-X-Forwarded-Encrypted: i=1; AKwUvBw6rXbXjMh+vzGSthbRM1aI7HH6uhxS/3Dr2ZxWRbIAnitTB5MrC+A4eWgn2PxdVklqhH4DvhlqMMPduP0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mZyO2BTYNhjrMRTxMTMqrr9Q45cheqwJdgbDWJ+V5eMmdfx9U0
-	7FNIx+5qrIo9E8yrtxBfyp8GyISxRzw7nN9GhFGQWi3q5sYtSw9jVdD6
-X-Gm-Gg: AYBFou3zztmboW9MuroRZVbxvt+s3lNBfmrTvIQHS5XBjdf16k76jALzAynvhc17UXQ
-	0vyjaMzrGiuIqOPiTi5/ZXO2+Bi3hV55B8etUN7Ze7z04Aq4kcHobpYEvlQK5npxjkBdMmL9gSi
-	P34O4PTD9TOBcGhDpDOiZuGTdBIMZAktbVixYpofJ0IT3f9Y5VJz1NNqiaqOfwNLJGuYk32U3Va
-	0LCH2j7GVuuA7ngJKnGJgXXgCJcNwiMNBxtjF7HefHqKZmFnAWgbZ88lbJJDLIRcrVsq9rtrx5m
-	cwHw9uFRK5AWDAP5wZH8ITCpEa8QOuRo2BbsVX1qNYEjN8KowU/bOXZj6UNMRuOWXrQ0Z9SIB/n
-	29MM7YoqOQb7XiHj2OUmEPWWNwENzPLkednNrsllyDuRarsobZxQWo+yDDYg8k6LzPjqUWVfoLo
-	v11AWIsDGmeZQ4ca3YEL0vuGSWrWpbsxMIiJ7oDj+bZI6ducxzEwG8DSvDwJfR6+3nNrk5CpDEG
-	RYRmwiaY21bM31dsCfD3fbPyNL9sOPewjE60g==
-X-Received: by 2002:a05:600c:4594:b0:49e:6249:268b with SMTP id 5b1f17b1804b1-49fe6707f69mr40469475e9.32.1790249629279;
-        Thu, 24 Sep 2026 04:33:49 -0700 (PDT)
-Received: from [192.168.20.170] (5403F394.catv.pool.telekom.hu. [84.3.243.148])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488682668dcsm15098556f8f.1.2026.09.24.04.33.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 04:33:48 -0700 (PDT)
-Message-ID: <f2ccd6b6-e5a2-4d36-a12c-124638c31280@gmail.com>
-Date: Thu, 24 Sep 2026 13:33:46 +0200
+	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="E247WkLQ"
+Message-ID: <a2eea40a-fe81-4aac-85f9-d0a85bb99e26@aliel.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
+	s=courrier-s1; t=1790249661;
+	bh=U/5jxIvqAMJSzYIFoerpkjY38kslGt38ihMa4APLokI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=E247WkLQcQMT1igSWXHSdp3PgpUdBFM1eDSBfaK622ZJKF3cTs8fO8jx4CdLLp6V3
+	 GiS5z+d1P2mJLTbU2236srkwHxQjnoyU2iX6leRaEDPITHlZz+5wi/H9OKeBvqm15j
+	 JqjKaLKFLPiP1YsDgJf9RG0iiGiS0i/sKwz8PuPE=
+Date: Thu, 24 Sep 2026 13:33:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Gabor Juhos <j4g8y7@gmail.com>
-Subject: Re: [PATCH] clk: qcom: gcc-ipq5018: mark 'gpll0_main' clock as
- critical
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abel Vesa <abel.vesa@oss.qualcomm.com>,
- Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
- Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>,
- Sricharan Ramabadhran <quic_srichara@quicinc.com>
-Cc: Stanislaw Pal <kuncy7@gmail.com>, Mieczyslaw Nalewaj <namiltd@yahoo.com>,
- Jie Luo <jie.luo@oss.qualcomm.com>, Georg Seema <georgseema@gmail.com>,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260918-ipq5018-mark-gpll0_main-critical-v1-1-fbe8f27a0106@gmail.com>
- <e16cf23c-82aa-465b-81b2-6240f4a0f4d9@oss.qualcomm.com>
-Content-Language: hu
-In-Reply-To: <e16cf23c-82aa-465b-81b2-6240f4a0f4d9@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v2 3/3] arm64: dts: amlogic: add T7 peripheral nodes
+To: xianwei.zhao@amlogic.com
+Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+References: <20260924-t7-node-new-v2-0-319d3c19b4b2@amlogic.com>
+ <20260924-t7-node-new-v2-3-319d3c19b4b2@amlogic.com>
+Content-Language: en-US
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+In-Reply-To: <20260924-t7-node-new-v2-3-319d3c19b4b2@amlogic.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi Konrad,
-
-2026. 09. 23. 15:32 keltezéssel, Konrad Dybcio írta:
-> On 9/18/26 11:27 AM, Gabor Juhos wrote:
->> On IPQ5018, the APCS core clock feeds the CPUs. It can use
->> different clocks as its parent, but during system boot it
->> utilizes GPLL0.
->>
->> Under some cicumstances, the 'gpll0_main' clock is getting
->> disabled during kernel start which results in a system hang
->> then the hardware watchdog restarts the board after a while.
->>
->> This can happen when a driver gets a clock in its probe function,
->> then releases it either directly or by devres cleanup on probe
->> failure.
->>
->> For example, since v6.18 the kernel often fails to boot on the
->> TP-Link Archer AX55 v1 board by using the in-tree dts. In the
->> failing configuration, the 'ipq-cmn-pll' driver is built into
->> the kernel and the problem is caused by the pm_runtim_put()
->> call in the ipq_cmn_pll_clk_probe() function. Due to this call,
->> runtime pm disables the 'gcc_cmn_blk_ahb_clk' clock asynchronously
->> which results in disabling 'gpll0_main' as well.
->>
->> Mark the clock as critical in order to avoid such hangs.
->>
->> Cc: stable@vger.kernel.org
->> Fixes: e3fdbef1bab8 ("clk: qcom: Add Global Clock controller (GCC) driver for IPQ5018")
->> Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
->> ---
->> Note:
->> There is a patch [1] awaiting upstream which intends to solve the
->> problem in the case of the 'ipq-cmn-pll' driver. However the same
->> hang can be reproduced with several other drivers by triggering a
->> probe failure in them.
->>
->> The actual patch aims to solve the root cause.
+On 9/24/26 7:51 AM, Xianwei Zhao via B4 Relay wrote:
+> From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 > 
-> This is a good workaround. Ideally, we would resolve why this
-> happens in the first place.
+> Add device tree descriptions for the peripherals on the Amlogic T7
+> SoC and the T7 A311D2 AN400 board.
 > 
-> At a glance, we have the CPUs consuming
-> &apcs_glb APCS_ALIAS0_CORE_CLK
+> Add support for the T7 Ethernet controller, SPI controllers, I2C
+> controllers, UARTs, pinctrl groups, regulators, and reserved memory.
+> Also enable the Ethernet controller on the AN400 board.
 > 
-> which takes XO/GPLL0/A53PLL as parents.
+> Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+> ---
+>  .../boot/dts/amlogic/amlogic-t7-a311d2-an400.dts   | 153 +++++++
+>  arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi        | 462 +++++++++++++++++++++
+>  2 files changed, 615 insertions(+)
+>
+
+ --snip--
+
+> +
+>  				pwm_a_pins: pwm-a {
+>  					mux {
+>  						groups = "pwm_a";
+> @@ -622,6 +848,51 @@ uart_a: serial@78000 {
+>  				status = "disabled";
+>  			};
+>  
+> +			uart_b: serial@7a000 {
+> +				compatible = "amlogic,t7-uart", "amlogic,meson-s4-uart";
+> +				reg = <0x0 0x7a000 0x0 0x18>;
+> +				interrupts = <GIC_SPI 169 IRQ_TYPE_EDGE_RISING>;
+> +				clocks = <&xtal>, <&clkc_periphs CLKID_SYS_UART_B>, <&xtal>;
+> +				clock-names = "xtal", "pclk", "baud";
+> +				status = "disabled";
+> +			};
+> +
+> +			uart_c: serial@7c000 {
+> +				compatible = "amlogic,t7-uart", "amlogic,meson-s4-uart";
+> +				reg = <0x0 0x7c000 0x0 0x18>;
+> +				interrupts = <GIC_SPI 170 IRQ_TYPE_EDGE_RISING>;
+> +				clocks = <&xtal>, <&clkc_periphs CLKID_SYS_UART_C>, <&xtal>;
+> +				clock-names = "xtal", "pclk", "baud";
+> +				status = "disabled";
+> +			};
+> +
+> +			uart_d: serial@7e000 {
+> +				compatible = "amlogic,t7-uart", "amlogic,meson-s4-uart";
+> +				reg = <0x0 0x7e000 0x0 0x18>;
+> +				interrupts = <GIC_SPI 171 IRQ_TYPE_EDGE_RISING>;
+> +				clocks = <&xtal>, <&clkc_periphs CLKID_SYS_UART_D>, <&xtal>;
+> +				clock-names = "xtal", "pclk", "baud";
+> +				status = "disabled";
+> +			};
+> +
+> +			uart_e: serial@80000 {
+> +				compatible = "amlogic,t7-uart", "amlogic,meson-s4-uart";
+> +				reg = <0x0 0x80000 0x0 0x18>;
+> +				interrupts = <GIC_SPI 172 IRQ_TYPE_EDGE_RISING>;
+> +				clocks = <&xtal>, <&clkc_periphs CLKID_SYS_UART_E>, <&xtal>;
+> +				clock-names = "xtal", "pclk", "baud";
+> +				status = "disabled";
+> +			};
+> +
+> +			uart_f: serial@82000 {
+> +				compatible = "amlogic,t7-uart", "amlogic,meson-s4-uart";
+> +				reg = <0x0 0x82000 0x0 0x18>;
+> +				interrupts = <GIC_SPI 173 IRQ_TYPE_EDGE_RISING>;
+> +				clocks = <&xtal>, <&clkc_periphs CLKID_SYS_UART_F>, <&xtal>;
+> +				clock-names = "xtal", "pclk", "baud";
+> +				status = "disabled";
+> +			};
+> +
+
+Thank you for this change Xianwei.
+Can you please move the UARTs in the right place between i2c_ao_a and
+i2c_ao_b ?
+
+>  			gp0: clock-controller@8080 {
+>  				compatible = "amlogic,t7-gp0-pll";
+>  				reg = <0x0 0x8080 0x0 0x20>;
+> @@ -688,6 +959,39 @@ sec_ao: ao-secure@10220 {
+>  				amlogic,has-chip-id;
+>  			};
+>  
+
+--snip--
+
+>  			pwm_ab: pwm@58000 {
+>  				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
+>  				reg = <0x0 0x58000 0x0 0x24>;
+> @@ -756,6 +1138,86 @@ pwm_ao_cd: pwm@60000 {
+>  				status = "disabled";
+>  			};
+>  
+> +			i2c0: i2c@66000 {
+> +				compatible = "amlogic,t7-i2c", "amlogic,meson-axg-i2c";
+> +				reg = <0x0 0x66000 0x0 0x48>;
+> +				interrupts = <GIC_SPI 160 IRQ_TYPE_EDGE_RISING>;
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				clocks = <&clkc_periphs CLKID_SYS_I2C_M_A>;
+> +				status = "disabled";
+> +			};
+> +
+> +			i2c1: i2c@68000 {
+> +				compatible = "amlogic,t7-i2c", "amlogic,meson-axg-i2c";
+> +				reg = <0x0 0x68000 0x0 0x48>;
+> +				interrupts = <GIC_SPI 161 IRQ_TYPE_EDGE_RISING>;
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				clocks = <&clkc_periphs CLKID_SYS_I2C_M_B>;
+> +				status = "disabled";
+> +			};
+> +
+> +			i2c2: i2c@6a000 {
+> +				compatible = "amlogic,t7-i2c", "amlogic,meson-axg-i2c";
+> +				reg = <0x0 0x6a000 0x0 0x48>;
+> +				interrupts = <GIC_SPI 162 IRQ_TYPE_EDGE_RISING>;
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				clocks = <&clkc_periphs CLKID_SYS_I2C_M_C>;
+> +				status = "disabled";
+> +			};
+> +
+> +			i2c3: i2c@6c000 {
+> +				compatible = "amlogic,t7-i2c", "amlogic,meson-axg-i2c";
+> +				reg = <0x0 0x6c000 0x0 0x48>;
+> +				interrupts = <GIC_SPI 163 IRQ_TYPE_EDGE_RISING>;
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				clocks = <&clkc_periphs CLKID_SYS_I2C_M_D>;
+> +				status = "disabled";
+> +			};
+> +
+> +			i2c4: i2c@6e000 {
+> +				compatible = "amlogic,t7-i2c", "amlogic,meson-axg-i2c";
+> +				reg = <0x0 0x6e000 0x0 0x48>;
+> +				interrupts = <GIC_SPI 164 IRQ_TYPE_EDGE_RISING>;
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				clocks = <&clkc_periphs CLKID_SYS_I2C_M_E>;
+> +				status = "disabled";
+> +			};
+> +
+> +			i2c5: i2c@70000 {
+> +				compatible = "amlogic,t7-i2c", "amlogic,meson-axg-i2c";
+> +				reg = <0x0 0x070000 0x0 0x48>;
+> +				interrupts = <GIC_SPI 165 IRQ_TYPE_EDGE_RISING>;
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				clocks = <&clkc_periphs CLKID_SYS_I2C_M_F>;
+> +				status = "disabled";
+> +			};
+> +
+> +			i2c_ao_a: i2c@76000 {
+> +				compatible = "amlogic,t7-i2c", "amlogic,meson-axg-i2c";
+> +				reg = <0x0 0x076000 0x0 0x48>;
+> +				interrupts = <GIC_SPI 330 IRQ_TYPE_EDGE_RISING>;
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				clocks = <&clkc_periphs CLKID_SYS_I2C_AO_A>;
+> +				status = "disabled";
+> +			};
+> +
+> +			i2c_ao_b: i2c@86000 {
+> +				compatible = "amlogic,t7-i2c", "amlogic,meson-axg-i2c";
+> +				reg = <0x0 0x086000 0x0 0x48>;
+> +				interrupts = <GIC_SPI 331 IRQ_TYPE_EDGE_RISING>;
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				clocks = <&clkc_periphs CLKID_SYS_I2C_AO_B>;
+> +				status = "disabled";
+> +			};
+> +
+>  			sd_emmc_a: mmc@88000 {
+>  				compatible = "amlogic,t7-mmc", "amlogic,meson-axg-mmc";
+>  				reg = <0x0 0x88000 0x0 0x800>;
 > 
-> GPLL0 is a child of GPLL0_MAIN, so this should never be gated in
-> practice. devlink and probe deferrals should make sure you always
-> get a valid clock handle for the cpufreq driver..
 
-Yes, the cpufreq driver gets a valid clock handle. However the hang happens
-early, when the 'apcs_alias0_core' clock is not registered yet. So CCF does not
-know that the clock (hence the CPU) is a consumer of GPLL0.
 
-The reason behind the late registration of the 'apcs_alias0_core' clock is that
-probing of the 'mailbox@b111000' device is deferred probably because it requires
-the '&a53pll' and the '&gcc GPLL0' clocks. This can be easily seen by enabling
-debug in 'drivers/base/dd.c':
-
-...[    0.627289] platform b111000.mailbox: bus: 'platform':
-__driver_probe_device: matched device with driver qcom_apcs_ipc
-[    0.627535] platform b111000.mailbox: Added to deferred list
-...
-[    0.967199] platform 9b000.clock-controller: bus: 'platform':
-__driver_probe_device: matched device with driver ipq_cmn_pll
-[    0.974373] platform 9b000.clock-controller: bus: 'platform': really_probe:
-probing driver ipq_cmn_pll with device
-...
-### without the patch, the hang happens here ###...
-[    2.272775] platform b111000.mailbox: Retrying from deferred list
-[    2.280683] platform b111000.mailbox: bus: 'platform': __driver_probe_device:
-matched device with driver qcom_apcs_ipc
-[    2.286054] platform b111000.mailbox: bus: 'platform': really_probe: probing
-driver qcom_apcs_ipc with device
-[    2.301354] platform qcom,apss-ipq6018-clk.0.auto: bus: 'platform':
-__driver_probe_device: matched device with driver qcom,apss-ipq6018-clk
-[    2.306621] platform qcom,apss-ipq6018-clk.0.auto: bus: 'platform':
-really_probe: probing driver qcom,apss-ipq6018-clk with device
-[    2.323267] qcom,apss-ipq6018-clk qcom,apss-ipq6018-clk.0.auto: driver:
-'qcom,apss-ipq6018-clk': driver_bound: bound to device
-[    2.332307] qcom,apss-ipq6018-clk qcom,apss-ipq6018-clk.0.auto: bus:
-'platform': really_probe: bound device to driver qcom,apss-ipq6018-clk
-[    2.342573] qcom_apcs_ipc b111000.mailbox: driver: 'qcom_apcs_ipc':
-driver_bound: bound to device
-[    2.355998] qcom_apcs_ipc b111000.mailbox: bus: 'platform': really_probe:
-bound device to driver qcom_apcs_ipc
-Now that the 'apcs_alias0_core' clock is registered, the cpufreq driver can
-switch the clock's parent from GPLL0 to A53PLL:
-
-[    2.427166] platform cpufreq-dt: Retrying from deferred list
-[    2.437131] platform cpufreq-dt: bus: 'platform': __driver_probe_device:
-matched device with driver cpufreq-dt
-[    2.442776] platform cpufreq-dt: bus: 'platform': really_probe: probing
-driver cpufreq-dt with device
-[    2.461285] cpufreq: cpufreq_policy_online: CPU0: Running at unlisted initial
-frequency: 799999 kHz, changing to: 800000 kHz
-[    2.479751] cpufreq-dt cpufreq-dt: driver: 'cpufreq-dt': driver_bound: bound
-to device
-[    2.481435] cpufreq-dt cpufreq-dt: bus: 'platform': really_probe: bound
-device to driver cpufreq-dt
-
-I have not found a better solution which prevents 'gpll0_main' from being
-disabled until the 'apcs_alias0_core' clock gets registered.
-
-On the vast majority of the boards, one or more consumers of the PLL are always
-active during runtime, so in practice it always runs anyway.
-
-Regards,
-Gabor
+-- 
+Best regards,
+Ronald
