@@ -1,94 +1,123 @@
-Received: from mail-wr2-f14.google.com (mail-wr2-f14.google.com [74.125.225.78])
+Received: from mta1.migadu.com (out-245.mta1.migadu.com [95.215.58.245])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC14141D21A
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:41:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0342545C6F8
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:42:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.245
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790289687; cv=none; b=oiYn7b7PcJIagvcgFE2ILBI0GpwKidhfx/tQuTV9hkHl3RsXhizkPZKcZYQmdIrwOQmQ1/CeqceBy4tXApXWbU2n9IpTF2ErrXFxv3gUAannlhN5lHCIeibaW4nyqixmU4jYc6xBtusPgTlTinLELqHgZT+I+PAjkaOfH83lZH0=
+	t=1790289762; cv=none; b=deLOWn6uU27zGpZBn6o0eMqyJB3H5BmQPE3wTWov1RiXhUc9PV1y7Q6HCUaJgVBPrFOf4Rb3XprZJajIZDE6A2HQuJ1ga73WGXbFl3KOaPnbuirwgzrlweQ6xRHMNNAbt2lEROF6CKllvrey0Aw5xVwckhNQGVPFWl4LeDr45bc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790289687; c=relaxed/simple;
-	bh=TUXt6ktVt4Gz6z6+4bfN0D+POleMHD4yZINwWeHeufQ=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=XZjZrc0tNE4N59XhtdtOV6NvqcjPk4jacdRDLKQ6lKUkCF8jLBmOykzK//KGnYKk8ZGf4Z7kJfWbLhaBsdvM6VGz2SXAgpdTrMMDfCik4mtIdzTINixXcgh0lSTnDBq38RXVz4ksM//KTse0yR9Gb519UoTlJq2oHWi5PXePptc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IJOYKVGz; arc=none smtp.client-ip=74.125.225.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790289762; c=relaxed/simple;
+	bh=WRPL/H0LrA/BKC4g71mMipRThq8ER0G25bE1inVY1ww=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=E2HEbkz8N1PPwMFqYffw/5hdZowh+yR0nNqEn3QJpyf+fwX6M4xN6AXy6EQZSP2bK5KsaXepDZi4N3rNvZFkiZONOvbFPKz7tcbBRUT+HMueX6Q7uWF5FKHTna+VkZVhrJWFZi9oWC3Rc4SQs/0PB0KvTLUXBqPZukhB902j9jg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev; spf=pass smtp.mailfrom=cressey.dev; dkim=pass (2048-bit key) header.d=cressey.dev header.i=@cressey.dev header.b=i4oaVE8b; arc=none smtp.client-ip=95.215.58.245
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cressey.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IJOYKVGz"
-Received: by mail-wr2-f14.google.com with SMTP id ffacd0b85a97d-482f6350f88so164920f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:41:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790289684; x=1790894484; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=pbq8cg5hzV5CsgrEJBLzOPDrWzTdUyY1xmmm7QhjguM=;
-        b=IJOYKVGzTk4I+9HZPZvJ33aLiJ2TzL7RRTWomONTWpRusH9cr/jwI5wj89t7hUIaMc
-         dBVbcLoWIKGmSJikOlcSvmZTqXc8xv2NO4jVa7/4tc9oRoSTJvZxMUZM88MpVaorFRfs
-         14mtiaOqPTG/Idmiqmt2DeOl/yMtuvCcaMjARlu043LCJnRMnYFCYjG6OiDZAZuSA/tP
-         rPeeI+t/QQ3+S8kYRq8gN05Be+UG/A1eVKQJvHC1V/cdjEXLp0QJFbfn+de8oXg/3Eib
-         A3bqV+SIdHbcvbnLWKcipuHyHIAYUpofyrTaayNiEfYrKkn7UDgA6UklLXbHkEo8vSwb
-         UqIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790289684; x=1790894484;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pbq8cg5hzV5CsgrEJBLzOPDrWzTdUyY1xmmm7QhjguM=;
-        b=k0MRKLUgg1oj4O08F1GerXyEkTSbCm2RK+5UtccOFnw17N0T1FErd8DMYlASmWIijA
-         04DSFWlzh+xysvd5qELpMeKAAjTgUNcO4z2IZlqqW55ppRFw8hVeEhR3wYhSBy8k3O6S
-         pgZ9j+K2rIJgDGafYj9YD5/l8GkNQHtdIEIQK8N8qEU70cbog/hpVgAuQWJISzmNXQLX
-         ug7RTBND8+O2ZHAEJdiRoG0C2u39gBJtKdGRrsf9c56/AbpoIlcl77GDlWTCm56biryi
-         LGrmK1mAH0BElY2ouBADXXoSQ8A8U6dgY928qLZUt1RI5NDdwarT7pnelDHfPwchOon/
-         EYjg==
-X-Gm-Message-State: AFuF++n97M7GCVkCxEcGX9hXhANWQCV806LnQiTNJ2RTKn/IzRYiGlKq
-	E1vwvKTx6qWcXMYdmQIkRUsv+mvu+71z3arj1BuZRS2C2JkobU94wX6q
-X-Gm-Gg: AYBFou1+UKWD7u8Tx2vG/nByxuCbFzser5Q+oT2nuOhQ685nrXcCXkiDE2PtArTTJlC
-	pyGShWE9dbmL9glcXpn4cYVWOtLMVJD8i6XkrC3/qrKCpU7dPRbCajxrkORc+2y2b9MEuDN3Tdf
-	4es3vlBq5Mwh5r1AQB9Iemav07uoK9mTUF+6lM837Zk/FzVuLPwceOFz40BwOzr17QjscwXX+66
-	p8WjGfaQDxF+srqulIV5HlA1n87974UDGtYcTP5RMiaUv2H/F96qB2R5viEeIgMGl1df1Iot5Dq
-	P5C4BnrfNpz8dxKP6kTnnkCFeJeBdMXrTwZnxAcePRJnwgO4qXDT4wteFgsQdUqhLQ8vz5E9z13
-	NnRXS03Eg526EhrvlbhK+VX9myu4WifXR9O5anFL5kfTUmkNHTTKuik5RsQgz7xW/sq5HKeADiG
-	QmqfvNxB34Feee2H89S+TTp/SK4t/HkMpSpA8zTU3qSQOM5JXLqyv5hHAZ1YZqPB6BHCVTQoy2x
-	AirWWtz+tpsmWAPsYledvZk
-X-Received: by 2002:a05:6000:25e7:b0:487:35d:cb0f with SMTP id ffacd0b85a97d-4887da06e28mr508409f8f.14.1790289683867;
-        Thu, 24 Sep 2026 15:41:23 -0700 (PDT)
-Received: from ehlo.thunderbird.net ([2a01:e0a:880:2dc0:3e8d:e7d3:a406:828c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30b1dfsm2382883f8f.4.2026.09.24.15.41.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 15:41:23 -0700 (PDT)
-Date: Fri, 25 Sep 2026 00:41:21 +0200
-From: Arnaldo Melo <arnaldo.melo@gmail.com>
-To: Mark Brown <broonie@kernel.org>, Namhyung Kim <namhyung@kernel.org>
-CC: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
-Subject: Re: Missing signoff in the perf tree
-User-Agent: Thunderbird for Android
-In-Reply-To: <arWl_CVE0g8dSTSU@sirena.org.uk>
-References: <arWl_CVE0g8dSTSU@sirena.org.uk>
-Message-ID: <9D941A1A-2AAD-4542-BE8D-22B727A1A20B@gmail.com>
+	dkim=pass (2048-bit key) header.d=cressey.dev header.i=@cressey.dev header.b="i4oaVE8b"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=WRPL/H0LrA/BKC4g71mMipRThq8ER0G25bE1inVY1ww=;
+ c=simple/simple; d=cressey.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790289754; v=1; x=1790894554;
+ b=i4oaVE8bLv/ED1d5Nl5Gqu9MI+WLX+yM9hlB6irQH5h+gpWw/ik7fe7+30vD9T3YemMWJxWb
+ bORk3udMZd84ESjYUmqBWenEt4S1xQ4SYdoZIwD77EMkZGDqA7vLjFGK0vB2MHIlCjcaJxlBYTI
+ lj7mfs2aq7frZfQIkaSRVW5LOwsU1ZPe9G2KshQFcoQNfEYUrXXpDIClBSgniXjr3hcmKT9kvV4
+ Jw5uj+Xj040mmAB8BdokN8ji+b//UUFxhwLdBof+ffm8Q35QIVkOtJp84zkpGYemIWr15xQe0L+
+ irH8GaS/OkZFWfHmmY4VgYlFEKUxLGo0bo34gxND++73g==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9c16178fdf9bcaa3;
+	Thu, 24 Sep 2026 22:42:34 +0000
+X-Mizu-Trace-ID: 9c16178fdf9bcaa3
+X-Migadu-Flow: FLOW_OUT
+From: Ben Cressey <ben@cressey.dev>
+Date: Thu, 24 Sep 2026 22:42:30 +0000
+Subject: [PATCH] arm64: kexec: mark machine_kexec() __nocfi
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260924-arm64-kexec-nocfi-v1-1-bbae2e2eadc8@cressey.dev>
+X-B4-Tracking: v=1; b=H4sIAFWntWoC/2XMQQ6CMBCF4auQWTsRa63iVYyLMj5kNBbSqiEh3
+ N1Wly6/ybx/poSoSHSsZop4a9IhZGxWFUnvwxWsl2wytXF1Yyz7+HCW75ggHAbplG3j4Ox2tz8
+ IKO/GiE6nb/N0/jm92hvkWULlo/UJ3EYfpC+nwvVfl5blA0MBvFyeAAAA
+X-Change-ID: 20260924-arm64-kexec-nocfi-496e643578ce
+To: Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, Sami Tolvanen <samitolvanen@google.com>, 
+ Kees Cook <kees@kernel.org>, David Woodhouse <dwmw@amazon.co.uk>, 
+ kexec@lists.infradead.org, stable@vger.kernel.org, 
+ Ben Cressey <ben@cressey.dev>
+X-Mailer: b4 0.15.2
 
+When the loaded image needs relocation, machine_kexec() makes an
+indirect call into the copy of arm64_relocate_new_kernel in the control
+page:
 
+	kernel_reloc = (void *)kimage->arch.kern_reloc;
+	kernel_reloc(kimage);
 
-On September 25, 2026 12:36:44 AM GMT+02:00, Mark Brown <broonie@kernel=2E=
-org> wrote:
->Commit
->
->  4c09f6c47b769 ("perf annotate: Fix NULL pointer dereference in loongarc=
-h_call__parse")
->
->is missing a Signed-off-by from its author
+With CONFIG_CFI=y the kCFI check on this call loads a type hash from
+kern_reloc - 4. arm64_relocate_new_kernel is SYM_CODE_START and carries
+no hash. Its copy also sits at the start of the control page, which is
+all that TTBR0 maps at this point, so the load faults and the kernel
+oopses after "Bye!" instead of entering the new kernel:
 
-I'll fix and force push=2E
+ Unable to handle kernel paging request at virtual address 00000000544bfffc
+ Internal error: Oops: 0000000096000007 [#1]  SMP
+ pc : machine_kexec+0x104/0x274
+ Code: d5182008 d5033fdf aa1303e0 f9418a68 (b85fc110)
 
-- Arnaldo 
+b85fc110 is "ldur w16, [x8, #-4]" with x8 = kimage->arch.kern_reloc.
+The crash kernel and images loaded in place take the IND_DONE path
+through cpu_soft_restart() instead, which is SYM_TYPED_FUNC_START in
+.idmap.text and not affected.
+
+arm64_relocate_new_kernel cannot be given a type hash, since the linker
+script asserts that the relocation code starts at that symbol and a
+hash would have to precede it. Mark machine_kexec() __nocfi instead, as
+commit e2f8216ca2d8 ("arm64: Set __nocfi on swsusp_arch_resume()") did
+for the same pattern on the hibernate path and commit 2114796ca041
+("x86/kexec: Mark machine_kexec() with __nocfi") did on x86.
+
+Fixes: efc2d0f20a9d ("arm64: kexec: keep MMU enabled during kexec relocation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ben Cressey <ben@cressey.dev>
+Assisted-by: LLM
+---
+Functional check only, under QEMU TCG (-M virt,gic-version=3,its=off
+-cpu max -smp 2), v7.3-rc4 defconfig plus CONFIG_CFI=y, clang 21:
+"kexec -l" or "kexec -s -l" of the same Image then "kexec -e" oopses as
+above without the patch and reaches the second kernel with it.
+"kexec -p" plus sysrq-c reaches the crash kernel either way.
+---
+ arch/arm64/kernel/machine_kexec.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/kernel/machine_kexec.c b/arch/arm64/kernel/machine_kexec.c
+index 8f9bc2327dc85..7d218339b84a6 100644
+--- a/arch/arm64/kernel/machine_kexec.c
++++ b/arch/arm64/kernel/machine_kexec.c
+@@ -160,7 +160,7 @@ int machine_kexec_post_load(struct kimage *kimage)
+  *
+  * Called from the core kexec code for a sys_reboot with LINUX_REBOOT_CMD_KEXEC.
+  */
+-void machine_kexec(struct kimage *kimage)
++void __nocfi machine_kexec(struct kimage *kimage)
+ {
+ 	bool in_kexec_crash = (kimage == kexec_crash_image);
+ 	bool stuck_cpus = cpus_are_stuck_in_kernel();
+
+---
+base-commit: 93f51579e7df248780214094418f205253383cc5
+change-id: 20260924-arm64-kexec-nocfi-496e643578ce
+
