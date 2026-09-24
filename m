@@ -1,84 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1BC83D79F1;
-	Thu, 24 Sep 2026 15:13:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A79D5481FDD
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:14:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790262837; cv=none; b=EBNg/BqiPuRBlwk5nCyB8q2jc6dlM+iq2jppQ1Xp4HXHzUKsRaLXV9igCAJJ0TCrVKaAHDdvWylAsUjJ5Nl5q3ZwiZaHpqVZW7EvOh/j5+cihZAAvmZcyFwLOUZR5QaRcybLZbW2AskHNGninF4fCIEK7IJL+8tntkx1YFa6qqA=
+	t=1790262843; cv=none; b=Xq6H3LKm5SK+Lk26rPxC72Rz6XVYGh/r7+4fhiLXfeV9Mn3GZ7RAYuVzjCVgFHfUy2WnLyfOmT/bE9neIKXmqWz7EQooRUixPLFXiA0eBk7KnhTGY8L5v11kK+qhNq/fhqq0BpVfTqPn3Bv4ww2saisoK4B9QmOWy9LIAHtn6AA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790262837; c=relaxed/simple;
-	bh=6XkQK9w80p7dJTAMNACNwmZnVEtZV81AxqvERRb6Lr4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DDGsN+wHlpp3Rrdc+xARa/iw0dPilk+WgWgM2q4h9QejS/a9V05KE31Yt5kmFSpEOQoWH1sWLZG7TMHiowN9VDrXW3kWaPd2OptNKH87pavE8LIRQTwAHU9Yo9Jgtc9iGYcncvhhEp2X8kOLsnZiXPNB9nUR8LyYhXe3LZOcIu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dmMcxdAf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790262843; c=relaxed/simple;
+	bh=x1O8/O2UXdG8bgbf8ctl/AqJuBGjqEjvoL86ZZroXeU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CYG2rK4DyOWiBddQ2fD0lK8fdCEPrBfDMNK2kCQ6XFbchKEv8/zQ6gbc9vntPmJFNkAKCkbJJWoI8vT9zZyjY8p/BoxIKzfY36UcGgu6lqdyy9hQh9TYgX+7dkBzE3v1psiz5OsXXLxb8djjON9oOk3Uwr8rLcHlIQTN6hg4t0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QfJZ0q/U; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dmMcxdAf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBA351F000FF;
-	Thu, 24 Sep 2026 15:13:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790262835;
-	bh=6XkQK9w80p7dJTAMNACNwmZnVEtZV81AxqvERRb6Lr4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=dmMcxdAfk3hCOVw72ZOki+I/EUA1r+5HKEAZw5YrznQPKgJ3YgKf7FBtrpSI1Xl9P
-	 gtfbPlwRHjmAMfqRccA/Dfq4XhmAzzI2KKCBrjg8VV2RvdgrEgSQedzrL24KibclsU
-	 ga/EqDXFBhx94iSW0UOeZctcz6SZOwFnB2lTglUIBzZf+dZQJeRRMc+H0BuJSlWmb4
-	 d/pUrqb+pRekewHkZrHhZDAG6VT7o05irx0BLmqoY8rkjmPoDzAM+3yajfmMLx8uag
-	 1Wtw2zbAuKEQS7TGEjyqaoXotUXY1kKyCs9QtjhOd7OAdJPtow9wjRqL7FjCKOMZb/
-	 s2mf2X1s9M0wg==
-Date: Thu, 24 Sep 2026 08:13:54 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Victor Nogueira <victor@mojatatu.com>
-Cc: "Hemendra M. Naik" <hemendranaik@gmail.com>, davem@davemloft.net,
- edumazet@google.com, horms@kernel.org, jhs@mojatatu.com, jiri@resnulli.us,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- netdev@vger.kernel.org, pabeni@redhat.com, shuah@kernel.org,
- tahiliani@nitk.edu.in, vishy0777@gmail.com
-Subject: Re: [PATCH net-next v6 0/3] net/sched: sch_fq_pie: add per-flow
- class statistics
-Message-ID: <20260924081354.4d3c8e01@kernel.org>
-In-Reply-To: <CA+NMeC9CWgt9=0=_HjNH=Fsg7igmFqDS=VnqWh6tZBr98ZkPgQ@mail.gmail.com>
-References: <20260922180458.5c54ebb8@kernel.org>
-	<20260923040136.13432-1-hemendranaik@gmail.com>
-	<20260923195323.5413f128@kernel.org>
-	<CA+NMeC9CWgt9=0=_HjNH=Fsg7igmFqDS=VnqWh6tZBr98ZkPgQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QfJZ0q/U"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea50db3so1033325a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:14:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790262841; x=1790867641; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JBJqmeamutokU7TdhNuVh/m8OPs/5xYX4kjIXATZEUk=;
+        b=QfJZ0q/UymG93ySIV7S/xeOlnNyoe9oKiJrMnz/fJO2LsMAi+PEPNfMqvD3YTRxkeS
+         ZW7zqk3sryzhVxJAL7QAY3xmZkU6cIioWbMP6BwMD3psFuJTtz3TP6OazxDqQ9EkEgR+
+         hTMkOGDzks7amNtjt9IhFnhcBbIF1zFY82G8hAxU5wKEZA9LyJqJw8DU96C4fUnvArwV
+         /+8ew6uA9DUMBdMxxzvYERCfLeidmN3JiDjqP9eouilZ1S4UXjCwpusvdb0OozSkLm2m
+         zMANra8fJrY83RvzS2Yl78v8JiDil/KadZ4LlrReyDI3fMTGMLpUv6Uz7G/Fb87ilbnY
+         GvLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790262841; x=1790867641;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JBJqmeamutokU7TdhNuVh/m8OPs/5xYX4kjIXATZEUk=;
+        b=ATE8EHTZYLobL+G2y5PJJDfKdTUA4qgajjyJ0UhEBzKrayoexXjgPokZwj2kz9aexD
+         TT4izDVchOtb7Yxkpzblvz+53KPyZ0z1NE2NzTpjX+HdJ9suDoPCjnyl26+8ERTwNqQ9
+         HnKptU8HXjfSHSkR/kESW+liCzVL+LUTtnYnAIIygekQSrYIvQCF7rC9vpzBlJRmvMuX
+         sWps3D6+f+P8C3EXwq7PoD2DW/JHdKfY2m/OTng2k8qsjyfULwNdv9vnEFtumueY8Lpn
+         qC7djAFvAMT0xc/aR4Ue1ILiVuIJzStHuSvKlBikwW/0P3z6iBLNxiNM0HuZRI70Y+zI
+         XZew==
+X-Forwarded-Encrypted: i=1; AKwUvBwCqhsscI5frXAkyGOdvEaq68xbv+3bHeisq737S/mHuyVdKwOPn8UcOsnbL8w+K2gOJBT0koSICvHv7QU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nBkSkLhVk1eogRpDSeE4tPtur4MSNkJEF6tQ1JrMvoAnLllRB2
+	SRXBALhKaNl++4FavHmoJc/MiUGg+2EZXIOqSMgeJnR/reglGvy9hWdj
+X-Gm-Gg: AYBFou2oU4hquXYWWDImVdckaKfEgTpjDdNFfQXNI6tpfYxgBWiR4yAxW6sjjLJEPSk
+	lflAHIZ3ycmpPUgxbBuxrriSfyo/01217+us04AH3tMtLszYS4iOAHkCr7YzUK1xSa+SMGU3OQF
+	NLx2Zz/LN8E+75+iZ5IjSN0HPYt3cZ4Olw6iYm4JpmjTUp6J/nA6Y0KzUixf4VXagRV1xz24eQS
+	JlcrLdii+leD1Oh2mQDhOKg5IiPEqFjAL812kDoBSlbuaKjUhKMfuq2vXBCbROrOLdYgkWX7W1d
+	+vYJyzxdi1F2MltZGuABKSgynhzNSy7l1IEefbWuWPCIftk1stRNG0d/JRahDoPyAszVlX5YY8q
+	QwFvn00stWombsNb0UTvfky9cNTXrSjhfIJuJNVTlh2efBz7M5DdjqM8AtLgvz9ZWmm6dhH5S5l
+	xi1RNo3b7XBu0ibC8BqLwOtMl3K5YYPxTpRwqJQX6TqkfcfoLcLBzco1/NqUJ+yEc6+CR/1ConA
+	A0ClaMY4rK9tjB0EzWDWabNM6kiupAAeVePde8t8y2+Dz/0+ymfzRWg7FvjA87Wy7CwSP5xXZkJ
+	hR/mNYG0buuXvrpkV89hQQEInlmrkaQaYhWJFOiAHQXlCY6jCLmgMCN60eU=
+X-Received: by 2002:a05:6a20:9144:b0:3c4:3321:4fe9 with SMTP id adf61e73a8af0-3de0e70bbddmr2888071637.7.1790262840675;
+        Thu, 24 Sep 2026 08:14:00 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.6.151.236])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1dbd1e2asm3234800b3a.44.2026.09.24.08.13.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 08:14:00 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: jack@suse.cz
+Cc: benquike@gmail.com,
+	brauner@kernel.org,
+	viro@zeniv.linux.org.uk,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] isofs: reject short directory records in isofs_read_level3_size()
+Date: Thu, 24 Sep 2026 23:13:55 +0800
+Message-ID: <20260924151356.3287733-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <w3rnunloyshklgq4ocr4jsullzhaey6u7odstfoyhd4usbfppo@m33jyem5jgrf>
+References: <20260919222553.3792320-1-benquike@gmail.com> <20260923175215.1577791-1-matthias.goergens@gmail.com> <w3rnunloyshklgq4ocr4jsullzhaey6u7odstfoyhd4usbfppo@m33jyem5jgrf>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, 24 Sep 2026 08:35:34 -0300 Victor Nogueira wrote:
-> On Wed, Sep 23, 2026 at 11:53=E2=80=AFPM Jakub Kicinski <kuba@kernel.org>=
- wrote:
-> >
-> > On Wed, 23 Sep 2026 09:31:36 +0530 Hemendra M. Naik wrote: =20
-> > > Hi Jakub,
-> > >
-> > > We have vendored the temporary UAPI header changes into the GitHub
-> > > development branch (https://github.com/H-N41K/iproute2-next/tree/fq_p=
-ie_class_stats/)
-> > > as requested, so it should now build standalone in your CI pipeline.
-> > >
-> > > Please note that this header sync commit is not present in the offici=
-al
-> > > iproute2 patch submitted to the mailing list
-> > > (https://lore.kernel.org/netdev/20260922211139.38570-1-hemendranaik@g=
-mail.com/).
-> > > It was added to the GitHub branch strictly for validation and testing=
- purposes. =20
-> >
-> > Thanks!
-> >
-> > Victor, could you pull this into tdc as well? =20
->=20
-> Done, it's in tdc.
+Hi Honza,
 
-Thanks!
+On Thu 24-09-26 17:03:50, Jan Kara wrote:
+> Based on the standard empty directory blocks are not allowed (there must be
+> at least one directory record in each directory block). So I'd perhaps just
+> add checks to refuse them. Then the limit on the number of sections of inode
+> description already present in isofs_read_level3_size() will naturally take
+> care of the rest.
 
-https://lore.kernel.org/all/20260922205924.32173-3-hemendranaik@gmail.com/
+That's simpler, thanks.
 
-will return in net-next-2026-09-24--18-00=20
+Hui, would you like to do that?  If not, I'll send it in a few days.
+Either way, I'll first check a set of real images for empty directory
+blocks, so we know the check doesn't reject discs that mount today.
+
+Thanks,
+Matthias
