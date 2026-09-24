@@ -1,154 +1,191 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013056.outbound.protection.outlook.com [40.107.201.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f32.google.com (mail-wr2-f32.google.com [74.125.225.96])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0229E426D3F
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:10:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.56
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790237445; cv=fail; b=oYc3Pi1diimlMs9xAb1pAsd1cOjzSFVA4RcST4SO0CPGS11mKKTnoVEgjMQ9INLJuB0WKGJQIpaxDiuWCAwx7NkzQrcW5Ex5oCGhkOWvtAbEeaiKvI+Yf25JUCMBcOgBmQxY8Xsgi4pjJo4ZB5hpk3sMCSfQ1sRfoCC8zjCtf/8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790237445; c=relaxed/simple;
-	bh=OPm6f0wY7A5sfaNsBCk80RuHdZSy3EJ8VhRUi4rtvOI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=kU4WGVfNdOXy4eDmszYmA/m1n6xXPYwmZJntbGValKJ5MVHo9h0E+QcdVw+LDSKZO5kw72ykHGUIVM7hHN7pSjqkEpWPjJp0kjvifNL2b8xy6sNhIoO6NhOc8m3na0a/VRZp8KAcFhE9j7e4M84gw+68YeAszQTLTDeMHeNHyxY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=f0FcINO5; arc=fail smtp.client-ip=40.107.201.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E1DC279329
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:10:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.96
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790237448; cv=none; b=meYMo10SIYusu4N1WNjWke1yWlD74KCkwWFFwNd4Y4aHEga5oXEo0POhvWpR5vrg5pUeGnGpsvidsBXNRLpdBmu5VrpkT6aL8204ES+aClGU4YQ8TQqsJwrv7U+GXLt2lR0K9QFttwpYpzDZWYM+SOCEL/uxFzpCFRWpFuui7lQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790237448; c=relaxed/simple;
+	bh=1sYGNP9F77lssouZt/LAMY2DL27+FiDVLYPRFec36ao=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Y6r915+PRimmo6eXG+1SOVd9hebAwvZS+ziFIbGLEIm2gEhD/7v5DFzsYg7g7IAA9+uCYV2YJJwM+Ufc9WQEShqzURQtvJPo24UJakJEvBzF4Yw8KW4Gw4sOwXxrrIXWYYOJ7v2Qxmc5wzJqd2kJFUNRL1qkZY0PZie/uBepK0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n9wNdbrz; arc=none smtp.client-ip=74.125.225.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="f0FcINO5"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T+TCD4gJTQ0Z7XiVCtRO6t87UQ/fEWR6U9zcDxkFHuIUd4NgC4cPbc9S4VVxn1DUwGuSCCxJAJaMdmepX0M1Kpp5a6bQUGU/eecuXI0MAicQFeIQexpGXevdnzpu/l8LHAmzVbdSdSjjRpaaTTthiqcfScmYnlvZE4rqpNXYChqAuAdNNgaPTV4rf2RAZDB9YGC7yl9ErvdnjWdnpGeo5A7QJjfJyrZscNIxDC88Du6bMciuLhIMceGU99r3YNt3Cm/rHK8P7sYHeBIQJ2/fk4OTgF42k4qVk/saG2Tk/Mb67F4FnfR+9wM8u5Vn7SuCrcMRGw20PU/2uIHOhcN4ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0RSjUp7cNuERSu4nbA+W9hgdw75GP1RroM7etfe4gc0=;
- b=FJjAAUCviqaSxh51UX0SDlCcVFTZ7pDHbfLetN6D38tPO0vn/LXth8ZisKn42A2uqi8wSanLqDSzR2T2uSZvDJjjYtOXxrff/U9w+5enwDtQS2dPiLNj0XDmzp5eiMDpp9GnGxcR38Wg5B/3SXp3G7DhDr97WgZ5JAMeOvnht+L9h2t/2oKMI3yw73k+aWp2d4bKuxFE3Uh4ddQwYchoO94Db9E6S4M9BTaGP2zrq4LwJ1ew4R1OkJMB86FochVR4XjZnD0RTgaFmy2pnfAszmUS1fq3NANG6iguOubLsSsSoKGIzu5pVZrs259kyMEHBy4zkNxgzRSti3uuwVU8SQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=infradead.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0RSjUp7cNuERSu4nbA+W9hgdw75GP1RroM7etfe4gc0=;
- b=f0FcINO5qTNnlRY4ZH6L1vqTAA5hEfYBXmB4kfve2Sei3BqEaey+pTv2fB6V5+ABmfTPAVTyGApeQp4m6CT00asmC5qgOjG1MccTNr5Y59Klngq3PuMhJJ/s8UkCSj3LXugo5K0rOeTBvD3P6gjDIwG2jefBMVulFkmb4klFvBs=
-Received: from SJ0PR03CA0068.namprd03.prod.outlook.com (2603:10b6:a03:331::13)
- by PH7PR12MB8796.namprd12.prod.outlook.com (2603:10b6:510:272::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.22; Thu, 24 Sep
- 2026 08:10:35 +0000
-Received: from SJ1PEPF00001CEB.namprd03.prod.outlook.com
- (2603:10b6:a03:331:cafe::11) by SJ0PR03CA0068.outlook.office365.com
- (2603:10b6:a03:331::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Thu,
- 24 Sep 2026 08:10:34 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF00001CEB.mail.protection.outlook.com (10.167.242.27) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 08:10:34 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
- 2026 03:10:33 -0500
-Received: from [10.136.33.35] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Thu, 24 Sep 2026 03:10:28 -0500
-Message-ID: <05319013-86e6-4a80-bb8f-385657cee410@amd.com>
-Date: Thu, 24 Sep 2026 13:40:27 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n9wNdbrz"
+Received: by mail-wr2-f32.google.com with SMTP id ffacd0b85a97d-482f6350f91so1102772f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:10:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790237441; x=1790842241; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xOitTOxkjr0KxAAwQfYSKSbkg3IwDke7kzxN5nsLJi4=;
+        b=n9wNdbrzR0RGUsr3sn2pTIFMGnSLSA36I9j0RWFYNOt84r/savTQjAn5fmoe0+58V/
+         mqW9UgUzip53s4Z2QqG9vm1pkzJNG+kIakz6Nvm1UStZ4Zo/fOUCWp5wajOukqy8eLoM
+         +X8PFd7eg3yCPl0qJqSnw7I/NjtfdRIQfnKBNdxzT06R0Za3vdrm8HH+PHxzxTyAvtmI
+         pd0UsHE4j9ntku+BrkRY3eC1MlR8fMD21R2htZiZfS/uEEfvqe5AQ1GRCME3NDpazU4Z
+         InUAhkDFC4fqPyUxizEkUpvOQoy9gcrLDUcCfEbX//qXBOs+GkQqj0u0H36W2j8ELeGR
+         1ZMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790237441; x=1790842241;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xOitTOxkjr0KxAAwQfYSKSbkg3IwDke7kzxN5nsLJi4=;
+        b=20ze33z6nmvZWFDuJpe3vQrf35XN36t2fk7GctbX6o4SYCZDOvDQ43zijfp/fNJkGw
+         M2gNR7iQ3K3rCcQtgV6q28WZoR+cKtP/qM3rUTICy+jwBiz18fLrb0ZhNQH62vwL5q1a
+         SKk+PzRLG3IoKVaPtkEOdgO8W9Sl9kQVab4kAjEVudorTWiPEUg8V6jG1yBkIAZrnNDJ
+         4SDcWHbjtnZPPphxrW5OCW5T1mutiYA4Olm8JUVjxIROIVKgCIcfoyq9+PDLCR7GiydU
+         bsHdLEGZoh4PhiURydCZYvUQGVNONFz0itF8Bnxt2QuDaNvtT7DcZNQptNmNZX8tlYil
+         ybeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwVheLG45IBupeKTLdygU+uAw5e/6sYsc00XtVQoPVGfr6ax2x1pGRdh/0VcdmkkKBHgIFDlyzX/qU+Jt0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBvWs/By7M75CEjYsE48mAxHRTglcxY0gDq0QsQypYlu3HNB0t
+	iJ/VQcjHNwlFC+shmJ55WFrclxWnNVJGxk4HyvhOfgE4EPhRIvwi4TmD
+X-Gm-Gg: AYBFou2mi1DdVdzqBqKBHkfh7YQibjVhuKDV6N0Zl/vxvdQplwqER305pJE5xpjWWVz
+	+9KkXdWTQmPKqry8xgeCGqTBfCgpGchOXo/BBvtY51t0CJamkbSNC88rBRQFoSlv4Hc9H0Xg0IW
+	TSvDsZhr1f5pNbwYeXtaXcDAa+EGjjEbkWknhQD8acVPkIcP/AB9r0v3d8XJSKXViDmRLbZT5LO
+	LPXcmmrCPh/k3KoAqS2WUsSeauGuNMkqYQ9X1HtanslDRtFhUppxTSMxgKh0p79Xcx1ww2d75Ky
+	XSwG6JZTjuriZUwZw5s1Ig70kayWxHZxypc9UzmDBW2XsohcYopDN5gv+E4t83Miz2MvdVLslBl
+	lhzIkZFrGFTuTfRDaupaEaEUUHjZx4CcUwK5DHLL69uvNoBMqDbr2WCflhg/1sLhUiTxN1PwwrP
+	jl5UBMswzyYP9ZPUpcAnDGNLkk8NmeAhCC+6fsk+zW2lW/hsaCK4DvKIGNXAunOjOLH34QOTXa+
+	WX5AuvFChGBvviLOCQ3Jn0iTCOHQoT0Lys=
+X-Received: by 2002:a05:600c:6098:b0:49e:7cc2:e6c2 with SMTP id 5b1f17b1804b1-49fe66fd482mr30657885e9.27.1790237441192;
+        Thu, 24 Sep 2026 01:10:41 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5bb9891sm43633305e9.6.2026.09.24.01.10.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 01:10:40 -0700 (PDT)
+Date: Thu, 24 Sep 2026 09:10:39 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: x86@kernel.org, Thomas Gleixner <tglx@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Ingo Molnar <mingo@redhat.com>, Borislav
+ Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter
+ Anvin" <hpa@zytor.com>, "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 2/2] x86/uaccess: Drop the address space qualifier
+ from put_user()
+Message-ID: <20260924091039.1c4aab7d@pumpkin>
+In-Reply-To: <CANiDSCvqC_Kn20zOA+dQBmppi4KAO5g_4a_s-opkDa+CT=0YWQ@mail.gmail.com>
+References: <20260914-unqual-v2-0-60a1407a0cd4@chromium.org>
+	<20260914-unqual-v2-2-60a1407a0cd4@chromium.org>
+	<CANiDSCt9nOM8OWY21Q=ei5dmOK2O+DB1aYdd9NrbLt3e+pJPUg@mail.gmail.com>
+	<20260923162234.394061af@pumpkin>
+	<CANiDSCvqC_Kn20zOA+dQBmppi4KAO5g_4a_s-opkDa+CT=0YWQ@mail.gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHSET v14 sched_ext/for-7.4] sched: Make proxy execution
- compatible with sched_ext
-To: Peter Zijlstra <peterz@infradead.org>, Andrea Righi <arighi@nvidia.com>
-CC: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>, Changwoo Min
-	<changwoo@igalia.com>, John Stultz <jstultz@google.com>, Ingo Molnar
-	<mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
-	<vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel
- Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, Christian
- Loehle <christian.loehle@arm.com>, David Dai <david.dai@linux.dev>, Koba Ko
-	<kobak@nvidia.com>, Aiqun Yu <aiqun.yu@oss.qualcomm.com>, Shuah Khan
-	<shuah@kernel.org>, <sched-ext@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>
-References: <20260922165445.943315-1-arighi@nvidia.com>
- <20260924075237.GH2009045@noisy.programming.kicks-ass.net>
- <20260924075925.GE4121620@noisy.programming.kicks-ass.net>
-Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <20260924075925.GE4121620@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CEB:EE_|PH7PR12MB8796:EE_
-X-MS-Office365-Filtering-Correlation-Id: ea3a9070-6c62-4fee-a56c-08df1a134f18
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|7416014|82310400026|36860700016|1800799024|10067099003|56012099006|11063799006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	piAnvf/tXexQBo/dx0X8Mm2SoTFaiNMe++QQxQPIRvntRdyt1Lyn1x2RQb0qGvSYwgStyIG41gavn82hTUJ8rMMM8Ka8U8kZBE1VJm5mbxX9jDj8U6NAox2TgCU4eJRZXztW6H9yVxlkD+qK9O//KsE0BuYiVUb155vydqg5/bKAt+JnVCFnGw4uq4Kx/7d89ckAyGc63MXaBYDUzd6Y8N3ziiR5Ra33Dt+rUXDILu5tLXpgmhe9aI1QMGPjxGA+YYAOWA0KmywVpLGq8c6XncmlD9KEir0X8Mly0kINgyN4ReHTY6F06KNvZyM8DDA2ar72r2DfXAjjtMuLng9PbYasp5003r1scTnqy+VzqRRMY2hvkDT0qw1sAd1eIqRjyAzRaKGUo9zm+f0UwF5E0jZ3azSTxHiZIVL/6ZCB4ai602vgk11hrQASaiZ8O8r+8AQpcdsX4KcoFX4kEPiBRRngm2LVCTrPG+CncZXIQXUkHiyOr9A2nhh/M6p7hSiXzWSaTajKgiy/krk4pCDQ337ki20+7EmnNXpjuvf8f7osDyBP6+AA5zLImCKsJeGMBfbKtaV8VD9PpqwAiPqH0Z7/jjWKEd9VPs5uxFpGQJP/bHDneB64sODM84+t4raP3CxNmaYIoNVnNEbSWhs2KHgF5kG52qUwQxjR9MSsCEIK9+Sww8mmgaA7mXGC+ySI8slm/sEIo9WQyDJXuuTSOg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(82310400026)(36860700016)(1800799024)(10067099003)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	7jEplqX1jtWfUF7XvqjHcqze436Q8WePF1YofTPKDoxmFE3iZe5qQpi+7ZyqqstnQPZUNzIFnf28sx8IlEYJLWrZPngiRWI8XeqAaHdr9Zyw0oakoBQvwNOngO9dMp6Nio5vo0aGJcCwBZYDsawQFHaslVZ+QME4lgSjZFzIKP2Et68pVUz73N0kCw0guk1OFhnu4x0oDWRqANaup8Mbu8P9KSwxXqYNytsv+6fJqEAS7Lqep68Yc+v0Ftku5jDooDx55h7R1xc083rDHDlJ854gR3z7zt9qPoBU33RQCyqn9Ch8hrd73vXgPNskfejL40Mvcrf37Lq+OlroBMQ6xnnfDdLbbSC1e1nIdR4j/rvs0W9od0gbo2+C0N4BwmwhvndsF321ivF5bvCPVYTT7avzvtRpmM3vhKYN+p0GGnGj+1n8ZKi3bP9Sc1JUs+Wg
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 08:10:34.2655
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea3a9070-6c62-4fee-a56c-08df1a134f18
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00001CEB.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8796
 
-On 9/24/2026 1:29 PM, Peter Zijlstra wrote:
->>   Almost like switching_to_scx(), except it needs to change ctx->queued in case
->>   of p->is_blocked. Hence a new callback ran before sched_change_begin().
+On Thu, 24 Sep 2026 09:19:16 +0200
+Ricardo Ribalda <ribalda@chromium.org> wrote:
+
+> Hi David
 > 
-> And I wonder, would something like so work?
+> On Wed, 23 Sept 2026 at 17:22, David Laight
+> <david.laight.linux@gmail.com> wrote:
+> >
+> > On Wed, 23 Sep 2026 13:08:20 +0200
+> > Ricardo Ribalda <ribalda@chromium.org> wrote:
+> >  
+> > > Friendly ping?
+> > >
+> > > On Mon, 14 Sept 2026 at 15:53, Ricardo Ribalda <ribalda@chromium.org> wrote:  
+> > > >
+> > > > __typeof__() preserves every qualifier, the address space included.
+> > > >
+> > > > When we do __typeof(*__user *int), we are declaring a __user integer,
+> > > > which is pretty much meaningless. A value in a register or in the stack
+> > > > does not live in the user address space.  
+> >
+> > Doesn't that mean it is a smatch bug - so should be fixed there.  
 > 
-> ---
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index adcc9264c0c6..3e7691d24930 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -11215,8 +11215,13 @@ void sched_change_end(struct sched_change_ctx *ctx)
->  	 */
->  	WARN_ON_ONCE(p->sched_class != ctx->class && !(ctx->flags & ENQUEUE_CLASS));
->  
-> -	if ((ctx->flags & ENQUEUE_CLASS) && p->sched_class->switching_to)
-> -		p->sched_class->switching_to(rq, p);
-> +	if ((ctx->flags & ENQUEUE_CLASS) && p->sched_class->switching_to) {
-> +		bool block = p->sched_class->switching_to(rq, p);
-> +		if (block && p->is_blocked) {
+> I don't think it is a Smatch bug: __typeof__() preserves all
+> qualifiers including address spaces. Smatch is just enforcing that
+> more strictly now.
+> 
+> I'd prefer that developers explicitly say when they are crossing the
+> address space boundaries, and TYPEOF_UNQUAL() seems to be the right
+> macro, which also Dan recommended.
 
-Shouldn't this also check for "ctx->queued"?
+It depends where you are removing it.
+TYPEOF_UNQUAL() also removes const - which you don't want to remove.
+It is also entirely horrid on older versions of gcc.
 
-> +			block_task(rq, p, READ_ONCE(p->__state));
+David
 
-Otherwise we may block an already off rq task.
-
-> +			ctx->queued = false;
-> +		}
-> +	}
->  
->  	if (ctx->queued)
->  		enqueue_task(rq, p, ctx->flags);
--- 
-Thanks and Regards,
-Prateek
+> 
+> >
+> > Somewhere in the middle of this there ought to checks that the value
+> > is the correct type (eg pointer v integer) and that, for put_user(),
+> > the destination pointer isn't const.
+> > Using:
+> >         auto __x = 0 ? *ptr : x;
+> > can be more succinct than other versions - might not help here.
+> >
+> > David
+> >  
+> > > >
+> > > > This annotation did not trigger any error until a recent version of
+> > > > smatch[1] started caring. And as a result of that now we have tens of
+> > > > warnings like:
+> > > >
+> > > >   drivers/media/usb/uvc/uvc_v4l2.c:1112:13: warning: incorrect type in argument 2 (different address spaces)
+> > > >   drivers/media/usb/uvc/uvc_v4l2.c:1112:13:    expected void const *from
+> > > >   drivers/media/usb/uvc/uvc_v4l2.c:1112:13:    got unsigned int __user *
+> > > >
+> > > > Instead of __typeof__() use TYPEOF_UNQUAL(). It maps to
+> > > > __typeof_unqual__() in recent compilers, so the address space annotation
+> > > > is gone.
+> > > >
+> > > > [1] https://github.com/error27/smatch/commit/e53027a4e816a772403baafa83c09e4a94c1cb8f
+> > > >
+> > > > Suggested-by: Dan Carpenter <dan.carpenter@linaro.org>
+> > > > Link: https://lore.kernel.org/r/20260825-unqual-v1-2-7024fb81b4f9@chromium.org
+> > > > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> > > > ---
+> > > >  arch/x86/include/asm/uaccess.h | 4 ++--
+> > > >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > > >
+> > > > diff --git a/arch/x86/include/asm/uaccess.h b/arch/x86/include/asm/uaccess.h
+> > > > index 3a0dd3c2b233..4e576c0b9131 100644
+> > > > --- a/arch/x86/include/asm/uaccess.h
+> > > > +++ b/arch/x86/include/asm/uaccess.h
+> > > > @@ -172,7 +172,7 @@ extern void __put_user_nocheck_8(void);
+> > > >         int __ret_pu;                                                   \
+> > > >         void __user *__ptr_pu;                                          \
+> > > >         register __typeof__(*(ptr)) __val_pu asm("%"_ASM_AX);           \
+> > > > -       __typeof__(*(ptr)) __x = (x); /* eval x once */                 \
+> > > > +       TYPEOF_UNQUAL(*(ptr)) __x = (x); /* eval x once */              \
+> > > >         __typeof__(ptr) __ptr = (ptr); /* eval ptr once */              \
+> > > >         __chk_user_ptr(__ptr);                                          \
+> > > >         __ptr_pu = __ptr;                                               \
+> > > > @@ -231,7 +231,7 @@ extern void __put_user_nocheck_8(void);
+> > > >
+> > > >  #define __put_user_size(x, ptr, size, label)                           \
+> > > >  do {                                                                   \
+> > > > -       __typeof__(*(ptr)) __x = (x); /* eval x once */                 \
+> > > > +       TYPEOF_UNQUAL(*(ptr)) __x = (x); /* eval x once */              \
+> > > >         __typeof__(ptr) __ptr = (ptr); /* eval ptr once */              \
+> > > >         __chk_user_ptr(__ptr);                                          \
+> > > >         switch (size) {                                                 \
+> > > >
+> > > > --
+> > > > 2.55.0.1007.g17ff1f9808-goog
+> > > >  
+> > >
+> > >  
+> >  
+> 
+> 
 
