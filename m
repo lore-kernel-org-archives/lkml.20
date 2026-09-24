@@ -1,149 +1,106 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3752E49B5AC
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:58:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790265485; cv=pass; b=EBVaIhfJbf/T2cD++VgfVtH8w+EKRiGKRAwh4VM6ZzLAsYc1i6KHjrak9j/hdA86IB0NuLDEcW720oqc/KqdoFvryCZlyPE+KDdpb4lG5DfMyqxbP5kMVwpOPcdmUTdpzcAO5n0EXsR4uBBD96CuvXTdRk3IstZgsUrc+Lm5yXY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790265485; c=relaxed/simple;
-	bh=aTXLg8x+ijWpjN+mBSvI6GmUxmNxYOYtzc/2ohe0fAE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BQ3WtpPg2B2l72CR4QlL9TNieTlaiLtJecF/JJepoLptdEA1ayggTtnN6xsHyA47VqySjsXUpjCxLVifoLzNtjP8KbywZgysZ18xNNw7WGK9r853j5XBj9snXsVz//fQ5l4XNSd/twu/s4rQvc4H1p7wG972kKgoFF0t3JmjHT4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V6SlN+FZ; arc=pass smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B60E4A5EA8;
+	Thu, 24 Sep 2026 15:58:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790265519; cv=none; b=FR//zakYSlNtrTVHKeRlkYi48eUbP6bRT77hHXqLn6ZcFQQ2h0pzG+aK7ThwPsffUCYcprUE+C2LzTsmyGF7bpTvgcR2sU9+w+iVfueS76YAcxjNMIM+oYxSDVMaIZHgrxczloZtE0/8aD7AJwdgrMtl4hkS4xKt12YX06lBqP0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790265519; c=relaxed/simple;
+	bh=YHn8oI1G1NSH7wZ6dpgnFVvrOA9GqBQ7HoSldOqR6MQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j/4hcW57eZXuJDT2fN4u02rMNdRiMi2LToe+732A/Z52nqcTVAz93eO/nyHKx54h18Vg49LARlI9f7hsoZO3uWYyhkmiBhCV3Ghrwq8P86C5XtEHsQY28VTgpjTQrL3bxqKNN/LDX3aJEwkOtUQMGoJs5mrrIBVBpNX8gcD8TjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IuWWk/eh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V6SlN+FZ"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-86868f7707dso24080b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:58:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790265483; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Irm/78cx+4zZLii1615FtRX+7TYTRwdShik/oRvUlEDKjCvquKVDsDcl+rCERfPtVI
-         y1I7hhkmHGRxM6crEFNqDoT/KZGpMGoCFZENQVJPl6Kqbop4oA+X+jNUTtw+8J588aXV
-         Y4bXPUSWqevcLb8wWU2GhA59UpQ0LYMs36ExV9WWv3/Ls0h4+TPay6vHnwlei8UEKzRF
-         GuTMZ1LQS9xQLAZJ9X6jJdaaKDESYb8MkJmKB/4oU0oTum704ylTHxQEjQGOoC46Nq6k
-         nyADXZF/F1lzgGTmzj6iRzb1Ai3xRbVH+y4FRI+GEbnB5NcN7Irh23l4p5qS86lz1WUs
-         GTrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=cDpTNZVHqrO0WKs3SLOrqTa6JLMU8MhI0fa0CuoT9rQ=;
-        fh=+A4Cu5Bwl5BFq2Ko1Z9UeROk7dPI/elMe4cy09SjNGY=;
-        b=Z3SuGhLy8xyZ54TKOql/stUTl4cJL6rpbmqC9SSDgwr9l3+BmVEEESb6lBKy/2zAz4
-         KJ3DBf3WM2+nfJAcC6T89+AMvCNBmhNzT1T7MoQRpGCLvQd8WYPweics4mVqqHJoYan/
-         VpNANfyBG4aN6HIWFDeMIscjaLiysSrmwMhELrqmUnt8WdwfjV6YMy/cWKAgQ3FaWw8L
-         R4py2qhwl96nHCC63tbKfyOgNvlZ7SGiDyiRRbaHzeC5tZ2c2FjU3qaBAuwTrB5eOhJR
-         vYc/3jsjA9jGoWDDRCkcaOQei3kNBAkU6airCLdUmISiUMgXyf+j1+KhAiD7L/1ERiRC
-         J1Cg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790265483; x=1790870283; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cDpTNZVHqrO0WKs3SLOrqTa6JLMU8MhI0fa0CuoT9rQ=;
-        b=V6SlN+FZskFlaOD6hMecJC3AJ4RKU8crIGJEkE6V0P5JIo+8a3L6V6HcGUjzkK1wFy
-         X5TPdmWNSY85PTHIl39bKzrccghH+yeOXfhGkLtB6FsxNs2mHPBlIuZw4q9cmDuynZMU
-         VvMRUopRQ47tzw9eE5Y4BA3UOgBd1otead9OBfED17Gls1HnMlADOtRGdiUNxKlpxtb0
-         hXCqVGKPWRO86F/BY71y/A1+4oqeLLajXGgzRfj6WxiUw+MnZYX1IadDyutY+aH98vXv
-         Adkiav9jLbZlAClDfJ+jbtkJu5Nzsyp5EhqYsQBTRFqGai4RSk91S0ELoqpO63UTPhti
-         cYYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790265483; x=1790870283;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cDpTNZVHqrO0WKs3SLOrqTa6JLMU8MhI0fa0CuoT9rQ=;
-        b=kNdAQA+TnEM8vae1IoAZ6C46tyS8ba3lDsFN2RClLD4BZOc9LooACveDyPH6EwCiyP
-         +/t44wmxLGRgRpovylzkwOMe9WDqWrKabnXQBMW+lyBxHxm57yqvhcMsSaetE/aIi2cQ
-         c4Yo8bqpJqHyjUrUSCh802nBSqIy8dj0l7nqChnf88Co8fMVTC3zeK/e6WpaahSFh3WW
-         M8Kq5o4uI9y5i51x25chLM4KKjf9dGZkmFZUuSaDsaYsW1BnI0P31hWTzg4BUim8rAuM
-         uC+baJpW81F64QLxgEPYksaG+YiL+dqyPBnZ2iF2ZrDx2CxZgRf6zJPxSt1wvIJj/cWU
-         R9/A==
-X-Forwarded-Encrypted: i=1; AKwUvBz0K7M84XJCL3Dyxl8DB0J68dc/7JWWBtZSOpNyzd6CSovrjYmAzsJIYSPlqWBM8g5K/PPPiVhfkd5Adxc=@vger.kernel.org
-X-Gm-Message-State: AFuF++my9lu6HBkeDFtyTHV9xKU1mS7ZBt4WZlp7wBlgt4ilaV8RQBRA
-	U1nRhQoT4wiS8x1aN3ERmtSW6PWfddZ6Oc58URJMqDgCfa7ypz43OyGSZN6+GM23eGlatiGlbjr
-	pJzYXXYzcdpSpEp020s5Ed2VqFfERnHE=
-X-Gm-Gg: AYBFou2xG6I38g7xcdGSzqmSwV5IsTaQf9dzMAVyhDbEmLbqN4tk3yG+k7WcK+IJFN4
-	pXCuLpsepwqlpn0i20vTy8zI8Uh3Zg6FzuNzbZBAy6wWQyryHDPgA7IhhjUV/gHcHQaeHq869qJ
-	vNC2xmewwjk7T6YnKOPiievL8et6lYLQG4IXc09WdCGmprKvI928J+4oF/lN4B0XkiHty4MbToV
-	HJGZkkpo0gABTLnHlVqbJQflsCBAnDJO84JDHvEY5deipG/CTk/pJ3hsXCcVFXFPiDR43HeQZRl
-	osuTocDxrLxtzrXqGNONZeqL4jTcgNAn8cOL5C8Ckm3ug87p1KN+NMAShUSSAFb505R+kHsZpAx
-	+lw82mQyNEy5oDz1hDWkHsnAisCo2gpFF3SAcF9jCeQ==
-X-Received: by 2002:a05:6a20:4388:b0:3dd:cc61:c0df with SMTP id
- adf61e73a8af0-3de0e899e4emr2697830637.25.1790265483478; Thu, 24 Sep 2026
- 08:58:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IuWWk/eh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D30C51F000FF;
+	Thu, 24 Sep 2026 15:58:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790265517;
+	bh=ntCPRNmhHP0xEpdWDgj6ZKP31wN/fxbhz+6bG3Gb24k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IuWWk/ehkegX/ttgIRCu0DLztu+mvo32r6PgEGd9HryTT44P3aBcJxQPfSvfVY1XA
+	 O4QRPNnGtQNEDb5nlxrbDmMFN240bWTyPmrY+xYGQ7+SPGRuKhqk2hgInQPV0aqMsM
+	 S7NKZk+t7prFPLguTH2qrdOTYx+xxwPPbaTwFu9TpnQnjI/D2/cPpIBTci0jtORbPw
+	 B70lWjPeN9I2drRegbZS9zEjSRnduMjfHz07hOCcirqwayUBsPh/ilDwDeS9LqVv7C
+	 MzREzUOg0b06utFzXw50TGVLFw38rqFXOs46EIQdVfy9MmZzwPuvDbTE/mDiW1Tgzo
+	 vpG8LaduoGTeQ==
+Date: Thu, 24 Sep 2026 17:58:17 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+Cc: Juha-Matti Tilli <juha-matti.tilli@iki.fi>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Jeff Johnson <jjohnson@kernel.org>, linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
+	ath12k@lists.infradead.org, Bjorn Andersson <andersson@kernel.org>, 
+	Chris Lew <christopher.lew@oss.qualcomm.com>, Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>, 
+	Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+Subject: Re: [PATCH v2 2/4] net: qrtr: Assign unique node id for MHI endpoints
+Message-ID: <ayyrvpxnxonroz6kafehepplhltnzgopgt6pn5fnpdmft6rbxm@a5sps2dnso47>
+References: <20260921-qrtr-multi-ep-v2-0-27dd80d841a0@oss.qualcomm.com>
+ <20260921-qrtr-multi-ep-v2-2-27dd80d841a0@oss.qualcomm.com>
+ <a16d507e-17f7-4074-8817-4b8da3a71c3b@oss.qualcomm.com>
+ <8ed398ba-2ebe-488a-a213-8ca7ecbe861d@app.fastmail.com>
+ <CANyhwx0hZJC6xXaSC2g4GFgUOp5n_KN4tdXksW+s8Mk_+7xEAA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828141240.2391915-1-qiwenjie@xiaomi.com>
-In-Reply-To: <20260828141240.2391915-1-qiwenjie@xiaomi.com>
-From: Daeho Jeong <daeho43@gmail.com>
-Date: Thu, 24 Sep 2026 08:57:49 -0700
-X-Gm-Features: AclHuK989g8w5jlc0v8XBTZNQE2OwIfTRkHZBKYmw-nwjYIpnh-4i8jQ3FcXQYc
-Message-ID: <CACOAw_xmQcAwcXowkv99XOV3X-6Gtis6Hu2NWNs1zQCfe6iiWw@mail.gmail.com>
-Subject: Re: [f2fs-dev] [PATCH 1/2] f2fs: flush SIT journal during filesystem resize
-To: Wenjie Qi <qwjhust@gmail.com>
-Cc: jaegeuk@kernel.org, chao@kernel.org, daehojeong@google.com, 
-	linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
-	qiwenjie@xiaomi.com, sunqiuyang@huawei.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CANyhwx0hZJC6xXaSC2g4GFgUOp5n_KN4tdXksW+s8Mk_+7xEAA@mail.gmail.com>
 
-On Fri, Aug 28, 2026 at 7:15=E2=80=AFAM Wenjie Qi <qwjhust@gmail.com> wrote=
-:
->
-> During a filesystem resize, SBI_IS_RESIZEFS prevents new SIT entries
-> from being added to the journal and forces existing entries to the SIT
-> area. However, f2fs_flush_sit_entries() returns early when there are no
-> new dirty sentries, leaving existing journal entries behind.
->
-> After the main area shrinks, a later checkpoint can access a journal
-> entry whose segment number is outside the new geometry and trigger
-> f2fs_bug_on().
->
-> Only take the zero-dirty fast path when entries may be written back to
-> the journal. This lets resize drain existing entries through
-> remove_sits_in_journal() even when there are no new dirty sentries.
->
-> Fixes: 04f0b2eaa3b3 ("f2fs: ioctl for removing a range from F2FS")
-> Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
-> ---
->  fs/f2fs/segment.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-> index 1e7e745be71d..9f9ce25dd07e 100644
-> --- a/fs/f2fs/segment.c
-> +++ b/fs/f2fs/segment.c
-> @@ -4816,7 +4816,7 @@ void f2fs_flush_sit_entries(struct f2fs_sb_info *sb=
-i, struct cp_control *cpc)
->
->         down_write(&sit_i->sentry_lock);
->
-> -       if (!sit_i->dirty_sentries)
-> +       if (!sit_i->dirty_sentries && to_journal)
->                 goto out;
->
->         /*
-> --
-> 2.43.0
->
+On Wed, Sep 23, 2026 at 04:03:38PM +0100, Youssef Samir wrote:
+> On Tue, Sep 22, 2026 at 6:24 PM Juha-Matti Tilli
+> <juha-matti.tilli@iki.fi> wrote:
+> >
+> > On Tue, Sep 22, 2026, at 20:14, Youssef Samir wrote:
+> > > On 9/21/2026 12:23 PM, Manivannan Sadhasivam via B4 Relay wrote:
+> > > > +
+> > > > +/* The offset is chosen carefully to not collide with the node ids allocated by
+> > > > + * the remote nodes. All the remote nodes use node ids in range 0 to 0xffff.
+> > > This assumption does not hold up for QRTR V1 headers where the node ids are 32bit.
+> > > QAIC devices use BHI_SERIALNUM as the node ID, and it is definitely larger than
+> > > 0xFFFF.> + */
+> >
+> > Does that mean we have to go back to my endpoint id patchset?  It's an
+> > option, but a quite complex one.
+> I'm not sure. Last time I tested the endpoint ID series was its v5 and it was
+> functionally acceptable, and other than switching to sendmsg(2) instead of
+> send(2) and sendto(2), it did not require much changing on the user-space
+> side. But as you mentioned, it was/is complex compared to this one.
+> >
+> > However, what is the likelihood that serial number would clash with
+> > these host node id values? Maybe just adjusting the comment could be
+> > acceptable.
+> The chance of collision is slim, but still not impossible.
 
-Reviewed-by: Daeho Jeong <daehojeong@google.com>
+When you mean collision, do you mean node id collision due to bridged nodes?
+Because, even if the directly connected QAIC devices use 32bit node ids, the
+collision won't affect the functionality.
 
-Thanks,
+Also, there is a collision with SMD and TUN endpoints, but that's out of scope
+for this series.
 
->
->
-> _______________________________________________
-> Linux-f2fs-devel mailing list
-> Linux-f2fs-devel@lists.sourceforge.net
-> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
+> I think a solution would be to treat qrtr_host_node_id(idx) as the
+> preferred id, not
+> the one that will actually be assigned to the node. And before
+> assigning the nid,
+> we check it against the radix tree, and if it exists, we try to probe
+> the next available
+> id (so an IDA). This will also require exposing the nid to the user in
+> sysfs (i.e. /sys/bus/mhi/devices/mhix/mhix_IPCR/nid).
+> 
+
+I guess the QAIC userspace tooling needs the allocated node id. This can be
+added.
+
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
