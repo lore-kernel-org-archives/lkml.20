@@ -1,277 +1,164 @@
-Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013029.outbound.protection.outlook.com [40.107.159.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7346B1C5D72
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:19:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790259576; cv=none; b=uW07J08POIEXf0znVQ1jayUYOhznTZqsP2HSNgB2VhCHXAVFqJQyGTYpAdFHgjmbCMEi9VFQ1uZEDkHrhmqS8I+U4XAlaCiMWMe+X/sJEKR7H384hgkrY4MGBXnFj8guiMIMfqlbMfTzom0YPAB/sX67/vn3ILG88sGmBrSuXYA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790259576; c=relaxed/simple;
-	bh=na/PllBO1PEw5xOQonuWkXy0NMRh9QaBT8ZExDsUw5Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=av8qa5Hqgzyk7sIRHBPbuIGYA8AesGK+Va3uynOr7po6+phH7ks7UYHPBt/wz7eWi2mqnBRnuC5bh759GwEhRERNRbEexGwaJXD/W+7mp0ttQqusJ9o3PvrKLgvdUnK3QA1zqaLytzqg/YUhirY4O8t83RBDqj/Hy3GPo0tmPKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=MEHybnod; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=pJYL5aAD; arc=none smtp.client-ip=202.12.124.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A614437F315;
+	Thu, 24 Sep 2026 14:20:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.29
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790259616; cv=fail; b=WXRoWJ0wzAAS533U5wzA0vqY0tEY08alYEF1GHkoXasX35VfoID/w6i/8S4kmQ0TNVq5NrsACUTgX9zApJvSc9Lf/psKLrchFNS1GfwFI+/6Q1JS2y1l68X+WYTS4lAUljsrRMfih23KuwR91rnJ9EaXUA/MF7It1Jsb9zbbqwI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790259616; c=relaxed/simple;
+	bh=4TwaLy9D3KjGiXXZ6WC2wxXnFQDL8yYoisf5nZgCw+4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=tI2FisyPWEYE6cCXq2w7DNQLVRFL19cVT1A3MCfo331NVPi3zBvoBAo3X8SmfG6ANvzg3bviNCmFU1vtL7FaE7zXNPFupyTSkvO6y1N3YshWAlyY2iP+vr47NE5XMPhoUpnsfIAmzBGzs6Vg7NsNoC+M/OdcI+PDCgN42sEO3O0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=oZJTvpW9; arc=fail smtp.client-ip=40.107.159.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="MEHybnod";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="pJYL5aAD"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 005ED7A00CA;
-	Thu, 24 Sep 2026 10:19:32 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Thu, 24 Sep 2026 10:19:33 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1790259572; x=
-	1790345972; bh=McYcr38jGkYoq6hJYVs/3wa8SJ7PvSHzvJ4tlA7QJEU=; b=M
-	EHybnodPAi0vyHE4w1u+WjjsefaBd5sAenXno6pdWVaFhV+DidxRXQauuafeNv89
-	xdg7bimN1AygAFhhu1GpzojLVPbQrcGID0Al5GDakS/iriSXM5hrnjuKUDg4vx6H
-	hSMOI5pXbXx8Xl14WKFAd4ge4M2GC/IbHr6XqYtzWV2oB85fNYMVtkmXjQiV6gTG
-	SdF9SJNSXYHTey+6GExEWAL/dXz+YwpJhtKxhXSu871GXntOJVdiZ6MdqL9p/Q6g
-	9Rg4gXPQLsnxZ74g6JXDoITXKQnkKnxcbSw77zhy1/2JQwhEcBzoEsn6LfRb//bH
-	wgcxa/YIiqSTzUPYpIlQw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1790259572; x=1790345972; bh=McYcr38jGkYoq6hJYVs/3wa8SJ7PvSHzvJ4
-	tlA7QJEU=; b=pJYL5aADr7ST8ElOgPGfLyuRO+xqRDha5E1QkCuycDE/h4URjj8
-	W3EmkWuUyMmo5EvoaTTTmqR8BZ6DYaDFljEq2Qf058iHMT6v/uJEfhRYSPOdp2Qy
-	NdrybLoGL8ehBLDzLKF9NDJIzNjcQCmB6D+5c8p2UJ72ieFxoJWvIJc10SFxTKBp
-	4DyUBNdQLaUDj0NMazSrpVa/pHNnBpW5BxfQPftWX46QfvVPc4rfOT1k+APihSCg
-	eJRaSc8jzTy/EMzM0+zN/Qcucrr4aQKgVWAsALAQ70NXJxLDDwPCubGA6PdqOa+T
-	xu+zOlUn9N9vQQYPNQT8O/ysajbpyB5dRHg==
-X-ME-Sender: <xms:czG1auR58td8xtILAxWYdDiCaqKMel9Ik7cxovJ8dnAaQIM2MHRQTQ>
-    <xme:czG1ahZ5kC94CPb_syoHqMNYcw5FG27mTD1SD-8_xs9d1r7xARKphYPV1qmP1pYNk
-    FrE1WF_UDQBOXYRibI2OJIabXMjtUrCd0SbI_m9CV2qE4-deAPlad2gSg>
-X-ME-Received: <xmr:czG1ajPkzZB5us_Gl0maUdvtMVGux_5uprOkfjffDZx0Khn4ZXRmJjR3Xh8>
-X-ME-Proxy-Cause: dmFkZTFUWZumAd0xpsnSEp5napptMkaBEDQBlJcKnhY8V8OVhpHPmRT+v7DP9/F5PdmAr7
-    TYY47q7uxRPI74Vh0dDckmkyW74thi5bYOR8UXGK5D9E8A/wZ6IJqTCMFvp0pDqVVI9IF1
-    ids8NGZob+fMMzrhBfCbZrbgvSuiwl4z9Gi6qZz8M54k5J/4XvizD9rLBT4sy7crZ6W9Ct
-    0uXzn5tb6N7qM2T+oS8sku9r/Ms+Gf9lT8JNHd3aiMZFRcqGcVhNrV3QMcBtrWfSObbddQ
-    wW4CNC0DRtMIUgDKYVjm6GxRbbUhDiLdMsdGfOindIzRWwsu1vvIHG3+6CDnWvFfBB9KtO
-    U9DP603j56jfQ2Bzx8bxndqlejYd+2JxadDm+BfELtpOKt3iDs8g3Z+eptGPxZlwnYm6m/
-    xRmWHLBi39KTpxH3W8OKIXZGb37ej9hrelkaPbSHnRUeLTtMVi63brE9WlxHUCZsW0oviY
-    19cCSfwVzDKaPcg403dlKebUm9iQbFmJlo2vPeZAaHCmy3Rdhc8VUqFe9m+ZBzWwCBL83T
-    OYLpaldJQ5TcUO1dM2IK+hhqTY4Rweqj6hA/qSFd77KnSzTqlVmTw3/7Ca6ls61P/6OPxO
-    g8OpfG4Hgt7s1A62dPLlHfw3rdTkWz6D4ov+bDzZb8UmBl3aaLe83cwoeZJg
-X-ME-Proxy: <xmx:czG1aiPI2w2IQJkwaLEFhA5biMsjXi1VWOtqS6xrczCwaGAiYnSzgw>
-    <xmx:czG1avNgj0CeVDoHH46feo0sumKo05KNvYFl47VbB3oWe7YWh6neRg>
-    <xmx:czG1amYaukv4x-KQTuyPXuxMXhAWggXU91-y3cJwwAlJfWGU47khOw>
-    <xmx:czG1algs20Y-L23Bxs0NY7TYfVEnAxthVckdAT27O_nBpavnPZYwfA>
-    <xmx:dDG1apXiRxco3WCoKuBJ-I2kLSVSWCWtAXV63EL5RKyC1PHCnF5bOq42>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 24 Sep 2026 10:19:31 -0400 (EDT)
-Date: Thu, 24 Sep 2026 15:19:30 +0100
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	kernel-team@meta.com, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>
-Subject: Re: [PATCH v3 08/12] mm/collapse: separate scanning a PTE table from
- collapsing it
-Message-ID: <arUrhkCjop-htTZh@thinkstation>
-References: <20260916093145.4022188-1-kirill@shutemov.name>
- <20260916093145.4022188-9-kirill@shutemov.name>
- <ebf8972a-0c92-41c4-9f42-22ffb820d07a@kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="oZJTvpW9"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zAwMWyaLB064dmgP010inJPIbO1DQtBIA8kPZIpO3m+nNFbceKDA4eO/tXZ2cvAHGCKycgpD3fXYjvyH8BUh2LVdhzzuVS9yWFEzKCTClrgj9IH/vdh9Q5HyPCob2lg1zBc68gXf72Rz5YPIleTdfpBUHda2YdjqONxI0i6lLkwPrg2yCIagdpSWpz9uQGSZXlOK0zo7LM1EJ4IuHQv6sF8EX3HTYwcPN0WXEKVJfmNefgNtw36QHZijpZWgr4+nDEXT+/ehy2ZL6m18pTys4s8dtHHE3wKdkq73wsT9KsHBr1M0B1p1+bEh7Jeoc+mrGVBFG2QVsZXxJH/RKrcpmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6pJHQs1U0YvgAycUyy7C4gMYdKpEuhTjgvchaA4KM1I=;
+ b=YvMZpJiDul8D1fgUcq2YoD9g+e/tfXsIe6dIDFruBNHHFzQOXf2Zsd5EEojyOG3iYs48sYevz4SzRlh3BlwRY8ukFR+L1N+hgQm8OugHw92oH48wXbI7FHj17gkLuNsbk194UhV6UbCiKN/ooJYhjltOtr699vKGPKpw8MAlj8BHLczfY8UNyzN10BWJ/9KFmHqfglC9g1VAap0er1wY/CeBf+7QTPDgA4IEPHmQNj3K/1aV0awvo8RrzkbyVqkRpY4xjw5inFy70I8YQRclfYMTTwySNQm83SQBrYGnSlXFoob2kqUGqWtjZFfn9ZZkwzAoxQvmG3gY74gktDAFcA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6pJHQs1U0YvgAycUyy7C4gMYdKpEuhTjgvchaA4KM1I=;
+ b=oZJTvpW96qcsy7bJZZVc0pOBPqK5jKjJQ5b7OwWR88stDyxNwmntOXG0XWlUMRzqcc+HTRGldS6wQgPsDU3pJ/1vX4yP7Q06otHkFjzzLYx8opD5LOSkmmeaS39HUJcoodhF4qI/Nc5xm522ork7N5FnKT80IraW5YiaueEeppVxjSMwJC8Y8lo5wbon8ChRNGrqE7tOnXyLxI+hs2mkhF/rOHgs9WgvV2lPGYZJTLrBczK6q+O8UsDWiGouO5aFIsfQUcQrLDOf6VWxzup0uJNV1qg6ZlOXT7Lno0cDwCfHnQlJCvZNAwteHrYMcnaPkZgGOTz5zn6ImX6Xr4m1lg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM7PR04MB6775.eurprd04.prod.outlook.com (2603:10a6:20b:102::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Thu, 24 Sep
+ 2026 14:20:06 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 14:20:06 +0000
+Date: Thu, 24 Sep 2026 09:19:56 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+Cc: nicolas.dufresne@collabora.com, p.zabel@pengutronix.de,
+	mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de,
+	kernel@pengutronix.de, festevam@gmail.com,
+	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	kernel@collabora.com
+Subject: Re: [PATCH v3 2/3] media: dt-bindings: media: nxp, imx8mq-vpu:
+ Remove nxp,imx8mq-vpu
+Message-ID: <arUxjHjr99jGBmzj@SMW015318>
+References: <20260924130453.196299-1-benjamin.gaignard@collabora.com>
+ <20260924130453.196299-3-benjamin.gaignard@collabora.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924130453.196299-3-benjamin.gaignard@collabora.com>
+X-ClientProxiedBy: PH5P222CA0004.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:510:34b::7) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ebf8972a-0c92-41c4-9f42-22ffb820d07a@kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM7PR04MB6775:EE_
+X-MS-Office365-Filtering-Correlation-Id: b306a56b-9f97-4884-49d5-08df1a46ee31
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|7416014|19092799006|10067099003|56012099006|4143699003|22082099003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	jsYZulL+bcJ5tbqWtEKTeS+K3t60W7k84Rn6HjdkdcFgNlUeWKAQGPPVc/k+tiKYhOvgdoca4FO8b0+W+LripsHJl90/W9LA9mlQbInj4Gj3W3LhjNpE6D5traQ+4ydCq280ikqLIJNgEiKn5b1LFmaxDeUt1xCnjWaMdpXTC4gmK8p1GKcjZsDmcSJD/bYQr4wJfJDsMcCWFYmjmZuyMsaiUika3D68OxFCh1XeW1Q2rpqptSSOqIZOI9WVsP8p/z6T1iD7DhIakLgRbhi7s6cwHT1NL1g5cDCYE6JSWDdV/+R3p6/nzu1kkApfn4TgQaRjma62rToxkL3z6KESZO+H0+q3ONbYSLQngXJAeeN5DG+Vi9mU+MUuPEf26QtMZxe4+xbSZy5fqqZh4qxEvBynlI56wux0vrFKGQzr20txSOZRJaNwA+bXHDSd+n+plzx3rEi50c6AArL3jXuDDZ/Pm6wCmpSSdTNAGAFJXZNKgJEerKaeQUGh2q2Vpn3wAEJ8Vdj7M+qcRRZB2X3/omX1EuHpOkmVyKykREACRyupzaCB5BlWQOf5hM7aWWauyfHt7Ma0C8ERiV01MrhnW+CGo+q8GdRb+CH/28UTA37T591yJ/9FtEMoILe0dGl1S/9WOYd60ypxCt9qq2W/ieZGFPpDkUGmX0KYChhlHr8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(7416014)(19092799006)(10067099003)(56012099006)(4143699003)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?NSbJ/qOmYMFJ+vIQSj2n3UvfdYzTV7tSIRMeSQrnuxtLIalUqPSKeRiRTdO+?=
+ =?us-ascii?Q?KIcvPv/M9FOEYX2OvFrbAk1N5a8s/fxB9DHKcWOpLpbLmV4o7oyvizhJZAZs?=
+ =?us-ascii?Q?HAc6mMkl4ZjRtdcDXjMLu1eAvQefcVbrUiZ4AqVlUxGmdLf4GzIBwGTon9j+?=
+ =?us-ascii?Q?PsNHbGRwlk/hQJJnTBZ9Ncx+VWt3WoM7XDvinqL5SVk0LSLoFTqaUFAjGMpf?=
+ =?us-ascii?Q?VUg+W+h9ZojWZkl9kbssyuG71zXgGcxLRzU6vSWMGrIQg9FrIP03rt3IhWM4?=
+ =?us-ascii?Q?34AYkLk6iZlYxkLA/qp6klbXuQNy8QM6Apkbe+99LXKNrPB8/Y54LhPYL1H7?=
+ =?us-ascii?Q?B8YfYB0XiT11oZ3wsWA7Ce4p1r8fC9JnvAZl5OqcMbX66/QMd/sgGckMdEsB?=
+ =?us-ascii?Q?70eYK99Eg3aYjztIZnXplbfxFgDVwLgIogzGNzE/NiEiwbanEGZPHV60HVHC?=
+ =?us-ascii?Q?HVsteeQ9a1hYQMok6JaFu5kQ4PbsLYwwdyu2SoEMOkRjEbMPCFYSkl86qFdS?=
+ =?us-ascii?Q?8VgobTMvovANe4tM1LjuyeF8Gh7ftHH9q5GJFDjZfNnpZA9BkBS6b+bawSEa?=
+ =?us-ascii?Q?QqBqjkVYY6sucMV2pchspOgfW8wh15a5oIg1eTghpwJDECpChTJpvgda/LNA?=
+ =?us-ascii?Q?ovjDHYGQ6wAlBtqsaS/d1S5DXQNR9MJwITx85OnRL4zt6nTz9tMxkHjC9Ohs?=
+ =?us-ascii?Q?bjEw6NElSM4g1OiA9fzwMqtoFL1kmq5Jrxj4XbzXYVIZACvFFDQbWDupEcho?=
+ =?us-ascii?Q?JO6EeJE8EtVYgmM/J0r5SXAxHugM3knOIQFYR8bhWeqCL0Nbsv4L88ykMcl5?=
+ =?us-ascii?Q?Nlitybmy701r7Zf6VmDC+SKZdi6ZmunPeNbda7ZsoajNS7uQ+YpGVFWuDoP8?=
+ =?us-ascii?Q?9YuNqsmEnQh9QLlgnKWyEBPhdpw7x+RCQW9Y57VAiiteqhl3lVHrq8NiH/VK?=
+ =?us-ascii?Q?I73Y1ob76odnwsysZ4U2QKUheANr+2t7MKpzrxPeXEM1JLf0A6W4IeP9fBCR?=
+ =?us-ascii?Q?q68IkECnBKvyo7Kjmxd4Zn875pYd4QakrKqmx6Lxq9GrCaglFhNBEGOKDgoo?=
+ =?us-ascii?Q?SP3FxEU+ttpEcySdNbAe/j1XpRn2cDauve2LF86JMsC0O/vhgna/jQSKbu9C?=
+ =?us-ascii?Q?98gyvXrO+dZ27lnvfZ/Mea+PPP1Zl/5KOL4zZ0PRN1hz+DqFWuP+2XDa9Vhe?=
+ =?us-ascii?Q?EQLKGYPtcBPwppuWt72qVVBpnzJuWTLGYCP2LCC1cQxddcWsQpq7h4aYa5Gg?=
+ =?us-ascii?Q?+4JRX8IqKRFtky+rovEecO1U4jlMpWhAkNHJZ5eUrgY1AUZxellrMyND/UFo?=
+ =?us-ascii?Q?eNjyGrFlpd1EhmYINreXo01Rdn+WLR+I228Bdndl8ymeuiW1cVYfBbYLVb/u?=
+ =?us-ascii?Q?L1UI5UihNgQOB6Sh/R7x2Phk1/19l5z2heHTaRYnx1hD7lNMWpuuqGR55xFh?=
+ =?us-ascii?Q?dRooNXqGBn1+P1tlrvPcc9O9GYepev8GM2OzZo+uLtBYDG4FcZ6AkG+lvr8A?=
+ =?us-ascii?Q?/T8HZVIsOhR6qVFwkwmH20afV2TvHGlwyI6Um14fPhzpPOd+Uj1xks62nifY?=
+ =?us-ascii?Q?KLX2zbow1/vH0RUiCUwSLqCeDZ9cX5cHImv5osc9efpJ/icrowmzL2PV7BhX?=
+ =?us-ascii?Q?nqy/Ib6pNc4WeO5zAYYgejP/+F6OPZvlwHvvbq2knoZkPR4NLll2HMyJ8+x8?=
+ =?us-ascii?Q?sKy12alSnajzTapPYl24lP9Xb7oneDtRO0IL86hrM0DszUT9xRDsp9R4O6z/?=
+ =?us-ascii?Q?i0hK0k6nqxYnSx95vzCUTQbUbLB789yI9q3l6agHEvkm36dVRdty?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b306a56b-9f97-4884-49d5-08df1a46ee31
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 14:20:06.0069
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Y7BKvAMJVeWo5W78QPHoAxSNmwLJ9pZw3+sOvGBeU4amTZCBD4n/tdCVLY6sx//u4LmNOo2HxYRvwKWGPshk823bmjbkJPjxGdNs9dbHifRoQ/wMa8C0AlMlPaWGQQF3
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6775
 
-On Wed, Sep 23, 2026 at 03:04:05PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/16/26 11:31, Kiryl Shutsemau wrote:
-> > From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> > 
-> > A collapse is two jobs.  One reads a PTE table under mmap_lock and decides
-> > whether the range is worth collapsing.  The other allocates, isolates,
-> > copies and flushes, and wants the lock given up first.
-> > 
-> > collapse_single_pmd() did both, so the boundary between them was somewhere
-> > in the middle of a function.
-> > 
-> > Give each half its own function:
-> > 
-> >   - collapse_scan_pmd() scans one table and only reads.  The anonymous
-> >     scan that used to carry that name keeps its body as
-> >     collapse_scan_anon_pmd(), and collapse_scan_pmd() is now the entry
-> >     that picks the anonymous or the file side.
-> > 
-> >   - collapse_run_pmd() does the collapse the scan asked for, and is
-> >     handed what the scan returned.  SCAN_SUCCEED means there is
-> >     something to collapse.  SCAN_PTE_MAPPED_HUGEPAGE means the page
-> >     cache already holds the PMD folio and only the PTE table is left to
-> >     retract.  Both are work for the run; anything else is why there is
-> >     nothing to do.
-> 
-> Makes sense.
-> 
-> The naming is a bit suboptimal and inconsistent.
-> 
-> collapse_single_pmd
-> -> collapse_scan_pmd()
-> -> collapse_run_pmd()
-> 
-> Maybe it would be clearer:
-> 
-> collapse_pmd() ["single" is rather useless]
-> -> collapse_scan_pmd()
-> -> collapse_scanned_pmd()
+On Thu, Sep 24, 2026 at 03:04:52PM +0200, Benjamin Gaignard wrote:
+> nxp,imx8mq-vpu has been tagged has deprecated since a while.
+> After driver clean up it is time to remove it.
+>
+> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+> ---
 
-Yes, the naming is awkward.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-The problem is that collapse_ is the prefix of everything in the
-interface, so it cannot double as the verb: collapse_pmd() says what the
-function is about, not what it does, and collapse_scanned_pmd() has no
-verb at all.
-
-Each name needs one after the prefix, hence scan and run. I don't
-particularly like it, but it seems better than scan and scanned, no?
-
-collapse_single_pmd() itself goes away in the next patch. You asked
-there why; I will answer there.
-
-> > What the scan found and the run needs travels in collapse_control.  For
-> > an anonymous table that is the orders and the referenced and swapped-out
-> > counts, which mthp_collapse() and collapse_huge_page() now read from
-> > there instead of taking as arguments.  For a file it is the file itself
-> > and the offset in it.
-> > 
-> > The file side moves with the anonymous one.  collapse_scan_file() used to
-> > run with mmap_lock already given up, and called collapse_file() itself
-> > when the page cache looked worth it.  It now runs under the lock like the
-> > anonymous scan and only reads; the run does the collapse.
-> 
-> So we add more locking to the file path to merge both paths cleanly? Or did I
-> misunderstand that paragraph?
-
-The lock is held over the scan now, but it is taken fewer times. The
-current code drops mmap_lock before the file scan, before it knows if
-there is anything to collapse. Most scans find nothing, and each of them
-pays the cost of unlock and relock for nothing.
-
-Dropping the lock only after a scan found work mirrors the anonymous
-side, with the same batching shape.
-
-> What do you mean with "and only reads"?
-
-That it no longer calls collapse_file(). The scan looks at the page
-cache and says whether there is work; collapse_file() is the run's job.
-
-I will drop the wording. It does not help.
-
-> >  A file
-> > collapse works on the page cache and never sees a VMA, so the scan takes
-> > the file reference while it still has one and the run gives it back.
-> > 
-> > That changes what a refused file table costs khugepaged.  Every file
-> > table it scanned used to end its pass over that mm, because the lock had
-> > been dropped to scan it; now only a table it goes on to collapse does.
-> 
-> The last sentence makes no sense. At least to me :)
-
-It is also wrong, so I will rewrite it.
-
-Before this patch collapse_single_pmd() set lock_dropped for every file
-table, refused or not, and collapse_scan_mm_slot() bailed out on it.
-
-The mm slot stays, so the next call comes back to the same mm at the
-saved address, but every file table cost an unlock, a trip through
-khugepaged_do_scan(), a relock and a VMA lookup.
-
-Now only a table that gets collapsed pays that.
-
-> > Two things on the file side stop being rescanned.  When the page cache
-> > already holds the PMD folio, the scan says so and the run goes straight
-> > to retracting the PTE table.  A run that refuses dirty pages and may
-> > write them back retries collapse_file() alone.  The checks the scan makes
-> > ahead of it are ones collapse_file() repeats under the page cache lock.
-> 
-> Is there any way we could move these changes into separate patches? These
-> changes are bit squeezed into the last part of this description. And having to
-> much happening at once makes this rather hard to grasp.
-
-Ack.
-
-> > Tracing changes with it.  mm_khugepaged_scan_pmd and
-> > mm_khugepaged_scan_file used to fire after the collapse, so for an
-> > accepted table their status field carried what the collapse made of it.
-> > They now fire before it and read SCAN_SUCCEED for an accepted table.  What
-> > the collapse then made of it is for mm_collapse_huge_page and
-> > mm_khugepaged_collapse_file to report.
-> > 
-> > Assisted-by: LLM
-> > Reviewed-by: Zi Yan <ziy@nvidia.com>
-> > Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> > ---
-> >  mm/collapse.h   |  14 ++++
-> >  mm/khugepaged.c | 166 +++++++++++++++++++++++++++++++++---------------
-> >  2 files changed, 130 insertions(+), 50 deletions(-)
-> 
-> [...]
-> 
-> > -/*
-> > - * Try to collapse a single PMD starting at a PMD aligned addr, and return
-> > - * the results.
-> > - */
-> > -static enum scan_result collapse_single_pmd(unsigned long addr,
-> > -		struct vm_area_struct *vma, bool *lock_dropped,
-> > -		struct collapse_control *cc)
-> > +static void collapse_control_init(struct collapse_control *cc)
-> > +{
-> > +	cc->progress = 0;
-> > +	cc->scan_file = NULL;
-> > +}
-> > +
-> > +/* A scan that took a file reference should have been run */
-> > +static void collapse_put_scan_file(struct collapse_control *cc)
-> > +{
-> > +	if (WARN_ON_ONCE(cc->scan_file)) {
-> > +		fput(cc->scan_file);
-> > +		cc->scan_file = NULL;
-> > +	}
-> 
-> See below regarding _release: having _put functions that are not supposed to put
-> anything except with BUG is akward.
-> 
-> > +}
-> > +
-> > +static void collapse_control_release(struct collapse_control *cc)
-> > +{
-> > +	collapse_put_scan_file(cc);
-> > +}
-> 
-> Do we really have to introduce collapse_control_release() just to perform some
-> safety checks for BUGs? I'd rather keep the collapse interface minimal and not
-> introduce _release semantics when there is actually nothing to be released?
-> 
-> Or will you add more into _release in later patches in this series?
-
-Not in this series.
-
-The engine I have on top of it gives both a job.
-
-I will drop it from this series and add it with the engine. The shape
-might change by the time the engine is posted.
-
-The check at the top of collapse_scan_pmd() stays, open-coded: a scan
-that found work on a file table holds a reference, and the next scan is
-where one that was never run gets caught.
-
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+>  .../devicetree/bindings/media/nxp,imx8mq-vpu.yaml      | 10 ++++------
+>  1 file changed, 4 insertions(+), 6 deletions(-)
+>
+> diff --git a/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml b/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
+> index 19528262810a..69619d2c86fa 100644
+> --- a/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
+> +++ b/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
+> @@ -14,12 +14,10 @@ description:
+>
+>  properties:
+>    compatible:
+> -    oneOf:
+> -      - const: nxp,imx8mq-vpu
+> -        deprecated: true
+> -      - const: nxp,imx8mq-vpu-g1
+> -      - const: nxp,imx8mq-vpu-g2
+> -      - const: nxp,imx8mm-vpu-g1
+> +    enum:
+> +      - nxp,imx8mq-vpu-g1
+> +      - nxp,imx8mq-vpu-g2
+> +      - nxp,imx8mm-vpu-g1
+>
+>    reg:
+>      maxItems: 1
+> --
+> 2.53.0
+>
+>
