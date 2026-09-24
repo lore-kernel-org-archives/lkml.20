@@ -1,89 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB16C4BF946;
-	Fri, 25 Sep 2026 15:18:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB6D37C0F5;
+	Fri, 25 Sep 2026 15:19:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790349516; cv=none; b=kjJg5vZk8ee9UArzuiZ7LIy4l0wSQheN4SsabGkj9+1TlN8XKzkilTvXXgRCdNqxBom+zbNLOTiUcBavWePEDBoLonlfIkjcVXBNtqq7joX44BurlPEKubICjuIoF04V6ULxCJgDtlp4uWc61hsNmf3Iqaf63E/EtRo70S+G7qU=
+	t=1790349557; cv=none; b=CtLN7x9+Wh94PzDyMCdnNHVjbN029lKzMpGepF8MwRybswat5xy3lDa4MIX8NNlHrYt7ygtIk06HsA+D+mc+oq3qyvhNW/V2uwZgNiBg7xm3KAxhPNtULLtD3TSfvVjbd+PvGplJnvqtw6eX4GgXES1N9Au/cZDwFW5TYC3ulXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790349516; c=relaxed/simple;
-	bh=IH8ov+Ny4Yl3CxsDzA5zFMquww5cDFHY9xZ0fLM7iog=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j81BpkICWTE6v6EdQttjlT0FkvwB+G9d7Zp1+D/4Eyo8GEluQL0PtesGzwZ9OtkA+qPMRXwiER21KlkTBTcD+AeUyXu/mHldwCOwY/PobJbVMWOdNASfGrsIqBZzlB7T3x8ZfLJTjUojULswTn/qQK1TtV582HE7teHNFBiNAPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DTSdc2s1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790349557; c=relaxed/simple;
+	bh=TpSqpNqKyuSoyeWtU1IVlmeYJTWYXguelTZlF/N9oM8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=iEhspaAcv/Rnce5QripUv8U+z4uL5zUj7L8jrPGWZhmsVzyGwAtHFfm4TIeyUOjst7pbP43JHA5qgznPAKWDu98MggKoV9i/nQ1MA1vGciu3P0RzpR2r/nPVW9+RfSeU9Ga2sWsghMN8DJuF4lvW+0vvhcFfI5VGdTNzCJbHBz8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gQMRXT2S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DTSdc2s1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FFD11F000FF;
-	Fri, 25 Sep 2026 15:18:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gQMRXT2S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D90E1F00893;
+	Fri, 25 Sep 2026 15:19:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790349496;
-	bh=/Oqj7B1TcaON877H4SXvrAAE63yKPFQybY15jqtw0w0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DTSdc2s1DCtiTNLgefTpjk1yzNz422Yg5tTaQTrljnQGIQr7tHw+IE2y2IXiOvzGc
-	 pnJ+ziSlkScuozdyKCRnNfEumWNuppLZYJxVY89fM96yAcF9W32nLhmwRbWMO3h+1g
-	 cgTNP9A2JlNrpiVxlW2cUWitmwBRXjaLZpuJW4KX5ctIfbrLWnYSPt/nZzZtrQjgir
-	 icic68KAWBT3fh+iYn66MexUD2hkjC1EqsYaod0sDZ1zozJDUkT29ksAUYOwx/Toxb
-	 hq1A8yNbcTQK1UWLlIQRhA083X0ZRJHoSkwY0BALIL2H+vkY0rFEJdZBY7DEPekwC1
-	 eMWD3ciNo2g9w==
-Date: Fri, 25 Sep 2026 17:18:00 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
-Cc: Juha-Matti Tilli <juha-matti.tilli@iki.fi>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Jeff Johnson <jjohnson@kernel.org>, linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
-	ath12k@lists.infradead.org, Bjorn Andersson <andersson@kernel.org>, 
-	Chris Lew <christopher.lew@oss.qualcomm.com>, Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>, 
-	Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-Subject: Re: [PATCH v2 2/4] net: qrtr: Assign unique node id for MHI endpoints
-Message-ID: <pnt3alevvps5rx2av3r72j6xlky4wlrvzedfs4apnsnpq7cu7x@5begxgw5vsju>
-References: <20260921-qrtr-multi-ep-v2-0-27dd80d841a0@oss.qualcomm.com>
- <20260921-qrtr-multi-ep-v2-2-27dd80d841a0@oss.qualcomm.com>
- <a16d507e-17f7-4074-8817-4b8da3a71c3b@oss.qualcomm.com>
- <8ed398ba-2ebe-488a-a213-8ca7ecbe861d@app.fastmail.com>
- <CANyhwx0hZJC6xXaSC2g4GFgUOp5n_KN4tdXksW+s8Mk_+7xEAA@mail.gmail.com>
- <ayyrvpxnxonroz6kafehepplhltnzgopgt6pn5fnpdmft6rbxm@a5sps2dnso47>
- <CANyhwx1EG=2FyBm150wrKpj=kQ1066iwZWndx=ZL3BKNoZUhVA@mail.gmail.com>
+	s=k20260515; t=1790349553;
+	bh=Y6/QROIQGqleWmHbIv1YDGIron6nQb66ooTgjR8V0ag=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=gQMRXT2SAcebjcduC+LVDKul05frsCc2GYK30kgkoyHfetIipmEVvAgYP+8DO5pbD
+	 DsFmzcVQZJ1I3wDSRhiva53JdpA9U+xIj4JBYFlzIjmcTz8RFUqVWcCvjFjJyT4gQG
+	 1CIccSkH/Fm6Ei986b5sB4Lu5GgLMdmc0c1try3mwww1nEaaiogo07EfMuCohar1gX
+	 s7BDBekKSkM4B3dT/sISOyBkvjcOEChb3nXTtLMjXulhNM5T4kVTWo4kBhtK5e8dC9
+	 lwwPH93ocQNyh6mpoeXdcghgsCvYoKMMhPrkETL7c74BBkiIU5joyj1YYgTtmTzPzV
+	 uTIKtdfw+j8YA==
+From: Mark Brown <broonie@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: lgirdwood@gmail.com, linux-kernel@vger.kernel.org, m.purski@samsung.com, 
+ stable@vger.kernel.org
+In-Reply-To: <20260917143052.2156903-1-vulab@iscas.ac.cn>
+References: <20260917143052.2156903-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH] regulator: core: Fix coupled regulators reference leak
+ on removal
+Message-Id: <179029222340.149798.2335376229223099439.b4-ty@b4>
+Date: Fri, 25 Sep 2026 00:23:43 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CANyhwx1EG=2FyBm150wrKpj=kQ1066iwZWndx=ZL3BKNoZUhVA@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1156; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=TpSqpNqKyuSoyeWtU1IVlmeYJTWYXguelTZlF/N9oM8=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqtpDtMwqQIkfu8fXvPS0kSS0bQktXCF72rSfHJ
+ FrE8dJaPqKJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaraQ7QAKCRAk1otyXVSH
+ 0EecB/4puWlU11SYpfUFj5+k7Rr4SdaS08noMASqXMiD0gr8toI4184/lgEKrEs1GEZj+TChJDu
+ 8BQ0tOxrr4DM4n00mMQPaR+X/MdQqLXjj7vOZ52vPieLZP3LUU2ox3Ge4pGftGCYO7IE56vsmnl
+ 3/ElbbibB533/A7HEiZJbtZ0cqN8kAuFP4G6SjN+/MfDqPmoCdzR3gdAegzJFyc1MaXXGgys1d8
+ X5zAX04gm1MJodJ0e3zGRL6j8ptu70jdf7Vqj4VXtWP0vI5YfcT7m8CdrqJhfhPfvOzEeNWytHk
+ Cva6RvbG0WiFmFmoPJc/WYQSLv7BJUQdRu/EymVSlA2dUxy5
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Fri, Sep 25, 2026 at 01:46:34PM +0100, Youssef Samir wrote:
-> On Thu, Sep 24, 2026 at 4:58 PM Manivannan Sadhasivam <mani@kernel.org> wrote:
-> >
-> > On Wed, Sep 23, 2026 at 04:03:38PM +0100, Youssef Samir wrote:
-> > > On Tue, Sep 22, 2026 at 6:24 PM Juha-Matti Tilli
-> > > <juha-matti.tilli@iki.fi> wrote:
-> > > >
-> > > > On Tue, Sep 22, 2026, at 20:14, Youssef Samir wrote:
-> > > > > On 9/21/2026 12:23 PM, Manivannan Sadhasivam via B4 Relay wrote:
-> > > > > > +
-> > > The chance of collision is slim, but still not impossible.
-> >
-> > When you mean collision, do you mean node id collision due to bridged nodes?
-> > Because, even if the directly connected QAIC devices use 32bit node ids, the
-> > collision won't affect the functionality.
-> As in ep_nid of one device matching the nid of another device. In MHI,
-> that shouldn't
-> really matter since this patch moves away from using QRTR_EP_NID_AUTO in node
-> assignment, but as you mentioned below, it could clash with TUN and SMD EPs that
-> are already registered with their ep_nid.
+On Thu, 17 Sep 2026 14:30:52 +0000, Wentao Liang wrote:
+> regulator: core: Fix coupled regulators reference leak on removal
 
-Ok, this clarifies. But as I mentioned before, there is no current
-usecase/requirement to support attaching identical SMD/TUN devices. When the
-requirement arises, we can extend this node id assignment scheme to global or
-some other method.
+Applied to
 
-- Mani
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.4
 
--- 
-மணிவண்ணன் சதாசிவம்
+Thanks!
+
+[1/1] regulator: core: Fix coupled regulators reference leak on removal
+      https://git.kernel.org/broonie/regulator/c/b9205f0837ca
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
