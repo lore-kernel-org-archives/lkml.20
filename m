@@ -1,61 +1,56 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-145.mta1.migadu.com [95.215.58.145])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5132D2E2665;
-	Thu, 24 Sep 2026 21:11:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 232B54DAF90
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:11:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790284262; cv=none; b=DiTh0zZivgvLpjRFVqYeObK8WQnAm4oO73XWbRiqHAFi5+m2z+34xxnaQ6iDmgMPyf1N5y+gtTsjy+saQhWY/E8hsoXlxpMYmh8rvKWCVf0LkcMDlRW8ZzKra3KuBYlJ9AXV8u4dypQopIdL0b46b4bGUwpDoxkQTQqmH2eqZlQ=
+	t=1790284266; cv=none; b=AS6XTY5Qi5ljdPM9e43PQSgnBprADIPE4oDCgK1MzskCKozmRkUGH4oSeFLSxZUQgxlUOzhSTXQCp98SwWAxT6/93x+AKkhpmA/G+N1wswRmj6qY19X6p1poke4IyBYhoF6LbLDATHdpdSJq4vOJNowrE1aHyiCfMVPFVYeESh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790284262; c=relaxed/simple;
-	bh=NXthcVukq2Sri967JkGAsPjx3qpfxrwW2FT7TpDzLsQ=;
+	s=arc-20240116; t=1790284266; c=relaxed/simple;
+	bh=geWEgMSYQDaXHL8PI+SwL20O2XP2TtLwPQS9ZQiVmS0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YjgIbTikIW7GR/t4RXmoFF+KEBQDlsKU5F/CfAuCuE3M4klcYtpGkv7vfzHfk7J8FnvbWBvnmOzCjN0yuUnGs4hy5UzOf/NAgii9kd9sMZbFLO37a8wDxMGetqSBhppPI2gah7eU3PihTYYq33U8QvoXDNJV2KFlouS6M3pnf5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MugamcMm; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=ESu2FwCKGW2b40bbs5w6MDVj8X0p9q/8qBHlBZqecO8LO6OeSykwJo0o6XCdv5Vj97anVnWOq+5rUtargBrlG2MFAvUMIrO7sr50s6lYNBhuZVG1hsIDe3OQoK3ckW+scqrRBdRqJqh8z/zT+PXcB4/EhCT3tjsja3zreX1ptbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Eeh4tDSK; arc=none smtp.client-ip=95.215.58.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MugamcMm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790284260; x=1821820260;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=NXthcVukq2Sri967JkGAsPjx3qpfxrwW2FT7TpDzLsQ=;
-  b=MugamcMm/AM6QMKQwMS8tkqabxpQdlCY1fqb7CdO7EOqa8QD68Gza5eq
-   kZ59E34EtPWqi8PUqBjs2sAeh2o8650zVnH0125IkHwlo1S3zCNjx2nNp
-   ZYpsR323VLIAZA3U4jzS8nn0EJ3WxYOryrpRkk870kAOaM1HxpP1F2VPU
-   Z1op2ysKXGeum74o3NAPECpGocWHUPgjq0DUYMMaF2QoE1Y/oxbzKPE3t
-   BRgbKV+zl7geP9h4bvBqOrIo+paYztAC3p2sEJ/JnqIzMPx60j+T1QbpI
-   eSlHWDPO9HcbciO/BYp0JUuYw6eDN4A0xG3fSyBRedoM4uNjyCevLC1MZ
-   A==;
-X-CSE-ConnectionGUID: h8djnz2hTT2E4jkP6hHrgQ==
-X-CSE-MsgGUID: Kqt/m3iRSBGep0rRaH7dCw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="91088525"
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="91088525"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 14:10:59 -0700
-X-CSE-ConnectionGUID: NJ0r/P1aR7m44gAt3jbohw==
-X-CSE-MsgGUID: OvneasK5TN+lyjTUhDxDyA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="302076897"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.199])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 14:10:57 -0700
-Date: Fri, 25 Sep 2026 00:10:55 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	David E Box <david.e.box@linux.intel.com>,
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 11/19] platform/x86/intel/tpmi: Include the headers
- tpmi_common.c relies on
-Message-ID: <arWR3wRLuhsECqTP@ashevche-desk.local>
-References: <20260924182342.212709-1-sathyanarayanan.kuppuswamy@linux.intel.com>
- <20260924182342.212709-12-sathyanarayanan.kuppuswamy@linux.intel.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Eeh4tDSK"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=geWEgMSYQDaXHL8PI+SwL20O2XP2TtLwPQS9ZQiVmS0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790284262; v=1; x=1790889062;
+ b=Eeh4tDSK23G+TbvqhrDIDogpAxLZ6xsTOdlLHlKDetZUvHYMlAb3Ik1/Ut9G4V0OpLuS3y0m
+ tmLn0/6MzpnzE+zUdW0zakrd9SIewOskKFysWTXFiUgIYljj4C4UMB51spUhO9DV8AYOc1SNMmb
+ p165Nm7nJOoKWTlpRoaGar18=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id de8f8ffe1b04012f;
+	Thu, 24 Sep 2026 21:11:01 +0000
+X-Mizu-Trace-ID: de8f8ffe1b04012f
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 24 Sep 2026 14:11:00 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Tejun Heo <tj@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	Suren Baghdasaryan <surenb@google.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	David Dai <david.dai@linux.dev>, JP Kobryn <jp.kobryn@linux.dev>, 
+	Frederic Weisbecker <frederic@kernel.org>, Aaron Lu <ziqianlu@bytedance.com>, 
+	Daniel Jordan <daniel.m.jordan@oracle.com>, Hao Lee <haolee.swjtu@gmail.com>, kernel-team@meta.com, 
+	cgroups@vger.kernel.org, bpf@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/7] cgroup: charge kernel work to the cgroup it is
+ done for
+Message-ID: <arWLq4p488JPhuZ1@linux.dev>
+References: <20260924184714.912181-1-shakeel.butt@linux.dev>
+ <befc0a9b9998db0292c9998c639a3a9f@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -64,37 +59,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260924182342.212709-12-sathyanarayanan.kuppuswamy@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <befc0a9b9998db0292c9998c639a3a9f@kernel.org>
 
-On Thu, Sep 24, 2026 at 11:23:33AM -0700, Kuppuswamy Sathyanarayanan wrote:
-> tpmi_common.c uses a number of interfaces whose headers it never includes
-> directly and only gets by chance through other headers:
+On Thu, Sep 24, 2026 at 10:28:10AM -1000, Tejun Heo wrote:
+> Hello, Shakeel.
 > 
->   BIT_ULL(), GENMASK_ULL()	bits.h
->   __packed			compiler_attributes.h
->   EXPORT_SYMBOL_NS_GPL()	export.h
->   DEFINE_IDA()			idr.h
->   IORESOURCE_MEM		ioport.h
->   DEFINE_MUTEX(), mutex_lock()	mutex.h
->   seq_printf(), seq_hex_dump()	seq_file.h
->   kmalloc(), kzalloc_flex()	slab.h
->   USEC_PER_MSEC, USEC_PER_SEC	time64.h
->   uXX				types.h
+> On Thu, Sep 24, 2026 at 11:47:04AM -0700, Shakeel Butt wrote:
+> > This series lets a kernel thread say which cgroup it is working for.
+> > That cgroup then sees the CPU time in its cpu.stat and the stalls in
+> > its memory.pressure, and the CPU time comes out of its cpu.max quota.
+> > The first user is the memcg reclaim that runs from high_work.
 > 
-> Include them, so that the file does not break when an unrelated header
-> stops pulling them in.
+> This doesn't translate to net rx, which is another major source of
+> displaced CPU usage. Switching membership on each packet isn't going to
+> work there. Attribution can't happen that way. We'd much rather count
+> per-cgroup received packets and prorate the CPU consumption. If at all
+> possible, I think it'd be better to adopt an approach which can cover
+> both use cases.
+
+Very good point. I think we need to think for net rx for two scenarios. First,
+the modern NICs with rx steering support and second, old NIC with shared queues.
+
+On the modern NICs where the workloads get their own rx queues, I think the
+proposed mechanism can help to do the accurate accounting (I have to extend this
+to softirqs as it is limited to kthreads atm) very easily.
+
+The challenge you mentioned is for the old NICs where we get to know the cgroup
+assosiation of the rx packets very late (or deep) in the stack. Also CPU spent
+on each packet is not necessarily uniform (due to out-of-order or drops or
+checksum errors or window shrinking) but for simplicity we can assume uniform
+CPU. Maybe the right place to charge for such scenario might be at application
+receiving those packets into the memory. I feel like we might need a very
+special way to account for this case (maybe through BPF or something). At
+the moment to me it seems very hard to have a universal solution which helps
+this case and the reclaim case I am targetted.
+
+If you don't mind, I think having solution for modern NICs i.e. dedicated rx
+queues, should suffice for now (unless you want the solution for old NICs as
+well). Let me know what you think.
+
 > 
-> Drop io.h while at it, as iopoll.h already includes it, and sort the
-> block alphabetically: debugfs.h and cleanup.h were the wrong way round.
+> >  - The debt is capped at one period's quota, so one long piece of
+> >    work cannot starve the cgroup for long. Time over the cap still
+> >    shows up in cpu.stat. Writing cpu.max or cpu.max.burst clears the
+> >    debt.
 > 
-> No functional change intended.
+> I don't like the debt capping. Having debt doesn't have to mean that
+> the cgroup doesn't get any bandwidth at all. The cgroup just needs to
+> be slowed down enough that the generation of new work is throttled and
+> the whole thing doesn't go out of control. IO control already does
+> this: when IO debt is accumulated, userspace is heavily throttled, but
+> not completely stalled, until the whole cgroup's consumption comes
+> under control. I don't see why the debts would need to be forgiven
+> unconditionally. The cgroup can keep paying them while running at a
+> minimal rate to avoid triggering stall failures, and if the situation
+> doesn't resolve quickly, that will most likely trigger pressure based
+> kills in any reasonable setup anyway.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Sounds good, I will remove this capping in the next version.
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Thanks for taking a look.
