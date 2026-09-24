@@ -1,143 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B6E2381E92
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:07:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 441E532A3D7;
+	Thu, 24 Sep 2026 04:10:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790222865; cv=none; b=kwNipnLsY3alpI/TtoOit5IgO4haydaA7MjoR56JvJP8cUrNj0wZrfATTuM+FDq4iLL+ID8smBBSTYDimcSloH/y884Z6CJRmVSV+mMdYQ9yb3gCpekyIzs3YppaWYxr6yZd1OxhUNwhNHV90D1plzAuNvgMNeo1rmANFjY+kAA=
+	t=1790223026; cv=none; b=jYs9DcXThrmNtwxbIs86X48MGXY1KhGwKBVCtEbCjohgRcWBXwgSOmblFy3669wp7mbUX2hZO/apP3QyKH2IMY9zva8YpxmznWXcOQP27F3eDawvlm0CDdMfsc0Vp9T9JRTZ6u7Je34UScuRIdhSDNrzyEgDRLAzdhnfodsltlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790222865; c=relaxed/simple;
-	bh=uKNHX1AEIFkhasNIc08NvBKSlR8RmcmWvLxYc+HcP5k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pPsmYMzGuJksFkwXA3Oo1S4PA2DMz5WrhuuQCxWaf8HbjbaKbwlg87ZKnJN0GqOqmRCyfJJHNfQ6xgKEtGHR0DGQyJwSyDp+n7GV0mlVlKvWW+N5cktFPochY51GXc6p4jNFB64rDn5KqSvq1teF5h60Vr0bkSPr2PMZkF2EUUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W+eQpLFa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790223026; c=relaxed/simple;
+	bh=/R79mf0UN30aDwOcAu+xr3w+bnwKPwqVeOzknFxhMtI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bvOIctohg/vMay0rUCswGLoq/kuNc7+yf7avktZnD0sVnuLlxaaUXx2aXiMIHemAjlf9i4Y4qqJFcSJSAB8/ihA0o0Rk/U6O3BkEn0gmpr9SWJMJBEg56c/X24b1asj4IwaWurlwNREUxExyO2An0xe6MEQPbN8Bt0mnpxzzxGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QQf1+PxM; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W+eQpLFa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0B1E1F0089A
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:07:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790222863;
-	bh=wlxzHAl4jd2Dy0VVw5bc0eae7SydK76Gy5QsoWtTugw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=W+eQpLFaM2rcqsBrwxptT+1AE4q8ovSwO3chFMk819v3awDKts+y5Vk6cayF3ClxE
-	 Fl5WCojNXMrnxkT4G+aF96bfpimhq6BS3ZvRyNDiIFIlXxQvSXF8INmmLoc+yvkKC6
-	 NLx9Q6TnmT5AIco6f2+k549wDAisZdSuDL54+mE/2ctC7zPDHPJrAdVLnnTZ43sgGC
-	 XrZQ9MliKDafN8cVGbCYAtNdWJhwGnTqNQOU8jbiieEIHq45AYa9Jp3tzr9Nhn6tC5
-	 +B5kJ6gY0a+Qmk1rHyGpvh5fcc8iIMUwF7ja9OFZb1D34FQi7KYflEF0xFN4XYIm9g
-	 bO6pNhB4cMVFw==
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910cadeb3so121054285a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:07:43 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzGhjA5tfw1butrmJW56TDKAUXkQ5UPltk0S5BgfYDbX3KAeCqMjDwXLivSS2qdI9KAOl7/tPS9K04KZ+E=@vger.kernel.org
-X-Gm-Message-State: AFuF++mDrlFeAbSd4MgmdxEnYAnwntgtORthO4o+dnmX0fIq1R1PiCf/
-	vX+Xl3pT/KuBhJz/HFEJx1jYkWz3+EsvGovI+LlBujVgDBN3H4eI1m+I3VqU9C3XqkMK0ytZskn
-	PdtqdOFJlFeB61cpIkCZpbw6gSZWJgdg=
-X-Received: by 2002:a05:620a:178a:b0:93b:6113:21c with SMTP id
- af79cd13be357-93c3625bfedmr121073085a.10.1790222862939; Wed, 23 Sep 2026
- 21:07:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QQf1+PxM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790223025; x=1821759025;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=/R79mf0UN30aDwOcAu+xr3w+bnwKPwqVeOzknFxhMtI=;
+  b=QQf1+PxMJDnC0sx2IoGQcA4WAKmd432UoIhBT+SKtCIGvryWfaivpu4N
+   dtnwUKp43ZZSHRA8os5vvpZvymjxaUwYTOg2vYjLEMgiYB6UrHqkgmyhQ
+   hQlG5WftOCYBr6aKdITU0yRNz3MOCk/tw9ZB4ABKsQi8w44YUmmKg7Zf/
+   DVwaEJI3AnNpmrbhDPXjtQ02Sq7b/PIwvR/DKd/ftK3wAAhMk8RpXsgqc
+   ke2CP/wUDwfEq6rKwD9SrjVDS4NMPxDKlibwNoPliWnlRFghqAR/8mFko
+   3QCfVfvs6rXVWTNhNb2WTNSdlGnn8hYdwPbEIxtMWycfkmuU7sXbITmR0
+   g==;
+X-CSE-ConnectionGUID: dN0UkuUVQqGDbFszSdHzDA==
+X-CSE-MsgGUID: Eq2/u/VKR3GZuqo/3fG83w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="94802348"
+X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
+   d="scan'208";a="94802348"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 21:10:24 -0700
+X-CSE-ConnectionGUID: +Z9BmMAST3utUSdVgPQUBg==
+X-CSE-MsgGUID: wuav5v6NQAuyY7aW/32L3A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
+   d="scan'208";a="300154550"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa002.fm.intel.com with ESMTP; 23 Sep 2026 21:10:23 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x9amq-00000000IBa-2izI;
+	Thu, 24 Sep 2026 04:10:20 +0000
+Date: Thu, 24 Sep 2026 12:09:46 +0800
+From: kernel test robot <lkp@intel.com>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: oe-kbuild-all@lists.linux.dev,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+	syzbot+1075f6dc93f398c1857e@syzkaller.appspotmail.com
+Subject: Re: [PATCH] Input: serio - don't sleep on serio_mutex from
+ drvctl_store()
+Message-ID: <202609241230.lUW53GKL-lkp@intel.com>
+References: <20260919124604.210505-1-ngocthang2710.1999@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <apcVhWzEwkwHYjB1@KASONG-MC4> <20260901220430.79810-1-baohua@kernel.org>
- <SJ1PR11MB61051CC2791B67C97BEB2D4B8CB72@SJ1PR11MB6105.namprd11.prod.outlook.com>
- <CAGsJ_4yRJnr4xXdokVHu85b7XPe0p6rZ+Lzv4sE_gCWdOF4YAw@mail.gmail.com>
- <SJ1PR11MB6105505CAF620B23978FBEF18CB72@SJ1PR11MB6105.namprd11.prod.outlook.com>
- <SJ1PR11MB61057EF65B62E06E2C2049008C812@SJ1PR11MB6105.namprd11.prod.outlook.com>
-In-Reply-To: <SJ1PR11MB61057EF65B62E06E2C2049008C812@SJ1PR11MB6105.namprd11.prod.outlook.com>
-From: Barry Song <baohua@kernel.org>
-Date: Thu, 24 Sep 2026 12:07:31 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4yHZ5ck1hk+Lo-7aQudApm0Nx=4yssUDrRTz681PuW=tw@mail.gmail.com>
-X-Gm-Features: AclHuK_Oo5VaIVxMohMOcnCcWX2KkBDujM8Sp4JE6sgnmpi0H7GmNxPODugX6SA
-Message-ID: <CAGsJ_4yHZ5ck1hk+Lo-7aQudApm0Nx=4yssUDrRTz681PuW=tw@mail.gmail.com>
-Subject: Re: [RFC PATCH] mm/mglru: dynamically protect readahead fault folios
- under refault pressure
-To: "Ababneh, Ehab" <ehab.ababneh@intel.com>
-Cc: "ryncsn@gmail.com" <ryncsn@gmail.com>, 
-	"akpm@linux-foundation.org" <akpm@linux-foundation.org>, 
-	"axelrasmussen@google.com" <axelrasmussen@google.com>, "kasong@tencent.com" <kasong@tencent.com>, 
-	"lance.yang@linux.dev" <lance.yang@linux.dev>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, 
-	"qi.zheng@linux.dev" <qi.zheng@linux.dev>, "shakeel.butt@linux.dev" <shakeel.butt@linux.dev>, 
-	"weixugc@google.com" <weixugc@google.com>, "yuanchu@google.com" <yuanchu@google.com>, 
-	"yuzhao@google.com" <yuzhao@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919124604.210505-1-ngocthang2710.1999@gmail.com>
 
-On Thu, Sep 24, 2026 at 11:43=E2=80=AFAM Ababneh, Ehab <ehab.ababneh@intel.=
-com> wrote:
->
-> Hi Kairui, Barry,
->
-> Apologies for the delay in getting back to you with these results =E2=80=
-=94 my
-> test environment got corrupted and I had to spend some time recovering
-> it before I could re-run the benchmark.
+Hi Nguyen,
 
-No worries, Ehab. And thanks very much for your testing!
+kernel test robot noticed the following build errors:
 
-[...]
+[auto build test ERROR on dtor-input/next]
+[also build test ERROR on dtor-input/for-linus linus/master v7.3-rc4 next-20260922]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-> > > > I agree that reverting the commit that caused the regression is not
-> > > > the optimal path. I expect there are many workloads and scenarios
-> > > > that benefit from the behavior introduced by that commit, so
-> > > > reverting it could unnecessarily regress those workloads.
-> > > >
-> > > > I will run the Cassandra benchmark with Kairui's MGLRU-FG patches t=
-o
-> > > > see whether they address the issue I am seeing. I will send the
-> > > > results when they are ready.
-> > > >
->
-> Thanks for the pointer =E2=80=94 I gave your MGLRU-FG fix a try against t=
-he same
-> Cassandra read benchmark I used for my patch (4 nodes, 720s, 100 readers)=
-.
->
-> Results with MGLRU-FG:
->   Op rate:                  55.0k - 56.5k op/s
+url:    https://github.com/intel-lab-lkp/linux/commits/Nguyen-Ngoc-Thang/Input-serio-don-t-sleep-on-serio_mutex-from-drvctl_store/20260919-194604
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/dtor/input.git next
+patch link:    https://lore.kernel.org/r/20260919124604.210505-1-ngocthang2710.1999%40gmail.com
+patch subject: [PATCH] Input: serio - don't sleep on serio_mutex from drvctl_store()
+config: x86_64-rhel-9.4 (https://download.01.org/0day-ci/archive/20260924/202609241230.lUW53GKL-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260924/202609241230.lUW53GKL-lkp@intel.com/reproduce)
 
-I noticed this is even higher than your dynamic
-readahead fix: "throughput ~51.9k-52.7k op/s"
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609241230.lUW53GKL-lkp@intel.com/
 
-Is this a run-to-run variation, or is the improvement stable across runs?
+All errors (new ones prefixed by >>):
 
->   Latency 99th percentile:  6.8 - 6.9 ms
->
-> For reference, here's where the other variants landed on the same setup:
->
->   Regression (6cbdd9726fb5, "mm/mglru: use folio_mark_accessed to
->   replace folio_set_active"):
->       p99 ~9.2-9.5 ms, throughput ~41.8k-43.6k op/s
->
->   Revert of 6cbdd9726fb5:
->       p99 ~5.5-5.6 ms, throughput ~51.9k-53.1k op/s
->
->   My dynamic readahead-credit fix:
->       p99 ~5.8 ms, throughput ~51.9k-52.7k op/s
->
-> So MGLRU-FG recovers most of the latency regression, but the revert
-> and my fix still recover more of it: p99 with MGLRU-FG is noticeably
-> higher than with the revert and my fix (6.8-6.9 ms vs ~5.5-5.8 ms),
-> though it's still a big improvement over the regression's 9.2-9.5 ms.
+   In file included from include/linux/jump_label.h:78,
+                    from include/linux/dynamic_debug.h:6,
+                    from include/linux/printk.h:620,
+                    from include/asm-generic/bug.h:31,
+                    from arch/x86/include/asm/bug.h:195,
+                    from arch/x86/include/asm/alternative.h:9,
+                    from arch/x86/include/asm/barrier.h:5,
+                    from include/linux/list.h:11,
+                    from include/linux/module.h:12,
+                    from drivers/input/serio/serio.c:14:
+   drivers/input/serio/serio.c: In function 'drvctl_store':
+>> drivers/input/serio/serio.c:361:45: error: implicit declaration of function 'restart_syscall'; did you mean 'do_no_restart_syscall'? [-Wimplicit-function-declaration]
+     361 |         scoped_cond_guard(mutex_try, return restart_syscall(), &serio_mutex) {
+         |                                             ^~~~~~~~~~~~~~~
+   include/linux/cleanup.h:457:25: note: in definition of macro '__scoped_cond_guard'
+     457 |                         _fail;                                          \
+         |                         ^~~~~
+   drivers/input/serio/serio.c:361:9: note: in expansion of macro 'scoped_cond_guard'
+     361 |         scoped_cond_guard(mutex_try, return restart_syscall(), &serio_mutex) {
+         |         ^~~~~~~~~~~~~~~~~
 
-We also have this :
-https://lore.kernel.org/linux-mm/20260901220430.79810-1-baohua@kernel.org/
 
-you once reported it as :
-"throughput was approximately
-49.4K to 50.3K ops/s, averaging about 50.0K ops/s, while the 99th-percentil=
-e
-latency remained around 7.0 to 7.1 ms"
+vim +361 drivers/input/serio/serio.c
 
->
-> Happy to dig further if useful =E2=80=94 let me know if you'd like more d=
-etail
-> on the latency distribution or a longer run to confirm these numbers
-> are stable.
->
+   353	
+   354	static ssize_t drvctl_store(struct device *dev, struct device_attribute *attr, const char *buf, size_t count)
+   355	{
+   356		struct serio *serio = to_serio_port(dev);
+   357		struct device_driver *drv;
+   358		int error;
+   359	
+   360		/* Port removal holds serio_mutex and drains us: don't wait for it. */
+ > 361		scoped_cond_guard(mutex_try, return restart_syscall(), &serio_mutex) {
+   362			if (!strncmp(buf, "none", count)) {
+   363				serio_disconnect_port(serio);
+   364			} else if (!strncmp(buf, "reconnect", count)) {
+   365				serio_reconnect_subtree(serio);
+   366			} else if (!strncmp(buf, "rescan", count)) {
+   367				serio_disconnect_port(serio);
+   368				serio_find_driver(serio);
+   369				serio_remove_duplicate_events(serio, SERIO_RESCAN_PORT);
+   370			} else if ((drv = driver_find(buf, &serio_bus)) != NULL) {
+   371				serio_disconnect_port(serio);
+   372				error = serio_bind_driver(serio, to_serio_driver(drv));
+   373				serio_remove_duplicate_events(serio, SERIO_RESCAN_PORT);
+   374				if (error)
+   375					return error;
+   376			} else {
+   377				return -EINVAL;
+   378			}
+   379		}
+   380	
+   381		return count;
+   382	}
+   383	
 
-Thanks
-Barry
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
