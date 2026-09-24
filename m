@@ -1,132 +1,261 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8CFC4137AE
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:12:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B852372EF0
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:13:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790223124; cv=none; b=dGXYT2xOMO5g/ogGM5QoMP4A6Bq2IrYduXuMScZ+XnmMPKgS0Er8VFn0SrzNEB6MjWWpHBYhp8odyHklsSYmS3M+6v0iQPQvFYK8/Ya7yb308Z9xrbrISGWePFLVSJ09Gjpvv+N5+u/uWp5C1tQ4xsSj87e0MTEF+ferG3r0Seo=
+	t=1790223207; cv=none; b=TI/eFiBJBawXdabNC8i0UeZQ1DVrkyGJ+1iMQs/OyDfw4OSa9nHtizkqzt+7UXHPHrBZYV6Tl6sD5YFX8DGSoDx3ALuw3nMN1Ax0YKvbGBO33k/N2vFwiSRjcKBCiYQgAfp3veElrg/f7t//IjK7LhyQ3AQz/F2hntMQEcoSm0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790223124; c=relaxed/simple;
-	bh=ECLhm6sCglNuE+1p5FlpbPxobLSh1HSDPmI9OUlXDOs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JCQlGn4URLCwzbahWITxUM4W0s6c8u7RcWYs815bB6UXCQoYowxsJ71suuTpUBZgAvr2Y0oZ8rIXriZtayPDwHjFZpi7FTKZWdlFRVJWXaV+DN90FzueaLnn/O5PdQrcTF3l+5RjMm5eAjLVQg00nFkB0mdsFsuR2iUxHze7ul4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SyKzNg7I; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790223207; c=relaxed/simple;
+	bh=8+RdLEb/EU5kXwYDXztHKTzJVyeDHgxCzgwtiszcjes=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=L1BEKbvkqjcGMz6VMzmEsqC/GR0YTpixrx4sJ+z1PfGA/GIaNvjmtnJwJ6MlIcLx1PhVrLT75/LvVekc53QeYMoGS4CzQw7kj16xZ8gF/4bXioljIINu2SP5D6iZk8XhahKUEEjz0M3X2e/vnXHxwxND93gr4f90aHzxXUc/JuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ZjqTNrHw; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SyKzNg7I"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790223123; x=1821759123;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=ECLhm6sCglNuE+1p5FlpbPxobLSh1HSDPmI9OUlXDOs=;
-  b=SyKzNg7IEWGLemyaitfPV6bm6jnn6cyKyt8y+JRdpjozZnL5/Jr47PHo
-   TEzCbNYU68ZF1ncEHNKgWOhWomOL6kBq7xsoobLKjzREV3Fye7mJNzVNO
-   7A96Ai3QBubwHFcFBHjCFxBjWern3HTWHR0FpBbR5NOBjE3uIPOFYeaz6
-   EBerHIlwpijcf0wSByWpa20nULrO6Wosto9zjLRJEjL3tZ1xPTGvXrBLr
-   nbjddKTXFZTVi7Xwd/gaugUkZ/F1azJBH/a48Ee+l5XzYNQkLU+PNiQsR
-   7XGetsKWMgAdWN7j3cUjQ0PZqryyrMWpPGkYqOlrJwtei4FuMaptVNE5p
-   w==;
-X-CSE-ConnectionGUID: P/kCQNBpQ264x45w46N7Lw==
-X-CSE-MsgGUID: iNm6nEpeTfyf1f0Bpp0dow==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="91002593"
-X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="91002593"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 21:12:03 -0700
-X-CSE-ConnectionGUID: C7tfZNhqRr2dhGOChfEyRw==
-X-CSE-MsgGUID: 2gp6Kz6/Qvq4Apghrw9sTg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="5009503"
-Received: from unknown (HELO gnr-sp-2s-612.sh.intel.com) ([10.112.229.148])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 21:11:58 -0700
-From: Zhenzhong Duan <zhenzhong.duan@intel.com>
-To: x86@kernel.org,
-	linux-coco@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: dave.hansen@linux.intel.com,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	hpa@zytor.com,
-	dave.hansen@intel.com,
-	kas@kernel.org,
-	rick.p.edgecombe@intel.com,
-	jgg@nvidia.com,
-	nicolinc@nvidia.com,
-	aik@amd.com,
-	aneesh.kumar@kernel.org,
-	seanjc@google.com,
-	pbonzini@redhat.com,
-	yilun.xu@linux.intel.com,
-	chao.gao@intel.com,
-	vishal.l.verma@intel.com,
-	xiaoyao.li@intel.com,
-	kevin.tian@intel.com,
-	chao.p.peng@intel.com
-Subject: [RFC PATCH 15/15] virt: tdx-guest: Accept default DMAR entry during PCI driver attach
-Date: Thu, 24 Sep 2026 12:10:32 +0800
-Message-ID: <20260924041032.1096569-16-zhenzhong.duan@intel.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ZjqTNrHw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
+	Content-Type; bh=iv81RNA485adQFvrL4+HZjzDjbdgSHwKqirIAdW4HY4=;
+	b=ZjqTNrHwAlJ2M/cArk9hKPvbBufLBaJtptxYdQb7413DMPTmJwjJeoRfyEviU0
+	kuF3Wh4Sw1iOEGSb/5uIz6/8tK+l+S0QaDGZkwe9a8AsQovXL95HSAl3Oiif0x8N
+	r9T7e/mOzeJIIH7r3m4cch0AkYv/DJzJOUyYtiwsyQ3B8=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3X9Y0o7RqWqn_AQ--.41231S2;
+	Thu, 24 Sep 2026 12:12:37 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>
+Cc: Hui Su <sh_def@163.com>, Balbir Singh <balbirs@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v4] mm/migrate_device: consolidate compound folio handling
+Date: Thu, 24 Sep 2026 13:12:10 +0900
+Message-ID: <20260924041210.13d04b8be24495fc593665283d2e4453d449502f@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wD3X9Y0o7RqWqn_AQ--.41231S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3GFW3WFyDCF47Ww48uFWktFb_yoWxKFy3pF
+	40gasrJrZrWryjkr13Aa18Ar13urZ3Xa13GFZxGrn7uFZ8JFyfuw1Iq3Z5XFs8CrZ7XFyx
+	Zay7tFy7Z3WDXaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piWlk3UUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6ha9HWq0ozZl7AAA3e
 
-Before a TDI can perform DMA to guest private memory, its secure DMA
-mapping must be accepted. This happens during driver load stage after
-MMIO acceptance and TDI activation.
+Commit dc41e961a269 ("mm/migrate_device: avoid out-of-bounds writes for
+compound folios") added handling for compound folios that do not fit in
+the remaining PFN array.
 
-The enable_dma callback issues TDG.DMAR.ACCEPT to set secure PASID
-table entry to present state and target non-partitioned TD.
+migrate_device_range() and migrate_device_pfns() duplicate the logic for
+locking device PFNs, encoding compound folios, and handling this boundary
+condition.
 
-The secure PASID table entry is cleared in unlock stage implicitly
-so disable_dma is a no-op currently.
+A compound folio cannot be represented partially for migration. Use
+WARN_ON_ONCE() when one does not fit in the remaining PFN array, while
+retaining the defensive handling: release the current folio's lock and
+reference, clear the remaining entries, and stop collecting.
 
-Signed-off-by: Zhenzhong Duan <zhenzhong.duan@intel.com>
+Move the shared collection and encoding logic into a helper so both
+interfaces handle compound folios consistently. Keep the reference,
+lock, size lookup, and PFN encoding together so cleanup acts on the folio
+whose reference and lock were acquired. Also use memset() for compound
+folio tail entries instead of open-coding the clearing loop.
+
+If a PFN cannot be referenced or its folio cannot be locked, leave that
+source entry clear and continue at page granularity. Compound tail pages
+have a zero page->_refcount, so folio_get_nontail_page() cannot acquire
+them. They are therefore skipped one slot at a time. This preserves
+collection of later allocated pages in a device chunk containing free
+PFNs.
+
+Document that an encountered compound folio must fit entirely in the
+remaining range or PFN array.
+
+Link: https://lore.kernel.org/r/c99ca53a-73ef-4a0c-8738-eba1cc89bea2@kernel.org
+Link: https://lore.kernel.org/r/60634ab5-3fcc-42fb-8722-4ba6771acfda@kernel.org
+Suggested-by: David Hildenbrand <david@kernel.org>
+Signed-off-by: Hui Su <sh_def@163.com>
 ---
- drivers/virt/coco/tdx-guest/connect.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+Tested on x86_64 with KASAN:
+- 7/7 private-device HMM THP cases passed on the exact v4 tree.
+- Local KUnit validation covered success, get/trylock failure, and
+  truncated compound-folio paths.
 
-diff --git a/drivers/virt/coco/tdx-guest/connect.c b/drivers/virt/coco/tdx-guest/connect.c
-index a9d41fd38b64..b328caac0a49 100644
---- a/drivers/virt/coco/tdx-guest/connect.c
-+++ b/drivers/virt/coco/tdx-guest/connect.c
-@@ -427,10 +427,26 @@ static int tdx_devsec_run(struct pci_dev *pdev)
- 	return 0;
+Changes in v4:
+- Fold migrate_device_pfn_lock() into migrate_device_collect_folio() so the
+  folio whose reference and lock are acquired is also used for size and
+  cleanup decisions.
+- When a PFN cannot be referenced or its folio cannot be locked, leave only
+  the current entry clear and continue at page granularity. Compound tails
+  have a zero page->_refcount, so folio_get_nontail_page() cannot acquire them.
+- Use WARN_ON_ONCE() with defensive cleanup when a compound folio does not
+  fit in the remaining array, as suggested by David Hildenbrand.
+- Document that a compound folio occupies consecutive page-granular entries
+  and must fit entirely in the remaining PFN array.
+
+Changes in v3:
+- Keep the source entry zero when migrate_device_pfn_lock() fails instead
+  of setting MIGRATE_PFN_COMPOUND, while still consuming and clearing all
+  slots belonging to the compound folio.
+- Use VM_WARN_ON_ONCE() for the truncated compound-folio invariant while
+  keeping defensive cleanup independent of CONFIG_DEBUG_VM, as suggested by
+  Balbir Singh.
+
+Changes in v2:
+- Fix the helper parameter indentation and keep the declaration to two
+  lines, as suggested by David Hildenbrand.
+
+ mm/migrate_device.c | 92 +++++++++++++++++++++++----------------------
+ 1 file changed, 48 insertions(+), 44 deletions(-)
+
+diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+index 009bfa8b212d..34d687882d85 100644
+--- a/mm/migrate_device.c
++++ b/mm/migrate_device.c
+@@ -1376,20 +1376,47 @@ void migrate_vma_finalize(struct migrate_vma *migrate)
+ }
+ EXPORT_SYMBOL(migrate_vma_finalize);
+ 
+-static unsigned long migrate_device_pfn_lock(unsigned long pfn)
++/*
++ * Collect a device folio into the page-granular PFN array.
++ *
++ * Return the number of entries consumed. Return 1 with a clear source entry
++ * if the current PFN cannot be referenced or locked. Return 0 if a compound
++ * folio does not fit in the remaining array and collection should stop.
++ */
++static unsigned int migrate_device_collect_folio(unsigned long *src_pfn,
++		unsigned long pfn, unsigned long remaining)
+ {
+ 	struct folio *folio;
++	unsigned int nr;
++
++	*src_pfn = 0;
+ 
+ 	folio = folio_get_nontail_page(pfn_to_page(pfn));
+ 	if (!folio)
+-		return 0;
++		return 1;
+ 
+ 	if (!folio_trylock(folio)) {
+ 		folio_put(folio);
++		return 1;
++	}
++
++	nr = folio_nr_pages(folio);
++
++	if (WARN_ON_ONCE(nr > remaining)) {
++		folio_unlock(folio);
++		folio_put(folio);
++		memset(src_pfn, 0, remaining * sizeof(*src_pfn));
+ 		return 0;
+ 	}
+ 
+-	return migrate_pfn(pfn) | MIGRATE_PFN_MIGRATE;
++	*src_pfn = migrate_pfn(pfn) | MIGRATE_PFN_MIGRATE;
++
++	if (nr > 1) {
++		*src_pfn |= MIGRATE_PFN_COMPOUND;
++		memset(src_pfn + 1, 0, (nr - 1) * sizeof(*src_pfn));
++	}
++
++	return nr;
  }
  
-+static int tdx_devsec_enable_dma(struct pci_dev *pdev)
-+{
-+	int ret = tdx_mcall_dmar_accept(pci_dev_id(pdev), 0);
-+
-+	if (ret)
-+		pci_err(pdev, "Failed to accept DMAR, ret=%d\n", ret);
-+
-+	return ret;
-+}
-+
-+static void tdx_devsec_disable_dma(struct pci_dev *pdev)
-+{
-+}
-+
- static struct pci_tsm_ops tdx_devsec_ops = {
- 	.lock = tdx_devsec_lock,
- 	.unlock = tdx_devsec_unlock,
- 	.run = tdx_devsec_run,
-+	.enable_dma = tdx_devsec_enable_dma,
-+	.disable_dma = tdx_devsec_disable_dma,
- };
+ /**
+@@ -1410,35 +1437,22 @@ static unsigned long migrate_device_pfn_lock(unsigned long pfn)
+  * migrating pages that aren't free before unmapping them. Drivers may then
+  * allocate destination pages and start copying data from the device to CPU
+  * memory before calling migrate_device_pages().
++ *
++ * A compound folio must fit entirely in the remaining range.
+  */
+ int migrate_device_range(unsigned long *src_pfns, unsigned long start,
+ 			unsigned long npages)
+ {
+-	unsigned long i, j, pfn;
++	unsigned long i, pfn;
  
- static void devsec_tsm_remove(void *tsm_dev)
+ 	for (pfn = start, i = 0; i < npages; pfn++, i++) {
+-		struct page *page = pfn_to_page(pfn);
+-		struct folio *folio = page_folio(page);
+-		unsigned int nr = 1;
++		unsigned int nr;
+ 
+-		src_pfns[i] = migrate_device_pfn_lock(pfn);
+-		nr = folio_nr_pages(folio);
+-		if (nr > npages - i) {
+-			if (src_pfns[i] & MIGRATE_PFN_MIGRATE) {
+-				folio_unlock(folio);
+-				folio_put(folio);
+-			}
+-			memset(&src_pfns[i], 0,
+-			       (npages - i) * sizeof(*src_pfns));
++		nr = migrate_device_collect_folio(&src_pfns[i], pfn, npages - i);
++		if (!nr)
+ 			break;
+-		}
+-		if (nr > 1) {
+-			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
+-			for (j = 1; j < nr; j++)
+-				src_pfns[i+j] = 0;
+-			i += j - 1;
+-			pfn += j - 1;
+-		}
++		i += nr - 1;
++		pfn += nr - 1;
+ 	}
+ 
+ 	migrate_device_unmap(src_pfns, npages, NULL);
+@@ -1454,33 +1468,23 @@ EXPORT_SYMBOL(migrate_device_range);
+  *
+  * Similar to migrate_device_range() but supports non-contiguous pre-populated
+  * array of device pages to migrate.
++ *
++ * Entries for different folios may be non-contiguous, but a compound folio
++ * must occupy consecutive page-granular entries and fit entirely in the
++ * remaining PFN array.
+  */
+ int migrate_device_pfns(unsigned long *src_pfns, unsigned long npages)
+ {
+-	unsigned long i, j;
++	unsigned long i;
+ 
+ 	for (i = 0; i < npages; i++) {
+-		struct page *page = pfn_to_page(src_pfns[i]);
+-		struct folio *folio = page_folio(page);
+-		unsigned int nr = 1;
++		unsigned long pfn = src_pfns[i];
++		unsigned int nr;
+ 
+-		src_pfns[i] = migrate_device_pfn_lock(src_pfns[i]);
+-		nr = folio_nr_pages(folio);
+-		if (nr > npages - i) {
+-			if (src_pfns[i] & MIGRATE_PFN_MIGRATE) {
+-				folio_unlock(folio);
+-				folio_put(folio);
+-			}
+-			memset(&src_pfns[i], 0,
+-			       (npages - i) * sizeof(*src_pfns));
++		nr = migrate_device_collect_folio(&src_pfns[i], pfn, npages - i);
++		if (!nr)
+ 			break;
+-		}
+-		if (nr > 1) {
+-			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
+-			for (j = 1; j < nr; j++)
+-				src_pfns[i+j] = 0;
+-			i += j - 1;
+-		}
++		i += nr - 1;
+ 	}
+ 
+ 	migrate_device_unmap(src_pfns, npages, NULL);
+
+base-commit: fe2ec83746e501645709761605c2464a44fd2929
 -- 
-2.52.0
+2.55.0
 
