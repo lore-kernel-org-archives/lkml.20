@@ -1,77 +1,81 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 101943905E3
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:05:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7FAC3DDDB0
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:05:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790229903; cv=none; b=k2ohMz8L2a21VAlnictKCz6FMm+Sa1ypydX+wyesijxri8njblWClIUhVgF1+ijJ0GPdNWMBbB9gUlkeXPSq93q4tYFPFy91Fou3+wNd/z68aYj2pe5UcUD8v3ha70Hd8Lh+UHNpeqGArDxo9j+kaLIKGp0Q20It6huYM0/IkNM=
+	t=1790229916; cv=none; b=PH48G8cKOpYomBJ7KkyJel958UIxWEu02HN5rorZjcIxZIqcOzXtvW277mtUTJLDkDFNh6yoIMR8s04+GXRfkp5PRHqgLWFMH/OXBY3cLTeEYw/tItDwFSKsqt7GJDe0O8KrUlD++IlHBGT8Iy6p9rw61z8lc+OxEc0bu9hInKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790229903; c=relaxed/simple;
-	bh=5hZLI/kIQpbikAHkHpMD5b6GN/lBgqrwDhltNEQCbYQ=;
+	s=arc-20240116; t=1790229916; c=relaxed/simple;
+	bh=YNsGz40uB3rQxxoQAz6jYyo5Ac4k6Kj/guxINFRcYZI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xp3EkG4CehxZ94aaD0N+BqWNGbNGhWn+D7WyQh1SMoq04pShVGPyDAbHDTmlJ2I2NQZ/lQjlCSiSfGgGwDnKmEGWIRbBOAJYuMwDL8eI/OaUpPgBvIsIgfYdpqXDGP6cC2aDRB+jCUYIbsManOlXEvGg3GKK7+gaKDwtMzRv8iU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LQAOdMYz; arc=none smtp.client-ip=74.125.225.141
+	 MIME-Version; b=IweOgJss5MTTvtbEQLojeCDaVHTU7xO3miuWq7jc84nufE2Xy+gGtuTA61zFMprARpRfWGgV9DyY0r1u55xWbjqC28B43mnkR+XZDSPvNfYUjzo30okjUwqFaA6OzRaMDaBU9Fp0UEI1anng3XsUITo+ZArV0jA7kXsqKDWTHd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fknZPUYq; arc=none smtp.client-ip=74.125.228.40
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LQAOdMYz"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6c0fce17so8568475e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:05:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fknZPUYq"
+Received: by mail-pz2-f40.google.com with SMTP id d2e1a72fcca58-8748f34b1f2so911697b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:05:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790229900; x=1790834700; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790229914; x=1790834714; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=n0MllcKz8m82n4vcEekbO0+kdiwKRbPnFxBUUcpz3O0=;
-        b=LQAOdMYzM5PHZ3Rv4IBidx0WBUpOP66/10x8GIalQlejYwKP16mFmkUwgSadrzC2Zm
-         JsOKgmGo+s20Ls4/a53zC4PMnmjPzJVPzbvgCzhm+bOEjgxbqz4Rhk0LFj3ZRcjiPJoB
-         FHu6nWqf0C81HW+wEY2nLhTFh9acz1xZWQ0yEoDPLQtYgRW1VChK5keO8gUuFWX2RAxT
-         /VcaEZGVm+I4AJc00ySP+qmuyH8OnoYTukkijirJVGu+4+go/e5mf6wI7HEfWHggfNvF
-         90pG3nq1eXxAniYJs2Wby+othan43OOSBja4OW9nzgtuyxil4sFJyYdqccuCsxRcMFj0
-         gE4w==
+        bh=ZtLuNBtR7lmflm5rOBXtrqceyU4LeVfNJGPJ3jSN4+s=;
+        b=fknZPUYq4tyJkqngPbV6ZorvQ3e6dtH5WOvkJSqAEjaOZ9pPG1eurniw1sb3F+sg4h
+         RuVz8e3G7sf6VDEXaAUoVGKG7oiD6sLpXBZIDJvqZwJovaNdNh3SsqyCqRLBVgjPHC9V
+         qp4y1o5GJqA5sJG8YgkaosGaijcPt7FyxIecJCKICs253JZEuBVtpVszsb/Gnbj8sSxk
+         jLO2UfJahUtfRmTidw0UGW4e1QZAHz50JUoM9aOlo6sZ5UdHWcumZstJY+ZDgpdegFSH
+         16cMtntz5VKMd7MwvhLMYY7QAQVR3fvJ/A60SzvPX53V3sLDEwDab8JWjkhhwsvA9UCI
+         kltQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790229900; x=1790834700;
+        d=1e100.net; s=20260707; t=1790229914; x=1790834714;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n0MllcKz8m82n4vcEekbO0+kdiwKRbPnFxBUUcpz3O0=;
-        b=BDQaEF3IawOV9FtDUMkBqVYy9423Vgc456QQhIm3/hzEggY8141UUSnCBcEA/NeM/7
-         J1xO2WbwRncRjm+ioTYpavqwR3wle+HwlUNo3CGLdIqA8RdxMXtd2aJPp6hvOy1aT5ec
-         6DH2b/7oORTwTCRfWFagyjOkJKqdHxviKmFpIkIeAoGro4o12qQxi14oVrq2l2r42GLp
-         1oc+rkz3lx7Rjt1yA2PkW+YHorqUvT/nUClbyQL3+he2Il9sv25GOj9m0JPilxb1nwt1
-         ZKxFXdANzFiFasWlqUydLvz1MebFYFS4klH+jI8bCIbvMJpq2srOxnoLKU0Eoi/1KvYW
-         QmEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBykPcahhYriBF374cU9mElitjcjR0VvextFpJWm0ZmZDBtNdSPR7qbusobN20M+1fRhSm1vZE3g8DC/OsM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mUss9Q84u5Wgi1/5h3pHG11Rg5rekdRphyyjIzoDcaELWAUKNf
-	ExhIvv2T3BlPt0NV7cwZM4TKCWm+40bvLz5t+NQo1YeKwIxsdLCf/utE
-X-Gm-Gg: AYBFou26f8fqpQvJgLbav8MhRcLhWi+qFeNFveSHcVGEBOXQWT4cS11MNrDnZVq1nNE
-	PLQdXNSYFssyGoTlXQdH0XlNZNy2V2AOti/mCnY6g2/YA0gaD1BxlwLvpgDdATEYusrKXA9i2y2
-	0vWo2WiozG2sPx7uF9rk9piJV0MwNtcgd6ji7R49x2fF19ArkQ3Deb69oIdQijLwf1VSxUiWJ9V
-	MwKZYx2593B/oLHCCw9RUM+Ns2vtMMvRs13fsJzNCgrJPMPt3/djGj6pMkWFL9FTtH3CbJh7LH4
-	V76Yzewj5idKBlM/WTcZVzcu78pwJmK0IwxRHzrNzNMo2WDixn8HhJDcMtYGnRSyDGQIsEWf2d/
-	ccHS1yYB9HPfHSFTeh2GlwKozbk7IxAYaWUfmOOp6JOqE+XlypL91Lt7qrUuPeCasfwMVqBjAh5
-	6FkpGr0ElLmFheelatkLmKUnc9b8/vP5BJ+bKXkjZAr/ruh6dWby2Ofe3dD3RvjEnQN/tN4edIc
-	i2SNB4jhFIPqL3cA3dpEtggHEpIoo13N+g=
-X-Received: by 2002:a05:600c:468f:b0:49d:1df8:156d with SMTP id 5b1f17b1804b1-49fe66e6438mr22822725e9.18.1790229899991;
-        Wed, 23 Sep 2026 23:04:59 -0700 (PDT)
-Received: from githubb (bba-86-97-124-202.alshamil.net.ae. [86.97.124.202])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5de4de4sm43099825e9.8.2026.09.23.23.04.57
+        bh=ZtLuNBtR7lmflm5rOBXtrqceyU4LeVfNJGPJ3jSN4+s=;
+        b=hRbq7LnajXOtPRpdhJYiryFmfucWYPnMEX8m2gONS5mxKI4jGDHMx5929/EGiFbfjQ
+         pfMb6qFlKEpBLCjnSQ/4GKpEQaO+RslYNn1M2GDm7tDSmW0+g5NF/yG5ju6cpyjBAhsL
+         A4zW5rw+MrdZwjvOoZ4zz5xPPWyiaQLD3TM/CVuVOJBbdFVPa3ScMmZC6DLqm3DH2+Yn
+         q959gcfUauyugrJBYgpLTfFaXQ5qwo7utjz6L1EhNyzBF59qTFQ6T6LkxCNx9V74flFA
+         T4Wi+yk4MMhYFnR7CZA1d3jmhGOgT8NPIBGll16y6H70z2WlsA0UKz9tJrYaK2W7pRgb
+         UayQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxDCduRL0PKth/ooJnhlo3u/Vh4aEDd1KDKL9DX4XDMvfIbgy8a/aLaO4t7OEAvSG9PDLKapb9qKPYB4p4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mDEYSaBuOcP20YPYWuNKyqighPeAZM8TgbNNWujixf4Ev94wsL
+	rtiQmmTHSPSDgZ5r2GUb68UsdjaoZay0JG3rjUCWruyow8tGOSF/0ffi
+X-Gm-Gg: AYBFou2vUHjbBkZUjOVHXVi/c4pdxhA2toNauPxX/VAn31YfWfqO5iw3SUtwPXDOncY
+	JGCdyOB7tEjVRB/33sFtroK1MOKzH0aKnDstE6b+iOR9yr72RfscqCgA8C5/XKwXgDVD0F/Uoth
+	f1M66uPHUVVbLAK4YSaLCLrxEVBdwdi0i+bnB9NqocIjfqQZ25/w60+eMGlMyNhS4iS6e9Fhujk
+	shnHE7J6LI6cP3h7m0XhvgR1JNkRBgK+0QfKMEgNix3itL6svBfpd7CE71TcCruoQ9tj0vYOad8
+	JJGeSsn5MDS5Z1Ib5ZJek3t9B/NGFU6wKrvdqkDKwoEhODYgaD1biD1W0M0KJXqHw0/hZPdXPHc
+	19ie6c9dpUSB1/iVZfVbeFWuOff64xrOWFVDwLnp0ozRi6mD6BiqERcDCsxsy4c1te75ZD8ZS1v
+	TUMSFTyOYchp6U99C8pQbyZwgs3P5pJ+eP10/0ov6T6Mg8Qe4F54yNk07aTLLsP8tA+XF+ZelJS
+	eSzGkmS4fXyKdwgUeFkIHCq0buiNnLclY7A0nhJy7j63ga0hdJfMoTr2TOEVBnYSxSkWjePCAxL
+	HlQ7Vv9F1A==
+X-Received: by 2002:a05:6a21:1343:b0:3dd:a197:cf28 with SMTP id adf61e73a8af0-3de0e91d392mr1498468637.76.1790229913967;
+        Wed, 23 Sep 2026 23:05:13 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f2228a2sm2056710a12.4.2026.09.23.23.05.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 23:04:59 -0700 (PDT)
-From: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
-To: James.Bottomley@HansenPartnership.com,
-	mkp@kernel.org
-Cc: linux-scsi@vger.kernel.org,
+        Wed, 23 Sep 2026 23:05:13 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: gregkh@linuxfoundation.org,
+	jirislaby@kernel.org,
+	john.ogness@linutronix.de,
+	ilpo.jarvinen@linux.intel.com
+Cc: andriy.shevchenko@linux.intel.com,
+	linux-serial@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	loberman@redhat.com,
-	yanghao_ht@163.com
-Subject: Re: [PATCH] scsi: ch: Do not keep references to data transfer element devices
-Date: Thu, 24 Sep 2026 06:04:40 +0000
-Message-ID: <20260924060440.33252-1-ahmedhal@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260922-ch-dt-leak-v1-1-2b2e40bf1624@gmail.com>
-References: <20260922-ch-dt-leak-v1-1-2b2e40bf1624@gmail.com>
+	stable@vger.kernel.org,
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH v4 1/3] serial: 8250: hold hash_mutex across IRQ chain linking in serial_link_irq_chain()
+Date: Thu, 24 Sep 2026 06:04:44 +0000
+Message-ID: <20260924060511.2364717-2-benquike@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
+In-Reply-To: <20260924060511.2364717-1-benquike@gmail.com>
+References: <20260924060511.2364717-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,29 +84,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+In serial_link_irq_chain(), serial_get_or_create_irq_info() acquires and
+releases hash_mutex before returning struct irq_info *i to the caller.
+Before serial_link_irq_chain() links the port into i->head, a concurrent
+serial_unlink_irq_chain() on the same shared IRQ line can observe a
+single-port i->head under hash_mutex, remove i from irq_lists, and
+kfree(i), causing a use-after-free when serial_link_irq_chain() accesses
+i->lock and i->head. In addition, if request_irq() fails at the end of
+serial_link_irq_chain(), serial_do_unlink(i, up) calls hlist_del(&i->node)
+and kfree(i) without holding hash_mutex.
 
-Self-correction: that Fixes tag is wrong. drivers/scsi/ch.c is not part of
-the initial git import; it was added a month later, already containing the
-lookup into ch->dt[] and the kfree() that drops nothing:
+Move guard(mutex)(&hash_mutex) from serial_get_or_create_irq_info() to its
+sole caller serial_link_irq_chain() so that hash_mutex is held across the
+lookup/allocation of struct irq_info, the insertion into i->head, and any
+error-path serial_do_unlink() cleanup.
 
-  $ git cat-file -t v2.6.12-rc2:drivers/scsi/ch.c
-  fatal: Not a valid object name v2.6.12-rc2:drivers/scsi/ch.c
+Tested in QEMU against Linux 7.3.0-rc3 by configuring /dev/ttyS1 and
+/dev/ttyS2 to share IRQ 3 with ASYNC_SHARE_IRQ via TIOCSSERIAL and
+concurrently opening and closing both ports from two threads in a tight
+loop with KASAN enabled, verifying 0 KASAN faults or warnings.
 
-  $ git log --diff-filter=A --oneline -- drivers/scsi/ch.c
-  daa6eda65a53 [SCSI] add scsi changer driver
+Fixes: 25db8ad5c567 ("serial, 8250: remove NR_IRQ usage")
+Fixes: 99fc860fae83 ("serial: 8250: extract serial_get_or_create_irq_info()")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+Changes in v4:
+- No changes.
 
-So the correct tag is
+Changes in v3:
+- No changes.
 
-Fixes: daa6eda65a53 ("[SCSI] add scsi changer driver")
+Changes in v2:
+- Split the 8250_core.c and serial_core.c fixes into a 3-patch series,
+  add Cc: stable@vger.kernel.org, and document how the patch was tested,
+  as requested by Greg Kroah-Hartman.
 
-first released in v2.6.13-rc1. Nothing since has touched the ch->dt[]
-reference handling: the only other commits mentioning scsi_device_put() or
-ch->dt in this file are 66167283c21e ("scsi: ch: fixup refcounting imbalance
-for SCSI devices"), which does not touch dt[], a2cf8a6306c8 ("[SCSI] ch:
-Check NULL for kmalloc() return") and 85bc081f44d5 (kmalloc -> kcalloc).
+ drivers/tty/serial/8250/8250_core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Please amend when applying, or say the word and I will send a v2.
-
-Thanks,
-Ahmed
+diff --git a/drivers/tty/serial/8250/8250_core.c b/drivers/tty/serial/8250/8250_core.c
+index b875d394796f..0bc810f285a4 100644
+--- a/drivers/tty/serial/8250/8250_core.c
++++ b/drivers/tty/serial/8250/8250_core.c
+@@ -134,8 +134,6 @@ static struct irq_info *serial_get_or_create_irq_info(const struct uart_8250_por
+ {
+ 	struct irq_info *i;
+ 
+-	guard(mutex)(&hash_mutex);
+-
+ 	hash_for_each_possible(irq_lists, i, node, up->port.irq)
+ 		if (i->irq == up->port.irq)
+ 			return i;
+@@ -156,6 +154,8 @@ static int serial_link_irq_chain(struct uart_8250_port *up)
+ 	struct irq_info *i;
+ 	int ret;
+ 
++	guard(mutex)(&hash_mutex);
++
+ 	i = serial_get_or_create_irq_info(up);
+ 	if (IS_ERR(i))
+ 		return PTR_ERR(i);
