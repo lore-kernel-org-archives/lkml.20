@@ -1,40 +1,51 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from mx0b-0064b401.pphosted.com (mx0b-0064b401.pphosted.com [205.220.178.238])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EF6526AE5;
-	Thu, 24 Sep 2026 02:58:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D05125B0BB;
+	Thu, 24 Sep 2026 03:01:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.178.238
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790218687; cv=none; b=gKdFOxdo3flH8rlFjie/iTO/VjiwXEZt16pNYBZI/ecfEvQLIK91UTTXSArGvOo+8fAsB8XgrAq/sOpXxcfUpL0g2RqChBuA0xJA+dXTcqYWQNE24sd+c7dbdxRUc/BJcr8z+LKRP65SsLKz/WK4kO9dXqtstDSydc2sbrbzB/0=
+	t=1790218926; cv=none; b=SIOVmOg+uHCkxPgkUPRMTCmM6OJxS84Sp5NfqvWWXsK3CKyrl+Wg/rBoK69tmqK/4mzg/Bno3U70KE7kxvz1NyasAAAEjiaI2xyQ/m2hVFpQ0d/hbOqKnmyefaLRQS/b1UV1CRvnaL8/vj5+VntIldEjckBZnUVDEpUzFqhaVpg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790218687; c=relaxed/simple;
-	bh=YBNoWIyziG22gXOjaeZOHU+vz+4bTT9RzBdOffOms+Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=auoctX3y77g9BfKjW4vmffO9OJZjZzNvcuMXbT0efmruyZZ5Yiwhzy7hLQJiATX3htk0DOs+LU3fQAaH3Hp7/g+4ZRi0+Y9Vvkuri7p+nUoLN5g/ayGIRMqdoReUrcWl35SEOMgFAqv0DjbyWhGbsMK35U5FlYxpo1BkZs/efzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Q5UR94jZ; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790218926; c=relaxed/simple;
+	bh=MmhTlul3whAnFNcoQH5VFn2cXzhlWyVMv/zdLsaJoSA=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=sr8JW/FcaDguefMVCoW/dY0VzUZu9y/sz12Lxnbr1YYqFjA0pKsq2m5+AHqjuRfPsjnir9KuLQkMlrw/gPpxoRLLZPAwjkOVLHf+9hEFGnb9IYSE4kAR9lzMYXPKzSxMA8bbmLYIb1arbiqwup7M+7emPbQiAl26FVJXqj38uQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com; spf=fail smtp.mailfrom=windriver.com; dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b=SUXXUYu0; arc=none smtp.client-ip=205.220.178.238
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=windriver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Q5UR94jZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=GK
-	PZjSXhDjRPDS2hqbVGzUVm/C+Q/k8QK9hyPR27UkE=; b=Q5UR94jZnkyVSoP/BV
-	BMlRtwNyrEsmQgM7tndoaDRk5plsUm/FHnnqu79W6N5dAjHaZe2PqnKkib2fCCJj
-	OXl3+53Hccfmq0ecpFvWzrOnaVw9f8WbN2tzB8ebMFfs46DLaKXavL1G48tvgTko
-	eQ/dQPWRvsiaZLBik0Dd9Hqmk=
-Received: from LUOBO-DINQG8T.hobot.cc (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wC3n_emkbRq9yThAQ--.28570S2;
-	Thu, 24 Sep 2026 10:57:43 +0800 (CST)
-From: Rui Wang <wr574332525@163.com>
-To: vkoul@kernel.org,
-	Eugeniy.Paltsev@synopsys.com
-Cc: Frank.Li@kernel.org,
-	dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Rui Wang <wr574332525@163.com>
-Subject: [PATCH v5] dmaengine: dw-axi-dmac: report paused state and residue in tx_status
-Date: Thu, 24 Sep 2026 10:57:39 +0800
-Message-ID: <20260924025739.844-1-wr574332525@163.com>
-X-Mailer: git-send-email 2.53.0.windows.2
+	dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b="SUXXUYu0"
+Received: from pps.filterd (m0250812.ppops.net [127.0.0.1])
+	by mx0a-0064b401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O2JWoI3160168;
+	Thu, 24 Sep 2026 03:01:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:message-id:mime-version:subject:to; s=PPS06212021; bh=qxAcZQ01E
+	+RSQiaT4qMSzA15+vXM98J20kJ4iYN/d1o=; b=SUXXUYu0g00s+ciRjk8d903T4
+	I1zotUhItD4VH5/ZkTIxAIxbJXphBIMcNZtDzkHtuysN8UQjk8vUxPYpxDlwaYTp
+	J68Nq+AIQ+XNBRix6M+fI/eq5KVv/jRwRyyFFffjFoiiKW4OceQDcspBZwuNbhMB
+	KAFqN4BsimBchLWW3cCo6Mkg+Mtt4TN6hZ+lFS9V2Z347c+sqsAJIERb8xlvAk3Z
+	Fzbi2RylY0ie9jA+6GXj9lh2eNmh4fzxutCdf1stzheAKYg/SWkok/Aum8XMc9D1
+	zfInwQNHi2TeTXPa37s/K4OnQA+Q0LrucUEZzjhXuciRTIOjG7wQcoW8aleLg==
+Received: from ala-exchng02.corp.ad.wrs.com (ala-exchng02.wrs.com [128.224.246.37])
+	by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 4gshc7r4s0-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Thu, 24 Sep 2026 03:01:12 +0000 (GMT)
+Received: from ala-exchng01.corp.ad.wrs.com (10.11.224.121) by
+ ALA-EXCHNG02.corp.ad.wrs.com (10.11.224.122) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.61; Wed, 23 Sep 2026 20:01:11 -0700
+Received: from pek-yzhou-d3.wrs.com (10.11.232.110) by
+ ala-exchng01.corp.ad.wrs.com (10.11.224.121) with Microsoft SMTP Server id
+ 15.1.2507.61 via Frontend Transport; Wed, 23 Sep 2026 20:01:09 -0700
+From: Yun Zhou <yun.zhou@windriver.com>
+To: <rostedt@goodmis.org>, <mhiramat@kernel.org>, <mark.rutland@arm.com>,
+        <mathieu.desnoyers@efficios.com>, <yun.zhou@windriver.com>
+CC: <linux-kernel@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>
+Subject: [PATCH] ftrace: add max field to function profiler stats
+Date: Thu, 24 Sep 2026 11:01:08 +0800
+Message-ID: <20260924030108.2673654-1-yun.zhou@windriver.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,237 +53,90 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wC3n_emkbRq9yThAQ--.28570S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxtr1rJr1kZF18ZrWrGw4UArb_yoWfGFWUpa
-	y5G3yrKrWqgFnavF43Gw4rJr15ZF4fJFy29ryrJ343CF45GrnakFs3Ka4YqF1DCr929342
-	9F4Yya43Ca1UCrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piYFAdUUUUU=
-X-CM-SenderInfo: lzuvlkittskjqv6rljoofrz/xtbC0whW7mq0kah4xAAA34
+Content-Type: text/plain
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAxMyBTYWx0ZWRfX4LfYGpPAAg0w
+ n0/hA6Atc21gs1RX4gqiz5xYeh0nyGRBu7JQJnTLjqnjkzncCCoFbJJN3eWah5ToRhZ8sNHxcEH
+ UzoP053+7J9jW2tyV0j7mD9f89OO8P80i/PclQqiqAtJD2TOgHcx3RH9lX15zyBk1Yueu/c0cLI
+ 011cMqSFKxtxSpxUq4iDdYXqK/PlyZXOsqUKDHYMUGk7vlh708GU7od0BtKuiFvwFeNseEmqNxr
+ i5eA6i8E3v3KVMc24wLgbNBA+3sdix19H81iqVmVLKltgkj9sldtCk86DRgSTo/l3Kt+fOn2D9t
+ rriH9P/StX7Q8ukIeUiH5ljV/kqBiB5f0CgpC9Fm4Ecu0PXZSzmEZLXdSr5tf12SXU6GqxB2Sec
+ un13qAl7hsA9Yf2MJxJ1SEIwbs0DlS9pV837xUhX3m4r76OD+kAViHFGGnnsadYFT4QV/qOf/dt
+ t3L6dX03ohyrmmPqasg==
+X-Proofpoint-GUID: u2NJddyI0oNm_Bs5EnwybAqh5mXegNUs
+X-Proofpoint-ORIG-GUID: u2NJddyI0oNm_Bs5EnwybAqh5mXegNUs
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAxMyBTYWx0ZWRfX9UrEhYodE5y0
+ F2rcXNGKRqHX62LJ5lgX6eX8sPBpBELKDcS6cSS8d67TlFpERS4XCGGm491jkQgFRzw4TgjrtD1
+ HAAW8nCy28cPrfvd3Kthz/2/q3u+qA4wPGLRf0eDZ9axWhWUpmD+
+X-Authority-Analysis: v=2.4 cv=feM4WEQF c=1 sm=1 tr=0 ts=6ab49278 cx=c_pps
+ a=Lg6ja3A245NiLSnFpY5YKQ==:117 a=Lg6ja3A245NiLSnFpY5YKQ==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=bi6dqmuHe4P4UrxVR6um:22
+ a=fTW__CHxibyLmBMfj2wP:22 a=t7CeM3EgAAAA:8 a=2KTbmC8ocYsl8OsA7GEA:9
+ a=FdTzh2GWekK77mhwV6Dw:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_01,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 impostorscore=0 clxscore=1011 priorityscore=1501
+ lowpriorityscore=0 malwarescore=0 spamscore=0 adultscore=0 bulkscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609240013
 
-The driver implements device_pause/device_resume, but device_tx_status
-keeps reporting DMA_IN_PROGRESS for a paused channel, so clients cannot
-tell a paused channel apart from a running one. Report DMA_PAUSED when
-the channel is paused and the cookie is still in flight, including for
-callers that pass a NULL dma_tx_state, and clear the stale is_paused
-flag in dma_chan_terminate_all(), which disables the channel and thus
-implicitly cancels the paused state.
+The function profiler (trace_stat/function<cpu>) reports Hit, Time,
+Avg and s^2 per function. Add a "max" field recording the maximum
+single-call duration, which is valuable for real-time tuning and for
+investigating occasional latency spikes.
 
-Also, the residue of an in-flight transfer is currently derived from
-the number of completed LLI blocks, so it only advances in block-size
-steps and stays stale for the duration of a large block. Read the
-current hardware pointer (CH_SAR for MEM_TO_DEV and MEM_TO_MEM, CH_DAR
-for DEV_TO_MEM) and walk the descriptor's LLIs to compute how many
-bytes have actually been transferred. The 64-bit pointer is sampled
-with a tearing-safe double read, as the transfer may be running
-concurrently. The pointer is only consulted for the descriptor most
-recently programmed into the hardware, tracked in the previously
-unused chan->desc field; any other descriptor has not been started yet
-and keeps reporting its full length. When the transfer has just
-completed but the descriptor has not been reaped yet, the pointer sits
-at the end of the last block and the residue naturally reads as 0.
-Cyclic descriptors keep the block-granular accounting.
+Like Time/Avg, it honors the graph-time and sleep-time options, so it
+reflects entry-to-return wall-clock latency.
 
-Tested on an FPGA platform.
-
-Signed-off-by: Rui Wang <wr574332525@163.com>
+Signed-off-by: Yun Zhou <yun.zhou@windriver.com>
 ---
-Changes in v5 (thanks to Frank Li's review):
-- Rewrite the tearing-safe register read as a do/while loop.
-- Drop the "never report full completion while the channel is enabled"
-  clamp: chan->desc matching already keeps never-started descriptors
-  away from the stale pointer, and the residual stale-read window is
-  bounded by the first LLI fetch after channel enable.
-- Use min() instead of min_t().
-- Link to v4: https://lore.kernel.org/dmaengine/20260923060045.5571-1-wr574332525@163.com/
-Changes in v4:
-- Track which descriptor the hardware pointer registers belong to via
-  the (previously unused) chan->desc field instead of testing the head
-  of desc_issued: a queued-but-never-started descriptor must not be
-  matched against the stale pointer left by a previous transfer, which
-  could otherwise falsely report full completion when its buffer is
-  reused.
-- Clear chan->desc when its descriptor is reaped or the channel is
-  terminated.
-- Link to v3: https://lore.kernel.org/dmaengine/20260923044104.3234-1-wr574332525@163.com/
-Changes in v3:
-- Report DMA_PAUSED also to callers passing a NULL dma_tx_state.
-- Never report full completion while the channel enable bit is still
-  set, so a stale pointer (e.g. a new transfer reusing the buffer of a
-  just-finished one) is not mistaken for completion.
-- Link to v2: https://lore.kernel.org/dmaengine/20260923034653.1413-1-wr574332525@163.com/
-Changes in v2:
-- Sample the 64-bit SAR/DAR with a tearing-safe double read instead of
-  lo_hi_readq(), avoiding a torn pointer when the low half wraps.
-- Read the hardware pointer for the in-flight descriptor even after the
-  hardware has just completed it (channel enable self-cleared, IRQ not
-  yet handled), so the residue reads 0 instead of jumping back to the
-  full length.
-- Link to v1: https://lore.kernel.org/dmaengine/20260923030201.859-1-wr574332525@163.com/
----
- .../dma/dw-axi-dmac/dw-axi-dmac-platform.c    | 102 ++++++++++++++++--
- 1 file changed, 94 insertions(+), 8 deletions(-)
+ kernel/trace/ftrace.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-index eebed2474..f0cb3c795 100644
---- a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-+++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-@@ -352,33 +352,110 @@ static void vchan_desc_put(struct virt_dma_desc *vdesc)
- 	axi_desc_put(vd_to_axi_desc(vdesc));
+diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
+index 673a54fdf392..98535f5533db 100644
+--- a/kernel/trace/ftrace.c
++++ b/kernel/trace/ftrace.c
+@@ -428,6 +428,7 @@ struct ftrace_profile {
+ #ifdef CONFIG_FUNCTION_GRAPH_TRACER
+ 	unsigned long long		time;
+ 	unsigned long long		time_squared;
++	unsigned long long		time_max;
+ #endif
+ };
+ 
+@@ -530,9 +531,9 @@ static int function_stat_headers(struct seq_file *m)
+ {
+ #ifdef CONFIG_FUNCTION_GRAPH_TRACER
+ 	seq_puts(m, "  Function                               "
+-		 "Hit    Time            Avg             s^2\n"
++		 "Hit    Time            Avg             s^2             max\n"
+ 		    "  --------                               "
+-		 "---    ----            ---             ---\n");
++		 "---    ----            ---             ---             ---\n");
+ #else
+ 	seq_puts(m, "  Function                               Hit\n"
+ 		    "  --------                               ---\n");
+@@ -613,6 +614,8 @@ static int function_stat_show(struct seq_file *m, void *v)
+ 	trace_print_graph_duration(avg, &s);
+ 	trace_seq_puts(&s, "    ");
+ 	trace_print_graph_duration(stddev, &s);
++	trace_seq_puts(&s, "    ");
++	trace_print_graph_duration(rec->time_max, &s);
+ 	trace_print_seq(m, &s);
+ #endif
+ 	seq_putc(m, '\n');
+@@ -920,6 +923,8 @@ static void profile_graph_return(struct ftrace_graph_ret *trace,
+ 	if (rec) {
+ 		rec->time += calltime;
+ 		rec->time_squared += calltime * calltime;
++		if (calltime > rec->time_max)
++			rec->time_max = calltime;
+ 	}
  }
  
-+/*
-+ * Read a 64-bit channel address register while the transfer may be
-+ * running. The two 32-bit halves cannot be read atomically on all
-+ * platforms, so sample the high half before and after the low half
-+ * and retry if it moved (the low half wrapped in between).
-+ */
-+static u64 axi_chan_readq(struct axi_dma_chan *chan, u32 reg)
-+{
-+	u32 hi, lo, hi2;
-+
-+	do {
-+		hi = readl(chan->chan_regs + reg + 4);
-+		lo = readl(chan->chan_regs + reg);
-+		hi2 = readl(chan->chan_regs + reg + 4);
-+	} while (unlikely(hi != hi2));
-+
-+	return (u64)hi << 32 | lo;
-+}
-+
-+/*
-+ * Return the number of bytes already transferred by the descriptor
-+ * currently on the hardware (running, paused or just completed), based
-+ * on the current read or write position: CH_SAR for MEM_TO_DEV and
-+ * MEM_TO_MEM, CH_DAR for DEV_TO_MEM. Must be called with vc.lock held.
-+ */
-+static u32 axi_chan_get_xferred(struct axi_dma_chan *chan,
-+				struct axi_dma_desc *desc)
-+{
-+	struct axi_dma_hw_desc *hw_desc;
-+	bool dst = chan->direction == DMA_DEV_TO_MEM;
-+	u64 pos, start;
-+	u32 xferred = 0;
-+	int i;
-+
-+	pos = axi_chan_readq(chan, dst ? CH_DAR : CH_SAR);
-+
-+	for (i = 0; i < desc->nr_hw_descs; i++) {
-+		hw_desc = &desc->hw_desc[i];
-+		start = le64_to_cpu(dst ? hw_desc->lli->dar : hw_desc->lli->sar);
-+
-+		/* Current position is inside this block: partial progress */
-+		if (pos >= start && pos <= start + hw_desc->len)
-+			return xferred + (u32)(pos - start);
-+
-+		xferred += hw_desc->len;
-+	}
-+
-+	/* Position doesn't match any block, be conservative */
-+	return 0;
-+}
-+
- static enum dma_status
- dma_chan_tx_status(struct dma_chan *dchan, dma_cookie_t cookie,
- 		   struct dma_tx_state *txstate)
- {
- 	struct axi_dma_chan *chan = dchan_to_axi_dma_chan(dchan);
- 	struct virt_dma_desc *vdesc;
-+	struct axi_dma_desc *desc;
- 	enum dma_status status;
- 	u32 completed_length;
- 	unsigned long flags;
--	u32 completed_blocks;
- 	size_t bytes = 0;
- 	u32 length;
--	u32 len;
- 
- 	status = dma_cookie_status(dchan, cookie, txstate);
--	if (status == DMA_COMPLETE || !txstate)
-+	if (status == DMA_COMPLETE)
- 		return status;
- 
- 	spin_lock_irqsave(&chan->vc.lock, flags);
- 
-+	if (chan->is_paused && status == DMA_IN_PROGRESS)
-+		status = DMA_PAUSED;
-+
-+	if (!txstate) {
-+		spin_unlock_irqrestore(&chan->vc.lock, flags);
-+		return status;
-+	}
-+
- 	vdesc = vchan_find_desc(&chan->vc, cookie);
- 	if (vdesc) {
--		length = vd_to_axi_desc(vdesc)->length;
--		completed_blocks = vd_to_axi_desc(vdesc)->completed_blocks;
--		len = vd_to_axi_desc(vdesc)->hw_desc[0].len;
--		completed_length = completed_blocks * len;
--		bytes = length - completed_length;
-+		desc = vd_to_axi_desc(vdesc);
-+		length = desc->length;
-+
-+		if (chan->cyclic) {
-+			completed_length = desc->completed_blocks *
-+					   desc->hw_desc[0].len;
-+		} else if (desc == chan->desc) {
-+			/*
-+			 * chan->desc is the descriptor last programmed into
-+			 * the hardware, so the pointer registers belong to
-+			 * it; never match a queued-but-never-started
-+			 * descriptor against the stale pointer left by a
-+			 * previous transfer. If the transfer has just
-+			 * finished but the interrupt has not reaped the
-+			 * descriptor yet, the pointer sits at the end and
-+			 * the residue reads 0.
-+			 */
-+			completed_length = axi_chan_get_xferred(chan, desc);
-+		} else {
-+			/* Still queued, nothing transferred yet */
-+			completed_length = 0;
-+		}
-+
-+		bytes = length - min(completed_length, length);
- 	}
- 
- 	spin_unlock_irqrestore(&chan->vc.lock, flags);
-@@ -468,6 +545,9 @@ static void axi_chan_block_xfer_start(struct axi_dma_chan *chan,
- 	}
- 	axi_chan_config_write(chan, &config);
- 
-+	/* The hardware pointer registers now belong to this descriptor */
-+	chan->desc = first;
-+
- 	write_chan_llp(chan, first->hw_desc[0].llp | lms);
- 
- 	irq_mask = DWAXIDMAC_IRQ_DMA_TRF | DWAXIDMAC_IRQ_ALL_ERR;
-@@ -1077,6 +1157,8 @@ static noinline void axi_chan_handle_err(struct axi_dma_chan *chan, u32 status)
- 	}
- 	/* Remove the completed descriptor from issued list */
- 	list_del(&vd->node);
-+	if (chan->desc == vd_to_axi_desc(vd))
-+		chan->desc = NULL;
- 
- 	/* WARN about bad descriptor */
- 	dev_err(chan2dev(chan),
-@@ -1140,6 +1222,8 @@ static void axi_chan_block_xfer_complete(struct axi_dma_chan *chan)
- 	} else {
- 		/* Remove the completed descriptor from issued list before completing */
- 		list_del(&vd->node);
-+		if (chan->desc == vd_to_axi_desc(vd))
-+			chan->desc = NULL;
- 		vchan_cookie_complete(vd);
- 	}
- 
-@@ -1205,7 +1289,9 @@ static int dma_chan_terminate_all(struct dma_chan *dchan)
- 
- 	vchan_get_all_descriptors(&chan->vc, &head);
- 
-+	chan->desc = NULL;
- 	chan->cyclic = false;
-+	chan->is_paused = false;
- 	spin_unlock_irqrestore(&chan->vc.lock, flags);
- 
- 	vchan_dma_desc_free_list(&chan->vc, &head);
 -- 
 2.43.0
 
