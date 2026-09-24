@@ -1,225 +1,362 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E164223336
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:36:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790253417; cv=none; b=nBBQkm+b0CQORxNpMeCT016wPGhvk8R0gXjteRo7SFTz7Ny/+lvTtiXM+bx2lnjAkgSEi/txb3WKqoIGV42qP1iVMbVYhcqlcg2dau49iIIgfDO3d6AnyLNXVB086WazxfRduUQxLvx3OapxbpYnrSCq7mJ5TxTl7fReL3f9Cwc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790253417; c=relaxed/simple;
-	bh=CLLX1WGSyy5uutnydf7E+boNfhnOuNdZ5bWoEr7Diic=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RSqJeLXEcGIhd8PdWbIjK1uZhfOSj1u6SCmHrnPt2S8Gz5BsJxTLrjWN7Bq/XA2CCCLi7uzpnMuOY0COxcXibXYv2Vo4BDRQe0Dvrvmgom5HWiH5zdUeMHXElt61Zyw7CE9JqQ5VHxEU1bx9Vcvji3wgLdJJbENAbmiMHSpBmx4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PM2KQyXd; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E543372ED0;
+	Thu, 24 Sep 2026 12:36:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790253420; cv=pass; b=Za+isNx18Q4QcLp4g9CKlVWP0lUYKpk+4IG7NkeC2t6Tyr+I05u+AvnvQYzDu0jNrAl/rV6CWKrHpa1Lw5tc6unOQQD0rz0FkV+QPXYmwJFxQ7hjAlRWVKLIMtDGTcGPJpnFMk36UqYV50O8AUdZT8JYklTMayLLiSgFdtdEGKg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790253420; c=relaxed/simple;
+	bh=xzUol5ikhcfHZeeR2q20FVZeYh3BGyPUFgQL8aLKm2A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=EQwUi1FP8R08hSWA5PNW4Hb82FU1/gr3JmYi93LgRawiz4vNy37J1aHQicTT9BPZ1PXpgWoPFkJg3a+Lxh67YBUmqu+eQV48VbMH3WzVhIcSRFOalyccXttCIy8qO9QpQqWY0Qj3qshz15TzjxXXqZ1rCU3MQeyLoXE95p9hcmI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b=LHVNlk3j; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PM2KQyXd"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1ca5b0d6so13604755e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:36:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790253413; x=1790858213; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=gAR7nTOPxRo/mfR2u3OdcokbjHynlMhWcl3pdNDsUgo=;
-        b=PM2KQyXdNyMkZKSZ5df0/DRIQ1EX3ZgXrFINpng5lwi2SbPcINWs2eAUIMzZbNn5M+
-         9H6rqGUSAaWzXqKymsrVIVxFqTkuejCq8u4KBUzbr3XXgiGM9Z6wedvpMpzOo37nyPkR
-         4O72dC48+6gCqlPHRmKxlINMy+oCF5WwoYi65n1YuYxn3S522XH7kVbv1LojNjcYDs53
-         tMOSVNRs7jWduQyB7EypqqSriNHj5D+E1WeI8HzacBkkXwV8LaLoM0cS3l8Kxtk2T9s5
-         XXiDmCgUCgMnWrdwa2Issfd+okN20nMNnNmejF1Y5eHL9tBrOTIIcu7f/mu40Zlkl51h
-         8ndA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790253413; x=1790858213;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gAR7nTOPxRo/mfR2u3OdcokbjHynlMhWcl3pdNDsUgo=;
-        b=P2L49s1z/2YpFU01aQNkhl9+uzTlMKq8O4+mUM95oNQVQE4BVVn+ypseqiGmjwfxwf
-         Ba33lgTbKXEd7vAlBRMkrl9BgFo6TDd3SRfqEhCwAJmPZGIv5FgtdQXTQyRp+T/Lhshq
-         j0rZIP3ZoSgqnrtVT9iWh0nKKrU9uTCwiiHXKw00KACJ48SaIMKpkiWzsfoIoei8MHHf
-         ZWdUCtweml63e4et6vdbChWQcdzeOEAuE4mthM+CsTKc4BPnAzHTx1haLyiTn6l5M100
-         OjbxPe2oIMckzypE99SaVAQcX64FWivaThNMYL47MFz2ro9zYC/7+0VJrrS+6U/eJTpI
-         Wp1w==
-X-Forwarded-Encrypted: i=1; AKwUvBz2mF9giEcE01n4WXtflITJE+KVGQF0XCLJx9+A28oW9qxD2MQiofnZ3FXUIOoMqdREnOrNAdjFUg5D1uw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mADX5PaRRQET3PMOMYaf+dz5rSVAE7k6YYRMbAPEx4wLAXgs70
-	OD4qecs1LJtcwE+nqEf5Cx0aqa4NhIzUzhcwjcod0VIkiGm2QbojRov6F739gtK3LQ==
-X-Gm-Gg: AYBFou3I+M5z5ZyilbAgKwy4vLnV5l+qcpX3fB9oH7Xf1/4s77I/sIh4RggWzTuUcuj
-	69zhJBddXmtYhXPvsT4mMZ2Wl9buex1UOT6DrhNdQ7fY75RgMtTXJPNNvfj4BCTTXPhAF5JHoOY
-	bbJVWUcdtSnGNWFOeVebo1/niGvkeFOm8T7j/8Ab1Hqoz/pK/PiJ2GrqdA1sJG9Vb5Es3W9cpT9
-	cbsylnx5IUhZ2NanY7Jg/Of1SQR1MJM/jOGqMtF3kgrRrOtuog+c3kSkhUgV7tCgJnFzbbH5oMy
-	v/yHTimjahM4mQrkyoLnM1xwCr0Dw9BZAkA4nVaAnlqj8FNCcXnF6SWewDm5Nh1ZKICrinlHbsv
-	4BGiRbfHngXTAtkvbu8e3idvQnEh9arc6wGN8oHh2CQIaiX91E4D8+61R6jVDFMara5z5M0UV5E
-	JYQkWe312REgpPrGGp/N+53C4zyzYGGwetaSTTO4ksgfNp1boEl1Uf3RTpE/RaJpUJqwLRb8Bpk
-	Q+0WMeHDDH7pUDesCyIXRWlsvP9HrZdZNTvoAWS1A==
-X-Received: by 2002:a05:600c:3514:b0:49f:ce72:e931 with SMTP id 5b1f17b1804b1-49fe6701e7emr38631215e9.35.1790253412640;
-        Thu, 24 Sep 2026 05:36:52 -0700 (PDT)
-Received: from elver.google.com (17.83.155.104.bc.googleusercontent.com. [104.155.83.17])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe0c4cc01sm56905385e9.3.2026.09.24.05.36.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 05:36:47 -0700 (PDT)
-Date: Thu, 24 Sep 2026 12:36:40 +0000
-From: Marco Elver <elver@google.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Vlastimil Babka <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	"Liam R. Howlett" <Liam.Howlett@oracle.com>,
-	Andrey Konovalov <andreyknvl@gmail.com>,
-	Bill Wendling <morbo@google.com>,
-	David Hildenbrand <david@kernel.org>,
-	David Rientjes <rientjes@google.com>,
-	Dmitry Vyukov <dvyukov@google.com>, Jann Horn <jannh@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	KP Singh <kpsingh@kernel.org>, Kees Cook <kees@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Matteo Rizzo <matteorizzo@google.com>,
-	Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Suren Baghdasaryan <surenb@google.com>,
-	linux-hardening@vger.kernel.org, Nicolas Schier <nsc@kernel.org>,
-	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>, Harry Yoo <harry@kernel.org>,
-	Hao Li <hao.li@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
-	Alexander Potapenko <glider@google.com>,
-	Miguel Ojeda <ojeda@kernel.org>, linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	kasan-dev@googlegroups.com, llvm@lists.linux.dev,
-	Guo Ren <guoren@kernel.org>, linux-csky@vger.kernel.org
-Subject: Re: csky ICe (was: Re: [PATCH v4 2/3] slab: improve
- KMALLOC_PARTITION_RANDOM randomness)
-Message-ID: <arUZWKjKr5I5tlOj@elver.google.com>
-References: <20260511200136.3201646-1-elver@google.com>
- <20260511200136.3201646-2-elver@google.com>
- <6106aefa-47c7-4bda-a51f-8a2fba3bf715@roeck-us.net>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b="LHVNlk3j"
+ARC-Seal: i=1; a=rsa-sha256; t=1790253395; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=XHVZvKE+IgFaJn7qjYthBHmxN+Iohax5UB4CnGEp4BYMTCnTLV0Lc6oOJygpNVzbnFz0wbu5Z7cFfgwNtm5FNxCo8OlMbKIwLE2MU6bQHgtwjrnb+CApzx01I2k521r0sxb9j96sUMdje30KJLm5Vk4CSSVoLIe3xBvKWX6D1sc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790253395; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=OV+WKAnJJAziMnvnnktDB9mgyWSpWiiufh8J8gCcPuM=; 
+	b=Uhv3RpeF34/PDDrzjvw8wBXSDOuGknensayir0WVaEdGY5YAE73WIP9po/M2hvC4PZjEcLOnY43dgvTOM5qegoEMmxL3f612IFTEU37xcCmhUiy+sg+VZm3aaFQNfjJ6QRmDg6qWiWMpAavz55XwzWDSTkdM0XbCefzMiuzxI2A=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=detlev.casanova@collabora.com;
+	dmarc=pass header.from=<detlev.casanova@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790253395;
+	s=zohomail; d=collabora.com; i=detlev.casanova@collabora.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+	bh=OV+WKAnJJAziMnvnnktDB9mgyWSpWiiufh8J8gCcPuM=;
+	b=LHVNlk3jSC6gA7aakza5ZfADkKhSGfV451XAigklp/jrx531C9LC0ijbYYYsFDU9
+	MDQDgtDl0RiLJAHgF02Ua/WCsTxKIo1ouhcaXU68ZqVM6nl39Fz7GWG9/512Rm2i/Dk
+	fScaTpowMm4qqHQ0iMq211asJ69ExxzSuklKYIyw=
+Received: by smtp.zohomail.com with SMTPS id 1790253393785375.45950290690473;
+	Thu, 24 Sep 2026 05:36:33 -0700 (PDT)
+From: Detlev Casanova <detlev.casanova@collabora.com>
+To: Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Heiko Stuebner <heiko@sntech.de>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Diederik de Haas <diederik@cknow-tech.com>
+Cc: kernel@collabora.com, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 0/4] media: Track v4l2 buffers through an allocator
+Date: Thu, 24 Sep 2026 08:36:15 -0400
+Message-ID: <jmuzPUMQRGeSHxc4mzcUjg@collabora.com>
+In-Reply-To: <DLK6XGIB22XG.58WF7VP9L3NH@cknow-tech.com>
+References:
+ <20260916-v4l2-add-mem-tracker-v1-0-900fa45e3e6a@collabora.com>
+ <DLK6XGIB22XG.58WF7VP9L3NH@cknow-tech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6106aefa-47c7-4bda-a51f-8a2fba3bf715@roeck-us.net>
-User-Agent: Mutt/2.3.2 (2026-04-26)
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ZohoMailClient: External
 
-On Tue, Sep 22, 2026 at 07:58AM -0700, Guenter Roeck wrote:
-> Hi,
-> 
-> On Mon, May 11, 2026 at 10:00:49PM +0200, Marco Elver wrote:
-> > When using CONFIG_KMALLOC_PARTITION_RANDOM, _RET_IP_ was previously used
-> > to identify the allocation site. _RET_IP_, however, evaluates to the
-> > caller's parent's instruction pointer rather than the actual allocation
-> > site; this would lead to collisions where a function performs multiple
-> > allocations.
-> > 
-> > With the generalization to kmalloc_token_t, we now generate the token at
-> > the outermost macro, and using _THIS_IP_ would fix this for all cases.
-> > 
-> > Unfortunately, the generic implementation of _THIS_IP_ relies on taking
-> > the address of a local label, which is considered broken by both GCC [1]
-> > and Clang [2] because label addresses are only expected to be used with
-> > computed gotos. While the generic version more or less works today, it
-> > is known to be brittle. For example, Clang -O2 always returns 1 when
-> > this function is inlined:
-> > 
-> >         static inline unsigned long get_ip(void)
-> >         { return ({ __label__ __here; __here: (unsigned long)&&__here; }); }
-> > 
-> > To provide a reliable unique identifier without breaking architectures
-> > relying on the generic _THIS_IP_, introduce _CODE_LOCATION_: it resolves
-> > to _THIS_IP_ where architectures provide a safe implementation, and
-> > falls back to a zero-cost static marker where _THIS_IP_ is broken.
-> > 
-> > Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=120071 [1]
-> > Link: https://github.com/llvm/llvm-project/issues/138272 [2]
-> > Signed-off-by: Marco Elver <elver@google.com>
-> 
-> With this patch in the tree, I get ICE erors when trying to build
-> csky:allmodconfig.
-> 
-> Example:
-> 
-> Error log:
-> sound/core/oss/mixer_oss.c: In function 'snd_mixer_oss_proc_write':
-> sound/core/oss/mixer_oss.c:1202:1: error: could not split insn
->  1202 | }
->       | ^
-> (insn 183 400 184 (set (reg:SI 0 a0 [orig:307 _55 ] [307])
->         (xor:SI (reg:SI 3 a3 [orig:308 random_kmalloc_seed ] [308])
->             (const:SI (plus:SI (symbol_ref:SI ("*.LANCHOR0") [flags 0x182])
->                     (const_int 132 [0x84]))))) "include/linux/slab.h":759:52 288 {cskyv2_xorsi3}
->      (expr_list:REG_DEAD (reg:SI 3 a3 [orig:308 random_kmalloc_seed ] [308])
->         (nil)))
-> during RTL pass: final
-> sound/core/oss/mixer_oss.c:1202:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-> 0x779b51e2a1c9 __libc_start_call_main
-> 	../sysdeps/nptl/libc_start_call_main.h:58
-> 0x779b51e2a28a __libc_start_main_impl
-> 	../csu/libc-start.c:360
-> 
-> This happens with lots of files, not just this one. It is seen with all
-> versions of gcc starting with at least v13.x. Reverting this patch fixes
-> the problem. Bisect log is attached for reference.
-> 
-> Any idea what I could do to avoid the problem other than stopping to build
-> csky:allmodconfig ?
+Hi Diederik,
 
-No idea what gcc is falling over here, but the below patch could be a
-workaround/fix. Does that work better?
+Thank you for testing !
 
------- >8 ------
 
-From: Marco Elver <elver@google.com>
-Date: Fri, 8 May 2026 14:51:45 +0200
-Subject: [PATCH] csky: Implement _THIS_IP_ using inline asm
+On Sunday, September 20, 2026 9:50:24=E2=80=AFa.m. Eastern Daylight Time Di=
+ederik de=20
+Haas wrote:
+> Hi Detlev,
+>=20
+> On Wed Sep 16, 2026 at 4:25 PM CEST, Detlev Casanova wrote:
+> > Hello,
+> >=20
+> > Currently, the only way to track buffers allocated by v4l2 from usespace
+> > is to use the subsystem available debug information (e.g.:
+> > /sys/kernel/debug/dma_buf/bufinfo).
+> > But that information is generic and cannot be matched to a v4l2 driver =
+or
+> > to a userspace application: It is merely information about the allocati=
+on.
+> >=20
+> > Other types of allocations require the developper to find where they are
+> > exposed and how to link them to their test.
+> >=20
+> > This can become hard to track when mutliple drivers are working at the
+> > same time.
+> >=20
+> > To improve that, add a small wrapper around buffer allocations to keep
+> > track of them at the video device level so that we can add debug
+> > information to them like a name, userspace pid/fd that did the
+> > allocation,... and expose them to userspace via a debugfs entry.
+> >=20
+> > It currently only supports DMA buffer allocations and adds support for
+> > VB2 allocations too.
+> > Other kind of memory tracking can be added later.
+> > The verisilicon and rkvdec drivers have been ported to use the tracked
+> > dma alloactions.
+> >=20
+> > Note that this depends on the ftrace support patch series[1] that
+> > provides fd/pid info in the v4l2_fh struct.
+> > That series is a bit old, so this is based on an older linux version, b=
+ut
+> > that only changes things for the last 2 commits.
+> >=20
+> > A v4l2top utility[2] has been made, to be used in parallel with the
+> > fdinfo patch series[3], to show the list of active streams with their HW
+> > and memory usage.
+> >=20
+> > With this, debugfs looks like this when decoding a HEVC 1080p stream wi=
+th
+> >=20
+> > rkvdec on rk3588:
+> >   root # cat /sys/kernel/debug/v4l2/fdc38100.video-codec/mem
+> >   created-by                      fd              pid             size =
+  =20
+> >          label
+> >   ---------------------------------------------------------------------=
+=2D-
+> >   -------------- gst-launch-1.0                  7               635   =
+  =20
+> >         39184           vdpu381-hevc-priv-tbl gst-launch-1.0           =
+ =20
+> >       7               635             4177920       =20
+> >   cap-00000000ac34392e-7 gst-launch-1.0                  7             =
+=20
+> >   635             4177920         cap-00000000ac34392e-6 gst-launch-1.0=
+ =20
+> >                  7               635             4177920       =20
+> >   cap-00000000ac34392e-5 gst-launch-1.0                  7             =
+=20
+> >   635             4177920         cap-00000000ac34392e-4 gst-launch-1.0=
+ =20
+> >                  7               635             4177920       =20
+> >   cap-00000000ac34392e-3 gst-launch-1.0                  7             =
+=20
+> >   635             4177920         cap-00000000ac34392e-2 gst-launch-1.0=
+ =20
+> >                  7               635             4177920       =20
+> >   cap-00000000ac34392e-1 gst-launch-1.0                  7             =
+=20
+> >   635             4177920         cap-00000000ac34392e-0 gst-launch-1.0=
+ =20
+> >                  7               635             3133440       =20
+> >   out-000000005c0230f6-1 gst-launch-1.0                  7             =
+=20
+> >   635             3133440         out-000000005c0230f6-0
+> >   =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >   =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D Total size: 39729424
+>=20
+> I build a kernel with your 3 patch series and I also build the v4l2top
+> utility. Cool tool :-D
+> Especially after I found out I should build the 'upstream' branch ;-)
+>=20
+> There were a couple of things I noticed:
+> 1) With 'plain' kernel 7.3-rc3 but also with all my patches included, but
+>    excluding the patches from this series, I see this:
+>=20
+> ```
+> root@nanopc-t6-plus:~# ls -lh /sys/kernel/debug/v4l2/
+> total 0
+> drwxr-xr-x 3 root root 0 Sep 20 15:10 fdee0000.hdmi_receiver
+> ```
+>=20
+> Which is presumably the reason that with a kernel which also includes this
+> patch series, I get the following kernel error:
+> ``[   10.849405] debugfs: 'v4l2' already exists in '/'``
+>=20
+> I don't think this should generate an error/warning/info message at all,
+> but just silently dealt with.
 
-Both GCC [1] and Clang [2] consider the generic version of _THIS_IP_ to
-be broken:
+Indeed, that is something I will fix in the next version.
 
-        #define _THIS_IP_  ({ __label__ __here; __here: (unsigned long)&&__here; })
+>=20
+> Checking v4l2 debug dir again results in this:
+> ```
+> root@nanopc-t6-plus:~# ls -lh /sys/kernel/debug/v4l2/
+> total 0
+> drwxr-xr-x 2 root root 0 Sep 20 15:13 fdb60000.rga
+> drwxr-xr-x 2 root root 0 Sep 20 15:13 fdb80000.rga
+> drwxr-xr-x 2 root root 0 Sep 20 15:13 fdc38000.video-codec
+> drwxr-xr-x 2 root root 0 Sep 20 15:13 fdee0000.hdmi_receiver
+> ```
+>=20
+> I noticed my video-codec address was slightly different from yours.
 
-In particular, the address of a label is only expected to be used with a
-computed goto.
+Yes, mine is on rk3588. A different SoC will have a different device regist=
+er=20
+address.
 
-While the generic version more or less works today, it is known to be
-brittle and may break with current and future optimizations. For
-example, Clang -O2 always returns 1 when this function is inlined:
+> Playing a 1080p BBB x264 video with a patched ffmpeg+mpv, results in this:
+> ```
+> root@nanopc-t6-plus:~# cat /sys/kernel/debug/v4l2/fdc38000.video-codec/mem
+> created-by                      fd              pid             size     =
+  =20
+>    label
+> -------------------------------------------------------------------------=
+=2D-
+> ---------- mpv                             26              2027          =
+=20
+> 4177920         cap-00000000205a3b3a-10 mpv                             2=
+6=20
+>             2027            4177920         cap-00000000205a3b3a-9 mpv   =
+ =20
+>                        26              2027            4177920       =20
+> cap-00000000205a3b3a-8 mpv                             26              20=
+27
+>            16736           vdpu381-h264-priv-tbl mpv                     =
+ =20
+>      26              2027            3133440         out-0000000079002cb1=
+=2D3
+> mpv                             26              2027            3133440  =
+ =20
+>     out-0000000079002cb1-2 mpv                             26            =
+=20
+> 2027            3133440         out-0000000079002cb1-1 mpv               =
+ =20
+>            26              2027            3133440       =20
+> out-0000000079002cb1-0 mpv                             26              20=
+27
+>            4177920         cap-00000000205a3b3a-7 mpv                    =
+ =20
+>       26              2027            4177920       =20
+> cap-00000000205a3b3a-6 mpv                             26              20=
+27
+>            4177920         cap-00000000205a3b3a-5 mpv                    =
+ =20
+>       26              2027            4177920       =20
+> cap-00000000205a3b3a-4 mpv                             26              20=
+27
+>            4177920         cap-00000000205a3b3a-3 mpv                    =
+ =20
+>       26              2027            4177920       =20
+> cap-00000000205a3b3a-2 mpv                             26              20=
+27
+>            4177920         cap-00000000205a3b3a-1 mpv                    =
+ =20
+>       26              2027            4177920       =20
+> cap-00000000205a3b3a-0
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D Total size: 58507616
+> ```
+>=20
+> And looking at the v4l2top utility, I noticed the following:
+> 1. I see differing indications of the load while it's playing :-D
 
-        static inline unsigned long get_ip(void)
-        { return ({ __label__ __here; __here: (unsigned long)&&__here; }); }
+\o/
 
-Fix it by overriding _THIS_IP_ in <asm/linkage.h> (which is included by
-<linux/instruction_pointer.h>) using an architecture-specific inline asm
-version. Additionally, avoiding taking the address of a label prevents
-compilers from emitting spurious indirect branch targets (e.g. ENDBR or
-BTI) under control-flow integrity schemes.
+> 2. The ``Clock rate`` is always 750.0MHz (or 786431991Hz) (expected I
+> think?)
 
-Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=120071 [1]
-Link: https://github.com/llvm/llvm-project/issues/138272 [2]
-Signed-off-by: Marco Elver <elver@google.com>
----
- arch/csky/include/asm/linkage.h | 7 +++++++
- 1 file changed, 7 insertions(+)
- create mode 100644 arch/csky/include/asm/linkage.h
+Yes, the clock won't change, for now at least. Some decoders could adapt th=
+eir=20
+clocks depending on the work. The frequency value will also be used to=20
+determine exact core usage for those that expose a used cycle count after e=
+ach=20
+job (I did not implement that yet in v4l2top)
 
-diff --git a/arch/csky/include/asm/linkage.h b/arch/csky/include/asm/linkage.h
-new file mode 100644
-index 000000000000..04afd3583e25
---- /dev/null
-+++ b/arch/csky/include/asm/linkage.h
-@@ -0,0 +1,7 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef __ASM_CSKY_LINKAGE_H
-+#define __ASM_CSKY_LINKAGE_H
-+
-+#define _THIS_IP_ ({ unsigned long __ip; asm volatile("grs %0, ." : "=r" (__ip)); __ip; })
-+
-+#endif /* __ASM_CSKY_LINKAGE_H */
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+> 3. The ``Total Memory`` is always 0B and the ``Memory usage
+> details`` column is always empty. That's also the case when I press one of
+> the arrow keys which seems to select the entry. Am I missing sth or doing
+> sth wrong?
+
+My guess would be that you didn't run it as root (this is usually needed to=
+=20
+access the debugfs*). But if you did, we will have to dig a little.
+
+*: Note that later, we'd like to report global memory usage through fdinfo,=
+ so=20
+that the metric is accessible as a user, with buffer details still from the=
+=20
+debugfs (so that'd need root access)
+
+Detlev.
+
+>=20
+> > [1]:
+> > https://lore.kernel.org/all/20260610-v4l2-add-ftrace-v2-0-9756edf72ac1@=
+co
+> > llabora.com/ [2]: https://github.com/cazou/v4l2top/tree/upstream
+> > [3]:
+> > https://lore.kernel.org/all/20260706-v4l2-add-fdinfo-v3-0-d556568cf38e@=
+co
+> > llabora.com/
+> >=20
+> > Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
+> > ---
+> >=20
+> > Detlev Casanova (4):
+> >       media: Add a v4l2 memory allocations tracker
+> >       media: Store v4l2_fh in the vb_queue
+> >       media: verisilicon: Switch to tracked dma allocations
+> >       media: rkvdec: Switch to tracked dma allocations
+> > =20
+> >  drivers/media/common/videobuf2/Makefile            |   1 +
+> >  drivers/media/common/videobuf2/v4l2-allocator.c    | 186
+> >  +++++++++++++++++++++ .../media/common/videobuf2/videobuf2-dma-contig.=
+c=20
+> >  |  27 ++-
+> >  .../media/platform/rockchip/rkvdec/rkvdec-h264.c   |  14 +-
+> >  .../media/platform/rockchip/rkvdec/rkvdec-hevc.c   |  14 +-
+> >  .../media/platform/rockchip/rkvdec/rkvdec-rcb.c    |  21 ++-
+> >  .../platform/rockchip/rkvdec/rkvdec-vdpu381-h264.c |  14 +-
+> >  .../platform/rockchip/rkvdec/rkvdec-vdpu381-hevc.c |  14 +-
+> >  .../platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c |  14 +-
+> >  .../platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c |  14 +-
+> >  .../media/platform/rockchip/rkvdec/rkvdec-vp9.c    |  33 ++--
+> >  drivers/media/platform/rockchip/rkvdec/rkvdec.c    |   4 +
+> >  drivers/media/platform/verisilicon/hantro.h        |   1 +
+> >  drivers/media/platform/verisilicon/hantro_drv.c    |   4 +
+> >  drivers/media/platform/verisilicon/hantro_h264.c   |   7 +-
+> >  drivers/media/platform/verisilicon/hantro_hevc.c   | 100 ++++++-----
+> >  drivers/media/platform/verisilicon/hantro_mpeg2.c  |  16 +-
+> >  .../media/platform/verisilicon/hantro_postproc.c   |  14 +-
+> >  drivers/media/platform/verisilicon/hantro_vp8.c    |  25 +--
+> >  drivers/media/platform/verisilicon/hantro_vp9.c    |  34 +++-
+> >  .../verisilicon/rockchip_vpu981_hw_av1_dec.c       | 160
+> >  +++++++++++-------
+> >  drivers/media/v4l2-core/v4l2-device.c              |   4 +-
+> >  include/media/v4l2-allocator.h                     |  26 +++
+> >  include/media/v4l2-device.h                        |   2 +
+> >  include/media/videobuf2-core.h                     |   3 +
+> >  25 files changed, 555 insertions(+), 197 deletions(-)
+> >=20
+> > ---
+> > base-commit: 66affa37cfac0aec061cc4bcf4a065b0c52f7e19
+> > change-id: 20260612-v4l2-add-mem-tracker-da0088c74a64
+> > prerequisite-change-id: 20260608-v4l2-add-ftrace-aec6e7f60a6c:v2
+> > prerequisite-patch-id: bd45b4df66799a7f9f22b49973a78d1bd3590a4a
+> > prerequisite-patch-id: 6a5ed5615f08257cf854d441785066b5ff4d5d47
+> > prerequisite-patch-id: 02594c869498b9e91e416d70242afbaa6b3a8d6a
+> > prerequisite-patch-id: 9f25ec78f3b99ac1c5d42eb732f5bd9eae73fadd
+> > prerequisite-patch-id: 4ed2c2e8c3abfa7f6328d0ea4f488ca5a3eec8fb
+> > prerequisite-patch-id: 8787d50eb80e1a63a57a123268cade23c9e64618
+> > prerequisite-patch-id: bfe85822378fa771f9bbc3e1e8c8ff6bce0eb7fd
+> > prerequisite-patch-id: 784d0801da320f7b41194f4632ee422c32f1b5b8
+> > prerequisite-patch-id: 362c8366e2efbfb5e6f1a3f71cfddbd46e8d1506
+> >=20
+> > Best regards,
+> > --
+> > Detlev Casanova <detlev.casanova@collabora.com>
+> >=20
+> >=20
+> > _______________________________________________
+> > Linux-rockchip mailing list
+> > Linux-rockchip@lists.infradead.org
+> > http://lists.infradead.org/mailman/listinfo/linux-rockchip
+
+
+
 
