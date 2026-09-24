@@ -1,134 +1,148 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E2AB432BD6
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:30:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BFA8433BD4
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:30:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.207.212.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790235017; cv=none; b=UFcAsI7MktDrZIlvY37OhyJO+kRnEHVwCKXVzmk8SyF1mMRnCVa6E3d9b0U57fejihVtGtreR3D+M5UAuwrh0vmt/oQX4n/6NcvPVwNBeKgd/Vk4+fBrZJlGlKQDKpxSj0IGk/j3Ah30R+VLVoS28w8bDPKJ6fkmsYVhtTkKA6s=
+	t=1790235026; cv=none; b=tFy3EnOCzyrLeKae7MRgih1rjKwiVm2QuM4B+B4a9JJo84TLeYliwi2pTYSnsbmN1dUekoUtqdDJdO3Pw+AGwPvVtaq1pSu8blphf0l2fUUA9UFrNhn22FyHVCbjjwuf7PUVwbi3hQ6u88dh9YFoypr9iipHBOCuCl3VMXQg5vY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790235017; c=relaxed/simple;
-	bh=H/09Awy0Wow8he0iuUjbYNtLCcgE1/04W5EuWcTgx88=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pYvwobBhBy3uROnEBm8hiNvGP0CajfGPuycNWHhCPcnWe0e9oLdlcSG7dLTSkJERaGdHZtHaQ+8Esh3zev6zkFRM2zK+D0HbWaUF1HQvg/3bavXz/97wFYa8W+/U4XeGzV7+QiAHlqv0o5iKQbTz2xxUQssjkcg27QZ3bchtWtI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qz3yf/vj; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790235026; c=relaxed/simple;
+	bh=XQZaE5K7wELBkVpj5cyeE1NqTTZjP6LdzHGCCTMEDUs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=TpGCpcLqcPW4RhYuYf7OFMme+WKPOfcOLVVKVswl8f0uHPak1W9IHnqFW1bxK74NgD9McLbLU1jqM0cTTVZuAmNi8MT3wcnSnGRyXZKJtWxbvwwFaNQiR0M8osT9Rp9KH3D1smhq7PWhsQczbmruIl/FK1CwQTwgIvznTNiCrB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=vSgVBxHi; arc=none smtp.client-ip=91.207.212.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qz3yf/vj"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d8fb334ddcso9863025ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:30:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790235015; x=1790839815; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6F8IvUZIEGfXb52LcJZy68sW3q/eTCjBvXuldSNAIWg=;
-        b=Qz3yf/vj2mxSLDysJ6S3tMjKG5yx0TjGYFrH0PBqJfxa4+BL5WuyiKKu/gsvMzrl3x
-         ABfpThb97VGkYmgUyvZnu/P36EQYJCAVGIOIV8QKbWdwH8LHLp3x0OqtopxZ6/bpGnkP
-         Vqo0SfI130sGvzlX6Dzk3X4I3ECOqwghNWdXfw2D3APlNPX7lOn9QKwOcB6dAfAX1s/D
-         NEeTByo7QrUeBBE17pfK8HJH2MXMxPIYrLJ8KMWg936hMV0XNbdLF/aGb5Y0Xzsvzeq2
-         blBrtAJ+2UnzWw0axl3HHw2nzgx3Vyut917pdIsg5W39JZZ3vDQuqDJV1OpB5Tw08oVi
-         T2Ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790235015; x=1790839815;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6F8IvUZIEGfXb52LcJZy68sW3q/eTCjBvXuldSNAIWg=;
-        b=aEcarL+PkhuYV/uMJdaUu+RSkaTAUhARfF40y+t5PJq+3BLr1Es8Z3vWHYABRv85qJ
-         HqJ1BWc9nzTXyDuQES0plijybps5vEvwEVDuZzN2jr+dht9Guko3gIXaqOX3N9VkeQ4C
-         8ALFDVzKfYcR9Su/bvjYXmwdj7NEx8Qt+k+hFKmVxHi/VIeDBY5eDDXkdh6TG/gcgpWM
-         i5AC1qR0SRPUYVF4YatTZgzOhberyEUKlSp4yfsZSN40u0IrTNcmh/Xe7Oeh7uJooWUH
-         znuAY7XB3wjD+QuAe3QPH5ONVgv1qTvMIfGbcilLq62dSzLPxYn0TYLVL0zDm3r5zZJ4
-         mH8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwNI1DS79ZmDUFFQ72A/wE9GkMxMaIHjQAqBhyEgsZIuVNBvpYSqj1nl5/Ubsdsk7uZxDlmwPi21hyBNuI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kW7TrxgcZ7xR3OmpBjt8OAK2lsUKsi1eqFkfZcaBO1q3NTEQQn
-	h3kUlhiS9Uxw9Cfm+f7UMwC7IgYNMhaThD33XugOLySR56ssJk5A23Zs
-X-Gm-Gg: AYBFou1S7dGZOYeYiNxvIl+RyMjHLODRB9jbvLE56dIZfcabYma0uu9p/Ade/4rNGGV
-	bfeCcLnNDBcTrisp0j5nqMZsDThrLt8X2aBcRU4YI5lyj8GWD74C2/ZIYxh3nVl7kub9bzUQAfa
-	T5gL620cVZqpmwpREvwhzBc0y8BxnyNwhe71o7OwGYMwtUKdbXaw24CtUHQrNc0D2nINIySgsM3
-	1Hf3XrN3Sv+gNsVxHjZYigy6DXzubwVEL8NbO/g0P21yGj6lsTiwLAB/JS33/txZQw0usxrapiZ
-	ZRMUKOQlaW/qBYiXkb4hUvy5Vssznf5oz+DjrUu/XrC2wxitDHlf4gkGcPA1HrDonJreKPWAUEp
-	klvcYt6TyrkM1Cg5o+kqcAzMuUvrvRD5+01t+b9muajR/3omd0jSxtX8OV3KYIkqVsYUF5e9d52
-	pI0tSm90xvAfd1lHYc+fPx7tYC1yWttYxp5UshU77dWR3tOFi0IfUkFdQ3cUpUunE2RvuFveSRM
-	ALvBxRkZxgWPi3/Kw6lR63DEkS9CZHI/rr0Gsf/zlS3eHeCd+BiwY8/N/6S74UjCYU7zXGnSfVb
-	5wXA0plyOQ==
-X-Received: by 2002:a17:90a:ec88:b0:398:bacb:1137 with SMTP id 98e67ed59e1d1-3a098b4b35cmr1393507a91.19.1790235014790;
-        Thu, 24 Sep 2026 00:30:14 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0972efa0bsm3184726a91.8.2026.09.24.00.30.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 00:30:14 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: jani.nikula@linux.intel.com,
-	tzimmermann@suse.de,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	airlied@gmail.com,
-	simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hui Peng <benquike@gmail.com>
-Subject: [PATCH v3 2/2] drm/udl: clean up USB resources if drm_dev_register() fails
-Date: Thu, 24 Sep 2026 07:30:11 +0000
-Message-ID: <20260924073012.2742968-3-benquike@gmail.com>
-X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
-In-Reply-To: <20260924064434.2541959-3-benquike@gmail.com>
-References: <20260924064434.2541959-1-benquike@gmail.com> <20260924064434.2541959-3-benquike@gmail.com>
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="vSgVBxHi"
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5e24H1074552;
+	Thu, 24 Sep 2026 08:30:02 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=dk201812; bh=w
+	Y5QBrESUN0/XfKKkTM0Mt7rDLxNZiQqJ2r/kOUUbl0=; b=vSgVBxHin5NMDIxDL
+	xeyaJXQUwkrPpIZ0LeJYsrAG11VTsdWijCq0T0bS7jcVPuCLo1yGguCaImemo7ad
+	tuG04Bop+wVOInB3oZSsdWvvpHYnSJMNJbm7ly5koMbztnlG/CV3vvDwbWo0VUu1
+	7B2YWGUrBNna4P23n+Q9rIXfPUHqKpJSMm9GpKKfuUeAtJ4OsoMCUJ/Ucxc9ECfV
+	UN6nYMUbYbzBEPkGLhhp4JU0TXTHtTT5njHtI7OGHBJm8rhWYS3/T8sJ1IQyoz7B
+	Zd2/g/66zuUQc/5YMb+EvfCV4zZTx7jlcgSL0uK6VlQ1UfOJeS5NBtpF+qxj/cqd
+	21HLA==
+Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4gsgnq3w1f-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 08:30:02 +0100 (BST)
+Received: from [127.0.1.1] (172.25.5.18) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 24 Sep
+ 2026 08:30:00 +0100
+From: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Date: Thu, 24 Sep 2026 10:29:43 +0300
+Subject: [PATCH v7 1/3] drm/imagination: Release KCCB slot on error path in
+ pvr_queue_run_job()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260924-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v7-1-584796cb599d@imgtec.com>
+References: <20260924-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v7-0-584796cb599d@imgtec.com>
+In-Reply-To: <20260924-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v7-0-584796cb599d@imgtec.com>
+To: Alessio Belle <alessio.belle@imgtec.com>,
+        Luigi Santivetti
+	<luigi.santivetti@imgtec.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+        <linux-kernel@vger.kernel.org>,
+        Alexandru Dadu <alexandru.dadu@imgtec.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790234999; l=1648;
+ i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
+ bh=XQZaE5K7wELBkVpj5cyeE1NqTTZjP6LdzHGCCTMEDUs=;
+ b=3HX2lf2OzTEsE75nrz8icr29gO5jQzARD4vpnqtKo63BhsdxOug4NOaQgIRxvca1RaSvNCbsS
+ xOAUZRBWNE1C86KNfv8mgjWKRYZkRDqQBRqL5xE1Cq/qF+bkW2bOUCi
+X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
+ pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAzMSBTYWx0ZWRfXxUo1Ok/X3MGX
+ C6cmJrivraaoobvj7k+09uMnn6l2KHElCFUwjmopg2WlVk0mqpMpnGKrQ6+ttU67gYGKpwbtqLS
+ EPuYAspwchXmQv8Vg2M8h7mppW2fXtPYRIDLtHZrQI/kLQBtep0LGLdhtOi/Ocj4nBkcdtTie3K
+ dhhQhOIxXWgTjDoSXQiL1G7poidYqhyXGabFDQW9kUB0rMXbZaf8WIO4qXxXoVKI1WnM9DTObn+
+ P0ihlQH/hlzcnzkop92GtmVz8hd5Q+MchibuA0EJwJwJUXa66pdorqNHIulF+nuznYqjg/3t/Vq
+ zHORiCROtrfv4JI+LoUuV9Ub2/JT+5XfOQvnDlXecbARxM6gkiXXCyaKF3dtIkj1PCEDdwQl7Ul
+ nUtCI3aKilF50hNSiGvPJx5xCEW2jgDzCHCrHelR0HzPbmfxmaeX5PQ+s4J43EDu8y0bl+VrDIS
+ qc5pzfdBkqbe0/SLlgw==
+X-Proofpoint-ORIG-GUID: 9OaJ0EH4VptLFBUtk8jbDgvl8H1xpRiT
+X-Authority-Analysis: v=2.4 cv=fYs4WEQF c=1 sm=1 tr=0 ts=6ab4d17a cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=sVS2Dey4ZWMA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=r_1tXGB3AAAA:8 a=zXiuvu5RTUsjFMotISsA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-GUID: 9OaJ0EH4VptLFBUtk8jbDgvl8H1xpRiT
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAzMSBTYWx0ZWRfX6x3JhQpqf4z6
+ QW+yX2dlnZznDAMCk50uybNIZZozAV3qcj8zQtKWpa8U4xn+fKsCzvGuqeNEkH6auxpb59v7ivU
+ dzb7jo6l5syZUje8Iqb0avGaXXZHGEc=
 
-In udl_usb_probe(), udl_driver_create() calls udl_init(udl), which
-allocates USB URBs and DMA buffers via udl_alloc_urb_list() that are
-normally freed by udl_drop_usb() in udl_usb_disconnect(). If
-drm_dev_register() fails in udl_usb_probe(), udl_usb_probe() returns
-without calling udl_drop_usb(udl), leaking the allocated URB list and DMA
-buffers because udl_usb_disconnect() is not called when probe fails.
+Add an error path to pvr_queue_run_job() instead of just a warning and
+release the KCCB in that path.
 
-Call udl_drop_usb(udl) when drm_dev_register() fails in udl_usb_probe().
-
-Tested in QEMU against Linux 7.3.0-rc3 using dummy_hcd by simulating
-a registration error in drm_dev_register(): on the unfixed kernel,
-udl_usb_probe() returned an error without calling udl_drop_usb(udl),
-leaking 8 allocated URBs and DMA buffers; whereas with this fix applied,
-udl_drop_usb(udl) is called on error, freeing all URB and DMA
-allocations.
-
-Fixes: 5320918b9a87 ("drm/udl: initial UDL driver (v4)")
-Cc: stable@vger.kernel.org
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
+Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
 ---
-Changes in v3:
-- Add Reviewed-by tag from Thomas Zimmermann.
+ drivers/gpu/drm/imagination/pvr_queue.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
-Changes in v2:
-- Split out as patch 2/2 as requested by Jani Nikula.
-- Added testing details in QEMU on drm_dev_register() failure cleanup.
-
- drivers/gpu/drm/udl/udl_drv.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/udl/udl_drv.c b/drivers/gpu/drm/udl/udl_drv.c
-index 1922988625eb..239a6983f49f 100644
---- a/drivers/gpu/drm/udl/udl_drv.c
-+++ b/drivers/gpu/drm/udl/udl_drv.c
-@@ -97,8 +97,10 @@ static int udl_usb_probe(struct usb_interface *interface,
- 		return PTR_ERR(udl);
- 
- 	r = drm_dev_register(&udl->drm, 0);
--	if (r)
-+	if (r) {
-+		udl_drop_usb(udl);
- 		return r;
+diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
+index 24a8645aa913..8dd87192fabc 100644
+--- a/drivers/gpu/drm/imagination/pvr_queue.c
++++ b/drivers/gpu/drm/imagination/pvr_queue.c
+@@ -767,17 +767,19 @@ static struct dma_fence *pvr_queue_run_job(struct drm_sched_job *sched_job)
+ 		    (job->type != DRM_PVR_JOB_TYPE_GEOMETRY ||
+ 		     job->paired_job->type != DRM_PVR_JOB_TYPE_FRAGMENT ||
+ 		     job->hwrt != job->paired_job->hwrt ||
+-		     job->ctx != job->paired_job->ctx)))
+-		return ERR_PTR(-EINVAL);
++		     job->ctx != job->paired_job->ctx))) {
++		err = -EINVAL;
++		goto err_release;
 +	}
  
- 	DRM_INFO("Initialized udl on minor %d\n", udl->drm.primary->index);
+ 	err = pvr_job_get_pm_ref(job);
+ 	if (WARN_ON(err))
+-		return ERR_PTR(err);
++		goto err_release;
+ 
+ 	if (job->paired_job) {
+ 		err = pvr_job_get_pm_ref(job->paired_job);
+ 		if (WARN_ON(err))
+-			return ERR_PTR(err);
++			goto err_release;
+ 	}
+ 
+ 	/* Submit our job to the CCCB */
+@@ -814,7 +816,14 @@ static struct dma_fence *pvr_queue_run_job(struct drm_sched_job *sched_job)
+ 		trace_pvr_job_submit_fw(job);
+ 	}
+ 
++	if (WARN_ON(err))
++		goto err_release;
++
+ 	return dma_fence_get(job->done_fence);
++
++err_release:
++	pvr_kccb_release_slot(pvr_dev);
++	return ERR_PTR(err);
+ }
+ 
+ static void pvr_queue_stop(struct pvr_queue *queue, struct pvr_job *bad_job)
+
+-- 
+2.43.0
+
