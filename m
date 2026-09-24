@@ -1,270 +1,166 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012070.outbound.protection.outlook.com [40.107.200.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A83424078C0
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:56:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B98B3B6356
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:56:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.205
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790243818; cv=fail; b=jgiOCCHJj457CqBGLT6kzGNsUabBy0YAytQIq7Etj4aGMBX8tv8TJ8d/oj9HuK6B+fiDAYUEpWgkGZNdyvaJ4T66+hIujnIrBI+/7CmRhrbhMidQ277y8AdHX52CcCUgXorFUHQ950tQvwUDPsSPheCs3aNsLkoVM8hiPolLIHU=
+	t=1790243819; cv=pass; b=YV32ih1jvQESRTMGS2K777pI13GpOKiwm8mo/02VoJ7KAu2f/OSonf8bB8OuwzA0g6LLYoU1gMYf/Uoi85q5nngtUxdIpE1STUx6PKOAEPGW7vWsUPDFDX5rCzfqNRa0wsxwqpVdDEAw9ybtzDy0ztlIeWwL+uD57obvgTcdhcM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790243818; c=relaxed/simple;
-	bh=CzxGF+4M5PF+o9iOOHzARuxAv5VnaHE3YqFjzO4GOq8=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=P1FQD+x1IY+Q9w/chzpZh0s81IzPbOBdsHB2OU7A+wT0jYlPvZsViPjQ0CrbwArnvMt9goeAGf3/NtWZNEJMDoKz33x2WP5s6eiCqatWxZ80seYa6s55Bi+WCFQuAHzLtgBfbrVQGSQuhwy4y1O9un45D3rB4d92USM3ufPzixQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=oUOvP/JG; arc=fail smtp.client-ip=40.107.200.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1790243819; c=relaxed/simple;
+	bh=P1ndA+eBVn+zYbAgTqPlA5s6bd2yOGM1nW0tBCwcEQA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Q6s8vm7oLVWH5789l+g9YREmvzYbYxgZNKba+8Vj1iuhjCPReQQeoVc6L3JMFR1j/A1Aq+vqKqEqHHpC/rE8XtUcnpjYqmA0O1ioL/EYHEiLl/x2V7JoCq2iqazsm+up8r9XDXcIv9Bg1brsWaI/WZnqAAaVKJOqCJGRng/wJP0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PJVbFSWT; arc=pass smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="oUOvP/JG"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gH5Uv5oK6Howp8Bo94/vc6Sx/jDPFMGWctk2dk/X5AEe6j83EPDu6V17aHff3k5QpogXZhBv4PSbesAv8a0oQaQK31IwA6XBfDsmW9AD66qP5qOL8WLgXVkcn6z5oe9evw9SO7C1/njCQ88IaeX5vpVAFz1WAJ5LGjBZgc03Kx7lkDPt1+OCOBjP0Sjid7DoB0/FgzQoH+QLL9bokjMZ/qDHc3HAzMcVyVjQ6vfMpwhDxGNOh5v7k6KNB2s/0TDjFfujm4q4vnSmq7y5IVBnt1MVMI/1CwI/iG++bAe+oWs8kQCoOGCA+Z4K2CyP18iTggjXn93Ekjib6EjbUqh3eQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5hqaldN7+P3zq2opasHkEJZag4SvXgRaREPcyfFNwqQ=;
- b=sggbipVumEvf0QgP3hoJ1HpuurgtXhMonPP7V4XRqC9Z/L3EjTF5JxgNasDlVf7q8vdGvRBZpSpp/Zg41mi+PbtBtQ9+8l7v9iJUqkroJAkhtcWqnljfwABwVTKLUNDDPDYhh5pn1M9GelL9xRMGQ5rLWvB51Sqmh5rQFby1lXLwuDBDtoSQSROrBDhDCPB/+Q3x19lrHtJJWwwjISYi7c9VIuwY2gBlXc2LsxKE6r19Ta0olnHPDM5DmRFyJAE5gyfyLmjG6RhSHoBQOCkAqCmg/+VYR/jBiQvFmWTuJvhprffFAOFsEysK5IvHDN6Yt9U8DLV67gt4jZgabp9zHA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=collabora.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5hqaldN7+P3zq2opasHkEJZag4SvXgRaREPcyfFNwqQ=;
- b=oUOvP/JG4YwkVQn3EU/Q2aRiBpZTVhvudgxVwdJJSpU5qR3CPJ8DDHIfgRJQtb1OqWXS19UftmhI5tYM+gJZ6yqc3nrAZVHJWghxrvMsfsfbzDAVR4YsdI2FmD6h4AQ/vfLmpBUxQsxdc6fT0ly3t0PCaEP5WaD2b4HLDPN+bCs=
-Received: from SJ0PR05CA0123.namprd05.prod.outlook.com (2603:10b6:a03:33d::8)
- by DSSPR12MB999235.namprd12.prod.outlook.com (2603:10b6:8:377::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
- 2026 09:56:35 +0000
-Received: from SJ1PEPF00001CE6.namprd03.prod.outlook.com
- (2603:10b6:a03:33d:cafe::92) by SJ0PR05CA0123.outlook.office365.com
- (2603:10b6:a03:33d::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.8 via Frontend Transport; Thu, 24
- Sep 2026 09:56:35 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00001CE6.mail.protection.outlook.com (10.167.242.22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 09:56:34 +0000
-Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
- 2026 04:56:20 -0500
-From: Honglei Huang <honghuan@amd.com>
-To: <dmitry.osipenko@collabora.com>, <odaki@rsg.ci.i.u-tokyo.ac.jp>,
-	<airlied@redhat.com>, <kraxel@redhat.com>
-CC: <gurchetansingh@chromium.org>, <olvaffe@gmail.com>, <Ray.Huang@amd.com>,
-	<dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, Honglei Huang <honghuan@amd.com>
-Subject: [RFC PATCH v9 4/4] drm/virtio: wire blob ioctl creation to userptr objects
-Date: Thu, 24 Sep 2026 17:55:56 +0800
-Message-ID: <20260924095556.1326164-5-honghuan@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260924095556.1326164-1-honghuan@amd.com>
-References: <20260924095556.1326164-1-honghuan@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PJVbFSWT"
+Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-52fb7692a57so23806421cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:56:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790243801; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TRdcq6tqf4G5tiZLdupzsOP4RtHzPitJgfKbyF4uKGPeEmkv6Rmjnr2LxC+Wj6zggu
+         ZXyMJfp1lZphGujtWlpw9LGv619RU3VdPur1ELwKxZyNTI5n81teCgWTevMi3LvvmJbg
+         OFENrBQdX8G41VOiHo+GF0xJgttEt8zadt0Jd0ZoDhMnm+toQXkUD7XhDc1OSZP7yDHt
+         9Jck+pmLe2l8JIeijvlMgMyZFEcmq65sepEVCEn2ueg6XeBJpNRX2TTmuTd8tWbVS37T
+         B1CiiujQpI3SiM7TunEW9zEk6bReFadIbKNtRHFtOACXcAVrusfxmwo2tFBFhrXFZZBc
+         eQKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZIYNgjeCL0OsYc0prVytzssq1ZX8j8EgYAM9VB1jIEI=;
+        fh=G0oDFLn5Ip/UIefo9hBWIuqgWFZE8JcERvh/Y5TxI7A=;
+        b=Va353Jds/Y3uKJGNJL7VxfpKaYkDZOXxCVct2G4t6DGgXSFmb5xALEea81HJYjPEuR
+         f1ShGPC03HMjEI1Y3odyDBbRMHSLNOMAPcGaeg8ftAfF4RoXM06d4/xN8SySvuJxUHdJ
+         5kUmvF17/oyHzFmw9lMCqnm39G22VHt692SAKxbw7a8Kd+XkRXAHGtYEEcGRBVFew2NF
+         CDRO7TRVBn0ky7baa7u8OyvBjuudFllC9TbwTnxhqICmDSpEFHPz9Ou+EepSeYuWfzuR
+         FwMH6TDMu4oS17bQWJoFYdUYW8lR10/iFOaHw0ZQa005EzbyUcUl1tojflQ4FgOSF4pf
+         jg1w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790243801; x=1790848601; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZIYNgjeCL0OsYc0prVytzssq1ZX8j8EgYAM9VB1jIEI=;
+        b=PJVbFSWT1X8mh3hx5PnKzYW0FA/5H4rTYypMG8e8iiFO5+aj/nMoI9Gyr3Iu0eiS0a
+         ZaaWilagYC66hqDVHeZrt/JkpRuoFook6AwqndEcd9wc9iKuSc/qkSEA4OBN1vUN4A6E
+         SPbEJivIzQWCLAgHdwfpXWFin95GtMqkzsmw7Y/lPabc1SvRNmaAs6/UEfvMWBAzsVKT
+         /YRgxIyEqzYo9ZzcInvBJwndjBRVcoeIYlqOm12/vGG55nYbJC+qBj2inSaSB4zHV4jY
+         EzcG4Fv3KSfA1uX9XE3lOwQwhVmJjQeKaDTbbvgnl/i5Lr52Hm272rIZRl00vaFuE1/V
+         sgGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790243801; x=1790848601;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZIYNgjeCL0OsYc0prVytzssq1ZX8j8EgYAM9VB1jIEI=;
+        b=1JNv3oWgBJoEwbzHvACdrC4aP1iO/IdoYbVP/NMoAzJKTJmJLvmcQk3e6hOXAVbfYH
+         SIUgTUxhpcnAvs5p7/T28Z9jzQB4cxeMwBJroBlqU89dQB+0gd0XO2wbtvG4sTBZGcV3
+         PQ07T7T7kNi/L82Ru5KoOp+K49y120reBmUUav+ltcWBnCmK53W3H/DctsMWELOe3hTh
+         pvq5i4x1CHVw0nNvfOcplDabkrkrZ9Hi9CdvzYAi+f0tQMoDz0biRRKgZTgvgK8TaN2m
+         m8ax/455d8vq2J+32BbUmM+X1E/2T/Pqh5fgOPVk4Q5+8WAITfoDcXZtwH242ZFfUvQw
+         nywQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzae9IrQQ0ErpnTxjCx4k677EZhj1koaXJYCLZ1R/JYQM84FWmjLqHRduEzp0UIYf8fIJrvwMXfDvM4gEc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nvo9apv/en9bPBD65ATO5Rw9PMp0HRzzxATExYfSEGC/hN90gf
+	xBuIO05fK+i/ItHxJGzrdUB7eRx+DF3RvHSj+sjswb7MNuzOVtB2Lqey5G88b3Oi8EKaS0SyWj0
+	TxhS5rYFsAO+pb9eFD4R6/PKMp2w8JnQ=
+X-Gm-Gg: AYBFou1lnzCf0gKBnTYx/EAvVqqZU0NcClB5cwTulO3al03QpnSffejpAP47lnFzaxB
+	RUvDBHgEw7At8fMqYMBzXU7hfjZAn53y+LYQFGsaXCE8jH7eOG+kVWOKF3PX+DfNAe81bNj5pZb
+	PiN94bkGdFabRomz7c4wF5TXLCS498cdEbSxCwlskDzYQn2QpKi7nX/diZf0JdwLqU+3M1RSHt5
+	Mfsa27GRbsvRhX+56uER9mUU1GiWcH6pKPFZRecnlL3iWvgV9BRjcQFpzMbN/NAABnViKca7cwk
+	m19OZ/Jas4V/WuGSGKy4IK3JBCPcs9G/DGGj1k+7ijhtooUWjl69J2lv
+X-Received: by 2002:a05:622a:410:b0:532:d838:12dc with SMTP id
+ d75a77b69052e-532fe9eed7fmr14187851cf.3.1790243800860; Thu, 24 Sep 2026
+ 02:56:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE6:EE_|DSSPR12MB999235:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4961096c-3d31-4dfb-357f-08df1a221e2e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|23010399003|82310400026|1800799024|10067099003|11063799006|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	u3vq4KEct+jxcvY9JiCBMsyEbaHG2Fr4HxF5mtnG/mmooYlJcb82SGTY8F5aRlGnp5vMqY32n7roOHfoV0DYbprrFR0nrIKzGTPjl7OG8hNxR0k4qawFWM5vAVF2BSskY3ffCEY6cZ3bm63pKS4AB1vptEyU4Sj4uWpXEiUl3cHkJSmz6+/N3UCXndgnnQJoVYGmC1byIM2P48jf5UHroY8x/wkC2PPoVO0PRmUJ26JEus3TH0HPQ9YS0RfzT1dRujWSKVY3VBnpXFeeFdDVU/G1C70hwlA30+SaPcFULTJWuLteJYEUHyrIDSHCEjIhc1bid1ANByOlq7oM2oueBBfA8qCgvyMpqmN28U3hV1nKhioHuz8ni7Xl4sgbKgpyFNTeuvEKrLPR7I0lxPwkSUcL2ljnFwom/zKaMODHx1i1G5PZGuwE1BpwYLmFax/6E7a9lniGuTKlKc7QrNmeIPup/UP9HFRcazl7d/04zdGHcEYrWHV30NqenlGDr+9so32nDZgUaBS1KNOXn+g9pnJHUxwrqJWWCayEUhUHXa1KNKxMU8gKBImAAXJEKwNPjn5ipc2KyfXx5LeS+NU0xVbbhWibxqX4bXQKgHq39Lmsf+9aaHnjBDKBQBpQmiF+FIpPASfk/wYRYKX5EDIouhUohkKjz2diRmKwwLLnl3o8/BoXQ/KcpZuRnRzxefnjvjcVFBW2NR0imymaDlTDRA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(36860700016)(23010399003)(82310400026)(1800799024)(10067099003)(11063799006)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	/fEgoKgr0GePnZcPPRq9wHPsLFzuoom/GV+JFHDEFBS6t9hP81J+t2jTXzKvNaxmszqIDPR4y3K/HWvRtlnekiJgaQw6EonD6ZkNACnU39fsmIudpslkfLJFK1xFdkBsrVT6PZzVxFE+pgHJXiIqHg6B/87a63trQ1pYlkz7PUGIV9+NnfLAyDK3MBFzLv6PWyVQFBjsBC8uANY7C3GrKv5UXIIwvyrdF0PAQHngJ5B2tSahOah/Shtzcp0Ii0s6agoKqmvevz6aTooUJjTGYyQ+H6JD6TFWhBczBMI40EVVvz7nTXEqt9N0YX+qhkeekCe7ZQjRQKvbJ+sah2ITlkBfq9Bok9pISLd/lkPmZ5EoRoeiyBctwMKxnG7umFwpJ2HS4NszpmoNsiD7nYOQ6woGXFyZpyY+V5kxU0s29NGAQyhec1IN4NsZA/KXGP/d
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 09:56:34.6422
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4961096c-3d31-4dfb-357f-08df1a221e2e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00001CE6.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSSPR12MB999235
+References: <20260924095152.3069-1-nsvatoslav515@gmail.com>
+In-Reply-To: <20260924095152.3069-1-nsvatoslav515@gmail.com>
+From: =?UTF-8?B?0KHQstGP0YLQvtGB0LvQsNCyINCd0ZbQutC+0LvQtdC90LrQvg==?= <nsvatoslav515@gmail.com>
+Date: Thu, 24 Sep 2026 12:56:28 +0300
+X-Gm-Features: AclHuK83QQU4UjKE_sfTN9cHFKc0YIJOfadhF_smKbWELBPGpi5wSU3S_A9rXeo
+Message-ID: <CAJ_tAk7VFvsRk-suqg7-JJHcm=N1kEt9-qgg6sD+u5oAfyB03Q@mail.gmail.com>
+Subject: Re: [PATCH net v3] net: e1000: fix warning in iounmap on probe failure
+To: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com, 
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com
+Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com, 
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Integrate userptr into the blob resource creation ioctl.
+Please drop this version. I accidentally sent this without staging my
+local changes.
+Sending v4 shortly with the actual code.
 
-- A non-zero userptr selects virtio_gpu_userptr_create()
-- Reject userptr unless blob_mem is VIRTGPU_BLOB_MEM_GUEST
-- Reject VIRTGPU_BLOB_FLAG_USE_READONLY unless the device
-  advertised VIRTIO_GPU_F_BLOB_READONLY
-- Advertise VIRTGPU_PARAM_USERPTR and VIRTGPU_PARAM_BLOB_READONLY
-- Add VIRTIO_GPU_F_BLOB_READONLY to the driver's features[] array
 
-virtio_has_feature() routes device-specific feature bits through
-virtio_check_driver_offered_feature(), which calls BUG() when the
-driver queries a bit it never declared in features[]. The
-VIRTIO_GPU_F_BLOB_READONLY probe added to virtio_gpu_init() hit
-exactly that: every probe crashed regardless of host support because
-the bit was missing from features[]. Registering it there fixes the
-crash.
-
-Signed-off-by: Honglei Huang <honghuan@amd.com>
----
- drivers/gpu/drm/virtio/virtgpu_debugfs.c |  1 +
- drivers/gpu/drm/virtio/virtgpu_drv.c     |  1 +
- drivers/gpu/drm/virtio/virtgpu_ioctl.c   | 35 ++++++++++++++++++++----
- drivers/gpu/drm/virtio/virtgpu_kms.c     |  8 ++++--
- 4 files changed, 38 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/virtio/virtgpu_debugfs.c b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-index 3a68a16b58..b8b9b40584 100644
---- a/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-@@ -55,6 +55,7 @@ static int virtio_gpu_features(struct seq_file *m, void *data)
- 			    vgdev->has_resource_assign_uuid);
- 
- 	virtio_gpu_add_bool(m, "blob resources", vgdev->has_resource_blob);
-+	virtio_gpu_add_bool(m, "blob readonly", vgdev->has_blob_readonly);
- 	virtio_gpu_add_bool(m, "context init", vgdev->has_context_init);
- 	virtio_gpu_add_int(m, "cap sets", vgdev->num_capsets);
- 	virtio_gpu_add_int(m, "scanouts", vgdev->num_scanouts);
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
-index 2aaa7cb080..f1edd20c37 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
-@@ -182,6 +182,7 @@ static unsigned int features[] = {
- 	VIRTIO_GPU_F_RESOURCE_BLOB,
- 	VIRTIO_GPU_F_CONTEXT_INIT,
- 	VIRTIO_GPU_F_BLOB_ALIGNMENT,
-+	VIRTIO_GPU_F_BLOB_READONLY,
- };
- 
- #ifdef CONFIG_PM_SLEEP
-diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-index 3d8e4ccdb7..3dc058e50e 100644
---- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-@@ -36,7 +36,10 @@
- 
- #define VIRTGPU_BLOB_FLAG_USE_MASK (VIRTGPU_BLOB_FLAG_USE_MAPPABLE | \
- 				    VIRTGPU_BLOB_FLAG_USE_SHAREABLE | \
--				    VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE)
-+				    VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE | \
-+				    VIRTGPU_BLOB_FLAG_USE_READONLY)
-+
-+#define VIRTGPU_BLOB_HINT_MASK DRM_VIRTGPU_BLOB_FLAG_HINT_DEFER_MAPPING
- 
- /* Must be called with &virtio_gpu_fpriv.struct_mutex held. */
- static void virtio_gpu_create_context_locked(struct virtio_gpu_device *vgdev,
-@@ -122,6 +125,12 @@ static int virtio_gpu_getparam_ioctl(struct drm_device *dev, void *data,
- 			return -ENOENT;
- 		value = vgdev->blob_alignment;
- 		break;
-+	case VIRTGPU_PARAM_USERPTR:
-+		value = 1;
-+		break;
-+	case VIRTGPU_PARAM_BLOB_READONLY:
-+		value = vgdev->has_blob_readonly ? 1 : 0;
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
-@@ -453,11 +462,23 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
- 	if (rc_blob->blob_flags & ~VIRTGPU_BLOB_FLAG_USE_MASK)
- 		return -EINVAL;
- 
-+	if (rc_blob->blob_hints & ~VIRTGPU_BLOB_HINT_MASK)
-+		return -EINVAL;
-+
- 	if (rc_blob->blob_flags & VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE) {
- 		if (!vgdev->has_resource_assign_uuid)
- 			return -EINVAL;
- 	}
- 
-+	if (rc_blob->blob_flags & VIRTGPU_BLOB_FLAG_USE_READONLY) {
-+		if (!vgdev->has_blob_readonly)
-+			return -EINVAL;
-+	}
-+
-+	if (rc_blob->userptr &&
-+	    rc_blob->blob_mem != VIRTGPU_BLOB_MEM_GUEST)
-+		return -EINVAL;
-+
- 	switch (rc_blob->blob_mem) {
- 	case VIRTGPU_BLOB_MEM_GUEST:
- 		*guest_blob = true;
-@@ -495,6 +516,7 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
- 	params->blob = true;
- 	params->blob_flags = rc_blob->blob_flags;
- 	params->blob_hints = rc_blob->blob_hints;
-+	params->userptr = rc_blob->userptr;
- 
- 	if (vgdev->has_blob_alignment &&
- 	    !IS_ALIGNED(params->size, vgdev->blob_alignment))
-@@ -518,9 +540,10 @@ static int virtio_gpu_resource_create_blob_ioctl(struct drm_device *dev,
- 	struct virtio_gpu_fpriv *vfpriv = file->driver_priv;
- 	struct drm_virtgpu_resource_create_blob *rc_blob = data;
- 
--	if (verify_blob(vgdev, vfpriv, &params, rc_blob,
--			&guest_blob, &host3d_blob))
--		return -EINVAL;
-+	ret = verify_blob(vgdev, vfpriv, &params, rc_blob,
-+			  &guest_blob, &host3d_blob);
-+	if (ret)
-+		return ret;
- 
- 	if (vgdev->has_virgl_3d)
- 		virtio_gpu_create_context(dev, file);
-@@ -538,7 +561,9 @@ static int virtio_gpu_resource_create_blob_ioctl(struct drm_device *dev,
- 				      vfpriv->ctx_id, NULL, NULL);
- 	}
- 
--	if (guest_blob)
-+	if (guest_blob && params.userptr)
-+		ret = virtio_gpu_userptr_create(vgdev, file, &params, &bo);
-+	else if (guest_blob)
- 		ret = virtio_gpu_object_create(vgdev, &params, &bo, NULL);
- 	else if (!guest_blob && host3d_blob)
- 		ret = virtio_gpu_vram_create(vgdev, &params, &bo);
-diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
-index 1d4d3bf46a..06c2bded49 100644
---- a/drivers/gpu/drm/virtio/virtgpu_kms.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
-@@ -249,15 +249,19 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
- 		vgdev->blob_alignment = blob_alignment;
- 	}
- 
-+	if (virtio_has_feature(vgdev->vdev, VIRTIO_GPU_F_BLOB_READONLY))
-+		vgdev->has_blob_readonly = true;
-+
- 	DRM_INFO("features: %cvirgl %cedid %cresource_blob %chost_visible",
- 		 vgdev->has_virgl_3d    ? '+' : '-',
- 		 vgdev->has_edid        ? '+' : '-',
- 		 vgdev->has_resource_blob ? '+' : '-',
- 		 vgdev->has_host_visible ? '+' : '-');
- 
--	DRM_INFO("features: %ccontext_init %cblob_alignment\n",
-+	DRM_INFO("features: %ccontext_init %cblob_alignment %cblob_readonly\n",
- 		 vgdev->has_context_init ? '+' : '-',
--		 vgdev->has_blob_alignment ? '+' : '-');
-+		 vgdev->has_blob_alignment ? '+' : '-',
-+		 vgdev->has_blob_readonly ? '+' : '-');
- 
- 	ret = virtio_gpu_find_vqs(vgdev);
- 	if (ret) {
--- 
-2.34.1
-
+=D1=87=D1=82, 24 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 12:52 Svya=
+toslav Nikolenko <nsvatoslav515@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> When e1000_probe() fails, the shared error handling ladder attempts to
+> iounmap() the hw->ce4100_gbe_mdio_base_virt pointer. If the hardware is
+> not a CE4100, this pointer remains uninitialized (NULL). On architectures
+> like x86, passing a NULL pointer to iounmap() triggers a WARN_ON_ONCE,
+> which is fatal under panic_on_warn.
+>
+> Fix this by conditionally unmapping the CE4100 MDIO base only if the
+> mac_type is e1000_ce4100, matching the exact logic used in e1000_remove()=
+.
+> The hw->hw_addr iounmap() remains unconditional since it is guaranteed to
+> be valid for all error paths reaching the err_sw_init label.
+>
+> Reported-by: syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3Dca1ef9e2e234b8d3599b
+> Fixes: 13acde8fffc0af ("e1000: Fix the CE4100 bus type for the MDIO/PHY r=
+egisters")
+> Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+> ---
+> v3:
+>   - Switched from pointer null-checks to checking hw->mac_type =3D=3D e10=
+00_ce4100
+>   - Removed redundant check for hw->hw_addr since it cannot be NULL here
+>   - Added missing Cc: stable tag and Closes tag
+> v2:
+>   - Expanded commit message to answer reviewer questions (reproduction de=
+tails)
+>   - Added appropriate Fixes tags
+>   - Added Reviewed-by tag from Aleksandr Loktionov
+>
+>  drivers/net/ethernet/intel/e1000/e1000_main.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/net/ethernet/intel/e1000/e1000_main.c b/drivers/net/=
+ethernet/intel/e1000/e1000_main.c
+> index d7f5c6f16142..156903089fa6 100644
+> --- a/drivers/net/ethernet/intel/e1000/e1000_main.c
+> +++ b/drivers/net/ethernet/intel/e1000/e1000_main.c
+> @@ -1227,8 +1227,10 @@ static int e1000_probe(struct pci_dev *pdev, const=
+ struct pci_device_id *ent)
+>         kfree(adapter->rx_ring);
+>  err_dma:
+>  err_sw_init:
+> -       iounmap(hw->ce4100_gbe_mdio_base_virt);
+> -       iounmap(hw->hw_addr);
+> +       if (hw->ce4100_gbe_mdio_base_virt)
+> +               iounmap(hw->ce4100_gbe_mdio_base_virt);
+> +       if (hw->hw_addr)
+> +               iounmap(hw->hw_addr);
+>  err_ioremap:
+>         disable_dev =3D !test_and_set_bit(__E1000_DISABLED, &adapter->fla=
+gs);
+>         free_netdev(netdev);
+> --
+> 2.47.3
+>
