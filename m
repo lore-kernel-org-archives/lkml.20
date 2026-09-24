@@ -1,155 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36E89451985;
-	Thu, 24 Sep 2026 18:21:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8243D4156F0;
+	Thu, 24 Sep 2026 18:22:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790274097; cv=none; b=pkvKjpJYEdh5ZqmnY9ndyTfm7LjI7ogl3ALlF/2AHZwmMmFfuY3H9quc7RwAJATdaL/FGMeyLEdAr48OBYCvxgJ4ksOgmYXXN4l9y1lelZ404FMUHEn1BNYrakqQxo5m2MsQ2W6Cs6iT+inH6RZC0pZz/yUkIQ9uQ5MS079Unts=
+	t=1790274134; cv=none; b=TItAoq5tDwIkQeAopUqbbt0tvZlzy2u4AfeamBizXHmAa+2p8tIxTATGD8kTaegB/5YCPWQSxEHKowM7ukK2ZKUmLvTVnfF3WSnZ1cNP918cjVxsrNB99zeJlC7wQYxGXa2bCQ/x2f1ATYJnR5MEGZVeixf74nzRXGEKdZihUk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790274097; c=relaxed/simple;
-	bh=3vQfs+MJVZojtRezzkjvgqdfKW9p+z7Hr79oq2FwNj0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Zx80dHi0+3oSONq/mUaUe2+lBf8iVJxQHfdJHS4UucMedIUU6mlVQOqWxKVh9vfg3d6t+KN+zPHN+k7mQNFcnynY6rE5ngDb9hAyeMszA8OpPCDSs1DsTLs5VIOYMXuoDQfmwaMdp7jGEWz18l6t/LBPhoRxUkYrjHU6iG/sTG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Id4FD2aW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790274134; c=relaxed/simple;
+	bh=q0eaopFOAWSDHlYn5l7W04BqZZoq89xUqr5KKrSkYNU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LE4zM26JlNZOVCjN6KPhT8Hrku//NB8ABCSSNoq2JYaEdbojjjtdrU4nkSeDxk80px6lbuzVwu2Lq9IiW0MoDec2NJCW5YrW0QrEFtpZMjfw1dd2CEJhCBHk/EomjLjvn991gLRg9GKYO5hyBQVQaRWOidPPvd5rxukhqE/f/Fs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mMr+Qlgg; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Id4FD2aW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8286E1F000FF;
-	Thu, 24 Sep 2026 18:21:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790274095;
-	bh=as++lK9Ubt084phj5j3py44mUhF1vpdCd0H/wffxLBw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Id4FD2aWUapkdbS43kuphJFx/6Fj30M6DkcJhTsBr+zNB8N9UrLQ9sD24crzctCwL
-	 zlJxJmdszw0lpMEZGN0HUfkwLYL+6dOha7HEDgfsjYSF7+UBePs7xVvBTYwUMv/f4D
-	 5gRoD4uvEX1jsAHwCa8iMuZxwie7nYpnu3bt2SKL0xFlMFuWAM37TnZBTePXps7VhT
-	 9KTweJYvINpRFEpw3ze9AEWjbWxhfKv8MU3cbGfhsYR/Mhst2DQ+gVwFG6DinRe2no
-	 L5rR8HrcdNpgDYBY8aKDur5j7kws+bf6NO0TC/tYT0tbmKE5JoWIB4ZrchlMXS/q18
-	 FZbj5P8AVECpw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 08/14] coresight: etm4x: exclude ss_status from
- drvdata->config
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yeoreum Yun" <yeoreum.yun@arm.com>
-Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20260924-separate_etm_cfg_v2-v12-8-a2b41d2f7c2b@arm.com>
-References: <20260924-separate_etm_cfg_v2-v12-0-a2b41d2f7c2b@arm.com>
- <20260924-separate_etm_cfg_v2-v12-8-a2b41d2f7c2b@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 18:21:35 +0000
-Message-Id: <20260924182135.8286E1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mMr+Qlgg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790274132; x=1821810132;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=q0eaopFOAWSDHlYn5l7W04BqZZoq89xUqr5KKrSkYNU=;
+  b=mMr+QlggIIIwPU46ryDcnyoGcNgQXviSUCsLRgSFOZkwUyCLbRVXpiBu
+   N/kT8aVHLUJFkuPTsC3607VoA/m1VWlrpsMSIUv/HPBKapu7rcEuxvg5z
+   TtDHdubn21VUv4jmdZCXHMzxQpHPRnxIO3dWMpwqRQVPemj8gglcDoIy1
+   ZFcx2jo8nKr2DocNrzEQiDnmlabac6yLSP1Mw9p8N461WiG9tWwY7HBht
+   vVJ834Ydffm1KwC+moUm6F2KX4rQYcMQa8wkKZGanfwTBtg3EuXI8Z9mr
+   /jIDqmkHySGGVs9MiSrKaPPcC01qFoQ1WlD1Ptjp+hawKs22PDsQr5hyR
+   w==;
+X-CSE-ConnectionGUID: rdFYylGeT5OTvd8ZTzFf0g==
+X-CSE-MsgGUID: q17vPr/PQguZAgwqQ0eOUw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="90120638"
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="90120638"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 11:22:12 -0700
+X-CSE-ConnectionGUID: FqnfOOLOShCzeYC9VC7EYQ==
+X-CSE-MsgGUID: Efw1IqdETSOW4aZzrApbKA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="302034433"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.199])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 11:22:07 -0700
+Date: Thu, 24 Sep 2026 21:22:05 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Chang Yu <marcus.yu.56@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Shi Hao <i.shihao.999@gmail.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/2] iio: light: add AS7343 multi-spectral sensor
+ driver
+Message-ID: <arVqTWVw-eIZEcrR@ashevche-desk.local>
+References: <20260919235145.48273-1-marcus.yu.56@gmail.com>
+ <20260919235145.48273-3-marcus.yu.56@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919235145.48273-3-marcus.yu.56@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] coresight: etm4x: patch fails to preserve perf single-shot clear=
-ing behavior
-- [Medium] coresight: etm4x: data race on drvdata->ss_status during sysfs u=
-pdate
---
+On Sat, Sep 19, 2026 at 04:51:45PM -0700, Chang Yu wrote:
+> Add a driver for the AMS AS7343 14-channel multi-spectral sensor.
+> 
+> The AS7343 is a 14-channel spectral sensor featuring 11 visible
+> channels, 1 near-infrared channel, 1 clear channel (VIS), and 1
+> flicker detection channel.
+> 
+> The driver exposes 12 spectral channels (11 visible light and 1
+> near-infrared) via sysfs. Runtime PM is implemented to stop
+> measurements when the device is suspended or torn down. Power is
+> never cut (PON=1 always) to preserve register values.
+> 
+> Future patches will add configurable gain and integration time,
+> interrupt support, buffered reads, VIS channel, and flicker
+> detection.
 
-commit 9755069e34bb3af0812d8f23f42579079827c7ca
-Author: Yeoreum Yun <yeoreum.yun@arm.com>
+...
 
-coresight: etm4x: exclude ss_status from drvdata->config
+> +#include <linux/build_bug.h>
 
-The patch moves ss_status out of drvdata->config and into drvdata directly.
-It aims to separate configuration from reset and restore states, while
-intentionally preserving existing single-shot clearing behavior.
+This is unusual to meet...
 
-> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers=
-/hwtracing/coresight/coresight-etm4x-core.c
-> --- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-[ ... ]
-> @@ -572,11 +572,11 @@ static int etm4_enable_hw(struct etmv4_drvdata *drv=
-data)
->  		etm4x_relaxed_write32(csa, config->res_ctrl[i], TRCRSCTLRn(i));
-> =20
->  	for (i =3D 0; i < caps->nr_ss_cmp; i++) {
-> -		/* always clear status bit on restart if using single-shot */
-> +		/* always clear status and pending bits on restart if using single-sho=
-t */
->  		if (config->ss_ctrl[i] || config->ss_pe_cmp[i])
-> -			config->ss_status[i] &=3D ~TRCSSCSRn_STATUS;
-> +			drvdata->ss_status[i] &=3D ~(TRCSSCSRn_STATUS | TRCSSCSRn_PENDING);
+...
 
-[Severity: Medium]
-Is it safe to perform a lockless read-modify-write on drvdata->ss_status
-here? This can race with or interrupt sysfs stores.
+> +static inline u8 as7343_atime_steps(unsigned int step)
+> +{
+> +	BUILD_BUG_ON(step < 1 || step > 256);
 
->  		etm4x_relaxed_write32(csa, config->ss_ctrl[i], TRCSSCCRn(i));
-> -		etm4x_relaxed_write32(csa, config->ss_status[i], TRCSSCSRn(i));
-> +		etm4x_relaxed_write32(csa, drvdata->ss_status[i], TRCSSCSRn(i));
+How is this any useful? The step == 1 gives the result 0, the step 256,
+255 respectively. This covers the whole range of the returned variable
+(u8).
 
-[Severity: Medium]
-Does this change preserve the previous behavior for perf sessions as
-intended?
+> +	return step - 1;
+> +}
+> +
+> +static inline u16 as7343_astep_x2780ns(unsigned int n)
+> +{
+> +	BUILD_BUG_ON(n < 1 || n > 65535);
+> +	return n - 1;
+> +}
 
-When a perf session starts, the configuration is zero-initialized. Before
-this patch, the code skipped the bit clearing (since config->ss_ctrl[i]
-and ss_pe_cmp[i] were 0) but still wrote config->ss_status[i] to
-TRCSSCSRn(i). Because ss_status was zero-initialized, this wrote 0 and
-effectively cleared the bits.
+Ditto.
 
-Now, it writes drvdata->ss_status[i], which might retain previous hardware
-state (potentially 1s). Doesn't this leave the bits uncleared and alter the
-hardware state configuration instead of preserving it?
+...
 
->  		if (etm4x_sspcicrn_present(drvdata, i))
->  			etm4x_relaxed_write32(csa, config->ss_pe_cmp[i], TRCSSPCICRn(i));
->  	}
-[ ... ]
-> @@ -1078,7 +1078,7 @@ static void etm4_disable_hw(struct etmv4_drvdata *d=
-rvdata)
-> =20
->  	/* read the status of the single shot comparators */
->  	for (i =3D 0; i < caps->nr_ss_cmp; i++) {
-> -		config->ss_status[i] =3D
-> +		drvdata->ss_status[i] =3D
->  			etm4x_relaxed_read32(csa, TRCSSCSRn(i));
+TL;DR: I do not see anything meaningful from these BUILD_BUG_ON():s.
+It's not a problem if the result gives just wrapped-up value. Or is it?
 
-[Severity: Medium]
-Can this lockless write in hardirq context race with the RMW sysfs stores,
-leading to torn updates on drvdata->ss_status?
+...
 
->  	}
-> =20
-[ ... ]
-> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c b/driver=
-s/hwtracing/coresight/coresight-etm4x-sysfs.c
-> --- a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
-[ ... ]
-> @@ -1835,8 +1835,8 @@ static ssize_t sshot_ctrl_store(struct device *dev,
->  	raw_spin_lock(&drvdata->spinlock);
->  	idx =3D config->ss_idx;
->  	config->ss_ctrl[idx] =3D FIELD_PREP(TRCSSCCRn_SAC_ARC_RST_MASK, val);
-> -	/* must clear bit 31 in related status register on programming */
-> -	config->ss_status[idx] &=3D ~TRCSSCSRn_STATUS;
-> +	/* must clear bit 31 and 30 in related status register on programming */
-> +	drvdata->ss_status[idx] &=3D ~(TRCSSCSRn_STATUS | TRCSSCSRn_PENDING);
+> +static int as7343_read_label(struct iio_dev *indio_dev,
+> +			     struct iio_chan_spec const *chan, char *label)
+> +{
+> +	int channel = chan->channel;
 
-[Severity: Medium]
-Can this read-modify-write be interrupted by the hardware PMU path?
+Why signed?
+Also split assignment, it will make code more maintainable.
 
-If a user writes to the sshot_ctrl or sshot_pe_ctrl sysfs node concurrently
-with a perf session stopping (e.g. during a task context switch),
-etm4_disable_hw() can trigger in interrupt context.
+> +	if (channel < 0 || channel >= ARRAY_SIZE(as7343_channel_labels))
+> +		return -EINVAL;
+> +
+> +	return sysfs_emit(label, "%s\n", as7343_channel_labels[channel]);
+> +}
 
-Because the sysfs path uses raw_spin_lock() rather than an IRQ-safe variant,
-the PMU interrupt can preempt this sequence. Won't this lead to lost updates
-or corrupted hardware status capability bits when the sysfs thread resumes?
+-- 
+With Best Regards,
+Andy Shevchenko
 
->  	raw_spin_unlock(&drvdata->spinlock);
->  	return size;
->  }
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-separate_e=
-tm_cfg_v2-v12-0-a2b41d2f7c2b@arm.com?part=3D8
