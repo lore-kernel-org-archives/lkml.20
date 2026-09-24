@@ -1,260 +1,184 @@
-Received: from mail-qv2-f43.google.com (mail-qv2-f43.google.com [74.125.230.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7522371076
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:23:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37CA84A260B;
+	Thu, 24 Sep 2026 18:23:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790274221; cv=none; b=WyTtCmWG2adwEhB2HMd5fTfminlBY+JMyNWLX+p39/URKhOeGahC4NX5fgeuWCJl4BFx19gKZe75cVUfrmkN++ChLsfLpm2bZbpcEzPvS/ohJSOpRD0FXcYXn+X1dWaF+iy0yFXbF739+mnJ0bwiB0kshjR9jPEjUyGertR6YfY=
+	t=1790274240; cv=none; b=uB+lxgj80QmPW9E52VPLhpkCMonZxtJd4Ks/FfuAL4MujCEDbO4U5sKnfZ6c3D+NT94l0Bhgk6ZNndcGZxlH40JBqjWBSYnjg+gk5ikMxCXHlMjmMAD/ZE+sDcMy+D/rkn6vzTpuLwHC3aoG+3E24RbpEv+/Wi3tXQWPGRbsLlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790274221; c=relaxed/simple;
-	bh=BYLPDdtMbRsMbZBqiG6Y8QwjoDTJQbG1GON1KnrizEk=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=oJwjsFoXsG7l0OgFyAHDOMXEmuyhLClvat3ZYhPocav21GXerE6Sbyd5KLq7Ky+/05J5Adep+cjBPIKWXqKzkjWTE8QBc/eEVqEMAVq+ZMnkIabHDTKSI8BOuUoMn3mbWPI0FCNd2mLnbtICc+APNbVLAB+kUCReMVGWb+JPqtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EwZCBHs/; arc=none smtp.client-ip=74.125.230.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790274240; c=relaxed/simple;
+	bh=ikGedobOvwz1lNfQIzMR2wgpjnhV10nMaIkwSDRV3Tk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jQ3jVjAscOcZUII0gRQephGZyUzGGTA3aOprozT2J6DvjxjeInIjzheLBcEcNHkJbxOdpZMTy3x+71r9z7bhtN7pSndCLgagQxdf333Pj48+VyjNgmlepwjgzODDTPaclRxUSuPDx2MnKKndpr6a+j0JAbNNLTWh1Wg6iypT30g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FoXOhVgV; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EwZCBHs/"
-Received: by mail-qv2-f43.google.com with SMTP id 6a1803df08f44-9142e0b0668so1747236d6.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:23:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790274219; x=1790879019; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=StxvthfeYX8VlV6E1S4M4PpN9J1tOF4TBmiuQqV9FYY=;
-        b=EwZCBHs/J4zq7/4/VNGmumO+52hAhmUf6M2w2BsiC/7OyIpCniYI4ULTcqRwjGyzxS
-         msa1pXlp9pQM99RMsUYF+KqwAJuw1tfpZ+08t1qSCBG6nSq+w/1GFSDi1LM2URvecV8w
-         UpZyLqcusSHWT0IqAy0/87x+sDER6Lp+f61D8NAoJZSp2vMorzQj+h4F0y9cYZyDlM0E
-         MaDqBmdPK4Okpwm4a+rkCJDXkmphC26Fm3x31f9HluYRwVGcjocEfaK8LcoUvtb+T9WW
-         /IvFW/8NFLsGueWBoJWsTgwroPHQB0iIOzjrk0gUY3aEhmHHEWQYyUKz91ERcWVFsHI5
-         vxvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790274219; x=1790879019;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=StxvthfeYX8VlV6E1S4M4PpN9J1tOF4TBmiuQqV9FYY=;
-        b=BSMSYfQ4iu+tcOebIAzyLqdyMRb1JtwfJfbhAS3DBjP7+yuXqCsx7eUH4c4XfJQ2IB
-         2XgjxoQmE+KsvhRIhjC8AYnyJh/N5D8npoMKOteK11QqLeXcvyPIbY7BugD8YNM8oEoT
-         egeXggUPZDcSg/dLYRBvqIEeEH3MjElXZwlr5Tr+whRUfbVBYuWTqPUE9VDlZc+p8LV1
-         nJN3jvmKu84DrhcEOS0BUfqVGaUYNLE229n5UDXJT3fXOPDPUZeQX4E1aHvrQf3SO1Mn
-         DyoNMvASKbBbXR9f7besphee9wCJ6RIB950N0QroxzP04jmjhXfMvD/vH8DCQrGiXwLH
-         ILTw==
-X-Forwarded-Encrypted: i=1; AKwUvBxrkuI1DdMCrbHs8OW1t3rqfaAQEbOjWaXuiyCrASr6UoCZclsmqTUqUXpfXR8fe5EwfOO3DonxVWlTBkI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nKoVWqJk3mVkYzfsnEcO+/mLwdr1RL5btK/TbduDvPUPBC2GCs
-	kGciPamRe7JMG7LwMmId8v2LOChiGIznxPUhYckrE4TouVYyNNQpTj64
-X-Gm-Gg: AYBFou3ObVE0Q3Xii9QijAGMNhOBNGroICE0YB2yZfevUoIvlFnasN4JwHxwbTpuXo3
-	F5kOwn0bdo1mZyIKtLXOvZoBjDQ5hBWv4uLGZFjju8c4LCtfY7kSK9huVkLgcalUUg8lemow1HY
-	zymA53NMPu1sPJ6cOeQnMqYZwU4AWZ6isl9yiAGgmK0EOUM6bqNEv2vACctSZLWU9xh7TQSVJG8
-	hPveMw/gM/AIAaBujDjT3Q3Dl+liSwQPrbd4ICsnAjJXggb9oNBq9rfs6NcEAUzJEciyN9TsK3p
-	WqSZie3BiBQ20ECKBIBdxKo7Gm8Mkv8jw9h/NsnbF07vfTTwu1aV8ZErG6R54IVMR49s55nu5wr
-	hJXtOY28Mf8CeydbR5SVMSK6k2at8F/rQJ6LzEvnI9Ox7Lu9gxDKdKUPfZw9q6afBuLLN89dx42
-	+zFw036skCfhj4VqpIfzpDmrhr8vb5da+ON/maJN40ecUXFSeC6CcFrGIRy/J12qW8y1pTj0EXZ
-	yARrYoMeSi6Hg==
-X-Received: by 2002:a05:620a:d8e:b0:93b:d79b:9a5c with SMTP id af79cd13be357-93c43d2cf3emr15767785a.61.1790274218442;
-        Thu, 24 Sep 2026 11:23:38 -0700 (PDT)
-Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c43b94ad5sm7961985a.2.2026.09.24.11.23.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 11:23:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FoXOhVgV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790274238; x=1821810238;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=ikGedobOvwz1lNfQIzMR2wgpjnhV10nMaIkwSDRV3Tk=;
+  b=FoXOhVgVf+/rLOkoDAHp7XY6aGZbSxpsbYt0o5ZwIn03GWcEcY3QTDy8
+   /hJvmUoeZLNcO/O6f2Lo5QfHFvRePE4wAb7yP8f197EQWMpzLdjRs6/hG
+   7DIebJm9vp9jxwkVpMQlQOi1WmFrlKr1WrwGuCoTH/moomBsAlL700gZb
+   U4sZfIPJP4yehaVX8LPpR4XJ3LxNBK0N5FbG+4NUrbPX0/fWCt5nWRECj
+   G1S7cEmQmxoRPc/uVWHTmXVdUhjFrvJ+P6MiQLHezcE0qG7UAqhAC8SLM
+   haFl1nt/+gJtqY4gh6Lmo34cwqBrTlseMEbRHWMBGlSEl3qj1gDGWGK0a
+   g==;
+X-CSE-ConnectionGUID: H5ZjLCplSmKYVvPa8GI7tg==
+X-CSE-MsgGUID: ndZ6rjGtT6CSgDFtPFxqSQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="91164251"
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="91164251"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 11:23:44 -0700
+X-CSE-ConnectionGUID: mzOBtqURTzmoZQqqMXhrHQ==
+X-CSE-MsgGUID: K6CmSXopQgKWldH+qlVnQw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="272229906"
+Received: from skuppusw-desk2.jf.intel.com ([10.165.154.101])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 11:23:45 -0700
+From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+To: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	David E Box <david.e.box@linux.intel.com>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 00/19] Decouple PCI and auxbus details from Intel TPMI driver
+Date: Thu, 24 Sep 2026 11:23:22 -0700
+Message-ID: <20260924182342.212709-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 24 Sep 2026 14:23:36 -0400
-Message-Id: <DLNR8TCZEHFY.3D5MY7X4DXBO3@gmail.com>
-Subject: Re: [PATCH net-next 7/8] eth: mpnic: implement Rx queue allocation
- and cleanup
-From: "Daniel Zahka" <daniel.zahka@gmail.com>
-To: <netdev-bot+sashiko@kernel.org>, <daniel.zahka@gmail.com>
-Cc: <alexanderduyck@fb.com>, <kuba@kernel.org>, <kernel-team@meta.com>,
- <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
- <pabeni@redhat.com>, <ast@kernel.org>, <daniel@iogearbox.net>,
- <hawk@kernel.org>, <john.fastabend@gmail.com>, <sdf@fomichev.me>,
- <dimitri.daskalakis1@gmail.com>, <mohsin.bashr@gmail.com>,
- <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
- <bpf@vger.kernel.org>
-X-Mailer: aerc 0.21.0-threadmapfix
-References: <20260922-linux-mpnic-v1-7-236844f53072@gmail.com>
- <179021553913.2160803.3546397730187880772@kernel.org>
-In-Reply-To: <179021553913.2160803.3546397730187880772@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Wed Sep 23, 2026 at 10:05 PM EDT, netdev-bot+sashiko wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 1
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] The Rx engines are added to an idle wait whose timeout is only
->   logged, and teardown then frees memory the device writes into.
-> - [Low] The two comments about Rx buffer batching disagree with each
->   other and with the code.
->
-> --
->
-> eth: mpnic: implement Rx queue allocation and cleanup
->
-> This adds the Rx side of the mpnic queue triad: a header buffer queue
-> and a payload buffer queue, both fed from one page pool per triad, plus
-> an Rx completion queue. Buffers are posted to the device in batches, and
-> the device is set up to leave XDP headroom and skb_shared_info tailroom.
-> Teardown releases any partially assembled frame and the buffers still
-> posted.
->
->> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c b/drivers/net/=
-ethernet/meta/mpnic/mpnic_txrx.c
->> index f4ad8caf6ce66..6d2123bee97b4 100644
->> --- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
->> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
->
-> [ ... ]
->
->> @@ -335,6 +336,109 @@ static void mpnic_clean_tcq(struct mpnic_napi_vect=
-or *nv,
->
-> [ ... ]
->
->> +/* Descriptors are only handed to the device in whole batches, so the s=
-lot
->> + * the device is working on and everything up to the next batch boundar=
-y
->> + * stay untouched while it does.
->> + */
->> +static unsigned int mpnic_bdq_desc_unused(struct mpnic_ring *bdq)
->> +{
->> +	return (ALIGN_DOWN(bdq->head - 1, MPNIC_BDQ_BATCH_SIZE) - bdq->tail) &
->> +	       bdq->size_mask;
->> +}
->> +
->> +static unsigned int __mpnic_fill_bdq(struct mpnic_ring *bdq)
->> +{
->> +	unsigned int i =3D bdq->tail;
->> +	unsigned int count;
->> +
->> +	for (count =3D mpnic_bdq_desc_unused(bdq); count; count--) {
->> +		struct page *page;
->> +
->> +		page =3D page_pool_dev_alloc_pages(bdq->page_pool);
->> +		if (!page)
->> +			break;
->> +
->> +		bdq->rx_buf[i] =3D page;
->> +		mpnic_bd_prep(bdq, i, page);
->> +
->> +		i++;
->> +		i &=3D bdq->size_mask;
->> +	}
->> +
->> +	return i;
->> +}
->> +
->> +static void __mpnic_bdq_commit_tail(struct mpnic_ring *bdq, unsigned in=
-t tail)
->> +{
->> +	if (bdq->tail !=3D tail) {
->> +		bdq->tail =3D tail;
->> +
->> +		writeq(tail, bdq->doorbell);
->> +	}
->> +}
->
-> [Severity: Low]
-> This isn't a bug, but is the comment on mpnic_bdq_desc_unused() accurate?
->
-> __mpnic_fill_bdq() stops as soon as page_pool_dev_alloc_pages() returns
-> NULL. __mpnic_bdq_commit_tail() then writes that tail to the doorbell,
-> so a tail that is not on a 64 descriptor boundary can reach the device.
-> In that case descriptors are not handed over in whole batches.
->
-> It also looks like the slot at head - 1 stays untouched because of the
-> "head - 1" term. Whole-batch posting is not what protects it. The
-> ALIGN_DOWN only holds back up to 63 more slots that have already been
-> consumed.
->
-> The comment on MPNIC_BDQ_BATCH_SIZE in mpnic_txrx.h gives a different
-> reason for batching:
->
->  * doorbell. The device consumes whatever the doorbell points at, this is
->  * purely to keep the driver from writing the CSR for every descriptor.
->
-> Could the two comments be made consistent with each other and with what
-> the refill code actually does?
->
-> [ ... ]
->
->> @@ -760,6 +1081,9 @@ void mpnic_wait_all_queues_idle(struct mpnic_dev *m=
-pd)
->>  		{ MPNIC_TQS_IDLE(0), MPNIC_TQS_IDLE_CNT, "TQS" },
->>  		{ MPNIC_TDE_IDLE(0), MPNIC_TDE_IDLE_CNT, "TDE" },
->>  		{ MPNIC_TCQ_IDLE(0), MPNIC_TCQ_IDLE_CNT, "TCQ" },
->> +		{ MPNIC_HPQ_IDLE(0), MPNIC_HPQ_IDLE_CNT, "HPQ" },
->> +		{ MPNIC_PPQ_IDLE(0), MPNIC_PPQ_IDLE_CNT, "PPQ" },
->> +		{ MPNIC_RCQ_IDLE(0), MPNIC_RCQ_IDLE_CNT, "RCQ" },
->>  	};
->>  	u32 non_idle_bitmap;
->>  	int err;
->
-> [Severity: Medium]
-> What happens in mpnic_stop() if one of the new Rx engines is still busy
-> when this wait times out?
->
-> mpnic_wait_all_queues_idle() returns void. It only logs on timeout:
->
-> 	err =3D read_poll_timeout(mpnic_non_idle_queues, non_idle_bitmap,
-> 				!non_idle_bitmap, 20, 500000, false, mpd,
-> 				queues, ARRAY_SIZE(queues));
-> 	if (err)
-> 		mpnic_idle_dump(mpd, queues, ARRAY_SIZE(queues),
-> 				non_idle_bitmap, err);
->
-> mpnic_stop() then keeps tearing down:
->
-> 	mpnic_disable(mpn);
-> 	mpnic_wait_all_queues_idle(mpn->mpd);
-> 	mpnic_flush(mpn);
->
-> 	mpnic_reset_netif_queues(mpn);
-> 	mpnic_free_resources(mpn);
->
-> mpnic_flush()->mpnic_clean_bdq() hands every posted HPQ/PPQ page back to
-> the pool with page_pool_put_full_page(). After that,
-> mpnic_free_resources()->mpnic_free_nv_resources()->
-> mpnic_free_rx_qt_resources() frees the RCQ ring with dma_free_coherent()
-> and calls page_pool_destroy(), which unmaps and frees the pages.
->
-> The earlier commit "eth: mpnic: start and stop the Tx HW queues" says
-> disabling a queue "only stops the device picking up new work, it does
-> not tell us that the work already fetched has been retired". If so, a
-> DMA_FROM_DEVICE write could still be in flight after a timeout. Examples
-> are descriptors the prefetcher has already fetched, or a frame the RDE
-> is partway through.
->
-> Could such a write land in RCQ memory or Rx pages that have already been
-> unmapped and possibly reused? That would cause an IOMMU fault, or silent
-> memory corruption on systems without an IOMMU. Before this patch, no
-> device-written Rx buffers were covered by this best-effort wait.
->
-> Whether this can happen depends on whether a non-idle Rx engine can
-> still complete DMA after the timeout. fbnic_down() follows the same
-> ordering. Would it make sense to return the timeout to mpnic_stop() and
-> avoid freeing device-writable memory (or reset the device first) when
-> the queues never go idle?
->
+Hi All,
 
-Same complaint addressed already.
+This series is a no functional change refactor of the TPMI driver
+(vsec_tpmi.c). It separates the code that does not care how TPMI was
+discovered from the code that does.
+
+TPMI is discovered today through a PCIe VSEC capability, with the PFS
+table address computed relative to a PCI BAR. BARs are relocatable at
+runtime by resource rebalancing, hot plug or error recovery, which ties
+a platform wide register window to the lifecycle of one PCI function
+and to an address an untrusted VMM can influence. That is a concern in
+secure VM environments like TDX.
+
+Newer Intel platforms will support ACPI table based TPMI enumeration.
+The related ACPI spec is not public yet, so this series prepares the
+driver ahead of it. Several places in vsec_tpmi.c assume the
+enumerating device is a PCI device, or reach through a struct
+intel_vsec_device just to get at a struct device, and neither holds
+for an ACPI backend.
+
+The series comes in four parts.
+
+Patch 1 is a standalone cleanup. The feature device name was built in an
+on-stack buffer and handed to the auxiliary bus, which stores the
+pointer without copying the string.
+
+Patches 2 to 8 each remove one PCI or intel_vsec_device dependency and
+leave the code in place, so they are small and can be read on their own.
+
+Patches 9 and 10 do the split. tpmi_probe() and tpmi_remove() become
+intel_tpmi_init() and intel_tpmi_deinit(), which is the interface an
+enumeration backend implements against, and the enumeration independent
+code moves to a new intel-tpmi_common module. That leaves vsec_tpmi.c
+with just the auxiliary driver binding to the "intel_vsec.tpmi" device
+created by the Intel VSEC driver.
+
+Patches 11 to 19 are code improvements to tpmi_common.c. Some of them
+come from Ilpo's review of v1. Others were suggested by Andy in an
+internal review of this series, and since they touch the same code I
+have included them here as well. Each patch carries a Suggested-by tag
+for whoever suggested it.
+
+They are separate patches on top of the move in patch 10, as Ilpo asked,
+so that patch 10 stays a pure code move and can still be reviewed with a
+diff-of-diffs against the original vsec_tpmi.c. Each of them does one
+thing to tpmi_common.c and nothing else.
+
+Tested on a GNR platform. TPMI feature enumeration, the debugfs
+interface and the client drivers behave as before.
+
+Changes since v1:
+ - Added patches 11 to 19, from Ilpo's review of v1 and Andy's internal
+   review. Patches 1 to 10 are unchanged and carry the Reviewed-by tags
+   they collected.
+ - Patch 11: include the headers tpmi_common.c uses directly instead of
+   relying on other headers to pull them in, drop the redundant io.h and
+   sort the block.
+ - Patch 12: turn TPMI_GET_SINGLE_ENTRY_SIZE() into a function, so the
+   u32 to byte conversion reads as a multiply by sizeof(u32), the
+   statement expression goes away and the argument is evaluated once.
+ - Patch 13: take tpmi_dev_lock with guard() in
+   tpmi_read_feature_status() and drop the unlock label.
+ - Patch 14: use __free(kfree) and guard() in tpmi_mem_dump_show() so the
+   ioremap() failure can return from the loop.
+ - Patch 15: build each TPMI control mailbox word in one expression.
+ - Patch 16: use DEFINE_SHOW_STORE_ATTRIBUTE() for the mem_write debugfs
+   file.
+ - Patch 17: scnprintf() instead of snprintf().
+ - Patch 18: declare the loop counters in their loops.
+ - Patch 19: make the device creation policy a comment on
+   tpmi_create_devices() and split the condition it described.
+
+This series is based on v7.3-rc1.
+
+Kuppuswamy Sathyanarayanan (19):
+  platform/x86/intel/tpmi: Use static strings for the feature device
+    names
+  platform/x86/intel/vsec: Pass a struct device to
+    intel_vsec_set_mapping()
+  platform/x86/intel/tpmi: Remove unused vsec_dev from
+    intel_tpmi_pm_feature
+  platform/x86/intel/tpmi: Get tpmi_info directly from the parent device
+  platform/x86/intel/tpmi: Keep the feature resources in intel_tpmi_info
+  platform/x86/intel/tpmi: Describe a TPMI instance by its two devices
+  platform/x86/intel/tpmi: Drop unused arg from tpmi_set_control_base()
+  platform/x86/intel/tpmi: Do not assume TPMI is enumerated from PCI
+  platform/x86/intel/tpmi: Split out enumeration independent init and
+    exit
+  platform/x86/intel/tpmi: Split off the PCI VSEC enumeration
+  platform/x86/intel/tpmi: Include the headers tpmi_common.c relies on
+  platform/x86/intel/tpmi: Turn TPMI_GET_SINGLE_ENTRY_SIZE() into a
+    function
+  platform/x86/intel/tpmi: Use guard() for tpmi_dev_lock in the status
+    read
+  platform/x86/intel/tpmi: Use scope based cleanup in the memory dump
+  platform/x86/intel/tpmi: Build the TPMI control words in one
+    expression
+  platform/x86/intel/tpmi: Use DEFINE_SHOW_STORE_ATTRIBUTE() for
+    mem_write
+  platform/x86/intel/tpmi: Use scnprintf() to build the debugfs names
+  platform/x86/intel/tpmi: Declare the loop counters in their loops
+  platform/x86/intel/tpmi: Describe the device creation policy on the
+    function
+
+ MAINTAINERS                              |   1 +
+ drivers/platform/x86/intel/Kconfig       |   4 +
+ drivers/platform/x86/intel/Makefile      |   1 +
+ drivers/platform/x86/intel/tpmi_common.c | 824 +++++++++++++++++++++++
+ drivers/platform/x86/intel/tpmi_common.h |  52 ++
+ drivers/platform/x86/intel/vsec.c        |   7 +-
+ drivers/platform/x86/intel/vsec_tpmi.c   | 822 +---------------------
+ include/linux/intel_vsec.h               |   5 +-
+ 8 files changed, 900 insertions(+), 816 deletions(-)
+ create mode 100644 drivers/platform/x86/intel/tpmi_common.c
+ create mode 100644 drivers/platform/x86/intel/tpmi_common.h
+
+-- 
+2.43.0
 
