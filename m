@@ -1,186 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f26.google.com (mail-pj2-f26.google.com [74.125.227.154])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B13C30D41F
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:03:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D4A6422522
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:03:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790247790; cv=none; b=s2YZZoUsHk82Lm0MhYkd+MurJL2zL+aeQBF+wPZONWi8IODVhuwhAvPcvMMTEUL+wGtLQS1hdu5F6HQxC+9UOTKXM2AdkA2aDDNOsc1NilFRy2QXbW89ic7j22a5ZfyRRk5vElyxSqV7TPXtW3rusLKIIFE0bfYEjXJOBJBR23A=
+	t=1790247798; cv=none; b=u12GRjuVsLZfVG5gxOm6vdMeu3hIr9SPjSL0APKSk454ZmdoPw4aNZ9VKcn7W3mE0eAxPQKPy92W1+6puqAL9R4a7jgpPTGbPW8Ea/zEt1MAoicKra6nsFflan38tDpRT+adOJ/d24Y76fciFeexMQPgdLWjbcs59lVoC22r0iA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790247790; c=relaxed/simple;
-	bh=QHzsWZeESkFprgTXj2DHa5TPoY9T+JiNfra5izuial8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IQKVqegYgiJX3bLy64iuOAAlovRq8SzE2G34TdLwg2R/JMLbs7shFxmnKUb8DuwrFJCpWHJxo+qeZzJyuyGMyx85ciqQPAu7Uzq1NcrXSSEDOmns0YuvrUaJoA+0HEuZEVcYHsTT0C6hqLFH4321CHkxUhoJbOnS0I5AmY3voJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iaruF16c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790247798; c=relaxed/simple;
+	bh=aO9jXqxRqOyTTCrOYU5B+DX1uyFV7Lr1IqEsZ1j3xU8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LU8HYwKUPbvsnRUguG6PnRDCa4rxN2WI1t1EZnw8MBrSFnyu1WaGsRFT7kQfiDTz9VTb4gtCnDtdqHJHDGhBI0P3nDjP5lP74l5zmgkhHGoTTa8AYZoGZZX84BCcAH8Oc5gbhrf2eIvmDRIydlTfJq2KvXafq/gXrtN+Til7LwA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a+9W5BoN; arc=none smtp.client-ip=74.125.227.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iaruF16c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 402E11F00893
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:03:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790247788;
-	bh=qb5cHE2dgUrO0e26v2XgbM47NF6xvjd6olYZGEGtg3M=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=iaruF16c2G/cqjPSVprB5bCJNcjbvA/mX1AvmBrCN8B07E6qtOfbqcjiRFAG9sTAQ
-	 3V5fGKtIn4/uIpfE0ORNmjAKzsBpDoDXAgqdeHtToWTNEDOrCkpwjfCoBhDY9/LTyS
-	 MPDF33u00byP9ILEiJ6ebFfyGIagy5wEbc4Fn7tkYCo1nSGnxA95nHQbEkydNB3hsa
-	 ktFNOrWV0+Gdf/dfOeLJJ7f6HTDrTuuro6R/r+xy69a+YMWDEu6QxpCH0ENUiemFrF
-	 4DYyr6YdFUJK7WFIuhILlgD5C/vSP1ij7M4hWS3BVBQx+Y129btYPHTr9Uw18yntWV
-	 nz6IP5RigS+XQ==
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4aa8d881so1966087d50.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:03:08 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxt444H4WajA0rXiWmXjqs+mrzndAihQqwfgL+Zjq7R7YU4nvYNGR5e1nU86iq1qttNjMX6NNFRvfmdCIg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nZdPI32Cz7JhtaBdT/iPdgOg/omWdBfIGPpMVRQ2rj3sLouT71
-	dPL0mH7gXqeb5plvalyHtcNnxV1FVohYswUrE4i3msSQJavNy7lIac6ql6dv59Y5FQj3TgEzdnV
-	CUfrmTaDttGQFhki3Olg54/jpmGo8h3Bt+/NL7GNt0Q==
-X-Received: by 2002:a05:690e:43c3:b0:671:1256:56f3 with SMTP id
- 956f58d0204a3-672ed2624cdmr748540d50.21.1790247787078; Thu, 24 Sep 2026
- 04:03:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a+9W5BoN"
+Received: by mail-pj2-f26.google.com with SMTP id d9443c01a7336-2d8fb334e72so8754355ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:03:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790247797; x=1790852597; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nIbhax5iMWz0Nhglod4QvaTZFTgtc4d508WTfg8CcMM=;
+        b=a+9W5BoN6ibcGZ1t2yMukQ9u7OcULIF7Vd8Kg+X83fuGNVPz1nB7Va7fY0Dbdb2p+r
+         4oCMlVlVJnw19Zo8jLm488hLxWXtnkR/8FN2lTplb+YVR2mMmnOLCZBkWjtPnaY7jMsl
+         cWj35VgAx8yJRjDNW+roLfwr/0itvo2t3HKf9w0UmlD3UnVyQgUXgOrUcZlpj9w1XNBR
+         RtgyedP69rIgVmCJ2WJj3oFe7yvlqAxJcgnYMQYcWg86ODCpNhquTPtZjeknRKObINNf
+         kb7DxIyDr2iQBVNM+PmSuBCcHydOoNDCbzJyC+/KYPuE994J5Aee1xZB/jqu4WSMRhjL
+         kIWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790247797; x=1790852597;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nIbhax5iMWz0Nhglod4QvaTZFTgtc4d508WTfg8CcMM=;
+        b=ORXk7SKMgxCnC8Fm5aalZJ+g5sMtDMGZxUVqMSUBGb/FeL91QPuoWJhP4Qbv2+6i+l
+         MTVvHVr8zB2kUGLQGXm5O9VQ53R1PfCHssfOAHn8bO9A7kExs48OAFVkMeBZrH17aupi
+         gYMrh+vRqTOpnqxnO3PqAMIr7MBWbrhKZzIrJSiWUicyMuB1dUhOMixGlH7HLbkeDEXk
+         QlujR+/Ch5wIc77teuLVevhcsqc6bPTN+o1r8z55WYBxKmMdfxJSBrIfY/dwUxIMJFa1
+         8HenUy4eQP390UiY4EPwwVA2b9H8AN2K2VTuTZDwMy0LmVosVYD39ZHiTmfzW+1CsHwD
+         E2FA==
+X-Forwarded-Encrypted: i=1; AKwUvBztvG/xRWndfx/ThxPktO1MpFXzfUZ5iodrl+A09vG6VzaJfb84hQGNN4af1hU3ouj+gUEjV+1e0PVJMvs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mLS+AfhFMXcKKPlIieqG140LSnC2PPHe3hIIxJpNRsD9pxrwYj
+	Aspzgu9VlN1Jx81uPOwVpMfPJiNyf96OgjJos0TUJBNKdZXPc29YZ7LV
+X-Gm-Gg: AYBFou10fnqgScCjjPU0ymRqiz59Ufo4Q/HDt1jslio9lKO7EY2wTw7brla8ZK/Megy
+	i8O4OxtdUzrRdtKki02QCsTP2zAxDaRpC5LNVBk8OppNZHvCE82ZPsOePe8XnGqaxg7V1T8YPvg
+	6PaFuNmnokFWRqgDss5uDlyKhy8mauhzgdK5+CgurEodOdbNw4xLASfJk/flSg4F0b7cXXFSgVZ
+	pYRiuPHN0/Wr+wnC+x3j13f2gQ7NBZdnI9KIzs9342r5YwmZvfOj/NNWCsYsP35OEwMaPiVs/Xg
+	65HyprKhSj336XQbu2uopJyZ8l8uFU5whCd1LsLUjE69Zz+ORj9Ni9rArenthUcGrZUTy9XZEps
+	vdfoW1dTJjOQYChc3jqu0fR/rg2Q/mLRDrWOzCKmnIqrJxArpdGAOv/Xq7rfAHLoDSowds4md6R
+	TSIaTRhWVEWWxhoVgTr1Ae9mhAJeEszB1cP3hOoftu7BAQWHOrgbwXBQ==
+X-Received: by 2002:a17:903:3846:b0:2dd:c100:7cc4 with SMTP id d9443c01a7336-2df7dd73ad0mr16876665ad.64.1790247796414;
+        Thu, 24 Sep 2026 04:03:16 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5c3733sm24724005ad.41.2026.09.24.04.03.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 04:03:16 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: sakari.ailus@linux.intel.com,
+	gregkh@linuxfoundation.org
+Cc: linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	bingbu.cao@intel.com,
+	hverkuil@kernel.org,
+	lgs201920130244@gmail.com
+Subject: [PATCH] media: staging/ipu7: release ISYS firmware resources on remove
+Date: Thu, 24 Sep 2026 19:03:10 +0800
+Message-ID: <20260924110310.1555150-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <aqJXx2vtbKaRLt3x@fedora> <aqLi6cIjD2wJwk0B@cmpxchg.org> <CACePvbUG1ApMzMdEzf-63rpjgGVNsRk21pT72OQGJpM=OtRUew@mail.gmail.com>
- <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F> <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
- <CAMgjq7CJBHkoZmg9oKNgGA8czL0djyBTCAkPz8ETm-tX=Qci4g@mail.gmail.com>
- <arEotFqE7ZZoxMHd@gourry-fedora-PF4VCD3F> <CACePvbXb1WLz=OAAzVawf3oc3+dE3Z7qfPdagQ2dYuf3OALc2g@mail.gmail.com>
- <arFe215hUcjLhvmS@gourry-fedora-PF4VCD3F> <arOeYHEf9aO7AU5X@MiWiFi-R3L-srv>
-In-Reply-To: <arOeYHEf9aO7AU5X@MiWiFi-R3L-srv>
-From: Chris Li <chrisl@kernel.org>
-Date: Thu, 24 Sep 2026 01:02:54 -1000
-X-Gmail-Original-Message-ID: <CACePvbXHan6Sfmdq6JFrcaMMy6SGvzPs-pautLtg-9D6=W09qg@mail.gmail.com>
-X-Gm-Features: AclHuK8VFQcjyBqPb4h6LbJpz-yiYCZ7Fqjey1egs43oMEG0gsapG1F4wdinNfg
-Message-ID: <CACePvbXHan6Sfmdq6JFrcaMMy6SGvzPs-pautLtg-9D6=W09qg@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Baoquan He <baoquan.he@linux.dev>
-Cc: Gregory Price <gourry@gourry.net>, Kairui Song <ryncsn@gmail.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Nhat Pham <nphamcs@gmail.com>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
-	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
-	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 11:39=E2=80=AFPM Baoquan He <baoquan.he@linux.dev> =
-wrote:
->
-> On 09/21/26 at 01:02pm, Gregory Price wrote:
-> > On Mon, Sep 21, 2026 at 06:32:56AM -1000, Chris Li wrote:
-> > > On Mon, Sep 21, 2026 at 3:27=E2=80=AFAM Gregory Price <gourry@gourry.=
-net> wrote:
-> > > >
-> > > > This would preserve the existing memory.swap semantics while allowi=
-ng
-> > > > both backing resources to be constrained independently.
-> > >
-> > > It sounds like you want memory.tiers have limit enforced.
-> > >
-> > > I suppose it is possible. Again I want to see how people would
-> > > actually use this feature.
-> > >
-> >
-> > Possible, but arguably not needed. the swap and zswap counters already
-> > work for this existing interaction.
-> >
-> > As I pointed to in my response to Rik, in every reasonable use of
-> > pswap+zswap the global swap counter is pointless.
-> >
-> > So then pswap=3Dswap and we're left with zswap and swap.
-> >
-> > And I'm not convinced your reading of the swap counter as a limit on th=
-e
-> > *logical* memory allowed to be swapped out is actually accurate.
-> >
-> >   memory.swap.current
-> >         The total amount of swap currently being used by the cgroup
-> >         and its descendants.
-> >
-> >   memory.swap.max
-> >         Swap usage hard limit.  If a cgroup's swap usage reaches this
-> >         limit, anonymous memory of the cgroup will not be swapped out.
-> >
-> > There is no documentation I can find that has ever documented these
-> > counters as "the amount of memory requiring a fault".  If you put a
-> > compression system in front of physical swap - the counters as-describe=
-d
-> > would still be accurate, while your reading would be broken.
-> >
-> > "swap" here is highly implied to mean "storage" as opposed to memory,
-> > which is why "zswap" defines its limits in terms of memory.
-> >
-> >   memory.zswap.current
-> >         The total amount of memory consumed by the zswap compression
-> >         backend.
-> >
-> >   memory.zswap.max
-> >         Zswap usage hard limit. If a cgroup's zswap pool reaches this
-> >         limit, it will refuse to take any more stores before existing
-> >         entries fault back in or are written out to disk.
-> >
-> > If you're presently using swap.max to mean the "logical amount of memor=
-y
-> > allowed to be swapped" - then your usage does not meet the definition o=
-f
-> > the knob.  You need to justify that your use case cannot be expressed
-> > via memory.min/low controls:
-> >
-> >   memory.min
-> >         Hard memory protection.  If the memory usage of a cgroup
-> >         is within its effective min boundary, the cgroup's memory
-> >         won't be reclaimed under any conditions. If there is no
-> >         unprotected reclaimable memory available, OOM killer
-> >         is invoked. Above the effective min boundary (or
-> >         effective low boundary if it is higher), pages are reclaimed
-> >         proportionally to the overage, reducing reclaim pressure for
-> >         smaller overages.
-> >
-> > That's an SLO interface.  memory.swap is a provisioning interface.
-> >
-> > As it stands, I'm left viewing zswap's counter inclusion in swap as mor=
-e
-> > of a bug than a feature - they account for different things (memory vs
-> > storage usage).
->
-> It's hard to say. When 37e84351198b ("mm: memcontrol: charge swap to
-> cgroup2") introduced memory.swap.*, it was clearly defined as charging
-> "the actual number of swap entries used by a cgroup". Please see the
-> commit log. With that, zswap still reserved a swap slot even when the
-> data never reached disk. And not to mention zram, it's backend is RAM,
-> but not physical disk.
+isys_remove() tears down the registered ISYS devices but does not call
+ipu7_fw_isys_release() after a successful probe. The probe error path
+already uses this helper after ipu7_fw_isys_init() succeeds.
 
-Right, that definition matches what I have in mind. The actual number
-of swap entries regardless of the backing type.
+Without the matching release, resources initialized by
+ipu7_fw_isys_init() remain allocated on normal device removal.
 
-Changing the meaning of that breaks existing users.
+Call ipu7_fw_isys_release() after unregistering the ISYS devices to match
+the cleanup performed by the probe error path.
 
-> Now some deployments do use memory.swap.* as an SLO signal, and that is
-> real use cases as Chris and Kairui told. So I don't think this is about
-> who is right and who is wrong.
->
-> To keep the existing deployment working and at the same time give the
-> physical slot its own knob, I think the solution is to add a memory.pswap=
-.*
-> counter as you suggested. And that is not something we think of from a
-> brain storm, it comes from real deployments which already depend on the
-> current memory.swap.* behavior.
+Fixes: a516d36bdc3d ("media: staging/ipu7: add IPU7 input system device driver")
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/staging/media/ipu7/ipu7-isys.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-I think it is important not to break the existing usage of
-memory.swap.* behavior. I am fine with adding another counter.
+diff --git a/drivers/staging/media/ipu7/ipu7-isys.c b/drivers/staging/media/ipu7/ipu7-isys.c
+index 601e5a79ef8e..a54393fbb9db 100644
+--- a/drivers/staging/media/ipu7/ipu7-isys.c
++++ b/drivers/staging/media/ipu7/ipu7-isys.c
+@@ -590,6 +590,7 @@ static void isys_remove(struct auxiliary_device *auxdev)
+ 
+ 	isys_notifier_cleanup(isys);
+ 	isys_unregister_devices(isys);
++	ipu7_fw_isys_release(isys);
+ 
+ 	cpu_latency_qos_remove_request(&isys->pm_qos);
+ 
 
-Chris
+base-commit: f03c39de3a1307371a4032757cd1732e91087c7d
+-- 
+2.43.0
+
