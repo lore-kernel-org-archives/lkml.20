@@ -1,71 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6853D35F5E5;
-	Thu, 24 Sep 2026 15:41:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CABEF35F5E5;
+	Thu, 24 Sep 2026 15:41:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790264467; cv=none; b=rCXoMs+2ZJj9eltjAYP+TwcdvTiBLYf081E1J0kBfGEscPdgTDfp5qeJe1UFsasei3GWY9WqLYJ8tywzMw/N4KU1CQESj1fdp6Q+Qw9iMOhSEpL9diEmKgESc63MsAk4rx7nstEsY0wOhCe7G3M9WR2yBQfqxT2TjrBHsO7UMIs=
+	t=1790264476; cv=none; b=gguysLI1ZQYbpvfesOPDnWIrl//p3q7ZLUyD/L/1LInshNWsm9q2iKHKJhvBD6ik68zywUo5ByzIgQKq7WDCXEwzT1kjncgMeqfyBqgG0WitML2nZIrq93RF5ZmrVL9wOYK+FZlNcoGXxJrLFHohsYEIVbmo2FiMFm3+bIRH92k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790264467; c=relaxed/simple;
-	bh=LtHn9P4uY6JY/xbhTzibkgwLNpSB34X1PxZc9W7PLBQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YSjVuE/quU3aPLPJv2KfI0DpIqIroF3lwe3SQHovO8KA7afBniSeRfNH1s+GbZTt3BD2fyJsbH3KGx6RukdYJv6JYpt0nif8qJKoTq1L0WEjyJQONV29moMkwD8LCbtiBbVA/1OCRAB/77UcSYC8uV/rH+X+ZYfraCREUnIdaWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VzHiL3yL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790264476; c=relaxed/simple;
+	bh=H4TUq6rKUUid0N5u4yF7JAwv/s2/Ils3gg5pC//BOc0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=rXCNvGXcTbPauxLUtJzVjpJWHVRUSOumhS1IeCjTL8AyGQ6YnZeOWlqxGUdsOkac4cYqXNMTSr8XF9NGqXnRovsVS5KhypiDCUaKutp7sihrv1cHlr552g8hhSNuh4wn3hkIQK9oDK9kw+8yaWqWAgH2v1teo86foM7hPsrNtT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LZ4sJoIw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VzHiL3yL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7189D1F000FF;
-	Thu, 24 Sep 2026 15:41:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LZ4sJoIw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A89EC1F00893;
+	Thu, 24 Sep 2026 15:41:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790264466;
-	bh=737AHlLWlTvpEJAWRPNz2w3MkgeoOAn9THRqVlYYKfU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=VzHiL3yL6TbkX02oxLYwhTHjuCB+ABnYwszp742O3ieNIF5kD0chiqNwDvXGaIgq0
-	 1HH/rC+n/tdGlGABUny71B6+hdOCwHntEIAeySK0qQTi/GoWFnQn4nokg60L2dhHOj
-	 rde87vj6fE7KFV3zMAe6//yD8/ukbVtVE0OV6XWNxfHeV1N4hEzuEArV58bRQ/B4iG
-	 qgprjZbKLTH6Gdq6p8nK88xBy+AIJr6PB0Mn1HLw3kIp7idczA/Cm8Ke4X7GrkRNcv
-	 C3b/2mN/s7TPsEsUm37CyhNxL1ADxQ2td4s5aJPPsGfMEEOrHVo4ZDsJtlPtWSv24H
-	 +f2g3ME6L8BRg==
-Date: Thu, 24 Sep 2026 08:41:04 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: =?UTF-8?B?VGjDqW8=?= Lebrun <theo.lebrun@bootlin.com>
-Cc: <netdev-bot+sashiko@kernel.org>, <conor.dooley@microchip.com>,
- <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
- <pabeni@redhat.com>, <horms@kernel.org>, <nicolas.ferre@microchip.com>,
- <sean.anderson@linux.dev>, <atenart@kernel.org>, <linux@armlinux.org.uk>,
- <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, <nb@tipi-net.de>,
- <vladimir.kondratiev@mobileye.com>, <gregory.clement@bootlin.com>,
- <tawfik.bayouk@mobileye.com>, <thomas.petazzoni@bootlin.com>,
- <maxime.chevallier@bootlin.com>, <stable@vger.kernel.org>
-Subject: Re: [PATCH net 1/3] net: macb: never give hardware a NULL RX buffer
-Message-ID: <20260924084104.25099f60@kernel.org>
-In-Reply-To: <DLNN7LYYGP7L.3OSN8JZNC37PS@bootlin.com>
-References: <20260918-macb-close-v1-1-05e32ce98813@bootlin.com>
-	<179010942002.2160803.8691011751847108495@kernel.org>
-	<20260923184756.16ce33a7@kernel.org>
-	<DLNN7LYYGP7L.3OSN8JZNC37PS@bootlin.com>
+	s=k20260515; t=1790264474;
+	bh=5GIFrNA3YjFb71GWK7/owSFpiu+yV6iJ0FkdF+To4go=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=LZ4sJoIwrqC2GMQ06yooCB2XSFczyDJU5yjSylI+pyRjdaDIYUYUX6ku59wJjYNXT
+	 Q+jVkJcrkHF/uQi6n7kofkp2Ob3AP/fjW32/4obokekWlLK++eNS0w0skIIk4jFGun
+	 cn/P3gf0E3mTNUl80nLdq+2OoTO6ewFfI4PnSbwgyTZN6kfMgShUbvqZ02k1jebFoG
+	 HIxFmtg4aFwjDRvLabtYqlfoOiXnrEzZ2389yYvl/F/0DqTpwxOqeP+wisH7Df2szX
+	 O75Q1lSjOb0yyGn+K2q82ovW7qG2KNVtP5o+qow7h/6aTJ77l13OhZJpmOINHzjntE
+	 8IMBaao51mcnQ==
+From: Nathan Chancellor <nathan@kernel.org>
+To: Nicolas Schier <nsc@kernel.org>, Dmitrii Tulnov <tulnov.dl@gmail.com>
+Cc: Julian Braha <julianbraha@gmail.com>, 
+ Peter Korsgaard <jacmet@uclibc.org>, 
+ "Yann E. MORIN" <yann.morin.1998@free.fr>, linux-kbuild@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260918213430.3-1-tulnov.dl@gmail.com>
+References: <20260918213430.3-1-tulnov.dl@gmail.com>
+Subject: Re: [PATCH v6] kconfig: warn about malformed KCONFIG_PROBABILITY
+ values
+Message-Id: <179026446065.3085989.16924161759237399526.b4-ty@b4>
+Date: Thu, 24 Sep 2026 11:41:00 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=739; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=H4TUq6rKUUid0N5u4yF7JAwv/s2/Ils3gg5pC//BOc0=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFlbXSY6yP57J3+/69xRX45Lwe8XTKq0K2eTZ8wUrrZK/
+ 7DyxWTHjlIWBjEuBlkxRZbqx6rHDQ3nnGW8cWoSzBxWJpAhDFycAjARuT0Mf/il/O4cUuT5dTmL
+ lansUurdhfU11fZ95qteimuHLQu+yMnIMDtcffWEt2YtBRq9S9VPlTQf82PcdKFoksb8FXGrE2P
+ NWAE=
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-On Thu, 24 Sep 2026 17:13:58 +0200 Th=C3=A9o Lebrun wrote:
-> > If the AI interprets the rx poll side correctly these seem like a major
-> > flaw in setting the USED bit :( =20
->=20
-> Yes the AI is correct (unsurprisingly). But two things:
+On Sat, 19 Sep 2026 00:34:30 +0300, Dmitrii Tulnov wrote:
+> kconfig: warn about malformed KCONFIG_PROBABILITY values
 
-If it's correct then patch needs to be changed.
-Please don't write puzzles for me to solve.
+Applied to
 
->  - before this patch what happened was that HW read the NULL descriptor,
->    so not much better
->  - we can detect in gem_rx() using our ring buffer cursors that tell us
->    what we've managed to allocate, that we gem_rx() doesn't iterate
->    over descriptors that haven't been allocated
+  https://git.kernel.org/pub/scm/linux/kernel/git/kbuild/linux.git kbuild-next-unstable
 
-Grammatically dubious puzzles at that.
+Thanks!
+
+[1/1] kconfig: warn about malformed KCONFIG_PROBABILITY values
+      https://git.kernel.org/kbuild/c/9f01cd3a32439
+
+Please look out for regression or issue reports or other follow up
+comments, as they may result in the patch/series getting dropped or
+reverted. Patches applied to an "unstable" branch are accepted pending
+wider testing in -next and any post-commit review; they will generally
+be moved to the main branch in a week if no issues are found.
+
+Best regards,
+-- 
+Cheers,
+Nathan
+
+
