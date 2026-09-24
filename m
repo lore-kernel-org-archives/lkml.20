@@ -1,110 +1,265 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A181B3CF032
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:02:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C575411A02
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:03:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790233375; cv=none; b=OEpuh9vXN6ZVdY5bjvDXEs6ghC/eEQFZzOWREIO0gN2IX5h2m4nSHA9YuctEjPeu3OkaDdDvjnRdaSHEnGRJ+LRteDKP6fHRzOOLq1qm5KbvSA/RaEk6Hj0Pld4lbkgJpdCOvGh0X1kbSU/j2M8wxaA7XiJs89uI6KXU4OqU2yc=
+	t=1790233440; cv=none; b=XHmPE8TUgZm9Zc04JHcWgKPV1GUg/QgGdP2zKwRGpVg+koUrdosf2nRhzRMhOGF12wJfVrawqSkMQp58YSqty6v69rNczOhwVN0C7GMtRUUNufh4uiuWKI2XYJ+IBk04PBsbmMfS0qPSjvvERgOCcXBoZNilFjgp7SwAyBltm5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790233375; c=relaxed/simple;
-	bh=Q5+GsaZ/ZU5/DziVjngnmUXhgEXeJl16XfiKEm74qEg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=b7IUS5SD9/pummBwaJGzimxHpiZRvAw5+2vSf1yIQKMwtDcvYA+c7LmopB1PToPY0L0uGoilqwtQTJUXgZYNUdGSOTMI9gSL9D2n922oW7kSJGJ5AqAMsRt26o6sjvn4pU2OCP8xm/8T+BNdvRkp8P55wMl7YlOAs6YlD+s+xMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XSkQVBds; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790233440; c=relaxed/simple;
+	bh=HThu999JdrJsgMHwqzxbZIWm9oNlifMrfJOz7Lutz6Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CPniqa/43fOIWRF7pn6rg2YSgfzyQ/u/1hL5L4SR01JYIdKqSlJO7qZKCMCU2CQWarJOPXoxJJf8Ah8Bh3V924EifNyKjNSJD2V1FOBEmDlv2ygdvWoUiAQ48lQmBy9NRn4kc8VJy6DXTHYeGHpfJaE0YcuxTtNu7M8TyZlaqhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WLs3Z1Y4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PP77nBnG; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XSkQVBds"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747eb79f7so8115275ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:02:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WLs3Z1Y4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PP77nBnG"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5eU3r2421318
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:03:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=/fJFsThCRy735OBr32VrOnDr17SixmR1mu1
+	90oUUl6I=; b=WLs3Z1Y4cZRfEeoiZazWeki9a+bZk8LcUjbcX6YndjZyvEZ8R4S
+	jmb2YFDfkYPbRx6EzkJJ/cPFTAiLqKpHgYpc2laF53BXz2a4HPqBYih+dAiZEOdk
+	TCSKO5htqjTUkrnDaCYB5EIoJgejdWJ49tuwcwr8MFlm6M2LC41c4kH692U+bMFt
+	2MfRMDQ8dTGr1HwC8NiHIKcL6xUMpscssqVpBtKzxV8fURZIxnUoWKwgcmHUJxAP
+	wPdA4PMhbn2971Mxh4KBduZ2Uplk1bExpXORIUm9olHj9jYfAKiXNZD3ZdQ1gFjl
+	Gwf/iGpzO/QCrtUA2Z1MVGQo26kzMvhw11w==
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvstuh6ee-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:03:47 +0000 (GMT)
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1416f32fe11so2541975c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:03:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790233364; x=1790838164; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Q5+GsaZ/ZU5/DziVjngnmUXhgEXeJl16XfiKEm74qEg=;
-        b=XSkQVBdsfKAk/sa+LnSR27FpqKNQsO8uH7Bd3ikMBlYmot3fRnDTUpMOB4f9Q6w8cU
-         R4DdEM1wOXJwaeNY1oXtblD4rdbUKC1oxOsM8ZU+MsupxYhaZGYA41fpJ3zPI20iKYq0
-         1Hb3umt5nYbKs/myiJ+swDK0O/019MsR7ZZMjoFdVQLCEfD8x1XTSKxHM350G04Jej/F
-         qlIeQfzVoBHbGn4kGRiI5LFXzW9YadlmaeX5/YCD18EZF2luKJujerxqGtvLh/eJrSoI
-         /ttnq/qemqPp0pGu/yb/tISl6iTwJy2rn34/TRt+4OrI1ntSKEbYA6aw3eSV+4ukrqR3
-         M66A==
+        d=oss.qualcomm.com; s=google; t=1790233426; x=1790838226; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/fJFsThCRy735OBr32VrOnDr17SixmR1mu190oUUl6I=;
+        b=PP77nBnG30IZQnh6RuInOjG7xTi4AZ8ySC5qSJ3zYejU6V64hbwTuIwhgvsDxSsL9U
+         D9v/+1Bjiiyfe+e5TdFcayotiRCj6EmgxJE1dGB3R1vmCp88nttqZI7sINaS31i+pe2R
+         hDbOtQqQv0VXSHPV8a2LQ6+zL4oI1OVd3dbOuBqNScJXXPPM4XanQdz3QDHzR90gMxTF
+         mzcHbJ95kydMy22DcXAncZsSKYOlC9ub1QmLnBO1thHKoETkLalHHWpPqKbikhkxzJKb
+         ZhOcPj+ldMdqLz52ibElTXib9QYlbpLZhnQRXLLz1ZkCPAB9wt/bEQLwbf4U8KHk3sYU
+         ffkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790233364; x=1790838164;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q5+GsaZ/ZU5/DziVjngnmUXhgEXeJl16XfiKEm74qEg=;
-        b=VGH3XnL01z94Uc2TkSp6E7ZFXUBs9N1zoHVYDeTOJsGd6jWfzOAa/L9AJJ9nuJa4j1
-         UBeNarBGbNyf629v9ngodft48lN0Nu+pc8gr1yJJLAjG7veoeA5RtkLyGFSQ119JMYPr
-         1u+P22vu/kLaBKGJCi36krcdfZtxojzIAHpbGokYXm2djmBiiGw8FumS/KWKACAtG8FY
-         uCXy/BQMgrh4fk2veokYdVA+DgN6foCtpF8H6utlfuzMiT46jY+BWvf7yr0DQUZyI1SB
-         0B1xxJrOACaxaTMj6IpSepFwf8csvAMwa60QwKXTyoRXIAHGgTNrh8dmMgELOvgETVQU
-         /7UQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwf3RSxehTf0Js0i22jKk820G482ignuhfHrp2Vyi6h7NA0zEKWYXb3kbqnGByiZ/oSTRFIkayWfONyqiQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mwmGqeW9y6ac6+Gpak20j7rFVvC25xFuqUYl9xbIaw2ti3j/n6
-	I55yQw9FQsGGFmesdYebkAiv1YBPs6kLmLJJrPKVwNEgTV88rn/a4TxN
-X-Gm-Gg: AYBFou31eSQZmzGjKww9FLZ1Y6fJGHQ63i7XfniSn/9bQOELcVv5rZew276rUV24GDd
-	m4tv6o6uuxEVz+qXToktRGRB0VukZYajwzilXjlDFn9YtjbZDHagWW23MeBe+mY1dZMWVc9fRBr
-	mF8iEljaco0tpnBQrAy1smJLTSezxkrkHfKrH/FZcoZNxz7XTZfvoz7jH3l86H6oOMOW//B3esK
-	3DtkntaoTsJLAvqRv2eilkQARgyd001ZLDTB8U3br3xGgadHXf2m5D7Fs01lld5JZa7ynh4i6B0
-	SU97L39hLflrLtOO/MkBGOjS8Jlxnts8DPZP70rV4OelA6HglZFUKOqOBk6DqLj7GJd6gMtJ0pc
-	f0M5cn7YATaFavn2qzhrvBIPHVGM+rlJchP4DUzmh8wt0o9Oc9Uschbp+xWs7TLwQZliA/g5UOj
-	B15qEI5nRVpo7hLB65OZL9OV1aCoxpYN+qDwEZ4/v0zTCU/XM/VPY5IovJMZsOApxu7+71UsRnA
-	nbrQYCl0nYksv0kKhjmvctxIZE=
-X-Received: by 2002:a17:903:19cb:b0:2dd:c0ff:e724 with SMTP id d9443c01a7336-2df7dfd60fcmr13079315ad.54.1790233363547;
-        Thu, 24 Sep 2026 00:02:43 -0700 (PDT)
-Received: from [192.168.0.226] ([38.34.87.7])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a60c674sm21646605ad.81.2026.09.24.00.02.42
+        d=1e100.net; s=20260707; t=1790233426; x=1790838226;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/fJFsThCRy735OBr32VrOnDr17SixmR1mu190oUUl6I=;
+        b=nBMYOjKYvc2k+H01OD1C5yBnFjc4lbp6Bk8MzQEA/t42LshQQjhdoIq3H2t203bt0j
+         4BFLDC8zHGsspxiOytobxf09Z7WUCkjVwTFaNvSBxgQndMW15q8BVYHzc/vVTrxLStyx
+         FZsA2JP8wkGbNBkYm9tCgtaLrllNjmcmUF7PZUvqZ6zo0wmutbUKQ0nMkv+5Y+BxR16V
+         q2A8Uaq+26ubimzzW2sQSjKzur65NGcJrpAfFjju5ya8acxdaej9fTwH8srVqJzyWAU7
+         9wTp/pYQMg68zgEAltlgSzlYq+yoxaibASSpnrLH1yJHLGa+GKFuFbwXdrFOJN8fnUBO
+         VcNg==
+X-Forwarded-Encrypted: i=1; AKwUvBywzKPcIjcZ+tD4DCkGMavv3y0f9NmRLDKbF6d5gIFdvNIrQ5ok757o7THLKwnggdJzmbt8Ll/XPCqxC6U=@vger.kernel.org
+X-Gm-Message-State: AFuF++l1fv8uJG1qaIjB3Pq9BdZMSd6BfN7GvWnsoe1jLE3uof0r8VJs
+	2ZsLBRImFlyoKiYX8CiVHlqv5HJuYCtztZ/NYrYmYtwlOWMAaoIa+DLD+CSnSztPMp8Nzni7Zxb
+	IxtnqtE9ZGgrRa2XGIoABG4LE8oy/3jh85Xg08aoeknULQlBRQDlgp3ILWqOL7dI7s7A=
+X-Gm-Gg: AYBFou0o/VRjy2ZPBO4soJ5VQB2+4E3/6u/FglfF23dswxCQtSlCNiehjv94RnvQPA5
+	jbRCHgD+yzK2gxc3o/9YzzCcDN9Kh1NbEP72lEODNwvA/X2P4DMVnw233ewISdKOCleEJJFsFs3
+	GBlx1fdDWgzXq8hVbZffRRx9pvk5qbZcCjw0p8jYgmmTJOCdmd5F4Qah2cxhcqW4pSrndyiakZJ
+	TEeNZx3kdXMGibLQyl6zSJmGOaZNoAdjCeHmpEUMpfJTrlKKlADkgWfPxLFruC32C2kjndJJnSn
+	GP1XkZsuGRu6ncE7O/TaRG59iE7Lj6+DuzJVhc6ahnrHQMLK21/AGdzKVPZbHooEy/ypxmysiyW
+	02GGrTkYKqWuHSXstf7mwNzV5TKBs7BnTXtfYKm58U9GTpS3ZPPONqQ0SGUU=
+X-Received: by 2002:a05:701b:4504:20b0:144:fdf0:9d91 with SMTP id a92af1059eb24-14504031b58mr1138273c88.24.1790233425570;
+        Thu, 24 Sep 2026 00:03:45 -0700 (PDT)
+X-Received: by 2002:a05:701b:4504:20b0:144:fdf0:9d91 with SMTP id a92af1059eb24-14504031b58mr1138236c88.24.1790233424620;
+        Thu, 24 Sep 2026 00:03:44 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f983d73fsm14289599c88.6.2026.09.24.00.03.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 00:02:42 -0700 (PDT)
-Message-ID: <c789160b6ad2e8405c6cf2d7e016fb0f6b77548f.camel@gmail.com>
-Subject: Re: [PATCH bpf-next v1 0/6] bpf: Scope callback arguments to their
- frame
-From: Eduard Zingerman <eddyz87@gmail.com>
-To: Andrii Nakryiko <andrii.nakryiko@gmail.com>, Ihor Solodrai
-	 <ihor.solodrai@linux.dev>
-Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>, Andrii Nakryiko	
- <andrii@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Kumar
- Kartikeya Dwivedi <memxor@gmail.com>, Amery Hung <ameryhung@gmail.com>,
- Emil Tsalapatis <emil@etsalapatis.com>,  Nicholas Carlini	
- <npc@anthropic.com>, bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kernel-team@meta.com
-Date: Thu, 24 Sep 2026 00:02:39 -0700
-In-Reply-To: <CAEf4BzY4LQ7TDCpxuVDwCzLZDr6gDYP44UwLEjqtcdRBj+bT_g@mail.gmail.com>
-References: <20260922010333.1226537-1-ihor.solodrai@linux.dev>
-	 <DLLGYV7DI406.JRNDNAZ4S29I@gmail.com>
-	 <ddb3c0eb-2a95-4af8-a9b9-a0624d38a7bc@linux.dev>
-	 <CAEf4BzY4LQ7TDCpxuVDwCzLZDr6gDYP44UwLEjqtcdRBj+bT_g@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+        Thu, 24 Sep 2026 00:03:44 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Yu Zhang <yu.zhang@oss.qualcomm.com>, linux-gpio@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH v4] pinctrl: qcom: spmi-gpio: make direction changes exclusive
+Date: Thu, 24 Sep 2026 15:03:22 +0800
+Message-ID: <20260924070323.983528-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAyOSBTYWx0ZWRfX6gPnx0951ixj
+ oiPYyffE1fJE6AXy6QQlqZj6bpXBc1UhrOZEO2bPeZX/MHc/Map2fdinTuksOpYjU5gIUAbGA0h
+ MUBc7SSxVBmQ4iWZG7hB8hbiPOMOOAI=
+X-Proofpoint-ORIG-GUID: WjD9oqyI7gJj2SPqV4Ok3VNaeZvMIv7o
+X-Proofpoint-GUID: WjD9oqyI7gJj2SPqV4Ok3VNaeZvMIv7o
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAyOSBTYWx0ZWRfX4IjHqStWPdR4
+ qFc1HMs2hlcaRBqOxVJDT9DKCvdlxwbL+LQfHgEhy3ztBe0/tmTGzD3zOoLiD3jj18NXnQdNl0n
+ 9jNeQgZpaOicHG7hluITTCy7qenB5L6D3aLu4Nz7awzjyGzrTytciyafhUl1n0scM9MMiUSEZ8q
+ wpA/i3kb26yERVTn/KckJQVnRokhrhJwg872m/yS5jfizADaiZsl6fclnh2T0VOAMfCyqBnA+hZ
+ iZYj5vyepsHAzmYxC1z0I99q45oTlCt0q7sBFI8k1Vhgqu8Cl1ug5tK/9O0EXbX/yobLKfeXD0G
+ yf/2CzFYBt1l3X91hYFrhigDcdWCLQblszi6bsqbFtKF+Hsn9jRKE93nldXZ1r8r+dTxdM881xu
+ cGCURYzrEqj3Y6AP/zutrxWVvpcom+qHea79NbAqrG+bGJr2Aqg5SYcPNW5GDf07n/2RCPUPfpl
+ kLybZdBu20Hxlvc9QbA==
+X-Authority-Analysis: v=2.4 cv=cKp1IVeN c=1 sm=1 tr=0 ts=6ab4cb53 cx=c_pps
+ a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=E7y4-Cke29mXp6t5dL8A:9 a=vBUdepa8ALXHeOFLBtFW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 malwarescore=0 impostorscore=0 suspectscore=0 adultscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240029
 
-On Tue, 2026-09-22 at 15:41 -0700, Andrii Nakryiko wrote:
+pmic_gpio_populate() seeds pad->input_enabled and pad->output_enabled from
+the hardware MODE_CTL register, so a pad left in DIGITAL_INPUT or
+DIGITAL_INPUT_OUTPUT mode by the bootloader starts out with the input
+buffer enabled.  Neither direction callback clears the opposite buffer:
+.direction_output() only packs PIN_CONFIG_LEVEL, which sets
+output_enabled, and .direction_input() only packs PIN_CONFIG_INPUT_ENABLE,
+which sets input_enabled.  Requesting either direction on such a pad
+therefore programs MODE_DIGITAL_INPUT_OUTPUT rather than the requested
+direction.
 
-...
+That silently breaks both directions.  After gpiod_direction_input() the
+pad keeps driving the line.  And after gpiod_direction_output()
+pmic_gpio_get_direction() still reports GPIO_LINE_DIRECTION_IN, because it
+cannot tell plain input from input+output, which makes gpiolib consider
+the line an input while the driver is driving it.  On a board where
+several regulator-fixed nodes share one PMIC GPIO the shared GPIO proxy
+reads that direction back and rejects every consumer after the first:
 
-> It does seem like we miss a reference representing single frame
-> lifetime which we can then use as a parent for all things that
-> shouldn't survive past the current frame. There is a separate fix
-> right now to invalidate dynptr created in subprog's frame. Seems like
-> that one should be expressible the same way: local dynptr's parent is
-> "frame lifetime" reference.
->=20
-> We can even relax this "cannot spill pointers to stack into stack
-> frame of the caller" error, potentially, by just turning that
-> PTR_TO_STACK into SCALAR at exit from current frame and let program
-> verification go, no harm.
->=20
-> So for me it seems like a necessary and useful addition.
+  reg-fixed-voltage regulator-wcn-core-vm-1p35: setup of GPIO (default) failed: -1
+  reg-fixed-voltage regulator-wcn-core-vm-1p35: error -EPERM: can't get GPIO
 
-I shared some feedback about unnecessary bit mask manipulation with
-Ihor off list, but overall I think that this series makes sense.
+Pack the opposite buffer's PIN_CONFIG_*_ENABLE along with the requested
+direction so that the resulting MODE_CTL is DIGITAL_INPUT or
+DIGITAL_OUTPUT, never both.  pmic_gpio_config_set() programs the registers
+once after walking all configs, so this stays a single register write.
+
+Open-drain and open-source outputs are the exception: such a pad only ever
+drives one rail, so DIGITAL_INPUT_OUTPUT is physically correct for it, and
+pmic_gpio_get() needs the input buffer to sample the line rather than
+return the value last written.  So .direction_output() programs the input
+buffer from pad->buffer_type in either case, rather than only clearing it
+for a CMOS pad: the buffer may have been left off by the bootloader or by
+an earlier direction change made with a different buffer type, and an
+open-drain pad that keeps it off would fall back to reporting the value
+last written.  gpiolib applies PIN_CONFIG_DRIVE_OPEN_DRAIN before calling
+.direction_output(), so pad->buffer_type is up to date there.  Key
+pmic_gpio_get_direction() off output_enabled so that these pads still read
+back as outputs.
+
+An input must not drive the line whatever the buffer type, so
+.direction_input() clears output_enabled unconditionally.
+
+Pads that are genuinely bidirectional can still be described that way
+through pinconf, which is the interface that has always been able to
+express it; the gpiolib direction callbacks now mean what gpiolib says
+they mean.
+
+Fixes: 263447532463 ("pinctrl: qcom: spmi-gpio: implement .get_direction()")
+Assisted-by: LLM
+Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+---
+Changes for v4:
+- .direction_output() now programs PIN_CONFIG_INPUT_ENABLE unconditionally
+  from pad->buffer_type, instead of only clearing it for a CMOS pad,
+  so an open-drain or open-source pad whose input buffer was already off
+  gets it re-enabled rather than falling back to reporting the value last
+  written.
+- Link to v3: https://lore.kernel.org/all/20260924032314.948638-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v3:
+- .direction_output() clears PIN_CONFIG_INPUT_ENABLE only for
+  PMIC_GPIO_OUT_BUF_CMOS pads; open-drain/open-source keep the input
+  buffer so pmic_gpio_get() samples the wire.
+- pmic_gpio_get_direction() now keys on output_enabled instead of
+  input_enabled - required, or an open-drain output reports IN again and
+  the -EPERM regression returns.
+- Link to v2: https://lore.kernel.org/all/20260922065908.477523-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v2:
+- Drop GPIO shared-proxy patch
+- Update Fixes tag (Thanks Neil!)
+- Link to v1: https://lore.kernel.org/all/20260915014447.282121-1-shengchao.guo@oss.qualcomm.com/
+
+ drivers/pinctrl/qcom/pinctrl-spmi-gpio.c | 37 +++++++++++++++++++-----
+ 1 file changed, 29 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
+index f6dc43e27b38..9163bb14d703 100644
+--- a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
++++ b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
+@@ -734,29 +734,50 @@ static int pmic_gpio_get_direction(struct gpio_chip *chip, unsigned pin)
+ 	    (!pad->input_enabled && !pad->output_enabled))
+ 		return -EINVAL;
+ 
+-	/* Make sure the state is aligned on what pmic_gpio_get() returns */
+-	return pad->input_enabled ? GPIO_LINE_DIRECTION_IN : GPIO_LINE_DIRECTION_OUT;
++	/*
++	 * An open-drain or open-source pad keeps its input buffer enabled while
++	 * driving, so the output buffer is what tells the direction.
++	 */
++	return pad->output_enabled ? GPIO_LINE_DIRECTION_OUT : GPIO_LINE_DIRECTION_IN;
+ }
+ 
+ static int pmic_gpio_direction_input(struct gpio_chip *chip, unsigned pin)
+ {
+ 	struct pmic_gpio_state *state = gpiochip_get_data(chip);
+-	unsigned long config;
++	unsigned long configs[2];
+ 
+-	config = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 1);
++	configs[0] = pinconf_to_config_packed(PIN_CONFIG_OUTPUT_ENABLE, 0);
++	configs[1] = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 1);
+ 
+-	return pmic_gpio_config_set(state->ctrl, pin, &config, 1);
++	return pmic_gpio_config_set(state->ctrl, pin, configs,
++				    ARRAY_SIZE(configs));
+ }
+ 
+ static int pmic_gpio_direction_output(struct gpio_chip *chip,
+ 				      unsigned pin, int val)
+ {
+ 	struct pmic_gpio_state *state = gpiochip_get_data(chip);
+-	unsigned long config;
++	struct pmic_gpio_pad *pad = state->ctrl->desc->pins[pin].drv_data;
++	unsigned long configs[2];
+ 
+-	config = pinconf_to_config_packed(PIN_CONFIG_LEVEL, val);
++	/*
++	 * An open-drain or open-source pad only ever drives one rail, so the
++	 * line can still be sampled while the pad is an output.  Keep the input
++	 * buffer enabled for those, so that pmic_gpio_get() reports what is on
++	 * the wire rather than the value last written, and disable it for a
++	 * CMOS pad, so that the pad ends up in DIGITAL_OUTPUT rather than
++	 * DIGITAL_INPUT_OUTPUT.  Program it either way, as the buffer may have
++	 * been left in the opposite state by the bootloader or by an earlier
++	 * direction change with a different buffer type.  gpiolib applies
++	 * PIN_CONFIG_DRIVE_OPEN_DRAIN before calling this, so buffer_type is
++	 * already up to date here.
++	 */
++	configs[0] = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE,
++					     pad->buffer_type != PMIC_GPIO_OUT_BUF_CMOS);
++	configs[1] = pinconf_to_config_packed(PIN_CONFIG_LEVEL, val);
+ 
+-	return pmic_gpio_config_set(state->ctrl, pin, &config, 1);
++	return pmic_gpio_config_set(state->ctrl, pin, configs,
++				    ARRAY_SIZE(configs));
+ }
+ 
+ static int pmic_gpio_get(struct gpio_chip *chip, unsigned pin)
+-- 
+2.43.0
+
