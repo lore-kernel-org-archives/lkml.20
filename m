@@ -1,137 +1,124 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B003218BA
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:49:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EF4D3F54AA;
+	Thu, 24 Sep 2026 11:49:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790250550; cv=none; b=f9n8ZK1Ob0Do7ceGE+ahZmhCKETYxk7ZR8huxOmkVYIeUoyVQ3ZhxR0yEmPA3sfv+MvHyhRoHFs7DC5l/jCghgreXNuK2FiH6MiVdKM2NaImP1RhhYfpAnrPCPswRAZ4y0BAk5HVQbLBXewkAR3J+hK7nRKyTiQ8aHrnq65MJFY=
+	t=1790250555; cv=none; b=ZiAe73QN3hjD7tCYuSudubYClz02Pkau1DPJDjP+zO57UtWtY/62wT8wEFEVW5m0GElI1SzncLxTUHNBXWL16qITp5I0GmW2Qpz8X9svef4zit3E2Fk+VapURE3y9TDK5gMUIskZZQExi3cjKxaNFzIaZ8BK0vb8jRjby/HAUmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790250550; c=relaxed/simple;
-	bh=OcsDKXTJZfmq0qIGGKf9E+bKmE4xgkEDDiDzEYV2m/k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nFLYZHB+KYUQ8q6f5CCz1lj+2itgi6M2h75ce8ASxnGrSl4XxofDTnSUibkm5mwoPeqtbwM9oadlhumw+1yhQxv02fw1m9F97o+3azy7EdnotGya4Ph/f4MfcCBSf2RIgItBhV6UnLuYHSBkzeIwQ71eDlCK73FR59gWGGsl5kc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iuCCpQ5E; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790250555; c=relaxed/simple;
+	bh=REXe1L/G5Swg4gI0yvsyd4VJtJnL+0m2IG48ctLZGqU=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=R3zY2SW+9itGKAacuntTz2QiP2Isl6c+SqoDY0b5f4kOqJMYBYFOUhbu+2JhwnkThAIfRMzk9PeKcFBcDD0bn1lJ+IMnyDBAgKPSIroPSYk4SJ6ZB2FSm9LrkuZjnzBNB5NwgLhlBAp7Fzm6/ia00mTsYNZ6Iw1gPpudiWDRD4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g0MhdNKx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iuCCpQ5E"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398cb5615deso1463675a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:49:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790250549; x=1790855349; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6lZ3igjwc2yFqwfsFsDo7+TnGLNfpdbFLRcAS++D8X0=;
-        b=iuCCpQ5EaEfmLzEFZQ0XLujL966DSVoElM03JhzA3klvxReFwBWDu5+sr6HKFayk2g
-         qInomg5FDKbFoJmnCn7sbMxYlyqWIw+zbg3f9FZEjmvWwDUxcjCRKyh+2faEQbOWq4bS
-         AaG9t8KJkJ65FuRkgb/+8F6UixUWF8BOfE1w135tPqq2PrtmX2htnmET41f6C4QoDUJ0
-         RdMIdoyzHVEkIA31XEJ3KZvpFysOjiyxJqpkFaN14kt4v0LaXk3ol/M6NRMiDipk/rgP
-         MQyTt3hOJOI0ej8IO2oVPQk/fIkpwNaCu/rLrzG2+IMVXXe3CLiCEkQeqiRm1gtThwme
-         /E5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790250549; x=1790855349;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6lZ3igjwc2yFqwfsFsDo7+TnGLNfpdbFLRcAS++D8X0=;
-        b=nhoBbzr/bp4bY8cHSvGfrsfr8cYNoXczEhBxn4tvnzxGPOrXH6xBk/gPQpzlXqf7F+
-         jGuI4z9VNNSl1foUSRqMu5RRZHGYt1qiGb0r8NK7enCKnZ4yS3qEGYrtRc3nKV+B3MHa
-         mXq57MR88kQwDaFbar+rztXDGRGnFtfqASAdcXvhIqBHu+93FOuCJfT3PJfKL7jvlEic
-         7PBBozdInMgyfdtSXtEdnIqpFGWU7qmqL3dsmB9b8cGXlmN/CVBhmZOCtdfB+EUMuKU0
-         x10zkRjojxgKu5rqQJUcOHuVZa9TdjJTWcfUSGlETZ6bfSCwkDozbIKeurNKNAV2QX1n
-         u9Kw==
-X-Forwarded-Encrypted: i=1; AKwUvBypVvuqFMRT3wdAYebHonIUGd/XgZG+80LykjgF+AXPwPEqSIyx/WHgEGVrnDArwoGMf2+udjrRLzx/nOo=@vger.kernel.org
-X-Gm-Message-State: AFuF++n7Sm7pTXOKgIAqWVrc8XIT7ud+ul0KUUdKA891ljEbswN2u68v
-	HBK7fuNcyiBnuHp0IcpboM3UkknyOUpp/rZRx8zyjfN0drx0CrSwB7eQ
-X-Gm-Gg: AYBFou14UIY1elvoW0RwyTlgSms2b3DCkG4Qezvo+Oof4+LCnAAufwEpDlOw4txgXls
-	hPSatoRr8Y6+t7Ebmn4zYVj/l8HCe1VmhQt7TqMJR31josXLK0kCpK6HRsI284+tAvKqFn/TKjy
-	1eA7Drxi5JpLJUbF+n2tu70p4a/zmYF72tKXLlB58JmyqrlM2krVHO80Hdd9HJ64OzPzhhplAnm
-	f2Vf/k6O5i2jsFxafOGl3qAzejP5BMy/iydw3CNxTpwwLW/6exJxtc+z//P+HAKji6UalfriO/g
-	poxE+HaelA+dzgNGv1Ei5yLdA8XKAPXNhGiGHBt2AatKfSJH7X+krpNp9RZBvpdRnSmgz0fohKb
-	B8bSLwLjnjyfpGqbMRDMrdUJuhpcdtdJKMW/ZvqbTS+pQvUp6DaazFyZtcvegJ4foCidUss/NgD
-	d1/ffI4k/GDtNRF/FkloQZcaeCC7syjBXL5u1bkrhkXBL7FHK3DYWE1w==
-X-Received: by 2002:a17:90b:4acb:b0:398:b1eb:136c with SMTP id 98e67ed59e1d1-3a098d43e23mr1937592a91.9.1790250548551;
-        Thu, 24 Sep 2026 04:49:08 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a096b8753csm4771097a91.0.2026.09.24.04.49.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 04:49:08 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>,
-	Kees Cook <kees@kernel.org>,
-	Dan Williams <djbw@kernel.org>,
-	Maciej Sosnowski <maciej.sosnowski@intel.com>,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2] dca: fix provider device memory leak on domain allocation failure
-Date: Thu, 24 Sep 2026 19:49:02 +0800
-Message-ID: <20260924114902.1577261-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g0MhdNKx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEC1A1F000FF;
+	Thu, 24 Sep 2026 11:49:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790250554;
+	bh=rku4KQA7zizHse97lsB6C+F4NuVJGArqTXbgqqfInPc=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=g0MhdNKxQe8UYpGX4/RnEi6/0aLObAe5EkrCEiBvgjgHp6H+oAVv+Zaf7WgA+IDNv
+	 yEz5kwGRWPnfapxq8h6fqm3rsffc92kdVfAeJVrYI+j7Y3KAB8vZyutd4vSB9fscl7
+	 0ZDbc+g95lEJ8cId5H6t5LeMRYxMKmWAaztcM3htNcG9Y1Rz7h51kBirTc9gfRaiiq
+	 yLlDb1njHf4MYIPMcbU5a/XzKRAIO/G7FpT7D1v4i7RIMAJlrgJumHKOlDHOasSASE
+	 iI9S/t4hRFwQUElAO3DWbd8yjMZcgbBGOZX2PjY4fKJZWQip8VRTLpXKbVru0kOICI
+	 NZs4HwRqPqi0A==
+Date: Thu, 24 Sep 2026 06:49:12 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Maxime Ripard <mripard@kernel.org>, linux-fbdev@vger.kernel.org, 
+ Conor Dooley <conor+dt@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>, 
+ linux-kernel@vger.kernel.org, Helge Deller <deller@gmx.de>, 
+ devicetree@vger.kernel.org
+To: Max Pedraza <maximpedraza@gmail.com>
+In-Reply-To: <20260923201035.51007-3-maximpedraza@gmail.com>
+References: <20260923201035.51007-1-maximpedraza@gmail.com>
+ <20260923201035.51007-3-maximpedraza@gmail.com>
+Message-Id: <179025038211.3068273.9854294306608483193.robh@kernel.org>
+Subject: Re: [PATCH v3 2/7] dt-bindings: display: add a device tree
+ supplied boot logo
 
-register_dca_provider() calls dca_sysfs_add_provider() before looking up
-or allocating a DCA domain. If dca_allocate_domain() fails, it returns
--ENODEV without the matching dca_sysfs_remove_provider(), leaving the
-dca%d class device registered and the corresponding IDR entry present.
 
-Route the dca_allocate_domain() failure through a common
-err_remove_provider path that calls dca_sysfs_remove_provider(), and
-reuse it for the existing dca_providers_blocked cleanup.
+On Wed, 23 Sep 2026 22:10:30 +0200, Max Pedraza wrote:
+> Embedded products frequently need a product specific boot logo. Today that
+> means pointing CONFIG_LOGO_LINUX_CLUT224_FILE at a different image, which
+> bakes it into the kernel image: a change of branding, or a second product
+> sharing the same board support package, requires a separate kernel build,
+> and requalifying that kernel for what is a cosmetic change.
+> 
+> Add a binding for a "boot-logo-clut224" node, which carries the logo
+> in the same paletted format the built-in CLUT224 logos already use, plus a
+> few optional properties describing where on the screen it is drawn.
+> 
+> The node lives under /chosen because a logo is configuration handed over by
+> firmware rather than a description of the hardware. Open Firmware, which
+> the device tree descends from, carried a boot logo in the same spirit as
+> the oem-logo variable under /options, and simple-framebuffer nodes live
+> under /chosen today for the same reason.
+> 
+> The palette size is derived from the length of the "clut" property rather
+> than spelled out separately, and "data" holds plain palette indices; the
+> 32 entry offset the frame buffer layer reserves for the console is an
+> implementation detail and is applied by the kernel, not by the binding.
+> 
+> "logo-position" takes -1 on an axis to mean centre on that axis rather than
+> carrying a separate boolean for it. A boolean can only centre both axes or
+> neither, and next to explicit coordinates it would have to override them
+> silently when a device tree gave both.
+> 
+> A rotation turns the logo, not the screen. "logo-position" and
+> "logo-offset" are screen pixels whatever "logo-rotation" says, and a
+> quarter turn only changes how much room the logo takes up. Placing the
+> logo in a frame that turns with it would make the same pair of
+> coordinates mean different places on the same panel, decided by a
+> property that is meant to describe the image.
+> 
+> Every coordinate is bounded. The kernel clamps them anyway, since it cannot
+> trust a device tree, but a value that cannot possibly be meant is worth
+> catching in dtbs_check rather than on the panel.
+> 
+> Signed-off-by: Max Pedraza <maximpedraza@gmail.com>
+> ---
+>  .../bindings/display/boot-logo-clut224.yaml   | 135 ++++++++++++++++++
+>  MAINTAINERS                                   |   1 +
+>  2 files changed, 136 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/boot-logo-clut224.yaml
+> 
 
-The issue was identified by a static analysis tool and confirmed by
-manual code inspection.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-Fixes: 1a5aeeecd550 ("dca: registering requesters in multiple dca domains")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
-v2:
-  - Use a common error path for dca_sysfs_remove_provider() cleanup, as
-    suggested by Markus Elfring.
+yamllint warnings/errors:
 
- drivers/dca/dca-core.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/display/boot-logo-clut224.example.dtb: chosen: 'logo' does not match any of the regexes: '^framebuffer', '^pinctrl-[0-9]+$'
+	from schema $id: http://devicetree.org/schemas/chosen.yaml
 
-diff --git a/drivers/dca/dca-core.c b/drivers/dca/dca-core.c
-index 583510850fad..1acfae12d689 100644
---- a/drivers/dca/dca-core.c
-+++ b/drivers/dca/dca-core.c
-@@ -360,16 +360,15 @@ int register_dca_provider(struct dca_provider *dca, struct device *dev)
- 
- 		if (dca_providers_blocked) {
- 			raw_spin_unlock_irqrestore(&dca_lock, flags);
--			dca_sysfs_remove_provider(dca);
- 			unregister_dca_providers();
--			return -ENODEV;
-+			goto err_remove_provider;
- 		}
- 
- 		raw_spin_unlock_irqrestore(&dca_lock, flags);
- 		rc = dca_pci_rc_from_dev(dev);
- 		newdomain = dca_allocate_domain(rc);
- 		if (!newdomain)
--			return -ENODEV;
-+			goto err_remove_provider;
- 		raw_spin_lock_irqsave(&dca_lock, flags);
- 		/* Recheck, we might have raced after dropping the lock */
- 		domain = dca_get_domain(dev);
-@@ -386,6 +385,10 @@ int register_dca_provider(struct dca_provider *dca, struct device *dev)
- 				     DCA_PROVIDER_ADD, NULL);
- 	kfree(newdomain);
- 	return 0;
-+
-+err_remove_provider:
-+	dca_sysfs_remove_provider(dca);
-+	return -ENODEV;
- }
- EXPORT_SYMBOL_GPL(register_dca_provider);
- 
--- 
-2.43.0
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260923201035.51007-3-maximpedraza@gmail.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
