@@ -1,33 +1,33 @@
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68904E01E4
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:14:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AEE04D9560
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:14:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790284464; cv=none; b=vB0lvMN6Xq7R26qK+iElcoE81m1A8dJZmnzsqBZyzc9/CzV1HSuXuYFR3eenLsSqo6caDQDBpIwnuySEqaWpeS1ez19SzuQHL0V/fneJanvLccterFDnM72dRn0Qah+KoJ33pKi7FRClXxkxbPblfWdxICqpcEGnaSur7TrNfjI=
+	t=1790284466; cv=none; b=hF8UR3c2csYYSBSGGPAQ7DdLlx0Pt2KzSij9GifEAQ8J9+Byr441viUIbReV/AraDuvf1xZQvfTW0Emv13omb+zwTGgy1pOprAvEvu9Xdg8CsJoDMXbJozk1W2rBAyWrsvcih+C8weWSHhTw9n5iJixN9CQQnYcufwRtlBLYEo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790284464; c=relaxed/simple;
-	bh=/xMdARFdv+i7yPr44eAzLUIFGnVxEOHXlBh6UCOZ3F4=;
+	s=arc-20240116; t=1790284466; c=relaxed/simple;
+	bh=Y7JZMLyY7YrUSh+9GBf554nNpEvfCQ22IwTrhoQREOc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IKoq0N0Dt1T5aRt2oU1QBfHWK3ljlKvIdoYx6w2XqmOg5I9e82vida3IZH5cAzcS3RbdMX7NO+Me0p9ly/NrqYhoRVCKXeyqiRym3LUCT9vfnYZBoYx+eGg+yWCrxLZXNqUQKhGQhKgSQTyZ0yFhRagv7Il9Sp1pJhTm0rsv/xQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=XcwxXNo1; arc=none smtp.client-ip=213.97.179.56
+	 MIME-Version; b=ZnMU8xwcRfK0d8UgPmiiAQ7wi4EMWF12Cm2B/vCe+ivC6Gcr4AVdGYcrCkg8ZBWYWYO1W08jZGJNDasaqPAkw2Rgf8PnoPmtxy3eK+KvdhtNIEdn+T8XeqJU+WluCsyasSURYqbksN9fnhY7M9OvD8gV8B0ogUuuKxaoTtIu+tA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=WrClwfXg; arc=none smtp.client-ip=213.97.179.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="XcwxXNo1"
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="WrClwfXg"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
 	s=20170329; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
-	Cc:To:From:From:Reply-To; bh=B3SL+RwYfETd680bdp3EfbyiaDsc5lg1fcQcX5CbXK8=; b=
-	XcwxXNo1K6yHgvFm+dS8pSIwTQqhQl4z8MViDd2520DQXDYt5tii+Y4qdpT1sYqdWdk8rwAGP2hg5
-	Qc/e5SJlWqmae1aiK/eW3y1US9rDtKmVUJGu/eXvnRulg9lxv+i2wakEqJulkPgWxpR9JpVjvBEEJ
-	267GoNjAR4uuW0Vr6PlJJmONV4l+e5I0HJl4QakX3psg+AjhU/y66smamaN1kEv0CG+qzN1xfzFnD
-	qygPhuSEjdV4Jr2heCz6tZQfGzpyid/frgErrt3+PxYhHJ4mbRla/ONJuBB7AcnpFomwzENOJHgz+
-	47jO7Wm3tbJJ18mblodsywriAoJBqgpTlw==;
+	Cc:To:From:From:Reply-To; bh=+VjMkZ3tS0FShslmwCrFzVtn4w0HMmV0NCSm3WPMU3M=; b=
+	WrClwfXgez2i+pCVgHdG1ExAUSjSk5192q6JO7nf70cTdDWCdfm+w76uhGZ1HckzKeZN9AXLI2382
+	WJE2SZeZfIOb4FbZ0LiVfTK7DV4yYR2nkljIM9CavC/yd55SKVlUZKDiQl4xprC1TPARWqKK2K1YA
+	/jJvfG625uqa8SH6YSLGgR1XlImAZbKthnYgbzHRC9IxKeGUd2ooeJz4ztc9QrMKtjJAuY7IdJHG3
+	swTY86Hfcx0EqPnv7k7De8T+2aEee/QKlN/GkBWoRbZCZ18Sz98jX4qjtWKQ05L3c1qQ0znz3YtQs
+	vx5SKX6hQWBS3apY2HPvIPOhJ6y5O7EOFQ==;
 Received: from 113.red-79-144-92.dynamicip.rima-tde.net ([79.144.92.113] helo=killbill)
 	by fanzine2.igalia.com with esmtpsa 
 	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1x9qlh-006qf4-4y; Thu, 24 Sep 2026 23:14:12 +0200
+	id 1x9qlj-006qf4-Gv; Thu, 24 Sep 2026 23:14:15 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com,
 	alexander.deucher@amd.com,
@@ -43,9 +43,9 @@ Cc: amd-gfx@lists.freedesktop.org,
 	Harry.Wentland@amd.com,
 	kernel-dev@igalia.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/8] drm/amd/display: remove duplicated prev_p_state_change_support assignment
-Date: Thu, 24 Sep 2026 23:10:05 +0200
-Message-ID: <20260924211410.867686-3-mwen@igalia.com>
+Subject: [PATCH 6/8] drm/amd/display: remove redundant cast on amdgpu_dc_reg_template printk
+Date: Thu, 24 Sep 2026 23:10:09 +0200
+Message-ID: <20260924211410.867686-7-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260924211410.867686-1-mwen@igalia.com>
 References: <20260924211410.867686-1-mwen@igalia.com>
@@ -57,46 +57,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The prev_p_state_change_support trace entry is assigned and printed
-twice, remove the unnecessary duplicates.
+Commit 0cf5eb76e2b4 ("drm/amd/display: Add tracing to dc") prints and
+casts uint32_t fields in amdgpu_dc_reg_template to unsigned long
+unnecessarily. Just print those fields with %08x and remove the
+redundant cast.
 
-Fixes: 13b5ca42ca9c ("drm/amd/display: Add tracepoint for capturing clocks state")
+Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-index cc70aeb75798..887ebac8c97e 100644
+index 26c85d95bcc0..7de4fe355c5d 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-@@ -523,7 +523,6 @@ TRACE_EVENT(amdgpu_dm_dc_clocks_state,
- 			   __entry->p_state_change_support = clk->p_state_change_support;
- 			   __entry->prev_p_state_change_support = clk->prev_p_state_change_support;
- 			   __entry->pwr_state = clk->pwr_state;
--			   __entry->prev_p_state_change_support = clk->prev_p_state_change_support;
- 			   __entry->dtm_level = clk->dtm_level;
- 			   __entry->max_supported_dppclk_khz = clk->max_supported_dppclk_khz;
- 			   __entry->max_supported_dispclk_khz = clk->max_supported_dispclk_khz;
-@@ -533,8 +532,8 @@ TRACE_EVENT(amdgpu_dm_dc_clocks_state,
- 	    TP_printk("dispclk_khz=%d dppclk_khz=%d disp_dpp_voltage_level_khz=%d dcfclk_khz=%d socclk_khz=%d "
- 		      "dcfclk_deep_sleep_khz=%d fclk_khz=%d phyclk_khz=%d "
- 		      "dramclk_khz=%d p_state_change_support=%d "
--		      "prev_p_state_change_support=%d pwr_state=%d prev_p_state_change_support=%d "
--		      "dtm_level=%d max_supported_dppclk_khz=%d max_supported_dispclk_khz=%d "
-+		      "prev_p_state_change_support=%d pwr_state=%d dtm_level=%d "
-+		      "max_supported_dppclk_khz=%d max_supported_dispclk_khz=%d "
- 		      "bw_dppclk_khz=%d bw_dispclk_khz=%d ",
- 		      __entry->dispclk_khz,
- 		      __entry->dppclk_khz,
-@@ -548,7 +547,6 @@ TRACE_EVENT(amdgpu_dm_dc_clocks_state,
- 		      __entry->p_state_change_support,
- 		      __entry->prev_p_state_change_support,
- 		      __entry->pwr_state,
--		      __entry->prev_p_state_change_support,
- 		      __entry->dtm_level,
- 		      __entry->max_supported_dppclk_khz,
- 		      __entry->max_supported_dispclk_khz,
+@@ -57,9 +57,8 @@ DECLARE_EVENT_CLASS(amdgpu_dc_reg_template,
+ 				   *count = *count + 1;
+ 		    ),
+ 
+-		    TP_printk("reg=0x%08lx, value=0x%08lx",
+-			      (unsigned long)__entry->reg,
+-			      (unsigned long)__entry->value)
++		    TP_printk("reg=0x%08x, value=0x%08x",
++			      __entry->reg, __entry->value)
+ );
+ 
+ DEFINE_EVENT(amdgpu_dc_reg_template, amdgpu_dc_rreg,
 -- 
 2.53.0
 
