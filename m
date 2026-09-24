@@ -1,103 +1,80 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AFAA3FF1C0
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:06:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE6A63FF1C0
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:06:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790240769; cv=none; b=FfAbYkvmLDjltWi0LTvx2IskNNV7qN0TaPRncmRaoew4xhCZ+FSBW9ZE3sfhWesIMDyeOxY6rVYDWJmFKuEaTbY36x8xjIbXOEYJEyujuUHpQMFvw/UPo7/30a8yPCyOJXeBkWgRSGyeKCfV3v4q732JVnsNqFdwe5mdJ1I680w=
+	t=1790240774; cv=none; b=rzhJfVk+HO2z/G6e5bIpQW41tXtcZTbcqydHGHimusf+9Ixk2zUCpHAvAtLr4tyIKZTVdB4N+6KYUrNvYaieRpH7ndqz7PBWeYFACx4pVdtWIISAC0KwBMVtopzTFuf4UKWNXxvyBPa5rtvuJi2zDpF4Lng2A/L/Jp/uSmQJPPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790240769; c=relaxed/simple;
-	bh=poW0PZ5zk0x1aS6ZoUJFhJMAlVCA0awRCniF7sN81mA=;
+	s=arc-20240116; t=1790240774; c=relaxed/simple;
+	bh=ok/KGrVby5oCPw7YHj3CExTD4NS8xQvn2lFiwSDUAFQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hz6F+Q+3GNwxnrsb8b/npoCluYeCsbtUDQV2VFvP6uhTQNdY4YsD3Hld4i1bmMKr32flo10EaJyCwqDX1PRHEQIHAmIl0TGGJ2BbvlZC2VAh9NrWfdF8xuNlOJXomYd1bfbFAGvLTQ0NEA6IUKJFDqN5tqFUL8y+mhOoUQvbMzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PTkDYGRG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NbedwOb+; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=mwolmudfoFsOqnZS7JIQHfPWBJbgGsmWxsuDokF5jlw0EA7UqWe6jtOuMc+U65OlZWIp6GBdgX4FOmCRoX2bRNEbD3gqsHqIqMLqhoPnFOAGeHs5NinFNt8YxT9zFBNKgyeZeCtHd7xRP5lFlA3cT6UIyF5x2NPzd4PuSQHQis0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NkPbC4rP; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PTkDYGRG";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NbedwOb+"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5eWW01741982
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:06:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=KZsUTsJlAuxATif6ogT+hS2X
-	xr5/AGSAeT5fyF5OwXg=; b=PTkDYGRG4BI+pslPifUZbOe64td8IeHDTsLiS4qe
-	llE5Tqv0ElgQ7n0ZJrJFsnOp8p/zzaKC7znWFI7TBfu/19UNhNxW3o8nBattTZhA
-	MtgHYjji6URRqk6dQrSuxW2ZBoxS+I414jmtH9+KCfyfcPwR9J11OMIQr7cXWs+p
-	hVF6Tx2iZ5gA9yvKcBfC+rLoR/smfgL+RLjMo4m/SF40WZAbTZMU//xmkhBS48+A
-	dClHZ3lh9gaCzTOLMmMBKFYXnGBlNgOAPYLO//fJSkt1pKzrs9y3zZYMhHvN5uYG
-	MQtkpXyC5zVQDZ+KpOWo/umG1M5Wdu8mh3uSYucAr78sNw==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvfkbm794-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:06:05 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3282d5302ffso750574eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:06:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NkPbC4rP"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c293c683202so276412166b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:06:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790240765; x=1790845565; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790240771; x=1790845571; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=KZsUTsJlAuxATif6ogT+hS2Xxr5/AGSAeT5fyF5OwXg=;
-        b=NbedwOb+mTyCXrSvlj2a1dY/UxCzuUU7N0fACF90kwaJ+kULhzRm+ZWpE73bSjXpB3
-         0aKN5jQVkx7qBCCZAiBBjBgzK6DND/GiWe8h5ESnrrm1K79s2ZSuJ37hzGtD3wKarNRZ
-         DIQxJ31EeNXLvViRDrd1jI+Ce4WrOBvPQH9kLfpdggwyRJbxPcDOTdSljxbPHmlEUDRC
-         aBpvwpj1qviXpaJSFNVLtbw3PbS957h2c/gNBxRigfCsK8p2TFc55KDCQVy/axG9tnV0
-         T6SDApPrSUCNUxdEMenUIeo91qLGrEsuNf6c2MUqtgJKMLvtz0AI64++4mlhs5c7V611
-         bB/w==
+        bh=FlRZg5cSdQ8+ctfQt6JigMOEPk3Cpgi5VtUV8uoBfp0=;
+        b=NkPbC4rPJqbS263u5WlbxSq+zxJ9+37HiExFjge2c7Z+FsKKourAJu8P0uxnsgeK+X
+         8kq2Mpq5wA7kiZkntkdOQXVMO0bcH7aeoLv3DoFFkBbIcvEu57xdyxN0jqF/IBUF6gU7
+         kRGgcH6Azu1H+flaKXCJkmPknAcvufA4NuNDV8ZvuyGstQI7TSMIEYIOwkx7lLMjYQS+
+         xtr9d2TiolVlpASyn+DNbhTJJhSq9xM59Vb2Op0V7FHNmjD4NwQjn8IdroBVoyJjRHeW
+         D2IWSiDCacGO1vXeDgosEkeAw8Bxg6dGZUAunWEITCBOZUH/ZjcjrX/BaFPVqDW+GHOv
+         8k4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790240765; x=1790845565;
+        d=1e100.net; s=20260707; t=1790240771; x=1790845571;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KZsUTsJlAuxATif6ogT+hS2Xxr5/AGSAeT5fyF5OwXg=;
-        b=usFL71qY7xOV+st43yLR7S4+b1npdFNvA3p/a0ixhP+xYal6QQXrtG7Q1m3hDpztRT
-         Su/Qn59+0ik5U1PvNq33CEgJps9AYhUssj6G0fHaBkDuThEDP/DNUa7x9/Sm9lQi1r6j
-         kOSF133MdnxYdZYh+Vtyv5HqwySweazA+nh8PmlEvdB07zhLI/dbzkp/+PV37y8AB9uk
-         HgZzrCfkYdDEHnLrlo/EWQ6EswHSKI9SVEV5z2Gxl/wSy3dVKleXbdjKTbvEZHGqeaJo
-         4Yv8PgjUIlPh5ppdWo0/Sf7qY4a2zzVccVvNDIaoi/UK/O/jWhAxoDEFHuH6vxpFRx6D
-         3ChQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx+KH23ZkmjRtdIP3Quly6GBBmGUggUNTQbGNZf9EdvbqXn9zOovOzeA0Rvru5eEX5uc1d0zyugIuSf1mo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mSrbrsL5ummhBKiKHqWmhynXv2ZZQo0KZovSQzIGnXUHfJIPCf
-	Zw1uK1kOnfsEpEi4OEb20K7PlnD+OVmtjqaaEDmVWh8Up/nKJYwXTmqO+5VjVBlpgsA2CNXjHtW
-	CwxQYnYCsVwtfpAuG9lllIIV46XbDaErs6nS1wfsFgr88ZyLTzdnS5Y2/PAUJALvWVIE=
-X-Gm-Gg: AYBFou0IzATl1as8kKD3RoHy858GNz0wKol+7Je9b8Ztdi0Iged3FQ2Rvj9Ffbd5yqj
-	kP/xxUIufuQbGjv8UsSzGVU/BeuHpH20jPVzj4a2T+/F8zzBBRLB8SZzzAyJhl292nsnKaho4y3
-	4oQnAphkAaxywK/uF/lVbLijJzJKI6l/qrf9pJ4r+GqUwWoUwXLyeUoJUNhSU7yRSTPDTNLCR1t
-	bM8pZwaBJ83T8GYag0YO7yPGhnntZZarEDbOEK3fkEQFnF3HhnzNNW90fQWQWw852uUDzC3M+6k
-	iII7Cy28u7N7uAdHn6srcnAM4X1HcXnN6igC8w0Qn/VUYgt4pZS2YoInBTmxPhHlWAdPvVsR8jC
-	zgzf8uA5JPmK+nvn6K4C68GPgN2CKNglHZhOFFYkoWA==
-X-Received: by 2002:a05:693c:4144:10b0:33f:ddda:6076 with SMTP id 5a478bee46e88-340039b21d8mr1392569eec.6.1790240764539;
-        Thu, 24 Sep 2026 02:06:04 -0700 (PDT)
-X-Received: by 2002:a05:693c:4144:10b0:33f:ddda:6076 with SMTP id 5a478bee46e88-340039b21d8mr1392540eec.6.1790240763930;
-        Thu, 24 Sep 2026 02:06:03 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e90ec54d8sm12602799eec.0.2026.09.24.02.05.58
+        bh=FlRZg5cSdQ8+ctfQt6JigMOEPk3Cpgi5VtUV8uoBfp0=;
+        b=e3ddFeljQzzhN7yg5sVQxfrz9iPF3jW30WDlDD20ntcI3wSgogcClMyTOmlsB4GSIE
+         rA+X224MFfUK7V1g2PpEvQheetCMVQHZ3em/0fJo1z1XmrDpcpnbA+qx09h2KbdU5Y2i
+         NTsalwjE+yEnkSAF0qXmRvPeJRS14YS7fw1F+8NxKiXhk0q8iS2jkc9hnyDtrGborqg/
+         8/7MwAmPbsZija8mBvVzWU7tJlSr2PQR8FK0tDN13htZUF7Js1d0o+ZLS2xAy7miOj5d
+         oke7XOFdQgDCGJOStX3hKQLo2OL1z6C8M1/Zu220Nyx3r3ZOfLL5JUF/4ZL+NMsqOuUb
+         Bsfg==
+X-Forwarded-Encrypted: i=1; AKwUvBxuRHPU+4vc86QLEdzXdJbae0UXSODoufG4T1NZtoTT6hsfwnW2TJ3hlxto4sUQapppSwJwiTD9R5TrO9I=@vger.kernel.org
+X-Gm-Message-State: AFuF++lpmmPQa+oVhTrpqJrAmiZK3Wk3Gzz0UsOFJ/05F074rzHsEqPX
+	LqTBJOdOxh59gk+VjtIrZ9LhkVjI8sRJoibSj3SCiG+VwUj1m0zT2/eJFoaHLG1unw==
+X-Gm-Gg: AYBFou1XJKj80ec+16OW79Dr56/BoB4PYb+77PvikU5IFFkQWDdlYD+uWA0mLnOuO8o
+	ZbQ9h4GFP7pEdcGYYXUWj75An2+pgUHDr7N7zci9nGzyYmLuHe4iZeUah4+0qxGEzfeHFGAgcsM
+	5dZLr71C9lUYBjdMnkptfC//MGgOi99+AAo9ZIBg9cU7HsrUhBQaqOrZEUzp17pm81EK8aIqvb7
+	TVswzkfLN3CbtBg5UmWUyYK+btDm/Qyt3rAKCpqYBjJvgbQTWPlvnGYByan5G0EVPmhBRCGBG2B
+	8yKkf33hohn2fy8x4npP3pNTx781UcUGGU/X1WIfXGeU+s0KeASeOVVFDqOffLhUKH2KwBXQ0TG
+	NsxdX+6IX2amgwLFqd1bJGkcrisBeMqaNdZDZumRFvfeCgA50aqZjbyLQWBVglYU6Kw1dh4dvd3
+	jMnIfYk7aezp/EUw0O0hgaC8/YUVi8FQN5Vi8DFFxeO8ZTxQGzmuRKevv2o5a/VRFM9Qs9CqaOf
+	C4BU6TWDp3desR8rOZ4XxVkByLnkBCIZ5UE+iAtdL4=
+X-Received: by 2002:a17:907:9445:b0:c29:386c:58f2 with SMTP id a640c23a62f3a-c2ac232a3cfmr154324966b.38.1790240768840;
+        Thu, 24 Sep 2026 02:06:08 -0700 (PDT)
+Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886876c417sm12388713f8f.18.2026.09.24.02.06.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 02:06:03 -0700 (PDT)
-Date: Thu, 24 Sep 2026 17:05:56 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: [PATCH v2 3/3] clk: qcom: dprxcc: Add Nord DPRX clock controller
- support
-Message-ID: <arTn9HKZGNSUxt0j@QCOM-aGQu4IUr3Y>
-References: <20260924-nords_dprx-v2-0-fa4364e087ef@oss.qualcomm.com>
- <20260924-nords_dprx-v2-3-fa4364e087ef@oss.qualcomm.com>
+        Thu, 24 Sep 2026 02:06:08 -0700 (PDT)
+Date: Thu, 24 Sep 2026 10:06:04 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	linux-trace-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com,
+	syzbot@lists.linux.dev,
+	syzbot+de3d7f9bcc9212f3fae1@syzkaller.appspotmail.com
+Subject: Re: [PATCH v2] ring-buffer: Fix false warning in
+ ring_buffer_map_get_reader()
+Message-ID: <arTnSXtsVHSomoAm@google.com>
+References: <15bc282f-669e-4a94-911d-bb435513461f@mail.kernel.org>
+ <20260924084946.20104-1-krystianmkaniewski@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -106,42 +83,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260924-nords_dprx-v2-3-fa4364e087ef@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAzOCBTYWx0ZWRfX0byZqXHHezpF
- Lr5u69xrRcxXNsnib10sBOdGvhYfUUoPkQRWErTVZ5eNpRocTLfXhvkHKV+SBRpbxEhh/4mOd33
- a1JkJh3167RCX2wgLz5XM2bPa2yxPT8=
-X-Proofpoint-GUID: 8D2sh0JaDeYIRkzft-m60xyztoF-k5dg
-X-Authority-Analysis: v=2.4 cv=RYMFmFtv c=1 sm=1 tr=0 ts=6ab4e7fd cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=geveDRkZF6hWoGEvibMA:9 a=CjuIK1q_8ugA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAzOCBTYWx0ZWRfX+TlQmb4uXpUt
- 03R1Q1oS68vaA+toUSGsV1p1zHx9fBQES8UkpH3iAuAc9fV4mobU1TAII670ErHubjwLqkPnq00
- OxAbmeSmssOj6Nsea5i/w9dRQ9E08Mboum1tzsnLarQruyCytrq0mzrwrCeGuowS6Xk8B2RMTZN
- 3i9V4SrW65JM6erFlW3KI7LugOTtv7IlxQ4KZfOSF5vDhXHiEN8T9uFO8EsPFKd5KjlJENufUii
- EyPkmjlq8n40w35SyECbZiYZ7OZgvN/BJgzdY0lah5uMAa8FvF2p68Nb4Y20sjuwH7OThqAGHO5
- vMQOqhIhf0aBZua7Lz3pV0fAjCwVrsgVqy6PRZNCOOVKzfrxc9ADoSH7oNnJGs//7LKtcLC2l8z
- mV4XRq7NuOpWO8L5vtlZ/8UbCkcHYjHnO6EVW5+xfRAW17XdvKg21Mv7SRyOBftkvxnv7LACo4x
- JS7q3O1B0w7ocGdc++w==
-X-Proofpoint-ORIG-GUID: 8D2sh0JaDeYIRkzft-m60xyztoF-k5dg
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- adultscore=0 impostorscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240038
+In-Reply-To: <20260924084946.20104-1-krystianmkaniewski@gmail.com>
 
-On Thu, Sep 24, 2026 at 12:51:33AM +0530, Taniya Das wrote:
-> Add support for the DisplayPort Receiver (DPRX) clock controllers on
-> Nord devices. There are two identical DPRX clock controller
-> instances (DPRX0 and DPRX1), each providing clocks for the DPRX core,
-> audio, AHB and video memory paths, along with core PLLs.
+On Thu, Sep 24, 2026 at 10:49:42AM +0200, Krystian Kaniewski wrote:
+> The mmap reader can warn when it catches up with a writer that is still
+> committing events. rb_get_reader_page() returns NULL in this case, but
+> ring_buffer_map_get_reader() treats that result as an error.
 > 
-> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+> The initial rb_per_cpu_empty() check filters out an empty buffer, but it
+> does not guarantee that the next reader page has committed data. Writers
+> do not take reader_lock and can advance commit_page before publishing the
+> committed length on the new page. rb_get_reader_page() can swap to that
+> page, catch up with the writer and return NULL.
+> 
+> Handle NULL through the existing no-data exit without warning. Remove the
+> caller's reader_page == commit_page check as well, since the reader-page
+> helper already handles that case. The existing metadata update and return
+> path remain in place.
+> 
+> Fixes: 117c39200d9d ("ring-buffer: Introducing ring-buffer mapping functions")
+> Assisted-by: Gemini:gemini-3.8-flash syzbot
+> Reported-by: syzbot+de3d7f9bcc9212f3fae1@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=de3d7f9bcc9212f3fae1
+> Link: https://syzkaller.appspot.com/ai_job?id=488adc18-a10e-42d2-a205-25327c38837f
+> Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+> ---
+> Changes since v1:
+> - Rewrite the commit message to explain the race more concisely.
+> - Clarify why the earlier empty-buffer check does not exclude this case.
+> - Remove the redundant reader_page == commit_page check, as discussed
+>   with Vincent. Let rb_get_reader_page() handle the caught-up reader.
+> 
+> v1: https://lore.kernel.org/all/15bc282f-669e-4a94-911d-bb435513461f@mail.kernel.org/
+> 
+>  kernel/trace/ring_buffer.c | 6 +-----
+>  1 file changed, 1 insertion(+), 5 deletions(-)
+> 
+> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+> index 9c03a555a6ba..9222fc881bc2 100644
+> --- a/kernel/trace/ring_buffer.c
+> +++ b/kernel/trace/ring_buffer.c
+> @@ -7990,12 +7990,8 @@ consume:
+>  		goto out;
+>  	}
+>  
+> -	/* Did the reader catch up with the writer? */
+> -	if (cpu_buffer->reader_page == cpu_buffer->commit_page)
+> -		goto out;
+> -
+>  	reader = rb_get_reader_page(cpu_buffer);
+> -	if (WARN_ON(!reader))
+> +	if (!reader)
+>  		goto out;
+>  
+>  	/* Check if any events were dropped */
+> 
+> base-commit: df2908090cda368b01ff43709f51890076c56157
+> -- 
+> 2.53.0
 
-Reviewed-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
+
