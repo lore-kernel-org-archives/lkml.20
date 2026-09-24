@@ -1,185 +1,241 @@
-Received: from mta1.migadu.com (out-55.mta1.migadu.com [95.215.58.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1FDF4C14FC
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:34:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.55
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C0D54CB8CF
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:34:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790271290; cv=none; b=Yfp9URXFv8l6yH96WGAOlAJJJjGUXjUzxABCKkqEVbWx5dWiovkKAl9fBvG90GFBaud0cBbQQfUCIaC+15GlkbunBWnTekOlC8pNOnfzI0scAK+by51nlF9euSyl2p/Qdj/mFax1ynRoTewC+tj84HpzHQ1hXasa8SfEACjEgxA=
+	t=1790271292; cv=none; b=TQF3q9gm3bBmBH92GCXmPAYBoJcRWQqXE5hab1BXHYOeO2p+awEYxDbS2beWg3JyfSdOZM+YXBlh7pS7dJOmZ/nUJNFtnHIcDWaXOeLKMRAXdb/sF8/tJDaXfpUiWStBlEP2xFMuymgJOGS3x7U4YxvB044GJFNxEEo2HG2iwYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790271290; c=relaxed/simple;
-	bh=yZ9rx3BhSXpvURnJe/ABajoUQEwR3f64gTF6zXhSG4A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R34/O6iL6w2Wg/MZ/0nytdxuagH8cbv46z/2VBE1hqJYP8eXVrnWnUJFelN4TVhOrPh9aQrSy8WktoKM7OUpln5Yp5uN9cv3VusJBtnVGyVaXE0q4+WlMjRX6KHksNSK/29GexxvIIy/KvcRvGZBqp9bzYRMIP+y3WEfk7pBTUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=eXIyhv0x; arc=none smtp.client-ip=95.215.58.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790271292; c=relaxed/simple;
+	bh=vHLQ4omo4chT6BRCPX+W+Il8HrwxmtQtQaFyLV2a5ag=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=pGT+zkglHrYqEEwmwJr4fwK54To+lkH128hdyQJkWTllvGJf4FS4X8AxaNGjH9Bl5qSjFFNFU6NkFVvRcc2oRR7uBG9hLYwLWqKI6oYp6EvGCHJtHj/tM9mlGF9v34abP/NAiKZBBCx7SQSqZyzaaVRumVXaLTCUQMtlKGk/CQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=d0YP8BuL; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="eXIyhv0x"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=yZ9rx3BhSXpvURnJe/ABajoUQEwR3f64gTF6zXhSG4A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790271285; v=1; x=1790876085;
- b=eXIyhv0xDXKE67etXQkciRnH5wrZZCL15bAs52OSyDhWO1szxdIIqFG5qyM1yPQo900iBoMY
- ve/8mfUmgj0KMjIO2uCl3rd0UesnkjGN0E60hZvSdPo9lV4eVb06gk/YG5aUK+O+2n4ONTJ6LQP
- fOEJA5vDP/X2dqQ6m3i0Gukc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f5cad8d26f570659;
-	Thu, 24 Sep 2026 17:34:45 +0000
-X-Mizu-Trace-ID: f5cad8d26f570659
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <326b26d5-481e-4524-8b9d-c4d54924626e@linux.dev>
-Date: Thu, 24 Sep 2026 18:34:42 +0100
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="d0YP8BuL"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 227941E8D;
+	Thu, 24 Sep 2026 10:34:45 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 534273F86F;
+	Thu, 24 Sep 2026 10:34:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790271288; bh=vHLQ4omo4chT6BRCPX+W+Il8HrwxmtQtQaFyLV2a5ag=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=d0YP8BuLBjbJxtowYq+gsSVPYABYnI7wY98YF7zhQNGFdPsfkx+qeRiPHlyEPRJlR
+	 rpHkRSk17UJYMINfignlRPDr4MJId8kM3crvTL24uVFuZxkQme7LwxlODRrQ2wiEVn
+	 InIwPXB7nApI0L9VP4mkltKcXKeVLqemV3gwzE6k=
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+Date: Thu, 24 Sep 2026 18:33:51 +0100
+Subject: [PATCH v12 13/14] coresight: etm3x: rename local config as
+ curr_config referring drvdata->curr_config
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND v7 11/29] mm: split PMD swap entries into PTE swap
- entries
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, chrisl@kernel.org,
- kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org
-Cc: ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>,
- willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
- riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org,
- baohua@kernel.org, dev.jain@arm.com, baolin.wang@linux.alibaba.com,
- Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
- ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>,
- lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com,
- shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
- luizcap@redhat.com, kernel-team@meta.com
-References: <20260914122950.3283997-1-usama.arif@linux.dev>
- <20260914122950.3283997-12-usama.arif@linux.dev>
- <7f6eb404-8139-4208-88eb-03ea8a4bf3a9@kernel.org>
-Content-Language: en-US
-From: Usama Arif <usama.arif@linux.dev>
-In-Reply-To: <7f6eb404-8139-4208-88eb-03ea8a4bf3a9@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260924-separate_etm_cfg_v2-v12-13-a2b41d2f7c2b@arm.com>
+References: <20260924-separate_etm_cfg_v2-v12-0-a2b41d2f7c2b@arm.com>
+In-Reply-To: <20260924-separate_etm_cfg_v2-v12-0-a2b41d2f7c2b@arm.com>
+To: Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>, 
+ Leo Yan <leo.yan@arm.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, coresight@lists.linaro.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-rt-devel@lists.linux.dev
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Yeoreum Yun <yeoreum.yun@arm.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7320; i=yeoreum.yun@arm.com;
+ h=from:subject:message-id; bh=vHLQ4omo4chT6BRCPX+W+Il8HrwxmtQtQaFyLV2a5ag=;
+ b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqtV8SVy8goDrZWz1OMdm9o4QYdAffBiZblHNru
+ WhyziwmGJ6JAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCarVfEgAKCRBt1cPRWsUx
+ M/kwC/9fBdEaxWTRW0CqkVdjAstQU3DHQv1/KSJuTwJalX+xmf0XsiwE0SOCgQ32+2ArqUeuoUl
+ wbwEvA+XoM1QpIc4JrlUc6035ySuGT2PBScBOXr07u7G7edrS6jqom9aehrjOWC5D6cGtA+qGtN
+ pAKQYfgW6bPhr2/4OrK3JKBf7RBZmDwNC32pd6ld2Qd8rKWqvkri28T7Ykgt7rjJszlMx5xF3/V
+ F0OVuG5A+Ya/qsHQIPwovVldIRUw1Z0GfRISmC/zNTqQyaQ46v2Z7rQTRIyDXfb19mrDZYBzD5O
+ F7JgrNcvneqH/RDOTE8mpaSUfU84Mquk0x/hEzxuStd4jwCzx09pG4ZyzpBnHL+R8LM3Wom2fRI
+ eh4NcgJGlyZZVdNJqjGffWM5dUx6+V5i/m0an+Y1/7znrHVnZq0xekb5lEeuqPZWPyblfaCIvab
+ o+HhYJpttVpr4N8FxyN+ZDTT3VzpQmspDS57Ga32o+BNhoM2WQEMwJoX/oBQVUl884ToQ=
+X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
+ fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
 
+For readability, rename the local config variable to curr_config in
+places where it refers to drvdata->curr_config.
 
+Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+---
+ drivers/hwtracing/coresight/coresight-etm3x-core.c | 76 +++++++++++-----------
+ 1 file changed, 38 insertions(+), 38 deletions(-)
 
-On 23/09/2026 12:20, David Hildenbrand (Arm) wrote:
-> On 9/14/26 14:28, Usama Arif wrote:
->> Once a PMD can hold a swap entry, everything that splits a PMD - mprotect()
->> or munmap() over part of the range, MADV_FREE, a pagewalk with no PMD
->> handler - has to be able to split that entry too, or the callers that rely
->> on split_huge_pmd() to hand them a PTE table would find the PMD unchanged.
->>
->> No reference counting is needed: a swap entry pins no folio, and swap_map
->> is already one per slot, so the PTEs simply take over what the PMD held.
->>
->> The migration-only entry point cannot reach the new branch, because
->> page_vma_mapped_walk() never hands back a swap PMD for the folio being
->> migrated. Warn if that ever changes, and force the regular split anyway,
->> since the branch leaves folio and page uninitialised.
->>
->> Test the pre-split old_pmd rather than re-reading *pmd in the trailing
->> folio_remove_rmap_pmd() gate, so every entry-type test in the function
->> interrogates the same snapshot. That part is cosmetic: pmdp_invalidate()
->> leaves the PMD present as far as software is concerned.
->>
->> Signed-off-by: Usama Arif <usama.arif@linux.dev>
->> ---
->>  mm/huge_memory.c | 36 +++++++++++++++++++++++++++++++++++-
->>  1 file changed, 35 insertions(+), 1 deletion(-)
->>
->> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
->> index 873887aed0bc2..0e347a545588c 100644
->> --- a/mm/huge_memory.c
->> +++ b/mm/huge_memory.c
->> @@ -3304,6 +3304,21 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
->>  			folio_add_anon_rmap_ptes(folio, page, HPAGE_PMD_NR,
->>  						 vma, haddr, rmap_flags);
->>  		}
->> +	} else if (pmd_is_swap_entry(*pmd)) {
->> +		/*
->> +		 * A PMD swap entry has no page, so it cannot be turned into
->> +		 * PTE migration entries.  page_vma_mapped_walk() never hands
->> +		 * one back for the folio being migrated, so this should not
->> +		 * happen; warn, but also force the regular split so that a
->> +		 * broken invariant cannot make the code below dereference the
->> +		 * uninitialised folio and page.
-> 
-> I disagree with the force (and the comment). We cannot make each and every
-> assertion that never happens (unless someone messes up real bad and would find
-> this during early testing) have recovery code.
+diff --git a/drivers/hwtracing/coresight/coresight-etm3x-core.c b/drivers/hwtracing/coresight/coresight-etm3x-core.c
+index ca2ba179b6fb..0cad9ecb49b6 100644
+--- a/drivers/hwtracing/coresight/coresight-etm3x-core.c
++++ b/drivers/hwtracing/coresight/coresight-etm3x-core.c
+@@ -309,7 +309,7 @@ static int etm_parse_event_config(struct etm_drvdata *drvdata,
+ 				  struct perf_event *event)
+ {
+ 	const struct etm_caps *caps = &drvdata->caps;
+-	struct etm_config *config = &drvdata->curr_config;
++	struct etm_config *curr_config = &drvdata->curr_config;
+ 	struct perf_event_attr *attr = &event->attr;
+ 	u8 ts_level;
+ 
+@@ -317,28 +317,28 @@ static int etm_parse_event_config(struct etm_drvdata *drvdata,
+ 		return -EINVAL;
+ 
+ 	/* Clear configuration from previous run */
+-	memset(config, 0, sizeof(struct etm_config));
++	memset(curr_config, 0, sizeof(struct etm_config));
+ 
+ 	if (attr->exclude_kernel)
+-		config->mode = ETM_MODE_EXCL_KERN;
++		curr_config->mode = ETM_MODE_EXCL_KERN;
+ 
+ 	if (attr->exclude_user)
+-		config->mode = ETM_MODE_EXCL_USER;
++		curr_config->mode = ETM_MODE_EXCL_USER;
+ 
+ 	/* Always start from the default config */
+-	etm_set_default(config);
++	etm_set_default(curr_config);
+ 
+ 	/*
+ 	 * By default the tracers are configured to trace the whole address
+ 	 * range.  Narrow the field only if requested by user space.
+ 	 */
+-	if (config->mode)
+-		etm_config_trace_mode(config);
++	if (curr_config->mode)
++		etm_config_trace_mode(curr_config);
+ 
+-	config->ctrl = 0;
++	curr_config->ctrl = 0;
+ 
+ 	if (ATTR_CFG_GET_FLD(attr, cycacc))
+-		config->ctrl |= ETMCR_CYC_ACC;
++		curr_config->ctrl |= ETMCR_CYC_ACC;
+ 
+ 	ts_level = max(ATTR_CFG_GET_FLD(attr, timestamp),
+ 		       ATTR_CFG_GET_FLD(attr, deprecated_timestamp));
+@@ -350,7 +350,7 @@ static int etm_parse_event_config(struct etm_drvdata *drvdata,
+ 	}
+ 
+ 	if (ts_level)
+-		config->ctrl |= ETMCR_TIMESTAMP_EN;
++		curr_config->ctrl |= ETMCR_TIMESTAMP_EN;
+ 
+ 	/*
+ 	 * Possible to have cores with PTM (supports ret stack) and ETM (never
+@@ -358,7 +358,7 @@ static int etm_parse_event_config(struct etm_drvdata *drvdata,
+ 	 * - trace will still continue normally otherwise.
+ 	 */
+ 	if (ATTR_CFG_GET_FLD(attr, retstack) && (caps->retstack))
+-		config->ctrl |= ETMCR_RETURN_STACK;
++		curr_config->ctrl |= ETMCR_RETURN_STACK;
+ 
+ 	return 0;
+ }
+@@ -368,7 +368,7 @@ static int etm_enable_hw(struct etm_drvdata *drvdata)
+ 	int i, rc;
+ 	u32 etmcr;
+ 	const struct etm_caps *caps = &drvdata->caps;
+-	struct etm_config *config = &drvdata->curr_config;
++	struct etm_config *curr_config = &drvdata->curr_config;
+ 	struct coresight_device *csdev = drvdata->csdev;
+ 
+ 	CS_UNLOCK(drvdata->csa.base);
+@@ -391,39 +391,39 @@ static int etm_enable_hw(struct etm_drvdata *drvdata)
+ 	etmcr &= ~ETM3X_SUPPORTED_OPTIONS;
+ 	etmcr |= caps->port_size;
+ 	etmcr |= ETMCR_ETM_EN;
+-	etm_writel(drvdata, config->ctrl | etmcr, ETMCR);
+-	etm_writel(drvdata, config->trigger_event, ETMTRIGGER);
+-	etm_writel(drvdata, config->startstop_ctrl, ETMTSSCR);
+-	etm_writel(drvdata, config->enable_event, ETMTEEVR);
+-	etm_writel(drvdata, config->enable_ctrl1, ETMTECR1);
+-	etm_writel(drvdata, config->fifofull_level, ETMFFLR);
++	etm_writel(drvdata, curr_config->ctrl | etmcr, ETMCR);
++	etm_writel(drvdata, curr_config->trigger_event, ETMTRIGGER);
++	etm_writel(drvdata, curr_config->startstop_ctrl, ETMTSSCR);
++	etm_writel(drvdata, curr_config->enable_event, ETMTEEVR);
++	etm_writel(drvdata, curr_config->enable_ctrl1, ETMTECR1);
++	etm_writel(drvdata, curr_config->fifofull_level, ETMFFLR);
+ 	for (i = 0; i < caps->nr_addr_cmp; i++) {
+-		etm_writel(drvdata, config->addr_val[i], ETMACVRn(i));
+-		etm_writel(drvdata, config->addr_acctype[i], ETMACTRn(i));
++		etm_writel(drvdata, curr_config->addr_val[i], ETMACVRn(i));
++		etm_writel(drvdata, curr_config->addr_acctype[i], ETMACTRn(i));
+ 	}
+ 	for (i = 0; i < caps->nr_cntr; i++) {
+-		etm_writel(drvdata, config->cntr_rld_val[i], ETMCNTRLDVRn(i));
+-		etm_writel(drvdata, config->cntr_event[i], ETMCNTENRn(i));
+-		etm_writel(drvdata, config->cntr_rld_event[i],
++		etm_writel(drvdata, curr_config->cntr_rld_val[i], ETMCNTRLDVRn(i));
++		etm_writel(drvdata, curr_config->cntr_event[i], ETMCNTENRn(i));
++		etm_writel(drvdata, curr_config->cntr_rld_event[i],
+ 			   ETMCNTRLDEVRn(i));
+-		etm_writel(drvdata, config->cntr_val[i], ETMCNTVRn(i));
++		etm_writel(drvdata, curr_config->cntr_val[i], ETMCNTVRn(i));
+ 	}
+-	etm_writel(drvdata, config->seq_12_event, ETMSQ12EVR);
+-	etm_writel(drvdata, config->seq_21_event, ETMSQ21EVR);
+-	etm_writel(drvdata, config->seq_23_event, ETMSQ23EVR);
+-	etm_writel(drvdata, config->seq_31_event, ETMSQ31EVR);
+-	etm_writel(drvdata, config->seq_32_event, ETMSQ32EVR);
+-	etm_writel(drvdata, config->seq_13_event, ETMSQ13EVR);
+-	etm_writel(drvdata, config->seq_curr_state, ETMSQR);
++	etm_writel(drvdata, curr_config->seq_12_event, ETMSQ12EVR);
++	etm_writel(drvdata, curr_config->seq_21_event, ETMSQ21EVR);
++	etm_writel(drvdata, curr_config->seq_23_event, ETMSQ23EVR);
++	etm_writel(drvdata, curr_config->seq_31_event, ETMSQ31EVR);
++	etm_writel(drvdata, curr_config->seq_32_event, ETMSQ32EVR);
++	etm_writel(drvdata, curr_config->seq_13_event, ETMSQ13EVR);
++	etm_writel(drvdata, curr_config->seq_curr_state, ETMSQR);
+ 	for (i = 0; i < caps->nr_ext_out; i++)
+ 		etm_writel(drvdata, ETM_DEFAULT_EVENT_VAL, ETMEXTOUTEVRn(i));
+ 	for (i = 0; i < caps->nr_ctxid_cmp; i++)
+-		etm_writel(drvdata, config->ctxid_pid[i], ETMCIDCVRn(i));
+-	etm_writel(drvdata, config->ctxid_mask, ETMCIDCMR);
+-	etm_writel(drvdata, config->sync_freq, ETMSYNCFR);
++		etm_writel(drvdata, curr_config->ctxid_pid[i], ETMCIDCVRn(i));
++	etm_writel(drvdata, curr_config->ctxid_mask, ETMCIDCMR);
++	etm_writel(drvdata, curr_config->sync_freq, ETMSYNCFR);
+ 	/* No external input selected */
+ 	etm_writel(drvdata, 0x0, ETMEXTINSELR);
+-	etm_writel(drvdata, config->timestamp_event, ETMTSEVR);
++	etm_writel(drvdata, curr_config->timestamp_event, ETMTSEVR);
+ 	/* No auxiliary control selected */
+ 	etm_writel(drvdata, 0x0, ETMAUXCR);
+ 	etm_writel(drvdata, drvdata->traceid, ETMTRACEIDR);
+@@ -562,17 +562,17 @@ static void etm_disable_hw(struct etm_drvdata *drvdata)
+ {
+ 	int i;
+ 	const struct etm_caps *caps = &drvdata->caps;
+-	struct etm_config *config = &drvdata->curr_config;
++	struct etm_config *curr_config = &drvdata->curr_config;
+ 	struct coresight_device *csdev = drvdata->csdev;
+ 
+ 	CS_UNLOCK(drvdata->csa.base);
+ 	etm_set_prog(drvdata);
+ 
+ 	/* Read back sequencer and counters for post trace analysis */
+-	config->seq_curr_state = (etm_readl(drvdata, ETMSQR) & ETM_SQR_MASK);
++	curr_config->seq_curr_state = (etm_readl(drvdata, ETMSQR) & ETM_SQR_MASK);
+ 
+ 	for (i = 0; i < caps->nr_cntr; i++)
+-		config->cntr_val[i] = etm_readl(drvdata, ETMCNTVRn(i));
++		curr_config->cntr_val[i] = etm_readl(drvdata, ETMCNTVRn(i));
+ 
+ 	etm_set_pwrdwn(drvdata);
+ 	coresight_disclaim_device_unlocked(csdev);
 
-Yeah that makes sense, I will fix it for next revision.> 
-> The real bug would be calling split_pmd_to_migration_entries() with something
-> unexpected. See my reply to #10 where we bail out earlier
-> 
-> 
->> +		 */
->> +		VM_WARN_ON_ONCE(use_migration_entries);
->> +		use_migration_entries = false;
-> 
-> Can we just have on the beginning of the function a check that
-> use_migration_entries is only ever set on present PMDs or device-private entries.
+-- 
+2.43.0
 
-I have moved it into the previous patch (#10) as
-
-  VM_WARN_ON_ONCE(to_migration_entries && !pmd_present(*pmd) &&
-                  !pmd_is_device_private_entry(*pmd));
-> 
->> +		old_pmd = *pmd;
->> +		soft_dirty = pmd_swp_soft_dirty(old_pmd);
->> +		uffd_wp = pmd_swp_uffd(old_pmd);
->> +		anon_exclusive = pmd_swp_exclusive(old_pmd);
->>  	} else {
->>  		/*
->>  		 * Up to this point the pmd is present and huge and userland has
->> @@ -3440,6 +3455,25 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
->>  			VM_WARN_ON(!pte_none(ptep_get(pte + i)));
->>  			set_pte_at(mm, addr, pte + i, entry);
->>  		}
->> +	} else if (pmd_is_swap_entry(old_pmd)) {
->> +		const softleaf_t old_entry = softleaf_from_pmd(old_pmd);
->> +		pte_t pte_swp_entry;
->> +		swp_entry_t entry;
->> +
->> +		for (i = 0, addr = haddr; i < HPAGE_PMD_NR;
->> +		     i++, addr += PAGE_SIZE) {
-> 
-> Just squeeze it into one line like the other instances.
-
-Done for next revision.> 
->> +			entry = swp_entry(swp_type(old_entry),
->> +					  swp_offset(old_entry) + i);
-> 
-> Didn't we have a helper to advance by a delta? Ah, yes, pte_move_swp_offset().
-> 
-> I guess one could construct the initial pte and then advance one by one through
-> pte_move_swp_offset(). Won't remove a lot of code, though, so just a thought.
-> 
-
-
-Done, it reads better than I expected, because the three bit tests
-hoist out of the loop rather than running HPAGE_PMD_NR times:
-
-  } else if (pmd_is_swap_entry(old_pmd)) {
-          pte_t entry = softleaf_to_pte(softleaf_from_pmd(old_pmd));
-
-          if (soft_dirty)
-                  entry = pte_swp_mksoft_dirty(entry);
-          if (uffd_wp)
-                  entry = pte_swp_mkuffd(entry);
-          if (anon_exclusive)
-                  entry = pte_swp_mkexclusive(entry);
-
-          for (i = 0, addr = haddr; i < HPAGE_PMD_NR;
-               i++, addr += PAGE_SIZE) {
-                  VM_WARN_ON(!pte_none(ptep_get(pte + i)));
-                  set_pte_at(mm, addr, pte + i, entry);
-                  entry = pte_next_swp_offset(entry);
-          }
-
-
-> Apart from that LGTM.
-> 
-
-Thanks for the reviews!!
