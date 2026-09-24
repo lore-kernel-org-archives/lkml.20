@@ -1,101 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B342E44CACA
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:59:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D30BC479880;
+	Thu, 24 Sep 2026 11:59:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790251158; cv=none; b=L0rmIryroGREXit5uo52mCb7vOKRkMf8ZzRn45YoivdEu+wSt4RDEiZ+A5/n4PMLWlchkg67Mo0q8RGT4yvv7C9EdRWz7sbJSTAJ76RNMJCLj3RAJWOl2qi+5jAg8giDkuFjhsQacYWdB8ARp5CwJsSp6lGvEO5x/h4Xy6hzGrs=
+	t=1790251170; cv=none; b=mOylZOAOKET+OXqMf5nVVdoa8ge/GYqjZqVy+8WIXL9KbnCp7YqGh4gRKsHe4Mc8Ns5lPkq48JJS2dyeNz7noVDOkA9XMCLhm1GZ+1kQywmSiVZA5FNejXxz3Ltk5zODb3dVjyeRzLoQX4V4bOba/JMOdrsN2PMHdgonB2Bu+Jg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790251158; c=relaxed/simple;
-	bh=BfvuYwJisdL/+vp9nxm8DdiNdUg3WDdDwC6sdbbSx2E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RPUn3ad4lW9Ee+upYUFmUNMz+SW6iokG5KYAZHVojzFqgof+rddZn4ehHIRf1I0dZ7GqQM9hPiTFrQLV/AkUDXBNN4BufEoHWZpajoM+RuI3G4wt9nOYRAM1gprk5viUJwebWcQvxKnx38ou2QBTk1IvlkWlRWK3yqxy5ulnyGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lzP+LRFf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790251170; c=relaxed/simple;
+	bh=774qvqqgMWYaywwJKJV4TivlBOUbwJtduazkCcl5ayc=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=S+ylNPGZ3dfAqlIqpaDsPTqjBOZE/ZyvXsvCNd+hv7f4GbgU/QHMK4+6y1GVv9xs1UyEEsLYRbusykGJZmeBZIi22GK29viXTrYOv0fdKA/AeEjRHZ+sFIGaahSniNrLdr+aI74y6xVWswZL3mmdHlij4D2OyFT934jWb8rhzo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KvE8rhzN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lzP+LRFf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 871B21F000FF;
-	Thu, 24 Sep 2026 11:59:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KvE8rhzN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F1021F00898;
+	Thu, 24 Sep 2026 11:59:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790251157;
-	bh=/iMzx0ra6XjxKB83P3JLyN/uam31zIhfCPXQzS8z3X8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lzP+LRFf1A/gGTwHiMd/8TFwtl4lR3cgEKdUo3MfQOcghTkjfM/FZjSONVJQeRw40
-	 DIeh4CIs1XBSnUJBbBSH2K66zHm0uH6Af5voA0BMXnqiTlw4mkQlY2pxqrN3GfPerl
-	 mIAs4ke7b1O2M5E2oHU5+SBTRvlyfizRg4M4NiCeHWgZ07QX6Ta/XrgUfIyn8ReQto
-	 tJU6B7TlnS1sJNLne4VBlJ0BNkuBoKFysrQIILRBjhyUV1mtk0lz8UEvYO2UmblYgP
-	 oz2fUgjdNY2PAcJHuAOIjcylHpmh/wGZ/ypLmlWSQ8qxL5eBNMN7h9sLj83UvVAyLM
-	 balpjZ3BeeMxA==
-Date: Thu, 24 Sep 2026 17:28:48 +0530
-From: Naveen N Rao <naveen@kernel.org>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>, 
-	linux-kernel@vger.kernel.org, x86@kernel.org, Thomas Gleixner <tglx@linutronix.de>, 
-	Ingo Molnar <mingo@redhat.com>, Bharata B Rao <bharata@amd.com>, 
-	Manali Shukla <manali.shukla@amd.com>, Nikunj A Dadhania <nikunj@amd.com>, 
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: Re: [PATCH RESEND v4 2/3] x86/apic: Introduce a variable to track
- the number of EILVT registers
-Message-ID: <arUKzQZx77r49plq@blrnaveerao1>
-References: <cover.1788425679.git.naveen@kernel.org>
- <99275fc7531b5c8708e2be8459251c9169b0ce63.1788425679.git.naveen@kernel.org>
- <20260922053610.GBarITypxf7zPAB83g@fat_crate.local>
+	s=k20260515; t=1790251168;
+	bh=rX/taSxhg8kPgoMfcN59II2ZF85nZaKfk+f+Anft+tQ=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=KvE8rhzNZMx9lfkitufzNhcoXcZyJaNPnIqNlpW1VttZUmWAsNk6K7Yq59+l4wJXy
+	 d9gSJ/YQlZTkngyLFxXjXSjenTxuacL0hNaLt8TdNzSYLhUVviiQOiZrub6tR0z0KI
+	 ZEVSwLzVD0fodZvRqv7ZaVxOC7rZqEci1UoUHOA8wwCLTq+NiDIZE4u0jx/XCvLS4V
+	 YY33z6kzAZ1Nhr+KmXHUTDVD81pigLKbBAm3VlE3JPda2jw3xX8lZTI7UwYF28s/fc
+	 6eGzvGneVSs9oHZEPeKuVCtauDyTflr+HAM/crf9Uq6/+0XnF6tv/jlsCw1anL3B1L
+	 Mo1p9houxL+Jw==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 1570B198005A;
+	Thu, 24 Sep 2026 07:59:26 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Thu, 24 Sep 2026 07:59:26 -0400
+X-ME-Sender: <xms:mxC1avZ5pjoMf61qaJh0Ulc5TcHJQhbJUW1MK18F7PbvuujisVx-_w>
+    <xme:mxC1apPFyyjXBRqMdKrlNhUSkjylay1PY8xcvZsxV_XAleVLgwHVez0FHN9TpqHMX
+    y-ayHfeg6aqGYGWMc-QkaXQ-40kNJf-NTB4EC2zXORi7xP0Glusdn_H>
+X-ME-Proxy-Cause: dmFkZTEuyhnv88R/Au/UH9DUc7Nhr6CsqiYYSGJM4wjUlhaSYLJ7g7XkwgeyemxfEiyzL8
+    H42xGZZ5eWVOXyi//ON5parv4gESfkNHKLLmwLfG31oSsvg7cpu+6/Qwnl+vPWUB6J4a0P
+    84k+E5qWn7XSQQAZPMJYIAhHc8a+/ZXw25yicXrYcXjLXS1sSrmSbwhwK8mS2N0hMoKu2Z
+    X3JIjCCXd/r/28hHTqrvEOr+Cl4lNs6TVbxSWBfBlNyL/NGo8dcHxHLLw6R2r+9TlmTkKH
+    8hCCqEZo4la4zzbod5D5X51Tf8s9P0zc/XupezqoiWTGwegagUFNnPi0CMdl6F05MXboi7
+    OC+x2TpLR2MrzWudFLUVJTQtaZExhpSAGW4b9EcYiyovN8rxKD+BlKu9/Vd8BuFBT+Yua3
+    /9zXWdhX/sE5qSEL6vXk1F6XGLpUwmj9FyAsomDeyEd9FDT9KD8kfKT/yQhDsMzgPiMKaX
+    oT/ZjVjfVxck32Ap0hhEH46eo8Iukq0oYdYZ9BRJ2N+BYO6Hl+fGuY6ZCD3n8HpCw4FbTj
+    VhiDihInc66wqF0Ln80mbDAxBWZbNVS3lf2Zab0RP03u9ceIsVbJOxj6HtfslptSkdtmVC
+    xtm5Xh3Mmpm12Jd4fjEZoia0CsNiRqh1Jai5JcMedJk4+dcqkh8hW7i+ciNA
+X-ME-Proxy: <xmx:nhC1ajq-bj2cj5aj5YKe2qClgbxG7kRTZWbCS1gaEjXD1Rd42H9Agg>
+    <xmx:nhC1akK69LVllif-Y_rzzXhx2RKq2h9OIuBjRXTLmxTp_EMKqIzr0Q>
+    <xmx:nhC1auOkTOLscj12UTNZkMLYdjC8nmudanxpQA_guQljjuRvwxFFPA>
+    <xmx:nhC1appytB9vBRtU9xBBkM0AMkZ4cpXsS4AdcAv9QjEGjY9ue0oGCA>
+    <xmx:nhC1apIKsUpszBUllvRXzQbzCexKZOXwQcz9nOmBtkiow1ZuYZO2q5ob>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 6B422F80080; Thu, 24 Sep 2026 07:59:23 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922053610.GBarITypxf7zPAB83g@fat_crate.local>
-
-On Mon, Sep 21, 2026 at 10:36:10PM -0700, Borislav Petkov wrote:
-> On Thu, Sep 03, 2026 at 02:58:40PM +0530, Naveen N Rao (AMD) wrote:
-> > diff --git a/arch/x86/kernel/apic/apic.c b/arch/x86/kernel/apic/apic.c
-> > index 90025451ace2..c990f403ec7f 100644
-> > --- a/arch/x86/kernel/apic/apic.c
-> > +++ b/arch/x86/kernel/apic/apic.c
-> > @@ -410,6 +410,15 @@ int setup_APIC_eilvt(u8 offset, u8 vector, u8 msg_type, u8 mask)
-> >  }
-> >  EXPORT_SYMBOL_GPL(setup_APIC_eilvt);
-> >  
-> > +static __init void init_eilvt(void)
-> > +{
-> > +	if (cpu_feature_enabled(X86_FEATURE_EXTAPIC))
-> > +		apic->eilvt_regs_count = APIC_EFEAT_XLC(apic_read(APIC_EFEAT));
-> > +
-> > +	if (!apic->eilvt_regs_count && boot_cpu_data.x86_vendor == X86_VENDOR_AMD)
-> > +		apic->eilvt_regs_count = APIC_EILVT_NR_AMD_10H;
-> 
-> Why not simply:
-> 
-> 	if (cpu_feature_enabled(X86_FEATURE_EXTAPIC))
-> 		apic->eilvt_regs_count = APIC_EFEAT_XLC(apic_read(APIC_EFEAT));
-> 	else if (boot_cpu_data.x86_vendor == X86_VENDOR_AMD)
-> 		apic->eilvt_regs_count = APIC_EILVT_NR_AMD_10H;
-
-Cause I didn't want to risk changing the current default EILVT register 
-count for some ~2 decade old processor that may be advertising 
-X86_FEATURE_EXTAPIC but encoding a count of zero in APIC_EFEAT.
-
-I did look up BKDGs for some of the older processors, but couldn't work 
-out if this ever was a problem. This was discussed here:
-https://lore.kernel.org/all/agckJQQuLsARA4ul@blrnaveerao1/
-
-> And now I see the big picture - you have a single logical patch - add
-> eilvt_regs_count - and the rest of the code is reorg and cleanup.
-
-Isn't that the case for most patch series? ;)
-
-> 
-> So why are there three patches?
-
-Right, the split reflects how I viewed the changes, and to hopefully 
-simplify the review. Looks like I got the split wrong as it looks to 
-have been counter-productive here.
+Date: Thu, 24 Sep 2026 13:59:02 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Luis Claudio R. Goncalves" <lgoncalv@redhat.com>,
+ "Steve McIntyre" <93sam@debian.org>
+Cc: "Prashant Singh" <singhpra@juniper.net>, "Jeremy Kerr" <jk@ozlabs.org>,
+ linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ "Jonathan Corbet" <corbet@lwn.net>, linux-doc@vger.kernel.org,
+ "Sebastian Andrzej Siewior" <bigeasy@linutronix.de>,
+ "Clark Williams" <clrkwllms@kernel.org>,
+ "Steven Rostedt" <rostedt@goodmis.org>, linux-rt-devel@lists.linux.dev
+Message-Id: <0d23d4f2-b5b8-47c3-a676-f6ec72ecf45d@app.fastmail.com>
+In-Reply-To: <arULLk3ERQmADDBU@redhat.com>
+References: <20260919044124.8268-1-singhpra@juniper.net>
+ <arUD_p0Vn4qyBH_e@redhat.com> <20260924111913.GN3447081@tack.einval.com>
+ <arULLk3ERQmADDBU@redhat.com>
+Subject: Re: [PATCH v2] efivarfs: add nostatfs mount option to skip QueryVariableInfo()
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
 
-Thanks,
-- Naveen
 
+On Thu, 24 Sep 2026, at 13:36, Luis Claudio R. Goncalves wrote:
+> On Thu, Sep 24, 2026 at 12:19:23PM +0100, Steve McIntyre wrote:
+>> Hey all,
+>>=20
+>> On Thu, Sep 24, 2026 at 08:05:34AM -0300, Luis Claudio R. Goncalves w=
+rote:
+>> >On Fri, Sep 18, 2026 at 09:41:24PM -0700, Prashant Singh wrote:
+>> >
+>> >I tested the patch and was quite satisfied with the results, but upo=
+n a
+>> >comment from colleagues I ran a few more tests and noticed (confirme=
+d their
+>> >hunch) that fwupd complains about not being able to get the free spa=
+ce in
+>> >efivars:
+>> >
+>> >  # fwupdmgr get-devices | grep efivars
+>> >  =E2=94=82     Update Error:       getting efivars free space is no=
+t supported
+>> >  =E2=94=82 =E2=94=82   Update Error:       getting efivars free spa=
+ce is not supported
+>> >  ...
+>> >
+>> >I was not able to establish whether that would prevent specific oper=
+ations
+>> >due to the HW I had available for such test.
+>>=20
+>> fwupd will refuse to do some of its updates if it can't read the
+>> efivars free space, in particular updates of the secure boot keyrings
+>> like KEK/DB/DBX.
+>
+> In this case, corroborating with Sashiko findings, it is necessary to =
+have
+> a way to override that default in kernels with PREEMPT_RT enabled. To =
+be used
+> where this is required for firmware updates.
+>
+
+Indeed.
