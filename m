@@ -1,141 +1,271 @@
-Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-104.mta0.migadu.com [91.218.175.104])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 771A03E7BCC;
-	Thu, 24 Sep 2026 23:17:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18BA73D411A
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 23:18:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790291875; cv=none; b=fzb+umYNSyOF2+KMEdLORI/8o9btRSGN+OGVovZZAfSxjmnE7a+20eIqIkpruIHWOaLiqfiybtpVRrSdwQAZPcw/NM3Xc2l25V1QK/ZD/6t0vd8sPpIkOfzIP4R+xUiykp0Zs20n/3JPqwaJSBwDJIitskaeifFSDAlv/fiqv2M=
+	t=1790291905; cv=none; b=QNZOigkOPYIw0z/dIz3mulsaBatYUBw13jyPVE4IzQ1x/bQwQgclJAqUSTKIZr3AUMIv6bzkzKaBlJFYW80GIMe47ijr5u6u/mEKFEj0Ue5Omy7JeQKIujMlAHf2wB9M0TXl3tMHIoFj5KkkVAE0CGiNRAam53MV614jbehVLLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790291875; c=relaxed/simple;
-	bh=r37+e0dh3/Jf+/sV6I4N0uWhgQXrQi0HnMIftUzmUzo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nnteIiDhVCCElyCb7OUf9AV8dPzfliNGx1GeANatATZmh3bIeZTee4bS5Ox64Sw03VBAdclrJAV7mp7WHjnXhIbGh/J2jrlGXDx5dIi9CwjPA0E/mpR8Ukn8JsIyr2r+PEmdXXRjUp27oshLS9JTq/2VXpabqeFt94v66QdfzZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=gfiYt4Bh; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=AI8jySSI; arc=none smtp.client-ip=202.12.124.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	s=arc-20240116; t=1790291905; c=relaxed/simple;
+	bh=1M33bqcpVFqHA/4mDAfYuzXof9ZeZuHj5UucIeyHLLE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uuRAA1IXHQrwiFE8J9mNQ+B9kVYzCMrvkWPZ9EMbXSLEArpLortEKGnuRC4mq5JlamK0HGyHeg/+rnVt0iQGlBt8uHSZ0M6oPawgXcvRHApzOnLY+mfdqDXl/X7xYQaclVdVfFr4wgr9dsltWeJjIvMcRahIX83WzNwEsFFbx9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qyNsE0Su; arc=none smtp.client-ip=91.218.175.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="gfiYt4Bh";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="AI8jySSI"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.stl.internal (Postfix) with ESMTP id 5A9B51D0012D;
-	Thu, 24 Sep 2026 19:17:51 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Thu, 24 Sep 2026 19:17:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1790291871; x=
-	1790378271; bh=EkIBzmmhG1qNHEaj05MzODGJ1wqq2yv0z+g9/Um+w3s=; b=g
-	fiYt4BhK4DTyYOkkX22mOIS6BtPaz8ef37LEUW+1i8VQX20sRizfVM5vTutJ6IoG
-	0ewaRriMf6wqUe+3j8Dqyh/GTag+a+C4fEEQ3SVZztcXCHmpkelpiI2rB3q2apTN
-	tQUQQDx1tUViEVcUrXnhlBcqzRDYM3Zl453ffyJ9rDcRCmVNhS9cRx7TBTI1USq5
-	4LG3WA5iXRwP1VYRA/E2ANK9ztE1Ww1ESUsG/mpnK8T6XsFTdmMnVGBjDSciayNt
-	OzKQwzAa9ZN0fbg/SoXbWnNZPL5cBg/3pDCNMfNzV3t7n6AgSjBEDB+joDOFEP/y
-	pdjxNbDoN7QlKEXlEKvJQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1790291871; x=1790378271; bh=EkIBzmmhG1qNHEaj05MzODGJ1wqq2yv0z+g
-	9/Um+w3s=; b=AI8jySSIPhknOivQkd8TQ1xquNo/7OkV8Y10hcChA/HRbq95/ey
-	9bZR1x81deKQNKmfQm6+jmPbypUbc2GjNcu/WpAB25oP/5DHsUnZmBG9ipVpATOB
-	BjrqoRYJvNAseMcU2H+baahMZH1KpvYgkvR0FYQlfH152zphOt+ut1J3+bEJ/p45
-	WZYCHTun08f8ZqS2hEX2Wlo0RDIu0e2+jl6JlhQz/WDZu1TB5ONZcp2JWmzPmjFo
-	TB/RO4G32LeDkHzkbXRvrmFU1XVlAz7Zfs0LCH2l+SVAv9TPYdgnebhCVhOfIR1a
-	nD16o2NDgtREoS5iLXrCoPD5k4ASzfWgVaQ==
-X-ME-Sender: <xms:nq-1at5Q6u9-MVK3GCF856cRI-oP__T6KfxSFGz6y6bZnCI9Nxg9Gg>
-    <xme:nq-1amUwqgosLN5yyNiy3G3pvTrR1lZ5OaHx18Hz4VYev1yYYMT2sKe9uFL_-kkw_
-    Nn075gljRdmaCdVAr0A2-Pv5C1K06-G1hKLDugQsRyog_W5opA0IWg>
-X-ME-Received: <xmr:nq-1an9s-CwHqdZ72zMfS2DOa65i3Lt2hdhIomF7dfkHfr09xnYm-h7LuvdFNp63i21ZKx9yoEJBz7ajhLQ-Jw2Z0Xk0RQ>
-X-ME-Proxy-Cause: dmFkZTEmnFfhaopq8cy1ZF5DbDxloBLOWH5DGQyfgzbPpBh517TTO5P5ao/xK/agP3KgdL
-    2ClF8MXx7KeuwQIDtbdx0kjaZTef2YxHXClHx7WuW2F5TJRkcI+XIiCt4iPNB2i2FdNwEo
-    Zk5BEKVPpHT6aoBk44qQUhkvtwe3vZnjebt2/+Qucus6YhDpKpXtf2J0dJyxHMwPv07YUX
-    f4p6/jqRFxvOc7xdZ/9dqSOuSVzGTEGBFlfwdDyXUDl8AsxKaHtVMtp/gqMtFJmVWAr8Bh
-    5J65rc9gaaHgNNkKOE67UyVxcrlIQMgaLRl6gCBJ9Lg1H6xfUaydXylq04MFVyhnmAMvPg
-    hlQJYQ/onQNi7dQHQfbOBmyuF8LpsJS6WSAsWhjZ8G8YRQQ7SRerc0ogbhBKakNzc/sM2B
-    1YQMzebfHG8xVUvtoIbogTHDROBqYYP2fcqgc2f8wCnRjDQSxP/pabMAMqFDyQ7xE2EG8N
-    k5Cd7zNjglZEtfKZx+/4I7vJhHOAPp7yF6VUIFEhkfkp7ZhWGRscAbi3kp7DgVnZUqfQ/l
-    HDWSmPwpPAnkrSFEvQnmFaMqC98jZBdA+9JlhtLwHsPWDR4XtnCRIULlWLGZIo7XZ0Tap8
-    kxVBNBnGCi0zqEkSb4gph+eSI6eqskoFiSowNszUEbDMali9PEsZHlYfeDAQ
-X-ME-Proxy: <xmx:n6-1aqkygZmbC4JVLuEC9NQqWEidnUVPr9nsZavygkYFX9HtDtRhIA>
-    <xmx:n6-1atX6ZFRHSYgFhay3TtY5fSMPhbhgqn2RYQRYy1ELaHZC3FcPnQ>
-    <xmx:n6-1avFUVyBQXwzdyi2d8QdmpEvYfoSnOiNomv2axwBIiIbsrgDGQw>
-    <xmx:n6-1apdtwbwNJH3l0v75vUh8vl8nEulzh28cpZU98ZL3GbN9ba8Dlw>
-    <xmx:n6-1an0ucwozN6PoQPe2OwYly5JgCXjg8i_Qj7MvSEhygMpItgv_aayo>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 24 Sep 2026 19:17:49 -0400 (EDT)
-Date: Fri, 25 Sep 2026 08:17:46 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
-	stable@vger.kernel.org
-Subject: Re: [GIT PULL] firewire fixes for v7.3-rc5
-Message-ID: <20260924231746.GA344870@sakamocchi.jp>
-Mail-Followup-To: Linus Torvalds <torvalds@linux-foundation.org>,
-	linux-kernel@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
-	stable@vger.kernel.org
-References: <20260924032636.GA314300@sakamocchi.jp>
- <CAHk-=wjRVQhcCGHCA9LL6oPf5CQe2Sw2ru_Bm-qJz_bp-dZVmg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qyNsE0Su"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1M33bqcpVFqHA/4mDAfYuzXof9ZeZuHj5UucIeyHLLE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790291901; v=1; x=1790896701;
+ b=qyNsE0Suq6acSp01rTOSryknyg7I/9SZjk6uibbLunlhQpi1uHDNCSMBxs5JIk8Y8BQhDl3k
+ UJ7VqNA6gmxrBLt7/D77hwGfMKiLladWXUxRhqTu1JPBj0875T0zBDdDB36NOWTUz8zjfEuZB4Q
+ Gb0RTGmCLTvG61ElQs1SgFdc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1427ee8712c01b06;
+	Thu, 24 Sep 2026 23:18:21 +0000
+X-Mizu-Trace-ID: 1427ee8712c01b06
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <6af94251-fc79-4377-b781-f9b413af1223@linux.dev>
+Date: Thu, 24 Sep 2026 16:18:14 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wjRVQhcCGHCA9LL6oPf5CQe2Sw2ru_Bm-qJz_bp-dZVmg@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH vfs v1] bpf: Allow bpf_d_path() from filp_close_sync()
+To: bot+bpf-ci@kernel.org, brauner@kernel.org, ast@kernel.org,
+ andrii@kernel.org, daniel@iogearbox.net, eddyz87@gmail.com, memxor@gmail.com
+Cc: viro@zeniv.linux.org.uk, jack@suse.cz, neil@brown.name, jolsa@kernel.org,
+ broonie@kernel.org, linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com, martin.lau@kernel.org,
+ yonghong.song@linux.dev, mason@kernel.org
+References: <20260924204226.190315-1-ihor.solodrai@linux.dev>
+ <b3b4cbefd5258ad320205bc708c7864c20a16f39ffd37673fe9cbd534a1ebbca@mail.kernel.org>
+Content-Language: en-US
+From: Ihor Solodrai <ihor.solodrai@linux.dev>
+In-Reply-To: <b3b4cbefd5258ad320205bc708c7864c20a16f39ffd37673fe9cbd534a1ebbca@mail.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 24, 2026 at 06:07:48AM -0700, Linus Torvalds wrote:
-> On Wed, 23 Sept 2026 at 20:26, Takashi Sakamoto <o-takashi@sakamocchi.jp> wrote:
-> >
-> >   git://git.kernel.org/pub/scm/linux/kernel/git/ieee1394/linux1394.git tags/firewire-fixes-7.3-rc5
+On 9/24/26 2:24 PM, bot+bpf-ci@kernel.org wrote:
+>> The d_path selftest closes its descriptors with close_range() so that
+>> its fentry program on filp_close() runs. The vfs commit
+>> 46ace7e4dc4b ("fs: make close_range() synchronous") switched
+>> close_range() to filp_close_sync(), so the program still attaches but
+>> is never called:
+>>
+>>   test_d_path_basic:FAIL:close trampoline for filp_close was not called
+>>
+>> With that series, close(), close_range() and the closes on exec and
+>> exit all go through filp_close_sync(). Few paths still reach
+>> filp_close(), dup2() being one of them, so a program on filp_close()
+>> no longer sees most file closes.
 > 
-> That's actually not a signed tag.
+> Can the commit message clarify which exec closes it refers to? At
+> 46ace7e4dc4b, begin_new_exec() calls do_close_on_exec(), which still
+> closes O_CLOEXEC descriptors with filp_close():
 > 
-> Can you please re-do it with the proper pgp signing?
+> fs/file.c:do_close_on_exec() {
+>     ...
+>     spin_unlock(&files->file_lock);
+>     filp_close(file, files);
+>     cond_resched();
+> }
 > 
->                Linus
+> So close-on-exec stays on filp_close() rather than moving to
+> filp_close_sync(). Only close(2), __range_close() and close_files()
+> were converted in that series. After this patch, a program moved from
+> filp_close to filp_close_sync would silently stop seeing descriptors
+> closed by exec.
+> 
+>>
+>> Allow bpf_d_path() from filp_close_sync(). It takes the same arguments
+>> as filp_close() and the program runs before the file is flushed and
+>> its last reference is dropped, so file->f_path is still valid. Keep
+>> filp_close() in the allowlist for existing programs.
+> 
+> This explains why fentry is safe, but does the reasoning hold for fexit
+> as well? The commit message says "the program runs before the file is
+> flushed and its last reference is dropped," but that applies only to
+> entry, not exit. Looking at filp_close_sync() (a546b2ef2120):
+> 
+>     retval = filp_flush(filp, id);
+>     fput_close_sync(filp);
+> 
+> fput_close_sync() calls __fput() synchronously when this is the last
+> reference. __fput() does:
+> 
+>     dput(dentry);
+>     mntput(mnt);
+>     file_free(file);
+> 
+> So by the time a fexit trampoline runs, the dentry reference is gone
+> and the struct file has gone back to filp_cache (SLAB_TYPESAFE_BY_RCU,
+> reusable immediately). For pipes and sockets (alloc_file_pseudo uses
+> d_alloc_pseudo which sets DCACHE_NORCU), dentry_free() calls __d_free()
+> directly with no RCU delay.
+> 
+>>
+>> Attach the selftest program to filp_close_sync() and keep triggering
+>> it with close_range(), since filp_close_sync() may be inlined into
+>> close().
+>>
+>> Assisted-by: LLM
+>> Signed-off-by: Ihor Solodrai <ihor.solodrai@linux.dev>
+>> diff --git a/kernel/trace/bpf_trace.c b/kernel/trace/bpf_trace.c
+>> index 195f78db9bda..49d5ec983e72 100644
+>> --- a/kernel/trace/bpf_trace.c
+>> +++ b/kernel/trace/bpf_trace.c
+>> @@ -972,6 +972,7 @@ BTF_ID(func, vfs_fallocate)
+>>  BTF_ID(func, dentry_open)
+>>  BTF_ID(func, vfs_getattr)
+>>  BTF_ID(func, filp_close)
+>> +BTF_ID(func, filp_close_sync)
+>>  BTF_SET_END(btf_allowlist_d_path)
+> 
+> Can a fexit program on filp_close_sync() safely call bpf_d_path() on
+> file->f_path that has already been freed? bpf_d_path_allowed() only
+> checks the attach target, not the attach type:
+> 
+>     return btf_id_set_contains(&btf_allowlist_d_path,
+>                                prog->aux->attach_btf_id);
+> 
+> and check_helper_call() uses only this callback to gate the helper.
+> check_attach_target() accepts BPF_TRACE_FEXIT on any function.
+> 
+> For example: SEC("fexit/filp_close_sync") prog calls
+> bpf_d_path(&file->f_path, buf, sz). close_range() on a pipe fd calls
+> __range_close() -> filp_close_sync() -> fput_close_sync() -> __fput()
+> -> dput() which frees the NORCU dentry, then file_free() frees the
+> file. Then the trampoline runs the fexit prog -> bpf_d_path() ->
+> copy_from_kernel_nofault(&copy, path) reads the freed file ->
+> d_path(&copy) -> path->dentry->d_op->d_dname(path->dentry, ...)
+> which reads freed dentry memory and calls through a function pointer
+> loaded from it.
+> 
+> The existing filp_close entry does not have this problem: fput_close()
+> -> __fput_deferred() queues ____fput with task_work_add(TWA_RESUME), so
+> __fput() runs only on return to user space, after fexit. filp_close_sync
+> is the first allowlist entry that drops the last reference to its own
+> argument.
+> 
+> Would it work to allow bpf_d_path from filp_close_sync only when
+> prog->expected_attach_type == BPF_TRACE_FENTRY?
 
-Oops. Indeed, the tag is never signed. I overlooked a mistake when updating
-my local tool to create releases. Thank you for pointing it out.
+Both claude and codex refuse to build a reproducer for this because they
+"take extra care with some cybersecurity requests".
 
-I correct the tag with my signature, and pushed. Would you please apply it
-to your tree, instead?
+But the issue appears to be real, and bot's suggestion should work
+(pasting a diff at the bottom).
 
+Christian, could you please confirm that allowing filp_close_sync on
+fentry, but not on fexit makes sense? Should I respin with that?
 
-The following changes since commit 93f51579e7df248780214094418f205253383cc5:
+If anyone has ideas for alternative solutions to this bug or original
+issue, I'd be happy to try that as well.
 
-  Linux 7.3-rc4 (2026-09-20 13:48:15 -0700)
+As it stands, many BPF programs attaching to filp_close will probably
+get broken with 46ace7e4dc4b ("fs: make close_range() synchronous")
+reaching the mainline.
 
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/ieee1394/linux1394.git tags/firewire-fixes-7.3-rc5
-
-for you to fetch changes up to c6b51091cafff9ce6c03c1416aa13864d17ab97c:
-
-  firewire: cdev: fix back-transition for iso_resource_auto client resource (2026-09-23 09:20:17 +0900)
-
-----------------------------------------------------------------
-firewire fixes for 7.3-rc5
-
-Fix a race in the cdev layer that can cause a fw_iso_resource_auto object
-to transition back to a previous state. This can happen when a file
-descriptor is closed while the work item for the object is running. The
-race can leak several memory objects, including client object itself.
-This fix should be applied to 7.2 kernel or later.
-
-----------------------------------------------------------------
-Takashi Sakamoto (1):
-      firewire: cdev: fix back-transition for iso_resource_auto client resource
-
- drivers/firewire/core-cdev.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Thanks!
 
 
-Thanks
+diff --git a/kernel/trace/bpf_trace.c b/kernel/trace/bpf_trace.c
+index 49d5ec983e72..42dc01756f8a 100644
+--- a/kernel/trace/bpf_trace.c
++++ b/kernel/trace/bpf_trace.c
+@@ -972,9 +972,12 @@ BTF_ID(func, vfs_fallocate)
+ BTF_ID(func, dentry_open)
+ BTF_ID(func, vfs_getattr)
+ BTF_ID(func, filp_close)
+-BTF_ID(func, filp_close_sync)
+ BTF_SET_END(btf_allowlist_d_path)
+ 
++BTF_SET_START(btf_allowlist_d_path_fentry)
++BTF_ID(func, filp_close_sync)
++BTF_SET_END(btf_allowlist_d_path_fentry)
++
+ static bool bpf_d_path_allowed(const struct bpf_prog *prog)
+ {
+        if (prog->type == BPF_PROG_TYPE_TRACING &&
+@@ -984,8 +987,16 @@ static bool bpf_d_path_allowed(const struct bpf_prog *prog)
+        if (prog->type == BPF_PROG_TYPE_LSM)
+                return bpf_lsm_is_sleepable_hook(prog->aux->attach_btf_id);
+ 
+-       return btf_id_set_contains(&btf_allowlist_d_path,
+-                                  prog->aux->attach_btf_id);
++       if (btf_id_set_contains(&btf_allowlist_d_path,
++                               prog->aux->attach_btf_id))
++               return true;
++
++       if (btf_id_set_contains(&btf_allowlist_d_path_fentry,
++                               prog->aux->attach_btf_id))
++               return prog->expected_attach_type == BPF_TRACE_FENTRY ||
++                      prog->expected_attach_type == BPF_TRACE_FENTRY_MULTI;
++
++       return false;
+ }
+ 
+ BTF_ID_LIST_SINGLE(bpf_d_path_btf_ids, struct, path)
 
-Takashi Sakamoto
+
+> 
+>>
+>>
+>>  static bool bpf_d_path_allowed(const struct bpf_prog *prog)
+> 
+> [ ... ]
+> 
+>> diff --git a/tools/testing/selftests/bpf/prog_tests/d_path.c b/tools/testing/selftests/bpf/prog_tests/d_path.c
+>> index 1a2a2f1abf03..7665e1d28a64 100644
+>> --- a/tools/testing/selftests/bpf/prog_tests/d_path.c
+>> +++ b/tools/testing/selftests/bpf/prog_tests/d_path.c
+>> @@ -109,8 +109,9 @@ static int trigger_fstat_events(pid_t pid)
+>>  	fstat(indicatorfd, &fileStat);
+>>
+>>  out_close:
+>> -	/* sys_close no longer triggers filp_close, but we can
+>> -	 * call sys_close_range instead which still does
+>> +	/*
+>> +	 * filp_close_sync() may be inlined into close(2), so use
+>> +	 * close_range(2), which calls it directly.
+>>  	 */
+>>  	syscall_close(pipefd[0]);
+>>  	syscall_close(pipefd[1]);
+>> @@ -165,7 +166,7 @@ static void test_d_path_basic(void)
+>>
+>>  	if (CHECK(!bss->called_close,
+>>  		  "close",
+>> -		  "trampoline for filp_close was not called\n"))
+>> +		  "trampoline for filp_close_sync was not called\n"))
+>>  		goto cleanup;
+>>
+>>  	for (int i = 0; i < MAX_FILES; i++) {
+>> diff --git a/tools/testing/selftests/bpf/progs/test_d_path.c b/tools/testing/selftests/bpf/progs/test_d_path.c
+>> index 561b2f861808..edb5494a47f7 100644
+>> --- a/tools/testing/selftests/bpf/progs/test_d_path.c
+>> +++ b/tools/testing/selftests/bpf/progs/test_d_path.c
+>> @@ -41,7 +41,7 @@ int BPF_PROG(prog_stat, struct path *path, struct kstat *stat,
+>>  	return 0;
+>>  }
+>>
+>> -SEC("fentry/filp_close")
+>> +SEC("fentry/filp_close_sync")
+>>  int BPF_PROG(prog_close, struct file *file, void *id)
+>>  {
+>>  	pid_t pid = bpf_get_current_pid_tgid() >> 32;
+> 
+> 
+> ---
+> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+> 
+> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36058459433
+
