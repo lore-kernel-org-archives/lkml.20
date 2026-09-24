@@ -1,186 +1,145 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4897447D931;
-	Thu, 24 Sep 2026 12:11:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790251894; cv=pass; b=FU2BP/kAV8BmkeI8mgopZ8jUMAxySTeN0N8jVwX++sp7PDcAzKHnSS7UC8UZKBMnARVJjtoxwRJHXaEPCLGcBVkILCfOU60QZ5b5W/w+E7p56l6H33f0toAwax2SJLqNOtOBMXgWN/ekFuCbXG1BtbGU3hQ0slgDC8zuwdGWhPU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790251894; c=relaxed/simple;
-	bh=ReI0FowMPAJxfhTyPcGJsdbTeKiZ+B00JeEgQ5Wb8QQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FxcFfYeLRin2rNxp69RngMdf64vVNrAsnJA2M1EewlQvJit/nHWQfnMc6Zhnnfz4/N4rgl46xWE9ElanM5KomPrpKsrS2adovSVnvuTE1g6PjysQm4JH7+TleHkLw5pH1tJ57CtoYhBsDPb8WYR0EO7uZ/KO15nmTV9jqPZwbeo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b=Xu+gcUfb; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48D7747ECE5
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:12:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790251942; cv=none; b=lTt5/fdC7gZiKGX57vzKqP+zc+iSaZvKY5UoppjuiiEAmoE/MS03o0AN4WOAmoIXYgl1wVZXc8Qw8kIjMajam8zcJrXnTPUFQvC6+nDvF7YBnbdTVU6uzCiUwYfwslUqgAdTCtN7C6a9CLr0/oFjPI4it8SyeYD4sWwIlFQ51lk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790251942; c=relaxed/simple;
+	bh=Qvr7eXQ3NWfUVqdKtiwoS3u8+Df8jK7avVWzaj4WhvU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uLE2BM1qspay7Sq61GDA4FjJOJH1tw/ynyQvDwZVqwCmPl1oM9K/fRZKDlC9rBstsyaq4ZOyEf+IhaShT/7a1NPdSEeq4HFFQ3tBrx5hO3OEDokAVucm9z++HOPq968BxC25d4kjm85ZCZ5LiBkM5ePn62ZCTbA6gX2AFHZqYJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ml6OPEV/; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Xu+gcUfb"
-ARC-Seal: i=1; a=rsa-sha256; t=1790251823; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=SMMG8NlP4fqBNXx529QZu5Zdtb4p9tbuMOQ91soQIHcDnn4ZYV2Qq6DwCOwr678Uo7p8enklMkZmlGtEeJGziTS1PKR38Ch/HKt4o33k5EJ7Vn5Q4viwpc3HWxbVLfSZ2E0v1befX4gf1zmvugKkk/KyrSeBPBpn9VFZmOokLPs=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790251823; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=j/JN7+ozPHQKLl/xICwnFADe4iQfIt+/rqVhH5CZrYA=; 
-	b=JA02mZ1JM5S0BN3yBf3uyS3rHRpQxWB4DFfmHKkMiPasUG1Oj8qL1w/U6XepZzR2eFpxM5PIYcUrWJusagOO9ZEQ+jQPQMSc0WlC2bLpOSUi2Z23Yxe4/RwXxRq0p4pDbMr3OfPvJzEp1NzpH95dhfCqZ97kDljvcaqPxuUeohg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
-	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790251823;
-	s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
-	bh=j/JN7+ozPHQKLl/xICwnFADe4iQfIt+/rqVhH5CZrYA=;
-	b=Xu+gcUfbDupdDGdO0xZeIAWmvh740ouAqQ7g8/OfYe3MpyVK0wF1tXyDTwBDYT7Y
-	xzFD/uVYj2XViaDeb0kVdScnlodkBeibyV7UnNF63LSAYs+THvk3+ng2ALMvv9/0UXO
-	CFkcvJQVJ5wXPkjrdhI7uNuS90bR8L/xns/jDyGA=
-Received: by smtp.zohomail.com with SMTPS id 1790251821166727.927772036528;
-	Thu, 24 Sep 2026 05:10:21 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Vidith Madhu <vmadhu@nvidia.com>
-Cc: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- Leo Li <sunpeng.li@amd.com>, Daniel Stone <daniels@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
- Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
- Derek Foreman <derek.foreman@collabora.com>,
- wayland-devel@lists.freedesktop.org
-Subject: Re: [PATCH RFC 13/25] drm: Add VRR target frame rate properties
-Date: Thu, 24 Sep 2026 14:10:13 +0200
-Message-ID: <JMjFKVeURZyGX22Pj_CGcQ@collabora.com>
-In-Reply-To: <6fb8aaed-5abc-db9c-b09b-3390d8b87686@nvidia.com>
-References:
- <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
- <YozwdeJLQh-0GBcK9P3QvQ@collabora.com>
- <6fb8aaed-5abc-db9c-b09b-3390d8b87686@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ml6OPEV/"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-39b910bdf2eso1026464a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:12:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790251940; x=1790856740; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aLACE0GNZPWJehfzsjTU7gRpeFaJMRTm2IGBABnx0DQ=;
+        b=Ml6OPEV/tBT2h9H2JfBNw8UljYaBdj5eMcfhTQ0HA/5Kzd9+xIlaIha1x5GVePZF1Z
+         +en33qf70EmYQrnBvsSQNm+ZqhrsUc19kaR7pMmFLIlRpumI0OaGeo6rVT918RhsZB87
+         vzxVxMcRjtS48MEqN+5xyWzdjRPi6IT8M72dovSt6o5lxd7ghA2UldO1WQdOH7oyYYmE
+         Qu3TDLPPV6lGnBtLra5FHU3GTzIsRdujoWWS96VDFd/iTQX7qNR6Ow7s3fZbfriIzVIk
+         /BFZ4av7TgYUC0AHHPH6kU1j4vUUxejcSdsG1T//ZsIGasqVxMSChc+BNc6CAFl1zc75
+         nqng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790251940; x=1790856740;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aLACE0GNZPWJehfzsjTU7gRpeFaJMRTm2IGBABnx0DQ=;
+        b=Lg20UVd6cf1EGBvnRUaLBOt20leTmUqrzU5W+PItes4Ij4Hvmh+xWNF/EZm2F5EFVZ
+         e1GsABtm/mTiJg7lfKI3ctRyNp0UosRq5kPhncUkAfcArxwRFY+CYOtXG7wNc28f7Ckx
+         S255ZySQ9G3DFrrJs0NI5gL9zbnNgpR0hve9Z3FvLxw57RUuDyUzRNC8See9uMSwfw9V
+         Di320bAsbQIWhe/ZSHjHdKJZZ8bhtHiBrX/21mVuXjun5tBvA2TLyTsB4/xJbmn6j8Dl
+         v+d1zhnM2UBK+Jk0BggAbNSRMjMKThanV0qxpXhalFfC2n066QiqiEqFcA+W0BNYI7Pu
+         H78g==
+X-Forwarded-Encrypted: i=1; AKwUvByou2bbsETY5TB0XVC77Cnz2z2x9R/DPF/ELU8z9F9H8mK8/uswNDc3WaUXpqMZ+bIeKaiZA4Is5yqruNY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mOW4K+M+tu8FEVNZb9wcZl16Gdrl1qKEYpU4NUEFkTPWHANRUm
+	lDfvbvG3M9NTMHinWBuxrbOy4FIAOSSqOmvYIE4i+vBfuMlNmqCdKUg4
+X-Gm-Gg: AYBFou2TJxiYw0gtFRpKfcDdE4I5w5d9T9CsmrNUTK19TLFeEEVyjspOGQ0RsyZN6m7
+	cpykxjtAWx8VHb+Naa26IyDwTmhzIBhu8U5z9WGwn1KtPKDoROuZPENacZxDq5Qk38Al6NXmSWX
+	QFqxL6bOhLNShINIg8zoEGRu/W/uqLu8mrbzd2RV1JVxOnU6F4AdSKuaON3MlZJ0xwmSifjexUw
+	QdFt7f0QjP2T6QoshcVXG+F/VKQqbmoIkEGXMekmZCK0YKRR21knQeIjM5k2ixGRgbjaGCEtbB2
+	ZiJ2aP/HiBUVK4o+uOj7qTUpsDjENWmGUYbJ77RDDUr4lvajymkwdu1N+Oxa4jzR5yxJapKv2W4
+	7uwq1FStk6FfYDYLmcxS5WVkh3g6ENMu7/qpfkIRdR4CCkEpXmE8SbyJXp4+zZxclhE1/02r+XA
+	PSe1NudaFaY1nO7Gk8dcgGHoyZAy22BVUXGpJ17XJtyAN4+Y7BIDSkicNSAuG+7vMw57DaGbVw5
+	uEVbQGM2JQEsEw3E3CRaQ==
+X-Received: by 2002:a17:90b:3812:b0:39e:6c6a:209b with SMTP id 98e67ed59e1d1-3a098aab9afmr1797964a91.60.1790251940252;
+        Thu, 24 Sep 2026 05:12:20 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a09773a515sm5059493a91.15.2026.09.24.05.12.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 05:12:19 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Zhan Xusheng <zhanxusheng@xiaomi.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	John Stultz <jstultz@google.com>,
+	Connor O'Brien <connoro@google.com>,
+	Metin Kaya <metin.kaya@arm.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] sched/deadline: Compare against the donor in prio_changed_dl()
+Date: Thu, 24 Sep 2026 20:12:12 +0800
+Message-ID: <20260924121213.106673-1-zhanxusheng@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Thursday, 24 September 2026 09:01:05 Central European Summer Time Vidith=
- Madhu wrote:
->=20
-> On Wed, 23 Sep 2026, Nicolas Frattaroli wrote:
->=20
-> > On Wednesday, 23 September 2026 11:51:45 Central European Summer Time M=
-ichel D=C3=A4nzer wrote:
-> > > On 9/21/26 17:51, Nicolas Frattaroli wrote:
-> > > >=20
-> > > > + * .. _VRR-MIN-NUMERATOR:
-> > > > + *
-> > > > + * "VRR_MIN_NUMERATOR":
-> > > > + *	Default &drm_crtc integer property forming the numerator of a
-> > > > + *	numerator/denominator pair of a frame rate to set as the minimu=
-m VRR
-> > > > + *	target rate. Set to 0 to disable.
-> > > > + *
-> > > > + * "VRR_MIN_DENOMINATOR":
-> > > > + *	Default &drm_crtc integer property forming the denominator of a
-> > > > + *	numerator/denominator pair of a frame rate to set as the minimu=
-m VRR
-> > > > + *	target rate. If :ref:`VRR_MIN_NUMERATOR <VRR-MIN-NUMERATOR>` is=
- not
-> > > > + *	zero, it must be non-zero.
-> > > > + *	Otherwise, must also be zero.
-> > > > + *
-> > > > + * .. _VRR-MAX-NUMERATOR:
-> > > > + *
-> > > > + * "VRR_MAX_NUMERATOR":
-> > > > + *	Default &drm_crtc integer property forming the numerator of a
-> > > > + *	numerator/denominator pair of a frame rate to set as the maximu=
-m VRR
-> > > > + *	target rate. Set to 0 to disable.
-> > > > + *
-> > > > + * "VRR_MAX_DENOMINATOR":
-> > > > + *	Default &drm_crtc integer property forming the denominator of a
-> > > > + *	numerator/denominator pair of a frame rate to set as the maximu=
-m VRR
-> > > > + *	target rate. If :ref:`VRR_MAX_NUMERATOR <VRR-MAX-NUMERATOR>` is=
- not
-> > > > + *	zero, it must be non-zero. Otherwise, must also be zero.
-> > > >   */
-> > >=20
-> > > Is there a reason that DENOMINATOR must be 0 when the corresponding N=
-UMERATOR is? 0 divided by any number is still 0.
-> >=20
-> > No, I think that's an arbitrary convention I settled on and don't enfor=
-ce. I
-> > guess it should be "Otherwise, may also be zero", because the only situ=
-ation
-> > I'm making userspace avoid is x/0 where x !=3D 0.
-> >=20
-> > > > Either way, should these rules be enforced in drm_atomic_crtc_set_p=
-roperty?
-> > >=20
-> > > Or rather in atomic_check.
-> >=20
-> > Due to complicating factors like EDID, CinemaVRR, and QMS TFRmin/TFRmax=
-, checking
-> > the properties for sensible values is done in the HDMI state helpers at=
- the moment.
-> >=20
-> > If/when there is a similar mechanism for DP, we can probably factor the=
- common
-> > parts out. I really do hope all drivers (including those that don't use=
- the HDMI
-> > state helpers) can at least share the hdmi_validate_vrr() logic, but I =
-haven't
-> > factored this out into an exported function yet because I don't know ho=
-w similar
-> > the DisplayPort-equivalent mechanisms requirements are, or how much of =
-the state
-> > derivation non-state-helper drivers (i.e. i915 and amdgpu) need.
-> >=20
-> > Kind regards,
-> > Nicolas Frattaroli
->=20
-> Thanks for bringing up support for VRR features on DP. Concerning the=20
-> frame rate limits themselves, as I mentioned in patch [02/25] I don't=20
-> think there's a reason to limit the validation to HDMI.
+prio_changed_dl() dispatches on task_current_donor(), so the else branch
+asks whether p should preempt the current scheduling context.  Under proxy
+execution that is rq->donor; rq->curr may be a mutex owner running on the
+donor's parameters.
 
-Agreed. I think factoring most of the stuff out into the CRTC atomic check
-phase is what I'll do, and then keep the HDMI-specific validation and
-derivation within the HDMI state helpers. That should somewhat simplify
-the code as well I think.
+commit af0c8b2bf67b ("sched: Split scheduler and execution contexts")
+converted the identical branch of prio_changed_rt() to rq->donor, but in
+deadline.c converted only the dispatch condition.
 
-> There is in fact an analog of QMS for DP, called DP-FAVT mode - this is
-> quite a bit more streamlined than QMS and the validation should be
-> simpler. Would be nice to see these properties support that as well
+No behavioural change intended.  The donor is picked as the
+earliest-deadline entity, so the donor test implies the curr test and the
+current code only adds reschedules.  That ordering comes from the pick,
+not from here.
 
-Yep, the intent is that the properties are display protocol agnostic,
-it just so happens that the only implementation I wrote so far is
-specific to HDMI.
+Fixes: af0c8b2bf67b ("sched: Split scheduler and execution contexts")
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+---
 
-Also, good to hear the DP QMS-equivalent is more streamlined. :)
+Built with CONFIG_SCHED_PROXY_EXEC=y and =n; with =n the two rq members
+are an anonymous union and build_policy.o is byte-identical.
 
-> (this was briefly discussed at DisplayNext HackFest, if I understood
-> access to the DP spec is the main blocker here?).
+Two more sites in deadline.c were left behind by the same commit, both a
+few lines below an rq->donor based update_curr() call:
 
-It certainly is a blocker. We also don't have any fancy testing/validation
-equipment, so validating implementations for protocols before they reach
-consumer devices is difficult for us (Collabora) at this time. That's also
-why it's a good idea for anyone who has access to the expensive specialised
-protocol test equipment to validate that the HDMI VTEM EMP packets we're
-constructing are actually within spec and not just a "happens to work" kind
-of deal.
+	dl_server_timer():
+		if (!dl_task(dl_se->rq->curr) ||
+		    dl_entity_preempt(dl_se, &dl_se->rq->curr->dl))
 
-Kind regards
-Nicolas Frattaroli
+	dl_server_start():
+		if (!dl_task(dl_se->rq->curr) ||
+		    dl_entity_preempt(dl_se, &rq->curr->dl))
 
+I left them out because that area is being reworked around dl_rq->curr;
+say the word and I will send them too.
+ kernel/sched/deadline.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index de6a361a87c7..2a5e562fcb69 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -3631,8 +3631,8 @@ static void prio_changed_dl(struct rq *rq, struct task_struct *p, u64 old_deadli
+ 		 *
+ 		 * Otherwise, if p was given an earlier deadline, reschedule.
+ 		 */
+-		if (!dl_task(rq->curr) ||
+-		    dl_time_before(p->dl.deadline, rq->curr->dl.deadline))
++		if (!dl_task(rq->donor) ||
++		    dl_time_before(p->dl.deadline, rq->donor->dl.deadline))
+ 			resched_curr(rq);
+ 	}
+ }
+
+base-commit: a9b3c7570564de40acb0998ab85c89d546b2122f
+-- 
+2.43.0
 
