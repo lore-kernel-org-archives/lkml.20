@@ -1,88 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FC6644062F;
-	Thu, 24 Sep 2026 22:33:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E3F0408031
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:35:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790289202; cv=none; b=gbn9XxCync9kgf185/ERJMVeyi6rnfLu7V591DjpexreKjyqVCuIwSZQnzVtbgqXPkJHXVpFxSRr+/Xdz0yR8FDN4PJbz7vWXu0ecyOVVLkxWH+cyJaqbIOiNfInFzSYT1B8MTPsQmhaeCVwIlwGOC9NcdQeGPrSjMGuWN/DJZE=
+	t=1790289346; cv=none; b=NXAPeA8CqkFPzCmZfN4GFSJ2DdRK0DFYuY454d48aGIM6oG1lllIsHe1rUt3LpbXKHEK9hCv17/vuAreyxWyc6pnAXUM5QQnliwX+VGfQ8Xqr43RG32MCj/1PxlBOdffpzTOi38//azJ8fWUpa2WCplgwB9O07G5OlU0+njMz4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790289202; c=relaxed/simple;
-	bh=W054aJWmlJHKzW6oPx8VKYQYVWiaXOeKtfexZkmp3l8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ROHM4JOup70Bma+CmMiWi+slEn5L5+XJ/ZS5RpAFWFNAWNYYvXow5Wm3IcZk9FzH3BeQtdy1ppdLb4CpyP1/djsFb3YjVR4MECGpeH1cdb4xBw8VssmO57njWZOm7bInz2as1jQ1SuaXG1ZToEMMbFBRcaGvS5MppYNUBkBENmo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=byj9zyCW; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="byj9zyCW"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 283E61F000FF;
-	Thu, 24 Sep 2026 22:33:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790289201;
-	bh=UMuARAtDk+W4Ll03EVKTtXobHLWpPxSvvRkgfOhlfSA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=byj9zyCWzZYfUWl7Kz0a+puoEIWhKEy7L2TVykloMkuWOLFtVVUvpQXg6WxFYnk0X
-	 J/MZSh8jcoqGqq73NK6ehY9iKEsOmzrvQHW1J/pqelacY8KsUdT77+ZlmDuI9JQBiR
-	 NzIYVTpmWEatLbH0x7VzQEXtKffluVbcGF/ksnwVTswamb2FN6+zH1ydhCMqZluXb1
-	 dnverRGFm6NQNylDCZGjca7nRKHCbBR1uZJLIPOXMX0NeVOY7001QcvFFfbDLihJ2T
-	 5amcJzHr/b9/m8p6BOJnOS/qTpQfl2aNP9kbSepYpIUNiw6VBgDa9c3kAvUKcPMWBn
-	 UorU1DnAVzvsw==
-Date: Thu, 24 Sep 2026 15:33:20 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Carlos Maiolino <cem@kernel.org>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	Brian Foster <bfoster@redhat.com>,
-	Christoph Hellwig <hch@infradead.org>,
-	Damien Le Moal <dlemoal@kernel.org>, Hannes Reinecke <hare@suse.de>,
-	Daniel Gomez <da.gomez@samsung.com>,
-	Pankaj Raghav <p.raghav@samsung.com>,
-	Dave Chinner <dchinner@redhat.com>, linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] iomap: don't resubmit an ioend after
- ->writeback_submit() failed
-Message-ID: <20260924223320.GL2705364@frogsfrogsfrogs>
-References: <20260924091203.198225-1-parri.andrea@gmail.com>
- <20260924091203.198225-2-parri.andrea@gmail.com>
- <20260924184910.GI2705364@frogsfrogsfrogs>
- <20260924203013.9967-1-parri.andrea@gmail.com>
+	s=arc-20240116; t=1790289346; c=relaxed/simple;
+	bh=vtr6W1O31FpaX/pzPdDit5sOxv1DO5xUcNtn4hmhJaQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AKqJ1rkx4Kl3//NcJV5Z4MEqCJyL4E1WYX3xSFVK5YMi7fyNyAcJp8fppFu9k5b8RYIAQ3yohbUQO44fH+k+ei39kIcN/3U2K/6soyvjD9jo0//3GMLxxuFhMu3o8CtnzGuu1sNOdEE06w3mV3MDYsPz3L6bb16XQx8p3I0D2Xo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 435f209cb86811f19a56ed5b684f684d-20260925
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:c6beb6ea-48e1-4be4-b826-17633d0beb8b,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:7db8b62,CLOUDID:54f32270c7c6fe69605ccc699f2c9a9a,BulkI
+	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|52|99,
+	EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
+	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 435f209cb86811f19a56ed5b684f684d-20260925
+X-User: liwanwu@kylinos.cn
+Received: from [10.42.12.206] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <liwanwu@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 2006305272; Fri, 25 Sep 2026 06:35:37 +0800
+Message-ID: <e29045bd-6043-4f1d-baea-7616e7090c39@kylinos.cn>
+Date: Fri, 25 Sep 2026 06:35:34 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924203013.9967-1-parri.andrea@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] tools/sched_ext: Fix three example scheduler bugs
+To: Tejun Heo <tj@kernel.org>
+Cc: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
+ Changwoo Min <changwoo@igalia.com>, sched-ext@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260924143659.268595-1-liwanwu@kylinos.cn>
+ <9c8dd70b66bba55c87376f227d986945@kernel.org>
+Content-Language: en-US
+From: liwanwu <liwanwu@kylinos.cn>
+In-Reply-To: <9c8dd70b66bba55c87376f227d986945@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 10:30:07PM +0200, Andrea Parri wrote:
-> On Thu, Sep 24, 2026 at 11:49:10AM -0700, Darrick J. Wong wrote:
-> > I looked around the codebase and saw that iomap_writepages also calls
-> > ->writeback_submit.  Does that need to null out wb_ctx?
-> > 
-> > My guess is that none of the callers do anything with wpc after
-> > iomap_writepages returns so it's not harming anyone, but we should drop
-> > the stale context too, right?
+Hi Tejun,
+
+Thank you for the careful review and for catching this. It was a
+serious mistake on my part, and I sincerely apologize -- I should have
+tested the fixes before sending them out.
+
+I will reproduce each bug, verify that the fix actually resolves it,
+rework 3/3 properly, and send a corrected series when it is ready.
+
+Again, my apologies for the wasted round-trip.
+
+Wanwu
+
+在 2026/9/25 00:17, Tejun Heo 写道:
+> Hello, Wanwu.
 > 
-> Your guess is right: that ->writeback_submit() call is the last thing
-> iomap_writepages() does, and all of its callers (xfs, gfs2, zonefs,
-> exfat, fuse, ntfs, ntfs3) have the wpc on the stack for that single
-> call, so wb_ctx is never looked at again.  Christoph made the same
-> point on v1 [1], and the last paragraph of the commit message now
-> spells it out.
+> On Thu, Sep 24, 2026 at 10:36:56PM +0800, Wanwu Li wrote:
+>>   - try_dispatch() trusts a pid popped from a cgroup's FIFO.  If the
+>>     task migrated to another cgroup between enqueue and dispatch, it is
+>>     dispatched under the old cgroup's context, violating the core
+>>     "paired CPUs only run tasks from the same cgroup" invariant.
 > 
-> Clearing it there as well would be harmless but dead code, so I'd
-> rather leave it out; happy to add it if you feel strongly about it.
+> 3/3 calls scx_bpf_task_cgroup() on a task from bpf_task_from_pid(). The
+> kfunc only accepts the tasks passed to the current op, so the scheduler
+> is disabled on its first dispatch:
 > 
-> [1] https://lore.kernel.org/all/arITXTsUhrA0N-qr@infradead.org/
-
-LOL ok thanks for the reminder.  My brain is fried this week, in a good
-way. ;)
-
---D
-
-> Thanks!
->   Andrea
+>    sched_ext: BPF scheduler "pair" enabled
+>    sched_ext: BPF scheduler "pair" disabled (runtime error)
+>    sched_ext: pair: called on a task not being operated on
+>       scx_bpf_task_cgroup+0x15b/0x160
+>       bpf__sched_ext_ops_dispatch+0x47/0xa3
+> 
+> This means the patches were posted without being run at all. That's not
+> acceptable. Please reproduce each bug and verify that the fix resolves it
+> before posting.
+> 
+> Thanks.
 > 
