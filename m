@@ -1,296 +1,311 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C60F3932D9
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:10:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CDCD3EDE43;
+	Thu, 24 Sep 2026 06:10:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790230236; cv=none; b=QshDYIBskOoYZIIKkTFXF+SGsCV/mwv0zHWIskhQi1YPC+CGUYf1buCnOyV4t8XLQh5P5WJreJUhfrBhJPiznJJwrt7rJLIxdr7WgPp7fhzliTFOUjV6dF0MGIK/lvchcouLvy7I3PnakZxZMY/xEkIR5eGLKwODEQ9FV1MZ6Nk=
+	t=1790230238; cv=none; b=JuGHGuoGV3oZUi3qxaXIzevRoaCWbJslVr7XOmb4tA5k1J+qWu7YCJggGAQLLYQDcuBbMabgvRnc/gA2XANAA3ygLJRKd8PwF9wd+eTKMmhzFGChGNfUcHiEd38mJgul1fBUPt4q69oLWdbpFGHARWKN3mT8zfPswXIe37UE3ps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790230236; c=relaxed/simple;
-	bh=4YaiRj0EruogM3vB6ar/BqOcXs5wxkMYrvnCtxPKVyo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=IzHgbqxusTtzjQ/QpxDosidSxLp/aXUZkLOlo65YMMRHlMSsc9Vuu/dev+QZrDSbs5XU8/HS5bXfIOVXxtuB0ea3ixgLakG3M92ImhvU5p8LT6caPMmdnDFXtEop6bPN65TMvDwQACVTXF/B43YJazT7Z1PuLyHcKx/gYRGx940=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ozwOpvG4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Z4LBmu5m; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790230238; c=relaxed/simple;
+	bh=dD6ObIKSSqijbh+0yZUIR1NC8si7N+WSUYK2dWGGSqI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dUN2srr+8ThZkta0m9Eo8NxkC9scmopbKE7Ny6D3nlAWrHEWL09kAea+ovLQLQIdJD4UvIbXn/A50/vP+AeA141RacTMYNGo64UbghfcozOhlpCl1XDNob8/QMv3vpwG5g7xteUFOEov9cZZDNfmAZDKCem/nDu0NtvAA0J6DvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mv7QZcUK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ozwOpvG4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Z4LBmu5m"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5eGFG2277216
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:10:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	O4tnRt+BeNXcNiBvIio1lUad6y6QIIHL7crYNQLh6M0=; b=ozwOpvG4MLkdi46U
-	vELvIOknLnl5FBe/v7PSs55pHCyIScp8kWceE51kBG8Z/wpk0UonIuodenxKKk7u
-	wdqA1cv0nbVfviJr/YeWM6Cbt8zJt1edhlafblYf6zk7YNa5o0XY9RWU3lHDboDT
-	JgBzPWPpNPZ9h8h1IXJh+w00Bl5SvjuJ1AVNwsU5a5WhKJ1SOrx0UfTBOq/ES/7g
-	O5+xdPGDbERW5HCDZUZkdYgFS6NDfcYGFfHDoDaZCiHi8Rk+WphKdHTYAe6qEaKQ
-	Du6aCSJGjV+iSx827kRNC9NzVty6lLZNZV+VG9LcEIuU+mB+dLYnsNIVrxjwwrc3
-	IqLrvw==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvfjxuj60-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:10:33 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-143826c4a13so1717787c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:10:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790230233; x=1790835033; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=O4tnRt+BeNXcNiBvIio1lUad6y6QIIHL7crYNQLh6M0=;
-        b=Z4LBmu5mJfhE+qBFI8rDE+eWGQc8MWLn7/gvGa1R1rvQMRFg1LkhY1Qjpe+JJ3qY4D
-         qAYlcTM6+x8tBhGeU+aHesD4WhN4RpcgrxOBvLusI2l+aMMBn8EI0i0vexbG1DyZNiP5
-         Ktz5SRrHnnhTI1jhy22G8TSc2u49LGJHflhPw4TMfJRGASG1gccZkWPEPvneNw6UH6Qc
-         sxJQ5AGehCJTTbCgQLbwOwvPad3BcbwWJV5luMLpR+0KY9EkaNZ4VL0jUvdTxI4RVTaz
-         omW0t9rKT5VsdVrPiO58eDf+m9APIH5qItvX12S0SZat7cZJAdlulC3Ffonars6uPm/m
-         XE5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790230233; x=1790835033;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=O4tnRt+BeNXcNiBvIio1lUad6y6QIIHL7crYNQLh6M0=;
-        b=umpfS+3y2gvkqKusxYIXHLUruLJbn66cWDmT+yWJJ7lKxBiDuDRgMebhoVdxcT5CKa
-         jhFgQnAnXNpFtmE5kkasMX4lNlkERVYALmPcU+ntEvGp62B8WW3vPPLsGjDMkQqdCOFc
-         4Jtz7pqyYxMUyycZWyeS03q+pOltYCyvkKYo5ZNwZuzBGg7PGdXvf8SOfauppDsaDt+7
-         L3jhtrZtWM5nn6rkniVsJSi3nxMFOKRprOgDMTDCrlOJJA6+iZIp+cUYSZKd26oFumUa
-         Iiih4Qu3bkoWrfOHgSOhiP/4YaeM2QoILvNw8c8v7lWtAOg3fRozEzy3DYM8VwxwAREM
-         x2nw==
-X-Forwarded-Encrypted: i=1; AKwUvBy6UECLMAeROw/i86HQl4xY1aqoECiHOxlKZLC/MpDAQ74Mx0PZKI70zo1pBY1GXxvzSpRfA/m2kwMaidU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mqOl3iHyrp85ITVdLpiSrqVwM3noxMSWGItXI7W3ChUic3Bx7Y
-	Y/ZfUlNTEGEptseh+LHw3bkERuCMvvT0c/JFtJEfK1k5L6jeUPu/hrgkU558JhVeqY0HOT+e9hB
-	/wBbYuIjYL2lB+Ta5w7ZmhL3Kupx8Li+KE3Rrq592FdE3aDp+sRuZRJ+NHnLDiQY1WO4=
-X-Gm-Gg: AYBFou0vNmFXqvQaylt9RDnYwM/lANPiBT+kfGXmMjMCzCJeiij68ScFxNQOPtBM7mY
-	AKYJYhn7zwBhNyLvL8178koRCi+EioKPtX17jZ3Ipr9lQ1stAvuLvtNgCqBeU0A4aRB0JFnsCAY
-	t8KunYc2E94x4urmSwuchrfwxkBHtfUA1lGl7e+X3AvGk/TWYcr3f7Vz8Oii0ah/qI4v6EFkysO
-	iPDffVtc4TQHdA6iPMP6kttnAWpTf+dRSeRdGlCYzpgX2EkMw9crHUCpug8wmjNEICM45ViApWi
-	e+1HiFtecS3957Rfs8nag8Na/RWePiSZzphu/KA7+uZLLB1H9Dm9DCIn9ujkoVbxYzFKdXd7Do5
-	NCWJSGdtoFCCyyKenW/9eyPClHmm2CL4vvzhc/IxCeK6ahci33jKwIpJNfev8MCPZVqoHRcDNpN
-	K1WRSN29nr06XzurFPI08tLVvSbfld
-X-Received: by 2002:a05:7023:a5c:20b0:144:fb87:5b91 with SMTP id a92af1059eb24-14503fee63amr1043961c88.44.1790230232617;
-        Wed, 23 Sep 2026 23:10:32 -0700 (PDT)
-X-Received: by 2002:a05:7023:a5c:20b0:144:fb87:5b91 with SMTP id a92af1059eb24-14503fee63amr1043916c88.44.1790230231977;
-        Wed, 23 Sep 2026 23:10:31 -0700 (PDT)
-Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f9895c1asm10197680c88.12.2026.09.23.23.10.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 23:10:31 -0700 (PDT)
-From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Date: Thu, 24 Sep 2026 11:40:04 +0530
-Subject: [PATCH v3 3/5] phy: qcom: qmp-usb: Add IPQ9650 USB3 PHY
- configuration
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mv7QZcUK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 857421F00899;
+	Thu, 24 Sep 2026 06:10:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790230236;
+	bh=jX6aIZrBXbttG8mDoIDDZezQu+BWHDQT5zvSSYON3kI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mv7QZcUKekVi8xEIBYldkeMJ63fZXB3dnKscuE25jnwxzYrV7YpOlQV/JJ7nfqg3x
+	 SfDLbl+mDW1GI/N7TXv5KGeZNR8MKIL21WpefTE9MXcFmkl7CaqykwTkTliHDnqqvk
+	 4Ym75PMMk7c3iX1NgY2p6jy3VU+TVpCMyMg1HNZpwafhoMM5GRvepJ1E6t1Wn57j6r
+	 mMLod8Y2tm4uoakNX4QCVAPga4nscd5K68nbDB46LddC7N68bEyQWZtWIn7HmZ8RE9
+	 Iw+XQ3et9bhPrJLeaeGRWXA0GWgj6znxqt3YA7o5wCWlj+y1mYkFRwWC7aLuqtrqtN
+	 cXVDy/0hxqblA==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Mostafa Saleh <smostafa@google.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	linux-arm-kernel@lists.infradead.org,
+	loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org,
+	linux-s390@vger.kernel.org,
+	x86@kernel.org
+Subject: [PATCH v6 8/8] dma: swiotlb: Remove SWIOTLB_ANY
+Date: Thu, 24 Sep 2026 11:37:56 +0530
+Message-ID: <20260924060756.1325156-9-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260924060756.1325156-1-aneesh.kumar@kernel.org>
+References: <20260924060756.1325156-1-aneesh.kumar@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-phy-v3-3-088e7be0cfaa@oss.qualcomm.com>
-References: <20260924-phy-v3-0-088e7be0cfaa@oss.qualcomm.com>
-In-Reply-To: <20260924-phy-v3-0-088e7be0cfaa@oss.qualcomm.com>
-To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>,
-        Manu Gautam <mgautam@codeaurora.org>, Stephen Boyd <sboyd@kernel.org>,
-        Philipp Zabel <pza@pengutronix.de>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Proofpoint-ORIG-GUID: 9tL-uczikuh59Trav3RUWaeQ575je3XC
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAyNiBTYWx0ZWRfXwR3c8HnJq//n
- /3s1VoB9DEH6U84FC8t4TWmGfEO91jjGLQk3pN69V3TZunlDd8QTWnEPfoznPrRh7hKYH9Da7TQ
- 7X8DsN/nNQhYjbORJBxjciQCQ1NzJusnwNf5DLQwkDTepS3dn88z4DWXpSXDgDmK6kDQpspwx1G
- Bsq0b6HcnwbLxuo2oxvv7r0hLaRA/hWCEk6hiVWj3ZBFGLgCqYfg/gkZLhS6OHUXkbRHBpZbNW1
- 9EzSxZj75YOh9yAqBjI7pKtJUqBEY8qIjDxQ2FKzuyA2QgPm6fWHR6x53drqdxtLl7iCvmqOg0L
- xUmAeuKtK6+1VTZn8ytGRYjnRdOkPsC7NN35kq9/Jr1YdSBTC5ugGsbgs+RRv4D47CQ1/lrTyVp
- wcoIbj/RP4/3Nt5fFgBjPLPwoMvdk94E9PsDLwUwhzASsavwr7i5WKDZHHOajMUuv3FBpIf3Yn6
- HIoiH36YZPG7S7TFnCw==
-X-Proofpoint-GUID: 9tL-uczikuh59Trav3RUWaeQ575je3XC
-X-Authority-Analysis: v=2.4 cv=NLpAaE6g c=1 sm=1 tr=0 ts=6ab4bed9 cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=1pfUWIqQpZhN5ooAS-4A:9 a=QEXdDO2ut3YA:10
- a=vr4QvYf-bLy2KjpDp97w:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAyNiBTYWx0ZWRfX/VOhEcANxbhm
- wO5OjaJ3UqLVC3gsrPYKTmBdwiEnnsByHmZJDRgTJbbIKgBD26nLhpCHtNg4U0lCD3UfAzMWT4d
- /PJociG849aNcpvgMGyaBjko6mWhvPU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 adultscore=0 suspectscore=0 priorityscore=1501
- impostorscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240026
+Content-Transfer-Encoding: 8bit
 
-Add the USB3 QMP PHY configuration for IPQ9650, including the SoC-specific
-init tables and compatible data.
+swiotlb pools are currently allocated below the architecture's low
+address limit by default. SWIOTLB_ANY overrides this and permits
+allocation anywhere in directly mapped memory.
 
-IPQ9650 uses settings that do not match any existing supported SoC, so add
-a dedicated configuration to allow the driver to support it.
+SWIOTLB_INIT_ADDRESSING_LIMIT now explicitly identifies callers which
+need a pool that is reachable by devices with limited DMA addressing.
+Use it as the placement constraint and remove SWIOTLB_ANY.
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+This changes the default behavior for callers which do not set either
+flag. Previously, omitting SWIOTLB_ANY placed the default pool below the
+architecture's low address limit and also constrained dynamically
+allocated pools to the same range. After this change, omitting
+SWIOTLB_INIT_ADDRESSING_LIMIT permits both static and dynamic pools to
+use any directly mapped memory.
+
+Reviewed-by: Robin Murphy <robin.murphy@arm.com>
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>
+Cc: Randy Dunlap <rdunlap@infradead.org>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Michael Ellerman <mpe@ellerman.id.au>
+Cc: Nicholas Piggin <npiggin@gmail.com>
+Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Cc: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+Cc: Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: Paul Walmsley <pjw@kernel.org>
+Cc: Palmer Dabbelt <palmer@dabbelt.com>
+Cc: Albert Ou <aou@eecs.berkeley.edu>
+Cc: Alexandre Ghiti <alex@ghiti.fr>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
+Cc: Heiko Carstens <hca@linux.ibm.com>
+Cc: Vasily Gorbik <gor@linux.ibm.com>
+Cc: Christian Borntraeger <borntraeger@linux.ibm.com>
+Cc: Sven Schnelle <svens@linux.ibm.com>
+Cc: Thomas Gleixner <tglx@kernel.org>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: x86@kernel.org
+Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Robin Murphy <robin.murphy@arm.com>
+Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
 ---
- drivers/phy/qualcomm/phy-qcom-qmp-usb.c | 118 ++++++++++++++++++++++++++++++++
- 1 file changed, 118 insertions(+)
+ Documentation/core-api/swiotlb.rst |  8 ++++----
+ arch/powerpc/mm/mem.c              |  6 ++++--
+ arch/riscv/mm/init.c               | 16 ----------------
+ arch/s390/mm/init.c                |  2 +-
+ arch/x86/kernel/pci-dma.c          |  2 +-
+ include/linux/swiotlb.h            |  7 +++----
+ kernel/dma/swiotlb.c               | 17 ++++++-----------
+ 7 files changed, 19 insertions(+), 39 deletions(-)
 
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-usb.c b/drivers/phy/qualcomm/phy-qcom-qmp-usb.c
-index b0790bcf0bc8..e772e1fa27cf 100644
---- a/drivers/phy/qualcomm/phy-qcom-qmp-usb.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-usb.c
-@@ -400,6 +400,101 @@ static const struct qmp_phy_init_tbl ipq8074_usb3_pcs_tbl[] = {
- 	QMP_PHY_INIT_CFG(QPHY_V3_PCS_TXDEEMPH_M3P5DB_V0, 0x0f),
- };
+diff --git a/Documentation/core-api/swiotlb.rst b/Documentation/core-api/swiotlb.rst
+index 71b4e4c27eb5..06d9f88fdf7b 100644
+--- a/Documentation/core-api/swiotlb.rst
++++ b/Documentation/core-api/swiotlb.rst
+@@ -148,10 +148,10 @@ may also be adjusted
+ due to other conditions, such as running in a CoCo VM, as described above. If
+ CONFIG_SWIOTLB_DYNAMIC is enabled, additional pools may be allocated later in
+ the life of the system. Each pool must be a contiguous range of physical
+-memory. The default pool is allocated below the 4 GiB physical address line so
+-it works for devices that can only address 32-bits of physical memory (unless
+-architecture-specific code provides the SWIOTLB_ANY flag). In a CoCo VM, the
+-pool memory must be decrypted before swiotlb is used.
++memory. The default pool is allocated below the architecture's low address
++limit when it is needed for devices with limited DMA addressing. Otherwise,
++it may be allocated anywhere in directly mapped memory. In a CoCo VM, the pool
++memory must be decrypted before swiotlb is used.
  
-+static const struct qmp_phy_init_tbl ipq9650_usb3_serdes_tbl[] = {
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_PLL_IVCO, 0x0f),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_SSC_EN_CENTER, 0x01),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_SSC_PER1, 0x7d),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_SSC_PER2, 0x01),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_SSC_STEP_SIZE1_MODE0, 0x0a),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_SSC_STEP_SIZE2_MODE0, 0x05),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_SYSCLK_BUF_ENABLE, 0x0a),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_CMN_IPTRIM, 0x20),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_CP_CTRL_MODE0, 0x06),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_PLL_RCTRL_MODE0, 0x16),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_PLL_CCTRL_MODE0, 0x36),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_SYSCLK_EN_SEL, 0x1a),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_BG_TIMER, 0x0b),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_LOCK_CMP_EN, 0x42),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_LOCK_CMP1_MODE0, 0xd4),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_LOCK_CMP2_MODE0, 0x14),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_DEC_START_MODE0, 0x68),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_DIV_FRAC_START1_MODE0, 0xab),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_DIV_FRAC_START2_MODE0, 0xaa),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_DIV_FRAC_START3_MODE0, 0x02),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_VCO_TUNE_MAP, 0x00),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_VCO_TUNE1_MODE0, 0x24),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_VCO_TUNE2_MODE0, 0x02),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_HSCLK_SEL, 0x01),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_BIN_VCOCAL_CMP_CODE1_MODE0, 0xa2),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_BIN_VCOCAL_CMP_CODE2_MODE0, 0x18),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_COM_BIN_VCOCAL_HSCLK_SEL, 0x01),
-+};
-+
-+static const struct qmp_phy_init_tbl ipq9650_usb3_tx_tbl[] = {
-+	QMP_PHY_INIT_CFG(QSERDES_V4_TX_RES_CODE_LANE_OFFSET_TX, 0x00),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_TX_RES_CODE_LANE_OFFSET_RX, 0x00),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_TX_LANE_MODE_1, 0xb5),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_TX_LANE_MODE_2, 0x02),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_TX_RCV_DETECT_LVL_2, 0x12),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_TX_PI_QEC_CTRL, 0x00),
-+};
-+
-+static const struct qmp_phy_init_tbl ipq9650_usb3_rx_tbl[] = {
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_UCDR_FO_GAIN, 0x0a),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_UCDR_SO_GAIN, 0x06),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_UCDR_FASTLOCK_FO_GAIN, 0x0f),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_UCDR_SO_SATURATION_AND_ENABLE, 0x7f),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_UCDR_FASTLOCK_COUNT_LOW, 0xff),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_UCDR_FASTLOCK_COUNT_HIGH, 0x0f),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_UCDR_PI_CONTROLS, 0x99),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_UCDR_SB2_THRESH1, 0x04),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_UCDR_SB2_THRESH2, 0x08),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_UCDR_SB2_GAIN1, 0x05),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_UCDR_SB2_GAIN2, 0x05),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_VGA_CAL_CNTRL1, 0x54),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_VGA_CAL_CNTRL2, 0x0c),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_GM_CAL, 0x11),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_RX_EQU_ADAPTOR_CNTRL2, 0x0f),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_RX_EQU_ADAPTOR_CNTRL3, 0x4a),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_RX_EQU_ADAPTOR_CNTRL4, 0x0a),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_RX_IDAC_TSETTLE_LOW, 0xc0),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_RX_IDAC_TSETTLE_HIGH, 0x00),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_RX_EQ_OFFSET_ADAPTOR_CNTRL1, 0x47),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_RX_OFFSET_ADAPTOR_CNTRL2, 0x00),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_SIGDET_CNTRL, 0x04),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_SIGDET_DEGLITCH_CNTRL, 0x0e),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_RX_MODE_01_LOW, 0xe4),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_RX_MODE_01_HIGH, 0x64),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_RX_MODE_01_HIGH2, 0xf6),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_RX_MODE_01_HIGH3, 0x89),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_RX_MODE_01_HIGH4, 0x35),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_DFE_EN_TIMER, 0x04),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_DFE_CTLE_POST_CAL_OFFSET, 0x38),
-+	QMP_PHY_INIT_CFG(QSERDES_V4_RX_DCC_CTRL1, 0x0c),
-+};
-+
-+static const struct qmp_phy_init_tbl ipq9650_usb3_pcs_tbl[] = {
-+	QMP_PHY_INIT_CFG(QPHY_V4_PCS_RATE_SLEW_CNTRL1, 0x03),
-+	QMP_PHY_INIT_CFG(QPHY_V4_PCS_LOCK_DETECT_CONFIG1, 0xd0),
-+	QMP_PHY_INIT_CFG(QPHY_V4_PCS_LOCK_DETECT_CONFIG2, 0x07),
-+	QMP_PHY_INIT_CFG(QPHY_V4_PCS_LOCK_DETECT_CONFIG3, 0x20),
-+	QMP_PHY_INIT_CFG(QPHY_V4_PCS_LOCK_DETECT_CONFIG6, 0x13),
-+	QMP_PHY_INIT_CFG(QPHY_V4_PCS_REFGEN_REQ_CONFIG1, 0x21),
-+	QMP_PHY_INIT_CFG(QPHY_V4_PCS_RX_SIGDET_LVL, 0xaa),
-+	QMP_PHY_INIT_CFG(QPHY_V4_PCS_RCVR_DTCT_DLY_P1U2_L, 0xe7),
-+	QMP_PHY_INIT_CFG(QPHY_V4_PCS_RCVR_DTCT_DLY_P1U2_H, 0x03),
-+	QMP_PHY_INIT_CFG(QPHY_V4_PCS_PCS_TX_RX_CONFIG, 0x0c),
-+	QMP_PHY_INIT_CFG(QPHY_V4_PCS_FLL_CNTRL2, 0x83),
-+	QMP_PHY_INIT_CFG(QPHY_V4_PCS_FLL_CNTRL1, 0x02),
-+	QMP_PHY_INIT_CFG(QPHY_V4_PCS_FLL_CNT_VAL_L, 0x09),
-+	QMP_PHY_INIT_CFG(QPHY_V4_PCS_FLL_CNT_VAL_H_TOL, 0xa2),
-+	QMP_PHY_INIT_CFG(QPHY_V4_PCS_FLL_MAN_CODE, 0x40),
-+};
-+
-+static const struct qmp_phy_init_tbl ipq9650_usb3_pcs_usb_tbl[] = {
-+	QMP_PHY_INIT_CFG(QPHY_V4_PCS_USB3_LFPS_DET_HIGH_COUNT_VAL, 0xf8),
-+};
-+
- static const struct qmp_phy_init_tbl msm8996_usb3_serdes_tbl[] = {
- 	QMP_PHY_INIT_CFG(QSERDES_V2_COM_SYSCLK_EN_SEL, 0x14),
- 	QMP_PHY_INIT_CFG(QSERDES_V2_COM_BIAS_EN_CLKBUFLR_EN, 0x08),
-@@ -1596,6 +1691,26 @@ static const struct qmp_phy_cfg ipq9574_usb3phy_cfg = {
- 	.regs			= qmp_v3_usb3phy_regs_layout,
- };
+ Each pool is divided into "slots" of size IO_TLB_SIZE, which is 2 KiB with
+ current definitions. IO_TLB_SEGSIZE contiguous slots (128 slots) constitute
+diff --git a/arch/powerpc/mm/mem.c b/arch/powerpc/mm/mem.c
+index 006ed41097e9..1bdea6c03848 100644
+--- a/arch/powerpc/mm/mem.c
++++ b/arch/powerpc/mm/mem.c
+@@ -295,9 +295,11 @@ void __init arch_mm_preinit(void)
+ 		/*
+ 		 * Since the guest memory is inaccessible to the host,
+ 		 * devices always need to use the SWIOTLB buffer for DMA
+-		 * even if dma_capable() says otherwise.
++		 * even if dma_capable() says otherwise. The hypervisor has
++		 * no addressing limitation, so the buffer may be allocated
++		 * anywhere.
+ 		 */
+-		ppc_swiotlb_flags |= SWIOTLB_ANY;
++		ppc_swiotlb_flags &= ~SWIOTLB_INIT_ADDRESSING_LIMIT;
+ 	}
  
-+static const struct qmp_phy_cfg ipq9650_usb3phy_cfg = {
-+	.offsets		= &qmp_usb_offsets_v4,
-+
-+	.serdes_tbl		= ipq9650_usb3_serdes_tbl,
-+	.serdes_tbl_num		= ARRAY_SIZE(ipq9650_usb3_serdes_tbl),
-+	.tx_tbl			= ipq9650_usb3_tx_tbl,
-+	.tx_tbl_num		= ARRAY_SIZE(ipq9650_usb3_tx_tbl),
-+	.rx_tbl			= ipq9650_usb3_rx_tbl,
-+	.rx_tbl_num		= ARRAY_SIZE(ipq9650_usb3_rx_tbl),
-+	.pcs_tbl		= ipq9650_usb3_pcs_tbl,
-+	.pcs_tbl_num		= ARRAY_SIZE(ipq9650_usb3_pcs_tbl),
-+	.pcs_usb_tbl		= ipq9650_usb3_pcs_usb_tbl,
-+	.pcs_usb_tbl_num	= ARRAY_SIZE(ipq9650_usb3_pcs_usb_tbl),
-+	.vreg_list		= qmp_phy_vreg_l,
-+	.num_vregs		= ARRAY_SIZE(qmp_phy_vreg_l),
-+	.regs			= qmp_v4_usb3phy_regs_layout,
-+
-+	.has_pwrdn_delay	= true,
-+};
-+
- static const struct qmp_phy_cfg msm8996_usb3phy_cfg = {
- 	.offsets		= &qmp_usb_offsets_v3_msm8996,
+ 	/*
+diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
+index 96856114b387..734712230f35 100644
+--- a/arch/riscv/mm/init.c
++++ b/arch/riscv/mm/init.c
+@@ -165,27 +165,11 @@ static void print_vm_layout(void) { }
  
-@@ -2483,6 +2598,9 @@ static const struct of_device_id qmp_usb_of_match_table[] = {
- 	}, {
- 		.compatible = "qcom,ipq9574-qmp-usb3-phy",
- 		.data = &ipq9574_usb3phy_cfg,
-+	}, {
-+		.compatible = "qcom,ipq9650-qmp-usb3-phy",
-+		.data = &ipq9650_usb3phy_cfg,
- 	}, {
- 		.compatible = "qcom,msm8996-qmp-usb3-phy",
- 		.data = &msm8996_usb3phy_cfg,
-
+ void __init arch_mm_preinit(void)
+ {
+-	bool swiotlb = max_pfn > PFN_DOWN(dma32_phys_limit) &&
+-		       memblock_start_of_DRAM() < dma32_phys_limit;
+ 	unsigned int swiotlb_flags = SWIOTLB_VERBOSE;
+ #ifdef CONFIG_FLATMEM
+ 	BUG_ON(!mem_map);
+ #endif /* CONFIG_FLATMEM */
+ 
+-	if (IS_ENABLED(CONFIG_DMA_BOUNCE_UNALIGNED_KMALLOC) && !swiotlb &&
+-	    dma_cache_alignment != 1) {
+-		/*
+-		 * No 32-bit DMA bouncing needed (either all DRAM is within
+-		 * the 32-bit limit, or it all starts above it), but
+-		 * kmalloc() buffers whose sizes are not cache-line-aligned
+-		 * still require bouncing for non-coherent DMA.  Use
+-		 * SWIOTLB_ANY so that the buffer can be allocated from high
+-		 * memory when DRAM starts above dma32_phys_limit.  Allocate
+-		 * ~1 MB per 1 GB of RAM.
+-		 */
+-		swiotlb_flags |= SWIOTLB_ANY;
+-	}
+-
+ 	if ((max_pfn > PFN_DOWN(dma32_phys_limit)) &&
+ 	     (memblock_start_of_DRAM() < dma32_phys_limit))
+ 		swiotlb_flags |= SWIOTLB_INIT_ADDRESSING_LIMIT;
+diff --git a/arch/s390/mm/init.c b/arch/s390/mm/init.c
+index 78f507e24ceb..ce10292447f1 100644
+--- a/arch/s390/mm/init.c
++++ b/arch/s390/mm/init.c
+@@ -166,7 +166,7 @@ static void __init pv_init(void)
+ 	virtio_set_mem_acc_cb(virtio_require_restricted_mem_acc);
+ 
+ 	/* make sure bounce buffers are shared */
+-	swiotlb_init(SWIOTLB_VERBOSE | SWIOTLB_ANY);
++	swiotlb_init(SWIOTLB_VERBOSE);
+ 	swiotlb_update_mem_attributes();
+ }
+ 
+diff --git a/arch/x86/kernel/pci-dma.c b/arch/x86/kernel/pci-dma.c
+index ce257b20ea9c..74e92b457758 100644
+--- a/arch/x86/kernel/pci-dma.c
++++ b/arch/x86/kernel/pci-dma.c
+@@ -90,7 +90,7 @@ static void __init pci_xen_swiotlb_init(void)
+ 	/* Xen can use a SWIOTLB pool anywhere in directly mapped memory. */
+ 	x86_swiotlb_flags &= ~(SWIOTLB_INIT_ADDRESSING_LIMIT |
+ 			       SWIOTLB_INIT_DEFAULT_OFF);
+-	x86_swiotlb_flags |= SWIOTLB_INIT_REMAP | SWIOTLB_ANY;
++	x86_swiotlb_flags |= SWIOTLB_INIT_REMAP;
+ 	swiotlb_init_remap(x86_swiotlb_flags, xen_swiotlb_fixup);
+ 	dma_ops = &xen_swiotlb_dma_ops;
+ 	if (IS_ENABLED(CONFIG_PCI))
+diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
+index f5ce45f2994b..3c3f9d93d400 100644
+--- a/include/linux/swiotlb.h
++++ b/include/linux/swiotlb.h
+@@ -15,13 +15,12 @@ struct page;
+ struct scatterlist;
+ 
+ #define SWIOTLB_VERBOSE	(1 << 0) /* verbose initialization */
+-#define SWIOTLB_ANY	(1 << 1) /* allow any memory for the buffer */
+ /* Initialize a default-sized pool for devices with limited DMA addressing. */
+-#define SWIOTLB_INIT_ADDRESSING_LIMIT	(1 << 2)
++#define SWIOTLB_INIT_ADDRESSING_LIMIT	(1 << 1)
+ /* Initialize a default-sized pool that requires architecture remapping. */
+-#define SWIOTLB_INIT_REMAP		(1 << 3)
++#define SWIOTLB_INIT_REMAP		(1 << 2)
+ /* Do not initialize a pool unless SWIOTLB is explicitly required. */
+-#define SWIOTLB_INIT_DEFAULT_OFF		(1 << 4)
++#define SWIOTLB_INIT_DEFAULT_OFF	(1 << 3)
+ 
+ /*
+  * Maximum allowable number of contiguous slabs to map,
+diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+index 130a13eb85b0..4d13421c3901 100644
+--- a/kernel/dma/swiotlb.c
++++ b/kernel/dma/swiotlb.c
+@@ -437,15 +437,10 @@ static void __init *swiotlb_memblock_alloc(unsigned long nslabs,
+ 	size_t bytes = PAGE_ALIGN(nslabs << IO_TLB_SHIFT);
+ 	void *tlb;
+ 
+-	/*
+-	 * By default allocate the bounce buffer memory from low memory, but
+-	 * allow to pick a location everywhere for hypervisors with guest
+-	 * memory encryption.
+-	 */
+-	if (flags & SWIOTLB_ANY)
+-		tlb = memblock_alloc(bytes, PAGE_SIZE);
+-	else
++	if (flags & SWIOTLB_INIT_ADDRESSING_LIMIT)
+ 		tlb = memblock_alloc_low(bytes, PAGE_SIZE);
++	else
++		tlb = memblock_alloc(bytes, PAGE_SIZE);
+ 
+ 	if (!tlb) {
+ 		pr_warn("%s: Failed to allocate %zu bytes tlb structure\n",
+@@ -567,10 +562,10 @@ void __init swiotlb_init_remap(unsigned int flags,
+ #ifdef CONFIG_SWIOTLB_DYNAMIC
+ 	if (!remap)
+ 		io_tlb_default_mem.can_grow = true;
+-	if (flags & SWIOTLB_ANY)
+-		io_tlb_default_mem.phys_limit = virt_to_phys(high_memory - 1);
+-	else
++	if (flags & SWIOTLB_INIT_ADDRESSING_LIMIT)
+ 		io_tlb_default_mem.phys_limit = ARCH_LOW_ADDRESS_LIMIT;
++	else
++		io_tlb_default_mem.phys_limit = virt_to_phys(high_memory - 1);
+ #endif
+ 
+ 	/* if we have host or guest memory encryption */
 -- 
-2.34.1
+2.43.0
 
