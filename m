@@ -1,170 +1,233 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BCE223DC6;
-	Thu, 24 Sep 2026 17:01:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2805E3750DB
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:01:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790269285; cv=none; b=egFAA+5SV9cC7BNepp57DwPmNVMo0qwoAZd6OnXj/rwnIPvJP6CXhKrQ+CHPLlIhozXF1dWaaBbKilSMA2MehyZpQvZqoglhBCG6PeQHr64OZOr4qAalkmaUEZCgYcFJEiDiVjuEtKNSJMHmc+IscObs7r7YPo9r5hcFso7Vuw4=
+	t=1790269284; cv=none; b=RkCNe8H9iTFveYeBTA0wOM0LXEASVqnB24ovvRqvWOnVub5p8EHGvMuCC6NSLGGMArt4R4vQGjeQBko8TspgSukeOUltLWBQtuh7BOg8SZVgnszS53z0bwlwl4xjZbn1MDrVwhlg6fxylXowj4mGE1pBCD+pcGT0NWOej57YTdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790269285; c=relaxed/simple;
-	bh=HoiZ1dOgaiWoXjsmkLXohzLMB9R80yFujkHl4ErAofo=;
+	s=arc-20240116; t=1790269284; c=relaxed/simple;
+	bh=ooJhgB38QPlK088fZ0OJWYlg3DEOC7xMjtX4/OovQ24=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cPUj1UmTjAFWI7KGcljbJOg85zolVKy6kxgolGk9Rmx5LQUNGIVm+f/rh9S8LYTXtyHVKJonBy+07Lk3NWycOiop7JaN3Tnn6T7IRNTLIBmxj0zJBfBmBSDCvNMWWNCiGuOK4MWaAyqDcEotR5a+UoOA3GHMjGvZHU0JLhASEYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W+cHBIAz; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=hCIp2qtO43GzkKYfLrLSLiGFNLRbhHYUXbWp0vpS3j8VKoMLHvMqkEeIqd5j3/sylIShE9r0mD2OrvOq69I2LwkRRO8jkQvy2q3xl1LMZOvvKzgCyeg7BkOh7pwNuo4CEY3Qt8Si6KvVo64m4c48kt+C6SYHLAGZ/UgyQJcTOn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Dq8y8fpb; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Emnmt40d; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=q/HhEC8J; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=97b27Qav; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W+cHBIAz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3044D1F00893;
-	Thu, 24 Sep 2026 17:01:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790269283;
-	bh=nQm2TSsOFmCL75Ew2X2Ml8+Y1hxvqV0VYttpBX+ucy0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=W+cHBIAz4in40QufQgPnl6guc10fk/nKNFwovmn27Hn+FaoIpEPFdc5yE3AwgTwN9
-	 8L00pVPfG69smeuGgutlyNuAk3wfOPA3BwzoH+EU/jrEASrrdmn6oD+BwGzBh4a1mn
-	 OYxgH1XzECdZ5VQ82B2/g/rUZpYQ8FDlSRjBuBUaY4HjIBIMS8XzF4Cwcw0//xclVE
-	 S2nhuYKt9zeI6zhzemyAQ63SI0PfJ/9YrrJGAkGnsD8RgYvZPE2Jpd+y0Zh4jqxSMc
-	 C85+HE/uXDHOjjNizh40QzNePtLV4AvsyOcvvE+is9T1gSFRBd0rZqFfeffSUwHWHX
-	 SAx7zSgXrZIhA==
-Date: Thu, 24 Sep 2026 18:01:19 +0100
-From: Conor Dooley <conor@kernel.org>
-To: xianwei.zhao@amlogic.com
-Cc: Junyi Zhao <junyi.zhao@amlogic.com>, Andi Shyti <andi.shyti@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Xianwei Zhao <xianwei.zhaol@amlogic.com>,
-	Junyi Zhao <junyi.zhaol@amlogic.com>, linux-i2c@vger.kernel.org,
-	linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: i2c: add Amlogic A9 I2C controller
-Message-ID: <20260924-primarily-harmonica-fe3455834a4d@spud>
-References: <20260924-a9-i2c-v1-0-b8ad9b46f4a8@amlogic.com>
- <20260924-a9-i2c-v1-1-b8ad9b46f4a8@amlogic.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Dq8y8fpb";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Emnmt40d";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="q/HhEC8J";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="97b27Qav"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 6E0EB219EA;
+	Thu, 24 Sep 2026 17:01:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790269268; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3HW0Sn2F1kXuJYxmIs4JnguZGO0MfEN0+vn7YSbBw8s=;
+	b=Dq8y8fpbrooPvDe+fz9TJxkWRhRjlf5pRPLGJS4WKxYhIlVJ2dN8/KcMt6R7JeGgFauhRP
+	XyS4YbDpvklOMpG8rj5jK+KUot27PnjG2DwZwklen4/97cYvijFmDIPvJOtZuK8F3g96OS
+	2ob2VevWbewhkc/IXnXX6RAF53xdkME=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790269268;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3HW0Sn2F1kXuJYxmIs4JnguZGO0MfEN0+vn7YSbBw8s=;
+	b=Emnmt40dakyB2rhiu0JFR11bM/ncOnmEX/zGlxH3rqzHjo73rNnz+LMU2Keu5lf+EFaQHc
+	DoAA6b+rf/1IP6Ag==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790269264; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3HW0Sn2F1kXuJYxmIs4JnguZGO0MfEN0+vn7YSbBw8s=;
+	b=q/HhEC8JNCIA11MYR3fn+365t8+fngPtf7Vgg749bUgVS/jO8xeBBzrLULpV8ZLW4a5em6
+	V6pISMWV5FiX2LDpMEueZy0pYpJ463G3oUeTfN4H/uterZw3T4AumwLJdqcfwhqefbyHfp
+	G11sXyUE4amK+3PtXO6MtgGri1hZEps=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790269264;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3HW0Sn2F1kXuJYxmIs4JnguZGO0MfEN0+vn7YSbBw8s=;
+	b=97b27Qav8QQMnK27QqURwKgt/G6MCwhXkGNTFMMbf0VtcUhP6k+M+TVV659NKMtB/Bb5MR
+	oFpbveN0+0NqVrDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 42C7D13354;
+	Thu, 24 Sep 2026 17:01:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 6+AvCFBXtWrXSAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 24 Sep 2026 17:01:04 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id C8B32A132E; Thu, 24 Sep 2026 19:00:59 +0200 (CEST)
+Date: Thu, 24 Sep 2026 19:00:59 +0200
+From: Jan Kara <jack@suse.cz>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Jan Kara <jack@suse.cz>, 
+	Mikko Rantalainen <mikko.rantalainen@peda.net>, Matthew Wilcox <willy@infradead.org>, 
+	linux-fsdevel@vger.kernel.org, linux-api@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	brauner@kernel.org, viro@zeniv.linux.org.uk, alx@kernel.org, dalias@libc.org
+Subject: Re: [RFC PATCH 0/1] close(): stop exposing non-retryable EINTR
+Message-ID: <e7r623alr6ksfm76hpitkybqkkb2wx2v6jzq2buebhyq7pzxhe@fxqy6ljywt4x>
+References: <20260913193815.2862366-1-mikko.rantalainen@peda.net>
+ <aqcmz5uI7PgN5CT7@casper.infradead.org>
+ <bcdb8f85-d53a-4824-8e34-8d190ec7f4b2@peda.net>
+ <cf83be66-e540-4abf-b377-7e344d62a1dd@peda.net>
+ <wb5ulikmcromcpolaf7icazadijmadrspctqe3ffgnm3bffdwe@t4oz5ond537b>
+ <20260921101907.162d3533@pumpkin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bItvP1XPExBUqZoU"
-Content-Disposition: inline
-In-Reply-To: <20260924-a9-i2c-v1-1-b8ad9b46f4a8@amlogic.com>
-
---bItvP1XPExBUqZoU
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260921101907.162d3533@pumpkin>
+X-Spam-Score: -2.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,imap1.dmz-prg2.suse.org:helo,suse.com:email]
+X-Spam-Flag: NO
 
-On Thu, Sep 24, 2026 at 08:39:34AM +0000, Xianwei Zhao via B4 Relay wrote:
-> From: Xianwei Zhao <xianwei.zhao@amlogic.com>
->=20
-> Add a Device Tree binding for the I2C controller found on the
-> Amlogic A9 SoC.
->=20
-> Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+On Mon 21-09-26 10:19:07, David Laight wrote:
+> On Mon, 21 Sep 2026 10:49:23 +0200
+> Jan Kara <jack@suse.cz> wrote:
+> 
+> > Hi!
+> > 
+> > On Mon 14-09-26 15:40:01, Mikko Rantalainen wrote:
+> > > Mikko Rantalainen (2026-09-14 12:07 Europe/Helsinki):  
+> > > > ---
+> > > > retval = filp_flush(file, current->files);
+> > > > 
+> > > > WARN_ONCE(retval == -EINTR ||
+> > > >           retval == -ERESTARTSYS ||
+> > > >           retval == -ERESTARTNOINTR ||
+> > > >           retval == -ERESTARTNOHAND ||
+> > > >           retval == -ERESTART_RESTARTBLOCK,
+> > > >           "close: ->flush %ps returned interrupt error %d\n",
+> > > >           file->f_op->flush, retval);
+> > > > ---
+> > > > 
+> > > > That would leave the existing userspace ABI unchanged while making
+> > > > remaining offending implementations easier to find and fix.
+> > > > 
+> > > > I also considered retrying filp_flush() inside close(), but I don't
+> > > > think that can be done generically. ->flush() is not documented as
+> > > > safe to restart from the beginning after partial execution, and
+> > > > an interruptible wait could immediately encounter the same
+> > > > still-pending signal again. So fixing the interruptibility at the
+> > > > offending wait seems safer if the above invariant is indeed
+> > > > the intended one.  
+> > > 
+> > > Another thing I noticed is that there are already several paths where
+> > > the kernel calls filp_close() and intentionally ignores its return value.
+> > > 
+> > > For example, close_files() does:
+> > > 
+> > >     filp_close(file, files);
+> > > 
+> > > without checking the result. The same is true for do_close_on_exec(),
+> > > and close_range() explicitly says:
+> > > 
+> > >     Currently, errors to close a given file descriptor are ignored.
+> > > 
+> > > So I don't think a ->flush() implementation can rely on returning EINTR
+> > > and having somebody retry the interrupted operation. There are valid
+> > > close paths where nobody will ever see that return value, even when the
+> > > process itself continues running.
+> > > 
+> > > This seems to strengthen Matthew's point: if some work performed by  
+> > > ->flush() is required for correctness, that work has to tolerate these  
+> > > close paths without depending on userspace retry. Returning an
+> > > interruption result cannot be the recovery mechanism.
+> > > 
+> > > I'm therefore leaning towards treating an observable -EINTR/-ERESTART*
+> > > from ->flush() as suspicious in general, rather than just special-casing
+> > > the close(2) syscall. The fatal-signal case is harmless because the task
+> > > will not observe the result, but close-on-exec and close_range() show
+> > > that unobserved filp_close() errors are already part of normal operation
+> > > as well.
+> > > 
+> > > That also makes me think documenting the intended ->flush() contract
+> > > would be useful: if required close-time work must not depend on the
+> > > caller retrying filp_close(), that seems like an important invariant for
+> > > implementations to know.
+> > > 
+> > > What guarantees must file_operations::flush provide when its caller may
+> > > have no way to act on its return value?
+> > > 
+> > > In any case, I'm now thinking that returning EINTR for close() is a bug
+> > > when file descriptor is already freed. I think the only question is how
+> > > it should be solved. I initially thought it should just be mapped to
+> > > success. Maybe it should be logged as subsystem bug *and* mapped to
+> > > success for userspace instead?  
+> > 
+> > I agree that nobody can sanely assume returning EINTR from open(2) helps
+> > anything (or that userspace is able to do anything based on that).
+> 
+> What about opens of serial ports waiting for modem signals or opens
+> of tape drives waiting for rewind, finding tape marks etc?
 
-Since this is not in the existing meson file, does that mean that
-there's a substantial change in the IP design, other than the addition
-of dma support?
+Err. Not sure how I wrote open(2) there. It should have been close(2)...
 
-> ---
->  .../devicetree/bindings/i2c/amlogic,a9-i2c.yaml    | 61 ++++++++++++++++=
-++++++
->  1 file changed, 61 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml b/=
-Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml
-> new file mode 100644
-> index 000000000000..681241a52680
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml
-> @@ -0,0 +1,61 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/i2c/amlogic,a9-i2c.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Amlogic A9 I2C Controller
-> +
-> +maintainers:
-> +  - Xianwei Zhao <xianwei.zhaol@amlogic.com>
-> +  - Junyi Zhao <junyi.zhaol@amlogic.com>
-> +
-> +allOf:
-> +  - $ref: /schemas/i2c/i2c-controller.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: amlogic,a9-i2c
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  dmas:
-> +    items:
-> +      - description: DMA controller phandle and request line for RX
-> +      - description: DMA controller phandle and request line for TX
-> +
-> +  dma-names:
-> +    items:
-> +      - const: rx
-> +      - const: tx
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c@3a4400 {
-> +        compatible =3D "amlogic,a9-i2c";
-> +        reg =3D <0x3a4400 0x3c>;
-> +        interrupts =3D <1 164 1>;
-> +        clocks =3D <&clkc_periphs 11>;
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
+> > Generally any error (perhaps outside EBADF) from close(2) is at best
+> > informative telling you that something is unhealthy but userspace cannot
+> > sensibly do anything about it.
+> 
+> The program can exit with error to indicate that the output file is
+> likely to be invalid.
 
-> +        eeprom@52 {
-> +            compatible =3D "atmel,24c32";
-> +            reg =3D <0x52>;
-> +        };
+Yes. That was covered by my paragraph below about "something is unhealthy"
+message.
 
-Remove this from your example please.
-pw-bot: changes-requested
+								Honza
 
-Thanks,
-Conor.
-
-> +    };
->=20
-> --=20
-> 2.52.0
->=20
->=20
-
---bItvP1XPExBUqZoU
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarVXXwAKCRB4tDGHoIJi
-0jmbAQD1+PWjoCf58ZsShK3wOnr3jQBCWLxJWedfv/9RCZ8hLgEAvsMsA+s7U7IE
-/rNJ549B02Ub9QvF/P2SlcaHzmzGRgk=
-=qjV7
------END PGP SIGNATURE-----
-
---bItvP1XPExBUqZoU--
+> > OTOH this "something is unhealthy" message
+> > does carry some value for possible debugging of the issues by sysadmin so
+> > I'm not sure just ignoring the errors is the right way to go.
+> > 
+> > This raises a question: Are you actually seeing some case where you can see
+> > EINTR returned? Because IMO the best fix is to just fix the .flush method
+> > that can return EINTR to do that only in case of fatal signal and then you
+> > don't have to be doing this special-casing in VFS.
+> > 
+> > 								Honza
+> > 
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
