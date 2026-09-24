@@ -1,137 +1,267 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71EA83E3D92
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:54:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A1EF3E0C50
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:54:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790240045; cv=none; b=uKj7fuv7Z6QRUuI4r44wS7g1yKXs6WBNu6709kDpyTQhpHtyHQWMObcjQZ6yZEJFVFuc7GkOVkTUd+flr/ZxFR/PdYTFY7N+NfGunJ3XdgzMiVnrphbdoABf+BAG/LhTtleM4W/ngAcKChjSyAZ8+/a5GJmxbQgBQiGRxGzkscA=
+	t=1790240077; cv=none; b=HDqBJ+cot8eXLGQzG3PY7H7ronif9vMtzSESbpO3DuTbetrCfCXfuir/rADd5jT3fDpftKTXmcO7tVz8qY/8SdYyLtb9VjAu+WSB+TNuPEp9Bm5Bz3++5CCVEU8O3D3QixCbgolmsATKbsgOyU3VzutHoQRGSpKT3EvOlCsuLrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790240045; c=relaxed/simple;
-	bh=vXsA8onEphTPMBeepzop7491JLND9beylCZQUYRa/9s=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=tyHFW22R0T2VdF+idnAch14Q1vGVF/z7AZPZWeMarjvqVydKOotkNEwwcY+LCe1/NGhWEHv/GjwJVmDgUOrDIYWLC9O4MH9iPiM31DdPXRwXAJhNkiTiwbnqSGDSoXeOLicS4K6I51b12EgzKx/Z9V5Im5eGAuuNrwDs2kGd3lo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=LqbjLpMK; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790240077; c=relaxed/simple;
+	bh=twgh3g1PnM87VxqM/4Rt4mbcLaJq2ja0aJ+oUhH0aK8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SRSe4N4qOVSCXojs+zPlyA2GByA+QGcmYGtVyFgy3OwCHb2MP08VaaU2e6MAsk2PnrFz4HECbZJq8a3HZ3E1wDXqbZAqkM04XonzHIUAF3UC7Lz8QsvKtKujh1FV6n8lNx48PS9wVhuuUe2SAkL5PtzqhgzFMO5r32Qo04sFrew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vtJHpO2C; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="LqbjLpMK"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so20314365e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:54:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vtJHpO2C"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d097b4939so9758525e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:54:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790240041; x=1790844841; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YLnZwUG2MBgLZpqGTzUMzHxGyh6dXv6V+NePiVAKHBk=;
-        b=LqbjLpMKvROjquwB9jxrXy2kExvY2imvTRcDnTuHsenhBVfltERJWno289v+iKmBJ0
-         yUqkWFM+EFSFkDhphVs6tMb1P9AWqlMdUS/5QOyQM9/h7C+yCLOJZ7lCjjbQe+RHTCMA
-         r/UI+7MgH45kl88MOtfb8JtOXg8eB4ONJMqxo32cayOKyu/UkHG87iGnwScfJVP691mX
-         vOloPmc5qF53eBOKxUSJjqEumbi5ZfQcrMUaOaypXmtXdPklzDOPfmBXXVEFkITPNP49
-         OK6K3F+y4PcdWOsVTPW7EuxflHrHUrB/SnW9+UwP9e4GDh13UiccwX5gI6sLw2MNo8km
-         zU+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790240041; x=1790844841;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=google.com; s=20251104; t=1790240074; x=1790844874; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=YLnZwUG2MBgLZpqGTzUMzHxGyh6dXv6V+NePiVAKHBk=;
-        b=jAAtZtE1ayBEh5t4My1mkRebzyikWwkrzLVeZ+dAZHC5BiewriyW382WjmrDNr54rv
-         6hzDWF73TFricoTXxNC0GoSTrt8r2jt7aEFul1qjjZjEy68XD1ZKSobUW54yh2JSZZ/F
-         nPiIDrje0Pf0OeI48dw+ZiE2z9lMqRzlQcJQEO3KhCVtHeyRovtMaTLgm5XTX/0kLoFG
-         FhTM1MYcnWGVTqXD7dTzC6Bm2cqppihLvc7g4NV0zbKuVyDQCuJdMVq9h2JXfW3zhU11
-         PcjeJeYLKximVavXHaf7GaXZFT5+yJqKsD480Gj53z5wjR8xK9UdkOrMJMXa2Z27HgxR
-         VMMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwxjwtmo5cC8g3zfdb+nC3oAm8kCn62g3FGkNVhzKSfBiDhrIIcC9hrPWAmnsZ5jISUnFFfS+Oz2G17uYw=@vger.kernel.org
-X-Gm-Message-State: AFuF++krlhR9Zmy06BXJ+KDHjyRuoL8v0gt+R/PkX1390ThN/ZjGLcsG
-	ySmsMJzdZkF1m4GYO0Y2Ps4G3hhpn2GUaFMlJXfHe5jB0X6G0uTTyzkxJG5NBy6wNjffdBDQIgy
-	Uhd3g
-X-Gm-Gg: AYBFou0HLDAjAnwxvQbdR1VAoXe+HPIo3zn9wypIgrsBnGUVCcbYNoSHY06m6abSW9N
-	ir+D5mG8YrOaCRMgHlXFPJ0+llwBDhhkEsmI0I73pGV94gUC5ZrrdETUgbMhKd3SdLlndkcwC5C
-	D2LQJyP1bzXWhQd95jxmBGLvCd08p6QkVuCcAW28eBRqHeXy1Z7ECHjIL28NfWftPAbeuGk7Gaz
-	FckzdGxg8dGYzvhiSBNIUX9mW8mFDOXHAiN632+ZA4Ji2ZbT7JpjRyu6wx3o0xROf7ERr9km2Jd
-	8kz78C7tAGrdgwfBcvy3B0zgs059NTPbnadPDNqyGqzFTsa8D1Vgf366OKV1ZIFzP8esKFVg8t/
-	O8y/Si4RtUY54FxBWJijVA96rEeYUDfvwLH4c/aVE+4FCn/vDeh9QZGgH9k1givap6p6/QYoK0e
-	FsmnBVc+L0/hkGwfT2ha9sApo7ITY56Pcn9GQ3AA7tGTbxIugWleb/I1OPBAvb3W3+N/qqXdYMJ
-	rnZ7LMNjbyWodwgxw==
-X-Received: by 2002:a05:600c:8b22:b0:49e:6fd2:a45 with SMTP id 5b1f17b1804b1-49fe66d81fbmr28966805e9.16.1790240040664;
-        Thu, 24 Sep 2026 01:54:00 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd4c8dsm64643045e9.3.2026.09.24.01.53.59
+        bh=bHa1UAdZED9v4xIP0j2HFg/rXQgFI3X0Ub8oRadUOrA=;
+        b=vtJHpO2C063MkAGySC/Dsj9UbRw/nO+1qxiyGaRJk2eCdw+l7Qvl+jfWv/xEnWMwnI
+         YvTeIDeajgw+NN5aaTh0cJmQxZMB7iyfVIDzVjX6JOmp3GZFpJ5e8JEetmd4pNv5z01D
+         kthYMFOF731GHu6S1+7mczVJSBVaJKp+RJqQJnoYOYogtdzAhPlC/BQGmMDjsaIPyUYN
+         WXWZt+fPOrycOogGEHPkrhrSfWaIgDe6/4X2Fj1tQZB0cGGgaB1r80e1cjo1hmWE0EQf
+         G506y+OLmtn6kzl2nlbmkwzp1n/Y6f270ZA8fPVMIajDe2y05r1W5QOrmHT2oLZkvS/Z
+         aB/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790240074; x=1790844874;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bHa1UAdZED9v4xIP0j2HFg/rXQgFI3X0Ub8oRadUOrA=;
+        b=KmtaEeIZU+giquhWKxRscBh0HqqaIwVi4ILFTbNFx2mmcrw1S72KqqeTZkJfltXXGj
+         wqIUSiy7Z3P9p96KMYNx5a2NOlH6RbjfrfRTJ1/RRSvD2QSs5SXSX2Z4oaGYXrxWTD23
+         PPA7IHaV/8Ui2ZLsLHPrz4RswEOBfsc14j1qKBLSEygti7vuBhCgktepw2OGcoScaKpx
+         DJ9q9pvNp8FXxwb4sSRWP501pwCNDQLujyH+/7yYXGwXXaamZZGtLnrJzolZsKEblJSJ
+         ha7ZuC8cEaZbvhi0/Qpm3mJ6VPx4XtdMKCXhT5sj1kRHQfHmI2UBWkRmzZbncnykb28T
+         P43w==
+X-Forwarded-Encrypted: i=1; AKwUvBx2qAa517sLqhQkgLsDNkTrr5CJQWTLUwJVIACORh05aLKWHMNYFltbW9dpRX3SAA9R/kPHU8ojotnmxo4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lgARUFHiHTRqduBqEy0biWSBdlhI+su6914wRZCRMODkSGIh5H
+	rOWT/6etNxmNYtGrnJu8lQ5v0DJTGensCGaioCa0jbjPAkLfySJj0BZHx82O5Q7zEQ==
+X-Gm-Gg: AYBFou1bIfXi+a69W7KdGI39oCjXa1HEZZhrznuGpUJ4yF51d6OGuNAb1BiC6vAZeAW
+	65r0bvsZupDMLApDN4mZg2qrXm5Qg9iXV+IIxn0rCprfGAgcOl0TnuPJUUy/EgVATlps4ZhKl1y
+	LWFn9/KN+O1xbM1prkTdTg3uv5C7THTWei8HDqHrpg+RIOk7wu6/pBaKRO6aR84WnfEhK5Yr33z
+	K1r3mFKTaYIc1VoCyNr2PextHYo2Osix1BwtN7MZ7g1jdlYbAqKsgjGq+5AcI1U/EzCWnc6APRX
+	PvDjoymVyS7xibnJTzAsCbZRmUh6B0eca1b8PgEGaUJARcN2ETn2XDfF7miE9UMLiQdgAwIXXcE
+	vhE2AaeMxvkV7EjgSwrlFZBe8XWcil5NihR7b0SIFoO0Z+0hybIUIzAWy7RztUHvmFXm1AQeEbQ
+	kv2a8Uk0vNK1/A35yMaIFVJSnzenLg7Uor8fgBz8KVRQa/A80Zeh7BEQYFlWaNQMelAXAc2dC1G
+	wNrGEBoTHMkbC6Lu8Rc09skMTpwm9TwH1oH06ASCsX+1L45UGQkOw==
+X-Received: by 2002:a05:600c:34d4:b0:495:6e68:5df2 with SMTP id 5b1f17b1804b1-49fe66d07c9mr27713375e9.12.1790240073084;
+        Thu, 24 Sep 2026 01:54:33 -0700 (PDT)
+Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe0c3731fsm115272595e9.2.2026.09.24.01.54.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 01:54:00 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec
- <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Richard
- Cochran <richardcochran@gmail.com>, Maxime Ripard <mripard@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andre Przywara
- <andre.przywara@arm.com>
-Subject: Re: [PATCH net-next v3 3/5] net: stmmac: sun55i: Make the delay
- step configurable
-In-Reply-To: <26334006-a2af-49d3-8f26-18cd44118c6b@lunn.ch>
-References: <20260923-allwinner-a733-gmac-support-v3-0-15735155a789@baylibre.com>
- <20260923-allwinner-a733-gmac-support-v3-3-15735155a789@baylibre.com>
- <26334006-a2af-49d3-8f26-18cd44118c6b@lunn.ch>
-Date: Thu, 24 Sep 2026 10:53:59 +0200
-Message-ID: <1j4iff9gig.fsf@starbuckisacylon.baylibre.com>
+        Thu, 24 Sep 2026 01:54:32 -0700 (PDT)
+Date: Thu, 24 Sep 2026 09:54:28 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Xiang Gao <gxxa03070307@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lorenzo Stoakes <ljs@kernel.org>, gao xu <gaoxu2@honor.com>,
+	yinchuang1@xiaomi.com, linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Xiang Gao <gaoxiang17@xiaomi.com>
+Subject: Re: [PATCH v4 1/2] tracing: add ring-buffer memory usage statistics
+ in tracefs
+Message-ID: <arTlRPvmR54Fa71o@google.com>
+References: <20260916063322.472172-1-gaoxiang17@xiaomi.com>
+ <20260921113047.1152602-1-gaoxiang17@xiaomi.com>
+ <20260921113047.1152602-2-gaoxiang17@xiaomi.com>
+ <arJNSjKsJ3bK40dH@google.com>
+ <20260924102755.02084435309be26f664e3333@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924102755.02084435309be26f664e3333@kernel.org>
 
-On jeu. 24 sept. 2026 at 04:30, Andrew Lunn <andrew@lunn.ch> wrote:
+On Thu, Sep 24, 2026 at 10:27:55AM +0900, Masami Hiramatsu wrote:
+> On Tue, 22 Sep 2026 10:41:30 +0100
+> Vincent Donnefort <vdonnefort@google.com> wrote:
+> 
+> > On Mon, Sep 21, 2026 at 07:30:45PM +0800, Xiang Gao wrote:
+> > > Report the memory consumed by the tracing ring buffers, rather than the
+> > > usable data capacity exposed by buffer_size_kb. Android low-memory
+> > > diagnostics need this to attribute the memory used by tracing when
+> > > calculating lost RAM.
+> > > 
+> > > The buffers can be spread across the global trace array, dynamically
+> > > created instances, and snapshot buffers. Userspace currently has to
+> > > discover and sum every instance, and snapshot memory is not exposed by
+> > > the per-instance totals.
+> > > 
+> > > Add a trace_stats directory with memory_usage_kb reporting:
+> > > 
+> > >   buffers:
+> > >   snapshot_buffers:
+> > > 
+> > > covering the global trace array, all instances, and the bootstrapping
+> > > temp_buffer across all CPUs.
+> > > 
+> > > The values account for the full pages backing the data sub-buffers and
+> > > reader page, plus the cached read page and mmap metadata page when
+> > > present. Slab-allocated ring-buffer metadata is not included, as it is
+> > > already reported through Slab and would be double-counted when
+> > > subtracting tracing memory from lost RAM. Remote buffers, whose pages
+> > > are externally owned, report zero.
+> > 
+> > For the next version, it is good practice to __not__ in-reply-to with previous
+> > version.
+> > 
+> 
+> Indeed. This is hard to find which is the latest version.
+> 
+> > > 
+> > > Signed-off-by: Xiang Gao <gaoxiang17@xiaomi.com>
+> > > ---
+> > >  Documentation/trace/ftrace.rst | 12 +++++
+> > >  include/linux/ring_buffer.h    |  1 +
+> > >  kernel/trace/ring_buffer.c     | 41 +++++++++++++++
+> > >  kernel/trace/trace.c           | 95 ++++++++++++++++++++++++++++++++++
+> > >  4 files changed, 149 insertions(+)
+> > > 
+> > > diff --git a/Documentation/trace/ftrace.rst b/Documentation/trace/ftrace.rst
+> > > index 7261f25f8b4b..99ddfe26b7cd 100644
+> > > --- a/Documentation/trace/ftrace.rst
+> > > +++ b/Documentation/trace/ftrace.rst
+> > > @@ -218,6 +218,18 @@ of ftrace. Here is a list of some of the key files:
+> > >  
+> > >  	This displays the total combined size of all the trace buffers.
+> > >  
+> > > +  trace_stats/memory_usage_kb:
+> > > +
+> > > +	This reports the memory consumed by the ring buffers, as opposed to
+> > > +	the usable data capacity shown by buffer_size_kb. The value covers the
+> > > +	main and snapshot buffers of the global trace array and all tracing
+> > > +	instances. It does not include slab-allocated ring-buffer metadata.
+> > > +
+> > > +	Output::
+> > > +
+> > > +	    buffers: ...
+> > > +	    snapshot_buffers: ...
+> > > +
+> > >    buffer_subbuf_size_kb:
+> > >  
+> > >  	This sets or displays the sub buffer size. The ring buffer is broken up
+> > > diff --git a/include/linux/ring_buffer.h b/include/linux/ring_buffer.h
+> > > index eac3e9080c3c..96b99e6757d4 100644
+> > > --- a/include/linux/ring_buffer.h
+> > > +++ b/include/linux/ring_buffer.h
+> > > @@ -167,6 +167,7 @@ int ring_buffer_iter_empty(struct ring_buffer_iter *iter);
+> > >  bool ring_buffer_iter_dropped(struct ring_buffer_iter *iter);
+> > >  
+> > >  unsigned long ring_buffer_size(struct trace_buffer *buffer, int cpu);
+> > > +unsigned long ring_buffer_memory_size(struct trace_buffer *buffer, int cpu);
+> > >  unsigned long ring_buffer_max_event_size(struct trace_buffer *buffer);
+> > >  
+> > >  void ring_buffer_reset_cpu(struct trace_buffer *buffer, int cpu);
+> > > diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+> > > index 04bb94c29f58..efb88bf8970c 100644
+> > > --- a/kernel/trace/ring_buffer.c
+> > > +++ b/kernel/trace/ring_buffer.c
+> > > @@ -6559,6 +6559,47 @@ unsigned long ring_buffer_size(struct trace_buffer *buffer, int cpu)
+> > >  }
+> > >  EXPORT_SYMBOL_GPL(ring_buffer_size);
+> > >  
+> > > +/**
+> > > + * ring_buffer_memory_size - return the memory used by the buffer (in bytes)
+> > > + * @buffer: The ring buffer.
+> > > + * @cpu: The CPU to get ring buffer memory from.
+> > > + *
+> > > + * Returns the page-allocator memory consumed by @cpu, including the data
+> > > + * sub-buffers, the reader page, the cached read page, and the mmap
+> > > + * metadata page. Unlike ring_buffer_size(), which reports the usable data
+> > > + * capacity, this accounts for the full pages allocated to the buffer.
+> > > + * Remote buffers do not own page-allocator memory and report zero.
+> > > + */
+> > > +unsigned long ring_buffer_memory_size(struct trace_buffer *buffer, int cpu)
+> > > +{
+> > > +	struct ring_buffer_per_cpu *cpu_buffer;
+> > > +	unsigned long subbuf_size;
+> > > +	unsigned long size;
+> > > +
+> > > +	if (!cpumask_test_cpu(cpu, buffer->cpumask))
+> > > +		return 0;
+> > > +
+> > > +	/* Remote buffers use externally owned memory. */
+> > > +	if (buffer->remote)
+> > > +		return 0;
+> 
+> For the persistent ring buffer, you also need to check `buffer->range_addr_start`.
+> That is a reserved memory, which is outside of page allocator.
+> 
+> > 
+> > This is a generic interface. If you want to call this function on a remote
+> > buffer, you should be able to.
+> 
+> But as the comment said, this function returns the size of page-allocator
+> memory. Is remote ring buffer allocated from host?
 
->> +	 * Correcting them would break the DT ABI of the published DTs.
->> +	 */
->> +	.txdly_step_ps = 100,
->> +	.rxdly_step_ps = 100,
->
-> Could you be a bit more specific about what published means?
+It is down to the trace_remote implementer where the memory comes from, but
+right now, all remote ring buffer are allocated from the buddy allocator.
 
-DTs like those ones:
-* https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts?h=v7.3-rc4#n88
-* https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts?h=v7.3-rc4#n87
-* https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm64/boot/dts/allwinner/sun55i-t527-orangepi-4a.dts?h=v7.3-rc4#n106
+Although, even coming from a carveout, the low-level function should probably
+return something in any case, as it has all the informations it needs and to
+stay as generic as possible.
 
-On A523/T527, only gmac1 is supported by the driver addressed in this
-series. gmac0 is another (dwmac) driver.
+Then, the caller (trace_stat) should know if the information is relevant or not,
+or where to account for it. (probably with TRACE_ARRAY_FL_ flags ?). trace_stat
+shouldn't report only what's relevant for Android. It can however split the
+report between persistent ring-buffers and the others.
 
-If I take the 1st example
+Overall, we could have
 
-&gmac1 {
-	phy-mode = "rgmii-id";
-	phy-handle = <&ext_rgmii1_phy>;
-	phy-supply = <&reg_cldo4>;
+cat trace_mem
 
-	tx-internal-delay-ps = <300>;
-	rx-internal-delay-ps = <400>;
+  main:
+  instances:
+  snapshots:
+  persistents: 
+  remotes:
 
-	status = "okay";
-};
+  total_system:
+  total_carveout:
 
-If the information we've got about the A523 delay steps are correct, the
-actual values would be:
-* tx: 540ps
-* rx: 2120ps
+Which I believe would be a more accurate picture: First the memory sorted by
+"type" of buffers and then by "type of memory".
 
-So I suppose in this case, the phy-mode is more likely to be rgmii-txid,
-isn't it ?
+ 
+> 
+> > 
+> > Moreover, remote buffer in-production current use is for Android... So not only
+> > ring_buffer_memory_size() should support them, but they should probably be
+> > actively reported somewhere...
+> 
+> Maybe we should have different size accounting interface for remote buffer
+> and persistent buffer.
 
->
->       Andrew
+For the remote, it should probably sit in trace_remote.c, which can call
+ring_buffer_memory_size(). trace_stat can then query the memory size from
+trace_remote.
+
+And actually I have a pending series where I keep the list of trace_remote [1]
+which would be a prerequisite.
+
+[1] https://lore.kernel.org/all/20260817135517.3919534-2-vdonnefort@google.com/
+
+> 
+> Thanks,
+> 
+> -- 
+> Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
 -- 
-Jerome
+Vincent
