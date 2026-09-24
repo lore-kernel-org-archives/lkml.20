@@ -1,91 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 437223D9DD8;
-	Thu, 24 Sep 2026 03:11:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087623DB641;
+	Thu, 24 Sep 2026 03:12:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790219521; cv=none; b=M7cxwUF1xRzEaFa/iWqakvcH8gmmXCXgtd1aC5EbY0NMznwfPlhPbIgs8nfKaz8dq48ea79jEm1xVWXXhRDw8yPrgvNGUFUV+JFuCQGf+PlyNNmpE2ms5fAlZTFVRhqZErWrcKMMf0t/olBObCThJxeabBxh1HsGyrCsLzb4KII=
+	t=1790219530; cv=none; b=REl7XXGtGq013ubb6+RqcF2mcVb7Sd+QSXDA6JBfmkrIR/TpSqNlzlkFDvJjsbVjFMIVQFrqw+PdxCAD7Oy4FxWY3d2XrcxjR1VbFQbooYxnvakwBnXqa2w7GM7GHARFn3Va6BCVW2KU5fGm0xOE8PJ/p/YnF5+YYwA2TA0n4t4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790219521; c=relaxed/simple;
-	bh=2Oq7zrW7DKNUfdqunlizCj7iTvZv+XeRI0aXa4sS5g0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ck6EvlkcwgCAss13mfLqSFVC08P8yg/+AXJ1XlJht1v8yC/crJjP+zzTfyrbdnFo6rXH3qvvw43+dbjTf8KYbpcoiHEzr4Wd4mbwn+c1UjzwJmP7gDofJuh7z5PtdxvkG7a3lv0F2YG6iDDbpzRA+4gP+UxuQJRTrytHqfEystc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Us9LZqfC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790219530; c=relaxed/simple;
+	bh=Dp2V888LpglsjmyHodeQA8mNyz+qo0+Ue04VwyJAoUY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=MhX0LEY++c8tgDItD+vVuKYJnPM69IdxhCKo4CnicWRzihWBltRNwIM7e02HSJqMGHW+L4EE0R/Q/7y5eFjv0tGXNHpWUMo1ng5euXjC42m5qYO3VQ/RCi90jI94S6PTp+2Qh0IE0TJKNviaUI3Vvujg8/qX1EyQEHl1CKZPGtw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=ePk4Piey; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Us9LZqfC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D64EC1F000FF;
-	Thu, 24 Sep 2026 03:11:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790219519;
-	bh=yOJh0eCTzfxNXI+TRaeMXyYRrETomL0HV5x6uXBq+2Q=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Us9LZqfCtcMwM9yQLKsLJCqfOiy1JcstDdI6c8Hw3ut6FEMnOgUfYWARod9EI0fIS
-	 JI7x62ld/o20JdRnWb22g644RThdwsuqVYbcIlQxxRzFst6qTtJFi8j4h9LPIh09dO
-	 ixHBrbNRHjn7cr1XAoinktF0r0IC53cleUDkpNp5OnuR1UmPUb35z6ep9OsfTQaOLK
-	 KPZa9EYl/7gdmrO7vICqjG+aFx/+48JV2cMcjuBGtdSr9aWpRA2uhIMjHzOJNCT6wo
-	 1Ce3MqhA/qjE+e0QAFLn1zWIUjmK/SF2Me7LX/iyDYJuYj/fpUtSj+R4jrsIZTrN2G
-	 Hnu5cSx5dfqHw==
-Date: Wed, 23 Sep 2026 20:11:58 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>, Jonathan Corbet
- <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Lorenzo Bianconi <lorenzo@kernel.org>, Heiner
- Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
- Philipp Zabel <p.zabel@pengutronix.de>, Nathan Chancellor
- <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, Bill
- Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- llvm@lists.linux.dev
-Subject: Re: [PATCH net-next v16 00/12] net: pcs: Introduce support for
- fwnode PCS
-Message-ID: <20260923201158.3552915a@kernel.org>
-In-Reply-To: <CA+_ehUyFKZzd0uP4akgZxaLLJTwcvGGKz5ppCYsB++fn92Dn9w@mail.gmail.com>
-References: <20260916235200.20712-1-ansuelsmth@gmail.com>
-	<20260921135933.7e8857ba@kernel.org>
-	<CA+_ehUwy9RUKCCHDnqoED3AMVnErgGr9RCrCR4ceg5QONq1wOQ@mail.gmail.com>
-	<20260922172514.7feb6e7c@kernel.org>
-	<CA+_ehUyFKZzd0uP4akgZxaLLJTwcvGGKz5ppCYsB++fn92Dn9w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="ePk4Piey"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68O3Bv6G2840666, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1790219517; bh=Dp2V888LpglsjmyHodeQA8mNyz+qo0+Ue04VwyJAoUY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=ePk4PieyZ7dHrPYTketsRUTc8MpOkSMnWIN0jrzoEuu0gCsK7QozKVZ2J3v+AengF
+	 A2PlNQlfUibioGEdyjb+/iQW6dS1H4O0QZdeXMHG94L5SLqDOO6CdmEtNjyPgoFeFH
+	 z8+Gm9rJkP+c8rhyExxdKHd/Q54X8O5OHFkrU5QnrNPfoDd1yaRuuwj7qAHIXFTEU1
+	 NheFwK3zM3CAAJx+DB4C/NtJzP0iph3EV4yxp9GVD8ghQNhud0G64LOhwkRtwFYMIr
+	 fZvdY0rELlMo2+iIw+yUgU5OKL/EZj9VA8ze5ck+H7mYVeQtSxFcEk7FCLxE2XEzBk
+	 Ik/xCIxX51vvw==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68O3Bv6G2840666
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 24 Sep 2026 11:11:57 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 24 Sep 2026 11:11:57 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Thu, 24 Sep 2026 11:11:57 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Luka Gejak <luka.gejak@linux.dev>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
+ Straube" <straube.linux@gmail.com>, Peter Robinson <pbrobinson@gmail.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Subject: RE: [PATCH v3 3/6] wifi: rtw88: 8723b: add the RTL8723B chip driver
+Thread-Topic: [PATCH v3 3/6] wifi: rtw88: 8723b: add the RTL8723B chip driver
+Thread-Index: AQHdSeAWPTTocmDvm0SCIQejTVX877bbzMuQgABkXICAANifIA==
+Date: Thu, 24 Sep 2026 03:11:57 +0000
+Message-ID: <304bbb9a43a74e909eec0dd84d86d528@realtek.com>
+References: <20260921154347.82317-1-luka.gejak@linux.dev>
+ <20260921154347.82317-4-luka.gejak@linux.dev>
+ <39da13e5cdd840f5a5ab86ded478d07c@realtek.com>
+ <DLN10FU8L1PQ.3NK0M6NVQ3Y53@linux.dev>
+In-Reply-To: <DLN10FU8L1PQ.3NK0M6NVQ3Y53@linux.dev>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Wed, 23 Sep 2026 10:31:49 +0200 Christian Marangi (Ansuel) wrote:
-> Il giorno mer 23 set 2026 alle ore 02:25 Jakub Kicinski
-> > On Tue, 22 Sep 2026 12:12:56 +0200 Christian Marangi (Ansuel) wrote:  
-> > > The remark on the fwnode patch are invalid. The driver is expected
-> > > to return those error as probe defer is not supported.
-> > > (a notifier and late attach/detach is used to align to phylink logic)
-> > >
-> > > For the specific Airoha PCS driver it's really speculation from the AI
-> > > but HW doesn't work as described by AI.
-> > >
-> > > The only real comment that is valid is about the alternative way
-> > > to give supported interface with the .get_capabilites OP.
-> > >
-> > > This is currently not supported as there isn't any user and it will
-> > > be implemented as soon as there will be one. It's really to limit
-> > > the patch delta of this change and to progress further.
-> > >
-> > > Maybe FIXME might be suitable?  
-> >
-> > FWIW no preference here, I defer to the human reviewer.
-> > We can treat the AI review as a hint if human reviewer thinks the code
-> > is fine as is.  
-> 
-> Soo should I send v17 to fix AI that failed review?
-> I think I didn't got this detail.
-
-Sounded like Maxime was planning to take v16 for a spin.
+THVrYSBHZWphayA8bHVrYS5nZWpha0BsaW51eC5kZXY+IHdyb3RlOg0KPiA+PiArI2RlZmluZSBN
+QVNLX05FVFRZUEUgICAweDMwMDAwDQo+ID4+ICsjZGVmaW5lIF9ORVRUWVBFKHgpICAgICgoKHgp
+ICYgMHgzKSA8PCAxNikNCj4gPj4gKyNkZWZpbmUgTlRfTElOS19BUCAgICAgMHgyDQo+ID4NCj4g
+PiBUaGUgUE9SVF9TRVRfTkVUX1RZUEUgaW4gcnR3X3ZpZl9wb3J0X2NvbmZpZygpIGRvZXMgc2lt
+aWxhciB0aGluZw0KPiA+IHJlbHlpbmcgb24gc3RhdGljIGNvbnN0IHN0cnVjdCBydHdfdmlmX3Bv
+cnQgcnR3X3ZpZl9wb3J0W10uDQo+ID4NCj4gPiBJcyB0aGF0IG5vdCBzdWl0YWJsZSBmb3IgUlRM
+ODcyM0I/IElmIHNvLCBzaG91bGQgdGhlIGNvbW1vbiBmbG93DQo+ID4gYXZvaWQgUlRMODcyM0I/
+DQo+IA0KPiBJdCBpcyBzdWl0YWJsZSwgYW5kIHRoZSBjb21tb24gZmxvdyBkb2VzIG5vdCBuZWVk
+IHRvIGF2b2lkIFJUTDg3MjNCLg0KPiBQT1JUX1NFVF9ORVRfVFlQRSB3cml0ZXMgdGhlIHNhbWUg
+ZmllbGQgd2l0aCB0aGUgc2FtZSB2YWx1ZToNCj4gcnR3X3ZpZl9wb3J0WzBdLm5ldF90eXBlIGlz
+IGFkZHJlc3MgMHgwMTAwIHdpdGggbWFzayAweDMwMDAwLCB3aGljaCBpcw0KPiBSRUdfQ1IgYml0
+cyAxNzoxNiwgYW5kIHJ0d3ZpZi0+bmV0X3R5cGUgaXMgUlRXX05FVF9NR0RfTElOS0VELCAyLCB0
+aGUNCj4gdmFsdWUgTlRfTElOS19BUCBjYXJyaWVkLg0KPiANCj4gT25seSB0aGUgdGltaW5nIGRp
+ZmZlcnMsIGFuZCB0aGVyZSB0aGUgY29tbW9uIGZsb3cgaXMgdGhlIGJldHRlciBvbmUuDQo+IHJ0
+d19vcHNfYWRkX2ludGVyZmFjZSgpIHNldHMgbmV0X3R5cGUgZnJvbSB0aGUgaW50ZXJmYWNlIHR5
+cGUsDQo+IFJUV19ORVRfTk9fTElOSyBmb3IgYSBzdGF0aW9uLCBhbmQgdGhlIGFzc29jaWF0aW9u
+IHBhdGggbW92ZXMgaXQgdG8NCj4gUlRXX05FVF9NR0RfTElOS0VELCB3cml0aW5nIFJFR19DUiBh
+ZnRlciBib3RoLiBUaGUgY2hpcCBsb2NhbCBjYWxsIHJhbg0KPiBkdXJpbmcgbWFjX2luaXQgYW5k
+IGZvcmNlZCB0aGUgbGlua2VkIHZhbHVlIGJlZm9yZSB0aGVyZSB3YXMgYSBsaW5rLA0KPiBhbmQg
+dGhlIGNvcmUncyB3cml0ZSByZXBsYWNlZCBpdCBhIG1vbWVudCBsYXRlciBpbiBhbnkgY2FzZS4N
+Cj4gDQo+IFNvIHY0IGRyb3BzIHJ0dzg3MjNiX2luaXRfbmV0d29ya190eXBlKCkgd2l0aCBNQVNL
+X05FVFRZUEUsIF9ORVRUWVBFKCkNCj4gYW5kIE5UX0xJTktfQVAsIGFuZCB0aGUgY2hpcCByZWxp
+ZXMgb24gcnR3X3ZpZl9wb3J0W10gbGlrZSB0aGUgb3RoZXJzLg0KPiBObyBvdGhlciBydHc4OCBj
+aGlwIGRlZmluZXMgYSBuZXQgdHlwZSB2YWx1ZSBvZiBpdHMgb3duLg0KDQpDYW4geW91IGFsc28g
+cmV2aWV3IG90aGVyIFJUTDg3MjNCIHNwZWNpZmljIGZ1bmN0aW9ucz8gSSBkaWRuJ3QgcmV2aWV3
+DQp0aGVtIG9uZSBieSBvbmUgYnkgdjMsIGJ1dCBJIHdvbmRlciB3aHkgaXQgbmVlZHMgc3BlY2lm
+aWMgZnVuY3Rpb25zLA0Kbm90IGNvbW1vbiBmbG93LiBJZiBhbnkgb2YgdGhlbSBpcyBuZWNlc3Nh
+cnksIHBsZWFzZSBwb2ludCBvdXQgcmVhc29ucy4NCg0KPiANCj4gPj4gKyAgICAgICAvKiBPdmVy
+cmlkZSB0aGUgZGVmYXVsdCByY3IgZmlsdGVyIGZvciA4NzIzQiAqLw0KPiA+PiArICAgICAgIHJ0
+d2Rldi0+aGFsLnJjciA9IFdMQU5fUkNSX0NGRzsNCj4gPg0KPiA+IFdoeT8gVGhlIGRlZmF1bHQg
+dmFsdWUgZG9lc24ndCB3b3JrIHRvIFJUTDg3MjNCPw0KPiANCj4gVHdvIHRoaW5ncyBzYXkgaXQg
+ZG9lcyBub3QuDQo+IA0KPiBoYWwucmNyIGlzIG5vdCBvbmx5IHdyaXR0ZW4gYXQgaW5pdC4gZncu
+YyBjbGVhcnMgYW5kIHJlc3RvcmVzDQo+IEJJVF9DQlNTSURfQkNOIGluIGl0IGFyb3VuZCB0aGUg
+YmVhY29uIGZpbHRlciwgYW5kIG1hYzgwMjExLmMgdG9nZ2xlcw0KPiBCSVRfQU0sIHNvIHdoYXRl
+dmVyIGlzIGxlZnQgdGhlcmUgaGFzIHRvIGtlZXAgdGhvc2UgYml0cy4NCj4gDQo+IEFuZCB0aGlz
+IGlzIG5vdCBhIHByaXZhdGUgZmlsdGVyLiBJdCBpcyB0aGUgUkNSIHRoYXQgcnR3ODcyM3hfbWFj
+X2luaXQoKQ0KPiB3cml0ZXMgZm9yIHRoZSB3aG9sZSA4NzIzeCBmYW1pbHksIDB4NzAwMDYwY2Us
+IHdpdGggQklUX0FQUF9GQ1MgYWRkZWQuDQo+IFRoZSBnZW5lcmljIGRlZmF1bHQgaXMgYSBkaWZm
+ZXJlbnQgc2V0OiBpdCBoYXMgQklUX1BLVENUTF9ETEVOIGFuZCBsYWNrcw0KPiBCSVRfQ0JTU0lE
+X0RBVEEsIEJJVF9DQlNTSURfQkNOIGFuZCBCSVRfQU1GLCBzbyBpdCBkcm9wcyBleGFjdGx5IHRo
+ZSBiaXRzDQo+IGZ3LmMgbWFuaXB1bGF0ZXMgb24gdGhpcyBjaGlwLg0KPiANCj4gQklUX0FQUF9G
+Q1MgaGFzIHRvIGJlIHNldCBiZWNhdXNlIHJ0dzg4IGFkdmVydGlzZXMgUlhfSU5DTFVERVNfRkNT
+IGZvcg0KPiBldmVyeSBjaGlwIGFuZCB0aGUgc2hhcmVkIDg3MjN4IHZhbHVlIGhhcyBiaXQgMzEg
+Y2xlYXI7IHdpdGhvdXQgaXQNCj4gbWFjODAyMTEgdHJpbXMgZm91ciBieXRlcyBvZiByZWFsIGZy
+YW1lIGRhdGEuIHY0IHNheXMgdGhpcyBhdCB0aGUNCj4gYXNzaWdubWVudC4NCg0KSSB0aGluayB0
+aGUgYmV0dGVyIHdheSBpcyB0byBhc3NpZ24gcHJvcGVyIHJ0d2Rldi0+aGFsLnJjciBwZXIgY2hp
+cA0KaW4gcnR3X2NvcmVfaW5pdCgpLiANCg0KPiANCj4gPj4gKyAgICAgICBydHc4NzIzYl9pbml0
+X2FkYXB0aXZlX2N0cmwocnR3ZGV2KTsNCj4gPj4gKyAgICAgICBydHc4NzIzYl9pbml0X2VkY2Eo
+cnR3ZGV2KTsNCj4gPj4gKyAgICAgICBydHc4NzIzYl9pbml0X3JldHJ5X2Z1bmN0aW9uKHJ0d2Rl
+dik7DQo+ID4NCj4gPiBTbyBSVEw4NzIzQiBpcyB2ZXJ5IGRpZmZlcmVudCBmcm9tIGV4aXN0aW5n
+IGNoaXBzPw0KPiANCj4gTm8sIGFuZCB0aGUgc2libGluZ3Mgd3JpdGUgdGhlIHNhbWUgcmVnaXN0
+ZXJzIHdpdGggdGhlIHNhbWUgdmFsdWVzLg0KDQpDYW4geW91IHJldXNlIHRoZSBleGlzdGluZyBz
+aW5jZSB0aGV5IGFyZSB0aGUgc2FtZT8NCg0KQnkgdGhlIHdheSwgSSBkaWRuJ3Qgb25seSBtZW50
+aW9uIHRoZXNlIHRocmVlIGZ1bmN0aW9ucy4gQXQgaGVyZSB0aGVyZSBhcmUNCm1hbnkgc3BlY2lm
+aWMgZnVuY3Rpb25zLiBQbGVhc2UgYW5hbHl6ZSB0aGVtLiANCihIb25lc3RseSwgSSBkb24ndCBm
+dWxseSByZS1leGFtaW5hdGUgeW91ciBhbmFseXNpcyBpbiBkZXRhaWwsIGFuZCBiZWxpZXZlDQog
+eW91ciByZXN1bHRzLikNCg0KPiANCj4gT25lIG1vcmUsIHdoZXJlIHRoZSByZXZpZXcgYXNrZWQg
+Zm9yIGEgY2hhbmdlIHRoYXQgd2FzIGFscmVhZHkgdGhlcmUuDQo+IFRoZSBkZWNsYXJhdGlvbnMg
+aW4gcnR3ODcyM2JfcmVhc3NlcnRfcnhfcGF0aCgpIHRoYXQgeW91IG1hcmtlZCBmb3INCj4gcmV2
+ZXJzZSBYJ21hcyBvcmRlciBhcmUgYWxyZWFkeSBsb25nZXN0IGZpcnN0LCB0aHJlZSB1MzIgbGlu
+ZXMgZm9sbG93ZWQNCj4gYnkgdHdvIHU4IGxpbmVzLCBhbmQgdGhleSBhcmUgdGhlIHNhbWUgaW4g
+dGhlIHNlbnQgdjMgYW5kIGluIHY0LiBJZiB5b3UNCj4gaGFkIGEgZGlmZmVyZW50IG9yZGVyIGlu
+IG1pbmQsIHRlbGwgbWUgd2hpY2ggYW5kIEkgd2lsbCBhcHBseSBpdC4NCg0KKFBsZWFzZSBxdW90
+ZSB0aGUgY29kZTsgdG8gcmVwbHkgdG8gdGhpcywgSSBuZWVkIHRvIHN3aXRjaCB0byB5b3VyIHBh
+dGNoZXMgYWdhaW4pLg0KDQpJIGNhbiBndWVzcyB5b3Ugd3JpdGUgdTMyIGFuZCB0aGVuIHU4IGZv
+ciBvcHRpbWl6aW5nIHN0YWNrLiBNYXliZSwNCnlvdSBjYW4gcmVuYW1lIHRoZSBuYW1lcyBvciBj
+aGFuZ2UgdHlwZXMuIEp1c3Qga2VlcCByZXZlcnNlIFgnbWFzDQpvcmRlciBhcyBwb3NzaWJsZSBh
+cyB5b3UgY2FuLiBPbmUgZXhjZXB0aW9uIGlzIGRlcmVmZXJlbmNlIHByaW9yIA0KcG9pbnRlciAo
+YnV0IHN0aWxsIGNhbiBjaGFuZ2UgdGhlIGNvZGUgdG8gZml4IHJldmVyc2UgWCdtYXMgb3JkZXIp
+Lg0KQW5vdGhlciBleGNlcHRpb24gaXMgcHV0ICdzdHJ1Y3QnIGRlY2xhcmF0aW9ucyBmaXJzdCwg
+YW5kIHRoZW4NCmZ1bmRhbWVudGFsIGRhdGEgdHlwZS4NCg0KUGxlYXNlIHRyeSB5b3VyIHdheXMg
+dG8gZml0IHNpbXBsZSBydWxlcy4gT3RoZXJ3aXNlLCBpZiBJIGFjY2VwdCB0aGlzLA0KaXQgaXMg
+aGFyZCB0byBtZSB0byBleHBsYWluIHRoZSByZWFzb25zIGlmIG90aGVyIHBlb3BsZSBhc2sgbWUg
+ZGF5cyBsYXRlci4NCg0KUGluZy1LZQ0KDQo=
