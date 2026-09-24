@@ -1,117 +1,71 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C776342BC56
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:48:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0515F438466
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:48:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790236115; cv=none; b=YAbbO34aO3+hKGhJjJfGkr3dU6u5mT82et2sm5Mu3iXrqPlklPvgPrHzbe+ahgr98KVMlk6vP3EwVjY4G8NNdlynMLswoItvo5JnM7RZ+uoYZXyzp5btXG6k9xhchN2zVphSelf03Z76v18KNB8wfS+p/qXcp2MSSuED1c7BeXI=
+	t=1790236141; cv=none; b=NYTk+N/jcb/kMYQAltoeGnjuCSakTFAizbz+80SXbS5vfbYe2H172PHxCkW8d4ccbRwNnZbDGf5zqT5XF5btgFLQYNrGWlI/v3PMEHLjEnQEs2ZNuOGSbGrWPPqH23XIXod9SUDorcQfU+Icn1Vi5phlimxaxKyxwD0u42GQrTc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790236115; c=relaxed/simple;
-	bh=A8WTWhNhNuSxB623cTRdYNlcFkXQibSEnzVrW6erpAI=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sV8+01iIHfdpRVia4gji8kPPpSW/s7C1gFiKhBE0Kkkujhxtru2GbasiQ0W6nNVxSBFroMSGvxIRwU4X/kP6UsBTsPCU8I06xR9tIBG5jA2m0RP8ETR6rRAnk8wwzJfCbqFooLepww4JZPs6PFzvJ2zhj2cnO4AQSbJfYh/DGZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V5HvV/cp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790236141; c=relaxed/simple;
+	bh=QUQFFI70zUm9WbZ7McadDkB3szE7h30iS5Qzq6qPlvI=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=rvKaXoGH7zgSJzgOLqcxjg8EJjop6mQ5zMSwAy3B/5d9QxDDuzJOzGAdocNqG5gTKl9VLamctwcGZUYGWJJTNctCWoI7pjj+sPwD8z2MV2MNaZtC6ZZvjmaHcPtxygObOHOctL71oGVfacUkT4fp8xtL1BUGeSL8MDljG759ku4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mqappBXw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V5HvV/cp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 493291F0089F
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:48:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mqappBXw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE51F1F000FF;
+	Thu, 24 Sep 2026 07:48:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790236113;
-	bh=fy0+KiYRcsZU/ymaImEymSgtU/XBNCGbs6mGpoeZE6k=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=V5HvV/cppc8WVHeYIUCIXT0ZwvIwN5DV+RLZY47pD8guzaGDfj/dnMoFxRzTTHB0n
-	 /38S30rCAnpbGCsd4ksLMB4e2lKDjbDv0+M/tFkBlxKX7dsniGIUsVOYXXUV3WIwXE
-	 ZOgalRrjGdyy7odLe9kgx9Xb+uVpOMw+fNPt9s7q70KWLEvPZMRPseT6iYC8meocf7
-	 TRAECxi49YbEyKyau2RPZ8iRxs3TXum6k6LuN9Cwo/PsYAUoxYSJeCRgYr4tW1smvl
-	 A2qEwYhLCC1/82PR2F5GaoUW5uN9z+0RsK++iwmmyB3d7v9Ut6rUJA77I6tavwLCyg
-	 C1mOLaiU65JFg==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f1e023so630246e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:48:33 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx6G2BsbXfEy5khtZCHwokNiU5mrB5+m6uTmdCxhnd6KjL49KE7sOBL5ncsjRsUeIIfyh3YDz3qqvOzt7w=@vger.kernel.org
-X-Gm-Message-State: AFuF++ne1CSQDDlGEhyoPQ1Ey0QYkqiRmcdnLxtMS37A+BR62sKYISA+
-	0mmIIfD/ArJYaYAXC1mv796tOVij+GDpRQQ+lzr1We6mtlmTsrVJaiC5AJkSa2Utr5Por8mHuWZ
-	fCUqQcv1cxt9I7f4SOuifetrmH8qH08xOSETjtRwNKQ==
-X-Received: by 2002:ac2:4112:0:b0:5b6:10bc:b86a with SMTP id
- 2adb3069b0e04-5b8df0e31cfmr327732e87.24.1790236111912; Thu, 24 Sep 2026
- 00:48:31 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 24 Sep 2026 00:48:29 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 24 Sep 2026 00:48:29 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260923184450.135601-1-2000.costalucas@gmail.com>
+	s=k20260515; t=1790236139;
+	bh=yNBlSGVmSCSWwIU1WW3NDbT3EzEMRJzohOzgWwxr15w=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=mqappBXwD7fCFpxjpMnFJ4+xezpwCQG4pGBeiONihPyf1CZF8NCC4jZG4mUIaI8ut
+	 tcK/3Q6N7qG2efqEmCNvLBpnXwoUM6zwex0JQ7Basuucwg8NGvRFLgP9i5VTScCUVo
+	 sHD60uYM4iJ2qCrRIJa04U/TvfQrkY6pzaA9dI8b1yRBUXZyQKlp5cako6GPLpEshw
+	 wQqNyqg/Bj9RaWpUy/5EFpDlfSXQzulZq4oFmI+FZOqd3buMGk9a1WqIvV/OWs6hD3
+	 L7ip6oQxlN0VnIyCjJ6pYxMyEo2cIZ2QpAY6mhQ2FE4WNsW1G0/ljMvkyFOSc27uZC
+	 GtSHNr0n3ATvw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923184450.135601-1-2000.costalucas@gmail.com>
-Date: Thu, 24 Sep 2026 00:48:29 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MeqkCM=QP_mUcGg130UrjnB58S9j636zZqriEqEVdGGXQ@mail.gmail.com>
-X-Gm-Features: AclHuK-Z4kbLfsNuY9cD-lwa9fSqwcZM3BY76R7SUB6NbTYvyq7es4e_Zfoq3eY
-Message-ID: <CAMRc=MeqkCM=QP_mUcGg130UrjnB58S9j636zZqriEqEVdGGXQ@mail.gmail.com>
-Subject: Re: [PATCH] spi: bcm2835: fix device_node reference leak in bcm2835_spi_setup()
-To: Lucas Costa <2000.costalucas@gmail.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, bcm-kernel-feedback-list@broadcom.com, 
-	linux-spi@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Mark Brown <broonie@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
-	Scott Branden <sbranden@broadcom.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 0/3] memblock: Remove unused exact nid allocation
+ API
+From: Mike Rapoport <rppt@kernel.org>
+To: Kaitao Cheng <kaitao.cheng@linux.dev>
+Cc: Mike Rapoport <rppt@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R . Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Muchun Song <muchun.song@linux.dev>, 
+ Priyanshu Kumar <priyanshukumarpu@gmail.com>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260919135327.74089-1-kaitao.cheng@linux.dev>
+References: <20260919135327.74089-1-kaitao.cheng@linux.dev>
+Date: Thu, 24 Sep 2026 10:48:51 +0300
+Message-Id: <179023613121.508753.1739135911194499722.b4-review@b4>
+X-Mailer: b4 0.16.1-dev
 
-On Wed, 23 Sep 2026 20:44:50 +0200, Lucas Costa
-<2000.costalucas@gmail.com> said:
-> of_find_compatible_node() returns a device_node with its reference count
-> incremented, but the function bcm2835_spi_setup() uses the ret value
-> in the loop to check a condition and never releases it.
->
-> Store the returned node and drop it with of_node_put() before breaking
-> out of the loop.
->
-> Fixes: e19c1272c80a ("spi: bcm2835: Restore native CS probing when pinctrl-bcm2835 is absent")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lucas Costa <2000.costalucas@gmail.com>
-> ---
->  drivers/spi/spi-bcm2835.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/spi/spi-bcm2835.c b/drivers/spi/spi-bcm2835.c
-> index 8f8715809c7c..8909757c94e3 100644
-> --- a/drivers/spi/spi-bcm2835.c
-> +++ b/drivers/spi/spi-bcm2835.c
-> @@ -1226,6 +1226,7 @@ static int bcm2835_spi_setup(struct spi_device *spi)
->  	struct bcm2835_spi *bs = spi_controller_get_devdata(ctlr);
->  	struct bcm2835_spidev *target = spi_get_ctldata(spi);
->  	struct gpiod_lookup_table *lookup __free(kfree) = NULL;
-> +	struct device_node *np;
->  	static const char * const pinctrl_compats[] = {
->  		"brcm,bcm2835-gpio",
->  		"brcm,bcm2711-gpio",
-> @@ -1297,8 +1298,11 @@ static int bcm2835_spi_setup(struct spi_device *spi)
->  	}
->
->  	for (i = 0; i < ARRAY_SIZE(pinctrl_compats); i++) {
-> -		if (of_find_compatible_node(NULL, NULL, pinctrl_compats[i]))
-> +		np = of_find_compatible_node(NULL, NULL, pinctrl_compats[i]);
-> +		if (np) {
-> +			of_node_put(np);
->  			break;
-> +		}
->  	}
->
->  	if (i == ARRAY_SIZE(pinctrl_compats))
-> --
-> 2.43.0
->
->
+Hi,
 
-Just use cleanup.h like so:
+> Commit ffe55393137c ("mm/sparse: remove sparse buffer pre-allocation
+> mechanism") removed the only memmap_alloc() caller that requested an
+> allocation from an exact NUMA node. All remaining callers allow fallback
+> to other nodes, leaving the exact_nid argument unused.
 
-	struct device_node *np __free(device_node) = of_find_compatible_node(...);
+Overall this looks good to me. There's is an issue though that mentioning 
+commit in mm-unstable in the changelog does not really work because the
+commit sha may change.
 
-It's a oneliner this way.
+Andrew, how do you suggest to deal with it?
 
-Bart
+-- 
+Sincerely yours,
+Mike.
+
