@@ -1,374 +1,238 @@
-Received: from mta0.migadu.com (out-24.mta0.migadu.com [91.218.175.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11021096.outbound.protection.outlook.com [40.107.208.96])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B5E0426429
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:16:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.24
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790237815; cv=none; b=EicAfHBTL1Xh4j+93TFS6xvhxh5/FQkKlcFnxrfy1PpIrxcxB7jMknhrV9wi1kbHat+mTJu4FReBBJR2iVKem+BxuAQd7PVts+5DlIAFJ3Wza+O5e1II4HE3MLlTu6P8X399PyAaNXC7YQynp+IMX6JUIOXeIT3QDVPXiGLoxW8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790237815; c=relaxed/simple;
-	bh=4zWOSTBNfGb9w1wTIc0wuOpgNTBigCOzpfBfTYk5Zus=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=U+gZ5yLc66omDLbVUfocWvqjjJdMyFR4meYW7xbKGj+KI4Nv+2AdvEuBXkSOxhZGXH5hKwLhNDqhtonk3vbz1C8haZSx3wEVjIv+WLAgJGgJQJJNzFbng1MGFlkbd6QqziFio2r9ihBJYRv7mRdNebt3RDHxiXPst220wJ7Earo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=IwMSoA7J; arc=none smtp.client-ip=91.218.175.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C6E91A2C0B;
+	Thu, 24 Sep 2026 08:17:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.96
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790237848; cv=fail; b=XWdO/btrIWlGb/lFI2lN8NIfHdJqFxsIILp2qHTsWU0AT3/esvVIr8g3ds//Ud95XMSO8duAzx9E8S9F6t9qTKqRl2SMsbeUMslPR5/mDh6Vbckfw8K/I5EI/9IUVEO9aqScijJTYbuvUl9u1qwMEy3aVSsitxQai9u7UjgTYNI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790237848; c=relaxed/simple;
+	bh=wEqLbXeBrTlOF4l2H+MeZSAseMy541CN/JP6e3QdsAM=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=stzpw8GsvA5smF2Rrpoiq0WG37FFiWBnVTwe6Q4cj9q/J3IeF0d6tGtpfRRX8RCIwuZWIvqh0IkfDsWETCaBJkXd6ZDri5CnzCBH8C/4XLO80ci9zL5ztwHgq1VYEyD4nbUFKU8J/O/RTszca+bI3WyaKZFrd7t4Tte7Vh6IoHs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=v++i91jN; arc=fail smtp.client-ip=40.107.208.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="IwMSoA7J"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4zWOSTBNfGb9w1wTIc0wuOpgNTBigCOzpfBfTYk5Zus=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790237810; v=1; x=1790842610;
- b=IwMSoA7JnNmgjgXHySHauhXKxdGFFQiYGpwdjw4hx/pF0k7dl/yp6ci21v8u/lkRThuYYY4i
- TdXmoNhLHRYFO269kR660jEOGAQjPA0pL37hAK5jhKgLfFjbNPGk8QY7Ht5wWrr2dm7i0cdsDRc
- E7tXEFIDyaZJMRhzf4I6sNCU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ece7adc700c99cc0;
-	Thu, 24 Sep 2026 08:16:40 +0000
-X-Mizu-Trace-ID: ece7adc700c99cc0
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <0e2db0a0-663e-45fc-b073-126b8e80b625@linux.dev>
-Date: Thu, 24 Sep 2026 16:17:43 +0800
+	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="v++i91jN"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kfH/dHxfUkwzv13alhpzll58wkI3VcsMh18ub/UZwuR8ER+C/QWbciXaf2QUSoeZJRkHjlJcMt59yGJhQDsTT/B/C5mgApysYdun4kQKK2Pul/CnXfHGf5ngjyVwPcq5vhK/FjOePctNCafhH+0cuwf4sWdS+ppZ4uXIFkaOEQAqP4YXqDUixjGUufBLSpewTUX0dOYWvv2h0IjDldZg95qLfWzCOqjFkJuJRA+ZUKU7hl57kSKnNu/b90Nojx+YWTHytf4iwIM45PzToOwviPqy3Ck9cUxQGyXmdS9CQChMceK7zdm/I8v3tzHvyghQSR2v69OnNxeiefSjcxL3OA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vkZRO4rqQnDYiQvDdGP+YNto/eNCihdz6Mnmb2jWMiI=;
+ b=PQ/7Jv7DI3tw/QOZfp0ZMcgxZTxtvL/Udofs4qdpkKsqRQ3h/0bySuT6HQKjSv8aFfsfSxrN7o4Iuspw/lmbSAXVyNsrgJzjaBtmdwbO43CnzexM2sOSFsWFVaii465QWOuqHohlRZrAdN74RSVkRnPfNgvDeu6X/jqWw7TWbBY5gBUz/K4tfWzetUPwabeXFzIie1JgRQlMS877avTStzYGROCbUgv7y5rRYEwYdTeP5lGaWfMlZVE3PBdV0CO5/3v8kjL+YXN8Iq6MEMDQNnuHzgYMeqSKooMagwpX+HrGLCvHgg3tq/JJ7awFPJr73uLV0KgoXNtuuKINBJ3acw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
+ dkim=pass header.d=axiado.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vkZRO4rqQnDYiQvDdGP+YNto/eNCihdz6Mnmb2jWMiI=;
+ b=v++i91jNieIWJWWSt51zFAQ4LI+p8UBNpOzKcTvAv8YJIQQ2f/67WlcK7gFLmgttZwIYC+IVZhGbC4GzmIxW4bN/NGqrQ9OYs+TMIFtBWhOLQjZXH3O9di9cU9zosnobsFDZSxuxHjMwarqFHDdeZ1Zsp5YMA6k2uRUST5KcN9huYoHXRGf0F8XvDDB286wEBnf72Vn+u+7K55GwdXeeOENiOFRewB8PclslUfN3Banpk5WNMKKJWlG1wcDPUBH/eUEqWtyfDF/dzsSGsKst4HG9iKYDv0EsM55MyiDYblm+pGlWChvaHuvDq0dw6ycL3P/Xg9Z0rob43QdwKXBKyA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axiado.com;
+Received: from DM4PR18MB4144.namprd18.prod.outlook.com (2603:10b6:5:38b::8) by
+ DM4PR18MB5075.namprd18.prod.outlook.com (2603:10b6:8:47::21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.13; Thu, 24 Sep 2026 08:17:22 +0000
+Received: from DM4PR18MB4144.namprd18.prod.outlook.com
+ ([fe80::cb97:ca8a:e55a:b11]) by DM4PR18MB4144.namprd18.prod.outlook.com
+ ([fe80::cb97:ca8a:e55a:b11%6]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 08:17:22 +0000
+Message-ID: <132fbf1f-014b-488a-ab9b-2144052a41b7@axiado.com>
+Date: Thu, 24 Sep 2026 10:16:55 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] hwmon: axiado-pwm-fan: Add missing documentation and
+ MAINTAINERS entries
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Akhila Kavi <akavi@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Tzu-Hao Wei <twei@axiado.com>,
+ Karthikeyan Mitran <kmitran@axiado.com>, linux-hwmon@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>
+References: <20260923-axiado-pwm-fan-doc-fix-new-v1-1-8c8c2ce58a21@axiado.com>
+ <8b761904-27e7-4e03-bc37-9fb048368b2b@roeck-us.net>
+Content-Language: en-GB
+From: Petar Stepanovic <pstepanovic@axiado.com>
+In-Reply-To: <8b761904-27e7-4e03-bc37-9fb048368b2b@roeck-us.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0127.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b9::11) To DM4PR18MB4144.namprd18.prod.outlook.com
+ (2603:10b6:5:38b::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] alloc_tag: Introduce IOCTLs to toggle allocation
- tracepoints
-To: Abhishek Bapat <abhishekbapat@google.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- linux-trace-kernel@vger.kernel.org, Shuah Khan <shuah@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- Andrew Morton <akpm@linux-foundation.org>
-References: <cover.1790025465.git.abhishekbapat@google.com>
- <95bf63d2b9ef14f6610d6543b6892d266e4dc5c6.1790025465.git.abhishekbapat@google.com>
-Content-Language: en-US
-From: Hao Ge <hao.ge@linux.dev>
-In-Reply-To: <95bf63d2b9ef14f6610d6543b6892d266e4dc5c6.1790025465.git.abhishekbapat@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR18MB4144:EE_|DM4PR18MB5075:EE_
+X-MS-Office365-Filtering-Correlation-Id: 631c7577-a0d3-4588-7471-08df1a143deb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|22082099003|10067099003|18002099003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	2NmpFNH2MB8rBknjbZ/TMW6XjxvIZIzjhnTczQJmVsX6FXF6b/vHZW+YXaVhLORxytCm29KoAJH/NrBtf/CXqVA76VOXpGvUeqJHDHPa/m0NwOcFUFjCGCc+YkobLmLfu7uiVhKvY5DLmBdOiFI5CFHUVo1Emk6L0offs7k3rgnUkiSWDioEJFt8cRxKpmyjIACVyCv2Mmc7mdfVBqos4a7n08SWrZhNrYaqVjVFWu4DAPINW7EYzPabGCCUnrKG7c5fqH9juJSX3QE/bFxHx+6Sqi28YDgWGzOHgHVA52WskS/TwMLy7U2iY8UUoYb8Ewviv8/IWraBQgZVPxWA9862NkFuomr2cPksgaL6qKP1TqpjKfvtd+vqpMtUmUe8A+ZCPiXkfgej6u0ND7+r8kHAnxv3M3dDdK9JozvQZ+Fdap2n/0SOpdfcbMjcadOznPMUQ0H2hCr0oUO0d2yhaVwKVMq68iECfm74zf3sUrb5ml5LA9ExTvtseqizfEEn95ulAhQETpezPynZUaTv6v96Nkq9T5g0nvY3LzeuDyBiOl6giVQkCEmmkOv8mbzB3pVW5LOy0sbVA1L200qmR3TMPC08bZVr83NaIvrQ7sMlc4XN2ztc56LTRefvFaQqPWvRSOjzB3pPZ/2ms1z7rkvXrUfadQDDzOhyEXHwfk4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR18MB4144.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(22082099003)(10067099003)(18002099003)(4143699003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OXJpcGc4eEZnbml1VDFRU2pNdkFQa0NBOU5NeFhNMnhlZjhxMHl2SzZOekJw?=
+ =?utf-8?B?eFJOeHFrMWZHK0dwcnIySWRPMk1POFU1bXRoNXptVGE4NUFZNnA4Vm5rTmhZ?=
+ =?utf-8?B?aEpjeEVPZStNVWQrWWl6VHlTV2lBRnJyM1JmNkJwVXpEK0dXYVoyaWpkYTNp?=
+ =?utf-8?B?R3BBKzQwUlpqQWFoWm5iNmhnWlVNSXRmY242elFmclhBcHBrMVVBTDludEs0?=
+ =?utf-8?B?S2NEKy94bHRmSkxFYWN1clViRTc1V3lER2Y0bldPMlRQd2phMjc5VG1FRFJk?=
+ =?utf-8?B?QTBORkpCeDZMbmZqUHVyejRxNnBXWXpMSDRPZ1VzbDMzN2tneFVpZzMxbTgv?=
+ =?utf-8?B?K1F0SmZkTFYwbFJFYXdzSytVT3NObTEyYXhYQWczejJWQUZjYmlZa204WGtS?=
+ =?utf-8?B?b0h6QXZSZi8wc0xDWHBralhzZzNQL1lRT3JaT3R5K1NOWi9ORVFPNW1Vd2M2?=
+ =?utf-8?B?bDRIOE5FRTQvbDNZQ2RPY3FrRWZoYTB5aHoxc3JsWVMwL0l6RVFHK2VSVk45?=
+ =?utf-8?B?dHljZjJSSWJ5TWNiSFRIRVJSTEQrT3FYamtMallpWlV2MzR5SW9kbFRycjBs?=
+ =?utf-8?B?TEdxdE8zRjg1WXg2Z1VXMjBQWWk0YlpqQ1owSHQzNi9zWTNFR2hEeW9OV2VT?=
+ =?utf-8?B?bi9LblQrWjZPOEo1VE5DY1FxOUlyZm03Y3RuS0RrWUNaUzBZTUJTWUJEclRB?=
+ =?utf-8?B?VTlYL3BtUlluOUZrQkpuOXhER21IclR1U3VnN1pYZ2pSWHJxYnJodHJHb1Rr?=
+ =?utf-8?B?YzJoaERlTlRSK3NqTGhOdEwwbkxERkN6VmpPUHkyTDhtWjhnbGVPWkZSM0ZR?=
+ =?utf-8?B?VldUOWd6allOMWxSRU12TU5rZkovSy9KdTkvTzAxNkZTWVhuV3p3SkZWSGRK?=
+ =?utf-8?B?SG9tWStyZmxKM21QbmxBc05HSjZoSmtPOFNHY2ZvQktZNUlYcjFjcXpZMU5m?=
+ =?utf-8?B?SEJOVXYvQ3JkMUZOK1hEZ3UwT0FRM3d3NVM5SS9PUkI0NTdmVGJzd2w2K0Z6?=
+ =?utf-8?B?a3RqczBJUFNPR251dGp1QzBJMGRJM1EwRjEwcUxqazAzTjEwNVlWWi9HeFcx?=
+ =?utf-8?B?ZHE1WE5FUW9UMTZnTnk5enBFRTVUWTcxRXVFcjl1SDlKK2R3QlpKNGFmYXNr?=
+ =?utf-8?B?cnNtTUdwRUo5UXRYQzJZMHlaQTJURk5qUk9aY3ZwQ2ppZ2ZCS01ZaWFyU3Rh?=
+ =?utf-8?B?cHdTMjMwK1hOK2Qxd2dzZW5NN2ZqOTV5cW5MVVhHcXpzQmxKQm9jTG54NGZw?=
+ =?utf-8?B?L3lMMjdwQnJyY2hmSHJ3ZnVqazVIeU5Vek5xdXk1eXZLYTROekxCc1F6c1VQ?=
+ =?utf-8?B?K2I0dStlQjZsZGY3R3BGSWtCQUhLbGFDZGNReXFoWjNFSWpCcE5MVmp1bXk0?=
+ =?utf-8?B?a3pXQXI5SFpLY2ZwTVJ4Nk8xTFVhRFRIc2RtaE9PSUdDZGFDczdtbWZMaUha?=
+ =?utf-8?B?eGRZWU9Ec3NUL21QZUNGNXl5Z1c1Vi9tM1EvMEt2Z3NyVkFCOGxnanpXcyti?=
+ =?utf-8?B?N3B6eDgxZ050bmd6QkRRaHQxNjNLclFvYS9sMS9ZUEhPRHZRTS9NSWJSOUNW?=
+ =?utf-8?B?UEh2clRxeXJwZWE4cW55VDFxUlI3R0pVWlZiYjVmc1QwcnYrOWNSV3JBOWpY?=
+ =?utf-8?B?cHE1bkxKOHNMb1g5ZjlmZFd5K09nMkt0Q2RMbFRHSU5FU2tJbWx0VmIvR0xm?=
+ =?utf-8?B?R005NDBPUVp5REhqOGJwNXdZNFkrVGsvOXp4RjN6Y05OMnJ6Z2tzdGFneDhP?=
+ =?utf-8?B?djZacW1ETjNMcENhYjhwUUVDTEs5UjIySkloVlMxSzhKbjIyMFNtSU1aM1lz?=
+ =?utf-8?B?TnBsRDBQc1RJd21laWIrenQ0dG1EaWhNcktwSHVKbzVXYlpGSjBMR2d0S3V6?=
+ =?utf-8?B?TU15Q2Z1ZEhCWnRER2h2VWVKQVRRSlA2eXNmenRsODFrb3lESEZHYTA5emox?=
+ =?utf-8?B?VmlOMU12a3UzandROTZPczNHN0QrV3pmeVNTWSt0UDhydHo2TkJaNE15S1oz?=
+ =?utf-8?B?VkFJanNwTlZaV0xnMmhXOCthQ3NETHNvQTNnelFjSVBzSHNaU1pxcDQwa2px?=
+ =?utf-8?B?RVlsUHJHUHdMck5TeUQvMjZUQk05MjhHSG95U3FlVzBPenRtTWlwQ0Ztbmdk?=
+ =?utf-8?B?blNNQXBKR2NMTEYrMTVjSGxTbTlsbG1UUmNXMnp6SGFxYnhDN1o3YTBQaGVy?=
+ =?utf-8?B?ZnBNZng4MjdudEw1VUg4ZmZ4czZqNitHMFRhWmdjV0h5MWVvN0FaSFA0ZVFl?=
+ =?utf-8?B?ZjQyVHIzQTZCNkxpVXJ5UGtxNnFMVkRrV3BnZXUwc0N4amhlUjI4Y3pCUm4r?=
+ =?utf-8?B?WUtYbHlsemV2aXRVZVJnd2xQNXFDMXBsMmRmdFM0NmR4SWtVdXhkdz09?=
+X-OriginatorOrg: axiado.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 631c7577-a0d3-4588-7471-08df1a143deb
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR18MB4144.namprd18.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 08:17:22.0591
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: I/n8TQSs8uYGW2EKww7O1khQtsoOwk4tVlE52COw6K17igxNt7N6sGdOfUjWt6YYLxf91lSBwTvZp8nVK4aApg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR18MB5075
 
-Hi Abhishek
 
-On 2026/9/22 05:26, Abhishek Bapat wrote:
-> Introduce a new IOCTL (`ALLOCINFO_IOC_TOGGLE_TRACE`) to selectively
-> toggle tracing on exact allocation call sites. Userspace tools can
-> use the existing filtering mechanism to specify the set of tags to
-> toggle tracing for.
-> 
-> To facilitate low overhead execution for non-targeted call sites, add a
-> new `CODETAG_FLAG_TRACE_ON` flag to `struct codetag` to track per-site
-> activation. Protect these conditional branch evaluations using a global
-> `alloc_tag_trace_key` static branch and an inline static key check
-> pattern in the allocator hooks (`alloc_tag_add`, `alloc_tag_sub`, etc).
-> This ensures that the trace events are entirely skipped when no
-> allocation call sites are being actively traced, leaving only a NOP on
-> the allocation fast path.
-> 
-> Signed-off-by: Abhishek Bapat <abhishekbapat@google.com>
-> ---
->  include/linux/alloc_tag.h      |  39 ++++++++----
->  include/linux/codetag.h        |   5 +-
->  include/uapi/linux/alloc_tag.h |   9 +++
->  mm/alloc_tag.c                 | 110 ++++++++++++++++++++++++++++++++-
->  4 files changed, 147 insertions(+), 16 deletions(-)
-> 
-> diff --git a/include/linux/alloc_tag.h b/include/linux/alloc_tag.h
-> index 2994934cf44a..dc86f8997476 100644
-> --- a/include/linux/alloc_tag.h
-> +++ b/include/linux/alloc_tag.h
-> @@ -136,9 +136,36 @@ static inline bool mem_alloc_profiling_enabled(void)
->  				   &mem_alloc_profiling_key);
->  }
->  
-> +static inline void alloc_tag_set_inaccurate(struct alloc_tag *tag)
-> +{
-> +	atomic_or(CODETAG_FLAG_INACCURATE, &tag->ct.flags);
-> +}
-> +
-> +static inline bool alloc_tag_is_inaccurate(struct alloc_tag *tag)
-> +{
-> +	return !!(atomic_read(&tag->ct.flags) & CODETAG_FLAG_INACCURATE);
-> +}
-> +
-> +static inline void alloc_tag_set_traced(struct alloc_tag *tag)
-> +{
-> +	atomic_or(CODETAG_FLAG_TRACE_ON, &tag->ct.flags);
-> +}
-> +
-> +static inline void alloc_tag_clear_traced(struct alloc_tag *tag)
-> +{
-> +	atomic_andnot(CODETAG_FLAG_TRACE_ON, &tag->ct.flags);
-> +}
-> +
-> +static inline bool alloc_tag_is_traced(const struct alloc_tag *tag)
-> +{
-> +	return !!(atomic_read(&tag->ct.flags) & CODETAG_FLAG_TRACE_ON);
-> +}
-> +
->  static inline bool alloc_tag_trace_enabled(const struct alloc_tag *tag)
->  {
-> -	return static_branch_unlikely(&alloc_tag_trace_key);
-> +	if (static_branch_unlikely(&alloc_tag_trace_key))
-> +		return tag && alloc_tag_is_traced(tag);
-> +	return false;
->  }
->  
->  void alloc_tag_trace_mem_alloc(union codetag_ref *ref, struct alloc_tag *tag,
-> @@ -255,16 +282,6 @@ static inline void alloc_tag_sub(union codetag_ref *ref, size_t bytes)
->  	ref->ct = NULL;
->  }
->  
-> -static inline void alloc_tag_set_inaccurate(struct alloc_tag *tag)
-> -{
-> -	tag->ct.flags |= CODETAG_FLAG_INACCURATE;
-> -}
-> -
-> -static inline bool alloc_tag_is_inaccurate(struct alloc_tag *tag)
-> -{
-> -	return !!(tag->ct.flags & CODETAG_FLAG_INACCURATE);
-> -}
-> -
->  #define alloc_tag_record(p)	((p) = current->alloc_tag)
->  
->  #else /* CONFIG_MEM_ALLOC_PROFILING */
-> diff --git a/include/linux/codetag.h b/include/linux/codetag.h
-> index a25a085c2df1..f728295d50c0 100644
-> --- a/include/linux/codetag.h
-> +++ b/include/linux/codetag.h
-> @@ -18,6 +18,7 @@ struct module;
->  
->  /* codetag flags */
->  #define CODETAG_FLAG_INACCURATE	(1 << 0)
-> +#define CODETAG_FLAG_TRACE_ON	(1 << 1)
->  
->  /*
->   * An instance of this structure is created in a special ELF section at every
-> @@ -25,7 +26,7 @@ struct module;
->   * an array of these.
->   */
->  struct codetag {
-> -	unsigned int flags;
-> +	atomic_t flags;
->  	unsigned int lineno;
->  	const char *modname;
->  	const char *function;
-> @@ -71,7 +72,7 @@ struct codetag_iterator {
->  	.function	= __func__,			\
->  	.filename	= __FILE__,			\
->  	.lineno		= __LINE__,			\
-> -	.flags		= 0,				\
-> +	.flags		= ATOMIC_INIT(0),		\
->  }
->  
->  void codetag_lock_module_list(struct codetag_type *cttype);
-> diff --git a/include/uapi/linux/alloc_tag.h b/include/uapi/linux/alloc_tag.h
-> index 7d4618bea043..069ab8341e87 100644
-> --- a/include/uapi/linux/alloc_tag.h
-> +++ b/include/uapi/linux/alloc_tag.h
-> @@ -85,9 +85,16 @@ struct allocinfo_get_at {
->  	struct allocinfo_tag_data data;
->  };
->  
-> +struct allocinfo_toggle_traces {
-> +	/* inputs */
-> +	struct allocinfo_tag fields;
-> +	__u64 enable;
-> +};
-> +
->  #define _ALLOCINFO_IOC_CONTENT_ID	0
->  #define _ALLOCINFO_IOC_GET_AT		1
->  #define _ALLOCINFO_IOC_GET_NEXT		2
-> +#define _ALLOCINFO_IOC_TOGGLE_TRACE	3
->  
->  #define ALLOCINFO_IOC_BASE		0xA6
->  #define ALLOCINFO_IOC_CONTENT_ID	_IOR(ALLOCINFO_IOC_BASE, _ALLOCINFO_IOC_CONTENT_ID,	\
-> @@ -96,5 +103,7 @@ struct allocinfo_get_at {
->  					      struct allocinfo_get_at)
->  #define ALLOCINFO_IOC_GET_NEXT		_IOR(ALLOCINFO_IOC_BASE, _ALLOCINFO_IOC_GET_NEXT,	\
->  					     struct allocinfo_tag_data)
-> +#define ALLOCINFO_IOC_TOGGLE_TRACE	_IOW(ALLOCINFO_IOC_BASE, _ALLOCINFO_IOC_TOGGLE_TRACE,	\
-> +					    struct allocinfo_toggle_traces)
->  
->  #endif /* _UAPI_ALLOC_TAG_H */
-> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-> index a5339767efd5..fb179321a2a1 100644
-> --- a/mm/alloc_tag.c
-> +++ b/mm/alloc_tag.c
-> @@ -61,6 +61,15 @@ DEFINE_STATIC_KEY_FALSE(mem_profiling_compressed);
->  DEFINE_STATIC_KEY_FALSE(alloc_tag_trace_key);
->  EXPORT_SYMBOL(alloc_tag_trace_key);
->  
-> +static atomic_t alloc_tag_trace_cnt = ATOMIC_INIT(0);
-> +
-> +/*
-> + * As `codetag_lock_module_list` is a read lock, we need an additional mutex
-> + * to protect against the race conditions involved in the alloc tag trace
-> + * toggle path.
-> + */
-> +static DEFINE_MUTEX(alloc_tag_trace_mutex);
-> +
->  struct alloc_tag_kernel_section kernel_tags = { NULL, 0 };
->  unsigned long alloc_tag_ref_mask;
->  int alloc_tag_ref_offs;
-> @@ -297,7 +306,7 @@ static bool matches_filter(struct codetag *ct, struct allocinfo_filter *filter,
->  		return false;
->  
->  	if (filter->mask & ALLOCINFO_FILTER_MASK_INACCURATE) {
-> -		inaccurate = !!(ct->flags & CODETAG_FLAG_INACCURATE);
-> +		inaccurate = alloc_tag_is_inaccurate(ct_to_alloc_tag(ct));
->  		if (inaccurate != !!(filter->inaccurate))
->  			return false;
->  	}
-> @@ -444,6 +453,81 @@ static int allocinfo_ioctl_get_next(struct seq_file *m, void __user *arg)
->  	return ret;
->  }
->  
-> +static bool alloc_tag_trace_toggle(struct alloc_tag *tag, bool enable)
-> +{
-> +	if (enable) {
-> +		if (alloc_tag_is_traced(tag))
-> +			return false;
-> +
-> +		alloc_tag_set_traced(tag);
-> +		if (atomic_fetch_inc(&alloc_tag_trace_cnt) == 0)
-> +			static_branch_enable(&alloc_tag_trace_key);
-> +	} else {
-> +		if (!alloc_tag_is_traced(tag))
-> +			return false;
-> +
-> +		alloc_tag_clear_traced(tag);
-> +		if (atomic_dec_and_test(&alloc_tag_trace_cnt))
-> +			static_branch_disable(&alloc_tag_trace_key);
-> +	}
-> +
-> +	return true;
-> +}
-> +
-> +/*
-> + * Toggles context capture for a specified allocation.
-> + */
-> +static int allocinfo_ioctl_toggle_trace(struct seq_file *m, void __user *arg)
-> +{
-> +	struct allocinfo_toggle_traces params;
-> +	struct codetag_iterator iter;
-> +	struct codetag *ct;
-> +	int matches = 0, successes = 0, ret;
-> +
-> +	if (!capable(CAP_SYS_ADMIN))
-> +		return -EPERM;
-> +
-> +	if (copy_from_user(&params, arg, sizeof(params)))
-> +		return -EFAULT;
-> +
-> +	codetag_lock_module_list(alloc_tag_cttype);
-> +
-> +	struct allocinfo_filter filter = {
-> +		.mask = ALLOCINFO_FILTER_MASK_MODNAME |
-> +		       ALLOCINFO_FILTER_MASK_FUNCTION |
-> +		       ALLOCINFO_FILTER_MASK_FILENAME |
-> +		       ALLOCINFO_FILTER_MASK_LINENO,
-> +		.fields = params.fields,
-> +	};
-> +
-> +	iter = codetag_get_ct_iter(alloc_tag_cttype);
-> +
-> +	/* Toggle tracing on all codetags that match */
-> +	while ((ct = codetag_next_ct(&iter))) {
-> +		if (matches_filter(ct, &filter, NULL, NULL)) {
-> +			matches++;
-> +
-> +			mutex_lock(&alloc_tag_trace_mutex);
-> +			if (alloc_tag_trace_toggle(ct_to_alloc_tag(ct), !!params.enable))
-> +				successes++;
-> +			mutex_unlock(&alloc_tag_trace_mutex);
-> +		}
-> +	}
-> +
-> +	if (matches == 0)
-> +		/* Nothing matched the filter */
-> +		ret = -ENOENT;
-> +	else if (successes == 0)
-> +		/* Items matched, but were already in the requested state */
-> +		ret = -EINVAL;
-
-Why do we return -EINVAL in this path?
--EINVAL can mislead users into thinking their arguments are wrong.
-That's not the case; the trace request they want is already active.
-Maybe -EEXIST ?
-
-Thanks
-Best Regards
-Hao
-
-> +	else
-> +		ret = 0;
-> +
-> +	codetag_unlock_module_list(alloc_tag_cttype);
-> +
-> +	return ret;
-> +}
-> +
->  /*
->   * Entry point ioctl function for /proc/allocinfo routing requests to fetch the
->   * layout content ID, seek to a specific tag, or read sequential tags.
-> @@ -464,6 +548,9 @@ static long allocinfo_ioctl(struct file *file, unsigned int cmd,
->  	case ALLOCINFO_IOC_GET_NEXT:
->  		ret = allocinfo_ioctl_get_next(file->private_data, arg);
->  		break;
-> +	case ALLOCINFO_IOC_TOGGLE_TRACE:
-> +		ret = allocinfo_ioctl_toggle_trace(file->private_data, arg);
-> +		break;
->  	default:
->  		ret = -ENOIOCTLCMD;
->  		break;
-> @@ -493,8 +580,6 @@ static const struct proc_ops allocinfo_proc_ops = {
->  
->  void __alloc_tag_trace_hit(struct alloc_tag *tag)
->  {
-> -	if (unlikely(!tag))
-> -		return;
->  	trace_alloc_tag_hit(tag);
->  }
->  EXPORT_SYMBOL(__alloc_tag_trace_hit);
-> @@ -1043,6 +1128,24 @@ static int load_module(struct module *mod, struct codetag *start, struct codetag
->  	return 0;
->  }
->  
-> +static void unload_module(struct module *mod, struct codetag *start, struct codetag *stop)
-> +{
-> +	struct alloc_tag *start_tag = ct_to_alloc_tag(start);
-> +	struct alloc_tag *stop_tag = ct_to_alloc_tag(stop);
-> +	struct alloc_tag *tag;
-> +
-> +	/*
-> +	 * Turn tracing off for the tags of the module being unloaded. Without
-> +	 * this, `alloc_tag_trace_cnt` would never reach zero and tracing would
-> +	 * stay enabled forever.
-> +	 *
-> +	 * `alloc_tag_trace_mutex` is not needed here as this code path is
-> +	 * protected by a `down_write(&cttype->mod_lock)`.
-> +	 */
-> +	for (tag = start_tag; tag < stop_tag; tag++)
-> +		alloc_tag_trace_toggle(tag, false);
-> +}
-> +
->  static void replace_module(struct module *mod, struct module *new_mod)
->  {
->  	MA_STATE(mas, &mod_area_mt, 0, module_tags.size);
-> @@ -1369,6 +1472,7 @@ static int __init alloc_tag_init(void)
->  		.alloc_section_mem	= reserve_module_tags,
->  		.free_section_mem	= release_module_tags,
->  		.module_load		= load_module,
-> +		.module_unload		= unload_module,
->  		.module_replaced	= replace_module,
->  #endif
->  	};
+On 9/23/2026 4:46 PM, Guenter Roeck wrote:
+> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you recognize the sender and know the content is safe.
+>
+>
+> On Wed, Sep 23, 2026 at 02:58:41AM -0700, Petar Stepanovic wrote:
+>> The axiado-pwm-fan entry was added to the hwmon documentation index, but
+>> the corresponding Documentation/hwmon/axiado-pwm-fan.rst file is missing.
+>>
+>> The MAINTAINERS entry also only lists the devicetree binding and is missing
+>> entries for the hwmon documentation and driver.
+>>
+>> Add the missing documentation file and MAINTAINERS entries.
+>>
+>> Fixes: 2d52742f408f ("hwmon: add Axiado AX3000 and AX3005 PWM fan controller driver")
+>> Reported-by: kernel test robot <lkp@intel.com>
+>> Closes: https://lore.kernel.org/oe-kbuild-all/202609230904.aIWyLsSt-lkp@intel.com/
+>> Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
+> Sorry for that. The patch did not apply due to conflicts, and I had to
+> apply manually using patch. Doing so I forgot to include the missing
+> entries.
+>
+> I'll fold this patch into the original patch introducing the driver.
+>
+> Thanks,
+> Guenter
+Thanks for confirming and fixing it.
+>
+>> ---
+>> This patch adds the missing Axiado PWM fan documentation file and updates
+>> the MAINTAINERS entry to include the documentation and driver source
+>> files.
+>> ---
+>>  Documentation/hwmon/axiado-pwm-fan.rst | 38 ++++++++++++++++++++++++++++++++++
+>>  MAINTAINERS                            |  2 ++
+>>  2 files changed, 40 insertions(+)
+>>
+>>
+>> ---
+>> base-commit: bf92ea2a46120fd0809f24d39ad3482d0f20876b
+>> change-id: 20260923-axiado-pwm-fan-doc-fix-new-d0e42bbb0cbc
+>>
+>> Best regards,
+>> --
+>> Petar Stepanovic <pstepanovic@axiado.com>
+>>
+>> diff --git a/Documentation/hwmon/axiado-pwm-fan.rst b/Documentation/hwmon/axiado-pwm-fan.rst
+>> new file mode 100644
+>> index 000000000000..d110e170b0df
+>> --- /dev/null
+>> +++ b/Documentation/hwmon/axiado-pwm-fan.rst
+>> @@ -0,0 +1,38 @@
+>> +.. SPDX-License-Identifier: GPL-2.0
+>> +
+>> +Kernel driver axiado-pwm-fan
+>> +============================
+>> +
+>> +Supported chips:
+>> +
+>> +  * Axiado AX3000
+>> +  * Axiado AX3005
+>> +
+>> +    Datasheet: Not publicly available
+>> +
+>> +Author:
+>> +
+>> +  * Petar Stepanovic <pstepanovic@axiado.com>
+>> +
+>> +Description
+>> +-----------
+>> +
+>> +The Axiado AX3000 and AX3005 PWM fan controllers measure the rotational
+>> +speed of one fan using a hardware tachometer block. Fan speed is controlled
+>> +through a PWM signal supplied by an external PWM controller.
+>> +
+>> +The number of tachometer pulses generated per fan revolution is configured
+>> +through the ``pulses-per-revolution`` devicetree property. If the property
+>> +is not specified, the driver uses two pulses per revolution.
+>> +
+>> +Sysfs attributes
+>> +----------------
+>> +
+>> +The driver provides the following standard hwmon attributes:
+>> +
+>> +=============== ====== =====================================================
+>> +fan1_input      RO     Fan speed in revolutions per minute (RPM).
+>> +
+>> +pwm1            RW     Relative PWM control value from 0 to 255. A value of
+>> +                       255 selects the maximum PWM duty cycle.
+>> +=============== ====== =====================================================
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index eb3cc6c81bcf..5ad12c57ca5f 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -4504,6 +4504,8 @@ M:      Prasad Bolisetty <pbolisetty@axiado.com>
+>>  L:   linux-hwmon@vger.kernel.org
+>>  S:   Supported
+>>  F:   Documentation/devicetree/bindings/hwmon/axiado,ax3000-pwm-fan.yaml
+>> +F:   Documentation/hwmon/axiado-pwm-fan.rst
+>> +F:   drivers/hwmon/axiado-pwm-fan.c
+>>
+>>  AXIADO SPI DB DRIVER
+>>  M:   Vladimir Moravcevic <vmoravcevic@axiado.com>
