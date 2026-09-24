@@ -1,48 +1,66 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013003.outbound.protection.outlook.com [40.93.201.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43AF8457E6D;
-	Thu, 24 Sep 2026 10:19:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790245186; cv=none; b=epyKVYwPDMTRSXaO+j0wrjQMaUTpQKHyLOAeMv6fuYe1dZ/wOqD+nTL8JNpdf+b5bOeNwHurbw9vowctMnfPiHl+QRfnPOL5GivweqY+wql45JSivPz4GXTX/XDUEMuUwaR1mi7mj0bke8JTpDB+IdENEyD2Qo4jHv1qFWqu0dA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790245186; c=relaxed/simple;
-	bh=ncOl1/fMoV1D7Is/9UygBtdU7UfuEaehn1Z5r8QCkOk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oFtZjdk7whFpHrx8tTFM3TVqicbJoepRMFXur2X/RWq6YsIBf6XrR+wIuLOj5jJ1/6SXpm/LlNaPyfdhixg68X8o8of5raf3yuLPt3pIg42jpba9etRYgES/gyPGgx+7ca9IWSDUSpK+G0J09zWLDwOHPXdB7hKzKxF8fpK5r+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=npt4We1U; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBA8E41DE11;
+	Thu, 24 Sep 2026 10:19:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.3
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790245198; cv=fail; b=EjsLPFpMlvrcy2o+yJHmphzA4p1kRuvuGI4OwzyIvKlRxzCHnTjWG7JjIpcDBLG89TDci6e0ik4EYmzYinZZsR231MLjhxK176x2PYKLMnanxgDdX//xVERjm+g4bZRVoqpFqjpjtlg3joRZzmxVfvhB7TB3Rp1qYCDJtKolB8s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790245198; c=relaxed/simple;
+	bh=x9czK8VnCYZ0E1OUEq+OZv2qADpoVrrf3ctdDFpigAY=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=WYKoNaxEfgh3a24j7CQi0swM7U8L3NuDYwM1IzQcgu/1IV2I8+0D/zBSs8OZGQ6GXS0Q9sEc5wIuZSoGUOJBeLaE/srCYppB9BUeJIhMdrbNjrK4s0bZ+gGkD+0nXUJFKtx+XZKUCrnmu7JSoPWu9ijT7BPR6QTmq3SM4NUYQCE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=pMsZXrLf; arc=fail smtp.client-ip=40.93.201.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="npt4We1U"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A0E28A4AA9;
-	Thu, 24 Sep 2026 12:19:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1790245174; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=Dd4LZLpz2ZuVbbhEX2b+hUZjwt0QvR0+hfyByE8uihs=;
-	b=npt4We1UQGa8rE1Fyi4K4za6kcmtPVSIJJbVdsesZA9EySH8NQbzd0UwfFRooHTDQ9RFov
-	KMtLfSRiBzKIwXhwDjNv83MsGVRtEeOXMqdfMdv2su7DAp6pCbcttN/7RxV1js0kET+lTr
-	NDRuno8fT0NR21kCAziGv/UbGEwpLhtlzFzTJvTd7qkevrq8g6S6xwBhtDGlRqus18w8bo
-	XHFjhaa9dljsBb+5Q/ZghCvtzC9/+bmLJ7esCMptV36iB+LujuugomnCotJTaW9KVKBpHu
-	+9sYzVP770+9rVIy37F6wJtEt7Tbvwfe5bxOO37U8tGopSXIbnHMeWQeL4ildA==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Doug Berger <opendmb@gmail.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Nicolai Buchwitz <nb@tipi-net.de>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Justin Chen <justin.chen@broadcom.com>
-Cc: kmehltretter@gmail.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net: bcmgenet: allocate RX buffers as page fragments
-Date: Thu, 24 Sep 2026 12:19:21 +0200
-Message-ID: <20260924101922.2675127-1-nb@tipi-net.de>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="pMsZXrLf"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ONK5oQyA/75QfwfrEVzSo4QcwBI16F0W8NVs/MDixbvqWcaCgnXisDrIvEtiui0jD6AemPGj9JI/9HOgVOAv7WMsdwT6oP4I9r1rm+oxY3KRIk+2WoLFHI334qC8FYDYxyNSVHqDAGiK5+TKKlvJSn4De7KQOqj1vUZvAzmaYc5iNKRk6aw44k76RBw9mNni6E2YC3Y+wHgM8pUQp2PVGL5PDdeRbENGfAMSomwQSJOc7HDpP/79OgNxnf1dyG37xaG/b27dKC9NZfNmfuM6l+BshN3NFKC2/iAA2uATcPg4nSROSsqYGtt7Ll231amvEabyGX0bFFGUvI+q+UzEFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bDQ/zGrGUS8kCZNpsPfUrqSF7XQJfGJizHYTnzUUlJk=;
+ b=OUS/UIfzCS2rVlJUQUXm7xvAxha8XTmWWmebWs99Qhrxofjl6we/gk+39e6TOkiJvZsL/RMkcO0GDRH8TXFfpYYdEgNSkUYuwY8hRInXyAkJqsCFeIjc6xneaa/UATa3HsKypRxa2051NqqCyJy0dWLjnNHbfz9O37zFyjpjvOoktjYAv6Nk8sSsri5rNraB04CzsM4Atu1KhubNRsYk2OhvTaG7UbtsEel4nga81FKWvoV3YexK+7XNqTdL3C7H8t2o7mUw+iAbTksSFpuTjVWTnCxZVwbRgGyH3rM6iAC1JPLKa7uByofGzwN1o+2ULP7xxTRX7RYQFmI6J/EUcA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bDQ/zGrGUS8kCZNpsPfUrqSF7XQJfGJizHYTnzUUlJk=;
+ b=pMsZXrLfz6M4qmrWUSWH4Y33uerjnwcJlUM/Nnvxu2n4n48MtZpB0M7pgpJ2w+I5mExlJyeAvqV1424jBqdagVZZmdHbgiyB4+xMF/EvH/NfEc//oXtTjodbAk5dlPjx2dUIYZzeBTd6iyA/p4yeNDcADHXgFhglWlQnlpWAF3U=
+Received: from CH5PR04CA0020.namprd04.prod.outlook.com (2603:10b6:610:1f4::21)
+ by SAWPR12MB999164.namprd12.prod.outlook.com (2603:10b6:806:4e1::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 10:19:48 +0000
+Received: from CH2PEPF00000147.namprd02.prod.outlook.com
+ (2603:10b6:610:1f4:cafe::3) by CH5PR04CA0020.outlook.office365.com
+ (2603:10b6:610:1f4::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Thu,
+ 24 Sep 2026 10:19:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH2PEPF00000147.mail.protection.outlook.com (10.167.244.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 10:19:48 +0000
+Received: from qyzhu-os-debug.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
+ 2026 05:19:46 -0500
+From: Zhu Qiyu <qiyuzhu2@amd.com>
+To: Bjorn Helgaas <bhelgaas@google.com>, <linux-pci@vger.kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <qiyuzhu2@amd.com>
+Subject: [PATCH] PCI: pciehp: Re-read Slot Control when cached HPIE is clear
+Date: Thu, 24 Sep 2026 10:19:29 +0000
+Message-ID: <20260924101929.143806-1-qiyuzhu2@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,145 +68,128 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000147:EE_|SAWPR12MB999164:EE_
+X-MS-Office365-Filtering-Correlation-Id: fad2ec3d-342c-4401-b27b-08df1a255cde
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700016|1800799024|23010399003|82310400026|10067099003|11063799006|56012099006|6133799003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	IQ/L526BVpfbnJr++W/6StF4KEkESf2T/+bpxi4KNAfVyZE/LDlS+P0BVLb9nueVODtH9TRykMuDmvqgn2lnpNWdRVjP2sYzqe3UIauyJwx4IXLYeoGhkYlrvZDCg5i48UMNA32bL2a7H+iOeNGjWMzAjELwsXAv9q2bf+dgrtvsZa4iIrIfmVD/PflafXYcwljmYDZpzQBKj4/A6UxbHGQrN24qo+gkcjIoQDqCPnIqRHdZ5Svvc+HOF3Kw61FwTbmytnC2R46nSkGmx6H28vYdRcjdk4yPfDP7+y+KU7SWPG5Y7BrZ9yz78hSLOkPyUseGxhSE2ONrXAWAq2bROJlmuC7A0i0qMhJUNLQp/bcPWxKzP4QJukecAPC6Cpg4+Z45QTzv40Xeq7OXDv4YJgZmrwhAn/9aDts1XDBTh+dOqoJSORHjvX6CcuO2NxiXFW1+O8m6vx7Vps8X8XIVXQln980v7vwNubf/HrF7p5oxvPi90DGqkAICTb0oCWZJJMOFHknGCQGwqw2Gmg1rUlT1hgn2tzaO2tf+5d24UFWssvdbKZ3f5iQ3+i2M6QSIxhILzXMwqCOB63Z80qO0QvsbFMUp11ytILusDBddFPUHQtzWbvcgc238GNP4t8UKbrVp2LyVYwNHUxKB/jJH6GDq4BDakrKGNlcPP7navLV71vOJgKuFfbPUSPQNOU/FIR4ZVQis6LBvTexD1CCUUw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(10067099003)(11063799006)(56012099006)(6133799003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	XYUSGYRSLBM+eUaaJEDGFDiIPQBGXYfdqXwZMTomxsIQDej+3A87S4HDbKOwjhaCnCGISlwLDIV1G8OZgYNj7Sah0e1nelnW6GblBKissggx79c/6PAVoj4hB37cb10W6tFPCcUGCP70hn6X/WDym8lUvQOiwXat6V/Tx9kkxbuGjG3XK9ebpo1yOrcPbyijNPA8fZObnEndTu6lag73ePxCrnhRJbv5W2NDnc3c9x+R25IsWogNntH3+xw6GyMedWQIMfW997fKqBvRAfwwW7AZ6/a6sgQzqQZNOxpluFDrSkCkiovRpCLYYcZjC/Qm7RSInnoaOwxz2YwZepZ2SUisH5ITPwbnmgxqYQihck65pcBIQiidiQZYDNIZ7sKS4vqCZICOMF/Oenc1NKkQ2cW4EnZFObCvo4SneUqJrqhSCY44Deo/2jqtWZRs8bTr
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 10:19:48.3542
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fad2ec3d-342c-4401-b27b-08df1a255cde
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF00000147.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999164
 
-Since the page_pool conversion every RX buffer is a whole page and the
-skb truesize is the page, although the hardware writes at most 2 KiB of
-it. On 64 KiB pages a packet therefore counts 65792 bytes against the
-socket buffer where it used to count 2752. As a result a UDP socket
-with the default buffer starts to drop after three packets, and the RX
-rings pin 16 MiB for 512 KiB of buffers.
+pciehp_isr() dismisses an interrupt as not ours (IRQ_NONE) when the
+Hot-Plug Interrupt Enable (HPIE) bit is clear in ctrl->slot_ctrl, the
+driver's cached copy of the Slot Control register.
 
-Fix this and allocate the buffers as page fragments, so the truesize is
-what a packet occupies. 4 KiB pages stay one buffer per page.
+This can drop hotplug events during PCIe hot-add.  On an AMD EPYC
+platform, sometimes hot-adding an PCIe device delivered only the
+Presence Detect Changed (PDC) event while the Data Link Layer State
+Changed (DLSC) event was lost. Afterwards lspci still showed the
+Link State Changed bit latched in Slot Status, i.e. the DLSC interrupt
+was never serviced:
 
-Sync each buffer in the refill path, as page_pool can only sync a whole
-page on recycle. On 4 KiB pages that is twice what the hardware wrote.
+  pcieport 0000:c0:03.4: pciehp: pending interrupts 0x0008 from Slot Status
+  pcieport 0000:c0:03.4: pciehp: Slot(71): Card present
 
-Fixes: 7bc054c2d4ed ("net: bcmgenet: convert RX path to page_pool")
-Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
-Closes: https://lore.kernel.org/all/20260924065839.56793-1-kmehltretter@gmail.com/
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+  lspci -vvv after hot-add:
+    SltCtl: Enable: ... PresDet+ HPIrq+ LinkChg+
+    SltSta: Changed: MRL- PresDet- LinkState+
+
+Only PDC (Slot Status 0x0008) was reported; LinkState+ (DLSC) stayed
+latched and unhandled. This will affect the device's next hot-plug
+operation, causing the state machine to become inconsistent.
+
+The root cause is a stale cache.  Platform firmware transiently clears
+HPIE in hardware and restores it shortly afterwards.  While handling the
+PDC event the driver updates the slot indicators via
+pciehp_set_indicators(), which issues a Slot Control read-modify-write
+(pcie_do_write_cmd()).  If that read occurs while firmware has HPIE
+cleared, HPIE=0 is read back and stored into ctrl->slot_ctrl.  Firmware
+then restores HPIE=1 in hardware, but the cached HPIE=0 remains, so the
+following DLSC interrupt is misjudged as not ours and dropped.
+
+The hardware HPIE bit is correct in this case, so consult hardware rather
+than the possibly stale cache.  To keep the fast path cheap and avoid any
+behavioural change for low-power ports, only re-read Slot Control when the
+cache says HPIE is disabled and the port is in D0 (accessible and
+enabled).  In a lower-power state the port may be inaccessible, so the
+cached value remains authoritative and the existing early return is
+preserved.  Surprise removal is handled via PCI_POSSIBLE_ERROR().
+
+This changes behaviour only in the previously broken case (D0, cached
+HPIE clear but hardware HPIE set).  Poll mode, the shared-INTx early
+return while suspended, and the D3hot deferral to the IRQ thread are
+unchanged.
+
+Signed-off-by: Zhu Qiyu <qiyuzhu2@amd.com>
 ---
- .../net/ethernet/broadcom/genet/bcmgenet.c    | 29 ++++++++++++++-----
- .../net/ethernet/broadcom/genet/bcmgenet.h    |  2 ++
- 2 files changed, 23 insertions(+), 8 deletions(-)
+ drivers/pci/hotplug/pciehp_hpc.c | 29 +++++++++++++++++++++++++----
+ 1 file changed, 25 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-index 21668e41b696..f725d26e6020 100644
---- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-+++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-@@ -57,6 +57,9 @@
-  */
- #define GENET_RSB_PAD		(sizeof(struct status_64) + 2)
+diff --git a/drivers/pci/hotplug/pciehp_hpc.c b/drivers/pci/hotplug/pciehp_hpc.c
+index 4c62140a3cb44..df977d4af4056 100644
+--- a/drivers/pci/hotplug/pciehp_hpc.c
++++ b/drivers/pci/hotplug/pciehp_hpc.c
+@@ -628,13 +628,34 @@ static irqreturn_t pciehp_isr(int irq, void *dev_id)
+ 	u16 status, events = 0;
  
-+/* RX buffer plus the skb_shared_info napi_build_skb() places behind it */
-+#define GENET_RX_BUF_SIZE	SKB_HEAD_ALIGN(RX_BUF_LENGTH)
-+
- /* Tx/Rx DMA register offset, skip 256 descriptors */
- #define WORDS_PER_BD(p)		(p->hw_params->words_per_bd)
- #define DMA_DESC_SIZE		(WORDS_PER_BD(priv) * sizeof(u32))
-@@ -2254,11 +2257,12 @@ static int bcmgenet_rx_refill(struct bcmgenet_rx_ring *ring,
- 			      struct enet_cb *cb)
- {
- 	struct bcmgenet_priv *priv = ring->priv;
-+	unsigned int size = GENET_RX_BUF_SIZE;
-+	unsigned int offset;
- 	dma_addr_t mapping;
- 	struct page *page;
+ 	/*
+-	 * Interrupts only occur in D3hot or shallower and only if enabled
+-	 * in the Slot Control register (PCIe r4.0, sec 6.7.3.4).
++	 * Interrupts only occur in D3hot or shallower (PCIe r4.0, sec 6.7.3.4).
+ 	 */
+-	if (pdev->current_state == PCI_D3cold ||
+-	    (!(ctrl->slot_ctrl & PCI_EXP_SLTCTL_HPIE) && !pciehp_poll_mode))
++	if (pdev->current_state == PCI_D3cold)
+ 		return IRQ_NONE;
  
--	page = page_pool_alloc_pages(ring->page_pool,
--				     GFP_ATOMIC);
-+	page = page_pool_dev_alloc(ring->page_pool, &offset, &size);
- 	if (!page) {
- 		priv->mib.alloc_rx_buff_failed++;
- 		netif_err(priv, rx_err, priv->dev,
-@@ -2267,9 +2271,13 @@ static int bcmgenet_rx_refill(struct bcmgenet_rx_ring *ring,
- 	}
- 
- 	/* page_pool handles DMA mapping via PP_FLAG_DMA_MAP */
--	mapping = page_pool_get_dma_addr(page);
-+	mapping = page_pool_get_dma_addr(page) + offset;
-+	dma_sync_single_for_device(&priv->pdev->dev, mapping, RX_BUF_LENGTH,
-+				   DMA_FROM_DEVICE);
- 
- 	cb->rx_page = page;
-+	cb->rx_offset = offset;
-+	cb->rx_size = size;
- 	dmadesc_set_addr(priv, cb->bd_addr, mapping);
- 
- 	return 0;
-@@ -2323,6 +2331,7 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
- 
- 	while ((rxpktprocessed < rxpkttoprocess) &&
- 	       (rxpktprocessed < budget)) {
-+		unsigned int rx_offset, rx_size;
- 		struct status_64 *status;
- 		struct page *rx_page;
- 		void *hard_start;
-@@ -2332,6 +2341,8 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
- 
- 		/* Save the received page before refilling */
- 		rx_page = cb->rx_page;
-+		rx_offset = cb->rx_offset;
-+		rx_size = cb->rx_size;
- 
- 		if (bcmgenet_rx_refill(ring, cb)) {
- 			BCMGENET_STATS64_INC(stats, dropped);
-@@ -2341,10 +2352,10 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
- 		/* Sync the full buffer; the HW may have written anywhere
- 		 * up to RX_BUF_LENGTH.
- 		 */
--		page_pool_dma_sync_for_cpu(ring->page_pool, rx_page, 0,
-+		page_pool_dma_sync_for_cpu(ring->page_pool, rx_page, rx_offset,
- 					   RX_BUF_LENGTH);
- 
--		hard_start = page_address(rx_page);
-+		hard_start = page_address(rx_page) + rx_offset;
- 		status = (struct status_64 *)hard_start;
- 		dma_length_status = status->length_status;
- 
-@@ -2410,7 +2421,7 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
- 		/* Build SKB from the page - data starts at hard_start,
- 		 * frame begins after RSB(64) + pad(2) = 66 bytes.
- 		 */
--		skb = napi_build_skb(hard_start, PAGE_SIZE);
-+		skb = napi_build_skb(hard_start, rx_size);
- 		if (unlikely(!skb)) {
- 			BCMGENET_STATS64_INC(stats, dropped);
- 			page_pool_put_full_page(ring->page_pool, rx_page,
-@@ -2762,14 +2773,16 @@ static void bcmgenet_init_tx_ring(struct bcmgenet_priv *priv,
- static int bcmgenet_rx_ring_create_pool(struct bcmgenet_priv *priv,
- 					struct bcmgenet_rx_ring *ring)
- {
-+	/* Buffers share a page. bcmgenet_rx_refill() syncs each one for the
-+	 * device, PP_FLAG_DMA_SYNC_DEV would sync the whole page.
++	/*
++	 * Interrupts are only sent if enabled in the Slot Control register
++	 * (PCIe r4.0, sec 6.7.3.4).  ctrl->slot_ctrl caches that register, but
++	 * the cached Hot-Plug Interrupt Enable bit can fall transiently out of
++	 * sync with the hardware if platform firmware clears it behind the
++	 * driver's back (e.g. concurrently with a Slot Control read-modify-
++	 * write).  While the port is in D0 it is accessible, so re-read the
++	 * register from hardware before dismissing the interrupt as not ours.
++	 * In a low-power state the port may be inaccessible and the cached
++	 * value is authoritative.
 +	 */
- 	struct page_pool_params pp_params = {
- 		.order = 0,
--		.flags = PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV,
-+		.flags = PP_FLAG_DMA_MAP,
- 		.pool_size = ring->size,
- 		.nid = NUMA_NO_NODE,
- 		.dev = &priv->pdev->dev,
- 		.dma_dir = DMA_FROM_DEVICE,
--		.max_len = RX_BUF_LENGTH,
- 	};
- 	int err;
- 
-diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.h b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
-index 22a958ba9902..86f2aed20dbe 100644
---- a/drivers/net/ethernet/broadcom/genet/bcmgenet.h
-+++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
-@@ -470,6 +470,8 @@ struct bcmgenet_rx_stats64 {
- struct enet_cb {
- 	struct sk_buff      *skb;
- 	struct page         *rx_page;
-+	unsigned int        rx_offset;
-+	unsigned int        rx_size;
- 	void __iomem *bd_addr;
- 	DEFINE_DMA_UNMAP_ADDR(dma_addr);
- 	DEFINE_DMA_UNMAP_LEN(dma_len);
++	if (!pciehp_poll_mode && !(ctrl->slot_ctrl & PCI_EXP_SLTCTL_HPIE)) {
++		u16 slot_ctrl;
++
++		if (pdev->current_state != PCI_D0)
++			return IRQ_NONE;
++
++		pcie_capability_read_word(pdev, PCI_EXP_SLTCTL, &slot_ctrl);
++		if (PCI_POSSIBLE_ERROR(slot_ctrl) ||
++		    !(slot_ctrl & PCI_EXP_SLTCTL_HPIE))
++			return IRQ_NONE;
++	}
++
+ 	/*
+ 	 * Keep the port accessible by holding a runtime PM ref on its parent.
+ 	 * Defer resume of the parent to the IRQ thread if it's suspended.
 -- 
-2.53.0
+2.43.0
 
