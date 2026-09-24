@@ -1,345 +1,178 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF7C241DE02
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:33:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790278404; cv=none; b=Xwd5AcvU7AXwITVwdRV3nAVk312xt/iNFH451LQd+tski6x4XNvSlERIHSrFxf4mibHqWdblAPQbMjrsjx+poEEone4JOrTkjnLy8mw4t+UXVyta93qWY8KpWQkp+m85BpG+kO71YXzAhkC4dLtbykHGcHc1mk4DH22ybbXYuIs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790278404; c=relaxed/simple;
-	bh=huTrxcKdfe8nY1kwUlc1GSC1lXak8dK0CdfmXAEJSkI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cof6ogsLRSQDfHGjy+kwsF+WVSfLYHx7c1Nd5RfNWuXNg3dqTGnrq9VJavqiuzMkLoqYA/jlekJiIScYqE3iLc2/X8+R1JOKCJXOiNpfTBYfKedIEEDkEzK94b1SsJpafN60AdSenwlko5EOFed3egfAyGWSwX6Vvvee9+gP/mQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jS9yJKHM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aldjRlxi; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B93636E460
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:33:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790278441; cv=pass; b=tThLv3a1EJaCAz5Qcx91oiMmZPjI/875n8E6hwA5mcW04mV8SaUFu06/SHMrA/bE3zHpuSIoO7nKreHUsna+V+Eqt+5D8ys3PaQ7S0unVVWenmwoeEQwl3gfFnyb8MUj0G744KHpAEHfpP7Yby8zbUgkUOBTuBO4NZS6rahUmsA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790278441; c=relaxed/simple;
+	bh=t/N4X0XnQ9obqaKHrk7vetf+dDL6VPJaFNb/XYutegc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jIDh77x4lfOdFesgTRqiXi3+wzR2DBgAN+5xDGY8AiRvmk0Pb6wham+IJVYalzBiCMNRWT2vz9LtPIY4YkW/TmdOkSnE4rFNlAEJ0xAAhdzArSynuxc2n5zn9FzUxiO/o24Lt/8OWRejy/HR3NgE0klMPoCneqPzabERWO5m9DQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=GeD5PrGf; arc=pass smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jS9yJKHM";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aldjRlxi"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OIdjvh4001905
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:33:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=sJZ54tOnY46EejWm4rjxArav
-	nzXOLrt8zf7GCS5TDK8=; b=jS9yJKHMHDuk+XIpOD+HvvpR6+DLNjInLGmc8HvM
-	FlF+SyiAkz00wLfIOqWsWtEYTtQrcPZxu7EcfBN4VCwqlJOzlme52tJK/Qtzf1xx
-	VmZHpyayLVf5EgYcSFWzQ0JX3vfyOjKhuyxk8vJkrGZkUNrJEtOmj6NyUPUUudpW
-	kbegPpGQlXjgPx22zkmpdvLLlYJ8d7d+2dTglKSGOXGhLMkvHSQbyjzuyWBv+8fb
-	NwryjKAy4NooCi8XZI+zfAN2eMLl5Chju0i5o+V+E4vOEuhbK73jerl67fmyy74u
-	3fYPzmDsbspnmJqAR8sGpbrSqVsORW33lhyh/CVV0lXmyA==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw1rajgdm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:33:13 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33c0b54834bso11678eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:33:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="GeD5PrGf"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4d04d740cso51057a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:33:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790278438; cv=none;
+        d=google.com; s=arc-20260327;
+        b=c7RQ3C7AQfT1hzW5QkpfAHiJz+4Ok2yku2qbak9h9zuRKkpg4jnO71qpoUiX46qmcd
+         r6d+3wGaHBtvQYt+32QJaIq/PetAnLGRyG1FwgmwD59gNmj1SitfAYL5sQ4/vihszH8i
+         TzOs1c7gOachVund0hMT/xMRjcAsW17EJZ8iZ8zQNjGDSwC96GwfRjwrzxg1/qzn9l7E
+         /1VJz2aiDUXuzJYywdSCNltScUG/ThfVG1W9Ik/zIKQ64TmqAgrFQYBp8F6gSFrXcGXa
+         KASMbaHfrTUt4BvCVc4W466LuMD11h+/dpsr0DYvXud0T7hUl0LMfoyc6W0s7V+qMAVf
+         8/Tw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Er0wNZ7ei/sffJZBS6vip8iLxFYHICi+dbdHiy3n2DU=;
+        fh=hsxf7juuVpC4Lgg9M3YZWMkmSu6iHG7iiu2ZDqET++Y=;
+        b=afkuDm4VPaVAUdAzwps6KJpDMmMMpK9wdg70qn9kw/7kWbYCQnOvI+qt8e/LbLkPr5
+         ePb8GdR/sn6+np9hiK2vRVVR/3g4hExpmAxO68TGB8qDmfEnS2tbcz+kZ9iaUF+4a7hm
+         lIpxwVuMPny5ACiD0rgsoGJQQXPnbYRYaM4S+ulbwbJ2tPFjJVn2OFvTI698i23TkKI1
+         kGsizBUcm7cRkWFDcoeFzbTD/ldcN4nhNyqFddGKETo0BlABY6fASxL9tNO5Tace0Gau
+         nwGZvwzsE7adVbecpQn1//FT16eEBbB68t8+/JnrfDu0ZTz4rJOwoYF2L9SYx1FKDbTu
+         zRbg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790278393; x=1790883193; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=paul-moore.com; s=google; t=1790278438; x=1790883238; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=sJZ54tOnY46EejWm4rjxAravnzXOLrt8zf7GCS5TDK8=;
-        b=aldjRlxiPFOavSYXLQfbkOY5d1H9UHuNrjg2CjD6F3JBJLLOhDq+6VtQiL44yYFCnd
-         dyoNFGcSehoWbdnZm3g9FQzi3KcHA609fmV4kUtqhqkujfeB/8dc6KH2/4+aoxKwTBWE
-         0k8SiIQl59LDCNLXF+pCmqV0t7Cz8f5Kt5l/IEv0Qg1O1tw4VON9ujbrQzNcNf1Tc5Po
-         z7iBoDnpU6ivopse99C1CmlwsVh5ARndvTKZQunWJ32G5bT+STDIoxaqofQYG5aag01x
-         AgGG5gPq+XrOZ3UtCpfcbswxmseiTFz/PGTC1KwLqmZ1obpnUfT4CE1DP03IOdLsVC5q
-         OE0g==
+        bh=Er0wNZ7ei/sffJZBS6vip8iLxFYHICi+dbdHiy3n2DU=;
+        b=GeD5PrGfMnjZPhdCBFwzGInNpnt3BxrGUjomNh4N1K3ZP9F1k0lDJezDWB5DQhPTJZ
+         0p58BADZ/12tdMpaevVRhR1H/JHnK3TS1Tpw3rFFAE/mWivIHgWUUI9Sdd/MAETsSiRA
+         L5uWDVMTZDJocm2plpS4mzt/o0nTa98GymvR7SsQf6qUzOZmTHxOW6cmqIYNRh5cnvuX
+         G5adkdOY9W3MLY3FeFDEEayolvPNPxqnlkDuuJI3dF9nnyAHmCQMX7vNZZ7aIc5UEg7f
+         3b8xoKP5Wo6Ro3d98cJtXF7LGj310r7tDb9CWDqy1UIGlmE7e7JjB+yeq/bAEcsLatJY
+         kPuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790278393; x=1790883193;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790278438; x=1790883238;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sJZ54tOnY46EejWm4rjxAravnzXOLrt8zf7GCS5TDK8=;
-        b=PMyKY0+xicecg4ERnA038azsx04ZvtUERLDrNpOAZbMzHrcz+s7QUXAqXA328NLF+z
-         YoQKcbSEsDcNXvk7x6MZ2lLprQ7v9Gr7a9E8pdByHh0fRfwlGFg4qBifwNCuIQA6PNwc
-         vnOGTbXscQEEIwT+uMwrV+6de39arfCYSSvV+xPnJbQHWRLQICbcVrwySVBbEBJ6ZFhv
-         +OkJvaZZ9mQOuZI3vssmRt+52WyuQ//etHHV3Adv84J4wBllUC+Yq6pg0OxTw2z1/mib
-         rjE9CsDCsYF1U5chU+sOTg0LjHg9BtOAzyPEhvqkPtCzM/tFRsmGt2pRuNwaD/Uqsvig
-         Nm/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxmbd+iSxO9SV4QU/d8HKNgtlLSFjH/qNVDwbSICEwHhN6ojfvFFMEcO8F44P/fkivQQqfHB180/kGzAc4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nSVawT4xEKNiCoEwMPUJrKMg3tLlZE0yw31ikogwJyyrp4M1nf
-	7C7nBw3KIqJLBbhgqi91NXydAclYWnl852hlFl0B+3IAWM3raVZJi74H6YBDygRbE+9GnYOht30
-	2Jp751Sw1mqLhKd5PjHBuLXXO+GgS238GdeTDmcEDrBJOtZ6UuC5F5lhTkGabY32q710=
-X-Gm-Gg: AYBFou2R1c9KClpsh7wZ4B4eTldbvrHEGWfhBcnFAtAdb4riggsUNtaegZ+X+VwJPG+
-	pk/QuNaOMB7xjgylzhnECBQlg56SQyaVAqCO+WO2lfqStD8VqPij877exaKJfleNbVyjA7HY8UF
-	D+yePkNTkWnxHuuaA2UQwvlDpk/pyJEFvnYTVMwYqJKt2mwVw6WjhYcfvdedPbmmBWsofyaFgfY
-	/QMtkIoVBKXPwRnYLaRU0n4p1uorfANG/A4rvzHvUklDx2szeMK56HvfxkSB8tqXoXG+3JJj97e
-	gNpBwd+TNru3h+3gwCsVxxuHr8952i+Qdw/nA/DNsMvjvx+OdaP286x7piEqrV+/+ZZqQx1KbKb
-	5koJaDIgZwSbO+8LsOTEut7Y9Icpy2NWpLFQB2ZwGTFtyKJzSzTI3vrce+OoLsC01AMmSFzW3Rz
-	14l/94P+3xTgB9y38AQdu1
-X-Received: by 2002:a05:7022:b048:20b0:143:858d:fb0e with SMTP id a92af1059eb24-14503d6711dmr4536393c88.0.1790278392287;
-        Thu, 24 Sep 2026 12:33:12 -0700 (PDT)
-X-Received: by 2002:a05:7022:b048:20b0:143:858d:fb0e with SMTP id a92af1059eb24-14503d6711dmr4536348c88.0.1790278391435;
-        Thu, 24 Sep 2026 12:33:11 -0700 (PDT)
-Received: from hu-vishsain-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145acc45f03sm653140c88.7.2026.09.24.12.33.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 12:33:10 -0700 (PDT)
-Date: Fri, 25 Sep 2026 01:03:01 +0530
-From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Robert Foss <rfoss@kernel.org>,
-        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-        Jonas Karlman <jonas@kwiboo.se>,
-        Jernej Skrabec <jernej.skrabec@gmail.com>,
-        Luca Ceresoli <luca.ceresoli@bootlin.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        venkata.valluru@oss.qualcomm.com,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Ravi Agola <raviagol@qti.qualcomm.com>
-Subject: Re: [PATCH v4] drm/bridge: lt9611uxc: support displays with up to 4
- EDID blocks
-Message-ID: <arV67VEl259RsoYe@hu-vishsain-blr.qualcomm.com>
-References: <20260922-lt9611usc_edid34_misc_next-v4-1-47d5315821fe@oss.qualcomm.com>
- <96be97088cc0d436414f0f9552fa7442312ac719@intel.com>
+        bh=Er0wNZ7ei/sffJZBS6vip8iLxFYHICi+dbdHiy3n2DU=;
+        b=fbdmqBpAZQtofeY6tda5zjtYvHhriZA9rb2aXVrp8LaD+NDi+ZQKhGnO7pMKLNRDxH
+         VepI+cqon9l2NlFZ/k/C61UWPra1tmW8+xOdAAJePa8cJ9bsCw7ZZak3ShL/qEU86hx2
+         oQCI2bV4aiKe6IkkjS3g9z6iGAy09lLIc5dOcj6QVZhTWkFsCrvf90pzpZCTXGiwTAiL
+         PWU9lzIf9grVj5jjBzfOiO1oWtO3YI15j6YHAmRjR46GDvNEEoKoJ+UsVDWOXZz0qDNa
+         UDfJ4uNinUIQbgI0+Mxnm2iT+HIXylEugkaQwpjNd6L33pmISqWOXwVKRJXG41Siqizm
+         +9Pw==
+X-Forwarded-Encrypted: i=1; AKwUvBxqjTTj1GsGolVKQl19PkSeGtMFIuEdW0sL2s5wmLJt9iODgoRABFBIWVEPtxhppwhTTeoqvgajYfG6ymA=@vger.kernel.org
+X-Gm-Message-State: AFuF++la9qVxGdtl9hslZthpYmEVQ9hC7614mFzn3Jmi8yVrden72Yb6
+	63Ml0itAVrSnauFTGMWM7iEQPCq2TuHSAwX9BhomIgu9D24+nfitbTYIy+VCyyyVVYvxR9sHBuZ
+	f8yNBF7Ya4NNefwc6zHPqNLEgZLKo72ZR4eb5jhbb
+X-Gm-Gg: AYBFou1+E/dMpK0Sry9AA1KSJ5U7xL/9aktniYIutPMutXv4YPCDnM6+9ObM7mD9O01
+	XAV7ea4BfGLK4N9aCHcKhSd28qs1BxmkQp202OZ6HmVKrYl+x61w4Bk8SrjidxibzgDLTXY92lI
+	Cs12nMxL90Jm79RR9rq/hFDR3b5KcDnvXeh36n8KfIiLn/yktvDlR844Gz93a4QzvyOefICMwZO
+	VEzKYmm9WMIBtMF/FNGyG0SUCov5VLJj9zrMegUL9ygZXRZ1jXUwMpO+PsdO+gU7ITga/zHPA8P
+	YATsJoTjpjWaEY0mhcQ1cGyE97K8W9rji5KxE0fZQg0wpGee6GthArlsi0t5f+WZbX0E9/YdDRs
+	avtFf3WcZlO8=
+X-Received: by 2002:a17:90b:380a:b0:39e:6c69:f481 with SMTP id
+ 98e67ed59e1d1-3a098d56a2cmr3187553a91.64.1790278438044; Thu, 24 Sep 2026
+ 12:33:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <96be97088cc0d436414f0f9552fa7442312ac719@intel.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA3OSBTYWx0ZWRfX1WvKFfHtOg/R
- B8liyiyNLdg5SmtcQvjKzC8Hb8fFFri0SjKl2R7dgBjqOPLYcJf+CsD+oT7dLnhGuNrXgDTIYbE
- 5VZ8lGRVQQfamsZdPz5DfEP144xsOwIuph3CFjeQlN0/EHDlCUnTXg574T8gbkGQjr/29FNNOyk
- PeJqVb2Ybrm1hLyR8/J4NOY9yvNS3+0tNmOJJt8j83MKFoIXbqW/lY+7uMX8hHR2ub+ZaiV+eSu
- fll3/ZzmfujOTmajwLclJPnpmdgqDHi2Em/BfLwRmGDXS6V4XKZRdKHpEfOteZVJIXvowwqh9vS
- RXYRSe2Eib/bfc6UCeavsCTgDOPXIi9JQlXr9TiMFzMWFEz1yJIWjcOtDYdCbEdh6H7WXgZkg4P
- m+vRqCTGMtAmETdXUv7H7NUNP76BY/lmmVS6EsFESVmx6l6YBKtcd7K8N3IQamCT+VXZPeHJy9R
- RxsXQhXMTw2qdRDu8lQ==
-X-Proofpoint-ORIG-GUID: wC5a6sDmsdJJJwUCk1SMktSjTeCUvnZ3
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA3OSBTYWx0ZWRfXwPKJw4PZXpy0
- PQdCsZQWlAht+7aD6RbftMywqjRVYgXPRLHPBhNab+hyTKi9A5+Pbg6BIfR6mAGWKsAF06XbYFQ
- jZ2DkquSppvoMNmsnL4KpddwkFp8/uY=
-X-Authority-Analysis: v=2.4 cv=fvpJ914f c=1 sm=1 tr=0 ts=6ab57af9 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=egjODiOu6V-NXdxj13MA:9 a=CjuIK1q_8ugA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-GUID: wC5a6sDmsdJJJwUCk1SMktSjTeCUvnZ3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 suspectscore=0 impostorscore=0
- adultscore=0 spamscore=0 malwarescore=0 clxscore=1015 bulkscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609240079
+References: <20260915150739.284189-1-daniel@iogearbox.net> <20260915150739.284189-5-daniel@iogearbox.net>
+ <CAHC9VhR2Zp9LzDRwDOZoesOC7o8hretfgRH-PRqQRXA0EES2vA@mail.gmail.com>
+ <CAEXv5_g1XQAwsydnbu9SUvxNBdYQf+xXjPaZMeC8hxgfThP+pw@mail.gmail.com>
+ <arVKSpezisxe3pkr@suesslenovo> <CAHC9VhSwbHF8tZkZ00JM40VTBeXVgcVdoBt7NcX0XKaKSARWug@mail.gmail.com>
+ <arVkWs7tG3ayGxyX@suesslenovo>
+In-Reply-To: <arVkWs7tG3ayGxyX@suesslenovo>
+From: Paul Moore <paul@paul-moore.com>
+Date: Thu, 24 Sep 2026 15:33:45 -0400
+X-Gm-Features: AclHuK8Djm6kng1KVJoAo1IKBHaXUoPUqY4SRBxOWSBr835p7OAm38aVvkcIm4U
+Message-ID: <CAHC9VhTzGJz5Lt8tXYzJfMihsMOX3Wa=6b83dV8QihpRBfBbWw@mail.gmail.com>
+Subject: Re: [PATCH bpf-next 4/8] bpf, lsm: Let BPF LSM provide xattrs at
+ inode creation
+To: Justin Suess <utilityemal77@gmail.com>
+Cc: David Windsor <dwindsor@gmail.com>, Daniel Borkmann <daniel@iogearbox.net>, 
+	alexei.starovoitov@gmail.com, brauner@kernel.org, john.fastabend@gmail.com, 
+	memxor@gmail.com, kpsingh@kernel.org, matt@bobrowski.net, bpf@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 22, 2026 at 11:55:01AM +0300, Jani Nikula wrote:
-> On Tue, 22 Sep 2026, vishnu.saini@oss.qualcomm.com wrote:
-> > From: Ravi Agola <raviagol@qti.qualcomm.com>
+On Thu, Sep 24, 2026 at 2:38=E2=80=AFPM Justin Suess <utilityemal77@gmail.c=
+om> wrote:
+> On Thu, Sep 24, 2026 at 12:23:13PM -0400, Paul Moore wrote:
+> > On Thu, Sep 24, 2026 at 12:15=E2=80=AFPM Justin Suess <utilityemal77@gm=
+ail.com> wrote:
+> > > On Wed, Sep 23, 2026 at 03:14:28PM -0400, David Windsor wrote:
+> > > > On Wed, Sep 23, 2026 at 12:57=E2=80=AFPM Paul Moore <paul@paul-moor=
+e.com> wrote:
+> > > > > @David, simply for my own understanding, did you ask Daniel to do
+> > > > > this, or was Daniel operating on his own with this patchset?
+> > > > >
+> > > >
+> > > > Daniel and I work together and both have things written on top of t=
+his
+> > > > kfunc. He reached out to collaborate, I agreed. We're also going to
+> > > > send bpf_set_file_xattr shortly.
+> > > >
+> > > > This implementation was chosen due to its immediate mergeability (i=
+t
+> > > > only touches security/bpf), but was actually suggested by Kumar in =
+v1
+> > > > or so of my original series.
+> > > >
+> > > > That said, sorry for any confusion about this appearing as a new
+> > > > series rather than as v7 of my previous one.
+> > >
+> > > Howdy all,
+> > >
+> > > Hope you all are doing well and having a good Thursday.
+> > >
+> > > These patches are excellent and useful, and have been in the pipeline
+> > > for a while.
+> > >
+> > > In the interest of moving forward:
+> > >
+> > > Would you both be able to live with the following: provide a security=
+ hook
+> > > for lsm_get_xattr_slot or another proper interface with the necessary
+> > > abstraction, and keep the kfunc where it is in fs/?
 > >
-> > The LT9611UXC bridge can fetch only 2 EDID blocks at a time, which
-> > previously limited EDID reading to 2 blocks and prevented support
-> > for displays exposing more than 2 EDID blocks.
+> > That still doesn't change the fundamentals around the kfunc: it is
+> > really only a valid to call it from within the LSM inode_init_security
+> > callback, it populates a LSM framework managed buffer, and that buffer
+> > is then used to by the LSM framework code in
+> > security_inode_init_security() to do the xattr initialization using
+> > the values from the BPF LSM as well as all of the other configured
+> > LSMs.  It's very hard to see this as anything other than an LSM kfunc.
+> > I worked with David over several revisions of his patchset to review
+> > the code and get it in a good place, I'm supportive of the basic
+> > ideas, but this really needs to be located in
+> > security/bpf_lsm_kfuncs.c as it is an LSM kfunc.  As we've seen there
+> > is precedence for subsystem specific kfuncs located in the associated
+> > subsystem's directory, things should be no different here.
 > >
-> > Add driver support to fetch up to 4 EDID blocks by re-triggering
-> > EDID access after the first 2 blocks are read. For block 0 and 2,
-> > set the EDID ready flag in 0xb028 so the bridge can expose the
-> > corresponding EDID blocks, then retry the read until the expected
-> > EDID is fetched.
-> >
-> > Reset the edid_read flag on HPD disconnect so that the next
-> > connect event triggers a fresh EDID fetch.
-> >
-> > Increase EDID wait time from 500ms to 1000ms, On Qualcomm rb3gen2
-> > platform sometimes edid read interrupt is coming 600-650 ms after
-> > HPD interrupt resulting in edid read failure.
-> >
-> > Signed-off-by: Ravi Agola <raviagol@qti.qualcomm.com>
-> > Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-> > ---
-> > Changes in v4:
-> > - Rebased onto latest drm-misc-next.
-> > - No functional changes; replied inline to the two Sashiko-bot
-> >   review comments on v3
-> > - Link to v3: https://lore.kernel.org/r/20260722-lt9611usc_edid34_misc_next-v3-1-7ec2bba6ff8e@oss.qualcomm.com
-> >
-> > Changes in v3:
-> > - moved edid_read state change inside mutex lock     [sashiko-bot]
-> > - returned -ETIMEOUT when retry_cnt is exhausted without a match.    [Sashiko-bot]
-> > - Increased edid wait timeout from 500ms to 1000ms as edid interrupt is sometimes taking around 650ms time
-> > - Link to v2: https://lore.kernel.org/r/20260624-lt9611usc_edid34_misc_next-v2-1-24ce3f5770b8@oss.qualcomm.com
-> >
-> > Changes in v2:
-> > - Removed memcpy and doing edid fetch everytime. Required an update in firmware as well for edid block0 reset.
-> > - Verified patch with existing firmware V5.0.21, patch is not causing any regression if V5.0.21 firmware is used.
-> > - Firmware V5.0.22 is required with this patch to support edid fetch on more than 2 edid block monitors.
-> > - Link to v1: https://lore.kernel.org/r/20260517-lt9611usc_edid34_misc_next-v1-1-5e2fd8c6399b@oss.qualcomm.com
-> > ---
-> >  drivers/gpu/drm/bridge/lontium-lt9611uxc.c | 80 +++++++++++++++++++++++++-----
-> >  1 file changed, 68 insertions(+), 12 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-> > index b3bb7f2cebb3..a74077a65f62 100644
-> > --- a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-> > +++ b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-> > @@ -28,7 +28,7 @@
-> >  #include <drm/display/drm_hdmi_audio_helper.h>
-> >  
-> >  #define EDID_BLOCK_SIZE	128
-> > -#define EDID_NUM_BLOCKS	2
-> > +#define EDID_NUM_BLOCKS	4
-> >  
-> >  #define FW_FILE "lt9611uxc_fw.bin"
-> >  
-> > @@ -167,6 +167,8 @@ static void lt9611uxc_hpd_work(struct work_struct *work)
-> >  
-> >  	mutex_lock(&lt9611uxc->ocm_lock);
-> >  	connected = lt9611uxc->hdmi_connected;
-> > +	if (!connected)
-> > +		lt9611uxc->edid_read = false;
-> >  	mutex_unlock(&lt9611uxc->ocm_lock);
-> >  
-> >  	drm_bridge_hpd_notify(&lt9611uxc->bridge,
-> > @@ -380,13 +382,39 @@ lt9611uxc_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connect
-> >  static int lt9611uxc_wait_for_edid(struct lt9611uxc *lt9611uxc)
-> >  {
-> >  	return wait_event_interruptible_timeout(lt9611uxc->wq, lt9611uxc->edid_read,
-> > -			msecs_to_jiffies(500));
-> > +			msecs_to_jiffies(1000));
-> > +}
-> > +
-> > +static int lt9611uxc_read_edid_block(struct lt9611uxc *lt9611uxc, unsigned int block,
-> > +				     u8 *buf,  size_t len)
-> > +{
-> > +	int ret;
-> > +
-> > +	lt9611uxc_lock(lt9611uxc);
-> > +
-> > +	regmap_write(lt9611uxc->regmap, 0xb00a, (block % 2) * EDID_BLOCK_SIZE);
-> > +
-> > +	ret = regmap_noinc_read(lt9611uxc->regmap, 0xb0b0, buf, len);
-> > +	if (ret) {
-> > +		dev_err(lt9611uxc->dev, "edid block %d read failed: %d\n", block, ret);
-> > +		lt9611uxc_unlock(lt9611uxc);
-> > +		return -EINVAL;
-> > +	}
-> > +	lt9611uxc_unlock(lt9611uxc);
-> > +
-> > +	return ret;
-> >  }
-> >  
-> >  static int lt9611uxc_get_edid_block(void *data, u8 *buf, unsigned int block, size_t len)
-> >  {
-> >  	struct lt9611uxc *lt9611uxc = data;
-> > -	int ret;
-> > +	int ret = 0;
-> > +	int retry_cnt = 10;
-> > +	unsigned int edid_ready_flag = 0;
-> > +	bool header_matched;
-> > +	bool edid_valid = false;
-> > +	const u8 edid_header[8] = { 0x00, 0xFF, 0xFF, 0xFF,
-> > +				    0xFF, 0xFF, 0xFF, 0x00 };
-> >  
-> >  	if (len > EDID_BLOCK_SIZE)
-> >  		return -EINVAL;
-> > @@ -394,20 +422,48 @@ static int lt9611uxc_get_edid_block(void *data, u8 *buf, unsigned int block, siz
-> >  	if (block >= EDID_NUM_BLOCKS)
-> >  		return -EINVAL;
-> >  
-> > -	lt9611uxc_lock(lt9611uxc);
-> > +	if (block == 0 || block == 2) {
-> >  
-> > -	regmap_write(lt9611uxc->regmap, 0xb00b, 0x10);
-> > +		lt9611uxc_lock(lt9611uxc);
-> >  
-> > -	regmap_write(lt9611uxc->regmap, 0xb00a, block * EDID_BLOCK_SIZE);
-> > +		edid_ready_flag = (block == 0) ? BIT(0) : BIT(1);
-> >  
-> > -	ret = regmap_noinc_read(lt9611uxc->regmap, 0xb0b0, buf, len);
-> > -	if (ret)
-> > -		dev_err(lt9611uxc->dev, "edid read failed: %d\n", ret);
-> > +		/*
-> > +		 * Set the EDID ready flag so that lt9611uxc can fetch correct EDID block
-> > +		 */
-> > +		regmap_write(lt9611uxc->regmap, 0xb028, edid_ready_flag);
-> >  
-> > -	lt9611uxc_unlock(lt9611uxc);
-> > +		lt9611uxc_unlock(lt9611uxc);
-> >  
-> > -	return 0;
-> > -};
-> > +		do {
-> > +			msleep(100);
-> > +			ret = lt9611uxc_read_edid_block(lt9611uxc, block, buf, len);
-> > +			if (ret)
-> > +				break;
-> > +			/*
-> > +			 * Compare first 8 bytes of EDID header for block 0 and block 2
-> > +			 * to confirm EDID read successfully
-> > +			 */
-> > +			header_matched = (memcmp(edid_header, buf, 8) == 0);
-> > +			edid_valid = (block == 0 && header_matched) ||
-> > +				     (block == 2 && !header_matched);
-> > +			if (edid_valid)
-> > +				break;
-> > +
-> > +		} while (retry_cnt-- > 0);
-> 
-> What's the purpose of the above dance? Why do you have to try ten times,
-> and what's with the header matching? None of this is explained in the
-> commit message.
+> Hello,
+>
+> I'm less arguing for any particular placement:
+>
+> More so that the concrete security interest of just getting the kfunc
+> *somewhere* is much more important. I have no doubt that the function
+> would be equally well stewarded in either directory.
+>
+> The xattr kfunc in security/ question can be fought best in a different
+> venue where it's not holding back good contributions.
 
-Fair, sorry for the missing explanation. The bridge only buffers 2
-EDID blocks at a time at a fixed offset (block % 2). Writing 0xb028
-re-triggers an asynchronous fetch of a fresh pair of blocks from the
-sink, and the bridge has no "fetch done" status to wait on, so we
-poll the buffer instead: 10 retries at 100ms apart, i.e. up to 1s,
-which covers the fetch latency we've observed on this bridge (same
-ballpark as the 600-650ms EDID-interrupt delay mentioned in the
-commit message).
+This (the mailing list) is *the* venue, and sorting out
+cross-subsystem issues isn't a foundational thing, not something that
+can be cast aside because it is inconvenient.  In this particular
+case, resolving this before it lands in Linus' tree is that much more
+important since cooperation has been "strained" to put it mildly.
 
-The header check is how we detect the new pair actually landed rather
-than stale data from the previous fetch: block 0 always starts with
-the fixed EDID header magic, so we accept it once that magic appears;
-block 2 (an extension block) never carries that magic, so we accept it
-once the previous block 0's leftover header is gone.
-
-This will allow EDID fetch for more than 2 block monitors like Dell Curved Monitor (Model - U4021QW)
-
-I will improve the commit msg in next revision.
-> BR,
-> Jani.
-> 
-> 
-> > +
-> > +		if (!ret && !edid_valid)
-> > +			ret = -ETIMEDOUT;
-> > +	} else {
-> > +		ret = lt9611uxc_read_edid_block(lt9611uxc, block, buf, len);
-> > +
-> > +		lt9611uxc_lock(lt9611uxc);
-> > +		regmap_write(lt9611uxc->regmap, 0xb028, 0x00);
-> > +		lt9611uxc_unlock(lt9611uxc);
-> > +	}
-> > +
-> > +	return ret;
-> > +}
-> >  
-> >  static const struct drm_edid *lt9611uxc_bridge_edid_read(struct drm_bridge *bridge,
-> >  							 struct drm_connector *connector)
-> >
-> > ---
-> > base-commit: 8ef59ee794076e2b58cff357b12de2ba5d441271
-> > change-id: 20260517-lt9611usc_edid34_misc_next-b02592de0b25
-> >
-> > Best regards,
-> 
-> -- 
-> Jani Nikula, Intel
+--=20
+paul-moore.com
