@@ -1,144 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED8C33DF002
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:40:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE1739CD1B;
+	Thu, 24 Sep 2026 20:41:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790282408; cv=none; b=ojITN5cAsh7e0HI2gSBb3UbXo+nPB/PrtEF1lwBpcl+WMXBBYChfTlcBR82CI2bh7s3xoTxBF1NJ6+rdDrwzb2/+c7PMhNsCjeDdBnGvgfIvx4N0TvG7yrZiRYxXQ1B6oHA+PRNDx/FqRzUA6FEqWQMoHCHDh6xqVaBgpArPkf0=
+	t=1790282493; cv=none; b=Z2hMdbrrynMh89ZpTYve6lLesGoysVECT65NO2TJtkK5zvS7wNm5V4Wl6FwCTO7GCRILXqrX99AZWbr70QPH2NJTRJiacFlzK+Lw10foBh+N04hvpL7eG4VHxgMpM3tMxqyzJ4x+cVFTKzmA3Hf9SLEzuEos6o8SuQegFb8j8S8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790282408; c=relaxed/simple;
-	bh=eJlQXcXw5T4VE2+tq/sQHJKepgsPLtuY2fDFdZyHJnI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oxmmyRIj56CzPCOvavMT4eWnM9L9Od9hSiop7ydPM/VgSNuBjPGy0cqdJCmOvSpDfFNy2x94ScJHJnG6H5PeLnZ5vwWsnq7Zn2arGORkJq5VMGcnmEBl12vnb5uSFaOuo9qISA5tMd+lNjr3nWVhu4c1Qa/uMp6S3ug/aPVsQzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FamxgVkd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790282493; c=relaxed/simple;
+	bh=4zV9EgV87qOLZ5DtU90+UDa6c157F60BeVU77okqFBE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ebHWOcjqVyMuT7ZBE0HeuEtDJiohZMrAn2vpjLioa9jbB7tCKayVocQSysaD8N/ESthRqg1OSPSXH7OD50+oSYZC+ME9DZaSAlh0mLSLWCbPRPgsCeVfnnV98q4JGUtZvoUH6akVELKL3PUJG0FbAT+NNjGH9SF2zHFlD/uZOKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qo8AksOc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FamxgVkd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67F491F000FF;
-	Thu, 24 Sep 2026 20:39:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qo8AksOc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADA4B1F000FF;
+	Thu, 24 Sep 2026 20:41:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790282406;
-	bh=xlGcEMzcjTLozgQ20Llz9sQekvSUQelUVLMzmAiWMJM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FamxgVkdLEEmbveMA8pTCxCu1c6ZAb2VAOytitnlu3ysj1jxXOW4qM9zV76xAi6oJ
-	 BWK7L0L/k7vNj5JbdYPFR4PzT7WeQIguM7IyZA2bLGzVzaypUv8ZdbGHtuhT1zPMWt
-	 GuLt1eHSoXYfZezrE+6yXodubV7sb1ZWdIoCb5p7H6Xs4s/0dvMOneS8xXvikSNxFa
-	 kMtIg8Bp1Rgu++ym0EQaX98WCju3eB+ceIf+CRBo9h/owvW3uQ4vj1mGOzIxm42p7+
-	 5TbpxkZQEU8G7buktVirdE4Fond48Ur/j8A70OzayBOaQNxbwlcrT8RLAhqyiIn6zu
-	 Dab0eQZp1mqTw==
-Message-ID: <3710ab57-035c-4914-9fdf-0827b1144c97@kernel.org>
-Date: Thu, 24 Sep 2026 22:39:54 +0200
+	s=k20260515; t=1790282491;
+	bh=i0P8UquZTMzoLeTcu1N/8IjI1pGOo9Exjooyz7DQixc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Qo8AksOcGexF+fKbzzUM8yk8rQAM8arupT5f1/wxZCJAeChofBjgrW7wwtCL0XN8C
+	 NvGJdZD2OjHzM8pewzjcl4FC3pPYMFcTZ8h60e36ZL7jLpmqFelJhCWjHt1G3VW2Oz
+	 7W9+CoV8sn58zoMUBRZyKUFU3kCxXLbno6+w4IqiuTi/IRmhSmfj08KUiMorWs2hyC
+	 2CJIS8cgtwjkgjA+o0hoChW5JtTX//v4+muOEp3HC3UH9g7lMbWosuKiBNwty0Fh7V
+	 3bdOphQ0knaXVOmQKCs/ItfLt10WBuzV1I439rcellwyqCXgZH99glnkClKonQ3eSl
+	 3L00IIktn4jdA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x9qG1-0000000DDGu-2Wfm;
+	Thu, 24 Sep 2026 20:41:29 +0000
+From: Marc Zyngier <maz@kernel.org>
+To: linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Wei-Lin Chang <weilin.chang@arm.com>
+Cc: Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Itaru Kitayama <itaru.kitayama@fujitsu.com>,
+	Wang Han <wanghan@linux.alibaba.com>,
+	Shuai Xue <xueshuai@linux.alibaba.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: Re: [PATCH v6 0/7] KVM: arm64: nv: Implement nested stage-2 reverse map
+Date: Thu, 24 Sep 2026 21:41:24 +0100
+Message-ID: <179028246121.3395858.305245720728794780.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260915154305.3852871-1-weilin.chang@arm.com>
+References: <20260915154305.3852871-1-weilin.chang@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/7] mm: use VMA flag helpers in NUMA balancing
-To: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
- akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
- vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
- mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
- vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
- bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
- kprateek.nayak@amd.com, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
- nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
- baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev,
- kas@kernel.org, matthew.brost@intel.com, joshua.hahnjy@gmail.com,
- rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com,
- apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, hannes@cmpxchg.org,
- shy828301@gmail.com, raghavendra.kt@amd.com
-References: <20260922182928.2199090-1-gourry@gourry.net>
- <20260922182928.2199090-8-gourry@gourry.net>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260922182928.2199090-8-gourry@gourry.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, weilin.chang@arm.com, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, itaru.kitayama@fujitsu.com, wanghan@linux.alibaba.com, xueshuai@linux.alibaba.com, ljs@kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On 9/22/26 20:29, Gregory Price wrote:
-> From: "Gregory Price (Meta)" <gourry@gourry.net>
+On Tue, 15 Sep 2026 16:42:58 +0100, Wei-Lin Chang wrote:
+> This is v6 of optimizing the shadow s2 mmu unmapping during MMU
+> notifiers.
 > 
-> Use vma_test() instead of accessing vm_flags directly in the NUMA
-> balancing code touched by the preceding fixes. Keep the existing flag
-> predicates unchanged.
+> This version fixes a few issues, and adds Marc's space optimization
+> for kvm_guest_s2_mapping [1]. Please see the changelog for the details.
 > 
-> No functional change intended.
+> Tested by booting L3, and running in-kernel targetted tests described
+> in [2]. v5 got some tested-by's from Itaru and Wang (thanks), I didn't
+> carry them over since some bugs fixed in v6 are non-obvious. Some
+> retest would be much appreciated!
 > 
-> Suggested-by: Lorenzo Stoakes <ljs@kernel.org>
-> Link: https://lore.kernel.org/r/aq1FDhy00epXXtgd@gremlin
-> Assisted-by: LLM
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-> ---
->  kernel/sched/fair.c | 3 ++-
->  mm/internal.h       | 2 +-
->  mm/migrate.c        | 2 +-
->  3 files changed, 4 insertions(+), 3 deletions(-)
-> 
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 412c72084a63d..0d48d595740bf 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -4224,7 +4224,8 @@ static void task_numa_work(struct callback_head *work)
->  		 * under cache pressure can drive considerable bandwidth.
->  		 */
->  		placement_scan = !(vma->vm_file &&
-> -			(vma->vm_flags & (VM_READ | VM_WRITE)) == VM_READ);
-> +		    vma_test(vma, VMA_READ_BIT) &&
-> +		    !vma_test(vma, VMA_WRITE_BIT));
->  
+> [...]
 
-Indentation looks wrong.
+Applied to next, thanks!
 
-Apart from that LGTM (did not check if there are other cases).
+[1/7] KVM: arm64: Use a variable for the canonical IPA in kvm_s2_fault_map()
+      commit: 3b8ce2b5132ae4eebd81811ffd3bc2395c41ecfd
+[2/7] KVM: arm64: nv: Introduce guest stage-2 tracking structures
+      commit: a6ca6cba59598de94eda90e4b3a4e405621aca90
+[3/7] KVM: arm64: nv: Track guest stage-2 mapping creation
+      commit: c2778d14cd2ff757224715221a2ddff89fc6f127
+[4/7] KVM: arm64: nv: Track guest stage-2 mapping removal
+      commit: 5491980c1a416139ea67faa6c4d52fa1ed0cd4e0
+[5/7] KVM: arm64: nv: Avoid full shadow stage-2 unmap
+      commit: e6084aecaeefe9177280ea74c90127294260d805
+[6/7] KVM: arm64: nv: Drop kvm_s2_mmu pointer from kvm_guest_s2_mapping
+      commit: 2064f15b08485384d4fca892c63a1c1b4f86e9c8
+[7/7] KVM: arm64: Refactor kvm_unmap_gfn_range() with common variables
+      commit: 862fa568078514d0a41bd0946a65c23a0c0edec9
 
--- 
 Cheers,
 
-David
+	M.
+-- 
+Without deviation from the norm, progress is not possible.
+
+
