@@ -1,184 +1,138 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB42386C21
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:35:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790242513; cv=none; b=io+5RwVujxskmajkMmGgXsisO5x55w4rBgwoJxpp0YUTQ47VwZGbaHk/aPj7cHVRfLAlVmeAfbRs4Qmk0HypB4dL+MXDU1KB7hI9JKrS6Wqb9zmDibwzWPq+A+PvrMvZo4J/7vwNiFhig0I6ysFJP7Bu7lDoyQtQ592sdukhg5E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790242513; c=relaxed/simple;
-	bh=xlFr47uBNraq9Vfw+jhIc3orvyXDcJ8EdkBjzapnpks=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=fGnaChy+090rirVu3gLTfdYa4RnYi5tTdffYdptdOGzKRFeFjQ5gCEJUADaWQ/ZE7VpVmCQ8O6VTbegNLOjX5chcJW3k4tsljaJfFmaJRaQCVFuijWOZ22WvzDf97AdKCHmK/r3rLcO6foSDo1Xs3LYceQCyg+jqdZgVnpPIBFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=QNLXS3Ym; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D6C3A5E87
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:35:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.235
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790242552; cv=pass; b=G25clGsWkg2upNdIIElHEKWz0iHTlIIEQgBVVPcz9v2kDJ1LpLJudR00GmRpjNVHwE9/dXxWLqXt7Ahu3tu5toN/qCtkEu7yW8ldysW4qez6ZbvOHA1vTgbbJqQcUmD7gUV8bDvHSQlPeDALD6eii+nzBSl+pY6yqs5uvsjnrl4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790242552; c=relaxed/simple;
+	bh=nWVJkgh6v0OqckNbFT0DrWjVwyF8kZpU9defMGtQRv4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sG7Ur/DY9ccKkBrhP666pJu1+i3w97dWHhKxkwr96K12qPLjFnor8URxID+o7/BOkri04YcukoJuNPNYxisO8WLcBwdqtPMM99lHOPD8IiogpR23lDhcHbXwtembj3n/P0Z3j8yWaEaR7/07goTZSJmVdV9B+2RdYrwYX41ObfQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Pgw3UzkS; arc=pass smtp.client-ip=74.125.230.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="QNLXS3Ym"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccead2aecso8243225e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:35:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Pgw3UzkS"
+Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-530d8a00bcdso12401731cf.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:35:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790242549; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TkkRP7zJO716sGefNzGten739LWlJ90oFJKAFAZRY3n+1/Z2DfdSuEgSiSx318cu62
+         dDVT037w0pT5WPr1VEiuNRv8/FGLz/K0hlcOUw3Hb5/V64c9uPXCHd+8Par/jSUaZ/ja
+         7aCr3DQf0vVv/uUC/PIVeo9oNyFkFDiru4YB4f87mfSShXF1WhvpkXAt6k5PtYYwH0uw
+         E/XtoEH7sH2xvc080HaRsRN11Ky+IomTPRoEhm0fv9MjDL3QytSjA9f/KzV+lYlTLj0K
+         T9y8CyYW3WsttSARTpA8w+JH1mE3bqrBxRI0wPFTKllWVVR9Ozia5qJrMNM/wOtByA7u
+         Tidg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dObnSyq7Q524W//2DcmkBmFSB16ZHOQqAqIVcmv+gqs=;
+        fh=Lk+TfCIZ3fb6ieNJqepbX3gel/Oooc5NIQEWcQTuntE=;
+        b=gGA0CuLSwEWOiRSVAMesK0mCONjZ1aaweiBKsmt1tAqLw3pSZi0JFJc+VvJn4MQkHA
+         30Z2jsz5qpd3Dll0uf6iCMvPSPVFFynxH58IXG6fMvtyTtFg6txa61m38zpflPlc1VGU
+         VwfNaKMzJBqQiBImEwBJ6gK+craj66fhkklkzFLoBJy+TTSBSOHDxl2VXigprX/QbX3X
+         pJ0jD0TxiYbi3OoeeLuFK9XJ9sAlwpQpL32MmDF3VuKTeLg5E4dWArS9u/Nobgvn7Qce
+         nlmCUp7v2ApiUcO3EZSiQf47iH9QEZNvdTqwQ5yBYURwPiKL4FJXZMUSt3eAKNaReLro
+         ag6w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790242508; x=1790847308; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ntOIbWg0v6Y7sjUG+xdx4uPbi3N8TfY72tgKuI0bUbw=;
-        b=QNLXS3YmCK1BfBF7nU6ZAi9jD+ARO67zOm1zraT43p3A2tSNmRmr3MxQYTTusl/9tQ
-         W/cVYWYLGOLnJ4vhIS810/TLgmUC7/L2MtcZUoP3DXhdTAF+EjVVu8nvb9+Gl0ejglHh
-         v3omTb2w2LbPW/R6nfy3hK3qAorfTVauqThaawmV2MlsY7D+VwumuwnHrrXDvxN8ortq
-         mcGaSxf7Pk0ebN/C62TaoQFsRUj/Ml+r7N4c21inQPuFM5TXPyO3b5CZA2IyJLBPvsjr
-         25fNcbO9AUjH9uR7pONolWo75YsJEcoh6ftZeGKZUkQRSGLiQMfhw3m3B5DJM/FvypUq
-         ZdJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790242508; x=1790847308;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=google.com; s=20251104; t=1790242549; x=1790847349; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ntOIbWg0v6Y7sjUG+xdx4uPbi3N8TfY72tgKuI0bUbw=;
-        b=e9yhqcF/7yMVILauYAM5DoOGQG3hDycTKTQNGDwxOFtEs2iRnmabxiJpEdFhOfjxI/
-         1JatgQhjjE1/WFKUfTym5M/Qlf35oJJ+4hHlkGefH5P6yXfmixiGAUFx5V4/7tqbhHwM
-         3XQ6WxxBeIOup6tev1YSXFeIDZ9MN5XQyG23X+kj6xPh/jYNMuK4yxI0Wc+wPiNKYtOL
-         zqEdstC/blS70lgKu7oaA9XhHvDjUriZNLVLnDr7zPhqkTdkkyDH/0NdbOKq/a94BAIU
-         xnZwg8m4v8Shy2NaxCg1eNmcoxYFnywC04vrTSZGeF1iIpidQ3OUsqYLyiypv+V4weG2
-         3jDw==
-X-Forwarded-Encrypted: i=1; AKwUvBzbzmdA/i/uRLbl5nYh98nffC9xgYp1+NqJNjb6sELstCzqmnuLsx7A4YHX9AULxOMoOYWdbpwJbP7pTNw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kVZf5gi8p5GGmDHRR6pp5HBwOwZX8OwZtpBzKkDM5y80wHOPQW
-	P8Q2U3PlqDGsfpb3I+DBcgDndg0UxRiMP76C0w+thmkd4+PQwf4+uxg6UgSURrhUXSw=
-X-Gm-Gg: AYBFou0QtpWmGSFCkm32Mliq2IFpGQtb/I972fwdTiX7LyEW7sNGDqk/s8mlEcxmozO
-	zfhBhIVtUU8QkyP3bN0WY+Dx1rRG/KrU1He6YO87Y1XPdwN4hC/AXu6G/uzEkLnjatS3O15WbPE
-	g+p2lyd8mtuYL8NRA1Ttd9kMLmbZB7J2rfGsvO85ecjhv7lI5JVno67yaAMh/oaVAUM7S5C3Axi
-	z3pvwInzBE/Of+IuaBCZBnUMcFkQbLwLRkWa4QoCexIP4/Z+wfJe18Fs2IOt8KL7R5z0yzBs5KR
-	NFYZXcrPIMUrTjCfKfqbO3VpehPKmRob8PAAzJErzmRoGuSXWHEagkmwQYr/MtxWWByRwaXSSpn
-	+JqzC4oyx2o0VLaGjsYscKGW3zDIRfrDx5CANt883/J5dj1FOLK1YFbv0GAos9IXamQ/TFG280B
-	lnHh2hr+dnsx2W3El+GbScf7vu2HDkWq4u6JZ9jWFsbEcZeWWLnELehNZ0jWzEuzmn3TcjhtRa6
-	x/0mJ7prPMiLzQnRg==
-X-Received: by 2002:a05:600c:4fcc:b0:49f:df99:ff1a with SMTP id 5b1f17b1804b1-49fe66f344dmr32157945e9.17.1790242507705;
-        Thu, 24 Sep 2026 02:35:07 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd2bacsm50613795e9.13.2026.09.24.02.35.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 02:35:07 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>, Neil
- Armstrong <neil.armstrong@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>, Kevin Hilman
- <khilman@baylibre.com>, Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>, Jerome Brunet
- <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Jian Hu <jian.hu@amlogic.com>
-Subject: Re: [PATCH RFC 0/3] clk: meson: Refactor PLL pre-divider as a
- divider clock
-In-Reply-To: <20260923-meson_refactor_n-v1-0-3a8ce27121a2@amlogic.com>
-References: <20260923-meson_refactor_n-v1-0-3a8ce27121a2@amlogic.com>
-Date: Thu, 24 Sep 2026 11:35:06 +0200
-Message-ID: <1j1paj9elx.fsf@starbuckisacylon.baylibre.com>
+        bh=dObnSyq7Q524W//2DcmkBmFSB16ZHOQqAqIVcmv+gqs=;
+        b=Pgw3UzkSS5G509XDtJqprYWpMHuzkjGDqg5X7dxV3Dp+WSB8ESX59+UK7d2SHIYtK9
+         HImH8TuzIeP4jOMVt8K1+R7goL2juDW53mGSZI1DwLU5TJD+gHRhbLU6wROxDO7DBZoh
+         9ocuP577Znz1WXMC6p1Nmm2WNnR40JrRtTpIUduOiPYMwri/OBunGV9jZ6Rd9kF/Yxzj
+         Oo+1LUdUwJLqcgrjIectGJDSH7l+yJ6B12ijGQTDAZjFAU0DDXpZIUzI9rnsSP51D4wQ
+         tWqPwpQTPcEJIMFVgixtq0D5hhQfGg9Gk7a0VPJ1+ND/cDxyLZiKwCkq9tW1mnF49zdz
+         MkCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790242549; x=1790847349;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dObnSyq7Q524W//2DcmkBmFSB16ZHOQqAqIVcmv+gqs=;
+        b=k2o/E91BUTOJX05n/q/PScaqd61ZOmkPIiE8Hvu0sQ4bsjz4n1ihKdLNoeKjWh+Fxy
+         m5XVybwvCSDVNt1NTMvbo17WfHWKRQBi5yvAk7/EadjpKOlEKHcRz9Yf0JePot2SaYk+
+         IGJJhctQ3BOoUdRi0YYaEQZEQA6oUCZytybSgPg/zanTbmbkKJ+hlpZAbPfQf+kBMRn9
+         pige8i2T4OTteYZc6Qpt2kIZcFKYZljatGjuBL93MVEu8dTzBRpcfhIE2bTSwMUK3l2i
+         dx72WW0CuIxyQMotk0Baw7Qtf5F0WyEmSuq8fDOmomqTwzqOmBjVK4a4hpHx3VOInPii
+         orGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxcQWyUppoEdzJdrD3xngE1BfUgHSACn/uNX6obhlBLEuLmaG12jAugaB78+C0EyCba4QFiaGQ3iEsHPe8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mqZ8QgDF2A3wfDmdUrjds9cnGGDoJ2Fsst3b+KUCMSkYlZJGFY
+	AwWSDYnxvnxNYzz1HoKDS2s3yEddAl90jllbZn5z7CuFHBLxNmZ0Taz+wNVcvcgFHC8HVzTsGb5
+	ZA7s6Yzy/FyE9ZHQZWQR94ZBExrQdZISqqrahTnFb
+X-Gm-Gg: AYBFou3znqAYW8cvK2qsaiHOhqFAonvaJ4FqZuYZqe8wrVGC9bJE+G2Zuay6slmmxKA
+	7pB+k7u3pptJKXtE5EhLdE8AwxishSIa0Inm+X/S/MvhyhDoHT24XNdSHVL143rCQO30uJ7Mk3D
+	Dcze/vFFXCoNTaLVwAsFbpR7xNEWFMdUHBG7ChLi+Ypvxl224mddZOV07iQ4fxgo0GvQ/JcsFKH
+	RPNFeLXEbO7/VP7qcoeXW8gM8rpmkhgoixEAZFzv47F27kP4VRrVFhEGeTmmiYr50hUZGhzisKc
+	mQVDR9Atz3rcBjGgtfWCdBZJUszRRmGW5fzOWoSJp8ENCQZggvBVmEncPPbYVASXr7PAhWYx8K0
+	v6t8w7cRLXfkDEc5t4VaBCujD/0C+Wz+u5TX6NHVvlYY0TNGXLjc8LqI9qb4I9/uWTuoD
+X-Received: by 2002:ac8:5e4e:0:b0:532:ddf9:c668 with SMTP id
+ d75a77b69052e-532feb25f4fmr13958811cf.53.1790242548221; Thu, 24 Sep 2026
+ 02:35:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20260920063419.3587332-1-yilinzhang@moonshot.ai> <8a9dff4063a2745653b7e88ceb745d75efa16e68.1790224474.git.yilinzhang@moonshot.ai>
+In-Reply-To: <8a9dff4063a2745653b7e88ceb745d75efa16e68.1790224474.git.yilinzhang@moonshot.ai>
+From: Eric Dumazet <edumazet@google.com>
+Date: Thu, 24 Sep 2026 11:35:37 +0200
+X-Gm-Features: AclHuK-rRRv07fF_euLQdzkSjhzPwlSUWaftcxHkR9xtjqpGBEK49dFgtxnRZ_k
+Message-ID: <CANn89iLaofHpg9J8to+H7Z=Xs-rZfseziNN0vXBkE8zJ8DQcsw@mail.gmail.com>
+Subject: Re: [PATCH v2] tcp: fix use-after-free of retransmit_skb_hint in tcp_send_synack()
+To: Yilin Zhang <yilinzhang@moonshot.ai>
+Cc: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+	Neal Cardwell <ncardwell@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Kimi Security Team <bug-report@moonshot.ai>, Weiming Shi <shiweiming@moonshot.ai>, 
+	Kuniyuki Iwashima <kuniyu@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On mer. 23 sept. 2026 at 19:14, Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org> wrote:
-
-> This series refactors the Meson PLL framework to remove the dedicated
-> PLL pre-divider (N) parameter from the PLL implementation and model it
-> as a separate divider clock.
+On Thu, Sep 24, 2026 at 6:49=E2=80=AFAM Yilin Zhang <yilinzhang@moonshot.ai=
+> wrote:
 >
-> Currently, the Meson PLL framework models the PLL pre-divider using a
-> dedicated n field in struct meson_clk_pll_data. This makes the
-> pre-divider part of the PLL-specific implementation, although the
-> Common Clock Framework already provides a generic divider clock.
+> When tcp_send_synack() replaces the cloned SYN skb at the head of the
+> retransmit queue with a copy, it frees the original with
+> tcp_rtx_queue_unlink_and_free() and only repairs tp->highest_sack.
+> tp->retransmit_skb_hint keeps pointing at the freed
+> skbuff_fclone_cache object.
 >
-> This series separates the pre-divider from the PLL and makes the PLL
-> DCO take the pre-divider clock as its parent. This allows the
-> pre-divider to be modeled using the standard CCF divider implementation
-> and simplifies the PLL framework.
+> The dangling hint is read in tcp_verify_retransmit_hint() and used as
+> the root of the rbtree walk in tcp_xmit_retransmit_queue().  An
+> unprivileged TFO client (sendmsg(MSG_FASTOPEN)) can arm the hint with
+> an attacker-supplied ICMP fragmentation-needed message, after which a
+> simultaneous open frees the armed SYN skb:
 >
-> The series currently covers T7 as an RFC to get feedback on the
-> framework design before applying the same approach to other SoCs.
+>   BUG: KASAN: slab-use-after-free in tcp_mark_skb_lost (net/ipv4/tcp_inpu=
+t.c:1316)
+>   Read of size 4 at addr ffff88800604d928 by task swapper/1/0
+>   Call Trace:
+>    tcp_mark_skb_lost (net/ipv4/tcp_input.c:1316)
+>    tcp_simple_retransmit (net/ipv4/tcp_input.c:3158)
+>    tcp_v4_err (net/ipv4/tcp_ipv4.c:587)
 >
-> Series:
-> clk: meson: pll: Remove the dedicated n parameter
-> dt-bindings: clock: amlogic: Add T7 pre-divider clock IDs
-> clk: meson: t7: Model PLL pre-divider as a divider clock
+> Sync the hint to the copy.
 >
-> The other Meson SoCs will be converted separately after the T7 PLL
-> framework refactoring has been reviewed and the overall approach is
-> agreed upon.
->
-> Any feedback on the proposed clock hierarchy and the separation of the
-> PLL pre-divider from the PLL itself would be appreciated.
-
-So if I summarize this RFC, you have simply taken the divider out of the
-PLL, no futher addaptation. right ?
-
-I'm happy with it on the general principle and fine with the change as
-long as you test it on as much platform as you can, clearly flagging
-those you have just compiled tested.
-
-A change like this would likely need to land early in the cycle give as
-much time as possible for testing.
-
-However there a couple of thing I'm concerned about:
-
-* You've drop the table support: are you sure this is not needed anymore
-  ? don't you want to be able to restrict mutlipliers to specific values
-  sometimes ? If not, then OK.
-
-* the determine_rate() make no call to round the parent rate: Since the
-  parent will be the divier, how do you progate the rate change so N
-  moves and the best parent rate is found ? For sure this fractional
-  multiplier clock will need CLK_SET_RATE_PARENT to adjust the
-  pre-divider.
-
-* Goes with the point above, but I'm not seeing anything that favors
-  lower N for lower jitter, Or mention of a minimum input rate (which
-  could be a property) ?
-  Those are constraints I think I have understood from your explanation
-  here [1] but maybe you've got new information to share ?
-
-This is overall going in the right direction but determine_rate() and
-constraints need work.
-
-Note: you are more likely to get test feedback if you add g12 (sm1) as an
-example. Those are still the most widely used amlogic platforms with
-mainline.
-
-[1]: https://lore.kernel.org/linux-clk/c9c4945f-cdfc-4382-b8ca-71b69d91deb4@amlogic.com/
-
->
-> Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+> Fixes: c31b70c9968f ("tcp: Add logic to check for SYN w/ data in tcp_simp=
+le_retransmit")
+> Reported-by: Kimi Security Team <bug-report@moonshot.ai>
+> Tested-by: Weiming Shi <shiweiming@moonshot.ai>
+> Signed-off-by: Yilin Zhang <yilinzhang@moonshot.ai>
 > ---
-> Jian Hu (3):
->       clk: meson: pll: Remove the dedicated n parameter
->       dt-bindings: clock: amlogic: Add T7 pre-divider clock IDs
->       clk: meson: t7: Model PLL pre-divider as a divider clock
->
->  drivers/clk/meson/clk-pll.c                     | 178 +++++------------------
->  drivers/clk/meson/clk-pll.h                     |  13 --
->  drivers/clk/meson/t7-pll.c                      | 183 ++++++++++++++++++------
->  include/dt-bindings/clock/amlogic,t7-pll-clkc.h |   6 +
->  4 files changed, 181 insertions(+), 199 deletions(-)
+> Changes in v2:
+> - Correct the Fixes: tag (Eric Dumazet).
 > ---
-> base-commit: 43e1705ecab981c66baee89041e6f728c0436f19
-> change-id: 20260923-meson_refactor_n-e7f25904e536
->
-> Best regards,
-> -- 
-> Jian Hu <jian.hu@amlogic.com>
->
->
->
-> _______________________________________________
-> linux-amlogic mailing list
-> linux-amlogic@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-amlogic
 
--- 
-Jerome
+Thanks for the fix.
+
+Reviewed-by: Eric Dumazet <edumazet@google.com>
