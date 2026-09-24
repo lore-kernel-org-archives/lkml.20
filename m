@@ -1,71 +1,90 @@
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A26A2EEE73
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:03:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6BBC473C64;
+	Thu, 24 Sep 2026 13:03:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790254985; cv=none; b=u9ZPke1RreH9LCumDH0aQ2/ziWS8ESmkxvaIrNM8LdpDvcCCcFvsK7gYOG8MoVvrsyKqUkHF9SVNftwk+6hFAojJ0WKXiB5BUCt+rk6UgRfPzXFQ/F1em6jSjvDvRr8eAjD8vbZOBMuDjPAL0DeMfwwSs0pgok6ZKELsvVGfjvM=
+	t=1790255022; cv=none; b=MbggQ9fToxlp30QpTaEksudGguXXkdocOpXGUoaDBF2GZ4BIYreMZVssONTu37awUTJzVIjF5247Oe+jPcDsrjWl60UdbJk6TqC9uyqYXUaoVldA9eJpzbBc1teZnhfKHiSsv0G+m+2R/0Uw7aRPl7A9ea+mpo5LP4cKLZ6tp0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790254985; c=relaxed/simple;
-	bh=RMQC+8a4xsIjfQw/e5f60kDmuKCY933dkgtv/Lf1nUI=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=cahJdAjkFTJdTkKG3TzOHLbAMvEmYHUSeD11ReRCCfvCDoyN0tsSjXVDnXEu6TH89Z70d77pHsbXeqGz8oZnnTnootWta1+iE2S03L0m4PWQa6vhtU788PxZZz9wk7s8LzoJOW6vxP4uhjtHmiTE+RWoXx0GQvdrBPGaE9ZFj5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7f4f0a1f4f2so3286396a34.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:03:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790254983; x=1790859783;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=m9WcNmyw1aeySJ5u4ZgwH0UAyROZ6Yu3Avo1jn+Y7f0=;
-        b=sW98sHy9uQG6d2TOT/s8vFN4g+Up0rImj/o0DLsXnKgOAg4FYjQPNR/RDgbX7mui/8
-         ESvEHKz9DB570nZLfAIqnlzcJe/NzGKDsnltmCDsBilW5ZkVb+cjIzhGR3DZDTGBZu/K
-         6bRCbh0H5eLIWYxE6T3RnRmzRkL5T+zBpBRGKVjOA0kj4lUb/MzW80IsAK7o3RWHY91m
-         8HpD/K0meR2s4XXmsy5e0vqQCJ8fqzD6ZPOzXLs95wyat9xb+tDYG/Hi9zHppc+Gm6IH
-         p7JDJz56fs4nBfgenRnlV/J7Kvw21dhl00tO1cGU9fY7WY57PIlcZsyxfFBhEjsr0L6Z
-         mWSw==
-X-Gm-Message-State: AFuF++koM2BG5rlPb4Dce3Trm/YpdgAtNVZ8Qa7TGlyZXSrIxx88sEVE
-	WItmxJRJt77J4SJrH/nIWb3T3kY5dnsD2xOOaFF/XhXWQiQEByMMLKZ3CoFGAbqsiprRXFNcpDt
-	2V63Q6BvU1FiQpPYOH5D5habrsJEzJakLuWlt2iU39P2e+8ZpdqplZne+na0=
+	s=arc-20240116; t=1790255022; c=relaxed/simple;
+	bh=yaEI7bUkT2kPbqMJzYaqqlf866wGtg97g7OCrkKhcZY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gPkqtxtZswGGzAq4zlmktEY8vCanUTTg0xrBKxbzpJ3eYUZ9z51+Ou6cfv+kuPd+89JgWvEmI0CgooXozBQ1mS9fBlE9zg7ZS1VQzE147LvssM9de7opvSYuaAkwkOtT3H6ixrHm93eBFx1bmukIJT+6rsmPBxpz4zZIyFAg2dM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DsqS479B; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DsqS479B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDD091F000FF;
+	Thu, 24 Sep 2026 13:03:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790255017;
+	bh=Am7+MiZmIsSuyEa1RB59QI6cb2yHg7tmLMNWzm1b5LE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DsqS479B+enA9wts2BNbRFQ12rEWCl9+jtRfsV+yCzfFDgJsChlmpYk5JNvlPgGlv
+	 aY/S4E7JP3SRNgQUp++BVUL2Nj/+Meeftem9WaJrB/8vJfeI4QxQKBG9/BacPURw3X
+	 T3ldTgOYmW7S1H6N9ylvQDnH+A9EcpWxwc7gQhMkRqo9fzEtGE69L7g2SqrcOGkw5D
+	 Tbfo1NUfeAnuzqKRRHEfZFd0G+LfTirdXMCgfu0L9FfppzxlFOtoE0XW1vuWmGKeEY
+	 kRb+WdlFh5RFXJp0ffjeQZKt18kN9v+kRDAEHZGLL4lb9kyoabCBadjKRLKhRNnIZr
+	 p0IoNYOoo52DA==
+Date: Thu, 24 Sep 2026 15:03:32 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, dlechner@baylibre.com, 
+	nuno.sa@analog.com, andy@kernel.org, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] iio: pressure: add Sensirion SDP31 driver
+Message-ID: <20260924-gleeful-macho-seahorse-e4bdc2@quoll>
+References: <20260920164724.32019-1-m.abubakar365.ref@yahoo.com>
+ <20260920164724.32019-1-m.abubakar365@yahoo.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2228:b0:4d6:9293:9b57 with SMTP id
- 5614622812f47-4d72f150704mr2405855b6e.63.1790254982894; Thu, 24 Sep 2026
- 06:03:02 -0700 (PDT)
-Date: Thu, 24 Sep 2026 06:03:02 -0700
-In-Reply-To: <20260924122205.8270-1-nsvatoslav515@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab51f86.e9f5c185.9abc8.0009.GAE@google.com>
-Subject: Re: [syzbot] [f2fs?] UBSAN: shift-out-of-bounds in __f2fs_commit_super
-From: syzbot <syzbot+dfcbc1741488709db4b2@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, nsvatoslav515@gmail.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260920164724.32019-1-m.abubakar365@yahoo.com>
 
-Hello,
+On Sun, Sep 20, 2026 at 09:47:22PM +0500, Muhammad Abu Bakar wrote:
+> This series adds support for the Sensirion SDP31 differential pressure
+> sensor, an I2C device that also reports temperature.
+> 
+> The SDP31 uses a completely different I2C command protocol from the
+> already supported SDP500 (command-triggered measurements with a per-word
+> CRC-8), so extending the sdp500 driver does not make sense. No compatible
+> parts from other vendors were found.
+> 
+> Patch 1 adds the device tree binding.
+> Patch 2 adds the IIO driver, which exposes differential pressure and
+> temperature channels and validates each measurement using the sensor's
+> CRC-8 checksum.
+> 
+> The driver was developed and tested on an SDP31 wired to the I2C bus of
+> a Raspberry Pi 4.
+> 
+> Changes since v1:
+> - Explain in this cover letter why a new driver is added instead of
+>   extending the sdp500 driver.
+> - dt-bindings: make vdd-supply required, and enable the regulator in the
+>   driver using devm_regulator_get_enable().
+> - Move the MAINTAINERS entry into the dt-bindings patch; the driver patch
+>   only adds its own file.
+> - Populate the CRC-8 table with DO_ONCE() to avoid a race between
+>   concurrent probes.
+> - Use devm_mutex_init() and take the lock inside sdp31_measure() using
+>   guard(mutex).
+> - Build the command with __be16/cpu_to_be16() and parse the reply with
+>   get_unaligned_be16().
+> - Use a named initializer in the i2c_device_id table.
+> - Minor cleanups: local struct device *dev, single-line dev_err_probe(),
+>   and a comment on the mutex.
+> 
+> v1: https://lore.kernel.org/linux-iio/20260919223650.13396-1-m.abubakar365@yahoo.com/
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+Link does not work.
 
-Reported-by: syzbot+dfcbc1741488709db4b2@syzkaller.appspotmail.com
-Tested-by: syzbot+dfcbc1741488709db4b2@syzkaller.appspotmail.com
+Best regards,
+Krzysztof
 
-Tested on:
-
-commit:         3d778354 Add linux-next specific files for 20260923
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-console output: https://syzkaller.appspot.com/x/log.txt?x=156d9c05580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=6993cf63b5648f57
-dashboard link: https://syzkaller.appspot.com/bug?extid=dfcbc1741488709db4b2
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=11938205580000
-
-Note: testing is done by a robot and is best-effort only.
