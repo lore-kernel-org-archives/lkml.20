@@ -1,1515 +1,197 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2A3379988;
-	Thu, 24 Sep 2026 05:46:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B3503A1A38;
+	Thu, 24 Sep 2026 05:48:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790228812; cv=none; b=bE7QYFeUfy1dzp0GiEYdSnt06EHaXC7JZoKBg6OReVkbo6zjXMimNgqUPDSIEcwkhufjcHuDL1CerHcNyxHfLpbP4UCN3aOvRDvt9/ZHT99PI9Ofc3VLuNA8JzhdQHrBhpafKkkXFpsrC/76clOYiv9R9tnYlmiApM+9TorlWR0=
+	t=1790228906; cv=none; b=uYzqPeMwn3L8TnVbyUBO/16TKqfZeNr4WpNO7ME2Zr1E4Alm50vvPLVx8MbjjIuRH4gP2GksHWs2xo39gcZgN+EPSA94w4ITVaoVWdaA8jRybHO6JIeUP2udl4+yTTXrUuALuk8jRTfvizzEYZO611d4dHQGqjwwWLoQnUogSEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790228812; c=relaxed/simple;
-	bh=CL0jsL6KmIFX1GV9pX0lFvai+g7eqjYvD7pFfhDVh/w=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rNqFtEwKHRGlxqvo76rQfTmNWDb2klyXJvpOx1q5Zopa0SCHZeAMowxSZsBb9V3gwuhaWgfzgO0JO75CJrw6AlRZP1USpMI/o7jZPRTxMBgA5bymcfGziLFmwprw74QsJzG+pz4ektyVzEjTfpbtqTppoHz/7m3fhc4MUmDslu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ln/R0xgk; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790228906; c=relaxed/simple;
+	bh=cphLJaHOfKU2vYK+wppFJ25w/Iw65P/ojTLs7/msYgM=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=XpsbQVgZNW5zlSiVDCeoFha8pZCDjW+2utsSszbuOMKvXsYygsBO2J1taKC1eiC++T00XmMFkwQRILNqT6qPv8yjtXKocmFTzVVt/wEAMvIDfFpNrD5mZfXdKIlqwwHu9XlaQQhw5cuZFIoDpUhu6vpkDOwo03V8Tcb7hAHl6CE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=n6cIpxtZ; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ln/R0xgk"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7930EC2BCF5;
-	Thu, 24 Sep 2026 05:46:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790228812;
-	bh=CL0jsL6KmIFX1GV9pX0lFvai+g7eqjYvD7pFfhDVh/w=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=ln/R0xgk9+XGhJz1+QJo0J2NBZQ/Fm5RQOB4zMKa76TUyVvDYAfEoPW8rP9TQDG68
-	 fpnYyvkqBdVALXj+8OWTWzRy+COrWYxOvq50bJtYWSoabnDcN1h1gqPDoIPE0k1JCC
-	 ukiF62+c6K9LcU/qX7eN2Raew9GDxK5Y4QA6aw7YqnOam/FH9Y9a+zQGQfpA6wSDPY
-	 s28FW459kK8Uyh7AJlxkbQqix5+J54Yw6VbxD+KaiiyM+XlcHctbmOUd/28zKr82qj
-	 oYup86m3lkj+CKL+wvy1ZftV9G5pazT4mR2QxjqnYQMjFw8cmNy92qB6ZMGNkyHEcd
-	 vLFmEWsMVsRtQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 512D2C98312;
-	Thu, 24 Sep 2026 05:46:52 +0000 (UTC)
-From: Armandas Kvietkus via B4 Relay <devnull+armandas.kvietkus.proton.me@kernel.org>
-Date: Thu, 24 Sep 2026 07:46:52 +0200
-Subject: [PATCH v3 2/2] media: i2c: Add Samsung S5K3T2 image sensor driver
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="n6cIpxtZ"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68O5lccQ7960942, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1790228858; bh=cphLJaHOfKU2vYK+wppFJ25w/Iw65P/ojTLs7/msYgM=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=n6cIpxtZ6xd3AOUKDw+uN+BIsUhEUGC2QHz/wuSE+tK5xHJg4SQiGx+S3c7GqLgA7
+	 1VoLW/DGAV5BIOmwTZIk9tLKQrNOVNZkQAzsIYJtV7ej4jw9YjvCI9wU6U76R/wCy9
+	 aHhUSDUByd/3VFVG0Q0fldhBahWoN236hc6LIdDeVGZoik7vmeubBxW75RhmSC/hm8
+	 aHBT/+fKNMvtyK6kIuz8ZHMXtcUmGjUfW/WetPnlPgltfM5MB8oYnwuXQZZeBrcEFI
+	 ZECorDj9hNEwT+0w8+ukSsR+ZFueVdOVJvP+RIoiOtQBYbk9DIQwWam4Uwp+HAjsd6
+	 j6+fs+ml7cKTQ==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68O5lccQ7960942
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 24 Sep 2026 13:47:38 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 24 Sep 2026 13:47:38 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 24 Sep 2026 13:47:37 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Thu, 24 Sep 2026 13:47:37 +0800
+From: Chih Kai Hsu <hsu.chih.kai@realtek.com>
+To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>
+CC: "davem@davemloft.net" <davem@davemloft.net>, "kuba@kernel.org"
+	<kuba@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	nic_swsd <nic_swsd@realtek.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-usb@vger.kernel.org"
+	<linux-usb@vger.kernel.org>, "edumazet@google.com" <edumazet@google.com>,
+	"bjorn@mork.no" <bjorn@mork.no>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>
+Subject: RE: [PATCH net-next v4 5/8] r8152: add rtl8157_unload and
+ rtl8157_change_mtu
+Thread-Topic: [PATCH net-next v4 5/8] r8152: add rtl8157_unload and
+ rtl8157_change_mtu
+Thread-Index: AQHdRnM8ehhuMIUNPUGCYgVqwM6hubbYM/AAgAPBdMA=
+Date: Thu, 24 Sep 2026 05:47:37 +0000
+Message-ID: <90004370a7f7432a9cbcc45077a4b26a@realtek.com>
+References: <20260917070637.62827-6-nic_swsd@realtek.com>
+ <178997943625.2160803.4711623040581335767@kernel.org>
+In-Reply-To: <178997943625.2160803.4711623040581335767@kernel.org>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-upstream-s5k3t2-v3-2-a5c58dfcec29@proton.me>
-References: <20260924-upstream-s5k3t2-v3-0-a5c58dfcec29@proton.me>
-In-Reply-To: <20260924-upstream-s5k3t2-v3-0-a5c58dfcec29@proton.me>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Armandas Kvietkus <armandas.kvietkus@proton.me>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790228810; l=43215;
- i=armandas.kvietkus@proton.me; h=from:subject:message-id;
- bh=IAh6xHe4G6i1eZPLyA3cOS1qYECgoqtrsl6Iyb1q3Eg=;
- b=4wGIFz3p6YyEoG+iZm/uLhP2SUT7E8StaVDweR/uBXjyMvWmS1k0FP0h9oRMGLOJDbIBQbl0c
- 5cAoOa8Ry2YCI30wlAjhSqNR/ZtcdHV3qTZzeI/ULc1egIV7MQWgi2e
-X-Developer-Key: i=armandas.kvietkus@proton.me; a=ed25519;
- pk=wuqmImJ9sKlDVcwALOvfGhjj7G8EBjjM4TpCdmlrAf8=
-X-Endpoint-Received: by B4 Relay for armandas.kvietkus@proton.me/default
- with auth_id=974
-X-Original-From: Armandas Kvietkus <armandas.kvietkus@proton.me>
-Reply-To: armandas.kvietkus@proton.me
 
-From: Armandas Kvietkus <armandas.kvietkus@proton.me>
-
-Add a driver for the Samsung S5K3T2 20 Mpixel CMOS image sensor.
-
-The driver supports three modes. All of them are RAW10 on four D-PHY
-lanes.
-
-  5184x3880 at 15 fps, link frequency 448 MHz
-  2592x1940 at 60 fps, link frequency 448 MHz
-  1280x720 at 120 fps, link frequency 300 MHz
-
-A mode is hidden if the board does not list the link frequency it needs.
-
-The pixel clock does not change between modes, so the pixel rate control
-is constant. The frame rate follows from the line length and the frame
-length.
-
-The controls are exposure, analogue gain, vertical blanking, horizontal
-flip, vertical flip and test pattern. Rotation and orientation come from
-the device tree. Power is handled by runtime PM with autosuspend.
-
-The register tables come from the vendor camera firmware. They were
-checked on hardware.
-
-Tested on a Xiaomi POCO F3 with the Qualcomm CAMSS driver.
-
-Signed-off-by: Armandas Kvietkus <armandas.kvietkus@proton.me>
----
- MAINTAINERS                |    1 +
- drivers/media/i2c/Kconfig  |   10 +
- drivers/media/i2c/Makefile |    1 +
- drivers/media/i2c/s5k3t2.c | 1360 ++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 1372 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 1924dbd20..e625cf3a2 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -24386,6 +24386,7 @@ L:	linux-media@vger.kernel.org
- S:	Maintained
- T:	git git://linuxtv.org/media_tree.git
- F:	Documentation/devicetree/bindings/media/i2c/samsung,s5k3t2.yaml
-+F:	drivers/media/i2c/s5k3t2.c
- 
- SAMSUNG S5K5BAF CAMERA DRIVER
- M:	Sylwester Nawrocki <s.nawrocki@samsung.com>
-diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 5c52007f9..999aeecd2 100644
---- a/drivers/media/i2c/Kconfig
-+++ b/drivers/media/i2c/Kconfig
-@@ -804,6 +804,16 @@ config VIDEO_S5K3M5
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called s5k3m5.
- 
-+config VIDEO_S5K3T2
-+	tristate "Samsung S5K3T2 sensor support"
-+	select V4L2_CCI_I2C
-+	help
-+	  This is a V4L2 sensor driver for Samsung S5K3T2 20MP raw
-+	  camera sensor.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called s5k3t2.
-+
- config VIDEO_S5K5BAF
- 	tristate "Samsung S5K5BAF sensor support"
- 	help
-diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index d04bd5724..9a25d8200 100644
---- a/drivers/media/i2c/Makefile
-+++ b/drivers/media/i2c/Makefile
-@@ -130,6 +130,7 @@ obj-$(CONFIG_VIDEO_RDACM21) += rdacm21.o
- obj-$(CONFIG_VIDEO_RJ54N1) += rj54n1cb0c.o
- obj-$(CONFIG_VIDEO_S5C73M3) += s5c73m3/
- obj-$(CONFIG_VIDEO_S5K3M5) += s5k3m5.o
-+obj-$(CONFIG_VIDEO_S5K3T2) += s5k3t2.o
- obj-$(CONFIG_VIDEO_S5K5BAF) += s5k5baf.o
- obj-$(CONFIG_VIDEO_S5K6A3) += s5k6a3.o
- obj-$(CONFIG_VIDEO_S5KJN1) += s5kjn1.o
-diff --git a/drivers/media/i2c/s5k3t2.c b/drivers/media/i2c/s5k3t2.c
-new file mode 100644
-index 000000000..595831217
---- /dev/null
-+++ b/drivers/media/i2c/s5k3t2.c
-@@ -0,0 +1,1360 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// Copyright (c) 2026 Armandas Kvietkus <armandas.kvietkus@proton.me>
-+
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/units.h>
-+#include <media/v4l2-cci.h>
-+#include <media/v4l2-ctrls.h>
-+#include <media/v4l2-device.h>
-+#include <media/v4l2-fwnode.h>
-+
-+#define S5K3T2_LINK_FREQ_448MHZ		(448 * HZ_PER_MHZ)
-+#define S5K3T2_LINK_FREQ_300MHZ		(300 * HZ_PER_MHZ)
-+#define S5K3T2_MCLK_FREQ		19200000
-+#define S5K3T2_PIXEL_RATE		676571429
-+#define S5K3T2_DATA_LANES		4
-+
-+#define S5K3T2_REG_CHIP_ID		CCI_REG16(0x0000)
-+#define S5K3T2_CHIP_ID			0x3142
-+
-+#define S5K3T2_REG_CTRL_MODE		CCI_REG16(0x0100)
-+#define S5K3T2_MODE_STREAMING		BIT(8)
-+#define S5K3T2_VFLIP			BIT(1)
-+#define S5K3T2_HFLIP			BIT(0)
-+
-+#define S5K3T2_REG_EXPOSURE		CCI_REG16(0x0202)
-+#define S5K3T2_EXPOSURE_MIN		8
-+#define S5K3T2_EXPOSURE_STEP		1
-+#define S5K3T2_EXPOSURE_MARGIN		4
-+
-+#define S5K3T2_REG_AGAIN		CCI_REG16(0x0204)
-+#define S5K3T2_AGAIN_MIN		1
-+#define S5K3T2_AGAIN_MAX		16
-+#define S5K3T2_AGAIN_STEP		1
-+#define S5K3T2_AGAIN_DEFAULT		1
-+#define S5K3T2_AGAIN_SHIFT		5
-+
-+#define S5K3T2_REG_VTS			CCI_REG16(0x0340)
-+#define S5K3T2_VTS_MAX			0xffff
-+
-+#define S5K3T2_REG_TEST_PATTERN		CCI_REG16(0x0600)
-+
-+#define S5K3T2_NATIVE_WIDTH		5192
-+#define S5K3T2_NATIVE_HEIGHT		3888
-+
-+#define S5K3T2_DEFAULT_WIDTH		2592
-+#define S5K3T2_DEFAULT_HEIGHT		1940
-+
-+#define to_s5k3t2(_sd)			container_of(_sd, struct s5k3t2, sd)
-+
-+static const s64 s5k3t2_link_freq_menu[] = {
-+	S5K3T2_LINK_FREQ_448MHZ,
-+	S5K3T2_LINK_FREQ_300MHZ,
-+};
-+
-+static const u32 s5k3t2_mbus_formats[] = {
-+	MEDIA_BUS_FMT_SGRBG10_1X10,	MEDIA_BUS_FMT_SRGGB10_1X10,
-+	MEDIA_BUS_FMT_SBGGR10_1X10,	MEDIA_BUS_FMT_SGBRG10_1X10,
-+};
-+
-+struct s5k3t2_reg_list {
-+	const struct cci_reg_sequence *regs;
-+	unsigned int num_regs;
-+};
-+
-+struct s5k3t2_mode {
-+	u32 width;
-+	u32 height;
-+	u32 hts;
-+	u32 vts;
-+	u32 exposure;
-+	unsigned int link_freq_index;
-+	struct v4l2_rect crop;
-+	const struct s5k3t2_reg_list reg_list;
-+};
-+
-+static const char * const s5k3t2_test_pattern_menu[] = {
-+	"Disabled",
-+	"Solid colour",
-+	"Colour bars",
-+	"Fade to grey colour bars",
-+	"PN9",
-+};
-+
-+static const char * const s5k3t2_supply_names[] = {
-+	"vdda",
-+	"vddd",
-+	"vddio",
-+};
-+
-+#define S5K3T2_NUM_SUPPLIES	ARRAY_SIZE(s5k3t2_supply_names)
-+
-+struct s5k3t2 {
-+	struct device *dev;
-+	struct regmap *regmap;
-+	struct clk *mclk;
-+	struct gpio_desc *reset_gpio;
-+	struct regulator_bulk_data supplies[S5K3T2_NUM_SUPPLIES];
-+
-+	struct v4l2_subdev sd;
-+	struct media_pad pad;
-+
-+	struct v4l2_ctrl_handler ctrl_handler;
-+	struct v4l2_ctrl *link_freq;
-+	struct v4l2_ctrl *pixel_rate;
-+	struct v4l2_ctrl *hblank;
-+	struct v4l2_ctrl *vblank;
-+	struct v4l2_ctrl *exposure;
-+	struct v4l2_ctrl *vflip;
-+	struct v4l2_ctrl *hflip;
-+
-+	const struct s5k3t2_mode *mode;
-+	unsigned long link_freq_bitmap;
-+};
-+
-+static const struct cci_reg_sequence s5k3t2_init_setting[] = {
-+	{ CCI_REG16(0x6214), 0xff7d },
-+	{ CCI_REG16(0x6218), 0x0000 },
-+	{ CCI_REG16(0x0a02), 0x003f },
-+	{ CCI_REG16(0x6028), 0x2000 },
-+	{ CCI_REG16(0x602a), 0x3aec },
-+	{ CCI_REG16(0x6f12), 0x0000 },
-+	{ CCI_REG16(0x6f12), 0x0000 },
-+	{ CCI_REG16(0x6f12), 0x0549 },
-+	{ CCI_REG16(0x6f12), 0x0448 },
-+	{ CCI_REG16(0x6f12), 0x054a },
-+	{ CCI_REG16(0x6f12), 0xc1f8 },
-+	{ CCI_REG16(0x6f12), 0x2c05 },
-+	{ CCI_REG16(0x6f12), 0x101a },
-+	{ CCI_REG16(0x6f12), 0xa1f8 },
-+	{ CCI_REG16(0x6f12), 0x3005 },
-+	{ CCI_REG16(0x6f12), 0x00f0 },
-+	{ CCI_REG16(0x6f12), 0x7bb8 },
-+	{ CCI_REG16(0x6f12), 0x2000 },
-+	{ CCI_REG16(0x6f12), 0x3ca0 },
-+	{ CCI_REG16(0x6f12), 0x2000 },
-+	{ CCI_REG16(0x6f12), 0x2670 },
-+	{ CCI_REG16(0x6f12), 0x2000 },
-+	{ CCI_REG16(0x6f12), 0x9c00 },
-+	{ CCI_REG16(0x6f12), 0x70b5 },
-+	{ CCI_REG16(0x6f12), 0x0646 },
-+	{ CCI_REG16(0x6f12), 0x4348 },
-+	{ CCI_REG16(0x6f12), 0x0022 },
-+	{ CCI_REG16(0x6f12), 0x0168 },
-+	{ CCI_REG16(0x6f12), 0x0c0c },
-+	{ CCI_REG16(0x6f12), 0x8db2 },
-+	{ CCI_REG16(0x6f12), 0x2946 },
-+	{ CCI_REG16(0x6f12), 0x2046 },
-+	{ CCI_REG16(0x6f12), 0x00f0 },
-+	{ CCI_REG16(0x6f12), 0x9bf8 },
-+	{ CCI_REG16(0x6f12), 0x3046 },
-+	{ CCI_REG16(0x6f12), 0x00f0 },
-+	{ CCI_REG16(0x6f12), 0x9df8 },
-+	{ CCI_REG16(0x6f12), 0x3d48 },
-+	{ CCI_REG16(0x6f12), 0x3e4a },
-+	{ CCI_REG16(0x6f12), 0x0830 },
-+	{ CCI_REG16(0x6f12), 0x0188 },
-+	{ CCI_REG16(0x6f12), 0x1180 },
-+	{ CCI_REG16(0x6f12), 0x911c },
-+	{ CCI_REG16(0x6f12), 0x4088 },
-+	{ CCI_REG16(0x6f12), 0x0880 },
-+	{ CCI_REG16(0x6f12), 0x2946 },
-+	{ CCI_REG16(0x6f12), 0x2046 },
-+	{ CCI_REG16(0x6f12), 0xbde8 },
-+	{ CCI_REG16(0x6f12), 0x7040 },
-+	{ CCI_REG16(0x6f12), 0x0122 },
-+	{ CCI_REG16(0x6f12), 0x00f0 },
-+	{ CCI_REG16(0x6f12), 0x89b8 },
-+	{ CCI_REG16(0x6f12), 0x70b5 },
-+	{ CCI_REG16(0x6f12), 0x0646 },
-+	{ CCI_REG16(0x6f12), 0x3548 },
-+	{ CCI_REG16(0x6f12), 0x0022 },
-+	{ CCI_REG16(0x6f12), 0x4068 },
-+	{ CCI_REG16(0x6f12), 0x84b2 },
-+	{ CCI_REG16(0x6f12), 0x050c },
-+	{ CCI_REG16(0x6f12), 0x2146 },
-+	{ CCI_REG16(0x6f12), 0x2846 },
-+	{ CCI_REG16(0x6f12), 0x00f0 },
-+	{ CCI_REG16(0x6f12), 0x7ef8 },
-+	{ CCI_REG16(0x6f12), 0x3046 },
-+	{ CCI_REG16(0x6f12), 0x00f0 },
-+	{ CCI_REG16(0x6f12), 0x85f8 },
-+	{ CCI_REG16(0x6f12), 0x3149 },
-+	{ CCI_REG16(0x6f12), 0x314b },
-+	{ CCI_REG16(0x6f12), 0x0120 },
-+	{ CCI_REG16(0x6f12), 0x0988 },
-+	{ CCI_REG16(0x6f12), 0x40ea },
-+	{ CCI_REG16(0x6f12), 0x0110 },
-+	{ CCI_REG16(0x6f12), 0x5881 },
-+	{ CCI_REG16(0x6f12), 0x2f48 },
-+	{ CCI_REG16(0x6f12), 0x0078 },
-+	{ CCI_REG16(0x6f12), 0x68b1 },
-+	{ CCI_REG16(0x6f12), 0x0022 },
-+	{ CCI_REG16(0x6f12), 0x2e48 },
-+	{ CCI_REG16(0x6f12), 0x2f49 },
-+	{ CCI_REG16(0x6f12), 0x80f8 },
-+	{ CCI_REG16(0x6f12), 0xc428 },
-+	{ CCI_REG16(0x6f12), 0x0a80 },
-+	{ CCI_REG16(0x6f12), 0x2e49 },
-+	{ CCI_REG16(0x6f12), 0x0e78 },
-+	{ CCI_REG16(0x6f12), 0x36b1 },
-+	{ CCI_REG16(0x6f12), 0x90f8 },
-+	{ CCI_REG16(0x6f12), 0xe803 },
-+	{ CCI_REG16(0x6f12), 0x18b1 },
-+	{ CCI_REG16(0x6f12), 0x0120 },
-+	{ CCI_REG16(0x6f12), 0x02e0 },
-+	{ CCI_REG16(0x6f12), 0x0122 },
-+	{ CCI_REG16(0x6f12), 0xf0e7 },
-+	{ CCI_REG16(0x6f12), 0x0020 },
-+	{ CCI_REG16(0x6f12), 0x4978 },
-+	{ CCI_REG16(0x6f12), 0x01b1 },
-+	{ CCI_REG16(0x6f12), 0x42b1 },
-+	{ CCI_REG16(0x6f12), 0x0021 },
-+	{ CCI_REG16(0x6f12), 0x40ea },
-+	{ CCI_REG16(0x6f12), 0x0110 },
-+	{ CCI_REG16(0x6f12), 0x5880 },
-+	{ CCI_REG16(0x6f12), 0x00f0 },
-+	{ CCI_REG16(0x6f12), 0x66f8 },
-+	{ CCI_REG16(0x6f12), 0x0128 },
-+	{ CCI_REG16(0x6f12), 0x02d0 },
-+	{ CCI_REG16(0x6f12), 0x1be0 },
-+	{ CCI_REG16(0x6f12), 0x0121 },
-+	{ CCI_REG16(0x6f12), 0xf5e7 },
-+	{ CCI_REG16(0x6f12), 0x2248 },
-+	{ CCI_REG16(0x6f12), 0x234a },
-+	{ CCI_REG16(0x6f12), 0x234e },
-+	{ CCI_REG16(0x6f12), 0xb0f8 },
-+	{ CCI_REG16(0x6f12), 0x7211 },
-+	{ CCI_REG16(0x6f12), 0x92f8 },
-+	{ CCI_REG16(0x6f12), 0x9420 },
-+	{ CCI_REG16(0x6f12), 0x90f8 },
-+	{ CCI_REG16(0x6f12), 0x7401 },
-+	{ CCI_REG16(0x6f12), 0xd140 },
-+	{ CCI_REG16(0x6f12), 0xd040 },
-+	{ CCI_REG16(0x6f12), 0x4318 },
-+	{ CCI_REG16(0x6f12), 0x96f8 },
-+	{ CCI_REG16(0x6f12), 0x7f63 },
-+	{ CCI_REG16(0x6f12), 0x581e },
-+	{ CCI_REG16(0x6f12), 0x022e },
-+	{ CCI_REG16(0x6f12), 0x03d9 },
-+	{ CCI_REG16(0x6f12), 0x0220 },
-+	{ CCI_REG16(0x6f12), 0x9040 },
-+	{ CCI_REG16(0x6f12), 0x181a },
-+	{ CCI_REG16(0x6f12), 0x401c },
-+	{ CCI_REG16(0x6f12), 0x164a },
-+	{ CCI_REG16(0x6f12), 0x703a },
-+	{ CCI_REG16(0x6f12), 0x1180 },
-+	{ CCI_REG16(0x6f12), 0x911c },
-+	{ CCI_REG16(0x6f12), 0x0880 },
-+	{ CCI_REG16(0x6f12), 0x2146 },
-+	{ CCI_REG16(0x6f12), 0x2846 },
-+	{ CCI_REG16(0x6f12), 0xbde8 },
-+	{ CCI_REG16(0x6f12), 0x7040 },
-+	{ CCI_REG16(0x6f12), 0x0122 },
-+	{ CCI_REG16(0x6f12), 0x00f0 },
-+	{ CCI_REG16(0x6f12), 0x31b8 },
-+	{ CCI_REG16(0x6f12), 0x10b5 },
-+	{ CCI_REG16(0x6f12), 0x0022 },
-+	{ CCI_REG16(0x6f12), 0xaff2 },
-+	{ CCI_REG16(0x6f12), 0xb501 },
-+	{ CCI_REG16(0x6f12), 0x1348 },
-+	{ CCI_REG16(0x6f12), 0x00f0 },
-+	{ CCI_REG16(0x6f12), 0x3ef8 },
-+	{ CCI_REG16(0x6f12), 0x064c },
-+	{ CCI_REG16(0x6f12), 0x0022 },
-+	{ CCI_REG16(0x6f12), 0xaff2 },
-+	{ CCI_REG16(0x6f12), 0xff01 },
-+	{ CCI_REG16(0x6f12), 0x6060 },
-+	{ CCI_REG16(0x6f12), 0x1048 },
-+	{ CCI_REG16(0x6f12), 0x00f0 },
-+	{ CCI_REG16(0x6f12), 0x36f8 },
-+	{ CCI_REG16(0x6f12), 0x0f49 },
-+	{ CCI_REG16(0x6f12), 0x2060 },
-+	{ CCI_REG16(0x6f12), 0x7a20 },
-+	{ CCI_REG16(0x6f12), 0x0968 },
-+	{ CCI_REG16(0x6f12), 0x4883 },
-+	{ CCI_REG16(0x6f12), 0x10bd },
-+	{ CCI_REG16(0x6f12), 0x2000 },
-+	{ CCI_REG16(0x6f12), 0x3c90 },
-+	{ CCI_REG16(0x6f12), 0x4000 },
-+	{ CCI_REG16(0x6f12), 0x950c },
-+	{ CCI_REG16(0x6f12), 0x2000 },
-+	{ CCI_REG16(0x6f12), 0x16f0 },
-+	{ CCI_REG16(0x6f12), 0x4000 },
-+	{ CCI_REG16(0x6f12), 0xd000 },
-+	{ CCI_REG16(0x6f12), 0x2000 },
-+	{ CCI_REG16(0x6f12), 0x19a0 },
-+	{ CCI_REG16(0x6f12), 0x2000 },
-+	{ CCI_REG16(0x6f12), 0x30c0 },
-+	{ CCI_REG16(0x6f12), 0x4000 },
-+	{ CCI_REG16(0x6f12), 0x9800 },
-+	{ CCI_REG16(0x6f12), 0x2000 },
-+	{ CCI_REG16(0x6f12), 0x1dd0 },
-+	{ CCI_REG16(0x6f12), 0x2000 },
-+	{ CCI_REG16(0x6f12), 0x17c0 },
-+	{ CCI_REG16(0x6f12), 0x2000 },
-+	{ CCI_REG16(0x6f12), 0x2210 },
-+	{ CCI_REG16(0x6f12), 0x2000 },
-+	{ CCI_REG16(0x6f12), 0x2670 },
-+	{ CCI_REG16(0x6f12), 0x0000 },
-+	{ CCI_REG16(0x6f12), 0xf45f },
-+	{ CCI_REG16(0x6f12), 0x0000 },
-+	{ CCI_REG16(0x6f12), 0xd957 },
-+	{ CCI_REG16(0x6f12), 0x2000 },
-+	{ CCI_REG16(0x6f12), 0x08c0 },
-+	{ CCI_REG16(0x6f12), 0x49f6 },
-+	{ CCI_REG16(0x6f12), 0x213c },
-+	{ CCI_REG16(0x6f12), 0xc0f2 },
-+	{ CCI_REG16(0x6f12), 0x000c },
-+	{ CCI_REG16(0x6f12), 0x6047 },
-+	{ CCI_REG16(0x6f12), 0x4df6 },
-+	{ CCI_REG16(0x6f12), 0x571c },
-+	{ CCI_REG16(0x6f12), 0xc0f2 },
-+	{ CCI_REG16(0x6f12), 0x000c },
-+	{ CCI_REG16(0x6f12), 0x6047 },
-+	{ CCI_REG16(0x6f12), 0x4ff2 },
-+	{ CCI_REG16(0x6f12), 0x5f4c },
-+	{ CCI_REG16(0x6f12), 0xc0f2 },
-+	{ CCI_REG16(0x6f12), 0x000c },
-+	{ CCI_REG16(0x6f12), 0x6047 },
-+	{ CCI_REG16(0x6f12), 0x44f2 },
-+	{ CCI_REG16(0x6f12), 0x9b0c },
-+	{ CCI_REG16(0x6f12), 0xc0f2 },
-+	{ CCI_REG16(0x6f12), 0x000c },
-+	{ CCI_REG16(0x6f12), 0x6047 },
-+	{ CCI_REG16(0x6f12), 0x4bf2 },
-+	{ CCI_REG16(0x6f12), 0xed0c },
-+	{ CCI_REG16(0x6f12), 0xc0f2 },
-+	{ CCI_REG16(0x6f12), 0x000c },
-+	{ CCI_REG16(0x6f12), 0x6047 },
-+	{ CCI_REG16(0x6f12), 0x0000 },
-+	{ CCI_REG16(0x6028), 0x2000 },
-+	{ CCI_REG16(0x602a), 0x1014 },
-+	{ CCI_REG16(0x6f12), 0x0100 },
-+	{ CCI_REG16(0x6f12), 0x7000 },
-+	{ CCI_REG16(0x602a), 0x108a },
-+	{ CCI_REG16(0x6f12), 0x0006 },
-+	{ CCI_REG16(0x602a), 0x1092 },
-+	{ CCI_REG16(0x6f12), 0x0005 },
-+	{ CCI_REG16(0x602a), 0x1096 },
-+	{ CCI_REG16(0x6f12), 0x0002 },
-+	{ CCI_REG16(0x6f12), 0x001a },
-+	{ CCI_REG16(0x602a), 0x109c },
-+	{ CCI_REG16(0x6f12), 0x0014 },
-+	{ CCI_REG16(0x602a), 0x10a2 },
-+	{ CCI_REG16(0x6f12), 0x0022 },
-+	{ CCI_REG16(0x602a), 0x10ae },
-+	{ CCI_REG16(0x6f12), 0x0007 },
-+	{ CCI_REG16(0x602a), 0x10c2 },
-+	{ CCI_REG16(0x6f12), 0x001e },
-+	{ CCI_REG16(0x602a), 0x10f4 },
-+	{ CCI_REG16(0x6f12), 0x0003 },
-+	{ CCI_REG16(0x6f12), 0x0003 },
-+	{ CCI_REG16(0x602a), 0x110a },
-+	{ CCI_REG16(0x6f12), 0x0000 },
-+	{ CCI_REG16(0x602a), 0x113e },
-+	{ CCI_REG16(0x6f12), 0x0001 },
-+	{ CCI_REG16(0x6f12), 0x014e },
-+	{ CCI_REG16(0x602a), 0x13ea },
-+	{ CCI_REG16(0x6f12), 0x160f },
-+	{ CCI_REG16(0x6f12), 0x0d00 },
-+	{ CCI_REG16(0x602a), 0x13fa },
-+	{ CCI_REG16(0x6f12), 0x009d },
-+	{ CCI_REG16(0x6f12), 0x0107 },
-+	{ CCI_REG16(0x602a), 0x14e2 },
-+	{ CCI_REG16(0x6f12), 0x04c2 },
-+	{ CCI_REG16(0x6f12), 0x02ae },
-+	{ CCI_REG16(0x6f12), 0x0020 },
-+	{ CCI_REG16(0x6028), 0x4000 },
-+	{ CCI_REG16(0xf44a), 0x0010 },
-+	{ CCI_REG16(0xf46a), 0xb6a0 },
-+	{ CCI_REG16(0x6028), 0x2000 },
-+	{ CCI_REG16(0x602a), 0x0f5e },
-+	{ CCI_REG16(0x6f12), 0x0200 },
-+	{ CCI_REG16(0x602a), 0x0f90 },
-+	{ CCI_REG16(0x6f12), 0x0000 },
-+	{ CCI_REG16(0x602a), 0x17c0 },
-+	{ CCI_REG16(0x6f12), 0x0010 },
-+	{ CCI_REG16(0x6f12), 0x0201 },
-+	{ CCI_REG16(0x602a), 0x1da2 },
-+	{ CCI_REG16(0x6f12), 0x0001 },
-+	{ CCI_REG16(0x6f12), 0x0203 },
-+	{ CCI_REG16(0x6f12), 0x0405 },
-+	{ CCI_REG16(0x6f12), 0x0607 },
-+	{ CCI_REG16(0x6f12), 0x0809 },
-+	{ CCI_REG16(0x6f12), 0x0a0b },
-+	{ CCI_REG16(0x6f12), 0x0c0d },
-+	{ CCI_REG16(0x6f12), 0x0e0f },
-+	{ CCI_REG16(0x6028), 0x4000 },
-+	{ CCI_REG16(0x020c), 0x0001 },
-+	{ CCI_REG16(0x0bc6), 0x0000 },
-+	{ CCI_REG16(0x0d00), 0x0000 },
-+	{ CCI_REG16(0xb13c), 0x0800 },
-+};
-+
-+static const struct cci_reg_sequence s5k3t2_5184x3880_mode[] = {
-+	{ CCI_REG16(0x6028), 0x4000 },
-+	{ CCI_REG16(0x0136), 0x1300 },
-+	{ CCI_REG16(0x013e), 0x00c8 },
-+	{ CCI_REG16(0x0304), 0x0003 },
-+	{ CCI_REG16(0x0306), 0x00b9 },
-+	{ CCI_REG16(0x6028), 0x2000 },
-+	{ CCI_REG16(0x602a), 0x0e0e },
-+	{ CCI_REG16(0x6f12), 0x0103 },
-+	{ CCI_REG16(0x6f12), 0x0000 },
-+	{ CCI_REG16(0x602a), 0x1078 },
-+	{ CCI_REG16(0x6f12), 0x04a6 },
-+	{ CCI_REG16(0x6028), 0x4000 },
-+	{ CCI_REG16(0x030c), 0x0000 },
-+	{ CCI_REG16(0x0302), 0x0001 },
-+	{ CCI_REG16(0x0300), 0x0007 },
-+	{ CCI_REG16(0x030e), 0x0003 },
-+	{ CCI_REG16(0x0310), 0x008c },
-+	{ CCI_REG16(0x0312), 0x0001 },
-+	{ CCI_REG16(0x0308), 0x0008 },
-+	{ CCI_REG16(0x030a), 0x0001 },
-+	{ CCI_REG16(0x0344), 0x0008 },
-+	{ CCI_REG16(0x0346), 0x0008 },
-+	{ CCI_REG16(0x0348), 0x1447 },
-+	{ CCI_REG16(0x034a), 0x0f2f },
-+	{ CCI_REG16(0x034c), 0x1440 },
-+	{ CCI_REG16(0x034e), 0x0f28 },
-+	{ CCI_REG16(0x0350), 0x0000 },
-+	{ CCI_REG16(0x0352), 0x0000 },
-+	{ CCI_REG16(0x0900), 0x0111 },
-+	{ CCI_REG16(0x0404), 0x1000 },
-+	{ CCI_REG16(0x0380), 0x0001 },
-+	{ CCI_REG16(0x0382), 0x0001 },
-+	{ CCI_REG16(0x0384), 0x0001 },
-+	{ CCI_REG16(0x0386), 0x0001 },
-+	{ CCI_REG16(0x0342), 0x2a80 },
-+	{ CCI_REG16(0x0340), 0x1000 },
-+	{ CCI_REG16(0x6028), 0x4000 },
-+	{ CCI_REG16(0x010c), 0x0000 },
-+	{ CCI_REG16(0x0114), 0x0300 },
-+	{ CCI_REG16(0x0116), 0x3000 },
-+	{ CCI_REG16(0x011a), 0x0001 },
-+	{ CCI_REG16(0x0118), 0x0002 },
-+	{ CCI_REG16(0x6028), 0x2000 },
-+	{ CCI_REG16(0x602a), 0x0e92 },
-+	{ CCI_REG16(0x6f12), 0xffff },
-+	{ CCI_REG16(0x602a), 0x165a },
-+	{ CCI_REG16(0x6f12), 0x0003 },
-+	{ CCI_REG16(0x6028), 0x4000 },
-+	{ CCI_REG16(0x0b04), 0x0001 },
-+	{ CCI_REG16(0x0b06), 0x0101 },
-+	{ CCI_REG16(0x0fea), 0x04a0 },
-+	{ CCI_REG16(0x6028), 0x2000 },
-+	{ CCI_REG16(0x602a), 0x3c98 },
-+	{ CCI_REG16(0x6f12), 0x0a58 },
-+	{ CCI_REG16(0x6f12), 0x1477 },
-+	{ CCI_REG16(0x602a), 0x1da0 },
-+	{ CCI_REG16(0x6f12), 0x0010 },
-+	{ CCI_REG16(0x602a), 0x10ac },
-+	{ CCI_REG16(0x6f12), 0x000a },
-+	{ CCI_REG16(0x602a), 0x1110 },
-+	{ CCI_REG16(0x6f12), 0x001d },
-+	{ CCI_REG16(0x6f12), 0x003f },
-+	{ CCI_REG16(0x602a), 0x13e8 },
-+	{ CCI_REG16(0x6f12), 0x0804 },
-+	{ CCI_REG16(0x602a), 0x13f8 },
-+	{ CCI_REG16(0x6f12), 0x38c8 },
-+};
-+
-+static const struct cci_reg_sequence s5k3t2_2592x1940_mode[] = {
-+	{ CCI_REG16(0x6028), 0x4000 },
-+	{ CCI_REG16(0x0136), 0x1300 },
-+	{ CCI_REG16(0x013e), 0x00c8 },
-+	{ CCI_REG16(0x0304), 0x0003 },
-+	{ CCI_REG16(0x0306), 0x00b9 },
-+	{ CCI_REG16(0x6028), 0x2000 },
-+	{ CCI_REG16(0x602a), 0x0e0e },
-+	{ CCI_REG16(0x6f12), 0x0103 },
-+	{ CCI_REG16(0x6f12), 0x0000 },
-+	{ CCI_REG16(0x602a), 0x1078 },
-+	{ CCI_REG16(0x6f12), 0x04a6 },
-+	{ CCI_REG16(0x6028), 0x4000 },
-+	{ CCI_REG16(0x030c), 0x0000 },
-+	{ CCI_REG16(0x0302), 0x0001 },
-+	{ CCI_REG16(0x0300), 0x0007 },
-+	{ CCI_REG16(0x030e), 0x0003 },
-+	{ CCI_REG16(0x0310), 0x008c },
-+	{ CCI_REG16(0x0312), 0x0001 },
-+	{ CCI_REG16(0x0308), 0x0008 },
-+	{ CCI_REG16(0x030a), 0x0001 },
-+	{ CCI_REG16(0x0344), 0x0008 },
-+	{ CCI_REG16(0x0346), 0x0008 },
-+	{ CCI_REG16(0x0348), 0x1447 },
-+	{ CCI_REG16(0x034a), 0x0f2f },
-+	{ CCI_REG16(0x034c), 0x0a20 },
-+	{ CCI_REG16(0x034e), 0x0794 },
-+	{ CCI_REG16(0x0350), 0x0000 },
-+	{ CCI_REG16(0x0352), 0x0000 },
-+	{ CCI_REG16(0x0900), 0x0122 },
-+	{ CCI_REG16(0x0404), 0x1000 },
-+	{ CCI_REG16(0x0380), 0x0002 },
-+	{ CCI_REG16(0x0382), 0x0002 },
-+	{ CCI_REG16(0x0384), 0x0002 },
-+	{ CCI_REG16(0x0386), 0x0002 },
-+	{ CCI_REG16(0x0342), 0x1610 },
-+	{ CCI_REG16(0x0340), 0x07cc },
-+	{ CCI_REG16(0x6028), 0x4000 },
-+	{ CCI_REG16(0x010c), 0x0000 },
-+	{ CCI_REG16(0x0114), 0x0300 },
-+	{ CCI_REG16(0x0116), 0x3000 },
-+	{ CCI_REG16(0x011a), 0x0001 },
-+	{ CCI_REG16(0x0118), 0x0002 },
-+	{ CCI_REG16(0x6028), 0x2000 },
-+	{ CCI_REG16(0x602a), 0x0e92 },
-+	{ CCI_REG16(0x6f12), 0xffff },
-+	{ CCI_REG16(0x602a), 0x165a },
-+	{ CCI_REG16(0x6f12), 0x0003 },
-+	{ CCI_REG16(0x6028), 0x4000 },
-+	{ CCI_REG16(0x0b04), 0x0001 },
-+	{ CCI_REG16(0x0b06), 0x0101 },
-+	{ CCI_REG16(0x0fea), 0x04a0 },
-+	{ CCI_REG16(0x6028), 0x2000 },
-+	{ CCI_REG16(0x602a), 0x3c98 },
-+	{ CCI_REG16(0x6f12), 0x052c },
-+	{ CCI_REG16(0x6f12), 0x0a3b },
-+	{ CCI_REG16(0x602a), 0x1da0 },
-+	{ CCI_REG16(0x6f12), 0x0010 },
-+	{ CCI_REG16(0x602a), 0x10ac },
-+	{ CCI_REG16(0x6f12), 0x0014 },
-+	{ CCI_REG16(0x602a), 0x1110 },
-+	{ CCI_REG16(0x6f12), 0x001d },
-+	{ CCI_REG16(0x6f12), 0x004d },
-+	{ CCI_REG16(0x602a), 0x13e8 },
-+	{ CCI_REG16(0x6f12), 0x080f },
-+	{ CCI_REG16(0x602a), 0x13f8 },
-+	{ CCI_REG16(0x6f12), 0x38c8 },
-+};
-+
-+static const struct cci_reg_sequence s5k3t2_1280x720_mode[] = {
-+	{ CCI_REG16(0x6028), 0x4000 },
-+	{ CCI_REG16(0x0136), 0x1300 },
-+	{ CCI_REG16(0x013e), 0x00c8 },
-+	{ CCI_REG16(0x0304), 0x0003 },
-+	{ CCI_REG16(0x0306), 0x00b9 },
-+	{ CCI_REG16(0x6028), 0x2000 },
-+	{ CCI_REG16(0x602a), 0x0e0e },
-+	{ CCI_REG16(0x6f12), 0x0104 },
-+	{ CCI_REG16(0x6f12), 0x0000 },
-+	{ CCI_REG16(0x602a), 0x1078 },
-+	{ CCI_REG16(0x6f12), 0x04a6 },
-+	{ CCI_REG16(0x6028), 0x4000 },
-+	{ CCI_REG16(0x030c), 0x0000 },
-+	{ CCI_REG16(0x0302), 0x0001 },
-+	{ CCI_REG16(0x0300), 0x0007 },
-+	{ CCI_REG16(0x030e), 0x0002 },
-+	{ CCI_REG16(0x0310), 0x007d },
-+	{ CCI_REG16(0x0312), 0x0002 },
-+	{ CCI_REG16(0x0308), 0x0008 },
-+	{ CCI_REG16(0x030a), 0x0001 },
-+	{ CCI_REG16(0x0344), 0x0028 },
-+	{ CCI_REG16(0x0346), 0x01fc },
-+	{ CCI_REG16(0x0348), 0x1427 },
-+	{ CCI_REG16(0x034a), 0x0d3b },
-+	{ CCI_REG16(0x034c), 0x0500 },
-+	{ CCI_REG16(0x034e), 0x02d0 },
-+	{ CCI_REG16(0x0350), 0x0000 },
-+	{ CCI_REG16(0x0352), 0x0000 },
-+	{ CCI_REG16(0x0900), 0x0124 },
-+	{ CCI_REG16(0x0404), 0x2000 },
-+	{ CCI_REG16(0x0380), 0x0002 },
-+	{ CCI_REG16(0x0382), 0x0002 },
-+	{ CCI_REG16(0x0384), 0x0002 },
-+	{ CCI_REG16(0x0386), 0x0006 },
-+	{ CCI_REG16(0x0342), 0x1620 },
-+	{ CCI_REG16(0x0340), 0x03e0 },
-+	{ CCI_REG16(0x6028), 0x4000 },
-+	{ CCI_REG16(0x010c), 0x0000 },
-+	{ CCI_REG16(0x0114), 0x0300 },
-+	{ CCI_REG16(0x0116), 0x3000 },
-+	{ CCI_REG16(0x011a), 0x0001 },
-+	{ CCI_REG16(0x0118), 0x0002 },
-+	{ CCI_REG16(0x6028), 0x2000 },
-+	{ CCI_REG16(0x602a), 0x0e92 },
-+	{ CCI_REG16(0x6f12), 0xffff },
-+	{ CCI_REG16(0x602a), 0x165a },
-+	{ CCI_REG16(0x6f12), 0x0020 },
-+	{ CCI_REG16(0x6028), 0x4000 },
-+	{ CCI_REG16(0x0b04), 0x0001 },
-+	{ CCI_REG16(0x0b06), 0x0101 },
-+	{ CCI_REG16(0x0fea), 0x04a0 },
-+	{ CCI_REG16(0x6028), 0x2000 },
-+	{ CCI_REG16(0x602a), 0x3c98 },
-+	{ CCI_REG16(0x6f12), 0x0296 },
-+	{ CCI_REG16(0x6f12), 0x0515 },
-+	{ CCI_REG16(0x602a), 0x1da0 },
-+	{ CCI_REG16(0x6f12), 0x0110 },
-+	{ CCI_REG16(0x602a), 0x10ac },
-+	{ CCI_REG16(0x6f12), 0x0014 },
-+	{ CCI_REG16(0x602a), 0x1110 },
-+	{ CCI_REG16(0x6f12), 0x001d },
-+	{ CCI_REG16(0x6f12), 0x004d },
-+	{ CCI_REG16(0x602a), 0x13e8 },
-+	{ CCI_REG16(0x6f12), 0x080f },
-+	{ CCI_REG16(0x602a), 0x13f8 },
-+	{ CCI_REG16(0x6f12), 0x38c8 },
-+};
-+
-+static const struct s5k3t2_mode s5k3t2_supported_modes[] = {
-+	{
-+		.width = 5184,
-+		.height = 3880,
-+		.hts = 10880,
-+		.vts = 4096,
-+		.exposure = 1000,
-+		.link_freq_index = 0,
-+		.crop = {
-+			.left = 8,
-+			.top = 8,
-+			.width = 5184,
-+			.height = 3880,
-+		},
-+		.reg_list = {
-+			.regs = s5k3t2_5184x3880_mode,
-+			.num_regs = ARRAY_SIZE(s5k3t2_5184x3880_mode),
-+		},
-+	},
-+	{
-+		.width = 2592,
-+		.height = 1940,
-+		.hts = 5648,
-+		.vts = 1996,
-+		.exposure = 1000,
-+		.link_freq_index = 0,
-+		.crop = {
-+			.left = 8,
-+			.top = 8,
-+			.width = 5184,
-+			.height = 3880,
-+		},
-+		.reg_list = {
-+			.regs = s5k3t2_2592x1940_mode,
-+			.num_regs = ARRAY_SIZE(s5k3t2_2592x1940_mode),
-+		},
-+	},
-+	{
-+		.width = 1280,
-+		.height = 720,
-+		.hts = 5664,
-+		.vts = 992,
-+		.exposure = 500,
-+		.link_freq_index = 1,
-+		.crop = {
-+			.left = 40,
-+			.top = 508,
-+			.width = 5120,
-+			.height = 2880,
-+		},
-+		.reg_list = {
-+			.regs = s5k3t2_1280x720_mode,
-+			.num_regs = ARRAY_SIZE(s5k3t2_1280x720_mode),
-+		},
-+	},
-+};
-+
-+static int s5k3t2_set_ctrl(struct v4l2_ctrl *ctrl)
-+{
-+	struct s5k3t2 *s5k3t2 = container_of(ctrl->handler, struct s5k3t2,
-+					     ctrl_handler);
-+	const struct s5k3t2_mode *mode = s5k3t2->mode;
-+	s64 exposure_max;
-+	int ret;
-+
-+	switch (ctrl->id) {
-+	case V4L2_CID_HFLIP:
-+	case V4L2_CID_VFLIP:
-+	case V4L2_CID_LINK_FREQ:
-+	case V4L2_CID_PIXEL_RATE:
-+	case V4L2_CID_HBLANK:
-+		return 0;
-+	case V4L2_CID_VBLANK:
-+		exposure_max = mode->height + ctrl->val - S5K3T2_EXPOSURE_MARGIN;
-+		__v4l2_ctrl_modify_range(s5k3t2->exposure,
-+					 s5k3t2->exposure->minimum,
-+					 exposure_max,
-+					 s5k3t2->exposure->step,
-+					 s5k3t2->exposure->default_value);
-+		break;
-+	}
-+
-+	if (!pm_runtime_get_if_active(s5k3t2->dev))
-+		return 0;
-+
-+	switch (ctrl->id) {
-+	case V4L2_CID_ANALOGUE_GAIN:
-+		ret = cci_write(s5k3t2->regmap, S5K3T2_REG_AGAIN,
-+				ctrl->val << S5K3T2_AGAIN_SHIFT, NULL);
-+		break;
-+	case V4L2_CID_EXPOSURE:
-+		ret = cci_write(s5k3t2->regmap, S5K3T2_REG_EXPOSURE,
-+				ctrl->val, NULL);
-+		break;
-+	case V4L2_CID_VBLANK:
-+		ret = cci_write(s5k3t2->regmap, S5K3T2_REG_VTS,
-+				ctrl->val + mode->height, NULL);
-+		break;
-+	case V4L2_CID_TEST_PATTERN:
-+		ret = cci_write(s5k3t2->regmap, S5K3T2_REG_TEST_PATTERN,
-+				ctrl->val, NULL);
-+		break;
-+	default:
-+		ret = -EINVAL;
-+		break;
-+	}
-+
-+	pm_runtime_put(s5k3t2->dev);
-+
-+	return ret;
-+}
-+
-+static const struct v4l2_ctrl_ops s5k3t2_ctrl_ops = {
-+	.s_ctrl = s5k3t2_set_ctrl,
-+};
-+
-+static int s5k3t2_init_controls(struct s5k3t2 *s5k3t2)
-+{
-+	struct v4l2_ctrl_handler *ctrl_hdlr = &s5k3t2->ctrl_handler;
-+	const struct s5k3t2_mode *mode = s5k3t2->mode;
-+	s64 hblank, vblank, exposure_max;
-+	struct v4l2_fwnode_device_properties props;
-+	int ret;
-+
-+	v4l2_ctrl_handler_init(ctrl_hdlr, 11);
-+
-+	s5k3t2->link_freq =
-+		v4l2_ctrl_new_int_menu(ctrl_hdlr, &s5k3t2_ctrl_ops,
-+				       V4L2_CID_LINK_FREQ,
-+				       ARRAY_SIZE(s5k3t2_link_freq_menu) - 1,
-+				       mode->link_freq_index,
-+				       s5k3t2_link_freq_menu);
-+	if (s5k3t2->link_freq)
-+		s5k3t2->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+
-+	s5k3t2->pixel_rate = v4l2_ctrl_new_std(ctrl_hdlr, &s5k3t2_ctrl_ops,
-+					       V4L2_CID_PIXEL_RATE,
-+					       S5K3T2_PIXEL_RATE,
-+					       S5K3T2_PIXEL_RATE, 1,
-+					       S5K3T2_PIXEL_RATE);
-+
-+	hblank = mode->hts - mode->width;
-+	s5k3t2->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &s5k3t2_ctrl_ops,
-+					   V4L2_CID_HBLANK, hblank,
-+					   hblank, 1, hblank);
-+	if (s5k3t2->hblank)
-+		s5k3t2->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+
-+	vblank = mode->vts - mode->height;
-+	s5k3t2->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &s5k3t2_ctrl_ops,
-+					   V4L2_CID_VBLANK, vblank,
-+					   S5K3T2_VTS_MAX - mode->height, 1,
-+					   vblank);
-+
-+	v4l2_ctrl_new_std(ctrl_hdlr, &s5k3t2_ctrl_ops, V4L2_CID_ANALOGUE_GAIN,
-+			  S5K3T2_AGAIN_MIN, S5K3T2_AGAIN_MAX,
-+			  S5K3T2_AGAIN_STEP, S5K3T2_AGAIN_DEFAULT);
-+
-+	exposure_max = mode->vts - S5K3T2_EXPOSURE_MARGIN;
-+	s5k3t2->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &s5k3t2_ctrl_ops,
-+					     V4L2_CID_EXPOSURE,
-+					     S5K3T2_EXPOSURE_MIN,
-+					     exposure_max,
-+					     S5K3T2_EXPOSURE_STEP,
-+					     mode->exposure);
-+
-+	v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &s5k3t2_ctrl_ops,
-+				     V4L2_CID_TEST_PATTERN,
-+				     ARRAY_SIZE(s5k3t2_test_pattern_menu) - 1,
-+				     0, 0, s5k3t2_test_pattern_menu);
-+
-+	s5k3t2->hflip = v4l2_ctrl_new_std(ctrl_hdlr, &s5k3t2_ctrl_ops,
-+					  V4L2_CID_HFLIP, 0, 1, 1, 0);
-+	if (s5k3t2->hflip)
-+		s5k3t2->hflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
-+
-+	s5k3t2->vflip = v4l2_ctrl_new_std(ctrl_hdlr, &s5k3t2_ctrl_ops,
-+					  V4L2_CID_VFLIP, 0, 1, 1, 0);
-+	if (s5k3t2->vflip)
-+		s5k3t2->vflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
-+
-+	ret = v4l2_fwnode_device_parse(s5k3t2->dev, &props);
-+	if (ret)
-+		goto error_free_hdlr;
-+
-+	ret = v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &s5k3t2_ctrl_ops,
-+					      &props);
-+	if (ret)
-+		goto error_free_hdlr;
-+
-+	if (ctrl_hdlr->error) {
-+		ret = ctrl_hdlr->error;
-+		goto error_free_hdlr;
-+	}
-+
-+	s5k3t2->sd.ctrl_handler = ctrl_hdlr;
-+
-+	return 0;
-+
-+error_free_hdlr:
-+	v4l2_ctrl_handler_free(ctrl_hdlr);
-+
-+	return ret;
-+}
-+
-+static int s5k3t2_enable_streams(struct v4l2_subdev *sd,
-+				 struct v4l2_subdev_state *state, u32 pad,
-+				 u64 streams_mask)
-+{
-+	struct s5k3t2 *s5k3t2 = to_s5k3t2(sd);
-+	const struct s5k3t2_reg_list *reg_list = &s5k3t2->mode->reg_list;
-+	int ret;
-+
-+	ret = pm_runtime_resume_and_get(s5k3t2->dev);
-+	if (ret)
-+		return ret;
-+
-+	cci_write(s5k3t2->regmap, CCI_REG16(0x6028), 0x4000, &ret);
-+	cci_write(s5k3t2->regmap, CCI_REG16(0x0000), 0x0005, &ret);
-+	cci_write(s5k3t2->regmap, CCI_REG16(0x0000), S5K3T2_CHIP_ID, &ret);
-+	cci_write(s5k3t2->regmap, CCI_REG16(0x6010), 0x0001, &ret);
-+	if (ret)
-+		goto error;
-+
-+	usleep_range(5 * USEC_PER_MSEC, 6 * USEC_PER_MSEC);
-+
-+	cci_multi_reg_write(s5k3t2->regmap, s5k3t2_init_setting,
-+			    ARRAY_SIZE(s5k3t2_init_setting), &ret);
-+	cci_multi_reg_write(s5k3t2->regmap, reg_list->regs,
-+			    reg_list->num_regs, &ret);
-+	if (ret)
-+		goto error;
-+
-+	ret = __v4l2_ctrl_handler_setup(s5k3t2->sd.ctrl_handler);
-+
-+	cci_write(s5k3t2->regmap, S5K3T2_REG_CTRL_MODE,
-+		  S5K3T2_MODE_STREAMING |
-+		  (s5k3t2->vflip->val ? S5K3T2_VFLIP : 0) |
-+		  (s5k3t2->hflip->val ? S5K3T2_HFLIP : 0), &ret);
-+	if (ret)
-+		goto error;
-+
-+	__v4l2_ctrl_grab(s5k3t2->vflip, true);
-+	__v4l2_ctrl_grab(s5k3t2->hflip, true);
-+
-+	return 0;
-+
-+error:
-+	dev_err(s5k3t2->dev, "failed to start streaming: %d\n", ret);
-+	pm_runtime_put_autosuspend(s5k3t2->dev);
-+
-+	return ret;
-+}
-+
-+static int s5k3t2_disable_streams(struct v4l2_subdev *sd,
-+				  struct v4l2_subdev_state *state, u32 pad,
-+				  u64 streams_mask)
-+{
-+	struct s5k3t2 *s5k3t2 = to_s5k3t2(sd);
-+	int ret;
-+
-+	ret = cci_write(s5k3t2->regmap, S5K3T2_REG_CTRL_MODE, 0, NULL);
-+	if (ret)
-+		dev_err(s5k3t2->dev, "failed to stop streaming: %d\n", ret);
-+
-+	__v4l2_ctrl_grab(s5k3t2->vflip, false);
-+	__v4l2_ctrl_grab(s5k3t2->hflip, false);
-+
-+	pm_runtime_put_autosuspend(s5k3t2->dev);
-+
-+	return ret;
-+}
-+
-+static u32 s5k3t2_get_format_code(struct s5k3t2 *s5k3t2)
-+{
-+	unsigned int i;
-+
-+	i = (s5k3t2->vflip->val ? 2 : 0) | (s5k3t2->hflip->val ? 1 : 0);
-+
-+	return s5k3t2_mbus_formats[i];
-+}
-+
-+static void s5k3t2_update_pad_format(struct s5k3t2 *s5k3t2,
-+				     const struct s5k3t2_mode *mode,
-+				     struct v4l2_mbus_framefmt *fmt)
-+{
-+	fmt->code = s5k3t2_get_format_code(s5k3t2);
-+	fmt->width = mode->width;
-+	fmt->height = mode->height;
-+	fmt->field = V4L2_FIELD_NONE;
-+	fmt->colorspace = V4L2_COLORSPACE_RAW;
-+	fmt->ycbcr_enc = V4L2_YCBCR_ENC_DEFAULT;
-+	fmt->quantization = V4L2_QUANTIZATION_FULL_RANGE;
-+	fmt->xfer_func = V4L2_XFER_FUNC_NONE;
-+}
-+
-+static bool s5k3t2_filter_by_link_freq(const void *array, size_t index,
-+				       const void *context)
-+{
-+	const struct s5k3t2_mode *mode = array;
-+	const struct s5k3t2 *s5k3t2 = context;
-+
-+	return s5k3t2->link_freq_bitmap & BIT(mode->link_freq_index);
-+}
-+
-+static int s5k3t2_set_pad_format(struct v4l2_subdev *sd,
-+				 struct v4l2_subdev_state *state,
-+				 struct v4l2_subdev_format *fmt)
-+{
-+	struct s5k3t2 *s5k3t2 = to_s5k3t2(sd);
-+	s64 hblank, vblank, exposure_max;
-+	const struct s5k3t2_mode *mode;
-+
-+	mode = v4l2_find_nearest_size_conditional(s5k3t2_supported_modes,
-+						  ARRAY_SIZE(s5k3t2_supported_modes),
-+						  width, height,
-+						  fmt->format.width,
-+						  fmt->format.height,
-+						  s5k3t2_filter_by_link_freq,
-+						  s5k3t2);
-+
-+	s5k3t2_update_pad_format(s5k3t2, mode, &fmt->format);
-+
-+	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY || s5k3t2->mode == mode)
-+		goto set_format;
-+
-+	s5k3t2->mode = mode;
-+
-+	__v4l2_ctrl_s_ctrl(s5k3t2->link_freq, mode->link_freq_index);
-+
-+	hblank = mode->hts - mode->width;
-+	__v4l2_ctrl_modify_range(s5k3t2->hblank, hblank, hblank, 1, hblank);
-+
-+	vblank = mode->vts - mode->height;
-+	__v4l2_ctrl_modify_range(s5k3t2->vblank, vblank,
-+				 S5K3T2_VTS_MAX - mode->height, 1, vblank);
-+	__v4l2_ctrl_s_ctrl(s5k3t2->vblank, vblank);
-+
-+	exposure_max = mode->vts - S5K3T2_EXPOSURE_MARGIN;
-+	__v4l2_ctrl_modify_range(s5k3t2->exposure, S5K3T2_EXPOSURE_MIN,
-+				 exposure_max, S5K3T2_EXPOSURE_STEP,
-+				 mode->exposure);
-+	__v4l2_ctrl_s_ctrl(s5k3t2->exposure, mode->exposure);
-+
-+	if (s5k3t2->sd.ctrl_handler->error)
-+		return s5k3t2->sd.ctrl_handler->error;
-+
-+set_format:
-+	*v4l2_subdev_state_get_format(state, 0) = fmt->format;
-+
-+	return 0;
-+}
-+
-+static int s5k3t2_enum_mbus_code(struct v4l2_subdev *sd,
-+				 struct v4l2_subdev_state *sd_state,
-+				 struct v4l2_subdev_mbus_code_enum *code)
-+{
-+	struct s5k3t2 *s5k3t2 = to_s5k3t2(sd);
-+
-+	if (code->index > 0)
-+		return -EINVAL;
-+
-+	code->code = s5k3t2_get_format_code(s5k3t2);
-+
-+	return 0;
-+}
-+
-+static int s5k3t2_enum_frame_size(struct v4l2_subdev *sd,
-+				  struct v4l2_subdev_state *sd_state,
-+				  struct v4l2_subdev_frame_size_enum *fse)
-+{
-+	struct s5k3t2 *s5k3t2 = to_s5k3t2(sd);
-+	unsigned int i, index = fse->index;
-+
-+	if (fse->code != s5k3t2_get_format_code(s5k3t2))
-+		return -EINVAL;
-+
-+	for (i = 0; i < ARRAY_SIZE(s5k3t2_supported_modes); i++) {
-+		const struct s5k3t2_mode *mode = &s5k3t2_supported_modes[i];
-+
-+		if (!(s5k3t2->link_freq_bitmap & BIT(mode->link_freq_index)))
-+			continue;
-+
-+		if (index--)
-+			continue;
-+
-+		fse->min_width = mode->width;
-+		fse->max_width = fse->min_width;
-+		fse->min_height = mode->height;
-+		fse->max_height = fse->min_height;
-+
-+		return 0;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static int s5k3t2_get_selection(struct v4l2_subdev *sd,
-+				struct v4l2_subdev_state *sd_state,
-+				struct v4l2_subdev_selection *sel)
-+{
-+	struct s5k3t2 *s5k3t2 = to_s5k3t2(sd);
-+	const struct s5k3t2_mode *mode = s5k3t2->mode;
-+	const struct v4l2_mbus_framefmt *fmt;
-+
-+	switch (sel->target) {
-+	case V4L2_SEL_TGT_CROP:
-+		if (sel->which == V4L2_SUBDEV_FORMAT_TRY) {
-+			fmt = v4l2_subdev_state_get_format(sd_state, 0);
-+			mode = v4l2_find_nearest_size(s5k3t2_supported_modes,
-+						      ARRAY_SIZE(s5k3t2_supported_modes),
-+						      width, height,
-+						      fmt->width, fmt->height);
-+		}
-+		sel->r = mode->crop;
-+		return 0;
-+	case V4L2_SEL_TGT_NATIVE_SIZE:
-+		sel->r.left = 0;
-+		sel->r.top = 0;
-+		sel->r.width = S5K3T2_NATIVE_WIDTH;
-+		sel->r.height = S5K3T2_NATIVE_HEIGHT;
-+		return 0;
-+	case V4L2_SEL_TGT_CROP_DEFAULT:
-+	case V4L2_SEL_TGT_CROP_BOUNDS:
-+		sel->r.left = 8;
-+		sel->r.top = 8;
-+		sel->r.width = 5184;
-+		sel->r.height = 3880;
-+		return 0;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int s5k3t2_init_state(struct v4l2_subdev *sd,
-+			     struct v4l2_subdev_state *state)
-+{
-+	struct s5k3t2 *s5k3t2 = to_s5k3t2(sd);
-+	struct v4l2_subdev_format fmt = {
-+		.which = V4L2_SUBDEV_FORMAT_TRY,
-+		.pad = 0,
-+		.format = {
-+			.width = s5k3t2->mode->width,
-+			.height = s5k3t2->mode->height,
-+		},
-+	};
-+
-+	s5k3t2_set_pad_format(sd, state, &fmt);
-+
-+	return 0;
-+}
-+
-+static const struct v4l2_subdev_video_ops s5k3t2_video_ops = {
-+	.s_stream = v4l2_subdev_s_stream_helper,
-+};
-+
-+static const struct v4l2_subdev_pad_ops s5k3t2_pad_ops = {
-+	.set_fmt = s5k3t2_set_pad_format,
-+	.get_fmt = v4l2_subdev_get_fmt,
-+	.get_selection = s5k3t2_get_selection,
-+	.enum_mbus_code = s5k3t2_enum_mbus_code,
-+	.enum_frame_size = s5k3t2_enum_frame_size,
-+	.enable_streams = s5k3t2_enable_streams,
-+	.disable_streams = s5k3t2_disable_streams,
-+};
-+
-+static const struct v4l2_subdev_ops s5k3t2_subdev_ops = {
-+	.video = &s5k3t2_video_ops,
-+	.pad = &s5k3t2_pad_ops,
-+};
-+
-+static const struct v4l2_subdev_internal_ops s5k3t2_internal_ops = {
-+	.init_state = s5k3t2_init_state,
-+};
-+
-+static const struct media_entity_operations s5k3t2_subdev_entity_ops = {
-+	.link_validate = v4l2_subdev_link_validate,
-+};
-+
-+static int s5k3t2_identify_sensor(struct s5k3t2 *s5k3t2)
-+{
-+	u64 val;
-+	int ret;
-+
-+	ret = cci_read(s5k3t2->regmap, S5K3T2_REG_CHIP_ID, &val, NULL);
-+	if (ret) {
-+		dev_err(s5k3t2->dev, "failed to read chip id: %d\n", ret);
-+		return ret;
-+	}
-+
-+	if (val != S5K3T2_CHIP_ID) {
-+		dev_err(s5k3t2->dev, "chip id mismatch: %x!=%llx\n",
-+			S5K3T2_CHIP_ID, val);
-+		return -ENODEV;
-+	}
-+
-+	return 0;
-+}
-+
-+static int s5k3t2_check_hwcfg(struct s5k3t2 *s5k3t2)
-+{
-+	struct fwnode_handle *fwnode = dev_fwnode(s5k3t2->dev), *ep;
-+	struct v4l2_fwnode_endpoint bus_cfg = {
-+		.bus = {
-+			.mipi_csi2 = {
-+				.num_data_lanes = S5K3T2_DATA_LANES,
-+			},
-+		},
-+		.bus_type = V4L2_MBUS_CSI2_DPHY,
-+	};
-+	int ret;
-+
-+	if (!fwnode)
-+		return -ENODEV;
-+
-+	ep = fwnode_graph_get_next_endpoint(fwnode, NULL);
-+	if (!ep)
-+		return -EINVAL;
-+
-+	ret = v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);
-+	fwnode_handle_put(ep);
-+	if (ret)
-+		return ret;
-+
-+	if (bus_cfg.bus.mipi_csi2.num_data_lanes != S5K3T2_DATA_LANES) {
-+		dev_err(s5k3t2->dev, "invalid number of data lanes: %u\n",
-+			bus_cfg.bus.mipi_csi2.num_data_lanes);
-+		ret = -EINVAL;
-+		goto endpoint_free;
-+	}
-+
-+	ret = v4l2_link_freq_to_bitmap(s5k3t2->dev, bus_cfg.link_frequencies,
-+				       bus_cfg.nr_of_link_frequencies,
-+				       s5k3t2_link_freq_menu,
-+				       ARRAY_SIZE(s5k3t2_link_freq_menu),
-+				       &s5k3t2->link_freq_bitmap);
-+
-+endpoint_free:
-+	v4l2_fwnode_endpoint_free(&bus_cfg);
-+
-+	return ret;
-+}
-+
-+static int s5k3t2_power_on(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct s5k3t2 *s5k3t2 = to_s5k3t2(sd);
-+	int ret;
-+
-+	ret = regulator_bulk_enable(S5K3T2_NUM_SUPPLIES, s5k3t2->supplies);
-+	if (ret)
-+		return ret;
-+
-+	ret = clk_prepare_enable(s5k3t2->mclk);
-+	if (ret)
-+		goto disable_regulators;
-+
-+	usleep_range(USEC_PER_MSEC, 2 * USEC_PER_MSEC);
-+	gpiod_set_value_cansleep(s5k3t2->reset_gpio, 0);
-+	usleep_range(10 * USEC_PER_MSEC, 15 * USEC_PER_MSEC);
-+
-+	return 0;
-+
-+disable_regulators:
-+	regulator_bulk_disable(S5K3T2_NUM_SUPPLIES, s5k3t2->supplies);
-+
-+	return ret;
-+}
-+
-+static int s5k3t2_power_off(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct s5k3t2 *s5k3t2 = to_s5k3t2(sd);
-+
-+	gpiod_set_value_cansleep(s5k3t2->reset_gpio, 1);
-+
-+	clk_disable_unprepare(s5k3t2->mclk);
-+
-+	regulator_bulk_disable(S5K3T2_NUM_SUPPLIES, s5k3t2->supplies);
-+
-+	return 0;
-+}
-+
-+static int s5k3t2_probe(struct i2c_client *client)
-+{
-+	struct s5k3t2 *s5k3t2;
-+	unsigned long freq;
-+	unsigned int i;
-+	int ret;
-+
-+	s5k3t2 = devm_kzalloc(&client->dev, sizeof(*s5k3t2), GFP_KERNEL);
-+	if (!s5k3t2)
-+		return -ENOMEM;
-+
-+	s5k3t2->dev = &client->dev;
-+	v4l2_i2c_subdev_init(&s5k3t2->sd, client, &s5k3t2_subdev_ops);
-+
-+	s5k3t2->regmap = devm_cci_regmap_init_i2c(client, 16);
-+	if (IS_ERR(s5k3t2->regmap))
-+		return dev_err_probe(s5k3t2->dev, PTR_ERR(s5k3t2->regmap),
-+				     "failed to init CCI\n");
-+
-+	s5k3t2->mclk = devm_v4l2_sensor_clk_get(s5k3t2->dev, NULL);
-+	if (IS_ERR(s5k3t2->mclk))
-+		return dev_err_probe(s5k3t2->dev, PTR_ERR(s5k3t2->mclk),
-+				     "failed to get MCLK clock\n");
-+
-+	freq = clk_get_rate(s5k3t2->mclk);
-+	if (freq != S5K3T2_MCLK_FREQ)
-+		return dev_err_probe(s5k3t2->dev, -EINVAL,
-+				     "MCLK clock frequency %lu is not supported\n",
-+				     freq);
-+
-+	ret = s5k3t2_check_hwcfg(s5k3t2);
-+	if (ret)
-+		return dev_err_probe(s5k3t2->dev, ret,
-+				     "failed to check HW configuration\n");
-+
-+	s5k3t2->reset_gpio = devm_gpiod_get_optional(s5k3t2->dev, "reset",
-+						     GPIOD_OUT_HIGH);
-+	if (IS_ERR(s5k3t2->reset_gpio))
-+		return dev_err_probe(s5k3t2->dev, PTR_ERR(s5k3t2->reset_gpio),
-+				     "cannot get reset GPIO\n");
-+
-+	for (i = 0; i < S5K3T2_NUM_SUPPLIES; i++)
-+		s5k3t2->supplies[i].supply = s5k3t2_supply_names[i];
-+
-+	ret = devm_regulator_bulk_get(s5k3t2->dev, S5K3T2_NUM_SUPPLIES,
-+				      s5k3t2->supplies);
-+	if (ret)
-+		return dev_err_probe(s5k3t2->dev, ret,
-+				     "failed to get supply regulators\n");
-+
-+	ret = s5k3t2_power_on(s5k3t2->dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = s5k3t2_identify_sensor(s5k3t2);
-+	if (ret) {
-+		dev_err_probe(s5k3t2->dev, ret, "failed to find sensor\n");
-+		goto power_off;
-+	}
-+
-+	s5k3t2->mode =
-+		v4l2_find_nearest_size_conditional(s5k3t2_supported_modes,
-+						   ARRAY_SIZE(s5k3t2_supported_modes),
-+						   width, height,
-+						   S5K3T2_DEFAULT_WIDTH,
-+						   S5K3T2_DEFAULT_HEIGHT,
-+						   s5k3t2_filter_by_link_freq,
-+						   s5k3t2);
-+	ret = s5k3t2_init_controls(s5k3t2);
-+	if (ret) {
-+		dev_err_probe(s5k3t2->dev, ret, "failed to init controls\n");
-+		goto power_off;
-+	}
-+
-+	s5k3t2->sd.state_lock = s5k3t2->ctrl_handler.lock;
-+	s5k3t2->sd.internal_ops = &s5k3t2_internal_ops;
-+	s5k3t2->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-+	s5k3t2->sd.entity.ops = &s5k3t2_subdev_entity_ops;
-+	s5k3t2->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
-+	s5k3t2->pad.flags = MEDIA_PAD_FL_SOURCE;
-+
-+	ret = media_entity_pads_init(&s5k3t2->sd.entity, 1, &s5k3t2->pad);
-+	if (ret) {
-+		dev_err_probe(s5k3t2->dev, ret,
-+			      "failed to init media entity pads\n");
-+		goto v4l2_ctrl_handler_free;
-+	}
-+
-+	ret = v4l2_subdev_init_finalize(&s5k3t2->sd);
-+	if (ret < 0) {
-+		dev_err_probe(s5k3t2->dev, ret,
-+			      "failed to finalize subdev init\n");
-+		goto media_entity_cleanup;
-+	}
-+
-+	pm_runtime_set_active(s5k3t2->dev);
-+	pm_runtime_enable(s5k3t2->dev);
-+
-+	ret = v4l2_async_register_subdev_sensor(&s5k3t2->sd);
-+	if (ret < 0) {
-+		dev_err_probe(s5k3t2->dev, ret,
-+			      "failed to register V4L2 subdev\n");
-+		goto subdev_cleanup;
-+	}
-+
-+	pm_runtime_set_autosuspend_delay(s5k3t2->dev, 1000);
-+	pm_runtime_use_autosuspend(s5k3t2->dev);
-+	pm_runtime_idle(s5k3t2->dev);
-+
-+	return 0;
-+
-+subdev_cleanup:
-+	v4l2_subdev_cleanup(&s5k3t2->sd);
-+	pm_runtime_disable(s5k3t2->dev);
-+	pm_runtime_set_suspended(s5k3t2->dev);
-+
-+media_entity_cleanup:
-+	media_entity_cleanup(&s5k3t2->sd.entity);
-+
-+v4l2_ctrl_handler_free:
-+	v4l2_ctrl_handler_free(s5k3t2->sd.ctrl_handler);
-+
-+power_off:
-+	s5k3t2_power_off(s5k3t2->dev);
-+
-+	return ret;
-+}
-+
-+static void s5k3t2_remove(struct i2c_client *client)
-+{
-+	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-+	struct s5k3t2 *s5k3t2 = to_s5k3t2(sd);
-+
-+	v4l2_async_unregister_subdev(sd);
-+	v4l2_subdev_cleanup(sd);
-+	media_entity_cleanup(&sd->entity);
-+	v4l2_ctrl_handler_free(sd->ctrl_handler);
-+	pm_runtime_disable(s5k3t2->dev);
-+
-+	if (!pm_runtime_status_suspended(s5k3t2->dev)) {
-+		s5k3t2_power_off(s5k3t2->dev);
-+		pm_runtime_set_suspended(s5k3t2->dev);
-+	}
-+}
-+
-+static const struct dev_pm_ops s5k3t2_pm_ops = {
-+	RUNTIME_PM_OPS(s5k3t2_power_off, s5k3t2_power_on, NULL)
-+};
-+
-+static const struct of_device_id s5k3t2_of_match[] = {
-+	{ .compatible = "samsung,s5k3t2" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, s5k3t2_of_match);
-+
-+static struct i2c_driver s5k3t2_i2c_driver = {
-+	.driver = {
-+		.name = "s5k3t2",
-+		.pm = pm_ptr(&s5k3t2_pm_ops),
-+		.of_match_table = s5k3t2_of_match,
-+	},
-+	.probe = s5k3t2_probe,
-+	.remove = s5k3t2_remove,
-+};
-+
-+module_i2c_driver(s5k3t2_i2c_driver);
-+
-+MODULE_AUTHOR("Armandas Kvietkus <armandas.kvietkus@proton.me>");
-+MODULE_DESCRIPTION("Samsung S5K3T2 image sensor driver");
-+MODULE_LICENSE("GPL");
-
--- 
-2.55.0
-
-
+PiBUaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBmb3Vu
+ZCAxIHBvdGVudGlhbA0KPiBpc3N1ZShzKSB0byBjb25zaWRlci4NCj4gDQo+IENyaXRpY2FsOiAw
+IMK3IEhpZ2g6IDAgwrcgTWVkaXVtOiAxIMK3IExvdzogMA0KPiANCj4gSWYgeW91IGJlbGlldmUg
+bm9uZSBvZiB0aGUgaXNzdWVzIGFyZSBsZWdpdGltYXRlLCBwbGVhc2UgcmVwbHkgdG8gZWFjaCBp
+c3N1ZSBvZg0KPiBNZWRpdW0gc2V2ZXJpdHkgb3IgaGlnaGVyIGFuZCBleHBsYWluIHdoeSB0aGUg
+QUkgaXMgd3JvbmcuDQo+IElmIGFueSBvZiB0aGVtIGFyZSBsZWdpdGltYXRlIGFuZCB5b3UgcGxh
+biB0byByZXNwaW4sIHBsZWFzZSBsZXQgcGF0Y2h3b3JrIGtub3cNCj4gYnkgaW5jbHVkaW5nICJw
+dy1ib3Q6IGNyIiBhcyBhIHNlcGFyYXRlIGxpbmUgYXQgdGhlIGVuZCBvZiB5b3VyIHJlcGx5IChv
+bmUgc3VjaA0KPiByZXBseSBwZXIgc2VyaWVzIGlzIGVub3VnaCkuDQo+IA0KPiAtIFtNZWRpdW1d
+IENvbW1pdCBtZXNzYWdlIC8gRml4ZXM6IHRhZyBtaXNtYXRjaCBmb3IgYSBzdWJzdGFudGl2ZQ0K
+PiAgIGhhcmR3YXJlLXByb2dyYW1taW5nIGNvcnJlY3Rpb24uDQo+IA0KPiAtLQ0KPiANCj4gcjgx
+NTI6IGFkZCBydGw4MTU3X3VubG9hZCBhbmQgcnRsODE1N19jaGFuZ2VfbXR1DQo+IA0KPiBBZGRz
+IHJ0bDgxNTdfdW5sb2FkKCksIHdoaWNoIHVzZXMgcjgxNTdfcG93ZXJfY3V0X2VuKCkgcGx1cyB0
+aGUgSW50ZXJydXB0DQo+IE1pdGlnYXRpb24gZGlzYWJsZSB0aGF0IHJ0bDgxNTNfdW5sb2FkKCkg
+cHJldmlvdXNseSBnYXRlZCBvbiAidHAtPnZlcnNpb24gPj0NCj4gUlRMX1ZFUl8xNiIsIGFuZCBy
+dGw4MTU3X2NoYW5nZV9tdHUoKSwgd2hpY2ggc2NhbGVzIFBMQV9NVFBTIGZyb20gdGhlDQo+IGNv
+bmZpZ3VyZWQgTVRVLiBCb3RoIGFyZSB3aXJlZCB0byBSVEw4MTU3IGFuZCBSVEw4MTU5IHRocm91
+Z2ggb3BzLT51bmxvYWQNCj4gYW5kIG9wcy0+Y2hhbmdlX210dS4NCj4gDQo+ID4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvbmV0L3VzYi9yODE1Mi5jIGIvZHJpdmVycy9uZXQvdXNiL3I4MTUyLmMgaW5k
+ZXgNCj4gPiBkMzAwMzFkYmYyZDM4Li5mNDRkY2I4OGI1YzZhIDEwMDY0NA0KPiA+IC0tLSBhL2Ry
+aXZlcnMvbmV0L3VzYi9yODE1Mi5jDQo+ID4gKysrIGIvZHJpdmVycy9uZXQvdXNiL3I4MTUyLmMN
+Cj4gPiBAQCAtNzAwNCw2ICs3MDA0LDI4IEBAIHN0YXRpYyB2b2lkIHJ0bDgxNTZfZG93bihzdHJ1
+Y3QgcjgxNTIgKnRwKQ0KPiA+ICAgICAgIHI4MTUzX2FsZHBzX2VuKHRwLCB0cnVlKTsNCj4gPiAg
+fQ0KPiA+DQo+ID4gK3N0YXRpYyB2b2lkIHJ0bDgxNTdfY2hhbmdlX210dShzdHJ1Y3QgcjgxNTIg
+KnRwKSB7DQo+ID4gKyAgICAgdTMyIG1heF9wa3Rfc2l6ZSA9IG10dV90b19zaXplKHRwLT5uZXRk
+ZXYtPm10dSk7DQo+ID4gKyAgICAgdTMyIG9jcF9kYXRhOw0KPiA+ICsNCj4gPiArICAgICBvY3Bf
+d3JpdGVfd29yZCh0cCwgTUNVX1RZUEVfUExBLCBQTEFfUk1TLCBtYXhfcGt0X3NpemUpOw0KPiA+
+ICsNCj4gPiArICAgICAvKiBVc2UgYXQgbGVhc3QgMTBLIGZvciBNVFBTICovDQo+ID4gKyAgICAg
+b2NwX2RhdGEgPSBtYXhfdCh1MzIsIG1heF9wa3Rfc2l6ZSwgMTAgKiAxMDI0KSAvIDY0Ow0KPiA+
+ICsNCj4gPiArICAgICAvKiAxNiAqIDEwMjQgLyA2NCA9IDB4MTAwLCBzbyB0aGUgbWF4IGlzIDB4
+ZmYgZm9yIDggYml0cyBkYXRhICovDQo+ID4gKyAgICAgb2NwX2RhdGEgPSBtaW5fdCh1MzIsIG9j
+cF9kYXRhLCAweGZmKTsNCj4gPiArDQo+ID4gKyAgICAgb2NwX3dyaXRlX2J5dGUodHAsIE1DVV9U
+WVBFX1BMQSwgUExBX01UUFMsIG9jcF9kYXRhKTsNCj4gPiArICAgICByODE1Nl9mY19wYXJhbWV0
+ZXIodHApOw0KPiA+ICsNCj4gPiArICAgICAvKiBUWCBzaGFyZSBmaWZvIGZyZWUgY3JlZGl0IGZ1
+bGwgdGhyZXNob2xkICovDQo+ID4gKyAgICAgb2NwX3dyaXRlX3dvcmQodHAsIE1DVV9UWVBFX1BM
+QSwgUExBX1RYRklGT19DVFJMLCA1MTIgLyA2NCk7DQo+ID4gKyAgICAgb2NwX3dyaXRlX3dvcmQo
+dHAsIE1DVV9UWVBFX1BMQSwgUExBX1RYRklGT19GVUxMLA0KPiA+ICsgICAgICAgICAgICAgICAg
+ICAgIEFMSUdOKG1heF9wa3Rfc2l6ZSArIHRwLT50eF9kZXNjLnNpemUsIDEwMjQpIC8NCj4gPiAr
+MTYpOyB9DQo+ID4gKw0KPiANCj4gWyAuLi4gXQ0KPiANCj4gPiBAQCAtMTAxNTEsMTEgKzEwMTcz
+LDYgQEAgc3RhdGljIHZvaWQgcnRsODE1M191bmxvYWQoc3RydWN0IHI4MTUyICp0cCkNCj4gPiAg
+ICAgICAgICAgICAgIHJldHVybjsNCj4gPg0KPiA+ICAgICAgIHI4MTUzX3Bvd2VyX2N1dF9lbih0
+cCwgZmFsc2UpOw0KPiA+IC0NCj4gPiAtICAgICBpZiAodHAtPnZlcnNpb24gPj0gUlRMX1ZFUl8x
+Nikgew0KPiA+IC0gICAgICAgICAgICAgLyogRGlzYWJsZSBJbnRlcnJ1cHQgTWl0aWdhdGlvbiAq
+Lw0KPiA+IC0gICAgICAgICAgICAgb2NwX2J5dGVfY2xyX2JpdHModHAsIE1DVV9UWVBFX1VTQiwg
+MHhjZjA0LCBCSVQoMCkgfCBCSVQoMSkNCj4gfCBCSVQoMikgfCBCSVQoNykpOw0KPiA+IC0gICAg
+IH0NCj4gPiAgfQ0KPiANCj4gWyAuLi4gXQ0KPiANCj4gPiArc3RhdGljIHZvaWQgcnRsODE1N191
+bmxvYWQoc3RydWN0IHI4MTUyICp0cCkgew0KPiA+ICsgICAgIGlmICh0ZXN0X2JpdChSVEw4MTUy
+X0lOQUNDRVNTSUJMRSwgJnRwLT5mbGFncykpDQo+ID4gKyAgICAgICAgICAgICByZXR1cm47DQo+
+ID4gKw0KPiA+ICsgICAgIHI4MTU3X3Bvd2VyX2N1dF9lbih0cCwgZmFsc2UpOw0KPiA+ICsgICAg
+IG9jcF9ieXRlX2Nscl9iaXRzKHRwLCBNQ1VfVFlQRV9VU0IsIDB4Y2YwNCwNCj4gPiArICAgICAg
+ICAgICAgICAgICAgICAgICBCSVQoMCkgfCBCSVQoMSkgfCBCSVQoMikgfCBCSVQoNykpOyB9DQo+
+IA0KPiBbIC4uLiBdDQo+IA0KPiA+IEBAIC0xMDM0NCwxMyArMTAzNzEsMTMgQEAgc3RhdGljIGlu
+dCBydGxfb3BzX2luaXQoc3RydWN0IHI4MTUyICp0cCkNCj4gPiAgICAgICAgICAgICAgIG9wcy0+
+ZGlzYWJsZSAgICAgICAgICAgID0gcnRsODE1M19kaXNhYmxlOw0KPiA+ICAgICAgICAgICAgICAg
+b3BzLT51cCAgICAgICAgICAgICAgICAgPSBydGw4MTU3X3VwOw0KPiA+ICAgICAgICAgICAgICAg
+b3BzLT5kb3duICAgICAgICAgICAgICAgPSBydGw4MTU3X2Rvd247DQo+ID4gLSAgICAgICAgICAg
+ICBvcHMtPnVubG9hZCAgICAgICAgICAgICA9IHJ0bDgxNTNfdW5sb2FkOw0KPiA+ICsgICAgICAg
+ICAgICAgb3BzLT51bmxvYWQgICAgICAgICAgICAgPSBydGw4MTU3X3VubG9hZDsNCj4gPiAgICAg
+ICAgICAgICAgIG9wcy0+ZWVlX2dldCAgICAgICAgICAgID0gcjgxNTNfZ2V0X2VlZTsNCj4gPiAg
+ICAgICAgICAgICAgIG9wcy0+ZWVlX3NldCAgICAgICAgICAgID0gcjgxNTJfc2V0X2VlZTsNCj4g
+PiAgICAgICAgICAgICAgIG9wcy0+aW5fbndheSAgICAgICAgICAgID0gcnRsODE1M19pbl9ud2F5
+Ow0KPiA+ICAgICAgICAgICAgICAgb3BzLT5od19waHlfY2ZnICAgICAgICAgPSByODE1N19od19w
+aHlfY2ZnOw0KPiA+ICAgICAgICAgICAgICAgb3BzLT5hdXRvc3VzcGVuZF9lbiAgICAgPSBydGw4
+MTU3X3J1bnRpbWVfZW5hYmxlOw0KPiA+IC0gICAgICAgICAgICAgb3BzLT5jaGFuZ2VfbXR1ICAg
+ICAgICAgPSBydGw4MTU2X2NoYW5nZV9tdHU7DQo+ID4gKyAgICAgICAgICAgICBvcHMtPmNoYW5n
+ZV9tdHUgICAgICAgICA9IHJ0bDgxNTdfY2hhbmdlX210dTsNCj4gPiAgICAgICAgICAgICAgIHRw
+LT5yeF9idWZfc3ogICAgICAgICAgID0gMzIgKiAxMDI0Ow0KPiA+ICAgICAgICAgICAgICAgdHAt
+PnN1cHBvcnRfMjUwMGZ1bGwgICAgPSAxOw0KPiA+ICAgICAgICAgICAgICAgdHAtPnN1cHBvcnRf
+NTAwMGZ1bGwgICAgPSAxOw0KPiANCj4gW1NldmVyaXR5OiBNZWRpdW1dDQo+IFRoZSBzdWJqZWN0
+IGFuZCBjaGFuZ2Vsb2cgcmVhZCBhcyBwdXJlbHkgYWRkaXRpdmUsIGJ1dCB0aGUgdHdvIG9wcyBy
+ZXdpcmluZ3MNCj4gaGVyZSAoYW5kIHRoZSBpZGVudGljYWwgcGFpciBpbiB0aGUgUlRMX1ZFUl8x
+N19RRk42OCBhbmQNCj4gUlRMX1ZFUl8xN19RRk4xMDAgYnJhbmNoZXMgZnVydGhlciBkb3duKSBj
+aGFuZ2UgcmVnaXN0ZXIgcHJvZ3JhbW1pbmcgZm9yDQo+IGhhcmR3YXJlIHRoYXQgaXMgYWxyZWFk
+eSBzdXBwb3J0ZWQgaW4gcmVsZWFzZWQga2VybmVscy4gV291bGQgYSBGaXhlczoNCj4gdGFnIGFu
+ZCBhIG5vdGUgYWJvdXQgdGhlIHVzZXItdmlzaWJsZSBzeW1wdG9tIGhlbHAgaGVyZSwgYXQgbGVh
+c3QNCj4gZmQzYzdkMDgwZGY1ICgicjgxNTI6IEFkZCBzdXBwb3J0IGZvciB0aGUgUlRMODE1NyBo
+YXJkd2FyZSIpIHBsdXMgdGhlDQo+IFJUTDgxNTkgc3VwcG9ydCBjb21taXQ/DQoNCk9rLCBJIHdp
+bGwgYXBwZW5kIGEgRml4ZXM6IHRhZy4NCg0KPiANCj4gVHdvIGNvbmNyZXRlIGRlbHRhcywgZmly
+c3QgdGhlIHBvd2VyLWN1dCBzZXF1ZW5jZS4gcnRsODE1M191bmxvYWQoKSB1c2VkOg0KPiANCj4g
+ICAgICAgICByODE1M19wb3dlcl9jdXRfZW4odHAsIGZhbHNlKQ0KPiAgICAgICAgICAgICBvY3Bf
+d29yZF9jbHJfYml0cyh0cCwgTUNVX1RZUEVfVVNCLCBVU0JfUE9XRVJfQ1VULA0KPiBQV1JfRU4g
+fCBQSEFTRTJfRU4pOw0KPiAgICAgICAgICAgICBvY3Bfd29yZF9jbHJfYml0cyh0cCwgTUNVX1RZ
+UEVfVVNCLCBVU0JfTUlTQ18wLA0KPiBQQ1VUX1NUQVRVUyk7DQo+IA0KPiB3aGlsZSBydGw4MTU3
+X3VubG9hZCgpIG5vdyB1c2VzOg0KPiANCj4gICAgICAgICByODE1N19wb3dlcl9jdXRfZW4odHAs
+IGZhbHNlKQ0KPiAgICAgICAgICAgICBvY3Bfd29yZF9jbHJfYml0cyh0cCwgTUNVX1RZUEVfVVNC
+LCBVU0JfUE9XRVJfQ1VULA0KPiBQV1JfRU4pOw0KPiAgICAgICAgICAgICBvY3Bfd29yZF9jbHJf
+Yml0cyh0cCwgTUNVX1RZUEVfVVNCLCBVU0JfTUlTQ18wLA0KPiBQQ1VUX1NUQVRVUyk7DQo+ICAg
+ICAgICAgICAgIG9jcF9ieXRlX2Nscl9iaXRzKHRwLCBNQ1VfVFlQRV9VU0IsIFVTQl9NSVNDXzIs
+IEJJVCgxKSk7DQo+IA0KPiBTbyBQSEFTRTJfRU4gaXMgbm93IGxlZnQgc2V0IGFuZCBVU0JfTUlT
+Q18yIEJJVCgxKSBpcyBub3cgY2xlYXJlZC4gVGhlc2UNCj4gd3JpdGVzIHJlYWxseSBleGVjdXRl
+IG9uIHVuYmluZCwgc2luY2UgcnRsODE1Ml9kaXNjb25uZWN0KCkgY2FsbHMNCj4gcnRsX3NldF91
+bnBsdWcoKSBmaXJzdCBidXQgcnRsX3NldF91bnBsdWcoKSBvbmx5IHNldHMgUlRMODE1Ml9JTkFD
+Q0VTU0lCTEUNCj4gd2hlbiB0cC0+dWRldi0+c3RhdGUgPT0gVVNCX1NUQVRFX05PVEFUVEFDSEVE
+LCBhbmQgdGhleSBhbHNvIGV4ZWN1dGUgb24NCj4gdGhlIHByb2JlIGVycm9yIHBhdGguIFdhcyB0
+aGUgb2xkIHNlcXVlbmNlIGxlYXZpbmcgdGhlIGRldmljZSBpbiBhIGJhZCBzdGF0ZQ0KPiBhZnRl
+ciBwb3dlci1jdXQgb3IgcmVzdW1lPw0KDQpSVEw4MTU3L1JUTDgxNTkgaGF2ZSBhIGRlZGljYXRl
+ZCBwb3dlci1jdXQgZnVuY3Rpb24NCg0KPiANCj4gU2Vjb25kLCBQTEFfTVRQUyBhdCB0aGUgZGVm
+YXVsdCBNVFUuIHJ0bDgxNTZfY2hhbmdlX210dSgpIHdyb3RlDQo+IE1UUFNfSlVNQk8gKDEyICog
+MTAyNCAvIDY0ID0gMTkyKSB1bmNvbmRpdGlvbmFsbHksIHdoaWxlDQo+IHJ0bDgxNTdfY2hhbmdl
+X210dSgpIHdyaXRlcyBtYXhfdCh1MzIsIG10dV90b19zaXplKDE1MDApLCAxMCAqIDEwMjQpIC8g
+NjQgPQ0KPiAxNjAgZm9yIGEgMTUwMCBieXRlIE1UVS4gRXZlcnkgUlRMODE1Ny9SVEw4MTU5IHVz
+ZXIgdGhlcmVmb3JlIGdldHMgYQ0KPiBkaWZmZXJlbnQgVFggdGhyZXNob2xkIGFmdGVyIHRoaXMg
+cGF0Y2gsIGJvdGggZnJvbQ0KPiBydGw4MTU3X3VwKCkgLT4gcnRsODE1N19jaGFuZ2VfbXR1KCkg
+YW5kIGZyb20gbmRvX2NoYW5nZV9tdHUuIElzIHRoYXQNCj4gaW50ZW50aW9uYWwgZm9yIGV4aXN0
+aW5nIHNldHVwcywgYW5kIGlzIGl0IHNvbWV0aGluZyB0aGF0IHNob3VsZCBiZSBiYWNrcG9ydGVk
+Pw0KDQpZZXMsIGl0J3MgaW50ZW50aW9uYWwuIE1UUFMgaXMgZnJvbSAxMGsgdG8gMTZrLCBzbyB1
+c2luZyBhIGZpeGVkIDEyayBpcyBhbHNvIGFjY2VwdGFibGUgDQpmb3IgUlRMODE1Ny9SVEw4MTU5
+Lg0KDQo+IA0KPiBBbHNvIG9uIHRoZSBjaGFuZ2Vsb2cgd29yZGluZzoNCj4gDQo+ICAgICBhbmQg
+YW4gTVRQUyBzY2FsZWQgZnJvbSB0aGUgY29uZmlndXJlZCBNVFUgKDEwSy0xNkssIG1heF9wa3Rf
+c2l6ZSAvDQo+ICAgICA2NCBjYXBwZWQgYXQgMHhmZikgaW5zdGVhZCBvZiBhIGZpeGVkIE1UUFNf
+SlVNQk8vTVRQU19ERUZBVUxULg0KPiANCj4gVGhlIHJlcGxhY2VkIGNhbGxiYWNrLCBydGw4MTU2
+X2NoYW5nZV9tdHUoKSwgb25seSBldmVyIHdyaXRlcyBNVFBTX0pVTUJPLg0KPiBNVFBTX0RFRkFV
+TFQgaXMgd3JpdHRlbiBieSBydGw4MTU2X2Rvd24oKSwgd2hpY2ggdGhlc2UgY2hpcHMgbm8gbG9u
+Z2VyIHVzZQ0KPiBhZnRlciB0aGUgZWFybGllciBzcGxpdCBpbnRvIHBlci1jaGlwLWZhbWlseSBm
+dW5jdGlvbnM7IHJ0bDgxNTdfZG93bigpIGFscmVhZHkNCj4gd3JpdGVzIDEwICogMTAyNCAvIDY0
+LiBDb3VsZCB0aGUgZGVzY3JpcHRpb24gYmUgYWRqdXN0ZWQgc28gaXQgbWF0Y2hlcyB0aGUgY29k
+ZQ0KPiBiZWluZyByZXBsYWNlZD8NCg0KU3VyZS4gV2lsbCBkby4NCg0KPiANCj4gTmVpdGhlciB0
+aGlzIG1lc3NhZ2Ugbm9yIGFueSBsYXRlciBwYXRjaCBpbiB0aGUgc2VyaWVzIGNoYW5nZXMNCj4g
+cnRsODE1N191bmxvYWQoKS9ydGw4MTU3X2NoYW5nZV9tdHUoKSwgc28gdGhlIHRhZ3MgYW5kIGRl
+c2NyaXB0aW9uIHdvdWxkDQo+IG5lZWQgdG8gYmUgY29ycmVjdGVkIGhlcmUuDQo+IA0KPiAtLQ0K
+PiBTYXNoaWtvIEFJIHJldmlldyDCtw0KPiBodHRwczovL25ldGRldi1haS5ib3RzLmxpbnV4LmRl
+di9zYXNoaWtvLyMvcGF0Y2hzZXQvMjAyNjA5MTcwNzA2MzcuNjI4MjctMQ0KPiAtbmljX3N3c2Ql
+NDByZWFsdGVrLmNvbQ0KDQpCZXN0IFJlZ2FyZHMsDQpDaGloLUthaQ0K
