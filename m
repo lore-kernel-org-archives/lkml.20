@@ -1,86 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DBED30C345;
-	Thu, 24 Sep 2026 11:27:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7362F8EBE;
+	Thu, 24 Sep 2026 11:27:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790249258; cv=none; b=tfeJEgTWEzVG7daKP1H3EiaF6nPQd1P5Heuf8nCo84fKy0IGIw7GnfU7eXTchtQoefdbGKFB6mFS/pLd1loMFvLQMqUWpIiBig0UZ3Zfz47+7TLLOk/KpfS3IBtPwzoSwCel57ZobxBpNv2NCOAwqGHSD6oGLWdKBXDAs0fdtXA=
+	t=1790249269; cv=none; b=stmlrkeIyzs6vFdzzugPLlZY2LrFnwHCrvjpmgKERB3xVAmHJSGRYOpRrnZsUAqsekM1v63IW0TVtjN2dDjO8c6jtbWaoOxxmFi+G8Nlg+EL+2BNVMF5p5tCHTn8ILf+G79Xht/mc+J+t5gqMgKdAc9XKwMRb0Nqpnl+n9QtXlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790249258; c=relaxed/simple;
-	bh=my6DpkZnBQtVPsMZV958YS2Tf7S/W8fX5yNlP388xko=;
+	s=arc-20240116; t=1790249269; c=relaxed/simple;
+	bh=Ng7XHk3vpmGWxyiouXoCljFHBI00MSlQhcephg9jKS4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n04sPaLKFT3o9OkQrRZNPoW/iW5InAaHiT+5RXAwmhb80gTghpANMgsHsYnGVxt3ANfJLxDyTnwgTiOfyoOmh2rVJrDDnjKnIzKI0bKHCALVNgSjml+VCZTaZFCZ5czKLBj3+jtxA3Sqp2q23YEd3rrDSYbKp8N4e7NTIR6a6+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ecn7jO/n; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=gH0rl38tAT8WwWZzINZb5oMGssfpTMh8mAlhIQJeC5yOFYxrV8qJmDB17eNA08TJyLGLMBQ+3rYr0/w49nigAaNpqY2v3dVD5tWzyBEYZ/MCGkGJDAyS4ND4ppIjd2T6/eE2iqbzJuNpHL0uS/vQOci/BWNLIi0dIgtx/MAT/lw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=h2t7rfHD; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ecn7jO/n"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3D9971F000FF;
-	Thu, 24 Sep 2026 11:27:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790249256;
-	bh=iABVPZWcBTmmLrZa/3dbULJ4srFGX/7UR65lciVwmhY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ecn7jO/nYvPKT3dB6gSYhIzWf5LY8dMuY+MRYbecv0RYyJCYvGNVVi+yThqx0uuKK
-	 pJEd47+Tfa14imJGNZMcChV3qIvCfZrxM+CqOr8GbNriUayBWsxvl2Ham87btG3rxn
-	 3Vvp0vLguUniUsJ+nzPsxdve9vkjD/bdl/fA9Y9ew3j0vsAOQn+i7Enkaf4g5fjhyk
-	 Upba6zeAdi0Z5pFbJ2DWNRVLEQEQ5nGyl3vJbk7gWNyeEdJLsCnEz92vL5gadq9eJ3
-	 CqMM6fFdB4q002qVr4xOj2J85NrN+Y3iJLiw7f9VrHIvhotrWzJ+k/npXSXhH6RVMm
-	 diatNt0Oneu0Q==
-Date: Thu, 24 Sep 2026 14:27:32 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Arnd Bergmann <arnd@kernel.org>, Peter Huewe <peterhuewe@gmx.de>,
-	Li Jun <lijun01@kylinos.cn>, Arnd Bergmann <arnd@arndb.de>,
-	Jason Gunthorpe <jgg@ziepe.ca>, linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] tpm: remove extraneous #ifdef
-Message-ID: <arUJJNMbXLucUZph@kernel.org>
-References: <20260915201305.3529682-1-arnd@kernel.org>
- <aqyMnwklQX3ciUzf@kernel.org>
- <aqyNgA5NdSTdrP_6@kernel.org>
- <aqyOUgIa4lsUwO0I@kernel.org>
- <aqzOnj9-35h3gAPD@monoceros>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="h2t7rfHD"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7DD4F1049F9;
+	Thu, 24 Sep 2026 13:27:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1790249262;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=A/bkNYgnP1tyQMZCXVadG8RKvR7fukhaEYBVhethcP0=;
+	b=h2t7rfHDzZe3/1vbR4n6MtreDsBbtBTo6FV57F6VTZTmhZOUU+e+g/4ber7/xLWfcCdZpd
+	MsAvn84twcvMH+B6huqPt09LIh7b4m7z7KBQn93Xndpkaa7nbnG2bdGvu3A49OiHNID3hx
+	hiSXTAoOurxm6aVabDbtLXaakJbBZIKRfnYERmenEKBEEvY7iyBud3Na9d75sCFjQAa/WH
+	5tdS2/n5Gu2G9FloOwCHMDPAzxM2JG6QPPJ7SSd+gI0FDvTa50pXBlvpyGJO+qQhs4VUTu
+	QfemVdMM7Nv6X5egdSYcf04hXsgIWN0a2oZ4JIY2KJAWzZEQSuJYSJ99VgyeUg==
+Date: Thu, 24 Sep 2026 13:27:40 +0200
+From: Pavel Machek <pavel@nabladev.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.18 000/398] 6.18.54-rc1 review
+Message-ID: <arUJLMtVma4wwXt0@duo.ucw.cz>
+References: <20260923140643.441954610@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="Tf7bFjsRjOWnN9fS"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aqzOnj9-35h3gAPD@monoceros>
+In-Reply-To: <20260923140643.441954610@linuxfoundation.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Sep 18, 2026 at 07:44:30AM +0200, Uwe Kleine-König wrote:
-> Hello Jarkko,
-> 
-> On Fri, Sep 18, 2026 at 04:05:22AM +0300, Jarkko Sakkinen wrote:
-> > On Fri, Sep 18, 2026 at 04:01:57AM +0300, Jarkko Sakkinen wrote:
-> > > I pushed this to for-next-tpm, which mirrors to linux-next.
-> 
-> I don't spot it in
-> 
-> https://git.kernel.org/pub/scm/linux/kernel/git/jarkko/linux-tpmdd.git for-next-tpm
-> 
-> , do I look at the wrong tree?
-> 
-> > > However, since this is -next only bug, I guess I should squash these to
-> > > the original commit?
-> > > 
-> > > Just sanity checking before taking action :-)
-> > 
-> > My suggestion would be to amend Co-authored-by to the original commit
-> > message as two bug fixes is significant amount of effort to make the
-> > change right.
-> 
-> I don't care much about my Tested-by: tag, so feel free to drop it.
-> Promoting that to a Tested-by: on the squashed commit is wrong for sure.
-> 
-> Best regards
-> Uwe
 
-Sorry I had my tree in bad state as per syncing with remotes.
+--Tf7bFjsRjOWnN9fS
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I now squashed fix to the original commit from Li.
+Hi!
 
-Br, Jarkko
+> This is the start of the stable review cycle for the 6.18.54 release.
+> There are 398 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+
+CIP testing did not find any problems here:
+
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-6.18.y
+
+Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
+
+Best regards,
+                                                                Pavel
+
+--Tf7bFjsRjOWnN9fS
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCarUJLAAKCRAw5/Bqldv6
+8la5AJ97GSO3ZP/hNOZWdJV1pAEOq+VRaQCgtQ60idRgWmYTmprHUudBYAhPRug=
+=FooU
+-----END PGP SIGNATURE-----
+
+--Tf7bFjsRjOWnN9fS--
