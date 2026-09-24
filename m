@@ -1,1296 +1,271 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B574A3F17
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:36:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790264185; cv=none; b=tWxnejUW6OOCZfVKydO59l6N8X6c2wofgmzT4FkvUsOfQYGf+tp3ZXkniL9Wha5G/hiPCiFQJFA/ajm5zBm7gJs13XUxHkEFQMy1AKmGzP03NskDspli7teLnA990s8Mlvm2wP12i+zbp2NgHvSY73VxE86/WQ2K+6QJU0UBpDE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790264185; c=relaxed/simple;
-	bh=Jp2Aln50NgkguwmgPyx5xlIqUgHKmoSn/P6k8EIWKwU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kP49hJ0q2oE8Q4QtmHre5CRQzxeExxPpmxTIoVC+ZA4WogD8x5YNP0Yjq+GMylr0X0IOSP+Ldo0hFfQIff8G/cpVxSqKHjhhsfkvhfDIcE9KtQ1cjd8x3VF/eSHJHMpPuvRt0DfnJ7s+/OpbZRhCVSQPnecE+pVGd52ab9OjcPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=erEP7V0q; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 237BA283142;
+	Thu, 24 Sep 2026 15:36:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790264212; cv=pass; b=X47JFeW8yA0SZSGRqsRkLoq1Q9+qNM+sBeV5Ru2c3dIlm4Fl/xcL7/mtUlGqVDORxvzE2joH3TpltbOhJwz7mdZDpiwrWyALYRk4hlyChZQ8EFMQ0y0RYuu6+dwT5uTMVovUuTel+iQHnIPkgXisz+gF36weFcR1EG+5GMxQfPg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790264212; c=relaxed/simple;
+	bh=5JNjVQv7bSkrx8P3DCGguOs0UiYqksyxP7OGxYOPImw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Psk5WqoJcgEIRCXWCqlvO7fPzzNtgpou0RHuU5bngbAzpbPGwP/7KS0Ejwg4Ju64ZA8WvcnFGe8+ZMwH4LGpf+SdgwUp07EJGPK/I2JYU39lmDeIPnbNg33905Ze+43nKeLdj0BIsk6CMNa+5kK+//TDK5Fl2l0E5GtbftzojuQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=LeGGMk8w; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="erEP7V0q"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396cccbba92so30847a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:36:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790264181; x=1790868981; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BcSMTPGgalMKcx++gS/R3rPvteNbhc9fyMuokINX4+g=;
-        b=erEP7V0q5Xdr9W8sd6xVthdPzh081F0OmW2M8qni6G1GxL+fZsejBWblnnk26wIsl3
-         UBUscwOIi1IoYvx+roan44OETfLoOI0fNuMjizrWEUvjLv6mPAylxgiUpWjRIWuHcx9G
-         cO1EF0wM/Go69F2xL0oR8/bbyvOPzG8gu4qHkPAiiTw3z7TZkbTWhet5TjpSP0Vsg7vQ
-         jf7hSudriJNNbv+khfAGgG1Ngs+aEsL37YtH6I0DVRmZzmAjkoLWA7s9yrYPDZREvZRm
-         fd4jUsAczbBIDfy8xOq9NN35PiCOL6iWr7HSw8hADsvb2IoibKjuxXn5uFNWaEjCDoWx
-         tRXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790264181; x=1790868981;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BcSMTPGgalMKcx++gS/R3rPvteNbhc9fyMuokINX4+g=;
-        b=CfY1MWK85dd9VgqHwmImPWDIeg/eHNqcvc31pjL9Zgg9ErL4YMcO3AT4f4XgHCgB0E
-         xvJLd2z1REeAOg8N+PLzR3b9wd2NIBR464lCwPDgF1sIKhTRRVjWYOIO7oWUnXECdZSa
-         w62G9XNwz+N43RdVKaZ8q3ISycYt+i5vBgq4T2+ikoDD+kFmic4I9Em5FOu1Gln+mxUB
-         XA6O5qvqLlhPNnfEAe1UzGSFeZ+u7K8iasLum2qcbNWaRz8E7PrmUuW+JVD9e/C1JIw9
-         QHsjZR0odbofaAO3DZTva+ZeFmnq3HWSE9YTUIKNmDpoe5+P1+F/eSW9r4cUXo5pY01/
-         up4g==
-X-Gm-Message-State: AFuF++n7XANyDrGyaEKNpEmrSENtO6ZPrKXf0Oi+1I2thiheyMRDwN7v
-	IgiFmM5IJVcFvIOoRnV1dm/AWr4Y8Yu88gbsy69sQMqCWz6qhh9Zd2fbD6bUTuX/
-X-Gm-Gg: AYBFou2PJFmr+aGwE+XoaYNoXUjHs5MrdZcYxnCYgA8TZ9T8OZiOdOMJP2CxP22ioi8
-	TAa9VO+tpeOeLQJqai6/JUu8xU5ICB3O4vXYc7j3UNmPEXN6jfG3R8obkAnIUPF1adS/awaA5aO
-	BwQiUjV1cQWoQF1nkcG5UuLHzqB3TECv7HHtlRXjxNeLMDyxRcX7rNoV4zfF9Rm1V2ROOWJcuPD
-	4cYioYp0KsrArXUE7x8HaW6OqGflkgPrVftDkHU+THk3zVsQSrAX7mvahm5qyuX5dn12jvrGmx0
-	umgwEhjyx1fkpWA9pQIoYPcW+DwYFbzc9xPfsprAY2t/EUbjv9TiZH5GEHuR5tqQCIWsJQsYb8d
-	HjtY3H0WjypmcFwzIlqrOx4r9WVDnMgzSiBhIqqo02E3XdEmw25xUScUtwomvm7XGy+O/vGI8V6
-	v/38+8a9vIw5TuGgfikkzrHi4LrIlaXwwQYYpLFaFAd/htSovOXCt5ja7eQur4jBCyZi2uporLc
-	y+KS2cYx4OVvo5AaFbx
-X-Received: by 2002:a17:90a:e7ca:b0:39e:4c81:6c65 with SMTP id 98e67ed59e1d1-3a0987294ddmr2839319a91.32.1790264181170;
-        Thu, 24 Sep 2026 08:36:21 -0700 (PDT)
-Received: from Modern-15.. ([223.225.63.228])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0972b11d4sm5979066a91.4.2026.09.24.08.36.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 08:36:20 -0700 (PDT)
-From: mathura kumar <mathura.kumar.tech@gmail.com>
-To: brauner@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	corbet@lwn.net,
-	mathura.kumar.tech@gmail.com
-Subject: [PATCH v4 4/4] Test: Added self-testing and documentation
-Date: Thu, 24 Sep 2026 21:05:02 +0530
-Message-ID: <20260924153505.620772-5-mathura.kumar.tech@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260924153505.620772-1-mathura.kumar.tech@gmail.com>
-References: <20260924153505.620772-1-mathura.kumar.tech@gmail.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="LeGGMk8w"
+ARC-Seal: i=1; a=rsa-sha256; t=1790264193; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=avEIboCA7whGHLn5oj39qSTIrGRfMJV8ZiqxKNhqRMdlnAl9laOyKXZRMmDZGxAtqsOnI3KNvBup4aRqDeDGqAGSTxMBP3YIpLoFYceDvCnpHw6KRBZCd5Pi55cmpyk7ytvnBrur4jWrt7Gkrw9pDA7zTbKIKA26vOyisPURA8A=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790264193; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=xpHCM0iE2esEzIC122AELBh0E5yUB3wABaM/lIaa61Q=; 
+	b=IGLIylyyEAOON9rdg0yA4hqUjiuq6Jqrl1jUNsPi/mNalOeB2EAYnEMZck+mj4p3YvS2lLKf1QUKxyyz8iE2fudVRUpg0YzJfd72WOB1ombH24l3MvMc6CIuoy6PRSPAbZmGBT0mhrYy9CoyX0YJhYc7E3qBx+PV2G4C1kFgBec=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790264193;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=xpHCM0iE2esEzIC122AELBh0E5yUB3wABaM/lIaa61Q=;
+	b=LeGGMk8wl/AL71GOyYLhJRlUUDzBlpFLWqtDay16AcCmgywF2N0TZJvNyycTamoh
+	e/LbcaLUo5dg0Z+buiTWVA5YujHT7M6thspb81LXzpJjAHSC5yZ7O/WOTV5aXtF+X3W
+	ZRjh6q31BvSv5IY0K9S718XkXmfZRTBhOzbFjsfA=
+Received: by smtp.zohomail.com with SMTPS id 179026419157669.64049589350486;
+	Thu, 24 Sep 2026 08:36:31 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id C4383180EDC; Thu, 24 Sep 2026 17:36:26 +0200 (CEST)
+Date: Thu, 24 Sep 2026 17:36:26 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, linux-kernel@vger.kernel.org, 
+	linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-phy@lists.infradead.org, kernel@collabora.com, 
+	Igor Paunovic <royalnet026@gmail.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>
+Subject: Re: [PATCH 2/5] usb: dwc3: rockchip: introduce glue driver
+Message-ID: <arVB7k5QRcwYfZEO@venus>
+References: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-0-763bb546824e@collabora.com>
+ <20260915-b4-rockchip-dwc3-rockchip-glue-v1-2-763bb546824e@collabora.com>
+ <6eacce65-5636-413f-8213-10910f3a7ee8@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vu4syrqui7xkgy6d"
+Content-Disposition: inline
+In-Reply-To: <6eacce65-5636-413f-8213-10910f3a7ee8@oss.qualcomm.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.230.26
+X-ZohoMailClient: External
 
-Add test coverage to verify system call behavior under
-different-different cases.
 
-Update index documentation to include two new doc.
-	1) mq_recvmmsg.rst
-	2) mq_sendmmsg.rst
+--vu4syrqui7xkgy6d
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/5] usb: dwc3: rockchip: introduce glue driver
+MIME-Version: 1.0
 
-The tests validate:
-	1) Offset boundries.
-	2) Partial success behaviors.
-	3) Timeout behavior.
+Hi Krishna,
 
-Documentation changes include:
-	1) Updated implementation details.
-	2) Error handlings mechanism.
-	3) Tests details.
+On Wed, Sep 23, 2026 at 11:23:01AM +0530, Krishna Kurapati wrote:
+>=20
+>=20
+> On 9/15/2026 8:47 PM, Sebastian Reichel wrote:
+> > Introduce Rockchip specific glue code for the Synopsys DWC3 USB driver.
+> > For now this handles things identical to the default glue.
+> >=20
+>=20
+> [...]
+>=20
+> > @@ -2448,11 +2448,26 @@ int dwc3_core_probe(const struct dwc3_probe_dat=
+a *data)
+> >   }
+> >   EXPORT_SYMBOL_GPL(dwc3_core_probe);
+> > +/*
+> > + * List of compatibles, which have "synopsys,dwc3" as a fallback
+> > + * compatible, but have a vendor specific glue driver that should
+> > + * be used instead of this one.
+> > + */
+> > +static const char *const dwc3_compatible_blocklist[] =3D {
+> > +	"rockchip,rk3588-dwc3",
+> > +	"rockchip,rk3576-dwc3",
+> > +};
+> > +
+> >   static int dwc3_probe(struct platform_device *pdev)
+> >   {
+> >   	struct dwc3_probe_data probe_data =3D {};
+> >   	struct resource *res;
+> >   	struct dwc3 *dwc;
+> > +	int i;
+> > +
+> > +	for (i =3D 0; i < ARRAY_SIZE(dwc3_compatible_blocklist); i++)
+> > +		if (device_is_compatible(&pdev->dev, dwc3_compatible_blocklist[i]))
+> > +			return -ENODEV;
+>=20
+> Would it be better to split this patch into two ? I see core changes are
+> independent of addition of the new driver.
 
-Signed-off-by: mathura kumar <mathura.kumar.tech@gmail.com>
----
- Documentation/userspace-api/index.rst       |   2 +
- Documentation/userspace-api/mq_recvmmsg.rst | 207 +++++++++++
- Documentation/userspace-api/mq_sendmmsg.rst | 171 +++++++++
- tools/testing/selftests/ipc/Makefile        |   2 +-
- tools/testing/selftests/ipc/mq_recvmmsg.c   | 392 ++++++++++++++++++++
- tools/testing/selftests/ipc/mq_sendmmsg.c   | 360 ++++++++++++++++++
- 6 files changed, 1133 insertions(+), 1 deletion(-)
- create mode 100644 Documentation/userspace-api/mq_recvmmsg.rst
- create mode 100644 Documentation/userspace-api/mq_sendmmsg.rst
- create mode 100644 tools/testing/selftests/ipc/mq_recvmmsg.c
- create mode 100644 tools/testing/selftests/ipc/mq_sendmmsg.c
+That's true from a pure compile time perspective, but the new glue
+driver is effectively dead code as it will never probe without that
+change.
 
-diff --git a/Documentation/userspace-api/index.rst b/Documentation/userspace-api/index.rst
-index a68b1bea57a8..4e9cbdd8c3a8 100644
---- a/Documentation/userspace-api/index.rst
-+++ b/Documentation/userspace-api/index.rst
-@@ -22,6 +22,8 @@ System calls
-    ioctl/index
-    mseal
-    rseq
-+   mq_recvmmsg
-+   mq_sendmmsg
- 
- Security-related interfaces
- ===========================
-diff --git a/Documentation/userspace-api/mq_recvmmsg.rst b/Documentation/userspace-api/mq_recvmmsg.rst
-new file mode 100644
-index 000000000000..680e5f1beb0c
---- /dev/null
-+++ b/Documentation/userspace-api/mq_recvmmsg.rst
-@@ -0,0 +1,207 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+mq_recvmmsg system call
-+=============================
-+
-+This document describes the mq_recvmmsg() system call. It provides
-+an overview of the feature, interface specification, design, and
-+test specification.
-+
-+Contents
-+--------
-+
-+        1) Overview
-+        2) Functional Specification
-+        3) Design
-+        4) Test Specification
-+
-+1) Overview
-+-----------
-+
-+POSIX message queues on Linux provide mq_timedreceive() for consuming
-+messages from a queue.This interface requires the caller to pass the
-+message buffer, length and priority pointer as individual arguments to
-+the system call. This imposes a fixed calling convention that cannot be
-+extended without breaking the ABI.
-+
-+mq_recvmmsg() introduces a new system call entry point that accepts
-+message buffer parameters via a struct argument inside a iovec rather
-+than as individual syscall arguments.
-+
-+One 64-bit variant is provided with compat handling:
-+    mq_recvmmsg()
-+
-+2) Functional Specification
-+---------------------------
-+
-+NAME
-+        mq_recvmmsg - receive or peek as a batch of messages from a
-+        POSIX message queue
-+
-+SYNOPSIS
-+
-+.. code-block:: c
-+
-+        #include <mqueue.h>
-+
-+        struct mq_msg_attrs {
-+	        __kernel_size_t msg_len;
-+	        unsigned int __user *msg_prio;
-+	        void __user *msg_ptr;
-+        };
-+
-+        struct mq_mmsg_attrs {
-+	        struct iovec __user *msg_attrs_vec;
-+	        __kernel_size_t vlen;
-+                int *ret;
-+        };
-+
-+        ssize_t mq_recvmmsg(mqd_t mqdes, struct mq_mmsg_attrs *attrs,
-+                           unsigned int attrs_len, unsigned int flags,
-+                           unsigned long start_idx,
-+                           const struct __kernel_timespec *abs_timeout);
-+
-+
-+DESCRIPTION
-+        mq_recvmmsg() receives or peeks as a batch of messages from the
-+        message queue referred to by the descriptor mqdes.
-+
-+        The flags argument controls receive behavior. The following
-+        flag is defined:
-+
-+        ``MQ_PEEK``
-+                Copies the message into struct mq_msg_attrs without removing it from
-+                the queue. The queue is not modified.
-+
-+        ``MQ_RECV``
-+                Copies and consumes messages from the queue up to the count specified
-+                by vlen.
-+
-+        The start_idx argument specifies which message to begin operating on within
-+        the priority-ordered queue, relative to the requested batch range.
-+
-+        The abs_timeout argument specifies an absolute timeout for the entire batch
-+        operation. When MQ_PEEK is set, abs_timeout is ignored, since peek is a
-+        non-blocking snapshot operation. When MQ_PEEK is not set, abs_timeout be the
-+        timeout for the entire batch.
-+
-+RETURN VALUE
-+        On success, returns the number of messages copied into user-space.
-+
-+        On failure, the function returns an error directly without writing
-+        to the ret field of struct mq_mmsg_attrs in two situations:
-+
-+        * An error occurred before a single message was successfully copied to user space.
-+        * new error occurred in writing error itself in ret field of struct mq_mmsg_attrs
-+          after partial success before completing batch and passing a bad address in ret can
-+          cause successfully dequeued messages to be permanently lost, as userspace has no other
-+          way to know about messages already dequeued in the non-peek path.
-+
-+
-+ERRORS
-+        ``EAGAIN``
-+                Queue is empty and MQ_PEEK is set. Peek is always
-+                non-blocking and returns immediately on empty queue.
-+
-+        ``EBADF``
-+                mqdes is not a valid message queue descriptor open
-+                for reading.
-+
-+        ``EFAULT``
-+                attrs, msg_ptr, msg_prio, or abs_timeout points to
-+                an invalid address or any invalid address.
-+
-+        ``EINVAL``
-+                The batch size is too large, start_idx is inconsistent with the
-+                current queue state, flags contains an unrecognized value, or contradictory
-+                flags were passed.
-+
-+        ``EMSGSIZE``
-+                msg_len is less than the mq_msgsize attribute of
-+                the queue.
-+
-+        ``E2BIG``
-+                attrs_len is greater than PAGE_SIZE.
-+
-+        ``ETIMEDOUT``
-+                Pop path only. The call timed out before a message
-+                became available. Never returned on peek path.
-+
-+        ``ENODATA``
-+                No valid message exists matching the given parameters.
-+
-+        ``ENOMEM``
-+                 Insufficient memory to complete the operation.
-+
-+3) Design
-+---------
-+
-+3.1 Struct-based argument passing
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+
-+The message buffer parameters (msg_ptr, msg_len, msg_prio) are consolidated
-+into struct mq_msg_attrs rather than passed as individual syscall arguments.
-+These are then referenced via struct mq_mmsg_attrs, which contains an
-+iovec msg_attrs_vec and a vlen count. The base of msg_attrs_vec holds individual
-+mq_msg_attrs entries, and length store struct mq_msg_attrs size.
-+
-+
-+3.2 Compat handling
-+~~~~~~~~~~~~~~~~~~~~
-+
-+.. code-block:: c
-+
-+        struct compat_msg_attrs {
-+	        compat_size_t msg_len;
-+	        compat_uptr_t msg_prio;
-+	        compat_uptr_t msg_ptr;
-+        };
-+
-+        struct compat_mq_mmsg_attrs {
-+	        compat_uptr_t msg_attrs_vec;
-+	        compat_size_t vlen;
-+	        compat_uptr_t ret;
-+        };
-+
-+
-+The compat entry point performs the necessary conversions before
-+calling the shared do_mq_recvmmsg() implementation.
-+
-+3.3 Peek implementation
-+~~~~~~~~~~~~~~~~~~~~~~~~
-+
-+When MQ_PEEK is set, the implementation locates the target message
-+in the priority tree but does not remove it. Two locks are taken:
-+the first confirms a message exists before any allocation is
-+attempted and retrieve required buffer size to do memory allocation
-+outside of critical section, avoiding allocation on empty queues.
-+The second protects the kernel temporary buffer copy operation.
-+
-+3.4 start_idx argument
-+~~~~~~~~~~~~~~~~~~~~~~~
-+
-+The start_idx argument specifies which message to begin operating on within the queue.
-+If a batch request fails partway through, user space is expected to supply an updated
-+start_idx reflecting the number of messages already handled, failing to do so may result
-+in unexpected message delivery.
-+
-+4) Test Specification
-+----------------------
-+
-+Tests for mq_recvmmsg() should cover the following:
-+
-+1) Basic receive and peek — Verify that without MQ_PEEK the message is consumed and
-+the queue depth decreases by one. Verify that the message body, priority, and return
-+value are correct.
-+
-+2) Offset and boundary handling — Verify that the implementation correctly respects
-+batch size and start_idx boundary conditions.
-+
-+3) Partial success — Verify that when an error occurs mid-batch, the call returns
-+successfully with the count of messages processed so far, rather than discarding partial
-+results.
-+
-+
-+
-+
-+
-diff --git a/Documentation/userspace-api/mq_sendmmsg.rst b/Documentation/userspace-api/mq_sendmmsg.rst
-new file mode 100644
-index 000000000000..7b676645177e
---- /dev/null
-+++ b/Documentation/userspace-api/mq_sendmmsg.rst
-@@ -0,0 +1,171 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+mq_sendmmsg system call
-+=============================
-+
-+This document describes the mq_sendmmsg() system call. It provides
-+an overview of the feature, interface specification, design, and
-+test specification.
-+
-+Contents
-+--------
-+
-+        1) Overview
-+        2) Functional Specification
-+        3) Design
-+        4) Test Specification
-+
-+1) Overview
-+-----------
-+
-+POSIX message queues on Linux provide mq_timedsend() for storing
-+messages in a queue one at time.
-+
-+mq_sendmmsg() introduces a new system call entry point that take
-+messages in batch and store in queues.
-+
-+One 64-bit variant is provided with compat handling:
-+    mq_sendmmsg()
-+
-+2) Functional Specification
-+---------------------------
-+
-+NAME
-+        mq_sendmmsg - send messages as a batch to queues.
-+
-+SYNOPSIS
-+
-+.. code-block:: c
-+
-+        #include <mqueue.h>
-+
-+        struct mq_msg_attrs {
-+	        __kernel_size_t msg_len;
-+	        unsigned int __user *msg_prio;
-+	        void __user *msg_ptr;
-+        };
-+
-+        struct mq_mmsg_attrs {
-+	        struct iovec __user *msg_attrs_vec;
-+	        __kernel_size_t vlen;
-+                int *ret;
-+        };
-+
-+        ssize_t mq_sendmmsg(mqd_t mqdes, struct mq_mmsg_attrs *attrs,
-+                           unsigned int attrs_len, unsigned long start_idx,
-+                           const struct __kernel_timespec *abs_timeout);
-+
-+
-+DESCRIPTION
-+        mq_sendmmsg() send messages in batch to message queue referred
-+        to by the descriptor mqdes.
-+
-+        The start_idx argument specifies which message to begin operating on within
-+        relative to the requested batch range.
-+
-+        The abs_timeout argument specifies an absolute timeout for the entire batch
-+        operation.
-+
-+RETURN VALUE
-+        On success, returns the number of messages stored into the queues.
-+
-+        On failure, the function returns an error directly without writing
-+        to the ret field of struct mq_mmsg_attrs in two situations:
-+
-+        * An error occurred before a single message was successfully stored into the queues.
-+        * A new error occurred in writing error itself in ret field of struct mq_mmsg_attrs
-+          after partial success before completing batch and passing a bad address in ret can
-+          cause successfully enqueued messages to be processed again in a future call, resulting
-+          in duplicates, as userspace has no other way to know about messages processed so far in
-+          previous call.
-+
-+
-+ERRORS
-+        ``EAGAIN``
-+                Queue is not empty.
-+
-+        ``EBADF``
-+                mqdes is not a valid message queue descriptor open
-+                for reading.
-+
-+        ``EFAULT``
-+                attrs, msg_ptr, msg_prio, or abs_timeout points to
-+                an invalid address.
-+
-+        ``EINVAL``
-+                The batch size is too large, start_idx is inconsistent with the
-+                current queue state.
-+
-+        ``EMSGSIZE``
-+                msg_len is greater than the mq_msgsize attribute of
-+                the queue.
-+
-+        ``E2BIG``
-+                attrs_len is greater than PAGE_SIZE.
-+
-+        ``ETIMEDOUT``
-+                The call timed out before a space became available to store
-+                new messages.
-+
-+        ``ENOMEM``
-+                 Insufficient memory to complete the operation.
-+
-+3) Design
-+---------
-+
-+3.1 Struct-based argument passing
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+
-+The message buffer parameters (msg_ptr, msg_len, msg_prio) are consolidated
-+into struct mq_msg_attrs rather than passed as individual syscall arguments.
-+These are then referenced via struct mq_mmsg_attrs, which contains an
-+iovec msg_attrs_vec and a vlen count. The base of msg_attrs_vec holds individual
-+mq_msg_attrs entries, and length store struct mq_msg_attrs size.
-+
-+
-+3.2 Compat handling
-+~~~~~~~~~~~~~~~~~~~~
-+
-+.. code-block:: c
-+
-+        struct compat_msg_attrs {
-+	        compat_size_t msg_len;
-+	        compat_uptr_t msg_prio;
-+	        compat_uptr_t msg_ptr;
-+        };
-+
-+        struct compat_mq_mmsg_attrs {
-+	        compat_uptr_t msg_attrs_vec;
-+	        compat_size_t vlen;
-+	        compat_uptr_t ret;
-+        };
-+
-+
-+The compat entry point performs the necessary conversions before
-+calling the shared do_mq_sendmmsg() implementation.
-+
-+
-+3.3 start_idx argument
-+~~~~~~~~~~~~~~~~~~~~~~~
-+
-+The start_idx argument specifies the message at which to begin storing messages in the queue.
-+If a batch request fails partway through, user space is expected to supply an updated
-+start_idx reflecting the number of messages already handled, failing to do so may result
-+in duplicate message passed to the queues.
-+
-+4) Test Specification
-+----------------------
-+
-+Tests for mq_sendmmsg() should cover the following:
-+
-+1) Offset and boundary handling — Verify that the implementation work correctly as per
-+batch size and start_idx boundary conditions.
-+
-+2) Partial success — Verify that when an error occurs mid-batch, the call returns
-+successfully with the count of messages processed so far.
-+
-+3) Batch Timeout - Verify batch absolute deadline return expected value when
-+queue is completely full.
-+
-+
-+
-diff --git a/tools/testing/selftests/ipc/Makefile b/tools/testing/selftests/ipc/Makefile
-index fad10f2bb57b..04da0efd67d7 100644
---- a/tools/testing/selftests/ipc/Makefile
-+++ b/tools/testing/selftests/ipc/Makefile
-@@ -12,7 +12,7 @@ endif
- 
- CFLAGS += $(KHDR_INCLUDES)
- 
--TEST_GEN_PROGS := msgque
-+TEST_GEN_PROGS := msgque mq_recvmmsg mq_sendmmsg
- 
- include ../lib.mk
- 
-diff --git a/tools/testing/selftests/ipc/mq_recvmmsg.c b/tools/testing/selftests/ipc/mq_recvmmsg.c
-new file mode 100644
-index 000000000000..7d464c4d839f
---- /dev/null
-+++ b/tools/testing/selftests/ipc/mq_recvmmsg.c
-@@ -0,0 +1,392 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#define _GNU_SOURCE
-+
-+#include <fcntl.h>
-+#include <stdbool.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/syscall.h>
-+#include <sys/uio.h>
-+#include <time.h>
-+#include <unistd.h>
-+#include <linux/time_types.h>
-+#include "kselftest.h"
-+#include <mqueue.h>
-+
-+#ifndef __NR_mq_recvmmsg
-+#if defined(__alpha__)
-+#define __NR_mq_recvmmsg 582
-+#else
-+#define __NR_mq_recvmmsg 472
-+#endif
-+#endif
-+
-+#define MQ_PEEK 0x02
-+#define MQ_RECV 0x04
-+
-+#define MQ_NAME_PREFIX "/mq_peek_test"
-+#define MQ_MAXMSG 16
-+#define MAX_MSG_SIZE 8192
-+
-+struct msg_attrs {
-+	long msg_len;
-+	unsigned int *msg_prio;
-+	void *msg_ptr;
-+};
-+
-+struct mmsg_attrs {
-+	struct iovec *msg_attrs_vec;
-+	long vlen;
-+	int *err;
-+};
-+
-+struct batch_slot {
-+	struct msg_attrs desc;
-+	struct iovec iov;
-+	char buf[MAX_MSG_SIZE];
-+	unsigned int prio;
-+};
-+
-+static long mq_recvmmsg(mqd_t mqdes, struct mmsg_attrs *attrs, unsigned int attrs_len,
-+		       unsigned int flags, unsigned int start_idx,
-+		       const struct __kernel_timespec *timeout)
-+{
-+	return syscall(__NR_mq_recvmmsg, mqdes, attrs, attrs_len, flags,
-+		      start_idx, timeout);
-+}
-+
-+static long queue_depth(mqd_t mqd)
-+{
-+	struct mq_attr attr;
-+
-+	if (mq_getattr(mqd, &attr))
-+		return -1;
-+
-+	return attr.mq_curmsgs;
-+}
-+
-+static mqd_t open_queue(const char *suffix)
-+{
-+	static unsigned int seq;
-+	char name[128];
-+	struct mq_attr attr = {
-+		.mq_flags = 0,
-+		.mq_maxmsg = MQ_MAXMSG,
-+		.mq_msgsize = MAX_MSG_SIZE,
-+	};
-+
-+	mqd_t mqd;
-+
-+	snprintf(name, sizeof(name), "%s%s_%d_%u", MQ_NAME_PREFIX, suffix, getpid(),
-+			seq++);
-+
-+	mq_unlink(name);
-+
-+	mqd = mq_open(name, O_NONBLOCK | O_RDWR | O_CREAT | O_EXCL, 0600, &attr);
-+	if (mqd == (mqd_t)-1) {
-+		ksft_test_result_fail("mq_open(%s) failed: %m\n", name);
-+		ksft_exit_fail();
-+	}
-+
-+	mq_unlink(name);
-+	return mqd;
-+}
-+
-+static void build_slot(struct batch_slot *slot)
-+{
-+	memset(slot, 0, sizeof(*slot));
-+	slot->desc.msg_len = sizeof(slot->buf);
-+	slot->desc.msg_prio = &slot->prio;
-+	slot->desc.msg_ptr = slot->buf;
-+	slot->iov.iov_base = &slot->desc;
-+	slot->iov.iov_len = sizeof(slot->desc);
-+}
-+
-+static void build_slots(struct batch_slot *slots, size_t nr)
-+{
-+	size_t i;
-+
-+	for (i = 0; i < nr; i++)
-+		build_slot(&slots[i]);
-+}
-+
-+static long batch_recv(mqd_t mqd, struct batch_slot *slots, size_t nr,
-+		      int *err, unsigned int flags, unsigned int start_idx,
-+		      const struct __kernel_timespec *timeout)
-+{
-+	struct iovec vec[MQ_MAXMSG];
-+	struct mmsg_attrs attrs;
-+	size_t i;
-+
-+	for (i = 0; i < nr; i++)
-+		vec[i] = slots[i].iov;
-+
-+	attrs.msg_attrs_vec = vec;
-+	attrs.vlen = nr;
-+	attrs.err = err;
-+
-+	return mq_recvmmsg(mqd, &attrs, sizeof(attrs), flags, start_idx,
-+			  timeout);
-+}
-+
-+
-+static void send_or_die(mqd_t mqd, unsigned int prio, const char *payload)
-+{
-+	if (mq_send(mqd, payload, strlen(payload), prio)) {
-+		ksft_test_result_fail("mq_send(%s, %u) failed: %m\n",
-+				      payload, prio);
-+		ksft_exit_fail();
-+	}
-+}
-+
-+static bool check_slot(const struct batch_slot *slot, const char *payload,
-+		      unsigned int prio)
-+{
-+	size_t len = strlen(payload);
-+
-+	if (slot->prio != prio)
-+		return false;
-+	if (memcmp(slot->buf, payload, len))
-+		return false;
-+	return true;
-+}
-+
-+static void test_peek_batch_success_count(void)
-+{
-+	mqd_t mqd = open_queue("peek_count");
-+	struct batch_slot slots[3];
-+	long ret;
-+	int err;
-+
-+	send_or_die(mqd, 1, "low");
-+	send_or_die(mqd, 9, "high");
-+
-+	build_slots(slots, ARRAY_SIZE(slots));
-+	ret = batch_recv(mqd, slots, ARRAY_SIZE(slots), &err, MQ_PEEK, 0, NULL);
-+
-+	if (ret != 2) {
-+		ksft_test_result_fail("peek count: ret=%ld expected=2\n", ret);
-+		goto out;
-+	}
-+	if (!check_slot(&slots[0], "high", 9) ||
-+	    !check_slot(&slots[1], "low", 1)) {
-+		ksft_test_result_fail("peek count: payload/prio mismatch\n");
-+		goto out;
-+	}
-+	if (queue_depth(mqd) != 2) {
-+		ksft_test_result_fail("peek count: queue depth changed to %ld\n",
-+				      queue_depth(mqd));
-+		goto out;
-+	}
-+
-+	ksft_test_result_pass("peek batch returns number of successful messages\n");
-+out:
-+	mq_close(mqd);
-+}
-+
-+static void test_receive_batch_success_count(void)
-+{
-+	static const struct __kernel_timespec expired = { 0, 0 };
-+	mqd_t mqd = open_queue("recv_count");
-+	struct batch_slot slots[3];
-+	long ret;
-+	int err;
-+
-+	send_or_die(mqd, 2, "two");
-+	send_or_die(mqd, 7, "seven");
-+
-+	build_slots(slots, ARRAY_SIZE(slots));
-+	ret = batch_recv(mqd, slots, ARRAY_SIZE(slots), &err, MQ_RECV, 0, &expired);
-+
-+	if (ret != 2) {
-+		ksft_test_result_fail("receive count: ret=%ld expected=2\n", ret);
-+		goto out;
-+	}
-+	if (!check_slot(&slots[0], "seven", 7) ||
-+	    !check_slot(&slots[1], "two", 2)) {
-+		ksft_test_result_fail("receive count: payload/prio mismatch\n");
-+		goto out;
-+	}
-+	if (queue_depth(mqd) != 0) {
-+		ksft_test_result_fail("receive count: queue depth=%ld expected=0\n",
-+				      queue_depth(mqd));
-+		goto out;
-+	}
-+
-+	ksft_test_result_pass("receive batch returns success count and consumes messages\n");
-+out:
-+	mq_close(mqd);
-+}
-+
-+static void test_peek_start_idx_uses_absolute_index(void)
-+{
-+	mqd_t mqd = open_queue("peek_offset");
-+	struct batch_slot slots[3];
-+	long ret;
-+	int err;
-+
-+	send_or_die(mqd, 9, "high");
-+	send_or_die(mqd, 5, "mid");
-+	send_or_die(mqd, 1, "low");
-+
-+	build_slots(slots, ARRAY_SIZE(slots));
-+	memset(slots[0].buf, 0x5a, sizeof(slots[0].buf));
-+	ret = batch_recv(mqd, slots, ARRAY_SIZE(slots), &err, MQ_PEEK, 1, NULL);
-+
-+	if (ret != 2) {
-+		ksft_test_result_fail("peek start_idx: ret=%ld expected=2\n", ret);
-+		goto out;
-+	}
-+	if (!check_slot(&slots[1], "mid", 5) ||
-+	    !check_slot(&slots[2], "low", 1)) {
-+		ksft_test_result_fail("peek start_idx: wrong messages returned\n");
-+		goto out;
-+	}
-+	if (slots[0].buf[0] != 0x5a) {
-+		ksft_test_result_fail("peek start_idx: slot 0 was written by kernel unnecessarily\n");
-+		goto out;
-+	}
-+
-+	ksft_test_result_pass("peek start_idx maps directly to queue\n");
-+out:
-+	mq_close(mqd);
-+}
-+
-+static void test_receive_start_idx_not_receives_from_outside_range(void)
-+{
-+	mqd_t mqd = open_queue("recv_offset");
-+	struct batch_slot slots[3];
-+	long ret;
-+	int err;
-+
-+	send_or_die(mqd, 8, "first");
-+	send_or_die(mqd, 3, "second");
-+
-+	build_slots(slots, ARRAY_SIZE(slots));
-+	memset(slots[0].buf, 0x6b, sizeof(slots[0].buf));
-+	ret = batch_recv(mqd, slots, ARRAY_SIZE(slots), &err, MQ_RECV, 1, NULL);
-+
-+	if (ret != 2) {
-+		ksft_test_result_fail("receive start_idx: ret=%ld expected=2\n",
-+				     ret);
-+		goto out;
-+	}
-+	if (!check_slot(&slots[1], "first", 8) ||
-+		!check_slot(&slots[2], "second", 3)) {
-+		ksft_test_result_fail("receive start_idx: wrong receive order\n");
-+		goto out;
-+	}
-+	if (slots[0].buf[0] != 0x6b) {
-+		ksft_test_result_fail("receive start_idx: slot 0 was written by kernel unnecessarily\n");
-+		goto out;
-+	}
-+
-+	ksft_test_result_pass("non-peek path ignores queue indexing and receives from head within range\n");
-+out:
-+	mq_close(mqd);
-+}
-+
-+static void test_peek_partial_success_on_small_buffer(void)
-+{
-+	mqd_t mqd = open_queue("peek_small");
-+	struct batch_slot slots[2];
-+	long ret;
-+	int err;
-+
-+	send_or_die(mqd, 9, "abc");
-+	send_or_die(mqd, 4, "1234");
-+
-+	build_slots(slots, ARRAY_SIZE(slots));
-+	slots[1].desc.msg_len = 1;
-+	ret = batch_recv(mqd, slots, ARRAY_SIZE(slots), &err, MQ_PEEK, 0, NULL);
-+
-+	if (ret != 1) {
-+		ksft_test_result_fail("peek partial small buffer: ret=%ld expected=1\n",
-+				      ret);
-+		goto out;
-+	}
-+	if (!check_slot(&slots[0], "abc", 9)) {
-+		ksft_test_result_fail("peek partial small buffer: first slot mismatch\n");
-+		goto out;
-+	}
-+	if (queue_depth(mqd) != 2) {
-+		ksft_test_result_fail("peek partial small buffer: queue depth=%ld expected=2\n",
-+				      queue_depth(mqd));
-+		goto out;
-+	}
-+
-+	ksft_test_result_pass("peek batch reports completed so far before EMSGSIZE\n");
-+out:
-+	mq_close(mqd);
-+}
-+
-+static void test_receive_partial_success_on_bad_desc_len(void)
-+{
-+	mqd_t mqd = open_queue("recv_desc");
-+	struct batch_slot slots[2];
-+	long ret;
-+	int err;
-+
-+	send_or_die(mqd, 6, "driver");
-+	send_or_die(mqd, 2, "module");
-+
-+	build_slots(slots, ARRAY_SIZE(slots));
-+	slots[1].iov.iov_len = sizeof(slots[1].desc) - 1;
-+	ret = batch_recv(mqd, slots, ARRAY_SIZE(slots), &err, MQ_RECV, 0, NULL);
-+
-+	if (ret != 1) {
-+		ksft_test_result_fail("receive partial desc len: ret=%ld expected=1\n",
-+				      ret);
-+		goto out;
-+	}
-+	if (!check_slot(&slots[0], "driver", 6)) {
-+		ksft_test_result_fail("receive partial desc len: first slot mismatch\n");
-+		goto out;
-+	}
-+	if (queue_depth(mqd) != 1) {
-+		ksft_test_result_fail("receive partial desc len: queue depth=%ld expected=1\n",
-+				      queue_depth(mqd));
-+		goto out;
-+	}
-+
-+	ksft_test_result_pass("receive batch reports completed so far before descriptor error\n");
-+out:
-+	mq_close(mqd);
-+}
-+
-+static const struct {
-+	const char *name;
-+	void (*fn)(void);
-+} tests[] = {
-+	{ "peek batch success count", test_peek_batch_success_count },
-+	{ "receive batch success count", test_receive_batch_success_count },
-+	{ "peek absolute index with start_idx", test_peek_start_idx_uses_absolute_index },
-+	{ "receive start_idx obey offset boundary", test_receive_start_idx_not_receives_from_outside_range },
-+	{ "peek partial success before EMSGSIZE", test_peek_partial_success_on_small_buffer },
-+	{ "receive partial success before desc error", test_receive_partial_success_on_bad_desc_len },
-+};
-+
-+int main(void)
-+{
-+	size_t i;
-+	struct batch_slot probe;
-+	long ret;
-+	int err;
-+
-+	ksft_print_header();
-+
-+	build_slot(&probe);
-+	ret = batch_recv((mqd_t)-1, &probe, 1, &err, MQ_PEEK, 0, NULL);
-+	if (ret == -1 && errno == ENOSYS)
-+		ksft_exit_skip("mq_recvmmsg syscall not available\n");
-+
-+	ksft_set_plan(ARRAY_SIZE(tests));
-+
-+	for (i = 0; i < ARRAY_SIZE(tests); i++) {
-+		ksft_print_msg("[%02zu] %s\n", i + 1, tests[i].name);
-+		tests[i].fn();
-+	}
-+
-+	return ksft_get_fail_cnt() ? 1 : 0;
-+}
-diff --git a/tools/testing/selftests/ipc/mq_sendmmsg.c b/tools/testing/selftests/ipc/mq_sendmmsg.c
-new file mode 100644
-index 000000000000..3f51ba75d1cb
---- /dev/null
-+++ b/tools/testing/selftests/ipc/mq_sendmmsg.c
-@@ -0,0 +1,360 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#define _GNU_SOURCE
-+
-+#include <fcntl.h>
-+#include <mqueue.h>
-+#include <stdbool.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/syscall.h>
-+#include <sys/uio.h>
-+#include <time.h>
-+#include <unistd.h>
-+#include <linux/time_types.h>
-+#include "kselftest.h"
-+
-+#ifndef __NR_mq_sendmmsg
-+#if defined(__alpha__)
-+#define __NR_mq_sendmmsg 583
-+#else
-+#define __NR_mq_sendmmsg 473
-+#endif
-+#endif
-+
-+#define MQ_NAME_PREFIX "/mq_sendmmsg_test_"
-+#define MQ_MAXMSG 16
-+#define MAX_MSG_SIZE 128
-+
-+struct msg_attrs {
-+	long msg_len;
-+	unsigned int *msg_prio;
-+	void *msg_ptr;
-+};
-+
-+struct mmsg_attrs {
-+	struct iovec *msg_attrs_vec;
-+	long vlen;
-+	int *err;
-+};
-+
-+struct send_slot {
-+	struct msg_attrs desc;
-+	struct iovec iov;
-+	const char *payload;
-+	unsigned int prio;
-+};
-+
-+static long mq_sendmmsg(mqd_t mqdes, struct mmsg_attrs *attrs,
-+		       unsigned int attrs_len, unsigned long start_idx,
-+		       const struct __kernel_timespec *timeout)
-+{
-+	return syscall(__NR_mq_sendmmsg, mqdes, attrs, attrs_len, start_idx,
-+		      timeout);
-+}
-+
-+static mqd_t open_queue_rw(const char *suffix, unsigned int O_FLAGS, long maxmsg)
-+{
-+	static unsigned int seq;
-+	char name[128];
-+	struct mq_attr attr = {
-+		.mq_flags = 0,
-+		.mq_maxmsg = maxmsg,
-+		.mq_msgsize = MAX_MSG_SIZE,
-+	};
-+
-+	mqd_t mqd;
-+
-+	snprintf(name, sizeof(name), "%s%s_%d_%u", MQ_NAME_PREFIX, suffix, getpid(), seq++);
-+	mq_unlink(name);
-+
-+	mqd = mq_open(name, O_FLAGS, 0600, &attr);
-+	if (mqd == (mqd_t)-1) {
-+		ksft_test_result_fail("mq_open(%s) failed: %m\n", name);
-+		ksft_exit_fail();
-+	}
-+
-+	mq_unlink(name);
-+	return mqd;
-+}
-+
-+static void init_send_slot(struct send_slot *slot, const char *payload,
-+			  unsigned int prio)
-+{
-+	memset(slot, 0, sizeof(*slot));
-+	slot->payload = payload;
-+	slot->prio = prio;
-+	slot->desc.msg_len = strlen(payload);
-+	slot->desc.msg_prio = &slot->prio;
-+	slot->desc.msg_ptr = (void *)payload;
-+	slot->iov.iov_base = &slot->desc;
-+	slot->iov.iov_len = sizeof(slot->desc);
-+}
-+
-+static void init_send_slots(struct send_slot *slots, char *const *payloads,
-+			   const unsigned int *prios, size_t nr)
-+{
-+	size_t i;
-+
-+	for (i = 0; i < nr; i++)
-+		init_send_slot(&slots[i], payloads[i], prios[i]);
-+}
-+
-+static long batch_send(mqd_t mqd, struct send_slot *slots, size_t nr, int *err,
-+		      unsigned int start_idx,
-+		      const struct __kernel_timespec *timeout)
-+{
-+	struct iovec vec[MQ_MAXMSG];
-+	struct mmsg_attrs attrs;
-+	size_t i;
-+
-+	for (i = 0; i < nr; i++)
-+		vec[i] = slots[i].iov;
-+
-+	attrs.msg_attrs_vec = vec;
-+	attrs.vlen = nr;
-+	attrs.err = err;
-+
-+	return mq_sendmmsg(mqd, &attrs, sizeof(attrs), start_idx, timeout);
-+}
-+
-+static long queue_depth(mqd_t mqd)
-+{
-+	struct mq_attr attr;
-+
-+	if (mq_getattr(mqd, &attr))
-+		return -1;
-+
-+	return attr.mq_curmsgs;
-+}
-+
-+static bool recv_expect(mqd_t mqd, const char *payload, unsigned int prio)
-+{
-+	char buf[MAX_MSG_SIZE];
-+	unsigned int got_prio = 0;
-+	ssize_t ret;
-+	size_t len = strlen(payload);
-+
-+	memset(buf, 0, sizeof(buf));
-+	ret = mq_receive(mqd, buf, sizeof(buf), &got_prio);
-+	if (ret < 0)
-+		return false;
-+	if ((size_t)ret != len)
-+		return false;
-+	if (got_prio != prio)
-+		return false;
-+	if (memcmp(buf, payload, len))
-+		return false;
-+	return true;
-+}
-+
-+static void test_start_idx_obeys_offset(void)
-+{
-+	mqd_t mqd = open_queue_rw("offset", O_NONBLOCK | O_RDWR | O_CREAT | O_EXCL, MQ_MAXMSG);
-+	struct send_slot slots[3];
-+	static char *const payloads[] = { "first", "second", "third" };
-+	unsigned int prios[] = { 1, 5, 9 };
-+	long ret;
-+	int err;
-+
-+	init_send_slots(slots, payloads, prios, ARRAY_SIZE(slots));
-+	ret = batch_send(mqd, slots, ARRAY_SIZE(slots), &err, 1, NULL);
-+
-+	if (ret != 2) {
-+		ksft_test_result_fail("start_idx skip: ret=%ld expected=2\n", ret);
-+		goto out;
-+	}
-+	if (queue_depth(mqd) != 2) {
-+		ksft_test_result_fail("start_idx skip: queue depth=%ld expected=2\n",
-+				     queue_depth(mqd));
-+		goto out;
-+	}
-+	if (!recv_expect(mqd, "third", 9) ||
-+		!recv_expect(mqd, "second", 5)) {
-+		ksft_test_result_fail("start_idx skip: wrong messages sent\n");
-+		goto out;
-+	}
-+
-+	ksft_test_result_pass("start_idx skips earlier descriptors\n");
-+out:
-+	mq_close(mqd);
-+}
-+
-+static void test_partial_success_on_null_prio(void)
-+{
-+	mqd_t mqd = open_queue_rw("null_prio", O_NONBLOCK | O_RDWR | O_CREAT | O_EXCL, MQ_MAXMSG);
-+	struct send_slot slots[2];
-+	static char *const payloads[] = { "ok", "bad" };
-+	unsigned int prios[] = { 7, 3 };
-+	long ret;
-+	int err;
-+
-+	init_send_slots(slots, payloads, prios, ARRAY_SIZE(slots));
-+	slots[1].desc.msg_prio = NULL;
-+	ret = batch_send(mqd, slots, ARRAY_SIZE(slots), &err, 0, NULL);
-+
-+	if (ret != 1) {
-+		ksft_test_result_fail("partial null prio: ret=%ld expected=1\n", ret);
-+		goto out;
-+	}
-+	if (queue_depth(mqd) != 1 || !recv_expect(mqd, "ok", 7)) {
-+		ksft_test_result_fail("partial null prio: queue contents mismatch\n");
-+		goto out;
-+	}
-+
-+	ksft_test_result_pass("completed prefix is returned before NULL prio error\n");
-+out:
-+	mq_close(mqd);
-+}
-+
-+static void test_partial_success_on_bad_desc_len(void)
-+{
-+	mqd_t mqd = open_queue_rw("bad_desc", O_NONBLOCK | O_RDWR | O_CREAT | O_EXCL, MQ_MAXMSG);
-+	struct send_slot slots[2];
-+	static char *const payloads[] = { "ok", "bad" };
-+	unsigned int prios[] = { 8, 2 };
-+	long ret;
-+	int err;
-+
-+	init_send_slots(slots, payloads, prios, ARRAY_SIZE(slots));
-+	slots[1].iov.iov_len = sizeof(slots[1].desc) - 1;
-+	ret = batch_send(mqd, slots, ARRAY_SIZE(slots), &err, 0, NULL);
-+
-+	if (ret != 1) {
-+		ksft_test_result_fail("partial bad desc len: ret=%ld expected=1\n", ret);
-+		goto out;
-+	}
-+	if (queue_depth(mqd) != 1 || !recv_expect(mqd, "ok", 8)) {
-+		ksft_test_result_fail("partial bad desc len: queue contents mismatch\n");
-+		goto out;
-+	}
-+
-+	ksft_test_result_pass("completed prefix is returned before descriptor error\n");
-+out:
-+	mq_close(mqd);
-+}
-+
-+static void test_partial_success_on_bad_prio_ptr(void)
-+{
-+	mqd_t mqd = open_queue_rw("bad_prio_ptr", O_NONBLOCK | O_RDWR | O_CREAT | O_EXCL, MQ_MAXMSG);
-+	struct send_slot slots[2];
-+	static char *const payloads[] = { "ok", "bad" };
-+	unsigned int prios[] = { 6, 4 };
-+	long ret;
-+	int err;
-+
-+	init_send_slots(slots, payloads, prios, ARRAY_SIZE(slots));
-+	slots[1].desc.msg_prio = (void *)1;
-+	ret = batch_send(mqd, slots, ARRAY_SIZE(slots), &err, 0, NULL);
-+
-+	if (ret != 1) {
-+		ksft_test_result_fail("partial bad prio ptr: ret=%ld expected=1\n", ret);
-+		goto out;
-+	}
-+	if (queue_depth(mqd) != 1 || !recv_expect(mqd, "ok", 6)) {
-+		ksft_test_result_fail("partial bad prio ptr: queue contents mismatch\n");
-+		goto out;
-+	}
-+
-+	ksft_test_result_pass("completed prefix is returned before bad prio pointer fault\n");
-+out:
-+	mq_close(mqd);
-+}
-+
-+static void test_full_queue_timeout(void)
-+{
-+	static const struct __kernel_timespec expired = { 0, 0 };
-+	mqd_t mqd = open_queue_rw("full_timeout", O_RDWR | O_CREAT | O_EXCL, 1);
-+	struct send_slot slot;
-+	long ret;
-+	int err;
-+
-+	init_send_slot(&slot, "first", 1);
-+	ret = batch_send(mqd, &slot, 1, &err, 0, NULL);
-+	if (ret != 1)
-+		ksft_exit_fail_msg("failed to prefill queue\n");
-+
-+	init_send_slot(&slot, "second", 2);
-+	ret = batch_send(mqd, &slot, 1, &err, 0, &expired);
-+
-+	if (ret == -1 && errno == ETIMEDOUT && queue_depth(mqd) == 1)
-+		ksft_test_result_pass("full queue with expired timeout returns ETIMEDOUT\n");
-+	else
-+		ksft_test_result_fail("full queue timeout: ret=%ld errno=%d depth=%ld\n",
-+				     ret, errno, queue_depth(mqd));
-+
-+	mq_close(mqd);
-+}
-+
-+static void test_partial_success_when_queue_fills(void)
-+{
-+	static const struct __kernel_timespec expired = { 0, 0 };
-+	mqd_t mqd = open_queue_rw("queue_fills", O_NONBLOCK | O_RDWR | O_CREAT | O_EXCL, 2);
-+	struct send_slot slots[2];
-+	static char *const payloads[] = { "fit", "overflow" };
-+	unsigned int prios[] = { 1, 2 };
-+	long ret;
-+	int err;
-+
-+	init_send_slot(&slots[0], "prefill", 3);
-+	ret = batch_send(mqd, &slots[0], 1, &err, 0, NULL);
-+	if (ret != 1)
-+		ksft_exit_fail_msg("failed to prefill queue\n");
-+
-+	init_send_slots(slots, payloads, prios, ARRAY_SIZE(slots));
-+	ret = batch_send(mqd, slots, ARRAY_SIZE(slots), &err, 0, &expired);
-+
-+	if (ret != 1) {
-+		ksft_test_result_fail("queue fills partial: ret=%ld expected=1\n", ret);
-+		goto out;
-+	}
-+	if (queue_depth(mqd) != 2) {
-+		ksft_test_result_fail("queue fills partial: depth=%ld expected=2\n",
-+				     queue_depth(mqd));
-+		goto out;
-+	}
-+	if (!recv_expect(mqd, "prefill", 3) || !recv_expect(mqd, "fit", 1)) {
-+		ksft_test_result_fail("queue fills partial: queue contents mismatch\n");
-+		goto out;
-+	}
-+
-+	ksft_test_result_pass("completed operation is returned when queue fills mid-batch\n");
-+out:
-+	mq_close(mqd);
-+}
-+
-+static const struct {
-+	const char *name;
-+	void (*fn)(void);
-+} tests[] = {
-+	{ "start_idx obey offset", test_start_idx_obeys_offset },
-+	{ "partial success on NULL prio", test_partial_success_on_null_prio },
-+	{ "partial success on bad desc len", test_partial_success_on_bad_desc_len },
-+	{ "partial success on bad prio pointer", test_partial_success_on_bad_prio_ptr },
-+	{ "full queue timeout", test_full_queue_timeout },
-+	{ "partial success when queue fills", test_partial_success_when_queue_fills },
-+};
-+
-+int main(void)
-+{
-+	size_t i;
-+	struct send_slot probe;
-+	long ret;
-+	int err;
-+
-+	ksft_print_header();
-+
-+	init_send_slot(&probe, "probe", 1);
-+	ret = batch_send((mqd_t)-1, &probe, 1, &err, 0, NULL);
-+	if (ret == -1 && errno == ENOSYS)
-+		ksft_exit_skip("mq_sendmmsg syscall not available\n");
-+
-+	ksft_set_plan(ARRAY_SIZE(tests));
-+
-+	for (i = 0; i < ARRAY_SIZE(tests); i++) {
-+		ksft_print_msg("[%02zu] %s\n", i + 1, tests[i].name);
-+		tests[i].fn();
-+	}
-+
-+	return ksft_get_fail_cnt() ? 1 : 0;
-+}
--- 
-2.43.0
+Greetings,
 
+-- Sebastian
+
+>=20
+> Regards,
+> Krishna,
+>=20
+> >   	res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> >   	if (!res) {
+> > diff --git a/drivers/usb/dwc3/dwc3-rockchip.c b/drivers/usb/dwc3/dwc3-r=
+ockchip.c
+> > new file mode 100644
+> > index 000000000000..62f2a03b08a2
+> > --- /dev/null
+> > +++ b/drivers/usb/dwc3/dwc3-rockchip.c
+> > @@ -0,0 +1,106 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +/* Copyright (c) 2026, Collabora Ltd. */
+> > +#include <linux/module.h>
+> > +#include <linux/platform_device.h>
+> > +#include <linux/pm_runtime.h>
+> > +#include "glue.h"
+> > +
+> > +struct dwc3_rockchip {
+> > +	struct dwc3		dwc;
+> > +};
+> > +
+> > +static int dwc3_rockchip_probe(struct platform_device *pdev)
+> > +{
+> > +	struct dwc3_probe_data probe_data =3D {};
+> > +	struct resource *res;
+> > +	struct dwc3_rockchip *dwc_rk;
+> > +
+> > +	res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> > +	if (!res) {
+> > +		dev_err(&pdev->dev, "missing memory resource\n");
+> > +		return -ENODEV;
+> > +	}
+> > +
+> > +	dwc_rk =3D devm_kzalloc(&pdev->dev, sizeof(*dwc_rk), GFP_KERNEL);
+> > +	if (!dwc_rk)
+> > +		return -ENOMEM;
+> > +
+> > +	dwc_rk->dwc.dev =3D &pdev->dev;
+> > +	dwc_rk->dwc.glue_ops =3D NULL;
+> > +
+> > +	probe_data.dwc =3D &dwc_rk->dwc;
+> > +	probe_data.res =3D res;
+> > +	probe_data.properties =3D DWC3_DEFAULT_PROPERTIES;
+> > +
+> > +	return dwc3_core_probe(&probe_data);
+> > +}
+> > +
+> > +static void dwc3_rockchip_remove(struct platform_device *pdev)
+> > +{
+> > +	dwc3_core_remove(platform_get_drvdata(pdev));
+> > +}
+> > +
+> > +static int __maybe_unused dwc3_rockchip_runtime_suspend(struct device =
+*dev)
+> > +{
+> > +	return dwc3_runtime_suspend(dev_get_drvdata(dev));
+> > +}
+> > +
+> > +static int __maybe_unused dwc3_rockchip_runtime_resume(struct device *=
+dev)
+> > +{
+> > +	return dwc3_runtime_resume(dev_get_drvdata(dev));
+> > +}
+> > +
+> > +static int __maybe_unused dwc3_rockchip_runtime_idle(struct device *de=
+v)
+> > +{
+> > +	return dwc3_runtime_idle(dev_get_drvdata(dev));
+> > +}
+> > +
+> > +static int __maybe_unused dwc3_rockchip_suspend(struct device *dev)
+> > +{
+> > +	return dwc3_pm_suspend(dev_get_drvdata(dev));
+> > +}
+> > +
+> > +static int __maybe_unused dwc3_rockchip_resume(struct device *dev)
+> > +{
+> > +	return dwc3_pm_resume(dev_get_drvdata(dev));
+> > +}
+> > +
+> > +static void __maybe_unused dwc3_rockchip_complete(struct device *dev)
+> > +{
+> > +	dwc3_pm_complete(dev_get_drvdata(dev));
+> > +}
+> > +
+> > +static int __maybe_unused dwc3_rockchip_prepare(struct device *dev)
+> > +{
+> > +	return dwc3_pm_prepare(dev_get_drvdata(dev));
+> > +}
+> > +
+> > +static const struct dev_pm_ops dwc3_rockchip_dev_pm_ops =3D {
+> > +	SET_SYSTEM_SLEEP_PM_OPS(dwc3_rockchip_suspend, dwc3_rockchip_resume)
+> > +	SET_RUNTIME_PM_OPS(dwc3_rockchip_runtime_suspend, dwc3_rockchip_runti=
+me_resume,
+> > +			   dwc3_rockchip_runtime_idle)
+> > +	.complete =3D pm_sleep_ptr(dwc3_rockchip_complete),
+> > +	.prepare =3D pm_sleep_ptr(dwc3_rockchip_prepare),
+> > +};
+> > +
+> > +static const struct of_device_id dwc3_rockchip_of_match[] =3D {
+> > +	{ .compatible =3D "rockchip,rk3588-dwc3" },
+> > +	{ .compatible =3D "rockchip,rk3576-dwc3" },
+> > +	{ }
+> > +};
+> > +MODULE_DEVICE_TABLE(of, dwc3_rockchip_of_match);
+> > +
+> > +static struct platform_driver dwc3_rockchip_driver =3D {
+> > +	.probe		=3D dwc3_rockchip_probe,
+> > +	.remove		=3D dwc3_rockchip_remove,
+> > +	.driver		=3D {
+> > +		.name	=3D "dwc3-rockchip",
+> > +		.pm	=3D pm_ptr(&dwc3_rockchip_dev_pm_ops),
+> > +		.of_match_table	=3D dwc3_rockchip_of_match,
+> > +	},
+> > +};
+> > +
+> > +module_platform_driver(dwc3_rockchip_driver);
+> > +
+> > +MODULE_LICENSE("GPL");
+> > +MODULE_DESCRIPTION("DesignWare DWC3 Rockchip Glue Driver");
+> >=20
+>=20
+
+--vu4syrqui7xkgy6d
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmq1Q3oACgkQ2O7X88g7
++pqNww/9EHGMcp537E32jHoRUriW7+ZRqiKtCJUEczh/NpGV7a9xXNuE+bkz7LVq
+8UvGrp0IAOp4D25D87IBZIwDPnw67hIbvheZ0jI1RSFoEfccO2RDqEJuwgr7TqdC
+g0d427lgmozamZMyUVzI09/4Utnl3DSa8uWwYIq9/qRf6b5iqraovAoySq+KmKOY
+5hss824MlBk2PKv5Zo8O0dd9CwcSyZuwxDgRoBToCZxQbHJdnAoHtJJN2VmLzZVx
+N5IeQwKnqfLMS2lfiX5xSoRNotkrA7Ui5iKFvsKsLU/gARuQ6LHhChy9SE8aBww+
+chxvuSCF2s+FGF71RIHfUpVyq4+jMUdlL3ptA0mLVQrrUQsfinFAIuDtzQdTflBb
+ap3t6hwgj5zfBq/BueWKWUDfh8WurhILCEk45ALEKePEDKa7D5Dh1KEdwYBtTMy/
+G7FflOWk8J5oA9DiPHVGD5Bnu92PmD/yCxIEIDCWz03nK1cDJTl2+ahxrKrVKQa8
+1PmUSIabWXinh1fiptThR0Egj/dzscArNESi2IvoxtGBLyAVZ0aesZgGdURhV7w1
+lUxmBBlwcpDZr9TDgDakKW70TgPsuccXeCsgxLkMNm5ydtqU7l/gH5kDun4FrbWz
+0xZWpKVyrZvU0zEoz56h56Rbd+Hcas6pXZIFgJH1+tnZMCVfD7U=
+=yBxX
+-----END PGP SIGNATURE-----
+
+--vu4syrqui7xkgy6d--
