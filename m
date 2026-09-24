@@ -1,381 +1,191 @@
-Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98CD43F4DA;
-	Thu, 24 Sep 2026 07:59:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.35.192.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 152F343E069;
+	Thu, 24 Sep 2026 07:59:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790236774; cv=none; b=cCEE+4Oej5CdZJnlMkUeDOdURJ6/T8SkjDWiTCeqvixlaUZqKVRCIJ5HcEEM1R0waRgUHnHU5qeuCKA9fw8miWROWcK1iRljs1u5zbHL+LD986BDHqlfwMXzVqbXWMhWV8TurL4EqrrgqdDUcZalM7ksl7m823Gs/nOTBbQj+BI=
+	t=1790236777; cv=none; b=k0qDXdgN5C0HWd5IJ8lbjb4DKJ1fTlVHIL4AonwifWfxK7GJSlEqOFC1KwptUJNSbyV1uk8BkcoaxZGKvrcfDOTf2g915YOKAzhfwS+EehKPYdvsbSLvvSrtUKZ0MJ1nqF3amT3S6msvfO4+OmRVNolcEDF0EGph/YkE2FJ8Rs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790236774; c=relaxed/simple;
-	bh=BKCT1WDmDFal5x2/3WzCjapvuYD9S1cY0r8uhuKWZ6U=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MTNUzVKz6uj0Y6H4VddBnLcTKWzttw4ZWHSFxsTKEc7aC01E1G8cYjXPw3OdcHsAKVTfz1yntCtBtRbrsbb83dHzBwI01k4YNIJMOFeaZPPigSrrvt9HnMZVXhEjGkI1osbo5lGEnEED6xZMpA/A/vh6SSOCx1asOV4BIp/iIhU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=L6Hl5ijS; arc=none smtp.client-ip=52.35.192.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1790236777; c=relaxed/simple;
+	bh=jxC8F7qLnoV0gDyWlqUxIXfYSuGaTM1jGGGSbqjvo64=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Tb5KZuDx6T3Yp6zEbnV3PawR+apQSvUPO+kvP2zwuEdjgUojrUxNHphzKH+BRUIqLt9baqTA/QKMolZUqOsqIEcUbvVMN1C3hj1U0CKEG8jSdG0upoZqsrYtKlfs+vizMAVcsVmoFLbmWt8jWX3dlC61Q9u+kCpNw/KZbAaQkoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=rRMOOliD; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="L6Hl5ijS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1790236771; x=1821772771;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=d0A6yBEKB5pIlMDOPiNvgUgiwxwya8mWjEPJIwGfWGU=;
-  b=L6Hl5ijSDJpiLuOm+BOXehxh50kzAMdgCNvn5GeO4yKkNLrHDYZkM9/k
-   QINdljxIeTTySOBO3394ffyWJ6JnPuOOxeXzMNi4LhHKbFgffSNtFgZ0o
-   RrWY+NMSgTuaR07/0LKZz+x4ILN3A08jf26RHmyisArYWbcJ2EDtNeSjp
-   aHrzQmCxCviExoZrRhPIW3J1bORlTxthMknm+1l48ZOovT4Qmz2T9OJYV
-   Y3ysumBjeVCw7Gw1U/X/nY3aynhfPa/694L07hDLcIsOsINiTvynRnGjj
-   RvoCwzx53xR1iQBRBWJrz+fn+TgGcZzicJsDHhtkLHBXZyULiTQwT1mKa
-   g==;
-X-CSE-ConnectionGUID: tcZ4UgvyQ6+TY6f8BaqESg==
-X-CSE-MsgGUID: Va2iXJLfRbqMFKjQMHhZ6A==
-X-IronPort-AV: E=Sophos;i="6.27,120,1787011200"; 
-   d="scan'208";a="29282609"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 07:59:27 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.182:18184]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.45.34:2525] with esmtp (Farcaster)
- id 24cf0b7e-0a37-47c9-8099-317faaf3a0cd; Thu, 24 Sep 2026 07:59:27 +0000 (UTC)
-X-Farcaster-Flow-ID: 24cf0b7e-0a37-47c9-8099-317faaf3a0cd
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.217) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Thu, 24 Sep 2026 07:59:27 +0000
-Received: from dev-dsk-lravich-1b-7405803b.eu-west-1.amazon.com (10.13.225.95)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Thu, 24 Sep 2026 07:59:25 +0000
-From: Leonid Ravich <lravich@amazon.com>
-To: <linux-crypto@vger.kernel.org>, <dm-devel@lists.linux.dev>
-CC: <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
-	<ebiggers@kernel.org>, <agk@redhat.com>, <snitzer@kernel.org>,
-	<mpatocka@redhat.com>, <bmarzins@redhat.com>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v6 6/6] dm crypt: batch a bio segment's sectors via multi-unit requests
-Date: Thu, 24 Sep 2026 07:58:46 +0000
-Message-ID: <20260924075846.28203-7-lravich@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260924075846.28203-1-lravich@amazon.com>
-References: <20260924075846.28203-1-lravich@amazon.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="rRMOOliD"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=i+/etC7M1IjFvTKUh4gdm/5zLybkbwVOhuiX8fNtSbg=; b=rRMOOliDkugK3lcsosGiOaFRcY
+	J2E9C/eydIELhlps+8nqVMwBWPNkLd9MdoIZjsh+Tgv+n/hX1mpXlem2VcQH4i2f6z6PpcRF4zRR/
+	YCHk9wfUPbSlupkjkJO936kjHq9IZ9NbXdkVectR68GeYM1YksI4kFVZ9YsnoWsSe8GUciJ/mWNLv
+	FQ6o7zn2sv3wW0ZNZ8l+KYMMh1t+9HxRTeNGZL/No2JKnctDFSxpiP+RiOxIhbqJz0l4YYPCmbBmp
+	Nu4LbzKhR23ToJ71vy5LszlCO8Ef5lNuiAReM+ifN12SVdE7AJyHUChgDAqS95Ye7pTx5h2mltG4l
+	09Akckmw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x9eMY-0000000Fh03-0l2Q;
+	Thu, 24 Sep 2026 07:59:26 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 31B79300756; Thu, 24 Sep 2026 09:59:25 +0200 (CEST)
+Date: Thu, 24 Sep 2026 09:59:25 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Andrea Righi <arighi@nvidia.com>
+Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	David Dai <david.dai@linux.dev>, Koba Ko <kobak@nvidia.com>,
+	Aiqun Yu <aiqun.yu@oss.qualcomm.com>, Shuah Khan <shuah@kernel.org>,
+	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCHSET v14 sched_ext/for-7.4] sched: Make proxy execution
+ compatible with sched_ext
+Message-ID: <20260924075925.GE4121620@noisy.programming.kicks-ass.net>
+References: <20260922165445.943315-1-arighi@nvidia.com>
+ <20260924075237.GH2009045@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D036UWC002.ant.amazon.com (10.13.139.242) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924075237.GH2009045@noisy.programming.kicks-ass.net>
 
-For eligible configurations, submit one skcipher request per contiguous
-bio segment instead of one per sector: set
-skcipher_request::unit_size = cc->sector_size and hand the crypto API
-the whole segment (e.g. the default 512-byte sector with a 4 KiB
-bio_vec -> one request of 8 data units), using only the existing inline
-single-entry scatterlist -- no per-bio allocation.
+On Thu, Sep 24, 2026 at 09:52:38AM +0200, Peter Zijlstra wrote:
+> On Tue, Sep 22, 2026 at 06:51:39PM +0200, Andrea Righi wrote:
+> 
+> > Andrea Righi (16):
+> >       sched/core: Drop mutex locks before proxy rescheduling
+> >       sched/core: Dequeue waking proxy donors before reset
+> >       sched/core: Mark wakeups completed through ttwu_runnable()
+> >       sched: Add helper to block retained proxy donors
+> >       sched: Add sched_ext hooks for proxy execution
+> 
+> Right, so these add:
+> 
+> WF_TTWU_RQ:
+> 
+>   Used like ENQUEUE_DELAYED; could be fixed by generalizing that to cover all
+>   of p->is_blocked.
+> 
+> scx_allow_proxy_exec():
+> 
+>   Hook to kill proxy exec for scx
+> 
+> scx_proxy_reenqueue_retry():
+> 
+>   Like put_prev_task(), but for current. Ensures current gets put back on a DSQ
+>   once its done running.
+> 
+> scx_proxy_donor_start():
+> 
+>   Delayed set_next_task(), confirms donor will be used.
+> 
+> sched_proxy_block_task():
+> 
+>   Almost like switching_to_scx(), except it needs to change ctx->queued in case
+>   of p->is_blocked. Hence a new callback ran before sched_change_begin().
 
-Eligible means the per-sector IV is a little-endian data-unit-number
-counter in the low 64 bits with a step of exactly one per unit: plain64
-and essiv (essiv qualifies because its IV input is le64(sector) -- the
-salt encryption lives in the essiv() template), single-tfm, non-aead,
-sector_size 512 or iv_large_sectors, and no integrity metadata
-(per-sector tags/IVs need the per-sector loop).  plain64be is not
-batched: its on-disk IV is a big-endian counter in the high 8 bytes,
-not the little-endian low-limb layout the API-layer split walks, so it
-keeps the per-sector path (batching it would need a template producing
-that layout).  Everything else likewise keeps the existing
-one-sector-per-request path unchanged.  Since the API-layer transparent
-split is synchronous, an async cipher batches only if it handles
-multi-unit requests natively (CRYPTO_ALG_REQ_SEG).
+And I wonder, would something like so work?
 
-Batching is byte-for-byte identical to the per-sector path: ciphertext
-verified bit-identical to an unpatched baseline for plain64 and essiv.
-
-Signed-off-by: Leonid Ravich <lravich@amazon.com>
 ---
- drivers/md/dm-crypt.c | 136 +++++++++++++++++++++++++++++++++++-------
- 1 file changed, 114 insertions(+), 22 deletions(-)
-
-diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-index 608b617fb817..ffb66c7c7a65 100644
---- a/drivers/md/dm-crypt.c
-+++ b/drivers/md/dm-crypt.c
-@@ -115,6 +115,15 @@ struct crypt_iv_operations {
- 			 struct dm_crypt_request *dmreq);
- 	void (*post)(struct crypt_config *cc, u8 *iv,
- 		     struct dm_crypt_request *dmreq);
-+
-+	/*
-+	 * Set for IV modes whose per-sector IV is a little-endian
-+	 * data-unit-number counter (IV(s+i) == IV(s)+i) placed in the low
-+	 * 64-bit limb, enabling multi-unit batching via the skcipher API-layer
-+	 * split.  Clear for non-counter modes (lmk, tcw, ...) and for counter
-+	 * modes whose on-disk IV is not that layout (e.g. plain64be).
-+	 */
-+	bool unit_counter;
- };
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index adcc9264c0c6..3e7691d24930 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -11215,8 +11215,13 @@ void sched_change_end(struct sched_change_ctx *ctx)
+ 	 */
+ 	WARN_ON_ONCE(p->sched_class != ctx->class && !(ctx->flags & ENQUEUE_CLASS));
  
- struct iv_benbi_private {
-@@ -151,6 +160,7 @@ enum cipher_flags {
- 	CRYPT_IV_LARGE_SECTORS,		/* Calculate IV from sector_size, not 512B sectors */
- 	CRYPT_ENCRYPT_PREPROCESS,	/* Must preprocess data for encryption (elephant) */
- 	CRYPT_KEY_MAC_SIZE_SET,		/* The integrity_key_size option was used */
-+	CRYPT_MULTI_DATA_UNIT,		/* Batch a bio segment's sectors per crypto request */
- };
- 
- /*
-@@ -1018,15 +1028,23 @@ static const struct crypt_iv_operations crypt_iv_plain_ops = {
- };
- 
- static const struct crypt_iv_operations crypt_iv_plain64_ops = {
--	.generator = crypt_iv_plain64_gen
-+	.generator = crypt_iv_plain64_gen,
-+	.unit_counter = true,
- };
- 
- static const struct crypt_iv_operations crypt_iv_plain64be_ops = {
--	.generator = crypt_iv_plain64be_gen
-+	.generator = crypt_iv_plain64be_gen,
-+	/*
-+	 * No unit_counter: the big-endian, high-limb on-disk layout is not the
-+	 * little-endian low-limb counter the API-layer split walks.  Batching
-+	 * it needs a template producing this layout; unbatched for now.
-+	 */
- };
- 
- static const struct crypt_iv_operations crypt_iv_essiv_ops = {
--	.generator = crypt_iv_essiv_gen
-+	.generator = crypt_iv_essiv_gen,
-+	/* IV input is le64(sector); the salt-encrypt lives in essiv(). */
-+	.unit_counter = true,
- };
- 
- static const struct crypt_iv_operations crypt_iv_benbi_ops = {
-@@ -1349,21 +1367,51 @@ static int crypt_convert_block_aead(struct crypt_config *cc,
- 	return r;
- }
- 
-+/*
-+ * Bytes to process in one skcipher request: a whole contiguous segment when
-+ * batching (multi-data-unit), else one sector.  0 means an unusable
-+ * (sub-sector / misaligned) segment.
-+ */
-+static unsigned int crypt_skcipher_len(struct crypt_config *cc,
-+				       const struct bio_vec *bv_in,
-+				       const struct bio_vec *bv_out)
-+{
-+	const unsigned int sector_size = cc->sector_size;
-+
-+	if (test_bit(CRYPT_MULTI_DATA_UNIT, &cc->cipher_flags))
-+		return round_down(min(bv_in->bv_len, bv_out->bv_len),
-+				  sector_size);
-+
-+	/* Reject unexpected unaligned bio. */
-+	if (unlikely(bv_in->bv_len & (sector_size - 1)))
-+		return 0;
-+	return sector_size;
-+}
-+
-+/*
-+ * Encrypt/decrypt one bio segment (one sector, or a whole segment when
-+ * batching) and report the bytes done in *out_processed.  The integrity /
-+ * preprocess / post handling is inert when batching (crypt_can_batch_units()
-+ * excludes those configs).
-+ */
- static int crypt_convert_block_skcipher(struct crypt_config *cc,
- 					struct convert_context *ctx,
- 					struct skcipher_request *req,
--					unsigned int tag_offset)
-+					unsigned int tag_offset,
-+					unsigned int *out_processed)
- {
- 	struct bio_vec bv_in = bio_iter_iovec(ctx->bio_in, ctx->iter_in);
- 	struct bio_vec bv_out = bio_iter_iovec(ctx->bio_out, ctx->iter_out);
-+	const unsigned int sector_size = cc->sector_size;
- 	struct scatterlist *sg_in, *sg_out;
- 	struct dm_crypt_request *dmreq;
- 	u8 *iv, *org_iv, *tag_iv;
- 	__le64 *sector;
-+	unsigned int len;
- 	int r = 0;
- 
--	/* Reject unexpected unaligned bio. */
--	if (unlikely(bv_in.bv_len & (cc->sector_size - 1)))
-+	len = crypt_skcipher_len(cc, &bv_in, &bv_out);
-+	if (unlikely(!len))
- 		return -EIO;
- 
- 	dmreq = dmreq_of_req(cc, req);
-@@ -1386,10 +1434,10 @@ static int crypt_convert_block_skcipher(struct crypt_config *cc,
- 	sg_out = &dmreq->sg_out[0];
- 
- 	sg_init_table(sg_in, 1);
--	sg_set_page(sg_in, bv_in.bv_page, cc->sector_size, bv_in.bv_offset);
-+	sg_set_page(sg_in, bv_in.bv_page, len, bv_in.bv_offset);
- 
- 	sg_init_table(sg_out, 1);
--	sg_set_page(sg_out, bv_out.bv_page, cc->sector_size, bv_out.bv_offset);
-+	sg_set_page(sg_out, bv_out.bv_page, len, bv_out.bv_offset);
- 
- 	if (cc->iv_gen_ops) {
- 		/* For READs use IV stored in integrity metadata */
-@@ -1410,7 +1458,9 @@ static int crypt_convert_block_skcipher(struct crypt_config *cc,
- 		memcpy(iv, org_iv, cc->iv_size);
- 	}
- 
--	skcipher_request_set_crypt(req, sg_in, sg_out, cc->sector_size, iv);
-+	skcipher_request_set_crypt(req, sg_in, sg_out, len, iv);
-+	if (test_bit(CRYPT_MULTI_DATA_UNIT, &cc->cipher_flags))
-+		skcipher_request_set_unit_size(req, sector_size);
- 
- 	if (bio_data_dir(ctx->bio_in) == WRITE)
- 		r = crypto_skcipher_encrypt(req);
-@@ -1420,9 +1470,10 @@ static int crypt_convert_block_skcipher(struct crypt_config *cc,
- 	if (!r && cc->iv_gen_ops && cc->iv_gen_ops->post)
- 		cc->iv_gen_ops->post(cc, org_iv, dmreq);
- 
--	bio_advance_iter(ctx->bio_in, &ctx->iter_in, cc->sector_size);
--	bio_advance_iter(ctx->bio_out, &ctx->iter_out, cc->sector_size);
-+	bio_advance_iter(ctx->bio_in, &ctx->iter_in, len);
-+	bio_advance_iter(ctx->bio_out, &ctx->iter_out, len);
- 
-+	*out_processed = len;
- 	return r;
- }
- 
-@@ -1509,13 +1560,25 @@ static void crypt_free_req(struct crypt_config *cc, void *req, struct bio *base_
- 		crypt_free_req_skcipher(cc, req, base_bio);
- }
- 
-+/*
-+ * Advance the IV-sector and integrity-tag cursors by @processed bytes; the
-+ * bio iterators are advanced by the per-block helpers themselves.
-+ */
-+static void crypt_convert_advance(struct crypt_config *cc,
-+				  struct convert_context *ctx,
-+				  unsigned int processed)
-+{
-+	ctx->cc_sector += processed >> SECTOR_SHIFT;
-+	ctx->tag_offset += processed / cc->sector_size;
-+}
-+
- /*
-  * Encrypt / decrypt data from one bio to another one (can be the same one)
-  */
- static blk_status_t crypt_convert(struct crypt_config *cc,
- 			 struct convert_context *ctx, bool atomic, bool reset_pending)
- {
--	unsigned int sector_step = cc->sector_size >> SECTOR_SHIFT;
-+	unsigned int processed;
- 	int r;
- 
- 	/*
-@@ -1536,10 +1599,12 @@ static blk_status_t crypt_convert(struct crypt_config *cc,
- 
- 		atomic_inc(&ctx->cc_pending);
- 
-+		processed = cc->sector_size;
- 		if (crypt_integrity_aead(cc))
- 			r = crypt_convert_block_aead(cc, ctx, ctx->r.req_aead, ctx->tag_offset);
- 		else
--			r = crypt_convert_block_skcipher(cc, ctx, ctx->r.req, ctx->tag_offset);
-+			r = crypt_convert_block_skcipher(cc, ctx, ctx->r.req,
-+							 ctx->tag_offset, &processed);
- 
- 		switch (r) {
- 		/*
-@@ -1559,8 +1624,7 @@ static blk_status_t crypt_convert(struct crypt_config *cc,
- 					 * exit and continue processing in a workqueue
- 					 */
- 					ctx->r.req = NULL;
--					ctx->tag_offset++;
--					ctx->cc_sector += sector_step;
-+					crypt_convert_advance(cc, ctx, processed);
- 					return BLK_STS_DEV_RESOURCE;
- 				}
- 			} else {
-@@ -1574,16 +1638,14 @@ static blk_status_t crypt_convert(struct crypt_config *cc,
- 		 */
- 		case -EINPROGRESS:
- 			ctx->r.req = NULL;
--			ctx->tag_offset++;
--			ctx->cc_sector += sector_step;
-+			crypt_convert_advance(cc, ctx, processed);
- 			continue;
- 		/*
- 		 * The request was already processed (synchronously).
- 		 */
- 		case 0:
- 			atomic_dec(&ctx->cc_pending);
--			ctx->cc_sector += sector_step;
--			ctx->tag_offset++;
-+			crypt_convert_advance(cc, ctx, processed);
- 			if (!atomic)
- 				cond_resched();
- 			continue;
-@@ -2345,12 +2407,28 @@ static int crypt_alloc_tfms_aead(struct crypt_config *cc, char *ciphermode)
- 	return 0;
- }
- 
-+/*
-+ * Whether multi-unit batching applies: a counter IV mode (unit_counter set),
-+ * single-tfm, non-aead, and a per-unit IV step of exactly one (512B sectors
-+ * or iv_large_sectors).  The IV must also satisfy the API split's counter
-+ * constraints (non-zero multiple of 8, <= 32 bytes).  Integrity is excluded
-+ * in crypt_ctr_cipher(), which runs after integrity is configured.
-+ */
-+static bool crypt_can_batch_units(struct crypt_config *cc)
-+{
-+	return !crypt_integrity_aead(cc) && cc->tfms_count == 1 &&
-+		cc->iv_gen_ops && cc->iv_gen_ops->unit_counter &&
-+		cc->iv_size && IS_ALIGNED(cc->iv_size, sizeof(__le64)) &&
-+		cc->iv_size <= 32 &&
-+		(cc->sector_size == (1 << SECTOR_SHIFT) ||
-+		 test_bit(CRYPT_IV_LARGE_SECTORS, &cc->cipher_flags));
-+}
-+
- static int crypt_alloc_tfms(struct crypt_config *cc, char *ciphermode)
- {
- 	if (crypt_integrity_aead(cc))
- 		return crypt_alloc_tfms_aead(cc, ciphermode);
--	else
--		return crypt_alloc_tfms_skcipher(cc, ciphermode);
-+	return crypt_alloc_tfms_skcipher(cc, ciphermode);
- }
- 
- static unsigned int crypt_subkey_size(struct crypt_config *cc)
-@@ -2999,7 +3077,6 @@ static int crypt_ctr_cipher_old(struct dm_target *ti, char *cipher_in, char *key
- 		goto bad_mem;
- 	}
- 
--	/* Allocate cipher */
- 	ret = crypt_alloc_tfms(cc, cipher_api);
- 	if (ret < 0) {
- 		ti->error = "Error allocating crypto tfm";
-@@ -3063,6 +3140,21 @@ static int crypt_ctr_cipher(struct dm_target *ti, char *cipher_in, char *key)
- 		}
- 	}
- 
-+	/*
-+	 * Enable multi-unit batching for an eligible config with no integrity
-+	 * (integrity is set up after cipher alloc, hence the re-check here).
-+	 * The API layer's transparent split is synchronous, so an async cipher
-+	 * batches only if it handles multi-unit requests natively.
-+	 */
-+	if (crypt_can_batch_units(cc) && !cc->integrity_tag_size &&
-+	    !cc->integrity_iv_size &&
-+	    (crypto_skcipher_alg(any_tfm(cc))->co.base.cra_flags &
-+	     (CRYPTO_ALG_ASYNC | CRYPTO_ALG_REQ_SEG)) != CRYPTO_ALG_ASYNC) {
-+		set_bit(CRYPT_MULTI_DATA_UNIT, &cc->cipher_flags);
-+		DMINFO("Using multi-data-unit crypto offload (du=%u)",
-+		       cc->sector_size);
+-	if ((ctx->flags & ENQUEUE_CLASS) && p->sched_class->switching_to)
+-		p->sched_class->switching_to(rq, p);
++	if ((ctx->flags & ENQUEUE_CLASS) && p->sched_class->switching_to) {
++		bool block = p->sched_class->switching_to(rq, p);
++		if (block && p->is_blocked) {
++			block_task(rq, p, READ_ONCE(p->__state));
++			ctx->queued = false;
++		}
 +	}
+ 
+ 	if (ctx->queued)
+ 		enqueue_task(rq, p, ctx->flags);
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 9c1f10cf3c24..e706fb899834 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -4288,12 +4288,12 @@ static void prio_changed_scx(struct rq *rq, struct task_struct *p, u64 oldprio)
+ {
+ }
+ 
+-static void switching_to_scx(struct rq *rq, struct task_struct *p)
++static bool switching_to_scx(struct rq *rq, struct task_struct *p)
+ {
+ 	struct scx_sched *sch = scx_task_sched(p);
+ 
+ 	if (task_dead_and_done(p))
+-		return;
++		return false;
+ 
+ 	scx_enable_task(sch, p);
+ 
+@@ -4303,6 +4303,8 @@ static void switching_to_scx(struct rq *rq, struct task_struct *p)
+ 	 */
+ 	if (SCX_HAS_OP(sch, set_cpumask))
+ 		scx_call_op_set_cpumask(sch, rq, p, (struct cpumask *)p->cpus_ptr);
 +
- 	/* wipe the kernel key payload copy */
- 	if (cc->key_string)
- 		memset(cc->key, 0, cc->key_size * sizeof(u8));
--- 
-2.47.3
-
++	return !scx_allow_proxy_exec(p);
+ }
+ 
+ static void switched_from_scx(struct rq *rq, struct task_struct *p)
+diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
+index 76f3c84ca684..23217b91db03 100644
+--- a/kernel/sched/idle.c
++++ b/kernel/sched/idle.c
+@@ -543,7 +543,7 @@ static void task_tick_idle(struct rq *rq, struct task_struct *curr, int queued)
+ 	update_curr_idle(rq);
+ }
+ 
+-static void switching_to_idle(struct rq *rq, struct task_struct *p)
++static bool switching_to_idle(struct rq *rq, struct task_struct *p)
+ {
+ 	BUG();
+ }
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index e06b34984e48..ba4c55d0a601 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -2759,7 +2759,7 @@ struct sched_class {
+ 	 */
+ 	void (*switching_from)(struct rq *this_rq, struct task_struct *task);
+ 	void (*switched_from) (struct rq *this_rq, struct task_struct *task);
+-	void (*switching_to)  (struct rq *this_rq, struct task_struct *task);
++	bool (*switching_to)  (struct rq *this_rq, struct task_struct *task);
+ 	void (*switched_to)   (struct rq *this_rq, struct task_struct *task);
+ 	u64  (*get_prio)     (struct rq *this_rq, struct task_struct *task);
+ 	void (*prio_changed) (struct rq *this_rq, struct task_struct *task,
+diff --git a/kernel/sched/stop_task.c b/kernel/sched/stop_task.c
+index 1e0109ec36b3..b7541bb7b593 100644
+--- a/kernel/sched/stop_task.c
++++ b/kernel/sched/stop_task.c
+@@ -78,7 +78,7 @@ static void task_tick_stop(struct rq *rq, struct task_struct *curr, int queued)
+ {
+ }
+ 
+-static void switching_to_stop(struct rq *rq, struct task_struct *p)
++static bool switching_to_stop(struct rq *rq, struct task_struct *p)
+ {
+ 	BUG(); /* its impossible to change to this class */
+ }
