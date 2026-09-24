@@ -1,72 +1,43 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CD5F396D03
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:05:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB5DA442389;
+	Thu, 24 Sep 2026 09:05:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790240738; cv=none; b=KMfgwnXJQ3vWP9l2C9CGAkTvLomWnCAAM/B3VoEtkJPIQLMHRtc5z9FLMr03fANUMV8MM939YUCOnFAVzV5FAM4KtSINEf9eJMBjUpI95vNcFYPdzLvnINO5wQyl873EtmL3tyk08e0fOsP2k7gy2EuyBQGSaJ5Qz5HQhpjjnbA=
+	t=1790240765; cv=none; b=o1k8Njf5LNpWiZwhe/IeZPxdC33mYBD6MH1nwV4RiGU+YIUuM/EPj8/+DQ0PXc2tLxy+cNNnPzfBVXZLWYKlVgGYQbGSJ+s7yw/TicvWXwjT3+/n6Dnm0RIhLUca5Y3BppXjo71GEAMvEHUJBMOf/BbZr4Fpr7m1fodTNuHejvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790240738; c=relaxed/simple;
-	bh=gneipLsgqKEAyVQAZll6RiNG8vO7ec73+30d+3Gw2Nc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YaIlahy5Q3OL8OsPywuVJHEoK+YCKX4S9GjQQ8xdd5ziGUVdCkpNI/9QrJHOn4JF0g8O7rwBEqQz2yJ3nxzhdBpGIxs1JSM8KHrK+GGdcqXoVq48XGljN8iLiaxYznTKfCJj6zPoxaSieDuUIOU9JWudnIOloUPRRGNrPCwujx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FYpqsvWo; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790240765; c=relaxed/simple;
+	bh=eFECeLyDkbWzBkQVvwJoMcgBPRYqOL8szfGa49qfmBs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WP/n94Z+I85OjIdGxB5XCGUoihoIv/vihqschh0RSdm3ls0LaxZTjRxouSdk0aZYhRtFHNJ+e7q4vu8YYereYCZuF6vqfeQ76VAN0bWTzxNtHP2b723ZHyRGt2WdLzJ1jKO8bFvMPDzKtUNvG+Uj85brMgjCycEH+e1DzuCN+xI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=T7szqF68; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FYpqsvWo"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so20438845e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:05:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790240734; x=1790845534; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ppC8TRBPEanEndEB0ZLxZ/g+4/pJXzez/E6F6ayShus=;
-        b=FYpqsvWoijJm2RUXLVNt1YhKhj3xaPMGf70DiciPjlN+u2x3zZX/RREQkKCQuXojOw
-         BSTqC9giJKQLrIJgbjqFXd7M45XcbhC4KKP6irjvWLeALiZymNx/rM7/PplYT7vx0YXd
-         px3y2um1oYnaH2a5sFDMOKFpn9vPtiDFFFlVOkPi+4+kxNNrinn+rF33YMqJ5vdMoh+q
-         fZxSDN34iPokwYVZIEX9AAjArAGLWTWhFdc/ducFIsGapMZN2+5jBnX1Abrqstu5a7B/
-         HpGEt6xuuUgXFzwkSZpXPxrDOwpPOC2khNK5XGe7K6kpLaTOsHQb++fU0mTyrLBOEz/s
-         /b8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790240734; x=1790845534;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ppC8TRBPEanEndEB0ZLxZ/g+4/pJXzez/E6F6ayShus=;
-        b=NUF5/CH1XBzWupfn338Gu+xgdYpq/H7F7m5mJPtpDg/4lkeKqLOhCjFXHdjLSJBSz7
-         APw/rTDbl9YuuPAPXSVyXmOrPeWUE8qrIHkeqL8O7wxSxHfPggNYjEAY1/x8cIiW86f3
-         MUMo/teixBBzMQR9PKAc11bAZoOM+C6wRxeurzmzW9ah19pc6EuT2InAY8AHlEMiLn9u
-         hZ/8I5OJiU+zHMkTlZG+7f/VPyq50si29zjLs+PQ+QNujfBuWJBK0FlvjtV8mONUs12U
-         p+qUB8rGu9tdmgZEaOYLbFm+VRQ+fpcV9r2zM/EoUJVomdvPRhO51LD1xY99UnI6cycA
-         u0Qg==
-X-Forwarded-Encrypted: i=1; AKwUvBwoCZlIX6ukxJdP27M9dOHxrmhiAbiFSiHiRN8sbxAhNUyiET2j14mKKKLZC5Od32n3kZRx8bebIczO4NA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mQ+SN0VRnD6EsJILjmLFUV/pqnC/a+wF/0KIGx/MHkmahbYRkG
-	/zFBoTGPBpAHnDwatq1gVknnTGv6TMk/cttpzw3VXUmvXa7sDGMOj7ie
-X-Gm-Gg: AYBFou18KIH9cDdQQckkESZOIxRQwGTnwTJAvNHBLpJ71Rdw4DD8qTW7upMkjb7ADEX
-	xggKbuKVaLsax79TZg8LGkVaXaygJlcTKWeNKyFHbjv5Yy4a7FQC0E8/A9mHNuuSSZolIrWS9pi
-	1Rg0yn1zdVxVUhqhX/W00t33t8P6WpElSgfdQrgX12C5X7wFGIYl9pv37l+vXLUQFDUXF9/wuuI
-	COmwcEDFOL3B3sIepVRIj7Ko1ZKUwlPgvXpD2N21dUj73Dyc5vahf0QNtuhQr+bLealgkOs1XR3
-	P5UR2WNRnfMN93ZQvcNfdP80VHNx7YD0Ne6bIXxG1QpDxRigppjU/naQZYsvidJUx14kGExYsp4
-	0XkXQUHuJUCITcbWZgARJC+IoN93Mj9EW7peKpGQ0Wu/u1/xR6RyOvl6Ym+lbfQ6qe40SxqtYH8
-	aeRsYWwvvGOXN2ap54mATUD1gpXVAhyjm2F9aON6jagyh+wdNSfehYBONxIZc00aY94ZwYWMCgJ
-	HHpBn2BGnVmP+Uidd53cMiWllpPfKeSWhOL8uTCIN7pPpNU
-X-Received: by 2002:a05:600c:8b6e:b0:49c:fc6e:8cbb with SMTP id 5b1f17b1804b1-49fe66f9fe3mr28311825e9.31.1790240734292;
-        Thu, 24 Sep 2026 02:05:34 -0700 (PDT)
-Received: from DESKTOP-IR7J1S9.localdomain ([129.45.65.17])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5dff204sm80100715e9.14.2026.09.24.02.05.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 02:05:33 -0700 (PDT)
-From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-To: David Howells <dhowells@redhat.com>
-Cc: netfs@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-Subject: [PATCH RESEND] cachefiles: convert deprecated simple_strtoul() to kstrtoul() in percentage command handlers
-Date: Thu, 24 Sep 2026 10:05:30 +0100
-Message-ID: <20260924090530.134-1-drifabdelmalekmohamedsaid@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="T7szqF68"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=f3
+	eIWvq8JseXKyO0v9+KOkbgd8+L+uJ1/rUfXrwV9h0=; b=T7szqF68yJZuZUg61X
+	S1h5dAaPJL3WID0K3JY2N7iSyEZuSLeE8lzJ3wSRcNcn/y1fjF4RPClZEZe2ZrXl
+	u18vqCZaP2JPE2QVp6yFf5vefnx9IyywUT1fk/uMjsd7LffrDsPCXhPEYRCOYkqY
+	ZY/0iS74Ys9N4D8eih+4zYFxA=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3H6Xj57RqnK4OAg--.46651S2;
+	Thu, 24 Sep 2026 17:05:40 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Tom Lendacky <thomas.lendacky@amd.com>,
+	John Allen <john.allen@amd.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Gary R Hook <gary.hook@amd.com>,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] crypto: ccp: drain v5 IRQ tasklet during teardown
+Date: Thu, 24 Sep 2026 17:05:37 +0800
+Message-Id: <20260924090537.173532-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,196 +45,58 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3H6Xj57RqnK4OAg--.46651S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Ww4kuw13JF1xtF43uF45ZFb_yoW8Aw4fpa
+	9rGay5KryrJr429a97Zw1UW34rZFsak345Kr40qw1Svwn8uFWFgry7Cw47t3WjyFn5ZFy2
+	qayj9FWrCr4kA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pREeHhUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQT6NWq05+TBRQAA3f
 
-Convert the six <N>% percentage command handlers -
-cachefiles_daemon_frun(), _fcull(), _fstop(), _brun(), _bcull(), and
-_bstop() - from the deprecated simple_strtoul() to kstrtoul(). These
-are the only handlers in this file that take a trailing '%' after
-the number; other nearby commands take plain values and are
-unaffected.
+On PCI devices using MSI-X, ccp5_irq_handler() disables the queue
+interrupts and schedules ccp->irq_tasklet. The tasklet calls
+ccp5_irq_bh(), which accesses registers and wait queues through
+ccp->cmd_q.
 
-Since kstrtoul() requires the whole input to be a valid number, each
-handler now walks the digit run itself, checks it's followed by '%'
-and NUL, and temporarily null-terminates at the '%' to isolate the
-number for kstrtoul(), restoring it afterwards.
+Both the ccp5_init() error path and ccp5_destroy() free the CCP IRQ
+before the command queues and the device-managed ccp allocation are
+released. sp_free_ccp_irq() prevents another hard IRQ and waits for an
+in-flight handler, but it does not drain a tasklet that the handler
+already scheduled. The tasklet can therefore access ccp->cmd_q after
+its backing allocation has been released.
 
-Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+Kill the tasklet after sp_free_ccp_irq(), when no handler can schedule
+it again, and before the command queues or ccp can be released. Check
+ccp->use_tasklet because the tasklet is initialized only for MSI-X.
+
+Fixes: 6263b51eb319 ("crypto: ccp - Change ISR handler method for a v5 CCP")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- fs/cachefiles/daemon.c | 78 +++++++++++++++++++++++++++++++++++-------
- 1 file changed, 66 insertions(+), 12 deletions(-)
+ drivers/crypto/ccp/ccp-dev-v5.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/fs/cachefiles/daemon.c b/fs/cachefiles/daemon.c
-index 1a66e0af2837..12c38b366881 100644
---- a/fs/cachefiles/daemon.c
-+++ b/fs/cachefiles/daemon.c
-@@ -331,16 +331,25 @@ static int cachefiles_daemon_range_error(struct cachefiles_cache *cache,
- static int cachefiles_daemon_frun(struct cachefiles_cache *cache, char *args)
- {
- 	unsigned long frun;
-+	char *end = args;
-+	int ret;
+diff --git a/drivers/crypto/ccp/ccp-dev-v5.c b/drivers/crypto/ccp/ccp-dev-v5.c
+index dcd6aab51e47..dacde9614e8a 100644
+--- a/drivers/crypto/ccp/ccp-dev-v5.c
++++ b/drivers/crypto/ccp/ccp-dev-v5.c
+@@ -995,6 +995,8 @@ static int ccp5_init(struct ccp_device *ccp)
  
- 	_enter(",%s", args);
+ e_irq:
+ 	sp_free_ccp_irq(ccp->sp, ccp);
++	if (ccp->use_tasklet)
++		tasklet_kill(&ccp->irq_tasklet);
  
- 	if (!*args)
- 		return -EINVAL;
+ e_pool:
+ 	for (i = 0; i < ccp->cmd_q_count; i++)
+@@ -1046,6 +1048,8 @@ static void ccp5_destroy(struct ccp_device *ccp)
+ 			kthread_stop(ccp->cmd_q[i].kthread);
  
--	frun = simple_strtoul(args, &args, 10);
--	if (args[0] != '%' || args[1] != '\0')
-+	while (isdigit(*end))
-+		end++;
-+	if (end == args || *end != '%' || end[1] != '\0')
- 		return -EINVAL;
+ 	sp_free_ccp_irq(ccp->sp, ccp);
++	if (ccp->use_tasklet)
++		tasklet_kill(&ccp->irq_tasklet);
  
-+	*end = '\0';
-+	ret = kstrtoul(args, 10, &frun);
-+	*end = '%';
-+	if (ret)
-+		return ret;
-+
- 	if (frun <= cache->fcull_percent || frun >= 100)
- 		return cachefiles_daemon_range_error(cache, args);
- 
-@@ -355,16 +364,25 @@ static int cachefiles_daemon_frun(struct cachefiles_cache *cache, char *args)
- static int cachefiles_daemon_fcull(struct cachefiles_cache *cache, char *args)
- {
- 	unsigned long fcull;
-+	char *end = args;
-+	int ret;
- 
- 	_enter(",%s", args);
- 
- 	if (!*args)
- 		return -EINVAL;
- 
--	fcull = simple_strtoul(args, &args, 10);
--	if (args[0] != '%' || args[1] != '\0')
-+	while (isdigit(*end))
-+		end++;
-+	if (end == args || *end != '%' || end[1] != '\0')
- 		return -EINVAL;
- 
-+	*end = '\0';
-+	ret = kstrtoul(args, 10, &fcull);
-+	*end = '%';
-+	if (ret)
-+		return ret;
-+
- 	if (fcull <= cache->fstop_percent || fcull >= cache->frun_percent)
- 		return cachefiles_daemon_range_error(cache, args);
- 
-@@ -379,16 +397,25 @@ static int cachefiles_daemon_fcull(struct cachefiles_cache *cache, char *args)
- static int cachefiles_daemon_fstop(struct cachefiles_cache *cache, char *args)
- {
- 	unsigned long fstop;
-+	char *end = args;
-+	int ret;
- 
- 	_enter(",%s", args);
- 
- 	if (!*args)
- 		return -EINVAL;
- 
--	fstop = simple_strtoul(args, &args, 10);
--	if (args[0] != '%' || args[1] != '\0')
-+	while (isdigit(*end))
-+		end++;
-+	if (end == args || *end != '%' || end[1] != '\0')
- 		return -EINVAL;
- 
-+	*end = '\0';
-+	ret = kstrtoul(args, 10, &fstop);
-+	*end = '%';
-+	if (ret)
-+		return ret;
-+
- 	if (fstop >= cache->fcull_percent)
- 		return cachefiles_daemon_range_error(cache, args);
- 
-@@ -403,16 +430,25 @@ static int cachefiles_daemon_fstop(struct cachefiles_cache *cache, char *args)
- static int cachefiles_daemon_brun(struct cachefiles_cache *cache, char *args)
- {
- 	unsigned long brun;
-+	char *end = args;
-+	int ret;
- 
- 	_enter(",%s", args);
- 
- 	if (!*args)
- 		return -EINVAL;
- 
--	brun = simple_strtoul(args, &args, 10);
--	if (args[0] != '%' || args[1] != '\0')
-+	while (isdigit(*end))
-+		end++;
-+	if (end == args || *end != '%' || end[1] != '\0')
- 		return -EINVAL;
- 
-+	*end = '\0';
-+	ret = kstrtoul(args, 10, &brun);
-+	*end = '%';
-+	if (ret)
-+		return ret;
-+
- 	if (brun <= cache->bcull_percent || brun >= 100)
- 		return cachefiles_daemon_range_error(cache, args);
- 
-@@ -427,16 +463,25 @@ static int cachefiles_daemon_brun(struct cachefiles_cache *cache, char *args)
- static int cachefiles_daemon_bcull(struct cachefiles_cache *cache, char *args)
- {
- 	unsigned long bcull;
-+	char *end = args;
-+	int ret;
- 
- 	_enter(",%s", args);
- 
- 	if (!*args)
- 		return -EINVAL;
- 
--	bcull = simple_strtoul(args, &args, 10);
--	if (args[0] != '%' || args[1] != '\0')
-+	while (isdigit(*end))
-+		end++;
-+	if (end == args || *end != '%' || end[1] != '\0')
- 		return -EINVAL;
- 
-+	*end = '\0';
-+	ret = kstrtoul(args, 10, &bcull);
-+	*end = '%';
-+	if (ret)
-+		return ret;
-+
- 	if (bcull <= cache->bstop_percent || bcull >= cache->brun_percent)
- 		return cachefiles_daemon_range_error(cache, args);
- 
-@@ -451,16 +496,25 @@ static int cachefiles_daemon_bcull(struct cachefiles_cache *cache, char *args)
- static int cachefiles_daemon_bstop(struct cachefiles_cache *cache, char *args)
- {
- 	unsigned long bstop;
-+	char *end = args;
-+	int ret;
- 
- 	_enter(",%s", args);
- 
- 	if (!*args)
- 		return -EINVAL;
- 
--	bstop = simple_strtoul(args, &args, 10);
--	if (args[0] != '%' || args[1] != '\0')
-+	while (isdigit(*end))
-+		end++;
-+	if (end == args || *end != '%' || end[1] != '\0')
- 		return -EINVAL;
- 
-+	*end = '\0';
-+	ret = kstrtoul(args, 10, &bstop);
-+	*end = '%';
-+	if (ret)
-+		return ret;
-+
- 	if (bstop >= cache->bcull_percent)
- 		return cachefiles_daemon_range_error(cache, args);
- 
+ 	/* Flush the cmd and backlog queue */
+ 	while (!list_empty(&ccp->cmd)) {
 -- 
-2.43.0
+2.34.1
 
