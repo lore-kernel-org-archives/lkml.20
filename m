@@ -1,236 +1,144 @@
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A283B387590
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:14:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23F6C47DD76;
+	Thu, 24 Sep 2026 12:14:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790252047; cv=none; b=g6172YQPbuE6uwXhISf88KpGJnf9OKdMm24ykqljhq0WYE10N3fTT2PDE243/8RHWyZq3cBi83WnYxJjwsV4tQzZ2mHQu6tno3Yr4mo87qmmnsMY0OxZ915shALZ80gU+gPx4UxuFmHVr7XYjBjngYp4TLpphNxvBdn69Ky1Vtc=
+	t=1790252048; cv=none; b=QYfzznACzIydnSCfhyFaOQvHooMc1J6BlaVnq9fxike6XnMeXWNuqEmqNBfan7UJDtliCtKqaGM+S6cee3ooDwyZSevz83QTo7GuhISgL8cAzZjB/hgh2YI1ZRzzKEObU1cas9vgrLMIC2e5TVIGxy8sYMxW6SL4bxTy/iHcLvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790252047; c=relaxed/simple;
-	bh=otGD8El/usb5+EdYLvRCSLCI0HhgOOwUewbzGHi4nw4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rKMIHvp6Tun1jFOQ2Knk1MOR6NY+nZYBDQS8hJtX3C4S2PuWHRKQ3NFtsnJC0SKsjqufkxk+xQW3j0ySDg6SEkrGvDUjVeOl4pi+aCm6sLbmF/8fDVmqD6lsi4V0fINeWF1WIdvuAZfPmvnZf6ytAbwqnx5OVEF1P9aVdwlPwiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pTu+qwoD; arc=none smtp.client-ip=74.125.230.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790252048; c=relaxed/simple;
+	bh=rsAn2KeX2+WQ5TV0HToZYuawnaTCR3LFzkUhDdID7oI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KP4eZ10PW36qzTtNa0BARJAb0fRkCdIid1o01uyQrv/8xhOQePLbcgUqlv7xBb+ZRANXXaML6E8vqBind2ynfwODQxv/AiyGwK1sb02VqwNcW2b7zUe6c71JYQZk1diL2KQYaJP/a2qOrpq+pqasa9TtTdlyWGUuQ1XW6xnpxT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OnMD1tUM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pTu+qwoD"
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff17443dso20788371fa.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:14:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790252043; x=1790856843; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rhr+KJXZzXoDkRQD5ZZRVZfYL8tC8NnQwJ47gS6L1EQ=;
-        b=pTu+qwoDcb3s9ihKFMqI7NQwOEHuFvOgNt7q+p5D/awpOw5+FjgkvdixZVTTLXU0PF
-         s88/18pigY/hzhXLLrYcXOYfG0pCf5yfkiyhaOorgFVae6OyxtA46VfatZz9gVjZ9kg1
-         0CTb4JIL1kShApBn82ezMjYSZXrafXw1gCsUfo1KfZ+A9ADhs3h/aiBf/6qrhW5wCc1d
-         5vWFJR65yTGqRFcLVs+85xlr01Nota2p0ZWGSeoa697oC4AZ3ArhGfG6UM5uEo9JkgaB
-         nxi2NCfs2NE8XksrTnEMIq8peRXVaDWk20NOGdZZVRw0h5IOqScWcc/IOWyRi+2CNb7v
-         1xVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790252043; x=1790856843;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rhr+KJXZzXoDkRQD5ZZRVZfYL8tC8NnQwJ47gS6L1EQ=;
-        b=qnaT+zbHFqbjJkMm5n2oZevzC1oJdgLKcEAlC60iSQ095VyqJzwxZwtSCxwcE4QsVe
-         jwS32D67YuWrBh3s8i4iq6APl9gnuSoqrsZi3JyrX29hfDbDvQ5TB/d6d5ntvlGQHsL0
-         mC/CYF587+yqWszO85juyTYZ0bcprFh6LszTKVq78vNmL/GuC3nJrkW7rhoxc7LGSSNw
-         tKx8G0hH3XPDoIasj6cGvjtHip7NCgYdEAAlJ6wLEozBwFPQUXCrNxN5a0V55MSLckZm
-         TmPPfTcfBWVsBxht2dm7IYckPsbwkp4wIi33jfRynHbfct5sNkoE9vayKt1/b+dBHk+b
-         hJew==
-X-Forwarded-Encrypted: i=1; AKwUvBy68cx7jEvSARJfPd3xhMe18HPXydflhdsVWvO++s6sZISppdRt8yv/9DohSEg6GJHrpXnQQVuocsZDJyA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nA4ObvlzFWpn7ri73XI+HUOlG7gSLbKLRHSJk6VEggRMZFGBSF
-	uSxYvRPNiLY6fxO9pFH+kxenYzQ7Ye2g/gFGHp2YR0m0eXDPN2aWzI8E
-X-Gm-Gg: AYBFou2IxpbcR7NBejHDTtFFN5tDk7QnOq+QIn8AeSEaQpxExccoqDSXYlEVyTUlbAL
-	FBMkUmWyQ2rPJstT9kqxGdLcpCJVqXymqfk+boFveZipGFYj8DDSUGXzn6OAGXz64kiT2rBOi90
-	2DNPhFQZmMzY49iijm004iILW7nuaRr1NvpMPk/bO4sCw+MJhWBDC0NFOCfTqWwqHlzuzPLYCbl
-	AJQAd5PnEMn60sw5cEho7pzorRw1jJtpOhgyU2yIBQ/TBoIZIWXn/Izn7lh3WS4yyh79w1pvAHd
-	fcaC5KpiY0STbI2nsrNvVF4sPey+YsI9ZErlFdtWbKhb9Otx/Eu4PEhiDGjihfH0YYOW2/gIMwY
-	rpewD9Mtx4RlHCQQihTb3X9h5r3rnV+6qCm59jqUsc0CLpYaWiZsdca+gSkiH8GgFUNO4fHf0oR
-	edlZCdruavt+rNl9h+dpb+pI7Hp2eFV0sDDi2bjxQtEAvD6vLkRo0VR5udxn9XfeoyK5lsSh6k5
-	zI8ZnGpxkXfBdrxH+aL/ypZhG07mHDc2nHTc35UQi64b7r0rYg9ApY=
-X-Received: by 2002:a05:651c:2107:b0:3a5:d0ad:7df2 with SMTP id 38308e7fff4ca-3a63c06d2d1mr5437961fa.6.1790252042323;
-        Thu, 24 Sep 2026 05:14:02 -0700 (PDT)
-Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a63bf2c113sm7362221fa.11.2026.09.24.05.14.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 05:14:01 -0700 (PDT)
-Message-ID: <8a08809f-a276-4c5b-9734-1bb6aca4f51c@gmail.com>
-Date: Thu, 24 Sep 2026 15:14:00 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OnMD1tUM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 040451F000FF;
+	Thu, 24 Sep 2026 12:14:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790252046;
+	bh=505orE5OpmF0rqgVrMUI2fkr4bM3eg+OhX8WPM6vgh0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OnMD1tUMoY172Zuqhc6k4sQDczxnt/xSjWt5fb0mFNF8AFsCYlsRj9UVVsdG3ExB4
+	 rCC0g+fh+YoPb3LIxF48kpXphBeotD+Yy13z0+TuNYbMG8fLz0Ap5odtNVNe7/5Yrx
+	 icRT35m5mDtlzz8XcqONoajG5RjWIZ/drMfLHwgZKvQ9nDkLuXhjhoHs/3smj1ho5f
+	 CPyPEm9i3q1GdTiffSaCZ2o0ukewZei7I/cj0ejUxAc3t7VQpaqbr/yBLc+J4BkM0w
+	 xlM02lNJJY+duviRgIv/Ca8wLoyyvrgKZJyjfXpuyuSo8DXu2gs8maipQC2yqAg73E
+	 dKRqj2RQc2FDg==
+Date: Thu, 24 Sep 2026 13:14:00 +0100
+From: Will Deacon <will@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Vincent Donnefort <vdonnefort@google.com>, maz@kernel.org,
+	oupton@kernel.org, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	catalin.marinas@arm.com, joey.gouly@arm.com, seiden@linux.ibm.com,
+	suzuki.poulose@arm.com, yuzenghui@huawei.com, mark.rutland@arm.com,
+	steven.price@arm.com, qperret@google.com
+Subject: Re: [PATCH v3 10/18] KVM: arm64: Handle PSCI calls for protected VMs
+ at EL2
+Message-ID: <arUUCFHamX1nOrB1@willie-the-truck>
+References: <20260914113338.159227-1-fuad.tabba@linux.dev>
+ <20260914113338.159227-11-fuad.tabba@linux.dev>
+ <arK1tHUEJsCQEKzn@google.com>
+ <CA+EHjTx+foVF4CRU5D8bQv8bAqDphMN12UrV+_doUryn2ow6bg@mail.gmail.com>
+ <arTfjgvZIhmXLrw1@willie-the-truck>
+ <CA+EHjTxe0JE-tCX4YcEEafdnxjuZLj3EBucZfZF0HCP2PQAekg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 4/6] reboot: extend psc_reason with power-on and reset
- causes
-To: Faruque Ansari <faruque.ansari@oss.qualcomm.com>,
- Sebastian Reichel <sre@kernel.org>, Benson Leung <bleung@chromium.org>,
- Tzung-Bi Shih <tzungbi@kernel.org>, Guenter Roeck <groeck@chromium.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Oleksij Rempel <o.rempel@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>
-Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
- avaneesh.dwivedi@oss.qualcomm.com,
- Umang Chheda <umang.chheda@oss.qualcomm.com>
-References: <20260924-pscrr-framework-v15-0-7af87107e0d3@oss.qualcomm.com>
- <20260924-pscrr-framework-v15-4-7af87107e0d3@oss.qualcomm.com>
-Content-Language: en-US, en-AU, en-GB, en-BW
-From: Matti Vaittinen <mazziesaccount@gmail.com>
-In-Reply-To: <20260924-pscrr-framework-v15-4-7af87107e0d3@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+EHjTxe0JE-tCX4YcEEafdnxjuZLj3EBucZfZF0HCP2PQAekg@mail.gmail.com>
 
-On 24/09/2026 10:08, Faruque Ansari wrote:
-> psc_reason covered only the protection reasons. Extend it to mirror the
-> full POWER_ON_REASON_* vocabulary - power-on, watchdog, software,
-> external, RTC, reset button, CPU clock and crystal failures - so a
-> provider can report why the system last powered on, not only why it was
-> shut down. New values are appended to keep the existing numeric ABI.
+On Thu, Sep 24, 2026 at 12:26:25PM +0100, Fuad Tabba wrote:
+> On Thu, 24 Sep 2026 09:30:06 +0100, Will Deacon <will@kernel.org> wrote:
+> [...]
+> > Sorry, but I'm really confused by this and it appears to be different to
+> > what we've got in Android as well. Why do we need release semantics for
+> > the store to 'hyp_vcpu->power_state' in pvm_psci_vcpu_off()? What is it
+> > that we are publishing here? The comment talks about pkvm_reset_vcpu(),
+> > but how is that relevant to the vCPU _off_ path? You say the comment is
+> > wrong, but what _should_ it say?
+> >
+> > I'm a bit baffled!
 > 
-> Co-developed-by: Oleksij Rempel <o.rempel@pengutronix.de>
-> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-> Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
-> Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
+> It's not publishing data, it's handing reset_state back.
+
+What's the difference? The usual pattern for acquire/release is:
+
+<write data>
+<store-release flag>
+
+on one CPU and then on another:
+
+<load-acquire flag>	// If this reads from the release above...
+<read data>		// ... then this is guaranteed to read the written data
+
+That's a message-passing shape and you would normally say that the first
+CPU (the producer) is publishing the data to the other CPU (the consumer).
+
+Is this what is happening with the 'reset_state' (data) and the
+'power_state' (flag)? If not, then what is the shape?
+
+> The CPU_ON winner writes reset_state.{pc, r0, be}, then reset_state.reset
+> with a release. The target reads them and clears reset in pkvm_reset_vcpu()
+> on its next run
+
+By 'next run' you mean, at EL2 on the entry path into the guest following
+a successful CPU_ON operation?
+
+> and its CPU_OFF hands reset_state on to the next
+> CPU_ON. The release on OFF orders those reads and that clear before
+> OFF, and an acquire on the winner's cmpxchg orders its writes after
+> it: release on the way out, acquire on the way in, like a lock.
+
+That doesn't make sense to me, sorry. You're saying that the release
+store in the EL2 CPU_OFF hypercall handler is ordering stores that were
+made during the initial CPU_ON handling on that vCPU? Since then, we've
+been in and out of the guest. We really shouldn't need extra barriers to
+create order there.
+
+> Without the release, the target's clear of reset can become visible
+> after the next winner's reset = true, and the target's next
+> pkvm_reset_vcpu() then reads a clear flag and returns -ECANCELED,
+> leaving the vCPU stuck at ON_PENDING.
+
+This needs a litmus test because I can't see it myself. As above,
+CPU_OFF does not clear the reset state, so it's bizarre to put the
+release there.
+
+> The comment described the flag ordering, which holds through the
+> winner's release on reset even with a relaxed cmpxchg, and named the
+> cmpxchg as its pair when the cmpxchg wasn't an acquire. The acquire is
+> for the winner's plain writes of pc/r0/be: nothing else orders them
+> after the target's reads. v4 has cmpxchg_acquire() and the two
+> comments name what's ordered and each other:
 > 
-> changes v15:
-> - add a static_assert() tying ARRAY_SIZE(psc_reason_descs) to
->    PSCR_REASON_COUNT, so a future enum addition without a matching
->    table entry fails the build instead of silently reading a hole
->    (Matti Vaittinen)
-> - Add Reviewed-by tags from Matti Vaittinen.
-> changes v12:
-> - new patch
-> ---
->   include/linux/reboot.h | 28 ++++++++++++++++++++++++++++
->   kernel/reboot.c        | 12 ++++++++++++
->   2 files changed, 40 insertions(+)
+>         /*
+>          * Orders pkvm_reset_vcpu()'s accesses to reset_state before OFF. Pairs
+>          * with the acquire cmpxchg in pvm_psci_vcpu_on().
+>          */
+>         smp_store_release(&hyp_vcpu->power_state, PSCI_0_2_AFFINITY_LEVEL_OFF);
 > 
-> diff --git a/include/linux/reboot.h b/include/linux/reboot.h
-> index 4c5327dd7645..13f004ad1066 100644
-> --- a/include/linux/reboot.h
-> +++ b/include/linux/reboot.h
-> @@ -225,9 +225,28 @@ extern void orderly_reboot(void);
->    *	management errors, or an unrecoverable hardware fault requiring
->    *	immediate response.
->    *
-> + * @PSCR_POWER_ON: Regular cold power-on (e.g. via a PMIC power-on request).
-> + *
-> + * @PSCR_WATCHDOG: Reset caused by a watchdog timeout.
-> + *
-> + * @PSCR_SOFTWARE: Software-initiated reset or reboot.
-> + *
-> + * @PSCR_EXTERNAL: Reset asserted through an external pin or reset input.
-> + *
-> + * @PSCR_RTC: Wake-up or power-on triggered by the RTC.
-> + *
-> + * @PSCR_RESET_BUTTON: Reset triggered by a user reset button.
-> + *
-> + * @PSCR_CPU_CLK_FAIL: Reset caused by a CPU clock failure.
-> + *
-> + * @PSCR_XTAL_FAIL: Reset caused by a crystal oscillator failure.
-> + *
->    * @PSCR_REASON_COUNT: Number of defined power state change reasons. This
->    *	value is useful for range checking and potential future extensions
->    *	while maintaining compatibility.
-> + *
-> + * The reasons mirror the POWER_ON_REASON_* strings in
-> + * <linux/power/power_on_reason.h>; keep the two in sync when extending.
->    */
->   enum psc_reason {
->   	PSCR_UNKNOWN,
-> @@ -236,6 +255,15 @@ enum psc_reason {
->   	PSCR_REGULATOR_FAILURE,
->   	PSCR_OVER_TEMPERATURE,
->   	PSCR_EC_PANIC,
-> +	/* Append new reasons here; the numeric order is ABI. */
-> +	PSCR_POWER_ON,
-> +	PSCR_WATCHDOG,
-> +	PSCR_SOFTWARE,
-> +	PSCR_EXTERNAL,
-> +	PSCR_RTC,
-> +	PSCR_RESET_BUTTON,
-> +	PSCR_CPU_CLK_FAIL,
-> +	PSCR_XTAL_FAIL,
->   
->   	/* Number of reasons */
->   	PSCR_REASON_COUNT,
-> diff --git a/kernel/reboot.c b/kernel/reboot.c
-> index e53fb31bad06..7094c7a8f315 100644
-> --- a/kernel/reboot.c
-> +++ b/kernel/reboot.c
-> @@ -7,7 +7,9 @@
->   
->   #define pr_fmt(fmt)	"reboot: " fmt
->   
-> +#include <linux/array_size.h>
->   #include <linux/atomic.h>
-> +#include <linux/build_bug.h>
->   #include <linux/ctype.h>
->   #include <linux/export.h>
->   #include <linux/kexec.h>
-> @@ -1102,7 +1104,17 @@ static const struct psc_reason_desc psc_reason_descs[] = {
->   	[PSCR_REGULATOR_FAILURE] = { "regulator-failure", POWER_ON_REASON_REGULATOR_FAILURE },
->   	[PSCR_OVER_TEMPERATURE]	 = { "over-temperature",  POWER_ON_REASON_OVER_TEMPERATURE },
->   	[PSCR_EC_PANIC]		 = { "ec-panic",	  POWER_ON_REASON_EC_PANIC },
-> +	[PSCR_POWER_ON]		 = { "power-on",	  POWER_ON_REASON_REGULAR },
-> +	[PSCR_WATCHDOG]		 = { "watchdog",	  POWER_ON_REASON_WATCHDOG },
-> +	[PSCR_SOFTWARE]		 = { "software",	  POWER_ON_REASON_SOFTWARE },
-> +	[PSCR_EXTERNAL]		 = { "external",	  POWER_ON_REASON_EXTERNAL },
-> +	[PSCR_RTC]		 = { "rtc",		  POWER_ON_REASON_RTC },
-> +	[PSCR_RESET_BUTTON]	 = { "reset-button",	  POWER_ON_REASON_RST_BTN },
-> +	[PSCR_CPU_CLK_FAIL]	 = { "cpu-clock-failure", POWER_ON_REASON_CPU_CLK_FAIL },
-> +	[PSCR_XTAL_FAIL]	 = { "crystal-failure",	  POWER_ON_REASON_XTAL_FAIL },
->   };
-> +static_assert(ARRAY_SIZE(psc_reason_descs) == PSCR_REASON_COUNT,
-> +	      "psc_reason_descs[] must have an entry for every psc_reason");
+> and in pvm_psci_vcpu_on():
+> 
+>         /*
+>          * vCPUs race to power on the same target. The acquire pairs with the
+>          * release of OFF in pvm_psci_vcpu_off(): the target's accesses to
+>          * reset_state in pkvm_reset_vcpu() precede the writes below.
+>          */
+>         power_state = cmpxchg_acquire(&target->power_state,
+>                                       PSCI_0_2_AFFINITY_LEVEL_OFF,
+>                                       PSCI_0_2_AFFINITY_LEVEL_ON_PENDING);
 
-Thanks Faruque. This is better than nothing, but if I read it right, it 
-won't still catch missing initializations when last item is initialized 
-(but not all items). Eg:
+This confused me more :( Why are you talking about accesses preceding an
+acquire? An acquire only orders later accesses.
 
-enum {
-	PSCR_REGULATOR_FAILURE,
-	PSCR_OVER_TEMPERATURE,
-	PSCR_EC_PANIC,
-	...
-	PSCR_REASON_COUNT
-};
+I really think we need some litmus tests to understand the general ordering
+problems we have here before adding the memory barriers.
 
-static const struct psc_reason_desc psc_reason_descs[] = {
-	[ PSCR_REASON_COUNT - 1] = { "foo", BAR }
-};
-
-static_assert(ARRAY_SIZE(psc_reason_descs) == PSCR_REASON_COUNT,
-	      "psc_reason_descs[] must have an entry for every psc_reason");
-
-would pass the check, but accessors would crash to uninitialized 
-entries. Hence, I would still prefer the run-time NULL checks.
-
-Oh, and I just noticed there is comma following the 'PSCR_REASON_COUNT' 
-in the enum. Since 'PSCR_REASON_COUNT' should always be kept as the last 
-enum value, the comma should be omitted.
-
-Other than this - I like the changes you implemented this series. Won't 
-reply to other patches, but I think this is a very nice series!
-
-Yours,
-	-- Matti
-
--- 
-Matti Vaittinen
-Linux kernel developer at ROHM Semiconductors
-Oulu Finland
-
-~~ When things go utterly wrong vim users can always type :help! ~~
+Will
