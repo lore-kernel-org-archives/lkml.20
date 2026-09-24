@@ -1,141 +1,206 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C45B36654F
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:02:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790287362; cv=none; b=SC8rgd99bjOnrX5jyKRPFjY0qz/nTZ0pEHkWECagyvBM8zqtS1UtDND9B13s4QJeYqQbpr98u7So3adLlgXxCKYi9kHJnIHuYrI0scpz4WnF5crO0KChxzJGENxKz/IeYhiQcezJdmXyL2aRbHk5djb5mdZvWjz7CXzopJkvOzQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790287362; c=relaxed/simple;
-	bh=q9Q38rfwg+ndLuv/SnmRyYC3yPpGM/HR1YdJVhzn990=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dvD2glxBn23weP40NQxYvs0CM3b60Ycoq6pkMexAsKp7KI+lGmDHPonX46GjxO5JwIgO8psqMpe5DYP7b3C7Gm4oIXlVQE8JxA7hmaj3sswFKZtiZxBy5+kTuxOOAV6yjEKViUHASMTaFqwCpACGXEsg4GlW8+H4Ir6V/K7RaWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bqI+X8F/; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC69207A20
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:04:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790287452; cv=pass; b=jFgfP5u5/5fncZ2SVzK3/iMDqxVU2VPEzb9nnlKettpkyWoyQ+2naxB8XlzRmxpfBTO9vo6xgJ4oN3nGFXEiEOP5B3f82QLdT1hODAPsojgB0BsOj35y2927eUtCwRmTsJ+lQIQb3fxM7DDlfgMNAFo354U/FsaJJwvwsmXMvdY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790287452; c=relaxed/simple;
+	bh=UCPWykPSeFLhhECC9JKMywpS2K7qYEIBFzqJhcYbxZ8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gN+h0FwWUVhXuMXFUX5+IUByJVpEhA2A466eJB0GJgEOI0tDXbb/jrIJiAFaj3EeJ075xx+6rPq798odrmM13jLdDw4VpHPlB70yjCiO2JdLwCoe7yvZqWZ7e8efmUyWleDwmF05nn0SD2DdLkqVBgomghJ4wZ1/lMna3di3dOg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n/cVNg8J; arc=pass smtp.client-ip=74.125.228.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bqI+X8F/"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b91369d18so2096405e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:02:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n/cVNg8J"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c254f9f0b20so35242366b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:04:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790287449; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qTiMK7Ex9Bnku1gmRKubKG85IToGheyRKm7IlBUSFXl7ViNECmt/MhaUVQhU5z3hgi
+         oOhwQ2ClEpCBVNR7n5kp5DctN6Sv2Hv+Lcs0tIh+xyS6QiOe9lrs5kxRM+rbkFhuJvxy
+         mSR0An7yCJ3BdCyf52fK1zrTVgxw43VuxdyLFVNsqS0YGS53DpdzEcEFi2XMUeghdbi1
+         FwDzGvEyBYpLNNZ32MzJyfzuzm/wX3wpcqmOoYTMUFGjsZytlvIka46VPnBpuV8DXjT8
+         +8KZ9TnaNbBBwBqIaSKURBKt48AGaovg863ck+DhEX0Nn6R16aVyqYREEBf7eloPz7DA
+         TrSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Cr7dYgudHu+YtLQISezbH81OFiuDdMrq+aTJZsl4PNA=;
+        fh=/2As9PfQ/8hCAXaPBdQPnGT+tV6WuKWeLxWTIBwo4bQ=;
+        b=oyJbYdq2Uh/WnwWpskJlTTj2pkj0vOnPwQFsfXAQBQ+8DEwe8EeZ0lEO1SoltO5xeP
+         2FbSOCyZMClfoU/dJd0s4RjWDtWA8gaYUKBdWyw4Gr5lqsgmcxrPzGYmzhRv54hf3d7s
+         XzcgJKVLsVjfBOSblqUseINYLU1wvi4DhDaSlxwFTYpZEPf4Oh5I2T9TnXkxO+803o9O
+         Y/H6d1ZjCLlJcK+yDZxxcNyyTSH4NiewHTw6rESohSm/eDsmTyJSNZ58y7M37I6Wixwn
+         4Z77VazvhqElvnk99XZvKDRSiSEN8jAUGEVXckFih4pG5pHCf7gDMAuLrhl0u5SHk5CH
+         BA4Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790287360; x=1790892160; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1790287449; x=1790892249; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=FxovyPH3Np+Hc1hy5wmf+7gNJx0ZGtqWMTp+L5wj2dg=;
-        b=bqI+X8F/fyJDveM3Xvepmg2A9EfwVsQcJ1tL21cPB+8suevU2IfBnNyqKB63QKmqPG
-         iLjKYCKMVM1zMS1PLI7dzQHRAEcItMoo96aiZGb73XJB3ihyEZhIeqFtJeCEzFgpx5QZ
-         MPEnClbBcDLU+G/UBXYK100F/hlfxSe4otpLOnv2e+3nc4iMme40+I2g0oC3+OZJfdj3
-         +ccUm1b71WPlsGsnnlvSxx1iiicJbbfk6MUAWN2192laisQfrTGus5VZdH5eVXYa7V4B
-         1e56AjdsYqxgDu7jLDYAv3uXGMIuOOXeptGcxlZE4Zr9f1ZCyLX844us/fn0LgGdKB73
-         5VfA==
+        bh=Cr7dYgudHu+YtLQISezbH81OFiuDdMrq+aTJZsl4PNA=;
+        b=n/cVNg8J+epaVSps6OF98mAXo5jr3knHjQ9tRVUxTC2B9B2DF/M3GSwgoILbtK0UJJ
+         5djh9J0j67a5TVAiUIqIV/C1VUfz3WOqo2oy+OFAxO5vkS/B6arzzI9+NTLSxKX90Xt6
+         XCz5EkEdEs7Xa+9sG7MBGstBWay0s46s0vkOncoP2zO2QM2P8Y7kVm/zCi1NV5bnprt/
+         iGTDJQbj0i/8heqBkxyjA5XD2gYZP2mavSLM7NKnrLKz0ZJHEJTBN5c+zgP37wq1ugDm
+         VeJgRqmvETYwYVkwTMPEKm1ZhI6gDxOH6OVQrdYb0aTQMP49MSDSAvyj7mrM4DKBY8il
+         UqKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790287360; x=1790892160;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790287449; x=1790892249;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FxovyPH3Np+Hc1hy5wmf+7gNJx0ZGtqWMTp+L5wj2dg=;
-        b=k6lX3OXrCr/TlRsA8cN9NP/PikbMr6htwM/SXff9rnJLODynI2FaZB5QOEyl5SzdAe
-         OADkQ+LVOAArII/3tjjN7pgsoFRMhj8NEMyY1bR5BNU4ZyfEHR+YOgF0TY62zI3j/9f+
-         98yZP/AeqWYOBtaRuWYQ3AMNnReHSVwIugPqFEkbXP4QTJAwekR0JW1677k6GWXDscTW
-         4+V4LnTuPmrkfUPaL7QyzVFzAToMqOZL7dwGza7iQvIif8L/NxRS4daJ+sA3/K4y36Ns
-         LuU5u+avrO9m38dzvrJ4TzqyX1ieOEL7WcpXoTVnTVYFw/lo0xb+axN+5K6kXlNN+Yb/
-         OFQA==
-X-Forwarded-Encrypted: i=1; AKwUvBwQGh1wjyiMQvia27Ns5eg4ynZuf23E4NwBczi1uZpMcxt/O4voXINeeErJ7pjOnYxIy80ahS2sCXj0t1c=@vger.kernel.org
-X-Gm-Message-State: AFuF++lcG9EqC9A4fDeop/QQrG5xzMsUHaS7Pbza3Q4tkGZ+eiIUbfR3
-	KGacwyORR1FUQkKrD2uwGnvoT0vu0cmxgEd9+xZq3Vno7wDP4ciF1+TD
-X-Gm-Gg: AYBFou1m1/JThBXc1rp4506UCyf0fdyUtiFZRisIiafy1QWW0ul4igVyoo62+2vIaUR
-	uuaVQzJjE6rTxFuoIdjajv3LaZs/7KGu4vHNOeqRAipePQiS64wk7M5sPWeHkbH1CsWgDzRPOnh
-	mouovDoH+KDbE1u38c9cC6Nm7e2geVSmqwP8vyee1+p1n14hYje89MJpOlwoHgSHPdVHRYxd8D6
-	qIFOxFKAEYA960yp7Aj+rFdMIVLDsZx3S34W6vU58+6GeBFbK8MqZCOnCZqc458H3LgsuZ087yl
-	23zdCbxSP+4cU6gP/oUmjDqV8VC437aOfgl9URi/w+JiBdWrVb34z1ahFNgfkIym/8ValWOhXcb
-	XfuFdsVLRgcLNZwASujSEkwohl4gEtYILeRKqBXVv5hJyV68dnbZKsHHp2ey5sfJ8ONV2B9lhwW
-	5rAUDOsTn//JeOy0s6vH0ZecS7mL71OdET1Jd58Jitb2kDGsviubokleZD2NY=
-X-Received: by 2002:a05:600c:698e:b0:49c:fc6e:a3dc with SMTP id 5b1f17b1804b1-49fe66f1491mr70434555e9.27.1790287359476;
-        Thu, 24 Sep 2026 15:02:39 -0700 (PDT)
-Received: from gmail.com ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5dfa6a7sm154421105e9.12.2026.09.24.15.02.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 15:02:36 -0700 (PDT)
-Date: Fri, 25 Sep 2026 00:02:34 +0200
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-To: Chang Yu <marcus.yu.56@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Shi Hao <i.shihao.999@gmail.com>, Joshua Crofts <joshua.crofts1@gmail.com>, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/2] iio: light: add AS7343 multi-spectral sensor
- driver
-Message-ID: <arWccqy8YlLJxeWA@gmail.com>
-References: <20260919235145.48273-1-marcus.yu.56@gmail.com>
- <20260919235145.48273-3-marcus.yu.56@gmail.com>
+        bh=Cr7dYgudHu+YtLQISezbH81OFiuDdMrq+aTJZsl4PNA=;
+        b=lmp+CUb72NdeXm0I1MSSVLNzBdsueR1856LLgrutE0Q8F5lyKqaHSNNQhdeOECWIBt
+         sFm8yD8+o8njr9gVvxdcIydkqhh43I3wjkQZTu1/+tm/03y70I2eWiNPBPFnerF7Uhlb
+         sgqltkC4M0ykG9dErM3vvss0yooc9Wv7P9x486t/0rNX6ECrwszFUxe8WtWa18Hnnb4/
+         b5F7Z8YYGRWgjvNOGj78PX+XZK1dsq9sfmJotwZ0nrK4/P1taQQdMk5NrP9D0iKoHIPi
+         Fzdf5w5pMLW2li+wg6g+xqikavYhq//GSzptg0QbfAeN0KxCFQbqPu0rq0Jzk0H8vI2r
+         S0CA==
+X-Forwarded-Encrypted: i=1; AKwUvBxTQXGSagA+J7f+/2fDZ8K7DFeYboDvvToudj3/2wF/kGO1bn2n06ar30b/64OJfFJkS46AK6LL8yALzVo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nCZnKaA+djMSIW4aq2W+qjovJ2NeRZcbeWuLlMmZF4qi4EsDQz
+	ULmbTPDi4yj9jnmiP07sutCCLMuGkSNKGhibBHaiW9NcuM1qLiWE4selLn29Ot6r/cHsCqCpxDG
+	1HVsg708sxVQJDaJeYzCDkKLnq4xiPQ==
+X-Gm-Gg: AYBFou00dpo4RW9FBtlm/xYrrWsfiKmB7ygKco8XMkhTSmZ/WidLwl0zq7nRWfsFLq3
+	jKZqusqQEP+kc/XH7/r4KKgQGug78vMgc5doCVQOCTKnIhXaC6QxM5v4FUOnYAMHz4qH7s8axAA
+	W5vl6L2Z9RsLbVQ7rDVer1WJJpzlLN/y+x4HUzCZXTeOf6BiRQmjOOaPfmQuTw9iPiHXrga3zci
+	ne+1XVmHm2GAdZh4hecc1RoAgXlDZyhkhd2FV9Y1OB7tpocPBg1f7Rt7U8jLkNG3UIJscve8RP9
+	4APrgYDAsvosk16dok0Ni8tZK2caCH5widjexKbZdfXnNSVZRVgqTpNdn6WZETbRIcZN4YSKJ/k
+	xeWTasvGoK+mt4hnYuupc7yXZ8bvb6uKgfsBqJL1qMNiB3pzsJsMm2Zij4FOMMP83gQJO
+X-Received: by 2002:a17:907:9306:b0:c29:f5d8:9c7b with SMTP id
+ a640c23a62f3a-c2ac22ca80dmr360018666b.42.1790287448555; Thu, 24 Sep 2026
+ 15:04:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260919235145.48273-3-marcus.yu.56@gmail.com>
+References: <20260923030641.992569-1-mhun512@gmail.com> <arOc2HZm3JCf5tjJ@opensource.cirrus.com>
+In-Reply-To: <arOc2HZm3JCf5tjJ@opensource.cirrus.com>
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Thu, 24 Sep 2026 18:03:56 -0400
+X-Gm-Features: AclHuK_4Jp1hMYF-kdtO3xj5KB7MKhICx974fvLTFZOhQYR63pYwwCIBr3cBE7Q
+Message-ID: <CAGEsz8HN81_F5h3oDzJvyiF5FidOfUYGnwH+JsbLNQ6GY+_Lfw@mail.gmail.com>
+Subject: Re: [PATCH v2] ASoC: wm8962: Stop IRQ from requeuing mic_work on remove
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, patches@opensource.cirrus.com, 
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 19, 2026 at 04:51:45PM -0700, Chang Yu wrote:
-> +static int as7343_read_raw(struct iio_dev *indio_dev,
-> +			   struct iio_chan_spec const *chan,
-> +			   int *val, int *val2, long mask)
-> +{
-> +	struct as7343_data *data = iio_priv(indio_dev);
-> +	struct regmap *map = data->regmap;
-> +	struct device *dev = regmap_get_device(map);
-> +	unsigned int unused;
-> +	__le16 result;
-> +	int ret;
-> +
-> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
-> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-> +	if (ret)
-> +		return ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW: {
-> +		/* Wait until integration time passes for all 3 cycles. */
-> +		msleep(160);
+Thanks, Charles. You're right that the jack check duplicates the
+existing IRQ mask handling.
 
-three integration periods hardcoded next to a hardcoded integration
-time, so nothing keeps them in sync. make ATIME/ASTEP writable and the
-fixed wait no longer covers a readout. as73211, which this is based on,
-computes the timeout and polls NDATA. STATUS2 (0x90) bit 6 is AVALID is
-defined and never read, does it cover all three cycles? the datasheet
-does not say.
+I'll update wm8962_mic_detect() to mask the microphone interrupts,
+wait for any running IRQ handler, and cancel mic_work before changing
+the jack pointer. I'll call it from wm8962_remove() and keep the IRQ
+registered for the other interrupt sources.
 
-> +
-> +		/*
-> +		 * Reading ASTATUS latches all data registers to this read.
-> +		 * We don't care about the returned saturation/gain status for
-> +		 * now.
-> +		 */
-> +		guard(mutex)(&data->mutex);
-> +
-> +		ret = regmap_read(map, AS7343_ASTATUS_REG, &unused);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret = regmap_bulk_read(map, chan->address,
-> +				       &result, sizeof(result));
-> +		if (ret)
-> +			return ret;
-> +
-> +		*val = le16_to_cpu(result);
-> +		return IIO_VAL_INT;
-> +	}
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
---
-cheers, jose a. p-a
+I'll send v3 with these changes shortly.
+
+Thanks,
+Myeonghun
+
+2026=EB=85=84 9=EC=9B=94 23=EC=9D=BC (=EC=88=98) =EC=98=A4=EC=A0=84 5:33, C=
+harles Keepax <ckeepax@opensource.cirrus.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=
+=EC=84=B1:
+>
+> On Tue, Sep 22, 2026 at 11:06:41PM -0400, Myeonghun Pak wrote:
+> > --- a/sound/soc/codecs/wm8962.c
+> > +++ b/sound/soc/codecs/wm8962.c
+> > @@ -3115,7 +3115,7 @@ static void wm8962_mic_work(struct work_struct *w=
+ork)
+> >
+> >       wm8962->mic_status =3D status;
+> >
+> > -     snd_soc_jack_report(wm8962->jack, status,
+> > +     snd_soc_jack_report(READ_ONCE(wm8962->jack), status,
+> >                           SND_JACK_MICROPHONE | SND_JACK_BTN_0);
+> >
+> >       snd_soc_component_update_bits(component, WM8962_MICINT_SOURCE_POL=
+,
+> > @@ -3203,9 +3203,14 @@ static irqreturn_t wm8962_irq(int irq, void *dat=
+a)
+> >
+> >               pm_wakeup_event(dev, 300);
+> >
+> > -             queue_delayed_work(system_power_efficient_wq,
+> > -                                &wm8962->mic_work,
+> > -                                msecs_to_jiffies(250));
+> > +             /*
+> > +              * mic_work reports this jack.  Removal clears it before
+> > +              * synchronize_irq(), so do not queue once it is gone.
+> > +              */
+> > +             if (READ_ONCE(wm8962->jack))
+>
+> This feels a bit like its duplicating the mask check above, I
+> think it would be nicer to ensure that works as intended than
+> adding a second layer of filtering.
+>
+> > +                     queue_delayed_work(system_power_efficient_wq,
+> > +                                        &wm8962->mic_work,
+> > +                                        msecs_to_jiffies(250));
+> >       }
+> >
+> >       pm_runtime_put(dev);
+> > @@ -3232,7 +3237,7 @@ int wm8962_mic_detect(struct snd_soc_component *c=
+omponent, struct snd_soc_jack *
+> >       struct snd_soc_dapm_context *dapm =3D snd_soc_component_to_dapm(c=
+omponent);
+> >       int irq_mask, enable;
+> >
+> > -     wm8962->jack =3D jack;
+> > +     WRITE_ONCE(wm8962->jack, jack);
+> >       if (jack) {
+> >               irq_mask =3D 0;
+> >               enable =3D WM8962_MICDET_ENA;
+> > @@ -3247,7 +3252,7 @@ int wm8962_mic_detect(struct snd_soc_component *c=
+omponent, struct snd_soc_jack *
+> >                           WM8962_MICDET_ENA, enable);
+> >
+> >       /* Send an initial empty report */
+> > -     snd_soc_jack_report(wm8962->jack, 0,
+> > +     snd_soc_jack_report(jack, 0,
+> >                           SND_JACK_MICROPHONE | SND_JACK_BTN_0);
+> >
+> >       snd_soc_dapm_mutex_lock(dapm);
+> > @@ -3594,6 +3599,15 @@ static void wm8962_remove(struct snd_soc_compone=
+nt *component)
+> >  {
+> >       struct wm8962_priv *wm8962 =3D snd_soc_component_get_drvdata(comp=
+onent);
+> >
+> > +     /*
+> > +      * The IRQ stays registered for the I2C device, including across
+> > +      * card unbind.  It is the only producer of mic_work.  Clear the
+> > +      * jack first so a new handler does not queue, wait out a handler
+> > +      * that already loaded the old pointer, then drain the work.
+> > +      */
+> > +     WRITE_ONCE(wm8962->jack, NULL);
+>
+> So probably calling wm8962_mic_detect() here. Although
+> granted that probably needs some small fixups as there are a
+> couple races, probably also makes sense to move the mic_work
+> sync in there too.
+>
+> > +     if (wm8962->irq)
+> > +             synchronize_irq(wm8962->irq);
+> >       cancel_delayed_work_sync(&wm8962->mic_work);
+> >
+> >       wm8962_free_gpio(component);
+> > base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
+> > --
+> > 2.53.0
+>
+> Thanks,
+> Charles
