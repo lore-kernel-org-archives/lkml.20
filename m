@@ -1,127 +1,408 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7661D4B716B;
-	Thu, 24 Sep 2026 18:49:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D15AE4BC018
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:49:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790275760; cv=none; b=HTLkBNANyfzJ0NNaJFtfh17f41skiQzKfTnQ5Ov6A7xg7JXD2gqgP9fsXj3SmH6xaxCwAItUAIwufsiVsaQqUrj4vUI3UCMQz/DDFn2uFq9ljzrGeOWy/EKgbfzhYFpmg3WWiPTdM9//IrD0iyAofZpJUNkDgLTLJShEqSqDhzw=
+	t=1790275772; cv=none; b=Q8X0qLkZCzpIujLv2JATFhT7Qm6nd6cZJaB1TmhN0keHxIV5Hgqo2R0+Wpk8AeG+pFnLOK2xOdE2EmPVZhc6mmGZ0EOLjVAvyRvFhD8TMGz07xhdO3CBADGShwmWzpVjlh+/L6dfnrUCUwVFcGExLWZbVtPbviOngPFfjTMJTEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790275760; c=relaxed/simple;
-	bh=wWFMz0BI2jj7rQ0InITpgf4wAXLKCNiZef8BRCaO6Ag=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FVmCfZritl0eHyR7Cs8gTmiGoWa4waHtgoWFTsvWnMTvh4epxqOCvydQ4iZfsT+/SO+hMkc8tkoEzhLlNrdvwKiyISdZEC8D+lRaV8MmtRL9zPpm5TDIqQmT4QDZI4tqkIvizXF8/iADqoVKbS4ZzMGRLDSXAwsqNbhafJbuOJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mJRK6keN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790275772; c=relaxed/simple;
+	bh=WPc4v+CUBA/eXKETbJwVQHejN7tYFix4XNKmEQpj3LA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Sl/8ew3XSBUGhJNNMACuj7+6RkWRscJMLB0+I+PevJuUIRf51xQEHKzvCTOHGe877+lzqygRGuPeAQk9/imylI2lGRj8mGZKfnquo9mQwMRuwkEJTUPpZKQ7wqMman/YqnY0Q/fAhln6/nm1xHDUv3R73fJkBFpyLgTa6q1gfxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MkzA4Aw+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mJRK6keN"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id AFD7F1F000FF;
-	Thu, 24 Sep 2026 18:49:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MkzA4Aw+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C13E41F00893;
+	Thu, 24 Sep 2026 18:49:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790275750;
-	bh=r3K6A4rh3gkfpjLLzhEDske3Q1zq3Souvc7M5qJn/Lw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mJRK6keNHyEKuBbLKoIIjxXXraoTVay7nUL1hEGMSXdRJHl860Y47+x3ogs41gsy+
-	 dorGcFagt5dyp6lJHLe13tDRiueQRsFeOxS3KMEAVH04E7yFyJwng2DeQ+wysB+7j9
-	 a81lgGHNMVpm47XONOjhs8dE+20uicUz33KGoS6bOE90nlUXlvy7x2JdBy7tyX15xJ
-	 hD9VW3cItvCJRqspLxKfKOvp0zVJl7A2Aplwy+xE+wSSr+pRKVvh4YtHy0j7bQ28c+
-	 B0L8zHZdOwjDNxo9Wmov031RhLz2KPKtM91Khn5ehHmHyfaHwlYjd4XbUSbBVgX9J2
-	 z3vMDJp/9JWbQ==
-Date: Thu, 24 Sep 2026 11:49:10 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Carlos Maiolino <cem@kernel.org>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	Brian Foster <bfoster@redhat.com>,
-	Christoph Hellwig <hch@infradead.org>,
-	Damien Le Moal <dlemoal@kernel.org>, Hannes Reinecke <hare@suse.de>,
-	Daniel Gomez <da.gomez@samsung.com>,
-	Pankaj Raghav <p.raghav@samsung.com>,
-	Dave Chinner <dchinner@redhat.com>, linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] iomap: don't resubmit an ioend after
- ->writeback_submit() failed
-Message-ID: <20260924184910.GI2705364@frogsfrogsfrogs>
-References: <20260924091203.198225-1-parri.andrea@gmail.com>
- <20260924091203.198225-2-parri.andrea@gmail.com>
+	s=k20260515; t=1790275761;
+	bh=iVk+J+6paKfWpDyMf+0qbJj+JcumdT6cHUdD/JaU5MU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MkzA4Aw+cQHzFciygv95Z/EZT6W6NoJYoXb74juTqpXbV+B6umLRdm7RaOmMP2+jn
+	 FOtnGi3WgylnfImvI8URJnAHEzLgLQEhfW+xBEMZ2sO94rNeJ/FMYhHkKcfvJQ1sE7
+	 eL7I8pSoRTcvy31Scc4P9/3XGh7hG1KjZgbwhgQxa8l5FHt1UQKhpZlimXvwAcf0SU
+	 fNF4ClO/wkyJeKKJjhmEcPisE0m2uOWKFbe4fZR1BSOMU1XKGLtMw+b2m2AnvUpAnR
+	 QdgMjkyC3rE3ob8Whzq+OUaLrBgpgwOaSe0/jaaz+H8++6TGtxSevOHwgbGFwU6pl+
+	 GCOCNZkYZZjsA==
+Message-ID: <82738d2b-9c2c-474e-b90a-60a1140b5bd6@kernel.org>
+Date: Thu, 24 Sep 2026 20:46:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924091203.198225-2-parri.andrea@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] mm/memory: reuse 16 PTEs of an exclusive large
+ folio on a write fault
+To: Yuan-Hao Hsu <aa9736195201@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, liam@infradead.org,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Barry Song <baohua@kernel.org>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260918064238.868-1-aa9736195201@gmail.com>
+ <20260919073134.639-1-aa9736195201@gmail.com>
+ <20260919073134.639-2-aa9736195201@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260919073134.639-2-aa9736195201@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 24, 2026 at 11:11:51AM +0200, Andrea Parri wrote:
-> iomap_add_to_ioend() submits the pending ioend through
-> ->writeback_submit() before allocating a new one for the current range.
-> When the submission fails the helper completes the ioend with an error,
-> but iomap_add_to_ioend() returns the error without clearing
-> wpc->wb_ctx.  iomap_writepages() then submits whatever wpc->wb_ctx
-> points to, so the already completed ioend is submitted a second time.
+On 9/19/26 09:31, Yuan-Hao Hsu wrote:
+> fork() maps the anonymous pages of the parent read-only and clears
+> PageAnonExclusive on them.  Once the child has exec'ed or exited, the
+> parent's write fault takes the reuse path of do_wp_page():
+> wp_can_reuse_anon_folio() finds that all references to the folio come
+> from this MM, the page is marked exclusive again and its PTE is made
+> writable.
 > 
-> For XFS the second bio_endio() lands in xfs_end_bio(), which
-> list_add_tail()s the already linked ioend into ip->i_ioend_list.  This
-> corrupts the list and leaves a use-after-free/double-free window against
-> the ioend completion worker.  Reproduced with a fault-injected
-> ->writeback_submit() failure on a reflinked XFS file with several
-> CoW writeback ranges in flight: the unfixed kernel hits repeated
-> "list_add double add" warnings from __list_add_valid_or_report(),
-> the fixed kernel fails writeback cleanly.
+> For a large folio that check is about the folio and holds for every
+> page of it, but only the page that faulted is marked exclusive and
+> made writable.  Each other page takes a write fault of its own and
+> takes the large mapcount lock to find out the same thing again: 16
+> faults for a 64K folio.  The same THP mapped by a PMD is reused by one
+> fault in do_huge_pmd_wp_page(), and do_swap_page() maps all PTEs of an
+> exclusive large folio writable at once.
 > 
-> Clear wpc->wb_ctx when ->writeback_submit() fails.  The old
-> iomap_submit_ioend() cleared the context unconditionally; that clear was
-> lost when submission moved to iomap_ioend_writeback_submit().  The final
-> ->writeback_submit() call in iomap_writepages() needs no equivalent fix:
-> it is the last thing the function does before returning, and every
-> caller allocates its iomap_writepage_ctx on the stack for a single call,
-> so wpc->wb_ctx is never read again afterwards.
-> 
-> Fixes: f4fa7981fa26 ("iomap: hide ioends from the generic writeback code")
-> Cc: <stable@vger.kernel.org> # v6.17
-> Reviewed-by: Brian Foster <bfoster@redhat.com>
-> Assisted-by: LLM
-> Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-> ---
->  fs/iomap/ioend.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/iomap/ioend.c b/fs/iomap/ioend.c
-> index 7bbbb417f9152..32ae292a84cbe 100644
-> --- a/fs/iomap/ioend.c
-> +++ b/fs/iomap/ioend.c
-> @@ -246,8 +246,16 @@ ssize_t iomap_add_to_ioend(struct iomap_writepage_ctx *wpc, struct folio *folio,
->  new_ioend:
->  		if (ioend) {
->  			error = wpc->ops->writeback_submit(wpc, 0);
-> -			if (error)
-> +			if (error) {
-> +				/*
-> +				 * ->writeback_submit() completed the ioend
-> +				 * with an error, so drop the stale context;
-> +				 * iomap_writepages() would otherwise submit
-> +				 * it a second time.
-> +				 */
-> +				wpc->wb_ctx = NULL;
+> Barry proposed reusing the whole mTHP from one fault in 2024 [1].  The
+> reservations then were the latency of the individual write fault and
+> how far to go around the faulting PTE: a contpte-sized block was fine,
+> anything bigger not yet convincing (David's replies, linked below).
+> Commit 1da190f4d0a6 ("mm: Copy-on-Write (COW) reuse support for
+> PTE-mapped THP") then added the per-folio check and left faulting
+> around for later.
 
-I looked around the codebase and saw that iomap_writepages also calls
-->writeback_submit.  Does that need to null out wb_ctx?
+I'm fine with the original idea of limiting this to reasonable chunk
+sizes, reducing the work we do in a single page fault.
 
-My guess is that none of the callers do anything with wpc after
-iomap_writepages returns so it's not harming anyone, but we should drop
-the stale context too, right?
+The patch needs work. I disagree with various decisions
+either you or the LLM came up with like
 
---D
+* Uglifying do_wp_page
+* Not handling unshare
+* Calling wp_reuse_large_anon_folio() to do some batching to then call 
+  wp_reuse_page in same page fault
+* Batching multiple pieces in a loop
+* Using can_change_pte_writable()
 
->  				return error;
-> +			}
->  		}
->  		wpc->wb_ctx = ioend = iomap_alloc_ioend(wpc, pos, ioend_flags);
->  	}
-> -- 
-> 2.53.0
-> 
-> 
+I tried to see how to implement it cleaner. I think we should definitely
+start with:
+
+From 3d16faebcbbd1b970edb51ef2f710ca51e9709af Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Thu, 24 Sep 2026 19:43:15 +0200
+Subject: [PATCH 1/2] mm/memory: factor out anon reuse logic into
+ wp_try_reuse_anon_page()
+
+Let's move the core logic from do_wp_page() into
+wp_try_reuse_anon_page() to prepare for further changes.
+
+No functional change intended.
+
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+ mm/memory.c | 45 +++++++++++++++++++++++++++++----------------
+ 1 file changed, 29 insertions(+), 16 deletions(-)
+
+diff --git a/mm/memory.c b/mm/memory.c
+index 338fce99e7119..67fcf67bc64fd 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -4414,6 +4414,34 @@ static bool wp_can_reuse_anon_folio(struct folio *folio,
+ 	return true;
+ }
+ 
++static bool wp_try_reuse_anon_page(struct vm_fault *vmf, struct folio *folio)
++	__cond_releases(true, vmf->ptl)
++{
++	const bool unshare = vmf->flags & FAULT_FLAG_UNSHARE;
++
++	VM_WARN_ON_ONCE(!folio_test_anon(folio));
++
++	/*
++	 * Private mapping: create an exclusive anonymous page copy if reuse
++	 * is impossible. We might miss VM_WRITE for FOLL_FORCE handling.
++	 *
++	 * If we encounter a page that is marked exclusive, we must reuse
++	 * the page without further checks.
++	 */
++	if (!PageAnonExclusive(vmf->page)) {
++		if (!wp_can_reuse_anon_folio(folio, vmf->vma))
++			return false;
++		SetPageAnonExclusive(vmf->page);
++	}
++
++	if (unlikely(unshare)) {
++		pte_unmap_unlock(vmf->pte, vmf->ptl);
++		return true;
++	}
++	wp_page_reuse(vmf, folio);
++	return true;
++}
++
+ /*
+  * This routine handles present pages, when
+  * * users try to write to a shared page (FAULT_FLAG_WRITE)
+@@ -4499,24 +4527,9 @@ static vm_fault_t do_wp_page(struct vm_fault *vmf)
+ 		return wp_page_shared(vmf, folio);
+ 	}
+ 
+-	/*
+-	 * Private mapping: create an exclusive anonymous page copy if reuse
+-	 * is impossible. We might miss VM_WRITE for FOLL_FORCE handling.
+-	 *
+-	 * If we encounter a page that is marked exclusive, we must reuse
+-	 * the page without further checks.
+-	 */
+ 	if (folio && folio_test_anon(folio) &&
+-	    (PageAnonExclusive(vmf->page) || wp_can_reuse_anon_folio(folio, vma))) {
+-		if (!PageAnonExclusive(vmf->page))
+-			SetPageAnonExclusive(vmf->page);
+-		if (unlikely(unshare)) {
+-			pte_unmap_unlock(vmf->pte, vmf->ptl);
+-			return 0;
+-		}
+-		wp_page_reuse(vmf, folio);
++	    wp_try_reuse_anon_page(vmf, folio))
+ 		return 0;
+-	}
+ 	/*
+ 	 * Ok, we need to copy. Oh, well..
+ 	 */
+-- 
+2.43.0
+
+
+And the maybe go into this direction, where we really only try to
+batch exactly once, and include in that patch out PTE of interest. IOW, optimize
+for the common case and also take care of unsharing.
+
+
+Some things I am not sure about
+* Hardcoding WP_REUSE_MAX_NR_PTES, likely should be determine differently.
+* Marking all 16 PTEs young+dirty. It's somewhat the same thing as we do in
+  map_anon_folio_pte_pf(). On arm64 it's already fuzzy with cont-pte. With
+  transparent coalescing we'd actually allow it directly. So it does feel like the right thing.
+
+I also wonder whether some part of the function could be factored out as helpers for
+other code to use in the future. I also suspect that there are more cleanups to be had.
+
+Long story short, needs more work, but I am out of time.
+
+Entirely untested:
+
+
+From 1db2c61661cc854eabb8619a2717d1ddf43a95f5 Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Thu, 24 Sep 2026 20:03:01 +0200
+Subject: [PATCH 2/2] mm/memory: reuse 16 PTEs of an exclusive large folio on a
+ write fault
+
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+ mm/memory.c | 120 +++++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 115 insertions(+), 5 deletions(-)
+
+diff --git a/mm/memory.c b/mm/memory.c
+index 67fcf67bc64fd..dab2a274783bf 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -4414,10 +4414,78 @@ static bool wp_can_reuse_anon_folio(struct folio *folio,
+ 	return true;
+ }
+ 
++#define WP_REUSE_MAX_NR_PTES	16
++
++static unsigned int wp_anon_folio_pte_batch(struct vm_fault *vmf,
++		struct folio *folio, unsigned long *addr, struct page **page,
++		pte_t *pte, pte_t **ptep)
++{
++	/* modify_prot_start_ptes() needs most PTE bits to match. */
++	const fpb_t flags = FPB_RESPECT_WRITE | FPB_RESPECT_SOFT_DIRTY;
++	struct vm_area_struct *vma = vmf->vma;
++	unsigned long batch_start_addr, batch_size, folio_idx, nr_before;
++	unsigned int batch_nr_pages;
++	pte_t *batch_start_ptep;
++	pte_t batch_start_pte, expected_pte;
++
++	if (!IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) ||
++	    !folio_test_large(folio))
++		return 1;
++
++	/*
++	 * We'll try batching in a naturally aligned block surrounding our
++	 * faulting PTE.
++	 */
++	batch_nr_pages = min(folio_large_nr_pages(folio), WP_REUSE_MAX_NR_PTES);
++	batch_size = batch_nr_pages << PAGE_SHIFT;
++	batch_start_addr = ALIGN_DOWN(*addr, batch_size);
++	folio_idx = folio_page_idx(folio, *page);
++	nr_before = (*addr - batch_start_addr) >> PAGE_SHIFT;
++
++	/* Stay within the folio. */
++	if (nr_before > folio_idx ||
++	    folio_idx - nr_before + batch_nr_pages > folio_large_nr_pages(folio))
++		return 1;
++
++	/* Stay within the VMA. */
++	if (batch_start_addr < vma->vm_start ||
++	    batch_start_addr + batch_size > vma->vm_end)
++		return 1;
++
++	batch_start_ptep = *ptep - nr_before;
++	batch_start_pte = ptep_get(batch_start_ptep);
++
++	expected_pte = pte_advance_pfn(batch_start_pte, nr_before);
++	if (!pte_same(__pte_batch_clear_ignored(expected_pte, flags),
++		      __pte_batch_clear_ignored(*pte, flags)))
++		return 1;
++
++	if (folio_pte_batch_flags(folio, NULL, batch_start_ptep,
++				  &batch_start_pte, batch_nr_pages,
++				  flags) != batch_nr_pages)
++		return 1;
++
++	/*
++	 * Our faulting PTE is guaranteed to be part of the batch, and all
++	 * PTE bits are compatible.
++	 */
++	*addr = batch_start_addr;
++	*page = *page - nr_before;
++	*pte = batch_start_pte;
++	*ptep = batch_start_ptep;
++	return batch_nr_pages;
++}
++
+ static bool wp_try_reuse_anon_page(struct vm_fault *vmf, struct folio *folio)
+ 	__cond_releases(true, vmf->ptl)
+ {
+ 	const bool unshare = vmf->flags & FAULT_FLAG_UNSHARE;
++	struct vm_area_struct *vma = vmf->vma;
++	unsigned long addr = vmf->address;
++	struct page *page = vmf->page;
++	pte_t new_pte, pte = vmf->orig_pte;
++	pte_t *ptep = vmf->pte;
++	unsigned int i, nr = 1;
+ 
+ 	VM_WARN_ON_ONCE(!folio_test_anon(folio));
+ 
+@@ -4426,14 +4494,56 @@ static bool wp_try_reuse_anon_page(struct vm_fault *vmf, struct folio *folio)
+ 	 * is impossible. We might miss VM_WRITE for FOLL_FORCE handling.
+ 	 *
+ 	 * If we encounter a page that is marked exclusive, we must reuse
+-	 * the page without further checks.
++	 * the page without further checks. Don't process more than a single
++	 * PTE in that case.
+ 	 */
+-	if (!PageAnonExclusive(vmf->page)) {
+-		if (!wp_can_reuse_anon_folio(folio, vmf->vma))
+-			return false;
+-		SetPageAnonExclusive(vmf->page);
++	if (PageAnonExclusive(page))
++		goto reuse_single_page;
++
++	if (!wp_can_reuse_anon_folio(folio, vma))
++		return false;
++
++	/* We can use any folio page that is mapped in this page table. */
++	nr = wp_anon_folio_pte_batch(vmf, folio, &addr, &page, &pte, &ptep);
++	if (nr == 1) {
++		SetPageAnonExclusive(page);
++		goto reuse_single_page;
+ 	}
+ 
++	for (i = 0; i < nr; i++)
++		if (!PageAnonExclusive(page + i))
++			SetPageAnonExclusive(page + i);
++
++	/* Careful: don't mark unrelated PTEs soft-dirty by batching. */
++	if (unlikely(pte_needs_soft_dirty_wp(vma, pte)))
++		goto reuse_single_page;
++
++	if (unlikely(unshare)) {
++		pte_unmap_unlock(vmf->pte, vmf->ptl);
++		return true;
++	}
++
++	/* See wp_page_reuse() */
++	folio_xchg_last_cpupid(folio, (1 << LAST_CPUPID_SHIFT) - 1);
++
++	for (i = 0; i < nr; i++)
++		flush_cache_page(vma, addr + (i << PAGE_SHIFT), pte_pfn(pte) + i);
++
++	pte = modify_prot_start_ptes(vma, addr, ptep, nr);
++	new_pte = maybe_mkwrite(pte_mkdirty(pte_mkyoung(pte)), vmf->vma);
++	modify_prot_commit_ptes(vma, addr, ptep, pte, new_pte, nr);
++
++	/* Remove stale read-only TLB entry for the faulting PTE only. */
++	flush_tlb_fix_spurious_fault(vma, vmf->address, vmf->pte);
++
++	/* But update the MMU cache of all changed PTEs. */
++	update_mmu_cache_range(vmf, vma, addr, ptep, nr);
++
++	pte_unmap_unlock(vmf->pte, vmf->ptl);
++	count_vm_event(PGREUSE);
++	return true;
++
++reuse_single_page:
+ 	if (unlikely(unshare)) {
+ 		pte_unmap_unlock(vmf->pte, vmf->ptl);
+ 		return true;
+-- 
+2.43.0
+
+
+
+-- 
+Cheers,
+
+David
