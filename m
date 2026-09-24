@@ -1,267 +1,293 @@
-Received: from mail-qv2-f31.google.com (mail-qv2-f31.google.com [74.125.230.159])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 043F538910F
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:16:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D51063793C3;
+	Thu, 24 Sep 2026 16:17:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790266599; cv=none; b=eplDmr+2hp59ZG/z7M4fYPgN//oi5hB82il5wjnzKjURH8CuX96eqeOP5Uia21mDPoCQKdNJZKbhGCf68fIkGRy6dUlss6uRG93/pgfsQ+jR0P0BlWdD7EfF2d2tc3aJ0fHLTz6gmrC1en3DhcZ71tllBA98yoJaH875LELSFFU=
+	t=1790266662; cv=none; b=WHxGTc8SxpexuiJHhfKSuSaMLFG9b7MQdm9GoMnVpT4Zpjb/Z+KHi0s193B4T/TRzGbOkl8tH60eZ0dHpKj8aKfCikPnuQTtZDKNIsBCcvnaaAoZaFiMjY2rdHuECFLr8jqDKQvzMzEGhn32c5TheVetZYkDzaSe+y9Sx8TeKSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790266599; c=relaxed/simple;
-	bh=h/Mc3DnI7LfNjyhU40x6a5ht0e04GIAO8atGjdR5AhQ=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=lhEFYiTYo1KC2y8uuYBv9nlhnjCrNRJtc9NbtdWbonj+ldB/VYlveVC5WIbmHY//4Ar17IL+zzDKFYle0WfhlZzg4M6DNm/6c4V7VSDLIu/Gx4JIqg+lDYLvzv1aRkLFBGsGIaNM4ErEGuXO79i9SsxYc7Wf+VvGJcJGa+Y7AKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bd7bNVQr; arc=none smtp.client-ip=74.125.230.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790266662; c=relaxed/simple;
+	bh=54j6jm9bBfedLrJ77nc05dsO/9GGqZr7GBq9pImLWco=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=Gu0EdhhNBun9PSEizzNj0ldcGrLv+oAzXgXu9HrrcLgxbC240TfxZF7J02wnDcdtRkWLnXSd65S4fq/FhbIg/km04RDrZ2o9AXQEbYTMk9YnOdGpq+OqcDtzv/ahKAJw4q1/IHYOR3NbMMHnHXS1y+AFRJfxvnvAIuZ/hlAJQEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iwE+7vle; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bd7bNVQr"
-Received: by mail-qv2-f31.google.com with SMTP id 6a1803df08f44-91219376dd6so375546d6.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:16:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790266596; x=1790871396; darn=vger.kernel.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=iWigTBtLpsox0Nup25UwaB9x5Gbdt7pmJDm6fm3JuRo=;
-        b=Bd7bNVQrUljey69LHHMhjm45cc4J8s0wvR5fachiR19160Wn12fKLlscKRLQ/wUWRe
-         Z1MySFB8ivJ0C2C/NubyrfY78EVXQI0OUOPj3dh5qxdjSyQ7AoYan6NOVQLxeLe2256O
-         Zmm9IEeW6sAXd5ci8PNgC2G7nc80BREASm30TYENmbrC6MSSdo0b25aPzUb+uM5kECa6
-         x7tgviAX2qUdJs4pBeHkXcS3KA1oZUZT+xd+8se8y0paUqgf4QMbz8lyVe9mPq01jY5X
-         nQpxp/H6nWXWuln+xmElr75CaK40zPpuDGIdMR4GxxeUQH3phIREWemiankVoK08Jt8l
-         LvoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790266596; x=1790871396;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iWigTBtLpsox0Nup25UwaB9x5Gbdt7pmJDm6fm3JuRo=;
-        b=aoJE6LB/PmaALJnTU9gXhuuft3XIPAEY055wCsf3RCv+gYN2ZolWCNhjFbuhfu2lOo
-         QeuNkod8gCXUMd8xCbdyqfnV3vbH8iTBVU1ce+ZXZbqtWK7UGT1VADqWGT2lC91DpHsx
-         FMdjBjzyoG0BMUoUxc4Eabm5acdnbj6iT/ezTUta0gm/TjVN9nvbl7v6UiDEi2YcCqFf
-         ha6v1EVWGlW7bEmTceq1Hyvw5gCrUgyH5pYv0YetHEx7uAA1SnCA6EaAy9pE/+ihqklY
-         7rRB3V6fbsz5pXYIwu+5dc7+b/B/txqF4EJqPTy4NQkeRB/TElEaneKJzaZkZHDaGlfN
-         iUSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwGYQz/yEvJxzSkkpTPgpqpfjpEaGZF7hlwY5rO+sbXSQSIYVc0wzERl5tbzOiZQLzgx3y0TV9AqvlEo54=@vger.kernel.org
-X-Gm-Message-State: AFuF++k6kerCa2AfzKoNRYr+uSicguRgfQ6iMpHvHcNCb94iwoDB4CdE
-	bSCzcEQpWnDV7bFxOQlj3ve8ylxcGmIa6ePLmz09S3PSaiYe4Z80Vpt2
-X-Gm-Gg: AYBFou3p6OZyC9pYC3RGlcfyuMdwFRL+WbMwDMuwzfq9RY3/vcUBeUZyj4xcBdsMKdr
-	j/2zldkkMJqoN8qOCIP/5WLc/zo91+n5LF/kwkTQ5LZbh5dfjek4OwUFLo8QAsVYQONgyWgUMQ4
-	JTOyJECv4pxQ8obRNJh90ke3EDXp5megxNKXZXrgYJutETvQ1BKEq0b/GkbtFoXqF5EVAGHr8bv
-	qaAmEwczPqG2eNcDAoAwJhFbAsvmrN8szfwEKrcPVu7t6l+vEiEpg6Du4GG3sIWIob3Mrj2R3oP
-	LAIqdFBT3+1t+205o15rDBfwd0TWldn4j3xFkP3RwTwvH72SsdMW4cy9WucXrbioKrM/VrtgIdx
-	bnlrl4DDOuL9vpcj+wfzEyJXn5qnQPa4IHjQa+4C3zpf+s12UOnGf2XFgOqsncOiAm8tjTqm483
-	5jfw1IE70DPt4sls2A9kg/w2Md8uC1kTZ76SiNl/LQZ8A3Ogui2EzpUWnDPHFRgh/uvCKGXo6Wg
-	epTbeCXWKughQ==
-X-Received: by 2002:ad4:5c42:0:b0:912:35a6:3bc5 with SMTP id 6a1803df08f44-91421db4eccmr31821946d6.22.1790266595510;
-        Thu, 24 Sep 2026 09:16:35 -0700 (PDT)
-Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9141e25aa56sm19523796d6.23.2026.09.24.09.16.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 09:16:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iwE+7vle"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 375811F00893;
+	Thu, 24 Sep 2026 16:17:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790266660;
+	bh=/vir7cOOalrm3uAtBCr/uUQaicGXlCKvmJG7+GwiX1g=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=iwE+7vleCFfMnAijc6nhK/b+R0CA8Ynie7k007PULFTJSSXletRWl3GgzUiPQUtKd
+	 l7wYcPCT3oOc/WzZlXp9MaV4eOcDUqmfrZ2L5sl2V2N/PiNG6TaOcMk5q7vFNAaXMq
+	 v6LwPMgkO+jU2Avkw9xKX3IMLz2PgfKt6r3KHZJiQHjk+npatXy2gKRMxij0z/WXym
+	 5wRrjm3GavyMYYh+/H2SEnPcjEKL6+jQBohI0ZWGQ6qMWyo/549lo2PxPZiqMvgjV+
+	 nBwIimYQdYDvDcQwTHqObEbK4cK04/yG+3iIF/gAgGFD19AOyoW8NJyIVn15iJYoiF
+	 VrVTgi/AD/4+w==
+Content-Type: multipart/mixed; boundary="===============3199754947234595145=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 24 Sep 2026 12:16:33 -0400
-Message-Id: <DLNOJJD5HT78.FEHRVJW7476B@gmail.com>
-To: <netdev-bot+sashiko@kernel.org>, <daniel.zahka@gmail.com>
-Cc: <alexanderduyck@fb.com>, <kuba@kernel.org>, <kernel-team@meta.com>,
- <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
- <pabeni@redhat.com>, <ast@kernel.org>, <daniel@iogearbox.net>,
- <hawk@kernel.org>, <john.fastabend@gmail.com>, <sdf@fomichev.me>,
- <dimitri.daskalakis1@gmail.com>, <mohsin.bashr@gmail.com>,
- <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
- <bpf@vger.kernel.org>
-Subject: Re: [PATCH net-next 2/8] eth: mpnic: add register init for the
- device
-From: "Daniel Zahka" <daniel.zahka@gmail.com>
-X-Mailer: aerc 0.21.0-threadmapfix
-References: <20260922-linux-mpnic-v1-2-236844f53072@gmail.com>
- <179021553292.2160803.15849497453510759239@kernel.org>
-In-Reply-To: <179021553292.2160803.15849497453510759239@kernel.org>
+MIME-Version: 1.0
+Message-Id: <6469f266e0c06de407583746d4f533a03a002fa8d7871124196b0bb568fe38fa@mail.kernel.org>
+In-Reply-To: <179017148080.466588.9116221556625712980.stgit@devnote2>
+References: <179017148080.466588.9116221556625712980.stgit@devnote2>
+Subject: Re: [PATCH] kprobes: Make optprobe optimizer multi-generational and asynchronous
+From: bot+bpf-ci@kernel.org
+To: mhiramat@kernel.org,josef@toxicpanda.com,paulmck@kernel.org,frederic@kernel.org,ast@kernel.org,rostedt@goodmis.org
+Cc: boqun@kernel.org,mhiramat@kernel.org,mark.rutland@arm.com,peterz@infradead.org,tglx@kernel.org,daniel@iogearbox.net,andrii@kernel.org,puranjay@kernel.org,rcu@vger.kernel.org,bpf@vger.kernel.org,linux-trace-kernel@vger.kernel.org,linux-arm-kernel@lists.infradead.org,linux-kernel@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Thu, 24 Sep 2026 16:17:38 +0000 (UTC)
 
-On Wed Sep 23, 2026 at 10:05 PM EDT, netdev-bot+sashiko wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 1 =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [High] pci: missing pci_resource_len() check in mpnic_probe() allows
->   OOB MMIO access
-> - [Medium] The 1 MiB Tx buffer is split between MAC and BMC differently
->   in TXB and in TQS.
->
-> --
->
-> eth: mpnic: add register init for the device
->
-> This commit adds one-time CSR initialization to mpnic_probe() through a
-> new mpnic_dev_init(). It programs the TXB, RXB, TQS, descriptor SRAM,
-> AXI and relaxed ordering settings, starts the on-chip SRAM
-> initializations and polls until they complete.
->
->> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_init.c b/drivers/net/=
-ethernet/meta/mpnic/mpnic_init.c
->> new file mode 100644
->> index 0000000000000..f8ebb19766731
->> --- /dev/null
->> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_init.c
->> @@ -0,0 +1,553 @@
->
-> [ ... ]
->
->> +/* A total of 1 MiB worth of Tx credits is available, in units of 128 B=
-.
->> + * The BMC gets a guaranteed share of them whether or not the host is
->> + * routing anything its way, everything else goes to MAC TC0.
->> + */
->> +#define MPNIC_TXB_BMC_PVT_CRDT_INIT_VAL		800
->> +#define MPNIC_TXB_P0_MAC_PVT_CRDT_INIT_VAL	\
->> +	(SZ_1M / 128 - 2 * MPNIC_TXB_BMC_PVT_CRDT_INIT_VAL)
->
-> [ ... ]
->
->> +/* The 1 MiB Tx buffer is partitioned between the MAC and the BMC in un=
-its
->> + * of 1 KiB. The BMC portion is fixed at 100 KB.
->> + */
->> +#define MPNIC_TQS_GLBL_TXB_CRDT_BMC	100
->> +#define MPNIC_TQS_GLBL_TXB_CRDT_MAC	(SZ_1M / SZ_1K - \
->> +					 MPNIC_TQS_GLBL_TXB_CRDT_BMC)
->
-> [ ... ]
->
->> +static void mpnic_txb_init(struct mpnic_dev *mpd)
->> +{
->> +	int i;
->> +
->> +	mpnic_wr64(mpd, MPNIC_TXB_BMC, MPNIC_TXB_BMC_PVT_CRDT_INIT_VAL);
->> +
->> +	/* Zero the private credits of every traffic class, then hand the
->> +	 * unreserved ones to MAC TC0.
->> +	 */
->> +	for (i =3D 0; i < MPNIC_TXB_P0_CNT; i++)
->> +		mpnic_wr64(mpd, MPNIC_TXB_P0(i), 0);
->> +	mpnic_wr64(mpd, MPNIC_TXB_P0(MPNIC_TXB_TC_IDX_MAC_0),
->> +		   MPNIC_TXB_P0_MAC_PVT_CRDT_INIT_VAL);
->> +	mpnic_wr64(mpd, MPNIC_TXB_P0(MPNIC_TXB_TC_IDX_BMC),
->> +		   MPNIC_TXB_BMC_PVT_CRDT_INIT_VAL);
->
-> [ ... ]
->
->> +static void mpnic_tqs_init(struct mpnic_dev *mpd)
->> +{
->
-> [ ... ]
->
->> +	/* Only port 0 is used. A single traffic class is in use as well, so
->> +	 * give all of the Tx buffer credits to TC0.
->> +	 */
->> +	mpnic_wr64(mpd, MPNIC_TQS_GLBL_P0_0,
->> +		   FIELD_PREP(MPNIC_TQS_GLBL_P0_0_TXB_MAX_CRDTS_0,
->> +			      MPNIC_TQS_GLBL_TXB_CRDT_MAC));
->> +	mpnic_wr64(mpd, MPNIC_TQS_GLBL_P0_1, 0);
->> +	mpnic_wr64(mpd, MPNIC_TQS_GLBL_BMC,
->> +		   FIELD_PREP(MPNIC_TQS_GLBL_BMC_TXB_MAX_CRDTS,
->> +			      MPNIC_TQS_GLBL_TXB_CRDT_BMC));
->
-> [Severity: Medium]
-> Do TXB and TQS split the 1 MiB Tx buffer the same way?
->
-> On the TXB side, mpnic_txb_init() writes MPNIC_TXB_BMC_PVT_CRDT_INIT_VAL
-> (800 x 128 B =3D 100 KiB) to both MPNIC_TXB_BMC and
-> MPNIC_TXB_P0(MPNIC_TXB_TC_IDX_BMC). MAC TC0 then gets:
->
->   SZ_1M / 128 - 2 * 800 =3D 6592 credits =3D 824 KiB
->
-> On the TQS side, mpnic_tqs_init() programs
-> MPNIC_TQS_GLBL_P0_0_TXB_MAX_CRDTS_0 with:
->
->   SZ_1M / SZ_1K - 100 =3D 924 (1 KiB units) =3D 924 KiB
->
-> That lets the scheduler use 100 KiB more for TC0 than TXB reserved as
-> TC0 private credit.
->
-> Suppose TXB_MAX_CRDTS limits how much data the scheduler can have
-> outstanding in the TC0 TXB pool. Could a Tx burst that fills TC0 then
-> overrun the pool once the Tx datapath is running?
->
-> If the BMC only needs a single 100 KiB share, as the TQS comment says,
-> does the "2 *" in MPNIC_TXB_P0_MAC_PVT_CRDT_INIT_VAL leave 100 KiB of Tx
-> buffer unused?
->
-> The TXB comment says "everything else goes to MAC TC0", but the code
-> subtracts the BMC share twice, so the two don't match either.
->
-> [ ... ]
+--===============3199754947234595145==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Will fix in v2.
+> diff --git a/kernel/kprobes.c b/kernel/kprobes.c
+> index 6337da5cab9e..1e25980303c4 100644
+> --- a/kernel/kprobes.c
+> +++ b/kernel/kprobes.c
 
->
->> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_pci.c b/drivers/net/e=
-thernet/meta/mpnic/mpnic_pci.c
->> --- a/drivers/net/ethernet/meta/mpnic/mpnic_pci.c
->> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_pci.c
->> @@ -108,6 +112,10 @@ static int mpnic_probe(struct pci_dev *pdev, const =
-struct pci_device_id *ent)
->>  	pci_set_master(pdev);
->>  	pci_save_state(pdev);
->> =20
->> +	err =3D mpnic_dev_init(mpd);
->> +	if (err)
->> +		goto err_free_mpd;
->> +
->>  	return 0;
->> =20
->>  err_free_mpd:
->>
->
-> [Severity: High]
-> mpnic_dev_init() reaches much further into BAR 0 than anything the
-> driver touched before. Before this patch, the furthest access was
-> MPNIC_BDQ_SPARE in mpnic_rd64(). Now the TXB, RXB, RPC, ROF, TOF and
-> PEMO_WRAPPER blocks are all programmed.
->
-> The highest one is MPNIC_OB_ATTR_RDE_P in mpnic_ro_init(). It is
-> 0x9a001a in u32 units, so the writeq() lands at byte offset 0x2680068.
-> BAR 0 therefore has to be at least ~38.5 MiB for this sequence to stay
-> inside the mapping.
->
-> mpnic_probe() maps BAR 0 with pcim_iomap_region(), which accepts
-> whatever length the device advertised. Nothing checks
-> pci_resource_len(pdev, 0) against the register file the driver is
-> about to use. mpnic_wr64() and mpnic_rd64() only test that uc_addr0
-> is non-NULL, then add the register index unconditionally.
->
-> Suppose a device presents a BAR 0 smaller than that. It could be a
-> misconfigured board, or something spoofing this ID behind
-> Thunderbolt/USB4. Won't the first out-of-range writeq() in
-> mpnic_dev_init() fault on an unmapped address during probe, or
-> scribble over whatever happens to be mapped after the BAR?
->
-> Could mpnic_probe() reject the device with -ENODEV before calling
-> mpnic_dev_init() when pci_resource_len(pdev, 0) is too small? Does the
-> hardware have a documented BAR 0 size that could serve as the bound?
-> That seems better than deriving one from the highest CSR currently
-> defined in mpnic_csr.h, which will keep moving as more blocks are
-> added.
+[ ... ]
 
-I don't believe this is necessary. It doesn't seem that common in
-pci based network drivers. In our case, the bar size is static. It will
-always be 64MiB for this pci device id.
+> @@ -530,50 +553,78 @@ static DECLARE_COMPLETION(optimizer_completion);
+>
+>  #define OPTIMIZE_DELAY 5
+>
+> +static bool optprobe_has_queued_probes(void)
+> +{
+> +	struct optprobe_generation *gen = &optprobe_gens[optprobe_cur_gen];
+> +
+> +	return !list_empty(&gen->optimizing_list) ||
+> +	       !list_empty(&gen->unoptimizing_list);
+> +}
 
-pw-bot: cr
+Does this logic need to check gen->freeing_list as well?
+
+optprobe_dispatch_generation() returns early when this is false:
+
+    if (!optprobe_can_fire() || !optprobe_has_queued_probes())
+        return;
+
+But ops can reach cur_gen->freeing_list without leaving anything on the
+other two lists. unoptimize_kprobe(ap, true) on an op queued for
+unoptimization does:
+
+    force_unoptimize_kprobe(op);
+    list_move(&op->list, &optprobe_gens[optprobe_cur_gen].freeing_list);
+
+This is reached from add_new_kprobe() when a probe with a post_handler
+is registered at the same address, and from __arm_kprobe() for an
+overlapping optprobe. kill_optimized_kprobe() also list_move()s an
+unused, queued op there.
+
+If that op was the only entry on cur_gen->unoptimizing_list, the kick
+issued when it was queued produces a kprobe_optimizer() pass that
+dispatches nothing. optprobe_optimizer_busy() is then false and nothing
+kicks again. The op stays on freeing_list until some unrelated probe is
+queued, possibly indefinitely.
+
+While the op sits on freeing_list:
+
+- kprobe_queued(ap) stays true, so a later __disarm_kprobe() skips
+  arch_disarm_kprobe(). The int3 then stays in the text after the
+  probes at that address are disabled or unregistered.
+
+- The unused aggregator stays in kprobe_table and is not freed.
+
+- wait_for_kprobe_optimizer() returns immediately because
+  optprobe_optimizer_busy() is false. This contradicts the commit
+  message, which says flushing "waits asynchronously for all in-flight
+  and queued generations to drain".
+
+- Registering again at that address goes through reuse_unused_kprobe()
+  -> optimize_kprobe(). That sets KPROBE_FLAG_OPTIMIZED again (the
+  force path cleared it) and hits WARN_ON_ONCE(!list_empty(&op->list)),
+  leaving OPTIMIZED set with no jump installed.
+
+Should optprobe_has_queued_probes() also check
+!list_empty(&gen->freeing_list), so that dispatch and the flush loop
+account for these ops?
+
+[ ... ]
+
+> @@ -622,67 +675,119 @@ static void do_free_cleaned_kprobes(void)
+>
+>  static void kick_kprobe_optimizer(void);
+>
+> +static void optprobe_generation_rcu_cb(struct rcu_head *rcu)
+> +{
+> +	struct optprobe_generation *gen;
+> +
+> +	gen = container_of(rcu, struct optprobe_generation, rcu);
+> +	WRITE_ONCE(gen->ready, true);
+> +	wake_up(&kprobe_optimizer_wait);
+> +}
+> +
+> +static void optprobe_finalize_generation(struct optprobe_generation *gen)
+> +{
+> +	lockdep_assert_held(&kprobe_mutex);
+> +
+> +	scoped_guard(cpus_read_lock) {
+> +		guard(mutex)(&text_mutex);
+> +
+> +		/* Optimization never be done when disarmed */
+> +		if (!kprobes_all_disarmed && kprobes_allow_optimization &&
+> +		    !list_empty(&gen->optimizing_list))
+> +			arch_optimize_kprobes(&gen->optimizing_list);
+> +	}
+> +
+> +	/* Free cleaned kprobes after quiescence period */
+> +	do_free_cleaned_kprobes(&gen->freeing_list);
+> +
+> +	gen->in_flight = false;
+> +	WRITE_ONCE(gen->ready, false);
+> +}
+> +
+> +static void optprobe_dispatch_generation(void)
+> +{
+> +	struct optprobe_generation *gen;
+> +
+> +	lockdep_assert_held(&kprobe_mutex);
+> +
+> +	if (!optprobe_can_fire() || !optprobe_has_queued_probes())
+> +		return;
+> +
+> +	gen = &optprobe_gens[optprobe_cur_gen];
+> +
+> +	scoped_guard(cpus_read_lock) {
+> +		guard(mutex)(&text_mutex);
+> +
+> +		/*
+> +		 * Unoptimize kprobes and collect cleaned (unused and disarmed)
+> +		 * kprobes before waiting for quiescence period.
+> +		 */
+> +		do_unoptimize_kprobes(&gen->unoptimizing_list, &gen->freeing_list);
+> +	}
+> +
+> +	/* Advance cur_gen to the next generation slot */
+> +	optprobe_cur_gen = (optprobe_cur_gen + 1) % OPTPROBE_GEN_MAX;
+> +
+> +	gen->in_flight = true;
+> +	WRITE_ONCE(gen->ready, false);
+> +
+> +	call_rcu_tasks(&gen->rcu, optprobe_generation_rcu_cb);
+> +}
+
+Now that kprobe_mutex is dropped during the Tasks RCU grace period, can
+an aggregator probe that was unoptimized but is still in use be freed
+while a task is still preempted inside its detour buffer?
+
+When an op on the unoptimizing list is not unused (for example, it is
+disabled but its child probe is still registered, as after
+disable_kprobe() through __disable_trace_kprobe()),
+do_unoptimize_kprobes() takes the else branch:
+
+    } else {
+        list_del_init(&op->list);
+    }
+
+After optprobe_dispatch_generation() returns, the op is on no generation
+list, and nothing ties its lifetime to the pending call_rcu_tasks()
+grace period. kprobe_optimizer() then drops kprobe_mutex, so unregister
+can run during the grace period:
+
+  unregister_kprobes()
+    __unregister_kprobe_top(p)
+      /* list_is_singular(&ap->list) && kprobe_disarmed(ap) is true,
+         since kprobe_disarmed() is kprobe_disabled(p) &&
+         list_empty(&op->list) */
+      hlist_del_rcu(&ap->hlist);
+    synchronize_rcu();
+    __unregister_kprobe_bottom(p)
+      free_aggr_kprobe(ap)
+        arch_remove_optimized_kprobe(op);  /* frees the detour slot */
+        kfree(op);
+
+Sequence with CONFIG_OPTPROBES=y and CONFIG_PREEMPTION=y:
+
+1. Task T enters op->optinsn.insn, through the jump or through
+   setup_detour_execution(), and is preempted there. The x86 template
+   runs with IRQs enabled, and optimized_callback() reads op->kp.flags
+   before preempt_disable(). T can also be preempted in the copied
+   instructions.
+
+2. disable_kprobe(child) calls unoptimize_kprobe(ap, false), which
+   queues ap on cur_gen->unoptimizing_list.
+
+3. kprobe_optimizer() calls optprobe_dispatch_generation().
+   arch_unoptimize_kprobes() runs, then the list_del_init() above, then
+   call_rcu_tasks(), and kprobe_mutex is released.
+
+4. unregister_kprobe(child) runs hlist_del_rcu(), then
+   synchronize_rcu(), then free_aggr_kprobe(), which does kfree(op).
+
+5. T resumes in the freed or dirty detour slot. If it was preempted in
+   the template, it then calls optimized_callback(op, regs), and
+   kprobe_disabled(&op->kp) reads freed memory.
+
+synchronize_rcu() does not wait for a task preempted outside
+rcu_read_lock(). The detour slot is freed with dirty=1 and can be
+reclaimed and reused through collect_garbage_slots(), which also uses
+only synchronize_rcu(). kill_kprobe() -> kill_optimized_kprobe() ->
+arch_remove_optimized_kprobe() during module unload has the same window.
+
+In the parent commit, kprobe_optimizer() held kprobe_mutex across
+synchronize_rcu_tasks(), so step 4 could not start until every such task
+had passed a voluntary context switch. The commit message says these
+grace periods can last seconds to minutes, which makes this window wide.
+
+Should ops that were unoptimized but are still in use stay attached to
+the in-flight generation until optprobe_finalize_generation() runs? Or
+should the unregister and kill paths treat such an op as not yet
+disarmed until its generation has finished?
+
+[ ... ]
+
+> @@ -707,12 +812,11 @@ static void wait_for_kprobe_optimizer_locked(void)
+>  {
+>  	lockdep_assert_held(&kprobe_mutex);
+>
+> -	while (!list_empty(&optimizing_list) || !list_empty(&unoptimizing_list)) {
+> +	while (optprobe_optimizer_busy()) {
+>  		init_completion(&optimizer_completion);
+> -		/*
+> -		 * Set state to OPTIMIZER_ST_FLUSHING and wake up the thread if it's
+> -		 * idle. If it's already kicked, it will see the state change.
+> -		 */
+> +		optprobe_flush_requested = true;
+> +
+> +		/* Wake up optimizer thread */
+>  		if (atomic_xchg_acquire(&optimizer_state,
+>  			OPTIMIZER_ST_FLUSHING) != OPTIMIZER_ST_FLUSHING)
+>  			wake_up(&kprobe_optimizer_wait);
+
+Andrea Parri raised a concern on 2026-09-24 about a race condition in
+this code (https://lore.kernel.org/all/arTuBodyGqQ0mErI@andreayoga.localdomain/).
+
+The flusher drops kprobe_mutex while it sleeps, and the sysctl handler
+and the debugfs "enabled" file do not otherwise serialize against each
+other. A second flusher can then run init_completion() on the wait queue
+the first one is sleeping on: the first waiter is dropped from the
+queue, and complete_all() wakes only the second one. Andrea notes that
+with this patch the window is wider, since kprobe_mutex is released
+while the Tasks RCU grace period runs and optprobe_optimizer_busy()
+stays true until the generation is finalized.
+
+Andrea suggests replacing the completion with a counter of optimizer
+passes bumped at the end of each pass and signalled with
+wake_up_var_locked().
+
+Should this race be addressed before the patch is applied?
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36019837684
+--===============3199754947234595145==--
