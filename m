@@ -1,97 +1,133 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtp1.iinet.com (smtp1.iinet.com [52.129.46.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D194140B110;
-	Thu, 24 Sep 2026 23:13:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 632E13AEF51;
+	Thu, 24 Sep 2026 23:16:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.129.46.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790291592; cv=none; b=oitsmQhz6QO5yOzH5qsru5y7MYIQ1iAUgGwJMVpcqzkHfS8YPagTSbQPUFR3vqvZr0lz/5f/Rh1xuWXHYdxiYPCd7duXqQ2i8L7TA9mmdzAqI80MTcPYsghzFdHKVMUbJLwKUs9doQVLC95Kf88qbtB2pIcIoSYKjvOB0bKKTMY=
+	t=1790291809; cv=none; b=aMbXIN9Kgcm9nCxmseE83mHun9YWmGrhG5jGVSYsoVQ84ZverH5ZQB3M3hCHgSNNHlKiE1ReMi/0PVtcQ5ax34FJgi7NJtJB13ha7k7bD1DEqKJCApTP511MlSiJTexDxGN/ROWiR1riP06Yu630Zm9s3fw1iUT6tg9JBFiUtsc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790291592; c=relaxed/simple;
-	bh=s9fIgfAyPBl5uLR8laz9ZE5ehPBaWVG3E99kVjS/fiE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AhKWAHeYi7zX0GYM4TEcD8driOX70C3Tr3LPHPVpiaW9+UvDu31UOHG1Y+10ovfM/dYpIcK4NHqoNahJ8Zxz6GtcgVS7pwlconbzNWzbfeK003fF6C/t5JHnaDxDoREufrDE5Z4En8Ld6d14GIY9iZLaBGDV8p1MGFPn4EEdbk0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=pOTXKLXb; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1790291809; c=relaxed/simple;
+	bh=PSLhlbYW2qK2RwomUjA/BeVgbXRaS3hNStMRN2N3MFU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ATMuSQvtc0UkuPd7zzqZW5j9gYni0GIvrVVOPcKP/RUZxdfgcwVoMOCTVrwMs+TRtLenP2IUnzs+D7hL3vNG3plBt3hSqchKYpzW28Uj6IgA542veQ62Hjwcm6dOhCaOPT0RlKGSj4YbQxbs1XTPxCvRyjtNPTpwBafj5gZKGVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nwlink.com; spf=pass smtp.mailfrom=nwlink.com; dkim=pass (2048-bit key) header.d=nwlink.com header.i=@nwlink.com header.b=nUfrtlXs; arc=none smtp.client-ip=52.129.46.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nwlink.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nwlink.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="pOTXKLXb"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=4ZbPDKVVmE5JT4FU9/OsNfslYb/btTUybFogtbTfUWc=; b=pOTXKLXbXC2KSwCChi44zbgSfx
-	kAcnwCf/R8Ps+sSTMc1HwVM+xIbfrqq13YUQwLevBp6lUajCFsyz67GSwUFBgbTvnEGkTeIu+3RD9
-	iscYedfSxU4heWs9xbOOOCitXaRs6XgSbmijBSqUiZGi4TnQgRIX8KCTKYu7GpLziWiRrGP3f6VJ2
-	3iCQHORBXDs/5kzPgklswoxgTK85/FQUThqOwLft4UleM7PZD2rplAIWrJmaINgf/i/bOLYjSy3j2
-	M41n9pTzaVJR+JRfFH+Brv61rLZZ5+O57jzE27oP7cRtgE340IQlABp1KfMNgaiQUXuahsyZJbnGF
-	BTs+ZAOw==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x9scj-0000000CN9P-2jdq;
-	Thu, 24 Sep 2026 23:13:05 +0000
-Message-ID: <d461b048-b08a-4bbe-b5e7-60ed6686ab52@infradead.org>
-Date: Thu, 24 Sep 2026 16:13:05 -0700
+	dkim=pass (2048-bit key) header.d=nwlink.com header.i=@nwlink.com header.b="nUfrtlXs"
+Received: from porter.hsd1.wa.comcast.net (c-98-203-133-45.hsd1.wa.comcast.net [98.203.133.45])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kaf@nwlink.com)
+	by smtp1.iinet.com (Postfix) with ESMTPSA id BBFBDC00813;
+	Thu, 24 Sep 2026 15:50:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nwlink.com; s=mail;
+	t=1790290258; bh=2BZ98HwYSo1UgBK3WrlTvHiZ09UnPmRe9Dvr5OYSn9c=;
+	h=From:To:Cc:Subject:Date:From;
+	b=nUfrtlXs7HzeIOZtzsGuBYbBVTvQLSsyDFRdkIbMxdXg8Ya9JJ+lnjRtngVmbisp9
+	 tYitkSm6CHHo+KBZ0XJO2XoxNpVu448Gi29tnJsyjiWiV2fpQiUBP719d1qvSHev3u
+	 pC8e+MsnnBEnDgXegIYKEba/KWrIm0cSj25OJEbY2mMJX7RFDbW1wVJLPUncSpnvmQ
+	 4BMi0GUacHr1CeX9X9UOGNE3040u1tKsR4FnozKexzvDA8FGE7bGnPxGxNdvHTBCUd
+	 xnVzwRzCQgAlKlO5370B1nREvFyPpTzPVTTui3sYoqA+raOAYtJq1MfMndNsW1YwjX
+	 jsc99A6EcBhkg==
+From: Kyle Farrell <kaf@nwlink.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	Kyle Farrell <kaf@nwlink.com>
+Subject: [PATCH v2 0/2] usb: gadget: uac2: support explicit channel counts
+Date: Thu, 24 Sep 2026 15:50:48 -0700
+Message-Id: <20260924225050.2837727-1-kaf@nwlink.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2 0/2] net_shaper: fix kernel-doc rendering
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, mchehab@kernel.org, corbet@lwn.net,
- skhan@linuxfoundation.org, horms@kernel.org, netdev@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <cover.1786751700.git.kmehltretter@gmail.com>
- <178700041013.1735578.3422132046076853057.git-patchwork-notify@kernel.org>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <178700041013.1735578.3422132046076853057.git-patchwork-notify@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Karl M. wrote:
-| Friendly ping on v2. It already has Acked-by and Tested-by tags.
+USB Audio Class 2.0 permits up to 255 channels in an audio channel cluster
+via bNrChannels. Independently, a channel-location bitmap is specified via
+bmChannelConfig for up to 27 predefined spatial locations. Setting
+bmChannelConfig to zero indicates that the channels have no predefined
+spatial positions.
 
-| Is anything else needed from my side before this can be picked up?
+The current UAC2 gadget driver derives bNrChannels from the number of set
+bits in bmChannelConfig. Since bmChannelConfig provides 27 predefined
+spatial locations this limits playback and capture streams to 27 channels.
+
+This series allows channel counts up to the UAC2 limit of 255 without
+requiring predefined spatial channel locations in bmChannelConfig.
+Existing ConfigFS channel-mask configuration continues to work unchanged.
+New optional playback and capture count attributes allow the number of
+channels to be specified separately from the channel-location bitmap.
+
+The series is split so that the shared u_audio infrastructure is updated
+first without changing behavior, followed by the UAC2 functional change.
+
+Patch 1:
+  Pass resolved playback and capture channel counts explicitly into
+  the UAC1/UAC2 shared u_audio implementation instead of deriving them
+  from channel masks.
+
+Patch 2:
+  Add ConfigFS playback/capture channel-count attributes to the UAC2
+  function driver and use them when generating descriptors and stream
+  configuration, allowing counts beyond the 27 predefined channel
+  locations.
+
+Testing
+
+Testing was performed using a Raspberry Pi Zero 2 W configured as a USB
+UAC2 gadget. Streaming and descriptor validation were performed against
+both Linux and macOS hosts.  Windows hosts were not tested.
+
+UAC1
+  - Verified playback/capture operation via alsaloop.
+  - No descriptor or behavioral changes observed.
+
+UAC2
+  - Verified legacy channel-mask configuration (1-27 channels).
+  - Verified explicit channel-count mode with 2, 28, 61, 62, 96 channels.
+  - Verified invalid channel-count/channel-mask combinations are rejected.
+  - Verified Feature Unit descriptor size limits at 61/62 channel boundary.
+  - Verified descriptors including:
+      * bNrChannels
+      * bmChannelConfig
+      * Feature Unit presence and bLength
+      * AudioControl wTotalLength
+      * endpoint wMaxPacketSize
+  - Verified ALSA-reported playback and capture channel counts.
+  - Verified streaming using alsaloop.
+
+Changes in v2:
+  - Edit commit messages for clarity and brevity.
+  - Add Assisted-by: LLM attribution.
+  - No code changes.
+
+v1: https://lore.kernel.org/linux-usb/20260729054115.889174-1-kaf@nwlink.com/
+
+Kyle Farrell (2):
+  usb: gadget: u_audio: pass channel counts explicitly
+  usb: gadget: f_uac2: allow explicit channel count independent of
+    channel mask
+
+ .../ABI/testing/configfs-usb-gadget-uac2      | 18 ++++-
+ Documentation/usb/gadget-testing.rst          | 18 ++++-
+ drivers/usb/gadget/function/f_uac1.c          |  2 +
+ drivers/usb/gadget/function/f_uac2.c          | 69 ++++++++++++++-----
+ drivers/usb/gadget/function/u_audio.c         | 32 ++++-----
+ drivers/usb/gadget/function/u_audio.h         |  2 +
+ drivers/usb/gadget/function/u_uac2.h          |  4 ++
+ 7 files changed, 105 insertions(+), 40 deletions(-)
 
 
-On 8/17/26 2:00 PM, patchwork-bot+netdevbpf@kernel.org wrote:
-> Hello:
-> 
-> This series was applied to netdev/net-next.git (main)
-> by Jakub Kicinski <kuba@kernel.org>:
-> 
-> On Sat, 15 Aug 2026 03:32:27 +0200 you wrote:
->> The net_shaper_ops documentation contains a malformed ReST list and
->> exposes a kerneldoc.py title-context bug which drops valid headings.
->> Fix the list first because the parser correction makes it visible. The
->> parser fix also restores three Xe DRM RAS headings already in mainline.
->>
->> Tested with Sphinx 9.1.0:
->>
->> [...]
-> 
-> Here is the summary with links:
->   - [net-next,v2,1/2] net_shaper: fix kernel-doc list indentation
->     https://git.kernel.org/netdev/net-next/c/09b7c00d55a8
->   - [net-next,v2,2/2] docs: kerneldoc.py: preserve headings in kernel-doc output
->     (no matching commit)
-> 
-> You are awesome, thank you!
-
-so these 2 patches are merged into net-next, which should be merged
-into mainline Linux at the next merge window (in the 2 weeks after
-Linux v7.3 is released).
-
-Patch 1/2 is in the current linux-next daily releases.
-However, patch 2/2 is not merged anywhere in linux-next AFAICT.
-
-I also would like to see patch 2/2 merged...
-
+base-commit: d58dffe9ee2c8883193959ff4ef995ec07932874
 -- 
-~Randy
+2.34.1
 
