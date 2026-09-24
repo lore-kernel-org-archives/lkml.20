@@ -1,76 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA0EF35C6B2
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:50:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 355BE48CD59;
+	Thu, 24 Sep 2026 20:53:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790283011; cv=none; b=kanG9BEjfRjj7ftE1BrmTXc1IlpTJiiTzaQGxBfQrWAqvwwKPHqVUSuaIR7rpaWOuV8rK+U+l3KipHQpXlAIoi8pozwvF3RqZZHMv8No5JKRaQjM3cLfI4xK3h74dOia1rRxQTF2hPf/KPjLq8mNDqmTWA/ZhOHv/YlZJp8V1Ng=
+	t=1790283199; cv=none; b=cb6tUudruxEi1FzLDkIlTV+9eHJShX5IVDCIYEGFrLwApHn/vKieEggBkbX5p+hQDcFRiaib3V5wbU9hPI9dN3jwb5X1odiOm21Ww2kntHmqnv32PAM5wmfunfW9sA9MLIrzkA2tyKygeHFpWWMj6+1RygFtp0KspxzrCutvcHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790283011; c=relaxed/simple;
-	bh=Q+5hSUgLRco8Y6SztQmttTVOAj16Ju9U76wx3kQ59ho=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JCNPL1NW1vF3lbNqewtN4WTX22Cd8VahdLTUuO044JtPmwws73whqJ7RcokgUZVcV+94pBNfo9aNwGtO29FfgAahnn0A+8pkKytSeWdQs1C6xYAw26F2S7o77c1Oq4QPe47hrfnG/fCaneGVHVAJW3wk76ZS3fgtIX3lLkoxG0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FnZtoxDG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790283199; c=relaxed/simple;
+	bh=q7f2yxHXOO+EhXNPemNFyuYM9CjLPx5BB5xiwbdY6OM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Au7IgME0DlOHF3retiYaMzFxhNovdxY/davQNF7CrtOHMEipp4GCwdPWrlCYq/c8BFYYD++PA0nTHJxFh7iG2c/q0SAoyQZvKBlCe9AmC99mtmeG2lFgFxohImHvU7LhQzJpYRcdga/ginn4hRhbaQ+23LLecH6g42snmxKzGsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ifSiNXyS; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FnZtoxDG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C22CA1F00898
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:50:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790283010;
-	bh=Q+5hSUgLRco8Y6SztQmttTVOAj16Ju9U76wx3kQ59ho=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=FnZtoxDGh/uBvSnm9FYLg5Ef8RadgMeHyJbMn3WuO2kLW/CtOiBSM7pUwNfkJ7pSa
-	 gtctJh3CvDnUWO8YQttG8hbx26uR4xKKDHQWnpk+7bWEB/elSbZjAWmju0yWZxuewQ
-	 zKrN3gbVz4e1+6uoOAcYAQnypQNrEGk+4pmnCJoJHev2Kalsunga5gSjanl11GqCkV
-	 DPlVCdzgA7Ue5rh/wrUkA5DRST49Y8l2k2fAX8EeeYtpjG+q8YBK4PaoD2Xr468UKT
-	 wiVhwqRNWjPcQMar4L8seIPtzVrmq8RtZMfs1m4+bB4NnGH6RCuz/V28v2NKrXZUnR
-	 GWWJGBWofs0Ag==
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-939eb3249c1so19050085a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:50:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByefd/XN510Ea+dBk5j/y5jzY2epd0+c5swoGS2slCMUYMbn1TxxnmWAORPk6sY3a1+1cToO/YtvUAH2Jo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mMyxZ1AlPdp9QarVf1Cle9L//9OzwGZqEYR9ricuOXAPDlI2ln
-	1RgQDSYHX6/6jd0roY4crVk++1KmBP45cm1sOa4uy6JCRfWrxYeHD3S1NrtqT2lkT8BYeyXYPRP
-	5GOqs8f5oDf2TzcDPS5fVKPKQlvVScPA=
-X-Received: by 2002:a05:620a:4506:b0:939:9d06:e997 with SMTP id
- af79cd13be357-93c43c95edemr89967185a.26.1790283009873; Thu, 24 Sep 2026
- 13:50:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ifSiNXyS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790283198; x=1821819198;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=q7f2yxHXOO+EhXNPemNFyuYM9CjLPx5BB5xiwbdY6OM=;
+  b=ifSiNXySRWiCWymlaWHGll0pKh/uX48979N8MmgRdXiv0b9MKS8+2TtC
+   Rwcn0n0C6L9j00GrjwPypkMDedp5usujbmmW97l2r92tOJTMY5YCs72Um
+   aQixVIhQM3D1Ltv7eCje/XvFC0B8kPZFAsC8L9aH6epcqvvaSp99cOJeh
+   HiANmIpkqQCOoQqEPhVXaa4yfqe87Nd35eont8Eay09y/NMeJFfMwFG0P
+   mEFv7gp3HGzHCGvqIBhboxD7fzl4DAwZD3Et9X2kcaT2KkoeuPAyAs5y1
+   bupMylb73G/7YJlf37uOi8P3wpFEe2Z6hrkQbc8i5pra97DkJeOiCEE4d
+   Q==;
+X-CSE-ConnectionGUID: afeounszQgmxgChRCq07PQ==
+X-CSE-MsgGUID: AayKgZAqRkecjf+UYh9bMg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="89931406"
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="89931406"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 13:53:18 -0700
+X-CSE-ConnectionGUID: EySsJcHbR/KjdDu1GwigVQ==
+X-CSE-MsgGUID: D0+HtdKLSYm1S8nJAIwBVQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="270620671"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.199])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 13:53:14 -0700
+Date: Thu, 24 Sep 2026 23:53:12 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Marek Vasut <marex@nabladev.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 05/14] iio: adc: stm32-adc: rework internal channels
+ data
+Message-ID: <arWNuD9apkeeT2Rd@ashevche-desk.local>
+References: <20260923-adc-stm32mp25-v1-v2-0-46bc019537c6@foss.st.com>
+ <20260923-adc-stm32mp25-v1-v2-5-46bc019537c6@foss.st.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924191103.3475117-1-usama.arif@linux.dev>
-In-Reply-To: <20260924191103.3475117-1-usama.arif@linux.dev>
-From: Barry Song <baohua@kernel.org>
-Date: Fri, 25 Sep 2026 04:49:58 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4yiSp_9R5Bc4WR3UF7th03c+FsNyDPK6cyHfpiEGHveyg@mail.gmail.com>
-X-Gm-Features: AclHuK9L9SJ1j1Bl7NzcGznD7Wnm5jocUxdYyhg7nXWVX1BHCFN_NNxlXTqkJLg
-Message-ID: <CAGsJ_4yiSp_9R5Bc4WR3UF7th03c+FsNyDPK6cyHfpiEGHveyg@mail.gmail.com>
-Subject: Re: [PATCH] mm: remove the unused zone->unaccepted_cleanup
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, axelrasmussen@google.com, 
-	baolin.wang@linux.alibaba.com, baoquan.he@linux.dev, david@kernel.org, 
-	kasong@tencent.com, liam@infradead.org, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, ljs@kernel.org, mhocko@suse.com, qi.zheng@linux.dev, 
-	rppt@kernel.org, shakeel.butt@linux.dev, surenb@google.com, vbabka@kernel.org, 
-	weixugc@google.com, yuanchu@google.com, hannes@cmpxchg.org, 
-	kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923-adc-stm32mp25-v1-v2-5-46bc019537c6@foss.st.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Sep 25, 2026 at 3:11=E2=80=AFAM Usama Arif <usama.arif@linux.dev> w=
-rote:
->
-> Commit fefc07518227 ("mm/page_alloc: fix race condition in unaccepted
-> memory handling") removed the zones_with_unaccepted_pages static key and
-> the work that decremented it, but left the work_struct behind in struct
-> zone. Nothing uses it anymore, so let's remove it.
->
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> ---
+On Wed, Sep 23, 2026 at 05:39:08PM +0200, Fabrice Gasnier wrote:
+> Diversity in internal channels data array lead to have zeroed data.
+> To facilitate addition of new internal channels, without touching
+> all array initializers, only focus on exiting channels on each
+> supported ADC variant (e.g. each SoC).
+> 
+> This also allows to get rid of static_assert() checks.
+> 
+> No functional change intended.
+> Cosmetic update: remove comma on STM32_ADC_INT_CH_NB as it should
+> always be the last element.
 
-Nice catch.
+Yes, but...
 
-Reviewed-by: Barry Song <baohua@kernel.org>
+> -static const unsigned int stm32_adc_min_ts_h7[] = { 0, 0, 0, 4300, 9000 };
+> -static_assert(ARRAY_SIZE(stm32_adc_min_ts_h7) == STM32_ADC_INT_CH_NB);
+> +static const unsigned int stm32_adc_min_ts_h7[STM32_ADC_INT_CH_NB] = {
+> +	[STM32_ADC_INT_CH_VREFINT] = 4300,
+> +	[STM32_ADC_INT_CH_VBAT] = 9000
+
+...you should have it when it's not a terminator entry. Here is the case when
+it's not a terminator, neither in other similar cases below.
+
+> +};
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
