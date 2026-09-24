@@ -1,115 +1,150 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59E5F42669C
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:55:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2342741F349;
+	Thu, 24 Sep 2026 06:55:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790232932; cv=none; b=kmyzW3holWaG8L++Qf7EHutufx3uplYiEthqujKnpE3OcDhDmngB1HtzfN9pelijzNeN2NZLDotyk4Hfr0I0M3nQoZC3Klwy/yRYcMe19zOOsBzVkB/fCPbwlmR4Cx7ltAhCCW+zq7xYF+mEJZNVFVI7aTeFgg80A1fu7zVl40o=
+	t=1790232933; cv=none; b=kkbT3bSvcjxS94m0UZfvu+/uT6yBQvq9Mv+l1xwSBjTmpKLimSSK1jbZoTshM9v6liZw4Iv6cALL010q9P69sbg3wea/qMNvPWd9/WS84I/vk2CKay1nv8NjEgGB1s4ut+fxyslhO1qF4kFawKCXRJZY8cXI4YIp/9D/QcAb1hA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790232932; c=relaxed/simple;
-	bh=ni7djPGe551WBpsNjE4sIwjwAp2hHFtV/81edr309D4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VqBBi942CcRS7N3SNkqemnP7et5cskVrQlhu/iJRlUoMUxd6hZivh3lGHgOm3VmZv/bkyHA/DTv8BqYpR9WeGeNfB20RvG2agRe6920DxL8qcDWli9NYIp0DvnAzz38Le2GJvu+tc2v0Cl7nylmlWQIv/uB0umx2LJClw7WYDjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BguYgDUC; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790232933; c=relaxed/simple;
+	bh=aW4ZXLYH5VkCMh/0cVbaLLsFggMLlaaA+tVcr3NThhY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gAh8PaeZtZuTyH7ATExSgkBPxLy49OgOfgyecKuVkmtZWfNhowTICFS5bGB1p2nUmY39L4Ots5JQkWHWaN3gda5g07kaksxgXdrGaJq/pZzo0VOvsMY7b83v/bnSUd6KffxbA/Ub9EsZr7tZtpC9WiTw3uFAWrXCnamfA8mjgqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NypqBh4Z; arc=none smtp.client-ip=192.198.163.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BguYgDUC"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e620fa473so9928395e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:55:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790232918; x=1790837718; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=j67H3MkII5VwRyrYUKsJD5OK0/J8mlXhxptg84+Njcc=;
-        b=BguYgDUCbqI/cT7L5gArRygY87z5RES5QHM/eEq9954u9XL20kr6KFU+wA3I2ko6oO
-         dwXcQrmbJ1ayF+E3xFgFJ4/moWQ7fWum8cELWLru4R3q4yAOfGL0s8yVRABlcwAtVppF
-         JSCqvHo2DvpR5ir8yRAB6UJSbGifSG71+VJBiU/SO9MX4JgwApdt8KNksq9rqcKNPLYe
-         bEjWQiopVboLHr1T1q1t/UYWEqYzG2/h7hYQD4AjL6WFneFsVpDwAYx7dPHAD3gA0+cB
-         ekLmm1ySZMoxya9+5YotoXKU3sxqqh35yQNKCPTjaRZmSDtEhpT4fa4sNPaxvgLiFUdf
-         mRBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790232918; x=1790837718;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=j67H3MkII5VwRyrYUKsJD5OK0/J8mlXhxptg84+Njcc=;
-        b=alQMUnEw7kL+PrSsfHzRXc3rGqWEGiuDZwPGhlCPkrMg735nQjmbbaZhG0mbzr0Kyo
-         cNatTM+4nMIrQVJgPVGlNPDETo941KqbvkDQzeoh07XXL6kFfZBtaWZlpCTEZFZvR5yQ
-         llSzuUNYKMBwa9idzHsR73HyJ7kGSzkr0psA0QLRc5ZSS+v3PmYbKhLdSjH8RiNdXF8a
-         poQe2MSpeMJGedRV+/Lh1t1dVu2NYgBHVUsUVWTxudHD46KY74lXOSbIOaaeZMbPBrOV
-         VsR84oCVe49ZzR8E2cFxyVhHwl8/QlndIbYdzgY3QLKJhx8FmibcvnmdEXaYMHMFuDlA
-         Svkw==
-X-Forwarded-Encrypted: i=1; AKwUvByCxusCFmK/TYpnOD148/5xqjTGZkU5CkNWO8vBcQQp6az2Z3w3YOobWzLU6wa9h7hx3yVVitgp7dTm9r0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lXAtPPgd64dOiScRKMEUecJLvoyIu7csAJld3RlKnvlUFX9EVm
-	Mg4VCHkHRboLdMrywF4GyuY6a3PpVSrsR510bCOSGbdwZ+je2C6Kbr29
-X-Gm-Gg: AYBFou22IhYi2ol+IHLFcnrlb3vUYJpYKUpaOKMYvVW/qLVI0djmwB9OY6XCGL4T0J8
-	AQVKna6X9e7l0+z5YM0qyAprH9llDrDW85uV9zCFSblVgXiEYljDDGPzPTMLIJ9lmzTl1FK72UA
-	gbKudeVxpVjog3+DuBLrXtM+0PcFZEonPqxM6Ih3AAiZDxAAXRIQ6htXw0Lymo7gYnqwuR52SLj
-	2tMyVV/6H2LtuSbAMtFp7eamSJq3zHmkSK2gZLEiduP2mUIlGiIF8FdXiRbTG1SuPnBBaLb9SDp
-	9pEK0tGKQftHz54j7XI4zvKV9tGfxql2yu2nhmYQWH7yoIKNTJfHdxakP75BQGz3EOWavbNfsVS
-	bPKOphFLnCosN/Q7DVy1g3GRXBSnU4H0Jdg7gTtmkAeycILMl3yAw2rDnF7+v69C+tNsYpd01R5
-	AZtQL4hSoi5g5jD2QIkBt6u6UEKGAhh8mxM39X0cWSoS6V5Kx9fyaGX9v7A7W9VVwquEOdpcCH1
-	kZZ
-X-Received: by 2002:a05:600c:8b71:b0:49f:e2fe:c362 with SMTP id 5b1f17b1804b1-49fe6707e26mr18932215e9.33.1790232917539;
-        Wed, 23 Sep 2026 23:55:17 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5bae43dsm43552095e9.5.2026.09.23.23.55.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 23:55:15 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Haibo Chen <haibo.chen@nxp.com>,
-	kernel test robot <lkp@intel.com>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] pinctrl: include linux/errno.h in consumer.h for ENOTSUPP
-Date: Thu, 24 Sep 2026 08:55:14 +0200
-Message-ID: <20260924065514.3678640-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NypqBh4Z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790232912; x=1821768912;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=aW4ZXLYH5VkCMh/0cVbaLLsFggMLlaaA+tVcr3NThhY=;
+  b=NypqBh4ZiaqXasV9mStXExbQqYB28wbRlPcH+KwxMQZXHNa2INYGVnr2
+   gSbHnKXqtrkQSpWda32P8dKwzuuwlYMttcv+IJbxQLCJK2w4xx85M3/9l
+   rMukkXTT9OQkVg3elILCQvucc8mbv0drOnohxYwN52F6IeIrZOg9Ibs8J
+   TH99tB6vkdIYXk2AU8292BEeSZsHBANFLYUiJgRtatQmnmipVyAZ0dXSi
+   7Cyv6oxfFJzPQv5iQFJAmr5FmfukcWXanH1E8tC4OK0HL2HKkAIO18kX0
+   1W/aUZc6HPdtR7UjPRQxaJPwHmFPrXe10nq4tm4edW21ge9Z9/iZYT34q
+   g==;
+X-CSE-ConnectionGUID: HdxTXnnJTxSg0/4kDZgX+g==
+X-CSE-MsgGUID: rw6w8408RImoZvH57FTpEQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="1504179"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="1504179"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 23:55:07 -0700
+X-CSE-ConnectionGUID: n0UuDwUXS0+WTrarfjjSUw==
+X-CSE-MsgGUID: KlHxiguHRsS9Ew6uahsV7Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="301883162"
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 23:55:04 -0700
+Message-ID: <db502582-a090-4e8e-b720-7874af1138f0@linux.intel.com>
+Date: Thu, 24 Sep 2026 14:55:01 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] perf test: Fix record tests on Intel Broadwell
+To: Ian Rogers <irogers@google.com>, Namhyung Kim <namhyung@kernel.org>
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+ linux-perf-users@vger.kernel.org
+References: <20260923215255.3329181-1-namhyung@kernel.org>
+ <20260923215255.3329181-2-namhyung@kernel.org>
+ <CAP-5=fV1_4xC7mjmCpBarBNVd9e=ZYHAojtpK5ECuAF5u+s-Zg@mail.gmail.com>
+Content-Language: en-US
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <CAP-5=fV1_4xC7mjmCpBarBNVd9e=ZYHAojtpK5ECuAF5u+s-Zg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-The CONFIG_PINCTRL=n stubs of pinctrl_gpio_get_config() and
-pinctrl_gpio_set_config() return -ENOTSUPP, but the header only pulls in
-linux/err.h, which provides asm/errno.h and not the kernel-internal
-ENOTSUPP from linux/errno.h. A translation unit that includes
-pinctrl/consumer.h before anything else fails to build:
+On 9/24/2026 11:45 AM, Ian Rogers wrote:
+> On Wed, Sep 23, 2026 at 2:53 PM Namhyung Kim <namhyung@kernel.org> wrote:
+>> I noticed it failed for leader sampling tests on Broadwell.  It's
+>> because the period of groups members are a little bit different.  Maybe
+>> there's an hardware issue but anyway it's close enough to treat them as
+>> same.  I printed the value like below.
+>>
+>>   $ perf test record
+>>   ...
+>>   prev: 462507, curr: 462506
+>>   prev: 494783, curr: 494782
+>>   prev: 454350, curr: 454349
+>>   prev: 502782, curr: 502781
+>>   prev: 566693, curr: 566692
+>>   prev: 606558, curr: 606557
+>>   prev: 559770, curr: 559769
+>>   prev: 595737, curr: 595736
+>>   prev: 643386, curr: 643385
+>>   prev: 663672, curr: 663671
+>>   prev: 620622, curr: 620621
+>>   prev: 650419, curr: 650418
+>>   Leader sampling [Failed inconsistent cycles count]
 
-  include/linux/pinctrl/consumer.h:110:10: error: use of undeclared identifier 'ENOTSUPP'
+Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
 
-Include linux/errno.h explicitly.
+It looks a hardware overcount issue.  I don't see this issue on recent
+platforms, like SPR+, so I suppose the issue got fixed. 
 
-Fixes: b44aec87658e ("pinctrl: make the CONFIG_PINCTRL=n gpio config stubs return -ENOTSUPP")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202609240855.U59akHDO-lkp@intel.com/
-Closes: https://lore.kernel.org/oe-kbuild-all/202609241240.61Hz5rix-lkp@intel.com/
-Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
----
- include/linux/pinctrl/consumer.h | 1 +
- 1 file changed, 1 insertion(+)
+BTW, recently I found the SAMPLE_READ may report invalid counts in some
+PEBS based corner sampling cases, like ACR events + SAMPLE_READ, or
+multiple PEBS events simultaneously run SAMPLE_READ, I'm working on a patch
+series to fix the issues.
 
-diff --git a/include/linux/pinctrl/consumer.h b/include/linux/pinctrl/consumer.h
-index 7be49d447426..81e7866bd2e3 100644
---- a/include/linux/pinctrl/consumer.h
-+++ b/include/linux/pinctrl/consumer.h
-@@ -12,6 +12,7 @@
- #define __LINUX_PINCTRL_CONSUMER_H
- 
- #include <linux/err.h>
-+#include <linux/errno.h>
- #include <linux/types.h>
- 
- #include <linux/pinctrl/pinctrl-state.h>
--- 
-2.55.0
+Thanks.
 
+
+>> Let's update the logic to compare values to allow 1% of errors.
+>>
+>> Also I think it should compare only if sees the non-leader samples so
+>> split the check of (($index % 2)).
+>>
+>> Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+> +Dapeng Mi
+>
+> Tested-by: Ian Rogers <irogers@google.com>
+>
+> Thanks,
+> Ian
+>
+>> ---
+>>  tools/perf/tests/shell/record.sh | 11 +++++++----
+>>  1 file changed, 7 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/tools/perf/tests/shell/record.sh b/tools/perf/tests/shell/record.sh
+>> index cf8ba3d3411b0bcc..04df35b30b0c15fd 100755
+>> --- a/tools/perf/tests/shell/record.sh
+>> +++ b/tools/perf/tests/shell/record.sh
+>> @@ -550,11 +550,14 @@ test_leader_sampling() {
+>>    while IFS= read -r line
+>>    do
+>>      cycles=$(echo $line | awk '{for(i=1;i<=NF;i++) if($i=="cycles:") print $(i-1)}')
+>> -    if [ $(($index%2)) -ne 0 ] && [ ${cycles}x != ${prev_cycles}x ]
+>> +    if [ $(($index%2)) -ne 0 ]
+>>      then
+>> -      invalid_counts=$(($invalid_counts+1))
+>> -    else
+>> -      valid_counts=$(($valid_counts+1))
+>> +      if (( $(bc <<< "scale=4; r = ${cycles} / ${prev_cycles}; r >= 0.99 && r <= 1.01") ))
+>> +      then
+>> +        valid_counts=$(($valid_counts+1))
+>> +      else
+>> +        invalid_counts=$(($invalid_counts+1))
+>> +      fi
+>>      fi
+>>      index=$(($index+1))
+>>      prev_cycles=$cycles
+>> --
+>> 2.56.0.rc1.310.g51773c2048-goog
+>>
