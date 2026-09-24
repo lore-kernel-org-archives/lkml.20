@@ -1,105 +1,99 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12544BE444
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:54:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7072D8DC4;
+	Thu, 24 Sep 2026 18:56:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790276045; cv=none; b=No7VoqE36XbpRcSQzxU9scqutqaBkHTmjmHorP/NTTT1SglnjO7o45Bgel2ouAgJHRfFLgaTEf1rYJUNKE+VziunSORdd9dnOFEiyxiDE0ClHvVeFBktj00X6IO4gTkvRPJGxs6TitJxaf7f4JkL7DoWP1lhR9qoa/BY2lweHBE=
+	t=1790276164; cv=none; b=SI1P0MvetjTZD2GAB6vx8PrflfmfsCpd2J0zQGFTYqxNfHZ4CTLSsKFSI80taGEkrxwVGp7sYBd7G/IhbXExuY+IBSi9RJMf7eV9SqOnokHbniyL97N66VNYStBPTcCJroZ8QUm6vTd3eCDhd605pNQ8rZYDdq9xn/20YmOgEng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790276045; c=relaxed/simple;
-	bh=zFkMOllcHrS6pEnX9XO0Vwq/OY+p3PIw5QAvu5BrTDk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=R1HffiROr7fDfBEmdBpjirlNn29QqqRsy9iH8wde2mHRteMdwDPrWbTdUWctaxqowAYLxrEMk22JvDw+iG8W/3BG613clkIuliWoJCrxN/F/scNV74Yfucjcn4031RuhYJ7Xf5C0qZFjX+5BfSOycvUEJUfTzAY42/WHLN4ylTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sGa71Dmg; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790276164; c=relaxed/simple;
+	bh=+oTCqkxdL2RHiWv7EsR1AVOi3MdopJuGUmM2tSiGQ0c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sWR4vth6nDRFmNLYDwpS04v9h0TABXULFM6IcYyGGLg8+dXUEjIReOgwuz5hF/ASrpY3MDlvS5lEQ9lzIXofMU70Yy8lvAlrgFM+N5V13fkkcqZN0Zhfa/DrpnAqMyFz+NszDzSK7TA+yLLJ6gyLwRFVcVuNJ8VikXgqwzXQQBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iMFZnU+l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sGa71Dmg"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e4ad9so1025645e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:54:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790276038; x=1790880838; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Br6bJ2Gt35fGfFnxQNY46odJs2rrBpY5wuK/cZ+VUbM=;
-        b=sGa71Dmg8SjJjPB/o9ItbSDl1qcA6WIYem55gGX+dh+5DO0+Xn0KO6c7aQ8bW7UMeG
-         dIZa0oKBYUPGw2s1410tFOrt8gHCIml00TvpM92tIzHvos/16TT/VvxxGGm7lUXaO6JE
-         6m6o7fCOUbxEy50hH9BYGFuDyIG2b6dJQTv8kPMj/gCFHCOAyEUU6ufn8mfPhAB5t8eX
-         fFuz7HmhGk8Byphi2HzV/caMY9qwko0SQsgEGIKs5s3VtoTay5Ix28RRto9bwtf/zStZ
-         RzNxxZkhWFj9avZYxn0KM75niic6sT0/bKbx0yZiOp7GJDiDRKZQrtjg17AveSrv9WSV
-         SC2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790276038; x=1790880838;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Br6bJ2Gt35fGfFnxQNY46odJs2rrBpY5wuK/cZ+VUbM=;
-        b=CAItktx2BWKQHS1yjOqKp0YDx6OXPwCIAiP/zMO+fdN993KbTJyKKI+M0s2mCQDl8z
-         1SU9OoR+H/0ug2ELY5L5Qc42FfhcUZuKzRavppT3IEsQ+GAZMMCq9hwvhCRUOD512k1T
-         2saF+ZeGAXo6OctfJtCWDEYONfgqCeeGIga0vQ2rLMrW9S1aFtd3rRbObKo8wT3+Vukp
-         7ZgCN6AD0s9RJbNpi7FWZPXNBwVLb+gxmANnqwaXYBt9EIwnVZ6ek311uE6aVZecnN9j
-         Y0aTHB/s8JjKzBNXsyGbb4EhYOuw6lwWWfMsAQhbWi1msz9+qv6aSQrkWE68SzbDwU2j
-         Ou8w==
-X-Forwarded-Encrypted: i=1; AKwUvBzEWR+PNOfkYNJYerr6TKQzRIl9u4pIJ/IqyPha+8VaAS0gFy3ZcouaeJfDplaRghTxYuvDa1bLiwxwGfA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mU0M9FkelzDvzTqTobIWpq/G+0ZKtz1CIB8BEBYMiSAyLlgN+Y
-	4YKEYADU/ZCe8So8KaXfom/rfKYUfJISTSYMSFeZWDiiXMcKWT+9gkS0HyVxCw==
-X-Gm-Gg: AYBFou26VCYjAht+S6XlwDPZ35H/d+uq9+umOYgkxIYasPe73S+s3pW5qGW3ZT+Fab0
-	4YnZe82eKtd/BmJlWhehAqkJlhPpjgUPFmza55gZtGLwvbGNJDCl1XhQxISc+YlDWItFFeGCgxF
-	hnYbka0j09ETQFTyDptXlW2VfPXRR0ZmuIGqz9Dq9uoo2s7WK/crMr72HNz7Yhwq9L1wawIWMf5
-	iNpmE0pCAF5LLLTvm6GHvO1ZQSF6eyIc3R6f/xviDGR1kSzCSbcv8zdUras6j4b73Yw2B3nrZSO
-	V3ns0tE/8hrGnI1XcLskseI+le1s7A5jIzYqcSwsjap9rTUsdT8eFi2FEii8WYpSAEV3FpuIE+u
-	tJ0SiOwYlHgjTMzUX7Qx7TTKulVLBymh6U/CUUg9Z8GcZz9MajfixCeWKqtQBhp8EHlyz8/svrP
-	OeNUt73MEScz6yhe0qT4llnFRIJESyqRqEji3M6TPEbOnx5JdkiJc6qm4nuKc0M7RGZqApCA==
-X-Received: by 2002:a05:600c:4f86:b0:49e:84bf:6110 with SMTP id 5b1f17b1804b1-49fe66bdf47mr56579105e9.6.1790276037988;
-        Thu, 24 Sep 2026 11:53:57 -0700 (PDT)
-Received: from fedora ([2a02:587:200f:d100:bf67:f785:caad:e278])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fef605cc5sm958245e9.4.2026.09.24.11.53.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 11:53:57 -0700 (PDT)
-From: George Karagounis <taterraster@gmail.com>
-X-Google-Original-From: George Karagounis <mail@taterr.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	mail@taterr.org
-Subject: [PATCH] staging: rtl8723bs: remove unused variable 'phal'
-Date: Thu, 24 Sep 2026 21:53:49 +0300
-Message-ID: <20260924185350.42180-1-mail@taterr.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iMFZnU+l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B623F1F000FF;
+	Thu, 24 Sep 2026 18:56:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790276163;
+	bh=dWsSriTFP/l1SThxOsNHAT5Wuz8a/YdKnSltBFmwQqk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iMFZnU+l7QFuhCk+LgUxioaavEExOWoLtZg8A7iqDMCkUeIwy9OMZB7KEw5kPVkVs
+	 wIp3OvawKyufdtjI7eBoMgXaArbykQJgnmHBgJUJCbH+52ztwBVc3fSFDc3PA3SeFH
+	 EmArRX5e4THFokYSIONgh6cN0/NyZCXfOjrunAY6h0TuGVwI5UlWWZooHhgftwG8r5
+	 XKif8T2srnA/0K/GZ6T35JG+saHeZs7UP7NV17OGvMXxaKAT8a+zaFekm1/bEZHsSh
+	 UU8C5BinIJkyA76Lzf90NhgrTBGC4ptxzejeWtzSMAh9cx9s3ZW1pqWx+nxCECR/sO
+	 n6/8wbo4aeL3Q==
+Date: Thu, 24 Sep 2026 19:55:58 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Fei Xie <fei.xie@horizon.auto>
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Parshuram Thombare <pthombar@cadence.com>,
+	linux-spi@vger.kernel.org, linux-mtd@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 2/4] spi: cadence-xspi: add ACMD support for SPI NAND
+Message-ID: <67f4e1a4-fc0e-4b2b-b41e-8dbb33227302@sirena.org.uk>
+References: <20260921093701.1341766-1-fei.xie@horizon.auto>
+ <20260921093701.1341766-3-fei.xie@horizon.auto>
+ <arFEjzkHGMbecWWV@sirena.co.uk>
+ <20260923061211.1608907-1-fei.xie@horizon.auto>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="GGC4+w1wYRwqkSmg"
+Content-Disposition: inline
+In-Reply-To: <20260923061211.1608907-1-fei.xie@horizon.auto>
+X-Cookie: Oh, so there you are!
 
-In rtl8723bs_init_xmit_priv() the variable 'phal' is assigned via
-GET_HAL_DATA() but never actually read.
 
-This triggers a -Wunused-but-set-variable compiler warning when
-building the driver with W=1. I removed the unused variable and its
-assignment to clean up the code and silence the warning.
+--GGC4+w1wYRwqkSmg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Signed-off-by: George Karagounis <mail@taterr.org>
----
- drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c | 3 ---
- 1 file changed, 3 deletions(-)
+On Wed, Sep 23, 2026 at 02:12:11PM +0800, Fei Xie wrote:
 
-diff --git a/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c b/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
-index 7f55448d544e..0441e84ea87d 100644
---- a/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
-+++ b/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
-@@ -525,9 +525,6 @@ s32	rtl8723bs_hal_xmitframe_enqueue(
- s32 rtl8723bs_init_xmit_priv(struct adapter *padapter)
- {
- 	struct xmit_priv *xmitpriv = &padapter->xmitpriv;
--	struct hal_com_data *phal;
--
--	phal = GET_HAL_DATA(padapter);
- 
- 	init_completion(&xmitpriv->SdioXmitStart);
- 	init_completion(&xmitpriv->SdioXmitTerminate);
--- 
-2.55.0
+> The difficulty is that the hardware ACMD sequencer needs the complete
+> multi-operation sequence to be described before it is started. For
+> example, the SPI NAND core currently submits PAGE READ, status polling
+> and READ CACHE as separate spi_mem_exec_op() calls. The STIG path can
+> execute those operations individually, while the ACMD hardware combines
+> them into one programmed sequence.
 
+> Would an SPI-mem operation-sequence interface be a reasonable direction
+> to explore? The NAND core could describe the ordered operations and
+> polling condition, and the controller could either execute the sequence
+> in hardware or fall back to the existing individual operations. This
+> would keep NAND-specific knowledge out of the controller driver.
+
+I think that makes sense, that mirrors some ideas people have had for
+optimising SPI mesages in general - submit the sequence to the driver to
+see if it can do it in one, falling back to just running individual
+operations if that doesn't work.  See spi_optimize_message().
+
+--GGC4+w1wYRwqkSmg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq1cj0ACgkQJNaLcl1U
+h9CgUAf/UWAcE2/VgHsBHsrdWIvev7pY5jSrNTWfchc/Eeek0coOo6mIyxBMphDc
+t+q4GKwk3QWJNRuaXmzFkhmNWlEkcVxY1YNUluq5vIP5XtzyXHBoTs0W+ueCNLiG
+fEfY0Wlay87obn08uduCMJ/4v7RM6JyuRI8Si4qqeKXKwBiNcjZFsMLcuiDxkIkt
+5yAQJQRsvEf4v9UaptOdGqxyTWQP+H1z33hBflXX7jMFvc3uMWMp1ucl2lC10odO
+uHMInH0MXNz4mv8/nGiGOZzsVhOZ9abOhFBWhQF/MU5SX3MCuzaec6Db3Ms6/pRv
+k/Wzf8uRQPiTBVpWhBhFTPqnzwzN3Q==
+=b69J
+-----END PGP SIGNATURE-----
+
+--GGC4+w1wYRwqkSmg--
