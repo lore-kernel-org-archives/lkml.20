@@ -1,221 +1,231 @@
-Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 873C34AEBDA
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:42:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790286151; cv=none; b=KCfrpD/AQj0LiOjEJYwVcYXuO6jVMe1bx5yWaT7BiBJ77jJ2VlA4z0KKxz1I515kxwWvQl5niccrZnUmDOer2iG4Mmlne58FYYyAhE7xgmq624yHtnGvwyGyV8fUlMHp3yiVyl18Wgpu3v2MyRQ6G2ulupJin7/o0fIOzSc2V2A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790286151; c=relaxed/simple;
-	bh=BHB+VOqRtxslGCBRJ4CCSTdUD6RmUvN+GLZLNLAE89M=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=obuB8KL6Oy4bgXvB5ABZO4DaXAHeOEJO39vgu7+vOCB8qn5Cxp8J5IRia15F9NB9MfUP4AQQ2hg0SXwAgYeTdGAJImVCdUPQEUut6+Y/zJbVktYeAkGWag+TEO2h6KilNBfOW+Aiv4t4tMjFj2nK1FStp3KxFQbFhsOBcDwXXnI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=HvHBcQu4; arc=none smtp.client-ip=74.125.224.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7D7386C22
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:44:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790286263; cv=pass; b=GXDQD9BbyD7PMvzljdhCimchCZD30+vmslczUEDiC9+ytx6QMH5xCxPSo1eKYfLnZxxum95CcadFfx8ovQLzvkK4YK6m1xsNOK4Zi/E9zUXl8sz+FoXOS6Cjsxf/MqaY8OmogEjg0LJt8spootC04OMDUzKJ6b30tM7nypGmIzQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790286263; c=relaxed/simple;
+	bh=Wgru4OjuVg3jCDnGRQ58mHB/1Zm4b8OJkeS6vEJYfo0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Pex6TeYWkQ2YtJ851eFQ7WuX9srmgGKjx5OSBliwVlqubujW0TX6G30gdk9Ze89jJ4w4ocjRc4szsB5GOmllrcm1B9uesTUXUx7iibskgHWDkv4wYbw/FHJI40MnCNcaawVopZTy0lh0QL2NPk+fQiMqE78Uk2dQ7Bjx6lN8R2E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XAFivdSO; arc=pass smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="HvHBcQu4"
-Received: by mail-yx2-f41.google.com with SMTP id 00721157ae682-8a7c33dbfeeso2984357b3.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:42:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XAFivdSO"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f7db0so27473466b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:44:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790286260; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YM0OdFW9OZ3XinkvVKG1oYTzGFDDQbIptzIUz3/cE2nDJ/mNgUOI5P80Kejx4cMNAs
+         1iQqwmU4VR43H7e/sHq0ynbateCHr83KpfdElzqlrJLT+P/YPGNPq8zOyaL3bI8d2+mm
+         S+hFOH7KiVQru7ED7nuu2ekZyNM1KoM0TiwucwGo14ToTuUIo9dMiyoZ+XeV94S0kIG+
+         1H28zVTIZ/srpBvUJ4dmDLmcm9D3aqpwLFgSXloGF3rgIMgFwG2yGbB+cWkKvkX7gr28
+         Vgvs930FsJfoPaoTAA96DDlIN08U/KW8iWismVCYqqX6ocTUkcSon22H8OjH/xsiciWH
+         FeXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8Hd9E5QifhtpgtcPM7YVUZkrW6k2XVu/g81y+pYANv8=;
+        fh=b78sg/TubkHXHJ4uvZrGiacz4R9pTIaSKmvi8BAzIc0=;
+        b=PKN+XnXZJkdzf1W4bzzpG3XR9WLi9TSX7L5Kpo2q10pLXmOmriSadHk2kMW0Lr7zBj
+         A3Jd+g9HNwUfnD0wj4zeaff2tRJfMlHyeT70D9ii1X4mIuKk2v1YNzbICZ3m4uTUYP4i
+         i6/zkO/4PO1WqutfPJNMdbDilgBfK9OUFN+07vyx1UTfoh19I21Xa6f+KsmvKdCKWO2w
+         YbUy0J5Q9LPvZRf2/EObv+1swT9WlnURZz9P9TEfWrAcxZ4RpGugbLJICDipG9uUANZd
+         agJPTcK3DXtp/WPTlcB8LWqJujs9ZH0pf6RAwSYNJ62TYThY6m15PAoZu2PISjpF3NAz
+         kVCg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1790286148; x=1790890948; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mmw5/2UpceFkGfvGYqJ0+zxqUAxMBH43eNw69LuBZyI=;
-        b=HvHBcQu4E+8aaHLGkzRArCDXoDN6wbODgVYhxt01A9edHuPN9Eis3AacFiVZIjRZel
-         nS8YzXXsRl3/Y++aL1NkS2EcMLj4ZsOrzT/riAhHns6PVWja1gbOHM6cfksPUdHEzHot
-         oJvdS43R0ZiEJz0ECsE4LNQnkc4PhKHZCLYONs+WHBtxLXfH1zOugu4j3wwe9bY4uNGM
-         IkQ3/A+0fQOjsXAaQCWDA01xkHJ0APxH/z0jTw5bNSZdsBFD4mVPFut/HWA25pTHYsBl
-         MgyBvUo36wXsngIRBbBs1a0DOGAJb912lIAKlz1uiyuSahpxdt5dDk7e/KQvQscuiS5W
-         /Zig==
+        d=gmail.com; s=20251104; t=1790286260; x=1790891060; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8Hd9E5QifhtpgtcPM7YVUZkrW6k2XVu/g81y+pYANv8=;
+        b=XAFivdSOKjXL+7nAPoMuFVquY8Lou20uQBDrDdNDuHjmU2iiqFjzpWFRBatDFk6a+x
+         W8U56MV6xHSTrf1mrh0MfvY8nFkZ8g2yoRPlyrPKaaGeYJhma7IEgfN6jaoWOqjDdaIF
+         COoNTOSmZjTZXMcHKvHHOTM+VXX+Hqowhs6eO7TLnT3DentisECxHP69pCTVUhB2Cpau
+         3JgXyPyGHAFff/4k2/4WlFRO1KBI34R9NiuSTBesLdalq/7Or1aOE3+e5dzkWWabROxT
+         ud77JoG9543uA/xpm65kVcrz6pJq2zwF7E/FjKzbEl6hdLaZ3ifGEZ/T8jLxI2H4Maap
+         Y29w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790286148; x=1790890948;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=mmw5/2UpceFkGfvGYqJ0+zxqUAxMBH43eNw69LuBZyI=;
-        b=1qHLfd8CQMoybWckrrXiadaBnG27hBRcCHbTDYxQ22rvzPPXmYV9QVaIlGtU2InPYK
-         V4pNyjzphNa5RyvEuBi/sQXbWRtQOk8FqUQ7J7I7uXGmtbIL1qyQCbSTUbj+TfiXiIKg
-         +NzfnsNh/fdciv+UFDVs9jIKbY9NlQFO395LOAMRNfUwLd4FfhmtMoMIYnqlqPYkU/Wm
-         aksFw6IH1WPFPE/ZQo1LtwfmEtJ1Rp+OL9NVaP9ZfY3M2y/pIu2erZ01lJmsODvJiFM/
-         sRmJPvFEt2kOumq13tSLCOQ4AUEhRkfC1TeFJPeWSCeSjG3EPnMeaTnUI4tsq89eNzAZ
-         EMBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBynlFRjI9t/FRztvBbjNKE64iZCw4Eip6W9wEoAq92PKuz+dVhpOvzoRfvkFTtWlrYR0IpunDfF4MxNam0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lT6iJWLPQxNxwIFvkFV1su5AWwJXQtvZztE9+kQPCYkxtck5UN
-	cA9ryM7YtMC39fSEwAW7gqQnPRrtBdHSrtIAgmKxHrw5S1lUnsgmC72AvMxjPRGFYu0=
-X-Gm-Gg: AYBFou0SMXBbO1frpveexVpeYohcmvwJrOsDbx4eipC+NwDjxj2EM/sDvrEZfGe8z0t
-	23K3dm0UWFPLednOcPX8x0uIHPoDakbDxIxxI5xtPW1qejjrPrfV6n2DM8Zg3u2ZmALVSbWCBww
-	/ScPgyPd1rn9x1xyeUmFLRfCE0uvT9eyQGGJleXQ8N+iCSbPDqgAijwmsXCjamE/UCqw5HaY/nE
-	ocN6zgRUMTkGeYVnnrYo51BzpglQBnS5+L59nMx+BXiGHpVVZyGg2fVpfWhpCpaHNpPjJkI6MXr
-	56UOgA/LHd5mAboaBOcyninN+nYlrDtu9BQDAbIwUR5GzpW/eEdz3jxGQAC8erUxoAQKW6eJBCJ
-	Mt69Ii7woac2R+6LQb2+/FVqQeDXyWF/ztgXL0XjQMmvjvn1QSSsCaglbNMaI8ZGUQA8FsQChr8
-	r7Pd7loWAxV6JPC+ILyDxPVLfhH4FVVjo8YHH5vFtVbF4LF8VW/JnMVNZJ57e8Gen+34B1nI15J
-	I9ktbCHNgkbgmX14EgEL/iQEtiGC//kAhIDA+ZvOoccqjIZQ1MAQvwi4w2CW3jlqqYwpAYebdUB
-	pLAP01NmAqm2j/yuLkqSd/p4s6W8VhhGOzBBH/0v/Abo8ZYKXtTjcGsbyNTr10lN
-X-Received: by 2002:a05:690c:6d84:b0:873:5bb2:6c03 with SMTP id 00721157ae682-8a64d8f6e29mr22693437b3.45.1790286148427;
-        Thu, 24 Sep 2026 14:42:28 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:4935:3bd4:e0b7:fd95? ([2600:1700:6476:1430:4935:3bd4:e0b7:fd95])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a86101e30fsm2064417b3.38.2026.09.24.14.42.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 14:42:27 -0700 (PDT)
-Message-ID: <d83716d649bb32a5902edd53616aedcc742d36b5.camel@dubeyko.com>
-Subject: Re: [PATCH v2] hfsplus: validate inline xattr record size against
- entrylength
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Hui Peng <benquike@gmail.com>, glaubitz@physik.fu-berlin.de, 
-	frank.li@vivo.com
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Thu, 24 Sep 2026 14:42:26 -0700
-In-Reply-To: <20260924070757.2646279-1-benquike@gmail.com>
-References: <20260924070757.2646279-1-benquike@gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+        d=1e100.net; s=20260707; t=1790286260; x=1790891060;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8Hd9E5QifhtpgtcPM7YVUZkrW6k2XVu/g81y+pYANv8=;
+        b=rXHeFcfmFaaGnhXgMIamLQBKtjdN9ypKxlPIrOy0jHNFmprM2Oi/PXJgOS1GWofdd/
+         njjBdQRZ3PI3biCFUd2LQmcQzs8qq7S9jTL1hdquLRWfQaDd59sDdWYhbDYE8p/EDUZI
+         iUMot6X3ym+sNeqDw/mY5uApHk0n+sajoSrudt76seyDVPjeNxR86Z/q5gAm1rx/+TgL
+         zeB8zH9tnLfSAbSwiIxuTDfzd5JoV9kO2K/gD9WbCnQc4eTw3gh3zuQWYDAsJiWMNp2h
+         ZsU5ur2vInNbOt/DWG8jvmRAZg2aQXFkyGeLtc8oery+ib8GbquxhZxAwCGe2VEdBvbr
+         NoIA==
+X-Forwarded-Encrypted: i=1; AKwUvByD5mlm7Ob823sjBB+CtgK7qh/QP+bhmi6Sfkop9rE/EudeLZtyDomKl7+ACPdxQnfJf5ZPC+eFJL1/NVg=@vger.kernel.org
+X-Gm-Message-State: AFuF++naeQ2gwhlTVn9+/jC1HH4h/+A5mBophZqmYj/AbEtNw5Ig4y4S
+	ORWUiZTowaAyHtuSKDQCSpbHncqm6BYNigGKmY2BV0Eu7fFTWDOI84ek2BXCEzcbvORDoprIpRF
+	IzLjRt7F0foNrsf/qlbGFgevvthon1w==
+X-Gm-Gg: AYBFou2GyYIL6e/N7hvSVU+s2cWHrDuL25uFri0QBbmf3NKd5ptCTS5Bjfs7R0YrIyA
+	GeF2+1+a23mQu3IDsbTku6XsHdmxrdfqhnSyT1nUo3g2exrZplL+ECWp0nuTRA+ZlR1JXiLE8Q8
+	oQkdHRR4d4Jj+RwbVkMYvowKD0QGVrgAKHKO9qNo3ZZRPAjTyW1QDprdJ7jWpLw5SDbDAfcN0c6
+	wAV6Xekd3sgxC7fk/mfkyCULBeZ1shRe24mIwbDLk4Qy6J+2hJBtnseOoUivj8JDpMQca5G4JZ/
+	V+HdUiLogUJMDaS9SbMQuOSCT6HsKDp8lH0Mig082IIu3+QTUKex792Dxpeg/6yki1BFoVjBpKn
+	y4ITWY0dL1Hm4O36FR/btAhBMWjbaly3bY2meA23OrJyZzEL8rsgZsUW5tI9pco70ZfNM
+X-Received: by 2002:a17:907:d789:b0:c29:5172:6151 with SMTP id
+ a640c23a62f3a-c2ac263bc06mr316219466b.45.1790286259718; Thu, 24 Sep 2026
+ 14:44:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260923022033.957777-1-mhun512@gmail.com> <f1c55b79-4487-40db-b2fc-342b2dc33c1f@linuxfoundation.org>
+In-Reply-To: <f1c55b79-4487-40db-b2fc-342b2dc33c1f@linuxfoundation.org>
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Thu, 24 Sep 2026 17:44:07 -0400
+X-Gm-Features: AclHuK82jDvsEJh3-yxSL0CblB52txRSE9rfFHLJvMufpWcIZEhKrFhkUYovzkw
+Message-ID: <CAGEsz8E7TT0SqSPxpJS7QbAvAwXF8n6_ra4VPvN=q0SHdavm0A@mail.gmail.com>
+Subject: Re: [PATCH v2] usbip: vudc: Prevent transfer timer rearm during teardown
+To: Shuah Khan <skhan@linuxfoundation.org>
+Cc: Valentina Manea <valentina.manea.m@gmail.com>, Shuah Khan <shuah@kernel.org>, 
+	Hongren Zheng <i@zenithal.me>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Ijae Kim <ae878000@gmail.com>, Michael Bommarito <michael.bommarito@gmail.com>, 
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2026-09-24 at 07:07 +0000, Hui Peng wrote:
-> In __hfsplus_getxattr(), record_length is read from the on-disk
-> hfsplus_attr_inline_data header and only checked against
-> HFSPLUS_MAX_INLINE_DATA_SIZE without verifying that fd.entrylength is
-> large enough to hold the inline header and record_length bytes of
-> raw_bytes. A corrupted attribute B-tree node where record_length
-> exceeds
-> fd.entrylength causes hfs_bnode_read() to read past the end of the B-
-> tree
-> record (and potentially across the bnode boundary).
->=20
-> Validate fd.entrylength before reading xattr_record_type, length, and
-> raw_bytes.
->=20
-> Tested in QEMU against Linux 7.3.0-rc3 by mounting a crafted HFS+
-> image
-> containing an inline xattr record where record_length (100) exceeded
-> fd.entrylength (4): on the unfixed kernel, __hfsplus_getxattr() read
-> past
-> the end of the B-tree record; whereas with this fix applied,
-> __hfsplus_getxattr() rejects the malformed record with "invalid xattr
-> record size" (-EIO).
->=20
-> Fixes: 127e5f5ae51e ("hfsplus: rework functionality of getting,
-> setting and deleting of extended attributes")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
-> Changes in v2:
-> - Drop the hidden_dir cleanup hunk (already covered by Deepanshu
-> =C2=A0 Kartikey's patch series) and focus solely on the
-> __hfsplus_getxattr()
-> =C2=A0 entrylength validation, as requested by Viacheslav Dubeyko.
->=20
-> =C2=A0fs/hfsplus/xattr.c | 15 ++++++++++++++-
-> =C2=A01 file changed, 14 insertions(+), 1 deletion(-)
->=20
-> diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
-> index 21a1c196c71f..10aae766ea42 100644
-> --- a/fs/hfsplus/xattr.c
-> +++ b/fs/hfsplus/xattr.c
-> @@ -649,15 +649,28 @@ ssize_t __hfsplus_getxattr(struct inode *inode,
-> const char *name,
-> =C2=A0		goto out;
-> =C2=A0	}
-> =C2=A0
-> +	if (fd.entrylength < sizeof(xattr_record_type)) {
-> +		pr_err("invalid xattr record size\n");
-> +		res =3D -EIO;
-> +		goto out;
-> +	}
-> =C2=A0	hfs_bnode_read(fd.bnode, &xattr_record_type,
-> =C2=A0			fd.entryoffset, sizeof(xattr_record_type));
+Hi Shuah,
 
-We need to incorporate likewise checks in the hfs_bnode_read(). Frankly
-speaking, I don't think that we cannot read __be32. But if we cannot,
-then only hfs_bnode_read() knows about the failure.
+__must_hold records the existing locking requirement for
+v_start_timer() and v_kick_timer(). The old comment was inaccurate
+because v_stop_timer() runs without the lock. timer_shutdown_sync() is
+the actual fix.
 
-> =C2=A0	record_type =3D be32_to_cpu(xattr_record_type);
-> =C2=A0	if (record_type =3D=3D HFSPLUS_ATTR_INLINE_DATA) {
-> +		if (fd.entrylength < offsetof(struct
-> hfsplus_attr_inline_data,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 raw_bytes)) {
+The QEMU harness sends CMD_SUBMIT packets while repeatedly unbinding
+and rebinding vudc. It reproduced the bug before the fix and ran 4,000
+iterations without a report afterward. I=E2=80=99ll add this to the v3 comm=
+it
+message.
 
-The struct hfsplus_attr_inline_data defines maximum possible size of
-buffer (HFSPLUS_MAX_INLINE_DATA_SIZE). But its doesn't mean that every
-record is 3802 bytes in size. This check should fail always.
-
-> +			pr_err("invalid xattr record size\n");
-> +			res =3D -EIO;
-> +			goto out;
-> +		}
-> =C2=A0		record_length =3D hfs_bnode_read_u16(fd.bnode,
-> =C2=A0				fd.entryoffset +
-> =C2=A0				offsetof(struct
-> hfsplus_attr_inline_data,
-> =C2=A0				length));
-> -		if (record_length > HFSPLUS_MAX_INLINE_DATA_SIZE) {
-> +		if (record_length > HFSPLUS_MAX_INLINE_DATA_SIZE ||
-> +		=C2=A0=C2=A0=C2=A0 offsetof(struct hfsplus_attr_inline_data,
-> raw_bytes) +
-> +		=C2=A0=C2=A0=C2=A0 record_length > fd.entrylength) {
-
-Frankly speaking, I don't follow this check. It looks pretty
-complicated.
+I have not tested with physical devices and a remote client.
 
 Thanks,
-Slava.
+Myeonghun
 
-> =C2=A0			pr_err("invalid xattr record size\n");
-> =C2=A0			res =3D -EIO;
-> =C2=A0			goto out;
+2026=EB=85=84 9=EC=9B=94 23=EC=9D=BC (=EC=88=98) =EC=98=A4=EC=A0=84 5:11, S=
+huah Khan <skhan@linuxfoundation.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> On 9/22/26 20:20, Myeonghun Pak wrote:
+> > Commit d96209626a29 ("usbip: vudc: Fix use after free bug in
+> > vudc_remove due to race condition") deletes the transfer timer before
+> > vudc_remove() frees the vudc, but the receive thread keeps running
+> > until usb_del_gadget_udc().  v_kick_timer() calls mod_timer() for
+> > CMD_SUBMIT and CMD_UNLINK even in VUDC_TR_STOPPED, so a packet after
+> > timer_delete_sync() rearms the timer and v_timer() uses the freed
+> > vudc.
+> >
+> > Use timer_shutdown_sync(), which ignores later arming.  The transfer
+> > state is freed with the timer.  Annotate v_start_timer() and
+> > v_kick_timer() with __must_hold(&udc->lock).
+>
+> Can you explain why __must_hold(&udc->lock) necessary?
+>
+> >
+> > A KASAN and DEBUG_OBJECTS x86_64 QEMU guest reproduced the free-active
+> > timer warning and the use-after-free in v_timer().  The same harness
+> > completed 4000 iterations with this change.__must_hold(&udc->lock)
+>
+> What does the harness do? You mentioned it in a response, but I would
+> like to see this in the change log.
+>
+> >
+> > Fixes: d96209626a29 ("usbip: vudc: Fix use after free bug in vudc_remov=
+e due to race condition")
+> > Link: https://lore.kernel.org/all/20230316180940.1601515-1-zyytlz.wz@16=
+3.com/
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: LLM
+> > Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> > Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> > Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> > ---
+> > Changes in v2:
+> > - Drop the lock-held comment and mark v_start_timer() and
+> >    v_kick_timer() with __must_hold(&udc->lock), on the prototypes and
+> >    the definitions (Greg Kroah-Hartman).
+> >
+> >   drivers/usb/usbip/vudc.h          | 6 ++++--
+> >   drivers/usb/usbip/vudc_transfer.c | 8 +++-----
+> >   2 files changed, 7 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/drivers/usb/usbip/vudc.h b/drivers/usb/usbip/vudc.h
+> > index 5ef0e7d9b23a..c129f4c56e8a 100644
+> > --- a/drivers/usb/usbip/vudc.h
+> > +++ b/drivers/usb/usbip/vudc.h
+> > @@ -157,8 +157,10 @@ int v_rx_loop(void *data);
+> >   /* vudc_transfer.c */
+> >
+> >   void v_init_timer(struct vudc *udc);
+> > -void v_start_timer(struct vudc *udc);
+> > -void v_kick_timer(struct vudc *udc, unsigned long time);
+> > +void v_start_timer(struct vudc *udc)
+> > +     __must_hold(&udc->lock);
+> > +void v_kick_timer(struct vudc *udc, unsigned long time)
+> > +     __must_hold(&udc->lock);
+> >   void v_stop_timer(struct vudc *udc);
+> >
+> >   /* vudc_dev.c */
+> > diff --git a/drivers/usb/usbip/vudc_transfer.c b/drivers/usb/usbip/vudc=
+_transfer.c
+> > index d4ce85c4c6a2..ba625622975e 100644
+> > --- a/drivers/usb/usbip/vudc_transfer.c
+> > +++ b/drivers/usb/usbip/vudc_transfer.c
+> > @@ -441,8 +441,6 @@ static void v_timer(struct timer_list *t)
+> >       spin_unlock_irqrestore(&udc->lock, flags);
+> >   }
+> >
+> > -/* All timer functions are run with udc->lock held */
+> > -
+> >   void v_init_timer(struct vudc *udc)
+> >   {
+> >       struct transfer_timer *t =3D &udc->tr_timer;
+> > @@ -452,6 +450,7 @@ void v_init_timer(struct vudc *udc)
+> >   }
+> >
+> >   void v_start_timer(struct vudc *udc)
+> > +     __must_hold(&udc->lock)
+> >   {
+> >       struct transfer_timer *t =3D &udc->tr_timer;
+> >
+> > @@ -470,6 +469,7 @@ void v_start_timer(struct vudc *udc)
+> >   }
+> >
+> >   void v_kick_timer(struct vudc *udc, unsigned long time)
+> > +     __must_hold(&udc->lock)
+> >   {
+> >       struct transfer_timer *t =3D &udc->tr_timer;
+> >
+> > @@ -490,8 +490,6 @@ void v_stop_timer(struct vudc *udc)
+> >   {
+> >       struct transfer_timer *t =3D &udc->tr_timer;
+> >
+> > -     /* Delete the timer synchronously before teardown frees udc. */
+> >       dev_dbg(&udc->pdev->dev, "timer stop");
+> > -     timer_delete_sync(&t->timer);
+> > -     t->state =3D VUDC_TR_STOPPED;
+> > +     timer_shutdown_sync(&t->timer);
+> >   }
+> >
+> > base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
+>
+> Have you tested this with real devices bound to a host and exported
+> to a client?
+>
+> thanks,
+> -- Shuah
+>
