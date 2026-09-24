@@ -1,141 +1,103 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087623DB641;
-	Thu, 24 Sep 2026 03:12:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E89C3D9DD1;
+	Thu, 24 Sep 2026 03:12:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790219530; cv=none; b=REl7XXGtGq013ubb6+RqcF2mcVb7Sd+QSXDA6JBfmkrIR/TpSqNlzlkFDvJjsbVjFMIVQFrqw+PdxCAD7Oy4FxWY3d2XrcxjR1VbFQbooYxnvakwBnXqa2w7GM7GHARFn3Va6BCVW2KU5fGm0xOE8PJ/p/YnF5+YYwA2TA0n4t4=
+	t=1790219549; cv=none; b=IGy36DyFi+R2QRSkUnnoSlVJ9uZGMiHutAROWJdk7mg67wYkmCvCzKpiOpG5wY2GYXgh1XjkO8bWqzQ/WuQsHyVWhUqFOZ8nOfZRczD2YeGuSwx11ZQuF++KmajOS60E8z70HD1727oedKuz3RPy7hpCGu4z20o4AQXBFXHraGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790219530; c=relaxed/simple;
-	bh=Dp2V888LpglsjmyHodeQA8mNyz+qo0+Ue04VwyJAoUY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=MhX0LEY++c8tgDItD+vVuKYJnPM69IdxhCKo4CnicWRzihWBltRNwIM7e02HSJqMGHW+L4EE0R/Q/7y5eFjv0tGXNHpWUMo1ng5euXjC42m5qYO3VQ/RCi90jI94S6PTp+2Qh0IE0TJKNviaUI3Vvujg8/qX1EyQEHl1CKZPGtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=ePk4Piey; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1790219549; c=relaxed/simple;
+	bh=Ai9tYnbYgd7UmISWRW8eOqVXDzCbFbZNKtV7umeXrIo=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=WjnCYd2HYclI2s9bjIO6rpJvvXoLmf181AXEcIm4aK6oNEjy+NYeUvrfNJg+MNeal8K04w2otNisp6zulvB2FwBq79Sj7FQx5x/ceaoxd1ID3nBIwpXLjjAnEyHKV/Fwjy6dw7AT0o5sCVJGYDMNp8h44K6cErJHEUn+CRPfI7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=m8HipW0v; arc=none smtp.client-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="ePk4Piey"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68O3Bv6G2840666, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1790219517; bh=Dp2V888LpglsjmyHodeQA8mNyz+qo0+Ue04VwyJAoUY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=ePk4PieyZ7dHrPYTketsRUTc8MpOkSMnWIN0jrzoEuu0gCsK7QozKVZ2J3v+AengF
-	 A2PlNQlfUibioGEdyjb+/iQW6dS1H4O0QZdeXMHG94L5SLqDOO6CdmEtNjyPgoFeFH
-	 z8+Gm9rJkP+c8rhyExxdKHd/Q54X8O5OHFkrU5QnrNPfoDd1yaRuuwj7qAHIXFTEU1
-	 NheFwK3zM3CAAJx+DB4C/NtJzP0iph3EV4yxp9GVD8ghQNhud0G64LOhwkRtwFYMIr
-	 fZvdY0rELlMo2+iIw+yUgU5OKL/EZj9VA8ze5ck+H7mYVeQtSxFcEk7FCLxE2XEzBk
-	 Ik/xCIxX51vvw==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68O3Bv6G2840666
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 24 Sep 2026 11:11:57 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="m8HipW0v"
+X-UUID: bdc11316b7c511f18dc8c9802ae25ab1-20260924
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=WdlxKuZ1eRGNTq9IjWkXwugc0cdMzr3fNzL2g2N6O5c=;
+	b=m8HipW0v8aCf9OcDHnF3lOTas7ITq1fvIRFN1w5sLtbyLlFut09hHz/nJJF3+U9b2NmOqvQFO6io8OdKCi3SQ5FgrxOfdAVjccCE4UYVDBavwONYNO8c1huRMCUX0q6IJN3TDabQ8uJzaGhB4uqZY4KJi+DCj3sOzadvFcf53OA=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:d5dfba1a-913d-4e9a-a411-8140e7855267,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:7db8b62,CLOUDID:c356e6fa-1cb6-4618-8a29-fa072b24d2a9,B
+	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50|99,E
+	DM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,OSA:0,
+	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: bdc11316b7c511f18dc8c9802ae25ab1-20260924
+Received: from mtkmbs14n2.mediatek.inc [(172.21.101.76)] by mailgw02.mediatek.com
+	(envelope-from <tim.kuo@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 486424146; Thu, 24 Sep 2026 11:12:14 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ MTKMBS09N2.mediatek.inc (172.21.101.94) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 24 Sep 2026 11:11:57 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Thu, 24 Sep 2026 11:11:57 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Luka Gejak <luka.gejak@linux.dev>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
- Straube" <straube.linux@gmail.com>, Peter Robinson <pbrobinson@gmail.com>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>
-Subject: RE: [PATCH v3 3/6] wifi: rtw88: 8723b: add the RTL8723B chip driver
-Thread-Topic: [PATCH v3 3/6] wifi: rtw88: 8723b: add the RTL8723B chip driver
-Thread-Index: AQHdSeAWPTTocmDvm0SCIQejTVX877bbzMuQgABkXICAANifIA==
-Date: Thu, 24 Sep 2026 03:11:57 +0000
-Message-ID: <304bbb9a43a74e909eec0dd84d86d528@realtek.com>
-References: <20260921154347.82317-1-luka.gejak@linux.dev>
- <20260921154347.82317-4-luka.gejak@linux.dev>
- <39da13e5cdd840f5a5ab86ded478d07c@realtek.com>
- <DLN10FU8L1PQ.3NK0M6NVQ3Y53@linux.dev>
-In-Reply-To: <DLN10FU8L1PQ.3NK0M6NVQ3Y53@linux.dev>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ 15.2.2562.29; Thu, 24 Sep 2026 11:12:13 +0800
+Received: from mtksitap99.mediatek.inc (10.233.130.16) by
+ mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Thu, 24 Sep 2026 11:12:13 +0800
+From: Tim Kuo <Tim.Kuo@mediatek.com>
+To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias
+ Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>
+CC: <linux-spi@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-mediatek@lists.infradead.org>, Steven Liu <Steven.Liu@mediatek.com>,
+	Sky Huang <Skylake.Huang@mediatek.com>, Tim Kuo <Tim.Kuo@mediatek.com>
+Subject: [PATCH 1/2] dt-bindings: spi: mediatek: add mediatek,spi-ipm-v59 compatible
+Date: Thu, 24 Sep 2026 11:12:10 +0800
+Message-ID: <20260924031211.2199921-1-Tim.Kuo@mediatek.com>
+X-Mailer: git-send-email 2.45.2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
-THVrYSBHZWphayA8bHVrYS5nZWpha0BsaW51eC5kZXY+IHdyb3RlOg0KPiA+PiArI2RlZmluZSBN
-QVNLX05FVFRZUEUgICAweDMwMDAwDQo+ID4+ICsjZGVmaW5lIF9ORVRUWVBFKHgpICAgICgoKHgp
-ICYgMHgzKSA8PCAxNikNCj4gPj4gKyNkZWZpbmUgTlRfTElOS19BUCAgICAgMHgyDQo+ID4NCj4g
-PiBUaGUgUE9SVF9TRVRfTkVUX1RZUEUgaW4gcnR3X3ZpZl9wb3J0X2NvbmZpZygpIGRvZXMgc2lt
-aWxhciB0aGluZw0KPiA+IHJlbHlpbmcgb24gc3RhdGljIGNvbnN0IHN0cnVjdCBydHdfdmlmX3Bv
-cnQgcnR3X3ZpZl9wb3J0W10uDQo+ID4NCj4gPiBJcyB0aGF0IG5vdCBzdWl0YWJsZSBmb3IgUlRM
-ODcyM0I/IElmIHNvLCBzaG91bGQgdGhlIGNvbW1vbiBmbG93DQo+ID4gYXZvaWQgUlRMODcyM0I/
-DQo+IA0KPiBJdCBpcyBzdWl0YWJsZSwgYW5kIHRoZSBjb21tb24gZmxvdyBkb2VzIG5vdCBuZWVk
-IHRvIGF2b2lkIFJUTDg3MjNCLg0KPiBQT1JUX1NFVF9ORVRfVFlQRSB3cml0ZXMgdGhlIHNhbWUg
-ZmllbGQgd2l0aCB0aGUgc2FtZSB2YWx1ZToNCj4gcnR3X3ZpZl9wb3J0WzBdLm5ldF90eXBlIGlz
-IGFkZHJlc3MgMHgwMTAwIHdpdGggbWFzayAweDMwMDAwLCB3aGljaCBpcw0KPiBSRUdfQ1IgYml0
-cyAxNzoxNiwgYW5kIHJ0d3ZpZi0+bmV0X3R5cGUgaXMgUlRXX05FVF9NR0RfTElOS0VELCAyLCB0
-aGUNCj4gdmFsdWUgTlRfTElOS19BUCBjYXJyaWVkLg0KPiANCj4gT25seSB0aGUgdGltaW5nIGRp
-ZmZlcnMsIGFuZCB0aGVyZSB0aGUgY29tbW9uIGZsb3cgaXMgdGhlIGJldHRlciBvbmUuDQo+IHJ0
-d19vcHNfYWRkX2ludGVyZmFjZSgpIHNldHMgbmV0X3R5cGUgZnJvbSB0aGUgaW50ZXJmYWNlIHR5
-cGUsDQo+IFJUV19ORVRfTk9fTElOSyBmb3IgYSBzdGF0aW9uLCBhbmQgdGhlIGFzc29jaWF0aW9u
-IHBhdGggbW92ZXMgaXQgdG8NCj4gUlRXX05FVF9NR0RfTElOS0VELCB3cml0aW5nIFJFR19DUiBh
-ZnRlciBib3RoLiBUaGUgY2hpcCBsb2NhbCBjYWxsIHJhbg0KPiBkdXJpbmcgbWFjX2luaXQgYW5k
-IGZvcmNlZCB0aGUgbGlua2VkIHZhbHVlIGJlZm9yZSB0aGVyZSB3YXMgYSBsaW5rLA0KPiBhbmQg
-dGhlIGNvcmUncyB3cml0ZSByZXBsYWNlZCBpdCBhIG1vbWVudCBsYXRlciBpbiBhbnkgY2FzZS4N
-Cj4gDQo+IFNvIHY0IGRyb3BzIHJ0dzg3MjNiX2luaXRfbmV0d29ya190eXBlKCkgd2l0aCBNQVNL
-X05FVFRZUEUsIF9ORVRUWVBFKCkNCj4gYW5kIE5UX0xJTktfQVAsIGFuZCB0aGUgY2hpcCByZWxp
-ZXMgb24gcnR3X3ZpZl9wb3J0W10gbGlrZSB0aGUgb3RoZXJzLg0KPiBObyBvdGhlciBydHc4OCBj
-aGlwIGRlZmluZXMgYSBuZXQgdHlwZSB2YWx1ZSBvZiBpdHMgb3duLg0KDQpDYW4geW91IGFsc28g
-cmV2aWV3IG90aGVyIFJUTDg3MjNCIHNwZWNpZmljIGZ1bmN0aW9ucz8gSSBkaWRuJ3QgcmV2aWV3
-DQp0aGVtIG9uZSBieSBvbmUgYnkgdjMsIGJ1dCBJIHdvbmRlciB3aHkgaXQgbmVlZHMgc3BlY2lm
-aWMgZnVuY3Rpb25zLA0Kbm90IGNvbW1vbiBmbG93LiBJZiBhbnkgb2YgdGhlbSBpcyBuZWNlc3Nh
-cnksIHBsZWFzZSBwb2ludCBvdXQgcmVhc29ucy4NCg0KPiANCj4gPj4gKyAgICAgICAvKiBPdmVy
-cmlkZSB0aGUgZGVmYXVsdCByY3IgZmlsdGVyIGZvciA4NzIzQiAqLw0KPiA+PiArICAgICAgIHJ0
-d2Rldi0+aGFsLnJjciA9IFdMQU5fUkNSX0NGRzsNCj4gPg0KPiA+IFdoeT8gVGhlIGRlZmF1bHQg
-dmFsdWUgZG9lc24ndCB3b3JrIHRvIFJUTDg3MjNCPw0KPiANCj4gVHdvIHRoaW5ncyBzYXkgaXQg
-ZG9lcyBub3QuDQo+IA0KPiBoYWwucmNyIGlzIG5vdCBvbmx5IHdyaXR0ZW4gYXQgaW5pdC4gZncu
-YyBjbGVhcnMgYW5kIHJlc3RvcmVzDQo+IEJJVF9DQlNTSURfQkNOIGluIGl0IGFyb3VuZCB0aGUg
-YmVhY29uIGZpbHRlciwgYW5kIG1hYzgwMjExLmMgdG9nZ2xlcw0KPiBCSVRfQU0sIHNvIHdoYXRl
-dmVyIGlzIGxlZnQgdGhlcmUgaGFzIHRvIGtlZXAgdGhvc2UgYml0cy4NCj4gDQo+IEFuZCB0aGlz
-IGlzIG5vdCBhIHByaXZhdGUgZmlsdGVyLiBJdCBpcyB0aGUgUkNSIHRoYXQgcnR3ODcyM3hfbWFj
-X2luaXQoKQ0KPiB3cml0ZXMgZm9yIHRoZSB3aG9sZSA4NzIzeCBmYW1pbHksIDB4NzAwMDYwY2Us
-IHdpdGggQklUX0FQUF9GQ1MgYWRkZWQuDQo+IFRoZSBnZW5lcmljIGRlZmF1bHQgaXMgYSBkaWZm
-ZXJlbnQgc2V0OiBpdCBoYXMgQklUX1BLVENUTF9ETEVOIGFuZCBsYWNrcw0KPiBCSVRfQ0JTU0lE
-X0RBVEEsIEJJVF9DQlNTSURfQkNOIGFuZCBCSVRfQU1GLCBzbyBpdCBkcm9wcyBleGFjdGx5IHRo
-ZSBiaXRzDQo+IGZ3LmMgbWFuaXB1bGF0ZXMgb24gdGhpcyBjaGlwLg0KPiANCj4gQklUX0FQUF9G
-Q1MgaGFzIHRvIGJlIHNldCBiZWNhdXNlIHJ0dzg4IGFkdmVydGlzZXMgUlhfSU5DTFVERVNfRkNT
-IGZvcg0KPiBldmVyeSBjaGlwIGFuZCB0aGUgc2hhcmVkIDg3MjN4IHZhbHVlIGhhcyBiaXQgMzEg
-Y2xlYXI7IHdpdGhvdXQgaXQNCj4gbWFjODAyMTEgdHJpbXMgZm91ciBieXRlcyBvZiByZWFsIGZy
-YW1lIGRhdGEuIHY0IHNheXMgdGhpcyBhdCB0aGUNCj4gYXNzaWdubWVudC4NCg0KSSB0aGluayB0
-aGUgYmV0dGVyIHdheSBpcyB0byBhc3NpZ24gcHJvcGVyIHJ0d2Rldi0+aGFsLnJjciBwZXIgY2hp
-cA0KaW4gcnR3X2NvcmVfaW5pdCgpLiANCg0KPiANCj4gPj4gKyAgICAgICBydHc4NzIzYl9pbml0
-X2FkYXB0aXZlX2N0cmwocnR3ZGV2KTsNCj4gPj4gKyAgICAgICBydHc4NzIzYl9pbml0X2VkY2Eo
-cnR3ZGV2KTsNCj4gPj4gKyAgICAgICBydHc4NzIzYl9pbml0X3JldHJ5X2Z1bmN0aW9uKHJ0d2Rl
-dik7DQo+ID4NCj4gPiBTbyBSVEw4NzIzQiBpcyB2ZXJ5IGRpZmZlcmVudCBmcm9tIGV4aXN0aW5n
-IGNoaXBzPw0KPiANCj4gTm8sIGFuZCB0aGUgc2libGluZ3Mgd3JpdGUgdGhlIHNhbWUgcmVnaXN0
-ZXJzIHdpdGggdGhlIHNhbWUgdmFsdWVzLg0KDQpDYW4geW91IHJldXNlIHRoZSBleGlzdGluZyBz
-aW5jZSB0aGV5IGFyZSB0aGUgc2FtZT8NCg0KQnkgdGhlIHdheSwgSSBkaWRuJ3Qgb25seSBtZW50
-aW9uIHRoZXNlIHRocmVlIGZ1bmN0aW9ucy4gQXQgaGVyZSB0aGVyZSBhcmUNCm1hbnkgc3BlY2lm
-aWMgZnVuY3Rpb25zLiBQbGVhc2UgYW5hbHl6ZSB0aGVtLiANCihIb25lc3RseSwgSSBkb24ndCBm
-dWxseSByZS1leGFtaW5hdGUgeW91ciBhbmFseXNpcyBpbiBkZXRhaWwsIGFuZCBiZWxpZXZlDQog
-eW91ciByZXN1bHRzLikNCg0KPiANCj4gT25lIG1vcmUsIHdoZXJlIHRoZSByZXZpZXcgYXNrZWQg
-Zm9yIGEgY2hhbmdlIHRoYXQgd2FzIGFscmVhZHkgdGhlcmUuDQo+IFRoZSBkZWNsYXJhdGlvbnMg
-aW4gcnR3ODcyM2JfcmVhc3NlcnRfcnhfcGF0aCgpIHRoYXQgeW91IG1hcmtlZCBmb3INCj4gcmV2
-ZXJzZSBYJ21hcyBvcmRlciBhcmUgYWxyZWFkeSBsb25nZXN0IGZpcnN0LCB0aHJlZSB1MzIgbGlu
-ZXMgZm9sbG93ZWQNCj4gYnkgdHdvIHU4IGxpbmVzLCBhbmQgdGhleSBhcmUgdGhlIHNhbWUgaW4g
-dGhlIHNlbnQgdjMgYW5kIGluIHY0LiBJZiB5b3UNCj4gaGFkIGEgZGlmZmVyZW50IG9yZGVyIGlu
-IG1pbmQsIHRlbGwgbWUgd2hpY2ggYW5kIEkgd2lsbCBhcHBseSBpdC4NCg0KKFBsZWFzZSBxdW90
-ZSB0aGUgY29kZTsgdG8gcmVwbHkgdG8gdGhpcywgSSBuZWVkIHRvIHN3aXRjaCB0byB5b3VyIHBh
-dGNoZXMgYWdhaW4pLg0KDQpJIGNhbiBndWVzcyB5b3Ugd3JpdGUgdTMyIGFuZCB0aGVuIHU4IGZv
-ciBvcHRpbWl6aW5nIHN0YWNrLiBNYXliZSwNCnlvdSBjYW4gcmVuYW1lIHRoZSBuYW1lcyBvciBj
-aGFuZ2UgdHlwZXMuIEp1c3Qga2VlcCByZXZlcnNlIFgnbWFzDQpvcmRlciBhcyBwb3NzaWJsZSBh
-cyB5b3UgY2FuLiBPbmUgZXhjZXB0aW9uIGlzIGRlcmVmZXJlbmNlIHByaW9yIA0KcG9pbnRlciAo
-YnV0IHN0aWxsIGNhbiBjaGFuZ2UgdGhlIGNvZGUgdG8gZml4IHJldmVyc2UgWCdtYXMgb3JkZXIp
-Lg0KQW5vdGhlciBleGNlcHRpb24gaXMgcHV0ICdzdHJ1Y3QnIGRlY2xhcmF0aW9ucyBmaXJzdCwg
-YW5kIHRoZW4NCmZ1bmRhbWVudGFsIGRhdGEgdHlwZS4NCg0KUGxlYXNlIHRyeSB5b3VyIHdheXMg
-dG8gZml0IHNpbXBsZSBydWxlcy4gT3RoZXJ3aXNlLCBpZiBJIGFjY2VwdCB0aGlzLA0KaXQgaXMg
-aGFyZCB0byBtZSB0byBleHBsYWluIHRoZSByZWFzb25zIGlmIG90aGVyIHBlb3BsZSBhc2sgbWUg
-ZGF5cyBsYXRlci4NCg0KUGluZy1LZQ0KDQo=
+The IPM v59 SPI IP differs from earlier IPM designs, most visibly in the
+tick delay field of SPI_CMD_REG, so it needs its own fallback compatible
+rather than reusing "mediatek,spi-ipm".
+
+Signed-off-by: Tim Kuo <Tim.Kuo@mediatek.com>
+---
+ .../devicetree/bindings/spi/mediatek,spi-mt65xx.yaml         | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml b/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
+index 3bf3eb1f8728..08a3497b03dc 100644
+--- a/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
++++ b/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
+@@ -39,6 +39,10 @@ properties:
+               - mediatek,mt7988-spi-single
+               - mediatek,mt8188-spi-ipm
+           - const: mediatek,spi-ipm
++      - items:
++          - enum:
++              - mediatek,mtxxxx-spi
++          - const: mediatek,spi-ipm-v59
+       - items:
+           - enum:
+               - mediatek,mt8196-spi
+@@ -55,7 +59,6 @@ properties:
+               - mediatek,mt8135-spi
+               - mediatek,mt8173-spi
+               - mediatek,mt8183-spi
+-
+   reg:
+     maxItems: 1
+ 
+-- 
+2.45.2
+
