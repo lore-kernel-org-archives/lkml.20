@@ -1,267 +1,263 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A1EF3E0C50
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:54:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E42BD3264DD;
+	Thu, 24 Sep 2026 08:54:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790240077; cv=none; b=HDqBJ+cot8eXLGQzG3PY7H7ronif9vMtzSESbpO3DuTbetrCfCXfuir/rADd5jT3fDpftKTXmcO7tVz8qY/8SdYyLtb9VjAu+WSB+TNuPEp9Bm5Bz3++5CCVEU8O3D3QixCbgolmsATKbsgOyU3VzutHoQRGSpKT3EvOlCsuLrE=
+	t=1790240084; cv=none; b=KzaIQtQV3rUahnk8KyRyLN2C7HvMAJvwE+/u9BnkpmsC7Ro12jT7D32VZinWH5XH5CsPt+vh9aar7OB5XRlJABS4tNidpw4Ihu0xvtSYckm5Jz25YCXwUCprWyWDk7OCWURV2zObxaVe5QIgLN7oV0frhl0iR5GimAaYvfOQrOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790240077; c=relaxed/simple;
-	bh=twgh3g1PnM87VxqM/4Rt4mbcLaJq2ja0aJ+oUhH0aK8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SRSe4N4qOVSCXojs+zPlyA2GByA+QGcmYGtVyFgy3OwCHb2MP08VaaU2e6MAsk2PnrFz4HECbZJq8a3HZ3E1wDXqbZAqkM04XonzHIUAF3UC7Lz8QsvKtKujh1FV6n8lNx48PS9wVhuuUe2SAkL5PtzqhgzFMO5r32Qo04sFrew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vtJHpO2C; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790240084; c=relaxed/simple;
+	bh=6D3CTgHdu5481mnLKV1gPqeZJ095pUnPyFYt/9xV+nk=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=c36Jzx9u4iMMxwjb/ZDcC0WNR9JggsqN2H/5y411kGc9hjvck03jCQ2fLwCmuvh6IRdgbJ5OcJYvEm95FrfNaINlONiSubUDn7htu+UcdghwdskzjphFNhSktQPy4/DvrtimmqsYSMfciReAjWbkp1XzgkiqtYoA2KKNPwhDwtA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IxRwVj38; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vtJHpO2C"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d097b4939so9758525e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:54:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790240074; x=1790844874; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bHa1UAdZED9v4xIP0j2HFg/rXQgFI3X0Ub8oRadUOrA=;
-        b=vtJHpO2C063MkAGySC/Dsj9UbRw/nO+1qxiyGaRJk2eCdw+l7Qvl+jfWv/xEnWMwnI
-         YvTeIDeajgw+NN5aaTh0cJmQxZMB7iyfVIDzVjX6JOmp3GZFpJ5e8JEetmd4pNv5z01D
-         kthYMFOF731GHu6S1+7mczVJSBVaJKp+RJqQJnoYOYogtdzAhPlC/BQGmMDjsaIPyUYN
-         WXWZt+fPOrycOogGEHPkrhrSfWaIgDe6/4X2Fj1tQZB0cGGgaB1r80e1cjo1hmWE0EQf
-         G506y+OLmtn6kzl2nlbmkwzp1n/Y6f270ZA8fPVMIajDe2y05r1W5QOrmHT2oLZkvS/Z
-         aB/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790240074; x=1790844874;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bHa1UAdZED9v4xIP0j2HFg/rXQgFI3X0Ub8oRadUOrA=;
-        b=KmtaEeIZU+giquhWKxRscBh0HqqaIwVi4ILFTbNFx2mmcrw1S72KqqeTZkJfltXXGj
-         wqIUSiy7Z3P9p96KMYNx5a2NOlH6RbjfrfRTJ1/RRSvD2QSs5SXSX2Z4oaGYXrxWTD23
-         PPA7IHaV/8Ui2ZLsLHPrz4RswEOBfsc14j1qKBLSEygti7vuBhCgktepw2OGcoScaKpx
-         DJ9q9pvNp8FXxwb4sSRWP501pwCNDQLujyH+/7yYXGwXXaamZZGtLnrJzolZsKEblJSJ
-         ha7ZuC8cEaZbvhi0/Qpm3mJ6VPx4XtdMKCXhT5sj1kRHQfHmI2UBWkRmzZbncnykb28T
-         P43w==
-X-Forwarded-Encrypted: i=1; AKwUvBx2qAa517sLqhQkgLsDNkTrr5CJQWTLUwJVIACORh05aLKWHMNYFltbW9dpRX3SAA9R/kPHU8ojotnmxo4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgARUFHiHTRqduBqEy0biWSBdlhI+su6914wRZCRMODkSGIh5H
-	rOWT/6etNxmNYtGrnJu8lQ5v0DJTGensCGaioCa0jbjPAkLfySJj0BZHx82O5Q7zEQ==
-X-Gm-Gg: AYBFou1bIfXi+a69W7KdGI39oCjXa1HEZZhrznuGpUJ4yF51d6OGuNAb1BiC6vAZeAW
-	65r0bvsZupDMLApDN4mZg2qrXm5Qg9iXV+IIxn0rCprfGAgcOl0TnuPJUUy/EgVATlps4ZhKl1y
-	LWFn9/KN+O1xbM1prkTdTg3uv5C7THTWei8HDqHrpg+RIOk7wu6/pBaKRO6aR84WnfEhK5Yr33z
-	K1r3mFKTaYIc1VoCyNr2PextHYo2Osix1BwtN7MZ7g1jdlYbAqKsgjGq+5AcI1U/EzCWnc6APRX
-	PvDjoymVyS7xibnJTzAsCbZRmUh6B0eca1b8PgEGaUJARcN2ETn2XDfF7miE9UMLiQdgAwIXXcE
-	vhE2AaeMxvkV7EjgSwrlFZBe8XWcil5NihR7b0SIFoO0Z+0hybIUIzAWy7RztUHvmFXm1AQeEbQ
-	kv2a8Uk0vNK1/A35yMaIFVJSnzenLg7Uor8fgBz8KVRQa/A80Zeh7BEQYFlWaNQMelAXAc2dC1G
-	wNrGEBoTHMkbC6Lu8Rc09skMTpwm9TwH1oH06ASCsX+1L45UGQkOw==
-X-Received: by 2002:a05:600c:34d4:b0:495:6e68:5df2 with SMTP id 5b1f17b1804b1-49fe66d07c9mr27713375e9.12.1790240073084;
-        Thu, 24 Sep 2026 01:54:33 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe0c3731fsm115272595e9.2.2026.09.24.01.54.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 01:54:32 -0700 (PDT)
-Date: Thu, 24 Sep 2026 09:54:28 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Xiang Gao <gxxa03070307@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lorenzo Stoakes <ljs@kernel.org>, gao xu <gaoxu2@honor.com>,
-	yinchuang1@xiaomi.com, linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Xiang Gao <gaoxiang17@xiaomi.com>
-Subject: Re: [PATCH v4 1/2] tracing: add ring-buffer memory usage statistics
- in tracefs
-Message-ID: <arTlRPvmR54Fa71o@google.com>
-References: <20260916063322.472172-1-gaoxiang17@xiaomi.com>
- <20260921113047.1152602-1-gaoxiang17@xiaomi.com>
- <20260921113047.1152602-2-gaoxiang17@xiaomi.com>
- <arJNSjKsJ3bK40dH@google.com>
- <20260924102755.02084435309be26f664e3333@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IxRwVj38"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 233091F000FF;
+	Thu, 24 Sep 2026 08:54:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790240082;
+	bh=yrKvdoHKHUrs0CoJeIfRXejqns+60AzL+8SidZjSbMU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=IxRwVj38L74+kDKcCYCdkYQF8nKO0ZnsIc9/rmmL6kfkopkLeddsUKVEaHtlWWFIj
+	 N6rsBFO8xnYezDnBeF1xdwyoHS7z+60zWeHGNcSCdH/pXC5YXN+8BalUu1Qnri+x+c
+	 3Bk5zVomRExPIcYxQ+7TLMOBBMOLmLzAJ66rZX8qsZ4b2Kt9ET3tKvSzY9vqW7i21a
+	 zKJcEzUQSCcAeRAo53rGp21/SmzSZNuDOIMl9hpZQhjnOP3u4Ixg/85QrqxEw3M+kJ
+	 /qCm0oDbtkpx3GL5WovjU8Okb5UDrdkcKE54LyeC3Zo1E4gfY52uLpfXFsQNt7I7d+
+	 D8Ce8oxiJt8hw==
+Subject: Re: [PATCH net v5 1/2] net: validate virtio checksum start after
+ network header
+From: netdev-bot+sashiko@kernel.org
+To: habte.yibelo@gmail.com
+Cc: netdev@vger.kernel.org, richard@nod.at, anton.ivanov@cambridgegreys.com,
+ johannes@sipsolutions.net, willemdebruijn.kernel@gmail.com,
+ jasowangio@gmail.com, mst@redhat.com, eperezma@redhat.com,
+ xuanzhuo@linux.alibaba.com, andrew+netdev@lunn.ch, pablo@netfilter.org,
+ fw@strlen.de, phil@nwl.cc, razor@blackwall.org, idosch@nvidia.com,
+ dsahern@kernel.org, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, linux-um@lists.infradead.org,
+ virtualization@lists.linux.dev, netfilter-devel@vger.kernel.org,
+ coreteam@netfilter.org, bridge@lists.linux.dev, linux-kernel@vger.kernel.org
+Date: Thu, 24 Sep 2026 08:54:40 +0000
+Message-ID: <179024008066.2160803.8682461497509944706@kernel.org>
+In-Reply-To: <20260921025341.44846-2-habte.yibelo@gmail.com>
+References: <20260921025341.44846-2-habte.yibelo@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924102755.02084435309be26f664e3333@kernel.org>
 
-On Thu, Sep 24, 2026 at 10:27:55AM +0900, Masami Hiramatsu wrote:
-> On Tue, 22 Sep 2026 10:41:30 +0100
-> Vincent Donnefort <vdonnefort@google.com> wrote:
-> 
-> > On Mon, Sep 21, 2026 at 07:30:45PM +0800, Xiang Gao wrote:
-> > > Report the memory consumed by the tracing ring buffers, rather than the
-> > > usable data capacity exposed by buffer_size_kb. Android low-memory
-> > > diagnostics need this to attribute the memory used by tracing when
-> > > calculating lost RAM.
-> > > 
-> > > The buffers can be spread across the global trace array, dynamically
-> > > created instances, and snapshot buffers. Userspace currently has to
-> > > discover and sum every instance, and snapshot memory is not exposed by
-> > > the per-instance totals.
-> > > 
-> > > Add a trace_stats directory with memory_usage_kb reporting:
-> > > 
-> > >   buffers:
-> > >   snapshot_buffers:
-> > > 
-> > > covering the global trace array, all instances, and the bootstrapping
-> > > temp_buffer across all CPUs.
-> > > 
-> > > The values account for the full pages backing the data sub-buffers and
-> > > reader page, plus the cached read page and mmap metadata page when
-> > > present. Slab-allocated ring-buffer metadata is not included, as it is
-> > > already reported through Slab and would be double-counted when
-> > > subtracting tracing memory from lost RAM. Remote buffers, whose pages
-> > > are externally owned, report zero.
-> > 
-> > For the next version, it is good practice to __not__ in-reply-to with previous
-> > version.
-> > 
-> 
-> Indeed. This is hard to find which is the latest version.
-> 
-> > > 
-> > > Signed-off-by: Xiang Gao <gaoxiang17@xiaomi.com>
-> > > ---
-> > >  Documentation/trace/ftrace.rst | 12 +++++
-> > >  include/linux/ring_buffer.h    |  1 +
-> > >  kernel/trace/ring_buffer.c     | 41 +++++++++++++++
-> > >  kernel/trace/trace.c           | 95 ++++++++++++++++++++++++++++++++++
-> > >  4 files changed, 149 insertions(+)
-> > > 
-> > > diff --git a/Documentation/trace/ftrace.rst b/Documentation/trace/ftrace.rst
-> > > index 7261f25f8b4b..99ddfe26b7cd 100644
-> > > --- a/Documentation/trace/ftrace.rst
-> > > +++ b/Documentation/trace/ftrace.rst
-> > > @@ -218,6 +218,18 @@ of ftrace. Here is a list of some of the key files:
-> > >  
-> > >  	This displays the total combined size of all the trace buffers.
-> > >  
-> > > +  trace_stats/memory_usage_kb:
-> > > +
-> > > +	This reports the memory consumed by the ring buffers, as opposed to
-> > > +	the usable data capacity shown by buffer_size_kb. The value covers the
-> > > +	main and snapshot buffers of the global trace array and all tracing
-> > > +	instances. It does not include slab-allocated ring-buffer metadata.
-> > > +
-> > > +	Output::
-> > > +
-> > > +	    buffers: ...
-> > > +	    snapshot_buffers: ...
-> > > +
-> > >    buffer_subbuf_size_kb:
-> > >  
-> > >  	This sets or displays the sub buffer size. The ring buffer is broken up
-> > > diff --git a/include/linux/ring_buffer.h b/include/linux/ring_buffer.h
-> > > index eac3e9080c3c..96b99e6757d4 100644
-> > > --- a/include/linux/ring_buffer.h
-> > > +++ b/include/linux/ring_buffer.h
-> > > @@ -167,6 +167,7 @@ int ring_buffer_iter_empty(struct ring_buffer_iter *iter);
-> > >  bool ring_buffer_iter_dropped(struct ring_buffer_iter *iter);
-> > >  
-> > >  unsigned long ring_buffer_size(struct trace_buffer *buffer, int cpu);
-> > > +unsigned long ring_buffer_memory_size(struct trace_buffer *buffer, int cpu);
-> > >  unsigned long ring_buffer_max_event_size(struct trace_buffer *buffer);
-> > >  
-> > >  void ring_buffer_reset_cpu(struct trace_buffer *buffer, int cpu);
-> > > diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-> > > index 04bb94c29f58..efb88bf8970c 100644
-> > > --- a/kernel/trace/ring_buffer.c
-> > > +++ b/kernel/trace/ring_buffer.c
-> > > @@ -6559,6 +6559,47 @@ unsigned long ring_buffer_size(struct trace_buffer *buffer, int cpu)
-> > >  }
-> > >  EXPORT_SYMBOL_GPL(ring_buffer_size);
-> > >  
-> > > +/**
-> > > + * ring_buffer_memory_size - return the memory used by the buffer (in bytes)
-> > > + * @buffer: The ring buffer.
-> > > + * @cpu: The CPU to get ring buffer memory from.
-> > > + *
-> > > + * Returns the page-allocator memory consumed by @cpu, including the data
-> > > + * sub-buffers, the reader page, the cached read page, and the mmap
-> > > + * metadata page. Unlike ring_buffer_size(), which reports the usable data
-> > > + * capacity, this accounts for the full pages allocated to the buffer.
-> > > + * Remote buffers do not own page-allocator memory and report zero.
-> > > + */
-> > > +unsigned long ring_buffer_memory_size(struct trace_buffer *buffer, int cpu)
-> > > +{
-> > > +	struct ring_buffer_per_cpu *cpu_buffer;
-> > > +	unsigned long subbuf_size;
-> > > +	unsigned long size;
-> > > +
-> > > +	if (!cpumask_test_cpu(cpu, buffer->cpumask))
-> > > +		return 0;
-> > > +
-> > > +	/* Remote buffers use externally owned memory. */
-> > > +	if (buffer->remote)
-> > > +		return 0;
-> 
-> For the persistent ring buffer, you also need to check `buffer->range_addr_start`.
-> That is a reserved memory, which is outside of page allocator.
-> 
-> > 
-> > This is a generic interface. If you want to call this function on a remote
-> > buffer, you should be able to.
-> 
-> But as the comment said, this function returns the size of page-allocator
-> memory. Is remote ring buffer allocated from host?
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-It is down to the trace_remote implementer where the memory comes from, but
-right now, all remote ring buffer are allocated from the buddy allocator.
+Critical: 0 · High: 1 · Medium: 1 · Low: 0
 
-Although, even coming from a carveout, the low-level function should probably
-return something in any case, as it has all the informations it needs and to
-stay as generic as possible.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Then, the caller (trace_stat) should know if the information is relevant or not,
-or where to account for it. (probably with TRACE_ARRAY_FL_ flags ?). trace_stat
-shouldn't report only what's relevant for Android. It can however split the
-report between persistent ring-buffers and the others.
+- [High] The two AF_PACKET call sites pass skb_network_offset(skb) as the
+  new `network_offset` argument, while every other converted caller…
+- [Medium] In arch/um/drivers/vector_transports.c:raw_verify_header(),
+  the newly added virtio_net_hdr_get_l3_offset() parse and the now-…
 
-Overall, we could have
+--
 
-cat trace_mem
+net: validate virtio checksum start after network header
 
-  main:
-  instances:
-  snapshots:
-  persistents: 
-  remotes:
+This adds an explicit data-relative L3 offset argument to
+virtio_net_hdr_to_skb() and virtio_net_hdr_tnl_to_skb() so that a
+CHECKSUM_PARTIAL start landing inside the network header is rejected.  A new
+helper virtio_net_hdr_get_l3_offset() parses Ethernet and nested VLAN headers
+with skb_header_pointer(), and all in-tree callers are converted.
 
-  total_system:
-  total_carveout:
+Link: https://lore.kernel.org/netdev/20260920004733.6473-2-habte.yibelo@gmail.com/
 
-Which I believe would be a more accurate picture: First the memory sorted by
-"type" of buffers and then by "type of memory".
+> diff --git a/arch/um/drivers/vector_transports.c b/arch/um/drivers/vector_transports.c
+> index ddd127ee9678..79bc05fc6f73 100644
+> --- a/arch/um/drivers/vector_transports.c
+> +++ b/arch/um/drivers/vector_transports.c
+> @@ -197,6 +197,7 @@ static int raw_verify_header(
+>  	uint8_t *header, struct sk_buff *skb, struct vector_private *vp)
+>  {
+>  	struct virtio_net_hdr *vheader = (struct virtio_net_hdr *) header;
+> +	int network_offset;
+>  
+>  	if ((vheader->gso_type != VIRTIO_NET_HDR_GSO_NONE) &&
+>  		(vp->req_size != 65536)) {
+> @@ -209,8 +210,13 @@ static int raw_verify_header(
+>  	if ((vheader->flags & VIRTIO_NET_HDR_F_DATA_VALID) > 0)
+>  		return 1;
+>  
+> -	virtio_net_hdr_to_skb(skb, vheader, virtio_legacy_is_little_endian());
+> -	return 0;
+> +	network_offset = virtio_net_hdr_get_l3_offset(skb, vheader);
+> +	if (network_offset < 0)
+> +		return network_offset;
+> +
+> +	return virtio_net_hdr_to_skb(skb, vheader,
+> +				     virtio_legacy_is_little_endian(),
+> +				     network_offset);
+>  }
 
- 
-> 
-> > 
-> > Moreover, remote buffer in-production current use is for Android... So not only
-> > ring_buffer_memory_size() should support them, but they should probably be
-> > actively reported somewhere...
-> 
-> Maybe we should have different size accounting interface for remote buffer
-> and persistent buffer.
+[Severity: Medium]
+Is the skb passed to raw_verify_header() already trimmed to the received
+frame length at this point?
 
-For the remote, it should probably sit in trace_remote.c, which can call
-ring_buffer_memory_size(). trace_stat can then query the memory size from
-trace_remote.
+prep_skb() in arch/um/drivers/vector_kern.c sets the length from the
+receive buffer capacity, before the recvmsg/recvmmsg:
 
-And actually I have a pending series where I keep the list of trace_remote [1]
-which would be a prerequisite.
+	skb_put(result, vp->max_packet);
+	result->data_len = len - vp->max_packet;
+	result->len += len - vp->max_packet;
 
-[1] https://lore.kernel.org/all/20260817135517.3919534-2-vdonnefort@google.com/
+and both receive loops call the verify callback before the trim:
 
-> 
-> Thanks,
-> 
-> -- 
-> Masami Hiramatsu (Google) <mhiramat@kernel.org>
+vector_legacy_rx():
+			header_check = vp->verify_header(
+				vp->header_rxbuffer, skb, vp);
+			if (header_check < 0) { ... return 0; }
+		}
+		pskb_trim(skb, pkt_len - vp->rx_header_size);
+
+vector_mmsg_rx() has the same ordering.  The only guarantee before the
+callback is pkt_len > vp->header_size, i.e. one payload byte.
+
+So can the Ethernet and VLAN bytes that virtio_net_hdr_get_l3_offset()
+reads at offsets 0..13 and beyond be bytes recvmsg never wrote, i.e. the
+uninitialised remainder of the allocation, making network_offset and the
+accept/reject decision depend on stale buffer contents whenever the
+received frame is shorter than the parsed span?
+
+Along the same lines, the length checks inside __virtio_net_hdr_to_skb()
+see skb->len as capacity (up to vp->req_size, 65536 with GSO) rather than
+the received length, for instance:
+
+			if (skb->len - p_off > gso_size * UDP_MAX_SEGMENTS)
+				return -EINVAL;
+
+Since raw_verify_header() now returns the converter's error instead of
+discarding it, does this turn the length mismatch into frames dropped with
+rx_encaps_errors, where previously the return value was ignored?  Would it
+be better to move the pskb_trim() ahead of the verify_header() call?
+
+> diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
+> index c381b916c1b5..a4c005796acb 100644
+> --- a/include/linux/virtio_net.h
+> +++ b/include/linux/virtio_net.h
+
+[ ... ]
+
+> @@ -98,16 +136,20 @@ static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
+>  		u32 start = __virtio16_to_cpu(little_endian, hdr->csum_start);
+>  		u32 off = __virtio16_to_cpu(little_endian, hdr->csum_offset);
+>  		u32 needed = start + max_t(u32, thlen, off + sizeof(__sum16));
+> +		int transport_offset;
+>  
+>  		if (!pskb_may_pull(skb, needed))
+>  			return -EINVAL;
+>  
+>  		if (!skb_partial_csum_set(skb, start, off))
+>  			return -EINVAL;
+> -		if (skb_transport_offset(skb) < nh_min_len)
+> +
+> +		transport_offset = skb_transport_offset(skb);
+> +		if (transport_offset < nh_min_len || network_offset < 0 ||
+> +		    network_offset > transport_offset - nh_min_len)
+>  			return -EINVAL;
+
+[ ... ]
+
+> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+> index 50cae32ae269..04c80e23d7e2 100644
+> --- a/net/packet/af_packet.c
+> +++ b/net/packet/af_packet.c
+> @@ -2901,7 +2901,8 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
+>  		}
+>  
+>  		if (has_vnet_hdr) {
+> -			if (virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le())) {
+> +			if (virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le(),
+> +						  skb_network_offset(skb))) {
+>  				tp_len = -EINVAL;
+>  				goto tpacket_error;
+>  			}
+> @@ -3103,7 +3104,8 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+>  	packet_parse_headers(skb, sock);
+>  
+>  	if (vnet_hdr_sz) {
+> -		err = virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le());
+> +		err = virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le(),
+> +					    skb_network_offset(skb));
+>  		if (err)
+>  			goto out_free;
+>  		len += vnet_hdr_sz;
+
+[Severity: High]
+Is skb_network_offset(skb) a strong enough origin here?  Every other
+converted caller derives the offset from the frame bytes via
+virtio_net_hdr_get_l3_offset(), while these two use the network header
+AF_PACKET established itself.
+
+In packet_parse_headers() the VLAN adjustment is gated on the
+socket-supplied protocol:
+
+	if (likely(skb->dev->type == ARPHRD_ETHER) &&
+	    eth_type_vlan(skb->protocol) &&
+	    vlan_get_protocol_and_depth(skb, skb->protocol, &depth) != 0)
+		skb_set_network_header(skb, depth);
+
+For SOCK_RAW with an explicit sll_protocol, skb->protocol is the value the
+sender passed, not the frame's EtherType (dev_parse_header_protocol() runs
+only when skb->protocol is 0 or ETH_P_ALL).
+
+So for a sender that binds with sll_protocol = htons(ETH_P_IP) but writes
+an 802.1Q-tagged frame, network_offset stays 14 while the real IPv4 header
+starts at 18.  With csum_start = 34 and nh_min_len = 20, the new test
+becomes:
+
+	transport_offset = 34;
+	34 < 20                      -> false
+	14 > 34 - 20                 -> 14 > 14 -> false
+
+and the header is accepted, after skb_partial_csum_set() has already set
+ip_summed = CHECKSUM_PARTIAL and transport_header = 34, which is 16 bytes
+inside the IPv4 header spanning 18..37.  Is that not exactly the case the
+commit message says is now rejected?
+
+Two related cases in the same path:
+
+packet_parse_headers() silently ignores a failed
+vlan_get_protocol_and_depth() (more nested tags than that parser accepts),
+leaving network_offset at 14 for a deeper real L3 header.
+
+In packet_snd(), the SOCK_RAW short-packet branch resets the network header
+while skb->data still points at the link header:
+
+	} else if (reserve) {
+		skb_reserve(skb, -reserve);
+		if (len < reserve + sizeof(struct ipv6hdr) &&
+		    dev->min_header_len != hard_header_len)
+			skb_reset_network_header(skb);
+	}
+
+which yields network_offset == 0, and the new bound then reduces to the
+pre-patch csum_start >= 20 check.  Would using
+virtio_net_hdr_get_l3_offset() at both AF_PACKET call sites, as the TAP and
+virtio-net paths do, keep the origin consistent?
+
+Note the follow-up commit in this area, "ip: reject partial checksums
+covering network headers", only touches ip_do_fragment(), ip6_fragment(),
+nf_br_ip_fragment() and br_ip6_fragment(), so it does not close this
+AF_PACKET path later in the series.
 
 -- 
-Vincent
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260921025341.44846-1-habte.yibelo%40gmail.com
