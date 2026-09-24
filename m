@@ -1,159 +1,87 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9DC7449BD92;
-	Thu, 24 Sep 2026 15:11:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 335F0497B8C;
+	Thu, 24 Sep 2026 15:11:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790262701; cv=none; b=Zjo2u5hNcnVtV5cOemqQVQQyEM9gHx/JQCD6zspLS2v00YGW7l5sZwjFwoCq84vBomqe+mALGyz1DJQRRnTc0hcew7LWhip75MhRUSe4Rk/HL+f+38P5IMwvZY2LiTnRbtMUa2tELybkfy1KYCqaMufICnJNFMAlY2CNMG0okoE=
+	t=1790262712; cv=none; b=KDFkJnI4qRskGTl5Pn3QhnEB/3XNOJLFoE9m5/P74KC1btjFrZrB6vcS+AqBbpBuws8CcAGk5fNB7vUAjbTjzWARNokjozGt64mmzbKAgRzPhhaEwroVD5Dbw8gigw4TjXOQqJQpSxuRW9hGLQi5w1TjAVWsMeFs45X4ZrU51Og=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790262701; c=relaxed/simple;
-	bh=q4dWjwb38KokSVbUsb7YtW3icmXBs3RfGPuSgIZBYkk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kTyP8Ets/hy3np+q5V8FJmo299Vq6yVd0Uuaf1tts8Aj2ibZLt5naFbPAOPN2J2babW4bkS/juxpfgBuIuG2r/Vr3FCsQDL9kD0jEJETNYngl8UbQ3ChY6qUqi5pAcf5nsHDvl3NkoOWUJ4FhJOst+40paFEW72Ghv7gKmXzQOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=tHEAz0nD; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790262712; c=relaxed/simple;
+	bh=j39WfOlerybCaemEI5vtqJivsP06dN9pf2kJ9hEByqQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DhT6GUzdxDwGbXJ414e1OTm71gn3pydKc4Hy7GD+kFpGqrC3EcZijIh0ANHd6wK+F0buFDeiqUAHy4xM8YvF7gvoQuNhE9ksRy+Jjg5kQ0y5U+L2RnzkxU+glEvl8CIqPegNjR4GprmUSyBK7qbEEpz1khbW2c5RAU3E4upPEzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=UjXVECVf; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="tHEAz0nD"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 75C14143D;
-	Thu, 24 Sep 2026 08:11:34 -0700 (PDT)
-Received: from [10.57.10.88] (unknown [10.57.10.88])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5DE283F86F;
-	Thu, 24 Sep 2026 08:11:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790262697; bh=q4dWjwb38KokSVbUsb7YtW3icmXBs3RfGPuSgIZBYkk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=tHEAz0nDfxc56wS5hf0Vt2Q2mTH8C6sHybp9ZwdNQm4rqxk1mvxEl6g+DFjIf6FHu
-	 uUfK/9S1p0ML8R4x55nfK0h6h4u7OaVDDRBuLOIrl2EaIzIQWS0FK47KJ5Scs1PVI9
-	 uSTJeFmVO99K2qa7/0cwwlDghVVDqOyJ9p/h4ShE=
-Message-ID: <5f7dfa2a-b4f4-49ce-828d-60d799769bf9@arm.com>
-Date: Thu, 24 Sep 2026 16:11:30 +0100
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="UjXVECVf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=fe
+	EP+Qc8nAtZ0/5DmDwDO/5CJBC+s/g6U6kVKOi2h/A=; b=UjXVECVf5LGx+Ahrad
+	+RvHN7L2jK2/l8JGxiBV40cwv5tx+gOpUQSWv3NDYoFbHT7zGQ24QzfoHGGPsXcQ
+	NVk4KdRzy9rkL7NOXwveBg6uoKhlGBl4wNOfg4e6HbiVphdEGbb8xIPbvOtQLxBW
+	7XbyfNYfTmmySCR38ldXsoqZA=
+Received: from pc.localdomain (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgCHT9aaPbVqibnJBA--.10596S2;
+	Thu, 24 Sep 2026 23:11:23 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Aleksa Savic <savicaleksa83@gmail.com>,
+	Jack Doan <me@jackdoan.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] hwmon: (aquacomputer_d5next) reject short status reports
+Date: Thu, 24 Sep 2026 23:11:21 +0800
+Message-Id: <20260924151121.1233666-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 09/20] KVM: arm64: Add VM specific callback for S2 MMU
- operations
-Content-Language: en-GB
-To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260920212845.707-1-suzuki.poulose@arm.com>
- <20260920212845.707-10-suzuki.poulose@arm.com>
- <20260922152914.00001221@oss.qualcomm.com>
- <0d5201f0-359e-4748-92da-946dedf51bcf@arm.com>
- <20260923095443.0000378c@oss.qualcomm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20260923095443.0000378c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PigvCgCHT9aaPbVqibnJBA--.10596S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CFykZryrWFWfAF1xWw4kJFb_yoW8GF4rpF
+	Z2yF98Cr15trWIvF4DGr18WFyFy3W8XFW2vr9Yy3WF9F4Yk3Wj9Fy2gF90vr45ZFWrtr9x
+	KrWvqas3CFyjvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0p_nYFDUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRt9t2q1PZtoyQAA3E
 
-On 23/09/2026 17:54, Jonathan Cameron wrote:
-> On Wed, 23 Sep 2026 00:21:58 +0100
-> Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
-> 
->> On 22/09/2026 23:29, Jonathan Cameron wrote:
->>> On Sun, 20 Sep 2026 22:28:34 +0100
->>> Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
->>>    
->>>> Add VM type specific S2 MMU operation backends which can be initialized per
->>>> VM flavor, to keep the handling cleaner.
->>>>
->>>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->>>
->>> A small suggestion inline that makes it explicit when there isn't
->>> range operation and a full flush of tlb is needed.
->>>
->>> I don't mind either way, but thought I'd mention it anyway in case
->>> you hadn't already dismissed it.
->>>
->>> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
->>>
->>>    
->>>> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
->>>> index 03f2017a7404a..d97a4a1bca23f 100644
->>>> --- a/arch/arm64/kvm/mmu.c
->>>> +++ b/arch/arm64/kvm/mmu.c
->>>> @@ -37,6 +37,8 @@ static unsigned long __ro_after_init io_map_base;
->>>>    
->>>>    #define KVM_PGT_FN(fn)		(!is_protected_kvm_enabled() ? fn : p ## fn)
->>>>      
->>>    
->>>>    /**
->>>>     * kvm_arch_flush_remote_tlbs() - flush all VM TLB entries for v7/8
->>>>     * @kvm:	pointer to kvm structure.
->>>> @@ -174,26 +188,36 @@ static bool memslot_is_logging(struct kvm_memory_slot *memslot)
->>>>     */
->>>>    int kvm_arch_flush_remote_tlbs(struct kvm *kvm)
->>>>    {
->>>> -	if (is_protected_kvm_enabled())
->>>> -		kvm_call_hyp_nvhe(__pkvm_tlb_flush_vmid, kvm->arch.pkvm.handle);
->>>> -	else
->>>> -		kvm_call_hyp(__kvm_tlb_flush_vmid, &kvm->arch.mmu);
->>>> -	return 0;
->>>> +	if (!kvm->arch.vm_s2_ops->vm_flush_remote_tlbs)
->>>> +		return 1;
->>>
->>> For consistency with other cases and because it looks nicer
->>> blank line here.
->>
->> Ack
->>
->>>    
->>>> +	return kvm->arch.vm_s2_ops->vm_flush_remote_tlbs(kvm);
->>>>    }
->>>>    
->>>> -int kvm_arch_flush_remote_tlbs_range(struct kvm *kvm,
->>>> -				      gfn_t gfn, u64 nr_pages)
->>>> +static int pkvm_flush_remote_tlbs_range(struct kvm *kvm,
->>>> +					gfn_t gfn, u64 nr_pages)
->>>> +{
->>>> +	return pkvm_flush_remote_tlbs(kvm);
->>>
->>> For the cases where there isn't a range call, perhaps you should just
->>> not provide the op and have the wrapper fall back to
->>> calling the 'flush all' variant if there is no range one available?
->>
->> The core KVM falls back to flushing all TLBs if the range one
->> returns true anyways. So, I would leave it as it is.
-> 
-> That sounds like a reason to stub them to return true always rather
-> than call the flush all so we don't have fallbacks added at two
-> layers of the stack?
+The HID driver raw_event callback runs before HID core validates the
+received report length.  aqc_raw_event() reads device-specific status
+fields at fixed offsets, including multi-byte values, without checking
+that the received buffer contains the complete report.  A truncated status
+report can therefore cause out-of-bounds reads and update hwmon state with
+data beyond the received report.
 
-But that doesn't help, as the only one that matters is pKVM, which
-handles this anyway. If tlbs_range is not available, then the
-all tlbs call back also return the same value. So, the core is
-anyway going to call the full version anyways.
+Reject status reports shorter than the length derived from their report
+descriptor before accessing any fields.  Commit 47669bec44fe ("HID: asus:
+refactor the two workqueues and init sequence") added equivalent raw-event
+length validation to hid-asus.
 
-So I have left it as it is. A sensible backend could do
-something like the pKVM does.
+Fixes: 0e35f63f7f4e ("hwmon: add driver for Aquacomputer D5 Next")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/hwmon/aquacomputer_d5next.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Cheers
-Suzuki
-
-
-
-> 
->>
->> Cheers
->> Suzuki
->>
->>
->>>    
->>>> +}
->>>
->>>    
->>
-> 
-> 
+diff --git a/drivers/hwmon/aquacomputer_d5next.c b/drivers/hwmon/aquacomputer_d5next.c
+index 1ca70e726298..1ebc8bc4c090 100644
+--- a/drivers/hwmon/aquacomputer_d5next.c
++++ b/drivers/hwmon/aquacomputer_d5next.c
+@@ -1331,6 +1331,8 @@ static int aqc_raw_event(struct hid_device *hdev, struct hid_report *report, u8
+ 
+ 	if (report->id != STATUS_REPORT_ID)
+ 		return 0;
++	if (size < hid_report_len(report))
++		return 0;
+ 
+ 	priv = hid_get_drvdata(hdev);
+ 
+-- 
+2.34.1
 
