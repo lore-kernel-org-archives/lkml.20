@@ -1,56 +1,56 @@
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com [209.85.221.70])
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E0A48F019
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:58:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B590489FA3
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:58:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790261916; cv=none; b=OlCWXGXu4EPN3bueswk+Pp2F0rDK/sX4KFF4o9AGwNbRVTHgEKyy4F1GN2wsAC12QiX+0hrnT7eH7UyvzaCghjzJAnIZVmr++zmhOig1dV3zM71lWNCEOMF9Fe+gDrzm4eRVzwRlZmPLwgUNQjBEI3WM2/zTfZlRiVFA91Xnvvo=
+	t=1790261918; cv=none; b=MzjTxNPGA72JUNQZ6kOslmXl8D/wtQPpGjlObyR7qTlkrt6Ul42KcJLWVwun9/rYqUr4QupzBTMM/r75GHqOPskhfE8EREdyIqp1oCZtEalgDjsy7uPcbImDWOYYiwedthgz07KiHDeJ8Fa7Fw+XU1+j9OFr2kTxFvoub0jlbyk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790261916; c=relaxed/simple;
-	bh=8IP5M85GEc9DZCVpxOVA7q7jaHvKb5L/UyyoWCRHz7w=;
+	s=arc-20240116; t=1790261918; c=relaxed/simple;
+	bh=AznFEGZWe1gMpFnOB0uOLCCbnZE1+JMQ2urDFsxgYjE=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=E2oP0pj0Dm03sU/SIjPmTtBB921WmM5zP4BpRrZicsymUfVlwJSmIDdOXfp87YW34z9vRSPE1p59V5+UaweOIngGfpldij4kNfg7jRU8AX2f2X/2o39qN3BgKWOvY4C9SOYrS68RzbogjzJcAWZCnP+m3InL0RksP3g5NEipsjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rQTRGKJX; arc=none smtp.client-ip=209.85.221.70
+	 To:Cc:Content-Type; b=F+K3QgVxMcRHTLozPO4044HYzc93Ke52TCz3DB1ZAv6dM4UNGFMSBsNVQ8kaXPMaj0cD1P2959f2bhl4IZNP9CduY39Q9vAv/Ub92PLRaZG0T6TSVdu1JnfO4NUkcqyBJRM/uOOifUacDjSOY4u167aV2wOfFryuuXmXYcUrCkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZvRpNGZW; arc=none smtp.client-ip=209.85.128.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rQTRGKJX"
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-4871575eebbso1812916f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:58:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZvRpNGZW"
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-495689bfcc8so16084965e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:58:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790261906; x=1790866706; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790261912; x=1790866712; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SB0f/oZzDgJUNrGoxHodiamfHa/t2U0me9tn4pyQ+fE=;
-        b=rQTRGKJXjBbf9uNJtDdOt7lICUA4vrg+JDCIYl7e2MG6n1nDEFjHSGazwUnsJ1963u
-         QtspGKk/6sfDYuKjTVMwx8Ymx70qgnMu6uHGEDo1zBD7rdwew9AT39eOQgY9MNZscQlx
-         uuqsVkFYrUwkHeqL2SSlpjEkM7mowNjwoBuXz1qGgAWWm7EqAD88MVycHqJyLnPr3pJ8
-         WVdXZsVPmnDqid1e1Cs/GxZv2QLY7i288NCBmaseeYiXXT6mudzluwUiE0XcP1TZAdid
-         sdRO8ydhZu17st17WGeXCXqEU8OoFwDhThgbyqMn9Xo6aOgjbihUZAmVcOomuMIG33nI
-         ciGQ==
+        bh=f2rSXjapMgKgpxKca/JVPfzG0C/68e17lAk891DH8pU=;
+        b=ZvRpNGZWCiW2XktB3d+t4y034wtGMFC5Fld8hn4ejUsGMXh+6FcmPjOhoOYMpKvWEt
+         hEIAhtQ8xjLJETH1oJ3+cXafe+LlGyjuvVL3l1f80MfVBa/PG0QiHNYhaxC/k97lhvW8
+         P9W++l4Ncil3g+lWN/LgOpdiRM0/hklLxY8eTs7MHZ+F/CLqUKlvbpPhpnd3kBN1WTSX
+         alX01OCxzI/U5TaAmAwmrU/jOK7aQlk5kjJ9jwTwmgR2EN3NPuC1Jm8aDRj9slilmj/U
+         EfeL7qqTo7ZJcLaCwN5YXINhxBHAxFtf8Rcdzi+RPe9x2ZFkKesnlKpJ5DCnDx6tq0v9
+         12/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790261906; x=1790866706;
+        d=1e100.net; s=20260707; t=1790261912; x=1790866712;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SB0f/oZzDgJUNrGoxHodiamfHa/t2U0me9tn4pyQ+fE=;
-        b=j2ZkxPtdyHz2nQEyB7tdk4uQO2acQUE1zt/yF1JQHSxL3ZhQV07CotW6kcP3xtyPO3
-         0MXne4wg6SJj+qj4Uj/rELwkFYK7vCC76vdPZE/7S/Jz8awhz4RYmU4rtlDF6KI/1KEE
-         fKLMEOeq7uS+Opu7wxIGZomH0pZltdy3oe3Tf1gWYv2uXTRsLwHGjCP1aVxkDA6fhrYZ
-         ac5tKrCuwOK6MUO1rmzvJzXltGV/X7sjSSYr9Hvk0n/y0rlx24mnoC6saR5E0CV9AJQu
-         /NpwBjLuAKB8hQQjegZhynCz8cT1mUeQfkBhTjEA0bi26B95IWeXPNnYzehRZDPdGFj8
-         S1Ig==
-X-Forwarded-Encrypted: i=1; AKwUvBwC0dbm4v7QvbHEAQc54dJifX7xYuvdultQVPqaMitTOTjo5LeA7gj5pP/EhqiOW3FKX8kBvTF/2/AsTDg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kWtVGAwdmlhPkneeCu2XSrZiKpdhtPkx19UkzX0Jycb3gR99nb
-	6qrpwKdqruvSh2GWZJ6MrNWbsvo1LfMJPKQ+tL74AOcnBqdu6+BAMOvg5rSs1c6IE4u6HIEOZqv
-	i1dDNcRDu9kqQ5zFxi36tow==
-X-Received: from wrbft9.prod.google.com ([2002:a05:6000:2b09:b0:488:5a78:17c])
+        bh=f2rSXjapMgKgpxKca/JVPfzG0C/68e17lAk891DH8pU=;
+        b=nBUS3hQEz5NGqIGFScsMnK9yx2XM7R1vFGIjKHza/urTrUIA5wttD6NKxo7o1I36rE
+         lewt6Jyn2a6sW8ynUBtQChtyxPDXV0yeuREDsbdOJ+w+/qFi8B/xHMtrxfhuUCbUfCsO
+         /UQxReLmCd0nA9DuDtJQuSVMqhhegXkMYvCvdReMAjqj/9LwbxGPXa2cYWE7N++YqOwz
+         +4Dte2Bb6Mpq6oLCN122a6RgYK+mF0rMq8xCFMNZDOS8Ker1vZ14fv/kvEV6k4Po11us
+         tbhwlZ62JnCrWORFEuFGFcMwN2n90gPtUSlBwLBST1H/68Wp8e/6Ej/8ZUV5sWzQumMA
+         ELAg==
+X-Forwarded-Encrypted: i=1; AKwUvBxeY0wx3zhCmJolPXmRVa8e0X7fSo5LTqQBvzihmLUpwZ5uUdGoqItNTrhVsyUtTF3De7sgkSjzWAKJvTA=@vger.kernel.org
+X-Gm-Message-State: AFuF++muFc0n7LP8WwTqmFtSiwmmtkMODKyOiO+DVYL9w6cQiFEWe1vR
+	ul3UgbmL2NjuzhGgqE+WrxzroNWENWbd7G7Kye1/IjXC4HT6sDO9BVmRL/tVavuF7DhR6qBErBV
+	4lfzxEbXZt5g9KF/37d6Ing==
+X-Received: from wmpz10.prod.google.com ([2002:a05:600c:a0a:b0:49f:e55e:dd64])
  (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:2c07:b0:486:fa7b:d3aa with SMTP id ffacd0b85a97d-4887172d776mr4922520f8f.23.1790261905912;
- Thu, 24 Sep 2026 07:58:25 -0700 (PDT)
-Date: Thu, 24 Sep 2026 15:57:36 +0100
+ 2002:a05:600c:8b22:b0:49f:bbab:aa10 with SMTP id 5b1f17b1804b1-49fe66f13f6mr48689765e9.20.1790261911477;
+ Thu, 24 Sep 2026 07:58:31 -0700 (PDT)
+Date: Thu, 24 Sep 2026 15:57:41 +0100
 In-Reply-To: <20260924145754.1285146-1-vdonnefort@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260924145754.1285146-1-vdonnefort@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
-Message-ID: <20260924145754.1285146-3-vdonnefort@google.com>
-Subject: [PATCH v7 02/20] tracing/remotes: Release tracefs,eventfs on
- registration failure
+Message-ID: <20260924145754.1285146-8-vdonnefort@google.com>
+Subject: [PATCH v7 07/20] tracing/simple_ring_buffer: Add support for
+ compressed length
 From: Vincent Donnefort <vdonnefort@google.com>
 To: rostedt@goodmis.org, mhiramat@kernel.org, 
 	linux-trace-kernel@vger.kernel.org
@@ -70,288 +70,79 @@ Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com,
 	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-In trace_remote_register(), if registration of events or the init
-callback fails, the created tracefs and eventfs directories are leaked.
+The array length is the total size in bytes of the data for the current
+event. It is possible to compress this value into the event header type,
+which has 28 unused types, saving 32 bits for sufficiently small events.
 
-Release the entire eventfs and tracefs hierarchy on trace_remote
-registration failure.
+The compressed length is expressed as a multiple of the ring-buffer
+alignment, 4-bytes by default. Enforce this alignment.
 
 Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 ---
- kernel/trace/trace_remote.c | 137 ++++++++++++++++++++++++------------
- 1 file changed, 93 insertions(+), 44 deletions(-)
+ kernel/trace/simple_ring_buffer.c | 23 ++++++++++++++++++-----
+ 1 file changed, 18 insertions(+), 5 deletions(-)
 
-diff --git a/kernel/trace/trace_remote.c b/kernel/trace/trace_remote.c
-index e8cbbd01964d..a1b84290be2d 100644
---- a/kernel/trace/trace_remote.c
-+++ b/kernel/trace/trace_remote.c
-@@ -45,7 +45,8 @@ struct trace_remote {
- 	struct trace_buffer		*trace_buffer;
- 	struct trace_buffer_desc	*trace_buffer_desc;
- 	struct dentry			*dentry;
--	struct eventfs_inode		*eventfs;
-+	struct eventfs_inode		*eventfs_root;
-+	struct eventfs_inode		*eventfs_subdir;
- 	struct remote_event		*events;
- 	unsigned long			nr_events;
- 	unsigned long			trace_buffer_size;
-@@ -60,6 +61,7 @@ struct trace_remote {
- 
- static DEFINE_MUTEX(trace_remotes_lock);
- static LIST_HEAD(trace_remotes);
-+static struct dentry *trace_remotes_root;
- 
- static bool trace_remote_loaded(struct trace_remote *remote)
+diff --git a/kernel/trace/simple_ring_buffer.c b/kernel/trace/simple_ring_buffer.c
+index 49913bb0057a..70768666e365 100644
+--- a/kernel/trace/simple_ring_buffer.c
++++ b/kernel/trace/simple_ring_buffer.c
+@@ -207,7 +207,13 @@ static unsigned long rb_event_size(unsigned long length)
  {
-@@ -865,23 +867,21 @@ static const struct file_operations trace_fops = {
- static int trace_remote_init_tracefs(const char *name, struct trace_remote *remote)
- {
- 	struct dentry *remote_d, *percpu_d, *d;
--	static struct dentry *root;
--	static DEFINE_MUTEX(lock);
- 	bool root_inited = false;
- 	int cpu;
+ 	struct ring_buffer_event *event;
  
--	guard(mutex)(&lock);
-+	lockdep_assert_held(&trace_remotes_lock);
- 
--	if (!root) {
--		root = tracefs_create_dir(TRACEFS_DIR, NULL);
--		if (!root) {
-+	if (!trace_remotes_root) {
-+		trace_remotes_root = tracefs_create_dir(TRACEFS_DIR, NULL);
-+		if (!trace_remotes_root) {
- 			pr_err("Failed to create tracefs dir "TRACEFS_DIR"\n");
- 			return -ENOMEM;
- 		}
- 		root_inited = true;
- 	}
- 
--	remote_d = tracefs_create_dir(name, root);
-+	remote_d = tracefs_create_dir(name, trace_remotes_root);
- 	if (!remote_d) {
- 		pr_err("Failed to create tracefs dir "TRACEFS_DIR"%s/\n", name);
- 		goto err;
-@@ -939,8 +939,8 @@ static int trace_remote_init_tracefs(const char *name, struct trace_remote *remo
- 
- err:
- 	if (root_inited) {
--		tracefs_remove(root);
--		root = NULL;
-+		tracefs_remove(trace_remotes_root);
-+		trace_remotes_root = NULL;
- 	} else {
- 		tracefs_remove(remote_d);
- 	}
-@@ -948,8 +948,26 @@ static int trace_remote_init_tracefs(const char *name, struct trace_remote *remo
- 	return -ENOMEM;
+-	return length + RB_EVNT_HDR_SIZE + sizeof(event->array[0]);
++	if (!length)
++		length++;
++
++	if (length > RB_MAX_SMALL_DATA || RB_FORCE_8BYTE_ALIGNMENT)
++		length += sizeof(event->array[0]);
++
++	return ALIGN(length + RB_EVNT_HDR_SIZE, RB_ARCH_ALIGNMENT);
  }
  
-+static void trace_remote_remove_tracefs(struct trace_remote *remote)
-+{
-+	lockdep_assert_held(&trace_remotes_lock);
-+
-+	if (!remote->dentry)
-+		return;
-+
-+	tracefs_remove(remote->dentry);
-+	remote->dentry = NULL;
-+
-+	if (!list_empty(&trace_remotes))
-+		return;
-+
-+	tracefs_remove(trace_remotes_root);
-+	trace_remotes_root = NULL;
-+}
-+
- static int trace_remote_register_events(const char *remote_name, struct trace_remote *remote,
- 					struct remote_event *events, size_t nr_events);
-+static void trace_remote_unregister_events(struct trace_remote *remote);
- 
- /**
-  * trace_remote_register() - Register a Tracefs remote
-@@ -972,10 +990,9 @@ static int trace_remote_register_events(const char *remote_name, struct trace_re
- int trace_remote_register(const char *name, struct trace_remote_callbacks *cbs, void *priv,
- 			  struct remote_event *events, size_t nr_events)
+ static struct ring_buffer_event *
+@@ -223,12 +229,15 @@ rb_event_add_ts_extend(struct ring_buffer_event *event, u64 delta)
+ static struct ring_buffer_event *
+ simple_rb_reserve_next(struct simple_rb_per_cpu *cpu_buffer, unsigned long length, u64 timestamp)
  {
--	struct trace_remote *remote;
-+	struct trace_remote *remote __free(kfree) = kzalloc_obj(*remote);
- 	int ret;
+-	unsigned long ts_ext_size = 0, event_size = rb_event_size(length);
+ 	struct simple_buffer_page *tail = cpu_buffer->tail_page;
++	unsigned long event_size, array_size, ts_ext_size = 0;
+ 	struct ring_buffer_event *event;
+ 	u32 write, prev_write;
+ 	u64 time_delta;
  
--	remote = kzalloc_obj(*remote);
- 	if (!remote)
- 		return -ENOMEM;
- 
-@@ -986,13 +1003,15 @@ int trace_remote_register(const char *name, struct trace_remote_callbacks *cbs,
- 	mutex_init(&remote->lock);
- 	init_rwsem(&remote->reader_lock);
- 
--	if (trace_remote_init_tracefs(name, remote)) {
--		kfree(remote);
--		return -ENOMEM;
--	}
-+	guard(mutex)(&trace_remotes_lock);
++	event_size = rb_event_size(length);
++	array_size = event_size - RB_EVNT_HDR_SIZE;
 +
-+	ret = trace_remote_init_tracefs(name, remote);
-+	if (ret)
-+		return ret;
+ 	time_delta = timestamp - cpu_buffer->write_stamp;
  
- 	ret = trace_remote_register_events(name, remote, events, nr_events);
- 	if (ret) {
-+		trace_remote_remove_tracefs(remote);
- 		pr_err("Failed to register events for trace remote '%s' (%d)\n",
- 		       name, ret);
- 		return ret;
-@@ -1000,13 +1019,16 @@ int trace_remote_register(const char *name, struct trace_remote_callbacks *cbs,
- 
- 	ret = cbs->init ? cbs->init(remote->dentry, priv) : 0;
- 	if (ret) {
-+		trace_remote_unregister_events(remote);
-+		trace_remote_remove_tracefs(remote);
- 		pr_err("Init failed for trace remote '%s' (%d)\n", name, ret);
--	} else {
--		guard(mutex)(&trace_remotes_lock);
--		list_add(&remote->node, &trace_remotes);
-+		return ret;
+ 	if (test_time_stamp(time_delta))
+@@ -259,9 +268,13 @@ simple_rb_reserve_next(struct simple_rb_per_cpu *cpu_buffer, unsigned long lengt
+ 		time_delta = 0;
  	}
  
--	return ret;
-+	list_add(&remote->node, &trace_remotes);
-+	retain_and_null_ptr(remote);
-+
-+	return 0;
- }
- EXPORT_SYMBOL_GPL(trace_remote_register);
- 
-@@ -1349,7 +1371,6 @@ static int remote_events_dir_callback(const char *name, umode_t *mode, void **da
- static int trace_remote_init_eventfs(const char *remote_name, struct trace_remote *remote,
- 				     struct remote_event *evt)
- {
--	struct eventfs_inode *eventfs = remote->eventfs;
- 	static struct eventfs_entry dir_entries[] = {
- 		{
- 			.name		= "enable",
-@@ -1374,35 +1395,37 @@ static int trace_remote_init_eventfs(const char *remote_name, struct trace_remot
- 			.callback	= remote_event_callback,
- 		}
- 	};
--	bool eventfs_create = false;
-+	struct eventfs_inode *eventfs_root, *eventfs_subdir, *e;
- 
--	if (!eventfs) {
--		eventfs = eventfs_create_events_dir("events", remote->dentry, dir_entries,
--						    ARRAY_SIZE(dir_entries), remote);
--		if (IS_ERR(eventfs))
--			return PTR_ERR(eventfs);
-+	eventfs_root = remote->eventfs_root;
-+	eventfs_subdir = remote->eventfs_subdir;
-+	if (!eventfs_root) {
-+		eventfs_root = eventfs_create_events_dir("events", remote->dentry, dir_entries,
-+							 ARRAY_SIZE(dir_entries), remote);
-+		if (IS_ERR(eventfs_root))
-+			return PTR_ERR(eventfs_root);
- 
- 		/*
- 		 * Create similar hierarchy as local events even if a single system is supported at
- 		 * the moment
- 		 */
--		eventfs = eventfs_create_dir(remote_name, eventfs, NULL, 0, NULL);
--		if (IS_ERR(eventfs))
--			return PTR_ERR(eventfs);
--
--		remote->eventfs = eventfs;
--		eventfs_create = true;
--	}
--
--	eventfs = eventfs_create_dir(evt->name, eventfs, entries, ARRAY_SIZE(entries), evt);
--	if (IS_ERR(eventfs)) {
--		if (eventfs_create) {
--			eventfs_remove_events_dir(remote->eventfs);
--			remote->eventfs = NULL;
-+		eventfs_subdir = eventfs_create_dir(remote_name, eventfs_root, NULL, 0, NULL);
-+		if (IS_ERR(eventfs_subdir)) {
-+			eventfs_remove_events_dir(eventfs_root);
-+			return PTR_ERR(eventfs_subdir);
- 		}
--		return PTR_ERR(eventfs);
- 	}
- 
-+	e = eventfs_create_dir(evt->name, eventfs_subdir, entries, ARRAY_SIZE(entries), evt);
-+	if (IS_ERR(e)) {
-+		if (!remote->eventfs_root)
-+			eventfs_remove_events_dir(eventfs_root);
-+		return PTR_ERR(e);
+-	event->type_len = 0;
++	if (length > RB_MAX_SMALL_DATA || RB_FORCE_8BYTE_ALIGNMENT) {
++		event->type_len = 0;
++		event->array[0] = array_size;
++	} else {
++		event->type_len = DIV_ROUND_UP(array_size, RB_ALIGNMENT);
 +	}
-+
-+	remote->eventfs_root = eventfs_root;
-+	remote->eventfs_subdir = eventfs_subdir;
-+
- 	return 0;
+ 	event->time_delta = time_delta;
+-	event->array[0] = event_size - RB_EVNT_HDR_SIZE;
+ 
+ 	return event;
  }
+@@ -284,7 +297,7 @@ void *simple_ring_buffer_reserve(struct simple_rb_per_cpu *cpu_buffer, unsigned
  
-@@ -1417,11 +1440,11 @@ static int trace_remote_attach_events(struct trace_remote *remote, struct remote
- 		if (evt->remote)
- 			return -EEXIST;
+ 	rb_event = simple_rb_reserve_next(cpu_buffer, length, timestamp);
  
--		evt->remote = remote;
--
- 		/* We need events to be sorted for efficient lookup */
- 		if (i && evt->id <= events[i - 1].id)
- 			return -EINVAL;
-+
-+		evt->remote = remote;
- 	}
- 
- 	remote->events = events;
-@@ -1430,14 +1453,33 @@ static int trace_remote_attach_events(struct trace_remote *remote, struct remote
- 	return 0;
+-	return &rb_event->array[1];
++	return rb_event->type_len ? &rb_event->array[0] : &rb_event->array[1];
  }
+ EXPORT_SYMBOL_GPL(simple_ring_buffer_reserve);
  
-+static void trace_remote_detach_events(struct trace_remote *remote, struct remote_event *events,
-+					size_t nr_events)
-+{
-+	int i;
-+
-+	for (i = 0; i < nr_events; i++) {
-+		struct remote_event *evt = &events[i];
-+
-+		if (evt->remote == remote)
-+			evt->remote = NULL;
-+	}
-+
-+	remote->events = NULL;
-+	remote->nr_events = 0;
-+}
-+
- static int trace_remote_register_events(const char *remote_name, struct trace_remote *remote,
- 					struct remote_event *events, size_t nr_events)
- {
- 	int i, ret;
- 
- 	ret = trace_remote_attach_events(remote, events, nr_events);
--	if (ret)
-+	if (ret) {
-+		/* It is safe to call detach on a half-registered array */
-+		trace_remote_detach_events(remote, events, nr_events);
- 		return ret;
-+	}
- 
- 	for (i = 0; i < nr_events; i++) {
- 		struct remote_event *evt = &events[i];
-@@ -1451,6 +1493,13 @@ static int trace_remote_register_events(const char *remote_name, struct trace_re
- 	return 0;
- }
- 
-+static void trace_remote_unregister_events(struct trace_remote *remote)
-+{
-+	trace_remote_detach_events(remote, remote->events, remote->nr_events);
-+	if (remote->eventfs_root)
-+		eventfs_remove_events_dir(remote->eventfs_root);
-+}
-+
- static int __cmp_events(const void *key, const void *data)
- {
- 	const struct remote_event *evt = data;
 -- 
 2.56.0.rc1.310.g51773c2048-goog
 
