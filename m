@@ -1,185 +1,454 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B502049BD9B;
-	Thu, 24 Sep 2026 16:51:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790268715; cv=none; b=Mn26eXkJ4NViON26k7Su74l4+p9tZ5nH00syuHlHdL2dIIVyhePwqgDQ3Ewcdfuh3WchwVznahySmFgZKJnv8FkbK1h7FwpX06MWokrfhayWDe29hT3WV4AP19bchT1aMbphGN6DeGnDf9FTrg6nxUD0z/JkTNnYGYDRIFP1oLU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790268715; c=relaxed/simple;
-	bh=J0DW3E9Z2fPNxhuyaSuk7VVRbi+OD5OACzXEv0JiGIY=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jXbcw29r+Q7OzJbfrth/JDOmOt3J72+NVBpxKLsVjG0hfytr923e+3ms1+6gvIYVRilqT2eOBWhJ1t5GEJhHnb8cBQHCXN5x7EbXZ+0eR8W3llOb7LyBcEkGkZHbFHNVfjhwJzSIhIeMjl3kEKwQDaymzd6SkbLECSJk9ZaM3Fc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W+BQR6E/; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 602FF357D0C
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:52:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790268740; cv=pass; b=EFPfHaaTezsj10RuBB0EQ0jN3Pjpa0ZJAwRfdhYuDB1lyChMTOonkIznGxzX2vOvmmh1BTpDB9Ygd4QT6xVxZ9Sk8M/xxImQHwGUP/iaHlMvk1PuNBqz0rOhEf54X1S2Jfa6hyG24kJpgTZFk6kHPooScvLXObTmHZ6sgCcoR8w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790268740; c=relaxed/simple;
+	bh=AViS3cDaP0HpgTLSMDzDsnGkbQ/9qjT7oXFe8Ol1+ZA=;
+	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KXdYykjg0B7Ykvl6s+IpIg9KkPY1qVStL1mXIfHxIAuM3VJsw4+2r87GOVH+GZF2+DpmeNa2fs3rVSuURq0lezCzil+ct7JQilHsJgLhzww5dwRETGAZ0bZIXm3FA9mHQfGbBmXJ+8IlDk4bpED5ZFs4aU/sJceqPPDEfDwg9l8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qUcsfwbc; arc=pass smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W+BQR6E/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B8C41F000FF;
-	Thu, 24 Sep 2026 16:51:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790268713;
-	bh=eSSbZnuCtl8KDycVQpA/SGQENb09ic1AWqUQDE6gDSA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=W+BQR6E/ARkY77WyRvDCrbfBmdwmPiO5UNnTfMszL7stSF3MSUDw1HtBDuwdUWywk
-	 ZGYp6+BZBGHcGdXm145sBvqRnJ85ehyTl2OxgGlLbxUBGiaEswePb0yCrlyXVZIEG5
-	 DfTnShquyK+cdp0uBLKeX4WWnioArkHxhiNSFUFwk8wOPg8DBuvkjfEHbwzhjtrYZ7
-	 FTyvGTZxORK/NFEjRzTHejx6PtiRUZkEbGp8Lp/yOJgS+RCWWCXEjMuh9h3TreGZQR
-	 zOXVhEiHv23AWqLFUJLEOcgZS0FaQnqb5pL/CP1dOH8+/w0mi6p7Z92UuhdW8YZlWd
-	 ort8Ir02wrsTw==
-Subject:
- Re: [PATCH net v2] net: e1000: fix warning in iounmap on probe failure
-From: netdev-bot+sashiko@kernel.org
-To: nsvatoslav515@gmail.com
-Cc: kuba@kernel.org, davem@davemloft.net, edumazet@google.com,
- pabeni@redhat.com, anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
- andrew+netdev@lunn.ch, ffainelli@freebox.fr, auke-jan.h.kok@intel.com,
- jgarzik@redhat.com, joe@perches.com, aleksandr.loktionov@intel.com,
- intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com
-Date: Thu, 24 Sep 2026 16:51:52 +0000
-Message-ID: <179026871201.2160803.192841426910444830@kernel.org>
-In-Reply-To: <20260922155139.67364-1-nsvatoslav515@gmail.com>
-References: <20260922155139.67364-1-nsvatoslav515@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qUcsfwbc"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-91071ba92a8so719796d6.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:52:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790268737; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JwoaBb5PWdhHCyM9IOqzR0E7pVTrsbJd0kS+inKG4NLw/sUKWrM/BiiZaTdirvv6QS
+         XPwigq1y4vlt0kNXNDYNTsVU0hP/IUKWeg8nYLj2pHgs6ZBjcdHyF2GgVXxE5aUSU5dq
+         +OmW7DV9Xji7H7nDlZwNWJtHzRqhP7iFC0CaKuVG34mI1z5SSWVPmJ/o7kGitIs7242v
+         MmdSDNBT0fsEBoDc80b9SMaCB5J9AoiplSU6A/6Fw16HKcGiBfwo4HS/glfiYcLBZYFW
+         mCTI21zGC8v3zeCUU5liqp2w8vXOqU5jo5Thgc62ugKr4Ynjqd5kO0ST6wq60pv5EMOP
+         ctRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=4ZlqXzuHxCcJl9k4eaYi9L9cPYXoqaQPIB66Swf9mRc=;
+        fh=9r2Z7lN5owZE1LIqRoFYIZELtVjzyAcXSZe9rcvv3l4=;
+        b=iV5OJUtusqrB0urBFPFoQlToSLElQeY0LPzmEsm+qlupcZKXT+9amLSVc+VtBbaANr
+         gdwanu5Qdp4PQx/M2igFSF24pHOdT2czqGRGf4iP3bWkQibQRGFBEykWOyLJuC1MYAUA
+         KOdWGzJ9Xe0O+XV58K6E0EBlmx6zJV6SGfKCMCu9v+735fSG/mMei/hlk11HjHlj1pdz
+         WEeHUfTd3Zk1TFXuuGmAHw/KyY3s7g631mm3sagjCipDxHmJsgRai8z32Nae2fHCpG3M
+         739EL01xli7prV4stThSYItvTclrsBPZJvneHQvr2co8vN595Xjq9ujQHdPG4wi5jBR+
+         Rq6g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790268737; x=1790873537; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4ZlqXzuHxCcJl9k4eaYi9L9cPYXoqaQPIB66Swf9mRc=;
+        b=qUcsfwbc8cOAbfEAaqgfTS5HU10yq8xKDzQDTzkHQOcDcPfeZQZbWY9zF2W8/Ao6ca
+         Vkq/nBlS/BSal4xUFFUtFmMqBSVpfyKcWTd8MkiBljLIOzaqRby0H2x8ndo5g1scpkuq
+         LHxBeX86aBpawuJCBk3AS3QSzPRpVa/cNYovZS8GBs8vg4occVbnxRbrPnr+Pqrj9Nk1
+         7Bgtovuv5oSS4s43J28szIQsCwy4a08y9dG4P/4H91VIV1vRBmw8aCFOdWS6/6iZ9ieX
+         qAGtV1pxmCnr824qyFKPxgaMMbG0I9WqWdG6ERQGZJ+0HM6UHMt9f3BQtiHqGebG4ydi
+         eijA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790268737; x=1790873537;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4ZlqXzuHxCcJl9k4eaYi9L9cPYXoqaQPIB66Swf9mRc=;
+        b=i2XkpXjvDb4a6/9DwQ0ipPZ95pRwZayoinh0yFe3QzDoJqtXBhSlwRtFjfCJoDNQFV
+         O6ETpdPsIbUYVEOfsPIN1YBQyg3wVZqm3QbAWxENSr5V0LPRlP7BB5Y5iSLTLwrq2ahF
+         USrzVzJDYBv1s0cUR3ECKLLvIcS+3XtTyhZkV7+MTtzMe4uDOQ9zWo8bX7rhQZUlbi21
+         V1iFy9J0Q34nLpk9NWIJpszHbQp7elvSgZD2XmP/X7yW+pE1D6TDDgIBgSpTu42WHc0l
+         AwjOWZXHezTNdAZrYaSmgGe0hPH/sIzyDDknj6Q5MrP0arTXt/BE/dUjYQ2mFbIhB5IM
+         cqwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxtw5CO6xe0XmdFNvGP91Frr4Y9JHwIgOTQZUz2ErM75UhhcQwbVsLYsRM6Scwxt6SyEg2o2OEyd9oZ1hU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lO2rbyBmO6eCvjaHnhlhf6wvsMSeAmn9TjC95F+bm9KUExdkzU
+	JNjC8oPLKjlJjHU94JCEtUgZWeRURUsSQCY3w6HkTD8JmhpYvQBegd3HK3qqlVBpEuuEV8eEsl6
+	Qs45wcLJMLLcJA0QC98mVqgyu06qn6Fxwujiu2EgO
+X-Gm-Gg: AYBFou0GTw8gvige+xcUR8CJneqg5CBZduhPP65Ir8tv9LTz+ojwyVi8cUL8YnbyORR
+	LLmOJTo1c+0PV06WXb6Jsot0uu7vq7tRjzbz5RXmSRaTQYZNGWhLWCOQLbDPoEUFHlujwbbnSax
+	KFGgOJ0ykznF8WlmVwP3+vE1oAnqR3eRcysiL0i+S3mfBv7tb4LjJSfrgBlhXH5yT487bvjr/uL
+	iF8md6SzL+rD6SLXs6qRUTj58k4U5w3HozzHbmv8sy+Oedgk2GjhkRLmiXPz4cFGwrd8XRX3jUY
+	vSIjpNU/UzmqH6MUUrROwhJ8KaYcZ7UgKYW/2osZiZ33rcAils5fyc6B1P0UnZ1UNNvHHidcikU
+	RlgXeE5jJhdF//AfXHjyidbRnKt0Pljey69t5ob7xaZTpvxlmdXWU
+X-Received: by 2002:a05:6214:540c:b0:90e:8dcc:4e5 with SMTP id
+ 6a1803df08f44-91421d9a356mr31463286d6.28.1790268736377; Thu, 24 Sep 2026
+ 09:52:16 -0700 (PDT)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 24 Sep 2026 09:52:15 -0700
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 24 Sep 2026 09:52:15 -0700
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <20260922001332.1121266-5-seanjc@google.com>
+References: <20260922001332.1121266-1-seanjc@google.com> <20260922001332.1121266-5-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Date: Thu, 24 Sep 2026 09:52:15 -0700
+X-Gm-Features: AclHuK-S8czjDohuP8fBc53zFCaM0f7cr5Pede82lIJDoX5JwsFzvNqiPJ3dl9U
+Message-ID: <CAEvNRgH6w_a9+2rOr6r+47JqWc+-8cHq=c7r76nYG2i5deOxSg@mail.gmail.com>
+Subject: Re: [PATCH v5 4/6] KVM: guest_memfd: Split bind() into
+ prepare()+commit() phases
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Stefan Teodorescu <fane@google.com>, Dennis Tighe <dtighe@google.com>, 
+	Sashiko Bot <sashiko-bot@kernel.org>, Yan Zhao <yan.y.zhao@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Sean Christopherson <seanjc@google.com> writes:
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] Half of the patch is provably dead code and the commit message
-  over-claims the defect.
-- [Low] The commit carries `Reported-by:
-  syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com` and asserts…
-
---
-
-net: e1000: fix warning in iounmap on probe failure
-
-This patch adds NULL checks before the two iounmap() calls in the
-err_sw_init/err_dma error unwind path of e1000_probe(), so that a probe
-failure does not pass a NULL pointer to iounmap().  It carries two Fixes:
-tags and a syzbot Reported-by:.
-
-No Link: tags were present in the commit header.
-
-Two questions below, one on the commit message tags and one on the diff.
-
-> net: e1000: fix warning in iounmap on probe failure
+> Split binding a memslot to a guest_memfd instance into prepare() and
+> commit() phases so that KVM can separate preparing the memslot from binding
+> the memslot to the gmem instance, i.e. from committing the memslot.  This
+> will allow waiting to commit the memslot+gmem binding until the memslot is
+> fully prepared, which is necessary as the memslot becomes reachable when
+> the binding is created.
 >
-> During a probe failure, the e1000 driver error handling path calls
-> iounmap() on hw->ce4100_gbe_mdio_base_virt and hw->hw_addr without
-> checking if they were previously mapped. This triggers a kernel warning
-> (WARN) rather than a fatal crash when passed an uninitialized pointer.
+> As a bonus, drop the unwind-on-failure from the commit phase (other than
+> nullifying the bindings), as the only reason bind() did the full unwind is
+> because it technically didn't own the memslot, i.e. "needed" to leave
+> memslot in the same state it started in.
 >
-> This issue was found by Syzbot. The exact kernel configuration (.config)
-> and the C reproducer used to trigger this warning are available on the
-> Syzbot dashboard.
+> No functional change intended (the unwinding down on bind() failure was
+> effectively dead code since KVM simply deletes the memslot on failure,
+> i.e. there was nothing that could actually observe the unwind).
 >
-> Fix this by adding NULL checks before calling iounmap().
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> ---
+>  virt/kvm/guest_memfd.c | 68 ++++++++++++++++++++++++------------------
+>  virt/kvm/guest_memfd.h | 19 ++++++++----
+>  virt/kvm/kvm_main.c    | 18 ++++++++++-
+>  3 files changed, 70 insertions(+), 35 deletions(-)
 >
-> Reported-by: syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com
-> Fixes: 13acde8fffc0a ("e1000: cleanup CE4100 MDIO registers access")
+> diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+> index c094611f7c7a..80932f4ec4a3 100644
+> --- a/virt/kvm/guest_memfd.c
+> +++ b/virt/kvm/guest_memfd.c
+> @@ -641,15 +641,14 @@ int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args)
+>  	return __kvm_gmem_create(kvm, size, flags);
+>  }
+>
+> -int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+> -		  unsigned int fd, uoff_t offset)
+> +int kvm_gmem_prepare_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot,
+> +				   unsigned int fd, uoff_t offset)
+>  {
+>  	uoff_t size = slot->npages << PAGE_SHIFT;
+> -	unsigned long start, end;
+>  	struct gmem_file *f;
+>  	struct inode *inode;
+>  	struct file *file;
+> -	int r = -EINVAL;
+> +
 
-[Severity: Low]
-The Reported-by: line is followed directly by a Fixes: line, with no
-Closes: or Link: URL pointing at the syzbot report.  Could that URL be
-added?
+An extra empty line was added here.
 
-Documentation/process/submitting-patches.rst asks for it:
+>
+>  	BUILD_BUG_ON(sizeof(gpa_t) != sizeof(offset));
+>  	BUILD_BUG_ON(sizeof(gfn_t) != sizeof(slot->gmem.pgoff));
+> @@ -673,44 +672,55 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+>  	if (!PAGE_ALIGNED(offset) || offset + size > i_size_read(inode))
+>  		goto err;
+>
+> -	filemap_invalidate_lock(inode->i_mapping);
+> -
+> -	start = offset >> PAGE_SHIFT;
+> -	end = start + slot->npages;
+> -
+> -	if (!xa_empty(&f->bindings) &&
+> -	    xa_find(&f->bindings, &start, end - 1, XA_PRESENT)) {
+> -		r = -EEXIST;
+> -		filemap_invalidate_unlock(inode->i_mapping);
+> -		goto err;
+> -	}
+> -
+>  	/*
+>  	 * memslots of flag KVM_MEM_GUEST_MEMFD are immutable to change, so
+>  	 * kvm_gmem_bind() must occur on a new memslot.  Because the memslot
+>  	 * is not visible yet, kvm_gmem_get_pfn() is guaranteed to see the file.
+>  	 */
+>  	WRITE_ONCE(slot->gmem.file, file);
+> -	slot->gmem.pgoff = start;
+> +	slot->gmem.pgoff = offset >> PAGE_SHIFT;
+>  	if (kvm_gmem_supports_mmap(inode))
+>  		slot->flags |= KVM_MEMSLOT_GMEM_ONLY;
+>
+> -	r = xa_err(xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL));
+> -	if (r) {
+> -		xa_store_range(&f->bindings, start, end - 1, NULL, GFP_KERNEL);
+> -		slot->gmem.file = NULL;
+> -		slot->gmem.pgoff = 0;
+> -		slot->flags &= ~KVM_MEMSLOT_GMEM_ONLY;
+> -	}
+> -	filemap_invalidate_unlock(inode->i_mapping);
+> -
+>  	/*
+> -	 * Drop the reference to the file, even on success.  The file pins KVM,
+> -	 * not the other way 'round.  Active bindings are invalidated if the
+> -	 * file is closed before memslots are destroyed.
+> +	 * Gift the caller a reference to the file.  The reference will be
+> +	 * dropped after bindings are established, or if installing the new
+> +	 * memslot ultimately fails.
+>  	 */
 
-    The tag should be followed by a Closes: tag pointing to the report,
-    unless the report is not available on the web
+prepare+commit is nice :)
 
-and scripts/checkpatch.pl warns on this pattern:
+Reviewed-by: Ackerley Tng <ackerleytng@google.com>
 
-    BAD_REPORTED_BY_LINK
-    "Reported-by: should be immediately followed by Closes: or Link:
-     with a URL to the report"
 
-The commit message says the .config and the C reproducer "are available on
-the Syzbot dashboard", but without the link there is no way to check which
-error path syzbot actually reached, which is relevant to the question
-below.
+How about this instead:
 
-Also, the description of the value handed to iounmap() as an
-"uninitialized pointer" does not look accurate: the adapter private area
-comes from alloc_etherdev()/alloc_netdev_mqs(), which zero the allocation,
-so hw->ce4100_gbe_mdio_base_virt is deterministically NULL rather than
-garbage.  Could that wording be adjusted?
+1. Move the fget() in kvm_gmem_prepare_memory_region() into
+   kvm_set_memory_region()
+2. Move the comment about not taking a refcount into either prepare or
+   commit (I think commit is better). Both prepare and commit are
+   supposed to be called with a stable file. I think commit is the stage
+   where people usually expect a reference transfer, but in this case
+   there isn't a reference transfer. Perhaps like:
 
-> diff --git a/drivers/net/ethernet/intel/e1000/e1000_main.c b/drivers/net/ethernet/intel/e1000/e1000_main.c
-> index d7f5c6f161420..156903089fa6b 100644
-> --- a/drivers/net/ethernet/intel/e1000/e1000_main.c
-> +++ b/drivers/net/ethernet/intel/e1000/e1000_main.c
-> @@ -1227,8 +1227,10 @@ static int e1000_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
->  	kfree(adapter->rx_ring);
->  err_dma:
->  err_sw_init:
-> -	iounmap(hw->ce4100_gbe_mdio_base_virt);
-> -	iounmap(hw->hw_addr);
-> +	if (hw->ce4100_gbe_mdio_base_virt)
-> +		iounmap(hw->ce4100_gbe_mdio_base_virt);
-> +	if (hw->hw_addr)
-> +		iounmap(hw->hw_addr);
->  err_ioremap:
+	/*
+	 * No reference is taken on the file, because when the gmem file was
+	 * created, it already pins KVM. Active bindings are invalidated if the
+	 * file is closed before memslots are destroyed.
+	 */
 
-[Severity: Medium]
-Can the new "if (hw->hw_addr)" test ever be false?
+3. Always fput(file) if fget() happened in kvm_set_memory_region().
 
-hw->hw_addr is assigned in exactly one place in the driver, in
-e1000_probe():
+The gifting seems a bit asymmetric to me. For gmem bindings, always
+getting a ref on the file and always dropping would be more
+symmetric.
 
-	err = -EIO;
-	hw->hw_addr = pci_ioremap_bar(pdev, BAR_0);
-	if (!hw->hw_addr)
-		goto err_ioremap;
+Now that there is a commit stage, explicitly not taking a ref
+on the file in the committing stage is clearer imo.
 
-The err_ioremap: label sits below the iounmap(hw->hw_addr) that is being
-guarded here, so the only path that leaves hw_addr NULL skips this code
-entirely.  Every other goto that lands on this label (err_sw_init,
-err_dma, err_mdio_ioremap, err_eeprom, err_register) is reachable only
-after pci_ioremap_bar() already returned a valid mapping.
+If you'd like to stack the above refactoring as a patch after [5/6],
+here's my suggestion:
 
-If that reading is right, the hw_addr half of the change is dead code, and
-the second tag
 
-	Fixes: 1dc329180fe22 ("e1000: Use hw, er32, and ew32")
+From 64bc0e119ba87c3642147f2bbb97f98636ffb23c Mon Sep 17 00:00:00 2001
+From: Ackerley Tng <ackerleytng@google.com>
+Date: Thu, 24 Sep 2026 09:08:51 -0700
+Subject: [PATCH] KVM: guest_memfd: Hold file reference across memslot
+ preparation and commit
 
-refers to a defect that is not present.  Should that tag be dropped, along
-with the mention of hw->hw_addr in the commit message, so a stable
-backport is not aimed at a path that cannot trigger?
+Refactor guest_memfd's prepare + commit functions so that the caller is
+required to hold a refcounted file pointer throughout prepare and commit.
 
-The ce4100_gbe_mdio_base_virt half does look like a real fix, since that
-mapping is only created for one MAC type:
+This allows symmetrically acquiring and releasing the file reference in
+the caller without having to gift file references across helper
+boundaries.
 
-	if (hw->mac_type == e1000_ce4100) {
-		hw->ce4100_gbe_mdio_base_virt =
-					ioremap(pci_resource_start(pdev, BAR_1),
-						pci_resource_len(pdev, BAR_1));
+Document (actually move documentation) that guest_memfd bindings should
+not pin the backing file to the commit stage, where a new reference is
+usually expected.
 
-so on every other device the field stays NULL while the unwind path still
-calls iounmap() on it, and x86 iounmap() does:
+No functional change intended.
 
-	if (WARN_ON_ONCE(!is_ioremap_addr((void __force *)addr)))
-		return;
+Signed-off-by: Ackerley Tng <ackerleytng@google.com>
+---
+ virt/kvm/guest_memfd.c | 28 +++++++++-------------------
+ virt/kvm/guest_memfd.h |  4 ++--
+ virt/kvm/kvm_main.c    | 29 ++++++++++++-----------------
+ 3 files changed, 23 insertions(+), 38 deletions(-)
 
-Would it be clearer to describe only that case in the changelog?
+diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+index 826d26036926a..4cd1425d6fc38 100644
+--- a/virt/kvm/guest_memfd.c
++++ b/virt/kvm/guest_memfd.c
+@@ -642,13 +642,11 @@ int kvm_gmem_create(struct kvm *kvm, struct
+kvm_create_guest_memfd *args)
+ }
+
+ int kvm_gmem_prepare_memory_region(struct kvm *kvm, struct
+kvm_memory_slot *slot,
+-				   unsigned int fd, uoff_t offset)
++				   struct file *file, uoff_t offset)
+ {
+ 	uoff_t size = slot->npages << PAGE_SHIFT;
+ 	struct gmem_file *f;
+ 	struct inode *inode;
+-	struct file *file;
+-
+
+ 	BUILD_BUG_ON(sizeof(gpa_t) != sizeof(offset));
+ 	BUILD_BUG_ON(sizeof(gfn_t) != sizeof(slot->gmem.pgoff));
+@@ -656,21 +654,17 @@ int kvm_gmem_prepare_memory_region(struct kvm
+*kvm, struct kvm_memory_slot *slot
+ 	if (WARN_ON_ONCE(slot->flags & KVM_MEMSLOT_GMEM_ONLY))
+ 		return -EINVAL;
+
+-	file = fget(fd);
+-	if (!file)
+-		return -EBADF;
+-
+ 	if (file->f_op != &kvm_gmem_fops)
+-		goto err;
++		return -EINVAL;
+
+ 	f = file->private_data;
+ 	if (f->kvm != kvm)
+-		goto err;
++		return -EINVAL;
+
+ 	inode = file_inode(file);
+
+ 	if (!PAGE_ALIGNED(offset) || offset + size > i_size_read(inode))
+-		goto err;
++		return -EINVAL;
+
+ 	/*
+ 	 * memslots of flag KVM_MEM_GUEST_MEMFD are immutable to change, so
+@@ -682,16 +676,7 @@ int kvm_gmem_prepare_memory_region(struct kvm
+*kvm, struct kvm_memory_slot *slot
+ 	if (kvm_gmem_supports_mmap(inode))
+ 		slot->flags |= KVM_MEMSLOT_GMEM_ONLY;
+
+-	/*
+-	 * Gift the caller a reference to the file.  The reference will be
+-	 * dropped after bindings are established, or if installing the new
+-	 * memslot ultimately fails.
+-	 */
+ 	return 0;
+-
+-err:
+-	fput(file);
+-	return -EINVAL;
+ }
+
+ int kvm_gmem_commit_memory_region(struct kvm *kvm, struct
+kvm_memory_slot *slot)
+@@ -715,6 +700,11 @@ int kvm_gmem_commit_memory_region(struct kvm
+*kvm, struct kvm_memory_slot *slot)
+ 		return -EEXIST;
+ 	}
+
++	/*
++	 * No reference is taken on the file, because when the gmem file was
++	 * created, it already pins KVM. Active bindings are invalidated if the
++	 * file is closed before memslots are destroyed.
++	 */
+ 	r = xa_err(xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL));
+ 	if (r)
+ 		xa_store_range(&f->bindings, start, end - 1, NULL, GFP_KERNEL);
+diff --git a/virt/kvm/guest_memfd.h b/virt/kvm/guest_memfd.h
+index 01bd359d27e30..7e9d12e4531ff 100644
+--- a/virt/kvm/guest_memfd.h
++++ b/virt/kvm/guest_memfd.h
+@@ -9,7 +9,7 @@ int kvm_gmem_init(struct module *module);
+ void kvm_gmem_exit(void);
+ int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args);
+ int kvm_gmem_prepare_memory_region(struct kvm *kvm, struct
+kvm_memory_slot *slot,
+-				   unsigned int fd, uoff_t offset);
++				   struct file *file, uoff_t offset);
+ int kvm_gmem_commit_memory_region(struct kvm *kvm, struct
+kvm_memory_slot *slot);
+ void kvm_gmem_unbind(struct kvm_memory_slot *slot);
+ #else
+@@ -21,7 +21,7 @@ static inline void kvm_gmem_exit(void) {};
+
+ static inline int kvm_gmem_prepare_memory_region(struct kvm *kvm,
+ 						 struct kvm_memory_slot *slot,
+-						 unsigned int fd, uoff_t offset)
++						 struct file *file, uoff_t offset)
+ {
+ 	WARN_ON_ONCE(1);
+ 	return -EIO;
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 90461880ff854..e783d0ee4cf9d 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -2019,6 +2019,7 @@ static int kvm_set_memory_region(struct kvm *kvm,
+ 	struct kvm_memslots *slots;
+ 	enum kvm_mr_change change;
+ 	unsigned long npages;
++	struct file *file = NULL;
+ 	gfn_t base_gfn;
+ 	int as_id, id;
+ 	int r;
+@@ -2126,7 +2127,13 @@ static int kvm_set_memory_region(struct kvm *kvm,
+ 	new->flags = mem->flags;
+ 	new->userspace_addr = mem->userspace_addr;
+ 	if (change == KVM_MR_CREATE && (mem->flags & KVM_MEM_GUEST_MEMFD)) {
+-		r = kvm_gmem_prepare_memory_region(kvm, new, mem->guest_memfd,
++		file = fget(mem->guest_memfd);
++		if (!file) {
++			r = -EBADF;
++			goto out;
++		}
++
++		r = kvm_gmem_prepare_memory_region(kvm, new, file,
+ 						   mem->guest_memfd_offset);
+ 		if (r)
+ 			goto out;
+@@ -2134,23 +2141,11 @@ static int kvm_set_memory_region(struct kvm *kvm,
+
+ 	r = kvm_set_memslot(kvm, old, new, change);
+
+-	/*
+-	 * Drop the reference to the gmem file, even on success.  The file pins
+-	 * KVM, not the other way 'round.  Active bindings are invalidated if
+-	 * the file is closed before memslots are destroyed.
+-	 */
+-#ifdef CONFIG_KVM_GUEST_MEMFD
+-	if (change == KVM_MR_CREATE && (mem->flags & KVM_MEM_GUEST_MEMFD))
+-		fput(new->gmem.file);
+-#endif
+-
+-	if (r)
+-		goto out;
+-
+-	return 0;
+-
+ out:
+-	kfree(new);
++	if (file)
++		fput(file);
++	if (r)
++		kfree(new);
+ 	return r;
+ }
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922155139.67364-1-nsvatoslav515%40gmail.com
+2.56.0.rc1.310.g51773c2048-goog
+
+> +	return 0;
+> +
+>  err:
+>  	fput(file);
+> +	return -EINVAL;
+> +}
+> +
+
+If the refactor above is not preferred,
+
+I think this part at the end
+
+	if (r)
+		goto out;
+
+	return 0;
+
+out:
+	kfree(new);
+	return r;
+
+
+Could be something like
+
+out:
+	if (r)
+		kfree(new);
+
+	return r;
+
+
+>
+> [...snip...]
+>
