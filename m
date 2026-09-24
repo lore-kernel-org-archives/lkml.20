@@ -1,112 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88A1730C142;
-	Thu, 24 Sep 2026 21:19:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE9C442047A;
+	Thu, 24 Sep 2026 21:21:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790284795; cv=none; b=DnwkYERUbJ8TrPnPvSKPjdms+IGgseo8j2qgwNHl8FgNMyohKnRGgCc90bcc/m0EXUfYb8fbhh2WGqNYY0tR7GV+sUfKwxzlTcTaOxoQNu9hFDkvjp8wBszbuSDovBEXutxSXrnzyrlmxrJ01IcCMTDuQswFSCK+zsoEPmLhNho=
+	t=1790284885; cv=none; b=Oli7H+WO7M7tautR+ovMKj7JVMbS6j6J8SYyvqddU5XDspjzzsO16eZavOVm4Vn/uI3pJTNjQ1IusF+BViAFLsIBWXMH5l/Md/TMLojx3ECaZVIZlpkiyeznuq+d4ULw8fdaHwGdVNPuqTXwoxXLsKYASQGfSVjKe/qjLtjOIQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790284795; c=relaxed/simple;
-	bh=il6CD+udxM9Q79dxH2fF1i6WSjN6YNdMEY+NBba0Pzw=;
-	h=Date:Message-ID:From:To:Cc:Subject; b=jB3EdHeY42I2sMc1GRZHmWVFB16uUYlZzUekWT8K+e2H3pvPNwvVv+3r16ITAPRgetGJHfgM5IaV6quUID9wVFTe6/hzUne/YtjbAukw+HG8eT7eLFDAKrCaoGm8AsndPyanZ9w4PQi6dPi9xbgUJET/nE/FfpZ+pgaeJl1VCuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ngJp59Tk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790284885; c=relaxed/simple;
+	bh=E4vnPMcsjfacyNqdX3Sc9xQmR4CnK+PuCT1z6dKrBUA=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=bLskkp+FM1dtGN4umbeh/2KnRFca4Yow/oWZ0Yro3bhtDm66YGetU/1sZ8RdKs0dV4GRcvNEMY41sONIoP6m1fQlJLDQgYEITWspisA5u5s6x5R+d8ZVb/SgbslycsvVhcpuiwwDmuT7HPuWCGYr2vDFzj4TAigpAWKM1jFqG2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TkJhz95z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ngJp59Tk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD34E1F000FF;
-	Thu, 24 Sep 2026 21:19:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TkJhz95z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95D401F000FF;
+	Thu, 24 Sep 2026 21:21:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790284787;
-	bh=MlwzQF8d1p8Q1Kw/wJj/bEnhAei43APQe7dwOOz+qaQ=;
-	h=Date:From:To:Cc:Subject;
-	b=ngJp59TkyVeSV6Jxts7JG9csHubPlg2zgBchruolhx3P5F2uefK1qX/3Q7hA+ABzC
-	 dE7aZbVJX1cYTqNZfspUWQ2a1YhymrK/J4i8gTDCLeba/W7vAuPN0OFhhdnQIRoVmP
-	 MO5z0GpJM6LWMt+DeGRNvgwlSF6f3VzC+/TqoJvltMkO6FugNAlgGikxkHN/J+/FPp
-	 Rgaynm0l1Oi7MLIADHEFkXs/ZYwcPAONEEn7odaFQPSPRWCx505guB9Xehu0kjoB+d
-	 KBaQjN61G8IpfJNVZhoz2cbseK62g/m2adF1v51h/3FcQ+VpKR1KKxH8QwZvC3J28A
-	 uYut/iI+1V43Q==
-Date: Thu, 24 Sep 2026 11:19:47 -1000
-Message-ID: <be7ef09b8be82e9f0c5fb2bf197d7a44@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
- Changwoo Min <changwoo@igalia.com>, Emil Tsalapatis <emil@etsalapatis.com>,
- David Dai <david.dai@linux.dev>, sched-ext@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: [GIT PULL] sched_ext: Fixes for v7.3-rc4
+	s=k20260515; t=1790284878;
+	bh=e7hd29C7nTRYc9eXkSyQm0MxhkxGCpQvPC9QXmvN0oU=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=TkJhz95zxkKty0LOPt6/7S5vUhHowVYO3n7a1ziy+/0l7WqIlhtWz8ou3tFNU4aWS
+	 0aAZt2xuzx0vZ8zgs7XJG8vQ0tSqXIrLjq6kHVflA7H/sTcu3Xf0nHjC8YcSembNFh
+	 ewH0ccAj1VxaTQNQAI56bpfyh6VWsjN0ZbAxorVqEJtB2Q7DrOdShi2mzkbpCJUU3b
+	 BgbXvY049ePnvWDjj8ve2HYVs507TbyyUkml/ASiX2eiyT8KktjJvBwCwyVIih1ura
+	 QC4X6MpPcLkmHiq0ZLFqr4Lc3e34nLYb/1LsK7jkL55q0hMHC43kkZ4obmWeOurW+d
+	 c0SK7gD6S8Vhw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 939FB3A566E5;
+	Thu, 24 Sep 2026 21:20:08 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH bpf-next v3 0/3] bpf: expose cgroup preorder attachment
+ state
+ to userspace
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179028480739.2205957.18056987431035408437.git-patchwork-notify@kernel.org>
+Date: Thu, 24 Sep 2026 21:20:07 +0000
+References: <20260922025442.3176057-1-sh_def@163.com>
+In-Reply-To: <20260922025442.3176057-1-sh_def@163.com>
+To: Hui Su <sh_def@163.com>
+Cc: bpf@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net,
+ andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
+ yonghong.song@linux.dev, qmo@kernel.org, martin.lau@linux.dev,
+ song@kernel.org, jolsa@kernel.org, emil@etsalapatis.com,
+ ihor.solodrai@linux.dev, shuah@kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
-Hello,
+Hello:
 
-The following changes since commit a9e3760b0838299649c0d57cca44daaf40ba3c33:
+This series was applied to bpf/bpf-next.git (master)
+by Alexei Starovoitov <ast@kernel.org>:
 
-  sched_ext: Maintain an online cid mask in the scheduler arena (2026-09-15 06:57:20 -1000)
+On Tue, 22 Sep 2026 11:54:39 +0900 you wrote:
+> The BPF_F_PREORDER attach flag changes the ordering of programs in the
+> effective cgroup program array, but BPF_PROG_QUERY did not report the
+> per-program flag. This series exposes that state and updates bpftool to
+> display, accept, and document this flag.
+> 
+> The series is split into three patches:
+> 
+> [...]
 
-are available in the Git repository at:
+Here is the summary with links:
+  - [bpf-next,v3,1/3] bpf: Report BPF_F_PREORDER in cgroup program queries
+    https://git.kernel.org/bpf/bpf-next/c/9ed640ee09ab
+  - [bpf-next,v3,2/3] selftests/bpf: Test querying BPF_F_PREORDER cgroup attachments
+    https://git.kernel.org/bpf/bpf-next/c/47211d1200f0
+  - [bpf-next,v3,3/3] bpftool: Add support for BPF_F_PREORDER cgroup attach flag
+    https://git.kernel.org/bpf/bpf-next/c/c39bf6b6705f
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git tags/sched_ext-for-7.3-rc4-fixes
-
-for you to fetch changes up to 4409a85735cdca5c4c400c0dad1feee091872eee:
-
-  sched_ext: Count SCX_EV_SUB_BYPASS_DISPATCH in the dispatch fallback (2026-09-23 08:16:10 -1000)
-
-----------------------------------------------------------------
-sched_ext: Fixes for v7.3-rc4
-
-- A task reenqueued while its dispatch was still completing had its queued
-  state clobbered by the dispatcher, dropping every later dispatch of the
-  task. Wait for the in-flight dispatch to settle first.
-
-- A wakeup activation on another CPU marked the destination runqueue as
-  mid-wakeup, stranding a pending local reenqueue. If the scheduler was
-  unloaded first, the stale request pointed into freed memory that the next
-  scheduler dereferenced.
-
-- ops.dequeue() ran with the source dispatch queue's lock held, so a
-  scheduler iterating that queue from the callback deadlocked the CPU.
-
-- Schedulers with their own CPU ID mapping had no way to learn a task's
-  initial CPU mask and rebuilt it themselves, which went wrong across
-  sub-scheduler enable and re-home. Pass it to ops.enable().
-
-- A bypass dispatch event counter missed the dispatches made by the
-  end-of-dispatch fallback and under-reported.
-
-- Selftests for the dequeue locking and initial mask changes.
-
-----------------------------------------------------------------
-Liang Luo (1):
-      sched_ext: Count SCX_EV_SUB_BYPASS_DISPATCH in the dispatch fallback
-
-Tejun Heo (4):
-      sched_ext: Wait for SCX_OPSS_DISPATCHING before reenqueueing a task
-      sched_ext: Derive SCX_RQ_IN_WAKEUP from the core enqueue flags
-      sched_ext: Pass the initial cmask to cid-form ops.enable()
-      selftests/sched_ext: Check the cmask cid-form ops.enable() receives
-
-fangqiurong (2):
-      sched_ext: Don't run ops.dequeue() with a DSQ lock held
-      selftests/sched_ext: Test that ops.dequeue() can iterate the consumed DSQ
-
- kernel/sched/ext/ext.c                             | 156 ++++++++++-----
- kernel/sched/ext/inlines.h                         |   4 +-
- kernel/sched/ext/internal.h                        |  60 +++++-
- kernel/sched/ext/sub.c                             |  11 +-
- tools/sched_ext/scx_qmap.bpf.c                     |   3 -
- tools/testing/selftests/sched_ext/Makefile         |   2 +
- .../testing/selftests/sched_ext/dequeue_iter.bpf.c |  73 +++++++
- tools/testing/selftests/sched_ext/dequeue_iter.c   |  79 ++++++++
- .../testing/selftests/sched_ext/enable_cmask.bpf.c | 217 +++++++++++++++++++++
- tools/testing/selftests/sched_ext/enable_cmask.c   | 138 +++++++++++++
- 10 files changed, 671 insertions(+), 72 deletions(-)
- create mode 100644 tools/testing/selftests/sched_ext/dequeue_iter.bpf.c
- create mode 100644 tools/testing/selftests/sched_ext/dequeue_iter.c
- create mode 100644 tools/testing/selftests/sched_ext/enable_cmask.bpf.c
- create mode 100644 tools/testing/selftests/sched_ext/enable_cmask.c
-
+You are awesome, thank you!
 -- 
-tejun
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
