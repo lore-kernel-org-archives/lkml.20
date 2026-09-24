@@ -1,33 +1,36 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-207.mta0.migadu.com [91.218.175.207])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D68B434987;
-	Thu, 24 Sep 2026 07:43:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB7042E8F0
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:44:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.207
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790235812; cv=none; b=tiHmUsa5ntdGZuMu5q+38lNyL+czsKttPDbXM8VZ72D+//bQGPK8MvFB6DskWvqy3FV+YSjQrGxUVPwl/z7YJ3CjMvtjiEmKGlQz1Wg4FO6uUTuy0i+b5dMKhW1cKcAsoA6UM5C7EVIm3oAwQS+PZnfq4YW/nRNRs8kUVpSjSJc=
+	t=1790235894; cv=none; b=cYD9D8QpMZqapdWL1Crp17Rf6gVt5M57dSObuLl/EOXi/1TcKcpxo3+5OypwMk1WrL4vuKKjRrmPPhztIhAeqP5O0TL3zQQS2HepjmiqkYBFDhLSjzbLYvQhmRP7EX++s6e/zqOMQcY41XYUzOezl+0blnJtjs87asIn4uVzhxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790235812; c=relaxed/simple;
-	bh=9kYOWc65dioj1RdokfnVAO85v+U9NVGeHJD75W1OAiA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EgnxK55C+F5n/4QvdEgGIyrIkm+bA5snoYCKGTiCBMzaUxOZGR4rcyARWoYxs3Wil8oKBTw1Ea9Nzo8RnVKBALyNa8yJJynHvjyidq+xuBWrX1YG/A2RgPZ8d3hfbSYebUuzJ8HPH0WK9GkCsPtwWcAegCaW+vsDfSZCLfhe0xA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AlB+qeZN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790235894; c=relaxed/simple;
+	bh=BMB+STVJq0l9ZLkULujYCxV/D/DSiU8LV/duU85x3rg=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=orR16aWTr0t4ryBGIqn0Id3G8/c3ISeEDCVzflzQKLfuTVWDryhK2ljsROT3O1BZzp9H0M7ivyleWiD5nknbtmZbnY88n0QPN0cnm9hc/Ma9lzeCUmNg6wK5fb6XKzv3S8U4tglgRzL1xm+/vxUQ+9OVHkhTQFGT6ztAlDjes2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Ra3/KDRZ; arc=none smtp.client-ip=91.218.175.207
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AlB+qeZN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F19691F00893;
-	Thu, 24 Sep 2026 07:43:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790235811;
-	bh=AtXJp2qMLTHXjuQcFivmdU2iuZ3z+DX3EPTgz5CLUiI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AlB+qeZNZHPK30/8gFWOG2ELpRv71bcsx4PbxevhGUsDhAjHC6Apo2uW2LYMBUtdK
-	 BjKNFW46FJXt8T+JBbFfuQHYM7KjIDDuo/13rBqpGYMpkoWvaLe2ZzaY+42DXiqRqk
-	 e28ApY+my5E13wunSeViD1OqbZmCKPvgapGauc6NSSgBIo6jlUbf1Y5GhQPq5qYhzQ
-	 kGH5ShTpvle+oKacVESNlRyL4UFvM8YG7NLRHT4rdRmkm3/mccali3Vj/Z/QOaX7nV
-	 O2ugEz78dD7lCgFMwJFlpZAAV5wv3OqbXerP8SlEze2Wc+frI4+NWbppKudzi2lJLT
-	 rJU/6+v0+tlKA==
-Message-ID: <0a0a07f8-8ac9-4d75-b4c6-c403865f0be9@kernel.org>
-Date: Thu, 24 Sep 2026 09:43:22 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Ra3/KDRZ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=BMB+STVJq0l9ZLkULujYCxV/D/DSiU8LV/duU85x3rg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790235889; v=1; x=1790840689;
+ b=Ra3/KDRZ+wA+yqI4O4FBCUzw55F1XzpsH6NcAdj4jH8YLjgjsMGfKu9hN4VEtDanakTjMf7/
+ vRg7r6OqAD1YsfGIgMS+SYhRSEbFVCjVesdjS0aLCslB7D3OAk3BZ0cndCo1fs4/t4+5V60Y6jK
+ 0b4VGJpEZlHXzEBmPL+8iKt0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d11a2545b59d3edf;
+	Thu, 24 Sep 2026 07:44:49 +0000
+X-Mizu-Trace-ID: d11a2545b59d3edf
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <79f82832-c805-4ae3-8204-495bab068dd5@linux.dev>
+Date: Thu, 24 Sep 2026 15:44:44 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,110 +38,143 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [syzbot] [mm?] [ext4?] WARNING in __folio_set_anon
-To: Lance Yang <lance.yang@linux.dev>, ljs@kernel.org,
- akpm@linux-foundation.org
-Cc: harry@kernel.org, jannh@google.com, liam@infradead.org,
- linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, riel@surriel.com, syzkaller-bugs@googlegroups.com,
- vbabka@kernel.org, syzbot+c181d3198e98f8aef8b9@syzkaller.appspotmail.com
-References: <6ab4ae75.80e1c6cc.1e8e5f.000d.GAE@google.com>
- <20260924065458.49698-1-lance.yang@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260924065458.49698-1-lance.yang@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Cc: shawn.lin@linux.dev, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Shawn Lin <shawn.lin@rock-chips.com>,
+ Ulf Hansson <ulfh@kernel.org>
+Subject: Re: [PATCH] mmc: core: apply a per-command tuning timeout instead of
+ the whole sequence budget
+To: Adrian Hunter <adrian.hunter@intel.com>
+References: <1789530589-8466-1-git-send-email-shawn.lin@rock-chips.com>
+ <da386006-9673-4774-85fb-3a145fc972bf@intel.com>
+From: Shawn Lin <shawn.lin@linux.dev>
+In-Reply-To: <da386006-9673-4774-85fb-3a145fc972bf@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 9/24/26 08:54, Lance Yang wrote:
-> 
-> On Wed, Sep 23, 2026 at 10:00:37PM -0700, syzbot wrote:
->> Hello,
+Hi Adrian,
+
+在 2026/09/24 星期四 15:18, Adrian Hunter 写道:
+> On 16/09/2026 06:49, Shawn Lin wrote:
+>> From: Shawn Lin <shawn.lin@linux.dev>
 >>
->> syzbot found the following issue on:
+>> The tuning specs guarantee that a *sequence* of 40 tuning commands
+>> completes within 150 ms, exclusive of any host overhead:
 >>
->> HEAD commit:    38872197cae2 Merge branch 'for-next/fixes' into for-kernelci
->> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
->> console output: https://syzkaller.appspot.com/x/log.txt?x=17a44d25580000
->> kernel config:  https://syzkaller.appspot.com/x/.config?x=56ed23170c168d4c
->> dashboard link: https://syzkaller.appspot.com/bug?extid=c181d3198e98f8aef8b9
->> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
->> userspace arch: arm64
->> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=16a36515580000
->> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16dcf4c9580000
+>>    eMMC, JESD84-B51B 6.6.5.1 "Sampling Tuning Sequence for HS200":
+>>
+>>      "The Device is guaranteed to complete a sequence of 40 times CMD21
+>>      executions within 150 ms. This is exclusive of any host overhead."
+>>
+>>    SD Physical Layer Specification Version 4.00:
+>>
+>>      "The card shall complete a sequence of 40 times CMD19 executions
+>>      in no more than 150ms. The tuning process is normally shorter than
+>>      40 executions of CMD19, and therefore should be shorter than
+>>      150 ms."
+>>
+>> mmc_send_tuning() however applied that 150 ms as the data timeout of
+>> every single CMD19/CMD21, i.e. 40x the per-execution budget implied
+>> by the specs (150 ms / 40 = 3.75 ms of device time, excluding host
+>> overhead).
+>>
+>> The data timeout only matters for tuning commands where the device
+>> never returns the tuning block at all; a wrong sampling phase
+>> normally fails fast with a CRC error instead.  Waiting 150 ms per
+>> such test makes software phase scanning painfully slow.  With
+>> dw_mmc-rockchip HS200 eMMC the TMOUT register saturates at ~112 ms
+>> for the requested 150 ms, and dw_mmc's execute_tuning() scans every
+>> phase of the tuning window, stalling that long on each phase that
+>> misses the window.  Multi-second boot slowdowns have been reported[1].
+>>
+>> Note that SDHCI hosts are unaffected: sdhci_send_tuning() does not
+>> use mmc_send_tuning() (the hardware generates and checks the tuning
+>> pattern itself) and bounds every tuning command to 50 ms in software
+>> (sdhci.c).  The SDHCI variants which scan the tuning phases manually
+>> through mmc_send_tuning() -- sdhci-msm, sdhci-omap, sdhci-tegra,
+>> sdhci-cadence, sdhci-esdhc-imx, sdhci_am654, sdhci-of-k1,
+>> sdhci-of-dwcmshc (CV180x), sdhci-of-bst and the AMD sdhci-pci
+>> variant -- suffer from the same excessive per-command timeout and
+>> benefit from this change as well.
+>>
+>> Use 5 ms per tuning command.  For reference, the device serves the
+>> tuning block straight out of its SD/MMC IP (no storage access is
+>> involved), so even in the slowest reasonable setup -- a 64-byte
+>> tuning block at 50 MHz over a 4-bit bus -- the block transfer alone
+>> takes ~2.6 us, and a full tuning transaction only a few us of bus
+>> time.  5 ms is ~1.3x the spec-implied per-execution device budget
+>> (150 ms / 40 = 3.75 ms, excluding host overhead), 30x below the
+>> 150 ms ceiling, and the reporter verified that tuning keeps passing
+>> with it on dw_mmc-rockchip HS200 eMMC.  Even in the worst case where
+>> every tuning command times out, the whole tuning process stays
+>> bounded within a few hundred milliseconds.
+>>
+>> This also bounds the cost of runtime re-tuning, not just the tuning
+>> performed at enumeration time.
+>>
+>> [1] Link: https://bugzilla.kernel.org/show_bug.cgi?id=221781
+>> Signed-off-by: Shawn Lin <shawn.lin@linux.dev>
+>> ---
+>>
+>>   drivers/mmc/core/mmc_ops.c | 30 ++++++++++++++++++++++++++----
+>>   1 file changed, 26 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/mmc/core/mmc_ops.c b/drivers/mmc/core/mmc_ops.c
+>> index a952cc8..abcdcf8 100644
+>> --- a/drivers/mmc/core/mmc_ops.c
+>> +++ b/drivers/mmc/core/mmc_ops.c
+>> @@ -708,11 +708,33 @@ int mmc_send_tuning(struct mmc_host *host, u32 opcode, int *cmd_error)
+>>   	data.flags = MMC_DATA_READ;
+>>   
+>>   	/*
+>> -	 * According to the tuning specs, Tuning process
+>> -	 * is normally shorter 40 executions of CMD19,
+>> -	 * and timeout value should be shorter than 150 ms
+>> +	 * JESD84-B51B 6.6.5.1, "Sampling Tuning Sequence for HS200":
+>> +	 *
+>> +	 *   "The Device is guaranteed to complete a sequence of 40 times
+>> +	 *   CMD21 executions within 150 ms. This is exclusive of any
+>> +	 *   host overhead."
+>> +	 *
+>> +	 * SD Physical Layer Specification Version 4.00:
+>> +	 *
+>> +	 *   "The card shall complete a sequence of 40 times CMD19
+>> +	 *   executions in no more than 150ms. The tuning process is
+>> +	 *   normally shorter than 40 executions of CMD19, and therefore
+>> +	 *   should be shorter than 150 ms."
+>> +	 *
+>> +	 * Both specs bound a *sequence* of 40 tuning commands, i.e. at
+>> +	 * most 150/40 ms (3.75 ms) of device time per command, excluding
+>> +	 * host overhead.  And that is generous: the device serves the
+>> +	 * tuning block straight from its SD/MMC IP, no storage access
+>> +	 * involved, so the whole transaction is only a few us of bus
+>> +	 * time even in the slowest reasonable setup (64 bytes at
+>> +	 * 50 MHz, 4-bit takes ~2.6 us).  The timeout exists solely to
+>> +	 * catch devices which never return the block at all.
+>> +	 *
+>> +	 * Use 5 ms per command: ~1.3x the spec-implied per-command
+>> +	 * budget for host overhead and slower devices, still 30x below
+>> +	 * the 150 ms bound.
+>>   	 */
+>> -	data.timeout_ns = 150 * NSEC_PER_MSEC;
+>> +	data.timeout_ns = 5 * NSEC_PER_MSEC;
 > 
-> Looking at the repro, emm ... the repro maps an O_RDONLY /dev/zero fd with
-
-Does this trigger upstream or only after Lorenzo's rework (not upstream yet IIRC)
-
-46827ac1ab221 mm/vma: make MAP_PRIVATE-mapped /dev/zero mappings truly anonymous
-db7438ea23180 mm/vma: only permit MAP_PRIVATE /dev/zero to be mapped anonymous
-54e8e096ea86b mm: implement file_is_dev_zero() to uniquely identify /dev/zero
-fb24843cfd9eb mm: move drivers/char/mem.c to mm/char-mem.c
-
-I assume it triggers upstream. Does it also trigger with lorenzo's changes?
-
-> MAP_SHARED | PROT_READ. do_mmap() clears VM_SHARED and VM_MAYWRITE, so
-
-Clearing VM_MAYWRITE for a private mapping is odd. Can you point me at the code
-that clears both things?
-
-I assume we still have the file pointer, and as the file is read-only we remove
-VM_MAYWRITE. But why are we removing MAP_SHARED? (where?)
-
-> mmap_zero_prepare() marks the VMA anonymous. MADV_COLLAPSE then allocates
-> a new folio and adds an anon rmap, hitting the warning in
-> linear_anon_page_index().
+> Perhaps it is safer to let drivers provide an override value,
+> either as an mmc_host member or create
+> mmc_send_tuning_timeout(host, opcode, cmd_error, timeout_ns)
 > 
-> Can an anonymous VMA without VM_MAYWRITE legitimately have an anon rmap?
 
-It's not a COW mapping (by definition) so we don't expect anonymous folios in there.
+This is less likely to cause a regression. Nice idea.
 
--- 
-Cheers,
+I plan to introduce mmc_send_tuning_timeout() in v2 and convert
+dw_mmc-rockchip to use it with a smaller timeout. Other platforms
+that also care about the overly long per-command timeout can opt
+in individually later.
 
-David
+Thanks for the suggestion.
+
+
+>>   
+>>   	data.sg = &sg;
+>>   	data.sg_len = 1;
+> 
+
