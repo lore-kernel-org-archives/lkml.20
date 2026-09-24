@@ -1,153 +1,245 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF8A53E0749;
-	Thu, 24 Sep 2026 22:49:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BECEF401A18
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:51:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790290186; cv=none; b=LRYRrU1F4tt8uysCXbtx8AZAHbW3yHQDGsAZ1fZZH5mW26cu7kvHskryzz8dZTSWFk/7QK6+3A6CjOrxSjjLBXoyzIy2Iy4DcX9Gc4hm4nItpX33DWkHAEIPss3qh52hf+9PjGL/LgOWSaM0bfJrlwc7uCeU+xRlWgpFN8Vo0bk=
+	t=1790290318; cv=none; b=SzILmXrF67TckSt+hq5ULdFq+wyzQNOBf/z+TXJZjCMbc8s2tC9RZlfXDYcD1WB6dZ7Qu2EXtjQyfXKHbhZjGQ/IGGd5IIv54QeVPkDRXRPzCpN7Utjv0p2YkuzxaVOiqee3lEyRqUT7xk6ytd9doqR9hyNjZs4gqNxe5zaEp34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790290186; c=relaxed/simple;
-	bh=X4N46zTnr8zPk2L5jVsXS384xSnr2JuLk2Bx7PaxCXc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Klrv/NMibaFXnQNPcpC7e+qse6R+wFLj4RNNzfLqg0wsxDFzTfr6M3b5TGvsiQX7rg7Gza7br7gi5+3vFu+/NWf8uBJHT9OJImv7SbX4+rDRft499ijxQ4FyT5mg2jqreTFTirKUWeJdiKP1wn3snyDlIatxHmCBtpcjHpCybC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G8VZZiY8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790290318; c=relaxed/simple;
+	bh=62XiZv6zk3rTKUR1/CJN607c+3Nv6L/9YqYGWxYk92A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RgN1xTHWQhOg3DrjeJo1+G2/vfPmTv8kYvhB0YfQVI9p4d4alLGv/GX2BUEJ7aXxKax5ILc5HdC3BNHsAYy2d6dIaFUcYQu4aQE32FDjPzF/b2rMpenLUcsXnD54hSRBOeuO0Ivcv0pEt/tTcfvejLpW07AU/S01v8YT0KMVak4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jr7MkNWE; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G8VZZiY8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3B131F000FF;
-	Thu, 24 Sep 2026 22:49:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790290184;
-	bh=SBnRjlZiMD6GNwF5HV2vUPlpIGI4oceGD3wHaGXf4Lw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=G8VZZiY8GSq6qLx3F0yb/nl8UQ8v87ci1lltEYNHB/PoOGluwTgcQg+opo/BMMeIW
-	 /HkO/pQC+NIW0XMN1GmfL217dv7ldbMpHIdaYrQ0YR5MTaQtnV1gi5up+S4rraA4vt
-	 RM2Ja5SG0sr8YyhFsWCv+x8U6+F5pfHApqOl8HV1G/cLTl+A5xG5YQ6ueX2YhzP2Sr
-	 cuAQeKmM1WagS68C9s7YWtP37hYwDlSxPsswUvuetWWEDuw1NimqLQTsxs1/R0ej2E
-	 Hz2zNpJbBrRfn4mf8/WAaDHtLH5m4MXNPQulxmXUYkVeR036WV+eJzILpDvwbwjjWX
-	 REks5oJyrbM0A==
-Date: Thu, 24 Sep 2026 15:49:42 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: acme@kernel.org, howardchu95@gmail.com, adrian.hunter@intel.com,
-	james.clark@linaro.org, jolsa@kernel.org,
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
-	mingo@redhat.com, peterz@infradead.org
-Subject: Re: [PATCH v5 11/23] perf trace: Do not set unaugmented BPF program
- on sys_exit map
-Message-ID: <arWpBizG27rMsHmZ@google.com>
-References: <cover.1790145937.git.irogers@google.com>
- <42dc47785bdb78054500591b193a1cb653ef39b7.1790145937.git.irogers@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jr7MkNWE"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1ca5b0d6so2344675e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:51:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790290315; x=1790895115; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DY4/sCTlc60wxmtt4c/QaqdPIrvNF/5bj6Z1Qp+fliA=;
+        b=Jr7MkNWEv9EYHPscJTXfpurWeYrYnCM+0e9DH3RLK9v+Nzxzgy3jxSmw3Rz3HEmIeM
+         vc8RvLFYRO3qGRbf2Ab6qQZd8G+2zmeNFT1kR7r0K1BIumx0TyHU+TPNUmg4K7itAeCt
+         KqSB8clSDNfg6p2TZHy/2Xg+HH9Y70oOO+JLGLlPyAtpB048S9L9LfO8EiyEPT9w5ncO
+         O9xTcLFXKKweYgvlRQoGX7c9W0QaNUKpi3OTzmA7r0lvpgI5Mtubsx9+3vjF7lnwRrYq
+         HvPGtjDoVqqmO3uNUaE01pxfloL+FrLDw2FtO9/QOI+DzuBwtCVFKscHyN2qzVb6EvJF
+         veTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790290315; x=1790895115;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DY4/sCTlc60wxmtt4c/QaqdPIrvNF/5bj6Z1Qp+fliA=;
+        b=LnwtI70apI70UYE3LFoDRmXmDzgQ3VRVAAvQWvWhEBqOukH40PQJcwKXgqzp/wpcbM
+         Wz0bBmDbLe+2U+7lbbrMfBteK7xwBxAnwC9+98z5ND+u0mrdKbX/kmNtkQAKziPEz45o
+         bkpWHluK9OWH50BYVIaOb99UL7dWGoYLhnnoVMSoKttbhH4h3s9tkl2HYcqV1bExmYYy
+         gobipYaRgd/0O3tHVeE8Uue3zr3SXnBPrZse00zBQaFxsYs05ncDo7ai0xlJvXGri7FE
+         zljuGa6UMzDVuAAz52KyrWcsF65YusQFQtVqW9p9YgMKWH3AMkTPeIABlukYzIczVlB/
+         aoRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw7EQw5HcjUXs+Pd5AI1vqGdEpX3CTzPLBcREk9r5VJiFLs7HXcsbJrCMMVo2vRm+uJW3ere/i0zRlsJAw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mgGZzZthk03fHFQT4H7r5jWpSQG5FRZWtl+UcGh1tLFQtzNBVB
+	8IMea5ZZ9DXKJmDW0QfDNDQoNvZn+dYvebm5rZXkAVuNixveBqCK8qJo
+X-Gm-Gg: AYBFou1Zhq0K/P/33hVTO4HQuXnH29jC7S4uRKOdaBzXCCInTCewscVVR5j7HXHg8jK
+	6jgpOY7ewTRwtEdh8jKDUKO0HHhsJvhx9Nyikupp/0LjKz6a6nGI/tumYEEpAPtV6jOuQtSfkdJ
+	jm+/PLV2f6/aCtGUGUvvXFku7S81JALJGmscmlQiwBPP7OTQeqx6x7Do1w1iPhrNZ9xTw/x5UO9
+	CfyFz+w191GivkEE4bRvPx7DM7lAQhnVL7dqfAilWyUIGLJlEf0RvkP4Rr5G1JpILPwl64tWhVF
+	LEZgTJkebFYktZr5ycV01Xtl7vAMdU5bJCpnhry9XiK+QTe6dVv1Uhlgi5EylKGKQFjT7bBZUau
+	4X6rZ2voURjqe5w9XvBSzLy8/xpkBeeQsD1Bq7j9BtBO99CMHNIxMHNtsVMjCbSyOEe8b1WbAeW
+	KbvBX5thjM7mfcFm19deZMiJ5kvkF6G/guiHDi3ls0eKC4cmA53ZIKu3N6Gfiy3C8Gbtgb5T6bk
+	YvNMPcwNCUo8WQdxSWMR7hb1o0bkFGWp7pbqIUgrpVbJGv2UV0TwBw8fwtefnbwz1tkxUwkYv20
+	/MxNByZmtbx5xUehAvTfppQvXmc=
+X-Received: by 2002:a05:600c:1d28:b0:49c:fc6e:8cbd with SMTP id 5b1f17b1804b1-49fe66fc677mr74153985e9.33.1790290314882;
+        Thu, 24 Sep 2026 15:51:54 -0700 (PDT)
+Received: from 1Z10 (mob-176-245-31-160.net.vodafone.it. [176.245.31.160])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5ce4941sm97253225e9.6.2026.09.24.15.51.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 15:51:54 -0700 (PDT)
+From: Maurizio Casciano <mauriziocasciano7@gmail.com>
+To: Sebastian Reichel <sre@kernel.org>
+Cc: Hans de Goede <hansg@kernel.org>,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] power: supply: core: Honor supplied-from with CONFIG_OF=y
+Date: Fri, 25 Sep 2026 00:51:52 +0200
+Message-ID: <20260924225152.985489-1-mauriziocasciano7@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <42dc47785bdb78054500591b193a1cb653ef39b7.1790145937.git.irogers@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 23, 2026 at 12:13:51AM -0700, Ian Rogers wrote:
-> In trace__init_syscalls_bpf_prog_array_maps(), the BPF program array map
-> for sys_exit (syscalls_sys_exit) was populated with the result of
-> trace__bpf_prog_sys_exit_fd().
-> 
-> When a syscall had no specific exit augmenter,
-> trace__find_syscall_bpf_prog() fell back to unaugmented_prog
-> (syscall_unaugmented). However, syscall_unaugmented is a sys_enter
-> program that outputs enter arguments to __augmented_syscalls__.
-> 
-> As a consequence, when an unaugmented syscall exited, sys_exit
-> tail-called syscall_unaugmented, which interpreted the exit arguments as
-> enter arguments and emitted a duplicate, corrupt sys_enter event into
-> __augmented_syscalls__ right as the syscall completed.
+The supplied-from device property is the name-based counterpart to
+firmware-node power-supplies references. It was added for non-DT platforms,
+but its parser is compiled only when CONFIG_OF is disabled. CONFIG_OF is
+a global kernel option, so x86 systems commonly enable it even when
+individual power supplies are described by software nodes.
 
-Do you have a reproducer of this problem?  I've never seen this before.
-IIRC there's no augmentation at exit, then do we need to keep the tail
-call?
+Consequently, these consumers never populate supplied_from and supplier
+notifications do not reach their external_power_changed() callbacks. On a
+Lenovo Yoga Book YB1-X91L, ftrace showed the Whiskey Cove supplier
+notification running without invoking the BQ25892 callback, leaving the
+input current limit at its boot-time value.
 
-Thanks,
-Namhyung
+Use a single power_supply_check_supplies() implementation for all
+configurations. Preserve firmware-node power-supplies references as the
+preferred firmware description and use the name-based supplied-from
+property only when no references are specified. Continue to honor an
+explicitly provided supplied_from list first and propagate errors from
+specified firmware references.
 
-> 
-> Fix this by:
-> 1. Returning NULL from trace__find_syscall_bpf_prog() when looking up exit
->    augmenters and none is found.
-> 2. Returning -1 from trace__bpf_prog_sys_exit_fd() when no exit program
->    is present.
-> 3. Only updating map_exit_fd when prog_fd >= 0.
-> 4. Clearing err = 0 when trace__bpf_sys_enter_beauty_map() returns
->    non-zero (indicating the syscall has no augmentable pointer arguments)
->    before continuing the loop, so a trailing run of such syscalls (e.g.
->    'perf trace -e close') does not leave err non-zero on return and abort
->    the session.
-> 
-> Assisted-by: Antigravity:gemini-3.1-pro
-> Signed-off-by: Ian Rogers <irogers@google.com>
-> ---
->  tools/perf/builtin-trace.c | 28 ++++++++++++++++++++++------
->  1 file changed, 22 insertions(+), 6 deletions(-)
-> 
-> diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
-> index aa2d64eb56bd..0ae14ecd9f00 100644
-> --- a/tools/perf/builtin-trace.c
-> +++ b/tools/perf/builtin-trace.c
-> @@ -4176,7 +4176,12 @@ static struct bpf_program *trace__find_syscall_bpf_prog(struct trace *trace __ma
->  	pr_debug("Couldn't find BPF prog \"%s\" to associate with syscalls:sys_%s_%s, not augmenting it\n",
->  		 prog_name, type, sc->name);
->  out_unaugmented:
-> -	return unaugmented_prog;
-> +	/*
-> +	 * Do not set unaugmented_prog for exit: syscall_unaugmented is a
-> +	 * sys_enter program that outputs enter arguments. Exit without a
-> +	 * specialized return augmenter returns 1 directly from sys_exit.
-> +	 */
-> +	return !strcmp(type, "exit") ? NULL : unaugmented_prog;
->  }
->  
->  static void trace__init_syscall_bpf_progs(struct trace *trace, int e_machine, int id)
-> @@ -4199,7 +4204,7 @@ static int trace__bpf_prog_sys_enter_fd(struct trace *trace, int e_machine, int
->  static int trace__bpf_prog_sys_exit_fd(struct trace *trace, int e_machine, int id)
->  {
->  	struct syscall *sc = trace__syscall_info(trace, NULL, e_machine, id);
-> -	return sc ? bpf_program__fd(sc->bpf_prog.sys_exit) : bpf_program__fd(unaugmented_prog);
-> +	return sc && sc->bpf_prog.sys_exit ? bpf_program__fd(sc->bpf_prog.sys_exit) : -1;
->  }
->  
->  static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, int key, unsigned int *beauty_array)
-> @@ -4454,16 +4459,27 @@ static int trace__init_syscalls_bpf_prog_array_maps(struct trace *trace, int e_m
->  		err = bpf_map_update_elem(map_enter_fd, &key, &prog_fd, BPF_ANY);
->  		if (err)
->  			break;
-> +		/* Only update the exit prog array map if an exit augmenter exists */
->  		prog_fd = trace__bpf_prog_sys_exit_fd(trace, e_machine, key);
-> -		err = bpf_map_update_elem(map_exit_fd, &key, &prog_fd, BPF_ANY);
-> -		if (err)
-> -			break;
-> +		if (prog_fd >= 0) {
-> +			err = bpf_map_update_elem(map_exit_fd, &key, &prog_fd, BPF_ANY);
-> +			if (err)
-> +				break;
-> +		}
->  
->  		/* use beauty_map to tell BPF how many bytes to collect, set beauty_map's value here */
->  		memset(beauty_array, 0, sizeof(beauty_array));
->  		err = trace__bpf_sys_enter_beauty_map(trace, e_machine, key, (unsigned int *)beauty_array);
-> -		if (err)
-> +		if (err) {
-> +			/*
-> +			 * Not a failure: the syscall just has no augmentable
-> +			 * arguments. Clear err, or a trailing run of such
-> +			 * syscalls, e.g. all of them for 'perf trace -e close',
-> +			 * would leave it set on return and abort the session.
-> +			 */
-> +			err = 0;
->  			continue;
-> +		}
->  		err = bpf_map_update_elem(beauty_map_fd, &key, beauty_array, BPF_ANY);
->  		if (err)
->  			break;
-> -- 
-> 2.56.0.rc1.315.gc6ed9934b7-goog
-> 
+With the fix, ftrace shows the BQ25892 callback on hotplug. A boot-offline
+test changes its input current limit from 500 mA to 2 A.
+
+Fixes: 58a36bb06891 ("power: supply: core: Add support for supplied-from device-property")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
+---
+Changes in v2:
+- Keep firmware-node power-supplies references ahead of the name-based
+  supplied-from fallback, as requested by Hans.
+- Propagate errors while resolving specified firmware references.
+- Use one power_supply_check_supplies() implementation, as requested by
+  Sebastian.
+
+Link: https://lore.kernel.org/r/20260901145156.3177187-1-mauriziocasciano7@gmail.com
+---
+ drivers/power/supply/power_supply_core.c | 84 ++++++++++++------------
+ 1 file changed, 42 insertions(+), 42 deletions(-)
+
+diff --git a/drivers/power/supply/power_supply_core.c b/drivers/power/supply/power_supply_core.c
+index 47e307709e5e..945052a8371e 100644
+--- a/drivers/power/supply/power_supply_core.c
++++ b/drivers/power/supply/power_supply_core.c
+@@ -190,7 +190,35 @@ static void power_supply_deferred_register_work(struct work_struct *work)
+ 		device_unlock(psy->dev.parent);
+ }
+ 
+-#ifdef CONFIG_OF
++static int power_supply_check_supplies_by_name(struct power_supply *psy)
++{
++	struct device *parent = psy->dev.parent;
++	int nval, ret;
++
++	if (!parent)
++		return 0;
++
++	nval = device_property_string_array_count(parent, "supplied-from");
++	if (nval <= 0)
++		return 0;
++
++	psy->supplied_from = devm_kmalloc_array(&psy->dev, nval,
++						sizeof(*psy->supplied_from),
++						GFP_KERNEL);
++	if (!psy->supplied_from)
++		return -ENOMEM;
++
++	ret = device_property_read_string_array(parent, "supplied-from",
++						(const char **)psy->supplied_from,
++						nval);
++	if (ret < 0)
++		return ret;
++
++	psy->num_supplies = nval;
++
++	return 0;
++}
++
+ static int __power_supply_populate_supplied_from(struct power_supply *epsy,
+ 						 void *data)
+ {
+@@ -262,22 +290,21 @@ static int power_supply_find_supply_from_fwnode(struct fwnode_handle *supply_nod
+ static int power_supply_check_supplies(struct power_supply *psy)
+ {
+ 	struct fwnode_handle *np;
+-	int cnt = 0;
++	int cnt, ret;
+ 
+ 	/* If there is already a list honor it */
+ 	if (psy->supplied_from && psy->num_supplies > 0)
+ 		return 0;
+ 
+-	/* No device node found, nothing to do */
+-	if (!psy->dev.fwnode)
+-		return 0;
+-
+-	do {
+-		int ret;
++	for (cnt = 0; psy->dev.fwnode; cnt++) {
++		np = fwnode_find_reference(psy->dev.fwnode, "power-supplies", cnt);
++		if (IS_ERR(np)) {
++			ret = PTR_ERR(np);
++			if (ret != -ENOENT)
++				return ret;
+ 
+-		np = fwnode_find_reference(psy->dev.fwnode, "power-supplies", cnt++);
+-		if (IS_ERR(np))
+ 			break;
++		}
+ 
+ 		ret = power_supply_find_supply_from_fwnode(np);
+ 		fwnode_handle_put(np);
+@@ -286,48 +313,21 @@ static int power_supply_check_supplies(struct power_supply *psy)
+ 			dev_dbg(&psy->dev, "Failed to find supply!\n");
+ 			return ret;
+ 		}
+-	} while (!IS_ERR(np));
++	}
+ 
+-	/* Missing valid "power-supplies" entries */
+-	if (cnt == 1)
+-		return 0;
++	/* Fall back to the name-based property if no references were specified. */
++	if (!cnt)
++		return power_supply_check_supplies_by_name(psy);
+ 
+ 	/* All supplies found, allocate char * array for filling */
+ 	psy->supplied_from = devm_kcalloc(&psy->dev,
+-					  cnt - 1, sizeof(*psy->supplied_from),
++					  cnt, sizeof(*psy->supplied_from),
+ 					  GFP_KERNEL);
+ 	if (!psy->supplied_from)
+ 		return -ENOMEM;
+ 
+ 	return power_supply_populate_supplied_from(psy);
+ }
+-#else
+-static int power_supply_check_supplies(struct power_supply *psy)
+-{
+-	int nval, ret;
+-
+-	if (!psy->dev.parent)
+-		return 0;
+-
+-	nval = device_property_string_array_count(psy->dev.parent, "supplied-from");
+-	if (nval <= 0)
+-		return 0;
+-
+-	psy->supplied_from = devm_kmalloc_array(&psy->dev, nval,
+-						sizeof(char *), GFP_KERNEL);
+-	if (!psy->supplied_from)
+-		return -ENOMEM;
+-
+-	ret = device_property_read_string_array(psy->dev.parent,
+-		"supplied-from", (const char **)psy->supplied_from, nval);
+-	if (ret < 0)
+-		return ret;
+-
+-	psy->num_supplies = nval;
+-
+-	return 0;
+-}
+-#endif
+ 
+ struct psy_am_i_supplied_data {
+ 	struct power_supply *psy;
+-- 
+2.53.0
