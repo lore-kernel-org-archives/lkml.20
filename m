@@ -1,110 +1,94 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE01381EBE
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:42:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA46E26AE5;
+	Thu, 24 Sep 2026 01:42:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790214151; cv=none; b=ON2GpoQeKfJpLnX4c+fk0unaVG9vob5KNAxT1AggB+OIRaFnixYNWJMRqzMkK9AmZzdhj6LH3YLkEszzUxv/so/459tzevCv7I5wsRQEU1e7bJ0o+aq8aodIRRIq9aqJ9RGFzzOeTeRiXnPNhzBtzcDK8gyhAVi6rgzk+OjZbIc=
+	t=1790214156; cv=none; b=aQm6RHrTTB9I0B/Mn16/YKx40swlsZm3hTlXKIlLn2FA1/UL/TQOG/wXO3ETbv10eONHqpD/SdvhLATF7hEYbtztxcWjp1h3Ky1GUVszefqsrEqksdWtizNPWGZ7zh1mxTaHBvYUFvoATgUvyasWgXQ63cq9w2M0v6YPadPVd2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790214151; c=relaxed/simple;
-	bh=dxy399WUjBoRMIH8cJhYZYgATLxdcgUdisCMgfangPI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=SIja/hDknsddovVH30AFLs9AzmOdb4yltivANJrF3uGowbPGglA71F8ZAR1P5byo/Z4R88WyjSXTYf92jGy0Jwht0IIz3CheliLQRx1ujCcMmyfqPQ4FKcgp44Dd1TQuc1/V6o7VlPDcOLjA8abe2wDuRBaPqoS+t6nL0hR3ae8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 2f55fb34b7b911f19a56ed5b684f684d-20260924
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
-	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
-	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
-	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
-	HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, SA_TRUSTED, SA_EXISTED
-	SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_BAD
-	CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU
-	AMN_GOOD, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:89eaacd3-8355-4f04-a168-c6ee8a6e42a0,IP:20,
-	URL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:45
-X-CID-INFO: VERSION:1.3.19,REQID:89eaacd3-8355-4f04-a168-c6ee8a6e42a0,IP:20,UR
-	L:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:45
-X-CID-META: VersionHash:7db8b62,CLOUDID:eacf98485a1b9c69b69a96761f6555f5,BulkI
-	D:260924094224I221WTT7,BulkQuantity:0,SF:17|19|38|66|78|81|82|102|127|850|
-	865|898,TC:nil,Content:0|15|50|99,EDM:5,IP:-2,URL:0,File:nil,RT:nil,Bulk:n
-	il,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BR
-	E:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 2f55fb34b7b911f19a56ed5b684f684d-20260924
-X-User: wangxuewen@kylinos.cn
-Received: from localhost.localdomain [(223.70.159.239)] by mailgw.kylinos.cn
-	(envelope-from <wangxuewen@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1253181800; Thu, 24 Sep 2026 09:42:21 +0800
-From: Xuewen Wang <wangxuewen@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Xuewen Wang <wangxuewen@kylinos.cn>,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v1 1/4] ntfs: bound the adjacent cluster in MFT bitmap extension
-Date: Thu, 24 Sep 2026 09:42:04 +0800
-Message-Id: <20260924014207.1678305-2-wangxuewen@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260924014207.1678305-1-wangxuewen@kylinos.cn>
-References: <20260924014207.1678305-1-wangxuewen@kylinos.cn>
+	s=arc-20240116; t=1790214156; c=relaxed/simple;
+	bh=txf8k/HApzXCcO6ciim6t23YezU4r8X1PAYXIfyNCjQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=P6hm601FOEAOlyCMRP2ouUgSocK2dXEVe8xnCJ4E6oEE+hBoFNoXDOV88auGhP/UokBhi6j0mYNpC///S2IHQpRVTcyI1IcaQw0Jh7RM8gJZ69CMEjXGpsbhIalSEpPGiBUUQi+KC1wioKZfQr5PxFusr1pPuj7FzMdnkIOv/qw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=S8eWmvzf; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="S8eWmvzf"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68O1g73s9792050, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1790214128; bh=txf8k/HApzXCcO6ciim6t23YezU4r8X1PAYXIfyNCjQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=S8eWmvzfv6g+gLj9rdXTKwgRiLbyD68SMjEDBzd8aBSWyHOUEfwkPlJZUX0hSAw1q
+	 KnhHIGIdU6UZo3696N9ko1TY6TlIfPMQ45M3YtS589N9KJULj5x1okDckHoI1PDqRE
+	 XRVWa5Obn7ZDG87BOPIFfwdTwqgefA3PdObVzaQ+9D9fQ4qISCouok0KfrJEFk9V46
+	 cLHwCDRDgTbRmiPPg5U2laavZcvtFGAIzsw9gAEyEp41zXmaY8csN1kSUio39HgElR
+	 9mOqt2k7uIMQ+CqpLDYPyqT4cq67TbHaG5W528oMUX4krUcgk02vMx4OsJUiOtVJEe
+	 SONkUKelmNcbw==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68O1g73s9792050
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 24 Sep 2026 09:42:08 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 24 Sep 2026 09:42:07 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 24 Sep 2026 09:42:07 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Thu, 24 Sep 2026 09:42:07 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Luka Gejak <luka.gejak@linux.dev>, Jeff Johnson
+	<jeff.johnson@oss.qualcomm.com>, Johannes Berg <johannes@sipsolutions.net>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
+   Straube" <straube.linux@gmail.com>, Peter Robinson <pbrobinson@gmail.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Subject: RE: [PATCH v3 6/6] MAINTAINERS: add entry for the RTL8723B rtw88
+ driver
+Thread-Topic: [PATCH v3 6/6] MAINTAINERS: add entry for the RTL8723B rtw88
+ driver
+Thread-Index: AQHdSeAeQzf2/kHhyEaOG4CaLogmfLbYsc0AgAAGuQCAABezgIAASM4AgAAWAACAAI0MQP//gOSAgACGXzD//4BkgIADs1qQ
+Date: Thu, 24 Sep 2026 01:42:07 +0000
+Message-ID: <5458e6c0dca04e9dbbdc5b714d150252@realtek.com>
+References: <20260921154347.82317-1-luka.gejak@linux.dev>
+ <20260921154347.82317-7-luka.gejak@linux.dev>
+ <45eb7d5908f8fff9a18cba603fd3a4abfe8695f9.camel@sipsolutions.net>
+ <31285267ebc43aab631a4199059a247a8d937814@linux.dev>
+ <c208152fc5cb45e19ae7d4660394dbf2bc5e0271.camel@sipsolutions.net>
+ <bcd5a280-8184-4457-ae52-47a9e0fe763c@oss.qualcomm.com>
+ <ffe834a8a469d5febb7e73de371d662f9a0d115f@linux.dev>
+ <fe3c6884a96b476799f415a06314f1ba@realtek.com>
+ <c419df59280e52baa5e25f665eff599592f3cdff@linux.dev>
+ <2694defa2e284ee894005c59197325a0@realtek.com>
+ <a4339de07daae1d3ad274067006ed6dfc021434d@linux.dev>
+In-Reply-To: <a4339de07daae1d3ad274067006ed6dfc021434d@linux.dev>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-When the last MFT bitmap run reaches the volume boundary, the direct
-allocation path tests the bit for nr_clusters, an invalid LCN. A clear
-bit allows an out-of-volume allocation; a bitmap read failure aborts
-extension even if valid clusters remain available.
-
-Check the candidate LCN before accessing $Bitmap and fall back to
-ntfs_cluster_alloc() with no locality hint when it is outside the volume.
-
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
-Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
----
- fs/ntfs/mft.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
-index 8bb8b4085c8b..88bac85d22bc 100644
---- a/fs/ntfs/mft.c
-+++ b/fs/ntfs/mft.c
-@@ -1377,6 +1377,11 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
- 	lcn = rl->lcn + rl->length;
- 	ntfs_debug("Last lcn of mft bitmap attribute is 0x%llx.",
- 			(long long)lcn);
-+	/* There is no adjacent cluster if the last run ends at the volume end. */
-+	if (lcn >= vol->nr_clusters) {
-+		lcn = -1;
-+		goto alloc_cluster;
-+	}
- 	/*
- 	 * Attempt to get the cluster following the last allocated cluster by
- 	 * hand as it may be in the MFT zone so the allocator would not give it
-@@ -1413,6 +1418,7 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
- 		kunmap_local(b);
- 		folio_put(folio);
- 		up_write(&vol->lcnbmp_lock);
-+alloc_cluster:
- 		/* Allocate a cluster from the DATA_ZONE. */
- 		rl2 = ntfs_cluster_alloc(vol, rl[1].vcn, 1, lcn, DATA_ZONE,
- 				true, false, false);
--- 
-2.25.1
-
+THVrYSBHZWphayA8bHVrYS5nZWpha0BsaW51eC5kZXY+IHdyb3RlOg0KPiA+DQo+ID4gSW4gZmFj
+dCwgZXZlbiB5b3UgYXJlbid0IGluIGxpc3Qgb2YgTUFJTlRBSU5FUlMsIHlvdSBjYW4gc3RpbGwg
+cmV2aWV3DQo+ID4gcGF0Y2hlcy4gSnVzdCBzdWJzY3JpYmUgbGludXgtd2lyZWxlc3MgbWFpbGlu
+ZyBsaXN0IChJIHRoaW5rIHlvdSBkaWQpLA0KPiA+IGFuZCByZXBseSBwYXRjaGVzIHlvdSBoYXZl
+IHJldmlld2VkLg0KPiANCj4gSSB3b3VsZCBwcmVmZXIgdG8gYmUgbGlzdGVkIGFzIGEgcmV2aWV3
+ZXIgYmVjYXVzZSBhcyBzdWNoIEkgYW0NCj4gQ0MnZCBvbiBlYWNoIHBhdGNoIGZvciBydHc4OC4g
+SSdtIG5vdCBzdWJzY3JpYmVkIHRvIHdpcmVsZXNzDQo+IG1haWxpbmcgbGlzdCBhcyBsaW51eC5k
+ZXYgc2VydmljZSBwcm92aWRlZCBieSBsaW51eCBmb3VuZGF0aW9uDQo+IHN0YXRlcyB0aGF0IHdl
+IHNob3VsZG4ndCBzdWJzY3JpYmUgdG8gaGlnaCB2b2x1bWUgbGlzdHMuDQoNClRob3VnaCB5b3Ug
+b25seSB3YW50IHRvIHJldmlldyB0aGUgcGF0Y2hlcyBmb3IgcnR3ODgsIHN0aWxsIHN1Z2dlc3Qg
+dG8NCnN1YnNjcmliZSB3aXJlbGVzcyBtYWlsaW5nIGxpc3QuIE90aGVyd2lzZSwgeW91IHdpbGwg
+bWlzcyB0byByZWFkIHNvbWV0aGluZw0KZGlzY3Vzc2VkIGluIG90aGVyIHBhdGNoZXMuIA0KDQpQ
+aW5nLUtlDQoNCg==
