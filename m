@@ -1,179 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 828AF3E120B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9081C423EB4
 	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:25:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790277916; cv=none; b=AvxVWYtcn5ERoH/yZmw3gLb8BtUDQFuytp/0AufJ76YEXdJ5DH32m+H+zKiTQZh15lUnd3KWhwi5uJnP8leCLkkOSLouUV6DKSg7CI9tqONCG/f6Z94AqX6BdnqGlJPauWZ2OZbgOZiW/BBpzfEhp5PP62m3+45pvUwReSK0atc=
+	t=1790277917; cv=none; b=esBaNL2O1WGL4w+lMqU+yEyp7932oYI31UZCJMrhfJQIRsxGOablviksPNCR6Q+Zx8gqfU9MkHbhRunhk5OYAUNtFCA5BEMKgBvU2AIFLpYROxGV/wwFQa2bZABPqVdO5PpO1Sve0G0XXO7yXpIbE9ovAmZoiX0rz0PxLzeykLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790277916; c=relaxed/simple;
-	bh=rNx+CfZXcU/cVFNz60AcgmLxdqGnvMrGSZVBz/AGdbI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=asGu2UtmAIVPiz0/W7e1StPwtJulqeyKNtUGugfJlyUmp/J01nE6CooxeEV4nLd33iW22Wp3jqSFceJGI8EI674RleJcbtMNRgxwzmzgByqIYCFCgu9d2XbW412/srBEYKJnibwk+ESxcKDe0YyLgApoY7yMVvP9TTzt+Qw2xFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hy6CsqU/; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790277917; c=relaxed/simple;
+	bh=kM9mdcewbP9G+9i/G7dpxlJKWXskWmPZeikbqA5nDFk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=j3cr1ZavP6r7PlW8ZopWR4tuyc5knbIKCNY8iw/8QgbSeTFoGevTqSbHWAWvlHTrtA8iJZ8nFFSWl8Qxlj/FyVCAPrFIVVv6gW+8LB/X1TFaC14cHT6wJ/FkI6rMXFrhAPXHepNqjvPEZvwJIlCaYl80lXNwGjoIgiRywoFKs2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uk9VLad9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hy6CsqU/"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 211F3C2BCB3;
-	Thu, 24 Sep 2026 19:25:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790277916;
-	bh=rNx+CfZXcU/cVFNz60AcgmLxdqGnvMrGSZVBz/AGdbI=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=hy6CsqU/vqPeIWo713TbJnB7S7LJ5zefYxbT9rhGkuNrXVU045HQsR51dO5/uL99O
-	 v9p1m69niQFe5bQ7BhzQMLAC5t+SQT04SGRQ6aatEbuS/qP/8DshUTHF0eyy2iODne
-	 rDzC77sy157RPjhYpDh/EXmN3l9NnM8sepNJhYrZMsa94Rx93umaKflXsN+QRihMDQ
-	 i8GTJdzV/AhZR4FeWz56G3GpN3/a1P3bgwCrOBL/4muNMQoP1u+L/2lp3YCey4+nQA
-	 xxffRnexFHxCcz93FDQCS4qzjD43cN6CvGg3bBIYjw876DJDbxC6J5ehA0wO8XImJU
-	 MGdWrbDAZ9mzQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F0886C98321;
-	Thu, 24 Sep 2026 19:25:15 +0000 (UTC)
-From: Vasilij Markin via B4 Relay <devnull+vasilij.kernel.tototo.si@kernel.org>
-Date: Thu, 24 Sep 2026 21:25:13 +0200
-Subject: [PATCH] drm/appletbdrm: Add suspend and resume support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uk9VLad9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D33111F000FF;
+	Thu, 24 Sep 2026 19:25:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790277916;
+	bh=kTOMC78hYvS4j1N/2zdXN2BOuarPzYcebqGM60fGb1E=;
+	h=Date:Subject:To:References:From:In-Reply-To;
+	b=Uk9VLad9LzwzSjWcD4uq9aAkxNO+ukDyV9bQn2Vanyv+1K6CW0pemtuWvev8LDwVS
+	 RJfttSYCp9KRyHOOeDaITobw0TOq3HrRqUm6Ba1rC8nrQD7eYDYTPgNQae6d3Xs/gt
+	 7aJjb0GhtrUzkl7+0yTDybsjsJhhmDMPr7ZNb2McOlCp1YgGncHkCmRkz3qkKQUBdF
+	 cT/2UkHXuOaJW+/7OV6p3LJxh9xLK7JaDBnN1Y3vY6ZXjgfEStyhOLVo5lEigBetV1
+	 z3LozGyd4eDPkbdPQtCxVBWyJZvNz5+/10XJqM78NqjWWpXPMErX4Yw7yGnYWodAB3
+	 vSIelN++i5ALA==
+Message-ID: <f6f3a109-efd5-4371-9442-f87e73367521@kernel.org>
+Date: Thu, 24 Sep 2026 21:21:26 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm: remove the unused zone->unaccepted_cleanup
+To: Usama Arif <usama.arif@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, axelrasmussen@google.com,
+ baohua@kernel.org, baolin.wang@linux.alibaba.com, baoquan.he@linux.dev,
+ kasong@tencent.com, liam@infradead.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, ljs@kernel.org, mhocko@suse.com, qi.zheng@linux.dev,
+ rppt@kernel.org, shakeel.butt@linux.dev, surenb@google.com,
+ vbabka@kernel.org, weixugc@google.com, yuanchu@google.com,
+ hannes@cmpxchg.org, kernel-team@meta.com
+References: <20260924191103.3475117-1-usama.arif@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260924191103.3475117-1-usama.arif@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-appletbdrm-pm-v1-1-0e5432132161@tototo.si>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDSyMT3cSCgpzUkqSUolzdglxds6QUIyMDYwvTpNQkJaCegqLUtMwKsHn
- RsbW1AO3TfuZfAAAA
-X-Change-ID: 20260924-appletbdrm-pm-6bd220385beb
-To: Aun-Ali Zaidi <admin@kodeit.net>, Aditya Garg <aditya.garg@linux.dev>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Kerem Karabay <kekrby@gmail.com>, Atharva Tiwari <evepolonium@gmail.com>, 
- Vasilij Markin <vasilij.kernel@tototo.si>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790277915; l=4094;
- i=vasilij.kernel@tototo.si; s=20260924; h=from:subject:message-id;
- bh=U9TR53zPKdFsJOhaemvo6rCzlInILyrXYml8JDZPnyk=;
- b=TDq3ZsRwuEwNu59ZQph4synn4jS5RIHLjQWWEEQ1iV6mWja7AsKaW1jcKVJ+sYZcGMgh+Yz6n
- 0JnFJZZ07KXC3UPflQN1J5unSjpSBKv3EeENWVBxJgkMeJHQG2Io53J
-X-Developer-Key: i=vasilij.kernel@tototo.si; a=ed25519;
- pk=GBDozjDEYjDf6fxRiVINxMYHaGbpq/11fq4B6pdR7Gs=
-X-Endpoint-Received: by B4 Relay for vasilij.kernel@tototo.si/20260924 with
- auth_id=1057
-X-Original-From: Vasilij Markin <vasilij.kernel@tototo.si>
-Reply-To: vasilij.kernel@tototo.si
 
-From: Vasilij Markin <vasilij.kernel@tototo.si>
+On 9/24/26 21:11, Usama Arif wrote:
+> Commit fefc07518227 ("mm/page_alloc: fix race condition in unaccepted
+> memory handling") removed the zones_with_unaccepted_pages static key and
+> the work that decremented it, but left the work_struct behind in struct
+> zone. Nothing uses it anymore, so let's remove it.
+> 
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> ---
 
-The driver has no USB power management callbacks, so the USB core
-unbinds it before system suspend and binds it again on resume. The DRM
-device is unregistered and registered again on every suspend and resume
-cycle, userspace driving the Touch Bar through it (such as tiny-dfr)
-loses its device, and the Touch Bar stays dark after resume.
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Implement suspend and resume with drm_mode_config_helper_suspend() and
-drm_mode_config_helper_resume(), so the device stays registered and the
-last committed state is restored on resume. If the device was reset
-while suspended, repeat the probe-time handshake first.
-
-Fixes: 0670c2f56e45 ("drm/tiny: add driver for Apple Touch Bars in x86 Macs")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Vasilij Markin <vasilij.kernel@tototo.si>
----
-Tested on a MacBookPro16,2 with this change backported to 7.2.7, deep (S3)
-suspend by closing the lid, tiny-dfr 0.3.7. Without it the driver is probed
-again on every resume and systemd stops tiny-dfr; with it tiny-dfr keeps
-running, the driver is not probed again and the Touch Bar shows its content
-right after resume. The reset_resume path is untested: the device never came
-back reset.
-
-Kernels before commit 3d95f93b30b8 ("drm/appletbdrm: Convert to atomic_create_state")
-also need the plane reset hook to free the existing state, otherwise
-drm_mode_config_reset() on resume hits WARN_ON(plane->state) in
-appletbdrm_primary_plane_reset() and leaks the old state. 7.2.y is such a
-kernel; the tested backport carries that change as a separate patch.
-
-Built on drm-misc-next (c4c54ffd6) with W=1 without warnings.
----
- drivers/gpu/drm/tiny/appletbdrm.c | 43 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 43 insertions(+)
-
-diff --git a/drivers/gpu/drm/tiny/appletbdrm.c b/drivers/gpu/drm/tiny/appletbdrm.c
-index 4297d9c11..024ad8bf6 100644
---- a/drivers/gpu/drm/tiny/appletbdrm.c
-+++ b/drivers/gpu/drm/tiny/appletbdrm.c
-@@ -30,6 +30,7 @@
- #include <drm/drm_gem_atomic_helper.h>
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_gem_shmem_helper.h>
-+#include <drm/drm_modeset_helper.h>
- #include <drm/drm_plane.h>
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
-@@ -821,6 +822,45 @@ static void appletbdrm_shutdown(struct usb_interface *intf)
- 	drm_atomic_helper_shutdown(&adev->drm);
- }
- 
-+static int appletbdrm_suspend(struct usb_interface *intf, pm_message_t message)
-+{
-+	struct appletbdrm_device *adev = usb_get_intfdata(intf);
-+
-+	return drm_mode_config_helper_suspend(&adev->drm);
-+}
-+
-+static int appletbdrm_resume(struct usb_interface *intf)
-+{
-+	struct appletbdrm_device *adev = usb_get_intfdata(intf);
-+
-+	return drm_mode_config_helper_resume(&adev->drm);
-+}
-+
-+static int appletbdrm_reset_resume(struct usb_interface *intf)
-+{
-+	struct appletbdrm_device *adev = usb_get_intfdata(intf);
-+	struct drm_device *drm = &adev->drm;
-+	int ret;
-+
-+	/*
-+	 * A reset puts the device back into its initial state, where it
-+	 * expects the same handshake as during probe
-+	 */
-+	ret = appletbdrm_get_information(adev);
-+	if (ret) {
-+		drm_err(drm, "Failed to get display information\n");
-+		return ret;
-+	}
-+
-+	ret = appletbdrm_signal_readiness(adev);
-+	if (ret) {
-+		drm_err(drm, "Failed to signal readiness\n");
-+		return ret;
-+	}
-+
-+	return drm_mode_config_helper_resume(drm);
-+}
-+
- static const struct usb_device_id appletbdrm_usb_id_table[] = {
- 	{ USB_DEVICE_INTERFACE_CLASS(0x05ac, 0x8302, USB_CLASS_AUDIO_VIDEO) },
- 	{}
-@@ -832,6 +872,9 @@ static struct usb_driver appletbdrm_usb_driver = {
- 	.probe		= appletbdrm_probe,
- 	.disconnect	= appletbdrm_disconnect,
- 	.shutdown	= appletbdrm_shutdown,
-+	.suspend	= appletbdrm_suspend,
-+	.resume		= appletbdrm_resume,
-+	.reset_resume	= appletbdrm_reset_resume,
- 	.id_table	= appletbdrm_usb_id_table,
- };
- module_usb_driver(appletbdrm_usb_driver);
-
----
-base-commit: c4c54ffd65555ac5316f8faf4d7dc8c815877937
-change-id: 20260924-appletbdrm-pm-6bd220385beb
-
-Best regards,
 -- 
-Vasilij Markin <vasilij.kernel@tototo.si>
+Cheers,
 
-
+David
