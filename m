@@ -1,127 +1,110 @@
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B352EB10
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:14:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27EE22C3757;
+	Thu, 24 Sep 2026 01:14:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790212443; cv=none; b=NTtdSDVnsM7i4vfvVVzrTWk5m1nmGnUkziLcgKigdauBW/5IuPKHlsrK0awkQuQwnGFvibpI6MkZe91cJ7ufwMzYapYiJGhouc4f4wQHOTwBkJOGjCDfwn2dC66MwvAf7uOej5Hk9sGe4P0CaukQFUYOD4HZMyjXJD4RHHblo+U=
+	t=1790212444; cv=none; b=hHbjsuAL/HmjC3K4FCYsWV56pnugFIa4L9QBiiuQ0bXqGCajZbJo1VjWjdcDaJ9QzMP0edKBlzJEAi/9prOxosLxmepq+OJM9Iy3kFe3u1C9M59fiFPCK+foHnZRqorlEnQsJC2hDTDCBmAfE7yzoFpOMbtXgmooK4nsnrWx7Zs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790212443; c=relaxed/simple;
-	bh=5k0iMuygLlFXQn9BbSXp9oE5JmPJd8WYIsrUNr6cbXs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NRtYPx7HT77Inj1A3jeUkFm3phYyuRdXgAh8uxY5ykX8p5TS0/TS4s/vGOP8nugRzjMIXRmFUAgcnv7y/B64HLTkBu/kxTxHFSam/EGq4+Xgg6e4DjNsSQmnfxfjtHG9/RmW11j7vkq9o/QmBzR+H76/SupnukTrYqPEl9ATBOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dHt8JAeT; arc=none smtp.client-ip=209.85.222.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790212444; c=relaxed/simple;
+	bh=5EVw7m7WVHNJVeZScbIxpaBKjYf8CSz5jNF5kQDb2X0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PTUy+MQn35DzLRh+o3UPUU3VmxlNqctmeWZYPrY4xZ/buzAXMxDHPOO60a1EwkMNsylSwcg09dZ52kxp4AbeAbhdIX1OPINGkWC4y5y76Qb5e98VNIzOfA76fhDBKb/zWwd8ieysoH6jeACjEAOeLRDx7giaz/revf95DNG5WcQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VUTGRzUC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dHt8JAeT"
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93a40a9a01aso38374385a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:14:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790212441; x=1790817241; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R/tOsz7lRmLwRWBhmFynbfnzkjixOzoIc2AF6i3L4yA=;
-        b=dHt8JAeTPsRhBdE1bhXc+IW7qMbodJePmzAE8drY4kjnakNUrPIT37N4QFClNv75Gr
-         jLKRVhvYq7ysi73lTO8KJ9863XCf1uqjAA0415KS8Y1I06s9AxWP4RG60TsoKevGltXO
-         IB0ZFSqUR2yEJDgG2J8mmM/d02OHeNJIn3QDo7Nc/oiaUdDhFTWGfOg3YS0rVur2l80H
-         UTKA7IS60akegNWc8xANxsEc9ep1Z5BFnwjPgt9sfEd+MlxbaTpkCd2Cs4M2zrXB7BqH
-         /Q9k8Y6l7X8qh88EO7Si/UyVrnH8W5Tlxqz1Bm2n//qh/gtZqSkF5LMKZtgo8TvK8mt0
-         /g4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790212441; x=1790817241;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R/tOsz7lRmLwRWBhmFynbfnzkjixOzoIc2AF6i3L4yA=;
-        b=VfCiXePrFb7qKrF/w+7qLCi6Z5Gzq2F7pJUSdPYn9G+E8xgMhzN2jSGRjY0m+QGznL
-         uqIq0h1YnAlzjkus0DqQrXzMcGi2QO0TY3BWTz7fakxiEFoVNWaPAuFsHL+14kpIkveA
-         7pjRXBkqFTO2KrR4Ek1iGh9aIOM/xQVCA9SCJHQbOomrNoquMnaDQMOTzrvSNEZAfLtW
-         QxmbOETxkDjLa9R0IvCGSHfaYzXiMCk2BKl1BemYW/30QeK7FtNTWtVSbMtrQJqcJ0dH
-         XEY35mDi69QGQuwbMda9DulwaRWZyBUjjvqDOBNIzythDPIBy+ilOqGjYhgvbCXmiRfW
-         FzGg==
-X-Forwarded-Encrypted: i=1; AKwUvBzLiI2yPZ0SiSmSEpedRECpogMs+F5QP7DvpL6f0DoFQlUObYZK03p7Wf4JxUABBJ2bfOJrufyNGjynZjI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kcng+L392KePZlzDxDF6rRUOuHSa1yQM/j2UVyMTXg89sK5YH6
-	g55m78MU8lqJbnJcG76FoKd67veVpYOmeWHHH9mG2aAuDqA+NckB/J14
-X-Gm-Gg: AYBFou3dvtoF/ZrIoMdALAGbkqVH7/VkOVTXFKttdivkZfyawYHs89ACJ/vhfOEC8c3
-	3uqTZcrH1A/VqfUAq8QaODCPQr9vW5TiNNmC4J0Uur2pn0xj/wEyIDxf7UZoEVke5cnhciygtiN
-	kklsjNAiBp3ZA9/rTiFSHqHiIgiiS0r/e6y1/P0COiNwr7a56PerNK+AMBQANF+UMoogZhc2Zta
-	2mHnqyHXv1ZZBWaKHodQoX8q5Xh/+e2t2Dx30GTf7UpG8sSWw3L6PUBCgzBCE0sr/I8NOGDww9J
-	BKodToZf6J9NcjsNSK+qckb1g4Cb48AxIW9uFog5I/prUovuKW2foQTi3sf/XKaf1TyJ0ea/J2e
-	swDHtOhtg5Osp/43rgOvZ3Ay7LjK8h55AIhegLTWN/Rro6YAKJ5bc7Ei3T1Rfav/18CJAv5nq1K
-	NUedbytGG+vZqaM5DA2gcwd4OuGyImETM5DFVG8Rk197nUB8J+zhvyoVjaGd00bhEhsn5Ja4S6L
-	XFhgah9J9gD4KULSFfXng==
-X-Received: by 2002:a05:620a:3187:b0:939:a1d0:b5b3 with SMTP id af79cd13be357-93c36670f5cmr55343585a.11.1790212441496;
-        Wed, 23 Sep 2026 18:14:01 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c24822e3asm349372485a.16.2026.09.23.18.14.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 18:14:01 -0700 (PDT)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>
-Subject: [PATCH v2] of: Put coreboot node after compatibility check
-Date: Wed, 23 Sep 2026 21:13:50 -0400
-Message-ID: <20260924011358.734722-1-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VUTGRzUC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 977D31F00899;
+	Thu, 24 Sep 2026 01:14:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790212443;
+	bh=/ddXJYlXBnPMAYtNTVd/KpD+ANNHYIVltbsR6nngMcE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=VUTGRzUCX35o81b5gaZeUytBJ5JZZ9dEyHV24H/fDuix102VaJJOl6Byn1M82SuYP
+	 eiH/rp2H5FKM3Btem4oQsdyhUddSTBcM60C/XFbK86NDvcfNQBHz0YSzvBFATFTqd7
+	 9BQohH5gLe/mT8DQ+hShO4B+kpoe3iAIlFbH49Jh7mjE0n9J+AZX3/1hwvtNdRrl/A
+	 IfSWV9r6W/xlNnUrgNZQD/O9fP6t05l+5iebfopLZO84vLCGH+HqWQXFWnfDHIzh7c
+	 IutGxCHrk+hYB8VSRwB67FNGPxQyeOJON1egzjdhR4bL/U0F9zAMW+iTseEZR9FUSA
+	 IFQg8woXUjEPg==
+Date: Wed, 23 Sep 2026 18:14:01 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Hangbin Liu <hangbin.liu@linux.dev>
+Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+ <horms@kernel.org>, Donald Hunter <donald.hunter@gmail.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ Hangbin Liu <liuhangbin@kylinos.cn>
+Subject: Re: [PATCH net-next v2 2/6] tools: ynl: convert enum selector to
+ string for sub-message parsing
+Message-ID: <20260923181401.41d836e2@kernel.org>
+In-Reply-To: <20260920-ynl_rt_encap-v2-2-c664a3e726f6@kylinos.cn>
+References: <20260920-ynl_rt_encap-v2-0-c664a3e726f6@kylinos.cn>
+	<20260920-ynl_rt_encap-v2-2-c664a3e726f6@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-of_find_compatible_node() returns a referenced device node, but
-EXCLUDED_DEFAULT_CELLS_PLATFORMS used the result only as a boolean and
-discarded the reference. This leaked a reference each time the
-address-cells or size-cells warning condition was evaluated on a
-coreboot system.
+On Sun, 20 Sep 2026 18:06:37 +0800 Hangbin Liu wrote:
+> 	const char *encap_type_str;
+> 	encap_type_str = rt_route_encap_type_str(dst->encap_type);
+> 	if (!encap_type_str)
+> 		return ynl_submsg_failed(yarg, "encap", "encap-type");
+> 	if (rt_route_encap_data_parse(&parg, encap_type_str, attr))
+> 		return YNL_PARSE_CB_ERROR;
 
-Use a helper that checks for the coreboot node with a scoped reference,
-so the reference is dropped once the check is done.
+Please squash this in:
 
-Fixes: 8600058ba28a7 ("of: Add coreboot firmware to excluded default cells list")
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
----
-Changes in v2:
-- Use __free(device_node) in of_coreboot_present() (Krzysztof Kozlowski)
-- Switch to my oss.patchbox address
-
-v1: https://lore.kernel.org/all/20260802023821.494178-1-dbgh9129@gmail.com/
-
- drivers/of/base.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/of/base.c b/drivers/of/base.c
-index d71ae0449360..f63a9486b130 100644
---- a/drivers/of/base.c
-+++ b/drivers/of/base.c
-@@ -96,9 +96,17 @@ static bool __of_node_is_type(const struct device_node *np, const char *type)
- 	return !strcmp(match, type);
- }
+diff --git a/tools/net/ynl/pyynl/ynl_gen_c.py b/tools/net/ynl/pyynl/ynl_gen_c.py
+index 785e747e5865..3b95e5d31638 100755
+--- a/tools/net/ynl/pyynl/ynl_gen_c.py
++++ b/tools/net/ynl/pyynl/ynl_gen_c.py
+@@ -954,14 +954,13 @@ from lib import SpecSubMessage
  
-+static bool of_coreboot_present(void)
-+{
-+	struct device_node *np __free(device_node) =
-+		of_find_compatible_node(NULL, NULL, "coreboot");
+         parse_sel = sel_var
+         get_lines = []
+-        if not self.selector.is_external() and self.selector.attr and \
+-           "enum" in self.selector.attr.attr:
+-            enum_name = self.selector.attr.attr["enum"]
+-            str_fn = c_lower(self.family.ident_name + "-" + enum_name) + "_str"
+-            sel_str_var = f"{sel}_str"
+-            get_lines += [f'const char *{sel_str_var};',
+-                          f'{sel_str_var} = {str_fn}({sel_var});']
+-            parse_sel = sel_str_var
++        local_vars = None
 +
-+	return np;
-+}
-+
- #define EXCLUDED_DEFAULT_CELLS_PLATFORMS ( \
- 	IS_ENABLED(CONFIG_SPARC) || \
--	of_find_compatible_node(NULL, NULL, "coreboot") \
-+	of_coreboot_present() \
- )
++        if self.selector.is_enum_val():
++            parse_sel = f"{sel}_str"
++            local_vars = [f'const char *{parse_sel};']
++            enum = self.family.consts[self.selector.get_enum_name()]
++            get_lines += [f'{parse_sel} = {enum.render_name}_str({sel_var});']
  
- int of_bus_n_addr_cells(struct device_node *np)
-
-base-commit: f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
--- 
-2.43.0
-
+         get_lines += [f'if (!{parse_sel})',
+                       f'return ynl_submsg_failed(yarg, "{self.name}", "{selector}");',
+@@ -969,7 +968,7 @@ from lib import SpecSubMessage
+                       "return YNL_PARSE_CB_ERROR;"]
+         init_lines = [f"parg.rsp_policy = &{self.nested_render_name}_nest;",
+                       f"parg.data = &{var}->{self.c_name};"]
+-        return get_lines, init_lines, None
++        return get_lines, init_lines, local_vars
+ 
+ 
+ class Selector:
+@@ -991,6 +990,12 @@ from lib import SpecSubMessage
+     def is_external(self):
+         return self._external
+ 
++    def is_enum_val(self):
++        return self.get_enum_name() is not None
++
++    def get_enum_name(self):
++        return self.attr and self.attr.attr.get("enum")
++
+ 
+ class Struct:
+     def __init__(self, family, space_name, type_list=None, fixed_header=None,
