@@ -1,145 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 138EE3FB7E5;
-	Thu, 24 Sep 2026 19:50:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790279417; cv=none; b=uYE38Fh/d27BW43mR55FJPNmlAhAOClcHxNYnDfTev0KDqiiQ3g3tX+tLLsJsKXvGHL2hjlOzS+LzO9VtbWo0UVAzpVBFAqoRTmX7AGfs/OVx1AVLib1arBdA9vR39eOscXENVDN3HU41sX+IOtE3K3a0ec/LzJw66Io7oqOrHQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790279417; c=relaxed/simple;
-	bh=MqIgevqO/07Z1ZJhZN4iDsoBNAEdKgZoQPcYm0vi9Ds=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lKWXczbMXXcwoHfMYOvvrNjP0wRqH9TpTngssBz8oCiQ2oTvpkHAc7yu5f+fm9d9SEefHTRGMpjpcbm1F3rDKU+LapWnqim/s5Wgz+gPjlv9xjOPmVsG7ow8I6yBdYJFxffrG1cy1vdremxVxVE2iUEO8yx2bubRFBYksEETqao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MjHBmkcQ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27D9F4BFE6B
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:52:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790279582; cv=pass; b=RK3AK7s2zq+LD3nA1LEQtRICUkK1ybqFOeJJcFU9V7Ds6TXvV4UmDzY8BMJjI24uHvFuqzhvgzBes+HqhfUBR8MDqfockPF66BvLKI3aizWjBB4LJ58DED0qY/eIgiVJe2IzfxJ2WnGojLvHpDkuby9ImshkXNLKX1PYytmaD3c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790279582; c=relaxed/simple;
+	bh=QoubT9CoXhKpEUyyyBiFnbmENvqSUiUg/q8bBXketCM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZvGKxLvVQcAW5oM1OUT4d9j4h9rGzgAkU2RHB8IjbWX1dBP4LIUyoDufOUQwR0mTubc7YZzetNn6SFEiRy308QQwUSp3baN1YlMvuJKkYmGO4wRiwyn8pKt2tESLoGf0AVPPUr1p9zwbyenPc1ZmbCEwvfYTriRQlE4pqVIa1m8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org; spf=none smtp.mailfrom=thinkoid.org; dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b=qyRdLfhc; arc=pass smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MjHBmkcQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 453CB1F000FF;
-	Thu, 24 Sep 2026 19:50:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790279415;
-	bh=R7GRre8UKUgbIjQqpBFebYRVHyGQlunCInkDxKufszI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MjHBmkcQ/qd9t49haNxYHlTYpGVQk37oxGdxBtQQZoCApRCZIkkpIH62vPL3/Hkz4
-	 +y3DiPqZ3dq0Cw37qn86Jgoisgo6S07xcFsmhtTC5ViMb7uRJ7PjwZho/fEDnfEO4j
-	 RgEJYQhP27rF5OGwAOMOp/i3S6x4y5NL6oAhY6AacCRC/++DowaWH4hOj0dDRE6cwJ
-	 4KMhXGS665+F63XbcZEv9Q6qa4Zq1Oka5xIOZmsDNu8ZB4EKwwd4xJXzl14TZ06BuI
-	 XTW7jfK5RqrUgQhUeuIe9IJGy+nE8bc6SNuOaQX9CyOUx0/++A+FJM/0rMpkIg+Geb
-	 7z3+Pr2a8Ut8Q==
-Message-ID: <b6069b5e-4e67-4ac5-ae20-51301d926e97@kernel.org>
-Date: Thu, 24 Sep 2026 21:50:06 +0200
+	dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b="qyRdLfhc"
+Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-78a5e045187so87947137.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:52:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790279574; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BmYO2fw/yLJKhiB/TDea54o+qQAEBuSeC2EspNWG3katoMODMA43KoavLykkaOH2X1
+         D5FLeswmEBwiopxA9I7e2SsmHs1JxjrNMkUMcMePXAVeVKXuaDRknpM4PTAskwAgmrI+
+         g7+OIKS9dwDGBnFCjUNAZbBEHkkWh3/04r9XqZAOtS/7jmkzPSGATWE9pDlGABd9qfcM
+         qVmWcsikVJ4xd2kjHgTVBYiCUU7ZHgurshJcuSSfyd+IibI3gNuXGH1Dl8ACtvej6kyx
+         UrU4PlFFgD9IXr60i3iLT0zNluBd+XcZe+QrzSgprPwDuSIDP9tfr4pylQhSKvtqIcgT
+         aqAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=UWTnqz7gHpCXSb1m9qCCSqzvyxAbuc/zoS0Ar8FS4l4=;
+        fh=KfLi8yAg5dgExgm4E8GCpxjUDiWLLpE25dHo4DZ+U8E=;
+        b=OAHR0wUxU5N4+DvcZM9B2q0lPKYXmoFHr5mxkyPMXOpXlOXjcb/AdA9NAUcdACq/Ot
+         DqV1tqoA7XLmaT+9R+BHFnNDYQpRL7sHBiWSbZbnhuRkptnHSeIJ7lO9NNw5qcsYOuBc
+         nhV4Xd+xbjnnyh37TLfs5xA/3u3EJXsNll1YWpNzoNe07TEC3cdNptR52f0tadqyDCi0
+         EavjtBKCU+3c4dphMXQVHEBJJiOiC47jM1pWTya7Z2EWGIltDaotMv3lw9z3SIfkHxHA
+         NynQNXkRRCz/SEwlJ8DL7S25HmXuXA1dcDfV8sKdlHNorBD9Rv8EO/iExO7aclchoApw
+         nWKA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1790279574; x=1790884374; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UWTnqz7gHpCXSb1m9qCCSqzvyxAbuc/zoS0Ar8FS4l4=;
+        b=qyRdLfhcgyRcsb9h50M0Xs2yyGilj46mmpAW1RrzesjpafuKgEpQCxfLZXUess3oyg
+         WYpiruTSta4ce4G6sFP3W7we6wx9kHBbZehNbuOYCPhmjDkqLLSI5pdElXzF6htOVRXl
+         Zo57zg/nuSEZi6nbv1skbB7Z2okM7mV+BXmIc/wr2x1CBNyyob62IYe6G7CI4VwLA7jL
+         8s4iADFbqGOc6et8S3HvhCmH0C8CBU9YU/Tmxm3n2cCoPgOVEWzRDBp9oiPOJzDOJIgg
+         q38RtBoz9gg0hCxWQBnY0MmEgZaeDI3FI0+QMdbMI1Y4N+TMfqg89CgU3Y7PTVcoEVYw
+         MoaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790279574; x=1790884374;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UWTnqz7gHpCXSb1m9qCCSqzvyxAbuc/zoS0Ar8FS4l4=;
+        b=CGllBx0UGN6AAWX9aUf6oYcAeMVHemqHklPRyONEG8yZLBMoQ5Ij09lEkuQiJtdEAg
+         DuViDgGbO3RpLWz7dViucsMGQhL+lqpu7TFqZGxBiKJqMZBTVeBA6zBqdeklJiI2LTRC
+         kNs3xPKq3mI1EJ1r/o/36wE9vJZbxEC/ZMakG2+64hyaM/iVtrOust+14blDt+ZrKwnu
+         HTqIrBVUlL5fxLM821jo62s+q26cYcET1wlFuhloQSjEKPIvR3e32gOeZZuVfxGlYvCV
+         5Ik4DWrIcr2gToU5seHgWP5QkOE4ruQk5cAD5Y8iHbkls4FfWudM5Igi6vPL67j1KCls
+         eWIA==
+X-Forwarded-Encrypted: i=1; AKwUvByjN0/eHOUj1RXsTDCbxiL9e5cXPQT186xIsvsrUjj4PuznJVqGhcj0Zc0jLjSmjwr4K6VGuZCz3qwyTEs=@vger.kernel.org
+X-Gm-Message-State: AFuF++norp7vQn9Y4S/Rq5/IBCr+YzjJeH+8V2DmT7fbrqR/iOugTKI7
+	PSXmqaYBB708vMAUSp+D5FzupQ83CZk3/EE8X0JiSHnuDsFN7hsES6NW/ZBglvEN8dae54S/MIZ
+	w3/92a7D2Mz0K5AYxhuc/MIQhurevWJu4AtFkm+VfAw==
+X-Gm-Gg: AYBFou0z+45wQEIgYiwJaqYtajP4yH58a5AujdHuMWHObG7J1X2BubJk2bxRrSvt0mb
+	hirbTU+FpTTJlU95Y42H+D2RaDnLS9I1Rqr5ClQYnSgjwzCwxxdIZKcj4MoPpIuDV8lztRBh4qY
+	WmMDIremTWRnDRkAfR2T7d30Zdg7pw7vdlrCQPr5M2P9JTqlDsDUGEG3c7wxGfPAKfcYK6zkujS
+	5WY8RxDQVqpgTgiJV8+bG2foEMJnTDGPpIl3AD3Eu6vJJcRIJfJ6BZM4Xt8BufLW1PNaac6aXSu
+	pLoYRLHFWQY+kYIblSrBuRxa/TO55vii/laGoV+NaWqygWjCEijJXMszMHaK0rNdQ0g=
+X-Received: by 2002:a05:6102:6a83:b0:7a2:2068:6b67 with SMTP id
+ ada2fe7eead31-7af1dddb820mr1606892137.25.1790279573796; Thu, 24 Sep 2026
+ 12:52:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/5] mm: sub-folio dirty tracking for PTE-mapped mmap
- writes
-To: Kiryl Shutsemau <kirill@shutemov.name>, akpm@linux-foundation.org,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Jan Kara <jack@suse.cz>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Jann Horn <jannh@google.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, "Darrick J. Wong"
- <djwong@kernel.org>, Carlos Maiolino <cem@kernel.org>,
- Usama Arif <usama.arif@linux.dev>, Pedro Falcato <pfalcato@suse.de>,
- linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
- kernel-team@meta.com, "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-References: <20260903182943.662461-1-kirill@shutemov.name>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260903182943.662461-1-kirill@shutemov.name>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260924125940.22665-1-lnicoara@thinkoid.org> <54f8af3d-a01c-d1fb-36b4-7eac71174f92@marek.ca>
+In-Reply-To: <54f8af3d-a01c-d1fb-36b4-7eac71174f92@marek.ca>
+From: Liviu Nicoara <lnicoara@thinkoid.org>
+Date: Thu, 24 Sep 2026 15:52:43 -0400
+X-Gm-Features: AclHuK_leAsQLblHRxuOpdcET2NRKKGqkd34mCi1ubZfnnfcE3YhUz2hrAzgGrU
+Message-ID: <CAAhq3a6OV6+Z0p=qVqpUiL-QoP92fYTsf5MBQL-f2oedddW=Dg@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: codecs: lpass-wsa-macro: rewrite the interpolator
+ volume after enabling clocks
+To: Jonathan Marek <jonathan@marek.ca>
+Cc: Srinivas Kandagatla <srini@kernel.org>, Mark Brown <broonie@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Johan Hovold <johan@kernel.org>, linux-sound@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/3/26 20:29, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> 
-> A store through a shared file mapping dirties the whole folio. With large
-> page cache folios that turns a 4K store into 2M of writeback: one dirty
-> bit per folio, and writeback has no way to know which part changed.
-> 
-> XFS already knows better. iomap tracks dirty state per block and
-> iomap_writeback_folio() submits only the dirty ranges, and the buffered
-> write path sets just the range it copied. Only the mmap path throws that
-> away, because iomap_dirty_folio() covers the whole folio.
-> 
-> Narrowing the dirtying at page_mkwrite() time does not work on its own:
-> set_pte_range() batch-maps a whole folio writable on the first shared
-> write fault, so the stores that follow never fault and never reach the
-> filesystem.
-> 
-> So harvest the hardware instead. folio_clear_dirty_for_io() already calls
-> folio_mkclean(), whose rmap walk reads pte_dirty() for every entry of the
-> folio and throws it away. Those bits are the only record of which parts
-> of a large folio were written through a mapping. Collect them there and
-> hand the filesystem the runs that were dirty, through a new
-> a_ops->dirty_folio_range().
-> 
-> All of this is about PTE-mapped folios. A PMD-mapped folio has a single
-> dirty bit for the 2M it maps, so there is nothing finer to harvest, and
-> it keeps writing back whole. Keeping shared write faults off PMDs is a
-> separate patch and not part of this posting.
-> 
-> On a 512M file in 2M folios on XFS, storing one byte per folio and
-> calling msync() wrote 512M before and writes 1M after, with identical
-> minor fault counts.
+On Thu, Sep 24, 2026 at 3:02=E2=80=AFPM Jonathan Marek <jonathan@marek.ca> =
+wrote:
+>
+> this is just papering over the real problem, which would be the regmap
+> cache being out of sync with the HW registers. there's no requirement
+> that the volume register be written after the int/path clock enable
+>
+> (fwiw, this problem doesn't reproduce on my setup, where this driver
+> does not autosuspend and the regmap doesn't go into cache-only mode)
+>
+>
 
-Just a note that with things like cont-pte we see the trend that we only have a
-single logical dirty bit for the entire coalesced PTE. Similar to having only a
-single dirty bit for a PMD-mapped THP.
+Thanks for looking. I checked whether the cache and the hardware
+disagree on this machine (v7.2.6, where the macro runtime-suspends after
+3 s). With the macro suspended, I changed the digital volume from 81 to
+69, which updates only the cache.  I then forced a runtime resume, which
+runs regcache_sync(), and read the volume register straight from the
+hardware with the regmap debugfs cache_bypass: it held the new value
+(0xf1).
 
--- 
-Cheers,
+However, on my unpatched driver an idle volume change did not take place
+when playback starts (changed it from 69 to 81 and it played at 69). A
+change done during playback though, takes effect at once. I don't think
+anything writes the register in between.
 
-David
+The register holds the new value, but the path does not use it until it
+is written with the interpolator clock running. The read/write-back that
+902f497a1ff5 removed did exactly that; Johan kept it deliberately in
+46188db080bd ("Note that the volume registers still need to be written
+after enabling clocks in order for any prior updates to take
+effect"). Unless I am reading it wrong.
+
+On your setup, does a volume change made with no stream running take
+effect when the next stream starts?  If your changes land while the path
+is active, that could explain why it does not reproduce there.
+
+Thanks again.
