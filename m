@@ -1,85 +1,87 @@
 Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD553E7BCC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ADE947535D
 	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 23:42:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790293358; cv=none; b=IAphFrARjXS9uQohkOpGzNL81ZbLbOykv+IWREOvz5Di1TEe7qSHKEfBUOY6hFMZ8sNNVLF9aiW2R8sLNBLsZfAh48LpUerZqKplNqCVyx0avd8UlIDJAwV90padFCOoiroPbtQPNXay1oAWfIrZyO5xGNB4dyYagvwdAG99oZs=
+	t=1790293359; cv=none; b=QeqpaiM4qKHNIJR7T+fPuz54ROMD2eHzdksYM6MwmBo08150VtJ+UQQOXlXZZUFVyYwUBqR7/WeLfT6sRAFODSSL0zg+5eErSNcJe4DKiwr0laVSOMgt8xnTb6AtQiq3MduQmgp27fiVOWzhq7ZcNz53yqD543E4HFH6mwC3sMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790293358; c=relaxed/simple;
-	bh=DIJDE30a8cvtr07gDXvMJB9bUPKp79v/NuH7d9A/dis=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=MvBjS5wjEGie85WfL+0pWOH8mCjYKpsOgWcmoUH/Hc8Ypqw+WwTfGNlMkO4p3lTt6SYLc9UCQ0jUj3KOqIIRHG3buoxQYt1m0jdqdQWp14SXaHW/tVW7pHD1WWCWa4NI4hIcqYysAhVowIR0kCOgX+12+id85ouvJ/TFnktZqFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=Z+CPS9DJ; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=keRzkwyN; arc=none smtp.client-ip=148.163.135.74
+	s=arc-20240116; t=1790293359; c=relaxed/simple;
+	bh=XCd/EXrFmFVFNdHJdolFqfiKIkTkg5kCZkDjHJUVVxs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=FDlvxib3LDVoqq7n+15skMJLeAouepe33H48YzCDIvpvQtqOjc2+58p0BCLV63/lSKVUj8DW/4BFyhGh2wQG2nbZMNehs0jrjU4feLph3EbTdsooUb2RfK8kvswgnORHKbtVLFdsz5JThCVpyPU+1eO3YTjdFdAZa4ORti20O60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=ZDcKAs5r; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=sXwPE9mm; arc=none smtp.client-ip=148.163.135.74
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="Z+CPS9DJ";
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="keRzkwyN"
-Received: from pps.filterd (m0167072.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OMYBE5817421
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:42:30 -0400
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="ZDcKAs5r";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="sXwPE9mm"
+Received: from pps.filterd (m0167068.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OMXlhc1818652
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:42:35 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pps01; bh=S2aMP6JXuEYmwKBs6aotCGlCcE
-	1R79aNZlWiI1iQooY=; b=Z+CPS9DJ6t4XqcMWXQavFMdXAq00ptPym5mBotzFr5
-	ClWtt9pDJ6ZqoKJNoneEbu6d4A0VR7wwERwuRDhX2Jul59+aEoB3DvGSD6THkDg3
-	uOSzJBv4FyxCMVfqKAr6ne7/saqMpj45gOTkEhU/cXt7hR0rErSI+cyT4JH6ojod
-	hyfoRSQoI0RMOclflwmYpCGflu7MDdYRcAIIBOopaPL8hqp2uKJm/MDlqt2KcYfD
-	L9ZJcmuPLMDllJ0YYAClMkv0Vf0V5mtzgJPLRoZ+B0Mc0cGdmTMl8qdBbdNxkkCI
-	P26j5IpKnzxe87o5V8d/Fd4xM0o+bR6eQ2TsYSCrT1Ww==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4gw8c6u66x-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=1W8F
+	0tnaOtUsZa7C8naFnLEhuPz2zI+t5temLbb6h84=; b=ZDcKAs5rEPRehiRI6EC5
+	SH5pomBGrSvHTOK7zzKw9fLnm8wVE3AoqIhD/Wd0ed9N9fwqRtWY+UNAnRt9k7Je
+	fN5/lY1J3n7xVMpSErmL1JoJ9KrWaap/IEKDvqwzwmgSf8ChzKpQTFjn7hoiy/ZQ
+	D0JAcTAJvTrV2AMEpyOFttL6o4CgwxieOoVoQsFMU29I0/YJlacSENGMR7UGf7uQ
+	fLn2lcMFcbF/vHylpUC1T1gk2d85aR65VI8wJvANXVYJAHOsc6NHr5NiW3ZTa9YF
+	hwgHdN4i3Yzx0DIpbFrT4VvlfsSU0ZXIAlZgHBYdpgdo9oPVLZmNwuKdTH6yzQmQ
+	jw==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4gw8y9aqt2-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:42:30 -0400 (EDT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2df8cffbdbaso1552405ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:42:30 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:42:35 -0400 (EDT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2df375fb9b2so2922365ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:42:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1790293350; x=1790898150; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=S2aMP6JXuEYmwKBs6aotCGlCcE1R79aNZlWiI1iQooY=;
-        b=keRzkwyNEn3843D0Y1ZQd/rFgQoMHzq6JMw6yitoTMXQpJPzOSop+Kfu7dMnaIqN/1
-         8PMVBZIph8h0lQoT0F/r6qZ/tnZlQ5U6sy9yGyfZWn4bU7+1+3ENPSbCPABwdVz6SlNS
-         Es6dyjhZyCaIS2fZefp2puvCv+mccnPAmAqTbtulyxbKrSiYBg6ZUqWIjxt7wdkO/ldC
-         jFlKBiw1qf0M5OTAqzvynH4APxWcPxVoMu7TE6e5MdOh5zzJndKFPx28hVIzlC1dhQVs
-         wfoHnuZJJZ0oTT4RmnKRPDPVYyyCGMb0ZBPg32rJrLZFI4iwieJu1eJlFGuOwuVz0O5T
-         ktdw==
+        d=columbia.edu; s=lionmail; t=1790293355; x=1790898155; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1W8F0tnaOtUsZa7C8naFnLEhuPz2zI+t5temLbb6h84=;
+        b=sXwPE9mmsnp0aBJkbK7WdpJXD58tvx4oJBVGwh2d+DkDZhzZUaaOWFpTX3UJkolKJo
+         WqzfuEmFP6mV5cctou4NiV2rEf/gm5f56zLFiRcMAMhooOXXbo/kpt7aqaTCTOV2AId0
+         KtD/k/z+Czlrlos4vdyFnL3L7K6Lrx5WOzvZLLIRMGBjrSAfSv+s8afBuxVXYpDwbtko
+         KyuyNNM4gB7Mqzh4nzjR6IhBscQP/HpqwfgHtfcPY3TrcvG8sK/GOaL1oga3Fub8AmwW
+         26JvfZAyKAhOftTU7alb0BkXl0Zh020o/XEtWYk+twzrMPOIoFs0EdDxyt1PgFXDpMFF
+         Yi2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790293350; x=1790898150;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=S2aMP6JXuEYmwKBs6aotCGlCcE1R79aNZlWiI1iQooY=;
-        b=qYgtp4qktHcgWlE7m68QNF4O9IInZP5dWMVldZZKSxSkrPpR7YlMIdd2mBPzg+PXLc
-         GENlF0to3ANX2ZQW/Judxa1bZMBQscJQgrLj5ioOdIWgFmTyGqQNLSrJEnwAwJkhTRGq
-         5I7SOHX3LTXoX7OXvAOZphmPhYlUdcdkWCfNNaBx1MYfTD4M4+1QICnxEi5n6oR9d134
-         qUrJ5FAnc2Of2g2arVP31eCY2uwIHuhb0Nbx4VD1l8r9ZjaWWeAVPbtNh5nJb9vnP6Yj
-         J3HDxJBeIpx0xj0UUGCgcRtgkvIrOTD4oFZCpakthNauod0CxGu1ITQDZ047DxtqB3rE
-         p9pw==
-X-Forwarded-Encrypted: i=1; AKwUvBxUEiTNbyuykJ1TEtf35fbrh+7pxLcI5ScAMyTEhfExrDahytFaxD4QrtYkEe5pNsr9h7Su6KrixcMnnsY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mrM/gPp6XZAMyLT0nz+k0K+L8YdHybcYX7AhM5gyvHzZnHHjOE
-	IOZQGFpLu5rh5JliCP66AYUSwdygitfa2GnOOfOOL7s0/cDXsDJ7imb+q30pyNGboEyuaJ+mccQ
-	SAD0WuzK86ZCNvOwymqTQbhz9D4Y2Fl6czQUbWdEcT11mDrjS5v3d+U5Op9SNGvauJh2xrQ==
-X-Gm-Gg: AYBFou1gZuaaoep0SXGxjbRlX6JGcC+FpAwUvvMn4GpyBBMTitHrJHLldMgQ8aqBCtJ
-	mDfQkG2xzN9jgPputIKwkf03tgfKIrEGGzjytuzX84tCd/FYzQkOW3MhuRezwSZn3HORWypeJ6A
-	wHiCQ1NXDFkHsk02dc6qfa3/8BaSD00woG83nGwflYivi14LIhHo2RfAt9zsEwHshg2buV5RzV9
-	6/0+/tgLxAtP1osmSUwuOH7GWETLtPAoamOUEO5qfO+lvBH2NAaAEMFnHyCI4uJCibLB1ZdGNrY
-	7IZSVxfMDxgMwyToi+mEbcBhm6jnzRQyVQ3SpxmrpzoeklKXIu74ZJAxLTJs3dM0v4T1pRAzK2A
-	+wPPqqjNuS58D6f2tI7A=
-X-Received: by 2002:a17:902:c40c:b0:2dd:ad74:ac2a with SMTP id d9443c01a7336-2df7e43d08bmr34857255ad.28.1790293349945;
-        Thu, 24 Sep 2026 16:42:29 -0700 (PDT)
-X-Received: by 2002:a17:902:c40c:b0:2dd:ad74:ac2a with SMTP id d9443c01a7336-2df7e43d08bmr34857105ad.28.1790293349221;
-        Thu, 24 Sep 2026 16:42:29 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790293355; x=1790898155;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1W8F0tnaOtUsZa7C8naFnLEhuPz2zI+t5temLbb6h84=;
+        b=cyX+JJTEy8ZIFEnhZzCDysc1yVKKIhGfcAa4I/oYf+kkcSsfHsZwHqSBsiFuSfmYAB
+         NO//d+YW8g/Ji7CyNb9fYoWNzQ0Hg1vrDNRQgsJbKn7tdC2cSsvpwrEQvGGB5p2rxbbb
+         EnPHaU8PAxCEDgvvybJj0/N0zM6ysiKMLUvPIG6lbQJgsJQFBra0P93WEu8vE7fCy9Yz
+         F20rwoW4NoHJLcA+16qGAkUXO7Bp6zrWwx3N/7WEwR2SjraCJ14HRyo4IeYg7jntoj2T
+         F/w17tIxY9g5fuRMWPUNKfx0eVYn4WsQkyKEWPNRn+xLJRqhtzFnLSZTXnak8+8FIWeq
+         WJ2g==
+X-Forwarded-Encrypted: i=1; AKwUvByy5O9P/yIlpdnDOU/iTIs02tgq20WzFGnMJVHTY3bAeb1ZbmehMnvAa3q0wLNM4fs4AvkFrV8QR2h0Mpk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nzFVNx52ch+u3sWJflywlDlrlH66LiuwT8Z2ASDQBIpvd7I8r/
+	vtWmwJTrqq4mlShIdggyGmHEpCUH+mg5R5MDCXNcXzEIbLfLQwJiGpDRVdfkyZa8gBIlqfVScSt
+	379gjpPtO7J6m39IxyYSNu1urUVvmU55nWdMGMhWoEjkIkU/5UyGDbds899CzGQ==
+X-Gm-Gg: AYBFou1KzNN2W5GC9yjiK7s903XKJIhW9qfSqO9AN0Xjopr2NNMlRWdy245kYN7ESO2
+	l92sqx/orx5s5aDWldhE1sQbdnyiy68nfAL6tvQyCPELHfTG4VSDjMZHei/qKcySmuM73fdU2cF
+	197cYIouFBtRnjX3RlzeCm0qljQkoF8SdCKC+vxwBkhlGGfPwhb1MBxwKzs6OpPSCrNKYk5pHlH
+	icwm/e3xKQhETWbXlDl23k54q3dPcg/tLbVxBnFpMocuCnU4G2WdrycwDd0Fx7PUV6nhZLJnYuH
+	tw8rw1tSxfroNmRpd4kTZBl0LtpGi2MoFri3bP5ibMYtF2XNPGyeaLnhPHCOg7WZ7ehMzODEPm6
+	RPUc5Xgph
+X-Received: by 2002:a17:902:e54e:b0:2df:8d19:4fd6 with SMTP id d9443c01a7336-2df8d195231mr14350745ad.1.1790293354909;
+        Thu, 24 Sep 2026 16:42:34 -0700 (PDT)
+X-Received: by 2002:a17:902:e54e:b0:2df:8d19:4fd6 with SMTP id d9443c01a7336-2df8d195231mr14350565ad.1.1790293354338;
+        Thu, 24 Sep 2026 16:42:34 -0700 (PDT)
 Received: from [127.0.1.1] ([208.115.110.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df90fc2e5fsm2239605ad.5.2026.09.24.16.42.25
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df90fc2e5fsm2239605ad.5.2026.09.24.16.42.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 16:42:28 -0700 (PDT)
+        Thu, 24 Sep 2026 16:42:33 -0700 (PDT)
 From: Tal Zussman <tz2294@columbia.edu>
-Subject: [PATCH 0/2] fuse: convert the readdir cache to use folios
-Date: Thu, 24 Sep 2026 19:42:15 -0400
-Message-Id: <20260924-fuse-readdir-folio-v1-0-8dd97e71c1cc@columbia.edu>
+Date: Thu, 24 Sep 2026 19:42:17 -0400
+Subject: [PATCH 2/2] fuse: convert fuse_readdir_cached() to use folios
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,67 +90,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAFe1tWoC/yXMQQ6CQAxG4auQrm1SQVG8inExMP9ojWFMK4aEc
- HdHXX6L9xZymMLpVC1keKtrHgu2m4qGWxivYI3FVEvdSictp8nBhhCjGqf80MwiXUDThMNxv6M
- SPg1J59/0fPnbp/6O4fU90bp+ABjOt4Z2AAAA
-X-Change-ID: 20260906-fuse-readdir-folio-009ae33a7854
+Message-Id: <20260924-fuse-readdir-folio-v1-2-8dd97e71c1cc@columbia.edu>
+References: <20260924-fuse-readdir-folio-v1-0-8dd97e71c1cc@columbia.edu>
+In-Reply-To: <20260924-fuse-readdir-folio-v1-0-8dd97e71c1cc@columbia.edu>
 To: Miklos Szeredi <miklos@szeredi.hu>
 Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
         fuse-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
         Tal Zussman <tz2294@columbia.edu>
 X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790293339; l=649;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790293339; l=2723;
  i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=DIJDE30a8cvtr07gDXvMJB9bUPKp79v/NuH7d9A/dis=;
- b=oenOQPanKL+RULof0OkLFyq7KYQ0MOS/NyPcktGNUwnKYadAxyzi1KhtN6SiuSLZfVYIlMPy8
- zEVuM50L7udBTImD8QwxMkoGJC+FKGMx1tCSV/ZNqYdoAi2CLXpc7cH
+ bh=XCd/EXrFmFVFNdHJdolFqfiKIkTkg5kCZkDjHJUVVxs=;
+ b=qj0VabmVO0Fh8bfnWzyDw8KfPvG5Iph/+qlrfsMnDKdCepaL/Y3lJ9jnXKhmWi67ggghjOtfO
+ BT4FWElodnaAlJplzRQnehsh0s0BTg7NzgZKEDolDEfdjKi7FvDiZIn
 X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
  pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-GUID: wo6wlENxsTwHSz_2SrLhTvLTliw80S1P
-X-Proofpoint-ORIG-GUID: wo6wlENxsTwHSz_2SrLhTvLTliw80S1P
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA5NiBTYWx0ZWRfX+xcp/AyVcfs/
- 4MD+F2Zj8w4/yTDCCiOUJF+/K8tF9eDD2/KlH8sOuv1hRe9yG7MRSSh318ddYV3/rA0Uo3twb3G
- E1/Ac2U0wEr3fQzgq1S+w1kVgz3MIXsZ4M2Bx52QRZWkmplHFBlc
-X-Authority-Analysis: v=2.4 cv=KOzPn1Fo c=1 sm=1 tr=0 ts=6ab5b566 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=AP5Yue2pfywxtTblp62eJQ==:17
+X-Proofpoint-GUID: 8MxkCCt79kHGAnz7q7JWM-FfiuUEtXeA
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA5NiBTYWx0ZWRfX/FUNzxxBtUsV
+ ovgyMp1sdB3elhh0nFBPKTwLsb3zLd0PDRy8pDus7quZoa7rz8Ho0QuDi1wTfXWwzuZASI8n04d
+ xeCHRSkY5gn0t2bdbkrJk7hEKL65n87gzISceQtkHfnEPPz9rE57
+X-Proofpoint-ORIG-GUID: 8MxkCCt79kHGAnz7q7JWM-FfiuUEtXeA
+X-Authority-Analysis: v=2.4 cv=H8NOUOYi c=1 sm=1 tr=0 ts=6ab5b56b cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=AP5Yue2pfywxtTblp62eJQ==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=SsB-OO3BMngHh3ZO9fOt:22
- a=R27Tia9Tc3MXFFTUv6cA:9 a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA5NiBTYWx0ZWRfX9ZM6RsLujP4D
- 2NISyw6c+EeiUvkJb9iv5q+2vZ4WVjs+dN/vcEJGGuxaJfJ/z+rnVrKVJ36rqmT0/UHQMMxKwmC
- 9OWxK1+RhNjFQ4x5c7/3XozR+VBZABxCvnbXX1NufrIL/P6Za3YmTjzcT20ER4oRsT1P3o5rC3I
- nAjkt+SJ8ovYrdrbQaxOztsc4VhDE/Yvq0ptCtRD5qoSaFFD6qpdyVX8FqHHirfaZ3jc13J7q+3
- WuOQ7u9Rsvl8b38Q54JETB1fkj38bQfXkxkCq+O4t+PNivP6e72zL138XiCvjxjWJ2KGu95dlau
- 8j6Lhx4KRxkiFRUXSd3r7RBsWcKk5dFnvVixIpfiCWkuY+ataqXgklOLS4p7s3SeGD/73gpGnaC
- JF6sleRYFnZvOh6Hd59aXlCisH7xFRW0+LGWGBKKZ18uCfePx0X+xdNtYfyb/PrTeVRQBjlhuR7
- g63DLMmvJAS9EasW7kw==
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=usPcmh10W0ubT8QP8_c3:22
+ a=zMwUTx3Gsv8PcE88Lp4A:9 a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA5NiBTYWx0ZWRfX23iL3NcZN4qM
+ KWSjrtRMAEaH+ceYOz2eCP1h/Rnwj7QtZalUjsQn0Ay6nmKfpLAvkcS+OsJwSCqT0PhUnsa+Axx
+ X2p66PlD5yqGYrjC/57Wuy/46V8stx3XAz2JqencKp/0Gt+apzXkzP8uJyaW1O7TRlhYNMWVAcP
+ rHl0vgIBFYgIOBp6ra4QTJrIPJ4BzuOePxkLmUD3Nz7O9oN+xPOArg8hBZ3WzjedYM/bXlKnFbs
+ azN+TKYGXZVqpF7pdXrg98lnzbkh5isuELjqQrqFRTDzUj9DzxR93GZU9O6tO0Rpa86yAu3Ysl4
+ Qgt4KH6aWu+tM6nvwBh6rvR8E/4K0bL8iMMdQgcuJJkFVuJd0zpWargoMmE6J54iPJHsGO/r6dw
+ YRHttJ0yYm81YYbzaAjAS7WFFspHz4PqMXt411bkOt7J15F/UVRY5zOCxPzDrRuVzANadSmmMU9
+ aCwpvFPZ3Kosm5A5f1A==
 X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11915
  signatures=596817
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=10 bulkscore=10 spamscore=0 clxscore=1015 phishscore=0
- malwarescore=0 suspectscore=0 priorityscore=1501 adultscore=0
- lowpriorityscore=10 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609240096
+ adultscore=0 malwarescore=0 impostorscore=10 suspectscore=0 clxscore=1015
+ priorityscore=1501 bulkscore=10 lowpriorityscore=10 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240096
 
-Convert the readdir cache lookups in fs/fuse/readdir.c to folios. This
-removes the last caller of find_get_page_flags() and one of the last
-callers of find_lock_page().
+Replace find_get_page_flags() with __filemap_get_folio(), and switch the
+remaining page helpers to their folio equivalents.
 
-Based on fuse/for-next.
+This removes seven hidden calls to compound_head() and the last caller of
+find_get_page_flags().
 
+Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 ---
-Tal Zussman (2):
-      fuse: convert fuse_add_dirent_to_cache() to use folios
-      fuse: convert fuse_readdir_cached() to use folios
+ fs/fuse/readdir.c | 38 ++++++++++++++++++++------------------
+ 1 file changed, 20 insertions(+), 18 deletions(-)
 
- fs/fuse/readdir.c | 70 ++++++++++++++++++++++++++++---------------------------
- 1 file changed, 36 insertions(+), 34 deletions(-)
----
-base-commit: 10bd6b32965265688fa277d166ab224de8e86eb2
-change-id: 20260906-fuse-readdir-folio-009ae33a7854
+diff --git a/fs/fuse/readdir.c b/fs/fuse/readdir.c
+index e6b828eb41a5..5e6b3f574e90 100644
+--- a/fs/fuse/readdir.c
++++ b/fs/fuse/readdir.c
+@@ -502,7 +502,7 @@ static int fuse_readdir_cached(struct file *file, struct dir_context *ctx)
+ 	enum fuse_parse_result res;
+ 	pgoff_t index;
+ 	unsigned int size;
+-	struct page *page;
++	struct folio *folio;
+ 	void *addr;
+ 
+ 	/* Seeked?  If so, reset the cache stream */
+@@ -580,42 +580,44 @@ static int fuse_readdir_cached(struct file *file, struct dir_context *ctx)
+ 	if (offset_in_page(ff->readdir.cache_off) == size)
+ 		return 0;
+ 
+-	page = find_get_page_flags(file->f_mapping, index,
+-				   FGP_ACCESSED | FGP_LOCK);
+-	/* Page gone missing, then re-added to cache, but not initialized? */
+-	if (page && !PageUptodate(page)) {
+-		unlock_page(page);
+-		put_page(page);
+-		page = NULL;
++	folio = __filemap_get_folio(file->f_mapping, index,
++				    FGP_ACCESSED | FGP_LOCK, 0);
++	if (IS_ERR(folio))
++		folio = NULL;
++	/* Folio gone missing, then re-added to cache, but not initialized? */
++	if (folio && !folio_test_uptodate(folio)) {
++		folio_unlock(folio);
++		folio_put(folio);
++		folio = NULL;
+ 	}
+ 	spin_lock(&fi->rdc.lock);
+-	if (!page) {
++	if (!folio) {
+ 		/*
+-		 * Uh-oh: page gone missing, cache is useless
++		 * Uh-oh: folio gone missing, cache is useless
+ 		 */
+ 		if (fi->rdc.version == ff->readdir.version)
+ 			fuse_rdc_reset(inode);
+ 		goto retry_locked;
+ 	}
+ 
+-	/* Make sure it's still the same version after getting the page. */
++	/* Make sure it's still the same version after getting the folio. */
+ 	if (ff->readdir.version != fi->rdc.version) {
+ 		spin_unlock(&fi->rdc.lock);
+-		unlock_page(page);
+-		put_page(page);
++		folio_unlock(folio);
++		folio_put(folio);
+ 		goto retry;
+ 	}
+ 	spin_unlock(&fi->rdc.lock);
+ 
+ 	/*
+-	 * Contents of the page are now protected against changing by holding
+-	 * the page lock.
++	 * Contents of the folio are now protected against changing by holding
++	 * the folio lock.
+ 	 */
+-	addr = kmap_local_page(page);
++	addr = kmap_local_folio(folio, 0);
+ 	res = fuse_parse_cache(ff, addr, size, ctx);
+ 	kunmap_local(addr);
+-	unlock_page(page);
+-	put_page(page);
++	folio_unlock(folio);
++	folio_put(folio);
+ 
+ 	if (res == FOUND_ERR)
+ 		return -EIO;
 
-Best regards,
---  
-Tal Zussman <tz2294@columbia.edu>
+-- 
+2.39.5
 
