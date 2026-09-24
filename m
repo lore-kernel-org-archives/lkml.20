@@ -1,97 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f14.google.com (mail-wr2-f14.google.com [74.125.225.78])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852F64457B7;
-	Thu, 24 Sep 2026 22:41:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC14141D21A
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:41:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790289675; cv=none; b=EFSIvPXaQAubVXWi9UoTBeOTkAKqhHRHwYwsM+rLRaoIrK+tufsU+I8L2HibAjG6e0iq6d/HZf1204rNexOYn6HtDgekrfhZWvWaQA705Df4xtFvYo5EONkqTdPn1/r1qBRqAw+fnOSQHWQvceO4k8OO2EBU/FMps0BlX4hjC1U=
+	t=1790289687; cv=none; b=oiYn7b7PcJIagvcgFE2ILBI0GpwKidhfx/tQuTV9hkHl3RsXhizkPZKcZYQmdIrwOQmQ1/CeqceBy4tXApXWbU2n9IpTF2ErrXFxv3gUAannlhN5lHCIeibaW4nyqixmU4jYc6xBtusPgTlTinLELqHgZT+I+PAjkaOfH83lZH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790289675; c=relaxed/simple;
-	bh=P27PemtnaUNP51WF75LTe499h/9TTPZg6TB1QTmdpOQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hEKS4g3O8sFScn1K/Gqy/JXHLK9RVsew/neI6/a83+jGaU7SUuhabBmXQ0L5+erlR85+rOKxbcwMe/Myem62leg8bvYPczblrv1cqnKUSx+mmi4LYOlwyUBOVBuE9jyDr+Zq84em15FYp6+ugr+VUIzze8mU8Wzd7+xA0H6+wsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dDWvIBL0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790289687; c=relaxed/simple;
+	bh=TUXt6ktVt4Gz6z6+4bfN0D+POleMHD4yZINwWeHeufQ=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=XZjZrc0tNE4N59XhtdtOV6NvqcjPk4jacdRDLKQ6lKUkCF8jLBmOykzK//KGnYKk8ZGf4Z7kJfWbLhaBsdvM6VGz2SXAgpdTrMMDfCik4mtIdzTINixXcgh0lSTnDBq38RXVz4ksM//KTse0yR9Gb519UoTlJq2oHWi5PXePptc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IJOYKVGz; arc=none smtp.client-ip=74.125.225.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dDWvIBL0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9DFE1F000FF;
-	Thu, 24 Sep 2026 22:41:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790289674;
-	bh=+2I9a5Fv3NHZeQFI/SnuqWvZ/9mnxflxd2ac6GfRRA0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dDWvIBL0TJcnCoFPM6fdiLpHDuoS4zO7i860vHTrD5fmS8zInsD2uxydmawGIDBSm
-	 yiD1aj0s02kUqhStUVGiRpjrhIcv1Ri1xcYV7DRJcxoA5H/UFP+HzhsGB/Zj2fejBB
-	 TZag+ZEAAgUHJfY5DV5VHftUynmB+FIeuG0oiTu6kQpfuinXpPQuwLMx2+DQkAaYbr
-	 YSwmPuzGgZqucyOJnMcG2h+Wfmsztd4V4iBCpHL3aKFpBpCXq7ElFE0mvqHTLhbGUv
-	 5NMQZirOFns17sui6DkW6ZcNWMO76yRscFU14Pt6Cj0fEG2/10/bTziXRASYGv+sFY
-	 KKLrmY19WOsmQ==
-Date: Thu, 24 Sep 2026 23:41:08 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Praveen Talari <praveen.talari@oss.qualcomm.com>
-Cc: konrad.dybcio@oss.qualcomm.com, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	chandana.chiluveru@oss.qualcomm.com,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] spi: qcom-geni: Use GPIO to notify master of SPI
- target activity
-Message-ID: <95c6a43b-37b7-48eb-be88-79f1883212d6@sirena.org.uk>
-References: <20260824-use_gpio_to_notify_master_of_spi_target_activity-v4-0-fde2ebf043db@oss.qualcomm.com>
- <20260824-use_gpio_to_notify_master_of_spi_target_activity-v4-2-fde2ebf043db@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IJOYKVGz"
+Received: by mail-wr2-f14.google.com with SMTP id ffacd0b85a97d-482f6350f88so164920f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:41:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790289684; x=1790894484; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=pbq8cg5hzV5CsgrEJBLzOPDrWzTdUyY1xmmm7QhjguM=;
+        b=IJOYKVGzTk4I+9HZPZvJ33aLiJ2TzL7RRTWomONTWpRusH9cr/jwI5wj89t7hUIaMc
+         dBVbcLoWIKGmSJikOlcSvmZTqXc8xv2NO4jVa7/4tc9oRoSTJvZxMUZM88MpVaorFRfs
+         14mtiaOqPTG/Idmiqmt2DeOl/yMtuvCcaMjARlu043LCJnRMnYFCYjG6OiDZAZuSA/tP
+         rPeeI+t/QQ3+S8kYRq8gN05Be+UG/A1eVKQJvHC1V/cdjEXLp0QJFbfn+de8oXg/3Eib
+         A3bqV+SIdHbcvbnLWKcipuHyHIAYUpofyrTaayNiEfYrKkn7UDgA6UklLXbHkEo8vSwb
+         UqIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790289684; x=1790894484;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pbq8cg5hzV5CsgrEJBLzOPDrWzTdUyY1xmmm7QhjguM=;
+        b=k0MRKLUgg1oj4O08F1GerXyEkTSbCm2RK+5UtccOFnw17N0T1FErd8DMYlASmWIijA
+         04DSFWlzh+xysvd5qELpMeKAAjTgUNcO4z2IZlqqW55ppRFw8hVeEhR3wYhSBy8k3O6S
+         pgZ9j+K2rIJgDGafYj9YD5/l8GkNQHtdIEIQK8N8qEU70cbog/hpVgAuQWJISzmNXQLX
+         ug7RTBND8+O2ZHAEJdiRoG0C2u39gBJtKdGRrsf9c56/AbpoIlcl77GDlWTCm56biryi
+         LGrmK1mAH0BElY2ouBADXXoSQ8A8U6dgY928qLZUt1RI5NDdwarT7pnelDHfPwchOon/
+         EYjg==
+X-Gm-Message-State: AFuF++n97M7GCVkCxEcGX9hXhANWQCV806LnQiTNJ2RTKn/IzRYiGlKq
+	E1vwvKTx6qWcXMYdmQIkRUsv+mvu+71z3arj1BuZRS2C2JkobU94wX6q
+X-Gm-Gg: AYBFou1+UKWD7u8Tx2vG/nByxuCbFzser5Q+oT2nuOhQ685nrXcCXkiDE2PtArTTJlC
+	pyGShWE9dbmL9glcXpn4cYVWOtLMVJD8i6XkrC3/qrKCpU7dPRbCajxrkORc+2y2b9MEuDN3Tdf
+	4es3vlBq5Mwh5r1AQB9Iemav07uoK9mTUF+6lM837Zk/FzVuLPwceOFz40BwOzr17QjscwXX+66
+	p8WjGfaQDxF+srqulIV5HlA1n87974UDGtYcTP5RMiaUv2H/F96qB2R5viEeIgMGl1df1Iot5Dq
+	P5C4BnrfNpz8dxKP6kTnnkCFeJeBdMXrTwZnxAcePRJnwgO4qXDT4wteFgsQdUqhLQ8vz5E9z13
+	NnRXS03Eg526EhrvlbhK+VX9myu4WifXR9O5anFL5kfTUmkNHTTKuik5RsQgz7xW/sq5HKeADiG
+	QmqfvNxB34Feee2H89S+TTp/SK4t/HkMpSpA8zTU3qSQOM5JXLqyv5hHAZ1YZqPB6BHCVTQoy2x
+	AirWWtz+tpsmWAPsYledvZk
+X-Received: by 2002:a05:6000:25e7:b0:487:35d:cb0f with SMTP id ffacd0b85a97d-4887da06e28mr508409f8f.14.1790289683867;
+        Thu, 24 Sep 2026 15:41:23 -0700 (PDT)
+Received: from ehlo.thunderbird.net ([2a01:e0a:880:2dc0:3e8d:e7d3:a406:828c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30b1dfsm2382883f8f.4.2026.09.24.15.41.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 15:41:23 -0700 (PDT)
+Date: Fri, 25 Sep 2026 00:41:21 +0200
+From: Arnaldo Melo <arnaldo.melo@gmail.com>
+To: Mark Brown <broonie@kernel.org>, Namhyung Kim <namhyung@kernel.org>
+CC: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
+Subject: Re: Missing signoff in the perf tree
+User-Agent: Thunderbird for Android
+In-Reply-To: <arWl_CVE0g8dSTSU@sirena.org.uk>
+References: <arWl_CVE0g8dSTSU@sirena.org.uk>
+Message-ID: <9D941A1A-2AAD-4542-BE8D-22B727A1A20B@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="FHzQCwZbvrFA0LJT"
-Content-Disposition: inline
-In-Reply-To: <20260824-use_gpio_to_notify_master_of_spi_target_activity-v4-2-fde2ebf043db@oss.qualcomm.com>
-X-Cookie: Oh, so there you are!
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
 
---FHzQCwZbvrFA0LJT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Mon, Aug 24, 2026 at 07:56:00PM +0530, Praveen Talari wrote:
+On September 25, 2026 12:36:44 AM GMT+02:00, Mark Brown <broonie@kernel=2E=
+org> wrote:
+>Commit
+>
+>  4c09f6c47b769 ("perf annotate: Fix NULL pointer dereference in loongarc=
+h_call__parse")
+>
+>is missing a Signed-off-by from its author
 
-> When operating in SPI target mode, the GENI controller relies on an
-> external GPIO to notify the SPI master about the target's active state.
+I'll fix and force push=2E
 
-> +	if (spi->target) {
->  		spi->target_abort = spi_geni_target_abort;
-> +		mas->ready_gpio = devm_gpiod_get_optional(dev, "ready",
-> +							  GPIOD_OUT_LOW);
-> +		if (IS_ERR(mas->ready_gpio)) {
-> +			dev_err(dev, "Failed to request GPIO: %ld\n",
-> +				PTR_ERR(mas->ready_gpio));
-> +			mas->ready_gpio = NULL;
-
-I'll apply this since it probably doesn't actually matter but this is
-broken for probe deferral, and might cause issues if the system really
-does have a GPIO but it fails for some reason.  It's better to just
-handle all errors as errors, _optional() already returns NULL if the
-GPIO is genuintely missing.
-
---FHzQCwZbvrFA0LJT
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq1pwQACgkQJNaLcl1U
-h9DVlwf9GxWw9fp2B9LPLYH2bnjK5ee1JNL81VxFFyRTngiyySgfiGUI4JnlGDZF
-/2SqNv2xaaFfDbnQwm43d9jIacySvrH3B+q7w+/GbcsuVtVnBeW/9ki0FYeW/03l
-JtWsNVvVQtHB3ORZWG3GHSj/Dif7BXHnXHHWUr6x9tW5VZVf8ew81qeWtGFxjpTx
-+H/bu4tay+eAmG3lsLafE828B0OT5tHSjh1z2ulZb0Dy1iw2cuN053FZzkQFu0hL
-fGT8qawPVLuuKHi/7GgpOReeGIPSlW9NLiGnOrvh2GpXJ/AauurOEHpSL0rtdeIP
-0+ZWoklRC450W4WK8l8KI5S1dAv4iQ==
-=XcsA
------END PGP SIGNATURE-----
-
---FHzQCwZbvrFA0LJT--
+- Arnaldo 
