@@ -1,140 +1,122 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E71C4137AE
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:57:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E774A43FF;
+	Thu, 24 Sep 2026 17:58:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790272632; cv=none; b=Qq9qyiEMtEsj3ipog1rVwlwRZ8mB482f+63Qkd+Ka5p+xQqFLXLreD3OPJ8A+goKt18+ir3xiS5ucF+nJ9VE+f5OsMTa3gFGKADQAGW57+kMKIQBMXw6+awKrJwwymbEqQwcDLdd+or7aRjloRYE3kkHFb8uVAukAqQfj6o9shQ=
+	t=1790272696; cv=none; b=M/Av/So2kIT1uhIPuZq1ds1+jS69IrZa9Jt1RmOz7iXcE91ZfioRJzT9/v+wNe7u9m3rgKxC0H+6/Hsy0UmRahGC1s1p4fmCMVePmqV/WogFvGXT91gjz8qTw75uINyV8AQ0q9RW1F6iF5aPNa3xwxytAFIoUSbWEm0eGPOreJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790272632; c=relaxed/simple;
-	bh=7PzxkTqNasNQwTYWLD3humalS1r1ifxDG7NI4O67jJg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PLiOFrW0K/FWCU8+h3WT/7K5R+pkCh40QSNtJIyKsNOSHsOVK1aIxMXxxM7EQ9YMZ5qmmSONxS6MgxfLqA6qJS64KO/bfQ3qKRDNOJY0EKjVvijtjeb7yGZwPT0zCfiQk0yOFdbybPuMLvSY+cEGzWA5G2QVL6nVyJTc2cmK7NQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eNdDTyvH; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790272696; c=relaxed/simple;
+	bh=Yv4caEHIaBlfKOuSDWI6+o9bqHkBkzCGnMi/jhXWQt0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=mYkQG2QQCZBZPD+zeqagzMksPSCEP9YO4r3CAQN8iSngUviKFOkqGGRutV5rftP5gUekQdJNuGndRUFqAeM9SJ5MkEyK0FF20o6zRibs8yn+OaEuGtYeskXVz2GaHi8jQrSGOj2cATst3GBdEPk4Q68q0XClcyn1S5qL5TonQFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=diSLQiHW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eNdDTyvH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790272630; x=1821808630;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=7PzxkTqNasNQwTYWLD3humalS1r1ifxDG7NI4O67jJg=;
-  b=eNdDTyvH32l0f+lsBT/IYv/onuj+xQatr22lMWD9mNLFkVVoBb7jtIIL
-   gIFBYl0Kqv16H01uiRE5LW/vKyMpfvovijWPwSJLkPhSvXY6pp7nlY8zh
-   IT/NIN3Hq+Gkn8SBidNFdTEkHR1/A4Xn6DhleI0gGqbeUlxjFKTovnAY+
-   rxAkFztu2/PX3u8MyTR5dd9TjA++bdpHR2DjsCJeUSm4o3WdRui+2twkV
-   2f1kpMQOY1E1PkDmL5y/IXTbkO0itLjVLjFK+YAGKuItkEvOtzQuLP5uC
-   lSD7NmuaVJsNgEiXUyjDBQWOnPCj1WAhakJbFTebL3nAoWv/xB2j92mxP
-   g==;
-X-CSE-ConnectionGUID: 6AkSe46kRzCy+I6VE4w/4Q==
-X-CSE-MsgGUID: egk/5fR1Qj2e+o/6pqVnHQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="90098868"
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="90098868"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 10:57:09 -0700
-X-CSE-ConnectionGUID: jvAxloPTTMG3609yo6txNg==
-X-CSE-MsgGUID: xQE0XoJ1QBuNuuiki0EiRg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="273317475"
-Received: from jjgreens-desk24.amr.corp.intel.com (HELO [10.125.110.171]) ([10.125.110.171])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 10:57:08 -0700
-Message-ID: <6a0c2fd9-b2e1-40d2-b7a1-ba93cb3c53a3@intel.com>
-Date: Thu, 24 Sep 2026 10:57:08 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="diSLQiHW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AFC01F000FF;
+	Thu, 24 Sep 2026 17:58:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790272694;
+	bh=nmpC3XilCMDn17muOmK9fED1iaCCh1DEkkKZ63LOdA8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=diSLQiHWeb8GYp4Jh7DqcyLW5omie8oGcHXcdzlBgHIBZmYMc+vggbFeh/zS3Oxzg
+	 3RnMgZT9Bud2vwN53VT9+m+6UEr5L/7WyVzGLQTE06Ri/9K1cquUJ2vv3OWb3oM8us
+	 uUxZBlYBXkjISEVp0SjLDqogE4+2RCQ/fIXGgPp6INofzP5FFpqR+2V036MaCF2b5M
+	 ZJY16+rZh+ETA5Goxht9YV6Sysf3+NI3VX4CYxERdwfeOAGjTgr7BEMro2OME/t+Sw
+	 s+vL5hfT6xdEYF2GAdUSluxZAUMq8PPTpxLuYO+wsaCoRJxXcVxRCYujB9hF0wwbdk
+	 bOJIlCgEqkbVQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 03/14] coresight: etm3x: prohibit modifying cntr_val
+ and reset while session is enabled
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yeoreum Yun" <yeoreum.yun@arm.com>
+Cc: linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
+In-Reply-To: <20260924-separate_etm_cfg_v2-v12-3-a2b41d2f7c2b@arm.com>
+References: <20260924-separate_etm_cfg_v2-v12-0-a2b41d2f7c2b@arm.com>
+ <20260924-separate_etm_cfg_v2-v12-3-a2b41d2f7c2b@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 17:58:14 +0000
+Message-Id: <20260924175814.9AFC01F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm: don't schedule deferred kernel page table freeing
- while booting
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Vishal Moola <vishal.moola@gmail.com>,
- Ingo Molnar <mingo@kernel.org>, Lu Baolu <baolu.lu@linux.intel.com>,
- Jason Gunthorpe <jgg@nvidia.com>, Steven Rostedt <rostedt@goodmis.org>,
- x86@kernel.org, linux-mm@kvack.org, regressions@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260924092307.22813-1-mikhail.v.gavrilov@gmail.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <20260924092307.22813-1-mikhail.v.gavrilov@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 9/24/26 02:23, Mikhail Gavrilov wrote:
-> Keep putting the table on the list, but don't schedule the work while
-> the system is still booting.  The next kernel page table freed after
-> boot schedules it, and the work then frees the early table too, after
-> the same IOMMU flush as any other.  If no kernel page table is freed
-> after boot, the ones freed during boot stay on the list.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] coresight: TOCTOU race bypasses session-enabled check in sysfs s=
+tores
+--
 
-There seems to be an awful lot of chit chat about how and when the
-boot-time tables might get freed. Like:
+commit 0c7e96565d9330c7133fb31d646be9050f666c48
+Author: Yeoreum Yun <yeoreum.yun@arm.com>
 
-> So on this box the early tables wait until the first module is
-> loaded, and no separate drain is needed.
-Wouldn't a "separate drain" be all of 5 lines of code?
+coresight: etm3x: prohibit modifying cntr_val and reset while session is en=
+abled
 
-/* Take care of deferred freeing from boot: */
-static __init int free_boot_kernel_pgtables(void)
-{
-	schedule_work(&kernel_pgtable_work.work);
-}
-late_initcall(free_boot_kernel_pgtables);
+This commit prevents cntr_val and reset from being modified while a
+Coresight ETM session is enabled. Changes to cntr_val would be lost when
+the session is disabled, and reset should not be invoked during an active
+session.
 
-Then we don't have to reason about it at all.
+> diff --git a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c b/driver=
+s/hwtracing/coresight/coresight-etm3x-sysfs.c
+> index b3c67e96a82a4..cdb70a4382eb8 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+> @@ -75,6 +75,10 @@ static ssize_t reset_store(struct device *dev,
+>  	if (ret)
+>  		return ret;
+> =20
+> +	if (IS_ERR_OR_NULL(drvdata->csdev) ||
+> +	    coresight_get_mode(drvdata->csdev))
+> +		return -EBUSY;
+> +
+
+[Severity: Medium]
+Is there a race condition here since the mode check happens outside the
+spinlock?
+
+If thread A executes this check and sees the mode is disabled, thread B
+could then enable tracing (acquiring drvdata->spinlock, applying config to
+hardware, and updating the mode).=20
+
+When thread A proceeds, it will acquire the spinlock and zero the
+configuration while the hardware is actively using it. When thread B later
+disables tracing, it would partially overwrite the zeroed configuration with
+hardware register values.
+
+Should the coresight_get_mode() check be moved inside the spinlock to
+prevent this time-of-check to time-of-use race?
+
+>  	if (val) {
+>  		spin_lock(&drvdata->spinlock);
+>  		memset(config, 0, sizeof(struct etm_config));
+
+[ ... ]
+
+> @@ -744,6 +748,9 @@ static ssize_t cntr_val_store(struct device *dev,
+>  	ret =3D kstrtoul(buf, 16, &val);
+>  	if (ret)
+>  		return ret;
+> +	if (IS_ERR_OR_NULL(drvdata->csdev) ||
+> +	    coresight_get_mode(drvdata->csdev))
+> +		return -EBUSY;
+
+[Severity: Medium]
+Does this have the same vulnerability as reset_store()?
+
+The configuration could be corrupted if tracing is enabled by another thread
+immediately after coresight_get_mode() returns but before the spinlock is
+acquired.
+
+> =20
+>  	spin_lock(&drvdata->spinlock);
+>  	config->cntr_val[config->cntr_idx] =3D val;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-separate_e=
+tm_cfg_v2-v12-0-a2b41d2f7c2b@arm.com?part=3D3
