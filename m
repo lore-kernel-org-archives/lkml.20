@@ -1,50 +1,44 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 98B354A3F17;
-	Thu, 24 Sep 2026 15:43:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4694A2079
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:43:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790264596; cv=none; b=fhxP9nXHuzgxE+p0CsGtV6NfVsWTJ1by9/AqWMl0DHdNAlto5epf58TkPIRPoz+FM4KwLOsUDRhHkOqG1AdbgUomLeePQseHllCxgKg76rr0+8yMKuBOcbT9fprQc/5plqwPnPqz9SZ1iDBNd9oXChv0gvZYM9K6pW6tKg0CjiM=
+	t=1790264639; cv=none; b=lbF8jHbU7vD+jD2thYNoytGtVZx+oicqOUxnoYUaO9maQCOQlv3gkRjhcVZCR557lMvuRjPAVM0vEJe3C1UDHwQG7bOHJM1CImKMKiorkJo7GHnGxAHVKqiPA3goUiebG8WbS3fAFexb0dJiOFKjo8Oy5BtWiq6mAHHKlZudqy4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790264596; c=relaxed/simple;
-	bh=CHYzUrkQMcLRWPgUeFO4PnGKYjBY2rlqkQkNha1Cbug=;
+	s=arc-20240116; t=1790264639; c=relaxed/simple;
+	bh=3mth+udyl4shJuTkd6p94FaAdssxMiU2m/RJPfhfFqY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k7yfPUqAsK1fylaSFdU12MuB/kMw4czC6shP3YnrpZil/EtzGNV5oSFBhQLVKxCK4vgK6oH+vJJTJ2sTZKorT7GJzSAemrOoxDRIzcpd1FMYEWQqb27E8TFtmZXSF0pPACHzvCf0O9ENFk7BA68buD01eGDVr4FgD5Yw92In3Sc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=HIJqAdNy; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=PYWbZ/novFui3PVV+k//9gUUuQJw5b/2WPnK4X9OjKE1RbMByptYFYEKs/9h0HCBEZa8b1zMdnAXb+E2yK0ggr+Zdzj8tAZnCSDmiGQWqVH+jOA7eyYNifdhuEratd/efrgmhHj2kHeOR7zkpa7XDdf7bsGVupN2TV7vO5ZvhXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uns0tLZ9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="HIJqAdNy"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6D3041E4D;
-	Thu, 24 Sep 2026 08:43:07 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CF9313F86F;
-	Thu, 24 Sep 2026 08:43:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790264590; bh=CHYzUrkQMcLRWPgUeFO4PnGKYjBY2rlqkQkNha1Cbug=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HIJqAdNykH8EhX/o4szrcmNL2hM8vYBQdTMIpdVNJshRaywuATNN5gF4n/QX1BnTg
-	 XtsOxiOMg8zogPeJu2NBU17QrQOExbg/hDgGHr4MJN5g6NXyxxN7q+UpuIYN/c81Sg
-	 nsEJPj/PyTPKM7HefB3zd3xr+c+qWipNz99kZd3Y=
-Date: Thu, 24 Sep 2026 16:43:04 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: Will Deacon <will@kernel.org>, kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev, maz@kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
-	gshan@redhat.com, joey.gouly@arm.com, tabba@google.com,
-	yuzenghui@huawei.com, linux-coco@lists.linux.dev,
-	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
-	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
-	lpieralisi@kernel.org, enju.kohei@fujitsu.com
-Subject: Re: [PATCH v18] arm64: mm: Handle Granule Protection Faults (GPFs)
-Message-ID: <arVFCCykzWJctPXP@arm.com>
-References: <20260913070459.2547407-1-suzuki.poulose@arm.com>
- <arK3tsTV6EDhI-nt@willie-the-truck>
- <arOyp8WUrYBAjrGH@arm.com>
- <arP0IF0MjFUv36AP@willie-the-truck>
- <49dcab27-1d03-4df2-b7cb-4df4eda6d909@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uns0tLZ9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B3B01F000FF;
+	Thu, 24 Sep 2026 15:43:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790264638;
+	bh=3mth+udyl4shJuTkd6p94FaAdssxMiU2m/RJPfhfFqY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Uns0tLZ94/wZQNd9IxDW++FfeLwvvbl/fmfWaGlUaXDd5grtwvV55NLgTxiG7FIWu
+	 iA0U2nPP4f4+LSQa9XXTIhDMMUsRbWur3PZVfXAMO28HdT3lTE4xPOugUd165Zems/
+	 upYUjWSP2JkNKoi/YXdhAeQiLRnat4hqx9G9gmVHI/9RL1Iedn+uvUJIyCIidrwDxW
+	 ScN4GUNyO+JQbIgH75xqH8XO+AZNu17ON+2RLYDqqKtFq9BHKqx7763/2B4rBo8/ym
+	 kOZLcHssKDqM/1ADG5esDZKy0C+eZqFO3esE+iSCS3Kk9FXp+3ILaBsbu/xU6kXCc2
+	 8dL1TGi5KQGiQ==
+Date: Thu, 24 Sep 2026 09:43:56 -0600
+From: Keith Busch <kbusch@kernel.org>
+To: Krishna Iyer <kiyer@crusoe.ai>
+Cc: hare@suse.de, axboe@kernel.dk, hch@lst.de, sagi@grimberg.me,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+	nilay@linux.ibm.com, sjpark@crusoe.ai, saravanand@crusoe.ai
+Subject: Re: [PATCH v3] nvme-multipath: add fail_if_no_path sysfs attribute
+Message-ID: <arVFPIKeT-HoYF2K@kbusch-mbp>
+References: <20260923004959.88440-1-kiyer@crusoe.ai>
+ <arRJLL4ki-sVQnHf@kbusch-mbp>
+ <20260923225753.49224-1-kiyer@crusoe.ai>
+ <arR3zlpx3Xm2mRt-@kbusch-mbp>
+ <20260924063524.26807-1-kiyer@crusoe.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,61 +47,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <49dcab27-1d03-4df2-b7cb-4df4eda6d909@arm.com>
+In-Reply-To: <20260924063524.26807-1-kiyer@crusoe.ai>
 
-On Wed, Sep 23, 2026 at 05:04:06PM +0100, Suzuki K Poulose wrote:
-> On 23/09/2026 16:45, Will Deacon wrote:
-> > On Wed, Sep 23, 2026 at 12:06:15PM +0100, Catalin Marinas wrote:
-> > > However, I'd still keep part of this patch - the reporting and panic but
-> > > without the actual exception table recovery. There's some value in
-> > > killing user-space and WARN (or pr_ratelimited) without a full panic, it
-> > > helps with debugging. That's what do_bad() via arm64_notify_die() gives
-> > > us currently anyway.
-> > > 
-> > > So maybe we can keep it to just:
-> > > 
-> > > static int do_gpf(unsigned long far, unsigned long esr, struct pt_regs *regs)
-> > > {
-> > > 	if (user_mode(regs)) {
-> > > 		pr_alert_ratelimited("%s[%d]: granule protection fault at 0x%016lx\n",
-> > > 				current->comm, task_pid_nr(current),
-> > > 				untagged_addr(far));
-> > > 		mem_abort_decode(esr);
-> > > 	}
-> > > 
-> > > 	return 1;
-> > > }
-> > > 
-> > > and we get the SIGBUS or panic via do_mem_abort(). No recovery for
-> > > uaccess though, we get the same kernel panic.
-> > 
-> > But how can this ever occur in user mode?
+On Wed, Sep 23, 2026 at 11:35:24PM -0700, Krishna Iyer wrote:
+> Yes, exactly. Some namespaces should keep waiting out the reconnect
+> while others should stop waiting and fail their parked I/O, decided
+> by a condition only userspace can see. Here that condition is a
+> killed process stuck in D state on parked I/O that nothing will ever
+> consume (for us a SIGKILLed VM the host must reap), and it could be
+> any consumer known to be gone. Failing that namespace lets the
+> process exit, while namespaces with live users behind the same
+> controllers keep queueing and carry on when paths return. A
+> controller wide timeout cannot separate the two, and there is no
+> duration to pick up front since the trigger is userspace observing
+> the event. Reconnect itself is untouched either way. So the kernel
+> provides the per namespace switch and the decision stays in
+> userspace.
 
-Only if we have a kernel bug.
-
-> > I'm fine with making that part unconditional.
-> 
-> Agree, if the user mode can hit this, a page is mapped in the EL0 and
-> it can as well cause the Kernel to hit a GPF.
-> Also if make the handling unconditional, we end up calling
-> die_kernel_fault() and that does the mem_abort_decode() causing
-> duplicate logs.
-
-If we just return 1 here without anything printed (or rely on do_bad()),
-we don't get any info when the user tripped over such pages. Printing
-without the user_mode() check duplicates the mem_abort_decode() for the
-kernel.
-
-If we want panic always here even if only the user triggered it, we can
-do like do_gpf_ptw() (and keep a single function for both). However,
-die_kernel_fault() is a bit confusing as it prints "kernel access" when
-it was user.
-
-If we go with forced signal for EL0 faults (only helpful if we want to
-continue debugging), I'd keep the warning, maybe as WARN_RATELIMIT() or
-a printk. It would be very similar to our current do_bad() behaviour -
-kernel => panic, user => kill, but with more information when it
-happened in user space.
-
--- 
-Catalin
+Okay, I see. Pehaps instead of having one controller export all the
+namespaces, why not configure your target to have multiple subsystems
+the client makes independent connections to for each namespace?
