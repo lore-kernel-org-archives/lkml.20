@@ -1,227 +1,193 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A72346AA8C
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:29:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A84B4AA402;
+	Thu, 24 Sep 2026 17:29:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790270995; cv=none; b=bpmtlYDXi89fW9LIz331xfiOHt0bCsNKt4uuJflpYQf3fLFBfdSe+E4kQ5mkGWIEe9sMZmRMZpYt1tgF1B+VP3qjb+d4w58FP4wwLuWNT20Eri+qxKxevXQy8JI//20qFD/ZhyD6eQCiZHkbXgxMXIbPwx5zGghEB15egoC+9/Q=
+	t=1790270996; cv=none; b=f6vUVTpqUbxQpSfHAiAGEIdpn2hxlkCfhq1wbqwCnhR6mk+oUv/eclzTA/9nknBKJBQOWB5VQfVA6zoOgURcq3pAjdVrI7MIV6JqInlmJnJFM5SJBop1FSxmYEIbDvVHTZgnEmbk44HGMqZ467yY/xAXPcMwazCchiN8quZJVHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790270995; c=relaxed/simple;
-	bh=J1S6FEEKd34DbJBXOFNqtKtIyY9vvgRodUCualT/iKs=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=gfZ/HieXMGtj6T4DY//5i1MZkzgxgYtPAFwQthRGZtFC5CgoMF2ZRu3nNfQbgNUjkSOY0NA73ibR6fu56ULap2bGweYxa/keGzM6qQCMt+EDnc90kH660cNOmlfxBHCCBbimmw8qPexnf6X+2gYA0Q6cm7kbpmncGozwOwkPHVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dQ55lHaC; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com
+	s=arc-20240116; t=1790270996; c=relaxed/simple;
+	bh=ti7W10/PMgF3rzwzjA+tM3Mit/c6YQHhH3CQul23C9g=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=hvFK44yyBmju04PnrA59+YdqRkjDUmBxzak01LKnNoKICDa+4rf7YClf+K5rS8HvWW+KZo6sHTQdZyTfb/ko0VAFFCHsd2wf9//PSzUCWnC+QJh9rVrPXxeQ+jWNdGQyfxziYxv3zE0liC9BG0HIIj5oPzKKhq2BEBTpErHG+r0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gMGzmzXo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dQ55lHaC"
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b1bc2e44e0so226909b6e.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:29:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790270990; x=1790875790; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Pic1jTngVzAQRpfdVenOHmbI8TlKBDo3bPHOvRzPxSI=;
-        b=dQ55lHaCjByL/EXAkdFuoHn4jEs+Uk1plJTnfen7QnouSiOls07anocehbzIQG9x8p
-         NetkJURvJsMljnOZ4k5SFgQ8HiYeTBtz1iREbQKhhYjwf7gZzLkwtUy5ZvFH1MKL4q13
-         SQT0E11F2/cTiijTUcagHFhnDJWTYonozjphyWIvL1aAl+9wDgj2KnS61YxQkX+IsouY
-         UdzIsmBZC3BUODTcWyQiaidqd4GFhwbyvb5NPGkzoeAF29WVHRqVqg2Z5ymntHFUEG2Q
-         BLxoKPGwPgmDjwbtEzy1VQOfX+ZOYmZkPwfMCx2jo11diA11lxsNyPqxNvtok6DKEYu9
-         pB7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790270990; x=1790875790;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Pic1jTngVzAQRpfdVenOHmbI8TlKBDo3bPHOvRzPxSI=;
-        b=Ze8nu1w6Vwvjl5YwPqlYwglq3anZsOFqMjl59HUNOxFq/qHDecqP1HJK/6wDnheIH1
-         daJbPAHBRr5ahdA/g/FfkfuY+OhwmgAIClbJpuoW0cCFCp3pBXePyuCMEobKXLy8sg8t
-         1Sb6aIe/IbO0KOsEbkHyXgS/8bRFj/LvsQ7RoNRc+kYy6Wh1SJbWo20fxWKWjO4dXorP
-         mrXXdNf7vk/Cd8wUYScub2p9MghBxNnE5pdc8yHzIt2myInHZag4BZXUMBsPMmb/4A5e
-         YBe0kgZpptXsIDjHcgvTIYWgXHBt9lLH3d7C9RnN5Nad2v0LxV1Ufw38Jibt8qcxCP6E
-         QWFA==
-X-Forwarded-Encrypted: i=1; AKwUvByT9schXN1wqMorMBXyi84tUJEc5XXsgSDff+L22PoP39x5CWwE8ASfcIDI+Pf7swSx0mFt6tKYd/o+MsU=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5DWUYd80bh4Ao8o0U9W4t/sgtwHcGmfLE4NPjqq1CtU8RM1KK
-	XhXGGX1EggUwaECwxAx/kdr5opWgxdcZ0EoV6Lm1FYyxHsr4elZ68PmZRo8j4K5oZP/aJ6nKiPc
-	fMpcP/gpoocKHwk0nASdBucmajA==
-X-Received: from jabgl11.prod.google.com ([2002:a05:6638:6acb:b0:5f4:25c4:a67f])
- (user=coltonlewis job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:238e:b0:4b2:5529:ed3c with SMTP id 5614622812f47-4d72e1663d0mr3044551b6e.7.1790270989852;
- Thu, 24 Sep 2026 10:29:49 -0700 (PDT)
-Date: Thu, 24 Sep 2026 17:29:19 +0000
-In-Reply-To: <20260924172928.2110956-1-coltonlewis@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gMGzmzXo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 136C41F00A14;
+	Thu, 24 Sep 2026 17:29:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790270991;
+	bh=AWuJrElzdRJtzg/vX5ScZLxe4h+n9U+xf8t1nAlCZMg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=gMGzmzXoLmhIeKSmlKQOMJitwLIDOTiQ4qPXyuYhth9qiLWkbDIhbwQ7EUUeYwgIt
+	 iTLOgiN4vk8m2aOvauF3ioaL8x2frx42ObpX5ct/NWHsUizBBMq3YimmbflOAPb8IJ
+	 gcFRsBA87733MHmblVJbd/hIm9ubVK5fjHN4+/YKosvRjLi33CPDEj9hD4sDStir6c
+	 w4eYLZAgRoUP/wmrk3VxwNH+oZuJSETDSXZpoUYi5Q9ujlZCT7pY7KTmC9gZMaBZyl
+	 1fFmvqfzSq6Vp+NYPrUdXGhbb5q8KVFVU8Cxt6zM/flwCJMOtR4ObgXPcB8Z+CWxki
+	 nV0i4imar+o9w==
+Subject:
+ Re: [PATCH net v2 1/2] net: ngbe: propagate resume errors to the PM core
+From: netdev-bot+sashiko@kernel.org
+To: zhangyunfei1@kylinos.cn
+Cc: netdev@vger.kernel.org, jiawenwu@trustnetic.com, mengyuanlou@net-swift.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, aleksandr.loktionov@intel.com,
+ leitao@debian.org, weirongguang@kylinos.cn, u.kleine-koenig@baylibre.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Thu, 24 Sep 2026 17:29:50 +0000
+Message-ID: <179027099059.2160803.11768054293846758522@kernel.org>
+In-Reply-To: <20260922100836.1147718-2-zhangyunfei1@kylinos.cn>
+References: <20260922100836.1147718-2-zhangyunfei1@kylinos.cn>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260924172928.2110956-1-coltonlewis@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260924172928.2110956-14-coltonlewis@google.com>
-Subject: [PATCH v9 13/22] KVM: arm64: Enforce PMU event filter at vcpu_load()
-From: Colton Lewis <coltonlewis@google.com>
-To: kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Oliver Upton <oliver.upton@linux.dev>, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Fuad Tabba <fuad.tabba@linux.dev>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	James Clark <james.clark@linaro.org>, Robin Murphy <robin.murphy@arm.com>, 
-	Zide Chen <zide.chen@intel.com>, Alexandru Elisei <alexandru.elisei@arm.com>, 
-	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>, Mingwei Zhang <mizhang@google.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Russell King <linux@armlinux.org.uk>, Shuah Khan <shuah@kernel.org>, 
-	linux-perf-users@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Colton Lewis <coltonlewis@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
 
-The KVM API for event filtering says that counters do not count when
-blocked by the event filter. To enforce that, the event filter must be
-rechecked on every load since it might have changed since the last
-time the guest wrote a value. If the event is filtered, exclude
-counting at all exception levels before writing the hardware.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Signed-off-by: Colton Lewis <coltonlewis@google.com>
----
- arch/arm64/kvm/pmu-direct.c | 77 +++++++++++++++++++++++++++++++++++++
- arch/arm64/kvm/sys_regs.c   |  1 +
- include/kvm/arm_pmu.h       |  3 ++
- 3 files changed, 81 insertions(+)
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-diff --git a/arch/arm64/kvm/pmu-direct.c b/arch/arm64/kvm/pmu-direct.c
-index 92eec0fa33867..a22c9258c2452 100644
---- a/arch/arm64/kvm/pmu-direct.c
-+++ b/arch/arm64/kvm/pmu-direct.c
-@@ -169,6 +169,82 @@ u64 kvm_pmu_guest_counter_mask(void)
- 	return kvm_vcpu_pmu_guest_counter_mask(kvm_get_running_vcpu());
- }
- 
-+/**
-+ * kvm_pmu_apply_single_event_filter() - Apply event filter to a single counter
-+ * @vcpu: Pointer to vcpu struct
-+ * @idx: Counter index
-+ *
-+ * Compute the filtered event value and write it directly to the hardware register.
-+ */
-+void kvm_pmu_apply_single_event_filter(struct kvm_vcpu *vcpu, u8 idx)
-+{
-+	struct arm_pmu *pmu = vcpu->kvm->arch.arm_pmu;
-+	u64 guest_counters;
-+	u64 evtyper_set = ARMV8_PMU_EXCLUDE_EL0 |
-+		ARMV8_PMU_EXCLUDE_EL1;
-+	u64 evtyper_clr = ARMV8_PMU_INCLUDE_EL2;
-+	bool guest_include_el2;
-+	u64 val;
-+	u64 evsel;
-+
-+	if (!pmu || vcpu != kvm_get_running_vcpu())
-+		return;
-+
-+	guest_counters = kvm_vcpu_pmu_guest_counter_mask(vcpu);
-+	if (!test_bit(idx, (unsigned long *)&guest_counters))
-+		return;
-+
-+	if (idx == ARMV8_PMU_CYCLE_IDX) {
-+		val = __vcpu_sys_reg(vcpu, PMCCFILTR_EL0);
-+		evsel = ARMV8_PMUV3_PERFCTR_CPU_CYCLES;
-+	} else {
-+		val = __vcpu_sys_reg(vcpu, PMEVTYPER0_EL0 + idx);
-+		evsel = val & kvm_pmu_event_mask(vcpu->kvm);
-+	}
-+
-+	guest_include_el2 = (val & ARMV8_PMU_INCLUDE_EL2);
-+	val &= ~evtyper_clr;
-+
-+	if (unlikely(is_hyp_ctxt(vcpu))) {
-+		if (guest_include_el2)
-+			val &= ~ARMV8_PMU_EXCLUDE_EL1;
-+		else
-+			val |= ARMV8_PMU_EXCLUDE_EL1;
-+	}
-+
-+	if (vcpu->kvm->arch.pmu_filter &&
-+	    !test_bit(evsel, vcpu->kvm->arch.pmu_filter))
-+		val |= evtyper_set;
-+
-+	if (idx == ARMV8_PMU_CYCLE_IDX)
-+		write_pmccfiltr(val);
-+	else
-+		write_pmevtypern(idx, val);
-+}
-+
-+/**
-+ * kvm_pmu_apply_event_filter() - Apply event filter to all guest counters
-+ * @vcpu: Pointer to vcpu struct
-+ *
-+ * To uphold the guarantee of the KVM PMU event filter, we must ensure
-+ * no counter counts if the event is filtered. Accomplish this by
-+ * filtering all exception levels if the event is filtered.
-+ */
-+static void kvm_pmu_apply_event_filter(struct kvm_vcpu *vcpu)
-+{
-+	struct arm_pmu *pmu = vcpu->kvm->arch.arm_pmu;
-+	unsigned long guest_counters;
-+	u8 i;
-+
-+	if (!pmu)
-+		return;
-+
-+	guest_counters = kvm_vcpu_pmu_guest_counter_mask(vcpu);
-+
-+	for_each_set_bit(i, &guest_counters, ARMPMU_MAX_HWEVENTS)
-+		kvm_pmu_apply_single_event_filter(vcpu, i);
-+}
-+
- /**
-  * kvm_pmu_load() - Load untrapped PMU registers
-  * @vcpu: Pointer to struct kvm_vcpu
-@@ -194,6 +270,7 @@ void kvm_pmu_load(struct kvm_vcpu *vcpu)
- 	preempt_disable();
- 
- 	guest_counters = kvm_vcpu_pmu_guest_counter_mask(vcpu);
-+	kvm_pmu_apply_event_filter(vcpu);
- 
- 	for_each_set_bit(i, &guest_counters, ARMPMU_MAX_HWEVENTS) {
- 		val = __vcpu_sys_reg(vcpu, PMEVCNTR0_EL0 + i);
-diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
-index ebcf52261df65..c4aa6a448b6ca 100644
---- a/arch/arm64/kvm/sys_regs.c
-+++ b/arch/arm64/kvm/sys_regs.c
-@@ -1137,6 +1137,7 @@ static void pmu_reg_write(struct kvm_vcpu *vcpu, enum vcpu_sysreg reg, u64 val,
- 		if (kvm_pmu_is_partitioned(vcpu->kvm)) {
- 			mask = kvm_pmu_evtyper_mask(vcpu->kvm);
- 			__vcpu_assign_sys_reg(vcpu, reg, val & mask);
-+			kvm_pmu_apply_single_event_filter(vcpu, idx);
- 		} else {
- 			kvm_pmu_set_counter_event_type(vcpu, val, idx);
- 			kvm_vcpu_pmu_restore_guest(vcpu);
-diff --git a/include/kvm/arm_pmu.h b/include/kvm/arm_pmu.h
-index 2604a6a46d5f3..ddbbbb050b9de 100644
---- a/include/kvm/arm_pmu.h
-+++ b/include/kvm/arm_pmu.h
-@@ -104,6 +104,7 @@ u64 kvm_pmu_host_counter_mask(void);
- u64 kvm_pmu_guest_counter_mask(void);
- void kvm_pmu_load(struct kvm_vcpu *vcpu);
- void kvm_pmu_put(struct kvm_vcpu *vcpu);
-+void kvm_pmu_apply_single_event_filter(struct kvm_vcpu *vcpu, u8 idx);
- 
- /*
-  * Updates the vcpu's view of the pmu events for this cpu.
-@@ -263,6 +264,8 @@ static inline u64 kvm_pmu_guest_counter_mask(void)
- 	return 0;
- }
- 
-+static inline void kvm_pmu_apply_single_event_filter(struct kvm_vcpu *vcpu, u8 idx) {}
-+
- static inline bool has_kvm_pmu_partition_support(void)
- {
- 	return false;
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The newly added early return `err = ngbe_reset_hw(wx); if (err)
+  return err;` in ngbe_resume()…
+
+--
+
+net: ngbe: propagate resume errors to the PM core
+
+ngbe_resume() used a u32 err and always returned 0, so resume failures
+were never reported.  The patch changes err to int, propagates the
+wx_init_interrupt_scheme()/ngbe_open() error, and adds a new early
+return when ngbe_reset_hw() fails.
+
+> diff --git a/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c b/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
+> index 855dc963c610c..e8cabcc84a414 100644
+> --- a/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
+> +++ b/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
+> @@ -954,7 +954,7 @@ static int ngbe_resume(struct pci_dev *pdev)
+>  {
+>  	struct net_device *netdev;
+>  	struct wx *wx;
+> -	u32 err;
+> +	int err;
+>  
+>  	wx = pci_get_drvdata(pdev);
+>  	netdev = wx->netdev;
+> @@ -968,7 +968,9 @@ static int ngbe_resume(struct pci_dev *pdev)
+>  	pci_set_master(pdev);
+>  	device_wakeup_disable(&pdev->dev);
+>  
+> -	ngbe_reset_hw(wx);
+> +	err = ngbe_reset_hw(wx);
+> +	if (err)
+> +		return err;
+
+[Severity: High]
+Can this new bail-out leave the driver state claiming resources it no
+longer owns?
+
+The suspend side calls ngbe_close() directly rather than dev_close():
+
+drivers/net/ethernet/wangxun/ngbe/ngbe_main.c:ngbe_dev_shutdown() {
+	...
+	if (netif_running(netdev))
+		ngbe_close(netdev);
+	wx_clear_interrupt_scheme(wx);
+	...
+}
+
+So __LINK_STATE_START is never cleared and netif_running(netdev) stays
+true, while wx_clear_interrupt_scheme() zeroes wx->num_tx_queues /
+num_rx_queues / num_q_vectors, NULLs wx->tx_ring[]/rx_ring[] in
+wx_free_q_vector(), and calls pci_free_irq_vectors() so
+pdev->msix_enabled and msi_enabled become false.
+
+Returning here skips wx_init_interrupt_scheme(), so none of that is
+rebuilt.  ngbe_close()'s only idempotency guard is WX_STATE_RES_FREED,
+and that bit is set only by ngbe_down_suspend() (the PCIe error
+recovery path), not by ngbe_dev_shutdown():
+
+drivers/net/ethernet/wangxun/ngbe/ngbe_main.c:ngbe_close() {
+	if (test_bit(WX_STATE_RES_FREED, wx->state))
+		goto out;
+
+	wx_ptp_stop(wx);
+	ngbe_down(wx);
+	wx_free_irq(wx);
+	...
+}
+
+Does that mean the next ndo_stop - "ip link set <dev> down", a second
+ngbe_dev_shutdown() (netif_running() is still true), or
+unregister_netdev() from ngbe_remove() on rmmod - re-runs the full
+teardown on already-freed state and hits the unbalanced free_irq()
+here?
+
+drivers/net/ethernet/wangxun/libwx/wx_lib.c:wx_free_irq() {
+	...
+	if (!(pdev->msix_enabled)) {
+		if (!wx->misc_irq_domain)
+			free_irq(pdev->irq, wx);
+		return;
+	}
+	...
+}
+
+With msix_enabled false and wx->misc_irq_domain never set on ngbe (only
+txgbe sets it), free_irq(pdev->irq, wx) is issued for an IRQ that has no
+registered action, which gives the "Trying to free already-free IRQ"
+WARN, or a panic with panic_on_warn.
+
+Separately, ngbe_set_ringparam() is gated on netif_running() only, not
+netif_device_present():
+
+drivers/net/ethernet/wangxun/ngbe/ngbe_ethtool.c:ngbe_set_ringparam() {
+	...
+	if (!netif_running(wx->netdev)) {
+	...
+}
+
+After the failed resume it takes the "running" branch and drives
+ngbe_down()/ngbe_up() with zero q_vectors and no IRQ vectors, and
+ngbe_up_complete() clears WX_STATE_DOWN and restarts the tx queues of a
+detached netdev whose tx_ring[] entries are NULL and whose
+wx->num_tx_queues is 0, which wx_xmit_frame() then uses in
+r_idx % wx->num_tx_queues.
+
+Would it be better to leave a consistent representation before
+returning, for example mirroring ngbe_down_suspend() by setting
+WX_STATE_RES_FREED, or keeping the interrupt scheme initialised, or
+marking the interface down, so the second close is a no-op?
+
+ngbe_reset_hw() can fail through wx_stop_adapter() ->
+wx_disable_pcie_master() returning -ETIMEDOUT, or through the
+read_poll_timeout() on 0x10028, so this is reachable on a hardware or
+timing fault and the follow-up ifdown/rmmod is an ordinary operation
+once the NIC looks dead.
+
+The same double-teardown hazard already exists on the pre-existing
+wx_init_interrupt_scheme()/ngbe_open() failure paths below, but this
+patch adds a new route into it.  The only follow-up patch found, "net:
+ngbe: clear DRV_LOAD bit when ngbe_open() fails", touches ngbe_open()
+only and leaves ngbe_resume() unchanged.
+
+>  	rtnl_lock();
+>  	err = wx_init_interrupt_scheme(wx);
+>  	if (!err && netif_running(netdev))
+
+[ ... ]
+
 -- 
-2.56.0.rc1.310.g51773c2048-goog
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922100836.1147718-1-zhangyunfei1%40kylinos.cn
