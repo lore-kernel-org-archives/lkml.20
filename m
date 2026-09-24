@@ -1,65 +1,65 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wr2-f38.google.com (mail-wr2-f38.google.com [74.125.225.102])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60D7E4477F1
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:12:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03CC14432FF
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:12:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790241179; cv=none; b=EJIOkTqcL8Obyp9RQwfcyUuRH4+rtCtynN2rv6seqovqy/+lHbSxjOk8KNpZyrpckV+Ot2LmbzaYzJoPAQFC4142wep6yjfaKKU9n7Yc1R1Lce+tjN4tT1xnhu5yzL6nN/RYubuOAdURqdWj5WB0iSp4FmCNlpJ/y7pqUKmjbD4=
+	t=1790241183; cv=none; b=WHU85qm6orpEKN+4JgVhkGvlxuOIa5rEdriCqXQWjEozpvbBNP/KvDlR0hpOoxljqIp3moFZf+Hr3ALCCTIqVamVFlv6SJpB6Btc6tcqrvTUYwMHRMAlfvGVhzdug4JVJ3UaSJT9KRCVmF0brc7y3BqsXV3u5WYg+4ok5EdGiPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790241179; c=relaxed/simple;
-	bh=gbD38OZ+K8pV/KQl4DgCWHt3UcaEpwGclj1C9Ynx0P8=;
+	s=arc-20240116; t=1790241183; c=relaxed/simple;
+	bh=+hOZACThI9fTymMJZFcS53sfhvVmabkJCCIZDLXeVX8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lL6dGPALJD6f4y1FGVwcELjzl+3evfj3xbMlfYEkQy9TiO+eeSo09dd2nqVMlOBaxsR2ttQ7A2DKQr34IALgTYfbv4U5fXVb5GAT3oTdlTftBtAnBNgRDpJ/D2Uu1agpejN0bTULVulzGL1CLdkiAElSTpRlV5MSNOzASWPv+es=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FgWIybPP; arc=none smtp.client-ip=74.125.225.76
+	 MIME-Version; b=eo3Kuy0ydR7LLHuxU1AMAe5qMQc39n1zhXiEP+VPfE2X1Top6L0T3cPn3pbR6DFeqn2bTjeOMsOc6e51Dh0sZ6hcpEjBfogfDR+YDNqDbGioiZlJl9Ux3oed+Hy3yPmCtuYXDUufqZvSr/vXPdKVPXTs6QT/ikIaX5x/v9ENQsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MRTt7MeS; arc=none smtp.client-ip=74.125.225.102
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FgWIybPP"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6356f6bso1496426f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:12:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MRTt7MeS"
+Received: by mail-wr2-f38.google.com with SMTP id ffacd0b85a97d-482f6350f89so1275855f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:12:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790241175; x=1790845975; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790241178; x=1790845978; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0T6gy4Aw3WfHFoNTCiQ4B3uP/bh3QfbEnAm8LgQjvIs=;
-        b=FgWIybPPwptnGoIMYOj7kdxjQrBorZKG+GaAjJrLTGeUftBhTV3d+SI23asRa+NFwg
-         I3jExrtk+cXsFIDIuHWylnuAaVx78XEHGz5AAa/WuIkT+MBlb91KRUWOVddZCUv38i98
-         G+uDfnn2hMgcK82bdMJCaDmOtlUfVzC8oFZy2dD2AxW5953XUe0XdyS+qwH+DmSCkwJ3
-         dRG1GtI7UfF2x8BHqCinLwDhj8z/bPOuPEKXQ426y9I96ucVMvmz8ikXDu4nDt5ri/MA
-         XY1DZcBhfJh3lw3UF2Nlo1OuFrNLJEzor1KBncDMWjEGpToTNgCZx0A8vauo8UJ3y1cL
-         HY6Q==
+        bh=ULqy3851A4B8rk2HooNfYhmLdLyD4QbbwevT0D7ixEg=;
+        b=MRTt7MeSaAaW6U7mujoM4gBZPX69ndIkCJOjsuWSbBg7SgTg5l2pQX4NLTvN18UNGV
+         YGoc2YBLkUcf5uvxwxcsBGtNj6N2RRDX0wfX39pjf8UfeA+2j4KGNagUHCgQ0+EvPKbE
+         xI+AkjHC4IyQl+HylGQJqK1Z/boQPiYM/9h/cqSnLNcAtSJ2198fVQE8ekSjucUvw0pb
+         RiFUTO7cXLH/yTwlrOzVP8TYwIvHjQUbhntQz1Snd+bJUy01DRRh/qPxXOVaGuzDFR/a
+         ELKoFmdAYHUGrEARMOIiUfViIrPUiy5IcsTPixoIv9WbqGOb/3e/o+vRhAaHHxDH0I1X
+         hlhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790241175; x=1790845975;
+        d=1e100.net; s=20260707; t=1790241178; x=1790845978;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0T6gy4Aw3WfHFoNTCiQ4B3uP/bh3QfbEnAm8LgQjvIs=;
-        b=FHohpgYmImIniWN0N+IVKMq3g6Y9uQEVm+4cqbPesIrYzzgr1gAn/gaTIWcg0B2hk9
-         Ds1+gE5lWgfdSLGWCpXFHZ+5PpkJl+e3VJv1RdepZ9j+sAeo6jKcvpqYu4S+KoAvkW+k
-         mMH215VAbVjyUb7jMjCx0xvoxTYWjV4Wuza5TU4WPiAGN7YbSHLeJVzENcsx7ORBAXGs
-         9o19TUUfsJURu1bY6XQUcL/LhRsYbg5o5P8sPZ3l6P1VQKs8duvnm8o8/xERPi3rZMli
-         o25rtfICVmAYi7zMvLf2dQDd6FwhxTG0+AcoXVH5pbgZ8abOmT8hmSCEblemCOPROKtH
-         GYvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwQoA00krxkJ1VY3+XWi/kfWn6RW2JxQlKYkBU/iVTVCh1Pyq2duzsv9CjkhWy3BPPLD1XFdpoGJxNVy18=@vger.kernel.org
-X-Gm-Message-State: AFuF++lVZeAhMCa17Qn7dhx4PxNxpDpBCIpIfG9qYckArJhV3Co/GamL
-	N0FYarweD/ujXzvh+ilo9RhXrpKeOKOHGAci3a0YS7tmmNIrYrIr/tSe
-X-Gm-Gg: AYBFou2q0dIQYvEJ1YZj6XBlCTcZYO3FwkomPcK4hmoZv0dHq5xevMm5LR3j+zVlNXp
-	pz46iTOcfEVxV60OepQ4tB1vIxvZjYkkzx5N7OxTRngz6jJkhrLbyWOSTfxU6A14N0xec/uu2jS
-	dcDM3X3OemfY2C/gvLn1C63mtqcQe5glJRSH/VC3qQkAphjwBHoQXuTqdfTZwHXpxQ2WzO1otq4
-	wlkEiJe4FZ89Q6evcyiUAV+by8i/GzrFwkUKxB31tbsbc122w6+jwquOSg+fMlEd0kbc2Mw5bQS
-	tAa63rn+VuLXHk/jDxknbwI0jRiSCToRq+oG3Fs5ChKPJgcEb2iax+EJm7q6j1XS/h2Oq3klwM/
-	gDoi6oNPpZMY6a05ePyONDU9Msx5qMBSDtJdh55EN5rK7AMCAUsi5y5kCWolDMh/TF6ZLcdjJ48
-	5ulo7FJqKPWuMCTOrc4XsB4xfiXDjEUUqwFuXRi+HkqLh+imeYaWJ/6MUHM2bLtrhSFougwTY/b
-	sOaIC/PqHNplhfBlmT+BD5HgX2znnqKYgDMW6mt5xgxH4mWHWC7B8cJnNoDmca7wdx2dxNwcmGB
-	lS6B
-X-Received: by 2002:a05:6000:604:b0:487:d60:aa69 with SMTP id ffacd0b85a97d-488716b74a7mr3595554f8f.7.1790241175505;
-        Thu, 24 Sep 2026 02:12:55 -0700 (PDT)
+        bh=ULqy3851A4B8rk2HooNfYhmLdLyD4QbbwevT0D7ixEg=;
+        b=tuoVvtlpzzYL0Obc49qFRZnot04LAYJkhq/3SRzlILJBEAblEFK8gjwnBMABAYzAcn
+         hF7G5f/EZVqe0iddRgUxW7A8c1u4RLygIY9OliSdCR/sVEGCtafPS+0cee+Ie3J53kTL
+         V+5Q0DSOuha972tKK78XKMss//V6MxJPbDsa957GFZjHvNlGiXUS85gRRVe/VfpZrVrD
+         Utnc4stmYu/gsY2H9T4dEXJ8MV5/gxCyZw+CIJDigRKwVnxOrHuavAVYe0JWJ564vSVg
+         nkIyPzFuvy0aabTHry4cWpivZlQvRxLY5wlJl78u15B3/5hFjzrXuZNdb8efsVKw3g3W
+         EwrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzosEz9y3Lrqi+Cp6B0eaBE1VMQwS7yu/SNPWKRofpRSPTdfpgZXjet1mggcrPYIkYXUNeZwuXgfHPq5Rs=@vger.kernel.org
+X-Gm-Message-State: AFuF++l7wGoB9wCr0f9U/WIWdigBXmA3vOjPRKc2Ptfnrjn78NNrC3Oz
+	zTSo1D63B1mHHoLwIQPAkLcuziDrhtNVpzbmOTdRMqKXEsMmVp/uDHUx
+X-Gm-Gg: AYBFou1NvsfF2O6yh/U/z+4mXaI9A4JJ2HGXYpU/4ae6HaYnk+9DuLKzrg+oRpueX4x
+	3a/4BmHGNKDiqfSevTMvqyR6eVHrUcuVDN3/G1r8Dcezn/4fhzWKiXevzLlb811MSCCwI4/SDrx
+	tNOjhuSiXfGwOsjOjaBaltKfJmZ5Ua5O7NLutDc9hJeGLR4eu4RSAhKBRu7n1g2FchzzxU1PV/w
+	6egh4rbBb70By1eSPp9JOBKhZbS/Ur+x3Ct+uHNhZqBSVFM415KBB4H7sPZdb72mibCa/WkvgUI
+	FyCHPl4FmLVS+d0P/uQ8j7y1qUbvWOyKUbCj47FKcvU8GrPqcWeAAoZElQV3ehmAtKoEsCekhno
+	+yUGbo4aY3SHeqMkUezvSbyAAWPZQuEYOuTUAkZUjoG8u57QhC7ubA5QgVYcxcHazOEEExsPSjr
+	/O0G/NGUKvEmO72NXvUpyMyamEUpkZIAmeBbku8A6dXFhAXLgspgxV6SXJdjuyPyJ0XIzkpsMTp
+	TC6q2RvZVHQh8g6OWz4u9y03s7TSCpCeircOoeV4ESUps4jll9q8mcXtb3dkgwf7sIucqihjb72
+	19kX
+X-Received: by 2002:a05:6000:4012:b0:487:40d:af33 with SMTP id ffacd0b85a97d-4887171633bmr3055061f8f.13.1790241178110;
+        Thu, 24 Sep 2026 02:12:58 -0700 (PDT)
 Received: from andreayoga.localdomain (93-42-14-189.ip84.fastwebnet.it. [93.42.14.189])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886848636asm12756677f8f.6.2026.09.24.02.12.53
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886848636asm12756677f8f.6.2026.09.24.02.12.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 02:12:55 -0700 (PDT)
+        Thu, 24 Sep 2026 02:12:57 -0700 (PDT)
 From: Andrea Parri <parri.andrea@gmail.com>
 To: Christian Brauner <brauner@kernel.org>,
 	Carlos Maiolino <cem@kernel.org>,
@@ -75,11 +75,10 @@ To: Christian Brauner <brauner@kernel.org>,
 Cc: Andrea Parri <parri.andrea@gmail.com>,
 	linux-xfs@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/4] iomap: don't resubmit an ioend after ->writeback_submit() failed
-Date: Thu, 24 Sep 2026 11:11:51 +0200
-Message-ID: <20260924091203.198225-2-parri.andrea@gmail.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 2/4] xfs: add an error tag to inject a ->writeback_submit() failure
+Date: Thu, 24 Sep 2026 11:11:52 +0200
+Message-ID: <20260924091203.198225-3-parri.andrea@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260924091203.198225-1-parri.andrea@gmail.com>
 References: <20260924091203.198225-1-parri.andrea@gmail.com>
@@ -91,61 +90,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-iomap_add_to_ioend() submits the pending ioend through
-->writeback_submit() before allocating a new one for the current range.
-When the submission fails the helper completes the ioend with an error,
-but iomap_add_to_ioend() returns the error without clearing
-wpc->wb_ctx.  iomap_writepages() then submits whatever wpc->wb_ctx
-points to, so the already completed ioend is submitted a second time.
+The only in-tree way for xfs_writeback_submit() to fail is a failing
+xfs_reflink_convert_cow(), which requires a shared (reflinked) CoW
+extent.  There was previously no way to exercise that failure path
+from userspace, which made it hard to write an xfstest for it, e.g.
+for "iomap: don't resubmit an ioend after ->writeback_submit()
+failed".
 
-For XFS the second bio_endio() lands in xfs_end_bio(), which
-list_add_tail()s the already linked ioend into ip->i_ioend_list.  This
-corrupts the list and leaves a use-after-free/double-free window against
-the ioend completion worker.  Reproduced with a fault-injected
-->writeback_submit() failure on a reflinked XFS file with several
-CoW writeback ranges in flight: the unfixed kernel hits repeated
-"list_add double add" warnings from __list_add_valid_or_report(),
-the fixed kernel fails writeback cleanly.
+Add XFS_ERRTAG_WB_COW_CONVERT_ERROR to force xfs_reflink_convert_cow()
+to fail with -EIO, so that ->writeback_submit() failure and its
+callers' error handling can be exercised with error injection alone,
+without needing a corrupted or racy COW fork.
 
-Clear wpc->wb_ctx when ->writeback_submit() fails.  The old
-iomap_submit_ioend() cleared the context unconditionally; that clear was
-lost when submission moved to iomap_ioend_writeback_submit().  The final
-->writeback_submit() call in iomap_writepages() needs no equivalent fix:
-it is the last thing the function does before returning, and every
-caller allocates its iomap_writepage_ctx on the stack for a single call,
-so wpc->wb_ctx is never read again afterwards.
-
-Fixes: f4fa7981fa26 ("iomap: hide ioends from the generic writeback code")
-Cc: <stable@vger.kernel.org> # v6.17
-Reviewed-by: Brian Foster <bfoster@redhat.com>
+Suggested-by: Christoph Hellwig <hch@infradead.org>
 Assisted-by: LLM
 Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 ---
- fs/iomap/ioend.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ fs/xfs/libxfs/xfs_errortag.h | 6 ++++--
+ fs/xfs/xfs_reflink.c         | 5 +++++
+ 2 files changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/fs/iomap/ioend.c b/fs/iomap/ioend.c
-index 7bbbb417f9152..32ae292a84cbe 100644
---- a/fs/iomap/ioend.c
-+++ b/fs/iomap/ioend.c
-@@ -246,8 +246,16 @@ ssize_t iomap_add_to_ioend(struct iomap_writepage_ctx *wpc, struct folio *folio,
- new_ioend:
- 		if (ioend) {
- 			error = wpc->ops->writeback_submit(wpc, 0);
--			if (error)
-+			if (error) {
-+				/*
-+				 * ->writeback_submit() completed the ioend
-+				 * with an error, so drop the stale context;
-+				 * iomap_writepages() would otherwise submit
-+				 * it a second time.
-+				 */
-+				wpc->wb_ctx = NULL;
- 				return error;
-+			}
- 		}
- 		wpc->wb_ctx = ioend = iomap_alloc_ioend(wpc, pos, ioend_flags);
- 	}
+diff --git a/fs/xfs/libxfs/xfs_errortag.h b/fs/xfs/libxfs/xfs_errortag.h
+index 6de207fed2d89..e6b0864051b0a 100644
+--- a/fs/xfs/libxfs/xfs_errortag.h
++++ b/fs/xfs/libxfs/xfs_errortag.h
+@@ -75,7 +75,8 @@
+ #define XFS_ERRTAG_METAFILE_RESV_CRITICAL		45
+ #define XFS_ERRTAG_FORCE_ZERO_RANGE			46
+ #define XFS_ERRTAG_ZONE_RESET				47
+-#define XFS_ERRTAG_MAX					48
++#define XFS_ERRTAG_WB_COW_CONVERT_ERROR		48
++#define XFS_ERRTAG_MAX					49
+ 
+ /*
+  * Random factors for above tags, 1 means always, 2 means 1/2 time, etc.
+@@ -137,7 +138,8 @@ XFS_ERRTAG(WRITE_DELAY_MS,	write_delay_ms,		3000) \
+ XFS_ERRTAG(EXCHMAPS_FINISH_ONE,	exchmaps_finish_one,	1) \
+ XFS_ERRTAG(METAFILE_RESV_CRITICAL, metafile_resv_crit,	4) \
+ XFS_ERRTAG(FORCE_ZERO_RANGE,	force_zero_range,	4) \
+-XFS_ERRTAG(ZONE_RESET,		zone_reset,		1)
++XFS_ERRTAG(ZONE_RESET,		zone_reset,		1) \
++XFS_ERRTAG(WB_COW_CONVERT_ERROR, wb_cow_convert_error,	1)
+ #endif /* XFS_ERRTAG */
+ 
+ #endif /* __XFS_ERRORTAG_H_ */
+diff --git a/fs/xfs/xfs_reflink.c b/fs/xfs/xfs_reflink.c
+index 4801361366359..104542b10d9e0 100644
+--- a/fs/xfs/xfs_reflink.c
++++ b/fs/xfs/xfs_reflink.c
+@@ -34,6 +34,8 @@
+ #include "xfs_rtalloc.h"
+ #include "xfs_rtgroup.h"
+ #include "xfs_metafile.h"
++#include "xfs_errortag.h"
++#include "xfs_error.h"
+ 
+ /*
+  * Copy on Write of Shared Blocks
+@@ -346,6 +348,9 @@ xfs_reflink_convert_cow(
+ 
+ 	ASSERT(count != 0);
+ 
++	if (XFS_TEST_ERROR(mp, XFS_ERRTAG_WB_COW_CONVERT_ERROR))
++		return -EIO;
++
+ 	xfs_ilock(ip, XFS_ILOCK_EXCL);
+ 	error = xfs_reflink_convert_cow_locked(ip, offset_fsb, count_fsb);
+ 	xfs_iunlock(ip, XFS_ILOCK_EXCL);
 -- 
 2.53.0
 
