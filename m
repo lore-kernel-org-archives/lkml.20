@@ -1,147 +1,68 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED6D747D44E;
-	Thu, 24 Sep 2026 12:21:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD6047ECCB;
+	Thu, 24 Sep 2026 12:21:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790252498; cv=none; b=okjua3YPdY0BmuIRa8vZpbUhbLklKWXTwV89CtPhKUrlv2Uv5RwVoX+zcisl0lPbcTGUk5ey5mfvgs3sl3fxcOf2KR9AmF4RYnqlrstxgT0aOhZfqPDWpmOJGu1gbhhjXjqNwlxYXKJyDYEA+Xtap2XE5N0Vsh2ZdUXi7PhxG0Y=
+	t=1790252506; cv=none; b=YVBWSlYpV7wJ8vHW8qMLy+wG7yyJ/b34Au74ju5MU0p3l1CEwK3MvFJF6FU007wweF0+4fA3TBfB6RQJBRyB6BgWxROT0xY7sqhWhVhHSbhxOphslrZT+KoZ0kAPuQROZrEWobEmCWcTotmL9zKIV0Nd9MpnAEk46LCUdngta4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790252498; c=relaxed/simple;
-	bh=rTdcO7n0+nshxu9CDu/EDryDUt+kuTOvFiqhnTEqJCg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nnHc/7k8vkAp5hJOoThodNMgab+t/n8cDMIH9wlZtrjcGaa7Br5As2NLhObEtM0kJzOX9h5z30xuyuAPjPIEEGClGHt/fHtvqsusL0vA9SdvMonn8Xa/hBYqja79OpQFc8FcQbpMFfcYJQfF+au/Si6UV6rMigxARXiQYsq4V8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=RCb6mJCl; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790252506; c=relaxed/simple;
+	bh=Zpd+j/mUx9C7TrN/L31jgjvx5dJBC8fLkMNiUI0+nMM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=djZcevZ5hA7nfNrQtF3hQjIwLBkyKxCndMYaJk5kYr6xIjIbKcimcWzHGW7lrFWJpPn+BtxKp/sPzKvBaTQOaWps1M15iN++oNr7piN4mjKMp0JCP/dK8YRcmEh156jwTew98sTCJzGPWySZA0LRXHXi0e8JAwg/c1FCI5Sf+Ss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=PHX86KUV; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="RCb6mJCl"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8687A152B;
-	Thu, 24 Sep 2026 05:21:32 -0700 (PDT)
-Received: from [10.57.83.110] (unknown [10.57.83.110])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id ABA9B3F86C;
-	Thu, 24 Sep 2026 05:21:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790252496; bh=rTdcO7n0+nshxu9CDu/EDryDUt+kuTOvFiqhnTEqJCg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=RCb6mJClIL5UcTql5vFcsex7DxOdojrWEOrsuD+03U/8LnEkoU4WGd4NklebN4L/q
-	 i8SAcsH8Z8iDp7GOdFsb2I3V0awYWc2PApLoDAD0UXrSVigZDqp90z2XYQLFkm59o6
-	 Z+aW0c6kZeCZ6al02l/F0iQ5og5z9BpTFQcoNTnk=
-Message-ID: <7a600128-bf10-4966-8c08-129eeec3fb91@arm.com>
-Date: Thu, 24 Sep 2026 13:21:29 +0100
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="PHX86KUV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=Zpd+j/mUx9C7TrN/L31jgjvx5dJBC8fLkMNiUI0+nMM=; b=P
+	HX86KUVSFYJ+onbEn1E3UI18by81/qVQJmtiZ0R8Ejl63Gus3wfT05rHJaDql+Hk
+	CkRJwxrcaFK51V2rqR/8mUXimKTXQ2RM+4r2luBOH3cS3WucmxJqIwnVFw4P3xnu
+	+5ZYuQ//9K60QV07khAlnWStJlhR+ZsQWfp85Bu3/o=
+Date: Thu, 24 Sep 2026 20:20:47 +0800 (CST)
+From: "jiale yao" <19888972804@163.com>
+To: liubaolin <liubaolin12138@163.com>
+Cc: "Namjae Jeon" <linkinjeon@kernel.org>,
+	"Sungjong Seo" <sj1557.seo@samsung.com>,
+	"Yuezhang Mo" <yuezhang.mo@sony.com>, "Jan Kara" <jack@suse.com>,
+	"Hyunchul Lee" <hyc.lee@gmail.com>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	"Darrick J. Wong" <djwong@kernel.org>, exfat@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org,
+	ntfs@lists.linux.dev
+Subject: Re:Re: [PATCH 2/3] ntfs: drain in-flight DIO before buffered write
+ fallback
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <b51a2ffa-5778-4075-a679-84cd3acf419a@163.com>
+References: <20260924110544.601390-1-yaojiale02@163.com>
+ <20260924110544.601390-3-yaojiale02@163.com>
+ <b51a2ffa-5778-4075-a679-84cd3acf419a@163.com>
+X-NTES-SC: AL_Qu2SAv6evUwv4SSZZukcn08ShO49XMOyvfoi2YFTc+wEnhnL8yUYRG1aAVbZ0M2NIDyrmSO1VSZU0dZdb4B+FqGYtFDMTsnu5maxz/wyRw==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/6] arm64: use hw_pte_val for HW PTE atomics
-To: Muhammad Usama Anjum <usama.anjum@arm.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- Alexander Potapenko <glider@google.com>,
- Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>,
- Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-efi@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org
-References: <20260922-pte0_arm-v2-0-a3f1ddff0a8a@arm.com>
- <20260922-pte0_arm-v2-2-a3f1ddff0a8a@arm.com>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260922-pte0_arm-v2-2-a3f1ddff0a8a@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Message-ID: <7e97a16e.9bac.1a0d35c76c2.Coremail.19888972804@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:ZygvCgD3f1mfFbVqMqtOAA--.47461W
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8B90rmq1FZ-9nQAA3A
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On 22/09/2026 18:31, Muhammad Usama Anjum wrote:
-> The low-level atomic PTE update paths take the address of
-> pte_val(*ptep). That assumes HW PTE storage can be passed directly to
-> the SW PTE value accessor and no longer type-checks when hw_pte_t is
-> distinct.
-> 
-> Use hw_pte_val() for the lvalues passed to compare-exchange and exchange
-> operations. The atomic operations and their ordering are unchanged.
-> 
-> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-
-Reviewed-by: Ryan Roberts <ryan.roberts@arm.com>
-
-> ---
-> Chagnes in v2:
-> - Remove comment change
-> - Move hw_pte_val() to generic series
-> ---
->  arch/arm64/include/asm/pgtable.h | 10 +++++-----
->  arch/arm64/mm/fault.c            |  2 +-
->  2 files changed, 6 insertions(+), 6 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-> index 652ce413be389..4768ec59de555 100644
-> --- a/arch/arm64/include/asm/pgtable.h
-> +++ b/arch/arm64/include/asm/pgtable.h
-> @@ -1303,7 +1303,7 @@ static inline bool __ptep_test_and_clear_young(struct vm_area_struct *vma,
->  	do {
->  		old_pte = pte;
->  		pte = pte_mkold(pte);
-> -		pte_val(pte) = cmpxchg_relaxed(&pte_val(*ptep),
-> +		pte_val(pte) = cmpxchg_relaxed(&hw_pte_val(*ptep),
->  					       pte_val(old_pte), pte_val(pte));
->  	} while (pte_val(pte) != pte_val(old_pte));
->  
-> @@ -1346,7 +1346,7 @@ static inline pte_t __ptep_get_and_clear_anysz(struct mm_struct *mm,
->  					       hw_pte_t *ptep,
->  					       unsigned long pgsize)
->  {
-> -	pte_t pte = __pte(xchg_relaxed(&pte_val(*ptep), 0));
-> +	pte_t pte = __pte(xchg_relaxed(&hw_pte_val(*ptep), 0));
->  
->  	switch (pgsize) {
->  	case PAGE_SIZE:
-> @@ -1422,7 +1422,7 @@ static inline void ___ptep_set_wrprotect(struct mm_struct *mm,
->  	do {
->  		old_pte = pte;
->  		pte = pte_wrprotect(pte);
-> -		pte_val(pte) = cmpxchg_relaxed(&pte_val(*ptep),
-> +		pte_val(pte) = cmpxchg_relaxed(&hw_pte_val(*ptep),
->  					       pte_val(old_pte), pte_val(pte));
->  	} while (pte_val(pte) != pte_val(old_pte));
->  }
-> @@ -1460,7 +1460,7 @@ static inline void __clear_young_dirty_pte(struct vm_area_struct *vma,
->  		if (flags & CYDP_CLEAR_DIRTY)
->  			pte = pte_mkclean(pte);
->  
-> -		pte_val(pte) = cmpxchg_relaxed(&pte_val(*ptep),
-> +		pte_val(pte) = cmpxchg_relaxed(&hw_pte_val(*ptep),
->  					       pte_val(old_pte), pte_val(pte));
->  	} while (pte_val(pte) != pte_val(old_pte));
->  }
-> @@ -1830,7 +1830,7 @@ static inline bool ptep_try_set(hw_pte_t *ptep, pte_t new_pte)
->  {
->  	pteval_t old = 0;
->  
-> -	if (!try_cmpxchg(&pte_val(*ptep), &old, pte_val(new_pte)))
-> +	if (!try_cmpxchg(&hw_pte_val(*ptep), &old, pte_val(new_pte)))
->  		return false;
->  
->  	/*
-> diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
-> index b77f4be88e3ea..3322f4e7174dc 100644
-> --- a/arch/arm64/mm/fault.c
-> +++ b/arch/arm64/mm/fault.c
-> @@ -235,7 +235,7 @@ int __ptep_set_access_flags_anysz(struct vm_area_struct *vma,
->  		pteval ^= PTE_RDONLY;
->  		pteval |= pte_val(entry);
->  		pteval ^= PTE_RDONLY;
-> -		pteval = cmpxchg_relaxed(&pte_val(*ptep), old_pteval, pteval);
-> +		pteval = cmpxchg_relaxed(&hw_pte_val(*ptep), old_pteval, pteval);
->  	} while (pteval != old_pteval);
->  
->  	/*
-> 
-
+SGkgQmFvbGluLAoKWW91J3JlIHJpZ2h0LiBOVEZTIGFkdmVydGlzZXMgRk1PREVfTk9XQUlULCBh
+bmQgY2xlYXJpbmcgSU9DQl9ESVJFQ1QKZG9lcyBub3QgbWFrZSBpdCB2YWxpZCB0byBibG9jayBp
+biBpbm9kZV9kaW9fd2FpdCgpLgoKSSB3aWxsIGNoZWNrIElPQ0JfTk9XQUlUIGJlZm9yZSBlbnRl
+cmluZyB0aGUgYnVmZmVyZWQgZmFsbGJhY2suIElmCmlvbWFwX2Rpb19ydygpIGhhcyBub3Qgd3Jp
+dHRlbiBhbnkgZGF0YSwgdGhlIHBhdGggd2lsbCByZXR1cm4gLUVBR0FJTi4KSWYgaXQgY29tcGxl
+dGVkIGEgcGFydGlhbCB3cml0ZSwgaXQgd2lsbCByZXR1cm4gdGhlIHBvc2l0aXZlIHNob3J0LXdy
+aXRlCnJlc3VsdCB3aXRob3V0IGVudGVyaW5nIHRoZSBwb3RlbnRpYWxseSBibG9ja2luZyBmYWxs
+YmFjay4KCkkgd2lsbCBhZGRyZXNzIHRoaXMgaW4gdjIsIGFmdGVyIDI0aC4KClRoYW5rcywKSmlh
+bGU=
