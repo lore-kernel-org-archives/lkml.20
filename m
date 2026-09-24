@@ -1,157 +1,179 @@
-Received: from SHSQR01.spreadtrum.com (unknown [222.66.158.135])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A59C2DF6E9
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:53:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=222.66.158.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D19653A1685;
+	Thu, 24 Sep 2026 01:55:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790214839; cv=none; b=ku8f1B6819vs+Y+W2Wku5veqasc4r7hJi86ya2ZX76Ja0tX0Yb0Vo9TNhY4PFuOUfpdm3B8jIfRug5c3UOb/lIN4y7dzR6E2jnf/RNz/Q4ekqTTDHw1Q9IgsL/rI+T7yu2rhj+891cPEBnvPqhOVVDEujn5PcriNmFBlRE3es34=
+	t=1790214956; cv=none; b=kWv+vhmg4AkW3PnVCsQ6yzhy+0PiF9LF8omv1e3MDyTkKqjN3OQlTTjAAgXHDFg9Jcuq2kHn7Rlm46Bmn2+JvE6Ar+ehbPzEchjKtRxeng3bWMo3oJQ1fkcArPmUmNDPLiOkBsFjmz8W2q7bQGyAhr+oymJrnRwM7VwhvZmIKZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790214839; c=relaxed/simple;
-	bh=8V0kqfYqfZ5up62eAujF99PryFD6COx3F/ytxPSnRlI=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JrPcfcgTRyvdep3EkHtUDl6UNU/s9CzXahOtAm/ljBM/f7uvdnQI1eKxKi73G19s4MceN0FWfor2FnhTiurAUCuBDvIN5Ozaw9EH+WxNICme3UJ/Y4gqhseZQq/WeebLX44kouAh+VZFTTd8FJMRrnWzm4x/dQ+3gTbeR42PeQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=unisoc.com; spf=pass smtp.mailfrom=unisoc.com; dkim=pass (2048-bit key) header.d=unisoc.com header.i=@unisoc.com header.b=OiGKIDkV; arc=none smtp.client-ip=222.66.158.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=unisoc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=unisoc.com
+	s=arc-20240116; t=1790214956; c=relaxed/simple;
+	bh=d5hRGQwlUe0I4kNX7f2Y6mX0zXWFGYRNkLVC2ZVzovo=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=QiKRC6nNxJX14Az3d/IwIr4iABWZt4KTdcpR49xqUVJ0RBZVTgdP3buNJdKgGb7RSTRyMtJG6/JN9FloiJWMEzNGC22ELXVeiXG1FvSWslOlAN4Z46tZLpU2vC+5g9Z7hN7XTs+3viRgsLL8UBBZrv6QOawEKoHK+HOd1a2qdtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OZPlh3KY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=unisoc.com header.i=@unisoc.com header.b="OiGKIDkV"
-Received: from dlp.unisoc.com ([10.29.3.86])
-	by SHSQR01.spreadtrum.com with ESMTPS id 68O1rDnJ017311
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
-	Thu, 24 Sep 2026 09:53:13 +0800 (+08)
-	(envelope-from Zhiguo.Niu@unisoc.com)
-Received: from SHDLP.spreadtrum.com (BJMBX02.spreadtrum.com [10.0.64.8])
-	by dlp.unisoc.com (SkyGuard) with ESMTPS id 4hqxcN5bC4z2N3TjZ;
-	Thu, 24 Sep 2026 09:50:28 +0800 (CST)
-Received: from bj08434pcu10.spreadtrum.com (10.0.70.50) by
- BJMBX02.spreadtrum.com (10.0.64.8) with Microsoft SMTP Server (TLS) id
- 15.0.1497.48; Thu, 24 Sep 2026 09:53:11 +0800
-From: Zhiguo Niu <zhiguo.niu@unisoc.com>
-To: <jaegeuk@kernel.org>, <chao@kernel.org>
-CC: <linux-f2fs-devel@lists.sourceforge.net>, <linux-kernel@vger.kernel.org>,
-        <niuzhiguo84@gmail.com>, <zhiguo.niu@unisoc.com>, <ke.wang@unisoc.com>
-Subject: [PATCH 2/2] f2fs: remove some stale and unused codes
-Date: Thu, 24 Sep 2026 09:52:13 +0800
-Message-ID: <20260924015213.1196491-2-zhiguo.niu@unisoc.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260924015213.1196491-1-zhiguo.niu@unisoc.com>
-References: <20260924015213.1196491-1-zhiguo.niu@unisoc.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OZPlh3KY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD02B1F000FF;
+	Thu, 24 Sep 2026 01:55:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790214954;
+	bh=6ZIYgKi6p21Q91cSj+8cKV3sY8NG7q7UCpClxLbOXrM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=OZPlh3KYmstgWcBGXz5Hcmqm4S2mD03d5ZxYGJFqBAbzzJqUvzaJwZdyniMdV5bpa
+	 3JZPysEOjfS7ty+2l0DVsr3XNllQuMEIgG4eFCfVaP6hu57nzL6EYjPeyOKJqoF114
+	 w40r/y+fMV62Si/lwTfLe8k09WsIObXTMJgl4lWa/KVhCCVYc5Hs5PGfzrbDxuMmyz
+	 V2tD3bGNJDeWESyl/6IHcnpid7H3J5A7LuNG1EW5A1U7WqsIM5OQjm7DzYAvtlzOxa
+	 Sbw8uyGvxhAcOueQ1ZZpfvgxuRBNPNV+p4fq1rQGhsq1zdwa9eEojAcJEOYbug8GOq
+	 FCOfXHQW7E/HA==
+Subject: Re: [PATCH net-next v10 1/3] dt-bindings: net: wiznet,w5100: convert
+ to DT schema
+From: netdev-bot+sashiko@kernel.org
+To: arthur@marmottus.net
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, arnd@arndb.de, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Thu, 24 Sep 2026 01:55:53 +0000
+Message-ID: <179021495314.2160803.14503162237139110651@kernel.org>
+In-Reply-To: <20260921-wiznet-link-gpio-v10-1-5874a7a147a2@marmottus.net>
+References: <20260921-wiznet-link-gpio-v10-1-5874a7a147a2@marmottus.net>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SHCAS01.spreadtrum.com (10.0.1.201) To
- BJMBX02.spreadtrum.com (10.0.64.8)
-X-MAIL:SHSQR01.spreadtrum.com 68O1rDnJ017311
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=unisoc.com;
-	s=default; t=1790214811;
-	bh=kpV47N4iACM0QHYGcErxwKRhkVDQb41yNEqNk4FFwIs=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References;
-	b=OiGKIDkVsyLYW/7cW0+1BRFL5z7KNvlCGOO4UaOSNOaF7AHEWY216WtVh80PNUkPf
-	 ZnoSdUq7L5d52M8KN8bVeokx1Als/175IF2HhgmEZU1znuyjKcMWzpFbVA8t0WqQkH
-	 MlCYRlnq4hOyzhOzYbfDo4SH8dztD3Za+pLXw39e1A3kEOBSMN5J5LMXbj5JHICexw
-	 OXq8zV/tCjn2bj3J+enTH6C1qQKKILFHR6aFwSKb9Y/I+mBu73gS0QdLRgtKlCUZRM
-	 MrD5iA0qP2oZoOFabLtvFo+UOQ3uVoa+fWezVCApCbQ6jyzFNajr8pbiGC9ilFGws2
-	 1H0PFZeesYV6A==
 
-- drop the extern declaration of f2fs_compress_aops which is only
-  used by inode->i_mapping->a_ops = &f2fs_compress_aops, was removed
-  by commit 6a78d0488116 ("f2fs: cache: use compress cache").
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-- folio_get_f2fs_data() and folio_set_f2fs_data() in f2fs.h belong to
-  the old compress cache inode mechanism; neither is referenced anywhere.
+Low priority / nit picks for your consideration:
 
-- iostat_set_post_read_ctx() in iostat.h (both the CONFIG_F2FS_IOSTAT
-  and the stub branches) is never called: the post-read context is
-  assigned directly at both call sites, bio->bi_private = ctx in
-  data.c and iostat_ctx->post_read_ctx = ctx in iostat.c.
+- [Low] The patch silently adds a new MAINTAINERS section ("WIZNET W5100
+  ETHERNET DRIVER") naming the submitter as maintainer, but the commit…
+- [Low] In Documentation/devicetree/bindings/net/wiznet,w5100.yaml the
+  new schema states a single, unconditional 'spi-max-frequency: maximum:…
 
-Signed-off-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
----
- fs/f2fs/f2fs.h   | 19 -------------------
- fs/f2fs/inode.c  |  4 ----
- fs/f2fs/iostat.h | 11 -----------
- 3 files changed, 34 deletions(-)
+--
 
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 089a62c054ea..991deeb9ee1b 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -2821,25 +2821,6 @@ PAGE_PRIVATE_CLEAR_FUNC(reference, REF_RESOURCE);
- PAGE_PRIVATE_CLEAR_FUNC(gcing, ONGOING_MIGRATION);
- PAGE_PRIVATE_CLEAR_FUNC(atomic, ATOMIC_WRITE);
- 
--static inline unsigned long folio_get_f2fs_data(struct folio *folio)
--{
--	unsigned long data = (unsigned long)folio->private;
--
--	if (!test_bit(PAGE_PRIVATE_NOT_POINTER, &data))
--		return 0;
--	return data >> PAGE_PRIVATE_MAX;
--}
--
--static inline void folio_set_f2fs_data(struct folio *folio, unsigned long data)
--{
--	data = (1UL << PAGE_PRIVATE_NOT_POINTER) | (data << PAGE_PRIVATE_MAX);
--
--	if (!folio_test_private(folio))
--		folio_attach_private(folio, (void *)data);
--	else
--		folio->private = (void *)((unsigned long)folio->private | data);
--}
--
- static inline void dec_valid_block_count(struct f2fs_sb_info *sbi,
- 						struct inode *inode,
- 						block_t count)
-diff --git a/fs/f2fs/inode.c b/fs/f2fs/inode.c
-index 9164a2b5d9f0..5627259295fa 100644
---- a/fs/f2fs/inode.c
-+++ b/fs/f2fs/inode.c
-@@ -21,10 +21,6 @@
- 
- #include <trace/events/f2fs.h>
- 
--#ifdef CONFIG_F2FS_FS_COMPRESSION
--extern const struct address_space_operations f2fs_compress_aops;
--#endif
--
- #define NUM_PREALLOC_EVICT_INODE_WORK 8
- 
- static struct kmem_cache *evict_inode_work_cache;
-diff --git a/fs/f2fs/iostat.h b/fs/f2fs/iostat.h
-index 61c6bc8e3119..2025225b5bed 100644
---- a/fs/f2fs/iostat.h
-+++ b/fs/f2fs/iostat.h
-@@ -60,13 +60,6 @@ static inline struct bio_post_read_ctx *get_post_read_ctx(struct bio *bio)
- 	return iostat_ctx->post_read_ctx;
- }
- 
--static inline void iostat_set_post_read_ctx(struct bio *bio, void *ctx)
--{
--	struct bio_iostat_ctx *iostat_ctx = bio->bi_private;
--
--	iostat_ctx->post_read_ctx = ctx;
--}
--
- extern void iostat_update_and_unbind_ctx(struct bio *bio);
- extern void iostat_alloc_and_bind_ctx(struct f2fs_sb_info *sbi,
- 		struct bio *bio, struct bio_post_read_ctx *ctx);
-@@ -88,10 +81,6 @@ static inline struct bio_post_read_ctx *get_post_read_ctx(struct bio *bio)
- {
- 	return bio->bi_private;
- }
--static inline void iostat_set_post_read_ctx(struct bio *bio, void *ctx)
--{
--	bio->bi_private = ctx;
--}
- static inline int f2fs_init_iostat_processing(void) { return 0; }
- static inline void f2fs_destroy_iostat_processing(void) {}
- static inline int f2fs_init_iostat(struct f2fs_sb_info *sbi) { return 0; }
+dt-bindings: net: wiznet,w5100: convert to DT schema
+
+This converts the Wiznet w5x00 SPI Ethernet controller binding from plain
+text to a YAML DT schema, and changes the documented interrupt trigger type
+from edge-falling to level-low to match the driver. It also adds a new
+MAINTAINERS section for the binding.
+
+Two questions below.
+
+> diff --git a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+> new file mode 100644
+> index 0000000000000..25098308eb6e5
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+> @@ -0,0 +1,68 @@
+
+[ ... ]
+
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - wiznet,w5100
+> +      - wiznet,w5200
+> +      - wiznet,w5500
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +    description: Main interrupt (INT pin on the device).
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  spi-max-frequency:
+> +    description:
+> +      According to the datasheets, w5500 and w5200 allow a maximum of 80 MHz
+> +      while w5100 is reported by users to allow a maximum of 14 MHz. However,
+> +      board designs may need to limit this value.
+> +    maximum: 80000000
+
+[Severity: Low]
+The description here says the w5100 tops out around 14 MHz, but the only
+machine-checkable constraint is the loosest value, 80000000, and it applies
+to all three compatibles.
+
+Should the w5100 limit be expressed as a conditional instead, so that it is
+actually validated?
+
+  allOf:
+    - if:
+        properties:
+          compatible:
+            contains:
+              const: wiznet,w5100
+      then:
+        properties:
+          spi-max-frequency:
+            maximum: 14000000
+
+As written, a node with:
+
+    compatible = "wiznet,w5100";
+    spi-max-frequency = <80000000>;
+
+passes dt_binding_check and dtbs_check with no diagnostic. Nothing in
+drivers/net/ethernet/wiznet/ looks at spi->max_speed_hz either, so the
+14 MHz figure is not enforced anywhere.
+
+This is still the case at the end of the series: the allOf if/then block
+added later by "dt-bindings: net: wiznet,w5100: add link status interrupt"
+only constrains interrupts, and spi-max-frequency keeps the unconditional
+80 MHz ceiling.
+
+Separately, the old wiznet,w5x00.txt documented the 80 MHz figure for the
+w5500 only:
+
+    - spi-max-frequency: Maximum frequency of the SPI bus when accessing
+      the w5500.
+
+The new schema extends that ceiling to w5100 and w5200 as well. Could the
+commit message mention that change?
+
+[ ... ]
+
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index df8ab9b824024..9f84e4c8163e4 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -29450,6 +29450,12 @@ M:	Miloslav Trmac <mitr@volny.cz>
+>  S:	Maintained
+>  F:	drivers/input/misc/wistron_btns.c
+>  
+> +WIZNET W5100 ETHERNET DRIVER
+> +M:	Arthur Crepin Leblond <arthur@marmottus.net>
+> +L:	netdev@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+> +
+
+[Severity: Low]
+The commit message describes only the .txt to .yaml conversion and the
+trigger type change, but this hunk also creates a new maintainership entry.
+The "v8: Add a myself in MAINTAINERS" note is below the --- line and will
+not land in git history.
+
+Could the commit message describe the MAINTAINERS addition too?
+
+Also, at this commit the section is titled "WIZNET W5100 ETHERNET DRIVER"
+while the only F: pattern matches the YAML binding, so get_maintainer.pl
+still reports no maintainer for drivers/net/ethernet/wiznet/. That gap is
+closed later in the series: "w5100: detect carrier state using link status
+bit and optional interrupt" adds F: drivers/net/ethernet/wiznet/ to the
+same block. Would it make sense to add that F: line here, where the section
+is introduced?
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260921-wiznet-link-gpio-v10-0-5874a7a147a2%40marmottus.net
