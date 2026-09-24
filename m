@@ -1,168 +1,112 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D7293803D2
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:13:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E4863812F0
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:13:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790259195; cv=none; b=tSGLgSI+OlWofgUdEYTvQ4nvwsO2Z0ax7emAYx7lkVfu4cXTpB2rnbyonlVj4flLh5+o9HFa2NwI0YEgw019+bBEKCJRb2YHAwoiIfDSRNyVT64VKRvHRupJNZ4hqCP1aHyewVYXCVT7sZ35f4BYERZ9ytzIjSNetSCYhm4+xN8=
+	t=1790259199; cv=none; b=rdmwV4F1P5xxFzgkJ8KIirKtEY96OjIhtTEuzora4E2NJ+2KcprpPHYImszdSZjZWkZdS5CdTMp5h2bbOBy3lusjaHBDPGz778/QFqRDgm/ZhnB40RnRjb72tG4kwyYM7My/gu8tkidP9olw+KqTXm5QivxJwSSU4K4sVMed+sE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790259195; c=relaxed/simple;
-	bh=n3hyLzFoSxZdeb4xNzn2eva8ul3VuNt/ZX3nznZtTzE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NAYGiPRYPuHvG/40IH/zNC1dAEHwLWIworqnzfdtomE0rD1jX7EJCZZ6KAG569mb1gCP0+Rk+EF2PEyyO8Q1FSuolCx0pighFJMuZS3QribmCUhViSG2b7Y1BoWRNY4h6vAq1MW6wnbYte7Krm2Zpv/u/MiIi2h2hX4IFcCwmbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=BwhGhWIK; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790259199; c=relaxed/simple;
+	bh=SYo4jCZXOC1sdPoUWfjX57LqLt5CJFZ4L92+VvuTLX4=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=pgvI4HcXj7ZaAo+wxGpT6grVC0soBP83bn6nYGffiKs0wCkbsEP+HwcfH/ZDvveJVpmvf7pqKer6JEhhcWttJcp+z2MRQ4XX1ztkE++iIqO8GhG3D3SKztNajwA/KwMLJjxS7wX20IIJB97Odf6/gVBROt/fZ7zBMF/j/E7PlpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lETa/Y5H; arc=none smtp.client-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="BwhGhWIK"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id BAE641A1003;
-	Thu, 24 Sep 2026 14:13:12 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8DF7360341;
-	Thu, 24 Sep 2026 14:13:12 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3C20D103294D7;
-	Thu, 24 Sep 2026 16:13:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790259191; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=/Y0MZScFajZWrkKqKqZGddXZHSBkTqkV4VwI6jO7es8=;
-	b=BwhGhWIKg22Mmn+VW8vQyGRv4WPyX6MM1v5BUeB52GHWJuH1fUEmV4vP01kNsAc+n9FBt2
-	knMpcG0HXR4fDyCm1xjEIH3lBt/jgcujBVhZH7ilU/w9fOXNsEBwGq3HHFDFv6r2HK45/b
-	sukCh1HLUuRagap3GBlvm0WIg+tFLovPdDTq2aMDjVO26mkVJh+TvhhXd+R7Be4XqF5tdF
-	R6tfuW1x9K7SCWOXm/azLKBPz4d3IvPxCzedZuPJeFKKojHy8bW3Eeaapn0dcWIaoCAcRs
-	35UOHBhfxiFhIs+j/x5Qp0x5+M50i2+Jn3ke5Hk+WEk8SCoAtN0mhi6JCiLyfQ==
-From: Paul Louvel <paul.louvel@bootlin.com>
-Date: Thu, 24 Sep 2026 16:12:47 +0200
-Subject: [PATCH v3 1/3] dt-bindings: edac: cdns,ddr-edac: add Cadence DDR
- EDAC binding
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lETa/Y5H"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2db8e9fe9c7so20861665ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:13:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790259197; x=1790863997; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jXYyi9gz0ZpsLB2diBEdXlpJNNlCkIiClSl3fFTv2IQ=;
+        b=lETa/Y5HXsVnXSqwQly7g+QGtAduzhHVNcbaV7DXNJDGffbah2qjkxcO6XzPe3v+Wn
+         CayOFDYTewJzYmZb2ZHQj638IhjiEriUS5QjE08kM+apnB7fpd9oqSzkdO/gLIQG8KLM
+         zd3cW4osk+0KPwY2mFR/EZmoEjQ2DVfeerB6NU0Qv2L9QrGH9SKGl9wk1azLmK8gV7qn
+         7NQ7lGHOhz95Y2CjwPBd2ftmkT1NNJDSiWPg7nd2QenbAjUpzOZdMkfW6M0Hyi6qoMoc
+         uDttbbdbuS9S/NQsXcKPWYNqoXKkIy3/6Z/JMa22fj1wySgMHfJvcWU2WJOsU91zrLSH
+         U9wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790259197; x=1790863997;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jXYyi9gz0ZpsLB2diBEdXlpJNNlCkIiClSl3fFTv2IQ=;
+        b=qx+AjWl6AklI490/YK+ZrL3fi5ZH3SR4id9F4yjm57/HfUhZGb/BFfWQo7S9H/3hkr
+         Ay3kWj63IfPyxLD2b7mx7s7+Sar2vTzz2+33YAmKosZcUSk791QySzxS64htIhbrcEO4
+         30wSW+Nq/fgRn/H61kS1SyMyIPeNNE8ZGCz8wAvljWj+6vs4SFuczmeeuBmEKn1/y8Hb
+         T2VJoMWB2bwM9dsRTP4W6NCk2mLZcTgghtDE37x5VS+osZ5rg+eTyHsSJPc9l/GYJ6Tt
+         nNY8wEfGBRWMclvVZOvK3WHiGFn3oMc9h/cDRfPc146ome4eA4QAtwQc3MgeisVV2eza
+         8p+w==
+X-Forwarded-Encrypted: i=1; AKwUvBxYj7+hobP6pj9RCgHGF7hSgmf5+ltT69R90CtUCmBDIzoFUU+PNmZrv26IIYyYhAvRACqH7jeeZUQ1JBw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nSKbAYWjyjMuySMX4/+wlIb4Kl72gjRR1gFCvb0pRgzJMZqiip
+	vQnBzP1YyO1QX912IG20d5T6BlGC10RnYWDBNnTDhppXDRdwHOYYv7URBqPqrXsa6l/KBa487Wf
+	+mFX1Ew==
+X-Received: from plar5.prod.google.com ([2002:a17:902:c7c5:b0:2df:55e9:4fe9])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:f791:b0:2dd:c100:942d
+ with SMTP id d9443c01a7336-2df7e4431e1mr22247165ad.43.1790259196991; Thu, 24
+ Sep 2026 07:13:16 -0700 (PDT)
+Date: Thu, 24 Sep 2026 07:13:16 -0700
+In-Reply-To: <50ccc54c-6cbb-4ae2-a84a-4dcbc958f91c@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-paul-v7-3-rc1-edac-v3-1-bd8054a5b180@bootlin.com>
-References: <20260924-paul-v7-3-rc1-edac-v3-0-bd8054a5b180@bootlin.com>
-In-Reply-To: <20260924-paul-v7-3-rc1-edac-v3-0-bd8054a5b180@bootlin.com>
-To: Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- linux-edac@vger.kernel.org, devicetree@vger.kernel.org, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Herve Codina <herve.codina@bootlin.com>, 
- "Paul Louvel (Schneider Electric)" <paul.louvel@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790259185; l=2780;
- i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
- bh=n3hyLzFoSxZdeb4xNzn2eva8ul3VuNt/ZX3nznZtTzE=;
- b=euSbKuFKc3kBjBcwjF+jcn9l2q5vIdKWw51aoUVvrR2VrHiRGRiC5hunR+qVbhpdBJOdxHZ3L
- HwLm22yQOx6BjM+7ReQGQA9T7yiPs/m+h6XRhCDk/IucZhmQ4W9aYux
-X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
- pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
-X-Last-TLS-Session-Version: TLSv1.3
+Mime-Version: 1.0
+References: <20260923163315.1580860-1-seanjc@google.com> <50ccc54c-6cbb-4ae2-a84a-4dcbc958f91c@intel.com>
+Message-ID: <arUv_KydBD2kWkIo@google.com>
+Subject: Re: [PATCH] KVM: TDX: Synthesize SHUTDOWN instead of returning -EIO
+ on unhandled EPT violation
+From: Sean Christopherson <seanjc@google.com>
+To: Xiaoyao Li <xiaoyao.li@intel.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	kvm@vger.kernel.org, x86@kernel.org, linux-coco@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, James Houghton <jthoughton@google.com>, 
+	Yan Zhao <yan.y.zhao@intel.com>, Binbin Wu <binbin.wu@linux.intel.com>, 
+	Ackerley Tng <ackerleytng@google.com>, Vishal Annapurve <vannapurve@google.com>
+Content-Type: text/plain; charset="us-ascii"
 
-Add the Cadence EDAC DT binding.
+On Thu, Sep 24, 2026, Xiaoyao Li wrote:
+> On 9/24/2026 12:33 AM, Sean Christopherson wrote:
+> > Synthesize a triple fault, i.e. exit to userspace with KVM_EXIT_SHUTDOWN,
+> > instead of returning -EIO from KVM_RUN if KVM encounters an EPT Violation
+> > due to a guest access to a pending page.  Returning -EIO implies KVM is
+> > buggy, and most VMMs will respond by completely terminating the VM, versus
+> > rebooting the VM in response to KVM_EXIT_SHUTDOWN.  I.e. give the VMM the
+> > option of trying to keep the VM (from the end user's perspective) alive.
+> 
+> But reboot isn't good, neither.
+> 
+> I still think a new specific exit reason[1] would be better, as I suggested before.
+>
+> [1] https://lore.kernel.org/kvm/1b0ea352-c645-461b-9e19-5202791f8e2d@intel.com
 
-Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
----
- .../devicetree/bindings/edac/cdns,ddr-edac.yaml    | 62 ++++++++++++++++++++++
- MAINTAINERS                                        |  6 +++
- 2 files changed, 68 insertions(+)
+Doh, I completely forgot about that patch.  *sigh*
 
-diff --git a/Documentation/devicetree/bindings/edac/cdns,ddr-edac.yaml b/Documentation/devicetree/bindings/edac/cdns,ddr-edac.yaml
-new file mode 100644
-index 000000000000..e0deeb3dfb81
---- /dev/null
-+++ b/Documentation/devicetree/bindings/edac/cdns,ddr-edac.yaml
-@@ -0,0 +1,62 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/edac/cdns,ddr-edac.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Cadence DDR EDAC
-+
-+maintainers:
-+  - Paul Louvel <paul.louvel@bootlin.com>
-+
-+description: >
-+  The Cadence DDR supports DDR2 and DDR3 memory with or without ECC.
-+  The bootloader must configure ECC mode in the memory controller.
-+
-+  The memory controller supports SECDED (single bit error correction, double bit
-+  error detection). ECC scrubbing has to be done via software.
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: renesas,r9a06g032-ddr-edac # RZ/N1D
-+      - const: renesas,rzn1-ddr-edac      # RZ/N1
-+      - const: cdns,ddr-edac
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: DDR controller clock
-+      - description: APB internal bus clock
-+
-+  clock-names:
-+    items:
-+      - const: ddrc
-+      - const: pclk
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/r9a06g032-sysctrl.h>
-+
-+    edac: memory-controller@4000d000 {
-+      compatible = "renesas,r9a06g032-ddr-edac", "renesas,rzn1-ddr-edac", "cdns,ddr-edac";
-+      reg = <0x4000d000 0x1000>;
-+      interrupts = <GIC_SPI 76 IRQ_TYPE_LEVEL_HIGH>;
-+      clocks = <&sysctrl R9A06G032_CLK_DDRC>, <&sysctrl R9A06G032_HCLK_DDRC>;
-+      clock-names = "ddrc", "pclk";
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3a19da74d00c..60db3734df5b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -5760,6 +5760,12 @@ L:	linux-mm@kvack.org
- S:	Maintained
- F:	tools/testing/selftests/cachestat/test_cachestat.c
- 
-+CADENCE DDR EDAC DRIVER
-+M:	Paul Louvel <paul.louvel@bootlin.com>
-+L:	linux-edac@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/edac/cdns,ddr-edac.yaml
-+
- CADENCE MIPI-CSI2 BRIDGES
- M:	Maxime Ripard <mripard@kernel.org>
- L:	linux-media@vger.kernel.org
+I actually thought KVM_EXIT_MEMORY_FAULT this time around, but I was worried that
+it would confuse a VMM.  And practically speaking, the VMM can't do anything other
+than print some diagnostic details and try to reboot the VM, because the guest has
+very deliberately opted out of #VEs.
 
--- 
-2.55.0
+An alternative to KVM_EXIT_SHUTDOWN would be
 
+  vcpu->run->exit_reason = KVM_EXIT_SYSTEM_EVENT;
+  vcpu->run->system_event.type = KVM_SYSTEM_EVENT_TDX_FATAL;
+  vcpu->run->system_event.ndata = 1;
+  vcpu->run->system_event.data[0] = gpa;
+
+So that the VMM could log the guilty GPA.  Though I'm not sure I like overloading
+an explicit guest event.
+
+As for KVM_EXIT_GUEST_ERROR, I don't see the point.  As above, the VMM can't do
+anything other than reboot the VM.  I doubt Linux-as-a-guest will ever support an
+interface that allows recovering from this situation, because again, the entire
+point is treat unaccepted accesses as fatal conditions.
+
+All in all, I think my vote is still for SHUTDOWN.
