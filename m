@@ -1,75 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC7443B3EA;
-	Thu, 24 Sep 2026 07:38:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8633F2D77F7
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:39:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790235507; cv=none; b=UfUA7si2rtJnxBcnbJy5Yjzt7N0vb22QSVmIkZsZXaWUzuzVzKLiLs/a25q+iTXicbt7yqnriRAwqwbJfOupYy+W22htbvtVuSklvvRwjU36Ja+Oziwpcj6Yy+TypDSiaRClFvKfb96aBCx8x/RLnpWjluopIfLCnHcdtxsFZrw=
+	t=1790235567; cv=none; b=s81dkD+FhAp8ZlyflSZlP7voAGOW/Gbm3ziU9zdFqM9p1cwgtW3fzQeCxiVJHWwXDThvVrlaUCl/f27XbLla1DkSHIX7HtYaILFRIm8qSvwKcw04AukzQhfPRmLu0YyGJFSRJ5DOzXLnMNgOjkBKBZuA5rMayyiG2rFWAD4RIuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790235507; c=relaxed/simple;
-	bh=p6CmvTxdRWJaR85/x76jMBw0rw5S+UxLU9OMQSWKTns=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gvwlAmclkbTBzLkQkacgcSmMWy1khKCLHoDVpXTzpiCHnrK9Ba5U84b5XQKzODUtbMQIa6GoObas2ohbE8tnz59g2XtgVMPGClQQ0/oOyCBA27FIZRZgydK7RYe3CzPavgB8WqMdGkVZhP6HyxRZ6bZDLie67mdK+HANuYX6xn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qrg79Odc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790235567; c=relaxed/simple;
+	bh=7YWyQW2nIT/DP7AA69wm7GhY7/fhiC2zL73JCRhmnho=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tZ+V+B9MwMU8/e9YQyxyo1aOPAfgm7oNaz+/UZfyiDlhjE8otXPTr4PeF3hf7rez0hUflYEO+sWPCIJobZ7kYgVY/UQwULhQaAalT4DNE6We3yxGjtyhQx7hzEloyjX+nDeA8d6zQCAFMTa6fnn8v6BhMscXCO4GSWRz6LcFxGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NiF8C91n; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qrg79Odc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13F4F1F000FF;
-	Thu, 24 Sep 2026 07:38:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790235505;
-	bh=syHUjeiyU6PAQHnSegmJU/Xn5fIogA7Zi7eAXuaZd0w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Qrg79OdcGPfgl7yoXl3ptDh3IKF+UVtWixl4nCRdJqTGzJZ+s1Q/oDpS1tvP5TbmU
-	 NC/P3mvbNVR2+m1S835Pu6Brj4w2XDBtdsxcTRzLAGRNZ0ek1YUfRQay4KrGBYVwSP
-	 c/1mkMp1GSHwPMMZCV7oAdOOPyVA9oyXrssm/mTg12mdArxvR3+Vl5KYhLriakA9mb
-	 l/cnPm91MdLqYgXSXXTT03lz59Mp7424d4AfeLbVjh9oqanpGJ4zauMw5X2uFjzT2W
-	 TR2o7CkHFMIgi7kDWyK7afhFP1BP82PNGmcb4v/0pzFiydme+Isv5TB4vSibkKCO01
-	 1I4uk/WoQjk6w==
-Date: Thu, 24 Sep 2026 08:38:18 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Cc: David Hildenbrand <david@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	"Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Vishal Moola <vishal.moola@gmail.com>, 
-	Ingo Molnar <mingo@kernel.org>, Lu Baolu <baolu.lu@linux.intel.com>, 
-	Jason Gunthorpe <jgg@nvidia.com>, Steven Rostedt <rostedt@goodmis.org>, x86@kernel.org, 
-	linux-mm@kvack.org, regressions@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm: don't defer freeing kernel page tables while booting
-Message-ID: <arTTVY4bwYKzeWgb@gremlin>
-References: <41a59ba9-039e-454f-8d31-f647db802ada@kernel.org>
- <20260924072819.33277-1-mikhail.v.gavrilov@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NiF8C91n"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-868cfc5c244so621528b3a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:39:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790235563; x=1790840363; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cXIXng5mMMcvqXckQNVDsp9c78xkHqRtRXjDnEK7bWg=;
+        b=NiF8C91notgKl4By9arR9KVwFe8+irxjBR+Kfh83LhkPjgdVLpHVtban+jtKE7mTuH
+         KujtCJiSvA4i3f2v8LynMnAJujP0fh6ctBX8MI2KKCaZVxT1p1Suwr0E/YOutsk9/9qP
+         bgZ5Aiqf9azds5xePAuYXMKYVpUcIvYr8WuvTYSzkrUzRJ8nu33tkvxEeLj6F5OQtBwB
+         t608DUN9fcjJizcptoPI71CuB/E3CIP5aIXCo8leMaVaGTYYLN1SkiBKyu8LB4GLZdL6
+         67LMuV2fTecoE7hcDrRQq6IHHomf7rGLKKxY9Ca4FEv92KGiKfsgY/gGtU/XZgTf8moP
+         6j/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790235563; x=1790840363;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cXIXng5mMMcvqXckQNVDsp9c78xkHqRtRXjDnEK7bWg=;
+        b=KhiT4mkWmsBuRGkDXauCOLYdKzV2muSNyJqPdsBOYvvhTUQVn055sCiN4Ge0fBtRMf
+         l3N31HLvgmhQv6WUaxlgoSMHS/jq4Ge2vrUwJlCuUKUPOneGDJOT9MFaqhncwtEnYbN8
+         cUUfYeFV9WIG6izSMsByavhkTwwS6AE2AQo5jsWTintPOCSMRelpv8r7KOOVUOTHjWQQ
+         mfWWEPe1C5Hy8lnTsu8R+5vFsKVg6+S93naOc2mLGShwOOZvpVKF4BHMQrAPL8QK6tEO
+         CRvAoPvvr4YHRGsJpN02f2jpZttvgR6syu/y3laXYEy8iSV7RwgDj8lE4K6CsIv0Imil
+         NSBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwwXacoQpRJIl/yAEl/2YeemtKgtFusLaFPwGOxfWBnHRKACm2PMg2c0x2ZXKuaodpHGRhvterYf6L89c0=@vger.kernel.org
+X-Gm-Message-State: AFuF++krA8SX4pc56vB0dhQNPydmW4RLrfcEFdjHQluAui+YljoX6Lvo
+	rdj9McEKTF6OW2yW+Xr7+9Q89+9HT0QRNj6cTtstZW9R6jfkbXwHBJLf
+X-Gm-Gg: AYBFou0GEPtJrv9wvLMnYE3EmPWUSmvQ9wo11kDiDJB2czOyMj81l/i/3x611OZlOuQ
+	f1EFjw59fXuQ67fk5rDkt/4WTeFsD27WKQUq/eiYElONGz2wbSQQjVdF9jN4QXKZ0GgSzni7FAM
+	G1Sr93GSjJmwOqny0Qsxivhw5lBqu1W6W+c2ux5SFxa+27HNYt7UkPwOy5Umih73X1zcB+Ji0/H
+	b0zo9uZxE39xhGPha1hPFy1EKBa8RRTTvd/L1iLFNSrgrbpBKQUouXWf+bjOh2pwyGxR3nC1kYY
+	lfKgiwBdR7oVZqs27hXzf0YPVg/KVjMJhvQBWTtWn/oVgM3droc1eBktymaDi7WdJ6NlSvqkqiv
+	+pald+CRj10ijuIsvewjRt86x9D3NMBBHp1p9NJCiRB2QeErTMBWYCV4zeF01iQE+cFOFEPD07F
+	1HyXWQV/LKzcXWkBZ1KowykgQ5rNtdyins/CcGnBRiirtKB7iR7nv1ceW2SrtGhJeZwZdQ+bbtv
+	zQv751zbmDLIFC6Ybbd07PV2TdSaHsbKDEKihAxJ4fxYNDCaGrZE3GcBG6HRpqYcG1PrWFAJRL4
+	BBTQzQWrwg==
+X-Received: by 2002:a05:6a00:2a0f:b0:874:705d:f63e with SMTP id d2e1a72fcca58-87e9b896643mr1227518b3a.32.1790235562568;
+        Thu, 24 Sep 2026 00:39:22 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1dad44c6sm2393739b3a.42.2026.09.24.00.39.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 00:39:22 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: al@alarsen.net
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	matthias.goergens@gmail.com,
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH v3 2/6] qnx6: release bh on error path in qnx6_block_map()
+Date: Thu, 24 Sep 2026 07:39:15 +0000
+Message-ID: <20260924073920.2782917-3-benquike@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
+In-Reply-To: <20260921042511.1473629-3-benquike@gmail.com>
+References: <20260921042511.1473629-1-benquike@gmail.com> <20260921042511.1473629-3-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924072819.33277-1-mikhail.v.gavrilov@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 12:28:19PM +0500, Mikhail Gavrilov wrote:
-> On 9/24/26 09:07, David Hildenbrand (Arm) wrote:
-> > Should we instead simply skip the
-> >
-> > 	schedule_work(&kernel_pgtable_work.work);
-> >
-> > and rely on anybody freeing stuff later to just free that one alongside?
-> >
-> > That avoids throwing in more freeing handling.
->
-> Yes, that is simpler, and the early table then goes through the same
-> IOMMU flush as every other one, so there is no need to reason about
-> what an IOMMU can see during boot.  The only cost is that it waits on
-> the list until the next kernel page table is freed after boot.
->
-> I'll send a v2 that way once I have booted it here.
+In qnx6_block_map(), when sb_bread() succeeds for an intermediate indirect
+block, bh is assigned to hold the buffer head reference. If a subsequent
+sb_bread() call fails inside the loop (or if block number validation
+fails), qnx6_block_map() returns 0 without calling brelse(bh), leaking the
+buffer head reference.
 
-Please wait for me to have a look through this issue before respinning,
-please.
+Call brelse(bh) on error return paths in qnx6_block_map().
 
---
-Cheers, Lorenzo
+Fixes: 5d026c724220 ("fs: initial qnx6fs addition")
+Cc: stable@vger.kernel.org
+Tested-by: Matthias Goergens <matthias.goergens@gmail.com>
+Reviewed-by: Matthias Goergens <matthias.goergens@gmail.com>
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+Changes in v3:
+- Add Tested-by and Reviewed-by tags from Matthias Goergens.
+- Update Fixes: tag SHA to 5d026c724220 ("fs: initial qnx6fs addition").
+
+Changes in v2:
+- Split out as patch 2/6 as requested by maintainers.
+
+ fs/qnx6/inode.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/fs/qnx6/inode.c b/fs/qnx6/inode.c
+index e1981e4ae47d..444458ce3e77 100644
+--- a/fs/qnx6/inode.c
++++ b/fs/qnx6/inode.c
+@@ -242,8 +242,10 @@ unsigned qnx6_block_map(struct inode *inode, unsigned iblock)
+ 				ptr = bh->b_data;
+ 			} else {
+ 				pr_err("i_block exceed max blocks\n");
++				brelse(bh);
+ 				return 0;
+ 			}
+ 		} else {
++			brelse(bh);
+ 			return 0;
+ 		}
+ 	}
+-- 
+2.55.0.1082.g2b9226bbc0-goog
