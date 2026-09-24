@@ -1,177 +1,261 @@
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011031.outbound.protection.outlook.com [40.93.194.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D3B49B5AD
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:55:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790261746; cv=none; b=lgWYPM4090ubmT8axHCdY/lubskTI/Jl3tK+aEHTO9v7l/tXZbGNOdis4ySBV37McyWTFRSfPTFJ1z86/QfajQcog+pwGrBo+sBff7DFWHiozrXKU6zUKDrrqE31w2pkmDkb/uXHZkPXoM+Pqul+NUFLuLlFuHMWJXr6C2uAHW4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790261746; c=relaxed/simple;
-	bh=b5V5cIZLU8hlEyl9xnRq6vDvMkK3WNR9AD+lAL6zb7o=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=OFHq1CCkMGBFSYrQzG31zFqjEECVh73z2oun976nsn1M/BWdpsWsKp40IbiOoYrBtSwj8jfpnl0fNxAl6nkRAvJK9Ve5OtvOK9eLkwhiyqLgy5drKVIpriNhqPbkX1BtUold1vCE5XBdjBKZKqTYGNJ7d4yw71EPXzMiQqa5S0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bxOdxZ0b; arc=none smtp.client-ip=209.85.214.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B413537E5ED
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:55:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.31
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790261760; cv=fail; b=nUubM2Z2r1Ev37Her4ETep/MyOVWIuxqR/ku3xpyT3zrBv35z7rkNBeL19FQhGlFmKjHiI6j8Cj+wCQVFmjjui/8uR+Wl9Tt3a0oDtTCsPGnv9/ce71KMkUyXd0SFMo+cY45rAC3Tdz1yghmxWaGAv3dg8vcR9b9g/htpE+tu9c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790261760; c=relaxed/simple;
+	bh=8uBEAf8Lb6mK3q0U4SXppHeYBcIWR4QIbovIapF8BRA=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=NPtvtbO8seyjl5jY/8srmQ3fQ5NVSeuZbj2fxwOQHnB0Hx4ZpHKmJtACs0QOK4gxcqD14sJRcg/OVJ9HYn3KTtvLlEdpypymWxzBhMY5Y2IdtFNgVlCoQh4rGTQ7hzLghdepFJq4cZZfmdEOCTXKgb7riDeddSGwQF3tlcP7jPc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=1z86t+I+; arc=fail smtp.client-ip=40.93.194.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bxOdxZ0b"
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2db3b126c9fso22139885ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:55:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790261744; x=1790866544; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NJA6+TyaqV1MSLc4kyfe+npiP/DQmyuJ2EVEHCwB3Gc=;
-        b=bxOdxZ0bNqDIjcfJ+O1thU9G4XuwLcnsby+I544PCpChkBYvw7XsiIwjPvOJB9MGKw
-         CSUcaUEnv270/XxLEWbxTZFbE7lkI7QVQuflgcljql+X4xWHUA9nSfQHVhQ51qDUVWSh
-         ivb9qiIF3eGReqaL6HD2EAJEAd8+eahCwj/SITHFL4R4D0bdYLwj9zjSf3TDCOh6fsDS
-         gXL0n3n+9Ljsw5pBwITjxCrgwraKh59kbM0I0UaJzMCfQ9yY0O5+X0D8rRm6s+glqhXG
-         qvUutqXxq612VzvY+cg7LqVrSjd8uhvoAdlB/VaMH8qGpRs1Bgv53Z/vEA0KT8VYX9v3
-         Kvhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790261744; x=1790866544;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NJA6+TyaqV1MSLc4kyfe+npiP/DQmyuJ2EVEHCwB3Gc=;
-        b=Loh8KpyP7UkRYHjNcMkyOWfeTOMMOY1PMuvpUm4lnM7v7ilwIBpUhNzc3Hu6shn3OW
-         Kax3EGEhQiHz3IdcvLUAUH7c9vEN8EquQeGH3HwC5B8YO+n2RX/qX3g+WfvK0g0BsyJ6
-         giE5dW0qcwiTkqzATu+jlNExEPxzERalM/k2Xo/paS3rvknOGRRK2FTNGtdAE1LJ7xK0
-         bWTR7DTrVmdVdk7gnfnj5ZKpBafIUhq+2SU4x6/erJYFMk7cG8B+/pubC/PDEgdC7+FK
-         yT41dR34Vtq6Di8lpHUX2jGImeOBOqAmwD36R0DmG4GrhATX1ysrmCvkeU2N77VL+Wls
-         gUoA==
-X-Forwarded-Encrypted: i=1; AKwUvBwTloC+ZcFvRHp2gr6eGhqzuLGBDyijx0N5dtfWJ/B2an4O4AMMOaJ5rR7xmNBf3/ul+2TLSsZc1e4NM8w=@vger.kernel.org
-X-Gm-Message-State: AFuF++nPKSHJn91MiqtTZqTBJP79JiRxhJAW2IQUaMeILKgAUEyHKBcL
-	8RNbtRsUQ640udyCJa3sHZXqO+IbZ0WBT3WJi9gI7fgkxU2/zHcrTmQS4cI2pXd85hyMcQbjGY4
-	ZbZDIpQ==
-X-Received: from plqu20.prod.google.com ([2002:a17:902:a614:b0:2dd:c066:f654])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:3804:b0:2dd:c100:424a
- with SMTP id d9443c01a7336-2df7e247c77mr22889315ad.46.1790261743478; Thu, 24
- Sep 2026 07:55:43 -0700 (PDT)
-Date: Thu, 24 Sep 2026 07:55:42 -0700
-In-Reply-To: <20260924080648.51014-1-zhoujinmeng@bytedance.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="1z86t+I+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dxkyFvJhrUGsBlaD7f9JJIUk/CmC+HNqlnUu37AEbjjCH3T2PjhwKabCvlCG9dFXmLOJtnA4Q18FHflK5L3H6710OCDlpwhDumy1gRiGh8OlDppCx20U4CD0bK6MYqeOMQ8MuZZ3eg7Bhyo0W7KMW1yQzwkInmiUnuH2OkcijqVbedVbJn/Pq/QEAiPBPQ+Jz13gzf1tHouq4I1BUQRFmecGRZOGrvmPKdtcXx99P3IVAGct0qX96zFe46NzQ8RxST0cLoNYe5kDubPh9yedwh5kUofdbhjI8h9jjrBpVgnaoK2+SRwoyZ4BMDB0NnLzv6+Sm6UxjekTObRU7GET8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dvmUOLf5A3LULM9AWDZwAL5nOKJgC3euoyGl30GUGoo=;
+ b=e3otRpKQA2leVkt7h/xPs2Gv3nbRqWTKkht2bGjys8gHX7KuiBPfAn1sWcXdLGqXqAxYKuVkPPxDYbrVjCvZONBJRydYM6JjjGoZ6/soHtFs1QPGh+S8kCay1+urHb4h7ui7BWUZopYjtP9JQUFCZ9NnWqf7gP2UzT8XRkPIWGTivUkAjyC6Z4PF2MmPDnBZynZeKKikIJJqCJF6QPb+a31TVX74/O7R/p46hVYfofxF+DQ82j/gEXuPTq4Eu53sU7jgER5QvmXGWGG91czTFWTDxIa+fqwhbubIBvtoT9hry7x/MwYlakcQJYWT9cyJMgjNdaeCTb7uLLDwoKry4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dvmUOLf5A3LULM9AWDZwAL5nOKJgC3euoyGl30GUGoo=;
+ b=1z86t+I+DFWMNX5FU22Pz8K+qjpC7akt7Baq1CJ24Tm5c6yESozdsQIBU6LpuzD1wmIPTSbF1i/z+kjz2AxDVp7lpk8k/JJL5JVA9S588qftq+/CgGBBB52c0hNa8/u2+sKJ7y5dz/aBYspqtq1QbI/2/x25hZCRHRnHjqB1zzk=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA0PR12MB4397.namprd12.prod.outlook.com (2603:10b6:806:93::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 14:55:56 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 14:55:55 +0000
+Message-ID: <9c2ce6d3-46ea-4a69-a227-a5431c3447a6@amd.com>
+Date: Thu, 24 Sep 2026 16:55:51 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu/gmc_v8_0: restore the FB location after a
+ re-POST
+To: =?UTF-8?Q?Francisco_Beltr=C3=A1n_Millal=C3=A9n?=
+ <fbeltranmillalen@gmail.com>, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org
+Cc: airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260924132952.25054-1-fbeltranmillalen@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260924132952.25054-1-fbeltranmillalen@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0221.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e4::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260924080648.51014-1-zhoujinmeng@bytedance.com>
-Message-ID: <arU57oqykUfeKqv2@google.com>
-Subject: Re: [PATCH] KVM: x86: Wake blocked vCPUs before offlining a CPU
-From: Sean Christopherson <seanjc@google.com>
-To: Jinmeng Zhou <jinmengzhou22@gmail.com>
-Cc: pbonzini@redhat.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
-	dave.hansen@linux.intel.com, hpa@zytor.com, feng.wu@intel.com, x86@kernel.org, 
-	kvm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Jinmeng Zhou <zhoujinmeng@bytedance.com>, Guixiong Wei <weiguixiong@bytedance.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA0PR12MB4397:EE_
+X-MS-Office365-Filtering-Correlation-Id: a8290052-41df-4d01-cd73-08df1a4bef95
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|11063799006|56012099006|5023799004|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	s1q6mjcu9E+oOt0YU7FgfpTOUk8w8nPhjM7fj45bRbYzRcoPJ73aiVM68U7vYMT8jg3x8M/wkR67DVQl1Yp3vjuyznEVLyLOkJTpPNqJ8ezdNuZJ9RgayeWxQ3GlkbhPRsOw8rJwkwCUEu+CbQvnnJh9sdB1e6E0/C3eatbhKSPmqg9PmVvUwq18/GOXT8bX2fPSbVqlEsvQeTErygC3EzVu7r1cZ9G+biD/+r/cyj6jHgKYxXfcevQWxF0Jc+VJB+5FlX7P5Dmqsvo9ofPBbJQ1IW5pPyHAj9kMK1mCzloCesSZjfnDJXQZZzvmyVGIwLk3oKVQaibaQiR+dKgHXc/ekHll5ofyrvU17R8uJ2iu+v23X0X4r+NkOnn8tm8NOatawNoGGxeavYQTc6FOOmeXdUuW3ll+DijHs9N/vttILaryHjIm1pcSD4qhPOvsUOaE1XJ3RD54x0LXilRmBkWpd7zir+aPK27N+ouoIN1FfGjSs5WgrUDF4lRrehe9cCpjUCfCka00ahKdDXp9IRNPlZf4zjEYzBcfZdq4PH+MFs/lVNn+OTd4Cf6IpnMX9YLVy/k3UfxhyEDGAIUPug5lsSNZqyy2oONTawpFsec+eof3kxPlmpi+FG2W1DgoBFPoTsDJnLXI7fHIDjdoR41pHGUn487AxSCZVhNQJLk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(11063799006)(56012099006)(5023799004)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cCtLVnFGVFBST0I2SHFGOHFVOHhHOWsrMmVTSTVxUnIvSE9zTjMxMVRPMnFo?=
+ =?utf-8?B?NmdFZDJFVXFHdmlUdTUxWmpaVmp4aGRBVUwwSWszMXU1QUdGOHNiM2xSTHJl?=
+ =?utf-8?B?MkhjODFlR1FOREIzeTloVWV5ZCtTUFg1cXhQaVZvbHFyUE9tc2M0MWh4UEp3?=
+ =?utf-8?B?OXdPcURiOXpGRnk4b2o0UUp2LzlUMDZHUXFyZzBTRmtNcTVONnV3TmxqYmNr?=
+ =?utf-8?B?UHBvVS9NbVFlTER0aVlYQkI2Z0MxMFNYRFo4LzVidC9zeWpheU5GdTVjQ0hY?=
+ =?utf-8?B?Q1lRbUZ5ZER4WWhBcHhtc2RoWDBxK1czRitOK0hoQWY2UjhVWS9vejk0NUpx?=
+ =?utf-8?B?eU4xMFQvNVRRWU40TEFDdmIvUDFiUngydjBoUnpjVnJPQzEvQ09BeUV3akZF?=
+ =?utf-8?B?cHpnYzUyTGhXTnlRTkhLVzhvejRXWDRhWlBnYjRjOUFnbG5USUtzNE1JN3NW?=
+ =?utf-8?B?Vjh4QXFCK3F1M0RWeVdaR2tOSTNmaUZUdm9tUHMwVnppa3FqUVdWWkxCT3NW?=
+ =?utf-8?B?dkMvOXYxRllJbFVIZ0ROYXJGQThuZXhROENXZVVFRDFsUno0OHN4WXNKMUQ0?=
+ =?utf-8?B?R0VJSUMzNW9veTlsb2Z3ZWhqclBlVzR5V1l2L21YeGZoeXFxYkxVMDNha01E?=
+ =?utf-8?B?N0N1a1VSa3Z2bjRhamM5ODFuLzY2NEZtbEF3emJ3NUpHcFM0M0wvcnZNQXc1?=
+ =?utf-8?B?YzFOOUpYTFg5VHV1c2NyN1o3THRnbUdMVU10bGVTMzlLVzZWTUJEaHRmZlBa?=
+ =?utf-8?B?eFJ0ZUUxWnU1WENuQXI5Z2ZBYkJPWVVDbnhoVUd5dHcrV1l6M1VsdFRUS1Vs?=
+ =?utf-8?B?Qk1pYVBOQldsdnBMQzFUNzRWU3QzMFBWMmxodWF5K3ozSDBGUHRTSVcxOUtX?=
+ =?utf-8?B?UkJUSlR6MVB4V1NibzI4TGlHU28vZTY2NGo0Vk5Dd3cvWlhHZnJDbkR5UEho?=
+ =?utf-8?B?NXI3SXhYSmtzaWJlZTFJWmFwV3Jld0NBTW5rWmFJRjlFRWxQd2ZKMnBJai8y?=
+ =?utf-8?B?NVhPNDdvcm1RV3RyaFRJYVJPdlA4dzNaNEFtK2xXblgwc2pVaWsvV3c1N0pO?=
+ =?utf-8?B?K1IxWEt5bW1mWXZzT29xSEVMUXc3Z1ZoZW1rTFo1ZjdkdFRSV01wZU5iYzRq?=
+ =?utf-8?B?REpjYXVnZGxSMnVVWW8zUlU0MmNVVkU2RmdvUzMvaC9QVTlDeG54a3R5UmRz?=
+ =?utf-8?B?RDNKR3hXSERXeGJkTVNVSXpWcURmSmRQVGt1SFY1Q0R2ZmVnb1h4QVJxRnhv?=
+ =?utf-8?B?N055T0JiNzYvYzlYcTlpZUdGKzF1Vm13OEpjSDh2c0pFbnowT3B4TGRqdDd5?=
+ =?utf-8?B?Nk4wdmhrUlRXeUVYODZBRlZLTzBrNzIvSmRGQVUwMmYrTXJSYjMxYUFDUjdn?=
+ =?utf-8?B?dXdPTHJ2Rm9hZmVWVytZQXpob1YrTVZTYmsxYkw2cEQrT3BrM3Y5OVJCd0pl?=
+ =?utf-8?B?bWNEZWtVbFdtTWwxNXg2K0lJNGp6cHNBVGFWdDR1UUwzM0NLYmIzTmt4amVu?=
+ =?utf-8?B?d2tMZUdKbWlJVDVxRnY0WGNqeThSUW9kcDlDcEFtN2w1Q2tibWdBWlp5eE0v?=
+ =?utf-8?B?bVR5OCtoblRyQmJRYVlDc2xSbTErU1BPUFQwcFUzQnhtNHNBb1VkMGJyS2xv?=
+ =?utf-8?B?WXRiZFpmaUlBckl6RGk1T0wwMzcwNGRUbmhKejI4cTVwak5qSjdzK0g4Ylk1?=
+ =?utf-8?B?eXVJc0dvanpVamsxNnNBNk56RjcybWdNZmlGOStHbHdMOGdBVXpJSkpIVS9I?=
+ =?utf-8?B?RkhiSStoZUx1QjJpL0lpOW5uRnF5QjVucFl5L1NqN1duUWhoWXhvM1hKZURM?=
+ =?utf-8?B?NVVwVjVETFNkb2hzL2E0eStxalF4RURTalorTlZJQTBpdzA4b01kWEpQUXhR?=
+ =?utf-8?B?dWpkVUdtOWl2VnRUSFRIUTFaUlZFYkc4Z1RsMUpVOXBObEd4bUZBZ0RERmtI?=
+ =?utf-8?B?TnNNa042Q3dJOXcraUVnRjlvNmQzaytxYXVsOEowdGgrS2RZSmJrQ0VkU0lr?=
+ =?utf-8?B?TlBqQXVCOHd0ajJEMDNRQkZhN0VjN0RuL0t3TG1xZjQ1eW5KUkR4N3Jiblhi?=
+ =?utf-8?B?MVdVNnorSlJsV2RlZW5DUDRaZ0tndkpQM28zUjhXWDlKaVVwUGlvbmFvajNt?=
+ =?utf-8?B?ZlY1QTRzbGFpbWFIY2NkdjBJY2gzbFRqZXlmM3gzVVBXUmlVUlUyKzB0dFk1?=
+ =?utf-8?B?aTBQNi9MWWc2VTNPR1ByYW96LzVVNW5HZm8vbVREQXVtS1lOVTkvYmdPVVN6?=
+ =?utf-8?B?b0xVZmdmT3d1Sng5YzRyNnlsMjdLbzlldXlVelVTSDIvcVZtdDVEdmM4TmNj?=
+ =?utf-8?Q?u4ifagz2Qnb3sYESek?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8290052-41df-4d01-cd73-08df1a4bef95
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 14:55:55.6636
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sTSNkJGezcba/HG+ectZHkxpZtKMEfvhlAEHO649xijWCFuM7jzmMEyTklrcxG2M
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4397
 
-On Thu, Sep 24, 2026, Jinmeng Zhou wrote:
-> Posted-interrupt wakeup state is tied to the physical CPU on which a vCPU
-> blocks. CPU hotplug migrates sleeping tasks before KVM's CPU offline
-> callback, but the vCPU remains on the old CPU's wakeup list and its posted
-> interrupt descriptor still targets the old physical APIC.
+On 9/24/26 15:29, Francisco Beltrán Millalén wrote:
+> On a MacBookPro14,3 (Radeon Pro 560, POLARIS11) amdgpu has never recovered
+> from an ASIC reset: five attempts recorded, zero successes.  Since suspend
+> to RAM goes through a reset, S3 fails the same way, and as the internal
+> panel hangs off the AMD GPU the machine comes back blind.
 > 
-> If a device posts an interrupt after the old CPU becomes unavailable, the
-> wakeup notification cannot make the blocked vCPU runnable. The vCPU cannot
-> repair the stale notification destination because that happens only after
-> the vCPU is scheduled back in.
+> The failure looks like VRAM going write-only-dead: writes are silently
+> dropped while reads still work, the driver reports success at every step,
+> and then it hands the SMU a pointer to a table that was never written:
 > 
-> Add an architecture hook to KVM's CPU offline path and a corresponding
-> optional x86 vendor callback. After CPUHP_AP_SCHED_WAIT_EMPTY has migrated
-> tasks away from the dying CPU, have VMX set KVM_REQ_UNBLOCK and wake every
-> vCPU on that CPU's posted-interrupt wakeup list. The vCPUs then unblock on
-> online CPUs and the existing load path rebuilds their wakeup-list and
-> posted-interrupt destination state.
+>   amdgpu_device_asic_init()  -> 0          (reports success)
+>   gmc_v8_0_hw_init()         -> 0          (reports success)
+>   memcpy_toio()                             (write silently discarded)
+>   send_msg(0x251, ...)                      (SMU parses garbage)
+>   smu7_check_fw_load_finish() -> -EINVAL -> black screen
 > 
-> Fixes: bf9f6ac8d749 ("KVM: Update Posted-Interrupts Descriptor when vCPU is blocked")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jinmeng Zhou <zhoujinmeng@bytedance.com>
-> Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
+> It is not VRAM dying.  It is the framebuffer moving.
+> 
+> On this machine the Apple firmware places VRAM at MC address 0 on a cold
+> boot, and gmc_v8_0_vram_gtt_location() reads MC_VM_FB_LOCATION once, at
+> init, to derive vram_start.  A re-POST -- which is what an ASIC reset and
+> an S3 resume both trigger -- lets the VBIOS put the framebuffer back at
+> its own default instead, 0xf400_0000 here:
+> 
+>   cold boot:   MC_VM_FB_LOCATION = 0x007f0000
+>   after reset: MC_VM_FB_LOCATION = 0xf47ff400
 
-SoB chain is wrong.  Whoever sends the patch needs to come last.  And presumably
-there's a missing "Co-developed-by: Guixiong Wei <weiguixiong@bytedance.com>".
-The patch also needs a "From: Jinmeng Zhou <zhoujinmeng@bytedance.com>" since
-you're using a different address to send the email.
+Mhm, interesting I'm really wondering where those values come from.
 
-> diff --git a/arch/x86/kvm/vmx/posted_intr.c b/arch/x86/kvm/vmx/posted_intr.c
-> index 4a6d9a17da238..2d6cca1606bd1 100644
-> --- a/arch/x86/kvm/vmx/posted_intr.c
-> +++ b/arch/x86/kvm/vmx/posted_intr.c
-> @@ -266,6 +266,29 @@ void pi_wakeup_handler(void)
->  	raw_spin_unlock(spinlock);
->  }
->  
-> +void pi_wakeup_cpu_offline(unsigned int cpu)
-> +{
-> +	struct list_head *wakeup_list = &per_cpu(wakeup_vcpus_on_cpu, cpu);
-> +	raw_spinlock_t *spinlock = &per_cpu(wakeup_vcpus_on_cpu_lock, cpu);
-> +	struct vcpu_vt *vt;
-> +	unsigned long flags;
+> 
+> gmc_v8_0_mc_program() programs the system aperture from the stale
+> vram_start, but only writes MC_VM_FB_LOCATION and HDP_NONSURFACE_BASE
+> under SR-IOV; on bare metal it trusts whatever the VBIOS left behind.
+> While the MC is still in pass-through everything appears to work, so the
+> mismatch goes unnoticed.  Then gmc_v8_0_gart_enable() sets ENABLE_L1_TLB,
+> SYSTEM_ACCESS_MODE=3 and ENABLE_ADVANCED_DRIVER_MODEL, the MC starts
+> checking the system aperture, and every access lands outside it -- which
+> is why reads return data written before the reset, from a different
+> physical place than the writes are going to.
+> 
+> Write the framebuffer location back when it does not match the one the
+> driver is working with, which is what the SR-IOV path already does.  The
+> comparison keeps this a no-op on machines where the VBIOS restores the
+> same location, so nothing changes for them.
+
+That is still a rather bad idea for multiple reasons.
+
+You often run into suspend/resume and random memory corruption issues when stuff like that is done and we never fully implemented blocking VRAM access during a runtime ASIC reset.
+
+I think the more defensive approach is to do an ASIC reset on driver load and use the values the AtomBIOS init function comes up with.
+
+@Alex what's your take here?
+
+Regards,
+Christian.
+
+> 
+> This runs after the VGA aperture has been locked out and with the display
+> suspended, so the MC does not need to be stopped; only CPU access through
+> the BAR could land while the FB and HDP bases disagree, so BIF_FB_EN is
+> cleared around the update and re-enabled below.
+> 
+> With this the GPU survives resets and S3: the machine has since completed
+> twelve suspend/resume cycles in a single boot without a failure, and the
+> restore is visible on each resume:
+> 
+>   amdgpu 0000:01:00.0: amdgpu: FB location 0xf47ff400 does not match
+>   vram_start, restoring 0x007f0000
+> 
+> To be precise about what those cycles prove: the kernel they were run on
+> also carries unrelated local patches for this machine's Thunderbolt
+> controller, which fails separately.  This patch is the one that brings the
+> display back -- without it the GPU never recovered from a reset at all.
+> 
+> Tested on 6.18.49 on a MacBookPro14,3.  I have no other smu7 hardware, so
+> this is only known to matter on machines whose firmware boots the GPU at a
+> different framebuffer location than the VBIOS default; elsewhere the new
+> branch does nothing.
+> 
+> Signed-off-by: Francisco Beltrán Millalén <fbeltranmillalen@gmail.com>
+> ---
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> @@ -472,14 +472,42 @@
+>         WREG32(mmMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR,
+>                adev->mem_scratch.gpu_addr >> 12);
+> 
+> +       tmp = ((adev->gmc.vram_end >> 24) & 0xFFFF) << 16;
+> +       tmp |= ((adev->gmc.vram_start >> 24) & 0xFFFF);
 > +
-> +	/*
-> +	 * CPUHP_AP_SCHED_WAIT_EMPTY has already migrated tasks away from the
-
-IIUC, CPUHP_AP_SCHED_WAIT_EMPTY just waits for task migrations to complete,
-CPUHP_AP_ACTIVE => sched_cpu_deactivate() is what actually initiates the migration.
-That matters because I think it means we can repurpose CPUHP_AP_X86_KVM_CLK_ONLINE.
-
-> +	 * dying CPU.  Force blocked vCPUs to leave the block loop so that their
-> +	 * PI wakeup state is rebuilt on an online CPU before the old notification
-> +	 * destination becomes unreachable.
-> +	 */
-> +	raw_spin_lock_irqsave(spinlock, flags);
-> +	list_for_each_entry(vt, wakeup_list, pi_wakeup_list) {
-> +		struct kvm_vcpu *vcpu = vt_to_vcpu(vt);
+>         if (amdgpu_sriov_vf(adev)) {
+> -               tmp = ((adev->gmc.vram_end >> 24) & 0xFFFF) << 16;
+> -               tmp |= ((adev->gmc.vram_start >> 24) & 0xFFFF);
+>                 WREG32(mmMC_VM_FB_LOCATION, tmp);
+>                 /* XXX double check these! */
+>                 WREG32(mmHDP_NONSURFACE_BASE, (adev->gmc.vram_start >> 8));
+>                 WREG32(mmHDP_NONSURFACE_INFO, (2 << 7) | (1 << 30));
+>                 WREG32(mmHDP_NONSURFACE_SIZE, 0x3FFFFFFF);
+> +       } else {
+> +               u32 fb_loc = RREG32(mmMC_VM_FB_LOCATION);
 > +
-> +		kvm_make_request(KVM_REQ_UNBLOCK, vcpu);
+> +               /*
+> +                * On bare metal vram_start is the FB base found at init (see
+> +                * gmc_v8_0_vram_gtt_location()).  Normally the VBIOS put it
+> +                * there and a later re-POST puts it back in the same place.
+> +                * On MacBookPros with switchable graphics VRAM is at 0 at boot
+> +                * instead, and a re-POST (S3 resume, ASIC reset) moves it to
+> +                * the VBIOS default, away from the addresses the driver
+> +                * already uses.  Move it back.
+> +                *
+> +                * This only happens after a re-POST: the display is suspended
+> +                * and the VGA aperture has been locked out above, so there is
+> +                * no need to stop the MC.  Only CPU access through the BAR
+> +                * could land while the FB and HDP bases disagree, so block it
+> +                * here; BIF_FB_EN is enabled again below.
+> +                */
+> +               if (REG_GET_FIELD(fb_loc, MC_VM_FB_LOCATION, FB_BASE) !=
+> +                   REG_GET_FIELD(tmp, MC_VM_FB_LOCATION, FB_BASE)) {
+> +                       dev_info(adev->dev,
+> +                                "FB location 0x%08x does not match vram_start, restoring 0x%08x\n",
+> +                                fb_loc, tmp);
+> +                       WREG32(mmBIF_FB_EN, 0);
+> +                       WREG32(mmMC_VM_FB_LOCATION, tmp);
+> +                       WREG32(mmHDP_NONSURFACE_BASE, (adev->gmc.vram_start >> 8));
+> +               }
+>         }
+> 
+>         WREG32(mmMC_VM_AGP_BASE, 0);
 
-Hrm, KVM_REQ_UNBLOCK is going to cause spurious wakeups for the vCPU.  That isn't
-the end of the world, but it's definitely undesirable, especially since these
-flows are shared with SUSPEND+RESUME.
-
-If we attach to CPUHP_AP_X86_KVM_CLK_ONLINE, can we do a bare __kvm_vcpu_wake_up(),
-so that the task (temporarily) wakes up and gets migrated to a new pCPU before this
-pCPU goes down?
-
-> +		kvm_vcpu_wake_up(vcpu);
-> +	}
-> +	raw_spin_unlock_irqrestore(spinlock, flags);
-> +}
-> +
->  void __init pi_init_cpu(int cpu)
->  {
->  	INIT_LIST_HEAD(&per_cpu(wakeup_vcpus_on_cpu, cpu));
-> diff --git a/arch/x86/kvm/vmx/posted_intr.h b/arch/x86/kvm/vmx/posted_intr.h
-> index a4af39948cf04..41414c583a063 100644
-> --- a/arch/x86/kvm/vmx/posted_intr.h
-> +++ b/arch/x86/kvm/vmx/posted_intr.h
-> @@ -11,6 +11,7 @@
->  void vmx_vcpu_pi_load(struct kvm_vcpu *vcpu, int cpu);
->  void vmx_vcpu_pi_put(struct kvm_vcpu *vcpu);
->  void pi_wakeup_handler(void);
-> +void pi_wakeup_cpu_offline(unsigned int cpu);
->  void __init pi_init_cpu(int cpu);
->  void pi_apicv_pre_state_restore(struct kvm_vcpu *vcpu);
->  bool pi_has_pending_interrupt(struct kvm_vcpu *vcpu);
-> diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-> index 79468ddfe4736..ea0ded5d64509 100644
-> --- a/arch/x86/kvm/x86.c
-> +++ b/arch/x86/kvm/x86.c
-> @@ -9820,6 +9820,11 @@ void kvm_arch_disable_virtualization_cpu(void)
->  		__module_get(THIS_MODULE);
->  }
->  
-> +void kvm_arch_prepare_cpu_offline(unsigned int cpu)
-
-I don't love adding an arch hook for this, because CPUHP_AP_KVM_ONLINE is tied to
-KVM_GENERIC_HARDWARE_ENABLING=y.  I think I'd rather turn CPUHP_AP_X86_KVM_CLK_ONLINE
-into a slightly more generic CPUHP_AP_X86_KVM_ONLINE
-
-> +{
-> +	kvm_x86_call(prepare_cpu_offline)(cpu);
-
-My vote for the names would just be "cpu_offline", i.e. no "prepare".
