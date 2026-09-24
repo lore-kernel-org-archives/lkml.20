@@ -1,73 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 580944D09EB;
-	Thu, 24 Sep 2026 17:35:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B432C4A8FD9;
+	Thu, 24 Sep 2026 17:36:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790271334; cv=none; b=HSAN7CnnmtGEAOigdq1dmm2cfVLd56WDJ3vbk3yMxcOkAym8IvDnS2HS+I/ByTYO48OuSYmtLD9Q8sjCiHCW63Y3OI3kh5rDQ0Fspz0C6uGUQ/5Y8VayaTw3ZcaDQMZ7VrIqakEdwKyaTOeyGECI09ImYIOcq4SQYq7UrIUO6cg=
+	t=1790271370; cv=none; b=e1SC+OF6vH48Ic9BM9kOMm4tCuicQ9HX3VhxyPd+IwWPBJv2ubAZP9diVbBkcWHr13Yjd3qcLdHEPaMvX847UVmrGo8kJcBjSdWvO3GsG93UfiCM28Z66DKpm9tYgWwYQTfjsijFSmB/VFhKFlLiVxuxvQpAQu5hjm2q6XNnhIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790271334; c=relaxed/simple;
-	bh=qQU15BMTU9n5l1J2SRyYyOCgcwcrbWAwPPEt/k6KNEQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tixnPFP7yINJdlCx8VtEhUuwdXOGAXyl237pKtdtS7JL539lZrfiBPFFAFSQmFozUSKJwzBUV2+yeKXOxdy0IK7r/6J2vnG7iAeFZgG4DzgwMA+FVKuEEYH78zfGW9G0unOjdRAFDCKq0iyZXrs72bGJetKv7xiSnXKElErN3eA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bZ/jXhWu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790271370; c=relaxed/simple;
+	bh=9Gf+SrEO7AdCsZYicS8z7ED348jsQsSe/Jjco0svQSI=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Z2LneP7kNVi9p/b+YmzYMCz2dJsP78ACN52zMFD7ylA7+9gEz3aBb1C4iQYzQdQeOdGnxHWY8HgZ6ru2XCrWaLRrxhmShWVfUxaarqYoAFswHcwHmW7ympXht5DVj2CvNAEoiPX3pCwR3OATYs7NRr+CVRZftCV9IkWHV7/8GUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iZr0UU0J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bZ/jXhWu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55FC41F00902;
-	Thu, 24 Sep 2026 17:35:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iZr0UU0J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86D0C1F000FF;
+	Thu, 24 Sep 2026 17:36:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790271333;
-	bh=WQzWSAB242M0aa5nFGCOIgs3eg39Of4VNXwVut989R0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bZ/jXhWuZr6kvWfWzhuELIXVyFnpUAuAocDgeq9X091buMcmF5ktDsYNCmdwVL/up
-	 yfjw9ShWacbgQ6keEjiFzjH6UP94XKac88SqKMsmvbJZezUK4kurOX27/b6JJzs2su
-	 2WTC10zR52luoLDEGxPA7DNb4IS3V4DP+17cyPMYXosVHXrcQMFdgobAyRY8xjh6J+
-	 Z/AJP9lncqktDZ2WOausmdXhP9YQzPodoKFc7wDum9qQwFM7Pha+YepGfAljQAfEUr
-	 dN1OIS6F7sfB1jB9cx2uc5a0dgI5yDUTcKVzDnJpVjYyFqQHjnU8VhacM+qbSvQ62C
-	 OnOxLwHrTbYCQ==
-Date: Thu, 24 Sep 2026 19:35:30 +0200
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Thomas Falcon <thomas.falcon@intel.com>
-Cc: sashiko-bot@kernel.org, linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Dapeng Mi <dapeng1.mi@linux.intel.com>
-Subject: Re: [PATCH v12 0/6] perf: Add support for memory region/range
- reporting
-Message-ID: <arVfYrhsx6WXWBVI@x2>
-References: <20260923161043.95C171F000FF@smtp.kernel.org>
- <20260923170903.48388-1-thomas.falcon@intel.com>
+	s=k20260515; t=1790271369;
+	bh=Cv+SG0uZ2ekeOvIBJVHP5F3IubEKnpbND8T7lhCAmaQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=iZr0UU0JFbxL8fJFv7Al79/WTCk8fgxq3Mmb033r8nA2T2Esnuh0R2UZF+BW61ts9
+	 5vvlax39ZP3Vp14O9YpyuoqBVX18erGWlFPEmwznhFPP95pxkfz8Nw+YbTo3perYS4
+	 kIouHwJujmCsEMqMY5leBrlmZrbORD99GiWizc1HaVobdKWLU73YSdeAxPNdNc9EZ7
+	 MuZ04yJbNun2+Fp3MIwWddMi81wWSqiJOZdUAIXDgUO37zCu/sh8wRbGOwsVHC2/26
+	 IWCfYW4r626dcd056TtVZW7KCe0Uxtf30LzSdJPoDTnZ9c/wHIixhRwdZZIDwhiMJx
+	 hv8ac8hpFmwTA==
+Subject: Re: [PATCH net 1/6] net: bcmasp: fix mib counters struct alignment
+ with ethtool stats
+From: netdev-bot+sashiko@kernel.org
+To: florian.fainelli@broadcom.com
+Cc: netdev@vger.kernel.org, opendmb@gmail.com,
+ bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ zakkemble@gmail.com, horms@kernel.org, ryotkkr98@gmail.com,
+ linux-kernel@vger.kernel.org, nb@tipi-net.de
+Date: Thu, 24 Sep 2026 17:36:08 +0000
+Message-ID: <179027136810.2160803.5519251364954584171@kernel.org>
+In-Reply-To: <20260922221630.3864427-2-florian.fainelli@broadcom.com>
+References: <20260922221630.3864427-2-florian.fainelli@broadcom.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923170903.48388-1-thomas.falcon@intel.com>
 
-On Wed, Sep 23, 2026 at 12:08:57PM -0500, Thomas Falcon wrote:
-> Add support for two memory-related reporting features in the perf tool:
-<SNIP> 
-> Include a change allowing PERF_MEM_LVLNUM_L0 to be printed in
-> perf-mem output as well.
- 
-> [1]: https://lore.kernel.org/all/20260114011750.350569-1-dapeng1.mi@linux.intel.com/
-> [2]: https://lore.kernel.org/lkml/20250505173819.419271-1-tony.luck@intel.com/
-> [3]: MRRM definition allow for future expansion for the OS to assign
-> these region IDs.
- 
-> v12: 
-> -- Fixed typo in bounds checking for max supported memory ranges when
->    reading header data
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Thanks, applied to perf-tools-next, for v7.4.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-- Arnaldo
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The commit message overstates what the bug did.
+
+--
+
+net: bcmasp: fix mib counters struct alignment with ethtool stats
+
+This commit removes the leftover edpkt_* fields from the start of struct
+bcmasp_mib_counters. They were left in place when the matching
+bcmasp_gstrings_stats[] entries were removed for asp-v3.0. Since then the
+struct layout has not matched the order the ethtool code indexes by.
+
+> Because bcmasp_update_mib_counters() and bcmasp_get_ethtool_stats() index
+> into struct bcmasp_mib_counters sequentially based on the order of
+> bcmasp_gstrings_stats, this 16-byte offset caused hardware statistics
+> to be written to the wrong struct members and software counters to be
+> read from incorrect offsets (and reading out-of-bounds at the end of the
+> struct).
+
+[Severity: Medium]
+Is the out-of-bounds part of this description accurate?
+
+Before this patch, struct bcmasp_mib_counters had 17 u32 members (68
+bytes), and bcmasp_gstrings_stats[] has 13 entries. Both loops stop at
+BCMASP_STATS_LEN:
+
+drivers/net/ethernet/broadcom/asp2/bcmasp_ethtool.c:bcmasp_get_ethtool_stats() {
+    ...
+	for (i = 0; i < BCMASP_STATS_LEN; i++) {
+		p = (char *)(&intf->mib) + (i * sizeof(u32));
+		data[i] = *(u32 *)p;
+	}
+}
+
+So the highest offset either loop touches is 12 * 4 = 48 bytes, which is
+inside the 68-byte struct.
+
+The hardware values also appear to have reached userspace correctly.
+bcmasp_update_mib_counters() writes them to raw slots 0-4, and
+bcmasp_get_ethtool_stats() reads them back from the same slots. The only
+members overwritten were edpkt_* and umac_frm_cnt, and no code uses those
+by name.
+
+The part that looks broken is the software counters. Code increments them
+by name (intf->mib.alloc_rx_skb_failed++, tx_dma_failed++, and so on).
+They sit in raw slots 9-16, but ethtool read slots 5-12. As a result:
+
+  - "RX SKB Alloc Failed", "TX DMA Failed", "Multicast Filters Full" and
+    "Unicast Filters Full" read fb_* members that are never written, so
+    they always showed 0.
+
+  - The next four strings showed the values of the first four software
+    counters.
+
+  - filters_combine_cnt, promisc_filters_cnt, tx_realloc_offload_failed
+    and tx_timeout_cnt were never shown at all.
+
+Could the commit message describe this as shifted or mislabeled software
+counters, rather than as an out-of-bounds read at the end of the struct?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922221630.3864427-1-florian.fainelli%40broadcom.com
