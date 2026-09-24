@@ -1,133 +1,143 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D4333D647E
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:06:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B6E2381E92
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:07:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790222762; cv=none; b=DztQw2pmjgNushVSPitTf0xsrHCEeTjGsBpLXNdTk11YC1xM2f9/0S/uj2SbJkzRLyAuFuINHDe5TA26R+T3bG4KOoy9ALSlKYaVcQ7HaY8fuf6sbbWSG1p0qDkxegA5LVFP04dgCMsp4MVGNI7dqIlQHeQootCPyqCeDYT6j1Q=
+	t=1790222865; cv=none; b=kwNipnLsY3alpI/TtoOit5IgO4haydaA7MjoR56JvJP8cUrNj0wZrfATTuM+FDq4iLL+ID8smBBSTYDimcSloH/y884Z6CJRmVSV+mMdYQ9yb3gCpekyIzs3YppaWYxr6yZd1OxhUNwhNHV90D1plzAuNvgMNeo1rmANFjY+kAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790222762; c=relaxed/simple;
-	bh=VhwDNULfRsTeeYNpUUXF068Y8WCwNp3CrlFHi6vQTXI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Dh7L4S4dbg5BTIhzSnYCrMj7aTBzQW+HeqC+GNa/9VY8dcY0Hv7ApqasRG2yNLSlxNDnOwyDnkwhaEBCFE4GT5BzYQUiiKOiGMHg/+SaWmkXk8/C/2VEdEHCrhNpo2vW00s11W8bGm4+9RWv6meGd3a519PtqOLhCzKKbyJFIBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IM1jF3Ch; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790222865; c=relaxed/simple;
+	bh=uKNHX1AEIFkhasNIc08NvBKSlR8RmcmWvLxYc+HcP5k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pPsmYMzGuJksFkwXA3Oo1S4PA2DMz5WrhuuQCxWaf8HbjbaKbwlg87ZKnJN0GqOqmRCyfJJHNfQ6xgKEtGHR0DGQyJwSyDp+n7GV0mlVlKvWW+N5cktFPochY51GXc6p4jNFB64rDn5KqSvq1teF5h60Vr0bkSPr2PMZkF2EUUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W+eQpLFa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IM1jF3Ch"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebcb8d7so521652a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:06:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790222761; x=1790827561; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PhZF8mPv+fRcVNjbFSDLsT1qu+MWxdYp9Nch/L7zjGE=;
-        b=IM1jF3Ch1SJSP5lcp/+aJJ0Dt2dnzKRD/RR+zaViSZmfFXdEBdWxHu8TVhs6obz4Cp
-         hY/dR+9TU3CNJspwZRUcdY6vG+GPJ9tm3aygGF89YXNrEar8B5Q0ITq/0Ra8R7uSbD0l
-         YSYK+PGISsjjGQHebxAL63rnGAwhTJqwdNhbFy42MvNlsD0dmn4GGF6ScAttobhceV5a
-         ojXZAKpBkuPqDc/gfqNhlkHUbztLPGL4wD5W8mQ89nYApExZrp+VI6ZUZrWRhP2zELPC
-         g9qpt39HgnopKcgH72zdQKJEL/0xZtpQKS5wcQMH0mybYtPBWELJHzO7/HocI9rrn27X
-         kvZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790222761; x=1790827561;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PhZF8mPv+fRcVNjbFSDLsT1qu+MWxdYp9Nch/L7zjGE=;
-        b=jUrPFj4i1YLo7IIdUCle4FAd42WXF0b3DOjAMlLM8XC2R5C0+fvppym7Avcc0+Ka8S
-         BKCDp6pCQbZ/F5Rnn5xH8XY90UYhXXf9TSEH0GHPud22XQpRsR1dpPWBeeo5+XxIX2oh
-         oESyusBQ0Gll3k/xaEPX6huvTPYVq3nkNrCfNuBfq/nQtFQtvGhNcPoGPYVI+h/AdiT5
-         qdDXK1hxHkuMOSKnEEAo6oqTdD+Nk91Jfh6i5HGWF1UgoC6BcJaT1g2BlH/+0jeuAMNY
-         2zjkW2Av2YT13AuCIDgxGVPU2ZFuA5TJB64/ro0WT0O4moIh6ioYlfDVdSSJW0MOpI3s
-         ZlLw==
-X-Forwarded-Encrypted: i=1; AKwUvBwPnP9PKWHiVQu7QGq7nJJ0Ly9ktwgfQw/SNQ9Jwt6djDLbokk8hr3+gIK9wLFxnc4ptTn0fj1ofeoODqs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mbLwecLEkP4r1bsaNmKAWAmZuIw4BQW0KH03t/NkGZ8UsadZhf
-	RvWbQyFPBsmZcY7/34iKLpip/k9wc7lZAMiVKRz6kVno5N4uoYQfXjhj
-X-Gm-Gg: AYBFou0yqhBCMND8UJa9nqHtwCqUoAlkmyPa40sjocaTdfbev3cWEZAW+DvurtzNsYU
-	dJ5uHIeLvYTBdPDz89TlDft4IL16GNgtZM3fo0eJlg4hFWMQNSgH+VSOuM11F6qHpZHjAHtQCvx
-	0qj1wWTJh72S5qTKlrgpByOu7zPtVwmgMgIqJ2wocwh2sh1SzXYuEG7KBGVZiNPI/gN+ydVa+f/
-	UfOrpyyj9E8WiJIVwlxKf+M8/dn2FLotScdz7eGjaDsJyWdmMujkvCNn/mHjfRVOibJb6T9cwQE
-	z+HpgZfPkZdAJhRoTb83w7xlVjXMAXQwi8t03qV6fW9vGgSVc9ZCXv8RTzS1/otFbbPiEqQwwza
-	2Zns8LMTfuS7lo7X/2AH/BRqYEfhiyLqWDs7AqNfnfFnGmFUl1Yy+rIQswEClznLX4A+4Xz3CZt
-	BkSrjPmN9ImvzG8z/Wskhrf8i0wJ34Q/ORmNsD9n/AbKcLZPdf7FhMnUEMzlx6DQdqkCiRxOUkA
-	6qzfFn0reDBFNUfbeJs9uv+r9lGarcWEuUW0sc=
-X-Received: by 2002:a17:90a:d410:b0:398:9bd3:d6d4 with SMTP id 98e67ed59e1d1-3a098651f1emr672367a91.14.1790222760570;
-        Wed, 23 Sep 2026 21:06:00 -0700 (PDT)
-Received: from thangnn-Dell.vingroup.local ([101.99.23.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a09e359a9bsm259410a91.3.2026.09.23.21.05.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 21:06:00 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: dmitry.torokhov@gmail.com
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+1075f6dc93f398c1857e@syzkaller.appspotmail.com,
-	lkp@intel.com,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Subject: [PATCH v2] Input: serio - don't sleep on serio_mutex from drvctl_store()
-Date: Thu, 24 Sep 2026 11:04:30 +0700
-Message-ID: <20260924040430.711439-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W+eQpLFa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0B1E1F0089A
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:07:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790222863;
+	bh=wlxzHAl4jd2Dy0VVw5bc0eae7SydK76Gy5QsoWtTugw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=W+eQpLFaM2rcqsBrwxptT+1AE4q8ovSwO3chFMk819v3awDKts+y5Vk6cayF3ClxE
+	 Fl5WCojNXMrnxkT4G+aF96bfpimhq6BS3ZvRyNDiIFIlXxQvSXF8INmmLoc+yvkKC6
+	 NLx9Q6TnmT5AIco6f2+k549wDAisZdSuDL54+mE/2ctC7zPDHPJrAdVLnnTZ43sgGC
+	 XrZQ9MliKDafN8cVGbCYAtNdWJhwGnTqNQOU8jbiieEIHq45AYa9Jp3tzr9Nhn6tC5
+	 +B5kJ6gY0a+Qmk1rHyGpvh5fcc8iIMUwF7ja9OFZb1D34FQi7KYflEF0xFN4XYIm9g
+	 bO6pNhB4cMVFw==
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910cadeb3so121054285a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:07:43 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzGhjA5tfw1butrmJW56TDKAUXkQ5UPltk0S5BgfYDbX3KAeCqMjDwXLivSS2qdI9KAOl7/tPS9K04KZ+E=@vger.kernel.org
+X-Gm-Message-State: AFuF++mDrlFeAbSd4MgmdxEnYAnwntgtORthO4o+dnmX0fIq1R1PiCf/
+	vX+Xl3pT/KuBhJz/HFEJx1jYkWz3+EsvGovI+LlBujVgDBN3H4eI1m+I3VqU9C3XqkMK0ytZskn
+	PdtqdOFJlFeB61cpIkCZpbw6gSZWJgdg=
+X-Received: by 2002:a05:620a:178a:b0:93b:6113:21c with SMTP id
+ af79cd13be357-93c3625bfedmr121073085a.10.1790222862939; Wed, 23 Sep 2026
+ 21:07:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <apcVhWzEwkwHYjB1@KASONG-MC4> <20260901220430.79810-1-baohua@kernel.org>
+ <SJ1PR11MB61051CC2791B67C97BEB2D4B8CB72@SJ1PR11MB6105.namprd11.prod.outlook.com>
+ <CAGsJ_4yRJnr4xXdokVHu85b7XPe0p6rZ+Lzv4sE_gCWdOF4YAw@mail.gmail.com>
+ <SJ1PR11MB6105505CAF620B23978FBEF18CB72@SJ1PR11MB6105.namprd11.prod.outlook.com>
+ <SJ1PR11MB61057EF65B62E06E2C2049008C812@SJ1PR11MB6105.namprd11.prod.outlook.com>
+In-Reply-To: <SJ1PR11MB61057EF65B62E06E2C2049008C812@SJ1PR11MB6105.namprd11.prod.outlook.com>
+From: Barry Song <baohua@kernel.org>
+Date: Thu, 24 Sep 2026 12:07:31 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4yHZ5ck1hk+Lo-7aQudApm0Nx=4yssUDrRTz681PuW=tw@mail.gmail.com>
+X-Gm-Features: AclHuK_Oo5VaIVxMohMOcnCcWX2KkBDujM8Sp4JE6sgnmpi0H7GmNxPODugX6SA
+Message-ID: <CAGsJ_4yHZ5ck1hk+Lo-7aQudApm0Nx=4yssUDrRTz681PuW=tw@mail.gmail.com>
+Subject: Re: [RFC PATCH] mm/mglru: dynamically protect readahead fault folios
+ under refault pressure
+To: "Ababneh, Ehab" <ehab.ababneh@intel.com>
+Cc: "ryncsn@gmail.com" <ryncsn@gmail.com>, 
+	"akpm@linux-foundation.org" <akpm@linux-foundation.org>, 
+	"axelrasmussen@google.com" <axelrasmussen@google.com>, "kasong@tencent.com" <kasong@tencent.com>, 
+	"lance.yang@linux.dev" <lance.yang@linux.dev>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, 
+	"qi.zheng@linux.dev" <qi.zheng@linux.dev>, "shakeel.butt@linux.dev" <shakeel.butt@linux.dev>, 
+	"weixugc@google.com" <weixugc@google.com>, "yuanchu@google.com" <yuanchu@google.com>, 
+	"yuzhao@google.com" <yuzhao@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Writing to the drvctl attribute takes serio_mutex while holding the
-attribute's kernfs active reference. serio_unregister_port() does the
-opposite: it holds serio_mutex and device_del() then waits for active
-references to drain in kernfs_drain(). If a drvctl write is in flight
-when the port is unregistered, the writer waits for serio_mutex and the
-unregistering task waits for the writer, and neither makes progress.
-Interruptibility of the lock does not help, as nothing signals the writer.
+On Thu, Sep 24, 2026 at 11:43=E2=80=AFAM Ababneh, Ehab <ehab.ababneh@intel.=
+com> wrote:
+>
+> Hi Kairui, Barry,
+>
+> Apologies for the delay in getting back to you with these results =E2=80=
+=94 my
+> test environment got corrupted and I had to spend some time recovering
+> it before I could re-run the benchmark.
 
-lockdep reports it as:
+No worries, Ehab. And thanks very much for your testing!
 
-  WARNING: possible circular locking dependency detected
-  repro/4908 is trying to acquire lock:
-   (kn->active){++++}-{0:0}, at: __kernfs_remove+0x34c/0xb90
-  but task is already holding lock:
-   (serio_mutex){+.+.}-{4:4}, at: serio_unregister_port+0x1b/0x40
-   drvctl_store
-   sysfs_kf_write
-   ...
-   kernfs_drain
-   device_del
-   serio_destroy_port
-   serio_unregister_port
-   userio_char_release
+[...]
 
-Use mutex_trylock() and restart the syscall when the mutex is busy, so
-the active reference is dropped before waiting. Once the port is being
-removed the retried write fails with -ENODEV.
+> > > > I agree that reverting the commit that caused the regression is not
+> > > > the optimal path. I expect there are many workloads and scenarios
+> > > > that benefit from the behavior introduced by that commit, so
+> > > > reverting it could unnecessarily regress those workloads.
+> > > >
+> > > > I will run the Cassandra benchmark with Kairui's MGLRU-FG patches t=
+o
+> > > > see whether they address the issue I am seeing. I will send the
+> > > > results when they are ready.
+> > > >
+>
+> Thanks for the pointer =E2=80=94 I gave your MGLRU-FG fix a try against t=
+he same
+> Cassandra read benchmark I used for my patch (4 nodes, 720s, 100 readers)=
+.
+>
+> Results with MGLRU-FG:
+>   Op rate:                  55.0k - 56.5k op/s
 
-Reported-by: syzbot+1075f6dc93f398c1857e@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1075f6dc93f398c1857e
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
- drivers/input/serio/serio.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+I noticed this is even higher than your dynamic
+readahead fix: "throughput ~51.9k-52.7k op/s"
 
-diff --git a/drivers/input/serio/serio.c b/drivers/input/serio/serio.c
-index 54dd26249b02..5b650421e066 100644
---- a/drivers/input/serio/serio.c
-+++ b/drivers/input/serio/serio.c
-@@ -357,7 +357,8 @@ static ssize_t drvctl_store(struct device *dev, struct device_attribute *attr, c
- 	struct device_driver *drv;
- 	int error;
- 
--	scoped_cond_guard(mutex_intr, return -EINTR, &serio_mutex) {
-+	/* Port removal holds serio_mutex and drains us: don't wait for it. */
-+	scoped_cond_guard(mutex_try, return -EAGAIN, &serio_mutex) {
- 		if (!strncmp(buf, "none", count)) {
- 			serio_disconnect_port(serio);
- 		} else if (!strncmp(buf, "reconnect", count)) {
+Is this a run-to-run variation, or is the improvement stable across runs?
 
-base-commit: daae2ab46e0cb612f50ca1d86cf50e5962461ae5
--- 
-2.43.0
+>   Latency 99th percentile:  6.8 - 6.9 ms
+>
+> For reference, here's where the other variants landed on the same setup:
+>
+>   Regression (6cbdd9726fb5, "mm/mglru: use folio_mark_accessed to
+>   replace folio_set_active"):
+>       p99 ~9.2-9.5 ms, throughput ~41.8k-43.6k op/s
+>
+>   Revert of 6cbdd9726fb5:
+>       p99 ~5.5-5.6 ms, throughput ~51.9k-53.1k op/s
+>
+>   My dynamic readahead-credit fix:
+>       p99 ~5.8 ms, throughput ~51.9k-52.7k op/s
+>
+> So MGLRU-FG recovers most of the latency regression, but the revert
+> and my fix still recover more of it: p99 with MGLRU-FG is noticeably
+> higher than with the revert and my fix (6.8-6.9 ms vs ~5.5-5.8 ms),
+> though it's still a big improvement over the regression's 9.2-9.5 ms.
 
+We also have this :
+https://lore.kernel.org/linux-mm/20260901220430.79810-1-baohua@kernel.org/
+
+you once reported it as :
+"throughput was approximately
+49.4K to 50.3K ops/s, averaging about 50.0K ops/s, while the 99th-percentil=
+e
+latency remained around 7.0 to 7.1 ms"
+
+>
+> Happy to dig further if useful =E2=80=94 let me know if you'd like more d=
+etail
+> on the latency distribution or a longer run to confirm these numbers
+> are stable.
+>
+
+Thanks
+Barry
