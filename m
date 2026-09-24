@@ -1,191 +1,101 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C9DA4D8D80;
-	Thu, 24 Sep 2026 21:02:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 435C33C1985
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:03:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790283779; cv=none; b=Ru84IPjpomyWJSWi2iVUhdaKLKYTK9gCaE7V2k0l+3PkCQpmvkdQggdpTwqfL9l/oeFJa89Z80g0Iuse1wdWfS1ZWQ00gyyr+3KGvO/CbDUxDmtssz+QGLoNMaFmSb+EcJFjKibDjNVy69SeetGNWXZKMQaM+L1enLXn2fYhpis=
+	t=1790283804; cv=none; b=ZYvdw4lkL35o7QO45qj69hqWoOpzLST2DuIRLfE2ZPjtdVF+5tS6iF5y/YuWQTZxeVy4MjZqK0RQT+rH3bigi3/RilimYT2jXo/0Ga7Fr7QYyGTcBr1XxB1BJTxiM3+sAxf+z/KZOesLPbDX9oQAqcpMrxQepkImu8dAJdHRhhU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790283779; c=relaxed/simple;
-	bh=lspyLU4mTfOqWHFyXt7jAnyEi7/vLQDrl/Kxo5xgTeI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=WxZoIn1znNFccVIWXGtzbKVeKOdNfRMSJmr3hzWjNLwzYE6BmG+MFS8OMKFGjiisEDGc7DySywbJTmj2498G65ibV/DWCAE9hi9AyIKkcbrrcklVPEWzuDdYFmkRBcnnDQm3ID5w+ckQMaqvwjp/xtZO/zI2Mcak1XHNZqV7JZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=mnObMppF; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1790283804; c=relaxed/simple;
+	bh=wWhkspSvuUaP79UFlg0tjhLS64ZcoVHeFAMlQFnyJeE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WKr5VusYD9XKndiB1sEC5VgxuilrCf/HVkYitJtP1rIboL5hzN8TA8NfHrpecXjl/DR3qssmKI2DhZJSJAsYHigpDOia4rlKMdV8CM3ZRhxiEMS7y2GIy7Q/4ntCb4Kttmx9g2M/kEyiYMPPcbzgMJZfW3hFHXfd4ZkFUPOO/rY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=KY35iQGf; arc=none smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="mnObMppF"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=szf/9tp/1Xj/7ds5+seIYfgvG1k8RQwYdh0oNCdCCzA=; b=mnObMppFVlraHgVDIFJsjoRswl
-	Z7Xf9M6f15Eh90DppqqLZ6SJFlc+/Tnxv02fef//OGcC4uOdQXY3LNNnLRt+HYatV6SebOh5YOI1d
-	lwVoQ2cL5cJOjxy3XqA1f9wPQMFT2n74l/DhNtrCwq+iRx6VWwCG7QIMl4wJS8E6UmCZCjHXPWMcP
-	A/vHGfQ7U5s72+Tb2jERdvaIR9Y05Ve2/w+1Jomko/v239XmqbrpZ6KnEmfSWMDam5lRja72/djoN
-	butUmltrbKYSOGjuzcbeoHdCFHRkbWDjQI3WIWWFYNNskYCeoLebZejwwVKdEj+mZbemF6lzgF4tr
-	oITH0Dqw==;
-Received: from [151.115.150.205] (port=54884 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1x9qaj-0000000GkcJ-3BEZ;
-	Thu, 24 Sep 2026 23:02:53 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD=20?= <mkoutny@suse.com>
-Cc: brads@mainlining.org,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Christian Brauner <christian@brauner.io>,
-	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Subject: [PATCH v2] cgroup: prevent css_set UAF after namespace publication
-Date: Thu, 24 Sep 2026 21:01:03 +0000
-Message-ID: <20260924210102.3773873-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="KY35iQGf"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2a8b9acbc6so38660366b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:03:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1790283798; x=1790888598; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HZUM5CMnMFQnOGiBLbND2ls6ZG2NSvPjkHob8MA8y/Y=;
+        b=KY35iQGfhU29+shzq7Z/HzTukmzZNZlwyhUXdb6H/WLiiEOhPOJaWqU0MZoieOShRg
+         6KLQDx8ML05LGOhISezKfHrQswv6hEWt0nBjrkjVRmQTKZPuoBmvxfBHRvuRoMPFoGxq
+         WFAA8COImXNh/0BDpCO+wKx2/4PUF+DhuUrl4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790283798; x=1790888598;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=HZUM5CMnMFQnOGiBLbND2ls6ZG2NSvPjkHob8MA8y/Y=;
+        b=X+2yEP7BI/+fFYk8rsDbpAp1W53UqdRVRPGw2iPWlKJ3TbX8jrkHQcpAAwQ9ajVU2I
+         qdYwIHLkfMLra0GSP4kSuQqzf/CDzfhtzDPISnHz03cGxwAhHmGc6ztYpjUi4IdXAd9R
+         LNK3+10dBLksjLXLRWkBoZ1rJUBabscyuxZXjdh6ubp0+YCR5Hgv4hu560H3ZrJKzmZR
+         DqOuGu/aF1JeSh0JNGOsFG299VhLInFSTxBFBWsUWxsSQBkHUmjeDYkHghBCqqnhmkpF
+         mFY4o/K71LwRch5rQRcaon1jveMjsbjHoQJhWJlYIJeDn4Sgak9/M8VmxCTyRShXGxCs
+         KBxQ==
+X-Forwarded-Encrypted: i=1; AKwUvByVW0MpvEBaU8RtSlork31FI+18ug0FlagzaVcKq75awBOZr6ENTj5w+N964a6h38y5qbSPUDuvAbvH5MQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mCpYwCOhn36MGTqTJ5XHEe3yOtmNctor425yv/phnfSCJzHaPv
+	46sdK1DPBTI0FD0iSoLu0xXrfAVVZ6ZUwLQHWKn6HS8kGbUq7+OesSLMnpgNOQPHI9i4o5GnI2A
+	aHvBadekyPg==
+X-Gm-Gg: AYBFou0rxWZyaNrSQvk5q6M2fqmsODM6yjNfvha/2ELW/jxSW2e6o5Zieh1B8yA7AQU
+	wOqph0NOzL1D4uyDFE9yn/aU4RSN3onB5CWsumj2VqDCe7OQ6uj6B8amzMOgZi321qrnj4475vF
+	6gAqqemZPy15mc4qC4VTO0ttKW/idK4ZlFHVDpun8M0BXZ0fKsRaqyeTy2/NpEb/jzkWuC6xGnc
+	SlL0RwGVF4rUfdaqxYGzbslf0XblWeMwYc2AGEYQHpwm0XQhBbxOWF9osDZhJuxV8sWwfIkuLSi
+	ANlZuIBPgarFY6lIOj5e1de0kD+wuBgNVXCSvRA6D1bnTGXCCESTLQeSOBkUrMBfkWYdRf3B1WS
+	BSHp44gjBtvjLTpgwI/B0+2zEzweaAp62c1Rl1AIv5POeRUW/9uQW4oQZN+uubm7eVdwO8coiCg
+	GGbURyqN/kl10vY39IO38nuQKKA807tvPQ+URmWVkam0z0hKx57f3MWCq5B0o/NHgyao9ya+xB9
+	iH+zccRN62XJ8qpxN77Kz2gkabzC5ERMuO5Ka4MNaZGKTjkIA==
+X-Received: by 2002:a17:906:c115:b0:c26:22ae:b66b with SMTP id a640c23a62f3a-c2ac2328075mr336048466b.15.1790283798610;
+        Thu, 24 Sep 2026 14:03:18 -0700 (PDT)
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com. [74.125.228.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae735cb45sm14514766b.10.2026.09.24.14.03.17
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 14:03:18 -0700 (PDT)
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa663bfso36530666b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:03:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwSWqMc7d2dB08W+vfnSb49EYeDjqOUBuogGlUQeSyLitEjx8wCyerdXnRxYRvCZeIa2mQnr89qnbgzw6Y=@vger.kernel.org
+X-Received: by 2002:a17:907:7242:b0:c29:f5d5:5a95 with SMTP id
+ a640c23a62f3a-c2ac23ec443mr340930766b.31.1790283796794; Thu, 24 Sep 2026
+ 14:03:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+References: <20260924183257.2700506-1-kuba@kernel.org> <CAHk-=wiSnTE9vBZ=5_v+3EEkdazCCbBM5YABRzRHUAeRdyd4Xw@mail.gmail.com>
+ <20260924132743.50090cf5@kernel.org>
+In-Reply-To: <20260924132743.50090cf5@kernel.org>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Thu, 24 Sep 2026 14:02:59 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wi9KzKG0EgVGBXB4njb_sO2Jtuh28M8g7y86ge+z2DgFA@mail.gmail.com>
+X-Gm-Features: AclHuK-N49J43BUn0smXptgPxT_qHCVXiDpg9getC64BOZbVJUhn1rST0kTDE0Q
+Message-ID: <CAHk-=wi9KzKG0EgVGBXB4njb_sO2Jtuh28M8g7y86ge+z2DgFA@mail.gmail.com>
+Subject: Re: [GIT PULL] Networking for v7.3-rc5
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: davem@davemloft.net, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	pabeni@redhat.com
+Content-Type: text/plain; charset="UTF-8"
 
-copy_cgroup_ns() sets the root of a new cgroup namespace to the parent's
-css_set. When the child is created in a different cgroup,
-cgroup_post_fork() replaces that root with the child's css_set after the
-namespace is visible.
+On Thu, 24 Sept 2026 at 13:27, Jakub Kicinski <kuba@kernel.org> wrote:
+>
+> At the same time I'm very impressed by the overall code quality these
+> days. Regressions are very rare for us. Even mindless slop that people
+> send is an order of magnitude better than code we used to merge 2 years
+> ago.
 
-Publishing the namespace before root_cset is final lets readers race with
-cgroup_post_fork(). A reader can load the old root just before it is
-replaced and its reference is dropped, then continue using the freed
-css_set. KASAN reports:
+Yes,
 
-  BUG: KASAN: slab-use-after-free in kernfs_get.part.0+0x47/0x60
-  Write of size 4 at addr ff1100000379f320 by task ns-path-probe/69
-   kernfs_walk_and_get_ns+0x1cc/0x280
-   cgroup_get_from_path+0xfb/0x340
-   nft_socket_cgroup_subtree_level+0x14/0x1a0
+I do think the AI stuff is actually being helpful. I mean, it's a big
+pain *too*, in how it adds to the flood of patches and puts more
+pressure on maintainers. But I feel both the generated patches and the
+review really does tend to be raising the bar overall.
 
-Finalize root_cset before adding the namespace to the tree. Allocate the
-namespace ID at creation, add unshared namespaces after creation succeeds,
-and only remove namespaces that were added.
-
-Fixes: ef2c41cf38a7 ("clone3: allow spawning processes into cgroups")
-Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
----
-Reposting v2 with NAMESPACES in Cc, as requested by Tejun Heo.
-
-Changes in v2:
-- Finalize root_cset before publication.
-- Defer tree insertion on fork.
-- Handle unshare and failed forks.
-
-v1: https://lore.kernel.org/all/20260923204935.2253203-2-Jeremy.Jean@oss.cyber.gouv.fr/
-
- kernel/cgroup/cgroup.c    | 22 +++++++++++++---------
- kernel/cgroup/namespace.c |  5 +++--
- kernel/nsproxy.c          |  5 +++++
- 3 files changed, 21 insertions(+), 11 deletions(-)
-
-diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
-index 227d09704ca5..78f6d235c19b 100644
---- a/kernel/cgroup/cgroup.c
-+++ b/kernel/cgroup/cgroup.c
-@@ -7009,6 +7009,19 @@ int cgroup_can_fork(struct task_struct *child, struct kernel_clone_args *kargs)
- 			goto out_revert;
- 	} while_each_subsys_mask();
- 
-+	/* Publish a new cgroup namespace only after its root is final. */
-+	if (kargs->flags & CLONE_NEWCGROUP) {
-+		struct cgroup_namespace *ns = child->nsproxy->cgroup_ns;
-+		struct css_set *rcset = ns->root_cset;
-+
-+		if (rcset != kargs->cset) {
-+			get_css_set(kargs->cset);
-+			ns->root_cset = kargs->cset;
-+			put_css_set(rcset);
-+		}
-+		ns_tree_add_raw(ns);
-+	}
-+
- 	return 0;
- 
- out_revert:
-@@ -7127,15 +7140,6 @@ void cgroup_post_fork(struct task_struct *child,
- 		ss->fork(child);
- 	} while_each_subsys_mask();
- 
--	/* Make the new cset the root_cset of the new cgroup namespace. */
--	if (kargs->flags & CLONE_NEWCGROUP) {
--		struct css_set *rcset = child->nsproxy->cgroup_ns->root_cset;
--
--		get_css_set(cset);
--		child->nsproxy->cgroup_ns->root_cset = cset;
--		put_css_set(rcset);
--	}
--
- 	/* Cgroup has to be killed so take down child immediately. */
- 	if (unlikely(kill))
- 		do_send_sig_info(SIGKILL, SEND_SIG_NOINFO, child, PIDTYPE_TGID);
-diff --git a/kernel/cgroup/namespace.c b/kernel/cgroup/namespace.c
-index ea4ee13936be..6c8ac36231d9 100644
---- a/kernel/cgroup/namespace.c
-+++ b/kernel/cgroup/namespace.c
-@@ -30,12 +30,14 @@ static struct cgroup_namespace *alloc_cgroup_ns(void)
- 	ret = ns_common_init(new_ns);
- 	if (ret)
- 		return ERR_PTR(ret);
-+	ns_tree_gen_id(new_ns);
- 	return no_free_ptr(new_ns);
- }
- 
- void free_cgroup_ns(struct cgroup_namespace *ns)
- {
--	ns_tree_remove(ns);
-+	if (ns_tree_active(ns))
-+		ns_tree_remove(ns);
- 	put_css_set(ns->root_cset);
- 	dec_cgroup_namespaces(ns->ucounts);
- 	put_user_ns(ns->user_ns);
-@@ -85,7 +87,6 @@ struct cgroup_namespace *copy_cgroup_ns(u64 flags,
- 	new_ns->ucounts = ucounts;
- 	new_ns->root_cset = cset;
- 
--	ns_tree_add(new_ns);
- 	return new_ns;
- }
- 
-diff --git a/kernel/nsproxy.c b/kernel/nsproxy.c
-index d9d3d5973bf5..01c4dcf26993 100644
---- a/kernel/nsproxy.c
-+++ b/kernel/nsproxy.c
-@@ -238,6 +238,11 @@ int unshare_nsproxy_namespaces(unsigned long unshare_flags,
- 		goto out;
- 	}
- 
-+#ifdef CONFIG_CGROUPS
-+	if (flags & CLONE_NEWCGROUP)
-+		ns_tree_add_raw((*new_nsp)->cgroup_ns);
-+#endif
-+
- out:
- 	return err;
- }
--- 
-2.47.3
+               Linus
