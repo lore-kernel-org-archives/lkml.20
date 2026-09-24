@@ -1,82 +1,38 @@
-Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B743282F1F
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:55:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2582930C142;
+	Thu, 24 Sep 2026 22:59:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790290537; cv=none; b=cWgoNwA77WA8BPRAtKk2dT4kNu3q89xM01nG4N8aEy+z4/8pcvbDV/kEY6ZzkdWHDuQULUWSwgsIKQYXzKwQsL0HhmckM3HfLkO9kZIMEIABNA+HklRnGFIJP/+ze6NMH4S6hy7ippicf1+sb5w6VmvGnGsojvcDdbG2X/IQLxc=
+	t=1790290787; cv=none; b=S5/v1jb92CM1RuVE+YEYvNSKxQtOufem1TJgrKobwF8i17lyOUO0q8cwG1l/L++EC5JWDFzs1X8bsp7eaunWCPdc0CqfumfM5TrdoWmLk4v4aBGGRcm/G2I2cJoqHQ+pQcve82YZxoqr7DBbpABeEslJ4Ze5DY0WyENHpkDE/mg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790290537; c=relaxed/simple;
-	bh=Ot0cDlosSJ7B0rKy6gYVAmZetDbxU6jeRs6fzTiE2ZQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CBfmIebDWAm5kwzdgc5dLKoniR94l7V3UTOGCHO4lADcBZayufwXdvCUzhMGoisQwX+DTvI6Optgd0tWwbBpLnFhOGnblar6qbqh+FzcBCdwoN0+p9PgMmExsoD1Zj6xWnzGaGi9FWlhn6J5h26rwufRyrbIq8WXNnjLGo6CeYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=aLacATwX; arc=none smtp.client-ip=74.125.229.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1790290787; c=relaxed/simple;
+	bh=9JQK3M/VYXH0V21F08JN9AMfn4uIqvfsnEr/dnFvinA=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=CX2/u0r6RjEYxyp0tby7kQDb0lRwENXgAEGWlXp7/BdTO2OmR1E/rxeg/YUhhn5loU/tD1MMAgs6gG384wFarewNpE2XZmjG2mX2GEdJZx1C6u56yhMebvQtvl7ZmElVeJ89LjCR8Dby1v3xuKltNyJB3Ai172jqPBiR3GVMF+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S5OyMajW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="aLacATwX"
-Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd04f7f2so338503c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:55:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1790290536; x=1790895336; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tIp+aiyQTzTnGdKMDtuefZl/ywWVdEoeMd4a05iequo=;
-        b=aLacATwXjKl9i52SEYMYnrs0OGOUMX1JlWUXwVDtvblpkgbAmp2aebKC/OrLKReD7J
-         v2Y5D2cJv/bmpJ3TD8hxFAnY8u4lFWHBBa2Dk3pGqQCFcjAPn0b1RcgXp5uEXEVs0rPA
-         odm0JW94q6NaYcysaS0JZ1rBWEKyeyyDJ81TRthDEMAqilBazfuo6tZI4gfB+didmW0S
-         w/VBkMSMx0+XsgK0IurMa1OyWGNOSXlL3K8icsewIYO0imWqCuicEHdvdQFscoym++HQ
-         h8dkHHGt8HPtqdaltXCGq2nSGVY8x1BorLhAGDbjk+MILFhb4W87MUucY5RxzUwVhziQ
-         2APw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790290536; x=1790895336;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tIp+aiyQTzTnGdKMDtuefZl/ywWVdEoeMd4a05iequo=;
-        b=UklnQP/rN6eDxNh0LM9wfa68mJUkuYHgjSXEFUBL7SAcSJjmhgP+NOUujySVPyUmjd
-         j1/WnyrDAG3hi6FHtI0bLz5kA0vgEbQiLX76Q7zVADG9Zkdk6wkG1WtbdPFNvB20kTgJ
-         xNlzPWr1OavlbPFA692cwaoLQtS7Kq9Q/D51Zorf43Ir8T1s51no7TL132ZX1zAos2Zg
-         uQ+qEXn+twb168H68I3YYiI/0KWltcFCBG/imPE035BSC7UsTMu45MjdH2DzrTLpxz7j
-         3c+wntWFo1+DCV0B9MaZGBByK1jqPATO+wO4z64xgg7OVN+k5w5ltb7vgvlovNUcqzJh
-         JWNA==
-X-Forwarded-Encrypted: i=1; AKwUvBy9Fvo61PXklA+DlSyJafX+jxIBvukT8Tm2TiVeQWa4BZkkdwaU2QoUZ1EyORVFgKGSKcYAiK7yuq/cfDQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mK0trHgdSos8QPs9IURagWQLBlnE2rlyvnZ4MdncKZXkzyb9sN
-	86ecXGgWhVMYLGxdYA49GVD9XCDhZX/VNJdubx9RnWBfmMztt09dHtT977+EyVRxvxg=
-X-Gm-Gg: AYBFou1o4kw+ZHdMorbiRdbutnQ19H6PcscEVZ4cCMngVJ6qMowaHiyizhjxnwGpm+I
-	7pHNr4M0fi5fdNbNhB5i6Ijn3mucv5EF2/z3PBEf7Yd+p+LC+VRr0EobkBZVaIeB2G+0LhD27vW
-	nnan30Do81z+gBh8RHU9TUV3r3FyayzOSr+CYg6P5ji4IlIfAW/0y3mMKnV1EKjVcvDVPxvkNC+
-	rBnuLWDh3f9tzPwu5LGGYo3x4aUsc0Xc1WXOK/7nqAIpRZNz4+cEdV6fyWOTm//BQafLSGSRfLb
-	G0ou+gddoHyZNe5cbswpwJiBuK5pbY0O/2l2jF84lnMXjPPTgkcx/W5k5EZAu1irn/C18SFCwMT
-	R39pEDePf+fYuyorzNw3tCYGOIYI/aWQ6umdycXIwba+9RsrJPmaA8LON78lgTTaSNvQZSYNlDo
-	nD4ZaxfIFS9TE5+v0usT3ObvmBV06a2UyHXb9NCydInPdE
-X-Received: by 2002:a05:7300:7312:b0:33b:dd45:716c with SMTP id 5a478bee46e88-340cc11f887mr2763537eec.13.1790290535581;
-        Thu, 24 Sep 2026 15:55:35 -0700 (PDT)
-Received: from ziepe.ca ([130.41.10.202])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34141d2fe4bsm1639551eec.4.2026.09.24.15.55.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 15:55:35 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1x9sLm-00000000elU-0EsA;
-	Thu, 24 Sep 2026 19:55:34 -0300
-Date: Thu, 24 Sep 2026 19:55:34 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Daniel Mentz <danielmentz@google.com>
-Cc: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Prakash Gupta <prakash.gupta@oss.qualcomm.com>
-Subject: Re: [PATCH v5] iommu/io-pgtable-arm: Add support for contiguous hint
- bit
-Message-ID: <20260924225534.GD16465@ziepe.ca>
-References: <20260921-iommu_contig_hint-v5-1-e7fbd1c3774d@oss.qualcomm.com>
- <CAE2F3rAMAnV9+WNLZtGQX6cHPsZ6wbfRJ1Z3d5mF1+8WHL-uMA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S5OyMajW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 845001F000FF;
+	Thu, 24 Sep 2026 22:59:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790290785;
+	bh=mI3J2i30KPpFZYMpVTCMbFJCud+nlZX6Sr3yoCszAPQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=S5OyMajW2Q0pyrAqwoqi2sTGH/hHvrcC4PvtkCP7i23twR1JsPt9TjMrLCX1nrWmO
+	 2kQV8lZdoapN+LgzO00Qhh2ZAazks011ikS9gBx4GloT5zXeQg11YV+8mmceA0CTp6
+	 +0kcbZGg81LbygFrJJ8eQpQ4IQ73E5BpbDdROV/kFs6N3uPlT2nDX4BYj1yZXhvBLq
+	 1QbA0uYieAZI4hBDv0QCH19am6+Wcygcss31G8LZfDsNPuxagx7GGekmdy4xIbGPwc
+	 CH2KIcc601fenoKsWT6y4LaKMexJKdzO4B9pE03WAILj1ZcNFnpuLZm6IpDqmnXnYt
+	 eMcyC8YvMRKsA==
+Date: Thu, 24 Sep 2026 17:59:44 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Logan Odell <loganodell@google.com>
+Cc: karahmed@amazon.de, bhelgaas@google.com, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] PCI/IOV: Make VF config reads match PCIe 7.0 spec
+Message-ID: <20260924225944.GA2019638@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,29 +41,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAE2F3rAMAnV9+WNLZtGQX6cHPsZ6wbfRJ1Z3d5mF1+8WHL-uMA@mail.gmail.com>
+In-Reply-To: <20260910173648.1304517-1-loganodell@google.com>
 
-On Thu, Sep 24, 2026 at 01:36:12PM -0700, Daniel Mentz wrote:
-
-> Interaction with Hardware Dirty Tracking (IO_PGTABLE_QUIRK_ARM_HD)
+On Thu, Sep 10, 2026 at 10:36:48AM -0700, Logan Odell wrote:
+> The revision and subsystem ID of the VFs for a given PF do not all have
+> to match per 7.5.1.1.5 and 7.5.1.2.3[1]. Read these values from the
+> config space instead of using cached values from VF0. Class codes and
+> subsystem vendor IDs do need to match per 7.5.1.1.6 and 7.5.1.2.3. Use
+> the PF's value instead of reading from the VF config space. Per
+> 7.5.1.1.9, the header type for a VF should be 0, so hardcode that
+> assignment.
 > 
-> When Hardware Dirty Tracking (ARM_LPAE_PTE_DBM) is enabled on Stage-1 tables:
->  * In visit_dirty() / arm_lpae_read_and_clear_dirty(), dirty bits are
-> queried and cleared on a page-by-page granularity
-> (iopte_set_writeable_clean(ptep)).
->  * If a single 4KB page within a 64KB CONT group is marked clean while
-> neighboring pages remain marked dirty/writeable, the descriptors in
-> that group will differ in access permissions (AP[2]).
->  * According to Arm ARM D8.3.1, all descriptors in a contiguous block
-> must share identical permissions and attributes. If dirty tracking is
-> active on a domain, consider whether IO_PGTABLE_QUIRK_ARM_NO_CONT_HINT
-> should be set or whether CONT sizes should be suppressed when
-> IO_PGTABLE_QUIRK_ARM_HD is active.
+> [1] https://members.pcisig.com/wg/PCI-SIG/document/previewpdf/22464
+> 
+> Fixes: cf0921bea66c ("PCI/IOV: Use VF0 cached config registers for other VFs")
+> Signed-off-by: Logan Odell <loganodell@google.com>
 
-This is right, handling dirty and CONT together is a PITA. You should
-probably make them exclusive for this simplified implementation.
+Applied to pci/iov for v7.4, thanks!
 
-SMMUv3 is the only user of dirty and it will switch to iommupt which
-does all this right.
-
-Jason
+> ---
+>  drivers/pci/iov.c   | 25 -------------------------
+>  drivers/pci/pci.h   |  4 ----
+>  drivers/pci/probe.c | 14 +++++++++-----
+>  3 files changed, 9 insertions(+), 34 deletions(-)
+> 
+> diff --git a/drivers/pci/iov.c b/drivers/pci/iov.c
+> index 9d408fb8ac25..9185934a900f 100644
+> --- a/drivers/pci/iov.c
+> +++ b/drivers/pci/iov.c
+> @@ -179,29 +179,6 @@ bool pci_iov_is_memory_decoding_enabled(struct pci_dev *dev)
+>  	return cmd & PCI_SRIOV_CTRL_MSE;
+>  }
+>  
+> -static void pci_read_vf_config_common(struct pci_dev *virtfn)
+> -{
+> -	struct pci_dev *physfn = virtfn->physfn;
+> -
+> -	/*
+> -	 * Some config registers are the same across all associated VFs.
+> -	 * Read them once from VF0 so we can skip reading them from the
+> -	 * other VFs.
+> -	 *
+> -	 * PCIe r4.0, sec 9.3.4.1, technically doesn't require all VFs to
+> -	 * have the same Revision ID and Subsystem ID, but we assume they
+> -	 * do.
+> -	 */
+> -	pci_read_config_dword(virtfn, PCI_CLASS_REVISION,
+> -			      &physfn->sriov->class);
+> -	pci_read_config_byte(virtfn, PCI_HEADER_TYPE,
+> -			     &physfn->sriov->hdr_type);
+> -	pci_read_config_word(virtfn, PCI_SUBSYSTEM_VENDOR_ID,
+> -			     &physfn->sriov->subsystem_vendor);
+> -	pci_read_config_word(virtfn, PCI_SUBSYSTEM_ID,
+> -			     &physfn->sriov->subsystem_device);
+> -}
+> -
+>  int pci_iov_sysfs_link(struct pci_dev *dev,
+>  		struct pci_dev *virtfn, int id)
+>  {
+> @@ -329,8 +306,6 @@ static struct pci_dev *pci_iov_scan_device(struct pci_dev *dev, int id,
+>  	virtfn->physfn = pci_dev_get(dev);
+>  	virtfn->no_command_memory = 1;
+>  
+> -	if (id == 0)
+> -		pci_read_vf_config_common(virtfn);
+>  
+>  	rc = pci_setup_device(virtfn);
+>  	if (rc) {
+> diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
+> index ba3c3fddddc2..5b3dd1adbf35 100644
+> --- a/drivers/pci/pci.h
+> +++ b/drivers/pci/pci.h
+> @@ -711,10 +711,6 @@ struct pci_sriov {
+>  	u16		driver_max_VFs;	/* Max num VFs driver supports */
+>  	struct pci_dev	*dev;		/* Lowest numbered PF */
+>  	struct pci_dev	*self;		/* This PF */
+> -	u32		class;		/* VF device */
+> -	u8		hdr_type;	/* VF header type */
+> -	u16		subsystem_vendor; /* VF subsystem vendor */
+> -	u16		subsystem_device; /* VF subsystem device */
+>  	resource_size_t	barsz[PCI_SRIOV_NUM_BARS];	/* VF BAR size */
+>  	u16		vf_rebar_cap;	/* VF Resizable BAR capability offset */
+>  	bool		drivers_autoprobe; /* Auto probing of VFs by driver */
+> diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+> index 27008e2ea5af..693c07cf45ff 100644
+> --- a/drivers/pci/probe.c
+> +++ b/drivers/pci/probe.c
+> @@ -1888,10 +1888,14 @@ int pci_cfg_space_size(struct pci_dev *dev)
+>  static u32 pci_class(struct pci_dev *dev)
+>  {
+>  	u32 class;
+> +	u8 rev;
+>  
+>  #ifdef CONFIG_PCI_IOV
+> -	if (dev->is_virtfn)
+> -		return dev->physfn->sriov->class;
+> +	if (dev->is_virtfn) {
+> +		if (pci_read_config_byte(dev, PCI_REVISION_ID, &rev))
+> +			rev = 0;
+> +		return (dev->physfn->class << 8) | rev;
+> +	}
+>  #endif
+>  	pci_read_config_dword(dev, PCI_CLASS_REVISION, &class);
+>  	return class;
+> @@ -1901,8 +1905,8 @@ static void pci_subsystem_ids(struct pci_dev *dev, u16 *vendor, u16 *device)
+>  {
+>  #ifdef CONFIG_PCI_IOV
+>  	if (dev->is_virtfn) {
+> -		*vendor = dev->physfn->sriov->subsystem_vendor;
+> -		*device = dev->physfn->sriov->subsystem_device;
+> +		*vendor = dev->physfn->subsystem_vendor;
+> +		pci_read_config_word(dev, PCI_SUBSYSTEM_ID, device);
+>  		return;
+>  	}
+>  #endif
+> @@ -1916,7 +1920,7 @@ static u8 pci_hdr_type(struct pci_dev *dev)
+>  
+>  #ifdef CONFIG_PCI_IOV
+>  	if (dev->is_virtfn)
+> -		return dev->physfn->sriov->hdr_type;
+> +		return 0;
+>  #endif
+>  	pci_read_config_byte(dev, PCI_HEADER_TYPE, &hdr_type);
+>  	return hdr_type;
+> -- 
+> 2.55.0.1007.g17ff1f9808-goog
+> 
