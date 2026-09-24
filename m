@@ -1,54 +1,72 @@
-Received: from mta1.migadu.com (out-22.mta1.migadu.com [95.215.58.22])
+Received: from mta1.migadu.com (out-41.mta1.migadu.com [95.215.58.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D21A4AA56F
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:47:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5CBF3C09F3
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:48:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790275687; cv=none; b=e3NkUvE+bfUQSlrhnDI7rG/xKrlysuoYeq74bDnd/XPwyEC8UkEFVLtVebv3VAJ79Kejax2EnQ1TE5taS6RCuBDHkdoEfPJXwnoce7Q7LO7TnfjCIK4cEus+pWgb4niDMPeVauvuw6Vle4OXQFOerVrdIh7+RgBmJLCe0NCwmSQ=
+	t=1790275695; cv=none; b=OOF/kuL1fh+RoFSL2+dzDFF/NT+7fZzZRuX3et/3kWTq6k6WrNyeX9SK7oWLUgMuJOXkHm7cWsQCNcDuJ6VR8fsuWiS7OvJhV5ZRk1enprJQHNFoT5wkMVDiKwKub89vbSsI5CxXDz+k3pmIUOusC1V4kcwRfW+dx2IDXq5JInA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790275687; c=relaxed/simple;
-	bh=jBoLVDijjVY3+JudgElb6XvSda0egt/f17ov+qEY2iY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=otE7VIWukL4qV+8iqKDkppTet5XRl65cdT2xJZzYmGrcp2pHf8u0RSBDRTNN+WBANHA7dmEq5An1xu+a8Yn8ZW4AJcwuzxHUMR1MisF+UWc/Mgcy3L7oAo6ASs8QDQ8Oq96JYawZpoy2u6o+zBTLUuqa6kQYcWGyydqJQ3a/MBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mWTwYqqZ; arc=none smtp.client-ip=95.215.58.22
+	s=arc-20240116; t=1790275695; c=relaxed/simple;
+	bh=YPDMx5Cpm0Ky2M5qOc3ie9+dgsk3KEGxwc7kMebFStk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QUV/KUlvXCLbX7vTqgUDlDMI8+c1m8Z8mTS52SnvBY6luNIgRIxsjfQZBJRbM1grLWpcxKLl5j3QRcnMsV8ugvkO46DFVYN7hrUPcVnqf3eJAGvDkyLNTZhU5YET6/FQoDv6Ird3576v5X+wGuEw5b3dML4W13kMBZ+eWzHbqDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hRt6T8GX; arc=none smtp.client-ip=95.215.58.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mWTwYqqZ"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hRt6T8GX"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=jBoLVDijjVY3+JudgElb6XvSda0egt/f17ov+qEY2iY=;
+DKIM-Signature: a=rsa-sha256; bh=YPDMx5Cpm0Ky2M5qOc3ie9+dgsk3KEGxwc7kMebFStk=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790275671; v=1; x=1790880471;
- b=mWTwYqqZYuxLC+fqWXZZomOqCdenDLf831E+3KfS2jb4nUuNbU4AgA5BlDO0VXJR0pkFpi4T
- djLe+o7XAjoqpYCzKlzTHDj/Ure7TZDQDUzTYcOKlWbGP5piO7eMAF+chznvzxh9bITi6etEwxk
- MqQZ9lwu6X1wtlE0dhUAWdA8=
+ t=1790275675; v=1; x=1790880475;
+ b=hRt6T8GX88GoHf5QBQK+pSkz/vS596pjl0ZY5HL4IoVLD1gXsNPWE8+Xin3CSM9peiBdJvj1
+ B65aPsUnHWs30w5E5gAIRODr+kWUrvbJ9gaAbrxPzFjn7Gx8LnXrMnqoPAcE14G74xU6IWJ3BHT
+ D4bL3PTKBTIjkOk0NGppL7H0=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 5003015ae02132ac;
-	Thu, 24 Sep 2026 18:47:51 +0000
-X-Mizu-Trace-ID: 5003015ae02132ac
+Received: by smtp.migadu.com with ESMTPS id 458fdd5e55f5d437;
+	Thu, 24 Sep 2026 18:47:55 +0000
+X-Mizu-Trace-ID: 458fdd5e55f5d437
 X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	justinstitt@google.com,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev,
-	morbo@google.com,
-	nathan@kernel.org,
-	ndesaulniers@google.com,
-	Thomas Graf <tgraf@suug.ch>,
-	nickolay.lysenko@gmail.com,
-	peterz@infradead.org,
-	rostedt@goodmis.org,
-	sched-ext@lists.linux.dev,
-	tj@kernel.org
-Cc: Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH] rhashtable: specialize default comparison for constant parameters
-Date: Thu, 24 Sep 2026 11:47:33 -0700
-Message-ID: <20260924184733.2317353-1-usama.arif@linux.dev>
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Peter Zijlstra <peterz@infradead.org>
+Cc: =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	David Dai <david.dai@linux.dev>,
+	JP Kobryn <jp.kobryn@linux.dev>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Aaron Lu <ziqianlu@bytedance.com>,
+	Daniel Jordan <daniel.m.jordan@oracle.com>,
+	Hao Lee <haolee.swjtu@gmail.com>,
+	kernel-team@meta.com,
+	cgroups@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 5/7] cgroup: take set_active_cgroup() time out of the cgroup's cpu.max
+Date: Thu, 24 Sep 2026 11:47:09 -0700
+Message-ID: <20260924184714.912181-6-shakeel.butt@linux.dev>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260924184714.912181-1-shakeel.butt@linux.dev>
+References: <20260924184714.912181-1-shakeel.butt@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,122 +75,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The inline lookup and insert helpers receive the rhashtable parameters by
-value. With a static const parameter block, key_offset and key_len are
-compile-time constants at the call site.
+Kernel work done under set_active_cgroup() shows up in the cgroup's
+cpu.stat, but the cgroup's tasks still get their full cpu.max quota.
 
-The default comparison throws that information away by reading both fields
-back from ht->p. Fixed-size keys consequently load the parameters and call
-bcmp() for every object in the bucket, even when the compiler could use
-scalar comparisons instead.
+Remember the task's run time at each set_active_cgroup(). When the
+active cgroup changes, charge the time used under the old one to its
+cpu.max quota with cfs_bandwidth_charge(). The caller is in the root
+cgroup, which has no cpu.max, so no quota is charged twice.
 
-The commit "sched_ext: Specialize the DSQ hashtable compare" [1] resulted
-in a 2.9x faster DSQ lookup after replacing this path for its u64 key
-with a scalar comparison. Doing that through obj_cmpfn requires every
-fixed-key user to provide its own callback.
-
-Pass the call-site parameters to rhashtable_compare(), as
-rht_key_get_hash() already does. Use them when key_len is a compile-time
-constant. Retain the ht->p path for dynamic parameter blocks. A constant
-zero key_len continues to take the runtime length from ht->p.key_len.
-
-This specializes the default comparison for all fixed-size users. With
-Clang 22 on x86-64, bcmp() disappears from sched_ext, mac80211, NFSd,
-TIPC, NFQUEUE, VFS superblock, pidfs, SysV IPC and hardware-breakpoint
-table paths. The affected build_policy.o, sta_info.o and nfsd filecache.o
-text shrinks by 512, 400 and 352 bytes respectively. Four- and eight-byte
-keys become direct scalar comparisons; six-byte MAC addresses become a
-four-byte and a two-byte comparison.
-
-Measure the VFS case with ustat() on a mounted ramfs. This exercises
-user_get_super() and its super_dev lookup. Across ten interleaved baseline
-and patched VM boot pairs, with five 3 million call samples per boot, the
-average per-boot median latency drops from 477.2 to 462.6 ns per call, or
-3.0%. All ten pairs improved.
-
-No functional change intended.
-
-[1] https://lore.kernel.org/all/20260921171928.1639407-1-usama.arif@linux.dev/
-
-Suggested-by: Mykola Lysenko <nickolay.lysenko@gmail.com>
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
 ---
- include/linux/rhashtable.h | 20 +++++++++++++++-----
- lib/rhashtable.c           |  5 +++--
- 2 files changed, 18 insertions(+), 7 deletions(-)
+ include/linux/sched.h |  2 ++
+ kernel/sched/core.c   | 12 ++++++++++--
+ 2 files changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/rhashtable.h b/include/linux/rhashtable.h
-index 57a2a29bef0e8..c9872965b753c 100644
---- a/include/linux/rhashtable.h
-+++ b/include/linux/rhashtable.h
-@@ -598,13 +598,23 @@ static inline void rht_assign_unlock(struct bucket_table *tbl,
- 	for (pos = list; pos && rht_entry(tpos, pos, member);		\
- 	     pos = rcu_dereference_all(pos->next))
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index 002941f60e88..7ecea9cfa702 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -1358,6 +1358,8 @@ struct task_struct {
+ 	struct list_head		cg_list;
+ 	/* If set, CPU time is charged here; see set_active_cgroup(): */
+ 	struct cgroup			*active_cgroup;
++	/* se.sum_exec_runtime at the last set_active_cgroup(): */
++	u64				active_cgroup_start;
+ #ifdef CONFIG_PREEMPT_RT
+ 	struct llist_node		cg_dead_lnode;
+ #endif	/* CONFIG_PREEMPT_RT */
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index a487da494795..91fec6461e4f 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -5738,8 +5738,9 @@ unsigned long long task_sched_runtime(struct task_struct *p)
+  * @cgrp: the cgroup to charge, or NULL for current's own cgroup
+  *
+  * For kernel code that does work for a cgroup. The time it uses is charged
+- * to @cgrp as kernel time. Returns the old value, which the caller restores
+- * when done. @cgrp must stay alive until then.
++ * to @cgrp as kernel time, and taken out of @cgrp's cpu.max quota. Returns
++ * the old value, which the caller restores when done. @cgrp must stay alive
++ * until then.
+  *
+  * Only for callers in the root cgroup, like kworkers. The scheduler still
+  * runs the caller in its own cgroup, so from any other cgroup the time would
+@@ -5753,6 +5754,7 @@ struct cgroup *set_active_cgroup(struct cgroup *cgrp)
+ 	struct cgroup *old;
+ 	struct rq_flags rf;
+ 	struct rq *rq;
++	u64 used;
  
--static inline int rhashtable_compare(struct rhashtable_compare_arg *arg,
--				     const void *obj)
-+/*
-+ * Use constant params from inlined callers to specialize memcmp(). If params
-+ * isn't constant, it must be equal to ht->p.
-+ */
-+static __always_inline int rhashtable_compare(struct rhashtable_compare_arg *arg,
-+					      const void *obj,
-+					      const struct rhashtable_params params)
- {
- 	struct rhashtable *ht = arg->ht;
- 	const char *ptr = obj;
+ 	WARN_ON_ONCE(!in_task());
+ 	WARN_ON_ONCE(cgrp && cgrp->root != &cgrp_dfl_root);
+@@ -5768,9 +5770,15 @@ struct cgroup *set_active_cgroup(struct cgroup *cgrp)
+ 	rq->donor->sched_class->update_curr(rq);
  
--	return memcmp(ptr + ht->p.key_offset, arg->key, ht->p.key_len);
-+	if (!__builtin_constant_p(params.key_len))
-+		return memcmp(ptr + ht->p.key_offset, arg->key,
-+			      ht->p.key_len);
+ 	old = p->active_cgroup;
++	used = p->se.sum_exec_runtime - p->active_cgroup_start;
++	p->active_cgroup_start = p->se.sum_exec_runtime;
+ 	psi_set_active_cgroup(p, cgrp);
+ 	task_rq_unlock(rq, p, &rf);
+ 
++	/* Take that time out of the old cgroup's cpu.max quota as well. */
++	if (old)
++		cfs_bandwidth_charge(old, used);
 +
-+	return memcmp(ptr + params.key_offset, arg->key,
-+		      params.key_len ? : ht->p.key_len);
+ 	return old;
  }
- 
- /* Internal function, do not use. */
-@@ -632,7 +642,7 @@ static __always_inline struct rhash_head *__rhashtable_lookup(
- 		rht_for_each_rcu_from(he, __rht_ptr_rcu(bkt, freq), tbl, hash) {
- 			if (params.obj_cmpfn ?
- 			    params.obj_cmpfn(&arg, rht_obj(ht, he)) :
--			    rhashtable_compare(&arg, rht_obj(ht, he)))
-+			    rhashtable_compare(&arg, rht_obj(ht, he), params))
- 				continue;
- 			return he;
- 		}
-@@ -797,7 +807,7 @@ static __always_inline void *__rhashtable_insert_fast(
- 		if (!key ||
- 		    (params.obj_cmpfn ?
- 		     params.obj_cmpfn(&arg, rht_obj(ht, head)) :
--		     rhashtable_compare(&arg, rht_obj(ht, head)))) {
-+		     rhashtable_compare(&arg, rht_obj(ht, head), params))) {
- 			pprev = &head->next;
- 			continue;
- 		}
-diff --git a/lib/rhashtable.c b/lib/rhashtable.c
-index 6362896e4f099..9d9f03b59c823 100644
---- a/lib/rhashtable.c
-+++ b/lib/rhashtable.c
-@@ -548,7 +548,7 @@ static void *rhashtable_lookup_one(struct rhashtable *ht,
- 		if (!key ||
- 		    (ht->p.obj_cmpfn ?
- 		     ht->p.obj_cmpfn(&arg, rht_obj(ht, head)) :
--		     rhashtable_compare(&arg, rht_obj(ht, head)))) {
-+		     rhashtable_compare(&arg, rht_obj(ht, head), ht->p))) {
- 			pprev = &head->next;
- 			continue;
- 		}
-@@ -710,7 +710,8 @@ static struct rhash_head *__rhashtable_next_in_table(
- 		rht_for_each_rcu(he, tbl, b) {
- 			bool match = params.obj_cmpfn
- 				     ? !params.obj_cmpfn(&arg, rht_obj(ht, he))
--				     : !rhashtable_compare(&arg, rht_obj(ht, he));
-+				     : !rhashtable_compare(&arg, rht_obj(ht, he),
-+						   params);
- 			if (found) {
- 				if (match)
- 					continue;
+ #endif
 -- 
 2.53.0-Meta
 
