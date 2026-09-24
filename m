@@ -1,73 +1,74 @@
-Received: from mail-pj2-f26.google.com (mail-pj2-f26.google.com [74.125.227.154])
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D4A6422522
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:03:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD76746D090
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:04:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790247798; cv=none; b=u12GRjuVsLZfVG5gxOm6vdMeu3hIr9SPjSL0APKSk454ZmdoPw4aNZ9VKcn7W3mE0eAxPQKPy92W1+6puqAL9R4a7jgpPTGbPW8Ea/zEt1MAoicKra6nsFflan38tDpRT+adOJ/d24Y76fciFeexMQPgdLWjbcs59lVoC22r0iA=
+	t=1790247847; cv=none; b=Mhnn8rybBDc44uo+oHTvUDDQZbcWI8uCFHgg/QAcw0YecAOQb70/TA9z53x+8VUlOgvHcN4lLvXEj9p4FPIq/Uai4ZiusRfCKOsXKAoj+12DmauHn7pWmKX35Uu8DRFlx5AxEAq0v7hqhcpdY/0a0oLZUfn1Fkj2YaPxAnokjAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790247798; c=relaxed/simple;
-	bh=aO9jXqxRqOyTTCrOYU5B+DX1uyFV7Lr1IqEsZ1j3xU8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LU8HYwKUPbvsnRUguG6PnRDCa4rxN2WI1t1EZnw8MBrSFnyu1WaGsRFT7kQfiDTz9VTb4gtCnDtdqHJHDGhBI0P3nDjP5lP74l5zmgkhHGoTTa8AYZoGZZX84BCcAH8Oc5gbhrf2eIvmDRIydlTfJq2KvXafq/gXrtN+Til7LwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a+9W5BoN; arc=none smtp.client-ip=74.125.227.154
+	s=arc-20240116; t=1790247847; c=relaxed/simple;
+	bh=7f7KgU8ghEm+ZsQ4Wsyw6XqLTiDahmNcP4zN/LWSayk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Pecrgkx9sg6QFe6DL/alym9WvsNJfyZjJ5EYoyBi+RPb8SdLKmFjkou2IAzKlVrAOjaUsq9HFTAOUwtvj1ovQPeFQ0xzvP50/40xbDKZl0AAzcgemrUH0sg2Q+ncoky5ONwQ36PD7lejOchp5p3Z3tjczHfS3btDT03XkIJ6gsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aH/OkfUe; arc=none smtp.client-ip=74.125.228.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a+9W5BoN"
-Received: by mail-pj2-f26.google.com with SMTP id d9443c01a7336-2d8fb334e72so8754355ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:03:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aH/OkfUe"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85f0fc1fd8eso943852b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:04:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790247797; x=1790852597; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790247846; x=1790852646; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nIbhax5iMWz0Nhglod4QvaTZFTgtc4d508WTfg8CcMM=;
-        b=a+9W5BoN6ibcGZ1t2yMukQ9u7OcULIF7Vd8Kg+X83fuGNVPz1nB7Va7fY0Dbdb2p+r
-         4oCMlVlVJnw19Zo8jLm488hLxWXtnkR/8FN2lTplb+YVR2mMmnOLCZBkWjtPnaY7jMsl
-         cWj35VgAx8yJRjDNW+roLfwr/0itvo2t3HKf9w0UmlD3UnVyQgUXgOrUcZlpj9w1XNBR
-         RtgyedP69rIgVmCJ2WJj3oFe7yvlqAxJcgnYMQYcWg86ODCpNhquTPtZjeknRKObINNf
-         kb7DxIyDr2iQBVNM+PmSuBCcHydOoNDCbzJyC+/KYPuE994J5Aee1xZB/jqu4WSMRhjL
-         kIWw==
+        bh=MSWrvTJhaw4ng9HaxkyKXVaI1YO7DDOsINRc0X8/7pc=;
+        b=aH/OkfUeiSP/AqySZOOuIUh4wCOPS0dsci2J4Lnz3PCb4qjFOfWc6m4ADaW8g2Izy4
+         kDlzmDv6mHwtSKhPa+6NNDtxf4dsMQaSAiRVAE1A4NlxVOdsYyxMw5X0rO3omD8A6Tmn
+         F928VCUbniDnAoZ6/v9ZUogp2hYJKJskEDE8PZlN5llcng4koh0gqrLEJSqsTWRDmxYE
+         T97k9jC33zhak/vedKxyUR3Lm6r33kpDYE2vvyDqpy4t3Kx3rSoh9uQPjhYm06fySScG
+         GHJS81qY/AH7yfKMKniMzu/ndWcjtXZMumxncudwGRc88C1Prhu7zyxOvh7CEVi2mVCq
+         E39A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790247797; x=1790852597;
+        d=1e100.net; s=20260707; t=1790247846; x=1790852646;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nIbhax5iMWz0Nhglod4QvaTZFTgtc4d508WTfg8CcMM=;
-        b=ORXk7SKMgxCnC8Fm5aalZJ+g5sMtDMGZxUVqMSUBGb/FeL91QPuoWJhP4Qbv2+6i+l
-         MTVvHVr8zB2kUGLQGXm5O9VQ53R1PfCHssfOAHn8bO9A7kExs48OAFVkMeBZrH17aupi
-         gYMrh+vRqTOpnqxnO3PqAMIr7MBWbrhKZzIrJSiWUicyMuB1dUhOMixGlH7HLbkeDEXk
-         QlujR+/Ch5wIc77teuLVevhcsqc6bPTN+o1r8z55WYBxKmMdfxJSBrIfY/dwUxIMJFa1
-         8HenUy4eQP390UiY4EPwwVA2b9H8AN2K2VTuTZDwMy0LmVosVYD39ZHiTmfzW+1CsHwD
-         E2FA==
-X-Forwarded-Encrypted: i=1; AKwUvBztvG/xRWndfx/ThxPktO1MpFXzfUZ5iodrl+A09vG6VzaJfb84hQGNN4af1hU3ouj+gUEjV+1e0PVJMvs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mLS+AfhFMXcKKPlIieqG140LSnC2PPHe3hIIxJpNRsD9pxrwYj
-	Aspzgu9VlN1Jx81uPOwVpMfPJiNyf96OgjJos0TUJBNKdZXPc29YZ7LV
-X-Gm-Gg: AYBFou10fnqgScCjjPU0ymRqiz59Ufo4Q/HDt1jslio9lKO7EY2wTw7brla8ZK/Megy
-	i8O4OxtdUzrRdtKki02QCsTP2zAxDaRpC5LNVBk8OppNZHvCE82ZPsOePe8XnGqaxg7V1T8YPvg
-	6PaFuNmnokFWRqgDss5uDlyKhy8mauhzgdK5+CgurEodOdbNw4xLASfJk/flSg4F0b7cXXFSgVZ
-	pYRiuPHN0/Wr+wnC+x3j13f2gQ7NBZdnI9KIzs9342r5YwmZvfOj/NNWCsYsP35OEwMaPiVs/Xg
-	65HyprKhSj336XQbu2uopJyZ8l8uFU5whCd1LsLUjE69Zz+ORj9Ni9rArenthUcGrZUTy9XZEps
-	vdfoW1dTJjOQYChc3jqu0fR/rg2Q/mLRDrWOzCKmnIqrJxArpdGAOv/Xq7rfAHLoDSowds4md6R
-	TSIaTRhWVEWWxhoVgTr1Ae9mhAJeEszB1cP3hOoftu7BAQWHOrgbwXBQ==
-X-Received: by 2002:a17:903:3846:b0:2dd:c100:7cc4 with SMTP id d9443c01a7336-2df7dd73ad0mr16876665ad.64.1790247796414;
-        Thu, 24 Sep 2026 04:03:16 -0700 (PDT)
+        bh=MSWrvTJhaw4ng9HaxkyKXVaI1YO7DDOsINRc0X8/7pc=;
+        b=zyy84AttmGfux7FgkxaAldwZ/moWYZxXktJFTJO2dXVe4ZqJfw1JWpagQVi28LAzcl
+         xOzrqKsMeIUXrWFxMOSeig7R1/VaRHwe3UAzCyyy39ay0tOrxQ1FvW49zL/NB1gRaRjM
+         vp02nMRPC795VkBrlHbL9gHdnaHbQCieMKDOJUy5vn85pEySyyupt6fEvM+48LQBF3bB
+         9KFZ6CUk1XAnRtG42s0HWa/fcdHl3L83Imwv1NHRZohUGz+ug/ArdGVbshUbFRzsc3S0
+         A18eNsAe61MUfObV4MbNmvUWGRJfY2RSLD5E1GGvK21QvYE5V/8M9moeN/Zc3nEanGOU
+         A/Jg==
+X-Forwarded-Encrypted: i=1; AKwUvBxcMrq8My7ATGlBXN6UcUmvc8SFTZSh8J2r4oAZpOEMtlFLXchupXc5m9KUD7aIna0MT96oUT3GHiOTuUY=@vger.kernel.org
+X-Gm-Message-State: AFuF++l25It1MiwnJI9itm383zj/3sE1jxFWNX4elwboJ9TQc241BoN8
+	5zpAbcheaWPwXur/VoLGDJLstfwIOtXv7uXXW0XLBkM55fU8eUVuhaVl9HxMlGQI0zWu5Q==
+X-Gm-Gg: AYBFou3S01oYF1kwRFEIkUtB5cdZA3JvITN56PKMqMNXtgq18RTFz3e4C+4+Z0sTjoe
+	riXOVb6qsA0pL41kprukGxAKmMNEGnVxkHU3D6GU1hWZMof4Q/MIIAEihAbRl5Dk0wN5vNAaElZ
+	td1qFt9j/LKgwmH5pTS6zu9+iyfYdavkfd4/vlOGne7YUr3qDhYglPFRzwgruHxAH6S0CkNmrtJ
+	Kv3Z/XTtocStIJNg2Ia0lpFOFXm1sImLh+wwiKCewmT65RZ9qCaZO4wBlTwBbK9UEnG64NQB12i
+	GxuoEBQiP8casrAIKgtQwQeXkO8gMNhLKF3bsY9ftKChZRiedtYl9kSIe+kK5lx9LA2AAt8o6LZ
+	/fPslZJa++6jwKEejaR3G7HdRzTy8ktZ2HZTsMgMT2JYEtDw2TV3msUSeJcbi5qh4D5CrqWgQT5
+	wVKZaz/4KIZifscQ79V/cTut2GEluDdGyh/VXWNouEiNmjGFa6c+mldg==
+X-Received: by 2002:a05:6a00:a244:b0:874:708d:b61e with SMTP id d2e1a72fcca58-87e9b6a1475mr1819911b3a.28.1790247845878;
+        Thu, 24 Sep 2026 04:04:05 -0700 (PDT)
 Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5c3733sm24724005ad.41.2026.09.24.04.03.12
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1e0f4fbbsm2751981b3a.52.2026.09.24.04.04.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 04:03:16 -0700 (PDT)
+        Thu, 24 Sep 2026 04:04:05 -0700 (PDT)
 From: Guangshuo Li <lgs201920130244@gmail.com>
-To: sakari.ailus@linux.intel.com,
-	gregkh@linuxfoundation.org
-Cc: linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
+To: ychuang3@nuvoton.com,
+	schung@nuvoton.com,
+	gregkh@linuxfoundation.org,
+	jirislaby@kernel.org
+Cc: linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	bingbu.cao@intel.com,
-	hverkuil@kernel.org,
+	linux-serial@vger.kernel.org,
+	ilpo.jarvinen@linux.intel.com,
 	lgs201920130244@gmail.com
-Subject: [PATCH] media: staging/ipu7: release ISYS firmware resources on remove
-Date: Thu, 24 Sep 2026 19:03:10 +0800
-Message-ID: <20260924110310.1555150-1-lgs201920130244@gmail.com>
+Subject: [PATCH] serial: ma35d1: unmap MMIO on remove
+Date: Thu, 24 Sep 2026 19:04:00 +0800
+Message-ID: <20260924110400.1556396-1-lgs201920130244@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -77,34 +78,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-isys_remove() tears down the registered ISYS devices but does not call
-ipu7_fw_isys_release() after a successful probe. The probe error path
-already uses this helper after ipu7_fw_isys_init() succeeds.
+ma35d1serial_probe() maps up->port.membase with ioremap(), but
+ma35d1serial_remove() does not perform the matching iounmap(). The probe
+error path already releases this mapping after disabling the clock.
 
-Without the matching release, resources initialized by
-ipu7_fw_isys_init() remain allocated on normal device removal.
+Add iounmap() to the remove path after clk_disable_unprepare() to match
+the resource cleanup order used by ma35d1serial_probe().
 
-Call ipu7_fw_isys_release() after unregistering the ISYS devices to match
-the cleanup performed by the probe error path.
-
-Fixes: a516d36bdc3d ("media: staging/ipu7: add IPU7 input system device driver")
+Fixes: 930cbf92db01 ("tty: serial: Add Nuvoton ma35d1 serial driver support")
 Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- drivers/staging/media/ipu7/ipu7-isys.c | 1 +
+ drivers/tty/serial/ma35d1_serial.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/staging/media/ipu7/ipu7-isys.c b/drivers/staging/media/ipu7/ipu7-isys.c
-index 601e5a79ef8e..a54393fbb9db 100644
---- a/drivers/staging/media/ipu7/ipu7-isys.c
-+++ b/drivers/staging/media/ipu7/ipu7-isys.c
-@@ -590,6 +590,7 @@ static void isys_remove(struct auxiliary_device *auxdev)
+diff --git a/drivers/tty/serial/ma35d1_serial.c b/drivers/tty/serial/ma35d1_serial.c
+index 920fe7ff5083..e5eaaf154911 100644
+--- a/drivers/tty/serial/ma35d1_serial.c
++++ b/drivers/tty/serial/ma35d1_serial.c
+@@ -770,6 +770,7 @@ static void ma35d1serial_remove(struct platform_device *dev)
  
- 	isys_notifier_cleanup(isys);
- 	isys_unregister_devices(isys);
-+	ipu7_fw_isys_release(isys);
+ 	uart_remove_one_port(&ma35d1serial_reg, port);
+ 	clk_disable_unprepare(up->clk);
++	iounmap(up->port.membase);
+ }
  
- 	cpu_latency_qos_remove_request(&isys->pm_qos);
- 
+ static int ma35d1serial_suspend(struct platform_device *dev, pm_message_t state)
 
 base-commit: f03c39de3a1307371a4032757cd1732e91087c7d
 -- 
