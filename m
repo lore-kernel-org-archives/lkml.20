@@ -1,72 +1,54 @@
-Received: from mta0.migadu.com (out-160.mta0.migadu.com [91.218.175.160])
+Received: from mta1.migadu.com (out-22.mta1.migadu.com [95.215.58.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F294BB27F
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:47:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.160
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D21A4AA56F
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:47:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790275686; cv=none; b=c3HyoT/eqf+IsJaukAfLMTikLG0ST2+xdAH46GAsWJJtFwA4La1oNiLoEILgCtK1qFCQKY0WxEbBZAsAx3nAHMETFCLyuQhrEkgOPIVOQeyphUZa11jNDrc7DMtrTsSo713YwW9LezsRh61CzZQyYIbWhDCgB37rfXw/ikNwaeE=
+	t=1790275687; cv=none; b=e3NkUvE+bfUQSlrhnDI7rG/xKrlysuoYeq74bDnd/XPwyEC8UkEFVLtVebv3VAJ79Kejax2EnQ1TE5taS6RCuBDHkdoEfPJXwnoce7Q7LO7TnfjCIK4cEus+pWgb4niDMPeVauvuw6Vle4OXQFOerVrdIh7+RgBmJLCe0NCwmSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790275686; c=relaxed/simple;
-	bh=bvsZVhH3fXVvwRMjzbTh1Q0bqUQyRzPT8xCixvm+AS8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M/Lc9f+4Y63b5mbmdPAsHxe0tIsE1I9snhmduxuiLn83Z33nPeSjRKqG2znMrmtI+BlJxSk9pvcWvibyEqk4vT6xaq5wKcwA9twI/G6CMD4g8liytNDOql+ewOJJbDMy+IRMaw3Y2Frsd0/+YhzlebC/WMhGC1FOk49aRG6+jaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AIwnS3bu; arc=none smtp.client-ip=91.218.175.160
+	s=arc-20240116; t=1790275687; c=relaxed/simple;
+	bh=jBoLVDijjVY3+JudgElb6XvSda0egt/f17ov+qEY2iY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=otE7VIWukL4qV+8iqKDkppTet5XRl65cdT2xJZzYmGrcp2pHf8u0RSBDRTNN+WBANHA7dmEq5An1xu+a8Yn8ZW4AJcwuzxHUMR1MisF+UWc/Mgcy3L7oAo6ASs8QDQ8Oq96JYawZpoy2u6o+zBTLUuqa6kQYcWGyydqJQ3a/MBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mWTwYqqZ; arc=none smtp.client-ip=95.215.58.22
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AIwnS3bu"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mWTwYqqZ"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=bvsZVhH3fXVvwRMjzbTh1Q0bqUQyRzPT8xCixvm+AS8=;
+DKIM-Signature: a=rsa-sha256; bh=jBoLVDijjVY3+JudgElb6XvSda0egt/f17ov+qEY2iY=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790275670; v=1; x=1790880470;
- b=AIwnS3bu82n/6i8h81+UuybcqZEvxDzN7ZVnE6jw/vZ85Yfr99LPq3lcClGmhALWsbZyGqVF
- C2z4WFkDopIheipluEuhSDyU0G2o5iiX9cqpVOuB79wTUUBWy+vMkyFSdOqDmj2T+M3Hs2OSD2B
- nVkJSwtECuvECqKlE6NS/W/8=
+ t=1790275671; v=1; x=1790880471;
+ b=mWTwYqqZYuxLC+fqWXZZomOqCdenDLf831E+3KfS2jb4nUuNbU4AgA5BlDO0VXJR0pkFpi4T
+ djLe+o7XAjoqpYCzKlzTHDj/Ure7TZDQDUzTYcOKlWbGP5piO7eMAF+chznvzxh9bITi6etEwxk
+ MqQZ9lwu6X1wtlE0dhUAWdA8=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 687bc44cdcacb26c;
-	Thu, 24 Sep 2026 18:47:49 +0000
-X-Mizu-Trace-ID: 687bc44cdcacb26c
+Received: by mta10.migadu.com with ESMTPS id 5003015ae02132ac;
+	Thu, 24 Sep 2026 18:47:51 +0000
+X-Mizu-Trace-ID: 5003015ae02132ac
 X-Migadu-Flow: FLOW_OUT
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Peter Zijlstra <peterz@infradead.org>
-Cc: =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	David Dai <david.dai@linux.dev>,
-	JP Kobryn <jp.kobryn@linux.dev>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Aaron Lu <ziqianlu@bytedance.com>,
-	Daniel Jordan <daniel.m.jordan@oracle.com>,
-	Hao Lee <haolee.swjtu@gmail.com>,
-	kernel-team@meta.com,
-	cgroups@vger.kernel.org,
-	bpf@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 4/7] sched/fair: add cfs_bandwidth_charge() for kernel work done for a cgroup
-Date: Thu, 24 Sep 2026 11:47:08 -0700
-Message-ID: <20260924184714.912181-5-shakeel.butt@linux.dev>
+From: Usama Arif <usama.arif@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	justinstitt@google.com,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev,
+	morbo@google.com,
+	nathan@kernel.org,
+	ndesaulniers@google.com,
+	Thomas Graf <tgraf@suug.ch>,
+	nickolay.lysenko@gmail.com,
+	peterz@infradead.org,
+	rostedt@goodmis.org,
+	sched-ext@lists.linux.dev,
+	tj@kernel.org
+Cc: Usama Arif <usama.arif@linux.dev>
+Subject: [PATCH] rhashtable: specialize default comparison for constant parameters
+Date: Thu, 24 Sep 2026 11:47:33 -0700
+Message-ID: <20260924184733.2317353-1-usama.arif@linux.dev>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260924184714.912181-1-shakeel.butt@linux.dev>
-References: <20260924184714.912181-1-shakeel.butt@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,128 +57,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-set_active_cgroup() charges a kernel thread's CPU time to the cgroup it
-works for, but only in cpu.stat. The work still does not count against
-that cgroup's cpu.max.
+The inline lookup and insert helpers receive the rhashtable parameters by
+value. With a static const parameter block, key_offset and key_len are
+compile-time constants at the call site.
 
-Add cfs_bandwidth_charge(). It takes the time out of the cpu.max pool of
-the cgroup's task group and of each limited ancestor, the same way the
-group's own run time is taken. The work itself is never throttled: it
-has already run. Instead the group's own tasks get less time afterwards.
+The default comparison throws that information away by reading both fields
+back from ht->p. Fixed-size keys consequently load the parameters and call
+bcmp() for every object in the bucket, even when the compiler could use
+scalar comparisons instead.
 
-What the pool cannot cover now becomes debt, paid out of the next
-refills. The debt is capped at one period's quota, so a burst of work
-cannot starve the group for long. Changing cpu.max clears it.
+The commit "sched_ext: Specialize the DSQ hashtable compare" [1] resulted
+in a 2.9x faster DSQ lookup after replacing this path for its u64 key
+with a scalar comparison. Doing that through obj_cmpfn requires every
+fixed-key user to provide its own callback.
 
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+Pass the call-site parameters to rhashtable_compare(), as
+rht_key_get_hash() already does. Use them when key_len is a compile-time
+constant. Retain the ht->p path for dynamic parameter blocks. A constant
+zero key_len continues to take the runtime length from ht->p.key_len.
+
+This specializes the default comparison for all fixed-size users. With
+Clang 22 on x86-64, bcmp() disappears from sched_ext, mac80211, NFSd,
+TIPC, NFQUEUE, VFS superblock, pidfs, SysV IPC and hardware-breakpoint
+table paths. The affected build_policy.o, sta_info.o and nfsd filecache.o
+text shrinks by 512, 400 and 352 bytes respectively. Four- and eight-byte
+keys become direct scalar comparisons; six-byte MAC addresses become a
+four-byte and a two-byte comparison.
+
+Measure the VFS case with ustat() on a mounted ramfs. This exercises
+user_get_super() and its super_dev lookup. Across ten interleaved baseline
+and patched VM boot pairs, with five 3 million call samples per boot, the
+average per-boot median latency drops from 477.2 to 462.6 ns per call, or
+3.0%. All ten pairs improved.
+
+No functional change intended.
+
+[1] https://lore.kernel.org/all/20260921171928.1639407-1-usama.arif@linux.dev/
+
+Suggested-by: Mykola Lysenko <nickolay.lysenko@gmail.com>
+Signed-off-by: Usama Arif <usama.arif@linux.dev>
 ---
- kernel/sched/core.c  |  1 +
- kernel/sched/fair.c  | 43 +++++++++++++++++++++++++++++++++++++++++++
- kernel/sched/sched.h |  8 ++++++++
- 3 files changed, 52 insertions(+)
+ include/linux/rhashtable.h | 20 +++++++++++++++-----
+ lib/rhashtable.c           |  5 +++--
+ 2 files changed, 18 insertions(+), 7 deletions(-)
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index b9e288b76da9..a487da494795 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -9809,6 +9809,7 @@ static int tg_set_cfs_bandwidth(struct task_group *tg,
- 		cfs_b->period = ns_to_ktime(period);
- 		cfs_b->quota = quota;
- 		cfs_b->burst = burst;
-+		cfs_b->debt = 0;
+diff --git a/include/linux/rhashtable.h b/include/linux/rhashtable.h
+index 57a2a29bef0e8..c9872965b753c 100644
+--- a/include/linux/rhashtable.h
++++ b/include/linux/rhashtable.h
+@@ -598,13 +598,23 @@ static inline void rht_assign_unlock(struct bucket_table *tbl,
+ 	for (pos = list; pos && rht_entry(tpos, pos, member);		\
+ 	     pos = rcu_dereference_all(pos->next))
  
- 		__refill_cfs_bandwidth_runtime(cfs_b);
- 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 69145dda0df5..84250bd5caa2 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -6626,6 +6626,7 @@ static inline u64 sched_cfs_bandwidth_slice(void)
- void __refill_cfs_bandwidth_runtime(struct cfs_bandwidth *cfs_b)
+-static inline int rhashtable_compare(struct rhashtable_compare_arg *arg,
+-				     const void *obj)
++/*
++ * Use constant params from inlined callers to specialize memcmp(). If params
++ * isn't constant, it must be equal to ht->p.
++ */
++static __always_inline int rhashtable_compare(struct rhashtable_compare_arg *arg,
++					      const void *obj,
++					      const struct rhashtable_params params)
  {
- 	s64 runtime;
-+	u64 pay;
+ 	struct rhashtable *ht = arg->ht;
+ 	const char *ptr = obj;
  
- 	if (unlikely(cfs_b->quota == RUNTIME_INF))
- 		return;
-@@ -6638,9 +6639,51 @@ void __refill_cfs_bandwidth_runtime(struct cfs_bandwidth *cfs_b)
- 	}
- 
- 	cfs_b->runtime = min(cfs_b->runtime, cfs_b->quota + cfs_b->burst);
+-	return memcmp(ptr + ht->p.key_offset, arg->key, ht->p.key_len);
++	if (!__builtin_constant_p(params.key_len))
++		return memcmp(ptr + ht->p.key_offset, arg->key,
++			      ht->p.key_len);
 +
-+	/* Pay back the kernel work charged by cfs_bandwidth_charge(). */
-+	pay = min(cfs_b->runtime, cfs_b->debt);
-+	cfs_b->runtime -= pay;
-+	cfs_b->debt -= pay;
-+
- 	cfs_b->runtime_snap = cfs_b->runtime;
++	return memcmp(ptr + params.key_offset, arg->key,
++		      params.key_len ? : ht->p.key_len);
  }
  
-+/*
-+ * Kernel work used @delta of CPU time for @cgrp, see set_active_cgroup().
-+ * Take it out of the quota of @cgrp's task group and of each ancestor with
-+ * a limit, the same way the group's own run time is taken. What the pool
-+ * cannot cover now becomes debt, paid out of the next refills. The debt is
-+ * capped at one period's quota, so the work cannot starve the group for
-+ * long.
-+ */
-+void cfs_bandwidth_charge(struct cgroup *cgrp, u64 delta)
-+{
-+	struct task_group *tg;
-+
-+	if (!cfs_bandwidth_used())
-+		return;
-+
-+	guard(rcu)();
-+	tg = css_tg(cgroup_e_css(cgrp, &cpu_cgrp_subsys));
-+
-+	/* No limit here or above. */
-+	if (READ_ONCE(tg->cfs_bandwidth.hierarchical_quota) == RUNTIME_INF)
-+		return;
-+
-+	for (; tg; tg = tg->parent) {
-+		struct cfs_bandwidth *cfs_b = &tg->cfs_bandwidth;
-+		u64 take;
-+
-+		guard(raw_spinlock_irqsave)(&cfs_b->lock);
-+		if (cfs_b->quota == RUNTIME_INF)
-+			continue;
-+
-+		take = min(delta, cfs_b->runtime);
-+		cfs_b->runtime -= take;
-+		cfs_b->debt = min(cfs_b->debt + delta - take, cfs_b->quota);
-+	}
-+}
-+
- static inline struct cfs_bandwidth *tg_cfs_bandwidth(struct task_group *tg)
- {
- 	return &tg->cfs_bandwidth;
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 6c3ad70e58b8..2d1adfd7ad37 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -456,6 +456,8 @@ struct cfs_bandwidth {
- 	u64			runtime;
- 	u64			burst;
- 	u64			runtime_snap;
-+	/* Kernel work charged by cfs_bandwidth_charge(), not paid yet: */
-+	u64			debt;
- 	s64			hierarchical_quota;
- 
- 	u8			idle;
-@@ -618,6 +620,12 @@ static inline bool cfs_task_bw_constrained(struct task_struct *p) { return false
- 
- #endif /* !CONFIG_CGROUP_SCHED */
- 
-+#ifdef CONFIG_CFS_BANDWIDTH
-+void cfs_bandwidth_charge(struct cgroup *cgrp, u64 delta);
-+#else
-+static inline void cfs_bandwidth_charge(struct cgroup *cgrp, u64 delta) { }
-+#endif
-+
- /*
-  * A weight of 0 or 1 can cause arithmetics problems.
-  * A weight of a cfs_rq is the sum of weights of which entities
+ /* Internal function, do not use. */
+@@ -632,7 +642,7 @@ static __always_inline struct rhash_head *__rhashtable_lookup(
+ 		rht_for_each_rcu_from(he, __rht_ptr_rcu(bkt, freq), tbl, hash) {
+ 			if (params.obj_cmpfn ?
+ 			    params.obj_cmpfn(&arg, rht_obj(ht, he)) :
+-			    rhashtable_compare(&arg, rht_obj(ht, he)))
++			    rhashtable_compare(&arg, rht_obj(ht, he), params))
+ 				continue;
+ 			return he;
+ 		}
+@@ -797,7 +807,7 @@ static __always_inline void *__rhashtable_insert_fast(
+ 		if (!key ||
+ 		    (params.obj_cmpfn ?
+ 		     params.obj_cmpfn(&arg, rht_obj(ht, head)) :
+-		     rhashtable_compare(&arg, rht_obj(ht, head)))) {
++		     rhashtable_compare(&arg, rht_obj(ht, head), params))) {
+ 			pprev = &head->next;
+ 			continue;
+ 		}
+diff --git a/lib/rhashtable.c b/lib/rhashtable.c
+index 6362896e4f099..9d9f03b59c823 100644
+--- a/lib/rhashtable.c
++++ b/lib/rhashtable.c
+@@ -548,7 +548,7 @@ static void *rhashtable_lookup_one(struct rhashtable *ht,
+ 		if (!key ||
+ 		    (ht->p.obj_cmpfn ?
+ 		     ht->p.obj_cmpfn(&arg, rht_obj(ht, head)) :
+-		     rhashtable_compare(&arg, rht_obj(ht, head)))) {
++		     rhashtable_compare(&arg, rht_obj(ht, head), ht->p))) {
+ 			pprev = &head->next;
+ 			continue;
+ 		}
+@@ -710,7 +710,8 @@ static struct rhash_head *__rhashtable_next_in_table(
+ 		rht_for_each_rcu(he, tbl, b) {
+ 			bool match = params.obj_cmpfn
+ 				     ? !params.obj_cmpfn(&arg, rht_obj(ht, he))
+-				     : !rhashtable_compare(&arg, rht_obj(ht, he));
++				     : !rhashtable_compare(&arg, rht_obj(ht, he),
++						   params);
+ 			if (found) {
+ 				if (match)
+ 					continue;
 -- 
 2.53.0-Meta
 
