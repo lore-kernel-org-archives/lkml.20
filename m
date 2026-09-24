@@ -1,86 +1,63 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7E353D1AA2
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:17:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2D6641BA69;
+	Thu, 24 Sep 2026 19:18:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790277472; cv=none; b=ZG40uPZYGNooqmavJxUSEt5LoyO/XID3+OKKN60spcKTHOBBI0RcJ3SrhnsXVET5Q9ZzOUJztGep28Ed6SlYnlanlxMa6y4XVahHDUjEVsKKJtbatcL73brwVIxK1tHdi5uqaeL9lFE+fYL6Y44ODtyjPkMiXaarZdTBewmdcCI=
+	t=1790277505; cv=none; b=T+nm3SZ2AY88Blmdd7UswJTjJuWun9pfwdswCdYFwdH1NNESpEsbvI+rfag7kIJJtWoUeLxMJ3v6/uZTer2EXAI3G4dj7uygssWYcUHYazdXRloW7lOQ3Ib9kWy4GvuwlUTW3NuyjuVW9yNvt1f6SxfEs2rHIu1Tfcug+OP0s8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790277472; c=relaxed/simple;
-	bh=TmZnIZCNgL/2xt8NVz6zX0y2W0+vT6oawMgOtfFQ+oc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=LzMSS48KFmhla/KJsyVnvVO4rNiHCWtvwO8ShSV745EXyVjar7qPM/Ix0NBU0r8lo+8E/+UyojDfUkDexl/BP+tStl0R997X41nCgglTvqLL8M+v6t3pwoQVdczEBmY5fesNlgKiJVFi6fBR0J+Q5yp3UBBQEo4LVy0YpfxYhvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=A5tjx8gi; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790277505; c=relaxed/simple;
+	bh=WAwXp/U5tVHU0a9gbCIzP+iepnbgs64yxtHQN5a3hmE=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=hxsNB87a4yLBNNzie01N+/wq09+WCw13FRGBzISMQKBwvAmSlPwRzuLJOMQ/ev5mMN9uLJtTIOLlGrp6p4x3aCZU4gvDMKSM3DoA8V+gxiR4iR+7aP/jZ2pYem8Q+rXnNsWJvvj8dG93CR0VTo1X/qN2bAakEBeG9Cr6TybSxLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pp6CAzcq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="A5tjx8gi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790277467; x=1821813467;
-  h=from:to:cc:in-reply-to:references:subject:message-id:
-   date:mime-version:content-transfer-encoding;
-  bh=TmZnIZCNgL/2xt8NVz6zX0y2W0+vT6oawMgOtfFQ+oc=;
-  b=A5tjx8gi1pZVYm+DlYaeEZ7ZO4EIJBP0ENRc7+cUHIXS2o+u0FNhQjTl
-   cCGgmNEF1fT5RLVaYxSv+6xi/A1hc2tIL4cCWa4va6g6KfQSVEScGWCH0
-   lTAgH/UUzKURkGEQqcOY8l6nb48IYS4MhF4o5e5Fk7X1GcLOodmmKf0wu
-   SkiZGXnYgJM6wxXb+OYDjkizJBmhBYX2dYBM5lf+CGc4j3siQD5PyFwph
-   sP+zAOSqofQ/65OvU876fAWpFvvdql4odXX7UGBf2UYNDuNMKwcgnitk3
-   v3W7ywMC9t3AfIRxf8f5QALhwzSfw6O7W9QFKic4+MW3LdbMRJBfLrufj
-   A==;
-X-CSE-ConnectionGUID: vs1knbQERWyxql5Nz1amJQ==
-X-CSE-MsgGUID: tRAoLextTWugyYu1kcgUPw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="93781507"
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="93781507"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 12:17:44 -0700
-X-CSE-ConnectionGUID: cN4xpfu+SeGwHmgBm05U0Q==
-X-CSE-MsgGUID: q6an91LyTgq63Dp09aOrrg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="312034289"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa001.jf.intel.com with ESMTP; 24 Sep 2026 12:17:43 -0700
-Received: from black.igk.intel.com (localhost [IPv6:::1])
-	by black.igk.intel.com (Postfix) with ESMTP id DB98380;
-	Thu, 24 Sep 2026 21:17:41 +0200 (CEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: linux-kernel@vger.kernel.org, Randy Dunlap <rdunlap@infradead.org>
-Cc: =?utf-8?q?Jean-Fran=C3=A7ois_Lessard?= <jefflessard3@gmail.com>, 
- Geert Uytterhoeven <geert@linux-m68k.org>
-In-Reply-To: <20260921044555.90187-1-rdunlap@infradead.org>
-References: <20260921044555.90187-1-rdunlap@infradead.org>
-Subject: Re: [PATCH] docs: ABI: auxdisplay: use literal blocks for commands
-Message-Id: <179027746188.869200.10514116524330264859.b4-ty@b4>
-Date: Thu, 24 Sep 2026 21:17:41 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pp6CAzcq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA02D1F00893;
+	Thu, 24 Sep 2026 19:18:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790277486;
+	bh=x09ZqsA6gVtmyCFCOTPNyI+rh9sKcO2Vjjce4oj+I3c=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=Pp6CAzcqlgqLNh4yWBqqstle0cVISoH42MT6Oq4+ruX6QQZ2ZxgunmajV5XyeU1f2
+	 MT9thQ2GiXsME7ZGSq/gO2xDwwIA9xTqG55C947CLqOKcrMIz3SEOsFhYf/gDCAAre
+	 1UM6jzUu+4wMezxI6wf/vW3rzjPEl9QCeYIsaLKQSixyUHi3bljMUUPggF63bCm3HB
+	 7X1UNz1u9MQrAw8gKjgfZE4U4lbxTlFCiZPdPPPuF8xV2MM2rmJHOFpPXjpmZBut46
+	 ATrr3jg6I3duQ40ZcHUw/E8pll8PpOJEBtIDn/Gp6ti/jrnbnO26X0eFFlctOc+qjn
+	 KKAWt9/ebwtrA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0BD03A566E0;
+	Thu, 24 Sep 2026 19:16:56 +0000 (UTC)
+Subject: Re: [GIT PULL] Networking for v7.3-rc5
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20260924183257.2700506-1-kuba@kernel.org>
+References: <20260924183257.2700506-1-kuba@kernel.org>
+X-PR-Tracked-List-Id: <netdev.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20260924183257.2700506-1-kuba@kernel.org>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git tags/net-7.3-rc5
+X-PR-Tracked-Commit-Id: fc6d80eb504458d6416b75a94188b268c95c6533
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: f2c53ea949c5048f96b3dbb5a5ee7131ce4ff2de
+Message-Id: <179027741534.2162561.9743404400272468427.pr-tracker-bot@kernel.org>
+Date: Thu, 24 Sep 2026 19:16:55 +0000
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: torvalds@linux-foundation.org, kuba@kernel.org, davem@davemloft.net, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, pabeni@redhat.com
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
 
+The pull request you sent on Thu, 24 Sep 2026 11:32:57 -0700:
 
-On Sun, 20 Sep 2026 21:45:54 -0700, Randy Dunlap wrote:
-> Use literal blocks for console I/O to separate it from the
-> surrounding text. Otherwise the lines run together, without any
-> clear break before or after the commands.
+> git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git tags/net-7.3-rc5
 
-Applied, thanks!
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/f2c53ea949c5048f96b3dbb5a5ee7131ce4ff2de
 
-[1/1] docs: ABI: auxdisplay: use literal blocks for commands
-      commit: f63dc0eea92d07c5bb799a406571b555cd2bbd97
+Thank you!
 
-Best regards,
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
-
-
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
