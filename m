@@ -1,70 +1,78 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7631A481658;
-	Thu, 24 Sep 2026 13:12:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83AD347F3DD
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:14:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790255563; cv=none; b=hKdErGnJzZa0RG704f19PilQy0KVYB91550xU23Ql2yWI7+ZK+yEWWl/cQylu15g8V32N3xNwepMg3t8TbT612GolcBlijErtp6g01+IquQTs31Dj9u88pEu25St0r5nW/bdmWS8dwHFn8+dooBe/JW2Nx1HTP3BqekzYoBo2dk=
+	t=1790255662; cv=none; b=KIbSP1xkuyyihIVToIFvpKh1/WZU2Vnni+/yZInpmspt6C1bHSvIB32X5MmGP0Y3TBDSuQmw04tBc/7Ps6WLh4+nESjz1yW2bY12G7j8SilwbWDsLJpViRI9+/hIaETljrIcYTqglvntElnkPVHOAYYSqPEBRRksNS6CAOCoOjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790255563; c=relaxed/simple;
-	bh=rKlBajLDFkN2AhByG94LAOJ8WdXEzVoumoEj/FiHf8g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FpOFnL0fB+QXm0bzGmuEcLkBdqh2xkE+J2KzpMkYXnld4lmANRNKINjDLBLXNeXHU1R6og9rnSquPWYwkZn8JMKgpLtdTP2rSbS1W5Ppio50q1UBI37b+Dcl6212Iy73NKSi3hoe02qq6B8avKhIbgNr5bOG5GxZaWcdzxYn+M4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jP960BVS; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790255662; c=relaxed/simple;
+	bh=MexQWRdjnJuSp3NcLmQCtT4yiler41bwgERQVeTO/6c=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=sjEBowo1iBpPOUCvxOC/zND7uGmNaN/q6o3/JwRTXw9qdzZlmMr7OSwxG3Z/OryEIkfRa079mW2084AVhMvkf2PyiwVeUcPtbvRbIvHdO5QnB+BVcr2HEMzimomJ2aaPit4dQwy8idKMogYRgfzn7eA6ae8+9CRkV0rzPj18NlA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AAqppfwr; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jP960BVS"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 38E671C14;
-	Thu, 24 Sep 2026 06:12:36 -0700 (PDT)
-Received: from cesw-amp-gbt-1s-m12830-01.blr.arm.com (cesw-amp-gbt-1s-m12830-01.blr.arm.com [10.164.195.33])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 964643F86F;
-	Thu, 24 Sep 2026 06:12:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790255559; bh=rKlBajLDFkN2AhByG94LAOJ8WdXEzVoumoEj/FiHf8g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=jP960BVSqgyxTgDWZPsvCQbDyJePhK8xvAxDnAB52vhEKQOxjZMKBeLajhfcJDwNp
-	 T6iYh+Lf0LsI37GDyEv25pgdadsx8eRWwkksQYEbgm6exutQP0v6ATCTsyRNdQEvJN
-	 eG+1UldqwEENt1HdcTcUDvYDbjM9nebJVX508sv4=
-From: Dev Jain <dev.jain@arm.com>
-To: akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	hughd@google.com,
-	chrisl@kernel.org,
-	kasong@tencent.com,
-	davem@davemloft.net,
-	andreas@gaisler.com
-Cc: Dev Jain <dev.jain@arm.com>,
-	riel@surriel.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	harry@kernel.org,
-	jannh@google.com,
-	lance.yang@linux.dev,
-	baolin.wang@linux.alibaba.com,
-	shikemeng@huaweicloud.com,
-	nphamcs@gmail.com,
-	baoquan.he@linux.dev,
-	baohua@kernel.org,
-	youngjun.park@lge.com,
-	linux-mm@kvack.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AAqppfwr"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b2522so1645618f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:14:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790255659; x=1790860459; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AYj3FCXi3Cvi9UA3sTT6TFIXfOoMlewv06G1FePimcI=;
+        b=AAqppfwrcaq0QKtHNLzn2kthPIN+0sYNhnbNKJaKANx9N6A7bU/MuG56SHDD8GxXBz
+         55MUoAJg8kh9IdyfPWLPX7Uehp6oXo5sScBJv+t4B2SEyhRzmAs2NNMVssgcle6OUGw4
+         OXO16TCe/J88HinWbTI2UpZ/ZLa0sPnAxRrFDWBic7/1O00GG1Ujg/avNl6YG+ICsBBP
+         SyB+dqaj3h50Mt0qxUuv7YfwegZn9zG5GdmA0RZd+NvwgAbuqD8HMrfwnazOn1cotYd2
+         +qf1tJpCFoU4YP/I6E7xpM3IZDNyTAZM002BbqLRn+rD2IanAtggZIOBuFdzbimo/WMN
+         XiIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790255659; x=1790860459;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AYj3FCXi3Cvi9UA3sTT6TFIXfOoMlewv06G1FePimcI=;
+        b=PTGgZW6aqjK/SUajyUB7muqlELXKg2jtwbsLOA/tV+HUQiTWBuDu1GWxxYWRiKmfju
+         aMwCf+9Huy4ejCRGN6qaswy55Urgl3LZ+VopoN2BAykMc16BXwrdaUvr3Oe+ribTjGJ6
+         9EZNjNHQz7AA3JOQ2hRBVzDCIR0mX70v0sAqGo6tc4621LjyVkyGiAD+SGi3W3RY4rTc
+         bcXsoMiu4n7zZsOELy+huhyzP8LH41Mb294schdnfL7F+W6eJrDEHaU+VyxZ+PTPs1es
+         KRW3TRaZOtaIK5p6OvG+0HN1bC9tzsrd2rSU161ial1XfO0pN7b1Aj8l55y5NCvd3JTf
+         Q6Vw==
+X-Forwarded-Encrypted: i=1; AKwUvBxZOBK/9Ihu5c1ZrIvhDb+QSU4qXDFZy5Pn/RvdUwsqX7sl2cauMWLbwbvou1moGBfrfwbJDnIdZWwqwYc=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/EwaC8HMVBIX+glng6DjaFpWhxQbfhPx00+h3owg9Wl/b2kqp
+	GPyBiadLQAB/glwB9f/8Eu5dwrfx3abCvHuyjJ/q1Nj4AZ0rFlsqMeo=
+X-Gm-Gg: AYBFou12GqSXi+xxCBj93sqBHgeQgXSkEeVq1812ong0iyHIOiGAgZgK0328Ka+aMiv
+	s2CV79OS/rIGmQkeKk5auzVTWsRJ/5+cAq5JUxiwgSPpETYYs482CHfZO8+bK0hk/lCail/8B18
+	+ObstFGoSzqxyPsctpBxrayaA+c7i4eKirw4jHChPMRYM+4Q2Dsw8Gr+UOS32gNQS/CEHXrCHNQ
+	sbo5or0tlhBMHcYJ0Z3PSfCWUwxRdwz7sIQMJO+j9xW8LSNt9r5bvsUAONfJQr899tEKp7M5wlO
+	P6cop5LCpVEK8qU3It3c1oaNq5OY81o8LqnRqClM5OjDKEsVJdu40WavAej/he7IBSGjjZ4rnfS
+	o+Fs22mVM21XKlDxop9SPm7oWelonUhcTg8r4ww6NyAxUuk1uAvw3h6Xv2GOQ1YZlbSDD3YyJ6A
+	IZ/z17z2NRbRF2Uej4XJDByY5HhRQzAq6gPFbMdXJ+end1nG6CdRzmgmabFdxOAhh3qkJHLsVJX
+	MipyxIl95ZN71wU1JKb8tuI0pouoUTIQb1sYLStXMB+AS38GOuc/1MP44NYg85EJF+xVNJizgY9
+	TV0KZrdeWA==
+X-Received: by 2002:a05:600c:630f:b0:49f:bd3c:bc1f with SMTP id 5b1f17b1804b1-49fe66fd51dmr40235095e9.26.1790255658497;
+        Thu, 24 Sep 2026 06:14:18 -0700 (PDT)
+Received: from ast-epyc5.inf.ethz.ch (ast-epyc5.inf.ethz.ch. [129.132.161.180])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe0c104a6sm123986495e9.0.2026.09.24.06.14.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 06:14:17 -0700 (PDT)
+From: Hao Sun <sunhao.th@gmail.com>
+To: bpf@vger.kernel.org
+Cc: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	john.fastabend@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
 	linux-kernel@vger.kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	pfalcato@suse.de,
-	jgg@ziepe.ca,
-	thuth@redhat.com,
-	sparclinux@vger.kernel.org,
-	ryan.roberts@arm.com,
-	anshuman.khandual@arm.com
-Subject: [PATCH v3 9/9] mm, sparc: batch arch_unmap_one()
-Date: Thu, 24 Sep 2026 13:09:37 +0000
-Message-ID: <20260924131106.1730494-10-dev.jain@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260924131106.1730494-1-dev.jain@arm.com>
-References: <20260924131106.1730494-1-dev.jain@arm.com>
+	sunhao.th@gmail.com
+Subject: [PATCH 1/2] bpf: Fix uninit read for non-fetch atomics on partially spilled slots
+Date: Thu, 24 Sep 2026 15:13:41 +0200
+Message-Id: <20260924131342.934290-1-sunhao.th@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,155 +81,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The anonymous large-folio unmap batching path can clear and replace
-multiple PTEs at once, but architectures like sparc need arch_unmap_one()
-to preserve per-page metadata before swap entries are installed.
-sparc uses this hook to save ADI tags.
+check_stack_read_fixed_off() skips partial spill checks for non-fetch
+atomics; the following prog can be loaded:
 
-Extend arch_unmap_one() to operate on a pte range.
+0: (b7) r1 = 1                        ; R1=1
+1: (63) *(u32 *)(r10 -8) = r1         ; R1=1 R10=fp0 fp-8=????1
+2: (db) lock *(u64 *)(r10 -8) += r1   ; R1=1 R10=fp0 fp-8=mmmmmmmm
+3: (79) r0 = *(u64 *)(r10 -8)         ; R0=scalar() R10=fp0 fp-8=mmmmmmmm
+4: (77) r0 >>= 32                     ; R0=scalar(smin=0,smax=umax=0xffffffff,var_off=(0x0; 0xffffffff))
+5: (95) exit
 
-sparc uses the count to walk the PTE range and save ADI tags for entries
-carrying _PAGE_MCD_4V. There is no reverse operation for a partially
-saved range: saving ADI tags only records a copy for later restore, so
-if a later entry fails and the core keeps the original PTEs, there is
-no architectural state to unsave.
+When test run:
+	retval=4294967295
 
-Signed-off-by: Dev Jain <dev.jain@arm.com>
+Note fp-8 is ????1 at #1, yet it becomes fp-8=mmmmmmmm after the
+non-fetching atomic add at #2; hence the high 32 bits are leaked.
+
+Fix by applying the partial load check; after the patch, the
+prog is rejected:
+
+Verification failed: Memory Safety: Uninitialized stack read
+
+Reason:
+  This rejected read uses 8 bytes at stack offset -8, but byte 4 in that range is uninitialized on
+  this path. Programs loaded with CAP_PERFMON can be allowed to read uninitialized stack bytes, but
+  this program is being rejected without that allowance.
+
+At:
+  ...
+      0 | (b7) r1 = 1
+      1 | (63) *(u32 *)(r10 -8) = r1
+  >>> 2 | (db) lock *(u64 *)(r10 -8) += r1
+      3 | (79) r0 = *(u64 *)(r10 -8)
+      4 | (77) r0 >>= 32
+
+This affects CAP_BPF only.
+
+Fixes: 354e8f1970f8 ("bpf: Support <8-byte scalar spill and refill")
+Signed-off-by: Hao Sun <sunhao.th@gmail.com>
+
 ---
- arch/sparc/include/asm/pgtable_64.h | 10 +++++++---
- arch/sparc/kernel/adi_64.c          | 21 +++++++++++++++++++++
- include/linux/pgtable.h             |  6 +++---
- mm/rmap.c                           | 11 +++--------
- 4 files changed, 34 insertions(+), 14 deletions(-)
+ kernel/bpf/verifier.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/arch/sparc/include/asm/pgtable_64.h b/arch/sparc/include/asm/pgtable_64.h
-index 44d1333065a6a..f7dd1872884e4 100644
---- a/arch/sparc/include/asm/pgtable_64.h
-+++ b/arch/sparc/include/asm/pgtable_64.h
-@@ -1037,6 +1037,9 @@ void adi_restore_tags(struct mm_struct *mm, struct vm_area_struct *vma,
- int adi_save_tags(struct mm_struct *mm, struct vm_area_struct *vma,
- 		  unsigned long addr, pte_t oldpte);
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index fec5a1ae6a4d..68859328c564 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -4038,11 +4038,11 @@ static int check_stack_read_fixed_off(struct bpf_verifier_env *env,
+ 				return -EACCES;
+ 			}
  
-+int adi_save_tags_range(struct mm_struct *mm, struct vm_area_struct *vma,
-+			unsigned long addr, pte_t oldpte, unsigned long nr);
-+
- #define __HAVE_ARCH_DO_SWAP_PAGE
- static inline void arch_do_swap_page(struct mm_struct *mm,
- 				     struct vm_area_struct *vma,
-@@ -1057,10 +1060,11 @@ static inline void arch_do_swap_page(struct mm_struct *mm,
- #define __HAVE_ARCH_UNMAP_ONE
- static inline int arch_unmap_one(struct mm_struct *mm,
- 				 struct vm_area_struct *vma,
--				 unsigned long addr, pte_t oldpte)
-+				 unsigned long addr, pte_t oldpte,
-+				 unsigned long nr)
- {
--	if (adi_state.enabled && (pte_val(oldpte) & _PAGE_MCD_4V))
--		return adi_save_tags(mm, vma, addr, oldpte);
-+	if (adi_state.enabled)
-+		return adi_save_tags_range(mm, vma, addr, oldpte, nr);
- 	return 0;
- }
- 
-diff --git a/arch/sparc/kernel/adi_64.c b/arch/sparc/kernel/adi_64.c
-index 18036a43cf568..ffa378accefe3 100644
---- a/arch/sparc/kernel/adi_64.c
-+++ b/arch/sparc/kernel/adi_64.c
-@@ -9,6 +9,7 @@
- #include <linux/init.h>
- #include <linux/slab.h>
- #include <linux/mm_types.h>
-+#include <linux/pgtable.h>
- #include <asm/mdesc.h>
- #include <asm/adi_64.h>
- #include <asm/mmu_64.h>
-@@ -394,3 +395,23 @@ int adi_save_tags(struct mm_struct *mm, struct vm_area_struct *vma,
- 
- 	return 0;
- }
-+
-+int adi_save_tags_range(struct mm_struct *mm, struct vm_area_struct *vma,
-+			unsigned long addr, pte_t oldpte, unsigned long nr)
-+{
-+	unsigned long i;
-+
-+	for (i = 0; i < nr; i++, addr += PAGE_SIZE,
-+	     oldpte = pte_next_pfn(oldpte)) {
-+		int ret;
-+
-+		if (!(pte_val(oldpte) & _PAGE_MCD_4V))
-+			continue;
-+
-+		ret = adi_save_tags(mm, vma, addr, oldpte);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-index e3c8ab96941c5..d5c78dc938760 100644
---- a/include/linux/pgtable.h
-+++ b/include/linux/pgtable.h
-@@ -1431,12 +1431,12 @@ static inline void arch_do_swap_page_nr(struct mm_struct *mm,
-  * restored when the page is swapped back in. SPARC M7 and newer
-  * processors support an ADI (Application Data Integrity) tag for the
-  * page as metadata for the page. arch_unmap_one() can save this
-- * metadata on a swap-out of a page.
-+ * metadata on swap-out of one or more pages.
-  */
- static inline int arch_unmap_one(struct mm_struct *mm,
- 				  struct vm_area_struct *vma,
--				  unsigned long addr,
--				  pte_t orig_pte)
-+				  unsigned long addr, pte_t orig_pte,
-+				  unsigned long nr)
- {
- 	return 0;
- }
-diff --git a/mm/rmap.c b/mm/rmap.c
-index cdda9efd80bc3..774ddc75194b1 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -1959,6 +1959,7 @@ static inline unsigned int folio_unmap_pte_batch(struct folio *folio,
- 
- 	if (flags & TTU_HWPOISON)
- 		return 1;
-+
- 	if (!folio_test_large(folio))
- 		return 1;
- 
-@@ -1969,11 +1970,6 @@ static inline unsigned int folio_unmap_pte_batch(struct folio *folio,
- 	if (pte_unused(pte))
- 		return 1;
- 
--#ifdef __HAVE_ARCH_UNMAP_ONE
--	if (folio_test_anon(folio) && folio_test_swapbacked(folio))
--		return 1;
--#endif
+-			if (dst_regno < 0)
+-				return 0;
 -
- 	/*
- 	 * If unmap fails, we need to restore the ptes. To avoid accidentally
- 	 * upgrading write permissions for ptes that were not originally
-@@ -2168,8 +2164,7 @@ static bool __ttu_anon_swapbacked_folio(struct vm_area_struct *vma,
- 	 * architectures where we could have PFN swap PTEs,
- 	 * so we'll not check/care.
- 	 */
--	if (arch_unmap_one(mm, vma, address, pteval) < 0) {
--		VM_WARN_ON(nr_pages != 1);
-+	if (arch_unmap_one(mm, vma, address, pteval, nr_pages) < 0) {
- 		folio_put_swap_pages(folio, page, nr_pages);
- 		return false;
- 	}
-@@ -2746,7 +2741,7 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
- 			 * architectures where we could have PFN swap PTEs,
- 			 * so we'll not check/care.
- 			 */
--			if (arch_unmap_one(mm, vma, address, pteval) < 0) {
-+			if (arch_unmap_one(mm, vma, address, pteval, 1) < 0) {
- 				if (folio_test_hugetlb(folio))
- 					set_huge_pte_at(mm, address, pvmw.pte,
- 							pteval, hsz);
+ 			if (size <= spill_size &&
+ 			    bpf_stack_narrow_access_ok(off, size, spill_size)) {
++				if (dst_regno < 0)
++					return 0;
++
+ 				if (env->bpf_capable && size == 4 && spill_size == 4 &&
+ 				    get_reg_width(reg) <= 32)
+ 					/* Ensure stack slot has an ID to build a relation
+@@ -4084,6 +4084,9 @@ static int check_stack_read_fixed_off(struct bpf_verifier_env *env,
+ 					return -EACCES;
+ 				}
+ 
++				if (dst_regno < 0)
++					return 0;
++
+ 				if (spill_cnt == size &&
+ 				    tnum_is_const(reg->var_off) && reg->var_off.value == 0) {
+ 					__mark_reg_const_zero(env, &state->regs[dst_regno]);
 -- 
-2.43.0
+2.34.1
 
