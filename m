@@ -1,173 +1,205 @@
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6CFF381E92;
-	Thu, 24 Sep 2026 04:11:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9772A32A3D7
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:11:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790223103; cv=none; b=YQJH9xz17upeZr3x8On8pBrvqGB501dSP8OENQQtHHFCzcCJFjAR5QaQIAZU9LLrPDAa0AOMPh9I2JIfVeuvTi9mpQRHF1kZB+fw2o77ytT08gYJ8UoHWohJmzaIi4Q0Wxk7Cxl7ItMCYoFHEE18zKp8VKjKgmJ2qO7QzafX7P8=
+	t=1790223110; cv=none; b=ceRdlHcDuKyem7D+69HNQQlOIG18iKeoSmT7376RxnoKGlO15FuYq35YnQdTbUZlbRxNrFJeZUXhb/XSXJzRyUsreIWdui0CNXVi2iqxTSS621BIcdmA6ZC76ZIK830dP7v98dfs7rbJSpJQoZRG83lAgthzIZpinK9Z5PlcARw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790223103; c=relaxed/simple;
-	bh=29U8SrS6AdO6lFFos4hTHxTPuzEqeGJOKIbIIOI38mc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=KE62rUqYFna8I4lLMao06xMeNEDBKyGTzAH8PUP5SmrmHPjqK3pRZZVInCx/0g4DTpD/rC4A+KEXgAdZjJf3p50SyD4+JnbCb1mw/lt/sg8CxFkouFQawCP+rVS/lyRwkAyrF4AxO648eB8rMfbC8qlDlJ56xPgVng7oHybEP3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=OzxKUUwZ; arc=none smtp.client-ip=113.46.200.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1790223110; c=relaxed/simple;
+	bh=kL9skJ4gJ9Od7x1Y8ZIaXRKi3CJdApVxWMuLWYoxhaU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZQZEDbXTq0jlE48Ra3+7mySwXeuNc6io+P3qV1hvuCoAB2Ht2TrsZlrQDmP86qPNq+ug+gpQD8FkDpwKYGTTUYY4tCdAskdAbYqK4FzHmRYQP504oQUzaApy7nfCe4wG8HDKehfYmeXId3OBBElCzd34ldUA3Zx85rHQa8jBYo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Jd+9QBSe; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="OzxKUUwZ"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=ZRQ0VxqpuNoSza6zOLG1gwykGEw7zwH/fbhRzlWY/Lc=;
-	b=OzxKUUwZYTuTrykXXNDe9n63OFnXxUP++ZLONoERb3YuLUzDD9i/1X+acua3ZB0ygehiv+eB4
-	Ca2QoSb4sbF6lfkJvaGgSUJp0QiJV+KR8CD9CGAMtq4xueFC11/v+HxiBlPz6WHm5vSky1Ra14s
-	EL3oup3ikADUirUxoh+Z2pw=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4hr0TC39yJz12LFc;
-	Thu, 24 Sep 2026 11:59:27 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 238AB40561;
-	Thu, 24 Sep 2026 12:11:33 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 24 Sep 2026 12:11:31 +0800
-Message-ID: <bbd65e4d-8096-4939-8308-f0f54c5cb3bc@huawei.com>
-Date: Thu, 24 Sep 2026 12:11:31 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Jd+9QBSe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790223109; x=1821759109;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=kL9skJ4gJ9Od7x1Y8ZIaXRKi3CJdApVxWMuLWYoxhaU=;
+  b=Jd+9QBSey5hHfZx+xqCBD2SE/i0TJ1hk8vN7FdqK6CfbyuvO7hRwGRJk
+   /Vs4NuBkQWG271hQyD9oDDGEh9fMzQ49nc258O1rgRWhoUf7i1gKHvt6j
+   gWk2yauhdencOsJyl4J1tu92vV079DcrwjDh9Y79igjVFTYPjnwKVJ9cy
+   srPztiJ0wsJY8AOkcOD5Qlk4qFRcsyDESx6dPUa8CbuCFbGd/dYwHLciW
+   j8Iy9YaN2jvGPRqI0u7WkhGrAzTYa0b5lyDZKc2XwYpTe0abZP6jDT77+
+   9/PVc9Jz1B0rpQl6ynT3ad3zdlU9xVYi1GTbKyvo43k7nQfqO3uU5wob6
+   w==;
+X-CSE-ConnectionGUID: KwFN1nPITdWzhEZmP2MfmA==
+X-CSE-MsgGUID: RXGwoFz6QKSQvUUGacLlhg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="91002565"
+X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
+   d="scan'208";a="91002565"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 21:11:48 -0700
+X-CSE-ConnectionGUID: IGlRE99KQuGb10f10ePVaQ==
+X-CSE-MsgGUID: ZM8bsu59TCeqgjHs9g3Gqg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
+   d="scan'208";a="5009439"
+Received: from unknown (HELO gnr-sp-2s-612.sh.intel.com) ([10.112.229.148])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 21:11:43 -0700
+From: Zhenzhong Duan <zhenzhong.duan@intel.com>
+To: x86@kernel.org,
+	linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: dave.hansen@linux.intel.com,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	hpa@zytor.com,
+	dave.hansen@intel.com,
+	kas@kernel.org,
+	rick.p.edgecombe@intel.com,
+	jgg@nvidia.com,
+	nicolinc@nvidia.com,
+	aik@amd.com,
+	aneesh.kumar@kernel.org,
+	seanjc@google.com,
+	pbonzini@redhat.com,
+	yilun.xu@linux.intel.com,
+	chao.gao@intel.com,
+	vishal.l.verma@intel.com,
+	xiaoyao.li@intel.com,
+	kevin.tian@intel.com,
+	chao.p.peng@intel.com
+Subject: [RFC PATCH 12/15] virt: tdx-guest: Support Trust Device Interface (TDI) activation
+Date: Thu, 24 Sep 2026 12:10:29 +0800
+Message-ID: <20260924041032.1096569-13-zhenzhong.duan@intel.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
+References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] selftests/ptrace: Add PTRACE_SYSEMU_SINGLESTEP
- syscall-exit-stop test
-To: Kees Cook <kees@kernel.org>
-CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<oleg@redhat.com>, <luto@amacapital.net>, <wad@chromium.org>,
-	<peterz@infradead.org>, <ada.coupriediaz@arm.com>, <linusw@kernel.org>,
-	<yeoreum.yun@arm.com>, <kevin.brodsky@arm.com>, <anshuman.khandual@arm.com>,
-	<james.morse@arm.com>, <thuth@redhat.com>, <vladimir.murzin@arm.com>,
-	<tglx@kernel.org>, <broonie@kernel.org>, <liqiang01@kylinos.cn>,
-	<ryan.roberts@arm.com>, <pengcan@kylinos.cn>, <kmehltretter@gmail.com>,
-	<linux-arm-kernel@lists.infradead.org>, Shuah Khan <shuah@kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
-	<linux-hardening@vger.kernel.org>
-References: <20260922195719.i.211-kees@kernel.org>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260922195719.i.211-kees@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemk200008.china.huawei.com (7.202.194.74)
 
+Store the bind session ID obtained after binding the TDI which is used
+by TDG.TDI.START to verify same bind session established by host before
+activation.
 
+Add tdx_tdi_start_dev() to signal guest readiness to the TDX module and
+issue the TDCM_OP_START_TDI hypercall for the host to complete activation.
 
-在 2026/9/23 3:57, Kees Cook 写道:
-> ptrace(2) states that no syscall-exit-stop occurs when a tracee is
-> continued with PTRACE_SYSEMU or PTRACE_SYSEMU_SINGLESTEP. arm64 gated
-> its syscall-exit report on
-> 
-> 	flags & (_TIF_SYSCALL_TRACE | _TIF_SINGLESTEP)
+The run callback accepts private MMIO ranges, starts the TDI, and verifies
+that it reaches TDI_STATE_RUN, finally notifies DMA sub-system device's
+ready to DMA to private memory. Note that private DMA is enabled separately
+during driver attach by accepting the default DMAR entry.
 
-Hi Kees,
+Signed-off-by: Zhenzhong Duan <zhenzhong.duan@intel.com>
+---
+ drivers/virt/coco/tdx-guest/connect.c | 45 ++++++++++++++++++++++++++-
+ 1 file changed, 44 insertions(+), 1 deletion(-)
 
-The original fix description is a bit off: on arm64 there is no extra
-syscall-exit-stop; instead, there's an additional pseudo single-step
-injection.
-
-As sashiko pointed out, as commit ac2081cdc4d9 ("arm64: ptrace:
-Consistently use pseudo-singlestep exceptions") described, for
-PTRACE_SYSEMU_SINGLESTEP, arm64 still needs the pseudo single-step
-because its hardware single-step state machine is fast-forwarded over
-the SVC instruction.
-
-static void report_syscall_exit(struct pt_regs *regs)
-{
-   ...
-   if (test_thread_flag(TIF_SINGLESTEP)) {
-       /*
-        * Signal a pseudo-step exception since we are stepping but
-        * tracer modifications to the registers may have rewound the
-        * state machine.
-        */
-       ptrace_report_syscall_exit(regs, 1);
-          -> user_single_step_report(regs);
-    }
-}
-
-https://sashiko.dev/#/patchset/20260922035510.1090299-1-ruanjinjie%40huawei.com
-
-> 
-> and ptrace_resume() clears SYSCALL_TRACE for both SYSEMU requests while
-> PTRACE_SYSEMU_SINGLESTEP additionally sets TIF_SINGLESTEP, so the
-> single-step bit alone produced a stop that must not exist. Nothing in
-> tools/testing/selftests covered this.
-> 
-> Detecting the extra stop is less direct than it looks. The report is
-> emitted with step=1, so ptrace_report_syscall_exit() dispatches to
-> user_single_step_report() rather than ptrace_report_syscall(), and it
-> arrives as a plain SIGTRAP indistinguishable by signal from the
-> legitimate single-step trap: neither PTRACE_O_TRACESYSGOOD nor
-> PTRACE_GET_SYSCALL_INFO separates the two. What does separate them is
-> the PC. The redundant report fires before the tracee has moved past the
-> syscall instruction, so it lands on the PC of the syscall-entry stop:
-> 
-> 	[0] sig=133 SYSCALL-STOP  pc=0x41ec28
-> 	[1] sig=5   trap          pc=0x41ec28   <-- must not exist
-> 	[2] sig=5   trap          pc=0x41ec2c
-> 
-> A fixed kernel reports pc=0x41ec2c already at stop [1]. The test
-> therefore asserts that the first stop after the syscall-entry stop is at
-> a different PC, which tests the consequence rather than the mechanism
-> and does not depend on how many pseudo-step traps follow.
-> 
-> PTRACE_SYSEMU is used to reach the syscall-entry stop, as single-
-> stepping there costs one stop per instruction and takes roughly 200000
-> stops. Architectures without a PC accessor here, or without SYSEMU
-> support, skip rather than fail.
-> 
-> Build tested ARCH=arm64 with GCC aarch64-linux-gnu 16.1.0, ARCH=arm
-> with GCC arm-linux-gnueabihf 16.1.0, and ARCH=x86_64 with GCC 16.2.0.
-> 
-> Tests passing on ARCH=arm64 under qemu-system-aarch64, and the same
-> test fails as expected on v7.3-rc2 without the fix[1]:
-> 
-> 	# entry stop pc=0x41ec28, next stop sig=5 pc=0x41ec28
-> 	# Expected next_pc (4320296) != entry_pc (4320296)
-> 	not ok 1 sysemu.no_syscall_exit_stop
-> 
-> An AArch32 build of the same test on an arm64 kernel reproduces the
-> failure identically, covering the is_compat_task() path. It also passes
-> on x86_64, which already uses generic entry, so the test does not report
-> a false positive against a correct implementation.
-> 
-> Link: https://lore.kernel.org/all/20260922035510.1090299-2-ruanjinjie@huawei.com/ [1]
-> Assisted-by: LLM
-> Signed-off-by: Kees Cook <kees@kernel.org>
-> ---
->  tools/testing/selftests/ptrace/Makefile       |   3 +-
->  .../selftests/ptrace/sysemu_singlestep.c      | 176 ++++++++++++++++++
->  tools/testing/selftests/ptrace/.gitignore     |   1 +
->  3 files changed, 179 insertions(+), 1 deletion(-)
->  create mode 100644 tools/testing/selftests/ptrace/sysemu_singlestep.c
-
-[...]
-
-> +TEST_HARNESS_MAIN
-> diff --git a/tools/testing/selftests/ptrace/.gitignore b/tools/testing/selftests/ptrace/.gitignore
-> index f6be8efd57ea..792c81f804c0 100644
-> --- a/tools/testing/selftests/ptrace/.gitignore
-> +++ b/tools/testing/selftests/ptrace/.gitignore
-> @@ -4,3 +4,4 @@ get_set_sud
->  peeksiginfo
->  vmaccess
->  set_syscall_info
-> +sysemu_singlestep
-
+diff --git a/drivers/virt/coco/tdx-guest/connect.c b/drivers/virt/coco/tdx-guest/connect.c
+index fe8d76ba6f81..a9d41fd38b64 100644
+--- a/drivers/virt/coco/tdx-guest/connect.c
++++ b/drivers/virt/coco/tdx-guest/connect.c
+@@ -130,6 +130,8 @@ DEFINE_FREE(tdx_tdcm_free, struct tdcm_ctx *,
+ 
+ struct tdx_devsec {
+ 	struct pci_tsm_devsec pci;
++
++	u64 bind_session_id;
+ };
+ 
+ static struct tdx_devsec *to_tdx_devsec(struct pci_tsm *tsm)
+@@ -202,6 +204,7 @@ enum tdi_state {
+ 
+ enum tdi_field_code {
+ 	TDI_GET_TDISP_STATE		= 2,
++	TDI_GET_BIND_SESSION_ID		= 5,
+ };
+ 
+ static int tdx_tdi_read_state(struct tdx_devsec *tdevsec, u8 *state)
+@@ -302,10 +305,27 @@ static int tdx_tdi_mmio_accept(struct tdx_devsec *tdevsec)
+ 	return 0;
+ }
+ 
++static int tdx_tdi_start_dev(struct tdx_devsec *tdevsec)
++{
++	struct pci_dev *pdev = tdevsec->pci.base_tsm.pdev;
++	int ret;
++
++	ret = tdx_mcall_tdi_start(pci_dev_id(pdev), tdevsec->bind_session_id);
++	if (ret)
++		return ret;
++
++	struct tdcm_ctx *tdcm __free(tdx_tdcm_free) = tdx_tdcm_alloc(pdev, TDCM_OP_START_TDI, 0, 0);
++	if (IS_ERR(tdcm))
++		return PTR_ERR(tdcm);
++
++	return tdx_tdcm_run(tdcm);
++}
++
+ static struct pci_tsm *tdx_devsec_lock(struct tsm_dev *tsm_dev, struct pci_dev *pdev)
+ {
+ 	struct device_evidence_object *tsm_report;
+ 	struct device_evidence *evidence;
++	u64 session_id;
+ 	u32 report_sz;
+ 	u8 state;
+ 	int ret;
+@@ -325,6 +345,12 @@ static struct pci_tsm *tdx_devsec_lock(struct tsm_dev *tsm_dev, struct pci_dev *
+ 	if (IS_ERR(tdevsec_bind))
+ 		return ERR_CAST(tdevsec_bind);
+ 
++	ret = tdx_mcall_tdi_read(pci_dev_id(pdev), TDI_GET_BIND_SESSION_ID, &session_id);
++	if (ret)
++		return ERR_PTR(ret);
++
++	tdevsec->bind_session_id = session_id;
++
+ 	u8 *report __free(kfree) = tdx_tdi_get_report(tdevsec, &report_sz);
+ 	if (IS_ERR(report))
+ 		return ERR_CAST(report);
+@@ -362,6 +388,7 @@ static void tdx_devsec_unlock(struct pci_tsm *tsm)
+ 
+ 	tdx_tdi_mmio_teardown(tdevsec);
+ 
++	dma_set_cc_private(&tsm->pdev->dev, false);
+ 	kfree(evidence->obj[DEVICE_EVIDENCE_TYPE_REPORT].data);
+ 	kfree(evidence);
+ 	kfree(tdevsec);
+@@ -370,6 +397,7 @@ static void tdx_devsec_unlock(struct pci_tsm *tsm)
+ static int tdx_devsec_run(struct pci_dev *pdev)
+ {
+ 	struct tdx_devsec *tdevsec = to_tdx_devsec(pdev->tsm);
++	u8 state;
+ 	int ret;
+ 
+ 	struct tdx_devsec *tdevsec_mmio __free(tdx_tdi_mmio_teardown) =
+@@ -381,7 +409,22 @@ static int tdx_devsec_run(struct pci_dev *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	return -EOPNOTSUPP;
++	ret = tdx_tdi_start_dev(tdevsec);
++	if (ret)
++		return ret;
++
++	ret = tdx_tdi_read_state(tdevsec, &state);
++	if (ret)
++		return ret;
++
++	if (state != TDI_STATE_RUN) {
++		pci_err(pdev, "TDI failed to reach RUN state, current state: 0x%x\n", state);
++		return -EIO;
++	}
++
++	dma_set_cc_private(&pdev->dev, true);
++	retain_and_null_ptr(tdevsec_mmio);
++	return 0;
+ }
+ 
+ static struct pci_tsm_ops tdx_devsec_ops = {
 -- 
-Best regards,
-Jinjie
+2.52.0
 
