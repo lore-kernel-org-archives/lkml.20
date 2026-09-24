@@ -1,284 +1,103 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com [209.85.208.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56715440A08;
-	Thu, 24 Sep 2026 08:56:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA351442B15
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:56:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790240193; cv=none; b=tRqrBj2IL91PIUy6Nj8JAFRlVycjxHUloEfWarXH4s1FxAerC5EqYRobhDeKAXb0H69Ax29lgMVGjQCIzvR7evD+J16QUkYLhrdtFO0t+kekuTxLyZ6TnFFEJXrqjSM/Y8Ia7Iyg7TJLJWFmq3LqFYrClMxOgl6sXAXkS1lBis4=
+	t=1790240194; cv=none; b=jzb/MjEH89E4fOe3PNV4DAjsDtZc0MamkqkmwwdlJpEBmsS0ZgMPF7Xhzqas7OhfYZnnQeGIsZW3uNAxNFKpcCXPKq4EkYTFMz0DdZJEgPRlQ3Tj4a0XyTicN/l9QHSSc9LOrugSHLKYxFLtV0taCP2uMqy59MqRHOTqWSqt+KQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790240193; c=relaxed/simple;
-	bh=5Tb1PpG7s7cy+Fj9Yxcg/TPJIFLc3vf8o0k+Qpm2+NI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=PHh8g2760ThOXPyrjtqDR4SfI+gg+2gjl+zv5nlR3L1ecLVW5wl6F8vHfNH8KxZg70yCYLpAk/YvD9tfFIZagrymgBB2H58CZz+xWv6e4RBM5znLr56CkJMUnYD99mKB9B7IbcMvesdl1qc7iU8xhZ+2Ehc20YUr03qysQ9Sxso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=GXBi5pPl; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1790240194; c=relaxed/simple;
+	bh=7iMQOQ5HcgSI/XCHP/GEjkexPkCe2PLzf76QDMbSjrI=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=JmPIwT9ihx7aEC9AoaHzI3EXMt/2dMcMIhsOKHJMiHeWESTehD4gPNOA0tGioTAMRNqO3UAM9b1dz6kMmFkk5kpx0MbM502iYkANdf2XjPqXc1sKDqz8Al/jbZEn5wFSxdvhZxdat++XhYklJXItXLWMsyv1GJQ3A2TfGTYs9bU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LOhAIcto; arc=none smtp.client-ip=209.85.208.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="GXBi5pPl"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=SMrgD3GPe1YVF3mBroS7akFN9xo97CboF/VKhjeZqdU=; b=GXBi5pPlaB3eosFIwtdISjpoxi
-	nxQf3F5SW0Z1uOlwXPz78UrfPadeid3Ictxam7EflTt9FNlMXA4En5LXWkLRivSnZ5ETYBZ0F4PA6
-	dxDv6f2q2WDHtQ35DZKDhOsoSzLWMnmthchOBMRsMz4Kaans++M4UFiligRSNxsfR3KznGi5tE4Dc
-	swhoYMm48WJNQgivS0YBxFiF6eSLfCCPggq6mrFqj4Rkbz+oQGDc86y7FO9qlmtawOFd3tjBA1iR7
-	Sg/gJvg8TUGAbLiEQ7BJ6Yx317z+IO9OZfOUYlC1wkqmHJ40BFTReDQE3lpbopKE9UroWT5bptRmb
-	5RGMykwA==;
-Received: from [151.115.150.205] (port=58504 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1x9fFj-00000001F00-1Yay;
-	Thu, 24 Sep 2026 10:56:27 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Mimi Zohar <zohar@linux.ibm.com>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>
-Cc: linux-integrity@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Subject: [PATCH v2] ima: discard modsig on detached-data binding failure
-Date: Thu, 24 Sep 2026 08:55:17 +0000
-Message-ID: <20260924085516.3111521-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LOhAIcto"
+Received: by mail-ed1-f72.google.com with SMTP id 4fb4d7f45d1cf-6aaa4535b3bso2109337a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:56:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790240190; x=1790844990; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WeCtBbQ7yt7z6sBbxQb9QyYhXFA8zToXd2a7O4Dja9Q=;
+        b=LOhAIctoJ4nhd+4bTrSZxZSwyKgOPjkq/GyqYJD+laxwQu/qrUr8/Fox1lnAHoGUIF
+         vxCjrgoNPdvFd0ae6l04X40WNWjpWhuEnCZ27ShjA95AbIiRt5+N7V69zF9OqrP+9iA5
+         mAN6clYKC6aIRER5wTq+uOI2OOloD4y2C5CsACEN1U+lN93vBH0DzPRe6BJtgc73jZ4u
+         ykWP/4WcRjFfrciiUd8CiSDsOg5DJKlDUra3hNs0BsdXSdGF9H0i7aFspA2HIYumKVy7
+         BL0W1vxESXtEczG/O4A7zYJHfXzHq5wfPBzTMl0DBEiTuBj2kM/8jucEiwihWbEliE/m
+         /11Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790240190; x=1790844990;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WeCtBbQ7yt7z6sBbxQb9QyYhXFA8zToXd2a7O4Dja9Q=;
+        b=U7ZKH1obKx6iBWROil+P0TFI5byzPoJcKmT6yeIt+i5K+4LUXm2P/QwEjM26y1V/HY
+         iICZAIJheCJIf5YpkDz5weq3zODaRpKtteOE2XfU+WCmmoAxEC4FsiIg+4vcyQD5NiHP
+         YRbWtDVF72QqlkqpFe7sKqCwc7+5+ezPs+2wUK6rLsbHiVzWmQkEQ0e68f4Q0iNqWo/g
+         WVb6vV2jHP0PghiHgwc1OB/4cFjoCRpV3rftg0GeB+8YnLc9MBshQrOnW4t2eLOY9Zg2
+         QH9ArlpnJclXahrY+3aoJumoiW8ENnGuJqJsXTkRkuD5gGfuVPCbDYtUul9VxDxw0KPT
+         4sZg==
+X-Gm-Message-State: AFuF++mxKbeCndr8EPCbf4rE57oAgE2o77VUJl8Y1iOJf9GcrcD6iXgI
+	xrQw1enlYD3ZbHcZr5vT2m+EDJhODODwIx+RdHHbIy9DCv5iso89hMRXjMY5+BL5CwHbfiZTcAm
+	icwakZ8X9saYHWHSv0ovi4UMy/RRM5wBLf7FjnPMKahcqDa/3Q9/ENoUozcceaSkgq5jeQ99GgK
+	Az/uR+1ENpewF29r79nlOhEJognr+dAeXuETpjm3Fh3Xld3sGCHnQFSF0=
+X-Received: from ejcet6.prod.google.com ([2002:a17:907:2946:b0:c25:2d7f:4eee])
+ (user=smostafa job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:907:7a8b:b0:c29:3b7e:3a94 with SMTP id a640c23a62f3a-c2ac53d2785mr104883766b.38.1790240189335;
+ Thu, 24 Sep 2026 01:56:29 -0700 (PDT)
+Date: Thu, 24 Sep 2026 08:56:15 +0000
+In-Reply-To: <20260924085616.300650-1-smostafa@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Mime-Version: 1.0
+References: <20260924085616.300650-1-smostafa@google.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260924085616.300650-5-smostafa@google.com>
+Subject: [PATCH v2 4/5] iommu/arm-smmu-v3-test: Fix OOB in arm_smmu_v3_invs_test_verify()
+From: Mostafa Saleh <smostafa@google.com>
+To: linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org
+Cc: will@kernel.org, robin.murphy@arm.com, joro@8bytes.org, jgg@ziepe.ca, 
+	nicolinc@nvidia.com, praan@google.com, Mostafa Saleh <smostafa@google.com>, 
+	Jason Gunthorpe <jgg@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
 
-ima_collect_modsig() supplies the file contents to the parsed PKCS#7
-message as detached data. If the message already contains embedded data,
-pkcs7_supply_detached_data() returns -EINVAL, but IMA discards the error.
-ima_modsig_verify() subsequently verifies that embedded data instead of
-the file being appraised.
+arm_smmu_v3_invs_test_verify() validates the array bounds using
+KUNIT_EXPECT_EQ(), which triggers a failure and continues execution.
+If invs->num_invs was smaller than expected, the next loop over
+num_invs would blindly read past the end of the invs->inv[] array.
+Switch to KUNIT_ASSERT_EQ() to fail and stop the test on bound errors.
 
-Return binding errors and discard the modsig on failure, preserving
-ordinary hashing and security.ima appraisal. Keep digest export optional:
-ML-DSA and multiple-signer messages can still verify without it. Leave
-d-modsig empty when unavailable instead of dropping the measurement.
-Audit binding errors separately so O_DIRECT does not hide their cause.
-
-Fixes: 15588227e086 ("ima: Collect modsig")
-Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Fixes: 15a2a5645ad7 ("iommu/arm-smmu-v3: Introduce a per-domain arm_smmu_invs array")
+Reported-by: Sashiko <>
+Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Mostafa Saleh <smostafa@google.com>
 ---
-Changes in v2:
-- If binding fails, discard the modsig but continue hashing and 
-  xattr appraisal.
-- Keep signatures without exported digests; leave d-modsig empty.
-- Audit binding failures separately, even with O_DIRECT.
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-test.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-v1: https://lore.kernel.org/all/20260822082434.489470-2-Jeremy.Jean@oss.cyber.gouv.fr/
-
- Documentation/security/IMA-templates.rst  |  3 ++-
- security/integrity/ima/ima.h              |  9 ++++----
- security/integrity/ima/ima_api.c          | 28 ++++++++++++++++-------
- security/integrity/ima/ima_main.c         |  2 +-
- security/integrity/ima/ima_modsig.c       | 16 +++++++++----
- security/integrity/ima/ima_template_lib.c |  4 ++--
- 6 files changed, 41 insertions(+), 21 deletions(-)
-
-diff --git a/Documentation/security/IMA-templates.rst b/Documentation/security/IMA-templates.rst
-index 15b4add..de7a3df 100644
---- a/Documentation/security/IMA-templates.rst
-+++ b/Documentation/security/IMA-templates.rst
-@@ -69,7 +69,8 @@ descriptors by adding their identifier to the format string
-    algorithm (field format: <hash algo>:digest);
-  - 'd-ngv2': same as d-ng, but prefixed with the "ima" or "verity" digest type
-    (field format: <digest type>:<hash algo>:digest);
-- - 'd-modsig': the digest of the event without the appended modsig;
-+ - 'd-modsig': the digest of the event without the appended modsig, empty
-+   when no signature digest can be exported;
-  - 'n-ng': the name of the event, without size limitations;
-  - 'sig': the file signature, based on either the file's/fsverity's digest[1],
-    or the EVM portable signature, if 'security.ima' contains a file hash.
-diff --git a/security/integrity/ima/ima.h b/security/integrity/ima/ima.h
-index 10214f7..a899a81 100644
---- a/security/integrity/ima/ima.h
-+++ b/security/integrity/ima/ima.h
-@@ -431,7 +431,7 @@ int ima_get_action(struct mnt_idmap *idmap, struct inode *inode,
- int ima_must_measure(struct inode *inode, int mask, enum ima_hooks func);
- int ima_collect_measurement(struct ima_iint_cache *iint, struct file *file,
- 			    void *buf, loff_t size, enum hash_algo algo,
--			    struct modsig *modsig);
-+			    struct modsig **modsig);
- void ima_store_measurement(struct ima_iint_cache *iint, struct file *file,
- 			   const unsigned char *filename,
- 			   struct evm_ima_xattr_data *xattr_value,
-@@ -559,7 +559,7 @@ static inline void __init init_ima_appraise_lsm(const struct lsm_id *lsmid)
- #ifdef CONFIG_IMA_APPRAISE_MODSIG
- int ima_read_modsig(enum ima_hooks func, const void *buf, loff_t buf_len,
- 		    struct modsig **modsig);
--void ima_collect_modsig(struct modsig *modsig, const void *buf, loff_t size);
-+int ima_collect_modsig(struct modsig *modsig, const void *buf, loff_t size);
- int ima_get_modsig_digest(const struct modsig *modsig, enum hash_algo *algo,
- 			  const u8 **digest, u32 *digest_size);
- int ima_get_raw_modsig(const struct modsig *modsig, const void **data,
-@@ -572,9 +572,10 @@ static inline int ima_read_modsig(enum ima_hooks func, const void *buf,
- 	return -EOPNOTSUPP;
- }
- 
--static inline void ima_collect_modsig(struct modsig *modsig, const void *buf,
--				      loff_t size)
-+static inline int ima_collect_modsig(struct modsig *modsig, const void *buf,
-+				     loff_t size)
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-test.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-test.c
+index 366dcb2b5554..244cf34e5a0b 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-test.c
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-test.c
+@@ -643,7 +643,7 @@ static void arm_smmu_v3_invs_test_verify(struct kunit *test,
+ 					 const int *ids, const int *users,
+ 					 const int *ssids)
  {
-+	return -EOPNOTSUPP;
- }
- 
- static inline int ima_get_modsig_digest(const struct modsig *modsig,
-diff --git a/security/integrity/ima/ima_api.c b/security/integrity/ima/ima_api.c
-index 122d127..466eea5 100644
---- a/security/integrity/ima/ima_api.c
-+++ b/security/integrity/ima/ima_api.c
-@@ -235,6 +235,8 @@ static bool ima_get_verity_digest(struct ima_iint_cache *iint,
-  *
-  * Calculate the file hash, if it doesn't already exist,
-  * storing the measurement and i_version in the iint.
-+ * If modsig is provided, bind it to the file data or discard it on failure
-+ * so ordinary measurement and xattr appraisal can proceed.
-  *
-  * Must be called with iint->mutex held.
-  *
-@@ -242,7 +244,7 @@ static bool ima_get_verity_digest(struct ima_iint_cache *iint,
-  */
- int ima_collect_measurement(struct ima_iint_cache *iint, struct file *file,
- 			    void *buf, loff_t size, enum hash_algo algo,
--			    struct modsig *modsig)
-+			    struct modsig **modsig)
- {
- 	const char *audit_cause = "failed";
- 	struct inode *inode = file_inode(file);
-@@ -252,7 +254,7 @@ int ima_collect_measurement(struct ima_iint_cache *iint, struct file *file,
- 						struct ima_digest_data, hdr);
- 	struct name_snapshot filename;
- 	struct kstat stat;
--	int result = 0;
-+	int result = 0, modsig_result = 0;
- 	int length;
- 	void *tmpbuf;
- 	u64 i_version = 0;
-@@ -262,8 +264,13 @@ int ima_collect_measurement(struct ima_iint_cache *iint, struct file *file,
- 	 * the file digest without collecting the modsig in a previous
- 	 * measurement rule.
- 	 */
--	if (modsig)
--		ima_collect_modsig(modsig, buf, size);
-+	if (modsig && *modsig) {
-+		modsig_result = ima_collect_modsig(*modsig, buf, size);
-+		if (modsig_result) {
-+			ima_free_modsig(*modsig);
-+			*modsig = NULL;
-+		}
-+	}
- 
- 	if (iint->flags & IMA_COLLECTED)
- 		goto out;
-@@ -322,15 +329,20 @@ int ima_collect_measurement(struct ima_iint_cache *iint, struct file *file,
- 	if (!result)
- 		iint->flags |= IMA_COLLECTED;
- out:
--	if (result) {
-+	if (result || modsig_result) {
- 		if (file->f_flags & O_DIRECT)
- 			audit_cause = "failed(directio)";
- 
- 		take_dentry_name_snapshot(&filename, file->f_path.dentry);
- 
--		integrity_audit_msg(AUDIT_INTEGRITY_DATA, inode,
--				    filename.name.name, "collect_data",
--				    audit_cause, result, 0);
-+		if (modsig_result)
-+			integrity_audit_msg(AUDIT_INTEGRITY_DATA, inode,
-+					    filename.name.name, "collect_data",
-+					    "failed-modsig", modsig_result, 0);
-+		if (result)
-+			integrity_audit_msg(AUDIT_INTEGRITY_DATA, inode,
-+					    filename.name.name, "collect_data",
-+					    audit_cause, result, 0);
- 
- 		release_dentry_name_snapshot(&filename);
- 	}
-diff --git a/security/integrity/ima/ima_main.c b/security/integrity/ima/ima_main.c
-index ab1e53b..561fbd9 100644
---- a/security/integrity/ima/ima_main.c
-+++ b/security/integrity/ima/ima_main.c
-@@ -422,7 +422,7 @@ static int process_measurement(struct file *file, const struct cred *cred,
- 
- 	hash_algo = ima_get_hash_algo(xattr_value, xattr_len);
- 
--	rc = ima_collect_measurement(iint, file, buf, size, hash_algo, modsig);
-+	rc = ima_collect_measurement(iint, file, buf, size, hash_algo, &modsig);
- 	if (rc != 0 && rc != -EBADF && rc != -EINVAL)
- 		goto out_locked;
- 
-diff --git a/security/integrity/ima/ima_modsig.c b/security/integrity/ima/ima_modsig.c
-index 632c746..8bc42ed 100644
---- a/security/integrity/ima/ima_modsig.c
-+++ b/security/integrity/ima/ima_modsig.c
-@@ -96,8 +96,12 @@ int ima_read_modsig(enum ima_hooks func, const void *buf, loff_t buf_len,
-  * Since the modsig is part of the file contents, the hash used in its signature
-  * isn't the same one ordinarily calculated by IMA. Therefore PKCS7 code
-  * calculates a separate one for signature verification.
-+ *
-+ * Digest export is best-effort; not all signatures expose a single digest.
-+ *
-+ * Return: 0 if the file data was supplied, error code otherwise.
-  */
--void ima_collect_modsig(struct modsig *modsig, const void *buf, loff_t size)
-+int ima_collect_modsig(struct modsig *modsig, const void *buf, loff_t size)
- {
- 	int rc;
- 
-@@ -109,11 +113,13 @@ void ima_collect_modsig(struct modsig *modsig, const void *buf, loff_t size)
- 		sizeof(struct module_signature);
- 	rc = pkcs7_supply_detached_data(modsig->pkcs7_msg, buf, size);
- 	if (rc)
--		return;
-+		return rc;
-+
-+	/* Digest export failure does not preclude signature verification. */
-+	pkcs7_get_digest(modsig->pkcs7_msg, &modsig->digest,
-+			 &modsig->digest_size, &modsig->hash_algo);
- 
--	/* Ask the PKCS7 code to calculate the file hash. */
--	rc = pkcs7_get_digest(modsig->pkcs7_msg, &modsig->digest,
--			      &modsig->digest_size, &modsig->hash_algo);
-+	return 0;
- }
- 
- int ima_modsig_verify(struct key *keyring, const struct modsig *modsig)
-diff --git a/security/integrity/ima/ima_template_lib.c b/security/integrity/ima/ima_template_lib.c
-index 8a89236..1be7861 100644
---- a/security/integrity/ima/ima_template_lib.c
-+++ b/security/integrity/ima/ima_template_lib.c
-@@ -478,8 +478,8 @@ int ima_eventdigest_modsig_init(struct ima_event_data *event_data,
- 		if (rc)
- 			return rc;
- 		else if (hash_algo == HASH_ALGO__LAST || cur_digestsize == 0)
--			/* There was some error collecting the digest. */
--			return -EINVAL;
-+			/* Keep the ordinary measurement without an exported digest. */
-+			return 0;
- 	}
- 
- 	return ima_eventdigest_init_common(cur_digest, cur_digestsize,
+-	KUNIT_EXPECT_EQ(test, invs->num_invs, num_invs);
++	KUNIT_ASSERT_EQ(test, invs->num_invs, num_invs);
+ 	KUNIT_EXPECT_EQ(test, invs->num_trashes, num_trashes);
+ 	while (num_invs--) {
+ 		KUNIT_EXPECT_EQ(test, invs->inv[num_invs].id, ids[num_invs]);
 -- 
-2.47.3
+2.56.0.rc1.315.gc6ed9934b7-goog
+
