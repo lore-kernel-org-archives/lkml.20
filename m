@@ -1,74 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E97D430E0D5;
-	Thu, 24 Sep 2026 15:53:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE13149F118
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:53:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790265205; cv=none; b=p7LYpHzj822B6IafaWpplowLCHDuDFghtkbB15dCKuMTZdIb8b73xwFYzKnKy2+CHUM9Y1ANZHcVzUrOo+AI+IAtTWIQMnBtQLzAV1WqAg2QZ7rM1WdggpPq7aBuhsupj55cHEzIGVYTZOJiQ6d2H2BIaJpPiA7TBqvrk65alwg=
+	t=1790265219; cv=none; b=FNJbbGAR4AxdEKpEFKrg3zwAQ1EGjiDEVQmWgPdjosdppxyt0RJMt77+bUn2inXrrjodqP44oiYynf349wAzxx89ygZheY3BYhTt5P1ihuzw/1wx0A1HraPQ8Cm/bKChjpwU++Cjd1lRNgRZO2BhIaca9lm/rWWLjrffKhd0C+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790265205; c=relaxed/simple;
-	bh=o8T5fhc4PASIpizhXYJf5s9l1q4Ab5cRRzkL7TVBphE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=F/kZNbZrpM+rNKjCwPoGzqre4XLHiuH45VB5/5cXfvswPcSeUYRrtDeiKTBut987wGdldW5Ho2mKfAUMvz9dTl3Ka3xblsHowqNFbxlj3q9OZG0VOOLYFKZiMVIPhuFieL37NC6TiYfFYdLLCSGU+FQcSz1nLsz87LXbujlccR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FZ1XTfIe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790265219; c=relaxed/simple;
+	bh=BWznX5ibWZDb3IGefPQuCr6j200iYUPTnaiBpQq8i1U=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=TK2FwrQ2raSlTABswLmCY5810Y/zwUS7TCUxA1OfXtzfCKItnvAyBaEevdNBoAEdT9gmjir5NF3CpfwarZgZYl5bOnKe7aoko+lXq1SfyTri4+deVrO6XbB3NpTwQHfTMDH2p1qDIV+ABTBOYb6oyMJnC8yMWjX3eOJPBorjqjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=i8YMW36M; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FZ1XTfIe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E43A1F000FF;
-	Thu, 24 Sep 2026 15:53:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790265203;
-	bh=klw6x4dPEqWqUc/AU47L7f37XBvvcheV+LgjTD5qxKs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=FZ1XTfIefvFMarg0SU/pXCVl52RFPSNGsaY9zN7u8MT3SapghWaSsl5ofqD+kO29X
-	 +eAmIcEn9vvciDOb+ieE/A1nf00REYE+B0SYsSO6+CKzH1qpqERCsWLmbyQz7SR6hZ
-	 pg3CouusEb2eg312+TSOccDjOP4gwUuv5Ep2qW1hUFn4Gz00YXsFz6VhkbzL1yOjNC
-	 nvU0daX9Ff5D8pclgOyDZZos0kfC7FJ40alxv9swA1gu0jie1Xw7xy83HbENMaCssV
-	 vJznvZj9VH6XJUvvFo5wdQQ7mITzFsAqocUYOWIHcpqIMyHDyiOTOYrbRwWn6dBpfF
-	 5beYA5nuX3zAQ==
-Date: Thu, 24 Sep 2026 08:53:22 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Hangbin Liu <hangbin.liu@linux.dev>
-Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
- <horms@kernel.org>, Donald Hunter <donald.hunter@gmail.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
- Hangbin Liu <liuhangbin@kylinos.cn>
-Subject: Re: [PATCH net-next v2 3/6] netlink: specs: rt-route: add lwtunnel
- encap sub-message support
-Message-ID: <20260924085322.2d1478bb@kernel.org>
-In-Reply-To: <arSVWN91NDnz_tfF@fedora>
-References: <20260920-ynl_rt_encap-v2-0-c664a3e726f6@kylinos.cn>
-	<20260920-ynl_rt_encap-v2-3-c664a3e726f6@kylinos.cn>
-	<20260923181456.030d9cd6@kernel.org>
-	<arSVWN91NDnz_tfF@fedora>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="i8YMW36M"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790265218; x=1821801218;
+  h=message-id:date:mime-version:subject:from:to:cc:
+   references:in-reply-to:content-transfer-encoding;
+  bh=BWznX5ibWZDb3IGefPQuCr6j200iYUPTnaiBpQq8i1U=;
+  b=i8YMW36MffqZ2eu19P0orZvvAyXz1kAY+LDqCfRgWWdpGFfLVKl63wYA
+   jPnCQ3aRC3pUDtOUh2PoJHLxXT2KlRzlHQR6s4O3fFi4ASUVOCGgItkxh
+   u/LMSDn4+MKyaknxHyWTRb4D9HKIUAYUtNQpBPfAioLcKZVTJpjPEuIP6
+   8KWaKh1csUUgCDzK2JiC9phV/sVY6W8SjXF/soX0yKXez7EoSXs/fcTec
+   Damhuy4R8tpoM6ZTsFkR9JlFzk6W6HopVTPF2IMBpkWExpQRXv+mfcxFt
+   rUaySHuFfnZQqJBXd+H3ewMhlK9tnMxxHlrM3XQNLlWuz+YatL7oVqS+m
+   g==;
+X-CSE-ConnectionGUID: 2BKwH8lISMmvFF9V45BtdQ==
+X-CSE-MsgGUID: ZjMHDLQFSO2covZQlETLwQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="101214391"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="101214391"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 08:53:37 -0700
+X-CSE-ConnectionGUID: bqXD1IBTS6m6oA202VJTRw==
+X-CSE-MsgGUID: BKPRHSKCR5K+ilprF7//hQ==
+X-ExtLoop1: 1
+Received: from dwoodwor-mobl2.amr.corp.intel.com (HELO [10.125.110.186]) ([10.125.110.186])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 08:53:36 -0700
+Message-ID: <81b16606-4000-4e21-ba32-ab00a471d44f@intel.com>
+Date: Thu, 24 Sep 2026 08:53:35 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 09/14] NTB: ntb_transport: Drain RX tasklets during
+ link cleanup
+From: Dave Jiang <dave.jiang@intel.com>
+To: Koichiro Den <den@valinux.co.jp>, Jon Mason <jdmason@kudzu.us>,
+ Allen Hubbe <allenbh@gmail.com>
+Cc: Frank Li <Frank.Li@kernel.org>, Logan Gunthorpe <logang@deltatee.com>,
+ fuyuanli <fuyuanli0722@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nicholas Bellinger <nab@linux-iscsi.org>,
+ Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260910040836.3792333-1-den@valinux.co.jp>
+ <20260910040836.3792333-10-den@valinux.co.jp>
+ <6a0db9eb-c1b4-4545-8b12-2dd8326d664b@intel.com>
+Content-Language: en-US
+In-Reply-To: <6a0db9eb-c1b4-4545-8b12-2dd8326d664b@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Thu, 24 Sep 2026 11:13:28 +0800 Hangbin Liu wrote:
-> On Wed, Sep 23, 2026 at 06:14:56PM -0700, Jakub Kicinski wrote:
-> > On Sun, 20 Sep 2026 18:06:38 +0800 Hangbin Liu wrote:  
-> > > -CFLAGS_rt-route:=$(call get_hdr_inc,__LINUX_RTNETLINK_H,rtnetlink.h)
-> > > +CFLAGS_rt-route:=$(call get_hdr_inc,__LINUX_RTNETLINK_H,rtnetlink.h) \
-> > > +	$(call get_hdr_inc,_LINUX_IOAM6_IPTUNNEL_H,ioam6_iptunnel.h) \
-> > > +	$(call get_hdr_inc,_LINUX_MPLS_IPTUNNEL_H,mpls_iptunnel.h) \
-> > > +	$(call get_hdr_inc,_LINUX_SEG6_IPTUNNEL_H,seg6_iptunnel.h) \
-> > > +	$(call get_hdr_inc,_LINUX_RPL_IPTUNNEL_H,rpl_iptunnel.h) \
-> > > +	$(call get_hdr_inc,_LINUX_SEG6_LOCAL_H,seg6_local.h) \
-> > > +	$(call get_hdr_inc,_LWTUNNEL_H_,lwtunnel.h) \
-> > > +	$(call get_hdr_inc,_LINUX_ILA_H,ila.h)  
-> > 
-> > alphabetic sort, please  
+
+
+On 9/24/26 8:51 AM, Dave Jiang wrote:
 > 
-> OK. Just to make sure, when sort the order, we don't touch the first
-> rtnetlink.h, right?
+> 
+> On 9/9/26 9:08 PM, Koichiro Den wrote:
+>> ntb_qp_link_cleanup() cancels QP link work but does not wait for the RX
+>> tasklet. The tasklet can still be processing the ring while cleanup
+>> resets the QP, and transport link cleanup can free the MW before the
+>> tasklet finishes.
+>>
+>> Clear active under rx_sched_lock and drain the tasklet before resetting
+>> the QP. Temporarily disable QP link work so a concurrent client link-up
+>> request cannot reactivate RX during cleanup, then re-enable it for the
+>> existing link setup paths.
+>>
+>> This does not drain RX DMA transfers or their completion callbacks.
+> 
+> Is this something that we should handle?
 
+Ah I see you are handling it in the next patch. I would add a comment to say that is being handled follow on.
 
-Why not, you have to modify that line anyway to add the \
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+
+> 
+> DJ
+> 
+>>
+>> Fixes: 9143595a7e05 ("NTB: ntb_transport: Free MWs in ntb_transport_link_cleanup()")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+>> ---
+>> Changes in v2:
+>>   - No changes.
+>>
+>>  drivers/ntb/ntb_transport.c | 7 ++++++-
+>>  1 file changed, 6 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
+>> index 45d4365becac..36797ea3ff45 100644
+>> --- a/drivers/ntb/ntb_transport.c
+>> +++ b/drivers/ntb/ntb_transport.c
+>> @@ -956,11 +956,16 @@ static void ntb_qp_link_cleanup(struct ntb_transport_qp *qp)
+>>  
+>>  	dev_info(&pdev->dev, "qp %d: Link Cleanup\n", qp->qp_num);
+>>  
+>> -	cancel_delayed_work_sync(&qp->link_work);
+>> +	disable_delayed_work_sync(&qp->link_work);
+>> +	ntb_transport_set_qp_active(qp, false);
+>> +	tasklet_kill(&qp->rxc_db_work);
+>> +
+>>  	ntb_qp_link_down_reset(qp);
+>>  
+>>  	if (qp->event_handler)
+>>  		qp->event_handler(qp->cb_data, qp->link_is_up);
+>> +
+>> +	enable_delayed_work(&qp->link_work);
+>>  }
+>>  
+>>  static void ntb_qp_link_cleanup_work(struct work_struct *work)
+> 
+
