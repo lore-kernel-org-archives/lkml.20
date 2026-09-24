@@ -1,171 +1,126 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0853845C701;
-	Thu, 24 Sep 2026 16:07:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E10C4A99D7;
+	Thu, 24 Sep 2026 16:08:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790266043; cv=none; b=g7xfNhA06gIsOUDED1ikWlQIzmQBFW3sJWkMsswvk0/2PbGACy4JCw1d0RhG0gT4vvW+0CbaYOS+GIqUO10Ca2SE+5G95GvoBTxVRIqxCWq8MUjwXa81TxzonsMkUBDXRmydjF+7SeFOYZsia74nOFWzQo1bFRG9vUoMbFSUYcM=
+	t=1790266112; cv=none; b=b1CYDh/1pTcieE/tUKj1WZxjwm1S2FcqdtMcITVXWyJnMsLQpjyCElWmnEm7B2g3b9EQgaDTIp9dwlG7jH1w/Bjcc1mcx9paNy7z0zXfWqRKF2Qo38tEbzK+CNphOd4AKNcTgZv1v8aBPhQp98voiNlLOlpMmTkUayLnKcHt4oQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790266043; c=relaxed/simple;
-	bh=y+dPEwLgjm3bBpJXsWGXfCUHJv534hCygFhpJKYMBzY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NSLTw4L2xyU3sOgCqJGaJ/ucOPn3ELVTAeZq+8ev5uct+kSe9MBfu/8yOukrFVSqhO/uapNJ1DgIIRpFqbQeEDxdQvHtIv08EkXUU7ap9YkPIJH1PYlmoxjKxMSY15CTtv6J2XHnpSEwvzw07ggRnz+TDI5aPRo3/sQbvJPpZKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=R2Qna2Ov; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Qo05Itxo; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=tUQmaGGW; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=jchCNsRu; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1790266112; c=relaxed/simple;
+	bh=PdOrdhPdZuZhrlxEVnCGfBAZmrpdFXAr/Fx0uRSk2gY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gY5lnNzIxROe8HJBZrkuED68VxPOeeqvO3Z1xRPURmML7WHT4BjcYrVmygQjcWCXItKB+4b6WHuCf7Fq96/JVlmnLYEiPmydI+9OOoRSPeZglvt/BApWghwBOY1kNB9hj2Zkn1VMLRLUfwCYspDRYYZiMUaiVIN4WHKr9XTgBA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ONsXbOcr; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="R2Qna2Ov";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Qo05Itxo";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="tUQmaGGW";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="jchCNsRu"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id AE4B021EFD;
-	Thu, 24 Sep 2026 16:07:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790266035; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xLA5vBIS2xVuJ15S0WC3ZYmD2sGCjx5zbW6sFwewPfk=;
-	b=R2Qna2OvPnVtVp0An3LLcxXybCJcf8Qj49Tk1aNM92YPTIfzQF67mb7dxLqHBZQI5Tg9de
-	wXcxBJN6CbaA+LcpEZfUS8wnGdqMauVk8VjfxHpE9ngzI2w8k+QlT5vG+PzIWaqvbYQbzr
-	WVrvj+HBEbGx2IZXpG5WgZ13M+tFces=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790266035;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xLA5vBIS2xVuJ15S0WC3ZYmD2sGCjx5zbW6sFwewPfk=;
-	b=Qo05ItxovePqvAcLN9L9S3nYoa7BC0r7WE66l70qll/0ZbbxAObEpSjl8EGR/8c9QNhawv
-	7yu+oG0ZatRITeAQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790266031; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xLA5vBIS2xVuJ15S0WC3ZYmD2sGCjx5zbW6sFwewPfk=;
-	b=tUQmaGGWQQE4lwgKPdC4AoUDxmNlWWPUnqmzKTtSkKr1k7CTBGX9er/twTIhs3A8RP2mUw
-	ueszZR5/RO5L/KRYab1IvChVexWjKdgXWPBVpgtVE2gVFfrw9jfIVzrMEIWqQTIFxlH9d7
-	IUPa82d78FKNE76vllXr3l1ZDRMRX34=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790266031;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xLA5vBIS2xVuJ15S0WC3ZYmD2sGCjx5zbW6sFwewPfk=;
-	b=jchCNsRuoazUX3QJNy8F6A/Uez5fCugOIR191RCP/ciZziA4salAKboUwO+QmZPjCaMXwo
-	CbGLqGPDK1gNcVBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 872EF1365D;
-	Thu, 24 Sep 2026 16:07:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id +vsUF69KtWpWXgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 24 Sep 2026 16:07:11 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 0ECFEA132E; Thu, 24 Sep 2026 18:07:07 +0200 (CEST)
-Date: Thu, 24 Sep 2026 18:07:07 +0200
-From: Jan Kara <jack@suse.cz>
-To: Yichong Chen <chenyichong@uniontech.com>
-Cc: Theodore Ts'o <tytso@mit.edu>, linux-ext4@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Andreas Dilger <adilger.kernel@dilger.ca>, 
-	Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
-	Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>, 
-	"Aneesh Kumar K . V" <aneesh.kumar@linux.vnet.ibm.com>
-Subject: Re: [PATCH] ext4: don't free the tmp_inode tree after a partial
- migration swap
-Message-ID: <6hqrrmg6fxygsximtt7dek2fbxg4z7lkbujkxmbhch5a3dmi2w@mhok2e4bbzmj>
-References: <20260918101240.3721805-1-chenyichong@uniontech.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ONsXbOcr"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 2E0C31A0FFD;
+	Thu, 24 Sep 2026 16:08:27 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 00C3760738;
+	Thu, 24 Sep 2026 16:08:27 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0105010329450;
+	Thu, 24 Sep 2026 18:06:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790266041; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=BH+arErWIBY7hpZKpPthQMU4Dv/fEL3yycrYdB+7SAY=;
+	b=ONsXbOcr23MBp97WH0svxjX/qajC1P03GDotsG32pqiLLyxtrTG9i/nFxLh60PPtt6ib8B
+	KpwGfgCIAwOe7tqrY2Dr+yZGfVzW92Q/qGCRLH12Zq2Z+wkPwECFoEWvCnx7LufxoQmNdg
+	WJ38Cg8+yZ30XQiNT8mAwHbSzwvtFH3WA1zvLte7l0Hovu7kidqd16A6YZg6XsdpHqCF84
+	NeFQDNgfTJzmgMmEB3SwdUbUw3tntTqszPGEZrO2bTGHan5QGUo5jUepD2J8Oh1oP19ybF
+	hrPgZgr2bEWcYpEAMR3ve3Agm7LWsRG1dKDyFtfL681JTjL1Biw6uMGRLV74FQ==
+From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Date: Thu, 24 Sep 2026 18:06:25 +0200
+Subject: [PATCH 5.10.y] SUNRPC: lock against ->sock changing during sysfs
+ read
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918101240.3721805-1-chenyichong@uniontech.com>
-X-Spam-Level: 
-X-Spam-Score: -2.30
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-2.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[mit.edu,vger.kernel.org,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,linux.vnet.ibm.com];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260924-cve-2022-48816-v1-1-b44c7e4dd493@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ7CMAxE0atUs8ZVHNqq4SqIRTAOmEVBCVSgq
+ ncnwPKNNH9B0WxasGsWZJ2t2G2q4E0DucTprGSnanjnBxd8RzIrVXjqxpEHYg59SCmKxC3q6Z4
+ 12esX3KNv2bVvHP57eR6vKo9vDev6AQqjEkB6AAAA
+X-Change-ID: 20260924-cve-2022-48816-11959ffacca3
+To: stable@vger.kernel.org, 
+ Trond Myklebust <trond.myklebust@hammerspace.com>, 
+ Anna Schumaker <anna.schumaker@netapp.com>, 
+ "J. Bruce Fields" <bfields@fieldses.org>, 
+ Chuck Lever <chuck.lever@oracle.com>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Olga Kornievskaia <kolga@netapp.com>
+Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
+ Anna Schumaker <Anna.Schumaker@Netapp.com>, linux-nfs@vger.kernel.org, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, NeilBrown <neilb@suse.de>, 
+ Robert Garcia <rob_garcia@163.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790265996; l=1838;
+ i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
+ bh=liulsZ/coQfT07R5JtzG+PjFTbjUtiJrY8ERm44fUGw=;
+ b=hvuAFoVF4j+paPwTWzFrf8A5Zvpgx03sXgeYvPovb8Fl/DD4+3oPfzYGOZU2WXVBh2AVlco3N
+ vH+l07ieePVCOtgTy7kARTUQVdDf8YorRQLKWt+tC9Bhkqw27kHEwg0
+X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
+ pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri 18-09-26 18:12:40, Yichong Chen wrote:
-> ext4_ext_migrate() cleans up the temporary inode when
-> ext4_ext_swap_inode_data() fails:
-> 
-> 	retval = ext4_ext_swap_inode_data(handle, inode, tmp_inode);
-> 	if (retval)
-> 		free_ext_block(handle, tmp_inode);
-> 
-> ext4_ext_swap_inode_data() switches the inode to extents and copies the
-> tree root into it before it frees the old indirect block map, so it can
-> return an error after the swap has already happened.  The copied root
-> points at index blocks that tmp_inode allocated, and free_ext_block()
-> walks that same tree and frees them, leaving the migrated inode with a
-> tree node that the block bitmap considers free.
-> 
-> Only free the tmp_inode tree when the inode has not been switched to
-> extents, which is exactly the case where the swap did not happen.
-> 
-> Fixes: c14c6fd5c56a ("ext4: Add EXT4_IOC_MIGRATE ioctl")
-> Signed-off-by: Yichong Chen <chenyichong@uniontech.com>
+From: NeilBrown <neilb@suse.de>
 
-Looks good. Feel free to add:
+[ Upstream commit b49ea673e119f59c71645e2f65b3ccad857c90ee ]
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+->sock can be set to NULL asynchronously unless ->recv_mutex is held.
+So it is important to hold that mutex.  Otherwise a sysfs read can
+trigger an oops.
+Commit 17f09d3f619a ("SUNRPC: Check if the xprt is connected before
+handling sysfs reads") appears to attempt to fix this problem, but it
+only narrows the race window.
 
-								Honza
+[ Removed the changes about net/sunrpc/sysfs.c, as this file doesn't
+exist in 5.10 ]
 
-> ---
->  fs/ext4/migrate.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/fs/ext4/migrate.c b/fs/ext4/migrate.c
-> index 2ce587043945..e588b4157604 100644
-> --- a/fs/ext4/migrate.c
-> +++ b/fs/ext4/migrate.c
-> @@ -562,7 +562,7 @@ int ext4_ext_migrate(struct inode *inode)
->  		free_ext_block(handle, tmp_inode);
->  	else {
->  		retval = ext4_ext_swap_inode_data(handle, inode, tmp_inode);
-> -		if (retval)
-> +		if (retval && !ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS))
->  			/*
->  			 * if we fail to swap inode data free the extent
->  			 * details of the tmp inode
-> -- 
-> 2.51.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Fixes: 17f09d3f619a ("SUNRPC: Check if the xprt is connected before handling sysfs reads")
+Fixes: a8482488a7d6 ("SUNRPC query transport's source port")
+Signed-off-by: NeilBrown <neilb@suse.de>
+Signed-off-by: Anna Schumaker <Anna.Schumaker@Netapp.com>
+Signed-off-by: Robert Garcia <rob_garcia@163.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+---
+ net/sunrpc/xprtsock.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/net/sunrpc/xprtsock.c b/net/sunrpc/xprtsock.c
+index 5dccad3271fe..4ec6516a53e0 100644
+--- a/net/sunrpc/xprtsock.c
++++ b/net/sunrpc/xprtsock.c
+@@ -1666,7 +1666,12 @@ static int xs_get_srcport(struct sock_xprt *transport)
+ unsigned short get_srcport(struct rpc_xprt *xprt)
+ {
+ 	struct sock_xprt *sock = container_of(xprt, struct sock_xprt, xprt);
+-	return xs_sock_getport(sock->sock);
++	unsigned short ret = 0;
++	mutex_lock(&sock->recv_mutex);
++	if (sock->sock)
++		ret = xs_sock_getport(sock->sock);
++	mutex_unlock(&sock->recv_mutex);
++	return ret;
+ }
+ EXPORT_SYMBOL(get_srcport);
+ 
+
+---
+base-commit: 1797d8bf8d0c2e74defad605d14e3553d43a3caf
+change-id: 20260924-cve-2022-48816-11959ffacca3
+
+Best regards,
+--  
+Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+
