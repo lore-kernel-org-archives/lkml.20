@@ -1,122 +1,172 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0997D38DC68;
-	Thu, 24 Sep 2026 11:33:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51CDA472F6C
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:33:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790249599; cv=none; b=j9vzXRnsvgSLs2EedRGCYstkmCqv6Zuy3t/5CYs6II1JzaJ3G9Bu/I5p/gSoexbnWIHk1HTLaNwmKsboSY+X87MyYpLj59uj5y152RM+3MOSna3AD+tC7p/CwP81frDFYhG/vcZQ+qj7Q/YCm6OVLt7JrkeQFPIx5TzK+ijB/pA=
+	t=1790249603; cv=none; b=F1mrEoTMkL215h9dH6Qb427LZjW6fWxiH2kFTBQH0VTPinA5bAes4vUdRFvV6qfYJLKQpPTmRM2bYOt25+TplOwi5LSvHlcTRCujBBomc+Imwp0M2D5/H+KrUVbGVNZh+dAeAYaa+Uoddh/C9RvXN811vdHiI7HV/frnkbdksy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790249599; c=relaxed/simple;
-	bh=bi4A9oP6oNMDEiR09MQYo1/7+Q8TAO2XFMTYuwz/r3c=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=LEtSpcAZ5PE5gFTPn9EByIdLvbRWc8QzzXqQpqovsMEmdO5Li4ZbE+NMHG/288CWzK7G6zdmz5uB187brPJSgQQkIRg0W2Rvhg6ENNCXDclVoyvasytZCBmr8Ekyaqjf0r5jakDoSh0qVfPHn0R97FV5x4o5gv8vNJTj2TKWDs0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=K2XHoE6F; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790249603; c=relaxed/simple;
+	bh=wCnUXCK0WZO4NnQlqvBDKz+4inN5YfMZjMTHZjG1y3w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fQGQQazCOfvNs4hR8OOciLgJlgW5r54EG6dxSx7xw6cbR5a0VaNQCHLSHh3O3Flxiu9fj9D2IPhOU8Sl+sDP4D/l7Tet3cgzefQZbFNnFmRbBtt++0AS2x5bciQI3TDGEsG538LCRkIogUERhcJqK7QCPSIXQbBv8UVCJfhYLZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IsRFmiJj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MdltRVPw; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="K2XHoE6F"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790249595; x=1821785595;
-  h=date:from:to:cc:subject:message-id:mime-version:
-   content-transfer-encoding;
-  bh=bi4A9oP6oNMDEiR09MQYo1/7+Q8TAO2XFMTYuwz/r3c=;
-  b=K2XHoE6FgimUriwpllOuNFRofZ3tYJvZ04clhieswYlcpsd1zI8yDBPZ
-   +elZn6SIX65RZsMapoTGjb5yjxNgNq/PLyLuQyoQ5X+qNeOTvU4SATsFm
-   5Bd9Jf+7xdEdeQZTSkKTF2LJILJZXyYXhiWuUDbhUsM4b2HswXt7LmChA
-   94qQs2oF831NfScdYBWjJutHA1L2+IdF6ShLok15WXsNHz+YwdWV3MFso
-   STIp/BVq0PI1z++I41KmHBf7jYhZU3eM1q3Zpwn75xhv2wmDoxbcrgPWg
-   iNdbySD5Bl900p3eADvZiHLIdfwhpu8qwJ00IzHSfXhO2LB8eG2NGUUbv
-   w==;
-X-CSE-ConnectionGUID: +Ocl9J/+TWe6YBQX0MEd3g==
-X-CSE-MsgGUID: 5Yug119FS8S6uNy+c9Z1Gw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="89877578"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="89877578"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 04:33:13 -0700
-X-CSE-ConnectionGUID: dF85Lm6WRf22zoxZNwTU5w==
-X-CSE-MsgGUID: 846Iiz+NT06RMKm4RjbHsw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
-   d="scan'208";a="270487899"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 04:33:11 -0700
-Date: Thu, 24 Sep 2026 19:33:08 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Puranjay Mohan <puranjay@kernel.org>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
-	"Paul E. McKenney" <paulmck@kernel.org>, rcu@vger.kernel.org,
-	yi1.lai@intel.com
-Subject: [linus:master] [rcu]  ec5ee5417b:  stress-ng.ramfs.ops_per_sec 25.7%
- improvement
-Message-ID: <202609241934.228b4a14-lkp@intel.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IsRFmiJj";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MdltRVPw"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O9PCRo1923942
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:33:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=XkseKV+yt4Jy0qKqCZ9EMQvZ
+	YwHKUGqrc30BMVfNwi4=; b=IsRFmiJj/bR+E/pi+HBhTPjZtcPG4aSH3W7uzcoP
+	1AkmcbvhlkMXrU9Kay6CwMrAeFLak4U+y2UmuPio/SjPY4xngSZGD2+gxEyJemzI
+	IJxDUUb0pg97yRRgsPOjhikSH6Onvg4BfV3KHlv/tWZ3OqsFS6g2/uCv1bjjFT+D
+	AySxXmdD/nMnXdNkPO0EmCRLd3I3Obagxa2F8Q5ZwOexqslBBci0YU368qbxuLni
+	eAzXLAbkdXpUX5F/D7wrCpJj8OHHBajtIXEKMvz+Kl4baXMYgNhzlkbh8Pwc3e5w
+	O72MS1DkdNb345i/I79xp9uh/sw8jNmrTNeSATwqQhrjyg==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvx8ahcks-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:33:16 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-79014f0b44cso1730664137.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:33:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790249596; x=1790854396; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XkseKV+yt4Jy0qKqCZ9EMQvZYwHKUGqrc30BMVfNwi4=;
+        b=MdltRVPwKpi7SrLkC1Vp15c3p5Qb5PXhxlSqBq/JYWwkN1xWaj7fCnucm75huW8aDD
+         QUvkn9hJjx+mxOPBGlO4Z+EwzVGcmmR3e/9234lMWe7gcVTrS8XyypcJaChAjKyehcg8
+         RA3+H+2B60dCEC1suMzQ4H+x5zb+gMTfnyaHD0+CO5S+ApxuM0iYq3w1H2LqLM0jA15A
+         LwkMRzEeSR8/Zx06pejKA8T94jXH8Bb5+wAquR+wK1R11rxCb9nz61BjV3w0mt5pKufQ
+         kW+vhHC9yjIeNRGw6TXE8siXrbaH02knIGzR0f9bCmSq1jADSanmZiQtPsl8NWU3ZckT
+         SPFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790249596; x=1790854396;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XkseKV+yt4Jy0qKqCZ9EMQvZYwHKUGqrc30BMVfNwi4=;
+        b=OFEVFHxFSb8VW4J43B3Re0oSyy4oH0e0A6KRXKB0uy95JH0EaXihXjl35bsgCU1GuO
+         p/k51CChuWf56FwGEUCS/gazlPb5/TYuqctKDC0xFCAufp2ccqwddeqGlQU9+FEIA94Q
+         hBC2KwA49vjaMjKx/79ll6KoTacaSzU5tPQdoBNGiZ8XPWY9B6KpBXCBQTmbe6zK3oI7
+         YhAH41EPekxK3fLmZJloI54se9AvXMKNKwJX9NSMhLP6YVpuORUUDlIb29eP2WBO9s3q
+         V5Nrch3xzI1bqUMp9PQiOXZu9zj9oVhX2ahIDMw6NzSSMBiJKEMdEidWjSWPVjXKZaa+
+         XfeA==
+X-Forwarded-Encrypted: i=1; AKwUvBw7RNjJF2SCoyE1xDZ0Q0BitONvoovo3bMyagU6ijJp3AHyJ1j7TqxFbhSCTQ2U8vIhyRowBcw1XcFAaQU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mRyIJO0TyqjAy2JSBgyl0NiCYoYb2FC//uHjYr69FpfuPCOzZ9
+	imvNsSWFZDkoTrsxZ8XKsW+qYW+/cgP7D+VUkFJ3qvqickIM9BVhZ7UnlP3nb0D6FLhbZrYoBL9
+	jYJZUugF62+1BVaXUTpz1zwOiQJNEXaiwRs5te/1806zlTXG130pArs1R4fnzHIC0gKE=
+X-Gm-Gg: AYBFou05FemPfonzfcpEhhKsUwwqGdZ1wWVeOHAE6c1BjJAnVTQJ/NPvtad2CncmEF9
+	XGrYFGy4/n/4bT2Vaqu1E9C52VJzwE3mm66yvwmVdLbZX3qd9rA5czmJKxxt2yoAFQxgrkHeVrw
+	JT/ZVk7MZVseqcUYtU7xV6EjJ3C4X2BFISE1ednH3OMOPUs4YChrMTDLYrWFdG7ftCDvCD/IH54
+	YnSwDciZkBujg6cqRUaOdYqbumriRV0ohQKaCUgLK+cFkS2sygLuVpEaD61qJmXw8NC+uIpPcwa
+	tSB1jqaC6K3mpSHXwMYpSZeFytPVvvrWzK75w8o2Zyxx1yqDGMGrldBI0jMw4ru419d3e1bnjHs
+	gnJU++gxssJ0i8YQ=
+X-Received: by 2002:a05:6102:1489:b0:7a1:f7e2:aae2 with SMTP id ada2fe7eead31-7af1e6f380emr1107588137.20.1790249595755;
+        Thu, 24 Sep 2026 04:33:15 -0700 (PDT)
+X-Received: by 2002:a05:6102:1489:b0:7a1:f7e2:aae2 with SMTP id ada2fe7eead31-7af1e6f380emr1107577137.20.1790249595157;
+        Thu, 24 Sep 2026 04:33:15 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48868889130sm13762102f8f.37.2026.09.24.04.33.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 04:33:14 -0700 (PDT)
+Date: Thu, 24 Sep 2026 14:33:12 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
+        Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Guenter Roeck <linux@roeck-us.net>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+        linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: glymur-zenbook-a16: Add
+ Embedded Controller
+Message-ID: <mkqgu53cyajjjbrvwyqv3vukag643g7x5ypjhzh5vomrd3lsvk@yq4oely74xw6>
+References: <20260922-topic-asus_ec-v2-0-0bd923d1b853@oss.qualcomm.com>
+ <20260922-topic-asus_ec-v2-3-0bd923d1b853@oss.qualcomm.com>
+ <uv52rxc6llmlas45mejbeeriryiozh3v2f2itbvfzo4f2sgazm@ly37763jkftd>
+ <8c9777c5-f323-406d-a996-17bd1a5b8946@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <8c9777c5-f323-406d-a996-17bd1a5b8946@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA0NyBTYWx0ZWRfX67JAJHSHg1RA
+ +bGSLOLFezSF0j+AWk4ZWiidYU/Rjw/+d6BxGwZ4Z6apfrNinS/Ol0vk3AvwVFv1QTZ6i/ZWOIr
+ DjDqeyf7k4hQa+jODQJtj1bvBQQOtXs=
+X-Proofpoint-ORIG-GUID: 8OzPrIl-BKl_6UeJVVnddKz8tPU29YyF
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA0NyBTYWx0ZWRfX4hbQMLTJp1ld
+ T9KBVi3MX5uR/ICsxAGrFJM8o3DyT6unIszSyZQLTg3MWdpIjjFdYfHZb6RX57kVqzg+uBQPBoj
+ l3yLH53gU3lnymK+UFSAjAc0js8s56wz12R9aQOSfzBMPBcOG3iyu7ol0+X7oPwFEXpMuLTyvfV
+ 9SVTKed6MAhWI9LGqYjk3//3A3WYtrXQwbS/tnKsT8axOVhyoLz7fZyg7kpmFlN2IkwDRFilTuC
+ jc9SGSvcct9dMQIbsFQItKPv9R5Rz6wopMoZmNcibhqNmd3Wv4o4qcNgTNDYr66P1YljPbVjWgT
+ i0PJoQXj0rqMXXiePUdjrEp2bQ+irVAAVbWgbcjQEpkDv3CgqlW1K8b50hE6juktaQ97/Zdbh6t
+ yvm/toAyfJtX7UeBfxUAOmzxyjmy3mgxslpnK73t/luRvkpmmJOSRAL9bJ0Fqmnny9sgfow06iQ
+ PxtHfxGUKcIqxvELM+Q==
+X-Authority-Analysis: v=2.4 cv=a6SlZkSF c=1 sm=1 tr=0 ts=6ab50a7d cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=kDAAnAmS2xGMtcqLAaUA:9 a=CjuIK1q_8ugA:10
+ a=ODZdjJIeia2B_SHc_B0f:22
+X-Proofpoint-GUID: 8OzPrIl-BKl_6UeJVVnddKz8tPU29YyF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 spamscore=0 clxscore=1015 malwarescore=0
+ priorityscore=1501 impostorscore=0 phishscore=0 lowpriorityscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609240047
 
+On 26-09-23 12:04:32, Konrad Dybcio wrote:
+> On 9/22/26 10:31 PM, Abel Vesa wrote:
+> > On 26-09-22 11:33:38, Konrad Dybcio wrote:
+> >> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> >>
+> >> The Glymur-based Zenbook A16 features an Embedded Controller running
+> >> custom ASUS firmware (which is loosely based on the reference Qualcomm
+> >> Hamoa EC one with a lot of modifications). It provides keyboard
+> >> backlight control, additional temperature sensor readouts, fan speed
+> >> monitoring and a number of miscellaneous functions.
+> >>
+> >> Describe it.
+> >>
+> >> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> >> ---
+> >>  .../boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts    | 15 +++++++++++++--
+> >>  1 file changed, 13 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
+> >> index 40433dc2d6cf..d3356fcd25f0 100644
+> >> --- a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
+> >> +++ b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
+> >> @@ -670,8 +670,19 @@ &i2c9 {
+> >>  
+> >>  	status = "okay";
+> >>  
+> >> -	/* EC subdevice @ 0x5b */
+> > 
+> > So what is on this address then ?
+> 
+> The driver spawns a secondary i2c device there to service some
+> of the EC communication
 
-
-Hello,
-
-kernel test robot noticed a 25.7% improvement of stress-ng.ramfs.ops_per_sec on:
-
-
-commit: ec5ee5417b00278fa050b38d878b76f1365420fb ("rcu: Advance callbacks for expedited GP completion in rcu_core()") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
-
-testcase: stress-ng
-config: x86_64-rhel-9.4
-compiler: gcc-14
-test machine: 256 threads 2 sockets Intel(R) Xeon(R) 6768P  CPU @ 2.4GHz (Granite Rapids) with 64G memory
-parameters:
-
-  nr_threads: 100%
-  testtime: 60s
-  test: ramfs
-  cpufreq_governor: performance
-
-
-Details are as below:
--------------------------------------------------------------------------------------------------->
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20260924/202609241934.228b4a14-lkp@intel.com
-
-=========================================================================================
-compiler/cpufreq_governor/kconfig/nr_threads/rootfs/tbox_group/test/testcase/testtime:
-  gcc-14/performance/x86_64-rhel-9.4/100%/debian-13-x86_64-20250902.cgz/lkp-gnr-2sp4/ramfs/stress-ng/60s
-
-commit: 
-  fde2b18817 ("rcu: Detect expedited grace period completion in rcu_pending()")
-  ec5ee5417b ("rcu: Advance callbacks for expedited GP completion in rcu_core()")
-
-fde2b18817e4f32b ec5ee5417b00278fa050b38d878
----------------- --------------------------- 
-         %stddev     %change         %stddev
-             \          |                \  
-    427110           +25.7%     537009        stress-ng.ramfs.ops
-      7124           +25.7%       8957        stress-ng.ramfs.ops_per_sec
-      6004 ±  2%    +561.7%      39731        stress-ng.time.involuntary_context_switches
-    685.50            -5.1%     650.33        stress-ng.time.percent_of_cpu_this_job_got
-    405.23            -5.4%     383.53        stress-ng.time.system_time
-    776758           +19.9%     931227        stress-ng.time.voluntary_context_switches
-
-
-Disclaimer:
-Results have been estimated based on internal Intel analysis and are provided
-for informational purposes only. Any difference in system hardware or software
-design or configuration may affect actual performance.
-
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
+Thanks for clarifying.
