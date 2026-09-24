@@ -1,121 +1,87 @@
-Received: from mta1.migadu.com (out-166.mta1.migadu.com [95.215.58.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED7232C94A
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:27:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5013B4749D4;
+	Thu, 24 Sep 2026 11:27:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790249227; cv=none; b=PF0tnEygzS4n3ZKkv561Lp/UfHzta9jVTH8M7rrkcUBxI/6Ch30lZJ5MUxoLyL3rEs5RZsi1VzvZe4T3Zz9ClGSnlMC5tXPmU+u+HyC5Buh2yLncxaz6r32WLo2f8ufSAoKdXOOCr+CxtQwDrpDN/FODBAgGTq3szGv5f7Tb7Ns=
+	t=1790249231; cv=none; b=oSwfrH5m9Mkx3gs9MM9ViB7+WTS91F6o3HY9HmBEDA7r7yUXdkMyL8J+1ZzjXDsp4yk2Ks5DbAJ/aSCPEAcAbslrQ9iqP+Z2hd3/93dACD3lEvJcGa/LgqPCJLYFICzinomDzPX3mqhZ3elJerovgAz9XvArlKgcL7vS8SICXkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790249227; c=relaxed/simple;
-	bh=vM7qYu7LAwhbZJOe7T9pvZD37cQZuLfJB1bE3sYOHBs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=q2xjXMaU+pZkEPSpVWBsW7yr5fPkobjKMTHu7xAR3Wk7Y+3e96UfO5724gFGJvqt5BuCOV+vRImLs92g52k+Z0TCzrzqexlnFuLugabZjwPvnGO3kSpFYIgitAAselMACafpr1x+/awpQhgd+8ScelPgCWzH7Mpi/Voa9GvmDAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=UIIMGT4o; arc=none smtp.client-ip=95.215.58.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790249231; c=relaxed/simple;
+	bh=Ds0VP6NgpHgGjrktIUEiwwpNPT0ElcBSW3E0Wmcvg2I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AW6HITB/mizhEI1v+I1yOgl0IhMJOFknX5UkwsPbf9wImstRW5bu6Z/z8dRbCJ+SbbjeLMlBYKM/LS8o3gVpAv9yc9ZcOvHB/VNHeeo+sRsJI98zUdQwtWBsmucUQe1vYJasBhMB05+LVyDBI2QiaElVta8DiOoPZUEKNb80rVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=GTcq46Rq; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="UIIMGT4o"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=vM7qYu7LAwhbZJOe7T9pvZD37cQZuLfJB1bE3sYOHBs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790249222; v=1; x=1790854022;
- b=UIIMGT4ooHYnjHmDnhXPhMvY0uHRjnaoBnUL+D23VGjezrXVveK9iVa5JA788TlG/IitjRfN
- /SPtJlJNbblNwVNTBUSgZGZHVn69UipYtfGCRjhxoU8T3UiKY8hXpoLzMeKaAPxx+Bhoa1nMCdJ
- ERqeaWuRdOsongmicvSc0Exs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e5b70613906a484a;
-	Thu, 24 Sep 2026 11:27:02 +0000
-X-Mizu-Trace-ID: e5b70613906a484a
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5b8c42da963so8335e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:27:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwLylfivdIsPse3V1+xfczZWDzlkK7yrwfOYCLR0w4rgc92kHX8OvjWSX6WNlQivD1Bcx2CdATtG7oJP0U=@vger.kernel.org
-X-Gm-Message-State: AFuF++njh1zWyG8ZLptxZKWTSCfwAKX+y/Ros3FrDd0F8/CqSvE8xRA5
-	0cmP0rUnzaRYgl877Rf8gdwtZv8zXqWlxQp5Lx7SP647gLI8HKnXdI9hrIAc9sC55kKuiqXz9Ic
-	72JeaP52l/cQupip0RmIBv2oBGffEQEyvbRgUeTDY
-X-Received: by 2002:a05:6512:3052:b0:5b1:ca0b:25d2 with SMTP id
- 2adb3069b0e04-5b8dd9eff6fmr157966e87.4.1790249221398; Thu, 24 Sep 2026
- 04:27:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="GTcq46Rq"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5A6E3105BB9;
+	Thu, 24 Sep 2026 13:26:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1790249223;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=5xwCXfeCM8EghcCMeFwzYoiWEPOW1omxmLCe7yuZSXw=;
+	b=GTcq46RqlTxZZaDm4SxorwJpOYWiWvV/ZTETSBW/t2txdOyWbNnHjAg1VGHLNbpmZ/L2IM
+	6Vmw7cBg7nizrkQWi8WXkMifp9+dIdD+oQI4KvnezW9/kbNIEYG1cHSkJ5lrF1ra9HFqoo
+	a/4H3sGtwq9MOQDLNn3By16kQDPIsf0fNbzNNHPUr5+rmBfl0bVdGBWNRSZhagyTpH85fk
+	gLrU7hJuTMQFnsNg18S83GsBS4iAk2d8ruVpRRluqF6+50fvxlM1E62nv96IqC3ccKhWBe
+	W/h956UOCpqKM0cdOqyQhgpKiZYc2VJxYoqb9UpzmXP+KctC1JfNfhzhS+zqrA==
+Date: Thu, 24 Sep 2026 13:26:58 +0200
+From: Pavel Machek <pavel@nabladev.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.2 000/438] 7.2.8-rc1 review
+Message-ID: <arUJAsTgllLGVIt-@duo.ucw.cz>
+References: <20260923140644.756254324@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914113338.159227-1-fuad.tabba@linux.dev> <20260914113338.159227-11-fuad.tabba@linux.dev>
- <arK1tHUEJsCQEKzn@google.com> <CA+EHjTx+foVF4CRU5D8bQv8bAqDphMN12UrV+_doUryn2ow6bg@mail.gmail.com>
- <arTfjgvZIhmXLrw1@willie-the-truck>
-In-Reply-To: <arTfjgvZIhmXLrw1@willie-the-truck>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Thu, 24 Sep 2026 12:26:25 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTxe0JE-tCX4YcEEafdnxjuZLj3EBucZfZF0HCP2PQAekg@mail.gmail.com>
-X-Gm-Features: AclHuK-lEBftn5qqqH_UN8dVLgif6IiC-dIf778GSBKFjS0hWK4r3fOERPhGRzc
-Message-ID: <CA+EHjTxe0JE-tCX4YcEEafdnxjuZLj3EBucZfZF0HCP2PQAekg@mail.gmail.com>
-Subject: Re: [PATCH v3 10/18] KVM: arm64: Handle PSCI calls for protected VMs
- at EL2
-To: Will Deacon <will@kernel.org>
-Cc: Vincent Donnefort <vdonnefort@google.com>, maz@kernel.org, oupton@kernel.org, 
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, catalin.marinas@arm.com, joey.gouly@arm.com, 
-	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, 
-	mark.rutland@arm.com, steven.price@arm.com, qperret@google.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="jXz/Wp/mcl7nof3B"
+Content-Disposition: inline
+In-Reply-To: <20260923140644.756254324@linuxfoundation.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Will,
 
-On Thu, 24 Sep 2026 09:30:06 +0100, Will Deacon <will@kernel.org> wrote:
-[...]
-> Sorry, but I'm really confused by this and it appears to be different to
-> what we've got in Android as well. Why do we need release semantics for
-> the store to 'hyp_vcpu->power_state' in pvm_psci_vcpu_off()? What is it
-> that we are publishing here? The comment talks about pkvm_reset_vcpu(),
-> but how is that relevant to the vCPU _off_ path? You say the comment is
-> wrong, but what _should_ it say?
->
-> I'm a bit baffled!
+--jXz/Wp/mcl7nof3B
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-It's not publishing data, it's handing reset_state back. The CPU_ON
-winner writes reset_state.{pc, r0, be}, then reset_state.reset with a
-release. The target reads them and clears reset in pkvm_reset_vcpu()
-on its next run, and its CPU_OFF hands reset_state on to the next
-CPU_ON. The release on OFF orders those reads and that clear before
-OFF, and an acquire on the winner's cmpxchg orders its writes after
-it: release on the way out, acquire on the way in, like a lock.
-Without the release, the target's clear of reset can become visible
-after the next winner's reset = true, and the target's next
-pkvm_reset_vcpu() then reads a clear flag and returns -ECANCELED,
-leaving the vCPU stuck at ON_PENDING.
+Hi!
 
-The comment described the flag ordering, which holds through the
-winner's release on reset even with a relaxed cmpxchg, and named the
-cmpxchg as its pair when the cmpxchg wasn't an acquire. The acquire is
-for the winner's plain writes of pc/r0/be: nothing else orders them
-after the target's reads. v4 has cmpxchg_acquire() and the two
-comments name what's ordered and each other:
+> This is the start of the stable review cycle for the 7.2.8 release.
+> There are 438 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-        /*
-         * Orders pkvm_reset_vcpu()'s accesses to reset_state before OFF. Pairs
-         * with the acquire cmpxchg in pvm_psci_vcpu_on().
-         */
-        smp_store_release(&hyp_vcpu->power_state, PSCI_0_2_AFFINITY_LEVEL_OFF);
+CIP testing did not find any problems here:
 
-and in pvm_psci_vcpu_on():
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-7.2.y
 
-        /*
-         * vCPUs race to power on the same target. The acquire pairs with the
-         * release of OFF in pvm_psci_vcpu_off(): the target's accesses to
-         * reset_state in pkvm_reset_vcpu() precede the writes below.
-         */
-        power_state = cmpxchg_acquire(&target->power_state,
-                                      PSCI_0_2_AFFINITY_LEVEL_OFF,
-                                      PSCI_0_2_AFFINITY_LEVEL_ON_PENDING);
+Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
 
-Android has neither end (a WRITE_ONCE() of OFF and a relaxed cmpxchg),
-so it has the lost flag above and the data race on pc/r0/be. Both stay
-within the guest's own target vCPU, so I haven't treated it as urgent.
-I'm working on a fix for Android separately.
+Best regards,
+                                                                Pavel
 
-Cheers,
-/fuad
+--jXz/Wp/mcl7nof3B
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCarUJAgAKCRAw5/Bqldv6
+8oJeAJ0e4ifV49htfKhfbmPNxPd8ZOSYVwCgs+wD7UBcbdrmBN4Mf0o2Mt0KMow=
+=jLVM
+-----END PGP SIGNATURE-----
+
+--jXz/Wp/mcl7nof3B--
