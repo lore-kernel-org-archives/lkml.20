@@ -1,157 +1,170 @@
-Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com [74.125.226.235])
+Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7714F485505
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:02:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.235
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790276545; cv=none; b=blRLsjozMAKeZTsHO6xULWmK47IKq9k9XpRTW72Q34443Qn837wPqEwg+dS5Q6oggY9fRDqzodlv85YE8pLd68QvN5NSRwlzf/LAi3jwUo1W9Z4O6iJvh9ToX0QOmrhQkLlUID3GHzhNFpiu/YwOGDchlEyjJgByI+8BLNx4P+o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790276545; c=relaxed/simple;
-	bh=I9rjMdylwRXMbZI50fmpd3PtoFlN+qirBSdlSQ+FEgg=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=qgQ2OaB+9NXajb0k9Tu8Tz+IS9UT7OuLBk9m5iL1kbSHWi898CFFsFXIkCcBeVuuVRGxTOzNSo2wouJZIIpg09PrackXksnYj6Op/UeD3IOV+1cR2CIBUB4BLJmgw1HP8Q8om2N+r4qUI1YwNiWstc5Hty/U9Pjctf67yPy0RDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=marek.ca; spf=pass smtp.mailfrom=marek.ca; dkim=pass (2048-bit key) header.d=marek.ca header.i=@marek.ca header.b=ARqz6Czv; arc=none smtp.client-ip=74.125.226.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=marek.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marek.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85537411FA4
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:03:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790276596; cv=pass; b=b+UyqXokQlxsQ1oag2p90g7zBa4GAGqwYBsjZeTE3/GfGhle5YVSCumSd/SijeDbbKtCYPWnfbN2yjCRoa/P53Tj7vOsNkaZuGOMSlgkHoFnWYyHsvw2J5OOpFLYzIrKV0sT9s/Komn9mzTujvMdY7y2n4kw5r5zTJxFHcY2Gg0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790276596; c=relaxed/simple;
+	bh=FyJSk2EQr9jIUBsLW3d+Qp2TNqU0yBEdip2Oe35nzRA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jvI/mIMGABZMyVnKf2XCs8W7V6Ntr8KmV4kDb5eRVUZc0CBw9ou9DUMrp+ykjbRRhrt7lLavF/j0tgMpT802GV7b8F7V3h3WQU49xrvh7MqhStoIOyS5IEZpCB5uiTt0HFQgPemVgEbJ4VJlMUSFACdoRH5ppuFIeRoxG1dPkZw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wermuth.pl; spf=fail smtp.mailfrom=wermuth.pl; dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b=eMnhG4ZU; arc=pass smtp.client-ip=74.125.230.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wermuth.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=wermuth.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marek.ca header.i=@marek.ca header.b="ARqz6Czv"
-Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-9851d513a70so163511241.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:02:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b="eMnhG4ZU"
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a30521ef15so748461fa.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:03:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790276592; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pCsoiUYtdS0zJZa1CyzNZlp7htQCynYa+SaVy/oIcHdkkBDDdMGOdsq7sM2SqLIh3Y
+         87ZirA3gLGzrZLfUYM+GmhCRUi24ieRi0pnz85MJMLfdLEGdGkhWKlYamg7ntZw6Z828
+         /EvtaBHW0jaPuv9dVVkVW8l291y5x0wfLmG2F1bxDdvN8lSQFHcDeWf+9SIIREgTVcbG
+         oArlaDqCBkQQ8oQ3QiEOlTSaz37PlVU126T+5E/998D6mI/LZ25cF3CLzREbI1KAWGve
+         J7KgxI1J7jESBW4Dcf7ZCNe4CbPCz1AhX8T21SfkXsjU6PIdrpXWilT/CAmX9BPZ7et4
+         wU2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=EJ1c4rHsHJGZ/tEYJFAlykm9/fk5FPrkQdOE5F+Bc3A=;
+        fh=F3G4i+FnFQ3rgHtImpKVWQ3iHyM/Hnacez8C4zKzhO0=;
+        b=oKwOxon39gLD0QatZzmfvxTDlyUBANPf5W6gvnaRfboEnuhyy0ug1C5ifheVl8mi/3
+         8B78X5Q2AzySAtFgiSYfP/uUq7no8nRamuzV6BgscQeIPERJozF3M/rI6uz0+wuAEtuz
+         VdTmAgZy6Njd+jcy4uBuNYLVRUPN3SuPtDUKP4/paXwkVOAfwpeO4SlrRW2n0L9g01Hi
+         hc7AFvnmXml/BtRMilDFjLIecfhbrxooLrjiMB0AY0xWdcs5cPf70QJp65Ekx75OQSmv
+         t8KfHTZcyLmHgpmsSkKCrSxxc6zDtdOCTjBn3owiKN/p5Co/7htC0WiTZv+dOVaJp2A9
+         T18Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=marek.ca; s=google; t=1790276536; x=1790881336; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-language:content-type:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:cc:to
-         :subject:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FWQWTkpRc4mjMwr+vW7xfwNCAyBMZNGtR2Jki2MQhHc=;
-        b=ARqz6CzvBJHEdx5GkyMPwb5HgkwVuHhCUBU2C4uKpjxxodRk9ko6nIfHGSoXOzCRe3
-         3MWjHj9npWLFN02JRMwOSymEe9gPdj5FvEX8mSu/Swo2h5hnlK21UPtKlo/Fvo+SN8SN
-         U1cYlmfV7ULFXk38xNY3Mkmo0OwcRG7XDseg9qPiOg2+Cl4Iz86tB245zwvYBL49e+Dr
-         BdN874tZ2dadCH98HCAjHI7qwAriRqXUT+8ZNmS+NqlutvdvLfBpMLCynOtjrMzZz4+M
-         Ky/mxdiIvrX3rFXZwlWC5qrJkeadad3vjtj6uLFQ7MaS/uhNUUbXh5wK/0kNioOb/myG
-         +OxQ==
+        d=wermuth-pl.20251104.gappssmtp.com; s=20251104; t=1790276592; x=1790881392; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EJ1c4rHsHJGZ/tEYJFAlykm9/fk5FPrkQdOE5F+Bc3A=;
+        b=eMnhG4ZUQHGNTYLIKbnqZzGH4cdC77mLfcHTUQA4EJNrM1CDjG8CjxszKYNbgWIKEh
+         Vi1XPEgB670mxJthc5ZjqV8zmM/qm0dnQkLlnZR0omm9X3SK3kgH9ryLM8dift7v8qUE
+         XbnYDqNS58eKkVP41iF7iionX7XRNolHh8GilYrpTuEqYL1nrb4dxqfkgM41e+41cI8x
+         oI6Oq4SVS/IfJ9wZ9mBhuPnuQDLJIH7Kg6JrUsalQ8CMUUAc51+YOBYGC1J82XWQIC+E
+         G6ahkEmThDTPHToUXCAyaDUl3XOLs7EM/xwHOhcpakY1vjgYlaz+gM46/5zrgPG7jWLc
+         anIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790276536; x=1790881336;
-        h=content-transfer-encoding:content-language:content-type:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:cc:to
-         :subject:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FWQWTkpRc4mjMwr+vW7xfwNCAyBMZNGtR2Jki2MQhHc=;
-        b=PNCvdlqZg4+xffo3dz7K/dRd++16cY7+ZKzWNZtnguYntxGV6HsNPNy/Nx6BqAL1uT
-         1geknMVD1bSLm2C3Z7vdcHNVWdJimvyNMhshqVJXUyBLpIJ4kzQLfrs1HFvpVAft/t6Q
-         UTYG8BOAdg3oJtCiadUrPgNoua+pluf9m6j5HytcwM/I4nd+QPogQ2sS8Kuh1PCi4Z67
-         6MqznWrQIQa44K+6HqXIYQKbd3jhJlB6ZObca9BtyqN1CGodySRE95eey/oJ69MnMP6Q
-         CyJCDrICBxl0QzDBvqF9FA3e6QIGlKRu481VNTkud97OCofwR28bWA9TkHFBVus55zYV
-         dgLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwgGTgpUq6QY7Th2NE1BzyohryMsvreGzY1Tshh9KyPB4/3Mf8yERQq/kj+3ZWTclBC8UsMm8TMmnn/Nv4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kxqEEdUTWK9PwZJSxzxOLhhPDFycoBN5asUdSDeAy+cmh7GCYe
-	XLUWXGQKlWwLj+taWrd0j/8/8DrNL1mA0QnnnLcomnfyqB7ifS3PBn2SCjJ5KkN9N6I9I2tYzCu
-	vsy0o
-X-Gm-Gg: AYBFou2FGbhVQM6y9OlY/0QHh5imEZujM36zwH+t9GcPO92PeXmSqB1K0Igl84n/b+G
-	aZ6lQKOmCJHF1PABkebcHp4222qGleCt/50wLsY5B5OBKjoUJ144RP0hUVv1gqB95rntOtQBeiy
-	CHNKdHK3O5h61Nm1p2AjW63H3yf6pe9Q9YqKnuytIbsVn5L6kA02C+TcQQL+LX3fgkPAFt4aCg4
-	uUoIisnAIlhxSrupz59QsHqdXfKBeZaO3lOWeO4X9uWQjqoYqKMMMcGiZlfOKYHQfrilnuEpjzU
-	STHGSEl0y/2byLHdah+aS5xjVnVhgOBVR3ky4Y3zPBZ+TctD6iyFU6/ESCsBScxXYDRZb/hbjS0
-	ECCPzrT58A9QdCAvXsFw/Q2XGuExCm8HGTNomiKzmMMyMJHr3SyLb8jJHIc1xThlxxYOYZXUCgQ
-	eo4ZrbWOWGFleC7jvSmJN262u+zMQ1r2wN/q8YqofkFirdEwcVmJMvBO61+sHn7SF6D1Bq7Sq/V
-	hAUvZeR5KFakTPkSiYpo8bbO0lT4UK9FNNJWR8EH8yy
-X-Received: by 2002:a05:6102:441e:b0:7a6:a24e:811f with SMTP id ada2fe7eead31-7af1c79966cmr1958653137.7.1790276535690;
-        Thu, 24 Sep 2026 12:02:15 -0700 (PDT)
-Received: from [192.168.0.189] (modemcable125.110-19-135.mc.videotron.ca. [135.19.110.125])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9851e8c4f2csm5199683241.10.2026.09.24.12.02.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 12:02:15 -0700 (PDT)
-Subject: Re: [PATCH] ASoC: codecs: lpass-wsa-macro: rewrite the interpolator
- volume after enabling clocks
-To: Liviu Nicoara <lnicoara@thinkoid.org>,
- Srinivas Kandagatla <srini@kernel.org>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Johan Hovold <johan@kernel.org>, linux-sound@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260924125940.22665-1-lnicoara@thinkoid.org>
-From: Jonathan Marek <jonathan@marek.ca>
-Message-ID: <54f8af3d-a01c-d1fb-36b4-7eac71174f92@marek.ca>
-Date: Thu, 24 Sep 2026 14:57:01 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+        d=1e100.net; s=20260707; t=1790276592; x=1790881392;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EJ1c4rHsHJGZ/tEYJFAlykm9/fk5FPrkQdOE5F+Bc3A=;
+        b=JzMaZJn1Y8cXS/Tr5LTKf+OY6sUxgZNUGG84/qyvCy8o+yN69Penl6Ytf1nYlwJXof
+         GJ0tzqKucXubOflKHlCbC0EuDSgxhlOqVu+IVY9xPRsYFjefWoNguh/TB30uy0XVq+i+
+         y4zG8Fzze8t4Sj8pToc78zYJTxoh4Ed+yg24GSde9WqPjtSsJ8RfRlIcdbAjbPzBe/SP
+         YUlnHs5qKA2LyUdND1jEPTW/e+H6TyPfMhoI/XVdZ1XnBC06mCm6hqBlMZcTutxWJbte
+         D/Ay5XTnjcug3aMntkg0DCrY8FcrCqpqvpsQ3UFQ/1ccnLbeR1Ydpos4PCJ/F6AHkUTT
+         MnJw==
+X-Forwarded-Encrypted: i=1; AKwUvBwJv2JPXUIxTvOhss/ddrw0IT07KFQhY8GY3qUZGMj/t8QcI8ud7uzvv64Vvnx4kkeIm1Fu7+FaAtv0XG8=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8xNYXgN2X+vaulcSpzrwgZ7FvvJwcs9azwCfKxv0R70APVHnF
+	tg8mbD0IDw8yv34bBHBth1tqIDb/2SadgDaw5VfkUiFWOp+IQLjNfheOpccgEaK3gfQ0hiUvyGv
+	ElrjodG8KZ2TsXExTuM68nZhsd6QGdlAafCHIaK+OtTP1DtSHnK7VvgU=
+X-Gm-Gg: AYBFou2kOfVI5lp6/R1hAb+thwFrO4Vlg1RwgT3WTAhpzBrra/7Iz8+xaIIk0Iw2yvl
+	8IKwDBgczjaCbZktQ3hU3RV99cIrPHvb9S2/JlMk4BTfQcuQwOaeeesxVMEKzwVIDQL0mUV+ZJe
+	hmcweWGPWv3SX6/GGjtjSbUZGOndZs8Wn/RNm5t1/5VqJmjPm6T5cWYiRj6lSSvQ6N7H5ngabjr
+	3L8OtLsT6Al/iP6UokC8uZKh5sNyni0k6R0aGkIg2CeTUSFyzloEJsCNVBp3j1ScP9v/eH/lJ8f
+	ZsTEmzO+pq6l7VrbsBO81dx/Z0cjdNjwjPFxE53bO8sGwB0Ahck3eGAxj5O2T9lBYl8=
+X-Received: by 2002:a2e:bea8:0:b0:3a5:b507:dfb with SMTP id
+ 38308e7fff4ca-3a63c408eb4mr9542881fa.29.1790276591671; Thu, 24 Sep 2026
+ 12:03:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260924125940.22665-1-lnicoara@thinkoid.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <20260924071445.441822-1-adam@wermuth.pl> <20260924071445.441822-2-adam@wermuth.pl>
+ <e03db2e9-085b-49ff-8d4a-bc112bc4ddd7@kwiboo.se>
+In-Reply-To: <e03db2e9-085b-49ff-8d4a-bc112bc4ddd7@kwiboo.se>
+From: Adam Wermuth <adam@wermuth.pl>
+Date: Thu, 24 Sep 2026 21:03:00 +0200
+X-Gm-Features: AclHuK9IKF3aAn5suDmSsCEFKxWsKS6ErHA9CID8WYyLrPR40kN4mqnvEj86JPs
+Message-ID: <CABkrwJ6uvjS8bez6j0MZbp2Y+O9RhyU09YOLrUzHaeUEVC=Qkg@mail.gmail.com>
+Subject: Re: [PATCH 1/3] arm64: dts: rockchip: Enable USB 2.0 host1 on Radxa
+ ROCK 3B
+To: Jonas Karlman <jonas@kwiboo.se>
+Cc: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-this is just papering over the real problem, which would be the regmap 
-cache being out of sync with the HW registers. there's no requirement 
-that the volume register be written after the int/path clock enable
+Hi Jonas,
 
-(fwiw, this problem doesn't reproduce on my setup, where this driver 
-does not autosuspend and the regmap doesn't go into cache-only mode)
+On Thu, 24 Sep 2026 6:12 PM, Jonas Karlman wrote:
+> This and next patch is likely best suited as an dt-overlay.
 
-On 9/24/26 8:59 AM, Liviu Nicoara wrote:
-> Commit 902f497a1ff5 ("ASoC: codecs: lpass-wsa-macro: remove useless
-> gain read/write sequence") removed the read and write of the digital
-> volume register in wsa_macro_enable_interpolator(), on the grounds that
-> writing back the value just read does nothing. The comment above it,
-> "apply gain after int clk is enabled", was left in place.
-> 
-> On the Dell XPS 13 9345 (X1E80100, four WSA8845 amplifiers on two WSA
-> macros) the write does something: a volume change made while the path
-> is idle does not take effect when playback starts. Lowering the digital
-> volume from 81 to 63 with nothing playing, then playing a test tone,
-> gave about the same level as before the change. With the rewrite
-> restored, lowering it from 81 to 69 while idle played audibly quieter,
-> and restoring 81 while idle brought the level back. Changes made during
-> playback take effect with or without the rewrite.
-> 
-> This is the behaviour described in commit 46188db080bd ("ASoC: codecs:
-> lpass-wsa-macro: fix compander volume hack"): "the volume registers
-> still need to be written after enabling clocks in order for any prior
-> updates to take effect." The value read comes from the register cache,
-> so the write pushes the last requested volume to the hardware once its
-> clock runs.
-> 
-> Restore the rewrite in the interpolator's POST_PMU event only. The mix
-> path event removed later in the same series is not brought back.
-> 
-> Fixes: 902f497a1ff5 ("ASoC: codecs: lpass-wsa-macro: remove useless gain read/write sequence")
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Liviu Nicoara <lnicoara@thinkoid.org>
-> ---
-> 
-> Notes:
->      Tested on v7.2.6 on the machine above, by listening. This function is
->      unchanged between v7.2 and for-next; the driver's clocks moved to the
->      PM clock framework in cd054a6e272c after v7.2, which was not tested
->      here. Build-tested on broonie/for-next (arm64 defconfig).
-> 
->   sound/soc/codecs/lpass-wsa-macro.c | 3 +++
->   1 file changed, 3 insertions(+)
-> 
-> diff --git a/sound/soc/codecs/lpass-wsa-macro.c b/sound/soc/codecs/lpass-wsa-macro.c
-> index 4242366601a5..899c8bee4645 100644
-> --- a/sound/soc/codecs/lpass-wsa-macro.c
-> +++ b/sound/soc/codecs/lpass-wsa-macro.c
-> @@ -1849,6 +1849,7 @@ static int wsa_macro_enable_interpolator(struct snd_soc_dapm_widget *w,
->   					 int event)
->   {
->   	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
-> +	unsigned int gain;
->   	u16 gain_reg;
->   	u16 reg;
->   	struct wsa_macro *wsa = snd_soc_component_get_drvdata(component);
-> @@ -1890,6 +1891,8 @@ static int wsa_macro_enable_interpolator(struct snd_soc_dapm_widget *w,
->   					CDC_WSA_RX_PGA_HALF_DB_MASK,
->   					CDC_WSA_RX_PGA_HALF_DB_ENABLE);
->   		}
-> +		gain = snd_soc_component_read(component, gain_reg);
-> +		snd_soc_component_write(component, gain_reg, gain);
->   		wsa_macro_config_ear_spkr_gain(component, wsa,
->   						event, gain_reg);
->   		break;
-> 
+Thanks for the review. That makes sense, as the B-key slot is not
+always populated.
+
+For v2 I will move the host1 enablement and the WWAN power, RESET#
+and W_DISABLE1# handling into a new rk3568-rock-3b-wwan.dtso overlay,
+and keep only the fan patch in the base DT.
+
+Adam
+
+
+czw., 24 wrz 2026 o 18:12 Jonas Karlman <jonas@kwiboo.se> napisa=C5=82(a):
+>
+> Hi Adam,
+>
+> On 9/24/2026 9:14 AM, Adam Wermuth wrote:
+> > The USB 2.0 data lines of the M.2 B-key slot are routed to USB2_HOST3,
+> > which is served by usb_host1_ehci/ohci through the host port of
+> > usb2phy1. Enable the controllers and the PHY port so that modules in
+> > the B-key slot, such as LTE modems, can enumerate.
+>
+> This and next patch is likely best suited as an dt-overlay.
+>
+> Regards,
+> Jonas
+>
+> >
+> > Signed-off-by: Adam Wermuth <adam@wermuth.pl>
+> > ---
+> >  arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts | 13 +++++++++++++
+> >  1 file changed, 13 insertions(+)
+> >
+> > diff --git a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts b/arch/arm=
+64/boot/dts/rockchip/rk3568-rock-3b.dts
+> > index 149a5306bb03..ad9a91c0d0d0 100644
+> > --- a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
+> > +++ b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
+> > @@ -758,6 +758,14 @@ &usb_host0_xhci {
+> >       status =3D "okay";
+> >  };
+> >
+> > +&usb_host1_ehci {
+> > +     status =3D "okay";
+> > +};
+> > +
+> > +&usb_host1_ohci {
+> > +     status =3D "okay";
+> > +};
+> > +
+> >  &usb_host1_xhci {
+> >       status =3D "okay";
+> >  };
+> > @@ -780,6 +788,11 @@ &usb2phy1 {
+> >       status =3D "okay";
+> >  };
+> >
+> > +&usb2phy1_host {
+> > +     phy-supply =3D <&vcc5v0_usb_host>;
+> > +     status =3D "okay";
+> > +};
+> > +
+> >  &usb2phy1_otg {
+> >       phy-supply =3D <&vcc5v0_usb_host>;
+> >       status =3D "okay";
+>
