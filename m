@@ -1,33 +1,28 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7CD283CF1EF;
-	Thu, 24 Sep 2026 09:07:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx.socionext.com (mx.socionext.com [202.248.49.38])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B3CCE441027;
+	Thu, 24 Sep 2026 09:08:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.248.49.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790240867; cv=none; b=hVjQ3Ktz3txLrSgUUyoIsElhNlkELkLlqWMosfgcQBpR8PEOslL4GCu0W20sLeaJnH+ztS7ZqIQ+8MIbCg4ultwWufMhUBpvLkwpJIxAdtrPv3RI3BL6eGkqT0ppvuLSAtC94mWoJxFLPLrFMUDUZv7a2vaoQAA7htnPozINCcY=
+	t=1790240932; cv=none; b=pAZgZNN6B6ugs2EvnluegN9oTirfcjAUPKykDD4ZOqp4ydgTTyaGaQut7uT+35fGEmPbcN7amKSqw89qiWhvd/n9amMD6NsxmcZCwIlvUsFH1Xn5OzmxNwsqnahOizG5+S9/tac+zJH0sE2keouSGJRIDp8lS23D1UiOslot2qs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790240867; c=relaxed/simple;
-	bh=KCpkwX3n9hDTqSNw48pPQoWBY0FYrWUGqdnZtj2ba/c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Z5pS3YFHP9QsMH692gOPitoyB8gFK8796yCFy9hufZYwN8eYr4MEKk7j5lw251x55RzODzNOdAxbXgcNY5CGd5RGl5Sh8tEEIf3p/nRTsEhrew/RL2b1qgcKSqNA3wNkcJV1H8oEMXfggUPXZurn11aVG4rDtiuj9Y6xkIGhZWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Lg0Ij3N6; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Lg0Ij3N6"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6686B1516;
-	Thu, 24 Sep 2026 02:07:40 -0700 (PDT)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8609B3F86F;
-	Thu, 24 Sep 2026 02:07:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790240863; bh=KCpkwX3n9hDTqSNw48pPQoWBY0FYrWUGqdnZtj2ba/c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Lg0Ij3N6WVWS4N+OYN2hfyqo2WvEhy7KK3wQywFVE5UG/R8DywLrfxYuW45vNJY6d
-	 pmPerYPn3hSU4jzj0AFR4h3OaxXAhFO0GypCth150WgOVAF2J9ECiv7wyAsOmGv/19
-	 8+/thaVS4iiXGenDxi+2mBgVObYURDzgpxm1V9/0=
-Message-ID: <30c42b73-204d-4531-bd1a-1ee160a4b000@arm.com>
-Date: Thu, 24 Sep 2026 11:07:40 +0200
+	s=arc-20240116; t=1790240932; c=relaxed/simple;
+	bh=903anojqqM2pdzEa9uiMMZh41KL1D4UgSxuRDd+fY5s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:Cc:
+	 In-Reply-To:Content-Type; b=pVzQJ74mG0LIqh0zcnxIrBLctuqUFJEuCf0XoA2MQqe+gaYdiZ9OQMv3n2Fmjnt54m4higOesSJN3cS2VLV/JvHzuJDu+aJsruwJmp+LfrcfDrS6s1SPG8etAF6iy7QGhruzIBuawnQfEmWkO/lGOysxD3mJtrrGJLbDGuNZOpc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=socionext.com; spf=pass smtp.mailfrom=socionext.com; arc=none smtp.client-ip=202.248.49.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=socionext.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=socionext.com
+Received: from unknown (HELO iyokan3-ex.css.socionext.com) ([172.31.9.54])
+  by mx.socionext.com with ESMTP; 24 Sep 2026 18:07:39 +0900
+Received: from mail.mfilter.local (mail-arc02.css.socionext.com [10.213.46.40])
+	by iyokan3-ex.css.socionext.com (Postfix) with ESMTP id A9FBD20914A4;
+	Thu, 24 Sep 2026 18:07:39 +0900 (JST)
+Received: from iyokan3.css.socionext.com ([172.31.9.53]) by m-FILTER with ESMTP; Thu, 24 Sep 2026 18:07:39 +0900
+Received: from [192.168.1.135] (unknown [10.213.44.71])
+	by iyokan3.css.socionext.com (Postfix) with ESMTP id 81E0110A019;
+	Thu, 24 Sep 2026 18:07:38 +0900 (JST)
+Message-ID: <97e4ab26-b147-4cf4-97f9-307903f14e61@socionext.com>
+Date: Thu, 24 Sep 2026 18:07:37 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,158 +30,112 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 03/11] dt-bindings: pinctrl: add Allwinner B288 pin
- controller
-To: Pablo Mazzini <pmazzini@gmail.com>, Chen-Yu Tsai <wens@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec
- <jernej.skrabec@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
- Samuel Holland <samuel@sholland.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-sunxi@lists.linux.dev
-References: <20260923201701.43391-1-pmazzini@gmail.com>
- <20260923201701.43391-3-pmazzini@gmail.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20260923201701.43391-3-pmazzini@gmail.com>
+Subject: Re: [PATCH v2] serial: 8250_uniphier: Use devm_clk_get_enabled()
+To: Malathi A <malathi.a2000@gmail.com>
+References: <20260917040511.103232-1-malathi.a2000@gmail.com>
+Content-Language: en-US
+From: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20260917040511.103232-1-malathi.a2000@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Pablo,
+Hi Malathi,
 
-On 9/23/26 22:16, Pablo Mazzini wrote:
-> One controller at 0x01c20800 with four external interrupt banks.
+On 2026/09/17 13:05, Malathi A wrote:
+> uniphier_uart_probe() enables priv->clk by hand and is then responsible
+> for disabling it again on every error path. It misses one: when
+> uart_read_port_properties() fails the function returns directly, leaving
+> the clock prepared and enabled. The neighbouring path, taken when
+> serial8250_register_8250_port() fails, does call clk_disable_unprepare(),
+> which shows the leak is an oversight rather than intent.
 > 
-> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+> Rather than adding another manual unwind, switch to
+> devm_clk_get_enabled() so the clock is released by devres. That removes
+> the error path entirely, along with the explicit disables in the
+> register failure path and in uniphier_uart_remove().
+> 
+> The clock is still disabled and re-enabled by hand across system sleep,
+> which stays balanced: only SET_SYSTEM_SLEEP_PM_OPS is used, so the
+> device cannot be unbound while suspended and devres always sees an
+> enabled clock at detach.
+> 
+> Found by smatch:
+> 
+>    drivers/tty/serial/8250/8250_uniphier.c:232 uniphier_uart_probe() warn:
+> 'priv->clk' from clk_prepare_enable() not released on lines: 205.
+> 
+> Fixes: 26e8349c0d76 ("serial: 8250_uniphier: Switch to use
+> uart_read_port_properties()")
+> Signed-off-by: Malathi A <malathi.a2000@gmail.com>
 > ---
->   .../pinctrl/allwinner,sun8i-b288-pinctrl.yaml | 108 ++++++++++++++++++
-
-Why is this a new file? Can't you just add the new compatible string to 
-the existing allwinner,sun4i-a10-pinctrl.yaml binding?
-
-Cheers,
-Andre
-
-P.S. Since we have seen this a lot lately: please wait with a new 
-version of your series for a few days, to allow other people to comment, 
-and to allow discussions to settle down. Not everyone can respond quickly.
-
->   1 file changed, 108 insertions(+)
->   create mode 100644 Documentation/devicetree/bindings/pinctrl/allwinner,sun8i-b288-pinctrl.yaml
+> Changes in v2:
+> - Use devm_clk_get_enabled() instead of adding a clk_disable_unprepare()
+>    to the failing path, as suggested in review. This also lets the
+>    explicit disables in the serial8250_register_8250_port() error path and
+>    in uniphier_uart_remove() go away.
+> - Reworded the commit message accordingly.
 > 
-> diff --git a/Documentation/devicetree/bindings/pinctrl/allwinner,sun8i-b288-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/allwinner,sun8i-b288-pinctrl.yaml
-> new file mode 100644
-> index 000000000000..806da97ab708
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/pinctrl/allwinner,sun8i-b288-pinctrl.yaml
-> @@ -0,0 +1,108 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/pinctrl/allwinner,sun8i-b288-pinctrl.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Allwinner B288 Pin Controller
-> +
-> +maintainers:
-> +  - Chen-Yu Tsai <wens@csie.org>
-> +  - Jernej Skrabec <jernej.skrabec@gmail.com>
-> +
-> +properties:
-> +  compatible:
-> +    const: allwinner,sun8i-b288-pinctrl
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    description:
-> +      One interrupt per bank of external interrupt capable pins.
-> +    maxItems: 4
-> +
-> +  clocks:
-> +    items:
-> +      - description: Bus Clock
-> +      - description: High Frequency Oscillator
-> +      - description: Low Frequency Oscillator
-> +
-> +  clock-names:
-> +    items:
-> +      - const: apb
-> +      - const: hosc
-> +      - const: losc
-> +
-> +  gpio-controller: true
-> +  interrupt-controller: true
-> +  gpio-line-names: true
-> +
-> +  "#gpio-cells":
-> +    const: 3
-> +
-> +  "#interrupt-cells":
-> +    const: 3
-> +
-> +patternProperties:
-> +  "-pins$":
-> +    type: object
-> +    $ref: /schemas/pinctrl/pincfg-node.yaml#
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      pins: true
-> +      function: true
-> +      bias-pull-up: true
-> +      bias-pull-down: true
-> +      bias-disable: true
-> +      drive-strength:
-> +        enum: [10, 20, 30, 40]
-> +
-> +    required:
-> +      - pins
-> +      - function
-> +
-> +  "^vcc-p[bcdfg]-supply$":
-> +    description:
-> +      Power supplies for pin banks.
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +  - clock-names
-> +  - gpio-controller
-> +  - "#gpio-cells"
-> +  - interrupt-controller
-> +  - "#interrupt-cells"
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/sun8i-b288-ccu.h>
-> +
-> +    pio: pinctrl@1c20800 {
-> +        compatible = "allwinner,sun8i-b288-pinctrl";
-> +        reg = <0x01c20800 0x400>;
-> +        interrupts = <GIC_SPI 15 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SPI 21 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>;
-> +        clocks = <&ccu CLK_BUS_PIO>, <&osc24M>, <&osc32k>;
-> +        clock-names = "apb", "hosc", "losc";
-> +        gpio-controller;
-> +        #gpio-cells = <3>;
-> +        interrupt-controller;
-> +        #interrupt-cells = <3>;
-> +
-> +        mmc0_pins: mmc0-pins {
-> +            pins = "PF0", "PF1", "PF2", "PF3", "PF4", "PF5";
-> +            function = "sdc0";
-> +            drive-strength = <30>;
-> +            bias-pull-up;
-> +        };
-> +    };
+>   drivers/tty/serial/8250/8250_uniphier.c | 10 ++--------
+>   1 file changed, 2 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/tty/serial/8250/8250_uniphier.c
+> b/drivers/tty/serial/8250/8250_uniphier.c
+> index e3db60bf50c9..6fffac12277a 100644
+> --- a/drivers/tty/serial/8250/8250_uniphier.c
+> +++ b/drivers/tty/serial/8250/8250_uniphier.c
+> @@ -180,16 +180,12 @@ static int uniphier_uart_probe(struct
+> platform_device *pdev)
+>   
+>   	memset(&up, 0, sizeof(up));
+>   
+> -	priv->clk = devm_clk_get(dev, NULL);
+> +	priv->clk = devm_clk_get_enabled(dev, NULL);
+>   	if (IS_ERR(priv->clk)) {
+> -		dev_err(dev, "failed to get clock\n");
+> +		dev_err(dev, "failed to get and enable clock\n");
+>   		return PTR_ERR(priv->clk);
+>   	}
+>   
+> -	ret = clk_prepare_enable(priv->clk);
+> -	if (ret)
+> -		return ret;
+> -
+>   	up.port.uartclk = clk_get_rate(priv->clk);
+>   
+>   	spin_lock_init(&priv->atomic_write_lock);
+> @@ -222,7 +218,6 @@ static int uniphier_uart_probe(struct platform_device
+> *pdev)
+>   	ret = serial8250_register_8250_port(&up);
+>   	if (ret < 0) {
+>   		dev_err(dev, "failed to register 8250 port\n");
+> -		clk_disable_unprepare(priv->clk);
+>   		return ret;
+>   	}
+>   	priv->line = ret;
+> @@ -237,7 +232,6 @@ static void uniphier_uart_remove(struct
+> platform_device *pdev)
+>   	struct uniphier8250_priv *priv = platform_get_drvdata(pdev);
+>   
+>   	serial8250_unregister_port(priv->line);
+> -	clk_disable_unprepare(priv->clk);
+>   }
+>   
+>   static int __maybe_unused uniphier_uart_suspend(struct device *dev)
 
+I'm a bit concerned about the error path in uniphier_uart_resume().
+The clock may have been disabled in uniphier_uart_suspend(), and
+clk_prepare_enable() can fail when trying to enable it again.
+
+In that case, wouldn't devres try to disable an already disabled
+clock on detach?
+
+Thank you,
+
+---
+Best Regards
+Kunihiko Hayashi
