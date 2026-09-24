@@ -1,117 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 620053C3F4B;
-	Thu, 24 Sep 2026 15:03:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A59130E0EE;
+	Thu, 24 Sep 2026 15:04:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790262200; cv=none; b=ko88s3RtZ5BKW2e1Rn+z4FfxIEl68ic+RHvmuhg25nhrvA+pK6pCNwthhi99pQUEVitTmZyZ5zh7f78JdOXNWofYY3nPgLzIBzQyhqT6H0wV7YzGB8mpOwPXg+FB7NROF47KoxO4wuXSJ0JY53G9uazcMR5zlPkos+QfB+/JM3Q=
+	t=1790262243; cv=none; b=GSFi+EEnGSjZQZZtoeycnT4NNEugbcuVXO8SJa6R+gmGYGLlfot2CQQTGf7GJt8U9m16G15+NfSe1r/m53vFoo4KV8+Apsb+kjFQXedn1QV1kspCFsotPySmtY5g6U+0iGTGBm72pzhiR5tNIeBS4bgbUJgUR1VnpwaTSNA/42I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790262200; c=relaxed/simple;
-	bh=FQnSwZUmrwrYXPPavatTEU6DVMM/WNs5hDeCgI9yiH8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Kkgqc31DRLw3P9xsRKV0cHnoBl0Ik6Rbd9biwmrlLPum5oQY/mzPH/iAuNS/STpH3lvHBp8lQwXPpKU4TPihwFkBx86Ppcnoef1zzq4ug7kOOL6j+ua23JJ4mtbOIGoHSm7km7jhC+YLIs3Wfe8/Q6FLhs3YrbTZCFxRKYpIdCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CKKlX2PD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790262243; c=relaxed/simple;
+	bh=WmyQ/b+AVFTPd1WqcNsheZvWvlvM6kFEgBDJJ1uO9/E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=llNR05xfNB/kLg7hmzSNqWeAaVmCqE4Is+q+n8o/36f5+vZ5rbV9da6zMAynh0HnrDTJioZUW5z45/pbM1CYJWDprSIped1TKX3sQOv0s1Y8C2dK8+Fpv8Zzfg+N6T3fiwmapZm+DzSok2qyJGmBnkeQcXW3IMKaZlAGp4jHhCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=hdZ6p579; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=bGGQrhdA; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=JY4hJr0w; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=PN9EcLto; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CKKlX2PD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 441851F000FF;
-	Thu, 24 Sep 2026 15:03:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790262196;
-	bh=rbI3J5MByOqOf6dl+z31TMJPnlEaks35mTvEW1B2isk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=CKKlX2PDopw4V/FG5N+J2hHi95G/OP+TAIXWBHQEO1AKEU0nskH8Xd1WjjBpAHaej
-	 qbQrqjWXnN7jt1t6tS49pbAys1YTcSbvK8HycJpXul+v1jpuCEDwV6Gl1jN3zW0tWh
-	 j48OOJ5XWAJMgPLfDUh0TbX7OVTZYtzV9gazFKBY0htB+yRccKfU9KxPbeA5fdqPXz
-	 lNVyfbU2Qe9jcIVAIpz2tr5j/Ln+wA0bGihFeni+XTPzrpp8f3Jpovw7BSEciXA4ag
-	 +3b7lka90+Y5U1enhzdCgNZL+kM2w7upW0UY/lDsWkhulr2X+hhjiWk7yd/zqWB5EU
-	 RHrc1vZrLL3Hw==
-From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-To: Chen Pei <cp0613@linux.alibaba.com>, ast@kernel.org,
- daniel@iogearbox.net, andrii@kernel.org, memxor@gmail.com,
- puranjay@kernel.org
-Cc: ihor.solodrai@linux.dev, eddyz87@gmail.com, martin.lau@linux.dev,
- song@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org,
- emil@etsalapatis.com, pulehui@huawei.com, pjw@kernel.org,
- palmer@dabbelt.com, shuah@kernel.org, guoren@kernel.org,
- bpf@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH bpf-next 0/2] bpf, riscv: Add support for indirect jumps
-In-Reply-To: <20260924102938-gotox-v2-style-question-cp0613@linux.alibaba.com>
-References: <20260923130856.1157-1-cp0613@linux.alibaba.com>
- <20260924102938-gotox-v2-style-question-cp0613@linux.alibaba.com>
-Date: Thu, 24 Sep 2026 17:03:13 +0200
-Message-ID: <87ld8qpu8e.fsf@all.your.base.are.belong.to.us>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="hdZ6p579";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="bGGQrhdA";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="JY4hJr0w";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="PN9EcLto"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id BCEBB21EB3;
+	Thu, 24 Sep 2026 15:03:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790262234; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=R8ajNCRnEhCGpEQykd0NxDczeBMsq8IF8+aOw3IKpQs=;
+	b=hdZ6p579pzuRhvknZG3X/6kejEi6XPsuyYIfvGavXLZ7E0isvSA218uTbjChW/EXwasMf4
+	DB55tar9J9KklsaX8ZvuUCLcbsuLMTs4dwMbOTaUKT4J45/TE00NW3PTAw0dIlk1LsneQW
+	C8Voj4EV5cA6jQYIpcPMeWuz9Pm0SFc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790262234;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=R8ajNCRnEhCGpEQykd0NxDczeBMsq8IF8+aOw3IKpQs=;
+	b=bGGQrhdAuh9syEvndaO1ekzNb/58Umc5I+EfyCnxKfPWm1Zm9dnESUz6T8/7949XeSgNW7
+	1y3OhF+nmEj+CfCQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790262230; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=R8ajNCRnEhCGpEQykd0NxDczeBMsq8IF8+aOw3IKpQs=;
+	b=JY4hJr0wBCndSS0dw6IiOShyfoJM7dnvUDGhiNmXd4myZ8wkf33byzLOMwX3XTZMuu7k3D
+	/m540duq4oICECJ/PTQO+NKhYrC3PFf0OCZYLl+OfdT8mgqNY6WmY7PElNp/Y3Egw9rcOH
+	+7CITC2J+dQICq4fj+hfAxTZWsNEHUM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790262230;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=R8ajNCRnEhCGpEQykd0NxDczeBMsq8IF8+aOw3IKpQs=;
+	b=PN9EcLtoCnh/yCAHs+7YA0oZzorLQfNbpjRwtvEh8smOryYF0lGRg6H0sepfsTTxL2trOt
+	vw5Db+5OUgpOX9DA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 93DBA136E6;
+	Thu, 24 Sep 2026 15:03:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 2avsG9Y7tWqRFwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 24 Sep 2026 15:03:50 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 2807CA132E; Thu, 24 Sep 2026 17:03:50 +0200 (CEST)
+Date: Thu, 24 Sep 2026 17:03:50 +0200
+From: Jan Kara <jack@suse.cz>
+To: Matthias Goergens <matthias.goergens@gmail.com>
+Cc: Hui Peng <benquike@gmail.com>, Jan Kara <jack@suse.cz>, 
+	Christian Brauner <brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] isofs: reject short directory records in
+ isofs_read_level3_size()
+Message-ID: <w3rnunloyshklgq4ocr4jsullzhaey6u7odstfoyhd4usbfppo@m33jyem5jgrf>
+References: <20260919222553.3792320-1-benquike@gmail.com>
+ <20260923175215.1577791-1-matthias.goergens@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923175215.1577791-1-matthias.goergens@gmail.com>
+X-Spam-Level: 
+X-Spam-Score: -2.30
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-2.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TAGGED_RCPT(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,suse.cz,kernel.org,zeniv.linux.org.uk,vger.kernel.org];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
 
-Hey!
+Hi!
 
-Chen Pei <cp0613@linux.alibaba.com> writes:
+On Thu 24-09-26 01:52:15, Matthias Goergens wrote:
+> I'm sorry, I missed your patch when I sent mine for the same function a
+> few days later ("[PATCH v2] isofs: validate directory records in
+> isofs_read_level3_size()"), and Jan has since applied mine to his tree.
+> 
+> I did test yours, on mainline and on Jan's for_next, running fs/isofs in
+> a userspace harness with ASan and UBSan: it fixes the three fuzzer
+> images that made isofs_read_level3_size() read past a record, and I
+> found no change on valid multi-extent images.
 
-> Hi all,
->
-> Thanks for the reviews. Patch 1 is a plain wording fix and will go into
-> v2. For patch 2 I need your input on one thing before I respin: which
-> form of the #endif comment you would prefer.
->
-> Patch 1, on the comment above bpf_prog_update_insn_ptrs():
->
->> This isn't a bug, but could the comment say "shift ctx->offset[] by one"
->> rather than "shift the linfo array by one"? The jited_linfo was already
->> filled in by the bpf_prog_fill_jited_linfo() call above, and it is the
->> JIT's own offset table that is being rewritten here.
->
-> Agreed. Fixed in v2.
->
-> Patch 2, on the #endif marker in verifier_gotox.c:
->
->> [Severity: Low]
->> This isn't a bug, but does this newly introduced multi-line comment
->> follow the BPF subsystem style guide? The subsystem guidelines
->> explicitly require that multi-line comments have the opening '/*' on
->> its own line, rather than beginning text on the same line as the
->> opening marker.
->
-> I would rather collapse it to a single line, but there is more than one
-> way to spell it:
->
->   a) 89 columns, clean under scripts/checkpatch.pl --strict:
->
-> #endif /* __TARGET_ARCH_x86 || __TARGET_ARCH_arm64 || __TARGET_ARCH_power=
-pc || riscv64 */
->
->   b) 101 columns, keeps every macro name verbatim, but checkpatch then
->      reports "WARNING: line length of 101 exceeds 100 columns":
->
-> #endif /* __TARGET_ARCH_x86 || __TARGET_ARCH_arm64 || __TARGET_ARCH_power=
-pc || __TARGET_ARCH_riscv */
->
->   c) or a short marker that does not repeat the condition at all:
->
-> #endif /* gotox-capable arch */
->
-> I lean towards (a): tools/testing/selftests/bpf/progs/ otherwise only
-> uses single-line #endif markers, and "riscv64" matches the guard, which
-> is __TARGET_ARCH_riscv && __riscv_xlen =3D=3D 64.
->
-> I will send v2 with the patch 1 fix and whichever form you pick, together
-> with any other feedback, so please let me know if you would like anything
-> else changed. If nobody has a preference, I will go with (a) in a few
-> days.
+For record I think your fix was better because it used proper entry
+validation helper which catches more problems.
 
-Maybe just (d):
-  | #endif /* gotox: x86, arm64, powerpc, riscv64 */
+> The part of yours that mine doesn't have is the limit on how many empty
+> blocks the walk skips.  Without it, a run of zero blocks is walked until
+> the end of the device.  On top of for_next that would be a small
+> follow-up, and if you'd like to send it I'm happy to test and review it.
+> If you'd rather I send it, I'll credit you with Suggested-by, or with
+> Co-developed-by followed by your Signed-off-by if you prefer.
 
-but (c) or (a) is fine as well, IMO.
+Based on the standard empty directory blocks are not allowed (there must be
+at least one directory record in each directory block). So I'd perhaps just
+add checks to refuse them. Then the limit on the number of sections of inode
+description already present in isofs_read_level3_size() will naturally take
+care of the rest.
 
-Feel free to add for the series for your v2:
-
-Reviewed-by: Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org>
-Acked-by: Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org>
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
