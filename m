@@ -1,147 +1,160 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1054139768F;
-	Thu, 24 Sep 2026 16:18:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4736239768F;
+	Thu, 24 Sep 2026 16:19:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790266739; cv=none; b=bzrOkQx13wOQV6zBSNQZ+ffxTjobMRb967dbAMFTgW9rrATO8QPYejDF7AZ0Okwt+e4uU9bx+K1Xj0XOxkbM6Mn9tV1tIWI4wZOmFvYlep2ZYtpGwOdmwyVKtA2sjWaMCdAX9pJTPKmii3ERH0gsjYHs0lOImtH6WUckm2AZQuk=
+	t=1790266767; cv=none; b=oz1SwDKV0xR4oVEHJsIbnT5R6Vi6RNz5YDUIQ0O68H4cJRuFm5W+PRpU2yqi5B8WGzBQOjmCrzXkivNFozN/M78h3PpU/XYPNZ3bbPpfabWY9xCO2Y9DtobwYn8csfw+6p1m3VfEBAxtKoLLe8uvJaoFbhjzL/G+jQFgBo5/hUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790266739; c=relaxed/simple;
-	bh=X5NJcOrsF5vYNxJ/RRFh1idRQODxnwRMJwFbIQHfJOo=;
+	s=arc-20240116; t=1790266767; c=relaxed/simple;
+	bh=TBBAdVZ9hQ764wuXnJkSy2mfXhg34VtFsuuVDYurrD8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lEsc15RMpiWyWq1gYlyldc8XOsBaaQ8kEdOJnTLJDFwoRUBUjbQ0beBNg8Wg9GhlZQMPeDF5+1NMMeuZs7ZOh+7uWNyhZyHy6HqIPFSG6EHrYXezAhoWS9m/Nd5ipcoD8CKM47Ds8M8T0oDC+JG3UQr9fXpn2B0HyfMKUcYxCTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=eTcUUVi5; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=hldUuhdj; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=q55qYFca; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=cJ0UZ03t; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=bz7veaeyTScNSiJBRmtJcttDblenZ8jSJo1MqjXwVBvJEqwZHBOnTCagcoxmnbuMY/5UJzKDKkBNIhOdEsCfYGmEs3Y/5mzgzQa/OZ3T8unsDPw++eAfjObCBTa7nR2+LqTJY5JbdbqWto/QecRL/fPUUtenJw6nmpR6H4OGQDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LdniQZtX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="eTcUUVi5";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hldUuhdj";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="q55qYFca";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="cJ0UZ03t"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A097D2014F;
-	Thu, 24 Sep 2026 16:18:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790266731; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=K8GJRNxL/HNk3XDpyTSTQGcarD33mCw2i5GJir7XuR4=;
-	b=eTcUUVi5lRT7IqsR2j4B1KIhl7a+TunPKmFoxuKfTRFj7c6PZoALUo4CW7WJo8EegraaHP
-	wFJR2KZNGfJDaI3s0Rr0sfXC2+oQpxUuZOOr2ERyHdBCVp08agFO2UFjnijd+deXYcL/yI
-	CM4/10/gRUkthEIe0tXIc3NYp09qT0E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790266731;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=K8GJRNxL/HNk3XDpyTSTQGcarD33mCw2i5GJir7XuR4=;
-	b=hldUuhdjxZd6zUPlxkMGPGzlxv5m+XXVXoA6Pd0pxD+sZOgZjwDdyW7eyF4BbGYKwJSweq
-	3/cSRlUoB1iiuhDw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790266727; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=K8GJRNxL/HNk3XDpyTSTQGcarD33mCw2i5GJir7XuR4=;
-	b=q55qYFcaCjNw06Vs/8Z3WfJorevYOcycDaxbtHiTpzDcRgJbYWLXCcWrah+3O4OYkWui1O
-	CoJiRm3ZP410Fa0Exe3x5AASTdrOPIgE7jkC2GaiY+Ij+G0a+rqmm7jtAn9SCHk/xba+Vv
-	ConkVxyfisYHlx7to9q6znV34zpf70E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790266727;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=K8GJRNxL/HNk3XDpyTSTQGcarD33mCw2i5GJir7XuR4=;
-	b=cJ0UZ03tuZNtkrfrIgfycAsi04HVdU1svCe8f+wn7E/f2VZnHHcGhZh8RIMblcpP2Eqlz1
-	eUqK5QIfUcvsKOAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3969513354;
-	Thu, 24 Sep 2026 16:18:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id timLAWZNtWp9bwAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Thu, 24 Sep 2026 16:18:46 +0000
-Date: Thu, 24 Sep 2026 17:18:44 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: Georgios Androutsopoulos <georgeandrout13@gmail.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Jan Kara <jack@suse.cz>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, 
-	linux-fsdevel@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] rust: file: handle fd table teardown in file
- descriptor APIs
-Message-ID: <arVL9aI02kF6yZDV@pedro-suse.tail5790ac.ts.net>
-References: <20260923022339.3340694-1-georgeandrout13@gmail.com>
- <arThye_219ruNbM2@google.com>
- <CAESH5ocJR9SLHcYfusixDmOR-CLce=HTpLxFU7zVQZFPtD9uuA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LdniQZtX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F24CB1F000FF;
+	Thu, 24 Sep 2026 16:19:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790266765;
+	bh=r66646FaaMJmMMJtghlI/Jm1UKe8pCt6tSOa0dL7Cmc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LdniQZtX4VayI3layjWdH4eFwyIF4H2Bq/vkmWjcfnkWIAwhEABQuq80dlBDeCe9n
+	 VSFQnk+R5ZEvRXfbMH9Diul7TU7qquNPg9rZizuO7XkXLQ2VOYpL8o2m6xzzujwoOd
+	 jemxUJFqOVj8o9Yz+fG7IqtthMIkmcjgmFXc164DQE/77DySgEnq+H9IKUcHj1CgEC
+	 1bJEPf0Sfjj6L/l4EyU1/EM2tCrRA5ERREOjE+1O92aH4amkcecW56ODAMlKoPpi1j
+	 dArMrpCMbNZF74xPxGBNWOFoLwdCcDkSDQKWepXEif42nqcvbgimieEl1boZFJn2H0
+	 c5c1WvpdiU9aQ==
+Date: Thu, 24 Sep 2026 19:19:17 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Vishal Moola <vishal.moola@gmail.com>,
+	Ingo Molnar <mingo@kernel.org>, Lu Baolu <baolu.lu@linux.intel.com>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Steven Rostedt <rostedt@goodmis.org>, x86@kernel.org,
+	linux-mm@kvack.org, regressions@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] mm: don't schedule deferred kernel page table freeing
+ while booting
+Message-ID: <arVNhTkI3kesfRs0@kernel.org>
+References: <20260924092307.22813-1-mikhail.v.gavrilov@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAESH5ocJR9SLHcYfusixDmOR-CLce=HTpLxFU7zVQZFPtD9uuA@mail.gmail.com>
-X-Spam-Level: 
-X-Spam-Score: -4.30
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[20];
-	RCVD_TLS_ALL(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,protonmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[google.com,zeniv.linux.org.uk,kernel.org,suse.cz,garyguo.net,protonmail.com,umich.edu,collabora.com,nvidia.com,onurozkan.dev,vger.kernel.org];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+In-Reply-To: <20260924092307.22813-1-mikhail.v.gavrilov@gmail.com>
 
-On Thu, Sep 24, 2026 at 12:06:18PM -0400, Georgios Androutsopoulos wrote:
-> On Thu, Sep 24, 2026 at 4:39 AM Alice Ryhl <aliceryhl@google.com> wrote:
-> > This looks like it should ideally be on the C side instead.
+On Thu, Sep 24, 2026 at 02:23:07PM +0500, Mikhail Gavrilov wrote:
+> Booting with a boot-time function tracer and a filter, for example
 > 
-> I could move the `NULL` checks into the C helpers in `fs/file.c` that
-> currently dereference `current->files`. Since this would move the fix
-> into the VFS code, would it be okay to send this as v3 of this patch?
+>   ftrace=function ftrace_filter=pud_free_pmd_page
+> 
+> panics on 7.3-rc4 as soon as the tracer starts:
+> 
+>   [   23.531178] Starting tracer 'function'
+>   [   23.675800] Oops: general protection fault, probably for non-canonical address 0xdffffc0000000038: 0000 [#1] SMP KASAN NOPTI
+>   [   23.819917] KASAN: null-ptr-deref in range [0x00000000000001c0-0x00000000000001c7]
+>   [   23.964025] CPU: 0 UID: 0 PID: 0 Comm: swapper Not tainted 7.3.0-rc4-fe2ec83746e5-with-fixes-v2+ #195 PREEMPT(undef)
+>   [   24.252248] RIP: 0010:__queue_work+0xab/0xf00
+>   [   25.981629] Call Trace:
+>   [   26.125727]  <TASK>
+>   [   26.413912]  ? pagetable_free_kernel+0x20/0x120
+>   [   26.990283]  queue_work_on+0x97/0xf0
+>   [   27.134382]  __cpa_collapse_large_pages+0x501/0x6f0
+>   [   27.566662]  cpa_flush+0x394/0x620
+>   [   27.998953]  change_page_attr_set_clr+0x321/0x4a0
+>   [   29.151729]  set_memory_rox+0xa2/0xf0
+>   [   29.584018]  create_trampoline+0x431/0x6f0
+>   ...
+>   [   44.343347] Kernel panic - not syncing: Attempted to kill the idle task!
+> 
+> The boot-time tracer is started from early_trace_init(), which runs
+> before workqueue_init_early().  Making its trampoline read-only splits a
+> large page, and CPA collapses it again right away.  The split table has
+> been a kernel page table since commit 9e4a3ec3411b
+> ("x86/mm/pat: Allocate split page tables as kernel page tables"), so the
+> collapse frees it through pagetable_free_kernel(), which queues work on
+> system_percpu_wq - still NULL at that point.  That commit is correct in
+> itself; it only lets CPA reach pagetable_free_kernel() before the
+> workqueue that function relies on exists.
+> 
+> Keep putting the table on the list, but don't schedule the work while
+> the system is still booting.  The next kernel page table freed after
+> boot schedules it, and the work then frees the early table too, after
+> the same IOMMU flush as any other.  If no kernel page table is freed
+> after boot, the ones freed during boot stay on the list.
+> 
+> Fixes: 9e4a3ec3411b ("x86/mm/pat: Allocate split page tables as kernel page tables")
+> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+> Link: https://lore.kernel.org/20260924064321.23787-1-mikhail.v.gavrilov@gmail.com
+> ---
+> v2:
+>  - Keep the table on the list and only skip scheduling the work while
+>    booting, instead of freeing it directly (David Hildenbrand)
+>  - Say that 9e4a3ec3411b is correct in itself and only exposes the
+>    problem (Lorenzo Stoakes)
+> v1: https://lore.kernel.org/20260924064321.23787-1-mikhail.v.gavrilov@gmail.com
+> 
+> Tested on a Ryzen 9 7950X with a Radeon RX 7900 XTX, lockdep and KASAN
+> enabled, on 7.3-rc4 (fe2ec83746e5) with the same unrelated local
+> changes as noted for v1, booting with
+> 
+>   ftrace=function ftrace_filter=pud_free_pmd_page,pagetable_free_kernel,kernel_pgtable_work_func
+> 
+> The boot that panicked without the fix completes.  The table freed
+> while the tracer installs itself does not show up in the trace, since
+> the tracer is not live yet at that point, but the first kernel page
+> table freed after boot does: systemd-modules-load freeing one from
+> __cpa_collapse_large_pages() schedules the work, and
+> kernel_pgtable_work_func() runs 0.8 ms later and drains the list.  From
+> then on every pagetable_free_kernel() in the trace (660 entries, none
+> lost) is followed by a work run within a few milliseconds.  So on this
+> box the early tables wait until the first module is loaded, and no
+> separate drain is needed.
+> 
+>  mm/pgtable-generic.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/pgtable-generic.c b/mm/pgtable-generic.c
+> index b91b1a98029c..f7f504f57914 100644
+> --- a/mm/pgtable-generic.c
+> +++ b/mm/pgtable-generic.c
+> @@ -444,6 +444,12 @@ void pagetable_free_kernel(struct ptdesc *pt)
+>  	list_add(&pt->pt_list, &kernel_pgtable_work.list);
+>  	spin_unlock(&kernel_pgtable_work.lock);
+>  
+> -	schedule_work(&kernel_pgtable_work.work);
+> +	/*
+> +	 * The workqueue may not exist yet while the system is booting.
+> +	 * The next kernel page table freed after boot schedules the work,
+> +	 * which then frees this one as well.
+> +	 */
+> +	if (system_state != SYSTEM_BOOTING)
+> +		schedule_work(&kernel_pgtable_work.work);
 
-FWIW, I don't think this makes sense. The VFS abstractions should ideally
-be taught that using any of these functions from ->release() simply isn't
-safe.
+Maybe we'll just skip collapse on boot?
 
-Adding random branches to rust or C code just to avoid UB sounds like
-delaying the inevitable; maybe your kernel doesn't crash (right away?),
-but the code is still incorrect and probably cannot correctly handle FD
-installation randomly failing, or fdget on a Known Good(tm) fd failing.
+>  }
+>  #endif
+> -- 
+> 2.55.0
+> 
 
 -- 
-Pedro
+Sincerely yours,
+Mike.
