@@ -1,201 +1,149 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD51E3F1075
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:09:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F4BD40801E;
+	Thu, 24 Sep 2026 07:10:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790233789; cv=none; b=TLBcfQ0cG2s1AV9XM83PMX1KgLS6Ny357jTXKxbAtl2FjImQng/2jAsxFaPv7U7LeXyN7FogvEYs4D7EldawUHuS2sg+tASe0Pg3mjTRjvD7wupWJcifj/+lgffB+QHEifGglMNWX6doevfHIyMQocdg3rVLTXwmef0hqJ9DYyE=
+	t=1790233832; cv=none; b=dva2p44n18iILCssrB5Hvs1rFnGrDUBdXEaXdqPGLU9S3ug3FJw1CGeN4FCW2T1i+CWkrOuktZfael0N+8Dr1CwRd6a84TH3zgIFGImKKYgwvRpXyPi23kmQyzBR/fHEydDzWK9TfW+CJ6Hjjkb4Sy4UUFx5QhEj5vHcWNoPZuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790233789; c=relaxed/simple;
-	bh=K7D7cVhyfKWTG5ZsIkrNnok6a9O/FIU+9I2MVB2PDTg=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=PlHMsgHKGofanCPR13bb2hKscEOJdK5jKa7i/oBjb/EgpgHn+2ehe5ZnkylgwPh5fLttbZAY4+voftasBIkcRNyQq/xaETM0aV992efoHGJQccWJGou9O1N1z+OIe27MLUZpI567KTJvYTu5GSubNSOVsIEu3Da3fx9V0CYtwZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=WToUVOl5; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790233832; c=relaxed/simple;
+	bh=7XdVllis+fOWu3k2foQ0ifOqNog1Fa1+TwpBWcIy4mQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=adncECkZubPFdTQzOMo4DoTVQJHgYRKhSNGIcM4hRNXPW8/bBXR9fENCBL8issfeVVvMBmph1T9HUHCZWcqqe960G6n5KVlDUwYQS9tVKx2SnycTwWAjL8YpYDiukqTKoQrUOceueswSf8YrJ3SnX4vKLZOxOcjlrBWTXoVlv2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Mr5PWlj5; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="WToUVOl5"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48442ea8f59so284296f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:09:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790233781; x=1790838581; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7avs/biYs8l8E4Q+bkJinfYIswxmGt6u/gkPhCnUaNY=;
-        b=WToUVOl5bL1xjiuUEtW3op9GHiZQj35V0Bh3jMpMjrzXVJku2hZHpyNowvSyudIHiS
-         TX1U3lrrhl7Zhrv56zSOokvQ9cEDx64eGSdMo4mEKnjxeUZzVJB4ynV90B0lwkcDKPIJ
-         ZTvwy9O3lMUxD/dLkg1e6wWYdAv+6bGvtowyLgXZIGTmrYNahLRGBrpZAk18hajeAlCH
-         NuW/wyg1xIGLtouTVxGg70zSO0WQHnGYPtVmJ+Biv5rb8X4YqYywCJVSnjw5UH0hFQO9
-         StHQ6GNnsHWrLAKuVeSGhVhHV2wEIuNF2SwhMm2gH/Fa5PexwcC6T5RxMK85fS+8agez
-         yIqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790233781; x=1790838581;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7avs/biYs8l8E4Q+bkJinfYIswxmGt6u/gkPhCnUaNY=;
-        b=re8yw54DVghbko8SWF+sUtX5jnRmc6R+zkabLsXRf6+/FSQTWpFAcqyph0hk9kY+OF
-         ynXgpM+dXC5vSxGTZn8KQy9W7K4NcJPs4LEnWllnIm83EkQDkBBNoqDS9R61BqLckl6U
-         y0wWQOunqY/LQjPkQcPdbF2mkhsKjvDp/8ZbEcwdvwUE/80P/AFBeoc4xgTME+QtLCOd
-         Gn33pZbqEwm0uCXL4D9brpH9PRwVOZcsVoPwsyvDchWH6nDGOXI2bKB2VMGQ0AKNgsSB
-         3ELTfTxIcWx173JGS2q71ooP1eB8KDk1/jUKxAkvshtxF55t2EQgJJSatY+orcCv2zFM
-         rQkA==
-X-Forwarded-Encrypted: i=1; AKwUvBymP6mp27axUCJPrVWHCPhPa8PcqwEbFfuIJs1V018G8rDUCQSishAE6aaJsAlOqEFzKYIhfvYchuEpySE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nizWXZ/DQzeQm7N0g7nWXutLO9CVyWfE7+7lveN+MfrrHAUxJy
-	8TYHQzQD/Yp3Y81ItmhNpbu1b2WOYxGpsp0WBeEffV1WEtIgR9+8ErXqjyo+dPZ8GiY=
-X-Gm-Gg: AYBFou0bBcrhLenNa9Mgld0sbSJQYiuxEg+8vqM4ehXHL1yrIRhcMRA2qMUAJL1uKlA
-	GzuM6PVuTe9735UTUM2yxfspUep1eC3Enw7eMXNbeAeTpWt8as2kL41yNYfhAjsfJlewRtHr5tE
-	xAxQ4Lev1cEoPpLMAadwBgE+j8XsIhrqi5KMvukMVVJuwMHvOtnhSkUFCEQSZrwqq0tkhnVT/sC
-	5R6h7rGS+Z+I3g1QjC5r26WUCiHSbwGSDUccDHy3McvUCWwm4eOIxCVv87zYME38hrP4QN6Rbug
-	ScPdsCLboyLqn+TwgEwc95rq1WRlOeVuB0RynqNELbrwPXjSF+3klQchwvCxt5dhusgTSzHXvO4
-	VVF62Ifx3MkohNvzsXaEwrEfU5zmPp7AssMGmweUzhgFrUOv6JupnVa4eMdCQfHZKvH22ZraW/Y
-	nG368H9xTjOkkxRT3lPV1qIXr0XUmS98LH8oy5DeUT5VxJrgoOlh9d7IMto/GeE0r/yljoMuXyq
-	KsANjz81oyxcnUT5W78ALT3yN+I2vOlHlZX/gSRsEHyz5T7k4XqlEm59iKR96JMr1GCaS/0UHY=
-X-Received: by 2002:a05:6000:1861:b0:487:e:f4f6 with SMTP id ffacd0b85a97d-488716dd323mr2953334f8f.15.1790233780913;
-        Thu, 24 Sep 2026 00:09:40 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:5e86:d153:fdb4:61c0? ([2a01:e0a:106d:1080:5e86:d153:fdb4:61c0])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886877a2a5sm13347227f8f.26.2026.09.24.00.09.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 00:09:40 -0700 (PDT)
-Message-ID: <2e369f45-6c9a-4604-a66e-f35c0904ec0f@linaro.org>
-Date: Thu, 24 Sep 2026 09:09:39 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Mr5PWlj5"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5e9Zr772433;
+	Thu, 24 Sep 2026 07:10:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	9Vu+eY+XrDWVFZMIcKt+DByXEoTWp4ZGOa9YAVXEHvU=; b=Mr5PWlj52tr2aLAk
+	1lTWduaDac39ZN/9zjdxlTXNwGWcr2KSQCn/W+asV46gT1CxP01DX1+GNxFTD2MN
+	BkoQYUGrAlIJtmRkL+8a8JL/f05fCFHQEAcBNqtiif7L4RnhAY0zsj2N2pJZ7HiM
+	DHk7a5jiDX4uamnGhqOFIreLWSOqniLIk4lX6h5uyodAEXHHH8nHrGwR4z8WAsqD
+	8Yt2sIqf1rUpvG12cwT5aGJ9lH2/OPMhygSWl4aJ7nCqeRFyQ+DrS+OAf3Gh+tR8
+	zfrzHfzL2+L4EcjctWL3Fs70JVCev13Ehm1HtUrQmkkS1DzoY+zuWlhHG6ARwuj0
+	CZUNqg==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvr909hg0-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 07:10:04 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 68O7A1TW2215804;
+	Thu, 24 Sep 2026 07:10:01 GMT
+Received: from hu-ffaruque-hyd.qualcomm.com (hu-ffaruque-hyd.qualcomm.com [10.147.245.31])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 68O7A0Ck2215790;
+	Thu, 24 Sep 2026 07:10:01 +0000 (GMT)
+From: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+Date: Thu, 24 Sep 2026 12:38:42 +0530
+Subject: [PATCH v15 1/6] power: Extend power_on_reason.h for upcoming PSCRR
+ framework
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [REGRESSION] Resolutions broken after "drm/msm: dsi: fix PLL init
- in bonded mode"
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Thorsten Leemhuis <regressions@leemhuis.info>,
- Mohit Dsor <mohit.dsor@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, vishnu.saini@qualcomm.oss.com,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <20251027-topic-sm8x50-fix-dsi-bonded-v1-1-a477cd3f907d@linaro.org>
- <ae07cef84AmXK43H@hu-mdsor-hyd.qualcomm.com>
- <wrhuksrzlxw2pjlvjm37dwjuztcv7qs5t6mqiav4ujecwqdkwj@ozbfxpbgaimt>
- <CAJfMnmEVwUwt=wMJ-8HKH1yz9+erWLrRGB+6wVYCdSGDK+_T_Q@mail.gmail.com>
- <114b9be8-1fca-4762-822e-1d53838d5de5@leemhuis.info>
- <o64cxeq5f4ffqpdmbai5cvsmxei2cnw3p6acvu55xl3cj5w3z3@6o6kokszvng7>
- <akt6z1irWlXA5UIy@hu-mdsor-hyd.qualcomm.com>
- <493b8d4c-164e-43c9-93c8-40cc251b1c3b@leemhuis.info>
- <d7v4kwmc42k5ymgdt4mn2qc7dkrf5jj2l5afgyjqrm3pxterl4@guulk22xwlzs>
- <f77e53d3-fb80-4832-aff7-4ab1244ee4a4@linaro.org>
- <y64m2frbbg67zfukyuuds5cx65fx3rjxfujbckoerv7sswhk2u@i6p4k3ul4aec>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <y64m2frbbg67zfukyuuds5cx65fx3rjxfujbckoerv7sswhk2u@i6p4k3ul4aec>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260924-pscrr-framework-v15-1-7af87107e0d3@oss.qualcomm.com>
+References: <20260924-pscrr-framework-v15-0-7af87107e0d3@oss.qualcomm.com>
+In-Reply-To: <20260924-pscrr-framework-v15-0-7af87107e0d3@oss.qualcomm.com>
+To: Sebastian Reichel <sre@kernel.org>, Benson Leung <bleung@chromium.org>,
+        Tzung-Bi Shih <tzungbi@kernel.org>,
+        Guenter Roeck <groeck@chromium.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Matti Vaittinen <mazziesaccount@gmail.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Oleksij Rempel <o.rempel@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
+        avaneesh.dwivedi@oss.qualcomm.com,
+        Umang Chheda <umang.chheda@oss.qualcomm.com>,
+        Faruque Ansari <faruque.ansari@oss.qualcomm.com>,
+        Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.14.3
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAzMCBTYWx0ZWRfX7xH73xdOaIhg
+ KmPN/1za2qhseMZXx3D/JFN18PGisF/X4gfXnibo7vFzKx3G1rvwJP5aGOyVX9boHauoZlp35jx
+ +5rtf9rui7nyliXUMvLObLouTM/yM50=
+X-Proofpoint-GUID: Iy79Rm_WCrocH8WaSHrzwx6-rzFDwRAg
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAzMCBTYWx0ZWRfXwTV41nMr8658
+ bxLNyhAx098fM8UaqmPJaS+vt5IEAluTvJwzL//HAiDnOPCpJ8mW7zi4Qmba1WBt7On+31VQIq4
+ wc72n4azdfFYSYNkYBBYsrLH2hS/1P27bit2UckrYlgZE0uUag+5lvympaJdKL5e9dz4EJAPnXf
+ gKjF449u04j1owvjSmVDP0nsbgwdTviivAtfaLBaEKuugwpIKiyvpx+9TxjWb4afOuuTA5tCOIk
+ 6qEbQJwsxg7MT78mfa1K/a+5zGytELvRQZHtZNfKz1vA72Qx2W6S9Zq3PjUPR+Fp0YopfsX2dE3
+ AUSGNDPlHpU9kVoYF2EbE4Qz1M0So5xiRT7oT8XHKUWh0YS928OtqrlofDlcZa0E8DeCYEOSnj5
+ xNNU4l0ywo/4IjFX9SarIHNQVIA/Y1FFogggnPZpaWY4RdxIrC6DGQZRQKggGgbnfFnZ2GLCLnR
+ +fhsr/jGIvqHzpu6rpA==
+X-Proofpoint-ORIG-GUID: Iy79Rm_WCrocH8WaSHrzwx6-rzFDwRAg
+X-Authority-Analysis: v=2.4 cv=fMusTpae c=1 sm=1 tr=0 ts=6ab4cccc cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=QX4gbG5DAAAA:8
+ a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=7kjejDXy1mYeYQkWB3oA:9 a=QEXdDO2ut3YA:10
+ a=AbAUZ8qAyYyZVLSsDulk:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 adultscore=0 lowpriorityscore=0 spamscore=0
+ clxscore=1015 impostorscore=0 malwarescore=0 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240030
 
-On 9/23/26 22:58, Dmitry Baryshkov wrote:
-> On Wed, Sep 23, 2026 at 12:48:21PM +0200, neil.armstrong@linaro.org wrote:
->> Hi,
->>
->> On 7/8/26 15:31, Dmitry Baryshkov wrote:
->>> On Wed, Jul 08, 2026 at 09:26:04AM +0200, Thorsten Leemhuis wrote:
->>>> On 7/6/26 11:52, Mohit Dsor wrote:
->>>>> On Wed, Jun 03, 2026 at 03:11:34PM +0300, Dmitry Baryshkov wrote:
->>>>>> On Wed, Jun 03, 2026 at 11:56:15AM +0200, Thorsten Leemhuis wrote:
->>>>>>> On 5/4/26 22:09, Mohit Dsor wrote:
->>>>>>>> Sorry for the late reply. I am attaching clk_summary and reg_dump in
->>>>>>>> working and non working case. Lilliput is just a normal display working
->>>>>>>> with hdmi and has 720p as preferred mode. Yes, I was talking about RB3
->>>>>>>> Gen2 only.
->>>>>>>
->>>>>>> Neil, Dmitry, and Mohit: what's the status here? From the outside it
->>>>>>> looks like this regression is still unfixed with nothing happening for
->>>>>>> weeks now. Or has progress been made and I just missed it?
->>>>>>
->>>>>> Thanks as a reminder. Unfortunately, it takes some more time (and I've
->>>>>> been a bit overloaded lately). Worst case I will send a revert soon.
->>>>>>
->>>>> Just wanted to check if you had a chance to look into this issue and whether there's any update on the investigation from your side.
->>>> Hmm, no reply. Given that we are entering holiday season and are way
->>>> past what Linus expects in a situation like this[1] I'd say we should go
->>>> for a revert, unless some fix shows up really soon now.
->>
->> Sorry I'm very late to the party, and checked again, reverting this breaks all dual-DSI setup
->> on SM8650, and probably other similar SoCs.
->>
->> Here's a complete log of the breakage which appears on the Ayaneo PS2 running v7.3-rc3 with mainline panel driver: https://gitlab.postmarketos.org/-/snippets/65
->>
->> I don't see why my fix did break this use case since it reverted the way the dual DSI PHYs
->> were initialized to actually allow the dual-DSI setup.
-> 
-> See commit cb55f39bf7b1. Without PLL_SHUTDOWNB and DIGTOP_PWRDN_B most
-> of the PLL registers read as zero. Currently the regs are handled
-> correctly (almost). With your patch in place the SHUTDOWNB gets dropped,
-> making PLL loose reg contents (and return 0 to CCF as the selected divisor).
-> Current code depends on those two bits being set across host_power_on.
+Prepare for the introduction of the Power State Change Reason Recorder
+(PSCRR) framework by expanding the power_on_reason.h header. This
+extension includes new power-on reasons:
+- POWER_ON_REASON_OVER_CURRENT for over-current conditions.
+- POWER_ON_REASON_REGULATOR_FAILURE for regulator failures.
+- POWER_ON_REASON_OVER_TEMPERATURE for over temperature situations.
+- POWER_ON_REASON_EC_PANIC for EC panics.
+- POWER_ON_REASON_EXTERNAL for an external reset source.
 
-Thanks I'll have a look.
+Co-developed-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
 
-Neil
+changes v12:
+- add POWER_ON_REASON_EXTERNAL
+changes v10:
+- add Reviewed-by: Sebastian Reichel ...
+changes v6:
+- add POWER_ON_REASON_EC_PANIC
+- s/POWER_ON_REASON_OVERTEMPERATURE/POWER_ON_REASON_OVER_TEMPERATURE
+---
+ include/linux/power/power_on_reason.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-> 
->>
->> Thanks,
->> Neil
->>
->>>>
->>>> Ciao, Thorsten
->>>
->>> Please send a revert.
->>>
->>>>
->>>> [1] To quote Linus statements from
->>>> https://www.kernel.org/doc/html/latest/process/handling-regressions.html#on-how-quickly-regressions-should-be-fixed
->>>>
->>>> """
->>>>   From 2026-01-22:
->>>>
->>>>    But a user complaining should basically result in an immediate fix -
->>>>    possibly a "revert and rethink".
->>>>
->>>> With a later clarification on 2026-01-28:
->>>>
->>>>    It's also worth noting that "immediate" obviously doesn't mean "right
->>>>    this *second* when the problem has been reported".
->>>>
->>>>    But if it's a regression with a known commit that caused it, I think
->>>>    the rule of thumb should generally be "within a week", preferably
->>>>    before the next rc.
->>>> """
->>>
->>
-> 
+diff --git a/include/linux/power/power_on_reason.h b/include/linux/power/power_on_reason.h
+index 95a1ec0c403c..13e61ace14f5 100644
+--- a/include/linux/power/power_on_reason.h
++++ b/include/linux/power/power_on_reason.h
+@@ -15,5 +15,10 @@
+ #define POWER_ON_REASON_XTAL_FAIL "crystal oscillator failure"
+ #define POWER_ON_REASON_BROWN_OUT "brown-out reset"
+ #define POWER_ON_REASON_UNKNOWN "unknown reason"
++#define POWER_ON_REASON_OVER_CURRENT "over current"
++#define POWER_ON_REASON_REGULATOR_FAILURE "regulator failure"
++#define POWER_ON_REASON_OVER_TEMPERATURE "over temperature"
++#define POWER_ON_REASON_EC_PANIC "EC panic"
++#define POWER_ON_REASON_EXTERNAL "external reset"
+ 
+ #endif /* POWER_ON_REASON_H */
+
+-- 
+2.34.1
 
