@@ -1,92 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C538B3D9665;
-	Thu, 24 Sep 2026 17:09:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D644381E92
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:10:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790269800; cv=none; b=dMcrfK0RQhkT/nmv5MUshIrcK8Ksc15O3NYw22SB0qywNxHUk2kq4ruOtPQUO7HBUedm+PJ7BkDlHqGuo+TWZ2BpM83xAxmnB5x8abafUl4DoRTIpdtXiI3vozRY2k8OcPqoTljIOkDLAzJFE4JkqOxcU/orUY4j7AnsmS50QC0=
+	t=1790269826; cv=none; b=SV5sQ9uHmRAoTP1OY9582t9Aq9dMUlesE6xs7xK5fXVbDKWZ+/03gHqmZqF//ljPrpIXuWhKTo4ySFzrvKs1LKx+Ap+XW0brS7zV59dCvrOaD3bwCY00TCNUG6GeDrBDXIdVBBQogbjNPdxavSCrRnijlk3QY/c4B4C905tjHD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790269800; c=relaxed/simple;
-	bh=XTqaO9MrJ/IvZRYs4uzLv5veDPlD2xKflY5/ApelDA0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QHLn9YzjM06Efd40lIgSrxq01AzO4xjydBZjvHwWn41hAv21WWOIb2iU0PBDRsDw674Y/AqWvcf6fYDOY5DtJAMZMv3GRh8XgplYEldpWNmmoAwqp7toUqXPsZe3RTSC+QNJTwVmq63lDDbg0Qiujawk034ae+pPxNFte7fCcp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bIYvBYM5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790269826; c=relaxed/simple;
+	bh=xT64NIlMh8pIe5ecVgBrXsUOxFiPNMLxtcPdfQhZyIs=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=mN+tIazCZBxAlJOepUhZXySPj7+Qo8NwpEr1Emc26a1NqPb4IJHt1z/nxGmfRxXr/d9+QD15xVbyOgpv/HTd+VpjUKA1yO2EXGPMMtJPQctUqeX35da2D5jdBdTyu0qpaYRg5LmQH+hB+a6Yw73nlgF31Qu9gIFRnagExNBaW/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dw+mJNvn; arc=none smtp.client-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bIYvBYM5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C0A91F000FF;
-	Thu, 24 Sep 2026 17:09:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790269798;
-	bh=3BBAbR054arD3ru3ZfA5MXSP3f4EpL7YgDzUT/PAMvo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bIYvBYM5/zR85IZ7yxSSOmlwQFy5gftzsHRSmtIE8/EY952DZ3RtSlYh4qXosPmKO
-	 5W+6N3UxT/CLzF2Tksi13KisXCrJACutg84cRsHQ0rrJ30ywWWubioEl0hdQTVPeN/
-	 mNy6/R8cu3T0kxbzaOkaRmfLpxWu11zFjj84/wRQuh7fFxqKlZ3T/y/DhfbGu/56P0
-	 Rtj2AquWMuBUgL55Er133ETh61HxXf0yBDc87hNbuenBBigsEVgZ0Div4zgdraGTdN
-	 5oCnp+PhDDgjIOHJ2dScGIHxXngGZgWYQ7oFDlWh/LnyxMTRLT/6n7to5wkG6jBGTz
-	 8XWuPE+Ke2mzw==
-Date: Thu, 24 Sep 2026 19:09:56 +0200
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: Stian Halseth <stian@itx.no>, Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
-	Andreas Larsson <andreas@gaisler.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Magnus Lindholm <linmag7@gmail.com>,
-	linux-perf-users@vger.kernel.org, sparclinux@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v3 0/3] perf: sparc64 user regs and stack dump, with
- arch hooks
-Message-ID: <arVZZCidUqSnIg7u@x2>
-References: <20260923090429.2026529-1-stian@itx.no>
- <CAP-5=fW4bzmy5_6a-8YucOy7JGKg+izRbq+7TaOGKV5aG0oYcw@mail.gmail.com>
- <4927bb40f34ec6d3d5591dabba755452bd6b4a39.camel@itx.no>
- <CAP-5=fWhk8Z22+PhFKbatO6fYgiNBgLGwVgg_NxS8fg=uEdDUw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dw+mJNvn"
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc4ac5feaa4so1524629a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:10:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790269824; x=1790874624; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1o1i2f/hTrS1n0Ninzv8Gte0+MRdXhRWFBn8i4nuoHM=;
+        b=dw+mJNvnSwqqZLAWgwkUb7J5ZGKuFg33lIK7PMZKFvaJ7vcgStinZYYymPjpw/U/bc
+         yI2Niq+tI3gE3Z+D9jI7Asxeboi9GoFEwa/gmRSEtxKuz81u5IaI9kqMI/uON7Oj4D8t
+         /jJVaPXhbY6naad/vti5mm0F6r0LCNpEOm3AE4a5H3X5LoXH+/xl3YooQSrGoB/fjzJl
+         siZFm0BcIOcfZKfoRe6BCdoKqy2MyqO0goTJonV2Cro6wu1N5EzFiQRdUGyyp3ve3ly3
+         2cK2Cr/AS7WDm8x+x90anv4dz2JSE8fhC9mxhJ43MYogdS7fFXZio+k+zgOzBhQ68/Vn
+         Wc4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790269824; x=1790874624;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1o1i2f/hTrS1n0Ninzv8Gte0+MRdXhRWFBn8i4nuoHM=;
+        b=WsiaEnWorHPgpxWz7+GildpCy79c8I+fYnVCBKsw3O9H0N+VJAoB7PH1Dm3M/jOLi3
+         eWw2GaBjRZY97aE0T2MvDpCvfBoCXqujv0DPdTZC3kYKpuWqByeOr/U3xaj90dqJki9Z
+         bqNYKtLYdPeUbWJZpIiN4rbcAxN/xd/WcnWqlfUaVhVXwICaVl0noxzKdri3ckCpDZvx
+         V5xtAHnYrT+8pKldA7yKDNusksWvHHaX9Xx2k82tjVss6/QdtX+UB4d301+J75IXwIg8
+         23aFCcA47hb7B8duWtmxkg6HfQGtNigQIWjXD8shLLE9Ndw64BpD/7oYjcqzmYD3misR
+         J1mQ==
+X-Gm-Message-State: AFuF++k+eT/h/9bFENDlcoV+G4YN+GPzOO3WnzoXhwko6gZiZmbgA0js
+	nxcQrsIxNrdYcdPDFmsWxnXWSAverjrwES2JyteOLSTkI7QLRV44Xq0zAp8jbsn+vjXEFV78f05
+	1lH9X3w==
+X-Received: from pgbfp2.prod.google.com ([2002:a05:6a02:2ce2:b0:cc4:ac62:d4ef])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:3408:b0:3dd:85a8:4c5f
+ with SMTP id adf61e73a8af0-3de0e76286amr3010885637.38.1790269823517; Thu, 24
+ Sep 2026 10:10:23 -0700 (PDT)
+Date: Thu, 24 Sep 2026 10:10:22 -0700
+In-Reply-To: <daily-reply-0006-re-kvm-mmu-derive-child-role-5-15@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAP-5=fWhk8Z22+PhFKbatO6fYgiNBgLGwVgg_NxS8fg=uEdDUw@mail.gmail.com>
+Mime-Version: 1.0
+References: <20260913155523.7423-4-k@mgml.me> <daily-reply-0006-re-kvm-mmu-derive-child-role-5-15@kernel.org>
+Message-ID: <arVZfjUskXC54OKZ@google.com>
+Subject: Re: [PATCH 5.15.y v3 3/7] KVM: x86/mmu: Derive shadow MMU page role
+ from parent
+From: Sean Christopherson <seanjc@google.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, stable@vger.kernel.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, Peter Xu <peterx@redhat.com>, 
+	David Matlack <dmatlack@google.com>, Kenta Akagi <k@mgml.me>
+Content-Type: text/plain; charset="us-ascii"
 
-On Wed, Sep 23, 2026 at 02:16:49PM -0700, Ian Rogers wrote:
-> On Wed, Sep 23, 2026 at 1:57 PM Stian Halseth <stian@itx.no> wrote:
-> >
-> > Hi Ian,
-> >
-> > On Wed, 2026-09-23 at 13:38 -0700, Ian Rogers wrote:
-> > >
-> > >
-> > > For the series:
-> > >
-> > > Reviewed-by: Ian Rogers <irogers@google.com>
-> > >
-> >
-> > Since this series is still marked RFC, should I resend it as a regular
-> > PATCH v4 with your Reviewed-by, or wait for additional maintainer
-> > feedback?
-> >
-> > And thank you so much for the reviews!
+On Mon, Sep 14, 2026, Sasha Levin wrote:
+> > -	role.direct = direct;
+> > -	if (role.direct)
+> > -		role.gpte_is_8_bytes = true;
+> > [...]
+> > +	if (!role.gpte_is_8_bytes) {
+> > +		struct kvm_mmu_page *parent_sp = sptep_to_sp(sptep);
+> > +		role.quadrant = (sptep - parent_sp->spt) % 2;
 > 
-> I think we have everything we need but the kernel changes are really
-> up to Peter and Ingo, and the tool changes are up to Arnaldo and
-> Namhyung.
+> The "if (role.direct) role.gpte_is_8_bytes = true;" that kvm_mmu_get_page()
+> used to do is removed here, and kvm_mmu_child_role() does not put it back.
+> 
+> That works upstream because the field there is has_4_byte_gpte, which
+> defaults to 0. On 5.15 the field is gpte_is_8_bytes, the inverse, so the
+> translation flips: for a non-paging guest
+> kvm_calc_shadow_root_page_role_common() leaves gpte_is_8_bytes at 0 while
+> kvm_calc_shadow_mmu_root_page_role() sets direct to 1, and a direct shadow
+> page ends up with a quadrant stamped onto it.
+> 
+> Keeping "if (role.direct) role.gpte_is_8_bytes = true;" in
+> kvm_mmu_child_role() preserves the upstream behaviour. The alternative is to
+> backport the upstream role-computation change first so the field carries the
+> mainline sense.
 
-Exactly, as soon as the kernel changes land in a path to upstream, I can
-do the same for the tooling bits.
+I vote to backport the relevant upstream commits.  Reviewing this without those
+commits is a pain.  I think it's these, to get fairly clean cherry-picks?
 
-Cheers,
-
-- Arnaldo
+  dc1ce45575b3401102568dd60ba8894849d1d64b KVM: MMU: update comment on the number of page role combinations
+  41e35604eaff2266ba8523787ebe99c5ca4c4045 KVM: X86: Remove useless code to set role.gpte_is_8_bytes when role.direct
+  b46a13cb7ea1137b2e01dfaafcacd5cd79db8390 KVM: X86: Calculate quadrant when !role.gpte_is_8_bytes
+  bb3b394d35e80d7a58ce015191e4960a13f54ba5 KVM: X86: Rename gpte_is_8_bytes to has_4_byte_gpte and invert the direction
