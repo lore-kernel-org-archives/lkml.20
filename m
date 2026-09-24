@@ -1,522 +1,258 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71FFF3E7BCC;
-	Thu, 24 Sep 2026 23:41:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F0247535D
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 23:41:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790293310; cv=fail; b=TVLY778WyYpo5vDZgPUUHTw2FetF9nPtHDtw2KdG/XZw3NCGYs9cEm8uIkfZWQPwr0ak5Z8lJSPOe4g6Am7Tc/+BR0O2/foohRNIG+mS4gbwUQ3NC41okzwpUw2JFkmZ22184E0Qy0T6VBCymRzr0gnjaWYpqtL/a4MsmgefegM=
+	t=1790293322; cv=fail; b=W6PtN0vQcSd3+FH/chR0IBTXpntBDGO3VIE7uBYiWJA4bVyMxvj0xfMtQa8VsLj83v0mCmcEZKNQ1F0eFLJ9izbUj333ZRrCGCTVUSi6ZduDTcJt1VaV7p31Dn+Fa9HYUKgInXMBeK5nV3TpvDvFFtF0dBdyxJsGVfJlcjK7xz8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790293310; c=relaxed/simple;
-	bh=9EkqJDBCNKPRpc5Xcc14oTp9RMsFHNn5hFDTaLu/6Cc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=hHXJXGimkAGy9DqNsqZZblEojSypLzKyNEKjHz2efZPVplDprhPiLe8b3tteRbZXAEe6PMON41xTIsHl7qxiFzg1PsqBzP5bkoqFjfWosIruFzIG8+rPmUP00jTHVUKlwZqq4DUKH4UjTtUj8ql1B70l555z0IiKl+T7Ffs7FBo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=mPR24nkG; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=iCpG2bEz; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	s=arc-20240116; t=1790293322; c=relaxed/simple;
+	bh=8dDYKXjtBg/DB2D4v0BK6OmTOtfG1cVk2csRo2Q4JnA=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=tLyI5RvlabkDAx+e+C0CddQjRIu4qaL95z7jt8TVnoa6Jme4cKp9dX3KpEhd3CsekBURTW7hfOoHNW8k1DBms8CLC/ztyo1gf0dSFibBQaQ67RRYdNn053qrXKUh/x6H9/nG7B1Awrvt+auePsETEa++Bc/YZ07EOyoQlO6421U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MjwN0wDD; arc=fail smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="mPR24nkG";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="iCpG2bEz"
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OMPtY2485854;
-	Thu, 24 Sep 2026 18:41:30 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=WtenFQEtwRP4t/ve7kg88QFRBWouW8zHv4orw6JNt
-	7k=; b=mPR24nkGEvh9Tpi+BYFrDCEAbkfYrRQIFaE0i1OjWnoKryUSJs3MrEwA+
-	6b+AEPO/z7yrodrkcpVfH8Nrz9kKjRWuOEsZbINOO7+m2FfueKbG43a8aOVntj/i
-	rlMBK7SBmsfJZNSMpodjnNGpYelF1+PpApb4hkFnDuc3et3B7dKoLQhdp45nkuzs
-	QTOurzNFWa8ph5D3mEFUnXsyMFnmPRxiNEZOHL7IdqgX9blrm9MZ2voZB/j0KssJ
-	vr9jR63DL7hvYhI2gsmjrHHdnhl3QLx2XxfsvHq1hxVQcirYSHK9scYNG/7q+2LO
-	yphL+9h94EvHiqJ2fmKhW2hJgVILA==
-Received: from ch5pr02cu005.outbound.protection.outlook.com (mail-northcentralusazon11012026.outbound.protection.outlook.com [40.107.200.26])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gvwm3637b-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 24 Sep 2026 18:41:29 -0500 (CDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MjwN0wDD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790293320; x=1821829320;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=8dDYKXjtBg/DB2D4v0BK6OmTOtfG1cVk2csRo2Q4JnA=;
+  b=MjwN0wDDWC5kcAjaam6A0eaLjnhsaB/siQvxa7J/MYoWiP1sPWhTI+/1
+   QUQJ2+BX+cNPKFJXM9nZNKULmN7U4SA4DERfHvtYvQhzWBA24UfM2JrVq
+   EL82shuI+1RFnAYroC/YxU9FvF62cjOkv6ifW+UvESMeDb2vmF305BjFa
+   9wHRaAQ0+hsOl7+hk1LwwrInr8gRe1UrcrqICcM0WDlb3ai6QvCS1Ju1/
+   68i6gpHDEM3UbWV4lQPqLnOharMr2jk5ItMfosIsaEPAKvgdEyR+r1xro
+   0k1WW4ytf5MerkYswYhT8QvCYt/550gqDLOb3RlKTd/MmPuB7UlmmzpmC
+   w==;
+X-CSE-ConnectionGUID: 16A9d9D3QEOQBJqRaOB9wQ==
+X-CSE-MsgGUID: P9CnA3QHQZ+hKXKbt4iNZQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="100414897"
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="100414897"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 16:41:59 -0700
+X-CSE-ConnectionGUID: qnp7YjrKTZ+Pgm1XUBiItA==
+X-CSE-MsgGUID: WFvedSruQ4+WEnwAaQf9jg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="312097850"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 16:41:59 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 24 Sep 2026 16:41:58 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 24 Sep 2026 16:41:58 -0700
+Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.41) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 24 Sep 2026 16:41:58 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ckBXoRzzyPoB3BseGm9t9ObVW77tGZUxqv7yGdxUXj9UbuBgFsfFVQSUKHe0pYsOSlnRyq/QygcAKBzUWwxGge+D9ZFEQVNC1BbWZpJf7uHUROdvwz0yo/NfZG3D8UOpyKBSDu9X435vH2JJ7S4yS0QkBLl5BLofSjE7wlcuPVyz+YPMavBICmh45X0H4imyuZBpImEMUaAmG+8obGDWyzlRmkcVoaLGBYThJpXo0wBBvN0Y9XZe78kT45Bqgr6amWUCLIYPdfz+Yh3WwCoER1p+zBn+1PRcbTYzsHoFrTYOyNTJmGxFdlOL5k/xIgnqKJjGMDeL39qh4GALi4YZ0Q==
+ b=DnyIcIb8p1qfSpGsPZNDUuX/VMTHiyOdnQgpNQx9bild2enpWGyTPek89OgJRk2eOMtAmUo3P5/ExHrNbFlfHO80JKU+l89llQeLHUlD5DWdLKlq3qiRE5UhMDuEEedMqTV7Z5eyIwGCrSafs+H5q8lAeP1D5H+sLiRzvHuo81c0X0R04JZbmMi5K2bfWLwIvnUnws9id9fZsPv/adjdfhCnLY/AXHM3vGRVqW1w6Y2jtQaJRN++9zzS0rSu/HrlAUI3VCpKVw+CWEOXci6wSdjO0ETveV6AFKYJjkmiLVf4SYt+95J3UbPHJM7KuberVW/cjbDXcyhecEvvPsIl4A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WtenFQEtwRP4t/ve7kg88QFRBWouW8zHv4orw6JNt7k=;
- b=T6wM7E+nrg285NtVmhQABilzrS8UOF0/b0Fuo8B13ZI11kzrAz3jIfC0Zz9vlmUo7p/QCdLEJRbKvFkbAls4CcoAUMbynuFnxq5CRpyxNG7AQ4NMqE6GUmKB+MJ7d3DRBy3THIHo+73gtJTOQ6c31MpVxqDyb4cMia3i44rZfTcFzK2XIXWM/4mh9nnwEyMsiaSOtysn3VJhsgZloChac/bmPE1DmhP5v/Ur5XfW6cwzNh5+uJh2pjLijcY5n4RSH+tb2ozbsS4p55o8jpkJzqL4K0J9rzLiD+9kY8icn1SGLDy61jP9MoPgzwGk6bVfNdqf/nLPLqk74uuNG0NxVw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WtenFQEtwRP4t/ve7kg88QFRBWouW8zHv4orw6JNt7k=;
- b=iCpG2bEzObf3JLmENz8X17+cgp1JpDbKoHD90ZYI/3/hnZNsveJA6X0hQUbk+B22F0PNomjZs4PFrfWn9mVRDozvOU2H0bQDI+u50z5Az9LLEmp+bBu6BA4/5xdLbHqoeROBe2w+laSVe0ceONUiBEHXDYXL2T41h1ygrFplH1s=
-Received: from CH5PR05CA0018.namprd05.prod.outlook.com (2603:10b6:610:1f0::28)
- by DM4PR10MB6014.namprd10.prod.outlook.com (2603:10b6:8:ad::18) with
+ bh=8dDYKXjtBg/DB2D4v0BK6OmTOtfG1cVk2csRo2Q4JnA=;
+ b=jveVgP8rt8ism5kQ1sF/PBiy24cs185blt4hm95Mdp5VtBFYnrRSHmG9Dz2k8G+DQHjxjxcAsik3tSAmDYIC1cS8EM0fIqaSATR53bGBFgNgOj50ylX/syMzQ/5D2W6lPTD2Vq6/fRivR1qHozIbj9tJ6ICoXbyiWNffhk0HOlmXrI6v0OijQbndO7E9hkyUpaHnodzpAtvi48mcVjmVfJf4jJffzSroYrZxrvmyPH5TEWqt27QJnaRLjRdHtJL0TfbPOwL9XRbuI053NisBdLHHdIuIASWeBOrHHYdEeeHrSOv/Bg3xny7lk54z5XEHmODOz4tfAm0kEeeU2Mxo/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from PH7PR11MB6771.namprd11.prod.outlook.com (2603:10b6:510:1b5::20)
+ by PH0PR11MB4919.namprd11.prod.outlook.com (2603:10b6:510:34::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.7; Thu, 24 Sep
- 2026 23:41:25 +0000
-Received: from BN2PEPF0000A802.namprd02.prod.outlook.com
- (2603:10b6:610:1f0:cafe::a4) by CH5PR05CA0018.outlook.office365.com
- (2603:10b6:610:1f0::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Thu,
- 24 Sep 2026 23:41:25 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- BN2PEPF0000A802.mail.protection.outlook.com (10.167.245.171) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 23:41:24 +0000
-Received: from DFLE201.ent.ti.com (10.64.6.59) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 24 Sep
- 2026 18:41:00 -0500
-Received: from DFLE203.ent.ti.com (10.64.6.61) by DFLE201.ent.ti.com
- (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 24 Sep
- 2026 18:40:59 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE203.ent.ti.com
- (10.64.6.61) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Thu, 24 Sep 2026 18:40:59 -0500
-Received: from psdkl-workstation0.dhcp.ti.com (psdkl-workstation0.dhcp.ti.com [10.24.51.24])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68ONeXkx785172;
-	Thu, 24 Sep 2026 18:40:53 -0500
-From: Aniket Limaye <a-limaye@ti.com>
-Date: Fri, 25 Sep 2026 05:10:22 +0530
-Subject: [PATCH v2 3/3] i2c: designware: Add ti,tda54-i2c support
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 23:41:56 +0000
+Received: from PH7PR11MB6771.namprd11.prod.outlook.com
+ ([fe80::effa:162e:c9c9:a1b4]) by PH7PR11MB6771.namprd11.prod.outlook.com
+ ([fe80::effa:162e:c9c9:a1b4%4]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 23:41:56 +0000
+From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+To: "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Duan,
+ Zhenzhong" <zhenzhong.duan@intel.com>, "x86@kernel.org" <x86@kernel.org>
+CC: "Li, Xiaoyao" <xiaoyao.li@intel.com>, "Hansen, Dave"
+	<dave.hansen@intel.com>, "dave.hansen@linux.intel.com"
+	<dave.hansen@linux.intel.com>, "kas@kernel.org" <kas@kernel.org>,
+	"mingo@redhat.com" <mingo@redhat.com>, "seanjc@google.com"
+	<seanjc@google.com>, "pbonzini@redhat.com" <pbonzini@redhat.com>, "Peng, Chao
+ P" <chao.p.peng@intel.com>, "Verma, Vishal L" <vishal.l.verma@intel.com>,
+	"jgg@nvidia.com" <jgg@nvidia.com>, "aneesh.kumar@kernel.org"
+	<aneesh.kumar@kernel.org>, "Tian, Kevin" <kevin.tian@intel.com>,
+	"hpa@zytor.com" <hpa@zytor.com>, "tglx@kernel.org" <tglx@kernel.org>,
+	"nicolinc@nvidia.com" <nicolinc@nvidia.com>, "bp@alien8.de" <bp@alien8.de>,
+	"Gao, Chao" <chao.gao@intel.com>, "aik@amd.com" <aik@amd.com>,
+	"yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>
+Subject: Re: [RFC PATCH 08/15] x86/tdx: Add TDG.MMIO.ACCEPT module call
+ wrapper for TDX Connect
+Thread-Topic: [RFC PATCH 08/15] x86/tdx: Add TDG.MMIO.ACCEPT module call
+ wrapper for TDX Connect
+Thread-Index: AQHdS9rJ7FgWIHNhvU2XNEh+FPULkLbeZNqA
+Date: Thu, 24 Sep 2026 23:41:56 +0000
+Message-ID: <3d38cbbd51f8e75d5a3886ca203447fd19a3dad1.camel@intel.com>
+References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
+	 <20260924041032.1096569-9-zhenzhong.duan@intel.com>
+In-Reply-To: <20260924041032.1096569-9-zhenzhong.duan@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.44.4-0ubuntu2.1 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR11MB6771:EE_|PH0PR11MB4919:EE_
+x-ms-office365-filtering-correlation-id: 340a53ed-9bc0-45d6-458b-08df1a956b71
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|38070700021|11063799006|6133799003|22082099003|10067099003|56012099006|4143699003|18002099003;
+x-microsoft-antispam-message-info: /zcvSggnGK8D1zQIaDevaFtmTftjY60ssHZOej34c85M5LDDU3y41jESXa5putyOibqqEF8VFOBecwd/DdkNGGSwGSYcLPQDS28zkB6m3Y/0mKEE4bdZRhrtreFHz3PmLt2U3+JBnkeii/2JwI0ck1zSh1v5gHpnkaAOyApvg5QDrxH2Y6blPLhY9S8NAd3cYMHq27a50GGsLm7ewt7K6zFoL046U+0dtWE3oTZS/5Q1zzmnNP8BsDMyEKsEOpQzxdtnxR0mgO8XXeRcRzq7++03U1jJZDSFdDIyLzZfMt3oMFFYH8qyjAQJxb2FRU+S+QHaqoT8b5js0dLm1ZaQ+Fv1obmGnqLaLo9al4cuDisAx/saJiVRxIZsZWTyGYbo3zOyYp6OBHcKkkFqpP3bMy/+cCWw2vC/R2BZjjCAZc8udtA37aF0dXhKIeyHZi+vZgCnE+YXJcJvUBpz67/Zuoxkdr4ub0MiihBd7UbAR4IKIsZyxZCzTj5I0/bOoavBlwFWWrTlyl/vo/KXkrl++zcUrdShVW/ivOKrI4gKdGNHrYN7t+BNSZaMUHLkbWL9PG3ohChyci3Z00m0tzaH4P69nB2Ke8QXprj0YvKAs2vhb6oGjlc5/R+rCKMBLOYDoIbQgiyWlJ+Van8MsyQ03Di5gDmBHNn4lKuV+SybH76LkTiiEf28003JgDYPivd/UVULEMtl4gt6bjpspcdn640TVNwWd6bQhSp+6pr4xuQ=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6771.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(38070700021)(11063799006)(6133799003)(22082099003)(10067099003)(56012099006)(4143699003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?RkhSUHFOWEpweHVpNjZhWkl3aFFPNWJTQWprUEkvRFAwYzJ2TXJuSnZSQzk2?=
+ =?utf-8?B?dk1FZWw5aEs2NlRxRUdTMlkxeFBPZk9hbjJpVU5mdXhtUW5xZGIzd2UwbUJH?=
+ =?utf-8?B?VHBxeE4vZXM4MVFoVjhWUjNVR2RBd0tvRzRvazJNTnlzYTZWNDhHdlpET3hU?=
+ =?utf-8?B?REdYdjZ0dVViaHpHb0Y4bit4UXJXT201ZFZBREk2Q082ZEdFVExPWmlsK0V3?=
+ =?utf-8?B?QjNLbFgyd29WMjBGUGJGSm4wUTJqMmpqNzYwcXgyVWVkY1hiUDN5b2dQMVZi?=
+ =?utf-8?B?dllkUHBtMWZjRW51OTExV3l6eklyWUdSS04rQ2R4K0I3SDNPdGhKVEloNENm?=
+ =?utf-8?B?QmRWQUlvR0xtYm02Z1NCaVBFODJIdG82TW9EdUVYZG83RWhxQ2tGSm1NckdG?=
+ =?utf-8?B?YlpNL1V2QWhQemN3WEhHOStDWCtxWnUrL3YzcUU5MWFua1RTYTE3MGZkS05C?=
+ =?utf-8?B?ZWhMRGN6MVpxcHJBZkpVL0NOTXdiTTgwMVozVUxBbjRJUTc1RkJ1dTlkZzFx?=
+ =?utf-8?B?bWVjUlQ4NjBEcHJ2UDc4VUhIa01wTkJwNGI2ZXcyV0pKZjJJNEtFQ29rQ3hZ?=
+ =?utf-8?B?MGd6elkweXlTZUhBa2U5MXFuZVdaWG80K1hPUWM2blhlQ3hZYjZ2RkYxWGVq?=
+ =?utf-8?B?OUEyRWRyRDRRRERkeVo2YmpvR0xXcncvZTlIUmV0T3k5QXYwQUJRYm91bkpR?=
+ =?utf-8?B?d0JKMTJGTHZpNFV0eG1iTHhZazhwTlcxSXlwdW5Kb1Y0SHNzaXNKTUJJSWow?=
+ =?utf-8?B?ZmRZNmtnTlhyTms0R3dyRUdFMk9GTTkyL3JzOXEzUXJnTG92bGJoUkFLSXBU?=
+ =?utf-8?B?QW04dHRHWUF0WGM0V0YrdmU1SHRkZzhvTjVFbTRtSmIvc01XczBHN2xDSUdP?=
+ =?utf-8?B?SlZXelFibXJ6RXNQNDBhWG1xYWdaeXpuRUJKQ2srVU1ZOWVmdDJYZ2tZZmZt?=
+ =?utf-8?B?eUFHNkFnSDd2c00veCs5aTA4Zldjb0FuOVp2dXVDWUE0dVluVUlVOGhScmZS?=
+ =?utf-8?B?NU5ZeWNWLzVuYi9KbTUwYllFZCtURnNtRzljaFJuaWd0d3ZwVzZNdVJHRFY2?=
+ =?utf-8?B?ZkhZSTgwd1ptM05IMk9GOUxmdUlCTmdCU2h4L2E4WUZZd0wzZ0hJMU9jcStj?=
+ =?utf-8?B?NWx3TVBMclBkYjNRL0paaUF2Z3FieHNuaXdBSWtYZzUzQ0tiNXZEckphZlQ0?=
+ =?utf-8?B?NVBGekZQdHNXUkNVVTAzOTgvMU1ZVEV2eUFXcXRjdTV4aCs2Mk5jY1lnR090?=
+ =?utf-8?B?N081WE1GVjhMT3FSSm0rMzdyc1pCaXFtSFB1MlNmWmxzMUFHU21EYTNVbUVl?=
+ =?utf-8?B?WnFDRytHYTU4TkpDTTlGMzZ5WWFjck9jU0huYmFEbkdzRUJub25YazRUa2tu?=
+ =?utf-8?B?WitBTTZiSG8xZUZYY2NMTkFtaFJYcGtaajF4Y1BIbVpxbnRIVTBCVlB1TFZ4?=
+ =?utf-8?B?Ym9LUFY2NTk1MzluWTZsZHFyRVg1c2pvbUhhWjNkZE5NR0tETGhWbmovdldr?=
+ =?utf-8?B?NDVJbXM2bTRxV1VpSFdkbEJMQlF0VzlOcC9hZ2pjVTUwenVlMXY0cE5lcDA5?=
+ =?utf-8?B?amt2OHF5b1h6NDJzWmN0cS9Xa3IvQkNEcm92Mkx6dENIOHU3VWszVmIzQ3BH?=
+ =?utf-8?B?VlRLeTFuaFJEZGFwNXBwT2xwbFZRUHNqcHJ2bWRxR1NKR2sxazFFVURXKy80?=
+ =?utf-8?B?S3lZUjVUVVZMak5JTW0yWU9STUluVVVUejV2ZnZQRWR0NGdmTlMxYktSRG54?=
+ =?utf-8?B?Tzg5amFWTDczU2dKaUVMS283SFltc3JxVXFxRG5URXowSElRRTBLR2w1OXdE?=
+ =?utf-8?B?TDJndWxQMjNHcG5CRDdTUllYWGxyb0ZLK0o5d3pRV0tZNWVTYlBGRzlJcDVw?=
+ =?utf-8?B?UGloczZKMEFNQzRxMWNEWVBEaTFkK2lhaWFjSG9zUU53R2IvRFhDN3BmSVRx?=
+ =?utf-8?B?MXY0czRFYmFLS3Y2eE9xeDJETmphOVQycG5JWTBCZ25zNDJxVTZBUVlaSytS?=
+ =?utf-8?B?RlhaQXJnL1BrWjdoZEExN095NjIwZ0VIaEFFYU5QdGZLdm9CbTNrZkt3aGQ5?=
+ =?utf-8?B?RjBUUWcxcnBQTDZLQkJKeFNvdGxUZW9nS21RWjNuTmZZT2toc01rd3RJOW84?=
+ =?utf-8?B?M1Z4TGZVeTRDbmhpTzlMSzRITzNPWXdZVHkzUVVXUXJIRFQyRW1WOVJKNEFE?=
+ =?utf-8?B?VDM0bXdLUFN0UFRNU1JaU3lzUWNMUDZwcU8yOGMvM3hGOXRLL0VaMlN4bVRN?=
+ =?utf-8?B?VzczV1NhZGN1c1VONXdDL1VxOVRnanlTdWVMdkpkRFluaGFzYXJKY0x4QnRs?=
+ =?utf-8?B?T3BpR3JxenRwNGZ2OGhjb1Ntc0xoSzdOZTZvcjR4dkhaQTZGWUVkbTRzcVNl?=
+ =?utf-8?Q?bdYMkG/qrT3KIyjo=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <67737302C5311E44839CDE099EC318AD@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260925-tda54-upstream-i2c-v2-3-261785e58493@ti.com>
-References: <20260925-tda54-upstream-i2c-v2-0-261785e58493@ti.com>
-In-Reply-To: <20260925-tda54-upstream-i2c-v2-0-261785e58493@ti.com>
-To: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Mika Westerberg <mika.westerberg@linux.intel.com>,
-        Nirujogi Pratap
-	<pratap.nirujogi@amd.com>, Bin Du <bin.du@amd.com>,
-        Andy Shevchenko
-	<andriy.shevchenko@linux.intel.com>,
-        Matthew Brost <matthew.brost@intel.com>,
-        =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-        "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
-        David Airlie <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-CC: <linux-i2c@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <vigneshr@ti.com>, <nm@ti.com>,
-        <u-kumar1@ti.com>, <lianfeng.ouyang@starfivetech.com>,
-        <Ritwick.Sharma@arm.com>, <intel-xe@lists.freedesktop.org>,
-        <dri-devel@lists.freedesktop.org>, Aniket Limaye <a-limaye@ti.com>
-X-Mailer: b4 0.14.3
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A802:EE_|DM4PR10MB6014:EE_
-X-MS-Office365-Filtering-Correlation-Id: 13d8f649-d15a-4555-caae-08df1a955896
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|23010399003|82310400026|376014|7416014|921020|10067099003|56012099006|22082099003|18002099003|3023799007|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	hWcdf1CaHl5ub+dKk5XYbjEBCpYEaSyQxoCNWjf+EQv0Xm0LAWbqtlitchgPzjn0yQK6B0KuGEIfX+NvIJVFvUjfuoWdRTUSvPxpwklV4IVPfkvtxnozigbYg0PKAbo/MslKumOSQG7WkBFfZ9pS/LaM/d6rlJ9gWWtyP9aH/4vhKhiLXmSLAA72TJxJbBSM8enlm23nLhQDo9k2nmeWTqIaPcHBBpZKx22ux7dP+YpIVagiGrnh30EUGioS6fTWc2FD/hM1TZYl0AHWLativ+T7B6fJaWoNKz4TF3PhypQwEe4NIY8RZ51/AFtp54zWnVla8vWchwaLJcXwF9sX3FtMIE9YpkQG4/yadYy4dHcvvKRDNg0aH58DYM0MUhHCFipA05I/MO+9ejJPoZ8eMj1EDzECqipMt1PCHA+f2DD9ls8EzmjOQ/8kK2o6juuJiOJP01qZGskVTyYpm8ieiyyoEMu8wrlzMw/OAcy715gOP9RbLLqHalTdailFL3SUVp0q2/A/K0+vBHuo+QMC9IT6DLit8VWE6SpZ6/1sG50lvQG0ILZhjA7bBs1AqbVrJueGvxIjsSQIjPvF9d/2kUpY1azDbgbuVGofRoe3WpLJmWug8N2y5V/ATbeFAXTUdeogQKxwETYPjtqZJEgn6NVHek19mdDS5aY/zH/2MNJd35Bl3cW+qV149D+XJqoS
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(23010399003)(82310400026)(376014)(7416014)(921020)(10067099003)(56012099006)(22082099003)(18002099003)(3023799007)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	QOZnnn83RYUPk8ItYe1jr09c3AgoQ188/NHoJiJYy9YJt3JZ9WYkrkPRbKZKjOa2PgCMXSj6qm5ljtb6MVotY9reztYda4/viTE+c1YD01gCbWpmBLRXrbejGEMwQzxIMqkme9pwiA3k0/r8am3IUT4S1hm5UwuGbtfj/Lo81cunwVVqumSNkWcG3+teNB41CI1uVYe6C4guSERF1PhTR187w19k+5O4x1ciPjfIY4m0iUyrAQ8GZN897WkmjiUUNlBJYlL/v7iVcOxgJLGwWEs5QwPM87HDa265t3SMf+JL7hofvSN/5Vmrrxos/WKOu/nmvsnjqeFfy8HhGQ5d0YBPG/0Res8nEx5vLcnVAx5urCrXyRx7lGv2juBcMFoUjbHmoFey/LZDSOrNj7z+VZkqkb0o16raht6IGmd72gcq4sdWLf+h3t1a6wvXCtx2
-X-Exchange-RoutingPolicyChecked:
-	VTSQ85O+ZvuzbZWDtIZGtB6q2It1JH5Rz5A6Af8OWV4FnLDVzOCozK0n8Z4f++rUcCmxCDXURJSUyka9HXe+GKJsN87OuOZcKdGrxDCXDNpxZIDIJIh6cZDSPO2JAT09ajjQZyzlAbCAIpTW+K+f6QTtHTiKZts6XeZgXv/tM9Oxypb3cYtxpM2uBXvmWwcTlKtuRX622nwYRsxwz5gJJd47YPefWusQMwllhBLSFtrqMuDz9EXAMRhkI76eF/M2JacPbv63DzpNPNb0iX+vfsWiLnCmtNKGJ5q+rdY9Yhk+m6bzyE3Z8bcwP+F6oUeYhH4mEQ2Hc+EbDzLI+/+xHA==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 23:41:24.7401
+X-Exchange-RoutingPolicyChecked: aADLRk5Qu2AK9/Lnr1K6cxKGabXVPvKG2DU7w0/G7kKJQuhYs06aY3j93AqtuF8X30XkYfq72gtmnZkhjkaUj1me6/zBUvKuaaeKRYG9S7yu5gY6PeTrOh87cJXg/dan904O7O0+CX4bxJSn5+n3CUEP3vWLEnaK91GcCFQ9Ciqu9e+ZlI5ec9HQPFh4uz7Y/E6C2Y353+KMmdoVBJR36rEdYbdg02aaXfOa3IkOB3ldvvzJUlKiRWrpwkx2b+cOkhHBVLdDCuTNEMgUSaAagMtUPquEvO0jpDKY9sZRZhs4z+AFDQTGbcrbj8fPrrQrTQNScyMkZRZnKw0s55m6qw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6771.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 340a53ed-9bc0-45d6-458b-08df1a956b71
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2026 23:41:56.4316
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 13d8f649-d15a-4555-caae-08df1a955896
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A802.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR10MB6014
-X-Proofpoint-GUID: l8_EzvKb_9F3STbirK2Iz_Bnu6Zfk88K
-X-Authority-Analysis: v=2.4 cv=EvdHPicA c=1 sm=1 tr=0 ts=6ab5b529 cx=c_pps
- a=A3soYu1h9hn2xD7k0nk5XA==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=jwouBfj2j3NM8CExmVVE:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
- a=SFMlj2LtjsmYIoXMqcoA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA5NiBTYWx0ZWRfX8wCu8nyS46JL
- biILaeRhuY7hbxbmI+qEU61Fr6mR9FYN3x6SRwLJPOi1WQ/k96TMQQhhEbPhqCUl8SUJrwWf7Kh
- UkFVvzG+Bl2VMfAjsgGPEhREOGlx5tw/54cDS/L0oWfxM9RsMLMOltMuGVmwarSPVR+o1gfPZX5
- lS6Cc6Pi+fO99JaOA8z/wD6/cJIRAhkHPgYUC+csYdf8G7U6bptcvIehb/06p6eCyE0g4tXvigu
- j0ZhK7SM9kN6cgUPKC4MoYMpLBdMHmpQ9NgPMQdfA5qgodhjB6LbMfBDy77MgT3nJfQoOhO2hbb
- 0f+nf0qiEHVa8T57Iqo/JfWdwQwcXsuoKMY2dVZDZQD74Gi8IG33vIfJQ7tk7kPYYWUPmB702po
- DxhMEG/M71tzVx5XD+7WA++2WqFH1N9j/maHfjDMJLijNGgD3IkXRHzgyP0BpdcCDXoFcFCA+/f
- DRCLTFie322tMuZMjsw==
-X-Proofpoint-ORIG-GUID: l8_EzvKb_9F3STbirK2Iz_Bnu6Zfk88K
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA5NiBTYWx0ZWRfXwaQV9Lx7s9Us
- diANKwXyuMy9gJrwjkuWmpnMA+rv6FqYZ9weJWo0TYRKP6FPo6uK1g0/jtC5a2xeNwbeQXyqfIL
- neOHiAfzdYQLI/BG+RRXsRxqFUOmuuM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_06,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 bulkscore=0 phishscore=0 spamscore=0
- priorityscore=1501 adultscore=0 impostorscore=0 malwarescore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609240096
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: OmQCAZaum80+TfKEz9fraz/6PmPnAsEYRvCVjyTLZj1PuFQ1j07y08yestsLlawJaGCP0Gwm14nLVaC2fHactTD4vifReOMFpcjlLlxcMSA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB4919
+X-OriginatorOrg: intel.com
 
-Compared to the existing DW_apb_i2c layout [1], DWC_i2c present in TDA54
-SoC [0] differs enough to need MODEL_TI_TDA54-gated special-casing in a
-few places:
-
-- Add new register offsets table for TI TDA54 SoC.
-- The DW_IC_CON register bitfields are also updated.
-- Interrupts are acknowledged by writing a bitmask to a single CLR_INTR
-  register instead of reading N dedicated CLR_* registers;
-  i2c_dw_ack_intr() picks the right method based on dev->flags.
-- One HCNT/LCNT register pair is shared between standard and fast speed
-  instead of having one pair each; i2c_dw_write_timings() writes
-  whichever value set matches the configured speed.
-- No COMP_PARAM_1 register, so FIFO depth and high-speed-mode support
-  can't be autodetected: FIFO depth now comes from the required
-  snps,tx-fifo-depth/snps,rx-fifo-depth DT properties, and the
-  high-speed capability check is skipped.
-- No defined CON.RESTART_EN bit; treated as always set.
-- TDA54 SoC does not have SMBus block, skip accesses to those registers.
-
-[0]: DWC_i2c_reference.pdf
-[1]: DW_apb_i2c_databook.pdf
-
-Signed-off-by: Aniket Limaye <a-limaye@ti.com>
-
----
-
-Changes in v2:
-- Rename compatible/flag: snps,dwc-i2c -> ti,tda54-i2c,
-  MODEL_DWC_I2C -> MODEL_TI_TDA54.
-- Remove i2c_dwc_has_smbus(); just skip the SMBUS_INTR_MASK write under
-  MODEL_TI_TDA54.
-- Link to v1: https://lore.kernel.org/r/20260919-tda54-upstream-i2c-v1-3-b0b9f77be18b@ti.com/
----
- drivers/i2c/busses/i2c-designware-common.c  | 128 +++++++++++++++++++++++++---
- drivers/i2c/busses/i2c-designware-core.h    |  22 ++++-
- drivers/i2c/busses/i2c-designware-master.c  |  26 +++---
- drivers/i2c/busses/i2c-designware-platdrv.c |   1 +
- 4 files changed, 153 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/i2c/busses/i2c-designware-common.c b/drivers/i2c/busses/i2c-designware-common.c
-index eeeb1f189205..a0a54d4445df 100644
---- a/drivers/i2c/busses/i2c-designware-common.c
-+++ b/drivers/i2c/busses/i2c-designware-common.c
-@@ -72,6 +72,40 @@ static const char *const abort_sources[] = {
- 		"incorrect slave-transmitter mode configuration",
- };
- 
-+/* "ti,tda54-i2c" block-based register layout */
-+#define DWC_ADV_OPERATION_BLK_OFFSET		0x00
-+#define DWC_ADV_I2C_BLK_OFFSET			0x28
-+#define DWC_ADV_FIFO_INTR_BLK_OFFSET		0xbc
-+#define DWC_ADV_DEBUG_BLK_OFFSET		0xf8
-+
-+static const u32 tda54_i2c_reg_offsets[DW_IC_REG_MAX] = {
-+	[DW_IC_ENABLE]			= DWC_ADV_OPERATION_BLK_OFFSET + 0x04,
-+	[DW_IC_CON]			= DWC_ADV_I2C_BLK_OFFSET + 0x04,
-+	[DW_IC_TAR]			= DWC_ADV_I2C_BLK_OFFSET + 0x08,
-+	[DW_IC_SAR]			= DWC_ADV_I2C_BLK_OFFSET + 0x0c,
-+	[DW_IC_DATA_CMD]		= DWC_ADV_I2C_BLK_OFFSET + 0x58,
-+	[DW_IC_SS_SCL_HCNT]		= DWC_ADV_I2C_BLK_OFFSET + 0x24, /* shared SS/FS pair */
-+	[DW_IC_SS_SCL_LCNT]		= DWC_ADV_I2C_BLK_OFFSET + 0x28,
-+	[DW_IC_FS_SCL_HCNT]		= DWC_ADV_I2C_BLK_OFFSET + 0x24,
-+	[DW_IC_FS_SCL_LCNT]		= DWC_ADV_I2C_BLK_OFFSET + 0x28,
-+	[DW_IC_HS_SCL_HCNT]		= DWC_ADV_I2C_BLK_OFFSET + 0x2c,
-+	[DW_IC_HS_SCL_LCNT]		= DWC_ADV_I2C_BLK_OFFSET + 0x30,
-+	[DW_IC_SDA_HOLD]		= DWC_ADV_I2C_BLK_OFFSET + 0x34,
-+	[DW_IC_RX_TL]			= DWC_ADV_I2C_BLK_OFFSET + 0x5c,
-+	[DW_IC_TX_TL]			= DWC_ADV_I2C_BLK_OFFSET + 0x60,
-+	[DW_IC_INTR_STAT]		= DWC_ADV_FIFO_INTR_BLK_OFFSET + 0x04,
-+	[DW_IC_INTR_MASK]		= DWC_ADV_FIFO_INTR_BLK_OFFSET + 0x08,
-+	[DW_IC_RAW_INTR_STAT]		= DWC_ADV_FIFO_INTR_BLK_OFFSET + 0x0c,
-+	[DW_IC_CLR_INTR]		= DWC_ADV_FIFO_INTR_BLK_OFFSET + 0x10,
-+	[DW_IC_STATUS]			= DWC_ADV_FIFO_INTR_BLK_OFFSET + 0x1c,
-+	[DW_IC_TXFLR]			= DWC_ADV_FIFO_INTR_BLK_OFFSET + 0x20,
-+	[DW_IC_RXFLR]			= DWC_ADV_FIFO_INTR_BLK_OFFSET + 0x24,
-+	[DW_IC_TX_ABRT_SOURCE]		= DWC_ADV_FIFO_INTR_BLK_OFFSET + 0x18,
-+	[DW_IC_ENABLE_STATUS]		= DWC_ADV_FIFO_INTR_BLK_OFFSET + 0x14,
-+	[DW_IC_COMP_VERSION]		= DWC_ADV_DEBUG_BLK_OFFSET + 0x08,
-+	[DW_IC_COMP_TYPE]		= DWC_ADV_DEBUG_BLK_OFFSET + 0x0c,
-+};
-+
- static const struct dw_i2c_con_bits dw_i2c_con_bits = {
- 	.master			= DW_IC_CON_MASTER,
- 	.speed_std		= DW_IC_CON_SPEED_STD,
-@@ -88,6 +122,26 @@ static const struct dw_i2c_con_bits dw_i2c_con_bits = {
- 	.bus_clear_ctrl		= DW_IC_CON_BUS_CLEAR_CTRL,
- };
- 
-+/*
-+ * DWC_IC_CTRL bit layout for "ti,tda54-i2c".
-+ * There is no defined bit for RESTART_EN or SLAVE_DISABLE on this IP.
-+ */
-+static const struct dw_i2c_con_bits dwc_adv_i2c_con_bits = {
-+	.master			= BIT(0),
-+	.speed_std		= (1 << 4),
-+	.speed_fast		= (2 << 4),
-+	.speed_high		= (3 << 4),
-+	.speed_mask		= GENMASK(5, 4),
-+	.bit10_slave		= BIT(8),
-+	.bit10_master		= BIT(9),
-+	.restart_en		= 0,
-+	.slave_disable		= 0,
-+	.stop_det_ifaddressed	= BIT(10),
-+	.tx_empty_ctrl		= BIT(11),
-+	.rx_fifo_full_hld_ctrl	= BIT(12),
-+	.bus_clear_ctrl		= 0,
-+};
-+
- /* "snps,designware-i2c": dedicated read-to-clear register ID per logical interrupt */
- static const u32 dw_i2c_intr_clr[DW_INTR_IDX_MAX] = {
- 	[DW_INTR_IDX_INTR]      = DW_IC_CLR_INTR,
-@@ -103,6 +157,21 @@ static const u32 dw_i2c_intr_clr[DW_INTR_IDX_MAX] = {
- 	[DW_INTR_IDX_GEN_CALL]  = DW_IC_CLR_GEN_CALL,
- };
- 
-+/* "ti,tda54-i2c" CLR_INTR bit to write per logical interrupt */
-+static const u32 dwc_adv_i2c_intr_clr[DW_INTR_IDX_MAX] = {
-+	[DW_INTR_IDX_INTR]      = DWC_ADV_IC_INTR_CLR_INTR,
-+	[DW_INTR_IDX_RX_UNDER]  = DWC_ADV_IC_INTR_CLR_RX_UNDER,
-+	[DW_INTR_IDX_RX_OVER]   = DWC_ADV_IC_INTR_CLR_RX_OVER,
-+	[DW_INTR_IDX_TX_OVER]   = DWC_ADV_IC_INTR_CLR_TX_OVER,
-+	[DW_INTR_IDX_RD_REQ]    = DWC_ADV_IC_INTR_CLR_RD_REQ,
-+	[DW_INTR_IDX_TX_ABRT]   = DWC_ADV_IC_INTR_CLR_TX_ABRT,
-+	[DW_INTR_IDX_RX_DONE]   = DWC_ADV_IC_INTR_CLR_RX_DONE,
-+	[DW_INTR_IDX_ACTIVITY]  = DWC_ADV_IC_INTR_CLR_ACTIVITY,
-+	[DW_INTR_IDX_STOP_DET]  = DWC_ADV_IC_INTR_CLR_STOP_DET,
-+	[DW_INTR_IDX_START_DET] = DWC_ADV_IC_INTR_CLR_START_DET,
-+	[DW_INTR_IDX_GEN_CALL]  = DWC_ADV_IC_INTR_CLR_GEN_CALL,
-+};
-+
- /**
-  * i2c_dw_select_variant() - Pick the register offset table, CON-register bit
-  * layout and interrupt-ack mapping matching this device's IP variant
-@@ -110,9 +179,15 @@ static const u32 dw_i2c_intr_clr[DW_INTR_IDX_MAX] = {
-  */
- void i2c_dw_select_variant(struct dw_i2c_dev *dev)
- {
--	dev->regs = dw_i2c_reg_offsets;
--	dev->con_bits = &dw_i2c_con_bits;
--	dev->intr_clr = dw_i2c_intr_clr;
-+	if (dev->flags & MODEL_TI_TDA54) {
-+		dev->regs = tda54_i2c_reg_offsets;
-+		dev->con_bits = &dwc_adv_i2c_con_bits;
-+		dev->intr_clr = dwc_adv_i2c_intr_clr;
-+	} else {
-+		dev->regs = dw_i2c_reg_offsets;
-+		dev->con_bits = &dw_i2c_con_bits;
-+		dev->intr_clr = dw_i2c_intr_clr;
-+	}
- }
- EXPORT_SYMBOL_GPL(i2c_dw_select_variant);
- 
-@@ -429,13 +504,27 @@ static void i2c_dw_configure_mode(struct dw_i2c_dev *dev, int mode)
- 
- static void i2c_dw_write_timings(struct dw_i2c_dev *dev)
- {
--	/* Write standard speed timing parameters */
--	regmap_write(dev->map, DW_IC_SS_SCL_HCNT, dev->ss_hcnt);
--	regmap_write(dev->map, DW_IC_SS_SCL_LCNT, dev->ss_lcnt);
--
--	/* Write fast mode/fast mode plus timing parameters */
--	regmap_write(dev->map, DW_IC_FS_SCL_HCNT, dev->fs_hcnt);
--	regmap_write(dev->map, DW_IC_FS_SCL_LCNT, dev->fs_lcnt);
-+	if (dev->flags & MODEL_TI_TDA54) {
-+		/*
-+		 * Only one HCNT/LCNT register pair backs both speeds on
-+		 * this IP -- write whichever value set matches master_cfg.
-+		 */
-+		if ((dev->master_cfg & dev->con_bits->speed_mask) == dev->con_bits->speed_std) {
-+			regmap_write(dev->map, DW_IC_SS_SCL_HCNT, dev->ss_hcnt);
-+			regmap_write(dev->map, DW_IC_SS_SCL_LCNT, dev->ss_lcnt);
-+		} else {
-+			regmap_write(dev->map, DW_IC_FS_SCL_HCNT, dev->fs_hcnt);
-+			regmap_write(dev->map, DW_IC_FS_SCL_LCNT, dev->fs_lcnt);
-+		}
-+	} else {
-+		/* Write standard speed timing parameters */
-+		regmap_write(dev->map, DW_IC_SS_SCL_HCNT, dev->ss_hcnt);
-+		regmap_write(dev->map, DW_IC_SS_SCL_LCNT, dev->ss_lcnt);
-+
-+		/* Write fast mode/fast mode plus timing parameters */
-+		regmap_write(dev->map, DW_IC_FS_SCL_HCNT, dev->fs_hcnt);
-+		regmap_write(dev->map, DW_IC_FS_SCL_LCNT, dev->fs_lcnt);
-+	}
- 
- 	/* Write high speed timing parameters */
- 	regmap_write(dev->map, DW_IC_HS_SCL_HCNT, dev->hs_hcnt);
-@@ -490,8 +579,10 @@ int i2c_dw_init(struct dw_i2c_dev *dev)
- 	 * Mask SMBus interrupts to block storms from broken
- 	 * firmware that leaves IC_SMBUS=1; the handler never
- 	 * services them.
-+	 * TDA54 SoC has no SMBus block, so skip it.
- 	 */
--	regmap_write(dev->map, DW_IC_SMBUS_INTR_MASK, 0);
-+	if (!(dev->flags & MODEL_TI_TDA54))
-+		regmap_write(dev->map, DW_IC_SMBUS_INTR_MASK, 0);
- 
- 	i2c_dw_write_timings(dev);
- 
-@@ -535,6 +626,14 @@ int i2c_dw_fw_parse_and_configure(struct dw_i2c_dev *dev)
- 	if (device_property_read_u32(device, "snps,bus-capacitance-pf", &dev->bus_capacitance_pF))
- 		dev->bus_capacitance_pF = DW_IC_DEFAULT_BUS_CAPACITANCE_pF;
- 
-+	if (dev->flags & MODEL_TI_TDA54) {
-+		device_property_read_u32(device, "snps,tx-fifo-depth", &dev->tx_fifo_depth);
-+		device_property_read_u32(device, "snps,rx-fifo-depth", &dev->rx_fifo_depth);
-+
-+		if (!dev->tx_fifo_depth || !dev->rx_fifo_depth)
-+			return -EINVAL;
-+	}
-+
- 	dev->clk_freq_optimized = device_property_read_bool(device, "snps,clk-freq-optimized");
- 
- 	/* Mobileye controllers do not hold the clock on empty FIFO */
-@@ -851,6 +950,13 @@ static int i2c_dw_set_fifo_size(struct dw_i2c_dev *dev)
- 		return 0;
- 	}
- 
-+	/*
-+	 * DW_IC_COMP_PARAM_1 not implemented on this IP;
-+	 * fifo depth set in i2c_dw_fw_parse_and_configure().
-+	 */
-+	if (dev->flags & MODEL_TI_TDA54)
-+		return 0;
-+
- 	/*
- 	 * Try to detect the FIFO depth if not set by interface driver,
- 	 * the depth could be from 2 to 256 from HW spec.
-diff --git a/drivers/i2c/busses/i2c-designware-core.h b/drivers/i2c/busses/i2c-designware-core.h
-index 4c782594ab4e..bd96abf63c39 100644
---- a/drivers/i2c/busses/i2c-designware-core.h
-+++ b/drivers/i2c/busses/i2c-designware-core.h
-@@ -79,6 +79,18 @@ enum dw_i2c_intr_idx {
- 	DW_INTR_IDX_MAX,
- };
- 
-+#define DWC_ADV_IC_INTR_CLR_INTR		BIT(0)
-+#define DWC_ADV_IC_INTR_CLR_RX_UNDER		BIT(1)
-+#define DWC_ADV_IC_INTR_CLR_RX_OVER		BIT(2)
-+#define DWC_ADV_IC_INTR_CLR_TX_OVER		BIT(3)
-+#define DWC_ADV_IC_INTR_CLR_RD_REQ		BIT(4)
-+#define DWC_ADV_IC_INTR_CLR_TX_ABRT		BIT(5)
-+#define DWC_ADV_IC_INTR_CLR_RX_DONE		BIT(6)
-+#define DWC_ADV_IC_INTR_CLR_ACTIVITY		BIT(7)
-+#define DWC_ADV_IC_INTR_CLR_STOP_DET		BIT(8)
-+#define DWC_ADV_IC_INTR_CLR_START_DET		BIT(9)
-+#define DWC_ADV_IC_INTR_CLR_GEN_CALL		BIT(10)
-+
- #define DW_IC_INTR_DEFAULT_MASK			(DW_IC_INTR_RX_FULL | \
- 						 DW_IC_INTR_TX_ABRT | \
- 						 DW_IC_INTR_STOP_DET)
-@@ -291,7 +303,8 @@ struct dw_i2c_dev {
- 
- #define MODEL_AMD_NAVI_GPU			BIT(10)
- #define MODEL_WANGXUN_SP			BIT(11)
--#define MODEL_MASK				GENMASK(11, 8)
-+#define MODEL_TI_TDA54				BIT(12)
-+#define MODEL_MASK				GENMASK(12, 8)
- 
- /*
-  * Enable UCSI interrupt by writing 0xd at register
-@@ -352,12 +365,15 @@ static inline void __i2c_dw_read_intr_mask(struct dw_i2c_dev *dev,
- 		*intr_mask = dev->sw_mask;
- }
- 
--/* Acknowledge a logical interrupt via dev->intr_clr[]: reg ID */
-+/* Acknowledge a logical interrupt via dev->intr_clr[]: reg ID or bit value */
- static inline void i2c_dw_ack_intr(struct dw_i2c_dev *dev, enum dw_i2c_intr_idx intr)
- {
- 	unsigned int dummy;
- 
--	regmap_read(dev->map, dev->intr_clr[intr], &dummy);
-+	if (dev->flags & MODEL_TI_TDA54)
-+		regmap_write(dev->map, DW_IC_CLR_INTR, dev->intr_clr[intr]);
-+	else
-+		regmap_read(dev->map, dev->intr_clr[intr], &dummy);
- }
- 
- void __i2c_dw_disable(struct dw_i2c_dev *dev);
-diff --git a/drivers/i2c/busses/i2c-designware-master.c b/drivers/i2c/busses/i2c-designware-master.c
-index 329f958ded3e..94594f6349d4 100644
---- a/drivers/i2c/busses/i2c-designware-master.c
-+++ b/drivers/i2c/busses/i2c-designware-master.c
-@@ -42,14 +42,16 @@ static int i2c_dw_set_timings_master(struct dw_i2c_dev *dev)
- 	u32 ic_clk;
- 	int ret;
- 
--	ret = i2c_dw_acquire_lock(dev);
--	if (ret)
--		return ret;
--
--	ret = regmap_read(dev->map, DW_IC_COMP_PARAM_1, &comp_param1);
--	i2c_dw_release_lock(dev);
--	if (ret)
--		return ret;
-+	if (!(dev->flags & MODEL_TI_TDA54)) {
-+		ret = i2c_dw_acquire_lock(dev);
-+		if (ret)
-+			return ret;
-+
-+		ret = regmap_read(dev->map, DW_IC_COMP_PARAM_1, &comp_param1);
-+		i2c_dw_release_lock(dev);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	/* Set standard and fast speed dividers for high/low periods */
- 	sda_falling_time = t->sda_fall_ns ?: 300; /* ns */
-@@ -135,7 +137,8 @@ static int i2c_dw_set_timings_master(struct dw_i2c_dev *dev)
- 	/* Check is high speed possible and fall back to fast mode if not */
- 	if ((dev->master_cfg & dev->con_bits->speed_mask) ==
- 		dev->con_bits->speed_high) {
--		if ((comp_param1 & DW_IC_COMP_PARAM_1_SPEED_MODE_MASK)
-+		if (!(dev->flags & MODEL_TI_TDA54) &&
-+		    (comp_param1 & DW_IC_COMP_PARAM_1_SPEED_MODE_MASK)
- 			!= DW_IC_COMP_PARAM_1_SPEED_MODE_HIGH) {
- 			dev_err(dev->dev, "High Speed not supported!\n");
- 			t->bus_freq_hz = I2C_MAX_FAST_MODE_FREQ;
-@@ -398,8 +401,11 @@ i2c_dw_xfer_msg(struct dw_i2c_dev *dev)
- 			 * If both IC_EMPTYFIFO_HOLD_MASTER_EN and
- 			 * IC_RESTART_EN are set, we must manually
- 			 * set restart bit between messages.
-+			 * ti,tda54-i2c does not define a CON.RESTART_EN
-+			 * bit, and behaves like it is set to 1.
- 			 */
--			if (dev->master_cfg & dev->con_bits->restart_en &&
-+			if (((dev->master_cfg & dev->con_bits->restart_en) ||
-+			     (dev->flags & MODEL_TI_TDA54)) &&
- 			    dev->msg_write_idx > 0)
- 				need_restart = true;
- 		}
-diff --git a/drivers/i2c/busses/i2c-designware-platdrv.c b/drivers/i2c/busses/i2c-designware-platdrv.c
-index 42b34c678146..069c3dc0da10 100644
---- a/drivers/i2c/busses/i2c-designware-platdrv.c
-+++ b/drivers/i2c/busses/i2c-designware-platdrv.c
-@@ -257,6 +257,7 @@ static const struct of_device_id dw_i2c_of_match[] = {
- 	{ .compatible = "mobileye,eyeq6lplus-i2c" },
- 	{ .compatible = "mscc,ocelot-i2c" },
- 	{ .compatible = "snps,designware-i2c" },
-+	{ .compatible = "ti,tda54-i2c", .data = (void *)MODEL_TI_TDA54 },
- 	{}
- };
- MODULE_DEVICE_TABLE(of, dw_i2c_of_match);
-
--- 
-2.53.0
-
+T24gVGh1LCAyMDI2LTA5LTI0IGF0IDEyOjEwICswODAwLCBaaGVuemhvbmcgRHVhbiB3cm90ZToN
+Cj4gVERHLk1NSU8uQUNDRVBUIHZlcmlmaWVzIGFuZCBhY2NlcHRzIGEgcGVuZGluZyBwcml2YXRl
+IE1NSU8gcmFuZ2UgZm9yDQo+IGEgdHJ1c3RlZCBkZXZpY2UuDQo+IA0KPiBUaGUgTU1JTyByYW5n
+ZSB0byBiZSBhY2NlcHRlZCBjYW4gYmUgYSBzdWItcmFuZ2Ugb2YgdGhlIE1NSU8gcmFuZ2VzDQo+
+IG9yaWdpbmFsbHkgZGVmaW5lZCBpbiB0aGUgRGV2aWNlIEludGVyZmFjZSBSZXBvcnQuIEJlY2F1
+c2UgdGhlIFREWA0KPiBtb2R1bGUgY2FjaGVzIHRoZXNlIHJhbmdlcyBmcm9tIHRoZSBEZXZpY2Ug
+SW50ZXJmYWNlIFJlcG9ydCwgdGhlIGd1ZXN0DQo+IGRvZXMgbm90IG5lZWQgdG8gcGFzcyB0aGUg
+ZXhwbGljaXQgcGh5c2ljYWwgc3RhcnQgYW5kIGVuZCBhZGRyZXNzZXMgb2YNCj4gdGhlIE1NSU8g
+cmFuZ2UuIEluc3RlYWQsIGl0IG9ubHkgbmVlZHMgdG8gcHJvdmlkZSB0aGUgdGFyZ2V0IE1NSU8N
+Cj4gcmFuZ2UgaW5kZXgsIHRoZSBvZmZzZXQgd2l0aGluIHRoYXQgcmFuZ2UsIGFuZCB0aGUgc2l6
+ZSB0byBiZSBhY2NlcHRlZC4NCj4gDQo+IFRyYW5zbGF0ZSBURFggbW9kdWxlIHJldHVybiBjb2Rl
+cyBpbnRvIExpbnV4IGVycm5vIHZhbHVlcy4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IFpoZW56aG9u
+ZyBEdWFuIDx6aGVuemhvbmcuZHVhbkBpbnRlbC5jb20+DQoNCldlIGFyZSBnb2luZyB0byBuZWVk
+IGEgbG90IG1vcmUgaW5mbyBhYm91dCB3aGF0IHRoaXMgVERHIGNhbGwgaXMgZG9pbmcuIExvb2sg
+YXQNCnRoZSBob3N0IHNpZGUgc2VhbWNhbGwgd3JhcHBlciBjb21taXRzIGZvciBleGFtcGxlcy4N
+Cg0KPiAtLS0NCj4gIGFyY2gveDg2L2NvY28vdGR4L3RkeF9jb25uZWN0LmMgICB8IDM4ICsrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrKysNCj4gIGFyY2gveDg2L2luY2x1ZGUvYXNtL3NoYXJl
+ZC90ZHguaCB8ICAxICsNCj4gIGFyY2gveDg2L2luY2x1ZGUvYXNtL3RkeC5oICAgICAgICB8ICAx
+ICsNCj4gIDMgZmlsZXMgY2hhbmdlZCwgNDAgaW5zZXJ0aW9ucygrKQ0KPiANCj4gZGlmZiAtLWdp
+dCBhL2FyY2gveDg2L2NvY28vdGR4L3RkeF9jb25uZWN0LmMgYi9hcmNoL3g4Ni9jb2NvL3RkeC90
+ZHhfY29ubmVjdC5jDQo+IGluZGV4IDE0MDliMWEzMGNjNi4uMDlhOTJmZTIzMzU3IDEwMDY0NA0K
+PiAtLS0gYS9hcmNoL3g4Ni9jb2NvL3RkeC90ZHhfY29ubmVjdC5jDQo+ICsrKyBiL2FyY2gveDg2
+L2NvY28vdGR4L3RkeF9jb25uZWN0LmMNCj4gQEAgLTcxLDMgKzcxLDQxIEBAIGludCB0ZHhfbWNh
+bGxfdGRpX3JlYWQodTY0IGZ1bmNfaWQsIHU2NCBmaWVsZCwgdTY0ICp2YWx1ZSkNCj4gIAlyZXR1
+cm4gdGR4X21jYWxsX3RkaV90b19lcnJubyhyZXQpOw0KPiAgfQ0KPiAgRVhQT1JUX1NZTUJPTF9G
+T1JfTU9EVUxFUyh0ZHhfbWNhbGxfdGRpX3JlYWQsICJ0ZHgtZ3Vlc3QiKTsNCj4gKw0KPiArLyoq
+DQo+ICsgKiB0ZHhfbWNhbGxfbW1pb19hY2NlcHQoKSAtIEFjY2VwdCBhIHBlbmRpbmcgcHJpdmF0
+ZSBNTUlPIG1hcHBpbmcgb2YgYQ0KPiArICogICAgICAgICAgICAgICAgICAgICAgICAgICBUcnVz
+dCBEZXZpY2UgSW50ZXJmYWNlIChUREkpIGluc3RhbmNlDQo+ICsgKiBAZnVuY19pZDogRnVuY3Rp
+b24gaWRlbnRpZmllciBzcGVjaWZ5aW5nIHRoZSBUREkgaW5zdGFuY2UNCj4gKyAqIEBpbmRleDog
+TU1JTyByYW5nZSBpbmRleCBmcm9tIHRoZSBEZXZpY2UgSW50ZXJmYWNlIFJlcG9ydA0KPiArICog
+QHBnX29mZnNldDogUmFuZ2Ugb2Zmc2V0IHRvIHN0YXJ0IGFjY2VwdGluZyB0aGUgc3VicmFuZ2Ug
+ZnJvbSwgaW4gcGFnZXMNCj4gKyAqIEBwYWdlX2NudDogQ291bnQgb2YgcGFnZXMgdG8gYWNjZXB0
+DQo+ICsgKiBAZ3BhOiBHUEEgYmFzZSBhZGRyZXNzIHRoZSBzdWJyYW5nZSBtYXBwZWQgdG8NCj4g
+KyAqDQo+ICsgKiBWZXJpZnkgYW5kIGFjY2VwdCBhIHBlbmRpbmcgcHJpdmF0ZSBNTUlPIG1hcHBp
+bmcuIFVwb24gc3VjY2VzcywgdGhlIE1NSU8NCj4gKyAqIHBhZ2VzIGFyZSBzZXQgYXMgbWFwcGVk
+IGluIHRoZSBURFggbW9kdWxlLg0KPiArICoNCj4gKyAqIFJldHVybiAwIG9uIHN1Y2Nlc3MsIC1F
+SU5WQUwgZm9yIHVuYWxpZ25lZCBHUEEsIC1FTlhJTyBmb3IgaW52YWxpZCBvcGVyYW5kcywNCj4g
+KyAqIC1FQlVTWSBmb3IgYnVzeSBvcGVyYXRpb24sIC1FTk9ERVYgZm9yIFRESSBub3QgcHJlc2Vu
+dCBvciBpbnZhbGlkIG1ldGFkYXRhLA0KPiArICogb3IgLUVJTyBvbiBvdGhlciBURENBTEwgZmFp
+bHVyZXMuDQo+ICsgKg0KPiArICovDQo+ICtpbnQgdGR4X21jYWxsX21taW9fYWNjZXB0KHU2NCBm
+dW5jX2lkLCB1NjQgaW5kZXgsIHUzMiBwZ19vZmZzZXQsIHUzMiBwYWdlX2NudCwgcGh5c19hZGRy
+X3QgZ3BhKQ0KPiArew0KDQpvZmZzZXQgaXMgMCBmb3IgYWxsIGNhbGxlcnMgaW4gdGhpcyBzZXJp
+ZXMuIFNvIEknZCB0aGluayB0byBkcm9wIGl0IHVubGVzcyB0aGVyZQ0KaXMgc29tZSBvdGhlciBj
+b2RlIGNvbWluZyB2ZXJ5IHZlcnkgc29vbi4NCg0KQ2FuIHdlIHR1cm4gc29tZSBvZiB0aGVzZSBv
+dGhlcnMgaW50byBwcm9wZXIgdHlwZXM/IFdoeSBub3QgcGFzcyBzdHJ1Y3QNCnBjaV90c21fbW1p
+b19lbnRyeSBvciBzdHJ1Y3QgcGNpX2RldiBwb2ludGVycyBpbnN0ZWFkIG9mIHJhdyB1bnNpZ25l
+ZCBpbnRzPw0KDQpBY3R1YWxseSwgdGhlIG9ubHkgY2FsbGVyIGp1c3QgYWNjZXB0cyB0aGUgd2hv
+bGUgcGNpX3RzbV9tbWlvX2VudHJ5LCBzbyB5b3UganVzdA0KbmVlZDoNCg0KaW50IHRkeF9tY2Fs
+bF9tbWlvX2FjY2VwdChzdHJ1Y3QgcGNpX2RldiAqZGV2LCBzdHJ1Y3QgcGNpX3RzbV9tbWlvX2Vu
+dHJ5ICplbnRyeSkNCg0KV2hhdCBkbyB5b3UgdGhpbms/DQoNCj4gKwlzdHJ1Y3QgdGR4X21vZHVs
+ZV9hcmdzIGFyZ3MgPSB7DQo+ICsJCS5yY3ggPSBncGEgfCBURFhfUFNfNEssDQoNCkFsd2F5cyA0
+S0I/IE5lZWRzIGFuIGV4cGxhbmF0aW9uIGluIHRoZSBsb2cgYXQgbGVhc3QuDQoNCj4gKwkJLnJk
+eCA9IGluZGV4LA0KPiArCQkucjggPSBmdW5jX2lkLA0KPiArCQkucjkgPSAodTY0KXBnX29mZnNl
+dCA8PCAzMiB8IHBhZ2VfY250LA0KPiArCX07DQo+ICsJdTY0IHJldDsNCj4gKw0KPiArCWlmICgh
+SVNfQUxJR05FRChncGEsIFBBR0VfU0laRSkpDQo+ICsJCXJldHVybiAtRUlOVkFMOw0KPiArDQo+
+ICsJcmV0ID0gX190ZGNhbGxfcmV0KFRER19NTUlPX0FDQ0VQVCwgJmFyZ3MpOw0KPiArCWlmICgh
+cmV0KQ0KPiArCQlyZXR1cm4gMDsNCj4gKw0KPiArCXJldHVybiB0ZHhfbWNhbGxfdGRpX3RvX2Vy
+cm5vKHJldCk7DQo+ICt9DQo+ICtFWFBPUlRfU1lNQk9MX0ZPUl9NT0RVTEVTKHRkeF9tY2FsbF9t
+bWlvX2FjY2VwdCwgInRkeC1ndWVzdCIpOw0KPiBkaWZmIC0tZ2l0IGEvYXJjaC94ODYvaW5jbHVk
+ZS9hc20vc2hhcmVkL3RkeC5oIGIvYXJjaC94ODYvaW5jbHVkZS9hc20vc2hhcmVkL3RkeC5oDQo+
+IGluZGV4IDQ5OTEwM2Y3YTAxYi4uY2U4MGZiMjExNmZiIDEwMDY0NA0KPiAtLS0gYS9hcmNoL3g4
+Ni9pbmNsdWRlL2FzbS9zaGFyZWQvdGR4LmgNCj4gKysrIGIvYXJjaC94ODYvaW5jbHVkZS9hc20v
+c2hhcmVkL3RkeC5oDQo+IEBAIC0yMSw2ICsyMSw3IEBADQo+ICAjZGVmaW5lIFRER19WTV9SRAkJ
+CTcNCj4gICNkZWZpbmUgVERHX1ZNX1dSCQkJOA0KPiAgI2RlZmluZSBUREdfVERJX1JFQUQJCQk2
+Nw0KPiArI2RlZmluZSBUREdfTU1JT19BQ0NFUFQJCQk3MQ0KPiAgDQo+ICAvKiBURFggVEQgYXR0
+cmlidXRlcyAqLw0KPiAgI2RlZmluZSBURFhfVERfQVRUUl9ERUJVR19CSVQJCTANCj4gZGlmZiAt
+LWdpdCBhL2FyY2gveDg2L2luY2x1ZGUvYXNtL3RkeC5oIGIvYXJjaC94ODYvaW5jbHVkZS9hc20v
+dGR4LmgNCj4gaW5kZXggNzFjZDcwMWQzNDZmLi5lNjQ5M2YzYmMwZDEgMTAwNjQ0DQo+IC0tLSBh
+L2FyY2gveDg2L2luY2x1ZGUvYXNtL3RkeC5oDQo+ICsrKyBiL2FyY2gveDg2L2luY2x1ZGUvYXNt
+L3RkeC5oDQo+IEBAIC0xNTUsNiArMTU1LDcgQEAgc3RydWN0IHRkY21fcnNwX2NoZWNrX3RlZWlv
+X3N1cHAgew0KPiAgDQo+ICB1NjQgdGR4X2hjYWxsX3RkY20odTE2IGRldmlkLCB2b2lkICpidWYs
+IHNpemVfdCBzaXplLCB1OCB2ZWN0b3IpOw0KPiAgaW50IHRkeF9tY2FsbF90ZGlfcmVhZCh1NjQg
+ZnVuY19pZCwgdTY0IGZpZWxkLCB1NjQgKnZhbHVlKTsNCj4gK2ludCB0ZHhfbWNhbGxfbW1pb19h
+Y2NlcHQodTY0IGZ1bmNfaWQsIHU2NCBpbmRleCwgdTMyIHBnX29mZnNldCwgdTMyIHBhZ2VfY250
+LCBwaHlzX2FkZHJfdCBncGEpOw0KPiAgI2VuZGlmDQo+ICANCj4gIHZvaWQgX19pbml0IHRkeF9k
+dW1wX2F0dHJpYnV0ZXModTY0IHRkX2F0dHIpOw0KDQo=
