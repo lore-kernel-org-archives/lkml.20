@@ -1,88 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBE8C33A9FE;
-	Thu, 24 Sep 2026 19:45:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E2C1425887
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:46:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790279139; cv=none; b=YPkGYZAW782Wk1cpBI+0twXjsf6nTQXEdz1s6/roJPwEUhTPdCZ/l1tsOhCbIK42zQ8/S2ZTIMJdeBJ9nO3ihyMci8Jksdp9Dq3Lv4lvzQu2ujaYWPHYbR6W/bBYdvn7lLRvlewxiazxdcaQWXRgGtB+f/+TEJ4EsR1JblJ4RTo=
+	t=1790279188; cv=none; b=kLOfPmPSfVw9I7V3VlPmcEM6kXr9RB+ea2wxF8zd+gX0YwwNB9gpfX14sOiXrVrKF7FaMR9Qp56fqSqbgvGknGRqUpzFmEr58JZ/8ZTKuPvZm7l2kWPjS391YGe/Ev5Zz6I3NU43JDff/w+rUAuhW+svrUnEssMxVzTSllzSVSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790279139; c=relaxed/simple;
-	bh=UCNSDIlulYome+vY3nf3Jy5HSzwP9j412kxfHAtL/EM=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=dDrUi/5dxkWjY2egD946aDXjp8Ru8wnExZyeS0pWEi4iGW78EpJ/f7L73F6Dlb7xZhbZ/NljPSXE2dfbXla+NCbREwoR1+DOsfDQeFLA0lJFOHzTM9bzb0MO5ZjF21SzoZqYdu9JJc6NiB+NaKfhZytmjH8iEkjhCWSV0T38j1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ae1AkLHj; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ae1AkLHj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B98EF1F000FF;
-	Thu, 24 Sep 2026 19:45:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790279130;
-	bh=TaQpXeqDu4eNv4g0BmK8EJLXBcJuN1+NJessy4FiZQw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=ae1AkLHj4nD3pqfTzdsRqvo7DSQ/WXft4HC2VmExh7F4A6mrt+tJ+U2LI7wfg9VlU
-	 3cpyfiRIeEs86qh6igBtVSd5dj4FkL4ZgelVzduCvRW74Ogo091BHO3s0HPcjwSrYb
-	 JJvUR1xkwTOK4AJ7Io8Zj0zx8ISR8U8QfdoPsBMYHt+RxZMkav7TUTaQpho5vp60Us
-	 DQfDegzGUXMbAe8grpRDHz1RMDM4meb4/5hD13vKxlCIO7/oQdrG9i5CSh/+NUgoRx
-	 8Y0xpwlMGf5AZisKAhfpqz1f5fpqIK8mo6jc8XUeJxv/XxwJ3fUIAJNQu19wqA53Y6
-	 wvNkJNRGor/OA==
-Date: Thu, 24 Sep 2026 14:45:28 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Wei Huang <wei.huang2@amd.com>
-Cc: bhelgaas@google.com, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, andrew.gospodarek@broadcom.com,
-	ajit.khaparde@broadcom.com, fengchengwen@huawei.com
-Subject: Re: [PATCH 1/1] PCI/TPH: Validate the firmware Steering Tag response
-Message-ID: <20260924194528.GA1999719@bhelgaas>
+	s=arc-20240116; t=1790279188; c=relaxed/simple;
+	bh=SOc/V947bqgPfUt+7TNkBZnano1Ny2EIvdcRrWgekSI=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=LYeaQfjQ67mZb5WbqxzUmIlF74mAHwYqOYeGw9HNCiLlSEE0TT6DoG7Vh/qbx/0nm2no2hXpzdRfPbLFwb0ha0tR9Tpqw6XNIlqRPub0tGgmx6mthbcwstTK1NjqxVpViEjOslz07SqDEJhLHKso9Hs205x9gpsmxyykZWSJdaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7f4e8568ccdso235346a34.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:46:19 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790279177; x=1790883977;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=SOc/V947bqgPfUt+7TNkBZnano1Ny2EIvdcRrWgekSI=;
+        b=bF/AKeYS+lxOaOdjmDxMaXa2K1FNAmK1KffN7MATjGxH/DQsiQzDwo3/DR/Uiuj+SQ
+         rPwzmlz2Zt9F+Ccxb73utkVV8POP3f1bTQ8XSt4//5bPHcrJ5Zxf69Q9tZ4VrzQ1lpRr
+         RA9HfY05L2Ilh0DBiJBg9i1Oap1xj+rqB5qFlU9FPMYNhTK47xJPbPsDNSTouXk5npx4
+         H4AyxueFPscgnrsSPebsqRL6zodGMBKdswv1H5c67iimWJg6ihZqokNRbijkPSrAQnXn
+         NlGhbGoVuouMrpYNzxdFi+/TIY6UMbjH7LVvhGyQfU2QwFboyvkWNbObvKq/A0gbSfT8
+         E0Fw==
+X-Forwarded-Encrypted: i=1; AKwUvByFRoR1IlkOJk3jnGn5HWbMSuKumMdtb6WcIYDCzgqkhnqg80DkfhgNS0GC5tqEDOUP0L+LKENm5Qu0eWw=@vger.kernel.org
+X-Gm-Message-State: AFuF++m7bF9GLUvGBrtir4IT9hcq8/f9mm/IrJdienSjtu47tUlAVNbo
+	YidUlbU+d3ij5YuS7CCoefeweAncH/lv/S25oJqw2YPR9GbU4pQqvyh4v6j99yI7fSJv6UkhScr
+	yFkJwBGFMDLydc20iWb5pDT+QrG3Ctni8NOtHXGYQUV9gZxwChN4v8YV61wo=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924190543.3424792-1-wei.huang2@amd.com>
+X-Received: by 2002:a05:6808:1782:b0:4b9:e65b:8c36 with SMTP id
+ 5614622812f47-4d72aa5b90cmr3716886b6e.36.1790279177126; Thu, 24 Sep 2026
+ 12:46:17 -0700 (PDT)
+Date: Thu, 24 Sep 2026 12:46:17 -0700
+In-Reply-To: <6a2c4b8f.be3f099c.2836ae.0001.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab57e09.80e1c6cc.1e8e5f.0017.GAE@google.com>
+Subject: Re: [syzbot] WARNING in update_curr_idle
+From: syzbot <syzbot+e671c2192fed8645642e@syzkaller.appspotmail.com>
+To: bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
+	linux-kernel@vger.kernel.org, mingo@redhat.com, peterz@infradead.org, 
+	syzkaller-bugs@googlegroups.com, tglx@kernel.org, x86@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Sep 24, 2026 at 02:05:43PM -0500, Wei Huang wrote:
-> TPH _DSM returns an eight-byte Steering Tag information buffer.
-> Checking only the ACPI object type allows a short firmware response
-> to be read beyond the end of its buffer.
-> 
-> For safety, require a non-NULL buffer containing the complete value
-> before copying it. Use memcpy() so that reading the response does not
-> depend on the alignment of the firmware buffer.
-> 
-> Fixes: d2e8a34876ce ("PCI/TPH: Add Steering Tag support")
-> Signed-off-by: Wei Huang <wei.huang2@amd.com>
+This bug is marked as fixed by commit:
+c095741713d1 sched/fair: Fix newidle vs core-sched
 
-Applied to pci/tph for v7.4, thanks!
+But I can't find it in the tested trees[1] for more than 90 days.
+Is it a correct commit? Please update it by replying:
 
-> ---
->  drivers/pci/tph.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/pci/tph.c b/drivers/pci/tph.c
-> index 655ffd60e62f..4d064b86befc 100644
-> --- a/drivers/pci/tph.c
-> +++ b/drivers/pci/tph.c
-> @@ -119,12 +119,14 @@ static acpi_status tph_invoke_dsm(acpi_handle handle, u32 cpu_uid,
->  	if (!out_obj)
->  		return AE_ERROR;
->  
-> -	if (out_obj->type != ACPI_TYPE_BUFFER) {
-> +	if (out_obj->type != ACPI_TYPE_BUFFER ||
-> +	    out_obj->buffer.length < sizeof(st_out->value) ||
-> +	    !out_obj->buffer.pointer) {
->  		ACPI_FREE(out_obj);
->  		return AE_ERROR;
->  	}
->  
-> -	st_out->value = *((u64 *)(out_obj->buffer.pointer));
-> +	memcpy(&st_out->value, out_obj->buffer.pointer, sizeof(st_out->value));
->  
->  	ACPI_FREE(out_obj);
->  
-> -- 
-> 2.55.0
-> 
+#syz fix: exact-commit-title
+
+Until then the bug is still considered open and new crashes with
+the same signature are ignored.
+
+Kernel: Linux
+Dashboard link: https://syzkaller.appspot.com/bug?extid=e671c2192fed8645642e
+
+---
+[1] I expect the commit to be present in:
+
+1. for-kernelci branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git
+
+2. master branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf-next.git
+
+3. master branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git
+
+4. main branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/davem/net-next.git
+
+The full list of 11 trees can be found at
+https://syzkaller.appspot.com/upstream/repos
