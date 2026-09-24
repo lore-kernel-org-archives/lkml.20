@@ -1,141 +1,116 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ADA54248B2
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:45:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 681DC3F5BF5;
+	Thu, 24 Sep 2026 22:46:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790289914; cv=none; b=l4m1HWx61a4Li7Eg9FEoZhXlhkqm0RHLLBZ3OZFKiuJdx19MFRePkhyyk9dafKGooBZjxdajVv8Tk7h+5IyIqCC9fKuCk99laZ8XdWaiaabrWmE4F92z/bCDyuOFpGEA/UZZMpK+f+sMnwNKP40gllPGg2R1LTbuPiGyy3BDCDw=
+	t=1790289982; cv=none; b=bXnt2Prn9wD5wX69Uy/2QwfDpNMuIDGcAsIgAgQhXIVrqTGbsnjntlXXjU2fiSBxANkUh/Qg4UF1qrh0FtwOvLHg6bjNF7M929g3y2YAPi1zHpZJ4LHXAx1scYBbElvqqscg8RWl0LluWuxOoh9mLbA92DeQkZC9bZxahFWTE8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790289914; c=relaxed/simple;
-	bh=NePuDN/GagRxxQzM24a1ChFIy2sF05vRYKBSqljR36E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Vzt5axbPlAWqfLs10+xdkk46GdWVFbZSi2db4PpjOLRXjkKm/v+6T6zO8FcXefjUGEJzqN/LTaP2YtDJhZKyQxdULhlFZJtvaS2XqFcg/nclzM7jSpH1hv0ai26bpePPhApkXa4gyrdvoF+MZR2XbC61R1c3um5VJpekOXvSed8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=Ij9MblkL; arc=none smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	s=arc-20240116; t=1790289982; c=relaxed/simple;
+	bh=CyXUp7vFEYOn0lSwaA8EzsCzO3Pa/qtCqaAliLhCTcw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=USYm5MbA3bz2wnh9aNQ0bQDuaUw2woUTKAGihahGgtp84Yheg5v8Yk17Mpy1PkOUDRd0C2gcTYq9sYHzb8QeVYNMRZqV80+4R10VDAt3M7UuR0cyhxuZDGsUIS3hoUhUqqOpR51a8MyAJ8DNougVh0Aj8q5lI2zeF+Q3mIJBJZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oohfw6kl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="Ij9MblkL"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfcb5cb3so3690296d6.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:45:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1790289910; x=1790894710; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=L5LiObb8PczoN23fJheBRSuBwxtHznmlcKkljDuIqRU=;
-        b=Ij9MblkLiLehosjBO28U2w5E3wkdmNDAoSeFMTcSQHhowUJdiXsvDVFlO2FDL9Ru51
-         N8YNG5Xo1NezMdxF99HAxsrNb7XwrVt+4td6mJc4unAxygmp9YcAHZmTPW6F98G7yIC/
-         NDhNqXmJDRAQufaVZSMZaxckpTOs0JIu9zTLw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790289910; x=1790894710;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=L5LiObb8PczoN23fJheBRSuBwxtHznmlcKkljDuIqRU=;
-        b=gFIlTnAMWsAg4i44tfHmwUfOmKMfln1OaHAasUhjK7Qjsscdw+iu1hWZxzNObcKELO
-         MQVG5g+/f3WaGKAXFVyjQoeWhTh+NQm0+1oI5QUU32KjnbnflV6ZJ1oZZ8O6c29Hh5pg
-         2Mo0sWNIDear6ahtJSGuMy53H75LYdu3ftxXdr/uqApQgTB5JDDZaQgAYqLRY/fEy5ef
-         nLHvr1EMCqdVorA3M9SGiPrOn43HjmTG9WoUM4Es6MFyY8KcRYE2opMjPdD4wqW1Mie1
-         J1CfFmNGJsEmMcmoBq1qguGEUN88vUSATS9pg3xwJTK8Z+YM69ev0rmOp1n9r1IvMkMv
-         ES5A==
-X-Forwarded-Encrypted: i=1; AKwUvByPy6C8fD+BEeb7U+C4RY+8eg2lqSuyexOmSCNC1emQBP3sZwuZrPQtI9If3U1Eek/IacN/Q81wPofxyk0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mm6Mr23A3OT14FrvwpFqczWwtJiH3DqDOSL3OgiRmbJ9ph8LSG
-	NzTKBPu1z06zp15HQEp57DSyg8UQowh/2uNHFdmQOUDrbs1hWiajwNu+C67NPBMsE+k=
-X-Gm-Gg: AYBFou3Z6YUDv1OtayErVcIPUoiccuak4f9KBdjsTdaZYUsE45QXboIAcOh3ZDVizvZ
-	c1RW1s4cWGpFdF/3pFWvtx5vEix8K/NK+bDr9PRgHyFeOWf/cGSZQcAba/xT/j+OqlbHuVqMUTI
-	NTAuVyVGzZBuolxSyEa8rajMIXBaqTQajwOXpF+9cuUrXO/GgyB0Eu/npu2o9fsuDj6X+8HQUSZ
-	BillVhiI3GM34Yw9WMJfJr9Zody9OfKlD/iSokZH8AFKd5u/MJBcoqlp1yDe6Nv3UEEbhWpaQh2
-	9yvEiaQt+xqoroP+9ZOQmIGTXrVGNbY6Tp3v5nEgcepd7CsHn/Xs7w17JevahpfNq26hPPs2rlm
-	9Nz5WMm9vbtoU4zOu0Pi5Aa6K1sEk6EVkbB6+n0USeJARkK8E8Ls7H4NHBQ8hX861JyUyoUgv/b
-	LwfEQ29uaJVIOYukXCjeLaghcIRKMp2Tlhh8OqYN8AbbNDly2aCWiP8ea6ObqyzwSJQzjiZeRjl
-	q3XUFRD6Qg1WMAog7spuISlMkNWPf4UgX1jWYluV5RSuUfZ9D1R6jqT7KqUXmBLVB58nEMeLGQ=
-X-Received: by 2002:a05:6214:2c08:b0:912:5f4c:ad3b with SMTP id 6a1803df08f44-91432234280mr4821276d6.16.1790289910313;
-        Thu, 24 Sep 2026 15:45:10 -0700 (PDT)
-Received: from com-94485.corp.openai.org ([199.47.143.14])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91430e09ce4sm3858566d6.28.2026.09.24.15.45.08
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 24 Sep 2026 15:45:10 -0700 (PDT)
-From: Jeff Jo <jeffjo@openai.com>
-To: netdev@vger.kernel.org
-Cc: edumazet@google.com,
-	ncardwell@google.com,
-	kuniyu@google.com,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	shuah@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH net v2 2/2] selftests: net: check timestamp echo after an old ACK
-Date: Thu, 24 Sep 2026 15:44:59 -0700
-Message-ID: <20260924224456.55690-6-jeffjo@openai.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260924224456.55690-4-jeffjo@openai.com>
-References: <20260924224456.55690-4-jeffjo@openai.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oohfw6kl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57CD61F000FF;
+	Thu, 24 Sep 2026 22:46:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790289980;
+	bh=JWJZvBtJJ3ChxXcB7Dhfg9AEW1Ni2m0077+nHQHfjXw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Oohfw6klPo4au0yI8XMOPZgDRtp5O4FMvPiO0TOnpQppw2ucxsOC9SmpqDVUnK0NZ
+	 6FiJ5QLDwE9kqgOGhGzHJPgYUFBEQsiM/FqU1xR1T9Fji38Sl9kFwGFmigKDiZqRcg
+	 6dcIax9IxMxsqVOWXuHjKh77PaDPPY0RIdPELaD3XQCg4bn33590vnc7IoizN5oDr7
+	 4uQrHplDHwHDqEPB0uhUDGDxyHAAEDUhZqM+WLnrbgfNo5b1nSAIlJqBu740jcvPcD
+	 GmtZTQnZWge/H4EafCxubkPQdaKRwc5WgGPXBNZKfX0YuBdlZ4SMiG1a9Cg/AyKIw4
+	 JpESKNJYuJ/2w==
+Date: Fri, 25 Sep 2026 00:46:17 +0200
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Christian Melendez <chrismelnu@gmail.com>, irogers@google.com,
+	jolsa@kernel.org, peterz@infradead.org,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] perf stat: document task-clock/cpu-clock in TIMINGS
+Message-ID: <arWoOVJxocWIp4Pp@x2>
+References: <CAP-5=fV0-yvc68BUSKoSajHjHY_A6COgbEJYiFxRg+G-8LeJhQ@mail.gmail.com>
+ <20260923135140.386033-1-chrismelnu@gmail.com>
+ <arWi_dY4y15J2rqh@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arWi_dY4y15J2rqh@google.com>
 
-Add a regression test for a gap-filling packet whose acknowledgment has
-become old. Linux first sends data to the peer. Deliver two peer data
-packets out of order: the later packet acknowledges Linux's data, while
-the delayed packet still carries the earlier acknowledgment.
+On Thu, Sep 24, 2026 at 03:23:57PM -0700, Namhyung Kim wrote:
+> Hello,
+> 
+> On Wed, Sep 23, 2026 at 03:51:40PM +0200, Christian Melendez wrote:
+> > task-clock/cpu-clock appear in perf stat's own example output but
+> > were never explained in perf-stat.txt, unlike time elapsed/user/sys.
+> > This came up unanswered on the list in 2013 and 2015 without docs
+> > ever being added.
+> > 
+> > Link: https://patch.msgid.link/CAP-5=fV0-yvc68BUSKoSajHjHY_A6COgbEJYiFxRg+G-8LeJhQ@mail.gmail.com
+> > Signed-off-by: Christian Melendez <chrismelnu@gmail.com>
+> > ---
+> >  tools/perf/Documentation/perf-stat.txt | 12 +++++++++++-
+> >  1 file changed, 11 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/tools/perf/Documentation/perf-stat.txt b/tools/perf/Documentation/perf-stat.txt
+> > index f334aabdc809..c0d6c344f9eb 100644
+> > --- a/tools/perf/Documentation/perf-stat.txt
+> > +++ b/tools/perf/Documentation/perf-stat.txt
+> > @@ -621,6 +621,16 @@ user/system lands:
+> >  
+> >  Those times are the very same as displayed by the 'time' tool.
+> >  
+> > +We also display a clock-based timing metric that depends on the
+> > +target being monitored:
+> > +
+> > +        83723.452481      task-clock:u (msec)       #    1.004 CPUs utilized
+> 
+> I'm afraid task-clock and any other software events don't support
+> privilege filters or modifiers.  So task-clock:u would be same as
+> task-clock, but it can give a wrong idea that it only measured time
+> in userspace.
+> 
+> Maybe the kernel can reject ones with modifiers but then it would have
+> a compatibility issue. :(
+> 
+> So I think it's better to remove the ":u" modifier in the example
+> output.  Probably we need to change the perf not to add it to the
+> software events.
 
-Require the ACK that closes the receive gap to echo the delayed packet's
-timestamp, 301000. Without the fix, Linux accepts the data but still echoes
-the previously saved timestamp, 1000. Also check that the application can
-read all 34 bytes.
+Since I'll need to force push due to a missing Signed-off-by in a patch
+that had --- markers before the author's Signed-off-by, I'll remove the
+:u.
 
-Use a large jump in peer timestamps to represent the idle interval, with
-no real wait, loss or retransmission. The test directly checks the outgoing
-timestamp echo. It requires packetdrill's merged TSecr verification fix
-(linked below); older tools incorrectly pass on an unfixed kernel.
-
-Use the existing packetdrill selftest runner for IPv4, IPv6 and
-IPv4-mapped IPv6.
-
-Link: https://github.com/google/packetdrill/commit/83f72d3f9085d0e26eb4d206fe4d7cfab5b6d872
-Assisted-by: LLM
-Signed-off-by: Jeff Jo <jeffjo@openai.com>
----
- .../net/packetdrill/tcp_old_ack_ts.pkt        | 22 +++++++++++++++++++
- 1 file changed, 22 insertions(+)
- create mode 100644 tools/testing/selftests/net/packetdrill/tcp_old_ack_ts.pkt
-
-diff --git a/tools/testing/selftests/net/packetdrill/tcp_old_ack_ts.pkt b/tools/testing/selftests/net/packetdrill/tcp_old_ack_ts.pkt
-new file mode 100644
-index 000000000000..f072e5e4c449
---- /dev/null
-+++ b/tools/testing/selftests/net/packetdrill/tcp_old_ack_ts.pkt
-@@ -0,0 +1,22 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// An out-of-order segment advances SND.UNA. The gap filler still carries
-+// its original, older ACK. The reply must echo the gap filler's timestamp.
-+--tcp_ts_tick_usecs=1000
-+
-+`./defaults.sh`
-+
-+0.000 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
-++0 setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
-++0 bind(3, ..., ...) = 0
-++0 listen(3, 1) = 0
-+0.100 < S 0:0(0) win 20000 <mss 1000,sackOK,TS val 900 ecr 0>
-++0 > S. 0:0(0) ack 1 <mss 1460,sackOK,TS val 100 ecr 900>
-+0.200 < . 1:1(0) ack 1 win 20000 <nop,nop,TS val 1000 ecr 100>
-++0 accept(3, ..., ...) = 4
-+0.300 write(4, ..., 17) = 17
-++0 > P. 1:18(17) ack 1 <nop,nop,TS val 300 ecr 1000>
-+0.310 < P. 18:35(17) ack 18 win 20000 <nop,nop,TS val 301001 ecr 300>
-++0 > . 18:18(0) ack 1 <nop,nop,TS val 310 ecr 1000,nop,nop,sack 18:35>
-+0.320 < P. 1:18(17) ack 1 win 20000 <nop,nop,TS val 301000 ecr 100>
-++0 > . 18:18(0) ack 35 <nop,nop,TS val 320 ecr 301000>
-++0 read(4, ..., 34) = 34
--- 
-2.55.0
-
+- Arnaldo
+ 
+> Thanks,
+> Namhyung
+> 
+> > +
+> > +For a single task, task-clock reports a clock count specific to that
+> > +task. When the target is a CPU or the whole system (-a or -C),
+> > +cpu-clock is reported instead. cpu-clock is a high-resolution per-CPU
+> > +timer. See perf_event_open(2) for more details.
+> > +
+> >  CSV FORMAT
+> >  ----------
+> >  
+> > @@ -671,4 +681,4 @@ that can be used for parsing.
+> >  
+> >  SEE ALSO
+> >  --------
+> > -linkperf:perf-top[1], linkperf:perf-list[1]
+> > +linkperf:perf-top[1], linkperf:perf-list[1], perf_event_open(2)
+> > -- 
+> > 2.34.1
+> > 
