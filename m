@@ -1,72 +1,140 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BFEB4219E9;
-	Thu, 24 Sep 2026 07:06:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB6F541D4F1
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 07:06:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790233605; cv=none; b=Z9R51TElmIl3FsHcxc8/5KAaMjMS55e3H62BIxCY4xWsazfqb/rEqTFTtmc5TJ5nBbtBHTI7PJTK3VeyVPq6W1TOsbMe6NR01Mp3zFbsOJ1xy9HniIb7NPjxy99rLqvZMwNObr6orkcPUSkczZkyYcaHaWx22Fch36KyVl2roRo=
+	t=1790233624; cv=none; b=kcbMnXo6NquWckH/hj6/wvGrgXNnVU7XKhr8X7lIu5NBJSb93alb3LCVeF09ETgDY577tx8RSBRyt8U2H5jNvQjKPrMjbmSDxDm0PTzCkKOFseCjeEp3uPWurPeaew9sT4/UeZPXIJxbs9bKUqqiXzhGWXAgkixAxoq7aeI6zQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790233605; c=relaxed/simple;
-	bh=tpu+RoSvDtPIZOdlhkoeWl5ETON7wH9mUnM8AFFM9pQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=eE+6/G3i+07Jd1dX9D4GpKHGxIEuS+x7/0EpWRuE7Fnompl9nvbUlCmgCtQqweFQrUY+Ja2cGYN/gl23dS5ugEhD/7Y2+OoFn49AqWjRZw6vuOnoKLaztcEcaBy1pLY8NFmv3XY8j2TUdd9m4jC9JrPpWL7zlYq+uJ0Gt2Xzy6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 747b5600b7e611f19a56ed5b684f684d-20260924
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:762c49ff-bf26-48f6-bc52-06977b7399f3,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:20
-X-CID-META: VersionHash:7db8b62,CLOUDID:ff7dc93e0ae167d3821109917e24c446,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|83|102|136|850|865|898,TC:nil,Content:0|15|5
-	0|99,EDM:5|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 747b5600b7e611f19a56ed5b684f684d-20260924
-X-User: huangwei@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <huangwei@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 131384972; Thu, 24 Sep 2026 15:06:24 +0800
-From: Huang Wei <huangwei@kylinos.cn>
-To: Rong Zhang <i@rong.moe>
-Cc: Marco Giunta <marco_giunta@outlook.it>,
-	Ike Panhc <ikepanhc@gmail.com>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>,
-	"Derek J . Clark" <derekjohn.clark@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	huangwei@kylinos.cn
-Subject: Re: [PATCH v3] platform/x86: ideapad-laptop: Report camera switch as SW_CAMERA_LENS_COVER
-Date: Thu, 24 Sep 2026 15:06:18 +0800
-Message-Id: <20260924070618.3600611-1-huangwei@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260924-ideapad-laptop-camera-sw-v3-1-922ea6a9fff4@rong.moe>
-References: <20260924-ideapad-laptop-camera-sw-v3-1-922ea6a9fff4@rong.moe>
+	s=arc-20240116; t=1790233624; c=relaxed/simple;
+	bh=fSy2bFU6GAk6z5ZL2rJh0ddr4lBF44OoZjZB4arg5Sk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=NHhkOVHxn+4fM2sKqvjpaEON2WsXjn3pR9JKlFp0zOc9ahxkf1Gidz0M/vrXuGbErGtufIBKs1V+l2eCMI6nnWsD8k9UNVSedX/OuEiYQXC9yIjQdd3cMP9qMPlQzjvnY2Wx3qO0QhFNHQCDuq6DuZKLx/MRW95WxOTFj/LlWKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gvZNxhm6; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gvZNxhm6"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469f204f6so872504b3a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 00:06:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790233616; x=1790838416; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=fSy2bFU6GAk6z5ZL2rJh0ddr4lBF44OoZjZB4arg5Sk=;
+        b=gvZNxhm6X/Ho40VGWUzqu8Cdr1Da/XA1GMZqC9Hy/XiIzhGECzDdrhLUbNFXH2evJT
+         XcZ16gDPw0lBqhC8aUvspTisogSd9VUTJl78AlA0P5kolGuqPh8Iesd9bF7b+sx2v61/
+         vMy0NjLtnqd3hg+3ZV7nEjR+QKtego5hLYzZlhcDbScT8gRs375gfT1NFDE4zUwYJxW7
+         9xZy01cG19s/jQrTT/1zHHzL/9iX/mM1MxY01BemIAB/26vnhJSgu+hQWVL0BL6JIu18
+         a46XiggZZ0B417q3E+uQ31hpxGjn4Da6+s2MsZ4JDtaj6B72+jKK4z2wblqwGbcIn/gr
+         aIsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790233616; x=1790838416;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fSy2bFU6GAk6z5ZL2rJh0ddr4lBF44OoZjZB4arg5Sk=;
+        b=VPxYJHe7LZO78waEkHf02gqNqc+EcmdTtdklnjsdC4QpXFTByy51YVm1dnZM1D0x8D
+         D/XrBpw44zjGwo3gUk419LsbzDTWcw7knXi9fXyL0EvKqYJKjFpWec/NGLMfF+/5KbO9
+         i/evIQzuFZoZTziE0hQ9KfXUIHPi/cnulEXiiZsOgel4TqxFOqi5I+LwXMIxrwnoN6Qb
+         za+neIwZ5n+8F+CndgJf7AUtqTpc1utWBOkzwy3c5JmNRLEdVf+pu0j9F1YBVm0UcT7o
+         c13smpv40NqqgRPA4EklY6WXIsZ7TMCcAo89f85YNY3axaqmPymfAhSiZ1/M3RJ2LXgs
+         Tiug==
+X-Forwarded-Encrypted: i=1; AKwUvBxkBHM8BlicaMC/tflgVfjGCVAFwaOaBpCvF4S+VrZKR+BEYiNGglr8MGnew7YCyoIavnOaWtKNuxdWEjg=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5Vcor4DH75bEfXrXFvL6EbcN7EHcA0IH2Xm2a+5UVjo+sSgSF
+	NgW5UdtXBgcphaxOxqubco8K+YU1bGIOjdFpCBDmQHEPv9kvhZ1OMxzc
+X-Gm-Gg: AYBFou1mBVfCRhkjk253bfJLxB5XoNjj22G1k88osAGKYxMHirAKMpqnAt9oZHDUyPA
+	ibhXN3nEGF4jcRqpSoHx7EN1DwTqVBm7g7NCNBYNVgZsb3ggOP7RBwJzzdQ437ZePsYhTg8eaFx
+	91U3wINPuoaG4hxSI9jJpG4C4Y13Jg7N/J1XXNXpXIY/XJFDUBMfJxWqIBPELgZ2gfm6Ke3JmS+
+	IyDdh/8r91TuA9sM33Ely3Ddc1RFFv/QAufctGh3IZ9el2+IWOkVm/619r4D8oLUC3GZKUdiFQq
+	sTpwVinDTXHmqoA+WK6al+R4E3pGRuQ5EoZAJKTfwGkINqzKLoz0LrQutm4ndwCkHHkCJNzJZHs
+	vtLRTXV800jJbuk6hpzt0U3H9LVOjrgHeFBXU9l3ipoMJO+p/0kSWYOMCkNAZHhCYfSswWscTDL
+	CIFZJTZCVgJcJSzsoTH54eLv08QEcNg+2YMbyMHdld54JfVSy7bMH38KDZHvp8uGyRyH664l/T+
+	1SXu4n7L9U3Pcm19CvGHh37Ss4=
+X-Received: by 2002:a05:6a00:340d:b0:878:391d:b217 with SMTP id d2e1a72fcca58-87e9d001107mr1322001b3a.60.1790233616005;
+        Thu, 24 Sep 2026 00:06:56 -0700 (PDT)
+Received: from [192.168.0.226] ([38.34.87.7])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1e0fc5casm2368187b3a.53.2026.09.24.00.06.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 00:06:55 -0700 (PDT)
+Message-ID: <78e6ad2dc979983bd65514166fa0020729a4147d.camel@gmail.com>
+Subject: Re: [PATCH 0/3] selftests/bpf: Fixes for out-of-tree builds
+From: Eduard Zingerman <eddyz87@gmail.com>
+To: "Ricardo B." =?ISO-8859-1?Q?Marli=E8re?= "(SUSE)"
+ <ricardo@marliere.net>,  "Nico Pache (Red Hat)"	 <nico.pache@linux.dev>,
+ ihor.solodrai@linux.dev, nickolay.lysenko@gmail.com
+Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, Emil Tsalapatis
+	 <emil@etsalapatis.com>, Jiri Olsa <jolsa@kernel.org>, Yonghong Song
+	 <yonghong.song@linux.dev>, Song Liu <song@kernel.org>, Andrii Nakryiko
+	 <andrii@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	linux-kernel@vger.kernel.org, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Alexei Starovoitov
+	 <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Martin KaFai Lau
+	 <martin.lau@linux.dev>
+Date: Thu, 24 Sep 2026 00:06:52 -0700
+In-Reply-To: <DLM25PIKJTE5.1Q1IO5PAM6VBD@marliere.net>
+References: <20260728-selftests-bpf_oot-v1-0-05feb15d94db@marliere.net>
+	 <6f95ec90-194a-4304-9673-c7bb50065223@linux.dev>
+	 <d3a251acf5131bea732e23bbd135a5fdebec9ad6.camel@gmail.com>
+	 <DLM25PIKJTE5.1Q1IO5PAM6VBD@marliere.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi Rong,
+On Tue, 2026-09-22 at 15:31 -0300, Ricardo B. Marli=C3=A8re (SUSE) wrote:
+> On Mon Sep 21, 2026 at 6:04 PM -03, Eduard Zingerman wrote:
+> > On Mon, 2026-09-21 at 14:40 -0600, Nico Pache (Red Hat) wrote:
+> >=20
+> > ...
+> >=20
+> > > Given your series was defferred, and there is a "rewrite" coming, wha=
+t would
+> > > be the best approach to working together (between us three) to get th=
+ese
+> > > fixes in that series too.=20
+> >=20
+> > The, "rewrite", as you call it, had landed today.
+> > So the series in question can be re-spun.
+> > Regarding your patch on top of it, it appears you can just post is sepa=
+rately.
+> > However, I am inclined to be confrontational towards changes like this =
+one.
+> > The purpose of the selftests makefile is to run selftests as appropriat=
+e
+> > for current tip of the kernel tree using a very specific kernel configu=
+ration.
+>=20
+> Ideally, if a Kconfig symbol is needed and the kernel under test does not
+> have it, tests are skipped. But with BPF they were simply not built,
+> rendering the tests useless for anything other than in-tree vmlinux with
+> tools/selftests/bpf/config*.
+>=20
+> > Main users of this makefile are BPF developers and BPF CI.
+>=20
+> But they shouldn't be the *only* ones, IMHO. Enabling distros to build an=
+d
+> run the tests is also valuable to catch regressions in their kernels, don=
+'t
+> you think?
+>=20
+> > Support for distros customizing the makefile is a non-goal.
+> > The "PERMISSIVE" change done enough damage already.
+>=20
+> It's ugly, I agree, but what damage has it caused? I see that it's going =
+to
+> be reverted anyway, but I would appreciate if you could elaborate.
 
-The v3 looks good - the KE_SW mapping is the right shape for this and
-the entries match everything we worked through in the thread. Putting
-them under a dedicated "WMI switches" section at the end of the
-keymap is a nice touch, and it's good to see Marco's Tested-by
-carried along with the handover.
+It's the first time I see a makefile that builds stuff not fully but
+90% of it and returns success. The damage is the need to maintain it
+going forward that already cost some time.
 
-Reviewed-by: Huang Wei <huangwei@kylinos.cn>
-
-Thanks,
-Huang Wei
+Do you have a list of kernel configs you had issues with?
