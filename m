@@ -1,418 +1,186 @@
-Received: from mail-ed1-f99.google.com (mail-ed1-f99.google.com [209.85.208.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ZR1P278CU001.outbound.protection.outlook.com (mail-switzerlandnorthazon11012066.outbound.protection.outlook.com [40.107.168.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF3C4DA9A6
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:45:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.99
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790282733; cv=none; b=r6wc/h1u6EHR06cXqO8ZFbi+kE+A0lSzynMeKF1HBRsNpPWTJ3zLhanNFO/HZuyZjfvL0FgieMBFimhjtPF+XTGfrzfyHTsSwhIcnsyWbZR6ZGQCUMP4KCT8fNQP+Oeht4B7jJIwkw/r48e5fuJRlqFZwnBQITXWiyqfmInQUB8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790282733; c=relaxed/simple;
-	bh=SQ61pMsL9cu3rsS6AuhP5gyJ0kLRVkZ2evR99Q7anzM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Tkcs+U/m1+IpKqDI7MJkjDrkcJu+KWcEJfJCol9M/6jaKTwRZ46ThT9ex3zdDMqZGrToRdYOx/puXEGQJTKJ4fwOqO303p6tWVyXVRTUOHZoq79psmC+EfYFiXBhgcwBZf0eItGAoMoDeGfywX6Y1TexFi+I6bWWmryleJ4BQMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com; spf=pass smtp.mailfrom=everpuredata.com; dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b=vvzkuR7W; arc=none smtp.client-ip=209.85.208.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everpuredata.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA1735C6B2;
+	Thu, 24 Sep 2026 20:46:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.168.66
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790282805; cv=fail; b=MhLcONv7ySIOjS4yh2+/IPw4IWH0fsK08Wr8uw7iEmenJ+0Y8G+qUn/AdlAN5t4vL2oLRz9hVt4fvrONV+3c59z8+/KH9NVIzsjklGGnf1tEkLCleepy/8Cfq33pUbBWtJIKdSwmcrKrWZCvGV7tZa57k7DYiOw821prJHsEWSM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790282805; c=relaxed/simple;
+	bh=TwCS5BKXoEVDTyQbDIcMR7LUpr3zSf9RylqtYBwJjNQ=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=Y7lpdM4aab0L9ilorMPMovFgnHOa1EM2DpNqwa4mVWdI3drDfjH/cX2dy7UPozN5Pkiiy0ygEa1qTbLhYUP4GRzDJjWPXLmsKiu8zluindOcsRQU9mFFugdg/eaQ61G3QISm4Tlo43IbL1XM6d8CGRDzEwktB43DmVBLJRMLbtM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cern.ch; spf=pass smtp.mailfrom=cern.ch; dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b=ZooMBncW; dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b=ZooMBncW; arc=fail smtp.client-ip=40.107.168.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cern.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cern.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b="vvzkuR7W"
-Received: by mail-ed1-f99.google.com with SMTP id 4fb4d7f45d1cf-6aa9164072cso113985a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:45:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1790282727; x=1790887527; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qRe+ei7knZtY8ctcL8LrqlkTZ019K5qeAeEFUbGMrhE=;
-        b=vvzkuR7WU0OszCsi4Wgbo3Nb70uAyCt3qZ4Xm8fSdtr+k7I8UXyEZH4HPFGtzWv75Q
-         OfhqmzPSBOqZNV0Kilul/eDqVvu/el/sCYTJmxVGf8cSjQyF25LYdDvVq8aewkpQmjEg
-         tZ9wED952KLPagX82CGkRzzUP7Yn5arW2AZ+yy5gVYB/41M/VlTklrCjY+Cr94G8p5Or
-         Wuk45Es0gf+anuHrZUjbvIy7DpxJSC3aKVjVK3mgjPudj97ikA/ppKlKZVxiwAlGeE10
-         6mZ4kkD5TwEZZ2ulx1thrQajucTvt8KbI3pxT9JLH/tDH2sn7gQaL2G3ioNpcFzhSEdy
-         UA3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790282727; x=1790887527;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qRe+ei7knZtY8ctcL8LrqlkTZ019K5qeAeEFUbGMrhE=;
-        b=xH/qZdlw0Gnmws2xJ3dtdDw7HYqTDHOaC55tEjk7eyZCgXHya8dBoKZ/uMctFHTb+p
-         uuYe6eQNbKRSnrTHXscJcxeY5pIWfV41XbGYM16Yd9asQDPW8CHGXkGFxqBkwjbv6TEN
-         Nj+tH59csBQGzJ1yhxmqn/NI+76bJIhfUdttbrxdXeeEqGnx87pbkYOBy7q5Lv2Oa8Mr
-         SA28ozPkWxm//MZiHoPzHCVIu64siO50TeBPg4p92wTPOXBnfCQx7gi41w91x6nQBy4a
-         Wwnb8ppFq12G4zpsFcvVGDh0/WuAarnP+RPT04vTMpm74Dg5Rb29WrM6eQcOH4NqZ3cX
-         qdXg==
-X-Forwarded-Encrypted: i=1; AKwUvBw5SUaWnWha5iSlFCMwoC1LpyUcrxWcCNKZnEPKAXQRXIfynN2E4qWUE5XGSQG7P57eyzqXrsOF2FoYDaw=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/nYGTIYc/F/xL7vrW+PX0VfjrDY4OI8syIS1rRgxCDFLPMIxu
-	vlFibrxhIjfpMBJxpujuKfpvODVrc8kA5akDWFCzG9mm5+8EIsm8a9TKkSrAnvIljC1PJwYOteO
-	xW1qhW+P77rhyalojr2DIDSzVYvlwQCUheFhp
-X-Gm-Gg: AYBFou3ixrxApvteZYEam9gPWrAnMRiQm14g7PSGSf+1OPHaCNqDQbnoE/ySziKOLxX
-	AGw529Q+ni2Lr3vKq4xEdHjxXFEYrEXicev4JCHNBEYX5DG98JfNbVbULlHhSkjK37GxqMLZWQQ
-	94J/a9kej/4X2PZTqjMqXMMHXkkdDhf8XkE99Bxd0BVkc8YgENey0dQl4nV4h+uEGwlzb3KbVzl
-	aH9PIJorJRzqwVoc3zu92CIXJlkwMXlbV2LsyHfvt2EQKdE+kL0pfD9i8TB9yVlxyExcS3qVysa
-	Fd4yqEW/LroOd2BSV0z5nxuOjvydTpp75JVIOUdIsLZOl/AQYDp9wDTQ4T2WtRWxilUCO2BZFLp
-	P6VXMNLZVlc5H3zEGOpPnv02socmM5piqNf81VQ4=
-X-Received: by 2002:a05:6402:2b85:b0:6aa:9830:aa21 with SMTP id 4fb4d7f45d1cf-6aac8f8a446mr3400524a12.39.1790282727272;
-        Thu, 24 Sep 2026 13:45:27 -0700 (PDT)
-Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.129])
-        by smtp-relay.gmail.com with ESMTPS id 4fb4d7f45d1cf-6aae590e971sm148500a12.2.2026.09.24.13.45.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 13:45:27 -0700 (PDT)
-X-Relaying-Domain: everpuredata.com
-Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
-	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id A7370340290;
-	Thu, 24 Sep 2026 13:45:25 -0700 (PDT)
-From: Tim Menninger <tmenninger@everpuredata.com>
-To: Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>
-Cc: Chuck Lever <cel@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	Shiva Lingappa <slingappa@everpuredata.com>,
-	Eric Badger <ebadger@everpuredata.com>,
-	Jon Curley <jcurley@everpuredata.com>
-Subject: [PATCH 1/2] SUNRPC: add request-scoped disconnects when cancelling tasks
-Date: Thu, 24 Sep 2026 20:45:24 +0000
-Message-Id: <20260924204525.3381590-2-tmenninger@everpuredata.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260924204525.3381590-1-tmenninger@everpuredata.com>
-References: <20260924204525.3381590-1-tmenninger@everpuredata.com>
+	dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b="ZooMBncW";
+	dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b="ZooMBncW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=junAjtRDGSZzefiL+kRC+UXy1THRBflvoyzja0wgiTKGSnJLXP231gkE3QXfEeGNMTVGG2XzSA8BgejismG3wsNfl9EFPLl69C8vfjpHEwAlRKKrkdQwpevh+hsOPS7MdYr7g4DZlMAzbvX67bjrrzpzGlRsgYHxVtWkcyxQTaqo0xkSlvrDv+EPBw2C1sx1TNI79zAe5p/QEOfYXVsftSSSV3DYxqjMOx7j780C9Ad10VeD3Evllu9E6yaBBwNd/u+HwEThJJDqWrRFQiCKMgoY9LnWi7qmfGIullzRv4wI2CX00rxkQZ8Y4WvtX3xzOyCMiCHjrU034j0pZG48Pg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UHgoa2jL1wubqP58mT1Fbrhtaw3zA0VODx6Dgt1ci/U=;
+ b=L7c/9XfqXdx+T/PjaHrl1P7jRqGlV49Xzyv/ziBOcGZY5huAwI4PCdogC7TM1xNy4jH6ne/rQB6BKQE7pY1B7wd/042QIrhzXdjgNB2LD0KbuCFCLPvlgIjEcjPOIfcZRkiPY3g/Ic29E8bRTrA0TDud0kJWt05JKTR4ztAh1PwTKe/Yy3SWMO08GL2fbY3o1ABmVlyQqSitk0l/WLfMLPRfZETNSnjAKH5bqE+OmzJpc89K/Kyf3Vuv8P7V1Ha1+DwfYrzWaPrFAcr/z+WE9xnMpCCE1awuUdjExNRIhEKCwr87kPwUUG0CH3QKUi1CY2165YRzEP1loe4dWU0p6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 20.208.138.155) smtp.rcpttodomain=kernel.org smtp.mailfrom=cern.ch;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=cern.ch;
+ dkim=pass (signature was verified) header.d=cern.ch; arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cern.ch; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UHgoa2jL1wubqP58mT1Fbrhtaw3zA0VODx6Dgt1ci/U=;
+ b=ZooMBncW8G+7krzMZLTKlmJyaqkz5ORXYefxZ+W0g7+EM2c9GqO7+TVzZT7aj/No4kjxWLRxCtduBg+dzd6vulGs6aPkRcAonOVSRLM7ea+RzS49zp4KbGrDF8E1ZlexIqBssbV1eQ1LxSJe0ZofdvNKkxaWiPNEIbsyrtrLfNs=
+Received: from VI1PR07CA0286.eurprd07.prod.outlook.com (2603:10a6:800:130::14)
+ by ZR0P278MB1513.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:a5::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 20:46:38 +0000
+Received: from ZR1PEPF0000E460.eurprd04.prod.outlook.com
+ (2603:10a6:800:130:cafe::a4) by VI1PR07CA0286.outlook.office365.com
+ (2603:10a6:800:130::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Thu,
+ 24 Sep 2026 20:46:37 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 20.208.138.155) smtp.mailfrom=cern.ch; dkim=pass (signature was verified)
+ header.d=cern.ch;dmarc=pass action=none header.from=cern.ch;
+Received-SPF: Pass (protection.outlook.com: domain of cern.ch designates
+ 20.208.138.155 as permitted sender) receiver=protection.outlook.com;
+ client-ip=20.208.138.155; helo=mx3.crn.activeguard.cloud; pr=C
+Received: from mx3.crn.activeguard.cloud (20.208.138.155) by
+ ZR1PEPF0000E460.mail.protection.outlook.com (10.167.241.58) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.8
+ via Frontend Transport; Thu, 24 Sep 2026 20:46:37 +0000
+Authentication-Results-Original: auth.opendkim.xorlab.com;	dkim=pass (1024-bit
+ key; unprotected) header.d=cern.ch header.i=@cern.ch header.a=rsa-sha256
+ header.s=selector1 header.b=ZooMBncW
+Received: from ZRAP278CU002.outbound.protection.outlook.com (mail-switzerlandnorthazlp17010021.outbound.protection.outlook.com [40.93.85.21])
+	by mx3.crn.activeguard.cloud (Postfix) with ESMTPS id A3B7281377;
+	Thu, 24 Sep 2026 22:46:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cern.ch; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UHgoa2jL1wubqP58mT1Fbrhtaw3zA0VODx6Dgt1ci/U=;
+ b=ZooMBncW8G+7krzMZLTKlmJyaqkz5ORXYefxZ+W0g7+EM2c9GqO7+TVzZT7aj/No4kjxWLRxCtduBg+dzd6vulGs6aPkRcAonOVSRLM7ea+RzS49zp4KbGrDF8E1ZlexIqBssbV1eQ1LxSJe0ZofdvNKkxaWiPNEIbsyrtrLfNs=
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=cern.ch;
+Received: from ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:5d::11)
+ by ZR4P278MB1785.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:b4::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 20:46:35 +0000
+Received: from ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM
+ ([fe80::79ac:8d79:4b56:709c]) by ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM
+ ([fe80::79ac:8d79:4b56:709c%5]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 20:46:35 +0000
+Message-ID: <b42f6bb6-5315-48aa-ac14-e858f3d11e39@cern.ch>
+Date: Thu, 24 Sep 2026 22:46:33 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 3/3] arm64: dts: qcom: Add hamoa Samsung Galaxy Book4
+ Edge devicetrees
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: andersson@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, marcus@nazgul.ch, marijn.suijten@somainline.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, abel.vesa@linaro.org,
+ abel.vesa@oss.qualcomm.com, johan@kernel.org, konradybcio@kernel.org,
+ kirill@korins.ky
+References: <20260920184148.31541-1-mstoretv@cern.ch>
+ <20260920184148.31541-4-mstoretv@cern.ch>
+ <20260924-curious-sociable-nightingale-66ffaf@quoll>
+Content-Language: en-US
+From: Maxim Storetvedt <mstoretv@cern.ch>
+In-Reply-To: <20260924-curious-sociable-nightingale-66ffaf@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PR1P264CA0155.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:346::15) To ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:5d::11)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-TrafficTypeDiagnostic:
+	ZR2P278MB1053:EE_|ZR4P278MB1785:EE_|ZR1PEPF0000E460:EE_|ZR0P278MB1513:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2ab74593-2e3c-4a67-649d-08df1a7cedbc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|786006|19092799006|23010399003|376014|7416014|366016|1800799024|10067099003|56012099006|5023799004|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ gGuAjtSxg2uI+FlRo3zorUFhJ3ZnJ1rWlaiN45rCNkf695btk4nxvBvMHD4lXMdPwWduWuGuTA2f7yDGyqe0ir6OIhgEY4hbEQYBfvhOCMhvQtUIBTF0mtNaYM0OkIJKUT1/CMrd4ABuZWwHeYh4/uF10HCmdLQCc2KnruvJfD+/8dlWOGvtmV0ol2QzRECiaSV5p5RTvgq8tMmgyFSdz0oboAk3QbI1ttzFxp11SkBO3pFGx5Y9gznFxOlynrXB0lTGnS54OYTV61FjKCAHLwEKtVa/uZOVu6Cb+iQylRYsPuLqre4Nvf6U1lTRTXr0L0dbzVdQsKWFNeFaVwld+tPP3htYWIM/gUqUNF2Y0PmMGkpt7DJhgcmAg9c7hWnDxDhcynSlXUVE+gy5D6SjMPOj6FR1O0dmcJL74VUGKdHHbklgX3qkQLWB/oZNeXE/BwgzaI8OR8kMyVDOgco2Y7WLdfixCqMlsKc07Hk4nTuFEa32wHJ0MmxqewY0UloXtdS/07lrNWRnznP+PGR6lL0qhVro3wEx97uKJf6Cpa9q5IOaplE4hXsdPSYmLOM3lwICgMUoyXsLraKeLhKQRmmR2a9OFlL7P+VqhOIIKCo=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(786006)(19092799006)(23010399003)(376014)(7416014)(366016)(1800799024)(10067099003)(56012099006)(5023799004)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-Exchange-RoutingPolicyChecked:
+ EVA3IjF7n2CHTd1D9zf+iPLJFwGdsGDEQhX4oPabGwtJALsHnJedxzeHn+JIwlPQFG54SLjV0Qhj+5q68aszMGLVZPYVB38Jo8q0/bZsLmVj8UNd76hf2cFz2AgPYrb4biKPKrU4CfUwwZC7hVqy6Apt3FlRW3l7O6dQebn5lwx3iWSTNuu7M7DgGo9ry1VIKe8id+mFMzg7Eh8VAGDAFk7DYjnsmvg5FidUfIfBET0vyOJHESXZ/BCT/5odfevGFbypYsVFXcB1ShdGVxBZhUg1rYK5tLIrX+EJlYuKxZ/SFtI0BUkF8h/r4kYXjmXpBP8h4thTkHuIZJeQ/q2nQg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR4P278MB1785
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ ZR1PEPF0000E460.eurprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	4d922db7-06e0-4021-e249-08df1a7cec55
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|786006|82310400026|19092799006|30052699003|23010399003|1800799024|35042699022|7416014|376014|14060799003|13003099007|4143699003|56012099006|10067099003|5023799004|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	EGRy43bhM3ziTL7d4x5h7cw4vAiOzUovuGlTL3QFlBx4tmKxyf5RfWLxh2rmr6iY1/qPvR05Hvg2Ptir5qVLTJcZgk21ROG+NKRVBids2tnW5fgZ9vHooSusspb4jpHH82Qrv0J5qByVj3itevFQMXhhk62s5ZbLKcPncU/agQJhWv4bs9Dyu9Lj7cNqFUEZVZKEEVzAzub8kfNxXZ0yfkETZMShbxGGivr6vgIZogViV02JDPNvmlXxbbPuIRsKJ+RA9T6bf0d9aHDvwL4c6oh/ZrKtFaPNjVIPclODW93H6qqO+aY7NhBmo5UWFGc8hF4vYxymtmEhNt4l03b58qLXmh5O+gKPUhCGtiLAhP3A/h1JdR4hVvIGtsVd1+oNN7jZBatppf/DSyR6R4mK8S96dQU0vSgsLZsMk3OcmI1vJCTFs50khimoZjjG2Ijdb/8ikfeoxAlkgfEnMCxu9Xv/baX1nHLV5mK9v3dehAoMkt08VM1bX7DD8twOadmVXXfULv+Gy0WwuccCZ2I/q4CdpP8kLdKQZOP/VONGAP0Wi4o+CCcB9rMDfCiTs6BOGXs6Ac/1ukKCdFoiJO/uacPRD3IqlmDoVJFUaWCVOQUNhl+bJ8pXNrl4p/okU2L600BEqB1JWGu05GkIORSo/g==
+X-Forefront-Antispam-Report:
+	CIP:20.208.138.155;CTRY:CH;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:mx3.crn.activeguard.cloud;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(786006)(82310400026)(19092799006)(30052699003)(23010399003)(1800799024)(35042699022)(7416014)(376014)(14060799003)(13003099007)(4143699003)(56012099006)(10067099003)(5023799004)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	KqlX2LIbTpLDkn3XbqIUsprjh/iPNDxDU1zQeMsnaX1y4DvbEa49K5uSZ1jELOJxZCv0NIow9OSK1oEippLXYcKKMUsIQO3n64Mi3/JJQmmNujwy4F4pv34sIMm3aF90q6aoQlJx05wOc7eznde9QEoEAw15Re+BnSRN1YJZ1XtKAdZJazvB9q1Nkmz1z1LfQ0RwBmK21AbJkSKNKscP3qA+e3HwS6wwE6nwUqGp92MzH+tVCGKQTOkGCIt7NruyqSMm3vhTwa6LQflsNvJ0o1nIxJLrxTKAJsltB6HGuqbrLrnZew8Ntvjl10W6klO/L+VQnkHAeNBJXO4r5Vo4E6c+gz8X+ZmkqBrDjKJfAoufmGTqQGhXm3EfxvjJaSV/gZdgiqAVQh+j/iA2m8oNUMRxDv7MiILnmNil+gCMqxzhUnKmJnoqTtgtwdkr+jNC
+X-OriginatorOrg: cern.ch
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 20:46:37.6264
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ab74593-2e3c-4a67-649d-08df1a7cedbc
+X-MS-Exchange-CrossTenant-Id: c80d3499-4a40-4a8c-986e-abce017d6b19
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=c80d3499-4a40-4a8c-986e-abce017d6b19;Ip=[20.208.138.155];Helo=[mx3.crn.activeguard.cloud]
+X-MS-Exchange-CrossTenant-AuthSource:
+	ZR1PEPF0000E460.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR0P278MB1513
 
-rpc_cancel_tasks() allows callers to cancel a selected set of RPC tasks,
-but callers that also need to tear down the connection currently have to
-disconnect at the rpc_clnt level.
 
-That is broader than necessary for clients with multiple transports. A
-cancelled request is associated with a specific rpc_xprt and records the
-connection generation on which it was transmitted in rq_connect_cookie.
+On 9/24/26 15:08, Krzysztof Kozlowski wrote:
+> On Sun, Sep 20, 2026 at 08:41:04PM +0200, Maxim Storetvedt wrote:
+>> Adds devicetrees for the 14-inch and 16-inch hamoa SKUs of the Samsung Galaxy Book4 Edge.
+>>
+>> These use a common dtsi derived from nodes that were able to work on Linux
+>> from the initial Galaxy Book4 Edge DTS by Marcus:
+>>
+>> Link: https://lore.kernel.org/all/p3mhtj2rp6y2ezuwpd2gu7dwx5cbckfu4s4pazcudi4j2wogtr@4yecb2bkeyms/
+>>
+>> combined with the patch series the Honor Magicbook Art 14, which shares device similarities:
+>>
+>> Link: https://lore.kernel.org/all/20260629154812.9066-1-mail@etehtsea.me/
+>>
+>> as well as a few more adjustments on top of that again to get additional features working.
+>> Special thanks to Jesse Ahn for helping expand on what would eventually become this dtsi.
+>>
+>> Based-on-a-patch-by: Marcus Glocker <marcus@nazgul.ch>
+>> Based-on-a-patch-by: Kirill A. Korinsky <kirill@korins.ky>
+> 
+> There are no such tags. Don't invent own.
+> 
+> Either they provided SoB for the code you used, or not. If they did,
+> then you could take them. Otherwise not and read obligations on your
+> side expressed in DCO.
+> 
+> Also look at Co-developed tag, if that's applicable.
+> 
+> Best regards,
+> Krzysztof
+> 
 
-Add rpc_cancel_tasks_and_disconnect() to cancel matching tasks and mark
-matching requests that remain on the transport transmit or receive queues
-for conditional transport disconnect when the request is released.
+Not formal tags by any means; both of these patches have been very
+useful though, and should somehow be highlighted. Bon, to be revisited.
 
-Store the disconnect indication in struct rpc_rqst rather than struct
-rpc_task. An RPC task can release one request and later acquire another,
-so task-scoped state could otherwise be consumed by a successor request
-and disconnect the wrong transport generation.
+In the meantime, there seem to be some sashiko warnings that need to be
+addressed before this series can continue in any case.
 
-After cancelling matching tasks, walk the client's transports and mark
-matching requests belonging to that client that remain on the transmit
-or receive queues. An rpc_xprt may be shared by multiple rpc_clnt
-instances, so requests belonging to other clients are left untouched.
-
-When a marked request is released, use xprt_conditional_disconnect() with
-its saved rq_connect_cookie. This disconnects the transport only if it is
-still using the same connection generation on which the request was sent,
-and leaves a replacement connection untouched.
-
-Requests that were never transmitted do not require a disconnect.
-
-Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
----
- include/linux/sunrpc/sched.h |  4 ++
- include/linux/sunrpc/xprt.h  |  5 ++
- net/sunrpc/clnt.c            | 94 +++++++++++++++++++++++++++++-------
- net/sunrpc/sunrpc.h          |  5 ++
- net/sunrpc/xprt.c            | 76 +++++++++++++++++++++++++++++
- 5 files changed, 167 insertions(+), 17 deletions(-)
-
-diff --git a/include/linux/sunrpc/sched.h b/include/linux/sunrpc/sched.h
-index 0dbdf3722537..dbaad8b5f181 100644
---- a/include/linux/sunrpc/sched.h
-+++ b/include/linux/sunrpc/sched.h
-@@ -230,6 +230,10 @@ unsigned long	rpc_cancel_tasks(struct rpc_clnt *clnt, int error,
- 				 bool (*fnmatch)(const struct rpc_task *,
- 						 const void *),
- 				 const void *data);
-+unsigned long	rpc_cancel_tasks_and_disconnect(struct rpc_clnt *clnt, int error,
-+						bool (*fnmatch)(const struct rpc_task *,
-+								const void *),
-+						const void *data);
- void		rpc_execute(struct rpc_task *);
- void		rpc_init_priority_wait_queue(struct rpc_wait_queue *, const char *);
- void		rpc_init_wait_queue(struct rpc_wait_queue *, const char *);
-diff --git a/include/linux/sunrpc/xprt.h b/include/linux/sunrpc/xprt.h
-index a82045804d34..617475f63561 100644
---- a/include/linux/sunrpc/xprt.h
-+++ b/include/linux/sunrpc/xprt.h
-@@ -112,6 +112,11 @@ struct rpc_rqst {
- 
- 	ktime_t			rq_xtime;	/* transmit time stamp */
- 	int			rq_ntrans;
-+	bool                    rq_disconnect_on_release;
-+						/*
-+						 * protected by rq_xprt->queue_lock
-+						 * while the request is active
-+						 */
- 
- #if defined(CONFIG_SUNRPC_BACKCHANNEL)
- 	struct lwq_node		rq_bc_list;	/* Callback service list */
-diff --git a/net/sunrpc/clnt.c b/net/sunrpc/clnt.c
-index 6cedc824cf82..5c33bf3fb4c3 100644
---- a/net/sunrpc/clnt.c
-+++ b/net/sunrpc/clnt.c
-@@ -901,29 +901,36 @@ void rpc_killall_tasks(struct rpc_clnt *clnt)
- }
- EXPORT_SYMBOL_GPL(rpc_killall_tasks);
- 
--/**
-- * rpc_cancel_tasks - try to cancel a set of RPC tasks
-- * @clnt: Pointer to RPC client
-- * @error: RPC task error value to set
-- * @fnmatch: Pointer to selector function
-- * @data: User data
-- *
-- * Uses @fnmatch to define a set of RPC tasks that are to be cancelled.
-- * The argument @error must be a negative error value.
-- */
--unsigned long rpc_cancel_tasks(struct rpc_clnt *clnt, int error,
--			       bool (*fnmatch)(const struct rpc_task *,
--					       const void *),
--			       const void *data)
-+struct rpc_cancel_disconnect_ctx {
-+	bool (*fnmatch)(const struct rpc_task *task, const void *data);
-+	const void *data;
-+};
-+
-+static int rpc_mark_xprt_disconnect_on_release(struct rpc_clnt *clnt,
-+					       struct rpc_xprt *xprt,
-+					       void *arg)
-+{
-+	struct rpc_cancel_disconnect_ctx *ctx = arg;
-+
-+	xprt_mark_matching_reqs_disconnect_on_release(xprt, clnt,
-+						      ctx->fnmatch,
-+						      ctx->data);
-+	return 0;
-+}
-+
-+static unsigned long
-+__rpc_cancel_tasks(struct rpc_clnt *clnt, int error,
-+		   bool (*fnmatch)(const struct rpc_task *,
-+				   const void *),
-+		   const void *data,
-+		   bool disconnect)
- {
- 	struct rpc_task *task;
- 	unsigned long count = 0;
- 
- 	if (list_empty(&clnt->cl_tasks))
- 		return 0;
--	/*
--	 * Spin lock all_tasks to prevent changes...
--	 */
-+
- 	spin_lock(&clnt->cl_lock);
- 	list_for_each_entry(task, &clnt->cl_tasks, tk_task) {
- 		if (!RPC_IS_ACTIVATED(task))
-@@ -934,10 +941,63 @@ unsigned long rpc_cancel_tasks(struct rpc_clnt *clnt, int error,
- 		count++;
- 	}
- 	spin_unlock(&clnt->cl_lock);
-+
-+	if (disconnect && count) {
-+		struct rpc_cancel_disconnect_ctx ctx = {
-+			.fnmatch = fnmatch,
-+			.data = data,
-+		};
-+		rpc_clnt_iterate_for_each_xprt(clnt,
-+					       rpc_mark_xprt_disconnect_on_release,
-+					       &ctx);
-+	}
- 	return count;
- }
-+
-+/**
-+ * rpc_cancel_tasks - try to cancel a set of RPC tasks
-+ * @clnt: Pointer to RPC client
-+ * @error: RPC task error value to set
-+ * @fnmatch: Pointer to selector function
-+ * @data: User data
-+ *
-+ * Uses @fnmatch to define a set of RPC tasks that are to be cancelled.
-+ * The argument @error must be a negative error value.
-+ */
-+unsigned long rpc_cancel_tasks(struct rpc_clnt *clnt, int error,
-+			       bool (*fnmatch)(const struct rpc_task *,
-+					       const void *),
-+			       const void *data)
-+{
-+	return __rpc_cancel_tasks(clnt, error, fnmatch, data, false);
-+}
- EXPORT_SYMBOL_GPL(rpc_cancel_tasks);
- 
-+/**
-+ * rpc_cancel_tasks_and_disconnect - cancel matching RPC tasks
-+ * @clnt: Pointer to RPC client
-+ * @error: RPC task error value to set
-+ * @fnmatch: Pointer to selector function
-+ * @data: User data
-+ *
-+ * Like rpc_cancel_tasks(), but after cancelling matching tasks, marks
-+ * matching in-flight requests so that xprt_release() conditionally
-+ * disconnects the connection generation on which each request was sent.
-+ *
-+ * @fnmatch is called while holding spinlocks and must not sleep.
-+ *
-+ * Returns the number of active tasks matched by @fnmatch.
-+ */
-+unsigned long
-+rpc_cancel_tasks_and_disconnect(struct rpc_clnt *clnt, int error,
-+				bool (*fnmatch)(const struct rpc_task *,
-+						const void *),
-+				const void *data)
-+{
-+	return __rpc_cancel_tasks(clnt, error, fnmatch, data, true);
-+}
-+EXPORT_SYMBOL_GPL(rpc_cancel_tasks_and_disconnect);
-+
- static int rpc_clnt_disconnect_xprt(struct rpc_clnt *clnt,
- 				    struct rpc_xprt *xprt, void *dummy)
- {
-diff --git a/net/sunrpc/sunrpc.h b/net/sunrpc/sunrpc.h
-index e3c6e3b63f0b..2c0a4532891f 100644
---- a/net/sunrpc/sunrpc.h
-+++ b/net/sunrpc/sunrpc.h
-@@ -43,4 +43,9 @@ void rpc_clients_notifier_unregister(void);
- void auth_domain_cleanup(void);
- void svc_sock_update_bufs(struct svc_serv *serv);
- enum svc_auth_status svc_authenticate(struct svc_rqst *rqstp);
-+void xprt_mark_matching_reqs_disconnect_on_release(struct rpc_xprt *xprt,
-+						   const struct rpc_clnt *clnt,
-+						   bool (*fnmatch)(const struct rpc_task *,
-+								   const void *),
-+						   const void *data);
- #endif /* _NET_SUNRPC_SUNRPC_H */
-diff --git a/net/sunrpc/xprt.c b/net/sunrpc/xprt.c
-index 48a3618cbb29..66eca8e4690b 100644
---- a/net/sunrpc/xprt.c
-+++ b/net/sunrpc/xprt.c
-@@ -1434,6 +1434,69 @@ xprt_request_dequeue_transmit(struct rpc_task *task)
- 	spin_unlock(&xprt->queue_lock);
- }
- 
-+static bool
-+xprt_request_matches(const struct rpc_rqst *req,
-+		     const struct rpc_clnt *clnt,
-+		     bool (*fnmatch)(const struct rpc_task *, const void *),
-+		     const void *data)
-+{
-+	const struct rpc_task *task = req->rq_task;
-+
-+	return task && task->tk_client == clnt && fnmatch(task, data);
-+}
-+
-+/**
-+ * xprt_mark_matching_reqs_disconnect_on_release - mark matching in-flight
-+ *                                     requests for connection-generation
-+ *                                     teardown at release
-+ * @xprt: transport whose queues to walk
-+ * @clnt: RPC client whose requests are eligible
-+ * @fnmatch: selector called with the request's owning rpc_task
-+ * @data: caller data forwarded to @fnmatch
-+ *
-+ * @fnmatch must not sleep and must be safe to call while xprt->queue_lock
-+ * is held.
-+ *
-+ * Walks the transmit queue (including per-owner rq_xmit2 chains) and the
-+ * receive tree under xprt->queue_lock and marks each matching rpc_rqst so
-+ * that xprt_release() will call xprt_conditional_disconnect() against that
-+ * request's snapshotted rq_connect_cookie. Requests remain eligible for marking
-+ * while they are present on a transport queue. xprt_release() removes queue
-+ * membership under xprt->queue_lock before consuming the marker, so a marker
-+ * installed before dequeue remains associated with that rpc_rqst and cannot be
-+ * inherited by a later request using the same rpc_task.
-+ *
-+ * The @clnt qualification preserves the selection domain of
-+ * rpc_cancel_tasks(). An rpc_xprt may be shared by multiple rpc_clnt
-+ * instances, so requests belonging to other clients must not be marked.
-+ */
-+void
-+xprt_mark_matching_reqs_disconnect_on_release(struct rpc_xprt *xprt,
-+					      const struct rpc_clnt *clnt,
-+					      bool (*fnmatch)(const struct rpc_task *,
-+							      const void *),
-+					      const void *data)
-+{
-+	struct rpc_rqst *req, *pos;
-+	struct rb_node *n;
-+
-+	spin_lock(&xprt->queue_lock);
-+	list_for_each_entry(req, &xprt->xmit_queue, rq_xmit) {
-+		if (xprt_request_matches(req, clnt, fnmatch, data))
-+			req->rq_disconnect_on_release = true;
-+		list_for_each_entry(pos, &req->rq_xmit2, rq_xmit2) {
-+			if (xprt_request_matches(pos, clnt, fnmatch, data))
-+				pos->rq_disconnect_on_release = true;
-+		}
-+	}
-+	for (n = rb_first(&xprt->recv_queue); n; n = rb_next(n)) {
-+		req = rb_entry(n, struct rpc_rqst, rq_recv);
-+		if (xprt_request_matches(req, clnt, fnmatch, data))
-+			req->rq_disconnect_on_release = true;
-+	}
-+	spin_unlock(&xprt->queue_lock);
-+}
-+
- /**
-  * xprt_request_dequeue_xprt - remove a task from the transmit+receive queue
-  * @task: pointer to rpc_task
-@@ -1915,6 +1978,7 @@ xprt_request_init(struct rpc_task *task)
- 	req->rq_rcv_buf.bvec = NULL;
- 	req->rq_release_snd_buf = NULL;
- 	req->rq_seqno_count = 0;
-+	req->rq_disconnect_on_release = false;
- 	xprt_init_majortimeo(task, req, task->tk_client->cl_timeout);
- 
- 	trace_xprt_reserve(req);
-@@ -1979,6 +2043,7 @@ void xprt_release(struct rpc_task *task)
- {
- 	struct rpc_xprt	*xprt;
- 	struct rpc_rqst	*req = task->tk_rqstp;
-+	bool disconnect;
- 
- 	if (req == NULL) {
- 		if (task->tk_client) {
-@@ -1990,12 +2055,22 @@ void xprt_release(struct rpc_task *task)
- 
- 	xprt = req->rq_xprt;
- 	xprt_request_dequeue_xprt(task);
-+
-+	spin_lock(&xprt->queue_lock);
-+	disconnect = req->rq_disconnect_on_release;
-+	req->rq_disconnect_on_release = false;
-+	spin_unlock(&xprt->queue_lock);
-+
-+	if (unlikely(disconnect && req->rq_ntrans > 0))
-+		xprt_conditional_disconnect(xprt, req->rq_connect_cookie);
-+
- 	spin_lock(&xprt->transport_lock);
- 	xprt->ops->release_xprt(xprt, task);
- 	if (xprt->ops->release_request)
- 		xprt->ops->release_request(task);
- 	xprt_schedule_autodisconnect(xprt);
- 	spin_unlock(&xprt->transport_lock);
-+
- 	if (req->rq_buffer)
- 		xprt->ops->buf_free(task);
- 	if (req->rq_cred != NULL)
-@@ -2020,6 +2095,7 @@ xprt_init_bc_request(struct rpc_rqst *req, struct rpc_task *task,
- 	task->tk_rqstp = req;
- 	req->rq_task = task;
- 	xprt_init_connect_cookie(req, req->rq_xprt);
-+	req->rq_disconnect_on_release = false;
- 	/*
- 	 * Set up the xdr_buf length.
- 	 * This also indicates that the buffer is XDR encoded already.
--- 
-2.34.1
+Cheers,
+-Max
 
