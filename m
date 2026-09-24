@@ -1,83 +1,95 @@
-Received: from va-2-56.ptr.blmpb.com (va-2-56.ptr.blmpb.com [209.127.231.56])
+Received: from mta0.migadu.com (out-188.mta0.migadu.com [91.218.175.188])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B076140B0FE
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:11:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A1D40B0FE
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:11:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790237483; cv=none; b=A+/wAY+3MU/5xOgtzeR5LPvTKEsk/tYEKx1Q6F/YDii7M+x6gXCCjIONoB+2loR/2FcmTEUwcl2nkCz0Rzu7JI9oWiCmUoJsagcP1Q66sIHhmtf7ts30UHFeCnqvrGQJuiaA6txH+dswRXECCVWstgkeOoSi3bgU+++SbGOg24Q=
+	t=1790237511; cv=none; b=Jlpk78ktgL0N5AIfRmwp/LAsiiypOIgFNFo6opMUM9HgDQ1LpMk/SwpOs6cGvpRXiOPJ8+zngklu3kaAXi6n1P7vvxhFlwPpMtHfn7zzPe9pYVdKU+aU2haaLDaOE2KBXywLV/UeqOmtQWsqsLAFWjXHpUHACPFKsS4epOS4Ok8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790237483; c=relaxed/simple;
-	bh=AoDdUurWe21FElda9XiGLhWIKP/LxkJBdQ3+g0QX3Og=;
-	h=Date:To:From:References:Content-Type:Message-Id:Cc:Subject:
-	 Mime-Version:In-Reply-To; b=Go9uABn+/XIBJgVY7HN3DR+4StwLkd2oDPhjsr/DL3vpZOul2+fG2tFhqX6UTB03d4fXyrmE81aI8HmQrWdUEZGUo9XtWcMSBsx7OBs6iJ2wesA9U0t3J0BO2aLUIKsheuf2e6Y6p5X4RHfJOpx6PrnVe6/5Bkvo+TMW9Y/+sKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com; spf=none smtp.mailfrom=bedmex.com; dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b=rZdiQ/8a; arc=none smtp.client-ip=209.127.231.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bedmex.com
+	s=arc-20240116; t=1790237511; c=relaxed/simple;
+	bh=DpbisNFop2DM9nFw1hD/w3CTU5u1md8DAi8kE2Bk3z8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cLWFSVNLFb71x7pNMqzo2FHPMA7bDobHuJnA3Ds4dkWurVyMbEWm82EzM3xW7mx0p4IvaIvYcTjMxwTvB3C6izMOQPbpT6aWv0qFPyhHMEIa0MriEbwMO/K4PcTQBHrlIRIIT0Zw9SyuIfJ7DZ8VbM2EonjTMWfYWAq00GZVSQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=KrodUWpY; arc=none smtp.client-ip=91.218.175.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b="rZdiQ/8a"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=bedmex-com.20200927.dkim.feishu.cn; t=1790237476;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=AoDdUurWe21FElda9XiGLhWIKP/LxkJBdQ3+g0QX3Og=;
- b=rZdiQ/8am1Krzf7nPNakRPnVHxbyiG9Bhc4pCISoPBmcBMZNCLja2h8S6/rx1gXf6ABkpg
- tuPzGi22JYO2PGQWO6zvekqPm1dCLfCXjj0jNleUy1Hy7/yKBFtFQVBofmMmwPvNkY+7zS
- qEogwFh/cAZxWA/68ulkrpnTImKpJvTHPc9vJfF36DCCYHUPvP4PONWAZ/mjggMRbjoxF3
- ik3MClyzRVi1B4++djubBIJs8omsUHQgH9rXj4T1GTpdqVeHJrut1xJD0GRjvnBp59w1B1
- VsWt9RChSk4rSnWmQeyQwU2gAerbxYCJNTjSlG7tT2fOqQzMX49027zmHbihAw==
-Date: Thu, 24 Sep 2026 16:11:10 +0800
-To: "Krzysztof Kozlowski" <krzk@kernel.org>
-From: =?utf-8?q?=E6=9D=A8=E5=BD=A6=E7=AB=8B?= <yanli.yang@bedmex.com>
-References: <cover.1790235697.git.yanli.yang@bedmex.com> <a9adff17461c1e66d645d2d0edb35a05a536e1a7.1790235697.git.yanli.yang@bedmex.com>
-	<270a77b9-30fe-4b5c-8971-33c1f64f3772@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Message-Id: <0c6903be00b92ecb18f2e74fdd9f8cb39e4db47b.1b45eb39.c5f7.44a3.8394.2b83fdd684c2@feishu.cn>
-Cc: <linux-bluetooth@vger.kernel.org>, <marcel@holtmann.org>, 
-	<devicetree@vger.kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>, 
-	<conor+dt@kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<zhirunliu@aicsemi.com>, <dijiaxu@aicsemi.com>, <chunqiuliu@aicsemi.com>, 
-	<liheng.wei@bedmex.com>
-Subject: Re: [PATCH bluetooth-next v5 1/3] dt-bindings: vendor-prefixes: Add AIC Semiconductor
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="KrodUWpY"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=DpbisNFop2DM9nFw1hD/w3CTU5u1md8DAi8kE2Bk3z8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790237507; v=1; x=1790842307;
+ b=KrodUWpYqx14daR0Ng2SfGa2ZnZup0wM1A5gp93hmmjfQcy6irEsnau9uZJjgeo/TMeaU8Ff
+ BRajS1F0CE8oE1MkYApluxi6yjICwaCfc3fRf8OO0femu3u7+qQRBSmINL5MU849lDrIraAzkcE
+ A2NDgYePvz9GYW/Becyh2QMo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id efc2c0001f259c1f;
+	Thu, 24 Sep 2026 08:11:47 +0000
+X-Mizu-Trace-ID: efc2c0001f259c1f
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 24 Sep 2026 16:11:37 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Hangbin Liu <liuhangbin@kylinos.cn>, stefano.salsano@uniroma2.it
+Subject: Re: [PATCH net-next 1/5] seg6: split final End process out of flavor
+ processing
+Message-ID: <arTbOeYp-sj37vzh@fedora>
+References: <20260922-srv6_flavors_endx-v1-0-4d01c05c47b7@kylinos.cn>
+ <20260922-srv6_flavors_endx-v1-1-4d01c05c47b7@kylinos.cn>
+ <20260923134637.4e56d6c422e3f89dd17f4a63@uniroma2.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-In-Reply-To: <270a77b9-30fe-4b5c-8971-33c1f64f3772@kernel.org>
-X-Lms-Return-Path: <lba+16ab4db1f+a468c7+vger.kernel.org+yanli.yang@bedmex.com>
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923134637.4e56d6c422e3f89dd17f4a63@uniroma2.it>
 
+On Wed, Sep 23, 2026 at 01:46:37PM +0200, Andrea Mayer wrote:
+> > @@ -829,7 +830,10 @@ static int input_action_end(struct sk_buff *skb, struct seg6_local_lwt *slwt)
+> >  	 * information extracted from the packet, e.g. presence/absence of SRH,
+> >  	 * Segment Left = 0, etc.
+> >  	 */
+> > -	return end_flv8986_core(skb, slwt);
+> > +	ret = end_flv8986_core(skb, slwt);
+> > +	if (ret)
+> > +		return ret;
+> 
+> A nit: a blank line before the final return would match the rest of
+> the file.
 
-> From: "Krzysztof Kozlowski"<krzk@kernel.org>
-> Date:=C2=A0 Thu, Sep 24, 2026, 15:51
-> Subject:=C2=A0 Re: [PATCH bluetooth-next v5 1/3] dt-bindings: vendor-pref=
-ixes: Add AIC Semiconductor
-> To: "Yanli Yang"<yanli.yang@bedmex.com>, <linux-bluetooth@vger.kernel.org=
->
-> Cc: <marcel@holtmann.org>, <devicetree@vger.kernel.org>, <robh@kernel.org=
->, <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <linux-kernel@vger.kernel.o=
-rg>, <zhirunliu@aicsemi.com>, <dijiaxu@aicsemi.com>, <chunqiuliu@aicsemi.co=
-m>, <liheng.wei@bedmex.com>
-> On 24/09/2026 05:34, Yanli Yang wrote:
-> > Add the vendor prefix for AIC Semiconductor (Shanghai) Co., Ltd.,
-> > used by the AIC8800D80 Bluetooth bindings.
-> >=C2=A0
-> > Signed-off-by: Zhirun Liu <zhirunliu@aicsemi.com>
-> > Signed-off-by: Dijia Xu <dijiaxu@aicsemi.com>
-> > Signed-off-by: Chunqiu Liu <chunqiuliu@aicsemi.com>
-> > Signed-off-by: Liheng Wei <liheng.wei@bedmex.com>
-> > Signed-off-by: Yanli Yang <yanli.yang@bedmex.com>
->=C2=A0
-> 5 people worked on this one liner?
->=C2=A0
-> Best regards,
-> Krzysztof
->=C2=A0
-Hi, Krzysztof
+OK
+> 
+> > +	return input_action_end_finish(skb, slwt);
+> >  }
+> 
+> This changes the semantics of end_flv8986_core(): it no longer
+> forwards the packet, it only processes it, and the caller does the
+> finish step. Is it worth saying so in a comment above the function? A
+> future caller that misses it would leak the skb.
 
-Thanks for pointing this out.
-You are right, this is only a one-line fix. I will remove the extra Signed-=
-off-by lines from this commit and keep only the author and relevant contrib=
-utors for this specific change in next version.
+I will add a comment for the function change.
+
+> 
+> A heads-up: reviewing this made me notice that a fix I have pending
+> for net touches these same lines. It makes the skb data writable
+> before advance_nextseg() modifies Segments Left and the IPv6
+> destination address, since today a clone sees the change.
+> It also turns the "kfree_skb(skb); return -EINVAL;" right below into
+> kfree_skb_reason(). Since it goes through net, this hunk may need a
+> rebase once net is merged back into net-next.
+
+Sure, I will do rebase once it merged to net-next.
+
+Thanks
+Hangbin
