@@ -1,321 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5140547A898;
-	Thu, 24 Sep 2026 12:46:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 78F2F47ECD3;
+	Thu, 24 Sep 2026 12:47:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790254011; cv=none; b=XN70g9XxekSx1j+AKoNrtos2RW0XEmBCmX+VcIc+ChvHu5TsJroghoTQQ7xwRcNeaIdwWDfMLU8rzod1czveJOhe+z7n1kXgCQsoSJaFbQD/AUso+0jo4EQIXr4iFhF3pnMrf9ahqvX/zZmaudspl1sFMtACRI3oPERqDz2WsY4=
+	t=1790254030; cv=none; b=W8e7lxRBYr8BY8iecVla91iFu/edlWzCyFyyzF9dj8k7t2EUKNJ9xY5AFGHVQdqqlz6psU8w+13Vo7cKzoOtQE3FYwtt62k9LGRHhcn4Ej1wIl7D0f5tQVwnCRl2AWoKUqNKUhEkBDjp0y06xwakWR+rDhP+6yAfNo1Osdi1Ubw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790254011; c=relaxed/simple;
-	bh=0Wny3MyWQ81+tlNB90k7g1GgQgq82xtFl3DomK3NlRU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aCmWoPSDvsm/GZd17xgCdmABPjJofpol/uybIcTDgggISYVJOJ893VQ8Z0aahwIls97XrwerUKbzI2E1394OBdZzoB4epe+GMFiMdql/yVixlM9TA/U5IiBOBf3s6oaYUP6aSqY2WgflNMgO+/cNRFSxuTgxrM3WM44X+uXaFNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WHuEGRU/; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790254030; c=relaxed/simple;
+	bh=aLsBzLjrp1DcDn6DWeVaafFM2AupnjMYo0e+qs0lkyk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sSjwz2TngtWLulBU+R9kztt81/A5H21r1/vF/KIxTEvQzR8aOWAU6EBZ/5SuZ2rh/I25wDuz//eWras/MgSUM0+ShGA3KXpuc8baBxZ8BWR8YxI4k1dLGhoVSZx4rqdJf9QgEXSh8UhwrsKp/fjkf+pm6KCDHaeCPCCfbAbUJ+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qS3yws8A; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WHuEGRU/"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E83B6C4AF11;
-	Thu, 24 Sep 2026 12:46:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790254011;
-	bh=0Wny3MyWQ81+tlNB90k7g1GgQgq82xtFl3DomK3NlRU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=WHuEGRU/3S9LktuEsRRIZGW0SNO7wiFErzKWML2TABS7T+8Zt/MNrcyP2iDHGP7ZR
-	 dTSBNHSum1W05qHItZu4cztf6I5WXMnxNhz16kgLkhFDvaHujj6LHXMAwXqE3xIZrN
-	 4a4pFdDzb5PYge8+0jhBBHfNAv5P8PszGcKYkAaZKWWNc/kDScNqSsB/DIWAY+PvEb
-	 CkkfiaLXHI/xWbFzkL4iXoMnZKeSErvJVDeFVBKf8l+/hKgyW6NY5xTLoJBwGxhTXB
-	 mh/IfaS3GZcjLTkuZ3BX7sipQRVpTe9iEa9DdLgjRGtso8b9d7BHYS748jzT+ojgqY
-	 FCqnfuIXkeodw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D446BC9830E;
-	Thu, 24 Sep 2026 12:46:50 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Thu, 24 Sep 2026 14:46:50 +0200
-Subject: [PATCH v3 6/8] arm64: dts: qcom: sdm845-google: Add basic audio
- support
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qS3yws8A"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 57DFE1570;
+	Thu, 24 Sep 2026 05:47:04 -0700 (PDT)
+Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3F7A03F86C;
+	Thu, 24 Sep 2026 05:47:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790254027; bh=aLsBzLjrp1DcDn6DWeVaafFM2AupnjMYo0e+qs0lkyk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=qS3yws8ARWxyQ1+ftpRPaMpKdtTTqu44bLMcI+dQ5YtFKmjLG0C1X4YEq9s7GpDps
+	 QgQoCK7B8qUrIu+1Q7wIkRxMaXhUEFpkXZltly9wUzAAbIRJPgRBC8r5ZJRrcXrM5P
+	 giKPrhw3skc7Z/BVVwLCIIOEY3xT3cPCUtPBhDbQ=
+Date: Thu, 24 Sep 2026 13:46:59 +0100
+From: Mark Rutland <mark.rutland@arm.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>, catalin.marinas@arm.com,
+	will@kernel.org, maddy@linux.ibm.com, mpe@ellerman.id.au,
+	npiggin@gmail.com, chleroy@kernel.org, ritesh.list@gmail.com,
+	sshegde@linux.ibm.com, pjw@kernel.org, palmer@dabbelt.com,
+	aou@eecs.berkeley.edu, alex@ghiti.fr, hca@linux.ibm.com,
+	gor@linux.ibm.com, agordeev@linux.ibm.com,
+	borntraeger@linux.ibm.com, svens@linux.ibm.com, tglx@kernel.org,
+	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
+	x86@kernel.org, hpa@zytor.com, ojeda@kernel.org, boqun@kernel.org,
+	gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
+	a.hindborg@kernel.org, aliceryhl@google.com, tmgross@umich.edu,
+	dakr@kernel.org, daniel.almeida@collabora.com, tamird@kernel.org,
+	acourbot@nvidia.com, work@onurozkan.dev, nathan@kernel.org,
+	ndesaulniers@google.com, morbo@google.com, justinstitt@google.com,
+	jszhang@kernel.org, japo@linux.ibm.com, jpoimboe@kernel.org,
+	seanjc@google.com, pmladek@suse.com, thuth@redhat.com,
+	ynorov@nvidia.com, joelagnelf@nvidia.com, david@davidgow.net,
+	fujita.tomonori@gmail.com, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+	rust-for-linux@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [RFC] rust: kernel: Add KUnit tests for ARCH_WARN_ASM bug table
+ emission
+Message-ID: <arUbw_TIA0Uj7oXT@J2N7QTR9R3>
+References: <20260922054959.955093-2-mkchauras@gmail.com>
+ <20260922064735.GS4121339@noisy.programming.kicks-ass.net>
+ <arNxAn7I7NCVWmD1@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+ <20260924111557.GP1837346@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-pixel3-audio-v3-6-5d06460fc8a9@ixit.cz>
-References: <20260924-pixel3-audio-v3-0-5d06460fc8a9@ixit.cz>
-In-Reply-To: <20260924-pixel3-audio-v3-0-5d06460fc8a9@ixit.cz>
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- David Rhodes <drhodes@opensource.cirrus.com>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com, 
- devicetree@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5540; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=kcOJuw/9+ohJx6Qaeb4TQNVMUEcnU0DSvegSZd7bX2g=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtRu4pgWbGkyQQ7bv8Axc8fYZHECCPzbB7kI0/
- PlALchkGBaJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarUbuAAKCRBgAj/E00kg
- cqI1D/4xcs9nHc4M8/zYv6e5HayzuadgVhsAVIxoWA3zwOYZ2nh6WqbmnJA5TYXs9inYT53vgiD
- lmzEnTdO5zFEWn1/Ar3Fapgdszfvb2ZS9BodAsXBZqRTYqb6hJ0XJll8iK/oevq5sWw3GruRNl2
- KRrCvCGE73qe6UPtF6DTCyHWZiMKvIitIWcw4QFJ6paBL0VQ4bg4K75995p79SGijNBEWT3kFnE
- lRfPpBi4/QUfZFH1I+BT1z9yPzzEXhhHShHqTCtc7SVEZFum3DYTnA4SYtkFY78XXjlI+xeazZu
- s4vICP7RrZGtrckeKVus2Elx/nKwjhA9kp4iKxM9NoH0XF6+HAawR6s4XRU0LWS92PWRtKHX/aj
- btAw8BDEbxBlwH6AExcVASc4+UMZf8RM/N/lEwbUAdSjocCCUewLFUsKkM29BgIhxA2X6bYlGXa
- kzdtP8Vi5sAUkdys8q+CDcN2BbnEKBeMIllvWPkSJRwlvlADm/HtzpHdBvjumX4YWtZmbBUAMgn
- kePeiagmaXIKD6pO/mj+A7UabkMUPt3CA9eDK7YC1YPt+rRCwdaFZNoWYcxaofo7LkDX6RUt3DX
- an1s4DS4ZAZMg+2e6bmWbE16dX+93LM+qF4C9XE/23x/Fezl0eSXfr/bJb3m5V97oC6eY7LfVcM
- kC0xAo4xSj2vb6Q==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260924111557.GP1837346@noisy.programming.kicks-ass.net>
 
-From: David Heidelberg <david@ixit.cz>
+On Thu, Sep 24, 2026 at 01:15:57PM +0200, Peter Zijlstra wrote:
+> On Wed, Sep 23, 2026 at 11:58:13AM +0530, Mukesh Kumar Chaurasiya wrote:
+> > On Tue, Sep 22, 2026 at 08:47:35AM +0200, Peter Zijlstra wrote:
+> > > On Tue, Sep 22, 2026 at 11:20:00AM +0530, Mukesh Kumar Chaurasiya (IBM) wrote:
+> > > > Verify that the __bug_table entry emitted by ARCH_WARN_ASM has a correct
+> > > > bug_addr displacement — i.e. the arch's trap label reference resolves to
+> > > > the trap instruction — by calling find_bug() with the exact virtual address
+> > > > of the trap, mirroring what the real trap handler does.
+> > > > 
+> > > > To support all architectures, each arch that implements ARCH_WARN_ASM now
+> > > > defines ARCH_WARN_ASM_TRAP_LABEL, a string constant naming the local label
+> > > > at which the trap instruction is placed:
+> > > > 
+> > > >   x86       "1"     (ud2 at label 1:)
+> > > >   powerpc   "1"     (twi at label 1:)
+> > > >   riscv     "1"     (ebreak at label 1:)
+> > > >   arm64     "14471" (brk placed at 14471: by __BUG_ENTRY_END)
+> > > >   s390      "0"     (mc at label 0:)
+> > > > 
+> > > > The label is used consistently: in ARCH_WARN_ASM itself, in the
+> > > > bug_addr back-reference inside __BUG_ENTRY / _EMIT_BUG_ENTRY, 
 
-Introduce support for sound card and wire two CS35L36 audio codecs for
-top and bottom speakers.
+> > > Not really a fan of that. And I can't really tell what you're doing with
+> > > it either. The kunit is in Rust and thus unreadable :-(
+> > > 
+> > > I would rather you fix up is_valid_bugaddr(), some architectures seem to
+> > > have an always true stub because of the callchains always being from the
+> > > break instruction.
+> > 
+> > Hey Peter,
+> > 
+> > thanks for the suggestion. I will fix up the is_valid_bugaddr for
+> > powerpc. I am not very good with other archs asm but i can do it for
+> > ppc32 and ppc64.
+> 
+> Untested thingies for arm64 and s390x.
+> 
+> diff --git a/arch/arm64/kernel/traps.c b/arch/arm64/kernel/traps.c
+> index 914282016069..3d8a969eab5f 100644
+> --- a/arch/arm64/kernel/traps.c
+> +++ b/arch/arm64/kernel/traps.c
+> @@ -987,14 +987,13 @@ void do_serror(struct pt_regs *regs, unsigned long esr)
+>  #ifdef CONFIG_GENERIC_BUG
+>  int is_valid_bugaddr(unsigned long addr)
+>  {
+> -	/*
+> -	 * bug_brk_handler() only called for BRK #BUG_BRK_IMM.
+> -	 * So the answer is trivial -- any spurious instances with no
+> -	 * bug table entry will be rejected by report_bug() and passed
+> -	 * back to the debug-monitors code and handled as a fatal
+> -	 * unexpected debug exception.
+> -	 */
+> -	return 1;
+> +	u32 insn;
+> +
+> +	if (aarch64_insn_read((u32 *)addr, &insn))
+> +		return 0;
+> +
+> +	/* Match ASM_BUG_FLAGS() / BUG() instructions. */
+> +	return insn == (0xd4200000 | (BUG_BRK_IMM << 5));
+>  }
+>  #endif
 
-Inspired by commit from Joel Selvaraj.
+What problem is this trying to solve?
 
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 132 ++++++++++++++++++++-
- 1 file changed, 130 insertions(+), 2 deletions(-)
+Mukesh's original patch seems to be trying to check whether we compiled
+things correctly (such that the bug_table entry points at the expected
+insturction), and I don't think that warrants a runtime check, but (as
+per my reply to him) I don't understand why that's a thing to check in
+the first place.
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-index 9e952f9862f24..cf87b582e3997 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-@@ -2,16 +2,18 @@
- 
- /dts-v1/;
- 
- #include <dt-bindings/arm/qcom,ids.h>
- #include <dt-bindings/dma/qcom-gpi.h>
- #include <dt-bindings/input/linux-event-codes.h>
- #include <dt-bindings/interrupt-controller/irq.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-+#include <dt-bindings/sound/qcom,q6afe.h>
-+#include <dt-bindings/sound/qcom,q6asm.h>
- 
- #include "sdm845.dtsi"
- #include "pm8998.dtsi"
- #include "pmi8998.dtsi"
- 
- /delete-node/ &mpss_region;
- /delete-node/ &venus_mem;
- /delete-node/ &cdsp_mem;
-@@ -404,19 +406,61 @@ nfc@28 {
- 		firmware-gpios = <&tlmm 79 GPIO_ACTIVE_HIGH>;
- 
- 		pinctrl-0 = <&nfc_int_default &nfc_enable_default>;
- 		pinctrl-names = "default";
- 	};
- };
- 
- &i2c12 {
--	/* Bottom spkr (right) CS35L36 @ 40 */
-+	status = "okay";
-+
-+	cs35l36_bottom: audio-codec@40 {
-+		compatible = "cirrus,cs35l36";
-+		reg = <0x40>;
-+		reset-gpios = <&tlmm 112 GPIO_ACTIVE_HIGH>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "Right"; /* Bottom */
-+		VA-supply = <&vreg_s4a_1p8>;
-+		interrupts-extended = <&tlmm 115 IRQ_TYPE_LEVEL_LOW>;
-+
-+		pinctrl-0 = <&cs35l36_bottom_default_state>;
-+		pinctrl-names = "default";
-+
-+		cirrus,boost-ind-nanohenry = <1000>;
-+		cirrus,boost-ctl-select = <1>;
-+		cirrus,boost-ctl-millivolt = <10000>;
-+		cirrus,boost-peak-milliamp = <3700>;
-+		cirrus,temp-warn-threshold = <1>;
-+		cirrus,multi-amp-mode;
-+		cirrus,irq-drive-select = <0>;
-+		cirrus,irq-gpio-select = <0>;
-+	};
- 
--	/* Top spkr (left) CS35L36 @ 41 */
-+	cs35l36_top: audio-codec@41 {
-+		compatible = "cirrus,cs35l36";
-+		reg = <0x41>;
-+		reset-gpios = <&tlmm 75 GPIO_ACTIVE_HIGH>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "Left"; /* Top */
-+		VA-supply = <&vreg_s4a_1p8>;
-+		interrupts-extended = <&tlmm 40 IRQ_TYPE_LEVEL_LOW>;
-+
-+		pinctrl-0 = <&cs35l36_top_default_state>;
-+		pinctrl-names = "default";
-+
-+		cirrus,boost-ind-nanohenry = <1000>;
-+		cirrus,boost-ctl-select = <0x01>;
-+		cirrus,boost-ctl-millivolt = <10000>;
-+		cirrus,boost-peak-milliamp = <3700>;
-+		cirrus,temp-warn-threshold = <1>;
-+		cirrus,multi-amp-mode;
-+		cirrus,irq-drive-select = <0>;
-+		cirrus,irq-gpio-select = <0>;
-+	};
- };
- 
- &ipa {
- 	firmware-name = "qcom/sdm845/Google/blueline/ipa_fws.mbn";
- 	memory-region = <&ipa_fw_mem>;
- 
- 	status = "okay";
- };
-@@ -449,16 +493,35 @@ &pm8998_resin {
- };
- 
- &pmi8998_charger {
- 	monitored-battery = <&battery>;
- 
- 	status = "okay";
- };
- 
-+&q6afedai {
-+	dai@72 {
-+		reg = <QUATERNARY_TDM_RX_0>;
-+
-+		qcom,tdm-sync-mode = <0>;
-+		qcom,tdm-sync-src = <1>;
-+		qcom,tdm-data-out = <0>;
-+		qcom,tdm-invert-sync = <0>;
-+		qcom,tdm-data-delay = <1>;
-+		qcom,tdm-data-align = <0>;
-+	};
-+};
-+
-+&q6asmdai {
-+	dai@0 {
-+		reg = <MSM_FRONTEND_DAI_MULTIMEDIA1>;
-+	};
-+};
-+
- &qupv3_id_0 {
- 	status = "okay";
- };
- 
- &qupv3_id_1 {
- 	status = "okay";
- };
- 
-@@ -467,16 +530,49 @@ &qup_uart9_rx {
- 	bias-pull-up;
- };
- 
- &qup_uart9_tx {
- 	drive-strength = <2>;
- 	bias-disable;
- };
- 
-+&sound {
-+	compatible = "qcom,sdm845-sndcard";
-+	model = "blueline";
-+	pinctrl-0 = <&quat_mi2s_active>, <&quat_mi2s_sd0_active>,
-+		    <&quat_mi2s_sd1_active>;
-+	pinctrl-names = "default";
-+
-+	/* mm[0-9]-dai-link nodes must be positioned first regardless of sorting */
-+	mm1-dai-link {
-+		link-name = "MultiMedia1";
-+
-+		cpu {
-+			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA1>;
-+		};
-+	};
-+
-+	cs35l36-dai-link {
-+		link-name = "Speaker Playback";
-+
-+		codec {
-+			sound-dai = <&cs35l36_bottom>, <&cs35l36_top>;
-+		};
-+
-+		cpu {
-+			sound-dai = <&q6afedai QUATERNARY_TDM_RX_0>;
-+		};
-+
-+		platform {
-+			sound-dai = <&q6routing>;
-+		};
-+	};
-+};
-+
- &tlmm {
- 	gpio-reserved-ranges = < 0 4>, /* SPI (Intel MNH Pixel Visual Core) */
- 			       <81 4>; /* SPI (most likely Fingerprint Cards FPC1075) */
- 
- 	nfc_int_default: nfc-int-default-state {
- 		pins = "gpio63";
- 		function = "gpio";
- 		drive-strength = <2>;
-@@ -505,16 +601,48 @@ touchscreen_pins: ts-pins-gpio-state {
- 	};
- 
- 	touchscreen_i2c_pins: qup-i2c2-gpio-state {
- 		pins = "gpio27", "gpio28";
- 		function = "gpio";
- 		drive-strength = <2>;
- 		bias-disable;
- 	};
-+
-+	cs35l36_bottom_default_state: cs35l36-bottom-default-state {
-+		reset-pins {
-+			pins = "gpio112";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+
-+		irq-pins {
-+			pins = "gpio115";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	cs35l36_top_default_state: cs35l36-top-default-state {
-+		irq-pins {
-+			pins = "gpio40";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-pull-up;
-+		};
-+
-+		reset-pins {
-+			pins = "gpio75";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+	};
- };
- 
- &uart6 {
- 	pinctrl-0 = <&qup_uart6_4pin>;
- 
- 	status = "okay";
- 
- 	bluetooth {
+On arm64 we only call is_valid_bugaddr() under do_el1_brk64() ->
+call_el1_break_hook() -> bug_brk_handler(). We only call
+bug_brk_handler() when HW has taken a BRK exception with the BUG_BRK_IMM
+immediate, and that can only be triggered by executing the right
+instruction (BRK #BUG_BRK_IMM), which we ONLY use for BUG(). and WARN().
 
--- 
-2.55.0
+So I don't see why any change is necessary here.
 
+If the HW has somehow taken a BRK exception from any other instruction
+(which would presumably be a HW bug), there won't be a bug_table entry,
+and so __report_bug() will fail to find an entry, and will return
+BUG_TRAP_TYPE_NONE, same as for the !is_valid_bugaddr() case.
 
+Mark.  
