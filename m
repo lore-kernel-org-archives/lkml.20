@@ -1,128 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE352253B58;
-	Thu, 24 Sep 2026 08:24:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57AB01386C9;
+	Thu, 24 Sep 2026 08:25:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790238285; cv=none; b=p94fbcqzHuiudYf1jGIgOr29blsLux1RENTkP5s6PEzDIH8V+PPk9P6wqBQJn70BOuxfUDp77e4KfXP5kMaes5Rd7QM/3cNi9VOA+amJ+OrWB+A8PTbbLUQP3fYVbeIZ+XGAXX9EnII2sJT0rStehfHlHu0+qTy50l2eAugfyR4=
+	t=1790238321; cv=none; b=IWPFN5tA4qg+DBiUghQ6SVhQxIcdIlIvGc50tOzNyqBah0kY0VO47xBXGNjA61IlFJ7g3i1+iPcZ7KFt9aygAALxoyy3x4JJAobwzMHLpKSDWTckCPbeMGSeDiZGb7eCb2fAPeWTLvLu218ebfUVo8jWsUlZYI0otYsRZISisKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790238285; c=relaxed/simple;
-	bh=qH/xoIQQTjhDSiZhLliQjwC+Qf7DIwFZJQ4us8xPFLs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VD5GSbYYnCuJC+HiWVUe+vMtzd5T7vOaYfa9kfTe2007ZUA7qb51ENgJwlv8Ueec9Euh6jROLRGVNjWmpftH60VkBke0DNMXazYyt49kdStvsP4Bh7cKSNKykymt03MEqbkU9ep8NDNdUH5V0xOs08/CLPvGYUfXfwuEEQKPxhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hzWmfzKK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790238321; c=relaxed/simple;
+	bh=JHdQhmT1l6sixRFZxBZewAAo4nmvaPftOIPTX/2GUtk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PvaNZU+YxYRY+qWFcXzcdKZdFl75klICpn+nOdBalt2ghy3ibQicYakxObjCYiBZegVnlfeSY20zv54V/vTfTyk8kA36V4k4WKAqAe4WtWcnrGltEmquNrrW5GWE/Cz5hRoTPHA6k8RCYFY9P79lMh5dqmIIlORZpp75pTPu/Co=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=e4unAcEB; arc=none smtp.client-ip=92.243.27.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hzWmfzKK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41AA61F000FF;
-	Thu, 24 Sep 2026 08:24:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790238284;
-	bh=H6tVKrw4vxknpsCfaS2E4oakwh3qbNJjyw35eI3TWIc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=hzWmfzKKA3g7QupfnK6ZXnZ8fF2lZmD4DkqCumCqrtgN93b7O+7bJmvVJ1wgkpYnD
-	 JngGUo5JcR8XUqFasFfWGuKlyVPrp4/EEgIbQq/P0Rjcamg+xUTt/cH84ulyAf2FWA
-	 Jn/VnSq1myqFWD0scz6TZNRuDqQtlBJ26+5xrUTfo7fIFZ8h8KXU6W5Y6D9OVk3nRX
-	 YbvbF+9ERz/iDuTXVHdzKAQbzRYnPsMccVdi9XhiCsbxa3DoIb76y+sHqlpXYmeGYy
-	 nuGjLdFvXLSiwS9cOskArOuBZj110IiIXsVSikwXW6yGYoPCx5gvK1fgMC2uHd4zw7
-	 GRdxs8Hm8d1Pw==
-Message-ID: <4ef027ea-13b1-475b-ae31-7d8ca18fcecc@kernel.org>
-Date: Thu, 24 Sep 2026 10:24:40 +0200
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="e4unAcEB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1790238316; bh=JHdQhmT1l6sixRFZxBZewAAo4nmvaPftOIPTX/2GUtk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=e4unAcEBEFUB/Rfln7h8wodxevq0fK+R4aRz2sp389m804OFmsMO4nRiBJ6UO5SrJ
+	 jEv0sIXClmKP8CBfAM0/xHdfJHd+x/APcZHkloiWnkT402gXzZYxeAS4qaFDxdCfOf
+	 /wL5Bc0uzoKrdvtKINl9bLg0zqAY0kcyL73gqfvSLGqGoSrRhTGXdadGRsgEltbDDm
+	 pR8LEY5doyXf2q5pA+OsJ/T56qRzZyTy1d+b+HGKWZCAWK5y/vXyDYYYMF7T8Bg7PE
+	 ZfnvNFbMbmqETSrBr5m7+bcdI4eWTrUbiukKh7d8QNexB+skMniZtJ5bpDCSGy3M+K
+	 8ss/upS0COZ4Q==
+Received: by extorris.mess.org (Postfix, from userid 1001)
+	id CB31340B86; Thu, 24 Sep 2026 09:25:16 +0100 (BST)
+Date: Thu, 24 Sep 2026 09:25:16 +0100
+From: Sean Young <sean@mess.org>
+To: Yuanzhe Liu <25031212351@stu.xidian.edu.cn>
+Cc: mchehab@kernel.org, oneukum@suse.com, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/1] media: rc: igorplugusb: quiesce callbacks before
+ unregister
+Message-ID: <arTebGLt_KKQiiud@extorris.mess.org>
+References: <20260924025351.122-1-25031212351@stu.xidian.edu.cn>
+ <20260924025351.122-2-25031212351@stu.xidian.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] docs: submitting-patches: mention the branch in T:
- entries
-To: Matthias Goergens <matthias.goergens@gmail.com>,
- Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Theodore Ts'o <tytso@mit.edu>,
- workflows@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <64b0be79c535bb9545f9f81a5044146a8726c761.1790220653.git.matthias.goergens@gmail.com>
- <e592d82c3a9fed3300488fa65380ab055852c984.1790220653.git.matthias.goergens@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <e592d82c3a9fed3300488fa65380ab055852c984.1790220653.git.matthias.goergens@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924025351.122-2-25031212351@stu.xidian.edu.cn>
 
-On 24/09/2026 05:35, Matthias Goergens wrote:
-> A git T: entry in MAINTAINERS may name a branch after the repository
-> URL, and where it does, that branch rather than the repository's HEAD
-> is the one to prepare patches against.  Say so where contributors are
-> sent to the T: entry.
+On Thu, Sep 24, 2026 at 10:53:51AM +0800, Yuanzhe Liu wrote:
+> igorplugusb_disconnect() unregisters the rc device before poisoning its
+> URB. rc_unregister_device() stops the raw-IR kthread, but a completion
+> callback that is already running can still call ir_raw_event_handle().
+> This makes wake_up_process() dereference the kthread's freed task_struct
+> and triggers a KASAN use-after-free in try_to_wake_up().
+
+This is problem with the framework rather than the driver. The
+media-committers tree already contains a fix for this issue:
+
+https://gitlab.freedesktop.org/linux-media/media-committers/-/commit/3ae19773168104fa57d2a2ec57731e89df54175f
+
+> Poison the URB and delete the timer before unregistering the rc device.
+> Poisoning drains any active callback and prevents resubmission, while
+> deleting the timer stops the other URB producer. No callback can then
+> reach rc-core after its raw-IR kthread has been stopped.
+
+Stopping all the urbs before calling rc_unregister_device() isn't really an
+option for all drivers. Users can still do various ioctl/write on the lirc
+chardev which could bring various URBs back into flight. For receive-only IR
+devices like igorplugusb this might not be an problem.
+
+Thanks,
+
+Sean
+
 > 
-> Suggested-by: Theodore Ts'o <tytso@mit.edu>
-> Link: https://lore.kernel.org/all/arSMwd1bGO1vrif-@mit.edu/
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+> Fixes: b1c97193c643 ("[media] rc: port IgorPlug-USB to rc-core")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yuanzhe Liu <25031212351@stu.xidian.edu.cn>
 > ---
->  Documentation/process/submitting-patches.rst | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
+>  drivers/media/rc/igorplugusb.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/Documentation/process/submitting-patches.rst b/Documentation/process/submitting-patches.rst
-> index 7ae79452e1b4..2936388dcaee 100644
-> --- a/Documentation/process/submitting-patches.rst
-> +++ b/Documentation/process/submitting-patches.rst
-> @@ -37,8 +37,9 @@ which can be grabbed with::
->  Note, however, that you may not want to develop against the mainline tree
->  directly.  Most subsystem maintainers run their own trees and want to see
->  patches prepared against those trees.  See the **T:** entry for the subsystem
-> -in the MAINTAINERS file to find that tree, or simply ask the maintainer if
-> -the tree is not listed there.
-> +in the MAINTAINERS file to find that tree, and the branch to work against if
-> +the entry names one, or simply ask the maintainer if the tree is not listed
-> +there.
-
-Honestly this should be squashed with previous. It is one logical change
-- amend format of T: entry and update the docs which reference that T:.
-
-Best regards,
-Krzysztof
+> diff --git a/drivers/media/rc/igorplugusb.c b/drivers/media/rc/igorplugusb.c
+> index b5117ee..42e05b9 100644
+> --- a/drivers/media/rc/igorplugusb.c
+> +++ b/drivers/media/rc/igorplugusb.c
+> @@ -241,9 +241,9 @@ static void igorplugusb_disconnect(struct usb_interface *intf)
+>  {
+>  	struct igorplugusb *ir = usb_get_intfdata(intf);
+>  
+> -	rc_unregister_device(ir->rc);
+>  	usb_poison_urb(ir->urb);
+>  	timer_delete_sync(&ir->timer);
+> +	rc_unregister_device(ir->rc);
+>  	usb_set_intfdata(intf, NULL);
+>  	usb_unpoison_urb(ir->urb);
+>  	usb_free_urb(ir->urb);
+> -- 
+> 2.45.1.windows.1
+> 
