@@ -1,120 +1,101 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56270339872
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:30:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A0C31E32D6
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:30:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790253051; cv=none; b=eY87zlT6xQ9m4nUu1As/HF0U38ic1eb/MXkekhkaFfHmmVQIgM8lyCM0JveBjyZ21apVwD81Ew4j3IFhlDhTOnhe1Mf+17fhXlYsYtq7683i6Nrt4qWt5MLJ6zn/u9H/uJPW/809cASuWMUNzO/AGdCiJW9xle1/fD2KYAzkkIk=
+	t=1790253056; cv=none; b=NdjlXiwTRFHo3eMPkNOMslDpOAXS9JL1Q3FmSRXUoIthSUPdYkbXzCVuhPj69dPY/Xiz4GpDlarPugbDjqdSQUDYh/yCjQjtqyyYfyg5DGDIVJp9pmwc+3Q6zK10c+USfYAAtrMCPiQxHNv8Ysdlw4QkmzpKHuoq/yLzm9/qNI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790253051; c=relaxed/simple;
-	bh=feq1bcLZOkeXI/qUwCevPwJr4SdTs/1WRLQXKorQ6GQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BTBzO0gBfT0W/fn/x2l2pLbgvxj7eFrhiqXQFPlqpj+lmaNieQfZlcQT848j1B23sa/9WUL55X6GAhafcaLbATSKjNqX/JETkUuNbVh1sh8u1l4PPdFaI5EYM6eRW9x8qIGIPXZLGaVO4VR3BTYBROcvDn6y3eTWUCT5OvPGKzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FwMCrkK5; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790253056; c=relaxed/simple;
+	bh=Y2vPvygsden7BH0x9JcmWlAOFiFi6xLiprxeon4Cp38=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ShqiMI5AgYwpmDkxfqPdBPdCyyPRPij5WOEzcg3ZhRCT06mb+reu3a+CccQfAYeo9U7XcfXthZXhVjEkL6X/Hl9eLlV0OQmWPbjlrcqGP7tSyGgFuf+C+WwiJmwlLsn3r/IqPaDbw0b+GNLbAT+bQsw6qjo/y0reGmqpVyblkw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=G7SFuhK6; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FwMCrkK5"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so18227335e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:30:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790253048; x=1790857848; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0D3eaT5BNEoIaAjsEGOHSHHnJMJpvKkiEM0V7CbB5XI=;
-        b=FwMCrkK5jjkKMmg9FlAroe6oeM4NrIA5qSzelogJvWuo7Ou7qjPp03dCfzbRBk5b8O
-         GQeTIXgvCHNeIfQMD3Hw5hA0g9aaoqy/IvvHagL3CTKmIfh6l6LVRMjfKh3Z6PElPWe0
-         ikq29seO+7xyxHc4PJeKYUkJSK9uwjb11X/cvu/CefZ9xY0ZeNzmWAdMhRiX+QZRQAeP
-         sjV7hV9/HK81ZzdioFo0DqnpImFvj3rjbZNCEb+0XLwKz8LevpTFi7Z4iWdWTeQsxARK
-         OGM8m0O8JeXmygdHor+V5XS2sF2UZHCvh4Jbd9ZvJFjCBmA+INm3M+Kgnmk/feVmI+Qx
-         QhFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790253048; x=1790857848;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0D3eaT5BNEoIaAjsEGOHSHHnJMJpvKkiEM0V7CbB5XI=;
-        b=VaevzhFRVCudHhEqAEkEHiCgPvl1heXlA+Hpa8T1uzjTfeUx8mcJis4tiniS6NWW1b
-         Jyzc4NPf19D8f0fVpBlpAugHB7ikapkLATFWjahWM9qDwHQ8fLj7MLj7P7Ge6WGwYun4
-         YBIoBa6XjnC+2ho/QPpmQmJ8Y3waxwWg43L626NiNn3uM1gjh4gR9WofBnDAvR0mF9YZ
-         KvJswlUsT8ynlhll7SvgqlRvsUlXQ2BuTPVjP2JGg4M0r7CM0pfgv+ar3odyq19TS97+
-         2Vz33bmQUmWzDrDsj8waxGBwBzCxg9nqj9GB9Yavxc0yLlnK5aqNiKPEVPVu4HiW7vu2
-         eD/Q==
-X-Forwarded-Encrypted: i=1; AKwUvByOlH7iLCefv7frjWm+SkeZ/ri/zHI5nOivlc/D9UGQDNOQljba1fs2V9M803UQ3bNqk38EbQh/83mF9dA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lz4io9Vt6RWTpR91JTVtcOS9H37LquM2PC8kQT/FnPp6uUmFNm
-	eXaviUOi2CQVEs3vZzjKhLWtK/k+szSPnHe7kfzE5sehcUU9XszeIQSY
-X-Gm-Gg: AYBFou3rL0MR8GlbKsfaZR5LPAJcp1f7y7ks9hHPuDeKhbUavplShh2RbvTyXEFxX2e
-	DmLqKpi/gMgWsbemm/z1ZgodPdNY4452C7sKNj41yp4PjHAEVhwCOoE/de1LXhyd6POt/Qe5QNY
-	sZEKiNWphBvF0tDD24+FCcA/8McHIsxO6JimA89qsW+SXE6Js2oOku0NiPbossZEYojcxU0/h/C
-	A8IyZvjfgpAun+xMv+RhZPUOAoQHv1PEqY4VLKQc4P3042e7HnYDNYJlwfBfjX/wvPWtE91YCUv
-	JKA/zMnN3rI2L4rYbinwK2oSz0/CVotjk8egbv76W9DFQ32oAMVgpIdVj4yDSRgtuakrpKOx93i
-	ySlf1HrmCUkcx38eMDzkyYe8h7BQIkN1QqM/0O6ukf07yAvAThTkjCGrJTekfkXotQNM2hCudd1
-	3F8+bQUCTelgZu++14MoDoeMrxGFJnMMFlVzJ98Uxbu+C9HMtlqDcbZqGaYVqtZZ4WroTiZOytc
-	sw0gNYSiiwCSm44EcSWYLjWF+1m4VYDvn3BhAwpkpXkoMQZor3IBJc/YfmHoYU83qpktzyVieA=
-X-Received: by 2002:a05:600c:3b07:b0:49e:84bf:6121 with SMTP id 5b1f17b1804b1-49fe66d1653mr39911805e9.13.1790253048131;
-        Thu, 24 Sep 2026 05:30:48 -0700 (PDT)
-Received: from pws-dionisio-3680.powersoft.it (78-209-174-168.subs.proxad.net. [78.209.174.168])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5bae43dsm64010115e9.5.2026.09.24.05.30.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 05:30:47 -0700 (PDT)
-From: Michele Dionisio <michele.dionisio@gmail.com>
-To: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: Michele Dionisio <michele.dionisio@gmail.com>,
-	Hante Meuleman <meuleman@broadcom.com>,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	Kalle Valo <kvalo@kernel.org>,
-	Pieter-Paul Giesberts <pieterpg@broadcom.com>,
-	linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH wireless 0/1] wifi: brcmfmac: fix oops on removal while wpa_supplicant exits
-Date: Thu, 24 Sep 2026 14:30:26 +0200
-Message-ID: <20260924123027.4122909-1-michele.dionisio@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="G7SFuhK6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1790253052;
+	bh=Y2vPvygsden7BH0x9JcmWlAOFiFi6xLiprxeon4Cp38=;
+	h=From:Subject:Date:To:Cc:From;
+	b=G7SFuhK6Z/TnEfb2AGONc+xwCi95a+DUC3iOJ+NX+8Gnzs62hhG9TacrU7PcwEPgV
+	 Su52aAwB47vhwGWhYQAnqyqQxClEZyec5t+xJNizYfyZMMUvXa5s7Plz8bnCEc91cF
+	 kH2layYRkLpy+XhtKIGCrDIp1PRqDJBoVUW+IoK7mqbBVa44J1X6voi5SKhVNseKy9
+	 UKkGYQ6ahwvb4AWSMUrmYXUosjFISvN3pSZMerf+x/pjdDgBUshprcMbSIxqBvPH1E
+	 nseNhu0M7ZqAlZi0WrxHRTjyCP05v4DrkMRKbsjICNF+QG6MpWJgi9+DUTkollovws
+	 EcqX26MydoNuQ==
+Received: from fedora-32.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0BC8417E047B;
+	Thu, 24 Sep 2026 14:30:52 +0200 (CEST)
+From: Boris Brezillon <boris.brezillon@collabora.com>
+Subject: [PATCH 0/3] drm/panthor: Misc MMU fixes/robustness improvements
+Date: Thu, 24 Sep 2026 14:30:42 +0200
+Message-Id: <20260924-panthor-mmu-fixes-v1-0-e25f9b106466@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ7CIBBFr0JmLQmlxWCvYroY6WhnAVSgxqTp3
+ Z3Y5fsv7+9QqTBVGNUOhT5cOSeB7qIgLJhepHkWBmvs1dzsoFdMbclFx7jpJ3+paux8b+cg2ni
+ Qbi30F5Ldp5MLvTe5bucID6ykQ46R26gG57wLPaL1Dqbj+AF1qJehkwAAAA==
+X-Change-ID: 20260924-panthor-mmu-fixes-a1832dc60908
+To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Akash Goel <akash.goel@arm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Chia-I Wu <olvaffe@gmail.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, 
+ Boris Brezillon <boris.brezillon@collabora.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790253051; l=1609;
+ i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
+ bh=Y2vPvygsden7BH0x9JcmWlAOFiFi6xLiprxeon4Cp38=;
+ b=jO3y3kcEcTMilWPBpCdH/Qxa+iFb/m0jQ/1t5wk9GS8wQiMmhamdNWq9zrxl4/xjqowmvQiSg
+ jQd5SIh+yyLBj/HIvP2JuqcURgHUgTysfPtxzyFqXMgknAkk90tVguU
+X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
+ pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 
-Unloading brcmfmac while wpa_supplicant is still exiting crashes the
-kernel in _cfg80211_unregister_wdev(). The P2P device interface is
-removed twice: once by NL80211_CMD_DEL_INTERFACE (brcmf_p2p_del_vif())
-and once by brcmf_detach(), which reads ifp->vif before blocking on
-rtnl_lock() and then uses it after the other path has freed it.
+The first commit is fixing a bug we've seen on v13 HW. Even though
+we don't quite understand what happens (race in the flush-elimination
+logic when flush requests are sent concurrently from the CPU and the
+MCU), it seems that the downstream driver has always been doing a
+flush+invalidate of RW caches from the start, and that we were doing
+so up until the atomic page table update changes, so let's go back to
+that state and leave the RO L1 caches untouched.
 
-I hit this on an i.MX 8M Plus board with a CYW55513 (Sona IF513) on
-SDIO, running the Ezurio backport of brcmfmac from v6.18.22 on a 5.4-rt
-kernel. The code involved is unchanged in mainline. It reproduces with:
+The second patch a fix for a race that could very well happen if we
+ever end up with a failure between the as_disable() and as_enable()
+calls. We've not experienced this so far, but it seems worth plugging
+the hole regardless. The last patch is a much more theoretical bug,
+which would involve a buggy FW telling us that a CSG is suspended,
+when it's actually. I've deliberately not added a Fixes tag on the
+last one for this very reason, but I think it's worth staying on
+the safe side by addressing this theoretical issue, still.
 
-  kill $(pidof wpa_supplicant); rmmod brcmfmac_cyw brcmfmac
+Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+---
+Boris Brezillon (3):
+      drm/panthor: Don't invalidate OTHER caches
+      drm/panthor: Fully disable the AS even if it's going to be re-assigned
+      drm/panthor: Move cache-flush after UPDATE(UNMAPPED)
 
-The patch takes RTNL and the wiphy mutex in brcmf_detach() before
-removing the interface that has no netdev, and re-reads iflist under
-them.
+ drivers/gpu/drm/panthor/panthor_mmu.c | 43 ++++++++++++++++-------------------
+ 1 file changed, 20 insertions(+), 23 deletions(-)
+---
+base-commit: 45585c3aa285854face65293acc95eff73063d6d
+change-id: 20260924-panthor-mmu-fixes-a1832dc60908
 
-Testing: on mainline the patch is build tested only (W=1, no warnings).
-I tested the same change on the board above, applied to the Ezurio
-backport of brcmfmac (from v6.18.22) running on the 5.4-rt kernel: with
-the patch the reproducer no longer crashes the kernel. I am not able to
-test a mainline kernel on that board.
-
-The analysis of the oops and the patch were done with the help of an
-AI assistant (Claude), from the oops, the driver debug log (debug=0x406)
-and the driver sources. I reviewed the change and I can answer
-questions about it.
-
-Michele Dionisio (1):
-  wifi: brcmfmac: fix P2P device removal race in brcmf_detach()
-
- .../broadcom/brcm80211/brcmfmac/core.c        | 27 +++++++++++++++++--
- 1 file changed, 25 insertions(+), 2 deletions(-)
-
-
-base-commit: 93f51579e7df248780214094418f205253383cc5
--- 
-2.53.0
+Best regards,
+--  
+Boris Brezillon <boris.brezillon@collabora.com>
 
