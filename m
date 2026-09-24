@@ -1,161 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-215.mta1.migadu.com [95.215.58.215])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D703C370AE6;
-	Thu, 24 Sep 2026 05:55:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F8CA3E63AE
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:58:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.215
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790229339; cv=none; b=Ztf1js/i27CovbTM7ijB0dZwnft+BD8wvPLVsIrUOVBipAPMY9kaF/Fqv+NzViuhCq6efrTXecSdAxZPZ/pAVuXXqKgoYomOvxZ/YlPtt+bx+T0OssKl/KOR1/CQfjiFr324K8kYwp0MmznSvSZ7ky1AReBhPw7YztDP5ZFA57k=
+	t=1790229526; cv=none; b=XWcc5B2GsIIqFTlOwa9zO4hZFDNQsfhR3e9QjU5pXpqs65dHZAb2xu4mWhqfx5YDSbjRY7FTux5u5yufcN4pH3NYz1UX0wFcF49eh8XG+a1sBhlSqJTjDh5ewwXJMrIAIHyiHofA9VD/Hz5AvtEgmg+Io4wQZj+gaPWnaXuwK3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790229339; c=relaxed/simple;
-	bh=jH/4BwDYmH5pCVgnCgWRUnCUgAu9voGXuX0WUygE4xE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=shNgSpbh6fK29DsyrGcdlAEq/P3AeWbrI/0ZhhT++HC+Bzm1LoMGsHI3/Rv6/jTJBG5/EeXu+TCpqffhFcwc4KgQIoeDcZ7noXnWXzazXpjilCmclRcDwjZnRmU+G77EtZRAB9+TpEm3tec6vOdAgyxb3JGL3/r2JXlCiGhZyLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WM4UpJZr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790229526; c=relaxed/simple;
+	bh=HXc6oqjzAuU/UrjmqfAtyQVrndHemXKxHSkJX6ryL1w=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=NgqyA3daKuoILvBhph7d8paxYioNvauIkiiQFNlMLNgmNz6EUzJSDEMo7oBSNR9RIZht11EHApyfafLhShyyn6yHcYbTftiaUQWy57FPxNd2kj2jYGJhcbj2z+K+BB6m5/r078RgVzL+ZwADkC9UxuH5I3F5n9ncKLPW5cjzbAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=n+/0eqTe; arc=none smtp.client-ip=95.215.58.215
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WM4UpJZr"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 311A61F000FF;
-	Thu, 24 Sep 2026 05:55:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790229337;
-	bh=HhNLLsxjo5Gu8BwI2LxnCbyQjlLdeAmR0e50C8GFqIU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WM4UpJZrUSsUswX3K8Q+Ibr8YRSJ/Vb+EO0gQqW0lzn0fsq6CFOJQTHF+FOIcw7en
-	 KENbz1tWs3PSGL//QTLgCn0R7T0MGbo3jtAce5dTiqKX4xxjVefXF+8iudo8tldMZ+
-	 T6kbnUa3NGZhw/SRqS1jH/jdY2ZJtF/zW523Oqjm+VZ+zlmfq9GhWEIazzwZwy+KF5
-	 4oIlgfXutFur+Da6+7lzvBV+79T3B8/fLgFazBaXf4zXa5MW7cfk1lAu+wPu6hvedC
-	 N+6p4MZw29Xpisg8Jq9zxMomlRSDtT6PKMN7+HZ7a/TWIgd1oQRxKmPVmq/H+r6e4Y
-	 oq9l9aMCo0lkQ==
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: keyrings@vger.kernel.org
-Cc: Jann Horn <jannh@google.com>,
-	linux-kernel@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	David Howells <dhowells@redhat.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	linux-doc@vger.kernel.org (open list:DOCUMENTATION)
-Subject: [RFC PATCH 2/2] keys: Reject keyring creation with overridden credentials
-Date: Thu, 24 Sep 2026 08:55:18 +0300
-Message-ID: <20260924055521.1981957-3-jarkko@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260924055521.1981957-1-jarkko@kernel.org>
-References: <20260924055521.1981957-1-jarkko@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="n+/0eqTe"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=HXc6oqjzAuU/UrjmqfAtyQVrndHemXKxHSkJX6ryL1w=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790229521; v=1; x=1790834321;
+ b=n+/0eqTepV3TfH6SeW4jDp1wJmSNfpG6rg9BHtayR0I3hFkjvpgqe9vfLqwnp1XtHtElggxI
+ u8wU3VDEcFuDtdrAY8jf1OC+I12bhW4pnfWnToNTpgQWBHnB5A073jEky7bS0AtY4cHb5Klwj30
+ uCcrIN27Wn93WBrWnb/I9h3U=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d0fe7acf4a06a29c;
+	Thu, 24 Sep 2026 05:58:41 +0000
+X-Mizu-Trace-ID: d0fe7acf4a06a29c
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 24 Sep 2026 07:58:33 +0200
+Message-Id: <DLNBECY70VGJ.DRSBNB6M66U8@linux.dev>
+Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
+ Straube" <straube.linux@gmail.com>, "Peter Robinson"
+ <pbrobinson@gmail.com>, "Bitterblue Smith" <rtl8821cerfe2@gmail.com>
+Subject: Re: [PATCH v4 6/6] MAINTAINERS: add entry for the RTL8723B rtw88
+ driver
+From: "Luka Gejak" <luka.gejak@linux.dev>
+To: "Ping-Ke Shih" <pkshih@realtek.com>, "Luka Gejak" <luka.gejak@linux.dev>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260923213557.186205-1-luka.gejak@linux.dev>
+ <20260923213557.186205-7-luka.gejak@linux.dev>
+ <afb044e0aef8425880ddb24add9340ab@realtek.com>
+In-Reply-To: <afb044e0aef8425880ddb24add9340ab@realtek.com>
 
-If the current task is running with overridden credentials calling
-commit_creds() is forbidden and triggers a BUG_ON().
+On Thu Sep 24, 2026 at 3:24 AM CEST, Ping-Ke Shih wrote:
+> Luka Gejak <luka.gejak@linux.dev> wrote:
 
-Reject keyring creation with -EPERM when credentials are overridden.
+[...]
 
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
----
- Documentation/security/keys/core.rst |  3 ++-
- security/keys/process_keys.c         | 31 +++++++++++++++++++++++++++-
- 2 files changed, 32 insertions(+), 2 deletions(-)
+>> +REALTEK RTL8723B WIRELESS DRIVER (rtw88)
+>> +M:     Luka Gejak <luka.gejak@linux.dev>
+>> +L:     linux-wireless@vger.kernel.org
+>> +S:     Maintained
+>> +F:     drivers/net/wireless/realtek/rtw88/rtw8723b*.c
+>> +F:     drivers/net/wireless/realtek/rtw88/rtw8723b*.h
+>> +
+>
+> I think no need this entry.
+>
+> Just with below 'R', the ./scripts/get_maintainer.pl with rtw88 patch can
+> output your name, no?
+>
+>>  REALTEK WIRELESS DRIVER (rtw88)
+>>  M:     Ping-Ke Shih <pkshih@realtek.com>
+>> +R:     Luka Gejak <luka.gejak@linux.dev>
+>>  L:     linux-wireless@vger.kernel.org
+>>  S:     Maintained
+>>  T:     git https://github.com/pkshih/rtw.git
+>> --
+>> 2.55.0
+>
+> By the way, your patch should tag rtw-next (i.e. [PATCH v5 rtw-next]).
+> Otherwise, NIPA test your patches on wireless-next tree, reporting
+> errors [1].
+>
+> I don't know if someone is reading your patches. I'd skip v4.
+> Please wait a while and send v5.
+>
+> [1] https://patchwork.kernel.org/user/todo/linux-wireless/?series=3D11725=
+92
 
-diff --git a/Documentation/security/keys/core.rst b/Documentation/security/keys/core.rst
-index c81a3a9fe236..9779ce71df47 100644
---- a/Documentation/security/keys/core.rst
-+++ b/Documentation/security/keys/core.rst
-@@ -168,7 +168,8 @@ The key service provides a number of features besides keys:
-      If a process attempts to access its session keyring when it doesn't have
-      one, the default user session keyring for its current UID is returned
-      without being installed into its credentials.  If creation is requested,
--     an anonymous session keyring is installed.
-+     an anonymous session keyring is installed, failing with -EPERM if
-+     credentials are overridden.
- 
-   *  Each user has two quotas against which the keys they own are tracked. One
-      limits the total number of keys and keyrings, the other limits the total
-diff --git a/security/keys/process_keys.c b/security/keys/process_keys.c
-index a5aa056a6725..bd68dbc028e2 100644
---- a/security/keys/process_keys.c
-+++ b/security/keys/process_keys.c
-@@ -346,6 +346,14 @@ int install_session_keyring_to_cred(struct cred *cred, struct key *keyring)
- 	return 0;
- }
- 
-+/*
-+ * Determine whether the current task is running with overridden credentials.
-+ */
-+static bool cred_overridden(void)
-+{
-+	return current_cred() != current_real_cred();
-+}
-+
- /*
-  * Handle the fsuid changing.
-  */
-@@ -578,7 +586,8 @@ bool lookup_user_key_possessed(const struct key *key,
-  * to a key or the best found key was a negative key; -EKEYREVOKED or
-  * -EKEYEXPIRED if the best found key was revoked or expired; -EACCES if the
-  * found key doesn't grant the requested permit or the LSM denied access to it;
-- * or -ENOMEM if a special keyring couldn't be created.
-+ * -ENOMEM if a special keyring couldn't be created; or -EPERM if creating one
-+ * while credentials are overridden.
-  *
-  * In the case of a successful return, the possession attribute is set on the
-  * returned key reference.
-@@ -607,6 +616,11 @@ key_ref_t lookup_user_key(key_serial_t id, unsigned long lflags,
- 			if (!(lflags & KEY_LOOKUP_CREATE))
- 				goto error;
- 
-+			if (cred_overridden()) {
-+				key_ref = ERR_PTR(-EPERM);
-+				goto error;
-+			}
-+
- 			ret = install_thread_keyring();
- 			if (ret < 0) {
- 				key_ref = ERR_PTR(ret);
-@@ -625,6 +639,11 @@ key_ref_t lookup_user_key(key_serial_t id, unsigned long lflags,
- 			if (!(lflags & KEY_LOOKUP_CREATE))
- 				goto error;
- 
-+			if (cred_overridden()) {
-+				key_ref = ERR_PTR(-EPERM);
-+				goto error;
-+			}
-+
- 			ret = install_process_keyring();
- 			if (ret < 0) {
- 				key_ref = ERR_PTR(ret);
-@@ -646,6 +665,11 @@ key_ref_t lookup_user_key(key_serial_t id, unsigned long lflags,
- 
- 			if (lflags & KEY_LOOKUP_CREATE) {
- 				key_put(user_session);
-+				if (cred_overridden()) {
-+					key_ref = ERR_PTR(-EPERM);
-+					goto error;
-+				}
-+
- 				ret = join_session_keyring(NULL);
- 				if (ret < 0)
- 					goto error;
-@@ -658,6 +682,11 @@ key_ref_t lookup_user_key(key_serial_t id, unsigned long lflags,
- 		} else if (test_bit(KEY_FLAG_UID_KEYRING,
- 				    &ctx.cred->session_keyring->flags) &&
- 			   lflags & KEY_LOOKUP_CREATE) {
-+			if (cred_overridden()) {
-+				key_ref = ERR_PTR(-EPERM);
-+				goto error;
-+			}
-+
- 			ret = join_session_keyring(NULL);
- 			if (ret < 0)
- 				goto error;
--- 
-2.47.3
+Thank you. I will hold and send v5 tagged [PATCH v5 rtw-next], and I am
+reading the list in the meantime.
 
+On the entry: it is a maintainer entry for one driver, which is not the
+same thing as the reviewer line. The file's legend:
+
+        M: *Mail* patches to: FullName <address@domain>
+        R: Designated *Reviewer*: FullName <address@domain>
+           These reviewers should be CCed on patches.
+
+The names it reports them under are "maintainer:" and "reviewer:":
+get_maintainer gives the M: role the first and pushes R: entries as the
+second. With R: alone the entry says my name should be CCed on RTL8723B
+patches, which is correct, and I have kept that line, but it does not
+say that anyone is expected to look after the chip.
+
+Documentation/maintainer/feature-and-driver-maintainers.rst covers
+exactly this case, a maintainer for one driver inside a larger
+subsystem:
+
+  - "The term maintainer spans a very wide range of levels of
+    engagement ... to people responsible for a small feature or a
+    driver";
+  - "Drivers and alike most often do not have their own mailing lists
+    and git trees but instead send and review patches on the list of a
+    larger subsystem" - which is why the entry deliberately has no T:
+    line and patches keep going through rtw-next;
+  - "Maintainers must review *all* patches touching exclusively their
+    drivers, no matter how trivial" and "an Acked-by or Reviewed-by tag
+    ... from a single maintainer is enough to satisfy this
+    requirement" - an Acked-by on the list for 8723b patches is the
+    role I am asking for, not a tree of my own;
+  - "Most natural and common choice of a maintainer is the author of
+    the code", and the file "is not a list of credits ... it is a list
+    of those who will actively help with the code".
+
+I know that least one person(with my help) is working on an RTL8723BE (PCIe=
+)
+build and I expect an RTL8723BU (USB) to be added eventually. rtw8723b*.c a=
+nd
+rtw8723b*.h already cover all three variants, so the family has one named
+owner as it grows, and those patches do not all have to reach you first.
+
+It is not a claim on rtw88. The patterns cover rtw8723b*.c and
+rtw8723b*.h only. Nothing else in the directory changes: get_maintainer
+on reg.h returns you as maintainer and me as reviewer whether the
+section is present or not, and the R: line you suggested is what puts me
+on those patches.
+
+The nesting is not new: the ath family keeps separate entries for ath5k,
+ath9k, ath10k and carl9170 inside ATHEROS ATH GENERIC UTILITIES, whose
+F: is drivers/net/wireless/ath/* and whose M: is Jeff Johnson, and ath5k
+and carl9170 carry M: with no T: line, as this one would.
+
+This is about the one chip I have the hardware for, not a proposal to
+split the other rtw88 chips out of your entry.
+
+checkpatch --strict on the MAINTAINERS patch is 0 errors, 0 warnings.
+
+If you would still rather keep it to the R: line, say so and the
+section goes, it is one patch, and it should not hold up the series,
+but please take these points into account.
+
+Best regards,
+Luka Gejak
