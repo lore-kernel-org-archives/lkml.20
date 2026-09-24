@@ -1,93 +1,80 @@
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13DCB476CFF
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 13:08:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3900F387590;
+	Thu, 24 Sep 2026 13:08:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790255289; cv=none; b=u9a/o9am74mLpVpjH45B0kYnGAnz/bqLyZCjGDOFGoHen4Tt64x619xNpwoHbvRN529bgOdiaEkK1XpzAtOubiUIRVambDZZC//2x0/ZvJ93GgM2G3xjKTrgqBvNiedNnlbM/iHKYqn3YvTJ90EhkFkiHgAp9GxEyOYIelpMmyk=
+	t=1790255332; cv=none; b=i1SxhMPRfka5XIJ1e0sEC6Wz60GTOLnikcAT/JUMhtj6gdPjbJIDLPLM8JBfP9utaf6KMQikeeQ91Pj1lPiqpaEgLjqcSwoxWqmLuHrm3V+DqawwRJmhfJmQG5DUuRRqqH0b43gOTQfviUSCmeaA5Tlev61Pq6KbKPXFX6yEEeU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790255289; c=relaxed/simple;
-	bh=b5tBw1OWTW9anYfSrkLvoNb4hmDJ1qh/u97cT1sgxuA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Content-Type; b=Wr9khAQLeyqjCbTdqcmJeoIxIORR9E9LvJMOQS/VJKCUAYwb7/paRAegBAi1DMf07xH3VkruS/YB82RSZDQQ9QtM0rzm2cDliOL/rgE2fZp4muQSP9Q4lbLB8IPzFy+4ocV7oSa7JfEkx2ajJeuGufqoGADwW5X74yXxp1ryKLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=P7w4Y77M; arc=none smtp.client-ip=74.125.228.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1790255332; c=relaxed/simple;
+	bh=VZI8N/6gYLzZLpoXfBFDH6LznFXLoUL16QxpdfMrlD8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o+dYLAApED8IgvVB272ZesCSACHR2Oh3GSTWZKg47bjaAYLohGLHmutxea1DHonZQi2V21rhOBYUAb/2Hf/m0ifwlFxB0gGajVMYDWUgc/rWQstlTMU833+obx6kyBGhm4VpoEkBeJZt55YgOZjaeROMGVmXgOOYvNqyGxClRoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nvc/kL1C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="P7w4Y77M"
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a98dfb8002so2742459a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:08:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1790255285; x=1790860085; darn=vger.kernel.org;
-        h=content-type:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SkvVSwE3EAXQkrsnsyLf5UySEA7ECtLpxiG/B9QOEQg=;
-        b=P7w4Y77Mn2w741nWFbF3DiMqTHohZABbZFDtwSCKEXJPzUelM56QwnNaYGURM4tR51
-         kpx4ko/+cSDh7prjuN01lovzj9AgIs4oIXra2C2q+c4k8N6U18cqMvu/Ar/4W9rCGyY2
-         v+zn9LSdYfg4DpoylyKZ8TyN2SGZcUBMiDid0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790255285; x=1790860085;
-        h=content-type:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SkvVSwE3EAXQkrsnsyLf5UySEA7ECtLpxiG/B9QOEQg=;
-        b=BlFCZUHFfxkXw70NQ1NzmoPBe0FBpR6MgWK2dhddTl1oI+mWCxaG6Yp2/ymzdBUL49
-         pvsU3vi+/RYF5jL6cvKtYAIDiPzqfTXZ3sV/2HmrBh3trl+NDouObgwA9NAhzuioWaoB
-         eo6sdcl/YkqeCocH5W93Nu9xZEfFABXI0OxcONAspj3f58IYkEi9jOwCmhskAc6CfXOp
-         1NGKEYn6o/66bygHkRowGYDNor3eXCfCKP2JQBtuXyX58E9I3GHM1rjbO893J/G+XZED
-         cozoLw1LQsZSvCU8bbl/7f9OoHossr1egDtsKD1UVxtDOMxyGZZw8T7EaR2s5M37wq5F
-         QGug==
-X-Forwarded-Encrypted: i=1; AKwUvBxFcFl5fVa7UQjJq+URLtusQrL2QGFHn2CVcRQXGihB87M7PcqFQWbM6K505i45/EvPsR2JOfiGrPfC2OE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mpAAKv1Nfuh3mekrHeyHpxNH3/gBc/SVGR0IL6ZLbEp0brdMJP
-	ZC4IG9bmBqAaFjR8KUocNTloMnG5DRLJGkrDEIodflJj2oZC0+NG7zaDoM5TAzoGrJo53/SvRkL
-	1bpEFLLg=
-X-Gm-Gg: AYBFou0QJDZqCAjt6+gHFgbdkgULbMv6ZonMPoboUwJXVwFRrNtgqQTK99janbLztfn
-	3jzFCr3aVF2XnEJBufs67AoXZVP1OR8HxM/bHMPxEU1E25U2bV4ey4q5JlP5YSuWgdfHIq4DHbO
-	BVQJg+A6Fa4jzSPMwEXiBllM3Ck5MmsVjB8AuL31QpeC20OznwpEmk5pbyiGBvdD1+CUeQWQpKG
-	lrfHh9KLRtUyu3wmf+k1zevJXEhhdoDNikNwhksDYqXo2lbmfQ9wGvzPsEigvz/zTRcbdp9vSo5
-	ftta5ozp33A+nzbmp0yO1C+1u93kvnLiDY9Sdw8VLyYTyr+jpPoAv5VqhdnTgjrBGP5tGzzb7zp
-	5iEwLPV7Iqs/Lto8zIXaIy0+DEH/JNPffqdS40SMwMmoes9b2mtQj36HrknLjeiEhDmHhCiQ+LZ
-	AucBOBFoXNjfIN/xOD02HPS5ZeULbAcnqlyo7nexChhlJukF2b4XK708Icr2yrt7OMvvfnHMpfT
-	CGP2XtPgknvZN6ulXiUIU06NT+KszZYEpjfIE6T/NecwM5n
-X-Received: by 2002:a17:907:3f8c:b0:c29:3711:626f with SMTP id a640c23a62f3a-c2ac5396491mr203059366b.24.1790255285053;
-        Thu, 24 Sep 2026 06:08:05 -0700 (PDT)
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com. [74.125.228.76])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae67deccsm289906966b.43.2026.09.24.06.08.04
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 06:08:04 -0700 (PDT)
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9adea43b6so2904625a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 06:08:04 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzq7GRlxhNn5loVJafusipla2Hl0QPeWTa+HBexo1nzxaZp0bANvyqU3/jlH0yixnWc0ZMbSBKsjYQ7Bsg=@vger.kernel.org
-X-Received: by 2002:a17:907:8691:b0:c29:5420:cf78 with SMTP id
- a640c23a62f3a-c2ac5521ee4mr166938266b.45.1790255284248; Thu, 24 Sep 2026
- 06:08:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nvc/kL1C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A7351F000FF;
+	Thu, 24 Sep 2026 13:08:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790255330;
+	bh=JNe0+MEvtNypgipOUMWCXmfWLOPV9rh+tWFM3Th3Ytk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Nvc/kL1CW2y0ABPY+myLno+5JzQjxspwUjAueSpk90kyvYN58g/YGGbXFjh9Kw9L6
+	 DZQziEBkhgkvMLbzCVSDhhuqSvHGMhjYVbkgUnZrzb1HpgQxW0dgE0OQnOBH7lXV2C
+	 Fq6zacZvIkdCvQNVxE+vvFWQDrGxPElHMNRZ7G0wpQUlCNZNBwRVeVwXRvbPmWXDHX
+	 Zd7oBib2Qk3lRY55QatoCqQaVy8JkVpgXQIPAoiV02sEK69POoNPzZpmGmRFSJLc9p
+	 FQPo3C7+OTMWtWK9eTOUbXMxxw57T5qQsjnS6TQ9Lwnwi57UNvkIfj9qX+mg+F7CTu
+	 l6ZvWrwQap98g==
+Date: Thu, 24 Sep 2026 15:08:46 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Maxim Storetvedt <mstoretv@cern.ch>
+Cc: andersson@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, marcus@nazgul.ch, marijn.suijten@somainline.org, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	abel.vesa@linaro.org, abel.vesa@oss.qualcomm.com, johan@kernel.org, 
+	konradybcio@kernel.org, kirill@korins.ky
+Subject: Re: [PATCH v7 3/3] arm64: dts: qcom: Add hamoa Samsung Galaxy Book4
+ Edge devicetrees
+Message-ID: <20260924-curious-sociable-nightingale-66ffaf@quoll>
+References: <20260920184148.31541-1-mstoretv@cern.ch>
+ <20260920184148.31541-4-mstoretv@cern.ch>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924032636.GA314300@sakamocchi.jp>
-In-Reply-To: <20260924032636.GA314300@sakamocchi.jp>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Thu, 24 Sep 2026 06:07:48 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wjRVQhcCGHCA9LL6oPf5CQe2Sw2ru_Bm-qJz_bp-dZVmg@mail.gmail.com>
-X-Gm-Features: AclHuK-YDZhU2xM-WhDeYIRR4JvOEWB2H3VNVQf3esI054-WSXnmZZJP9gVpznE
-Message-ID: <CAHk-=wjRVQhcCGHCA9LL6oPf5CQe2Sw2ru_Bm-qJz_bp-dZVmg@mail.gmail.com>
-Subject: Re: [GIT PULL] firewire fixes for v7.3-rc5
-To: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, 
-	linux1394-devel@lists.sourceforge.net, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260920184148.31541-4-mstoretv@cern.ch>
 
-On Wed, 23 Sept 2026 at 20:26, Takashi Sakamoto <o-takashi@sakamocchi.jp> wrote:
->
->   git://git.kernel.org/pub/scm/linux/kernel/git/ieee1394/linux1394.git tags/firewire-fixes-7.3-rc5
+On Sun, Sep 20, 2026 at 08:41:04PM +0200, Maxim Storetvedt wrote:
+> Adds devicetrees for the 14-inch and 16-inch hamoa SKUs of the Samsung Galaxy Book4 Edge.
+> 
+> These use a common dtsi derived from nodes that were able to work on Linux
+> from the initial Galaxy Book4 Edge DTS by Marcus:
+> 
+> Link: https://lore.kernel.org/all/p3mhtj2rp6y2ezuwpd2gu7dwx5cbckfu4s4pazcudi4j2wogtr@4yecb2bkeyms/
+> 
+> combined with the patch series the Honor Magicbook Art 14, which shares device similarities:
+> 
+> Link: https://lore.kernel.org/all/20260629154812.9066-1-mail@etehtsea.me/
+> 
+> as well as a few more adjustments on top of that again to get additional features working.
+> Special thanks to Jesse Ahn for helping expand on what would eventually become this dtsi.
+> 
+> Based-on-a-patch-by: Marcus Glocker <marcus@nazgul.ch>
+> Based-on-a-patch-by: Kirill A. Korinsky <kirill@korins.ky>
 
-That's actually not a signed tag.
+There are no such tags. Don't invent own.
 
-Can you please re-do it with the proper pgp signing?
+Either they provided SoB for the code you used, or not. If they did,
+then you could take them. Otherwise not and read obligations on your
+side expressed in DCO.
 
-               Linus
+Also look at Co-developed tag, if that's applicable.
+
+Best regards,
+Krzysztof
+
