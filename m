@@ -1,168 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2400048551C;
-	Thu, 24 Sep 2026 15:15:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C3AD4A2050;
+	Thu, 24 Sep 2026 15:15:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790262913; cv=none; b=GRYOLi22W5L1Y11DvXYl145w/4SQiJyV1pFYpOZuAsDlLXuJxq8kGAQs/YDYeI+O2iM9C4KROFDZFF1iHzaq4FzwW+o4nOVxgEsecdBQJ217ZPb+TbJgx4eaQNj2Hct/JUJ8sc4915hRY3dYYQ9sUdtQ/veNlhatHjbP4QV3vlA=
+	t=1790262916; cv=none; b=dOrJoo/+EZo7xrGK2AIb1S3F39tlZIE/lan+exZ4dFz5rw4Yo2mzjlM4lWOo3O43AoaVnMlesUxRAJygBpcppoKnuqmDIuROrpAMp/0Ym6LoDEJLQrmn9GcqZBseROJJdDxpKW6TNRFcR8285WopM8oJ7112jFBsOiwVQndfO1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790262913; c=relaxed/simple;
-	bh=mys8d0QyT1jeqfYTCqWxqyuhDyI86uP8AaBBHLjc8CU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NNa2LogsFEtaDROACocw0ZqCPwmL8kYtpWSlzIEea5zlDZXs61Uq7DruE0wT7GP1KcEN/ByOoXGJaMAFmU/h0XyITRp5cXeGGLJ8RmRK5QvLotJuj8Y9eXFe7rxVtDHZN79zOSkHbHIpE4+XIWgLcEGaXmkjm5csXdr4fLPX3T8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GLcv5zNE; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790262916; c=relaxed/simple;
+	bh=cFCTVj3eLYV50+SlwfGI4Y8rNY/bJ9kf81IP6/mZvfs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lXixPITXMby8yULWwaAN6MjVD9yWUWvwuOWj1yiThhhRoyPZLpLQt9f/SWDFUec3sv3W43LKEp/5d8pR79lr6EMFy320EqidWAysZmt7OZTcI94IyUOBvc+ZXsubFzD/j4WtlpLE1cPZY8Qg9EdK7OUOBwqztntWf+sm8ecKD7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TIaMxXG0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GLcv5zNE"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D11F9C2BCFD;
-	Thu, 24 Sep 2026 15:15:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790262912;
-	bh=mys8d0QyT1jeqfYTCqWxqyuhDyI86uP8AaBBHLjc8CU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=GLcv5zNEzPO2gi90jXUd2VHnrxBDTuvDNerSCbLCXaezFQ/uj+q9oTmyqN/nI2MRz
-	 ZbY1RA3914RyPqpTUI1Zx6/ux5U9M4aorEA0fanq/CRpPqCPK4x8RWqGL6kFGDFDdr
-	 4kVaCeOXl0WEp5iMG4UrZiqsoRY053tUJlKrm7fgoUGj9oi5Wvk0X/nWgpXvXLLWTA
-	 dRnb4A2aULq2wM7whNtepfsEEig/KNemcYc6ew+9eZk9slXEJLsHnK7Nx3tFjyIhA9
-	 k1yVZ+im+niSwZQ47ab9O2RxzmUkXPzUrt1JcGhq4MCN5cJjEQQSaaD0xaKPnb0LTf
-	 J++hWGiqJ1SRg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B4633C9830E;
-	Thu, 24 Sep 2026 15:15:12 +0000 (UTC)
-From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Date: Thu, 24 Sep 2026 17:14:30 +0200
-Subject: [PATCH 3/3] arm64: dts: amlogic: t7: Add core clock to PWM
- controller nodes
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TIaMxXG0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 767321F000FF;
+	Thu, 24 Sep 2026 15:15:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790262914;
+	bh=Ew/4lA0mU6CwLmZ4wvwGnY4tHzAxYYulPEtOmIVvTMc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TIaMxXG0PHCMypf4nn1UY/vy07D6PNRvmTvZpihTSxNv8AjOLl1KDixAiHndhaWzI
+	 s7FbJnidkGEZPJwovN+0yVCeaMAigX4aHte781WGnc8YDJL/zt3jN4KKsQeaouuybg
+	 IytW7iQF8qBBm4J+wMWdFwOpyUhzxwNsVLqDnOZMsbv9tmMUwcqW6IvWX4QgkdHFDl
+	 nfFRulYoJCHvNDEQwuvb/d2FfG76dMY5ZJCYkmYUPi80zf7fXFpiExCtsVKo+He6lf
+	 sDRKTFXdD5EDh0G4S8Kl8ClwvV1W9HPpkk1iBcsYLYP3YDvsQJNAx1EJlnseuZqUSN
+	 1GXB4A0MIx1zg==
+Date: Thu, 24 Sep 2026 10:15:12 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Md Shofiqul Islam <shofiqtest@gmail.com>
+Cc: conor+dt@kernel.org, nuno.sa@analog.com, devicetree@vger.kernel.org,
+	Michael.Hennerich@analog.com, linux@analog.com,
+	linux-kernel@vger.kernel.org, joshua.crofts1@gmail.com,
+	linux-iio@vger.kernel.org, krzk+dt@kernel.org,
+	andriy.shevchenko@intel.com, jic23@kernel.org,
+	u.kleine-koenig@baylibre.com,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	dlechner@baylibre.com
+Subject: Re: [PATCH v11 1/2] dt-bindings: iio: health: add adi,max86150
+Message-ID: <179026291208.75492.4253010899051715264.robh@kernel.org>
+References: <20260913104658.230422-1-shofiqtest@gmail.com>
+ <20260913104658.230422-2-shofiqtest@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-add-t7-sys-pwm-clk-v1-3-05b91e87f0a9@aliel.fr>
-References: <20260924-add-t7-sys-pwm-clk-v1-0-05b91e87f0a9@aliel.fr>
-In-Reply-To: <20260924-add-t7-sys-pwm-clk-v1-0-05b91e87f0a9@aliel.fr>
-To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, 
- Ronald Claveau <linux-kernel-dev@aliel.fr>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3527;
- i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=iQJmhI6/rtcZ/olaoAWuBun4MGQh6or5yJDIWByo+Dg=;
- b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9ZWu5oJNSeOKn6LOfv3f4uUkMLnoCN/9Zo0pVNPv1+zn
- f9D2p3qjlIWBjEuBlkxRZb+uZYn3l0+eubrHvUUmDmsTCBDGLg4BWAilm8ZGe54Bpl9538c7vxM
- yuCD7IKqg5e8nXc8f83a9pMx4NZk5nSG/6Ws5c/5AxtVKi2NmyU3bpO3qSv8Meva6umsy6rWWTV
- v4AQA
-X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
- fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
-X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
- auth_id=744
-X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Reply-To: linux-kernel-dev@aliel.fr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260913104658.230422-2-shofiqtest@gmail.com>
 
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-Describe the system clock of each PWM controller (CLKID_SYS_PWM_*) as a
-third clock, and add the clock-names property expected by the updated
-binding: "clk_a", "clk_b" and "core".
+On Sun, 13 Sep 2026 13:46:55 +0300, Md Shofiqul Islam wrote:
+> Add the Device Tree binding schema for the Analog Devices MAX86150
+> integrated biosensor, which combines two photoplethysmography (PPG)
+> channels (Red LED and IR LED) and one electrocardiogram (ECG) channel
+> in a single I2C device.
+> 
+> The device requires four independent supply rails per the datasheet
+> power tree: digital core (vdd), analog core (avdd), ECG reference
+> (vref), and LED anode (leds).
+> 
+> Assisted-by: Claude:claude-sonnet-5
+> Signed-off-by: Md Shofiqul Islam <shofiqtest@gmail.com>
+> ---
+>  .../bindings/iio/health/adi,max86150.yaml     | 77 +++++++++++++++++++
+>  MAINTAINERS                                   |  6 ++
+>  2 files changed, 83 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/iio/health/adi,max86150.yaml
+> 
 
-Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
----
- arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 28 +++++++++++++++++++++-------
- 1 file changed, 21 insertions(+), 7 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-index 8f3f1c0579a0f..83c597d418875 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-@@ -692,7 +692,9 @@ pwm_ao_ef: pwm@30000 {
- 				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x30000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_AO_E>,
--					 <&clkc_periphs CLKID_PWM_AO_F>;
-+					 <&clkc_periphs CLKID_PWM_AO_F>,
-+					 <&clkc_periphs CLKID_SYS_PWM_AO_EF>;
-+				clock-names = "clk_a", "clk_b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -701,7 +703,9 @@ pwm_ao_gh: pwm@32000 {
- 				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x32000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_AO_G>,
--					 <&clkc_periphs CLKID_PWM_AO_H>;
-+					 <&clkc_periphs CLKID_PWM_AO_H>,
-+					 <&clkc_periphs CLKID_SYS_PWM_AO_GH>;
-+				clock-names = "clk_a", "clk_b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -715,7 +719,9 @@ pwm_ab: pwm@58000 {
- 				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x58000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_A>,
--					 <&clkc_periphs CLKID_PWM_B>;
-+					 <&clkc_periphs CLKID_PWM_B>,
-+					 <&clkc_periphs CLKID_SYS_PWM_AB>;
-+				clock-names = "clk_a", "clk_b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -724,7 +730,9 @@ pwm_cd: pwm@5a000 {
- 				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x5a000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_C>,
--					 <&clkc_periphs CLKID_PWM_D>;
-+					 <&clkc_periphs CLKID_PWM_D>,
-+					 <&clkc_periphs CLKID_SYS_PWM_CD>;
-+				clock-names = "clk_a", "clk_b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -733,7 +741,9 @@ pwm_ef: pwm@5c000 {
- 				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x5c000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_E>,
--					 <&clkc_periphs CLKID_PWM_F>;
-+					 <&clkc_periphs CLKID_PWM_F>,
-+					 <&clkc_periphs CLKID_SYS_PWM_EF>;
-+				clock-names = "clk_a", "clk_b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -742,7 +752,9 @@ pwm_ao_ab: pwm@5e000 {
- 				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x5e000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_AO_A>,
--					 <&clkc_periphs CLKID_PWM_AO_B>;
-+					 <&clkc_periphs CLKID_PWM_AO_B>,
-+					 <&clkc_periphs CLKID_SYS_PWM_AO_AB>;
-+				clock-names = "clk_a", "clk_b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -751,7 +763,9 @@ pwm_ao_cd: pwm@60000 {
- 				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x60000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_AO_C>,
--					 <&clkc_periphs CLKID_PWM_AO_D>;
-+					 <&clkc_periphs CLKID_PWM_AO_D>,
-+					 <&clkc_periphs CLKID_SYS_PWM_AO_CD>;
-+				clock-names = "clk_a", "clk_b", "core";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-
--- 
-2.49.0
-
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
