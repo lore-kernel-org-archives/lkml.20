@@ -1,81 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D28C33EB17;
-	Thu, 24 Sep 2026 22:48:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A781C3BCD21;
+	Thu, 24 Sep 2026 22:49:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790290095; cv=none; b=k8WxI+TXaBKjDfjpCVjYKH3F0AcVaYXmdWL0cqi3ZUOmzos4Td4INyWwTZzdVKnNz5dvMdzTv3EW+IGkryMjO/p6S1O/GQz/abinHvt+2lXPUeDbk8PWn4iElP7wgPHEEPLtZDP3PvWc8/jvH3qU7rxDqeYk/7Fvs6puiHfD5HI=
+	t=1790290167; cv=none; b=rcUjzp104oBkY7aj/cSeWvMWyCc+YM7Q1/niX/3iVuhrldtt825tvDkskQ4boETgLgH6JDa7aPfh61KwG/GiQ+nZWpQIh6ruYCsG8D8c2u8VEkmgJCPNKI29e/1dgFDMTenNKc2CZKFqHjJMrQLZqYNuLmRozIUh4J790OjNJIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790290095; c=relaxed/simple;
-	bh=TxHoypJP2FC9bNqJ5rajs02/SRc4CdC9csDTYV9bTnc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LBxt8K77gigUtqZ5ylaWnGUz0vhpKpBv706Bzy3vMKZ6/75iZAu1vHL6XUa38E3LPyvJFymHm0tfDfRzTah0nxIneYP0bA9Z5IqBITr0ek4cW9JvAuduLI1UiJExDg2/n9jpUyoISJo0S624rBn9/vVHCgC1ADdOvwU1OUVnniY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sv5FBKWL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790290167; c=relaxed/simple;
+	bh=es2JFGtR/yGRJZPfDOKoMKeZJ3W57laY+q8VEqDYDKk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=czfkl0g3Kiw7ICwHTo0exAqXNKtflO+B3V3Si8VHArcDY6exkn3gACCkmipuDIpza0wtdXk+jNxCL3CR8ZyFkiV9Ywojxz19NiVqO+1V3AcXZRHDD4bjLZ6UApfydosUZcsIoUYJdeZ1kYJnx+gRzcOZ4fgWpxqpDZx66dJ6C8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=EgkJpaNp; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sv5FBKWL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28A391F000FF;
-	Thu, 24 Sep 2026 22:48:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790290093;
-	bh=Hu229NCao1/vu+cnkCz5guGKbIs5YLrldrQS4LcsBfo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Sv5FBKWL602ZO6OPjzYNKiFEDNY1SBLeI8b/W+XLoe2v8lHuqPHHcJglun50HtPnu
-	 nrQdHnA7E5KZbNaBHpLWH4tZxIXVAaFd2t+LYlOvlZStnmviMECxEpkCELlMdiEVN0
-	 m5Zzlr5i/v2mqie3vndS0SnfUFRZ7uiFtmU/MZYTgby2ov8y03qeyXcWSNcJYWIEZa
-	 pPMS5cozF4uoYbL+s3quS0p1C4Q5z6AXDj+KiL/rQl23SxQICS6ZVGOG+AqWpujMqs
-	 cPbvZxxjIw3nVcx7z6g5GPo/qabFMdA2PSC5Toa/BP5j/73vjqQch5BIo4Ssm/NYP+
-	 9po6r8Ldf4Ncw==
-Date: Fri, 25 Sep 2026 00:48:10 +0200
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Arnaldo Carvalho de Melo <arnaldo.melo@gmail.com>,
-	Namhyung Kim <namhyung@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-next@vger.kernel.org, Jianping Liu <frankjpliu@tencent.com>,
-	Ming Wang <wangming01@loongson.cn>
-Subject: Re: Missing signoff in the perf tree
-Message-ID: <arWoqiABqzp3Zn6x@x2>
-References: <arWl_CVE0g8dSTSU@sirena.org.uk>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="EgkJpaNp"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8A19B1E5E;
+	Thu, 24 Sep 2026 15:49:21 -0700 (PDT)
+Received: from [10.57.10.88] (unknown [10.57.10.88])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A2E7A3F86F;
+	Thu, 24 Sep 2026 15:49:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790290165; bh=es2JFGtR/yGRJZPfDOKoMKeZJ3W57laY+q8VEqDYDKk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=EgkJpaNpSmKXCQ7tSyUqJJ7TLOE57d/HFEXpQhNyzI0wo5deOqfhQRez3T70N3pTT
+	 Bix9JXOFUrFnJqAyocfD2lZW/1u7kChbRXcFip0wNl3WwyEsoQQLRce9coPL6yn+pv
+	 PAC8ZXm7duNeciCJy6fg7vaGlHZ3BNokFcM/J0kU=
+Message-ID: <f317970f-a114-4353-a253-174fa449dde1@arm.com>
+Date: Thu, 24 Sep 2026 23:49:18 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arWl_CVE0g8dSTSU@sirena.org.uk>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v19 1/7] firmware: arm_rmm: Add SMC definitions for
+ calling the RMM
+Content-Language: en-GB
+To: Ackerley Tng <ackerleytng@google.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ gshan@redhat.com, joey.gouly@arm.com, tabba@google.com,
+ yuzenghui@huawei.com, linux-coco@lists.linux.dev,
+ gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
+ alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
+ lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com,
+ jonathan.cameron@oss.qualcomm.com
+References: <20260924135201.850038-1-suzuki.poulose@arm.com>
+ <20260924135201.850038-2-suzuki.poulose@arm.com>
+ <CAEvNRgH8Hwt6_VaFxJVvytZ4La1R7bUN2emc37_fWecF9j2-YA@mail.gmail.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <CAEvNRgH8Hwt6_VaFxJVvytZ4La1R7bUN2emc37_fWecF9j2-YA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 24, 2026 at 11:36:44PM +0100, Mark Brown wrote:
-> Commit
+On 24/09/2026 18:05, Ackerley Tng wrote:
+> Suzuki K Poulose <suzuki.poulose@arm.com> writes:
 > 
->   4c09f6c47b769 ("perf annotate: Fix NULL pointer dereference in loongarch_call__parse")
+>>
+>> [...snip...]
+>>
+>> +
+>> +/*
+>> + * Note many of these fields are smaller than u64 but all fields have u64
+>> + * alignment, so use u64 to ensure correct alignment.
+>> + */
+>> +struct rmm_config {
+>> +	union { /* 0x0 */
+>> +		struct {
+>> +			u64 tracking_region_size;
+>> +			u64 rmi_granule_size;
+>> +		};
+>> +		u8 sizer[SZ_4K];
+>> +	};
+>> +};
+>> +
+>> +static_assert(sizeof(struct rmm_config) == SZ_4K);
+
+...
+
+>> +struct realm_params {
+>> +	union { /* 0x0 */
+>> +		struct {
+>> +			u64 flags0;
+>> +			u64 s2sz;
+>> +			u64 sve_vl;
+>> +			u64 num_bps;
+>> +			u64 num_wps;
+>> +			u64 pmu_num_ctrs;
+>> +			u64 hash_algo;
+>> +			u64 num_aux_planes;
+>> +		};
+>> +		u8 padding0[0x400];
 > 
-> is missing a Signed-off-by from its author
+> The union + sizer concept is cool. Technically this one isn't a padding,
+> it's also a sizer? (same for the other structs below.
 
-The patch had a --- before the author's s-o-b, so it got lost, I'll
-adding it and will force push:
+Yep, you're right. I have changed all in the file to sizer.
 
-============================================================
+> 
+>> +	};
 
-the address-based symbol lookup so that ops->target.sym can still be
-resolved via maps__find_ams() using the already-parsed target address.
-This preserves is_call semantics and keeps TUI navigation working.
+...
 
----
-Changes from v1:
-- Instead of returning -1 when the '<sym>' token is absent jump to the
-  address-based symbol lookup so that maps__find_ams() can still resolve
-  ops->target.sym from the already parsed target address.
+>> +};
+>> +
+>> +static_assert(sizeof(struct realm_params) == SZ_4K);
+>> +
+> 
+> Does declaring this struct as packed matter? I guess the static_assert()
+> has the same effect.
+> 
 
-- Link to v1: https://lore.kernel.org/all/20260423053102.3717015-1-frankljpliu@gmail.com/
----
+I guess it doesn't, the fields are naturally aligned for the offset.
+That said, I have added static_assert() for starting offsets for a
+a group of related fields to match the spec.
 
-Fixes: 4ca0d340ce20 ("perf annotate: Fix instruction association and parsing for LoongArch")
-Signed-off-by: Jianping Liu <frankjpliu@tencent.com>
-Reviewed-by: Ming Wang <wangming01@loongson.cn>
+e.g;
 
-======================
+static_assert(offsetof(struct realm_params, rpv) == 0x400);
+static_assert(offsetof(struct realm_params, rtt_base) == 0x808);
+static_assert(offsetof(struct realm_params, aux_rtt_base) == 0xf80);
 
 
-- Arnaldo
+
+Thanks for the review !
+
+Suzuki
+
+>>
+>> [...snip...]
+>>
+
