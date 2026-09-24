@@ -1,64 +1,64 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03F3240611
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:01:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6443E443E56
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:01:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790287284; cv=none; b=UdHJDJWEj+ijC5jDtRHwNibRzkCc/VC5Q0VUsTNHGWsJfZTc/UaR+xQN53w8N8P8SuJ45vxA0+/kVAgTdDwY+hUo1oVUZy4xX0SQ5gJgoftH5NI+ivOAKBorqmsa2IzWyu/IB1oFE4ziyoNaa/g5DZw8oF7QJvtnnwy3vHOIKxE=
+	t=1790287288; cv=none; b=AYUkpLqL+v379rfdKSu/TPU8mtwLRI9rdyr7ptUEzL1sMAbD5WnEG0+OyGgXPyWC8wocL6FHb8bzIZ5I/Cr9emxj2rEYN1cYd0c8YAESBOH5rWNpgpQzxIcPVLq0C0hzDk7E9ynA6RzPbniVQxTv1hRkvfBe5pVQayahgu3a2K8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790287284; c=relaxed/simple;
-	bh=fyRLcGAYOnSsmGc/YKxjM/QZdjFJiTsk5pPJHNThrIU=;
+	s=arc-20240116; t=1790287288; c=relaxed/simple;
+	bh=JYMGTgV+V84S3zGh47hfcrq7KdlrCh0v20XsSsUpdOo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=NgA/d97Kq5kndQjRV5XLI1QxyzKLOV2CCc+9JSk3BJctEYBxXzqX5iyCmrqJetBGDlVYwABgI6nhPnLye9hE4N0YL1y3tqgaj3HRaScaoeG6lT6uR9xBHLwSQU6x3v9WbvzOVxr6pxsQlRzh1/wR+hEnClpmA/fKDa1mbPCbJ6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=jIoTh8Z7; arc=none smtp.client-ip=209.85.221.46
+	 Content-Type:MIME-Version; b=hqW+DPIC8/JWnxK+51qW0URaSS+C6zw7iTEnJnm4i/HB/af3MVsxUWs60N8luk3D294l1sOPAFjXKN3oL48nFT5tFxJdRw8CsDVyvDyZJueGy/TjYahTZgExWZT3OgpW5asD0Rttso7ylpHT7kIDH/WMnsyVq8GoSgPSme/0l1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=Mlk4oIRe; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="jIoTh8Z7"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-4887d3c59ecso59739f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:01:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="Mlk4oIRe"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d8239so2338875e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:01:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1790287281; x=1790892081; darn=vger.kernel.org;
+        d=lex.la; s=google; t=1790287284; x=1790892084; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:content-type:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=/MXsr8udBMbCSEosD72Zya8yVpr92mX9EcNav60MGyE=;
-        b=jIoTh8Z7BPxrrhDJD+33wq1qW3VA5H+TosRe4d3xkHbV4PR8q9VcTT24ckLnSrD5dB
-         9Y+pZnLXZWyxj1fkMDb/QJ1XTyRQJ0YsINWIJCH7L/XVfgzBlSyPoEiu7OpnTY9Sdqii
-         OZK/6zqc9lD3HMoxHok0WUA59wWGXq34/o52GwvOQnED3bpUKg0K1fwEjocXsA9Hq9Ia
-         zBv8YKgnPmcBf3K8Uu8I70ttaZxV/icr3VjP2L3Gf4q9QFQTXZ/yLMG4dAD2bldYE2tq
-         kd9g2gUj/gNVIRQJg6ILAyY1xQic3z7HObBFs45RSajEqBhX3lz826tCIaW726ZNfH5z
-         Q+Ag==
+        bh=rI7xlaCb6dszd5Hc5HrUUMLQKgpiUexV2xDY/RII4IU=;
+        b=Mlk4oIRe9k1qFVrhRluswQ0t25DDFoJ4c5lq7BOQOtXWhPSAswgmSpk+zQOQThoEl5
+         uDrkLSlFP1NJJuMqfEE8nszKd7uUfxizPjMPi5zFuPQcsEIdvwW5cfkEl85hhhfEuLgR
+         Md6klDmxdhbkaXPu5xg7/S8n/fuOBTgxJ2Zgn5Mh3eJQ5mx5p+waS7oPjGOe7xdJdG8J
+         ZNluk2YYqT2tVMT+W9zZbZg7EmpQIq1nIlcK0flHkXiZctZHDEcgALCptWcTobWYkzbN
+         K08kjv4i0nF+krXi8DXxVp5dsmSlNQjKtClgREYwYLLg8dVeyKOYIKK/0LxovxdC88gp
+         FHvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790287281; x=1790892081;
+        d=1e100.net; s=20260707; t=1790287284; x=1790892084;
         h=content-transfer-encoding:mime-version:content-type:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/MXsr8udBMbCSEosD72Zya8yVpr92mX9EcNav60MGyE=;
-        b=xtklt8XwPRv2m+8p1e61VxES5R7hofinEYN3ptboMEql73SNIrme1cUxGfq7ZYNRyO
-         plu4MsxS+eRKYJy98rNSeNpEe8+PeBDqHNOQUWKvwxy5t2XbfQ8ggeKzvoN+GkQ8hGpy
-         3CxRSGkh5AOsYCF6OIcfwPocJtEOg0wL8Jt1j2rbkp/EYx4GVHp35Mc1bE5Id1FAmhsQ
-         cxZJNZJ4MNUuhEZEScFM5mU8YE/GU18SaoMLz1hZg2KdseP98JY+hXP5p7dmx65t98Ji
-         FVTGCKbZIo57J1wn/kzkQa6DPmC9b7L/8V1UkZjPWMqZxDBu4Zc2JuzPuueIZb7512bW
-         BMLA==
-X-Forwarded-Encrypted: i=1; AKwUvBx/2zW9v4Z6rLD5lGVIEyEcku0L+GVpdQVsDqAEpyXTLDlN/47zkL/RsYzOxaEntNIYkCC+A5lEY8lY688=@vger.kernel.org
-X-Gm-Message-State: AFuF++nAMjmVJD1CnXOcHLHR6GTfGaSO7TAsREiFdIQzVzEijYj5eGPL
-	i/mHPQvu3xs3qNuKVTiJ13n03uaefVM48HX946UaD6L+lSPns/SqCNaGj8i00XHvD+0=
-X-Gm-Gg: AYBFou2+7ikUvKEQSvIQNtXuziDncbKM1HjcWSlFupSl606vHQZ3OzR2nRWL8aksRK2
-	pjFTE7v5NCExQv53kp6G/XVyP5kfJaoMD6JczEZyKfoc34bzYhr4cEg+NOUPHiZBBQmouxFUv5Z
-	1fPqC07dVlYMpked2UkwRxo5YYInGkEEvMpjId9CQRB9A67fxo5WDfwpEY39lxrZPckJuhKbAJm
-	YkvCnjbmlZVepmQ8FAhzjYBqKpxmjn8KuTw3sowsTfDlt8IcAFByb7C55V5jJ0y7/lgWAugSj5i
-	Es9p1zMyGvvMuvMPfDaAcndTRa0Agfn2k+BkBaD0QtVVX5tUk80USDq7w/9wuhuk7XukOsoDbXD
-	R3bkTcKl/hlC6NVzh7EilJbxpBCrgZYgqSk9Suq1FKiJsuBM0gmITySHQDJqzFBd43SunDhQrsz
-	3RJUhEcziKo0WOfZBhTBhSGCqO+M8sbVrxrrVYTD1Suz9iRONTmQ==
-X-Received: by 2002:a05:6000:2083:b0:487:1577:9e33 with SMTP id ffacd0b85a97d-488716f4c5bmr7148793f8f.25.1790287281255;
-        Thu, 24 Sep 2026 15:01:21 -0700 (PDT)
+        bh=rI7xlaCb6dszd5Hc5HrUUMLQKgpiUexV2xDY/RII4IU=;
+        b=BDmU0vDO74qFA2+I9zOPJ20EFWHoG3H26DokKj9I1McIkq3iOmzX8pxgMdBPb+lYvO
+         OGH8J2FKjYwrBK4uQiLwdo2OxmKPkJxmT9aWdO5jaLRWFYkGRqeV0J9uDpbUgB7iSRJ2
+         SGMigwkkCmDPFKsczNm1Af6g5byAYOrYPYmfRRKK8tZWLXVUm9Qxk4wNjHBhSIxZ1Bj0
+         ag6px/lEwWIo9CWU1LRa8ouk9oB0sI+Qk0/Tc8FwLKzrQ8eojGDcK7Ttx92+5+utK1jW
+         n2riqEhLbbBFzIRMX+HFSHSFqvBRd5cNsd6n5TtnrEP9Kh5M78hT2yLHbt55m6PCxRic
+         1lKg==
+X-Forwarded-Encrypted: i=1; AKwUvBw43eRopydC6mdp433P8gMbpqNO7SYrO05ItjpSrcTdWsTl/r0dlLqaJedL2bZ06L0MZg0jQ5u++gjIg0Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++khlfpJ6tNKfXqredHbIu4sguUwAN+r+QNvO4G7J8ozHhMqxaY7
+	fl6HgZPysgQlOvPbEFfeZXPgLb7LT5leV9b4NsIaIgFy+bXGyV3pvHJYxGeXey7ylFk=
+X-Gm-Gg: AYBFou1ae6KdGL+xPZPn4Dp4dudGvxO2/NuGYuf6cqpEUYQcwDTceSTvR7GLpZy0jkp
+	o4PKUuZDfLIDo8TObVSLU+B1vY67GVCuA7GYNkCWlSXsV7uHh7BGa11cqUJ0ZiXLrvS9SRFD3Ak
+	wqMuhzYegPtDiMyX8jD/1lku3K1R3HZUK36jVRP6lXCCx+XhPQZXnoZr+UVl/8yjm/Nkw2HmQF4
+	CEQa9FHLPsUTdKWac8h/SZY2rI0CUTiPayMpuuOtPxCy0Peo0n1kYnozoCegyHrHNjsfHI+sUW1
+	wqSEDZDkYuCgQ/dw50h9TXhZSuZSTWZnB2KiY4DF6ZAd5dImLW8EbD/leqLHtJMroZp2thZIa1S
+	RUTpsbz8eyQ6B7YwYyw+M0BgSazIRd5sGRFlJgZiuXd2Rbf4c/8CopNSxx8DdcZXdfnHWyt1r4z
+	eo6qXNtD1/XSUiBwdq8snSpW1Gqu5t5ocHIKTyKUm7TF5B5kPtZw==
+X-Received: by 2002:a05:600c:1d06:b0:49e:69ff:c6b1 with SMTP id 5b1f17b1804b1-49fe7bcc25dmr57484695e9.31.1790287284491;
+        Thu, 24 Sep 2026 15:01:24 -0700 (PDT)
 Received: from remote-01 ([84.17.55.134])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30bcdbsm2048758f8f.2.2026.09.24.15.01.18
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fee911e9bsm21338675e9.1.2026.09.24.15.01.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 15:01:20 -0700 (PDT)
+        Thu, 24 Sep 2026 15:01:24 -0700 (PDT)
 From: Aleksei Sviridkin <f@lex.la>
 To: Maxime Chevallier <maxime.chevallier@bootlin.com>
 Cc: davem@davemloft.net,
@@ -86,13 +86,14 @@ Cc: davem@davemloft.net,
 	Dimitri Fedrau <dimitri.fedrau@liebherr.com>,
 	Frank Wunderlich <frank.wunderlich@linux.dev>,
 	Pietro Ameruoso <p.ameruoso@live.it>
-Subject: Re: [PATCH RESEND net-next v17 00/10] net: phy_port: SFP modules
- representation and phy_port listing
-Date: Fri, 25 Sep 2026 01:01:18 +0300
-Message-ID: <20260924220118.2129522-1-f@lex.la>
+Subject: Re: [PATCH RESEND net-next v17 05/10] net: phy: Represent PHY-less
+ SFP modules with phy_port
+Date: Fri, 25 Sep 2026 01:01:21 +0300
+Message-ID: <20260924220121.2129632-1-f@lex.la>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910170103.1029108-1-maxime.chevallier@bootlin.com>
+In-Reply-To: <20260910170103.1029108-6-maxime.chevallier@bootlin.com>
 References: <20260910170103.1029108-1-maxime.chevallier@bootlin.com>
+ <20260910170103.1029108-6-maxime.chevallier@bootlin.com>
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -102,81 +103,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 
-Hi Maxime,=0D
+On Thu, 10 Sep 2026 19:00:57 +0200, Maxime Chevallier wrote:=0D
+> --- a/include/linux/phy.h=0D
+> +++ b/include/linux/phy.h=0D
+> [...]=0D
+> @@ -724,6 +727,7 @@ struct phy_device {=0D
+>  	unsigned irq_rerun:1;=0D
+>  =0D
+>  	unsigned default_timestamp:1;=0D
+> +	unsigned has_sfp_mod_phy:1;=0D
 =0D
-I ran v17 on a Keenetic KN-1012 (MT7981B + MT7531). Switch port 5=0D
-(lan4) goes either to an SFP cage or to an EN8811H copper PHY, and the=0D
-bootloader picks one devicetree variant per boot. The series was=0D
-backported to OpenWrt's 6.18 kernel together with the phy_port base and=0D
-its fixes, with PROVE_LOCKING and DEBUG_ATOMIC_SLEEP enabled.=0D
-=0D
-Copper variant: lan4 lists one mdi port, id 1, with 100/1000/2500baseT,=0D
-the same modes the PHY reports. The EN8811H attaches late, after the=0D
-netdev is registered, because it waits for its firmware. The port still=0D
-shows up, and traffic passes. The other user ports each list one mdi=0D
-port.=0D
-=0D
-With a small netlink client I also checked the calls the ethtool CLI=0D
-can't make. An unfiltered dump returns the five ports and then DONE.=0D
-A dump filtered on a netdev without a topology returns nothing and a=0D
-clean DONE. A DO with a valid PORT_ID returns the port. An unknown id=0D
-gives ENODEV, id 0 gives ERANGE from the policy, and a request with no=0D
-id gives EINVAL. lockdep stayed clean and debug_locks stayed 1.=0D
-=0D
-SFP variant, with the cage port and a module port:=0D
-=0D
-  Port for lan4:=0D
-          Port id: 1=0D
-          Supported MII interfaces : sgmii, 1000base-x, 2500base-x=0D
-          Port type: sfp=0D
-=0D
-  Port for lan4:=0D
-          Port id: 3=0D
-          Upstream id: 1=0D
-          Supported link modes:  2500baseX/Full=0D
-                                 1000baseX/Full=0D
-          Port type: mdi=0D
-=0D
-That is a passive DAC. A GPON ONU stick gives 1000baseX/Full, and=0D
-phylink moves to 1000base-x. On every removal the module port goes away=0D
-and the cage port stays. Every insert gets a new id, with no stale or=0D
-duplicate entry. I tried a replug within one second, two fast=0D
-out/in cycles, and swapping the DAC for the ONU with no pause. The=0D
-double cycle didn't manage an insert while the previous probe was still=0D
-running, since a hand can't beat the ~0.9s probe. lockdep stayed clean=0D
-throughout.=0D
-=0D
-Over the DAC at 1000base-X to a UniFi UDR7 (whose SFP+ path goes=0D
-through its CPU), iperf3 gives 926 Mbit/s board to UDR7 and 606 Mbit/s=0D
-back, with no interface errors, no link drops and lockdep clean. I also pul=
-led=0D
-the DAC while a ping6 flood was running and plugged it back in: the=0D
-module port went away, came back with a new id, and the link and=0D
-traffic recovered.=0D
-=0D
-Not covered:=0D
-- A module with its own PHY (06/10): neither of my modules probed one.=0D
-- A dump that spans more than one skb: five ports fit in one.=0D
-=0D
-Three notes:=0D
-=0D
-The ethtool branch linked in the cover still reads PORT_VACANT and a u8=0D
-port type, while v17 has UPSTREAM_PORT (u32) in that slot and a u32=0D
-type. I adapted it locally. Could you push the ethtool you used for the=0D
-cover letter?=0D
-=0D
-The raw supported-modes of a PHY's default port also carry the=0D
-Autoneg, TP and MII bits, e.g. "... 1000baseT/Full Autoneg TP MII=0D
-2500baseT/Full" on lan4. ethtool hides them, but MII on an mdi port=0D
-looks odd to anyone reading the attribute directly. Is that intended?=0D
-=0D
-A module port follows the netdev's admin state rather than module=0D
-presence. With lan4 down, a module sitting in the cage isn't listed,=0D
-because sfp_module_stop() runs phylink_del_sfp_mod_port(). After ifup=0D
-it comes back under a new id, so every ifdown/ifup renumbers it. Is=0D
-that intended? From userspace, "port 3 upstream 1" isn't stable across=0D
-an ifup.=0D
-=0D
-Tested-by: Aleksei Sviridkin <f@lex.la>=0D
+has_sfp_mod_phy lands in the same word as interrupts, irq_suspended and=0D
+irq_rerun. It is written from the SFP state machine under rtnl, while=0D
+irq_rerun is written from phy_interrupt(), so one update can undo the=0D
+other. A plain bool next to sfp_bus_attached would avoid sharing the=0D
+word.=0D
 =0D
 Aleksei=0D
