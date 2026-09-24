@@ -1,263 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B06A14A3F32;
-	Thu, 24 Sep 2026 16:13:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF164A5EC8
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:14:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790266423; cv=none; b=QYpd7aZGd1EAMrJoNOuqQX+cfYtvppt2rTppFMmaOeyUBCNfx7M2Ug0/v/DoRUBIJrHJSpt3Fy6JJeWiWhwp1LPntkUbipZiwoclhAQyudrra5k0ivuBGCDQJ08eF7xFKcuJVFwyOIAYGm726vWVdsrjGh2v0AN4Bva5GKkf2jI=
+	t=1790266469; cv=none; b=HDIzLWND7UvUtaVPpoKyZAs3EIk6GJdF3SPRXI0cgly775JbhwvHx4JRV7dY1EVnlAS/r1z50DUvEHXpC7BSiML6TTcz8wDpBccj1WNgCDT8RRppf0OHNnGsYe9XpGhMMSpbzzHNsALE/ol4takoIROLbEwmz97tu/p6kJQYxGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790266423; c=relaxed/simple;
-	bh=h/7DOHevF2/NkCqTLdqi4qDa/UuYk63f1lglheYMYts=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=VEV8mVp9R44wq8I8DNGvjq81JV+JhUmTPJXwzIiENwJO666AOqyNVCgHx+aikC/XIZJGuX/V4aQPpmUEp5q4aHhGe+HjDe28vl2Ogznuj2lJ+Lc2Phssm5e1G4TbRC6vQzktGd+WLL2NL3k3lTHUuqHrKlePnnB5TLNIWlPAj6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZBSpSBnE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790266469; c=relaxed/simple;
+	bh=4KycQmv/y3uSOW6bbpMEKLY5l9Z72oT4ziHVMe1/+K4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TW5KAvflT1WheKQG+DFVDi/4cdYbyT2uv2BQntCw+E44MiauN/pSUNcEfkI0BpW+mIP8t4fKF6No/Ip4igX6Cp8TVXMHcZyZOlZDIgW6gylGyEs3CCOSSwAnnbEvWSVDU1M8H/K5AWIZx6BxY1wWc+pnUTq8pKCKjikKiVxTe20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CQ8Rx6XA; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZBSpSBnE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBFF31F000FF;
-	Thu, 24 Sep 2026 16:13:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790266421;
-	bh=smLtviV/wm1Z7WoJZ8T7qPQmwno53wQ7+ODFzUZYMz0=;
-	h=Date:From:To:Cc:Subject;
-	b=ZBSpSBnEzjc9iHl5WYfHc3RK5oXtZTEhi3j6MXzqmbyrNgf3UPTwb5O4M998ga1zA
-	 UX0ewr08Dd98yssmqCVP4lacARkdZgeCDbwCK9cR8mb/bWr7zNilngZxHE0Dcx+M1L
-	 xgNqDnX9wnS4Tsx8MeQoSpFwkAGvd3E8F1n7/Cfz8GESyPN9F5wlBIolaipP9Whpft
-	 entumCZWYtX+yziKyfQgCdIA2Igca6ZNGpsm7Zv5x/6cCwZ4A3+4OzSw4k2CbOcs5c
-	 9+mqwQ0+O7C6f0cww3ck8CjbGDXpcpkEU+cYbfTov2tvBzM0Q3EDGMu46y30yf/0D6
-	 w5afUObvFgwxg==
-Date: Thu, 24 Sep 2026 17:13:37 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Alex Hung <alex.hung@amd.com>,
-	George Zhang <george.zhang@amd.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Mark Brown <broonie@kernel.org>
-Subject: linux-next: manual merge of the amdgpu tree with the drm,drm-misc
- tree
-Message-ID: <arVMMQKr301Co9RF@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CQ8Rx6XA"
+Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2db1ca069c8so12165895ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:14:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790266467; x=1790871267; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4N81IHB88R7EO6e16xVo7GeqgBSbrBSWBWPmQpiEIqw=;
+        b=CQ8Rx6XA3AYjsUUT1t6pOx67T9ImQwenLU/JvI/0SzINPaXhDowjNe+Q2corE7Q8Kk
+         nauYf5iuUny0EMmTVb0IaDJwOMJC9WiCxQ+IXII5De1Mb6TS8hsBmnWJuJoBTAkjJKV9
+         4leE8jDf/FOwKkp7rxhwh/YlgPWFMKNHRK9I1b716fpinWOFX1IQYb8eavKEsOJ9SeZQ
+         21Yuw4dbwsdIqbSEOA9f8H9o0gzV76eMCwmR4t12e0PGkaRGjFyjAaZGSFUht9hp9Kh9
+         dFdaxPf3QcBDjkXcnRTB5V/qy7hxaT7WpF54LwjoWNW4yO0k+qn8vv4AXa2k7C3yENlY
+         LQBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790266467; x=1790871267;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4N81IHB88R7EO6e16xVo7GeqgBSbrBSWBWPmQpiEIqw=;
+        b=fGLKQwCKHbX4AGHShyOKMZX7Y0JAV9kPelsyYGhKPxBr5+Q2o1XuEzO/HGZmCbo7nv
+         g4D/ZrzQ1vJ2hrPH2jBZQrmeqhdCiLXopeqMMImNhNAvRAM6Cd0FdYLczTr0xDP/ZwlI
+         Aqju+Brm4lARhad9EGQUaSX8eA4nCtaMvQjs9Dz8rZivxjHlKCD1bpm8nWQFeozCQNw9
+         cG/a96Ak4DH0bQA9KlD+bXurbudq9Jpi1oqm4XoFcriPRx2odb1kWrDeRGwMouYnvF3L
+         lTKWu5OwFjhKmcJgkrqjuIwNjeQWPFdty16Vv253RZdPHqSIzB6gmFDF6ESK8cK4/Fwv
+         fHDw==
+X-Forwarded-Encrypted: i=1; AKwUvBweIboRKso2jzoe3uQgQ5m/jj/kuDwXEYSNjirz+zvoq/B72zZ8a4/MdWufTA6Y0TZZF5pD1t+dKlcMGUI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lIb0cY2Re4Uxyg8aLrYEqXDlYC6+9b3u5cwTUNT81PiKB5AVpe
+	6c1lbeRPjqDSqHttFrL+27IpP00cElaK19/1F69AVh9LDYQh3RzkbM+p
+X-Gm-Gg: AYBFou1Rb/QoSSPzzKfqqzZF7c7tQXQxXVmEafP4i9WeMmOCI/huGUVYA4vCOPlG5co
+	M5z7WMcHtcilrIO8JUjkzRVc7VzwI0qtx78FX+D3c9vMmSOvEzrkz9rErbIGmLI5fZj0px4ghUQ
+	ZSIHfF8+/LhFxRontemUBWAqF0h/M4pVZI7Kr78MFAhcujg+WiRkuP3ogMxUxV4UgRHdkQWTTrd
+	YPMJVhokXCqONRgO5p/HsAGVp1Q+gxfW1qJZPSo2kT8DVQpEAIgLe/I8YBjqO8sFctGH0GgBxic
+	T9ZvRWbl0VTAMRXfeNHInFQergY2uJ6woQ1XHR9WCnHVPZxlTU+mwbOhqxUyNctOdp4hNMIjQJL
+	7B9DAKcTjx890Z7n6xVktjJ70lzzlqiFAG48z7/I3WHoR3TQ1EYg8wgkTDSWNBy66CzvM7x7e1q
+	SqWoLV7QBl+sl02agtB2rhuH4lEZYd0rbfTVeWtMi78Z5DnADQEgcIe3tPAzECG7yEoL7IbyUGE
+	pgN/V01+pck
+X-Received: by 2002:a17:903:2341:b0:2dd:c053:c20a with SMTP id d9443c01a7336-2df7dc19ecfmr25831085ad.38.1790266466910;
+        Thu, 24 Sep 2026 09:14:26 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5d7a48sm30509205ad.48.2026.09.24.09.14.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 09:14:25 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Thu, 24 Sep 2026 09:14:25 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Jiale Yao <yaojiale02@163.com>
+Cc: Aleksa Savic <savicaleksa83@gmail.com>, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (gigabyte_waterforce) reject short input reports
+Message-ID: <bfd9924a-fe78-4575-8e9d-2cc649413e47@roeck-us.net>
+References: <20260924151133.1233860-1-yaojiale02@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dJEfNwCmOjU/hvxD"
-Content-Disposition: inline
-
-
---dJEfNwCmOjU/hvxD
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260924151133.1233860-1-yaojiale02@163.com>
 
-Hi all,
+On Thu, Sep 24, 2026 at 11:11:32PM +0800, Jiale Yao wrote:
+> The HID driver raw_event callback runs before HID core validates the
+> received report length.  waterforce_raw_event() reads the command bytes
+> and then accesses fixed offsets for firmware or status data without any
+> length checks.  A truncated report can therefore cause out-of-bounds reads
+> and update hwmon state with data beyond the received report.
+> 
+> Require both command bytes before identifying a report, then check the
+> minimum length needed by the firmware and status paths before accessing
+> their payloads.  Commit 47669bec44fe ("HID: asus: refactor the two
+> workqueues and init sequence") added equivalent raw-event length
+> validation to hid-asus.
 
-Today's linux-next merge of the amdgpu tree got a conflict in:
+Oh, and the reference to the other commit is pointless.
 
-  drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-
-between commits:
-
-  dae05bc4c8351 ("next-20260921/drm")
-  02ac945db0d1e ("next-20260921/drm-misc")
-
-=66rom the drm,drm-misc tree and commits:
-
-  cbb329ca3b386 ("drm/amd/display: Fix KUnit CRTC warnings")
-  a3e8dc37a616d ("drm/amd/display: Fix KUnit checkpatch warnings")
-
-=66rom the amdgpu tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --combined drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_=
-test.c
-index ade20e6506780,489dd56474b91..0000000000000
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-@@@ -42,10 -42,10 +42,10 @@@ static void dm_test_crtc_modeset_requir
-  }
- =20
-  /**
--  * dm_test_crtc_modeset_required_active_active_changed - Test Crtc modese=
-t required active active changed
-+  * dm_test_crtc_modeset_required_active_state_changed - Test modeset requ=
-ired when the active state changes
-   * @test: The KUnit test context
-   */
-- static void dm_test_crtc_modeset_required_active_active_changed(struct ku=
-nit *test)
-+ static void dm_test_crtc_modeset_required_active_state_changed(struct kun=
-it *test)
-  {
-  	struct drm_crtc_state state =3D {};
- =20
-@@@ -877,10 -877,39 +877,39 @@@ static bool dm_test_crtc_get_vblank_tim
-  	return false;
-  }
- =20
-+ static int dm_test_crtc_enable_vblank(struct drm_crtc *crtc)
-+ {
-+ 	return 0;
-+ }
-+=20
-+ static void dm_test_crtc_disable_vblank(struct drm_crtc *crtc)
-+ {
-+ }
-+=20
-+ static u32 dm_test_crtc_get_vblank_counter(struct drm_crtc *crtc)
-+ {
-+ 	return 0;
-+ }
-+=20
-  static const struct drm_crtc_funcs dm_test_crtc_funcs =3D {
-+ 	.destroy =3D amdgpu_dm_crtc_destroy,
-+ 	.atomic_duplicate_state =3D amdgpu_dm_crtc_duplicate_state,
-+ 	.atomic_destroy_state =3D amdgpu_dm_crtc_destroy_state,
-+ 	.enable_vblank =3D dm_test_crtc_enable_vblank,
-+ 	.disable_vblank =3D dm_test_crtc_disable_vblank,
-+ 	.get_vblank_counter =3D dm_test_crtc_get_vblank_counter,
-  	.get_vblank_timestamp =3D dm_test_crtc_get_vblank_timestamp,
-  };
- =20
-+ static void dm_test_crtc_cleanup(void *data)
-+ {
-+ 	struct amdgpu_crtc *acrtc =3D data;
-+=20
-+ 	if (acrtc->base.dev && drm_dev_has_vblank(acrtc->base.dev))
-+ 		drm_crtc_vblank_off(&acrtc->base);
-+ 	list_del_init(&acrtc->base.head);
-+ }
-+=20
-  /*
-   * dm_test_crtc_arm_irq_src - Prime an IRQ source so get()/put() short-ci=
-rcuit.
-   * @test: The KUnit test context
-@@@ -947,8 -976,13 +976,13 @@@ dm_test_crtc_setup_enable(struct kunit=20
-  	acrtc =3D kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
-  	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, acrtc);
-  	acrtc->base.dev =3D &adev->ddev;
-+ 	acrtc->base.funcs =3D &dm_test_crtc_funcs;
-  	acrtc->base.enabled =3D true;
-  	acrtc->crtc_id =3D 0;
-+ 	INIT_LIST_HEAD(&acrtc->base.head);
-+ 	list_add_tail(&acrtc->base.head, &adev->ddev.mode_config.crtc_list);
-+ 	KUNIT_ASSERT_EQ(test,
-+ 			kunit_add_action_or_reset(test, dm_test_crtc_cleanup, acrtc), 0);
- =20
-  	link =3D dm_kunit_alloc_link(test);
-  	stream =3D dm_kunit_alloc_stream(test, link);
-@@@ -1508,8 -1542,6 +1542,6 @@@ static void dm_test_crtc_duplicate_stat
-  	amdgpu_dm_crtc_destroy_state(crtc, dup);
-  }
- =20
-- /* Tests for amdgpu_dm_crtc_create_state() */
--=20
-  /**
-   * dm_test_crtc_duplicate_state_retains_stream - Test duplicate retains t=
-he stream
-   * @test: The KUnit test context
-@@@ -1569,6 -1601,8 +1601,6 @@@ static void dm_test_crtc_duplicate_stat
-  	KUNIT_EXPECT_NULL(test, amdgpu_dm_crtc_duplicate_state(crtc));
-  }
- =20
- -/* Tests for amdgpu_dm_crtc_destroy() */
- -
-  /**
-   * dm_test_crtc_destroy_cleans_up_and_frees - Test destroy tears down the=
- CRTC
-   * @test: The KUnit test context
-@@@ -1608,7 -1642,7 +1640,7 @@@ static void dm_test_crtc_destroy_cleans
-  	KUNIT_EXPECT_EQ(test, adev->ddev.mode_config.num_crtc, 0);
-  }
- =20
-- /* Tests for amdgpu_dm_crtc_destroy() */
-+ /* Tests for amdgpu_dm_crtc_create_state() */
- =20
-  /**
-   * dm_test_crtc_create_state_allocates_state - Test create_state allocate=
-s a fresh state
-@@@ -1666,7 -1700,7 +1698,7 @@@ static void dm_test_crtc_reset_state_re
-  	old->stream =3D stream;
-  	crtc->state =3D &old->base;
- =20
-- 	amdgpu_dm_crtc_reset_state(crtc);
-+ 	amdgpu_dm_crtc_create_state(crtc);
- =20
-  	/* Old state was destroyed (stream ref dropped) and a new one installed.=
- */
-  	KUNIT_EXPECT_EQ(test, kref_read(&stream->refcount), 1);
-@@@ -1782,6 -1816,11 +1814,11 @@@ static void dm_test_crtc_handle_vblank_
-  	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
- =20
-  	acrtc->base.dev =3D &adev->ddev;
-+ 	acrtc->base.funcs =3D &dm_test_crtc_funcs;
-+ 	INIT_LIST_HEAD(&acrtc->base.head);
-+ 	list_add_tail(&acrtc->base.head, &adev->ddev.mode_config.crtc_list);
-+ 	KUNIT_ASSERT_EQ(test,
-+ 			kunit_add_action_or_reset(test, dm_test_crtc_cleanup, acrtc), 0);
-  	acrtc->event =3D event;
-  	acrtc->pflip_status =3D AMDGPU_FLIP_SUBMITTED;
- =20
-@@@ -1818,6 -1857,11 +1855,11 @@@ static void dm_test_crtc_handle_vblank_
-  	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
- =20
-  	acrtc->base.dev =3D &adev->ddev;
-+ 	acrtc->base.funcs =3D &dm_test_crtc_funcs;
-+ 	INIT_LIST_HEAD(&acrtc->base.head);
-+ 	list_add_tail(&acrtc->base.head, &adev->ddev.mode_config.crtc_list);
-+ 	KUNIT_ASSERT_EQ(test,
-+ 			kunit_add_action_or_reset(test, dm_test_crtc_cleanup, acrtc), 0);
-  	acrtc->event =3D event;
-  	acrtc->pflip_status =3D AMDGPU_FLIP_NONE;
- =20
-@@@ -2577,7 -2621,7 +2619,7 @@@ static void dm_test_crtc_atomic_check_i
-  static struct kunit_case amdgpu_dm_crtc_tests[] =3D {
-  	/* amdgpu_dm_crtc_modeset_required */
-  	KUNIT_CASE(dm_test_crtc_modeset_required_active_mode_changed),
-- 	KUNIT_CASE(dm_test_crtc_modeset_required_active_active_changed),
-+ 	KUNIT_CASE(dm_test_crtc_modeset_required_active_state_changed),
-  	KUNIT_CASE(dm_test_crtc_modeset_required_active_connectors_changed),
-  	KUNIT_CASE(dm_test_crtc_modeset_required_inactive),
-  	KUNIT_CASE(dm_test_crtc_modeset_required_no_changes),
-@@@ -2637,12 -2681,13 +2679,13 @@@
-  	KUNIT_CASE(dm_test_count_crtc_active_planes_mixed),
-  	/* amdgpu_dm_crtc_duplicate_state */
-  	KUNIT_CASE(dm_test_crtc_duplicate_state_copies_fields),
-- 	/* amdgpu_dm_crtc_create_state */
-- 	KUNIT_CASE(dm_test_crtc_create_state_allocates_state),
-  	KUNIT_CASE(dm_test_crtc_duplicate_state_retains_stream),
-  	KUNIT_CASE(dm_test_crtc_duplicate_state_null_state_returns_null),
-  	/* amdgpu_dm_crtc_destroy */
-  	KUNIT_CASE(dm_test_crtc_destroy_cleans_up_and_frees),
-+ 	/* amdgpu_dm_crtc_create_state */
-+ 	KUNIT_CASE(dm_test_crtc_create_state_allocates_state),
-+ 	KUNIT_CASE(dm_test_crtc_reset_state_replaces_existing),
-  	/* amdgpu_dm_crtc_destroy_state */
-  	KUNIT_CASE(dm_test_crtc_destroy_state_no_stream),
-  	KUNIT_CASE(dm_test_crtc_destroy_state_releases_stream),
-
---dJEfNwCmOjU/hvxD
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq1TDAACgkQJNaLcl1U
-h9AnIwf8CExcZ2wZEzGALk/y8btd4Qn4mLe9inuZeQ7iUZq3nU3ubKDzcRMBihYj
-y2JL+HP6A0PONhhlpaLsa84k7b3xpTmY+zNAd+X9oFxn2zZvZ5RAVLq1ljXEgGXA
-Y1bqqYd4ilFSpfbPmOXAOfh5lpsPG7e1tUlP4b3i3dQlInasSlmO4CP1LyeJW5Wv
-CNY/Y/qb1WZWObIIKUjnWfD5sMuS3rAJg9y/Lsp83MPBGL35vcP5mliFtkYS17KO
-MdlvYCA2qZJwcs9gcOug3eGpLgR857tCcZw52Xec8s2T8FLZMHlBKsSHOsvn2+Ws
-GlTijTEiVjfVspXOTUB8UzR8BsmYbg==
-=eqiI
------END PGP SIGNATURE-----
-
---dJEfNwCmOjU/hvxD--
+Guenter
