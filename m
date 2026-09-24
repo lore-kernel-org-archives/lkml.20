@@ -1,144 +1,240 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011071.outbound.protection.outlook.com [52.101.65.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EF76431A3E
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:49:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790239802; cv=none; b=Bgt4F7uAN+5mEIBNRAb9xbb0xJSgbcyRoKmc1aXWUzCXvu/mvnk29h+jyXS9TMMynqMBi/L5wtMuNtB7D38MQe/LCPrjkLhU/aWBJ37kfXUmQ5sDID0nb6V/eZu5WoueBrN2BvpbsyvNUjTuvse9x3rHadfriOF+KzYD6OFax8s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790239802; c=relaxed/simple;
-	bh=RTolrfWc72Cy+7e76YB0IcJJ7ooAp/AC6TNHC4OWuek=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mmp8NquJidG2Oc3FV5r79gQguyF/fbxYLKd7QWil0mm9tZnrFeyaJjtGhCsBo7LcRMHnnv9tCEpXs/0Gzo+HFfBF0aIGLr0gCEjU+5JjcsAHhG5zwRXZu3Qi6CD36bEylBth2fTkiGOxF3ryIrFXMcqy8b3Ga0T5paLlbENfiyQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jafwul+S; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61CD43CEC7;
+	Thu, 24 Sep 2026 08:50:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790239830; cv=fail; b=g6/Rl0GvQfzxcJIIuqN+EccqxbvPtYCimjoK+GEkXGKPlj7y8sZd7CI0BJysurknPVMlXwTIZWIGkuYgEsrTJ4z8bR9CRbgLIr92nkKgYD+DNjUpBecferNedcl9uR4LIrcqQ0zBUg83TezQKgJphxTuZB5qJeJukRuMloh/FIM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790239830; c=relaxed/simple;
+	bh=ZUnrHQQJRsxxrnop3u/cNPFb7xPbU9rul3WUIbvV03s=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=iOj2CPPjqoPd1xZ+5CBOOUv9iqYw+VwBBQHB+QB7KlTkB7pIGpbR3WsXfdu5Y1kdFrH8EAyuYaD3mgDC1UCd0vLZPA98AmewUqhCnv8fYQ0aZetIaAu+Puogoojgv8VoU4dOjiUYLmyRUQOU1bfTfpbwfwp08jJ54daK8qCn7m4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=Wuq5dZN+; arc=fail smtp.client-ip=52.101.65.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jafwul+S"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa65080so223171166b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:49:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790239793; x=1790844593; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1b80XxLjp7p9yNMOdcMsvgCe3vPig69itQP5JgqdKTA=;
-        b=Jafwul+SrWbPqylyk3BSzRFTLwdO1lJQ9x8haOGRLwml/+NWYex0mAOMwqoXSMkJ6w
-         K33SlGpNzvke3QpP3WRd0873Q8tlas8vy2ASdDxNWM+t2AtfDQqk9o47Rmx5jrAjXfrM
-         fS8K92sqDOToh+LJ7Ri2A1OLvwlLfrtMJjROFA9YvJ1T1VZnE/oIGC34ORU9FE2pMRG2
-         B9agHW/BWMzjPCDgLka8uH70wepXsxpyLNpaRdUl1omVKU8V4W79yx6iA4gF5G9MkUBi
-         2s8C53+sSTfJGLVh2v/GKKfnjx98LH6fnh5kRzQiAnTqoEHGmgbmoKSKAZ3D7do0I9ie
-         JVrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790239793; x=1790844593;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1b80XxLjp7p9yNMOdcMsvgCe3vPig69itQP5JgqdKTA=;
-        b=lRTKf8aeDeLsn1RMU7UsrXffwReu7szP+jdCdtRWGGow5TuaNDfQvF7vS+wL9zn3q7
-         z9pkhs2VKWp7CC1VBAxYuZENWAhrm6x0LO9dgN/2p0MXaBW4LGA+/3vNt1UsiF3I3WWU
-         CxCvVrfgne9WEjgDwjIwj5ntHY9nODCcXBeruWWRxrClvIP+9dx3uAdwAjv3VbGQcb0P
-         vtV9dS3T95WSe1a1f1H9Vj3KDetA7IlkMmEjvRPzuTtRmjVH870b3oCY+xwBlgPmiJC4
-         TaKVR0hnlrKFn6TS3FWVa1uVreDThdZv3b0G17lccsvOvtQW7EnbhdmtQ5hGFhUMO2OZ
-         OX4A==
-X-Forwarded-Encrypted: i=1; AKwUvBztIX2LfOV0b4dGI/RIk7U3ejtNOCuFBDMwtXpRjn9ecUqiLe3PTCJtpXHXr1MUipXbBdgwFc+o2eNds4g=@vger.kernel.org
-X-Gm-Message-State: AFuF++ku+OVyGEozWvncIS+ilwVHmO5U9GosuJHbMTVlQGZDdoEQEq8n
-	j7k/c/72TQZBWPPFHzqc7rxTjtgQ1w/3NpxO9ozmnpYFIVUshygmaxAmmwvr2V5Esho=
-X-Gm-Gg: AYBFou2siyU5QLpJ52/5wwOjvwY1P2CajP2HNwwyvOXov9QoF0BSgIB0Kmeh643x2bI
-	rn4P+QZzq9YIx2+tI5bkNTLvTlfTBHRQq7x7OihoVXlhnU0oQ0KbbOfCdQ2VgTQlcxr3HTq2p63
-	J38rVpiO2jlzTm/s/9gxGzjhB0C42+QyJ46F7NMOUohOziNg88I0NWEqsRAS3t3IFHqwq8/+tRU
-	7Pi/JNZIPMvAcsEQha6nOq8/A1NYKIKpWUc9eA8t2JIBi1wjg3NUaMt4z/jqJkdwBKHk9gVZ62e
-	2Wade2Ne1qReswEFgliZ9PPLxcVEO+JpMrqzq9EpmLJD2RM9l2zwd72DQzr1lkMEm/oMQ3UIWKZ
-	0nuxU12WFaSol9e7Hw4iF4s2lII2XDgoVMY4MXTT3deuB603BXur1dwfw1A/5NO6bxsc31XRA7R
-	NzkuQIDmx8cjKjuNvKX1FumDBVZ9LsLosxjVZmWsLHmktWIyjB2nGqX/dS/otqfSB+k5D/bMwm0
-	fQjhTHYiAJx8h5njuggM6vUq9QG8CUIznRYLYpmn3HNXWRkzAn3jNEms+y7nXQS1tJXgdlGghR8
-	xZpRZ5GGV3xCislOuz01TK14KVxEpOh45yv2i41UgiVmKdNv0WnM9PMM1yYRgg7mfgZ04EVRq31
-	OKbrlg93CHjNs3DMoUnGfoo/ralranxualG84FX5trDmM26WJviY=
-X-Received: by 2002:a17:907:7214:b0:c25:c54d:d1a2 with SMTP id a640c23a62f3a-c2ac23c0f05mr127635366b.18.1790239792459;
-        Thu, 24 Sep 2026 01:49:52 -0700 (PDT)
-Received: from Ubuntu.ts.net (87-205-15-91.static.ip.netia.com.pl. [87.205.15.91])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae687318sm266221466b.44.2026.09.24.01.49.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 01:49:52 -0700 (PDT)
-From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	linux-trace-kernel@vger.kernel.org
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com,
-	syzbot@lists.linux.dev,
-	syzbot+de3d7f9bcc9212f3fae1@syzkaller.appspotmail.com
-Subject: [PATCH v2] ring-buffer: Fix false warning in ring_buffer_map_get_reader()
-Date: Thu, 24 Sep 2026 10:49:42 +0200
-Message-ID: <20260924084946.20104-1-krystianmkaniewski@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <15bc282f-669e-4a94-911d-bb435513461f@mail.kernel.org>
-References: <15bc282f-669e-4a94-911d-bb435513461f@mail.kernel.org>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="Wuq5dZN+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Oep+NLwArXvbn1DcX0SYWdP7dXwy5DTmgH6kwMBt17QkWqPo8Ar9MGaldj1rBfyvMwcJ7/L52FmDFdx5G3Aowjk5Ywrm86NY9yiLyFH9EAfICDwSMknBgFMgH2NOSQQIrqpYC/bhSd83+oBcnI4G46asbtERQJz4kzL4MiGV3UVOLxBsFm5UbyFUHZWECdK4RiweFmGk6IJvWpGsNK/GHmWJGjCCn+/UViPCGhXx4/ABR3oSIgvfLysy62670I7EAUua9ya2EaAxFpMRyQ6HzwCnSQDyhIFlhJVnJw2dOsHtmQAoqJc4nPW8tvlQpN9VyMqlwbi6ezHRM4twSYChIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MchcSiYq/CSAIJSKbNwQ79wcn7xTFrnpwLrMUn9jAZE=;
+ b=hp8ERS/ZVXSnI/1LovBVStWaI/JzsfMu9obfc7ByEU7BoW3MExO5tDs+EWTlK15yEcsshHYndf84Wb84eOz8dFOytPexQF6nxO672xA13P9vDygvdjNRPpiq3cx/sX8knG8JFpvBpkBHFrYnmLlHg9jyZYk3ZPXYM17uG5w+837MicicxOG3kdzrKqKMZ59xFyj+sLSJbdv64IfktWXOoCsIKOyPRXaUAl0qcVKpGlHaY6IGxPtUtZsNP71gejXmERHlEukcoCxl9XDYKPr343TAvnEqZGu2vzOLiHNoz4B7BizSqK5gi67YL0oXeqGrZYPekj+7bipFWDU4G5UHMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MchcSiYq/CSAIJSKbNwQ79wcn7xTFrnpwLrMUn9jAZE=;
+ b=Wuq5dZN+JkQgemtH1ccZLMJHMLc8GCiAtXuAyrpV9JNqTDWemnUFtWhh1lSoDmlsquRXiTlFdvtb839IHlQxiA9SB84/COdde3vOkKwskKZ3eEJfUJi5dDFjlyzHkEujR02MQGMbvP6s/lnSmKUKJObbOq+9ed2pX8WosReMQxbZ+ZaxBogJfGTrJFbxEmvPphd6k+VG2Jn4nZh8K05XbRBrkpcQcqYncwibgfz6Ynz6SBWmD+j4z/JKmb+0V/cpRqZVQyW/AGVlDEphKRLZ2bsJtsyHqH2IetIjo0Y8g47g+5OZ1t70ODuwV0QAlCxcp1HrIvZuWD8Z5Lq1aUYIEA==
+Received: from GV2PR04MB12019.eurprd04.prod.outlook.com
+ (2603:10a6:150:30c::14) by VI1PR04MB7182.eurprd04.prod.outlook.com
+ (2603:10a6:800:121::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 08:50:18 +0000
+Received: from GV2PR04MB12019.eurprd04.prod.outlook.com
+ ([fe80::ed75:bac1:2554:5cbe]) by GV2PR04MB12019.eurprd04.prod.outlook.com
+ ([fe80::ed75:bac1:2554:5cbe%3]) with mapi id 15.21.0382.012; Thu, 24 Sep 2026
+ 08:50:18 +0000
+From: Hongxing Zhu <hongxing.zhu@nxp.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, Lucas Stach
+	<l.stach@pengutronix.de>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?iso-8859-2?Q?Krzysztof_Wilczy=F1ski?= <kwilczynski@kernel.org>, Manivannan
+ Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, Bjorn Helgaas
+	<bhelgaas@google.com>, Frank Li <frank.li@nxp.com>, Sascha Hauer
+	<s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Peng Fan
+	<peng.fan@nxp.com>, "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "imx@lists.linux.dev"
+	<imx@lists.linux.dev>
+Subject: RE: [PATCH] PCI: dwc: imx6: use regmap_assign_bits() for conditional
+ set/clear
+Thread-Topic: [PATCH] PCI: dwc: imx6: use regmap_assign_bits() for conditional
+ set/clear
+Thread-Index: AQHdS//d1ZNf3D2sOUmby9NCsaF/ErbdaM8Q
+Date: Thu, 24 Sep 2026 08:50:18 +0000
+Message-ID:
+ <GV2PR04MB12019083AAA5EC21BFC83E7238C812@GV2PR04MB12019.eurprd04.prod.outlook.com>
+References: <20260924083429.461746-1-peng.fan@oss.nxp.com>
+In-Reply-To: <20260924083429.461746-1-peng.fan@oss.nxp.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV2PR04MB12019:EE_|VI1PR04MB7182:EE_
+x-ms-office365-filtering-correlation-id: bc341144-21fa-4a39-ad31-08df1a18dc1b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|1800799024|19092799006|366016|23010399003|22082099003|18002099003|921020|38070700021|56012099006|11063799006|10067099003;
+x-microsoft-antispam-message-info:
+ 6+0pQAZiMlcmJ+7m3lDD5R7fK5w8ppfETK3k3C9YZeh46RUsdzJXh6fD6PAzcsdYqgu+mvEjCQGYj46AFSO3qe2o8zQHbrNsemeBgzvRpKg3+1YIrCTcJ2kXFA2qwlw7xhgN3b29kZH+ID4o2q8/SOwARn/3pXpKGmZ2NrshydO9HCyh4EOGhrUz+WNHSCxC3nXnEyJDVDaZBdv5m166+nO/9Nmpbck6IjhkjvGcD6bmNrwsggwOWSU9nl3l7gOa/kGPuaTRD9b4jYi6k0GFd9l+pp2MhVLKQqDTnk2jO9iF/FScZbUidcTFU8+DCAJtulLF9uHb5V/UyCAVYmci6fV5D6Vp1SLCFIxEYM60D0cLVk1IeeUkPrwNVGRWJEOXAI6koYGZTJPUrdRKKhL87cMRdn4aQjX+Ww/RCwY01CGA7K+gG7Q8IUxsft3MienjSKcJsjZSwcjN7IKNyYPf5GpIqEEQPn9j/G6I5GbJNnnR4hz5NNDBQIVE7vpvDo0LcVjihhtcNL5d/TkFFoyqd5+5vNyBpqdQejPcAMQeDOC9982uTZl+C7EM6+UohHWWVTcB5diw9jOyzWVgV8yJUPxLehJRsjCxX+c/qMv3omi+NHtMh12U22OWfYgWfMIG2Bfwf23ygEQR/hhKO8yjb7hl0kufrkuKpXHyNkszZ9DfEqNLOak8My8VVlgEhzzc9we0ds3a0tJ/ZrR7qrPJw80UJxXGcQibm12H1wIhsWxGKfXqgGlCmiY52Qy81lWf
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12019.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(19092799006)(366016)(23010399003)(22082099003)(18002099003)(921020)(38070700021)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-2?Q?cdYSlatfcD7FylWWhw1EOwG6R+vZzrIuUw5LPaKnWE3+4DF678ScIUQ459?=
+ =?iso-8859-2?Q?v1rH38vZ7Ha1ii+Y7WJotgm8A3HEY6+LS2tSl8VW2J91WRPP5J9fMzpt35?=
+ =?iso-8859-2?Q?GJg4Gz7tpmQECV1g6BqqSCHapzSt4efRc3uV3byzl22ctVGScx9n0yZ/HG?=
+ =?iso-8859-2?Q?RxNYlK2XP0M+E0mWIYdG/R41+T2W8C55cNb5ctGvDfyRnzIS33LzaC05rZ?=
+ =?iso-8859-2?Q?j2qwFLp5ADAfSrq/3sAoc1pqWvVK5nn3pkns35yUU/Y1iGRjXFFRO2OOcj?=
+ =?iso-8859-2?Q?VRwr5RRm4tZx2AV5NtdU4bd+U/k3bLqe7O1xTUolldOI+wI0R58XkAZSaj?=
+ =?iso-8859-2?Q?YONXRTi3sGkKRz3BDOtbI48r2OMeWO+yHhqJ1nfq+vH35QJJ0vfyKTBE+I?=
+ =?iso-8859-2?Q?MGHSPu4/pZrK7f5T6gbd9Nf+0cfkzYw7D+jymLSJQEkYw6nPfyOjZyO6ta?=
+ =?iso-8859-2?Q?6VtirJ65GHddRmAm66BCLXW1v3SkyaQQiDzeZVezc1PID8F1JcQTGJtvX0?=
+ =?iso-8859-2?Q?hbtBvZ/CI2sFCVhHplWfxmvAh8KwjWhBSDvynu3Ds9DU80yFCP3q0p5K1q?=
+ =?iso-8859-2?Q?G+/JzJFz8OS2OkIHp3wgmGj670phqrLnsypd8Jgv3t32lFtUOHHGjO8e9L?=
+ =?iso-8859-2?Q?aoqX/M1zelE+slvYdZrSyMmJZ/+U//9jycC+TR71Ua6EnV8JRMsVTRyDRD?=
+ =?iso-8859-2?Q?6/0ZTmP/RQzF3QKZcp8hNu7qsr+InEcUh8aJmaoiZmy8hkHkxoezwR9ZF+?=
+ =?iso-8859-2?Q?LuOT3YbmOblOtDbVBjksXo31ZB3fTJTvJMCOH1rgBo5jmlEVtf8plu56k5?=
+ =?iso-8859-2?Q?yW0I1G5yCsqbjVcGD6zaea3bHs6riCVuRyjBsgI9k/Bof0Hd1AjNhA/R8f?=
+ =?iso-8859-2?Q?B2Wjg9L8OkOFy4+cDGZ/oCIMDjl7EvoSRwfNSGUHNPosXhh3mGQgcmbhjU?=
+ =?iso-8859-2?Q?esm6Yemu1uUIzVs7ill0zPk/3It03eETZ8TdbXBnw3jdnSKFF6N20wuGm+?=
+ =?iso-8859-2?Q?WbnmyrMeAakhEzUjGapV7gg8fGeNvWU9/Wkhu3SXEU4+8zVb9kY2JXrDXe?=
+ =?iso-8859-2?Q?/MNGQYcwmId1ITnjQxV7MHLUbPC6MnjL/B/juqIjKXqfD4NGyVGIQ79v5a?=
+ =?iso-8859-2?Q?VDrgzI+EKS6gn/95WgnjxXBAq9elSKLL7CJV71GUMRfVnHXWyQqMRLaQLr?=
+ =?iso-8859-2?Q?aVTihyy2N5cBu0TTFMHdZBJHjq+akZZh3NzXQrvqCa/DcsQWz79Nse5w7e?=
+ =?iso-8859-2?Q?88XIYRNmPKmSe2d8TxLhegpCp5WqhH+qYR5kvadrV9RJQnmG+N+3VLdpIC?=
+ =?iso-8859-2?Q?bHUr0D+xBxUzGnhiYsgH7KfyipyFR455+7dwN1M6d6N30OBCZVmaG8ozKn?=
+ =?iso-8859-2?Q?pRb2NmXdWyoFQeSveTpw5PqFqW5EpKRIUmk3DHuHOq6TVX+Y7sSjMUF4NC?=
+ =?iso-8859-2?Q?sOFHhtAn8cxoM1mTQziI803rJ7VJ1X7mPsuTLGFatcVUseVBVOPOibLjep?=
+ =?iso-8859-2?Q?bMzVIJvV7A77S1A9B09myfnZFEdcgdDqs078kdGFMP2kNl0dlBQook5Unf?=
+ =?iso-8859-2?Q?XKHltRhJotVqJzLCD+zaW3OJFsHEsG3sVJbLBZ736ivqVBXdOp+asjP1t0?=
+ =?iso-8859-2?Q?SCWpEMMderlFCgJOapeunfjsV4shfy83UfS+TQhjwCdQutZzxQvE8hVxDA?=
+ =?iso-8859-2?Q?R9zEUrS9agHQtMvSLc/9ulrs6YMfjKFXUlYXPkvImFjZGJQpOjX3McjO2M?=
+ =?iso-8859-2?Q?YrRbW4O5RvIyvlAck+FRzPjsmr0/5ARLyP9E+5tebFb2BX?=
+Content-Type: text/plain; charset="iso-8859-2"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12019.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bc341144-21fa-4a39-ad31-08df1a18dc1b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2026 08:50:18.3866
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: g26Hjv1wSUR3wXyeq7M31HOB+OcquRhxn1k/JvB6Hxn7swnAadBwXvgdpVtb/tGsU9FtRdb0DnjvzZCcEBy3hw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7182
 
-The mmap reader can warn when it catches up with a writer that is still
-committing events. rb_get_reader_page() returns NULL in this case, but
-ring_buffer_map_get_reader() treats that result as an error.
+> -----Original Message-----
+> From: Peng Fan (OSS) <peng.fan@oss.nxp.com>
+> Sent: Thursday, September 24, 2026 4:34 PM
+> To: Hongxing Zhu <hongxing.zhu@nxp.com>; Lucas Stach
+> <l.stach@pengutronix.de>; Lorenzo Pieralisi <lpieralisi@kernel.org>; Krzy=
+sztof
+> Wilczy=F1ski <kwilczynski@kernel.org>; Manivannan Sadhasivam
+> <mani@kernel.org>; Rob Herring <robh@kernel.org>; Bjorn Helgaas
+> <bhelgaas@google.com>; Frank Li <frank.li@nxp.com>; Sascha Hauer
+> <s.hauer@pengutronix.de>; Pengutronix Kernel Team
+> <kernel@pengutronix.de>; Fabio Estevam <festevam@gmail.com>
+> Cc: linux-kernel@vger.kernel.org; Peng Fan <peng.fan@nxp.com>; linux-
+> pci@vger.kernel.org; linux-arm-kernel@lists.infradead.org;
+> imx@lists.linux.dev
+> Subject: [PATCH] PCI: dwc: imx6: use regmap_assign_bits() for conditional
+> set/clear
+>=20
+> From: Peng Fan <peng.fan@nxp.com>
+>=20
+> Replace multiple if/else blocks using regmap_set_bits()/regmap_clear_bits=
+()
+> with the simpler regmap_assign_bits() calls.
+>=20
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+Thanks.
+Acked-by: Richard Zhu <hongxing.zhu@nxp.com>
 
-The initial rb_per_cpu_empty() check filters out an empty buffer, but it
-does not guarantee that the next reader page has committed data. Writers
-do not take reader_lock and can advance commit_page before publishing the
-committed length on the new page. rb_get_reader_page() can swap to that
-page, catch up with the writer and return NULL.
+Best Regards
+Richard Zhu
+> ---
+>  drivers/pci/controller/dwc/pci-imx6.c | 32 +++++++--------------------
+>  1 file changed, 8 insertions(+), 24 deletions(-)
+>=20
+> diff --git a/drivers/pci/controller/dwc/pci-imx6.c
+> b/drivers/pci/controller/dwc/pci-imx6.c
+> index 28fed010b503f..e2e55a88e0132 100644
+> --- a/drivers/pci/controller/dwc/pci-imx6.c
+> +++ b/drivers/pci/controller/dwc/pci-imx6.c
+> @@ -747,12 +747,8 @@ static int imx_pcie_attach_pd(struct device *dev)
+>=20
+>  static int imx6q_pcie_enable_ref_clk(struct imx_pcie *imx_pcie, bool ena=
+ble)
+> {
+> -	if (enable)
+> -		regmap_set_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR1,
+> -				IMX6Q_GPR1_PCIE_REF_CLK_EN);
+> -	else
+> -		regmap_clear_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR1,
+> -				  IMX6Q_GPR1_PCIE_REF_CLK_EN);
+> +	regmap_assign_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR1,
+> +			   IMX6Q_GPR1_PCIE_REF_CLK_EN, enable);
+>=20
+>  	return 0;
+>  }
+> @@ -868,12 +864,8 @@ static void imx_pcie_clk_disable(struct imx_pcie
+> *imx_pcie)
+>=20
+>  static int imx6sx_pcie_core_reset(struct imx_pcie *imx_pcie, bool assert=
+)  {
+> -	if (assert)
+> -		regmap_set_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR12,
+> -				IMX6SX_GPR12_PCIE_TEST_POWERDOWN);
+> -	else
+> -		regmap_clear_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR12,
+> -				  IMX6SX_GPR12_PCIE_TEST_POWERDOWN);
+> +	regmap_assign_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR12,
+> +			   IMX6SX_GPR12_PCIE_TEST_POWERDOWN, assert);
+>=20
+>  	/* Force PCIe PHY reset */
+>  	regmap_update_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR5,
+> IMX6SX_GPR5_PCIE_BTNRST_RESET, @@ -883,12 +875,8 @@ static int
+> imx6sx_pcie_core_reset(struct imx_pcie *imx_pcie, bool assert)
+>=20
+>  static int imx6qp_pcie_core_reset(struct imx_pcie *imx_pcie, bool assert=
+)  {
+> -	if (assert)
+> -		regmap_set_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR1,
+> -				IMX6Q_GPR1_PCIE_TEST_PD);
+> -	else
+> -		regmap_clear_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR1,
+> -				  IMX6Q_GPR1_PCIE_TEST_PD);
+> +	regmap_assign_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR1,
+> +			   IMX6Q_GPR1_PCIE_TEST_PD, assert);
+>=20
+>  	regmap_update_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR1,
+> IMX6Q_GPR1_PCIE_SW_RST,
+>  			   assert ? IMX6Q_GPR1_PCIE_SW_RST : 0); @@ -
+> 901,12 +889,8 @@ static int imx6qp_pcie_core_reset(struct imx_pcie
+> *imx_pcie, bool assert)
+>=20
+>  static int imx6q_pcie_core_reset(struct imx_pcie *imx_pcie, bool assert)=
+  {
+> -	if (assert)
+> -		regmap_set_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR1,
+> -				IMX6Q_GPR1_PCIE_TEST_PD);
+> -	else
+> -		regmap_clear_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR1,
+> -				  IMX6Q_GPR1_PCIE_TEST_PD);
+> +	regmap_assign_bits(imx_pcie->iomuxc_gpr, IOMUXC_GPR1,
+> +			   IMX6Q_GPR1_PCIE_TEST_PD, assert);
+>=20
+>  	if (!assert)
+>  		usleep_range(200, 500);
+> --
+> 2.50.1
 
-Handle NULL through the existing no-data exit without warning. Remove the
-caller's reader_page == commit_page check as well, since the reader-page
-helper already handles that case. The existing metadata update and return
-path remain in place.
-
-Fixes: 117c39200d9d ("ring-buffer: Introducing ring-buffer mapping functions")
-Assisted-by: Gemini:gemini-3.8-flash syzbot
-Reported-by: syzbot+de3d7f9bcc9212f3fae1@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=de3d7f9bcc9212f3fae1
-Link: https://syzkaller.appspot.com/ai_job?id=488adc18-a10e-42d2-a205-25327c38837f
-Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
----
-Changes since v1:
-- Rewrite the commit message to explain the race more concisely.
-- Clarify why the earlier empty-buffer check does not exclude this case.
-- Remove the redundant reader_page == commit_page check, as discussed
-  with Vincent. Let rb_get_reader_page() handle the caught-up reader.
-
-v1: https://lore.kernel.org/all/15bc282f-669e-4a94-911d-bb435513461f@mail.kernel.org/
-
- kernel/trace/ring_buffer.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
-
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 9c03a555a6ba..9222fc881bc2 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -7990,12 +7990,8 @@ consume:
- 		goto out;
- 	}
- 
--	/* Did the reader catch up with the writer? */
--	if (cpu_buffer->reader_page == cpu_buffer->commit_page)
--		goto out;
--
- 	reader = rb_get_reader_page(cpu_buffer);
--	if (WARN_ON(!reader))
-+	if (!reader)
- 		goto out;
- 
- 	/* Check if any events were dropped */
-
-base-commit: df2908090cda368b01ff43709f51890076c56157
--- 
-2.53.0
