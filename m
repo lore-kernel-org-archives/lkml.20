@@ -1,175 +1,198 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10FB839CCEA
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:10:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD4833DEFFB
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:10:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790223029; cv=none; b=olQj2xTK62nWN7XUoRHVBrC0frayfrcKNNYfRGiSXQioVyk0MzNGFhZEm8/VJqVxYbVb8Q83tVjaDXFmMjv8yVsP6GVllfanqDKRRmTTc0vgCcP98GNzfQA3IQm6x3L81CiARmI1fyAmqqv0iXpl9Zn2I4IHVZXLoGXIkUYW/Vg=
+	t=1790223048; cv=none; b=Z7zsHfKsP/VkmnYbOllKz+2bULA018mFhFWlcBMiDHypixaT9aZXJbjre+DxVan5yPwIqgHGAsKY2jZaQYVDB7VsRG7BZE9JUk/3c3xZGWIRU1maFGapLTfwGdnzN+aj6u+2IFDoDid0vt2Rc/6aA2fKAYoPhUqEp1JcRPlCsUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790223029; c=relaxed/simple;
-	bh=a28o2eYLBxIkXLJgCCTn4PBKsfhZtRnrpdSGrTZ8LWs=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=S8Y1XDvmbAi42AIS8j7KzXnQsoBTbh6mPOb5XLapp5acJe5qk4tSq7GcdCsiWC9nIuMG8YpLwg3jlpHL2FrrfSTXtdrKFuKjWGZE4zexsHpOB/+nP/bDaljmp91/nkt/VmwZp5KpZl6yt+vBFST+MtN3XZzkXF6WTc0Zgivd/PQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eIlzRLjj; arc=none smtp.client-ip=192.198.163.12
+	s=arc-20240116; t=1790223048; c=relaxed/simple;
+	bh=JQa5FNeWED3rrZq0gAECLsVrZmVq3d+PNBvpEZdW1eA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HhdVFCNajkDnlO4V3TZkexZ7ta68dxd9Zklq2WN8CbUpAzHEtU7WeT3XRbjOtohZy2957/ShHwDx7sUvP9xzfqIRhpIR36gBNg5nd3eGIGhb0EaCN/JotuDBgl6unXOdSNfXNESCBDWLUwdYoSKtm85Q+Z5Nep5031Q3irjtlvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EavQoMuu; arc=none smtp.client-ip=192.198.163.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eIlzRLjj"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EavQoMuu"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790223027; x=1821759027;
-  h=date:from:to:cc:subject:message-id;
-  bh=a28o2eYLBxIkXLJgCCTn4PBKsfhZtRnrpdSGrTZ8LWs=;
-  b=eIlzRLjjyRdflk6P9aAm0uC5wuT/SllzPaITIiLX98S20duTw4eZSL6O
-   iXPnLRQygFbuXRCtrQYjV6jUYkimNIz6DfPPo96Oe5hr8m8vsYHWviGxc
-   pNAMcrP+yrWaRT3jHCPii3HKuukDDyAtecIxGG1TYrbW2Q/meUb3qY1rk
-   uUHMySrFMcNuJHOzVgcLaS4WBK4R0h+Hk40o2EnAEouCFRrPa3nATC2y2
-   FeJ2K8msetThpHbeADaoZkvYgKB9ajIBLNDkkkm9QJ5yZ9crlALCSsmjS
-   XuVbvdp1DALoHfyTPD9dV1BJxkAcyziEzr02oVVxGX0H+PNYgSIcyO/72
+  t=1790223046; x=1821759046;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=JQa5FNeWED3rrZq0gAECLsVrZmVq3d+PNBvpEZdW1eA=;
+  b=EavQoMuusCJdUGrfJ/oghDyFtkIG2IczYVIPMwWqE2PF2i0RJomJN7p3
+   /A46QkN5w/NdP5IcnqE1LquA0kUKDh8Klhdn22+Qt98G8kga47M4cJNSn
+   3cjWv0rY2x4l0vHl4IBS1MKvuVCMQg4xQK1lFCZospzh1dhCKwsHqeecG
+   TnyuBPaNfBQuCGAHTKLImmiobirbs6gSPjTbPZ+n97hqajkwZLOXBqAFO
+   YVl/Z80nCDnukrfLZeyZ8kPsd2hYKcfWJxS8iiSuAoVdLJGZGrQRGtqUv
+   bNKYHwQEL8hag6aEsVRyJ6hJarVRQeMijMFgwEu9hNRt6meDdEO7aNJRJ
    Q==;
-X-CSE-ConnectionGUID: cjVhHJOaTwutTRK9CiINgg==
-X-CSE-MsgGUID: fr/1/qiIQj+GPf8U04+bpg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="94802349"
+X-CSE-ConnectionGUID: +OzPdLKBQG+MYzZIl1Nzgw==
+X-CSE-MsgGUID: KnJD44w+TcqXSm7VdezUbw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="91002423"
 X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="94802349"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 21:10:24 -0700
-X-CSE-ConnectionGUID: 3g59uvEsS8OIcmswCVT7qg==
-X-CSE-MsgGUID: cN1GapasSGKzBORcnfc/GA==
+   d="scan'208";a="91002423"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 21:10:45 -0700
+X-CSE-ConnectionGUID: hDeiAdZbTFCnfENQjTq84Q==
+X-CSE-MsgGUID: amnt4uz+QVyzQ9HozFFyLA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="300154557"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa002.fm.intel.com with ESMTP; 23 Sep 2026 21:10:23 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x9amq-00000000IBc-2qmn;
-	Thu, 24 Sep 2026 04:10:20 +0000
-Date: Thu, 24 Sep 2026 12:09:45 +0800
-From: kernel test robot <lkp@intel.com>
-To: Marco Elver <elver@google.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Peter Zijlstra <peterz@infradead.org>
-Subject: drivers/infiniband/core/uverbs_ioctl.c:440:17: sparse:
- sparse: incorrect type in assignment (different modifiers)
-Message-ID: <202609241216.DmuxwLRI-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+   d="scan'208";a="5009284"
+Received: from unknown (HELO gnr-sp-2s-612.sh.intel.com) ([10.112.229.148])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 21:10:41 -0700
+From: Zhenzhong Duan <zhenzhong.duan@intel.com>
+To: x86@kernel.org,
+	linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: dave.hansen@linux.intel.com,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	hpa@zytor.com,
+	dave.hansen@intel.com,
+	kas@kernel.org,
+	rick.p.edgecombe@intel.com,
+	jgg@nvidia.com,
+	nicolinc@nvidia.com,
+	aik@amd.com,
+	aneesh.kumar@kernel.org,
+	seanjc@google.com,
+	pbonzini@redhat.com,
+	yilun.xu@linux.intel.com,
+	chao.gao@intel.com,
+	vishal.l.verma@intel.com,
+	xiaoyao.li@intel.com,
+	kevin.tian@intel.com,
+	chao.p.peng@intel.com
+Subject: [RFC PATCH 00/15] PCI/TSM: coco/tdx-guest: Implement TDX-Connect PCIe TDISP (phase2)
+Date: Thu, 24 Sep 2026 12:10:17 +0800
+Message-ID: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   fe2ec83746e501645709761605c2464a44fd2929
-commit: f0b7ce22d71810c8c11abcd912fbd6f57c2e9677 srcu: Support Clang's context analysis
-date:   9 months ago
-config: i386-randconfig-1300-20260924 (https://download.01.org/0day-ci/archive/20260924/202609241216.DmuxwLRI-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260924/202609241216.DmuxwLRI-lkp@intel.com/reproduce)
+Hi,
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: f0b7ce22d718 ("srcu: Support Clang's context analysis")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609241216.DmuxwLRI-lkp@intel.com/
+This is a complete TDX Connect phase 2 guest-side implementation. It's
+based on Dan's last TSM Phase2 [1](rebased to v7.3-rc4), plus Nicolin's
+PATCH3-4 in [2] to address Jason's comments at [3].
 
-sparse warnings: (new ones prefixed by >>)
->> drivers/infiniband/core/uverbs_ioctl.c:440:17: sparse: sparse: incorrect type in assignment (different modifiers) @@     expected int ( *handler )( ... ) @@     got int ( [noderef] *__v )( ... ) @@
-   drivers/infiniband/core/uverbs_ioctl.c:440:17: sparse:     expected int ( *handler )( ... )
-   drivers/infiniband/core/uverbs_ioctl.c:440:17: sparse:     got int ( [noderef] *__v )( ... )
+We are posting the entire sequence together with two primary objectives:
 
-vim +440 drivers/infiniband/core/uverbs_ioctl.c
+1. We're sharing our TSM Phase 2 implementation to kick off some early
+   design alignment on cross-architecture paradigms. This is geared toward
+   community feedback rather than formal TSM maintainer review.
 
-fac9658cabb98af Matan Barak         2017-08-03  427  
-3a863577a749627 Jason Gunthorpe     2018-08-09  428  static int ib_uverbs_run_method(struct bundle_priv *pbundle,
-3a863577a749627 Jason Gunthorpe     2018-08-09  429  				unsigned int num_attrs)
-fac9658cabb98af Matan Barak         2017-08-03  430  {
-15a1b4becba8861 Jason Gunthorpe     2018-11-25  431  	int (*handler)(struct uverbs_attr_bundle *attrs);
-155f04366e3cad7 Gustavo A. R. Silva 2024-03-01  432  	struct uverbs_attr_bundle *bundle =
-155f04366e3cad7 Gustavo A. R. Silva 2024-03-01  433  		container_of(&pbundle->bundle, struct uverbs_attr_bundle, hdr);
-3a863577a749627 Jason Gunthorpe     2018-08-09  434  	size_t uattrs_size = array_size(sizeof(*pbundle->uattrs), num_attrs);
-3a863577a749627 Jason Gunthorpe     2018-08-09  435  	unsigned int destroy_bkey = pbundle->method_elm->destroy_bkey;
-3a863577a749627 Jason Gunthorpe     2018-08-09  436  	unsigned int i;
-fac9658cabb98af Matan Barak         2017-08-03  437  	int ret;
-fac9658cabb98af Matan Barak         2017-08-03  438  
-3a863577a749627 Jason Gunthorpe     2018-08-09  439  	/* See uverbs_disassociate_api() */
-3a863577a749627 Jason Gunthorpe     2018-08-09 @440  	handler = srcu_dereference(
-3a863577a749627 Jason Gunthorpe     2018-08-09  441  		pbundle->method_elm->handler,
-3a863577a749627 Jason Gunthorpe     2018-08-09  442  		&pbundle->bundle.ufile->device->disassociate_srcu);
-3a863577a749627 Jason Gunthorpe     2018-08-09  443  	if (!handler)
-3a863577a749627 Jason Gunthorpe     2018-08-09  444  		return -EIO;
-3a863577a749627 Jason Gunthorpe     2018-08-09  445  
-155f04366e3cad7 Gustavo A. R. Silva 2024-03-01  446  	pbundle->uattrs = uverbs_alloc(bundle, uattrs_size);
-3a863577a749627 Jason Gunthorpe     2018-08-09  447  	if (IS_ERR(pbundle->uattrs))
-3a863577a749627 Jason Gunthorpe     2018-08-09  448  		return PTR_ERR(pbundle->uattrs);
-3a863577a749627 Jason Gunthorpe     2018-08-09  449  	if (copy_from_user(pbundle->uattrs, pbundle->user_attrs, uattrs_size))
-3a863577a749627 Jason Gunthorpe     2018-08-09  450  		return -EFAULT;
-3a863577a749627 Jason Gunthorpe     2018-08-09  451  
-3a863577a749627 Jason Gunthorpe     2018-08-09  452  	for (i = 0; i != num_attrs; i++) {
-3a863577a749627 Jason Gunthorpe     2018-08-09  453  		ret = uverbs_set_attr(pbundle, &pbundle->uattrs[i]);
-3a863577a749627 Jason Gunthorpe     2018-08-09  454  		if (unlikely(ret))
-3a863577a749627 Jason Gunthorpe     2018-08-09  455  			return ret;
-3a863577a749627 Jason Gunthorpe     2018-08-09  456  	}
-3a863577a749627 Jason Gunthorpe     2018-08-09  457  
-3a863577a749627 Jason Gunthorpe     2018-08-09  458  	/* User space did not provide all the mandatory attributes */
-3a863577a749627 Jason Gunthorpe     2018-08-09  459  	if (unlikely(!bitmap_subset(pbundle->method_elm->attr_mandatory,
-3a863577a749627 Jason Gunthorpe     2018-08-09  460  				    pbundle->bundle.attr_present,
-3a863577a749627 Jason Gunthorpe     2018-08-09  461  				    pbundle->method_elm->key_bitmap_len)))
-fac9658cabb98af Matan Barak         2017-08-03  462  		return -EINVAL;
-fac9658cabb98af Matan Barak         2017-08-03  463  
-07f05f40d956d40 Jason Gunthorpe     2018-11-25  464  	if (pbundle->method_elm->has_udata)
-155f04366e3cad7 Gustavo A. R. Silva 2024-03-01  465  		uverbs_fill_udata(bundle, &pbundle->bundle.driver_udata,
-4785860e04bc8d7 Jason Gunthorpe     2018-11-30  466  				  UVERBS_ATTR_UHW_IN, UVERBS_ATTR_UHW_OUT);
-f89adedaf3feb2e Gal Pressman        2019-04-30  467  	else
-f89adedaf3feb2e Gal Pressman        2019-04-30  468  		pbundle->bundle.driver_udata = (struct ib_udata){};
-07f05f40d956d40 Jason Gunthorpe     2018-11-25  469  
-3a863577a749627 Jason Gunthorpe     2018-08-09  470  	if (destroy_bkey != UVERBS_API_ATTR_BKEY_LEN) {
-155f04366e3cad7 Gustavo A. R. Silva 2024-03-01  471  		struct uverbs_obj_attr *destroy_attr = &bundle->attrs[destroy_bkey].obj_attr;
-fac9658cabb98af Matan Barak         2017-08-03  472  
-155f04366e3cad7 Gustavo A. R. Silva 2024-03-01  473  		ret = uobj_destroy(destroy_attr->uobject, bundle);
-aa72c9a5f986444 Jason Gunthorpe     2018-07-26  474  		if (ret)
-3a863577a749627 Jason Gunthorpe     2018-08-09  475  			return ret;
-3a863577a749627 Jason Gunthorpe     2018-08-09  476  		__clear_bit(destroy_bkey, pbundle->uobj_finalize);
-aa72c9a5f986444 Jason Gunthorpe     2018-07-26  477  
-155f04366e3cad7 Gustavo A. R. Silva 2024-03-01  478  		ret = handler(bundle);
-3a863577a749627 Jason Gunthorpe     2018-08-09  479  		uobj_put_destroy(destroy_attr->uobject);
-3a863577a749627 Jason Gunthorpe     2018-08-09  480  	} else {
-155f04366e3cad7 Gustavo A. R. Silva 2024-03-01  481  		ret = handler(bundle);
-7452a3c745a2e7e Jason Gunthorpe     2018-07-25  482  	}
-7452a3c745a2e7e Jason Gunthorpe     2018-07-25  483  
-d6f4a21f309dfe1 Jason Gunthorpe     2019-01-11  484  	/*
-d6f4a21f309dfe1 Jason Gunthorpe     2019-01-11  485  	 * Until the drivers are revised to use the bundle directly we have to
-d6f4a21f309dfe1 Jason Gunthorpe     2019-01-11  486  	 * assume that the driver wrote to its UHW_OUT and flag userspace
-d6f4a21f309dfe1 Jason Gunthorpe     2019-01-11  487  	 * appropriately.
-d6f4a21f309dfe1 Jason Gunthorpe     2019-01-11  488  	 */
-d6f4a21f309dfe1 Jason Gunthorpe     2019-01-11  489  	if (!ret && pbundle->method_elm->has_udata) {
-d6f4a21f309dfe1 Jason Gunthorpe     2019-01-11  490  		const struct uverbs_attr *attr =
-155f04366e3cad7 Gustavo A. R. Silva 2024-03-01  491  			uverbs_attr_get(bundle, UVERBS_ATTR_UHW_OUT);
-d6f4a21f309dfe1 Jason Gunthorpe     2019-01-11  492  
-d6f4a21f309dfe1 Jason Gunthorpe     2019-01-11  493  		if (!IS_ERR(attr))
-155f04366e3cad7 Gustavo A. R. Silva 2024-03-01  494  			ret = uverbs_set_output(bundle, attr);
-d6f4a21f309dfe1 Jason Gunthorpe     2019-01-11  495  	}
-d6f4a21f309dfe1 Jason Gunthorpe     2019-01-11  496  
-3a863577a749627 Jason Gunthorpe     2018-08-09  497  	/*
-3a863577a749627 Jason Gunthorpe     2018-08-09  498  	 * EPROTONOSUPPORT is ONLY to be returned if the ioctl framework can
-3a863577a749627 Jason Gunthorpe     2018-08-09  499  	 * not invoke the method because the request is not supported.  No
-3a863577a749627 Jason Gunthorpe     2018-08-09  500  	 * other cases should return this code.
-3a863577a749627 Jason Gunthorpe     2018-08-09  501  	 */
-3a863577a749627 Jason Gunthorpe     2018-08-09  502  	if (WARN_ON_ONCE(ret == -EPROTONOSUPPORT))
-3a863577a749627 Jason Gunthorpe     2018-08-09  503  		return -EINVAL;
-fac9658cabb98af Matan Barak         2017-08-03  504  
-3a863577a749627 Jason Gunthorpe     2018-08-09  505  	return ret;
-fac9658cabb98af Matan Barak         2017-08-03  506  }
-fac9658cabb98af Matan Barak         2017-08-03  507  
+2. TDX developers have been working on the TDX module facing patches (the
+   wrappers) which are not expected to change significantly unless a
+   fundamental redesign of the generic guest TSM core occurs. So comments
+   on those patches are welcomed.
 
-:::::: The code at line 440 was first introduced by commit
-:::::: 3a863577a7496278892360a69d90d8465733100c IB/uverbs: Use uverbs_api to unmarshal ioctl commands
+TDX Connect Background
+======================
 
-:::::: TO: Jason Gunthorpe <jgg@mellanox.com>
-:::::: CC: Jason Gunthorpe <jgg@mellanox.com>
+TDX Connect extends basic TDX with low-level guest and host interfaces
+to establish trust for TDISP-supported devices. To ensure security
+isolation, the architecture delegates only non-security-sensitive,
+auxiliary operations (such as physical routing) to the untrusted host.
+Meanwhile, the guest retains full governance over all secure operations,
+e.g., strictly controlling access to private MMIO in LOCKED state by
+requiring explicit guest actions, such as MMIO acceptance.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+PATCH Organization
+==================
+
+This series is structured into four distinct, logical subsections based on
+secure operations to facilitate review.
+
+1. Unlock <-> Lock Flow (patch1-6):
+   Handles the TDI device's TDISP state transitions, initiated via the PCI
+   TSM sysfs interface (/sys/bus/pci/devices/.../tsm/[un]lock).
+   - adds tdx tsm guest driver framework
+   - adds TDCM hypercall infrastructure
+   - queries device's TEE-IO capability with TDCM_OP_CHECK_TEEIO_SUPP hypercall
+   - transitions TDI device to TDI_STATE_CONFIG_[UN]LOCKED with TDCM_OP_[UN]BIND
+     hypercall
+
+2. Private MMIO Acceptance (patch7-10):
+   Private MMIO ranges described in the TDI Report must be accepted by TDX
+   module before guest access is permitted.
+   - capture TDI report in lock().
+   - accept each MMIO range mapped in Secure EPT (SEPT).
+
+3. TDI Activation (patch11-12):
+   Guest transitions the TDI into the active RUN state after MMIO
+   acceptance.
+   - guest calls TDG.TDI.START, passing the Bind Session ID recorded
+     during the lock phase. This guarantees that the guest authorizes the
+     activation of the same bind instance the host established.
+   - guest notifies the host via TDCM_OP_START_TDI to finalize host side
+     hardware setup, e.g., switch TDISP state to RUN.
+
+4. Private DMA Acceptance (patch13-15):
+   Before a TDI can perform DMA to guest private memory, its secure DMA
+   mapping must also be accepted. This happens during driver load stage.
+   - the enable_dma callback issues TDG.DMAR.ACCEPT to set secure PASID
+     table entry to present state.
+   - the secure PASID table entry is cleared in unlock stage implicitly
+     so disable_dma is a no-op currently.
+
+This series originates from a PoC written by Yilun, thanks to him for his
+foundational work.
+
+The whole tree is here [4], please comment. Thanks.
+
+BRs,
+Zhenzhong
+
+[1] https://lore.kernel.org/linux-coco/20260705220819.2472765-1-djbw@kernel.org/
+[2] https://lore.kernel.org/all/cover.1789010941.git.nicolinc@nvidia.com/
+[3] https://lore.kernel.org/all/20260916124849.GD3196566@ziepe.ca/
+[4] https://github.com/intel-staging/tdx/tree/v7.3-rc4_tdx_connect_phase2.for_upstream
+
+Zhenzhong Duan (15):
+  x86/tdx: Export tdg_vm_rd() for tdx-guest module
+  x86/tdx: Add TDCM hypercall wrapper for TDX Connect
+  x86/tdx: Add TDG.TDI.RD module call wrapper for TDX Connect
+  virt: tdx-guest: Support devsec TSM for secure devices
+  virt: tdx-guest: Add TDCM helpers and TEE-IO support check
+  virt: tdx-guest: Support TDI bind and unbind operations
+  PCI/TSM: Track Device Interface Report MMIO range index
+  x86/tdx: Add TDG.MMIO.ACCEPT module call wrapper for TDX Connect
+  virt: tdx-guest: Capture the TDI report during device lock
+  virt: tdx-guest: Set up and accept private MMIO ranges
+  x86/tdx: Add TDG.TDI.START module call wrapper for TDX Connect
+  virt: tdx-guest: Support Trust Device Interface (TDI) activation
+  x86/tdx: Add __tdcall_saved() helper
+  x86/tdx: Add TDG.DMAR.ACCEPT module call wrapper for TDX Connect
+  virt: tdx-guest: Accept default DMAR entry during PCI driver attach
+
+ arch/x86/coco/tdx/Makefile                    |   2 +
+ arch/x86/coco/tdx/tdcall.S                    |  17 +
+ arch/x86/coco/tdx/tdx.c                       |   8 +-
+ arch/x86/coco/tdx/tdx_connect.c               | 166 ++++++
+ arch/x86/include/asm/shared/tdx.h             |   7 +
+ arch/x86/include/asm/tdx.h                    |  77 +++
+ drivers/pci/tsm/core.c                        |   1 +
+ drivers/virt/coco/tdx-guest/Kconfig           |  15 +
+ drivers/virt/coco/tdx-guest/Makefile          |   3 +
+ drivers/virt/coco/tdx-guest/connect.c         | 474 ++++++++++++++++++
+ .../coco/tdx-guest/{tdx-guest.c => main.c}    |   6 +
+ drivers/virt/coco/tdx-guest/tdx-guest.h       |  20 +
+ include/linux/pci-tsm.h                       |   1 +
+ 13 files changed, 791 insertions(+), 6 deletions(-)
+ create mode 100644 arch/x86/coco/tdx/tdx_connect.c
+ create mode 100644 drivers/virt/coco/tdx-guest/connect.c
+ rename drivers/virt/coco/tdx-guest/{tdx-guest.c => main.c} (98%)
+ create mode 100644 drivers/virt/coco/tdx-guest/tdx-guest.h
+
+-- 
+2.52.0
+
