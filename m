@@ -1,198 +1,1169 @@
-Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D994A5293E7
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:34:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.205
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790271297; cv=pass; b=lI/gzCAmKiH6GQqyHrFY6zA727zET+XYNLCnrBuMFByfvazu8XbBp/SBwcmu2YRs94Z7uPu8r/wolYtODhdixOoranY6QZTya3TOvOtcSaIaL2m+G072Om+8BJbS6fqda+JT/E2zD2arfY3b0CTTIeYCvI0BZhgUIyHk1JI+YqY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790271297; c=relaxed/simple;
-	bh=P7+az3yyBJchUR91Z1ziGlXJNmLdkAluzh6AwSulzz4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iL+gpF6WDCtVEr+9wREAnjVlORF5gsKJYkDaWx+c4h+AN4WvsfK5BcrBmYIimkGe1zj5z4ns897+8MbJ9Mi9mD0iyST89LHT9Yje9wedbYtvAwgAjcf73F0zmNYTyFhK7LHdUxLdNw6DUC01dF1mD5t+IpgBt+grXrqX2icDxj4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oEzCoIoc; arc=pass smtp.client-ip=74.125.231.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 997504CC29D
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:34:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790271295; cv=none; b=BQlEqGBHlQ83uWB6EGIkAc1gWVcdiPwO4K7gN53Zsdt1y7mqvkJNsdte/Befm1/0CMSAXoJ5TjTdgKaE+P0/ttdGZ8eYKK7h5oA1KXSrixU5TByKEQx5b1Be3CfkeqSFllwW8LZLUHFbAESct0LizCDOMIu5epTb17so5O6PZ3M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790271295; c=relaxed/simple;
+	bh=Zij47hcmEDFxGxYfp3Bekn1t9CBFkUMft6soNLRWwuI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=gDQu84HN14o7R/hsoz9Ixa5MZYq9HNsum9XiPfVb+u81e1+bsykfJ/MhiOj4LzCT3CXxx6fPhJzJhHcFWWW3JqPkVLDiU6NZUUoGzJ2ESeXF5bQlWCcELKd07UfmRpJS0LRkKvUHt/OYI0e4KqDm9ClgH5Df7Cz8om3Nm89C6Lk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=X2St2JOg; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oEzCoIoc"
-Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c112aaaf04so100570b6e.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:34:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790271293; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iQ+9XADXICTCd8pTK6pg6hFOtarBdrKP2ZN+fRHSWMBocTKPnx+nwAU+EkLcghCQ+H
-         PiwlJf+NW3AjZyfQUqgGgmqjHdrG1aFi/Le4eNAkeq8u87TeOMMWDVNvVYRpbc1k2qhe
-         8145ByoLOa4dNTBgRsxyOA9mNnD7HSABPGZVyMEKxAlfEJHX5MTt2Wz0cb+z+4Lrid9t
-         IlPwN5BBNuzJtQxiAgcyvqMirTl+jT22UZO5WlAkFrY6L1g/UJnylY0a4HcW2YvGZWdu
-         QJupqn3Bu6aG9bGf0rTWDx6aRCS+vmw7LvzrxBxVZlRY8gCnjDpOay8LtWErlOnHkkcM
-         brLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/3LlUQJdHFv3q79AvrsTmGXMAeRGwjkC4yOozzaFl6k=;
-        fh=42IVF3ufRIeUdf1dsLB+8+jnSFhRrjWFQrAAAv2eLks=;
-        b=q3rCtScDWM3O0ZnVM46WKBXVhCxIq6cFHHJm3zJefX1tnn3dHTGh7dtRs3WQboYaHe
-         7ntHScfvroed0WhxBw6v3T15ItGkD6O/Ia0R0l/RC/guAn4JnAVRsnEuR55k+l3CvDAZ
-         LiWsaRuEdmdrmoprd5rJfFQQR6jsQ1ygDpvZZWj+IyNLHVtQKsRS4u1da7AaTFSzKliw
-         WTEG6QiKZobQ6isn2pTvPddOHi8+KXRBqBxSAxYirXfLLsKCywbj5RBXHWnui2xDvhVm
-         z5OXeUliLagxe4rJP8xRpgLPjpN6Sih6RqMvfW1Yji1bF76MnZVFbjROw2w+lJbYKofc
-         rkJg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790271293; x=1790876093; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/3LlUQJdHFv3q79AvrsTmGXMAeRGwjkC4yOozzaFl6k=;
-        b=oEzCoIocp0cuCaITN2wUZkyfp219zOisrPgzxupb+C7R5Zv2par0Iymi/MYzBASgMQ
-         Wm9LlpHypnQKeJJfqXONfGqqKGFTp3SwGSjFsf02mYrsmV2C0TAFNLhi/eYEf/Y+KWkc
-         5uK3hlUdmi3FlnVUShbB12NSomG+cWzR8zsxPxNjVUmjcbYutQLtMGqk5HFj5EEoSQAn
-         z23uNfZShQXO9tYMhxVU7RUOsSOuRrTDnTXNsJ3CuW1g6CwiDqZ8bfjAZ/WHFI3uZNek
-         2m+POv/rlBwa6x7lZobAb4gGT+T44A7nxV8pvpP+zfaYTSfZUdT2NgJ2nlwCDTa4EjFa
-         hG0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790271293; x=1790876093;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/3LlUQJdHFv3q79AvrsTmGXMAeRGwjkC4yOozzaFl6k=;
-        b=tzR86DS7EDnAG5jFDdTTR9Ie+EvnuC/qoKhWpqNY2hwes6aTM/K40y/3TiNFtGA9QL
-         hsB8kakN/xkGOpoRI4fGfRjVwxSasSkvM4eKQ6O2NGYdSsqIoNQND/MKCI2+MnlCwUyh
-         q6Xpxq7hotqvltHMQqWp27L1P0+kYV4/d+1kQWcGre20eGGHY029N75lEC7it/5rqFaR
-         GvnAyD2flz02LWF/4aSetC1iilWtNzyRdebtPFzz+NxAD5tlwlookyC2Vji4njEMW8x6
-         Gg5PKwREuwjyOpWvkhQnjaJu4ThZqpbrSgsb46Sw0Z8+q4J9FpjHnpTSmmHBfg+4MRJa
-         0Ndg==
-X-Forwarded-Encrypted: i=1; AKwUvBy/49M0iqYGVdMBwHOlMmSteFLJisu2NHFFuO/mT14khHZ6hEmEH7XjHa8yTQLWmNOLvacYcbC1/iCCqu8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kqhwhraxDR/fN2h93XW6ZIU3/bVjO+GzbxI4TBzbJIDx4ApRe+
-	f9swPwhQW9LHEz/kNPMvWumJBwPTCE1bc9aEXhwXrc/gzbYqKEJ3bARrsXQH17MyYo6BV/0wC1i
-	/nnjkMdG1DFW2egmT2yeIN0KsaUIbHrShMGA15+VksityADp+AbZIr+p0KgI=
-X-Gm-Gg: AYBFou2njK32azJ0lQKV0FcNU6fBnK+oFeXAaYuwHrnfld2zbVNnNGDVvJOJ0r/iiqa
-	QkZvfmh30BEMh+0/hvjEY4f/yC6sOy/to5gYqcfZSQJrssCR3r98g/07jwuUA/mJdQXjbE+Bb7P
-	+1aueburneldG7MM4MvMDJUoiCCulDIVwAAuskUBx1CaHrAH1XZkdClq8ehPS08zgnsxeAuJLAM
-	KPoN+/p8+OXdDxH3zEh06ZBwG+ST90QQqsg05rQzQkruuUBC6um4ezJHjkbMjlH1ZpxoxeBoMmp
-	ZY2iMMlEFJb4lUGZdpC6vURnB6cqdxn9v6jLU7ocdDvzYWV7bWBq0TRjO2s8CY7aGpGgYJpG0PH
-	LPq6Y/nSp
-X-Received: by 2002:a05:6808:16a8:b0:4c3:95d:91f1 with SMTP id
- 5614622812f47-4d728c29fd9mr3339337b6e.1.1790271292781; Thu, 24 Sep 2026
- 10:34:52 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="X2St2JOg"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C98841E5E;
+	Thu, 24 Sep 2026 10:34:47 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 00D643F86F;
+	Thu, 24 Sep 2026 10:34:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790271291; bh=Zij47hcmEDFxGxYfp3Bekn1t9CBFkUMft6soNLRWwuI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=X2St2JOgVynIsT0g15btpr9MGzO34vh5doXbR5yhRhpu39MSEp/QO7lXM/RYtrTDs
+	 egKV7VonRoBkSmfJwNaOgqXKghVo07qNkPllnKy4pPtdVC2Q35DQGYiwEuIOrlxRfG
+	 4bNwkg51KDNh+cBVh1CeAwaOPtC8d1eG1WCmUwl4=
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+Date: Thu, 24 Sep 2026 18:33:52 +0100
+Subject: [PATCH v12 14/14] coresight: etm3x: rename drvdata->config to
+ sysfs_config
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916043957.3362995-1-xu.yang_2@oss.nxp.com> <arJdb9kip_YCzjV2@black.igk.intel.com>
-In-Reply-To: <arJdb9kip_YCzjV2@black.igk.intel.com>
-From: RD Babiera <rdbabiera@google.com>
-Date: Thu, 24 Sep 2026 10:34:41 -0700
-X-Gm-Features: AclHuK_fQ4a1sDCLA9MNnm5rNq9xegB11a5TSGfdfhcIWsSj0kYwqVQmb6LZFsg
-Message-ID: <CALzBnUG78eno0Qbv0Hg0_LeqKq02Gmcsiwwee03ju6-OGhb4Fg@mail.gmail.com>
-Subject: Re: [PATCH v2] usb: typec: tcpm: advance vdm_discovery_state on
- Discover Identity Not_Supported
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: Xu Yang <xu.yang_2@oss.nxp.com>, badhri@google.com, gregkh@linuxfoundation.org, 
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
-	jun.li@nxp.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260924-separate_etm_cfg_v2-v12-14-a2b41d2f7c2b@arm.com>
+References: <20260924-separate_etm_cfg_v2-v12-0-a2b41d2f7c2b@arm.com>
+In-Reply-To: <20260924-separate_etm_cfg_v2-v12-0-a2b41d2f7c2b@arm.com>
+To: Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>, 
+ Leo Yan <leo.yan@arm.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, coresight@lists.linaro.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-rt-devel@lists.linux.dev
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Yeoreum Yun <yeoreum.yun@arm.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=38291; i=yeoreum.yun@arm.com;
+ h=from:subject:message-id; bh=Zij47hcmEDFxGxYfp3Bekn1t9CBFkUMft6soNLRWwuI=;
+ b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqtV8SOTNTzzdfjJidYR1wz0+AO0XqWgcgKBD8B
+ tSriGzMR56JAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCarVfEgAKCRBt1cPRWsUx
+ MwooC/0eqwAvjPBNhhxLCzGktaMd1HZM/5GJnMaQ1O8Pb4MWqyHShACieGQEqRwn4NAxH0h8zxg
+ bRCHk6l9HjBbUSaKTSaAlGl/tELZ5bzzKXlP1tEvqFxuyiBTKF8+kXbo4tU9BHPrL74QKG3DADu
+ F9MCMnK+KOVRXF7UFzP3qWYzfLLv2SNzg6Txmssu7d/rcLu884EU0eJelX3l6m/ifum5PKoah6I
+ 02TOKJsH2oeQbzhynJp9ht+7eQ0Cm8GgvgcJZtLauzFRzaZEWZiuQ7rUVcZjazuM5gc+tl6hjfj
+ k/jYkViZLTThoD58SSOM1ePuriaPNkQMYNXBTLTSyWwkdecLFWzkJd+wmYr6kmCFS/MPFGD/LE4
+ Z5tSA0p8oiZWXysdOQ8L6HG+BxfvXQfmj8DKM+lXAbkJDAQzVliELYdMHCCEcRzOO3/PseOu+Th
+ BYrZ4B4UfQCxe2Icr5qCTi4sGqjk+1OJhL3QDm8wvrWPCpu630l9ufKXMP+cjoTM+oGvc=
+X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
+ fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
 
-Thanks for tagging me here Heikki.
+drvdata->config is used only by the sysfs interface.
+Rename it to sysfs_config to clarify its purpose.
 
-On Tue, Sep 22, 2026 at 3:50=E2=80=AFAM Heikki Krogerus
-<heikki.krogerus@linux.intel.com> wrote:
->
-> +RD
->
-> On Wed, Sep 16, 2026 at 12:39:57PM +0800, Xu Yang wrote:
-> > From: Xu Yang <xu.yang_2@nxp.com>
-> >
-> > Commit Fixes: 205dc9cb39f5 ("usb: typec: tcpm: implement retry mechanis=
-m
-> > for Discover Identity VDMs") advances vdm_discovery_state to
-> > VDM_DISCOVERY_COMPLETE when a CMDT_RSP_NAK is received, but it does not
-> > advance the state when a non-modal port returns PD_CTRL_NOT_SUPP.
-> >
-> > This can re-arm another vdm_discovery_work if the port is going to
-> > respond with PD_CTRL_NOT_SUPP to the partner.
-> >
-> >   tcpm_pd_handle_msg(port, PD_MSG_CTRL_NOT_SUPP, NONE_AMS);
-> >     tcpm_queue_message();
-> >       mod_tcpm_delayed_work();
-> >         tcpm_state_machine_work()
-> >           tcpm_send_queued_message()  -> send PD_MSG_CTRL_NOT_SUPP
-> >           run_state_machine()
-> >             case SRC_READY:
-> >             case SNK_READY:
-> >               mod_vdm_discovery_delayed_work(port, 0);
-> >
-> > If both the port and its partner do not support modal operation, they
-> > will send DISCOVER_IDENTITY to each other infinitely.
-> >
-> > Advance vdm_discovery_state to VDM_DISCOVERY_COMPLETE in this path as
-> > well. In particular, update the state to VDM_DISCOVERY_COMPLETE if it c=
-omes
-> > from the port partner, and to VDM_DISCOVERY_CABLE_IDENT if it comes fro=
-m a
-> > cable.
-> >
-> > Fixes: 205dc9cb39f5 ("usb: typec: tcpm: implement retry mechanism for D=
-iscover Identity VDMs")
-> > Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
+For readability, also rename local config variables to sysfs_config
+where they refer to drvdata->sysfs_config.
 
-Reviewed-by: RD Babiera <rdbabiera@google.com>
+Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+---
+ drivers/hwtracing/coresight/coresight-etm.h        |   4 +-
+ drivers/hwtracing/coresight/coresight-etm3x-core.c |   6 +-
+ .../hwtracing/coresight/coresight-etm3x-sysfs.c    | 356 ++++++++++-----------
+ 3 files changed, 183 insertions(+), 183 deletions(-)
 
-> >
-> > ---
-> > Changes in v2:
-> >  - cover a cable returns PD_CTRL_NOT_SUPP case reported by sashiko
+diff --git a/drivers/hwtracing/coresight/coresight-etm.h b/drivers/hwtracing/coresight/coresight-etm.h
+index 560a58a3817c..cf65d89a8e98 100644
+--- a/drivers/hwtracing/coresight/coresight-etm.h
++++ b/drivers/hwtracing/coresight/coresight-etm.h
+@@ -244,7 +244,7 @@ struct etm_config {
+  * @os_unlock:	true if access to management registers is allowed.
+  * @traceid:	value of the current ID for this component.
+  * @curr_config:	structure holding current running configuration.
+- * @config:	structure holding sysfs mode configuration.
++ * @sysfs_config:	structure holding sysfs mode configuration.
+  */
+ struct etm_drvdata {
+ 	struct csdev_access		csa;
+@@ -260,7 +260,7 @@ struct etm_drvdata {
+ 	bool				os_unlock;
+ 	u32				traceid;
+ 	struct etm_config		curr_config;
+-	struct etm_config		config;
++	struct etm_config		sysfs_config;
+ };
+ 
+ static inline void etm_writel(struct etm_drvdata *drvdata,
+diff --git a/drivers/hwtracing/coresight/coresight-etm3x-core.c b/drivers/hwtracing/coresight/coresight-etm3x-core.c
+index 0cad9ecb49b6..67f1b71de881 100644
+--- a/drivers/hwtracing/coresight/coresight-etm3x-core.c
++++ b/drivers/hwtracing/coresight/coresight-etm3x-core.c
+@@ -518,7 +518,7 @@ static int etm_enable_sysfs(struct coresight_device *csdev, struct coresight_pat
+ 	arg.path = path;
+ 
+ 	scoped_guard(spinlock, &drvdata->spinlock) {
+-		drvdata->curr_config = drvdata->config;
++		drvdata->curr_config = drvdata->sysfs_config;
+ 	}
+ 
+ 	ret = smp_call_function_single(drvdata->cpu,
+@@ -627,7 +627,7 @@ static void etm_disable_sysfs(struct coresight_device *csdev)
+ {
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(csdev->dev.parent);
+ 	const struct etm_caps *caps = &drvdata->caps;
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *config = &drvdata->sysfs_config;
+ 	const struct etm_config *curr_config = &drvdata->curr_config;
+ 	int i;
+ 
+@@ -844,7 +844,7 @@ static int etm_probe(struct amba_device *adev, const struct amba_id *id)
+ 	if (etm_arch_supported(drvdata->arch) == false)
+ 		return -EINVAL;
+ 
+-	etm_set_default(&drvdata->config);
++	etm_set_default(&drvdata->sysfs_config);
+ 
+ 	pdata = coresight_get_platform_data(dev);
+ 	if (IS_ERR(pdata))
+diff --git a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+index c27865d719eb..d185fb8270e1 100644
+--- a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
++++ b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+@@ -104,7 +104,7 @@ static ssize_t reset_store(struct device *dev,
+ 	int i, ret;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+@@ -116,14 +116,14 @@ static ssize_t reset_store(struct device *dev,
+ 
+ 	if (val) {
+ 		spin_lock(&drvdata->spinlock);
+-		memset(config, 0, sizeof(struct etm_config));
+-		config->mode = ETM_MODE_EXCLUDE;
+-		config->trigger_event = ETM_DEFAULT_EVENT_VAL;
++		memset(sysfs_config, 0, sizeof(struct etm_config));
++		sysfs_config->mode = ETM_MODE_EXCLUDE;
++		sysfs_config->trigger_event = ETM_DEFAULT_EVENT_VAL;
+ 		for (i = 0; i < drvdata->caps.nr_addr_cmp; i++) {
+-			config->addr_type[i] = ETM_ADDR_TYPE_NONE;
++			sysfs_config->addr_type[i] = ETM_ADDR_TYPE_NONE;
+ 		}
+ 
+-		etm_set_default(config);
++		etm_set_default(sysfs_config);
+ 		etm_release_trace_id(drvdata);
+ 		spin_unlock(&drvdata->spinlock);
+ 	}
+@@ -137,9 +137,9 @@ static ssize_t mode_show(struct device *dev,
+ {
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+-	val = config->mode;
++	val = sysfs_config->mode;
+ 	return sprintf(buf, "%#lx\n", val);
+ }
+ 
+@@ -151,62 +151,62 @@ static ssize_t mode_store(struct device *dev,
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+ 	const struct etm_caps *caps = &drvdata->caps;
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+ 		return ret;
+ 
+ 	spin_lock(&drvdata->spinlock);
+-	config->mode = val & ETM_MODE_ALL;
++	sysfs_config->mode = val & ETM_MODE_ALL;
+ 
+-	if (config->mode & ETM_MODE_EXCLUDE)
+-		config->enable_ctrl1 |= ETMTECR1_INC_EXC;
++	if (sysfs_config->mode & ETM_MODE_EXCLUDE)
++		sysfs_config->enable_ctrl1 |= ETMTECR1_INC_EXC;
+ 	else
+-		config->enable_ctrl1 &= ~ETMTECR1_INC_EXC;
++		sysfs_config->enable_ctrl1 &= ~ETMTECR1_INC_EXC;
+ 
+-	if (config->mode & ETM_MODE_CYCACC)
+-		config->ctrl |= ETMCR_CYC_ACC;
++	if (sysfs_config->mode & ETM_MODE_CYCACC)
++		sysfs_config->ctrl |= ETMCR_CYC_ACC;
+ 	else
+-		config->ctrl &= ~ETMCR_CYC_ACC;
++		sysfs_config->ctrl &= ~ETMCR_CYC_ACC;
+ 
+-	if (config->mode & ETM_MODE_STALL) {
++	if (sysfs_config->mode & ETM_MODE_STALL) {
+ 		if (!caps->fifofull) {
+ 			dev_warn(dev, "stall mode not supported\n");
+ 			ret = -EINVAL;
+ 			goto err_unlock;
+ 		}
+-		config->ctrl |= ETMCR_STALL_MODE;
++		sysfs_config->ctrl |= ETMCR_STALL_MODE;
+ 	} else
+-		config->ctrl &= ~ETMCR_STALL_MODE;
++		sysfs_config->ctrl &= ~ETMCR_STALL_MODE;
+ 
+-	if (config->mode & ETM_MODE_TIMESTAMP) {
++	if (sysfs_config->mode & ETM_MODE_TIMESTAMP) {
+ 		if (!caps->timestamp) {
+ 			dev_warn(dev, "timestamp not supported\n");
+ 			ret = -EINVAL;
+ 			goto err_unlock;
+ 		}
+-		config->ctrl |= ETMCR_TIMESTAMP_EN;
++		sysfs_config->ctrl |= ETMCR_TIMESTAMP_EN;
+ 	} else
+-		config->ctrl &= ~ETMCR_TIMESTAMP_EN;
++		sysfs_config->ctrl &= ~ETMCR_TIMESTAMP_EN;
+ 
+-	if (config->mode & ETM_MODE_CTXID)
+-		config->ctrl |= ETMCR_CTXID_SIZE;
++	if (sysfs_config->mode & ETM_MODE_CTXID)
++		sysfs_config->ctrl |= ETMCR_CTXID_SIZE;
+ 	else
+-		config->ctrl &= ~ETMCR_CTXID_SIZE;
++		sysfs_config->ctrl &= ~ETMCR_CTXID_SIZE;
+ 
+-	if (config->mode & ETM_MODE_BBROAD)
+-		config->ctrl |= ETMCR_BRANCH_BROADCAST;
++	if (sysfs_config->mode & ETM_MODE_BBROAD)
++		sysfs_config->ctrl |= ETMCR_BRANCH_BROADCAST;
+ 	else
+-		config->ctrl &= ~ETMCR_BRANCH_BROADCAST;
++		sysfs_config->ctrl &= ~ETMCR_BRANCH_BROADCAST;
+ 
+-	if (config->mode & ETM_MODE_RET_STACK)
+-		config->ctrl |= ETMCR_RETURN_STACK;
++	if (sysfs_config->mode & ETM_MODE_RET_STACK)
++		sysfs_config->ctrl |= ETMCR_RETURN_STACK;
+ 	else
+-		config->ctrl &= ~ETMCR_RETURN_STACK;
++		sysfs_config->ctrl &= ~ETMCR_RETURN_STACK;
+ 
+-	if (config->mode & (ETM_MODE_EXCL_KERN | ETM_MODE_EXCL_USER))
+-		etm_config_trace_mode(config);
++	if (sysfs_config->mode & (ETM_MODE_EXCL_KERN | ETM_MODE_EXCL_USER))
++		etm_config_trace_mode(sysfs_config);
+ 
+ 	spin_unlock(&drvdata->spinlock);
+ 
+@@ -223,9 +223,9 @@ static ssize_t trigger_event_show(struct device *dev,
+ {
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+-	val = config->trigger_event;
++	val = sysfs_config->trigger_event;
+ 	return sprintf(buf, "%#lx\n", val);
+ }
+ 
+@@ -236,13 +236,13 @@ static ssize_t trigger_event_store(struct device *dev,
+ 	int ret;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+ 		return ret;
+ 
+-	config->trigger_event = val & ETM_EVENT_MASK;
++	sysfs_config->trigger_event = val & ETM_EVENT_MASK;
+ 
+ 	return size;
+ }
+@@ -253,9 +253,9 @@ static ssize_t enable_event_show(struct device *dev,
+ {
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+-	val = config->enable_event;
++	val = sysfs_config->enable_event;
+ 	return sprintf(buf, "%#lx\n", val);
+ }
+ 
+@@ -266,13 +266,13 @@ static ssize_t enable_event_store(struct device *dev,
+ 	int ret;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+ 		return ret;
+ 
+-	config->enable_event = val & ETM_EVENT_MASK;
++	sysfs_config->enable_event = val & ETM_EVENT_MASK;
+ 
+ 	return size;
+ }
+@@ -283,9 +283,9 @@ static ssize_t fifofull_level_show(struct device *dev,
+ {
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+-	val = config->fifofull_level;
++	val = sysfs_config->fifofull_level;
+ 	return sprintf(buf, "%#lx\n", val);
+ }
+ 
+@@ -296,13 +296,13 @@ static ssize_t fifofull_level_store(struct device *dev,
+ 	int ret;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+ 		return ret;
+ 
+-	config->fifofull_level = val;
++	sysfs_config->fifofull_level = val;
+ 
+ 	return size;
+ }
+@@ -313,9 +313,9 @@ static ssize_t addr_idx_show(struct device *dev,
+ {
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+-	val = config->addr_idx;
++	val = sysfs_config->addr_idx;
+ 	return sprintf(buf, "%#lx\n", val);
+ }
+ 
+@@ -327,7 +327,7 @@ static ssize_t addr_idx_store(struct device *dev,
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+ 	const struct etm_caps *caps = &drvdata->caps;
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+@@ -341,7 +341,7 @@ static ssize_t addr_idx_store(struct device *dev,
+ 	 * dereferenced multiple times within a spinlock block elsewhere.
+ 	 */
+ 	spin_lock(&drvdata->spinlock);
+-	config->addr_idx = val;
++	sysfs_config->addr_idx = val;
+ 	spin_unlock(&drvdata->spinlock);
+ 
+ 	return size;
+@@ -354,17 +354,17 @@ static ssize_t addr_single_show(struct device *dev,
+ 	u8 idx;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	spin_lock(&drvdata->spinlock);
+-	idx = config->addr_idx;
+-	if (!(config->addr_type[idx] == ETM_ADDR_TYPE_NONE ||
+-	      config->addr_type[idx] == ETM_ADDR_TYPE_SINGLE)) {
++	idx = sysfs_config->addr_idx;
++	if (!(sysfs_config->addr_type[idx] == ETM_ADDR_TYPE_NONE ||
++	      sysfs_config->addr_type[idx] == ETM_ADDR_TYPE_SINGLE)) {
+ 		spin_unlock(&drvdata->spinlock);
+ 		return -EINVAL;
+ 	}
+ 
+-	val = config->addr_val[idx];
++	val = sysfs_config->addr_val[idx];
+ 	spin_unlock(&drvdata->spinlock);
+ 
+ 	return sprintf(buf, "%#lx\n", val);
+@@ -378,22 +378,22 @@ static ssize_t addr_single_store(struct device *dev,
+ 	int ret;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+ 		return ret;
+ 
+ 	spin_lock(&drvdata->spinlock);
+-	idx = config->addr_idx;
+-	if (!(config->addr_type[idx] == ETM_ADDR_TYPE_NONE ||
+-	      config->addr_type[idx] == ETM_ADDR_TYPE_SINGLE)) {
++	idx = sysfs_config->addr_idx;
++	if (!(sysfs_config->addr_type[idx] == ETM_ADDR_TYPE_NONE ||
++	      sysfs_config->addr_type[idx] == ETM_ADDR_TYPE_SINGLE)) {
+ 		spin_unlock(&drvdata->spinlock);
+ 		return -EINVAL;
+ 	}
+ 
+-	config->addr_val[idx] = val;
+-	config->addr_type[idx] = ETM_ADDR_TYPE_SINGLE;
++	sysfs_config->addr_val[idx] = val;
++	sysfs_config->addr_type[idx] = ETM_ADDR_TYPE_SINGLE;
+ 	spin_unlock(&drvdata->spinlock);
+ 
+ 	return size;
+@@ -406,24 +406,24 @@ static ssize_t addr_range_show(struct device *dev,
+ 	u8 idx;
+ 	unsigned long val1, val2;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	spin_lock(&drvdata->spinlock);
+-	idx = config->addr_idx;
++	idx = sysfs_config->addr_idx;
+ 	if (idx % 2 != 0) {
+ 		spin_unlock(&drvdata->spinlock);
+ 		return -EPERM;
+ 	}
+-	if (!((config->addr_type[idx] == ETM_ADDR_TYPE_NONE &&
+-	       config->addr_type[idx + 1] == ETM_ADDR_TYPE_NONE) ||
+-	      (config->addr_type[idx] == ETM_ADDR_TYPE_RANGE &&
+-	       config->addr_type[idx + 1] == ETM_ADDR_TYPE_RANGE))) {
++	if (!((sysfs_config->addr_type[idx] == ETM_ADDR_TYPE_NONE &&
++	       sysfs_config->addr_type[idx + 1] == ETM_ADDR_TYPE_NONE) ||
++	      (sysfs_config->addr_type[idx] == ETM_ADDR_TYPE_RANGE &&
++	       sysfs_config->addr_type[idx + 1] == ETM_ADDR_TYPE_RANGE))) {
+ 		spin_unlock(&drvdata->spinlock);
+ 		return -EPERM;
+ 	}
+ 
+-	val1 = config->addr_val[idx];
+-	val2 = config->addr_val[idx + 1];
++	val1 = sysfs_config->addr_val[idx];
++	val2 = sysfs_config->addr_val[idx + 1];
+ 	spin_unlock(&drvdata->spinlock);
+ 
+ 	return sprintf(buf, "%#lx %#lx\n", val1, val2);
+@@ -436,7 +436,7 @@ static ssize_t addr_range_store(struct device *dev,
+ 	u8 idx;
+ 	unsigned long val1, val2;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	if (sscanf(buf, "%lx %lx", &val1, &val2) != 2)
+ 		return -EINVAL;
+@@ -445,24 +445,24 @@ static ssize_t addr_range_store(struct device *dev,
+ 		return -EINVAL;
+ 
+ 	spin_lock(&drvdata->spinlock);
+-	idx = config->addr_idx;
++	idx = sysfs_config->addr_idx;
+ 	if (idx % 2 != 0) {
+ 		spin_unlock(&drvdata->spinlock);
+ 		return -EPERM;
+ 	}
+-	if (!((config->addr_type[idx] == ETM_ADDR_TYPE_NONE &&
+-	       config->addr_type[idx + 1] == ETM_ADDR_TYPE_NONE) ||
+-	      (config->addr_type[idx] == ETM_ADDR_TYPE_RANGE &&
+-	       config->addr_type[idx + 1] == ETM_ADDR_TYPE_RANGE))) {
++	if (!((sysfs_config->addr_type[idx] == ETM_ADDR_TYPE_NONE &&
++	       sysfs_config->addr_type[idx + 1] == ETM_ADDR_TYPE_NONE) ||
++	      (sysfs_config->addr_type[idx] == ETM_ADDR_TYPE_RANGE &&
++	       sysfs_config->addr_type[idx + 1] == ETM_ADDR_TYPE_RANGE))) {
+ 		spin_unlock(&drvdata->spinlock);
+ 		return -EPERM;
+ 	}
+ 
+-	config->addr_val[idx] = val1;
+-	config->addr_type[idx] = ETM_ADDR_TYPE_RANGE;
+-	config->addr_val[idx + 1] = val2;
+-	config->addr_type[idx + 1] = ETM_ADDR_TYPE_RANGE;
+-	config->enable_ctrl1 |= (1 << (idx/2));
++	sysfs_config->addr_val[idx] = val1;
++	sysfs_config->addr_type[idx] = ETM_ADDR_TYPE_RANGE;
++	sysfs_config->addr_val[idx + 1] = val2;
++	sysfs_config->addr_type[idx + 1] = ETM_ADDR_TYPE_RANGE;
++	sysfs_config->enable_ctrl1 |= (1 << (idx/2));
+ 	spin_unlock(&drvdata->spinlock);
+ 
+ 	return size;
+@@ -475,17 +475,17 @@ static ssize_t addr_start_show(struct device *dev,
+ 	u8 idx;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	spin_lock(&drvdata->spinlock);
+-	idx = config->addr_idx;
+-	if (!(config->addr_type[idx] == ETM_ADDR_TYPE_NONE ||
+-	      config->addr_type[idx] == ETM_ADDR_TYPE_START)) {
++	idx = sysfs_config->addr_idx;
++	if (!(sysfs_config->addr_type[idx] == ETM_ADDR_TYPE_NONE ||
++	      sysfs_config->addr_type[idx] == ETM_ADDR_TYPE_START)) {
+ 		spin_unlock(&drvdata->spinlock);
+ 		return -EPERM;
+ 	}
+ 
+-	val = config->addr_val[idx];
++	val = sysfs_config->addr_val[idx];
+ 	spin_unlock(&drvdata->spinlock);
+ 
+ 	return sprintf(buf, "%#lx\n", val);
+@@ -499,24 +499,24 @@ static ssize_t addr_start_store(struct device *dev,
+ 	int ret;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+ 		return ret;
+ 
+ 	spin_lock(&drvdata->spinlock);
+-	idx = config->addr_idx;
+-	if (!(config->addr_type[idx] == ETM_ADDR_TYPE_NONE ||
+-	      config->addr_type[idx] == ETM_ADDR_TYPE_START)) {
++	idx = sysfs_config->addr_idx;
++	if (!(sysfs_config->addr_type[idx] == ETM_ADDR_TYPE_NONE ||
++	      sysfs_config->addr_type[idx] == ETM_ADDR_TYPE_START)) {
+ 		spin_unlock(&drvdata->spinlock);
+ 		return -EPERM;
+ 	}
+ 
+-	config->addr_val[idx] = val;
+-	config->addr_type[idx] = ETM_ADDR_TYPE_START;
+-	config->startstop_ctrl |= (1 << idx);
+-	config->enable_ctrl1 |= ETMTECR1_START_STOP;
++	sysfs_config->addr_val[idx] = val;
++	sysfs_config->addr_type[idx] = ETM_ADDR_TYPE_START;
++	sysfs_config->startstop_ctrl |= (1 << idx);
++	sysfs_config->enable_ctrl1 |= ETMTECR1_START_STOP;
+ 	spin_unlock(&drvdata->spinlock);
+ 
+ 	return size;
+@@ -529,17 +529,17 @@ static ssize_t addr_stop_show(struct device *dev,
+ 	u8 idx;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	spin_lock(&drvdata->spinlock);
+-	idx = config->addr_idx;
+-	if (!(config->addr_type[idx] == ETM_ADDR_TYPE_NONE ||
+-	      config->addr_type[idx] == ETM_ADDR_TYPE_STOP)) {
++	idx = sysfs_config->addr_idx;
++	if (!(sysfs_config->addr_type[idx] == ETM_ADDR_TYPE_NONE ||
++	      sysfs_config->addr_type[idx] == ETM_ADDR_TYPE_STOP)) {
+ 		spin_unlock(&drvdata->spinlock);
+ 		return -EPERM;
+ 	}
+ 
+-	val = config->addr_val[idx];
++	val = sysfs_config->addr_val[idx];
+ 	spin_unlock(&drvdata->spinlock);
+ 
+ 	return sprintf(buf, "%#lx\n", val);
+@@ -553,24 +553,24 @@ static ssize_t addr_stop_store(struct device *dev,
+ 	int ret;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+ 		return ret;
+ 
+ 	spin_lock(&drvdata->spinlock);
+-	idx = config->addr_idx;
+-	if (!(config->addr_type[idx] == ETM_ADDR_TYPE_NONE ||
+-	      config->addr_type[idx] == ETM_ADDR_TYPE_STOP)) {
++	idx = sysfs_config->addr_idx;
++	if (!(sysfs_config->addr_type[idx] == ETM_ADDR_TYPE_NONE ||
++	      sysfs_config->addr_type[idx] == ETM_ADDR_TYPE_STOP)) {
+ 		spin_unlock(&drvdata->spinlock);
+ 		return -EPERM;
+ 	}
+ 
+-	config->addr_val[idx] = val;
+-	config->addr_type[idx] = ETM_ADDR_TYPE_STOP;
+-	config->startstop_ctrl |= (1 << (idx + 16));
+-	config->enable_ctrl1 |= ETMTECR1_START_STOP;
++	sysfs_config->addr_val[idx] = val;
++	sysfs_config->addr_type[idx] = ETM_ADDR_TYPE_STOP;
++	sysfs_config->startstop_ctrl |= (1 << (idx + 16));
++	sysfs_config->enable_ctrl1 |= ETMTECR1_START_STOP;
+ 	spin_unlock(&drvdata->spinlock);
+ 
+ 	return size;
+@@ -582,10 +582,10 @@ static ssize_t addr_acctype_show(struct device *dev,
+ {
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	spin_lock(&drvdata->spinlock);
+-	val = config->addr_acctype[config->addr_idx];
++	val = sysfs_config->addr_acctype[sysfs_config->addr_idx];
+ 	spin_unlock(&drvdata->spinlock);
+ 
+ 	return sprintf(buf, "%#lx\n", val);
+@@ -598,14 +598,14 @@ static ssize_t addr_acctype_store(struct device *dev,
+ 	int ret;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+ 		return ret;
+ 
+ 	spin_lock(&drvdata->spinlock);
+-	config->addr_acctype[config->addr_idx] = val;
++	sysfs_config->addr_acctype[sysfs_config->addr_idx] = val;
+ 	spin_unlock(&drvdata->spinlock);
+ 
+ 	return size;
+@@ -617,9 +617,9 @@ static ssize_t cntr_idx_show(struct device *dev,
+ {
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+-	val = config->cntr_idx;
++	val = sysfs_config->cntr_idx;
+ 	return sprintf(buf, "%#lx\n", val);
+ }
+ 
+@@ -631,7 +631,7 @@ static ssize_t cntr_idx_store(struct device *dev,
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+ 	const struct etm_caps *caps = &drvdata->caps;
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+@@ -644,7 +644,7 @@ static ssize_t cntr_idx_store(struct device *dev,
+ 	 * dereferenced multiple times within a spinlock block elsewhere.
+ 	 */
+ 	spin_lock(&drvdata->spinlock);
+-	config->cntr_idx = val;
++	sysfs_config->cntr_idx = val;
+ 	spin_unlock(&drvdata->spinlock);
+ 
+ 	return size;
+@@ -656,10 +656,10 @@ static ssize_t cntr_rld_val_show(struct device *dev,
+ {
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	spin_lock(&drvdata->spinlock);
+-	val = config->cntr_rld_val[config->cntr_idx];
++	val = sysfs_config->cntr_rld_val[sysfs_config->cntr_idx];
+ 	spin_unlock(&drvdata->spinlock);
+ 
+ 	return sprintf(buf, "%#lx\n", val);
+@@ -672,14 +672,14 @@ static ssize_t cntr_rld_val_store(struct device *dev,
+ 	int ret;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+ 		return ret;
+ 
+ 	spin_lock(&drvdata->spinlock);
+-	config->cntr_rld_val[config->cntr_idx] = val;
++	sysfs_config->cntr_rld_val[sysfs_config->cntr_idx] = val;
+ 	spin_unlock(&drvdata->spinlock);
+ 
+ 	return size;
+@@ -691,10 +691,10 @@ static ssize_t cntr_event_show(struct device *dev,
+ {
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	spin_lock(&drvdata->spinlock);
+-	val = config->cntr_event[config->cntr_idx];
++	val = sysfs_config->cntr_event[sysfs_config->cntr_idx];
+ 	spin_unlock(&drvdata->spinlock);
+ 
+ 	return sprintf(buf, "%#lx\n", val);
+@@ -707,14 +707,14 @@ static ssize_t cntr_event_store(struct device *dev,
+ 	int ret;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+ 		return ret;
+ 
+ 	spin_lock(&drvdata->spinlock);
+-	config->cntr_event[config->cntr_idx] = val & ETM_EVENT_MASK;
++	sysfs_config->cntr_event[sysfs_config->cntr_idx] = val & ETM_EVENT_MASK;
+ 	spin_unlock(&drvdata->spinlock);
+ 
+ 	return size;
+@@ -726,10 +726,10 @@ static ssize_t cntr_rld_event_show(struct device *dev,
+ {
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	spin_lock(&drvdata->spinlock);
+-	val = config->cntr_rld_event[config->cntr_idx];
++	val = sysfs_config->cntr_rld_event[sysfs_config->cntr_idx];
+ 	spin_unlock(&drvdata->spinlock);
+ 
+ 	return sprintf(buf, "%#lx\n", val);
+@@ -742,14 +742,14 @@ static ssize_t cntr_rld_event_store(struct device *dev,
+ 	int ret;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+ 		return ret;
+ 
+ 	spin_lock(&drvdata->spinlock);
+-	config->cntr_rld_event[config->cntr_idx] = val & ETM_EVENT_MASK;
++	sysfs_config->cntr_rld_event[sysfs_config->cntr_idx] = val & ETM_EVENT_MASK;
+ 	spin_unlock(&drvdata->spinlock);
+ 
+ 	return size;
+@@ -763,14 +763,14 @@ static ssize_t cntr_val_show(struct device *dev,
+ 	u32 val;
+ 	unsigned long val2;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	if (!coresight_get_mode(drvdata->csdev)) {
+ 		spin_lock(&drvdata->spinlock);
+-		val = config->cntr_val[config->cntr_idx];
++		val = sysfs_config->cntr_val[sysfs_config->cntr_idx];
+ 		spin_unlock(&drvdata->spinlock);
+ 	} else {
+-		ret = etm_readl_cslocked(drvdata, ETMCNTVRn(config->cntr_idx), &val2);
++		ret = etm_readl_cslocked(drvdata, ETMCNTVRn(sysfs_config->cntr_idx), &val2);
+ 		if (ret)
+ 			return ret;
+ 		val = val2;
+@@ -786,7 +786,7 @@ static ssize_t cntr_val_store(struct device *dev,
+ 	int ret;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+@@ -796,7 +796,7 @@ static ssize_t cntr_val_store(struct device *dev,
+ 		return -EBUSY;
+ 
+ 	spin_lock(&drvdata->spinlock);
+-	config->cntr_val[config->cntr_idx] = val;
++	sysfs_config->cntr_val[sysfs_config->cntr_idx] = val;
+ 	spin_unlock(&drvdata->spinlock);
+ 
+ 	return size;
+@@ -808,9 +808,9 @@ static ssize_t seq_12_event_show(struct device *dev,
+ {
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+-	val = config->seq_12_event;
++	val = sysfs_config->seq_12_event;
+ 	return sprintf(buf, "%#lx\n", val);
+ }
+ 
+@@ -821,13 +821,13 @@ static ssize_t seq_12_event_store(struct device *dev,
+ 	int ret;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+ 		return ret;
+ 
+-	config->seq_12_event = val & ETM_EVENT_MASK;
++	sysfs_config->seq_12_event = val & ETM_EVENT_MASK;
+ 	return size;
+ }
+ static DEVICE_ATTR_RW(seq_12_event);
+@@ -837,9 +837,9 @@ static ssize_t seq_21_event_show(struct device *dev,
+ {
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+-	val = config->seq_21_event;
++	val = sysfs_config->seq_21_event;
+ 	return sprintf(buf, "%#lx\n", val);
+ }
+ 
+@@ -850,13 +850,13 @@ static ssize_t seq_21_event_store(struct device *dev,
+ 	int ret;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+ 		return ret;
+ 
+-	config->seq_21_event = val & ETM_EVENT_MASK;
++	sysfs_config->seq_21_event = val & ETM_EVENT_MASK;
+ 	return size;
+ }
+ static DEVICE_ATTR_RW(seq_21_event);
+@@ -866,9 +866,9 @@ static ssize_t seq_23_event_show(struct device *dev,
+ {
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+-	val = config->seq_23_event;
++	val = sysfs_config->seq_23_event;
+ 	return sprintf(buf, "%#lx\n", val);
+ }
+ 
+@@ -879,13 +879,13 @@ static ssize_t seq_23_event_store(struct device *dev,
+ 	int ret;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+ 		return ret;
+ 
+-	config->seq_23_event = val & ETM_EVENT_MASK;
++	sysfs_config->seq_23_event = val & ETM_EVENT_MASK;
+ 	return size;
+ }
+ static DEVICE_ATTR_RW(seq_23_event);
+@@ -895,9 +895,9 @@ static ssize_t seq_31_event_show(struct device *dev,
+ {
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+-	val = config->seq_31_event;
++	val = sysfs_config->seq_31_event;
+ 	return sprintf(buf, "%#lx\n", val);
+ }
+ 
+@@ -908,13 +908,13 @@ static ssize_t seq_31_event_store(struct device *dev,
+ 	int ret;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+ 		return ret;
+ 
+-	config->seq_31_event = val & ETM_EVENT_MASK;
++	sysfs_config->seq_31_event = val & ETM_EVENT_MASK;
+ 	return size;
+ }
+ static DEVICE_ATTR_RW(seq_31_event);
+@@ -924,9 +924,9 @@ static ssize_t seq_32_event_show(struct device *dev,
+ {
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+-	val = config->seq_32_event;
++	val = sysfs_config->seq_32_event;
+ 	return sprintf(buf, "%#lx\n", val);
+ }
+ 
+@@ -937,13 +937,13 @@ static ssize_t seq_32_event_store(struct device *dev,
+ 	int ret;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+ 		return ret;
+ 
+-	config->seq_32_event = val & ETM_EVENT_MASK;
++	sysfs_config->seq_32_event = val & ETM_EVENT_MASK;
+ 	return size;
+ }
+ static DEVICE_ATTR_RW(seq_32_event);
+@@ -953,9 +953,9 @@ static ssize_t seq_13_event_show(struct device *dev,
+ {
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+-	val = config->seq_13_event;
++	val = sysfs_config->seq_13_event;
+ 	return sprintf(buf, "%#lx\n", val);
+ }
+ 
+@@ -966,13 +966,13 @@ static ssize_t seq_13_event_store(struct device *dev,
+ 	int ret;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+ 		return ret;
+ 
+-	config->seq_13_event = val & ETM_EVENT_MASK;
++	sysfs_config->seq_13_event = val & ETM_EVENT_MASK;
+ 	return size;
+ }
+ static DEVICE_ATTR_RW(seq_13_event);
+@@ -983,10 +983,10 @@ static ssize_t seq_curr_state_show(struct device *dev,
+ 	int ret;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	if (!coresight_get_mode(drvdata->csdev)) {
+-		val = config->seq_curr_state;
++		val = sysfs_config->seq_curr_state;
+ 		goto out;
+ 	}
+ 
+@@ -1005,7 +1005,7 @@ static ssize_t seq_curr_state_store(struct device *dev,
+ 	int ret;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+@@ -1014,7 +1014,7 @@ static ssize_t seq_curr_state_store(struct device *dev,
+ 	if (val > ETM_SEQ_STATE_MAX_VAL)
+ 		return -EINVAL;
+ 
+-	config->seq_curr_state = val;
++	sysfs_config->seq_curr_state = val;
+ 
+ 	return size;
+ }
+@@ -1025,9 +1025,9 @@ static ssize_t ctxid_idx_show(struct device *dev,
+ {
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+-	val = config->ctxid_idx;
++	val = sysfs_config->ctxid_idx;
+ 	return sprintf(buf, "%#lx\n", val);
+ }
+ 
+@@ -1039,7 +1039,7 @@ static ssize_t ctxid_idx_store(struct device *dev,
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+ 	const struct etm_caps *caps = &drvdata->caps;
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+@@ -1053,7 +1053,7 @@ static ssize_t ctxid_idx_store(struct device *dev,
+ 	 * dereferenced multiple times within a spinlock block elsewhere.
+ 	 */
+ 	spin_lock(&drvdata->spinlock);
+-	config->ctxid_idx = val;
++	sysfs_config->ctxid_idx = val;
+ 	spin_unlock(&drvdata->spinlock);
+ 
+ 	return size;
+@@ -1065,7 +1065,7 @@ static ssize_t ctxid_pid_show(struct device *dev,
+ {
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	/*
+ 	 * Don't use contextID tracing if coming from a PID namespace.  See
+@@ -1075,7 +1075,7 @@ static ssize_t ctxid_pid_show(struct device *dev,
+ 		return -EINVAL;
+ 
+ 	spin_lock(&drvdata->spinlock);
+-	val = config->ctxid_pid[config->ctxid_idx];
++	val = sysfs_config->ctxid_pid[sysfs_config->ctxid_idx];
+ 	spin_unlock(&drvdata->spinlock);
+ 
+ 	return sprintf(buf, "%#lx\n", val);
+@@ -1088,7 +1088,7 @@ static ssize_t ctxid_pid_store(struct device *dev,
+ 	int ret;
+ 	unsigned long pid;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	/*
+ 	 * When contextID tracing is enabled the tracers will insert the
+@@ -1107,7 +1107,7 @@ static ssize_t ctxid_pid_store(struct device *dev,
+ 		return ret;
+ 
+ 	spin_lock(&drvdata->spinlock);
+-	config->ctxid_pid[config->ctxid_idx] = pid;
++	sysfs_config->ctxid_pid[sysfs_config->ctxid_idx] = pid;
+ 	spin_unlock(&drvdata->spinlock);
+ 
+ 	return size;
+@@ -1119,7 +1119,7 @@ static ssize_t ctxid_mask_show(struct device *dev,
+ {
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	/*
+ 	 * Don't use contextID tracing if coming from a PID namespace.  See
+@@ -1128,7 +1128,7 @@ static ssize_t ctxid_mask_show(struct device *dev,
+ 	if (task_active_pid_ns(current) != &init_pid_ns)
+ 		return -EINVAL;
+ 
+-	val = config->ctxid_mask;
++	val = sysfs_config->ctxid_mask;
+ 	return sprintf(buf, "%#lx\n", val);
+ }
+ 
+@@ -1139,7 +1139,7 @@ static ssize_t ctxid_mask_store(struct device *dev,
+ 	int ret;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	/*
+ 	 * Don't use contextID tracing if coming from a PID namespace.  See
+@@ -1152,7 +1152,7 @@ static ssize_t ctxid_mask_store(struct device *dev,
+ 	if (ret)
+ 		return ret;
+ 
+-	config->ctxid_mask = val;
++	sysfs_config->ctxid_mask = val;
+ 	return size;
+ }
+ static DEVICE_ATTR_RW(ctxid_mask);
+@@ -1162,9 +1162,9 @@ static ssize_t sync_freq_show(struct device *dev,
+ {
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+-	val = config->sync_freq;
++	val = sysfs_config->sync_freq;
+ 	return sprintf(buf, "%#lx\n", val);
+ }
+ 
+@@ -1175,13 +1175,13 @@ static ssize_t sync_freq_store(struct device *dev,
+ 	int ret;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+ 		return ret;
+ 
+-	config->sync_freq = val & ETM_SYNC_MASK;
++	sysfs_config->sync_freq = val & ETM_SYNC_MASK;
+ 	return size;
+ }
+ static DEVICE_ATTR_RW(sync_freq);
+@@ -1191,9 +1191,9 @@ static ssize_t timestamp_event_show(struct device *dev,
+ {
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+-	val = config->timestamp_event;
++	val = sysfs_config->timestamp_event;
+ 	return sprintf(buf, "%#lx\n", val);
+ }
+ 
+@@ -1204,13 +1204,13 @@ static ssize_t timestamp_event_store(struct device *dev,
+ 	int ret;
+ 	unsigned long val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+-	struct etm_config *config = &drvdata->config;
++	struct etm_config *sysfs_config = &drvdata->sysfs_config;
+ 
+ 	ret = kstrtoul(buf, 16, &val);
+ 	if (ret)
+ 		return ret;
+ 
+-	config->timestamp_event = val & ETM_EVENT_MASK;
++	sysfs_config->timestamp_event = val & ETM_EVENT_MASK;
+ 	return size;
+ }
+ static DEVICE_ATTR_RW(timestamp_event);
 
-PD Spec indicates that unsupported cable VDMs get ignored, but it is
-very much valid to keep the filter in case a non-compliant cable returns
-Not_Supported.
+-- 
+2.43.0
 
-> >  - kick off vdm_discovery work to continue working
-> >  - correct previous wrong fix commit id
-> > ---
-> >  drivers/usb/typec/tcpm/tcpm.c | 10 ++++++++++
-> >  1 file changed, 10 insertions(+)
-> >
-> > diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcp=
-m.c
-> > index 2d6b14aa2085..5cea820e00c4 100644
-> > --- a/drivers/usb/typec/tcpm/tcpm.c
-> > +++ b/drivers/usb/typec/tcpm/tcpm.c
-> > @@ -3891,6 +3891,16 @@ static void tcpm_pd_ctrl_request(struct tcpm_por=
-t *port,
-> >               case SRC_READY:
-> >               case SNK_READY:
-> >                       if (port->vdm_state > VDM_STATE_READY) {
-> > +                             if (port->ams =3D=3D DISCOVER_IDENTITY) {
-> > +                                     if (rx_sop_type =3D=3D TCPC_TX_SO=
-P) {
-> > +                                             tcpm_update_vdm_discovery=
-_state(port,
-> > +                                                             VDM_DISCO=
-VERY_COMPLETE);
-> > +                                     } else if (rx_sop_type =3D=3D TCP=
-C_TX_SOP_PRIME) {
-> > +                                             tcpm_update_vdm_discovery=
-_state(port,
-> > +                                                             VDM_DISCO=
-VERY_CABLE_IDENT);
-> > +                                             mod_vdm_discovery_delayed=
-_work(port, 0);
-> > +                                     }
-> > +                             }
-> >                               port->vdm_state =3D VDM_STATE_DONE;
-> >                               if (tcpm_vdm_ams(port))
-> >                                       tcpm_ams_finish(port);
-> > --
-> > 2.34.1
->
-> --
-> heikki
-
-Best,
-RD
