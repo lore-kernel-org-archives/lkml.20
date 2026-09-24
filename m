@@ -1,138 +1,82 @@
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+Received: from mx4.wp.pl (mx4.wp.pl [212.77.101.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BD324B488E
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:42:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06B135C1B2
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:43:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.77.101.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790275366; cv=none; b=ZxY18sAqxZ3475pixgdKMLSNXymjY5DvIYhjVbTjBfJJsf+p8TR0VIVL2dIuDkrLdmr1yaiupWbgU6fprS23Cl6Vbw3Pbs0H7Ayg5Wi+rj2TCH71VrbjS/dKolCuppcJM/leqH/GWDMFNxZp/XcNri7rlGxDFJHYGynQDvDoLok=
+	t=1790275435; cv=none; b=FA1Pv8z9tcpJJl9G9THwFnfF7faXpVU+/SgKmnKB74BXSqyGQqy2zbWUhm4MxpmegLY9EAZJVyNLl015kMCN7G6rwOS4NjbP6+o0GkjnoCB4oaDfdEmcN7l+ShV+q6FJinOQ8Cd0VP6QgLbor8BqbjNw3JeNSFJEt0qJM3hw3Uw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790275366; c=relaxed/simple;
-	bh=doBQdgJUeFvEO4yzuA+5yfElbS/4J1IfbSI34d6AdSc=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=txAGEqJeHsD7ZWDeS0U539IOpvU0bwILK1hPVWNe6jTJYgXNO6mfEfvqWgqsePOCaUQ/ZzHitJhlBBy5O/iNg046PXCWVDb3LKn8Unr5B+EFLBGxRYJ4DkFNY0xu3Kx/6ct4otQFYqKq2ltNvmJGf1fkdoFxNBleDhT3VJtIhV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
-	 (Exim 4.100)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1x9oP0-000000007SV-3yLQ;
-	Thu, 24 Sep 2026 18:42:39 +0000
-Date: Thu, 24 Sep 2026 19:42:35 +0100
-From: Daniel Golle <daniel@makrotopia.org>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Allen Chen <allen.chen@ite.com.tw>,
-	Hermes Wu <hermes.wu@ite.com.tw>,
-	Pin-yen Lin <treapking@chromium.org>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: [PATCH v7 14/14] drm/bridge: it6505: Don't reject audio hw_params
- without an encoder
-Message-ID: <2a125d71fcbae7dd393a3ea21f452caa63c2cfda.1790275151.git.daniel@makrotopia.org>
-References: <cover.1790275151.git.daniel@makrotopia.org>
+	s=arc-20240116; t=1790275435; c=relaxed/simple;
+	bh=Hjx/sgWEVYh1okXrYg2KqiJ/ZTSCZPFWtVGIwsEMAYg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GHJzAZKv0xAMwPsRWwfrpDicIRVbYL/lWaKGheKvozoheurv3BlYZYd//5fHK8nFWtlEoKAeqMTjJfFjhyoPc3JTHqGtqxAd/oZW1ar4y5LIYNfBvAqRIOph/tZqmE/yCvJhuKcd2S+EN/0f/jM2wMsLd7aISMgDSeM+MtTYnw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl; spf=pass smtp.mailfrom=wp.pl; dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b=BZBwKGEu; arc=none smtp.client-ip=212.77.101.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b="BZBwKGEu"
+Received: (wp-smtpd smtp.wp.pl 8094 invoked from network); 24 Sep 2026 20:43:36 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=20241105;
+          t=1790275416; bh=Hjx/sgWEVYh1okXrYg2KqiJ/ZTSCZPFWtVGIwsEMAYg=;
+          h=Subject:To:Cc:From;
+          b=BZBwKGEuYq/514zPgVEURzzakm+CWJbmVMiCnjcYp0ZEix8PaE0kvM4Y5Fg8pn4i1
+           RV58E9Mg0urwJgRJh/XCa42WLz4x5bAHtFxatKCXY3z9Tfdxmuc4U5EUZr6QmN4XsJ
+           iuIfU/qKUFvnewDVL9wBMYrxBtKwCQPMvAzuW+bd86zhzFAkhX0Sgd50pxGYIQKxVS
+           7mthz86NMZGafW0d4J/bJYQ1vUffsSWkDzGawAn4F8SqdAZ6qoandfu7mUbhIRBhak
+           1xTjs55jCermmKwk7PTeWlPby/cLAZHJlwCcH9asZ/NqB2Kr9BAbLkVUg+2Qm/LkRZ
+           cnD0p9IDin0Ew==
+Received: from [192.168.3.224] (83.5.247.11.ipv4.supernova.orange.pl [83.5.247.11])
+          (envelope-sender <olek2@wp.pl>)
+          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
+          for <andrew@lunn.ch>; 24 Sep 2026 20:43:36 +0200
+Message-ID: <faa87607-4be0-49f6-aafc-a37b3d9a237b@wp.pl>
+Date: Thu, 24 Sep 2026 20:43:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1790275151.git.daniel@makrotopia.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v2] net: phy: marvell: add support for PHY LEDs
+ polarity modes
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260923204614.471409-1-olek2@wp.pl>
+ <ac224909-5f7d-447e-a0f9-be0d1565a700@lunn.ch>
+ <a174b2c7-3778-4f8c-be5a-2bd94bfe09ed@wp.pl>
+ <c9c0e770-6bea-4acb-aca2-ac56f044ddef@lunn.ch>
+Content-Language: pl
+From: Aleksander Jan Bajkowski <olek2@wp.pl>
+In-Reply-To: <c9c0e770-6bea-4acb-aca2-ac56f044ddef@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-WP-MailID: 978138af27d019b3689ac8b2779759ca
+X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
+X-WP-SPAM: NO 0000001 [AdLs]                               
 
-it6505_audio_setup_hw_params() returns -ENODEV when no encoder is
-attached. With it6505 registering an hdmi-audio-codec this runs for
-every stream on the I2S DAI, and on mt8186-corsola, where the rt1019
-speaker amplifier shares I2S3, the error tears down the whole DPCM
-backend and breaks speaker playback whenever no display is attached.
+Hi Andrew,
 
-The function only caches stream parameters, which needs no encoder.
-Drop the check, and apply the audio defaults once at probe instead of
-in it6505_variable_config(), which would clobber the cached
-parameters again on every hotplug. Actual audio output remains gated
-by it6505->powered.
+On 24/09/2026 00:54, Andrew Lunn wrote:
+>> The number of LEDs depends on the PHY variant:
+>> 88E1112 -> 4
+>> 88E1116R -> 3
+>> 88E1240 -> 4
+>> 88E1318S -> 3
+>> 88E1510 -> 3
+>> 88E1545 -> 4
+>> 88E1548P -> 4
+> Ah, i had a quick look at the current code, and all the functions have
+> a switch statement with case 0, 1, 2. So i assumed that all PHYs have
+> the same number of LEDs.
+>
+> So any PHY which does have 4 is currently not supported?
+Correct. Although some PHY variants support 4 LEDs, only three can be
+configured via the LED API. The fourth LED can only be configured via
+the 'marvell,reg-init' property.
 
-Fixes: b5c84a9edcd4 ("drm/bridge: add it6505 driver")
-Signed-off-by: Daniel Golle <daniel@makrotopia.org>
----
-v7: no changes
-
-v6: no changes
-
-v5: no changes
-
-v4: apply audio defaults at probe time instead of in
-    it6505_variable_config()
-
-v3: no changes
-
-v2: drop the encoder check entirely instead of returning 0 early
----
- drivers/gpu/drm/bridge/ite-it6505.c | 23 ++++++++++-------------
- 1 file changed, 10 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
-index 00eaac183130..079129925f8a 100644
---- a/drivers/gpu/drm/bridge/ite-it6505.c
-+++ b/drivers/gpu/drm/bridge/ite-it6505.c
-@@ -1371,16 +1371,6 @@ static void it6505_variable_config(struct it6505 *it6505)
- 	it6505->link_state = LINK_IDLE;
- 	it6505->hdcp_desired = HDCP_DESIRED;
- 	it6505->auto_train_retry = AUTO_TRAIN_RETRY;
--	it6505->audio.select = AUDIO_SELECT;
--	it6505->audio.sample_rate = AUDIO_SAMPLE_RATE;
--	it6505->audio.channel_count = AUDIO_CHANNEL_COUNT;
--	it6505->audio.type = AUDIO_TYPE;
--	it6505->audio.i2s_input_format = I2S_INPUT_FORMAT;
--	it6505->audio.i2s_justified = I2S_JUSTIFIED;
--	it6505->audio.i2s_data_delay = I2S_DATA_DELAY;
--	it6505->audio.i2s_ws_channel = I2S_WS_CHANNEL;
--	it6505->audio.i2s_data_sequence = I2S_DATA_SEQUENCE;
--	it6505->audio.word_length = AUDIO_WORD_LENGTH;
- 	memset(it6505->sha1_input, 0, sizeof(it6505->sha1_input));
- 	memset(it6505->bksvs, 0, sizeof(it6505->bksvs));
- }
-@@ -3025,9 +3015,6 @@ static int it6505_audio_setup_hw_params(struct it6505 *it6505,
- 			     params->sample_rate, params->sample_width,
- 			     params->cea.channels);
- 
--	if (!it6505->bridge.encoder)
--		return -ENODEV;
--
- 	if (params->cea.channels <= 1 || params->cea.channels > 8) {
- 		DRM_DEV_DEBUG_DRIVER(dev, "channel number: %d not support",
- 				     params->cea.channels);
-@@ -3159,6 +3146,16 @@ static int it6505_register_audio_driver(struct device *dev)
- 	};
- 	struct platform_device *pdev;
- 
-+	it6505->audio.select = AUDIO_SELECT;
-+	it6505->audio.sample_rate = AUDIO_SAMPLE_RATE;
-+	it6505->audio.channel_count = AUDIO_CHANNEL_COUNT;
-+	it6505->audio.type = AUDIO_TYPE;
-+	it6505->audio.i2s_input_format = I2S_INPUT_FORMAT;
-+	it6505->audio.i2s_justified = I2S_JUSTIFIED;
-+	it6505->audio.i2s_data_delay = I2S_DATA_DELAY;
-+	it6505->audio.i2s_ws_channel = I2S_WS_CHANNEL;
-+	it6505->audio.i2s_data_sequence = I2S_DATA_SEQUENCE;
-+	it6505->audio.word_length = AUDIO_WORD_LENGTH;
- 	it6505->audio.mute = true;
- 	INIT_DELAYED_WORK(&it6505->delayed_audio, it6505_delayed_audio);
- 
--- 
-2.55.0
+Best regards,
+Aleksander
