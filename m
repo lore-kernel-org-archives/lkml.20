@@ -1,100 +1,92 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C93643DED6
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:29:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B73D3ED5C3;
+	Thu, 24 Sep 2026 08:30:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790238580; cv=none; b=caniu6Y5nUvtYJ6lIyHHVUtEhmntPJG5jASHkvi0XoYUYRt9rn7hTp/VtWeD6KMC5LZMUsyojYYTrpmhlnbc0nHr4D3IVtqBOfZ5blIv3f0EWxlDdj2P6crS6ee/weYprx6SaSYKZsneN68jdmXErRFv/73FHQVe24Azjp+OQAQ=
+	t=1790238615; cv=none; b=r7mP66fIDKcUkT1GDdy8ZFAuaKxFk5J87V6D6XWbXYd+0pJlYoc2YcDPbjZhHfqVE+XzP8o4mwF6fUMgHptg4LNB7tiLpDpaU7AnwWZwh+xWSwlt02uvsvIpeDyNyhWkoUz/lcK1xqD929OJBUdOVZjWLfZOpC2uBWaVgacCh18=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790238580; c=relaxed/simple;
-	bh=zlBXKls+F/WVyUupqY3wSg0zZR5jLPtlUo39nbMOMgs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=G0Zo9XAm1myCejDASQGtStU+KkPho5VjylOlMrpsGmRiscCl0eL0pZ4O37GVGszCzyUuQYvCQ8yig5Rk2xVCf3fdbym9YfT2+A7eBOxrVOC6Eql9bxPkdCEyVj8j8xnKhkG1zfJ28Uc+DgA04vX0IB6WFqzLs1xZSQHSirSstiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F4h5B7YP; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790238615; c=relaxed/simple;
+	bh=+Fmxs1VxO4v21VbTg/4NsPWKXYijbNKsTM1NdF20K/w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=k3ncxShLxPD6I1WsvnGG7ylrFCMZ26yIPDjskGlUJJXYLi/fGzcnB2ZPjBpsqF0Jvsa+etK6+Qp+WDBeOEoB581165dGx4PkWtXeqinqsdD+wpShs+00GmUVlo5jBp2qqC27UXtPJMQcc1Kx/RpFAnjlyRNMnmT/yEvxEAhW6zA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XE3JpDcy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F4h5B7YP"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d3920so12152665e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 01:29:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790238575; x=1790843375; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zlBXKls+F/WVyUupqY3wSg0zZR5jLPtlUo39nbMOMgs=;
-        b=F4h5B7YPJWT4iJVsoW/hQbxq5Wq05bPYkaLCICQJ3DLJ1/gZxdl63gJpEGgf6NxBIG
-         ZI6X7ZxV3soQqnU4ub9F3o5VcTUJY7wsFciw5SvpCyAsHXzjIZTooOuPucoH3YTo6WiB
-         v5AqxSbeYOngN4HBWxRidOzkeX5KYKTHSdxBRD6rIVeIdFceGhQhivQZYVkZhVfHHRXd
-         8fq+yr/sVwseQ22MGnHlo46nLxLQRnZGcvQNEoni3N8DWSWg2JBVbRkIWVdhE/Yi0/cy
-         X4OkWI8RiyeR/GqxuHFdriDU7ZEzwi+62rP/qivJHTYSrqitYBmOpn+tYwg0n6yUXfL7
-         O+lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790238575; x=1790843375;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zlBXKls+F/WVyUupqY3wSg0zZR5jLPtlUo39nbMOMgs=;
-        b=u/moUkZd9EOB66DS13/OYD2PR4cYpa2q5Y4J/SKH6bKWLTyJ2fUTvHp1LKZs+p/F5h
-         yHI59q5YcMHlbLorYTjzvemHXA2WtnEYz4zwCPynSWECK44FXn+NjGVBZr1zw4XywF4/
-         85s8PcTDkixZcSvLHCTyVyU7HofcqseZIsj3Wrlm0Zd/Uv4q75q0FlrWQfnP+XHXa37q
-         uCFXCDytbr8XvYqNu44PDV3I5PW/k8aOr1OhGHJeLn+05NGsmdOAmJ9M6R+lE2+DONcL
-         WpLr6SxGLxc2mOPTPFb2rkedHmZEFTniHPIIcvu0Kcv8KjQ/N33gyuhtPDaRm77t95fQ
-         ASeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBytBpV2RwTPZ0yFL7i5Ps1kyEtdZEnKcqX/44bCjdJnWk4VKBO+Hue476D+zb2gE6Qr4N66cNr+JnsrsDY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTj69SKqzlI1rX5Slc9XkWc6dmnrVc+x9OtWY7OdHFl1UyfZJr
-	QKm17AJ3DFxbeoSQroawCm5E4SwJf65txCCA487nlyQt3JycTLPwBM9a
-X-Gm-Gg: AYBFou1HqhHhO1To79HWKD5yQiPd+DVdmRqk5VpNOwsSARS23QW/kvZ67TXOR6nal7Y
-	tabtuCzx3yI5PG7xMcNydIihT49mR9Evmqg0nMPACi+cJeD1L1KRhGf4jjlHp34a1LMTNK2Al7N
-	avfOFt3dWEbBy/NQZdPkPYGWQe8/w6bJSkyaUI4LaOBY8y3Vm8hQrsBQILtEt8SNJWvqRMguSrv
-	zjyh4fSbUTldXR7taaenp5DXL26UVdntj3zuOlOtrGfMpPSgXmF6PEp96Giy88e9dU/jGkpe4SB
-	Bk1x76pxi4lt6QeuKJcZr6vLoie0Tgjs8BvakEdmGxoIO9wG6Ce7k+Avu33tNsjP5dD8Y5l9hwT
-	MKztlKpMMCrHCbCxxSYBjWsfueAWT47Jhw5v8V4a0QNBTtRPWo5AMxA4hdKguUDOtX2MSMwJ74r
-	LyIBhtxJFkCgQofHBq1rwmvYv18PWGukhZ4vVhTiDvNGGbgyqqSwrPB7/21tE5RTxDSnj9ts6Wd
-	jnU58Ln68nTSosarw==
-X-Received: by 2002:a05:600c:628b:b0:499:900c:9c69 with SMTP id 5b1f17b1804b1-49fe66d1134mr25718035e9.9.1790238575219;
-        Thu, 24 Sep 2026 01:29:35 -0700 (PDT)
-Received: from localhost.localdomain ([94.252.74.168])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49fe0c4b51bsm99926925e9.4.2026.09.24.01.29.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 01:29:34 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
-	Beata Michalska <beata.michalska@arm.com>,
-	Sumit Gupta <sumitg@nvidia.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Ananthu C V <ananthu.cv@oss.qualcomm.com>,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH v6] arm64: topology: fix arch_freq_get_on_cpu() overflow above 4.19 GHz
-Date: Thu, 24 Sep 2026 10:29:28 +0200
-Message-ID: <179023856877.183607.17352008232359942762@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <arPmhnU-pkGpaD4-@arm.com>
-References: <arPmhnU-pkGpaD4-@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XE3JpDcy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB6A41F000FF;
+	Thu, 24 Sep 2026 08:30:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790238612;
+	bh=Q2zQUJ23idUHk5KbjgrSsNpQFZ6X6k1nsitKWBxEjOM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XE3JpDcyKgv66BxukYFgGmEjQwDrMczbTevv4ZcszBIlpl8KJY3CacKcNQQPtgbbZ
+	 VmD4CdC6Q2YiM6/r9a0oRFxSnsgIzzRR5Sa/KOQTNZQBBzJOwakExAzw2GIHUCo0vf
+	 GRlUGdYaeL5qehGKK4tDTQ0G8nY3SHbyK+WJfRpgY2vkENDWqDBVwxpcUUpNQeQP/2
+	 Co3gEwVstJd8QF3cZCS8ORpdJZk4RCc+jck4Z8q1lOC8/ojDRQPzr9erFh1rCr9fpm
+	 HWLOsgoEut2jtJs/3HN7cTEiUJQILcDTvFz1Y3aUlw+PcxvpBXHq5XAKUvxsmgUdxP
+	 +I90F8jJItjUQ==
+Date: Thu, 24 Sep 2026 09:30:06 +0100
+From: Will Deacon <will@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Vincent Donnefort <vdonnefort@google.com>, maz@kernel.org,
+	oupton@kernel.org, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	catalin.marinas@arm.com, joey.gouly@arm.com, seiden@linux.ibm.com,
+	suzuki.poulose@arm.com, yuzenghui@huawei.com, mark.rutland@arm.com,
+	steven.price@arm.com, qperret@google.com
+Subject: Re: [PATCH v3 10/18] KVM: arm64: Handle PSCI calls for protected VMs
+ at EL2
+Message-ID: <arTfjgvZIhmXLrw1@willie-the-truck>
+References: <20260914113338.159227-1-fuad.tabba@linux.dev>
+ <20260914113338.159227-11-fuad.tabba@linux.dev>
+ <arK1tHUEJsCQEKzn@google.com>
+ <CA+EHjTx+foVF4CRU5D8bQv8bAqDphMN12UrV+_doUryn2ow6bg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+EHjTx+foVF4CRU5D8bQv8bAqDphMN12UrV+_doUryn2ow6bg@mail.gmail.com>
 
-Hi Catalin,
+On Wed, Sep 23, 2026 at 10:51:34AM +0100, Fuad Tabba wrote:
+> Hi Vincent,
+> 
+> > > +/*
+> > > + * Returns true when handled at EL2, false when the host must stop scheduling
+> > > + * the vCPU.
+> > > + */
+> > > +static bool pvm_psci_vcpu_off(struct pkvm_hyp_vcpu *hyp_vcpu)
+> > > +{
+> > > +        /* No other writer runs while this vCPU is ON and executing. */
+> > > +        WARN_ON(READ_ONCE(hyp_vcpu->power_state) != PSCI_0_2_AFFINITY_LEVEL_ON);
+> > > +
+> > > +        /*
+> > > +         * Orders pkvm_reset_vcpu()'s clear of reset_state.reset before OFF, so
+> > > +         * a CPU_ON that wins on OFF republishes after it. Pairs with the
+> > > +         * cmpxchg in pvm_psci_vcpu_on().
+> > > +         */
+> > > +        smp_store_release(&hyp_vcpu->power_state, PSCI_0_2_AFFINITY_LEVEL_OFF);
+> >
+> > Is there an issue either with the comment or with pvm_psci_vcpu_on()? the
+> > cmpxchg is relaxed. I would have expected cmpxchg_acquire().
+> 
+> It's the comment. The ordering it describes holds with the relaxed
+> cmpxchg. The release of OFF orders the clear before OFF. The winner's
+> smp_store_release(&reset_state->reset, true) orders its cmpxchg before
+> that store. So the clear can't land after the republish. The comment
+> should name that store-release as the pair, not the cmpxchg.
 
-On Wed, Sep 23, 2026, Catalin Marinas wrote:
-> I assume Dietmar and Will's acks still stand. I can add them from v5
-> (let me know if you disagree).
+Sorry, but I'm really confused by this and it appears to be different to
+what we've got in Android as well. Why do we need release semantics for
+the store to 'hyp_vcpu->power_state' in pvm_psci_vcpu_off()? What is it
+that we are publishing here? The comment talks about pkvm_reset_vcpu(),
+but how is that relevant to the vCPU _off_ path? You say the comment is
+wrong, but what _should_ it say?
 
-No objection from me, thanks.
+I'm a bit baffled!
 
-Oleg
+Will
