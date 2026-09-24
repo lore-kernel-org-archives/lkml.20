@@ -1,79 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1878F414A15;
-	Thu, 24 Sep 2026 21:21:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02E0243F4D3
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:22:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790284915; cv=none; b=LZU1Vq1SiPY3aHa3w7cLYdnwMuiTeDVJX0fV7Vd1qb8FUloOwVXQh4FBsy62X/4r6UdAhsvW8QzbHhDVx5uKTFajr8YJ04nE9gxoi2BTWiJ7qEpDadmYrJNm1TudTgoVfm5DFfiAIp16Ow2brwB7qR75ycQ9JmMiHHPvonyfEcE=
+	t=1790284953; cv=none; b=M7u6uqX9d/Jb7fxdsC783iJWC3l63lD3WCxDlyHvMxRJYonfodax1LPITfztrgwqEJchv7bVNClozFBaoXeJKA6GEKOmlbIUvpcC3kUQ1SZQ7w3lFur8/bGRKVJo4Ole5vH0GS7MhU2GlffmQq2sAY0PeWLGr3o+PoTQ+u3mzUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790284915; c=relaxed/simple;
-	bh=istQY0e4FiBex8lI80G+ApBgOLojyZfR85ev73eCAlo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z103CD0+XcnGnGqYPdCFqJ4IVEJIHIJt8G/7jXGGA/OMM/WA7NZ63eIkEDhbSEiSWu3ZqmtUuicIzv6pNRToQ2ZNCMFAL1S3YGfWFw9W2yt50Synouj5leinDM7nc+EV3vzejYBvOlHh4NA2wowHjW428wQgZT265jUwDTjN4Ow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bk1vIny/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790284953; c=relaxed/simple;
+	bh=6kcQ8W/2jwK8APrrep1L/VCX0QLyn6OGdgFMflB0og0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=m44nywX36Bqgv1oipxUs/bsK7J7vGdC0PXdOVkjWxfNTjNZPpynplL+RGzJXuPbcdEMdMsnrquxGajKBFgMXvqH2K+NwzY5SvdpcCpZ52nFyq4KEVFHj/JT3me8moy1D8ob+MdbN0RJAzifea2+c8LyZNSZUL0uZSNj84G6PkoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AG4ABhXq; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bk1vIny/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 235F11F000FF;
-	Thu, 24 Sep 2026 21:21:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790284913;
-	bh=x/UWJcNfekDF+GWo/zE1uFjVcugYvK5muHDuidy/TbI=;
-	h=From:To:Cc:Subject:Date;
-	b=bk1vIny/CbAJNomB5LibjJbFym7OSzf/bE6YSA0Pv3+qbpOGt5fAQEF5XjyowNy5k
-	 hnGixu+r84k8quz+LRw3s1gUcEdxiUKWQf/tmhFGP0tc2RvjBvYmt6on2GA1qv65CF
-	 30gC3NR7Q8oeIeNnTsI0mpiMg9y6hwCD/VaHZkY/04UcFd18DBFyZ0I2Fvvca7DVvB
-	 Em0VQTN57km8KKQQM03WG2jF9yD0gqFhx1bqv+1ATgyP0LRz8lbtctRsA1DskQL4Ot
-	 32xgn54nzEXThFKwpSKYkiRDxxm3nBBTik+AVg0iY5GsMC4W/i6Mwhz/uhLW6fUzaW
-	 CW/KmelZxmgxA==
-From: Thorsten Blum <blum@kernel.org>
-To: Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Thorsten Blum <blum@kernel.org>,
-	Manos Pitsidianakis <manos@pitsidianak.is>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	David Laight <david.laight.linux@gmail.com>,
-	Jonathan McDowell <noodles@meta.com>,
-	Lianjie Wang <karin0.zst@gmail.com>,
-	"Thomas Richard (TI)" <thomas.richard@bootlin.com>,
-	PrasannaKumar Muralidharan <prasannatsmkumar@gmail.com>
-Cc: linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] hwrng: core - reject unknown RNG names
-Date: Thu, 24 Sep 2026 23:21:13 +0200
-Message-ID: <20260924212114.120633-2-blum@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AG4ABhXq"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fbc3db5fbso144455e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:22:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790284946; x=1790889746; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YSkIisDkYKIIi4WkWWXOgZThDC1sNfe6ebPPfj77RR0=;
+        b=AG4ABhXqZcLbcPSU5i6Ywm9QKdcz2UrVVpRM+nSRsIrCNG+tTDLDhC+AtVeb+Izb8i
+         8/fEwxBYYFhNsiV4a29FzPLpDx4DsOGD0kZmljW5dByTTI37mtKFnvbryAOtSmIoqUlH
+         rtnFTA3zFTF5ZcJPZCaVdG0tNaGX+PBidoMjv1F3MljyVVK9Mi+ih7FAyEnAHpvrVXHs
+         pRFd3K+X5t1ZIyxDqv942ksCeYBb/GBr/VGSt7/OqSyn0YxlYMGmrvv/RwxckH4tq76Q
+         iDs1YeSUw/WYZ6FBBO50ahLoMtNDYzFYACSUgAttM+L6x7V6xA8ZFBrkmePMfZIhSps/
+         F21Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790284946; x=1790889746;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YSkIisDkYKIIi4WkWWXOgZThDC1sNfe6ebPPfj77RR0=;
+        b=ODxTzGizjSYqQrBdcod8JdCQF6lRgXUqxcAKijpKsB1RMpIV1yX5ylvVcQnY1rlw9x
+         VJYYwEhNozMOIiloNwy9ptGWMaJTurz7dEaBPLryV4SgmTswgQRjWXxALw8UArSnczlt
+         /oJ3EZlbtMNK1AdR1rSjHZPI6uQERUfqrhY+KbDKsUoqdmNWy8aHpITrnw1Oij6S1WWO
+         a7ry5bzWZhZ+2YhwGgyjrpphwtB8CrDEbDb7RWJjlXH4+q+OAPAFsm8QzMVMjTiHmdEd
+         XKTvvdcgbA5fHz+GtRpdUXkNNYyCzPHHKt9u+yW70iOUr8FdES1PrG2wiVl9Fp84ygrG
+         /FfQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwSRo67betZ8NxQ9NAuZI+8fw6E22uL+ps/T5Q5UU86PEcW8M/jyutMiqhi8CGfiw7M6ZXJXW9eq2AD37Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++k19Z3BGZ+3SfSF5uXBqxpME8CNfuUy4t5+68odGJ7e0JHZ0q2k
+	ltpjJcmRMMD6GgLzpOpZ/dGpka6gx8DBvM1sO+7iPd8ilCU+YpB75q6y
+X-Gm-Gg: AYBFou0AXaU24Pcz/I9X1V0GQIOm/RNj05hiuvyMFPwJJy63vxPQL2/GUyLenR6ttjr
+	/zkHXQKhX035M/W/7puS5WXMC+tllSAfCWjPlCul8H6AB6l1nuAFnNb/IYrFzm0fMv6U2FWh4lT
+	uz/IK3/ylbOBRLYfRG1zm3BoV4oOSfLqdrHwBm42S6q5fF8DCw7QONlrJyYB1+ebf1+n1lHJK4j
+	dpXFFUS0cmBCPtKTLjAVfsvb32moYnpq44nwGx+ILDovz2CgE9s641WhGCMeK82cdAB/rSWFRKp
+	iHed0owZ+hLRWJMiosJY8tpnLRRgh/XU9LoTcZCmjhZiTf2Ipah0LfYQp9zE1oYHQXd4EApsCkv
+	AwzUw70WJYP1qdCozjX8nP9CCuYwn+e5Sc5+J8cgt1+s+Bfn+nPbM+xJmuMnzk92vICmV+4tc88
+	2auKYnrv0B+hlXU94wXNsWJFWEPqjXmiq/IfggIjA94rtSsklNuvHMc8CJ/7iQMJ3kBDAMrnWUs
+	KIqkJnO/pNRTlU07cHqr22Z0eQqmpP7/dDNcBTzSfcLOw45uH7AxBMQc5CPkM+kDSTS4dasdn0v
+	jMJX4K6hkY5xtxq2X0jifw9mWxffFyqntMlAYQYw9lDuCinUO0rRQhlc/lQ4eFNXct1+Ecw8bee
+	qfAlJf/Wn8Ht44U/sTpD6qg==
+X-Received: by 2002:a05:600c:c490:b0:49d:1da4:511b with SMTP id 5b1f17b1804b1-49fe67bcb85mr60709165e9.1.1790284946476;
+        Thu, 24 Sep 2026 14:22:26 -0700 (PDT)
+Received: from ?IPV6:2a02:3100:610f:ecfc:4dfb:2ac9:70ba:48bd? (dynamic-2a02-3100-610f-ecfc-4dfb-2ac9-70ba-48bd.310.pool.telefonica.de. [2a02:3100:610f:ecfc:4dfb:2ac9:70ba:48bd])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a34a570sm1809789f8f.13.2026.09.24.14.22.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 14:22:25 -0700 (PDT)
+Message-ID: <798e192b-b10f-46ee-8059-bf8d6db058b9@gmail.com>
+Date: Thu, 24 Sep 2026 23:22:24 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=990; i=blum@kernel.org; h=from:subject; bh=istQY0e4FiBex8lI80G+ApBgOLojyZfR85ev73eCAlo=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFlbp3hppW1o7D3128go7faLSw6KXxmEt4VeMnf7vvbv7 7mz25y+d5SyMIhxMciKKbI8mPVjhm9pTeUmk4idMHNYmUCGMHBxCsBEXgUxMpxb1DE7PmD9zoJL l6WPVx0z33okKPm2S+HsRbLtLxTrFGsYGY4757Qs/brxEP/WrjcCR16vsey8LDWxt/8ma5bnz8t R+1gA
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] net: hsr: shrink seqnr_lock to sequence counter
+ updates
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, andrew+netdev@lunn.ch,
+ shuah@kernel.org, kees@kernel.org, petr.wozniak@gmail.com,
+ qingfang.deng@linux.dev, fmaurer@redhat.com, luka.gejak@linux.dev,
+ xiaoliang.yang_1@nxp.com, skhawaja@google.com, liuhangbin@gmail.com,
+ stable@vger.kernel.org, sdf.kernel@gmail.com,
+ syzbot+fbf74291c3b7e753b481@syzkaller.appspotmail.com
+References: <20260809121455.1745-1-xiexinet@gmail.com>
+ <20260809121455.1745-3-xiexinet@gmail.com>
+ <20260923103725.kB_5-sDD@linutronix.de>
+Content-Language: en-GB
+From: Xin Xie <xiexinet@gmail.com>
+Autocrypt: addr=xiexinet@gmail.com; keydata=
+ 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
+ sNySbH3veZ/55EtlXA==
+In-Reply-To: <20260923103725.kB_5-sDD@linutronix.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-In rng_current_store(), err is 0 after successfully locking rng_mutex,
-and if the requested RNG name cannot be found, the function reports
-success even though the current RNG was not changed.
+On 23/09/2026 12:37, Sebastian Andrzej Siewior wrote:
+> This fix relies on the bitmap seq nr handling while the Fixes commits
+> below do not have it. Doesn't this revert the synchronisation change
+> leading to the problem it tried to solve at least in the stable kernels?
 
-Set err = -ENODEV before searching the RNG list to reject unknown names.
+You're right. Shrinking the lock can reintroduce ordering drops on 
+pre-bitmap kernels, and the sender's bitmap does not make reordering safe 
+for older peers.
 
-Fixes: 142a27f0a731 ("hwrng: core - Reset user selected rng by writing "" to rng_current")
-Cc: stable@vger.kernel.org
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- drivers/char/hw_random/core.c | 1 +
- 1 file changed, 1 insertion(+)
+Across ten VM runs per mode against an unmodified pre-bitmap HSRv0
+peer, the narrowed-lock control delivered 19,128 of 20,000 test frames
+at the peer's master. The ordered-consumer prototype delivered all
+20,000 exactly once.
 
-diff --git a/drivers/char/hw_random/core.c b/drivers/char/hw_random/core.c
-index 57eeefe90da9..1f9e31cdc7f0 100644
---- a/drivers/char/hw_random/core.c
-+++ b/drivers/char/hw_random/core.c
-@@ -376,6 +376,7 @@ static ssize_t rng_current_store(struct device *dev,
- 		cur_rng_set_by_user = 1;
- 		drop_current_rng();
- 	} else {
-+		err = -ENODEV;
- 		list_for_each_entry(rng, &rng_list, list) {
- 			if (sysfs_streq(rng->name, buf)) {
- 				err = set_current_rng(rng);
+I'll rework patch 2 around a single consumer for locally numbered
+traffic, including supervision. Each frame would be submitted to all
+its lower devices before the next frame is numbered. An idle caller
+would process only its own input inline; contention or re-entry would
+queue input to one BH worker.
+
+No HSR lock would be held across segmentation or dev_queue_xmit().
+Deferred inputs would retain their core TX recursion depth. This
+preserves the original per-lower submission ordering without relying
+on bitmap tolerance.
+
+On PREEMPT_RT, consumer ownership would not provide priority inheritance
+from queued producers; progress depends on the consumer being scheduled.
+I will test this explicitly.
+
+-- 
+Xin
