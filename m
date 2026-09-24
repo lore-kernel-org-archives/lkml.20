@@ -1,506 +1,331 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4206C486424
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:10:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BBEAB486E6D
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:10:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790251823; cv=none; b=i6alGPQZqiqWsX3Gmgbi/m2SifHK1qNgpWr8XTVSenv9pzEoIkMfN3U+o7YYdDOm7GCsXmosgZT9JJ6SMVyPHwSApsZ8MBsfTt7fM1XffDLFWeplJc+fVAKhe3TqQpfTXDIJ5C8uVS++vPDNgJKXd6HZOJwaNPVIMxHyS4yWBts=
+	t=1790251825; cv=none; b=b96vaJqcgYelxmp/uh/BXJTD/19pHfXxqBbkDsrl1Uh6uF53zF9BSL3ECkdwcbm++CZ8qIa69Q73ivqq6S/aulDKYlpzRXDwJpBPMwBOJ3aNGwBvY2RK5HHrpvk98D21KBI8Qbte0gkt8exhACm8ieusbs67XIOYEZbjUU1Fwuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790251823; c=relaxed/simple;
-	bh=NpAZldeAoyzGBo75hnKstjC7zRSK+xXJRSl5HAQ3TZs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=C5LuzSvobfrtTAuQ2vULG8dPnrAZaAs/w4xDDa4FM25w5lOIflE60DiPqsN7Ozv7abdy4kn45yoMN+2kvB7S7q1qexwRk/goBAl3sz4R7lUrEY+Vr2fm+VpeFz/7J1aR8y/dSzIgbjpoaRqbfXVnxinxQv/4lcXWCGbOpTWDDWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EoJdnyVO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BI+p3Vmz; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790251825; c=relaxed/simple;
+	bh=8F/XxqrKuB+k751NiXzuRU5nIX6xdyv/RNAB/2r9o2I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bpSpRxSVRPqeKTvxu6eWvzHksph1p9UX1WVhDkRIQcMyo2JlGOyudKXpzMHclNgKi8v7p4Dfcy2F0EnDkPW6FB1IFR0jU8CL6vueYa45g3Kp2CUBc3kVmVPnckoJEnyDpkXnUeCDfpzowHv5pEj/3eDYWyDw2d5qnvRBC6lPscA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=GibmlyEE; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EoJdnyVO";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BI+p3Vmz"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OC5Cdf2751081
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:10:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	aaXLVPEu+d+wf38cxXleh9LgP5i9sJNqPRJ3U21f5xw=; b=EoJdnyVOhcpQjR8Q
-	MFkhVCR9wkiok6GCAAuPGdJc8K3UslE5PnllW/+cJlVx5+rIcienf2135AvGdG69
-	i9iyLeeRGmnpuX7DYR94Ztf9T7Jaq/rYhkO9Hd3iM9j7k2dPCnFIBD5db7XP7e6u
-	n1ug2vP8B59vqIE24k5MI2mlUs2fr4hZeD2Zs0Axrvt6QvXFx1klhrQzMOoxMcnA
-	Dtqd/VncYu9oiMOmx6sl+RdYGMwe9lddGFaGlMSr9wfH8xKpGStBmM9j87coU3oH
-	+YJB1gAEZBLsPSgUBkfhWekk3wXbOoV6pjusAt07WEsT5hatG3X0LrIwWB/XgjL4
-	b7RwlQ==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw1s90eyw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:10:20 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-79129463bb2so633446137.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 05:10:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790251819; x=1790856619; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aaXLVPEu+d+wf38cxXleh9LgP5i9sJNqPRJ3U21f5xw=;
-        b=BI+p3VmzasLveF8Zh7ZYULcJbW0NMvRu+qwqBdUhvnrcRWmztk8zzI3dtz0XV7ccIY
-         OD298elcha/cXoB8CE+rFx3qHjcapaCWTtID9Bp8v9ET3xwSXfMFZw7i9r6J3/7CiOjm
-         XlILXIGku13xpANH1QMjm6iJrnUhcS3NGFEno1QCuz+wbKZyMjmUOocBXbe9nvcpaWi5
-         P5fFSUdcG0KUfXKQrCK81TdrgMbToTH0N1Lyd6ts36qmhYqoTY1J6UripJAKB15GwBnR
-         IafPmSSETtU8gqmkqvwVaXd6Dyw+hrHN8E8okPgn2B16/QupJjVB2VwgwzM/hWsfduTH
-         1ePw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790251819; x=1790856619;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aaXLVPEu+d+wf38cxXleh9LgP5i9sJNqPRJ3U21f5xw=;
-        b=EktxwPVFtQutKfxahCKLD8daCUYNnZfSnyui58wgigfDSF53jmwEYV5jVXfxnzsX6b
-         G22M6RVCKkH4xLShhlR+FNFpk8YeXwDpRB1uDbPLX1qIXDb2KgSot6F+ZnEbqH4+Jjhw
-         4VFQ/vYqN2W62mi/k7uQWbzfBAASz8EUsfL7P3qIG7vYTDDpxbAeQ9pBVBTvyn1765n5
-         DfyhCxrjO5gh+7u8r+GTIsW42zOwEsBLOoMk0my62X02uTQlqXmSmg/CkaH/eN/vZfpZ
-         xskDyHHoOjboV+9e79iWED8mJM89SRcRt+hiuONkJ4uIPofHrUJOTm35bxC5lDfKhK1K
-         zyKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwDHPLqnbjEOjTrDYMJNxazyyGPTGJGXozFwLIgOWbMOmUT/BDIx+WK/9tlwupEp1JN/Sq1gC9WtbTGL6U=@vger.kernel.org
-X-Gm-Message-State: AFuF++lggo3z7Q4Maz2F3JANWvgehafNskrZT8zadZZOB+Czac5P+kzk
-	Z9w/fz+iDPoHAdjwRPPrhI/hp/jp5F3bllW5FHrbDrq70/Ivy1qm77si8qBT1Qe0nP5DyFuSJhg
-	qpo6Hn+XpFPB9i4Pu/+DQGWfWI+6e05O9JOgspm0AZ4mnpIv4AO9svyynHguqg4OcpKY=
-X-Gm-Gg: AYBFou24Zxbt1Ndu2SA9QmzNN8Ll4DfV9oXyKuLsZK3L5gwWyvM6x/WqO7K07sNBlud
-	RXscbLhQ55JzPK9dfU7fFQyPfaMUxd+JP9Pljop6OMU5P3y49Oz76xGThBDwhEjxTKcrR3oyBrX
-	nFS4NxxxH4mgM020m9zVOAMLYIuow0bvjKI+vFBZi/ys6wZYfTghNTw7IfUtFWuCJeeYAzk1ETd
-	3OJXWsBGtHOfCZ0n+7qvu0WBc6HFQQxPzCSDUtVO8HNPQZWfPnPzMIGINqXlYmFaPv7Cz/wAbeE
-	E4YWjrkkS1pjY5c6Md7gqnY6s4vCpxPn5OHRYLe8HoCWMd4SWCK3eoamLwUjkw5Go3K3jve+R+8
-	QIBiL6+3IeTYT8BN9zENJKugmIn4A
-X-Received: by 2002:a05:6102:f12:b0:7ab:d3f6:6225 with SMTP id ada2fe7eead31-7af19738629mr1067693137.0.1790251819062;
-        Thu, 24 Sep 2026 05:10:19 -0700 (PDT)
-X-Received: by 2002:a05:6102:f12:b0:7ab:d3f6:6225 with SMTP id ada2fe7eead31-7af19738629mr1067678137.0.1790251818168;
-        Thu, 24 Sep 2026 05:10:18 -0700 (PDT)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:7d0e:af24:d3c0:9a86])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886877a2a5sm15227876f8f.26.2026.09.24.05.10.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 05:10:17 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Thu, 24 Sep 2026 14:10:04 +0200
-Subject: [PATCH v3 2/2] arm64: dts: qcom: nord: wire up GPI DMA for QUP
- I2C/SPI engines
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="GibmlyEE"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4A5701570;
+	Thu, 24 Sep 2026 05:10:18 -0700 (PDT)
+Received: from [10.57.83.110] (unknown [10.57.83.110])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6879B3F86C;
+	Thu, 24 Sep 2026 05:10:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790251821; bh=8F/XxqrKuB+k751NiXzuRU5nIX6xdyv/RNAB/2r9o2I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=GibmlyEElxGn2e6TcfAhaVqhvxQpqGyrjZ1QDym07Pk1EslpY2EFnkXK2XfExQG3D
+	 at/wPi/pVJ7BJIR+aEM1a8OIH48YW4ltxQMiO/j2YBT4yEGkt1K1/bog1v4O6SK2VS
+	 SLwyodbbjVShxrPMWKunTwn8Q4vp70FXIcm2k/6c=
+Message-ID: <41151166-ebdd-4c7f-b1a9-95625afd74d1@arm.com>
+Date: Thu, 24 Sep 2026 13:10:17 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V3 2/4] arm64/mm: Use pudp_get() for PUD accesses
+To: Anshuman Khandual <anshuman.khandual@arm.com>,
+ linux-arm-kernel@lists.infradead.org
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Linu Cherian <linu.cherian@arm.com>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, kasan-dev@googlegroups.com
+References: <20260924062214.1635078-1-anshuman.khandual@arm.com>
+ <20260924062214.1635078-3-anshuman.khandual@arm.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260924062214.1635078-3-anshuman.khandual@arm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-nord-gpi-dts-v3-2-74a85134699f@oss.qualcomm.com>
-References: <20260924-nord-gpi-dts-v3-0-74a85134699f@oss.qualcomm.com>
-In-Reply-To: <20260924-nord-gpi-dts-v3-0-74a85134699f@oss.qualcomm.com>
-To: Shawn Guo <shawnguo@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, brgl@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10183;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=NpAZldeAoyzGBo75hnKstjC7zRSK+xXJRSl5HAQ3TZs=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqtRMiTfpORTaciHnrk7aXomcfgu9adESnLPYha
- we4VKXAqMCJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCarUTIgAKCRAFnS7L/zaE
- w5L8D/9WdpIUzubtT6qqDUw4V7np16c5RpdAME1f1rO8d55WN8tmhYwwy3l8T74Dlc2lR/L43ZW
- AhKCS7LzBxjj9q91jZxmAU9HVR3pVtXMsUr7YCrLGls6fM/N/joJzOOCLcrk/jV0oyIHTiL1kSf
- Kx9R/0E52KOEx/DQHe4t85QbLIuE+V23ihV/7EVj97afF1CHgXIIf3V7ZC9X9Aj7uwvJp4nil+s
- tk2LIcG1Q7SrhAd8viz5NsR69an4kC+NUBMdyeAfXwjRpMu5XGyrdE6NGDYVNuD1n1aeVqAjQfy
- Jlvfnn9c/ljy9j9++7KKN6+Sc/FY7XrRDOVF4eFBg9oTfSERSN3GydwJOcn3ynuw27wb/R7uJdG
- maw0YC7Fk2mYq6hGhtfj4t+9a/S3rZGjcwebwY5XK92VmEBC4MXxSQR/Z74foqJb17uV3L2uQgJ
- d3+OySILQ13frzCTWas+uA6ibpMVY5YS8igbT7noN5PK/92Xjq1n2lO1tvynPfMV9sUK9lNiKGP
- fpsVD8NL2VOJJZUTLh61XvvRUft+QrrctVz09ZODOlaBekzwCuklUE19dCx9B7qTKyx3/omq3eg
- 4jN6L6K+usPTr2DZxlMxCrnxYLikXCP2p+fyrxxGaQRx7ZeeWdtcomALdijmtZnEmGCy9PkVkCc
- dGfgNoiQ6iA6suQ==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA1MCBTYWx0ZWRfX8dF7lxHEs92x
- uOwZX5ScD60q7s2Zztjtye1WPlz/dp1EIgdy5Z5Sm8TM3nqzo2lIlCwqFS7pAQ2lTbI6kbUKCtO
- AFGtbRUuRBZq0QBieGy7iUKjz9emq5fJyYddWsgUAG7Eu5ZTOwFDdXTQlSn5iXHKp0TGWQgQHDD
- TcTxsorPdQFGQihAK4sJvmowGGFDOAMFpJO8JPbzdx1S7RsIpiXEkLwqI+Q+5+dy5mW14Ylyn3L
- iS3IxOEovIO7FIZc74d2F+kQJKffrYAx0pckBZx8anQV7PFpeVxrM3VlplLFOoiivCgUQpvaUIc
- 8bX7EqGVmBHaBatJcmV1C5pc3N5HUL3V+EMqPjWeXD+3gkYBzlOOLUJPsCdTJuG2yvoKM4JW9bw
- C98GPVEPZ48IAYsxH9nlUCF8F2+pCQuyxm+/pofuqRyXwWdtVgPi6s6zaJBPzNTv01GTq5KCGBQ
- UG44hq9841zofAj1Tyw==
-X-Authority-Analysis: v=2.4 cv=VPxIDNPX c=1 sm=1 tr=0 ts=6ab5132c cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=A0ElxUCGbprSqmrbtIUA:9 a=QEXdDO2ut3YA:10 a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA1MCBTYWx0ZWRfX8zOybuIdrrIx
- b2q7yVSqBBvL9xZMs6Qyr/9p4rYW0ZwNVZ/CzJWafXppcPW4qYacVM+Mo6U4ZLOJ2NWavo7U2z0
- Fw0ECxgKWvkDWNqFolfOPfXBs+iNR8o=
-X-Proofpoint-ORIG-GUID: xrsPdmFTfDGky8Egs2l-F9iNKR2OLtA2
-X-Proofpoint-GUID: xrsPdmFTfDGky8Egs2l-F9iNKR2OLtA2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501
- adultscore=0 clxscore=1015 bulkscore=0 suspectscore=0 impostorscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609240050
 
-Add DMA phandles to I2C and SPI QUPv3 serial engine nodes.
+On 24/09/2026 07:22, Anshuman Khandual wrote:
+> Replace READ_ONCE() with pudp_get() for PUD accesses in preparation for
+> supporting both D64 and D128 translation table formats.
+> 
+> READ_ONCE() cannot currently be used for 128-bit page table entries on
+> arm64 because it does not provide the required 128-bit single-copy
+> atomicity, causing builds to fail for accesses wider than 64 bits.
+> 
+> Although LDP/STP provide the required atomicity when FEAT_LSE is available
+> (as required by FEAT_D128), extending READ_ONCE() to support 128-bit
+> accesses is undesirable. READ_ONCE() is a general-purpose API, so doing so
+> could encourage other 128-bit users that would either fail to build in
+> configurations without D128 support or, if D128 becomes a runtime option,
+> silently permit tearing on systems without the required hardware support.
+> 
+> Instead, standardize PUD accesses on the existing page-table helpers. These
+> can be overridden on arm64 to provide 128-bit single-copy atomicity when
+> required.
+> 
+> For now override pudp_get() which is same as the generic memory default in
+> order to be consistent with similar helpers.
+> 
+> No functional change intended.
+> 
+> Cc: Catalin Marinas <catalin.marinas@arm.com>
+> Cc: Will Deacon <will@kernel.org>
+> Cc: Ryan Roberts <ryan.roberts@arm.com>
+> Cc: Mark Rutland <mark.rutland@arm.com>
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: kasan-dev@googlegroups.com
+> Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
 
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/nord.dtsi | 124 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 124 insertions(+)
+Reviewed-by: Ryan Roberts <ryan.roberts@arm.com>
 
-diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qcom/nord.dtsi
-index bc48238050ecc6efa342f68a568447be6f9068c0..0ce5db747919952bf0c785592b797f88793a3047 100644
---- a/arch/arm64/boot/dts/qcom/nord.dtsi
-+++ b/arch/arm64/boot/dts/qcom/nord.dtsi
-@@ -944,6 +944,10 @@ i2c14: i2c@880000 {
- 				reg = <0x0 0x00880000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 373 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma2 0 0 QCOM_GPI_I2C>,
-+				       <&gpi_dma2 1 0 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -971,6 +975,10 @@ i2c15: i2c@884000 {
- 				reg = <0x0 0x00884000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 583 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma2 0 1 QCOM_GPI_I2C>,
-+				       <&gpi_dma2 1 1 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -998,6 +1006,10 @@ i2c16: i2c@888000 {
- 				reg = <0x0 0x00888000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 584 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma2 0 2 QCOM_GPI_I2C>,
-+				       <&gpi_dma2 1 2 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1025,6 +1037,10 @@ i2c17: i2c@88c000 {
- 				reg = <0x0 0x0088c000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 585 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma2 0 3 QCOM_GPI_I2C>,
-+				       <&gpi_dma2 1 3 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1052,6 +1068,10 @@ i2c18: i2c@890000 {
- 				reg = <0x0 0x00890000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 586 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma2 0 4 QCOM_GPI_I2C>,
-+				       <&gpi_dma2 1 4 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1079,6 +1099,10 @@ i2c19: i2c@894000 {
- 				reg = <0x0 0x00894000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 587 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma2 0 5 QCOM_GPI_I2C>,
-+				       <&gpi_dma2 1 5 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1106,6 +1130,10 @@ i2c20: i2c@898000 {
- 				reg = <0x0 0x00898000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 461 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma2 0 6 QCOM_GPI_I2C>,
-+				       <&gpi_dma2 1 6 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1117,6 +1145,10 @@ spi20: spi@898000 {
- 				reg = <0x0 0x00898000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 461 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma2 0 6 QCOM_GPI_SPI>,
-+				       <&gpi_dma2 1 6 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1163,6 +1195,10 @@ i2c0: i2c@980000 {
- 				reg = <0x0 0x00980000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 314 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 0 QCOM_GPI_I2C>,
-+				       <&gpi_dma0 1 0 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1182,6 +1218,10 @@ uart0: serial@980000 {
- 				reg = <0x0 0x00980000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 314 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 0 QCOM_GPI_SPI>,
-+				       <&gpi_dma0 1 0 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1190,6 +1230,10 @@ i2c1: i2c@984000 {
- 				reg = <0x0 0x00984000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 513 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 1 QCOM_GPI_I2C>,
-+				       <&gpi_dma0 1 1 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1209,6 +1253,10 @@ uart1: serial@984000 {
- 				reg = <0x0 0x00984000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 513 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 1 QCOM_GPI_SPI>,
-+				       <&gpi_dma0 1 1 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1217,6 +1265,10 @@ i2c2: i2c@988000 {
- 				reg = <0x0 0x00988000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 514 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 2 QCOM_GPI_I2C>,
-+				       <&gpi_dma0 1 2 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1236,6 +1288,10 @@ uart2: serial@988000 {
- 				reg = <0x0 0x00988000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 514 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 2 QCOM_GPI_SPI>,
-+				       <&gpi_dma0 1 2 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1244,6 +1300,10 @@ i2c3: i2c@98c000 {
- 				reg = <0x0 0x0098c000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 515 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 3 QCOM_GPI_I2C>,
-+				       <&gpi_dma0 1 3 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1263,6 +1323,10 @@ uart3: serial@98c000 {
- 				reg = <0x0 0x0098c000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 515 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 3 QCOM_GPI_SPI>,
-+				       <&gpi_dma0 1 3 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1271,6 +1335,10 @@ i2c4: i2c@990000 {
- 				reg = <0x0 0x00990000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 516 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 4 QCOM_GPI_I2C>,
-+				       <&gpi_dma0 1 4 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1298,6 +1366,10 @@ i2c5: i2c@994000 {
- 				reg = <0x0 0x00994000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 517 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 5 QCOM_GPI_I2C>,
-+				       <&gpi_dma0 1 5 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1309,6 +1381,10 @@ spi5: spi@994000 {
- 				reg = <0x0 0x00994000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 517 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 5 QCOM_GPI_SPI>,
-+				       <&gpi_dma0 1 5 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1355,6 +1431,10 @@ i2c7: i2c@a80000 {
- 				reg = <0x0 0x00a80000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 353 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 0 QCOM_GPI_I2C>,
-+				       <&gpi_dma1 1 0 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1374,6 +1454,10 @@ uart7: serial@a80000 {
- 				reg = <0x0 0x00a80000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 353 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 0 QCOM_GPI_SPI>,
-+				       <&gpi_dma1 1 0 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1382,6 +1466,10 @@ i2c8: i2c@a84000 {
- 				reg = <0x0 0x00a84000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 354 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 1 QCOM_GPI_I2C>,
-+				       <&gpi_dma1 1 1 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1401,6 +1489,10 @@ uart8: serial@a84000 {
- 				reg = <0x0 0x00a84000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 354 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 1 QCOM_GPI_SPI>,
-+				       <&gpi_dma1 1 1 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1409,6 +1501,10 @@ i2c9: i2c@a88000 {
- 				reg = <0x0 0x00a88000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 355 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 2 QCOM_GPI_I2C>,
-+				       <&gpi_dma1 1 2 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1428,6 +1524,10 @@ i2c10: i2c@a8c000 {
- 				reg = <0x0 0x00a8c000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 356 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 3 QCOM_GPI_I2C>,
-+				       <&gpi_dma1 1 3 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1447,6 +1547,10 @@ i2c11: i2c@a90000 {
- 				reg = <0x0 0x00a90000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 357 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 4 QCOM_GPI_I2C>,
-+				       <&gpi_dma1 1 4 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1466,6 +1570,10 @@ uart11: serial@a90000 {
- 				reg = <0x0 0x00a90000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 357 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 4 QCOM_GPI_SPI>,
-+				       <&gpi_dma1 1 4 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1474,6 +1582,10 @@ i2c12: i2c@a94000 {
- 				reg = <0x0 0x00a94000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 358 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 5 QCOM_GPI_I2C>,
-+				       <&gpi_dma1 1 5 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1493,6 +1605,10 @@ uart12: serial@a94000 {
- 				reg = <0x0 0x00a94000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 358 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 5 QCOM_GPI_SPI>,
-+				       <&gpi_dma1 1 5 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1501,6 +1617,10 @@ i2c13: i2c@a98000 {
- 				reg = <0x0 0x00a98000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 363 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 6 QCOM_GPI_I2C>,
-+				       <&gpi_dma1 1 6 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1512,6 +1632,10 @@ spi13: spi@a98000 {
- 				reg = <0x0 0x00a98000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 363 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 6 QCOM_GPI_SPI>,
-+				       <&gpi_dma1 1 6 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-
--- 
-2.47.3
+> ---
+> Changes in V3
+> 
+> - Added platform override for pudp_get()
+> 
+>  arch/arm64/include/asm/pgtable.h |  9 ++++++++-
+>  arch/arm64/mm/fault.c            |  2 +-
+>  arch/arm64/mm/fixmap.c           |  2 +-
+>  arch/arm64/mm/hugetlbpage.c      |  4 ++--
+>  arch/arm64/mm/kasan_init.c       |  4 ++--
+>  arch/arm64/mm/mmu.c              | 20 ++++++++++----------
+>  arch/arm64/mm/pageattr.c         |  2 +-
+>  arch/arm64/mm/trans_pgd.c        |  4 ++--
+>  8 files changed, 27 insertions(+), 20 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
+> index 9ad2d03e86ad..b46930f844a2 100644
+> --- a/arch/arm64/include/asm/pgtable.h
+> +++ b/arch/arm64/include/asm/pgtable.h
+> @@ -90,6 +90,12 @@ static inline pmd_t pmdp_get(pmd_t *pmdp)
+>  	return READ_ONCE(*pmdp);
+>  }
+>  
+> +#define pudp_get pudp_get
+> +static inline pud_t pudp_get(pud_t *pudp)
+> +{
+> +	return READ_ONCE(*pudp);
+> +}
+> +
+>  #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+>  #define __HAVE_ARCH_FLUSH_PMD_TLB_RANGE
+>  
+> @@ -879,7 +885,8 @@ static inline pmd_t *pud_pgtable(pud_t pud)
+>  }
+>  
+>  /* Find an entry in the second-level page table. */
+> -#define pmd_offset_phys(dir, addr)	(pud_page_paddr(READ_ONCE(*(dir))) + pmd_index(addr) * sizeof(pmd_t))
+> +#define pmd_offset_phys(dir, addr)	(pud_page_paddr(pudp_get(dir)) + \
+> +					 pmd_index(addr) * sizeof(pmd_t))
+>  
+>  #define pmd_set_fixmap(addr)		((pmd_t *)set_fixmap_offset(FIX_PMD, addr))
+>  #define pmd_set_fixmap_offset(pud, addr)	pmd_set_fixmap(pmd_offset_phys(pud, addr))
+> diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
+> index 2757ee0c4300..435e2e14c070 100644
+> --- a/arch/arm64/mm/fault.c
+> +++ b/arch/arm64/mm/fault.c
+> @@ -181,7 +181,7 @@ static void show_pte(unsigned long addr)
+>  			break;
+>  
+>  		pudp = pud_offset_lockless(p4dp, p4d, addr);
+> -		pud = READ_ONCE(*pudp);
+> +		pud = pudp_get(pudp);
+>  		ptval_to_str(pxd_str, pud_val(pud));
+>  		pr_cont(", pud=%s", pxd_str);
+>  		if (pud_none(pud) || pud_bad(pud))
+> diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
+> index 3cdac8021d4f..d9a870836faf 100644
+> --- a/arch/arm64/mm/fixmap.c
+> +++ b/arch/arm64/mm/fixmap.c
+> @@ -56,7 +56,7 @@ static void __init early_fixmap_init_pmd(pud_t *pudp, unsigned long addr,
+>  					 unsigned long end)
+>  {
+>  	unsigned long next;
+> -	pud_t pud = READ_ONCE(*pudp);
+> +	pud_t pud = pudp_get(pudp);
+>  	pmd_t *pmdp;
+>  
+>  	if (pud_none(pud))
+> diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
+> index cdaa4500faf9..c9ad5e75b073 100644
+> --- a/arch/arm64/mm/hugetlbpage.c
+> +++ b/arch/arm64/mm/hugetlbpage.c
+> @@ -262,7 +262,7 @@ pte_t *huge_pte_alloc(struct mm_struct *mm, struct vm_area_struct *vma,
+>  		WARN_ON(addr & (sz - 1));
+>  		ptep = pte_alloc_huge(mm, pmdp, addr);
+>  	} else if (sz == PMD_SIZE) {
+> -		if (want_pmd_share(vma, addr) && pud_none(READ_ONCE(*pudp)))
+> +		if (want_pmd_share(vma, addr) && pud_none(pudp_get(pudp)))
+>  			ptep = huge_pmd_share(mm, vma, addr, pudp);
+>  		else
+>  			ptep = (pte_t *)pmd_alloc(mm, pudp, addr);
+> @@ -292,7 +292,7 @@ pte_t *huge_pte_offset(struct mm_struct *mm,
+>  		return NULL;
+>  
+>  	pudp = pud_offset(p4dp, addr);
+> -	pud = READ_ONCE(*pudp);
+> +	pud = pudp_get(pudp);
+>  	if (sz != PUD_SIZE && pud_none(pud))
+>  		return NULL;
+>  	/* hugepage or swap? */
+> diff --git a/arch/arm64/mm/kasan_init.c b/arch/arm64/mm/kasan_init.c
+> index 7ca833c5de5e..aad29bcc7622 100644
+> --- a/arch/arm64/mm/kasan_init.c
+> +++ b/arch/arm64/mm/kasan_init.c
+> @@ -76,7 +76,7 @@ static pte_t *__init kasan_pte_offset(pmd_t *pmdp, unsigned long addr, int node,
+>  static pmd_t *__init kasan_pmd_offset(pud_t *pudp, unsigned long addr, int node,
+>  				      bool early)
+>  {
+> -	if (pud_none(READ_ONCE(*pudp))) {
+> +	if (pud_none(pudp_get(pudp))) {
+>  		phys_addr_t pmd_phys = early ?
+>  				__pa_symbol(kasan_early_shadow_pmd)
+>  					: kasan_alloc_zeroed_page(node);
+> @@ -150,7 +150,7 @@ static void __init kasan_pud_populate(p4d_t *p4dp, unsigned long addr,
+>  	do {
+>  		next = pud_addr_end(addr, end);
+>  		kasan_pmd_populate(pudp, addr, next, node, early);
+> -	} while (pudp++, addr = next, addr != end && pud_none(READ_ONCE(*pudp)));
+> +	} while (pudp++, addr = next, addr != end && pud_none(pudp_get(pudp)));
+>  }
+>  
+>  static void __init kasan_p4d_populate(pgd_t *pgdp, unsigned long addr,
+> diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
+> index 95621913679e..22efaee79293 100644
+> --- a/arch/arm64/mm/mmu.c
+> +++ b/arch/arm64/mm/mmu.c
+> @@ -309,7 +309,7 @@ static int alloc_init_cont_pmd(pud_t *pudp, unsigned long addr,
+>  {
+>  	int ret;
+>  	unsigned long next;
+> -	pud_t pud = READ_ONCE(*pudp);
+> +	pud_t pud = pudp_get(pudp);
+>  	pmd_t *pmdp;
+>  
+>  	/*
+> @@ -390,7 +390,7 @@ static int alloc_init_pud(p4d_t *p4dp, unsigned long addr, unsigned long end,
+>  	}
+>  
+>  	do {
+> -		pud_t old_pud = READ_ONCE(*pudp);
+> +		pud_t old_pud = pudp_get(pudp);
+>  
+>  		next = pud_addr_end(addr, end);
+>  
+> @@ -408,7 +408,7 @@ static int alloc_init_pud(p4d_t *p4dp, unsigned long addr, unsigned long end,
+>  			 * only allow updates to the permission attributes.
+>  			 */
+>  			BUG_ON(!pgattr_change_is_safe(pud_val(old_pud),
+> -						      READ_ONCE(pud_val(*pudp))));
+> +						      pud_val(pudp_get(pudp))));
+>  		} else {
+>  			ret = alloc_init_cont_pmd(pudp, addr, next, phys, prot,
+>  						  pgtable_alloc, flags);
+> @@ -416,7 +416,7 @@ static int alloc_init_pud(p4d_t *p4dp, unsigned long addr, unsigned long end,
+>  				goto out;
+>  
+>  			VM_WARN_ON_ONCE(pud_val(old_pud) != 0 &&
+> -					pud_val(old_pud) != READ_ONCE(pud_val(*pudp)));
+> +					pud_val(old_pud) != pud_val(pudp_get(pudp)));
+>  		}
+>  		phys += next - addr;
+>  	} while (pudp++, addr = next, addr != end);
+> @@ -1591,7 +1591,7 @@ static void unmap_hotplug_pud_range(p4d_t *p4dp, unsigned long addr,
+>  	do {
+>  		next = pud_addr_end(addr, end);
+>  		pudp = pud_offset(p4dp, addr);
+> -		pud = READ_ONCE(*pudp);
+> +		pud = pudp_get(pudp);
+>  		if (pud_none(pud))
+>  			continue;
+>  
+> @@ -1748,7 +1748,7 @@ static void free_empty_pud_table(p4d_t *p4dp, unsigned long addr,
+>  	do {
+>  		next = pud_addr_end(addr, end);
+>  		pudp = pud_offset(p4dp, addr);
+> -		pud = READ_ONCE(*pudp);
+> +		pud = pudp_get(pudp);
+>  		if (pud_none(pud))
+>  			continue;
+>  
+> @@ -1769,7 +1769,7 @@ static void free_empty_pud_table(p4d_t *p4dp, unsigned long addr,
+>  	 */
+>  	pudp = pud_offset(p4dp, 0UL);
+>  	for (i = 0; i < PTRS_PER_PUD; i++) {
+> -		if (!pud_none(READ_ONCE(pudp[i])))
+> +		if (!pud_none(pudp_get(pudp + i)))
+>  			return;
+>  	}
+>  
+> @@ -1867,7 +1867,7 @@ int pud_set_huge(pud_t *pudp, phys_addr_t phys, pgprot_t prot)
+>  	pud_t new_pud = pfn_pud(__phys_to_pfn(phys), mk_pud_sect_prot(prot));
+>  
+>  	/* Only allow permission changes for now */
+> -	if (!pgattr_change_is_safe(READ_ONCE(pud_val(*pudp)),
+> +	if (!pgattr_change_is_safe(pud_val(pudp_get(pudp)),
+>  				   pud_val(new_pud)))
+>  		return 0;
+>  
+> @@ -1898,7 +1898,7 @@ void p4d_clear_huge(p4d_t *p4dp)
+>  
+>  int pud_clear_huge(pud_t *pudp)
+>  {
+> -	if (!pud_leaf(READ_ONCE(*pudp)))
+> +	if (!pud_leaf(pudp_get(pudp)))
+>  		return 0;
+>  	pud_clear(pudp);
+>  	return 1;
+> @@ -1938,7 +1938,7 @@ int pud_free_pmd_page(pud_t *pudp, unsigned long addr)
+>  	pud_t pud;
+>  	unsigned long next, end;
+>  
+> -	pud = READ_ONCE(*pudp);
+> +	pud = pudp_get(pudp);
+>  
+>  	if (!pud_table(pud)) {
+>  		VM_WARN_ON(1);
+> diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
+> index 0ca07bd5ded9..07b2fa4de57f 100644
+> --- a/arch/arm64/mm/pageattr.c
+> +++ b/arch/arm64/mm/pageattr.c
+> @@ -407,7 +407,7 @@ bool kernel_page_present(struct page *page)
+>  		return false;
+>  
+>  	pudp = pud_offset(p4dp, addr);
+> -	pud = READ_ONCE(*pudp);
+> +	pud = pudp_get(pudp);
+>  	if (pud_none(pud))
+>  		return false;
+>  	if (pud_leaf(pud))
+> diff --git a/arch/arm64/mm/trans_pgd.c b/arch/arm64/mm/trans_pgd.c
+> index b27b2d2c20c3..d119119455f1 100644
+> --- a/arch/arm64/mm/trans_pgd.c
+> +++ b/arch/arm64/mm/trans_pgd.c
+> @@ -64,7 +64,7 @@ static int copy_pmd(struct trans_pgd_info *info, pud_t *dst_pudp,
+>  	unsigned long next;
+>  	unsigned long addr = start;
+>  
+> -	if (pud_none(READ_ONCE(*dst_pudp))) {
+> +	if (pud_none(pudp_get(dst_pudp))) {
+>  		dst_pmdp = trans_alloc(info);
+>  		if (!dst_pmdp)
+>  			return -ENOMEM;
+> @@ -109,7 +109,7 @@ static int copy_pud(struct trans_pgd_info *info, p4d_t *dst_p4dp,
+>  
+>  	src_pudp = pud_offset(src_p4dp, start);
+>  	do {
+> -		pud_t pud = READ_ONCE(*src_pudp);
+> +		pud_t pud = pudp_get(src_pudp);
+>  
+>  		next = pud_addr_end(addr, end);
+>  		if (pud_none(pud))
 
