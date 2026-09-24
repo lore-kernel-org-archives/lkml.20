@@ -1,36 +1,87 @@
-Received: from mta0.migadu.com (out-31.mta0.migadu.com [91.218.175.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC463AF640
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:32:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.31
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 628844078F9
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:32:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790245942; cv=none; b=K5WdlqP3Z3XdlrK1cEhydYKPEExuD6gzec7IOJE4XYOhuu1v3I5T4A4SkWC2Ad740fHWPGhavTAlM3DdtKkWqp0VBaLqTUcK1DBDhK2KUG6G2KIOUjqWmDYeuCc8Wka9BpO/0XJbpjNKlJ1tFzNwVKivcGKmJczE/khOxTF6JBY=
+	t=1790245979; cv=none; b=mc4DFsaBi0VEO2/dr8bOt+gM4dckMvXBC3C5OF7WWVp29KoK2OuA2Mu1ZkW0YjuNO8mwuqaJ2T9uG0ZypMv0SRRPnai9xP9sv1SPsQnOrysMhTzGt+ziliOQujLQmQ071y0GRtB2LSAtopz6p0yl4wN0sKbE5VZP8xmPjuh1+/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790245942; c=relaxed/simple;
-	bh=ObZcquRpx4x09nCPiDX6i/CHCCMMhKjGvOEeNB6yuZc=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=ueFjLjgH59qiwWbWW3OaGnaExxB7WeAN7wXt0I+S83By55Cs7oMfol0PWNj1RoPTkSQqP/8NPoikKJrFqZZu4AGH/2/vzQlESBMfFhq8ZzxKF9oxSnebqddEz/pOxMK+raejrigashu2xwcvILfR2FydbI2U4//Qq1xvqsskN4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cDe9sJdZ; arc=none smtp.client-ip=91.218.175.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790245979; c=relaxed/simple;
+	bh=7zwTmehAKssK3FDdkKixE6p0T3SMJhlXr4OxhLaCzT0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nD3/7Q4VAx1EZwa/CET1LI1jJIDIVbfHEe4wWVi4Wzya4OpIAJ+hr4exfa7vBFkR/ECmVwnxsjA+CGBNB7Lznm7XBGPYVCygZnB4F7/Ql98yaMo/G6i3YFNuZ7S8FiYTgrq5zJW2HcVR5NaRfPaY/UhxrTGSvSvfE7TyMYRl528=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VkxisI+Y; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VNzXJFl4; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cDe9sJdZ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ObZcquRpx4x09nCPiDX6i/CHCCMMhKjGvOEeNB6yuZc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790245937; v=1; x=1790850737;
- b=cDe9sJdZXTpjyok5ljrQkbmMQodvtDWC6IVx7X10yHq6efYtvN5QQ3BNjKBGlYKyVGsGgly0
- 0ujoUrA0HCwu/D33bVV2rjxhohTlVTD0WS27G1b5jrBNqI236Ua52PPj/aPojptPMx3H+djgvZa
- A5a5QPIypGqS+ahyvx7CuC8g=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e39e4bbfa92ee16f;
-	Thu, 24 Sep 2026 10:32:16 +0000
-X-Mizu-Trace-ID: e39e4bbfa92ee16f
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <446b50ad-f41d-4e08-ad33-45da37193560@linux.dev>
-Date: Thu, 24 Sep 2026 18:32:13 +0800
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VkxisI+Y";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VNzXJFl4"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O9PgXF1270209
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:32:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	WXg6dqUWJExGXR8prNtrYiyQGTXd5oj5ngmptCv+11A=; b=VkxisI+YzShJEnnF
+	ow4m60Uh0zvZE6FuBB2KnVj8dhkhItWm8D/XxGnFt4cP5lf+AEC8TK9lvb+Dyl2g
+	+l52UE32hRvbXffzjrqK9Ey/zhHrhrKyKjdLLrz7XLRGmNhUpDnjFfNSf0uOkJOt
+	rpLfFyEnBWwL0zg7fGLm9ArHD5bQWxzrtHXiC8OXXXKVmTLFsYhyapnvGgY9tri9
+	fNcgiZGNfWNcPijpzVdfxa/nzNdvUclw+wlqXwn+C2hqTkpg6C3ieFTxtViEnbxA
+	L7VeO1WKgkF86wc8BguxbsqUux7jGMWOK6IbnRexRMjOkqbhshvPC7ghVRFWnXlR
+	sJHnfg==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvr90ahx5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 10:32:57 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso3212638eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 03:32:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790245977; x=1790850777; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WXg6dqUWJExGXR8prNtrYiyQGTXd5oj5ngmptCv+11A=;
+        b=VNzXJFl4SdX9cH80sEqorvFG38lRdwljEj9FPuvY/2diCpkSi6yD/inRwpDRxUAdRN
+         VEzWw1b588VtwKPgXOOd9vutJveN9VGCQ66tzeJtJ4gfNZwkqSq5x3ztuI9veksj9k3D
+         qQUyVu/ufBa94yOkyfV8DzRpB8vVvjYMhyMroeQ78zHm7Jod4Myku+D4FB8MeZfbjcia
+         DpbYXWfOc40P81XYjl0V3coxAfYSZcL0t3eYl8KZ7EFVyEQyEkBBSPxieglYiS0ZjLbQ
+         2Oq0e6FzNkHdyECtg2bTi3bwXMwlyBvg49/7yuXxGNV+tClAfZHm39hKtl9C1bjHlVpK
+         IBMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790245977; x=1790850777;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WXg6dqUWJExGXR8prNtrYiyQGTXd5oj5ngmptCv+11A=;
+        b=LDqbBu9GXBcIqRiKFVl5wnrLrUEpwSNFEL56QiY9Fu4AiRvU9l7XX4shcoxHhi3bQw
+         wPPyGRj6eNCmpChg+KaubZbg1zR6ww6bVg3NlDe6jHmUtI2S0Goyf7PTPH29QvczUI0R
+         RfM2YYxLfysrDvDI6l2WWfYnUXjYm5oAwwKOG9Mej5agptIdO5lHqxblSATUxePdiwm9
+         Jkjqs5Urjjcie5UVVEsCXPfwDoVhzNoXTKPK+UvhS5HYD63o0b9vbCz+NESgv5rxFoAm
+         sn9v6GB4now+9DQG9yV1G5U5b7zCtH9jcuP9PimR4biyTBHnPmFU0aMnP0B7taFmFoCs
+         ZSug==
+X-Forwarded-Encrypted: i=1; AKwUvByx6tfHZbn4Ol+cYUbLyvNclLQjS/NUhzjYZYJCXaSTWamC+Vk7HlrTnkZqhkGSqx57RA61dluwhEcTzvI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mvR/UKwgOPofqrZdCAJeNntGWUJ5FN7IJdnnBHAQly5YBCUQTF
+	CY/XMtIxEe9R+V3VrZufLIxDR7RFVdqm1C7WH7ysS+GvK5HeFGct2a34O1WvpgviVq4lc/BEtpN
+	LdksHWYqZGfFgIWIbzOA+8zOz54ncNJzVFTNWo9KrHeullotL5QBf6FLJy1iRbyiNfbs=
+X-Gm-Gg: AYBFou2eLIgNB0haWHac5qcExF5F0wYgITLf3N5Q0/7pqkB8EWRo2YvQhhXqEyzAyXd
+	l707bZrCIH38+WdT9+kpCc+bsp1gKwQnG60bELQPzV+VWvpH3hWqGSVg3LQkKFN0uZtkYdYnI+w
+	XPTYN3hk8e4Pji6ZfwZGRDsuA3KT5VH+MX9ps58jfevv+k5xJyRAr5pbMwh8lla60KZdgbodfKW
+	L6sUp1csCLA6e5ZTNn890AtMcI4hDFcyfkjLx2VKJDdBGCHmUkkygZ2PmDPFV8RiEF+k8KTDLjo
+	yDzOuADuHvFgrbCSfL/RYNZnZjxIyKfPhVPPR10G4sJHAKRtZGVVDFi6h+Z+/cTLbIvazNpUdnL
+	oBLBEEYHvopZSp0CppKXCEA1IfU0=
+X-Received: by 2002:a05:7022:e80d:b0:143:2719:566d with SMTP id a92af1059eb24-145040d4075mr1964995c88.41.1790245976847;
+        Thu, 24 Sep 2026 03:32:56 -0700 (PDT)
+X-Received: by 2002:a05:7022:e80d:b0:143:2719:566d with SMTP id a92af1059eb24-145040d4075mr1964960c88.41.1790245976229;
+        Thu, 24 Sep 2026 03:32:56 -0700 (PDT)
+Received: from [10.218.18.193] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f9877462sm12068303c88.10.2026.09.24.03.32.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 03:32:55 -0700 (PDT)
+Message-ID: <3752b72e-82a7-4fc2-be1b-5a5954062bee@oss.qualcomm.com>
+Date: Thu, 24 Sep 2026 16:02:40 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,252 +89,123 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, cuitao@kylinos.cn, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] loop: defer the queue limits clear to a workqueue
-To: Bart Van Assche <bvanassche@acm.org>, axboe@kernel.dk, hch@lst.de,
- Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-References: <20260924102027.2307044-1-cui.tao@linux.dev>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <20260924102027.2307044-1-cui.tao@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v7 06/10] ASoC: qcom: Switch lpass-cpu and qaif-cpu to
+ snd_soc_of_xlate_dai_name()
+To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+        Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
+        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
+        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+References: <20260923-b4-qaif-shikra-audio-v7-0-d5b6f056568e@oss.qualcomm.com>
+ <20260923-b4-qaif-shikra-audio-v7-6-d5b6f056568e@oss.qualcomm.com>
+Content-Language: en-US
+From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+In-Reply-To: <20260923-b4-qaif-shikra-audio-v7-6-d5b6f056568e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA0MyBTYWx0ZWRfXyay+Agq8l8m/
+ FyKLK6Fn6Fe/1/NpU7ZqHA+D9QRgK+dCjRhZN3omqiBFDzInjPOOMzIlB0SeRb+afTxEFwaJKj+
+ +sa36dbmEBNHvzV4+e8sNSHyST9eTPg=
+X-Proofpoint-GUID: 8-kyoKafia0mnVId7McqDZRLhQRSJGwb
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA0MyBTYWx0ZWRfXxMUHYZ00jymw
+ GNoa/3INRx3iQXhKoNpSh7Ap9kOdQ33/Xg8T55gYU4jSnDpm4rbwBMo/91pE7qAvpIlojdqoplm
+ VnQ/1qYwwW5XfS/LDQCtZCIme0rmVlgFag1nO+9HniXDFaQ5xZSBuZGDyJvBWD9+kxd7NiaYeZN
+ 01bQ7VJT40luZw4tKB7JGYInnqMBhg/4TMy/jo+t2SELpCGHNEvsF/8Ef3vZH26DW2YimozcG+H
+ tIqWLamcHxUDp9EVjW9SS8ijbhCqo8uK9nU/Sr4SNHHhaVcl4IEMZRWyf9Z27bWTTD+SSwk9Gtg
+ JylsWPUvnc2r+MqRTNjwBV5327EW9kRQzuKg8zImfF9u0zn1ZP7kGbUxY4lajTi0aINwVW1yxSC
+ XGcTCMUTyrBVI/NcohVa65jvFv6UxOO+GAfTLtw7fnQ+YrJIDTJBJUFHlaWLUaqntZ77+pPUEJE
+ Cs+sBf+PJ1p5u1UR52g==
+X-Proofpoint-ORIG-GUID: 8-kyoKafia0mnVId7McqDZRLhQRSJGwb
+X-Authority-Analysis: v=2.4 cv=fMusTpae c=1 sm=1 tr=0 ts=6ab4fc59 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=kcWvErFG8IZCALGPlGoA:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 adultscore=0 lowpriorityscore=0 spamscore=0
+ clxscore=1015 impostorscore=0 malwarescore=0 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240043
 
 
 
-在 2026/9/24 18:20, Tao Cui 写道:
-> From: Tao Cui <cuitao@kylinos.cn>
+On 9/23/2026 12:18 PM, Harendra Gautam wrote:
+> Use the new generic snd_soc_of_xlate_dai_name() helper in lpass-cpu.c
+> and qaif-cpu.c, and remove the local lpass implementation.
 > 
-> loop_clear_limits() calls queue_limits_commit_update() directly from
-> the loop workqueue that processes the request.  That does a
-> non-atomic struct assignment to q->limits without freezing the queue,
-> which races with lockless readers of q->limits on other CPUs - bio
-> splitting reads max_hw_sectors, the discard path reads
-> max_hw_discard_sectors - and can let them observe torn values.  The
-> trigger is a discard or write-zeroes request on a loop device whose
-> backing file does not support the corresponding fallocate operation.
-> 
-
-Oops, I messed up the subject, that was supposed to be [PATCH v5].
-The patch in it is the final version: rebased as a single commit,
-plus one fix over v4, clear_limits_lock now covers the limits
-commit too, since the queue freeze is counted and doesn't exclude
-a concurrent loop_change_fd(). Please ignore the subject and treat
-it as v5.
-
-Sorry for the noise,
-Tao.
-
-> The code already has an XXX comment saying this should move to a
-> workqueue.  Do that: schedule a work item on the system workqueue, where
-> it is safe to freeze the queue around the limits update.  The pending
-> modes and the rebind generation live under a new mutex,
-> lo->clear_limits_lock.  The work item takes the mutex with the queue
-> frozen and holds it over the limits commit, so a rebind cannot slip
-> in between the generation check and the commit.  Rebinding the
-> device drops the accumulated modes and invalidates an already
-> scheduled work item, so a stale clear cannot hit the new backing
-> file.  The work item is cancelled before the device is freed.
-> 
-> Suggested-by: Bart Van Assche <bvanassche@acm.org>
-> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-> 
+> Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
 > ---
-> Changes since v4:
+
+LGTM
+
+Reviewed-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+
+>   sound/soc/qcom/lpass-cpu.c | 23 +----------------------
+>   sound/soc/qcom/qaif-cpu.c  |  1 +
+>   2 files changed, 2 insertions(+), 22 deletions(-)
 > 
-> - Rebase onto the current block tree as a single commit.
-> 
-> - Hold clear_limits_lock over the limits commit in the work item.
->   The queue freeze is counted, not mutually exclusive, so
->   loop_change_fd() could rebind between the generation check and
->   the commit, and a stale clear could disable discard and write
->   zeroes on the new backing file.
-> 
-> Changes since v3:
-> 
-> - Replace the three atomic variables (clear_limits_mode, rebind_gen,
->   clear_limits_gen) with plain variables protected by a new
->   clear_limits_lock mutex, as suggested by Bart.  The mutex is taken
->   after the queue freeze in the work item, which keeps the same
->   freeze -> mutex ordering as loop_change_fd(), the only rebinding
->   path that freezes the queue.
-> 
-> Changes since v2:
-> 
-> - Skip the clear when the device was rebound since the work item
->   was scheduled: the modes used to be captured before the freeze,
->   so a LOOP_CHANGE_FD completing in between could apply the old
->   modes to the new backing file.  The rebind generation is now
->   checked with the queue frozen, which excludes loop_change_fd()
->   because it assigns the new backing file under the same freeze,
->   so a rebind cannot slip in between the check and the commit.
->   Cancelling from loop_assign_backing_file() would instead
->   deadlock on the freeze held by loop_change_fd().
-> 
-> - Also bump the rebind generation from __loop_clr_fd(): unbinding
->   does not go through loop_assign_backing_file(), so a work item
->   scheduled before the last close could otherwise commit a stale
->   clear to the queue limits of the unbound device.
-> 
-> Changes since v1:
-> 
-> - Reset clear_limits_mode when assigning a new backing file, so
->   stale modes do not clear limits of the new file.
-> 
-> - Cancel the work item from loop_remove() before del_gendisk():
->   the queue can already be in RCU-delayed freeing when
->   lo_free_disk() cancels it.
-> 
-> Tested on x86-64 (qemu, vfat-backed loop device): a 30s discard and
-> reconfigure loop exercises the clear path 288 times, no torn sysfs
-> reads, no difference against the unpatched kernel.
-> 
-> Link: https://lore.kernel.org/r/20260828072004.273519-1-cui.tao@linux.dev/
-> ---
->  drivers/block/loop.c | 83 ++++++++++++++++++++++++++++++++++++--------
->  1 file changed, 69 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-> index 758c20678bf6c..0b89036c982ad 100644
-> --- a/drivers/block/loop.c
-> +++ b/drivers/block/loop.c
-> @@ -67,6 +67,11 @@ struct loop_device {
->  	struct list_head        rootcg_cmd_list;
->  	struct list_head        idle_worker_list;
->  	struct rb_root          worker_tree;
-> +	struct work_struct      clear_limits_work;
-> +	struct mutex		clear_limits_lock;
-> +	unsigned int		clear_limits_mode;
-> +	unsigned int		rebind_gen;
-> +	unsigned int		clear_limits_gen;
->  	struct timer_list       timer;
->  	bool			sysfs_inited;
->  
-> @@ -222,26 +227,53 @@ static void loop_set_size(struct loop_device *lo, loff_t size)
->  		kobject_uevent(&disk_to_dev(lo->lo_disk)->kobj, KOBJ_CHANGE);
->  }
->  
-> -static void loop_clear_limits(struct loop_device *lo, int mode)
-> +static void loop_clear_limits_workfn(struct work_struct *work)
->  {
-> +	struct loop_device *lo =
-> +		container_of(work, struct loop_device, clear_limits_work);
->  	struct queue_limits lim = queue_limits_start_update(lo->lo_queue);
+> diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+> index 242bc16da36d..61efa45376cd 100644
+> --- a/sound/soc/qcom/lpass-cpu.c
+> +++ b/sound/soc/qcom/lpass-cpu.c
+> @@ -458,30 +458,9 @@ const struct snd_soc_dai_ops asoc_qcom_lpass_cpu_dai_ops2 = {
+>   };
+>   EXPORT_SYMBOL_GPL(asoc_qcom_lpass_cpu_dai_ops2);
+>   
+> -static int asoc_qcom_of_xlate_dai_name(struct snd_soc_component *component,
+> -				   const struct of_phandle_args *args,
+> -				   const char **dai_name)
+> -{
+> -	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
+> -	const struct lpass_variant *variant = drvdata->variant;
+> -	int id = args->args[0];
+> -	int ret = -EINVAL;
+> -	int i;
 > -
-> -	if (mode & FALLOC_FL_ZERO_RANGE)
-> -		lim.max_write_zeroes_sectors = 0;
-> -
-> -	if (mode & FALLOC_FL_PUNCH_HOLE) {
-> -		lim.max_hw_discard_sectors = 0;
-> -		lim.discard_granularity = 0;
+> -	for (i = 0; i  < variant->num_dai; i++) {
+> -		if (variant->dai_driver[i].id == id) {
+> -			*dai_name = variant->dai_driver[i].name;
+> -			ret = 0;
+> -			break;
+> -		}
 > -	}
-> +	unsigned int memflags;
-> +	int mode = 0;
->  
->  	/*
-> -	 * XXX: this updates the queue limits without freezing the queue, which
-> -	 * is against the locking protocol and dangerous.  But we can't just
-> -	 * freeze the queue as we're inside the ->queue_rq method here.  So this
-> -	 * should move out into a workqueue unless we get the file operations to
-> -	 * advertise if they support specific fallocate operations.
-> +	 * Commit the unmodified limits if the device was rebound since
-> +	 * the work item was scheduled.  The freeze does not exclude a
-> +	 * rebind through loop_change_fd(), which freezes the queue
-> +	 * itself, so hold clear_limits_lock over the generation check
-> +	 * and the commit: loop_assign_backing_file() bumps rebind_gen
-> +	 * under the same mutex, so a rebind either precedes the check
-> +	 * or follows the commit, and a stale clear cannot hit the new
-> +	 * backing file.  The other rebinding paths, loop_configure()
-> +	 * and __loop_clr_fd(), bump rebind_gen under the same mutex
-> +	 * without freezing the queue; the generation check detects
-> +	 * them as well.
->  	 */
-> +	memflags = blk_mq_freeze_queue(lo->lo_queue);
-> +	mutex_lock(&lo->clear_limits_lock);
-> +	if (lo->clear_limits_gen == lo->rebind_gen) {
-> +		mode = lo->clear_limits_mode;
-> +		lo->clear_limits_mode = 0;
-> +
-> +		if (mode & FALLOC_FL_ZERO_RANGE)
-> +			lim.max_write_zeroes_sectors = 0;
-> +
-> +		if (mode & FALLOC_FL_PUNCH_HOLE) {
-> +			lim.max_hw_discard_sectors = 0;
-> +			lim.discard_granularity = 0;
-> +		}
-> +	}
->  	queue_limits_commit_update(lo->lo_queue, &lim);
-> +	mutex_unlock(&lo->clear_limits_lock);
-> +	blk_mq_unfreeze_queue(lo->lo_queue, memflags);
-> +}
-> +
-> +static void loop_clear_limits(struct loop_device *lo, int mode)
-> +{
-> +	mutex_lock(&lo->clear_limits_lock);
-> +	lo->clear_limits_gen = lo->rebind_gen;
-> +	lo->clear_limits_mode |= mode;
-> +	mutex_unlock(&lo->clear_limits_lock);
-> +	schedule_work(&lo->clear_limits_work);
->  }
->  
->  static int lo_fallocate(struct loop_device *lo, struct request *rq, loff_t pos,
-> @@ -518,6 +550,10 @@ static int loop_validate_file(struct file *file, struct block_device *bdev)
->  static void loop_assign_backing_file(struct loop_device *lo, struct file *file)
->  {
->  	lo->lo_backing_file = file;
-> +	mutex_lock(&lo->clear_limits_lock);
-> +	lo->rebind_gen++;
-> +	lo->clear_limits_mode = 0;
-> +	mutex_unlock(&lo->clear_limits_lock);
->  	lo->old_gfp_mask = mapping_gfp_mask(file->f_mapping);
->  	mapping_set_gfp_mask(file->f_mapping,
->  			lo->old_gfp_mask & ~(__GFP_IO | __GFP_FS));
-> @@ -1148,6 +1184,15 @@ static void __loop_clr_fd(struct loop_device *lo)
->  	lo->lo_backing_file = NULL;
->  	spin_unlock_irq(&lo->lo_lock);
->  
-> +	/*
-> +	 * Invalidate any pending clear that was scheduled against the old
-> +	 * backing file, like loop_assign_backing_file() does on rebind.
-> +	 */
-> +	mutex_lock(&lo->clear_limits_lock);
-> +	lo->rebind_gen++;
-> +	lo->clear_limits_mode = 0;
-> +	mutex_unlock(&lo->clear_limits_lock);
-> +
->  	lo->lo_device = NULL;
->  	lo->lo_offset = 0;
->  	lo->lo_sizelimit = 0;
-> @@ -1783,7 +1828,9 @@ static void lo_free_disk(struct gendisk *disk)
->  		destroy_workqueue(lo->workqueue);
->  	loop_free_idle_workers(lo, true);
->  	timer_shutdown_sync(&lo->timer);
-> +	cancel_work_sync(&lo->clear_limits_work);
->  	mutex_destroy(&lo->lo_mutex);
-> +	mutex_destroy(&lo->clear_limits_lock);
->  	kfree(lo);
->  }
->  
-> @@ -2102,6 +2149,8 @@ static int loop_add(int i)
->  	spin_lock_init(&lo->lo_lock);
->  	spin_lock_init(&lo->lo_work_lock);
->  	INIT_WORK(&lo->rootcg_work, loop_rootcg_workfn);
-> +	INIT_WORK(&lo->clear_limits_work, loop_clear_limits_workfn);
-> +	mutex_init(&lo->clear_limits_lock);
->  	INIT_LIST_HEAD(&lo->rootcg_cmd_list);
->  	disk->major		= LOOP_MAJOR;
->  	disk->first_minor	= i << part_shift;
-> @@ -2140,6 +2189,12 @@ static int loop_add(int i)
->  
->  static void loop_remove(struct loop_device *lo)
->  {
-> +	/*
-> +	 * Cancel early: the queue may already be in RCU-delayed freeing
-> +	 * by the time lo_free_disk() cancels the work item.
-> +	 */
-> +	cancel_work_sync(&lo->clear_limits_work);
-> +
->  	/* Make this loop device unreachable from pathname. */
->  	del_gendisk(lo->lo_disk);
->  	blk_mq_free_tag_set(&lo->tag_set);
+> -
+> -	return ret;
+> -}
+> -
+>   static const struct snd_soc_component_driver lpass_cpu_comp_driver = {
+>   	.name = "lpass-cpu",
+> -	.of_xlate_dai_name = asoc_qcom_of_xlate_dai_name,
+> +	.of_xlate_dai_name = snd_soc_of_xlate_dai_name,
+>   	.legacy_dai_naming = 1,
+>   };
+>   
+> diff --git a/sound/soc/qcom/qaif-cpu.c b/sound/soc/qcom/qaif-cpu.c
+> index e1868dc95cf4..c096ef5133bb 100644
+> --- a/sound/soc/qcom/qaif-cpu.c
+> +++ b/sound/soc/qcom/qaif-cpu.c
+> @@ -594,6 +594,7 @@ EXPORT_SYMBOL_GPL(asoc_qcom_qaif_aif_cpu_dai_ops);
+>   
+>   static const struct snd_soc_component_driver qaif_cpu_comp_driver = {
+>   	.name = "qaif-cpu",
+> +	.of_xlate_dai_name = snd_soc_of_xlate_dai_name,
+>   };
+>   
+>   static const struct regmap_config audio_qaif_regmap_config = {
+> 
 
