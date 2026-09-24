@@ -1,88 +1,193 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1CF5379998;
-	Thu, 24 Sep 2026 14:28:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CEDAD3B5820
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 14:28:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790260116; cv=none; b=HuhshssmcjTAil56nNf1WENOz7GIvYFaB5l0ycv+lWeDOSfuh2/0V4oI6VsuE6NZC9uaXsOSVZwMmHfBuE2EJlHxNjwX1TNoVDu0dvQ/evf7i3CqedSOx+Uz1eGBFtzdrIeRMK7RMIp1L/uLh4ulOVOyKFpRe/6E+kK98fiuumY=
+	t=1790260132; cv=none; b=F9Aoyf8fG673j0A23AQSraubtB8yC2tZsphDX3SLTUDjPqhPHtBdP1HK3t6pWdY94z5Wcqil9IneeElkKrvDeli/OSintnnKquKCU0GCcgHmasLQS00/PR92m2xRSdWPESq6M9bIvAXMk3CoDtJODFLL0cGKtEjdeBPlBLc3uiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790260116; c=relaxed/simple;
-	bh=4aCUQy0hWo8IdaDKDTYMyFJ7kry/jltOSeuRCSB2Cb4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=ilYRrGUtSnb3p7FscXGs022Kn6hsnIWJEMfN3hL7giDTvatdDdGNF/SarEERBsOQ9heZP9jVxk66E6k634MfuvLvure4zV5KCp7R1BaPrnUFY56e983mZtLNFz50c86w83rp8SCzBb8WDP54Jw6JHSfT1c8u8EXlQKaywl+Qx7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cAanq/HC; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cAanq/HC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 010121F00893;
-	Thu, 24 Sep 2026 14:28:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790260110;
-	bh=IL6ClCwIjkZWXa+/sikAWRTuWWNCeUnK+ge6atvO8+M=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=cAanq/HC3J8+Nv74HWHMMsnf0HUL2z8Yx0G3QNxBFsbIJXebsZOfmmG+sNEdqzh+G
-	 yhzVjJZbm4dPGZFF1NpUrCnE4NXRu5SAmuyHWYfH1Qw1SnIlH/sdao7pzGHPcjdtso
-	 hhh1ah6O8YA9dzpCrnTkeCCZ74NP14gr62drZeCVEybtrl0JLnx3O8ikowIk3TdeW2
-	 IQPmDqkmQ76fHJpzkKiiYzpN5sD7jS+f9jUf+7oMRUMtRlRXx1qH8l8d3hMowJ+Jf0
-	 vhKdEBC1+V7wAqzLHB7OhZy7p2zEWkPk7yi6zn8uSo3DhwifnZplpvIiJUK6JIDQSw
-	 c9g3Tm7I8atOA==
-From: Lee Jones <lee@kernel.org>
-To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
- Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
- Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>, 
- Tony Luck <tony.luck@intel.com>, 
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Muzaffer Kadir <muzafferkadir@mainlining.org>
-Cc: David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>, 
- phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, 
- iommu@lists.linux.dev, mfd@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, Krzysztof Kozlowski <krzk@kernel.org>, 
- linux-pm@vger.kernel.org, linux-input@vger.kernel.org
-In-Reply-To: <20260916-msm8952-initial-support-v2-9-798c2602dde1@mainlining.org>
-References: <20260916-msm8952-initial-support-v2-9-798c2602dde1@mainlining.org>
-Subject: Re: (subset) [PATCH v2 09/19] dt-bindings: mfd: qcom,tcsr: Add
- compatible for MSM8952
-Message-Id: <179026010074.638531.9042726679993021271.b4-ty@b4>
-Date: Thu, 24 Sep 2026 15:28:20 +0100
+	s=arc-20240116; t=1790260132; c=relaxed/simple;
+	bh=gP1hbo0fXBOIR/xuHFNmPZCAZbNpdADMI1YaB4qZt5I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KOe1E/VYA52WyMqcziwP5DKxV19E5kH/EDccqGyGHDoxay2RabmZ+guTiZoaKDtJuNzCMH/u5ejd+M/DZpSrsPPid5sewJfJS1u7wUBiny2anAMh9w51V0SlewxtIIoNLPtupZevtNuhmuHtbu7kDnEcb7XyV52NlaHYtkO6NBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8AxYdFAM7Vq5nAPAA--.45641S3;
+	Thu, 24 Sep 2026 22:27:12 +0800 (CST)
+Received: from linux.localdomain (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJDxBc09M7Vqha8kAA--.50018S6;
+	Thu, 24 Sep 2026 22:27:12 +0800 (CST)
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 4/6] LoongArch: Only send SIGTRAP signal if necessary in do_watch()
+Date: Thu, 24 Sep 2026 22:27:06 +0800
+Message-ID: <20260924142708.2459-5-yangtiezhu@loongson.cn>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20260924142708.2459-1-yangtiezhu@loongson.cn>
+References: <20260924142708.2459-1-yangtiezhu@loongson.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+X-CM-TRANSID:qMiowJDxBc09M7Vqha8kAA--.50018S6
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxXw45AF4xKry3uFyfJr4DJrc_yoWrtw48pF
+	ZruFn3KrWDGr1ku3W3Gw4Dur43Grs5uw47u34Sy34F9rs0grWrJrn2yFnFqFW5W3s8Xa40
+	qF1Yq3WS9a1UXwbCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUk2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
+	1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv
+	67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l42xK82IYc2
+	Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s02
+	6x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1Y6r17MIIYrxkI7VAKI48JMIIF0x
+	vE2Ix0cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE
+	42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6x
+	kF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUcHUqUUUUU
 
-On Wed, 16 Sep 2026 17:22:14 +0300, Muzaffer Kadir wrote:
-> Document the qcom,tcsr-msm8952 compatible.
+In do_watch(), the kernel unconditionally forces a SIGTRAP signal at the
+end of the handler via force_sig(SIGTRAP). This is essential for ptrace
+operations, but it severely disrupts standard perf_event usage.
 
-Applied, thanks!
+Under normal perf usage, it is not necessary to force a SIGTRAP signal
+on every hit. Forcing it unnecessarily aborts the target process if no
+user-space signal handler is registered, which violates performance
+monitoring behaviors and injects context switch overheads.
 
-[09/19] dt-bindings: mfd: qcom,tcsr: Add compatible for MSM8952
-        commit: 319633b06ff2bfc2a7a60d2cfcab2e681a343b27
+However, a conditional check using only 'current->ptrace' would block
+legitimate user-requested signals when a perf_event is configured with
+'attr.sigtrap = 1' for asynchronous user-space tracking.
 
---
-Lee Jones [李琼斯]
+Fix this by refactoring breakpoint_handler() and watchpoint_handler()
+to return a boolean status indicating whether any triggered breakpoint
+explicitly requires a signal notification. Update do_watch() to enforce
+the SIGTRAP signal only when the process is actively being debugged via
+ptrace, or when the underlying perf_event infrastructure specifically
+demands it via 'attr.sigtrap'.
+
+Fixes: 424421a7f34c ("LoongArch: ptrace: Add hardware single step support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+---
+ arch/loongarch/include/asm/hw_breakpoint.h |  4 ++--
+ arch/loongarch/kernel/hw_breakpoint.c      | 18 ++++++++++++++++--
+ arch/loongarch/kernel/traps.c              |  8 +++++---
+ 3 files changed, 23 insertions(+), 7 deletions(-)
+
+diff --git a/arch/loongarch/include/asm/hw_breakpoint.h b/arch/loongarch/include/asm/hw_breakpoint.h
+index 5faa97a87a9e..d202052df8a1 100644
+--- a/arch/loongarch/include/asm/hw_breakpoint.h
++++ b/arch/loongarch/include/asm/hw_breakpoint.h
+@@ -116,8 +116,8 @@ extern void arch_uninstall_hw_breakpoint(struct perf_event *bp);
+ extern int hw_breakpoint_slots(int type);
+ extern void hw_breakpoint_pmu_read(struct perf_event *bp);
+ 
+-void breakpoint_handler(struct pt_regs *regs);
+-void watchpoint_handler(struct pt_regs *regs);
++bool breakpoint_handler(struct pt_regs *regs);
++bool watchpoint_handler(struct pt_regs *regs);
+ 
+ #ifdef CONFIG_HAVE_HW_BREAKPOINT
+ extern void ptrace_hw_copy_thread(struct task_struct *task);
+diff --git a/arch/loongarch/kernel/hw_breakpoint.c b/arch/loongarch/kernel/hw_breakpoint.c
+index 7f69cf361a5e..3683a52b2368 100644
+--- a/arch/loongarch/kernel/hw_breakpoint.c
++++ b/arch/loongarch/kernel/hw_breakpoint.c
+@@ -482,10 +482,11 @@ NOKPROBE_SYMBOL(update_bp_registers);
+ /*
+  * Debug exception handlers.
+  */
+-void breakpoint_handler(struct pt_regs *regs)
++bool breakpoint_handler(struct pt_regs *regs)
+ {
+ 	int i;
+ 	struct perf_event *bp, **slots;
++	bool need_sigtrap = false;
+ 
+ 	slots = this_cpu_ptr(bp_on_reg);
+ 
+@@ -494,18 +495,25 @@ void breakpoint_handler(struct pt_regs *regs)
+ 			bp = slots[i];
+ 			if (bp == NULL)
+ 				continue;
++
+ 			perf_bp_event(bp, regs);
++			if (bp->attr.sigtrap)
++				need_sigtrap = true;
++
+ 			csr_write32(0x1 << i, LOONGARCH_CSR_FWPS);
+ 			update_bp_registers(regs, 0, 0);
+ 		}
+ 	}
++
++	return need_sigtrap;
+ }
+ NOKPROBE_SYMBOL(breakpoint_handler);
+ 
+-void watchpoint_handler(struct pt_regs *regs)
++bool watchpoint_handler(struct pt_regs *regs)
+ {
+ 	int i;
+ 	struct perf_event *wp, **slots;
++	bool need_sigtrap = false;
+ 
+ 	slots = this_cpu_ptr(wp_on_reg);
+ 
+@@ -514,11 +522,17 @@ void watchpoint_handler(struct pt_regs *regs)
+ 			wp = slots[i];
+ 			if (wp == NULL)
+ 				continue;
++
+ 			perf_bp_event(wp, regs);
++			if (wp->attr.sigtrap)
++				need_sigtrap = true;
++
+ 			csr_write32(0x1 << i, LOONGARCH_CSR_MWPS);
+ 			update_bp_registers(regs, 0, 1);
+ 		}
+ 	}
++
++	return need_sigtrap;
+ }
+ NOKPROBE_SYMBOL(watchpoint_handler);
+ 
+diff --git a/arch/loongarch/kernel/traps.c b/arch/loongarch/kernel/traps.c
+index c4d7e55fb3ea..4cbf84b148cd 100644
+--- a/arch/loongarch/kernel/traps.c
++++ b/arch/loongarch/kernel/traps.c
+@@ -811,6 +811,7 @@ asmlinkage void noinstr do_bp(struct pt_regs *regs)
+ asmlinkage void noinstr do_watch(struct pt_regs *regs)
+ {
+ 	irqentry_state_t state = irqentry_enter(regs);
++	bool need_sigtrap = !!current->ptrace;
+ 
+ #ifndef CONFIG_HAVE_HW_BREAKPOINT
+ 	pr_warn("Hardware watch point handler not implemented!\n");
+@@ -851,11 +852,12 @@ asmlinkage void noinstr do_watch(struct pt_regs *regs)
+ 			}
+ 		}
+ 	} else {
+-		breakpoint_handler(regs);
+-		watchpoint_handler(regs);
++		need_sigtrap |= breakpoint_handler(regs);
++		need_sigtrap |= watchpoint_handler(regs);
+ 	}
+ 
+-	force_sig(SIGTRAP);
++	if (need_sigtrap)
++		force_sig(SIGTRAP);
+ out:
+ #endif
+ 	irqentry_exit(regs, state);
+-- 
+2.42.0
 
