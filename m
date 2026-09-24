@@ -1,37 +1,38 @@
-Received: from mta1.migadu.com (out-13.mta1.migadu.com [95.215.58.13])
+Received: from mta0.migadu.com (out-250.mta0.migadu.com [91.218.175.250])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B52B2931C4
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:51:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C61262931C4
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 08:51:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.250
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790239912; cv=none; b=JDeVPS6tJlNm/hO3Cuy8xM093Qob7TB7DDGGI096U+3GsDWOBEnCJJUvHdthNX2PRpf/liAJXo9c8qyrresuBFVZgDeP8VXeFDUIRfPc9Yz7W1TDZUoxfJXfNk1LGvlUie4r76Oxrx60sfp3ILtlNYPnP7Sr5m22xGTu+nm1pqc=
+	t=1790239919; cv=none; b=sJdniSflj6oEMHSsucKwtekB22NQFrS3J4ZyAI46VY0ebgFnYypmdml7be4ckzPvPKl7khx+n4HJ7fhdH4P3Z4RoNBAEhLqtlKWhK6NAXHznk1ZYgb1r9o4rTgZjillbw0XTz5z/svLQ9jC+T1lcDAhOv/FtuDiUcoV2sSo/7Ig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790239912; c=relaxed/simple;
-	bh=CviuPqAogpjkevgINuLKWVWxQ4ifJ0EssNBV97Y1Xro=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Z0wiCfM1Q7478N7OgqduNII+hgWDlbnCDjxsOSkagz9tjTYzDfnX54xUePwy11gp5Ur11cSMXSJ1pFFrEZx92DjWLNRaX7wGSJp7X1f1Lu9QVjhDZpUx3L/iVHqFzXnYYg4O8RSc9gPd5lPHCSqgqcDsg2OCi6eKdNyrU5Zm8uM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=muU6calw; arc=none smtp.client-ip=95.215.58.13
+	s=arc-20240116; t=1790239919; c=relaxed/simple;
+	bh=VMcXVA6Q//nucy9IuPEO+cpUVY2addflHX+2AAjGN8s=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=aCY4vR4IhV4ehJqhIIZT57Y/dr3wXt26bwmqesVbkTtafiH+bx1Q5m1swY7YQJL/wgZ5VgUd9w/XETrhke9YECc+wnXRMVcSMrpGi7KUpVTcB9kuAq0W+z6u+1puGWY0VyTHrKrjSYb3JWfLz9MYzhNlBH5QNGBXWopRjAhxm0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JFPj+/Ww; arc=none smtp.client-ip=91.218.175.250
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="muU6calw"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JFPj+/Ww"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=CviuPqAogpjkevgINuLKWVWxQ4ifJ0EssNBV97Y1Xro=;
+DKIM-Signature: a=rsa-sha256; bh=VMcXVA6Q//nucy9IuPEO+cpUVY2addflHX+2AAjGN8s=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790239907; v=1; x=1790844707;
- b=muU6calwiby1Br8XuR8Q84GYSnlzEk5VF6WnxPInY8ntgCU8KvoaROa6p5ECmQ6fnQgBvEjg
- EqmWI6Nq5WMGoRmK6v+EviQFNo0XA9HOIKyepyjXJ6ntrzlf4URh0EKcT2aU9/TMUcRuKGihPZ6
- QT4DBXcQ3TOY/j6fRvFr0ydA=
+ t=1790239915; v=1; x=1790844715;
+ b=JFPj+/WwpV+GK99lpdLKQNokzmXaHwqhfi6/luOa64C8H60i3R+Qa191jjlNu20k1qnI39Y0
+ WHiu1ekU4wCvBFHf8hW0Gj9/eNhlFb1Og2nab8guypD+hx7z1Q2/Aj/uHhc2fBeZvej83b1lNB5
+ 0egrPQHSkJQ2cPlcFwlbe7p4=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3762d0d9dc2c72df;
-	Thu, 24 Sep 2026 08:51:46 +0000
-X-Mizu-Trace-ID: 3762d0d9dc2c72df
+Received: by smtp.migadu.com with ESMTPS id 4de7b20785afd569;
+	Thu, 24 Sep 2026 08:51:52 +0000
+X-Mizu-Trace-ID: 4de7b20785afd569
 X-Migadu-Flow: FLOW_OUT
 From: Ye Liu <ye.liu@linux.dev>
-Subject: [PATCH v3 0/2] mm/vmalloc: fix vmalloc_dump_obj VA lookup
-Date: Thu, 24 Sep 2026 16:51:38 +0800
-Message-Id: <20260924-vmalloc_dump_obj-v3-0-5bdee3da37b3@linux.dev>
+Date: Thu, 24 Sep 2026 16:51:39 +0800
+Subject: [PATCH v3 1/2] mm/vmalloc: fix vmalloc_dump_obj address alignment
+ for last-page lookups
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,11 +41,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJrktGoC/32OzQqDMBAGX0Vybkqyij899T1KkZisNUUTSWqwi
- O9eIxQ8lB4HdubbhXh0Gj25JAtxGLTX1myQnhIiO2EeSLXamACDnFU8p2EQfW9lraZhrG3zpKp
- kFSuzrEjzimza6LDV85683TduhEfaOGFkF0Nf36FQ8bzT/mXde38g8Cj92QqcMloIkTFQAJlqr
- 70203xWGEjcCnAIAP8RgBhIW4lNiorL8hhY1/UDBG2lphABAAA=
-X-Change-ID: 20260916-vmalloc_dump_obj-d80908447369
+Message-Id: <20260924-vmalloc_dump_obj-v3-1-5bdee3da37b3@linux.dev>
+References: <20260924-vmalloc_dump_obj-v3-0-5bdee3da37b3@linux.dev>
+In-Reply-To: <20260924-vmalloc_dump_obj-v3-0-5bdee3da37b3@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>, 
  Uladzislau Rezki <urezki@gmail.com>, Paul Walmsley <pjw@kernel.org>, 
  Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
@@ -53,42 +52,44 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-riscv@lists.infradead.org, Ye Liu <liuye@kylinos.cn>
 X-Mailer: b4 0.14.3
 
-vmalloc_dump_obj() has two bugs that cause it to miss vmalloc
-allocations.
+From: Ye Liu <liuye@kylinos.cn>
 
-  1. PAGE_ALIGN() rounds up, pushing last-page addresses to va_end
-     and outside the VA lookup range.
+vmalloc_dump_obj() uses PAGE_ALIGN() to normalize the input address
+before looking it up in the per-node busy tree.  PAGE_ALIGN() rounds
+up, which can push an address in the last page of a vmalloc allocation
+to va_end -- outside the [va_start, va_end) range that
+__find_vmap_area() searches.  This causes the lookup to miss the VA
+and return false, degrading diagnostic output in OOM dumps and KASAN
+reports to the less informative "vmalloc memory" fallback.
 
-  2. The function searches only one vmap node, but allocations
-     larger than 64 KiB may span multiple vmap zones whose VA
-     is stored in a different node's rb-tree.
+The upward alignment can also change the addr_to_node() mapping when
+the page boundary crosses a vmap zone boundary, causing the search to
+hit the wrong node entirely.
 
-Patch 1 fixes the alignment, patch 2 fixes the cross-zone search.
+Use PAGE_ALIGN_DOWN() instead, which rounds down to the page
+containing the address.  This keeps the address within the VA range
+and preserves the correct node mapping.
 
 Signed-off-by: Ye Liu <liuye@kylinos.cn>
+Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
 ---
-Changes in v3:
-- Patch3 drop.
-- Patch2 Extract find_vmap_area_lock as a helper to simplify the code.
-- Link to v2: https://lore.kernel.org/r/20260921-vmalloc_dump_obj-v2-0-73fceb3ed1c8@linux.dev
+ mm/vmalloc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changes in v2:
-- Use is_vmalloc_or_module_addr() instead of is_vmalloc_addr() to
-  avoid filtering module/BPF/execmem addresses. (sashiko-bot)
-- Link to v1: https://lore.kernel.org/r/20260916-vmalloc_dump_obj-v1-0-7aa402d224df@linux.dev
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index 859e6d2d57a3..df42d8a6f058 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -5277,7 +5277,7 @@ bool vmalloc_dump_obj(void *object)
+ 	unsigned long addr;
+ 	unsigned long nr_pages;
+ 
+-	addr = PAGE_ALIGN((unsigned long) object);
++	addr = PAGE_ALIGN_DOWN((unsigned long) object);
+ 	vn = addr_to_node(addr);
+ 
+ 	if (!spin_trylock(&vn->busy.lock))
 
----
-Ye Liu (2):
-      mm/vmalloc: fix vmalloc_dump_obj address alignment for last-page lookups
-      mm/vmalloc: fix vmalloc_dump_obj cross-zone VA lookup
-
- mm/vmalloc.c | 113 ++++++++++++++++++++++++++++++++++++-----------------------
- 1 file changed, 70 insertions(+), 43 deletions(-)
----
-base-commit: e6e35979777d646fe3c7c94dca7dd32fb25d45f4
-change-id: 20260916-vmalloc_dump_obj-d80908447369
-
-Best regards,
 -- 
-Ye Liu <ye.liu@linux.dev>
+2.25.1
 
