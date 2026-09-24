@@ -1,157 +1,107 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C37F32C924
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:55:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3265632937A;
+	Thu, 24 Sep 2026 19:57:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790279741; cv=none; b=MJvxosTS33JC+SoyL4MZ01voUQ7RPFNuRMBgKMaY7ylQIKkDoDoGoe9KNrFWpuEnVpTRhFbpw3WQn5jjYJBv2Ae2KzsOAQmMlfeLwxoNC3nx6J121IohPCVAA0oMl5qRXyL/+IR15sX9qh/jR6H5iRXBGVykXvAQ8sMI66bmJtY=
+	t=1790279837; cv=none; b=l01jcqep6bsDoWF8NaLz50JZvOP21SA6RnhUQVTaSjyzXKgiO0waLP6MCTq98bnMtChDxcbjCEvO4nHRYrrzMh4BXqX/UQHaX9FwVfx6SJQEEi+PN09xVW6u6r8VbTTG/6zWanDZip/tfT9UOlNanZW+Ba9EXFEBwLCsAUd0oIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790279741; c=relaxed/simple;
-	bh=D7keJcwSqQOp0NdseY0wgS/ZtqGq5arWxyNwX4kPY/4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pyf9azLTcCerCnHA1kncw1OsnxO5I5IMdmsAafwphbVlcy9MKZ3Uk4O3wQ2pn9EmRmZ5QIZk/G8+KrGxCrnLtRSAMcPAvm3+ppBnnlAcsbw40HTAjNhlWKhehN+WxUmK81XMErfXOoVooDPYKAxCFsNzEiBOwzP+UJjGSrALrqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T2ffVWZT; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790279837; c=relaxed/simple;
+	bh=Gn2TaEmSIG+/lBYc0ldYI+V/SltKbL/jrsFeLOUFEck=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=uorSGrpyKCPZRtths/HmGS9odCodccCaJE5Fp3vBC9UznrIXaGp3DqqWZY5BZkXQp/AGZWEzbpvpbSVkheLB+1aUZzR3Qr4BX86KmJ9Sv7MbZdwJ/IIZI9QBg2784J4FCNxN8xykOq5+v82vfCN8j+Bcgd5UdaELQ8MkGYH4H3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=Vej73FJo; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T2ffVWZT"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3931so1687035e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 12:55:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790279735; x=1790884535; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=enCFhbXwk6dv8V+Qy1/Wb32GY2e39ckcjINn4OP9c1c=;
-        b=T2ffVWZTjlXPmKdN31mN2kxJ4x/5mXymv4ikfd6E22R1vjZeaF1eLaUr96Io7vQp4j
-         4K4CtDcMiiHlQ60CgKcSwXFH8vpTH4j/EDOzPH3Hyun+ZhdgN0IBm9Iv54ust0QaI4tj
-         Wn6QN2zc/O2eDpDtlYeLZPR07XM7oUX/rW42MVVYVvGDce6tGTGXX7OuMYnHrCg4UaGH
-         wVjku4mUnKRKg/9W/8I0x3BbKBFEoCIhQGkopqw4AFaEqKtXy+l398U+No5UqSvMG8G6
-         +HEr2VOP+MJKeM/lWjs2nAc4lw6ZJzpwR8eLScMFs4vH7hOQwhXPBESnUnMemNH7yeWF
-         13KA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790279735; x=1790884535;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=enCFhbXwk6dv8V+Qy1/Wb32GY2e39ckcjINn4OP9c1c=;
-        b=z+2z+Y5PAKvv2O2I1WAQJcadYvNgiqJ8ZFyy0ySogtMnAQGoxrh48WBGW3n6UJm4q+
-         DO8Nx9bcL0b81dJbLX1DUoNhT3X0un7rBpIdtVn4VfBICCdiMqkIZBAHuc4O/b+PbR5B
-         ++pdDwXaJ+QJWrrfiEiWOHM4vaGWHskjFs4Fzzv78CZzb6k5HTW9HCNKbpZyCF5dPb8F
-         YKYHphQIeBXgbW2yenHAnpZJm+6pmSQskTpjxahGDxr/pfJ3h5as7sDFHLAgGZ/oUIvV
-         DZ4uIYZs7vZf/WUrlNeheDbvtyMRp/2FJD0eAgdsOvYlqSbPAHflC78awsLMos5C/NEr
-         atAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzV1nM9Oup8yNXdjXEHApvAccw30DCDH7ZseYZWE6X0mN9Pij5HZnfOi/LCR6mCRO73ydcOwJrCfLj3fDY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lAkLyNdEDwwqacrbtVJUAixgJtwt+MfnGwwUsnA5UCeJDdO+31
-	rDzABVu1Eq9dDVzWDoIqdz5K3kRs311TTUZJ2yS+EAUq6kznM26tTTEZ
-X-Gm-Gg: AYBFou359rvKW40MCTUaiWStMxlMik0VjrRfBumNL5ks/kN+kQ0/5WUrMGDNrePG4MN
-	DJX2cTHcPmFK22OSS6YeCf7dN4juYw9GRmjlQJP1JP110D98kj8zCCgd6lhZXhahpSqhVmXaqm9
-	C8VenanJRlOSy+bKsUtgOcKQ3W5VfuCAVnU8RVo2wPJvPa8oEYr07yyO4T9gEQWDvnsyYr4Re5n
-	3FyI3onN3CIM6WQqM+rUO3z6cSYaHISk2inNi0a6TqoukXo/EuRUDOCyxe5fekUK1vzKqxw/pQ+
-	LpWcz+6vGw+sGtb22BhgGNjN93+mXPnFjvtfL+B5RFZN7muY2JmV+iZqklzX6LuW5/MeKry2r54
-	1sCa6saoKJf1OLDWW6uudd4hKy4XX/trKVy43jd6v/7LXZnFIjK7G9EyNYzgTrIG3yJoofZNj7d
-	S/oTZx58b6alo7L+8pVjpNI7nGAy0+SO8QTv0dAmPHmCV10dKgY9QkjRWODIPOeKjO+hBmfmffP
-	g+zoqdZ3z4HBNpUHfo8bN1um8T7KNkjK6q+DndPYbn9F1Y9Ax2/
-X-Received: by 2002:a05:600c:6290:b0:49e:799a:8969 with SMTP id 5b1f17b1804b1-49fe6707bb7mr68120475e9.30.1790279735177;
-        Thu, 24 Sep 2026 12:55:35 -0700 (PDT)
-Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff06cbd2dsm1277235e9.12.2026.09.24.12.55.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 12:55:34 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Sam Ravnborg <sam@ravnborg.org>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH v2] drm/panel: tdo-tl070wsh30: Remove panel on attach failure
-Date: Fri, 25 Sep 2026 00:55:12 +0500
-Message-ID: <20260924195512.336690-1-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <message-id-of-your-v1-email>
-References: <message-id-of-your-v1-email>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="Vej73FJo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1790279832; x=1821815832;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=Gn2TaEmSIG+/lBYc0ldYI+V/SltKbL/jrsFeLOUFEck=;
+  b=Vej73FJosCuxJmFLKpA2ZjDUG/UGxWSxTS1L5uPbg1MEBr9SWLjqlHrG
+   9bJyQh0bE546DqlzazKHu63qj7x23VKkrcIlT/Q1X8UQdn3edHX9g1yD+
+   y9+pBFE8BHfPa4eLvyLSnSvI6Dpmzp3tSZanK6NLNzCXFFKY7wxl/W6++
+   3a15ckpewExd072RgkJMj44PCELRM4TV+6BV0/8rfCeLzsv3BJdJ1xvKo
+   igVzClmf/l2jOsBFwEXiKc6Z9ewshyBh4EYM+WVz5rB7ICGENY1m1CSv1
+   8wGiWD2OCkh/Km1XBRGLAZpiNPHt7W/JFrI1bx/iq3J5bDamhsP05Xz91
+   g==;
+X-CSE-ConnectionGUID: dt19c12VQ8e4I6MEbc3qBA==
+X-CSE-MsgGUID: GAV2M1Q1SI6YQ7IauS2mwg==
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="64420627"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 24 Sep 2026 12:57:06 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Thu, 24 Sep 2026 12:57:05 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Thu, 24 Sep 2026 12:57:01 -0700
+From: Daniel Machon <daniel.machon@microchip.com>
+Date: Thu, 24 Sep 2026 21:56:49 +0200
+Subject: [PATCH net-next v8 01/15] MAINTAINERS: add FDMA library to Sparx5
+ SoC entry
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260924-lan966x-pci-fdma-v8-1-201c7b707d8b@microchip.com>
+References: <20260924-lan966x-pci-fdma-v8-0-201c7b707d8b@microchip.com>
+In-Reply-To: <20260924-lan966x-pci-fdma-v8-0-201c7b707d8b@microchip.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Horatiu Vultur
+	<horatiu.vultur@microchip.com>, Steen Hegelund
+	<steen.hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>, "Alexei
+ Starovoitov" <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+	"Jesper Dangaard Brouer" <hawk@kernel.org>, John Fastabend
+	<john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, Herve
+ Codina <herve.codina@bootlin.com>, Arnd Bergmann <arnd@arndb.de>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Mohsin Bashir
+	<mohsin.bashr@gmail.com>, "Simon Horman" <horms@kernel.org>
+CC: Richard Cochran <richardcochran@gmail.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>
+X-Mailer: b4 0.14.3
 
-tdo_tl070wsh30_panel_add() calls drm_panel_add() to link the panel
-into the global panel_list before tdo_tl070wsh30_panel_probe() calls
-mipi_dsi_attach(). The panel object itself is allocated with
-devm_drm_panel_alloc(), which only arranges for an automatic
-drm_panel_put() (via devm_add_action_or_reset()) when the DSI device
-is torn down; unlike devm_drm_panel_add(), it does not call
-drm_panel_remove() for you.
+The FDMA library under drivers/net/ethernet/microchip/fdma/ is shared by
+the lan966x, sparx5 and lan969x drivers, but is not covered by an entry
+in the MAINTAINERS file. A subsequent patch will add new files to the
+FDMA library, so let's make sure it's covered.
 
-If mipi_dsi_attach() fails, probe() returns the error directly:
+Add drivers/net/ethernet/microchip/fdma/ to the Sparx5 SoC entry, since
+I am already listed there.
 
-        return mipi_dsi_attach(dsi);
-
-Once probe() returns an error, the driver core releases devres
-resources for the device, which drops the allocation's own
-reference. But drm_panel_add() had already taken its own reference
-and linked panel->list into the global panel_list, and nothing
-undoes that. The panel is left registered in panel_list pointing at
-a device that failed to bind, where it can still be found and
-dereferenced by later lookups/iterations such as
-of_drm_find_panel() or find_panel_by_fwnode().
-
-Switch to devm_mipi_dsi_attach() so mipi_dsi_detach() is handled
-automatically on unbind and tdo_tl070wsh30_panel_remove() no longer
-needs the manual call. It still returns directly on failure without
-touching panel_list, so drm_panel_remove() stays on that path.
-
-Fixes: cf40c6600592 ("drm: panel: add TDO tl070wsh30 panel driver")
-Cc: stable@vger.kernel.org
-Suggested-by: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+Tested-by: Herve Codina <herve.codina@bootlin.com>
+Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
 ---
-Changes in v2:
-- Switch to devm_mipi_dsi_attach(), as suggested by Neil. Drop the
-  now-redundant mipi_dsi_detach() call from remove().
-- Keep drm_panel_remove() on the attach failure path, since
-  devm_mipi_dsi_attach() doesn't touch panel_list on its own.
+ MAINTAINERS | 1 +
+ 1 file changed, 1 insertion(+)
 
- drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+diff --git a/MAINTAINERS b/MAINTAINERS
+index e3ce77c839b0..e5da9d0378b6 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -3214,6 +3214,7 @@ M:	UNGLinuxDriver@microchip.com
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+ S:	Supported
+ F:	arch/arm64/boot/dts/microchip/sparx*
++F:	drivers/net/ethernet/microchip/fdma/
+ F:	drivers/net/ethernet/microchip/vcap/
+ F:	drivers/pinctrl/pinctrl-microchip-sgpio.c
+ N:	sparx5
 
-diff --git a/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c b/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
-index fa961abdd2d7..ea59d4993ff5 100644
---- a/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
-+++ b/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
-@@ -179,17 +179,16 @@ static int tdo_tl070wsh30_panel_probe(struct mipi_dsi_device *dsi)
- 	if (err < 0)
- 		return err;
- 
--	return mipi_dsi_attach(dsi);
-+	err = devm_mipi_dsi_attach(&dsi->dev, dsi);
-+	if (err < 0)
-+		drm_panel_remove(&tdo_tl070wsh30->base);
-+
-+	return err;
- }
- 
- static void tdo_tl070wsh30_panel_remove(struct mipi_dsi_device *dsi)
- {
- 	struct tdo_tl070wsh30_panel *tdo_tl070wsh30 = mipi_dsi_get_drvdata(dsi);
--	int err;
--
--	err = mipi_dsi_detach(dsi);
--	if (err < 0)
--		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", err);
- 
- 	drm_panel_remove(&tdo_tl070wsh30->base);
- }
---
-2.55.0
+-- 
+2.34.1
+
