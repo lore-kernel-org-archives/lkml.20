@@ -1,168 +1,237 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f40.google.com (mail-vs2-f40.google.com [74.125.227.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E4493EEAD8
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:21:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F2F3EF0C2
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:21:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790288488; cv=none; b=rPnct0xoyNPUarpqyLfmV1Qa2IoAVgf7ArqCousuDMnjMG6Ts6fqT6+tDuEMMdwFYY8DmKQiMNBh4zchZb+bTBW47ANvMUQiPB2LpSPP6Zed+mXJkw8a4gA9LiJhPkr3pXP+FTvdisx8GpuD6Hp37YaViJeqa84zRYzFZZ4Bz6s=
+	t=1790288507; cv=none; b=Vnz1hE3pQkTrezrGa0tfvYp8q4qgAw6CGSy+l45TbzZ33JvHGLqDWrY1IOal01n0CcQ/CtS1FZ6eit44DVY2gOJvojJgj9G+LNGjjL6IVggFk6zhNpm8N8fSb3uUjNT8AKwEwt1FOUgOfojN2zk/nAw9p+rqMV/TUwImm5pwM6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790288488; c=relaxed/simple;
-	bh=KkLrqkkOMipykS26NhHzTN5Hr3AUSyE2UoPnk7qmFu4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ILy5RE+tN+l99mfO+7nIwY6STZVVN0xUmmAPvrpyVxHomvFKyPayWeUlGH1JC2CIINXVMbPkGBYQBQhGRa6n5jRBATsdWsMEWnZLVpH+noW1IrpiQN1z6tEnvMndJA+bv4d3UNAX0aaTzCkqiDMEamvFMTP3nFg4tYmX7lkf7Zg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TD1QmSIs; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=guSMjZVC; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790288507; c=relaxed/simple;
+	bh=VGnx62vJu8x6U3p4kivR/4DDstToyFK7UfpRsYleEVg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PN4cFPpd06Rcv9fres35eKyn46F9hKxPPqgor8ZFMI3yw6YDYOVfnixECYLYRcjyhQpDgVPttG+Lk+jHeb6SCIsOxJwMS2Mh4iKXogtrd+5V8N9noWwrcwSPhLR2uX7HEnM/cr6ty1IfY68Ek5K5oN84ocpSQXf5nsSe+JMFh/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DN6twLVj; arc=none smtp.client-ip=74.125.227.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TD1QmSIs";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="guSMjZVC"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OIdkGM2866547
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:21:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	B7lhxw+XM+Z45cW0aWkRW+XyOgTDsLCB5jNlQmxpIZg=; b=TD1QmSIsY7flrZU+
-	7SOZfi9DGtLHZLT1J/4vljwLS3y4Vc5MqJt9Bolvn2w9gHE1e0TpyIF8VlEsUSe/
-	yRhU2I0n6IbDCnS7WGGtVIgtPF1oYXyoZ1IGFUTBw1kooNgCiEYQeGPDMMN/fRlK
-	aOXmWUQTkg1D0hwp+mbcHi11Sw9mIDXJxuTFFjXWANqW3udlW0BoaIe0tKO6f68t
-	IweHYAkTZKoNHSI/iz6P1aEZqsYa6483W3jks7U89wmAgYCg2ngqAnJcpf4bMCjd
-	TsvRrWKvXvHUWoa5/nCYjkFZQX+tAZUQdIXRj0DQTZJTJBL3LkirzsPWxjfA9LJN
-	H3G9VA==
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw5q8svh9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:21:25 +0000 (GMT)
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1438fef603cso1063219c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:21:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DN6twLVj"
+Received: by mail-vs2-f40.google.com with SMTP id ada2fe7eead31-7a05d236f53so172875137.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 15:21:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790288484; x=1790893284; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=B7lhxw+XM+Z45cW0aWkRW+XyOgTDsLCB5jNlQmxpIZg=;
-        b=guSMjZVC11ZVCHV/+ypPIkeKWrejq4G3BtKcdWXF2SDqTMixMQjbY+rXIqOWogMyuw
-         J8i/buqv8b81l4rt/gmoLuAPsWvJCb3P7+W9UzUCMRztYDxQaoTECnH2dKFMDhrPA8N2
-         Tkuk8G6cr7AMQ69qxXfP+/BofgFf9HuMdPdbJp1UKZS2S24hNWQUOvOi8hrbQTmnYddc
-         4bDWlvztGPmCVeg/3/Kui9B1trMSorowha2rvlCzupB550sr63QpNX69QfjVJpzNXyir
-         +8eMDmv9yDHksw8q07mbxJBDX8PEAV6fW0QNyIgXHqqThIebTVuyWNGQ4pFcfhEjonFr
-         YC5w==
+        d=gmail.com; s=20251104; t=1790288504; x=1790893304; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Sa89UHRmyzmZY6TxGzw+0o/wrvuxvTidU3ERLkCQopo=;
+        b=DN6twLVjVQClkkJj+9ACZPrrKe/WlK6fuD6g3InlyCQE6gd7xXONo7Wx7dSda7nSZM
+         3CviHh9q/8pYQnElD2V3KROnOsmWHDnMWg+n+0W6rKXwZs4e5VR0D8y+MziRG4UPKf7E
+         DdeajIHzslxMJvTOqKgUZDmWBpq1WJcaP5hJEFtiAb8bv0hpMPTsathTAFdNEkG3PaUB
+         cpZIe05+OgNMHI5Mf3+y3oRzPHgnhGH8bxgYqWHvt9/iuBLJCSwY2oEficzdNwqAj/hh
+         6HWkpkWf1kf5ET88k1eDSQFPwOdzZ4MGk6ZCYsCNpBQWKUb8h39isoeKwDbpDYdfn7Zs
+         Tnvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790288484; x=1790893284;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B7lhxw+XM+Z45cW0aWkRW+XyOgTDsLCB5jNlQmxpIZg=;
-        b=S+cR+kCuCHqchRshv6MFriuxWxcakR2oolQ6qiDEc48DF1c/HT4fRsMeBYKT+2PC5P
-         FoeiQsxcDSiSQkhffLMUhY2b9BH6sO6QUzRpBm2JxWuBJx1EiMFrwmE4uUoC52l8n7jg
-         /SMruygVFpVc0w4YSi5ByaA3tPtEyQPxIl3x3ZRo5zceulRgze48SMN8716rY878S8hK
-         I6bX7m+Qz82kZOVys+PhfdGWKmuzFghts9fr7K9U2Ngk2uMJfcgeatLCKfEXRp2/2CvK
-         B9neJVKy65nxa8wnA1gQIkL8AgaSukikIX3LeC2AWoPmTZRMN1YWamJC2wB6wDogvVd6
-         6LFw==
-X-Forwarded-Encrypted: i=1; AKwUvBx1qS2gzwMOky2odNqO3BOfBrma0EQSqKeQ1Gaj2W1h10FHUcXJqRxIbrcIHH2E+Rz6a3wk5FxxcWPiZlI=@vger.kernel.org
-X-Gm-Message-State: AFuF++layXsHeUaDw9tpETKcpaH+c9SmYkcY4O9WHxS2bwRAz7GMSpm0
-	tYMzxYPyW6hpy/TCvXxPXpTU2RuOXpzB3T0JbyGJIU9dhZXT4hz6IhFHAtW6MlqnB6V7uqULzCU
-	agMOoZ5ikmsQ3vEy3IMZVCFh0f7mH2rxzaue8xrVyPXvrz9OYJG/LsHk8E6cMUO6rMKA=
-X-Gm-Gg: AYBFou0YUa8RjchaW6qGuk/QDEN8iqBopCAfIZOUIKVja6JenRNABNelhVppaljQWGd
-	vPJbTv0UxGNfQFcpfprzEyZjz6t1246MpyGdydRbsPpVLywvFb/MOQGOrB+B2r/a2bpJHOuwDm8
-	//P/mp4SML5PJVUFSDLrkDOD+Y1iymYhbRLeyVdgTICTeFEylh9PDAOctGe2KpC0LsIyCK+ruBn
-	Sn7RS99Z97KcEXwyCu8ItamlthucptkELSPTpd3WkpcwMy2EjxX5CqVsgkmky6IN4+YS+ze1chg
-	BQ9yeoVz45TqKdco1w8BgnYz/4YwNPvS01u6IrEIc8r2vyNPlzJUIeHoYjZe3c4OlGwu2VZ/GJv
-	pxJDpW8y3pbohW0KQNN4Nw+5Bw52LTuLX+pCv8JDdjcLR84CvXRgIgA==
-X-Received: by 2002:a05:701b:4214:10b0:144:eb46:c40 with SMTP id a92af1059eb24-14503fa7654mr3140935c88.9.1790288483834;
-        Thu, 24 Sep 2026 15:21:23 -0700 (PDT)
-X-Received: by 2002:a05:701b:4214:10b0:144:eb46:c40 with SMTP id a92af1059eb24-14503fa7654mr3140902c88.9.1790288482396;
-        Thu, 24 Sep 2026 15:21:22 -0700 (PDT)
-Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145ad8e43d2sm1402048c88.12.2026.09.24.15.21.20
+        d=1e100.net; s=20260707; t=1790288504; x=1790893304;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Sa89UHRmyzmZY6TxGzw+0o/wrvuxvTidU3ERLkCQopo=;
+        b=gcWIbhm4Ezbzt/USgZ4vp1k5Rlso1tYb7ih1g8mWk6so5Z5rleUSU9oudqcm1xUtDY
+         ta8+V1UJMgcOEuTUGYTxa9Bbdm3twQt0c58iEElSRc1KpogFhdmhNVhATRHrkKn9Scre
+         oQUVo/550iHwH6k3bBCl7PJORebPYDfISDn4fIHSBbk7ckwZw0oBGhL9eBQNcN38gb2l
+         V/upyTsyRhNUNoKEh6si/umfzXH8obhpWbAelEi0SGyzOYm7Px5NjnDJYhHMPdPBXFV5
+         pXBWmdIoONYkxOKkOVZsgzB9ml5bxVSBZCN1+i6/Ka6eps2X/DLHnkXbWkMoyCLZzExg
+         WuIg==
+X-Forwarded-Encrypted: i=1; AKwUvBywVKa2pLIU5hM+n2QxQfwfnXJQmEVmixi4kUTMWIySPAGvD4Q683jE66ujLlqMyT8X4k/X0CWpxY4fJ48=@vger.kernel.org
+X-Gm-Message-State: AFuF++kV3iv+Bnft40/n7uksKV383/NuPb2xQSug2PtN8u8m5wtSXEKV
+	Ok/Z/LM52YiN76VIr/pViwc9tQkAGim0YbgH0X/myO0Yw+gmfuOT3gLl0rTIgJVqfrI=
+X-Gm-Gg: AYBFou3Ko6oBLu7VFd7BDdtWQp38nIN4MpN6KpeFeElLX3enoBYwZc5taq6KgcES7MA
+	W/6/Ft5XKhMphjCdnC4VIzMO1iyrcHqhkSbDLHiCRkDMiiaRA619J6enkMfsoY0ObuFSvBssS3n
+	MB7SXH1z+tl5ois6fLG2ZQ5IC6oSqobkEiaXvLmaqi2tLnP2C+4sisuFR/NHVEXpvbt2Fx58MRO
+	saV3tHThG4AtyVzjJPDX3NJjbMWSjC3/NMpstiaubOg7F3w1RPRkOpoyRNjOO92fRMowV7y4PvE
+	U5JWa6aKF5GjBdOSctsgzdKFN0My74Zw+UqjasJ8CT3nEVnH4EcOgO91v9XVBKF2Ukm3pn2QgXA
+	ZiKxXUo1Iv6Ys0JkBAx6Sb4pakHv2yrHwQ9hHXI6F3pGFnpVhzIR8mkGTqjeQu1tPQ98nawCHyZ
+	75yXCmexBqCeh4qVAcoFPHktLxwYPk0mdxdLhaqVBMjECKOZgdk3VG86csV/x+VX2P1FPizVrqi
+	ee3IRcknxkfoJqb
+X-Received: by 2002:a05:6102:3f46:b0:7a7:19aa:8a88 with SMTP id ada2fe7eead31-7af1f2fda6cmr2110732137.35.1790288504244;
+        Thu, 24 Sep 2026 15:21:44 -0700 (PDT)
+Received: from pop-os.lan ([2803:9810:44c0:6b08:5f74:5a16:c98e:9be])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9860de80b19sm540339241.1.2026.09.24.15.21.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 15:21:22 -0700 (PDT)
-Date: Thu, 24 Sep 2026 15:21:18 -0700
-From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-To: Andre Przywara <andre.przywara@arm.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Hanjun Guo
- <guohanjun@huawei.com>,
-        Sudeep Holla <sudeep.holla@kernel.org>,
-        Catalin
- Marinas <catalin.marinas@arm.com>,
-        Will Deacon <will@kernel.org>,
-        "Rafael J
- . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
-        James Morse
- <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>,
-        Reinette Chatre
- <reinette.chatre@intel.com>,
-        Fenghua Yu <fenghuay@nvidia.com>, Jonathan
- Cameron <jic23@kernel.org>,
-        Srivathsa L Rao
- <srivathsa.rao@oss.qualcomm.com>,
-        Ganapatrao Kulkarni
- <ganapatrao.kulkarni@oss.qualcomm.com>,
-        Trilok Soni <tsoni@quicinc.com>,
-        Srinivas Ramana <sramana@qti.qualcomm.com>,
-        Niyas Sait
- <niyas.sait@arm.com>, Lee Trager <lee@trager.us>,
-        Ritwick Sharma
- <ritwick.sharma@arm.com>,
-        Gavin Shan <gshan@redhat.com>, linux-acpi@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v11 09/13] arm_mpam: propagate MSC access errors in
- mpam_reset_class_locked()
-Message-ID: <20260924152118.00001671@oss.qualcomm.com>
-In-Reply-To: <20260924152739.2865510-10-andre.przywara@arm.com>
-References: <20260924152739.2865510-1-andre.przywara@arm.com>
-	<20260924152739.2865510-10-andre.przywara@arm.com>
-Organization: Qualcomm
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        Thu, 24 Sep 2026 15:21:43 -0700 (PDT)
+From: Franco Hector Hugo Montenegro <franco.montenegro.ruke@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: ethantidmore06@gmail.com,
+	nikolayof23@gmail.com,
+	trohan2000@gmail.com,
+	error27@gmail.com,
+	fliegbert2@gmail.com,
+	s9430939@naver.com,
+	luka.gejak@linux.dev,
+	khushalchitturi@gmail.com,
+	khomenkov@mailbox.org,
+	me@cipherat.com,
+	azpijr@gmail.com,
+	gianmariabiselli@gmail.com,
+	johannes.berg@intel.com,
+	arend.vanspriel@broadcom.com,
+	asm.artisan256@gmail.com,
+	miriam.rachel.korenblit@intel.com,
+	serhatkumral1@gmail.com,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Franco Hector Hugo Montenegro <franco.montenegro.ruke@gmail.com>
+Subject: [PATCH] Staging: rtl8723bs: fixed camel case coding style issue.
+Date: Thu, 24 Sep 2026 19:21:22 -0300
+Message-ID: <20260924222122.682920-1-franco.montenegro.ruke@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA5MSBTYWx0ZWRfXwhyTwxkcYfwc
- aLeaYA0+Jl2Sod7qgG7v+ty7fFIriDFPiFqlg52BPQlUCdlrgZzcq7oBWc7fXAJork2PspvI2CB
- yc5UcdIEnJMtF+Ne9k1oJzwgAubkZ7M=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA5MSBTYWx0ZWRfX5ISBH6TwwxSu
- NBatQhktmOUk9kzqRln2NMLF8ExwsXJlwkXmyXqnSMCYU4+Bnx5jjBDvRWRtISW/AJKgLFHaNqU
- PdsKKwilMdmRSsjHcvpUzF9tfSA5ECoIGWXfuojqPWS5lDtaw/Wog7QUPq5gVCQFByHuNZ4KykW
- npQfaIdFsZ/U1fpaWZDTP2guhinG87h306FAghrkmOD0ieaCO8eFibkryZWbKCHTG2gvw4twu8j
- J0bFsqO4WmRVGSrW/hg7qA+FmfSd1vLUWUOjvTZK6WPZuT+z1UTN7fkIwe1FBGgpvpD59ZjTAZe
- 4IUn0O5iS6EzAr+Wqndzinj7wlhXvsdRLvRlAJoNASLrgWEKlPMjeoddq8tk17kXeqRUvUNldAE
- h4vL4ihS60OasY0orOU9oiSztEx04Xcew+T18g07EJtG4Fb3Z9WU8du7rguAmZMa9IFz2zHWDKC
- 4H8uJdiNvNRvvCfCauw==
-X-Authority-Analysis: v=2.4 cv=SYRi5fRu c=1 sm=1 tr=0 ts=6ab5a265 cx=c_pps
- a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=ESexO8LFGIdw5cpBbeIA:9 a=CjuIK1q_8ugA:10
- a=vBUdepa8ALXHeOFLBtFW:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-GUID: TVNOAD7DBptxUKs0XcnORSS-smj3Z4_U
-X-Proofpoint-ORIG-GUID: TVNOAD7DBptxUKs0XcnORSS-smj3Z4_U
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 malwarescore=0 suspectscore=0 bulkscore=0
- impostorscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240091
+Content-Transfer-Encoding: 8bit
 
-On Thu, 24 Sep 2026 17:27:35 +0200
-Andre Przywara <andre.przywara@arm.com> wrote:
+Fixed a coding style issue for the field dot118021XPrivacy in the struct
+sta_info.
 
-> The mpam_reset_ris() function can return an error, propagate this up
-> through mpam_reset_component_locked() to mpam_reset_class_locked(),
-> which is exported. The external caller is a void function, so cannot
-> really handle the error at the moment, but at least we report everything
-> on the MPAM interface side.
-> 
-> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+Signed-off-by: Franco Hector Hugo Montenegro
+<franco.montenegro.ruke@gmail.com>
+---
+ drivers/staging/rtl8723bs/core/rtw_ap.c        |  2 +-
+ drivers/staging/rtl8723bs/core/rtw_mlme.c      |  4 ++--
+ .../staging/rtl8723bs/include/rtw_security.h   |  2 +-
+ drivers/staging/rtl8723bs/include/sta_info.h   |  2 +-
+ .../staging/rtl8723bs/os_dep/ioctl_cfg80211.c  | 18 +++++++++---------
+ 5 files changed, 14 insertions(+), 14 deletions(-)
 
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+diff --git a/drivers/staging/rtl8723bs/core/rtw_ap.c b/drivers/staging/rtl8723bs/core/rtw_ap.c
+index 9face4c8ded2..0486e55da68f 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_ap.c
++++ b/drivers/staging/rtl8723bs/core/rtw_ap.c
+@@ -1165,7 +1165,7 @@ u8 rtw_ap_set_pairwise_key(struct adapter *padapter, struct sta_info *psta)
+ 
+ 	init_h2fwcmd_w_parm_no_rsp(ph2c, psetstakey_para, SET_STA_KEY_CMD);
+ 
+-	psetstakey_para->algorithm = (u8)psta->dot118021XPrivacy;
++	psetstakey_para->algorithm = (u8)psta->dot118021_x_privacy;
+ 
+ 	memcpy(psetstakey_para->addr, psta->hwaddr, ETH_ALEN);
+ 
+diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme.c b/drivers/staging/rtl8723bs/core/rtw_mlme.c
+index e22e33c364bb..56b5da67cf3b 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_mlme.c
++++ b/drivers/staging/rtl8723bs/core/rtw_mlme.c
+@@ -982,7 +982,7 @@ static struct sta_info *rtw_joinbss_update_stainfo(struct adapter *adapter, stru
+ 			adapter->securitypriv.bgrpkey_handshake = false;
+ 
+ 			psta->ieee8021x_blocked = true;
+-			psta->dot118021XPrivacy = adapter->securitypriv.dot11_privacy_algrthm;
++			psta->dot118021_x_privacy = adapter->securitypriv.dot11_privacy_algrthm;
+ 
+ 			memset((u8 *)&psta->dot118021x_UncstKey, 0, sizeof(union Keytype));
+ 
+@@ -1340,7 +1340,7 @@ void rtw_stassoc_event_callback(struct adapter *adapter, u8 *buf)
+ 	rtw_sta_media_status_rpt(adapter, psta, 1);
+ 
+ 	if (adapter->securitypriv.dot11_auth_algrthm == dot11_auth_algrthm_8021x)
+-		psta->dot118021XPrivacy = adapter->securitypriv.dot11_privacy_algrthm;
++		psta->dot118021_x_privacy = adapter->securitypriv.dot11_privacy_algrthm;
+ 
+ 	psta->ieee8021x_blocked = false;
+ 
+diff --git a/drivers/staging/rtl8723bs/include/rtw_security.h b/drivers/staging/rtl8723bs/include/rtw_security.h
+index a3bbc605e2ba..88131a027221 100644
+--- a/drivers/staging/rtl8723bs/include/rtw_security.h
++++ b/drivers/staging/rtl8723bs/include/rtw_security.h
+@@ -180,7 +180,7 @@ do {\
+ 		if (bmcst)\
+ 			encry_algo = (u8)psecuritypriv->dot118021XGrpPrivacy;\
+ 		else\
+-			encry_algo = (u8)psta->dot118021XPrivacy;\
++			encry_algo = (u8)psta->dot118021_x_privacy;\
+ 		break;\
+ 	case dot11_auth_algrthm_wapi:\
+ 		encry_algo = (u8)psecuritypriv->dot11_privacy_algrthm;\
+diff --git a/drivers/staging/rtl8723bs/include/sta_info.h b/drivers/staging/rtl8723bs/include/sta_info.h
+index bc78c32192c0..e7c69c4de615 100644
+--- a/drivers/staging/rtl8723bs/include/sta_info.h
++++ b/drivers/staging/rtl8723bs/include/sta_info.h
+@@ -87,7 +87,7 @@ struct sta_info {
+ 	u8 hwaddr[ETH_ALEN];
+ 
+ 	bool ieee8021x_blocked;
+-	uint dot118021XPrivacy; /* aes, tkip... */
++	uint dot118021_x_privacy; /* aes, tkip... */
+ 	union Keytype dot11tkiptxmickey;
+ 	union Keytype dot11tkiprxmickey;
+ 	union Keytype dot118021x_UncstKey;
+diff --git a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
+index 4416d0ec1db9..f29f8a39ec0b 100644
+--- a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
++++ b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
+@@ -602,7 +602,7 @@ static int rtw_cfg80211_ap_set_encryption(struct net_device *dev, struct ieee_pa
+ 			pbcmc_sta = rtw_get_bcmc_stainfo(padapter);
+ 			if (pbcmc_sta) {
+ 				pbcmc_sta->ieee8021x_blocked = false;
+-				pbcmc_sta->dot118021XPrivacy = psecuritypriv->dot118021XGrpPrivacy;/* rx will use bmc_sta's dot118021XPrivacy */
++				pbcmc_sta->dot118021_x_privacy = psecuritypriv->dot118021XGrpPrivacy;/* rx will use bmc_sta's dot118021_x_privacy */
+ 			}
+ 		}
+ 
+@@ -615,11 +615,11 @@ static int rtw_cfg80211_ap_set_encryption(struct net_device *dev, struct ieee_pa
+ 				memcpy(psta->dot118021x_UncstKey.skey, param->u.crypt.key, (param->u.crypt.key_len > 16 ? 16 : param->u.crypt.key_len));
+ 
+ 				if (strcmp(param->u.crypt.alg, "WEP") == 0) {
+-					psta->dot118021XPrivacy = _WEP40_;
++					psta->dot118021_x_privacy = _WEP40_;
+ 					if (param->u.crypt.key_len == 13)
+-						psta->dot118021XPrivacy = _WEP104_;
++						psta->dot118021_x_privacy = _WEP104_;
+ 				} else if (strcmp(param->u.crypt.alg, "TKIP") == 0) {
+-					psta->dot118021XPrivacy = _TKIP_;
++					psta->dot118021_x_privacy = _TKIP_;
+ 
+ 					/* set mic key */
+ 					memcpy(psta->dot11tkiptxmickey.skey, &param->u.crypt.key[16], 8);
+@@ -628,9 +628,9 @@ static int rtw_cfg80211_ap_set_encryption(struct net_device *dev, struct ieee_pa
+ 					psecuritypriv->busetkipkey = true;
+ 
+ 				} else if (strcmp(param->u.crypt.alg, "CCMP") == 0) {
+-					psta->dot118021XPrivacy = _AES_;
++					psta->dot118021_x_privacy = _AES_;
+ 				} else {
+-					psta->dot118021XPrivacy = _NO_PRIVACY_;
++					psta->dot118021_x_privacy = _NO_PRIVACY_;
+ 				}
+ 
+ 				rtw_ap_set_pairwise_key(padapter, psta);
+@@ -676,7 +676,7 @@ static int rtw_cfg80211_ap_set_encryption(struct net_device *dev, struct ieee_pa
+ 				pbcmc_sta = rtw_get_bcmc_stainfo(padapter);
+ 				if (pbcmc_sta) {
+ 					pbcmc_sta->ieee8021x_blocked = false;
+-					pbcmc_sta->dot118021XPrivacy = psecuritypriv->dot118021XGrpPrivacy;/* rx will use bmc_sta's dot118021XPrivacy */
++					pbcmc_sta->dot118021_x_privacy = psecuritypriv->dot118021XGrpPrivacy;/* rx will use bmc_sta's dot118021_x_privacy */
+ 				}
+ 			}
+ 		}
+@@ -770,7 +770,7 @@ static int rtw_cfg80211_set_encryption(struct net_device *dev, struct ieee_param
+ 
+ 				if ((padapter->securitypriv.ndisencryptstatus == Ndis802_11Encryption2Enabled) ||
+ 				    (padapter->securitypriv.ndisencryptstatus ==  Ndis802_11Encryption3Enabled)) {
+-					psta->dot118021XPrivacy = padapter->securitypriv.dot11_privacy_algrthm;
++					psta->dot118021_x_privacy = padapter->securitypriv.dot11_privacy_algrthm;
+ 				}
+ 
+ 				if (param->u.crypt.set_tx == 1) { /* pairwise key */
+@@ -812,7 +812,7 @@ static int rtw_cfg80211_set_encryption(struct net_device *dev, struct ieee_param
+ 
+ 				if ((padapter->securitypriv.ndisencryptstatus == Ndis802_11Encryption2Enabled) ||
+ 				    (padapter->securitypriv.ndisencryptstatus ==  Ndis802_11Encryption3Enabled)) {
+-					pbcmc_sta->dot118021XPrivacy = padapter->securitypriv.dot11_privacy_algrthm;
++					pbcmc_sta->dot118021_x_privacy = padapter->securitypriv.dot11_privacy_algrthm;
+ 				}
+ 			}
+ 		} else if (check_fwstate(pmlmepriv, WIFI_ADHOC_STATE)) { /* adhoc mode */
+-- 
+2.43.0
 
