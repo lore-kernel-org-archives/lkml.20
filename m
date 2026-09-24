@@ -1,141 +1,116 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010055.outbound.protection.outlook.com [52.101.193.55])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E4547F2F3;
-	Thu, 24 Sep 2026 14:39:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.55
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790260794; cv=fail; b=Gyf5q69uxbusiabrP31fTFsZgPB3FobifFiIchHHm/x/nIBbFUX0hZ3+HKZXwB/Ngk7/CTm3p1OrdmkAEDHP71BF+wUONeJzJXsWmzyfWavZDLfg60bvG351z/rjcAPimFuJtmG6PyTdd8TMbIBE8l+PJ5WtUA86qzn3XeQFhaM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790260794; c=relaxed/simple;
-	bh=4vdCsWSRNO4fVUgpOSZ0Yt+hrGjvFLG+oumkkg2e2TI=;
-	h=Content-Type:Subject:From:To:Cc:In-Reply-To:References:Date:
-	 Message-Id:MIME-Version; b=u2xMlEWrUAHhmWojpitbYeEo40IYRf/R7JdmfPbCRHRtWmJuG/EHsydLgpqB8ggyRiGbAsSDzkmH79mQ69julgXjnSNsiFqQLauoYwbOYe5XRqzDhrwUCBOEnq1nTKhqIjVIh/m+G2m5BVRK5jicBfupqkCAoX2wRoqdSMZF86I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ORIYgkxu; arc=fail smtp.client-ip=52.101.193.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CFA13B0595;
+	Thu, 24 Sep 2026 14:40:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790260858; cv=none; b=XpwoaOK9GzmHN6BscP8xI+vmrSv/LcIuZxuPKNbMdeA7kek1nBkiO0H2HV7DU3tVwpmKb+mu2BteBxrXwc8Fl49fzGstysNbGzsTv7dRDuqyUhBnETSPgIVLTwPggrcY/QorLcIsClT8YGiwrzqlcI4yoLFRGLJ9P7q2+VFcQWw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790260858; c=relaxed/simple;
+	bh=9nkdWvz9hhC1cz7bsXYe8wD1jlHlZ9/tNVri0cwsTMs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DvenGQPuk+QPZNZX2JNiIsuEb8XwoqiM/EyQjlfx9oYqOv5zwi5E9xmLo9A4T0O7uaySeRo0a4c56n5POhwRpsQXh6LVc5di3gPIf8cdHd6lQsG3WnapX4K4ySKVPt1mjHhGDypVYlXZeVsXKNIh4zZO1eofYTQu7haU6x9vndw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dQjyXOVs; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ORIYgkxu"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HUpYN7V6DYgJVZNlrGZr1Pl6u1XF1rzPB0ff62IBfRVn0Y37Udb0358pDIyTWwP4Bh/IZCK6yLnclkq2dk0zJgRoGOt47WnsEOO+A2uqwd1GMBH+3RbWiPvSOT5gqIyOq1rfUseY70TVK1R9MMDTvMEYAfx3c2BKiIMTXp5jptfyDhlWqQE1FMn9WXKpWPx5pj7X3C4JJT1Y0a/WOZn1e/NnxyPmGAZe9/KJqbXyJdRI6RrK7ONyflcxi4nhh/OamFtP3TZ3Y35FVp2nEjK+4cKvvf+6ko1Q9eIX3YZ25FQQbzSBtjrA0XLjWuQNALon9c6KuDSK2/Qp/cAbCQYTrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lLlc8iu00bylNsno0PaT0LGWN2O5yV3agOHdx44iCsw=;
- b=M2r7Je5wGQ4XJpPyO0sZkFIiY1k8E54OOosu5Fj5AobbGfppMTUJxD3cNqn0JlOHLQXTgSq+7g/Gjs2NQ8hoTrVwPI/Ui0I3ocdlO7LuO/vUo7RIlo8E6h12RXPHgwQqLUUeGtRuQYpNc6APi4jXjDzo6DxWSzJ+q4gVutdKdmw7cOlzHIB5FuNnSFK+5YhzVQH6vw0+bf7rr18kQJ3YJGreW/WrVDFJ9fw5iQMALrkeffTGkCZn45vrvuI93HJmutMKPQ66sUehbaMl5bEnXXCiGYV9rZGvOcKLGBK/ku5UC4Ny0Wv3ull0UmYQz5kDbdbkpyDwdGYk4ImhicUw6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lLlc8iu00bylNsno0PaT0LGWN2O5yV3agOHdx44iCsw=;
- b=ORIYgkxurbxTvLNUPdWsTifvrePWxrcnWStavxSlqjdbcSXnEsgWQe47GdBXQpMRv4XGyLQMDOUzSpdfk0XaRvJninGvHYMJkuHnQfHp9FCMnjbv0zzAfFCmW1NxdcDKShGikLiJOdnY5SZSoqy84WxHg6CY/3EL2daRVfZfUhrW51sW5/Yv1VOCfub01eT7UaTXHAsxHWGV5pNT9UcQNuI+mc+at5DmT2fbeK7hU0ir+DyQ0NTQdoxNBnYaEkn7W9WUtrfMSwi+/5qv3bD27FKMZJ671dJaz3ODsa9zPGqv2SZ2cbX4ZILvIlpW+sDVrSw7i3uxON33l0juvLAIzg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by SJ2PR12MB7799.namprd12.prod.outlook.com (2603:10b6:a03:4d3::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.22; Thu, 24 Sep
- 2026 14:39:46 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%3]) with mapi id 15.21.0428.018; Thu, 24 Sep 2026
- 14:39:46 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2] sched_ext: Update scx_dispatch_dequeue() comments
-From: Andrea Righi <arighi@nvidia.com>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: arighi@nvidia.com, bpf@vger.kernel.org, bsegall@google.com, 
- changwoo@igalia.com, dietmar.eggemann@arm.com, etsal@meta.com, 
- juri.lelli@redhat.com, kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, 
- mgorman@suse.de, mingo@redhat.com, peterz@infradead.org, 
- rostedt@goodmis.org, sched-ext@lists.linux.dev, tj@kernel.org, 
- vincent.guittot@linaro.org, void@manifault.com, vschneid@redhat.com, 
- yphbchou0911@gmail.com
-In-Reply-To: <20260924130503.853919-1-usama.arif@linux.dev>
-References: <20260924130503.853919-1-usama.arif@linux.dev>
-Date: Thu, 24 Sep 2026 16:39:36 +0200
-Message-Id: <179026077643.1922818.8200549737305665244.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: SV0P279CA0069.NORP279.PROD.OUTLOOK.COM
- (2603:10a6:f10:14::20) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dQjyXOVs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790260857; x=1821796857;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=9nkdWvz9hhC1cz7bsXYe8wD1jlHlZ9/tNVri0cwsTMs=;
+  b=dQjyXOVs7WcEAzdQ1wHL+QY2iByVOV3s+D73yhZP7vC5EuP6O4L0YQ3V
+   nj6SUap2PewzkADE3+t5a2xoPRkWZpA+h6KcBlZWKO1NjpDyNTp2Nb6tH
+   g45QWw0SNjDC3dxDb7X5ceBG4za1q2ZuVGRspERv1RLf+0R17tR+Cd5g9
+   7VSlDcsbPEJ1gLgkKwnr9/B0Le0FjOc990wFesCxJQv8m3fkqiB3CZPeB
+   Sg+xmgKx9LbHvNAdYeyQbn7//d5tbZ3HoSMG74M5yV3SZJDrSFnS+c2wc
+   9adR2GfD759g8v6c9dVpALjT+4lddE1OU0ZcHrLBNS2NYV6AYD4o8SysL
+   Q==;
+X-CSE-ConnectionGUID: jPHB+BOnQT+pSKhitxPWSw==
+X-CSE-MsgGUID: 0zBdZf2wTmS6N+Vo0YERTA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="101206788"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="101206788"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 07:40:56 -0700
+X-CSE-ConnectionGUID: fDqRe0w6RyeZ6OoGEPAW2A==
+X-CSE-MsgGUID: jB/V1XkhQdK1qmUcwPt4GQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; 
+   d="scan'208";a="273616688"
+Received: from xiaoyaol-hp-g830.ccr.corp.intel.com (HELO [10.124.240.119]) ([10.124.240.119])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 07:40:53 -0700
+Message-ID: <5949c545-2104-4824-b007-5345fe0e5d7f@intel.com>
+Date: Thu, 24 Sep 2026 22:40:50 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|SJ2PR12MB7799:EE_
-X-MS-Office365-Filtering-Correlation-Id: d9e39120-fe48-41b5-23b1-08df1a49adf4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|7416014|10067099003|11063799006|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	z03POJ4UuLFeW+ah1KRHgUrmjSqHduocveC/Hc+D8IiikGD4cxxmo8cno5nNfoEur4ybC81S9AoIlKMGwsQSZTskbVNd7X94Pz+mC2rrwBcRYhaJImwjYsRojiuC35N4JSisj+BWOX0URr4o67pdPvKU8cnZCu/sfaJ2APsHGbQEl1T0P57pxTFekyAQ0K7N6fi15SwUZIGH6dBkv38N4svGaiBgzqLoWnTwBZRrNLsV8nsI/pckhz7a/f8reedx28RhuaAHiucMNWwP8HqmzEI59LS2GK1lj152ssjfXFvrIGhJdNqO5DTtLVty+FRHDhWH3UROOcaZcNzMpNNW7gZ1ff0pt64gKuurJOoC8rpv/ajQtZwXwdXmVSYlXOAHhxL4RLZI3/ZyC5X5HLq9XAqO4b1HTMTDkm0JCzHZuw+wHYtedP67Cu1wuZL8UCXFEO7WA+MC2y5/BdY9hzizj+niz5h0nclTnEMjVA+pwRQykWXIpjgSsS9ud1v0ZPxt8+CISpyESs22eAsFnuMyXlP3TKuGxyN5WBN12sbiluXezyhF4EipatnOOJ1320o+jvzLxvAC/js85NVJB9/aNqPj6GuxBW/vIzZi5+9Jqw1/fDsDNdwehCM0ZLHCdhkVQSPI/qAsO0lj3Am3YkaCDw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(7416014)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZmtYamUrNDhldENsbHZ3VUhvZEV0dVNYNTZBbFNPZDArY2JNbjRrd01UU2JP?=
- =?utf-8?B?NzV5Q0VEOXN2YzV3VlNSTzlGVWMxTkZEUzVWdGZNRXBVMUxuQ25wMVRNSUx2?=
- =?utf-8?B?Sm16bmtBazdZMys0dkRDbmkzUlovS2NSL3R2QjZEMmpYNlU0TkR3dHg4OUJm?=
- =?utf-8?B?YjhQM0ZmZ2NPQ2xXTktXNzEvVkoyaXhBVW01V2tHdzRCR3ZrR3FlQWpnZ3k2?=
- =?utf-8?B?cnlmZ0hIWEtqUDdMS2ZudUN4MEZEcVlRZUtweDVjRFczb0k2alhHYlE1TTRk?=
- =?utf-8?B?ZGNXdExuU3hJNG10YXIvOHBWWWdQd3FpQzY0QjhOU1gveWROWkFQOVhLTHVz?=
- =?utf-8?B?Q0gzOEFsd2hUdlBNNkxSbno3a0lub2l5WENrYll4ZnMvaENsSVpsVjQyS0N0?=
- =?utf-8?B?SFAwYml0SFpoRGFoL29KNGJDalRaa3gxbnlaaVNtU1U2ZUVqeXBGam9Zd1JO?=
- =?utf-8?B?T29kYXhzSlozSWd1d2lIVFdPRWlOSEdzZXBIR29TbFJUbE9BK2M5WnhKRDYx?=
- =?utf-8?B?aVNxVUx0Y3lLb2NuNU5PbmtBQnRmb3E0dmQwaERJQzBQUFdybFN0YVplNjlo?=
- =?utf-8?B?c3JBN1YzU2JDWXZ3Yks2cFVxN0VPZDYvdTZzUEI0TE9MZG91MDlxRkNUR243?=
- =?utf-8?B?T3pnZE0wYkxDSHoyVkdVRG91UjZRRVM1RnVMdTVRNjROZytBaUdXclBlWGkx?=
- =?utf-8?B?R1NtZGFqZDI5bitLTG02dkpHaElhU0NKbS9ldTV2MENzdnppeHk4K09sQTEy?=
- =?utf-8?B?OFZEZUdpSHYyK0phRTgyb0Q1YlNVS1dTTDUvWWJlOGJoQUw2dWNmTlhhRTZ5?=
- =?utf-8?B?MzhDSXhqTEUzYnhEL3pOVEsrWExQa2J4anpkVUlwMUJLVmY0SUJuUGZLbUFZ?=
- =?utf-8?B?UEJXanRhbktsZTdFZ2VZRXZwUmQyT0RaVi93N2drSVlQT09aY0JHNGxFckdR?=
- =?utf-8?B?bEFPOTVkYVJUaXBCbFZKb29IQ3MySHducmdIKzFVZnp2MEdMTEt5M1lzMDBt?=
- =?utf-8?B?U1A5UnV2ckIrek0waUQrdGs2T2djQ1A0aG0yamZmTE5ZVUVCZjJzL1l3bHlQ?=
- =?utf-8?B?bGZIQ1VHU0U5UEdYdEZpRnNkY3dmdmxQRkdUS2J5cnJjUVVlUkFNb2xBNjZ6?=
- =?utf-8?B?ek5MU1FuVEM1YWt0bUtOZUhHZzFTcFNEQXZYb1ZGc2RYTTdpU0gxOFZnMUtY?=
- =?utf-8?B?Z1FBUFN5Wjh3Mk1waGg4c3Vzb2tZcUkvSjZoZnVHN0FFY0pwazdieUNiR05v?=
- =?utf-8?B?UzArZnNsZldhR05PNlpJWXNqSEhrLzQyWENDbHhhbmJaaG16Ry9md3NjVUc0?=
- =?utf-8?B?STJqTGtBNEljeDB2MFViak9vOVpEQVMxZ29XWUdaVmtFSDR5clRxT2w0R2RM?=
- =?utf-8?B?R0VYWVJ2VkYyQlBWbDRwbmtIeGlObmM2VmZSUk1mNisyVHhUWlRhTUxVL3lh?=
- =?utf-8?B?TzUrb2lwOTU1VWVhN3hRZUhxYUxCaEJQVllUaFpQdWpQS09MWW9Sc0dGSFZT?=
- =?utf-8?B?ZHE1MTQwMTJodTN2SWlaajVKTFQ1YXZLUXZWUUR0N0l0VUFTU3JSU2lMWlFv?=
- =?utf-8?B?SVhLd1ZoU0UwZXhqd2lQL2FZWHkxVzNubXRUUlJMTDJVcXBST1JOY1dEcWtR?=
- =?utf-8?B?QU1XVC9aRDlJUFhpWVZCVDFpWGxIV3ovMUZjUDRpODdMdWEvVmVpaFMrczJj?=
- =?utf-8?B?Rnk5QnNQOEI3SnZTR2loYWVGTmlzMVN5ZkU4dHgrL2F6bXBTV0RSS3R5ZkFm?=
- =?utf-8?B?Ymdxc0RMUVoxaE5RTVNPdWNHS2tLNFMvRzU5WXEvTHFKWnA4MnVzblNqSVJl?=
- =?utf-8?B?aXAyQ0xzTWtkeXM4Z3FzQmk0Z1g5MXQ4Y3BEdFFaQmpHcTZkU0NjZEgxcDl4?=
- =?utf-8?B?ZXB4eVBYVDF2aDN2Yys0NHQ1Q002NG1ic3lQRCttK1dTeHlxMnNxNGNhTUVi?=
- =?utf-8?B?ZWVicEdqUHZ3MmVCbVczZ2VTbjVlQjZYaDFiSmtYeTJSQms4amxHQVZzcHRP?=
- =?utf-8?B?dE9SNzBCcVJzTVFPNUp1OTg0T0xLc0tPNFN0WFU0YVgvWnJzTlpmdUZ6RjJO?=
- =?utf-8?B?T3lkNVRsODNkdVBnMS94U2J2b29BUE9ucWt5c1VzeCtIY0oxN2FLTEVKWDRQ?=
- =?utf-8?B?Ykw4N0MxK1RFQmxTd1VpeExIOFM2dVRvZStHVkE4Qm1uRlhJTkR3S3FBcG1Q?=
- =?utf-8?B?bFFVRE1PaW4vZ2dYVTljL2hsdlBpYzhxOWp6QVovQkFiVDA2ZTA5ZXZhSEpO?=
- =?utf-8?B?aW9iVEhMOU5pOUk5RzRZSVlkQ2FvZTZ6L2k0RmJjUDMzSERzbkVjbTg4YWV4?=
- =?utf-8?B?MUJjUkNIVmxRVWZiRW5yZVRFREQ4cXpVeDJ3eXJXenRKeDhnU2tJZz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d9e39120-fe48-41b5-23b1-08df1a49adf4
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 14:39:46.5421
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NIc7mOvqsY27QX8gmTtU6pgEiHT3qwvQL4m5WIbvk9GcH2ngGEGqjitS+O93edfybnnLeLaYaJv1Ute1wwlWxw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7799
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] KVM: TDX: Synthesize SHUTDOWN instead of returning -EIO
+ on unhandled EPT violation
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, kvm@vger.kernel.org,
+ x86@kernel.org, linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
+ James Houghton <jthoughton@google.com>, Yan Zhao <yan.y.zhao@intel.com>,
+ Binbin Wu <binbin.wu@linux.intel.com>, Ackerley Tng
+ <ackerleytng@google.com>, Vishal Annapurve <vannapurve@google.com>
+References: <20260923163315.1580860-1-seanjc@google.com>
+ <50ccc54c-6cbb-4ae2-a84a-4dcbc958f91c@intel.com>
+ <arUv_KydBD2kWkIo@google.com>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <arUv_KydBD2kWkIo@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, 24 Sep 2026 06:05:03 -0700, Usama Arif <usama.arif@linux.dev> wrote:
-> sched_ext: Update scx_dispatch_dequeue() comments
+On 9/24/2026 10:13 PM, Sean Christopherson wrote:
+> On Thu, Sep 24, 2026, Xiaoyao Li wrote:
+>> On 9/24/2026 12:33 AM, Sean Christopherson wrote:
+>>> Synthesize a triple fault, i.e. exit to userspace with KVM_EXIT_SHUTDOWN,
+>>> instead of returning -EIO from KVM_RUN if KVM encounters an EPT Violation
+>>> due to a guest access to a pending page.  Returning -EIO implies KVM is
+>>> buggy, and most VMMs will respond by completely terminating the VM, versus
+>>> rebooting the VM in response to KVM_EXIT_SHUTDOWN.  I.e. give the VMM the
+>>> option of trying to keep the VM (from the end user's perspective) alive.
+>>
+>> But reboot isn't good, neither.
+>>
+>> I still think a new specific exit reason[1] would be better, as I suggested before.
+>>
+>> [1] https://lore.kernel.org/kvm/1b0ea352-c645-461b-9e19-5202791f8e2d@intel.com
+> 
+> Doh, I completely forgot about that patch.  *sigh*
+> 
+> I actually thought KVM_EXIT_MEMORY_FAULT this time around, but I was worried that
+> it would confuse a VMM.  And practically speaking, the VMM can't do anything other
+> than print some diagnostic details and try to reboot the VM, because the guest has
+> very deliberately opted out of #VEs.
+> 
+> An alternative to KVM_EXIT_SHUTDOWN would be
+> 
+>   vcpu->run->exit_reason = KVM_EXIT_SYSTEM_EVENT;
+>   vcpu->run->system_event.type = KVM_SYSTEM_EVENT_TDX_FATAL;
+>   vcpu->run->system_event.ndata = 1;
+>   vcpu->run->system_event.data[0] = gpa;
+> 
+> So that the VMM could log the guilty GPA.  Though I'm not sure I like overloading
+> an explicit guest event.
+> 
+> As for KVM_EXIT_GUEST_ERROR, I don't see the point.  As above, the VMM can't do
+> anything other than reboot the VM.  I doubt Linux-as-a-guest will ever support an
+> interface that allows recovering from this situation, because again, the entire
+> point is treat unaccepted accesses as fatal conditions.
+> 
+> All in all, I think my vote is still for SHUTDOWN.
 
-Reviewed-by: Andrea Righi <arighi@nvidia.com>
-
--- 
-Andrea Righi <arighi@nvidia.com>
+My concern is that userspace cannot differentiate between triple fault and
+accessing a pending page if we return KVM_EXIT_SHUTDOWN. It's not friendly for
+debugging.
