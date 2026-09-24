@@ -1,97 +1,74 @@
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 098A5296BB8;
-	Thu, 24 Sep 2026 20:19:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E7883A1A23;
+	Thu, 24 Sep 2026 20:19:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790281177; cv=none; b=jx2/RR3etvPVspDJxBmjHAgOhNZPX/v+ySPmF2l0x9qCxrthD0crGpgXeu6Tmif3gzDC96rJsFc/NqZgS5n0ZYXTKa1tzjIuRdQWUVFqH8SFGTzvViCgzB+WhtdVUDwqGcC0wZWbcqGZos7rPhNh/p4K+VkM7D0Sb/sF6JFtoCw=
+	t=1790281178; cv=none; b=Voc6o872dzeByMsPS4biEmxYDk2faLIHnAMBsOXUFTxw41HWB3FAhc6KhbafwYd8m8kYGEBemKinzc+N3eEqqEaCWK3F64fK+2KEIEOqGoo0hSS1Glxcr6FaOyd3nfTNjBiCEEQ5kDQw9w7CXiPAC0ADo5I2pFla4zb1e5NoQEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790281177; c=relaxed/simple;
-	bh=r1BQkXIkWbZ3bCnsg8ygvimx8DmAW7XJnXxTFcZjgFo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=pzw+6qaXPfeqLIWMzOA8NpXA9ubaZBP8zGFr6bQ/eaARwDUbz77NQZMS2uaP1LAYo6eY5oHsMUkUp22zRgsgSFPpZeVhlDZJ+2eG8CIogdVLi7JC8o0hRfysCKUserMwC9RpEuOTosbUwJ7H9wWCnkxuIr5WuBOH1+EvGceg7jk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=gubhBpSm; arc=none smtp.client-ip=54.206.16.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1790281178; c=relaxed/simple;
+	bh=a6ETk4MvAX4zbOV5TGYE5HPHniXsdm5XjsPZyLOJ8b4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=ZsmHwVuxWxxxNuFH5c522KxU/23QY+82IaLS5sVmwn40VsnL1ulOzPncEqUkWBtuC5+F2xlqOrjEQEde/yVaEXLt7e3q9g8Qak8QwQY6O6KBfUIcwA3dYTFCG+A8tvY5UvVIbnzp+9HnmWFn18eDK//JZVKtljfeG7RcFfAvWkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aol5CJRJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="gubhBpSm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1790281101;
-	bh=r1BQkXIkWbZ3bCnsg8ygvimx8DmAW7XJnXxTFcZjgFo=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=gubhBpSmFGshha+hw+HmFWTbz7D1Wi6WPAcl/Vu5qmtkJzT8ryOr1ft3d8LJ596+a
-	 /s2TgC9M2sAtzbtwFKPiH+dvaLnxWDSRXd38zyOTy4F0llcIHEggruPOWUiZ8c6cWG
-	 gRCMkN2db15wtOKTUv+P8wCD7mFXRpp7vZY8LLb0=
-X-QQ-mid: zesmtpgz5t1790281095td59f0c58
-X-QQ-Originating-IP: LOpzy+JBLjrjInbJlE4q/fOwYlppRkC7Zpa7dMAFM/Y=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 25 Sep 2026 04:18:12 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 11562080722939994202
-EX-QQ-RecipientCnt: 21
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: Re: [PATCH 7.2 000/438] 7.2.8-rc1 review
-Date: Fri, 25 Sep 2026 04:18:07 +0800
-Message-Id: <20260924201807.962404-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260923140644.756254324@linuxfoundation.org>
-References: <20260923140644.756254324@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aol5CJRJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5070B1F000FF;
+	Thu, 24 Sep 2026 20:19:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790281174;
+	bh=XlT6zjYynKmXd+lhEZPBZmKaApaIb7Mj9xPaX4dJNTQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=aol5CJRJUOPjv2DedekKsGHEioDBF0q5yA/09UyY1QbBsl4w4fvrcXWTnl8fOgaI2
+	 V3z1fr2mrRRwtLcV07lf4ataUcxXxWpsw3zX1d0nRcDQel6C8JChK/u3ub1qPe8f2w
+	 t15VYRXV2gtIHo5XtbiKXmmkUHwsvKe9mD0lavHrSJ3Mge80qJWo1j8oCkWATO2PFd
+	 CxA+HYlPyBZn0EQnaoGa38tC9fxsnPY79UneJVp/uGTPuLxp3v2bOL7OqlqBfTDWGk
+	 ZADrnTpTbMfJWs60PPqPcypzTF9kPiYnN6ggVs+cYHSn9zo1N7tlwcaKT+1jOBmpiz
+	 ZhJv+W6FH87FQ==
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Peter Griffin <peter.griffin@linaro.org>, 
+ =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+ Amit Sunil Dhamne <amitsd@google.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260919-max77759-charger-dts-v3-1-78b68fbf7d4a@google.com>
+References: <20260919-max77759-charger-dts-v3-1-78b68fbf7d4a@google.com>
+Subject: Re: [PATCH v3] arm64: dts: exynos: gs101-pixel-common: add supply
+ and regulator properties
+Message-Id: <179028117091.127367.16717014077324931001.b4-ty@b4>
+Date: Thu, 24 Sep 2026 22:19:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NAtipnnbTPeaFr8tkhSlM4a0iQfED8DgOHUDmJ8AdwYyFCNGmWbZkVWJ
-	xL2GCrfK9H3ScI69pL1v5ocqCpMDiSUzSPaiSd1MLK0mJiMrfrddSvLL+iD1iu/PXBnPmTB
-	s39QLhW7jdUKT0rZQdKb/8+0610jVoF9mmj5JmR3ifzMmypC9/dL1ZRVW9CFpX3LRfPF57n
-	+VxlibYUgGybFatQl5VsW29NAJa05xL6ioWyPtFrgbgILGQepP08R/ckNggHf87QI7PLCYx
-	/143ROv7N6S+haWnY2H7TZ5ZTvatqtDVaYkGn2FlWem4IA962LbSz70DuvZQApzzB1yyCD+
-	lkjxdLi1VT11ZWZ+vrxwzrxcIqA82KqVbLB+wzoZv0U0WTtOdplhpHT+0scBH1ueZDXlbBG
-	VzQKYeJNeldgFOzGJKV/hM2Bvy/sAItl1ZEusOtcj3kmEPpy6b5SrtPxiA7zMigjU2aocSJ
-	SL27xB6yEIrAhZoIws0W4dvfMrVo17EYvUJu2iHrOuKNd3eNPm0JiGTWIQyVHSct2rq6XHm
-	3Rx5QlU5bD8ZjTptteZez5SYqDuKIn10BPU/a0cMc2FaTg9jBRBdi33qYoNRef0xlBmX30N
-	a7uaGijQZma4xukWsEQbPYuM9zzN/RU8QH8x/tgrj6YWv+VwYUd1m7bpWj/N3KmPc2SlTWW
-	cgnrl/viCOMvqeyeADH34Rh8Q2oO6OJ+S9A9S/CQUoRrPdzuRDsD0nPIHJv9BeXdWKE51TZ
-	V+h3DE2l3rBZNl+eHCdGtoFmLjEt35IsE6Z1p1Xyq3dF4QGnCrtgkvUdKsGYvm8gGjMOrdy
-	qdzRNv5hpUh3WjQCAlT8cdAdZ97mRhTlNyxNwMqmGwdgReR/btc/1nKHbz3SoVQBJfwGciF
-	ZwPrN7ClTVBbbaX5cGXTSfgh+JXV6ZpN3JtEQqG4fST71mQOOjNkkMcki9jbOLAqx3whYJG
-	7+vtD+edzFxBLP7ji7JfWBvJFj9D0ATp4WKSRD3ksKoYpCoQqZXE2tlNQuXwxQyUgcp4jVE
-	tsfNYAqO+FSeIFnKEuss+C/YTDptEgy/XG28n2H1mEeTqP+TwPvKWICOi1H0XAyYZTeUc4S
-	od4fDd4p6HB
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-Build tested in our x86 config successfully without error.
 
-Tested-by: Wentao Guan <guanwentao@uniontech.com>
+On Sat, 19 Sep 2026 01:04:10 +0000, Amit Sunil Dhamne wrote:
+> Add power supply and regulator properties to the MAX77759 pmic. The
+> usb-typec device will reference the regulator provided by the pmic as
+> it supplies vbus to the typec device when operating in source mode.
+> 
+> Additionally, describe the charging path as well. The pmic draws its
+> input from the Type-C port and in turn charges the battery that the
+> fuel gauge measures, which gives the full ladder:
+> 
+> [...]
 
-Best Regards
-Wentao Guan
+Applied, thanks!
+
+[1/1] arm64: dts: exynos: gs101-pixel-common: add supply and regulator properties
+      https://git.kernel.org/krzk/linux/c/3653ea2aa0a212677569a98cfccc183ba2c890cc
+
+Best regards,
+-- 
+Krzysztof Kozlowski <krzk@kernel.org>
+
