@@ -1,74 +1,83 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C830E4AA402;
-	Thu, 24 Sep 2026 16:07:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 304F345C701;
+	Thu, 24 Sep 2026 16:07:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790266029; cv=none; b=k1cCw09URzqcWJgcCxp3Nsj/l1RPEsXf/AoIzCOWe9pAPXuK1YqrDflmjY80S2FFhyRAVSpDuDKQCP7pDw60NKV0S7S/1HpnWusWc1BBICk9N4MbdifJPt490N3MONutonBe4x1xCQQiPVb6Qb66l0SNVfbESw851x3TgNrYN+A=
+	t=1790266037; cv=none; b=l/LzyQBwerWNkjipwssUr714mF+UIQVNBFshJTr7KsL/dE8vpv7Um/wZuHUr6WdAo5R56MtVHqykKDLrhCulgZs/jxPUyfraDNs0NByRDcwL1ApNhWOBfo8fxNsYcFmMEWdU/RzWKiobCZti8sH4B3MtnB18nByTxmpj1qzwkuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790266029; c=relaxed/simple;
-	bh=lXl6Nd0R/QjR9+3nhjJRhokfXwa/kgcoL2aX7Pp/xSU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SCal2Ekrqhnwe2TdZdMV9iANcXNJKcplF+g/QkF2Hu+5U5iisnQERAnhH/ZnMS9kXsEeZH7pvR3MPA/Td+V5SZ1XCmznt/DTXu7paDhLk5e68ZGlKRzbPtrtvR7v86ZupVjG7vMBS3CZlY8bE0t8VYeXJI3JEHMR8easgsCgjLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dgRoCIE2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790266037; c=relaxed/simple;
+	bh=2WsYwVcHFCjHY2sb0hGXPnMy+CyyfC8wOAqnXNtGhxg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=l1fA/8OiqlkKexJz1aqGylIt545bplA1FE5+I/IX57LSTL5n+QvoQKzvvZoBihxjR+9kpAadC6Ho9VQbmcH3trMxCHB+O1dM6FrwnHzQ7mTPAZsVOSFJj7VXD3nPLwDGfYumsmS8qfhVJIA7sFnG2CS5W+qDAKeDYX3Emc48AjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ijLSFv7y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dgRoCIE2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ACD91F000FF;
-	Thu, 24 Sep 2026 16:07:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ijLSFv7y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D46211F00893;
+	Thu, 24 Sep 2026 16:07:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790266028;
-	bh=UQQt5zTm31incgpPNU6yRG9PMJPNleN1QlXN71hH4eE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dgRoCIE2qmrh6A7OlazIDECGB6B7PK1iK+ZENbVSoaqbUZm64tkS/cgNcy2HldiGU
-	 Nopce9obSu7P5dapJP88xrCJoNrgFBUYBjgREOdnULW6qKvGc6a0eYBr+j/XnzMGFz
-	 oDo2HA6WXhDInySGdkm3aalp0O3cA020pqJ9JbP87ZP1xsN+jdsVt1DU6/OVDT36JF
-	 eFnZDOOWDXQw+wpKWC0wECZmtysonFz4wV/mINcvDpi7a8iwg+OIlN7MnvGHWCxQio
-	 R8hhQJF4oroUcqF7dzqNVT7ORKFhtOqSvkSxxX/+lA242rRy9UXlKKQoI/hcIxCu+6
-	 P+7NkWUxEOZlQ==
-Date: Thu, 24 Sep 2026 17:07:04 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Jamie Nguyen <jamien@nvidia.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>, Dat Mach <dmach@nvidia.com>,
-	linux-acpi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] ACPI: arm64: FFH Operation Region support for
- FF-A (offset 2)
-Message-ID: <20260924-private-bobcat-from-wonderland-0db8f6@sudeepholla>
-References: <20260901192906.133670-1-jamien@nvidia.com>
- <20260922-purring-fennec-of-exercise-bbce5e@sudeepholla>
- <20260922155211.676134-1-jamien@nvidia.com>
- <20260922-exuberant-earwig-of-opportunity-4fecff@sudeepholla>
- <20260923124050.3270801-1-jamien@nvidia.com>
- <20260923-lurking-pony-of-fascination-ac6c49@sudeepholla>
- <20260923173240.3710620-1-jamien@nvidia.com>
- <20260924-tall-oryx-of-attraction-23ada5@sudeepholla>
- <20260924152321.3864148-1-jamien@nvidia.com>
+	s=k20260515; t=1790266036;
+	bh=P/LQL8vJBd6lxTx4gltrEGEIbrleWxLuxoVbeStT2Wo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ijLSFv7yLVXYWVIhKtsHeCuLQ1uUsdvaVvdZtNtSUG+69sfjKXN3arkIa+Rf6TF99
+	 Jt7uG7PClejRsn3DJdki+koBcIx3EpNJ2g02Wu+lVbOko20wnFkxHE0lgDRJfC57dD
+	 bee1PL1HxzjyOCgu5OBunU8mwHVx0E5k+FTXRIgLmFqwYzUwx4kGKIlW1NvAFdb+W2
+	 CLociAO9jeNAIfToGgdnxXtXmU8zAnSr+jridjN4fBbeGZF3XCOtG1SbBBm8qLrlWU
+	 GClnp+XhO9XyVLq6jqSMUBTHEmwpkwsGbCugoJjTKaXaljj9D5Qdfax1vm0Rd75hvP
+	 iAugqB+EFSLfA==
+Date: Thu, 24 Sep 2026 09:07:15 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Hui Peng <benquike@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Kory
+ Maincent <kory.maincent@bootlin.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ethtool: tsinfo: release net_device reference in
+ ethnl_tsinfo_start()
+Message-ID: <20260924090715.029f1550@kernel.org>
+In-Reply-To: <20260919204803.2811673-1-benquike@gmail.com>
+References: <20260919204803.2811673-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924152321.3864148-1-jamien@nvidia.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 24, 2026 at 08:23:21AM -0700, Jamie Nguyen wrote:
-> On Thu, Sep 24, 2026 at 10:39:24AM +0100, Sudeep Holla wrote:
-> > Which version of FF-A is being deployed on your platforms?
-> 
-> We have platforms with FF-A firmware versions 1.1, 1.2 and 1.3. The
-> platform I have been using to test offset 2 reports FF-A 1.3.
-> 
+On Sat, 19 Sep 2026 20:48:03 +0000 Hui Peng wrote:
+> -	if (ctx->req_info->base.dev) {
+> -		struct net_device *dev = ctx->req_info->base.dev;
+> +	if (ctx->single_dev) {
+> +		struct net_device *dev = dev_get_by_index(net, ctx->pos_ifindex);
+>  
+> +		if (!dev)
+> +			return -ENODEV;
+>  		netdev_lock_ops_compat(dev);
+>  		ret = ethnl_tsinfo_dump_one_net_topo(skb, dev, cb);
+>  		netdev_unlock_ops_compat(dev);
+> +		dev_put(dev);
+>  		return ret;
 
-Thanks, will think a bit on this and see what is the best way to progress.
+This issue gotta be theoretical, can you build a repro that actually
+triggers multi-skb dump for a single netdev? We don't have that much
+info, it's gonna fit.
 
--- 
-Regards,
-Sudeep
+If you can trigger pls update the commit msg, if you can't let's instead
+make this "official" by adding:
+
+diff --git a/net/ethtool/tsinfo.c b/net/ethtool/tsinfo.c
+index c9b680a9cc3f..cbb5d6b7f3e3 100644
+--- a/net/ethtool/tsinfo.c
++++ b/net/ethtool/tsinfo.c
+@@ -482,6 +482,7 @@ int ethnl_tsinfo_dumpit(struct sk_buff *skb, struct netlink_callback *cb)
+                netdev_lock_ops_compat(dev);
+                ret = ethnl_tsinfo_dump_one_net_topo(skb, dev, cb);
+                netdev_unlock_ops_compat(dev);
++               /* We don't want to hold the device ref across messages */
++               WARN_ON_ONCE(ret == -EMSGSIZE);
+                return ret;
+        }
+ 
