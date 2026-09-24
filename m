@@ -1,35 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB08625;
-	Thu, 24 Sep 2026 00:51:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51DDD2D73A1;
+	Thu, 24 Sep 2026 00:51:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790211080; cv=none; b=SXSsOO8BKQA3TOR81UWlUc3C0bAWppImgCw9HtXMuiNVm0SLx5KFvhjtUR+7wiSa9HpA6GsRiOfcKA73CL/zY+ibZcPuPbhyXzvV1uClhKh/R8oy/Ox6KKj/J8sQM69V2XmcCQqhTBVtwrXOh6pkILWSP497jn6/85GTb2MV63o=
+	t=1790211081; cv=none; b=EM6jTgLohstBqh1Nrl3gpMnlxZWLnx1McxXsDfD43xKSJvhzj/mIuSRBfRRFX9gsCyNMrGuhMJ/kTW7CBgBY0sRytPWYMj+ZoVRZ3h5fnzSomw3kqIjfiHBPXtr86lIUYLf2W4vO+lXNeIQzDSO58jGw2YIirGkj4OQWL4ZWTHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790211080; c=relaxed/simple;
-	bh=thh8YnF5dnioS0hgc7mD1Zx+c5GgWCPSNz6um9O4ROM=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=SrlJMw63nZMDXhGk3izyINM1S/wvSUYB/TM9L6NSoLLHoKVuj5syoxPAxOCszMkyMy8xSKUbCZU1zZ9zl8kDxfmvrbXIdx1ZqlzGgVD6nggt+x1Wo80fRTu8KERTPzluGRiVyojzxHHinLcKrKov2O6hyFHmSnq/LiC4O7jLcDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hA0E6mxe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790211081; c=relaxed/simple;
+	bh=/azrSupv5XjVi35+gJau9kjb5Wup6px2ofG49fE7uVQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tQLU4329vg490Ok8HlbYjqziw8JlKt3x6P7KyTNzi/JUBZngY+JOKP8uCUbVzmrujuzCkX3Q7QKxRi/GhkuHbvGi8L1ldFa8BeKKORyCLj4G6NPiAZw1OELKKrdRCaKudokmhExU3joRwr1OCznbhkLnjvcIAIHHy9q1CYZDSJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KnHfZW+K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hA0E6mxe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CA2C1F000FF;
-	Thu, 24 Sep 2026 00:51:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KnHfZW+K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FB0A1F00893;
+	Thu, 24 Sep 2026 00:51:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790211079;
-	bh=J2k6ofrEG93zYF/58l1TzkQWce+SVpNKYWqAbK4Dgq0=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=hA0E6mxeIpzwbWbiKlkqntJtOHOOV1bF3H9jv2CU+jAIFJBFPLgGctNBo7ygIgkP3
-	 7wWl0ObwzH28oZWf1/Fo/BnFvFEWUTtbBBhZB3EfzTAAkEw2jeApJk2TCXNRW3LDVn
-	 +T8cMhQy/HvKnndLh4GP6iXTfEU84lo5sEZpQqvbFnUuqIFOC0VCCbBNMF+4T78qTB
-	 VaCV8wkmtDF4BMzbpW6qpQNxy62WCu7G0d02ZkTzfAh2dwU9fLB42P7CVkPcgwQnbe
-	 STqpOrpua9hAUwRnh05+sfty5mvRm1QXmYuLF1rMZu+dP0U6Z5pHSfEPjMzYM9EtOq
-	 u1ppfpLfYmEHA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id EEE9B39E9607;
-	Thu, 24 Sep 2026 00:50:09 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1790211080;
+	bh=QMGhoK1Ey5kUBOODA0xeI7bswOPYkQnFaq58AZfxBUo=;
+	h=From:To:Cc:Subject:Date:Reply-To;
+	b=KnHfZW+Kx3FwrThLm2GnPNkUtbn4dgFiFILNvvpyEkaxUKAbF19CgtBBPRs63i/dg
+	 hs9OsAQxcOS2uY/R7ee86hfffAn7LULaTVsZYZJnGYwdU7O0AT2phywVzT9NcvHE+4
+	 8u2nmUGFm6jYiqRYctWy4Pf/OnYmyBfGzZT1QgHMkRCdtKpUsWeQxWgMichSAN8LD+
+	 D9gExWZGrA+8+GazRo2HeyeGV3bmjCjuk8rK2YHAYVcd5wut20DEeUAxPcPee+5ZD0
+	 W1kmKaRYxwtmOiJzc//jnsnzVF/3n76euijn9nMAbxXOsRcMtmUE4gHi6jUebSsaQC
+	 GqOMbY4MayLNg==
+From: Gary Guo <gary@kernel.org>
+To: Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <david@davidgow.net>,
+	Rae Moar <raemoar63@gmail.com>
+Cc: linux-kselftest@vger.kernel.org,
+	kunit-dev@googlegroups.com,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH RESEND] rust: doctest: trim function name for reproducbility
+Date: Thu, 24 Sep 2026 01:50:51 +0100
+Message-ID: <20260924005052.2805129-1-gary@kernel.org>
+X-Mailer: git-send-email 2.54.0
+Reply-To: Gary Guo <gary@garyguo.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,43 +58,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v2] octeontx2-af: remove duplicate SCTP port
- flags
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179021100863.1255052.2113938031683666920.git-patchwork-notify@kernel.org>
-Date: Thu, 24 Sep 2026 00:50:08 +0000
-References: <20260920122803.6277-1-sinha.aryan03@gmail.com>
-In-Reply-To: <20260920122803.6277-1-sinha.aryan03@gmail.com>
-To: Aryan Sinha <sinha.aryan03@gmail.com>
-Cc: rkannoth@marvell.com, sgoutham@marvell.com, gakula@marvell.com,
- sbhatta@marvell.com, kuba@kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
 
-Hello:
+From: Gary Guo <gary@garyguo.net>
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Currently rustdoc will generate function names like
+"_doctest_main__home_gary_Projects_linux_rust_kernel_io_rs_824_0" for a
+doctest located at rust/kernel/io.rs:824, when building with separate
+outdir using `O=`. This creates overlong symbol names and is also not
+reproducible.
 
-On Sun, 20 Sep 2026 17:58:02 +0530 you wrote:
-> proto_flags ORs BIT_ULL(NPC_SPORT_SCTP) and BIT_ULL(NPC_DPORT_SCTP)
-> twice. The second pair is redundant and does not change the mask.
-> 
-> Drop it.
-> 
-> Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
-> Reviewed-by: Geetha sowjanya <gakula@marvell.com>
-> 
-> [...]
+Fix it by doing a custom remapping to trim it to something like
+`_doctest_main_rust_kernel_io_rs_824_0`.
 
-Here is the summary with links:
-  - [net-next,v2] octeontx2-af: remove duplicate SCTP port flags
-    https://git.kernel.org/netdev/net-next/c/6f5021d32914
+Signed-off-by: Gary Guo <gary@garyguo.net>
+---
+ scripts/rustdoc_test_builder.rs | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-You are awesome, thank you!
+diff --git a/scripts/rustdoc_test_builder.rs b/scripts/rustdoc_test_builder.rs
+index df864437cef7..561f912c2000 100644
+--- a/scripts/rustdoc_test_builder.rs
++++ b/scripts/rustdoc_test_builder.rs
+@@ -72,6 +72,11 @@ fn main() {
+     // Figure out a smaller test name based on the generated function name.
+     let name = rustdoc_function_name.split_once("_rust_kernel_").unwrap().1;
+ 
++    // The rustdoc function name can include the absolute path when building with `O=` which is
++    // undesireable and create overlong symbol names. Remap it to use relative path.
++    let trimmed_function_name = format!("_doctest_main_rust_kernel_{name}");
++    let body = body.replace(&rustdoc_function_name, &trimmed_function_name);
++
+     let path = format!("rust/test/doctests/kernel/{name}");
+ 
+     std::fs::write(path, body.as_bytes()).unwrap();
+
+base-commit: 93f51579e7df248780214094418f205253383cc5
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.54.0
 
