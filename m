@@ -1,55 +1,55 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43303403E97
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:16:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF6F7318ED2
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 04:16:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790223378; cv=none; b=iVn835doUHGKOVsFXg8a4S4VDOyR1TsR2vFXhMPI+dnSoeJ1FDIkqf01nyg0YaoogNOjbVat9ktYTGXAoO7klw7a1zJeuRF0GhNeq8U7ZGn3rhb76yaEuQ2ddoz9dnUxBr9y6nQOLSuLF5JpzGArkhnL1j3DCi756tnD4kfbZMc=
+	t=1790223381; cv=none; b=Rp1/Vo8W8GoUa8jPOiN5qFHoeNnEYyC3eQJkMifZ9hJgBJskRYPXV1gmiJkdzMuE7rl3VqNYPXQRYcari8+MZ9CwZgHRLYBv7+T1KoE1w0V8HPj5VNZZ4CfMn3kKsRfFUj23dEaD/jYwhYM8Teu2zi5pf4C8x2IEP/G4ZkDZIvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790223378; c=relaxed/simple;
-	bh=GW++IQkN3swJonF+Ux3M4S61EH1JXfeg3xTVbZ1j010=;
+	s=arc-20240116; t=1790223381; c=relaxed/simple;
+	bh=pVlFrXyRPMoilQAeEOQdUfMs6W76Ng/9nHuuJx2B/go=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ph+33zhTvyVj1kGMdhU1wiATtALW9+MBb0B1lE2LgPKB8u8ECmFbIIdqrY47AjR5tAIHFUuqqq8uCebMn7A88GUoic4B+exERZvrwJRobbIkDymP6dsMYzDPHFRluk9Whn2dJ+JoXkvOBBtOKHonHUDB8oWlJkUfLrCtL+JIrUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--avagin.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NN9EqCVL; arc=none smtp.client-ip=209.85.167.199
+	 To:Cc:Content-Type; b=J+4ZQUIXBKnojtDu5NoEjDGnJz47Ea4MlV6wjQ+ypqJ2LRimEmYlvR1XzfzaHaVncPU5Y4fmQopEARDEzgCR1qQFOAzg5zmYuojGX7CESi+BX2y2jwRtVJjsAsotadocyMs27oYWoROvE8yPMcJ3zsflpzK1tOCVIcU2I+XuKfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--avagin.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tuHc9G8t; arc=none smtp.client-ip=209.85.167.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--avagin.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NN9EqCVL"
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4c307941971so2581356b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:16:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tuHc9G8t"
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4c7f887ac6bso2481096b6e.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:16:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790223371; x=1790828171; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790223372; x=1790828172; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FLDrAGg7xWWuICM8+UcK0lvwffhpOIQZdOjs40Fvj3s=;
-        b=NN9EqCVLzfjeLgGrieIf2R0Z2ThHNMUFZ/EjArJGFMBHFUOW5eWXDLYh0eskE35bhR
-         VVOfGkiBOFlf9NTSaW6U57naKQ4zaWK0N6mfQTPMYMsxzjZaUSHFAmG69SKa6U7rWllj
-         HzZcLZizY8D669OuFGe3V92pcnKS/Sn4FC7pi7ElYqEinqPAOOLvzzv8VYDfk1gYS4T8
-         FpKPMEvyMOGjJ6UPdrtxc6zVv/dubMhXfx2Tk3PHXIdZPoJ+17nGxBiwzlD7ccQT7G0c
-         QCaLYDsvPFu+zU/27ebEqD1WtRplJx9GF5w1I//8Nt5fAyd3HCMXhXn2Hin2oqXKY5Zk
-         zDmA==
+        bh=Olld7wn72Rs8HlMT4HtQFLvrZ9j1PJvn2XP9d4jJL8A=;
+        b=tuHc9G8tQdxaEqoTL3rFkZE33IUzHGnEebd6pTh6Sb549jYDG7m6gK1C8qHqFEjJHW
+         FUjLjq/umiedJu0xemWAqv5QfGaHqp0xlR7Yarm6jMM40g53YhOGqW3Ru4ulZpRxRXCQ
+         Ok9XDKTQBpswjFsYdtJTXGtdYX2HGiuO7S7zRokbAjbOm05hy2zOIB1tKBZwR+fKZ4nM
+         dRcp+qnnJ828EK+3P6GGqKgrrOSeqi0ecPCSUN/ifdzlx1Lo6Zkun3lhRCNBkDd1OOTB
+         g56aM3UECs5vD2enxNo6pepowwm3BnQazDiSVuIkiRJCThj6BlqWDRs1bxFoZoaNDORh
+         980Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790223371; x=1790828171;
+        d=1e100.net; s=20260707; t=1790223372; x=1790828172;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FLDrAGg7xWWuICM8+UcK0lvwffhpOIQZdOjs40Fvj3s=;
-        b=JnZa9cFscK8AexQEdoblZ15bumzGP+8c6ECQrSLaUSvweIGP8tho8AeQW8WH0Pb4DA
-         3SXVp0jZLCuBPoiR8xs462nYcShaRjtgyoSKx+HUSBW/XGZZS3Aa9JmGDlQTybbu8VBU
-         WFsLEXfh+fKH/rI09HkWW1J5QntZHjFpPLyHuaphlz+bIKyx7egogUV7luliqOZiyRIL
-         yckq7RVMAZFigy5fOo/Uiolf1vqbywK3S92MHDds2IbGGvt9OE6e4pZvydCviytjR/+1
-         vF6jjmzx1neguWlfGnPm7V1gSyMninyGeutcXZpxTgmmSAkwzQs5Zg9fDgrS5vP8X2zx
-         fIRQ==
-X-Gm-Message-State: AFuF++lcaBnQ92eSx4q6dTB3uILQkx3zNVqeLkz7/refhcW67tlXAFbC
-	Xsr7SpRVA4AVVXx40lTTRtrSZOfn+kHkFjgPJqanjV9wOfcCYwoQauDIeTpYWqzXuEu1t8ttFqM
-	iDEDXCg==
-X-Received: from iofh3.prod.google.com ([2002:a05:6602:6fc3:b0:9c4:a4f8:640])
- (user=avagin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6808:250b:b0:4c4:a240:9c3a
- with SMTP id 5614622812f47-4d72c0429famr1389700b6e.4.1790223371033; Wed, 23
- Sep 2026 21:16:11 -0700 (PDT)
-Date: Thu, 24 Sep 2026 04:16:01 +0000
+        bh=Olld7wn72Rs8HlMT4HtQFLvrZ9j1PJvn2XP9d4jJL8A=;
+        b=gkl2ezLc1BahqC5WDT+Z41F2K6JatAK5xjiFQLS4MhQe0LUlcbeqVLdUGdvcjBxDnM
+         BZYOzaoWGqk8nvd6I2kHfivrfP/L5zkHe7OEi0HivOx08FYrI0D22ld1dCWWKh5BESSW
+         D5v762+HzGq3JGwI8ZOLFDdXZfC85c8SRXO5aLsb2rMKsG4OBXDyWaYCAk6GvW6KSOJq
+         +gzRU4jVM0iSnWu2+ONo5rfToGhmyKysQ3MTNoQrbb/7fHujVUhzv2hQ57cuQXBHaau2
+         7PzkQJtno/pFupjhuqnSsWHsM1S/Ojnr0g5HZi2r791Lg4IApxKfFI7oxHyPwQCTIkam
+         oWrg==
+X-Gm-Message-State: AFuF++lU/juzNcSzDIf0vQ/IZCHcsGjuFcd6JWdtSvbQFii9GMKp2sKW
+	DlrvDKaLLwG4zQ9Y1X5Dy/ZntrKi/Jm+ZXPQ6bV5cg3QssuPoNP4gmwpM1QuD2v583vq0W/O71m
+	kfQxi1A==
+X-Received: from ilbdv16-n2.prod.google.com ([2002:a05:6e02:4010:20b0:50d:488e:cf6f])
+ (user=avagin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6808:1705:b0:4cb:f21b:6f83
+ with SMTP id 5614622812f47-4d72ea690a5mr1229457b6e.22.1790223372048; Wed, 23
+ Sep 2026 21:16:12 -0700 (PDT)
+Date: Thu, 24 Sep 2026 04:16:02 +0000
 In-Reply-To: <20260924041604.3209659-1-avagin@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -59,8 +59,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260924041604.3209659-1-avagin@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
-Message-ID: <20260924041604.3209659-6-avagin@google.com>
-Subject: [PATCH 5/7] x86/fpu: Fix potential underflow in xstate_calculate_size()
+Message-ID: <20260924041604.3209659-7-avagin@google.com>
+Subject: [PATCH 6/7] x86/fpu: Pre-fault only required size of xstate buffer
 From: Andrei Vagin <avagin@google.com>
 To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
 	"Chang S. Bae" <chang.seok.bae@intel.com>
@@ -70,49 +70,135 @@ Cc: linux-kernel@vger.kernel.org, criu@lists.linux.dev,
 	"H. Peter Anvin" <hpa@zytor.com>
 Content-Type: text/plain; charset="UTF-8"
 
-xstate_calculate_size() calculates the size required for a given set of
-xfeatures. It determines the topmost feature by finding the most
-significant bit in xfeatures using fls64(xfeatures) - 1.
+The kernel previously used the default task FPU state size (user_size)
+to fault in the user buffer when restoring FPU registers from a signal
+frame. This can lead to attempting to fault in memory past the end of
+the actual frame if the frame was smaller than the default size.
 
-If xfeatures is 0, fls64(0) returns 0, and topmost becomes -1.
-Previously, topmost was unsigned int, so -1 underflowed to UINT_MAX.
-This caused the subsequent check `topmost <= XFEATURE_SSE` to fail, and
-the code proceeded to access xstate arrays using topmost (UINT_MAX) as
-an index, leading to an out-of-bounds access.
+Introduce consistency checks to calculate the actual required size for
+the features enabled in the xfeatures mask, ensure that the provided
+xstate_size is sufficient, and shrink it to the actual required size.
+Use this validated size to fault in the user buffer.
 
-Fix this by checking if xfeatures only contains legacy features (FP/SSE)
-or is empty (!(xfeatures & ~XFEATURE_MASK_FPSSE)) before calculating
-topmost.
+Keep the strict check that the provided xstate_size does not exceed the
+default user_size for now.
 
-Fixes: d6d6d50f1e80 ("x86/fpu/xstate: Consolidate size calculations")
 Reviewed-by: Alexander Mikhalitsyn <alexander@mihalicyn.com>
 Reviewed-by: Chang S. Bae <chang.seok.bae@intel.com>
 Signed-off-by: Andrei Vagin <avagin@google.com>
 ---
- arch/x86/kernel/fpu/xstate.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ arch/x86/kernel/fpu/signal.c | 38 +++++++++++++++++++++++++++---------
+ arch/x86/kernel/fpu/xstate.h |  2 ++
+ 2 files changed, 31 insertions(+), 9 deletions(-)
 
-diff --git a/arch/x86/kernel/fpu/xstate.c b/arch/x86/kernel/fpu/xstate.c
-index 3e7f5fb5bfaf..362df13a88cf 100644
---- a/arch/x86/kernel/fpu/xstate.c
-+++ b/arch/x86/kernel/fpu/xstate.c
-@@ -589,12 +589,13 @@ static bool __init check_xstate_against_struct(int nr)
- 
- unsigned int xstate_calculate_size(u64 xfeatures, bool compacted)
+diff --git a/arch/x86/kernel/fpu/signal.c b/arch/x86/kernel/fpu/signal.c
+index d56819fe491e..594ba36dec73 100644
+--- a/arch/x86/kernel/fpu/signal.c
++++ b/arch/x86/kernel/fpu/signal.c
+@@ -27,9 +27,10 @@
+ static inline bool check_xstate_in_sigframe(struct fxregs_state __user *buf_fx,
+ 					    struct _fpx_sw_bytes *fx_sw)
  {
--	unsigned int topmost = fls64(xfeatures) -  1;
--	unsigned int offset, i;
-+	unsigned int topmost, offset, i;
++	struct fpstate *fpstate = x86_task_fpu(current)->fpstate;
+ 	int min_xstate_size = sizeof(struct fxregs_state) +
+ 			      sizeof(struct xstate_header);
+-	void __user *fpstate = buf_fx;
++	void __user *buf = buf_fx;
+ 	unsigned int magic2;
  
--	if (topmost <= XFEATURE_SSE)
-+	if (!(xfeatures & ~XFEATURE_MASK_FPSSE))
- 		return sizeof(struct xregs_state);
+ 	if (__copy_from_user(fx_sw, &buf_fx->sw_reserved[0], sizeof(*fx_sw)))
+@@ -38,8 +39,8 @@ static inline bool check_xstate_in_sigframe(struct fxregs_state __user *buf_fx,
+ 	/* Check for the first magic field and other error scenarios. */
+ 	if (fx_sw->magic1 != FP_XSTATE_MAGIC1 ||
+ 	    fx_sw->xstate_size < min_xstate_size ||
+-	    fx_sw->xstate_size > x86_task_fpu(current)->fpstate->user_size ||
+-	    fx_sw->xstate_size > fx_sw->extended_size)
++	    fx_sw->xstate_size > fpstate->user_size ||
++	    fx_sw->extended_size < fx_sw->xstate_size + FP_XSTATE_MAGIC2_SIZE)
+ 		goto err_setfx;
  
-+	topmost = fls64(xfeatures) -  1;
+ 	/*
+@@ -48,11 +49,27 @@ static inline bool check_xstate_in_sigframe(struct fxregs_state __user *buf_fx,
+ 	 * fpstate layout with out copying the extended state information
+ 	 * in the memory layout.
+ 	 */
+-	if (__get_user(magic2, (__u32 __user *)(fpstate + fx_sw->xstate_size)))
++	if (__get_user(magic2, (__u32 __user *)(buf + fx_sw->xstate_size)))
+ 		return false;
++	if (unlikely(magic2 != FP_XSTATE_MAGIC2))
++		goto err_setfx;
+ 
+-	if (likely(magic2 == FP_XSTATE_MAGIC2))
+-		return true;
++	if (fx_sw->xstate_size != fpstate->user_size ||
++	    fx_sw->xfeatures != fpstate->user_xfeatures) {
++		unsigned int xsize;
++		u64 xfeatures;
 +
- 	if (compacted) {
- 		offset = xfeature_get_offset(xfeatures, topmost);
++		/* Calculate size of enabled features only. */
++		xfeatures = fx_sw->xfeatures & fpstate->user_xfeatures;
++
++		xsize = xstate_calculate_size(xfeatures, false);
++		if (fx_sw->xstate_size < xsize)
++			return false;
++
++		fx_sw->xstate_size = xsize;
++	}
++
++	return true;
+ err_setfx:
+ 	/*
+ 	 * The fallback to FX-only state is used to preserve backward
+@@ -277,7 +294,8 @@ static int __restore_fpregs_from_user(void __user *buf, u64 task_xfeatures,
+  * Attempt to restore the FPU registers directly from user memory.
+  * Pagefaults are handled and any errors returned are fatal.
+  */
+-static bool restore_fpregs_from_user(void __user *buf, u64 xrestore_mask, bool fx_only)
++static bool restore_fpregs_from_user(void __user *buf, u64 xrestore_mask,
++				     bool fx_only, size_t xstate_size)
+ {
+ 	struct fpu *fpu = x86_task_fpu(current);
+ 	int ret;
+@@ -311,7 +329,7 @@ static bool restore_fpregs_from_user(void __user *buf, u64 xrestore_mask, bool f
+ 		if (ret != X86_TRAP_PF)
+ 			return false;
+ 
+-		if (!fault_in_readable(buf, fpu->fpstate->user_size))
++		if (!fault_in_readable(buf, xstate_size))
+ 			goto retry;
+ 		return false;
+ 	}
+@@ -496,14 +514,16 @@ bool fpu__restore_sig(void __user *buf, int ia32_frame)
+ 
+ 		fx_only = !fx_sw_user.magic1;
+ 		xrestore_mask = fx_sw_user.xfeatures;
++		size = fx_sw_user.xstate_size;
  	} else {
+ 		xrestore_mask = XFEATURE_MASK_FPSSE;
++		size = fpu->fpstate->user_size;
+ 	}
+ 
+ 	if (ia32_fxstate)
+ 		success = restore_from_ia32_fxstate(buf, buf_fx, xrestore_mask, fx_only);
+ 	else
+-		success = restore_fpregs_from_user(buf_fx, xrestore_mask, fx_only);
++		success = restore_fpregs_from_user(buf_fx, xrestore_mask, fx_only, size);
+ out:
+ 	if (unlikely(!success))
+ 		fpu__clear_user_states(fpu);
+diff --git a/arch/x86/kernel/fpu/xstate.h b/arch/x86/kernel/fpu/xstate.h
+index 38a2862f09d3..c73cf2444de6 100644
+--- a/arch/x86/kernel/fpu/xstate.h
++++ b/arch/x86/kernel/fpu/xstate.h
+@@ -55,6 +55,8 @@ extern int copy_sigframe_from_user_to_xstate(struct task_struct *tsk, const void
+ extern void fpu__init_cpu_xstate(void);
+ extern void fpu__init_system_xstate(unsigned int legacy_size);
+ 
++extern unsigned int xstate_calculate_size(u64 xfeatures, bool compacted);
++
+ extern void __user *get_xsave_addr_user(struct xregs_state __user *xsave, int xfeature_nr);
+ 
+ static inline u64 xfeatures_mask_supervisor(void)
 -- 
 2.56.0.rc1.310.g51773c2048-goog
 
