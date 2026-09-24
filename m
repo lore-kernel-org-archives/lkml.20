@@ -1,34 +1,42 @@
-Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 80D873115AC
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 11:22:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.214.250.239
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790248923; cv=none; b=hkKChPgEDKsWwq9yeBbLUy7qfkTDHOPFo75EBmZBpjIk5d3N61Kezll4yltgDn/vhFZReFO7fjxSsPVd5UpOFOJj5d+dTIcY4qcMQMntyW4bCSDJhJ3Aec3eR5WxRwwcfNrBqdx15clgk1rkr2jXp/nabL2gf62OMUGbPZs+Q9I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790248923; c=relaxed/simple;
-	bh=4CsvsoUNXcas1CN5rdn1b4OuRZBIHjBhJ5TmPdEi3E4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mE1Ombh+HF0hmjFO4cMYRqVMaNc6nxpfjfSOBmMRkm2g4R+kef35hmeI+gqI7CovG0Q2XocVetnzA/2kNGpPKwY9J2XlHQibeUpbGeySLYqVKRfBWQEYGbq3PmDpiBFEe9aWd+cfQs1OGYgdNut272js6PEWwaTR08t746SWlAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org; spf=pass smtp.mailfrom=8bytes.org; arc=none smtp.client-ip=85.214.250.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
-Received: from 8bytes.org (p200300f6af404a00e4ccc4fdbbd66590.dip0.t-ipconnect.de [IPv6:2003:f6:af40:4a00:e4cc:c4fd:bbd6:6590])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.8bytes.org (Postfix) with ESMTPSA id 245AC1C7465;
-	Thu, 24 Sep 2026 13:22:00 +0200 (CEST)
-Date: Thu, 24 Sep 2026 13:21:58 +0200
-From: "Joerg Roedel (AMD)" <joro@8bytes.org>
-To: Rong Zhang <i@rong.moe>
-Cc: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>, 
-	Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Huang Rui <ray.huang@amd.com>, Ankit Soni <Ankit.Soni@amd.com>, 
-	Sairaj Kodilkar <sarunkod@amd.com>, iommu@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/3] iommu/amd: Do not request ACS when IOMMU is not
- going to be initialized
-Message-ID: <arUHxhPeIo0HJWEp@8bytes.org>
-References: <20260823-amd-iommu-fix-acs-v3-0-dd768e09d771@rong.moe>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827D6469840;
+	Thu, 24 Sep 2026 11:22:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790248922; cv=none; b=qfuFWCucg2wqWOB/ZTASVUx1me0AioMUEVcH6jLuzK7gk3OQRsJwZP+y4nmFrfd+NeG950Ddg6aNtFIFaOg6OdrhVuNWwsgCjomjQnQLAy4y6S2G46RshUPxlJmkwAkP8lgzQ4Iq3Yjn65IA92FtlBoStOQtAUxLYA1+wd0O1AA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790248922; c=relaxed/simple;
+	bh=ZeksF8DcEtkJLGDq/0YPdPOPXMc9LDK1acnPJqTveFI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ul6uIoKCFDBYYbut4fB2TIZPQZq+XxNY7DFdd+QBAbHLaCDd3hMUW5sX2Tz9PLOA5Am7ACSAs0/NBtKZ0tm54Asa2FIIofR1xdJewsvdHzhip94nUp8Q9yQzzum5t2rXyiFlAvqhBhVSzJ1KrxC9b1bHEAMEptinE92Hr2cN7Lg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F07yxIx9; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F07yxIx9"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BE4F71F00893;
+	Thu, 24 Sep 2026 11:22:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790248921;
+	bh=UHlYmsPI7MrsS8FFdJPkKJWSjssCp414l3jKo1ZEHTw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=F07yxIx9ySbB9rrE3Ln3HGmXUOpyLtR6wak2KhadFZcZDTJVpdCEZQS1wxh/H6Iis
+	 sPskXAVheNiDPau6G6i0yqsMYcKKlHmcXdcTccB3XY7bWZJGvhNjt1/LaeIaPhnJDl
+	 M7/5EA8oc+AedtXLtuUfAT32SxJKCWTywqYe8FdzjAi7/2ofcNdMlY55Pzkw+l1jOq
+	 mSLBIPDvye2qh04Avj7aTCNmP+hNMSJyHNDmC0w2IFpYatxDcNQ+yg7VeeEiB39xQt
+	 AO4YqIzJJvFoYLgMX12dNLPzOJTDk4yuGd+KTkTCZlGTQb91w/W6yB/JeNZIu4bU6z
+	 1kxWDFAb5qEIw==
+Date: Thu, 24 Sep 2026 14:21:57 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Gunnar Kudrjavets <gunnarku@amazon.com>
+Cc: graf@amazon.de, jgg@ziepe.ca, linux-integrity@vger.kernel.org,
+	linux-kernel@vger.kernel.org, nh-open-source@amazon.com,
+	peterhuewe@gmx.de, stable@vger.kernel.org, stefanb@linux.ibm.com,
+	surenkj@amazon.com
+Subject: Re: [PATCH] tpm: Disable TPM on null key name mismatch
+Message-ID: <arUH1YndAAUSiMu0@kernel.org>
+References: <aqykXxFybNMB_KSv@kernel.org>
+ <20260918183507.9418-1-gunnarku@amazon.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,12 +45,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260823-amd-iommu-fix-acs-v3-0-dd768e09d771@rong.moe>
+In-Reply-To: <20260918183507.9418-1-gunnarku@amazon.com>
 
-On Sun, Aug 23, 2026 at 06:20:14AM +0800, Rong Zhang wrote:
-> Rong Zhang (3):
->       iommu/amd: Do not request ACS when IOMMU is not going to be initialized
->       iommu/amd: Disallow implicit START_STATE => IVRS_DETECTED transition
->       iommu/amd: Remove ad-hoc checks that are never true
+On Fri, Sep 18, 2026 at 06:35:04PM +0000, Gunnar Kudrjavets wrote:
+> On Fri, Sep 18, 2026 at 05:39:27AM +0300, Jarkko Sakkinen wrote:
+> > On Fri, Sep 18, 2026 at 12:07:31AM +0000, Surendran Kanagaraj wrote:
+> > > The null key name check exists to protect against TPM reset attacks, so
+> > > a mismatch should stop the device from serving further requests.
+> [...]
+> > > Set rc to -ENODEV on the mismatch. The error path then disables the chip
+> > > and returns the correct code to the caller.
+> >
+> > Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+> 
+> We reviewed this internally as well.
+> 
+> Reviewed-by: Gunnar Kudrjavets <gunnarku@amazon.com>
+> 
 
-Applied, thanks.
+Thanks, I added your tag.
+
+Br, Jarkko
