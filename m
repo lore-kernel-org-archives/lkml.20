@@ -1,99 +1,147 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B53B61FC0;
-	Thu, 24 Sep 2026 09:16:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 097CB3E3D92;
+	Thu, 24 Sep 2026 09:16:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790241381; cv=none; b=g5gL4SjwQ4MdaEzg4Gy7hphFSeYOiKURj58+myrZogTux/KbN/aUXa5i0vPRSZiZIjNsgqHJVOWfwDWPQU44UKUIYwDez6vVSKB4eQ/d/eq+rgtYZgY5Kz8psPlgk4pjjB0i3rzAbJ3p6TsFYJgVaJR8kTcw75b1p3jCLafR1yY=
+	t=1790241398; cv=none; b=iOwhO/U5tVxtZp6c++vCxjj95EeAPOJQZKbM2fyI9dLh1smoWNb9GALdwVwYrtIR5/5TzzUHDlTEBvV64EsrSGmESSNjAxltATD2XkKQMe5RazdYun/qT+GBjuXZHem7p3zDMVxmYVAI9b64LJVafsPcVE0ez17rYqVGWhG+FN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790241381; c=relaxed/simple;
-	bh=mxDJacuipcRiB7b2yV1gYeeEIRh0C90gctrM/wdJWZ0=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=ukkLNL4Tv+cWOXGvAydH3r1nmD0ghz2/hvLq10z5ymJpqj+IwDbpokVyvtSnlXI29mf+kIel7ga5BJommnDw4qaBCxbHMptLq6MsP9a7TBBKEWOG8FWVkVpyb7zQgRw9gm6kA10QfNs9J+cY/88W9d11IlSVCnIpRBk3vqH4z30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=JVNLgL24; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790241398; c=relaxed/simple;
+	bh=3XEV9E61xtwvrZh57iYsPAsazLW3HpePKDaI9XA4MB0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PwwEVDvNoFqLwhBNpX4Kuh/CRlAJrhLZgPFxQGENgFGCTiYJmhhKWT2DvB0CpqQyk5mJRff66vHQjHTItWWLGcudk7+21ZfzE1s6NcBrV7N4Y69PTt0IaHfrY/m1WK6k2o+P2tITkmlIGg56GUkWTDXn44kik/eRS+f6DiQ+B3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bHIt26i2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="JVNLgL24"
-Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:b6d6:9a4a:6c9b:2322])
-	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 1976AC23;
-	Thu, 24 Sep 2026 11:14:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790241269;
-	bh=mxDJacuipcRiB7b2yV1gYeeEIRh0C90gctrM/wdJWZ0=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=JVNLgL24Phmm4TXO/Yx/6FgzOsmLX4iLoW5gt7CDyCPOceJEJjcwQG3wA/P13O6nJ
-	 B7e+GA0e0gnSOh0gigY97UqHkWaQv2WLO3s6bWfHUxT/3MdiWbIc2QL0/x7fNTxWoS
-	 YmgKiandddEjs4mD/BI47VsI/MEu7ivy4VSTATq4=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bHIt26i2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D3911F000FF;
+	Thu, 24 Sep 2026 09:16:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790241396;
+	bh=YY5WjYIG3f1uBQp6Ur0QabUoDMRyYOAvdBu7ScI7FM4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bHIt26i2rpFUu/t1xBUBlDEnXD7TMOtgmGguf0DBwAO/nDy+IX6JYlaDG85TQHMfW
+	 iJp0dQsVPG6t/RDJhyt8bkU2hFukJeCVcrd9BItaM8+HmvUFlON07i271HLS+BGGNf
+	 7DiDo0hEQNhzm3+Q63XHGmvZmwDfq9Bg09tTheAmx//43o5PYG666yUSwuf1MREhxi
+	 M9pXIeSNLb7+y1RlcW0Q2f7HjRec3jzPri2RJO/itywk9YzGiAgY+5qwqq/1fpCkHb
+	 VuHhVKrgs7WG+imjMEIM/KugPaT6+Fg+xKBzdfsjqGLWhkQQFjG+EAWLNMIbh/LFQK
+	 W4zqvLVAj4/zA==
+Date: Thu, 24 Sep 2026 10:16:31 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Suren Baghdasaryan <surenb@google.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/vma: predicate setting mmap_prepare VMA fields on new
+ vma alloc
+Message-ID: <arTmmxwNEBJx4683@gremlin>
+References: <20260923-fix-mmap-prepare-overwrite-v1-1-3b3f1bfcdf5e@kernel.org>
+ <arTlHBgXSP64U7ky@pedro-suse.tail5790ac.ts.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260919175851.GI1124359@killaraus.ideasonboard.com>
-References: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-0-dbe9236bfd22@ideasonboard.com> <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-8-dbe9236bfd22@ideasonboard.com> <20260919175851.GI1124359@killaraus.ideasonboard.com>
-Subject: Re: [PATCH v2 08/11] media: vsp1: Document X5H SoC ID
-From: Paul Elder <paul.elder@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>, Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-pm@vger.kernel.org, linux-media@vger.kernel.org
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Paul Elder <paul.elder+renesas@ideasonboard.com>
-Date: Thu, 24 Sep 2026 18:16:10 +0900
-Message-ID: <179024137074.2882041.17628313046085880585@neptunite.rasen.tech>
-User-Agent: alot/0.0.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arTlHBgXSP64U7ky@pedro-suse.tail5790ac.ts.net>
 
-Quoting Laurent Pinchart (2026-09-20 02:58:51)
-> On Sat, Sep 19, 2026 at 02:07:05AM +0900, Paul Elder wrote:
-> > From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> >=20
-> > The R-Car X5H uses 0x09 as the SoC ID in the version register. Document
-> > is with a macro, as done for other R-Car SoCs.
-> >=20
-> > Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.=
-com>
-> > Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
-> > ---
-> > Changes in v2:
-> > - Fix the version register number: s/0x04/0x09/
->=20
-> Thanks for the fix.
->=20
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
->=20
-> But I think we can squash this with patch 09/11.
->=20
-> > ---
-> >  drivers/media/platform/renesas/vsp1/vsp1_regs.h | 1 +
-> >  1 file changed, 1 insertion(+)
-> >=20
-> > diff --git a/drivers/media/platform/renesas/vsp1/vsp1_regs.h b/drivers/=
-media/platform/renesas/vsp1/vsp1_regs.h
-> > index 4c0315656e9f81a9656b58fb6f0233f8a22ac0e1..8abf39bac6c2f333696ebf5=
-5de87586d2df3bed0 100644
-> > --- a/drivers/media/platform/renesas/vsp1/vsp1_regs.h
-> > +++ b/drivers/media/platform/renesas/vsp1/vsp1_regs.h
-> > @@ -816,6 +816,7 @@
-> >  #define VI6_IP_VERSION_SOC_E3                (0x04 << 0)
-> >  #define VI6_IP_VERSION_SOC_V3U               (0x05 << 0)
-> >  #define VI6_IP_VERSION_SOC_V4H               (0x06 << 0)
-> > +#define VI6_IP_VERSION_SOC_X5H               (0x09 << 0)
+On Thu, Sep 24, 2026 at 09:57:03AM +0100, Pedro Falcato wrote:
+> On Wed, Sep 23, 2026 at 06:45:41PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > It only makes sense to manipulate VMA fields if a new VMA was allocated,
+> > rather than merged.
+> >
+> > VMA merging does not compare vm_ops or vm_private_data, so a merged VMA
+> > keeps its own, which is also what the legacy f_op->mmap path does since it
+> > never touches an existing VMA.
+> >
+> > Currently, these fields will get overwritten by whatever state is
+> > established in the mmap_prepare hook, and if the VMA was merged,
+> > vm_ops->mapped will not have been called, so this could destructively clear
+> > existing state without replacing it with anything valid.
+> >
+> > There is an implicit requirement that vm_private_data and vm_ops are
+> > fungible across VMAs which means that losing the 'new' state is
+> > fine.
+>
+> Hmm, can you explain how this is safe? I was wondering if _any_ kind of
+> mismatch should be a WARN_ON (sounds like something odd is happening if
+> they don't match). But if the new state is practically discardable, that
+> doesn't make sense.
 
-Do we need to add an X5H1 (0x09) and X5H2 (0x07)? Or whatever 0x07 is becau=
-se
-that's what the bsp is referencing for X5H. I've personally observed 0x09 f=
-or X5H1.
+I mean this is asking me to defend how the kernel has worked forever :) don't
+make me responsible for that...
 
+For the VAST majority of cases, vm_ops is static. So they WILL be identical.
 
-Paul
+shmem does something really stupid with that which it shouldn't do (vary the
+vm_ops on whether the file is unlinked or not), and maybe that needs a follow
+up.
 
-> >  /* RZ/G2L SoCs have no version register, So use 0x80 for SoC Identific=
-ation */
-> >  #define VI6_IP_VERSION_SOC_RZG2L     (0x80 << 0)
-> > =20
->=20
-> --=20
-> Regards,
->=20
-> Laurent Pinchart
+But anyway, one thing that saves us from a lot of this crap is that the majority
+of things that store meaningful state there are non-mergeable,
+i.e. VMA_PFNMAP_BIT, et al.
+
+Of those that remain, the state is very often simply forwarding file state,
+like:
+
+	vma->vm_private_data = file->private_data;
+
+At which point you already have equality.
+
+Even if shared file state things might be tied to VMAs, but that should always
+come out in the wash.
+
+If you, for instance, stored the number of mappings there as a reference count (I
+think fairly typical) then you automatically get the correct number because
+vm_ops->close() will be called on a fully merged VMA (but not a partially merged
+one which is correct).
+
+Typical usage for legacy hook is mmap -> set refcount 1, open refcount++
+(e.g. on split), close refcount--.
+
+The mmap_prepare equivalent for that is vm_ops->mapped set refcount 1 (you
+mustn't set state like that in mmap_prepare), and open/close as usual.
+
+Another thing here is the idea that vm_private_data is ephemeral state _tied to
+the VMA_.
+
+It is already the case that that state will not be updated on expand/shrink of a
+VMA, and so it is the case that if the VMA is unmapped for any reason the state
+disappears.
+
+So this ephemeral quality extends, by convention, to not impacting merge.
+
+Anyway, I sent that 40 patch series (sorry for the size) in large part to
+_strengthen_ assumptions about mmap_prepare (and, via legacy, mmap) hook
+behaviour.
+
+In general part of the mmap_prepare project is to allow us to get rid of
+vagueries of the past and be able to make strong assumptions about behaviour.
+
+So in the same vein, I'll do an audit of the codebase to make sure nothing
+relies on this.
+
+It might be interesting as well to audit what this data is actually set
+to.
+
+Maybe it makes sense to enforce that vm_private_data is always set to file
+private dataa?
+
+But that then implies that the VMA private data is unnecessary.
+
+I do think requiring equivalent vm_ops might be a good thing to change, and
+then to at least document the fact that vm_private_data is ephemeral like
+this on merge.
+
+Let me investigate how they're used and I can figure out how to improve
+things.
+
+>
+> --
+> Pedro
+
+--
+Cheers, Lorenzo
