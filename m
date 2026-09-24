@@ -1,219 +1,235 @@
-Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
+Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A52D947F2C8;
-	Thu, 24 Sep 2026 10:23:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B294A47F3C8;
+	Thu, 24 Sep 2026 10:23:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790245387; cv=none; b=QoRYSgY4kxJEZ14mmVKlNBYslLTEVHTl3yg+SlbZj8gX0fFLivznz/55+HmUTwlnOowQQWyP9WrGAvZyRg9f0f6jvLl/B1hu3cwwi4Gw92jm+OoSs0RWG8/FRnvUYIK/dSUiSz1Lo279tiCbr+fJ+2BQvfkYH+LOVaBr5t1+GvA=
+	t=1790245391; cv=none; b=CV5uDKGTf21FK0Wo2lgEIs0oOBKhC3eCOryMOIhvOCEqZE8Bist+ew2LGkZjvmmT8Nm+CvBW1cnQa1+UOS76vdk6ArqVkT3EUnBCUNvsbujOvZMMhCdHH52xd3gb88MERIqAWpTjops2FaLZ+lUw5GEpuP/aZmKsAnGA+vYUpNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790245387; c=relaxed/simple;
-	bh=6nrbAOpL/l5ENVLYA13z9MssiGfcpOfgVt6kAYH6ehM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LgZoRNQqpxWXDNkjMMXwxha3xPLqtXgNAim5OjTZ12SvWIorxy3FxzT/TlW8xX1Hd167VG0RTiGLC1fbfisGpy4aoQm2tyCy4Uhs9KY3/4WwhDiu1tAlkAmAK04ZhCxvJxYMgUf9N/Oeo2AFThgkJ6qxEvlT1yQdF5nki5jlGPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=KktBEdoU; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=I8xdiyIs; arc=none smtp.client-ip=202.12.124.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
+	s=arc-20240116; t=1790245391; c=relaxed/simple;
+	bh=kPZ7kSV7h3PbnyJjDNNBC436auNtiwgx9wgf/yL9eBo=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MU/5PQyA+mUf80KUpmf3Ses/QJqyKteEFmaBcRODcwbEWgD1pKJYavTfOSS0D3Dp/lRFgeIP/QS52CkM7dAERIRzLku7B4dzpIHfnWBLfPWjC1NXMkOxLlO3cxfBvDp3Pn1Jr9Tf3HHzJjXSp+06g+9Qg+qFR6mX0zfFzTpvMV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=bdk57RtK; arc=none smtp.client-ip=113.46.200.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="KktBEdoU";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="I8xdiyIs"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 382717A00A3;
-	Thu, 24 Sep 2026 06:23:04 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Thu, 24 Sep 2026 06:23:04 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1790245384; x=
-	1790331784; bh=0DpoiKQK/pAK6+VRgnar1lFxM3UetYvMfvKdfg6sGSU=; b=K
-	ktBEdoU5gsFnD9KybH5juVltRRIhaJKOM4BE7uUIdllRfXZ9DZUK6DqlhY79sF1U
-	5F0dhr2Stbm5/l6bHj2kKL7Nz0OHDOakqphB+MLts5Lu2cEKhFEP+PqUQlBtAaKL
-	ugjmNhlfe7riT3FOBHhAL+6fyhEhImgqCmLMJqK8uH+icQnM8pYzck02uXMyIBZD
-	yU6If62/RLT9nNpzySsfyeBGDUTjVuZDbdn3/pYsFVh19+wUa74q7L7uMFLBhgEs
-	gJw8wFwEN4ag/Nf+8ZVWnzSJ/bA2THdqE8EMeEl35xPYBLFDGaZnVBdrmlU4N0R4
-	zQf37PAka75wJ9xfgRBOQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm1; t=1790245384; x=1790331784; bh=0
-	DpoiKQK/pAK6+VRgnar1lFxM3UetYvMfvKdfg6sGSU=; b=I8xdiyIsE026WTQN4
-	pEfp2huSywhP/VeSkH4+5ookcPh9hOSIzvT22dS7j1HbSgFHmGnL+DxxZ92BDDQ8
-	eF4CENe62HBunk0w1lhXj23b/ozeNRLO1AValH+OkflaiTEgp8cf+flUDbW4e+Bc
-	g7pUTN4oEgg8LHMgetOnmpd2iySkzV0VFUeOgdbwHr0FztLbGxeKqA3W+G44i0y4
-	/2C3TNj3VwUsFB4Za+2AhKjtinOr2Bk7FFFcb2DlLEm67oXM8F9k6q+XoRbZ1M3D
-	XsGs4I/4dYDbdRMi6NmIQYPi18MzqGSgwVLgCD3NKJw33iM85GQSMZiSmREL+umf
-	xSixw==
-X-ME-Sender: <xms:B_q0alprBRrZruDSS7U-ZBIIVr62GWQe34_lsauIxJJ35FHQO2PTUw>
-    <xme:B_q0aoaaLDdtqZb89gYY4Z-kh6wNoHLs7a9VHcWcfDs8DH46kr5VotWM3JWyNMwDv
-    UYlcpIgYoHDPuxESzSBJohozGa3vFMF7QcWDP9T9vfljp5Sk2zTwAA>
-X-ME-Received: <xmr:B_q0arFeH2Y-0NAsERy9kMTcx5Bi0wnWo-a5RVOt9ksZ0PvjxwMm6MrTN0UOoiJ0cQFx_p5j1Q>
-X-ME-Proxy-Cause: dmFkZTFedTl3F1DIrTHCICe4Fo+6yuH2iIryXb4vaD1hJk5uz+D3fdxBaPEGleMmtjQ9jj
-    /AH1EkwAh8wKmQiLT/9bSvDiQhW+TZmRyikvMLrEzAS6A5ogRqUhM4yxUxSgAmF4L6zbNq
-    JU1CrDOUHEJdjtSdpDsxEskFn/aWSY8EhEM69IoGnovQNyACerECRpwt+2pE+OuDo6j5C2
-    BOOC64LiXafVGJCK8SqFHoQAP2FF+TvLHYjrI91po4XURVMn1pQeIKHxydNlGe/KKK+FAO
-    2AUxd7OWs8ZDGv/h0aNNMjxPVGQhrAw5D/31vFjHI5S7swl3HoagxPlYCWUyU9dgrzlHFV
-    9ued//M7bvfNrjaALGaNXU06mxZi2UVe0kaRvozT0as1aZOpp9EU8g9PKO6raYXt8sp0g+
-    T0b8yZtwROIYhaU2kCcRXrEGtPCrg9SK6NH0hjcZxU7n3SzsPlubWw+UZlSoaU40myTd3R
-    HPzUd2zt/Q7bohcpmKKOhNGyGQP0pw3tVyDtlx7y0zKyeMqenYPrJyXkvKK2LFlAxI0K5W
-    DJK6B7aQwBizD50zHV1Z8RHuIVdIb4YO4EOUBIt/HlpC7PDhl1jbkEyr5hTe1pbZlGPBGp
-    N5c4Ktr0hrHSIRL4fkh710iSkOvTtY2cpi5nssX6Mhx00NE5u+avreaEBc5w
-X-ME-Proxy: <xmx:B_q0aoztOLntchIIP8UiIyxd7L2dMcl72afwZNX17XfJ1iT9PQAXxw>
-    <xmx:B_q0akAvi0IM_Os0cEc3oyuhgI3xA8tLvaQzmYOE80mDou6V_xVieA>
-    <xmx:B_q0avUNyscvgScdMZ18LuhRFgl_kP3vgyOwEWUXdC-HKgO7fHlAQw>
-    <xmx:B_q0aujJQu-tACx60G-UT8PgvUxmK7geTtqY3e-WR2bbTVi0UiCzww>
-    <xmx:CPq0as4uoDYYSWw7WsmYlIo5edFF2Gw3vCrhc3EVY4InOp35k6c8eCbG>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 24 Sep 2026 06:22:54 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: tomeu@tomeuvizoso.net,
-	heiko@sntech.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	ulfh@kernel.org,
-	p.zabel@pengutronix.de,
-	ogabbay@kernel.org,
-	zhangqing@rock-chips.com
-Cc: royalnet026@gmail.com,
-	abel.vesa@oss.qualcomm.com,
-	sebastian.reichel@collabora.com,
-	sidong.yang@furiosa.ai,
-	u.kleine-koenig@baylibre.com,
-	chaoyi.chen@rock-chips.com,
-	diederik@cknow-tech.com,
-	alchark@flipper.net,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	iommu@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jiaxing Hu <gahing@gahingwoo.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v14 06/15] dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
-Date: Thu, 24 Sep 2026 22:21:26 +1200
-Message-ID: <20260924102135.92217-7-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260924102135.92217-1-gahing@gahingwoo.com>
-References: <20260924102135.92217-1-gahing@gahingwoo.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="bdk57RtK"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=MZ1uULpIvXaxZi3vnTnjSUlgREhcBScDIx/J/VNziJE=;
+	b=bdk57RtKGpe9cc8Vfy/o2gf5H3AWR8a+RFsoHm5d5onmfgOclSgOsrhdppbEitCUN6xgu8ge6
+	DQeuQ4gFZ4HrCpMrIuI3gn0gBtlCeW2M/DmCuPVoGCU1taKQuI8DSUpd5WFkfC62yoSSNVFUPzW
+	Pj3wUTGhX9E3HOZpaTHWrBo=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hr8jy2yXtznTWP;
+	Thu, 24 Sep 2026 18:11:02 +0800 (CST)
+Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
+	by mail.maildlp.com (Postfix) with ESMTPS id 375CC40561;
+	Thu, 24 Sep 2026 18:23:06 +0800 (CST)
+Received: from octopus.huawei.com (10.67.174.191) by
+ whupemk100010.china.huawei.com (7.152.184.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 24 Sep 2026 18:23:01 +0800
+From: Cai Xinchen <caixinchen1@huawei.com>
+To: <mic@digikod.net>, <gnoack@google.com>, <paul@paul-moore.com>,
+	<jmorris@namei.org>, <serge@hallyn.com>, <corbet@lwn.net>,
+	<skhan@linuxfoundation.org>
+CC: <rdunlap@infradead.org>, <gregkh@linuxfoundation.org>,
+	<rafael@kernel.org>, <dakr@kernel.org>, <dlemoal@kernel.org>, <hch@lst.de>,
+	<axboe@kernel.dk>, <viro@zeniv.linux.org.uk>, <brauner@kernel.org>,
+	<jack@suse.cz>, <dhowells@redhat.com>, <code@tyhicks.com>,
+	<linkinjeon@kernel.org>, <sj1557.seo@samsung.com>, <yuezhang.mo@sony.com>,
+	<hirofumi@mail.parknet.co.jp>, <cel@kernel.org>, <jlayton@kernel.org>,
+	<neil@brown.name>, <okorniev@redhat.com>, <Dai.Ngo@oracle.com>,
+	<tom@talpey.com>, <miklos@szeredi.hu>, <amir73il@gmail.com>,
+	<senozhatsky@chromium.org>, <chenxiaosong@chenxiaosong.com>,
+	<zohar@linux.ibm.com>, <roberto.sassu@huawei.com>,
+	<dmitry.kasatkin@gmail.com>, <eric.snowberg@oracle.com>,
+	<stephen.smalley.work@gmail.com>, <omosnacek@gmail.com>,
+	<casey@schaufler-ca.com>, <nanx95726@gmail.com>, <djwong@kernel.org>,
+	<daniel@iogearbox.net>, <linux-security-module@vger.kernel.org>,
+	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<driver-core@lists.linux.dev>, <linux-block@vger.kernel.org>,
+	<linux-fsdevel@vger.kernel.org>, <netfs@lists.linux.dev>,
+	<ecryptfs@vger.kernel.org>, <exfat@lists.linux.dev>,
+	<linux-nfs@vger.kernel.org>, <linux-unionfs@vger.kernel.org>,
+	<linux-cifs@vger.kernel.org>, <linux-integrity@vger.kernel.org>,
+	<selinux@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+	<xiujianfeng@huawei.com>, <caixinchen1@huawei.com>, <lujialin4@huawei.com>
+Subject: [PATCH RFC -next 09/12] landlock: Implement metadata access hooks
+Date: Thu, 24 Sep 2026 18:48:28 +0800
+Message-ID: <20260924104831.1081137-10-caixinchen1@huawei.com>
+X-Mailer: git-send-email 2.18.0.huawei.25
+In-Reply-To: <20260924104831.1081137-1-caixinchen1@huawei.com>
+References: <20260924104831.1081137-1-caixinchen1@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ whupemk100010.china.huawei.com (7.152.184.41)
 
-The RK3576 NPU has two cores of the RKNN block this binding describes, with
-two extra CBUF clocks, two power domains per core, one reset instead of
-two, and no SRAM supply. Widen the properties and pin each SoC to its own
-shape in allOf; sram-supply stays required for RK3588.
+Implement the LANDLOCK_ACCESS_FS_READ_METADATA and
+LANDLOCK_ACCESS_FS_WRITE_METADATA access rights by hooking the
+inode_getattr, inode_setattr, inode_setxattr, inode_getxattr,
+inode_listxattr, inode_removexattr, inode_set_acl, inode_get_acl and
+inode_remove_acl LSM hooks, which now receive a struct path thanks to
+the preceding VFS and LSM refactoring.
 
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+The following system calls are now controlled:
+
+- stat(2), fstat(2), lstat(2), newfstatat(2), getxattr(2) and
+  friends, listxattr(2) and friends, and POSIX ACL reads via
+  inode_getattr, inode_getxattr, inode_listxattr and inode_get_acl
+  (READ_METADATA)
+- chmod(2), fchmod(2), fchmodat(2), fchmodat2(2), chown(2), fchown(2),
+  lchown(2), fchownat(2), chgrp(2), utimensat(2), futimens(2),
+  utime(2), setxattr(2) and friends, removexattr(2) and friends, and
+  POSIX ACL set and remove via inode_setattr, inode_setxattr,
+  inode_removexattr, inode_set_acl and inode_remove_acl
+  (WRITE_METADATA)
+
+Both new rights are added to ACCESS_FILE as they apply to both files
+and directories.
+
+hook_inode_setattr only restricts explicit metadata changes, i.e. it
+checks WRITE_METADATA only when the ia_valid mask contains
+ATTR_MODE, ATTR_UID, ATTR_GID, ATTR_TIMES_SET or ATTR_TOUCH.
+Metadata changes that the kernel performs implicitly, such as
+timestamp updates on write(2) or size changes on truncate(2), are
+therefore not restricted, and neither are chmod(2)/chown(2) calls
+that do not change any attribute (e.g. chown(2) with -1/-1, which is
+a no-op that never reaches the hook), matching the behavior of the
+SELinux inode_setattr hook.
+
+Kernel-internal accesses performed with override_creds() (e.g.
+overlayfs and cachefiles) are not affected because Landlock domains
+are attached to credentials, and kernel threads without a Landlock
+domain (e.g. nfsd and ksmbd) are not restricted either.
+
+Assisted-by: opencode: glm-5.3
+Signed-off-by: Cai Xinchen <caixinchen1@huawei.com>
 ---
- .../npu/rockchip,rk3588-rknn-core.yaml        | 47 +++++++++++++++++--
- 1 file changed, 44 insertions(+), 3 deletions(-)
+ security/landlock/fs.c | 86 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 86 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
-index caca2a490..3b611b64c 100644
---- a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
-+++ b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
-@@ -21,6 +21,7 @@ properties:
+diff --git a/security/landlock/fs.c b/security/landlock/fs.c
+index cab43892ec2f..e58b2aa0da65 100644
+--- a/security/landlock/fs.c
++++ b/security/landlock/fs.c
+@@ -318,6 +318,8 @@ static struct landlock_object *get_inode_object(struct inode *const inode)
+ 	LANDLOCK_ACCESS_FS_EXECUTE | \
+ 	LANDLOCK_ACCESS_FS_WRITE_FILE | \
+ 	LANDLOCK_ACCESS_FS_READ_FILE | \
++	LANDLOCK_ACCESS_FS_READ_METADATA | \
++	LANDLOCK_ACCESS_FS_WRITE_METADATA | \
+ 	LANDLOCK_ACCESS_FS_TRUNCATE | \
+ 	LANDLOCK_ACCESS_FS_IOCTL_DEV | \
+ 	LANDLOCK_ACCESS_FS_RESOLVE_UNIX)
+@@ -1676,6 +1678,81 @@ static int hook_path_truncate(const struct path *const path)
+ 	return current_check_access_path(path, LANDLOCK_ACCESS_FS_TRUNCATE);
+ }
  
-   compatible:
-     enum:
-+      - rockchip,rk3576-rknn-core
-       - rockchip,rk3588-rknn-core
- 
-   reg:
-@@ -33,14 +34,18 @@ properties:
-       - const: core # Main NPU core processing unit registers
- 
-   clocks:
--    maxItems: 4
-+    minItems: 4
-+    maxItems: 6
- 
-   clock-names:
-+    minItems: 4
-     items:
-       - const: aclk
-       - const: hclk
-       - const: npu
-       - const: pclk
-+      - const: aclk_cbuf
-+      - const: hclk_cbuf
- 
-   interrupts:
-     maxItems: 1
-@@ -51,12 +56,15 @@ properties:
-   npu-supply: true
- 
-   power-domains:
--    maxItems: 1
-+    minItems: 1
-+    maxItems: 2
- 
-   resets:
-+    minItems: 1
-     maxItems: 2
- 
-   reset-names:
-+    minItems: 1
-     items:
-       - const: srst_a
-       - const: srst_h
-@@ -75,7 +83,40 @@ required:
-   - resets
-   - reset-names
-   - npu-supply
--  - sram-supply
++static int hook_inode_getattr(const struct path *const path)
++{
++	return current_check_access_path(path,
++					LANDLOCK_ACCESS_FS_READ_METADATA);
++}
 +
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: rockchip,rk3588-rknn-core
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 4
-+        clock-names:
-+          maxItems: 4
-+        power-domains:
-+          maxItems: 1
-+        resets:
-+          minItems: 2
-+        reset-names:
-+          minItems: 2
-+      required:
-+        - sram-supply
-+    else:
-+      properties:
-+        clocks:
-+          minItems: 6
-+        clock-names:
-+          minItems: 6
-+        power-domains:
-+          minItems: 2
-+        resets:
-+          maxItems: 1
-+        reset-names:
-+          maxItems: 1
-+        sram-supply: false
++static int hook_inode_setattr(const struct path *const path,
++			      struct iattr *const attr)
++{
++	/*
++	 * Explicit metadata changes (i.e. mode, ownership, and timestamps
++	 * set with utimes() and friends) require
++	 * LANDLOCK_ACCESS_FS_WRITE_METADATA.  Implicit timestamp updates
++	 * (e.g. ATTR_CTIME set for a write) and size changes (handled by
++	 * the truncate hooks) are not restricted.
++	 */
++	if (!(attr->ia_valid & (ATTR_MODE | ATTR_UID | ATTR_GID |
++				ATTR_TIMES_SET | ATTR_TOUCH)))
++		return 0;
++
++	return current_check_access_path(path,
++					LANDLOCK_ACCESS_FS_WRITE_METADATA);
++}
++
++static int hook_inode_setxattr(const struct path *const path,
++			       const char *const name,
++			       const void *const value, const size_t size,
++			       const int flags)
++{
++	return current_check_access_path(path,
++					LANDLOCK_ACCESS_FS_WRITE_METADATA);
++}
++
++static int hook_inode_getxattr(const struct path *const path,
++			       const char *const name)
++{
++	return current_check_access_path(path,
++					LANDLOCK_ACCESS_FS_READ_METADATA);
++}
++
++static int hook_inode_listxattr(const struct path *const path)
++{
++	return current_check_access_path(path,
++					LANDLOCK_ACCESS_FS_READ_METADATA);
++}
++
++static int hook_inode_removexattr(const struct path *const path,
++				  const char *const name)
++{
++	return current_check_access_path(path,
++					LANDLOCK_ACCESS_FS_WRITE_METADATA);
++}
++
++static int hook_inode_set_acl(const struct path *const path,
++			      const char *const acl_name,
++			      struct posix_acl *const kacl)
++{
++	return current_check_access_path(path,
++					LANDLOCK_ACCESS_FS_WRITE_METADATA);
++}
++
++static int hook_inode_get_acl(const struct path *const path,
++			      const char *const acl_name)
++{
++	return current_check_access_path(path,
++					LANDLOCK_ACCESS_FS_READ_METADATA);
++}
++
++static int hook_inode_remove_acl(const struct path *const path,
++				 const char *const acl_name)
++{
++	return current_check_access_path(path,
++					LANDLOCK_ACCESS_FS_WRITE_METADATA);
++}
++
+ /**
+  * unmask_scoped_access - Remove access right bits in @masks in all layers
+  *                        where @client and @server have the same domain
+@@ -2100,6 +2177,15 @@ static struct security_hook_list landlock_hooks[] __ro_after_init = {
+ 	LSM_HOOK_INIT(path_unlink, hook_path_unlink),
+ 	LSM_HOOK_INIT(path_rmdir, hook_path_rmdir),
+ 	LSM_HOOK_INIT(path_truncate, hook_path_truncate),
++	LSM_HOOK_INIT(inode_getattr, hook_inode_getattr),
++	LSM_HOOK_INIT(inode_setattr, hook_inode_setattr),
++	LSM_HOOK_INIT(inode_setxattr, hook_inode_setxattr),
++	LSM_HOOK_INIT(inode_getxattr, hook_inode_getxattr),
++	LSM_HOOK_INIT(inode_listxattr, hook_inode_listxattr),
++	LSM_HOOK_INIT(inode_removexattr, hook_inode_removexattr),
++	LSM_HOOK_INIT(inode_set_acl, hook_inode_set_acl),
++	LSM_HOOK_INIT(inode_get_acl, hook_inode_get_acl),
++	LSM_HOOK_INIT(inode_remove_acl, hook_inode_remove_acl),
+ 	LSM_HOOK_INIT(unix_find, hook_unix_find),
  
- additionalProperties: false
- 
+ 	LSM_HOOK_INIT(file_alloc_security, hook_file_alloc_security),
 -- 
-2.43.0
+2.18.0.huawei.25
 
