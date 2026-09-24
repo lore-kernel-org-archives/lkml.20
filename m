@@ -1,42 +1,41 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BDBE35677C;
-	Thu, 24 Sep 2026 09:31:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8888E3B14D0
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 09:31:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790242272; cv=none; b=BFnSBWsJEsKDgzwBHrKX+eRBdxVVLawDO2L9kyr9r7o7wAwkszx1XckaGcEJt/TfMH23Ceza5T7nFC99k8/46TtZwaciiuNrYXbqHBrg2MfpovWJhdxNf3jEnw9BuUpsX8zzU6n6wk7rij1JvRHApPtVmEXFGz/HwJ13zFjaWKs=
+	t=1790242277; cv=none; b=AiwlOhaoGBM17/QIAzzRuxIapWKiJKPXYJU9bWJDnDNJf+zHXEc016dU8FruBX07UVxzD3NfEZhjYW9P8thVD7qtINE8BhWQBDbOW9SUEpQJtRD7hZ+VCy2P/OEQBlyYen5P4SHshz5S/CPYvaEDxAZCYrxSrWwDoj0Kyku/4v4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790242272; c=relaxed/simple;
-	bh=n3hyLzFoSxZdeb4xNzn2eva8ul3VuNt/ZX3nznZtTzE=;
+	s=arc-20240116; t=1790242277; c=relaxed/simple;
+	bh=nA/rC2OvJeW0AaqvGfx1Brf8SxDvZIsuz7E/iVHMkZM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pDPVQ0H10jOhiH2+WeIHH5AM9swNI+AKrbDukXhWivjQkhqK90i+uUBslHT68gjhiYBsXi88B6hNqpae2uYqzgVnv5T1x2U2nQYGQOkRhD0THfHyL8GHdHil3kBkusniKlIysl/RsMXgmZP3wyJOHT+tsQ356ltVpOf+ZC3pJOU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=cbjx7603; arc=none smtp.client-ip=185.246.84.56
+	 In-Reply-To:To:Cc; b=lonG376AQ6XlfAgZeSygeeF4ZoxA7n177fTrGy/sV1xMIc3weO4ExkuejPMUDxtLer7klFKlyD+Izkf3TMuJUVM6BLj0MSsiGn3XkZaGJ2ckkmu+A1F8vlIRxVaOGiYglysa49ocK/iddppBE2xGBlo7XtCbwvQ9RSl06tOgEYA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=KcT7W6kL; arc=none smtp.client-ip=185.171.202.116
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="cbjx7603"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="KcT7W6kL"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 9AF601A0FFD;
-	Thu, 24 Sep 2026 09:31:08 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id D713CC211E2;
+	Thu, 24 Sep 2026 09:32:00 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6EA6D5FB45;
-	Thu, 24 Sep 2026 09:31:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CB50E103294DF;
-	Thu, 24 Sep 2026 11:31:04 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 832F35FB45;
+	Thu, 24 Sep 2026 09:31:13 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D0EA4103294C2;
+	Thu, 24 Sep 2026 11:31:09 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790242266; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1790242271; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=/Y0MZScFajZWrkKqKqZGddXZHSBkTqkV4VwI6jO7es8=;
-	b=cbjx76032+yxA84PRpvb/hbtbgfVA165PZVk6QEPTiYwXar/gI+6fE6cqGL4TlI7BDymi2
-	OePdTECG7g7rb3EkZ32aAxAypmyTKSsyaKD8uPyOagKkR+GyYu0VivI/0iNsDRf7tqSdGA
-	g9BFcsG3e/OouaAD7txW5LRJULvYTgvWuZbNd213Y2T4zXRK4cgNmp0q3ENIvLLM2C7NXe
-	G+yypfxKNhMBljt7v4h755j8oMNudokd6nnGKzyzFgQ76hYzlwyktrJZu5xI3017gMNBrY
-	p2zrhlCaS5WnWXVvFDXZqYa6sSBFdiB7sxjxhV2LuHEQmzC39mw8O3KJPlExDw==
+	bh=xLAWXoAqE+60g1cvgidm3NIwGVVBCvvmj/eG9JwqIno=;
+	b=KcT7W6kLL70eJuB76f+jLJ9U+aPl4Z0E+mE3bLRn4ts6yPymaa9yAyAbizruUp+nl77J27
+	oQ099gprTWyMjfpMtvtEw++b9ZmcINkBIcTCNXwKVmWK1Y8d9Yj5kT14Sd5YCgIi4qwdgX
+	jkyDjccdS85O6T5B6WdsZMkhm5nk/Fs5a5LxDdldHJscxzEKC8g0ljGq7eAmEfidTlMotQ
+	jwvcmNot4dmWv/hWJ+snLpJnSkApphs4m/LVTLwQmEdnpC1v2as4MWgy51co81rlCOS5Zi
+	6BH4k8AoZGLeKcPnOfoEBmsxcKn5wA8hPf89dFeQIRG+rVvzMNDHPzr+iT+Uow==
 From: Paul Louvel <paul.louvel@bootlin.com>
-Date: Thu, 24 Sep 2026 11:30:25 +0200
-Subject: [PATCH 1/3] dt-bindings: edac: cdns,ddr-edac: add Cadence DDR EDAC
- binding
+Date: Thu, 24 Sep 2026 11:30:27 +0200
+Subject: [PATCH 3/3] ARM: dts: renesas: r9a06g032: add EDAC node
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,7 +44,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-paul-v7-3-rc1-edac-v1-1-70be37c41a18@bootlin.com>
+Message-Id: <20260924-paul-v7-3-rc1-edac-v1-3-70be37c41a18@bootlin.com>
 References: <20260924-paul-v7-3-rc1-edac-v1-0-70be37c41a18@bootlin.com>
 In-Reply-To: <20260924-paul-v7-3-rc1-edac-v1-0-70be37c41a18@bootlin.com>
 To: Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>, 
@@ -59,108 +58,43 @@ Cc: linux-kernel@vger.kernel.org, linux-edac@vger.kernel.org,
  Herve Codina <herve.codina@bootlin.com>, 
  "Paul Louvel (Schneider Electric)" <paul.louvel@bootlin.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790242261; l=2780;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790242261; l=1034;
  i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
- bh=n3hyLzFoSxZdeb4xNzn2eva8ul3VuNt/ZX3nznZtTzE=;
- b=2YFbjH+z6vyy6L5CjY4RYC5+B6C7fNkReith/uoamBCdeWV0C5sxIfoBHhlUOfcBgt8u4fcPS
- awHG/JFq2jxCzhVn/0cL8oDiA82sOe7jNTw9mrmyvMGf23HY1osY1jj
+ bh=nA/rC2OvJeW0AaqvGfx1Brf8SxDvZIsuz7E/iVHMkZM=;
+ b=/awqOfeqO5xSucxLXU+EiYTn+ORlLqiat2BlCwyf4j7SGQNBnKdLkgn5zyl8WR7RW+yf8IrSm
+ CXvPq7u0RI+CqwNqbXZ7v4zlTNXFCIn0HLaiOdSfMSRMogUBHeXHasY
 X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
  pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
 X-Last-TLS-Session-Version: TLSv1.3
 
-Add the Cadence EDAC DT binding.
+Add EDAC node to the SoC base device tree file.
 
 Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
 ---
- .../devicetree/bindings/edac/cdns,ddr-edac.yaml    | 62 ++++++++++++++++++++++
- MAINTAINERS                                        |  6 +++
- 2 files changed, 68 insertions(+)
+ arch/arm/boot/dts/renesas/r9a06g032.dtsi | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/edac/cdns,ddr-edac.yaml b/Documentation/devicetree/bindings/edac/cdns,ddr-edac.yaml
-new file mode 100644
-index 000000000000..e0deeb3dfb81
---- /dev/null
-+++ b/Documentation/devicetree/bindings/edac/cdns,ddr-edac.yaml
-@@ -0,0 +1,62 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/edac/cdns,ddr-edac.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Cadence DDR EDAC
-+
-+maintainers:
-+  - Paul Louvel <paul.louvel@bootlin.com>
-+
-+description: >
-+  The Cadence DDR supports DDR2 and DDR3 memory with or without ECC.
-+  The bootloader must configure ECC mode in the memory controller.
-+
-+  The memory controller supports SECDED (single bit error correction, double bit
-+  error detection). ECC scrubbing has to be done via software.
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: renesas,r9a06g032-ddr-edac # RZ/N1D
-+      - const: renesas,rzn1-ddr-edac      # RZ/N1
-+      - const: cdns,ddr-edac
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: DDR controller clock
-+      - description: APB internal bus clock
-+
-+  clock-names:
-+    items:
-+      - const: ddrc
-+      - const: pclk
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/r9a06g032-sysctrl.h>
-+
-+    edac: memory-controller@4000d000 {
-+      compatible = "renesas,r9a06g032-ddr-edac", "renesas,rzn1-ddr-edac", "cdns,ddr-edac";
-+      reg = <0x4000d000 0x1000>;
-+      interrupts = <GIC_SPI 76 IRQ_TYPE_LEVEL_HIGH>;
-+      clocks = <&sysctrl R9A06G032_CLK_DDRC>, <&sysctrl R9A06G032_HCLK_DDRC>;
-+      clock-names = "ddrc", "pclk";
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3a19da74d00c..60db3734df5b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -5760,6 +5760,12 @@ L:	linux-mm@kvack.org
- S:	Maintained
- F:	tools/testing/selftests/cachestat/test_cachestat.c
+diff --git a/arch/arm/boot/dts/renesas/r9a06g032.dtsi b/arch/arm/boot/dts/renesas/r9a06g032.dtsi
+index 19c9bce0a26d..779221931fb6 100644
+--- a/arch/arm/boot/dts/renesas/r9a06g032.dtsi
++++ b/arch/arm/boot/dts/renesas/r9a06g032.dtsi
+@@ -164,6 +164,16 @@ dmamux: dma-router@a0 {
+ 			};
+ 		};
  
-+CADENCE DDR EDAC DRIVER
-+M:	Paul Louvel <paul.louvel@bootlin.com>
-+L:	linux-edac@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/edac/cdns,ddr-edac.yaml
++		edac: memory-controller@4000d000 {
++			compatible = "renesas,r9a06g032-ddr-edac", "renesas,rzn1-ddr-edac",
++				     "cdns,ddr-edac";
++			reg = <0x4000d000 0x1000>;
++			interrupts = <GIC_SPI 76 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&sysctrl R9A06G032_CLK_DDRC>, <&sysctrl R9A06G032_HCLK_DDRC>;
++			clock-names = "ddrc", "pclk";
++			status = "disabled";
++		};
 +
- CADENCE MIPI-CSI2 BRIDGES
- M:	Maxime Ripard <mripard@kernel.org>
- L:	linux-media@vger.kernel.org
+ 		udc: usb@4001e000 {
+ 			compatible = "renesas,r9a06g032-usbf", "renesas,rzn1-usbf";
+ 			reg = <0x4001e000 0x2000>;
 
 -- 
 2.55.0
