@@ -1,140 +1,142 @@
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A7BC3AF65A;
-	Thu, 24 Sep 2026 02:04:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.243.244.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADEF533FE33
+	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 02:04:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790215459; cv=none; b=uOzxFCGW2833QzAz0l3B+HZBmwEk9SGuVXiivPXXe0MSmGrHiaaJMQ6FGvcHQIKlc57kMrs+GYA7llockVOreCgPY96EbjkzbRdSiSg3osnrv/iadFa1UYUN0B0Yz3vpnyrOpkPhxH+J8XSngbv5vpnB5TvyATkiA7UFq6O7SZI=
+	t=1790215471; cv=none; b=sLciHk6zWk/y2cgaiJDUcEL6S1kYu1aozvf2aVyDa0B7jy1sUcsjMGltt7LTqmCDtKv+3n2CHApleEmQk4S9l7Bjn20aYG5TbqzIycsDtAi4PCjhA1xlfYF4wWWxG32afQFFolCIWNIRZZOtbXfPH55UJNOl/4CgApvLwBp0TrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790215459; c=relaxed/simple;
-	bh=Sq/Bmk4yORgByR9DGnLLTWgLehmQZuZU/1N+/ooi0u0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=tuDXaBUrVnjaWdL5A/YTao4Ocyhqs7yUpKCKE9AEXkt+jTGvZklXPk3wRvvdaZK7VRFnOiX3UUHCFQ9jpesa4CcsqEhh8e6F9F9jv+A7dng1fuTSSYwdCBMFxyWH/5ZN8XwOW/X8+v9KxCJanjz9GW7oTzWmx3AzA4hHTZ/npuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=vnoHjDAG; arc=none smtp.client-ip=54.243.244.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1790215471; c=relaxed/simple;
+	bh=3jv+OGdcF/n4qHmwlEq3KZQYwc1fd09Z6ADzFn5Bb9M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YK2Wd+G6TcwflNZG1bi3wyG2J7BsaI3NRDfpOjMw1kE0bj44qJrtYHOE2dva59D6pukrxrsX1108aGci+1vbBRGueTHdlwUTtUwTrwZOm2Z1Nl4dJI4a/fIe0dT1p09dbePOqBSoJGXTom3PwxuZdPQhSa8WedbfbVRIXlESlIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ACzDJ6q6; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="vnoHjDAG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1790215414;
-	bh=s3CNAx4BQMr4l63eYxA4KnmxnUvSjG39QNEvmt1VyIo=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=vnoHjDAGxgfkFD6r5IQQmytgxMGem+RVl/ys3MXcczSrFlJV2P1Fa6TK32OI+t+Hj
-	 1163pLE1jLGvly9iBtDEezqtA8bRfnI0QomRwmKS/0awcl9mKl6sqTbnj4jzg87MSc
-	 GF4qRRFzQJun2DIWjD70ihe+weU1oHaLvF2BRzLs=
-X-QQ-mid: zesmtpgz3t1790215407tb9e7a6b9
-X-QQ-Originating-IP: BYfzCy6nTypQWy08C5EApOMYUoFWUOLwIQk4cKlrwzY=
-Received: from snode1.dc.com ( [61.145.255.150])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 24 Sep 2026 10:03:25 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 7833649255534898788
-EX-QQ-RecipientCnt: 12
-From: Encrow Thorne <encrow.thorne@linux.spacemit.com>
-Date: Thu, 24 Sep 2026 10:04:48 +0800
-Subject: [PATCH] PCI: spacemit: Ignore link partner PERST on K1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ACzDJ6q6"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469d249c6so1049826b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:04:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790215469; x=1790820269; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RmWPw9HQP1XagMM9TGKgOpF0w9bX79g0MmpHkabvFyc=;
+        b=ACzDJ6q6dPfEnn6hdo9M/IQtz8mWbu7k5WRLxit0rvG86J+8qulTpM6pm9UJ4EOwXy
+         rsOR2kKCKCSQOuqD5Bd54qzvwLN0/FpfdszEWTdBUmquhoEwBTsKg6sUDxw0urjzz6mS
+         XnXoaxBLIITG+INHlv9mnRO7OXSSrs9uLqbvs8yy5rxUdVPf93b6Sgnb35ZYFlKUJUBn
+         2Zp4nAqEVcC897o9uzaobxWGvQxuX8QsBolwp2WUqAQY8tGB4GlOWhXO5qZ3Wie/VwCS
+         c9Dz+JFsZWE6E+LyoQLBHkFDm7uYn220nII7+r2KDLtssYct5B+om+f6maxjtd0rkhxp
+         2Z4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790215469; x=1790820269;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RmWPw9HQP1XagMM9TGKgOpF0w9bX79g0MmpHkabvFyc=;
+        b=mz74GsLzvFpmhISkoP8De/uD0/tQsPOsLO1bAi0EZ5t7bkeUA3yRtRIZHxdVnf00KQ
+         di7EIOC1mYa+yHXk4EFr7AiEPUUUas67G5sMgqyl4MhRKjxsNlhbo3C/umirtArCS4Io
+         47T9MUgTF/CmxJ2NV2OH+LI1Fy9XLaUVPl4P5qmjDGOkLe9ld5N4EUq+KfTOx+bYdEAR
+         LgsBV237CrAt1TZCM7vytHyNV3HpNiHwS9SJd3i/zl9dtZ1h9j19buXFEvqzUgFmOUJO
+         PvXLJXDBopKxXiA5cSrFvuaFx7w4NL6CVVExoc5ZaztrYygMJt1HK8ob065HTLtXirtq
+         nySg==
+X-Forwarded-Encrypted: i=1; AKwUvBw7PNFpI5h35fdDm1fKEO02lKVRwFip0l64bpUYfzoxQKv+ptS096BWdPLpc+dMCsRLScxgO9+eOYbybik=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPrPjx79/WZbPOlacY/yALyt77dPZ8q2Hmq5YYVmkBAHwgzY3E
+	yNDHiQV1u3NLhtny/ZNENk1HRyBv4ZU/9R9LeQW+rKitRq69El16exjG
+X-Gm-Gg: AYBFou0VADC5N6fWB8ny5dkpFL/SfhoHDWdwo4E5phzAcosc9zABWgxKnTms6mFjhhZ
+	UsPqbJDMD17uwkbRUhXZLmMDUTfqG4Vw4c20qPmkv1k9AgHg6pGRJa1hz5nCfkNe/dTLNHyK/2f
+	tdqSdGyTG59HO+/sAgEqoZo8bPHmYSv0r0OfrQ7F3mvqY5jKQb2Hfr37yPv2UQZaRsETgzPqgyG
+	6YvCAKROYOnY1h0Pu2gEcXJJkec1Mp25dmv/wn7Du9cHZiR6T9MYXdRKMweJssDu7sAAlV+zywS
+	khCHnu3HNoblgjiEYaXnwxOaFtu00tATs2UQzrRnWgeLqVMgQwNs9oq//X9NTY+tNCy0G5rgQkz
+	K+vLgGon01mTmIuSnDX6Utxq+lGyoIOEy/W+9XDXjS5/DPOmASpnYsZsKHvQFIS1rQ1+b7ZV9Po
+	djSTfIxFydoUk+aYLD2v9rNZKDDnpC8iYARlv4VngWlJDuDUQR645eqnN+sW1TOBtDg4SYlzmq3
+	rGKFk51m5aV6abSuWVM9LY3N0uBbaar
+X-Received: by 2002:a05:6a00:6088:b0:874:706d:856d with SMTP id d2e1a72fcca58-87e9b3ba37amr753328b3a.30.1790215468861;
+        Wed, 23 Sep 2026 19:04:28 -0700 (PDT)
+Received: from arch.localdomain (123202092053.ctinets.com. [123.202.92.53])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1d5c1331sm2041625b3a.24.2026.09.23.19.04.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 19:04:28 -0700 (PDT)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Jun Yan <jerrysteve1101@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org
+Subject: [PATCH RSEND] drm/bridge: analogix_dp: use devm_phy_optional_get() for the DP PHY
+Date: Thu, 24 Sep 2026 10:04:16 +0800
+Message-ID: <20260924020417.868588-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-spacemit-k1-pcie-fix-v1-1-002b5c1ba9fc@linux.spacemit.com>
-X-B4-Tracking: v=1; b=H4sIAD+FtGoC/x2MQQqAIBAAvxJ7bkE3Cusr0UF0rSUq0Ygg+nvSc
- QZmHsichDMM1QOJL8ly7AV0XYFb7D4zii8MpKhTPWnM0Tre5MRVY3TCGORGarsQrPGNIQ8ljYm
- L/rfj9L4fooo5lWYAAAA=
-X-Change-ID: 20260921-spacemit-k1-pcie-fix-256ffa8d382d
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, Yixun Lan <dlan@kernel.org>, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Cc: linux-pci@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Encrow Thorne <encrow.thorne@linux.spacemit.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790215510; l=1795;
- i=encrow.thorne@linux.spacemit.com; s=20260922; h=from:subject:message-id;
- bh=Sq/Bmk4yORgByR9DGnLLTWgLehmQZuZU/1N+/ooi0u0=;
- b=z6eP620CfxXQFP6H0sQF3XjlLbwrhD3S+Yj68RfV5mBp3vFjolWOnArwjsMW3/k9Q7sLWpVEX
- mppB6MoCTSMBQbrhKewQknqWhxrVafjqqaXtP3G3GEDKaum/+OzPyzI
-X-Developer-Key: i=encrow.thorne@linux.spacemit.com; a=ed25519;
- pk=2pmSCQKuWBw48bo9mVmWM77uEWdezu/geF0k1YMFzN4=
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: MLnLowx4CbXMyRItrYTYw0ia9VMa1QZ78XK1oqMQXmDL0Gebm+FjxCz5
-	0QmkuQYHM3IuZo9Ip66Af/lo/8hzvQMtKOhAWRrjltH9LSEE0cgazxk7dSGwWljrYzLS8fd
-	sGfki5bIVBVQSybiPqVZjaetblWM/Q4chnpAMkD+hG4EqT66AHHa94NOElOTAJrhrvg6Vl3
-	gYL0BtHFhqMtBmUsjMXiyXbui2CoY/vpuIR9W7fX49IrvGBlGblobnolnxOWphTAp0HPj7Y
-	PGMcqyJxGxUHzz3swAICUcaewCAiRHIFu+2j3ur9oxPgO8+zITZECsjsHZVhbQOOaECGcWJ
-	DFQWFV9QILM68AQLxoioQeNPPTaxNey0gwDb2/94c85upqnXa0R9C94+mCdoDbdoES5SY40
-	2IHEPzkF0/jbU71pxCufKDYxODG24WXZTHvOLrLn3eXEVoWyB+eEUfbwC1hqKWksQAZ1DY1
-	MKwT5HGTQZbibqMN5fYU933bYX6fXd+4E8VwMf7nY9hvoIqm9gsEH9CJwL/sFgXNUFRnoPI
-	ExkphLArWhEq9mW/UY1nnMrADeRTfboTMvflCyloncx/1v1H/A7F3qK3l4XrJBOnxf9Ulfw
-	IwOYvciAqLkabpJG5US7Nl5lQThrnocqdP2JuZMSmAGKjGuK9VETG0y6l3d16lxxV6K0dSl
-	/klzBqKTzOgkhAAOGbi1jcwesPlkw07a0dPdCWyIPwHNrT3kU6CQP5SmcfDBs1pA2F5c3Lb
-	aZ8aDVauPzPiKXcts1O7rjLnXg/bW87THHJ/qWSBnwgTR20aa1LSblJqmh3TvbIc+XqE28y
-	fe/rWF/ITt3zAc6TdXZyr7uvspj3zaTGPf5vLG0NavdDitMeN2E4zEta+JTBqj061JHtCQN
-	a1Cpf/8BLNeqpw0+UyH1eu5yoyTQd8ZsmYU6zzQkQHitHTJKs3btr/LMsX6kIwbUeSzQnfp
-	EZ7TaIZLlB6ixn7rPV67sUm4UElK8KFIqtE6clCBnmYfiqS2VnonJU7XoyB0cCkgfkkwx4u
-	xKaBDTDkXNxZ0qD9j4AizNLKZQl2HXVwKjXWHfltpDCWTM1IKOm4NuLGSTQjSRNpllLK62n
-	E7COiYvj03Jz1AmDunNdjWQxS0gA/EACQyunEPudrWiK1ZddkJ9JMtbMDE42v7BJhpfGKjR
-	4PUk
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+Content-Transfer-Encoding: 8bit
 
-The K1 PCIe controller and PHY are affected by the PERST signal from
-the link partner during initialization. With some devices connected,
-this can prevent host initialization from progressing and cause the
-system to hang while probing the PCIe controller.
+The DP PHY is optional: the Rockchip RK3399 eDP controller (used as the
+internal eDP port) has no separate PHY device and relies on its built-in
+PHY, which is programmed directly through the GRF registers, so its DT
+node carries no "phys"/"phy-names" property.
 
-Set PCIE_IGNORE_PERSTN before accessing the DBI registers. When set,
-this bit makes both the PCIe controller and PHY ignore the PERST
-signal from the link partner.
+Requesting the PHY with devm_phy_get() therefore returns -ENODEV (or
+-ENOSYS when CONFIG_GENERIC_PHY is disabled) and the driver logs a
+misleading "no DP phy configured" error at probe time before falling back
+to a NULL phy.
 
-This allows host initialization to complete without being affected by
-the link partner's PERST state.
+Use devm_phy_optional_get() instead, which returns NULL when the PHY is
+absent and otherwise behaves identically, and drop the manual -ENODEV/
+-ENOSYS handling. This also removes the spurious error message.
 
-Signed-off-by: Encrow Thorne <encrow.thorne@linux.spacemit.com>
+Assisted-by: Claude:deepseek-v4-flash
+Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
 ---
- drivers/pci/controller/dwc/pcie-spacemit-k1.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ .../gpu/drm/bridge/analogix/analogix_dp_core.c | 18 +++---------------
+ 1 file changed, 3 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/pci/controller/dwc/pcie-spacemit-k1.c b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-index 0564c46e2f48..98f067e1ba81 100644
---- a/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-+++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-@@ -44,6 +44,7 @@
- 
- #define PCIE_CONTROL_LOGIC			0x0004
- #define PCIE_SOFT_RESET			BIT(0)
-+#define PCIE_IGNORE_PERSTN			BIT(2)
- 
- struct k1_pcie {
- 	struct dw_pcie pci;
-@@ -137,6 +138,13 @@ static int k1_pcie_init(struct dw_pcie_rp *pp)
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 18e76d1e78e1..28eb668d3e3f 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -1427,21 +1427,9 @@ analogix_dp_probe(struct device *dev, struct analogix_dp_plat_data *plat_data)
  	if (ret)
- 		return ret;
+ 		return ERR_PTR(ret);
  
-+	/*
-+	 * When set to 1, the PCIe controller and PHY ignore the PERST signal
-+	 * from the link partner in both RC and EP modes.
-+	 */
-+	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
-+			PCIE_IGNORE_PERSTN);
-+
- 	/* Set the PCI vendor and device ID */
- 	dw_pcie_dbi_ro_wr_en(pci);
- 	dw_pcie_writew_dbi(pci, PCI_VENDOR_ID, PCI_VENDOR_ID_SPACEMIT);
-
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260921-spacemit-k1-pcie-fix-256ffa8d382d
-
-Best regards,
+-	dp->phy = devm_phy_get(dp->dev, "dp");
+-	if (IS_ERR(dp->phy)) {
+-		dev_err(dp->dev, "no DP phy configured\n");
+-		ret = PTR_ERR(dp->phy);
+-		if (ret) {
+-			/*
+-			 * phy itself is not enabled, so we can move forward
+-			 * assigning NULL to phy pointer.
+-			 */
+-			if (ret == -ENOSYS || ret == -ENODEV)
+-				dp->phy = NULL;
+-			else
+-				return ERR_PTR(ret);
+-		}
+-	}
++	dp->phy = devm_phy_optional_get(dp->dev, "dp");
++	if (IS_ERR(dp->phy))
++		return ERR_CAST(dp->phy);
+ 
+ 	dp->clock = devm_clk_get(&pdev->dev, "dp");
+ 	if (IS_ERR(dp->clock)) {
 -- 
-Encrow Thorne <encrow.thorne@linux.spacemit.com>
+2.55.0
 
