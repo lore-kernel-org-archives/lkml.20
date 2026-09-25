@@ -1,152 +1,84 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9B1A3CC303
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:39:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4ED84E80D9
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:39:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790368773; cv=none; b=pO9NPdkNl1m+7X1nvy/LTPL6PNVt+3m7cPHoxv31AuOuBnAeLpySBWL2cebihjmlopF5geCSyGE8GKWzwTCSjmftl3BKI5ALDG1gucIwPGejMBq5GqPwBKkOArMCgci9xqTdjaPfdyoF3iv9MvO8PJCdeDIJ3ww0DMN4hJuwkiw=
+	t=1790368793; cv=none; b=qsyWzL5OLOXzQzvsT2x27LEbo/+QH8DJz0XHUkFyCIu9PSXrC+0F338i49XEx9nRFju9CndrKAqoWjgbFUs+xLDJe/mzrtnAoXZz5HMak4BTyo+9fPNJWecAaSCThyQ8OlXpP1BT4ZxMDDOP2cxnAO3s1X52NpKiYIT+w6HsSiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790368773; c=relaxed/simple;
-	bh=hHzClB9egIuUtKSv+G5bspJGzcMa7/8epSCsEh6RcWk=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=ECoZCzjJo1rtOKSSKw1gCWH+DDRn7tZRtl7V7C8YJdzBDO4dQ5deSYt8OEgjqPVe1OF+RehIYYDqgiPpKZbF4dCs0Jva68E+EaddcrHN3T4+PqGZn4794aLEyTa3MMK9pt2hT2zAHjQ+7aTv3lsmErJiP+lJrqsdJt0iS6eBUuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4cc89e86e9eso2116679b6e.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:39:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790368771; x=1790973571;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Usj003VB4VsO/04RhopdWdBGry1zM3/5cBIoy5BY3DY=;
-        b=J+i1nE6pWNt9rkosCcTBJ9XiUHsryGxb5pzX9brWWbxEgr1NXq1K8ZJJJ3zf4CWT2J
-         BIxS80sFDNr72wMzAwZ/ep5r+7YJRuYtKFPDejeyYnpmSLiJh8WfMo54DyFr3NPH76Or
-         lKLtn9V+3KfKkIAYi8QqpSxP8FFE7XNQYXmCIt4tYPGStMZ0uTB9xhlab44h8lY97c30
-         ZaLit6ZxX1gwHNOD77BG9Aj531eprO6pSlFredCEPXpFou2ijVzF3hg+2vOS8SQ4ADin
-         ZUXE0WzFv7loH3tC2YSCcV6rWcHcSHOF0SlcY3Zwf3PvKv5ecp5H/m7fC61TANsJ/QQ2
-         npGw==
-X-Gm-Message-State: AFuF++nL7/EsDwLZDmxTk94360Qz2Z3i7AUHZJ/rAd68cAugpCYgTgzk
-	U3tEn6DTAY0InXqgE+O0zEUKtNI+IOtSJRE3bq2OMnMgX6heWVw8hoQ0jWmi+9oyQEKcjY/OHec
-	AsGxndQS1/K2qHkXyFfOKY8vUsjp8LNX9ozEd9WBg8P82UjDvryooAMdDum0=
+	s=arc-20240116; t=1790368793; c=relaxed/simple;
+	bh=hOeNgvkY9Glj2bsp/dfCWNWGz5/LIwWywT/Yke2oiqU=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=I4sgr62PISnwwJGmQvUEt4H6QaBzPzplr1iAHVb52YnQrGqEfSF4K/pKX2NpUCdIib+o/8aZ22/rFgrqGV3UTa3yGvWn/00HJE6W1YJnLyTA6IRfDFSdoWgOprwHxrX6i7Ly+VEiuX4vRwqbyz42Yjm3+MaNbpWffAYXHACd6Io=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=CVtNweDi; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="CVtNweDi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F28E61F00893;
+	Fri, 25 Sep 2026 20:39:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1790368792;
+	bh=5Gb5X3clV5atptDzkAwvLI4CZL/0ZOW5/9a5sAqhUCM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=CVtNweDiulw2Vndzy7khDg/Hoje5x9/wvtftk2kBt3HBx4hRIAhntrs1Aj4IU13Ch
+	 opTyLm66iswBxgdzKrU2W1Jd2trPXvyP5jgR8FMvtsaTa72tvTmQAES5oXHB9vdPwd
+	 gJhZHsdHxPmpjMr3QRndx/IBJdqogcIssaCcUxhg=
+Date: Fri, 25 Sep 2026 13:39:51 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Yury Norov <ynorov@nvidia.com>
+Cc: shashank <jain.sm@gmail.com>, Yury Norov <yury.norov@gmail.com>, Rasmus
+ Villemoes <linux@rasmusvillemoes.dk>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/6] bitmap: fix three parsing bugs in bitmap_parse()
+ and bitmap_parselist()
+Message-Id: <20260925133951.a80670af112718d9b9c271fd@linux-foundation.org>
+In-Reply-To: <arapwjg4cp25e3br@yury>
+References: <20260925102307.49513-1-jain.sm@gmail.com>
+	<arapwjg4cp25e3br@yury>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3097:b0:4c3:1005:beaf with SMTP id
- 5614622812f47-4d72cb354f5mr7777840b6e.15.1790368770825; Fri, 25 Sep 2026
- 13:39:30 -0700 (PDT)
-Date: Fri, 25 Sep 2026 13:39:30 -0700
-In-Reply-To: <68a82586.a00a0220.33401d.0251.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab6dc02.e548f532.1ca396.0028.GAE@google.com>
-Subject: Forwarded: Re: [syzbot] [nilfs?] WARNING in nilfs_rename (2)
-From: syzbot <syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+On Fri, 25 Sep 2026 13:05:06 -0400 Yury Norov <ynorov@nvidia.com> wrote:
 
-***
+> On Fri, Sep 25, 2026 at 03:53:01PM +0530, shashank wrote:
+> > This series fixes three cases where the bitmap string parsers accept
+> > input they are documented to reject, or produce a different mask than
+> > the one requested.  Each fix is followed by a patch adding the failing
+> > cases to lib/test_bitmap.c.
+> > 
+> >  1-2: bitmap_parse() treats a non-hex character directly before a chunk
+> >       of exactly eight hex digits as a separator, so "x12345678" and
+> >       "0x0000000f" are accepted while "0xf" is rejected.  This is a
+> >       regression from the bitmap_parse() rework; the old __bitmap_parse()
+> >       rejected all of them.
+> > 
+> >  3-4: bitmap_parselist() does not check for the end of the region after
+> >       the group size of a "range:used/group" region, so since N and
+> >       all became valid region starts, "0-7:1/2N" or "0-7:1/2all" are
+> >       silently parsed as two regions.
+> > 
+> >  5-6: bitmap_parselist() walks a "range:used/group" region with an
+> >       unsigned int that wraps around when the group size is close to
+> >       UINT_MAX, setting bits below the requested range.  This needs an
+> >       absurd group size and never writes out of bounds.
+> > 
+> > With the series applied, test_bitmap reports "all 391544 tests passed"
+> > (UML, x86_64).  The three fixes are independent and can be applied in
+> > any order.
+> 
+> That looks reasonable, but please resend the series with your full
+> real name, and also specify the version of LLM you've used to prepare
+> the series. I'm uncomfortable taking anonymous commitments.
 
-Subject: Re: [syzbot] [nilfs?] WARNING in nilfs_rename (2)
-Author: konishi.ryusuke@gmail.com
+fyi, this was changed by 816d9992d9ed ("coding-assistants: simplify
+attribution") - see latest Documentation/process/coding-assistants.rst.
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 89a312991dc6
-
-Next, check whether the inconsistency recurs when tolerance for
-interruptions is tightened as well.
-
-diff --git a/fs/nilfs2/ioctl.c b/fs/nilfs2/ioctl.c
-index 01a04080ef70..b2b67d6a1f09 100644
---- a/fs/nilfs2/ioctl.c
-+++ b/fs/nilfs2/ioctl.c
-@@ -965,10 +965,10 @@ static int nilfs_ioctl_clean_segments(struct inode *inode, struct file *filp,
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-  * * %-EFAULT		- Failure during execution of requested operation.
-+ * * %-EINTR		- Interrupted.
-  * * %-EIO		- I/O error.
-  * * %-ENOMEM		- Insufficient memory available.
-  * * %-ENOSPC		- No space left on device (only in a panic state).
-- * * %-ERESTARTSYS	- Interrupted.
-  * * %-EROFS		- Read only filesystem.
-  */
- static int nilfs_ioctl_sync(struct inode *inode, struct file *filp,
-diff --git a/fs/nilfs2/recovery.c b/fs/nilfs2/recovery.c
-index 45fb37215669..a7086a93480b 100644
---- a/fs/nilfs2/recovery.c
-+++ b/fs/nilfs2/recovery.c
-@@ -785,11 +785,11 @@ static void nilfs_abort_roll_forward(struct the_nilfs *nilfs)
-  *
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-+ * * %-EINTR		- Interrupted.
-  * * %-EINVAL		- Inconsistent filesystem state.
-  * * %-EIO		- I/O error.
-  * * %-ENOMEM		- Insufficient memory available.
-  * * %-ENOSPC		- No space left on device (only in a panic state).
-- * * %-ERESTARTSYS	- Interrupted.
-  */
- int nilfs_salvage_orphan_logs(struct the_nilfs *nilfs,
- 			      struct super_block *sb,
-diff --git a/fs/nilfs2/segment.c b/fs/nilfs2/segment.c
-index 829573cb6131..a79b1810b405 100644
---- a/fs/nilfs2/segment.c
-+++ b/fs/nilfs2/segment.c
-@@ -2257,7 +2257,7 @@ static int nilfs_segctor_sync(struct nilfs_sc_info *sci)
- 	wake_up(&sci->sc_wait_daemon);
- 
- 	for (;;) {
--		set_current_state(TASK_INTERRUPTIBLE);
-+		set_current_state(TASK_KILLABLE);
- 
- 		/*
- 		 * Synchronize only while the log writer thread is alive.
-@@ -2271,11 +2271,11 @@ static int nilfs_segctor_sync(struct nilfs_sc_info *sci)
- 			err = wait_req.err;
- 			break;
- 		}
--		if (!signal_pending(current)) {
-+		if (!fatal_signal_pending(current)) {
- 			schedule();
- 			continue;
- 		}
--		err = -ERESTARTSYS;
-+		err = -EINTR;
- 		break;
- 	}
- 	finish_wait(&sci->sc_wait_request, &wait_req.wq);
-@@ -2309,10 +2309,10 @@ static void nilfs_segctor_wakeup(struct nilfs_sc_info *sci, int err, bool force)
-  *
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-+ * * %-EINTR		- Interrupted.
-  * * %-EIO		- I/O error (including metadata corruption).
-  * * %-ENOMEM		- Insufficient memory available.
-  * * %-ENOSPC		- No space left on device (only in a panic state).
-- * * %-ERESTARTSYS	- Interrupted.
-  * * %-EROFS		- Read only filesystem.
-  */
- int nilfs_construct_segment(struct super_block *sb)
-@@ -2339,10 +2339,10 @@ int nilfs_construct_segment(struct super_block *sb)
-  *
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-+ * * %-EINTR		- Interrupted.
-  * * %-EIO		- I/O error (including metadata corruption).
-  * * %-ENOMEM		- Insufficient memory available.
-  * * %-ENOSPC		- No space left on device (only in a panic state).
-- * * %-ERESTARTSYS	- Interrupted.
-  * * %-EROFS		- Read only filesystem.
-  */
- int nilfs_construct_dsync_segment(struct super_block *sb, struct inode *inode,
--- 
-2.53.0
-
+So now everything is supposed to say only "Assisted-by: LLM".  I find
+this regrettable - I'm interested in seeing what people are using.  Oh
+well.
