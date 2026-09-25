@@ -1,142 +1,175 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 394311DA0E1
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:35:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87F70EEC0
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:35:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790296508; cv=none; b=DUcFdYgClrVOzZcxL2ZaAOP9IDCBwP25XpFHQrgOlOMNnDapA/c82OwoIz3KgRsLXInqKQ5EkJcR3BsFgtDusOFDkfWxuaVVthZwY8LKtwz3PFzGB/EIcWXw5BAeVCXxBOsQTGw3mCkcss+QpbsHNRD5zzZ0Qgf2VWL0yywphvk=
+	t=1790296528; cv=none; b=rSUdPHi0dRhJ2MJdhstWk6xtwGSy57I4BVSyLNxBeP7349BNvZaDOfdarRARGxrqDymBSbMpP0IIW3eVzUMOT1wgbwMs0aPVrmTzd+ra9QTpvTtiWYo15LuUyl5VG+ZwpDamM7L4dKYrrR1NpEPE/zZGpDc4O/fFNBFKs+sfQZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790296508; c=relaxed/simple;
-	bh=5Yn/V49OL4qwBUPSEZYOuA2XjrtAYM/2F6LNKtkgSDs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PTXSx0lHMnU2OtVlrGzJa+5ToBIBVdphb7Q96OlXmDSf/dIu4GW6mM0edYsFmxGtSuSFxVDLhk0zB3C6DRFmhrASIUqL9NFVx5YRFa9oOROsGFxsfpnN71TgDt1HXg2R+hT4040NCo8qperkPih0nS1qndu5YmYj7Zyle+QkCGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=WLD7tQHO; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1790296528; c=relaxed/simple;
+	bh=4lANU3BofogRNYfE4vWKObbLjcbrSe6tKSZmwj46Atg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Lhg417roYNfLM0inHeVmpPN2cI96u/tUqI6Irz/VMSO9uFE1anVKF634vAaRWn4dM22yID8weeQfyXBN1Apz2QtdPBOsm9bb1vb+mLEftMcs+CiQSuiuiGDjj5P3q5/BoSgtyITcnulwH0n1QIJ6MJcmJaSh3UqwfzQxrjQqGUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K9VvcQYA; arc=none smtp.client-ip=74.125.231.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="WLD7tQHO"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-530c602630bso4907651cf.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:35:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K9VvcQYA"
+Received: by mail-oo2-f39.google.com with SMTP id 006d021491bc7-6c72bd8a017so233937eaf.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:35:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1790296505; x=1790901305; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hT0C0mvf6r5FuTfZclgfx4VcRqH28SXA1w/+lQNjyOc=;
-        b=WLD7tQHOyBfqxqtDoY3qRt1kj7PPbcQjEO4xUXy/bAKwNG8fFRq7CW3rIzwdv2l55h
-         K+I9GnM/kC738ny7I3M+oyw84ofe/t45Taj2BASl3+TMOlRkEXZ8oFb75YRwPqeyozMM
-         0VcGxz2f09l2Vi+BtfkHFmddylYue2zfedGPQmVULqKfBKkpDhF26YELoKspi0lW0UNi
-         m679EVCoTx2xixvKNYxHZQWy1vyO/A8K3DfL/GwuZkvnDsK+M4T7sDetZiyjxFdWVz8+
-         YxAwF+BgM0mXXpqI19dI7oRGWMPD1wDfATG2pC6fJnEZnHYi8ybaacO5ZOPzfSEV7el6
-         7TqA==
+        d=gmail.com; s=20251104; t=1790296525; x=1790901325; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=yGf2S7+iIEjxwnQ5sDYTKes+bw7Xvh6I4ay+/HABYvs=;
+        b=K9VvcQYAunMFye/m5VZPH6bSBvvUfhlHXaBzqrjQiITIeXR95WltXIDJN7q3PsaVlu
+         UH0lkJmO3fSkcVXFDt+ZHBidS3diwRuL+qbl1rRgG/ia0ihQrPYy+U873/m6OoT0I4NF
+         q1Cf85fienqso7bfpQIHhPa1xH7w4CDUAbXw6Q9aOOSKgPyxexP2o6TDjy5HMtZmM6cx
+         VRFJJhAlXNhU4gb1lkYVfnpv05Bx4lrSDACkELFErRxIN4tR14Hd2NmFapczVHTcn7pk
+         AV7IFGldpyHswCgtY8a+5Bd2Rj7I2aN/+R4A0DwjQSiWuWwdWFGQ0E82yvfOXrxckDM4
+         nFJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790296505; x=1790901305;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hT0C0mvf6r5FuTfZclgfx4VcRqH28SXA1w/+lQNjyOc=;
-        b=MQMMSriE4enrqu+ABRRFNRZBaAVzQ+gIsu8yAtQaMs3x1CW8kErw4OWCQUFeGglpDN
-         jxT11Gem10zHx3VzLA8LTOBsIlp7tkyW5NHDA25NFSt/5aO79t0y8bfTby09nFcvoz5O
-         kHGPOJXLDORFV4MK9pE2kngzw39C8G9f5NsXjrpibEy+lplQfA47Prd+UifJr1KSUs4/
-         M+6uXRKiGwpNA9vli04O2xsGUlSQia9y1YTMDsrdCvZCdTDtNAnxGG32dznKrwNjiJ69
-         arFSQSQbGZB2XF0UfC4UfXSRHEaOknYSErYBzsSp+IcVEY6oVEAuasLmIsK9XiQBWR4p
-         fOeA==
-X-Forwarded-Encrypted: i=1; AKwUvByMcIx79qb2mqxWIKJDDWSsju/POJ5dXd6/NkW41yKC13R6ZR+/7ZQ7LyYgeil7OPpTdJaAhragNDjwmHk=@vger.kernel.org
-X-Gm-Message-State: AFuF++ldcHualhI+TQQuFVvPxXZRY+xRYYmqRbht5FzXvBW9MNNtsKN9
-	gu+/SuGhEfSKAWdr8g1fdyJ8QPNgYaSh2ADFbOUqL63kZz63RrxGCTlAwH92vp840aU=
-X-Gm-Gg: AYBFou23Ypg4s5GZDTP7aLgryYLmJvAgk9amcth4DTc9jGC6vPAjxxAA8A+/VhwN21p
-	+8KUOGlMaL0KtYSUzjXTQxw/v32ADfNKpEUhPzpXTmNSQ2KAKnPajCDpEdx2sgIgG2zZKySitMg
-	h91NWzgXKkL9Mg6k0x2w2DuusnZOkvBoFCTc3VhpVFScExRluYrJ0n/In7dE3t3+MVukA/cPCfP
-	tV5LWuGESiNNzOB5/pOwY1xKGX712OCds7F9oiaOj54wAIL20Ky0mQxsa7g1UbNFfN13UUWEGSi
-	/elmnjzC+RMXrKMOChM8KplepUj94MUEQWpiQvao2403Bw/3PAIbLHSOHj31n6xhx71FYp/Krvr
-	tfpUGM2ApmtO1f6MEkFc7h9ECWMd8tkwuPt+yOCQ+HtAi28gspnNBRdFmmmQq2g66VYBv9RWQtH
-	7/8bqdFq0/q4HOieZTJyyCfJApYNo67YlKhxRcmfvKziw8iu1hfXCyensXpNYY3+bqB3GGM+HLQ
-	07dSuNJgdqQqZImqZ1jUKHWMnmXjyzAKUmZwGdh4lGdNLvEh2N6Y20=
-X-Received: by 2002:a05:6214:5910:b0:912:bd1:49f5 with SMTP id 6a1803df08f44-9142f681cf9mr18652786d6.10.1790296504108;
-        Thu, 24 Sep 2026 17:35:04 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91430e87fa4sm5357886d6.41.2026.09.24.17.35.02
+        d=1e100.net; s=20260707; t=1790296525; x=1790901325;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=yGf2S7+iIEjxwnQ5sDYTKes+bw7Xvh6I4ay+/HABYvs=;
+        b=M4xPLxpXaiUb4b2Yi2o/4JN49BgA+FNj+hYgaKrQFIHvDBbwStaNbFRptP5fIyA/e8
+         2x/STRFZlXUoUdhdhsM/Ij6xDsWyNjPUHjwSOHyKqcqJWuIktZD9NwxmAPsjF9pObqIb
+         4+fEtoFfpFurLODljSPbFYBBiUrtpcUmnCMcaD82Rp030eKfMaeMLjriO2ziaa/INS12
+         H3yj/quUoEKB8ClEHzHpZTx2+v9TzIsP/QdZCzCPJz1yvArDAZPN6FH5IZAtmjSK1Kjc
+         U5rpdIJDwWqnXErc6KKwRqQwfmrWrmxXUnai141tSU0YU6gtZFcnfVW8huHdWX5xuKWW
+         Lmtg==
+X-Gm-Message-State: AFuF++mDfeV90WXypDeTsV2TcECw8ivWux7JA0xH0wlokTlK2BxBgfYX
+	gS68pwiTwnt6OzGJYzl0yPOvHnRNoECb9CWvcdM8DGpHaGMEJPzoHF6I
+X-Gm-Gg: AYBFou1sQGO1zZupQDiciZIQfgCicoFPOeWit5Q3eF75VFNwn9mdpGpZ7dOknbVoDas
+	um4KR5cjRULSChJT9yQ/23YyLFJ5JHVpCbXPyKm6hcI5HBAtkbyKYk5wB//FiJDAgFVquTgasnp
+	BSgBkhxrnE1+WsiLyN9u6jILKvEXP6S/7Yvf7Tj9vh6oQISpy98or4ZQeCP6FhaYntItPxmesEy
+	aT1Cd1py/bckjoO0Lv8dk61k6m+dBbITyIXP7pJSPLgAFq9pWkAOILZR5uMBJHMlHZTBvwYe3N3
+	UevynQ1OY6eIBV6/3StawXueEjDVQ6qMUPrU1AvCmVWanAZ2nW7pMXdWUPtFfD8e8p4ZCs+6vXi
+	G8jC7xRTK9dYTdFzlJyC/p+lP37IgeIMV6Ixw5cZSg8wXgdnI9nmVc0cVFU9xmF8QPE38tJwn1/
+	TNFGgXLvf8CTSeW/4NIOqN0wuluGzUZYYn1aEk+8gcMq3he87T6CB1Ofxh9d1ux3IA
+X-Received: by 2002:a4a:ee10:0:b0:6c3:616d:efb with SMTP id 006d021491bc7-6d43ebf032emr4594513eaf.17.1790296525381;
+        Thu, 24 Sep 2026 17:35:25 -0700 (PDT)
+Received: from localhost ([2a03:2880:30ff::])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-49335c8040dsm894146fac.11.2026.09.24.17.35.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 17:35:03 -0700 (PDT)
-Date: Thu, 24 Sep 2026 20:35:01 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
-	rppt@kernel.org, surenb@google.com, mhocko@suse.com, mingo@redhat.com, 
-	peterz@infradead.org, juri.lelli@redhat.com, vincent.guittot@linaro.org, 
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, 
-	vschneid@redhat.com, kprateek.nayak@amd.com, ziy@nvidia.com, 
-	baolin.wang@linux.alibaba.com, nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
-	baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev, kas@kernel.org, 
-	matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com, 
-	ying.huang@linux.alibaba.com, apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, 
-	hannes@cmpxchg.org, shy828301@gmail.com, raghavendra.kt@amd.com, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 3/7] sched/numa: scan read-only file mappings in
- tiering mode
-Message-ID: <arXBari1QNJ-aIW8@gourry-fedora-PF4VCD3F>
-References: <20260922182928.2199090-1-gourry@gourry.net>
- <20260922182928.2199090-4-gourry@gourry.net>
- <c73021d4-60c8-4446-9c08-f9d7807a3a0f@kernel.org>
+        Thu, 24 Sep 2026 17:35:24 -0700 (PDT)
+From: Daniel Zahka <daniel.zahka@gmail.com>
+Subject: [PATCH net-next v2 0/8] eth: mpnic: initial support for Meta
+ Platforms NIC
+Date: Thu, 24 Sep 2026 17:35:13 -0700
+Message-Id: <20260924-linux-mpnic-v2-0-4badc9b58b9e@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c73021d4-60c8-4446-9c08-f9d7807a3a0f@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMHBtWoC/1WNQQqDMBBFryKz7pRktDZ11XsUF0EnOqBREisW8
+ e4NdtXl4/Hf3yFyEI5QZTsEXiXK5BPQJYOmt75jlDYxkKJSPbTBQfx7w3H20qBxNtemveXKWUi
+ LObCT7ay9wPOCnrcF6mR6icsUPufNqk//KxL9FVeNCikvTVG4lL3TsxutDNdmGqE+juMLPQtjs
+ bAAAAA=
+To: Alexander Duyck <alexanderduyck@fb.com>, 
+ Jakub Kicinski <kuba@kernel.org>, kernel-team@meta.com, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Paolo Abeni <pabeni@redhat.com>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, 
+ Dimitri Daskalakis <dimitri.daskalakis1@gmail.com>, 
+ Mohsin Bashir <mohsin.bashr@gmail.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ bpf@vger.kernel.org
+X-Mailer: b4 0.13.0
 
-On Thu, Sep 24, 2026 at 10:53:56PM +0200, David Hildenbrand (Arm) wrote:
-> > +		placement_scan &= numab_mode & NUMA_BALANCING_NORMAL;
-> 
-> Do we have to update placement_scan at all?
+Meta Platforms NIC is the second-generation NIC from Meta. There are
+quite a few high-level similarities to fbnic, but all of the CSRs and
+descriptors have been reshuffled, and new features have been added.
+Since the device is sufficiently different from fbnic, and the design of
+our FW is minimal, we have decided a separate driver is appropriate.
 
-in the following commits this composes:
+Major new features compared to fbnic will take a while to land. This
+series includes only the bare-bones Tx/Rx datapath.
 
-	placement_scan &= numab_mode & NUMA_BALANCING_NORMAL;
-	if (scan_started)
-		placement_scan &= vma->numab_state->placement_scan;
-	else if (tiering)
-		placement_scan &= placement_due;
+Our high-level patch sequence and plan for the upcoming series is:
+ 1. Core datapath (this series)
+ 2. Basic offloads, RSS, and counters
+ 3. Firmware mailbox support
+ 4. Base ethtool operations
 
-But i'll think about this when I update the function name.
+This patch series was prepared in part with these LLM prompts:
+https://github.com/kuba-moo/ai-prompts/blob/main/driver-upstreaming-prompts.md
 
-> 
-> Can't we do:
-> 
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 8a4687f67d82f..fc8862ee31442 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -4121,6 +4121,7 @@ static void task_numa_work(struct callback_head *work)
->  {
->         const unsigned int numab_mode = READ_ONCE(sysctl_numa_balancing_mode);
->         const bool tiering = numab_mode & NUMA_BALANCING_MEMORY_TIERING;
-> +       const bool balancing = numab_mode & NUMA_BALANCING_NORMAL;
->         unsigned long migrate, next_scan, now = jiffies;
->         struct task_struct *p = current;
->         struct mm_struct *mm = p->mm;
-> @@ -4313,9 +4314,8 @@ static void task_numa_work(struct callback_head *work)
->                         continue;
->                 }
-> 
-> -               placement_scan &= numab_mode & NUMA_BALANCING_NORMAL;
->                 cp_flags = MM_CP_PROT_NUMA;
-> -               if (!placement_scan)
-> +               if (!placement_scan || !balancing)
->                         cp_flags |= MM_CP_PROT_NUMA_PROMO_ONLY;
-> 
->                 do {
-> 
-> (maybe I messed up my boolean algreba, it's late)
-> 
-> -- 
-> Cheers,
-> 
-> David
-> 
+The prompts were used to distill our fully-featured OOT driver into this
+minimal Tx/Rx capable upstream driver. We then performed human review on
+the output to create this posting. Jakub has made the prompts public in
+case people would like to take a look. 
+
+Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
+---
+Changes in v2:
+- eth: mpnic: add register init for the device
+  - derive the TQS TXB credit limits from the TXB private credit config
+  - program the BMC to MAC XOFF threshold (TXB_THRESHOLDS_P0[16])
+    instead of the host to BMC one, and drop the now unused
+    MPNIC_TXB_BMC_THRESH
+  - drop L2_HLEN from the default TWD, it only matters for csum/LSO
+- eth: mpnic: implement Tx queue allocation and cleanup
+  - add mpnic_nv_irq_trigger()
+- eth: mpnic: add a netdevice and basic Tx handling
+  - trim the real Tx queue count before register_netdev()
+- eth: mpnic: implement Rx queue allocation and cleanup
+  - drop an inaccurate comment on mpnic_bdq_desc_unused()
+  - drop the unused data_truesize field from struct mpnic_pkt_ctxt
+  - trim the real Rx queue count before register_netdev() too
+- eth: mpnic: add basic Rx handling
+  - skip Rx cleaning and BDQ refill when polled with a budget of 0
+    (netpoll), page pool must not be used in that context
+  - keep struct mpnic_pkt_ctxt instead of replacing it with a bare
+    xdp_buff, and move add_frag_failed into it
+  - give each Rx queue only the NAPI budget left over by the previous
+    ones instead of the full budget
+  - sync Rx buffers for the CPU with page_pool_dma_sync_for_cpu() instead
+    of dma_sync_single_range_for_cpu()
+- Link to v1: https://lore.kernel.org/r/20260922-linux-mpnic-v1-0-236844f53072@gmail.com
+
+---
+Daniel Zahka (7):
+      eth: mpnic: add scaffolding for Meta Platforms NIC
+      eth: mpnic: allocate MSI-X vectors
+      eth: mpnic: implement Tx queue allocation and cleanup
+      eth: mpnic: start and stop the Tx HW queues
+      eth: mpnic: add a netdevice and basic Tx handling
+      eth: mpnic: implement Rx queue allocation and cleanup
+      eth: mpnic: add basic Rx handling
+
+Mohsin Bashir (1):
+      eth: mpnic: add register init for the device
+
+ drivers/net/ethernet/meta/Kconfig              |   13 +
+ drivers/net/ethernet/meta/Makefile             |    1 +
+ drivers/net/ethernet/meta/mpnic/Makefile       |   16 +
+ drivers/net/ethernet/meta/mpnic/mpnic.h        |   66 ++
+ drivers/net/ethernet/meta/mpnic/mpnic_csr.h    |  319 ++++++
+ drivers/net/ethernet/meta/mpnic/mpnic_init.c   |  556 ++++++++++
+ drivers/net/ethernet/meta/mpnic/mpnic_irq.c    |   64 ++
+ drivers/net/ethernet/meta/mpnic/mpnic_netdev.c |  186 ++++
+ drivers/net/ethernet/meta/mpnic/mpnic_netdev.h |   35 +
+ drivers/net/ethernet/meta/mpnic/mpnic_pci.c    |  187 ++++
+ drivers/net/ethernet/meta/mpnic/mpnic_txrx.c   | 1395 ++++++++++++++++++++++++
+ drivers/net/ethernet/meta/mpnic/mpnic_txrx.h   |  151 +++
+ 12 files changed, 2989 insertions(+)
+---
+base-commit: 42a9fb3382fc2573e92f41d203b095d9a372cfc9
+change-id: 20260918-linux-mpnic-8fa318d530fa
+
+Best regards,
+-- 
+Daniel Zahka <daniel.zahka@gmail.com>
+
