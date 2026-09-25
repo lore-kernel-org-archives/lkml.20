@@ -1,127 +1,137 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A794D0A03;
-	Fri, 25 Sep 2026 15:55:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F0EE4D9F61
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:55:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790351759; cv=none; b=GApT6pMCKTW4hltUKv5K9Gei+Bp4wL7u5BCqvtqH+LiNWSN9kgZuXtCfTYD0VMFk4sYVsIx79CQsW2uzmZa5NrqXjedriohXlSN3kkFKjOn4gXxOs1zJtZC/X+wWL94k9qZW/uL5AcVGvxo5BYCRgrDYEpfE9kEdY4UrpFpd6dQ=
+	t=1790351761; cv=none; b=E70cImqQGgeKhXD2qlBIh360+FuRRNvyox/REV+paz6ALgTVoNHrpA3OR/l2GuTkCqRXF95ObRk1q1mL5zjTRUp0Xu0WK+qzn42l89Kq30m3jjBaDE5ik16RSoUGFDb/kqIxSWc6sAntjzo4YQ65z44zz674rq3JmZGlJjviaN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790351759; c=relaxed/simple;
-	bh=lfVpM8IpSFrl9WMznW6hrKS42NBa9P3vmWzVF/t/mMg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=D83Mdtle6gH1RVjI7+5ZdQZRVHvj0l0Qg8tzEU6itFKx16xfdFwZStwO+MMpzXodeEpFdsKZKGUBkt5OfraXYOIPETSwEzzcMor8kilgLe/W/1ytzy/ObnuMKvFWFn2+d4h7ZKv2qHJVnYjZ5W4hYSiNwmRZEryt9I9sJwo+0Ps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=U4+izewm; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1790351761; c=relaxed/simple;
+	bh=1Vgsw4TWmt+frhEKE+d1UUMyDPEGJxohwe6L1tUKy1s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cmEe5Q4MV5GLToEUp6M1qwlSiLyjqNVzRuMDa1nY20CfnBMKMuOKy7BtFNfSGBQ9d3hlYJxvqPeR3mCX1/k+tkC6iKCr/pBEUJVBtSqSCFwELCtX8OaeogEinW6cBkvnGOsUnN4X4utNBVI/YssQyL9ELqvrEvJXGteIUR9i82o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fNYYwM/3; arc=none smtp.client-ip=74.125.227.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="U4+izewm"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
-	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
-	From:Reply-To:Content-ID:Content-Description;
-	bh=3u8gQhNavMLejnFPYpNP2xX9INk7nYDpIUTibp7qRoY=; b=U4+izewmXDHRTOU1zF9MmQHGpo
-	NEX7fFdWzA9JHf+JZ/dLOLELVsbyyX5HyAaIact1j6xeyXeglG7R5eQBMTQKvBZ9cPX2hLw3dtYxL
-	f5rzMRGZiQLh/cP5BAgqJgtnjU02w4SzoXxG2R1DSvGC3cLhzl3tBq35RE45YBXSauAH/s+0yle96
-	VymHGmhUDDo9bbBIJo8drHM1CQ/ztQ2yTV65ZY5rSLwV93Zb3W6LaJ1dtKA+SCuhqyiOEqiTfPxVb
-	cU2f3wtYsNHKUYlmuwgryKBdHPANk5j6q7ewZ3PxVkTxHwKemlCd84MsJDxaf9wapn+2RlnCNebgA
-	Nz9Zd/sQ==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xA8HA-005PlE-0z;
-	Fri, 25 Sep 2026 15:55:52 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Fri, 25 Sep 2026 08:55:16 -0700
-Subject: [PATCH net-next 1/6] ipv6: reject a negative optlen in
- do_ipv6_getsockopt()
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fNYYwM/3"
+Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2d942de6574so3105165ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:55:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790351758; x=1790956558; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wM30FTe9M5c7uFe5K9GQiTlDAZtMBUovZsuoSg4HW48=;
+        b=fNYYwM/3b33/1O7JVSZlsmiPEa4TRDaduJ9L0LPdYsx69TRwVz1cF2ilr6u4kZIF7C
+         J8yyS+Ts8mIsaNBdMVOyyeNQf5c426tKUKHGeerebcQKFBW/82WkdpChIB4zJVulff5U
+         OAqvpZX6RxH+7abQFKfudl6qDOCQPU8TO+CHpj7KKFMU0BUo4xd1+oHfShctWL53fzdo
+         U1TWlNmVkgkFLcCGklJYNjW/AhG5kooiuZgtgLBSwgJtXQTJc15oY00DxdqWBKGi7mCA
+         QABv7qX3h8WAy2kS4zfcMhrCX5KbwweJCCACNeR/x9nsP/CPsI7+EEse3E6lUhAncJ4Z
+         1xCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790351758; x=1790956558;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=wM30FTe9M5c7uFe5K9GQiTlDAZtMBUovZsuoSg4HW48=;
+        b=w1w/IdO4Ew7rhIvXoblJzV4y8aWnKy7M6FSprRv3VIQ7IZ33wHxWySDs4I+CWhk72p
+         +I24DzcUc5bA80W6kGRuuXvRw4g4ABtuzQ2FZ8H1S4k9zsRCJiGnHi4RDCiafILkNMro
+         TqTs9pKiZRKFj2guLvB7hbx1+3Oku8MnEdU9IRrfJ2zCtKKW8TUj2GT/tp2iSQUTZ/mB
+         ZNi12+ujT4xoiczzGcZPYRLzZsEGLyvH9SAwN0guKROdS7cvtm9f4lJzbEs1hFLD+lt2
+         ocelK2UH5X1WygQ48CAWmkVWf9JhBGan/BzQsgylDj+Rx4uXR48d+BqRrUH855ZaCNzY
+         0d5g==
+X-Forwarded-Encrypted: i=1; AKwUvBzV7FwoeLzMQmeVOsh9eoYnsdTlGDG0CD25ACL73hI/3/pwExSNxaUV8BXw2qEyQZ9+L/Z6CvUFXF2Vwl0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lRysgybT66Q2VsMMSQB+Izoy7KPDDHjRUNXPIjNn14edUGtM6k
+	2PBUvs8uTyoRnasUYlqH12qaA3Ckq3QLc/oI6CcgVQyTLnrdxo8jvHz2
+X-Gm-Gg: AYBFou0gvMoAfyQCed04/7CGw/QUkGU1q80lT+2//qD864jt8wKzwC8ZBHr/quJWRx1
+	QRs8Vv0uGmplyGrqvzjy2R6hp9hJkr0chyYIssJkQSYdzhkGZ6LhLjbanTiTScM6lQ9qjwC4Sc+
+	+AwaAfW1rWrILGHJezBGABaCORgboxqTO0j6p8CPPuezE5oh4RoZyVHebcjySkUSlqWL0SemA+K
+	30jhG9OHk/qIhvWfEbqcVZQcIoN3gRJS2oTQaH4T74cMZnMBfmyfCmMZalzhKpu3YqcvkbGh5IJ
+	XjaNfs2UM7tuMUChnW3CiylXFU6TytgB7wXbSD7A24vUTafqAK6pau20D/1QsHRM+A9oMkCCm1Y
+	BgDZWRbJbmE7Bp8UCPxQaPOyYQLW+YYy757pZd5qHITijY4oscTKNP8t08Dd3X7VW2wtv1gOnyZ
+	LVhTDfgyMG0/Hot9kePu4SU/KANLnEIUZESkym1xpDSEd+LZG51ucuy4/NcVZFOLgI
+X-Received: by 2002:a17:902:f705:b0:2df:8aea:7d99 with SMTP id d9443c01a7336-2df8aea88aemr34224285ad.59.1790351757623;
+        Fri, 25 Sep 2026 08:55:57 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:51::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b4f6345fsm2331050a91.1.2026.09.25.08.55.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 08:55:57 -0700 (PDT)
+Date: Fri, 25 Sep 2026 08:49:20 -0700
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Pavel Begunkov <asml.silence@gmail.com>
+Cc: Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org, 
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	horms@kernel.org, hawk@kernel.org, ilias.apalodimas@linaro.org, axboe@kernel.dk, 
+	sdf@fomichev.me, bobbyeshleman@meta.com, kaiyuanz@google.com, 
+	linux-kernel@vger.kernel.org, io-uring@vger.kernel.org
+Subject: Re: [PATCH net-next 1/3] net: netmem: add net_iov_area freelist
+ helpers
+Message-ID: <araXlPI7GjEn9rFK@devvm7509.cco0.facebook.com>
+References: <20260922204348.717198-1-sdf@fomichev.me>
+ <20260922204348.717198-2-sdf@fomichev.me>
+ <CAHS8izPwLBCJXM_0Df8P6S-FVwAq+TaRKn3uTh1h=33Ffj8VmQ@mail.gmail.com>
+ <f566591a-cef3-459f-a39e-86addb0c5d7e@gmail.com>
+ <arVTvlvKsBRNG2aQ@devvm7509.cco0.facebook.com>
+ <8d1c634d-f481-4c10-a773-c4cab414f6c5@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260925-sockopt_expand_out_v2-v1-1-c3ef2e3bb5c0@debian.org>
-References: <20260925-sockopt_expand_out_v2-v1-0-c3ef2e3bb5c0@debian.org>
-In-Reply-To: <20260925-sockopt_expand_out_v2-v1-0-c3ef2e3bb5c0@debian.org>
-To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, Shuah Khan <shuah@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- david.laight.linux@gmail.com, Breno Leitao <leitao@debian.org>, 
- kernel-team@meta.com
-X-Mailer: b4 0.16-dev-f8e9d
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1451; i=leitao@debian.org;
- h=from:subject:message-id; bh=lfVpM8IpSFrl9WMznW6hrKS42NBa9P3vmWzVF/t/mMg=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqtpl6DxssGJpfQP9/LQtRp4EL37kSDNXrV5A6c
- idTuF8jmV6JAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaraZegAKCRA1o5Of/Hh3
- bbZcD/9m/HiC9eumuP0yv7ayS5yvRrvYBFG7LqUCtP4VHnnOTd0u+DT/nlbBPzfFbZM0mKgDcIv
- x9AESi1zDKdT2wdWJcbaadNfTi9W8MLzRQ/XGe6uyDZ/BVYDCbDTaQ7fw9Le0joF0bulFGG7usF
- O6NPIZONYzM2P9fpRkiPyh94lrJAmPF7W9dqrcFYPkmQHUXiK3YvDFYrQt4e86aNB11O7AkN4BG
- Tmzq4A+Ib5sC6HdxhM6YmXHQfvkRO/guf3GT1LBdwey+U/D+SDvYSWqWQ8x49p6v72hR51BPq+D
- FER4ce9LnMkYO/lwjfNCQPUNL1/ojLl27WGb05mIf9HLBe+6tqNVp0FmX76uk53l34ChU7GEoSX
- Je8JaBhYDUG83gS/AIj9xL7ayo8MPJ3V5sw6s3/TvxhC2EZk7HKyQQRIKozZGHJsrKXzLPcGrJy
- 8OaOqLyx0geHAHvjZozBUEln399j2s2jKe6g1pTChMGnxjXzyZuzXKjfdiIYEYFVOdUnXl/SYkL
- 7Tvhsq0LmO5ANKVF1wFp5rmCIK6HndpLCf2F7vTpPOfWwuOY4YWybMGdS4xXO1lxGXIH4pIgHnK
- baKJgYE0p94CaTlNYjdraqJZqkvAql4xI/S/db4DbdXC1LkSnzNVEILOM8aAS0cl3UpYs3Y+W8B
- clxVRjhDy+gpXmw==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <8d1c634d-f481-4c10-a773-c4cab414f6c5@gmail.com>
 
-IPv4's do_ip_getsockopt() rejects a negative optlen right after reading
-it. do_ipv6_getsockopt() never has, and nothing downstream treats it as
-an error either: len is an int, but every consumer compares it unsigned,
-so -1 behaves as a huge value and each site clamps to its own reply
-size.
+On 09/25, Pavel Begunkov wrote:
+> On 9/24/26 17:48, Stanislav Fomichev wrote:
+> > On 09/24, Pavel Begunkov wrote:
+> > > On 9/24/26 16:02, Mina Almasry wrote:
+> > > > On Tue, Sep 22, 2026 at 1:43 PM Stanislav Fomichev <sdf.kernel@gmail.com> wrote:
+> > > > > 
+> > > > > io_uring zero-copy receive and devmem both maintain a bounded LIFO for
+> > > > > net_iovs in a contiguous area. Store the freelist in struct net_iov_area
+> > > > > and provide common push and pop helpers.
+> > > > > 
+> > > > > Leave synchronization to area owners. Keep devmem's area adjacent to its
+> > > > 
+> > > > This could be a follow up change, but I think synchronization should
+> > > > be provided by the netmem/niov infra, rather than the area owners. TBH
+> > > > the infra providing an unsynchronized data structure and letting the
+> > > > area owner use it and shoot themselves in the foot feels error prone.
+> > > > For now we could use a comment.
+> > > 
+> > > I don't think we want it. The duplication is minor, but I'm not set
+> > > on the per area index array approach, and it'd make changing it
+> > > more difficult.
+> > 
+> > Do you want me to not touch iou in this patch at all? Or are you talking
+> > about potential future synchronization part?
+> 
+> Sorry, I should've more specific. I meant that I don't think trying to
+> consolidate it at all makes much sense, and I'd just drop this patch.
+> > I don't see how this is making changing it more difficult, the freelist is
+> > now behind push/pop which you can freely change, and both UAPIs benefit
+> > from a faster/better freelist.
+> 
+> There are several reasons. If there is any mismatch in how it's done
+> b/w io_uring and devmem it'd need to be split back, and then having it
+> in struct net_iov_area for devmem only wouldn't make sense. E.g.
+> Packaging of {area/offset} pair if converted to a ifq global list might
+> differ. And it moves one part of buffer management to another tree, and
+> there was already a precedent of patches being blocked for no technical
+> reasons; I'd rather minimise cross-tree changes. Synchronisation might
+> also be a bit difficult, zcrx uses it to protect more than just the
+> freelist modifications, patterns like lock(zcrx_area->common_area.lock)
+> in the zcrx code is usually not a great idea. In general, I just think
+> the upside is smaller comparing to losing the development flexibility,
+> it's not it makes it faster, nor the current code is tricky or complex.
+> Hope it explains it.
 
-	len = min_t(unsigned int, sizeof(int), len);
-
-So getsockopt(fd, SOL_IPV6, IPV6_TCLASS, buf, &len) with len set to -1
-answers 4 bytes and reports 4, rather than failing.
-
-This is a bug ready to bite us in the near future, let's get this fixed.
-
-I've found this because testing the rest of the patch was returning
-inconsistency when optlen = -1.
-
-Later patches make the check unreachable, since sockopt_init_user() and
-sockptr_to_sockopt() both reject a negative length before the switch
-runs. Keep it as a guard; the fix stands on its own here.
-
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
- net/ipv6/ipv6_sockglue.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/net/ipv6/ipv6_sockglue.c b/net/ipv6/ipv6_sockglue.c
-index 4b3536571c9804..5c6a0819a2aaff 100644
---- a/net/ipv6/ipv6_sockglue.c
-+++ b/net/ipv6/ipv6_sockglue.c
-@@ -1002,6 +1002,8 @@ int do_ipv6_getsockopt(struct sock *sk, int level, int optname,
- 
- 	if (copy_from_sockptr(&len, optlen, sizeof(int)))
- 		return -EFAULT;
-+	if (len < 0)
-+		return -EINVAL;
- 	switch (optname) {
- 	case MCAST_MSFILTER:
- 		if (in_compat_syscall())
-
--- 
-2.53.0-Meta
-
+SG, none of these sound material to me :-p but I'll resubmit with io_uring
+part removed. I do like the index approach (for halving the array memory
+requirements), will switch devmem to it.
